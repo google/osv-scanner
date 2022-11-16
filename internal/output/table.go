@@ -7,8 +7,8 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/google/osv.dev/tools/osv-scanner/internal/grouper"
-	"github.com/google/osv.dev/tools/osv-scanner/internal/osv"
+	"github.com/google/osv-scanner/internal/grouper"
+	"github.com/google/osv-scanner/internal/osv"
 
 	"github.com/jedib0t/go-pretty/v6/table"
 	"github.com/jedib0t/go-pretty/v6/text"

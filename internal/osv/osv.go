@@ -8,7 +8,7 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/google/osv.dev/tools/osv-scanner/pkg/lockfile"
+	"github.com/google/osv-scanner/pkg/lockfile"
 )
 
 const (

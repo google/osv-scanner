@@ -5,7 +5,7 @@ import (
 	"io"
 	"log"
 
-	"github.com/google/osv.dev/tools/osv-scanner/internal/osv"
+	"github.com/google/osv-scanner/internal/osv"
 )
 
 type Output struct {

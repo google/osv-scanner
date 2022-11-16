@@ -6,7 +6,7 @@ import (
 	"golang.org/x/exp/maps"
 	"golang.org/x/exp/slices"
 
-	"github.com/google/osv.dev/tools/osv-scanner/internal/osv"
+	"github.com/google/osv-scanner/internal/osv"
 )
 
 func min(a, b int) int {

@@ -10,10 +10,10 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/google/osv.dev/tools/osv-scanner/internal/osv"
-	"github.com/google/osv.dev/tools/osv-scanner/internal/output"
-	"github.com/google/osv.dev/tools/osv-scanner/internal/sbom"
-	"github.com/google/osv.dev/tools/osv-scanner/pkg/lockfile"
+	"github.com/google/osv-scanner/internal/osv"
+	"github.com/google/osv-scanner/internal/output"
+	"github.com/google/osv-scanner/internal/sbom"
+	"github.com/google/osv-scanner/pkg/lockfile"
 
 	"github.com/urfave/cli/v2"
 )

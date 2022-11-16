@@ -7,7 +7,7 @@ This tool is currently under development and is subject to change.
 ## Installing
 
 ```bash
-$ go install github.com/google/osv.dev/tools/osv-scanner/cmd/osv-scanner@latest
+$ go install github.com/google/osv-scanner/cmd/osv-scanner@latest
 ```
 
 ## Scanning an SBOM
