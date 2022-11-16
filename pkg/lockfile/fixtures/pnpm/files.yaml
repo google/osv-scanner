@@ -1,0 +1,20 @@
+lockfileVersion: 5.3
+
+specifiers:
+  my-file-package: file:./projects/package-a.tgz
+
+dependencies:
+  my-file-package: file:./projects/package-a.tgz
+
+packages:
+  file:projects/package-a.tgz:
+    resolution: { integrity: sha512-IGZcvUzTIN7kALye9n4gFuh8nWXFrWp4P/UT2btEHCRDJvVODIGJgVsFNOGnDYc543OmTs8keZBa5tkMMoHIgg==, tarball: file:projects/package-a.tgz }
+    name: 'my-file-package'
+    version: 0.0.0
+    dev: false
+
+  file:../a-local-package:
+    resolution: {directory: ../local-package, type: directory}
+    name: a-local-package
+    version: 1.0.0
+    dev: false

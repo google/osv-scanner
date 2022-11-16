@@ -1,0 +1,33 @@
+GIT
+  remote: https://github.com/hanami/controller.git
+  revision: 027dbe2e56397b534e859fc283990cad1b6addd6
+  branch: action-new
+  specs:
+    hanami-controller (2.0.0.alpha1)
+      hanami-utils (~> 2.0.alpha)
+      rack (~> 2.0)
+
+GIT
+  remote: https://github.com/hanami/utils.git
+  revision: 5904fc9a70683b8749aa2861257d0c8c01eae4aa
+  branch: unstable
+  specs:
+    hanami-utils (2.0.0.alpha1)
+      concurrent-ruby (~> 1.0)
+      transproc (~> 1.0)
+
+GEM
+  remote: https://rubygems.org/
+  specs:
+    concurrent-ruby (1.1.7)
+    rack (2.2.3)
+    transproc (1.1.1)
+
+PLATFORMS
+  x86_64-linux
+
+DEPENDENCIES
+  hanami-utils!
+
+BUNDLED WITH
+   2.2.28

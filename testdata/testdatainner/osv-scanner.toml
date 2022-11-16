@@ -1,0 +1,9 @@
+[[IgnoredVulns]]
+id = "GO-2022-0968"
+# ignore_until = 2022-11-09
+# reason = "" # Optional reason
+
+[[IgnoredVulns]]
+id = "GO-2022-1059"
+# ignore_until = 2022-11-09 # Optional exception expiry date
+# reason = "" # Optional reason

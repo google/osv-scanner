@@ -1,0 +1,4 @@
+crates.io,,addr2line,0.15.2,this column won't be read,,
+npm,,"@typescript-eslint/types",5.13.0, nor will this one,,
+crates.io,,wasi,0.10.2+wasi-snapshot-preview1, or, these, ones
+Packagist,,sentry/sdk,2.0.4, and finally, neither will these two,

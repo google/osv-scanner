@@ -1,0 +1,13 @@
+name: 'osv-scanner'
+description: 'Scans your directory against the OSV database'
+inputs:
+  to-scan: 
+    description: 'Directory to scan'
+    required: true
+    default: '/github/workspace'
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  args:
+    - '--skip-git'
+    - ${{ inputs.to-scan }}
