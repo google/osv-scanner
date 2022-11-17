@@ -29,7 +29,7 @@ $ go run ./cmd/osv-scanner --sbom=/path/to/your/sbom.json
 
 ## Scanning a lockfile
 
-A wide range of lockfiles are supported by utilizing this [lockfile package](https://github.com/G-Rath/osv-detector/tree/main/pkg/lockfile). This is the current list of supported lockfiles:
+A wide range of lockfiles are supported by utilizing this [lockfile package](https://github.com/google/osv-scanner/tree/main/pkg/lockfile). This is the current list of supported lockfiles:
 
 - `Cargo.lock`        
 - `package-lock.json` 
