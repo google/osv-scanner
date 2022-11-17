@@ -1,3 +1,7 @@
+[![OpenSSF Scorecard]
+(https://api.securityscorecards.dev/projects/github.com/google/osv-scanner/badge)]
+(https://api.securityscorecards.dev/projects/github.com/google/osv-scanner)
+
 # Vulnerability scanner (preview)
 
 This contains a vulnerability scanner written in Go which uses the data provided by https://osv.dev
