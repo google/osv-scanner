@@ -1,6 +1,4 @@
-[![OpenSSF Scorecard]
-(https://api.securityscorecards.dev/projects/github.com/google/osv-scanner/badge)]
-(https://api.securityscorecards.dev/projects/github.com/google/osv-scanner)
+[![OpenSSF Scorecard](https://api.securityscorecards.dev/projects/github.com/google/osv-scanner/badge)](https://api.securityscorecards.dev/projects/github.com/google/osv-scanner)
 
 # Vulnerability scanner (preview)
 
