@@ -236,13 +236,12 @@ func filterResponse(r *output.Reporter, query osv.BatchedQuery, resp *osv.Batche
 }
 
 func run(args []string, stdout, stderr io.Writer) int {
-	r := output.NewReporter(stdout, stderr, false)
+	var r *output.Reporter
 	configManager := ConfigManager{
 		defaultConfig: Config{},
 		configMap:     make(map[string]Config),
 	}
 	var query osv.BatchedQuery
-	var outputJson bool
 
 	app := &cli.App{
 		Name:      "osv-scanner",
@@ -292,6 +291,7 @@ func run(args []string, stdout, stderr io.Writer) int {
 		},
 		ArgsUsage: "[directory1 directory2...]",
 		Action: func(context *cli.Context) error {
+			r = output.NewReporter(stdout, stderr, context.Bool("json"))
 
 			configPath := context.String("config")
 			if configPath != "" {
@@ -351,8 +351,6 @@ func run(args []string, stdout, stderr io.Writer) int {
 				return fmt.Errorf("")
 			}
 
-			outputJson = context.Bool("json")
-
 			return nil
 		},
 	}
@@ -379,11 +377,7 @@ func run(args []string, stdout, stderr io.Writer) int {
 		return 1
 	}
 
-	if outputJson {
-		err = output.PrintJSONResults(query, hydratedResp, os.Stdout)
-	} else {
-		output.PrintTableResults(query, hydratedResp, os.Stdout)
-	}
+	err = r.PrintResult(query, hydratedResp)
 
 	if err != nil {
 		r.PrintError(fmt.Sprintf("Failed to write output: %s", err))

@@ -2,6 +2,7 @@ package output
 
 import (
 	"fmt"
+	"github.com/google/osv-scanner/internal/osv"
 	"io"
 )
 
@@ -38,4 +39,14 @@ func (r *Reporter) PrintText(msg string) {
 	}
 
 	fmt.Fprint(target, msg)
+}
+
+func (r *Reporter) PrintResult(query osv.BatchedQuery, resp *osv.HydratedBatchedResponse) error {
+	if r.outputAsJSON {
+		return PrintJSONResults(query, resp, r.stdout)
+	}
+
+	PrintTableResults(query, resp, r.stdout)
+
+	return nil
 }

@@ -215,6 +215,21 @@ func TestRun(t *testing.T) {
 			`,
 			wantStderr: "",
 		},
+		// output with json
+		{
+			name:         "",
+			args:         []string{"", "--json", "./fixtures/locks-many/composer.lock"},
+			wantExitCode: 0,
+			wantStdout: `
+				{
+					"results": []
+				}
+			`,
+			wantStderr: `
+				Scanning dir ./fixtures/locks-many/composer.lock
+				Scanned %%/fixtures/locks-many/composer.lock file and found 1 packages
+			`,
+		},
 	}
 	for _, tt := range tests {
 		tt := tt
