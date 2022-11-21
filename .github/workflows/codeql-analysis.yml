@@ -18,6 +18,8 @@ on:
     # The branches below must be a subset of the branches above
     branches: [ main ]
 
+permissions: read-all
+
 jobs:
   analyze:
     name: Analyze
