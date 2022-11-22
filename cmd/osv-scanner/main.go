@@ -64,7 +64,7 @@ func run(args []string, stdout, stderr io.Writer) int {
 		Action: func(context *cli.Context) error {
 			r = output.NewReporter(stdout, stderr, context.Bool("json"))
 
-			hydratedResp, query, err := osvscanner.DoScan(osvscanner.ScannerActions{
+			vulnResult, err := osvscanner.DoScan(osvscanner.ScannerActions{
 				LockfilePaths:        context.StringSlice("lockfile"),
 				SBOMPaths:            context.StringSlice("sbom"),
 				DockerContainerNames: context.StringSlice("docker"),
@@ -78,7 +78,7 @@ func run(args []string, stdout, stderr io.Writer) int {
 				return err
 			}
 
-			err = r.PrintResult(*query, hydratedResp)
+			err = r.PrintResult(&vulnResult)
 			if err != nil {
 				return fmt.Errorf("Failed to write output: %v", err)
 			}

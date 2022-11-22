@@ -13,10 +13,10 @@ import (
 	"github.com/google/osv-scanner/internal/osv"
 	"github.com/google/osv-scanner/internal/output"
 	"github.com/google/osv-scanner/internal/sbom"
+	"github.com/google/osv-scanner/pkg/config"
 	"github.com/google/osv-scanner/pkg/lockfile"
+	"github.com/google/osv-scanner/pkg/models"
 )
-
-const osvScannerConfigName = "osv-scanner.toml"
 
 type ScannerActions struct {
 	LockfilePaths        []string
@@ -218,8 +218,8 @@ func scanDebianDocker(r *output.Reporter, query *osv.BatchedQuery, dockerImageNa
 }
 
 // Filters response according to config, returns number of responses removed
-func filterResponse(r *output.Reporter, query osv.BatchedQuery, resp *osv.BatchedResponse, configManager *ConfigManager) int {
-	hiddenVulns := map[string]IgnoreEntry{}
+func filterResponse(r *output.Reporter, query osv.BatchedQuery, resp *osv.BatchedResponse, configManager *config.ConfigManager) int {
+	hiddenVulns := map[string]config.IgnoreEntry{}
 
 	for i, result := range resp.Results {
 		var filteredVulns []osv.MinimalVulnerability
@@ -242,16 +242,16 @@ func filterResponse(r *output.Reporter, query osv.BatchedQuery, resp *osv.Batche
 	return len(hiddenVulns)
 }
 
-func DoScan(actions ScannerActions, r *output.Reporter) (*osv.HydratedBatchedResponse, *osv.BatchedQuery, error) {
+func DoScan(actions ScannerActions, r *output.Reporter) (models.VulnerabilityResults, error) {
 	if r == nil {
 		stdout := new(strings.Builder)
 		stderr := new(strings.Builder)
 		r = output.NewReporter(stdout, stderr, false)
 	}
 
-	configManager := ConfigManager{
-		defaultConfig: Config{},
-		configMap:     make(map[string]Config),
+	configManager := config.ConfigManager{
+		DefaultConfig: config.Config{},
+		ConfigMap:     make(map[string]config.Config),
 	}
 
 	var query osv.BatchedQuery
@@ -260,7 +260,7 @@ func DoScan(actions ScannerActions, r *output.Reporter) (*osv.HydratedBatchedRes
 		err := configManager.UseOverride(actions.ConfigOverridePath)
 		if err != nil {
 			r.PrintError(fmt.Sprintf("Failed to read config file: %s\n", err))
-			return nil, nil, err
+			return models.VulnerabilityResults{}, err
 		}
 	}
 
@@ -274,22 +274,22 @@ func DoScan(actions ScannerActions, r *output.Reporter) (*osv.HydratedBatchedRes
 		lockfileElem, err := filepath.Abs(lockfileElem)
 		if err != nil {
 			r.PrintError(fmt.Sprintf("Failed to resolved path with error %s\n", err))
-			return nil, nil, err
+			return models.VulnerabilityResults{}, err
 		}
 		err = scanLockfile(r, &query, lockfileElem)
 		if err != nil {
-			return nil, nil, err
+			return models.VulnerabilityResults{}, err
 		}
 	}
 
 	for _, sbomElem := range actions.SBOMPaths {
 		sbomElem, err := filepath.Abs(sbomElem)
 		if err != nil {
-			return nil, nil, fmt.Errorf("Failed to resolved path with error %s\n", err)
+			return models.VulnerabilityResults{}, fmt.Errorf("Failed to resolved path with error %s\n", err)
 		}
 		err = scanSBOMFile(r, &query, sbomElem)
 		if err != nil {
-			return nil, nil, err
+			return models.VulnerabilityResults{}, err
 		}
 	}
 
@@ -297,17 +297,17 @@ func DoScan(actions ScannerActions, r *output.Reporter) (*osv.HydratedBatchedRes
 		r.PrintText(fmt.Sprintf("Scanning dir %s\n", dir))
 		err := scanDir(r, &query, dir, actions.SkipGit, actions.Recursive)
 		if err != nil {
-			return nil, nil, err
+			return models.VulnerabilityResults{}, err
 		}
 	}
 
 	if len(query.Queries) == 0 {
-		return nil, nil, fmt.Errorf("No package sources found, --help for usage information.")
+		return models.VulnerabilityResults{}, fmt.Errorf("No package sources found, --help for usage information.")
 	}
 
 	resp, err := osv.MakeRequest(query)
 	if err != nil {
-		return nil, nil, fmt.Errorf("Scan failed %v", err)
+		return models.VulnerabilityResults{}, fmt.Errorf("Scan failed %v", err)
 	}
 
 	filtered := filterResponse(r, query, resp, &configManager)
@@ -317,8 +317,8 @@ func DoScan(actions ScannerActions, r *output.Reporter) (*osv.HydratedBatchedRes
 
 	hydratedResp, err := osv.Hydrate(resp)
 	if err != nil {
-		return nil, nil, fmt.Errorf("Failed to hydrate OSV response: %v", err)
+		return models.VulnerabilityResults{}, fmt.Errorf("Failed to hydrate OSV response: %v", err)
 	}
 
-	return hydratedResp, &query, nil
+	return groupResponse(query, hydratedResp, &configManager), nil
 }

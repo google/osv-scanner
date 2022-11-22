@@ -2,13 +2,13 @@ package output
 
 import (
 	"io"
-	"log"
 	"os"
 	"path/filepath"
 	"strings"
 
 	"github.com/google/osv-scanner/internal/grouper"
 	"github.com/google/osv-scanner/internal/osv"
+	"github.com/google/osv-scanner/pkg/models"
 
 	"github.com/jedib0t/go-pretty/v6/table"
 	"github.com/jedib0t/go-pretty/v6/text"
@@ -16,51 +16,42 @@ import (
 )
 
 // PrintTableResults prints the osv scan results into a human friendly table.
-func PrintTableResults(query osv.BatchedQuery, resp *osv.HydratedBatchedResponse, outputWriter io.Writer) {
+func PrintTableResults(vulnResult *models.VulnerabilityResults, outputWriter io.Writer) {
 	outputTable := table.NewWriter()
 	outputTable.SetOutputMirror(outputWriter)
 	outputTable.AppendHeader(table.Row{"Source", "Ecosystem", "Affected Package", "Installed Version", "Vulnerability ID", "OSV URL"})
 
-	for i, query := range query.Queries {
-		if len(resp.Results[i].Vulns) == 0 {
-			continue
-		}
-		workingDir, err := os.Getwd()
-		source := query.Source
-		if err == nil {
-			sourcePath, err := filepath.Rel(workingDir, query.Source.Path)
-			if err == nil { // Simplify the path if possible
-				source.Path = sourcePath
-			}
-		}
-		for _, group := range grouper.Group(resp.Results[i].Vulns) {
-			outputRow := table.Row{source}
-			shouldMerge := false
-			if query.Commit != "" {
-				outputRow = append(outputRow, "GIT", query.Commit, query.Commit)
-				shouldMerge = true
-			} else if query.Package.PURL != "" {
-				pkg, err := PURLToPackage(query.Package.PURL)
-				if err != nil {
-					log.Println("Failed to parse purl")
-					continue
+	for _, sourceRes := range vulnResult.Results {
+		for _, pkg := range sourceRes.Packages {
+			workingDir, err := os.Getwd()
+			source := sourceRes.PackageSource
+			if err == nil {
+				sourcePath, err := filepath.Rel(workingDir, source.Path)
+				if err == nil { // Simplify the path if possible
+					source.Path = sourcePath
 				}
-				outputRow = append(outputRow, pkg.Ecosystem, pkg.Name, pkg.Version)
-				shouldMerge = true
-			} else {
-				outputRow = append(outputRow, query.Package.Ecosystem, query.Package.Name, query.Version)
 			}
+			for _, group := range grouper.Group(pkg.Vulnerabilities) {
+				outputRow := table.Row{source}
+				shouldMerge := false
+				if pkg.Ecosystem == "GIT" {
+					outputRow = append(outputRow, "GIT", pkg.Version, pkg.Version)
+					shouldMerge = true
+				} else {
+					outputRow = append(outputRow, pkg.Ecosystem, pkg.Name, pkg.Version)
+				}
 
-			var ids []string
-			var links []string
+				var ids []string
+				var links []string
 
-			for _, vuln := range group {
-				ids = append(ids, vuln.ID)
-				links = append(links, osv.BaseVulnerabilityURL+vuln.ID)
+				for _, vuln := range group {
+					ids = append(ids, vuln.ID)
+					links = append(links, osv.BaseVulnerabilityURL+vuln.ID)
+				}
+
+				outputRow = append(outputRow, strings.Join(ids, "\n"), strings.Join(links, "\n"))
+				outputTable.AppendRow(outputRow, table.RowConfig{AutoMerge: shouldMerge})
 			}
-
-			outputRow = append(outputRow, strings.Join(ids, "\n"), strings.Join(links, "\n"))
-			outputTable.AppendRow(outputRow, table.RowConfig{AutoMerge: shouldMerge})
 		}
 	}
 

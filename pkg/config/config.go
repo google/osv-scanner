@@ -1,4 +1,4 @@
-package osvscanner
+package config
 
 import (
 	"fmt"
@@ -7,18 +7,21 @@ import (
 	"path/filepath"
 	"time"
 
-	"github.com/BurntSushi/toml"
 	"github.com/google/osv-scanner/internal/output"
+
+	"github.com/BurntSushi/toml"
 	"golang.org/x/exp/slices"
 )
 
+const osvScannerConfigName = "osv-scanner.toml"
+
 type ConfigManager struct {
 	// Override to replace all other configs
-	overrideConfig *Config
+	OverrideConfig *Config
 	// Config to use if no config file is found alongside manifests
-	defaultConfig Config
+	DefaultConfig Config
 	// Cache to store loaded configs
-	configMap map[string]Config
+	ConfigMap map[string]Config
 }
 
 type Config struct {
@@ -57,18 +60,18 @@ func (c *ConfigManager) UseOverride(configPath string) error {
 		return err
 	}
 	config.LoadPath = configPath
-	c.overrideConfig = &config
+	c.OverrideConfig = &config
 	return nil
 }
 
 // Attempts to get the config
 func (c *ConfigManager) Get(r *output.Reporter, targetPath string) Config {
-	if c.overrideConfig != nil {
-		return *c.overrideConfig
+	if c.OverrideConfig != nil {
+		return *c.OverrideConfig
 	}
 
 	configPath := normalizeConfigLoadPath(targetPath)
-	config, alreadyExists := c.configMap[configPath]
+	config, alreadyExists := c.ConfigMap[configPath]
 	if alreadyExists {
 		return config
 	}
@@ -78,9 +81,9 @@ func (c *ConfigManager) Get(r *output.Reporter, targetPath string) Config {
 		r.PrintText(fmt.Sprintf("Loaded filter from: %s", config.LoadPath))
 	} else {
 		// If config doesn't exist, use the default config
-		config = c.defaultConfig
+		config = c.DefaultConfig
 	}
-	c.configMap[configPath] = config
+	c.ConfigMap[configPath] = config
 
 	return config
 }
