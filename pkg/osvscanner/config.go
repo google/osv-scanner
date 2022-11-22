@@ -1,4 +1,4 @@
-package main
+package osvscanner
 
 import (
 	"fmt"
@@ -8,6 +8,7 @@ import (
 	"time"
 
 	"github.com/BurntSushi/toml"
+	"github.com/google/osv-scanner/internal/output"
 	"golang.org/x/exp/slices"
 )
 
@@ -61,7 +62,7 @@ func (c *ConfigManager) UseOverride(configPath string) error {
 }
 
 // Attempts to get the config
-func (c *ConfigManager) Get(targetPath string) Config {
+func (c *ConfigManager) Get(r *output.Reporter, targetPath string) Config {
 	if c.overrideConfig != nil {
 		return *c.overrideConfig
 	}
@@ -74,7 +75,7 @@ func (c *ConfigManager) Get(targetPath string) Config {
 
 	config, configErr := tryLoadConfig(configPath)
 	if configErr == nil {
-		log.Printf("Loaded filter from: %s", config.LoadPath)
+		r.PrintText(fmt.Sprintf("Loaded filter from: %s", config.LoadPath))
 	} else {
 		// If config doesn't exist, use the default config
 		config = c.defaultConfig

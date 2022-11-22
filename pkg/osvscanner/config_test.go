@@ -1,4 +1,4 @@
-package main
+package osvscanner
 
 import (
 	"path/filepath"
