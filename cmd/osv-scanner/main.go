@@ -4,7 +4,8 @@ import (
 	"bufio"
 	"bytes"
 	"errors"
-	"log"
+	"fmt"
+	"io"
 	"os"
 	"os/exec"
 	"path/filepath"
@@ -25,22 +26,23 @@ const osvScannerConfigName = "osv-scanner.toml"
 //   - Any lockfiles with scanLockfile
 //   - Any SBOM files with scanSBOMFile
 //   - Any git repositories with scanGit
-func scanDir(query *osv.BatchedQuery, dir string, skipGit bool, recursive bool) error {
+func scanDir(r *output.Reporter, query *osv.BatchedQuery, dir string, skipGit bool, recursive bool) error {
 	root := true
 	return filepath.WalkDir(dir, func(path string, info os.DirEntry, err error) error {
 		if err != nil {
-			log.Printf("Failed to walk %s: %v", path, err)
+			r.PrintText(fmt.Sprintf("Failed to walk %s: %v\n", path, err))
 			return err
 		}
 		path, err = filepath.Abs(path)
 		if err != nil {
-			log.Fatalf("Failed to walk path %s", err)
+			r.PrintError(fmt.Sprintf("Failed to walk path %s\n", err))
+			return err
 		}
 
 		if !skipGit && info.IsDir() && info.Name() == ".git" {
-			err := scanGit(query, filepath.Dir(path)+"/")
+			err := scanGit(r, query, filepath.Dir(path)+"/")
 			if err != nil {
-				log.Printf("scan failed for %s: %v\n", path, err)
+				r.PrintText(fmt.Sprintf("scan failed for %s: %v\n", path, err))
 				return err
 			}
 			return filepath.SkipDir
@@ -48,15 +50,15 @@ func scanDir(query *osv.BatchedQuery, dir string, skipGit bool, recursive bool) 
 
 		if !info.IsDir() {
 			if parser, _ := lockfile.FindParser(path, ""); parser != nil {
-				err := scanLockfile(query, path)
+				err := scanLockfile(r, query, path)
 				if err != nil {
-					log.Println("Attempted to scan lockfile but failed: " + path)
+					r.PrintError(fmt.Sprintf("Attempted to scan lockfile but failed: %s\n", path))
 				}
 			}
 			// No need to check for error
 			// If scan fails, it means it isn't a valid SBOM file,
 			// so just move onto the next file
-			_ = scanSBOMFile(query, path)
+			_ = scanSBOMFile(r, query, path)
 		}
 
 		if !root && !recursive && info.IsDir() {
@@ -70,12 +72,12 @@ func scanDir(query *osv.BatchedQuery, dir string, skipGit bool, recursive bool) 
 
 // scanLockfile will load, identify, and parse the lockfile path passed in, and add the dependencies specified
 // within to `query`
-func scanLockfile(query *osv.BatchedQuery, path string) error {
+func scanLockfile(r *output.Reporter, query *osv.BatchedQuery, path string) error {
 	parsedLockfile, err := lockfile.Parse(path, "")
 	if err != nil {
 		return err
 	}
-	log.Printf("Scanned %s file and found %d packages", path, len(parsedLockfile.Packages))
+	r.PrintText(fmt.Sprintf("Scanned %s file and found %d packages\n", path, len(parsedLockfile.Packages)))
 
 	for _, pkgDetail := range parsedLockfile.Packages {
 		pkgDetailQuery := osv.MakePkgRequest(pkgDetail)
@@ -90,7 +92,7 @@ func scanLockfile(query *osv.BatchedQuery, path string) error {
 
 // scanSBOMFile will load, identify, and parse the SBOM path passed in, and add the dependencies specified
 // within to `query`
-func scanSBOMFile(query *osv.BatchedQuery, path string) error {
+func scanSBOMFile(r *output.Reporter, query *osv.BatchedQuery, path string) error {
 	file, err := os.Open(path)
 	if err != nil {
 		return err
@@ -115,7 +117,7 @@ func scanSBOMFile(query *osv.BatchedQuery, path string) error {
 		})
 		if err == nil {
 			// Found the right format.
-			log.Printf("Scanned %s SBOM", provider.Name())
+			r.PrintText(fmt.Sprintf("Scanned %s SBOM\n", provider.Name()))
 			return nil
 		}
 
@@ -142,13 +144,13 @@ func getCommitSHA(repoDir string) (string, error) {
 }
 
 // Scan git repository. Expects repoDir to end with /
-func scanGit(query *osv.BatchedQuery, repoDir string) error {
+func scanGit(r *output.Reporter, query *osv.BatchedQuery, repoDir string) error {
 	commit, err := getCommitSHA(repoDir)
 	if err != nil {
 		return err
 	}
 
-	log.Printf("Scanning %s at commit %s", repoDir, commit)
+	r.PrintText(fmt.Sprintf("Scanning %s at commit %s\n", repoDir, commit))
 
 	gitQuery := osv.MakeCommitRequest(commit)
 	gitQuery.Source = osv.Source{
@@ -159,20 +161,23 @@ func scanGit(query *osv.BatchedQuery, repoDir string) error {
 	return nil
 }
 
-func scanDebianDocker(query *osv.BatchedQuery, dockerImageName string) {
+func scanDebianDocker(r *output.Reporter, query *osv.BatchedQuery, dockerImageName string) error {
 	cmd := exec.Command("docker", "run", "--rm", "--entrypoint", "/usr/bin/dpkg-query", dockerImageName, "-f", "${Package}###${Version}\\n", "-W")
 	stdout, err := cmd.StdoutPipe()
 
 	if err != nil {
-		log.Fatalf("Failed to get stdout: %s", err)
+		r.PrintError(fmt.Sprintf("Failed to get stdout: %s\n", err))
+		return err
 	}
 	err = cmd.Start()
 	if err != nil {
-		log.Fatalf("Failed to start docker image: %s", err)
+		r.PrintError(fmt.Sprintf("Failed to start docker image: %s\n", err))
+		return err
 	}
 	defer cmd.Wait()
 	if err != nil {
-		log.Fatalf("Failed to run docker: %s", err)
+		r.PrintError(fmt.Sprintf("Failed to run docker: %s\n", err))
+		return err
 	}
 	scanner := bufio.NewScanner(stdout)
 	packages := 0
@@ -184,7 +189,8 @@ func scanDebianDocker(query *osv.BatchedQuery, dockerImageName string) {
 		}
 		splitText := strings.Split(text, "###")
 		if len(splitText) != 2 {
-			log.Fatalf("Unexpected output from Debian container: \n\n%s", text)
+			r.PrintError(fmt.Sprintf("Unexpected output from Debian container: \n\n%s\n", text))
+			return fmt.Errorf("Unexpected output from Debian container: \n\n%s", text)
 		}
 		pkgDetailsQuery := osv.MakePkgRequest(lockfile.PackageDetails{
 			Name:    splitText[0],
@@ -199,11 +205,13 @@ func scanDebianDocker(query *osv.BatchedQuery, dockerImageName string) {
 		query.Queries = append(query.Queries, pkgDetailsQuery)
 		packages += 1
 	}
-	log.Printf("Scanned docker image with %d packages", packages)
+	r.PrintText(fmt.Sprintf("Scanned docker image with %d packages\n", packages))
+
+	return nil
 }
 
 // Filters response according to config, returns number of responses removed
-func filterResponse(query osv.BatchedQuery, resp *osv.BatchedResponse, configManager *ConfigManager) int {
+func filterResponse(r *output.Reporter, query osv.BatchedQuery, resp *osv.BatchedResponse, configManager *ConfigManager) int {
 	hiddenVulns := map[string]IgnoreEntry{}
 
 	for i, result := range resp.Results {
@@ -221,24 +229,26 @@ func filterResponse(query osv.BatchedQuery, resp *osv.BatchedResponse, configMan
 	}
 
 	for id, ignoreLine := range hiddenVulns {
-		log.Printf("%s has been filtered out because: %s", id, ignoreLine.Reason)
+		r.PrintText(fmt.Sprintf("%s has been filtered out because: %s\n", id, ignoreLine.Reason))
 	}
 
 	return len(hiddenVulns)
 }
 
-func main() {
+func run(args []string, stdout, stderr io.Writer) int {
+	var r *output.Reporter
 	configManager := ConfigManager{
 		defaultConfig: Config{},
 		configMap:     make(map[string]Config),
 	}
 	var query osv.BatchedQuery
-	var outputJson bool
 
 	app := &cli.App{
-		Name:    "osv-scanner",
-		Usage:   "scans various mediums for dependencies and matches it against the OSV database",
-		Suggest: true,
+		Name:      "osv-scanner",
+		Usage:     "scans various mediums for dependencies and matches it against the OSV database",
+		Suggest:   true,
+		Writer:    stdout,
+		ErrWriter: stderr,
 		Flags: []cli.Flag{
 			&cli.StringSliceFlag{
 				Name:      "docker",
@@ -281,12 +291,14 @@ func main() {
 		},
 		ArgsUsage: "[directory1 directory2...]",
 		Action: func(context *cli.Context) error {
+			r = output.NewReporter(stdout, stderr, context.Bool("json"))
 
 			configPath := context.String("config")
 			if configPath != "" {
 				err := configManager.UseOverride(configPath)
 				if err != nil {
-					log.Fatalf("Failed to read config file: %s\n", err)
+					r.PrintError(fmt.Sprintf("Failed to read config file: %s\n", err))
+					return err
 				}
 			}
 
@@ -294,16 +306,17 @@ func main() {
 			for _, container := range containers {
 				// TODO: Automatically figure out what docker base image
 				// and scan appropriately.
-				scanDebianDocker(&query, container)
+				scanDebianDocker(r, &query, container)
 			}
 
 			lockfiles := context.StringSlice("lockfile")
 			for _, lockfileElem := range lockfiles {
 				lockfileElem, err := filepath.Abs(lockfileElem)
 				if err != nil {
-					log.Fatalf("Failed to resolved path with error %s", err)
+					r.PrintError(fmt.Sprintf("Failed to resolved path with error %s\n", err))
+					return err
 				}
-				err = scanLockfile(&query, lockfileElem)
+				err = scanLockfile(r, &query, lockfileElem)
 				if err != nil {
 					return err
 				}
@@ -313,9 +326,10 @@ func main() {
 			for _, sbomElem := range sboms {
 				sbomElem, err := filepath.Abs(sbomElem)
 				if err != nil {
-					log.Fatalf("Failed to resolved path with error %s", err)
+					r.PrintError(fmt.Sprintf("Failed to resolved path with error %s\n", err))
+					return err
 				}
-				err = scanSBOMFile(&query, sbomElem)
+				err = scanSBOMFile(r, &query, sbomElem)
 				if err != nil {
 					return err
 				}
@@ -325,49 +339,55 @@ func main() {
 			recursive := context.Bool("recursive")
 			genericDirs := context.Args().Slice()
 			for _, dir := range genericDirs {
-				log.Printf("Scanning dir %s\n", dir)
-				err := scanDir(&query, dir, skipGit, recursive)
+				r.PrintText(fmt.Sprintf("Scanning dir %s\n", dir))
+				err := scanDir(r, &query, dir, skipGit, recursive)
 				if err != nil {
 					return err
 				}
 			}
 
 			if len(query.Queries) == 0 {
-				cli.ShowAppHelpAndExit(context, 1)
+				_ = cli.ShowAppHelp(context)
+				return fmt.Errorf("")
 			}
-
-			outputJson = context.Bool("json")
 
 			return nil
 		},
 	}
 
-	if err := app.Run(os.Args); err != nil {
-		log.Fatal(err)
+	if err := app.Run(args); err != nil {
+		r.PrintError(fmt.Sprintf("%v", err))
+		return 1
 	}
 
 	resp, err := osv.MakeRequest(query)
 	if err != nil {
-		log.Fatalf("Scan failed: %v", err)
+		r.PrintError(fmt.Sprintf("Scan failed: %v", err))
+		return 1
 	}
 
-	filtered := filterResponse(query, resp, &configManager)
+	filtered := filterResponse(r, query, resp, &configManager)
 	if filtered > 0 {
-		log.Printf("Filtered %d vulnerabilities from output", filtered)
+		r.PrintText(fmt.Sprintf("Filtered %d vulnerabilities from output\n", filtered))
 	}
 
 	hydratedResp, err := osv.Hydrate(resp)
 	if err != nil {
-		log.Fatalf("Failed to hydrate OSV response: %v", err)
+		r.PrintError(fmt.Sprintf("Failed to hydrate OSV response: %v", err))
+		return 1
 	}
 
-	if outputJson {
-		err = output.PrintJSONResults(query, hydratedResp, os.Stdout)
-	} else {
-		output.PrintTableResults(query, hydratedResp, os.Stdout)
-	}
+	err = r.PrintResult(query, hydratedResp)
 
 	if err != nil {
-		log.Fatalf("Failed to write output: %s", err)
+		r.PrintError(fmt.Sprintf("Failed to write output: %s", err))
+		return 1
 	}
+
+	return 0
+}
+
+// TODO(ochang): Machine readable output format.
+func main() {
+	os.Exit(run(os.Args, os.Stdout, os.Stderr))
 }
