@@ -16,6 +16,8 @@ name: lint
 
 on: [pull_request]
 
+permissions: read-all
+
 jobs:
   lint:
     name: Lint and format
