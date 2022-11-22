@@ -47,6 +47,10 @@ func dedent(t *testing.T, str string) string {
 	re = regexp.MustCompile(`^\r?\n`)
 	str = re.ReplaceAllString(str, "")
 
+	// 5. Remove trailing whitespace.
+	re = regexp.MustCompile(`\r?\n$`)
+	str = re.ReplaceAllString(str, "")
+
 	return str
 }
 
@@ -104,27 +108,10 @@ func TestRun(t *testing.T) {
 			name:         "",
 			args:         []string{""},
 			wantExitCode: 1,
-			wantStdout: `
-				NAME:
-					 osv-scanner - scans various mediums for dependencies and matches it against the OSV database
-
-				USAGE:
-					 osv-scanner [global options] command [command options] [directory1 directory2...]
-
-				COMMANDS:
-					 help, h  Shows a list of commands or help for one command
-
-				GLOBAL OPTIONS:
-					 --docker value, -D value [ --docker value, -D value ]      scan docker image with this name
-					 --lockfile value, -L value [ --lockfile value, -L value ]  scan package lockfile on this path
-					 --sbom value, -S value [ --sbom value, -S value ]          scan sbom file on this path
-					 --config value                                             set/override config file
-					 --json                                                     sets output to json (WIP) (default: false)
-					 --skip-git                                                 skip scanning git repositories (default: false)
-					 --recursive, -r                                            check subdirectories (default: false)
-					 --help, -h                                                 show help (default: false)
+			wantStdout:   "",
+			wantStderr: `
+            	No package sources found, --help for usage information.
 			`,
-			wantStderr: "",
 		},
 		// one specific supported lockfile
 		{
@@ -144,26 +131,10 @@ func TestRun(t *testing.T) {
 			wantExitCode: 1,
 			wantStdout: `
 				Scanning dir ./fixtures/locks-many/not-a-lockfile.toml
-				NAME:
-					 osv-scanner - scans various mediums for dependencies and matches it against the OSV database
-
-				USAGE:
-					 osv-scanner [global options] command [command options] [directory1 directory2...]
-
-				COMMANDS:
-					 help, h  Shows a list of commands or help for one command
-
-				GLOBAL OPTIONS:
-					 --docker value, -D value [ --docker value, -D value ]      scan docker image with this name
-					 --lockfile value, -L value [ --lockfile value, -L value ]  scan package lockfile on this path
-					 --sbom value, -S value [ --sbom value, -S value ]          scan sbom file on this path
-					 --config value                                             set/override config file
-					 --json                                                     sets output to json (WIP) (default: false)
-					 --skip-git                                                 skip scanning git repositories (default: false)
-					 --recursive, -r                                            check subdirectories (default: false)
-					 --help, -h                                                 show help (default: false)
 			`,
-			wantStderr: "",
+			wantStderr: `
+				No package sources found, --help for usage information.
+			`,
 		},
 		// all supported lockfiles in the directory should be checked
 		{

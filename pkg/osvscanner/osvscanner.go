@@ -302,7 +302,7 @@ func DoScan(actions ScannerActions, r *output.Reporter) (*osv.HydratedBatchedRes
 	}
 
 	if len(query.Queries) == 0 {
-		return nil, nil, fmt.Errorf("No package sources found")
+		return nil, nil, fmt.Errorf("No package sources found, --help for usage information.")
 	}
 
 	resp, err := osv.MakeRequest(query)

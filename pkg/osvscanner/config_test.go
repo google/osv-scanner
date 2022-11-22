@@ -27,27 +27,27 @@ func TestTryLoadConfig(t *testing.T) {
 	}
 	testPaths := []testStruct{
 		{
-			targetPath:   "../../testdata/testdatainner/innerFolder/test.yaml",
+			targetPath:   "../../fixtures/testdatainner/innerFolder/test.yaml",
 			config:       expectedConfig,
 			configHasErr: true,
 		},
 		{
-			targetPath:   "../../testdata/testdatainner/innerFolder/",
+			targetPath:   "../../fixtures/testdatainner/innerFolder/",
 			config:       Config{},
 			configHasErr: true,
 		},
 		{ // Test no slash at the end
-			targetPath:   "../../testdata/testdatainner/innerFolder",
+			targetPath:   "../../fixtures/testdatainner/innerFolder",
 			config:       Config{},
 			configHasErr: true,
 		},
 		{
-			targetPath:   "../../testdata/testdatainner/",
+			targetPath:   "../../fixtures/testdatainner/",
 			config:       expectedConfig,
 			configHasErr: false,
 		},
 		{
-			targetPath:   "../../testdata/testdatainner/some-manifest.yaml",
+			targetPath:   "../../fixtures/testdatainner/some-manifest.yaml",
 			config:       expectedConfig,
 			configHasErr: false,
 		},

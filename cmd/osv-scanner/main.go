@@ -88,7 +88,7 @@ func run(args []string, stdout, stderr io.Writer) int {
 	}
 
 	if err := app.Run(args); err != nil {
-		r.PrintError(fmt.Sprintf("%v", err))
+		r.PrintError(fmt.Sprintf("%v\n", err))
 		return 1
 	}
 
