@@ -22,6 +22,7 @@ type ScannerActions struct {
 	LockfilePaths        []string
 	SBOMPaths            []string
 	DirectoryPaths       []string
+	GitCommits           []string
 	Recursive            bool
 	SkipGit              bool
 	DockerContainerNames []string
@@ -156,12 +157,15 @@ func scanGit(r *output.Reporter, query *osv.BatchedQuery, repoDir string) error 
 	if err != nil {
 		return err
 	}
-
 	r.PrintText(fmt.Sprintf("Scanning %s at commit %s\n", repoDir, commit))
 
+	return scanGitCommit(r, query, commit, repoDir)
+}
+
+func scanGitCommit(r *output.Reporter, query *osv.BatchedQuery, commit string, source string) error {
 	gitQuery := osv.MakeCommitRequest(commit)
 	gitQuery.Source = models.Source{
-		Path: repoDir,
+		Path: source,
 		Type: "git",
 	}
 	query.Queries = append(query.Queries, gitQuery)
@@ -288,6 +292,13 @@ func DoScan(actions ScannerActions, r *output.Reporter) (models.VulnerabilityRes
 			return models.VulnerabilityResults{}, fmt.Errorf("Failed to resolved path with error %s\n", err)
 		}
 		err = scanSBOMFile(r, &query, sbomElem)
+		if err != nil {
+			return models.VulnerabilityResults{}, err
+		}
+	}
+
+	for _, commit := range actions.GitCommits {
+		err := scanGitCommit(r, &query, commit, "HASH")
 		if err != nil {
 			return models.VulnerabilityResults{}, err
 		}
