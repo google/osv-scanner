@@ -88,7 +88,7 @@ func scanLockfile(r *output.Reporter, query *osv.BatchedQuery, path string) erro
 
 	for _, pkgDetail := range parsedLockfile.Packages {
 		pkgDetailQuery := osv.MakePkgRequest(pkgDetail)
-		pkgDetailQuery.Source = osv.Source{
+		pkgDetailQuery.Source = models.Source{
 			Path: path,
 			Type: "lockfile",
 		}
@@ -115,7 +115,7 @@ func scanSBOMFile(r *output.Reporter, query *osv.BatchedQuery, path string) erro
 		}
 		err := provider.GetPackages(file, func(id sbom.Identifier) error {
 			purlQuery := osv.MakePURLRequest(id.PURL)
-			purlQuery.Source = osv.Source{
+			purlQuery.Source = models.Source{
 				Path: path,
 				Type: "sbom",
 			}
@@ -160,7 +160,7 @@ func scanGit(r *output.Reporter, query *osv.BatchedQuery, repoDir string) error 
 	r.PrintText(fmt.Sprintf("Scanning %s at commit %s\n", repoDir, commit))
 
 	gitQuery := osv.MakeCommitRequest(commit)
-	gitQuery.Source = osv.Source{
+	gitQuery.Source = models.Source{
 		Path: repoDir,
 		Type: "git",
 	}
@@ -205,7 +205,7 @@ func scanDebianDocker(r *output.Reporter, query *osv.BatchedQuery, dockerImageNa
 			// TODO(rexpan): Get and specify exact debian release version
 			Ecosystem: "Debian",
 		})
-		pkgDetailsQuery.Source = osv.Source{
+		pkgDetailsQuery.Source = models.Source{
 			Path: dockerImageName,
 			Type: "docker",
 		}

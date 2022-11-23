@@ -9,6 +9,7 @@ import (
 	"net/http"
 
 	"github.com/google/osv-scanner/pkg/lockfile"
+	"github.com/google/osv-scanner/pkg/models"
 )
 
 const (
@@ -32,19 +33,10 @@ type Package struct {
 
 // Query represents a query to OSV.
 type Query struct {
-	Commit  string  `json:"commit,omitempty"`
-	Package Package `json:"package,omitempty"`
-	Version string  `json:"version,omitempty"`
-	Source  Source  `json:"omit"`
-}
-
-type Source struct {
-	Path string `json:"path"`
-	Type string `json:"type"`
-}
-
-func (s Source) String() string {
-	return s.Type + ":" + s.Path
+	Commit  string        `json:"commit,omitempty"`
+	Package Package       `json:"package,omitempty"`
+	Version string        `json:"version,omitempty"`
+	Source  models.Source `json:"omit"`
 }
 
 // BatchedQuery represents a batched query to OSV.
@@ -57,16 +49,9 @@ type MinimalVulnerability struct {
 	ID string `json:"id"`
 }
 
-// Vulnerability represents a vulnerability entry from OSV.
-type Vulnerability struct {
-	ID      string   `json:"id"`
-	Aliases []string `json:"aliases"`
-	// TODO(ochang): Add other fields.
-}
-
 // Response represents a full response from OSV.
 type Response struct {
-	Vulns []Vulnerability `json:"vulns"`
+	Vulns []models.Vulnerability `json:"vulns"`
 }
 
 // MinimalResponse represents an unhydrated response from OSV.
@@ -171,7 +156,7 @@ func MakeRequest(request BatchedQuery) (*BatchedResponse, error) {
 }
 
 // Get a Vulnerabiltiy for the given ID.
-func Get(id string) (*Vulnerability, error) {
+func Get(id string) (*models.Vulnerability, error) {
 	resp, err := http.Get(GetEndpoint + "/" + id)
 	if err != nil {
 		return nil, err
@@ -182,7 +167,7 @@ func Get(id string) (*Vulnerability, error) {
 		return nil, err
 	}
 
-	var vuln Vulnerability
+	var vuln models.Vulnerability
 	decoder := json.NewDecoder(resp.Body)
 	err = decoder.Decode(&vuln)
 	if err != nil {
