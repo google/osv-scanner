@@ -33,10 +33,10 @@ type Package struct {
 
 // Query represents a query to OSV.
 type Query struct {
-	Commit  string        `json:"commit,omitempty"`
-	Package Package       `json:"package,omitempty"`
-	Version string        `json:"version,omitempty"`
-	Source  models.Source `json:"omit"`
+	Commit  string            `json:"commit,omitempty"`
+	Package Package           `json:"package,omitempty"`
+	Version string            `json:"version,omitempty"`
+	Source  models.SourceInfo `json:"omit"`
 }
 
 // BatchedQuery represents a batched query to OSV.

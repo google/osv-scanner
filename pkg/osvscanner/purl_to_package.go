@@ -19,16 +19,16 @@ var purlEcosystems = map[string]string{
 	"gem":      "RubyGems",
 }
 
-func PURLToPackage(purl string) (models.Package, error) {
+func PURLToPackage(purl string) (models.PackageInfo, error) {
 	parsedPURL, err := packageurl.FromString(purl)
 	if err != nil {
-		return models.Package{}, err
+		return models.PackageInfo{}, err
 	}
 	ecosystem := purlEcosystems[parsedPURL.Type]
 	if ecosystem == "" {
 		ecosystem = parsedPURL.Type
 	}
-	return models.Package{
+	return models.PackageInfo{
 		Name:      parsedPURL.Name,
 		Ecosystem: ecosystem,
 		Version:   parsedPURL.Version,

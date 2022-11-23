@@ -24,7 +24,7 @@ func PrintTableResults(vulnResult *models.VulnerabilityResults, outputWriter io.
 	for _, sourceRes := range vulnResult.Results {
 		for _, pkg := range sourceRes.Packages {
 			workingDir, err := os.Getwd()
-			source := sourceRes.PackageSource
+			source := sourceRes.Source
 			if err == nil {
 				sourcePath, err := filepath.Rel(workingDir, source.Path)
 				if err == nil { // Simplify the path if possible
@@ -34,11 +34,11 @@ func PrintTableResults(vulnResult *models.VulnerabilityResults, outputWriter io.
 			for _, group := range grouper.Group(pkg.Vulnerabilities) {
 				outputRow := table.Row{source}
 				shouldMerge := false
-				if pkg.Ecosystem == "GIT" {
-					outputRow = append(outputRow, "GIT", pkg.Version, pkg.Version)
+				if pkg.Package.Ecosystem == "GIT" {
+					outputRow = append(outputRow, "GIT", pkg.Package.Version, pkg.Package.Version)
 					shouldMerge = true
 				} else {
-					outputRow = append(outputRow, pkg.Ecosystem, pkg.Name, pkg.Version)
+					outputRow = append(outputRow, pkg.Package.Ecosystem, pkg.Package.Name, pkg.Package.Version)
 				}
 
 				var ids []string
