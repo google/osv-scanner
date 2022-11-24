@@ -2,7 +2,6 @@ package config
 
 import (
 	"fmt"
-	"log"
 	"os"
 	"path/filepath"
 	"time"
@@ -70,13 +69,18 @@ func (c *ConfigManager) Get(r *output.Reporter, targetPath string) Config {
 		return *c.OverrideConfig
 	}
 
-	configPath := normalizeConfigLoadPath(targetPath)
+	configPath, err := normalizeConfigLoadPath(targetPath)
+	if err != nil {
+		r.PrintError(fmt.Sprintf("Can't find config path: %s", err))
+		return Config{}
+	}
+
 	config, alreadyExists := c.ConfigMap[configPath]
 	if alreadyExists {
 		return config
 	}
 
-	config, configErr := tryLoadConfig(configPath)
+	config, configErr := tryLoadConfig(r, configPath)
 	if configErr == nil {
 		r.PrintText(fmt.Sprintf("Loaded filter from: %s", config.LoadPath))
 	} else {
@@ -89,10 +93,10 @@ func (c *ConfigManager) Get(r *output.Reporter, targetPath string) Config {
 }
 
 // Finds the containing folder of `target`, then appends osvScannerConfigName
-func normalizeConfigLoadPath(target string) string {
+func normalizeConfigLoadPath(target string) (string, error) {
 	stat, err := os.Stat(target)
 	if err != nil {
-		log.Fatalf("Failed to stat target: %s", err)
+		return "", fmt.Errorf("Failed to stat target: %w", err)
 	}
 
 	var containingFolder string
@@ -102,18 +106,18 @@ func normalizeConfigLoadPath(target string) string {
 		containingFolder = target
 	}
 	configPath := filepath.Join(containingFolder, osvScannerConfigName)
-	return configPath
+	return configPath, nil
 }
 
 // tryLoadConfig tries to load config in `target` (or it's containing directory)
 // `target` will be the key for the entry in configMap
-func tryLoadConfig(configPath string) (Config, error) {
+func tryLoadConfig(r *output.Reporter, configPath string) (Config, error) {
 	configFile, err := os.Open(configPath)
 	var config Config
 	if err == nil { // File exists, and we have permission to read
 		_, err := toml.NewDecoder(configFile).Decode(&config)
 		if err != nil {
-			log.Fatalf("Failed to read config file: %s\n", err)
+			return Config{}, fmt.Errorf("Failed to parse config file: %w\n", err)
 		}
 		config.LoadPath = configPath
 		return config, nil

@@ -5,6 +5,7 @@ type VulnerabilityResults struct {
 	Results []PackageSource `json:"results"`
 }
 
+// Flatten the grouped/nested vulnerability results into one flat array.
 func (vulns *VulnerabilityResults) Flatten() []VulnerabilityFlattened {
 	results := []VulnerabilityFlattened{}
 	for _, res := range vulns.Results {
@@ -21,7 +22,7 @@ func (vulns *VulnerabilityResults) Flatten() []VulnerabilityFlattened {
 	return results
 }
 
-// Flattened Vulnerability Information
+// Flattened Vulnerability Information.
 type VulnerabilityFlattened struct {
 	Source        SourceInfo
 	Package       PackageInfo

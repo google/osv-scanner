@@ -5,7 +5,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
-	"log"
 	"net/http"
 
 	"github.com/google/osv-scanner/pkg/lockfile"
@@ -99,7 +98,7 @@ func MakePkgRequest(pkgDetails lockfile.PackageDetails) *Query {
 
 // From: https://stackoverflow.com/a/72408490
 func chunkBy[T any](items []T, chunkSize int) [][]T {
-	var _chunks = make([][]T, 0, (len(items)/chunkSize)+1)
+	_chunks := make([][]T, 0, (len(items)/chunkSize)+1)
 	for chunkSize < len(items) {
 		items, _chunks = items[chunkSize:], append(_chunks, items[0:chunkSize:chunkSize])
 	}
@@ -114,7 +113,7 @@ func checkResponseError(resp *http.Response) error {
 
 	respBuf, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
-		log.Fatalf("Failed to read error response from server.")
+		return fmt.Errorf("Failed to read error response from server: %w", err)
 	}
 
 	return fmt.Errorf("Server response error: %s", string(respBuf))

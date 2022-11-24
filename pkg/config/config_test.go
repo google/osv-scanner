@@ -2,9 +2,11 @@ package config
 
 import (
 	"path/filepath"
+	"strings"
 	"testing"
 
 	"github.com/google/go-cmp/cmp"
+	"github.com/google/osv-scanner/internal/output"
 )
 
 type testStruct struct {
@@ -28,7 +30,7 @@ func TestTryLoadConfig(t *testing.T) {
 	testPaths := []testStruct{
 		{
 			targetPath:   "../../fixtures/testdatainner/innerFolder/test.yaml",
-			config:       expectedConfig,
+			config:       Config{},
 			configHasErr: true,
 		},
 		{
@@ -58,11 +60,18 @@ func TestTryLoadConfig(t *testing.T) {
 		if err != nil {
 			t.Errorf("%s", err)
 		}
-		configPath := normalizeConfigLoadPath(absPath)
-		config, configErr := tryLoadConfig(configPath)
-		cmp.Equal(config, testData.config)
+		configPath, err := normalizeConfigLoadPath(absPath)
+		if err != nil {
+			t.Errorf("%s", err)
+		}
+		config, configErr := tryLoadConfig(output.NewReporter(new(strings.Builder), new(strings.Builder), false), configPath)
+		if !cmp.Equal(config.IgnoredVulns, testData.config.IgnoredVulns) {
+			t.Errorf("Configs not equal: %+v != %+v", config, testData.config)
+		}
 		if testData.configHasErr {
-			cmp.Equal(configErr, nil)
+			if configErr == nil {
+				t.Error("Config error not returned")
+			}
 		}
 	}
 }

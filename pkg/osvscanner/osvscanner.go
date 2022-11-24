@@ -246,6 +246,7 @@ func filterResponse(r *output.Reporter, query osv.BatchedQuery, resp *osv.Batche
 	return len(hiddenVulns)
 }
 
+// Perform osv scanner action, with optional reporter to output information
 func DoScan(actions ScannerActions, r *output.Reporter) (models.VulnerabilityResults, error) {
 	if r == nil {
 		stdout := new(strings.Builder)
@@ -331,5 +332,5 @@ func DoScan(actions ScannerActions, r *output.Reporter) (models.VulnerabilityRes
 		return models.VulnerabilityResults{}, fmt.Errorf("Failed to hydrate OSV response: %v", err)
 	}
 
-	return groupResponse(query, hydratedResp, &configManager), nil
+	return groupResponse(r, query, hydratedResp, &configManager), nil
 }
