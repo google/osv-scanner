@@ -2,6 +2,7 @@ package sbom
 
 import (
 	"io"
+	"strings"
 
 	"github.com/CycloneDX/cyclonedx-go"
 )
@@ -40,7 +41,7 @@ func (c *CycloneDX) GetPackages(r io.ReadSeeker, callback func(Identifier) error
 		r.Seek(0, io.SeekStart)
 		decoder := cyclonedx.NewBOMDecoder(r, formatType)
 		err := decoder.Decode(&bom)
-		if err == nil && bom.BOMFormat == "CycloneDX" {
+		if err == nil && (bom.BOMFormat == "CycloneDX" || strings.HasPrefix(bom.XMLNS, "http://cyclonedx.org/schema/bom")) {
 			return c.enumeratePackages(&bom, callback)
 		}
 	}
