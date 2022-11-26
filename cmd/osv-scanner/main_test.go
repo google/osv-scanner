@@ -103,7 +103,7 @@ func TestRun(t *testing.T) {
 		{
 			name:         "",
 			args:         []string{""},
-			wantExitCode: 1,
+			wantExitCode: 127,
 			wantStdout: `
 				NAME:
 					 osv-scanner - scans various mediums for dependencies and matches it against the OSV database
@@ -141,7 +141,7 @@ func TestRun(t *testing.T) {
 		{
 			name:         "",
 			args:         []string{"", "./fixtures/locks-many/not-a-lockfile.toml"},
-			wantExitCode: 1,
+			wantExitCode: 127,
 			wantStdout: `
 				Scanning dir ./fixtures/locks-many/not-a-lockfile.toml
 				NAME:

@@ -357,13 +357,13 @@ func run(args []string, stdout, stderr io.Writer) int {
 
 	if err := app.Run(args); err != nil {
 		r.PrintError(fmt.Sprintf("%v", err))
-		return 1
+		return 127
 	}
 
 	resp, err := osv.MakeRequest(query)
 	if err != nil {
 		r.PrintError(fmt.Sprintf("Scan failed: %v", err))
-		return 1
+		return 127
 	}
 
 	filtered := filterResponse(r, query, resp, &configManager)
@@ -374,17 +374,31 @@ func run(args []string, stdout, stderr io.Writer) int {
 	hydratedResp, err := osv.Hydrate(resp)
 	if err != nil {
 		r.PrintError(fmt.Sprintf("Failed to hydrate OSV response: %v", err))
-		return 1
+		return 127
 	}
 
 	err = r.PrintResult(query, hydratedResp)
 
 	if err != nil {
 		r.PrintError(fmt.Sprintf("Failed to write output: %s", err))
+		return 127
+	}
+
+	if hasVulnerabilities(hydratedResp) {
 		return 1
 	}
 
 	return 0
+}
+
+func hasVulnerabilities(resp *osv.HydratedBatchedResponse) bool {
+	for _, result := range resp.Results {
+		if len(result.Vulns) == 1 {
+			return true
+		}
+	}
+
+	return false
 }
 
 // TODO(ochang): Machine readable output format.
