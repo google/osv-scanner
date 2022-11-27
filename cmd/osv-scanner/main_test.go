@@ -110,7 +110,7 @@ func TestRun(t *testing.T) {
 			wantExitCode: 1,
 			wantStdout:   "",
 			wantStderr: `
-            	No package sources found, --help for usage information.
+        No package sources found, --help for usage information.
 			`,
 		},
 		// one specific supported lockfile
