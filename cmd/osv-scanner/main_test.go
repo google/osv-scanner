@@ -47,10 +47,6 @@ func dedent(t *testing.T, str string) string {
 	re = regexp.MustCompile(`^\r?\n`)
 	str = re.ReplaceAllString(str, "")
 
-	// 5. Remove trailing whitespace.
-	re = regexp.MustCompile(`\r?\n$`)
-	str = re.ReplaceAllString(str, "")
-
 	return str
 }
 
@@ -107,7 +103,7 @@ func TestRun(t *testing.T) {
 		{
 			name:         "",
 			args:         []string{""},
-			wantExitCode: 127,
+			wantExitCode: 128,
 			wantStdout:   "",
 			wantStderr: `
         No package sources found, --help for usage information.
@@ -128,7 +124,7 @@ func TestRun(t *testing.T) {
 		{
 			name:         "",
 			args:         []string{"", "./fixtures/locks-many/not-a-lockfile.toml"},
-			wantExitCode: 127,
+			wantExitCode: 128,
 			wantStdout: `
 				Scanning dir ./fixtures/locks-many/not-a-lockfile.toml
 			`,
