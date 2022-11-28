@@ -29,7 +29,8 @@ type ScannerActions struct {
 	ConfigOverridePath   string
 }
 
-var NoPackagesFoundErr = errors.New("No packages found in scan")
+// Error for when no packages is found during a scan.
+var NoPackagesFoundErr = errors.New("No packages found in scan.")
 
 // scanDir walks through the given directory to try to find any relevant files
 // These include:
