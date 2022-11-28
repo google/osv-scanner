@@ -29,6 +29,8 @@ type ScannerActions struct {
 	ConfigOverridePath   string
 }
 
+var NoPackagesFoundErr = errors.New("No packages found in scan")
+
 // scanDir walks through the given directory to try to find any relevant files
 // These include:
 //   - Any lockfiles with scanLockfile
@@ -314,7 +316,7 @@ func DoScan(actions ScannerActions, r *output.Reporter) (models.VulnerabilityRes
 	}
 
 	if len(query.Queries) == 0 {
-		return models.VulnerabilityResults{}, fmt.Errorf("No package sources found, --help for usage information.")
+		return models.VulnerabilityResults{}, NoPackagesFoundErr
 	}
 
 	resp, err := osv.MakeRequest(query)

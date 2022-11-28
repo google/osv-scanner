@@ -1,6 +1,7 @@
 package main
 
 import (
+	"errors"
 	"fmt"
 	"io"
 	"os"
@@ -78,8 +79,7 @@ func run(args []string, stdout, stderr io.Writer) int {
 				return err
 			}
 
-			err = r.PrintResult(&vulnResult)
-			if err != nil {
+			if err := r.PrintResult(&vulnResult); err != nil {
 				return fmt.Errorf("Failed to write output: %v", err)
 			}
 
@@ -88,8 +88,13 @@ func run(args []string, stdout, stderr io.Writer) int {
 	}
 
 	if err := app.Run(args); err != nil {
+		if errors.Is(err, osvscanner.NoPackagesFoundErr) {
+			r.PrintError(fmt.Sprintf("No package sources found, --help for usage information."))
+			return 128
+		}
+
 		r.PrintError(fmt.Sprintf("%v\n", err))
-		return 1
+		return 127
 	}
 
 	return 0
