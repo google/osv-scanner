@@ -107,7 +107,7 @@ func TestRun(t *testing.T) {
 		{
 			name:         "",
 			args:         []string{""},
-			wantExitCode: 1,
+			wantExitCode: 127,
 			wantStdout:   "",
 			wantStderr: `
         No package sources found, --help for usage information.
@@ -128,7 +128,7 @@ func TestRun(t *testing.T) {
 		{
 			name:         "",
 			args:         []string{"", "./fixtures/locks-many/not-a-lockfile.toml"},
-			wantExitCode: 1,
+			wantExitCode: 127,
 			wantStdout: `
 				Scanning dir ./fixtures/locks-many/not-a-lockfile.toml
 			`,
