@@ -19,8 +19,7 @@ import (
 func PrintTableResults(vulnResult *models.VulnerabilityResults, outputWriter io.Writer) {
 	outputTable := table.NewWriter()
 	outputTable.SetOutputMirror(outputWriter)
-	outputTable.AppendHeader(table.Row{"Source", "Ecosystem", "Affected Package", "Installed Version", "Vulnerability ID", "OSV URL"})
-
+	outputTable.AppendHeader(table.Row{"Source", "Ecosystem", "Affected Package", "Version", "OSV URL (ID In Bold)"})
 	for _, sourceRes := range vulnResult.Results {
 		for _, pkg := range sourceRes.Packages {
 			workingDir, err := os.Getwd()
@@ -32,7 +31,7 @@ func PrintTableResults(vulnResult *models.VulnerabilityResults, outputWriter io.
 				}
 			}
 			for _, group := range grouper.Group(pkg.Vulnerabilities) {
-				outputRow := table.Row{source}
+				outputRow := table.Row{source.Path}
 				shouldMerge := false
 				if pkg.Package.Ecosystem == "GIT" {
 					outputRow = append(outputRow, "GIT", pkg.Package.Version, pkg.Package.Version)
@@ -46,18 +45,18 @@ func PrintTableResults(vulnResult *models.VulnerabilityResults, outputWriter io.
 
 				for _, vuln := range group {
 					ids = append(ids, vuln.ID)
-					links = append(links, osv.BaseVulnerabilityURL+vuln.ID)
+					links = append(links, osv.BaseVulnerabilityURL+text.Bold.EscapeSeq()+vuln.ID+text.Reset.EscapeSeq())
 				}
 
-				outputRow = append(outputRow, strings.Join(ids, "\n"), strings.Join(links, "\n"))
+				outputRow = append(outputRow, strings.Join(links, "\n"))
 				outputTable.AppendRow(outputRow, table.RowConfig{AutoMerge: shouldMerge})
 			}
 		}
 	}
 
 	outputTable.SetStyle(table.StyleRounded)
-	outputTable.Style().Color.Row = text.Colors{text.Reset, text.BgBlack}
-	outputTable.Style().Color.RowAlternate = text.Colors{text.Reset, text.Reset}
+	outputTable.Style().Color.Row = text.Colors{text.Reset, text.BgHiBlack}
+	outputTable.Style().Color.RowAlternate = text.Colors{text.Reset, text.BgBlack}
 
 	width, _, err := term.GetSize(int(os.Stdout.Fd()))
 	if err == nil { // If output is a terminal, set max length to width
