@@ -1,10 +1,12 @@
-package main
+package config
 
 import (
 	"path/filepath"
+	"strings"
 	"testing"
 
 	"github.com/google/go-cmp/cmp"
+	"github.com/google/osv-scanner/internal/output"
 )
 
 type testStruct struct {
@@ -27,27 +29,27 @@ func TestTryLoadConfig(t *testing.T) {
 	}
 	testPaths := []testStruct{
 		{
-			targetPath:   "../../testdata/testdatainner/innerFolder/test.yaml",
-			config:       expectedConfig,
+			targetPath:   "../../fixtures/testdatainner/innerFolder/test.yaml",
+			config:       Config{},
 			configHasErr: true,
 		},
 		{
-			targetPath:   "../../testdata/testdatainner/innerFolder/",
+			targetPath:   "../../fixtures/testdatainner/innerFolder/",
 			config:       Config{},
 			configHasErr: true,
 		},
 		{ // Test no slash at the end
-			targetPath:   "../../testdata/testdatainner/innerFolder",
+			targetPath:   "../../fixtures/testdatainner/innerFolder",
 			config:       Config{},
 			configHasErr: true,
 		},
 		{
-			targetPath:   "../../testdata/testdatainner/",
+			targetPath:   "../../fixtures/testdatainner/",
 			config:       expectedConfig,
 			configHasErr: false,
 		},
 		{
-			targetPath:   "../../testdata/testdatainner/some-manifest.yaml",
+			targetPath:   "../../fixtures/testdatainner/some-manifest.yaml",
 			config:       expectedConfig,
 			configHasErr: false,
 		},
@@ -58,11 +60,18 @@ func TestTryLoadConfig(t *testing.T) {
 		if err != nil {
 			t.Errorf("%s", err)
 		}
-		configPath := normalizeConfigLoadPath(absPath)
-		config, configErr := tryLoadConfig(configPath)
-		cmp.Equal(config, testData.config)
+		configPath, err := normalizeConfigLoadPath(absPath)
+		if err != nil {
+			t.Errorf("%s", err)
+		}
+		config, configErr := tryLoadConfig(output.NewReporter(new(strings.Builder), new(strings.Builder), false), configPath)
+		if !cmp.Equal(config.IgnoredVulns, testData.config.IgnoredVulns) {
+			t.Errorf("Configs not equal: %+v != %+v", config, testData.config)
+		}
 		if testData.configHasErr {
-			cmp.Equal(configErr, nil)
+			if configErr == nil {
+				t.Error("Config error not returned")
+			}
 		}
 	}
 }

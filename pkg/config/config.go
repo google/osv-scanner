@@ -1,23 +1,26 @@
-package main
+package config
 
 import (
 	"fmt"
-	"log"
 	"os"
 	"path/filepath"
 	"time"
+
+	"github.com/google/osv-scanner/internal/output"
 
 	"github.com/BurntSushi/toml"
 	"golang.org/x/exp/slices"
 )
 
+const osvScannerConfigName = "osv-scanner.toml"
+
 type ConfigManager struct {
 	// Override to replace all other configs
-	overrideConfig *Config
+	OverrideConfig *Config
 	// Config to use if no config file is found alongside manifests
-	defaultConfig Config
+	DefaultConfig Config
 	// Cache to store loaded configs
-	configMap map[string]Config
+	ConfigMap map[string]Config
 }
 
 type Config struct {
@@ -56,39 +59,44 @@ func (c *ConfigManager) UseOverride(configPath string) error {
 		return err
 	}
 	config.LoadPath = configPath
-	c.overrideConfig = &config
+	c.OverrideConfig = &config
 	return nil
 }
 
 // Attempts to get the config
-func (c *ConfigManager) Get(targetPath string) Config {
-	if c.overrideConfig != nil {
-		return *c.overrideConfig
+func (c *ConfigManager) Get(r *output.Reporter, targetPath string) Config {
+	if c.OverrideConfig != nil {
+		return *c.OverrideConfig
 	}
 
-	configPath := normalizeConfigLoadPath(targetPath)
-	config, alreadyExists := c.configMap[configPath]
+	configPath, err := normalizeConfigLoadPath(targetPath)
+	if err != nil {
+		r.PrintError(fmt.Sprintf("Can't find config path: %s", err))
+		return Config{}
+	}
+
+	config, alreadyExists := c.ConfigMap[configPath]
 	if alreadyExists {
 		return config
 	}
 
-	config, configErr := tryLoadConfig(configPath)
+	config, configErr := tryLoadConfig(r, configPath)
 	if configErr == nil {
-		log.Printf("Loaded filter from: %s", config.LoadPath)
+		r.PrintText(fmt.Sprintf("Loaded filter from: %s\n", config.LoadPath))
 	} else {
 		// If config doesn't exist, use the default config
-		config = c.defaultConfig
+		config = c.DefaultConfig
 	}
-	c.configMap[configPath] = config
+	c.ConfigMap[configPath] = config
 
 	return config
 }
 
 // Finds the containing folder of `target`, then appends osvScannerConfigName
-func normalizeConfigLoadPath(target string) string {
+func normalizeConfigLoadPath(target string) (string, error) {
 	stat, err := os.Stat(target)
 	if err != nil {
-		log.Fatalf("Failed to stat target: %s", err)
+		return "", fmt.Errorf("Failed to stat target: %w", err)
 	}
 
 	var containingFolder string
@@ -98,18 +106,18 @@ func normalizeConfigLoadPath(target string) string {
 		containingFolder = target
 	}
 	configPath := filepath.Join(containingFolder, osvScannerConfigName)
-	return configPath
+	return configPath, nil
 }
 
 // tryLoadConfig tries to load config in `target` (or it's containing directory)
 // `target` will be the key for the entry in configMap
-func tryLoadConfig(configPath string) (Config, error) {
+func tryLoadConfig(r *output.Reporter, configPath string) (Config, error) {
 	configFile, err := os.Open(configPath)
 	var config Config
 	if err == nil { // File exists, and we have permission to read
 		_, err := toml.NewDecoder(configFile).Decode(&config)
 		if err != nil {
-			log.Fatalf("Failed to read config file: %s\n", err)
+			return Config{}, fmt.Errorf("Failed to parse config file: %w\n", err)
 		}
 		config.LoadPath = configPath
 		return config, nil

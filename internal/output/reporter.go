@@ -2,8 +2,9 @@ package output
 
 import (
 	"fmt"
-	"github.com/google/osv-scanner/internal/osv"
 	"io"
+
+	"github.com/google/osv-scanner/pkg/models"
 )
 
 type Reporter struct {
@@ -41,12 +42,12 @@ func (r *Reporter) PrintText(msg string) {
 	fmt.Fprint(target, msg)
 }
 
-func (r *Reporter) PrintResult(query osv.BatchedQuery, resp *osv.HydratedBatchedResponse) error {
+func (r *Reporter) PrintResult(vulnResult *models.VulnerabilityResults) error {
 	if r.outputAsJSON {
-		return PrintJSONResults(query, resp, r.stdout)
+		return PrintJSONResults(vulnResult, r.stdout)
 	}
 
-	PrintTableResults(query, resp, r.stdout)
+	PrintTableResults(vulnResult, r.stdout)
 
 	return nil
 }
