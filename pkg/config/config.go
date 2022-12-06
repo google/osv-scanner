@@ -71,7 +71,7 @@ func (c *ConfigManager) Get(r *output.Reporter, targetPath string) Config {
 
 	configPath, err := normalizeConfigLoadPath(targetPath)
 	if err != nil {
-		r.PrintError(fmt.Sprintf("Can't find config path: %s", err))
+		r.PrintError(fmt.Sprintf("Can't find config path: %s\n", err))
 		return Config{}
 	}
 
