@@ -6,7 +6,7 @@ Use OSV-Scanner to find existing vulnerabilities affecting your project's depend
 
 OSV-Scanner provides an officially supported frontend to the [OSV database](https://osv.dev/) that connects a project’s list of dependencies with the vulnerabilities that affect them. Since the OSV.dev database is open source and distributed, it has several benefits in comparison with closed source advisory databases and scanners:
 
-- Each advisory comes from an open and authoritative source (e.g. the RustSec Advisory Database)
+- Each advisory comes from an open and authoritative source (e.g. the [RustSec Advisory Database](https://github.com/rustsec/advisory-db))
 - Anyone can suggest improvements to advisories, resulting in a very high quality database
 - The OSV format unambiguously stores information about affected versions in a machine-readable format that precisely maps onto a developer’s list of packages
 
@@ -20,7 +20,7 @@ Requires go 1.18+ to be installed
 ### Installation Process
 Run
 ```bash
-$ go install github.com/google/osv-scanner/cmd/osv-scanner@latest
+$ go install github.com/google/osv-scanner/cmd/osv-scanner@v1
 ```
 
 ## Usage
