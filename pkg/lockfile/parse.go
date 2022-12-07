@@ -3,14 +3,14 @@ package lockfile
 import (
 	"errors"
 	"fmt"
-	"path"
+	"path/filepath"
 	"sort"
 	"strings"
 )
 
 func FindParser(pathToLockfile string, parseAs string) (PackageDetailsParser, string) {
 	if parseAs == "" {
-		parseAs = path.Base(pathToLockfile)
+		parseAs = filepath.Base(pathToLockfile)
 	}
 
 	return parsers[parseAs], parseAs
