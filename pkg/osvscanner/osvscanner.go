@@ -54,6 +54,7 @@ func scanDir(r *output.Reporter, query *osv.BatchedQuery, dir string, skipGit bo
 			err := scanGit(r, query, filepath.Dir(path)+"/")
 			if err != nil {
 				r.PrintText(fmt.Sprintf("scan failed for git repository, %s: %v\n", path, err))
+				// Not fatal, so don't return and continue scanning other files
 			}
 			return filepath.SkipDir
 		}
