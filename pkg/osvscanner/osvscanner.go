@@ -53,8 +53,8 @@ func scanDir(r *output.Reporter, query *osv.BatchedQuery, dir string, skipGit bo
 		if !skipGit && info.IsDir() && info.Name() == ".git" {
 			err := scanGit(r, query, filepath.Dir(path)+"/")
 			if err != nil {
-				r.PrintText(fmt.Sprintf("scan failed for %s: %v\n", path, err))
-				return err
+				r.PrintText(fmt.Sprintf("scan failed for git repository, %s: %v\n", path, err))
+				// Not fatal, so don't return and continue scanning other files
 			}
 			return filepath.SkipDir
 		}
@@ -148,9 +148,15 @@ func getCommitSHA(repoDir string) (string, error) {
 	cmd.Stdout = &out
 
 	err := cmd.Run()
+
 	if err != nil {
-		return "", err
+		if exiterr, ok := err.(*exec.ExitError); ok && exiterr.ExitCode() == 128 {
+			return "", fmt.Errorf("Failed to get commit hash, no commits exist? %w", exiterr)
+		} else {
+			return "", fmt.Errorf("Failed to get commit hash: %w", err)
+		}
 	}
+
 	return strings.TrimSpace(out.String()), nil
 }
 
