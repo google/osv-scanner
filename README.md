@@ -131,30 +131,29 @@ By default osv-scanner outputs a human readable table. To have osv-scanner outpu
 {
   "results": [
     {
-      "filePath": "sbom:file/path/test.spdx.json",
+      "packageSource": {
+        "path": "/absolute/path/to/go.mod",
+        "type": "lockfile"
+      },
       "packages": [
         {
-          "name": "mercurial",
-          "version": "4.8.2",
-          "ecosystem": "pypi",
+          "Package": {
+            "name": "github.com/gogo/protobuf",
+            "version": "1.3.1",
+            "ecosystem": "Go"
+          },
           "vulnerabilities": [
             {
-              "id": "PYSEC-2019-188",
+              "id": "GHSA-c3h9-896r-86jm",
               "aliases": [
-                "CVE-2019-3902"
+                "CVE-2021-3121"
               ]
-            }
-          ]
-        },
-        {
-          "name": "ansi-regex",
-          "version": "3.0.0",
-          "ecosystem": "npm",
-          "vulnerabilities": [
+            },
             {
-              "id": "GHSA-93q8-gq69-wqmw",
+              "id": "GO-2021-0053",
               "aliases": [
-                "CVE-2021-3807"
+                "CVE-2021-3121",
+                "GHSA-c3h9-896r-86jm"
               ]
             }
           ]
@@ -162,30 +161,28 @@ By default osv-scanner outputs a human readable table. To have osv-scanner outpu
       ]
     },
     {
-      "filePath": "lockfile:package-lock.json",
+      "packageSource": {
+        "path": "/absolute/path/to/Cargo.lock",
+        "type": "lockfile"
+      },
       "packages": [
         {
-          "name": "async",
-          "version": "2.6.3",
-          "ecosystem": "npm",
+          "Package": {
+            "name": "regex",
+            "version": "1.5.1",
+            "ecosystem": "crates.io"
+          },
           "vulnerabilities": [
             {
-              "id": "GHSA-fwr7-v2mv-hh25",
+              "id": "GHSA-m5pq-gvj9-9vr8",
               "aliases": [
-                "CVE-2021-43138"
+                "CVE-2022-24713"
               ]
-            }
-          ]
-        },
-        {
-          "name": "minimist",
-          "version": "1.2.5",
-          "ecosystem": "npm",
-          "vulnerabilities": [
+            },
             {
-              "id": "GHSA-xvch-5gv4-984h",
+              "id": "RUSTSEC-2022-0013",
               "aliases": [
-                "CVE-2021-44906"
+                "CVE-2022-24713"
               ]
             }
           ]
