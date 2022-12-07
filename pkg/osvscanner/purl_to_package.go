@@ -1,6 +1,7 @@
-package output
+package osvscanner
 
 import (
+	"github.com/google/osv-scanner/pkg/models"
 	"github.com/package-url/packageurl-go"
 )
 
@@ -18,16 +19,16 @@ var purlEcosystems = map[string]string{
 	"gem":      "RubyGems",
 }
 
-func PURLToPackage(purl string) (Package, error) {
+func PURLToPackage(purl string) (models.PackageInfo, error) {
 	parsedPURL, err := packageurl.FromString(purl)
 	if err != nil {
-		return Package{}, err
+		return models.PackageInfo{}, err
 	}
 	ecosystem := purlEcosystems[parsedPURL.Type]
 	if ecosystem == "" {
 		ecosystem = parsedPURL.Type
 	}
-	return Package{
+	return models.PackageInfo{
 		Name:      parsedPURL.Name,
 		Ecosystem: ecosystem,
 		Version:   parsedPURL.Version,

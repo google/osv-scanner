@@ -6,7 +6,7 @@ import (
 	"golang.org/x/exp/maps"
 	"golang.org/x/exp/slices"
 
-	"github.com/google/osv-scanner/internal/osv"
+	"github.com/google/osv-scanner/pkg/models"
 )
 
 func min(a, b int) int {
@@ -16,9 +16,9 @@ func min(a, b int) int {
 	return b
 }
 
-type GroupedVulnerabilities []osv.Vulnerability
+type GroupedVulnerabilities []models.Vulnerability
 
-func hasAliasIntersection(v1, v2 osv.Vulnerability) bool {
+func hasAliasIntersection(v1, v2 models.Vulnerability) bool {
 	// Check if any aliases intersect.
 	for _, alias := range v1.Aliases {
 		if slices.Contains(v2.Aliases, alias) {
@@ -30,7 +30,7 @@ func hasAliasIntersection(v1, v2 osv.Vulnerability) bool {
 }
 
 // Group groups vulnerabilities by aliases.
-func Group(vulns []osv.Vulnerability) []GroupedVulnerabilities {
+func Group(vulns []models.Vulnerability) []GroupedVulnerabilities {
 	// Mapping of `vulns` index to a group ID. A group ID is just another index in the `vulns` slice.
 	groups := make([]int, len(vulns))
 
