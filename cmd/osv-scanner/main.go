@@ -89,7 +89,7 @@ func run(args []string, stdout, stderr io.Writer) int {
 
 	if err := app.Run(args); err != nil {
 		if errors.Is(err, osvscanner.NoPackagesFoundErr) {
-			r.PrintError(fmt.Sprintf("No package sources found, --help for usage information."))
+			r.PrintError(fmt.Sprintf("No package sources found, --help for usage information.\n"))
 			return 128
 		}
 
