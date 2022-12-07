@@ -36,7 +36,6 @@ func (c *CycloneDX) enumeratePackages(bom *cyclonedx.BOM, callback func(Identifi
 
 func (c *CycloneDX) GetPackages(r io.ReadSeeker, callback func(Identifier) error) error {
 	var bom cyclonedx.BOM
-
 	for _, formatType := range cycloneDXTypes {
 		r.Seek(0, io.SeekStart)
 		decoder := cyclonedx.NewBOMDecoder(r, formatType)
