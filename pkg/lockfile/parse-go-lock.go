@@ -22,16 +22,25 @@ func ParseGoLock(pathToLockfile string) ([]PackageDetails, error) {
 		return []PackageDetails{}, fmt.Errorf("could not parse %s: %w", pathToLockfile, err)
 	}
 
-	packages := make([]PackageDetails, 0, len(parsedLockfile.Require))
+	packages := map[string]PackageDetails{}
 
 	for _, require := range parsedLockfile.Require {
-		packages = append(packages, PackageDetails{
+		packages[require.Mod.Path+"@"+require.Mod.Version] = PackageDetails{
 			Name:      require.Mod.Path,
 			Version:   strings.TrimPrefix(require.Mod.Version, "v"),
 			Ecosystem: GoEcosystem,
 			CompareAs: GoEcosystem,
-		})
+		}
 	}
 
-	return packages, nil
+	for _, replace := range parsedLockfile.Replace {
+		packages[replace.New.Path+"@"+replace.New.Version] = PackageDetails{
+			Name:      replace.New.Path,
+			Version:   strings.TrimPrefix(replace.New.Version, "v"),
+			Ecosystem: GoEcosystem,
+			CompareAs: GoEcosystem,
+		}
+	}
+
+	return pkgDetailsMapToSlice(packages), nil
 }

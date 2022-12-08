@@ -121,3 +121,47 @@ func TestParseGoLock_IndirectPackages(t *testing.T) {
 		},
 	})
 }
+
+func TestParseGoLock_Replacements_One(t *testing.T) {
+	t.Parallel()
+
+	packages, err := lockfile.ParseGoLock("fixtures/go/replace-one.mod")
+
+	if err != nil {
+		t.Errorf("Got unexpected error: %v", err)
+	}
+
+	expectPackages(t, packages, []lockfile.PackageDetails{
+		{
+			Name:      "example.com/fork/net",
+			Version:   "1.4.5",
+			Ecosystem: lockfile.GoEcosystem,
+			CompareAs: lockfile.GoEcosystem,
+		},
+	})
+}
+
+func TestParseGoLock_Replacements_Many(t *testing.T) {
+	t.Parallel()
+
+	packages, err := lockfile.ParseGoLock("fixtures/go/replace-many.mod")
+
+	if err != nil {
+		t.Errorf("Got unexpected error: %v", err)
+	}
+
+	expectPackages(t, packages, []lockfile.PackageDetails{
+		{
+			Name:      "./fork/net",
+			Version:   "",
+			Ecosystem: lockfile.GoEcosystem,
+			CompareAs: lockfile.GoEcosystem,
+		},
+		{
+			Name:      "example.com/fork/net",
+			Version:   "1.4.5",
+			Ecosystem: lockfile.GoEcosystem,
+			CompareAs: lockfile.GoEcosystem,
+		},
+	})
+}
