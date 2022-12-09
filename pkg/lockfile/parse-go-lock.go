@@ -44,11 +44,33 @@ func ParseGoLock(pathToLockfile string) ([]PackageDetails, error) {
 	}
 
 	for _, replace := range parsedLockfile.Replace {
-		packages[replace.Old.Path+"@"+replace.Old.Version] = PackageDetails{
-			Name:      replace.New.Path,
-			Version:   strings.TrimPrefix(replace.New.Version, "v"),
-			Ecosystem: GoEcosystem,
-			CompareAs: GoEcosystem,
+		var replacements []string
+
+		if replace.Old.Version == "" {
+			// If the left version is omitted, all versions of the module are replaced.
+			for k, pkg := range packages {
+				if pkg.Name == replace.Old.Path {
+					replacements = append(replacements, k)
+				}
+			}
+		} else {
+			// If a version is present on the left side of the arrow (=>),
+			// only that specific version of the module is replaced
+			s := replace.Old.Path + "@" + replace.Old.Version
+
+			// A `replace` directive has no effect if the module version on the left side is not required.
+			if _, ok := packages[s]; ok {
+				replacements = []string{s}
+			}
+		}
+
+		for _, replacement := range replacements {
+			packages[replacement] = PackageDetails{
+				Name:      replace.New.Path,
+				Version:   strings.TrimPrefix(replace.New.Version, "v"),
+				Ecosystem: GoEcosystem,
+				CompareAs: GoEcosystem,
+			}
 		}
 	}
 
