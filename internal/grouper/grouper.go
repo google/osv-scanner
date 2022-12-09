@@ -16,8 +16,6 @@ func min(a, b int) int {
 	return b
 }
 
-type GroupedVulnerabilities []models.Vulnerability
-
 func hasAliasIntersection(v1, v2 models.Vulnerability) bool {
 	// Check if any aliases intersect.
 	for _, alias := range v1.Aliases {
@@ -30,7 +28,7 @@ func hasAliasIntersection(v1, v2 models.Vulnerability) bool {
 }
 
 // Group groups vulnerabilities by aliases.
-func Group(vulns []models.Vulnerability) []GroupedVulnerabilities {
+func Group(vulns []models.Vulnerability) []models.GroupInfo {
 	// Mapping of `vulns` index to a group ID. A group ID is just another index in the `vulns` slice.
 	groups := make([]int, len(vulns))
 
@@ -51,18 +49,18 @@ func Group(vulns []models.Vulnerability) []GroupedVulnerabilities {
 	}
 
 	// Extract groups into the final result structure.
-	extractedGroups := map[int]GroupedVulnerabilities{}
+	extractedGroups := map[int][]string{}
 	for i, gid := range groups {
-		extractedGroups[gid] = append(extractedGroups[gid], vulns[i])
+		extractedGroups[gid] = append(extractedGroups[gid], vulns[i].ID)
 	}
 
 	// Sort by group ID to maintain stable order for tests.
 	sortedKeys := maps.Keys(extractedGroups)
 	sort.Ints(sortedKeys)
 
-	var result []GroupedVulnerabilities
+	var result []models.GroupInfo
 	for _, key := range sortedKeys {
-		result = append(result, extractedGroups[key])
+		result = append(result, models.GroupInfo{IDs: extractedGroups[key]})
 	}
 	return result
 }

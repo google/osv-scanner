@@ -6,7 +6,6 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/google/osv-scanner/internal/grouper"
 	"github.com/google/osv-scanner/internal/osv"
 	"github.com/google/osv-scanner/pkg/models"
 
@@ -30,7 +29,8 @@ func PrintTableResults(vulnResult *models.VulnerabilityResults, outputWriter io.
 					source.Path = sourcePath
 				}
 			}
-			for _, group := range grouper.Group(pkg.Vulnerabilities) {
+
+			for _, group := range pkg.Groups {
 				outputRow := table.Row{source.Path}
 				shouldMerge := false
 				if pkg.Package.Ecosystem == "GIT" {
@@ -43,9 +43,9 @@ func PrintTableResults(vulnResult *models.VulnerabilityResults, outputWriter io.
 				var ids []string
 				var links []string
 
-				for _, vuln := range group {
-					ids = append(ids, vuln.ID)
-					links = append(links, osv.BaseVulnerabilityURL+text.Bold.EscapeSeq()+vuln.ID+text.Reset.EscapeSeq())
+				for _, vuln := range group.IDs {
+					ids = append(ids, vuln)
+					links = append(links, osv.BaseVulnerabilityURL+text.Bold.EscapeSeq()+vuln+text.Reset.EscapeSeq())
 				}
 
 				outputRow = append(outputRow, strings.Join(links, "\n"))
