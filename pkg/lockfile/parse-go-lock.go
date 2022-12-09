@@ -9,6 +9,16 @@ import (
 
 const GoEcosystem Ecosystem = "Go"
 
+func deduplicatePackages(packages map[string]PackageDetails) map[string]PackageDetails {
+	details := map[string]PackageDetails{}
+
+	for _, detail := range packages {
+		details[detail.Name+"@"+detail.Version] = detail
+	}
+
+	return details
+}
+
 func ParseGoLock(pathToLockfile string) ([]PackageDetails, error) {
 	lockfileContents, err := os.ReadFile(pathToLockfile)
 
@@ -34,7 +44,7 @@ func ParseGoLock(pathToLockfile string) ([]PackageDetails, error) {
 	}
 
 	for _, replace := range parsedLockfile.Replace {
-		packages[replace.New.Path+"@"+replace.New.Version] = PackageDetails{
+		packages[replace.Old.Path+"@"+replace.Old.Version] = PackageDetails{
 			Name:      replace.New.Path,
 			Version:   strings.TrimPrefix(replace.New.Version, "v"),
 			Ecosystem: GoEcosystem,
@@ -42,5 +52,5 @@ func ParseGoLock(pathToLockfile string) ([]PackageDetails, error) {
 		}
 	}
 
-	return pkgDetailsMapToSlice(packages), nil
+	return pkgDetailsMapToSlice(deduplicatePackages(packages)), nil
 }
