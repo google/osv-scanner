@@ -80,7 +80,7 @@ func run(args []string, stdout, stderr io.Writer) int {
 			}
 
 			if err := r.PrintResult(&vulnResult); err != nil {
-				return fmt.Errorf("Failed to write output: %v", err)
+				return fmt.Errorf("failed to write output: %v", err)
 			}
 
 			return nil
