@@ -113,10 +113,10 @@ func checkResponseError(resp *http.Response) error {
 
 	respBuf, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
-		return fmt.Errorf("Failed to read error response from server: %w", err)
+		return fmt.Errorf("failed to read error response from server: %w", err)
 	}
 
-	return fmt.Errorf("Server response error: %s", string(respBuf))
+	return fmt.Errorf("server response error: %s", string(respBuf))
 }
 
 func MakeRequest(request BatchedQuery) (*BatchedResponse, error) {

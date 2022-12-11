@@ -30,7 +30,7 @@ type ScannerActions struct {
 }
 
 // Error for when no packages is found during a scan.
-var NoPackagesFoundErr = errors.New("No packages found in scan.")
+var NoPackagesFoundErr = errors.New("no packages found in scan")
 
 // scanDir walks through the given directory to try to find any relevant files
 // These include:
@@ -153,7 +153,7 @@ func getCommitSHA(repoDir string) (string, error) {
 		if exiterr, ok := err.(*exec.ExitError); ok && exiterr.ExitCode() == 128 {
 			return "", fmt.Errorf("Failed to get commit hash, no commits exist? %w", exiterr)
 		} else {
-			return "", fmt.Errorf("Failed to get commit hash: %w", err)
+			return "", fmt.Errorf("failed to get commit hash: %w", err)
 		}
 	}
 
@@ -210,7 +210,7 @@ func scanDebianDocker(r *output.Reporter, query *osv.BatchedQuery, dockerImageNa
 		splitText := strings.Split(text, "###")
 		if len(splitText) != 2 {
 			r.PrintError(fmt.Sprintf("Unexpected output from Debian container: \n\n%s\n", text))
-			return fmt.Errorf("Unexpected output from Debian container: \n\n%s", text)
+			return fmt.Errorf("unexpected output from Debian container: \n\n%s", text)
 		}
 		pkgDetailsQuery := osv.MakePkgRequest(lockfile.PackageDetails{
 			Name:    splitText[0],
@@ -299,7 +299,7 @@ func DoScan(actions ScannerActions, r *output.Reporter) (models.VulnerabilityRes
 	for _, sbomElem := range actions.SBOMPaths {
 		sbomElem, err := filepath.Abs(sbomElem)
 		if err != nil {
-			return models.VulnerabilityResults{}, fmt.Errorf("Failed to resolved path with error %s\n", err)
+			return models.VulnerabilityResults{}, fmt.Errorf("failed to resolved path with error %s\n", err)
 		}
 		err = scanSBOMFile(r, &query, sbomElem)
 		if err != nil {
@@ -328,7 +328,7 @@ func DoScan(actions ScannerActions, r *output.Reporter) (models.VulnerabilityRes
 
 	resp, err := osv.MakeRequest(query)
 	if err != nil {
-		return models.VulnerabilityResults{}, fmt.Errorf("Scan failed %v", err)
+		return models.VulnerabilityResults{}, fmt.Errorf("scan failed %v", err)
 	}
 
 	filtered := filterResponse(r, query, resp, &configManager)
@@ -338,7 +338,7 @@ func DoScan(actions ScannerActions, r *output.Reporter) (models.VulnerabilityRes
 
 	hydratedResp, err := osv.Hydrate(resp)
 	if err != nil {
-		return models.VulnerabilityResults{}, fmt.Errorf("Failed to hydrate OSV response: %v", err)
+		return models.VulnerabilityResults{}, fmt.Errorf("failed to hydrate OSV response: %v", err)
 	}
 
 	return groupResponse(r, query, hydratedResp, &configManager), nil

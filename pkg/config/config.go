@@ -96,7 +96,7 @@ func (c *ConfigManager) Get(r *output.Reporter, targetPath string) Config {
 func normalizeConfigLoadPath(target string) (string, error) {
 	stat, err := os.Stat(target)
 	if err != nil {
-		return "", fmt.Errorf("Failed to stat target: %w", err)
+		return "", fmt.Errorf("failed to stat target: %w", err)
 	}
 
 	var containingFolder string
@@ -117,11 +117,11 @@ func tryLoadConfig(r *output.Reporter, configPath string) (Config, error) {
 	if err == nil { // File exists, and we have permission to read
 		_, err := toml.NewDecoder(configFile).Decode(&config)
 		if err != nil {
-			return Config{}, fmt.Errorf("Failed to parse config file: %w\n", err)
+			return Config{}, fmt.Errorf("failed to parse config file: %w\n", err)
 		}
 		config.LoadPath = configPath
 		return config, nil
 	}
 
-	return Config{}, fmt.Errorf("No config file found on this path: %s", configPath)
+	return Config{}, fmt.Errorf("no config file found on this path: %s", configPath)
 }
