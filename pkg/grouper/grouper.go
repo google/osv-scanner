@@ -16,7 +16,7 @@ func min(a, b int) int {
 	return b
 }
 
-func hasAliasIntersection(v1, v2 models.Vulnerability) bool {
+func hasAliasIntersection(v1, v2 IDAliases) bool {
 	// Check if any aliases intersect.
 	for _, alias := range v1.Aliases {
 		if slices.Contains(v2.Aliases, alias) {
@@ -28,7 +28,7 @@ func hasAliasIntersection(v1, v2 models.Vulnerability) bool {
 }
 
 // Group groups vulnerabilities by aliases.
-func Group(vulns []models.Vulnerability) []models.GroupInfo {
+func Group(vulns []IDAliases) []models.GroupInfo {
 	// Mapping of `vulns` index to a group ID. A group ID is just another index in the `vulns` slice.
 	groups := make([]int, len(vulns))
 

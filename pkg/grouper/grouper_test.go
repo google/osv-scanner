@@ -9,17 +9,17 @@ import (
 
 func TestGroup(t *testing.T) {
 	// Should be grouped by IDs appearing in alias.
-	v1 := models.Vulnerability{
+	v1 := IDAliases{
 		ID: "CVE-1",
 		Aliases: []string{
 			"FOO-1",
 		},
 	}
-	v2 := models.Vulnerability{
+	v2 := IDAliases{
 		ID:      "FOO-1",
 		Aliases: []string{},
 	}
-	v3 := models.Vulnerability{
+	v3 := IDAliases{
 		ID: "FOO-2",
 		Aliases: []string{
 			"FOO-1",
@@ -27,21 +27,21 @@ func TestGroup(t *testing.T) {
 	}
 
 	// Should be grouped by aliases intersecting.
-	v4 := models.Vulnerability{
+	v4 := IDAliases{
 		ID: "BAR-1",
 		Aliases: []string{
 			"CVE-2",
 			"CVE-3",
 		},
 	}
-	v5 := models.Vulnerability{
+	v5 := IDAliases{
 		ID: "BAR-2",
 		Aliases: []string{
 			"CVE-3",
 			"CVE-4",
 		},
 	}
-	v6 := models.Vulnerability{
+	v6 := IDAliases{
 		ID: "BAR-3",
 		Aliases: []string{
 			"CVE-4",
@@ -49,13 +49,13 @@ func TestGroup(t *testing.T) {
 	}
 
 	// Unrelated.
-	v7 := models.Vulnerability{
+	v7 := IDAliases{
 		ID: "UNRELATED-1",
 		Aliases: []string{
 			"BAR-1337",
 		},
 	}
-	v8 := models.Vulnerability{
+	v8 := IDAliases{
 		ID: "UNRELATED-2",
 		Aliases: []string{
 			"BAR-1338",
@@ -63,11 +63,11 @@ func TestGroup(t *testing.T) {
 	}
 
 	for _, tc := range []struct {
-		vulns []models.Vulnerability
+		vulns []IDAliases
 		want  []models.GroupInfo
 	}{
 		{
-			vulns: []models.Vulnerability{
+			vulns: []IDAliases{
 				v1, v2, v3, v4, v5, v6, v7, v8,
 			},
 			want: []models.GroupInfo{
@@ -86,7 +86,7 @@ func TestGroup(t *testing.T) {
 			},
 		},
 		{
-			vulns: []models.Vulnerability{
+			vulns: []IDAliases{
 				v8, v2, v1, v5, v7, v4, v6, v3,
 			},
 			want: []models.GroupInfo{
