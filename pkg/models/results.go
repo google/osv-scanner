@@ -1,5 +1,7 @@
 package models
 
+import "time"
+
 // Combined vulnerabilities found for the scanned packages
 type VulnerabilityResults struct {
 	Results []PackageSource `json:"results"`
@@ -29,11 +31,39 @@ type VulnerabilityFlattened struct {
 	Vulnerability Vulnerability
 }
 
-// Vulnerability represents a vulnerability entry from OSV.
 type Vulnerability struct {
-	ID      string   `json:"id"`
-	Aliases []string `json:"aliases"`
-	// TODO(ochang): Add other fields.
+	SchemaVersion string    `json:"schema_version"`
+	ID            string    `json:"id"`
+	Modified      time.Time `json:"modified"`
+	Published     time.Time `json:"published"`
+	Aliases       []string  `json:"aliases"`
+	Summary       string    `json:"summary"`
+	Details       string    `json:"details"`
+	Affected      []struct {
+		Package struct {
+			Ecosystem string `json:"ecosystem,omitempty"`
+			Name      string `json:"name,omitempty"`
+			Purl      string `json:"purl,omitempty"`
+		} `json:"package"`
+		Ranges []struct {
+			Type   string `json:"type"`
+			Events []struct {
+				Introduced   string `json:"introduced,omitempty"`
+				Fixed        string `json:"fixed,omitempty"`
+				LastAffected string `json:"last_affected,omitempty"`
+				Limit        string `json:"limit,omitempty"`
+			} `json:"events"`
+			DatabaseSpecific map[string]interface{} `json:"database_specific,omitempty"`
+		} `json:"ranges"`
+		Versions          []string               `json:"versions,omitempty"`
+		DatabaseSpecific  map[string]interface{} `json:"database_specific,omitempty"`
+		EcosystemSpecific map[string]interface{} `json:"ecosystem_specific,omitempty"`
+	} `json:"affected"`
+	References []struct {
+		Type string `json:"type"`
+		URL  string `json:"url"`
+	} `json:"references"`
+	DatabaseSpecific map[string]interface{} `json:"database_specific,omitempty"`
 }
 
 type SourceInfo struct {
@@ -47,14 +77,19 @@ func (s SourceInfo) String() string {
 
 // Vulnerabilities grouped by sources
 type PackageSource struct {
-	Source   SourceInfo     `json:"packageSource"`
+	Source   SourceInfo     `json:"source"`
 	Packages []PackageVulns `json:"packages"`
 }
 
 // Vulnerabilities grouped by package
 type PackageVulns struct {
-	Package         PackageInfo
+	Package         PackageInfo     `json:"package"`
 	Vulnerabilities []Vulnerability `json:"vulnerabilities"`
+	Groups          []GroupInfo     `json:"groups"`
+}
+
+type GroupInfo struct {
+	IDs []string `json:"ids"`
 }
 
 // Specific package information

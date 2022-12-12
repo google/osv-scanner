@@ -64,24 +64,24 @@ func TestGroup(t *testing.T) {
 
 	for _, tc := range []struct {
 		vulns []models.Vulnerability
-		want  []GroupedVulnerabilities
+		want  []models.GroupInfo
 	}{
 		{
 			vulns: []models.Vulnerability{
 				v1, v2, v3, v4, v5, v6, v7, v8,
 			},
-			want: []GroupedVulnerabilities{
+			want: []models.GroupInfo{
 				{
-					v1, v2, v3,
+					IDs: []string{v1.ID, v2.ID, v3.ID},
 				},
 				{
-					v4, v5, v6,
+					IDs: []string{v4.ID, v5.ID, v6.ID},
 				},
 				{
-					v7,
+					IDs: []string{v7.ID},
 				},
 				{
-					v8,
+					IDs: []string{v8.ID},
 				},
 			},
 		},
@@ -89,18 +89,18 @@ func TestGroup(t *testing.T) {
 			vulns: []models.Vulnerability{
 				v8, v2, v1, v5, v7, v4, v6, v3,
 			},
-			want: []GroupedVulnerabilities{
+			want: []models.GroupInfo{
 				{
-					v8,
+					IDs: []string{v8.ID},
 				},
 				{
-					v2, v1, v3,
+					IDs: []string{v2.ID, v1.ID, v3.ID},
 				},
 				{
-					v5, v4, v6,
+					IDs: []string{v5.ID, v4.ID, v6.ID},
 				},
 				{
-					v7,
+					IDs: []string{v7.ID},
 				},
 			},
 		},

@@ -3,6 +3,7 @@ package output
 import (
 	"fmt"
 	"io"
+	"strings"
 
 	"github.com/google/osv-scanner/pkg/models"
 )
@@ -19,6 +20,13 @@ func NewReporter(stdout io.Writer, stderr io.Writer, outputAsJSON bool) *Reporte
 		stderr:       stderr,
 		outputAsJSON: outputAsJSON,
 	}
+}
+
+// NewVoidReporter creates a reporter that doesn't report to anywhere
+func NewVoidReporter() *Reporter {
+	stdout := new(strings.Builder)
+	stderr := new(strings.Builder)
+	return NewReporter(stdout, stderr, false)
 }
 
 // PrintError writes the given message to stderr, regardless of if the reporter
