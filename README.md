@@ -127,7 +127,7 @@ reason = "No external http servers are written in Go lang."
 By default osv-scanner outputs a human readable table. To have osv-scanner output JSON instead, pass the `--json` flag when calling osv-scanner. 
 
 ### Output Format
-```
+```json
 {
   "results": [
     {
@@ -147,13 +147,23 @@ By default osv-scanner outputs a human readable table. To have osv-scanner outpu
               "id": "GHSA-c3h9-896r-86jm",
               "aliases": [
                 "CVE-2021-3121"
-              ]
+              ],
+              // ... Full OSV
             },
             {
               "id": "GO-2021-0053",
               "aliases": [
                 "CVE-2021-3121",
                 "GHSA-c3h9-896r-86jm"
+              ],
+              // ... Full OSV
+            }
+          ],
+          "groups": [
+            {
+              "ids": [
+                "GHSA-c3h9-896r-86jm",
+                "GO-2021-0053"
               ]
             }
           ]
@@ -177,12 +187,22 @@ By default osv-scanner outputs a human readable table. To have osv-scanner outpu
               "id": "GHSA-m5pq-gvj9-9vr8",
               "aliases": [
                 "CVE-2022-24713"
-              ]
+              ],
+              // ... Full OSV
             },
             {
               "id": "RUSTSEC-2022-0013",
               "aliases": [
                 "CVE-2022-24713"
+              ],
+              // ... Full OSV
+            }
+          ],
+          "groups": [
+            {
+              "ids": [
+                "GHSA-m5pq-gvj9-9vr8",
+                "RUSTSEC-2022-0013"
               ]
             }
           ]
