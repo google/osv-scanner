@@ -121,3 +121,142 @@ func TestParseGoLock_IndirectPackages(t *testing.T) {
 		},
 	})
 }
+
+func TestParseGoLock_Replacements_One(t *testing.T) {
+	t.Parallel()
+
+	packages, err := lockfile.ParseGoLock("fixtures/go/replace-one.mod")
+
+	if err != nil {
+		t.Errorf("Got unexpected error: %v", err)
+	}
+
+	expectPackages(t, packages, []lockfile.PackageDetails{
+		{
+			Name:      "example.com/fork/net",
+			Version:   "1.4.5",
+			Ecosystem: lockfile.GoEcosystem,
+			CompareAs: lockfile.GoEcosystem,
+		},
+	})
+}
+
+func TestParseGoLock_Replacements_Mixed(t *testing.T) {
+	t.Parallel()
+
+	packages, err := lockfile.ParseGoLock("fixtures/go/replace-mixed.mod")
+
+	if err != nil {
+		t.Errorf("Got unexpected error: %v", err)
+	}
+
+	expectPackages(t, packages, []lockfile.PackageDetails{
+		{
+			Name:      "example.com/fork/net",
+			Version:   "1.4.5",
+			Ecosystem: lockfile.GoEcosystem,
+			CompareAs: lockfile.GoEcosystem,
+		},
+		{
+			Name:      "golang.org/x/net",
+			Version:   "0.5.6",
+			Ecosystem: lockfile.GoEcosystem,
+			CompareAs: lockfile.GoEcosystem,
+		},
+	})
+}
+
+func TestParseGoLock_Replacements_Local(t *testing.T) {
+	t.Parallel()
+
+	packages, err := lockfile.ParseGoLock("fixtures/go/replace-local.mod")
+
+	if err != nil {
+		t.Errorf("Got unexpected error: %v", err)
+	}
+
+	expectPackages(t, packages, []lockfile.PackageDetails{
+		{
+			Name:      "./fork/net",
+			Version:   "",
+			Ecosystem: lockfile.GoEcosystem,
+			CompareAs: lockfile.GoEcosystem,
+		},
+		{
+			Name:      "github.com/BurntSushi/toml",
+			Version:   "1.0.0",
+			Ecosystem: lockfile.GoEcosystem,
+			CompareAs: lockfile.GoEcosystem,
+		},
+	})
+}
+
+func TestParseGoLock_Replacements_Different(t *testing.T) {
+	t.Parallel()
+
+	packages, err := lockfile.ParseGoLock("fixtures/go/replace-different.mod")
+
+	if err != nil {
+		t.Errorf("Got unexpected error: %v", err)
+	}
+
+	expectPackages(t, packages, []lockfile.PackageDetails{
+		{
+			Name:      "example.com/fork/foe",
+			Version:   "1.4.5",
+			Ecosystem: lockfile.GoEcosystem,
+			CompareAs: lockfile.GoEcosystem,
+		},
+		{
+			Name:      "example.com/fork/foe",
+			Version:   "1.4.2",
+			Ecosystem: lockfile.GoEcosystem,
+			CompareAs: lockfile.GoEcosystem,
+		},
+	})
+}
+
+func TestParseGoLock_Replacements_NotRequired(t *testing.T) {
+	t.Parallel()
+
+	packages, err := lockfile.ParseGoLock("fixtures/go/replace-not-required.mod")
+
+	if err != nil {
+		t.Errorf("Got unexpected error: %v", err)
+	}
+
+	expectPackages(t, packages, []lockfile.PackageDetails{
+		{
+			Name:      "golang.org/x/net",
+			Version:   "0.5.6",
+			Ecosystem: lockfile.GoEcosystem,
+			CompareAs: lockfile.GoEcosystem,
+		},
+		{
+			Name:      "github.com/BurntSushi/toml",
+			Version:   "1.0.0",
+			Ecosystem: lockfile.GoEcosystem,
+			CompareAs: lockfile.GoEcosystem,
+		},
+	})
+}
+
+
+func TestParseGoLock_Replacements_NoVersion(t *testing.T) {
+	t.Parallel()
+
+	packages, err := lockfile.ParseGoLock("fixtures/go/replace-no-version.mod")
+
+	if err != nil {
+		t.Errorf("Got unexpected error: %v", err)
+	}
+
+	expectPackages(t, packages, []lockfile.PackageDetails{
+		{
+			Name:      "example.com/fork/net",
+			Version:   "1.4.5",
+			Ecosystem: lockfile.GoEcosystem,
+			CompareAs: lockfile.GoEcosystem,
+		},
+	})
+}
