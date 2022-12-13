@@ -14,14 +14,18 @@ The above all results in fewer, more actionable vulnerability notifications, whi
 
 ## Installing
 
-### Prerequisites
-Requires go 1.18+ to be installed
 
 ### Installation Process
-Run
+You may download the [SLSA3](https://slsa.dev) compliant binaries for Linux, macOS, and Windows from our [releases page](https://github.com/google/osv-scanner/releases).
+
+#### Install from source
+
+Alternatively, you can install this from source by running:
 ```bash
 $ go install github.com/google/osv-scanner/cmd/osv-scanner@v1
 ```
+
+This requires Go 1.18+ to be installed.
 
 ### SemVer Adherence
 All releases on the same Major version will be guaranteed to have backward compatible JSON output and CLI arguments.
