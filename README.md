@@ -16,8 +16,8 @@ The above all results in fewer, more actionable vulnerability notifications, whi
 - [OSV-Scanner](#osv-scanner)
   - [Table of Contents](#table-of-contents)
   - [Installing](#installing)
-    - [Prerequisites](#prerequisites)
     - [Installation Process](#installation-process)
+      - [Install from source](#install-from-source)
     - [SemVer Adherence](#semver-adherence)
   - [Usage](#usage)
     - [Scan a directory](#scan-a-directory)
@@ -154,7 +154,7 @@ reason = "No external http servers are written in Go lang."
 By default osv-scanner outputs a human readable table. To have osv-scanner output JSON instead, pass the `--json` flag when calling osv-scanner. 
 
 ### Output Format
-```json
+```json5
 {
   "results": [
     {
