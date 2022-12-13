@@ -25,15 +25,6 @@ jobs:
         with:
           go-version: 1.19
           check-latest: true
-      # - name: Configure ldflags
-      #   id: ldflags
-      #   run: echo "version_flags=$(./scripts/version-ldflags)" >> "$GITHUB_OUTPUT"
-      # - name: Import GPG key
-      #   id: import_gpg
-      #   uses: crazy-max/ghaction-import-gpg@111c56156bcc6918c056dbef52164cfa583dc549 # v5.2.0
-      #   with:
-      #     gpg_private_key: ${{ secrets.GPG_PRIVATE_KEY }}
-      #     passphrase: ${{ secrets.PASSPHRASE }}
       - name: Run GoReleaser
         id: run-goreleaser
         uses: goreleaser/goreleaser-action@b508e2e3ef3b19d4e4146d4f8fb3ba9db644a757 # v2.5.0
@@ -42,8 +33,6 @@ jobs:
           args: release --rm-dist
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          # GPG_FINGERPRINT: ${{ steps.import_gpg.outputs.fingerprint }}
-          # VERSION_LDFLAGS: ${{ steps.ldflags.outputs.version_flags }}
       - name: Generate subject
         id: hash
         env:
