@@ -12,6 +12,29 @@ OSV-Scanner provides an officially supported frontend to the [OSV database](http
 
 The above all results in fewer, more actionable vulnerability notifications, which reduces the time needed to resolve them.
 
+## Table of Contents
+- [OSV-Scanner](#osv-scanner)
+  - [Table of Contents](#table-of-contents)
+  - [Installing](#installing)
+    - [Prerequisites](#prerequisites)
+    - [Installation Process](#installation-process)
+    - [SemVer Adherence](#semver-adherence)
+  - [Usage](#usage)
+    - [Scan a directory](#scan-a-directory)
+      - [Example](#example)
+    - [Input an SBOM](#input-an-sbom)
+      - [Example](#example-1)
+    - [Input a lockfile](#input-a-lockfile)
+      - [Example](#example-2)
+    - [Scanning a Debian based docker image packages](#scanning-a-debian-based-docker-image-packages)
+      - [Example](#example-3)
+  - [Configure OSV-Scanner](#configure-osv-scanner)
+    - [Ignore vulnerabilities by ID](#ignore-vulnerabilities-by-id)
+      - [Example](#example-4)
+  - [JSON output](#json-output)
+    - [Output Format](#output-format)
+
+
 ## Installing
 
 
@@ -137,6 +160,7 @@ By default osv-scanner outputs a human readable table. To have osv-scanner outpu
     {
       "packageSource": {
         "path": "/absolute/path/to/go.mod",
+        // One of: lockfile, sbom, git, docker
         "type": "lockfile"
       },
       "packages": [
@@ -163,6 +187,8 @@ By default osv-scanner outputs a human readable table. To have osv-scanner outpu
               // ... Full OSV
             }
           ],
+          // Grouping based on aliases, if two vulnerability share the same alias, or alias each other,
+          // they are considered the same vulnerability, and is grouped here under the id field.
           "groups": [
             {
               "ids": [
