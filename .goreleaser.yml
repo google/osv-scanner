@@ -22,13 +22,12 @@ builds:
       - darwin
     goarch:
       - amd64
-      - '386'
+      # 32bit does not compile at the moment because of spdx dependency
+      # - '386'
       # Further testing before supporting arm
       # - arm
       # - arm64
-    ignore:
-      - goos: linux
-        goarch: amd64
+    main: ./cmd/osv-scanner/main.go
     binary: '{{ .ProjectName }}_v{{ .Version }}'
 archives:
   - format: binary
@@ -37,6 +36,6 @@ checksum:
   name_template: '{{ .ProjectName }}_{{ .Version }}_SHA256SUMS'
   algorithm: sha256
 release:
-  draft: true
+  draft: false
 changelog:
   skip: true
