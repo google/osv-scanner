@@ -22,7 +22,8 @@ builds:
       - darwin
     goarch:
       - amd64
-      - '386'
+      # 32bit does not compile at the moment because of spdx dependency
+      # - '386'
       # Further testing before supporting arm
       # - arm
       # - arm64
