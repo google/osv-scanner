@@ -62,6 +62,14 @@ func TestGroup(t *testing.T) {
 		},
 	}
 
+	// Unrelated, empty aliases
+	v9 := IDAliases{
+		ID: "UNRELATED-3",
+	}
+	v10 := IDAliases{
+		ID: "UNRELATED-4",
+	}
+
 	for _, tc := range []struct {
 		vulns []IDAliases
 		want  []models.GroupInfo
@@ -87,7 +95,7 @@ func TestGroup(t *testing.T) {
 		},
 		{
 			vulns: []IDAliases{
-				v8, v2, v1, v5, v7, v4, v6, v3,
+				v8, v2, v1, v5, v7, v4, v6, v3, v9, v10,
 			},
 			want: []models.GroupInfo{
 				{
@@ -101,6 +109,25 @@ func TestGroup(t *testing.T) {
 				},
 				{
 					IDs: []string{v7.ID},
+				},
+				{
+					IDs: []string{v9.ID},
+				},
+				{
+					IDs: []string{v10.ID},
+				},
+			},
+		},
+		{
+			vulns: []IDAliases{
+				v9, v10,
+			},
+			want: []models.GroupInfo{
+				{
+					IDs: []string{v9.ID},
+				},
+				{
+					IDs: []string{v10.ID},
 				},
 			},
 		},
