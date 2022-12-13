@@ -26,9 +26,7 @@ builds:
       # Further testing before supporting arm
       # - arm
       # - arm64
-    ignore:
-      - goos: linux
-        goarch: amd64
+    main: ./cmd/osv-scanner/main.go
     binary: '{{ .ProjectName }}_v{{ .Version }}'
 archives:
   - format: binary
