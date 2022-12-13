@@ -18,7 +18,9 @@ The above all results in fewer, more actionable vulnerability notifications, whi
 Requires go 1.18+ to be installed
 
 ### Installation Process
-Run
+You may download the [SLSA3](https://slsa.dev) compliant binaries for Linux, macOS, and Windows from our [releases page](https://github.com/google/osv-scanner/releases).
+
+Alternatively, you can install this from source by running:
 ```bash
 $ go install github.com/google/osv-scanner/cmd/osv-scanner@v1
 ```
