@@ -103,6 +103,8 @@ A wide range of lockfiles are supported by utilizing this [lockfile package](htt
 - `pubspec.lock`
 - `pom.xml`[\*](https://github.com/google/osv-scanner/issues/35)        
 - `requirements.txt`[\*](https://github.com/google/osv-scanner/issues/34)
+- `gradle.lockfile`
+- `buildscript-gradle.lockfile`
 
 #### Example
 
