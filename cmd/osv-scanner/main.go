@@ -75,15 +75,10 @@ func run(args []string, stdout, stderr io.Writer) int {
 				DirectoryPaths:       context.Args().Slice(),
 			}, r)
 
-			if err != nil {
-				return err
+			if errPrint := r.PrintResult(&vulnResult); errPrint != nil {
+				return fmt.Errorf("failed to write output: %v", errPrint)
 			}
-
-			if err := r.PrintResult(&vulnResult); err != nil {
-				return fmt.Errorf("failed to write output: %v", err)
-			}
-
-			return nil
+			return err
 		},
 	}
 
@@ -91,6 +86,10 @@ func run(args []string, stdout, stderr io.Writer) int {
 		if r == nil {
 			r = output.NewReporter(stdout, stderr, false)
 		}
+		if errors.Is(err, osvscanner.VulnerabilitiesFoundErr) {
+			return 1
+		}
+
 		if errors.Is(err, osvscanner.NoPackagesFoundErr) {
 			r.PrintError(fmt.Sprintf("No package sources found, --help for usage information.\n"))
 			return 128
