@@ -31,6 +31,7 @@ type ScannerActions struct {
 
 // Error for when no packages is found during a scan.
 var NoPackagesFoundErr = errors.New("no packages found in scan")
+var VulnerabilitiesFoundErr = errors.New("vulnerabilities found")
 
 // scanDir walks through the given directory to try to find any relevant files
 // These include:
@@ -339,5 +340,11 @@ func DoScan(actions ScannerActions, r *output.Reporter) (models.VulnerabilityRes
 		return models.VulnerabilityResults{}, fmt.Errorf("failed to hydrate OSV response: %v", err)
 	}
 
-	return groupResponseBySource(r, query, hydratedResp), nil
+	vulnerabilityResults := groupResponseBySource(r, query, hydratedResp)
+	// if vulnerability exists it should return error
+	if len(vulnerabilityResults.Results) > 0 {
+		return vulnerabilityResults, VulnerabilitiesFoundErr
+	}
+
+	return vulnerabilityResults, nil
 }
