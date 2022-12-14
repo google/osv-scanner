@@ -1,24 +1,23 @@
 {
-    "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-    "extends": [
-      "config:base"
-    ],
-    "timezone": "Australia/Sydney",
-    "schedule": ["before 6am on monday"],
-    "packageRules": [
-      {
-        "matchUpdateTypes": ["major"],
-        "groupName": "Major Updates",
-        "enabled": true
-      },
-      {
-        "matchLanguages": ["golang"],
-        "groupName": "osv-scanner minor"
-      },
-      {
-        "matchPaths": [".github/"],
-        "groupName": "workflows"
-      }
-    ]
-  }
-  
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:base"
+  ],
+  "timezone": "Australia/Sydney",
+  "schedule": ["before 6am on monday"],
+  "packageRules": [
+    {
+      "matchUpdateTypes": ["major"],
+      "groupName": "Major Updates",
+      "enabled": true
+    },
+    {
+      "matchLanguages": ["golang"],
+      "groupName": "osv-scanner minor"
+    },
+    {
+      "matchPaths": [".github/"],
+      "groupName": "workflows"
+    }
+  ]
+}
