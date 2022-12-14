@@ -13,6 +13,7 @@ jobs:
     outputs:
       hashes: ${{ steps.hash.outputs.hashes }}
     permissions:
+      id-token: write  # needed for signing the binaries
       contents: write  # for goreleaser/goreleaser-action to create a GitHub release
     runs-on: ubuntu-latest
     steps:
@@ -25,6 +26,8 @@ jobs:
         with:
           go-version: 1.19
           check-latest: true
+      - name: Install cosign
+        uses: sigstore/cosign-installer@9becc617647dfa20ae7b1151972e9b3a2c338a2b # v2.8.1
       - name: Run GoReleaser
         id: run-goreleaser
         uses: goreleaser/goreleaser-action@b508e2e3ef3b19d4e4146d4f8fb3ba9db644a757 # v2.5.0
@@ -33,6 +36,7 @@ jobs:
           args: release --rm-dist
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          COSIGN_EXPERIMENTAL: true
       - name: Generate subject
         id: hash
         env:
