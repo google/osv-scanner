@@ -26,7 +26,7 @@ builds:
       # - '386'
       # Further testing before supporting arm
       # - arm
-      # - arm64
+      - arm64
     main: ./cmd/osv-scanner/main.go
     binary: '{{ .ProjectName }}_v{{ .Version }}'
 archives:
