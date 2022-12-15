@@ -12,11 +12,23 @@ import (
 	"github.com/urfave/cli/v2"
 )
 
+var (
+	version = "dev"
+	commit  = "n/a"
+	date    = "n/a"
+)
+
 func run(args []string, stdout, stderr io.Writer) int {
 	var r *output.Reporter
 
+	cli.VersionPrinter = func(ctx *cli.Context) {
+		r = output.NewReporter(stdout, stderr, false)
+		r.PrintText(fmt.Sprintf("osv-scanner version: %s\ncommit: %s\nbuilt at: %s\n", ctx.App.Version, commit, date))
+	}
+
 	app := &cli.App{
 		Name:      "osv-scanner",
+		Version:   version,
 		Usage:     "scans various mediums for dependencies and matches it against the OSV database",
 		Suggest:   true,
 		Writer:    stdout,
@@ -75,15 +87,10 @@ func run(args []string, stdout, stderr io.Writer) int {
 				DirectoryPaths:       context.Args().Slice(),
 			}, r)
 
-			if err != nil {
-				return err
+			if errPrint := r.PrintResult(&vulnResult); errPrint != nil {
+				return fmt.Errorf("failed to write output: %v", errPrint)
 			}
-
-			if err := r.PrintResult(&vulnResult); err != nil {
-				return fmt.Errorf("failed to write output: %v", err)
-			}
-
-			return nil
+			return err
 		},
 	}
 
@@ -91,6 +98,10 @@ func run(args []string, stdout, stderr io.Writer) int {
 		if r == nil {
 			r = output.NewReporter(stdout, stderr, false)
 		}
+		if errors.Is(err, osvscanner.VulnerabilitiesFoundErr) {
+			return 1
+		}
+
 		if errors.Is(err, osvscanner.NoPackagesFoundErr) {
 			r.PrintError(fmt.Sprintf("No package sources found, --help for usage information.\n"))
 			return 128
