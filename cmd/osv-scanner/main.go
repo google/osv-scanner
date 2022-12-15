@@ -8,6 +8,8 @@ import (
 
 	"github.com/google/osv-scanner/internal/output"
 	"github.com/google/osv-scanner/pkg/osvscanner"
+
+	"github.com/urfave/cli/v2"
 )
 
 func run(args []string, stdout, stderr io.Writer) int {
@@ -67,7 +69,11 @@ func run(args []string, stdout, stderr io.Writer) int {
 		},
 		ArgsUsage: "[directory1 directory2...]",
 		Action: func(context *cli.Context) error {
-			r = output.NewReporter(stdout, stderr, context.Bool("json"), context.StringSlice("json"))
+			saveJsonPath, saveJsonPathSlc := "", context.StringSlice("json")
+			if len(saveJsonPathSlc) != 0 {
+				saveJsonPath = saveJsonPathSlc[0]
+			}
+			r = output.NewReporter(stdout, stderr, context.Bool("json"), saveJsonPath)
 
 			vulnResult, err := osvscanner.DoScan(osvscanner.ScannerActions{
 				LockfilePaths:        context.StringSlice("lockfile"),
