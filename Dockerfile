@@ -12,27 +12,15 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-FROM golang:alpine
-
-RUN mkdir /src
-WORKDIR /src
-
-COPY ./go.mod /src/go.mod
-COPY ./go.sum /src/go.sum
-RUN go mod download
-
-COPY ./ /src/
-RUN go build -o osv-scanner ./cmd/osv-scanner/
-
 FROM alpine:latest
-RUN apk --no-cache add \
+
+RUN apk add --no-cache \
     ca-certificates \
     git
 
 # Allow git to run on mounted directories
 RUN git config --global --add safe.directory '*'
 
-WORKDIR /root/
-COPY --from=0 /src/osv-scanner ./
+COPY osv-scanner ./
 
-ENTRYPOINT ["/root/osv-scanner"]
+ENTRYPOINT ["/osv-scanner"]

@@ -23,6 +23,7 @@ The above all results in fewer, more actionable vulnerability notifications, whi
     - [Input an SBOM](#input-an-sbom)
     - [Input a lockfile](#input-a-lockfile)
     - [Scanning a Debian based docker image packages](#scanning-a-debian-based-docker-image-packages)
+    - [Running in a Docker Container](running-in-a-docker-container)
   - [Configure OSV-Scanner](#configure-osv-scanner)
     - [Ignore vulnerabilities by ID](#ignore-vulnerabilities-by-id)
   - [JSON output](#json-output)
@@ -122,6 +123,27 @@ Requires `docker` to be installed and the tool to have permission calling it.
 
 ```bash
 $ go run ./cmd/osv-scanner --docker image_name:latest
+```
+
+### Running in a Docker Container
+
+The simplest way to get the osv-scanner docker image is to pull from GitHub Container Registry:
+
+```bash
+docker pull ghcr.io/google/osv-scanner:latest
+```
+
+Once you have the image, you can test that it works by running:
+
+```bash
+docker run -it ghcr.io/google/osv-scanner -h
+```
+
+Finally, to run it, mount the directory you want to scan to `/src` and pass the
+appropriate osv-scanner flags:
+
+```bash
+docker run -it -v ${PWD}:/src ghcr.io/google/osv-scanner -L /src/go.mod
 ```
 
 ## Configure OSV-Scanner
