@@ -50,7 +50,7 @@ func run(args []string, stdout, stderr io.Writer) int {
 				Name:      "output",
 				Aliases:   []string{"o"},
 				Usage:     "set path to save json output as file",
-				TakesFile: true,
+				TakesFile: false,
 			},
 			&cli.BoolFlag{
 				Name:  "json",
