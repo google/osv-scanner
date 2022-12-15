@@ -91,6 +91,7 @@ $ osv-scanner --sbom=/path/to/your/sbom.json
 
 A wide range of lockfiles are supported by utilizing this [lockfile package](https://github.com/google/osv-scanner/tree/main/pkg/lockfile). This is the current list of supported lockfiles:
 
+- `conan.lock`
 - `Cargo.lock`        
 - `package-lock.json` 
 - `yarn.lock`         
