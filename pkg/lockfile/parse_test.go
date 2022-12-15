@@ -2,11 +2,12 @@ package lockfile_test
 
 import (
 	"errors"
-	"github.com/google/osv-scanner/pkg/lockfile"
 	"os"
 	"reflect"
 	"strings"
 	"testing"
+
+	"github.com/google/osv-scanner/pkg/lockfile"
 )
 
 func expectNumberOfParsersCalled(t *testing.T, numberOfParsersCalled int) {
@@ -95,6 +96,8 @@ func TestParse_FindsExpectedParsers(t *testing.T) {
 		"poetry.lock",
 		"pubspec.lock",
 		"requirements.txt",
+		"gradle.lockfile",
+		"buildscript-gradle.lockfile",
 	}
 
 	count := 0
@@ -108,6 +111,9 @@ func TestParse_FindsExpectedParsers(t *testing.T) {
 
 		count++
 	}
+
+	// gradle.lockfile and buildscript-gradle.lockfile use the same parser
+	count = count - 1
 
 	expectNumberOfParsersCalled(t, count)
 }
@@ -131,12 +137,15 @@ func TestListParsers(t *testing.T) {
 
 	parsers := lockfile.ListParsers()
 
-	if first := parsers[0]; first != "Cargo.lock" {
-		t.Errorf("Expected first element to be Cargo.lock, but got %s", first)
+	firstExpected := "buildscript-gradle.lockfile"
+	lastExpected := "yarn.lock"
+
+	if first := parsers[0]; first != firstExpected {
+		t.Errorf("Expected first element to be %s, but got %s", firstExpected, first)
 	}
 
-	if last := parsers[len(parsers)-1]; last != "yarn.lock" {
-		t.Errorf("Expected last element to be requirements.txt, but got %s", last)
+	if last := parsers[len(parsers)-1]; last != lastExpected {
+		t.Errorf("Expected last element to be %s, but got %s", lastExpected, last)
 	}
 }
 
