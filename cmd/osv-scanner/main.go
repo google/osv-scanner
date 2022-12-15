@@ -4,6 +4,7 @@ import (
 	"errors"
 	"fmt"
 	"io"
+	"log"
 	"os"
 
 	"github.com/google/osv-scanner/internal/output"
@@ -74,7 +75,7 @@ func run(args []string, stdout, stderr io.Writer) int {
 				saveJsonPath = saveJsonPathSlc[0]
 			}
 			r = output.NewReporter(stdout, stderr, context.Bool("json"), saveJsonPath)
-
+			log.Printf("%v", context.StringSlice("output"))
 			vulnResult, err := osvscanner.DoScan(osvscanner.ScannerActions{
 				LockfilePaths:        context.StringSlice("lockfile"),
 				SBOMPaths:            context.StringSlice("sbom"),
