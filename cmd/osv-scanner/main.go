@@ -12,11 +12,23 @@ import (
 	"github.com/urfave/cli/v2"
 )
 
+var (
+	version = "dev"
+	commit  = "n/a"
+	date    = "n/a"
+)
+
 func run(args []string, stdout, stderr io.Writer) int {
 	var r *output.Reporter
 
+	cli.VersionPrinter = func(ctx *cli.Context) {
+		r = output.NewReporter(stdout, stderr, false)
+		r.PrintText(fmt.Sprintf("osv-scanner version: %s\ncommit: %s\nbuilt at: %s\n", ctx.App.Version, commit, date))
+	}
+
 	app := &cli.App{
 		Name:      "osv-scanner",
+		Version:   version,
 		Usage:     "scans various mediums for dependencies and matches it against the OSV database",
 		Suggest:   true,
 		Writer:    stdout,
