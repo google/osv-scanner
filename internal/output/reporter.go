@@ -12,13 +12,15 @@ type Reporter struct {
 	stdout       io.Writer
 	stderr       io.Writer
 	outputAsJSON bool
+	saveJsonPath string
 }
 
-func NewReporter(stdout io.Writer, stderr io.Writer, outputAsJSON bool) *Reporter {
+func NewReporter(stdout io.Writer, stderr io.Writer, outputAsJSON bool, saveJsonPath string) *Reporter {
 	return &Reporter{
 		stdout:       stdout,
 		stderr:       stderr,
 		outputAsJSON: outputAsJSON,
+		saveJsonPath: saveJsonPath,
 	}
 }
 
@@ -26,7 +28,7 @@ func NewReporter(stdout io.Writer, stderr io.Writer, outputAsJSON bool) *Reporte
 func NewVoidReporter() *Reporter {
 	stdout := new(strings.Builder)
 	stderr := new(strings.Builder)
-	return NewReporter(stdout, stderr, false)
+	return NewReporter(stdout, stderr, false, "")
 }
 
 // PrintError writes the given message to stderr, regardless of if the reporter
@@ -52,7 +54,7 @@ func (r *Reporter) PrintText(msg string) {
 
 func (r *Reporter) PrintResult(vulnResult *models.VulnerabilityResults) error {
 	if r.outputAsJSON {
-		return PrintJSONResults(vulnResult, r.stdout)
+		return PrintJSONResults(vulnResult, r.stdout, r.saveJsonPath)
 	}
 
 	PrintTableResults(vulnResult, r.stdout)

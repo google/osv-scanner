@@ -8,8 +8,6 @@ import (
 
 	"github.com/google/osv-scanner/internal/output"
 	"github.com/google/osv-scanner/pkg/osvscanner"
-
-	"github.com/urfave/cli/v2"
 )
 
 func run(args []string, stdout, stderr io.Writer) int {
@@ -45,6 +43,12 @@ func run(args []string, stdout, stderr io.Writer) int {
 				Usage:     "set/override config file",
 				TakesFile: true,
 			},
+			&cli.StringFlag{
+				Name:      "output",
+				Aliases:   []string{"o"},
+				Usage:     "set path to save json output as file",
+				TakesFile: true,
+			},
 			&cli.BoolFlag{
 				Name:  "json",
 				Usage: "sets output to json (WIP)",
@@ -63,7 +67,7 @@ func run(args []string, stdout, stderr io.Writer) int {
 		},
 		ArgsUsage: "[directory1 directory2...]",
 		Action: func(context *cli.Context) error {
-			r = output.NewReporter(stdout, stderr, context.Bool("json"))
+			r = output.NewReporter(stdout, stderr, context.Bool("json"), context.StringSlice("json"))
 
 			vulnResult, err := osvscanner.DoScan(osvscanner.ScannerActions{
 				LockfilePaths:        context.StringSlice("lockfile"),
@@ -84,7 +88,7 @@ func run(args []string, stdout, stderr io.Writer) int {
 
 	if err := app.Run(args); err != nil {
 		if r == nil {
-			r = output.NewReporter(stdout, stderr, false)
+			r = output.NewReporter(stdout, stderr, false, "")
 		}
 		if errors.Is(err, osvscanner.VulnerabilitiesFoundErr) {
 			return 1
