@@ -48,7 +48,7 @@ func run(args []string, stdout, stderr io.Writer) int {
 			},
 			&cli.StringFlag{
 				Name:      "output",
-				Aliases:   []string{"o"},
+				Aliases:   []string{"O"},
 				Usage:     "set path to save json output as file",
 				TakesFile: false,
 			},
@@ -70,12 +70,13 @@ func run(args []string, stdout, stderr io.Writer) int {
 		},
 		ArgsUsage: "[directory1 directory2...]",
 		Action: func(context *cli.Context) error {
-			saveJsonPath, saveJsonPathSlc := "", context.StringSlice("json")
+			saveJsonPath, saveJsonPathSlc := "", context.StringSlice("output")
 			if len(saveJsonPathSlc) != 0 {
 				saveJsonPath = saveJsonPathSlc[0]
 			}
 			r = output.NewReporter(stdout, stderr, context.Bool("json"), saveJsonPath)
-			log.Printf("%v", context.StringSlice("output"))
+			log.Printf("%v", context.String("output"))
+			log.Printf("%v", context.String("o"))
 			vulnResult, err := osvscanner.DoScan(osvscanner.ScannerActions{
 				LockfilePaths:        context.StringSlice("lockfile"),
 				SBOMPaths:            context.StringSlice("sbom"),
