@@ -58,7 +58,7 @@ Walks through a list of directories to find:
 - SBOMs
 - git directories for the latest commit hash
 
-which is used to build the list of dependencies to be matched against OSV vulnerabilities. 
+which is used to build the list of dependencies to be matched against OSV vulnerabilities.
 
 Can be configured to recursively walk through subdirectories with the `--recursive` / `-r` flag.
 
@@ -91,20 +91,21 @@ $ go run ./cmd/osv-scanner --sbom=/path/to/your/sbom.json
 
 A wide range of lockfiles are supported by utilizing this [lockfile package](https://github.com/google/osv-scanner/tree/main/pkg/lockfile). This is the current list of supported lockfiles:
 
-- `Cargo.lock`        
-- `package-lock.json` 
-- `yarn.lock`         
-- `pnpm-lock.yaml`    
-- `composer.lock`     
-- `Gemfile.lock`      
-- `go.mod`            
-- `mix.lock`          
+- `Cargo.lock`
+- `package-lock.json`
+- `yarn.lock`
+- `pnpm-lock.yaml`
+- `composer.lock`
+- `Gemfile.lock`
+- `go.mod`
+- `mix.lock`
 - `poetry.lock`
 - `pubspec.lock`
-- `pom.xml`[\*](https://github.com/google/osv-scanner/issues/35)        
+- `pom.xml`[\*](https://github.com/google/osv-scanner/issues/35)
 - `requirements.txt`[\*](https://github.com/google/osv-scanner/issues/34)
 - `gradle.lockfile`
 - `buildscript-gradle.lockfile`
+- `Pipfile.lock`
 
 #### Example
 
@@ -120,7 +121,7 @@ Currently only Debian based docker image scanning is supported.
 
 Requires `docker` to be installed and the tool to have permission calling it.
 
-This currently does not scan the filesystem of the Docker container, and has various other limitations. Follow [this issue](https://github.com/google/osv-scanner/issues/64) for updates on container scanning! 
+This currently does not scan the filesystem of the Docker container, and has various other limitations. Follow [this issue](https://github.com/google/osv-scanner/issues/64) for updates on container scanning!
 
 #### Example
 
@@ -149,7 +150,7 @@ reason = "No external http servers are written in Go lang."
 ```
 
 ## JSON output
-By default osv-scanner outputs a human readable table. To have osv-scanner output JSON instead, pass the `--json` flag when calling osv-scanner. 
+By default osv-scanner outputs a human readable table. To have osv-scanner output JSON instead, pass the `--json` flag when calling osv-scanner.
 
 When using the --json flag, only the JSON output will be printed to stdout, with all other outputs being directed to stderr. So to save only the json output to file, you can redirect the output with `osv-scanner --json ... > /path/to/file.json`
 
