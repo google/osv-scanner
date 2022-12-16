@@ -1,0 +1,19 @@
+# This sample gradle lockfile has bad lines
+#
+>>>
+////
+empty=======
+
+org.springframework.boot:spring-boot-autoconfigure:2.7.4=compileClasspath,developmentOnly,productionRuntimeClasspath,runtimeClasspath
+
+      a
+        b
+
+
+
+org.springframework.boot:spring-boot-configuration-processor:2.7.5=compileClasspath,developmentOnly,productionRuntimeClasspath,runtimeClasspath
+
+
+
+
+
