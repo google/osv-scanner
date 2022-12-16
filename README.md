@@ -104,6 +104,8 @@ A wide range of lockfiles are supported by utilizing this [lockfile package](htt
 - `pubspec.lock`
 - `pom.xml`[\*](https://github.com/google/osv-scanner/issues/35)        
 - `requirements.txt`[\*](https://github.com/google/osv-scanner/issues/34)
+- `gradle.lockfile`
+- `buildscript-gradle.lockfile`
 
 #### Example
 
@@ -111,13 +113,15 @@ A wide range of lockfiles are supported by utilizing this [lockfile package](htt
 $ go run ./cmd/osv-scanner --lockfile=/path/to/your/package-lock.json -L /path/to/another/Cargo.lock
 ```
 
-### Scanning a Debian based docker image packages
+### Scanning a Debian based docker image packages (preview)
 
 This tool will scrape the list of installed packages in a Debian image and query for vulnerabilities on them.
 
 Currently only Debian based docker image scanning is supported.
 
 Requires `docker` to be installed and the tool to have permission calling it.
+
+This currently does not scan the filesystem of the Docker container, and has various other limitations. Follow [this issue](https://github.com/google/osv-scanner/issues/64) for updates on container scanning! 
 
 #### Example
 
@@ -168,6 +172,8 @@ reason = "No external http servers are written in Go lang."
 
 ## JSON output
 By default osv-scanner outputs a human readable table. To have osv-scanner output JSON instead, pass the `--json` flag when calling osv-scanner. 
+
+When using the --json flag, only the JSON output will be printed to stdout, with all other outputs being directed to stderr. So to save only the json output to file, you can redirect the output with `osv-scanner --json ... > /path/to/file.json`
 
 ### Output Format
 ```json5
