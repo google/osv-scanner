@@ -112,13 +112,15 @@ A wide range of lockfiles are supported by utilizing this [lockfile package](htt
 $ go run ./cmd/osv-scanner --lockfile=/path/to/your/package-lock.json -L /path/to/another/Cargo.lock
 ```
 
-### Scanning a Debian based docker image packages
+### Scanning a Debian based docker image packages (preview)
 
 This tool will scrape the list of installed packages in a Debian image and query for vulnerabilities on them.
 
 Currently only Debian based docker image scanning is supported.
 
 Requires `docker` to be installed and the tool to have permission calling it.
+
+This currently does not scan the filesystem of the Docker container, and has various other limitations. Follow [this issue](https://github.com/google/osv-scanner/issues/64) for updates on container scanning! 
 
 #### Example
 
