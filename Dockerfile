@@ -49,4 +49,3 @@ COPY --from=0 /src/osv-scanner ./
 
 # Set the 'osv-scanner' binary as the entrypoint for the container
 ENTRYPOINT ["/root/osv-scanner"]
-
