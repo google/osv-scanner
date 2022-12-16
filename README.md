@@ -35,9 +35,18 @@ The above all results in fewer, more actionable vulnerability notifications, whi
 ### Installation Process
 You may download the [SLSA3](https://slsa.dev) compliant binaries for Linux, macOS, and Windows from our [releases page](https://github.com/google/osv-scanner/releases).
 
+#### Windows
+
+On Windows, you can install this using the [Scoop](https://scoop.sh/) package manager by running:
+
+```shell
+scoop install osv-scanner
+```
+
 #### Install from source
 
 Alternatively, you can install this from source by running:
+
 ```bash
 $ go install github.com/google/osv-scanner/cmd/osv-scanner@v1
 ```
@@ -45,6 +54,7 @@ $ go install github.com/google/osv-scanner/cmd/osv-scanner@v1
 This requires Go 1.18+ to be installed.
 
 ### SemVer Adherence
+
 All releases on the same Major version will be guaranteed to have backward compatible JSON output and CLI arguments.
 
 ## Usage
