@@ -32,7 +32,7 @@ builds:
 dockers:
   - image_templates:
       - 'ghcr.io/google/osv-scanner:{{ .Tag }}-amd64'
-    dockerfile: Dockerfile
+    dockerfile: goreleaser.dockerfile
     use: buildx
     build_flag_templates:
       - "--pull"
@@ -48,7 +48,7 @@ dockers:
       - "--platform=linux/amd64"
   - image_templates:
       - 'ghcr.io/google/osv-scanner:{{ .Tag }}-arm64'
-    dockerfile: Dockerfile
+    dockerfile: goreleaser.dockerfile
     use: buildx
     build_flag_templates:
       - "--pull"
