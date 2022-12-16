@@ -147,7 +147,7 @@ reason = "No external http servers are written in Go lang."
 ## JSON output
 By default osv-scanner outputs a human readable table. To have osv-scanner output JSON instead, pass the `--json` flag when calling osv-scanner. 
 
-If you need to save the json to file, you can use `--json > /path/to/file.json`
+When using the --json flag, only the JSON output will be printed to stdout, with all other outputs being directed to stderr. So to save only the json output to file, you can redirect the output with `osv-scanner --json ... > /path/to/file.json`
 
 ### Output Format
 ```json5
