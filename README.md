@@ -22,7 +22,7 @@ The above all results in fewer, more actionable vulnerability notifications, whi
     - [Scan a directory](#scan-a-directory)
     - [Input an SBOM](#input-an-sbom)
     - [Input a lockfile](#input-a-lockfile)
-    - [Scanning a Debian based docker image packages](#scanning-a-debian-based-docker-image-packages)
+    - [Scanning a Debian based docker image packages](#scanning-a-debian-based-docker-image-packages-preview)
   - [Configure OSV-Scanner](#configure-osv-scanner)
     - [Ignore vulnerabilities by ID](#ignore-vulnerabilities-by-id)
   - [JSON output](#json-output)
