@@ -69,7 +69,7 @@ as real git repositories.
 #### Example
 
 ```bash
-$ go run ./cmd/osv-scanner -r /path/to/your/dir
+$ osv-scanner -r /path/to/your/dir
 ```
 
 ### Input an SBOM
@@ -84,7 +84,7 @@ auto-detected based on the input file contents.
 #### Example
 
 ```bash
-$ go run ./cmd/osv-scanner --sbom=/path/to/your/sbom.json
+$ osv-scanner --sbom=/path/to/your/sbom.json
 ```
 
 ### Input a lockfile
@@ -109,7 +109,7 @@ A wide range of lockfiles are supported by utilizing this [lockfile package](htt
 #### Example
 
 ```bash
-$ go run ./cmd/osv-scanner --lockfile=/path/to/your/package-lock.json -L /path/to/another/Cargo.lock
+$ osv-scanner --lockfile=/path/to/your/package-lock.json -L /path/to/another/Cargo.lock
 ```
 
 ### Scanning a Debian based docker image packages (preview)
@@ -125,7 +125,7 @@ This currently does not scan the filesystem of the Docker container, and has var
 #### Example
 
 ```bash
-$ go run ./cmd/osv-scanner --docker image_name:latest
+$ osv-scanner --docker image_name:latest
 ```
 
 ## Configure OSV-Scanner
