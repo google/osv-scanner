@@ -31,7 +31,6 @@ The above all results in fewer, more actionable vulnerability notifications, whi
 
 ## Installing
 
-
 ### Installation Process
 You may download the [SLSA3](https://slsa.dev) compliant binaries for Linux, macOS, and Windows from our [releases page](https://github.com/google/osv-scanner/releases).
 
