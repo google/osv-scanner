@@ -35,10 +35,9 @@ The above all results in fewer, more actionable vulnerability notifications, whi
 ### Installation Process
 You may download the [SLSA3](https://slsa.dev) compliant binaries for Linux, macOS, and Windows from our [releases page](https://github.com/google/osv-scanner/releases).
 
-#### Windows
+#### Package Managers
 
-On Windows, you can install this using the [Scoop](https://scoop.sh/) package manager by running:
-
+If you're a [**Windows Scoop**](https://scoop.sh) user, then you can install osv-scanner from the [official bucket](https://github.com/ScoopInstaller/Main/blob/master/bucket/osv-scanner.json):
 ```shell
 scoop install osv-scanner
 ```
