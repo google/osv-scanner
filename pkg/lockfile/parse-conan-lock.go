@@ -141,7 +141,11 @@ func parseConanRequires(packages *[]PackageDetails, requires []string) {
 
 func parseConanV2Lock(lockfile ConanLockFile) []PackageDetails {
 
-	packages := make([]PackageDetails, 0, len(lockfile.Requires)+len(lockfile.BuildRequires)+len(lockfile.PythonRequires))
+	packages := make(
+		[]PackageDetails,
+		0,
+		uint64(len(lockfile.Requires))+uint64(len(lockfile.BuildRequires))+uint64(len(lockfile.PythonRequires)),
+	)
 
 	parseConanRequires(&packages, lockfile.Requires)
 	parseConanRequires(&packages, lockfile.BuildRequires)
