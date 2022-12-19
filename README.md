@@ -10,7 +10,9 @@ OSV-Scanner provides an officially supported frontend to the [OSV database](http
 - Anyone can suggest improvements to advisories, resulting in a very high quality database
 - The OSV format unambiguously stores information about affected versions in a machine-readable format that precisely maps onto a developer’s list of packages
 
-The above all results in fewer, more actionable vulnerability notifications, which reduces the time needed to resolve them.
+The above all results in fewer, more actionable vulnerability notifications, which reduces the time needed to resolve them. Check out our [announcement blog post] for more details!
+
+[announcement blog post]: https://security.googleblog.com/2022/12/announcing-osv-scanner-vulnerability.html
 
 ## Table of Contents
 - [OSV-Scanner](#osv-scanner)
