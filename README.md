@@ -16,13 +16,14 @@ The above all results in fewer, more actionable vulnerability notifications, whi
 - [OSV-Scanner](#osv-scanner)
   - [Table of Contents](#table-of-contents)
   - [Installing](#installing)
-    - [Installation Process](#installation-process)
+    - [Package Managers](#package-managers)
+    - [Install from source](#install-from-source)
     - [SemVer Adherence](#semver-adherence)
   - [Usage](#usage)
     - [Scan a directory](#scan-a-directory)
     - [Input an SBOM](#input-an-sbom)
     - [Input a lockfile](#input-a-lockfile)
-    - [Scanning a Debian based docker image packages](#scanning-a-debian-based-docker-image-packages-preview)
+    - [Scanning a Debian based docker image packages (preview)](#scanning-a-debian-based-docker-image-packages-preview)
   - [Configure OSV-Scanner](#configure-osv-scanner)
     - [Ignore vulnerabilities by ID](#ignore-vulnerabilities-by-id)
   - [JSON output](#json-output)
@@ -31,13 +32,19 @@ The above all results in fewer, more actionable vulnerability notifications, whi
 
 ## Installing
 
-
-### Installation Process
 You may download the [SLSA3](https://slsa.dev) compliant binaries for Linux, macOS, and Windows from our [releases page](https://github.com/google/osv-scanner/releases).
 
-#### Install from source
+### Package Managers
+
+If you're a [**Windows Scoop**](https://scoop.sh) user, then you can install osv-scanner from the [official bucket](https://github.com/ScoopInstaller/Main/blob/master/bucket/osv-scanner.json):
+```shell
+scoop install osv-scanner
+```
+
+### Install from source
 
 Alternatively, you can install this from source by running:
+
 ```bash
 $ go install github.com/google/osv-scanner/cmd/osv-scanner@v1
 ```
@@ -45,6 +52,7 @@ $ go install github.com/google/osv-scanner/cmd/osv-scanner@v1
 This requires Go 1.18+ to be installed.
 
 ### SemVer Adherence
+
 All releases on the same Major version will be guaranteed to have backward compatible JSON output and CLI arguments.
 
 ## Usage
