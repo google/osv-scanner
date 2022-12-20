@@ -10,19 +10,22 @@ OSV-Scanner provides an officially supported frontend to the [OSV database](http
 - Anyone can suggest improvements to advisories, resulting in a very high quality database
 - The OSV format unambiguously stores information about affected versions in a machine-readable format that precisely maps onto a developer’s list of packages
 
-The above all results in fewer, more actionable vulnerability notifications, which reduces the time needed to resolve them.
+The above all results in fewer, more actionable vulnerability notifications, which reduces the time needed to resolve them. Check out our [announcement blog post] for more details!
+
+[announcement blog post]: https://security.googleblog.com/2022/12/announcing-osv-scanner-vulnerability.html
 
 ## Table of Contents
 - [OSV-Scanner](#osv-scanner)
   - [Table of Contents](#table-of-contents)
   - [Installing](#installing)
-    - [Installation Process](#installation-process)
+    - [Package Managers](#package-managers)
+    - [Install from source](#install-from-source)
     - [SemVer Adherence](#semver-adherence)
   - [Usage](#usage)
     - [Scan a directory](#scan-a-directory)
     - [Input an SBOM](#input-an-sbom)
     - [Input a lockfile](#input-a-lockfile)
-    - [Scanning a Debian based docker image packages](#scanning-a-debian-based-docker-image-packages)
+    - [Scanning a Debian based docker image packages (preview)](#scanning-a-debian-based-docker-image-packages-preview)
   - [Configure OSV-Scanner](#configure-osv-scanner)
     - [Ignore vulnerabilities by ID](#ignore-vulnerabilities-by-id)
   - [JSON output](#json-output)
@@ -31,13 +34,25 @@ The above all results in fewer, more actionable vulnerability notifications, whi
 
 ## Installing
 
-
-### Installation Process
 You may download the [SLSA3](https://slsa.dev) compliant binaries for Linux, macOS, and Windows from our [releases page](https://github.com/google/osv-scanner/releases).
 
-#### Install from source
+### Package Managers
+
+If you're a [**Windows Scoop**](https://scoop.sh) user, then you can install osv-scanner from the [official bucket](https://github.com/ScoopInstaller/Main/blob/master/bucket/osv-scanner.json):
+```shell
+scoop install osv-scanner
+```
+
+If you're a [Homebrew](https://brew.sh/) user, you can install [osv-scanner](https://formulae.brew.sh/formula/osv-scanner) via:
+
+```sh
+$ brew install osv-scanner
+```
+
+### Install from source
 
 Alternatively, you can install this from source by running:
+
 ```bash
 $ go install github.com/google/osv-scanner/cmd/osv-scanner@v1
 ```
@@ -45,6 +60,7 @@ $ go install github.com/google/osv-scanner/cmd/osv-scanner@v1
 This requires Go 1.18+ to be installed.
 
 ### SemVer Adherence
+
 All releases on the same Major version will be guaranteed to have backward compatible JSON output and CLI arguments.
 
 ## Usage
@@ -69,7 +85,7 @@ as real git repositories.
 #### Example
 
 ```bash
-$ go run ./cmd/osv-scanner -r /path/to/your/dir
+$ osv-scanner -r /path/to/your/dir
 ```
 
 ### Input an SBOM
@@ -84,7 +100,7 @@ auto-detected based on the input file contents.
 #### Example
 
 ```bash
-$ go run ./cmd/osv-scanner --sbom=/path/to/your/sbom.json
+$ osv-scanner --sbom=/path/to/your/sbom.json
 ```
 
 ### Input a lockfile
@@ -110,7 +126,7 @@ A wide range of lockfiles are supported by utilizing this [lockfile package](htt
 #### Example
 
 ```bash
-$ go run ./cmd/osv-scanner --lockfile=/path/to/your/package-lock.json -L /path/to/another/Cargo.lock
+$ osv-scanner --lockfile=/path/to/your/package-lock.json -L /path/to/another/Cargo.lock
 ```
 
 ### Scanning a Debian based docker image packages (preview)
@@ -126,7 +142,7 @@ This currently does not scan the filesystem of the Docker container, and has var
 #### Example
 
 ```bash
-$ go run ./cmd/osv-scanner --docker image_name:latest
+$ osv-scanner --docker image_name:latest
 ```
 
 ## Configure OSV-Scanner
