@@ -43,7 +43,7 @@ If you're a [**Windows Scoop**](https://scoop.sh) user, then you can install osv
 scoop install osv-scanner
 ```
 
-If you're a [Homebrew](https://brew.sh/), you can install [osv-scanner](https://formulae.brew.sh/formula/osv-scanner) via:
+If you're a [Homebrew](https://brew.sh/) user, you can install [osv-scanner](https://formulae.brew.sh/formula/osv-scanner) via:
 
 ```sh
 $ brew install osv-scanner
