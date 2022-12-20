@@ -16,12 +16,13 @@ import (
 )
 
 const sourceLength = 40
+const headerRow = table.Row{"OSV URL (ID In Bold)", "Ecosystem", "Package", "Version", "Source"}
 
 // PrintTableResults prints the osv scan results into a human friendly table.
 func PrintTableResults(vulnResult *models.VulnerabilityResults, outputWriter io.Writer) {
 	outputTable := table.NewWriter()
 	outputTable.SetOutputMirror(outputWriter)
-	outputTable.AppendHeader(table.Row{"OSV URL (ID In Bold)", "Ecosystem", "Affected Package", "Version", "Source"})
+	outputTable.AppendHeader(headerRow)
 
 	width, _, err := term.GetSize(int(os.Stdout.Fd()))
 	isTerminal := false
