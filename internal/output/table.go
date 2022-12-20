@@ -18,7 +18,7 @@ import (
 func PrintTableResults(vulnResult *models.VulnerabilityResults, outputWriter io.Writer) {
 	outputTable := table.NewWriter()
 	outputTable.SetOutputMirror(outputWriter)
-	outputTable.AppendHeader(table.Row{"OSV URL (ID In Bold)", "Ecosystem", "Affected Package", "Version", "Source"})
+	outputTable.AppendHeader(table.Row{"OSV URL (ID In Bold)", "Ecosystem", "Package", "Version", "Source"})
 
 	width, _, err := term.GetSize(int(os.Stdout.Fd()))
 	isTerminal := false
