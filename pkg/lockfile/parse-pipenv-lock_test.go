@@ -122,3 +122,15 @@ func TestParsePipenvLock_TwoPackagesAlt(t *testing.T) {
 		},
 	})
 }
+
+func TestParsePipenvLock_PackageWithoutVersion(t *testing.T) {
+	t.Parallel()
+
+	packages, err := lockfile.ParsePipenvLock("fixtures/pipenv/no-version.json")
+
+	if err != nil {
+		t.Errorf("Got unexpected error: %v", err)
+	}
+
+	expectPackages(t, packages, []lockfile.PackageDetails{})
+}
