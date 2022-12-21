@@ -89,6 +89,11 @@ func run(args []string, stdout, stderr io.Writer) int {
 				Usage:   "check subdirectories",
 				Value:   false,
 			},
+			&cli.StringFlag{
+				Name: "parse-as",
+				Usage: "name of a supported lockfile to parse the input files as",
+				Value: "",
+			},
 		},
 		ArgsUsage: "[directory1 directory2...]",
 		Action: func(context *cli.Context) error {
@@ -107,6 +112,7 @@ func run(args []string, stdout, stderr io.Writer) int {
 				Recursive:            context.Bool("recursive"),
 				SkipGit:              context.Bool("skip-git"),
 				ConfigOverridePath:   context.String("config"),
+				ParseAs:              context.String("parse-as"),
 				DirectoryPaths:       context.Args().Slice(),
 			}, r)
 

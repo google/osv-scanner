@@ -4,6 +4,7 @@ package main
 import (
 	"bytes"
 	"fmt"
+	"path/filepath"
 	"regexp"
 	"strings"
 	"testing"
@@ -232,6 +233,119 @@ func TestRun(t *testing.T) {
 				Scanned %%/fixtures/locks-many/composer.lock file and found 1 packages
 			`,
 			wantStderr: "",
+		},
+	}
+	for _, tt := range tests {
+		tt := tt
+		t.Run(tt.name, func(t *testing.T) {
+			t.Parallel()
+
+			testCli(t, tt)
+		})
+	}
+}
+
+func TestRun_ParseAs(t *testing.T) {
+	t.Parallel()
+
+	tests := []cliTestCase{
+		// invalid parse-as
+		{
+			name:         "",
+			args:         []string{"", "--parse-as", "my-file"},
+			wantExitCode: 127,
+			wantStdout:   "",
+			wantStderr: `
+				Don't know how to parse files as "my-file" - supported values are:
+					buildscript-gradle.lockfile
+					Cargo.lock
+					composer.lock
+					conan.lock
+					Gemfile.lock
+					go.mod
+					gradle.lockfile
+					mix.lock
+					package-lock.json
+					packages.lock.json
+					Pipfile.lock
+					pnpm-lock.yaml
+					poetry.lock
+					pom.xml
+					pubspec.lock
+					requirements.txt
+					yarn.lock
+
+			`,
+		},
+		// when a path to a file is given, parse-as is applied to that file
+		{
+			name:         "",
+			args:         []string{"", "--parse-as", "package-lock.json", filepath.FromSlash("./fixtures/locks-insecure/my-package-lock.json")},
+			wantExitCode: 1,
+			wantStdout: `
+				Scanning dir ./fixtures/locks-insecure/my-package-lock.json
+				Scanned %%/fixtures/locks-insecure/my-package-lock.json file and found 1 packages
+				+---------------------------------------------------+-----------+-----------+---------+----------------------------------------------+
+				| OSV URL (ID IN BOLD)                              | ECOSYSTEM | PACKAGE   | VERSION | SOURCE                                       |
+				+---------------------------------------------------+-----------+-----------+---------+----------------------------------------------+
+				| https://osv.dev/vulnerability/GHSA-whgm-jr23-g3j9 | npm       | ansi-html | 0.0.1   | fixtures/locks-insecure/my-package-lock.json |
+				+---------------------------------------------------+-----------+-----------+---------+----------------------------------------------+
+			`,
+			wantStderr: "",
+		},
+		// when a path to a directory is given, parse-as is applied to all files in the directory
+		{
+			name:         "",
+			args:         []string{"", "--parse-as", "package-lock.json", filepath.FromSlash("./fixtures/locks-insecure")},
+			wantExitCode: 1,
+			wantStdout: `
+				Scanning dir ./fixtures/locks-insecure
+				Scanned %%/fixtures/locks-insecure/composer.lock file and found 0 packages
+				Scanned %%/fixtures/locks-insecure/my-package-lock.json file and found 1 packages
+				+---------------------------------------------------+-----------+-----------+---------+----------------------------------------------+
+				| OSV URL (ID IN BOLD)                              | ECOSYSTEM | PACKAGE   | VERSION | SOURCE                                       |
+				+---------------------------------------------------+-----------+-----------+---------+----------------------------------------------+
+				| https://osv.dev/vulnerability/GHSA-whgm-jr23-g3j9 | npm       | ansi-html | 0.0.1   | fixtures/locks-insecure/my-package-lock.json |
+				+---------------------------------------------------+-----------+-----------+---------+----------------------------------------------+
+			`,
+			wantStderr: "",
+		},
+		// files that error on parsing don't stop parsable files from being checked
+		{
+			name:         "",
+			args:         []string{"", "--parse-as", "package-lock.json", filepath.FromSlash("./fixtures/locks-empty")},
+			wantExitCode: 128,
+			wantStdout: `
+				Scanning dir ./fixtures/locks-empty
+				Scanned %%/fixtures/locks-empty/composer.lock file and found 0 packages
+			`,
+			wantStderr: `
+				Attempted to scan lockfile but failed: %%/fixtures/locks-empty/Gemfile.lock
+				Attempted to scan lockfile but failed: %%/fixtures/locks-empty/yarn.lock
+				No package sources found, --help for usage information.
+			`,
+		},
+		// files that error on parsing don't stop parsable files from being checked
+		{
+			name:         "",
+			args:         []string{"", "--parse-as", "package-lock.json", filepath.FromSlash("./fixtures/locks-empty"), filepath.FromSlash("./fixtures/locks-insecure")},
+			wantExitCode: 1,
+			wantStdout: `
+				Scanning dir ./fixtures/locks-empty
+				Scanned %%/fixtures/locks-empty/composer.lock file and found 0 packages
+				Scanning dir ./fixtures/locks-insecure
+				Scanned %%/fixtures/locks-insecure/composer.lock file and found 0 packages
+				Scanned %%/fixtures/locks-insecure/my-package-lock.json file and found 1 packages
+				+---------------------------------------------------+-----------+-----------+---------+----------------------------------------------+
+				| OSV URL (ID IN BOLD)                              | ECOSYSTEM | PACKAGE   | VERSION | SOURCE                                       |
+				+---------------------------------------------------+-----------+-----------+---------+----------------------------------------------+
+				| https://osv.dev/vulnerability/GHSA-whgm-jr23-g3j9 | npm       | ansi-html | 0.0.1   | fixtures/locks-insecure/my-package-lock.json |
+				+---------------------------------------------------+-----------+-----------+---------+----------------------------------------------+
+			`,
+			wantStderr: `
+				Attempted to scan lockfile but failed: %%/fixtures/locks-empty/Gemfile.lock
+				Attempted to scan lockfile but failed: %%/fixtures/locks-empty/yarn.lock
+			`,
 		},
 	}
 	for _, tt := range tests {
