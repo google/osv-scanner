@@ -128,6 +128,14 @@ A wide range of lockfiles are supported by utilizing this [lockfile package](htt
 $ osv-scanner --lockfile=/path/to/your/package-lock.json -L /path/to/another/Cargo.lock
 ```
 
+The scanner will attempt to automatically determine the parser to use for each
+file based on the filename - you can manually specify the parser to use for all
+files with the `-parse-as` flag:
+
+```bash
+$ osv-scanner --parse-as 'requirements.txt' --lockfile=/path/to/your/extra-requirements.txt
+```
+
 ### Scanning a Debian based docker image packages (preview)
 
 This tool will scrape the list of installed packages in a Debian image and query for vulnerabilities on them.
