@@ -43,6 +43,7 @@ func TestFindParser(t *testing.T) {
 	lockfiles := []string{
 		"Cargo.lock",
 		"package-lock.json",
+		"packages.lock.json",
 		"yarn.lock",
 		"pnpm-lock.yaml",
 		"pubspec.lock",
@@ -86,6 +87,7 @@ func TestParse_FindsExpectedParsers(t *testing.T) {
 	lockfiles := []string{
 		"Cargo.lock",
 		"package-lock.json",
+		"packages.lock.json",
 		"yarn.lock",
 		"pnpm-lock.yaml",
 		"composer.lock",
