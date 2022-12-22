@@ -10,7 +10,9 @@ OSV-Scanner provides an officially supported frontend to the [OSV database](http
 - Anyone can suggest improvements to advisories, resulting in a very high quality database
 - The OSV format unambiguously stores information about affected versions in a machine-readable format that precisely maps onto a developer’s list of packages
 
-The above all results in fewer, more actionable vulnerability notifications, which reduces the time needed to resolve them.
+The above all results in fewer, more actionable vulnerability notifications, which reduces the time needed to resolve them. Check out our [announcement blog post] for more details!
+
+[announcement blog post]: https://security.googleblog.com/2022/12/announcing-osv-scanner-vulnerability.html
 
 ## Table of Contents
 - [OSV-Scanner](#osv-scanner)
@@ -40,6 +42,12 @@ You may download the [SLSA3](https://slsa.dev) compliant binaries for Linux, mac
 If you're a [**Windows Scoop**](https://scoop.sh) user, then you can install osv-scanner from the [official bucket](https://github.com/ScoopInstaller/Main/blob/master/bucket/osv-scanner.json):
 ```shell
 scoop install osv-scanner
+```
+
+If you're a [Homebrew](https://brew.sh/) user, you can install [osv-scanner](https://formulae.brew.sh/formula/osv-scanner) via:
+
+```sh
+$ brew install osv-scanner
 ```
 
 ### Install from source
