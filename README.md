@@ -40,22 +40,22 @@ You may download the [SLSA3](https://slsa.dev) compliant binaries for Linux, mac
 
 If you're a [**Windows Scoop**](https://scoop.sh) user, then you can install osv-scanner from the [official bucket](https://github.com/ScoopInstaller/Main/blob/master/bucket/osv-scanner.json):
 
-```shell
+```console
 scoop install osv-scanner
 ```
 
 If you're a [Homebrew](https://brew.sh/) user, you can install [osv-scanner](https://formulae.brew.sh/formula/osv-scanner) via:
 
-```sh
-$ brew install osv-scanner
+```console
+brew install osv-scanner
 ```
 
 ### Install from source
 
 Alternatively, you can install this from source by running:
 
-```bash
-$ go install github.com/google/osv-scanner/cmd/osv-scanner@v1
+```console
+go install github.com/google/osv-scanner/cmd/osv-scanner@v1
 ```
 
 This requires Go 1.18+ to be installed.
@@ -86,8 +86,8 @@ as real git repositories.
 
 #### Example
 
-```bash
-$ osv-scanner -r /path/to/your/dir
+```console
+osv-scanner -r /path/to/your/dir
 ```
 
 ### Input an SBOM
@@ -101,8 +101,8 @@ auto-detected based on the input file contents.
 
 #### Example
 
-```bash
-$ osv-scanner --sbom=/path/to/your/sbom.json
+```console
+osv-scanner --sbom=/path/to/your/sbom.json
 ```
 
 ### Input a lockfile
@@ -126,8 +126,8 @@ A wide range of lockfiles are supported by utilizing this [lockfile package](htt
 
 #### Example
 
-```bash
-$ osv-scanner --lockfile=/path/to/your/package-lock.json -L /path/to/another/Cargo.lock
+```console
+osv-scanner --lockfile=/path/to/your/package-lock.json -L /path/to/another/Cargo.lock
 ```
 
 ### Scanning a Debian based docker image packages (preview)
@@ -142,8 +142,8 @@ This currently does not scan the filesystem of the Docker container, and has var
 
 #### Example
 
-```bash
-$ osv-scanner --docker image_name:latest
+```console
+osv-scanner --docker image_name:latest
 ```
 
 ## Configure OSV-Scanner
