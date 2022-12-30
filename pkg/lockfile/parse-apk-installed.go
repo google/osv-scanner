@@ -17,39 +17,37 @@ func ParseApkInstalled(pathToLockfile string) ([]PackageDetails, error) {
 		return packages, fmt.Errorf("could not open %s: %w", pathToLockfile, err)
 	}
 	defer file.Close()
-	
+
 	scanner := bufio.NewScanner(file)
-	
+
 	var curPkg PackageDetails = PackageDetails{}
 
 	for scanner.Scan() {
 		line := scanner.Text()
-		if line == ""{
+		if line == "" {
 			// First line is empty or multiple empty lines, no current package values
-			if (PackageDetails{}) == curPkg{
+			if (PackageDetails{}) == curPkg {
 				continue
 			}
-			// Empty line follows a package info block. Append package
-			//TODO Check if PackageDetails is valid?
+			// Empty line follows a package info block. Append package before going to next one
 			packages = append(packages, curPkg)
 			curPkg = PackageDetails{}
 			continue
 		}
-		// https://wiki.alpinelinux.org/wiki/Apk_spec
-		if strings.HasPrefix(line,"P:"){
-			curPkg.Name = strings.Split(line,"P:")[1]
-		} else if strings.HasPrefix(line,"V:"){
-			curPkg.Version = strings.Split(line,"V:")[1]
-			// Add only in one of the
+		// File SPECS: https://wiki.alpinelinux.org/wiki/Apk_spec
+		if strings.HasPrefix(line, "P:") {
+			curPkg.Name = strings.Split(line, "P:")[1]
+		} else if strings.HasPrefix(line, "V:") {
+			curPkg.Version = strings.Split(line, "V:")[1]
 			curPkg.Ecosystem = AlpineEcosystem
 			curPkg.CompareAs = AlpineEcosystem
 		}
-			
+
 	}
-	if (PackageDetails{}) != curPkg{
+	if (PackageDetails{}) != curPkg {
 		packages = append(packages, curPkg)
 	}
-	
+
 	if err := scanner.Err(); err != nil {
 		return packages, fmt.Errorf("error while scanning %s: %w", pathToLockfile, err)
 	}
