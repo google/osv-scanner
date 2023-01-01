@@ -32,7 +32,7 @@ var parsers = map[string]PackageDetailsParser{
 	"yarn.lock":                   ParseYarnLock,
 	"gradle.lockfile":             ParseGradleLock,
 	"buildscript-gradle.lockfile": ParseGradleLock,
-	"installed": 				   ParseApkInstalled,
+	"installed":                   ParseApkInstalled,
 }
 
 func ListParsers() []string {

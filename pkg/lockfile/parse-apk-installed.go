@@ -36,9 +36,9 @@ func ParseApkInstalled(pathToLockfile string) ([]PackageDetails, error) {
 		}
 		// File SPECS: https://wiki.alpinelinux.org/wiki/Apk_spec
 		if strings.HasPrefix(line, "P:") {
-			curPkg.Name = strings.Split(line, "P:")[1]
+			curPkg.Name = strings.TrimPrefix(line, "P:")
 		} else if strings.HasPrefix(line, "V:") {
-			curPkg.Version = strings.Split(line, "V:")[1]
+			curPkg.Version = strings.TrimPrefix(line, "V:")
 			curPkg.Ecosystem = AlpineEcosystem
 			curPkg.CompareAs = AlpineEcosystem
 		}
