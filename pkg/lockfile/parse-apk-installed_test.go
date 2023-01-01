@@ -5,6 +5,15 @@ import (
 	"testing"
 )
 
+func TestParseApkInstalled_FileDoesNotExist(t *testing.T) {
+	t.Parallel()
+
+	packages, err := lockfile.ParseRequirementsTxt("fixtures/apk/does-not-exist")
+
+	expectErrContaining(t, err, "could not open")
+	expectPackages(t, packages, []lockfile.PackageDetails{})
+}
+
 func TestParseApkInstalled_Empty(t *testing.T) {
 	t.Parallel()
 
@@ -21,6 +30,25 @@ func TestParseApkInstalled_Single(t *testing.T) {
 	t.Parallel()
 
 	packages, err := lockfile.ParseApkInstalled("fixtures/apk/single_installed")
+
+	if err != nil {
+		t.Errorf("Got unexpected error: %v", err)
+	}
+
+	expectPackages(t, packages, []lockfile.PackageDetails{
+		{
+			Name:      "apk-tools",
+			Version:   "2.12.10-r1",
+			Ecosystem: lockfile.AlpineEcosystem,
+			CompareAs: lockfile.AlpineEcosystem,
+		},
+	})
+}
+
+func TestParseApkInstalled_Shuffled(t *testing.T) {
+	t.Parallel()
+
+	packages, err := lockfile.ParseApkInstalled("fixtures/apk/shuffled_installed")
 
 	if err != nil {
 		t.Errorf("Got unexpected error: %v", err)
