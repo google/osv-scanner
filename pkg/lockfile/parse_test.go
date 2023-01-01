@@ -98,6 +98,7 @@ func TestParse_FindsExpectedParsers(t *testing.T) {
 		"requirements.txt",
 		"gradle.lockfile",
 		"buildscript-gradle.lockfile",
+		"installed",
 	}
 
 	count := 0
