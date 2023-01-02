@@ -60,6 +60,13 @@ go install github.com/google/osv-scanner/cmd/osv-scanner@v1
 
 This requires Go 1.18+ to be installed.
 
+### Releasing
+
+Releases are created with [GoReleaser](https://goreleaser.com/).
+
+You can reproduce the builds locally by checking out a specific tag and calling `goreleaser build`, using the same
+Go version as the one used during the actual release (see goreleaser workflows).
+
 ### SemVer Adherence
 
 All releases on the same Major version will be guaranteed to have backward compatible JSON output and CLI arguments.
