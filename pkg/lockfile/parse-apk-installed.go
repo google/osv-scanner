@@ -30,6 +30,23 @@ func ParseApkInstalled(pathToLockfile string) ([]PackageDetails, error) {
 				continue
 			}
 			// Empty line follows a package info block. Append package before going to next one
+			// If Package name is missing, record is invalid then skip
+			if curPkg.Name == "" {
+				_, _ = fmt.Fprintf(
+					os.Stderr,
+					"Warning: malformed APK installed file. Found no package name in record. File: %s\n",
+					pathToLockfile,
+				)
+				curPkg = PackageDetails{}
+				continue
+			}
+			if curPkg.Version == "" {
+				_, _ = fmt.Fprintf(
+					os.Stderr,
+					"Warning: malformed APK installed file. Found no version number in record. File: %s\n",
+					pathToLockfile,
+				)
+			}
 			packages = append(packages, curPkg)
 			curPkg = PackageDetails{}
 			continue
@@ -37,15 +54,33 @@ func ParseApkInstalled(pathToLockfile string) ([]PackageDetails, error) {
 		// File SPECS: https://wiki.alpinelinux.org/wiki/Apk_spec
 		if strings.HasPrefix(line, "P:") {
 			curPkg.Name = strings.TrimPrefix(line, "P:")
-		} else if strings.HasPrefix(line, "V:") {
-			curPkg.Version = strings.TrimPrefix(line, "V:")
 			curPkg.Ecosystem = AlpineEcosystem
 			curPkg.CompareAs = AlpineEcosystem
+		} else if strings.HasPrefix(line, "V:") {
+			curPkg.Version = strings.TrimPrefix(line, "V:")
+		} else if strings.HasPrefix(line, "c:") {
+			curPkg.Commit = strings.TrimPrefix(line, "c:")
 		}
 
 	}
+
 	if (PackageDetails{}) != curPkg {
-		packages = append(packages, curPkg)
+		if curPkg.Name == "" {
+			_, _ = fmt.Fprintf(
+				os.Stderr,
+				"Warning: malformed APK installed file. Found no package name in record. File: %s\n",
+				pathToLockfile,
+			)
+		} else {
+			if curPkg.Version == "" {
+				_, _ = fmt.Fprintf(
+					os.Stderr,
+					"Warning: malformed APK installed file. Found no version number in record. File: %s\n",
+					pathToLockfile,
+				)
+			}
+			packages = append(packages, curPkg)
+		}
 	}
 
 	if err := scanner.Err(); err != nil {
