@@ -70,7 +70,7 @@ $ goreleaser build --rm-dist --single-target --snapshot
 
 See GoReleaser [documentation](https://goreleaser.com/cmd/goreleaser_build/) for build options.
 
-You can also reproduce the downloadable builds by checking out the specific tag and calling `goreleaser build`,
+You can also reproduce the downloadable builds by checking out the specific tag and running `goreleaser build`,
 using the same Go version as the one used during the actual release (see goreleaser workflows).
 
 ### SemVer Adherence
