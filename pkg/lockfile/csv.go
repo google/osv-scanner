@@ -97,13 +97,13 @@ func FromCSVRows(filePath string, parseAs string, rows []string) (Lockfile, erro
 }
 
 func FromCSVFile(pathToCSV string, parseAs string) (Lockfile, error) {
-	reader, err := os.Open(pathToCSV)
-
+	file, err := os.Open(pathToCSV)
 	if err != nil {
 		return Lockfile{}, fmt.Errorf("could not read %s: %w", pathToCSV, err)
 	}
+	defer file.Close()
 
-	packages, err := fromCSV(reader)
+	packages, err := fromCSV(file)
 
 	if err != nil {
 		err = fmt.Errorf("%s: %w", pathToCSV, err)
