@@ -37,15 +37,14 @@ func parseToGradlePackageDetail(line string) (PackageDetails, error) {
 }
 
 func ParseGradleLock(pathToLockfile string) ([]PackageDetails, error) {
-	lockFile, err := os.Open(pathToLockfile)
+	file, err := os.Open(pathToLockfile)
 	if err != nil {
 		return []PackageDetails{}, fmt.Errorf("could not open %s: %w", pathToLockfile, err)
 	}
-
-	defer lockFile.Close()
+	defer file.Close()
 
 	pkgs := make([]PackageDetails, 0, 0)
-	scanner := bufio.NewScanner(lockFile)
+	scanner := bufio.NewScanner(file)
 
 	for scanner.Scan() {
 		lockLine := strings.TrimSpace(scanner.Text())
