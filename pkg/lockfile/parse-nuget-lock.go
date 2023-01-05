@@ -62,5 +62,9 @@ func ParseNuGetLock(pathToLockfile string) ([]PackageDetails, error) {
 		return []PackageDetails{}, fmt.Errorf("could not parse %s: %w", pathToLockfile, err)
 	}
 
+	if parsedLockfile.Version != 1 {
+		return []PackageDetails{}, fmt.Errorf("could not parse %s: unsupported lock file version", pathToLockfile)
+	}
+
 	return parseNuGetLock(*parsedLockfile)
 }
