@@ -109,6 +109,7 @@ A wide range of lockfiles are supported by utilizing this [lockfile package](htt
 
 - `Cargo.lock`        
 - `package-lock.json` 
+- `packages.lock.json`
 - `yarn.lock`         
 - `pnpm-lock.yaml`    
 - `composer.lock`     
