@@ -34,10 +34,10 @@ func groupApkPackageLines(scanner *bufio.Scanner) [][]string {
 }
 
 func parseApkPackageGroup(group []string, pathToLockfile string) PackageDetails {
-	var pkg = PackageDetails{}
-
-	pkg.Ecosystem = AlpineEcosystem
-	pkg.CompareAs = AlpineEcosystem
+	var pkg = PackageDetails{
+		Ecosystem: AlpineEcosystem,
+		CompareAs: AlpineEcosystem,
+	}
 
 	// File SPECS: https://wiki.alpinelinux.org/wiki/Apk_spec
 	for _, line := range group {
@@ -52,9 +52,15 @@ func parseApkPackageGroup(group []string, pathToLockfile string) PackageDetails 
 	}
 
 	if pkg.Version == "" {
+		var pkgPrintName string = pkg.Name
+		if pkgPrintName == "" {
+			pkgPrintName = "<unknown>"
+		}
+
 		_, _ = fmt.Fprintf(
 			os.Stderr,
-			"warning: malformed APK installed file. Found no version number in record. File: %s\n",
+			"warning: malformed APK installed file. Found no version number in record. Package %s. File: %s\n",
+			pkgPrintName,
 			pathToLockfile,
 		)
 	}
@@ -63,7 +69,6 @@ func parseApkPackageGroup(group []string, pathToLockfile string) PackageDetails 
 }
 
 func ParseApkInstalled(pathToLockfile string) ([]PackageDetails, error) {
-
 	file, err := os.Open(pathToLockfile)
 	if err != nil {
 		return []PackageDetails{}, fmt.Errorf("could not open %s: %w", pathToLockfile, err)
@@ -86,9 +91,9 @@ func ParseApkInstalled(pathToLockfile string) ([]PackageDetails, error) {
 				pathToLockfile,
 			)
 			continue
-		} else {
-			packages = append(packages, pkg)
 		}
+
+		packages = append(packages, pkg)
 	}
 
 	if err := scanner.Err(); err != nil {
