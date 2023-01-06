@@ -45,7 +45,7 @@ type ConanLockFile struct {
 }
 
 // TODO this is tentative and subject to change depending on the OSV schema
-const ConanEcosystem Ecosystem = "conan"
+const ConanEcosystem Ecosystem = "ConanCenter"
 
 func parseConanRenference(ref string) ConanReference {
 	// very flexible format name/version[@username[/channel]][#rrev][:pkgid[#prev]][%timestamp]
