@@ -111,6 +111,7 @@ A wide range of lockfiles are supported by utilizing this [lockfile package](htt
 
 - `Cargo.lock`
 - `package-lock.json`
+- `packages.lock.json`
 - `yarn.lock`
 - `pnpm-lock.yaml`
 - `composer.lock`
@@ -127,7 +128,7 @@ A wide range of lockfiles are supported by utilizing this [lockfile package](htt
 #### Example
 
 ```console
-osv-scanner --lockfile=/path/to/your/package-lock.json -L /path/to/another/Cargo.lock
+$ osv-scanner --lockfile=/path/to/your/package-lock.json --lockfile=/path/to/another/Cargo.lock
 ```
 
 ### Scanning a Debian based docker image packages (preview)
