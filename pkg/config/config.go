@@ -114,10 +114,12 @@ func normalizeConfigLoadPath(target string) (string, error) {
 // tryLoadConfig tries to load config in `target` (or it's containing directory)
 // `target` will be the key for the entry in configMap
 func tryLoadConfig(r *output.Reporter, configPath string) (Config, error) {
-	configFile, err := os.Open(configPath)
+	file, err := os.Open(configPath)
 	var config Config
 	if err == nil { // File exists, and we have permission to read
-		_, err := toml.NewDecoder(configFile).Decode(&config)
+		defer file.Close()
+
+		_, err := toml.NewDecoder(file).Decode(&config)
 		if err != nil {
 			return Config{}, fmt.Errorf("failed to parse config file: %w\n", err)
 		}

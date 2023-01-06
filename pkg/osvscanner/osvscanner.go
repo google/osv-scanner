@@ -109,6 +109,7 @@ func scanSBOMFile(r *output.Reporter, query *osv.BatchedQuery, path string) erro
 	if err != nil {
 		return err
 	}
+	defer file.Close()
 
 	for _, provider := range sbom.Providers {
 		if provider.Name() == "SPDX" &&

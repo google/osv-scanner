@@ -1,6 +1,6 @@
-[![OpenSSF Scorecard](https://api.securityscorecards.dev/projects/github.com/google/osv-scanner/badge)](https://api.securityscorecards.dev/projects/github.com/google/osv-scanner)
-
 # OSV-Scanner
+
+[![OpenSSF Scorecard](https://api.securityscorecards.dev/projects/github.com/google/osv-scanner/badge)](https://api.securityscorecards.dev/projects/github.com/google/osv-scanner)
 
 Use OSV-Scanner to find existing vulnerabilities affecting your project's dependencies.
 
@@ -15,6 +15,7 @@ The above all results in fewer, more actionable vulnerability notifications, whi
 [announcement blog post]: https://security.googleblog.com/2022/12/announcing-osv-scanner-vulnerability.html
 
 ## Table of Contents
+
 - [OSV-Scanner](#osv-scanner)
   - [Table of Contents](#table-of-contents)
   - [Installing](#installing)
@@ -31,7 +32,6 @@ The above all results in fewer, more actionable vulnerability notifications, whi
   - [JSON output](#json-output)
     - [Output Format](#output-format)
 
-
 ## Installing
 
 You may download the [SLSA3](https://slsa.dev) compliant binaries for Linux, macOS, and Windows from our [releases page](https://github.com/google/osv-scanner/releases).
@@ -39,22 +39,23 @@ You may download the [SLSA3](https://slsa.dev) compliant binaries for Linux, mac
 ### Package Managers
 
 If you're a [**Windows Scoop**](https://scoop.sh) user, then you can install osv-scanner from the [official bucket](https://github.com/ScoopInstaller/Main/blob/master/bucket/osv-scanner.json):
-```shell
+
+```console
 scoop install osv-scanner
 ```
 
 If you're a [Homebrew](https://brew.sh/) user, you can install [osv-scanner](https://formulae.brew.sh/formula/osv-scanner) via:
 
-```sh
-$ brew install osv-scanner
+```console
+brew install osv-scanner
 ```
 
 ### Install from source
 
 Alternatively, you can install this from source by running:
 
-```bash
-$ go install github.com/google/osv-scanner/cmd/osv-scanner@v1
+```console
+go install github.com/google/osv-scanner/cmd/osv-scanner@v1
 ```
 
 This requires Go 1.18+ to be installed.
@@ -70,6 +71,7 @@ OSV-Scanner collects a list of dependencies and versions that are used in your p
 ### Scan a directory
 
 Walks through a list of directories to find:
+
 - Lockfiles
 - SBOMs
 - git directories for the latest commit hash
@@ -84,8 +86,8 @@ as real git repositories.
 
 #### Example
 
-```bash
-$ osv-scanner -r /path/to/your/dir
+```console
+osv-scanner -r /path/to/your/dir
 ```
 
 ### Input an SBOM
@@ -99,8 +101,8 @@ auto-detected based on the input file contents.
 
 #### Example
 
-```bash
-$ osv-scanner --sbom=/path/to/your/sbom.json
+```console
+osv-scanner --sbom=/path/to/your/sbom.json
 ```
 
 ### Input a lockfile
@@ -109,6 +111,7 @@ A wide range of lockfiles are supported by utilizing this [lockfile package](htt
 
 - `Cargo.lock`
 - `package-lock.json`
+- `packages.lock.json`
 - `yarn.lock`
 - `pnpm-lock.yaml`
 - `composer.lock`
@@ -125,8 +128,8 @@ A wide range of lockfiles are supported by utilizing this [lockfile package](htt
 
 #### Example
 
-```bash
-$ osv-scanner --lockfile=/path/to/your/package-lock.json -L /path/to/another/Cargo.lock
+```console
+$ osv-scanner --lockfile=/path/to/your/package-lock.json --lockfile=/path/to/another/Cargo.lock
 ```
 
 ### Scanning a Debian based docker image packages (preview)
@@ -141,8 +144,8 @@ This currently does not scan the filesystem of the Docker container, and has var
 
 #### Example
 
-```bash
-$ osv-scanner --docker image_name:latest
+```console
+osv-scanner --docker image_name:latest
 ```
 
 ## Configure OSV-Scanner
@@ -150,11 +153,14 @@ $ osv-scanner --docker image_name:latest
 To configure scanning, place an osv-scanner.toml file in the scanned file's directory. To override this osv-scanner.toml file, pass the `--config=/path/to/config.toml` flag with the path to the configuration you want to apply instead.
 
 Currently, there is only 1 option to configure:
+
 ### Ignore vulnerabilities by ID
+
 To ignore a vulnerability, enter the ID under the `IgnoreVulns` key. Optionally, add an expiry date or reason.
 
 #### Example
-```
+
+```toml
 [[IgnoredVulns]]
 id = "GO-2022-0968"
 # ignoreUntil = 2022-11-09 # Optional exception expiry date
@@ -171,6 +177,7 @@ By default osv-scanner outputs a human readable table. To have osv-scanner outpu
 When using the --json flag, only the JSON output will be printed to stdout, with all other outputs being directed to stderr. So to save only the json output to file, you can redirect the output with `osv-scanner --json ... > /path/to/file.json`
 
 ### Output Format
+
 ```json5
 {
   "results": [
