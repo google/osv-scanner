@@ -56,6 +56,7 @@ func TestFindParser(t *testing.T) {
 		"poetry.lock",
 		"pubspec.lock",
 		"requirements.txt",
+		"Pipfile.lock",
 	}
 
 	for _, file := range lockfiles {
@@ -100,6 +101,7 @@ func TestParse_FindsExpectedParsers(t *testing.T) {
 		"go.mod",
 		"gradle.lockfile",
 		"mix.lock",
+		"Pipfile.lock",
 		"pom.xml",
 		"poetry.lock",
 		"pubspec.lock",

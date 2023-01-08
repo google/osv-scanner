@@ -124,6 +124,7 @@ A wide range of lockfiles are supported by utilizing this [lockfile package](htt
 - `requirements.txt`[\*](https://github.com/google/osv-scanner/issues/34)
 - `gradle.lockfile`
 - `buildscript-gradle.lockfile`
+- `Pipfile.lock`
 
 #### Example
 
@@ -171,7 +172,6 @@ reason = "No external http servers are written in Go lang."
 ```
 
 ## JSON output
-
 By default osv-scanner outputs a human readable table. To have osv-scanner output JSON instead, pass the `--json` flag when calling osv-scanner.
 
 When using the --json flag, only the JSON output will be printed to stdout, with all other outputs being directed to stderr. So to save only the json output to file, you can redirect the output with `osv-scanner --json ... > /path/to/file.json`
