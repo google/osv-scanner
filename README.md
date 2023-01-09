@@ -110,23 +110,23 @@ osv-scanner --sbom=/path/to/your/sbom.json
 
 A wide range of lockfiles are supported by utilizing this [lockfile package](https://github.com/google/osv-scanner/tree/main/pkg/lockfile). This is the current list of supported lockfiles:
 
+- `buildscript-gradle.lockfile`
 - `Cargo.lock`
-- `package-lock.json`
-- `packages.lock.json`
-- `yarn.lock`
-- `pnpm-lock.yaml`
 - `composer.lock`
 - `Gemfile.lock`
 - `go.mod`
-- `mix.lock`
-- `poetry.lock`
-- `pubspec.lock`
-- `pom.xml`[\*](https://github.com/google/osv-scanner/issues/35)
-- `requirements.txt`[\*](https://github.com/google/osv-scanner/issues/34)
 - `gradle.lockfile`
-- `buildscript-gradle.lockfile`
-- `/lib/apk/db/installed` (Alpine)
+- `mix.lock`
+- `package-lock.json`
+- `packages.lock.json`
 - `Pipfile.lock`
+- `pnpm-lock.yaml`
+- `poetry.lock`
+- `pom.xml`[\*](https://github.com/google/osv-scanner/issues/35)
+- `pubspec.lock`
+- `requirements.txt`[\*](https://github.com/google/osv-scanner/issues/34)
+- `yarn.lock`
+- `/lib/apk/db/installed` (Alpine)
 
 #### Example
 
@@ -212,7 +212,7 @@ When using the --json flag, only the JSON output will be printed to stdout, with
       },
       "packages": [
         {
-          "Package": {
+          "package": {
             "name": "github.com/gogo/protobuf",
             "version": "1.3.1",
             "ecosystem": "Go"
@@ -254,7 +254,7 @@ When using the --json flag, only the JSON output will be printed to stdout, with
       },
       "packages": [
         {
-          "Package": {
+          "package": {
             "name": "regex",
             "version": "1.5.1",
             "ecosystem": "crates.io"
