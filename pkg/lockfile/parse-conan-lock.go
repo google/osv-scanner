@@ -153,13 +153,11 @@ func parseConanV2Lock(lockfile ConanLockFile) []PackageDetails {
 }
 
 func parseConanLock(lockfile ConanLockFile) []PackageDetails {
-
 	if lockfile.GraphLock.Nodes != nil {
-
 		return parseConanV1Lock(lockfile)
-	} else {
-		return parseConanV2Lock(lockfile)
 	}
+
+	return parseConanV2Lock(lockfile)
 }
 
 func ParseConanLock(pathToLockfile string) ([]PackageDetails, error) {
