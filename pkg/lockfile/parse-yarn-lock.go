@@ -15,7 +15,7 @@ func shouldSkipYarnLine(line string) bool {
 	return line == "" || strings.HasPrefix(line, "#")
 }
 
-func groupPackageLines(scanner *bufio.Scanner) [][]string {
+func groupYarnPackageLines(scanner *bufio.Scanner) [][]string {
 	var groups [][]string
 	var group []string
 
@@ -148,7 +148,7 @@ func tryExtractCommit(resolution string) string {
 	return ""
 }
 
-func parsePackageGroup(group []string) PackageDetails {
+func parseYarnPackageGroup(group []string) PackageDetails {
 	name := extractYarnPackageName(group[0])
 	version := determineYarnPackageVersion(group)
 	resolution := determineYarnPackageResolution(group)
@@ -179,7 +179,7 @@ func ParseYarnLock(pathToLockfile string) ([]PackageDetails, error) {
 
 	scanner := bufio.NewScanner(file)
 
-	packageGroups := groupPackageLines(scanner)
+	packageGroups := groupYarnPackageLines(scanner)
 
 	if err := scanner.Err(); err != nil {
 		return []PackageDetails{}, fmt.Errorf("error while scanning %s: %w", pathToLockfile, err)
@@ -192,7 +192,7 @@ func ParseYarnLock(pathToLockfile string) ([]PackageDetails, error) {
 			continue
 		}
 
-		packages = append(packages, parsePackageGroup(group))
+		packages = append(packages, parseYarnPackageGroup(group))
 	}
 
 	return packages, nil
