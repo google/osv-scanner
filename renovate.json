@@ -6,6 +6,7 @@
   "timezone": "Australia/Sydney",
   "schedule": ["before 6am on monday"],
   "labels": ["dependencies"],
+  "postUpdateOptions": ["gomodTidy"],
   "packageRules": [
     {
       "matchUpdateTypes": ["major"],
