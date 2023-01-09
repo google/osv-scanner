@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-name: lint
+name: Lint Code
 
 on:
   push:
@@ -24,8 +24,8 @@ on:
 permissions: read-all
 
 jobs:
-  lint:
-    name: Lint and format
+  lint-go-code:
+    name: Lint and format Go code
     runs-on: ubuntu-latest
     steps:
       - name: Check out code
