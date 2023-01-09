@@ -20,5 +20,4 @@ jobs:
       - name: Run markdownlint action
         uses: DavidAnson/markdownlint-cli2-action@5b7c9f74fec47e6b15667b2cc23c63dff11e449e
         with:
-          globs: |
-            "**/*.md"
+          globs: "**/*.md"
