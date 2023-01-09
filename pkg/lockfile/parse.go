@@ -18,21 +18,23 @@ func FindParser(pathToLockfile string, parseAs string) (PackageDetailsParser, st
 
 //nolint:gochecknoglobals // this is an optimisation and read-only
 var parsers = map[string]PackageDetailsParser{
+	"buildscript-gradle.lockfile": ParseGradleLock,
 	"Cargo.lock":                  ParseCargoLock,
 	"composer.lock":               ParseComposerLock,
 	"Gemfile.lock":                ParseGemfileLock,
 	"go.mod":                      ParseGoLock,
+	"gradle.lockfile":             ParseGradleLock,
+  "installed":                   ParseApkInstalled,
 	"mix.lock":                    ParseMixLock,
+	"Pipfile.lock":                ParsePipenvLock,
 	"package-lock.json":           ParseNpmLock,
+	"packages.lock.json":          ParseNuGetLock,
 	"pnpm-lock.yaml":              ParsePnpmLock,
 	"poetry.lock":                 ParsePoetryLock,
 	"pom.xml":                     ParseMavenLock,
 	"pubspec.lock":                ParsePubspecLock,
 	"requirements.txt":            ParseRequirementsTxt,
 	"yarn.lock":                   ParseYarnLock,
-	"gradle.lockfile":             ParseGradleLock,
-	"buildscript-gradle.lockfile": ParseGradleLock,
-	"installed":                   ParseApkInstalled,
 }
 
 func ListParsers() []string {

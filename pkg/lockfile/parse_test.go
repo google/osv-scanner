@@ -44,6 +44,7 @@ func TestFindParser(t *testing.T) {
 		"buildscript-gradle.lockfile",
 		"Cargo.lock",
 		"package-lock.json",
+		"packages.lock.json",
 		"yarn.lock",
 		"pnpm-lock.yaml",
 		"composer.lock",
@@ -55,6 +56,7 @@ func TestFindParser(t *testing.T) {
 		"poetry.lock",
 		"pubspec.lock",
 		"requirements.txt",
+		"Pipfile.lock",
 	}
 
 	for _, file := range lockfiles {
@@ -91,6 +93,7 @@ func TestParse_FindsExpectedParsers(t *testing.T) {
 		"buildscript-gradle.lockfile",
 		"Cargo.lock",
 		"package-lock.json",
+		"packages.lock.json",
 		"yarn.lock",
 		"pnpm-lock.yaml",
 		"composer.lock",
@@ -98,6 +101,7 @@ func TestParse_FindsExpectedParsers(t *testing.T) {
 		"go.mod",
 		"gradle.lockfile",
 		"mix.lock",
+		"Pipfile.lock",
 		"pom.xml",
 		"poetry.lock",
 		"pubspec.lock",
