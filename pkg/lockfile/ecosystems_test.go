@@ -40,6 +40,9 @@ func TestKnownEcosystems(t *testing.T) {
 	// all use the same ecosystem so "ignore" those parsers in the count
 	expectedCount -= 5
 
+	// - apk-installed has been excluded from lockfile parsers but has its own Alpine ecosystem
+	expectedCount++
+
 	ecosystems := lockfile.KnownEcosystems()
 
 	if knownCount := len(ecosystems); knownCount != expectedCount {

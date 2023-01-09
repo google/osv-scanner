@@ -35,6 +35,12 @@ func run(args []string, stdout, stderr io.Writer) int {
 		ErrWriter: stderr,
 		Flags: []cli.Flag{
 			&cli.StringSliceFlag{
+				Name:      "check-apk-installed",
+				Aliases:   []string{"A"},
+				Usage:     "scan Alpine APK installed on this path",
+				TakesFile: true,
+			},
+			&cli.StringSliceFlag{
 				Name:      "docker",
 				Aliases:   []string{"D"},
 				Usage:     "scan docker image with this name",
@@ -78,6 +84,7 @@ func run(args []string, stdout, stderr io.Writer) int {
 			r = output.NewReporter(stdout, stderr, context.Bool("json"))
 
 			vulnResult, err := osvscanner.DoScan(osvscanner.ScannerActions{
+				ApkFilePaths:         context.StringSlice("check-apk-installed"),
 				LockfilePaths:        context.StringSlice("lockfile"),
 				SBOMPaths:            context.StringSlice("sbom"),
 				DockerContainerNames: context.StringSlice("docker"),

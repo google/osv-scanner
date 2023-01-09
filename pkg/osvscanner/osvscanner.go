@@ -19,6 +19,7 @@ import (
 )
 
 type ScannerActions struct {
+	ApkFilePaths         []string
 	LockfilePaths        []string
 	SBOMPaths            []string
 	DirectoryPaths       []string
@@ -80,6 +81,25 @@ func scanDir(r *output.Reporter, query *osv.BatchedQuery, dir string, skipGit bo
 
 		return nil
 	})
+}
+
+func scanApkInstalledfile(r *output.Reporter, query *osv.BatchedQuery, path string) error {
+	parsedLockfile, err := lockfile.ParseApkInstalled(path)
+
+	if err != nil {
+		return err
+	}
+	r.PrintText(fmt.Sprintf("Scanned %s file and found %d packages\n", path, len(parsedLockfile)))
+
+	for _, pkgDetail := range parsedLockfile {
+		pkgDetailQuery := osv.MakePkgRequest(pkgDetail)
+		pkgDetailQuery.Source = models.SourceInfo{
+			Path: path,
+			Type: "apk-lockfile",
+		}
+		query.Queries = append(query.Queries, pkgDetailQuery)
+	}
+	return nil
 }
 
 // scanLockfile will load, identify, and parse the lockfile path passed in, and add the dependencies specified
@@ -282,6 +302,18 @@ func DoScan(actions ScannerActions, r *output.Reporter) (models.VulnerabilityRes
 		// TODO: Automatically figure out what docker base image
 		// and scan appropriately.
 		scanDebianDocker(r, &query, container)
+	}
+
+	for _, apkfileElem := range actions.ApkFilePaths {
+		apkLockfileElem, err := filepath.Abs(apkfileElem)
+		if err != nil {
+			r.PrintError(fmt.Sprintf("Failed to resolved path with error %s\n", err))
+			return models.VulnerabilityResults{}, err
+		}
+		err = scanApkInstalledfile(r, &query, apkLockfileElem)
+		if err != nil {
+			return models.VulnerabilityResults{}, err
+		}
 	}
 
 	for _, lockfileElem := range actions.LockfilePaths {
