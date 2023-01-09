@@ -15,7 +15,6 @@ The above all results in fewer, more actionable vulnerability notifications, whi
 [announcement blog post]: https://security.googleblog.com/2022/12/announcing-osv-scanner-vulnerability.html
 
 ## Table of Contents
-
 - [OSV-Scanner](#osv-scanner)
   - [Table of Contents](#table-of-contents)
   - [Installing](#installing)
