@@ -90,6 +90,8 @@ func parseConanRenference(ref string) ConanReference {
 		reference.Name = parts[0]
 		reference.Version = parts[1]
 	} else {
+		// consumer conanfile.txt or conanfile.py might not have a name
+		reference.Name = ""
 		reference.Version = ref
 	}
 	return reference
@@ -111,6 +113,11 @@ func parseConanV1Lock(lockfile ConanLockFile) []PackageDetails {
 		} else if node.Ref != "" {
 			reference = parseConanRenference(node.Ref)
 		} else {
+			continue
+		}
+		// skip entries with no name, they are most likely consumer's conanfiles
+		// and not dependencies to be searched in a database anyway
+		if reference.Name == "" {
 			continue
 		}
 		packages = append(packages, PackageDetails{
