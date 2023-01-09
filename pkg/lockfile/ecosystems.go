@@ -12,5 +12,6 @@ func KnownEcosystems() []Ecosystem {
 		MavenEcosystem,
 		PipEcosystem,
 		PubEcosystem,
+		AlpineEcosystem,
 	}
 }

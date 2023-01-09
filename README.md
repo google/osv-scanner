@@ -126,6 +126,7 @@ A wide range of lockfiles are supported by utilizing this [lockfile package](htt
 - `pubspec.lock`
 - `requirements.txt`[\*](https://github.com/google/osv-scanner/issues/34)
 - `yarn.lock`
+- `/lib/apk/db/installed` (Alpine)
 
 #### Example
 
