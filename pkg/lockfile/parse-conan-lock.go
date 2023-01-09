@@ -100,7 +100,6 @@ func parseConanV1Lock(lockfile ConanLockFile) []PackageDetails {
 	packages := make([]PackageDetails, 0, len(lockfile.GraphLock.Nodes))
 
 	for _, node := range lockfile.GraphLock.Nodes {
-
 		if node.Path != "" {
 			// a local "conanfile.txt", skip
 			continue
