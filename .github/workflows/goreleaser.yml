@@ -16,6 +16,7 @@ jobs:
       contents: write  # for goreleaser/goreleaser-action to create a GitHub release
     runs-on: ubuntu-latest
     env:
+      # Required for buildx on docker 19.x
       DOCKER_CLI_EXPERIMENTAL: "enabled"
     steps:
       - name: Checkout

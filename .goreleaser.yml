@@ -30,6 +30,7 @@ builds:
     main: ./cmd/osv-scanner/main.go
 
 dockers:
+  # Arch: amd64
   - image_templates:
       - 'ghcr.io/google/osv-scanner:{{ .Tag }}-amd64'
     dockerfile: goreleaser.dockerfile
@@ -46,6 +47,7 @@ dockers:
       - "--label=org.opencontainers.image.source={{.GitURL}}"
       - "--label=org.opencontainers.image.url={{.GitURL}}"
       - "--platform=linux/amd64"
+  # Arch: arm64
   - image_templates:
       - 'ghcr.io/google/osv-scanner:{{ .Tag }}-arm64'
     dockerfile: goreleaser.dockerfile
