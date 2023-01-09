@@ -139,7 +139,6 @@ func parseConanRequires(packages *[]PackageDetails, requires []string) {
 }
 
 func parseConanV2Lock(lockfile ConanLockFile) []PackageDetails {
-
 	packages := make(
 		[]PackageDetails,
 		0,
