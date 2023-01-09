@@ -126,9 +126,7 @@ func parseConanV1Lock(lockfile ConanLockFile) []PackageDetails {
 }
 
 func parseConanRequires(packages *[]PackageDetails, requires []string) {
-
 	for _, ref := range requires {
-
 		reference := parseConanRenference(ref)
 
 		*packages = append(*packages, PackageDetails{
