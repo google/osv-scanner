@@ -24,7 +24,7 @@ var parsers = map[string]PackageDetailsParser{
 	"Gemfile.lock":                ParseGemfileLock,
 	"go.mod":                      ParseGoLock,
 	"gradle.lockfile":             ParseGradleLock,
-  "installed":                   ParseApkInstalled,
+        "installed":                   ParseApkInstalled,
 	"mix.lock":                    ParseMixLock,
 	"Pipfile.lock":                ParsePipenvLock,
 	"package-lock.json":           ParseNpmLock,
