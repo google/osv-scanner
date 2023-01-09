@@ -106,6 +106,7 @@ func TestParse_FindsExpectedParsers(t *testing.T) {
 		"poetry.lock",
 		"pubspec.lock",
 		"requirements.txt",
+		"installed",
 	}
 
 	count := 0

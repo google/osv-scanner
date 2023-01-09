@@ -125,6 +125,7 @@ A wide range of lockfiles are supported by utilizing this [lockfile package](htt
 - `requirements.txt`[\*](https://github.com/google/osv-scanner/issues/34)
 - `gradle.lockfile`
 - `buildscript-gradle.lockfile`
+- `/lib/apk/db/installed` (Alpine)
 - `Pipfile.lock`
 
 #### Example
