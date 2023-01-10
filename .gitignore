@@ -1,3 +1,4 @@
 .history/
 .vscode/
-dist/
+/dist/
+/osv-scanner

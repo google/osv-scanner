@@ -31,8 +31,8 @@ This project follows
 
 ### Prerequisites
 Install:
-1. [Go](https://go.dev/) 1.18+
-2. [GoReleaser](https://goreleaser.com/) (Optional, only if you want reproducible builds)
+1. [Go](https://go.dev/) 1.18+, use `go version` to check.
+2. [GoReleaser](https://goreleaser.com/) (Optional, only if you want reproducible builds).
 
 ### Building
 
@@ -42,6 +42,7 @@ Run the following in the project directory:
 ```shell
 $ go build ./cmd/osv-scanner/
 ```
+Outputs osv-scanner binary will be produced in the project directory.
 
 #### Build using `goreleaser`
 
