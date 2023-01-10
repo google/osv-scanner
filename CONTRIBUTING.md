@@ -59,7 +59,7 @@ using the same Go version as the one used during the actual release (see gorelea
 
 To run tests:
 ```shell
-run_tests.sh
+./run_tests.sh
 ```
 
 ### Linting
