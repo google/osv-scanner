@@ -66,5 +66,5 @@ run_tests.sh
 To lint your code, run
 
 ```shell
-run_lints.sh
+./run_lints.sh
 ```
