@@ -17,7 +17,7 @@ type NuGetLockfile struct {
 	Dependencies map[string]map[string]NuGetLockPackage `json:"dependencies"`
 }
 
-const NuGetEcosystem Ecosystem = "nuget"
+const NuGetEcosystem Ecosystem = "NuGet"
 
 func parseNuGetLockDependencies(dependencies map[string]NuGetLockPackage) map[string]PackageDetails {
 	details := map[string]PackageDetails{}
