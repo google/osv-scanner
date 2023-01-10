@@ -1,0 +1,23 @@
+name: Lint Docs
+
+on:
+  pull_request:
+    paths:
+      # Only run this workflow when these paths have changes
+      - '**.md'
+      - '.github/workflows/lint-docs.yaml'
+
+permissions: read-all
+
+jobs:
+  lint-markdown-docs:
+    name: Lint Markdown
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@ac593985615ec2ede58e132d2e21d2b1cbd6127c
+
+      - name: Run markdownlint action
+        uses: DavidAnson/markdownlint-cli2-action@5b7c9f74fec47e6b15667b2cc23c63dff11e449e
+        with:
+          globs: "**/*.md"
