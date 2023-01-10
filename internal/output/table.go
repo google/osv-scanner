@@ -26,6 +26,7 @@ func PrintTableResults(vulnResult *models.VulnerabilityResults, outputWriter io.
 		outputTable.SetStyle(table.StyleRounded)
 		outputTable.Style().Color.Row = text.Colors{text.Reset, text.BgHiBlack}
 		outputTable.Style().Color.RowAlternate = text.Colors{text.Reset, text.BgBlack}
+		outputTable.Style().Options.DoNotColorBordersAndSeparators = true
 		outputTable.SetAllowedRowLength(width)
 		isTerminal = true
 	} // Otherwise use default ascii (e.g. getting piped to a file)
