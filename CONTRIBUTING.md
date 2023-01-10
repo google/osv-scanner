@@ -42,7 +42,7 @@ Run the following in the project directory:
 ```shell
 $ go build ./cmd/osv-scanner/
 ```
-Produces osv-scanner binary in the project directory.
+Produces `osv-scanner` binary in the project directory.
 
 #### Build using `goreleaser`
 
