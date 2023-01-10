@@ -21,17 +21,22 @@ The above all results in fewer, more actionable vulnerability notifications, whi
   - [Installing](#installing)
     - [Package Managers](#package-managers)
     - [Install from source](#install-from-source)
+    - [Build from source](#build-from-source)
     - [SemVer Adherence](#semver-adherence)
   - [Usage](#usage)
     - [Scan a directory](#scan-a-directory)
     - [Input an SBOM](#input-an-sbom)
     - [Input a lockfile](#input-a-lockfile)
     - [Scanning a Debian based docker image packages (preview)](#scanning-a-debian-based-docker-image-packages-preview)
-    - [Running in a Docker Container](running-in-a-docker-container)
+    - [Running in a Docker Container](#running-in-a-docker-container)
   - [Configure OSV-Scanner](#configure-osv-scanner)
     - [Ignore vulnerabilities by ID](#ignore-vulnerabilities-by-id)
   - [JSON output](#json-output)
     - [Output Format](#output-format)
+  - [Contribute](#contribute)
+    - [Report Problems](#report-problems)
+    - [Contributing code to `osv-scanner`](#contributing-code-to-osv-scanner)
+  - [Stargazers over time](#stargazers-over-time)
 
 ## Installing
 
@@ -61,18 +66,9 @@ go install github.com/google/osv-scanner/cmd/osv-scanner@v1
 
 This requires Go 1.18+ to be installed.
 
-### Building
+### Build from source
 
-You can build from source using [GoReleaser](https://goreleaser.com/) and running:
-
-```bash
-$ goreleaser build --rm-dist --single-target --snapshot
-```
-
-See GoReleaser [documentation](https://goreleaser.com/cmd/goreleaser_build/) for build options.
-
-You can also reproduce the downloadable builds by checking out the specific tag and running `goreleaser build`,
-using the same Go version as the one used during the actual release (see goreleaser workflows).
+See [CONTRIBUTING.md](CONTRIBUTING.md) file.
 
 ### SemVer Adherence
 
@@ -303,3 +299,17 @@ When using the --json flag, only the JSON output will be printed to stdout, with
   ]
 }
 ```
+
+## Contribute
+
+### Report Problems
+If you have what looks like a bug, please use the [Github issue tracking system](https://github.com/ossf/scorecard/issues). Before you file an issue, please search existing issues to see if your issue is already covered.
+
+### Contributing code to `osv-scanner`
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for documentation on how to contribute code.
+
+
+## Stargazers over time
+
+[![Stargazers over time](https://starchart.cc/google/osv-scanner.svg)](https://starchart.cc/google/osv-scanner)
