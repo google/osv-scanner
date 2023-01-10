@@ -13,6 +13,8 @@ require (
 	golang.org/x/exp v0.0.0-20221212164502-fae10dda9338
 	golang.org/x/mod v0.7.0
 	golang.org/x/term v0.3.0
+	golang.org/x/tools v0.4.1-0.20221217013628-b4dfc36097e2
+	golang.org/x/vuln v0.0.0-20230108212441-ff355248a728
 	gopkg.in/yaml.v2 v2.4.0
 )
 
