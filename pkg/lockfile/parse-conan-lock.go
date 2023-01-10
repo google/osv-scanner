@@ -134,6 +134,11 @@ func parseConanV1Lock(lockfile ConanLockFile) []PackageDetails {
 func parseConanRequires(packages *[]PackageDetails, requires []string) {
 	for _, ref := range requires {
 		reference := parseConanRenference(ref)
+		// skip entries with no name, they are most likely consumer's conanfiles
+		// and not dependencies to be searched in a database anyway
+		if reference.Name == "" {
+			continue
+		}
 
 		*packages = append(*packages, PackageDetails{
 			Name:      reference.Name,

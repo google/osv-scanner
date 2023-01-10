@@ -55,6 +55,25 @@ func TestParseConanLock_v1_OnePackage(t *testing.T) {
 	})
 }
 
+func TestParseConanLock_v1_NoName(t *testing.T) {
+	t.Parallel()
+
+	packages, err := lockfile.ParseConanLock("fixtures/conan/no-name.v1.json")
+
+	if err != nil {
+		t.Errorf("Got unexpected error: %v", err)
+	}
+
+	expectPackages(t, packages, []lockfile.PackageDetails{
+		{
+			Name:      "zlib",
+			Version:   "1.2.11",
+			Ecosystem: lockfile.ConanEcosystem,
+			CompareAs: lockfile.ConanEcosystem,
+		},
+	})
+}
+
 func TestParseConanLock_v1_TwoPackages(t *testing.T) {
 	t.Parallel()
 
