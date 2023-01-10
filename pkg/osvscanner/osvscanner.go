@@ -19,7 +19,7 @@ import (
 )
 
 type ScannerActions struct {
-	ApkFilePaths         []string
+	ScanApkInstalledFile bool
 	LockfilePaths        []string
 	SBOMPaths            []string
 	DirectoryPaths       []string
@@ -304,13 +304,10 @@ func DoScan(actions ScannerActions, r *output.Reporter) (models.VulnerabilityRes
 		scanDebianDocker(r, &query, container)
 	}
 
-	for _, apkfileElem := range actions.ApkFilePaths {
-		apkLockfileElem, err := filepath.Abs(apkfileElem)
-		if err != nil {
-			r.PrintError(fmt.Sprintf("Failed to resolved path with error %s\n", err))
-			return models.VulnerabilityResults{}, err
-		}
-		err = scanApkInstalledfile(r, &query, apkLockfileElem)
+	if actions.ScanApkInstalledFile {
+		apkLockfileElem := "/lib/apk/db/installed"
+
+		err := scanApkInstalledfile(r, &query, apkLockfileElem)
 		if err != nil {
 			return models.VulnerabilityResults{}, err
 		}
