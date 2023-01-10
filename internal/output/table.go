@@ -8,11 +8,14 @@ import (
 
 	"github.com/google/osv-scanner/internal/osv"
 	"github.com/google/osv-scanner/pkg/models"
+	"github.com/mitchellh/go-wordwrap"
 
 	"github.com/jedib0t/go-pretty/v6/table"
 	"github.com/jedib0t/go-pretty/v6/text"
 	"golang.org/x/term"
 )
+
+const sourceLength = 40
 
 // PrintTableResults prints the osv scan results into a human friendly table.
 func PrintTableResults(vulnResult *models.VulnerabilityResults, outputWriter io.Writer) {
@@ -66,7 +69,7 @@ func PrintTableResults(vulnResult *models.VulnerabilityResults, outputWriter io.
 					outputRow = append(outputRow, pkg.Package.Ecosystem, pkg.Package.Name, pkg.Package.Version)
 				}
 
-				outputRow = append(outputRow, source.Path)
+				outputRow = append(outputRow, wrapPath(source.Path))
 				outputTable.AppendRow(outputRow, table.RowConfig{AutoMerge: shouldMerge})
 			}
 		}
@@ -75,5 +78,14 @@ func PrintTableResults(vulnResult *models.VulnerabilityResults, outputWriter io.
 	if outputTable.Length() == 0 {
 		return
 	}
+
 	outputTable.Render()
+}
+
+func wrapPath(path string) string {
+	slashPath := filepath.ToSlash(path)
+	moddedPath := strings.ReplaceAll(slashPath, "/", "/ ")
+	wrappedPath := wordwrap.WrapString(moddedPath, sourceLength)
+	unmoddedWrappedPath := strings.ReplaceAll(wrappedPath, "/ ", "/")
+	return filepath.FromSlash(unmoddedWrappedPath)
 }
