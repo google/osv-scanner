@@ -33,6 +33,10 @@ The above all results in fewer, more actionable vulnerability notifications, whi
     - [Ignore vulnerabilities by ID](#ignore-vulnerabilities-by-id)
   - [JSON output](#json-output)
     - [Output Format](#output-format)
+  - [Contribute](#contribute)
+    - [Report Problems](#report-problems)
+    - [Contributing code to `osv-scanner`](#contributing-code-to-osv-scanner)
+  - [Stargazers over time](#stargazers-over-time)
 
 ## Installing
 
@@ -295,3 +299,17 @@ When using the --json flag, only the JSON output will be printed to stdout, with
   ]
 }
 ```
+
+## Contribute
+
+### Report Problems
+If you have what looks like a bug, please use the [Github issue tracking system](https://github.com/ossf/scorecard/issues). Before you file an issue, please search existing issues to see if your issue is already covered.
+
+### Contributing code to `osv-scanner`
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for documentation on how to contribute code.
+
+
+## Stargazers over time
+
+[![Stargazers over time](https://starchart.cc/google/osv-scanner.svg)](https://starchart.cc/google/osv-scanner)
