@@ -64,7 +64,7 @@ This requires Go 1.18+ to be installed.
 
 ### Build from source
 
-See CONTRIBUTING.md file.
+See [CONTRIBUTING.md](CONTRIBUTING.md) file.
 
 ### SemVer Adherence
 
