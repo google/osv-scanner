@@ -90,6 +90,7 @@ func TestParse_FindsExpectedParsers(t *testing.T) {
 	t.Parallel()
 
 	lockfiles := []string{
+		"conan.lock",
 		"buildscript-gradle.lockfile",
 		"Cargo.lock",
 		"package-lock.json",

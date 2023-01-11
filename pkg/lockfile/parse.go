@@ -18,6 +18,7 @@ func FindParser(pathToLockfile string, parseAs string) (PackageDetailsParser, st
 
 //nolint:gochecknoglobals // this is an optimisation and read-only
 var parsers = map[string]PackageDetailsParser{
+	"conan.lock":                  ParseConanLock,
 	"buildscript-gradle.lockfile": ParseGradleLock,
 	"Cargo.lock":                  ParseCargoLock,
 	"composer.lock":               ParseComposerLock,
