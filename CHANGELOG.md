@@ -1,5 +1,6 @@
-v1.1.0:
-===
+# Changelog
+
+## v1.1.0
 
 This update adds support for NuGet ecosystem and various bug fixes by the community.
 
@@ -10,17 +11,14 @@ This update adds support for NuGet ecosystem and various bug fixes by the commun
 - [Bug #131](https://github.com/google/osv-scanner/pull/131): Fix table highlighting overflow.
 - [Bug #101](https://github.com/google/osv-scanner/issues/101): Now supports 32 bit systems.
 
-
-v1.0.2
-===
+## v1.0.2
 
 This is a minor patch release to mitigate human readable output issues on narrow terminals (#85).
 
 - [Bug #85](https://github.com/google/osv-scanner/issues/85): Better support for narrow terminals.
 
+## v1.0.1
 
-v1.0.1
-===
 Various bug fixes and improvements. Many thanks to the amazing contributions and suggestions from the community!
 
 - Feature: ARM64 builds are now also available!

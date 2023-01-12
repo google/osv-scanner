@@ -30,7 +30,9 @@ This project follows
 ## Contributing code
 
 ### Prerequisites
+
 Install:
+
 1. [Go](https://go.dev/) 1.18+, use `go version` to check.
 2. [GoReleaser](https://goreleaser.com/) (Optional, only if you want reproducible builds).
 
@@ -39,16 +41,19 @@ Install:
 #### Build using only `go`
 
 Run the following in the project directory:
-```shell
-$ go build ./cmd/osv-scanner/
+
+```console
+go build ./cmd/osv-scanner/
 ```
+
 Produces `osv-scanner` binary in the project directory.
 
 #### Build using `goreleaser`
 
 Run the following in the project directory:
-```shell
-$ goreleaser build --rm-dist --single-target --snapshot
+
+```console
+goreleaser build --rm-dist --single-target --snapshot
 ```
 
 See GoReleaser [documentation](https://goreleaser.com/cmd/goreleaser_build/) for build options.
@@ -59,13 +64,15 @@ using the same Go version as the one used during the actual release (see gorelea
 ### Running tests
 
 To run tests:
-```shell
+
+```console
 ./run_tests.sh
 ```
 
 ### Linting
+
 To lint your code, run
 
-```shell
+```console
 ./run_lints.sh
 ```

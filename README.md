@@ -59,7 +59,8 @@ brew install osv-scanner
 ```
 
 If you're a Arch Linux User, you can install osv-scanner from the official repo:
-```
+
+```console
 pacman -S osv-scanner
 ```
 
@@ -147,7 +148,7 @@ A wide range of lockfiles are supported by utilizing this [lockfile package](htt
 #### Example
 
 ```console
-$ osv-scanner --lockfile=/path/to/your/package-lock.json --lockfile=/path/to/another/Cargo.lock
+osv-scanner --lockfile=/path/to/your/package-lock.json --lockfile=/path/to/another/Cargo.lock
 ```
 
 ### Scanning a Debian based docker image packages (preview)
@@ -212,6 +213,7 @@ reason = "No external http servers are written in Go lang."
 ```
 
 ## JSON output
+
 By default osv-scanner outputs a human readable table. To have osv-scanner output JSON instead, pass the `--json` flag when calling osv-scanner.
 
 When using the --json flag, only the JSON output will be printed to stdout, with all other outputs being directed to stderr. So to save only the json output to file, you can redirect the output with `osv-scanner --json ... > /path/to/file.json`
@@ -310,12 +312,12 @@ When using the --json flag, only the JSON output will be printed to stdout, with
 ## Contribute
 
 ### Report Problems
+
 If you have what looks like a bug, please use the [Github issue tracking system](https://github.com/google/osv-scanner/issues). Before you file an issue, please search existing issues to see if your issue is already covered.
 
 ### Contributing code to `osv-scanner`
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) for documentation on how to contribute code.
-
 
 ## Stargazers over time
 
