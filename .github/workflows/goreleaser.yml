@@ -14,6 +14,7 @@ jobs:
       hashes: ${{ steps.hash.outputs.hashes }}
     permissions:
       contents: write  # for goreleaser/goreleaser-action to create a GitHub release
+      packages: write # for goreleaser/goreleaser-action to publish docker images
     runs-on: ubuntu-latest
     env:
       # Required for buildx on docker 19.x
