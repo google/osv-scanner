@@ -10,11 +10,9 @@ require (
 	github.com/package-url/packageurl-go v0.1.0
 	github.com/spdx/tools-golang v0.3.0
 	github.com/urfave/cli/v2 v2.23.7
-	golang.org/x/exp v0.0.0-20221212164502-fae10dda9338
+	golang.org/x/exp v0.0.0-20230111222715-75897c7a292a
 	golang.org/x/mod v0.7.0
-	golang.org/x/term v0.3.0
-	golang.org/x/tools v0.4.1-0.20221217013628-b4dfc36097e2
-	golang.org/x/vuln v0.0.0-20230108212441-ff355248a728
+	golang.org/x/term v0.4.0
 	gopkg.in/yaml.v2 v2.4.0
 )
 
@@ -25,5 +23,5 @@ require (
 	github.com/russross/blackfriday/v2 v2.1.0 // indirect
 	github.com/spdx/gordf v0.0.0-20221230105357-b735bd5aac89 // indirect
 	github.com/xrash/smetrics v0.0.0-20201216005158-039620a65673 // indirect
-	golang.org/x/sys v0.3.0 // indirect
+	golang.org/x/sys v0.4.0 // indirect
 )
