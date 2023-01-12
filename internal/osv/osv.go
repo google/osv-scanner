@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"net/http"
+	"time"
 
 	"github.com/google/osv-scanner/pkg/lockfile"
 	"github.com/google/osv-scanner/pkg/models"
@@ -156,7 +157,16 @@ func MakeRequest(request BatchedQuery) (*BatchedResponse, error) {
 
 // Get a Vulnerabiltiy for the given ID.
 func Get(id string) (*models.Vulnerability, error) {
-	resp, err := http.Get(GetEndpoint + "/" + id)
+	var resp *http.Response
+	var err error
+	retries := 3
+	for i := 0; i < retries; i++ {
+		resp, err = http.Get(GetEndpoint + "/" + id)
+		if err == nil {
+			break
+		}
+			time.Sleep(time.Second)
+	}
 	if err != nil {
 		return nil, err
 	}
