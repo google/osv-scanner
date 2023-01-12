@@ -165,7 +165,7 @@ func Get(id string) (*models.Vulnerability, error) {
 		if err == nil {
 			break
 		}
-			time.Sleep(time.Second)
+		time.Sleep(time.Second)
 	}
 	if err != nil {
 		return nil, err
