@@ -2,7 +2,7 @@ package semantic_test
 
 import (
 	"bufio"
-	"github.com/google/osv-scanner/pkg/semantic"
+	"github.com/google/osv-scanner/internal/semantic"
 	"os"
 	"strings"
 	"testing"
