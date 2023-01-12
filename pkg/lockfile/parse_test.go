@@ -43,20 +43,20 @@ func TestFindParser(t *testing.T) {
 	lockfiles := []string{
 		"buildscript-gradle.lockfile",
 		"Cargo.lock",
-		"package-lock.json",
-		"packages.lock.json",
-		"yarn.lock",
-		"pnpm-lock.yaml",
 		"composer.lock",
 		"Gemfile.lock",
 		"go.mod",
 		"gradle.lockfile",
 		"mix.lock",
-		"pom.xml",
+		"Pipfile.lock",
+		"package-lock.json",
+		"packages.lock.json",
+		"pnpm-lock.yaml",
 		"poetry.lock",
+		"pom.xml",
 		"pubspec.lock",
 		"requirements.txt",
-		"Pipfile.lock",
+		"yarn.lock",
 	}
 
 	for _, file := range lockfiles {
@@ -92,21 +92,20 @@ func TestParse_FindsExpectedParsers(t *testing.T) {
 	lockfiles := []string{
 		"buildscript-gradle.lockfile",
 		"Cargo.lock",
-		"package-lock.json",
-		"packages.lock.json",
-		"yarn.lock",
-		"pnpm-lock.yaml",
 		"composer.lock",
 		"Gemfile.lock",
 		"go.mod",
 		"gradle.lockfile",
 		"mix.lock",
 		"Pipfile.lock",
-		"pom.xml",
+		"package-lock.json",
+		"packages.lock.json",
+		"pnpm-lock.yaml",
 		"poetry.lock",
+		"pom.xml",
 		"pubspec.lock",
 		"requirements.txt",
-		"installed",
+		"yarn.lock",
 	}
 
 	count := 0
