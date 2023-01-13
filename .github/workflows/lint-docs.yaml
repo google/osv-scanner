@@ -25,3 +25,4 @@ jobs:
         with:
           commit_message: "Prettified markdown!"
           prettier_options: "--write --parser markdown --prose-wrap always --print-width 80 **/*.md"
+          github_token: ${{ secrets.GITHUB_TOKEN }}
