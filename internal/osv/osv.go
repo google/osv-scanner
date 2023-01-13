@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
+	"io"
 	"io/ioutil"
 	"net/http"
 	"time"
@@ -120,6 +121,26 @@ func checkResponseError(resp *http.Response) error {
 	return fmt.Errorf("server response error: %s", string(respBuf))
 }
 
+func makeRetryRequest(method string, url string, data io.Reader) (*http.Response, error) {
+	var resp *http.Response
+	var err error
+	retries := 3
+	for i := 0; i < retries; i++ {
+		if method == "GET" {
+			resp, err = http.Get(url)
+		} else if method == "POST" {
+			resp, err = http.Post(url, "application/json", data)
+		} else {
+			return nil, fmt.Errorf("Invalid HTTP method: %s", method)
+		}
+		if err == nil {
+			break
+		}
+		time.Sleep(time.Second)
+	}
+	return resp, err
+}
+
 func MakeRequest(request BatchedQuery) (*BatchedResponse, error) {
 	// API has a limit of 1000 bulk query per request
 	queryChunks := chunkBy(request.Queries, MaxQueriesPerRequest)
@@ -132,7 +153,7 @@ func MakeRequest(request BatchedQuery) (*BatchedResponse, error) {
 		}
 		requestBuf := bytes.NewBuffer(requestBytes)
 
-		resp, err := http.Post(QueryEndpoint, "application/json", requestBuf)
+		resp, err := makeRetryRequest("POST", QueryEndpoint, requestBuf)
 		if err != nil {
 			return nil, err
 		}
@@ -157,16 +178,7 @@ func MakeRequest(request BatchedQuery) (*BatchedResponse, error) {
 
 // Get a Vulnerabiltiy for the given ID.
 func Get(id string) (*models.Vulnerability, error) {
-	var resp *http.Response
-	var err error
-	retries := 3
-	for i := 0; i < retries; i++ {
-		resp, err = http.Get(GetEndpoint + "/" + id)
-		if err == nil {
-			break
-		}
-		time.Sleep(time.Second)
-	}
+	resp, err := makeRetryRequest("GET", GetEndpoint+"/"+id, nil)
 	if err != nil {
 		return nil, err
 	}
