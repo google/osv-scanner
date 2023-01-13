@@ -10,7 +10,7 @@ type NuGetLockPackage struct {
 	Resolved string `json:"resolved"`
 }
 
-// NuGetLockFile contains the required dependency information as defined in
+// NuGetLockfile contains the required dependency information as defined in
 // https://github.com/NuGet/NuGet.Client/blob/6.5.0.136/src/NuGet.Core/NuGet.ProjectModel/ProjectLockFile/PackagesLockFileFormat.cs
 type NuGetLockfile struct {
 	Version      int                                    `json:"version"`
