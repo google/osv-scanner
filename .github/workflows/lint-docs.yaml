@@ -22,4 +22,4 @@ jobs:
         with:
           dry: True
           commit_message: "Prettified markdown!"
-          prettier_options: "--check --parser markdown --prose-wrap always --print-width 80 **/*.md"
+          prettier_options: "--write --parser markdown --prose-wrap always --print-width 80 **/*.md"
