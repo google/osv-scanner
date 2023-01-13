@@ -1,0 +1,27 @@
+name: Lint Docs
+
+on:
+  pull_request:
+    paths:
+      # Only run this workflow when these paths have changed
+      - '**.md'
+      - '.github/workflows/lint-docs.yaml'
+
+permissions: read-all
+
+jobs:
+  lint-markdown-docs:
+    name: Lint Markdown
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@755da8c3cf115ac066823e79a1e1788f8940201b # v3.2.0
+        with:
+          ref: ${{ github.head_ref }}
+
+      - name: Run Prettier action
+        uses: creyD/prettier_action@6602189cf8bac1ce73ffe601925f6127ab7f21ac # 4.2.0
+        with:
+          dry: True
+          commit_message: "Prettified markdown!"
+          prettier_options: "--check --parser Markdown --prose-wrap always --print-width 80 **/*.md"
