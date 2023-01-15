@@ -171,7 +171,9 @@ func MakeRequest(request BatchedQuery) (*BatchedResponse, error) {
 
 // Get a Vulnerabiltiy for the given ID.
 func Get(id string) (*models.Vulnerability, error) {
-	resp, err := makeRetryRequest("GET", GetEndpoint+"/"+id, nil)
+	resp, err := makeRetryRequest(func() (*http.Response, error) {
+		return http.Get(QueryEndpoint + "/" + id)
+	})
 	if err != nil {
 		return nil, err
 	}
