@@ -121,18 +121,12 @@ func checkResponseError(resp *http.Response) error {
 	return fmt.Errorf("server response error: %s", string(respBuf))
 }
 
-func makeRetryRequest(method string, url string, data io.Reader) (*http.Response, error) {
+func makeRetryRequest(action func() (*http.Response, error)) (*http.Response, error) {
 	var resp *http.Response
 	var err error
 	retries := 3
 	for i := 0; i < retries; i++ {
-		if method == "GET" {
-			resp, err = http.Get(url)
-		} else if method == "POST" {
-			resp, err = http.Post(url, "application/json", data)
-		} else {
-			return nil, fmt.Errorf("Invalid HTTP method: %s", method)
-		}
+		resp, err = action()
 		if err == nil {
 			break
 		}
@@ -140,7 +134,6 @@ func makeRetryRequest(method string, url string, data io.Reader) (*http.Response
 	}
 	return resp, err
 }
-
 func MakeRequest(request BatchedQuery) (*BatchedResponse, error) {
 	// API has a limit of 1000 bulk query per request
 	queryChunks := chunkBy(request.Queries, MaxQueriesPerRequest)
