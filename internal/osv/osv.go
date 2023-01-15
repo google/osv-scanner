@@ -146,7 +146,9 @@ func MakeRequest(request BatchedQuery) (*BatchedResponse, error) {
 		}
 		requestBuf := bytes.NewBuffer(requestBytes)
 
-		resp, err := makeRetryRequest("POST", QueryEndpoint, requestBuf)
+		resp, err := makeRetryRequest(func() (*http.Response, error) {
+			return http.Post(QueryEndpoint, "application/json", requestBuf)
+		})
 		if err != nil {
 			return nil, err
 		}
