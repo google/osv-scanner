@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"net/http"
+	"time"
 
 	"github.com/google/osv-scanner/pkg/lockfile"
 	"github.com/google/osv-scanner/pkg/models"
@@ -119,6 +120,19 @@ func checkResponseError(resp *http.Response) error {
 	return fmt.Errorf("server response error: %s", string(respBuf))
 }
 
+func makeRetryRequest(action func() (*http.Response, error)) (*http.Response, error) {
+	var resp *http.Response
+	var err error
+	retries := 3
+	for i := 0; i < retries; i++ {
+		resp, err = action()
+		if err == nil {
+			break
+		}
+		time.Sleep(time.Second)
+	}
+	return resp, err
+}
 func MakeRequest(request BatchedQuery) (*BatchedResponse, error) {
 	// API has a limit of 1000 bulk query per request
 	queryChunks := chunkBy(request.Queries, MaxQueriesPerRequest)
@@ -131,7 +145,9 @@ func MakeRequest(request BatchedQuery) (*BatchedResponse, error) {
 		}
 		requestBuf := bytes.NewBuffer(requestBytes)
 
-		resp, err := http.Post(QueryEndpoint, "application/json", requestBuf)
+		resp, err := makeRetryRequest(func() (*http.Response, error) {
+			return http.Post(QueryEndpoint, "application/json", requestBuf)
+		})
 		if err != nil {
 			return nil, err
 		}
@@ -156,7 +172,9 @@ func MakeRequest(request BatchedQuery) (*BatchedResponse, error) {
 
 // Get a Vulnerabiltiy for the given ID.
 func Get(id string) (*models.Vulnerability, error) {
-	resp, err := http.Get(GetEndpoint + "/" + id)
+	resp, err := makeRetryRequest(func() (*http.Response, error) {
+		return http.Get(QueryEndpoint + "/" + id)
+	})
 	if err != nil {
 		return nil, err
 	}
