@@ -2,4 +2,4 @@
 
 set -ex
 
-go vet ./...
+golangci-lint run
