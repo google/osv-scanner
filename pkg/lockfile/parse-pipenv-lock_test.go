@@ -1,8 +1,9 @@
 package lockfile_test
 
 import (
-	"github.com/google/osv-scanner/pkg/lockfile"
 	"testing"
+
+	"github.com/google/osv-scanner/pkg/lockfile"
 )
 
 func TestParsePipenvLock_FileDoesNotExist(t *testing.T) {

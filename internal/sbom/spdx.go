@@ -1,6 +1,8 @@
+//nolint:nosnakecase
 package sbom
 
 import (
+	"fmt"
 	"io"
 
 	"github.com/spdx/tools-golang/jsonloader"
@@ -10,10 +12,10 @@ import (
 )
 
 type SPDX struct{}
-type spdxLoader func(io.Reader) (*spdx.Document2_2, error)
+type SPDXLoader func(io.Reader) (*spdx.Document2_2, error)
 
 var (
-	spdxLoaders = []spdxLoader{
+	SPDXLoaders = []SPDXLoader{
 		jsonloader.Load2_2,
 		rdfloader.Load2_2,
 		tvloader.Load2_2,
@@ -41,12 +43,15 @@ func (s *SPDX) enumeratePackages(doc *spdx.Document2_2, callback func(Identifier
 }
 
 func (s *SPDX) GetPackages(r io.ReadSeeker, callback func(Identifier) error) error {
-	for _, loader := range spdxLoaders {
-		r.Seek(0, io.SeekStart)
+	for _, loader := range SPDXLoaders {
+		_, err := r.Seek(0, io.SeekStart)
+		if err != nil {
+			return fmt.Errorf("failed to seek to start of file: %w", err)
+		}
 		doc, err := loader(r)
 		if err == nil {
 			return s.enumeratePackages(doc, callback)
 		}
 	}
-	return InvalidFormat
+	return ErrInvalidFormat
 }

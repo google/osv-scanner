@@ -52,7 +52,7 @@ func parseApkPackageGroup(group []string, pathToLockfile string) PackageDetails 
 	}
 
 	if pkg.Version == "" {
-		var pkgPrintName string = pkg.Name
+		pkgPrintName := pkg.Name
 		if pkgPrintName == "" {
 			pkgPrintName = "<unknown>"
 		}

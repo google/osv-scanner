@@ -121,7 +121,7 @@ func TestParse_FindsExpectedParsers(t *testing.T) {
 	}
 
 	// gradle.lockfile and buildscript-gradle.lockfile use the same parser
-	count = count - 1
+	count -= 1
 
 	expectNumberOfParsersCalled(t, count)
 }
@@ -146,6 +146,7 @@ func TestListParsers(t *testing.T) {
 	parsers := lockfile.ListParsers()
 
 	firstExpected := "buildscript-gradle.lockfile"
+	//nolint:ifshort
 	lastExpected := "yarn.lock"
 
 	if first := parsers[0]; first != firstExpected {

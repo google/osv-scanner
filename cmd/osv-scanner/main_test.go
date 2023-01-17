@@ -1,4 +1,4 @@
-//nolint:testpackage // main cannot be accessed directly, so cannot use main_test
+// main cannot be accessed directly, so cannot use main_test
 package main
 
 import (

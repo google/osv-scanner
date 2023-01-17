@@ -17,7 +17,7 @@ type SBOMReader interface {
 }
 
 var (
-	InvalidFormat = errors.New("invalid format")
+	ErrInvalidFormat = errors.New("invalid format")
 )
 
 var (
