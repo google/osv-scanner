@@ -1,0 +1,58 @@
+1.36.0rc1 > 1.35.0
+1.36.1 > 1.36.0
+0.3.0 > 0
+
+1.0.0+local > 1.0.0
+
+// 1.0.0+local <=1.0.0 True
+// 1.0.0+local >=1.0.0 True
+// 1.0.0+local < 1.0.0 False
+// 1.0.0+local > 1.0.0 False
+
+1.0.0.dev1 < 1.0.0
+1.0.0.dev1 < 1.0.0.dev2
+
+1.0.dev0 < 1.0a0
+1.2a3.dev4 < 1.2a3.dev5
+1.2b3.dev4 < 1.2b3.dev5
+1.2b3.DEV4 < 1.2b3.dev5
+1.2b3.dev4 < 1.2b3.DEV5
+1.2a3.dev4 < 1.2b3.dev4
+1.2.post3.dev4 > 1.2b3.dev4
+
+// 2019.12.304 // advent-of-code
+2.0.0a1 < 2.0.0rc1
+
+0.9.alpha < 1.0
+0.9.beta < 1.0
+0.9.c < 1.0
+0.9.pre < 1.0
+0.9.preview < 1.0
+0.9.rev < 1.0
+0.9.r < 1.0
+
+1.0.0+local.0 < 1.0.0+local.0.1
+1.0.0+local.a < 1.0.0+local.1
+1.0.0+local = 1.0.0+local
+
+// implicit post release syntax
+1.0-1 < 1.0-2
+
+// epoch comparing
+1!1.0 < 2!1.0
+
+// legacy versions - we include some here because the generated fixtures may not include
+// them in future if run with a version of "packaging" that no longer supports them
+// (as it will consider them invalid, so they'll be dropped)
+0.1-bulbasaur < 0.1-charmander
+0.1-charmander < 0.9-doduo
+0.9-doduo < 0.9-eevee
+0.9-eevee < 0.9-fearow
+0.9-fearow < 0.9-gyarados
+0.9-gyarados < 0.9-horsea
+0.9-horsea < 0.9-ivysaur
+0.9-ivysaur < 1.0
+
+-class.-jw.util.version.version-pre < 1.0
+-class.-jw.util.version.version-preview < 1.0
+-class.-jw.util.version.version-dev < 1.0

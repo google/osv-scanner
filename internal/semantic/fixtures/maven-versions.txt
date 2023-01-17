@@ -1,0 +1,110 @@
+1 < 2
+1.5 < 2
+1 < 2.5
+1.0 < 1.1
+1.1 < 1.2
+1.0.0 < 1.1
+1.0.1 < 1.1
+1.1 < 1.2.0
+
+1.0-alpha-1 < 1.0
+1.0-alpha-1 < 1.0-alpha-2
+1.0-alpha-1 < 1.0-beta-1
+
+1.0-beta-1 < 1.0-SNAPSHOT
+1.0-SNAPSHOT < 1.0
+1.0-alpha-1-SNAPSHOT < 1.0-alpha-1
+
+1.0 < 1.0-1
+1.0-1 < 1.0-2
+1.0.0 < 1.0-1
+
+2.0-1 < 2.0.1
+2.0.1-klm < 2.0.1-lmn
+2.0.1 < 2.0.1-xyz
+
+2.0.1 < 2.0.1-123
+2.0.1-xyz < 2.0.1-123
+
+1 = 1
+1 = 1.0
+1 = 1.0.0
+1.0 = 1.0.0
+1 = 1-0
+1 = 1.0-0
+1.0 = 1.0-0
+// no separator between number and character
+1a = 1-a
+1a = 1.0-a
+1a = 1.0.0-a
+1.0a = 1-a
+1.0.0a = 1-a
+1x = 1-x
+1x = 1.0-x
+1x = 1.0.0-x
+1.0x = 1-x
+1.0.0x = 1-x
+
+// aliases
+1ga = 1
+1release = 1
+1final = 1
+1cr = 1rc
+
+// special 'aliases' a, b and m for alpha, beta and milestone
+1a1 = 1-alpha-1
+1b2 = 1-beta-2
+1m3 = 1-milestone-3
+
+// case insensitive
+1X = 1x
+1A = 1a
+1B = 1b
+1M = 1m
+1Ga = 1
+1GA = 1
+1RELEASE = 1
+1release = 1
+1RELeaSE = 1
+1Final = 1
+1FinaL = 1
+1FINAL = 1
+1Cr = 1Rc
+1cR = 1rC
+1m3 = 1Milestone3
+1m3 = 1MileStone3
+1m3 = 1MILESTONE3
+1 = 1
+1 = 01
+1 = 001
+01 = 001
+
+1 = 1.0.0
+1 = 1.ga
+1 = 1.final
+1 = 1.0
+1 = 1.
+1 = 1-
+1-foo = 1.0.0-foo.0.0
+1 = 1.0.0-0.0.0
+1-1.foo-bar-1-baz-0.1 = 1-1.foo-bar1baz-.1
+1-rc = 1cr
+1-a = 1a
+1-alpha-1 = 1a1
+1-beta-1 = 1b1
+1-c-1 = 1c1
+1-milestone-1 = 1m1
+1-1 = 1-ga-1
+
+// regression test for MNG 5568
+6.1.0rc3 < 6.1.0
+6.1.0rc3 < 6.1H.5-beta
+6.1.0 < 6.1H.5-beta
+
+// regression test for MNG 6572
+20190126.230843 < 1234567890.12345
+1234567890.12345 < 123456789012345.1H.5-beta
+20190126.230843 < 123456789012345.1H.5-beta
+123456789012345.1H.5-beta < 12345678901234567890.1H.5-beta
+1234567890.12345 < 12345678901234567890.1H.5-beta
+20190126.230843 < 12345678901234567890.1H.5-beta
