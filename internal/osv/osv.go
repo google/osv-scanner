@@ -120,19 +120,6 @@ func checkResponseError(resp *http.Response) error {
 	return fmt.Errorf("server response error: %s", string(respBuf))
 }
 
-func makeRetryRequest(action func() (*http.Response, error)) (*http.Response, error) {
-	var resp *http.Response
-	var err error
-	retries := 3
-	for i := 0; i < retries; i++ {
-		resp, err = action()
-		if err == nil {
-			break
-		}
-		time.Sleep(time.Second)
-	}
-	return resp, err
-}
 func MakeRequest(request BatchedQuery) (*BatchedResponse, error) {
 	// API has a limit of 1000 bulk query per request
 	queryChunks := chunkBy(request.Queries, MaxQueriesPerRequest)

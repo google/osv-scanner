@@ -29,6 +29,7 @@ linters:
     - wrapcheck        # too difficult, will re-add later (another-rex)
     - testpackage      # will re-add later (another-rex)
     - goerr113         # will re-add later (another-rex)
+    - nonamedreturns   # disagree with, for now (another-rex)
   presets:
     - bugs
     - comment
