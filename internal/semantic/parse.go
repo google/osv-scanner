@@ -41,6 +41,8 @@ func Parse(str string, ecosystem Ecosystem) (Version, error) {
 		return parsePyPIVersion(str), nil
 	case "Pub":
 		return parseSemverVersion(str), nil
+	case "ConanCenter":
+		return parseSemverVersion(str), nil
 	}
 
 	return nil, fmt.Errorf("%w %s", ErrUnsupportedEcosystem, ecosystem)
