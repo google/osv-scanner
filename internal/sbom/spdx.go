@@ -39,6 +39,7 @@ func (s *SPDX) enumeratePackages(doc *spdx.Document2_2, callback func(Identifier
 			}
 		}
 	}
+
 	return nil
 }
 
@@ -53,5 +54,6 @@ func (s *SPDX) GetPackages(r io.ReadSeeker, callback func(Identifier) error) err
 			return s.enumeratePackages(doc, callback)
 		}
 	}
+
 	return ErrInvalidFormat
 }

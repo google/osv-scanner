@@ -61,6 +61,7 @@ func scanDir(r *output.Reporter, query *osv.BatchedQuery, dir string, skipGit bo
 				r.PrintText(fmt.Sprintf("scan failed for git repository, %s: %v\n", path, err))
 				// Not fatal, so don't return and continue scanning other files
 			}
+
 			return filepath.SkipDir
 		}
 
@@ -103,6 +104,7 @@ func scanLockfile(r *output.Reporter, query *osv.BatchedQuery, path string) erro
 		}
 		query.Queries = append(query.Queries, pkgDetailQuery)
 	}
+
 	return nil
 }
 
@@ -130,6 +132,7 @@ func scanSBOMFile(r *output.Reporter, query *osv.BatchedQuery, path string) erro
 				Type: "sbom",
 			}
 			query.Queries = append(query.Queries, purlQuery)
+
 			return nil
 		})
 		if err == nil {
@@ -160,6 +163,7 @@ func getCommitSHA(repoDir string) (string, error) {
 		if errors.As(err, &exitErr) && exitErr.ExitCode() == 128 {
 			return "", fmt.Errorf("failed to get commit hash, no commits exist? %w", exitErr)
 		}
+
 		return "", fmt.Errorf("failed to get commit hash: %w", err)
 	}
 
@@ -184,6 +188,7 @@ func scanGitCommit(query *osv.BatchedQuery, commit string, source string) error 
 		Type: "git",
 	}
 	query.Queries = append(query.Queries, gitQuery)
+
 	return nil
 }
 

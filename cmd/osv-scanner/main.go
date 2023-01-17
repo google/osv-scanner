@@ -109,6 +109,7 @@ func run(args []string, stdout, stderr io.Writer) int {
 		}
 
 		r.PrintError(fmt.Sprintf("%v\n", err))
+
 		return 127
 	}
 

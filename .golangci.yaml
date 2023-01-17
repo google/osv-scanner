@@ -24,7 +24,6 @@ linters:
     - gomnd            # not every number is magic  (g-rath)
     - wsl              # disagree with, for now (g-rath)
     - ireturn          # disagree with, sort of (g-rath)
-    - nlreturn         # disagree with (another-rex)
     - gochecknoglobals # disagree with, for non changing variables (another-rex)
     - wrapcheck        # too difficult, will re-add later (another-rex)
     - testpackage      # will re-add later (another-rex)
@@ -48,6 +47,11 @@ linters-settings:
     rules:
       - name: increment-decrement
         disabled: true
+  nlreturn:
+    # Size of the block (including return statement that is still "OK")
+    # so no return split required.
+    # Default: 1
+    block-size: 2
 
 issues:
   exclude-rules:

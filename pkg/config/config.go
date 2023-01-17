@@ -59,6 +59,7 @@ func (c *ConfigManager) UseOverride(configPath string) error {
 	}
 	config.LoadPath = configPath
 	c.OverrideConfig = &config
+
 	return nil
 }
 
@@ -107,6 +108,7 @@ func normalizeConfigLoadPath(target string) (string, error) {
 		containingFolder = target
 	}
 	configPath := filepath.Join(containingFolder, osvScannerConfigName)
+
 	return configPath, nil
 }
 
@@ -123,6 +125,7 @@ func tryLoadConfig(configPath string) (Config, error) {
 			return Config{}, fmt.Errorf("failed to parse config file: %w", err)
 		}
 		config.LoadPath = configPath
+
 		return config, nil
 	}
 

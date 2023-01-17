@@ -103,6 +103,7 @@ func chunkBy[T any](items []T, chunkSize int) [][]T {
 	for chunkSize < len(items) {
 		items, chunks = items[chunkSize:], append(chunks, items[0:chunkSize:chunkSize])
 	}
+
 	return append(chunks, items)
 }
 
@@ -179,6 +180,7 @@ func Get(id string) (*models.Vulnerability, error) {
 	if err != nil {
 		return nil, err
 	}
+
 	return &vuln, nil
 }
 
@@ -200,6 +202,7 @@ func Hydrate(resp *BatchedResponse) (*HydratedBatchedResponse, error) {
 		}
 		hydrated.Results = append(hydrated.Results, result)
 	}
+
 	return &hydrated, nil
 }
 
@@ -214,5 +217,6 @@ func makeRetryRequest(action func() (*http.Response, error)) (*http.Response, er
 		}
 		time.Sleep(time.Second)
 	}
+
 	return resp, err
 }

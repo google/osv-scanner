@@ -28,6 +28,7 @@ func PURLToPackage(purl string) (models.PackageInfo, error) {
 	if ecosystem == "" {
 		ecosystem = parsedPURL.Type
 	}
+
 	return models.PackageInfo{
 		Name:      parsedPURL.Name,
 		Ecosystem: ecosystem,

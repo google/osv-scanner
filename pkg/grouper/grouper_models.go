@@ -16,5 +16,6 @@ func ConvertVulnerabilityToIDAliases(c []models.Vulnerability) []IDAliases {
 		}
 		output = append(output, idAliases)
 	}
+
 	return output
 }

@@ -11,5 +11,6 @@ import (
 func PrintJSONResults(vulnResult *models.VulnerabilityResults, outputWriter io.Writer) error {
 	encoder := json.NewEncoder(outputWriter)
 	encoder.SetIndent("", "  ")
+
 	return encoder.Encode(vulnResult)
 }

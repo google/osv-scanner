@@ -13,6 +13,7 @@ func min(a, b int) int {
 	if a < b {
 		return a
 	}
+
 	return b
 }
 
@@ -62,5 +63,6 @@ func Group(vulns []IDAliases) []models.GroupInfo {
 	for _, key := range sortedKeys {
 		result = append(result, models.GroupInfo{IDs: extractedGroups[key]})
 	}
+
 	return result
 }

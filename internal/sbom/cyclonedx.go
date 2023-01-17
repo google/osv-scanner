@@ -32,6 +32,7 @@ func (c *CycloneDX) enumeratePackages(bom *cyclonedx.BOM, callback func(Identifi
 			}
 		}
 	}
+
 	return nil
 }
 
@@ -49,5 +50,6 @@ func (c *CycloneDX) GetPackages(r io.ReadSeeker, callback func(Identifier) error
 			return c.enumeratePackages(&bom, callback)
 		}
 	}
+
 	return ErrInvalidFormat
 }
