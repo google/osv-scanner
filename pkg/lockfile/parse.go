@@ -21,6 +21,7 @@ var parsers = map[string]PackageDetailsParser{
 	"buildscript-gradle.lockfile": ParseGradleLock,
 	"Cargo.lock":                  ParseCargoLock,
 	"composer.lock":               ParseComposerLock,
+	"conan.lock":                  ParseConanLock,
 	"Gemfile.lock":                ParseGemfileLock,
 	"go.mod":                      ParseGoLock,
 	"gradle.lockfile":             ParseGradleLock,
