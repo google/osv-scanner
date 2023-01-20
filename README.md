@@ -129,6 +129,7 @@ A wide range of lockfiles are supported by utilizing this [lockfile package](htt
 - `buildscript-gradle.lockfile`
 - `Cargo.lock`
 - `composer.lock`
+- `conan.lock`
 - `Gemfile.lock`
 - `go.mod`
 - `gradle.lockfile`

@@ -163,7 +163,7 @@ func MakeRequest(request BatchedQuery) (*BatchedResponse, error) {
 func Get(id string) (*models.Vulnerability, error) {
 	resp, err := makeRetryRequest(func() (*http.Response, error) {
 		//nolint:noctx
-		return http.Get(QueryEndpoint + "/" + id)
+		return http.Get(GetEndpoint + "/" + id)
 	})
 	if err != nil {
 		return nil, err

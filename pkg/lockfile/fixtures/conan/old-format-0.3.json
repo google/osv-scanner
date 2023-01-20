@@ -1,0 +1,21 @@
+{
+    "profile_host": "[settings]\narch=x86_64\narch_build=x86_64\nbuild_type=Release\ncompiler=gcc\ncompiler.libcxx=libstdc++\ncompiler.version=10\nos=Linux\nos_build=Linux\n[options]\n[build_requires]\n[env]\n",
+    "graph_lock": {
+     "nodes": {
+      "0": {
+       "pref": "test/1.0:2ce08bf790c58b729dda567426e810ed5e35e513",
+       "options": "fPIC=True\nshared=False\nzlib:fPIC=True\nzlib:minizip=False\nzlib:shared=False",
+       "requires": [
+        "1"
+       ],
+       "path": "/home/sse4/projects/conan_test/v1/conanfile.py"
+      },
+      "1": {
+       "pref": "zlib/1.2.11#5f4917ce0a630b102f472afd00102d40:19729b9559f3ae196cad45cb2b97468ccb75dcd1#58846c4ed127f63e9c88c5be5190a6d9",
+       "options": "fPIC=True\nminizip=False\nshared=False",
+       "modified": "built"
+      }
+     }
+    },
+    "version": "0.3"
+   }

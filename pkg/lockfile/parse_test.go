@@ -93,6 +93,7 @@ func TestParse_FindsExpectedParsers(t *testing.T) {
 		"buildscript-gradle.lockfile",
 		"Cargo.lock",
 		"composer.lock",
+		"conan.lock",
 		"Gemfile.lock",
 		"go.mod",
 		"gradle.lockfile",
