@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"io"
 	"os"
+	"strings"
 
 	"github.com/google/osv-scanner/internal/output"
 	"github.com/google/osv-scanner/pkg/osvscanner"
@@ -17,6 +18,22 @@ var (
 	commit  = "n/a"
 	date    = "n/a"
 )
+
+func mapParseAsOverrides(slice []string) map[string]string {
+	overrides := make(map[string]string)
+
+	for _, s := range slice {
+		splits := strings.SplitN(s, ":", 2)
+
+		// TODO: handle when there is no split (":")
+		// TODO: handle "installed" by checking for that explicitly first
+		// TODO: check that "parse-as" is valid with `lockfile`
+
+		overrides[splits[1]] = splits[0]
+	}
+
+	return overrides
+}
 
 func run(args []string, stdout, stderr io.Writer) int {
 	var r *output.Reporter
@@ -89,10 +106,9 @@ func run(args []string, stdout, stderr io.Writer) int {
 				Usage:   "check subdirectories",
 				Value:   false,
 			},
-			&cli.StringFlag{
-				Name: "parse-as",
-				Usage: "name of a supported lockfile to parse the input files as",
-				Value: "",
+			&cli.StringSliceFlag{
+				Name:  "parse-as",
+				Usage: "sets how to parse a particular file (WIP)",
 			},
 		},
 		ArgsUsage: "[directory1 directory2...]",
@@ -106,14 +122,14 @@ func run(args []string, stdout, stderr io.Writer) int {
 			r = output.NewReporter(stdout, stderr, format)
 
 			vulnResult, err := osvscanner.DoScan(osvscanner.ScannerActions{
-				LockfilePaths:        context.StringSlice("lockfile"),
-				SBOMPaths:            context.StringSlice("sbom"),
-				DockerContainerNames: context.StringSlice("docker"),
-				Recursive:            context.Bool("recursive"),
-				SkipGit:              context.Bool("skip-git"),
-				ConfigOverridePath:   context.String("config"),
-				ParseAs:              context.String("parse-as"),
-				DirectoryPaths:       context.Args().Slice(),
+				LockfilePaths:            context.StringSlice("lockfile"),
+				LockfileParseAsOverrides: mapParseAsOverrides(context.StringSlice("parse-as")),
+				SBOMPaths:                context.StringSlice("sbom"),
+				DockerContainerNames:     context.StringSlice("docker"),
+				Recursive:                context.Bool("recursive"),
+				SkipGit:                  context.Bool("skip-git"),
+				ConfigOverridePath:       context.String("config"),
+				DirectoryPaths:           context.Args().Slice(),
 			}, r)
 
 			if errPrint := r.PrintResult(&vulnResult); errPrint != nil {

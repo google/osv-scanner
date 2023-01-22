@@ -19,15 +19,16 @@ import (
 )
 
 type ScannerActions struct {
-	LockfilePaths        []string
-	SBOMPaths            []string
-	DirectoryPaths       []string
-	GitCommits           []string
-	Recursive            bool
-	SkipGit              bool
-	DockerContainerNames []string
-	ConfigOverridePath   string
-	ParseAs              string
+	LockfilePaths            []string
+	LockfileParseAsOverrides map[string]string
+	SBOMPaths                []string
+	DirectoryPaths           []string
+	GitCommits               []string
+	Recursive                bool
+	SkipGit                  bool
+	DockerContainerNames     []string
+	ConfigOverridePath       string
+	ParseAs                  string
 }
 
 // NoPackagesFoundErr for when no packages is found during a scan.
@@ -43,7 +44,7 @@ var VulnerabilitiesFoundErr = errors.New("vulnerabilities found")
 //   - Any lockfiles with scanLockfile
 //   - Any SBOM files with scanSBOMFile
 //   - Any git repositories with scanGit
-func scanDir(r *output.Reporter, query *osv.BatchedQuery, dir string, skipGit bool, recursive bool, parseAs string) error {
+func scanDir(r *output.Reporter, query *osv.BatchedQuery, dir string, skipGit bool, recursive bool, parseAsMap map[string]string) error {
 	root := true
 	return filepath.WalkDir(dir, func(path string, info os.DirEntry, err error) error {
 		if err != nil {
@@ -67,11 +68,15 @@ func scanDir(r *output.Reporter, query *osv.BatchedQuery, dir string, skipGit bo
 		}
 
 		if !info.IsDir() {
-			if parser, _ := lockfile.FindParser(path, parseAs); parser != nil {
-				err := scanLockfile(r, query, path, parseAs)
-				if err != nil {
-					r.PrintError(fmt.Sprintf("Attempted to scan lockfile but failed: %s\n", path))
+			parsedAs, err := tryScanFile(r, query, path, parseAsMap)
+			if err != nil && !errors.Is(err, lockfile.ErrParserNotFound) {
+				parsedAsComment := ""
+
+				if parsedAs != "" {
+					parsedAsComment = fmt.Sprintf("as a %s ", parsedAs)
 				}
+
+				r.PrintError(fmt.Sprintf("Attempted to scan file %sbut failed: %s\n", parsedAsComment, path))
 			}
 			// No need to check for error
 			// If scan fails, it means it isn't a valid SBOM file,
@@ -88,14 +93,38 @@ func scanDir(r *output.Reporter, query *osv.BatchedQuery, dir string, skipGit bo
 	})
 }
 
+func findParseAs(parseAsMap map[string]string, path string) string {
+	for p, parseAs := range parseAsMap {
+		pp, _ := filepath.Abs(p)
+
+		if pp == path {
+			return parseAs
+		}
+	}
+
+	return ""
+}
+
+func tryScanFile(r *output.Reporter, query *osv.BatchedQuery, path string, parseAsMap map[string]string) (string, error) {
+	parseAs := findParseAs(parseAsMap, path)
+
+	return parseAs, scanLockfile(r, query, path, parseAs)
+}
+
 // scanLockfile will load, identify, and parse the lockfile path passed in, and add the dependencies specified
 // within to `query`
 func scanLockfile(r *output.Reporter, query *osv.BatchedQuery, path string, parseAs string) error {
-	parsedLockfile, err := lockfile.Parse(path,  parseAs)
+	parsedLockfile, err := lockfile.Parse(path, parseAs)
 	if err != nil {
 		return err
 	}
-	r.PrintText(fmt.Sprintf("Scanned %s file and found %d packages\n", path, len(parsedLockfile.Packages)))
+	parsedAsComment := ""
+
+	if parseAs != "" {
+		parsedAsComment = fmt.Sprintf("as a %s ", parseAs)
+	}
+
+	r.PrintText(fmt.Sprintf("Scanned %s file %sand found %d packages\n", path, parsedAsComment, len(parsedLockfile.Packages)))
 
 	for _, pkgDetail := range parsedLockfile.Packages {
 		pkgDetailQuery := osv.MakePkgRequest(pkgDetail)
@@ -267,22 +296,30 @@ func filterResponse(r *output.Reporter, query osv.BatchedQuery, resp *osv.Batche
 	return len(hiddenVulns)
 }
 
-// Perform osv scanner action, with optional reporter to output information
-func DoScan(actions ScannerActions, r *output.Reporter) (models.VulnerabilityResults, error) {
-	if r == nil {
-		r = output.NewVoidReporter()
-	}
-
-	if actions.ParseAs != "" {
-		if parser, parsedAs := lockfile.FindParser("", actions.ParseAs); parser == nil {
+func validateParseAsMap(parseAsMap map[string]string) error {
+	for _, parseAs := range parseAsMap {
+		if parser, parsedAs := lockfile.FindParser("", parseAs); parser == nil {
 			msg := fmt.Sprintf("Don't know how to parse files as \"%s\" - supported values are:\n", parsedAs)
 
 			for _, s := range lockfile.ListParsers() {
 				msg += fmt.Sprintf("  %s\n", s)
 			}
 
-			return models.VulnerabilityResults{}, fmt.Errorf("%v", msg)
+			return fmt.Errorf("%v", msg)
 		}
+	}
+
+	return nil
+}
+
+// Perform osv scanner action, with optional reporter to output information
+func DoScan(actions ScannerActions, r *output.Reporter) (models.VulnerabilityResults, error) {
+	if r == nil {
+		r = output.NewVoidReporter()
+	}
+
+	if err := validateParseAsMap(actions.LockfileParseAsOverrides); err != nil {
+		return models.VulnerabilityResults{}, err
 	}
 
 	configManager := config.ConfigManager{
@@ -312,7 +349,7 @@ func DoScan(actions ScannerActions, r *output.Reporter) (models.VulnerabilityRes
 			r.PrintError(fmt.Sprintf("Failed to resolved path with error %s\n", err))
 			return models.VulnerabilityResults{}, err
 		}
-		err = scanLockfile(r, &query, lockfileElem, actions.ParseAs)
+		_, err = tryScanFile(r, &query, lockfileElem, actions.LockfileParseAsOverrides)
 		if err != nil {
 			return models.VulnerabilityResults{}, err
 		}
@@ -338,7 +375,7 @@ func DoScan(actions ScannerActions, r *output.Reporter) (models.VulnerabilityRes
 
 	for _, dir := range actions.DirectoryPaths {
 		r.PrintText(fmt.Sprintf("Scanning dir %s\n", dir))
-		err := scanDir(r, &query, dir, actions.SkipGit, actions.Recursive, actions.ParseAs)
+		err := scanDir(r, &query, dir, actions.SkipGit, actions.Recursive, actions.LockfileParseAsOverrides)
 		if err != nil {
 			return models.VulnerabilityResults{}, err
 		}
