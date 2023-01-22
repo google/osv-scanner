@@ -128,7 +128,11 @@ func run(args []string, stdout, stderr io.Writer) int {
 		}
 
 		r.PrintError(fmt.Sprintf("%v\n", err))
+	}
 
+	// if we've been told to print an error, and not already exited with
+	// a specific error code, then exit with a generic non-zero code
+	if r != nil && r.HasPrintedError() {
 		return 127
 	}
 
