@@ -1,0 +1,128 @@
+package lockfile_test
+
+import (
+	"testing"
+
+	"github.com/google/osv-scanner/pkg/lockfile"
+)
+
+func TestDpkgStatus_FileDoesNotExist(t *testing.T) {
+	t.Parallel()
+
+	packages, err := lockfile.ParseDpkgStatus("fixtures/dpkg/does-not-exist")
+
+	expectErrContaining(t, err, "could not open")
+	expectPackages(t, packages, []lockfile.PackageDetails{})
+}
+
+func TestDpkgStatus_Empty(t *testing.T) {
+	t.Parallel()
+
+	packages, err := lockfile.ParseDpkgStatus("fixtures/dpkg/empty_status")
+
+	if err != nil {
+		t.Errorf("Got unexpected error: %v", err)
+	}
+
+	expectPackages(t, packages, []lockfile.PackageDetails{})
+}
+
+func TestDpkgStatus_NotAStatus(t *testing.T) {
+	t.Parallel()
+
+	packages, err := lockfile.ParseDpkgStatus("fixtures/dpkg/not_status")
+
+	if err != nil {
+		t.Errorf("Got unexpected error: %v", err)
+	}
+
+	expectPackages(t, packages, []lockfile.PackageDetails{})
+}
+
+func TestDpkgStatus_Malformed(t *testing.T) {
+	t.Parallel()
+
+	packages, err := lockfile.ParseDpkgStatus("fixtures/dpkg/malformed_status")
+
+	if err != nil {
+		t.Errorf("Got unexpected error: %v", err)
+	}
+
+	expectPackages(t, packages, []lockfile.PackageDetails{
+		{
+			Name:      "bash",
+			Version:   "",
+			Ecosystem: lockfile.DebianEcosystem,
+			CompareAs: lockfile.DebianEcosystem,
+		},
+	})
+}
+
+func TestDpkgStatus_Single(t *testing.T) {
+	t.Parallel()
+
+	packages, err := lockfile.ParseDpkgStatus("fixtures/dpkg/single_status")
+
+	if err != nil {
+		t.Errorf("Got unexpected error: %v", err)
+	}
+
+	expectPackages(t, packages, []lockfile.PackageDetails{
+		{
+			Name:      "sudo",
+			Version:   "1.8.27-1+deb10u1",
+			Ecosystem: lockfile.DebianEcosystem,
+			CompareAs: lockfile.DebianEcosystem,
+		},
+	})
+}
+
+func TestDpkgStatus_Shuffled(t *testing.T) {
+	t.Parallel()
+
+	packages, err := lockfile.ParseDpkgStatus("fixtures/dpkg/shuffled_status")
+
+	if err != nil {
+		t.Errorf("Got unexpected error: %v", err)
+	}
+
+	expectPackages(t, packages, []lockfile.PackageDetails{
+		{
+			Name:      "libc6",
+			Version:   "2.31-13+deb11u5",
+			Ecosystem: lockfile.DebianEcosystem,
+			CompareAs: lockfile.DebianEcosystem,
+		},
+	})
+}
+
+func TestDpkgStatus_Multiple(t *testing.T) {
+	t.Parallel()
+
+	packages, err := lockfile.ParseDpkgStatus("fixtures/dpkg/multiple_status")
+
+	if err != nil {
+		t.Errorf("Got unexpected error: %v", err)
+	}
+
+	expectPackages(t, packages, []lockfile.PackageDetails{
+		{
+			Name:      "bash",
+			Version:   "5.1-2+deb11u1",
+			Ecosystem: lockfile.DebianEcosystem,
+			CompareAs: lockfile.DebianEcosystem,
+		},
+		{
+			Name:      "bsdutils",
+			Version:   "1:2.36.1-8+deb11u1",
+			Ecosystem: lockfile.DebianEcosystem,
+			CompareAs: lockfile.DebianEcosystem,
+		},
+		{
+			Name:      "libc6",
+			Version:   "2.31-13+deb11u5",
+			Ecosystem: lockfile.DebianEcosystem,
+			CompareAs: lockfile.DebianEcosystem,
+		},
+	})
+}
