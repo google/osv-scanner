@@ -109,6 +109,17 @@ func TestRun(t *testing.T) {
         No package sources found, --help for usage information.
 			`,
 		},
+		{
+			name:         "",
+			args:         []string{"", "--version"},
+			wantExitCode: 0,
+			wantStdout:   `
+				osv-scanner version: dev
+				commit: n/a
+				built at: n/a
+			`,
+			wantStderr: "",
+		},
 		// one specific supported lockfile
 		{
 			name:         "",
