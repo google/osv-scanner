@@ -12,10 +12,10 @@ import (
 )
 
 type SPDX struct{}
-type SPDXLoader func(io.Reader) (*spdx.Document2_2, error)
+type spdxLoader func(io.Reader) (*spdx.Document2_2, error)
 
 var (
-	SPDXLoaders = []SPDXLoader{
+	spdxLoaders = []spdxLoader{
 		jsonloader.Load2_2,
 		rdfloader.Load2_2,
 		tvloader.Load2_2,
@@ -44,7 +44,7 @@ func (s *SPDX) enumeratePackages(doc *spdx.Document2_2, callback func(Identifier
 }
 
 func (s *SPDX) GetPackages(r io.ReadSeeker, callback func(Identifier) error) error {
-	for _, loader := range SPDXLoaders {
+	for _, loader := range spdxLoaders {
 		_, err := r.Seek(0, io.SeekStart)
 		if err != nil {
 			return fmt.Errorf("failed to seek to start of file: %w", err)
