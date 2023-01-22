@@ -19,20 +19,22 @@ var (
 	date    = "n/a"
 )
 
-func mapParseAsOverrides(slice []string) map[string]string {
+func mapParseAsOverrides(slice []string) (map[string]string, error) {
 	overrides := make(map[string]string)
 
 	for _, s := range slice {
+		if !strings.Contains(s, ":") {
+			return overrides, fmt.Errorf("parse-as should be formatted as <parser>:<file> (got \"%s\")", s)
+		}
+
 		splits := strings.SplitN(s, ":", 2)
 
-		// TODO: handle when there is no split (":")
 		// TODO: handle "installed" by checking for that explicitly first
-		// TODO: check that "parse-as" is valid with `lockfile`
 
 		overrides[splits[1]] = splits[0]
 	}
 
-	return overrides
+	return overrides, nil
 }
 
 func run(args []string, stdout, stderr io.Writer) int {
@@ -121,9 +123,15 @@ func run(args []string, stdout, stderr io.Writer) int {
 
 			r = output.NewReporter(stdout, stderr, format)
 
+			overrides, err := mapParseAsOverrides(context.StringSlice("parse-as"))
+
+			if err != nil {
+				return err
+			}
+
 			vulnResult, err := osvscanner.DoScan(osvscanner.ScannerActions{
 				LockfilePaths:            context.StringSlice("lockfile"),
-				LockfileParseAsOverrides: mapParseAsOverrides(context.StringSlice("parse-as")),
+				LockfileParseAsOverrides: overrides,
 				SBOMPaths:                context.StringSlice("sbom"),
 				DockerContainerNames:     context.StringSlice("docker"),
 				Recursive:                context.Bool("recursive"),

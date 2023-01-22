@@ -252,11 +252,64 @@ func TestRun_ParseAs(t *testing.T) {
 		// invalid parse-as
 		{
 			name:         "",
+			args:         []string{"", "--parse-as", "yarn.lock"},
+			wantExitCode: 127,
+			wantStdout:   "",
+			wantStderr: `
+				parse-as should be formatted as <parser>:<file> (got "yarn.lock")
+			`,
+		},
+		// unsupported parse-as
+		{
+			name:         "",
 			args:         []string{"", "--parse-as", "my-file:my-file"},
 			wantExitCode: 127,
 			wantStdout:   "",
 			wantStderr: `
 				Don't know how to parse files as "my-file" - supported values are:
+					buildscript-gradle.lockfile
+					Cargo.lock
+					composer.lock
+					conan.lock
+					Gemfile.lock
+					go.mod
+					gradle.lockfile
+					mix.lock
+					package-lock.json
+					packages.lock.json
+					Pipfile.lock
+					pnpm-lock.yaml
+					poetry.lock
+					pom.xml
+					pubspec.lock
+					requirements.txt
+					yarn.lock
+
+			`,
+		},
+		// technically valid, but currently meaningless
+		{
+			name: "",
+			args: []string{
+				"",
+				"--parse-as",
+				"package-lock.json:",
+				"-L",
+				filepath.FromSlash("./fixtures/locks-insecure/my-package-lock.json"),
+			},
+			wantExitCode: 127,
+			wantStdout:   "",
+			wantStderr: `
+				could not determine parser for %%/fixtures/locks-insecure/my-package-lock.json
+			`,
+		},
+		{
+			name:         "",
+			args:         []string{"", "--parse-as", ":my-file"},
+			wantExitCode: 127,
+			wantStdout:   "",
+			wantStderr: `
+				Don't know how to parse files as "." - supported values are:
 					buildscript-gradle.lockfile
 					Cargo.lock
 					composer.lock
