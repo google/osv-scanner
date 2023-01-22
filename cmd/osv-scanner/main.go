@@ -72,7 +72,7 @@ func run(args []string, stdout, stderr io.Writer) int {
 			},
 			&cli.BoolFlag{
 				Name:  "json",
-				Usage: "sets output to json (WIP)",
+				Usage: "sets output to json (deprecated, use --format json instead)",
 			},
 			&cli.BoolFlag{
 				Name:  "skip-git",
