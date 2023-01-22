@@ -29,8 +29,6 @@ func mapParseAsOverrides(slice []string) (map[string]string, error) {
 
 		splits := strings.SplitN(s, ":", 2)
 
-		// TODO: handle "installed" by checking for that explicitly first
-
 		overrides[splits[1]] = splits[0]
 	}
 

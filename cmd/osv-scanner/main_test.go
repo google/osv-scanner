@@ -284,6 +284,7 @@ func TestRun_ParseAs(t *testing.T) {
 					pubspec.lock
 					requirements.txt
 					yarn.lock
+					installed
 
 			`,
 		},
@@ -327,6 +328,7 @@ func TestRun_ParseAs(t *testing.T) {
 					pubspec.lock
 					requirements.txt
 					yarn.lock
+					installed
 
 			`,
 		},
@@ -432,6 +434,22 @@ func TestRun_ParseAs(t *testing.T) {
 			wantStderr: `
 				Attempted to scan file as a package-lock.json but failed: %%/fixtures/locks-many/yarn.lock
 			`,
+		},
+		// "installed" is supported
+		{
+			name: "",
+			args: []string{
+				"",
+				"--parse-as",
+				"installed:./fixtures/locks-many/installed",
+				"-L",
+				filepath.FromSlash("./fixtures/locks-many/installed"),
+			},
+			wantExitCode: 0,
+			wantStdout: `
+				Scanned %%/fixtures/locks-many/installed file as a installed and found 1 packages
+			`,
+			wantStderr: "",
 		},
 	}
 	for _, tt := range tests {

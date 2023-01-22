@@ -114,7 +114,18 @@ func tryScanFile(r *output.Reporter, query *osv.BatchedQuery, path string, parse
 // scanLockfile will load, identify, and parse the lockfile path passed in, and add the dependencies specified
 // within to `query`
 func scanLockfile(r *output.Reporter, query *osv.BatchedQuery, path string, parseAs string) error {
-	parsedLockfile, err := lockfile.Parse(path, parseAs)
+	var err error
+	var parsedLockfile lockfile.Lockfile
+
+	// special case for the APK parser because it has a very generic name while
+	// living at a specific location, so it's not included in the map of parsers
+	// used by lockfile.Parse to avoid false-positives when scanning projects
+	if parseAs == "installed" {
+		parsedLockfile, err = lockfile.FromApkInstalled(path)
+	} else {
+		parsedLockfile, err = lockfile.Parse(path, parseAs)
+	}
+
 	if err != nil {
 		return err
 	}
@@ -298,12 +309,19 @@ func filterResponse(r *output.Reporter, query osv.BatchedQuery, resp *osv.Batche
 
 func validateParseAsMap(parseAsMap map[string]string) error {
 	for _, parseAs := range parseAsMap {
+		// this parser is special-cased
+		if parseAs == "installed" {
+			continue
+		}
+
 		if parser, parsedAs := lockfile.FindParser("", parseAs); parser == nil {
 			msg := fmt.Sprintf("Don't know how to parse files as \"%s\" - supported values are:\n", parsedAs)
 
 			for _, s := range lockfile.ListParsers() {
 				msg += fmt.Sprintf("  %s\n", s)
 			}
+
+			msg += fmt.Sprintf("  installed\n")
 
 			return fmt.Errorf("%v", msg)
 		}
