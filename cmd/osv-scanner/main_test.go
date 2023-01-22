@@ -113,7 +113,7 @@ func TestRun(t *testing.T) {
 			name:         "",
 			args:         []string{"", "--version"},
 			wantExitCode: 0,
-			wantStdout:   `
+			wantStdout: `
 				osv-scanner version: dev
 				commit: n/a
 				built at: n/a
