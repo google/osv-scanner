@@ -44,7 +44,14 @@ var VulnerabilitiesFoundErr = errors.New("vulnerabilities found")
 //   - Any lockfiles with scanLockfile
 //   - Any SBOM files with scanSBOMFile
 //   - Any git repositories with scanGit
-func scanDir(r *output.Reporter, query *osv.BatchedQuery, dir string, skipGit bool, recursive bool, parseAsMap map[string]string) error {
+func scanDir(
+	r *output.Reporter,
+	query *osv.BatchedQuery,
+	dir string,
+	skipGit bool,
+	recursive bool,
+	lockfileParseAsOverrides map[string]string,
+) error {
 	root := true
 	return filepath.WalkDir(dir, func(path string, info os.DirEntry, err error) error {
 		if err != nil {
@@ -68,7 +75,7 @@ func scanDir(r *output.Reporter, query *osv.BatchedQuery, dir string, skipGit bo
 		}
 
 		if !info.IsDir() {
-			parsedAs, err := tryScanFile(r, query, path, parseAsMap)
+			parsedAs, err := tryScanFile(r, query, path, lockfileParseAsOverrides)
 			if err != nil && !errors.Is(err, lockfile.ErrParserNotFound) {
 				parsedAsComment := ""
 
@@ -93,8 +100,8 @@ func scanDir(r *output.Reporter, query *osv.BatchedQuery, dir string, skipGit bo
 	})
 }
 
-func findParseAs(parseAsMap map[string]string, path string) string {
-	for p, parseAs := range parseAsMap {
+func findParseAs(lockfileParseAsOverrides map[string]string, path string) string {
+	for p, parseAs := range lockfileParseAsOverrides {
 		pp, _ := filepath.Abs(p)
 
 		if pp == path {
@@ -105,8 +112,8 @@ func findParseAs(parseAsMap map[string]string, path string) string {
 	return ""
 }
 
-func tryScanFile(r *output.Reporter, query *osv.BatchedQuery, path string, parseAsMap map[string]string) (string, error) {
-	parseAs := findParseAs(parseAsMap, path)
+func tryScanFile(r *output.Reporter, query *osv.BatchedQuery, path string, lockfileParseAsOverrides map[string]string) (string, error) {
+	parseAs := findParseAs(lockfileParseAsOverrides, path)
 
 	return parseAs, scanLockfile(r, query, path, parseAs)
 }
@@ -307,8 +314,8 @@ func filterResponse(r *output.Reporter, query osv.BatchedQuery, resp *osv.Batche
 	return len(hiddenVulns)
 }
 
-func validateParseAsMap(parseAsMap map[string]string) error {
-	for _, parseAs := range parseAsMap {
+func validateLockfileParseAsOverrides(lockfileParseAsOverrides map[string]string) error {
+	for _, parseAs := range lockfileParseAsOverrides {
 		// this parser is special-cased
 		if parseAs == "installed" {
 			continue
@@ -336,7 +343,7 @@ func DoScan(actions ScannerActions, r *output.Reporter) (models.VulnerabilityRes
 		r = output.NewVoidReporter()
 	}
 
-	if err := validateParseAsMap(actions.LockfileParseAsOverrides); err != nil {
+	if err := validateLockfileParseAsOverrides(actions.LockfileParseAsOverrides); err != nil {
 		return models.VulnerabilityResults{}, err
 	}
 
