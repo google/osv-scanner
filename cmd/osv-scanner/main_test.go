@@ -1,4 +1,4 @@
-//nolint:testpackage // main cannot be accessed directly, so cannot use main_test
+// main cannot be accessed directly, so cannot use main_test
 package main
 
 import (
@@ -113,7 +113,7 @@ func TestRun(t *testing.T) {
 			name:         "",
 			args:         []string{"", "--version"},
 			wantExitCode: 0,
-			wantStdout:   `
+			wantStdout: `
 				osv-scanner version: dev
 				commit: n/a
 				built at: n/a

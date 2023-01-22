@@ -26,6 +26,7 @@ func NewReporter(stdout io.Writer, stderr io.Writer, outputAsJSON bool) *Reporte
 func NewVoidReporter() *Reporter {
 	stdout := new(strings.Builder)
 	stderr := new(strings.Builder)
+
 	return NewReporter(stdout, stderr, false)
 }
 

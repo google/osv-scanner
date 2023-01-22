@@ -22,7 +22,7 @@ type ConanGraphNode struct {
 	Pref      string `json:"pref"`
 	Ref       string `json:"ref"`
 	Options   string `json:"options"`
-	PackageId string `json:"package_id"`
+	PackageID string `json:"package_id"`
 	Prev      string `json:"prev"`
 	Path      string `json:"path"`
 	Context   string `json:"context"`
@@ -94,6 +94,7 @@ func parseConanRenference(ref string) ConanReference {
 		reference.Name = ""
 		reference.Version = ref
 	}
+
 	return reference
 }
 

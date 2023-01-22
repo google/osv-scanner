@@ -1,8 +1,9 @@
 package lockfile_test
 
 import (
-	"github.com/google/osv-scanner/pkg/lockfile"
 	"testing"
+
+	"github.com/google/osv-scanner/pkg/lockfile"
 )
 
 func TestParseGoLock_FileDoesNotExist(t *testing.T) {
@@ -240,7 +241,6 @@ func TestParseGoLock_Replacements_NotRequired(t *testing.T) {
 		},
 	})
 }
-
 
 func TestParseGoLock_Replacements_NoVersion(t *testing.T) {
 	t.Parallel()

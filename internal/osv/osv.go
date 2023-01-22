@@ -4,7 +4,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"time"
 
@@ -99,11 +99,12 @@ func MakePkgRequest(pkgDetails lockfile.PackageDetails) *Query {
 
 // From: https://stackoverflow.com/a/72408490
 func chunkBy[T any](items []T, chunkSize int) [][]T {
-	_chunks := make([][]T, 0, (len(items)/chunkSize)+1)
+	chunks := make([][]T, 0, (len(items)/chunkSize)+1)
 	for chunkSize < len(items) {
-		items, _chunks = items[chunkSize:], append(_chunks, items[0:chunkSize:chunkSize])
+		items, chunks = items[chunkSize:], append(chunks, items[0:chunkSize:chunkSize])
 	}
-	return append(_chunks, items)
+
+	return append(chunks, items)
 }
 
 // checkResponseError checks if the response has an error.
@@ -112,7 +113,7 @@ func checkResponseError(resp *http.Response) error {
 		return nil
 	}
 
-	respBuf, err := ioutil.ReadAll(resp.Body)
+	respBuf, err := io.ReadAll(resp.Body)
 	if err != nil {
 		return fmt.Errorf("failed to read error response from server: %w", err)
 	}
@@ -120,24 +121,10 @@ func checkResponseError(resp *http.Response) error {
 	return fmt.Errorf("server response error: %s", string(respBuf))
 }
 
-func makeRetryRequest(action func() (*http.Response, error)) (*http.Response, error) {
-	var resp *http.Response
-	var err error
-	retries := 3
-	for i := 0; i < retries; i++ {
-		resp, err = action()
-		if err == nil {
-			break
-		}
-		time.Sleep(time.Second)
-	}
-	return resp, err
-}
 func MakeRequest(request BatchedQuery) (*BatchedResponse, error) {
 	// API has a limit of 1000 bulk query per request
 	queryChunks := chunkBy(request.Queries, MaxQueriesPerRequest)
 	var totalOsvResp BatchedResponse
-
 	for _, queries := range queryChunks {
 		requestBytes, err := json.Marshal(BatchedQuery{Queries: queries})
 		if err != nil {
@@ -146,6 +133,8 @@ func MakeRequest(request BatchedQuery) (*BatchedResponse, error) {
 		requestBuf := bytes.NewBuffer(requestBytes)
 
 		resp, err := makeRetryRequest(func() (*http.Response, error) {
+			// We do not need a specific context
+			//nolint:noctx
 			return http.Post(QueryEndpoint, "application/json", requestBuf)
 		})
 		if err != nil {
@@ -170,9 +159,10 @@ func MakeRequest(request BatchedQuery) (*BatchedResponse, error) {
 	return &totalOsvResp, nil
 }
 
-// Get a Vulnerabiltiy for the given ID.
+// Get a Vulnerability for the given ID.
 func Get(id string) (*models.Vulnerability, error) {
 	resp, err := makeRetryRequest(func() (*http.Response, error) {
+		//nolint:noctx
 		return http.Get(GetEndpoint + "/" + id)
 	})
 	if err != nil {
@@ -190,6 +180,7 @@ func Get(id string) (*models.Vulnerability, error) {
 	if err != nil {
 		return nil, err
 	}
+
 	return &vuln, nil
 }
 
@@ -211,5 +202,21 @@ func Hydrate(resp *BatchedResponse) (*HydratedBatchedResponse, error) {
 		}
 		hydrated.Results = append(hydrated.Results, result)
 	}
+
 	return &hydrated, nil
+}
+
+func makeRetryRequest(action func() (*http.Response, error)) (*http.Response, error) {
+	var resp *http.Response
+	var err error
+	retries := 3
+	for i := 0; i < retries; i++ {
+		resp, err = action()
+		if err == nil {
+			break
+		}
+		time.Sleep(time.Second)
+	}
+
+	return resp, err
 }

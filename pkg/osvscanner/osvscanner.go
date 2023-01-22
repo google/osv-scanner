@@ -29,8 +29,12 @@ type ScannerActions struct {
 	ConfigOverridePath   string
 }
 
-// Error for when no packages is found during a scan.
+// NoPackagesFoundErr for when no packages is found during a scan.
+//
+//nolint:errname,stylecheck // Would require version bump to change
 var NoPackagesFoundErr = errors.New("no packages found in scan")
+
+//nolint:errname,stylecheck // Would require version bump to change
 var VulnerabilitiesFoundErr = errors.New("vulnerabilities found")
 
 // scanDir walks through the given directory to try to find any relevant files
@@ -57,6 +61,7 @@ func scanDir(r *output.Reporter, query *osv.BatchedQuery, dir string, skipGit bo
 				r.PrintText(fmt.Sprintf("scan failed for git repository, %s: %v\n", path, err))
 				// Not fatal, so don't return and continue scanning other files
 			}
+
 			return filepath.SkipDir
 		}
 
@@ -99,6 +104,7 @@ func scanLockfile(r *output.Reporter, query *osv.BatchedQuery, path string) erro
 		}
 		query.Queries = append(query.Queries, pkgDetailQuery)
 	}
+
 	return nil
 }
 
@@ -126,6 +132,7 @@ func scanSBOMFile(r *output.Reporter, query *osv.BatchedQuery, path string) erro
 				Type: "sbom",
 			}
 			query.Queries = append(query.Queries, purlQuery)
+
 			return nil
 		})
 		if err == nil {
@@ -134,7 +141,7 @@ func scanSBOMFile(r *output.Reporter, query *osv.BatchedQuery, path string) erro
 			return nil
 		}
 
-		if errors.Is(err, sbom.InvalidFormat) {
+		if errors.Is(err, sbom.ErrInvalidFormat) {
 			continue
 		}
 
@@ -152,11 +159,12 @@ func getCommitSHA(repoDir string) (string, error) {
 	err := cmd.Run()
 
 	if err != nil {
-		if exiterr, ok := err.(*exec.ExitError); ok && exiterr.ExitCode() == 128 {
-			return "", fmt.Errorf("Failed to get commit hash, no commits exist? %w", exiterr)
-		} else {
-			return "", fmt.Errorf("failed to get commit hash: %w", err)
+		var exitErr *exec.ExitError
+		if errors.As(err, &exitErr) && exitErr.ExitCode() == 128 {
+			return "", fmt.Errorf("failed to get commit hash, no commits exist? %w", exitErr)
 		}
+
+		return "", fmt.Errorf("failed to get commit hash: %w", err)
 	}
 
 	return strings.TrimSpace(out.String()), nil
@@ -170,16 +178,17 @@ func scanGit(r *output.Reporter, query *osv.BatchedQuery, repoDir string) error 
 	}
 	r.PrintText(fmt.Sprintf("Scanning %s at commit %s\n", repoDir, commit))
 
-	return scanGitCommit(r, query, commit, repoDir)
+	return scanGitCommit(query, commit, repoDir)
 }
 
-func scanGitCommit(r *output.Reporter, query *osv.BatchedQuery, commit string, source string) error {
+func scanGitCommit(query *osv.BatchedQuery, commit string, source string) error {
 	gitQuery := osv.MakeCommitRequest(commit)
 	gitQuery.Source = models.SourceInfo{
 		Path: source,
 		Type: "git",
 	}
 	query.Queries = append(query.Queries, gitQuery)
+
 	return nil
 }
 
@@ -196,11 +205,9 @@ func scanDebianDocker(r *output.Reporter, query *osv.BatchedQuery, dockerImageNa
 		r.PrintError(fmt.Sprintf("Failed to start docker image: %s\n", err))
 		return err
 	}
+	// TODO: Do error checking here
+	//nolint:errcheck
 	defer cmd.Wait()
-	if err != nil {
-		r.PrintError(fmt.Sprintf("Failed to run docker: %s\n", err))
-		return err
-	}
 	scanner := bufio.NewScanner(stdout)
 	packages := 0
 	for scanner.Scan() {
@@ -281,7 +288,7 @@ func DoScan(actions ScannerActions, r *output.Reporter) (models.VulnerabilityRes
 	for _, container := range actions.DockerContainerNames {
 		// TODO: Automatically figure out what docker base image
 		// and scan appropriately.
-		scanDebianDocker(r, &query, container)
+		_ = scanDebianDocker(r, &query, container)
 	}
 
 	for _, lockfileElem := range actions.LockfilePaths {
@@ -299,7 +306,7 @@ func DoScan(actions ScannerActions, r *output.Reporter) (models.VulnerabilityRes
 	for _, sbomElem := range actions.SBOMPaths {
 		sbomElem, err := filepath.Abs(sbomElem)
 		if err != nil {
-			return models.VulnerabilityResults{}, fmt.Errorf("failed to resolved path with error %s\n", err)
+			return models.VulnerabilityResults{}, fmt.Errorf("failed to resolved path with error %w", err)
 		}
 		err = scanSBOMFile(r, &query, sbomElem)
 		if err != nil {
@@ -308,7 +315,7 @@ func DoScan(actions ScannerActions, r *output.Reporter) (models.VulnerabilityRes
 	}
 
 	for _, commit := range actions.GitCommits {
-		err := scanGitCommit(r, &query, commit, "HASH")
+		err := scanGitCommit(&query, commit, "HASH")
 		if err != nil {
 			return models.VulnerabilityResults{}, err
 		}
@@ -328,7 +335,7 @@ func DoScan(actions ScannerActions, r *output.Reporter) (models.VulnerabilityRes
 
 	resp, err := osv.MakeRequest(query)
 	if err != nil {
-		return models.VulnerabilityResults{}, fmt.Errorf("scan failed %v", err)
+		return models.VulnerabilityResults{}, fmt.Errorf("scan failed %w", err)
 	}
 
 	filtered := filterResponse(r, query, resp, &configManager)
@@ -338,7 +345,7 @@ func DoScan(actions ScannerActions, r *output.Reporter) (models.VulnerabilityRes
 
 	hydratedResp, err := osv.Hydrate(resp)
 	if err != nil {
-		return models.VulnerabilityResults{}, fmt.Errorf("failed to hydrate OSV response: %v", err)
+		return models.VulnerabilityResults{}, fmt.Errorf("failed to hydrate OSV response: %w", err)
 	}
 
 	vulnerabilityResults := groupResponseBySource(r, query, hydratedResp)

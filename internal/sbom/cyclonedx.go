@@ -1,6 +1,7 @@
 package sbom
 
 import (
+	"fmt"
 	"io"
 	"strings"
 
@@ -31,19 +32,24 @@ func (c *CycloneDX) enumeratePackages(bom *cyclonedx.BOM, callback func(Identifi
 			}
 		}
 	}
+
 	return nil
 }
 
 func (c *CycloneDX) GetPackages(r io.ReadSeeker, callback func(Identifier) error) error {
 	var bom cyclonedx.BOM
-	
+
 	for _, formatType := range cycloneDXTypes {
-		r.Seek(0, io.SeekStart)
+		_, err := r.Seek(0, io.SeekStart)
+		if err != nil {
+			return fmt.Errorf("failed to seek to start of file: %w", err)
+		}
 		decoder := cyclonedx.NewBOMDecoder(r, formatType)
-		err := decoder.Decode(&bom)
+		err = decoder.Decode(&bom)
 		if err == nil && (bom.BOMFormat == "CycloneDX" || strings.HasPrefix(bom.XMLNS, "http://cyclonedx.org/schema/bom")) {
 			return c.enumeratePackages(&bom, callback)
 		}
 	}
-	return InvalidFormat
+
+	return ErrInvalidFormat
 }

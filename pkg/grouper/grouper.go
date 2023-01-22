@@ -13,6 +13,7 @@ func min(a, b int) int {
 	if a < b {
 		return a
 	}
+
 	return b
 }
 
@@ -58,9 +59,10 @@ func Group(vulns []IDAliases) []models.GroupInfo {
 	sortedKeys := maps.Keys(extractedGroups)
 	sort.Ints(sortedKeys)
 
-	var result []models.GroupInfo
+	result := make([]models.GroupInfo, 0, len(sortedKeys))
 	for _, key := range sortedKeys {
 		result = append(result, models.GroupInfo{IDs: extractedGroups[key]})
 	}
+
 	return result
 }

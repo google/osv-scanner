@@ -47,7 +47,6 @@ func (c *Config) ShouldIgnore(vulnID string) (bool, IgnoreEntry) {
 	// Should ignore if IgnoreUntil is still after current time
 	// Takes timezone offsets into account if it is specified. otherwise it's using local time
 	return ignoredLine.IgnoreUntil.After(time.Now()), ignoredLine
-
 }
 
 // Sets the override config by reading the config file at configPath.
@@ -60,6 +59,7 @@ func (c *ConfigManager) UseOverride(configPath string) error {
 	}
 	config.LoadPath = configPath
 	c.OverrideConfig = &config
+
 	return nil
 }
 
@@ -82,7 +82,7 @@ func (c *ConfigManager) Get(r *output.Reporter, targetPath string) Config {
 		return config
 	}
 
-	config, configErr := tryLoadConfig(r, configPath)
+	config, configErr := tryLoadConfig(configPath)
 	if configErr == nil {
 		r.PrintText(fmt.Sprintf("Loaded filter from: %s\n", config.LoadPath))
 	} else {
@@ -108,12 +108,13 @@ func normalizeConfigLoadPath(target string) (string, error) {
 		containingFolder = target
 	}
 	configPath := filepath.Join(containingFolder, osvScannerConfigName)
+
 	return configPath, nil
 }
 
 // tryLoadConfig tries to load config in `target` (or it's containing directory)
 // `target` will be the key for the entry in configMap
-func tryLoadConfig(r *output.Reporter, configPath string) (Config, error) {
+func tryLoadConfig(configPath string) (Config, error) {
 	file, err := os.Open(configPath)
 	var config Config
 	if err == nil { // File exists, and we have permission to read
@@ -121,9 +122,10 @@ func tryLoadConfig(r *output.Reporter, configPath string) (Config, error) {
 
 		_, err := toml.NewDecoder(file).Decode(&config)
 		if err != nil {
-			return Config{}, fmt.Errorf("failed to parse config file: %w\n", err)
+			return Config{}, fmt.Errorf("failed to parse config file: %w", err)
 		}
 		config.LoadPath = configPath
+
 		return config, nil
 	}
 

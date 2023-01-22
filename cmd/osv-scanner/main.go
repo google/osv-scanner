@@ -88,8 +88,9 @@ func run(args []string, stdout, stderr io.Writer) int {
 			}, r)
 
 			if errPrint := r.PrintResult(&vulnResult); errPrint != nil {
-				return fmt.Errorf("failed to write output: %v", errPrint)
+				return fmt.Errorf("failed to write output: %w", errPrint)
 			}
+			//nolint:wrapcheck
 			return err
 		},
 	}
@@ -103,11 +104,12 @@ func run(args []string, stdout, stderr io.Writer) int {
 		}
 
 		if errors.Is(err, osvscanner.NoPackagesFoundErr) {
-			r.PrintError(fmt.Sprintf("No package sources found, --help for usage information.\n"))
+			r.PrintError("No package sources found, --help for usage information.\n")
 			return 128
 		}
 
 		r.PrintError(fmt.Sprintf("%v\n", err))
+
 		return 127
 	}
 

@@ -21,6 +21,7 @@ func (vulns *VulnerabilityResults) Flatten() []VulnerabilityFlattened {
 			}
 		}
 	}
+
 	return results
 }
 

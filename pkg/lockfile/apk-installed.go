@@ -21,6 +21,7 @@ func groupApkPackageLines(scanner *bufio.Scanner) [][]string {
 				groups = append(groups, group)
 			}
 			group = make([]string, 0)
+
 			continue
 		}
 		group = append(group, line)
@@ -52,7 +53,7 @@ func parseApkPackageGroup(group []string, pathToLockfile string) PackageDetails 
 	}
 
 	if pkg.Version == "" {
-		var pkgPrintName string = pkg.Name
+		pkgPrintName := pkg.Name
 		if pkgPrintName == "" {
 			pkgPrintName = "<unknown>"
 		}
@@ -90,6 +91,7 @@ func ParseApkInstalled(pathToLockfile string) ([]PackageDetails, error) {
 				"warning: malformed APK installed file. Found no package name in record. File: %s\n",
 				pathToLockfile,
 			)
+
 			continue
 		}
 

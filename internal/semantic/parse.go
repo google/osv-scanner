@@ -18,6 +18,7 @@ func MustParse(str string, ecosystem Ecosystem) Version {
 }
 
 func Parse(str string, ecosystem Ecosystem) (Version, error) {
+	//nolint:exhaustive // Using strings to specify ecosystem instead of lockfile types
 	switch ecosystem {
 	case "npm":
 		return parseSemverVersion(str), nil
