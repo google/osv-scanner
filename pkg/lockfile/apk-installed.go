@@ -3,6 +3,7 @@ package lockfile
 import (
 	"bufio"
 	"fmt"
+	"io"
 	"os"
 	"sort"
 	"strings"
@@ -76,8 +77,11 @@ func ParseApkInstalled(pathToLockfile string) ([]PackageDetails, error) {
 	}
 	defer file.Close()
 
-	scanner := bufio.NewScanner(file)
+	return ParseApkInstalledFromReader(file, pathToLockfile)
+}
 
+func ParseApkInstalledFromReader(file io.ReadCloser, pathToLockfile string) ([]PackageDetails, error) {
+	scanner := bufio.NewScanner(file)
 	packageGroups := groupApkPackageLines(scanner)
 
 	packages := make([]PackageDetails, 0, len(packageGroups))

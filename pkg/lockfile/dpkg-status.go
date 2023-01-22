@@ -3,6 +3,7 @@ package lockfile
 import (
 	"bufio"
 	"fmt"
+	"io"
 	"os"
 	"regexp"
 	"sort"
@@ -128,6 +129,10 @@ func ParseDpkgStatus(pathToLockfile string) ([]PackageDetails, error) {
 	}
 	defer file.Close()
 
+	return ParseDpkgStatusFromReader(file, pathToLockfile)
+}
+
+func ParseDpkgStatusFromReader(file io.ReadCloser, pathToLockfile string) ([]PackageDetails, error) {
 	scanner := bufio.NewScanner(file)
 	packageGroups := groupDpkgPackageLines(scanner)
 

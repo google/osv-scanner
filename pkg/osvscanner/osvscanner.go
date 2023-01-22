@@ -1,11 +1,11 @@
 package osvscanner
 
 import (
-	"bufio"
+	"bytes"
+	"context"
 	"errors"
 	"fmt"
 	"os"
-	"os/exec"
 	"path/filepath"
 	"strings"
 
@@ -20,6 +20,10 @@ import (
 	"github.com/go-git/go-billy/v5/osfs"
 	"github.com/go-git/go-git/v5"
 	"github.com/go-git/go-git/v5/plumbing/format/gitignore"
+
+	"github.com/anchore/stereoscope"
+	"github.com/anchore/stereoscope/pkg/file"
+	"github.com/anchore/stereoscope/pkg/image"
 )
 
 type ScannerActions struct {
@@ -299,51 +303,130 @@ func scanGitCommit(query *osv.BatchedQuery, commit string, source string) error 
 	return nil
 }
 
-func scanDebianDocker(r *output.Reporter, query *osv.BatchedQuery, dockerImageName string) error {
-	cmd := exec.Command("docker", "run", "--rm", "--entrypoint", "/usr/bin/dpkg-query", dockerImageName, "-f", "${Package}###${Version}\\n", "-W")
-	stdout, err := cmd.StdoutPipe()
+func scanDocker(r *output.Reporter, query *osv.BatchedQuery, dockerImageName string) error {
+	// context for network requests
+	ctx, cancel := context.WithCancel(context.Background())
+	defer cancel()
 
+	// Add "docker:" prefix as needed by stereoscope to identify Docker image reference
+	image, err := stereoscope.GetImage(ctx, "docker:"+dockerImageName)
 	if err != nil {
-		r.PrintError(fmt.Sprintf("Failed to get stdout: %s\n", err))
+		return fmt.Errorf("failed to open Image %s. %w", dockerImageName, err)
+	}
+
+	// TODO: define/document used temp files
+	defer func() {
+		err := image.Cleanup()
+		if err != nil {
+			_, _ = fmt.Fprintf(
+				os.Stderr,
+				"warning: failed to clean docker image temporary files: %s\n",
+				dockerImageName,
+			)
+		}
+	}()
+
+	// Identify Image OS
+	imageOS, err := identifyImageOS(image)
+	if err != nil {
 		return err
 	}
-	err = cmd.Start()
+
+	// Scan image using parser corresponding to identified OS pkg manager
+	pkgMgrDBPath := imageOS.PkgMgrDBLocation
+	pkgDetails, err := scanDockerImageBasedOnOS(image, imageOS, dockerImageName)
 	if err != nil {
-		r.PrintError(fmt.Sprintf("Failed to start docker image: %s\n", err))
 		return err
 	}
-	// TODO: Do error checking here
-	//nolint:errcheck
-	defer cmd.Wait()
-	scanner := bufio.NewScanner(stdout)
-	packages := 0
-	for scanner.Scan() {
-		text := scanner.Text()
-		text = strings.TrimSpace(text)
-		if len(text) == 0 {
-			continue
+
+	r.PrintText(fmt.Sprintf("Scanned \"%s\" docker image and found %d OS packages\n", dockerImageName, len(pkgDetails)))
+
+	for _, pkgDetail := range pkgDetails {
+		pkgDetailQuery := osv.MakePkgRequest(pkgDetail)
+		pkgDetailQuery.Source = models.SourceInfo{
+			Path: "docker:" + dockerImageName + " -- " + pkgMgrDBPath,
+			Type: "dockerImage", //TODO: is it a free field???
 		}
-		splitText := strings.Split(text, "###")
-		if len(splitText) != 2 {
-			r.PrintError(fmt.Sprintf("Unexpected output from Debian container: \n\n%s\n", text))
-			return fmt.Errorf("unexpected output from Debian container: \n\n%s", text)
-		}
-		pkgDetailsQuery := osv.MakePkgRequest(lockfile.PackageDetails{
-			Name:    splitText[0],
-			Version: splitText[1],
-			// TODO(rexpan): Get and specify exact debian release version
-			Ecosystem: "Debian",
-		})
-		pkgDetailsQuery.Source = models.SourceInfo{
-			Path: dockerImageName,
-			Type: "docker",
-		}
-		query.Queries = append(query.Queries, pkgDetailsQuery)
-		packages += 1
+		query.Queries = append(query.Queries, pkgDetailQuery)
 	}
-	r.PrintText(fmt.Sprintf("Scanned docker image with %d packages\n", packages))
+
+	// TODO: to scan image filesystem, walk squashed tree and call lockfile parsers if filename matches
+	// TODO: limit scan to specific filesystem folder(s) only
+	/*
+		// Walk squshed image = walk last layer squashed tree
+		// Pass a FileNodeVisitor function that operates on the current file path
+		err = image.SquashedTree().Walk(func(path file.Path, f filenode.FileNode) error {
+			//fmt.Println("   ", path)
+			return nil
+		}, nil)
+		if err != nil {
+			panic(err)
+		}
+	*/
 
 	return nil
+}
+
+// Heuristic to identify Image OS
+// TODO: Support more OS
+// TODO: Better error mgmt
+func identifyImageOS(image *image.Image) (lockfile.ImageOS, error) {
+	var filePath file.Path
+	var osName, version, pkgMgr, pkgMgrDBLocation string
+
+	filePath = file.Path("/etc/debian_version")
+	contentReader, err := image.FileContentsFromSquash(filePath)
+	// TODO: If err=file does not exist -> continue, otherwise stop parsing image now
+	// Debian
+	if err == nil {
+		osName = "Debian"
+		pkgMgr = "dpkg"
+		pkgMgrDBLocation = "/var/lib/dpkg/status"
+	} else {
+		// Alpine
+		filePath = file.Path("/etc/alpine-release")
+		contentReader, err = image.FileContentsFromSquash(filePath)
+		if err == nil {
+			osName = "Alpine"
+			pkgMgr = "apk"
+			pkgMgrDBLocation = "/lib/apk/db/installed"
+		}
+	}
+
+	if osName != "" {
+		buf := new(bytes.Buffer)
+		_, readErr := buf.ReadFrom(contentReader)
+		if readErr != nil {
+			return lockfile.ImageOS{}, err
+		}
+		version = buf.String()
+	}
+
+	// Empty == Unknown or specify ImageOS.Name = "Unknown"?
+	if osName == "" {
+		return lockfile.ImageOS{}, nil
+	} else {
+		return lockfile.ImageOS{Name: osName, Version: version, PkgMgr: pkgMgr, PkgMgrDBLocation: pkgMgrDBLocation}, nil
+	}
+}
+
+// Parse Image OS packages using corresponding parser function
+func scanDockerImageBasedOnOS(image *image.Image, imageOS lockfile.ImageOS, dockerImageName string) ([]lockfile.PackageDetails, error) {
+	filePath := file.Path(imageOS.PkgMgrDBLocation)
+	contentReader, err := image.FileContentsFromSquash(filePath)
+	// Current DB file not readable, continue
+	// TODO: If file does not exist -> continue, otherwise stop parsing image
+	if err != nil {
+		return nil, err
+	}
+
+	pkgDetails, err := lockfile.PkgMgrParse[imageOS.PkgMgr](contentReader, "docker:"+dockerImageName+" -- "+imageOS.PkgMgrDBLocation)
+	// Error in parsing
+	if err != nil {
+		return nil, err
+	}
+
+	return pkgDetails, nil
 }
 
 // Filters response according to config, returns number of responses removed
@@ -405,7 +488,7 @@ func DoScan(actions ScannerActions, r *output.Reporter) (models.VulnerabilityRes
 	for _, container := range actions.DockerContainerNames {
 		// TODO: Automatically figure out what docker base image
 		// and scan appropriately.
-		_ = scanDebianDocker(r, &query, container)
+		_ = scanDocker(r, &query, container)
 	}
 
 	for _, lockfileElem := range actions.LockfilePaths {
