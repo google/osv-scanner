@@ -1,4 +1,4 @@
-//nolint:testpackage // main cannot be accessed directly, so cannot use main_test
+// main cannot be accessed directly, so cannot use main_test
 package main
 
 import (
@@ -109,6 +109,17 @@ func TestRun(t *testing.T) {
         No package sources found, --help for usage information.
 			`,
 		},
+		{
+			name:         "",
+			args:         []string{"", "--version"},
+			wantExitCode: 0,
+			wantStdout: `
+				osv-scanner version: dev
+				commit: n/a
+				built at: n/a
+			`,
+			wantStderr: "",
+		},
 		// one specific supported lockfile
 		{
 			name:         "",
@@ -186,6 +197,20 @@ func TestRun(t *testing.T) {
 		{
 			name:         "",
 			args:         []string{"", "--json", "./fixtures/locks-many/composer.lock"},
+			wantExitCode: 0,
+			wantStdout: `
+				{
+					"results": []
+				}
+			`,
+			wantStderr: `
+				Scanning dir ./fixtures/locks-many/composer.lock
+				Scanned %%/fixtures/locks-many/composer.lock file and found 1 packages
+			`,
+		},
+		{
+			name:         "",
+			args:         []string{"", "--format", "json", "./fixtures/locks-many/composer.lock"},
 			wantExitCode: 0,
 			wantStdout: `
 				{

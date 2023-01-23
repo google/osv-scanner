@@ -11,7 +11,8 @@ import (
 const PipEcosystem Ecosystem = "PyPI"
 
 // todo: expand this to support more things, e.g.
-//   https://pip.pypa.io/en/stable/reference/requirements-file-format/#example
+//
+//	https://pip.pypa.io/en/stable/reference/requirements-file-format/#example
 func parseLine(line string) PackageDetails {
 	var constraint string
 	name := line

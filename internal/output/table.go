@@ -46,11 +46,9 @@ func PrintTableResults(vulnResult *models.VulnerabilityResults, outputWriter io.
 				outputRow := table.Row{}
 				shouldMerge := false
 
-				var ids []string
 				var links []string
 
 				for _, vuln := range group.IDs {
-					ids = append(ids, vuln)
 					if isTerminal {
 						links = append(links, osv.BaseVulnerabilityURL+text.Bold.EscapeSeq()+vuln+text.Reset.EscapeSeq())
 					} else {

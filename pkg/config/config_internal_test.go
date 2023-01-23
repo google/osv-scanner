@@ -2,11 +2,9 @@ package config
 
 import (
 	"path/filepath"
-	"strings"
 	"testing"
 
 	"github.com/google/go-cmp/cmp"
-	"github.com/google/osv-scanner/internal/output"
 )
 
 type testStruct struct {
@@ -16,6 +14,7 @@ type testStruct struct {
 }
 
 func TestTryLoadConfig(t *testing.T) {
+	t.Parallel()
 
 	expectedConfig := Config{
 		IgnoredVulns: []IgnoreEntry{
@@ -64,7 +63,7 @@ func TestTryLoadConfig(t *testing.T) {
 		if err != nil {
 			t.Errorf("%s", err)
 		}
-		config, configErr := tryLoadConfig(output.NewReporter(new(strings.Builder), new(strings.Builder), false), configPath)
+		config, configErr := tryLoadConfig(configPath)
 		if !cmp.Equal(config.IgnoredVulns, testData.config.IgnoredVulns) {
 			t.Errorf("Configs not equal: %+v != %+v", config, testData.config)
 		}

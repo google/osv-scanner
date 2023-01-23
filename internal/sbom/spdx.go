@@ -1,6 +1,8 @@
+//nolint:nosnakecase
 package sbom
 
 import (
+	"fmt"
 	"io"
 
 	"github.com/spdx/tools-golang/jsonloader"
@@ -37,16 +39,21 @@ func (s *SPDX) enumeratePackages(doc *spdx.Document2_2, callback func(Identifier
 			}
 		}
 	}
+
 	return nil
 }
 
 func (s *SPDX) GetPackages(r io.ReadSeeker, callback func(Identifier) error) error {
 	for _, loader := range spdxLoaders {
-		r.Seek(0, io.SeekStart)
+		_, err := r.Seek(0, io.SeekStart)
+		if err != nil {
+			return fmt.Errorf("failed to seek to start of file: %w", err)
+		}
 		doc, err := loader(r)
 		if err == nil {
 			return s.enumeratePackages(doc, callback)
 		}
 	}
-	return InvalidFormat
+
+	return ErrInvalidFormat
 }

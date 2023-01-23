@@ -1,0 +1,64 @@
+output:
+  sort-results: true
+linters:
+  enable:
+    - gofmt
+  # prettier-ignore
+  disable:
+    - tagliatelle      # we're parsing data from external sources     (g-rath)
+    - varnamelen       # maybe later  (g-rath)
+    - exhaustivestruct # deprecated
+    - exhaustruct      # overkill (g-rath)
+    - forcetypeassert  # too hard (g-rath)
+    - interfacer       # deprecated
+    - golint           # deprecated
+    - scopelint        # deprecated
+    - maligned         # deprecated
+    - varcheck         # deprecated
+    - structcheck      # deprecated
+    - deadcode         # deprecated
+    - nosnakecase      # deprecated
+    - lll              # line length is hard  (g-rath)
+    - godox            # to-do comments are fine  (g-rath)
+    - godot            # comments are fine without full stops (g-rath)
+    - gomnd            # not every number is magic  (g-rath)
+    - wsl              # disagree with, for now (g-rath)
+    - ireturn          # disagree with, sort of (g-rath)
+    - gochecknoglobals # disagree with, for non changing variables (another-rex)
+    - wrapcheck        # too difficult, will re-add later (another-rex)
+    - testpackage      # will re-add later (another-rex)
+    - goerr113         # will re-add later (another-rex)
+    - nonamedreturns   # disagree with, for now (another-rex)
+  presets:
+    - bugs
+    - comment
+    - error
+    - performance
+    - sql
+    - style
+    - test
+    - unused
+
+linters-settings:
+  gocritic:
+    disabled-checks:
+      - ifElseChain
+  revive:
+    rules:
+      - name: increment-decrement
+        disabled: true
+  nlreturn:
+    # Size of the block (including return statement that is still "OK")
+    # so no return split required.
+    # Default: 1
+    block-size: 2
+
+issues:
+  exclude-rules:
+    - path: _test\.go
+      linters:
+        - goerr113
+        - dupl
+    - path: main.go
+      linters:
+        - gochecknoglobals

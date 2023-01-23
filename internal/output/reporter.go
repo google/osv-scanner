@@ -9,16 +9,16 @@ import (
 )
 
 type Reporter struct {
-	stdout       io.Writer
-	stderr       io.Writer
-	outputAsJSON bool
+	stdout io.Writer
+	stderr io.Writer
+	format string
 }
 
-func NewReporter(stdout io.Writer, stderr io.Writer, outputAsJSON bool) *Reporter {
+func NewReporter(stdout io.Writer, stderr io.Writer, format string) *Reporter {
 	return &Reporter{
-		stdout:       stdout,
-		stderr:       stderr,
-		outputAsJSON: outputAsJSON,
+		stdout: stdout,
+		stderr: stderr,
+		format: format,
 	}
 }
 
@@ -26,7 +26,8 @@ func NewReporter(stdout io.Writer, stderr io.Writer, outputAsJSON bool) *Reporte
 func NewVoidReporter() *Reporter {
 	stdout := new(strings.Builder)
 	stderr := new(strings.Builder)
-	return NewReporter(stdout, stderr, false)
+
+	return NewReporter(stdout, stderr, "")
 }
 
 // PrintError writes the given message to stderr, regardless of if the reporter
@@ -43,7 +44,7 @@ func (r *Reporter) PrintError(msg string) {
 func (r *Reporter) PrintText(msg string) {
 	target := r.stdout
 
-	if r.outputAsJSON {
+	if r.format == "json" {
 		target = r.stderr
 	}
 
@@ -51,11 +52,12 @@ func (r *Reporter) PrintText(msg string) {
 }
 
 func (r *Reporter) PrintResult(vulnResult *models.VulnerabilityResults) error {
-	if r.outputAsJSON {
+	switch r.format {
+	case "json":
 		return PrintJSONResults(vulnResult, r.stdout)
+	case "table":
+		PrintTableResults(vulnResult, r.stdout)
 	}
-
-	PrintTableResults(vulnResult, r.stdout)
 
 	return nil
 }

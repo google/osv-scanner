@@ -43,7 +43,7 @@ func ParseGradleLock(pathToLockfile string) ([]PackageDetails, error) {
 	}
 	defer file.Close()
 
-	pkgs := make([]PackageDetails, 0, 0)
+	pkgs := make([]PackageDetails, 0)
 	scanner := bufio.NewScanner(file)
 
 	for scanner.Scan() {

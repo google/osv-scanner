@@ -8,6 +8,8 @@ import (
 )
 
 func TestGroup(t *testing.T) {
+	t.Parallel()
+
 	// Should be grouped by IDs appearing in alias.
 	v1 := IDAliases{
 		ID: "CVE-1",
@@ -69,7 +71,6 @@ func TestGroup(t *testing.T) {
 	v10 := IDAliases{
 		ID: "UNRELATED-4",
 	}
-
 	for _, tc := range []struct {
 		vulns []IDAliases
 		want  []models.GroupInfo
@@ -136,6 +137,5 @@ func TestGroup(t *testing.T) {
 		if diff := cmp.Diff(tc.want, grouped); diff != "" {
 			t.Errorf("GroupedVulns() returned an unexpected result (-want, +got):\n%s", diff)
 		}
-
 	}
 }

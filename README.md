@@ -212,12 +212,30 @@ id = "GO-2022-1059"
 reason = "No external http servers are written in Go lang."
 ```
 
-## JSON output
-By default osv-scanner outputs a human readable table. To have osv-scanner output JSON instead, pass the `--json` flag when calling osv-scanner.
+## Output formats
 
-When using the --json flag, only the JSON output will be printed to stdout, with all other outputs being directed to stderr. So to save only the json output to file, you can redirect the output with `osv-scanner --json ... > /path/to/file.json`
+You can control the format used by the scanner to output results with the `--format` flag. The different formats supported by the scanner are:
 
-### Output Format
+### `table` format
+
+The default format, which outputs the results as a human-readable table.
+
+Sample output:
+
+```
+╭─────────────────────────────────────┬───────────┬──────────────────────────┬─────────┬────────────────────╮
+│ OSV URL (ID IN BOLD)                │ ECOSYSTEM │ PACKAGE                  │ VERSION │ SOURCE             │
+├─────────────────────────────────────┼───────────┼──────────────────────────┼─────────┼────────────────────┤
+│ https://osv.dev/GHSA-c3h9-896r-86jm │ Go        │ github.com/gogo/protobuf │ 1.3.1   │ path/to/go.mod     │
+│ https://osv.dev/GHSA-m5pq-gvj9-9vr8 │ crates.io │ regex                    │ 1.3.1   │ path/to/Cargo.lock │
+╰─────────────────────────────────────┴───────────┴──────────────────────────┴─────────┴────────────────────╯
+```
+
+### `json` format
+
+Outputs the results as a JSON object to stdout, with all other output being directed to stderr - this makes it safe to redirect the output to a file with `osv-scanner --format json ... > /path/to/file.json`.
+
+Sample output:
 
 ```json5
 {
