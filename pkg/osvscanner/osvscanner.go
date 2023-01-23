@@ -328,6 +328,7 @@ func validateLockfileParseAsOverrides(lockfileParseAsOverrides map[string]string
 				msg += fmt.Sprintf("  %s\n", s)
 			}
 
+			//nolint:gosimple // this looks nicer and avoids complaints about punctuation
 			msg += fmt.Sprintf("  installed\n")
 
 			return fmt.Errorf("%v", msg)
