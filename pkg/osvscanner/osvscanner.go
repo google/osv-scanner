@@ -94,6 +94,7 @@ func scanLockfile(r *output.Reporter, query *osv.BatchedQuery, path string) erro
 	if err != nil {
 		return err
 	}
+
 	r.PrintText(fmt.Sprintf("Scanned %s file and found %d packages\n", path, len(parsedLockfile.Packages)))
 
 	for _, pkgDetail := range parsedLockfile.Packages {
@@ -342,7 +343,6 @@ func DoScan(actions ScannerActions, r *output.Reporter) (models.VulnerabilityRes
 	if filtered > 0 {
 		r.PrintText(fmt.Sprintf("Filtered %d vulnerabilities from output\n", filtered))
 	}
-
 	hydratedResp, err := osv.Hydrate(resp)
 	if err != nil {
 		return models.VulnerabilityResults{}, fmt.Errorf("failed to hydrate OSV response: %w", err)
@@ -355,4 +355,8 @@ func DoScan(actions ScannerActions, r *output.Reporter) (models.VulnerabilityRes
 	}
 
 	return vulnerabilityResults, nil
+}
+
+func codeAnalysisFiltering(osv.HydratedBatchedResponse) {
+
 }
