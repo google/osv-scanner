@@ -22,7 +22,7 @@ func run(args []string, stdout, stderr io.Writer) int {
 	var r *output.Reporter
 
 	cli.VersionPrinter = func(ctx *cli.Context) {
-		r = output.NewReporter(stdout, stderr, "")
+		r = output.NewReporter(ctx.App.Writer, ctx.App.ErrWriter, "")
 		r.PrintText(fmt.Sprintf("osv-scanner version: %s\ncommit: %s\nbuilt at: %s\n", ctx.App.Version, commit, date))
 	}
 
