@@ -222,6 +222,17 @@ func TestRun(t *testing.T) {
 				Scanned %%/fixtures/locks-many/composer.lock file and found 1 packages
 			`,
 		},
+		// output format: markdown table
+		{
+			name:         "",
+			args:         []string{"", "--format", "markdown", "./fixtures/locks-many/composer.lock"},
+			wantExitCode: 0,
+			wantStdout: `
+				Scanning dir ./fixtures/locks-many/composer.lock
+				Scanned %%/fixtures/locks-many/composer.lock file and found 1 packages
+			`,
+			wantStderr: "",
+		},
 	}
 	for _, tt := range tests {
 		tt := tt
