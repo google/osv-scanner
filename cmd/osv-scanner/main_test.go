@@ -168,7 +168,7 @@ func TestRun(t *testing.T) {
 				Scanned %%/fixtures/locks-many-with-invalid/yarn.lock file and found 1 packages
 			`,
 			wantStderr: `
-				Attempted to scan file but failed: %%/fixtures/locks-many-with-invalid/composer.lock
+				Attempted to scan lockfile but failed: %%/fixtures/locks-many-with-invalid/composer.lock
 			`,
 		},
 		// only the files in the given directories are checked by default (no recursion)
@@ -245,146 +245,75 @@ func TestRun(t *testing.T) {
 	}
 }
 
-func TestRun_ParseAs(t *testing.T) {
+func TestRun_LockfileWithExplicitParseAs(t *testing.T) {
 	t.Parallel()
 
 	tests := []cliTestCase{
-		// invalid parse-as
-		{
-			name:         "",
-			args:         []string{"", "--parse-as", "yarn.lock"},
-			wantExitCode: 127,
-			wantStdout:   "",
-			wantStderr: `
-				parse-as should be formatted as <parser>:<file> (got "yarn.lock")
-			`,
-		},
 		// unsupported parse-as
 		{
 			name:         "",
-			args:         []string{"", "--parse-as", "my-file:my-file"},
+			args:         []string{"", "-L", "my-file:my-file"},
 			wantExitCode: 127,
 			wantStdout:   "",
 			wantStderr: `
-				Don't know how to parse files as "my-file" - supported values are:
-					buildscript-gradle.lockfile
-					Cargo.lock
-					composer.lock
-					conan.lock
-					Gemfile.lock
-					go.mod
-					gradle.lockfile
-					mix.lock
-					package-lock.json
-					packages.lock.json
-					Pipfile.lock
-					pnpm-lock.yaml
-					poetry.lock
-					pom.xml
-					pubspec.lock
-					requirements.txt
-					yarn.lock
-					installed
-
+				could not determine parser for %%/my-file (parsed as my-file)
 			`,
 		},
-		// technically valid, but currently meaningless
+		// empty is default
 		{
 			name: "",
 			args: []string{
 				"",
-				"--parse-as",
-				"package-lock.json:",
 				"-L",
-				filepath.FromSlash("./fixtures/locks-insecure/my-package-lock.json"),
+				":" + filepath.FromSlash("./fixtures/locks-many/composer.lock"),
+			},
+			wantExitCode: 0,
+			wantStdout: `
+				Scanned %%/fixtures/locks-many/composer.lock file and found 1 packages
+			`,
+			wantStderr: "",
+		},
+		// empty works as an escape (no fixture because it's not valid on Windows)
+		{
+			name: "",
+			args: []string{
+				"",
+				"-L",
+				":" + filepath.FromSlash("./path/to/my:file"),
 			},
 			wantExitCode: 127,
 			wantStdout:   "",
 			wantStderr: `
-				could not determine parser for %%/fixtures/locks-insecure/my-package-lock.json
+				could not determine parser for %%/path/to/my:file
 			`,
 		},
 		{
-			name:         "",
-			args:         []string{"", "--parse-as", ":my-file"},
+			name: "",
+			args: []string{
+				"",
+				"-L",
+				":" + filepath.FromSlash("./path/to/my:project/package-lock.json"),
+			},
 			wantExitCode: 127,
 			wantStdout:   "",
 			wantStderr: `
-				Don't know how to parse files as "." - supported values are:
-					buildscript-gradle.lockfile
-					Cargo.lock
-					composer.lock
-					conan.lock
-					Gemfile.lock
-					go.mod
-					gradle.lockfile
-					mix.lock
-					package-lock.json
-					packages.lock.json
-					Pipfile.lock
-					pnpm-lock.yaml
-					poetry.lock
-					pom.xml
-					pubspec.lock
-					requirements.txt
-					yarn.lock
-					installed
-
+				could not read %%/path/to/my:project/package-lock.json: open %%/path/to/my:project/package-lock.json: no such file or directory
 			`,
 		},
-		// when a path to a file is given, parse-as is applied to that file
+		// when an explicit parse-as is given, it's applied to that file
 		{
 			name: "",
 			args: []string{
 				"",
-				"--parse-as",
-				"package-lock.json:./fixtures/locks-insecure/my-package-lock.json",
-				filepath.FromSlash("./fixtures/locks-insecure/my-package-lock.json"),
-			},
-			wantExitCode: 1,
-			wantStdout: `
-				Scanning dir ./fixtures/locks-insecure/my-package-lock.json
-				Scanned %%/fixtures/locks-insecure/my-package-lock.json file as a package-lock.json and found 1 packages
-				+-------------------------------------+-----------+-----------+---------+----------------------------------------------+
-				| OSV URL (ID IN BOLD)                | ECOSYSTEM | PACKAGE   | VERSION | SOURCE                                       |
-				+-------------------------------------+-----------+-----------+---------+----------------------------------------------+
-				| https://osv.dev/GHSA-whgm-jr23-g3j9 | npm       | ansi-html | 0.0.1   | fixtures/locks-insecure/my-package-lock.json |
-				+-------------------------------------+-----------+-----------+---------+----------------------------------------------+
-			`,
-			wantStderr: "",
-		},
-		{
-			name: "",
-			args: []string{
-				"",
-				"--parse-as",
-				"package-lock.json:./fixtures/locks-insecure/my-package-lock.json",
-				"-L", filepath.FromSlash("./fixtures/locks-insecure/my-package-lock.json"),
-			},
-			wantExitCode: 1,
-			wantStdout: `
-				Scanned %%/fixtures/locks-insecure/my-package-lock.json file as a package-lock.json and found 1 packages
-				+-------------------------------------+-----------+-----------+---------+----------------------------------------------+
-				| OSV URL (ID IN BOLD)                | ECOSYSTEM | PACKAGE   | VERSION | SOURCE                                       |
-				+-------------------------------------+-----------+-----------+---------+----------------------------------------------+
-				| https://osv.dev/GHSA-whgm-jr23-g3j9 | npm       | ansi-html | 0.0.1   | fixtures/locks-insecure/my-package-lock.json |
-				+-------------------------------------+-----------+-----------+---------+----------------------------------------------+
-			`,
-			wantStderr: "",
-		},
-		{
-			name: "",
-			args: []string{
-				"",
-				"--parse-as",
-				"package-lock.json:./fixtures/locks-insecure/my-package-lock.json",
+				"-L",
+				"package-lock.json:" + filepath.FromSlash("./fixtures/locks-insecure/my-package-lock.json"),
 				filepath.FromSlash("./fixtures/locks-insecure"),
 			},
 			wantExitCode: 1,
 			wantStdout: `
+				Scanned %%/fixtures/locks-insecure/my-package-lock.json file as a package-lock.json and found 1 packages
 				Scanning dir ./fixtures/locks-insecure
 				Scanned %%/fixtures/locks-insecure/composer.lock file and found 0 packages
-				Scanned %%/fixtures/locks-insecure/my-package-lock.json file as a package-lock.json and found 1 packages
 				+-------------------------------------+-----------+-----------+---------+----------------------------------------------+
 				| OSV URL (ID IN BOLD)                | ECOSYSTEM | PACKAGE   | VERSION | SOURCE                                       |
 				+-------------------------------------+-----------+-----------+---------+----------------------------------------------+
@@ -393,27 +322,20 @@ func TestRun_ParseAs(t *testing.T) {
 			`,
 			wantStderr: "",
 		},
-		// files that error on parsing don't stop parsable files from being checked
+		// files that error on parsing stop parsable files from being checked
 		{
 			name: "",
 			args: []string{
 				"",
-				"--parse-as",
-				"Cargo.lock:./fixtures/locks-insecure/my-package-lock.json",
+				"-L",
+				"Cargo.lock:" + filepath.FromSlash("./fixtures/locks-insecure/my-package-lock.json"),
 				filepath.FromSlash("./fixtures/locks-insecure"),
 				filepath.FromSlash("./fixtures/locks-many"),
 			},
 			wantExitCode: 127,
-			wantStdout: `
-				Scanning dir ./fixtures/locks-insecure
-				Scanned %%/fixtures/locks-insecure/composer.lock file and found 0 packages
-				Scanning dir ./fixtures/locks-many
-				Scanned %%/fixtures/locks-many/Gemfile.lock file and found 1 packages
-				Scanned %%/fixtures/locks-many/composer.lock file and found 1 packages
-				Scanned %%/fixtures/locks-many/yarn.lock file and found 1 packages
-			`,
+			wantStdout:   "",
 			wantStderr: `
-				Attempted to scan file as a Cargo.lock but failed: %%/fixtures/locks-insecure/my-package-lock.json
+				(parsing as Cargo.lock) could not parse %%/fixtures/locks-insecure/my-package-lock.json: toml: line 1: expected '.' or '=', but got '{' instead
 			`,
 		},
 		// parse-as takes priority, even if it's wrong
@@ -421,18 +343,13 @@ func TestRun_ParseAs(t *testing.T) {
 			name: "",
 			args: []string{
 				"",
-				"--parse-as",
-				"package-lock.json:./fixtures/locks-many/yarn.lock",
-				filepath.FromSlash("./fixtures/locks-many"),
+				"-L",
+				"package-lock.json:" + filepath.FromSlash("./fixtures/locks-many/yarn.lock"),
 			},
 			wantExitCode: 127,
-			wantStdout: `
-				Scanning dir ./fixtures/locks-many
-				Scanned %%/fixtures/locks-many/Gemfile.lock file and found 1 packages
-				Scanned %%/fixtures/locks-many/composer.lock file and found 1 packages
-			`,
+			wantStdout:   "",
 			wantStderr: `
-				Attempted to scan file as a package-lock.json but failed: %%/fixtures/locks-many/yarn.lock
+				(parsing as package-lock.json) could not parse %%/fixtures/locks-many/yarn.lock: invalid character '#' looking for beginning of value
 			`,
 		},
 		// "installed" is supported
@@ -440,10 +357,8 @@ func TestRun_ParseAs(t *testing.T) {
 			name: "",
 			args: []string{
 				"",
-				"--parse-as",
-				"installed:./fixtures/locks-many/installed",
 				"-L",
-				filepath.FromSlash("./fixtures/locks-many/installed"),
+				"installed:" + filepath.FromSlash("./fixtures/locks-many/installed"),
 			},
 			wantExitCode: 0,
 			wantStdout: `

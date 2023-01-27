@@ -126,10 +126,18 @@ func Parse(pathToLockfile string, parseAs string) (Lockfile, error) {
 	parser, parsedAs := FindParser(pathToLockfile, parseAs)
 
 	if parser == nil {
+		if parseAs != "" {
+			pathToLockfile += fmt.Sprintf(" (parsed as %s)", parseAs)
+		}
+
 		return Lockfile{}, fmt.Errorf("%w for %s", ErrParserNotFound, pathToLockfile)
 	}
 
 	packages, err := parser(pathToLockfile)
+
+	if err != nil && parseAs != "" {
+		err = fmt.Errorf("(parsing as %s) %w", parsedAs, err)
+	}
 
 	sort.Slice(packages, func(i, j int) bool {
 		if packages[i].Name == packages[j].Name {

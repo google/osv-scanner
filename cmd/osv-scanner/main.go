@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"io"
 	"os"
-	"strings"
 
 	"github.com/google/osv-scanner/internal/output"
 	"github.com/google/osv-scanner/pkg/osvscanner"
@@ -18,22 +17,6 @@ var (
 	commit  = "n/a"
 	date    = "n/a"
 )
-
-func mapParseAsOverrides(slice []string) (map[string]string, error) {
-	overrides := make(map[string]string)
-
-	for _, s := range slice {
-		if !strings.Contains(s, ":") {
-			return overrides, fmt.Errorf("parse-as should be formatted as <parser>:<file> (got \"%s\")", s)
-		}
-
-		splits := strings.SplitN(s, ":", 2)
-
-		overrides[splits[1]] = splits[0]
-	}
-
-	return overrides, nil
-}
 
 func run(args []string, stdout, stderr io.Writer) int {
 	var r *output.Reporter
@@ -106,10 +89,6 @@ func run(args []string, stdout, stderr io.Writer) int {
 				Usage:   "check subdirectories",
 				Value:   false,
 			},
-			&cli.StringSliceFlag{
-				Name:  "parse-as",
-				Usage: "sets how to parse a particular file (WIP)",
-			},
 		},
 		ArgsUsage: "[directory1 directory2...]",
 		Action: func(context *cli.Context) error {
@@ -121,21 +100,14 @@ func run(args []string, stdout, stderr io.Writer) int {
 
 			r = output.NewReporter(stdout, stderr, format)
 
-			overrides, err := mapParseAsOverrides(context.StringSlice("parse-as"))
-
-			if err != nil {
-				return err
-			}
-
 			vulnResult, err := osvscanner.DoScan(osvscanner.ScannerActions{
-				LockfilePaths:            context.StringSlice("lockfile"),
-				LockfileParseAsOverrides: overrides,
-				SBOMPaths:                context.StringSlice("sbom"),
-				DockerContainerNames:     context.StringSlice("docker"),
-				Recursive:                context.Bool("recursive"),
-				SkipGit:                  context.Bool("skip-git"),
-				ConfigOverridePath:       context.String("config"),
-				DirectoryPaths:           context.Args().Slice(),
+				LockfilePaths:        context.StringSlice("lockfile"),
+				SBOMPaths:            context.StringSlice("sbom"),
+				DockerContainerNames: context.StringSlice("docker"),
+				Recursive:            context.Bool("recursive"),
+				SkipGit:              context.Bool("skip-git"),
+				ConfigOverridePath:   context.String("config"),
+				DirectoryPaths:       context.Args().Slice(),
 			}, r)
 
 			if errPrint := r.PrintResult(&vulnResult); errPrint != nil {
