@@ -83,7 +83,7 @@ All releases on the same Major version will be guaranteed to have backward compa
 
 ## Usage
 
-OSV-scanner parses lockfiles, SBOMs, and git directories to determine your project's open source dependencies. These dependencies are matched against the the OSV database via the [OSV.dev API](https://osv.dev#use-the-api) and known vulnerabilities are returned to you in the output. 
+OSV-scanner parses lockfiles, SBOMs, and git directories to determine your project's open source dependencies. These dependencies are matched against the OSV database via the [OSV.dev API](https://osv.dev#use-the-api) and known vulnerabilities are returned to you in the output. 
 
 ### General Use Case: Scanning a Directory
 
