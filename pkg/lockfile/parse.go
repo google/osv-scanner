@@ -8,6 +8,10 @@ import (
 	"strings"
 )
 
+// To avoid linter error (goconst) on some parsers.
+// String used when pkgName is not present
+const unknownPkgName = "<unknown>"
+
 func FindParser(pathToLockfile string, parseAs string) (PackageDetailsParser, string) {
 	if parseAs == "" {
 		parseAs = filepath.Base(pathToLockfile)

@@ -55,7 +55,7 @@ func parseDpkgPackageGroup(group []string, pathToLockfile string) PackageDetails
 	if pkg.Version == "" {
 		pkgPrintName := pkg.Name
 		if pkgPrintName == "" {
-			pkgPrintName = "<unknown>"
+			pkgPrintName = unknownPkgName
 		}
 
 		_, _ = fmt.Fprintf(
