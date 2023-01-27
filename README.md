@@ -113,7 +113,7 @@ auto-detected based on the input file contents.
 [Package URLs]: https://github.com/package-url/purl-spec
 
 ### Specify Lockfile(s)
-If you want to see vulnerabilities from specific lockfiles, you can use the following command:
+If you want to check for known vulnerabilities in specific lockfiles, you can use the following command:
 
 ```console
 osv-scanner --lockfile=/path/to/your/package-lock.json --lockfile=/path/to/another/Cargo.lock
