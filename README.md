@@ -91,9 +91,9 @@ OSV-scanner parses lockfiles, SBOMs, and git directories to determine your proje
 osv-scanner -r /path/to/your/dir
 ```
 
-The above command will find lockfiles, SBOMs, and git directories in your target directory and uses them to determine the dependencies to check against the database. It will give you the most complete understanding of the known vulnerabilities in your project. 
+The above command will find lockfiles, SBOMs, and git directories in your target directory and use them to determine the dependencies to check against the OSV database. It will give you the most complete understanding of the known vulnerabilities in your project. 
 
-The recursive flag `-r` or `--recursive` will tell the scanner to search all subdirectories in addition to the specified directory. If your project has deeply nested subdirectories, a recursive search may take a long time. 
+The recursive flag `-r` or `--recursive` will tell the scanner to search all subdirectories in addition to the specified directory. It can find additional lockfiles, dependencies, and vulnerabilities. If your project has deeply nested subdirectories, a recursive search may take a long time. 
 
 Git directories are searched for the latest commit hash. Searching for git commit has is intended to work with projects that use git submodules or a similar mechanism where dependencies are checked out as real git repositories. 
 
