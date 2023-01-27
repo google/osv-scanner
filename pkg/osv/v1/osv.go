@@ -121,6 +121,7 @@ func checkResponseError(resp *http.Response) error {
 	return fmt.Errorf("server response error: %s", string(respBuf))
 }
 
+// MakeRequest sends a batched query to osv.dev
 func MakeRequest(request BatchedQuery) (*BatchedResponse, error) {
 	// API has a limit of 1000 bulk query per request
 	queryChunks := chunkBy(request.Queries, MaxQueriesPerRequest)
