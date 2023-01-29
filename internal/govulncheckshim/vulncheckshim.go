@@ -11,7 +11,6 @@ import (
 	"github.com/google/osv-scanner/pkg/models"
 	"golang.org/x/tools/go/packages"
 	"golang.org/x/vuln/client"
-	"golang.org/x/vuln/exp/govulncheck"
 	gvcOSV "golang.org/x/vuln/osv"
 	"golang.org/x/vuln/vulncheck"
 )
@@ -124,17 +123,17 @@ func (ls *localSource) LastModifiedTime(context.Context) (time.Time, error) {
 	return ls.lastModifiedTime, nil
 }
 
-func RunVulnCheck(path string, vulns []models.Vulnerability) (*govulncheck.Result, error) {
+func RunVulnCheck(path string, vulns []models.Vulnerability) (*vulncheck.Result, error) {
 	scanPath := filepath.Join(path, "...")
 	client := newClient(vulns)
-	cfg := &govulncheck.Config{Client: client}
-	var res *govulncheck.Result
+	cfg := &vulncheck.Config{Client: client}
+	var res *vulncheck.Result
 	var pkgs []*vulncheck.Package
 	pkgs, err := loadPackages([]string{scanPath}, filepath.Dir(scanPath))
 	if err != nil {
 		panic(err)
 	}
-	res, err = govulncheck.Source(context.Background(), cfg, pkgs)
+	res, err = vulncheck.Source(context.Background(), pkgs, cfg)
 
 	return res, err
 }
