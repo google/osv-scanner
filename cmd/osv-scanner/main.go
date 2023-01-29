@@ -22,7 +22,7 @@ func run(args []string, stdout, stderr io.Writer) int {
 	var r *output.Reporter
 
 	cli.VersionPrinter = func(ctx *cli.Context) {
-		r = output.NewReporter(stdout, stderr, "")
+		r = output.NewReporter(ctx.App.Writer, ctx.App.ErrWriter, "")
 		r.PrintText(fmt.Sprintf("osv-scanner version: %s\ncommit: %s\nbuilt at: %s\n", ctx.App.Version, commit, date))
 	}
 
@@ -128,7 +128,11 @@ func run(args []string, stdout, stderr io.Writer) int {
 		}
 
 		r.PrintError(fmt.Sprintf("%v\n", err))
+	}
 
+	// if we've been told to print an error, and not already exited with
+	// a specific error code, then exit with a generic non-zero code
+	if r != nil && r.HasPrintedError() {
 		return 127
 	}
 
