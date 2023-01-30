@@ -9,9 +9,10 @@ import (
 )
 
 type Reporter struct {
-	stdout io.Writer
-	stderr io.Writer
-	format string
+	stdout          io.Writer
+	stderr          io.Writer
+	format          string
+	hasPrintedError bool
 }
 
 func NewReporter(stdout io.Writer, stderr io.Writer, format string) *Reporter {
@@ -34,6 +35,11 @@ func NewVoidReporter() *Reporter {
 // is outputting as JSON or not
 func (r *Reporter) PrintError(msg string) {
 	fmt.Fprint(r.stderr, msg)
+	r.hasPrintedError = true
+}
+
+func (r *Reporter) HasPrintedError() bool {
+	return r.hasPrintedError
 }
 
 // PrintText writes the given message to stdout, _unless_ the reporter is set
