@@ -1,5 +1,6 @@
+# Currently experimental.
 name: 'osv-scanner'
-description: 'Scans your directory against the OSV database'
+description: 'Scans your directory against the OSV database (Experimental)'
 inputs:
   to-scan:
     description: 'Directory to scan'
