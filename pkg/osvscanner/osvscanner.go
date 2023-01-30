@@ -15,7 +15,7 @@ import (
 	"github.com/google/osv-scanner/pkg/config"
 	"github.com/google/osv-scanner/pkg/lockfile"
 	"github.com/google/osv-scanner/pkg/models"
-	"github.com/google/osv-scanner/pkg/osv/v1"
+	"github.com/google/osv-scanner/pkg/osv"
 )
 
 type ScannerActions struct {

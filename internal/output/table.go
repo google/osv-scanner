@@ -7,7 +7,7 @@ import (
 	"strings"
 
 	"github.com/google/osv-scanner/pkg/models"
-	"github.com/google/osv-scanner/pkg/osv/v1"
+	"github.com/google/osv-scanner/pkg/osv"
 
 	"github.com/jedib0t/go-pretty/v6/table"
 	"github.com/jedib0t/go-pretty/v6/text"

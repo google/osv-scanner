@@ -19,9 +19,9 @@ const (
 	GetEndpoint = "https://api.osv.dev/v1/vulns"
 	// BaseVulnerabilityURL is the base URL for detailed vulnerability views.
 	BaseVulnerabilityURL = "https://osv.dev/"
-	// MaxQueriesPerRequest splits up querybatch into multiple requests if
+	// maxQueriesPerRequest splits up querybatch into multiple requests if
 	// number of queries exceed this number
-	MaxQueriesPerRequest = 1000
+	maxQueriesPerRequest = 1000
 )
 
 // Package represents a package identifier for OSV.
