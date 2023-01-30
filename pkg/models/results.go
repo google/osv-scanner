@@ -90,7 +90,12 @@ type PackageVulns struct {
 }
 
 type GroupInfo struct {
-	IDs []string `json:"ids"`
+	IDs      []string                `json:"ids"`
+	Analysis map[string]AnalysisInfo `json:"analysis"`
+}
+
+type AnalysisInfo struct {
+	Called bool `json:"called"`
 }
 
 // Specific package information

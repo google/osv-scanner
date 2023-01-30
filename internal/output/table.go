@@ -73,45 +73,6 @@ func PrintTableResults(vulnResult *models.VulnerabilityResults, outputWriter io.
 	outputTable.AppendRow(table.Row{"Inactive vulnerabilities"})
 	outputTable.AppendSeparator()
 
-	for _, sourceRes := range vulnResult.Results {
-		for _, pkg := range sourceRes.Packages {
-			workingDir, err := os.Getwd()
-			source := sourceRes.Source
-			if err == nil {
-				sourcePath, err := filepath.Rel(workingDir, source.Path)
-				if err == nil { // Simplify the path if possible
-					source.Path = sourcePath
-				}
-			}
-
-			for _, group := range pkg.Groups {
-				outputRow := table.Row{}
-				shouldMerge := false
-
-				var links []string
-
-				for _, vuln := range group.IDs {
-					if isTerminal {
-						links = append(links, osv.BaseVulnerabilityURL+text.Bold.EscapeSeq()+vuln+text.Reset.EscapeSeq())
-					} else {
-						links = append(links, osv.BaseVulnerabilityURL+vuln)
-					}
-				}
-
-				outputRow = append(outputRow, strings.Join(links, "\n"))
-
-				if pkg.Package.Ecosystem == "GIT" {
-					outputRow = append(outputRow, "GIT", pkg.Package.Version, pkg.Package.Version)
-					shouldMerge = true
-				} else {
-					outputRow = append(outputRow, pkg.Package.Ecosystem, pkg.Package.Name, pkg.Package.Version)
-				}
-
-				outputRow = append(outputRow, source.Path)
-				outputTable.AppendRow(outputRow, table.RowConfig{AutoMerge: shouldMerge})
-			}
-		}
-	}
 	if outputTable.Length() == 0 {
 		return
 	}
