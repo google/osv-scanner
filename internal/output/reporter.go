@@ -63,6 +63,8 @@ func (r *Reporter) PrintResult(vulnResult *models.VulnerabilityResults) error {
 		return PrintJSONResults(vulnResult, r.stdout)
 	case "table":
 		PrintTableResults(vulnResult, r.stdout)
+	case "text":
+		PrintTextResults(vulnResult, r.stdout)
 	}
 
 	return nil
