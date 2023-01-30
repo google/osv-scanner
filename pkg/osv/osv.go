@@ -19,9 +19,9 @@ const (
 	GetEndpoint = "https://api.osv.dev/v1/vulns"
 	// BaseVulnerabilityURL is the base URL for detailed vulnerability views.
 	BaseVulnerabilityURL = "https://osv.dev/"
-	// MaxQueriesPerRequest splits up querybatch into multiple requests if
+	// maxQueriesPerRequest splits up querybatch into multiple requests if
 	// number of queries exceed this number
-	MaxQueriesPerRequest = 1000
+	maxQueriesPerRequest = 1000
 )
 
 // Package represents a package identifier for OSV.
@@ -121,9 +121,10 @@ func checkResponseError(resp *http.Response) error {
 	return fmt.Errorf("server response error: %s", string(respBuf))
 }
 
+// MakeRequest sends a batched query to osv.dev
 func MakeRequest(request BatchedQuery) (*BatchedResponse, error) {
 	// API has a limit of 1000 bulk query per request
-	queryChunks := chunkBy(request.Queries, MaxQueriesPerRequest)
+	queryChunks := chunkBy(request.Queries, maxQueriesPerRequest)
 	var totalOsvResp BatchedResponse
 	for _, queries := range queryChunks {
 		requestBytes, err := json.Marshal(BatchedQuery{Queries: queries})
