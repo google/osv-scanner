@@ -160,7 +160,7 @@ func TestRun(t *testing.T) {
 		{
 			name:         "",
 			args:         []string{"", "./fixtures/locks-many-with-invalid"},
-			wantExitCode: 0,
+			wantExitCode: 127,
 			wantStdout: `
 				Scanning dir ./fixtures/locks-many-with-invalid
 				Scanned %%/fixtures/locks-many-with-invalid/Gemfile.lock file and found 1 packages
