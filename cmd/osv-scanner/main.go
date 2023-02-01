@@ -64,11 +64,11 @@ func run(args []string, stdout, stderr io.Writer) int {
 				Value:   "table",
 				Action: func(context *cli.Context, s string) error {
 					switch s {
-						case
-							"table",
-							"json",
-							"markdown":
-							return nil
+					case
+						"table",
+						"json",
+						"markdown":
+						return nil
 					}
 
 					return fmt.Errorf("unsupported output format \"%s\" - must be one of: \"table\", \"json\", \"markdown\"", s)
