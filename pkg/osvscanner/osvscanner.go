@@ -10,12 +10,12 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/google/osv-scanner/internal/osv"
 	"github.com/google/osv-scanner/internal/output"
 	"github.com/google/osv-scanner/internal/sbom"
 	"github.com/google/osv-scanner/pkg/config"
 	"github.com/google/osv-scanner/pkg/lockfile"
 	"github.com/google/osv-scanner/pkg/models"
+	"github.com/google/osv-scanner/pkg/osv"
 )
 
 type ScannerActions struct {
@@ -125,6 +125,7 @@ func scanSBOMFile(r *output.Reporter, query *osv.BatchedQuery, path string) erro
 			// Skip if this isn't the case to avoid panics
 			continue
 		}
+		count := 0
 		err := provider.GetPackages(file, func(id sbom.Identifier) error {
 			purlQuery := osv.MakePURLRequest(id.PURL)
 			purlQuery.Source = models.SourceInfo{
@@ -132,12 +133,13 @@ func scanSBOMFile(r *output.Reporter, query *osv.BatchedQuery, path string) erro
 				Type: "sbom",
 			}
 			query.Queries = append(query.Queries, purlQuery)
+			count++
 
 			return nil
 		})
 		if err == nil {
 			// Found the right format.
-			r.PrintText(fmt.Sprintf("Scanned %s SBOM\n", provider.Name()))
+			r.PrintText(fmt.Sprintf("Scanned %s SBOM and found %d packages\n", provider.Name(), count))
 			return nil
 		}
 
