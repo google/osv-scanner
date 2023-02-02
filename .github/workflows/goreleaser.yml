@@ -32,7 +32,7 @@ jobs:
           go-version: 1.19
           check-latest: true
       - name: ghcr-login
-        uses: docker/login-action@dd4fa0671be5250ee6f50aedf4cb05514abda2c7 # v1
+        uses: docker/login-action@f4ef78c080cd8ba55a85445d5b36e214a81df20a # v2
         with:
           registry: ghcr.io
           username: ${{ github.repository_owner }}
