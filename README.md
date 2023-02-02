@@ -95,7 +95,7 @@ The above command will find lockfiles, SBOMs, and git directories in your target
 
 The recursive flag `-r` or `--recursive` will tell the scanner to search all subdirectories in addition to the specified directory. It can find additional lockfiles, dependencies, and vulnerabilities. If your project has deeply nested subdirectories, a recursive search may take a long time. 
 
-Git directories are searched for the latest commit hash. Searching for git commit has is intended to work with projects that use git submodules or a similar mechanism where dependencies are checked out as real git repositories. 
+Git directories are searched for the latest commit hash. Searching for git commit hash is intended to work with projects that use git submodules or a similar mechanism where dependencies are checked out as real git repositories. 
 
 ### Specify SBOM
 
