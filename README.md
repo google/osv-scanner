@@ -99,7 +99,7 @@ Git directories are searched for the latest commit hash. Searching for git commi
 
 ### Specify SBOM
 
-If you want to see the vulnerabilities only from dependencies in your SBOM use the following command:
+If you want to check for known vulnerabilities only in dependencies in your SBOM use the following command:
 
 ```console
 osv-scanner --sbom=/path/to/your/sbom.json
