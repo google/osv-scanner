@@ -256,7 +256,7 @@ func TestRun_LockfileWithExplicitParseAs(t *testing.T) {
 			wantExitCode: 127,
 			wantStdout:   "",
 			wantStderr: `
-				could not determine parser for %%/my-file (parsed as my-file)
+				could not determine parser, requested my-file
 			`,
 		},
 		// empty is default

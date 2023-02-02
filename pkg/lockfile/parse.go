@@ -127,7 +127,7 @@ func Parse(pathToLockfile string, parseAs string) (Lockfile, error) {
 
 	if parser == nil {
 		if parseAs != "" {
-			pathToLockfile += fmt.Sprintf(" (parsed as %s)", parseAs)
+			return Lockfile{}, fmt.Errorf("%w, requested %s", ErrParserNotFound, parseAs)
 		}
 
 		return Lockfile{}, fmt.Errorf("%w for %s", ErrParserNotFound, pathToLockfile)
