@@ -9,7 +9,7 @@ import (
 func TestApkInstalled_FileDoesNotExist(t *testing.T) {
 	t.Parallel()
 
-	packages, err := lockfile.ParseRequirementsTxt("fixtures/apk/does-not-exist")
+	packages, err := lockfile.ParseApkInstalled("fixtures/apk/does-not-exist")
 
 	expectErrContaining(t, err, "could not open")
 	expectPackages(t, packages, []lockfile.PackageDetails{})
