@@ -125,6 +125,7 @@ func scanSBOMFile(r *output.Reporter, query *osv.BatchedQuery, path string) erro
 			// Skip if this isn't the case to avoid panics
 			continue
 		}
+		count := 0
 		err := provider.GetPackages(file, func(id sbom.Identifier) error {
 			purlQuery := osv.MakePURLRequest(id.PURL)
 			purlQuery.Source = models.SourceInfo{
@@ -132,12 +133,13 @@ func scanSBOMFile(r *output.Reporter, query *osv.BatchedQuery, path string) erro
 				Type: "sbom",
 			}
 			query.Queries = append(query.Queries, purlQuery)
+			count++
 
 			return nil
 		})
 		if err == nil {
 			// Found the right format.
-			r.PrintText(fmt.Sprintf("Scanned %s SBOM\n", provider.Name()))
+			r.PrintText(fmt.Sprintf("Scanned %s SBOM and found %d packages\n", provider.Name(), count))
 			return nil
 		}
 

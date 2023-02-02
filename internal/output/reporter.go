@@ -61,6 +61,8 @@ func (r *Reporter) PrintResult(vulnResult *models.VulnerabilityResults) error {
 	switch r.format {
 	case "json":
 		return PrintJSONResults(vulnResult, r.stdout)
+	case "markdown":
+		PrintMarkdownTableResults(vulnResult, r.stdout)
 	case "table":
 		PrintTableResults(vulnResult, r.stdout)
 	}

@@ -31,17 +31,28 @@ func PrintTableResults(vulnResult *models.VulnerabilityResults, outputWriter io.
 		isTerminal = true
 	} // Otherwise use default ascii (e.g. getting piped to a file)
 
+	outputTable = tableBuilder(outputTable, vulnResult, isTerminal)
+
+	if outputTable.Length() == 0 {
+		return
+	}
+	outputTable.Render()
+}
+
+func tableBuilder(outputTable table.Writer, vulnResult *models.VulnerabilityResults, addStyling bool) table.Writer {
+	// Working directory used to simplify path
+	workingDir, workingDirErr := os.Getwd()
 	for _, sourceRes := range vulnResult.Results {
 		for _, pkg := range sourceRes.Packages {
-			workingDir, err := os.Getwd()
 			source := sourceRes.Source
-			if err == nil {
+			if workingDirErr == nil {
 				sourcePath, err := filepath.Rel(workingDir, source.Path)
 				if err == nil { // Simplify the path if possible
 					source.Path = sourcePath
 				}
 			}
 
+			// Merge groups into the same row
 			for _, group := range pkg.Groups {
 				outputRow := table.Row{}
 				shouldMerge := false
@@ -49,7 +60,7 @@ func PrintTableResults(vulnResult *models.VulnerabilityResults, outputWriter io.
 				var links []string
 
 				for _, vuln := range group.IDs {
-					if isTerminal {
+					if addStyling {
 						links = append(links, osv.BaseVulnerabilityURL+text.Bold.EscapeSeq()+vuln+text.Reset.EscapeSeq())
 					} else {
 						links = append(links, osv.BaseVulnerabilityURL+vuln)
@@ -71,8 +82,5 @@ func PrintTableResults(vulnResult *models.VulnerabilityResults, outputWriter io.
 		}
 	}
 
-	if outputTable.Length() == 0 {
-		return
-	}
-	outputTable.Render()
+	return outputTable
 }
