@@ -106,7 +106,7 @@ func ParseApkInstalled(pathToLockfile string) ([]PackageDetails, error) {
 	return packages, nil
 }
 
-// FromApkInstalled attempts to parse the given file as an "installed" lockfile
+// FromApkInstalled attempts to parse the given file as an "apk-installed" lockfile
 // used by the Alpine Package Keeper (apk) to record installed packages.
 func FromApkInstalled(pathToInstalled string) (Lockfile, error) {
 	packages, err := ParseApkInstalled(pathToInstalled)
@@ -121,7 +121,7 @@ func FromApkInstalled(pathToInstalled string) (Lockfile, error) {
 
 	return Lockfile{
 		FilePath: pathToInstalled,
-		ParsedAs: "installed",
+		ParsedAs: "apk-installed",
 		Packages: packages,
 	}, err
 }

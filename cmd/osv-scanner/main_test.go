@@ -352,17 +352,17 @@ func TestRun_LockfileWithExplicitParseAs(t *testing.T) {
 				(parsing as package-lock.json) could not parse %%/fixtures/locks-many/yarn.lock: invalid character '#' looking for beginning of value
 			`,
 		},
-		// "installed" is supported
+		// "apk-installed" is supported
 		{
 			name: "",
 			args: []string{
 				"",
 				"-L",
-				"installed:" + filepath.FromSlash("./fixtures/locks-many/installed"),
+				"apk-installed:" + filepath.FromSlash("./fixtures/locks-many/installed"),
 			},
 			wantExitCode: 0,
 			wantStdout: `
-				Scanned %%/fixtures/locks-many/installed file as a installed and found 1 packages
+				Scanned %%/fixtures/locks-many/installed file as a apk-installed and found 1 packages
 			`,
 			wantStderr: "",
 		},

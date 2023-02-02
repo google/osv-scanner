@@ -96,7 +96,7 @@ func scanLockfile(r *output.Reporter, query *osv.BatchedQuery, path string, pars
 	// special case for the APK parser because it has a very generic name while
 	// living at a specific location, so it's not included in the map of parsers
 	// used by lockfile.Parse to avoid false-positives when scanning projects
-	if parseAs == "installed" {
+	if parseAs == "apk-installed" {
 		parsedLockfile, err = lockfile.FromApkInstalled(path)
 	} else {
 		parsedLockfile, err = lockfile.Parse(path, parseAs)
