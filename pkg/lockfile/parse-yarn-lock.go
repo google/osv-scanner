@@ -148,17 +148,16 @@ func tryExtractCommit(resolution string) string {
 	return ""
 }
 
-func parseYarnPackageGroup(group []string) PackageDetails {
+func parseYarnPackageGroup(diag *Diagnostics, group []string) PackageDetails {
 	name := extractYarnPackageName(group[0])
 	version := determineYarnPackageVersion(group)
 	resolution := determineYarnPackageResolution(group)
 
 	if version == "" {
-		_, _ = fmt.Fprintf(
-			os.Stderr,
-			"Failed to determine version of %s while parsing a yarn.lock - please report this!\n",
+		diag.Warn(fmt.Sprintf(
+			"Failed to determine version of %s while parsing a yarn.lock - please report this!",
 			name,
-		)
+		))
 	}
 
 	return PackageDetails{
@@ -171,9 +170,15 @@ func parseYarnPackageGroup(group []string) PackageDetails {
 }
 
 func ParseYarnLock(pathToLockfile string) ([]PackageDetails, error) {
+	return parseFileAndPrintDiag(pathToLockfile, ParseYarnLockWithDiagnostics)
+}
+
+func ParseYarnLockWithDiagnostics(pathToLockfile string) ([]PackageDetails, Diagnostics, error) {
+	var diag Diagnostics
+
 	file, err := os.Open(pathToLockfile)
 	if err != nil {
-		return []PackageDetails{}, fmt.Errorf("could not open %s: %w", pathToLockfile, err)
+		return []PackageDetails{}, diag, fmt.Errorf("could not open %s: %w", pathToLockfile, err)
 	}
 	defer file.Close()
 
@@ -182,7 +187,7 @@ func ParseYarnLock(pathToLockfile string) ([]PackageDetails, error) {
 	packageGroups := groupYarnPackageLines(scanner)
 
 	if err := scanner.Err(); err != nil {
-		return []PackageDetails{}, fmt.Errorf("error while scanning %s: %w", pathToLockfile, err)
+		return []PackageDetails{}, diag, fmt.Errorf("error while scanning %s: %w", pathToLockfile, err)
 	}
 
 	packages := make([]PackageDetails, 0, len(packageGroups))
@@ -192,8 +197,8 @@ func ParseYarnLock(pathToLockfile string) ([]PackageDetails, error) {
 			continue
 		}
 
-		packages = append(packages, parseYarnPackageGroup(group))
+		packages = append(packages, parseYarnPackageGroup(&diag, group))
 	}
 
-	return packages, nil
+	return packages, diag, nil
 }

@@ -20,16 +20,22 @@ func deduplicatePackages(packages map[string]PackageDetails) map[string]PackageD
 }
 
 func ParseGoLock(pathToLockfile string) ([]PackageDetails, error) {
+	return parseFileAndPrintDiag(pathToLockfile, ParseGoLockWithDiagnostics)
+}
+
+func ParseGoLockWithDiagnostics(pathToLockfile string) ([]PackageDetails, Diagnostics, error) {
+	var diag Diagnostics
+
 	lockfileContents, err := os.ReadFile(pathToLockfile)
 
 	if err != nil {
-		return []PackageDetails{}, fmt.Errorf("could not read %s: %w", pathToLockfile, err)
+		return []PackageDetails{}, diag, fmt.Errorf("could not read %s: %w", pathToLockfile, err)
 	}
 
 	parsedLockfile, err := modfile.Parse(pathToLockfile, lockfileContents, nil)
 
 	if err != nil {
-		return []PackageDetails{}, fmt.Errorf("could not parse %s: %w", pathToLockfile, err)
+		return []PackageDetails{}, diag, fmt.Errorf("could not parse %s: %w", pathToLockfile, err)
 	}
 
 	packages := map[string]PackageDetails{}
@@ -74,5 +80,5 @@ func ParseGoLock(pathToLockfile string) ([]PackageDetails, error) {
 		}
 	}
 
-	return pkgDetailsMapToSlice(deduplicatePackages(packages)), nil
+	return pkgDetailsMapToSlice(deduplicatePackages(packages)), diag, nil
 }

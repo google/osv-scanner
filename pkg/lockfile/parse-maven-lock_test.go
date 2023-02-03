@@ -23,124 +23,6 @@ func TestParseMavenLock_Invalid(t *testing.T) {
 	expectPackages(t, packages, []lockfile.PackageDetails{})
 }
 
-func TestParseMavenLock_NoPackages(t *testing.T) {
-	t.Parallel()
-
-	packages, err := lockfile.ParseMavenLock("fixtures/maven/empty.xml")
-
-	if err != nil {
-		t.Errorf("Got unexpected error: %v", err)
-	}
-
-	expectPackages(t, packages, []lockfile.PackageDetails{})
-}
-
-func TestParseMavenLock_OnePackage(t *testing.T) {
-	t.Parallel()
-
-	packages, err := lockfile.ParseMavenLock("fixtures/maven/one-package.xml")
-
-	if err != nil {
-		t.Errorf("Got unexpected error: %v", err)
-	}
-
-	expectPackages(t, packages, []lockfile.PackageDetails{
-		{
-			Name:      "org.apache.maven:maven-artifact",
-			Version:   "1.0.0",
-			Ecosystem: lockfile.MavenEcosystem,
-			CompareAs: lockfile.MavenEcosystem,
-		},
-	})
-}
-
-func TestParseMavenLock_TwoPackages(t *testing.T) {
-	t.Parallel()
-
-	packages, err := lockfile.ParseMavenLock("fixtures/maven/two-packages.xml")
-
-	if err != nil {
-		t.Errorf("Got unexpected error: %v", err)
-	}
-
-	expectPackages(t, packages, []lockfile.PackageDetails{
-		{
-			Name:      "io.netty:netty-all",
-			Version:   "4.1.42.Final",
-			Ecosystem: lockfile.MavenEcosystem,
-			CompareAs: lockfile.MavenEcosystem,
-		},
-		{
-			Name:      "org.slf4j:slf4j-log4j12",
-			Version:   "1.7.25",
-			Ecosystem: lockfile.MavenEcosystem,
-			CompareAs: lockfile.MavenEcosystem,
-		},
-	})
-}
-
-func TestParseMavenLock_WithDependencyManagement(t *testing.T) {
-	t.Parallel()
-
-	packages, err := lockfile.ParseMavenLock("fixtures/maven/with-dependency-management.xml")
-
-	if err != nil {
-		t.Errorf("Got unexpected error: %v", err)
-	}
-
-	expectPackages(t, packages, []lockfile.PackageDetails{
-		{
-			Name:      "io.netty:netty-all",
-			Version:   "4.1.42.Final",
-			Ecosystem: lockfile.MavenEcosystem,
-			CompareAs: lockfile.MavenEcosystem,
-		},
-		{
-			Name:      "org.slf4j:slf4j-log4j12",
-			Version:   "1.7.25",
-			Ecosystem: lockfile.MavenEcosystem,
-			CompareAs: lockfile.MavenEcosystem,
-		},
-		{
-			Name:      "com.google.code.findbugs:jsr305",
-			Version:   "3.0.2",
-			Ecosystem: lockfile.MavenEcosystem,
-			CompareAs: lockfile.MavenEcosystem,
-		},
-	})
-}
-
-func TestParseMavenLock_Interpolation(t *testing.T) {
-	t.Parallel()
-
-	packages, err := lockfile.ParseMavenLock("fixtures/maven/interpolation.xml")
-
-	if err != nil {
-		t.Errorf("Got unexpected error: %v", err)
-	}
-
-	expectPackages(t, packages, []lockfile.PackageDetails{
-		{
-			Name:      "org.mine:mypackage",
-			Version:   "1.0.0",
-			Ecosystem: lockfile.MavenEcosystem,
-			CompareAs: lockfile.MavenEcosystem,
-		},
-		{
-			Name:      "org.mine:my.package",
-			Version:   "2.3.4",
-			Ecosystem: lockfile.MavenEcosystem,
-			CompareAs: lockfile.MavenEcosystem,
-		},
-		{
-			Name:      "org.mine:ranged-package",
-			Version:   "9.4.35.v20201120",
-			Ecosystem: lockfile.MavenEcosystem,
-			CompareAs: lockfile.MavenEcosystem,
-		},
-	})
-}
-
 func TestMavenLockDependency_ResolveVersion(t *testing.T) {
 	t.Parallel()
 
@@ -218,12 +100,126 @@ func TestMavenLockDependency_ResolveVersion(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
 
+			var diag lockfile.Diagnostics
+
 			mld := lockfile.MavenLockDependency{
 				Version: tt.fields.Version,
 			}
-			if got := mld.ResolveVersion(tt.args.lockfile); got != tt.want {
+			if got := mld.ResolveVersion(&diag, tt.args.lockfile); got != tt.want {
 				t.Errorf("ResolveVersion() = %v, want %v", got, tt.want)
 			}
+
+			expectDiagnostics(t, diag, lockfile.Diagnostics{})
 		})
 	}
+}
+
+func TestParseMavenLockWithDiagnostics(t *testing.T) {
+	t.Parallel()
+
+	testParserWithDiagnostics(t, lockfile.ParseMavenLockWithDiagnostics, []testParserWithDiagnosticsTest{
+		// empty
+		{
+			name: "",
+			file: "fixtures/maven/empty.xml",
+			want: []lockfile.PackageDetails{},
+			diag: lockfile.Diagnostics{},
+		},
+		// one package
+		{
+			name: "",
+			file: "fixtures/maven/one-package.xml",
+			want: []lockfile.PackageDetails{
+				{
+					Name:      "org.apache.maven:maven-artifact",
+					Version:   "1.0.0",
+					Ecosystem: lockfile.MavenEcosystem,
+					CompareAs: lockfile.MavenEcosystem,
+				},
+			},
+			diag: lockfile.Diagnostics{},
+		},
+		// two packages
+		{
+			name: "",
+			file: "fixtures/maven/two-packages.xml",
+			want: []lockfile.PackageDetails{
+				{
+					Name:      "io.netty:netty-all",
+					Version:   "4.1.42.Final",
+					Ecosystem: lockfile.MavenEcosystem,
+					CompareAs: lockfile.MavenEcosystem,
+				},
+				{
+					Name:      "org.slf4j:slf4j-log4j12",
+					Version:   "1.7.25",
+					Ecosystem: lockfile.MavenEcosystem,
+					CompareAs: lockfile.MavenEcosystem,
+				},
+			},
+			diag: lockfile.Diagnostics{},
+		},
+		// with dependency management
+		{
+			name: "",
+			file: "fixtures/maven/with-dependency-management.xml",
+			want: []lockfile.PackageDetails{
+				{
+					Name:      "io.netty:netty-all",
+					Version:   "4.1.42.Final",
+					Ecosystem: lockfile.MavenEcosystem,
+					CompareAs: lockfile.MavenEcosystem,
+				},
+				{
+					Name:      "org.slf4j:slf4j-log4j12",
+					Version:   "1.7.25",
+					Ecosystem: lockfile.MavenEcosystem,
+					CompareAs: lockfile.MavenEcosystem,
+				},
+				{
+					Name:      "com.google.code.findbugs:jsr305",
+					Version:   "3.0.2",
+					Ecosystem: lockfile.MavenEcosystem,
+					CompareAs: lockfile.MavenEcosystem,
+				},
+			},
+			diag: lockfile.Diagnostics{},
+		},
+		// interpolation
+		{
+			name: "",
+			file: "fixtures/maven/interpolation.xml",
+			want: []lockfile.PackageDetails{
+				{
+					Name:      "org.mine:mypackage",
+					Version:   "1.0.0",
+					Ecosystem: lockfile.MavenEcosystem,
+					CompareAs: lockfile.MavenEcosystem,
+				},
+				{
+					Name:      "org.mine:my.package",
+					Version:   "2.3.4",
+					Ecosystem: lockfile.MavenEcosystem,
+					CompareAs: lockfile.MavenEcosystem,
+				},
+				{
+					Name:      "org.mine:ranged-package",
+					Version:   "9.4.35.v20201120",
+					Ecosystem: lockfile.MavenEcosystem,
+					CompareAs: lockfile.MavenEcosystem,
+				},
+				{
+					Name:      "org.mine:missing-property",
+					Version:   "0",
+					Ecosystem: lockfile.MavenEcosystem,
+					CompareAs: lockfile.MavenEcosystem,
+				},
+			},
+			diag: lockfile.Diagnostics{
+				Warnings: []string{
+					"Failed to resolve version of org.mine:missing-property: property \"missing\" could not be found",
+				},
+			},
+		},
+	})
 }

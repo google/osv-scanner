@@ -37,9 +37,15 @@ func parseToGradlePackageDetail(line string) (PackageDetails, error) {
 }
 
 func ParseGradleLock(pathToLockfile string) ([]PackageDetails, error) {
+	return parseFileAndPrintDiag(pathToLockfile, ParseGradleLockWithDiagnostics)
+}
+
+func ParseGradleLockWithDiagnostics(pathToLockfile string) ([]PackageDetails, Diagnostics, error) {
+	var diag Diagnostics
+
 	file, err := os.Open(pathToLockfile)
 	if err != nil {
-		return []PackageDetails{}, fmt.Errorf("could not open %s: %w", pathToLockfile, err)
+		return []PackageDetails{}, diag, fmt.Errorf("could not open %s: %w", pathToLockfile, err)
 	}
 	defer file.Close()
 
@@ -54,7 +60,7 @@ func ParseGradleLock(pathToLockfile string) ([]PackageDetails, error) {
 
 		pkg, err := parseToGradlePackageDetail(lockLine)
 		if err != nil {
-			fmt.Fprintf(os.Stderr, "failed to parse lockline: %s\n", err.Error())
+			diag.Warn(fmt.Sprintf("failed to parse lockline: %s", err.Error()))
 			continue
 		}
 
@@ -62,8 +68,8 @@ func ParseGradleLock(pathToLockfile string) ([]PackageDetails, error) {
 	}
 
 	if err := scanner.Err(); err != nil {
-		return []PackageDetails{}, fmt.Errorf("failed to read %s: %w", pathToLockfile, err)
+		return []PackageDetails{}, diag, fmt.Errorf("failed to read %s: %w", pathToLockfile, err)
 	}
 
-	return pkgs, nil
+	return pkgs, diag, nil
 }

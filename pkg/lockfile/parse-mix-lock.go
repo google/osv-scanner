@@ -11,9 +11,15 @@ import (
 const MixEcosystem Ecosystem = "Hex"
 
 func ParseMixLock(pathToLockfile string) ([]PackageDetails, error) {
+	return parseFileAndPrintDiag(pathToLockfile, ParseMixLockWithDiagnostics)
+}
+
+func ParseMixLockWithDiagnostics(pathToLockfile string) ([]PackageDetails, Diagnostics, error) {
+	var diag Diagnostics
+
 	file, err := os.Open(pathToLockfile)
 	if err != nil {
-		return []PackageDetails{}, fmt.Errorf("could not open %s: %w", pathToLockfile, err)
+		return []PackageDetails{}, diag, fmt.Errorf("could not open %s: %w", pathToLockfile, err)
 	}
 	defer file.Close()
 
@@ -40,10 +46,7 @@ func ParseMixLock(pathToLockfile string) ([]PackageDetails, error) {
 		})
 
 		if len(fields) < 4 {
-			_, _ = fmt.Fprintf(
-				os.Stderr,
-				"Found less than four fields when parsing a line that looks like a dependency in a mix.lock - please report this!\n",
-			)
+			diag.Warn("Found less than four fields when parsing a line that looks like a dependency in a mix.lock - please report this!\n")
 
 			continue
 		}
@@ -70,8 +73,8 @@ func ParseMixLock(pathToLockfile string) ([]PackageDetails, error) {
 	}
 
 	if err := scanner.Err(); err != nil {
-		return []PackageDetails{}, fmt.Errorf("error while scanning %s: %w", pathToLockfile, err)
+		return []PackageDetails{}, diag, fmt.Errorf("error while scanning %s: %w", pathToLockfile, err)
 	}
 
-	return packages, nil
+	return packages, diag, nil
 }

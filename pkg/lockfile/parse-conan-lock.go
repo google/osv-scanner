@@ -173,17 +173,22 @@ func parseConanLock(lockfile ConanLockFile) []PackageDetails {
 }
 
 func ParseConanLock(pathToLockfile string) ([]PackageDetails, error) {
+	return parseFileAndPrintDiag(pathToLockfile, ParseConanLockWithDiagnostics)
+}
+
+func ParseConanLockWithDiagnostics(pathToLockfile string) ([]PackageDetails, Diagnostics, error) {
 	var parsedLockfile *ConanLockFile
+	var diag Diagnostics
 
 	lockfileContents, err := os.ReadFile(pathToLockfile)
 	if err != nil {
-		return []PackageDetails{}, fmt.Errorf("could not read %s: %w", pathToLockfile, err)
+		return []PackageDetails{}, diag, fmt.Errorf("could not read %s: %w", pathToLockfile, err)
 	}
 
 	err = json.Unmarshal(lockfileContents, &parsedLockfile)
 	if err != nil {
-		return []PackageDetails{}, fmt.Errorf("could not parse %s: %w", pathToLockfile, err)
+		return []PackageDetails{}, diag, fmt.Errorf("could not parse %s: %w", pathToLockfile, err)
 	}
 
-	return parseConanLock(*parsedLockfile), nil
+	return parseConanLock(*parsedLockfile), diag, nil
 }

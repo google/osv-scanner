@@ -3,6 +3,7 @@ package lockfile_test
 import (
 	"fmt"
 	"github.com/google/osv-scanner/pkg/lockfile"
+	"reflect"
 	"strings"
 	"testing"
 )
@@ -85,5 +86,48 @@ func expectPackages(t *testing.T, actualPackages []lockfile.PackageDetails, expe
 		for _, unexpectedPackage := range missingExpectedPackages {
 			t.Errorf("Did not find %s", packageToString(unexpectedPackage))
 		}
+	}
+}
+
+type testParserWithDiagnosticsTest struct {
+	name string
+	file string
+	want []lockfile.PackageDetails
+	diag lockfile.Diagnostics
+}
+
+func testParserWithDiagnostics(t *testing.T, parser lockfile.PackageDetailsParserWithDiag, tests []testParserWithDiagnosticsTest) {
+	t.Helper()
+
+	for _, tt := range tests {
+		tt := tt
+		t.Run(tt.name, func(t *testing.T) {
+			t.Parallel()
+			packages, diag, err := parser(tt.file)
+			if err != nil {
+				t.Errorf("Got unexpected error: %v", err)
+
+				return
+			}
+
+			expectPackages(t, packages, tt.want)
+			expectDiagnostics(t, diag, tt.diag)
+		})
+	}
+}
+
+func pretty(list []string) (str string) {
+	for _, s := range list {
+		str += fmt.Sprintf("  \"%s\"\n", s)
+	}
+
+	return str
+}
+
+func expectDiagnostics(t *testing.T, actualDiagnostics, expectedDiagnostics lockfile.Diagnostics) {
+	t.Helper()
+
+	if !reflect.DeepEqual(actualDiagnostics, expectedDiagnostics) {
+		t.Errorf("incorrect diagnostics\nwant:\n%s\ngot:\n%s", pretty(expectedDiagnostics.Warnings), pretty(actualDiagnostics.Warnings))
 	}
 }

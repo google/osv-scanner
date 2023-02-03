@@ -23,108 +23,90 @@ func TestParseComposerLock_InvalidJson(t *testing.T) {
 	expectPackages(t, packages, []lockfile.PackageDetails{})
 }
 
-func TestParseComposerLock_NoPackages(t *testing.T) {
+func TestParseComposerLockWithDiagnostics(t *testing.T) {
 	t.Parallel()
 
-	packages, err := lockfile.ParseComposerLock("fixtures/composer/empty.json")
-
-	if err != nil {
-		t.Errorf("Got unexpected error: %v", err)
-	}
-
-	expectPackages(t, packages, []lockfile.PackageDetails{})
-}
-
-func TestParseComposerLock_OnePackage(t *testing.T) {
-	t.Parallel()
-
-	packages, err := lockfile.ParseComposerLock("fixtures/composer/one-package.json")
-
-	if err != nil {
-		t.Errorf("Got unexpected error: %v", err)
-	}
-
-	expectPackages(t, packages, []lockfile.PackageDetails{
+	testParserWithDiagnostics(t, lockfile.ParseComposerLockWithDiagnostics, []testParserWithDiagnosticsTest{
+		// no packages
 		{
-			Name:      "sentry/sdk",
-			Version:   "2.0.4",
-			Commit:    "4c115873c86ad5bd0ac6d962db70ca53bf8fb874",
-			Ecosystem: lockfile.ComposerEcosystem,
-			CompareAs: lockfile.ComposerEcosystem,
+			name: "",
+			file: "fixtures/composer/empty.json",
+			want: []lockfile.PackageDetails{},
+			diag: lockfile.Diagnostics{},
 		},
-	})
-}
-
-func TestParseComposerLock_OnePackageDev(t *testing.T) {
-	t.Parallel()
-
-	packages, err := lockfile.ParseComposerLock("fixtures/composer/one-package-dev.json")
-
-	if err != nil {
-		t.Errorf("Got unexpected error: %v", err)
-	}
-
-	expectPackages(t, packages, []lockfile.PackageDetails{
+		// one package
 		{
-			Name:      "sentry/sdk",
-			Version:   "2.0.4",
-			Commit:    "4c115873c86ad5bd0ac6d962db70ca53bf8fb874",
-			Ecosystem: lockfile.ComposerEcosystem,
-			CompareAs: lockfile.ComposerEcosystem,
+			name: "",
+			file: "fixtures/composer/one-package.json",
+			want: []lockfile.PackageDetails{
+				{
+					Name:      "sentry/sdk",
+					Version:   "2.0.4",
+					Commit:    "4c115873c86ad5bd0ac6d962db70ca53bf8fb874",
+					Ecosystem: lockfile.ComposerEcosystem,
+					CompareAs: lockfile.ComposerEcosystem,
+				},
+			},
+			diag: lockfile.Diagnostics{},
 		},
-	})
-}
-
-func TestParseComposerLock_TwoPackages(t *testing.T) {
-	t.Parallel()
-
-	packages, err := lockfile.ParseComposerLock("fixtures/composer/two-packages.json")
-
-	if err != nil {
-		t.Errorf("Got unexpected error: %v", err)
-	}
-
-	expectPackages(t, packages, []lockfile.PackageDetails{
+		// one package, dev
 		{
-			Name:      "sentry/sdk",
-			Version:   "2.0.4",
-			Commit:    "4c115873c86ad5bd0ac6d962db70ca53bf8fb874",
-			Ecosystem: lockfile.ComposerEcosystem,
-			CompareAs: lockfile.ComposerEcosystem,
+			name: "",
+			file: "fixtures/composer/one-package-dev.json",
+			want: []lockfile.PackageDetails{
+				{
+					Name:      "sentry/sdk",
+					Version:   "2.0.4",
+					Commit:    "4c115873c86ad5bd0ac6d962db70ca53bf8fb874",
+					Ecosystem: lockfile.ComposerEcosystem,
+					CompareAs: lockfile.ComposerEcosystem,
+				},
+			},
+			diag: lockfile.Diagnostics{},
 		},
+		// two packages
 		{
-			Name:      "theseer/tokenizer",
-			Version:   "1.1.3",
-			Commit:    "11336f6f84e16a720dae9d8e6ed5019efa85a0f9",
-			Ecosystem: lockfile.ComposerEcosystem,
-			CompareAs: lockfile.ComposerEcosystem,
+			name: "",
+			file: "fixtures/composer/two-packages.json",
+			want: []lockfile.PackageDetails{
+				{
+					Name:      "sentry/sdk",
+					Version:   "2.0.4",
+					Commit:    "4c115873c86ad5bd0ac6d962db70ca53bf8fb874",
+					Ecosystem: lockfile.ComposerEcosystem,
+					CompareAs: lockfile.ComposerEcosystem,
+				},
+				{
+					Name:      "theseer/tokenizer",
+					Version:   "1.1.3",
+					Commit:    "11336f6f84e16a720dae9d8e6ed5019efa85a0f9",
+					Ecosystem: lockfile.ComposerEcosystem,
+					CompareAs: lockfile.ComposerEcosystem,
+				},
+			},
+			diag: lockfile.Diagnostics{},
 		},
-	})
-}
-
-func TestParseComposerLock_TwoPackagesAlt(t *testing.T) {
-	t.Parallel()
-
-	packages, err := lockfile.ParseComposerLock("fixtures/composer/two-packages-alt.json")
-
-	if err != nil {
-		t.Errorf("Got unexpected error: %v", err)
-	}
-
-	expectPackages(t, packages, []lockfile.PackageDetails{
+		// two packages, alt
 		{
-			Name:      "sentry/sdk",
-			Version:   "2.0.4",
-			Commit:    "4c115873c86ad5bd0ac6d962db70ca53bf8fb874",
-			Ecosystem: lockfile.ComposerEcosystem,
-			CompareAs: lockfile.ComposerEcosystem,
-		},
-		{
-			Name:      "theseer/tokenizer",
-			Version:   "1.1.3",
-			Commit:    "11336f6f84e16a720dae9d8e6ed5019efa85a0f9",
-			Ecosystem: lockfile.ComposerEcosystem,
-			CompareAs: lockfile.ComposerEcosystem,
+			name: "",
+			file: "fixtures/composer/two-packages-alt.json",
+			want: []lockfile.PackageDetails{
+				{
+					Name:      "sentry/sdk",
+					Version:   "2.0.4",
+					Commit:    "4c115873c86ad5bd0ac6d962db70ca53bf8fb874",
+					Ecosystem: lockfile.ComposerEcosystem,
+					CompareAs: lockfile.ComposerEcosystem,
+				},
+				{
+					Name:      "theseer/tokenizer",
+					Version:   "1.1.3",
+					Commit:    "11336f6f84e16a720dae9d8e6ed5019efa85a0f9",
+					Ecosystem: lockfile.ComposerEcosystem,
+					CompareAs: lockfile.ComposerEcosystem,
+				},
+			},
+			diag: lockfile.Diagnostics{},
 		},
 	})
 }

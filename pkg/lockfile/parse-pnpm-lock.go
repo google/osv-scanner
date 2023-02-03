@@ -123,19 +123,24 @@ func parsePnpmLock(lockfile PnpmLockfile) []PackageDetails {
 }
 
 func ParsePnpmLock(pathToLockfile string) ([]PackageDetails, error) {
+	return parseFileAndPrintDiag(pathToLockfile, ParsePnpmLockWithDiagnostics)
+}
+
+func ParsePnpmLockWithDiagnostics(pathToLockfile string) ([]PackageDetails, Diagnostics, error) {
 	var parsedLockfile *PnpmLockfile
+	var diag Diagnostics
 
 	lockfileContents, err := os.ReadFile(pathToLockfile)
 
 	if err != nil {
-		return []PackageDetails{}, fmt.Errorf("could not read %s: %w", pathToLockfile, err)
+		return []PackageDetails{}, diag, fmt.Errorf("could not read %s: %w", pathToLockfile, err)
 	}
 
 	err = yaml.Unmarshal(lockfileContents, &parsedLockfile)
 
 	if err != nil {
-		return []PackageDetails{}, fmt.Errorf("could not parse %s: %w", pathToLockfile, err)
+		return []PackageDetails{}, diag, fmt.Errorf("could not parse %s: %w", pathToLockfile, err)
 	}
 
-	return parsePnpmLock(*parsedLockfile), nil
+	return parsePnpmLock(*parsedLockfile), diag, nil
 }

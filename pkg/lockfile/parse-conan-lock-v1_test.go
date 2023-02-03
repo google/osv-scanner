@@ -24,215 +24,172 @@ func TestParseConanLock_v1_InvalidJson(t *testing.T) {
 	expectPackages(t, packages, []lockfile.PackageDetails{})
 }
 
-func TestParseConanLock_v1_NoPackages(t *testing.T) {
+func TestParseConanLockWithDiagnostics_1(t *testing.T) {
 	t.Parallel()
 
-	packages, err := lockfile.ParseConanLock("fixtures/conan/empty.v1.json")
-
-	if err != nil {
-		t.Errorf("Got unexpected error: %v", err)
-	}
-
-	expectPackages(t, packages, []lockfile.PackageDetails{})
-}
-
-func TestParseConanLock_v1_OnePackage(t *testing.T) {
-	t.Parallel()
-
-	packages, err := lockfile.ParseConanLock("fixtures/conan/one-package.v1.json")
-
-	if err != nil {
-		t.Errorf("Got unexpected error: %v", err)
-	}
-
-	expectPackages(t, packages, []lockfile.PackageDetails{
+	testParserWithDiagnostics(t, lockfile.ParseConanLockWithDiagnostics, []testParserWithDiagnosticsTest{
+		// no packages
 		{
-			Name:      "zlib",
-			Version:   "1.2.11",
-			Ecosystem: lockfile.ConanEcosystem,
-			CompareAs: lockfile.ConanEcosystem,
+			name: "",
+			file: "fixtures/conan/empty.v1.json",
+			want: []lockfile.PackageDetails{},
+			diag: lockfile.Diagnostics{},
 		},
-	})
-}
-
-func TestParseConanLock_v1_NoName(t *testing.T) {
-	t.Parallel()
-
-	packages, err := lockfile.ParseConanLock("fixtures/conan/no-name.v1.json")
-
-	if err != nil {
-		t.Errorf("Got unexpected error: %v", err)
-	}
-
-	expectPackages(t, packages, []lockfile.PackageDetails{
+		// one package
 		{
-			Name:      "zlib",
-			Version:   "1.2.11",
-			Ecosystem: lockfile.ConanEcosystem,
-			CompareAs: lockfile.ConanEcosystem,
+			name: "",
+			file: "fixtures/conan/one-package.v1.json",
+			want: []lockfile.PackageDetails{
+				{
+					Name:      "zlib",
+					Version:   "1.2.11",
+					Ecosystem: lockfile.ConanEcosystem,
+					CompareAs: lockfile.ConanEcosystem,
+				},
+			},
+			diag: lockfile.Diagnostics{},
 		},
-	})
-}
-
-func TestParseConanLock_v1_TwoPackages(t *testing.T) {
-	t.Parallel()
-
-	packages, err := lockfile.ParseConanLock("fixtures/conan/two-packages.v1.json")
-
-	if err != nil {
-		t.Errorf("Got unexpected error: %v", err)
-	}
-
-	expectPackages(t, packages, []lockfile.PackageDetails{
+		// one package, dev
 		{
-			Name:      "zlib",
-			Version:   "1.2.11",
-			Ecosystem: lockfile.ConanEcosystem,
-			CompareAs: lockfile.ConanEcosystem,
+			name: "",
+			file: "fixtures/conan/one-package-dev.v1.json",
+			want: []lockfile.PackageDetails{
+				{
+					Name:      "ninja",
+					Version:   "1.11.1",
+					Ecosystem: lockfile.ConanEcosystem,
+					CompareAs: lockfile.ConanEcosystem,
+				},
+			},
+			diag: lockfile.Diagnostics{},
 		},
+		// two packages
 		{
-			Name:      "bzip2",
-			Version:   "1.0.8",
-			Ecosystem: lockfile.ConanEcosystem,
-			CompareAs: lockfile.ConanEcosystem,
+			name: "",
+			file: "fixtures/conan/two-packages.v1.json",
+			want: []lockfile.PackageDetails{
+				{
+					Name:      "zlib",
+					Version:   "1.2.11",
+					Ecosystem: lockfile.ConanEcosystem,
+					CompareAs: lockfile.ConanEcosystem,
+				},
+				{
+					Name:      "bzip2",
+					Version:   "1.0.8",
+					Ecosystem: lockfile.ConanEcosystem,
+					CompareAs: lockfile.ConanEcosystem,
+				},
+			},
+			diag: lockfile.Diagnostics{},
 		},
-	})
-}
-
-func TestParseConanLock_v1_NestedDependencies(t *testing.T) {
-	t.Parallel()
-
-	packages, err := lockfile.ParseConanLock("fixtures/conan/nested-dependencies.v1.json")
-
-	if err != nil {
-		t.Errorf("Got unexpected error: %v", err)
-	}
-
-	expectPackages(t, packages, []lockfile.PackageDetails{
+		// no name
 		{
-			Name:      "zlib",
-			Version:   "1.2.13",
-			Ecosystem: lockfile.ConanEcosystem,
-			CompareAs: lockfile.ConanEcosystem,
+			name: "",
+			file: "fixtures/conan/no-name.v1.json",
+			want: []lockfile.PackageDetails{
+				{
+					Name:      "zlib",
+					Version:   "1.2.11",
+					Ecosystem: lockfile.ConanEcosystem,
+					CompareAs: lockfile.ConanEcosystem,
+				},
+			},
+			diag: lockfile.Diagnostics{},
 		},
+		// nested dependencies
 		{
-			Name:      "bzip2",
-			Version:   "1.0.8",
-			Ecosystem: lockfile.ConanEcosystem,
-			CompareAs: lockfile.ConanEcosystem,
+			name: "",
+			file: "fixtures/conan/nested-dependencies.v1.json",
+			want: []lockfile.PackageDetails{
+				{
+					Name:      "zlib",
+					Version:   "1.2.13",
+					Ecosystem: lockfile.ConanEcosystem,
+					CompareAs: lockfile.ConanEcosystem,
+				},
+				{
+					Name:      "bzip2",
+					Version:   "1.0.8",
+					Ecosystem: lockfile.ConanEcosystem,
+					CompareAs: lockfile.ConanEcosystem,
+				},
+				{
+					Name:      "freetype",
+					Version:   "2.12.1",
+					Ecosystem: lockfile.ConanEcosystem,
+					CompareAs: lockfile.ConanEcosystem,
+				},
+				{
+					Name:      "libpng",
+					Version:   "1.6.39",
+					Ecosystem: lockfile.ConanEcosystem,
+					CompareAs: lockfile.ConanEcosystem,
+				},
+				{
+					Name:      "brotli",
+					Version:   "1.0.9",
+					Ecosystem: lockfile.ConanEcosystem,
+					CompareAs: lockfile.ConanEcosystem,
+				},
+			},
+			diag: lockfile.Diagnostics{},
 		},
+		// old format (0.0)
 		{
-			Name:      "freetype",
-			Version:   "2.12.1",
-			Ecosystem: lockfile.ConanEcosystem,
-			CompareAs: lockfile.ConanEcosystem,
+			name: "",
+			file: "fixtures/conan/old-format-0.0.json",
+			want: []lockfile.PackageDetails{
+				{
+					Name:      "zlib",
+					Version:   "1.2.11",
+					Ecosystem: lockfile.ConanEcosystem,
+					CompareAs: lockfile.ConanEcosystem,
+				},
+			},
+			diag: lockfile.Diagnostics{},
 		},
+		// old format (0.1)
 		{
-			Name:      "libpng",
-			Version:   "1.6.39",
-			Ecosystem: lockfile.ConanEcosystem,
-			CompareAs: lockfile.ConanEcosystem,
+			name: "",
+			file: "fixtures/conan/old-format-0.1.json",
+			want: []lockfile.PackageDetails{
+				{
+					Name:      "zlib",
+					Version:   "1.2.11",
+					Ecosystem: lockfile.ConanEcosystem,
+					CompareAs: lockfile.ConanEcosystem,
+				},
+			},
+			diag: lockfile.Diagnostics{},
 		},
+		// old format (0.2)
 		{
-			Name:      "brotli",
-			Version:   "1.0.9",
-			Ecosystem: lockfile.ConanEcosystem,
-			CompareAs: lockfile.ConanEcosystem,
+			name: "",
+			file: "fixtures/conan/old-format-0.2.json",
+			want: []lockfile.PackageDetails{
+				{
+					Name:      "zlib",
+					Version:   "1.2.11",
+					Ecosystem: lockfile.ConanEcosystem,
+					CompareAs: lockfile.ConanEcosystem,
+				},
+			},
+			diag: lockfile.Diagnostics{},
 		},
-	})
-}
-
-func TestParseConanLock_v1_OnePackageDev(t *testing.T) {
-	t.Parallel()
-
-	packages, err := lockfile.ParseConanLock("fixtures/conan/one-package-dev.v1.json")
-
-	if err != nil {
-		t.Errorf("Got unexpected error: %v", err)
-	}
-
-	expectPackages(t, packages, []lockfile.PackageDetails{
+		// old format (0.3)
 		{
-			Name:      "ninja",
-			Version:   "1.11.1",
-			Ecosystem: lockfile.ConanEcosystem,
-			CompareAs: lockfile.ConanEcosystem,
-		},
-	})
-}
-
-func TestParseConanLock_v1_OldFormat00(t *testing.T) {
-	t.Parallel()
-
-	packages, err := lockfile.ParseConanLock("fixtures/conan/old-format-0.0.json")
-
-	if err != nil {
-		t.Errorf("Got unexpected error: %v", err)
-	}
-
-	expectPackages(t, packages, []lockfile.PackageDetails{
-		{
-			Name:      "zlib",
-			Version:   "1.2.11",
-			Ecosystem: lockfile.ConanEcosystem,
-			CompareAs: lockfile.ConanEcosystem,
-		},
-	})
-}
-
-func TestParseConanLock_v1_OldFormat01(t *testing.T) {
-	t.Parallel()
-
-	packages, err := lockfile.ParseConanLock("fixtures/conan/old-format-0.1.json")
-
-	if err != nil {
-		t.Errorf("Got unexpected error: %v", err)
-	}
-
-	expectPackages(t, packages, []lockfile.PackageDetails{
-		{
-			Name:      "zlib",
-			Version:   "1.2.11",
-			Ecosystem: lockfile.ConanEcosystem,
-			CompareAs: lockfile.ConanEcosystem,
-		},
-	})
-}
-
-func TestParseConanLock_v1_OldFormat02(t *testing.T) {
-	t.Parallel()
-
-	packages, err := lockfile.ParseConanLock("fixtures/conan/old-format-0.2.json")
-
-	if err != nil {
-		t.Errorf("Got unexpected error: %v", err)
-	}
-
-	expectPackages(t, packages, []lockfile.PackageDetails{
-		{
-			Name:      "zlib",
-			Version:   "1.2.11",
-			Ecosystem: lockfile.ConanEcosystem,
-			CompareAs: lockfile.ConanEcosystem,
-		},
-	})
-}
-
-func TestParseConanLock_v1_OldFormat03(t *testing.T) {
-	t.Parallel()
-
-	packages, err := lockfile.ParseConanLock("fixtures/conan/old-format-0.3.json")
-
-	if err != nil {
-		t.Errorf("Got unexpected error: %v", err)
-	}
-
-	expectPackages(t, packages, []lockfile.PackageDetails{
-		{
-			Name:      "zlib",
-			Version:   "1.2.11",
-			Ecosystem: lockfile.ConanEcosystem,
-			CompareAs: lockfile.ConanEcosystem,
+			name: "",
+			file: "fixtures/conan/old-format-0.3.json",
+			want: []lockfile.PackageDetails{
+				{
+					Name:      "zlib",
+					Version:   "1.2.11",
+					Ecosystem: lockfile.ConanEcosystem,
+					CompareAs: lockfile.ConanEcosystem,
+				},
+			},
+			diag: lockfile.Diagnostics{},
 		},
 	})
 }

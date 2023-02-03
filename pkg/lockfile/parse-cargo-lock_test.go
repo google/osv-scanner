@@ -23,77 +23,64 @@ func TestParseCargoLock_InvalidToml(t *testing.T) {
 	expectPackages(t, packages, []lockfile.PackageDetails{})
 }
 
-func TestParseCargoLock_NoPackages(t *testing.T) {
+func TestParseCargoLockWithDiagnostics(t *testing.T) {
 	t.Parallel()
 
-	packages, err := lockfile.ParseCargoLock("fixtures/cargo/empty.lock")
-
-	if err != nil {
-		t.Errorf("Got unexpected error: %v", err)
-	}
-
-	expectPackages(t, packages, []lockfile.PackageDetails{})
-}
-
-func TestParseCargoLock_OnePackage(t *testing.T) {
-	t.Parallel()
-
-	packages, err := lockfile.ParseCargoLock("fixtures/cargo/one-package.lock")
-
-	if err != nil {
-		t.Errorf("Got unexpected error: %v", err)
-	}
-
-	expectPackages(t, packages, []lockfile.PackageDetails{
+	testParserWithDiagnostics(t, lockfile.ParseCargoLockWithDiagnostics, []testParserWithDiagnosticsTest{
+		// no packages
 		{
-			Name:      "addr2line",
-			Version:   "0.15.2",
-			Ecosystem: lockfile.CargoEcosystem,
-			CompareAs: lockfile.CargoEcosystem,
+			name: "",
+			file: "fixtures/cargo/empty.lock",
+			want: []lockfile.PackageDetails{},
+			diag: lockfile.Diagnostics{},
 		},
-	})
-}
-
-func TestParseCargoLock_TwoPackages(t *testing.T) {
-	t.Parallel()
-
-	packages, err := lockfile.ParseCargoLock("fixtures/cargo/two-packages.lock")
-
-	if err != nil {
-		t.Errorf("Got unexpected error: %v", err)
-	}
-
-	expectPackages(t, packages, []lockfile.PackageDetails{
+		// one package
 		{
-			Name:      "addr2line",
-			Version:   "0.15.2",
-			Ecosystem: lockfile.CargoEcosystem,
-			CompareAs: lockfile.CargoEcosystem,
+			name: "",
+			file: "fixtures/cargo/one-package.lock",
+			want: []lockfile.PackageDetails{
+				{
+					Name:      "addr2line",
+					Version:   "0.15.2",
+					Ecosystem: lockfile.CargoEcosystem,
+					CompareAs: lockfile.CargoEcosystem,
+				},
+			},
+			diag: lockfile.Diagnostics{},
 		},
+		// two packages
 		{
-			Name:      "syn",
-			Version:   "1.0.73",
-			Ecosystem: lockfile.CargoEcosystem,
-			CompareAs: lockfile.CargoEcosystem,
+			name: "",
+			file: "fixtures/cargo/two-packages.lock",
+			want: []lockfile.PackageDetails{
+				{
+					Name:      "addr2line",
+					Version:   "0.15.2",
+					Ecosystem: lockfile.CargoEcosystem,
+					CompareAs: lockfile.CargoEcosystem,
+				},
+				{
+					Name:      "syn",
+					Version:   "1.0.73",
+					Ecosystem: lockfile.CargoEcosystem,
+					CompareAs: lockfile.CargoEcosystem,
+				},
+			},
+			diag: lockfile.Diagnostics{},
 		},
-	})
-}
-
-func TestParseCargoLock_PackageWithBuildString(t *testing.T) {
-	t.Parallel()
-
-	packages, err := lockfile.ParseCargoLock("fixtures/cargo/package-with-build-string.lock")
-
-	if err != nil {
-		t.Errorf("Got unexpected error: %v", err)
-	}
-
-	expectPackages(t, packages, []lockfile.PackageDetails{
+		// package with build string
 		{
-			Name:      "wasi",
-			Version:   "0.10.2+wasi-snapshot-preview1",
-			Ecosystem: lockfile.CargoEcosystem,
-			CompareAs: lockfile.CargoEcosystem,
+			name: "",
+			file: "fixtures/cargo/package-with-build-string.lock",
+			want: []lockfile.PackageDetails{
+				{
+					Name:      "wasi",
+					Version:   "0.10.2+wasi-snapshot-preview1",
+					Ecosystem: lockfile.CargoEcosystem,
+					CompareAs: lockfile.CargoEcosystem,
+				},
+			},
+			diag: lockfile.Diagnostics{},
 		},
 	})
 }

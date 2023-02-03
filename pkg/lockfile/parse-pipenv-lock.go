@@ -18,18 +18,23 @@ type PipenvLock struct {
 const PipenvEcosystem = PipEcosystem
 
 func ParsePipenvLock(pathToLockfile string) ([]PackageDetails, error) {
+	return parseFileAndPrintDiag(pathToLockfile, ParsePipenvLockWithDiagnostics)
+}
+
+func ParsePipenvLockWithDiagnostics(pathToLockfile string) ([]PackageDetails, Diagnostics, error) {
 	var parsedLockfile *PipenvLock
+	var diag Diagnostics
 
 	lockfileContents, err := os.ReadFile(pathToLockfile)
 
 	if err != nil {
-		return []PackageDetails{}, fmt.Errorf("could not read %s: %w", pathToLockfile, err)
+		return []PackageDetails{}, diag, fmt.Errorf("could not read %s: %w", pathToLockfile, err)
 	}
 
 	err = json.Unmarshal(lockfileContents, &parsedLockfile)
 
 	if err != nil {
-		return []PackageDetails{}, fmt.Errorf("could not parse %s: %w", pathToLockfile, err)
+		return []PackageDetails{}, diag, fmt.Errorf("could not parse %s: %w", pathToLockfile, err)
 	}
 
 	packages := make(map[string]PackageDetails)
@@ -60,5 +65,5 @@ func ParsePipenvLock(pathToLockfile string) ([]PackageDetails, error) {
 		}
 	}
 
-	return pkgDetailsMapToSlice(packages), nil
+	return pkgDetailsMapToSlice(packages), diag, nil
 }

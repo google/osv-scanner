@@ -62,21 +62,26 @@ type PubspecLockfile struct {
 const PubEcosystem Ecosystem = "Pub"
 
 func ParsePubspecLock(pathToLockfile string) ([]PackageDetails, error) {
+	return parseFileAndPrintDiag(pathToLockfile, ParsePubspecLockWithDiagnostics)
+}
+
+func ParsePubspecLockWithDiagnostics(pathToLockfile string) ([]PackageDetails, Diagnostics, error) {
+	var diag Diagnostics
 	var parsedLockfile *PubspecLockfile
 
 	lockfileContents, err := os.ReadFile(pathToLockfile)
 
 	if err != nil {
-		return []PackageDetails{}, fmt.Errorf("could not read %s: %w", pathToLockfile, err)
+		return []PackageDetails{}, diag, fmt.Errorf("could not read %s: %w", pathToLockfile, err)
 	}
 
 	err = yaml.Unmarshal(lockfileContents, &parsedLockfile)
 
 	if err != nil {
-		return []PackageDetails{}, fmt.Errorf("could not parse %s: %w", pathToLockfile, err)
+		return []PackageDetails{}, diag, fmt.Errorf("could not parse %s: %w", pathToLockfile, err)
 	}
 	if parsedLockfile == nil {
-		return []PackageDetails{}, nil
+		return []PackageDetails{}, diag, nil
 	}
 
 	packages := make([]PackageDetails, 0, len(parsedLockfile.Packages))
@@ -90,5 +95,5 @@ func ParsePubspecLock(pathToLockfile string) ([]PackageDetails, error) {
 		})
 	}
 
-	return packages, nil
+	return packages, diag, nil
 }

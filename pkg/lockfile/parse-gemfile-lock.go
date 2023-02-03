@@ -164,15 +164,20 @@ func (parser *gemfileLockfileParser) parse(contents string) {
 }
 
 func ParseGemfileLock(pathToLockfile string) ([]PackageDetails, error) {
+	return parseFileAndPrintDiag(pathToLockfile, ParseGemfileLockWithDiagnostics)
+}
+
+func ParseGemfileLockWithDiagnostics(pathToLockfile string) ([]PackageDetails, Diagnostics, error) {
 	var parser gemfileLockfileParser
+	var diag Diagnostics
 
 	bytes, err := os.ReadFile(pathToLockfile)
 
 	if err != nil {
-		return []PackageDetails{}, fmt.Errorf("could not read %s: %w", pathToLockfile, err)
+		return []PackageDetails{}, diag, fmt.Errorf("could not read %s: %w", pathToLockfile, err)
 	}
 
 	parser.parse(string(bytes))
 
-	return parser.dependencies, nil
+	return parser.dependencies, diag, nil
 }

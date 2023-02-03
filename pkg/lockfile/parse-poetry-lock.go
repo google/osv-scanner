@@ -25,18 +25,23 @@ type PoetryLockFile struct {
 const PoetryEcosystem = PipEcosystem
 
 func ParsePoetryLock(pathToLockfile string) ([]PackageDetails, error) {
+	return parseFileAndPrintDiag(pathToLockfile, ParsePoetryLockWithDiagnostics)
+}
+
+func ParsePoetryLockWithDiagnostics(pathToLockfile string) ([]PackageDetails, Diagnostics, error) {
 	var parsedLockfile *PoetryLockFile
+	var diag Diagnostics
 
 	lockfileContents, err := os.ReadFile(pathToLockfile)
 
 	if err != nil {
-		return []PackageDetails{}, fmt.Errorf("could not read %s: %w", pathToLockfile, err)
+		return []PackageDetails{}, diag, fmt.Errorf("could not read %s: %w", pathToLockfile, err)
 	}
 
 	err = toml.Unmarshal(lockfileContents, &parsedLockfile)
 
 	if err != nil {
-		return []PackageDetails{}, fmt.Errorf("could not parse %s: %w", pathToLockfile, err)
+		return []PackageDetails{}, diag, fmt.Errorf("could not parse %s: %w", pathToLockfile, err)
 	}
 
 	packages := make([]PackageDetails, 0, len(parsedLockfile.Packages))
@@ -51,5 +56,5 @@ func ParsePoetryLock(pathToLockfile string) ([]PackageDetails, error) {
 		})
 	}
 
-	return packages, nil
+	return packages, diag, nil
 }

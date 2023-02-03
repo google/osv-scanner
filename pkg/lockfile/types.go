@@ -11,3 +11,4 @@ type PackageDetails struct {
 type Ecosystem string
 
 type PackageDetailsParser = func(pathToLockfile string) ([]PackageDetails, error)
+type PackageDetailsParserWithDiag = func(pathToLockfile string) ([]PackageDetails, Diagnostics, error)

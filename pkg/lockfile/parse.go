@@ -91,9 +91,10 @@ func (ps Packages) Ecosystems() []Ecosystem {
 }
 
 type Lockfile struct {
-	FilePath string   `json:"filePath"`
-	ParsedAs string   `json:"parsedAs"`
-	Packages Packages `json:"packages"`
+	FilePath    string      `json:"filePath"`
+	ParsedAs    string      `json:"parsedAs"`
+	Packages    Packages    `json:"packages"`
+	Diagnostics Diagnostics `json:"diagnostics"`
 }
 
 func (l Lockfile) String() string {

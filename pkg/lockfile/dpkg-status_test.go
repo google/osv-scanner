@@ -15,139 +15,140 @@ func TestParseDpkgStatus_FileDoesNotExist(t *testing.T) {
 	expectPackages(t, packages, []lockfile.PackageDetails{})
 }
 
-func TestParseDpkgStatus_Empty(t *testing.T) {
+func TestParseDpkgStatusWithDiagnostics(t *testing.T) {
 	t.Parallel()
 
-	packages, err := lockfile.ParseDpkgStatus("fixtures/dpkg/empty_status")
-
-	if err != nil {
-		t.Errorf("Got unexpected error: %v", err)
-	}
-
-	expectPackages(t, packages, []lockfile.PackageDetails{})
-}
-
-func TestParseDpkgStatus_NotAStatus(t *testing.T) {
-	t.Parallel()
-
-	packages, err := lockfile.ParseDpkgStatus("fixtures/dpkg/not_status")
-
-	if err != nil {
-		t.Errorf("Got unexpected error: %v", err)
-	}
-
-	expectPackages(t, packages, []lockfile.PackageDetails{})
-}
-
-func TestParseDpkgStatus_Malformed(t *testing.T) {
-	t.Parallel()
-
-	packages, err := lockfile.ParseDpkgStatus("fixtures/dpkg/malformed_status")
-
-	if err != nil {
-		t.Errorf("Got unexpected error: %v", err)
-	}
-
-	expectPackages(t, packages, []lockfile.PackageDetails{
+	testParserWithDiagnostics(t, lockfile.ParseDpkgStatusWithDiagnostics, []testParserWithDiagnosticsTest{
+		// empty
 		{
-			Name:      "bash",
-			Version:   "",
-			Ecosystem: lockfile.DebianEcosystem,
-			CompareAs: lockfile.DebianEcosystem,
+			name: "",
+			file: "fixtures/dpkg/empty_status",
+			want: []lockfile.PackageDetails{},
+			diag: lockfile.Diagnostics{},
 		},
+		// not status
 		{
-			Name:      "util-linux",
-			Version:   "2.36.1-8+deb11u1",
-			Ecosystem: lockfile.DebianEcosystem,
-			CompareAs: lockfile.DebianEcosystem,
+			name: "",
+			file: "fixtures/dpkg/not_status",
+			want: []lockfile.PackageDetails{},
+			diag: lockfile.Diagnostics{
+				Warnings: []string{
+					"warning: malformed DPKG status file. Found no version number in record. Package <unknown>. File: fixtures/dpkg/not_status",
+					"warning: malformed DPKG status file. Found no package name in record. File: fixtures/dpkg/not_status",
+					"warning: malformed DPKG status file. Found no version number in record. Package <unknown>. File: fixtures/dpkg/not_status",
+					"warning: malformed DPKG status file. Found no package name in record. File: fixtures/dpkg/not_status",
+				},
+			},
 		},
-	})
-}
-
-func TestParseDpkgStatus_Single(t *testing.T) {
-	t.Parallel()
-
-	packages, err := lockfile.ParseDpkgStatus("fixtures/dpkg/single_status")
-
-	if err != nil {
-		t.Errorf("Got unexpected error: %v", err)
-	}
-
-	expectPackages(t, packages, []lockfile.PackageDetails{
+		// malformed
 		{
-			Name:      "sudo",
-			Version:   "1.8.27-1+deb10u1",
-			Ecosystem: lockfile.DebianEcosystem,
-			CompareAs: lockfile.DebianEcosystem,
+			name: "",
+			file: "fixtures/dpkg/malformed_status",
+			want: []lockfile.PackageDetails{
+				{
+					Name:      "bash",
+					Version:   "",
+					Ecosystem: lockfile.DebianEcosystem,
+					CompareAs: lockfile.DebianEcosystem,
+				},
+				{
+					Name:      "util-linux",
+					Version:   "2.36.1-8+deb11u1",
+					Ecosystem: lockfile.DebianEcosystem,
+					CompareAs: lockfile.DebianEcosystem,
+				},
+			},
+			diag: lockfile.Diagnostics{
+				Warnings: []string{
+					"warning: malformed DPKG status file. Found no version number in record. Package <unknown>. File: fixtures/dpkg/malformed_status",
+					"warning: malformed DPKG status file. Found no package name in record. File: fixtures/dpkg/malformed_status",
+					"warning: malformed DPKG status file. Found no version number in record. Package <unknown>. File: fixtures/dpkg/malformed_status",
+					"warning: malformed DPKG status file. Found no package name in record. File: fixtures/dpkg/malformed_status",
+					"warning: malformed DPKG status file. Found no version number in record. Package bash. File: fixtures/dpkg/malformed_status",
+					"warning: malformed DPKG status file. Found no version number in record. Package <unknown>. File: fixtures/dpkg/malformed_status",
+					"warning: malformed DPKG status file. Found no package name in record. File: fixtures/dpkg/malformed_status",
+					"warning: malformed DPKG status file. Found no version number in record. Package <unknown>. File: fixtures/dpkg/malformed_status",
+					"warning: malformed DPKG status file. Found no package name in record. File: fixtures/dpkg/malformed_status",
+					"warning: malformed DPKG status file. Found no valid \"Source\" field. File: fixtures/dpkg/malformed_status",
+					"warning: malformed DPKG status file. Found no version number in record. Package <unknown>. File: fixtures/dpkg/malformed_status",
+					"warning: malformed DPKG status file. Found no package name in record. File: fixtures/dpkg/malformed_status",
+					"warning: malformed DPKG status file. Found no version number in record. Package <unknown>. File: fixtures/dpkg/malformed_status",
+					"warning: malformed DPKG status file. Found no package name in record. File: fixtures/dpkg/malformed_status",
+				},
+			},
 		},
-	})
-}
-
-func TestParseDpkgStatus_Shuffled(t *testing.T) {
-	t.Parallel()
-
-	packages, err := lockfile.ParseDpkgStatus("fixtures/dpkg/shuffled_status")
-
-	if err != nil {
-		t.Errorf("Got unexpected error: %v", err)
-	}
-
-	expectPackages(t, packages, []lockfile.PackageDetails{
+		// one package
 		{
-			Name:      "glibc",
-			Version:   "2.31-13+deb11u5",
-			Ecosystem: lockfile.DebianEcosystem,
-			CompareAs: lockfile.DebianEcosystem,
+			name: "",
+			file: "fixtures/dpkg/single_status",
+			want: []lockfile.PackageDetails{
+				{
+					Name:      "sudo",
+					Version:   "1.8.27-1+deb10u1",
+					Ecosystem: lockfile.DebianEcosystem,
+					CompareAs: lockfile.DebianEcosystem,
+				},
+			},
+			diag: lockfile.Diagnostics{},
 		},
-	})
-}
-
-func TestParseDpkgStatus_Multiple(t *testing.T) {
-	t.Parallel()
-
-	packages, err := lockfile.ParseDpkgStatus("fixtures/dpkg/multiple_status")
-
-	if err != nil {
-		t.Errorf("Got unexpected error: %v", err)
-	}
-
-	expectPackages(t, packages, []lockfile.PackageDetails{
+		// different line orders
 		{
-			Name:      "bash",
-			Version:   "5.1-2+deb11u1",
-			Ecosystem: lockfile.DebianEcosystem,
-			CompareAs: lockfile.DebianEcosystem,
+			name: "",
+			file: "fixtures/dpkg/shuffled_status",
+			want: []lockfile.PackageDetails{
+				{
+					Name:      "glibc",
+					Version:   "2.31-13+deb11u5",
+					Ecosystem: lockfile.DebianEcosystem,
+					CompareAs: lockfile.DebianEcosystem,
+				},
+			},
+			diag: lockfile.Diagnostics{},
 		},
+		// multiple packages
 		{
-			Name:      "util-linux",
-			Version:   "2.36.1-8+deb11u1",
-			Ecosystem: lockfile.DebianEcosystem,
-			CompareAs: lockfile.DebianEcosystem,
+			name: "",
+			file: "fixtures/dpkg/multiple_status",
+			want: []lockfile.PackageDetails{
+				{
+					Name:      "bash",
+					Version:   "5.1-2+deb11u1",
+					Ecosystem: lockfile.DebianEcosystem,
+					CompareAs: lockfile.DebianEcosystem,
+				},
+				{
+					Name:      "util-linux",
+					Version:   "2.36.1-8+deb11u1",
+					Ecosystem: lockfile.DebianEcosystem,
+					CompareAs: lockfile.DebianEcosystem,
+				},
+				{
+					Name:      "glibc",
+					Version:   "2.31-13+deb11u5",
+					Ecosystem: lockfile.DebianEcosystem,
+					CompareAs: lockfile.DebianEcosystem,
+				},
+			},
+			diag: lockfile.Diagnostics{
+				Warnings: []string{
+					"warning: malformed DPKG status file. Found no version number in record. Package <unknown>. File: fixtures/dpkg/multiple_status",
+					"warning: malformed DPKG status file. Found no package name in record. File: fixtures/dpkg/multiple_status",
+				},
+			},
 		},
+		// source version override
 		{
-			Name:      "glibc",
-			Version:   "2.31-13+deb11u5",
-			Ecosystem: lockfile.DebianEcosystem,
-			CompareAs: lockfile.DebianEcosystem,
-		},
-	})
-}
-
-func TestParseDpkgStatus_Source_Ver_Override(t *testing.T) {
-	t.Parallel()
-
-	packages, err := lockfile.ParseDpkgStatus("fixtures/dpkg/source_ver_override_status")
-
-	if err != nil {
-		t.Errorf("Got unexpected error: %v", err)
-	}
-
-	expectPackages(t, packages, []lockfile.PackageDetails{
-		{
-			Name:      "lvm2",
-			Version:   "2.02.176-4.1ubuntu3",
-			Ecosystem: lockfile.DebianEcosystem,
-			CompareAs: lockfile.DebianEcosystem,
+			name: "",
+			file: "fixtures/dpkg/source_ver_override_status",
+			want: []lockfile.PackageDetails{
+				{
+					Name:      "lvm2",
+					Version:   "2.02.176-4.1ubuntu3",
+					Ecosystem: lockfile.DebianEcosystem,
+					CompareAs: lockfile.DebianEcosystem,
+				},
+			},
+			diag: lockfile.Diagnostics{},
 		},
 	})
 }

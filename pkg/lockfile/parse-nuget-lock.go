@@ -34,8 +34,9 @@ func parseNuGetLockDependencies(dependencies map[string]NuGetLockPackage) map[st
 	return details
 }
 
-func parseNuGetLock(lockfile NuGetLockfile) ([]PackageDetails, error) {
-	details := map[string]PackageDetails{}
+func parseNuGetLock(lockfile NuGetLockfile) ([]PackageDetails, Diagnostics, error) {
+	var details = map[string]PackageDetails{}
+	var diag Diagnostics
 
 	// go through the dependencies for each framework, e.g. `net6.0` and parse
 	// its dependencies, there might be different or duplicate dependencies
@@ -44,26 +45,31 @@ func parseNuGetLock(lockfile NuGetLockfile) ([]PackageDetails, error) {
 		details = mergePkgDetailsMap(details, parseNuGetLockDependencies(dependencies))
 	}
 
-	return pkgDetailsMapToSlice(details), nil
+	return pkgDetailsMapToSlice(details), diag, nil
 }
 
 func ParseNuGetLock(pathToLockfile string) ([]PackageDetails, error) {
+	return parseFileAndPrintDiag(pathToLockfile, ParseNuGetLockWithDiagnostics)
+}
+
+func ParseNuGetLockWithDiagnostics(pathToLockfile string) ([]PackageDetails, Diagnostics, error) {
 	var parsedLockfile *NuGetLockfile
+	var diag Diagnostics
 
 	lockfileContents, err := os.ReadFile(pathToLockfile)
 
 	if err != nil {
-		return []PackageDetails{}, fmt.Errorf("could not read %s: %w", pathToLockfile, err)
+		return []PackageDetails{}, diag, fmt.Errorf("could not read %s: %w", pathToLockfile, err)
 	}
 
 	err = json.Unmarshal(lockfileContents, &parsedLockfile)
 
 	if err != nil {
-		return []PackageDetails{}, fmt.Errorf("could not parse %s: %w", pathToLockfile, err)
+		return []PackageDetails{}, diag, fmt.Errorf("could not parse %s: %w", pathToLockfile, err)
 	}
 
 	if parsedLockfile.Version != 1 {
-		return []PackageDetails{}, fmt.Errorf("could not parse %s: unsupported lock file version", pathToLockfile)
+		return []PackageDetails{}, diag, fmt.Errorf("could not parse %s: unsupported lock file version", pathToLockfile)
 	}
 
 	return parseNuGetLock(*parsedLockfile)

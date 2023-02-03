@@ -15,114 +15,128 @@ func TestParseGradleLock_FileDoesNotExist(t *testing.T) {
 	expectPackages(t, packages, []lockfile.PackageDetails{})
 }
 
-func TestParseGradleLock_OnlyComments(t *testing.T) {
+func TestParseGradleLockWithDiagnostics(t *testing.T) {
 	t.Parallel()
 
-	packages, err := lockfile.ParseGradleLock("fixtures/gradle/only-comments")
-
-	if err != nil {
-		t.Errorf("Got unexpected error: %v", err)
-	}
-
-	expectPackages(t, packages, []lockfile.PackageDetails{})
-}
-
-func TestParseGradleLock_EmptyStatement(t *testing.T) {
-	t.Parallel()
-
-	packages, err := lockfile.ParseGradleLock("fixtures/gradle/only-empty")
-
-	if err != nil {
-		t.Errorf("Got unexpected error: %v", err)
-	}
-
-	expectPackages(t, packages, []lockfile.PackageDetails{})
-}
-
-func TestParseGradleLock_OnePackage(t *testing.T) {
-	t.Parallel()
-
-	packages, err := lockfile.ParseGradleLock("fixtures/gradle/one-pkg")
-
-	if err != nil {
-		t.Errorf("Got unexpected error: %v", err)
-	}
-
-	expectPackages(t, packages, []lockfile.PackageDetails{
+	testParserWithDiagnostics(t, lockfile.ParseGradleLockWithDiagnostics, []testParserWithDiagnosticsTest{
+		// only comments
 		{
-			Name:      "org.springframework.security:spring-security-crypto",
-			Version:   "5.7.3",
-			Ecosystem: lockfile.MavenEcosystem,
-			CompareAs: lockfile.MavenEcosystem,
+			name: "",
+			file: "fixtures/gradle/only-comments",
+			want: []lockfile.PackageDetails{},
+			diag: lockfile.Diagnostics{
+				Warnings: []string{
+					"failed to parse lockline: invalid line in gradle lockfile: ",
+					"failed to parse lockline: invalid line in gradle lockfile: ",
+					"failed to parse lockline: invalid line in gradle lockfile: ",
+					"failed to parse lockline: invalid line in gradle lockfile: ",
+				},
+			},
 		},
-	})
-}
-
-func TestParseGradleLock_MultiplePackage(t *testing.T) {
-	t.Parallel()
-
-	packages, err := lockfile.ParseGradleLock("fixtures/gradle/5-pkg")
-
-	if err != nil {
-		t.Errorf("Got unexpected error: %v", err)
-	}
-
-	expectPackages(t, packages, []lockfile.PackageDetails{
+		// only empty
 		{
-			Name:      "org.springframework.boot:spring-boot-autoconfigure",
-			Version:   "2.7.4",
-			Ecosystem: lockfile.MavenEcosystem,
-			CompareAs: lockfile.MavenEcosystem,
+			name: "",
+			file: "fixtures/gradle/only-empty",
+			want: []lockfile.PackageDetails{},
+			diag: lockfile.Diagnostics{},
 		},
+		// one package
 		{
-			Name:      "org.springframework.boot:spring-boot-configuration-processor",
-			Version:   "2.7.5",
-			Ecosystem: lockfile.MavenEcosystem,
-			CompareAs: lockfile.MavenEcosystem,
+			name: "",
+			file: "fixtures/gradle/one-pkg",
+			want: []lockfile.PackageDetails{
+				{
+					Name:      "org.springframework.security:spring-security-crypto",
+					Version:   "5.7.3",
+					Ecosystem: lockfile.MavenEcosystem,
+					CompareAs: lockfile.MavenEcosystem,
+				},
+			},
+			diag: lockfile.Diagnostics{
+				Warnings: []string{
+					"failed to parse lockline: invalid line in gradle lockfile: ",
+				},
+			},
 		},
+		// multiple packages
 		{
-			Name:      "org.springframework.boot:spring-boot-devtools",
-			Version:   "2.7.6",
-			Ecosystem: lockfile.MavenEcosystem,
-			CompareAs: lockfile.MavenEcosystem,
+			name: "",
+			file: "fixtures/gradle/5-pkg",
+			want: []lockfile.PackageDetails{
+				{
+					Name:      "org.springframework.boot:spring-boot-autoconfigure",
+					Version:   "2.7.4",
+					Ecosystem: lockfile.MavenEcosystem,
+					CompareAs: lockfile.MavenEcosystem,
+				},
+				{
+					Name:      "org.springframework.boot:spring-boot-configuration-processor",
+					Version:   "2.7.5",
+					Ecosystem: lockfile.MavenEcosystem,
+					CompareAs: lockfile.MavenEcosystem,
+				},
+				{
+					Name:      "org.springframework.boot:spring-boot-devtools",
+					Version:   "2.7.6",
+					Ecosystem: lockfile.MavenEcosystem,
+					CompareAs: lockfile.MavenEcosystem,
+				},
+
+				{
+					Name:      "org.springframework.boot:spring-boot-starter-aop",
+					Version:   "2.7.7",
+					Ecosystem: lockfile.MavenEcosystem,
+					CompareAs: lockfile.MavenEcosystem,
+				},
+				{
+					Name:      "org.springframework.boot:spring-boot-starter-data-jpa",
+					Version:   "2.7.8",
+					Ecosystem: lockfile.MavenEcosystem,
+					CompareAs: lockfile.MavenEcosystem,
+				},
+			},
+			diag: lockfile.Diagnostics{
+				Warnings: []string{
+					"failed to parse lockline: invalid line in gradle lockfile: ",
+				},
+			},
 		},
-
+		// with invalid lines
 		{
-			Name:      "org.springframework.boot:spring-boot-starter-aop",
-			Version:   "2.7.7",
-			Ecosystem: lockfile.MavenEcosystem,
-			CompareAs: lockfile.MavenEcosystem,
-		},
-		{
-			Name:      "org.springframework.boot:spring-boot-starter-data-jpa",
-			Version:   "2.7.8",
-			Ecosystem: lockfile.MavenEcosystem,
-			CompareAs: lockfile.MavenEcosystem,
-		},
-	})
-}
-
-func TestParseGradleLock_WithInvalidLines(t *testing.T) {
-	t.Parallel()
-
-	packages, err := lockfile.ParseGradleLock("fixtures/gradle/with-bad-pkg")
-
-	if err != nil {
-		t.Errorf("Got unexpected error: %v", err)
-	}
-
-	expectPackages(t, packages, []lockfile.PackageDetails{
-		{
-			Name:      "org.springframework.boot:spring-boot-autoconfigure",
-			Version:   "2.7.4",
-			Ecosystem: lockfile.MavenEcosystem,
-			CompareAs: lockfile.MavenEcosystem,
-		},
-		{
-			Name:      "org.springframework.boot:spring-boot-configuration-processor",
-			Version:   "2.7.5",
-			Ecosystem: lockfile.MavenEcosystem,
-			CompareAs: lockfile.MavenEcosystem,
+			name: "",
+			file: "fixtures/gradle/with-bad-pkg",
+			want: []lockfile.PackageDetails{
+				{
+					Name:      "org.springframework.boot:spring-boot-autoconfigure",
+					Version:   "2.7.4",
+					Ecosystem: lockfile.MavenEcosystem,
+					CompareAs: lockfile.MavenEcosystem,
+				},
+				{
+					Name:      "org.springframework.boot:spring-boot-configuration-processor",
+					Version:   "2.7.5",
+					Ecosystem: lockfile.MavenEcosystem,
+					CompareAs: lockfile.MavenEcosystem,
+				},
+			},
+			diag: lockfile.Diagnostics{
+				Warnings: []string{
+					"failed to parse lockline: invalid line in gradle lockfile: >>>",
+					"failed to parse lockline: invalid line in gradle lockfile: ////",
+					"failed to parse lockline: invalid line in gradle lockfile: ",
+					"failed to parse lockline: invalid line in gradle lockfile: ",
+					"failed to parse lockline: invalid line in gradle lockfile: a",
+					"failed to parse lockline: invalid line in gradle lockfile: b",
+					"failed to parse lockline: invalid line in gradle lockfile: ",
+					"failed to parse lockline: invalid line in gradle lockfile: ",
+					"failed to parse lockline: invalid line in gradle lockfile: ",
+					"failed to parse lockline: invalid line in gradle lockfile: ",
+					"failed to parse lockline: invalid line in gradle lockfile: ",
+					"failed to parse lockline: invalid line in gradle lockfile: ",
+					"failed to parse lockline: invalid line in gradle lockfile: ",
+					"failed to parse lockline: invalid line in gradle lockfile: ",
+				},
+			},
 		},
 	})
 }

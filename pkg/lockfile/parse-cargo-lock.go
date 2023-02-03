@@ -19,18 +19,23 @@ type CargoLockFile struct {
 const CargoEcosystem Ecosystem = "crates.io"
 
 func ParseCargoLock(pathToLockfile string) ([]PackageDetails, error) {
+	return parseFileAndPrintDiag(pathToLockfile, ParseCargoLockWithDiagnostics)
+}
+
+func ParseCargoLockWithDiagnostics(pathToLockfile string) ([]PackageDetails, Diagnostics, error) {
+	var diag Diagnostics
 	var parsedLockfile *CargoLockFile
 
 	lockfileContents, err := os.ReadFile(pathToLockfile)
 
 	if err != nil {
-		return []PackageDetails{}, fmt.Errorf("could not read %s: %w", pathToLockfile, err)
+		return []PackageDetails{}, diag, fmt.Errorf("could not read %s: %w", pathToLockfile, err)
 	}
 
 	err = toml.Unmarshal(lockfileContents, &parsedLockfile)
 
 	if err != nil {
-		return []PackageDetails{}, fmt.Errorf("could not parse %s: %w", pathToLockfile, err)
+		return []PackageDetails{}, diag, fmt.Errorf("could not parse %s: %w", pathToLockfile, err)
 	}
 
 	packages := make([]PackageDetails, 0, len(parsedLockfile.Packages))
@@ -44,5 +49,5 @@ func ParseCargoLock(pathToLockfile string) ([]PackageDetails, error) {
 		})
 	}
 
-	return packages, nil
+	return packages, diag, nil
 }
