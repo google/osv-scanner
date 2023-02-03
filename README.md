@@ -231,6 +231,24 @@ Sample output:
 ╰─────────────────────────────────────┴───────────┴──────────────────────────┴─────────┴────────────────────╯
 ```
 
+### `text` format
+
+Outputs the results as human-readable text.
+
+Sample output:
+
+```
+path/to/go.mod:
+  github.com/gogo/protobuf@1.3.1 is affected by the following vulnerabilities:
+      1. https://osv.dev/GHSA-c3h9-896r-86jm - Improper Input Validation in GoGo Protobuf
+         https://osv.dev/GO-2021-0053        - Due to improper bounds checking, maliciously crafted input to generate...
+
+path/to/Cargo.lock:
+  regex@1.3.1 is affected by the following vulnerabilities:
+      1. https://osv.dev/GHSA-m5pq-gvj9-9vr8 - Rust's regex crate vulnerable to regular expression denial of service
+         https://osv.dev/RUSTSEC-2022-0013   - Regexes with large repetitions on empty sub-expressions take a very lo...
+```
+
 ### `json` format
 
 Outputs the results as a JSON object to stdout, with all other output being directed to stderr - this makes it safe to redirect the output to a file with `osv-scanner --format json ... > /path/to/file.json`.
