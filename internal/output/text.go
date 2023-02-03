@@ -6,47 +6,43 @@ import (
 	"os"
 	"path/filepath"
 	"strings"
-	"unicode"
 
 	"github.com/google/osv-scanner/internal/osv"
 	"github.com/google/osv-scanner/pkg/models"
+
+	"github.com/jedib0t/go-pretty/v6/text"
+	"golang.org/x/term"
 )
 
 // get a description for the vulnerability, truncated to maxLen long.
 // If maxLen < 0, do not truncate.
-func vulnDescription(vuln models.Vulnerability, maxLen int) string {
-	if maxLen > 0 && maxLen < 3 {
-		maxLen = 3
-	}
+func vulnDescription(vuln models.Vulnerability) string {
 	description := vuln.Summary
 	if len(description) == 0 {
 		description = vuln.Details
 	}
 	if len(description) == 0 {
-		if maxLen > 0 && maxLen < len("(no details available)") {
-			return "..."
-		}
 		return "(no details available)"
 	}
 
 	// Only use the first line of a multi-line description.
 	description, _, _ = strings.Cut(description, "\n")
-	if maxLen < 0 || len([]rune(description)) <= maxLen {
-		return description
-	}
-
-	// Find a nice place to truncate the string if too long, ideally not wihtin a word.
-	runes := []rune(description)[:maxLen-3]
-	for i := maxLen - 4; i >= 0; i-- {
-		if unicode.IsSpace(runes[i]) {
-			return string(runes[:i]) + "..."
-		}
-	}
-	return string(runes) + "..."
+	return description
 }
 
 // PrintTextResults prints the osv scan results as text.
 func PrintTextResults(vulnResult *models.VulnerabilityResults, outputWriter io.Writer) {
+	const maxWidth = 120
+	width, _, err := term.GetSize(int(os.Stdout.Fd()))
+	isTerminal := false
+	if err == nil {
+		isTerminal = true
+		if width > maxWidth {
+			width = maxWidth
+		}
+	} else {
+		width = maxWidth
+	}
 	for _, sourceRes := range vulnResult.Results {
 		workingDir, err := os.Getwd()
 		source := sourceRes.Source
@@ -56,32 +52,49 @@ func PrintTextResults(vulnResult *models.VulnerabilityResults, outputWriter io.W
 				source.Path = sourcePath
 			}
 		}
-		fmt.Fprintf(outputWriter, "\n%s:\n", source.Path)
+		if isTerminal {
+			fmt.Fprintf(outputWriter, "\n%s:\n", text.FgMagenta.Sprint(source.Path))
+		} else {
+			fmt.Fprintf(outputWriter, "\n%s:\n", source.Path)
+		}
 
 		for _, pkg := range sourceRes.Packages {
-			fmt.Fprintf(outputWriter, "  %s@%s is affected by the following vulnerabilities:\n", pkg.Package.Name, pkg.Package.Version)
-			descriptions := make(map[string]string)
-			for _, vuln := range pkg.Vulnerabilities {
-				descriptions[vuln.ID] = vulnDescription(vuln, 80)
+			if isTerminal {
+				pkgver := text.Color.Sprintf(text.FgYellow, "%s@%s", pkg.Package.Name, pkg.Package.Version)
+				line := text.Color.Sprintf(text.FgRed, "  %s is affected by the following vulnerabilities:", pkgver)
+				fmt.Fprintln(outputWriter, line)
+			} else {
+				fmt.Fprintf(outputWriter, "  %s@%s is affected by the following vulnerabilities:\n", pkg.Package.Name, pkg.Package.Version)
 			}
 
-			for i, group := range pkg.Groups {
-				pad := 0
-				for _, vuln := range group.IDs {
-					if len(vuln) > pad {
-						pad = len(vuln)
-					}
+			descriptions := make(map[string]string)
+			maxLen := 0
+			for _, vuln := range pkg.Vulnerabilities {
+				descriptions[vuln.ID] = vulnDescription(vuln)
+				if len(vuln.ID) > maxLen {
+					maxLen = len(vuln.ID)
 				}
+			}
+			maxLen += len(osv.BaseVulnerabilityURL)
 
-				pad += len(osv.BaseVulnerabilityURL)
+			for i, group := range pkg.Groups {
 				vulnStrings := make([]string, 0, len(group.IDs))
 				for _, vuln := range group.IDs {
-					vulnStrings = append(vulnStrings, fmt.Sprintf("%-*s - %s", pad, osv.BaseVulnerabilityURL+vuln, descriptions[vuln]))
+					var vulnID string
+					if isTerminal {
+						vulnID = text.Color.Sprint(text.FgCyan, osv.BaseVulnerabilityURL+text.Bold.Sprint(vuln))
+					} else {
+						vulnID = osv.BaseVulnerabilityURL + vuln
+					}
+					vulnID = text.AlignLeft.Apply(vulnID, maxLen)
+					vulnStrings = append(vulnStrings, fmt.Sprintf("%s - %s", vulnID, descriptions[vuln]))
 				}
 
-				fmt.Fprintf(outputWriter, "    %3d. %s\n", i+1, vulnStrings[0])
+				line := fmt.Sprintf("    %3d. %s", i+1, vulnStrings[0])
+				fmt.Fprintln(outputWriter, text.Snip(line, width, "..."))
 				for _, vulnStr := range vulnStrings[1:] {
-					fmt.Fprintf(outputWriter, "         %s\n", vulnStr)
+					line := fmt.Sprintf("         %s", vulnStr)
+					fmt.Fprintln(outputWriter, text.Snip(line, width, "..."))
 				}
 			}
 		}
