@@ -68,7 +68,7 @@ func run(args []string, stdout, stderr io.Writer) int {
 						"table",
 						"json",
 						"markdown",
-            "text":
+						"text":
 						return nil
 					}
 
