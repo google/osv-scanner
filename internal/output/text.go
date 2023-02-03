@@ -22,11 +22,13 @@ func vulnDescription(vuln models.Vulnerability) string {
 		description = vuln.Details
 	}
 	if len(description) == 0 {
+
 		return "(no details available)"
 	}
 
 	// Only use the first line of a multi-line description.
 	description, _, _ = strings.Cut(description, "\n")
+
 	return description
 }
 
