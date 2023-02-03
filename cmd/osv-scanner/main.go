@@ -63,11 +63,16 @@ func run(args []string, stdout, stderr io.Writer) int {
 				Usage:   "sets the output format",
 				Value:   "table",
 				Action: func(context *cli.Context, s string) error {
-					if s != "table" && s != "json" && s != "text" {
-						return fmt.Errorf("unsupported output format \"%s\" - must be one of \"table\", \"json\" or \"text\"", s)
+					switch s {
+					case
+						"table",
+						"json",
+						"markdown",
+            "text":
+						return nil
 					}
 
-					return nil
+					return fmt.Errorf("unsupported output format \"%s\" - must be one of: \"table\", \"json\", \"markdown\", \"text\"", s)
 				},
 			},
 			&cli.BoolFlag{
