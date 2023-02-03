@@ -8,8 +8,8 @@ import (
 	"strings"
 )
 
-// To avoid linter error (goconst) on some parsers.
-// String used when pkgName is not present
+// Represents when a package name could not be determined while parsing.
+// Currently, parsers are expected to omit such packages from their results.
 const unknownPkgName = "<unknown>"
 
 func FindParser(pathToLockfile string, parseAs string) (PackageDetailsParser, string) {
