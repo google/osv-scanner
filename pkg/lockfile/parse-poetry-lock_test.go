@@ -14,7 +14,7 @@ func TestParsePoetryLock_FileDoesNotExist(t *testing.T) {
 	expectPackages(t, packages, []lockfile.PackageDetails{})
 }
 
-func TestParsePoetryLock_InvalidJson(t *testing.T) {
+func TestParsePoetryLock_InvalidToml(t *testing.T) {
 	t.Parallel()
 
 	packages, err := lockfile.ParsePoetryLock("fixtures/poetry/not-toml.txt")
