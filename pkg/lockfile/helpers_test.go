@@ -3,6 +3,7 @@ package lockfile_test
 import (
 	"fmt"
 	"github.com/google/osv-scanner/pkg/lockfile"
+	"os"
 	"reflect"
 	"strings"
 	"testing"
@@ -96,22 +97,65 @@ type testParserWithDiagnosticsTest struct {
 	diag lockfile.Diagnostics
 }
 
-func testParserWithDiagnostics(t *testing.T, parser lockfile.PackageDetailsParserWithDiag, tests []testParserWithDiagnosticsTest) {
+func testParserWithFile(
+	t *testing.T,
+	test testParserWithDiagnosticsTest,
+	parserForFile lockfile.PackageDetailsParserWithDiag,
+) {
+	t.Helper()
+
+	packages, diag, err := parserForFile(test.file)
+	if err != nil {
+		t.Errorf("Got unexpected error: %v", err)
+
+		return
+	}
+
+	expectPackages(t, packages, test.want)
+	expectDiagnostics(t, diag, test.diag)
+}
+
+func testParserWithReader(
+	t *testing.T,
+	test testParserWithDiagnosticsTest,
+	parserForReader lockfile.PackageDetailsParserWithReader,
+) {
+	t.Helper()
+
+	file, err := os.Open(test.file)
+	if err != nil {
+		t.Errorf("Could not open %s: %v", test.file, err)
+
+		return
+	}
+	defer file.Close()
+
+	packages, diag, err := parserForReader(file)
+	if err != nil {
+		t.Errorf("Got unexpected error: %v", err)
+
+		return
+	}
+
+	expectPackages(t, packages, test.want)
+	expectDiagnostics(t, diag, test.diag)
+}
+
+func testParser(
+	t *testing.T,
+	parserForFile lockfile.PackageDetailsParserWithDiag,
+	parserForReader lockfile.PackageDetailsParserWithReader,
+	tests []testParserWithDiagnosticsTest,
+) {
 	t.Helper()
 
 	for _, tt := range tests {
 		tt := tt
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
-			packages, diag, err := parser(tt.file)
-			if err != nil {
-				t.Errorf("Got unexpected error: %v", err)
 
-				return
-			}
-
-			expectPackages(t, packages, tt.want)
-			expectDiagnostics(t, diag, tt.diag)
+			testParserWithFile(t, tt, parserForFile)
+			testParserWithReader(t, tt, parserForReader)
 		})
 	}
 }

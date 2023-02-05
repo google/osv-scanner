@@ -3,7 +3,7 @@ package lockfile
 import (
 	"encoding/xml"
 	"fmt"
-	"os"
+	"io"
 	"regexp"
 )
 
@@ -93,23 +93,21 @@ func (p *MavenLockProperties) UnmarshalXML(d *xml.Decoder, start xml.StartElemen
 }
 
 func ParseMavenLock(pathToLockfile string) ([]PackageDetails, error) {
-	return parseFileAndPrintDiag(pathToLockfile, ParseMavenLockWithDiagnostics)
+	return parseFileAndPrintDiag(pathToLockfile, ParseMavenLockFile)
 }
 
-func ParseMavenLockWithDiagnostics(pathToLockfile string) ([]PackageDetails, Diagnostics, error) {
+func ParseMavenLockFile(pathToLockfile string) ([]PackageDetails, Diagnostics, error) {
+	return parseFile(pathToLockfile, ParseMavenLockWithDiagnostics)
+}
+
+func ParseMavenLockWithDiagnostics(r io.Reader) ([]PackageDetails, Diagnostics, error) {
 	var parsedLockfile *MavenLockFile
 	var diag Diagnostics
 
-	lockfileContents, err := os.ReadFile(pathToLockfile)
+	err := xml.NewDecoder(r).Decode(&parsedLockfile)
 
 	if err != nil {
-		return []PackageDetails{}, diag, fmt.Errorf("could not read %s: %w", pathToLockfile, err)
-	}
-
-	err = xml.Unmarshal(lockfileContents, &parsedLockfile)
-
-	if err != nil {
-		return []PackageDetails{}, diag, fmt.Errorf("could not parse %s: %w", pathToLockfile, err)
+		return []PackageDetails{}, diag, fmt.Errorf("could not parse: %w", err)
 	}
 
 	details := map[string]PackageDetails{}

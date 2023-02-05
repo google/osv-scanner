@@ -1,8 +1,9 @@
 package lockfile
 
 import (
+	"errors"
 	"fmt"
-	"os"
+	"io"
 
 	"gopkg.in/yaml.v3"
 )
@@ -62,23 +63,21 @@ type PubspecLockfile struct {
 const PubEcosystem Ecosystem = "Pub"
 
 func ParsePubspecLock(pathToLockfile string) ([]PackageDetails, error) {
-	return parseFileAndPrintDiag(pathToLockfile, ParsePubspecLockWithDiagnostics)
+	return parseFileAndPrintDiag(pathToLockfile, ParsePubspecLockFile)
 }
 
-func ParsePubspecLockWithDiagnostics(pathToLockfile string) ([]PackageDetails, Diagnostics, error) {
+func ParsePubspecLockFile(pathToLockfile string) ([]PackageDetails, Diagnostics, error) {
+	return parseFile(pathToLockfile, ParsePubspecLockWithDiagnostics)
+}
+
+func ParsePubspecLockWithDiagnostics(r io.Reader) ([]PackageDetails, Diagnostics, error) {
 	var diag Diagnostics
 	var parsedLockfile *PubspecLockfile
 
-	lockfileContents, err := os.ReadFile(pathToLockfile)
+	err := yaml.NewDecoder(r).Decode(&parsedLockfile)
 
-	if err != nil {
-		return []PackageDetails{}, diag, fmt.Errorf("could not read %s: %w", pathToLockfile, err)
-	}
-
-	err = yaml.Unmarshal(lockfileContents, &parsedLockfile)
-
-	if err != nil {
-		return []PackageDetails{}, diag, fmt.Errorf("could not parse %s: %w", pathToLockfile, err)
+	if err != nil && !errors.Is(err, io.EOF) {
+		return []PackageDetails{}, diag, fmt.Errorf("could not parse: %w", err)
 	}
 	if parsedLockfile == nil {
 		return []PackageDetails{}, diag, nil

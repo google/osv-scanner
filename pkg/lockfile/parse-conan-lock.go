@@ -3,7 +3,7 @@ package lockfile
 import (
 	"encoding/json"
 	"fmt"
-	"os"
+	"io"
 	"strings"
 )
 
@@ -173,21 +173,20 @@ func parseConanLock(lockfile ConanLockFile) []PackageDetails {
 }
 
 func ParseConanLock(pathToLockfile string) ([]PackageDetails, error) {
-	return parseFileAndPrintDiag(pathToLockfile, ParseConanLockWithDiagnostics)
+	return parseFileAndPrintDiag(pathToLockfile, ParseConanLockFile)
 }
 
-func ParseConanLockWithDiagnostics(pathToLockfile string) ([]PackageDetails, Diagnostics, error) {
+func ParseConanLockFile(pathToLockfile string) ([]PackageDetails, Diagnostics, error) {
+	return parseFile(pathToLockfile, ParseConanLockWithDiagnostics)
+}
+
+func ParseConanLockWithDiagnostics(r io.Reader) ([]PackageDetails, Diagnostics, error) {
 	var parsedLockfile *ConanLockFile
 	var diag Diagnostics
 
-	lockfileContents, err := os.ReadFile(pathToLockfile)
+	err := json.NewDecoder(r).Decode(&parsedLockfile)
 	if err != nil {
-		return []PackageDetails{}, diag, fmt.Errorf("could not read %s: %w", pathToLockfile, err)
-	}
-
-	err = json.Unmarshal(lockfileContents, &parsedLockfile)
-	if err != nil {
-		return []PackageDetails{}, diag, fmt.Errorf("could not parse %s: %w", pathToLockfile, err)
+		return []PackageDetails{}, diag, fmt.Errorf("could not parse: %w", err)
 	}
 
 	return parseConanLock(*parsedLockfile), diag, nil

@@ -433,7 +433,7 @@ func TestRun_LockfileWithExplicitParseAs(t *testing.T) {
 			wantExitCode: 127,
 			wantStdout:   "",
 			wantStderr: `
-				(parsing as Cargo.lock) could not parse %%/fixtures/locks-insecure/my-package-lock.json: toml: line 1: expected '.' or '=', but got '{' instead
+				(parsing as Cargo.lock) error while parsing %%/fixtures/locks-insecure/my-package-lock.json: could not parse: toml: line 1: expected '.' or '=', but got '{' instead
 			`,
 		},
 		// parse-as takes priority, even if it's wrong
@@ -447,7 +447,7 @@ func TestRun_LockfileWithExplicitParseAs(t *testing.T) {
 			wantExitCode: 127,
 			wantStdout:   "",
 			wantStderr: `
-				(parsing as package-lock.json) could not parse %%/fixtures/locks-many/yarn.lock: invalid character '#' looking for beginning of value
+				(parsing as package-lock.json) error while parsing %%/fixtures/locks-many/yarn.lock: could not parse: invalid character '#' looking for beginning of value
 			`,
 		},
 		// "apk-installed" is supported

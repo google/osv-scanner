@@ -3,7 +3,7 @@ package lockfile
 import (
 	"bufio"
 	"fmt"
-	"os"
+	"io"
 	"sort"
 	"strings"
 )
@@ -34,7 +34,7 @@ func groupApkPackageLines(scanner *bufio.Scanner) [][]string {
 	return groups
 }
 
-func parseApkPackageGroup(diag *Diagnostics, group []string, pathToLockfile string) PackageDetails {
+func parseApkPackageGroup(diag *Diagnostics, group []string) PackageDetails {
 	var pkg = PackageDetails{
 		Ecosystem: AlpineEcosystem,
 		CompareAs: AlpineEcosystem,
@@ -59,9 +59,8 @@ func parseApkPackageGroup(diag *Diagnostics, group []string, pathToLockfile stri
 		}
 
 		diag.Warn(fmt.Sprintf(
-			"warning: malformed APK installed file. Found no version number in record. Package %s. File: %s",
+			"malformed APK installed file - found no version number in record for %s",
 			pkgPrintName,
-			pathToLockfile,
 		))
 	}
 
@@ -69,32 +68,27 @@ func parseApkPackageGroup(diag *Diagnostics, group []string, pathToLockfile stri
 }
 
 func ParseApkInstalled(pathToLockfile string) ([]PackageDetails, error) {
-	return parseFileAndPrintDiag(pathToLockfile, ParseApkInstalledWithDiagnostics)
+	return parseFileAndPrintDiag(pathToLockfile, ParseApkInstalledFile)
 }
 
-func ParseApkInstalledWithDiagnostics(pathToLockfile string) ([]PackageDetails, Diagnostics, error) {
+func ParseApkInstalledFile(pathToLockfile string) ([]PackageDetails, Diagnostics, error) {
+	return parseFile(pathToLockfile, ParseApkInstalledWithDiagnostics)
+}
+
+func ParseApkInstalledWithDiagnostics(r io.Reader) ([]PackageDetails, Diagnostics, error) {
 	var diag Diagnostics
 
-	file, err := os.Open(pathToLockfile)
-	if err != nil {
-		return []PackageDetails{}, diag, fmt.Errorf("could not open %s: %w", pathToLockfile, err)
-	}
-	defer file.Close()
-
-	scanner := bufio.NewScanner(file)
+	scanner := bufio.NewScanner(r)
 
 	packageGroups := groupApkPackageLines(scanner)
 
 	packages := make([]PackageDetails, 0, len(packageGroups))
 
 	for _, group := range packageGroups {
-		pkg := parseApkPackageGroup(&diag, group, pathToLockfile)
+		pkg := parseApkPackageGroup(&diag, group)
 
 		if pkg.Name == "" {
-			diag.Warn(fmt.Sprintf(
-				"warning: malformed APK installed file. Found no package name in record. File: %s",
-				pathToLockfile,
-			))
+			diag.Warn("malformed APK installed file - found no package name in record")
 
 			continue
 		}
@@ -103,7 +97,7 @@ func ParseApkInstalledWithDiagnostics(pathToLockfile string) ([]PackageDetails, 
 	}
 
 	if err := scanner.Err(); err != nil {
-		return packages, diag, fmt.Errorf("error while scanning %s: %w", pathToLockfile, err)
+		return packages, diag, fmt.Errorf("error while scanning: %w", err)
 	}
 
 	return packages, diag, nil

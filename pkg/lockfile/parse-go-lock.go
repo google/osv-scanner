@@ -3,7 +3,7 @@ package lockfile
 import (
 	"fmt"
 	"golang.org/x/mod/modfile"
-	"os"
+	"io"
 	"strings"
 )
 
@@ -20,22 +20,26 @@ func deduplicatePackages(packages map[string]PackageDetails) map[string]PackageD
 }
 
 func ParseGoLock(pathToLockfile string) ([]PackageDetails, error) {
-	return parseFileAndPrintDiag(pathToLockfile, ParseGoLockWithDiagnostics)
+	return parseFileAndPrintDiag(pathToLockfile, ParseGoLockFile)
 }
 
-func ParseGoLockWithDiagnostics(pathToLockfile string) ([]PackageDetails, Diagnostics, error) {
+func ParseGoLockFile(pathToLockfile string) ([]PackageDetails, Diagnostics, error) {
+	return parseFile(pathToLockfile, ParseGoLockWithDiagnostics)
+}
+
+func ParseGoLockWithDiagnostics(r io.Reader) ([]PackageDetails, Diagnostics, error) {
 	var diag Diagnostics
 
-	lockfileContents, err := os.ReadFile(pathToLockfile)
+	b, err := io.ReadAll(r)
 
 	if err != nil {
-		return []PackageDetails{}, diag, fmt.Errorf("could not read %s: %w", pathToLockfile, err)
+		return []PackageDetails{}, diag, fmt.Errorf("could not read all: %w", err)
 	}
 
-	parsedLockfile, err := modfile.Parse(pathToLockfile, lockfileContents, nil)
+	parsedLockfile, err := modfile.Parse("", b, nil)
 
 	if err != nil {
-		return []PackageDetails{}, diag, fmt.Errorf("could not parse %s: %w", pathToLockfile, err)
+		return []PackageDetails{}, diag, fmt.Errorf("could not parse: %w", err)
 	}
 
 	packages := map[string]PackageDetails{}

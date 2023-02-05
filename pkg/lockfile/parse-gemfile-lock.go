@@ -1,9 +1,10 @@
 package lockfile
 
 import (
+	"bufio"
 	"fmt"
+	"io"
 	"log"
-	"os"
 	"regexp"
 	"strings"
 )
@@ -126,58 +127,58 @@ func (parser *gemfileLockfileParser) parseLineBasedOnState(line string) {
 	}
 }
 
-func (parser *gemfileLockfileParser) parse(contents string) {
-	lineMatcher := regexp.MustCompile(`(?:\r?\n)+`)
+func (parser *gemfileLockfileParser) parse(line string) {
+	if isSourceSection(line) {
+		// clear the stateful package details,
+		// since we're now parsing a new group
+		parser.currentGemCommit = ""
+		parser.state = parserStateSource
+		parser.parseSource(line)
 
-	lines := lineMatcher.Split(contents, -1)
+		return
+	}
 
-	for _, line := range lines {
-		if isSourceSection(line) {
-			// clear the stateful package details,
-			// since we're now parsing a new group
-			parser.currentGemCommit = ""
-			parser.state = parserStateSource
-			parser.parseSource(line)
-
-			continue
+	switch line {
+	case lockfileSectionDEPENDENCIES:
+		parser.state = parserStateDependency
+	case lockfileSectionPLATFORMS:
+		parser.state = parserStatePlatform
+	case lockfileSectionRUBY:
+		parser.state = parserStateRuby
+	case lockfileSectionBUNDLED:
+		parser.state = parserStateBundledWith
+	default:
+		if isNotIndented(line) {
+			parser.state = ""
 		}
 
-		switch line {
-		case lockfileSectionDEPENDENCIES:
-			parser.state = parserStateDependency
-		case lockfileSectionPLATFORMS:
-			parser.state = parserStatePlatform
-		case lockfileSectionRUBY:
-			parser.state = parserStateRuby
-		case lockfileSectionBUNDLED:
-			parser.state = parserStateBundledWith
-		default:
-			if isNotIndented(line) {
-				parser.state = ""
-			}
-
-			if parser.state != "" {
-				parser.parseLineBasedOnState(line)
-			}
+		if parser.state != "" {
+			parser.parseLineBasedOnState(line)
 		}
 	}
 }
 
 func ParseGemfileLock(pathToLockfile string) ([]PackageDetails, error) {
-	return parseFileAndPrintDiag(pathToLockfile, ParseGemfileLockWithDiagnostics)
+	return parseFileAndPrintDiag(pathToLockfile, ParseGemfileLockFile)
 }
 
-func ParseGemfileLockWithDiagnostics(pathToLockfile string) ([]PackageDetails, Diagnostics, error) {
+func ParseGemfileLockFile(pathToLockfile string) ([]PackageDetails, Diagnostics, error) {
+	return parseFile(pathToLockfile, ParseGemfileLockWithDiagnostics)
+}
+
+func ParseGemfileLockWithDiagnostics(r io.Reader) ([]PackageDetails, Diagnostics, error) {
 	var parser gemfileLockfileParser
 	var diag Diagnostics
 
-	bytes, err := os.ReadFile(pathToLockfile)
+	scanner := bufio.NewScanner(r)
 
-	if err != nil {
-		return []PackageDetails{}, diag, fmt.Errorf("could not read %s: %w", pathToLockfile, err)
+	for scanner.Scan() {
+		parser.parse(scanner.Text())
 	}
 
-	parser.parse(string(bytes))
+	if err := scanner.Err(); err != nil {
+		return []PackageDetails{}, diag, fmt.Errorf("error while scanning: %w", err)
+	}
 
 	return parser.dependencies, diag, nil
 }

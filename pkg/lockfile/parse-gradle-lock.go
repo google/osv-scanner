@@ -3,7 +3,7 @@ package lockfile
 import (
 	"bufio"
 	"fmt"
-	"os"
+	"io"
 	"strings"
 )
 
@@ -37,20 +37,18 @@ func parseToGradlePackageDetail(line string) (PackageDetails, error) {
 }
 
 func ParseGradleLock(pathToLockfile string) ([]PackageDetails, error) {
-	return parseFileAndPrintDiag(pathToLockfile, ParseGradleLockWithDiagnostics)
+	return parseFileAndPrintDiag(pathToLockfile, ParseGradleLockFile)
 }
 
-func ParseGradleLockWithDiagnostics(pathToLockfile string) ([]PackageDetails, Diagnostics, error) {
+func ParseGradleLockFile(pathToLockfile string) ([]PackageDetails, Diagnostics, error) {
+	return parseFile(pathToLockfile, ParseGradleLockWithDiagnostics)
+}
+
+func ParseGradleLockWithDiagnostics(r io.Reader) ([]PackageDetails, Diagnostics, error) {
 	var diag Diagnostics
 
-	file, err := os.Open(pathToLockfile)
-	if err != nil {
-		return []PackageDetails{}, diag, fmt.Errorf("could not open %s: %w", pathToLockfile, err)
-	}
-	defer file.Close()
-
 	pkgs := make([]PackageDetails, 0)
-	scanner := bufio.NewScanner(file)
+	scanner := bufio.NewScanner(r)
 
 	for scanner.Scan() {
 		lockLine := strings.TrimSpace(scanner.Text())
@@ -68,7 +66,7 @@ func ParseGradleLockWithDiagnostics(pathToLockfile string) ([]PackageDetails, Di
 	}
 
 	if err := scanner.Err(); err != nil {
-		return []PackageDetails{}, diag, fmt.Errorf("failed to read %s: %w", pathToLockfile, err)
+		return []PackageDetails{}, diag, fmt.Errorf("failed to read: %w", err)
 	}
 
 	return pkgs, diag, nil

@@ -22,3 +22,19 @@ func parseFileAndPrintDiag(pathToLockfile string, parserWithDiag PackageDetailsP
 
 	return details, err
 }
+
+func parseFile(pathToLockfile string, parserWithReader PackageDetailsParserWithReader) ([]PackageDetails, Diagnostics, error) {
+	r, err := os.Open(pathToLockfile)
+
+	if err != nil {
+		return []PackageDetails{}, Diagnostics{}, fmt.Errorf("could not read %s: %w", pathToLockfile, err)
+	}
+
+	details, diag, err := parserWithReader(r)
+
+	if err != nil {
+		err = fmt.Errorf("error while parsing %s: %w", pathToLockfile, err)
+	}
+
+	return details, diag, err
+}

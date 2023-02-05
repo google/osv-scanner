@@ -3,7 +3,7 @@ package lockfile
 import (
 	"bufio"
 	"fmt"
-	"os"
+	"io"
 	"regexp"
 	"sort"
 	"strings"
@@ -47,7 +47,7 @@ func parseSourceField(source string) (string, string) {
 	return strings.TrimSpace(source), ""
 }
 
-func parseDpkgPackageGroup(diag *Diagnostics, group []string, pathToLockfile string) PackageDetails {
+func parseDpkgPackageGroup(diag *Diagnostics, group []string) PackageDetails {
 	var pkg = PackageDetails{
 		Ecosystem: DebianEcosystem,
 		CompareAs: DebianEcosystem,
@@ -63,10 +63,7 @@ func parseDpkgPackageGroup(diag *Diagnostics, group []string, pathToLockfile str
 			tokens := strings.Fields(status)
 			// Staus field is malformed. Expected: "Status: Want Flag Status"
 			if len(tokens) != 3 {
-				diag.Warn(fmt.Sprintf(
-					"warning: malformed DPKG status file. Found no valid \"Source\" field. File: %s",
-					pathToLockfile,
-				))
+				diag.Warn("malformed DPKG status file - found no valid \"Source\" field")
 
 				return PackageDetails{}
 			}
@@ -110,9 +107,8 @@ func parseDpkgPackageGroup(diag *Diagnostics, group []string, pathToLockfile str
 		}
 
 		diag.Warn(fmt.Sprintf(
-			"warning: malformed DPKG status file. Found no version number in record. Package %s. File: %s",
+			"malformed DPKG status file - found no version number for package %s",
 			pkgPrintName,
-			pathToLockfile,
 		))
 	}
 
@@ -120,25 +116,23 @@ func parseDpkgPackageGroup(diag *Diagnostics, group []string, pathToLockfile str
 }
 
 func ParseDpkgStatus(pathToLockfile string) ([]PackageDetails, error) {
-	return parseFileAndPrintDiag(pathToLockfile, ParseDpkgStatusWithDiagnostics)
+	return parseFileAndPrintDiag(pathToLockfile, ParseDpkgStatusFile)
 }
 
-func ParseDpkgStatusWithDiagnostics(pathToLockfile string) ([]PackageDetails, Diagnostics, error) {
+func ParseDpkgStatusFile(pathToLockfile string) ([]PackageDetails, Diagnostics, error) {
+	return parseFile(pathToLockfile, ParseDpkgStatusWithDiagnostics)
+}
+
+func ParseDpkgStatusWithDiagnostics(r io.Reader) ([]PackageDetails, Diagnostics, error) {
 	var diag Diagnostics
 
-	file, err := os.Open(pathToLockfile)
-	if err != nil {
-		return []PackageDetails{}, diag, fmt.Errorf("could not open %s: %w", pathToLockfile, err)
-	}
-	defer file.Close()
-
-	scanner := bufio.NewScanner(file)
+	scanner := bufio.NewScanner(r)
 	packageGroups := groupDpkgPackageLines(scanner)
 
 	packages := make([]PackageDetails, 0, len(packageGroups))
 
 	for _, group := range packageGroups {
-		pkg := parseDpkgPackageGroup(&diag, group, pathToLockfile)
+		pkg := parseDpkgPackageGroup(&diag, group)
 
 		// PackageDetails does not contain any field that represent a "not installed" state
 		// To manage this state and avoid false positives, empty struct means "not installed" so skip it
@@ -147,10 +141,7 @@ func ParseDpkgStatusWithDiagnostics(pathToLockfile string) ([]PackageDetails, Di
 		}
 
 		if pkg.Name == "" {
-			diag.Warn(fmt.Sprintf(
-				"warning: malformed DPKG status file. Found no package name in record. File: %s",
-				pathToLockfile,
-			))
+			diag.Warn("malformed DPKG status file - found no package name in record")
 
 			continue
 		}
@@ -159,7 +150,7 @@ func ParseDpkgStatusWithDiagnostics(pathToLockfile string) ([]PackageDetails, Di
 	}
 
 	if err := scanner.Err(); err != nil {
-		return packages, diag, fmt.Errorf("error while scanning %s: %w", pathToLockfile, err)
+		return packages, diag, fmt.Errorf("error while scanning: %w", err)
 	}
 
 	return packages, diag, nil

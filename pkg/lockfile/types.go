@@ -1,5 +1,7 @@
 package lockfile
 
+import "io"
+
 type PackageDetails struct {
 	Name      string    `json:"name"`
 	Version   string    `json:"version"`
@@ -12,3 +14,4 @@ type Ecosystem string
 
 type PackageDetailsParser = func(pathToLockfile string) ([]PackageDetails, error)
 type PackageDetailsParserWithDiag = func(pathToLockfile string) ([]PackageDetails, Diagnostics, error)
+type PackageDetailsParserWithReader = func(r io.Reader) ([]PackageDetails, Diagnostics, error)

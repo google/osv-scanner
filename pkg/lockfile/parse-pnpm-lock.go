@@ -2,7 +2,7 @@ package lockfile
 
 import (
 	"fmt"
-	"os"
+	"io"
 	"regexp"
 	"strings"
 
@@ -123,23 +123,21 @@ func parsePnpmLock(lockfile PnpmLockfile) []PackageDetails {
 }
 
 func ParsePnpmLock(pathToLockfile string) ([]PackageDetails, error) {
-	return parseFileAndPrintDiag(pathToLockfile, ParsePnpmLockWithDiagnostics)
+	return parseFileAndPrintDiag(pathToLockfile, ParsePnpmLockFile)
 }
 
-func ParsePnpmLockWithDiagnostics(pathToLockfile string) ([]PackageDetails, Diagnostics, error) {
+func ParsePnpmLockFile(pathToLockfile string) ([]PackageDetails, Diagnostics, error) {
+	return parseFile(pathToLockfile, ParsePnpmLockWithDiagnostics)
+}
+
+func ParsePnpmLockWithDiagnostics(r io.Reader) ([]PackageDetails, Diagnostics, error) {
 	var parsedLockfile *PnpmLockfile
 	var diag Diagnostics
 
-	lockfileContents, err := os.ReadFile(pathToLockfile)
+	err := yaml.NewDecoder(r).Decode(&parsedLockfile)
 
 	if err != nil {
-		return []PackageDetails{}, diag, fmt.Errorf("could not read %s: %w", pathToLockfile, err)
-	}
-
-	err = yaml.Unmarshal(lockfileContents, &parsedLockfile)
-
-	if err != nil {
-		return []PackageDetails{}, diag, fmt.Errorf("could not parse %s: %w", pathToLockfile, err)
+		return []PackageDetails{}, diag, fmt.Errorf("could not parse: %w", err)
 	}
 
 	return parsePnpmLock(*parsedLockfile), diag, nil

@@ -3,7 +3,7 @@ package lockfile
 import (
 	"bufio"
 	"fmt"
-	"os"
+	"io"
 	"regexp"
 	"strings"
 )
@@ -11,21 +11,19 @@ import (
 const MixEcosystem Ecosystem = "Hex"
 
 func ParseMixLock(pathToLockfile string) ([]PackageDetails, error) {
-	return parseFileAndPrintDiag(pathToLockfile, ParseMixLockWithDiagnostics)
+	return parseFileAndPrintDiag(pathToLockfile, ParseMixLockFile)
 }
 
-func ParseMixLockWithDiagnostics(pathToLockfile string) ([]PackageDetails, Diagnostics, error) {
-	var diag Diagnostics
+func ParseMixLockFile(pathToLockfile string) ([]PackageDetails, Diagnostics, error) {
+	return parseFile(pathToLockfile, ParseMixLockWithDiagnostics)
+}
 
-	file, err := os.Open(pathToLockfile)
-	if err != nil {
-		return []PackageDetails{}, diag, fmt.Errorf("could not open %s: %w", pathToLockfile, err)
-	}
-	defer file.Close()
+func ParseMixLockWithDiagnostics(r io.Reader) ([]PackageDetails, Diagnostics, error) {
+	var diag Diagnostics
 
 	re := regexp.MustCompile(`^ +"(\w+)": \{.+,$`)
 
-	scanner := bufio.NewScanner(file)
+	scanner := bufio.NewScanner(r)
 
 	var packages []PackageDetails
 
@@ -73,7 +71,7 @@ func ParseMixLockWithDiagnostics(pathToLockfile string) ([]PackageDetails, Diagn
 	}
 
 	if err := scanner.Err(); err != nil {
-		return []PackageDetails{}, diag, fmt.Errorf("error while scanning %s: %w", pathToLockfile, err)
+		return []PackageDetails{}, diag, fmt.Errorf("error while scanning: %w", err)
 	}
 
 	return packages, diag, nil

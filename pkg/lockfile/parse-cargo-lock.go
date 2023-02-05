@@ -3,7 +3,7 @@ package lockfile
 import (
 	"fmt"
 	"github.com/BurntSushi/toml"
-	"os"
+	"io"
 )
 
 type CargoLockPackage struct {
@@ -19,23 +19,21 @@ type CargoLockFile struct {
 const CargoEcosystem Ecosystem = "crates.io"
 
 func ParseCargoLock(pathToLockfile string) ([]PackageDetails, error) {
-	return parseFileAndPrintDiag(pathToLockfile, ParseCargoLockWithDiagnostics)
+	return parseFileAndPrintDiag(pathToLockfile, ParseCargoLockFile)
 }
 
-func ParseCargoLockWithDiagnostics(pathToLockfile string) ([]PackageDetails, Diagnostics, error) {
+func ParseCargoLockFile(pathToLockfile string) ([]PackageDetails, Diagnostics, error) {
+	return parseFile(pathToLockfile, ParseCargoLockWithDiagnostics)
+}
+
+func ParseCargoLockWithDiagnostics(r io.Reader) ([]PackageDetails, Diagnostics, error) {
 	var diag Diagnostics
 	var parsedLockfile *CargoLockFile
 
-	lockfileContents, err := os.ReadFile(pathToLockfile)
+	_, err := toml.NewDecoder(r).Decode(&parsedLockfile)
 
 	if err != nil {
-		return []PackageDetails{}, diag, fmt.Errorf("could not read %s: %w", pathToLockfile, err)
-	}
-
-	err = toml.Unmarshal(lockfileContents, &parsedLockfile)
-
-	if err != nil {
-		return []PackageDetails{}, diag, fmt.Errorf("could not parse %s: %w", pathToLockfile, err)
+		return []PackageDetails{}, diag, fmt.Errorf("could not parse: %w", err)
 	}
 
 	packages := make([]PackageDetails, 0, len(parsedLockfile.Packages))

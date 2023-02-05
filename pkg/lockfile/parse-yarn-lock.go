@@ -3,8 +3,8 @@ package lockfile
 import (
 	"bufio"
 	"fmt"
+	"io"
 	"net/url"
-	"os"
 	"regexp"
 	"strings"
 )
@@ -170,24 +170,22 @@ func parseYarnPackageGroup(diag *Diagnostics, group []string) PackageDetails {
 }
 
 func ParseYarnLock(pathToLockfile string) ([]PackageDetails, error) {
-	return parseFileAndPrintDiag(pathToLockfile, ParseYarnLockWithDiagnostics)
+	return parseFileAndPrintDiag(pathToLockfile, ParseYarnLockFile)
 }
 
-func ParseYarnLockWithDiagnostics(pathToLockfile string) ([]PackageDetails, Diagnostics, error) {
+func ParseYarnLockFile(pathToLockfile string) ([]PackageDetails, Diagnostics, error) {
+	return parseFile(pathToLockfile, ParseYarnLockWithDiagnostics)
+}
+
+func ParseYarnLockWithDiagnostics(r io.Reader) ([]PackageDetails, Diagnostics, error) {
 	var diag Diagnostics
 
-	file, err := os.Open(pathToLockfile)
-	if err != nil {
-		return []PackageDetails{}, diag, fmt.Errorf("could not open %s: %w", pathToLockfile, err)
-	}
-	defer file.Close()
-
-	scanner := bufio.NewScanner(file)
+	scanner := bufio.NewScanner(r)
 
 	packageGroups := groupYarnPackageLines(scanner)
 
 	if err := scanner.Err(); err != nil {
-		return []PackageDetails{}, diag, fmt.Errorf("error while scanning %s: %w", pathToLockfile, err)
+		return []PackageDetails{}, diag, fmt.Errorf("error while scanning: %w", err)
 	}
 
 	packages := make([]PackageDetails, 0, len(packageGroups))
