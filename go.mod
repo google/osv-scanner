@@ -10,7 +10,7 @@ require (
 	github.com/package-url/packageurl-go v0.1.0
 	github.com/spdx/tools-golang v0.4.0
 	github.com/urfave/cli/v2 v2.24.3
-	golang.org/x/exp v0.0.0-20230202163644-54bba9f4231b
+	golang.org/x/exp v0.0.0-20230203172020-98cc5a0785f9
 	golang.org/x/mod v0.7.0
 	golang.org/x/term v0.4.0
 	gopkg.in/yaml.v2 v2.4.0
