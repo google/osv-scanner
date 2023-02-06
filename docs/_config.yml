@@ -30,7 +30,7 @@ twitter_username: ""
 github_username:  google
 
 # Build settings
-theme: just-the-docs
+theme: minima
 plugins:
   - jekyll-feed
 
