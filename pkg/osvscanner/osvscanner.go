@@ -390,6 +390,16 @@ func identifyImageOS(image *image.Image) (lockfile.ImageOS, error) {
 			osName = "Alpine"
 			pkgMgr = "apk"
 			pkgMgrDBLocation = "/lib/apk/db/installed"
+		} else {
+			// RedHat
+			// TODO: Support for other rpm-based distros like Fedora, Rocky...
+			filePath = file.Path("/etc/redhat-release")
+			contentReader, err = image.FileContentsFromSquash(filePath)
+			if err == nil {
+				osName = "RedHat"
+				pkgMgr = "rpm"
+				pkgMgrDBLocation = "/var/lib/rpm/rpmdb.sqlite"
+			}
 		}
 	}
 

@@ -8,6 +8,7 @@ type OSPkgMgrDetailsParser = func(file io.ReadCloser, pathToLockfile string) ([]
 var PkgMgrParse = map[string]OSPkgMgrDetailsParser{
 	"apk":  ParseApkInstalledFromReader,
 	"dpkg": ParseDpkgStatusFromReader,
+	"rpm":  ParseRpmDBFromReader,
 }
 
 // Docker Image OS info
