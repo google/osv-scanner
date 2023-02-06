@@ -2,6 +2,7 @@
 layout: page
 title: Contribute
 permalink: /contribute/
+nav_order: 6
 ---
 ## Contribute
 

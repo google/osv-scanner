@@ -2,6 +2,7 @@
 layout: page
 title: Output
 permalink: /output/
+nav_order: 5
 ---
 
 ## Output formats
