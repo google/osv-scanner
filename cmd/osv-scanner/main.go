@@ -89,6 +89,11 @@ func run(args []string, stdout, stderr io.Writer) int {
 				Usage:   "check subdirectories",
 				Value:   false,
 			},
+			&cli.BoolFlag{
+				Name:  "ignore-gitignore",
+				Usage: "also scan files that would be ignored by .gitignore",
+				Value: false,
+			},
 		},
 		ArgsUsage: "[directory1 directory2...]",
 		Action: func(context *cli.Context) error {
@@ -106,6 +111,7 @@ func run(args []string, stdout, stderr io.Writer) int {
 				DockerContainerNames: context.StringSlice("docker"),
 				Recursive:            context.Bool("recursive"),
 				SkipGit:              context.Bool("skip-git"),
+				IgnoreGitignore:      context.Bool("ignore-gitignore"),
 				ConfigOverridePath:   context.String("config"),
 				DirectoryPaths:       context.Args().Slice(),
 			}, r)
