@@ -4,7 +4,7 @@ title: Installation
 permalink: /installation/
 ---
 
-## Installing
+## Installation
 
 You may download the [SLSA3](https://slsa.dev) compliant binaries for Linux, macOS, and Windows from our [releases page](https://github.com/google/osv-scanner/releases).
 
