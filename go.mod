@@ -8,9 +8,9 @@ require (
 	github.com/google/go-cmp v0.5.9
 	github.com/jedib0t/go-pretty/v6 v6.4.4
 	github.com/package-url/packageurl-go v0.1.0
-	github.com/spdx/tools-golang v0.3.0
-	github.com/urfave/cli/v2 v2.23.7
-	golang.org/x/exp v0.0.0-20230111222715-75897c7a292a
+	github.com/spdx/tools-golang v0.4.0
+	github.com/urfave/cli/v2 v2.24.3
+	golang.org/x/exp v0.0.0-20230203172020-98cc5a0785f9
 	golang.org/x/mod v0.7.0
 	golang.org/x/term v0.4.0
 	gopkg.in/yaml.v2 v2.4.0
