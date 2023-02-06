@@ -67,7 +67,7 @@ func scanDir(r *output.Reporter, query *osv.BatchedQuery, dir string, skipGit bo
 
 		if !info.IsDir() {
 			if parser, _ := lockfile.FindParser(path, ""); parser != nil {
-				err := scanLockfile(r, query, path)
+				err := scanLockfile(r, query, path, "")
 				if err != nil {
 					r.PrintError(fmt.Sprintf("Attempted to scan lockfile but failed: %s\n", path))
 				}
@@ -89,12 +89,29 @@ func scanDir(r *output.Reporter, query *osv.BatchedQuery, dir string, skipGit bo
 
 // scanLockfile will load, identify, and parse the lockfile path passed in, and add the dependencies specified
 // within to `query`
-func scanLockfile(r *output.Reporter, query *osv.BatchedQuery, path string) error {
-	parsedLockfile, err := lockfile.Parse(path, "")
+func scanLockfile(r *output.Reporter, query *osv.BatchedQuery, path string, parseAs string) error {
+	var err error
+	var parsedLockfile lockfile.Lockfile
+
+	// special case for the APK parser because it has a very generic name while
+	// living at a specific location, so it's not included in the map of parsers
+	// used by lockfile.Parse to avoid false-positives when scanning projects
+	if parseAs == "apk-installed" {
+		parsedLockfile, err = lockfile.FromApkInstalled(path)
+	} else {
+		parsedLockfile, err = lockfile.Parse(path, parseAs)
+	}
+
 	if err != nil {
 		return err
 	}
-	r.PrintText(fmt.Sprintf("Scanned %s file and found %d packages\n", path, len(parsedLockfile.Packages)))
+	parsedAsComment := ""
+
+	if parseAs != "" {
+		parsedAsComment = fmt.Sprintf("as a %s ", parseAs)
+	}
+
+	r.PrintText(fmt.Sprintf("Scanned %s file %sand found %d packages\n", path, parsedAsComment, len(parsedLockfile.Packages)))
 
 	for _, pkgDetail := range parsedLockfile.Packages {
 		pkgDetailQuery := osv.MakePkgRequest(pkgDetail)
@@ -266,6 +283,16 @@ func filterResponse(r *output.Reporter, query osv.BatchedQuery, resp *osv.Batche
 	return len(hiddenVulns)
 }
 
+func parseLockfilePath(lockfileElem string) (string, string) {
+	if !strings.Contains(lockfileElem, ":") {
+		lockfileElem = ":" + lockfileElem
+	}
+
+	splits := strings.SplitN(lockfileElem, ":", 2)
+
+	return splits[0], splits[1]
+}
+
 // Perform osv scanner action, with optional reporter to output information
 func DoScan(actions ScannerActions, r *output.Reporter) (models.VulnerabilityResults, error) {
 	if r == nil {
@@ -294,12 +321,13 @@ func DoScan(actions ScannerActions, r *output.Reporter) (models.VulnerabilityRes
 	}
 
 	for _, lockfileElem := range actions.LockfilePaths {
-		lockfileElem, err := filepath.Abs(lockfileElem)
+		parseAs, lockfilePath := parseLockfilePath(lockfileElem)
+		lockfilePath, err := filepath.Abs(lockfilePath)
 		if err != nil {
 			r.PrintError(fmt.Sprintf("Failed to resolved path with error %s\n", err))
 			return models.VulnerabilityResults{}, err
 		}
-		err = scanLockfile(r, &query, lockfileElem)
+		err = scanLockfile(r, &query, lockfilePath, parseAs)
 		if err != nil {
 			return models.VulnerabilityResults{}, err
 		}

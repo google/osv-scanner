@@ -119,7 +119,11 @@ If you want to check for known vulnerabilities in specific lockfiles, you can us
 osv-scanner --lockfile=/path/to/your/package-lock.json --lockfile=/path/to/another/Cargo.lock
 ```
 
-It is possible to specify more than one lockfile at a time. 
+It is possible to specify more than one lockfile at a time; you can also specify how to parse an arbitrary file:
+
+```console
+osv-scanner --lockfile 'requirements.txt:/path/to/your/extra-requirements.txt'
+```
 
 A wide range of lockfiles are supported by utilizing this [lockfile package](https://github.com/google/osv-scanner/tree/main/pkg/lockfile). This is the current list of supported lockfiles:
 
@@ -140,7 +144,21 @@ A wide range of lockfiles are supported by utilizing this [lockfile package](htt
 - `pubspec.lock`
 - `requirements.txt`[\*](https://github.com/google/osv-scanner/issues/34)
 - `yarn.lock`
-- `/lib/apk/db/installed` (Alpine)
+
+The scanner also supports `installed` files used by the Alpine Package Keeper (apk) that typically live at `/lib/apk/db/installed`,
+however you must specify this explicitly using the `--lockfile` flag:
+
+```console
+osv-scanner --lockfile 'apk-installed:/lib/apk/db/installed'
+```
+
+If the file you are scanning is located in a directory that has a colon in its name,
+you can prefix the path to just a colon to explicitly signal to the scanner that
+it should infer the parser based on the filename:
+
+```bash
+$ osv-scanner --lockfile ':/path/to/my:projects/package-lock.json'
+```
 
 ### Scanning a Debian based docker image packages (preview)
 
