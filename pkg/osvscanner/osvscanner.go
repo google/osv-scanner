@@ -27,6 +27,7 @@ type ScannerActions struct {
 	SkipGit              bool
 	DockerContainerNames []string
 	ConfigOverridePath   string
+	OkEmpty              bool
 }
 
 // NoPackagesFoundErr for when no packages is found during a scan.
@@ -176,7 +177,6 @@ func getCommitSHA(repoDir string) (string, error) {
 	cmd.Stdout = &out
 
 	err := cmd.Run()
-
 	if err != nil {
 		var exitErr *exec.ExitError
 		if errors.As(err, &exitErr) && exitErr.ExitCode() == 128 {
@@ -214,7 +214,6 @@ func scanGitCommit(query *osv.BatchedQuery, commit string, source string) error 
 func scanDebianDocker(r *output.Reporter, query *osv.BatchedQuery, dockerImageName string) error {
 	cmd := exec.Command("docker", "run", "--rm", "--entrypoint", "/usr/bin/dpkg-query", dockerImageName, "-f", "${Package}###${Version}\\n", "-W")
 	stdout, err := cmd.StdoutPipe()
-
 	if err != nil {
 		r.PrintError(fmt.Sprintf("Failed to get stdout: %s\n", err))
 		return err
@@ -360,6 +359,10 @@ func DoScan(actions ScannerActions, r *output.Reporter) (models.VulnerabilityRes
 	}
 
 	if len(query.Queries) == 0 {
+		if actions.OkEmpty {
+			return models.VulnerabilityResults{}, nil
+		}
+
 		return models.VulnerabilityResults{}, NoPackagesFoundErr
 	}
 

@@ -112,6 +112,13 @@ func TestRun(t *testing.T) {
 		},
 		{
 			name:         "",
+			args:         []string{"", "--ok-empty"},
+			wantExitCode: 0,
+			wantStdout:   "",
+			wantStderr:   "",
+		},
+		{
+			name:         "",
 			args:         []string{"", "--version"},
 			wantExitCode: 0,
 			wantStdout: `
