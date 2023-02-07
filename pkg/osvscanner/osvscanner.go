@@ -16,6 +16,9 @@ import (
 	"github.com/google/osv-scanner/pkg/lockfile"
 	"github.com/google/osv-scanner/pkg/models"
 	"github.com/google/osv-scanner/pkg/osv"
+
+	"github.com/go-git/go-billy/v5/osfs"
+	"github.com/go-git/go-git/v5/plumbing/format/gitignore"
 )
 
 type ScannerActions struct {
@@ -44,9 +47,18 @@ var VulnerabilitiesFoundErr = errors.New("vulnerabilities found")
 //   - Any SBOM files with scanSBOMFile
 //   - Any git repositories with scanGit
 func scanDir(r *output.Reporter, query *osv.BatchedQuery, dir string, skipGit bool, recursive bool, useGitIgnore bool) error {
-	if useGitIgnore && !canCheckIgnore() {
-		r.PrintError("Command \"git check-ignore\" not found. Cannot parse .gitignore files.\n")
-		useGitIgnore = false
+	var gitIgnoreMatcher gitignore.Matcher
+	if useGitIgnore {
+		// TODO(michaelkedar): only checks .gitignore files in working directory and below
+		// wont grab the parent directory .gitignore
+		// and won't follow ignores in `osv-scanner ../foo/` at all
+		patterns, err := gitignore.ReadPatterns(osfs.New("."), nil)
+		if err != nil {
+			r.PrintError(fmt.Sprintf("Failed to parse gitignores: %s\n", err))
+			useGitIgnore = false
+		} else {
+			gitIgnoreMatcher = gitignore.NewMatcher(patterns)
+		}
 	}
 	root := true
 
@@ -55,18 +67,19 @@ func scanDir(r *output.Reporter, query *osv.BatchedQuery, dir string, skipGit bo
 			r.PrintText(fmt.Sprintf("Failed to walk %s: %v\n", path, err))
 			return err
 		}
-		path, err = filepath.Abs(path)
-		if err != nil {
-			r.PrintError(fmt.Sprintf("Failed to walk path %s\n", err))
-			return err
-		}
 
-		if useGitIgnore && isGitIgnored(filepath.Dir(path), info.Name()) {
+		if useGitIgnore && gitIgnoreMatcher.Match(strings.Split(path, string(filepath.Separator)), info.IsDir()) {
 			if info.IsDir() {
 				return filepath.SkipDir
 			}
 
 			return nil
+		}
+
+		path, err = filepath.Abs(path)
+		if err != nil {
+			r.PrintError(fmt.Sprintf("Failed to walk path %s\n", err))
+			return err
 		}
 
 		if !skipGit && info.IsDir() && info.Name() == ".git" {
@@ -99,33 +112,6 @@ func scanDir(r *output.Reporter, query *osv.BatchedQuery, dir string, skipGit bo
 
 		return nil
 	})
-}
-
-// canCheckIgnore checks if the command `git check-ignore` will work on the system,
-// which is used to check .gitignore files
-func canCheckIgnore() bool {
-	cmd := exec.Command("git", "check-ignore")
-	// Expect the command to exit with code 128 for "no path specified" or "not a git repository"
-	// Any other exit code means the command does not work
-	if err := cmd.Run(); err != nil {
-		var exitErr *exec.ExitError
-		return errors.As(err, &exitErr) && exitErr.ExitCode() == 128
-	}
-
-	return false
-}
-
-// isGitIgnored checks if file/directory is ignored by a .gitignore file.
-// returns true if it is ignored
-func isGitIgnored(dir string, filename string) bool {
-	// https://git-scm.com/docs/git-check-ignore
-	// Exit status 0 means the file is ignored
-	// Exit status 1 means it is not ignored
-	// Exit status 128 means the file is not in a git repo (not ignored)
-	cmd := exec.Command("git", "-C", dir, "check-ignore", "-q", filename)
-	err := cmd.Run()
-
-	return err == nil
 }
 
 // scanLockfile will load, identify, and parse the lockfile path passed in, and add the dependencies specified
