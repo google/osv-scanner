@@ -48,18 +48,29 @@ var VulnerabilitiesFoundErr = errors.New("vulnerabilities found")
 //   - Any git repositories with scanGit
 func scanDir(r *output.Reporter, query *osv.BatchedQuery, dir string, skipGit bool, recursive bool, useGitIgnore bool) error {
 	var gitIgnoreMatcher gitignore.Matcher
+	var gitRepoPath string
 	if useGitIgnore {
-		// TODO(michaelkedar): only checks .gitignore files in working directory and below
-		// wont grab the parent directory .gitignore
-		// and won't follow ignores in `osv-scanner ../foo/` at all
-		patterns, err := gitignore.ReadPatterns(osfs.New("."), nil)
+		// find the git root directory and parse .gitignore from there
+		fs := osfs.New(".") // default to current directory if file is not in a git repo
+		if repo, err := git.PlainOpenWithOptions(dir, &git.PlainOpenOptions{DetectDotGit: true}); err == nil {
+			if tree, err := repo.Worktree(); err == nil {
+				fs = tree.Filesystem
+			}
+		}
+		patterns, err := gitignore.ReadPatterns(fs, []string{"."})
 		if err != nil {
 			r.PrintError(fmt.Sprintf("Failed to parse gitignores: %s\n", err))
 			useGitIgnore = false
 		} else {
 			gitIgnoreMatcher = gitignore.NewMatcher(patterns)
+			gitRepoPath, err = filepath.Abs(fs.Root())
+			if err != nil {
+				r.PrintError(fmt.Sprintf("Failed to resolve path of git repository: %s\n", err))
+				useGitIgnore = false
+			}
 		}
 	}
+
 	root := true
 
 	return filepath.WalkDir(dir, func(path string, info os.DirEntry, err error) error {
@@ -68,18 +79,26 @@ func scanDir(r *output.Reporter, query *osv.BatchedQuery, dir string, skipGit bo
 			return err
 		}
 
-		if useGitIgnore && gitIgnoreMatcher.Match(strings.Split(path, string(filepath.Separator)), info.IsDir()) {
-			if info.IsDir() {
-				return filepath.SkipDir
-			}
-
-			return nil
-		}
-
 		path, err = filepath.Abs(path)
 		if err != nil {
 			r.PrintError(fmt.Sprintf("Failed to walk path %s\n", err))
 			return err
+		}
+
+		if useGitIgnore {
+			pathInGit, err := filepath.Rel(gitRepoPath, path)
+			if err != nil {
+				r.PrintError(fmt.Sprintf("Failed to walk path %s\n", err))
+				return err
+			}
+			pathInGitSep := append([]string{"."}, strings.Split(pathInGit, string(filepath.Separator))...)
+			if gitIgnoreMatcher.Match(pathInGitSep, info.IsDir()) {
+				if info.IsDir() {
+					return filepath.SkipDir
+				}
+
+				return nil
+			}
 		}
 
 		if !skipGit && info.IsDir() && info.Name() == ".git" {
