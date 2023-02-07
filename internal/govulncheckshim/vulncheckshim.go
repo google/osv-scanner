@@ -8,6 +8,7 @@ import (
 
 	"github.com/google/osv-scanner/pkg/models"
 	"golang.org/x/tools/go/packages"
+	"golang.org/x/vuln/exp/govulncheck"
 	"golang.org/x/vuln/vulncheck"
 )
 
@@ -26,17 +27,18 @@ func (e *packageError) Error() string {
 }
 
 // RunVulnCheck runs govulncheck with a subset of vulnerabilities identified by osv-scanner
-func RunVulnCheck(path string, vulns []models.Vulnerability) (*vulncheck.Result, error) {
+func RunVulnCheck(path string, vulns []models.Vulnerability) (*govulncheck.Result, error) {
 	scanPath := filepath.Join(path, "...")
 	client := newClient(vulns)
-	cfg := &vulncheck.Config{Client: client}
-	var res *vulncheck.Result
+
+	cfg := &govulncheck.Config{Client: client}
+	var res *govulncheck.Result
 	var pkgs []*vulncheck.Package
 	pkgs, err := loadPackages([]string{scanPath}, filepath.Dir(scanPath))
 	if err != nil {
 		panic(err)
 	}
-	res, err = vulncheck.Source(context.Background(), pkgs, cfg)
+	res, err = govulncheck.Source(context.Background(), cfg, pkgs)
 
 	return res, err
 }
