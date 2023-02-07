@@ -2,7 +2,6 @@ package osvscanner
 
 import (
 	"bufio"
-	"bytes"
 	"errors"
 	"fmt"
 	"os"
@@ -18,6 +17,7 @@ import (
 	"github.com/google/osv-scanner/pkg/osv"
 
 	"github.com/go-git/go-billy/v5/osfs"
+	"github.com/go-git/go-git/v5"
 	"github.com/go-git/go-git/v5/plumbing/format/gitignore"
 )
 
@@ -198,22 +198,16 @@ func scanSBOMFile(r *output.Reporter, query *osv.BatchedQuery, path string) erro
 }
 
 func getCommitSHA(repoDir string) (string, error) {
-	cmd := exec.Command("git", "-C", repoDir, "rev-parse", "HEAD")
-	var out bytes.Buffer
-	cmd.Stdout = &out
-
-	err := cmd.Run()
-
+	repo, err := git.PlainOpen(repoDir)
 	if err != nil {
-		var exitErr *exec.ExitError
-		if errors.As(err, &exitErr) && exitErr.ExitCode() == 128 {
-			return "", fmt.Errorf("failed to get commit hash, no commits exist? %w", exitErr)
-		}
-
-		return "", fmt.Errorf("failed to get commit hash: %w", err)
+		return "", err
+	}
+	head, err := repo.Head()
+	if err != nil {
+		return "", err
 	}
 
-	return strings.TrimSpace(out.String()), nil
+	return head.Hash().String(), nil
 }
 
 // Scan git repository. Expects repoDir to end with /
