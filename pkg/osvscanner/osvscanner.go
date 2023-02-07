@@ -47,27 +47,13 @@ var VulnerabilitiesFoundErr = errors.New("vulnerabilities found")
 //   - Any SBOM files with scanSBOMFile
 //   - Any git repositories with scanGit
 func scanDir(r *output.Reporter, query *osv.BatchedQuery, dir string, skipGit bool, recursive bool, useGitIgnore bool) error {
-	var gitIgnoreMatcher gitignore.Matcher
-	var gitRepoPath string
+	var ignoreMatcher *gitIgnoreMatcher
 	if useGitIgnore {
-		// find the git root directory and parse .gitignore from there
-		fs := osfs.New(".") // default to current directory if file is not in a git repo
-		if repo, err := git.PlainOpenWithOptions(dir, &git.PlainOpenOptions{DetectDotGit: true}); err == nil {
-			if tree, err := repo.Worktree(); err == nil {
-				fs = tree.Filesystem
-			}
-		}
-		patterns, err := gitignore.ReadPatterns(fs, []string{"."})
+		var err error
+		ignoreMatcher, err = parseGitIgnores(dir)
 		if err != nil {
-			r.PrintError(fmt.Sprintf("Failed to parse gitignores: %s\n", err))
+			r.PrintError(fmt.Sprintf("Unable to parse git ignores: %v", err))
 			useGitIgnore = false
-		} else {
-			gitIgnoreMatcher = gitignore.NewMatcher(patterns)
-			gitRepoPath, err = filepath.Abs(fs.Root())
-			if err != nil {
-				r.PrintError(fmt.Sprintf("Failed to resolve path of git repository: %s\n", err))
-				useGitIgnore = false
-			}
 		}
 	}
 
@@ -86,13 +72,11 @@ func scanDir(r *output.Reporter, query *osv.BatchedQuery, dir string, skipGit bo
 		}
 
 		if useGitIgnore {
-			pathInGit, err := filepath.Rel(gitRepoPath, path)
+			match, err := ignoreMatcher.match(path, info.IsDir())
 			if err != nil {
-				r.PrintError(fmt.Sprintf("Failed to walk path %s\n", err))
-				return err
-			}
-			pathInGitSep := append([]string{"."}, strings.Split(pathInGit, string(filepath.Separator))...)
-			if gitIgnoreMatcher.Match(pathInGitSep, info.IsDir()) {
+				r.PrintText(fmt.Sprintf("Failed to resolve gitignore for %s: %v", path, err))
+				// Don't skip if we can't parse know - potentially noisy for directories with lots of items
+			} else if match {
 				if info.IsDir() {
 					return filepath.SkipDir
 				}
@@ -131,6 +115,49 @@ func scanDir(r *output.Reporter, query *osv.BatchedQuery, dir string, skipGit bo
 
 		return nil
 	})
+}
+
+type gitIgnoreMatcher struct {
+	matcher  gitignore.Matcher
+	repoPath string
+}
+
+func parseGitIgnores(dir string) (*gitIgnoreMatcher, error) {
+	// We need to parse .gitignore files from the root of the git repo to correctly identify ignored files
+	// Defaults to current directory if dir is not in a repo or some other error
+	// TODO: Won't parse ignores if dir is not in a git repo, and is not under the current directory (e.g ../path/to)
+	// TODO: What is the desired behaviour for non git-repos?
+	fs := osfs.New(".")
+	if repo, err := git.PlainOpenWithOptions(dir, &git.PlainOpenOptions{DetectDotGit: true}); err == nil {
+		if tree, err := repo.Worktree(); err == nil {
+			fs = tree.Filesystem
+		}
+	}
+
+	patterns, err := gitignore.ReadPatterns(fs, []string{"."})
+	if err != nil {
+		return nil, err
+	}
+	matcher := gitignore.NewMatcher(patterns)
+	path, err := filepath.Abs(fs.Root())
+	if err != nil {
+		return nil, err
+	}
+
+	return &gitIgnoreMatcher{matcher: matcher, repoPath: path}, nil
+}
+
+// gitIgnoreMatcher.match will return true if the file/directory matches a gitignore entry
+// i.e. true if it should be ignored
+func (m *gitIgnoreMatcher) match(absPath string, isDir bool) (bool, error) {
+	pathInGit, err := filepath.Rel(m.repoPath, absPath)
+	if err != nil {
+		return false, err
+	}
+	// must prepend "." to paths because of how gitignore.ReadPatterns interprets paths
+	pathInGitSep := append([]string{"."}, strings.Split(pathInGit, string(filepath.Separator))...)
+
+	return m.matcher.Match(pathInGitSep, isDir), nil
 }
 
 // scanLockfile will load, identify, and parse the lockfile path passed in, and add the dependencies specified
