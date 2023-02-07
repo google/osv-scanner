@@ -209,7 +209,7 @@ func TestRun(t *testing.T) {
 		// ignoring .gitignore
 		{
 			name:         "",
-			args:         []string{"", "--recursive", "--ignore-gitignore", "./fixtures/locks-gitignore"},
+			args:         []string{"", "--recursive", "--no-ignore", "./fixtures/locks-gitignore"},
 			wantExitCode: 0,
 			wantStdout: `
 				Scanning dir ./fixtures/locks-gitignore

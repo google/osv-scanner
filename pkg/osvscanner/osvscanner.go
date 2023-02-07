@@ -25,7 +25,7 @@ type ScannerActions struct {
 	GitCommits           []string
 	Recursive            bool
 	SkipGit              bool
-	IgnoreGitignore      bool
+	NoIgnore             bool
 	DockerContainerNames []string
 	ConfigOverridePath   string
 }
@@ -394,7 +394,7 @@ func DoScan(actions ScannerActions, r *output.Reporter) (models.VulnerabilityRes
 
 	for _, dir := range actions.DirectoryPaths {
 		r.PrintText(fmt.Sprintf("Scanning dir %s\n", dir))
-		err := scanDir(r, &query, dir, actions.SkipGit, actions.Recursive, !actions.IgnoreGitignore)
+		err := scanDir(r, &query, dir, actions.SkipGit, actions.Recursive, !actions.NoIgnore)
 		if err != nil {
 			return models.VulnerabilityResults{}, err
 		}

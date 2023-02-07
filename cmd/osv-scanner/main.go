@@ -90,7 +90,7 @@ func run(args []string, stdout, stderr io.Writer) int {
 				Value:   false,
 			},
 			&cli.BoolFlag{
-				Name:  "ignore-gitignore",
+				Name:  "no-ignore",
 				Usage: "also scan files that would be ignored by .gitignore",
 				Value: false,
 			},
@@ -111,7 +111,7 @@ func run(args []string, stdout, stderr io.Writer) int {
 				DockerContainerNames: context.StringSlice("docker"),
 				Recursive:            context.Bool("recursive"),
 				SkipGit:              context.Bool("skip-git"),
-				IgnoreGitignore:      context.Bool("ignore-gitignore"),
+				NoIgnore:             context.Bool("no-ignore"),
 				ConfigOverridePath:   context.String("config"),
 				DirectoryPaths:       context.Args().Slice(),
 			}, r)
