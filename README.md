@@ -2,6 +2,11 @@
 
 [![OpenSSF Scorecard](https://api.securityscorecards.dev/projects/github.com/google/osv-scanner/badge)](https://api.securityscorecards.dev/projects/github.com/google/osv-scanner)
 
+> **Note**
+> 
+> This README and the rest of the docs on the main branch contain the most recent work, which might not be released yet.
+> For specific versions, refer to the docs for the [tag of the version you are using](https://github.com/google/osv-scanner/tags).
+
 Use OSV-Scanner to find existing vulnerabilities affecting your project's dependencies.
 
 OSV-Scanner provides an officially supported frontend to the [OSV database](https://osv.dev/) that connects a project’s list of dependencies with the vulnerabilities that affect them. Since the OSV.dev database is open source and distributed, it has several benefits in comparison with closed source advisory databases and scanners:
