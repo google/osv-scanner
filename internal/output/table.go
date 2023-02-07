@@ -39,6 +39,31 @@ func PrintTableResults(vulnResult *models.VulnerabilityResults, outputWriter io.
 	outputTable.Render()
 }
 
+// PrintTableParseOnlyResults prints the parsed dependencies results into a human friendly table.
+func PrintTableParseOnlyResults(vulnResult *models.VulnerabilityResults, outputWriter io.Writer) {
+	outputTable := table.NewWriter()
+	outputTable.SetOutputMirror(outputWriter)
+	outputTable.AppendHeader(table.Row{"Ecosystem", "Package", "Version", "Source"})
+
+	width, _, err := term.GetSize(int(os.Stdout.Fd()))
+	isTerminal := false
+	if err == nil { // If output is a terminal, set max length to width and add styling
+		outputTable.SetStyle(table.StyleRounded)
+		outputTable.Style().Color.Row = text.Colors{text.Reset, text.BgHiBlack}
+		outputTable.Style().Color.RowAlternate = text.Colors{text.Reset, text.BgBlack}
+		outputTable.Style().Options.DoNotColorBordersAndSeparators = true
+		outputTable.SetAllowedRowLength(width)
+		isTerminal = true
+	} // Otherwise use default ascii (e.g. getting piped to a file)
+
+	outputTable = tableBuilderForParseOnly(outputTable, vulnResult, isTerminal)
+
+	if outputTable.Length() == 0 {
+		return
+	}
+	outputTable.Render()
+}
+
 func tableBuilder(outputTable table.Writer, vulnResult *models.VulnerabilityResults, addStyling bool) table.Writer {
 	// Working directory used to simplify path
 	workingDir, workingDirErr := os.Getwd()
@@ -79,6 +104,37 @@ func tableBuilder(outputTable table.Writer, vulnResult *models.VulnerabilityResu
 				outputRow = append(outputRow, source.Path)
 				outputTable.AppendRow(outputRow, table.RowConfig{AutoMerge: shouldMerge})
 			}
+		}
+	}
+
+	return outputTable
+}
+
+func tableBuilderForParseOnly(outputTable table.Writer, vulnResult *models.VulnerabilityResults, addStyling bool) table.Writer {
+	// Working directory used to simplify path
+	workingDir, workingDirErr := os.Getwd()
+	for _, sourceRes := range vulnResult.Results {
+		for _, pkg := range sourceRes.Packages {
+			source := sourceRes.Source
+			if workingDirErr == nil {
+				sourcePath, err := filepath.Rel(workingDir, source.Path)
+				if err == nil { // Simplify the path if possible
+					source.Path = sourcePath
+				}
+			}
+
+			outputRow := table.Row{}
+			shouldMerge := false
+
+			if pkg.Package.Ecosystem == "GIT" {
+				outputRow = append(outputRow, "GIT", pkg.Package.Version, pkg.Package.Version)
+				shouldMerge = true
+			} else {
+				outputRow = append(outputRow, pkg.Package.Ecosystem, pkg.Package.Name, pkg.Package.Version)
+			}
+
+			outputRow = append(outputRow, source.Path)
+			outputTable.AppendRow(outputRow, table.RowConfig{AutoMerge: shouldMerge})
 		}
 	}
 

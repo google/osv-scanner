@@ -89,6 +89,11 @@ func run(args []string, stdout, stderr io.Writer) int {
 				Usage:   "check subdirectories",
 				Value:   false,
 			},
+			&cli.BoolFlag{
+				Name:  "parse-only",
+				Usage: "get result as of parsed lockfiles without OSV API request",
+				Value: false,
+			},
 		},
 		ArgsUsage: "[directory1 directory2...]",
 		Action: func(context *cli.Context) error {
@@ -108,6 +113,7 @@ func run(args []string, stdout, stderr io.Writer) int {
 				SkipGit:              context.Bool("skip-git"),
 				ConfigOverridePath:   context.String("config"),
 				DirectoryPaths:       context.Args().Slice(),
+				ParseOnly:            context.Bool("parse-only"),
 			}, r)
 
 			if errPrint := r.PrintResult(&vulnResult); errPrint != nil {

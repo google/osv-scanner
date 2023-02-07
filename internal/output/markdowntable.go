@@ -21,3 +21,17 @@ func PrintMarkdownTableResults(vulnResult *models.VulnerabilityResults, outputWr
 	}
 	outputTable.RenderMarkdown()
 }
+
+// PrintTableResults prints the osv scan results into a human friendly table.
+func PrintMarkdownTableParseOnlyResults(vulnResult *models.VulnerabilityResults, outputWriter io.Writer) {
+	outputTable := table.NewWriter()
+	outputTable.SetOutputMirror(outputWriter)
+	outputTable.AppendHeader(table.Row{"Ecosystem", "Package", "Version", "Source"})
+
+	outputTable = tableBuilderForParseOnly(outputTable, vulnResult, false)
+
+	if outputTable.Length() == 0 {
+		return
+	}
+	outputTable.RenderMarkdown()
+}

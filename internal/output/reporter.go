@@ -12,6 +12,7 @@ type Reporter struct {
 	stdout          io.Writer
 	stderr          io.Writer
 	format          string
+	parseOnly       bool
 	hasPrintedError bool
 }
 
@@ -42,6 +43,11 @@ func (r *Reporter) HasPrintedError() bool {
 	return r.hasPrintedError
 }
 
+// Set the parseOnly flag in Reporter structure for parser-only option
+func (r *Reporter) SetParseOnly(parseOnly bool) {
+	r.parseOnly = true
+}
+
 // PrintText writes the given message to stdout, _unless_ the reporter is set
 // to output as JSON, in which case it writes the message to stderr.
 //
@@ -62,9 +68,17 @@ func (r *Reporter) PrintResult(vulnResult *models.VulnerabilityResults) error {
 	case "json":
 		return PrintJSONResults(vulnResult, r.stdout)
 	case "markdown":
-		PrintMarkdownTableResults(vulnResult, r.stdout)
+		if r.parseOnly {
+			PrintMarkdownTableParseOnlyResults(vulnResult, r.stdout)
+		} else {
+			PrintMarkdownTableResults(vulnResult, r.stdout)
+		}
 	case "table":
-		PrintTableResults(vulnResult, r.stdout)
+		if r.parseOnly {
+			PrintTableParseOnlyResults(vulnResult, r.stdout)
+		} else {
+			PrintTableResults(vulnResult, r.stdout)
+		}
 	}
 
 	return nil
