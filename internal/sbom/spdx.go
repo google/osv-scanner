@@ -5,20 +5,20 @@ import (
 	"fmt"
 	"io"
 
-	"github.com/spdx/tools-golang/jsonloader"
+	"github.com/spdx/tools-golang/json"
 	"github.com/spdx/tools-golang/rdfloader"
-	"github.com/spdx/tools-golang/spdx"
+	"github.com/spdx/tools-golang/spdx/v2_3"
 	"github.com/spdx/tools-golang/tvloader"
 )
 
 type SPDX struct{}
-type spdxLoader func(io.Reader) (*spdx.Document2_2, error)
+type spdxLoader func(io.Reader) (*v2_3.Document, error)
 
 var (
 	spdxLoaders = []spdxLoader{
-		jsonloader.Load2_2,
-		rdfloader.Load2_2,
-		tvloader.Load2_2,
+		spdx_json.Load2_3,
+		rdfloader.Load2_3,
+		tvloader.Load2_3,
 	}
 )
 
@@ -26,7 +26,7 @@ func (s *SPDX) Name() string {
 	return "SPDX"
 }
 
-func (s *SPDX) enumeratePackages(doc *spdx.Document2_2, callback func(Identifier) error) error {
+func (s *SPDX) enumeratePackages(doc *v2_3.Document, callback func(Identifier) error) error {
 	for _, p := range doc.Packages {
 		for _, r := range p.PackageExternalReferences {
 			if r.RefType == "purl" {
