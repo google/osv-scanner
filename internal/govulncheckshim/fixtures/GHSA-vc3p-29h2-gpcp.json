@@ -1,0 +1,85 @@
+{
+  "schema_version": "1.3.0",
+  "id": "GHSA-vc3p-29h2-gpcp",
+  "modified": "2023-02-08T00:37:41Z",
+  "published": "2022-01-02T00:00:48Z",
+  "aliases": [
+    "CVE-2021-44716"
+  ],
+  "summary": "golang.org/x/net/http2 allows uncontrolled memory consumption",
+  "details": "net/http in Go before 1.16.12 and 1.17.x before 1.17.5 allows uncontrolled memory consumption in the header canonicalization cache via HTTP/2 requests.",
+  "severity": [
+    {
+      "type": "CVSS_V3",
+      "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H"
+    }
+  ],
+  "affected": [
+    {
+      "package": {
+        "ecosystem": "Go",
+        "name": "golang.org/x/net/http2"
+      },
+      "ranges": [
+        {
+          "type": "ECOSYSTEM",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "0.0.0-20211209124913-491a49abca63"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2021-44716"
+    },
+    {
+      "type": "WEB",
+      "url": "https://go.dev/cl/369794"
+    },
+    {
+      "type": "WEB",
+      "url": "https://go.dev/issue/50058"
+    },
+    {
+      "type": "WEB",
+      "url": "https://groups.google.com/g/golang-announce/c/hcmEScgc00k"
+    },
+    {
+      "type": "WEB",
+      "url": "https://lists.debian.org/debian-lts-announce/2022/01/msg00016.html"
+    },
+    {
+      "type": "WEB",
+      "url": "https://lists.debian.org/debian-lts-announce/2022/01/msg00017.html"
+    },
+    {
+      "type": "WEB",
+      "url": "https://pkg.go.dev/vuln/GO-2022-0288"
+    },
+    {
+      "type": "WEB",
+      "url": "https://security.gentoo.org/glsa/202208-02"
+    },
+    {
+      "type": "WEB",
+      "url": "https://security.netapp.com/advisory/ntap-20220121-0002/"
+    }
+  ],
+  "database_specific": {
+    "cwe_ids": [
+      "CWE-400"
+    ],
+    "severity": "HIGH",
+    "github_reviewed": true,
+    "github_reviewed_at": "2023-02-08T00:37:41Z",
+    "nvd_published_at": "2022-01-01T05:15:00Z"
+  }
+}
