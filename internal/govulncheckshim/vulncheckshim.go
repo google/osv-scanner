@@ -49,6 +49,7 @@ func RunVulnCheck(path string, vulns []models.Vulnerability) (*govulncheck.Resul
 // the errors, along with the packages themselves.
 func loadPackages(patterns []string, dir string) ([]*vulncheck.Package, error) {
 	var buildFlags []string
+	// TODO: Enable user configurable tags
 	// if tagsFlag != nil {
 	// 	buildFlags = []string{fmt.Sprintf("-tags=%s", strings.Join(tagsFlag, ","))}
 	// }
