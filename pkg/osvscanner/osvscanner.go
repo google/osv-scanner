@@ -358,7 +358,3 @@ func DoScan(actions ScannerActions, r *output.Reporter) (models.VulnerabilityRes
 
 	return vulnerabilityResults, nil
 }
-
-func codeAnalysisFiltering(osv.HydratedBatchedResponse) {
-
-}

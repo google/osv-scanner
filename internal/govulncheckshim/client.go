@@ -51,7 +51,10 @@ func convertToGvcOSV(osv models.Vulnerability) gvcOSV.Entry {
 		panic("failed to convert vulnerability")
 	}
 	response := gvcOSV.Entry{}
-	json.Unmarshal(val, &response)
+	err = json.Unmarshal(val, &response)
+	if err != nil {
+		panic("gvc format is no longer compatible with osv format")
+	}
 
 	return response
 }
@@ -70,6 +73,8 @@ func (ls *localSource) GetByModule(ctx context.Context, modulePath string) ([]*g
 func (ls *localSource) GetByID(ctx context.Context, id string) (*gvcOSV.Entry, error) {
 	entry, ok := ls.response[id]
 	if !ok {
+		//nolint:nilnil // This follows govulncheck's client implementation
+		// See: https://github.com/golang/vuln/blob/master/client/client.go
 		return nil, nil
 	}
 	response := convertToGvcOSV(*entry)
