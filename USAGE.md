@@ -1,6 +1,6 @@
-## Table of Contents:
+## Table of Contents
 
-- [Table of Contents:](#table-of-contents)
+- [Table of Contents](#table-of-contents)
 - [Usage](#usage)
   - [General use case: scanning a directory](#general-use-case-scanning-a-directory)
   - [Specify SBOM](#specify-sbom)
