@@ -27,7 +27,7 @@ type ScannerActions struct {
 	SkipGit              bool
 	DockerContainerNames []string
 	ConfigOverridePath   string
-	OkEmpty              bool
+	AllowEmpty           bool
 }
 
 // NoPackagesFoundErr for when no packages is found during a scan.
@@ -359,7 +359,7 @@ func DoScan(actions ScannerActions, r *output.Reporter) (models.VulnerabilityRes
 	}
 
 	if len(query.Queries) == 0 {
-		if actions.OkEmpty {
+		if actions.AllowEmpty {
 			return models.VulnerabilityResults{}, nil
 		}
 

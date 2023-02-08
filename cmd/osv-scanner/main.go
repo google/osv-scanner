@@ -64,7 +64,10 @@ func run(args []string, stdout, stderr io.Writer) int {
 				Value:   "table",
 				Action: func(context *cli.Context, s string) error {
 					switch s {
-					case "table", "json", "markdown":
+					case
+						"table",
+						"json",
+						"markdown":
 						return nil
 					}
 
@@ -87,7 +90,7 @@ func run(args []string, stdout, stderr io.Writer) int {
 				Value:   false,
 			},
 			&cli.BoolFlag{
-				Name:  "ok-empty",
+				Name:  "allow-empty",
 				Usage: "does not return error if no packages have been found",
 			},
 		},
@@ -109,7 +112,7 @@ func run(args []string, stdout, stderr io.Writer) int {
 				SkipGit:              context.Bool("skip-git"),
 				ConfigOverridePath:   context.String("config"),
 				DirectoryPaths:       context.Args().Slice(),
-				OkEmpty:              context.Bool("ok-empty"),
+				AllowEmpty:           context.Bool("allow-empty"),
 			}, r)
 
 			if errPrint := r.PrintResult(&vulnResult); errPrint != nil {
