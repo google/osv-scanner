@@ -92,6 +92,12 @@ func run(args []string, stdout, stderr io.Writer) int {
 			&cli.BoolFlag{
 				Name:  "allow-empty",
 				Usage: "does not return error if no packages have been found",
+        Value: false,
+			},
+			&cli.BoolFlag{
+				Name:  "no-ignore",
+				Usage: "also scan files that would be ignored by .gitignore",
+				Value: false,
 			},
 		},
 		ArgsUsage: "[directory1 directory2...]",
@@ -110,6 +116,7 @@ func run(args []string, stdout, stderr io.Writer) int {
 				DockerContainerNames: context.StringSlice("docker"),
 				Recursive:            context.Bool("recursive"),
 				SkipGit:              context.Bool("skip-git"),
+				NoIgnore:             context.Bool("no-ignore"),
 				ConfigOverridePath:   context.String("config"),
 				DirectoryPaths:       context.Args().Slice(),
 				AllowEmpty:           context.Bool("allow-empty"),
