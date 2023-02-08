@@ -75,7 +75,7 @@ func scanDir(r *output.Reporter, query *osv.BatchedQuery, dir string, skipGit bo
 			match, err := ignoreMatcher.match(path, info.IsDir())
 			if err != nil {
 				r.PrintText(fmt.Sprintf("Failed to resolve gitignore for %s: %v", path, err))
-				// Don't skip if we can't parse know - potentially noisy for directories with lots of items
+				// Don't skip if we can't parse now - potentially noisy for directories with lots of items
 			} else if match {
 				if info.IsDir() {
 					return filepath.SkipDir
@@ -126,7 +126,6 @@ func parseGitIgnores(dir string) (*gitIgnoreMatcher, error) {
 	// We need to parse .gitignore files from the root of the git repo to correctly identify ignored files
 	// Defaults to current directory if dir is not in a repo or some other error
 	// TODO: Won't parse ignores if dir is not in a git repo, and is not under the current directory (e.g ../path/to)
-	// TODO: What is the desired behaviour for non git-repos?
 	fs := osfs.New(".")
 	if repo, err := git.PlainOpenWithOptions(dir, &git.PlainOpenOptions{DetectDotGit: true}); err == nil {
 		if tree, err := repo.Worktree(); err == nil {
