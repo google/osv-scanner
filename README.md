@@ -76,7 +76,7 @@ All releases on the same Major version will be guaranteed to have backward compa
 
 OSV-Scanner parses lockfiles, SBOMs, and git directories to determine your project's open source dependencies. These dependencies are matched against the OSV database via the [OSV.dev API](https://osv.dev#use-the-api) and known vulnerabilities are returned to you in the output.
 
-See the current stable release [README.md](https://github.com/google/osv-scanner/blob/last-stable/README.md) for details on how to use and configure OSV-Scanner, and what output to expect.
+See the current stable release [README.md](https://github.com/google/osv-scanner/blob/last-stable/README.md) for details on how to use and configure OSV-Scanner, and what output to expect. To see latest main branch usage, see [USAGE.md](./USAGE.md)
 
 ## Contribute
 
