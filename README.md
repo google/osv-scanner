@@ -14,69 +14,8 @@ The above all results in fewer, more actionable vulnerability notifications, whi
 
 [announcement blog post]: https://security.googleblog.com/2022/12/announcing-osv-scanner-vulnerability.html
 
-## Table of Contents
-
-- [OSV-Scanner](#osv-scanner)
-  - [Table of Contents](#table-of-contents)
-  - [Installing](#installing)
-    - [Package Managers](#package-managers)
-    - [Install from source](#install-from-source)
-    - [Build from source](#build-from-source)
-    - [SemVer Adherence](#semver-adherence)
-  - [Usage](#usage)
-  - [Contribute](#contribute)
-    - [Report Problems](#report-problems)
-    - [Contributing code to `osv-scanner`](#contributing-code-to-osv-scanner)
-  - [Stargazers over time](#stargazers-over-time)
-
-## Installing
-
-You may download the [SLSA3](https://slsa.dev) compliant binaries for Linux, macOS, and Windows from our [releases page](https://github.com/google/osv-scanner/releases).
-
-### Package Managers
-
-[![Packaging status](https://repology.org/badge/vertical-allrepos/osv-scanner.svg)](https://repology.org/project/osv-scanner/versions)
-
-If you're a [**Windows Scoop**](https://scoop.sh) user, then you can install osv-scanner from the [official bucket](https://github.com/ScoopInstaller/Main/blob/master/bucket/osv-scanner.json):
-
-```console
-scoop install osv-scanner
-```
-
-If you're a [Homebrew](https://brew.sh/) user, you can install [osv-scanner](https://formulae.brew.sh/formula/osv-scanner) via:
-
-```console
-brew install osv-scanner
-```
-
-If you're a Arch Linux User, you can install osv-scanner from the official repo:
-```
-pacman -S osv-scanner
-```
-
-### Install from source
-
-Alternatively, you can install this from source by running:
-
-```console
-go install github.com/google/osv-scanner/cmd/osv-scanner@v1
-```
-
-This requires Go 1.18+ to be installed.
-
-### Build from source
-
-See [CONTRIBUTING.md](CONTRIBUTING.md) file.
-
-### SemVer Adherence
-
-All releases on the same Major version will be guaranteed to have backward compatible JSON output and CLI arguments.
-
-## Usage
-
-OSV-Scanner parses lockfiles, SBOMs, and git directories to determine your project's open source dependencies. These dependencies are matched against the OSV database via the [OSV.dev API](https://osv.dev#use-the-api) and known vulnerabilities are returned to you in the output.
-
-See the current stable release [README.md](https://github.com/google/osv-scanner/blob/last-stable/README.md) for details on how to use and configure OSV-Scanner, and what output to expect. To see latest main branch usage, see [USAGE.md](./USAGE.md).
+## Documentation
+Read our [detailed documentation](https://google.github.io/osv-scanner) to learn how to use OSV-Scanner.
 
 ## Contribute
 
