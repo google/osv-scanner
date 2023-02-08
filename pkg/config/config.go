@@ -6,7 +6,7 @@ import (
 	"path/filepath"
 	"time"
 
-	"github.com/google/osv-scanner/internal/output"
+	"github.com/google/osv-scanner/pkg/output"
 
 	"github.com/BurntSushi/toml"
 	"golang.org/x/exp/slices"
