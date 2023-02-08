@@ -2,7 +2,6 @@ package osvscanner
 
 import (
 	"bufio"
-	"bytes"
 	"errors"
 	"fmt"
 	"os"
@@ -16,6 +15,10 @@ import (
 	"github.com/google/osv-scanner/pkg/lockfile"
 	"github.com/google/osv-scanner/pkg/models"
 	"github.com/google/osv-scanner/pkg/osv"
+
+	"github.com/go-git/go-billy/v5/osfs"
+	"github.com/go-git/go-git/v5"
+	"github.com/go-git/go-git/v5/plumbing/format/gitignore"
 )
 
 type ScannerActions struct {
@@ -25,6 +28,7 @@ type ScannerActions struct {
 	GitCommits           []string
 	Recursive            bool
 	SkipGit              bool
+	NoIgnore             bool
 	DockerContainerNames []string
 	ConfigOverridePath   string
 }
@@ -42,17 +46,43 @@ var VulnerabilitiesFoundErr = errors.New("vulnerabilities found")
 //   - Any lockfiles with scanLockfile
 //   - Any SBOM files with scanSBOMFile
 //   - Any git repositories with scanGit
-func scanDir(r *output.Reporter, query *osv.BatchedQuery, dir string, skipGit bool, recursive bool) error {
+func scanDir(r *output.Reporter, query *osv.BatchedQuery, dir string, skipGit bool, recursive bool, useGitIgnore bool) error {
+	var ignoreMatcher *gitIgnoreMatcher
+	if useGitIgnore {
+		var err error
+		ignoreMatcher, err = parseGitIgnores(dir)
+		if err != nil {
+			r.PrintError(fmt.Sprintf("Unable to parse git ignores: %v", err))
+			useGitIgnore = false
+		}
+	}
+
 	root := true
+
 	return filepath.WalkDir(dir, func(path string, info os.DirEntry, err error) error {
 		if err != nil {
 			r.PrintText(fmt.Sprintf("Failed to walk %s: %v\n", path, err))
 			return err
 		}
+
 		path, err = filepath.Abs(path)
 		if err != nil {
 			r.PrintError(fmt.Sprintf("Failed to walk path %s\n", err))
 			return err
+		}
+
+		if useGitIgnore {
+			match, err := ignoreMatcher.match(path, info.IsDir())
+			if err != nil {
+				r.PrintText(fmt.Sprintf("Failed to resolve gitignore for %s: %v", path, err))
+				// Don't skip if we can't parse now - potentially noisy for directories with lots of items
+			} else if match {
+				if info.IsDir() {
+					return filepath.SkipDir
+				}
+
+				return nil
+			}
 		}
 
 		if !skipGit && info.IsDir() && info.Name() == ".git" {
@@ -85,6 +115,48 @@ func scanDir(r *output.Reporter, query *osv.BatchedQuery, dir string, skipGit bo
 
 		return nil
 	})
+}
+
+type gitIgnoreMatcher struct {
+	matcher  gitignore.Matcher
+	repoPath string
+}
+
+func parseGitIgnores(dir string) (*gitIgnoreMatcher, error) {
+	// We need to parse .gitignore files from the root of the git repo to correctly identify ignored files
+	// Defaults to current directory if dir is not in a repo or some other error
+	// TODO: Won't parse ignores if dir is not in a git repo, and is not under the current directory (e.g ../path/to)
+	fs := osfs.New(".")
+	if repo, err := git.PlainOpenWithOptions(dir, &git.PlainOpenOptions{DetectDotGit: true}); err == nil {
+		if tree, err := repo.Worktree(); err == nil {
+			fs = tree.Filesystem
+		}
+	}
+
+	patterns, err := gitignore.ReadPatterns(fs, []string{"."})
+	if err != nil {
+		return nil, err
+	}
+	matcher := gitignore.NewMatcher(patterns)
+	path, err := filepath.Abs(fs.Root())
+	if err != nil {
+		return nil, err
+	}
+
+	return &gitIgnoreMatcher{matcher: matcher, repoPath: path}, nil
+}
+
+// gitIgnoreMatcher.match will return true if the file/directory matches a gitignore entry
+// i.e. true if it should be ignored
+func (m *gitIgnoreMatcher) match(absPath string, isDir bool) (bool, error) {
+	pathInGit, err := filepath.Rel(m.repoPath, absPath)
+	if err != nil {
+		return false, err
+	}
+	// must prepend "." to paths because of how gitignore.ReadPatterns interprets paths
+	pathInGitSep := append([]string{"."}, strings.Split(pathInGit, string(filepath.Separator))...)
+
+	return m.matcher.Match(pathInGitSep, isDir), nil
 }
 
 // scanLockfile will load, identify, and parse the lockfile path passed in, and add the dependencies specified
@@ -171,22 +243,16 @@ func scanSBOMFile(r *output.Reporter, query *osv.BatchedQuery, path string) erro
 }
 
 func getCommitSHA(repoDir string) (string, error) {
-	cmd := exec.Command("git", "-C", repoDir, "rev-parse", "HEAD")
-	var out bytes.Buffer
-	cmd.Stdout = &out
-
-	err := cmd.Run()
-
+	repo, err := git.PlainOpen(repoDir)
 	if err != nil {
-		var exitErr *exec.ExitError
-		if errors.As(err, &exitErr) && exitErr.ExitCode() == 128 {
-			return "", fmt.Errorf("failed to get commit hash, no commits exist? %w", exitErr)
-		}
-
-		return "", fmt.Errorf("failed to get commit hash: %w", err)
+		return "", err
+	}
+	head, err := repo.Head()
+	if err != nil {
+		return "", err
 	}
 
-	return strings.TrimSpace(out.String()), nil
+	return head.Hash().String(), nil
 }
 
 // Scan git repository. Expects repoDir to end with /
@@ -353,7 +419,7 @@ func DoScan(actions ScannerActions, r *output.Reporter) (models.VulnerabilityRes
 
 	for _, dir := range actions.DirectoryPaths {
 		r.PrintText(fmt.Sprintf("Scanning dir %s\n", dir))
-		err := scanDir(r, &query, dir, actions.SkipGit, actions.Recursive)
+		err := scanDir(r, &query, dir, actions.SkipGit, actions.Recursive, !actions.NoIgnore)
 		if err != nil {
 			return models.VulnerabilityResults{}, err
 		}
