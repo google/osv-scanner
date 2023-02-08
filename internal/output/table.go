@@ -80,9 +80,9 @@ func tableBuilder(outputTable table.Writer, vulnResult *models.VulnerabilityResu
 			}
 		}
 	}
-	outputTable.AppendSeparator()
-	outputTable.AppendRow(table.Row{"Inactive vulnerabilities"})
-	outputTable.AppendSeparator()
+	// outputTable.AppendSeparator()
+	// outputTable.AppendRow(table.Row{"Inactive vulnerabilities"})
+	// outputTable.AppendSeparator()
 
 	return outputTable
 }
