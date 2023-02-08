@@ -6,8 +6,8 @@ To run docs locally, you will need [Jekyll](https://jekyllrb.com/docs/installati
 
 Here are other [pre-requisites] to running the [docs locally].
 
-[pre-requisites]:((https://docs.github.com/en/pages/setting-up-a-github-pages-site-with-jekyll/testing-your-github-pages-site-locally-with-jekyll#prerequisites))
-[docs locally]: ((https://docs.github.com/en/pages/setting-up-a-github-pages-site-with-jekyll/testing-your-github-pages-site-locally-with-jekyll#building-your-site-locally))
+[pre-requisites]: https://docs.github.com/en/pages/setting-up-a-github-pages-site-with-jekyll/testing-your-github-pages-site-locally-with-jekyll#prerequisites
+[docs locally]: https://docs.github.com/en/pages/setting-up-a-github-pages-site-with-jekyll/testing-your-github-pages-site-locally-with-jekyll#building-your-site-locally
 
 ## Contributing to the docs
 Documentation contributions are welcome!
