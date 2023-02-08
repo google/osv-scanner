@@ -194,6 +194,36 @@ func TestRun(t *testing.T) {
 			`,
 			wantStderr: "",
 		},
+		// .gitignored files
+		{
+			name:         "",
+			args:         []string{"", "--recursive", "./fixtures/locks-gitignore"},
+			wantExitCode: 0,
+			wantStdout: `
+				Scanning dir ./fixtures/locks-gitignore
+				Scanned %%/fixtures/locks-gitignore/Gemfile.lock file and found 1 packages
+				Scanned %%/fixtures/locks-gitignore/subdir/yarn.lock file and found 1 packages
+			`,
+			wantStderr: "",
+		},
+		// ignoring .gitignore
+		{
+			name:         "",
+			args:         []string{"", "--recursive", "--no-ignore", "./fixtures/locks-gitignore"},
+			wantExitCode: 0,
+			wantStdout: `
+				Scanning dir ./fixtures/locks-gitignore
+				Scanned %%/fixtures/locks-gitignore/Gemfile.lock file and found 1 packages
+				Scanned %%/fixtures/locks-gitignore/composer.lock file and found 1 packages
+				Scanned %%/fixtures/locks-gitignore/ignored/Gemfile.lock file and found 1 packages
+				Scanned %%/fixtures/locks-gitignore/ignored/yarn.lock file and found 1 packages
+				Scanned %%/fixtures/locks-gitignore/subdir/Gemfile.lock file and found 1 packages
+				Scanned %%/fixtures/locks-gitignore/subdir/composer.lock file and found 1 packages
+				Scanned %%/fixtures/locks-gitignore/subdir/yarn.lock file and found 1 packages
+				Scanned %%/fixtures/locks-gitignore/yarn.lock file and found 1 packages
+			`,
+			wantStderr: "",
+		},
 		// output with json
 		{
 			name:         "",
@@ -242,11 +272,11 @@ func TestRun(t *testing.T) {
 			wantStdout: `
 				Scanning dir ./fixtures/locks-many/composer.lock
 				Scanned %%/fixtures/locks-many/composer.lock file and found 1 packages
-				╭───────────┬────────────┬─────────┬───────────────────────────────────╮
-				│ ECOSYSTEM │ PACKAGE    │ VERSION │ SOURCE                            │
-				├───────────┼────────────┼─────────┼───────────────────────────────────┤
-				│ Packagist │ sentry/sdk │ 2.0.4   │ fixtures/locks-many/composer.lock │
-				╰───────────┴────────────┴─────────┴───────────────────────────────────╯
+				+----------------------+-----------+------------+---------+-----------------------------------+
+				| OSV URL (ID IN BOLD) | ECOSYSTEM | PACKAGE    | VERSION | SOURCE                            |
+				+----------------------+-----------+------------+---------+-----------------------------------+
+				| Offline              | Packagist | sentry/sdk | 2.0.4   | fixtures/locks-many/composer.lock |
+				+----------------------+-----------+------------+---------+-----------------------------------+
 			`,
 			wantStderr: "",
 		},
@@ -260,43 +290,13 @@ func TestRun(t *testing.T) {
 				Scanned %%/fixtures/locks-many/Gemfile.lock file and found 1 packages
 				Scanned %%/fixtures/locks-many/composer.lock file and found 1 packages
 				Scanned %%/fixtures/locks-many/yarn.lock file and found 1 packages
-				╭───────────┬────────────────┬─────────┬───────────────────────────────────╮
-				│ ECOSYSTEM │ PACKAGE        │ VERSION │ SOURCE                            │
-				├───────────┼────────────────┼─────────┼───────────────────────────────────┤
-				│ npm       │ balanced-match │ 1.0.2   │ fixtures/locks-many/yarn.lock     │
-				│ RubyGems  │ ast            │ 2.4.2   │ fixtures/locks-many/Gemfile.lock  │
-				│ Packagist │ sentry/sdk     │ 2.0.4   │ fixtures/locks-many/composer.lock │
-				╰───────────┴────────────────┴─────────┴───────────────────────────────────╯
-			`,
-			wantStderr: "",
-		},
-		// parse-only with json format
-		{
-			name:         "",
-			args:         []string{"", "-f", "json", "--parse-only", "./fixtures/locks-many/composer.lock"},
-			wantExitCode: 0,
-			wantStdout: `
-				{
-				"results": [
-					{
-					"source": {
-						"path": "%%/fixtures/locks-many/composer.lockk",
-						"type": "lockfile"
-					},
-					"packages": [
-						{
-						"package": {
-							"name": "sentry/sdk",
-							"version": "2.0.4",
-							"ecosystem": "Packagist"
-						},
-						"vulnerabilities": null,
-						"groups": []
-						}
-					]
-					}
-				]
-				}
+				+----------------------+-----------+----------------+---------+-----------------------------------+
+				| OSV URL (ID IN BOLD) | ECOSYSTEM | PACKAGE        | VERSION | SOURCE                            |
+				+----------------------+-----------+----------------+---------+-----------------------------------+
+				| Offline              | RubyGems  | ast            | 2.4.2   | fixtures/locks-many/Gemfile.lock  |
+				| Offline              | Packagist | sentry/sdk     | 2.0.4   | fixtures/locks-many/composer.lock |
+				| Offline              | npm       | balanced-match | 1.0.2   | fixtures/locks-many/yarn.lock     |
+				+----------------------+-----------+----------------+---------+-----------------------------------+
 			`,
 			wantStderr: "",
 		},
@@ -308,9 +308,34 @@ func TestRun(t *testing.T) {
 			wantStdout: `
 				Scanning dir ./fixtures/locks-many/composer.lock
 				Scanned %%/fixtures/locks-many/composer.lock file and found 1 packages
-				| Ecosystem | Package | Version | Source |
-				| --- | --- | --- | --- |
-				| Packagist | sentry/sdk | 2.0.4 | fixtures/locks-many/composer.lock |
+				| OSV URL | Ecosystem | Package | Version | Source |
+				| --- | --- | --- | --- | --- |
+				| Offline | Packagist | sentry/sdk | 2.0.4 | fixtures/locks-many/composer.lock |
+			`,
+			wantStderr: "",
+		},
+		// parse-only with sbom format
+		{
+			name:         "",
+			args:         []string{"", "-f", "sbom", "--parse-only", "./fixtures/locks-many/composer.lock"},
+			wantExitCode: 0,
+			wantStdout: `
+				Scanning dir ./fixtures/locks-many/composer.lock
+				Scanned %%/fixtures/locks-many/composer.lock file and found 1 packages
+				{
+					"bomFormat": "CycloneDX",
+					"specVersion": "1.4",
+					"version": 1,
+					"components": [
+						{
+							"bom-ref": "pkg:composer/sentry/sdk@2.0.4",
+							"type": "library",
+							"name": "sentry/sdk",
+							"version": "2.0.4",
+							"purl": "pkg:composer/sentry/sdk@2.0.4"
+						}
+					]
+				}
 			`,
 			wantStderr: "",
 		},

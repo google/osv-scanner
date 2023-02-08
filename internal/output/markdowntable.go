@@ -9,26 +9,13 @@ import (
 )
 
 // PrintTableResults prints the osv scan results into a human friendly table.
-func PrintMarkdownTableResults(vulnResult *models.VulnerabilityResults, outputWriter io.Writer) {
+func PrintMarkdownTableResults(vulnResult *models.VulnerabilityResults, outputWriter io.Writer, parseOnly bool) {
 	outputTable := table.NewWriter()
 	outputTable.SetOutputMirror(outputWriter)
+
 	outputTable.AppendHeader(table.Row{"OSV URL", "Ecosystem", "Package", "Version", "Source"})
 
-	outputTable = tableBuilder(outputTable, vulnResult, false)
-
-	if outputTable.Length() == 0 {
-		return
-	}
-	outputTable.RenderMarkdown()
-}
-
-// PrintTableResults prints the osv scan results into a human friendly table.
-func PrintMarkdownTableParseOnlyResults(vulnResult *models.VulnerabilityResults, outputWriter io.Writer) {
-	outputTable := table.NewWriter()
-	outputTable.SetOutputMirror(outputWriter)
-	outputTable.AppendHeader(table.Row{"Ecosystem", "Package", "Version", "Source"})
-
-	outputTable = tableBuilderForParseOnly(outputTable, vulnResult, false)
+	outputTable = tableBuilder(outputTable, vulnResult, false, parseOnly)
 
 	if outputTable.Length() == 0 {
 		return

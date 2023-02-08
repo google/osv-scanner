@@ -67,7 +67,8 @@ func run(args []string, stdout, stderr io.Writer) int {
 					case
 						"table",
 						"json",
-						"markdown":
+						"markdown",
+						"sbom":
 						return nil
 					}
 
@@ -90,8 +91,13 @@ func run(args []string, stdout, stderr io.Writer) int {
 				Value:   false,
 			},
 			&cli.BoolFlag{
+				Name:  "no-ignore",
+				Usage: "also scan files that would be ignored by .gitignore",
+				Value: false,
+			},
+			&cli.BoolFlag{
 				Name:  "parse-only",
-				Usage: "get result as of parsed lockfiles without OSV API request",
+				Usage: "parse lockfiles in offline",
 				Value: false,
 			},
 		},
@@ -111,6 +117,7 @@ func run(args []string, stdout, stderr io.Writer) int {
 				DockerContainerNames: context.StringSlice("docker"),
 				Recursive:            context.Bool("recursive"),
 				SkipGit:              context.Bool("skip-git"),
+				NoIgnore:             context.Bool("no-ignore"),
 				ConfigOverridePath:   context.String("config"),
 				DirectoryPaths:       context.Args().Slice(),
 				ParseOnly:            context.Bool("parse-only"),
@@ -120,6 +127,7 @@ func run(args []string, stdout, stderr io.Writer) int {
 				return fmt.Errorf("failed to write output: %w", errPrint)
 			}
 			//nolint:wrapcheck
+
 			return err
 		},
 	}

@@ -68,17 +68,9 @@ func (r *Reporter) PrintResult(vulnResult *models.VulnerabilityResults) error {
 	case "json":
 		return PrintJSONResults(vulnResult, r.stdout)
 	case "markdown":
-		if r.parseOnly {
-			PrintMarkdownTableParseOnlyResults(vulnResult, r.stdout)
-		} else {
-			PrintMarkdownTableResults(vulnResult, r.stdout)
-		}
+		PrintMarkdownTableResults(vulnResult, r.stdout, r.parseOnly)
 	case "table":
-		if r.parseOnly {
-			PrintTableParseOnlyResults(vulnResult, r.stdout)
-		} else {
-			PrintTableResults(vulnResult, r.stdout)
-		}
+		PrintTableResults(vulnResult, r.stdout, r.parseOnly)
 	}
 
 	return nil
