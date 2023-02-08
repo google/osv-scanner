@@ -194,6 +194,36 @@ func TestRun(t *testing.T) {
 			`,
 			wantStderr: "",
 		},
+		// .gitignored files
+		{
+			name:         "",
+			args:         []string{"", "--recursive", "./fixtures/locks-gitignore"},
+			wantExitCode: 0,
+			wantStdout: `
+				Scanning dir ./fixtures/locks-gitignore
+				Scanned %%/fixtures/locks-gitignore/Gemfile.lock file and found 1 packages
+				Scanned %%/fixtures/locks-gitignore/subdir/yarn.lock file and found 1 packages
+			`,
+			wantStderr: "",
+		},
+		// ignoring .gitignore
+		{
+			name:         "",
+			args:         []string{"", "--recursive", "--no-ignore", "./fixtures/locks-gitignore"},
+			wantExitCode: 0,
+			wantStdout: `
+				Scanning dir ./fixtures/locks-gitignore
+				Scanned %%/fixtures/locks-gitignore/Gemfile.lock file and found 1 packages
+				Scanned %%/fixtures/locks-gitignore/composer.lock file and found 1 packages
+				Scanned %%/fixtures/locks-gitignore/ignored/Gemfile.lock file and found 1 packages
+				Scanned %%/fixtures/locks-gitignore/ignored/yarn.lock file and found 1 packages
+				Scanned %%/fixtures/locks-gitignore/subdir/Gemfile.lock file and found 1 packages
+				Scanned %%/fixtures/locks-gitignore/subdir/composer.lock file and found 1 packages
+				Scanned %%/fixtures/locks-gitignore/subdir/yarn.lock file and found 1 packages
+				Scanned %%/fixtures/locks-gitignore/yarn.lock file and found 1 packages
+			`,
+			wantStderr: "",
+		},
 		// output with json
 		{
 			name:         "",
