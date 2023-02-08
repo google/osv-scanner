@@ -42,7 +42,7 @@ This requires Go 1.18+ to be installed.
 
 ### Build from source
 
-See [CONTRIBUTING.md](CONTRIBUTING.md) file.
+See [CONTRIBUTING.md](https://github.com/google/osv-scanner/blob/last-stable/README.md) file.
 
 ### SemVer Adherence
 
