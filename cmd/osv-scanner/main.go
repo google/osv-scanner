@@ -90,6 +90,11 @@ func run(args []string, stdout, stderr io.Writer) int {
 				Value:   false,
 			},
 			&cli.BoolFlag{
+				Name:  "call-analysis",
+				Usage: "attempt call analysis on code to detect only active vulnerabilities",
+				Value: false,
+			},
+			&cli.BoolFlag{
 				Name:  "no-ignore",
 				Usage: "also scan files that would be ignored by .gitignore",
 				Value: false,
@@ -106,14 +111,15 @@ func run(args []string, stdout, stderr io.Writer) int {
 			r = output.NewReporter(stdout, stderr, format)
 
 			vulnResult, err := osvscanner.DoScan(osvscanner.ScannerActions{
-				LockfilePaths:        context.StringSlice("lockfile"),
-				SBOMPaths:            context.StringSlice("sbom"),
-				DockerContainerNames: context.StringSlice("docker"),
-				Recursive:            context.Bool("recursive"),
-				SkipGit:              context.Bool("skip-git"),
-				NoIgnore:             context.Bool("no-ignore"),
-				ConfigOverridePath:   context.String("config"),
-				DirectoryPaths:       context.Args().Slice(),
+				LockfilePaths:             context.StringSlice("lockfile"),
+				SBOMPaths:                 context.StringSlice("sbom"),
+				DockerContainerNames:      context.StringSlice("docker"),
+				Recursive:                 context.Bool("recursive"),
+				SkipGit:                   context.Bool("skip-git"),
+				NoIgnore:                  context.Bool("no-ignore"),
+				ConfigOverridePath:        context.String("config"),
+				DirectoryPaths:            context.Args().Slice(),
+				Experimental_CallAnalysis: context.Bool("call-analysis"),
 			}, r)
 
 			if errPrint := r.PrintResult(&vulnResult); errPrint != nil {

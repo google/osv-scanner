@@ -31,6 +31,8 @@ type ScannerActions struct {
 	NoIgnore             bool
 	DockerContainerNames []string
 	ConfigOverridePath   string
+
+	Experimental_CallAnalysis bool
 }
 
 // NoPackagesFoundErr for when no packages is found during a scan.
@@ -443,7 +445,7 @@ func DoScan(actions ScannerActions, r *output.Reporter) (models.VulnerabilityRes
 		return models.VulnerabilityResults{}, fmt.Errorf("failed to hydrate OSV response: %w", err)
 	}
 
-	vulnerabilityResults := groupResponseBySource(r, query, hydratedResp)
+	vulnerabilityResults := groupResponseBySource(r, query, hydratedResp, actions.Experimental_CallAnalysis)
 	// if vulnerability exists it should return error
 	if len(vulnerabilityResults.Results) > 0 {
 		return vulnerabilityResults, VulnerabilitiesFoundErr
