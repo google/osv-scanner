@@ -1,7 +1,7 @@
 # README
 The [OSV-Scanner docs](https://google.github.io/osv-scanner) are hosted on a [GitHub page](https://pages.github.com/). 
 
-Changes in documentation, new features, etc. are added to the [working folder](./working/). Docs in the working folder do not represent the current release of OSV-Scanner.  
+Changes in documentation, new features, etc. are added to the [working folder](working_docs/). Docs in the working folder do not represent the current release of OSV-Scanner.  
 
 ## Running docs locally
 To run docs locally, you will need [Jekyll](https://jekyllrb.com/docs/installation/) on your machine. 
