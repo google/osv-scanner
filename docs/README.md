@@ -14,7 +14,7 @@ Here are other [pre-requisites] and instructions for running the [docs locally].
 ## Contributing to the docs
 Documentation contributions are welcome!
 
-Contributors should make changes to the documentation in [working docs](working_docs/). 
+Contributors should make changes to the documentation in [working docs](working_docs/).
 
 See [CONTRIBUTING.md](../CONTRIBUTING.md) for contribution guidelines. 
 

@@ -2,7 +2,7 @@
 layout: page
 title: Output
 permalink: /output/
-nav_order: 4
+nav_order: 5
 ---
 ## JSON output
 By default osv-scanner outputs a human readable table. To have osv-scanner output JSON instead, pass the `--json` flag when calling osv-scanner.

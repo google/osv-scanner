@@ -2,7 +2,7 @@
 layout: page
 title: Usage
 permalink: /usage/
-nav_order: 2
+nav_order: 3
 ---
 OSV-Scanner collects a list of dependencies and versions that are used in your project, before matching this list against the OSV database via the [OSV.dev API](https://osv.dev#use-the-api). To build the list of dependencies, you can point OSV-Scanner at your project directory, or manually pass in the path to individual manifest files.
 
