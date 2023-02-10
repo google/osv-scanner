@@ -7,8 +7,8 @@ nav_order: 5
 ## Contribute
 
 ### Report Problems
-If you have what looks like a bug, please use the [Github issue tracking system](https://github.com/google/osv-scanner/issues). Before you file an issue, please search existing issues to see if your issue is already covered.
+If you have what looks like a bug, please use the [Github issue tracking system](https://github.com/ossf/scorecard/issues). Before you file an issue, please search existing issues to see if your issue is already covered.
 
 ### Contributing code to `osv-scanner`
 
-See [CONTRIBUTING.md](https://github.com/google/osv-scanner/blob/last-stable/README.md) for documentation on how to contribute code.
+See [CONTRIBUTING.md](CONTRIBUTING.md) for documentation on how to contribute code.

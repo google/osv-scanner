@@ -5,7 +5,7 @@ permalink: /installation/
 nav_order: 1
 ---
 
-## Installation
+## Installing
 
 You may download the [SLSA3](https://slsa.dev) compliant binaries for Linux, macOS, and Windows from our [releases page](https://github.com/google/osv-scanner/releases).
 
@@ -42,7 +42,7 @@ This requires Go 1.18+ to be installed.
 
 ### Build from source
 
-See [CONTRIBUTING.md](https://github.com/google/osv-scanner/blob/last-stable/README.md) file.
+See [CONTRIBUTING.md](CONTRIBUTING.md) file.
 
 ### SemVer Adherence
 

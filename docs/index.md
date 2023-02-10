@@ -4,6 +4,8 @@
 
 layout: home
 ---
+# OSV-Scanner
+
 [![OpenSSF Scorecard](https://api.securityscorecards.dev/projects/github.com/google/osv-scanner/badge)](https://api.securityscorecards.dev/projects/github.com/google/osv-scanner)
 
 Use OSV-Scanner to find existing vulnerabilities affecting your project's dependencies.
