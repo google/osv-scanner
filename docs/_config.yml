@@ -49,6 +49,21 @@ callouts:
     title: Warning
     color: red
 
+aux_links:
+  "OSV-Scanner on GitHub":
+    - https://github.com/google/osv-scanner
+
+nav_external_links:
+  - title: OSV.dev
+    url: https://osv.dev
+    hide_icon: false # set to true to hide the external link icon - defaults to false
+  - title: API docs
+    url: https://osv.dev/docs
+    hide_icon: false # set to true to hide the external link icon - defaults to false
+  - title: OSV Schema
+    url: https://ossf.github.io/osv-schema/
+    hide_icon: false # set to true to hide the external link icon - defaults to false
+
 # Exclude from processing.
 # The following items will not be processed, by default.
 # Any item listed under the `exclude:` key here will be automatically added to
