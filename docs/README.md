@@ -19,5 +19,5 @@ Contributors should make changes to the documentation in [working docs](working_
 See [CONTRIBUTING.md](../CONTRIBUTING.md) for contribution guidelines. 
 
 ## Documentation theme
-We are using the [just the docs](https://just-the-docs.github.io/just-the-docs/)
+We are using the [Just the Docs](https://just-the-docs.github.io/just-the-docs/)
 theme.
