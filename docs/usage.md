@@ -2,7 +2,7 @@
 layout: page
 title: Usage
 permalink: /usage/
-nav_order: 32
+nav_order: 2
 ---
 ## Usage
 
