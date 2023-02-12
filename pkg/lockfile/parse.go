@@ -10,6 +10,7 @@ import (
 
 // Represents when a package name could not be determined while parsing.
 // Currently, parsers are expected to omit such packages from their results.
+// Using a const is required to avoid linter error (goconst) due to multiple usage in parsers.
 const unknownPkgName = "<unknown>"
 
 func FindParser(pathToLockfile string, parseAs string) (PackageDetailsParser, string) {

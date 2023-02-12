@@ -1,0 +1,20 @@
+Depends: libc6 (>= 2.14), libdevmapper-event1.02.1 (>= 2:1.02.110), libdevmapper1.02.1 (>= 2:1.02.141), liblvm2cmd2.02 (>= 2.02.176)
+Architecture: amd64
+ volume management, while keeping knowledge of the underlying device layout
+Section: admin
+Version: 2:1.02.145-4.1ubuntu3
+Original-Maintainer: redacted <redacted@redacted.com>
+ in user-space.  This makes it useful for not only LVM, but software raid,
+ .
+ The Linux Kernel Device Mapper is the LVM (Linux Logical Volume Management)
+Source: lvm2 (2.02.176-4.1ubuntu3)
+Description: Linux Kernel Device Mapper event daemon
+Maintainer: redacted <redacted@redacted.com>
+Status: install ok installed
+Homepage: http://sources.redhat.com/lvm2/
+Package: dmeventd
+Installed-Size: 188
+ This package contains a daemon to monitor events of devmapper devices.
+Priority: optional
+ and other drivers that create "virtual" block devices.
+ Team's implementation of a minimalistic kernel-space driver that handles

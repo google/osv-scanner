@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"fmt"
 	"os"
+	"regexp"
 	"strings"
 )
 
@@ -34,21 +35,72 @@ func groupDpkgPackageLines(scanner *bufio.Scanner) [][]string {
 	return groups
 }
 
+// Return name and version if "Source" field contains them
+func parseSourceField(source string) (string, string) {
+	// Pattern: name (version)
+	re := regexp.MustCompile(`^(.*)\((.*)\)`)
+	matches := re.FindStringSubmatch(source)
+	if len(matches) == 3 {
+		return strings.TrimSpace(matches[1]), strings.TrimSpace(matches[2])
+	}
+	// If it not matches the pattern "name (version)", it is only "name"
+	return strings.TrimSpace(source), ""
+}
+
 func parseDpkgPackageGroup(group []string, pathToLockfile string) PackageDetails {
 	var pkg = PackageDetails{
 		Ecosystem: DebianEcosystem,
 		CompareAs: DebianEcosystem,
 	}
 
-	// TODO File SPECS:
+	sourcePresent := false
+	sourceHasVersion := false
 	for _, line := range group {
 		switch {
-		case strings.HasPrefix(line, "Package:"):
-			pkg.Name = strings.TrimPrefix(line, "Package:")
-			pkg.Name = strings.TrimSpace(pkg.Name)
+		// Status field SPECS: http://www.fifi.org/doc/libapt-pkg-doc/dpkg-tech.html/ch1.html#s1.2
+		case strings.HasPrefix(line, "Status:"):
+			status := strings.TrimPrefix(line, "Status:")
+			tokens := strings.Fields(status)
+			// Staus field is malformed. Expected: "Status: Want Flag Status"
+			if len(tokens) != 3 {
+				_, _ = fmt.Fprintf(
+					os.Stderr,
+					"warning: malformed DPKG status file. Found no valid \"Source\" field. File: %s\n",
+					pathToLockfile,
+				)
+
+				return PackageDetails{}
+			}
+			// Status field has correct number of fields but package is not installed or has only config files left
+			// various other field values indicate partial install/uninstall (e.g. failure of some pre/post install scripts)
+			// since it's not clear if failure has left package active on system, cautiously add it to queries to osv.dev
+			if tokens[2] == "not-installed" || tokens[2] == "config-files" {
+				return PackageDetails{}
+			}
+
+		case strings.HasPrefix(line, "Source:"):
+			sourcePresent = true
+			source := strings.TrimPrefix(line, "Source:")
+			name, version := parseSourceField(source)
+			pkg.Name = name // can be ""
+			if version != "" {
+				sourceHasVersion = true
+				pkg.Version = version
+			}
+
+		// If Source fieald has no version, use Version field
 		case strings.HasPrefix(line, "Version:"):
-			pkg.Version = strings.TrimPrefix(line, "Version:")
-			pkg.Version = strings.TrimSpace(pkg.Version)
+			if !sourceHasVersion {
+				pkg.Version = strings.TrimPrefix(line, "Version:")
+				pkg.Version = strings.TrimSpace(pkg.Version)
+			}
+
+		// Some packages have no Source field (e.g. sudo) so we use Package value
+		case strings.HasPrefix(line, "Package:"):
+			if !sourcePresent {
+				pkg.Name = strings.TrimPrefix(line, "Package:")
+				pkg.Name = strings.TrimSpace(pkg.Name)
+			}
 		}
 	}
 
@@ -83,6 +135,12 @@ func ParseDpkgStatus(pathToLockfile string) ([]PackageDetails, error) {
 
 	for _, group := range packageGroups {
 		pkg := parseDpkgPackageGroup(group, pathToLockfile)
+
+		// PackageDetails does not contain any field that represent a "not installed" state
+		// To manage this state and avoid false positives, empty struct means "not installed" so skip it
+		if (PackageDetails{}) == pkg {
+			continue
+		}
 
 		if pkg.Name == "" {
 			_, _ = fmt.Fprintf(

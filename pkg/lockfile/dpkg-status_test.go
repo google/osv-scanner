@@ -55,6 +55,12 @@ func TestDpkgStatus_Malformed(t *testing.T) {
 			Ecosystem: lockfile.DebianEcosystem,
 			CompareAs: lockfile.DebianEcosystem,
 		},
+		{
+			Name:      "util-linux",
+			Version:   "2.36.1-8+deb11u1",
+			Ecosystem: lockfile.DebianEcosystem,
+			CompareAs: lockfile.DebianEcosystem,
+		},
 	})
 }
 
@@ -88,7 +94,7 @@ func TestDpkgStatus_Shuffled(t *testing.T) {
 
 	expectPackages(t, packages, []lockfile.PackageDetails{
 		{
-			Name:      "libc6",
+			Name:      "glibc",
 			Version:   "2.31-13+deb11u5",
 			Ecosystem: lockfile.DebianEcosystem,
 			CompareAs: lockfile.DebianEcosystem,
@@ -113,14 +119,33 @@ func TestDpkgStatus_Multiple(t *testing.T) {
 			CompareAs: lockfile.DebianEcosystem,
 		},
 		{
-			Name:      "bsdutils",
-			Version:   "1:2.36.1-8+deb11u1",
+			Name:      "util-linux",
+			Version:   "2.36.1-8+deb11u1",
 			Ecosystem: lockfile.DebianEcosystem,
 			CompareAs: lockfile.DebianEcosystem,
 		},
 		{
-			Name:      "libc6",
+			Name:      "glibc",
 			Version:   "2.31-13+deb11u5",
+			Ecosystem: lockfile.DebianEcosystem,
+			CompareAs: lockfile.DebianEcosystem,
+		},
+	})
+}
+
+func TestDpkgStatus_Source_Ver_Override(t *testing.T) {
+	t.Parallel()
+
+	packages, err := lockfile.ParseDpkgStatus("fixtures/dpkg/source_ver_override_status")
+
+	if err != nil {
+		t.Errorf("Got unexpected error: %v", err)
+	}
+
+	expectPackages(t, packages, []lockfile.PackageDetails{
+		{
+			Name:      "lvm2",
+			Version:   "2.02.176-4.1ubuntu3",
 			Ecosystem: lockfile.DebianEcosystem,
 			CompareAs: lockfile.DebianEcosystem,
 		},
