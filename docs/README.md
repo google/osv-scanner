@@ -14,7 +14,9 @@ Here are other [pre-requisites] and instructions for running the [docs locally].
 ## Contributing to the docs
 Documentation contributions are welcome!
 
-Contributors should make changes to the documentation in [working docs](working_docs/).
+OSV-Scanner docs are splic between the `current` folder and the `working_docs` folder. Docs within the `current` folder reflect the current state of OSV-Scanner. Docs within `working_docs` may include features and options that are not available in the currently released version of OSV-Scanner. 
+
+Contributors should make changes to the documentation in the[working docs](working_docs/) directory. Maintainers will copy text from `working_docs` into `current` as neccesary to keep the `current` docs up-to-date.  
 
 See [CONTRIBUTING.md](../CONTRIBUTING.md) for contribution guidelines. 
 
