@@ -71,6 +71,8 @@ func (r *Reporter) PrintResult(vulnResult *models.VulnerabilityResults) error {
 		PrintMarkdownTableResults(vulnResult, r.stdout, r.parseOnly)
 	case "table":
 		PrintTableResults(vulnResult, r.stdout, r.parseOnly)
+	case "sbom":
+		PrintCycloneDxSbomResults(vulnResult, r.stdout, r.parseOnly)
 	}
 
 	return nil

@@ -30,6 +30,13 @@ The recursive flag `-r` or `--recursive` will tell the scanner to search all sub
 
 Git directories are searched for the latest commit hash. Searching for git commit hash is intended to work with projects that use git submodules or a similar mechanism where dependencies are checked out as real git repositories. 
 
+### Ignored files
+
+By default, OSV-Scanner will not scan files that are ignored by `.gitignore` files. If the specified file is not part of a git repository, `.gitignore` files are parsed recursively starting from the target directory,
+otherwise they are parsed from the root of the git repository as typical.
+
+The `--no-ignore` flag can be used force the scanner to scan ignored files.
+
 ### Specify SBOM
 
 If you want to check for known vulnerabilities only in dependencies in your SBOM, you can use the following command:
