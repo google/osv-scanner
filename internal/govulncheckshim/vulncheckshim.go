@@ -32,15 +32,13 @@ func RunVulnCheck(path string, vulns []models.Vulnerability) (*govulncheck.Resul
 	client := newClient(vulns)
 
 	cfg := &govulncheck.Config{Client: client}
-	var res *govulncheck.Result
 	var pkgs []*vulncheck.Package
 	pkgs, err := loadPackages([]string{scanPath}, filepath.Dir(scanPath))
 	if err != nil {
 		panic(err)
 	}
-	res, err = govulncheck.Source(context.Background(), cfg, pkgs)
 
-	return res, err
+	return govulncheck.Source(context.Background(), cfg, pkgs)
 }
 
 // loadPackages loads the packages matching patterns at dir using build tags
