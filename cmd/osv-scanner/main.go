@@ -119,7 +119,7 @@ func run(args []string, stdout, stderr io.Writer) int {
 				NoIgnore:                 context.Bool("no-ignore"),
 				ConfigOverridePath:       context.String("config"),
 				DirectoryPaths:           context.Args().Slice(),
-				ExperimentalCallAnalysis: context.Bool("call-analysis"),
+				ExperimentalCallAnalysis: context.Bool("experimental-call-analysis"),
 			}, r)
 
 			if errPrint := r.PrintResult(&vulnResult); errPrint != nil {

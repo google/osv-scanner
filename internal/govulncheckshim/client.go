@@ -12,37 +12,37 @@ import (
 
 type localSource struct {
 	vulnList         []models.Vulnerability
-	response         map[string]*models.Vulnerability
-	aliasToIDs       map[string][]*models.Vulnerability
-	moduleToIDs      map[string][]*models.Vulnerability
+	vulnsByID        map[string]*models.Vulnerability
+	vulnsByAlias     map[string][]*models.Vulnerability
+	vulnsByModule    map[string][]*models.Vulnerability
 	lastModifiedTime time.Time
 	client.Client
 }
 
 func newClient(vulns []models.Vulnerability) *localSource {
-	outLs := localSource{
+	client := localSource{
 		vulnList:         vulns,
-		response:         make(map[string]*models.Vulnerability),
-		aliasToIDs:       make(map[string][]*models.Vulnerability),
-		moduleToIDs:      make(map[string][]*models.Vulnerability),
+		vulnsByID:        make(map[string]*models.Vulnerability),
+		vulnsByAlias:     make(map[string][]*models.Vulnerability),
+		vulnsByModule:    make(map[string][]*models.Vulnerability),
 		lastModifiedTime: time.Unix(0, 0),
 	}
 	for idx := range vulns {
 		// Iterate on reference to avoid copying entire data structure
-		v := &outLs.vulnList[idx]
-		outLs.response[v.ID] = v
+		v := &client.vulnList[idx]
+		client.vulnsByID[v.ID] = v
 		for _, alias := range v.Aliases {
-			outLs.aliasToIDs[alias] = append(outLs.aliasToIDs[alias], v)
+			client.vulnsByAlias[alias] = append(client.vulnsByAlias[alias], v)
 		}
 		for _, affected := range v.Affected {
-			outLs.moduleToIDs[affected.Package.Name] = append(outLs.moduleToIDs[affected.Package.Name], v)
+			client.vulnsByModule[affected.Package.Name] = append(client.vulnsByModule[affected.Package.Name], v)
 		}
-		if outLs.lastModifiedTime.Before(v.Modified) {
-			outLs.lastModifiedTime = v.Modified
+		if client.lastModifiedTime.Before(v.Modified) {
+			client.lastModifiedTime = v.Modified
 		}
 	}
 
-	return &outLs
+	return &client
 }
 
 func convertToGvcOSV(osv models.Vulnerability) gvcOSV.Entry {
@@ -61,8 +61,8 @@ func convertToGvcOSV(osv models.Vulnerability) gvcOSV.Entry {
 
 func (ls *localSource) GetByModule(ctx context.Context, modulePath string) ([]*gvcOSV.Entry, error) {
 	//nolint:prealloc // Need to be nil if none exists
-	var entries []*gvcOSV.Entry = nil
-	for _, v := range ls.moduleToIDs[modulePath] {
+	var entries []*gvcOSV.Entry
+	for _, v := range ls.vulnsByModule[modulePath] {
 		res := convertToGvcOSV(*v)
 		entries = append(entries, &res)
 	}
@@ -71,7 +71,7 @@ func (ls *localSource) GetByModule(ctx context.Context, modulePath string) ([]*g
 }
 
 func (ls *localSource) GetByID(ctx context.Context, id string) (*gvcOSV.Entry, error) {
-	entry, ok := ls.response[id]
+	entry, ok := ls.vulnsByID[id]
 	if !ok {
 		//nolint:nilnil // This follows govulncheck's client implementation
 		// See: https://github.com/golang/vuln/blob/master/client/client.go
@@ -84,9 +84,9 @@ func (ls *localSource) GetByID(ctx context.Context, id string) (*gvcOSV.Entry, e
 
 func (ls *localSource) GetByAlias(ctx context.Context, alias string) ([]*gvcOSV.Entry, error) {
 	//nolint:prealloc // Need to be nil if none exists
-	var entries []*gvcOSV.Entry = nil
+	var entries []*gvcOSV.Entry
 
-	for _, v := range ls.aliasToIDs[alias] {
+	for _, v := range ls.vulnsByAlias[alias] {
 		res := convertToGvcOSV(*v)
 		entries = append(entries, &res)
 	}
@@ -96,7 +96,7 @@ func (ls *localSource) GetByAlias(ctx context.Context, alias string) ([]*gvcOSV.
 
 func (ls *localSource) ListIDs(ctx context.Context) ([]string, error) {
 	//nolint:prealloc // Need to be nil if none exists
-	var ids []string = nil
+	var ids []string
 	for i := range ls.vulnList {
 		ids = append(ids, ls.vulnList[i].ID)
 	}
