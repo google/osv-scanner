@@ -16,4 +16,4 @@ If you have what looks like a bug, please use the [Github issue tracking system]
 
 ### Contributing code to `osv-scanner`
 
-See [CONTRIBUTING.md](CONTRIBUTING.md) for documentation on how to contribute code.
+See [CONTRIBUTING.md](https://github.com/google/osv-scanner/blob/main/CONTRIBUTING.md) for documentation on how to contribute code.
