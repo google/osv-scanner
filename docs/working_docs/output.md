@@ -34,7 +34,7 @@ Outputs the results as a JSON object to stdout, with all other output being dire
 
 Sample output:
 
-```json5
+```json
 {
   "results": [
     {
