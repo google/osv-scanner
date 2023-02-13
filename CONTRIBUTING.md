@@ -28,7 +28,7 @@ This project follows
 [Google's Open Source Community Guidelines](https://opensource.google.com/conduct/).
 
 ## Contributing docs
-Please review this [README](docs/README.md) for more information about contributing to documentation. 
+Please review the documentation [README](docs/README.md) for more information about contributing to documentation. 
 
 ## Contributing code
 
