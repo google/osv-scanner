@@ -5,16 +5,16 @@ go 1.19
 require (
 	github.com/BurntSushi/toml v1.2.1
 	github.com/CycloneDX/cyclonedx-go v0.7.0
-	github.com/go-git/go-billy/v5 v5.4.0
+	github.com/go-git/go-billy/v5 v5.4.1
 	github.com/go-git/go-git/v5 v5.5.2
 	github.com/google/go-cmp v0.5.9
 	github.com/jedib0t/go-pretty/v6 v6.4.4
 	github.com/package-url/packageurl-go v0.1.0
 	github.com/spdx/tools-golang v0.4.0
 	github.com/urfave/cli/v2 v2.24.3
-	golang.org/x/exp v0.0.0-20230203172020-98cc5a0785f9
-	golang.org/x/mod v0.7.0
-	golang.org/x/term v0.4.0
+	golang.org/x/exp v0.0.0-20230212135524-a684f29349b6
+	golang.org/x/mod v0.8.0
+	golang.org/x/term v0.5.0
 	golang.org/x/tools v0.5.1-0.20230117180257-8aba49bb5ea2
 	golang.org/x/vuln v0.0.0-20230118164824-4ec8867cc0e6
 	gopkg.in/yaml.v2 v2.4.0
@@ -42,6 +42,6 @@ require (
 	github.com/xrash/smetrics v0.0.0-20201216005158-039620a65673 // indirect
 	golang.org/x/crypto v0.3.0 // indirect
 	golang.org/x/net v0.5.0 // indirect
-	golang.org/x/sys v0.4.0 // indirect
+	golang.org/x/sys v0.5.0 // indirect
 	gopkg.in/warnings.v0 v0.1.2 // indirect
 )
