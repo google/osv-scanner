@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"fmt"
 	"os"
+	"sort"
 	"strings"
 )
 
@@ -103,4 +104,24 @@ func ParseApkInstalled(pathToLockfile string) ([]PackageDetails, error) {
 	}
 
 	return packages, nil
+}
+
+// FromApkInstalled attempts to parse the given file as an "apk-installed" lockfile
+// used by the Alpine Package Keeper (apk) to record installed packages.
+func FromApkInstalled(pathToInstalled string) (Lockfile, error) {
+	packages, err := ParseApkInstalled(pathToInstalled)
+
+	sort.Slice(packages, func(i, j int) bool {
+		if packages[i].Name == packages[j].Name {
+			return packages[i].Version < packages[j].Version
+		}
+
+		return packages[i].Name < packages[j].Name
+	})
+
+	return Lockfile{
+		FilePath: pathToInstalled,
+		ParsedAs: "apk-installed",
+		Packages: packages,
+	}, err
 }

@@ -14,7 +14,7 @@ func TestParseCargoLock_FileDoesNotExist(t *testing.T) {
 	expectPackages(t, packages, []lockfile.PackageDetails{})
 }
 
-func TestParseCargoLock_InvalidJson(t *testing.T) {
+func TestParseCargoLock_InvalidToml(t *testing.T) {
 	t.Parallel()
 
 	packages, err := lockfile.ParseCargoLock("fixtures/cargo/not-toml.txt")

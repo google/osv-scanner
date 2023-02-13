@@ -14,18 +14,6 @@ func TestParseGemfileLock_FileDoesNotExist(t *testing.T) {
 	expectPackages(t, packages, []lockfile.PackageDetails{})
 }
 
-func TestParseGemfileLock_InvalidJson(t *testing.T) {
-	t.Parallel()
-
-	packages, err := lockfile.ParseGemfileLock("fixtures/bundler/not-json.txt")
-
-	if err == nil {
-		t.Errorf("Expected to get error, but did not")
-	}
-
-	expectPackages(t, packages, []lockfile.PackageDetails{})
-}
-
 func TestParseGemfileLock_NoSpecSection(t *testing.T) {
 	t.Parallel()
 

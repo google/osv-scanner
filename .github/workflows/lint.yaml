@@ -39,5 +39,4 @@ jobs:
         uses: golangci/golangci-lint-action@v3.4.0
         with:
           # Optional: version of golangci-lint to use in form of v1.2 or v1.2.3 or `latest` to use the latest version
-          version: v1.50.1
-
+          version: v1.51.1
