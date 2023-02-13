@@ -11,7 +11,7 @@ When using the --json flag, only the JSON output will be printed to stdout, with
 
 ### Output Format
 
-```json5
+```json
 {
   "results": [
     {
