@@ -131,15 +131,11 @@ func parseGitIgnores(dir string) (*gitIgnoreMatcher, error) {
 	var fs billy.Filesystem
 
 	// Default to dir (or directory containing dir if it's a file) is not in a repo or some other error
-	f, err := os.Open(dir)
+	finfo, err := os.Stat(dir)
 	if err != nil {
 		return nil, err
 	}
-	s, err := f.Stat()
-	if err != nil {
-		return nil, err
-	}
-	if s.IsDir() {
+	if finfo.IsDir() {
 		fs = osfs.New(dir)
 	} else {
 		fs = osfs.New(filepath.Dir(dir))
