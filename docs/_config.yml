@@ -58,7 +58,7 @@ nav_external_links:
     url: https://osv.dev
     hide_icon: false # set to true to hide the external link icon - defaults to false
   - title: API docs
-    url: https://osv.dev/docs
+    url: https://osv.dev/docs/
     hide_icon: false # set to true to hide the external link icon - defaults to false
   - title: OSV Schema
     url: https://ossf.github.io/osv-schema/
