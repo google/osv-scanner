@@ -16,6 +16,7 @@ import (
 	"github.com/google/osv-scanner/pkg/models"
 	"github.com/google/osv-scanner/pkg/osv"
 
+	"github.com/go-git/go-billy/v5"
 	"github.com/go-git/go-billy/v5/osfs"
 	"github.com/go-git/go-git/v5"
 	"github.com/go-git/go-git/v5/plumbing/format/gitignore"
@@ -54,7 +55,7 @@ func scanDir(r *output.Reporter, query *osv.BatchedQuery, dir string, skipGit bo
 		var err error
 		ignoreMatcher, err = parseGitIgnores(dir)
 		if err != nil {
-			r.PrintError(fmt.Sprintf("Unable to parse git ignores: %v", err))
+			r.PrintError(fmt.Sprintf("Unable to parse git ignores: %v\n", err))
 			useGitIgnore = false
 		}
 	}
@@ -76,9 +77,12 @@ func scanDir(r *output.Reporter, query *osv.BatchedQuery, dir string, skipGit bo
 		if useGitIgnore {
 			match, err := ignoreMatcher.match(path, info.IsDir())
 			if err != nil {
-				r.PrintText(fmt.Sprintf("Failed to resolve gitignore for %s: %v", path, err))
+				r.PrintText(fmt.Sprintf("Failed to resolve gitignore for %s: %v\n", path, err))
 				// Don't skip if we can't parse now - potentially noisy for directories with lots of items
 			} else if match {
+				if root { // Don't silently skip if the argument file was ignored.
+					r.PrintError(fmt.Sprintf("%s was not scanned because it is excluded by a .gitignore file. Use --no-ignore to scan it.\n", path))
+				}
 				if info.IsDir() {
 					return filepath.SkipDir
 				}
@@ -124,12 +128,22 @@ type gitIgnoreMatcher struct {
 	repoPath string
 }
 
-func parseGitIgnores(dir string) (*gitIgnoreMatcher, error) {
+func parseGitIgnores(path string) (*gitIgnoreMatcher, error) {
 	// We need to parse .gitignore files from the root of the git repo to correctly identify ignored files
-	// Defaults to current directory if dir is not in a repo or some other error
-	// TODO: Won't parse ignores if dir is not in a git repo, and is not under the current directory (e.g ../path/to)
-	fs := osfs.New(".")
-	if repo, err := git.PlainOpenWithOptions(dir, &git.PlainOpenOptions{DetectDotGit: true}); err == nil {
+	var fs billy.Filesystem
+
+	// Default to path (or directory containing path if it's a file) is not in a repo or some other error
+	finfo, err := os.Stat(path)
+	if err != nil {
+		return nil, err
+	}
+	if finfo.IsDir() {
+		fs = osfs.New(path)
+	} else {
+		fs = osfs.New(filepath.Dir(path))
+	}
+
+	if repo, err := git.PlainOpenWithOptions(path, &git.PlainOpenOptions{DetectDotGit: true}); err == nil {
 		if tree, err := repo.Worktree(); err == nil {
 			fs = tree.Filesystem
 		}
@@ -140,12 +154,12 @@ func parseGitIgnores(dir string) (*gitIgnoreMatcher, error) {
 		return nil, err
 	}
 	matcher := gitignore.NewMatcher(patterns)
-	path, err := filepath.Abs(fs.Root())
+	repopath, err := filepath.Abs(fs.Root())
 	if err != nil {
 		return nil, err
 	}
 
-	return &gitIgnoreMatcher{matcher: matcher, repoPath: path}, nil
+	return &gitIgnoreMatcher{matcher: matcher, repoPath: repopath}, nil
 }
 
 // gitIgnoreMatcher.match will return true if the file/directory matches a gitignore entry
