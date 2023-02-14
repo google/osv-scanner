@@ -90,7 +90,7 @@ func run(args []string, stdout, stderr io.Writer) int {
 				Value:   false,
 			},
 			&cli.BoolFlag{
-				Name:  "call-analysis",
+				Name:  "experimental-call-analysis",
 				Usage: "attempt call analysis on code to detect only active vulnerabilities",
 				Value: false,
 			},
