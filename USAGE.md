@@ -34,6 +34,8 @@ Git directories are searched for the latest commit hash. Searching for git commi
 
 By default, OSV-Scanner will not scan files that are ignored by `.gitignore` files. All recursively scanned files are matched to a git repository (if it exists) and any matching `.gitignore` files within that repository are taken into account.
 
+There is a [known issue](https://github.com/google/osv-scanner/issues/209) that the parser does not correctly respect repository boundaries.
+
 The `--no-ignore` flag can be used to force the scanner to scan ignored files.
 
 ### Specify SBOM
