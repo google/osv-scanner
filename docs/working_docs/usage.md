@@ -14,9 +14,9 @@ OSV-Scanner parses lockfiles, SBOMs, and git directories to determine your proje
 
 ### General use case: scanning a directory
 
-```console
+~~~~~~~~~~~~~~~~~~~
 osv-scanner -r /path/to/your/dir
-```
+~~~~~~~~~~~~~~~~~~~
 
 The preceding command will find lockfiles, SBOMs, and git directories in your target directory and use them to determine the dependencies to check against the OSV database for any known vulnerabilities.
 
@@ -36,9 +36,9 @@ The `--no-ignore` flag can be used to force the scanner to scan ignored files.
 
 If you want to check for known vulnerabilities only in dependencies in your SBOM, you can use the following command:
 
-```console
+~~~~~~~~~~~~~~~~~~~
 osv-scanner --sbom=/path/to/your/sbom.json
-```
+~~~~~~~~~~~~~~~~~~~
 
 [SPDX] and [CycloneDX] SBOMs using [Package URLs] are supported. The format is
 auto-detected based on the input file contents.
@@ -50,15 +50,15 @@ auto-detected based on the input file contents.
 ### Specify Lockfile(s)
 If you want to check for known vulnerabilities in specific lockfiles, you can use the following command:
 
-```console
+~~~~~~~~~~~~~~~~~~~
 osv-scanner --lockfile=/path/to/your/package-lock.json --lockfile=/path/to/another/Cargo.lock
-```
+~~~~~~~~~~~~~~~~~~~
 
 It is possible to specify more than one lockfile at a time; you can also specify how to parse an arbitrary file:
 
-```console
+~~~~~~~~~~~~~~~~~~~
 osv-scanner --lockfile 'requirements.txt:/path/to/your/extra-requirements.txt'
-```
+~~~~~~~~~~~~~~~~~~~
 
 A wide range of lockfiles are supported by utilizing this [lockfile package](https://github.com/google/osv-scanner/tree/main/pkg/lockfile). This is the current list of supported lockfiles:
 
@@ -83,17 +83,17 @@ A wide range of lockfiles are supported by utilizing this [lockfile package](htt
 The scanner also supports `installed` files used by the Alpine Package Keeper (apk) that typically live at `/lib/apk/db/installed`,
 however you must specify this explicitly using the `--lockfile` flag:
 
-```console
+~~~~~~~~~~~~~~~~~~~
 osv-scanner --lockfile 'apk-installed:/lib/apk/db/installed'
-```
+~~~~~~~~~~~~~~~~~~~
 
 If the file you are scanning is located in a directory that has a colon in its name,
 you can prefix the path to just a colon to explicitly signal to the scanner that
 it should infer the parser based on the filename:
 
-```bash
-$ osv-scanner --lockfile ':/path/to/my:projects/package-lock.json'
-```
+~~~~~~~~~~~~~~~~~~~
+osv-scanner --lockfile ':/path/to/my:projects/package-lock.json'
+~~~~~~~~~~~~~~~~~~~
 
 ### Scanning a Debian based docker image packages (preview)
 
@@ -107,27 +107,27 @@ This currently does not scan the filesystem of the Docker container, and has var
 
 #### Example
 
-```console
+~~~~~~~~~~~~~~~~~~~
 osv-scanner --docker image_name:latest
-```
+~~~~~~~~~~~~~~~~~~~
 
 ### Running in a Docker Container
 
 The simplest way to get the osv-scanner docker image is to pull from GitHub Container Registry:
 
-```bash
+~~~~~~~~~~~~~~~~~~~
 docker pull ghcr.io/google/osv-scanner:latest
-```
+~~~~~~~~~~~~~~~~~~~
 
 Once you have the image, you can test that it works by running:
 
-```bash
+~~~~~~~~~~~~~~~~~~~
 docker run -it ghcr.io/google/osv-scanner -h
-```
+~~~~~~~~~~~~~~~~~~~
 
 Finally, to run it, mount the directory you want to scan to `/src` and pass the
 appropriate osv-scanner flags:
 
-```bash
+~~~~~~~~~~~~~~~~~~~
 docker run -it -v ${PWD}:/src ghcr.io/google/osv-scanner -L /src/go.mod
-```
+~~~~~~~~~~~~~~~~~~~
