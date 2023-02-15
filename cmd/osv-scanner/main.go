@@ -138,6 +138,11 @@ func run(args []string, stdout, stderr io.Writer) int {
 			return 1
 		}
 
+		if errors.Is(err, osvscanner.OnlyUncalledVulnerabilitiesFoundErr) {
+			// TODO: Discuss whether to have a different exit code now that running call analysis is not default
+			return 2
+		}
+
 		if errors.Is(err, osvscanner.NoPackagesFoundErr) {
 			r.PrintError("No package sources found, --help for usage information.\n")
 			return 128

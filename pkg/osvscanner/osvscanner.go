@@ -44,6 +44,9 @@ var NoPackagesFoundErr = errors.New("no packages found in scan")
 //nolint:errname,stylecheck // Would require version bump to change
 var VulnerabilitiesFoundErr = errors.New("vulnerabilities found")
 
+//nolint:errname,stylecheck // Would require version bump to change
+var OnlyUncalledVulnerabilitiesFoundErr = errors.New("only uncalled vulnerabilities found")
+
 // scanDir walks through the given directory to try to find any relevant files
 // These include:
 //   - Any lockfiles with scanLockfile
@@ -462,7 +465,14 @@ func DoScan(actions ScannerActions, r *output.Reporter) (models.VulnerabilityRes
 	vulnerabilityResults := groupResponseBySource(r, query, hydratedResp, actions.ExperimentalCallAnalysis)
 	// if vulnerability exists it should return error
 	if len(vulnerabilityResults.Results) > 0 {
-		return vulnerabilityResults, VulnerabilitiesFoundErr
+		// If any vulnerabilities are called, then we return VulnerabilitiesFoundErr
+		for _, vf := range vulnerabilityResults.Flatten() {
+			if vf.GroupInfo.IsCalled() {
+				return vulnerabilityResults, VulnerabilitiesFoundErr
+			}
+		}
+		// Otherwise return OnlyUncalledVulnerabilitiesFoundErr
+		return vulnerabilityResults, OnlyUncalledVulnerabilitiesFoundErr
 	}
 
 	return vulnerabilityResults, nil

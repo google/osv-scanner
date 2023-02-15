@@ -1,6 +1,10 @@
 package models
 
-import "time"
+import (
+	"time"
+
+	"golang.org/x/exp/slices"
+)
 
 // Combined vulnerabilities found for the scanned packages
 type VulnerabilityResults struct {
@@ -13,10 +17,13 @@ func (vulns *VulnerabilityResults) Flatten() []VulnerabilityFlattened {
 	for _, res := range vulns.Results {
 		for _, pkg := range res.Packages {
 			for _, v := range pkg.Vulnerabilities {
+				// groupIdx should never be -1 since vulnerabilities should always be in one group
+				groupIdx := slices.IndexFunc(pkg.Groups, func(g GroupInfo) bool { return slices.Contains(g.IDs, v.ID) })
 				results = append(results, VulnerabilityFlattened{
 					Source:        res.Source,
 					Package:       pkg.Package,
 					Vulnerability: v,
+					GroupInfo:     pkg.Groups[groupIdx],
 				})
 			}
 		}
@@ -30,6 +37,7 @@ type VulnerabilityFlattened struct {
 	Source        SourceInfo
 	Package       PackageInfo
 	Vulnerability Vulnerability
+	GroupInfo     GroupInfo
 }
 
 type Vulnerability struct {
