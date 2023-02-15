@@ -18,14 +18,14 @@ The default format, which outputs the results as a human-readable table.
 
 Sample output:
 
-```
+~~~~~~~~~~~~~~~~~~~
 ╭─────────────────────────────────────┬───────────┬──────────────────────────┬─────────┬────────────────────╮
 │ OSV URL (ID IN BOLD)                │ ECOSYSTEM │ PACKAGE                  │ VERSION │ SOURCE             │
 ├─────────────────────────────────────┼───────────┼──────────────────────────┼─────────┼────────────────────┤
 │ https://osv.dev/GHSA-c3h9-896r-86jm │ Go        │ github.com/gogo/protobuf │ 1.3.1   │ path/to/go.mod     │
 │ https://osv.dev/GHSA-m5pq-gvj9-9vr8 │ crates.io │ regex                    │ 1.3.1   │ path/to/Cargo.lock │
 ╰─────────────────────────────────────┴───────────┴──────────────────────────┴─────────┴────────────────────╯
-```
+~~~~~~~~~~~~~~~~~~~
 
 ### `json` format
 
@@ -33,7 +33,7 @@ Outputs the results as a JSON object to stdout, with all other output being dire
 
 Sample output:
 
-```json
+~~~~~~~~~~~~~~~~~~~
 {
   "results": [
     {
@@ -120,4 +120,4 @@ Sample output:
     }
   ]
 }
-```
+~~~~~~~~~~~~~~~~~~~
