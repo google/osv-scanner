@@ -100,7 +100,7 @@ type PackageVulns struct {
 type GroupInfo struct {
 	IDs []string `json:"ids"`
 	// Map of Vulnerability IDs to AnalysisInfo
-	Analysis map[string]AnalysisInfo `json:"analysis"`
+	Analysis map[string]AnalysisInfo `json:"analysis,omitempty"`
 }
 
 // IsCalled returns true if any analysis performed determines that the vulnerability is being called

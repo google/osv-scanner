@@ -95,16 +95,16 @@ it should infer the parser based on the filename:
 $ osv-scanner --lockfile ':/path/to/my:projects/package-lock.json'
 ```
 
-### Scanning with code analysis (preview)
+### Scanning with call analysis (preview)
 
+Call stack analysis can be performed on some languages to check if the 
+vulnerable code is actually being executed by your project. If the code
+is not being executed, these vulnerabilities will be marked as unexecuted.
 
 #### Supported languages
 - `go`
   - Additional dependencies:
     - `go` compiler needs to be installed and available on PATH
-  - 
-Currently only one language is supported with call analysis:
-
 
 ### Scanning a Debian based docker image packages (preview)
 
