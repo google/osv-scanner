@@ -35,7 +35,7 @@ func RunVulnCheck(path string, vulns []models.Vulnerability) (*govulncheck.Resul
 	var pkgs []*vulncheck.Package
 	pkgs, err := loadPackages([]string{scanPath}, filepath.Dir(scanPath))
 	if err != nil {
-		panic(err)
+		return nil, err
 	}
 
 	return govulncheck.Source(context.Background(), cfg, pkgs)
@@ -59,10 +59,11 @@ func loadPackages(patterns []string, dir string) ([]*vulncheck.Package, error) {
 	cfg.BuildFlags = buildFlags
 
 	pkgs, err := packages.Load(cfg, patterns...)
-	vpkgs := vulncheck.Convert(pkgs)
 	if err != nil {
 		return nil, err
 	}
+	vpkgs := vulncheck.Convert(pkgs)
+
 	var perrs []packages.Error
 	packages.Visit(pkgs, nil, func(p *packages.Package) {
 		perrs = append(perrs, p.Errors...)

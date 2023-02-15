@@ -95,6 +95,17 @@ it should infer the parser based on the filename:
 $ osv-scanner --lockfile ':/path/to/my:projects/package-lock.json'
 ```
 
+### Scanning with code analysis (preview)
+
+
+#### Supported languages
+- `go`
+  - Additional dependencies:
+    - `go` compiler needs to be installed and available on PATH
+  - 
+Currently only one language is supported with call analysis:
+
+
 ### Scanning a Debian based docker image packages (preview)
 
 This tool will scrape the list of installed packages in a Debian image and query for vulnerabilities on them.
