@@ -26,8 +26,8 @@ func (e *packageError) Error() string {
 	return b.String()
 }
 
-// RunVulnCheck runs govulncheck with a subset of vulnerabilities identified by osv-scanner
-func RunVulnCheck(path string, vulns []models.Vulnerability) (*govulncheck.Result, error) {
+// RunGoVulnCheck runs govulncheck with a subset of vulnerabilities identified by osv-scanner
+func RunGoVulnCheck(path string, vulns []models.Vulnerability) (*govulncheck.Result, error) {
 	scanPath := filepath.Join(path, "...")
 	client := newClient(vulns)
 
