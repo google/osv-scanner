@@ -16,7 +16,7 @@ To ignore a vulnerability, enter the ID under the `IgnoreVulns` key. Optionally,
 
 #### Example
 
-~~~~~~~~~~~~~~~~~~~
+```toml
 [[IgnoredVulns]]
 id = "GO-2022-0968"
 # ignoreUntil = 2022-11-09 # Optional exception expiry date
@@ -26,4 +26,4 @@ reason = "No ssh servers are connected to or hosted in Go lang"
 id = "GO-2022-1059"
 # ignoreUntil = 2022-11-09 # Optional exception expiry date
 reason = "No external http servers are written in Go lang."
-~~~~~~~~~~~~~~~~~~~
+```
