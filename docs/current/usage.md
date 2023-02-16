@@ -24,9 +24,9 @@ as real git repositories.
 
 #### Example
 
-```console
+~~~~~~~~~~~~~~~~~~~
 osv-scanner -r /path/to/your/dir
-```
+~~~~~~~~~~~~~~~~~~~
 
 ### Input an SBOM
 
@@ -39,9 +39,9 @@ auto-detected based on the input file contents.
 
 #### Example
 
-```console
+~~~~~~~~~~~~~~~~~~~
 osv-scanner --sbom=/path/to/your/sbom.json
-```
+~~~~~~~~~~~~~~~~~~~
 
 ### Input a lockfile
 
@@ -67,9 +67,9 @@ A wide range of lockfiles are supported by utilizing this [lockfile package](htt
 
 #### Example
 
-```console
-$ osv-scanner --lockfile=/path/to/your/package-lock.json --lockfile=/path/to/another/Cargo.lock
-```
+~~~~~~~~~~~~~~~~~~~
+osv-scanner --lockfile=/path/to/your/package-lock.json --lockfile=/path/to/another/Cargo.lock
+~~~~~~~~~~~~~~~~~~~
 
 ### Scanning a Debian based docker image packages (preview)
 
@@ -83,27 +83,27 @@ This currently does not scan the filesystem of the Docker container, and has var
 
 #### Example
 
-```console
+~~~~~~~~~~~~~~~~~~~
 osv-scanner --docker image_name:latest
-```
+~~~~~~~~~~~~~~~~~~~
 
 ### Running in a Docker Container
 
 The simplest way to get the osv-scanner docker image is to pull from GitHub Container Registry:
 
-```bash
+~~~~~~~~~~~~~~~~~~~
 docker pull ghcr.io/google/osv-scanner:latest
-```
+~~~~~~~~~~~~~~~~~~~
 
 Once you have the image, you can test that it works by running:
 
-```bash
+~~~~~~~~~~~~~~~~~~~
 docker run -it ghcr.io/google/osv-scanner -h
-```
+~~~~~~~~~~~~~~~~~~~
 
 Finally, to run it, mount the directory you want to scan to `/src` and pass the
 appropriate osv-scanner flags:
 
-```bash
+~~~~~~~~~~~~~~~~~~~
 docker run -it -v ${PWD}:/src ghcr.io/google/osv-scanner -L /src/go.mod
-```
+~~~~~~~~~~~~~~~~~~~
