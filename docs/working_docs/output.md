@@ -77,7 +77,7 @@ Sample output:
               // Call stack analysis is done using the `--experimental-call-analysis` flag
               // and result is matched against data provided by the advisory to check if
               // affected code is actually being executed.
-              "analysis": {
+              "experimentalAnalysis": {
                 "GO-2021-0053": {
                   "called": false
                 }

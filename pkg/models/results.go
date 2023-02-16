@@ -100,17 +100,17 @@ type PackageVulns struct {
 type GroupInfo struct {
 	IDs []string `json:"ids"`
 	// Map of Vulnerability IDs to AnalysisInfo
-	Analysis map[string]AnalysisInfo `json:"analysis,omitempty"`
+	ExperimentalAnalysis map[string]AnalysisInfo `json:"experimentalAnalysis,omitempty"`
 }
 
 // IsCalled returns true if any analysis performed determines that the vulnerability is being called
 // Also returns true if no analysis is performed
 func (groupInfo *GroupInfo) IsCalled() bool {
-	if len(groupInfo.Analysis) == 0 {
+	if len(groupInfo.ExperimentalAnalysis) == 0 {
 		return true
 	}
 
-	for _, analysis := range groupInfo.Analysis {
+	for _, analysis := range groupInfo.ExperimentalAnalysis {
 		if analysis.Called {
 			return true
 		}

@@ -6,9 +6,10 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/google/osv-scanner/pkg/models"
 	"golang.org/x/vuln/client"
 	gvcOSV "golang.org/x/vuln/osv"
+
+	"github.com/google/osv-scanner/pkg/models"
 )
 
 type localSource struct {
