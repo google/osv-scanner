@@ -3,6 +3,7 @@ package govulncheckshim
 import (
 	"context"
 	"encoding/json"
+	"fmt"
 	"time"
 
 	"github.com/google/osv-scanner/pkg/models"
@@ -45,25 +46,28 @@ func newClient(vulns []models.Vulnerability) *localSource {
 	return &client
 }
 
-func convertToGvcOSV(osv models.Vulnerability) gvcOSV.Entry {
+func convertToGvcOSV(osv models.Vulnerability) (gvcOSV.Entry, error) {
 	val, err := json.Marshal(osv)
 	if err != nil {
-		panic("failed to convert vulnerability")
+		return gvcOSV.Entry{}, fmt.Errorf("failed to convert vuln to JSON: %w", err)
 	}
 	response := gvcOSV.Entry{}
 	err = json.Unmarshal(val, &response)
 	if err != nil {
-		panic("gvc format is no longer compatible with osv format")
+		return gvcOSV.Entry{}, fmt.Errorf("gvc format is no longer compatible with osv format: %w", err)
 	}
 
-	return response
+	return response, nil
 }
 
 func (ls *localSource) GetByModule(ctx context.Context, modulePath string) ([]*gvcOSV.Entry, error) {
 	//nolint:prealloc // Need to be nil if none exists
 	var entries []*gvcOSV.Entry
 	for _, v := range ls.vulnsByModule[modulePath] {
-		res := convertToGvcOSV(*v)
+		res, err := convertToGvcOSV(*v)
+		if err != nil {
+			return nil, err
+		}
 		entries = append(entries, &res)
 	}
 
@@ -77,7 +81,10 @@ func (ls *localSource) GetByID(ctx context.Context, id string) (*gvcOSV.Entry, e
 		// See: https://github.com/golang/vuln/blob/master/client/client.go
 		return nil, nil
 	}
-	response := convertToGvcOSV(*entry)
+	response, err := convertToGvcOSV(*entry)
+	if err != nil {
+		return nil, err
+	}
 
 	return &response, nil
 }
@@ -87,7 +94,10 @@ func (ls *localSource) GetByAlias(ctx context.Context, alias string) ([]*gvcOSV.
 	var entries []*gvcOSV.Entry
 
 	for _, v := range ls.vulnsByAlias[alias] {
-		res := convertToGvcOSV(*v)
+		res, err := convertToGvcOSV(*v)
+		if err != nil {
+			return nil, err
+		}
 		entries = append(entries, &res)
 	}
 
