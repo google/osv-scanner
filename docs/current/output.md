@@ -11,7 +11,7 @@ When using the --json flag, only the JSON output will be printed to stdout, with
 
 ### Output Format
 
-~~~~~~~~~~~~~~~~~~~
+```json
 {
   "results": [
     {
@@ -98,4 +98,4 @@ When using the --json flag, only the JSON output will be printed to stdout, with
     }
   ]
 }
-~~~~~~~~~~~~~~~~~~~
+```
