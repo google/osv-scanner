@@ -28,9 +28,12 @@ func vulnsFromAllPkgs(pkgs []models.PackageVulns) (map[string]*models.GroupInfo,
 	return idToGroupMap, vulnList
 }
 
+// DoSourceAnalysis runs the language specific analyzers on the code given packages and source info
 func DoSourceAnalysis(r *output.Reporter, source models.SourceInfo, pkgs []models.PackageVulns) {
+	idToGroupMap, allVulns := vulnsFromAllPkgs(pkgs)
+
+	// GoVulnCheck
 	if source.Type == "lockfile" && filepath.Base(source.Path) == "go.mod" {
-		idToGroupMap, allVulns := vulnsFromAllPkgs(pkgs)
 		res, err := govulncheckshim.RunGoVulnCheck(filepath.Dir(source.Path), allVulns)
 		if err != nil {
 			// TODO: Better method to identify the type of error and give advice specific to the error
@@ -40,6 +43,7 @@ func DoSourceAnalysis(r *output.Reporter, source models.SourceInfo, pkgs []model
 
 			return
 		}
+		// Add analysis information back into package list
 		for _, v := range res.Vulns {
 			analysis := &idToGroupMap[v.OSV.ID].ExperimentalAnalysis
 			if *analysis == nil {
