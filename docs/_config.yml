@@ -24,6 +24,7 @@ description: >- # this means to ignore newlines until "baseurl:"
 baseurl: "/osv-scanner" # the subpath of your site, e.g. /blog
 url: "" # the base hostname & protocol for your site, e.g. http://example.com
 github_username:  google
+ga_tracking: G-354127049
 
 # Build settings
 remote_theme: just-the-docs/just-the-docs
