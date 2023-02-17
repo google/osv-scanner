@@ -79,6 +79,37 @@ func TestParseMavenLock_TwoPackages(t *testing.T) {
 	})
 }
 
+func TestParseMavenLock_WithDependencyManagement(t *testing.T) {
+	t.Parallel()
+
+	packages, err := lockfile.ParseMavenLock("fixtures/maven/with-dependency-management.xml")
+
+	if err != nil {
+		t.Errorf("Got unexpected error: %v", err)
+	}
+
+	expectPackages(t, packages, []lockfile.PackageDetails{
+		{
+			Name:      "io.netty:netty-all",
+			Version:   "4.1.42.Final",
+			Ecosystem: lockfile.MavenEcosystem,
+			CompareAs: lockfile.MavenEcosystem,
+		},
+		{
+			Name:      "org.slf4j:slf4j-log4j12",
+			Version:   "1.7.25",
+			Ecosystem: lockfile.MavenEcosystem,
+			CompareAs: lockfile.MavenEcosystem,
+		},
+		{
+			Name:      "com.google.code.findbugs:jsr305",
+			Version:   "3.0.2",
+			Ecosystem: lockfile.MavenEcosystem,
+			CompareAs: lockfile.MavenEcosystem,
+		},
+	})
+}
+
 func TestParseMavenLock_Interpolation(t *testing.T) {
 	t.Parallel()
 
