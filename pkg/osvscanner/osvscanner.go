@@ -126,22 +126,22 @@ type gitIgnoreMatcher struct {
 	repoPath string
 }
 
-func parseGitIgnores(dir string) (*gitIgnoreMatcher, error) {
+func parseGitIgnores(path string) (*gitIgnoreMatcher, error) {
 	// We need to parse .gitignore files from the root of the git repo to correctly identify ignored files
 	var fs billy.Filesystem
 
-	// Default to dir (or directory containing dir if it's a file) is not in a repo or some other error
-	finfo, err := os.Stat(dir)
+	// Default to path (or directory containing path if it's a file) is not in a repo or some other error
+	finfo, err := os.Stat(path)
 	if err != nil {
 		return nil, err
 	}
 	if finfo.IsDir() {
-		fs = osfs.New(dir)
+		fs = osfs.New(path)
 	} else {
-		fs = osfs.New(filepath.Dir(dir))
+		fs = osfs.New(filepath.Dir(path))
 	}
 
-	if repo, err := git.PlainOpenWithOptions(dir, &git.PlainOpenOptions{DetectDotGit: true}); err == nil {
+	if repo, err := git.PlainOpenWithOptions(path, &git.PlainOpenOptions{DetectDotGit: true}); err == nil {
 		if tree, err := repo.Worktree(); err == nil {
 			fs = tree.Filesystem
 		}
@@ -152,12 +152,12 @@ func parseGitIgnores(dir string) (*gitIgnoreMatcher, error) {
 		return nil, err
 	}
 	matcher := gitignore.NewMatcher(patterns)
-	path, err := filepath.Abs(fs.Root())
+	repopath, err := filepath.Abs(fs.Root())
 	if err != nil {
 		return nil, err
 	}
 
-	return &gitIgnoreMatcher{matcher: matcher, repoPath: path}, nil
+	return &gitIgnoreMatcher{matcher: matcher, repoPath: repopath}, nil
 }
 
 // gitIgnoreMatcher.match will return true if the file/directory matches a gitignore entry
