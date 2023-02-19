@@ -56,10 +56,11 @@ func (mld MavenLockDependency) ResolveVersion(lockfile MavenLockFile) string {
 }
 
 type MavenLockFile struct {
-	XMLName      xml.Name              `xml:"project"`
-	ModelVersion string                `xml:"modelVersion"`
-	Properties   MavenLockProperties   `xml:"properties"`
-	Dependencies []MavenLockDependency `xml:"dependencies>dependency"`
+	XMLName             xml.Name              `xml:"project"`
+	ModelVersion        string                `xml:"modelVersion"`
+	Properties          MavenLockProperties   `xml:"properties"`
+	Dependencies        []MavenLockDependency `xml:"dependencies>dependency"`
+	ManagedDependencies []MavenLockDependency `xml:"dependencyManagement>dependencies>dependency"`
 }
 
 const MavenEcosystem Ecosystem = "Maven"
@@ -107,16 +108,30 @@ func ParseMavenLock(pathToLockfile string) ([]PackageDetails, error) {
 		return []PackageDetails{}, fmt.Errorf("could not parse %s: %w", pathToLockfile, err)
 	}
 
-	packages := make([]PackageDetails, 0, len(parsedLockfile.Dependencies))
+	details := map[string]PackageDetails{}
 
 	for _, lockPackage := range parsedLockfile.Dependencies {
-		packages = append(packages, PackageDetails{
-			Name:      lockPackage.GroupID + ":" + lockPackage.ArtifactID,
+		finalName := lockPackage.GroupID + ":" + lockPackage.ArtifactID
+
+		details[finalName] = PackageDetails{
+			Name:      finalName,
 			Version:   lockPackage.ResolveVersion(*parsedLockfile),
 			Ecosystem: MavenEcosystem,
 			CompareAs: MavenEcosystem,
-		})
+		}
 	}
 
-	return packages, nil
+	// managed dependencies take precedent over standard dependencies
+	for _, lockPackage := range parsedLockfile.ManagedDependencies {
+		finalName := lockPackage.GroupID + ":" + lockPackage.ArtifactID
+
+		details[finalName] = PackageDetails{
+			Name:      finalName,
+			Version:   lockPackage.ResolveVersion(*parsedLockfile),
+			Ecosystem: MavenEcosystem,
+			CompareAs: MavenEcosystem,
+		}
+	}
+
+	return pkgDetailsMapToSlice(details), nil
 }
