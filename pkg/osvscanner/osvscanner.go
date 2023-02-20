@@ -179,12 +179,15 @@ func scanLockfile(r *output.Reporter, query *osv.BatchedQuery, path string, pars
 	var err error
 	var parsedLockfile lockfile.Lockfile
 
-	// special case for the APK parser because it has a very generic name while
-	// living at a specific location, so it's not included in the map of parsers
+	// special case for the APK and DPKG parsers because they have a very generic name while
+	// living at a specific location, so they are not included in the map of parsers
 	// used by lockfile.Parse to avoid false-positives when scanning projects
-	if parseAs == "apk-installed" {
+	switch parseAs {
+	case "apk-installed":
 		parsedLockfile, err = lockfile.FromApkInstalled(path)
-	} else {
+	case "dpkg-status":
+		parsedLockfile, err = lockfile.FromDpkgStatus(path)
+	default:
 		parsedLockfile, err = lockfile.Parse(path, parseAs)
 	}
 
