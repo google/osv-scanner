@@ -33,6 +33,8 @@ osv-scanner --format table your/project/dir
 ```
 </details>
 
+---
+
 ### Markdown Table
 
 ```bash
@@ -60,8 +62,7 @@ osv-scanner --format markdown your/project/dir
 
 </details>
 
-
-
+---
 
 ### JSON
 
