@@ -17,7 +17,7 @@
            "PkgPath": "github.com/ossf-tests/osv-e2e",
            "Position": {
             "Column": 22,
-            "Filename": "/home/rexpan/Documents/Projects/osv-scanner/internal/govulncheckshim/fixtures/test-project/main.go",
+            "Filename": "<Any value>",
             "Line": 13,
             "Offset": 234
            },

@@ -7,6 +7,7 @@ import (
 	"strings"
 	"testing"
 
+	"github.com/gkampitakis/go-snaps/match"
 	"github.com/gkampitakis/go-snaps/snaps"
 	"github.com/google/osv-scanner/pkg/models"
 )
@@ -47,5 +48,7 @@ func Test_RunGoVulnCheck(t *testing.T) {
 	}
 
 	// Should match one called vuln, and on uncalled vuln
-	snaps.MatchJSON(t, res)
+	snaps.MatchJSON(t, res,
+		// Matcher ignores the file path as different environments might have different source paths
+		match.Any("Vulns.0.Modules.0.Packages.0.CallStacks.0.Frames.0.Position.Filename"))
 }
