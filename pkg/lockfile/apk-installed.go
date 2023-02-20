@@ -17,15 +17,14 @@ func groupApkPackageLines(scanner *bufio.Scanner) [][]string {
 	for scanner.Scan() {
 		line := scanner.Text()
 
-		if line == "" {
-			if len(group) > 0 {
-				groups = append(groups, group)
-			}
-			group = make([]string, 0)
-
+		if line != "" {
+			group = append(group, line)
 			continue
 		}
-		group = append(group, line)
+		if len(group) > 0 {
+			groups = append(groups, group)
+		}
+		group = make([]string, 0)
 	}
 
 	if len(group) > 0 {
@@ -56,7 +55,7 @@ func parseApkPackageGroup(group []string, pathToLockfile string) PackageDetails 
 	if pkg.Version == "" {
 		pkgPrintName := pkg.Name
 		if pkgPrintName == "" {
-			pkgPrintName = "<unknown>"
+			pkgPrintName = unknownPkgName
 		}
 
 		_, _ = fmt.Fprintf(
