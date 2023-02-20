@@ -28,8 +28,8 @@ func vulnsFromAllPkgs(pkgs []models.PackageVulns) (map[string]*models.GroupInfo,
 	return idToGroupMap, vulnList
 }
 
-// DoSourceAnalysis runs the language specific analyzers on the code given packages and source info
-func DoSourceAnalysis(r *output.Reporter, source models.SourceInfo, pkgs []models.PackageVulns) {
+// Run runs the language specific analyzers on the code given packages and source info
+func Run(r *output.Reporter, source models.SourceInfo, pkgs []models.PackageVulns) {
 	idToGroupMap, allVulns := vulnsFromAllPkgs(pkgs)
 
 	// GoVulnCheck

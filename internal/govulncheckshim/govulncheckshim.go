@@ -28,11 +28,14 @@ func (e *packageError) Error() string {
 
 // RunGoVulnCheck runs govulncheck with a subset of vulnerabilities identified by osv-scanner
 func RunGoVulnCheck(path string, vulns []models.Vulnerability) (*govulncheck.Result, error) {
+	path, err := filepath.Abs(path)
+	if err != nil {
+		return nil, err
+	}
 	scanPath := filepath.Join(path, "...")
 	client := newClient(vulns)
 
 	cfg := &govulncheck.Config{Client: client}
-	var pkgs []*vulncheck.Package
 	pkgs, err := loadPackages([]string{scanPath}, filepath.Dir(scanPath))
 	if err != nil {
 		return nil, err
