@@ -44,6 +44,7 @@ func Test_RunGoVulnCheck(t *testing.T) {
 	if err != nil {
 		t.Errorf("failed to run RunGoVulnCheck: %v", err)
 	}
+
+	// Should match one called vuln, and on uncalled vuln
 	snaps.MatchJSON(t, res)
-	// t.Errorf("%v", res)
 }
