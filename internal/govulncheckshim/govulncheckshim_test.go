@@ -12,6 +12,7 @@ import (
 )
 
 func Test_RunGoVulnCheck(t *testing.T) {
+	t.Parallel()
 	entries, err := os.ReadDir("fixtures")
 	if err != nil {
 		t.Errorf("failed to read fixtures dir: %v", err)
