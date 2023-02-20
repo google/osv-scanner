@@ -14,12 +14,12 @@ func newTestClient(t *testing.T) *localSource {
 	t.Helper()
 
 	vulns := []models.Vulnerability{}
-	entries, err := os.ReadDir("fixtures")
+	entries, err := os.ReadDir("fixtures/client")
 	if err != nil {
 		t.Fatal(err)
 	}
 	for _, entry := range entries {
-		file, err := os.Open(filepath.Join("fixtures", entry.Name()))
+		file, err := os.Open(filepath.Join("fixtures/client", entry.Name()))
 		if err != nil {
 			t.Fatalf("failed to open test fixtures %s", err)
 		}
