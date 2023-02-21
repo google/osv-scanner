@@ -11,8 +11,8 @@ require (
 	github.com/jedib0t/go-pretty/v6 v6.4.4
 	github.com/package-url/packageurl-go v0.1.0
 	github.com/spdx/tools-golang v0.4.0
-	github.com/urfave/cli/v2 v2.24.3
-	golang.org/x/exp v0.0.0-20230212135524-a684f29349b6
+	github.com/urfave/cli/v2 v2.24.4
+	golang.org/x/exp v0.0.0-20230213192124-5e25df0256eb
 	golang.org/x/mod v0.8.0
 	golang.org/x/term v0.5.0
 	gopkg.in/yaml.v2 v2.4.0
