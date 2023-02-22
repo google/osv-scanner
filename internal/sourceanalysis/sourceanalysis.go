@@ -78,7 +78,6 @@ func Run(r *output.Reporter, source models.SourceInfo, pkgs []models.PackageVuln
 					Called: v.IsCalled(),
 				}
 			}
-
 		}
 	}
 }
