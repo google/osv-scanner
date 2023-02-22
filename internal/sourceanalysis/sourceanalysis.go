@@ -67,7 +67,9 @@ func Run(r *output.Reporter, source models.SourceInfo, pkgs []models.PackageVuln
 		// Add analysis information back into package list
 		for _, v := range res.Vulns {
 			for _, m := range v.Modules {
+				// TODO: Not sure if this will match 100% of the time
 				if idMatchedVulnMap[m.Path] == nil {
+					r.PrintError(fmt.Sprintf("module does not match govulncheck results: Module: %v", m.Path))
 					continue
 				}
 				analysis := &idMatchedVulnMap[m.Path][v.OSV.ID].group.ExperimentalAnalysis
