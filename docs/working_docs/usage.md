@@ -99,8 +99,9 @@ it should infer the parser based on the filename:
 osv-scanner --lockfile ':/path/to/my:projects/package-lock.json'
 ```
 
-### Scanning a Debian based docker image packages (preview)
-
+### Scanning a Debian based docker image packages
+Preview
+{: .label } 
 This tool will scrape the list of installed packages in a Debian image and query for vulnerabilities on them.
 
 Currently only Debian based docker image scanning is supported.
