@@ -12,12 +12,6 @@ import (
 	"github.com/google/osv-scanner/pkg/models"
 )
 
-type MatchedVulnerability struct {
-	vuln  models.Vulnerability
-	group *models.GroupInfo
-	pkg   models.PackageInfo
-}
-
 // vulnsFromAllPkgs returns the flattened list of unique vulnerabilities
 func vulnsFromAllPkgs(pkgs []models.PackageVulns) []models.Vulnerability {
 	flatVulns := map[string]models.Vulnerability{}
@@ -60,9 +54,10 @@ func Run(r *output.Reporter, source models.SourceInfo, pkgs []models.PackageVuln
 			for groupIdx := range pv.Groups {
 				for _, vulnID := range pv.Groups[groupIdx].IDs {
 					gvcVuln, ok := gvcResByVulnID[vulnID]
-					if !ok {
+					if !ok { // If vulnerability not found, analysis has not been performed, so skip
 						continue
 					}
+					// Module list is unlikely to be very big, linear search is fine
 					containsModule := slices.ContainsFunc(gvcVuln.Modules, func(module *govulncheck.Module) bool {
 						return module.Path == pv.Package.Name
 					})
