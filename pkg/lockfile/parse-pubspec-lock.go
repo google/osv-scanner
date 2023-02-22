@@ -2,8 +2,9 @@ package lockfile
 
 import (
 	"fmt"
-	"gopkg.in/yaml.v2"
 	"os"
+
+	"gopkg.in/yaml.v3"
 )
 
 type PubspecLockDescription struct {
@@ -15,7 +16,7 @@ type PubspecLockDescription struct {
 
 var _ yaml.Unmarshaler = &PubspecLockDescription{}
 
-func (pld *PubspecLockDescription) UnmarshalYAML(unmarshal func(interface{}) error) error {
+func (pld *PubspecLockDescription) UnmarshalYAML(value *yaml.Node) error {
 	var m struct {
 		Name string `yaml:"name"`
 		URL  string `yaml:"url"`
@@ -23,7 +24,7 @@ func (pld *PubspecLockDescription) UnmarshalYAML(unmarshal func(interface{}) err
 		Ref  string `yaml:"resolved-ref"`
 	}
 
-	err := unmarshal(&m)
+	err := value.Decode(&m)
 
 	if err == nil {
 		pld.Name = m.Name
@@ -36,7 +37,7 @@ func (pld *PubspecLockDescription) UnmarshalYAML(unmarshal func(interface{}) err
 
 	var str *string
 
-	err = unmarshal(&str)
+	err = value.Decode(&str)
 
 	if err != nil {
 		return err
