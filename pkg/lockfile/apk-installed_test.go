@@ -6,7 +6,7 @@ import (
 	"github.com/google/osv-scanner/pkg/lockfile"
 )
 
-func TestApkInstalled_FileDoesNotExist(t *testing.T) {
+func TestParseApkInstalled_FileDoesNotExist(t *testing.T) {
 	t.Parallel()
 
 	packages, err := lockfile.ParseApkInstalled("fixtures/apk/does-not-exist")
@@ -15,7 +15,7 @@ func TestApkInstalled_FileDoesNotExist(t *testing.T) {
 	expectPackages(t, packages, []lockfile.PackageDetails{})
 }
 
-func TestApkInstalled_Empty(t *testing.T) {
+func TestParseApkInstalled_Empty(t *testing.T) {
 	t.Parallel()
 
 	packages, err := lockfile.ParseApkInstalled("fixtures/apk/empty_installed")
@@ -27,7 +27,7 @@ func TestApkInstalled_Empty(t *testing.T) {
 	expectPackages(t, packages, []lockfile.PackageDetails{})
 }
 
-func TestApkInstalled_NotAnInstalled(t *testing.T) {
+func TestParseApkInstalled_NotAnInstalled(t *testing.T) {
 	t.Parallel()
 
 	packages, err := lockfile.ParseApkInstalled("fixtures/apk/not_installed")
@@ -39,7 +39,7 @@ func TestApkInstalled_NotAnInstalled(t *testing.T) {
 	expectPackages(t, packages, []lockfile.PackageDetails{})
 }
 
-func TestApkInstalled_Malformed(t *testing.T) {
+func TestParseApkInstalled_Malformed(t *testing.T) {
 	t.Parallel()
 
 	packages, err := lockfile.ParseApkInstalled("fixtures/apk/malformed_installed")
@@ -59,7 +59,7 @@ func TestApkInstalled_Malformed(t *testing.T) {
 	})
 }
 
-func TestApkInstalled_Single(t *testing.T) {
+func TestParseApkInstalled_Single(t *testing.T) {
 	t.Parallel()
 
 	packages, err := lockfile.ParseApkInstalled("fixtures/apk/single_installed")
@@ -79,7 +79,7 @@ func TestApkInstalled_Single(t *testing.T) {
 	})
 }
 
-func TestApkInstalled_Shuffled(t *testing.T) {
+func TestParseApkInstalled_Shuffled(t *testing.T) {
 	t.Parallel()
 
 	packages, err := lockfile.ParseApkInstalled("fixtures/apk/shuffled_installed")
@@ -99,7 +99,7 @@ func TestApkInstalled_Shuffled(t *testing.T) {
 	})
 }
 
-func TestApkInstalled_Multiple(t *testing.T) {
+func TestParseApkInstalled_Multiple(t *testing.T) {
 	t.Parallel()
 
 	packages, err := lockfile.ParseApkInstalled("fixtures/apk/multiple_installed")

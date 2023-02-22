@@ -352,6 +352,53 @@ func TestRun_LockfileWithExplicitParseAs(t *testing.T) {
 			`,
 			wantStderr: "",
 		},
+		// multiple, + output order is deterministic
+		{
+			name: "",
+			args: []string{
+				"",
+				"-L", "package-lock.json:" + filepath.FromSlash("./fixtures/locks-insecure/my-package-lock.json"),
+				"-L", "yarn.lock:" + filepath.FromSlash("./fixtures/locks-insecure/my-yarn.lock"),
+				filepath.FromSlash("./fixtures/locks-insecure"),
+			},
+			wantExitCode: 1,
+			wantStdout: `
+				Scanned %%/fixtures/locks-insecure/my-package-lock.json file as a package-lock.json and found 1 packages
+				Scanned %%/fixtures/locks-insecure/my-yarn.lock file as a yarn.lock and found 1 packages
+				Scanning dir ./fixtures/locks-insecure
+				Scanned %%/fixtures/locks-insecure/composer.lock file and found 0 packages
+				+-------------------------------------+-----------+-----------+---------+----------------------------------------------+
+				| OSV URL (ID IN BOLD)                | ECOSYSTEM | PACKAGE   | VERSION | SOURCE                                       |
+				+-------------------------------------+-----------+-----------+---------+----------------------------------------------+
+				| https://osv.dev/GHSA-whgm-jr23-g3j9 | npm       | ansi-html | 0.0.1   | fixtures/locks-insecure/my-package-lock.json |
+				| https://osv.dev/GHSA-whgm-jr23-g3j9 | npm       | ansi-html | 0.0.1   | fixtures/locks-insecure/my-yarn.lock         |
+				+-------------------------------------+-----------+-----------+---------+----------------------------------------------+
+			`,
+			wantStderr: "",
+		},
+		{
+			name: "",
+			args: []string{
+				"",
+				"-L", "yarn.lock:" + filepath.FromSlash("./fixtures/locks-insecure/my-yarn.lock"),
+				"-L", "package-lock.json:" + filepath.FromSlash("./fixtures/locks-insecure/my-package-lock.json"),
+				filepath.FromSlash("./fixtures/locks-insecure"),
+			},
+			wantExitCode: 1,
+			wantStdout: `
+				Scanned %%/fixtures/locks-insecure/my-yarn.lock file as a yarn.lock and found 1 packages
+				Scanned %%/fixtures/locks-insecure/my-package-lock.json file as a package-lock.json and found 1 packages
+				Scanning dir ./fixtures/locks-insecure
+				Scanned %%/fixtures/locks-insecure/composer.lock file and found 0 packages
+				+-------------------------------------+-----------+-----------+---------+----------------------------------------------+
+				| OSV URL (ID IN BOLD)                | ECOSYSTEM | PACKAGE   | VERSION | SOURCE                                       |
+				+-------------------------------------+-----------+-----------+---------+----------------------------------------------+
+				| https://osv.dev/GHSA-whgm-jr23-g3j9 | npm       | ansi-html | 0.0.1   | fixtures/locks-insecure/my-package-lock.json |
+				| https://osv.dev/GHSA-whgm-jr23-g3j9 | npm       | ansi-html | 0.0.1   | fixtures/locks-insecure/my-yarn.lock         |
+				+-------------------------------------+-----------+-----------+---------+----------------------------------------------+
+			`,
+			wantStderr: "",
+		},
 		// files that error on parsing stop parsable files from being checked
 		{
 			name: "",
@@ -393,6 +440,20 @@ func TestRun_LockfileWithExplicitParseAs(t *testing.T) {
 			wantExitCode: 0,
 			wantStdout: `
 				Scanned %%/fixtures/locks-many/installed file as a apk-installed and found 1 packages
+			`,
+			wantStderr: "",
+		},
+		// "dpkg-status" is supported
+		{
+			name: "",
+			args: []string{
+				"",
+				"-L",
+				"dpkg-status:" + filepath.FromSlash("./fixtures/locks-many/status"),
+			},
+			wantExitCode: 0,
+			wantStdout: `
+				Scanned %%/fixtures/locks-many/status file as a dpkg-status and found 1 packages
 			`,
 			wantStderr: "",
 		},
