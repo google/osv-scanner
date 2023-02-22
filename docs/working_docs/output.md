@@ -72,7 +72,7 @@ osv-scanner --format json your/project/dir
 
 Outputs the results as a JSON object to stdout, with all other output being directed to stderr - this makes it safe to redirect the output to a file with
 ```bash
-osv-scanner --format json ... > /path/to/file.json
+osv-scanner --format json -L path/to/lockfile > /path/to/file.json
 ```
 
 <details markdown="1">
