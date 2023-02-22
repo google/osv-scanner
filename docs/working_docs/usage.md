@@ -80,11 +80,15 @@ A wide range of lockfiles are supported by utilizing this [lockfile package](htt
 - `requirements.txt`[\*](https://github.com/google/osv-scanner/issues/34)
 - `yarn.lock`
 
-The scanner also supports `installed` files used by the Alpine Package Keeper (apk) that typically live at `/lib/apk/db/installed`,
-however you must specify this explicitly using the `--lockfile` flag:
+The scanner also supports:
+- `installed` files used by the Alpine Package Keeper (apk) that typically live at `/lib/apk/db/installed`
+- `status` files used by the Debian Package manager (dpkg) that typically live at `/var/lib/dpkg/status`
+
+however you must specify them explicitly using the `--lockfile` flag:
 
 ```bash
 osv-scanner --lockfile 'apk-installed:/lib/apk/db/installed'
+osv-scanner --lockfile 'dpkg-status:/var/lib/dpkg/status'
 ```
 
 If the file you are scanning is located in a directory that has a colon in its name,

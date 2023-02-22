@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"os"
 	"regexp"
+	"sort"
 	"strings"
 )
 
@@ -159,4 +160,24 @@ func ParseDpkgStatus(pathToLockfile string) ([]PackageDetails, error) {
 	}
 
 	return packages, nil
+}
+
+// FromDpkgStatus attempts to parse the given file as an "dpkg-status" lockfile
+// used by the Debian Package (dpkg) to record installed packages.
+func FromDpkgStatus(pathToStatus string) (Lockfile, error) {
+	packages, err := ParseDpkgStatus(pathToStatus)
+
+	sort.Slice(packages, func(i, j int) bool {
+		if packages[i].Name == packages[j].Name {
+			return packages[i].Version < packages[j].Version
+		}
+
+		return packages[i].Name < packages[j].Name
+	})
+
+	return Lockfile{
+		FilePath: pathToStatus,
+		ParsedAs: "dpkg-status",
+		Packages: packages,
+	}, err
 }

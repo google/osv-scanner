@@ -443,6 +443,20 @@ func TestRun_LockfileWithExplicitParseAs(t *testing.T) {
 			`,
 			wantStderr: "",
 		},
+		// "dpkg-status" is supported
+		{
+			name: "",
+			args: []string{
+				"",
+				"-L",
+				"dpkg-status:" + filepath.FromSlash("./fixtures/locks-many/status"),
+			},
+			wantExitCode: 0,
+			wantStdout: `
+				Scanned %%/fixtures/locks-many/status file as a dpkg-status and found 1 packages
+			`,
+			wantStderr: "",
+		},
 	}
 	for _, tt := range tests {
 		tt := tt
