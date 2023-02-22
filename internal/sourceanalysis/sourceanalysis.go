@@ -5,6 +5,7 @@ import (
 	"path/filepath"
 
 	"golang.org/x/exp/slices"
+	"golang.org/x/vuln/exp/govulncheck"
 
 	"github.com/google/osv-scanner/internal/govulncheckshim"
 	"github.com/google/osv-scanner/internal/output"
@@ -17,26 +18,11 @@ type MatchedVulnerability struct {
 	pkg   models.PackageInfo
 }
 
-// vulnsFromAllPkgs returns a map of IDs to GroupInfo pointers, and the extracted list of vulnerabilities
-func vulnsFromAllPkgs(pkgs []models.PackageVulns) (map[string]map[string]MatchedVulnerability, []models.Vulnerability) {
-	idMatchedVulnMap := map[string]map[string]MatchedVulnerability{}
+// vulnsFromAllPkgs returns the flattened list of unique vulnerabilities
+func vulnsFromAllPkgs(pkgs []models.PackageVulns) []models.Vulnerability {
 	flatVulns := map[string]models.Vulnerability{}
 	for _, pv := range pkgs {
 		for _, vuln := range pv.Vulnerabilities {
-			groupIdx := slices.IndexFunc(pv.Groups, func(g models.GroupInfo) bool {
-				return slices.Contains(g.IDs, vuln.ID)
-			})
-
-			if idMatchedVulnMap[pv.Package.Name] == nil {
-				idMatchedVulnMap[pv.Package.Name] = make(map[string]MatchedVulnerability)
-			}
-
-			idMatchedVulnMap[pv.Package.Name][vuln.ID] = MatchedVulnerability{
-				group: &pv.Groups[groupIdx],
-				vuln:  vuln,
-				pkg:   pv.Package,
-			}
-
 			flatVulns[vuln.ID] = vuln
 		}
 	}
@@ -46,12 +32,12 @@ func vulnsFromAllPkgs(pkgs []models.PackageVulns) (map[string]map[string]Matched
 		vulnList = append(vulnList, v)
 	}
 
-	return idMatchedVulnMap, vulnList
+	return vulnList
 }
 
 // Run runs the language specific analyzers on the code given packages and source info
 func Run(r *output.Reporter, source models.SourceInfo, pkgs []models.PackageVulns) {
-	idMatchedVulnMap, vulnsSlice := vulnsFromAllPkgs(pkgs)
+	vulnsSlice := vulnsFromAllPkgs(pkgs)
 
 	// GoVulnCheck
 	if source.Type == "lockfile" && filepath.Base(source.Path) == "go.mod" {
@@ -64,20 +50,38 @@ func Run(r *output.Reporter, source models.SourceInfo, pkgs []models.PackageVuln
 
 			return
 		}
-		// Add analysis information back into package list
+		gvcResByVulnID := map[string]*govulncheck.Vuln{}
 		for _, v := range res.Vulns {
-			for _, m := range v.Modules {
-				// TODO: Not sure if this will match 100% of the time
-				if idMatchedVulnMap[m.Path] == nil {
-					r.PrintError(fmt.Sprintf("module does not match govulncheck results: Module: %v", m.Path))
-					continue
-				}
-				analysis := &idMatchedVulnMap[m.Path][v.OSV.ID].group.ExperimentalAnalysis
-				if *analysis == nil {
-					*analysis = make(map[string]models.AnalysisInfo)
-				}
-				(*analysis)[v.OSV.ID] = models.AnalysisInfo{
-					Called: v.IsCalled(),
+			gvcResByVulnID[v.OSV.ID] = v
+		}
+
+		for _, pv := range pkgs {
+			// Use index to keep reference to original element in slice
+			for groupIdx := range pv.Groups {
+				for _, vulnID := range pv.Groups[groupIdx].IDs {
+					gvcVuln, ok := gvcResByVulnID[vulnID]
+					if !ok {
+						continue
+					}
+					containsModule := slices.ContainsFunc(gvcVuln.Modules, func(module *govulncheck.Module) bool {
+						return module.Path == pv.Package.Name
+					})
+					analysis := &pv.Groups[groupIdx].ExperimentalAnalysis
+					if *analysis == nil {
+						*analysis = make(map[string]models.AnalysisInfo)
+					}
+
+					if !containsModule {
+						// Code does not import module, so definitely not called
+						(*analysis)[vulnID] = models.AnalysisInfo{
+							Called: false,
+						}
+					} else {
+						// Codes does import module, check if it's called
+						(*analysis)[vulnID] = models.AnalysisInfo{
+							Called: gvcVuln.IsCalled(),
+						}
+					}
 				}
 			}
 		}
