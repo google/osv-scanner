@@ -16,21 +16,36 @@ You may download the [SLSA3](https://slsa.dev) compliant binaries for Linux, mac
 
 [![Packaging status](https://repology.org/badge/vertical-allrepos/osv-scanner.svg)](https://repology.org/project/osv-scanner/versions)
 
-If you're a [**Windows Scoop**](https://scoop.sh) user, then you can install osv-scanner from the [official bucket](https://github.com/ScoopInstaller/Main/blob/master/bucket/osv-scanner.json):
+#### Windows Scoop
+[Windows Scoop](https://scoop.sh) users can install osv-scanner from the [official bucket](https://github.com/ScoopInstaller/Main/blob/master/bucket/osv-scanner.json):
 
 ```bash
 scoop install osv-scanner
 ```
-
-If you're a [Homebrew](https://brew.sh/) user, you can install [osv-scanner](https://formulae.brew.sh/formula/osv-scanner) via:
+#### Homebrew
+[Homebrew](https://brew.sh/) users can install [osv-scanner](https://formulae.brew.sh/formula/osv-scanner) via:
 
 ```bash
 brew install osv-scanner
 ```
 
-If you're a Arch Linux User, you can install osv-scanner from the official repo:
+#### Arch Linux
+Arch Linux users can install osv-scanner from the official repo:
+
 ```bash
 pacman -S osv-scanner
+```
+#### Alpine Linux
+Alpine Linux users can install osv-scanner from the official repo: 
+
+```bash
+apk add osv-scanner
+```
+#### OpenBSD
+OpenBSD users can install osv-scanner from the official repo:
+
+```bash
+pkg_add osv-scanner
 ```
 
 ### Install from source
