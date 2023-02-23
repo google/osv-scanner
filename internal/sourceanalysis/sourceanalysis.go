@@ -68,8 +68,8 @@ func Run(r *output.Reporter, source models.SourceInfo, pkgs []models.PackageVuln
 							}
 							_, hasImportsField := v.EcosystemSpecific["imports"]
 							if hasImportsField {
-								// Analysis has been performed, and code does not import vulnerable package
-								// , so definitely not called
+								// If there is source information, then analysis has been performed, and
+								// code does not import the vulnerable package, so definitely not called
 								(*analysis)[vulnID] = models.AnalysisInfo{
 									Called: false,
 								}
