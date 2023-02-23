@@ -21,21 +21,21 @@ func vulnsFromAllPkgs(pkgs []models.PackageVulns) []models.Vulnerability {
 		}
 	}
 
-	vulnList := []models.Vulnerability{}
+	vulns := []models.Vulnerability{}
 	for _, v := range flatVulns {
-		vulnList = append(vulnList, v)
+		vulns = append(vulns, v)
 	}
 
-	return vulnList
+	return vulns
 }
 
 // Run runs the language specific analyzers on the code given packages and source info
 func Run(r *output.Reporter, source models.SourceInfo, pkgs []models.PackageVulns) {
-	vulnsSlice := vulnsFromAllPkgs(pkgs)
+	vulns := vulnsFromAllPkgs(pkgs)
 
 	// GoVulnCheck
 	if source.Type == "lockfile" && filepath.Base(source.Path) == "go.mod" {
-		res, err := govulncheckshim.RunGoVulnCheck(filepath.Dir(source.Path), vulnsSlice)
+		res, err := govulncheckshim.RunGoVulnCheck(filepath.Dir(source.Path), vulns)
 		if err != nil {
 			// TODO: Better method to identify the type of error and give advice specific to the error
 			r.PrintError(
@@ -72,7 +72,7 @@ func Run(r *output.Reporter, source models.SourceInfo, pkgs []models.PackageVuln
 							Called: false,
 						}
 					} else {
-						// Codes does import module, check if it's called
+						// Code does import module, check if it's called
 						(*analysis)[vulnID] = models.AnalysisInfo{
 							Called: gvcVuln.IsCalled(),
 						}
