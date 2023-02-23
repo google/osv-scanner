@@ -4,31 +4,37 @@ title: Usage
 permalink: /usage/
 nav_order: 3
 ---
-OSV-Scanner collects a list of dependencies and versions that are used in your project, before matching this list against the OSV database via the [OSV.dev API](https://osv.dev#use-the-api). To build the list of dependencies, you can point OSV-Scanner at your project directory, or manually pass in the path to individual manifest files.
+## Usage
 
-### Scan a directory
+OSV-Scanner parses lockfiles, SBOMs, and git directories to determine your project's open source dependencies. These dependencies are matched against the OSV database via the [OSV.dev API](https://osv.dev#use-the-api) and known vulnerabilities are returned to you in the output. 
 
-Walks through a list of directories to find:
-
-- Lockfiles
-- SBOMs
-- git directories for the latest commit hash
-
-which is used to build the list of dependencies to be matched against OSV vulnerabilities.
-
-Can be configured to recursively walk through subdirectories with the `--recursive` / `-r` flag.
-
-Searching for git commit hash is intended to work with projects that use
-git submodules or a similar mechanism where dependencies are checked out
-as real git repositories.
-
-#### Example
+### General use case: scanning a directory
 
 ```bash
 osv-scanner -r /path/to/your/dir
 ```
 
-### Input an SBOM
+The preceding command will find lockfiles, SBOMs, and git directories in your target directory and use them to determine the dependencies to check against the OSV database for any known vulnerabilities.
+
+The recursive flag `-r` or `--recursive` will tell the scanner to search all subdirectories in addition to the specified directory. It can find additional lockfiles, dependencies, and vulnerabilities. If your project has deeply nested subdirectories, a recursive search may take a long time. 
+
+Git directories are searched for the latest commit hash. Searching for git commit hash is intended to work with projects that use git submodules or a similar mechanism where dependencies are checked out as real git repositories. 
+
+### Ignored files
+
+By default, OSV-Scanner will not scan files that are ignored by `.gitignore` files. All recursively scanned files are matched to a git repository (if it exists) and any matching `.gitignore` files within that repository are taken into account.
+
+There is a [known issue](https://github.com/google/osv-scanner/issues/209) that the parser does not correctly respect repository boundaries.
+
+The `--no-ignore` flag can be used to force the scanner to scan ignored files.
+
+### Specify SBOM
+
+If you want to check for known vulnerabilities only in dependencies in your SBOM, you can use the following command:
+
+```bash
+osv-scanner --sbom=/path/to/your/sbom.json
+```
 
 [SPDX] and [CycloneDX] SBOMs using [Package URLs] are supported. The format is
 auto-detected based on the input file contents.
@@ -37,19 +43,25 @@ auto-detected based on the input file contents.
 [CycloneDX]: https://cyclonedx.org/
 [Package URLs]: https://github.com/package-url/purl-spec
 
-#### Example
+### Specify Lockfile(s)
+If you want to check for known vulnerabilities in specific lockfiles, you can use the following command:
 
 ```bash
-osv-scanner --sbom=/path/to/your/sbom.json
+osv-scanner --lockfile=/path/to/your/package-lock.json --lockfile=/path/to/another/Cargo.lock
 ```
 
-### Input a lockfile
+It is possible to specify more than one lockfile at a time; you can also specify how to parse an arbitrary file:
+
+```bash
+osv-scanner --lockfile 'requirements.txt:/path/to/your/extra-requirements.txt'
+```
 
 A wide range of lockfiles are supported by utilizing this [lockfile package](https://github.com/google/osv-scanner/tree/main/pkg/lockfile). This is the current list of supported lockfiles:
 
 - `buildscript-gradle.lockfile`
 - `Cargo.lock`
 - `composer.lock`
+- `conan.lock`
 - `Gemfile.lock`
 - `go.mod`
 - `gradle.lockfile`
@@ -63,16 +75,28 @@ A wide range of lockfiles are supported by utilizing this [lockfile package](htt
 - `pubspec.lock`
 - `requirements.txt`[\*](https://github.com/google/osv-scanner/issues/34)
 - `yarn.lock`
-- `/lib/apk/db/installed` (Alpine)
 
-#### Example
+The scanner also supports:
+- `installed` files used by the Alpine Package Keeper (apk) that typically live at `/lib/apk/db/installed`
+- `status` files used by the Debian Package manager (dpkg) that typically live at `/var/lib/dpkg/status`
+
+however you must specify them explicitly using the `--lockfile` flag:
 
 ```bash
-osv-scanner --lockfile=/path/to/your/package-lock.json --lockfile=/path/to/another/Cargo.lock
+osv-scanner --lockfile 'apk-installed:/lib/apk/db/installed'
+osv-scanner --lockfile 'dpkg-status:/var/lib/dpkg/status'
 ```
 
-### Scanning a Debian based docker image packages (preview)
+If the file you are scanning is located in a directory that has a colon in its name,
+you can prefix the path to just a colon to explicitly signal to the scanner that
+it should infer the parser based on the filename:
 
+```bash
+osv-scanner --lockfile ':/path/to/my:projects/package-lock.json'
+```
+### Scanning a Debian based docker image packages
+Preview
+{: .label } 
 This tool will scrape the list of installed packages in a Debian image and query for vulnerabilities on them.
 
 Currently only Debian based docker image scanning is supported.
