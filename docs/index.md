@@ -8,6 +8,7 @@ nav_order: 1
 # OSV-Scanner
 
 [![OpenSSF Scorecard](https://api.securityscorecards.dev/projects/github.com/google/osv-scanner/badge)](https://api.securityscorecards.dev/projects/github.com/google/osv-scanner)
+[![Go Report Card](https://goreportcard.com/badge/github.com/google/osv-scanner)](https://goreportcard.com/report/github.com/google/osv-scanner)
 
 Use OSV-Scanner to find existing vulnerabilities affecting your project's dependencies.
 
