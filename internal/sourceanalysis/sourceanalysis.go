@@ -13,7 +13,7 @@ import (
 )
 
 // vulnsFromAllPkgs returns the flattened list of unique vulnerabilities
-func vulnsFromAllPkgs(pkgs []models.PackageVulns) []models.Vulnerability {
+func vulnsFromAllPkgs(pkgs []models.PackageVulns) ([]models.Vulnerability, map[string]models.Vulnerability) {
 	flatVulns := map[string]models.Vulnerability{}
 	for _, pv := range pkgs {
 		for _, vuln := range pv.Vulnerabilities {
@@ -26,12 +26,12 @@ func vulnsFromAllPkgs(pkgs []models.PackageVulns) []models.Vulnerability {
 		vulns = append(vulns, v)
 	}
 
-	return vulns
+	return vulns, flatVulns
 }
 
 // Run runs the language specific analyzers on the code given packages and source info
 func Run(r *output.Reporter, source models.SourceInfo, pkgs []models.PackageVulns) {
-	vulns := vulnsFromAllPkgs(pkgs)
+	vulns, vulnsByID := vulnsFromAllPkgs(pkgs)
 
 	// GoVulnCheck
 	if source.Type == "lockfile" && filepath.Base(source.Path) == "go.mod" {
@@ -53,18 +53,35 @@ func Run(r *output.Reporter, source models.SourceInfo, pkgs []models.PackageVuln
 			// Use index to keep reference to original element in slice
 			for groupIdx := range pv.Groups {
 				for _, vulnID := range pv.Groups[groupIdx].IDs {
+					analysis := &pv.Groups[groupIdx].ExperimentalAnalysis
+					if *analysis == nil {
+						*analysis = make(map[string]models.AnalysisInfo)
+					}
+
 					gvcVuln, ok := gvcResByVulnID[vulnID]
-					if !ok { // If vulnerability not found, analysis has not been performed, so skip
+					if !ok { // If vulnerability not found, check if it contain any source information
+						for _, v := range vulnsByID[vulnID].Affected {
+							// TODO: Compare versions to see if this is the correct affected element
+							// ver, err := semantic.Parse(pv.Package.Version, semantic.SemverVersion)
+							if v.Package.Name != pv.Package.Name {
+								continue
+							}
+							_, hasImportsField := v.EcosystemSpecific["imports"]
+							if hasImportsField {
+								// Analysis has been performed, and code does not import vulnerable package
+								// , so definitely not called
+								(*analysis)[vulnID] = models.AnalysisInfo{
+									Called: false,
+								}
+							}
+						}
+
 						continue
 					}
 					// Module list is unlikely to be very big, linear search is fine
 					containsModule := slices.ContainsFunc(gvcVuln.Modules, func(module *govulncheck.Module) bool {
 						return module.Path == pv.Package.Name
 					})
-					analysis := &pv.Groups[groupIdx].ExperimentalAnalysis
-					if *analysis == nil {
-						*analysis = make(map[string]models.AnalysisInfo)
-					}
 
 					if !containsModule {
 						// Code does not import module, so definitely not called
