@@ -38,10 +38,10 @@ type ScannerActions struct {
 
 // NoPackagesFoundErr for when no packages is found during a scan.
 //
-//nolint:errname,stylecheck // Would require version bump to change
+//nolint:errname,stylecheck // Would require version major bump to change
 var NoPackagesFoundErr = errors.New("no packages found in scan")
 
-//nolint:errname,stylecheck // Would require version bump to change
+//nolint:errname,stylecheck // Would require version major bump to change
 var VulnerabilitiesFoundErr = errors.New("vulnerabilities found")
 
 //nolint:errname,stylecheck // Would require version bump to change

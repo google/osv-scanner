@@ -18,7 +18,7 @@ require (
 	golang.org/x/term v0.5.0
 	golang.org/x/tools v0.5.1-0.20230117180257-8aba49bb5ea2
 	golang.org/x/vuln v0.0.0-20230118164824-4ec8867cc0e6
-	gopkg.in/yaml.v2 v2.4.0
+	gopkg.in/yaml.v3 v3.0.1
 )
 
 require (

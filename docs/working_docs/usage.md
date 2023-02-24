@@ -99,7 +99,9 @@ it should infer the parser based on the filename:
 osv-scanner --lockfile ':/path/to/my:projects/package-lock.json'
 ```
 
-### Scanning with call analysis (preview)
+### Scanning with call analysis
+Preview
+{: .label }
 
 {: .note }
 Features and flags with the `experimental` prefix might change or be removed with only a minor version update.
@@ -120,7 +122,9 @@ To enable call analysis, call OSV-Scanner with the `--experimental-call-analysis
 osv-scanner --experimental-call-analysis ./my/project/path
 ```
 
-### Scanning a Debian based docker image packages (preview)
+### Scanning a Debian based docker image packages
+Preview
+{: .label } 
 
 This tool will scrape the list of installed packages in a Debian image and query for vulnerabilities on them.
 
