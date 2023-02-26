@@ -28,22 +28,27 @@ func LoadHelper[V any](t *testing.T, path string) V {
 
 // AssertMatchFixtureJSON matches the JSON at path with the value val, failing if not equal, printing out the difference.
 func AssertMatchFixtureJSON[V any](t *testing.T, path string, val V) {
+	t.Helper()
 	fileA, err := os.ReadFile(path)
 	if err != nil {
 		t.Fatalf("Failed to open fixture: %s", err)
 	}
 
 	var elem V
-	json.Unmarshal(fileA, &elem)
+	err = json.Unmarshal(fileA, &elem)
+	if err != nil {
+		t.Fatalf("Failed to unmarshal val: %s", err)
+	}
 
 	if !reflect.DeepEqual(val, elem) {
-		t.Fatalf("Not equal: \n%s", strings.Join(pretty.Diff(val, elem), "\n"))
+		t.Errorf("Not equal: \n%s", strings.Join(pretty.Diff(val, elem), "\n"))
 	}
 }
 
 // AssertMatchFixtureJSON creates a JSON file at path of the value val,
 // can be used with AssertMatchFixtureJSON to compare against future values.
 func CreateJSONSnapshot[V any](t *testing.T, path string, val V) {
+	t.Helper()
 	file, err := os.Open(path)
 	if err != nil {
 		t.Fatalf("Failed to open file to write: %s", err)
