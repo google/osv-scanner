@@ -65,3 +65,4 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) file.
 ### SemVer Adherence
 
 All releases on the same Major version will be guaranteed to have backward compatible JSON output and CLI arguments.
+However, features prefixed with `experimental` (e.g. `--experimental-call-analysis`) might be changed or removed with only a Minor version change.

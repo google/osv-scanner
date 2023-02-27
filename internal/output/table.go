@@ -19,7 +19,6 @@ func PrintTableResults(vulnResult *models.VulnerabilityResults, outputWriter io.
 	outputTable := table.NewWriter()
 	outputTable.SetOutputMirror(outputWriter)
 	outputTable.AppendHeader(table.Row{"OSV URL (ID In Bold)", "Ecosystem", "Package", "Version", "Source"})
-
 	width, _, err := term.GetSize(int(os.Stdout.Fd()))
 	isTerminal := false
 	if err == nil { // If output is a terminal, set max length to width and add styling
@@ -40,6 +39,34 @@ func PrintTableResults(vulnResult *models.VulnerabilityResults, outputWriter io.
 }
 
 func tableBuilder(outputTable table.Writer, vulnResult *models.VulnerabilityResults, addStyling bool) table.Writer {
+	rows := tableBuilderInner(vulnResult, addStyling, true)
+	for _, elem := range rows {
+		outputTable.AppendRow(elem.row, table.RowConfig{AutoMerge: elem.shouldMerge})
+	}
+
+	uncalledRows := tableBuilderInner(vulnResult, addStyling, false)
+	if len(uncalledRows) == 0 {
+		return outputTable
+	}
+
+	outputTable.AppendSeparator()
+	outputTable.AppendRow(table.Row{"Uncalled vulnerabilities"})
+	outputTable.AppendSeparator()
+
+	for _, elem := range uncalledRows {
+		outputTable.AppendRow(elem.row, table.RowConfig{AutoMerge: elem.shouldMerge})
+	}
+
+	return outputTable
+}
+
+type tbInnerResponse struct {
+	row         table.Row
+	shouldMerge bool
+}
+
+func tableBuilderInner(vulnResult *models.VulnerabilityResults, addStyling bool, calledVulns bool) []tbInnerResponse {
+	allOutputRows := []tbInnerResponse{}
 	// Working directory used to simplify path
 	workingDir, workingDirErr := os.Getwd()
 	for _, sourceRes := range vulnResult.Results {
@@ -54,6 +81,10 @@ func tableBuilder(outputTable table.Writer, vulnResult *models.VulnerabilityResu
 
 			// Merge groups into the same row
 			for _, group := range pkg.Groups {
+				if group.IsCalled() != calledVulns {
+					continue
+				}
+
 				outputRow := table.Row{}
 				shouldMerge := false
 
@@ -77,10 +108,13 @@ func tableBuilder(outputTable table.Writer, vulnResult *models.VulnerabilityResu
 				}
 
 				outputRow = append(outputRow, source.Path)
-				outputTable.AppendRow(outputRow, table.RowConfig{AutoMerge: shouldMerge})
+				allOutputRows = append(allOutputRows, tbInnerResponse{
+					row:         outputRow,
+					shouldMerge: shouldMerge,
+				})
 			}
 		}
 	}
 
-	return outputTable
+	return allOutputRows
 }

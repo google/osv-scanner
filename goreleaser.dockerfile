@@ -12,11 +12,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-FROM alpine:latest
+FROM alpine:3.17
 
 RUN apk add --no-cache \
     ca-certificates \
-    git
+    git \
+    go
 
 # Allow git to run on mounted directories
 RUN git config --global --add safe.directory '*'

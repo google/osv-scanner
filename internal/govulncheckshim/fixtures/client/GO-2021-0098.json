@@ -1,0 +1,107 @@
+{
+    "id": "GO-2021-0098",
+    "published": "2021-04-14T20:04:52Z",
+    "modified": "2023-02-07T16:05:32Z",
+    "aliases": [
+        "CVE-2021-21237",
+        "GHSA-cx3w-xqmc-84g5"
+    ],
+    "details": "Due to the standard library behavior of exec.LookPath on Windows a number of methods may result in arbitrary code execution when cloning or operating on untrusted Git repositories.",
+    "affected": [
+        {
+            "package": {
+                "name": "github.com/git-lfs/git-lfs",
+                "ecosystem": "Go"
+            },
+            "ranges": [
+                {
+                    "type": "SEMVER",
+                    "events": [
+                        {
+                            "introduced": "0"
+                        },
+                        {
+                            "fixed": "1.5.1-0.20210113180018-fc664697ed2c"
+                        }
+                    ]
+                }
+            ],
+            "database_specific": {
+                "url": "https://pkg.go.dev/vuln/GO-2021-0098"
+            },
+            "ecosystem_specific": {
+                "imports": [
+                    {
+                        "path": "github.com/git-lfs/git-lfs/commands",
+                        "goos": [
+                            "windows"
+                        ],
+                        "symbols": [
+                            "PipeCommand",
+                            "PipeMediaCommand",
+                            "Run",
+                            "lockVerifier.Verify",
+                            "singleCheckout.Run",
+                            "singleCheckout.RunToPath",
+                            "uploadContext.NewQueue",
+                            "uploadContext.UploadPointers"
+                        ]
+                    },
+                    {
+                        "path": "github.com/git-lfs/git-lfs/creds",
+                        "goos": [
+                            "windows"
+                        ],
+                        "symbols": [
+                            "AskPassCredentialHelper.Fill",
+                            "AskPassCredentialHelper.getFromProgram",
+                            "CredentialHelperWrapper.FillCreds",
+                            "CredentialHelpers.Approve",
+                            "CredentialHelpers.Fill",
+                            "commandCredentialHelper.Approve"
+                        ]
+                    },
+                    {
+                        "path": "github.com/git-lfs/git-lfs/lfs",
+                        "goos": [
+                            "windows"
+                        ],
+                        "symbols": [
+                            "GitFilter.Clean",
+                            "GitFilter.Smudge",
+                            "GitFilter.SmudgeToFile",
+                            "pipeExtensions"
+                        ]
+                    },
+                    {
+                        "path": "github.com/git-lfs/git-lfs/lfshttp",
+                        "goos": [
+                            "windows"
+                        ],
+                        "symbols": [
+                            "Client.Do",
+                            "Client.DoWithAccess",
+                            "Client.HttpClient",
+                            "Client.NewRequest",
+                            "Client.Transport",
+                            "sshAuthClient.Resolve",
+                            "sshCache.Resolve"
+                        ]
+                    }
+                ]
+            }
+        }
+    ],
+    "references": [
+        {
+            "type": "FIX",
+            "url": "https://github.com/git-lfs/git-lfs/commit/fc664697ed2c2081ee9633010de0a7f9debea72a"
+        }
+    ],
+    "credits": [
+        {
+            "name": "@Ry0taK"
+        }
+    ],
+    "schema_version": "1.3.1"
+}

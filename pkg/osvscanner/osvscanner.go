@@ -32,6 +32,8 @@ type ScannerActions struct {
 	NoIgnore             bool
 	DockerContainerNames []string
 	ConfigOverridePath   string
+
+	ExperimentalCallAnalysis bool
 }
 
 // NoPackagesFoundErr for when no packages is found during a scan.
@@ -41,6 +43,9 @@ var NoPackagesFoundErr = errors.New("no packages found in scan")
 
 //nolint:errname,stylecheck // Would require version major bump to change
 var VulnerabilitiesFoundErr = errors.New("vulnerabilities found")
+
+//nolint:errname,stylecheck // Would require version bump to change
+var OnlyUncalledVulnerabilitiesFoundErr = errors.New("only uncalled vulnerabilities found")
 
 // scanDir walks through the given directory to try to find any relevant files
 // These include:
@@ -455,16 +460,22 @@ func DoScan(actions ScannerActions, r *output.Reporter) (models.VulnerabilityRes
 	if filtered > 0 {
 		r.PrintText(fmt.Sprintf("Filtered %d vulnerabilities from output\n", filtered))
 	}
-
 	hydratedResp, err := osv.Hydrate(resp)
 	if err != nil {
 		return models.VulnerabilityResults{}, fmt.Errorf("failed to hydrate OSV response: %w", err)
 	}
 
-	vulnerabilityResults := groupResponseBySource(r, query, hydratedResp)
+	vulnerabilityResults := groupResponseBySource(r, query, hydratedResp, actions.ExperimentalCallAnalysis)
 	// if vulnerability exists it should return error
 	if len(vulnerabilityResults.Results) > 0 {
-		return vulnerabilityResults, VulnerabilitiesFoundErr
+		// If any vulnerabilities are called, then we return VulnerabilitiesFoundErr
+		for _, vf := range vulnerabilityResults.Flatten() {
+			if vf.GroupInfo.IsCalled() {
+				return vulnerabilityResults, VulnerabilitiesFoundErr
+			}
+		}
+		// Otherwise return OnlyUncalledVulnerabilitiesFoundErr
+		return vulnerabilityResults, OnlyUncalledVulnerabilitiesFoundErr
 	}
 
 	return vulnerabilityResults, nil
