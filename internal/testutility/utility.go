@@ -10,8 +10,8 @@ import (
 	"github.com/kr/pretty"
 )
 
-// LoadHelper loads a JSON fixture file and returns the decoded version.
-func LoadHelper[V any](t *testing.T, path string) V {
+// LoadJSONFixture loads a JSON fixture file and returns the decoded version.
+func LoadJSONFixture[V any](t *testing.T, path string) V {
 	t.Helper()
 	file, err := os.Open(path)
 	if err != nil {
@@ -45,7 +45,7 @@ func AssertMatchFixtureJSON[V any](t *testing.T, path string, val V) {
 	}
 }
 
-// AssertMatchFixtureJSON creates a JSON file at path of the value val,
+// CreateJSONSnapshot creates a JSON file at path of the value val,
 // can be used with AssertMatchFixtureJSON to compare against future values.
 func CreateJSONSnapshot[V any](t *testing.T, path string, val V) {
 	t.Helper()

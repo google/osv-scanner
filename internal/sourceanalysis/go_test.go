@@ -11,9 +11,9 @@ import (
 func Test_matchAnalysisWithPackageVulns(t *testing.T) {
 	t.Parallel()
 
-	pkgs := testutility.LoadHelper[[]models.PackageVulns](t, "fixtures/input.json")
-	gvcResByVulnID := testutility.LoadHelper[map[string]*govulncheck.Vuln](t, "fixtures/govulncheckinput.json")
-	vulnsByID := testutility.LoadHelper[map[string]models.Vulnerability](t, "fixtures/vulnbyid.json")
+	pkgs := testutility.LoadJSONFixture[[]models.PackageVulns](t, "fixtures/input.json")
+	gvcResByVulnID := testutility.LoadJSONFixture[map[string]*govulncheck.Vuln](t, "fixtures/govulncheckinput.json")
+	vulnsByID := testutility.LoadJSONFixture[map[string]models.Vulnerability](t, "fixtures/vulnbyid.json")
 
 	matchAnalysisWithPackageVulns(pkgs, gvcResByVulnID, vulnsByID)
 	testutility.AssertMatchFixtureJSON(t, "fixtures/output.json", pkgs)
