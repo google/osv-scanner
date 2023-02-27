@@ -20,6 +20,11 @@
     {
       "matchPaths": [".github/"],
       "groupName": "workflows"
+    },
+    {
+      "matchPaths": ["**/fixtures/"],
+      "groupName": "Ignore testing fixtures",
+      "enabled": false
     }
   ]
 }
