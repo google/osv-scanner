@@ -70,6 +70,31 @@ func TestParseYarnLock_v1_TwoPackages(t *testing.T) {
 	})
 }
 
+func TestParseYarnLock_v1_WithQuotes(t *testing.T) {
+	t.Parallel()
+
+	packages, err := lockfile.ParseYarnLock("fixtures/yarn/with-quotes.v1.lock")
+
+	if err != nil {
+		t.Errorf("Got unexpected error: %v", err)
+	}
+
+	expectPackages(t, packages, []lockfile.PackageDetails{
+		{
+			Name:      "concat-stream",
+			Version:   "1.6.2",
+			Ecosystem: lockfile.YarnEcosystem,
+			CompareAs: lockfile.YarnEcosystem,
+		},
+		{
+			Name:      "concat-map",
+			Version:   "0.0.1",
+			Ecosystem: lockfile.YarnEcosystem,
+			CompareAs: lockfile.YarnEcosystem,
+		},
+	})
+}
+
 func TestParseYarnLock_v1_MultipleVersions(t *testing.T) {
 	t.Parallel()
 
