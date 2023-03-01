@@ -41,9 +41,10 @@ func (mld MavenLockDependency) resolveVersionValue(lockfile MavenLockFile) strin
 
 	fmt.Fprintf(
 		os.Stderr,
-		"Failed to resolve version of %s: property \"%s\" could not be found",
+		"Failed to resolve version of %s: property \"%s\" could not be found for \"%s\"\n",
 		mld.GroupID+":"+mld.ArtifactID,
 		results[1],
+		lockfile.GroupID+":"+lockfile.ArtifactID,
 	)
 
 	return "0"
@@ -58,6 +59,8 @@ func (mld MavenLockDependency) ResolveVersion(lockfile MavenLockFile) string {
 type MavenLockFile struct {
 	XMLName             xml.Name              `xml:"project"`
 	ModelVersion        string                `xml:"modelVersion"`
+	GroupID             string                `xml:"groupId"`
+	ArtifactID          string                `xml:"artifactId"`
 	Properties          MavenLockProperties   `xml:"properties"`
 	Dependencies        []MavenLockDependency `xml:"dependencies>dependency"`
 	ManagedDependencies []MavenLockDependency `xml:"dependencyManagement>dependencies>dependency"`
