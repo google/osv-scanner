@@ -36,13 +36,12 @@ func ParseRpmDB(pathToLockfile string) ([]PackageDetails, error) {
 			continue
 		}
 
-		var pkg = PackageDetails{
+		packages = append(packages, PackageDetails{
+			Name:      rpmPkg.Name,
+			Version:   rpmPkg.Version,
 			Ecosystem: RedHatEcosystem,
 			CompareAs: RedHatEcosystem,
-		}
-		pkg.Name = rpmPkg.Name
-		pkg.Version = rpmPkg.Version
-		packages = append(packages, pkg)
+		})
 	}
 
 	return packages, nil

@@ -6,8 +6,26 @@ import (
 	"github.com/google/osv-scanner/pkg/lockfile"
 )
 
+func TestParseRpmDB_SQLite_FileDoesNotExist(t *testing.T) {
+	t.Parallel()
+
+	packages, err := lockfile.ParseRpmDB("fixtures/rpm/does-not-exist")
+
+	expectErrContaining(t, err, "could not open")
+	expectPackages(t, packages, []lockfile.PackageDetails{})
+}
+
+func TestParseRpmDB_SQLite_NotAnRpmDb(t *testing.T) {
+	t.Parallel()
+
+	packages, err := lockfile.ParseRpmDB("fixtures/rpm/not-an-rpmdb")
+
+	expectErrContaining(t, err, "could not open")
+	expectPackages(t, packages, []lockfile.PackageDetails{})
+}
+
 // Berkeley DB (rpm < v4.16)
-func TestRpmDb_BDB_Single(t *testing.T) {
+func TestParseRpmDB_BDB_Single(t *testing.T) {
 	t.Parallel()
 
 	packages, err := lockfile.ParseRpmDB("fixtures/rpm/Packages")
@@ -26,7 +44,7 @@ func TestRpmDb_BDB_Single(t *testing.T) {
 	})
 }
 
-func TestRpmDb_SQLite_Single(t *testing.T) {
+func TestParseRpmDB_SQLite_Single(t *testing.T) {
 	t.Parallel()
 
 	packages, err := lockfile.ParseRpmDB("fixtures/rpm/rpmdb.sqlite")
