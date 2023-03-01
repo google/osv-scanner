@@ -21,8 +21,8 @@ func (c *CycloneDX) Name() string {
 	return "CycloneDX"
 }
 
-func (c *CycloneDX) enumeratePackages(bom *cyclonedx.BOM, callback func(Identifier) error) error {
-	for _, component := range *bom.Components {
+func (c *CycloneDX) enumerateComponents(components []cyclonedx.Component, callback func(Identifier) error) error {
+	for _, component := range components {
 		if component.PackageURL != "" {
 			err := callback(Identifier{
 				PURL: component.PackageURL,
@@ -31,9 +31,20 @@ func (c *CycloneDX) enumeratePackages(bom *cyclonedx.BOM, callback func(Identifi
 				return err
 			}
 		}
+		// Components can have components, so enumerate them recursively.
+		if component.Components != nil {
+			err := c.enumerateComponents(*component.Components, callback)
+			if err != nil {
+				return err
+			}
+		}
 	}
 
 	return nil
+}
+
+func (c *CycloneDX) enumeratePackages(bom *cyclonedx.BOM, callback func(Identifier) error) error {
+	return c.enumerateComponents(*bom.Components, callback)
 }
 
 func (c *CycloneDX) GetPackages(r io.ReadSeeker, callback func(Identifier) error) error {
