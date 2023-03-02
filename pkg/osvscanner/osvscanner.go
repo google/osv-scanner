@@ -250,7 +250,7 @@ func scanSBOMFile(r *output.Reporter, query *osv.BatchedQuery, path string) erro
 		})
 		if err == nil {
 			// Found the right format.
-			r.PrintText(fmt.Sprintf("Scanned %s SBOM and found %d packages\n", provider.Name(), count))
+			r.PrintText(fmt.Sprintf("Scanned %s as %s SBOM and found %d packages\n", path, provider.Name(), count))
 			return nil
 		}
 
