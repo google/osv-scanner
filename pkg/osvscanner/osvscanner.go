@@ -9,6 +9,7 @@ import (
 	"path/filepath"
 	"strings"
 
+	"github.com/google/osv-scanner/internal/offline"
 	"github.com/google/osv-scanner/internal/output"
 	"github.com/google/osv-scanner/internal/sbom"
 	"github.com/google/osv-scanner/pkg/config"
@@ -38,7 +39,9 @@ type ScannerActions struct {
 }
 
 type ExperimentalScannerActions struct {
-	CallAnalysis bool
+	CallAnalysis   bool
+	CompareLocally bool
+	CompareOffline bool
 }
 
 // NoPackagesFoundErr for when no packages are found during a scan.
@@ -561,18 +564,10 @@ func DoScan(actions ScannerActions, r reporter.Reporter) (models.VulnerabilityRe
 		return models.VulnerabilityResults{}, NoPackagesFoundErr
 	}
 
-	if osv.RequestUserAgent == "" {
-		osv.RequestUserAgent = "osv-scanner-api"
-	}
+	hydratedResp, err := MakeRequest(r, actions.CompareLocally, actions.CompareOffline, query)
 
-	resp, err := osv.MakeRequest(query)
 	if err != nil {
-		return models.VulnerabilityResults{}, fmt.Errorf("scan failed %w", err)
-	}
-
-	hydratedResp, err := osv.Hydrate(resp)
-	if err != nil {
-		return models.VulnerabilityResults{}, fmt.Errorf("failed to hydrate OSV response: %w", err)
+		return models.VulnerabilityResults{}, err
 	}
 
 	vulnerabilityResults := groupResponseBySource(r, query, hydratedResp, actions.CallAnalysis)
@@ -599,4 +594,36 @@ func DoScan(actions ScannerActions, r reporter.Reporter) (models.VulnerabilityRe
 	}
 
 	return vulnerabilityResults, nil
+}
+
+func MakeRequest(
+	r reporter.Reporter,
+	compareLocally bool,
+	compareOffline bool,
+	query osv.BatchedQuery,
+) (*osv.HydratedBatchedResponse, error) {
+	if compareLocally {
+		hydratedResp, err := offline.Check(r, query, compareOffline)
+		if err != nil {
+			return &osv.HydratedBatchedResponse{}, fmt.Errorf("scan failed %w", err)
+		}
+
+		return hydratedResp, nil
+	}
+
+	if osv.RequestUserAgent == "" {
+		osv.RequestUserAgent = "osv-scanner-api"
+	}
+
+	resp, err := osv.MakeRequest(query)
+	if err != nil {
+		return &osv.HydratedBatchedResponse{}, fmt.Errorf("scan failed %w", err)
+	}
+
+	hydratedResp, err := osv.Hydrate(resp)
+	if err != nil {
+		return &osv.HydratedBatchedResponse{}, fmt.Errorf("failed to hydrate OSV response: %w", err)
+	}
+
+	return hydratedResp, nil
 }

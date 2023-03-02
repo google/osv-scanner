@@ -108,6 +108,14 @@ func run(args []string, stdout, stderr io.Writer) int {
 				Usage: "also scan files that would be ignored by .gitignore",
 				Value: false,
 			},
+			&cli.BoolFlag{
+				Name:  "experimental-local-db",
+				Usage: "checks for vulnerabilities using local databases",
+			},
+			&cli.BoolFlag{
+				Name:  "experimental-offline",
+				Usage: "checks for vulnerabilities using local databases that are already cached",
+			},
 		},
 		ArgsUsage: "[directory1 directory2...]",
 		Action: func(context *cli.Context) error {
@@ -149,7 +157,10 @@ func run(args []string, stdout, stderr io.Writer) int {
 				ConfigOverridePath:   context.String("config"),
 				DirectoryPaths:       context.Args().Slice(),
 				ExperimentalScannerActions: osvscanner.ExperimentalScannerActions{
-					CallAnalysis: context.Bool("experimental-call-analysis"),
+					CallAnalysis:   context.Bool("experimental-call-analysis"),
+					CompareLocally: context.Bool("experimental-local-db"),
+					// todo: enforce that "compare-locally" is also set
+					CompareOffline: context.Bool("experimental-offline"),
 				},
 			}, r)
 
