@@ -116,7 +116,7 @@ func ParseRequirementsTxt(pathToLockfile string) ([]PackageDetails, error) {
 			}
 
 			for _, detail := range details {
-				packages[detail.Name] = detail
+				packages[detail.Name+"@"+detail.Version] = detail
 			}
 
 			continue
@@ -127,7 +127,7 @@ func ParseRequirementsTxt(pathToLockfile string) ([]PackageDetails, error) {
 		}
 
 		detail := parseLine(line)
-		packages[detail.Name] = detail
+		packages[detail.Name+"@"+detail.Version] = detail
 	}
 
 	if err := scanner.Err(); err != nil {

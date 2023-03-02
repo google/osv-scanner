@@ -399,13 +399,19 @@ func TestParseRequirementsTxt_WithMultipleROptions(t *testing.T) {
 		},
 		{
 			Name:      "requests",
-			Version:   "1.2.3",
+			Version:   "0.0.0",
 			Ecosystem: lockfile.PipEcosystem,
 			CompareAs: lockfile.PipEcosystem,
 		},
 		{
 			Name:      "gevent",
 			Version:   "0.0.0",
+			Ecosystem: lockfile.PipEcosystem,
+			CompareAs: lockfile.PipEcosystem,
+		},
+		{
+			Name:      "requests",
+			Version:   "1.2.3",
 			Ecosystem: lockfile.PipEcosystem,
 			CompareAs: lockfile.PipEcosystem,
 		},
