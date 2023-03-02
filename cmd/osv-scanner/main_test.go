@@ -139,7 +139,7 @@ func TestRun(t *testing.T) {
 			wantExitCode: 1,
 			wantStdout: `
 				Scanning dir ./fixtures/sbom-insecure/postgres-stretch.cdx.xml
-				Scanned /home/rexpan/Documents/Projects/osv-scanner/cmd/osv-scanner/fixtures/sbom-insecure/postgres-stretch.cdx.xml as CycloneDX SBOM and found 136 packages
+				Scanned %%/fixtures/sbom-insecure/postgres-stretch.cdx.xml as CycloneDX SBOM and found 136 packages
 				+-------------------------------------+-----------+---------+------------------------------------+-------------------------------------------------+
 				| OSV URL (ID IN BOLD)                | ECOSYSTEM | PACKAGE | VERSION                            | SOURCE                                          |
 				+-------------------------------------+-----------+---------+------------------------------------+-------------------------------------------------+
@@ -172,7 +172,7 @@ func TestRun(t *testing.T) {
 			wantStdout: `
 				Scanning dir ./fixtures/locks-many
 				Scanned %%/fixtures/locks-many/Gemfile.lock file and found 1 packages
-				Scanned /home/rexpan/Documents/Projects/osv-scanner/cmd/osv-scanner/fixtures/locks-many/alpine.cdx.xml as CycloneDX SBOM and found 15 packages
+				Scanned %%/fixtures/locks-many/alpine.cdx.xml as CycloneDX SBOM and found 15 packages
 				Scanned %%/fixtures/locks-many/composer.lock file and found 1 packages
 				Scanned %%/fixtures/locks-many/yarn.lock file and found 1 packages
 			`,
