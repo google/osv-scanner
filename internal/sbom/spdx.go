@@ -28,7 +28,7 @@ func (s *SPDX) Name() string {
 	return "SPDX"
 }
 
-func (s *SPDX) StandardFileName(path string) bool {
+func (s *SPDX) MatchesRecognizedFileNames(path string) bool {
 	// All spdx files should have the .spdx in the filename, even if
 	// it's not the extension:  https://spdx.github.io/spdx-spec/v2.3/conformance/
 	return strings.Contains(strings.ToLower(filepath.Base(path)), ".spdx")

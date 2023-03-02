@@ -223,7 +223,7 @@ func scanLockfile(r *output.Reporter, query *osv.BatchedQuery, path string, pars
 // within to `query`
 func scanSBOMFile(r *output.Reporter, query *osv.BatchedQuery, path string) error {
 	for _, provider := range sbom.Providers {
-		if !provider.StandardFileName(path) {
+		if !provider.MatchesRecognizedFileNames(path) {
 			// Skip if filename is not usually a sbom file of this format
 			continue
 		}

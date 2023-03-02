@@ -14,7 +14,7 @@ type Identifier struct {
 type SBOMReader interface {
 	Name() string
 	// Checks if the file path is a standard recognized file name
-	StandardFileName(string) bool
+	MatchesRecognizedFileNames(string) bool
 	GetPackages(io.ReadSeeker, func(Identifier) error) error
 }
 
