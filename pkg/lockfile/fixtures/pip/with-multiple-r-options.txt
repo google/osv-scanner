@@ -1,0 +1,5 @@
+-r ./one-package-constrained.txt
+-r ./multiple-packages-mixed.txt
+
+# this should take precedents as it comes after
+requests==1.2.3
