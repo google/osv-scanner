@@ -23,6 +23,7 @@ func (c *CycloneDX) Name() string {
 }
 
 func (s *CycloneDX) StandardFileName(path string) bool {
+	// From https://cyclonedx.org/specification/overview/#recognized-file-patterns
 	expectedGlobs := []string{
 		"bom.xml",
 		"bom.json",
