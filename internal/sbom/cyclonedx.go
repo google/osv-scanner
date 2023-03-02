@@ -3,6 +3,7 @@ package sbom
 import (
 	"fmt"
 	"io"
+	"path/filepath"
 	"strings"
 
 	"github.com/CycloneDX/cyclonedx-go"
@@ -19,6 +20,30 @@ var (
 
 func (c *CycloneDX) Name() string {
 	return "CycloneDX"
+}
+
+func (c *CycloneDX) MatchesRecognizedFileNames(path string) bool {
+	// See https://cyclonedx.org/specification/overview/#recognized-file-patterns
+	expectedGlobs := []string{
+		"bom.xml",
+		"bom.json",
+		"*.cdx.json",
+		"*.cdx.xml",
+	}
+	filename := filepath.Base(path)
+	for _, v := range expectedGlobs {
+		matched, err := filepath.Match(v, filename)
+		if err != nil {
+			// Just panic since the only error is invalid glob pattern
+			panic("Glob pattern is invalid: " + err.Error())
+		}
+
+		if matched {
+			return true
+		}
+	}
+
+	return false
 }
 
 func (c *CycloneDX) enumerateComponents(components []cyclonedx.Component, callback func(Identifier) error) error {

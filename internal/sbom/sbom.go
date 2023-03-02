@@ -13,6 +13,8 @@ type Identifier struct {
 // SBOMReader is an interface for all SBOM providers.
 type SBOMReader interface {
 	Name() string
+	// Checks if the file path is a standard recognized file name
+	MatchesRecognizedFileNames(string) bool
 	GetPackages(io.ReadSeeker, func(Identifier) error) error
 }
 
