@@ -44,6 +44,10 @@ This requires Go 1.18+ to be installed.
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) file.
 
-### SemVer Adherence
+## Verifying Builds
+Each of our releases come with SLSA provenance data (`multiple.intoto.jsonl`), 
+which can be used to verify the source and provenance of the binaries with the [`slsa-verifier`](https://github.com/slsa-framework/slsa-verifier) tool.
+
+## SemVer Adherence
 
 All releases on the same Major version will be guaranteed to have backward compatible JSON output and CLI arguments.
