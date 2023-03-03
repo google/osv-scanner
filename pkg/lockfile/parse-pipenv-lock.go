@@ -32,34 +32,33 @@ func ParsePipenvLock(pathToLockfile string) ([]PackageDetails, error) {
 		return []PackageDetails{}, fmt.Errorf("could not parse %s: %w", pathToLockfile, err)
 	}
 
-	packages := make(
-		[]PackageDetails,
-		0,
-		// len cannot return negative numbers, but the types can't reflect that
-		uint64(len(parsedLockfile.Packages))+uint64(len(parsedLockfile.PackagesDev)),
-	)
+	packages := make(map[string]PackageDetails)
 
 	for name, pipenvPackage := range parsedLockfile.Packages {
 		if pipenvPackage.Version == "" {
 			continue
 		}
 
-		packages = append(packages, PackageDetails{
+		version := pipenvPackage.Version[2:]
+
+		packages[name+"@"+version] = PackageDetails{
 			Name:      name,
-			Version:   pipenvPackage.Version[2:],
+			Version:   version,
 			Ecosystem: PipenvEcosystem,
 			CompareAs: PipenvEcosystem,
-		})
+		}
 	}
 
 	for name, pipenvPackage := range parsedLockfile.PackagesDev {
-		packages = append(packages, PackageDetails{
+		version := pipenvPackage.Version[2:]
+
+		packages[name+"@"+version] = PackageDetails{
 			Name:      name,
-			Version:   pipenvPackage.Version[2:],
+			Version:   version,
 			Ecosystem: PipenvEcosystem,
 			CompareAs: PipenvEcosystem,
-		})
+		}
 	}
 
-	return packages, nil
+	return pkgDetailsMapToSlice(packages), nil
 }
