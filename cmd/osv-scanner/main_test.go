@@ -146,6 +146,7 @@ func TestRun(t *testing.T) {
 				| https://osv.dev/GHSA-v95c-p5hm-xq8f | Go        | runc    | v1.0.1                             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 				| https://osv.dev/GO-2022-0274        |           |         |                                    |                                                 |
 				| https://osv.dev/GHSA-f3fp-gc8g-vw66 | Go        | runc    | v1.0.1                             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+				| https://osv.dev/GHSA-vpvm-3wq2-2wvm | Go        | runc    | v1.0.1                             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 				| https://osv.dev/GHSA-p782-xgp4-8hr8 | Go        | sys     | v0.0.0-20210817142637-7d9622a276b7 | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 				| https://osv.dev/GO-2022-0493        |           |         |                                    |                                                 |
 				+-------------------------------------+-----------+---------+------------------------------------+-------------------------------------------------+
