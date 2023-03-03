@@ -292,6 +292,12 @@ func TestParseRequirementsTxt_FileFormatExample(t *testing.T) {
 			Ecosystem: lockfile.PipEcosystem,
 			CompareAs: lockfile.PipEcosystem,
 		},
+		{
+			Name:      "django",
+			Version:   "2.2.24",
+			Ecosystem: lockfile.PipEcosystem,
+			CompareAs: lockfile.PipEcosystem,
+		},
 	})
 }
 
@@ -343,4 +349,86 @@ func TestParseRequirementsTxt_NonNormalizedNames(t *testing.T) {
 			CompareAs: lockfile.PipEcosystem,
 		},
 	})
+}
+
+func TestParseRequirementsTxt_WithMultipleROptions(t *testing.T) {
+	t.Parallel()
+
+	packages, err := lockfile.ParseRequirementsTxt("fixtures/pip/with-multiple-r-options.txt")
+
+	if err != nil {
+		t.Errorf("Got unexpected error: %v", err)
+	}
+
+	expectPackages(t, packages, []lockfile.PackageDetails{
+		{
+			Name:      "flask",
+			Version:   "0.0.0",
+			Ecosystem: lockfile.PipEcosystem,
+			CompareAs: lockfile.PipEcosystem,
+		},
+		{
+			Name:      "flask-cors",
+			Version:   "0.0.0",
+			Ecosystem: lockfile.PipEcosystem,
+			CompareAs: lockfile.PipEcosystem,
+		},
+		{
+			Name:      "pandas",
+			Version:   "0.23.4",
+			Ecosystem: lockfile.PipEcosystem,
+			CompareAs: lockfile.PipEcosystem,
+		},
+		{
+			Name:      "numpy",
+			Version:   "1.16.0",
+			Ecosystem: lockfile.PipEcosystem,
+			CompareAs: lockfile.PipEcosystem,
+		},
+		{
+			Name:      "scikit-learn",
+			Version:   "0.20.1",
+			Ecosystem: lockfile.PipEcosystem,
+			CompareAs: lockfile.PipEcosystem,
+		},
+		{
+			Name:      "sklearn",
+			Version:   "0.0.0",
+			Ecosystem: lockfile.PipEcosystem,
+			CompareAs: lockfile.PipEcosystem,
+		},
+		{
+			Name:      "requests",
+			Version:   "0.0.0",
+			Ecosystem: lockfile.PipEcosystem,
+			CompareAs: lockfile.PipEcosystem,
+		},
+		{
+			Name:      "gevent",
+			Version:   "0.0.0",
+			Ecosystem: lockfile.PipEcosystem,
+			CompareAs: lockfile.PipEcosystem,
+		},
+		{
+			Name:      "requests",
+			Version:   "1.2.3",
+			Ecosystem: lockfile.PipEcosystem,
+			CompareAs: lockfile.PipEcosystem,
+		},
+		{
+			Name:      "django",
+			Version:   "2.2.24",
+			Ecosystem: lockfile.PipEcosystem,
+			CompareAs: lockfile.PipEcosystem,
+		},
+	})
+}
+
+func TestParseRequirementsTxt_WithBadROption(t *testing.T) {
+	t.Parallel()
+
+	packages, err := lockfile.ParseRequirementsTxt("fixtures/pip/with-bad-r-option.txt")
+
+	expectErrContaining(t, err, "could not open")
+	expectPackages(t, packages, []lockfile.PackageDetails{})
 }
