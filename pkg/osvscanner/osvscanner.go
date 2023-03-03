@@ -32,6 +32,8 @@ type ScannerActions struct {
 	NoIgnore             bool
 	DockerContainerNames []string
 	ConfigOverridePath   string
+
+	ExperimentalCallAnalysis bool
 }
 
 // NoPackagesFoundErr for when no packages is found during a scan.
@@ -41,6 +43,9 @@ var NoPackagesFoundErr = errors.New("no packages found in scan")
 
 //nolint:errname,stylecheck // Would require version major bump to change
 var VulnerabilitiesFoundErr = errors.New("vulnerabilities found")
+
+//nolint:errname,stylecheck // Would require version bump to change
+var OnlyUncalledVulnerabilitiesFoundErr = errors.New("only uncalled vulnerabilities found")
 
 // scanDir walks through the given directory to try to find any relevant files
 // These include:
@@ -217,22 +222,22 @@ func scanLockfile(r *output.Reporter, query *osv.BatchedQuery, path string, pars
 // scanSBOMFile will load, identify, and parse the SBOM path passed in, and add the dependencies specified
 // within to `query`
 func scanSBOMFile(r *output.Reporter, query *osv.BatchedQuery, path string) error {
-	file, err := os.Open(path)
-	if err != nil {
-		return err
-	}
-	defer file.Close()
-
 	for _, provider := range sbom.Providers {
-		if provider.Name() == "SPDX" &&
-			!strings.Contains(strings.ToLower(filepath.Base(path)), ".spdx") {
-			// All spdx files should have the .spdx in the filename, even if
-			// it's not the extension:  https://spdx.github.io/spdx-spec/v2.3/conformance/
-			// Skip if this isn't the case to avoid panics
+		if !provider.MatchesRecognizedFileNames(path) {
+			// Skip if filename is not usually a sbom file of this format
 			continue
 		}
+
+		// Opening file inside loop is OK, since providers is not very long,
+		// and it is unlikely that multiple providers accept the same file name
+		file, err := os.Open(path)
+		if err != nil {
+			return err
+		}
+		defer file.Close()
+
 		count := 0
-		err := provider.GetPackages(file, func(id sbom.Identifier) error {
+		err = provider.GetPackages(file, func(id sbom.Identifier) error {
 			purlQuery := osv.MakePURLRequest(id.PURL)
 			purlQuery.Source = models.SourceInfo{
 				Path: path,
@@ -245,7 +250,7 @@ func scanSBOMFile(r *output.Reporter, query *osv.BatchedQuery, path string) erro
 		})
 		if err == nil {
 			// Found the right format.
-			r.PrintText(fmt.Sprintf("Scanned %s SBOM and found %d packages\n", provider.Name(), count))
+			r.PrintText(fmt.Sprintf("Scanned %s as %s SBOM and found %d packages\n", path, provider.Name(), count))
 			return nil
 		}
 
@@ -455,16 +460,22 @@ func DoScan(actions ScannerActions, r *output.Reporter) (models.VulnerabilityRes
 	if filtered > 0 {
 		r.PrintText(fmt.Sprintf("Filtered %d vulnerabilities from output\n", filtered))
 	}
-
 	hydratedResp, err := osv.Hydrate(resp)
 	if err != nil {
 		return models.VulnerabilityResults{}, fmt.Errorf("failed to hydrate OSV response: %w", err)
 	}
 
-	vulnerabilityResults := groupResponseBySource(r, query, hydratedResp)
+	vulnerabilityResults := groupResponseBySource(r, query, hydratedResp, actions.ExperimentalCallAnalysis)
 	// if vulnerability exists it should return error
 	if len(vulnerabilityResults.Results) > 0 {
-		return vulnerabilityResults, VulnerabilitiesFoundErr
+		// If any vulnerabilities are called, then we return VulnerabilitiesFoundErr
+		for _, vf := range vulnerabilityResults.Flatten() {
+			if vf.GroupInfo.IsCalled() {
+				return vulnerabilityResults, VulnerabilitiesFoundErr
+			}
+		}
+		// Otherwise return OnlyUncalledVulnerabilitiesFoundErr
+		return vulnerabilityResults, OnlyUncalledVulnerabilitiesFoundErr
 	}
 
 	return vulnerabilityResults, nil

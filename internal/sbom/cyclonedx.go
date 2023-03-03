@@ -3,6 +3,7 @@ package sbom
 import (
 	"fmt"
 	"io"
+	"path/filepath"
 	"strings"
 
 	"github.com/CycloneDX/cyclonedx-go"
@@ -21,8 +22,32 @@ func (c *CycloneDX) Name() string {
 	return "CycloneDX"
 }
 
-func (c *CycloneDX) enumeratePackages(bom *cyclonedx.BOM, callback func(Identifier) error) error {
-	for _, component := range *bom.Components {
+func (c *CycloneDX) MatchesRecognizedFileNames(path string) bool {
+	// See https://cyclonedx.org/specification/overview/#recognized-file-patterns
+	expectedGlobs := []string{
+		"bom.xml",
+		"bom.json",
+		"*.cdx.json",
+		"*.cdx.xml",
+	}
+	filename := filepath.Base(path)
+	for _, v := range expectedGlobs {
+		matched, err := filepath.Match(v, filename)
+		if err != nil {
+			// Just panic since the only error is invalid glob pattern
+			panic("Glob pattern is invalid: " + err.Error())
+		}
+
+		if matched {
+			return true
+		}
+	}
+
+	return false
+}
+
+func (c *CycloneDX) enumerateComponents(components []cyclonedx.Component, callback func(Identifier) error) error {
+	for _, component := range components {
 		if component.PackageURL != "" {
 			err := callback(Identifier{
 				PURL: component.PackageURL,
@@ -31,9 +56,20 @@ func (c *CycloneDX) enumeratePackages(bom *cyclonedx.BOM, callback func(Identifi
 				return err
 			}
 		}
+		// Components can have components, so enumerate them recursively.
+		if component.Components != nil {
+			err := c.enumerateComponents(*component.Components, callback)
+			if err != nil {
+				return err
+			}
+		}
 	}
 
 	return nil
+}
+
+func (c *CycloneDX) enumeratePackages(bom *cyclonedx.BOM, callback func(Identifier) error) error {
+	return c.enumerateComponents(*bom.Components, callback)
 }
 
 func (c *CycloneDX) GetPackages(r io.ReadSeeker, callback func(Identifier) error) error {

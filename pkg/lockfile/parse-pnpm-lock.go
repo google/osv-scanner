@@ -38,6 +38,13 @@ func startsWithNumber(str string) bool {
 // extractPnpmPackageNameAndVersion parses a dependency path, attempting to
 // extract the name and version of the package it represents
 func extractPnpmPackageNameAndVersion(dependencyPath string) (string, string) {
+	// file dependencies must always have a name property to be installed,
+	// and their dependency path never has the version encoded, so we can
+	// skip trying to extract either from their dependency path
+	if strings.HasPrefix(dependencyPath, "file:") {
+		return "", ""
+	}
+
 	parts := strings.Split(dependencyPath, "/")
 	var name string
 

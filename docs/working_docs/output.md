@@ -118,7 +118,15 @@ osv-scanner --format json -L path/to/lockfile > /path/to/file.json
               "ids": [
                 "GHSA-c3h9-896r-86jm",
                 "GO-2021-0053"
-              ]
+              ],
+              // Call stack analysis is done using the `--experimental-call-analysis` flag
+              // and result is matched against data provided by the advisory to check if
+              // affected code is actually being executed.
+              "experimentalAnalysis": {
+                "GO-2021-0053": {
+                  "called": false
+                }
+              }
             }
           ]
         }

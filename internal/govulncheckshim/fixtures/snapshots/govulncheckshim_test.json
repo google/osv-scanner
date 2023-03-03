@@ -1,0 +1,172 @@
+{
+ "Vulns": [
+  {
+   "Modules": [
+    {
+     "FixedVersion": "v1.1.0",
+     "FoundVersion": "v1.0.0",
+     "Packages": [
+      {
+       "CallStacks": [
+        {
+         "Frames": [
+          {
+           "FuncName": "main",
+           "PkgPath": "github.com/ossf-tests/osv-e2e",
+           "Position": {
+            "Column": 22,
+            "Filename": "<Any value>",
+            "Line": 13,
+            "Offset": 234
+           },
+           "RecvType": ""
+          },
+          {
+           "FuncName": "NewBitfield",
+           "PkgPath": "github.com/ipfs/go-bitfield",
+           "Position": {
+            "Column": 0,
+            "Filename": "",
+            "Line": 0,
+            "Offset": 0
+           },
+           "RecvType": ""
+          }
+         ],
+         "Summary": "fixtures/test-project/main.go:13:22: github.com/ossf-tests/osv-e2e.main calls github.com/ipfs/go-bitfield.NewBitfield",
+         "Symbol": "NewBitfield"
+        }
+       ],
+       "Path": "github.com/ipfs/go-bitfield"
+      }
+     ],
+     "Path": "github.com/ipfs/go-bitfield"
+    }
+   ],
+   "OSV": {
+    "affected": [
+     {
+      "database_specific": {
+       "url": "https://pkg.go.dev/vuln/GO-2023-1558"
+      },
+      "ecosystem_specific": {
+       "imports": [
+        {
+         "path": "github.com/ipfs/go-bitfield",
+         "symbols": [
+          "FromBytes",
+          "NewBitfield"
+         ]
+        }
+       ]
+      },
+      "package": {
+       "ecosystem": "Go",
+       "name": "github.com/ipfs/go-bitfield"
+      },
+      "ranges": [
+       {
+        "events": [
+         {
+          "introduced": "0"
+         },
+         {
+          "fixed": "1.1.0"
+         }
+        ],
+        "type": "SEMVER"
+       }
+      ]
+     }
+    ],
+    "aliases": [
+     "CVE-2023-23626",
+     "GHSA-2h6c-j3gf-xp9r"
+    ],
+    "details": "When feeding untrusted user input into the size parameter of `NewBitfield` and FromBytes functions, an attacker can trigger panics.\n\nThis happens when the size is a not a multiple of 8 or is negative.\n\nA workaround is to ensure size%8 == 0 \u0026\u0026 size \u003e= 0 yourself before calling NewBitfield or FromBytes.",
+    "id": "GO-2023-1558",
+    "modified": "2023-02-14T19:41:21Z",
+    "published": "2023-02-14T19:41:21Z",
+    "references": [
+     {
+      "type": "ADVISORY",
+      "url": "https://github.com/ipfs/go-bitfield/security/advisories/GHSA-2h6c-j3gf-xp9r"
+     },
+     {
+      "type": "FIX",
+      "url": "https://github.com/ipfs/go-bitfield/commit/5e1d256fe043fc4163343ccca83862c69c52e579"
+     }
+    ],
+    "schema_version": "1.3.1"
+   }
+  },
+  {
+   "Modules": [
+    {
+     "FixedVersion": "v1.3.2",
+     "FoundVersion": "v1.3.1",
+     "Packages": [
+      {
+       "CallStacks": null,
+       "Path": "github.com/gogo/protobuf/plugin/unmarshal"
+      }
+     ],
+     "Path": "github.com/gogo/protobuf"
+    }
+   ],
+   "OSV": {
+    "affected": [
+     {
+      "database_specific": {
+       "url": "https://pkg.go.dev/vuln/GO-2021-0053"
+      },
+      "ecosystem_specific": {
+       "imports": [
+        {
+         "path": "github.com/gogo/protobuf/plugin/unmarshal",
+         "symbols": [
+          "unmarshal.Generate",
+          "unmarshal.field"
+         ]
+        }
+       ]
+      },
+      "package": {
+       "ecosystem": "Go",
+       "name": "github.com/gogo/protobuf"
+      },
+      "ranges": [
+       {
+        "events": [
+         {
+          "introduced": "0"
+         },
+         {
+          "fixed": "1.3.2"
+         }
+        ],
+        "type": "SEMVER"
+       }
+      ]
+     }
+    ],
+    "aliases": [
+     "CVE-2021-3121",
+     "GHSA-c3h9-896r-86jm"
+    ],
+    "details": "Due to improper bounds checking, maliciously crafted input to generated Unmarshal methods can cause an out-of-bounds panic. If parsing messages from untrusted parties, this may be used as a denial of service vector.",
+    "id": "GO-2021-0053",
+    "modified": "2023-02-10T16:51:38Z",
+    "published": "2021-04-14T20:04:52Z",
+    "references": [
+     {
+      "type": "FIX",
+      "url": "https://github.com/gogo/protobuf/commit/b03c65ea87cdc3521ede29f62fe3ce239267c1bc"
+     }
+    ],
+    "schema_version": "1.3.1"
+   }
+  }
+ ]
+}
+

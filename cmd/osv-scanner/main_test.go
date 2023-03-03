@@ -128,7 +128,27 @@ func TestRun(t *testing.T) {
 			wantExitCode: 0,
 			wantStdout: `
 				Scanning dir ./fixtures/locks-many/composer.lock
-        Scanned %%/fixtures/locks-many/composer.lock file and found 1 packages
+				Scanned %%/fixtures/locks-many/composer.lock file and found 1 packages
+			`,
+			wantStderr: "",
+		},
+		// one specific supported sbom with vulns
+		{
+			name:         "",
+			args:         []string{"", "./fixtures/sbom-insecure/postgres-stretch.cdx.xml"},
+			wantExitCode: 1,
+			wantStdout: `
+				Scanning dir ./fixtures/sbom-insecure/postgres-stretch.cdx.xml
+				Scanned %%/fixtures/sbom-insecure/postgres-stretch.cdx.xml as CycloneDX SBOM and found 136 packages
+				+-------------------------------------+-----------+---------+------------------------------------+-------------------------------------------------+
+				| OSV URL (ID IN BOLD)                | ECOSYSTEM | PACKAGE | VERSION                            | SOURCE                                          |
+				+-------------------------------------+-----------+---------+------------------------------------+-------------------------------------------------+
+				| https://osv.dev/GHSA-v95c-p5hm-xq8f | Go        | runc    | v1.0.1                             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+				| https://osv.dev/GO-2022-0274        |           |         |                                    |                                                 |
+				| https://osv.dev/GHSA-f3fp-gc8g-vw66 | Go        | runc    | v1.0.1                             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+				| https://osv.dev/GHSA-p782-xgp4-8hr8 | Go        | sys     | v0.0.0-20210817142637-7d9622a276b7 | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+				| https://osv.dev/GO-2022-0493        |           |         |                                    |                                                 |
+				+-------------------------------------+-----------+---------+------------------------------------+-------------------------------------------------+
 			`,
 			wantStderr: "",
 		},
@@ -152,6 +172,7 @@ func TestRun(t *testing.T) {
 			wantStdout: `
 				Scanning dir ./fixtures/locks-many
 				Scanned %%/fixtures/locks-many/Gemfile.lock file and found 1 packages
+				Scanned %%/fixtures/locks-many/alpine.cdx.xml as CycloneDX SBOM and found 15 packages
 				Scanned %%/fixtures/locks-many/composer.lock file and found 1 packages
 				Scanned %%/fixtures/locks-many/yarn.lock file and found 1 packages
 			`,
