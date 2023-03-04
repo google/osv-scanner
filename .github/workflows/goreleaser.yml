@@ -6,7 +6,7 @@ on:
       - "*" # triggers only if push new tag version, like `0.8.4` or else
 
 permissions:
-  contents: read
+  contents: read # to fetch code (actions/checkout)
 
 jobs:
   goreleaser:
