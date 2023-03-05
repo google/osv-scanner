@@ -222,22 +222,22 @@ func scanLockfile(r *output.Reporter, query *osv.BatchedQuery, path string, pars
 // scanSBOMFile will load, identify, and parse the SBOM path passed in, and add the dependencies specified
 // within to `query`
 func scanSBOMFile(r *output.Reporter, query *osv.BatchedQuery, path string) error {
-	file, err := os.Open(path)
-	if err != nil {
-		return err
-	}
-	defer file.Close()
-
 	for _, provider := range sbom.Providers {
-		if provider.Name() == "SPDX" &&
-			!strings.Contains(strings.ToLower(filepath.Base(path)), ".spdx") {
-			// All spdx files should have the .spdx in the filename, even if
-			// it's not the extension:  https://spdx.github.io/spdx-spec/v2.3/conformance/
-			// Skip if this isn't the case to avoid panics
+		if !provider.MatchesRecognizedFileNames(path) {
+			// Skip if filename is not usually a sbom file of this format
 			continue
 		}
+
+		// Opening file inside loop is OK, since providers is not very long,
+		// and it is unlikely that multiple providers accept the same file name
+		file, err := os.Open(path)
+		if err != nil {
+			return err
+		}
+		defer file.Close()
+
 		count := 0
-		err := provider.GetPackages(file, func(id sbom.Identifier) error {
+		err = provider.GetPackages(file, func(id sbom.Identifier) error {
 			purlQuery := osv.MakePURLRequest(id.PURL)
 			purlQuery.Source = models.SourceInfo{
 				Path: path,
@@ -250,7 +250,7 @@ func scanSBOMFile(r *output.Reporter, query *osv.BatchedQuery, path string) erro
 		})
 		if err == nil {
 			// Found the right format.
-			r.PrintText(fmt.Sprintf("Scanned %s SBOM and found %d packages\n", provider.Name(), count))
+			r.PrintText(fmt.Sprintf("Scanned %s as %s SBOM and found %d packages\n", path, provider.Name(), count))
 			return nil
 		}
 

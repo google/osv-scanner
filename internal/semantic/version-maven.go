@@ -283,7 +283,7 @@ func newMavenVersion(str string) MavenVersion {
 
 	i := len(tokens) - 1
 
-	for i >= 0 {
+	for i > 0 {
 		if tokens[i].shouldTrim() {
 			tokens = append(tokens[:i], tokens[i+1:]...)
 			i--

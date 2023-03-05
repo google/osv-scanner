@@ -4,8 +4,10 @@ package sbom
 import (
 	"fmt"
 	"io"
+	"path/filepath"
+	"strings"
 
-	"github.com/spdx/tools-golang/json"
+	spdx_json "github.com/spdx/tools-golang/json"
 	"github.com/spdx/tools-golang/rdfloader"
 	"github.com/spdx/tools-golang/spdx/v2_3"
 	"github.com/spdx/tools-golang/tvloader"
@@ -24,6 +26,12 @@ var (
 
 func (s *SPDX) Name() string {
 	return "SPDX"
+}
+
+func (s *SPDX) MatchesRecognizedFileNames(path string) bool {
+	// All spdx files should have the .spdx in the filename, even if
+	// it's not the extension:  https://spdx.github.io/spdx-spec/v2.3/conformance/
+	return strings.Contains(strings.ToLower(filepath.Base(path)), ".spdx")
 }
 
 func (s *SPDX) enumeratePackages(doc *v2_3.Document, callback func(Identifier) error) error {

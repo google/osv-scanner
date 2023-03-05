@@ -459,5 +459,26 @@ func TestParsePnpmLock_Files(t *testing.T) {
 			CompareAs: lockfile.NpmEcosystem,
 			Commit:    "",
 		},
+		{
+			Name:      "a-nested-local-package",
+			Version:   "1.0.0",
+			Ecosystem: lockfile.NpmEcosystem,
+			CompareAs: lockfile.NpmEcosystem,
+			Commit:    "",
+		},
+		{
+			Name:      "one-up",
+			Version:   "1.0.0",
+			Ecosystem: lockfile.NpmEcosystem,
+			CompareAs: lockfile.NpmEcosystem,
+			Commit:    "",
+		},
+		{
+			Name:      "one-up-with-peer",
+			Version:   "1.0.0",
+			Ecosystem: lockfile.NpmEcosystem,
+			CompareAs: lockfile.NpmEcosystem,
+			Commit:    "",
+		},
 	})
 }
