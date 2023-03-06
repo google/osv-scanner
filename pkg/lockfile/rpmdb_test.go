@@ -15,6 +15,15 @@ func TestParseRpmDB_SQLite_FileDoesNotExist(t *testing.T) {
 	expectPackages(t, packages, []lockfile.PackageDetails{})
 }
 
+func TestParseRpmDB_SQLite_EmptyFile(t *testing.T) {
+	t.Parallel()
+
+	packages, err := lockfile.ParseRpmDB("fixtures/rpm/empty-rpmdb")
+
+	expectErrContaining(t, err, "could not open")
+	expectPackages(t, packages, []lockfile.PackageDetails{})
+}
+
 func TestParseRpmDB_SQLite_NotAnRpmDb(t *testing.T) {
 	t.Parallel()
 
