@@ -1,0 +1,92 @@
+$content-width: 900px;
+
+// Colors
+
+$white: #fff !default;
+$grey-dk-000: #959396 !default;
+$grey-dk-100: #5c5962 !default;
+$grey-dk-200: #44434d !default;
+$grey-dk-250: #302d36 !default;
+$grey-dk-300: #27262b !default;
+$grey-lt-000: #f5f6fa !default;
+$grey-lt-100: #eeebee !default;
+$grey-lt-200: #ecebed !default;
+$grey-lt-300: #e6e1e8 !default;
+$purple-000: #7253ed !default;
+$purple-100: #5e41d0 !default;
+$purple-200: #4e26af !default;
+$purple-300: #381885 !default;
+$blue-000: #2c84fa !default;
+$blue-100: #2869e6 !default;
+$blue-200: #264caf !default;
+$blue-300: #183385 !default;
+$green-000: #41d693 !default;
+$green-100: #11b584 !default;
+$green-200: #009c7b !default;
+$green-300: #026e57 !default;
+$yellow-000: #ffeb82 !default;
+$yellow-100: #fadf50 !default;
+$yellow-200: #f7d12e !default;
+$yellow-300: #e7af06 !default;
+$red-000: #f77e7e !default;
+$red-100: #f96e65 !default;
+$red-200: #e94c4c !default;
+$red-300: #dd2e2e !default;
+$body-background-color: $white !default;
+$sidebar-color: $grey-lt-000 !default;
+$search-background-color: $white !default;
+$table-background-color: $white !default;
+$code-background-color: $grey-lt-000 !default;
+$feedback-color: darken($sidebar-color, 3%) !default;
+$body-text-color: $grey-dk-100 !default;
+$body-heading-color: $grey-dk-300 !default;
+$search-result-preview-color: $grey-dk-000 !default;
+$nav-child-link-color: $grey-dk-100 !default;
+$link-color: $purple-000 !default;
+$btn-primary-color: $purple-100 !default;
+$base-button-color: #f7f7f7 !default;
+
+// Code snippet colors
+.highlight .c {
+    color: #514E56;
+    background: #f5f6fa;
+  } // comment //
+.highlight .nb {
+    color: #8F6B00;
+  } // name.builtin //
+.highlight .nt {
+    color: #2075B1;
+  } // name.tag //
+.highlight .s1 {
+    color: #207E74;
+  } // literal.string.single //
+.highlight .k {
+    color: #667500;
+  } // keyword //
+.highlight .nn {
+    color: #647373;
+  } // name.namespace //
+.highlight .py {
+    color: #647373;
+  } // name.property //
+.highlight .c {
+    color: #586e75;
+  } // comment //
+.highlight .s {
+    color: #207E74;
+  } // literal.string //
+.highlight .s2 {
+    color: #207E74;
+  } // literal.string.double //
+.highlight .err {
+    color: #647373;
+  } // error //
+.highlight .p {
+    color: #647373;
+  } // punctuation //
+.highlight .nl {
+    color: #514E56;
+  } // name.label //
+.highlight .w {
+    color: #647373;
+  } // text.whitespace //
