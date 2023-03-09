@@ -31,7 +31,7 @@ remote_theme: just-the-docs/just-the-docs
 plugins:
   - jekyll-feed
 
-color_scheme: wider
+color_scheme: better_contrast
 markdown: kramdown
 
 logo: "/assets/logo.png"
