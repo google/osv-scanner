@@ -133,12 +133,14 @@ public class GenerateMavenVersions {
     throw new RuntimeException("unsupported comparison operator " + op);
   }
 
-  public static void compareVersions(List<String> lines, String select) {
-    lines.forEach(line -> {
+  public static boolean compareVersions(List<String> lines, String select) {
+    boolean didAnyFail = false;
+
+    for(String line : lines) {
       line = line.trim();
 
       if(line.isEmpty() || line.startsWith("#") || line.startsWith("//")) {
-        return;
+        continue;
       }
 
       String[] parts = line.split(" ");
@@ -148,22 +150,28 @@ public class GenerateMavenVersions {
 
       boolean r = compareVers(v1, op, v2);
 
+      if(!r) {
+        didAnyFail = true;
+      }
+
       if(select.equals("failures") && r) {
-        return;
+        continue;
       }
 
       if(select.equals("successes") && !r) {
-        return;
+        continue;
       }
 
       String color = r ? "\033[92m" : "\033[91m";
       String rs = r ? "T" : "F";
 
       System.out.printf("%s%s\033[0m: \033[93m%s\033[0m\n", color, rs, line);
-    });
+    }
+
+    return didAnyFail;
   }
 
-  public static void compareVersionsInFile(String filepath, String select) throws IOException {
+  public static boolean compareVersionsInFile(String filepath, String select) throws IOException {
     List<String> lines = new ArrayList<>();
 
     try(BufferedReader br = new BufferedReader(new FileReader(filepath))) {
@@ -175,7 +183,7 @@ public class GenerateMavenVersions {
       }
     }
 
-    compareVersions(lines, select);
+    return compareVersions(lines, select);
   }
 
   public static List<String> generateVersionCompares(List<String> versions) {
@@ -198,12 +206,30 @@ public class GenerateMavenVersions {
              .collect(Collectors.toList());
   }
 
+  public static String getSelectFilter() {
+    // set this to either "failures" or "successes" to only have those comparison results
+    // printed; setting it to anything else will have all comparison results printed
+    String value = System.getenv("VERSION_GENERATOR_PRINT");
+
+    if(value == null) {
+      return "failures";
+    }
+
+    return value;
+  }
+
   public static void main(String[] args) throws IOException {
-    String outfile = "maven-versions-generated.txt";
+    String outfile = "pkg/semantic/fixtures/maven-versions-generated.txt";
     Map<String, List<String>> packages = fetchPackageVersions();
 
     writeToFile(outfile, generatePackageCompares(packages));
 
-    compareVersionsInFile(outfile, "failures");
+    String show = getSelectFilter();
+
+    boolean didAnyFail = compareVersionsInFile(outfile, show);
+
+    if(didAnyFail) {
+      System.exit(1);
+    }
   }
 }
