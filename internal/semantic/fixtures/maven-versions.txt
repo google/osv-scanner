@@ -33,6 +33,9 @@
 1 = 1-0
 1 = 1.0-0
 1.0 = 1.0-0
+
+1.1 = 1.01
+
 // no separator between number and character
 1a = 1-a
 1a = 1.0-a

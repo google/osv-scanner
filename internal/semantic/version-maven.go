@@ -40,7 +40,18 @@ func (vt *mavenVersionToken) shouldTrim() bool {
 }
 
 func (vt *mavenVersionToken) equal(wt mavenVersionToken) bool {
-	return vt.prefix == wt.prefix && vt.value == wt.value
+	if vt.prefix != wt.prefix {
+		return false
+	}
+
+	vv, vIsNumber := convertToBigInt(vt.value)
+	wv, wIsNumber := convertToBigInt(wt.value)
+
+	if vIsNumber && wIsNumber {
+		return vv.Cmp(wv) == 0
+	}
+
+	return vt.value == wt.value
 }
 
 //nolint:gochecknoglobals // this is read-only and the nicest implementation
