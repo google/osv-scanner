@@ -242,6 +242,7 @@ func scanSBOMFile(r *output.Reporter, query *osv.BatchedQuery, path string) erro
 			_, err := PURLToPackage(id.PURL)
 			if err != nil {
 				ignoredCount++
+				//nolint:nilerr
 				return nil
 			}
 			purlQuery := osv.MakePURLRequest(id.PURL)
@@ -256,7 +257,11 @@ func scanSBOMFile(r *output.Reporter, query *osv.BatchedQuery, path string) erro
 		})
 		if err == nil {
 			// Found the right format.
-			r.PrintText(fmt.Sprintf("Scanned %s as %s SBOM and found %d packages, ignored %d invalid PURLs \n", path, provider.Name(), count, ignoredCount))
+			r.PrintText(fmt.Sprintf("Scanned %s as %s SBOM and found %d packages\n", path, provider.Name(), count))
+			if ignoredCount > 0 {
+				r.PrintText(fmt.Sprintf("Ignored %d packages with invalid PURLs\n", ignoredCount))
+			}
+
 			return nil
 		}
 
