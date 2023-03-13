@@ -4,10 +4,13 @@ package main
 import (
 	"bytes"
 	"fmt"
+	"os"
 	"path/filepath"
 	"regexp"
 	"strings"
 	"testing"
+
+	"github.com/go-git/go-git/v5"
 )
 
 func dedent(t *testing.T, str string) string {
@@ -488,4 +491,15 @@ func TestRun_LockfileWithExplicitParseAs(t *testing.T) {
 			testCli(t, tt)
 		})
 	}
+}
+
+func TestMain(m *testing.M) {
+	// Temporarily make the fixtures folder a git repository to prevent gitignore files messing with tests.
+	_, err := git.PlainInit("./fixtures", false)
+	if err != nil {
+		panic(err)
+	}
+	code := m.Run()
+	os.RemoveAll("./fixtures/.git")
+	os.Exit(code)
 }
