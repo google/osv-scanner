@@ -32,33 +32,27 @@ func ParsePipenvLock(pathToLockfile string) ([]PackageDetails, error) {
 		return []PackageDetails{}, fmt.Errorf("could not parse %s: %w", pathToLockfile, err)
 	}
 
-	packages := make(map[string]PackageDetails)
+	details := make(map[string]PackageDetails)
 
-	for name, pipenvPackage := range parsedLockfile.Packages {
+	addPkgDetails(details, parsedLockfile.Packages)
+	addPkgDetails(details, parsedLockfile.PackagesDev)
+
+	return pkgDetailsMapToSlice(details), nil
+}
+
+func addPkgDetails(details map[string]PackageDetails, packages map[string]PipenvPackage) {
+	for name, pipenvPackage := range packages {
 		if pipenvPackage.Version == "" {
 			continue
 		}
 
 		version := pipenvPackage.Version[2:]
 
-		packages[name+"@"+version] = PackageDetails{
+		details[name+"@"+version] = PackageDetails{
 			Name:      name,
 			Version:   version,
 			Ecosystem: PipenvEcosystem,
 			CompareAs: PipenvEcosystem,
 		}
 	}
-
-	for name, pipenvPackage := range parsedLockfile.PackagesDev {
-		version := pipenvPackage.Version[2:]
-
-		packages[name+"@"+version] = PackageDetails{
-			Name:      name,
-			Version:   version,
-			Ecosystem: PipenvEcosystem,
-			CompareAs: PipenvEcosystem,
-		}
-	}
-
-	return pkgDetailsMapToSlice(packages), nil
 }
