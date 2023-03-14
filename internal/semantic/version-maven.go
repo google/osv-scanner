@@ -40,18 +40,7 @@ func (vt *mavenVersionToken) shouldTrim() bool {
 }
 
 func (vt *mavenVersionToken) equal(wt mavenVersionToken) bool {
-	if vt.prefix != wt.prefix {
-		return false
-	}
-
-	vv, vIsNumber := convertToBigInt(vt.value)
-	wv, wIsNumber := convertToBigInt(wt.value)
-
-	if vIsNumber && wIsNumber {
-		return vv.Cmp(wv) == 0
-	}
-
-	return vt.value == wt.value
+	return vt.prefix == wt.prefix && vt.value == wt.value
 }
 
 //nolint:gochecknoglobals // this is read-only and the nicest implementation
@@ -280,7 +269,7 @@ func newMavenVersion(str string) MavenVersion {
 			}
 
 			// remove any leading zeros
-			if d, isNumber := convertToBigInt(str); isNumber {
+			if d, isNumber := convertToBigInt(current); isNumber {
 				current = d.String()
 			}
 
