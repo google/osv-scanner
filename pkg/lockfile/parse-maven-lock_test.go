@@ -23,6 +23,15 @@ func TestParseMavenLock_Invalid(t *testing.T) {
 	expectPackages(t, packages, []lockfile.PackageDetails{})
 }
 
+func TestParseMavenLock_InvalidSyntax(t *testing.T) {
+	t.Parallel()
+
+	packages, err := lockfile.ParseMavenLock("fixtures/maven/invalid-syntax.xml")
+
+	expectErrContaining(t, err, "XML syntax error")
+	expectPackages(t, packages, []lockfile.PackageDetails{})
+}
+
 func TestParseMavenLock_NoPackages(t *testing.T) {
 	t.Parallel()
 
