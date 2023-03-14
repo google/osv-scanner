@@ -22,5 +22,11 @@
             "ref": "b36054111bc1e8bbadb5d0d60158feb72926f467"
         }
     },
-    "develop": {}
+    "develop": {
+        "itsdangerous": {
+            "editable": true,
+            "git": "https://github.com/pallets/itsdangerous",
+            "ref": "de09cad488a4d7c7bbcbcdb8e1c2dfde64325f48"
+        }
+    }
 }
