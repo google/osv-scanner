@@ -13,7 +13,8 @@ import (
 )
 
 var (
-	version = "dev"
+	// Update this variable when doing a release
+	version = "1.2.0"
 	commit  = "n/a"
 	date    = "n/a"
 )

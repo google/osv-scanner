@@ -76,7 +76,10 @@ func (p *MavenLockProperties) UnmarshalXML(d *xml.Decoder, start xml.StartElemen
 	p.m = map[string]string{}
 
 	for {
-		t, _ := d.Token()
+		t, err := d.Token()
+		if err != nil {
+			return err
+		}
 
 		switch tt := t.(type) {
 		case xml.StartElement:
