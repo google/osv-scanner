@@ -21,9 +21,12 @@ To ignore a vulnerability, enter the ID under the `IgnoreVulns` key. Optionally,
 id = "GO-2022-0968"
 # ignoreUntil = 2022-11-09 # Optional exception expiry date
 reason = "No ssh servers are connected to or hosted in Go lang"
+# includeAliases = true # Optional whether to include vulnerability aliases. Default true
 
 [[IgnoredVulns]]
 id = "GO-2022-1059"
 # ignoreUntil = 2022-11-09 # Optional exception expiry date
 reason = "No external http servers are written in Go lang."
+includeAliases = false
 ```
+By default, ignoring a vulnerability will also ignore vulnerabilities that are considered aliases of the vulnerability. To only ignore the exact vulnerability ID, set `includeAliases` to `false`.
