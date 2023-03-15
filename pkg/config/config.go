@@ -29,9 +29,14 @@ type Config struct {
 }
 
 type IgnoreEntry struct {
-	ID          string    `toml:"id"`
-	IgnoreUntil time.Time `toml:"ignoreUntil"`
-	Reason      string    `toml:"reason"`
+	ID             string    `toml:"id"`
+	IgnoreUntil    time.Time `toml:"ignoreUntil"`
+	Reason         string    `toml:"reason"`
+	IncludeAliases *bool     `toml:"includeAliases"` // Use pointer to tell apart unset (treated as true) and false
+}
+
+func (e *IgnoreEntry) ShouldIncludeAliases() bool {
+	return e.IncludeAliases == nil || *(e.IncludeAliases)
 }
 
 func (c *Config) ShouldIgnore(vulnID string) (bool, IgnoreEntry) {

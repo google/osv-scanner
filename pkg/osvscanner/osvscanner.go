@@ -346,29 +346,52 @@ func scanDebianDocker(r *output.Reporter, query *osv.BatchedQuery, dockerImageNa
 	return nil
 }
 
-// Filters response according to config, returns number of responses removed
-func filterResponse(r *output.Reporter, query osv.BatchedQuery, resp *osv.BatchedResponse, configManager *config.ConfigManager) int {
+// filters vulnerabilities and groups according to config, returns filtered vulnerabilities and groups
+func filterVulns(r *output.Reporter, configToUse config.Config, vulns []models.Vulnerability, groups []models.GroupInfo) ([]models.Vulnerability, []models.GroupInfo) {
 	hiddenVulns := map[string]config.IgnoreEntry{}
+	outGroups := []models.GroupInfo{}
+	outVulns := []models.Vulnerability{}
 
-	for i, result := range resp.Results {
-		var filteredVulns []osv.MinimalVulnerability
-		configToUse := configManager.Get(r, query.Queries[i].Source.Path)
-		for _, vuln := range result.Vulns {
-			ignore, ignoreLine := configToUse.ShouldIgnore(vuln.ID)
+	for _, group := range groups {
+		keepIDs := []string{}
+		for i, id := range group.IDs {
+			ignore, ignoreLine := configToUse.ShouldIgnore(id)
 			if ignore {
-				hiddenVulns[vuln.ID] = ignoreLine
+				hiddenVulns[id] = ignoreLine
+				if ignoreLine.ShouldIncludeAliases() {
+					for _, id := range keepIDs {
+						hiddenVulns[id] = ignoreLine
+					}
+					for _, id := range group.IDs[i+1:] {
+						hiddenVulns[id] = ignoreLine
+					}
+					keepIDs = []string{}
+					break
+				}
 			} else {
-				filteredVulns = append(filteredVulns, vuln)
+				keepIDs = append(keepIDs, id)
 			}
 		}
-		resp.Results[i].Vulns = filteredVulns
+		if len(keepIDs) > 0 {
+			group.IDs = keepIDs
+			outGroups = append(outGroups, group)
+		}
 	}
 
-	for id, ignoreLine := range hiddenVulns {
-		r.PrintText(fmt.Sprintf("%s has been filtered out because: %s\n", id, ignoreLine.Reason))
+	for _, vuln := range vulns {
+		ignoreLine, ok := hiddenVulns[vuln.ID]
+		if ok {
+			if ignoreLine.ID == vuln.ID {
+				r.PrintText(fmt.Sprintf("%s has been filtered out because: %s\n", vuln.ID, ignoreLine.Reason))
+			} else {
+				r.PrintText(fmt.Sprintf("%s (alias of %s) has been filtered out because: %s\n", vuln.ID, ignoreLine.ID, ignoreLine.Reason))
+			}
+		} else {
+			outVulns = append(outVulns, vuln)
+		}
 	}
 
-	return len(hiddenVulns)
+	return outVulns, outGroups
 }
 
 func parseLockfilePath(lockfileElem string) (string, string) {
@@ -456,16 +479,16 @@ func DoScan(actions ScannerActions, r *output.Reporter) (models.VulnerabilityRes
 		return models.VulnerabilityResults{}, fmt.Errorf("scan failed %w", err)
 	}
 
-	filtered := filterResponse(r, query, resp, &configManager)
-	if filtered > 0 {
-		r.PrintText(fmt.Sprintf("Filtered %d vulnerabilities from output\n", filtered))
-	}
 	hydratedResp, err := osv.Hydrate(resp)
 	if err != nil {
 		return models.VulnerabilityResults{}, fmt.Errorf("failed to hydrate OSV response: %w", err)
 	}
 
-	vulnerabilityResults := groupResponseBySource(r, query, hydratedResp, actions.ExperimentalCallAnalysis)
+	filter := func(sourcePath string, vulns []models.Vulnerability, groups []models.GroupInfo) ([]models.Vulnerability, []models.GroupInfo) {
+		return filterVulns(r, configManager.Get(r, sourcePath), vulns, groups)
+	}
+
+	vulnerabilityResults := groupResponseBySource(r, query, hydratedResp, actions.ExperimentalCallAnalysis, filter)
 	// if vulnerability exists it should return error
 	if len(vulnerabilityResults.Results) > 0 {
 		// If any vulnerabilities are called, then we return VulnerabilitiesFoundErr
