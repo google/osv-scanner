@@ -346,7 +346,7 @@ func scanDebianDocker(r *output.Reporter, query *osv.BatchedQuery, dockerImageNa
 	return nil
 }
 
-// filters vulnerabilities and groups according to config, returns filtered vulnerabilities and groups
+// Filters vulnerabilities and groups according to config, returns filtered vulnerabilities and groups
 func filterVulns(r *output.Reporter, configToUse config.Config, vulns []models.Vulnerability, groups []models.GroupInfo) ([]models.Vulnerability, []models.GroupInfo) {
 	hiddenVulns := map[string]config.IgnoreEntry{}
 	outGroups := []models.GroupInfo{}
