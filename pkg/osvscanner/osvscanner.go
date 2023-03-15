@@ -366,6 +366,7 @@ func filterVulns(r *output.Reporter, configToUse config.Config, vulns []models.V
 						hiddenVulns[id] = ignoreLine
 					}
 					keepIDs = []string{}
+
 					break
 				}
 			} else {
