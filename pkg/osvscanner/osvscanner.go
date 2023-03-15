@@ -364,28 +364,19 @@ func filterVulns(r *output.Reporter, configToUse config.Config, vulns []models.V
 	outVulns := []models.Vulnerability{}
 
 	for _, group := range groups {
-		keepIDs := []string{}
-		for i, id := range group.IDs {
+		keepGroup := true
+		for _, id := range group.IDs {
 			ignore, ignoreLine := configToUse.ShouldIgnore(id)
 			if ignore {
-				hiddenVulns[id] = ignoreLine
-				if ignoreLine.ShouldIncludeAliases() {
-					for _, id := range keepIDs {
-						hiddenVulns[id] = ignoreLine
-					}
-					for _, id := range group.IDs[i+1:] {
-						hiddenVulns[id] = ignoreLine
-					}
-					keepIDs = []string{}
-
-					break
+				keepGroup = false
+				for _, id := range group.IDs {
+					hiddenVulns[id] = ignoreLine
 				}
-			} else {
-				keepIDs = append(keepIDs, id)
+
+				break
 			}
 		}
-		if len(keepIDs) > 0 {
-			group.IDs = keepIDs
+		if keepGroup {
 			outGroups = append(outGroups, group)
 		}
 	}
