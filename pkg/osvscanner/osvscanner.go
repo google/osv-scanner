@@ -364,11 +364,11 @@ func filterResults(r *output.Reporter, results *models.VulnerabilityResults, con
 	for _, pkgSrc := range results.Results {
 		configToUse := configManager.Get(r, pkgSrc.Source.Path)
 		newPackages := []models.PackageVulns{}
-		for _, pkgVuln := range pkgSrc.Packages {
-			newVuln := filterPackageVulns(r, pkgVuln, configToUse)
-			removedCount += len(pkgVuln.Vulnerabilities) - len(newVuln.Vulnerabilities)
-			if len(newVuln.Vulnerabilities) > 0 {
-				newPackages = append(newPackages, pkgVuln)
+		for _, pkgVulns := range pkgSrc.Packages {
+			newVulns := filterPackageVulns(r, pkgVulns, configToUse)
+			removedCount += len(pkgVulns.Vulnerabilities) - len(newVulns.Vulnerabilities)
+			if len(newVulns.Vulnerabilities) > 0 {
+				newPackages = append(newPackages, newVulns)
 			}
 		}
 		if len(newPackages) > 0 {
@@ -382,11 +382,11 @@ func filterResults(r *output.Reporter, results *models.VulnerabilityResults, con
 }
 
 // Filters package-grouped vulnerabilities according to config, preserving ordering. Returns filtered package vulnerabilities.
-func filterPackageVulns(r *output.Reporter, pkgVuln models.PackageVulns, configToUse config.Config) models.PackageVulns {
+func filterPackageVulns(r *output.Reporter, pkgVulns models.PackageVulns, configToUse config.Config) models.PackageVulns {
 	hiddenVulns := map[string]bool{}
 	// Iterate over groups first to remove all aliases of ignored vulnerabilities.
 	newGroups := []models.GroupInfo{}
-	for _, group := range pkgVuln.Groups {
+	for _, group := range pkgVulns.Groups {
 		ignore := false
 		for _, id := range group.IDs {
 			var ignoreLine config.IgnoreEntry
@@ -407,7 +407,7 @@ func filterPackageVulns(r *output.Reporter, pkgVuln models.PackageVulns, configT
 
 	newVulns := []models.Vulnerability{}
 	if len(newGroups) > 0 { // If there are no groups left then there would be no vulnerabilities.
-		for _, vuln := range pkgVuln.Vulnerabilities {
+		for _, vuln := range pkgVulns.Vulnerabilities {
 			if _, filtered := hiddenVulns[vuln.ID]; !filtered {
 				newVulns = append(newVulns, vuln)
 			}
@@ -415,10 +415,10 @@ func filterPackageVulns(r *output.Reporter, pkgVuln models.PackageVulns, configT
 	}
 
 	// Passed by value. We don't want to alter the original PackageVulns.
-	pkgVuln.Groups = newGroups
-	pkgVuln.Vulnerabilities = newVulns
+	pkgVulns.Groups = newGroups
+	pkgVulns.Vulnerabilities = newVulns
 
-	return pkgVuln
+	return pkgVulns
 }
 
 func parseLockfilePath(lockfileElem string) (string, string) {
