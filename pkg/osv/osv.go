@@ -5,7 +5,9 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
+	"log"
 	"net/http"
+	"sort"
 	"time"
 
 	"github.com/google/osv-scanner/pkg/lockfile"
@@ -134,6 +136,7 @@ func MakeRequest(request BatchedQuery) (*BatchedResponse, error) {
 		requestBuf := bytes.NewBuffer(requestBytes)
 
 		resp, err := makeRetryRequest(func() (*http.Response, error) {
+			log.Printf("POST: %s", string(requestBytes))
 			// We do not need a specific context
 			//nolint:noctx
 			return http.Post(QueryEndpoint, "application/json", requestBuf)
@@ -163,6 +166,7 @@ func MakeRequest(request BatchedQuery) (*BatchedResponse, error) {
 // Get a Vulnerability for the given ID.
 func Get(id string) (*models.Vulnerability, error) {
 	resp, err := makeRetryRequest(func() (*http.Response, error) {
+		log.Printf("GET: %s", id)
 		//nolint:noctx
 		return http.Get(GetEndpoint + "/" + id)
 	})
