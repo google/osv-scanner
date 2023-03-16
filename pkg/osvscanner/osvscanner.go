@@ -357,7 +357,7 @@ func scanDebianDocker(r *output.Reporter, query *osv.BatchedQuery, dockerImageNa
 	return nil
 }
 
-// Filters results according to config, returns number of responses removed
+// Filters results according to config, preserving order. Returns total number of vulnerabilities removed.
 func filterResults(r *output.Reporter, results *models.VulnerabilityResults, configManager *config.ConfigManager) int {
 	removedCount := 0
 	newResults := []models.PackageSource{}
@@ -365,39 +365,11 @@ func filterResults(r *output.Reporter, results *models.VulnerabilityResults, con
 		configToUse := configManager.Get(r, pkgSrc.Source.Path)
 		newPackages := []models.PackageVulns{}
 		for _, pkgVuln := range pkgSrc.Packages {
-			hiddenVulns := map[string]bool{}
-			newGroups := []models.GroupInfo{}
-			for _, group := range pkgVuln.Groups {
-				keepGroup := true
-				for _, id := range group.IDs {
-					if ignore, ignoreLine := configToUse.ShouldIgnore(id); ignore {
-						keepGroup = false
-						for _, id := range group.IDs {
-							hiddenVulns[id] = true
-						}
-						r.PrintText(fmt.Sprintf("%s has been filtered out because: %s\n", ignoreLine.ID, ignoreLine.Reason))
-						removedCount += len(group.IDs)
-
-						break
-					}
-				}
-				if keepGroup {
-					newGroups = append(newGroups, group)
-				}
+			newVuln := filterPackageVulns(r, pkgVuln, configToUse)
+			removedCount += len(pkgVuln.Vulnerabilities) - len(newVuln.Vulnerabilities)
+			if len(newVuln.Vulnerabilities) > 0 {
+				newPackages = append(newPackages, pkgVuln)
 			}
-			if len(newGroups) == 0 {
-				continue
-			}
-			newVulns := []models.Vulnerability{}
-			for _, vuln := range pkgVuln.Vulnerabilities {
-				if _, filtered := hiddenVulns[vuln.ID]; !filtered {
-					newVulns = append(newVulns, vuln)
-				}
-			}
-
-			pkgVuln.Groups = newGroups
-			pkgVuln.Vulnerabilities = newVulns
-			newPackages = append(newPackages, pkgVuln)
 		}
 		if len(newPackages) > 0 {
 			pkgSrc.Packages = newPackages
@@ -407,6 +379,46 @@ func filterResults(r *output.Reporter, results *models.VulnerabilityResults, con
 	results.Results = newResults
 
 	return removedCount
+}
+
+// Filters package-grouped vulnerabilities according to config, preserving ordering. Returns filtered package vulnerabilities.
+func filterPackageVulns(r *output.Reporter, pkgVuln models.PackageVulns, configToUse config.Config) models.PackageVulns {
+	hiddenVulns := map[string]bool{}
+	// Iterate over groups first to remove all aliases of ignored vulnerabilities.
+	newGroups := []models.GroupInfo{}
+	for _, group := range pkgVuln.Groups {
+		ignore := false
+		for _, id := range group.IDs {
+			var ignoreLine config.IgnoreEntry
+			if ignore, ignoreLine = configToUse.ShouldIgnore(id); ignore {
+				for _, id := range group.IDs {
+					hiddenVulns[id] = true
+				}
+				// NB: This only prints the first reason encountered in all the aliases.
+				r.PrintText(fmt.Sprintf("%s has been filtered out because: %s\n", ignoreLine.ID, ignoreLine.Reason))
+
+				break
+			}
+		}
+		if !ignore {
+			newGroups = append(newGroups, group)
+		}
+	}
+
+	newVulns := []models.Vulnerability{}
+	if len(newGroups) > 0 { // If there are no groups left then there would be no vulnerabilities.
+		for _, vuln := range pkgVuln.Vulnerabilities {
+			if _, filtered := hiddenVulns[vuln.ID]; !filtered {
+				newVulns = append(newVulns, vuln)
+			}
+		}
+	}
+
+	// Passed by value. We don't want to alter the original PackageVulns.
+	pkgVuln.Groups = newGroups
+	pkgVuln.Vulnerabilities = newVulns
+
+	return pkgVuln
 }
 
 func parseLockfilePath(lockfileElem string) (string, string) {
