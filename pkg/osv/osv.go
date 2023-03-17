@@ -229,8 +229,8 @@ func Hydrate(resp *BatchedResponse) (*HydratedBatchedResponse, error) {
 		}
 	}(resp)
 
+	// For every request, pull out data into results slice
 	results := []hydrateResponse{}
-
 	for _, response := range resp.Results {
 		for range response.Vulns {
 			response := <-responseChan
@@ -250,8 +250,8 @@ func Hydrate(resp *BatchedResponse) (*HydratedBatchedResponse, error) {
 		return results[i].batchIdx < results[j].batchIdx
 	})
 
+	// Place the ordered results into the structured output
 	hydrated.Results = make([]Response, len(resp.Results))
-
 	for _, res := range results {
 		hydrated.Results[res.batchIdx].Vulns =
 			append(hydrated.Results[res.batchIdx].Vulns, *res.vuln)
