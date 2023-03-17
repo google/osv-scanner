@@ -23,7 +23,8 @@ const (
 	BaseVulnerabilityURL = "https://osv.dev/"
 	// maxQueriesPerRequest splits up querybatch into multiple requests if
 	// number of queries exceed this number
-	maxQueriesPerRequest = 1000
+	maxQueriesPerRequest  = 1000
+	maxConcurrentRequests = 25
 )
 
 // Package represents a package identifier for OSV.
@@ -189,23 +190,74 @@ func Get(id string) (*models.Vulnerability, error) {
 	return &vuln, nil
 }
 
+type hydrateResponse struct {
+	batchIdx  int
+	resultIdx int
+	vuln      *models.Vulnerability
+	err       error
+}
+
 // Hydrate fills the results of the batched response with the full
 // Vulnerability details.
 func Hydrate(resp *BatchedResponse) (*HydratedBatchedResponse, error) {
-	// TODO(ochang): Parallelize requests, or implement batch GET.
 	hydrated := HydratedBatchedResponse{}
 
-	for _, response := range resp.Results {
-		result := Response{}
-		for _, vuln := range response.Vulns {
-			vuln, err := Get(vuln.ID)
-			if err != nil {
-				return nil, err
-			}
+	responseChan := make(chan hydrateResponse, maxConcurrentRequests)
+	rateLimiter := make(chan struct{}, maxConcurrentRequests)
 
-			result.Vulns = append(result.Vulns, *vuln)
+	// Run in separate goroutine so that we can immediately start
+	// listening to the responseChan, and it will be not blocked
+	go func(resp *BatchedResponse) {
+		for batchIdx, response := range resp.Results {
+			for resultIdx, vuln := range response.Vulns {
+				rateLimiter <- struct{}{}
+				go func(id string, batchIdx int, resultIdx int) {
+					vuln, err := Get(id)
+					if err != nil {
+						responseChan <- hydrateResponse{
+							batchIdx:  batchIdx,
+							resultIdx: resultIdx,
+							err:       err,
+						}
+					} else {
+						responseChan <- hydrateResponse{
+							batchIdx:  batchIdx,
+							resultIdx: resultIdx,
+							vuln:      vuln,
+						}
+					}
+					<-rateLimiter
+				}(vuln.ID, batchIdx, resultIdx)
+			}
 		}
-		hydrated.Results = append(hydrated.Results, result)
+	}(resp)
+
+	results := []hydrateResponse{}
+
+	for _, response := range resp.Results {
+		for range response.Vulns {
+			response := <-responseChan
+			if response.err != nil {
+				return nil, response.err
+			}
+			results = append(results, response)
+		}
+	}
+
+	// Concurrent results might not be in order, order them first
+	sort.Slice(results, func(i, j int) bool {
+		if results[i].batchIdx == results[j].batchIdx {
+			return results[i].resultIdx < results[j].resultIdx
+		}
+
+		return results[i].batchIdx < results[j].batchIdx
+	})
+
+	hydrated.Results = make([]Response, len(resp.Results))
+
+	for _, res := range results {
+		hydrated.Results[res.batchIdx].Vulns =
+			append(hydrated.Results[res.batchIdx].Vulns, *res.vuln)
 	}
 
 	return &hydrated, nil
