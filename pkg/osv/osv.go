@@ -6,7 +6,7 @@ import (
 	"fmt"
 	"io"
 	"net/http"
-	"sort"
+	"sync"
 	"time"
 
 	"github.com/google/osv-scanner/pkg/lockfile"
@@ -199,62 +199,45 @@ type hydrateResponse struct {
 func Hydrate(resp *BatchedResponse) (*HydratedBatchedResponse, error) {
 	hydrated := HydratedBatchedResponse{}
 
-	responseChan := make(chan hydrateResponse, maxConcurrentRequests)
+	// Preallocate the array to avoid slice reallocations when inserting later
+	hydrated.Results = make([]Response, len(resp.Results))
+	for idx := range hydrated.Results {
+		hydrated.Results[idx].Vulns =
+			make([]models.Vulnerability, len(resp.Results[idx].Vulns))
+	}
+
+	errChan := make(chan error)
+	wg := sync.WaitGroup{}
 	rateLimiter := make(chan struct{}, maxConcurrentRequests)
 
-	// Run in separate goroutine so that we can immediately start
-	// listening to the responseChan, and it will be not blocked
-	go func(resp *BatchedResponse) {
-		for batchIdx, response := range resp.Results {
-			for resultIdx, vuln := range response.Vulns {
-				rateLimiter <- struct{}{}
-				go func(id string, batchIdx int, resultIdx int) {
-					vuln, err := Get(id)
-					if err != nil {
-						responseChan <- hydrateResponse{
-							batchIdx:  batchIdx,
-							resultIdx: resultIdx,
-							err:       err,
-						}
-					} else {
-						responseChan <- hydrateResponse{
-							batchIdx:  batchIdx,
-							resultIdx: resultIdx,
-							vuln:      vuln,
-						}
-					}
-					<-rateLimiter
-				}(vuln.ID, batchIdx, resultIdx)
-			}
-		}
-	}(resp)
-
-	// For every request, pull out data into results slice
-	results := []hydrateResponse{}
-	for _, response := range resp.Results {
-		for range response.Vulns {
-			response := <-responseChan
-			if response.err != nil {
-				return nil, response.err
-			}
-			results = append(results, response)
+	for batchIdx, response := range resp.Results {
+		for resultIdx, vuln := range response.Vulns {
+			rateLimiter <- struct{}{}
+			wg.Add(1)
+			go func(id string, batchIdx int, resultIdx int) {
+				vuln, err := Get(id)
+				if err != nil {
+					errChan <- err
+				} else {
+					hydrated.Results[batchIdx].Vulns[resultIdx] = *vuln
+				}
+				<-rateLimiter
+				wg.Done()
+			}(vuln.ID, batchIdx, resultIdx)
 		}
 	}
 
-	// Concurrent results might not be in order, order them first
-	sort.Slice(results, func(i, j int) bool {
-		if results[i].batchIdx == results[j].batchIdx {
-			return results[i].resultIdx < results[j].resultIdx
+	go func() {
+		wg.Wait()
+		close(errChan)
+	}()
+
+	// Range will exit when channel is closed.
+	// Channel will be closed when waitgroup is 0.
+	for err := range errChan {
+		if err != nil {
+			return nil, err
 		}
-
-		return results[i].batchIdx < results[j].batchIdx
-	})
-
-	// Place the ordered results into the structured output
-	hydrated.Results = make([]Response, len(resp.Results))
-	for _, res := range results {
-		hydrated.Results[res.batchIdx].Vulns =
-			append(hydrated.Results[res.batchIdx].Vulns, *res.vuln)
 	}
 
 	return &hydrated, nil
