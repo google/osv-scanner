@@ -214,6 +214,7 @@ func Hydrate(resp *BatchedResponse) (*HydratedBatchedResponse, error) {
 		for resultIdx, vuln := range response.Vulns {
 			rateLimiter <- struct{}{}
 			wg.Add(1)
+
 			go func(id string, batchIdx int, resultIdx int) {
 				vuln, err := Get(id)
 				if err != nil {
@@ -221,6 +222,7 @@ func Hydrate(resp *BatchedResponse) (*HydratedBatchedResponse, error) {
 				} else {
 					hydrated.Results[batchIdx].Vulns[resultIdx] = *vuln
 				}
+
 				<-rateLimiter
 				wg.Done()
 			}(vuln.ID, batchIdx, resultIdx)
@@ -235,9 +237,7 @@ func Hydrate(resp *BatchedResponse) (*HydratedBatchedResponse, error) {
 	// Range will exit when channel is closed.
 	// Channel will be closed when waitgroup is 0.
 	for err := range errChan {
-		if err != nil {
-			return nil, err
-		}
+		return nil, err
 	}
 
 	return &hydrated, nil
