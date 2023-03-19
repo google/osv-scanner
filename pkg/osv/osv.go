@@ -187,13 +187,6 @@ func Get(id string) (*models.Vulnerability, error) {
 	return &vuln, nil
 }
 
-type hydrateResponse struct {
-	batchIdx  int
-	resultIdx int
-	vuln      *models.Vulnerability
-	err       error
-}
-
 // Hydrate fills the results of the batched response with the full
 // Vulnerability details.
 func Hydrate(resp *BatchedResponse) (*HydratedBatchedResponse, error) {
