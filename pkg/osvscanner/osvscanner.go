@@ -360,17 +360,19 @@ func scanDebianDocker(r *output.Reporter, query *osv.BatchedQuery, dockerImageNa
 // Filters results according to config, preserving order. Returns total number of vulnerabilities removed.
 func filterResults(r *output.Reporter, results *models.VulnerabilityResults, configManager *config.ConfigManager) int {
 	removedCount := 0
-	newResults := []models.PackageSource{}
+	newResults := []models.PackageSource{} // Want 0 vulnerabilities to show in JSON as an empty list, not null.
 	for _, pkgSrc := range results.Results {
 		configToUse := configManager.Get(r, pkgSrc.Source.Path)
-		newPackages := []models.PackageVulns{}
+		var newPackages []models.PackageVulns
 		for _, pkgVulns := range pkgSrc.Packages {
 			newVulns := filterPackageVulns(r, pkgVulns, configToUse)
 			removedCount += len(pkgVulns.Vulnerabilities) - len(newVulns.Vulnerabilities)
+			// Don't want to include the package at all if there are no vulns.
 			if len(newVulns.Vulnerabilities) > 0 {
 				newPackages = append(newPackages, newVulns)
 			}
 		}
+		// Don't want to include the package source at all if there are no vulns.
 		if len(newPackages) > 0 {
 			pkgSrc.Packages = newPackages
 			newResults = append(newResults, pkgSrc)
@@ -383,16 +385,16 @@ func filterResults(r *output.Reporter, results *models.VulnerabilityResults, con
 
 // Filters package-grouped vulnerabilities according to config, preserving ordering. Returns filtered package vulnerabilities.
 func filterPackageVulns(r *output.Reporter, pkgVulns models.PackageVulns, configToUse config.Config) models.PackageVulns {
-	hiddenVulns := map[string]bool{}
+	ignoredVulns := map[string]struct{}{}
 	// Iterate over groups first to remove all aliases of ignored vulnerabilities.
-	newGroups := []models.GroupInfo{}
+	var newGroups []models.GroupInfo
 	for _, group := range pkgVulns.Groups {
 		ignore := false
 		for _, id := range group.IDs {
 			var ignoreLine config.IgnoreEntry
 			if ignore, ignoreLine = configToUse.ShouldIgnore(id); ignore {
 				for _, id := range group.IDs {
-					hiddenVulns[id] = true
+					ignoredVulns[id] = struct{}{}
 				}
 				// NB: This only prints the first reason encountered in all the aliases.
 				switch len(group.IDs) {
@@ -412,10 +414,10 @@ func filterPackageVulns(r *output.Reporter, pkgVulns models.PackageVulns, config
 		}
 	}
 
-	newVulns := []models.Vulnerability{}
+	var newVulns []models.Vulnerability
 	if len(newGroups) > 0 { // If there are no groups left then there would be no vulnerabilities.
 		for _, vuln := range pkgVulns.Vulnerabilities {
-			if _, filtered := hiddenVulns[vuln.ID]; !filtered {
+			if _, filtered := ignoredVulns[vuln.ID]; !filtered {
 				newVulns = append(newVulns, vuln)
 			}
 		}

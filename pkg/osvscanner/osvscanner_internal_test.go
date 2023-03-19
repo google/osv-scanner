@@ -2,9 +2,9 @@ package osvscanner
 
 import (
 	"path/filepath"
-	"reflect"
 	"testing"
 
+	"github.com/google/go-cmp/cmp"
 	"github.com/google/osv-scanner/internal/output"
 	"github.com/google/osv-scanner/internal/testutility"
 	"github.com/google/osv-scanner/pkg/config"
@@ -35,15 +35,15 @@ func Test_filterResults(t *testing.T) {
 		testCase testCase
 	}{
 		{
-			name:     "",
+			name:     "filter_everything",
 			testCase: loadTestCase("fixtures/filter/all/"),
 		},
 		{
-			name:     "",
+			name:     "filter_nothing",
 			testCase: loadTestCase("fixtures/filter/none/"),
 		},
 		{
-			name:     "",
+			name:     "filter_partially",
 			testCase: loadTestCase("fixtures/filter/some/"),
 		},
 	}
@@ -60,10 +60,11 @@ func Test_filterResults(t *testing.T) {
 			}
 			got := tt.testCase.input
 			filtered := filterResults(r, &got, &configManager)
-			if !reflect.DeepEqual(got, tt.testCase.want) {
+			if diff := cmp.Diff(tt.testCase.want, got); diff != "" {
 				out := filepath.Join(tt.testCase.path, "out.json")
+				t.Errorf("filterResults() returned an unexpected results (-want, +got):\n%s\n"+
+					"Full json output written to %s", diff, out)
 				testutility.CreateJSONFixture(t, out, got)
-				t.Errorf("filterResults() did not match expected output. Output written to %s", out)
 			}
 			if filtered != tt.testCase.numFiltered {
 				t.Errorf("filterResults() = %v, want %v", filtered, tt.testCase.numFiltered)
