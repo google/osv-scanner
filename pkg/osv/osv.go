@@ -2,15 +2,17 @@ package osv
 
 import (
 	"bytes"
+	"context"
 	"encoding/json"
 	"fmt"
 	"io"
+	"log"
 	"net/http"
-	"sync"
 	"time"
 
 	"github.com/google/osv-scanner/pkg/lockfile"
 	"github.com/google/osv-scanner/pkg/models"
+	"golang.org/x/sync/semaphore"
 )
 
 const (
@@ -191,7 +193,7 @@ func Get(id string) (*models.Vulnerability, error) {
 // Vulnerability details.
 func Hydrate(resp *BatchedResponse) (*HydratedBatchedResponse, error) {
 	hydrated := HydratedBatchedResponse{}
-
+	ctx := context.TODO()
 	// Preallocate the array to avoid slice reallocations when inserting later
 	hydrated.Results = make([]Response, len(resp.Results))
 	for idx := range hydrated.Results {
@@ -200,13 +202,13 @@ func Hydrate(resp *BatchedResponse) (*HydratedBatchedResponse, error) {
 	}
 
 	errChan := make(chan error)
-	wg := sync.WaitGroup{}
-	rateLimiter := make(chan struct{}, maxConcurrentRequests)
+	rateLimiter := semaphore.NewWeighted(maxConcurrentRequests)
 
 	for batchIdx, response := range resp.Results {
 		for resultIdx, vuln := range response.Vulns {
-			rateLimiter <- struct{}{}
-			wg.Add(1)
+			if err := rateLimiter.Acquire(ctx, 1); err != nil {
+				log.Panicf("Failed to acquire semaphore: %v", err)
+			}
 
 			go func(id string, batchIdx int, resultIdx int) {
 				vuln, err := Get(id)
@@ -216,19 +218,22 @@ func Hydrate(resp *BatchedResponse) (*HydratedBatchedResponse, error) {
 					hydrated.Results[batchIdx].Vulns[resultIdx] = *vuln
 				}
 
-				<-rateLimiter
-				wg.Done()
+				rateLimiter.Release(1)
 			}(vuln.ID, batchIdx, resultIdx)
 		}
 	}
 
+	// Close error channel when all semaphores are released
 	go func() {
-		wg.Wait()
+		if err := rateLimiter.Acquire(ctx, maxConcurrentRequests); err != nil {
+			log.Panicf("Failed to acquire semaphore: %v", err)
+		}
+		// Always close the error channel
 		close(errChan)
 	}()
 
 	// Range will exit when channel is closed.
-	// Channel will be closed when waitgroup is 0.
+	// Channel will be closed when all semaphores are freed.
 	for err := range errChan {
 		return nil, err
 	}
