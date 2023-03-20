@@ -403,7 +403,7 @@ func filterPackageVulns(r *output.Reporter, pkgVulns models.PackageVulns, config
 				case 2:
 					r.PrintText(fmt.Sprintf("%s and 1 alias have been filtered out because: %s\n", ignoreLine.ID, ignoreLine.Reason))
 				default:
-					r.PrintText(fmt.Sprintf("%s and %d aliases have been filtered out because: %s\n", ignoreLine.ID, len(group.IDs), ignoreLine.Reason))
+					r.PrintText(fmt.Sprintf("%s and %d aliases have been filtered out because: %s\n", ignoreLine.ID, len(group.IDs)-1, ignoreLine.Reason))
 				}
 
 				break
