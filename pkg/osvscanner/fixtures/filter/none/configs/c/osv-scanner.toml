@@ -1,3 +1,5 @@
+# These vulnerabilities do not appear in this 'source'
+
 [[IgnoredVulns]]
 id = "GHSA-fxg5-wq6x-vr4w"
 reason = "Ignore 1"
