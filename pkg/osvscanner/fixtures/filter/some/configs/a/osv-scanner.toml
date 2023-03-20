@@ -1,0 +1,11 @@
+# Every vulnerability in this source is ignored. Should not show up at all after filtering.
+
+[[IgnoredVulns]]
+id = "GHSA-mc8h-8q98-g5hr"
+reason = "Ignore 1"
+# Alias of RUSTSEC-2023-0018
+
+[[IgnoredVulns]]
+id = "RUSTSEC-2020-0071"
+reason = "Ignore 2"
+# Alias of GHSA-wcg3-cvx6-7396

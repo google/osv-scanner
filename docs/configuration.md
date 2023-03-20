@@ -27,3 +27,5 @@ id = "GO-2022-1059"
 # ignoreUntil = 2022-11-09 # Optional exception expiry date
 reason = "No external http servers are written in Go lang."
 ```
+
+Ignoring a vulnerability will also ignore vulnerabilities that are considered aliases of that vulnerability.

@@ -1,0 +1,21 @@
+# One entry for each vulnerability group
+
+[[IgnoredVulns]]
+id = "GHSA-mc8h-8q98-g5hr"
+reason = "Ignore 1"
+# Alias of RUSTSEC-2023-0018
+
+[[IgnoredVulns]]
+id = "RUSTSEC-2020-0071"
+reason = "Ignore 2"
+# Alias of GHSA-wcg3-cvx6-7396
+
+[[IgnoredVulns]]
+id = "RUSTSEC-2023-0015"
+reason = "Ignore 3"
+# No aliases
+
+[[IgnoredVulns]]
+id = "GHSA-mrrw-grhq-86gf"
+reason = "Ignore 4"
+# No aliases

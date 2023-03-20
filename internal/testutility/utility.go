@@ -49,7 +49,7 @@ func AssertMatchFixtureJSON[V any](t *testing.T, path string, val V) {
 // can be used with AssertMatchFixtureJSON to compare against future values.
 func CreateJSONFixture[V any](t *testing.T, path string, val V) {
 	t.Helper()
-	file, err := os.Open(path)
+	file, err := os.Create(path)
 	if err != nil {
 		t.Fatalf("Failed to open file to write: %s", err)
 	}

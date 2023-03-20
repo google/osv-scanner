@@ -1,0 +1,14 @@
+# golang.org/x/net is the only vulnerable package, but has multiple unique vulnerabilities.
+# Ignore some vulnerabilities while keeping others. Package should remain in filtered output.
+
+[[IgnoredVulns]]
+id = "GHSA-fxg5-wq6x-vr4w"
+reason = "Ignore 1"
+# Alias of GO-2023-1495
+
+[[IgnoredVulns]]
+id = "GO-2022-1144"
+reason = "Ignore 2"
+# No aliases
+
+# GHSA-vvpx-j8f3-3w6h (and alias GO-2023-1571) should remain unfiltered.

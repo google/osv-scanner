@@ -357,29 +357,77 @@ func scanDebianDocker(r *output.Reporter, query *osv.BatchedQuery, dockerImageNa
 	return nil
 }
 
-// Filters response according to config, returns number of responses removed
-func filterResponse(r *output.Reporter, query osv.BatchedQuery, resp *osv.BatchedResponse, configManager *config.ConfigManager) int {
-	hiddenVulns := map[string]config.IgnoreEntry{}
-
-	for i, result := range resp.Results {
-		var filteredVulns []osv.MinimalVulnerability
-		configToUse := configManager.Get(r, query.Queries[i].Source.Path)
-		for _, vuln := range result.Vulns {
-			ignore, ignoreLine := configToUse.ShouldIgnore(vuln.ID)
-			if ignore {
-				hiddenVulns[vuln.ID] = ignoreLine
-			} else {
-				filteredVulns = append(filteredVulns, vuln)
+// Filters results according to config, preserving order. Returns total number of vulnerabilities removed.
+func filterResults(r *output.Reporter, results *models.VulnerabilityResults, configManager *config.ConfigManager) int {
+	removedCount := 0
+	newResults := []models.PackageSource{} // Want 0 vulnerabilities to show in JSON as an empty list, not null.
+	for _, pkgSrc := range results.Results {
+		configToUse := configManager.Get(r, pkgSrc.Source.Path)
+		var newPackages []models.PackageVulns
+		for _, pkgVulns := range pkgSrc.Packages {
+			newVulns := filterPackageVulns(r, pkgVulns, configToUse)
+			removedCount += len(pkgVulns.Vulnerabilities) - len(newVulns.Vulnerabilities)
+			// Don't want to include the package at all if there are no vulns.
+			if len(newVulns.Vulnerabilities) > 0 {
+				newPackages = append(newPackages, newVulns)
 			}
 		}
-		resp.Results[i].Vulns = filteredVulns
+		// Don't want to include the package source at all if there are no vulns.
+		if len(newPackages) > 0 {
+			pkgSrc.Packages = newPackages
+			newResults = append(newResults, pkgSrc)
+		}
+	}
+	results.Results = newResults
+
+	return removedCount
+}
+
+// Filters package-grouped vulnerabilities according to config, preserving ordering. Returns filtered package vulnerabilities.
+func filterPackageVulns(r *output.Reporter, pkgVulns models.PackageVulns, configToUse config.Config) models.PackageVulns {
+	ignoredVulns := map[string]struct{}{}
+	// Iterate over groups first to remove all aliases of ignored vulnerabilities.
+	var newGroups []models.GroupInfo
+	for _, group := range pkgVulns.Groups {
+		ignore := false
+		for _, id := range group.IDs {
+			var ignoreLine config.IgnoreEntry
+			if ignore, ignoreLine = configToUse.ShouldIgnore(id); ignore {
+				for _, id := range group.IDs {
+					ignoredVulns[id] = struct{}{}
+				}
+				// NB: This only prints the first reason encountered in all the aliases.
+				switch len(group.IDs) {
+				case 1:
+					r.PrintText(fmt.Sprintf("%s has been filtered out because: %s\n", ignoreLine.ID, ignoreLine.Reason))
+				case 2:
+					r.PrintText(fmt.Sprintf("%s and 1 alias have been filtered out because: %s\n", ignoreLine.ID, ignoreLine.Reason))
+				default:
+					r.PrintText(fmt.Sprintf("%s and %d aliases have been filtered out because: %s\n", ignoreLine.ID, len(group.IDs)-1, ignoreLine.Reason))
+				}
+
+				break
+			}
+		}
+		if !ignore {
+			newGroups = append(newGroups, group)
+		}
 	}
 
-	for id, ignoreLine := range hiddenVulns {
-		r.PrintText(fmt.Sprintf("%s has been filtered out because: %s\n", id, ignoreLine.Reason))
+	var newVulns []models.Vulnerability
+	if len(newGroups) > 0 { // If there are no groups left then there would be no vulnerabilities.
+		for _, vuln := range pkgVulns.Vulnerabilities {
+			if _, filtered := ignoredVulns[vuln.ID]; !filtered {
+				newVulns = append(newVulns, vuln)
+			}
+		}
 	}
 
-	return len(hiddenVulns)
+	// Passed by value. We don't want to alter the original PackageVulns.
+	pkgVulns.Groups = newGroups
+	pkgVulns.Vulnerabilities = newVulns
+
+	return pkgVulns
 }
 
 func parseLockfilePath(lockfileElem string) (string, string) {
@@ -467,16 +515,18 @@ func DoScan(actions ScannerActions, r *output.Reporter) (models.VulnerabilityRes
 		return models.VulnerabilityResults{}, fmt.Errorf("scan failed %w", err)
 	}
 
-	filtered := filterResponse(r, query, resp, &configManager)
-	if filtered > 0 {
-		r.PrintText(fmt.Sprintf("Filtered %d vulnerabilities from output\n", filtered))
-	}
 	hydratedResp, err := osv.Hydrate(resp)
 	if err != nil {
 		return models.VulnerabilityResults{}, fmt.Errorf("failed to hydrate OSV response: %w", err)
 	}
 
 	vulnerabilityResults := groupResponseBySource(r, query, hydratedResp, actions.ExperimentalCallAnalysis)
+
+	filtered := filterResults(r, &vulnerabilityResults, &configManager)
+	if filtered > 0 {
+		r.PrintText(fmt.Sprintf("Filtered %d vulnerabilities from output\n", filtered))
+	}
+
 	// if vulnerability exists it should return error
 	if len(vulnerabilityResults.Results) > 0 {
 		// If any vulnerabilities are called, then we return VulnerabilitiesFoundErr

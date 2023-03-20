@@ -1,0 +1,13 @@
+# These vulnerabilities do not appear in this 'source'
+
+[[IgnoredVulns]]
+id = "GHSA-fxg5-wq6x-vr4w"
+reason = "Ignore 1"
+
+[[IgnoredVulns]]
+id = "GO-2022-1144"
+reason = "Ignore 2"
+
+[[IgnoredVulns]]
+id = "GO-2023-1571"
+reason = "Ignore 3"

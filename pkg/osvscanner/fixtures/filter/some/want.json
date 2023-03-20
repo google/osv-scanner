@@ -1,0 +1,540 @@
+{
+  "results": [
+    {
+      "source": {
+        "path": "fixtures/filter/some/configs/b/",
+        "type": "lockfile"
+      },
+      "packages": [
+        {
+          "package": {
+            "name": "golang.org/x/net",
+            "version": "0.1.0",
+            "ecosystem": "Go"
+          },
+          "vulnerabilities": [
+            {
+              "schema_version": "1.4.0",
+              "id": "GHSA-vvpx-j8f3-3w6h",
+              "modified": "2023-03-09T21:20:44Z",
+              "published": "2023-02-17T14:00:02Z",
+              "aliases": [
+                "CVE-2022-41723"
+              ],
+              "summary": "Uncontrolled Resource Consumption",
+              "details": "A maliciously crafted HTTP/2 stream could cause excessive CPU consumption in the HPACK decoder, sufficient to cause a denial of service from a small number of small requests.",
+              "affected": [
+                {
+                  "package": {
+                    "ecosystem": "Go",
+                    "name": "golang.org/x/net",
+                    "purl": "pkg:golang/golang.org/x/net"
+                  },
+                  "ranges": [
+                    {
+                      "type": "SEMVER",
+                      "events": [
+                        {
+                          "introduced": "0"
+                        },
+                        {
+                          "fixed": "0.7.0"
+                        }
+                      ]
+                    }
+                  ],
+                  "database_specific": {
+                    "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2023/02/GHSA-vvpx-j8f3-3w6h/GHSA-vvpx-j8f3-3w6h.json"
+                  }
+                }
+              ],
+              "references": [
+                {
+                  "type": "ADVISORY",
+                  "url": "https://nvd.nist.gov/vuln/detail/CVE-2022-41723"
+                },
+                {
+                  "type": "WEB",
+                  "url": "https://go.dev/cl/468135"
+                },
+                {
+                  "type": "WEB",
+                  "url": "https://go.dev/cl/468295"
+                },
+                {
+                  "type": "WEB",
+                  "url": "https://go.dev/issue/57855"
+                },
+                {
+                  "type": "WEB",
+                  "url": "https://groups.google.com/g/golang-announce/c/V0aBFqaFs_E"
+                },
+                {
+                  "type": "WEB",
+                  "url": "https://pkg.go.dev/vuln/GO-2023-1571"
+                },
+                {
+                  "type": "WEB",
+                  "url": "https://vuln.go.dev/ID/GO-2023-1571.json"
+                }
+              ],
+              "database_specific": {
+                "cwe_ids": [
+                  "CWE-400"
+                ],
+                "github_reviewed": true,
+                "github_reviewed_at": "2023-02-17T14:00:02Z",
+                "nvd_published_at": "2023-02-28T18:15:00Z",
+                "severity": "HIGH"
+              }
+            },
+            {
+              "schema_version": "1.4.0",
+              "id": "GO-2023-1571",
+              "modified": "2023-02-22T20:13:12Z",
+              "published": "2023-02-16T22:31:36Z",
+              "aliases": [
+                "CVE-2022-41723",
+                "GHSA-vvpx-j8f3-3w6h"
+              ],
+              "summary": "",
+              "details": "A maliciously crafted HTTP/2 stream could cause excessive CPU consumption in the HPACK decoder, sufficient to cause a denial of service from a small number of small requests.",
+              "affected": [
+                {
+                  "package": {
+                    "ecosystem": "Go",
+                    "name": "stdlib",
+                    "purl": "pkg:golang/stdlib"
+                  },
+                  "ranges": [
+                    {
+                      "type": "SEMVER",
+                      "events": [
+                        {
+                          "introduced": "0"
+                        },
+                        {
+                          "fixed": "1.19.6"
+                        },
+                        {
+                          "introduced": "1.20.0"
+                        },
+                        {
+                          "fixed": "1.20.1"
+                        }
+                      ]
+                    }
+                  ],
+                  "database_specific": {
+                    "source": "https://vuln.go.dev/ID/GO-2023-1571.json",
+                    "url": "https://pkg.go.dev/vuln/GO-2023-1571"
+                  },
+                  "ecosystem_specific": {
+                    "imports": [
+                      {
+                        "path": "net/http"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "package": {
+                    "ecosystem": "Go",
+                    "name": "golang.org/x/net",
+                    "purl": "pkg:golang/golang.org/x/net"
+                  },
+                  "ranges": [
+                    {
+                      "type": "SEMVER",
+                      "events": [
+                        {
+                          "introduced": "0"
+                        },
+                        {
+                          "fixed": "0.7.0"
+                        }
+                      ]
+                    }
+                  ],
+                  "database_specific": {
+                    "source": "https://vuln.go.dev/ID/GO-2023-1571.json",
+                    "url": "https://pkg.go.dev/vuln/GO-2023-1571"
+                  },
+                  "ecosystem_specific": {
+                    "imports": [
+                      {
+                        "path": "golang.org/x/net/http2"
+                      },
+                      {
+                        "path": "golang.org/x/net/http2/hpack",
+                        "symbols": [
+                          "Decoder.DecodeFull",
+                          "Decoder.Write",
+                          "Decoder.parseFieldLiteral",
+                          "Decoder.readString"
+                        ]
+                      }
+                    ]
+                  }
+                }
+              ],
+              "references": [
+                {
+                  "type": "REPORT",
+                  "url": "https://go.dev/issue/57855"
+                },
+                {
+                  "type": "FIX",
+                  "url": "https://go.dev/cl/468135"
+                },
+                {
+                  "type": "FIX",
+                  "url": "https://go.dev/cl/468295"
+                },
+                {
+                  "type": "WEB",
+                  "url": "https://groups.google.com/g/golang-announce/c/V0aBFqaFs_E"
+                }
+              ]
+            }
+          ],
+          "groups": [
+            {
+              "ids": [
+                "GHSA-vvpx-j8f3-3w6h",
+                "GO-2023-1571"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source": {
+        "path": "fixtures/filter/some/configs/c/",
+        "type": "lockfile"
+      },
+      "packages": [
+        {
+          "package": {
+            "name": "ascii",
+            "version": "0.8.7",
+            "ecosystem": "crates.io"
+          },
+          "vulnerabilities": [
+            {
+              "schema_version": "1.4.0",
+              "id": "GHSA-mrrw-grhq-86gf",
+              "modified": "2023-02-28T20:30:10Z",
+              "published": "2023-02-28T20:30:10Z",
+              "aliases": null,
+              "summary": "Ascii (crate) allows out-of-bounds array indexing in safe code",
+              "details": "Affected version of this crate had implementation of `From\u003c\u0026mut AsciiStr\u003e` for `\u0026mut [u8]` and `\u0026mut str`. This can result in out-of-bounds array indexing in safe code.\n\nThe flaw was corrected in commit [8a6c779](https://github.com/tomprogrammer/rust-ascii/pull/63/commits/8a6c7798c202766bd57d70fb8d12739dd68fb9dc) by removing those impls.\n",
+              "affected": [
+                {
+                  "package": {
+                    "ecosystem": "crates.io",
+                    "name": "ascii",
+                    "purl": "pkg:cargo/ascii"
+                  },
+                  "ranges": [
+                    {
+                      "type": "SEMVER",
+                      "events": [
+                        {
+                          "introduced": "0.6.0"
+                        },
+                        {
+                          "fixed": "0.9.3"
+                        }
+                      ]
+                    }
+                  ],
+                  "database_specific": {
+                    "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2023/02/GHSA-mrrw-grhq-86gf/GHSA-mrrw-grhq-86gf.json"
+                  }
+                }
+              ],
+              "references": [
+                {
+                  "type": "WEB",
+                  "url": "https://github.com/tomprogrammer/rust-ascii/issues/64"
+                },
+                {
+                  "type": "WEB",
+                  "url": "https://github.com/tomprogrammer/rust-ascii/pull/63/commits/8a6c7798c202766bd57d70fb8d12739dd68fb9dc"
+                },
+                {
+                  "type": "PACKAGE",
+                  "url": "https://github.com/tomprogrammer/rust-ascii"
+                },
+                {
+                  "type": "WEB",
+                  "url": "https://rustsec.org/advisories/RUSTSEC-2023-0015.html"
+                }
+              ],
+              "database_specific": {
+                "cwe_ids": [],
+                "github_reviewed": true,
+                "github_reviewed_at": "2023-02-28T20:30:10Z",
+                "nvd_published_at": null,
+                "severity": "MODERATE"
+              }
+            }
+          ],
+          "groups": [
+            {
+              "ids": [
+                "GHSA-mrrw-grhq-86gf"
+              ]
+            }
+          ]
+        },
+        {
+          "package": {
+            "name": "time",
+            "version": "0.1.45",
+            "ecosystem": "crates.io"
+          },
+          "vulnerabilities": [
+            {
+              "schema_version": "1.4.0",
+              "id": "GHSA-wcg3-cvx6-7396",
+              "modified": "2022-12-06T00:16:25Z",
+              "published": "2021-08-25T20:56:46Z",
+              "aliases": [
+                "CVE-2020-26235"
+              ],
+              "summary": "Segmentation fault in time",
+              "details": "### Impact\n\nUnix-like operating systems may segfault due to dereferencing a dangling pointer in specific circumstances. This requires an environment variable to be set in a different thread than the affected functions. This may occur without the user's knowledge, notably in a third-party library.\n\nThe affected functions from time 0.2.7 through 0.2.22 are:\n\n- `time::UtcOffset::local_offset_at`\n- `time::UtcOffset::try_local_offset_at`\n- `time::UtcOffset::current_local_offset`\n- `time::UtcOffset::try_current_local_offset`\n- `time::OffsetDateTime::now_local`\n- `time::OffsetDateTime::try_now_local`\n\nThe affected functions in time 0.1 (all versions) are:\n\n- `at`\n- `at_utc`\n- `now`\n\nNon-Unix targets (including Windows and wasm) are unaffected.\n\n### Patches\n\nIn some versions of `time`, the internal method that determines the local offset has been modified to always return `None` on the affected operating systems. This has the effect of returning an `Err` on the `try_*` methods and `UTC` on the non-`try_*` methods. In later versions, `time` will attempt to determine the number of threads running in the process. If the process is single-threaded, the call will proceed as its safety invariant is upheld.\n\nUsers and library authors with time in their dependency tree must perform `cargo update`, which will pull in the updated, unaffected code.\n\nUsers of time 0.1 do not have a patch and must upgrade to an unaffected version: time 0.2.23 or greater or the 0.3 series.\n\n### Workarounds\n\nLibrary authors must ensure that the program only has one running thread at the time of calling any affected method. Binary authors may do the same and/or ensure that no other thread is actively mutating the environment.\n\n### References\n\n[time-rs/time#293](https://github.com/time-rs/time/issues/293).",
+              "affected": [
+                {
+                  "package": {
+                    "ecosystem": "crates.io",
+                    "name": "time",
+                    "purl": "pkg:cargo/time"
+                  },
+                  "ranges": [
+                    {
+                      "type": "SEMVER",
+                      "events": [
+                        {
+                          "introduced": "0.1"
+                        },
+                        {
+                          "last_affected": "0.2"
+                        }
+                      ]
+                    }
+                  ],
+                  "database_specific": {
+                    "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2021/08/GHSA-wcg3-cvx6-7396/GHSA-wcg3-cvx6-7396.json"
+                  }
+                },
+                {
+                  "package": {
+                    "ecosystem": "crates.io",
+                    "name": "time",
+                    "purl": "pkg:cargo/time"
+                  },
+                  "ranges": [
+                    {
+                      "type": "SEMVER",
+                      "events": [
+                        {
+                          "introduced": "0.2.7"
+                        },
+                        {
+                          "fixed": "0.2.23"
+                        }
+                      ]
+                    }
+                  ],
+                  "database_specific": {
+                    "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2021/08/GHSA-wcg3-cvx6-7396/GHSA-wcg3-cvx6-7396.json"
+                  },
+                  "ecosystem_specific": {
+                    "affected_functions": [
+                      "time::UtcOffset::local_offset_at",
+                      "time::UtcOffset::try_local_offset_at",
+                      "time::UtcOffset::current_local_offset",
+                      "time::UtcOffset::try_current_local_offset",
+                      "time::OffsetDateTime::now_local",
+                      "time::OffsetDateTime::try_now_local"
+                    ]
+                  }
+                }
+              ],
+              "references": [
+                {
+                  "type": "WEB",
+                  "url": "https://github.com/time-rs/time/security/advisories/GHSA-wcg3-cvx6-7396"
+                },
+                {
+                  "type": "ADVISORY",
+                  "url": "https://nvd.nist.gov/vuln/detail/CVE-2020-26235"
+                },
+                {
+                  "type": "WEB",
+                  "url": "https://github.com/time-rs/time/issues/293"
+                },
+                {
+                  "type": "WEB",
+                  "url": "https://crates.io/crates/time/0.2.23"
+                },
+                {
+                  "type": "PACKAGE",
+                  "url": "https://github.com/time-rs/time"
+                },
+                {
+                  "type": "WEB",
+                  "url": "https://rustsec.org/advisories/RUSTSEC-2020-0071.html"
+                }
+              ],
+              "database_specific": {
+                "cwe_ids": [
+                  "CWE-476"
+                ],
+                "github_reviewed": true,
+                "severity": "MODERATE"
+              }
+            },
+            {
+              "schema_version": "1.4.0",
+              "id": "RUSTSEC-2020-0071",
+              "modified": "2023-02-08T15:06:38Z",
+              "published": "2020-11-18T12:00:00Z",
+              "aliases": [
+                "CVE-2020-26235"
+              ],
+              "summary": "Potential segfault in the time crate",
+              "details": "### Impact\n\nUnix-like operating systems may segfault due to dereferencing a dangling pointer in specific circumstances. This requires an environment variable to be set in a different thread than the affected functions. This may occur without the user's knowledge, notably in a third-party library.\n\nThe affected functions from time 0.2.7 through 0.2.22 are:\n\n- `time::UtcOffset::local_offset_at`\n- `time::UtcOffset::try_local_offset_at`\n- `time::UtcOffset::current_local_offset`\n- `time::UtcOffset::try_current_local_offset`\n- `time::OffsetDateTime::now_local`\n- `time::OffsetDateTime::try_now_local`\n\nThe affected functions in time 0.1 (all versions) are:\n\n- `at`\n- `at_utc`\n- `now`\n\nNon-Unix targets (including Windows and wasm) are unaffected.\n\n### Patches\n\nPending a proper fix, the internal method that determines the local offset has been modified to always return `None` on the affected operating systems. This has the effect of returning an `Err` on the `try_*` methods and `UTC` on the non-`try_*` methods.\n\nUsers and library authors with time in their dependency tree should perform `cargo update`, which will pull in the updated, unaffected code.\n\nUsers of time 0.1 do not have a patch and should upgrade to an unaffected version: time 0.2.23 or greater or the 0.3 series.\n\n### Workarounds\n\nA possible workaround for crates affected through the transitive dependency in `chrono`, is to avoid using the default `oldtime` feature dependency of the `chrono` crate by disabling its `default-features` and manually specifying the required features instead.\n\n#### Examples:\n\n`Cargo.toml`:  \n\n```toml\nchrono = { version = \"0.4\", default-features = false, features = [\"serde\"] }\n```\n\n```toml\nchrono = { version = \"0.4.22\", default-features = false, features = [\"clock\"] }\n```\n\nCommandline:  \n\n```bash\ncargo add chrono --no-default-features -F clock\n```\n\nSources:  \n - [chronotope/chrono#602 (comment)](https://github.com/chronotope/chrono/issues/602#issuecomment-1242149249)  \n - [vityafx/serde-aux#21](https://github.com/vityafx/serde-aux/issues/21)",
+              "affected": [
+                {
+                  "package": {
+                    "ecosystem": "crates.io",
+                    "name": "time",
+                    "purl": "pkg:cargo/time"
+                  },
+                  "ranges": [
+                    {
+                      "type": "SEMVER",
+                      "events": [
+                        {
+                          "introduced": "0.0.0-0"
+                        },
+                        {
+                          "fixed": "0.2.0"
+                        },
+                        {
+                          "introduced": "0.2.1-0"
+                        },
+                        {
+                          "fixed": "0.2.1"
+                        },
+                        {
+                          "introduced": "0.2.2-0"
+                        },
+                        {
+                          "fixed": "0.2.2"
+                        },
+                        {
+                          "introduced": "0.2.3-0"
+                        },
+                        {
+                          "fixed": "0.2.3"
+                        },
+                        {
+                          "introduced": "0.2.4-0"
+                        },
+                        {
+                          "fixed": "0.2.4"
+                        },
+                        {
+                          "introduced": "0.2.5-0"
+                        },
+                        {
+                          "fixed": "0.2.5"
+                        },
+                        {
+                          "introduced": "0.2.6-0"
+                        },
+                        {
+                          "fixed": "0.2.6"
+                        },
+                        {
+                          "introduced": "0.2.7-0"
+                        },
+                        {
+                          "fixed": "0.2.23"
+                        }
+                      ]
+                    }
+                  ],
+                  "database_specific": {
+                    "categories": [
+                      "code-execution",
+                      "memory-corruption"
+                    ],
+                    "cvss": "CVSS:3.1/AV:L/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+                    "informational": null,
+                    "source": "https://github.com/rustsec/advisory-db/blob/osv/crates/RUSTSEC-2020-0071.json"
+                  },
+                  "ecosystem_specific": {
+                    "affects": {
+                      "arch": [],
+                      "functions": [
+                        "time::OffsetDateTime::now_local",
+                        "time::OffsetDateTime::try_now_local",
+                        "time::UtcOffset::current_local_offset",
+                        "time::UtcOffset::local_offset_at",
+                        "time::UtcOffset::try_current_local_offset",
+                        "time::UtcOffset::try_local_offset_at",
+                        "time::at",
+                        "time::at_utc",
+                        "time::now"
+                      ],
+                      "os": [
+                        "linux",
+                        "redox",
+                        "solaris",
+                        "android",
+                        "ios",
+                        "macos",
+                        "netbsd",
+                        "openbsd",
+                        "freebsd"
+                      ]
+                    }
+                  }
+                }
+              ],
+              "references": [
+                {
+                  "type": "PACKAGE",
+                  "url": "https://crates.io/crates/time"
+                },
+                {
+                  "type": "ADVISORY",
+                  "url": "https://rustsec.org/advisories/RUSTSEC-2020-0071.html"
+                },
+                {
+                  "type": "REPORT",
+                  "url": "https://github.com/time-rs/time/issues/293"
+                }
+              ]
+            }
+          ],
+          "groups": [
+            {
+              "ids": [
+                "GHSA-wcg3-cvx6-7396",
+                "RUSTSEC-2020-0071"
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

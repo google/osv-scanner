@@ -1,0 +1,21 @@
+# An entry for every vulnerability (including aliases)
+
+[[IgnoredVulns]]
+id = "GHSA-mc8h-8q98-g5hr"
+reason = "Ignore 1"
+# Alias of RUSTSEC-2023-0018
+
+[[IgnoredVulns]]
+id = "RUSTSEC-2023-0018"
+reason = "Redundant Ignore 1"
+# Redundant ignore statement - Alias of GHSA-mc8h-8q98-g5hr
+
+[[IgnoredVulns]]
+id = "GHSA-wcg3-cvx6-7396"
+reason = "Ignore 2"
+# Alias of RUSTSEC-2020-0071
+
+[[IgnoredVulns]]
+id = "RUSTSEC-2020-0071"
+reason = "Redundant Ignore 2"
+# Redundant ignore statement - Alias of GHSA-wcg3-cvx6-7396
