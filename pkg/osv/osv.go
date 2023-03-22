@@ -2,14 +2,17 @@ package osv
 
 import (
 	"bytes"
+	"context"
 	"encoding/json"
 	"fmt"
 	"io"
+	"log"
 	"net/http"
 	"time"
 
 	"github.com/google/osv-scanner/pkg/lockfile"
 	"github.com/google/osv-scanner/pkg/models"
+	"golang.org/x/sync/semaphore"
 )
 
 const (
@@ -21,7 +24,8 @@ const (
 	BaseVulnerabilityURL = "https://osv.dev/"
 	// maxQueriesPerRequest splits up querybatch into multiple requests if
 	// number of queries exceed this number
-	maxQueriesPerRequest = 1000
+	maxQueriesPerRequest  = 1000
+	maxConcurrentRequests = 25
 )
 
 // Package represents a package identifier for OSV.
@@ -188,20 +192,50 @@ func Get(id string) (*models.Vulnerability, error) {
 // Hydrate fills the results of the batched response with the full
 // Vulnerability details.
 func Hydrate(resp *BatchedResponse) (*HydratedBatchedResponse, error) {
-	// TODO(ochang): Parallelize requests, or implement batch GET.
 	hydrated := HydratedBatchedResponse{}
+	ctx := context.TODO()
+	// Preallocate the array to avoid slice reallocations when inserting later
+	hydrated.Results = make([]Response, len(resp.Results))
+	for idx := range hydrated.Results {
+		hydrated.Results[idx].Vulns =
+			make([]models.Vulnerability, len(resp.Results[idx].Vulns))
+	}
 
-	for _, response := range resp.Results {
-		result := Response{}
-		for _, vuln := range response.Vulns {
-			vuln, err := Get(vuln.ID)
-			if err != nil {
-				return nil, err
+	errChan := make(chan error)
+	rateLimiter := semaphore.NewWeighted(maxConcurrentRequests)
+
+	for batchIdx, response := range resp.Results {
+		for resultIdx, vuln := range response.Vulns {
+			if err := rateLimiter.Acquire(ctx, 1); err != nil {
+				log.Panicf("Failed to acquire semaphore: %v", err)
 			}
 
-			result.Vulns = append(result.Vulns, *vuln)
+			go func(id string, batchIdx int, resultIdx int) {
+				vuln, err := Get(id)
+				if err != nil {
+					errChan <- err
+				} else {
+					hydrated.Results[batchIdx].Vulns[resultIdx] = *vuln
+				}
+
+				rateLimiter.Release(1)
+			}(vuln.ID, batchIdx, resultIdx)
 		}
-		hydrated.Results = append(hydrated.Results, result)
+	}
+
+	// Close error channel when all semaphores are released
+	go func() {
+		if err := rateLimiter.Acquire(ctx, maxConcurrentRequests); err != nil {
+			log.Panicf("Failed to acquire semaphore: %v", err)
+		}
+		// Always close the error channel
+		close(errChan)
+	}()
+
+	// Range will exit when channel is closed.
+	// Channel will be closed when all semaphores are freed.
+	for err := range errChan {
+		return nil, err
 	}
 
 	return &hydrated, nil
