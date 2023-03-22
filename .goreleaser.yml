@@ -32,7 +32,7 @@ builds:
 dockers:
   # Arch: amd64
   - image_templates:
-      - 'ghcr.io/google/osv-scanner:{{ .Tag }}-amd64'
+      - 'ghcr.io/{{ .Env.OWNER }}/osv-scanner:{{ .Tag }}-amd64'
     dockerfile: goreleaser.dockerfile
     use: buildx
     build_flag_templates:
@@ -49,7 +49,7 @@ dockers:
       - "--platform=linux/amd64"
   # Arch: arm64
   - image_templates:
-      - 'ghcr.io/google/osv-scanner:{{ .Tag }}-arm64'
+      - 'ghcr.io/{{ .Env.OWNER }}/osv-scanner:{{ .Tag }}-arm64'
     dockerfile: goreleaser.dockerfile
     use: buildx
     build_flag_templates:
@@ -67,14 +67,14 @@ dockers:
     goarch: arm64
 
 docker_manifests:
-  - name_template: 'ghcr.io/google/osv-scanner:{{ .Tag }}'
+  - name_template: 'ghcr.io/{{ .Env.OWNER }}/osv-scanner:{{ .Tag }}'
     image_templates:
-      - 'ghcr.io/google/osv-scanner:{{ .Tag }}-amd64'
-      - 'ghcr.io/google/osv-scanner:{{ .Tag }}-arm64'
-  - name_template: 'ghcr.io/google/osv-scanner:latest'
+      - 'ghcr.io/{{ .Env.OWNER }}/osv-scanner:{{ .Tag }}-amd64'
+      - 'ghcr.io/{{ .Env.OWNER }}/osv-scanner:{{ .Tag }}-arm64'
+  - name_template: 'ghcr.io/{{ .Env.OWNER }}/osv-scanner:latest'
     image_templates:
-      - 'ghcr.io/google/osv-scanner:{{ .Tag }}-amd64'
-      - 'ghcr.io/google/osv-scanner:{{ .Tag }}-arm64'
+      - 'ghcr.io/{{ .Env.OWNER }}/osv-scanner:{{ .Tag }}-amd64'
+      - 'ghcr.io/{{ .Env.OWNER }}/osv-scanner:{{ .Tag }}-arm64'
 
 archives:
   - format: binary

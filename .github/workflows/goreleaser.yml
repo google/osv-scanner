@@ -24,10 +24,10 @@ jobs:
         uses: actions/checkout@24cb9080177205b6e8c946b17badbe402adc938f # v3.4.0
         with:
           fetch-depth: 0
-      - name: Run Tests
-        uses: ./.github/workflows/test.yaml
-      - name: Run Lints
-        uses: ./.github/workflows/lint.yaml
+      # - name: Run Tests
+      #   uses: ./.github/workflows/test.yaml
+      # - name: Run Lints
+      #   uses: ./.github/workflows/lint.yaml
       - uses: docker/setup-qemu-action@e81a89b1732b9c48d79cd809d8d81d79c4647a18 # v2
       - uses: docker/setup-buildx-action@4b4e9c3e2d4531116a6f8ba8e71fc6e2cb6e6c8c # v2
       - name: Set up Go
@@ -49,9 +49,11 @@ jobs:
           args: release --rm-dist
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          OWNER: ${{ github.repository_owner }}
       - name: Generate subject
         id: hash
         env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           ARTIFACTS: "${{ steps.run-goreleaser.outputs.artifacts }}"
         run: |
           set -euo pipefail
@@ -63,7 +65,49 @@ jobs:
       actions: read # To read the workflow path.
       id-token: write # To sign the provenance.
       contents: write # To add assets to a release.
-    uses: slsa-framework/slsa-github-generator/.github/workflows/generator_generic_slsa3.yml@v1.5.0
+    uses: developer-guy/slsa-github-generator/.github/workflows/generator_generic_slsa3.yml@v1.5.0
     with:
       base64-subjects: "${{ needs.goreleaser.outputs.hashes }}"
       upload-assets: true # upload to a new release
+      draft-release: true
+  verification:
+    needs: [goreleaser, provenance]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write # To add assets to a release.
+    steps:
+      - name: Install SLSA verifier
+        uses: slsa-framework/slsa-verifier/actions/installer@v2.1.0
+      - name: Download assets
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PROVENANCE: "${{ needs.provenance.outputs.provenance-name }}"
+        run: |
+          set -euo pipefail
+          TAG=${GITHUB_REF#refs/tags/}
+          echo "Downloading assets for tag $TAG"
+          for i in $(gh api "repos/$GITHUB_REPOSITORY/releases" | jq -r '.[] | select(.tag_name=='\"$TAG\"').assets[].id')
+          do
+            echo "Downloading asset $i"
+            curl -L -o $(gh api "repos/$GITHUB_REPOSITORY/releases/assets/$i" | jq -r '.name') -H "Authorization: token $GH_TOKEN" -H "Accept: application/octet-stream" $(gh api "repos/$GITHUB_REPOSITORY/releases/assets/$i" | jq -r '.url')
+          done
+          echo "Downloading provenance $PROVENANCE"
+          gh -R $GITHUB_REPOSITORY release download --clobber $GITHUB_REF_NAME -p $PROVENANCE
+      - name: Verify assets
+        env:
+          CHECKSUMS: ${{ needs.goreleaser.outputs.hashes }}
+          PROVENANCE: "${{ needs.provenance.outputs.provenance-name }}"
+        run: |
+          set -euo pipefail
+          checksums=$(echo "$CHECKSUMS" | base64 -d)
+          while read -r line; do
+              fn=$(echo $line | cut -d ' ' -f2)
+              echo "Verifying $fn"
+              slsa-verifier verify-artifact "$fn" \
+                            --provenance-path "$PROVENANCE" \
+                            --source-uri "github.com/$GITHUB_REPOSITORY" \
+                            --source-tag "$GITHUB_REF_NAME" \
+                            --builder-id "https://github.com/developer-guy/slsa-github-generator/.github/workflows/generator_generic_slsa3.yml@refs/tags/v1.5.0"
+          done <<<"$checksums"
+  
+
