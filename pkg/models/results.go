@@ -1,8 +1,6 @@
 package models
 
 import (
-	"time"
-
 	"golang.org/x/exp/slices"
 )
 
@@ -38,41 +36,6 @@ type VulnerabilityFlattened struct {
 	Package       PackageInfo
 	Vulnerability Vulnerability
 	GroupInfo     GroupInfo
-}
-
-type Vulnerability struct {
-	SchemaVersion string    `json:"schema_version"`
-	ID            string    `json:"id"`
-	Modified      time.Time `json:"modified"`
-	Published     time.Time `json:"published"`
-	Aliases       []string  `json:"aliases"`
-	Summary       string    `json:"summary"`
-	Details       string    `json:"details"`
-	Affected      []struct {
-		Package struct {
-			Ecosystem string `json:"ecosystem,omitempty"`
-			Name      string `json:"name,omitempty"`
-			Purl      string `json:"purl,omitempty"`
-		} `json:"package"`
-		Ranges []struct {
-			Type   string `json:"type"`
-			Events []struct {
-				Introduced   string `json:"introduced,omitempty"`
-				Fixed        string `json:"fixed,omitempty"`
-				LastAffected string `json:"last_affected,omitempty"`
-				Limit        string `json:"limit,omitempty"`
-			} `json:"events"`
-			DatabaseSpecific map[string]interface{} `json:"database_specific,omitempty"`
-		} `json:"ranges"`
-		Versions          []string               `json:"versions,omitempty"`
-		DatabaseSpecific  map[string]interface{} `json:"database_specific,omitempty"`
-		EcosystemSpecific map[string]interface{} `json:"ecosystem_specific,omitempty"`
-	} `json:"affected"`
-	References []struct {
-		Type string `json:"type"`
-		URL  string `json:"url"`
-	} `json:"references"`
-	DatabaseSpecific map[string]interface{} `json:"database_specific,omitempty"`
 }
 
 type SourceInfo struct {
