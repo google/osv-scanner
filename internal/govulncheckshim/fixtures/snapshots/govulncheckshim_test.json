@@ -97,6 +97,9 @@
       "url": "https://github.com/ipfs/go-bitfield/commit/5e1d256fe043fc4163343ccca83862c69c52e579"
      }
     ],
+    "credits": [
+        { "name": "Jorropo" }
+    ],
     "schema_version": "1.3.1"
    }
   },
