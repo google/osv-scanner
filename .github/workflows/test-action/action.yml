@@ -28,4 +28,5 @@ runs:
         go-version: '1.19'
         check-latest: true
     - name: Run go test
+      shell: bash
       run: ./run_tests.sh
