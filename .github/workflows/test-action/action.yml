@@ -13,23 +13,19 @@
 # limitations under the License.
 
 name: test
+description: "Runs go tests"
 
-on:
-  push:
-    branches: [ main ]
-  pull_request:
-    # The branches below must be a subset of the branches above
-    branches: [ main ]
-  merge_group:
-    branches: [ main ]
-
-permissions:
-  contents: read # to fetch code (actions/checkout)
-
-jobs:
-  lint:
-    name: Run unit tests
-    runs-on: ubuntu-latest
-    steps:
-      - name: Run test action
-        uses: ./.github/workflows/test-action
+runs:
+  using: composite
+  steps:
+    - name: Check out code
+      uses: actions/checkout@24cb9080177205b6e8c946b17badbe402adc938f # v3.4.0
+      with:
+        persist-credentials: false
+    - name: Set up Go
+      uses: actions/setup-go@4d34df0c2316fe8122ab82dc22947d607c0c91f9 # v4.0.0
+      with:
+        go-version: '1.19'
+        check-latest: true
+    - name: Run go test
+      run: ./run_tests.sh
