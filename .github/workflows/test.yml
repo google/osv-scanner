@@ -31,5 +31,9 @@ jobs:
     name: Run unit tests
     runs-on: ubuntu-latest
     steps:
+      - name: Check out code
+        uses: actions/checkout@24cb9080177205b6e8c946b17badbe402adc938f # v3.4.0
+        with:
+          persist-credentials: false
       - name: Run test action
         uses: ./.github/workflows/test-action
