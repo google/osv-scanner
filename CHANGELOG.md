@@ -1,3 +1,29 @@
+v1.3.0:
+===
+
+### Major Features:
+
+- [Feature #198](https://github.com/google/osv-scanner/pull/198) GoVulnCheck integration! Try it out when scanning go code by adding the `--experimental-call-analysis` flag.
+- [Feature #260](https://github.com/google/osv-scanner/pull/198) Support `-r` flag in `requirements.txt` files.
+- [Feature #300](https://github.com/google/osv-scanner/pull/300) Make `IgnoredVulns` also ignore aliases.
+- [Feature #304](https://github.com/google/osv-scanner/pull/304) OSV-Scanner now runs faster when there's multiple vulnerabilities.
+
+### Fixes
+- [Bug #249](https://github.com/google/osv-scanner/issues/249) Support yarn locks with quoted properties.
+- [Bug #232](https://github.com/google/osv-scanner/issues/232) Parse nested CycloneDX components correctly.
+- [Bug #257](https://github.com/google/osv-scanner/issues/257) More specific cyclone dx parsing.
+- [Bug #256](https://github.com/google/osv-scanner/issues/256) Avoid panic when parsing `file:` dependencies in `pnpm` lockfiles.
+- [Bug #261](https://github.com/google/osv-scanner/issues/261) Deduplicate packages that appear multiple times in `Pipenv.lock` files.
+- [Bug #267](https://github.com/google/osv-scanner/issues/267) Properly handle comparing zero versions in Maven.
+- [Bug #279](https://github.com/google/osv-scanner/issues/279) Trim leading zeros off when comparing numerical components in Maven versions.
+- [Bug #291](https://github.com/google/osv-scanner/issues/291) Check if PURL is valid before adding it to queries.
+- [Bug #293](https://github.com/google/osv-scanner/issues/293) Avoid infinite loops parsing Maven poms with syntax errors
+- [Bug #295](https://github.com/google/osv-scanner/issues/295) Set version in the source code, this allows version to be displayed in most package managers.
+- [Bug #297](https://github.com/google/osv-scanner/issues/297) Support Pipenv develop packages without versions.
+
+#### API Features
+- [Feature #310](https://github.com/google/osv-scanner/pull/310) Improve the OSV models to allow for 3rd party use of the library.
+
 v1.2.0:
 ===
 
