@@ -35,10 +35,11 @@ jobs:
         uses: actions/checkout@24cb9080177205b6e8c946b17badbe402adc938f # v3.4.0
         with:
           persist-credentials: false
+          fetch-depth: 0
       - name: Set up Go
         uses: actions/setup-go@4d34df0c2316fe8122ab82dc22947d607c0c91f9 # v4.0.0
         with:
           go-version: '1.19'
           check-latest: true
-      - name: Run go test
-        run: ./run_tests.sh
+      - name: Run test action
+        uses: ./.github/workflows/test-action
