@@ -1,0 +1,23 @@
+{
+  "bomFormat": "CycloneDX",
+  "specVersion": "1.4",
+  "version": 1,
+  "components": [
+    {
+      "type": "container",
+      "name": "/target.tar",
+      "components": [
+        {
+          "type": "library",
+          "name": "HdrHistogram",
+          "purl": "pkg:maven/org.hdrhistogram/HdrHistogram@2.1.12"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "Apache Log4j Core",
+      "purl": "pkg:maven/org.apache.logging.log4j/log4j-core@2.16.0"
+    }
+  ]
+}

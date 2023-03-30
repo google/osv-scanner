@@ -69,6 +69,10 @@ func (c *CycloneDX) enumerateComponents(components []cyclonedx.Component, callba
 }
 
 func (c *CycloneDX) enumeratePackages(bom *cyclonedx.BOM, callback func(Identifier) error) error {
+	if bom.Components == nil {
+		return nil
+	}
+
 	return c.enumerateComponents(*bom.Components, callback)
 }
 
