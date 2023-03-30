@@ -2,6 +2,7 @@ package sbom_test
 
 import (
 	"os"
+	"path/filepath"
 	"testing"
 
 	"github.com/google/go-cmp/cmp"
@@ -11,10 +12,11 @@ import (
 func runCycloneGetPackages(t *testing.T, bomFile string, want []sbom.Identifier) {
 	t.Helper()
 
-	f, err := os.Open("fixtures/" + bomFile)
+	f, err := os.Open(filepath.Join("fixtures", bomFile))
 	if err != nil {
 		t.Fatalf("Failed to read fixture file: %v", err)
 	}
+	defer f.Close()
 
 	got := []sbom.Identifier{}
 	callback := func(id sbom.Identifier) error {
