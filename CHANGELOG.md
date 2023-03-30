@@ -1,3 +1,9 @@
+v1.3.1:
+===
+
+### Fixes
+- [Bug #319](https://github.com/google/osv-scanner/issues/319) Fix segmentation fault when parsing CycloneDX without dependencies. 
+
 v1.3.0:
 ===
 
