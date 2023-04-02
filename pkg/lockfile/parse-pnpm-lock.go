@@ -23,7 +23,7 @@ type PnpmLockPackage struct {
 }
 
 type PnpmLockfile struct {
-	Version  float64                    `yaml:"lockfileVersion"`
+	Version  string                     `yaml:"lockfileVersion"`
 	Packages map[string]PnpmLockPackage `yaml:"packages,omitempty"`
 }
 
@@ -62,6 +62,13 @@ func extractPnpmPackageNameAndVersion(dependencyPath string) (string, string) {
 
 	if len(parts) != 0 {
 		version = parts[0]
+	}
+
+	// handle pnpm v6.0+ package specifier that uses name@version pattern
+	atName := strings.Split(name, "@")
+
+	if version == "" && len(atName) == 2 {
+		return atName[0], atName[1]
 	}
 
 	if version == "" || !startsWithNumber(version) {

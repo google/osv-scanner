@@ -54,6 +54,25 @@ func TestParsePnpmLock_OnePackage(t *testing.T) {
 	})
 }
 
+func TestParsePnpmLock_OnePackageV6Lockfile(t *testing.T) {
+	t.Parallel()
+
+	packages, err := lockfile.ParsePnpmLock("fixtures/pnpm/one-package-v6-lockfile.yaml")
+
+	if err != nil {
+		t.Errorf("Got unexpected error: %v", err)
+	}
+
+	expectPackages(t, packages, []lockfile.PackageDetails{
+		{
+			Name:      "acorn",
+			Version:   "8.7.0",
+			Ecosystem: lockfile.PnpmEcosystem,
+			CompareAs: lockfile.PnpmEcosystem,
+		},
+	})
+}
+
 func TestParsePnpmLock_OnePackageDev(t *testing.T) {
 	t.Parallel()
 
