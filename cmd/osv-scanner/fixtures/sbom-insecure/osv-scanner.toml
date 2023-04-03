@@ -9,11 +9,6 @@ id = "GO-2022-0493"
 reason = "This is a intentionally vulnerable test sbom"
 
 [[IgnoredVulns]]
-id = "GHSA-p782-xgp4-8hr8"
-# ignoreUntil = n/a
-reason = "This is a intentionally vulnerable test sbom"
-
-[[IgnoredVulns]]
 id = "GHSA-vpvm-3wq2-2wvm"
 # ignoreUntil = n/a
 reason = "This is a intentionally vulnerable test sbom"
