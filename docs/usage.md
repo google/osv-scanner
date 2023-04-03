@@ -96,6 +96,7 @@ osv-scanner --lockfile ':/path/to/my:projects/package-lock.json'
 ```
 
 ### Scanning with call analysis
+
 {: .note }
 Features and flags with the `experimental` prefix might change or be removed with only a minor version update.
 
