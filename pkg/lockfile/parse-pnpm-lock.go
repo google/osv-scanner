@@ -64,11 +64,8 @@ func extractPnpmPackageNameAndVersion(dependencyPath string) (string, string) {
 		version = parts[0]
 	}
 
-	// handle pnpm v6.0+ package specifier that uses name@version pattern
-	atName := strings.Split(name, "@")
-
-	if version == "" && len(atName) == 2 {
-		return atName[0], atName[1]
+	if version == "" {
+		name, version = parseNameAtVersion(name)
 	}
 
 	if version == "" || !startsWithNumber(version) {
@@ -82,6 +79,17 @@ func extractPnpmPackageNameAndVersion(dependencyPath string) (string, string) {
 	}
 
 	return name, version
+}
+
+func parseNameAtVersion(value string) (name string, version string) {
+	// look for pattern "name@version", where name is allowed to contain zero or more "@"
+	matches := regexp.MustCompile("^(.+)@([^@/]+)$").FindStringSubmatch(value)
+
+	if len(matches) != 3 {
+		return name, ""
+	}
+
+	return matches[1], matches[2]
 }
 
 func parsePnpmLock(lockfile PnpmLockfile) []PackageDetails {

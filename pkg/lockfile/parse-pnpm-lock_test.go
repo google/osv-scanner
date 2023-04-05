@@ -111,6 +111,25 @@ func TestParsePnpmLock_ScopedPackages(t *testing.T) {
 	})
 }
 
+func TestParsePnpmLock_ScopedPackagesV6Lockfile(t *testing.T) {
+	t.Parallel()
+
+	packages, err := lockfile.ParsePnpmLock("fixtures/pnpm/scoped-packages-v6-lockfile.yaml")
+
+	if err != nil {
+		t.Errorf("Got unexpected error: %v", err)
+	}
+
+	expectPackages(t, packages, []lockfile.PackageDetails{
+		{
+			Name:      "@typescript-eslint/types",
+			Version:   "5.57.1",
+			Ecosystem: lockfile.PnpmEcosystem,
+			CompareAs: lockfile.PnpmEcosystem,
+		},
+	})
+}
+
 func TestParsePnpmLock_PeerDependencies(t *testing.T) {
 	t.Parallel()
 
