@@ -83,7 +83,7 @@ func extractPnpmPackageNameAndVersion(dependencyPath string) (string, string) {
 
 func parseNameAtVersion(value string) (name string, version string) {
 	// look for pattern "name@version", where name is allowed to contain zero or more "@"
-	matches := regexp.MustCompile("^(.+)@([^@/]+)$").FindStringSubmatch(value)
+	matches := regexp.MustCompile("^(.+)@([\\d.]+)$").FindStringSubmatch(value)
 
 	if len(matches) != 3 {
 		return name, ""
