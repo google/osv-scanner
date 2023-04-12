@@ -80,7 +80,7 @@ func (s *SPDX) GetPackages(r io.ReadSeeker, callback func(Identifier) error) err
 		errs = append(errs, fmt.Errorf("failed trying %s: %w", loader.name, err))
 	}
 
-	return &InvalidFormatError{
+	return InvalidFormatError{
 		msg:  "failed to parse SPDX",
 		errs: errs,
 	}

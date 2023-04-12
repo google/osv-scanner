@@ -31,7 +31,7 @@ type InvalidFormatError struct {
 	errs []error
 }
 
-func (e *InvalidFormatError) Error() string {
+func (e InvalidFormatError) Error() string {
 	errStrings := make([]string, 0, len(e.errs))
 	for _, e := range e.errs {
 		errStrings = append(errStrings, "\t"+e.Error())
