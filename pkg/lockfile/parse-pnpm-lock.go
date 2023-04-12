@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"os"
 	"regexp"
+	"strconv"
 	"strings"
 
 	"gopkg.in/yaml.v3"
@@ -23,8 +24,32 @@ type PnpmLockPackage struct {
 }
 
 type PnpmLockfile struct {
+	Version  float64                    `yaml:"lockfileVersion"`
+	Packages map[string]PnpmLockPackage `yaml:"packages,omitempty"`
+}
+
+type pnpmLockfileV6 struct {
 	Version  string                     `yaml:"lockfileVersion"`
 	Packages map[string]PnpmLockPackage `yaml:"packages,omitempty"`
+}
+
+func (l *PnpmLockfile) UnmarshalYAML(unmarshal func(interface{}) error) error {
+	var lockfileV6 pnpmLockfileV6
+
+	if err := unmarshal(&lockfileV6); err != nil {
+		return err
+	}
+
+	parsedVersion, err := strconv.ParseFloat(lockfileV6.Version, 64)
+
+	if err != nil {
+		return err
+	}
+
+	l.Version = parsedVersion
+	l.Packages = lockfileV6.Packages
+
+	return nil
 }
 
 const PnpmEcosystem = NpmEcosystem
