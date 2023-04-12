@@ -286,6 +286,7 @@ func scanSBOMFile(r *output.Reporter, query *osv.BatchedQuery, path string, from
 			r.PrintText(err.Error() + "\n")
 		}
 	}
+
 	return nil
 }
 
