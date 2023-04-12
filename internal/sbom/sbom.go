@@ -26,13 +26,13 @@ var (
 	}
 )
 
-type ErrInvalidFormat struct {
+type InvalidFormatError struct {
 	msg  string
 	errs []error
 }
 
-func (e *ErrInvalidFormat) Error() string {
-	var errStrings []string
+func (e *InvalidFormatError) Error() string {
+	errStrings := make([]string, 0, len(e.errs))
 	for _, e := range e.errs {
 		errStrings = append(errStrings, "\t"+e.Error())
 	}

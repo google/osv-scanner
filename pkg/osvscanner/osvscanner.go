@@ -270,7 +270,7 @@ func scanSBOMFile(r *output.Reporter, query *osv.BatchedQuery, path string, from
 			return nil
 		}
 
-		if _, ok := err.(*sbom.ErrInvalidFormat); ok {
+		if _, ok := err.(*sbom.InvalidFormatError); ok {
 			errs = append(errs, err)
 			continue
 		}

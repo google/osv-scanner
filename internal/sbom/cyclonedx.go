@@ -19,11 +19,11 @@ type cyclonedxType struct {
 
 var (
 	cycloneDXTypes = []cyclonedxType{
-		cyclonedxType{
+		{
 			name:    "json",
 			bomType: cyclonedx.BOMFileFormatJSON,
 		},
-		cyclonedxType{
+		{
 			name:    "xml",
 			bomType: cyclonedx.BOMFileFormatXML,
 		},
@@ -89,6 +89,7 @@ func (c *CycloneDX) enumeratePackages(bom *cyclonedx.BOM, callback func(Identifi
 }
 
 func (c *CycloneDX) GetPackages(r io.ReadSeeker, callback func(Identifier) error) error {
+	//nolint:prealloc // Not sure how many there will be in advance.
 	var errs []error
 	var bom cyclonedx.BOM
 
@@ -107,10 +108,10 @@ func (c *CycloneDX) GetPackages(r io.ReadSeeker, callback func(Identifier) error
 			}
 		}
 
-		errs = append(errs, fmt.Errorf("failed trying %s: %v", formatType.name, err))
+		errs = append(errs, fmt.Errorf("failed trying %s: %w", formatType.name, err))
 	}
 
-	return &ErrInvalidFormat{
+	return &InvalidFormatError{
 		msg:  "failed to parse CycloneDX",
 		errs: errs,
 	}

@@ -23,15 +23,15 @@ type loader struct {
 
 var (
 	spdxLoaders = []loader{
-		loader{
+		{
 			name:   "json",
 			loader: spdx_json.Load2_3,
 		},
-		loader{
+		{
 			name:   "rdf",
 			loader: rdfloader.Load2_3,
 		},
-		loader{
+		{
 			name:   "tv",
 			loader: tvloader.Load2_3,
 		},
@@ -66,6 +66,7 @@ func (s *SPDX) enumeratePackages(doc *v2_3.Document, callback func(Identifier) e
 }
 
 func (s *SPDX) GetPackages(r io.ReadSeeker, callback func(Identifier) error) error {
+	//nolint:prealloc // Not sure how many there will be in advance.
 	var errs []error
 	for _, loader := range spdxLoaders {
 		_, err := r.Seek(0, io.SeekStart)
@@ -76,10 +77,10 @@ func (s *SPDX) GetPackages(r io.ReadSeeker, callback func(Identifier) error) err
 		if err == nil {
 			return s.enumeratePackages(doc, callback)
 		}
-		errs = append(errs, fmt.Errorf("failed trying %s: %v", loader.name, err))
+		errs = append(errs, fmt.Errorf("failed trying %s: %w", loader.name, err))
 	}
 
-	return &ErrInvalidFormat{
+	return &InvalidFormatError{
 		msg:  "failed to parse SPDX",
 		errs: errs,
 	}
