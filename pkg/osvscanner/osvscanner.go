@@ -498,8 +498,6 @@ func DoScan(actions ScannerActions, r *output.Reporter) (models.VulnerabilityRes
 		if err != nil {
 			return models.VulnerabilityResults{}, fmt.Errorf("failed to resolved path with error %w", err)
 		}
-		// If this is passed as an explicit SBOM, don't validate the filename since it's common
-		// for filenames to not conform to the spec and cause user confusion.
 		err = scanSBOMFile(r, &query, sbomElem, false)
 		if err != nil {
 			return models.VulnerabilityResults{}, err
