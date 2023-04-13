@@ -5,10 +5,10 @@ import (
 	"testing"
 
 	"github.com/google/go-cmp/cmp"
-	"github.com/google/osv-scanner/internal/output"
 	"github.com/google/osv-scanner/internal/testutility"
 	"github.com/google/osv-scanner/pkg/config"
 	"github.com/google/osv-scanner/pkg/models"
+	"github.com/google/osv-scanner/pkg/reporter"
 )
 
 func Test_filterResults(t *testing.T) {
@@ -51,7 +51,7 @@ func Test_filterResults(t *testing.T) {
 		tt := tt // Reinitialize for t.Parallel()
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
-			r := output.NewVoidReporter()
+			r := reporter.NewVoidReporter()
 			// ConfigManager looks for osv-scanner.toml in the source path.
 			// Sources in the test input should point to files/folders in the text fixture folder for this to work correctly.
 			configManager := config.ConfigManager{

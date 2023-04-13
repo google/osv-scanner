@@ -1,10 +1,11 @@
-package output
+package reporter
 
 import (
 	"fmt"
 	"io"
 	"strings"
 
+	"github.com/google/osv-scanner/internal/output"
 	"github.com/google/osv-scanner/pkg/models"
 )
 
@@ -60,11 +61,11 @@ func (r *Reporter) PrintText(msg string) {
 func (r *Reporter) PrintResult(vulnResult *models.VulnerabilityResults) error {
 	switch r.format {
 	case "json":
-		return PrintJSONResults(vulnResult, r.stdout)
+		return output.PrintJSONResults(vulnResult, r.stdout)
 	case "markdown":
-		PrintMarkdownTableResults(vulnResult, r.stdout)
+		output.PrintMarkdownTableResults(vulnResult, r.stdout)
 	case "table":
-		PrintTableResults(vulnResult, r.stdout)
+		output.PrintTableResults(vulnResult, r.stdout)
 	}
 
 	return nil
