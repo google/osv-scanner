@@ -20,10 +20,10 @@ var (
 )
 
 func run(args []string, stdout, stderr io.Writer) int {
-	var r *reporter.Reporter
+	var r reporter.Reporter
 
 	cli.VersionPrinter = func(ctx *cli.Context) {
-		r = reporter.NewReporter(ctx.App.Writer, ctx.App.ErrWriter, "")
+		r = reporter.NewTableReporter(stdout, stderr, false)
 		r.PrintText(fmt.Sprintf("osv-scanner version: %s\ncommit: %s\nbuilt at: %s\n", ctx.App.Version, commit, date))
 	}
 
@@ -109,7 +109,16 @@ func run(args []string, stdout, stderr io.Writer) int {
 				format = "json"
 			}
 
-			r = reporter.NewReporter(stdout, stderr, format)
+			switch format {
+			case "json":
+				r = reporter.NewJSONReporter(stdout, stderr)
+			case "table":
+				r = reporter.NewTableReporter(stdout, stderr, false)
+			case "markdown":
+				r = reporter.NewTableReporter(stdout, stderr, true)
+			default:
+				return fmt.Errorf("%v is not a valid format", format)
+			}
 
 			vulnResult, err := osvscanner.DoScan(osvscanner.ScannerActions{
 				LockfilePaths:            context.StringSlice("lockfile"),
@@ -133,7 +142,7 @@ func run(args []string, stdout, stderr io.Writer) int {
 
 	if err := app.Run(args); err != nil {
 		if r == nil {
-			r = reporter.NewReporter(stdout, stderr, "")
+			r = reporter.NewTableReporter(stdout, stderr, false)
 		}
 		if errors.Is(err, osvscanner.VulnerabilitiesFoundErr) {
 			return 1

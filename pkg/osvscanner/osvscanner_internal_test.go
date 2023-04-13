@@ -51,7 +51,7 @@ func Test_filterResults(t *testing.T) {
 		tt := tt // Reinitialize for t.Parallel()
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
-			r := reporter.NewVoidReporter()
+			r := &reporter.VoidReporter{}
 			// ConfigManager looks for osv-scanner.toml in the source path.
 			// Sources in the test input should point to files/folders in the text fixture folder for this to work correctly.
 			configManager := config.ConfigManager{
