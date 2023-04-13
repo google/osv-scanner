@@ -6,8 +6,8 @@ import (
 	"io"
 	"os"
 
-	"github.com/google/osv-scanner/internal/output"
 	"github.com/google/osv-scanner/pkg/osvscanner"
+	"github.com/google/osv-scanner/pkg/reporter"
 
 	"github.com/urfave/cli/v2"
 )
@@ -20,10 +20,10 @@ var (
 )
 
 func run(args []string, stdout, stderr io.Writer) int {
-	var r *output.Reporter
+	var r *reporter.Reporter
 
 	cli.VersionPrinter = func(ctx *cli.Context) {
-		r = output.NewReporter(ctx.App.Writer, ctx.App.ErrWriter, "")
+		r = reporter.NewReporter(ctx.App.Writer, ctx.App.ErrWriter, "")
 		r.PrintText(fmt.Sprintf("osv-scanner version: %s\ncommit: %s\nbuilt at: %s\n", ctx.App.Version, commit, date))
 	}
 
@@ -109,7 +109,7 @@ func run(args []string, stdout, stderr io.Writer) int {
 				format = "json"
 			}
 
-			r = output.NewReporter(stdout, stderr, format)
+			r = reporter.NewReporter(stdout, stderr, format)
 
 			vulnResult, err := osvscanner.DoScan(osvscanner.ScannerActions{
 				LockfilePaths:            context.StringSlice("lockfile"),
@@ -133,7 +133,7 @@ func run(args []string, stdout, stderr io.Writer) int {
 
 	if err := app.Run(args); err != nil {
 		if r == nil {
-			r = output.NewReporter(stdout, stderr, "")
+			r = reporter.NewReporter(stdout, stderr, "")
 		}
 		if errors.Is(err, osvscanner.VulnerabilitiesFoundErr) {
 			return 1
