@@ -114,7 +114,7 @@ func scanDir(r *reporter.Reporter, query *osv.BatchedQuery, dir string, skipGit 
 			// No need to check for error
 			// If scan fails, it means it isn't a valid SBOM file,
 			// so just move onto the next file
-			_ = scanSBOMFile(r, query, path)
+			_ = scanSBOMFile(r, query, path, true)
 		}
 
 		if !root && !recursive && info.IsDir() {
@@ -221,10 +221,15 @@ func scanLockfile(r *reporter.Reporter, query *osv.BatchedQuery, path string, pa
 
 // scanSBOMFile will load, identify, and parse the SBOM path passed in, and add the dependencies specified
 // within to `query`
-func scanSBOMFile(r *reporter.Reporter, query *osv.BatchedQuery, path string) error {
+func scanSBOMFile(r *reporter.Reporter, query *osv.BatchedQuery, path string, fromFSScan bool) error {
+	var errs []error
 	for _, provider := range sbom.Providers {
-		if !provider.MatchesRecognizedFileNames(path) {
-			// Skip if filename is not usually a sbom file of this format
+		if fromFSScan && !provider.MatchesRecognizedFileNames(path) {
+			// Skip if filename is not usually a sbom file of this format.
+			// Only do this if this is being done in a filesystem scanning context, where we need to be
+			// careful about spending too much time attempting to parse unrelated files.
+			// If this is coming from an explicit scan argument, be more relaxed here since it's common for
+			// filenames to not conform to expected filename standards.
 			continue
 		}
 
@@ -265,11 +270,21 @@ func scanSBOMFile(r *reporter.Reporter, query *osv.BatchedQuery, path string) er
 			return nil
 		}
 
-		if errors.Is(err, sbom.ErrInvalidFormat) {
+		var formatErr sbom.InvalidFormatError
+		if errors.As(err, &formatErr) {
+			errs = append(errs, err)
 			continue
 		}
 
 		return err
+	}
+
+	// Don't log these errors if we're coming from a FS scan, since it can get very noisy.
+	if !fromFSScan {
+		r.PrintText("Failed to parse SBOM using all supported formats:\n")
+		for _, err := range errs {
+			r.PrintText(err.Error() + "\n")
+		}
 	}
 
 	return nil
@@ -485,7 +500,7 @@ func DoScan(actions ScannerActions, r *reporter.Reporter) (models.VulnerabilityR
 		if err != nil {
 			return models.VulnerabilityResults{}, fmt.Errorf("failed to resolved path with error %w", err)
 		}
-		err = scanSBOMFile(r, &query, sbomElem)
+		err = scanSBOMFile(r, &query, sbomElem, false)
 		if err != nil {
 			return models.VulnerabilityResults{}, err
 		}
