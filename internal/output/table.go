@@ -18,7 +18,7 @@ import (
 func PrintTableResults(vulnResult *models.VulnerabilityResults, outputWriter io.Writer) {
 	outputTable := table.NewWriter()
 	outputTable.SetOutputMirror(outputWriter)
-	outputTable.AppendHeader(table.Row{"OSV URL (ID In Bold)", "Ecosystem", "Package", "Version", "Source"})
+	outputTable.AppendHeader(table.Row{"OSV URL (ID In Bold)", "Ecosystem", "Package", "Version", "Fixed Versions", "Source"})
 	width, _, err := term.GetSize(int(os.Stdout.Fd()))
 	isTerminal := false
 	if err == nil { // If output is a terminal, set max length to width and add styling
@@ -78,6 +78,7 @@ func tableBuilderInner(vulnResult *models.VulnerabilityResults, addStyling bool,
 					source.Path = sourcePath
 				}
 			}
+			vulns := pkg.Vulnerabilities
 
 			// Merge groups into the same row
 			for _, group := range pkg.Groups {
@@ -107,6 +108,30 @@ func tableBuilderInner(vulnResult *models.VulnerabilityResults, addStyling bool,
 					outputRow = append(outputRow, pkg.Package.Ecosystem, pkg.Package.Name, pkg.Package.Version)
 				}
 
+				var fixedVersions []string
+				for _, vuln := range vulns {
+					for _, aff := range vuln.Affected {
+						for _, rng := range aff.Ranges {
+							typ := rng.Type
+							fixedVersions = append(fixedVersions, string(typ))
+							for _, evnt := range rng.Events {
+								if evnt.Fixed == "" {
+									continue
+								}
+								fixedVersion := ""
+								fixedVersion = evnt.Fixed
+
+								if addStyling {
+									fixedVersions = append(fixedVersions, text.Bold.EscapeSeq()+fixedVersion+text.Reset.EscapeSeq())
+								} else {
+									fixedVersions = append(fixedVersions, fixedVersion)
+								}
+
+							}
+						}
+					}
+				}
+				outputRow = append(outputRow, strings.Join(fixedVersions, "\n"))
 				outputRow = append(outputRow, source.Path)
 				allOutputRows = append(allOutputRows, tbInnerResponse{
 					row:         outputRow,
