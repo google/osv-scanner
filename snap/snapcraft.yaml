@@ -14,17 +14,14 @@ description: |
   
 base: core20
 grade: stable 
-confinement: strict
+confinement: classic
 compression: lzo
 license: Apache-2.0
 
 apps:
   osv-scanner:
     command: bin/osv-scanner
-    plugs:
-      - home
-      - network
-      
+
 parts:
   osv-scanner:
     source: https://github.com/google/osv-scanner
