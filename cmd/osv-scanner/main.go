@@ -67,7 +67,7 @@ func run(args []string, stdout, stderr io.Writer) int {
 					switch s {
 					case
 						"table",
-						"json",
+						"json", //nolint:goconst
 						"markdown":
 						return nil
 					}
