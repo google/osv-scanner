@@ -1,0 +1,38 @@
+name: osv-scanner
+adopt-info: osv-scanner
+summary: Use OSV-Scanner to find existing vulnerabilities.
+description: |
+  Use OSV-Scanner to find existing vulnerabilities affecting your project's dependencies. 
+  OSV-Scanner provides an officially supported frontend to the OSV database that connects 
+  a project’s list of dependencies with the vulnerabilities that affect them. 
+  Since the OSV.dev database is open source and distributed, it has several benefits in 
+  comparison with closed source advisory databases and scanners:
+  
+  Each advisory comes from an open and authoritative source (e.g. the RustSec Advisory Database)
+  Anyone can suggest improvements to advisories, resulting in a very high quality database
+  The OSV format unambiguously stores information about affected versions in a machine-readable format that precisely maps onto a developer’s list of packages
+  
+base: core22
+grade: stable 
+confinement: strict
+compression: lzo
+license: Apache-2.0
+
+apps:
+  osv-scanner:
+    command: bin/osv-scanner
+    plugs:
+      - home
+      - network
+      
+parts:
+  osv-scanner:
+    source: https://github.com/google/osv-scanner
+    source-type: git
+    plugin: go
+    build-snaps:
+      - go
+      
+    override-pull: |
+      snapcraftctl pull
+      snapcraftctl set-version "$(git describe --tags | sed 's/^v//' | cut -d "-" -f1)"
