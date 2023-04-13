@@ -2,3 +2,6 @@
 .vscode/
 /dist/
 /osv-scanner
+osv
+Makefile
+requirements.txt
