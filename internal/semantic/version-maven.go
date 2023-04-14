@@ -2,9 +2,10 @@ package semantic
 
 import (
 	"fmt"
-	"regexp"
 	"sort"
 	"strings"
+
+	"github.com/google/osv-scanner/internal/utility"
 )
 
 type mavenVersionToken struct {
@@ -175,11 +176,11 @@ func (mv MavenVersion) lessThan(mw MavenVersion) bool {
 // According to Maven's implementation, any non-digit is a "character":
 // https://github.com/apache/maven/blob/965aaa53da5c2d814e94a41d37142d0d6830375d/maven-artifact/src/main/java/org/apache/maven/artifact/versioning/ComparableVersion.java#L627
 func mavenFindTransitions(token string) (ints []int) {
-	for _, span := range regexp.MustCompile(`\D\d`).FindAllStringIndex(token, -1) {
+	for _, span := range utility.CachedRegexMustCompile(`\D\d`).FindAllStringIndex(token, -1) {
 		ints = append(ints, span[0]+1)
 	}
 
-	for _, span := range regexp.MustCompile(`\d\D`).FindAllStringIndex(token, -1) {
+	for _, span := range utility.CachedRegexMustCompile(`\d\D`).FindAllStringIndex(token, -1) {
 		ints = append(ints, span[0]+1)
 	}
 

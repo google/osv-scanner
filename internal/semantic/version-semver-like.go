@@ -3,8 +3,9 @@ package semantic
 import (
 	"fmt"
 	"math/big"
-	"regexp"
 	"strings"
+
+	"github.com/google/osv-scanner/internal/utility"
 )
 
 // SemverLikeVersion is a version that is _like_ a version as defined by the
@@ -55,7 +56,7 @@ func parseSemverLike(line string) SemverLikeVersion {
 	var components []*big.Int
 	originStr := line
 
-	numberReg := regexp.MustCompile(`\d`)
+	numberReg := utility.CachedRegexMustCompile(`\d`)
 
 	currentCom := ""
 	foundBuild := false

@@ -1,9 +1,10 @@
 package semantic
 
 import (
-	"regexp"
 	"strconv"
 	"strings"
+
+	"github.com/google/osv-scanner/internal/utility"
 )
 
 func canonicalizePackagistVersion(v string) string {
@@ -15,9 +16,9 @@ func canonicalizePackagistVersion(v string) string {
 	//   the trimming...)
 	v = strings.TrimPrefix(strings.TrimPrefix(v, "v"), "V")
 
-	v = regexp.MustCompile(`[-_+]`).ReplaceAllString(v, ".")
-	v = regexp.MustCompile(`([^\d.])(\d)`).ReplaceAllString(v, "$1.$2")
-	v = regexp.MustCompile(`(\d)([^\d.])`).ReplaceAllString(v, "$1.$2")
+	v = utility.CachedRegexMustCompile(`[-_+]`).ReplaceAllString(v, ".")
+	v = utility.CachedRegexMustCompile(`([^\d.])(\d)`).ReplaceAllString(v, "$1.$2")
+	v = utility.CachedRegexMustCompile(`(\d)([^\d.])`).ReplaceAllString(v, "$1.$2")
 
 	return v
 }

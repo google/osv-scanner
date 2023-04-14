@@ -4,9 +4,10 @@ import (
 	"bufio"
 	"fmt"
 	"os"
-	"regexp"
 	"sort"
 	"strings"
+
+	"github.com/google/osv-scanner/internal/utility"
 )
 
 const DebianEcosystem Ecosystem = "Debian"
@@ -38,7 +39,7 @@ func groupDpkgPackageLines(scanner *bufio.Scanner) [][]string {
 // Return name and version if "Source" field contains them
 func parseSourceField(source string) (string, string) {
 	// Pattern: name (version)
-	re := regexp.MustCompile(`^(.*)\((.*)\)`)
+	re := utility.CachedRegexMustCompile(`^(.*)\((.*)\)`)
 	matches := re.FindStringSubmatch(source)
 	if len(matches) == 3 {
 		return strings.TrimSpace(matches[1]), strings.TrimSpace(matches[2])
