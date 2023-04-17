@@ -1,6 +1,7 @@
 package output
 
 import (
+	"fmt"
 	"io"
 	"os"
 	"path/filepath"
@@ -110,23 +111,38 @@ func tableBuilderInner(vulnResult *models.VulnerabilityResults, addStyling bool,
 
 				var fixedVersions []string
 				for _, vuln := range vulns {
-					for _, aff := range vuln.Affected {
-						for _, rng := range aff.Ranges {
-							typ := rng.Type
-							fixedVersions = append(fixedVersions, string(typ))
-							for _, evnt := range rng.Events {
-								if evnt.Fixed == "" {
-									continue
-								}
-								fixedVersion := ""
-								fixedVersion = evnt.Fixed
+					vuln_id := vuln.ID
 
-								if addStyling {
-									fixedVersions = append(fixedVersions, text.Bold.EscapeSeq()+fixedVersion+text.Reset.EscapeSeq())
-								} else {
-									fixedVersions = append(fixedVersions, fixedVersion)
-								}
+					for _, vuln_id_from_group := range group.IDs {
+						if vuln_id == vuln_id_from_group {
+							for _, aff := range vuln.Affected {
+								pkg := aff.Package
+								eco := pkg.Ecosystem
+								name := pkg.Name
+								purl := pkg.Purl
+								for _, rng := range aff.Ranges {
+									typ := fmt.Sprintf("%v|%v|%v|%v", rng.Type, eco, name, purl)
+									fixedVersions = append(fixedVersions, string(typ))
+									evnt := rng.Events
+									// for _, evnt := range rng.Events {
+									// if evnt.Fixed == "" {
+									// 	continue
+									// }
+									fixedVersion := ""
+									introducedVersion := ""
+									introducedVersion = evnt[0].Introduced
+									fixedVersion = evnt[1].Fixed
 
+									introfix := fmt.Sprintf("introduced: %v fixed: %v", introducedVersion, fixedVersion)
+
+									if addStyling {
+										fixedVersions = append(fixedVersions, text.Bold.EscapeSeq()+introfix+text.Reset.EscapeSeq())
+									} else {
+										fixedVersions = append(fixedVersions, introfix)
+									}
+									fixedVersions = append(fixedVersions, "--------------")
+									// }
+								}
 							}
 						}
 					}
@@ -140,6 +156,5 @@ func tableBuilderInner(vulnResult *models.VulnerabilityResults, addStyling bool,
 			}
 		}
 	}
-
 	return allOutputRows
 }
