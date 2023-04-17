@@ -4,8 +4,9 @@ import (
 	"bufio"
 	"fmt"
 	"os"
-	"regexp"
 	"strings"
+
+	"github.com/google/osv-scanner/internal/cachedregexp"
 )
 
 const MixEcosystem Ecosystem = "Hex"
@@ -17,7 +18,7 @@ func ParseMixLock(pathToLockfile string) ([]PackageDetails, error) {
 	}
 	defer file.Close()
 
-	re := regexp.MustCompile(`^ +"(\w+)": \{.+,$`)
+	re := cachedregexp.MustCompile(`^ +"(\w+)": \{.+,$`)
 
 	scanner := bufio.NewScanner(file)
 
