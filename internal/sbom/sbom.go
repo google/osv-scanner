@@ -1,8 +1,9 @@
 package sbom
 
 import (
-	"errors"
+	"fmt"
 	"io"
+	"strings"
 )
 
 // Identifier is the identifier extracted from the SBOM.
@@ -19,12 +20,22 @@ type SBOMReader interface {
 }
 
 var (
-	ErrInvalidFormat = errors.New("invalid format")
-)
-
-var (
 	Providers = []SBOMReader{
 		&SPDX{},
 		&CycloneDX{},
 	}
 )
+
+type InvalidFormatError struct {
+	msg  string
+	errs []error
+}
+
+func (e InvalidFormatError) Error() string {
+	errStrings := make([]string, 0, len(e.errs))
+	for _, e := range e.errs {
+		errStrings = append(errStrings, "\t"+e.Error())
+	}
+
+	return fmt.Sprintf("%s:\n%s", e.msg, strings.Join(errStrings, "\n"))
+}
