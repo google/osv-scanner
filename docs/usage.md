@@ -39,7 +39,7 @@ osv-scanner --sbom=/path/to/your/sbom.spdx.json
 [SPDX] and [CycloneDX] SBOMs using [Package URLs] are supported. The format is
 auto-detected based on the input file contents and the file name.
 
-When scanning a directory, only SBOMs following the specification filename will be scanned. See [SPDX Filenames]; [CycloneDX Filenames].
+When scanning a directory, only SBOMs following the specification filename will be scanned. See the specs for [SPDX Filenames] and [CycloneDX Filenames].
 
 [SPDX]: https://spdx.dev/
 [SPDX Filenames]: https://spdx.github.io/spdx-spec/v2.3/conformance/
