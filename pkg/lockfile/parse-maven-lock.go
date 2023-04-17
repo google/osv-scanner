@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/google/osv-scanner/internal/utility"
+	"github.com/google/osv-scanner/internal/cachedregexp"
 )
 
 type MavenLockDependency struct {
@@ -16,7 +16,7 @@ type MavenLockDependency struct {
 }
 
 func (mld MavenLockDependency) parseResolvedVersion(version string) string {
-	versionRequirementReg := utility.CachedRegexMustCompile(`[[(]?(.*?)(?:,|[)\]]|$)`)
+	versionRequirementReg := cachedregexp.MustCompile(`[[(]?(.*?)(?:,|[)\]]|$)`)
 
 	results := versionRequirementReg.FindStringSubmatch(version)
 
@@ -28,7 +28,7 @@ func (mld MavenLockDependency) parseResolvedVersion(version string) string {
 }
 
 func (mld MavenLockDependency) resolveVersionValue(lockfile MavenLockFile) string {
-	interpolationReg := utility.CachedRegexMustCompile(`\${(.+)}`)
+	interpolationReg := cachedregexp.MustCompile(`\${(.+)}`)
 
 	results := interpolationReg.FindStringSubmatch(mld.Version)
 

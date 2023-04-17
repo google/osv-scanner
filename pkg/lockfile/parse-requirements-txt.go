@@ -7,7 +7,7 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/google/osv-scanner/internal/utility"
+	"github.com/google/osv-scanner/internal/cachedregexp"
 )
 
 const PipEcosystem Ecosystem = "PyPI"
@@ -68,7 +68,7 @@ func parseLine(line string) PackageDetails {
 // than false negatives, and can be dealt with when/if it actually happens.
 func normalizedRequirementName(name string) string {
 	// per https://www.python.org/dev/peps/pep-0503/#normalized-names
-	name = utility.CachedRegexMustCompile(`[-_.]+`).ReplaceAllString(name, "-")
+	name = cachedregexp.MustCompile(`[-_.]+`).ReplaceAllString(name, "-")
 	name = strings.ToLower(name)
 	name = strings.Split(name, "[")[0]
 
@@ -76,7 +76,7 @@ func normalizedRequirementName(name string) string {
 }
 
 func removeComments(line string) string {
-	var re = utility.CachedRegexMustCompile(`(^|\s+)#.*$`)
+	var re = cachedregexp.MustCompile(`(^|\s+)#.*$`)
 
 	return strings.TrimSpace(re.ReplaceAllString(line, ""))
 }
