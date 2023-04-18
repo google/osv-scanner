@@ -80,18 +80,14 @@ func tableBuilderInner(vulnResult *models.VulnerabilityResults, addStyling bool,
 				}
 			}
 			vulns := pkg.Vulnerabilities
-
 			// Merge groups into the same row
 			for _, group := range pkg.Groups {
 				if group.IsCalled() != calledVulns {
 					continue
 				}
-
 				outputRow := table.Row{}
 				shouldMerge := false
-
 				var links []string
-
 				for _, vuln := range group.IDs {
 					if addStyling {
 						links = append(links, osv.BaseVulnerabilityURL+text.Bold.EscapeSeq()+vuln+text.Reset.EscapeSeq())
@@ -99,49 +95,43 @@ func tableBuilderInner(vulnResult *models.VulnerabilityResults, addStyling bool,
 						links = append(links, osv.BaseVulnerabilityURL+vuln)
 					}
 				}
-
 				outputRow = append(outputRow, strings.Join(links, "\n"))
-
 				if pkg.Package.Ecosystem == "GIT" {
 					outputRow = append(outputRow, "GIT", pkg.Package.Version, pkg.Package.Version)
 					shouldMerge = true
 				} else {
 					outputRow = append(outputRow, pkg.Package.Ecosystem, pkg.Package.Name, pkg.Package.Version)
 				}
-
 				var fixedVersions []string
+				uniqueFixedVersion := map[string]bool{}
 				for _, vuln := range vulns {
 					vuln_id := vuln.ID
-
 					for _, vuln_id_from_group := range group.IDs {
 						if vuln_id == vuln_id_from_group {
 							for _, aff := range vuln.Affected {
-								pkg := aff.Package
-								eco := pkg.Ecosystem
-								name := pkg.Name
-								purl := pkg.Purl
-								for _, rng := range aff.Ranges {
-									typ := fmt.Sprintf("%v|%v|%v|%v", rng.Type, eco, name, purl)
-									fixedVersions = append(fixedVersions, string(typ))
-									evnt := rng.Events
-									// for _, evnt := range rng.Events {
-									// if evnt.Fixed == "" {
-									// 	continue
-									// }
-									fixedVersion := ""
-									introducedVersion := ""
-									introducedVersion = evnt[0].Introduced
-									fixedVersion = evnt[1].Fixed
-
-									introfix := fmt.Sprintf("introduced: %v fixed: %v", introducedVersion, fixedVersion)
-
-									if addStyling {
-										fixedVersions = append(fixedVersions, text.Bold.EscapeSeq()+introfix+text.Reset.EscapeSeq())
-									} else {
-										fixedVersions = append(fixedVersions, introfix)
+								pkg_affected := aff.Package
+								ecosystem_affectedPkg := fmt.Sprintf("%v", pkg_affected.Ecosystem)
+								eco_frompkg := fmt.Sprintf("%v", pkg.Package.Ecosystem)
+								name := pkg_affected.Name
+								if pkg.Package.Name == name && eco_frompkg == ecosystem_affectedPkg {
+									for _, rng := range aff.Ranges {
+										rangeType := rng.Type
+										evnt := rng.Events
+										fixedVersion := evnt[1].Fixed
+										if rangeType == "GIT" {
+											fixedVersion = fixedVersion[0:10]
+										}
+										if _, isPresent := uniqueFixedVersion[fixedVersion]; isPresent {
+											continue
+										}
+										uniqueFixedVersion[fixedVersion] = true
+										fix := fmt.Sprintf("%v", fixedVersion)
+										if addStyling {
+											fixedVersions = append(fixedVersions, text.Bold.EscapeSeq()+fix+text.Reset.EscapeSeq())
+										} else {
+											fixedVersions = append(fixedVersions, fix)
+										}
 									}
-									fixedVersions = append(fixedVersions, "--------------")
-									// }
 								}
 							}
 						}
