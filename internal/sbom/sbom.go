@@ -27,15 +27,15 @@ var (
 )
 
 type InvalidFormatError struct {
-	msg  string
-	errs []error
+	Msg  string
+	Errs []error
 }
 
 func (e InvalidFormatError) Error() string {
-	errStrings := make([]string, 0, len(e.errs))
-	for _, e := range e.errs {
+	errStrings := make([]string, 0, len(e.Errs))
+	for _, e := range e.Errs {
 		errStrings = append(errStrings, "\t"+e.Error())
 	}
 
-	return fmt.Sprintf("%s:\n%s", e.msg, strings.Join(errStrings, "\n"))
+	return fmt.Sprintf("%s:\n%s", e.Msg, strings.Join(errStrings, "\n"))
 }

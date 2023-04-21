@@ -33,13 +33,17 @@ The `--no-ignore` flag can be used to force the scanner to scan ignored files.
 If you want to check for known vulnerabilities only in dependencies in your SBOM, you can use the following command:
 
 ```bash
-osv-scanner --sbom=/path/to/your/sbom.json
+osv-scanner --sbom=/path/to/your/sbom.spdx.json
 ```
 
 [SPDX] and [CycloneDX] SBOMs using [Package URLs] are supported. The format is
-auto-detected based on the input file contents.
+auto-detected based on the input file contents and the file name.
+
+When scanning a directory, only SBOMs following the specification filename will be scanned. See the specs for [SPDX Filenames] and [CycloneDX Filenames].
 
 [SPDX]: https://spdx.dev/
+[SPDX Filenames]: https://spdx.github.io/spdx-spec/v2.3/conformance/
+[CycloneDX Filenames]: https://cyclonedx.org/specification/overview/#recognized-file-patterns
 [CycloneDX]: https://cyclonedx.org/
 [Package URLs]: https://github.com/package-url/purl-spec
 
