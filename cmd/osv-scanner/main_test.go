@@ -416,7 +416,7 @@ func TestRun_LockfileWithExplicitParseAs(t *testing.T) {
 				Scanned %%/fixtures/locks-insecure/my-yarn.lock file as a yarn.lock and found 1 packages
 				Scanned %%/fixtures/locks-insecure/my-package-lock.json file as a package-lock.json and found 1 packages
 				Scanning dir ./fixtures/locks-insecure
-				canned %%/fixtures/locks-insecure/composer.lock file and found 0 packages
+				Scanned %%/fixtures/locks-insecure/composer.lock file and found 0 packages
 				+-------------------------------------+-----------+-----------+---------+----------------+----------------------------------------------+
 				| OSV URL (ID IN BOLD)                | ECOSYSTEM | PACKAGE   | VERSION | FIXED VERSIONS | SOURCE                                       |
 				+-------------------------------------+-----------+-----------+---------+----------------+----------------------------------------------+
