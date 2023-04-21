@@ -105,15 +105,15 @@ func tableBuilderInner(vulnResult *models.VulnerabilityResults, addStyling bool,
 				var fixedVersions []string
 				uniqueFixedVersion := map[string]bool{}
 				for _, vuln := range vulns {
-					vuln_id := vuln.ID
-					for _, vuln_id_from_group := range group.IDs {
-						if vuln_id == vuln_id_from_group {
+					vulnID := vuln.ID
+					for _, vulnIDFromGroup := range group.IDs {
+						if vulnID == vulnIDFromGroup {
 							for _, aff := range vuln.Affected {
-								pkg_affected := aff.Package
-								ecosystem_affectedPkg := fmt.Sprintf("%v", pkg_affected.Ecosystem)
-								eco_frompkg := fmt.Sprintf("%v", pkg.Package.Ecosystem)
-								name := pkg_affected.Name
-								if pkg.Package.Name == name && eco_frompkg == ecosystem_affectedPkg {
+								pkgAffected := aff.Package
+								ecosystemAffectedPkg := fmt.Sprintf("%v", pkgAffected.Ecosystem)
+								ecoFrompkg := fmt.Sprintf("%v", pkg.Package.Ecosystem)
+								name := pkgAffected.Name
+								if pkg.Package.Name == name && ecoFrompkg == ecosystemAffectedPkg {
 									for _, rng := range aff.Ranges {
 										rangeType := rng.Type
 										evnt := rng.Events
@@ -146,5 +146,6 @@ func tableBuilderInner(vulnResult *models.VulnerabilityResults, addStyling bool,
 			}
 		}
 	}
+
 	return allOutputRows
 }
