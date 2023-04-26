@@ -3,8 +3,9 @@ package semantic
 import (
 	"fmt"
 	"math/big"
-	"regexp"
 	"strings"
+
+	"github.com/google/osv-scanner/internal/cachedregexp"
 )
 
 type PyPIVersion struct {
@@ -67,7 +68,7 @@ func parseLetterVersion(letter, number string) letterAndNumber {
 }
 
 func parseLocalVersion(local string) (parts []string) {
-	for _, part := range regexp.MustCompile(`[._-]`).Split(local, -1) {
+	for _, part := range cachedregexp.MustCompile(`[._-]`).Split(local, -1) {
 		parts = append(parts, strings.ToLower(part))
 	}
 
@@ -88,7 +89,7 @@ func normalizePyPILegacyPart(part string) string {
 		part = "@"
 	}
 
-	if regexp.MustCompile(`\d`).MatchString(part[:1]) {
+	if cachedregexp.MustCompile(`\d`).MatchString(part[:1]) {
 		// pad for numeric comparison
 		return fmt.Sprintf("%08s", part)
 	}
@@ -97,7 +98,7 @@ func normalizePyPILegacyPart(part string) string {
 }
 
 func parsePyPIVersionParts(str string) (parts []string) {
-	re := regexp.MustCompile(`(\d+|[a-z]+|\.|-)`)
+	re := cachedregexp.MustCompile(`(\d+|[a-z]+|\.|-)`)
 
 	splits := re.FindAllString(str, -1)
 	splits = append(splits, "final")
@@ -137,7 +138,7 @@ func parsePyPIVersion(str string) PyPIVersion {
 	str = strings.ToLower(str)
 
 	// from https://peps.python.org/pep-0440/#appendix-b-parsing-version-strings-with-regular-expressions
-	re := regexp.MustCompile(`^\s*v?(?:(?:(?P<epoch>[0-9]+)!)?(?P<release>[0-9]+(?:\.[0-9]+)*)(?P<pre>[-_\.]?(?P<pre_l>(a|b|c|rc|alpha|beta|pre|preview))[-_\.]?(?P<pre_n>[0-9]+)?)?(?P<post>(?:-(?P<post_n1>[0-9]+))|(?:[-_\.]?(?P<post_l>post|rev|r)[-_\.]?(?P<post_n2>[0-9]+)?))?(?P<dev>[-_\.]?(?P<dev_l>dev)[-_\.]?(?P<dev_n>[0-9]+)?)?)(?:\+(?P<local>[a-z0-9]+(?:[-_\.][a-z0-9]+)*))?\s*$`)
+	re := cachedregexp.MustCompile(`^\s*v?(?:(?:(?P<epoch>[0-9]+)!)?(?P<release>[0-9]+(?:\.[0-9]+)*)(?P<pre>[-_\.]?(?P<pre_l>(a|b|c|rc|alpha|beta|pre|preview))[-_\.]?(?P<pre_n>[0-9]+)?)?(?P<post>(?:-(?P<post_n1>[0-9]+))|(?:[-_\.]?(?P<post_l>post|rev|r)[-_\.]?(?P<post_n2>[0-9]+)?))?(?P<dev>[-_\.]?(?P<dev_l>dev)[-_\.]?(?P<dev_n>[0-9]+)?)?)(?:\+(?P<local>[a-z0-9]+(?:[-_\.][a-z0-9]+)*))?\s*$`)
 	match := re.FindStringSubmatch(str)
 
 	if len(match) == 0 {
