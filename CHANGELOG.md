@@ -1,3 +1,13 @@
+v1.3.2:
+===
+
+### Fixes
+- [Bug #341](https://github.com/google/osv-scanner/pull/341) Make the reporter public to allow calling DoScan with non nil reporters.
+- [Bug #335](https://github.com/google/osv-scanner/issues/335) Improve SBOM parsing and relaxing name requirements when explicitly scanning with `--sbom`.
+- [Bug #333](https://github.com/google/osv-scanner/issues/333) Improve scanning speed for regex heavy lockfiles by caching regex compilation.
+- [Bug #349](https://github.com/google/osv-scanner/pull/349) Improve SBOM documentation and error messages.
+
+
 v1.3.1:
 ===
 
