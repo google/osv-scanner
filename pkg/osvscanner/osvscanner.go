@@ -261,14 +261,17 @@ func scanSBOMFile(r reporter.Reporter, query *osv.BatchedQuery, path string, fro
 			return nil
 		})
 		if err == nil {
-			// Found the right format.
+			// Found a parsable format.
 			if count == 0 {
-				return sbom.InvalidFormatError{
+				// But no entries found, so maybe not the correct format
+				errs = append(errs, sbom.InvalidFormatError{
 					Msg: "no Package URLs found",
 					Errs: []error{
 						fmt.Errorf("scanned %s as %s SBOM, but failed to find any package URLs, this is required to scan SBOMs", path, provider.Name()),
 					},
-				}
+				})
+
+				continue
 			}
 			r.PrintText(fmt.Sprintf("Scanned %s as %s SBOM and found %d packages\n", path, provider.Name(), count))
 			if ignoredCount > 0 {
