@@ -52,7 +52,7 @@ var OnlyUncalledVulnerabilitiesFoundErr = errors.New("only uncalled vulnerabilit
 //   - Any lockfiles with scanLockfile
 //   - Any SBOM files with scanSBOMFile
 //   - Any git repositories with scanGit
-func scanDir(r *reporter.Reporter, query *osv.BatchedQuery, dir string, skipGit bool, recursive bool, useGitIgnore bool) error {
+func scanDir(r reporter.Reporter, query *osv.BatchedQuery, dir string, skipGit bool, recursive bool, useGitIgnore bool) error {
 	var ignoreMatcher *gitIgnoreMatcher
 	if useGitIgnore {
 		var err error
@@ -180,7 +180,7 @@ func (m *gitIgnoreMatcher) match(absPath string, isDir bool) (bool, error) {
 
 // scanLockfile will load, identify, and parse the lockfile path passed in, and add the dependencies specified
 // within to `query`
-func scanLockfile(r *reporter.Reporter, query *osv.BatchedQuery, path string, parseAs string) error {
+func scanLockfile(r reporter.Reporter, query *osv.BatchedQuery, path string, parseAs string) error {
 	var err error
 	var parsedLockfile lockfile.Lockfile
 
@@ -221,7 +221,7 @@ func scanLockfile(r *reporter.Reporter, query *osv.BatchedQuery, path string, pa
 
 // scanSBOMFile will load, identify, and parse the SBOM path passed in, and add the dependencies specified
 // within to `query`
-func scanSBOMFile(r *reporter.Reporter, query *osv.BatchedQuery, path string, fromFSScan bool) error {
+func scanSBOMFile(r reporter.Reporter, query *osv.BatchedQuery, path string, fromFSScan bool) error {
 	var errs []error
 	for _, provider := range sbom.Providers {
 		if fromFSScan && !provider.MatchesRecognizedFileNames(path) {
@@ -261,14 +261,17 @@ func scanSBOMFile(r *reporter.Reporter, query *osv.BatchedQuery, path string, fr
 			return nil
 		})
 		if err == nil {
-			// Found the right format.
+			// Found a parsable format.
 			if count == 0 {
-				return sbom.InvalidFormatError{
+				// But no entries found, so maybe not the correct format
+				errs = append(errs, sbom.InvalidFormatError{
 					Msg: "no Package URLs found",
 					Errs: []error{
 						fmt.Errorf("scanned %s as %s SBOM, but failed to find any package URLs, this is required to scan SBOMs", path, provider.Name()),
 					},
-				}
+				})
+
+				continue
 			}
 			r.PrintText(fmt.Sprintf("Scanned %s as %s SBOM and found %d packages\n", path, provider.Name(), count))
 			if ignoredCount > 0 {
@@ -312,7 +315,7 @@ func getCommitSHA(repoDir string) (string, error) {
 }
 
 // Scan git repository. Expects repoDir to end with /
-func scanGit(r *reporter.Reporter, query *osv.BatchedQuery, repoDir string) error {
+func scanGit(r reporter.Reporter, query *osv.BatchedQuery, repoDir string) error {
 	commit, err := getCommitSHA(repoDir)
 	if err != nil {
 		return err
@@ -333,7 +336,7 @@ func scanGitCommit(query *osv.BatchedQuery, commit string, source string) error 
 	return nil
 }
 
-func scanDebianDocker(r *reporter.Reporter, query *osv.BatchedQuery, dockerImageName string) error {
+func scanDebianDocker(r reporter.Reporter, query *osv.BatchedQuery, dockerImageName string) error {
 	cmd := exec.Command("docker", "run", "--rm", "--entrypoint", "/usr/bin/dpkg-query", dockerImageName, "-f", "${Package}###${Version}\\n", "-W")
 	stdout, err := cmd.StdoutPipe()
 
@@ -381,7 +384,7 @@ func scanDebianDocker(r *reporter.Reporter, query *osv.BatchedQuery, dockerImage
 }
 
 // Filters results according to config, preserving order. Returns total number of vulnerabilities removed.
-func filterResults(r *reporter.Reporter, results *models.VulnerabilityResults, configManager *config.ConfigManager) int {
+func filterResults(r reporter.Reporter, results *models.VulnerabilityResults, configManager *config.ConfigManager) int {
 	removedCount := 0
 	newResults := []models.PackageSource{} // Want 0 vulnerabilities to show in JSON as an empty list, not null.
 	for _, pkgSrc := range results.Results {
@@ -407,7 +410,7 @@ func filterResults(r *reporter.Reporter, results *models.VulnerabilityResults, c
 }
 
 // Filters package-grouped vulnerabilities according to config, preserving ordering. Returns filtered package vulnerabilities.
-func filterPackageVulns(r *reporter.Reporter, pkgVulns models.PackageVulns, configToUse config.Config) models.PackageVulns {
+func filterPackageVulns(r reporter.Reporter, pkgVulns models.PackageVulns, configToUse config.Config) models.PackageVulns {
 	ignoredVulns := map[string]struct{}{}
 	// Iterate over groups first to remove all aliases of ignored vulnerabilities.
 	var newGroups []models.GroupInfo
@@ -464,9 +467,9 @@ func parseLockfilePath(lockfileElem string) (string, string) {
 }
 
 // Perform osv scanner action, with optional reporter to output information
-func DoScan(actions ScannerActions, r *reporter.Reporter) (models.VulnerabilityResults, error) {
+func DoScan(actions ScannerActions, r reporter.Reporter) (models.VulnerabilityResults, error) {
 	if r == nil {
-		r = reporter.NewVoidReporter()
+		r = &reporter.VoidReporter{}
 	}
 
 	configManager := config.ConfigManager{
