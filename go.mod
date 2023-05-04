@@ -11,8 +11,8 @@ require (
 	github.com/jedib0t/go-pretty/v6 v6.4.6
 	github.com/kr/pretty v0.3.1
 	github.com/package-url/packageurl-go v0.1.0
-	github.com/spdx/tools-golang v0.4.0
-	github.com/urfave/cli/v2 v2.25.1
+	github.com/spdx/tools-golang v0.5.0
+	github.com/urfave/cli/v2 v2.25.3
 	golang.org/x/exp v0.0.0-20230425010034-47ecfdc1ba53
 	golang.org/x/mod v0.10.0
 	golang.org/x/sync v0.1.0
@@ -26,6 +26,7 @@ require (
 	github.com/Microsoft/go-winio v0.5.2 // indirect
 	github.com/ProtonMail/go-crypto v0.0.0-20230217124315-7d5c6f04bbb8 // indirect
 	github.com/acomagu/bufpipe v1.0.4 // indirect
+	github.com/anchore/go-struct-converter v0.0.0-20221118182256-c68fdcfa2092 // indirect
 	github.com/cloudflare/circl v1.1.0 // indirect
 	github.com/cpuguy83/go-md2man/v2 v2.0.2 // indirect
 	github.com/emirpasic/gods v1.18.1 // indirect
