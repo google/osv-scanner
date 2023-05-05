@@ -23,10 +23,22 @@ func TestParsePnpmLock_InvalidYaml(t *testing.T) {
 	expectPackages(t, packages, []lockfile.PackageDetails{})
 }
 
-func TestParsePnpmLock_NoPackages(t *testing.T) {
+func TestParsePnpmLock_Empty(t *testing.T) {
 	t.Parallel()
 
 	packages, err := lockfile.ParsePnpmLock("fixtures/pnpm/empty.yaml")
+
+	if err != nil {
+		t.Errorf("Got unexpected error: %v", err)
+	}
+
+	expectPackages(t, packages, []lockfile.PackageDetails{})
+}
+
+func TestParsePnpmLock_NoPackages(t *testing.T) {
+	t.Parallel()
+
+	packages, err := lockfile.ParsePnpmLock("fixtures/pnpm/no-packages.yaml")
 
 	if err != nil {
 		t.Errorf("Got unexpected error: %v", err)
