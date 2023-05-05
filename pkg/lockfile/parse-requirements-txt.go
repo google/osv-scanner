@@ -94,6 +94,9 @@ func isNotRequirementLine(line string) bool {
 }
 
 func ParseRequirementsTxt(pathToLockfile string) ([]PackageDetails, error) {
+	return parseRequirementsTxt(pathToLockfile, map[string]struct{}{})
+}
+func parseRequirementsTxt(pathToLockfile string, requiredAlready map[string]struct{}) ([]PackageDetails, error) {
 	packages := map[string]PackageDetails{}
 
 	file, err := os.Open(pathToLockfile)
@@ -107,10 +110,16 @@ func ParseRequirementsTxt(pathToLockfile string) ([]PackageDetails, error) {
 	for scanner.Scan() {
 		line := removeComments(scanner.Text())
 
-		if strings.HasPrefix(line, "-r ") {
-			details, err := ParseRequirementsTxt(
-				filepath.Join(filepath.Dir(pathToLockfile), strings.TrimPrefix(line, "-r ")),
-			)
+		if ar := strings.TrimPrefix(line, "-r "); ar != line {
+			ar = filepath.Join(filepath.Dir(pathToLockfile), ar)
+
+			if _, ok := requiredAlready[ar]; ok {
+				continue
+			}
+
+			requiredAlready[ar] = struct{}{}
+
+			details, err := parseRequirementsTxt(ar, requiredAlready)
 
 			if err != nil {
 				return []PackageDetails{}, fmt.Errorf("failed to include %s: %w", line, err)

@@ -8,9 +8,9 @@ import (
 	"strings"
 
 	spdx_json "github.com/spdx/tools-golang/json"
-	"github.com/spdx/tools-golang/rdfloader"
-	"github.com/spdx/tools-golang/spdx/v2_3"
-	"github.com/spdx/tools-golang/tvloader"
+	"github.com/spdx/tools-golang/rdf"
+	"github.com/spdx/tools-golang/spdx/v2/v2_3"
+	"github.com/spdx/tools-golang/tagvalue"
 )
 
 type SPDX struct{}
@@ -25,15 +25,15 @@ var (
 	spdxLoaders = []loader{
 		{
 			name:   "json",
-			loader: spdx_json.Load2_3,
+			loader: spdx_json.Read,
 		},
 		{
 			name:   "rdf",
-			loader: rdfloader.Load2_3,
+			loader: rdf.Read,
 		},
 		{
 			name:   "tv",
-			loader: tvloader.Load2_3,
+			loader: tagvalue.Read,
 		},
 	}
 )

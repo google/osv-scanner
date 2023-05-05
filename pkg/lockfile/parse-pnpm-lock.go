@@ -177,5 +177,10 @@ func ParsePnpmLock(pathToLockfile string) ([]PackageDetails, error) {
 		return []PackageDetails{}, fmt.Errorf("could not parse %s: %w", pathToLockfile, err)
 	}
 
+	// this will happen if the file is empty
+	if parsedLockfile == nil {
+		parsedLockfile = &PnpmLockfile{}
+	}
+
 	return parsePnpmLock(*parsedLockfile), nil
 }
