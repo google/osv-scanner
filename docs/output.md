@@ -172,3 +172,13 @@ osv-scanner --format json -L path/to/lockfile > /path/to/file.json
 ```
 
 </details>
+
+## Return Codes
+| Exit Code | Reason                                                                                     |
+|-----------|--------------------------------------------------------------------------------------------|
+| `0`       | Packages were found when scanning, but does not match any known vulnerabilities.           |
+| `1`       | Packages were found when scanning, and there are vulnerabilities.                          |
+| `2-126`   | Reserved for vulnerability result related errors.                                          |
+| `127`     | General Error.                                                                             |
+| `128`     | No packages found (likely caused by the scanning format not picking up any files to scan). |
+| `129-255` | Reserved for non result related errors.  
