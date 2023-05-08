@@ -132,7 +132,9 @@ func run(args []string, stdout, stderr io.Writer) int {
 				ExperimentalCallAnalysis: context.Bool("experimental-call-analysis"),
 			}, r)
 
-			if err != nil && !errors.Is(err, osvscanner.VulnerabilitiesFoundErr) {
+			if err != nil &&
+				!errors.Is(err, osvscanner.VulnerabilitiesFoundErr) &&
+				!errors.Is(err, osvscanner.OnlyUncalledVulnerabilitiesFoundErr) {
 				//nolint:wrapcheck
 				return err
 			}
