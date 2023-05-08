@@ -132,10 +132,15 @@ func run(args []string, stdout, stderr io.Writer) int {
 				ExperimentalCallAnalysis: context.Bool("experimental-call-analysis"),
 			}, r)
 
+			if err != nil && !errors.Is(err, osvscanner.VulnerabilitiesFoundErr) {
+				//nolint:wrapcheck
+				return err
+			}
+
 			if errPrint := r.PrintResult(&vulnResult); errPrint != nil {
 				return fmt.Errorf("failed to write output: %w", errPrint)
 			}
-			//nolint:wrapcheck
+
 			return err
 		},
 	}
