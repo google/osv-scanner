@@ -61,7 +61,9 @@ type PackageVulns struct {
 }
 
 type GroupInfo struct {
+	// IDs that correspond to the same vulnerability, for example a GO id and a GHSA.
 	IDs []string `json:"ids"`
+
 	// Map of Vulnerability IDs to AnalysisInfo
 	ExperimentalAnalysis map[string]AnalysisInfo `json:"experimentalAnalysis,omitempty"`
 }
