@@ -1,13 +1,18 @@
 package models
 
-import "testing"
+import (
+	"testing"
+
+	"github.com/google/go-cmp/cmp"
+)
 
 func TestFlatten(t *testing.T) {
 	// Test case 1: When there are no vulnerabilities
 	vulns := VulnerabilityResults{Results: []PackageSource{}}
+	expectedFlattened := []VulnerabilityFlattened{}
 	flattened := vulns.Flatten()
-	if len(flattened) != 0 {
-		t.Errorf("Flatten() returned %d results, expected 0", len(flattened))
+	if diff := cmp.Diff(flattened, expectedFlattened); diff != "" {
+		t.Errorf("Flatten() returned unexpected result (-got +want):\n%s", diff)
 	}
 
 	// Test case 2: When there are vulnerabilities
@@ -29,20 +34,16 @@ func TestFlatten(t *testing.T) {
 	}
 	source := PackageSource{Source: SourceInfo{Path: "package"}, Packages: []PackageVulns{pkg}}
 	vulns = VulnerabilityResults{Results: []PackageSource{source}}
+	expectedFlattened = []VulnerabilityFlattened{
+		{
+			Source:        source.Source,
+			Package:       pkg.Package,
+			Vulnerability: pkg.Vulnerabilities[0],
+			GroupInfo:     group,
+		},
+	}
 	flattened = vulns.Flatten()
-	if len(flattened) != 1 {
-		t.Errorf("Flatten() returned %d results, expected 1", len(flattened))
-	}
-	if flattened[0].Source != source.Source {
-		t.Errorf("Flatten() returned source '%s', expected '%s'", flattened[0].Source, source.Source)
-	}
-	if flattened[0].Package != pkg.Package {
-		t.Errorf("Flatten() returned package '%s', expected '%s'", flattened[0].Package, pkg.Package)
-	}
-	if flattened[0].Vulnerability.ID != pkg.Vulnerabilities[0].ID {
-		t.Errorf("Flatten() returned vulnerability ID '%s', expected '%s'", flattened[0].Vulnerability.ID, pkg.Vulnerabilities[0].ID)
-	}
-	if flattened[0].GroupInfo.IDs[0] != group.IDs[0] {
-		t.Errorf("Flatten() returned group ID '%s', expected '%s'", flattened[0].GroupInfo.IDs[0], group.IDs[0])
+	if diff := cmp.Diff(flattened, expectedFlattened); diff != "" {
+		t.Errorf("Flatten() returned unexpected result (-got +want):\n%s", diff)
 	}
 }
