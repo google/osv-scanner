@@ -132,6 +132,7 @@ func TestRun(t *testing.T) {
 			wantStdout: `
 				Scanning dir ./fixtures/locks-many/composer.lock
 				Scanned %%/fixtures/locks-many/composer.lock file and found 1 packages
+				No vulnerabilities found
 			`,
 			wantStderr: "",
 		},
@@ -181,6 +182,7 @@ func TestRun(t *testing.T) {
 				Scanned %%/fixtures/locks-many/alpine.cdx.xml as CycloneDX SBOM and found 15 packages
 				Scanned %%/fixtures/locks-many/composer.lock file and found 1 packages
 				Scanned %%/fixtures/locks-many/yarn.lock file and found 1 packages
+				No vulnerabilities found
 			`,
 			wantStderr: "",
 		},
@@ -206,6 +208,7 @@ func TestRun(t *testing.T) {
 			wantStdout: `
 				Scanning dir ./fixtures/locks-one-with-nested
 				Scanned %%/fixtures/locks-one-with-nested/yarn.lock file and found 1 packages
+				No vulnerabilities found
 			`,
 			wantStderr: "",
 		},
@@ -218,6 +221,7 @@ func TestRun(t *testing.T) {
 				Scanning dir ./fixtures/locks-one-with-nested
 				Scanned %%/fixtures/locks-one-with-nested/nested/composer.lock file and found 1 packages
 				Scanned %%/fixtures/locks-one-with-nested/yarn.lock file and found 1 packages
+				No vulnerabilities found
 			`,
 			wantStderr: "",
 		},
@@ -230,6 +234,7 @@ func TestRun(t *testing.T) {
 				Scanning dir ./fixtures/locks-gitignore
 				Scanned %%/fixtures/locks-gitignore/Gemfile.lock file and found 1 packages
 				Scanned %%/fixtures/locks-gitignore/subdir/yarn.lock file and found 1 packages
+				No vulnerabilities found
 			`,
 			wantStderr: "",
 		},
@@ -248,6 +253,7 @@ func TestRun(t *testing.T) {
 				Scanned %%/fixtures/locks-gitignore/subdir/composer.lock file and found 1 packages
 				Scanned %%/fixtures/locks-gitignore/subdir/yarn.lock file and found 1 packages
 				Scanned %%/fixtures/locks-gitignore/yarn.lock file and found 1 packages
+				No vulnerabilities found
 			`,
 			wantStderr: "",
 		},
@@ -288,6 +294,7 @@ func TestRun(t *testing.T) {
 			wantStdout: `
 				Scanning dir ./fixtures/locks-many/composer.lock
 				Scanned %%/fixtures/locks-many/composer.lock file and found 1 packages
+				No vulnerabilities found
 			`,
 			wantStderr: "",
 		},
@@ -327,6 +334,7 @@ func TestRun_LockfileWithExplicitParseAs(t *testing.T) {
 			wantExitCode: 0,
 			wantStdout: `
 				Scanned %%/fixtures/locks-many/composer.lock file and found 1 packages
+				No vulnerabilities found
 			`,
 			wantStderr: "",
 		},
@@ -467,6 +475,7 @@ func TestRun_LockfileWithExplicitParseAs(t *testing.T) {
 			wantExitCode: 0,
 			wantStdout: `
 				Scanned %%/fixtures/locks-many/installed file as a apk-installed and found 1 packages
+				No vulnerabilities found
 			`,
 			wantStderr: "",
 		},
@@ -481,6 +490,7 @@ func TestRun_LockfileWithExplicitParseAs(t *testing.T) {
 			wantExitCode: 0,
 			wantStdout: `
 				Scanned %%/fixtures/locks-many/status file as a dpkg-status and found 1 packages
+				No vulnerabilities found
 			`,
 			wantStderr: "",
 		},
