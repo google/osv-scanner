@@ -7,6 +7,7 @@ import (
 )
 
 func TestFlatten(t *testing.T) {
+	t.Parallel()
 	// Test case 1: When there are no vulnerabilities
 	vulns := VulnerabilityResults{Results: []PackageSource{}}
 	expectedFlattened := []VulnerabilityFlattened{}
