@@ -4,11 +4,11 @@ title: Output
 permalink: /output/
 nav_order: 5
 ---
-## Output formats
+# Output formats
 
 You can control the format used by the scanner to output results with the `--format` flag.
 
-### Table (Default)
+## Table (Default)
 
 The default format, which outputs the results as a human-readable table.
 
@@ -31,7 +31,7 @@ osv-scanner --format table your/project/dir
 
 ---
 
-### Markdown Table
+## Markdown Table
 
 ```bash
 osv-scanner --format markdown your/project/dir
@@ -60,7 +60,7 @@ osv-scanner --format markdown your/project/dir
 
 ---
 
-### JSON
+## JSON
 
 ```bash
 osv-scanner --format json your/project/dir
