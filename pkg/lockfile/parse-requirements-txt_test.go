@@ -469,6 +469,7 @@ func TestParseRequirementsTxt_DuplicateROptions(t *testing.T) {
 		},
 	})
 }
+
 func TestParseRequirementsTxt_CyclicRSelf(t *testing.T) {
 	t.Parallel()
 
@@ -493,6 +494,7 @@ func TestParseRequirementsTxt_CyclicRSelf(t *testing.T) {
 		},
 	})
 }
+
 func TestParseRequirementsTxt_CyclicRComplex(t *testing.T) {
 	t.Parallel()
 
@@ -518,6 +520,31 @@ func TestParseRequirementsTxt_CyclicRComplex(t *testing.T) {
 		{
 			Name:      "cyclic-r-complex",
 			Version:   "3",
+			Ecosystem: lockfile.PipEcosystem,
+			CompareAs: lockfile.PipEcosystem,
+		},
+	})
+}
+
+func TestParseRequirementsTxt_WithHash(t *testing.T) {
+	t.Parallel()
+
+	packages, err := lockfile.ParseRequirementsTxt("fixtures/pip/with-hash.txt")
+
+	if err != nil {
+		t.Errorf("Got unexpected error: %v", err)
+	}
+
+	expectPackages(t, packages, []lockfile.PackageDetails{
+		{
+			Name:      "boto3",
+			Version:   "1.26.121",
+			Ecosystem: lockfile.PipEcosystem,
+			CompareAs: lockfile.PipEcosystem,
+		},
+		{
+			Name:      "foo",
+			Version:   "1.0.0",
 			Ecosystem: lockfile.PipEcosystem,
 			CompareAs: lockfile.PipEcosystem,
 		},

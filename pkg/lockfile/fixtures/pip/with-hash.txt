@@ -1,0 +1,2 @@
+boto3==1.26.121 --hash=sha256:f87d694c351eba1dfd19b5bef5892a1047e7adb09c57c2c00049de209a8ab55d
+foo == 1.0.0

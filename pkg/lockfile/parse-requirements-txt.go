@@ -39,11 +39,11 @@ func parseLine(line string) PackageDetails {
 
 	if constraint != "" {
 		splitted := strings.Split(line, constraint)
-
 		name = strings.TrimSpace(splitted[0])
 
 		if constraint != "!=" {
-			version = strings.TrimSpace(splitted[1])
+			versionWithOptions := strings.TrimSpace(splitted[1])
+			version = strings.Split(versionWithOptions, " ")[0]
 		}
 	}
 
