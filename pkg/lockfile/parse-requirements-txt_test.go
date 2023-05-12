@@ -526,10 +526,10 @@ func TestParseRequirementsTxt_CyclicRComplex(t *testing.T) {
 	})
 }
 
-func TestParseRequirementsTxt_WithHash(t *testing.T) {
+func TestParseRequirementsTxt_WithPerRequirementOptions(t *testing.T) {
 	t.Parallel()
 
-	packages, err := lockfile.ParseRequirementsTxt("fixtures/pip/with-hash.txt")
+	packages, err := lockfile.ParseRequirementsTxt("fixtures/pip/with-per-requirement-options.txt")
 
 	if err != nil {
 		t.Errorf("Got unexpected error: %v", err)
@@ -550,6 +550,12 @@ func TestParseRequirementsTxt_WithHash(t *testing.T) {
 		},
 		{
 			Name:      "fooproject",
+			Version:   "1.2",
+			Ecosystem: lockfile.PipEcosystem,
+			CompareAs: lockfile.PipEcosystem,
+		},
+		{
+			Name:      "barproject",
 			Version:   "1.2",
 			Ecosystem: lockfile.PipEcosystem,
 			CompareAs: lockfile.PipEcosystem,
