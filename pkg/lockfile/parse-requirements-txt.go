@@ -38,12 +38,11 @@ func parseLine(line string) PackageDetails {
 	}
 
 	if constraint != "" {
-		splitted := strings.Split(line, constraint)
-		name = strings.TrimSpace(splitted[0])
+		unprocessedName, unprocessedVersion, _ := strings.Cut(line, constraint)
+		name = strings.TrimSpace(unprocessedName)
 
 		if constraint != "!=" {
-			versionWithOptions := strings.TrimSpace(splitted[1])
-			version = strings.Split(versionWithOptions, " ")[0]
+			version, _, _ = strings.Cut(strings.TrimSpace(unprocessedVersion), " ")
 		}
 	}
 
@@ -70,7 +69,7 @@ func normalizedRequirementName(name string) string {
 	// per https://www.python.org/dev/peps/pep-0503/#normalized-names
 	name = cachedregexp.MustCompile(`[-_.]+`).ReplaceAllString(name, "-")
 	name = strings.ToLower(name)
-	name = strings.Split(name, "[")[0]
+	name, _, _ = strings.Cut(name, "[")
 
 	return name
 }
