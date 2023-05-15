@@ -38,12 +38,11 @@ func parseLine(line string) PackageDetails {
 	}
 
 	if constraint != "" {
-		splitted := strings.Split(line, constraint)
-
-		name = strings.TrimSpace(splitted[0])
+		unprocessedName, unprocessedVersion, _ := strings.Cut(line, constraint)
+		name = strings.TrimSpace(unprocessedName)
 
 		if constraint != "!=" {
-			version = strings.TrimSpace(splitted[1])
+			version, _, _ = strings.Cut(strings.TrimSpace(unprocessedVersion), " ")
 		}
 	}
 
@@ -70,7 +69,7 @@ func normalizedRequirementName(name string) string {
 	// per https://www.python.org/dev/peps/pep-0503/#normalized-names
 	name = cachedregexp.MustCompile(`[-_.]+`).ReplaceAllString(name, "-")
 	name = strings.ToLower(name)
-	name = strings.Split(name, "[")[0]
+	name, _, _ = strings.Cut(name, "[")
 
 	return name
 }
@@ -93,6 +92,14 @@ func isNotRequirementLine(line string) bool {
 		strings.HasPrefix(line, "/")
 }
 
+func isLineContinuation(line string) bool {
+	// checks that the line ends with an odd number of back slashes,
+	// meaning the last one isn't escaped
+	var re = cachedregexp.MustCompile(`([^\\]|^)(\\{2})*\\$`)
+
+	return re.MatchString(line)
+}
+
 func ParseRequirementsTxt(pathToLockfile string) ([]PackageDetails, error) {
 	return parseRequirementsTxt(pathToLockfile, map[string]struct{}{})
 }
@@ -106,9 +113,18 @@ func parseRequirementsTxt(pathToLockfile string, requiredAlready map[string]stru
 	defer file.Close()
 
 	scanner := bufio.NewScanner(file)
-
 	for scanner.Scan() {
-		line := removeComments(scanner.Text())
+		line := scanner.Text()
+
+		for isLineContinuation(line) {
+			line = strings.TrimSuffix(line, "\\")
+
+			if scanner.Scan() {
+				line += scanner.Text()
+			}
+		}
+
+		line = removeComments(line)
 
 		if ar := strings.TrimPrefix(line, "-r "); ar != line {
 			ar = filepath.Join(filepath.Dir(pathToLockfile), ar)
