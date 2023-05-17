@@ -117,11 +117,11 @@ func TestRun(t *testing.T) {
 			name:         "",
 			args:         []string{"", "--version"},
 			wantExitCode: 0,
-			wantStdout: `
-				osv-scanner version: 1.3.3
+			wantStdout: fmt.Sprintf(`
+				osv-scanner version: %s
 				commit: n/a
 				built at: n/a
-			`,
+			`, version),
 			wantStderr: "",
 		},
 		// one specific supported lockfile
