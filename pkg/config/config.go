@@ -6,9 +6,8 @@ import (
 	"path/filepath"
 	"time"
 
-	"github.com/google/osv-scanner/internal/output"
-
 	"github.com/BurntSushi/toml"
+	"github.com/google/osv-scanner/pkg/reporter"
 	"golang.org/x/exp/slices"
 )
 
@@ -64,7 +63,7 @@ func (c *ConfigManager) UseOverride(configPath string) error {
 }
 
 // Attempts to get the config
-func (c *ConfigManager) Get(r *output.Reporter, targetPath string) Config {
+func (c *ConfigManager) Get(r reporter.Reporter, targetPath string) Config {
 	if c.OverrideConfig != nil {
 		return *c.OverrideConfig
 	}

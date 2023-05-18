@@ -4,8 +4,9 @@ import (
 	"fmt"
 	"log"
 	"os"
-	"regexp"
 	"strings"
+
+	"github.com/google/osv-scanner/internal/cachedregexp"
 )
 
 const BundlerEcosystem Ecosystem = "RubyGems"
@@ -55,8 +56,8 @@ func (parser *gemfileLockfileParser) addDependency(name string, version string) 
 }
 
 func (parser *gemfileLockfileParser) parseSpec(line string) {
-	// nameVersionReg := regexp.MustCompile(`^( {2}| {4}| {6})(?! )(.*?)(?: \(([^-]*)(?:-(.*))?\))?(!)?$`)
-	nameVersionReg := regexp.MustCompile(`^( +)(.*?)(?: \(([^-]*)(?:-(.*))?\))?(!)?$`)
+	// nameVersionReg := cachedregexp.MustCompile(`^( {2}| {4}| {6})(?! )(.*?)(?: \(([^-]*)(?:-(.*))?\))?(!)?$`)
+	nameVersionReg := cachedregexp.MustCompile(`^( +)(.*?)(?: \(([^-]*)(?:-(.*))?\))?(!)?$`)
 
 	results := nameVersionReg.FindStringSubmatch(line)
 
@@ -82,7 +83,7 @@ func (parser *gemfileLockfileParser) parseSource(line string) {
 	}
 
 	// OPTIONS      = /^  ([a-z]+): (.*)$/i.freeze
-	optionsRegexp := regexp.MustCompile(`(?i)^ {2}([a-z]+): (.*)$`)
+	optionsRegexp := cachedregexp.MustCompile(`(?i)^ {2}([a-z]+): (.*)$`)
 
 	// todo: support
 	options := optionsRegexp.FindStringSubmatch(line)
@@ -105,7 +106,7 @@ func (parser *gemfileLockfileParser) parseSource(line string) {
 }
 
 func isNotIndented(line string) bool {
-	re := regexp.MustCompile(`^\S`)
+	re := cachedregexp.MustCompile(`^\S`)
 
 	return re.MatchString(line)
 }
@@ -127,7 +128,7 @@ func (parser *gemfileLockfileParser) parseLineBasedOnState(line string) {
 }
 
 func (parser *gemfileLockfileParser) parse(contents string) {
-	lineMatcher := regexp.MustCompile(`(?:\r?\n)+`)
+	lineMatcher := cachedregexp.MustCompile(`(?:\r?\n)+`)
 
 	lines := lineMatcher.Split(contents, -1)
 

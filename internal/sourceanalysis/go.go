@@ -5,13 +5,13 @@ import (
 	"path/filepath"
 
 	"github.com/google/osv-scanner/internal/govulncheckshim"
-	"github.com/google/osv-scanner/internal/output"
 	"github.com/google/osv-scanner/pkg/models"
+	"github.com/google/osv-scanner/pkg/reporter"
 	"golang.org/x/exp/slices"
 	"golang.org/x/vuln/exp/govulncheck"
 )
 
-func goAnalysis(r *output.Reporter, pkgs []models.PackageVulns, source models.SourceInfo) {
+func goAnalysis(r reporter.Reporter, pkgs []models.PackageVulns, source models.SourceInfo) {
 	vulns, vulnsByID := vulnsFromAllPkgs(pkgs)
 	res, err := govulncheckshim.RunGoVulnCheck(filepath.Dir(source.Path), vulns)
 	if err != nil {

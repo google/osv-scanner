@@ -117,11 +117,11 @@ func TestRun(t *testing.T) {
 			name:         "",
 			args:         []string{"", "--version"},
 			wantExitCode: 0,
-			wantStdout: `
-				osv-scanner version: 1.2.0
+			wantStdout: fmt.Sprintf(`
+				osv-scanner version: %s
 				commit: n/a
 				built at: n/a
-			`,
+			`, version),
 			wantStderr: "",
 		},
 		// one specific supported lockfile
@@ -132,13 +132,14 @@ func TestRun(t *testing.T) {
 			wantStdout: `
 				Scanning dir ./fixtures/locks-many/composer.lock
 				Scanned %%/fixtures/locks-many/composer.lock file and found 1 packages
+				No vulnerabilities found
 			`,
 			wantStderr: "",
 		},
 		// one specific supported sbom with vulns
 		{
 			name:         "",
-			args:         []string{"", "./fixtures/sbom-insecure/postgres-stretch.cdx.xml"},
+			args:         []string{"", "--config=./fixtures/osv-scanner-empty-config.toml", "./fixtures/sbom-insecure/postgres-stretch.cdx.xml"},
 			wantExitCode: 1,
 			wantStdout: `
 				Scanning dir ./fixtures/sbom-insecure/postgres-stretch.cdx.xml
@@ -149,6 +150,8 @@ func TestRun(t *testing.T) {
 				| https://osv.dev/GHSA-v95c-p5hm-xq8f | Go        | runc    | v1.0.1                             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 				| https://osv.dev/GO-2022-0274        |           |         |                                    |                                                 |
 				| https://osv.dev/GHSA-f3fp-gc8g-vw66 | Go        | runc    | v1.0.1                             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+				| https://osv.dev/GHSA-g2j6-57v7-gm8c | Go        | runc    | v1.0.1                             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+				| https://osv.dev/GHSA-m8cg-xc2p-r3fc | Go        | runc    | v1.0.1                             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 				| https://osv.dev/GHSA-vpvm-3wq2-2wvm | Go        | runc    | v1.0.1                             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 				| https://osv.dev/GHSA-p782-xgp4-8hr8 | Go        | sys     | v0.0.0-20210817142637-7d9622a276b7 | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 				| https://osv.dev/GO-2022-0493        |           |         |                                    |                                                 |
@@ -179,6 +182,7 @@ func TestRun(t *testing.T) {
 				Scanned %%/fixtures/locks-many/alpine.cdx.xml as CycloneDX SBOM and found 15 packages
 				Scanned %%/fixtures/locks-many/composer.lock file and found 1 packages
 				Scanned %%/fixtures/locks-many/yarn.lock file and found 1 packages
+				No vulnerabilities found
 			`,
 			wantStderr: "",
 		},
@@ -204,6 +208,7 @@ func TestRun(t *testing.T) {
 			wantStdout: `
 				Scanning dir ./fixtures/locks-one-with-nested
 				Scanned %%/fixtures/locks-one-with-nested/yarn.lock file and found 1 packages
+				No vulnerabilities found
 			`,
 			wantStderr: "",
 		},
@@ -216,6 +221,7 @@ func TestRun(t *testing.T) {
 				Scanning dir ./fixtures/locks-one-with-nested
 				Scanned %%/fixtures/locks-one-with-nested/nested/composer.lock file and found 1 packages
 				Scanned %%/fixtures/locks-one-with-nested/yarn.lock file and found 1 packages
+				No vulnerabilities found
 			`,
 			wantStderr: "",
 		},
@@ -228,6 +234,7 @@ func TestRun(t *testing.T) {
 				Scanning dir ./fixtures/locks-gitignore
 				Scanned %%/fixtures/locks-gitignore/Gemfile.lock file and found 1 packages
 				Scanned %%/fixtures/locks-gitignore/subdir/yarn.lock file and found 1 packages
+				No vulnerabilities found
 			`,
 			wantStderr: "",
 		},
@@ -246,6 +253,7 @@ func TestRun(t *testing.T) {
 				Scanned %%/fixtures/locks-gitignore/subdir/composer.lock file and found 1 packages
 				Scanned %%/fixtures/locks-gitignore/subdir/yarn.lock file and found 1 packages
 				Scanned %%/fixtures/locks-gitignore/yarn.lock file and found 1 packages
+				No vulnerabilities found
 			`,
 			wantStderr: "",
 		},
@@ -286,6 +294,7 @@ func TestRun(t *testing.T) {
 			wantStdout: `
 				Scanning dir ./fixtures/locks-many/composer.lock
 				Scanned %%/fixtures/locks-many/composer.lock file and found 1 packages
+				No vulnerabilities found
 			`,
 			wantStderr: "",
 		},
@@ -325,6 +334,7 @@ func TestRun_LockfileWithExplicitParseAs(t *testing.T) {
 			wantExitCode: 0,
 			wantStdout: `
 				Scanned %%/fixtures/locks-many/composer.lock file and found 1 packages
+				No vulnerabilities found
 			`,
 			wantStderr: "",
 		},
@@ -465,6 +475,7 @@ func TestRun_LockfileWithExplicitParseAs(t *testing.T) {
 			wantExitCode: 0,
 			wantStdout: `
 				Scanned %%/fixtures/locks-many/installed file as a apk-installed and found 1 packages
+				No vulnerabilities found
 			`,
 			wantStderr: "",
 		},
@@ -479,6 +490,7 @@ func TestRun_LockfileWithExplicitParseAs(t *testing.T) {
 			wantExitCode: 0,
 			wantStdout: `
 				Scanned %%/fixtures/locks-many/status file as a dpkg-status and found 1 packages
+				No vulnerabilities found
 			`,
 			wantStderr: "",
 		},

@@ -23,10 +23,22 @@ func TestParsePnpmLock_InvalidYaml(t *testing.T) {
 	expectPackages(t, packages, []lockfile.PackageDetails{})
 }
 
-func TestParsePnpmLock_NoPackages(t *testing.T) {
+func TestParsePnpmLock_Empty(t *testing.T) {
 	t.Parallel()
 
 	packages, err := lockfile.ParsePnpmLock("fixtures/pnpm/empty.yaml")
+
+	if err != nil {
+		t.Errorf("Got unexpected error: %v", err)
+	}
+
+	expectPackages(t, packages, []lockfile.PackageDetails{})
+}
+
+func TestParsePnpmLock_NoPackages(t *testing.T) {
+	t.Parallel()
+
+	packages, err := lockfile.ParsePnpmLock("fixtures/pnpm/no-packages.yaml")
 
 	if err != nil {
 		t.Errorf("Got unexpected error: %v", err)
@@ -39,6 +51,25 @@ func TestParsePnpmLock_OnePackage(t *testing.T) {
 	t.Parallel()
 
 	packages, err := lockfile.ParsePnpmLock("fixtures/pnpm/one-package.yaml")
+
+	if err != nil {
+		t.Errorf("Got unexpected error: %v", err)
+	}
+
+	expectPackages(t, packages, []lockfile.PackageDetails{
+		{
+			Name:      "acorn",
+			Version:   "8.7.0",
+			Ecosystem: lockfile.PnpmEcosystem,
+			CompareAs: lockfile.PnpmEcosystem,
+		},
+	})
+}
+
+func TestParsePnpmLock_OnePackageV6Lockfile(t *testing.T) {
+	t.Parallel()
+
+	packages, err := lockfile.ParsePnpmLock("fixtures/pnpm/one-package-v6-lockfile.yaml")
 
 	if err != nil {
 		t.Errorf("Got unexpected error: %v", err)
@@ -86,6 +117,25 @@ func TestParsePnpmLock_ScopedPackages(t *testing.T) {
 		{
 			Name:      "@typescript-eslint/types",
 			Version:   "5.13.0",
+			Ecosystem: lockfile.PnpmEcosystem,
+			CompareAs: lockfile.PnpmEcosystem,
+		},
+	})
+}
+
+func TestParsePnpmLock_ScopedPackagesV6Lockfile(t *testing.T) {
+	t.Parallel()
+
+	packages, err := lockfile.ParsePnpmLock("fixtures/pnpm/scoped-packages-v6-lockfile.yaml")
+
+	if err != nil {
+		t.Errorf("Got unexpected error: %v", err)
+	}
+
+	expectPackages(t, packages, []lockfile.PackageDetails{
+		{
+			Name:      "@typescript-eslint/types",
+			Version:   "5.57.1",
 			Ecosystem: lockfile.PnpmEcosystem,
 			CompareAs: lockfile.PnpmEcosystem,
 		},

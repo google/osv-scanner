@@ -1,6 +1,7 @@
 package sbom
 
 import (
+	"errors"
 	"fmt"
 	"io"
 	"path/filepath"
@@ -11,10 +12,21 @@ import (
 
 type CycloneDX struct{}
 
+type cyclonedxType struct {
+	name    string
+	bomType cyclonedx.BOMFileFormat
+}
+
 var (
-	cycloneDXTypes = []cyclonedx.BOMFileFormat{
-		cyclonedx.BOMFileFormatJSON,
-		cyclonedx.BOMFileFormatXML,
+	cycloneDXTypes = []cyclonedxType{
+		{
+			name:    "json",
+			bomType: cyclonedx.BOMFileFormatJSON,
+		},
+		{
+			name:    "xml",
+			bomType: cyclonedx.BOMFileFormatXML,
+		},
 	}
 )
 
@@ -69,10 +81,16 @@ func (c *CycloneDX) enumerateComponents(components []cyclonedx.Component, callba
 }
 
 func (c *CycloneDX) enumeratePackages(bom *cyclonedx.BOM, callback func(Identifier) error) error {
+	if bom.Components == nil {
+		return nil
+	}
+
 	return c.enumerateComponents(*bom.Components, callback)
 }
 
 func (c *CycloneDX) GetPackages(r io.ReadSeeker, callback func(Identifier) error) error {
+	//nolint:prealloc // Not sure how many there will be in advance.
+	var errs []error
 	var bom cyclonedx.BOM
 
 	for _, formatType := range cycloneDXTypes {
@@ -80,12 +98,21 @@ func (c *CycloneDX) GetPackages(r io.ReadSeeker, callback func(Identifier) error
 		if err != nil {
 			return fmt.Errorf("failed to seek to start of file: %w", err)
 		}
-		decoder := cyclonedx.NewBOMDecoder(r, formatType)
+		decoder := cyclonedx.NewBOMDecoder(r, formatType.bomType)
 		err = decoder.Decode(&bom)
-		if err == nil && (bom.BOMFormat == "CycloneDX" || strings.HasPrefix(bom.XMLNS, "http://cyclonedx.org/schema/bom")) {
-			return c.enumeratePackages(&bom, callback)
+		if err == nil {
+			if bom.BOMFormat == "CycloneDX" || strings.HasPrefix(bom.XMLNS, "http://cyclonedx.org/schema/bom") {
+				return c.enumeratePackages(&bom, callback)
+			} else {
+				err = errors.New("invalid BOMFormat")
+			}
 		}
+
+		errs = append(errs, fmt.Errorf("failed trying %s: %w", formatType.name, err))
 	}
 
-	return ErrInvalidFormat
+	return InvalidFormatError{
+		Msg:  "failed to parse CycloneDX",
+		Errs: errs,
+	}
 }
