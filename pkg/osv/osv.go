@@ -190,6 +190,8 @@ func Get(id string) (*models.Vulnerability, error) {
 // client.
 func GetWithClient(id string, client *http.Client) (*models.Vulnerability, error) {
 	resp, err := makeRetryRequest(func() (*http.Response, error) {
+		// We do not need a specific context
+		//nolint:noctx
 		req, err := http.NewRequest(http.MethodGet, GetEndpoint+"/"+id, nil)
 		if err != nil {
 			return nil, err
