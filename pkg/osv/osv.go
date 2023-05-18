@@ -28,6 +28,8 @@ const (
 	maxConcurrentRequests = 25
 )
 
+var RequestUserAgent = ""
+
 // Package represents a package identifier for OSV.
 type Package struct {
 	PURL      string `json:"purl,omitempty"`
@@ -151,7 +153,9 @@ func MakeRequestWithClient(request BatchedQuery, client *http.Client) (*BatchedR
 				return nil, err
 			}
 			req.Header.Set("Content-Type", "application/json")
-			req.Header.Set("User-Agent", "osv-scanner")
+			if RequestUserAgent != "" {
+				req.Header.Set("User-Agent", RequestUserAgent)
+			}
 
 			return client.Do(req)
 		})
@@ -190,7 +194,9 @@ func GetWithClient(id string, client *http.Client) (*models.Vulnerability, error
 		if err != nil {
 			return nil, err
 		}
-		req.Header.Set("User-Agent", "osv-scanner")
+		if RequestUserAgent != "" {
+			req.Header.Set("User-Agent", RequestUserAgent)
+		}
 
 		return client.Do(req)
 	})
