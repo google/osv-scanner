@@ -68,11 +68,12 @@ func run(args []string, stdout, stderr io.Writer) int {
 					case
 						"table",
 						"json", //nolint:goconst
-						"markdown":
+						"markdown",
+						"report":
 						return nil
 					}
 
-					return fmt.Errorf("unsupported output format \"%s\" - must be one of: \"table\", \"json\", \"markdown\"", s)
+					return fmt.Errorf("unsupported output format \"%s\" - must be one of: \"table\", \"json\", \"markdown\", \"report\"", s)
 				},
 			},
 			&cli.BoolFlag{
@@ -116,6 +117,8 @@ func run(args []string, stdout, stderr io.Writer) int {
 				r = reporter.NewTableReporter(stdout, stderr, false)
 			case "markdown":
 				r = reporter.NewTableReporter(stdout, stderr, true)
+			case "report":
+				r = reporter.NewMarkdownReporter(stdout, stderr)
 			default:
 				return fmt.Errorf("%v is not a valid format", format)
 			}
