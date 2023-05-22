@@ -6,6 +6,7 @@ import (
 	"io"
 	"os"
 
+	"github.com/google/osv-scanner/pkg/osv"
 	"github.com/google/osv-scanner/pkg/osvscanner"
 	"github.com/google/osv-scanner/pkg/reporter"
 
@@ -26,6 +27,8 @@ func run(args []string, stdout, stderr io.Writer) int {
 		r = reporter.NewTableReporter(stdout, stderr, false)
 		r.PrintText(fmt.Sprintf("osv-scanner version: %s\ncommit: %s\nbuilt at: %s\n", ctx.App.Version, commit, date))
 	}
+
+	osv.RequestUserAgent = "osv-scanner/" + version
 
 	app := &cli.App{
 		Name:      "osv-scanner",

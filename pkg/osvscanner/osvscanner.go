@@ -536,6 +536,10 @@ func DoScan(actions ScannerActions, r reporter.Reporter) (models.VulnerabilityRe
 		return models.VulnerabilityResults{}, NoPackagesFoundErr
 	}
 
+	if osv.RequestUserAgent == "" {
+		osv.RequestUserAgent = "osv-scanner-api"
+	}
+
 	resp, err := osv.MakeRequest(query)
 	if err != nil {
 		return models.VulnerabilityResults{}, fmt.Errorf("scan failed %w", err)
