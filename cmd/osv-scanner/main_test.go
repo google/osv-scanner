@@ -115,15 +115,15 @@ func TestRun(t *testing.T) {
         No package sources found, --help for usage information.
 			`,
 		},
-
 		{
 			name:         "",
-			args:         []string{""},
-			wantExitCode: 128,
-			wantStdout:   "",
-			wantStderr: `
-        No package sources found, --help for usage information.
-			`,
+			args:         []string{"", "--version"},
+			wantExitCode: 0,
+			wantStdout: fmt.Sprintf(`
+				osv-scanner version: %s
+				commit: n/a
+				built at: n/a
+			`, version),
 		},
 		{
 			name:         "PURLs from stdin",
