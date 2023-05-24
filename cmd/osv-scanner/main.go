@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bufio"
 	"errors"
 	"fmt"
 	"io"
@@ -20,7 +21,7 @@ var (
 	date    = "n/a"
 )
 
-func run(args []string, stdout, stderr io.Writer) int {
+func run(args []string, stdin io.Reader, stdout, stderr io.Writer) int {
 	var r reporter.Reporter
 
 	cli.VersionPrinter = func(ctx *cli.Context) {
@@ -38,6 +39,10 @@ func run(args []string, stdout, stderr io.Writer) int {
 		Writer:    stdout,
 		ErrWriter: stderr,
 		Flags: []cli.Flag{
+			&cli.BoolFlag{
+				Name:  "experimental-stdin-purl",
+				Usage: "reads purl lines on the standard in",
+			},
 			&cli.StringSliceFlag{
 				Name:      "docker",
 				Aliases:   []string{"D"},
@@ -123,9 +128,26 @@ func run(args []string, stdout, stderr io.Writer) int {
 				return fmt.Errorf("%v is not a valid format", format)
 			}
 
+			// Get purls from stdin
+			purls := []string{}
+			if context.Bool("experimental-stdin-purl") {
+				r.PrintText("Enter Package URLs, one per line, finishing with EOF:\n")
+				scanner := bufio.NewScanner(stdin)
+				for scanner.Scan() {
+					purls = append(purls, scanner.Text())
+				}
+
+				if err := scanner.Err(); err != nil {
+					r.PrintError(fmt.Sprintf("error reading from stdin: %v\n", err))
+				}
+			}
+
+			// r.PrintText("\nScanning...\n")
+
 			vulnResult, err := osvscanner.DoScan(osvscanner.ScannerActions{
 				LockfilePaths:            context.StringSlice("lockfile"),
 				SBOMPaths:                context.StringSlice("sbom"),
+				Purls:                    purls,
 				DockerContainerNames:     context.StringSlice("docker"),
 				Recursive:                context.Bool("recursive"),
 				SkipGit:                  context.Bool("skip-git"),
@@ -181,5 +203,5 @@ func run(args []string, stdout, stderr io.Writer) int {
 }
 
 func main() {
-	os.Exit(run(os.Args, os.Stdout, os.Stderr))
+	os.Exit(run(os.Args, os.Stdin, os.Stdout, os.Stderr))
 }

@@ -70,6 +70,7 @@ func areEqual(t *testing.T, actual, expect string) bool {
 type cliTestCase struct {
 	name         string
 	args         []string
+	stdin        string
 	wantExitCode int
 	wantStdout   string
 	wantStderr   string
@@ -79,9 +80,10 @@ func testCli(t *testing.T, tc cliTestCase) {
 	t.Helper()
 
 	stdoutBuffer := &bytes.Buffer{}
+	stdinBuffer := bytes.NewBufferString(tc.stdin)
 	stderrBuffer := &bytes.Buffer{}
 
-	ec := run(tc.args, stdoutBuffer, stderrBuffer)
+	ec := run(tc.args, stdinBuffer, stdoutBuffer, stderrBuffer)
 	// ec := run(tc.args, os.Stdout, os.Stderr)
 
 	stdout := stdoutBuffer.String()
@@ -113,15 +115,29 @@ func TestRun(t *testing.T) {
         No package sources found, --help for usage information.
 			`,
 		},
+
 		{
 			name:         "",
-			args:         []string{"", "--version"},
-			wantExitCode: 0,
-			wantStdout: fmt.Sprintf(`
-				osv-scanner version: %s
-				commit: n/a
-				built at: n/a
-			`, version),
+			args:         []string{""},
+			wantExitCode: 128,
+			wantStdout:   "",
+			wantStderr: `
+        No package sources found, --help for usage information.
+			`,
+		},
+		{
+			name:         "PURLs from stdin",
+			args:         []string{"", "--experimental-stdin-purl"},
+			stdin:        "pkg:npm/ansi-html@0.0.1\n",
+			wantExitCode: 1,
+			wantStdout: `
+            Enter Package URLs, one per line, finishing with EOF:
+            +-------------------------------------+-----------+-----------+---------+--------+
+            | OSV URL (ID IN BOLD)                | ECOSYSTEM | PACKAGE   | VERSION | SOURCE |
+            +-------------------------------------+-----------+-----------+---------+--------+
+            | https://osv.dev/GHSA-whgm-jr23-g3j9 | npm       | ansi-html | 0.0.1   |        |
+            +-------------------------------------+-----------+-----------+---------+--------+
+            `,
 			wantStderr: "",
 		},
 		// one specific supported lockfile

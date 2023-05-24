@@ -27,6 +27,7 @@ type ScannerActions struct {
 	SBOMPaths            []string
 	DirectoryPaths       []string
 	GitCommits           []string
+	Purls                []string
 	Recursive            bool
 	SkipGit              bool
 	NoIgnore             bool
@@ -530,6 +531,10 @@ func DoScan(actions ScannerActions, r reporter.Reporter) (models.VulnerabilityRe
 		if err != nil {
 			return models.VulnerabilityResults{}, err
 		}
+	}
+
+	for _, purl := range actions.Purls {
+		query.Queries = append(query.Queries, osv.MakePURLRequest(purl))
 	}
 
 	if len(query.Queries) == 0 {
