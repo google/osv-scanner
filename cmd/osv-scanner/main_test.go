@@ -113,17 +113,6 @@ func TestRun(t *testing.T) {
         No package sources found, --help for usage information.
 			`,
 		},
-		{
-			name:         "",
-			args:         []string{"", "--version"},
-			wantExitCode: 0,
-			wantStdout: fmt.Sprintf(`
-				osv-scanner version: %s
-				commit: n/a
-				built at: n/a
-			`, version),
-			wantStderr: "",
-		},
 		// one specific supported lockfile
 		{
 			name:         "",
@@ -307,6 +296,23 @@ func TestRun(t *testing.T) {
 			testCli(t, tt)
 		})
 	}
+}
+
+func TestRun_VersionPrinter(t *testing.T) {
+	// Do not run this in parallel, as VersionPrinter is a global function
+	versionTestCase := cliTestCase{
+		name:         "",
+		args:         []string{"", "--version"},
+		wantExitCode: 0,
+		wantStdout: fmt.Sprintf(`
+				osv-scanner version: %s
+				commit: n/a
+				built at: n/a
+			`, version),
+		wantStderr: "",
+	}
+
+	testCli(t, versionTestCase)
 }
 
 func TestRun_LockfileWithExplicitParseAs(t *testing.T) {
