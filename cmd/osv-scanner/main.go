@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"io"
 	"os"
+	"strings"
 
 	"github.com/google/osv-scanner/pkg/osv"
 	"github.com/google/osv-scanner/pkg/osvscanner"
@@ -135,7 +136,11 @@ func run(args []string, stdin io.Reader, stdout, stderr io.Writer) int {
 				r.PrintText("Enter Package URLs, one per line, finishing with EOF:\n")
 				scanner := bufio.NewScanner(stdin)
 				for scanner.Scan() {
-					purls = append(purls, scanner.Text())
+					trimmedLine := strings.TrimSpace(scanner.Text())
+					if len(trimmedLine) == 0 {
+						continue
+					}
+					purls = append(purls, trimmedLine)
 				}
 
 				if err := scanner.Err(); err != nil {

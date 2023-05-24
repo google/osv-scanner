@@ -125,21 +125,6 @@ func TestRun(t *testing.T) {
 				built at: n/a
 			`, version),
 		},
-		{
-			name:         "PURLs from stdin",
-			args:         []string{"", "--experimental-stdin-purl"},
-			stdin:        "pkg:npm/ansi-html@0.0.1\n",
-			wantExitCode: 1,
-			wantStdout: `
-            Enter Package URLs, one per line, finishing with EOF:
-            +-------------------------------------+-----------+-----------+---------+--------+
-            | OSV URL (ID IN BOLD)                | ECOSYSTEM | PACKAGE   | VERSION | SOURCE |
-            +-------------------------------------+-----------+-----------+---------+--------+
-            | https://osv.dev/GHSA-whgm-jr23-g3j9 | npm       | ansi-html | 0.0.1   |        |
-            +-------------------------------------+-----------+-----------+---------+--------+
-            `,
-			wantStderr: "",
-		},
 		// one specific supported lockfile
 		{
 			name:         "",
@@ -315,6 +300,100 @@ func TestRun(t *testing.T) {
 			wantStderr: "",
 		},
 	}
+	for _, tt := range tests {
+		tt := tt
+		t.Run(tt.name, func(t *testing.T) {
+			t.Parallel()
+
+			testCli(t, tt)
+		})
+	}
+}
+
+func TestRun_StdIn(t *testing.T) {
+	t.Parallel()
+
+	tests := []cliTestCase{
+		{
+			name:         "1 PURL from stdin",
+			args:         []string{"", "--experimental-stdin-purl"},
+			stdin:        "pkg:npm/ansi-html@0.0.1\n",
+			wantExitCode: 1,
+			wantStdout: `
+            Enter Package URLs, one per line, finishing with EOF:
+            +-------------------------------------+-----------+-----------+---------+--------+
+            | OSV URL (ID IN BOLD)                | ECOSYSTEM | PACKAGE   | VERSION | SOURCE |
+            +-------------------------------------+-----------+-----------+---------+--------+
+            | https://osv.dev/GHSA-whgm-jr23-g3j9 | npm       | ansi-html | 0.0.1   |        |
+            +-------------------------------------+-----------+-----------+---------+--------+
+            `,
+			wantStderr: "",
+		},
+		{
+			name: "Multiple PURLs from stdin",
+			args: []string{"", "--experimental-stdin-purl"},
+			stdin: `
+			pkg:npm/ansi-html@0.0.1
+			pkg:npm/balanced-match@1.0.0
+			pkg:golang/github.com/dablelv/go-huge-util/zip@v0.0.32
+			`,
+			wantExitCode: 1,
+			wantStdout: `
+            Enter Package URLs, one per line, finishing with EOF:
+            +-------------------------------------+-----------+-----------+---------+--------+
+            | OSV URL (ID IN BOLD)                | ECOSYSTEM | PACKAGE   | VERSION | SOURCE |
+            +-------------------------------------+-----------+-----------+---------+--------+
+            | https://osv.dev/GHSA-whgm-jr23-g3j9 | npm       | ansi-html | 0.0.1   |        |
+            | https://osv.dev/GHSA-5g39-ppwg-6xx8 | Go        | zip       | v0.0.32 |        |
+            +-------------------------------------+-----------+-----------+---------+--------+
+            `,
+			wantStderr: "",
+		},
+		{
+			name: "Multiple PURLs from stdin with file input",
+			args: []string{"", "--experimental-stdin-purl", "./fixtures/locks-insecure/my-yarn.lock"},
+			stdin: `
+			pkg:npm/ansi-html@0.0.1
+			pkg:npm/balanced-match@1.0.0
+			pkg:golang/github.com/dablelv/go-huge-util/zip@v0.0.32
+			`,
+			wantExitCode: 1,
+			wantStdout: `
+            Enter Package URLs, one per line, finishing with EOF:
+            Scanning dir ./fixtures/locks-insecure/my-yarn.lock
+            +-------------------------------------+-----------+-----------+---------+--------+
+            | OSV URL (ID IN BOLD)                | ECOSYSTEM | PACKAGE   | VERSION | SOURCE |
+            +-------------------------------------+-----------+-----------+---------+--------+
+            | https://osv.dev/GHSA-whgm-jr23-g3j9 | npm       | ansi-html | 0.0.1   |        |
+            | https://osv.dev/GHSA-5g39-ppwg-6xx8 | Go        | zip       | v0.0.32 |        |
+            +-------------------------------------+-----------+-----------+---------+--------+
+            `,
+			wantStderr: "",
+		},
+		{
+			name:         "1 PURL from stdin, but no flag",
+			args:         []string{""},
+			stdin:        "pkg:npm/ansi-html@0.0.1\n",
+			wantExitCode: 128,
+			wantStdout:   "",
+			wantStderr: `
+        	No package sources found, --help for usage information.
+			`,
+		},
+		{
+			name:         "0 PURLs from stdin, with flag",
+			args:         []string{"", "--experimental-stdin-purl"},
+			stdin:        "",
+			wantExitCode: 128,
+			wantStdout: `
+			Enter Package URLs, one per line, finishing with EOF:
+			`,
+			wantStderr: `
+        	No package sources found, --help for usage information.
+			`,
+		},
+	}
+
 	for _, tt := range tests {
 		tt := tt
 		t.Run(tt.name, func(t *testing.T) {

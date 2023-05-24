@@ -537,6 +537,8 @@ func DoScan(actions ScannerActions, r reporter.Reporter) (models.VulnerabilityRe
 		query.Queries = append(query.Queries, osv.MakePURLRequest(purl))
 	}
 
+	// r.PrintText(fmt.Sprintf("%v", query.Queries))
+
 	if len(query.Queries) == 0 {
 		return models.VulnerabilityResults{}, NoPackagesFoundErr
 	}
