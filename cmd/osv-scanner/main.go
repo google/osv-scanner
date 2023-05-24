@@ -25,7 +25,8 @@ func run(args []string, stdin io.Reader, stdout, stderr io.Writer) int {
 	var r reporter.Reporter
 
 	cli.VersionPrinter = func(ctx *cli.Context) {
-		r = reporter.NewTableReporter(stdout, stderr, false)
+		// Use the app Writer and ErrWriter since they will be the writers to keep parallel tests consistent
+		r = reporter.NewTableReporter(ctx.App.Writer, ctx.App.ErrWriter, false)
 		r.PrintText(fmt.Sprintf("osv-scanner version: %s\ncommit: %s\nbuilt at: %s\n", ctx.App.Version, commit, date))
 	}
 
