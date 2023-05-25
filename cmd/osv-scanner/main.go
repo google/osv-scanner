@@ -5,9 +5,11 @@ import (
 	"fmt"
 	"io"
 	"os"
+	"strings"
 
 	"github.com/google/osv-scanner/pkg/osvscanner"
 	"github.com/google/osv-scanner/pkg/reporter"
+	"golang.org/x/exp/slices"
 
 	"github.com/urfave/cli/v2"
 )
@@ -64,16 +66,11 @@ func run(args []string, stdout, stderr io.Writer) int {
 				Usage:   "sets the output format",
 				Value:   "table",
 				Action: func(context *cli.Context, s string) error {
-					switch s {
-					case
-						"table",
-						"json", //nolint:goconst
-						"markdown",
-						"report":
+					if slices.Contains(reporter.Format(), s) {
 						return nil
 					}
 
-					return fmt.Errorf("unsupported output format \"%s\" - must be one of: \"table\", \"json\", \"markdown\", \"report\"", s)
+					return fmt.Errorf("unsupported output format \"%s\" - must be one of: %s", s, strings.Join(reporter.Format(), ", "))
 				},
 			},
 			&cli.BoolFlag{
@@ -110,17 +107,9 @@ func run(args []string, stdout, stderr io.Writer) int {
 				format = "json"
 			}
 
-			switch format {
-			case "json":
-				r = reporter.NewJSONReporter(stdout, stderr)
-			case "table":
-				r = reporter.NewTableReporter(stdout, stderr, false)
-			case "markdown":
-				r = reporter.NewTableReporter(stdout, stderr, true)
-			case "report":
-				r = reporter.NewMarkdownReporter(stdout, stderr)
-			default:
-				return fmt.Errorf("%v is not a valid format", format)
+			var err error
+			if r, err = reporter.GetReporter(format, stdout, stderr); err != nil {
+				return err
 			}
 
 			vulnResult, err := osvscanner.DoScan(osvscanner.ScannerActions{
