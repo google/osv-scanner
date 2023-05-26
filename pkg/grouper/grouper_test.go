@@ -103,10 +103,10 @@ func TestGroup(t *testing.T) {
 					IDs: []string{v8.ID},
 				},
 				{
-					IDs: []string{v2.ID, v1.ID, v3.ID},
+					IDs: []string{v1.ID, v2.ID, v3.ID}, // Deterministic order
 				},
 				{
-					IDs: []string{v5.ID, v4.ID, v6.ID},
+					IDs: []string{v4.ID, v5.ID, v6.ID},
 				},
 				{
 					IDs: []string{v7.ID},

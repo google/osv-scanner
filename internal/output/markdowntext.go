@@ -131,7 +131,7 @@ func PrintMarkdownTextResults(vulnResult *models.VulnerabilityResults, outputWri
 
 				vulnIDs := []string{}
 				for _, id := range group.IDs {
-					vulnIDs = append(vulnIDs, fmt.Sprintf("<a href=\"https://osv.dev/%[1]s\">%[1]s</a>", id))
+					vulnIDs = append(vulnIDs, fmt.Sprintf("[%[1]s](https://osv.dev/vulnerability/%[1]s)", id))
 				}
 				remediationTable.AppendRow(table.Row{
 					pv.Package.Name,
