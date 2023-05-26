@@ -214,7 +214,7 @@ func parseGitIgnores(path string) (*gitIgnoreMatcher, error) {
 		}
 	}
 
-	patterns, err := gitignore.ReadPatterns(fs, []string{"."})
+	patterns, err := ReadPatterns(fs, []string{"."})
 	if err != nil {
 		return nil, err
 	}
