@@ -1,3 +1,12 @@
+# v1.3.4:
+
+### Fixes
+
+### Minor Updates
+
+- [Feature #390](https://github.com/google/osv-scanner/pull/390) Add an
+  user agent to OSV API requests.
+
 # v1.3.3:
 
 ### Fixes
