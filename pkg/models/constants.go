@@ -20,6 +20,8 @@ const (
 	EcosystemGitHubActions Ecosystem = "GitHub Actions"
 	EcosystemPub           Ecosystem = "Pub"
 	EcosystemConanCenter   Ecosystem = "ConanCenter"
+	EcosystemRockyLinux    Ecosystem = "Rocky Linux"
+	EcosystemAlmaLinux     Ecosystem = "AlmaLinux"
 )
 
 type SeverityType string
