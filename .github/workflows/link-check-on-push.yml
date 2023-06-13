@@ -10,4 +10,6 @@ jobs:
     - uses: gaurav-nelson/github-action-markdown-link-check@v1
       with:
         use-quiet-mode: "yes"
+        base-branch: "main"
+        check-modified-files-only: "yes"
 # Documentation available here: https://github.com/marketplace/actions/markdown-link-check
