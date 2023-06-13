@@ -1,6 +1,7 @@
 name: Check Markdown links
 
-on: push
+on: schedule
+-cron: '10,18, *,*,*'
 
 jobs:
   markdown-link-check:
