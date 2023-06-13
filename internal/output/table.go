@@ -15,10 +15,15 @@ import (
 )
 
 // PrintTableResults prints the osv scan results into a human friendly table.
-func PrintTableResults(vulnResult *models.VulnerabilityResults, outputWriter io.Writer) {
+func PrintTableResults(vulnResult *models.VulnerabilityResults, outputWriter io.Writer, includeSeverity bool) {
 	outputTable := table.NewWriter()
 	outputTable.SetOutputMirror(outputWriter)
-	outputTable.AppendHeader(table.Row{"OSV URL (ID In Bold)", "Ecosystem", "Package", "Version", "Source"})
+	row := table.Row{"OSV URL (ID In Bold)"}
+	if includeSeverity {
+		row = append(row, "Severity")
+	}
+	row = append(row, "Ecosystem", "Package", "Version", "Source")
+	outputTable.AppendHeader(row)
 	width, _, err := term.GetSize(int(os.Stdout.Fd()))
 	isTerminal := false
 	if err == nil { // If output is a terminal, set max length to width and add styling
@@ -30,7 +35,7 @@ func PrintTableResults(vulnResult *models.VulnerabilityResults, outputWriter io.
 		isTerminal = true
 	} // Otherwise use default ascii (e.g. getting piped to a file)
 
-	outputTable = tableBuilder(outputTable, vulnResult, isTerminal)
+	outputTable = tableBuilder(outputTable, vulnResult, isTerminal, includeSeverity)
 
 	if outputTable.Length() == 0 {
 		return
@@ -38,13 +43,13 @@ func PrintTableResults(vulnResult *models.VulnerabilityResults, outputWriter io.
 	outputTable.Render()
 }
 
-func tableBuilder(outputTable table.Writer, vulnResult *models.VulnerabilityResults, addStyling bool) table.Writer {
-	rows := tableBuilderInner(vulnResult, addStyling, true)
+func tableBuilder(outputTable table.Writer, vulnResult *models.VulnerabilityResults, addStyling bool, includeSeverity bool) table.Writer {
+	rows := tableBuilderInner(vulnResult, addStyling, includeSeverity, true)
 	for _, elem := range rows {
 		outputTable.AppendRow(elem.row, table.RowConfig{AutoMerge: elem.shouldMerge})
 	}
 
-	uncalledRows := tableBuilderInner(vulnResult, addStyling, false)
+	uncalledRows := tableBuilderInner(vulnResult, addStyling, includeSeverity, false)
 	if len(uncalledRows) == 0 {
 		return outputTable
 	}
@@ -65,7 +70,7 @@ type tbInnerResponse struct {
 	shouldMerge bool
 }
 
-func tableBuilderInner(vulnResult *models.VulnerabilityResults, addStyling bool, calledVulns bool) []tbInnerResponse {
+func tableBuilderInner(vulnResult *models.VulnerabilityResults, addStyling bool, includeSeverity bool, calledVulns bool) []tbInnerResponse {
 	allOutputRows := []tbInnerResponse{}
 	// Working directory used to simplify path
 	workingDir, workingDirErr := os.Getwd()
@@ -99,6 +104,25 @@ func tableBuilderInner(vulnResult *models.VulnerabilityResults, addStyling bool,
 				}
 
 				outputRow = append(outputRow, strings.Join(links, "\n"))
+
+				if includeSeverity {
+					var outputSeverities []string
+					for _, vulnID := range group.IDs {
+						var severities []models.Severity
+						for _, vuln := range pkg.Vulnerabilities {
+							if vuln.ID == vulnID {
+								severities = vuln.Severity
+							}
+						}
+						for i, severity := range severities {
+							if i != 0 {
+								outputSeverities = append(outputSeverities, ", ")
+							}
+							outputSeverities = append(outputSeverities, severity.Score)
+						}
+					}
+					outputRow = append(outputRow, strings.Join(outputSeverities, "\n"))
+				}
 
 				if pkg.Package.Ecosystem == "GIT" {
 					outputRow = append(outputRow, "GIT", pkg.Package.Version, pkg.Package.Version)

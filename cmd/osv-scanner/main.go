@@ -25,7 +25,7 @@ func run(args []string, stdout, stderr io.Writer) int {
 
 	cli.VersionPrinter = func(ctx *cli.Context) {
 		// Use the app Writer and ErrWriter since they will be the writers to keep parallel tests consistent
-		r = reporter.NewTableReporter(ctx.App.Writer, ctx.App.ErrWriter, false)
+		r = reporter.NewTableReporter(ctx.App.Writer, ctx.App.ErrWriter, false, false)
 		r.PrintText(fmt.Sprintf("osv-scanner version: %s\ncommit: %s\nbuilt at: %s\n", ctx.App.Version, commit, date))
 	}
 
@@ -104,6 +104,11 @@ func run(args []string, stdout, stderr io.Writer) int {
 				Usage: "also scan files that would be ignored by .gitignore",
 				Value: false,
 			},
+			&cli.BoolFlag{
+				Name:  "include-severity",
+				Usage: "include severity column in table format",
+				Value: false,
+			},
 		},
 		ArgsUsage: "[directory1 directory2...]",
 		Action: func(context *cli.Context) error {
@@ -117,9 +122,9 @@ func run(args []string, stdout, stderr io.Writer) int {
 			case "json":
 				r = reporter.NewJSONReporter(stdout, stderr)
 			case "table":
-				r = reporter.NewTableReporter(stdout, stderr, false)
+				r = reporter.NewTableReporter(stdout, stderr, false, context.Bool("include-severity"))
 			case "markdown":
-				r = reporter.NewTableReporter(stdout, stderr, true)
+				r = reporter.NewTableReporter(stdout, stderr, true, context.Bool("include-severity"))
 			default:
 				return fmt.Errorf("%v is not a valid format", format)
 			}
@@ -153,7 +158,7 @@ func run(args []string, stdout, stderr io.Writer) int {
 
 	if err := app.Run(args); err != nil {
 		if r == nil {
-			r = reporter.NewTableReporter(stdout, stderr, false)
+			r = reporter.NewTableReporter(stdout, stderr, false, false)
 		}
 		if errors.Is(err, osvscanner.VulnerabilitiesFoundErr) {
 			return 1
