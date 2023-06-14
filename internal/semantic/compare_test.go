@@ -2,10 +2,11 @@ package semantic_test
 
 import (
 	"bufio"
-	"github.com/google/osv-scanner/internal/semantic"
 	"os"
 	"strings"
 	"testing"
+
+	"github.com/google/osv-scanner/internal/semantic"
 )
 
 func expectedResult(t *testing.T, comparator string) int {
