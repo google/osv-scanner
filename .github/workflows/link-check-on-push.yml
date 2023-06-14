@@ -1,7 +1,8 @@
 name: Check links on push
 
 on: push
-
+permissions:  # added using https://github.com/step-security/secure-repo
+  contents: read
 jobs:
   markdown-link-check:
     runs-on: ubuntu-latest
