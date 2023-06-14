@@ -159,6 +159,29 @@ func TestRun(t *testing.T) {
 			`,
 			wantStderr: "",
 		},
+		// one specific supported sbom with vulns and severity output
+		{
+			name:         "",
+			args:         []string{"", "--config=./fixtures/osv-scanner-empty-config.toml", "--include-severity", "./fixtures/sbom-insecure/postgres-stretch.cdx.xml"},
+			wantExitCode: 1,
+			wantStdout: `
+				Scanning dir ./fixtures/sbom-insecure/postgres-stretch.cdx.xml
+				Scanned %%/fixtures/sbom-insecure/postgres-stretch.cdx.xml as CycloneDX SBOM and found 136 packages
+				+-------------------------------------+----------------------------------------------+-----------+---------+------------------------------------+-------------------------------------------------+
+				| OSV URL (ID IN BOLD)                | SEVERITY                                     | ECOSYSTEM | PACKAGE | VERSION                            | SOURCE                                          |
+				+-------------------------------------+----------------------------------------------+-----------+---------+------------------------------------+-------------------------------------------------+
+				| https://osv.dev/GHSA-v95c-p5hm-xq8f | CVSS:3.1/AV:N/AC:H/PR:L/UI:N/S:C/C:L/I:L/A:L | Go        | runc    | v1.0.1                             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+				| https://osv.dev/GO-2022-0274        |                                              |           |         |                                    |                                                 |
+				| https://osv.dev/GHSA-f3fp-gc8g-vw66 | CVSS:3.1/AV:L/AC:L/PR:N/UI:N/S:U/C:L/I:L/A:L | Go        | runc    | v1.0.1                             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+				| https://osv.dev/GHSA-g2j6-57v7-gm8c | CVSS:3.1/AV:L/AC:L/PR:N/UI:R/S:C/C:L/I:L/A:L | Go        | runc    | v1.0.1                             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+				| https://osv.dev/GHSA-m8cg-xc2p-r3fc | CVSS:3.1/AV:L/AC:H/PR:H/UI:N/S:C/C:N/I:N/A:L | Go        | runc    | v1.0.1                             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+				| https://osv.dev/GHSA-vpvm-3wq2-2wvm | CVSS:3.1/AV:L/AC:H/PR:L/UI:N/S:U/C:H/I:H/A:H | Go        | runc    | v1.0.1                             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+				| https://osv.dev/GHSA-p782-xgp4-8hr8 | CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:N/A:N | Go        | sys     | v0.0.0-20210817142637-7d9622a276b7 | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+				| https://osv.dev/GO-2022-0493        |                                              |           |         |                                    |                                                 |
+				+-------------------------------------+----------------------------------------------+-----------+---------+------------------------------------+-------------------------------------------------+
+			`,
+			wantStderr: "",
+		},
 		// one specific unsupported lockfile
 		{
 			name:         "",
