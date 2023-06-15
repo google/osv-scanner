@@ -1,10 +1,14 @@
 package output
 
 import (
+	"fmt"
 	"io"
 	"os"
 	"path/filepath"
 	"strings"
+
+	v2_metric "github.com/goark/go-cvss/v2/metric"
+	v3_metric "github.com/goark/go-cvss/v3/metric"
 
 	"github.com/google/osv-scanner/pkg/models"
 	"github.com/google/osv-scanner/pkg/osv"
@@ -118,7 +122,20 @@ func tableBuilderInner(vulnResult *models.VulnerabilityResults, addStyling bool,
 							if i != 0 {
 								outputSeverities = append(outputSeverities, ", ")
 							}
-							outputSeverities = append(outputSeverities, severity.Score)
+
+							var outputSeverity string
+							switch severity.Type {
+							case models.SeverityCVSSV2:
+								numericSeverity, _ := v2_metric.NewBase().Decode(severity.Score)
+								outputSeverity = fmt.Sprintf("%v", numericSeverity.Score())
+							case models.SeverityCVSSV3:
+								numericSeverity, _ := v3_metric.NewBase().Decode(severity.Score)
+								outputSeverity = fmt.Sprintf("%v", numericSeverity.Score())
+							default:
+								outputSeverity = severity.Score
+							}
+
+							outputSeverities = append(outputSeverities, outputSeverity)
 						}
 					}
 					outputRow = append(outputRow, strings.Join(outputSeverities, "\n"))
