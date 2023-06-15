@@ -2,9 +2,10 @@ package lockfile_test
 
 import (
 	"fmt"
-	"github.com/google/osv-scanner/pkg/lockfile"
 	"strings"
 	"testing"
+
+	"github.com/google/osv-scanner/pkg/lockfile"
 )
 
 func expectErrContaining(t *testing.T, err error, str string) {
