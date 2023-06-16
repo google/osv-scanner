@@ -13,16 +13,14 @@ type TableReporter struct {
 	stdout          io.Writer
 	stderr          io.Writer
 	markdown        bool
-	includeSeverity bool
 }
 
-func NewTableReporter(stdout io.Writer, stderr io.Writer, markdown bool, includeSeverity bool) *TableReporter {
+func NewTableReporter(stdout io.Writer, stderr io.Writer, markdown bool) *TableReporter {
 	return &TableReporter{
 		stdout:          stdout,
 		stderr:          stderr,
 		hasPrintedError: false,
 		markdown:        markdown,
-		includeSeverity: includeSeverity,
 	}
 }
 
@@ -46,9 +44,9 @@ func (r *TableReporter) PrintResult(vulnResult *models.VulnerabilityResults) err
 	}
 
 	if r.markdown {
-		output.PrintMarkdownTableResults(vulnResult, r.stdout, r.includeSeverity)
+		output.PrintMarkdownTableResults(vulnResult, r.stdout)
 	} else {
-		output.PrintTableResults(vulnResult, r.stdout, r.includeSeverity)
+		output.PrintTableResults(vulnResult, r.stdout)
 	}
 
 	return nil

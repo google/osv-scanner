@@ -19,15 +19,10 @@ import (
 )
 
 // PrintTableResults prints the osv scan results into a human friendly table.
-func PrintTableResults(vulnResult *models.VulnerabilityResults, outputWriter io.Writer, includeSeverity bool) {
+func PrintTableResults(vulnResult *models.VulnerabilityResults, outputWriter io.Writer) {
 	outputTable := table.NewWriter()
 	outputTable.SetOutputMirror(outputWriter)
-	row := table.Row{"OSV URL (ID In Bold)"}
-	if includeSeverity {
-		row = append(row, "Severity")
-	}
-	row = append(row, "Ecosystem", "Package", "Version", "Source")
-	outputTable.AppendHeader(row)
+	outputTable.AppendHeader(table.Row{"OSV URL", "CVSS", "Ecosystem", "Package", "Version", "Source"})
 	width, _, err := term.GetSize(int(os.Stdout.Fd()))
 	isTerminal := false
 	if err == nil { // If output is a terminal, set max length to width and add styling
@@ -39,7 +34,7 @@ func PrintTableResults(vulnResult *models.VulnerabilityResults, outputWriter io.
 		isTerminal = true
 	} // Otherwise use default ascii (e.g. getting piped to a file)
 
-	outputTable = tableBuilder(outputTable, vulnResult, isTerminal, includeSeverity)
+	outputTable = tableBuilder(outputTable, vulnResult, isTerminal)
 
 	if outputTable.Length() == 0 {
 		return
@@ -47,13 +42,13 @@ func PrintTableResults(vulnResult *models.VulnerabilityResults, outputWriter io.
 	outputTable.Render()
 }
 
-func tableBuilder(outputTable table.Writer, vulnResult *models.VulnerabilityResults, addStyling bool, includeSeverity bool) table.Writer {
-	rows := tableBuilderInner(vulnResult, addStyling, includeSeverity, true)
+func tableBuilder(outputTable table.Writer, vulnResult *models.VulnerabilityResults, addStyling bool) table.Writer {
+	rows := tableBuilderInner(vulnResult, addStyling, true)
 	for _, elem := range rows {
 		outputTable.AppendRow(elem.row, table.RowConfig{AutoMerge: elem.shouldMerge})
 	}
 
-	uncalledRows := tableBuilderInner(vulnResult, addStyling, includeSeverity, false)
+	uncalledRows := tableBuilderInner(vulnResult, addStyling, false)
 	if len(uncalledRows) == 0 {
 		return outputTable
 	}
@@ -74,7 +69,7 @@ type tbInnerResponse struct {
 	shouldMerge bool
 }
 
-func tableBuilderInner(vulnResult *models.VulnerabilityResults, addStyling bool, includeSeverity bool, calledVulns bool) []tbInnerResponse {
+func tableBuilderInner(vulnResult *models.VulnerabilityResults, addStyling bool, calledVulns bool) []tbInnerResponse {
 	allOutputRows := []tbInnerResponse{}
 	// Working directory used to simplify path
 	workingDir, workingDirErr := os.Getwd()
@@ -109,37 +104,35 @@ func tableBuilderInner(vulnResult *models.VulnerabilityResults, addStyling bool,
 
 				outputRow = append(outputRow, strings.Join(links, "\n"))
 
-				if includeSeverity {
-					var outputSeverities []string
-					for _, vulnID := range group.IDs {
-						var severities []models.Severity
-						for _, vuln := range pkg.Vulnerabilities {
-							if vuln.ID == vulnID {
-								severities = vuln.Severity
-							}
-						}
-						for i, severity := range severities {
-							if i != 0 {
-								outputSeverities = append(outputSeverities, ", ")
-							}
-
-							var outputSeverity string
-							switch severity.Type {
-							case models.SeverityCVSSV2:
-								numericSeverity, _ := v2_metric.NewBase().Decode(severity.Score)
-								outputSeverity = fmt.Sprintf("%v", numericSeverity.Score())
-							case models.SeverityCVSSV3:
-								numericSeverity, _ := v3_metric.NewBase().Decode(severity.Score)
-								outputSeverity = fmt.Sprintf("%v", numericSeverity.Score())
-							default:
-								outputSeverity = severity.Score
-							}
-
-							outputSeverities = append(outputSeverities, outputSeverity)
+				var outputSeverities []string
+				for _, vulnID := range group.IDs {
+					var severities []models.Severity
+					for _, vuln := range pkg.Vulnerabilities {
+						if vuln.ID == vulnID {
+							severities = vuln.Severity
 						}
 					}
-					outputRow = append(outputRow, strings.Join(outputSeverities, "\n"))
+					for i, severity := range severities {
+						if i != 0 {
+							outputSeverities = append(outputSeverities, ", ")
+						}
+
+						var outputSeverity string
+						switch severity.Type {
+						case models.SeverityCVSSV2:
+							numericSeverity, _ := v2_metric.NewBase().Decode(severity.Score)
+							outputSeverity = fmt.Sprintf("%v", numericSeverity.Score())
+						case models.SeverityCVSSV3:
+							numericSeverity, _ := v3_metric.NewBase().Decode(severity.Score)
+							outputSeverity = fmt.Sprintf("%v", numericSeverity.Score())
+						default:
+							outputSeverity = severity.Score
+						}
+
+						outputSeverities = append(outputSeverities, outputSeverity)
+					}
 				}
+				outputRow = append(outputRow, strings.Join(outputSeverities, "\n"))
 
 				if pkg.Package.Ecosystem == "GIT" {
 					outputRow = append(outputRow, "GIT", pkg.Package.Version, pkg.Package.Version)
