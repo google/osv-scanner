@@ -112,11 +112,7 @@ func tableBuilderInner(vulnResult *models.VulnerabilityResults, addStyling bool,
 							severities = vuln.Severity
 						}
 					}
-					for i, severity := range severities {
-						if i != 0 {
-							outputSeverities = append(outputSeverities, ", ")
-						}
-
+					for _, severity := range severities {
 						var outputSeverity string
 						switch severity.Type {
 						case models.SeverityCVSSV2:
@@ -132,7 +128,7 @@ func tableBuilderInner(vulnResult *models.VulnerabilityResults, addStyling bool,
 						outputSeverities = append(outputSeverities, outputSeverity)
 					}
 				}
-				outputRow = append(outputRow, strings.Join(outputSeverities, "\n"))
+				outputRow = append(outputRow, strings.Join(outputSeverities, ",\n"))
 
 				if pkg.Package.Ecosystem == "GIT" {
 					outputRow = append(outputRow, "GIT", pkg.Package.Version, pkg.Package.Version)
