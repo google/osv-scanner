@@ -57,7 +57,7 @@ This requires Go 1.18+ to be installed.
 
 ## Build from source
 
-See [CONTRIBUTING.md](CONTRIBUTING.md) file.
+See our [contribution guidelines](https://github.com/google/osv-scanner/blob/main/CONTRIBUTING.md) for instructions on how to build from source.
 
 ## Verifying Builds
 Each of our releases come with SLSA provenance data (`multiple.intoto.jsonl`), 

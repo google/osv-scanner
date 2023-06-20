@@ -2,9 +2,10 @@ package lockfile
 
 import (
 	"fmt"
-	"golang.org/x/mod/modfile"
 	"os"
 	"strings"
+
+	"golang.org/x/mod/modfile"
 )
 
 const GoEcosystem Ecosystem = "Go"

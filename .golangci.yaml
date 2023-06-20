@@ -3,10 +3,11 @@ output:
 linters:
   enable:
     - gofmt
+    - goimports
   # prettier-ignore
   disable:
-    - tagliatelle      # we're parsing data from external sources     (g-rath)
-    - varnamelen       # maybe later  (g-rath)
+    - tagliatelle      # we're parsing data from external sources (g-rath)
+    - varnamelen       # maybe later (g-rath)
     - exhaustivestruct # deprecated
     - exhaustruct      # overkill (g-rath)
     - forcetypeassert  # too hard (g-rath)
@@ -18,10 +19,10 @@ linters:
     - structcheck      # deprecated
     - deadcode         # deprecated
     - nosnakecase      # deprecated
-    - lll              # line length is hard  (g-rath)
-    - godox            # to-do comments are fine  (g-rath)
+    - lll              # line length is hard (g-rath)
+    - godox            # to-do comments are fine (g-rath)
     - godot            # comments are fine without full stops (g-rath)
-    - gomnd            # not every number is magic  (g-rath)
+    - gomnd            # not every number is magic (g-rath)
     - wsl              # disagree with, for now (g-rath)
     - ireturn          # disagree with, sort of (g-rath)
     - gochecknoglobals # disagree with, for non changing variables (another-rex)
