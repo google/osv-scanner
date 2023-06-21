@@ -54,6 +54,53 @@ type TextOutput struct {
 	}
 }
 
+// GroupFixedVersions builds the fixed versions for each ID Group
+func GroupFixedVersions(flattened []models.VulnerabilityFlattened) map[string][]string {
+	groupFixedVersions := map[string][]string{}
+
+	// Get the fixed versions indexed by each group of vulnerabilities
+	// Prepend source path as same vulnerability in two projects should be counted twice
+	// Remember to sort and compact before displaying later
+	for _, vf := range flattened {
+		groupIdx := vf.Source.String() + ":" + vf.GroupInfo.IndexString()
+		groupFixedVersions[groupIdx] =
+			append(groupFixedVersions[groupIdx], vf.Vulnerability.FixedVersions()...)
+	}
+
+	// Remove duplicates
+	for k := range groupFixedVersions {
+		fixedVersions := groupFixedVersions[k]
+		slices.Sort(fixedVersions)
+		groupFixedVersions[k] = slices.Compact(fixedVersions)
+	}
+
+	return groupFixedVersions
+}
+
+// CreateSourceRemediationTable creates a vulnerability table which includes the fixed versions for a specific source file
+func CreateSourceRemediationTable(source *models.PackageSource, groupFixedVersions map[string][]string) table.Writer {
+	remediationTable := table.NewWriter()
+	remediationTable.AppendHeader(table.Row{"Package", "Vulnerability ID", "Current Version", "Fixed Version"})
+
+	for _, pv := range source.Packages {
+		for _, group := range pv.Groups {
+			fixedVersions := groupFixedVersions[source.Source.String()+":"+group.IndexString()]
+
+			vulnIDs := []string{}
+			for _, id := range group.IDs {
+				vulnIDs = append(vulnIDs, fmt.Sprintf("[%[1]s](https://osv.dev/vulnerability/%[1]s)", id))
+			}
+			remediationTable.AppendRow(table.Row{
+				pv.Package.Name,
+				strings.Join(vulnIDs, "\n"),
+				pv.Package.Version,
+				strings.Join(fixedVersions, "\n")})
+		}
+	}
+
+	return remediationTable
+}
+
 // PrintMarkdownTextResults prints the osv scan results into a human friendly table.
 func PrintMarkdownTextResults(vulnResult *models.VulnerabilityResults, outputWriter io.Writer) {
 	// This template does not automatically escape values
@@ -63,7 +110,6 @@ func PrintMarkdownTextResults(vulnResult *models.VulnerabilityResults, outputWri
 	}
 
 	output := TextOutput{}
-	flattened := vulnResult.Flatten()
 
 	output.ManifestNum = len(vulnResult.Results)
 
@@ -80,14 +126,9 @@ func PrintMarkdownTextResults(vulnResult *models.VulnerabilityResults, outputWri
 		}
 	}
 
+	flattened := vulnResult.Flatten()
 	// Get the fixed versions indexed by each group of vulnerabilities
-	groupFixedVersions := map[string][]string{}
-	for _, vf := range flattened {
-		// Prepend source path as same vulnerability in two projects should be counted twice
-		groupIdx := vf.Source.String() + ":" + vf.GroupInfo.IndexString()
-		groupFixedVersions[groupIdx] = // Remember to sort and compact before displaying later
-			append(groupFixedVersions[groupIdx], vf.Vulnerability.FixedVersions()...)
-	}
+	groupFixedVersions := GroupFixedVersions(flattened)
 
 	// Count fixable vuln number
 	for id, val := range groupFixedVersions {
@@ -119,27 +160,7 @@ func PrintMarkdownTextResults(vulnResult *models.VulnerabilityResults, outputWri
 	output.VulnTable = outputDetailedTable.RenderMarkdown()
 
 	for _, source := range vulnResult.Results {
-		remediationTable := table.NewWriter()
-		remediationTable.AppendHeader(table.Row{"Package", "Vulnerability ID", "Current Version", "Fixed Version"})
-
-		for _, pv := range source.Packages {
-			for _, group := range pv.Groups {
-				fixedVersions := groupFixedVersions[source.Source.String()+":"+group.IndexString()]
-				// Remove duplicates
-				slices.Sort(fixedVersions)
-				fixedVersions = slices.Compact(fixedVersions)
-
-				vulnIDs := []string{}
-				for _, id := range group.IDs {
-					vulnIDs = append(vulnIDs, fmt.Sprintf("[%[1]s](https://osv.dev/vulnerability/%[1]s)", id))
-				}
-				remediationTable.AppendRow(table.Row{
-					pv.Package.Name,
-					strings.Join(vulnIDs, "\n"),
-					pv.Package.Version,
-					strings.Join(fixedVersions, "\n")})
-			}
-		}
+		remediationTable := CreateSourceRemediationTable(&source, groupFixedVersions)
 
 		output.Sources = append(output.Sources, struct {
 			Name  string

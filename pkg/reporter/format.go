@@ -20,7 +20,7 @@ func GetReporter(format string, stdout, stderr io.Writer) (Reporter, error) {
 	case "markdown":
 		return NewTableReporter(stdout, stderr, true), nil
 	case "report":
-		return NewMarkdownReporter(stdout, stderr), nil
+		return NewSarifReporter(stdout, stderr), nil
 	default:
 		return nil, fmt.Errorf("%v is not a valid format", format)
 	}
