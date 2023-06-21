@@ -56,7 +56,7 @@ func (r *SARIFReporter) PrintResult(vulnResult *models.VulnerabilityResults) err
 		artifactPath := "file:///" + source.Source.Path
 		run.AddDistinctArtifact(artifactPath)
 
-		remediationTable := output.CreateSourceRemediationTable(&source, groupFixedVersions)
+		remediationTable := output.CreateSourceRemediationTable(source, groupFixedVersions)
 
 		run.CreateResultForRule("vulnerable-packages").
 			WithLevel("warning").
@@ -70,7 +70,10 @@ func (r *SARIFReporter) PrintResult(vulnResult *models.VulnerabilityResults) err
 
 	report.AddRun(run)
 
-	report.PrettyWrite(r.stdout)
+	err = report.PrettyWrite(r.stdout)
+	if err != nil {
+		return err
+	}
 	fmt.Fprintln(r.stdout)
 
 	return nil

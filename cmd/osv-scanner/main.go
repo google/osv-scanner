@@ -154,10 +154,13 @@ func run(args []string, stdout, stderr io.Writer) int {
 			if outputPath != "" {
 				file, err := os.Create(outputPath)
 				if err != nil {
-					return fmt.Errorf("Failed to create output file: %w", err)
+					return fmt.Errorf("failed to create output file: %w", err)
 				}
 
-				file.Write(outputBuffer.Bytes())
+				_, err = file.Write(outputBuffer.Bytes())
+				if err != nil {
+					return fmt.Errorf("failed to write to output file: %w", err)
+				}
 			}
 
 			// Could be nil, VulnerabilitiesFoundErr, or OnlyUncalledVulnerabilitiesFoundErr
