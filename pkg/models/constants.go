@@ -22,6 +22,7 @@ const (
 	EcosystemConanCenter   Ecosystem = "ConanCenter"
 	EcosystemRockyLinux    Ecosystem = "Rocky Linux"
 	EcosystemAlmaLinux     Ecosystem = "AlmaLinux"
+	EcosystemBitnami       Ecosystem = "Bitnami"
 )
 
 type SeverityType string
