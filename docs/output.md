@@ -20,12 +20,12 @@ osv-scanner --format table your/project/dir
 <summary><b>Sample table output</b></summary>
 
 ```bash
-╭─────────────────────────────────────┬───────────┬──────────────────────────┬─────────┬────────────────────╮
-│ OSV URL (ID IN BOLD)                │ ECOSYSTEM │ PACKAGE                  │ VERSION │ SOURCE             │
-├─────────────────────────────────────┼───────────┼──────────────────────────┼─────────┼────────────────────┤
-│ https://osv.dev/GHSA-c3h9-896r-86jm │ Go        │ github.com/gogo/protobuf │ 1.3.1   │ path/to/go.mod     │
-│ https://osv.dev/GHSA-m5pq-gvj9-9vr8 │ crates.io │ regex                    │ 1.3.1   │ path/to/Cargo.lock │
-╰─────────────────────────────────────┴───────────┴──────────────────────────┴─────────┴────────────────────╯
+╭──────────────────────────────────────┬─────────────┬───────────┬──────────────────────────┬─────────┬────────────────────╮
+│ OSV URL                              │    CVSS     │ ECOSYSTEM │ PACKAGE                  │ VERSION │ SOURCE             │
+├──────────────────────────────────────┼─────────────┼───────────┼──────────────────────────┼─────────┼────────────────────┤
+│ https://osv.dev/GHSA-c3h9-896r-86jm  |    8.6      │ Go        │ github.com/gogo/protobuf │ 1.3.1   │ path/to/go.mod     │
+│ https://osv.dev/GHSA-m5pq-gvj9-9vr8  |    7.5      │ crates.io │ regex                    │ 1.3.1   │ path/to/Cargo.lock │
+╰──────────────────────────────────────┴─────────────┴───────────┴──────────────────────────┴─────────┴────────────────────╯
 ```
 </details>
 
@@ -43,18 +43,18 @@ osv-scanner --format markdown your/project/dir
 **Raw output:**
 
 ```
-| OSV URL | Ecosystem | Package | Version | Source |
-| --- | --- | --- | --- | --- |
-| https://osv.dev/GHSA-c3h9-896r-86jm<br/>https://osv.dev/GO-2021-0053 | Go | github.com/gogo/protobuf | 1.3.1 | ../scorecard-check-osv-e2e/go.mod |
-| https://osv.dev/GHSA-m5pq-gvj9-9vr8<br/>https://osv.dev/RUSTSEC-2022-0013 | crates.io | regex | 1.5.1 | ../scorecard-check-osv-e2e/sub-rust-project/Cargo.lock |
+| OSV URL | CVSS | Ecosystem | Package | Version | Source |
+| --- | --- | --- | --- | --- | --- |
+| https://osv.dev/GHSA-c3h9-896r-86jm<br/>https://osv.dev/GO-2021-0053 | 8.6 | Go | github.com/gogo/protobuf | 1.3.1 | ../scorecard-check-osv-e2e/go.mod |
+| https://osv.dev/GHSA-m5pq-gvj9-9vr8<br/>https://osv.dev/RUSTSEC-2022-0013 | 7.5 | crates.io | regex | 1.5.1 | ../scorecard-check-osv-e2e/sub-rust-project/Cargo.lock |
 ```
 
 **Rendered:**
 
-| OSV URL | Ecosystem | Package | Version | Source |
-| --- | --- | --- | --- | --- |
-| https://osv.dev/GHSA-c3h9-896r-86jm<br/>https://osv.dev/GO-2021-0053 | Go | github.com/gogo/protobuf | 1.3.1 | ../scorecard-check-osv-e2e/go.mod |
-| https://osv.dev/GHSA-m5pq-gvj9-9vr8<br/>https://osv.dev/RUSTSEC-2022-0013 | crates.io | regex | 1.5.1 | ../scorecard-check-osv-e2e/sub-rust-project/Cargo.lock |
+| OSV URL | CVSS | Ecosystem | Package | Version | Source |
+| --- | --- | --- | --- | --- | --- |
+| https://osv.dev/GHSA-c3h9-896r-86jm<br/>https://osv.dev/GO-2021-0053 | 8.6 | Go | github.com/gogo/protobuf | 1.3.1 | ../scorecard-check-osv-e2e/go.mod |
+| https://osv.dev/GHSA-m5pq-gvj9-9vr8<br/>https://osv.dev/RUSTSEC-2022-0013 | 7.5 | crates.io | regex | 1.5.1 | ../scorecard-check-osv-e2e/sub-rust-project/Cargo.lock |
 
 </details>
 
