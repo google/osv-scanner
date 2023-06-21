@@ -20,6 +20,8 @@ const (
 	EcosystemGitHubActions Ecosystem = "GitHub Actions"
 	EcosystemPub           Ecosystem = "Pub"
 	EcosystemConanCenter   Ecosystem = "ConanCenter"
+	EcosystemRockyLinux    Ecosystem = "Rocky Linux"
+	EcosystemAlmaLinux     Ecosystem = "AlmaLinux"
 )
 
 type SeverityType string
@@ -40,13 +42,16 @@ const (
 type ReferenceType string
 
 const (
-	ReferenceAdvisory ReferenceType = "ADVISORY"
-	ReferenceArticle  ReferenceType = "ARTICLE"
-	ReferenceReport   ReferenceType = "REPORT"
-	ReferenceFix      ReferenceType = "FIX"
-	ReferencePackage  ReferenceType = "PACKAGE"
-	ReferenceEvidence ReferenceType = "EVIDENCE"
-	ReferenceWeb      ReferenceType = "WEB"
+	ReferenceAdvisory   ReferenceType = "ADVISORY"
+	ReferenceArticle    ReferenceType = "ARTICLE"
+	ReferenceDetection  ReferenceType = "DETECTION"
+	ReferenceDiscussion ReferenceType = "DISCUSSION"
+	ReferenceReport     ReferenceType = "REPORT"
+	ReferenceFix        ReferenceType = "FIX"
+	ReferenceIntroduced ReferenceType = "INTRODUCED"
+	ReferencePackage    ReferenceType = "PACKAGE"
+	ReferenceEvidence   ReferenceType = "EVIDENCE"
+	ReferenceWeb        ReferenceType = "WEB"
 )
 
 type CreditType string
