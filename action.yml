@@ -4,18 +4,21 @@ description: 'Scans your directory against the OSV database (Experimental)'
 inputs:
   to-scan:
     description: 'Directory to scan'
-    required: true
-    default: '/github/workspace'
-  version:
-    description: 'osv-scanner version to use'
-    required: true
-  arch:
-    description: 'osv-scanner architecture'
     required: false
-    default: 'amd64'
+    default: '/github/workspace'
+  results_file:
+    description: "OUTPUT: Path to file to store results"
+    required: true
+  results_format:
+    description: "Output result format"
+    required: false
+    default: 'report'
 runs:
   using: 'docker'
-  image: 'ghcr.io/google/osv-scanner:${{ inputs.version }}-${{ inputs.arch }}'
+  image: 'ghcr.io/google/osv-scanner:v1.3.4'
   args:
     - '--skip-git'
+    - '--format ${{ inputs.results_format }}'
+    - '--output ${{ inputs.results_file }}'
+    - '-r'
     - ${{ inputs.to-scan }}

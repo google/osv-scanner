@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bytes"
 	"errors"
 	"fmt"
 	"io"
@@ -27,7 +28,7 @@ func run(args []string, stdout, stderr io.Writer) int {
 
 	cli.VersionPrinter = func(ctx *cli.Context) {
 		// Use the app Writer and ErrWriter since they will be the writers to keep parallel tests consistent
-		r = reporter.NewTableReporter(ctx.App.Writer, ctx.App.ErrWriter, false)
+		r = reporter.NewTableReporter(ctx.App.Writer, ctx.App.ErrWriter, false, 0)
 		r.PrintText(fmt.Sprintf("osv-scanner version: %s\ncommit: %s\nbuilt at: %s\n", ctx.App.Version, commit, date))
 	}
 
@@ -81,6 +82,11 @@ func run(args []string, stdout, stderr io.Writer) int {
 				Name:  "json",
 				Usage: "sets output to json (deprecated, use --format json instead)",
 			},
+			&cli.StringFlag{
+				Name:      "output",
+				Usage:     "save result output to file",
+				TakesFile: true,
+			},
 			&cli.BoolFlag{
 				Name:  "skip-git",
 				Usage: "skip scanning git repositories",
@@ -111,8 +117,14 @@ func run(args []string, stdout, stderr io.Writer) int {
 				format = "json"
 			}
 
+			outputPath := context.String("output")
+			outputBuffer := &bytes.Buffer{}
+			if outputPath != "" {
+				stdout = outputBuffer
+			}
+
 			var err error
-			if r, err = reporter.GetReporter(format, stdout, stderr); err != nil {
+			if r, err = reporter.GetReporter(format, stdout, stderr, outputPath != ""); err != nil {
 				return err
 			}
 
@@ -139,13 +151,22 @@ func run(args []string, stdout, stderr io.Writer) int {
 				return fmt.Errorf("failed to write output: %w", errPrint)
 			}
 
-			return err
+			if outputPath != "" {
+				file, err := os.Create(outputPath)
+				if err != nil {
+					return fmt.Errorf("Failed to create output file: %w", err)
+				}
+
+				file.Write(outputBuffer.Bytes())
+			}
+
+			return nil
 		},
 	}
 
 	if err := app.Run(args); err != nil {
 		if r == nil {
-			r = reporter.NewTableReporter(stdout, stderr, false)
+			r = reporter.NewTableReporter(stdout, stderr, false, 0)
 		}
 		if errors.Is(err, osvscanner.VulnerabilitiesFoundErr) {
 			return 1
