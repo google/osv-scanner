@@ -160,7 +160,8 @@ func run(args []string, stdout, stderr io.Writer) int {
 				file.Write(outputBuffer.Bytes())
 			}
 
-			return nil
+			// Could be nil, VulnerabilitiesFoundErr, or OnlyUncalledVulnerabilitiesFoundErr
+			return err
 		},
 	}
 
