@@ -18,6 +18,6 @@ runs:
   image: 'ghcr.io/google/osv-scanner:v1.3.4'
   args:
     - '--skip-git'
-    - '--output ${{ inputs.results_file }}'
-    - '--format ${{ inputs.results_format }}'
+    - '--output=${{ inputs.results_file }}'
+    - '--format=${{ inputs.results_format }}'
     - ${{ inputs.to-scan }}
