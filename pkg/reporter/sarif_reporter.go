@@ -58,7 +58,7 @@ func (r *SARIFReporter) PrintResult(vulnResult *models.VulnerabilityResults) err
 
 		run.CreateResultForRule("vulnerable-packages").
 			WithLevel("warning").
-			WithMessage(sarif.NewMarkdownMessage(remediationTable.RenderMarkdown())).
+			WithMessage(sarif.NewMessage().WithMarkdown(remediationTable.RenderMarkdown()).WithText(remediationTable.Render())).
 			AddLocation(
 				sarif.NewLocationWithPhysicalLocation(
 					sarif.NewPhysicalLocation().
