@@ -33,7 +33,7 @@ func (r *SARIFReporter) HasPrintedError() bool {
 }
 
 func (r *SARIFReporter) PrintText(msg string) {
-	fmt.Fprint(r.stdout, msg)
+	fmt.Fprint(r.stderr, msg)
 }
 
 func (r *SARIFReporter) PrintResult(vulnResult *models.VulnerabilityResults) error {
