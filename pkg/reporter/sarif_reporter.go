@@ -3,6 +3,9 @@ package reporter
 import (
 	"fmt"
 	"io"
+	"os"
+	"path/filepath"
+	"strings"
 
 	"github.com/google/osv-scanner/internal/output"
 	"github.com/google/osv-scanner/pkg/models"
@@ -48,17 +51,32 @@ func (r *SARIFReporter) PrintResult(vulnResult *models.VulnerabilityResults) err
 	flattened := vulnResult.Flatten()
 
 	groupFixedVersions := output.GroupFixedVersions(flattened)
+	workingDir, workingDirErr := os.Getwd()
 
 	for _, source := range vulnResult.Results {
 		// TODO: Support docker images
-		artifactPath := "file:///" + source.Source.Path
+
+		var artifactPath string
+		if workingDirErr == nil {
+			artifactPath, err = filepath.Rel(workingDir, source.Source.Path)
+			if err != nil {
+				artifactPath = source.Source.Path
+			}
+		} else {
+			artifactPath = source.Source.Path
+		}
 		run.AddDistinctArtifact(artifactPath)
 
 		remediationTable := output.CreateSourceRemediationTable(source, groupFixedVersions)
 
+		renderedTable := remediationTable.Render()
+		// This is required since the github message rendering is a mixture of
+		// monospaced font text and markdown. Continuous spaces will be compressed
+		// down to one space, breaking the table rendering
+		renderedTable = strings.ReplaceAll(renderedTable, "  ", " &nbsp;")
 		run.CreateResultForRule("vulnerable-packages").
 			WithLevel("warning").
-			WithMessage(sarif.NewMessage().WithMarkdown(remediationTable.RenderMarkdown()).WithText(remediationTable.Render())).
+			WithMessage(sarif.NewMessage().WithText(renderedTable)).
 			AddLocation(
 				sarif.NewLocationWithPhysicalLocation(
 					sarif.NewPhysicalLocation().
