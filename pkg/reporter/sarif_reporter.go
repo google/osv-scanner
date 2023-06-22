@@ -44,9 +44,7 @@ func (r *SARIFReporter) PrintResult(vulnResult *models.VulnerabilityResults) err
 
 	run := sarif.NewRunWithInformationURI("osv-scanner", "https://github.com/google/osv-scanner")
 	run.AddRule("vulnerable-packages").
-		WithDescription("This manifest file contains one or more vulnerable packages.").
-		WithMarkdownHelp("# markdown")
-
+		WithDescription("This manifest file contains one or more vulnerable packages.")
 	flattened := vulnResult.Flatten()
 
 	groupFixedVersions := output.GroupFixedVersions(flattened)
