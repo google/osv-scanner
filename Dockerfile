@@ -34,5 +34,6 @@ RUN git config --global --add safe.directory '*'
 
 WORKDIR /root/
 COPY --from=0 /src/osv-scanner ./
+COPY ./exit_code_redirect.sh ./
 
-ENTRYPOINT ["/root/osv-scanner"]
+ENTRYPOINT ["/root/exit_code_redirect.sh"]

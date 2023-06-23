@@ -20,4 +20,5 @@ runs:
     - '--skip-git'
     - '--output=${{ inputs.results-file }}'
     - '--format=${{ inputs.results-format }}'
+    - '-r'
     - ${{ inputs.to-scan }}
