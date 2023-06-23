@@ -144,18 +144,18 @@ func TestRun(t *testing.T) {
 			wantStdout: `
 				Scanning dir ./fixtures/sbom-insecure/postgres-stretch.cdx.xml
 				Scanned %%/fixtures/sbom-insecure/postgres-stretch.cdx.xml as CycloneDX SBOM and found 136 packages
-				+-------------------------------------+-----------+---------+------------------------------------+-------------------------------------------------+
-				| OSV URL (ID IN BOLD)                | ECOSYSTEM | PACKAGE | VERSION                            | SOURCE                                          |
-				+-------------------------------------+-----------+---------+------------------------------------+-------------------------------------------------+
-				| https://osv.dev/GHSA-v95c-p5hm-xq8f | Go        | runc    | v1.0.1                             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
-				| https://osv.dev/GO-2022-0274        |           |         |                                    |                                                 |
-				| https://osv.dev/GHSA-f3fp-gc8g-vw66 | Go        | runc    | v1.0.1                             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
-				| https://osv.dev/GHSA-g2j6-57v7-gm8c | Go        | runc    | v1.0.1                             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
-				| https://osv.dev/GHSA-m8cg-xc2p-r3fc | Go        | runc    | v1.0.1                             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
-				| https://osv.dev/GHSA-vpvm-3wq2-2wvm | Go        | runc    | v1.0.1                             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
-				| https://osv.dev/GHSA-p782-xgp4-8hr8 | Go        | sys     | v0.0.0-20210817142637-7d9622a276b7 | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
-				| https://osv.dev/GO-2022-0493        |           |         |                                    |                                                 |
-				+-------------------------------------+-----------+---------+------------------------------------+-------------------------------------------------+
+				+-------------------------------------+------+-----------+---------+------------------------------------+-------------------------------------------------+
+				| OSV URL                             | CVSS | ECOSYSTEM | PACKAGE | VERSION                            | SOURCE                                          |
+				+-------------------------------------+------+-----------+---------+------------------------------------+-------------------------------------------------+
+				| https://osv.dev/GHSA-v95c-p5hm-xq8f | 6    | Go        | runc    | v1.0.1                             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+				| https://osv.dev/GO-2022-0274        |      |           |         |                                    |                                                 |
+				| https://osv.dev/GHSA-f3fp-gc8g-vw66 | 5.9  | Go        | runc    | v1.0.1                             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+				| https://osv.dev/GHSA-g2j6-57v7-gm8c | 6.1  | Go        | runc    | v1.0.1                             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+				| https://osv.dev/GHSA-m8cg-xc2p-r3fc | 2.5  | Go        | runc    | v1.0.1                             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+				| https://osv.dev/GHSA-vpvm-3wq2-2wvm | 7    | Go        | runc    | v1.0.1                             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+				| https://osv.dev/GHSA-p782-xgp4-8hr8 | 5.3  | Go        | sys     | v0.0.0-20210817142637-7d9622a276b7 | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+				| https://osv.dev/GO-2022-0493        |      |           |         |                                    |                                                 |
+				+-------------------------------------+------+-----------+---------+------------------------------------+-------------------------------------------------+
 			`,
 			wantStderr: "",
 		},
@@ -379,11 +379,11 @@ func TestRun_LockfileWithExplicitParseAs(t *testing.T) {
 				Scanned %%/fixtures/locks-insecure/my-package-lock.json file as a package-lock.json and found 1 packages
 				Scanning dir ./fixtures/locks-insecure
 				Scanned %%/fixtures/locks-insecure/composer.lock file and found 0 packages
-				+-------------------------------------+-----------+-----------+---------+----------------------------------------------+
-				| OSV URL (ID IN BOLD)                | ECOSYSTEM | PACKAGE   | VERSION | SOURCE                                       |
-				+-------------------------------------+-----------+-----------+---------+----------------------------------------------+
-				| https://osv.dev/GHSA-whgm-jr23-g3j9 | npm       | ansi-html | 0.0.1   | fixtures/locks-insecure/my-package-lock.json |
-				+-------------------------------------+-----------+-----------+---------+----------------------------------------------+
+				+-------------------------------------+------+-----------+-----------+---------+----------------------------------------------+
+				| OSV URL                             | CVSS | ECOSYSTEM | PACKAGE   | VERSION | SOURCE                                       |
+				+-------------------------------------+------+-----------+-----------+---------+----------------------------------------------+
+				| https://osv.dev/GHSA-whgm-jr23-g3j9 | 7.5  | npm       | ansi-html | 0.0.1   | fixtures/locks-insecure/my-package-lock.json |
+				+-------------------------------------+------+-----------+-----------+---------+----------------------------------------------+
 			`,
 			wantStderr: "",
 		},
@@ -402,12 +402,12 @@ func TestRun_LockfileWithExplicitParseAs(t *testing.T) {
 				Scanned %%/fixtures/locks-insecure/my-yarn.lock file as a yarn.lock and found 1 packages
 				Scanning dir ./fixtures/locks-insecure
 				Scanned %%/fixtures/locks-insecure/composer.lock file and found 0 packages
-				+-------------------------------------+-----------+-----------+---------+----------------------------------------------+
-				| OSV URL (ID IN BOLD)                | ECOSYSTEM | PACKAGE   | VERSION | SOURCE                                       |
-				+-------------------------------------+-----------+-----------+---------+----------------------------------------------+
-				| https://osv.dev/GHSA-whgm-jr23-g3j9 | npm       | ansi-html | 0.0.1   | fixtures/locks-insecure/my-package-lock.json |
-				| https://osv.dev/GHSA-whgm-jr23-g3j9 | npm       | ansi-html | 0.0.1   | fixtures/locks-insecure/my-yarn.lock         |
-				+-------------------------------------+-----------+-----------+---------+----------------------------------------------+
+				+-------------------------------------+------+-----------+-----------+---------+----------------------------------------------+
+				| OSV URL                             | CVSS | ECOSYSTEM | PACKAGE   | VERSION | SOURCE                                       |
+				+-------------------------------------+------+-----------+-----------+---------+----------------------------------------------+
+				| https://osv.dev/GHSA-whgm-jr23-g3j9 | 7.5  | npm       | ansi-html | 0.0.1   | fixtures/locks-insecure/my-package-lock.json |
+				| https://osv.dev/GHSA-whgm-jr23-g3j9 | 7.5  | npm       | ansi-html | 0.0.1   | fixtures/locks-insecure/my-yarn.lock         |
+				+-------------------------------------+------+-----------+-----------+---------+----------------------------------------------+
 			`,
 			wantStderr: "",
 		},
@@ -425,12 +425,12 @@ func TestRun_LockfileWithExplicitParseAs(t *testing.T) {
 				Scanned %%/fixtures/locks-insecure/my-package-lock.json file as a package-lock.json and found 1 packages
 				Scanning dir ./fixtures/locks-insecure
 				Scanned %%/fixtures/locks-insecure/composer.lock file and found 0 packages
-				+-------------------------------------+-----------+-----------+---------+----------------------------------------------+
-				| OSV URL (ID IN BOLD)                | ECOSYSTEM | PACKAGE   | VERSION | SOURCE                                       |
-				+-------------------------------------+-----------+-----------+---------+----------------------------------------------+
-				| https://osv.dev/GHSA-whgm-jr23-g3j9 | npm       | ansi-html | 0.0.1   | fixtures/locks-insecure/my-package-lock.json |
-				| https://osv.dev/GHSA-whgm-jr23-g3j9 | npm       | ansi-html | 0.0.1   | fixtures/locks-insecure/my-yarn.lock         |
-				+-------------------------------------+-----------+-----------+---------+----------------------------------------------+
+				+-------------------------------------+------+-----------+-----------+---------+----------------------------------------------+
+				| OSV URL                             | CVSS | ECOSYSTEM | PACKAGE   | VERSION | SOURCE                                       |
+				+-------------------------------------+------+-----------+-----------+---------+----------------------------------------------+
+				| https://osv.dev/GHSA-whgm-jr23-g3j9 | 7.5  | npm       | ansi-html | 0.0.1   | fixtures/locks-insecure/my-package-lock.json |
+				| https://osv.dev/GHSA-whgm-jr23-g3j9 | 7.5  | npm       | ansi-html | 0.0.1   | fixtures/locks-insecure/my-yarn.lock         |
+				+-------------------------------------+------+-----------+-----------+---------+----------------------------------------------+
 			`,
 			wantStderr: "",
 		},

@@ -7,6 +7,7 @@ require (
 	github.com/CycloneDX/cyclonedx-go v0.7.1
 	github.com/go-git/go-billy/v5 v5.4.1
 	github.com/go-git/go-git/v5 v5.7.0
+	github.com/goark/go-cvss v1.6.6
 	github.com/google/go-cmp v0.5.9
 	github.com/jedib0t/go-pretty/v6 v6.4.6
 	github.com/kr/pretty v0.3.1
@@ -32,6 +33,7 @@ require (
 	github.com/cpuguy83/go-md2man/v2 v2.0.2 // indirect
 	github.com/emirpasic/gods v1.18.1 // indirect
 	github.com/go-git/gcfg v1.5.1-0.20230307220236-3a3c6141e376 // indirect
+	github.com/goark/errs v1.1.0 // indirect
 	github.com/golang/groupcache v0.0.0-20210331224755-41bb18bfe9da // indirect
 	github.com/imdario/mergo v0.3.15 // indirect
 	github.com/jbenet/go-context v0.0.0-20150711004518-d14ea06fba99 // indirect
