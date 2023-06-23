@@ -52,8 +52,8 @@ jobs:
           results-file: results.sarif
           recursive-scan: false
           to-scan: |-
-          ./
-          ./cmd/osv-scanner/fixtures/locks-many/
+            ./
+            ./cmd/osv-scanner/fixtures/locks-many/
 
 
       # Upload the results as artifacts (optional). Commenting out will disable uploads of run results in SARIF
