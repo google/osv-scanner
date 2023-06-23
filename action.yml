@@ -6,10 +6,10 @@ inputs:
     description: 'Directories to scan'
     required: false
     default: "./"
-  results_file:
+  results-file:
     description: 'OUTPUT: Path to file to store results'
     required: true
-  results_format:
+  results-format:
     description: 'Output result format'
     required: false
     default: 'report'
@@ -18,6 +18,6 @@ runs:
   image: 'ghcr.io/another-rex/osv-scanner:markdown-test'
   args:
     - '--skip-git'
-    - '--output=${{ inputs.results_file }}'
-    - '--format=${{ inputs.results_format }}'
-    - ${{ fromJson(inputs.to-scan) }}
+    - '--output=${{ inputs.results-file }}'
+    - '--format=${{ inputs.results-format }}'
+    - ${{ inputs.to-scan }}
