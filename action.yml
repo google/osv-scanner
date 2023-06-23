@@ -3,14 +3,14 @@ name: 'osv-scanner'
 description: 'Scans your directory against the OSV database (Experimental)'
 inputs:
   to-scan:
-    description: 'Directory to scan'
+    description: 'Directories to scan'
     required: false
-    default: '/github/workspace'
+    default: "./"
   results_file:
-    description: "OUTPUT: Path to file to store results"
+    description: 'OUTPUT: Path to file to store results'
     required: true
   results_format:
-    description: "Output result format"
+    description: 'Output result format'
     required: false
     default: 'report'
 runs:
@@ -20,5 +20,4 @@ runs:
     - '--skip-git'
     - '--output=${{ inputs.results_file }}'
     - '--format=${{ inputs.results_format }}'
-    - '-r'
-    - ${{ inputs.to-scan }}
+    - ${{ fromJson(inputs.to-scan) }}
