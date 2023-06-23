@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Execute osv-scanner with the provided arguments
-./osv-scanner "$@"
+osv-scanner "$@"
 
 # Store the exit code
 exit_code=$?

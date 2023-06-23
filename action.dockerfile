@@ -27,12 +27,16 @@ RUN go build -o osv-scanner ./cmd/osv-scanner/
 FROM alpine:3.17@sha256:124c7d2707904eea7431fffe91522a01e5a861a624ee31d03372cc1d138a3126
 RUN apk --no-cache add \
     ca-certificates \
-    git
+    git \
+    bash
 
 # Allow git to run on mounted directories
 RUN git config --global --add safe.directory '*'
 
 WORKDIR /root/
 COPY --from=0 /src/osv-scanner ./
+COPY ./exit_code_redirect.sh ./
 
-ENTRYPOINT ["/root/osv-scanner"]
+ENV PATH="${PATH}:/root"
+
+ENTRYPOINT ["bash", "/root/exit_code_redirect.sh"]
