@@ -19,7 +19,7 @@ inputs:
     default: false
 runs:
   using: 'docker'
-  image: 'action.dockerfile'
+  image: 'ghcr.io/another-rex/osv-scanner:markdown-test'
   args:
     - '--skip-git'
     - '--output=${{ inputs.results-file }}'
