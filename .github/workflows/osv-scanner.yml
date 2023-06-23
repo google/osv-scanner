@@ -50,7 +50,6 @@ jobs:
         with:
           results-format: report
           results-file: results.sarif
-          recursive-scan: false
           to-scan: |-
             ./
             ./cmd/osv-scanner/fixtures/locks-many/
