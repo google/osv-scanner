@@ -1,10 +1,14 @@
 package output
 
 import (
+	"fmt"
 	"io"
 	"os"
 	"path/filepath"
 	"strings"
+
+	v2_metric "github.com/goark/go-cvss/v2/metric"
+	v3_metric "github.com/goark/go-cvss/v3/metric"
 
 	"github.com/google/osv-scanner/pkg/models"
 	"github.com/google/osv-scanner/pkg/osv"
@@ -18,7 +22,7 @@ import (
 func PrintTableResults(vulnResult *models.VulnerabilityResults, outputWriter io.Writer) {
 	outputTable := table.NewWriter()
 	outputTable.SetOutputMirror(outputWriter)
-	outputTable.AppendHeader(table.Row{"OSV URL (ID In Bold)", "Ecosystem", "Package", "Version", "Source"})
+	outputTable.AppendHeader(table.Row{"OSV URL", "CVSS", "Ecosystem", "Package", "Version", "Source"})
 	width, _, err := term.GetSize(int(os.Stdout.Fd()))
 	isTerminal := false
 	if err == nil { // If output is a terminal, set max length to width and add styling
@@ -99,6 +103,32 @@ func tableBuilderInner(vulnResult *models.VulnerabilityResults, addStyling bool,
 				}
 
 				outputRow = append(outputRow, strings.Join(links, "\n"))
+
+				var outputSeverities []string
+				for _, vulnID := range group.IDs {
+					var severities []models.Severity
+					for _, vuln := range pkg.Vulnerabilities {
+						if vuln.ID == vulnID {
+							severities = vuln.Severity
+						}
+					}
+					for _, severity := range severities {
+						var outputSeverity string
+						switch severity.Type {
+						case models.SeverityCVSSV2:
+							numericSeverity, _ := v2_metric.NewBase().Decode(severity.Score)
+							outputSeverity = fmt.Sprintf("%v", numericSeverity.Score())
+						case models.SeverityCVSSV3:
+							numericSeverity, _ := v3_metric.NewBase().Decode(severity.Score)
+							outputSeverity = fmt.Sprintf("%v", numericSeverity.Score())
+						default:
+							outputSeverity = severity.Score
+						}
+
+						outputSeverities = append(outputSeverities, outputSeverity)
+					}
+				}
+				outputRow = append(outputRow, strings.Join(outputSeverities, ",\n"))
 
 				if pkg.Package.Ecosystem == "GIT" {
 					outputRow = append(outputRow, "GIT", pkg.Package.Version, pkg.Package.Version)
