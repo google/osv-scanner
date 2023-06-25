@@ -21,10 +21,10 @@ osv-scanner --format table your/project/dir
 
 ```bash
 ╭──────────────────────────────────────┬─────────────┬───────────┬──────────────────────────┬─────────┬────────────────────╮
-│ OSV URL                              │    CVSS     │ ECOSYSTEM │ PACKAGE                  │ VERSION │ SOURCE             │
+│ OSV URL                              │ CVSS │ ECOSYSTEM │ PACKAGE                  │ VERSION │ SOURCE             │
 ├──────────────────────────────────────┼─────────────┼───────────┼──────────────────────────┼─────────┼────────────────────┤
-│ https://osv.dev/GHSA-c3h9-896r-86jm  |    8.6      │ Go        │ github.com/gogo/protobuf │ 1.3.1   │ path/to/go.mod     │
-│ https://osv.dev/GHSA-m5pq-gvj9-9vr8  |    7.5      │ crates.io │ regex                    │ 1.3.1   │ path/to/Cargo.lock │
+│ https://osv.dev/GHSA-c3h9-896r-86jm  | 8.6  │ Go        │ github.com/gogo/protobuf │ 1.3.1   │ path/to/go.mod     │
+│ https://osv.dev/GHSA-m5pq-gvj9-9vr8  | 7.5  │ crates.io │ regex                    │ 1.3.1   │ path/to/Cargo.lock │
 ╰──────────────────────────────────────┴─────────────┴───────────┴──────────────────────────┴─────────┴────────────────────╯
 ```
 </details>
