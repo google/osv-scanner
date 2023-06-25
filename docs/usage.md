@@ -169,16 +169,3 @@ appropriate osv-scanner flags:
 ```bash
 docker run -it -v ${PWD}:/src ghcr.io/google/osv-scanner -L /src/go.mod
 ```
-
-## Explanation of Output
-
-The output can be displayed multiple ways. More information is available [here](output.md).
-
-Every vulnerability will display the following information:
-
-- OSV URL: Link to the database entry for the vulnerability
-- CVSS: CVSS v2 or v3, calculated from the [severity[].score](https://ossf.github.io/osv-schema/#severity-field) field.
-- Ecosystem: Ecosystem associated with the package
-- Package: Package name
-- Version: Package version
-- Source: Path to the sbom or lockfile where the package originated

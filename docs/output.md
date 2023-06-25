@@ -4,11 +4,33 @@ title: Output
 permalink: /output/
 nav_order: 5
 ---
-# Output formats
+# Output
+{: .no_toc }
 
+<details open markdown="block">
+  <summary>
+    Table of contents
+  </summary>
+  {: .text-delta }
+- TOC
+{:toc}
+</details>
+
+## Explanation of output data
+
+For every vulnerability found, OSV-Scanner will display the following information:
+
+- OSV URL: Link to the database entry for the vulnerability
+- CVSS: CVSS v2 or v3, calculated from the [severity[].score](https://ossf.github.io/osv-schema/#severity-field) field.
+- Ecosystem: Ecosystem associated with the package
+- Package: Package name
+- Version: Package version
+- Source: Path to the sbom or lockfile where the package originated
+
+## Output formats
 You can control the format used by the scanner to output results with the `--format` flag.
 
-## Table (Default)
+### Table (Default)
 
 The default format, which outputs the results as a human-readable table.
 
@@ -20,18 +42,18 @@ osv-scanner --format table your/project/dir
 <summary><b>Sample table output</b></summary>
 
 ```bash
-╭──────────────────────────────────────┬─────────────┬───────────┬──────────────────────────┬─────────┬────────────────────╮
-│ OSV URL                              │ CVSS │ ECOSYSTEM │ PACKAGE                  │ VERSION │ SOURCE             │
-├──────────────────────────────────────┼─────────────┼───────────┼──────────────────────────┼─────────┼────────────────────┤
+╭──────────────────────────────────────┬──────┬───────────┬──────────────────────────┬─────────┬────────────────────╮
+│ OSV URL                              │ CVSS │ ECOSYSTEM │  PACKAGE                 │ VERSION │ SOURCE             │
+├──────────────────────────────────────┼──────┼───────────┼──────────────────────────┼─────────┼────────────────────┤
 │ https://osv.dev/GHSA-c3h9-896r-86jm  | 8.6  │ Go        │ github.com/gogo/protobuf │ 1.3.1   │ path/to/go.mod     │
 │ https://osv.dev/GHSA-m5pq-gvj9-9vr8  | 7.5  │ crates.io │ regex                    │ 1.3.1   │ path/to/Cargo.lock │
-╰──────────────────────────────────────┴─────────────┴───────────┴──────────────────────────┴─────────┴────────────────────╯
+╰──────────────────────────────────────┴──────┴───────────┴──────────────────────────┴─────────┴────────────────────╯
 ```
 </details>
 
 ---
 
-## Markdown Table
+### Markdown Table
 
 ```bash
 osv-scanner --format markdown your/project/dir
@@ -60,7 +82,7 @@ osv-scanner --format markdown your/project/dir
 
 ---
 
-## JSON
+### JSON
 
 ```bash
 osv-scanner --format json your/project/dir
