@@ -84,7 +84,7 @@ func run(args []string, stdout, stderr io.Writer) int {
 			},
 			&cli.StringFlag{
 				Name:      "output",
-				Usage:     "save result output to file",
+				Usage:     "saves the result to the given file path",
 				TakesFile: true,
 			},
 			&cli.BoolFlag{
