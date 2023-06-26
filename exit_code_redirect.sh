@@ -37,6 +37,7 @@ osv-scanner $args "${split_args[@]}"
 # Store the exit code
 exit_code=$?
 
+echo "Exit code: ${exit_code}"
 # Check if the exit code is 127 or 128 and modify it to 0
 # - 127: General error, not something the user can fix most of the time
 # - 128: No lockfiles found
