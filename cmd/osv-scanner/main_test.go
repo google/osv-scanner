@@ -175,7 +175,7 @@ func TestRun(t *testing.T) {
 		{
 			name:         "Scan locks-many",
 			args:         []string{"", "./fixtures/locks-many"},
-			wantExitCode: 1,
+			wantExitCode: 0,
 			wantStdout: `
 				Scanning dir ./fixtures/locks-many
 				Scanned %%/fixtures/locks-many/Gemfile.lock file and found 1 packages
@@ -183,11 +183,10 @@ func TestRun(t *testing.T) {
 				Scanned %%/fixtures/locks-many/composer.lock file and found 1 packages
 				Scanned %%/fixtures/locks-many/package-lock.json file and found 1 packages
 				Scanned %%/fixtures/locks-many/yarn.lock file and found 1 packages
-				+-------------------------------------+------+-----------+-----------+---------+---------------------------------------+
-				| OSV URL                             | CVSS | ECOSYSTEM | PACKAGE   | VERSION | SOURCE                                |
-				+-------------------------------------+------+-----------+-----------+---------+---------------------------------------+
-				| https://osv.dev/GHSA-whgm-jr23-g3j9 | 7.5  | npm       | ansi-html | 0.0.1   | fixtures/locks-many/package-lock.json |
-				+-------------------------------------+------+-----------+-----------+---------+---------------------------------------+
+				Loaded filter from: %%/fixtures/locks-many/osv-scanner.toml
+				GHSA-whgm-jr23-g3j9 has been filtered out because: Test manifest file
+				Filtered 1 vulnerabilities from output
+				No vulnerabilities found
 			`,
 			wantStderr: "",
 		},
@@ -328,7 +327,7 @@ func TestRun(t *testing.T) {
 		},
 		{
 			name:         "Sarif with vulns",
-			args:         []string{"", "--format", "sarif", "./fixtures/locks-many/package-lock.json"},
+			args:         []string{"", "--format", "sarif", "--config", "./fixtures/osv-scanner-empty-config.toml", "./fixtures/locks-many/package-lock.json"},
 			wantExitCode: 1,
 			wantStdout: `
             {
