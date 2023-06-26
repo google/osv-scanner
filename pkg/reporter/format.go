@@ -8,7 +8,7 @@ import (
 	"golang.org/x/term"
 )
 
-var format = []string{"table", "json", "markdown", "report"}
+var format = []string{"table", "json", "markdown", "sarif"}
 
 func Format() []string {
 	return format
@@ -33,7 +33,7 @@ func GetReporter(format string, stdout, stderr io.Writer, fileOutput bool) (Repo
 		return NewTableReporter(stdout, stderr, false, width), nil
 	case "markdown":
 		return NewTableReporter(stdout, stderr, true, width), nil
-	case "report":
+	case "sarif":
 		return NewSarifReporter(stdout, stderr), nil
 	default:
 		return nil, fmt.Errorf("%v is not a valid format", format)
