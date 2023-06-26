@@ -12,7 +12,7 @@ inputs:
   results-format:
     description: 'Output result format'
     required: false
-    default: 'report'
+    default: 'sarif'
   recursive-search:
     description: 'Recursively scan though subdirectories'
     required: false

@@ -48,7 +48,7 @@ jobs:
       - name: "Run scanner"
         uses: ./ # Uses ./action.yaml
         with:
-          results-format: report
+          results-format: sarif
           results-file: results.sarif
           to-scan: |-
             ./
