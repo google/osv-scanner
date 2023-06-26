@@ -20,7 +20,7 @@ nav_order: 5
 
 For every vulnerability found, OSV-Scanner will display the following information:
 
-- OSV URL: Link to the database entry for the vulnerability
+- OSV URL: Link to the osv.dev entry for the vulnerability
 - CVSS: CVSS v2 or v3, calculated from the [severity[].score](https://ossf.github.io/osv-schema/#severity-field) field.
 - Ecosystem: Ecosystem associated with the package
 - Package: Package name
