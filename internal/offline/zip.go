@@ -20,12 +20,11 @@ import (
 )
 
 type ZipDB struct {
-	Name             string
-	ArchiveURL       string
-	WorkingDirectory string
-	Offline          bool
-	UpdatedAt        string
-	vulnerabilities  []models.Vulnerability
+	Name            string
+	ArchiveURL      string
+	Offline         bool
+	UpdatedAt       string
+	vulnerabilities []models.Vulnerability
 }
 
 // Cache stores the OSV database archive for re-use
@@ -175,10 +174,6 @@ func (db *ZipDB) load() error {
 
 	// Read all the files from the zip archive
 	for _, zipFile := range zipReader.File {
-		if !strings.HasPrefix(zipFile.Name, db.WorkingDirectory) {
-			continue
-		}
-
 		if !strings.HasSuffix(zipFile.Name, ".json") {
 			continue
 		}
