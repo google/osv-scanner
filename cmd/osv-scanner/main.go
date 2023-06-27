@@ -159,7 +159,6 @@ func run(args []string, stdout, stderr io.Writer) int {
 				ExperimentalScannerActions: osvscanner.ExperimentalScannerActions{
 					CallAnalysis:   context.Bool("experimental-call-analysis"),
 					CompareLocally: context.Bool("experimental-local-db"),
-					// todo: enforce that "compare-locally" is also set
 					CompareOffline: context.Bool("experimental-offline"),
 				},
 			}, r)

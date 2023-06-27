@@ -500,6 +500,14 @@ func DoScan(actions ScannerActions, r reporter.Reporter) (models.VulnerabilityRe
 		r = &reporter.VoidReporter{}
 	}
 
+	if actions.CompareOffline {
+		actions.CompareLocally = true
+	}
+
+	if actions.CompareLocally {
+		actions.SkipGit = true
+	}
+
 	configManager := config.ConfigManager{
 		DefaultConfig: config.Config{},
 		ConfigMap:     make(map[string]config.Config),
