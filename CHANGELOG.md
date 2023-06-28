@@ -10,7 +10,7 @@
 - [Feature #424](https://github.com/google/osv-scanner/pull/424)
 - [Feature #417](https://github.com/google/osv-scanner/pull/417)
 - [Feature #417](https://github.com/google/osv-scanner/pull/417)
-  - Update the models pacakge to better reflect the osv schema, including:
+  - Update the models package to better reflect the osv schema, including:
     - Add the withdrawn field
     - Improve timestamp serialization
     - Add related field
