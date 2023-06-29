@@ -3,14 +3,12 @@ package offline_test
 import (
 	"archive/zip"
 	"bytes"
-	"crypto/sha256"
 	"encoding/json"
 	"errors"
-	"fmt"
 	"net/http"
 	"net/http/httptest"
 	"os"
-	"path/filepath"
+	"path"
 	"reflect"
 	"sort"
 	"testing"
@@ -18,6 +16,19 @@ import (
 	"github.com/google/osv-scanner/internal/offline"
 	"github.com/google/osv-scanner/pkg/models"
 )
+
+func createTestDir(t *testing.T) (string, func()) {
+	t.Helper()
+
+	p, err := os.MkdirTemp("", "osv-scanner-test-*")
+	if err != nil {
+		t.Fatal("could not create test directory")
+	}
+
+	return p, func() {
+		_ = os.RemoveAll(p)
+	}
+}
 
 func expectDBToHaveOSVs(
 	t *testing.T,
@@ -42,23 +53,18 @@ func expectDBToHaveOSVs(
 	}
 }
 
-type CleanUpZipServerFn = func()
-
-func cachePath(url string) string {
-	hash := sha256.Sum256([]byte(url))
-	fileName := fmt.Sprintf("osv-detector-%x-db.json", hash)
-
-	return filepath.Join(os.TempDir(), fileName)
-}
-
-func cacheWrite(t *testing.T, cache offline.Cache) {
+func cacheWrite(t *testing.T, storedAt string, cache offline.Cache) {
 	t.Helper()
 
 	cacheContents, err := json.Marshal(cache)
 
 	if err == nil {
-		//nolint:gosec // being world readable is fine
-		err = os.WriteFile(cachePath(cache.URL), cacheContents, 0644)
+		err = os.MkdirAll(path.Dir(storedAt), 0750)
+
+		if err == nil {
+			//nolint:gosec // being world readable is fine
+			err = os.WriteFile(storedAt, cacheContents, 0644)
+		}
 	}
 
 	if err != nil {
@@ -66,27 +72,27 @@ func cacheWrite(t *testing.T, cache offline.Cache) {
 	}
 }
 
-func cacheWriteBad(t *testing.T, url string, contents string) {
+func cacheWriteBad(t *testing.T, storedAt string, contents string) {
 	t.Helper()
 
-	//nolint:gosec // being world readable is fine
-	err := os.WriteFile(cachePath(url), []byte(contents), 0644)
+	err := os.MkdirAll(path.Dir(storedAt), 0750)
+
+	if err == nil {
+		//nolint:gosec // being world readable is fine
+		err = os.WriteFile(storedAt, []byte(contents), 0644)
+	}
 
 	if err != nil {
 		t.Errorf("unexpected error with cache: %v", err)
 	}
 }
 
-func createZipServer(t *testing.T, handler http.HandlerFunc) (*httptest.Server, CleanUpZipServerFn) {
+func createZipServer(t *testing.T, handler http.HandlerFunc) (*httptest.Server, func()) {
 	t.Helper()
 
 	ts := httptest.NewServer(handler)
 
-	return ts, func() {
-		ts.Close()
-
-		_ = os.Remove(cachePath(ts.URL))
-	}
+	return ts, ts.Close
 }
 
 func zipOSVs(t *testing.T, osvs map[string]models.Vulnerability) []byte {
@@ -118,15 +124,23 @@ func zipOSVs(t *testing.T, osvs map[string]models.Vulnerability) []byte {
 	return buf.Bytes()
 }
 
+//nolint:unparam // name might get changed at some point
+func determineStoredAtPath(dbBasePath, name string) string {
+	return path.Join(dbBasePath, name, "all.zip")
+}
+
 func TestNewZippedDB_Offline_WithoutCache(t *testing.T) {
 	t.Parallel()
 
-	ts, cleanup := createZipServer(t, func(w http.ResponseWriter, r *http.Request) {
+	testDir, cleanupTestDir := createTestDir(t)
+	defer cleanupTestDir()
+
+	ts, cleanupTestServer := createZipServer(t, func(w http.ResponseWriter, r *http.Request) {
 		t.Errorf("a server request was made when running offline")
 	})
-	defer cleanup()
+	defer cleanupTestServer()
 
-	_, err := offline.NewZippedDB("my-db", ts.URL, true)
+	_, err := offline.NewZippedDB(testDir, "my-db", ts.URL, true)
 
 	if !errors.Is(err, offline.ErrOfflineDatabaseNotFound) {
 		t.Errorf("expected \"%v\" error but got \"%v\"", offline.ErrOfflineDatabaseNotFound, err)
@@ -145,12 +159,15 @@ func TestNewZippedDB_Offline_WithCache(t *testing.T) {
 		{ID: "GHSA-5"},
 	}
 
-	ts, cleanup := createZipServer(t, func(w http.ResponseWriter, r *http.Request) {
+	testDir, cleanupTestDir := createTestDir(t)
+	defer cleanupTestDir()
+
+	ts, cleanupTestServer := createZipServer(t, func(w http.ResponseWriter, r *http.Request) {
 		t.Errorf("a server request was made when running offline")
 	})
-	defer cleanup()
+	defer cleanupTestServer()
 
-	cacheWrite(t, offline.Cache{
+	cacheWrite(t, determineStoredAtPath(testDir, "my-db"), offline.Cache{
 		URL:  ts.URL,
 		ETag: "",
 		Date: date,
@@ -163,7 +180,7 @@ func TestNewZippedDB_Offline_WithCache(t *testing.T) {
 		}),
 	})
 
-	db, err := offline.NewZippedDB("my-db", ts.URL, true)
+	db, err := offline.NewZippedDB(testDir, "my-db", ts.URL, true)
 
 	if err != nil {
 		t.Fatalf("unexpected error \"%v\"", err)
@@ -179,12 +196,15 @@ func TestNewZippedDB_Offline_WithCache(t *testing.T) {
 func TestNewZippedDB_BadZip(t *testing.T) {
 	t.Parallel()
 
-	ts, cleanup := createZipServer(t, func(w http.ResponseWriter, r *http.Request) {
+	testDir, cleanupTestDir := createTestDir(t)
+	defer cleanupTestDir()
+
+	ts, cleanupTestServer := createZipServer(t, func(w http.ResponseWriter, r *http.Request) {
 		_, _ = w.Write([]byte("this is not a zip"))
 	})
-	defer cleanup()
+	defer cleanupTestServer()
 
-	_, err := offline.NewZippedDB("my-db", ts.URL, false)
+	_, err := offline.NewZippedDB(testDir, "my-db", ts.URL, false)
 
 	if err == nil {
 		t.Errorf("expected an error but did not get one")
@@ -194,7 +214,10 @@ func TestNewZippedDB_BadZip(t *testing.T) {
 func TestNewZippedDB_UnsupportedProtocol(t *testing.T) {
 	t.Parallel()
 
-	_, err := offline.NewZippedDB("my-db", "file://hello-world", false)
+	testDir, cleanupTestDir := createTestDir(t)
+	defer cleanupTestDir()
+
+	_, err := offline.NewZippedDB(testDir, "my-db", "file://hello-world", false)
 
 	if err == nil {
 		t.Errorf("expected an error but did not get one")
@@ -212,7 +235,10 @@ func TestNewZippedDB_Online_WithoutCache(t *testing.T) {
 		{ID: "GHSA-5"},
 	}
 
-	ts, cleanup := createZipServer(t, func(w http.ResponseWriter, r *http.Request) {
+	testDir, cleanupTestDir := createTestDir(t)
+	defer cleanupTestDir()
+
+	ts, cleanupTestServer := createZipServer(t, func(w http.ResponseWriter, r *http.Request) {
 		_, _ = w.Write(zipOSVs(t, map[string]models.Vulnerability{
 			"GHSA-1.json": {ID: "GHSA-1"},
 			"GHSA-2.json": {ID: "GHSA-2"},
@@ -221,9 +247,9 @@ func TestNewZippedDB_Online_WithoutCache(t *testing.T) {
 			"GHSA-5.json": {ID: "GHSA-5"},
 		}))
 	})
-	defer cleanup()
+	defer cleanupTestServer()
 
-	db, err := offline.NewZippedDB("my-db", ts.URL, false)
+	db, err := offline.NewZippedDB(testDir, "my-db", ts.URL, false)
 
 	if err != nil {
 		t.Fatalf("unexpected error \"%v\"", err)
@@ -242,16 +268,19 @@ func TestNewZippedDB_Online_WithCache(t *testing.T) {
 		{ID: "GHSA-3"},
 	}
 
-	ts, cleanup := createZipServer(t, func(w http.ResponseWriter, r *http.Request) {
+	testDir, cleanupTestDir := createTestDir(t)
+	defer cleanupTestDir()
+
+	ts, cleanupTestServer := createZipServer(t, func(w http.ResponseWriter, r *http.Request) {
 		if dateHeader := r.Header.Get("If-Modified-Since"); dateHeader != date {
 			t.Errorf("incorrect Date header: got = \"%s\", want = \"%s\"", dateHeader, date)
 		}
 
 		w.WriteHeader(http.StatusNotModified)
 	})
-	defer cleanup()
+	defer cleanupTestServer()
 
-	cacheWrite(t, offline.Cache{
+	cacheWrite(t, determineStoredAtPath(testDir, "my-db"), offline.Cache{
 		URL:  ts.URL,
 		ETag: "",
 		Date: date,
@@ -262,7 +291,7 @@ func TestNewZippedDB_Online_WithCache(t *testing.T) {
 		}),
 	})
 
-	db, err := offline.NewZippedDB("my-db", ts.URL, false)
+	db, err := offline.NewZippedDB(testDir, "my-db", ts.URL, false)
 
 	if err != nil {
 		t.Fatalf("unexpected error \"%v\"", err)
@@ -287,7 +316,10 @@ func TestNewZippedDB_Online_WithOldCache(t *testing.T) {
 		{ID: "GHSA-5"},
 	}
 
-	ts, cleanup := createZipServer(t, func(w http.ResponseWriter, r *http.Request) {
+	testDir, cleanupTestDir := createTestDir(t)
+	defer cleanupTestDir()
+
+	ts, cleanupTestServer := createZipServer(t, func(w http.ResponseWriter, r *http.Request) {
 		if dateHeader := r.Header.Get("If-Modified-Since"); dateHeader != date {
 			t.Errorf("incorrect Date header: got = \"%s\", want = \"%s\"", dateHeader, date)
 		}
@@ -301,9 +333,9 @@ func TestNewZippedDB_Online_WithOldCache(t *testing.T) {
 			"GHSA-5.json": {ID: "GHSA-5"},
 		}))
 	})
-	defer cleanup()
+	defer cleanupTestServer()
 
-	cacheWrite(t, offline.Cache{
+	cacheWrite(t, determineStoredAtPath(testDir, "my-db"), offline.Cache{
 		URL:  ts.URL,
 		ETag: "",
 		Date: date,
@@ -314,7 +346,7 @@ func TestNewZippedDB_Online_WithOldCache(t *testing.T) {
 		}),
 	})
 
-	db, err := offline.NewZippedDB("my-db", ts.URL, false)
+	db, err := offline.NewZippedDB(testDir, "my-db", ts.URL, false)
 
 	if err != nil {
 		t.Fatalf("unexpected error \"%v\"", err)
@@ -336,18 +368,21 @@ func TestNewZippedDB_Online_WithBadCache(t *testing.T) {
 		{ID: "GHSA-3"},
 	}
 
-	ts, cleanup := createZipServer(t, func(w http.ResponseWriter, r *http.Request) {
+	testDir, cleanupTestDir := createTestDir(t)
+	defer cleanupTestDir()
+
+	ts, cleanupTestServer := createZipServer(t, func(w http.ResponseWriter, r *http.Request) {
 		_, _ = w.Write(zipOSVs(t, map[string]models.Vulnerability{
 			"GHSA-1.json": {ID: "GHSA-1"},
 			"GHSA-2.json": {ID: "GHSA-2"},
 			"GHSA-3.json": {ID: "GHSA-3"},
 		}))
 	})
-	defer cleanup()
+	defer cleanupTestServer()
 
-	cacheWriteBad(t, ts.URL, "this is not json!")
+	cacheWriteBad(t, determineStoredAtPath(testDir, "my-db"), "this is not json!")
 
-	db, err := offline.NewZippedDB("my-db", ts.URL, false)
+	db, err := offline.NewZippedDB(testDir, "my-db", ts.URL, false)
 
 	if err != nil {
 		t.Fatalf("unexpected error \"%v\"", err)
@@ -361,7 +396,10 @@ func TestNewZippedDB_FileChecks(t *testing.T) {
 
 	osvs := []models.Vulnerability{{ID: "GHSA-1234"}, {ID: "GHSA-4321"}}
 
-	ts, cleanup := createZipServer(t, func(w http.ResponseWriter, r *http.Request) {
+	testDir, cleanupTestDir := createTestDir(t)
+	defer cleanupTestDir()
+
+	ts, cleanupTestServer := createZipServer(t, func(w http.ResponseWriter, r *http.Request) {
 		_, _ = w.Write(zipOSVs(t, map[string]models.Vulnerability{
 			"file.json": {ID: "GHSA-1234"},
 			// only files with .json suffix should be loaded
@@ -370,9 +408,9 @@ func TestNewZippedDB_FileChecks(t *testing.T) {
 			"advisory-database-main/advisories/unreviewed/file.json": {ID: "GHSA-4321"},
 		}))
 	})
-	defer cleanup()
+	defer cleanupTestServer()
 
-	db, err := offline.NewZippedDB("my-db", ts.URL, false)
+	db, err := offline.NewZippedDB(testDir, "my-db", ts.URL, false)
 
 	if err != nil {
 		t.Fatalf("unexpected error \"%v\"", err)

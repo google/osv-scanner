@@ -4,14 +4,13 @@ import (
 	"archive/zip"
 	"bytes"
 	"context"
-	"crypto/sha256"
 	"encoding/json"
 	"errors"
 	"fmt"
 	"io"
 	"net/http"
 	"os"
-	"path/filepath"
+	"path"
 	"strings"
 
 	"github.com/google/osv-scanner/pkg/lockfile"
@@ -24,6 +23,7 @@ type ZipDB struct {
 	ArchiveURL      string
 	Offline         bool
 	UpdatedAt       string
+	StoredAt        string
 	vulnerabilities []models.Vulnerability
 }
 
@@ -37,22 +37,14 @@ type Cache struct {
 
 var ErrOfflineDatabaseNotFound = errors.New("no offline version of the OSV database is available")
 
-func (db *ZipDB) cachePath() string {
-	hash := sha256.Sum256([]byte(db.ArchiveURL))
-	fileName := fmt.Sprintf("osv-detector-%x-db.json", hash)
-
-	return filepath.Join(os.TempDir(), fileName)
-}
-
 func (db *ZipDB) fetchZip() ([]byte, error) {
 	var cache *Cache
-	cachePath := db.cachePath()
 
-	if cacheContent, err := os.ReadFile(cachePath); err == nil {
+	if cacheContent, err := os.ReadFile(db.StoredAt); err == nil {
 		err := json.Unmarshal(cacheContent, &cache)
 
 		if err != nil {
-			_, _ = fmt.Fprintf(os.Stderr, "Failed to parse cache from %s: %v\n", cachePath, err)
+			_, _ = fmt.Fprintf(os.Stderr, "Failed to parse cache from %s: %v\n", db.StoredAt, err)
 		}
 	}
 
@@ -112,11 +104,15 @@ func (db *ZipDB) fetchZip() ([]byte, error) {
 	cacheContents, err := json.Marshal(cache)
 
 	if err == nil {
-		//nolint:gosec // being world readable is fine
-		err = os.WriteFile(cachePath, cacheContents, 0644)
+		err = os.MkdirAll(path.Dir(db.StoredAt), 0750)
+
+		if err == nil {
+			//nolint:gosec // being world readable is fine
+			err = os.WriteFile(db.StoredAt, cacheContents, 0644)
+		}
 
 		if err != nil {
-			_, _ = fmt.Fprintf(os.Stderr, "Failed to write cache to %s: %v\n", cachePath, err)
+			_, _ = fmt.Fprintf(os.Stderr, "Failed to write cache to %s: %v\n", db.StoredAt, err)
 		}
 	}
 
@@ -184,8 +180,13 @@ func (db *ZipDB) load() error {
 	return nil
 }
 
-func NewZippedDB(name, url string, offline bool) (*ZipDB, error) {
-	db := &ZipDB{Name: name, ArchiveURL: url, Offline: offline}
+func NewZippedDB(dbBasePath, name, url string, offline bool) (*ZipDB, error) {
+	db := &ZipDB{
+		Name:       name,
+		ArchiveURL: url,
+		Offline:    offline,
+		StoredAt:   path.Join(dbBasePath, name, "all.zip"),
+	}
 	if err := db.load(); err != nil {
 		return nil, fmt.Errorf("unable to fetch OSV database: %w", err)
 	}
