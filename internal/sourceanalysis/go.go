@@ -6,7 +6,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
-	"log"
 	"os"
 
 	"github.com/google/osv-scanner/internal/sourceanalysis/govulncheck"
@@ -15,15 +14,22 @@ import (
 	"golang.org/x/vuln/scan"
 )
 
-func goAnalysis(dir string, pkgs []models.PackageVulns) (_ []models.PackageVulns, err error) {
+func goAnalysis(moddir string, pkgs []models.PackageVulns) (_ []models.PackageVulns, err error) {
 	vulns, vulnsByID := vulnsFromAllPkgs(pkgs)
+	osvToFinding, err := runGovulncheck(moddir, vulns)
+	if err != nil {
+		return nil, err
+	}
+	return matchAnalysisWithPackageVulns(pkgs, osvToFinding, vulnsByID), nil
+}
 
+func runGovulncheck(moddir string, vulns []models.Vulnerability) (map[string]*govulncheck.Finding, error) {
 	dbdir, err := os.MkdirTemp("", "")
 	if err != nil {
-		log.Fatal(err)
+		return nil, err
 	}
 	defer func() {
-		rerr := os.RemoveAll(dir)
+		rerr := os.RemoveAll(dbdir)
 		if err == nil {
 			err = rerr
 		}
@@ -34,12 +40,13 @@ func goAnalysis(dir string, pkgs []models.PackageVulns) (_ []models.PackageVulns
 		if err != nil {
 			return nil, err
 		}
+		fmt.Println(vuln.ID)
 		if err := os.WriteFile(fmt.Sprintf("%s.json", vuln.ID), dat, 0600); err != nil {
 			return nil, err
 		}
 	}
 
-	cmd := scan.Command(context.Background(), "-db", fmt.Sprintf("file://%s", dbdir), "-C", dir, "-json", "./...")
+	cmd := scan.Command(context.Background(), "-db", fmt.Sprintf("file://%s", dbdir), "-C", moddir, "-json", "./...")
 	var b bytes.Buffer
 	cmd.Stdout = &b
 	if err := cmd.Start(); err != nil {
@@ -54,8 +61,7 @@ func goAnalysis(dir string, pkgs []models.PackageVulns) (_ []models.PackageVulns
 	if err := handleJSON(bytes.NewReader(b.Bytes()), h); err != nil {
 		return nil, err
 	}
-
-	return matchAnalysisWithPackageVulns(pkgs, h.osvToFinding, vulnsByID), nil
+	return h.osvToFinding, nil
 }
 
 type osvHandler struct {
