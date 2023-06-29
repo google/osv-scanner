@@ -22,7 +22,6 @@ type ZipDB struct {
 	Name            string
 	ArchiveURL      string
 	Offline         bool
-	UpdatedAt       string
 	StoredAt        string
 	vulnerabilities []models.Vulnerability
 }
@@ -30,8 +29,6 @@ type ZipDB struct {
 // Cache stores the OSV database archive for re-use
 type Cache struct {
 	URL  string `json:"url"`
-	ETag string `json:"etag"`
-	Date string `json:"date"`
 	Body []byte `json:"body"`
 }
 
@@ -53,8 +50,6 @@ func (db *ZipDB) fetchZip() ([]byte, error) {
 			return nil, ErrOfflineDatabaseNotFound
 		}
 
-		db.UpdatedAt = cache.Date
-
 		return cache.Body, nil
 	}
 
@@ -62,11 +57,6 @@ func (db *ZipDB) fetchZip() ([]byte, error) {
 
 	if err != nil {
 		return nil, fmt.Errorf("could not retrieve OSV database archive: %w", err)
-	}
-
-	if cache != nil {
-		req.Header.Add("If-None-Match", cache.ETag)
-		req.Header.Add("If-Modified-Since", cache.Date)
 	}
 
 	req.Header.Set("User-Agent", osv.RequestUserAgent)
@@ -78,12 +68,6 @@ func (db *ZipDB) fetchZip() ([]byte, error) {
 
 	defer resp.Body.Close()
 
-	if resp.StatusCode == http.StatusNotModified {
-		db.UpdatedAt = cache.Date
-
-		return cache.Body, nil
-	}
-
 	var body []byte
 
 	body, err = io.ReadAll(resp.Body)
@@ -92,14 +76,7 @@ func (db *ZipDB) fetchZip() ([]byte, error) {
 		return nil, fmt.Errorf("could not read OSV database archive from response: %w", err)
 	}
 
-	etag := resp.Header.Get("ETag")
-	date := resp.Header.Get("Date")
-
-	db.UpdatedAt = date
-
-	if etag != "" || date != "" {
-		cache = &Cache{ETag: etag, Date: date, Body: body, URL: db.ArchiveURL}
-	}
+	cache = &Cache{Body: body, URL: db.ArchiveURL}
 
 	cacheContents, err := json.Marshal(cache)
 

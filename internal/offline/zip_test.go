@@ -150,7 +150,6 @@ func TestNewZippedDB_Offline_WithoutCache(t *testing.T) {
 func TestNewZippedDB_Offline_WithCache(t *testing.T) {
 	t.Parallel()
 
-	date := "Fri, 17 Jun 2022 22:28:13 GMT"
 	osvs := []models.Vulnerability{
 		{ID: "GHSA-1"},
 		{ID: "GHSA-2"},
@@ -169,8 +168,6 @@ func TestNewZippedDB_Offline_WithCache(t *testing.T) {
 
 	cacheWrite(t, determineStoredAtPath(testDir, "my-db"), offline.Cache{
 		URL:  ts.URL,
-		ETag: "",
-		Date: date,
 		Body: zipOSVs(t, map[string]models.Vulnerability{
 			"GHSA-1.json": {ID: "GHSA-1"},
 			"GHSA-2.json": {ID: "GHSA-2"},
@@ -184,10 +181,6 @@ func TestNewZippedDB_Offline_WithCache(t *testing.T) {
 
 	if err != nil {
 		t.Fatalf("unexpected error \"%v\"", err)
-	}
-
-	if db.UpdatedAt != date {
-		t.Errorf("db.UpdatedAt got = \"%s\", want = \"%s\"", db.UpdatedAt, date)
 	}
 
 	expectDBToHaveOSVs(t, db, osvs)
@@ -261,53 +254,6 @@ func TestNewZippedDB_Online_WithoutCache(t *testing.T) {
 func TestNewZippedDB_Online_WithCache(t *testing.T) {
 	t.Parallel()
 
-	date := "Fri, 18 Jun 2022 22:28:13 GMT"
-	osvs := []models.Vulnerability{
-		{ID: "GHSA-1"},
-		{ID: "GHSA-2"},
-		{ID: "GHSA-3"},
-	}
-
-	testDir, cleanupTestDir := createTestDir(t)
-	defer cleanupTestDir()
-
-	ts, cleanupTestServer := createZipServer(t, func(w http.ResponseWriter, r *http.Request) {
-		if dateHeader := r.Header.Get("If-Modified-Since"); dateHeader != date {
-			t.Errorf("incorrect Date header: got = \"%s\", want = \"%s\"", dateHeader, date)
-		}
-
-		w.WriteHeader(http.StatusNotModified)
-	})
-	defer cleanupTestServer()
-
-	cacheWrite(t, determineStoredAtPath(testDir, "my-db"), offline.Cache{
-		URL:  ts.URL,
-		ETag: "",
-		Date: date,
-		Body: zipOSVs(t, map[string]models.Vulnerability{
-			"GHSA-1.json": {ID: "GHSA-1"},
-			"GHSA-2.json": {ID: "GHSA-2"},
-			"GHSA-3.json": {ID: "GHSA-3"},
-		}),
-	})
-
-	db, err := offline.NewZippedDB(testDir, "my-db", ts.URL, false)
-
-	if err != nil {
-		t.Fatalf("unexpected error \"%v\"", err)
-	}
-
-	if db.UpdatedAt != date {
-		t.Errorf("db.UpdatedAt got = \"%s\", want = \"%s\"", db.UpdatedAt, date)
-	}
-
-	expectDBToHaveOSVs(t, db, osvs)
-}
-
-func TestNewZippedDB_Online_WithOldCache(t *testing.T) {
-	t.Parallel()
-
-	date := "Fri, 17 Jun 2022 22:28:13 GMT"
 	osvs := []models.Vulnerability{
 		{ID: "GHSA-1"},
 		{ID: "GHSA-2"},
@@ -320,11 +266,6 @@ func TestNewZippedDB_Online_WithOldCache(t *testing.T) {
 	defer cleanupTestDir()
 
 	ts, cleanupTestServer := createZipServer(t, func(w http.ResponseWriter, r *http.Request) {
-		if dateHeader := r.Header.Get("If-Modified-Since"); dateHeader != date {
-			t.Errorf("incorrect Date header: got = \"%s\", want = \"%s\"", dateHeader, date)
-		}
-
-		w.Header().Set("Date", "Today")
 		_, _ = w.Write(zipOSVs(t, map[string]models.Vulnerability{
 			"GHSA-1.json": {ID: "GHSA-1"},
 			"GHSA-2.json": {ID: "GHSA-2"},
@@ -337,8 +278,6 @@ func TestNewZippedDB_Online_WithOldCache(t *testing.T) {
 
 	cacheWrite(t, determineStoredAtPath(testDir, "my-db"), offline.Cache{
 		URL:  ts.URL,
-		ETag: "",
-		Date: date,
 		Body: zipOSVs(t, map[string]models.Vulnerability{
 			"GHSA-1.json": {ID: "GHSA-1"},
 			"GHSA-2.json": {ID: "GHSA-2"},
@@ -350,10 +289,6 @@ func TestNewZippedDB_Online_WithOldCache(t *testing.T) {
 
 	if err != nil {
 		t.Fatalf("unexpected error \"%v\"", err)
-	}
-
-	if db.UpdatedAt != "Today" {
-		t.Errorf("db.UpdatedAt got = \"%s\", want = \"%s\"", db.UpdatedAt, "Today")
 	}
 
 	expectDBToHaveOSVs(t, db, osvs)
