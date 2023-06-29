@@ -34,7 +34,7 @@ func goAnalysis(dir string, pkgs []models.PackageVulns) (_ []models.PackageVulns
 		if err != nil {
 			return nil, err
 		}
-		if err := os.WriteFile(fmt.Sprintf("%s.json", vuln.ID), dat, 0644); err != nil {
+		if err := os.WriteFile(fmt.Sprintf("%s.json", vuln.ID), dat, 0600); err != nil {
 			return nil, err
 		}
 	}
@@ -54,6 +54,7 @@ func goAnalysis(dir string, pkgs []models.PackageVulns) (_ []models.PackageVulns
 	if err := handleJSON(bytes.NewReader(b.Bytes()), h); err != nil {
 		return nil, err
 	}
+
 	return matchAnalysisWithPackageVulns(pkgs, h.osvToFinding, vulnsByID), nil
 }
 
@@ -115,6 +116,7 @@ func matchAnalysisWithPackageVulns(pkgs []models.PackageVulns, gvcResByVulnID ma
 			}
 		}
 	}
+
 	return pkgs
 }
 
@@ -128,6 +130,7 @@ func isCalled(v *govulncheck.Finding) bool {
 			}
 		}
 	}
+
 	return false
 }
 

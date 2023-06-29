@@ -29,5 +29,6 @@ func Run(r reporter.Reporter, source models.SourceInfo, pkgs []models.PackageVul
 	if source.Type == "lockfile" && filepath.Base(source.Path) == "go.mod" {
 		return goAnalysis(filepath.Dir(source.Path), pkgs)
 	}
+
 	return pkgs, nil
 }

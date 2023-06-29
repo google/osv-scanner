@@ -35,5 +35,6 @@ func HandleJSON(from io.Reader, to Handler) error {
 			return err
 		}
 	}
+
 	return nil
 }
