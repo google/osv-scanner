@@ -26,31 +26,17 @@ type ZipDB struct {
 	vulnerabilities []models.Vulnerability
 }
 
-// Cache stores the OSV database archive for re-use
-type Cache struct {
-	URL  string `json:"url"`
-	Body []byte `json:"body"`
-}
-
 var ErrOfflineDatabaseNotFound = errors.New("no offline version of the OSV database is available")
 
 func (db *ZipDB) fetchZip() ([]byte, error) {
-	var cache *Cache
-
-	if cacheContent, err := os.ReadFile(db.StoredAt); err == nil {
-		err := json.Unmarshal(cacheContent, &cache)
+	if db.Offline {
+		cache, err := os.ReadFile(db.StoredAt)
 
 		if err != nil {
-			_, _ = fmt.Fprintf(os.Stderr, "Failed to parse cache from %s: %v\n", db.StoredAt, err)
-		}
-	}
-
-	if db.Offline {
-		if cache == nil {
 			return nil, ErrOfflineDatabaseNotFound
 		}
 
-		return cache.Body, nil
+		return cache, nil
 	}
 
 	req, err := http.NewRequestWithContext(context.Background(), http.MethodGet, db.ArchiveURL, nil)
@@ -76,21 +62,15 @@ func (db *ZipDB) fetchZip() ([]byte, error) {
 		return nil, fmt.Errorf("could not read OSV database archive from response: %w", err)
 	}
 
-	cache = &Cache{Body: body, URL: db.ArchiveURL}
-
-	cacheContents, err := json.Marshal(cache)
+	err = os.MkdirAll(path.Dir(db.StoredAt), 0750)
 
 	if err == nil {
-		err = os.MkdirAll(path.Dir(db.StoredAt), 0750)
+		//nolint:gosec // being world readable is fine
+		err = os.WriteFile(db.StoredAt, body, 0644)
+	}
 
-		if err == nil {
-			//nolint:gosec // being world readable is fine
-			err = os.WriteFile(db.StoredAt, cacheContents, 0644)
-		}
-
-		if err != nil {
-			_, _ = fmt.Fprintf(os.Stderr, "Failed to write cache to %s: %v\n", db.StoredAt, err)
-		}
+	if err != nil {
+		_, _ = fmt.Fprintf(os.Stderr, "Failed to save database to %s: %v\n", db.StoredAt, err)
 	}
 
 	return body, nil

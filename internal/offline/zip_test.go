@@ -53,18 +53,14 @@ func expectDBToHaveOSVs(
 	}
 }
 
-func cacheWrite(t *testing.T, storedAt string, cache offline.Cache) {
+func cacheWrite(t *testing.T, storedAt string, cache []byte) {
 	t.Helper()
 
-	cacheContents, err := json.Marshal(cache)
+	err := os.MkdirAll(path.Dir(storedAt), 0750)
 
 	if err == nil {
-		err = os.MkdirAll(path.Dir(storedAt), 0750)
-
-		if err == nil {
-			//nolint:gosec // being world readable is fine
-			err = os.WriteFile(storedAt, cacheContents, 0644)
-		}
+		//nolint:gosec // being world readable is fine
+		err = os.WriteFile(storedAt, cache, 0644)
 	}
 
 	if err != nil {
@@ -124,7 +120,6 @@ func zipOSVs(t *testing.T, osvs map[string]models.Vulnerability) []byte {
 	return buf.Bytes()
 }
 
-//nolint:unparam // name might get changed at some point
 func determineStoredAtPath(dbBasePath, name string) string {
 	return path.Join(dbBasePath, name, "all.zip")
 }
@@ -166,16 +161,13 @@ func TestNewZippedDB_Offline_WithCache(t *testing.T) {
 	})
 	defer cleanupTestServer()
 
-	cacheWrite(t, determineStoredAtPath(testDir, "my-db"), offline.Cache{
-		URL:  ts.URL,
-		Body: zipOSVs(t, map[string]models.Vulnerability{
-			"GHSA-1.json": {ID: "GHSA-1"},
-			"GHSA-2.json": {ID: "GHSA-2"},
-			"GHSA-3.json": {ID: "GHSA-3"},
-			"GHSA-4.json": {ID: "GHSA-4"},
-			"GHSA-5.json": {ID: "GHSA-5"},
-		}),
-	})
+	cacheWrite(t, determineStoredAtPath(testDir, "my-db"), zipOSVs(t, map[string]models.Vulnerability{
+		"GHSA-1.json": {ID: "GHSA-1"},
+		"GHSA-2.json": {ID: "GHSA-2"},
+		"GHSA-3.json": {ID: "GHSA-3"},
+		"GHSA-4.json": {ID: "GHSA-4"},
+		"GHSA-5.json": {ID: "GHSA-5"},
+	}))
 
 	db, err := offline.NewZippedDB(testDir, "my-db", ts.URL, true)
 
@@ -276,14 +268,11 @@ func TestNewZippedDB_Online_WithCache(t *testing.T) {
 	})
 	defer cleanupTestServer()
 
-	cacheWrite(t, determineStoredAtPath(testDir, "my-db"), offline.Cache{
-		URL:  ts.URL,
-		Body: zipOSVs(t, map[string]models.Vulnerability{
-			"GHSA-1.json": {ID: "GHSA-1"},
-			"GHSA-2.json": {ID: "GHSA-2"},
-			"GHSA-3.json": {ID: "GHSA-3"},
-		}),
-	})
+	cacheWrite(t, determineStoredAtPath(testDir, "my-db"), zipOSVs(t, map[string]models.Vulnerability{
+		"GHSA-1.json": {ID: "GHSA-1"},
+		"GHSA-2.json": {ID: "GHSA-2"},
+		"GHSA-3.json": {ID: "GHSA-3"},
+	}))
 
 	db, err := offline.NewZippedDB(testDir, "my-db", ts.URL, false)
 
