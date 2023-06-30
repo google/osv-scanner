@@ -4,9 +4,12 @@ import (
 	"archive/zip"
 	"bytes"
 	"context"
+	"encoding/base64"
+	"encoding/binary"
 	"encoding/json"
 	"errors"
 	"fmt"
+	"hash/crc32"
 	"io"
 	"net/http"
 	"os"
@@ -28,15 +31,61 @@ type ZipDB struct {
 
 var ErrOfflineDatabaseNotFound = errors.New("no offline version of the OSV database is available")
 
-func (db *ZipDB) fetchZip() ([]byte, error) {
-	if db.Offline {
-		cache, err := os.ReadFile(db.StoredAt)
+func fetchRemoteArchiveCRC32CHash(url string) (uint32, error) {
+	req, err := http.NewRequestWithContext(context.Background(), http.MethodHead, url, nil)
 
+	if err != nil {
+		return 0, err
+	}
+
+	resp, err := http.DefaultClient.Do(req)
+	if err != nil {
+		return 0, err
+	}
+
+	defer resp.Body.Close()
+
+	for _, value := range resp.Header.Values("x-goog-hash") {
+		if strings.HasPrefix(value, "crc32c=") {
+			value = strings.TrimPrefix(value, "crc32c=")
+			out, err := base64.StdEncoding.DecodeString(value)
+
+			if err != nil {
+				return 0, err
+			}
+
+			return binary.BigEndian.Uint32(out), nil
+		}
+	}
+
+	return 0, fmt.Errorf("could not find crc32c= checksum")
+}
+
+func fetchLocalArchiveCRC32CHash(data []byte) uint32 {
+	return crc32.Checksum(data, crc32.MakeTable(crc32.Castagnoli))
+}
+
+func (db *ZipDB) fetchZip() ([]byte, error) {
+	cache, err := os.ReadFile(db.StoredAt)
+
+	if db.Offline {
 		if err != nil {
 			return nil, ErrOfflineDatabaseNotFound
 		}
 
 		return cache, nil
+	}
+
+	if err == nil {
+		remoteHash, err := fetchRemoteArchiveCRC32CHash(db.ArchiveURL)
+
+		if err != nil {
+			return nil, fmt.Errorf("could not determine remote crc32c checksum: %w", err)
+		}
+
+		if fetchLocalArchiveCRC32CHash(cache) == remoteHash {
+			return cache, nil
+		}
 	}
 
 	req, err := http.NewRequestWithContext(context.Background(), http.MethodGet, db.ArchiveURL, nil)

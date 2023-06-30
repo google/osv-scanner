@@ -3,8 +3,11 @@ package offline_test
 import (
 	"archive/zip"
 	"bytes"
+	"encoding/base64"
+	"encoding/binary"
 	"encoding/json"
 	"errors"
+	"hash/crc32"
 	"net/http"
 	"net/http/httptest"
 	"os"
@@ -91,6 +94,24 @@ func createZipServer(t *testing.T, handler http.HandlerFunc) (*httptest.Server, 
 	return ts, ts.Close
 }
 
+func computeCRC32CHash(t *testing.T, data []byte) string {
+	t.Helper()
+
+	hash := crc32.Checksum(data, crc32.MakeTable(crc32.Castagnoli))
+
+	return base64.StdEncoding.EncodeToString(binary.BigEndian.AppendUint32([]byte{}, hash))
+}
+
+func writeOSVsZip(t *testing.T, w http.ResponseWriter, osvs map[string]models.Vulnerability) (int, error) {
+	t.Helper()
+
+	z := zipOSVs(t, osvs)
+
+	w.Header().Add("x-goog-hash", "crc32c="+computeCRC32CHash(t, z))
+
+	return w.Write(z)
+}
+
 func zipOSVs(t *testing.T, osvs map[string]models.Vulnerability) []byte {
 	t.Helper()
 
@@ -120,6 +141,7 @@ func zipOSVs(t *testing.T, osvs map[string]models.Vulnerability) []byte {
 	return buf.Bytes()
 }
 
+//nolint:unparam // name might get changed at some point
 func determineStoredAtPath(dbBasePath, name string) string {
 	return path.Join(dbBasePath, name, "all.zip")
 }
@@ -224,13 +246,13 @@ func TestNewZippedDB_Online_WithoutCache(t *testing.T) {
 	defer cleanupTestDir()
 
 	ts, cleanupTestServer := createZipServer(t, func(w http.ResponseWriter, r *http.Request) {
-		_, _ = w.Write(zipOSVs(t, map[string]models.Vulnerability{
+		_, _ = writeOSVsZip(t, w, map[string]models.Vulnerability{
 			"GHSA-1.json": {ID: "GHSA-1"},
 			"GHSA-2.json": {ID: "GHSA-2"},
 			"GHSA-3.json": {ID: "GHSA-3"},
 			"GHSA-4.json": {ID: "GHSA-4"},
 			"GHSA-5.json": {ID: "GHSA-5"},
-		}))
+		})
 	})
 	defer cleanupTestServer()
 
@@ -243,7 +265,7 @@ func TestNewZippedDB_Online_WithoutCache(t *testing.T) {
 	expectDBToHaveOSVs(t, db, osvs)
 }
 
-func TestNewZippedDB_Online_WithCache(t *testing.T) {
+func TestNewZippedDB_Online_WithoutCacheAndNoHashHeader(t *testing.T) {
 	t.Parallel()
 
 	osvs := []models.Vulnerability{
@@ -268,6 +290,80 @@ func TestNewZippedDB_Online_WithCache(t *testing.T) {
 	})
 	defer cleanupTestServer()
 
+	db, err := offline.NewZippedDB(testDir, "my-db", ts.URL, false)
+
+	if err != nil {
+		t.Fatalf("unexpected error \"%v\"", err)
+	}
+
+	expectDBToHaveOSVs(t, db, osvs)
+}
+
+func TestNewZippedDB_Online_WithSameCache(t *testing.T) {
+	t.Parallel()
+
+	osvs := []models.Vulnerability{
+		{ID: "GHSA-1"},
+		{ID: "GHSA-2"},
+		{ID: "GHSA-3"},
+	}
+
+	testDir, cleanupTestDir := createTestDir(t)
+	defer cleanupTestDir()
+
+	cache := zipOSVs(t, map[string]models.Vulnerability{
+		"GHSA-1.json": {ID: "GHSA-1"},
+		"GHSA-2.json": {ID: "GHSA-2"},
+		"GHSA-3.json": {ID: "GHSA-3"},
+	})
+
+	ts, cleanupTestServer := createZipServer(t, func(w http.ResponseWriter, r *http.Request) {
+		if r.Method != http.MethodHead {
+			t.Errorf("unexpected %s request", r.Method)
+		}
+
+		w.Header().Add("x-goog-hash", "crc32c="+computeCRC32CHash(t, cache))
+
+		_, _ = w.Write(cache)
+	})
+	defer cleanupTestServer()
+
+	cacheWrite(t, determineStoredAtPath(testDir, "my-db"), cache)
+
+	db, err := offline.NewZippedDB(testDir, "my-db", ts.URL, false)
+
+	if err != nil {
+		t.Fatalf("unexpected error \"%v\"", err)
+	}
+
+	expectDBToHaveOSVs(t, db, osvs)
+}
+
+func TestNewZippedDB_Online_WithDifferentCache(t *testing.T) {
+	t.Parallel()
+
+	osvs := []models.Vulnerability{
+		{ID: "GHSA-1"},
+		{ID: "GHSA-2"},
+		{ID: "GHSA-3"},
+		{ID: "GHSA-4"},
+		{ID: "GHSA-5"},
+	}
+
+	testDir, cleanupTestDir := createTestDir(t)
+	defer cleanupTestDir()
+
+	ts, cleanupTestServer := createZipServer(t, func(w http.ResponseWriter, r *http.Request) {
+		_, _ = writeOSVsZip(t, w, map[string]models.Vulnerability{
+			"GHSA-1.json": {ID: "GHSA-1"},
+			"GHSA-2.json": {ID: "GHSA-2"},
+			"GHSA-3.json": {ID: "GHSA-3"},
+			"GHSA-4.json": {ID: "GHSA-4"},
+			"GHSA-5.json": {ID: "GHSA-5"},
+		})
+	})
+	defer cleanupTestServer()
+
 	cacheWrite(t, determineStoredAtPath(testDir, "my-db"), zipOSVs(t, map[string]models.Vulnerability{
 		"GHSA-1.json": {ID: "GHSA-1"},
 		"GHSA-2.json": {ID: "GHSA-2"},
@@ -283,6 +379,36 @@ func TestNewZippedDB_Online_WithCache(t *testing.T) {
 	expectDBToHaveOSVs(t, db, osvs)
 }
 
+func TestNewZippedDB_Online_WithCacheButNoHashHeader(t *testing.T) {
+	t.Parallel()
+
+	testDir, cleanupTestDir := createTestDir(t)
+	defer cleanupTestDir()
+
+	ts, cleanupTestServer := createZipServer(t, func(w http.ResponseWriter, r *http.Request) {
+		_, _ = w.Write(zipOSVs(t, map[string]models.Vulnerability{
+			"GHSA-1.json": {ID: "GHSA-1"},
+			"GHSA-2.json": {ID: "GHSA-2"},
+			"GHSA-3.json": {ID: "GHSA-3"},
+			"GHSA-4.json": {ID: "GHSA-4"},
+			"GHSA-5.json": {ID: "GHSA-5"},
+		}))
+	})
+	defer cleanupTestServer()
+
+	cacheWrite(t, determineStoredAtPath(testDir, "my-db"), zipOSVs(t, map[string]models.Vulnerability{
+		"GHSA-1.json": {ID: "GHSA-1"},
+		"GHSA-2.json": {ID: "GHSA-2"},
+		"GHSA-3.json": {ID: "GHSA-3"},
+	}))
+
+	_, err := offline.NewZippedDB(testDir, "my-db", ts.URL, false)
+
+	if err == nil {
+		t.Errorf("expected an error but did not get one")
+	}
+}
+
 func TestNewZippedDB_Online_WithBadCache(t *testing.T) {
 	t.Parallel()
 
@@ -296,11 +422,11 @@ func TestNewZippedDB_Online_WithBadCache(t *testing.T) {
 	defer cleanupTestDir()
 
 	ts, cleanupTestServer := createZipServer(t, func(w http.ResponseWriter, r *http.Request) {
-		_, _ = w.Write(zipOSVs(t, map[string]models.Vulnerability{
+		_, _ = writeOSVsZip(t, w, map[string]models.Vulnerability{
 			"GHSA-1.json": {ID: "GHSA-1"},
 			"GHSA-2.json": {ID: "GHSA-2"},
 			"GHSA-3.json": {ID: "GHSA-3"},
-		}))
+		})
 	})
 	defer cleanupTestServer()
 
@@ -324,13 +450,13 @@ func TestNewZippedDB_FileChecks(t *testing.T) {
 	defer cleanupTestDir()
 
 	ts, cleanupTestServer := createZipServer(t, func(w http.ResponseWriter, r *http.Request) {
-		_, _ = w.Write(zipOSVs(t, map[string]models.Vulnerability{
+		_, _ = writeOSVsZip(t, w, map[string]models.Vulnerability{
 			"file.json": {ID: "GHSA-1234"},
 			// only files with .json suffix should be loaded
 			"file.yaml": {ID: "GHSA-5678"},
 			// (no longer) special case for the GH security database
 			"advisory-database-main/advisories/unreviewed/file.json": {ID: "GHSA-4321"},
-		}))
+		})
 	})
 	defer cleanupTestServer()
 
