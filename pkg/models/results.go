@@ -65,7 +65,7 @@ type GroupInfo struct {
 	IDs []string `json:"ids"`
 
 	// Map of Vulnerability IDs to AnalysisInfo
-	ExperimentalAnalysis map[string]AnalysisInfo `json:"experimentalAnalysis,omitempty"`
+	ExperimentalAnalysis map[string]*AnalysisInfo `json:"experimentalAnalysis,omitempty"`
 }
 
 // IsCalled returns true if any analysis performed determines that the vulnerability is being called

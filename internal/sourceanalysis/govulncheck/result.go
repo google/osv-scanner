@@ -13,83 +13,58 @@ type Message struct {
 	// are not used.
 }
 
-// Vuln represents a single OSV entry.
+// Finding represents a single finding.
 type Finding struct {
-	// OSV contains all data from the OSV entry for this vulnerability.
+	// OSV is the id of the detected vulnerability.
 	OSV string `json:"osv,omitempty"`
 
-	// Modules contains all of the modules in the OSV entry where a
-	// vulnerable package is imported by the target source code or binary.
-	//
-	// For example, a module M with two packages M/p1 and M/p2, where only p1
-	// is vulnerable, will appear in this list if and only if p1 is imported by
-	// the target source code or binary.
-	Modules []*Module `json:"modules,omitempty"`
-}
-
-// Module represents a specific vulnerability relevant to a single module.
-type Module struct {
-	// Path is the module path of the module containing the vulnerability.
-	//
-	// Importable packages in the standard library will have the path "stdlib".
-	Path string `json:"path,omitempty"`
-
-	// FoundVersion is the module version where the vulnerability was found.
-	FoundVersion string `json:"found_version,omitempty"`
-
 	// FixedVersion is the module version where the vulnerability was
-	// fixed. If there are multiple fixed versions in the OSV report, this will
-	// be the latest fixed version.
+	// fixed. This is empty if a fix is not available.
 	//
-	// This is empty if a fix is not available.
+	// If there are multiple fixed versions in the OSV report, this will
+	// be the fixed version in the latest range event for the OSV report.
+	//
+	// For example, if the range events are
+	// {introduced: 0, fixed: 1.0.0} and {introduced: 1.1.0}, the fixed version
+	// will be empty.
+	//
+	// For the stdlib, we will show the fixed version closest to the
+	// Go version that is used. For example, if a fix is available in 1.17.5 and
+	// 1.18.5, and the GOVERSION is 1.17.3, 1.17.5 will be returned as the
+	// fixed version.
 	FixedVersion string `json:"fixed_version,omitempty"`
 
-	// Packages contains all the vulnerable packages in OSV entry that are
-	// imported by the target source code or binary.
+	// Trace contains an entry for each frame in the trace.
 	//
-	// For example, given a module M with two packages M/p1 and M/p2, where
-	// both p1 and p2 are vulnerable, p1 and p2 will each only appear in this
-	// list they are individually imported by the target source code or binary.
-	Packages []*Package `json:"packages,omitempty"`
-}
-
-// Package is a Go package with known vulnerable symbols.
-type Package struct {
-	// Path is the import path of the package containing the vulnerability.
-	Path string `json:"path"`
-
-	// CallStacks contains a representative call stack for each
-	// vulnerable symbol that is called.
-	//
-	// For vulnerabilities found from binary analysis, only CallStack.Symbol
-	// will be provided.
-	//
-	// For non-affecting vulnerabilities reported from the source mode
-	// analysis, this will be empty.
-	CallStacks []CallStack `json:"callstacks,omitempty"`
-}
-
-// CallStacks contains a representative call stack for a vulnerable
-// symbol.
-type CallStack struct {
-	// Frames contains an entry for each stack in the call stack.
-	//
-	// Frames are sorted starting from the entry point to the
-	// imported vulnerable symbol. The last frame in Frames should match
+	// Frames are sorted starting from the imported vulnerable symbol
+	// until the entry point. The first frame in Frames should match
 	// Symbol.
-	Frames []*StackFrame `json:"frames,omitempty"`
+	//
+	// In binary mode, trace will contain a single-frame with no position
+	// information.
+	//
+	// When a package is imported but no vulnerable symbol is called, the trace
+	// will contain a single-frame with no symbol or position information.
+	Trace []*Frame `json:"trace,omitempty"`
 }
 
-// StackFrame represents a call stack entry.
-type StackFrame struct {
+// Frame represents an entry in a finding trace.
+type Frame struct {
+	// Module is the module path of the module containing this symbol.
+	//
+	// Importable packages in the standard library will have the path "stdlib".
+	Module string `json:"module"`
+
+	// Version is the module version from the build graph.
+	Version string `json:"version,omitempty"`
+
 	// Package is the import path.
 	Package string `json:"package,omitempty"`
 
 	// Function is the function name.
 	Function string `json:"function,omitempty"`
 
-	// Receiver is the fully qualified receiver type,
-	// if the called symbol is a method.
+	// Receiver is the receiver type if the called symbol is a method.
 	//
 	// The client can create the final symbol name by
 	// prepending Receiver to FuncName.

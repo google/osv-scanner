@@ -10,20 +10,27 @@ import (
 
 	"github.com/google/osv-scanner/internal/sourceanalysis/govulncheck"
 	"github.com/google/osv-scanner/pkg/models"
-	"golang.org/x/exp/slices"
 	"golang.org/x/vuln/scan"
 )
 
+// goAnalysis runs govulncheck on the module inside moddir, and marks whether a
+// given package vulnerability is called or not.
 func goAnalysis(moddir string, pkgs []models.PackageVulns) (_ []models.PackageVulns, err error) {
-	vulns, vulnsByID := vulnsFromAllPkgs(pkgs)
-	osvToFinding, err := runGovulncheck(moddir, vulns)
+	vulns, idToVuln := vulnsFromAllPkgs(pkgs)
+	idToFinding, err := runGovulncheck(moddir, vulns)
 	if err != nil {
 		return nil, err
 	}
-	return matchAnalysisWithPackageVulns(pkgs, osvToFinding, vulnsByID), nil
+
+	return packageVulnsWithCalledInfo(pkgs, idToFinding, idToVuln), nil
 }
 
 func runGovulncheck(moddir string, vulns []models.Vulnerability) (map[string]*govulncheck.Finding, error) {
+	// Create a temporary directory containing all of the vulnerabilities that
+	// are passed in to check against govulncheck.
+	//
+	// This enables OSV scanner to supply the OSV vulnerabilities to run
+	// against govulncheck and manage the database separately from vuln.go.dev.
 	dbdir, err := os.MkdirTemp("", "")
 	if err != nil {
 		return nil, err
@@ -40,12 +47,13 @@ func runGovulncheck(moddir string, vulns []models.Vulnerability) (map[string]*go
 		if err != nil {
 			return nil, err
 		}
-		fmt.Println(vuln.ID)
-		if err := os.WriteFile(fmt.Sprintf("%s.json", vuln.ID), dat, 0600); err != nil {
+		if err := os.WriteFile(fmt.Sprintf("%s/%s.json", dbdir, vuln.ID), dat, 0600); err != nil {
 			return nil, err
 		}
 	}
 
+	// Run govulncheck on the module at moddir and vulnerability database that
+	// was just created.
 	cmd := scan.Command(context.Background(), "-db", fmt.Sprintf("file://%s", dbdir), "-C", moddir, "-json", "./...")
 	var b bytes.Buffer
 	cmd.Stdout = &b
@@ -55,21 +63,24 @@ func runGovulncheck(moddir string, vulns []models.Vulnerability) (map[string]*go
 	if err := cmd.Wait(); err != nil {
 		return nil, err
 	}
+
+	// Group the output of govulncheck based on the OSV ID.
 	h := &osvHandler{
-		osvToFinding: map[string]*govulncheck.Finding{},
+		idToFinding: map[string]*govulncheck.Finding{},
 	}
 	if err := handleJSON(bytes.NewReader(b.Bytes()), h); err != nil {
 		return nil, err
 	}
-	return h.osvToFinding, nil
+
+	return h.idToFinding, nil
 }
 
 type osvHandler struct {
-	osvToFinding map[string]*govulncheck.Finding
+	idToFinding map[string]*govulncheck.Finding
 }
 
 func (h *osvHandler) Finding(f *govulncheck.Finding) {
-	h.osvToFinding[f.OSV] = f
+	h.idToFinding[f.OSV] = f
 }
 
 func handleJSON(from io.Reader, to *osvHandler) error {
@@ -88,73 +99,70 @@ func handleJSON(from io.Reader, to *osvHandler) error {
 	return nil
 }
 
-func matchAnalysisWithPackageVulns(pkgs []models.PackageVulns, gvcResByVulnID map[string]*govulncheck.Finding, vulnsByID map[string]models.Vulnerability) []models.PackageVulns {
-	for _, pv := range pkgs {
-		// Use index to keep reference to original element in slice
-		for groupIdx := range pv.Groups {
-			for _, vulnID := range pv.Groups[groupIdx].IDs {
-				analysis := &pv.Groups[groupIdx].ExperimentalAnalysis
-				if *analysis == nil {
-					*analysis = make(map[string]models.AnalysisInfo)
-				}
+func packageVulnsWithCalledInfo(pkgs []models.PackageVulns, idToFinding map[string]*govulncheck.Finding, idToVuln map[string]models.Vulnerability) (output []models.PackageVulns) {
+	for _, pkg := range pkgs {
+		for groupIdx := range pkg.Groups {
+			if pkg.Groups[groupIdx].ExperimentalAnalysis == nil {
+				pkg.Groups[groupIdx].ExperimentalAnalysis = map[string]*models.AnalysisInfo{}
+			}
 
-				gvcVuln, ok := gvcResByVulnID[vulnID]
-				if !ok { // If vulnerability not found, check if it contain any source information
-					fillNotImportedAnalysisInfo(vulnsByID, vulnID, pv, analysis)
+			for fid, finding := range idToFinding {
+				if !isRelevantFinding(pkg, finding) {
 					continue
 				}
-				// Module list is unlikely to be very big, linear search is fine
-				containsModule := slices.ContainsFunc(gvcVuln.Modules, func(module *govulncheck.Module) bool {
-					return module.Path == pv.Package.Name
-				})
 
-				if !containsModule {
-					// Code does not import module, so definitely not called
-					(*analysis)[vulnID] = models.AnalysisInfo{
-						Called: false,
-					}
-				} else {
-					// Code does import module, check if it's called
-					(*analysis)[vulnID] = models.AnalysisInfo{
-						Called: isCalled(gvcVuln),
+				called := isCalled(finding)
+				pkg.Groups[groupIdx].ExperimentalAnalysis[fid] = &models.AnalysisInfo{
+					Called: called,
+				}
+			}
+		}
+		for vid, vuln := range idToVuln {
+			if _, ok := idToFinding[vid]; ok {
+				// This OSV will already be accounted for above.
+				continue
+			}
+			for _, aff := range vuln.Affected {
+				if _, ok := aff.EcosystemSpecific["imports"]; !ok {
+					continue
+				}
+				if aff.Package.Name != pkg.Package.Name {
+					continue
+				}
+				for groupIdx := range pkg.Groups {
+					if _, ok := pkg.Groups[groupIdx].ExperimentalAnalysis[vid]; !ok {
+						pkg.Groups[groupIdx].ExperimentalAnalysis[vid] = &models.AnalysisInfo{
+							Called: false,
+						}
 					}
 				}
 			}
 		}
+		output = append(output, pkg)
 	}
 
-	return pkgs
+	return output
 }
 
 // isCalled reports whether the vulnerability is called, therefore
 // affecting the target source code or binary.
-func isCalled(v *govulncheck.Finding) bool {
-	for _, m := range v.Modules {
-		for _, p := range m.Packages {
-			if len(p.CallStacks) > 0 {
+func isCalled(finding *govulncheck.Finding) bool {
+	// If a vulnerability is called, the first stack in the trace will contain
+	// the name of the vulnerable function.
+	return finding.Trace[0].Function != ""
+}
+
+func isRelevantFinding(pkg models.PackageVulns, finding *govulncheck.Finding) bool {
+	if pkg.Package.Name != finding.Trace[0].Module {
+		return false
+	}
+	for groupIdx := range pkg.Groups {
+		for _, gid := range pkg.Groups[groupIdx].IDs {
+			if gid == finding.OSV {
 				return true
 			}
 		}
 	}
 
 	return false
-}
-
-// fillNotImportedAnalysisInfo checks for any source information in advisories, and sets called to false
-func fillNotImportedAnalysisInfo(vulnsByID map[string]models.Vulnerability, vulnID string, pv models.PackageVulns, analysis *map[string]models.AnalysisInfo) {
-	for _, v := range vulnsByID[vulnID].Affected {
-		// TODO: Compare versions to see if this is the correct affected element
-		// ver, err := semantic.Parse(pv.Package.Version, semantic.SemverVersion)
-		if v.Package.Name != pv.Package.Name {
-			continue
-		}
-		_, hasImportsField := v.EcosystemSpecific["imports"]
-		if hasImportsField {
-			// If there is source information, then analysis has been performed, and
-			// code does not import the vulnerable package, so definitely not called
-			(*analysis)[vulnID] = models.AnalysisInfo{
-				Called: false,
-			}
-		}
-	}
 }

@@ -1,0 +1,32 @@
+govulncheck is an experimental tool. Share feedback at https://go.dev/s/govulncheck-feedback.
+
+Using go1.20.4 and govulncheck@v0.0.0 with
+vulnerability data from https://vuln.go.dev (last modified 2023-05-11 18:59:56 +0000 UTC).
+
+Scanning your code and 81 packages across 3 dependent modules for known vulnerabilities...
+Your code is affected by 2 vulnerabilities from 2 modules.
+
+Vulnerability #1: GO-2021-0076
+    A malicious JSON patch can cause a panic due to an out-of-bounds
+    write attempt. This can be used as a denial of service vector if
+    exposed to arbitrary user input.
+  More info: https://pkg.go.dev/vuln/GO-2021-0076
+  Module: github.com/evanphx/json-patch
+    Found in: github.com/evanphx/json-patch@v0.0.0-20190203023257-5858425f7550
+    Fixed in: github.com/evanphx/json-patch@v3.0.1-0.20180525145409-4c9aadca8f89
+    Call stacks in your code:
+      main.go:26:21: github.com/julieqiu/govulncheckdemo/module4.main calls github.com/evanphx/json-patch.Patch.Apply
+
+
+Vulnerability #2: GO-2020-0015
+    An attacker could provide a single byte to a UTF16 decoder
+    instantiated with UseBOM or ExpectBOM to trigger an infinite
+    loop if the String function on the Decoder is called, or the
+    Decoder is passed to transform.String. If used to parse user
+    supplied input, this may be used as a denial of service vector.
+  More info: https://pkg.go.dev/vuln/GO-2020-0015
+  Module: golang.org/x/text
+    Found in: golang.org/x/text@v0.3.1-0.20181227161524-e6919f6577db
+    Fixed in: golang.org/x/text@v0.3.3
+    Call stacks in your code:
+      main.go:17:29: github.com/julieqiu/govulncheckdemo/module4.main calls golang.org/x/text/encoding/unicode.bomOverride.Transform

@@ -1,62 +1,43 @@
 {
   "GO-2021-0053": {
-    "OSV": "GO-2021-0053",
-    "Modules": [
+    "osv": "GO-2021-0053",
+    "fixed_version": "v1.3.2",
+    "trace": [
       {
-        "Path": "github.com/gogo/protobuf",
-        "FoundVersion": "v1.3.1",
-        "FixedVersion": "v1.3.2",
-        "Packages": [
-          {
-            "Path": "github.com/gogo/protobuf/plugin/unmarshal",
-            "CallStacks": null
-          }
-        ]
+        "module": "github.com/gogo/protobuf",
+        "version": "v1.3.1",
+        "package": "github.com/gogo/protobuf/plugin/unmarshal"
       }
     ]
   },
   "GO-2023-1558": {
-    "OSV": "GO-2023-1558",
-    "Modules": [
+    "osv": "GO-2023-1558",
+    "fixed_version": "v1.1.0",
+    "trace": [
       {
-        "Path": "github.com/ipfs/go-bitfield",
-        "FoundVersion": "v1.0.0",
-        "FixedVersion": "v1.1.0",
-        "Packages": [
-          {
-            "Path": "github.com/ipfs/go-bitfield",
-            "CallStacks": [
-              {
-                "Symbol": "NewBitfield",
-                "Summary": "../../internal/govulncheckshim/fixtures/test-project/main.go:13:22: github.com/ossf-tests/osv-e2e.main calls github.com/ipfs/go-bitfield.NewBitfield",
-                "Frames": [
-                  {
-                    "PkgPath": "github.com/ossf-tests/osv-e2e",
-                    "FuncName": "main",
-                    "RecvType": "",
-                    "Position": {
-                      "Filename": "/home/rexpan/Documents/Projects/osv-scanner/internal/govulncheckshim/fixtures/test-project/main.go",
-                      "Offset": 234,
-                      "Line": 13,
-                      "Column": 22
-                    }
-                  },
-                  {
-                    "PkgPath": "github.com/ipfs/go-bitfield",
-                    "FuncName": "NewBitfield",
-                    "RecvType": "",
-                    "Position": {
-                      "Filename": "",
-                      "Offset": 0,
-                      "Line": 0,
-                      "Column": 0
-                    }
-                  }
-                ]
-              }
-            ]
-          }
-        ]
+        "module": "github.com/ipfs/go-bitfield",
+        "version": "v1.0.0",
+        "package": "github.com/ipfs/go-bitfield",
+        "function": "NewBitfield",
+        "receiver": "",
+        "position": {
+          "filename": "",
+          "offset": 0,
+          "line": 0,
+          "column": 0
+        }
+      },
+      {
+        "module": "github.com/ossf-tests/osv-e2e",
+        "package": "github.com/ossf-tests/osv-e2e",
+        "function": "main",
+        "receiver": "",
+        "position": {
+            "filename": "/home/rexpan/Documents/Projects/osv-scanner/internal/govulncheckshim/fixtures/test-project/main.go",
+            "offset": 234,
+            "line": 13,
+            "column": 22
+        }
       }
     ]
   }
