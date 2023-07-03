@@ -12,7 +12,6 @@ import (
 	"github.com/google/osv-scanner/internal/sourceanalysis/govulncheck"
 	"github.com/google/osv-scanner/pkg/models"
 	"github.com/google/osv-scanner/pkg/reporter"
-	"golang.org/x/exp/slices"
 	"golang.org/x/vuln/scan"
 )
 
@@ -55,25 +54,8 @@ func matchAnalysisWithPackageVulns(pkgs []models.PackageVulns, idToFindings map[
 					fillNotImportedAnalysisInfo(vulnsByID, vulnID, pv, analysis)
 					continue
 				}
-				// Module list is unlikely to be very big, linear search is fine
-				var modulePaths []string
-				for m := range moduleToCalled {
-					modulePaths = append(modulePaths, m)
-				}
-				containsModule := slices.ContainsFunc(modulePaths, func(mp string) bool {
-					return mp == pv.Package.Name
-				})
-
-				if !containsModule {
-					// Code does not import module, so definitely not called
-					(*analysis)[vulnID] = models.AnalysisInfo{
-						Called: false,
-					}
-				} else {
-					// Code does import module, check if it's called
-					(*analysis)[vulnID] = models.AnalysisInfo{
-						Called: moduleToCalled[pv.Package.Name],
-					}
+				(*analysis)[vulnID] = models.AnalysisInfo{
+					Called: moduleToCalled[pv.Package.Name],
 				}
 			}
 		}
