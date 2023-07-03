@@ -94,7 +94,9 @@ func (db *ZipDB) fetchZip() ([]byte, error) {
 		return nil, fmt.Errorf("could not retrieve OSV database archive: %w", err)
 	}
 
-	req.Header.Set("User-Agent", osv.RequestUserAgent)
+	if osv.RequestUserAgent != "" {
+		req.Header.Set("User-Agent", osv.RequestUserAgent)
+	}
 
 	resp, err := http.DefaultClient.Do(req)
 	if err != nil {
