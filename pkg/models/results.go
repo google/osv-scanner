@@ -91,9 +91,9 @@ func (groupInfo *GroupInfo) IndexString() string {
 }
 
 // FixedVersions returns a list of fixed versions, or an empty slice if no fixed version is available
-func (vuln *Vulnerability) FixedVersions() map[Package][]string {
+func (v *Vulnerability) FixedVersions() map[Package][]string {
 	output := map[Package][]string{}
-	for _, a := range vuln.Affected {
+	for _, a := range v.Affected {
 		cleanedPackaged := a.Package
 		cleanedPackaged.Purl = ""
 		for _, r := range a.Ranges {
