@@ -14,9 +14,6 @@
 
 name: OSV-Scanner PR scanning
 
-permissions:
-  contents: read
-
 # env:
 #   # Generator
 #   BUILDER_BINARY: slsa-generator-generic-linux-amd64 # Name of the binary in the release assets.
