@@ -36,5 +36,5 @@ func (r *SARIFReporter) PrintText(msg string) {
 }
 
 func (r *SARIFReporter) PrintResult(vulnResult *models.VulnerabilityResults) error {
-	return output.PrintSarifReport(vulnResult, r.stdout)
+	return output.PrintSARIFReport(vulnResult, r.stdout)
 }

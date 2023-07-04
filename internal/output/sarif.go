@@ -22,8 +22,12 @@ func GroupFixedVersions(flattened []models.VulnerabilityFlattened) map[string][]
 	// Remember to sort and compact before displaying later
 	for _, vf := range flattened {
 		groupIdx := vf.Source.String() + ":" + vf.GroupInfo.IndexString()
+		pkg := models.Package{
+			Ecosystem: models.Ecosystem(vf.Package.Ecosystem),
+			Name:      vf.Package.Name,
+		}
 		groupFixedVersions[groupIdx] =
-			append(groupFixedVersions[groupIdx], vf.Vulnerability.FixedVersions()...)
+			append(groupFixedVersions[groupIdx], vf.Vulnerability.FixedVersions()[pkg]...)
 	}
 
 	// Remove duplicates
@@ -60,8 +64,8 @@ func CreateSourceRemediationTable(source models.PackageSource, groupFixedVersion
 	return remediationTable
 }
 
-// PrintSarifReport prints SARIF output to outputWriter
-func PrintSarifReport(vulnResult *models.VulnerabilityResults, outputWriter io.Writer) error {
+// PrintSARIFReport prints SARIF output to outputWriter
+func PrintSARIFReport(vulnResult *models.VulnerabilityResults, outputWriter io.Writer) error {
 	report, err := sarif.New(sarif.Version210)
 	if err != nil {
 		return err

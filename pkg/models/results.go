@@ -90,14 +90,16 @@ func (groupInfo *GroupInfo) IndexString() string {
 	return strings.Join(groupInfo.IDs, ",")
 }
 
-// IsFixed returns a list of fixed versions, or an empty slice if no fixed version is available
-func (vuln *Vulnerability) FixedVersions() []string {
-	output := []string{}
+// FixedVersions returns a list of fixed versions, or an empty slice if no fixed version is available
+func (vuln *Vulnerability) FixedVersions() map[Package][]string {
+	output := map[Package][]string{}
 	for _, a := range vuln.Affected {
+		cleanedPackaged := a.Package
+		cleanedPackaged.Purl = ""
 		for _, r := range a.Ranges {
 			for _, e := range r.Events {
 				if e.Fixed != "" {
-					output = append(output, e.Fixed)
+					output[cleanedPackaged] = append(output[cleanedPackaged], e.Fixed)
 				}
 			}
 		}
