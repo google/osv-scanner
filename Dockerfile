@@ -24,7 +24,7 @@ RUN go mod download
 COPY ./ /src/
 RUN go build -o osv-scanner ./cmd/osv-scanner/
 
-FROM alpine:3.17@sha256:124c7d2707904eea7431fffe91522a01e5a861a624ee31d03372cc1d138a3126
+FROM alpine:3.18@sha256:82d1e9d7ed48a7523bdebc18cf6290bdb97b82302a8a9c27d4fe885949ea94d1
 RUN apk --no-cache add \
     ca-certificates \
     git

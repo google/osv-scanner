@@ -1,6 +1,25 @@
-# v1.3.4:
 
-### Fixes
+# v1.3.5:
+
+### Features
+- [Feature #409](https://github.com/google/osv-scanner/pull/409) 
+  Adds an additional column to the table output which shows the severity if available.
+
+### API Features
+
+- [Feature #424](https://github.com/google/osv-scanner/pull/424)
+- [Feature #417](https://github.com/google/osv-scanner/pull/417)
+- [Feature #417](https://github.com/google/osv-scanner/pull/417)
+  - Update the models package to better reflect the osv schema, including:
+    - Add the withdrawn field
+    - Improve timestamp serialization
+    - Add related field
+    - Add additional ecosystem constants
+    - Add new reference types
+    - Add YAML tags
+
+
+# v1.3.4:
 
 ### Minor Updates
 
