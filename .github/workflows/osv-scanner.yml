@@ -27,6 +27,8 @@ on:
 permissions: read-all
 
 jobs:
+  scan-pr-attempt:
+    uses: .github/workflows/osv-scanner-pr.yml
   scan:
     name: OSV-Scanner scan
     runs-on: ubuntu-latest
@@ -40,8 +42,6 @@ jobs:
       # actions: read
 
     steps:
-      - name: "Run reusable workflow"
-        uses: .github/workflows/osv-scanner-pr.yml
       - name: "Checkout code"
         uses: actions/checkout@c85c95e3d7251135ab7dc9ce3241c5835cc595a9 # v3.5.3
         with:

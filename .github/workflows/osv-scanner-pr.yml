@@ -30,7 +30,7 @@ on:
   workflow_call:
     inputs:
     outputs:
-
+    
 jobs:
   scan-pr:
     runs-on: ubuntu-latest
