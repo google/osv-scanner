@@ -28,7 +28,7 @@ permissions: read-all
 
 jobs:
   scan-pr-attempt:
-    uses: ./.github/workflows/osv-scanner-pr.yml
+    uses: "./.github/workflows/osv-scanner-pr.yml"
   # scan:
   #   name: OSV-Scanner scan
   #   runs-on: ubuntu-latest
