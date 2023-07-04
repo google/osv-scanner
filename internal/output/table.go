@@ -125,7 +125,7 @@ func tableBuilderInner(vulnResult *models.VulnerabilityResults, addStyling bool,
 						outputSeverities = append(outputSeverities, outputSeverity)
 					}
 				}
-				outputRow = append(outputRow, strings.Join(outputSeverities, ",\n"))
+				outputRow = append(outputRow, strings.Join(outputSeverities, "\n"))
 
 				if pkg.Package.Ecosystem == "GIT" {
 					outputRow = append(outputRow, "GIT", pkg.Package.Version, pkg.Package.Version)
