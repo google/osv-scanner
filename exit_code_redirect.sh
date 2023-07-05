@@ -28,6 +28,7 @@ last_arg="${!total_args}"
 # Remove the last argument from the list
 args=${@:1:$((total_args - 1))}
 
+echo $last_arg
 # Split the last argument by newline
 readarray -t split_args <<<"$last_arg"
 
