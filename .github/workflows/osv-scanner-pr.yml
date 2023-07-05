@@ -49,3 +49,10 @@ jobs:
           for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
             echo "$file was changed"
           done
+      - name: "Run scanner"
+        uses: ./ # Uses ./action.yaml
+        with:
+          results-format: sarif
+          results-file: results.sarif
+          to-scan: ${{ steps.changed-files.outputs.all_changed_files }}
+
