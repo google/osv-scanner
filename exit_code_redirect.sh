@@ -32,6 +32,11 @@ args=${@:1:$((total_args - 1))}
 # "//\n/ " replaces new line as space
 split_args=(${last_arg//\n/ })
 
+for VARIABLE in $split_args
+do
+    echo $VARIABLE
+done
+
 # echo "${split_args[1]}"
 # Execute osv-scanner with the provided arguments
 osv-scanner $args "${split_args[@]}"
