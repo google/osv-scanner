@@ -29,17 +29,6 @@ permissions: read-all
 jobs:
   scan-pr-attempt:
     uses: "./.github/workflows/osv-scanner-pr.yml"
-  # scan:
-  #   name: OSV-Scanner scan
-  #   runs-on: ubuntu-latest
-  #   permissions:
-  #     # Needed to upload the results to code-scanning dashboard.
-  #     security-events: write
-  #     # Needed to publish results and get a badge (see publish_results below).
-  #     id-token: write
-  #     # Uncomment the permissions below if installing in a private repository.
-  #     # contents: read
-  #     # actions: read
 
   #   steps:
   #     - name: "Checkout code"
@@ -55,21 +44,3 @@ jobs:
   #         to-scan: |-
   #           ./
   #           ./cmd/osv-scanner/fixtures/locks-many/
-
-
-  #     # Upload the results as artifacts (optional). Commenting out will disable uploads of run results in SARIF
-  #     # format to the repository Actions tab.
-  #     - name: "Upload artifact"
-  #       if: '!cancelled()'
-  #       uses: actions/upload-artifact@0b7f8abb1508181956e8e162db84b466c27e18ce # v3.1.2
-  #       with:
-  #         name: SARIF file
-  #         path: results.sarif
-  #         retention-days: 5
-
-  #     # Upload the results to GitHub's code scanning dashboard.
-  #     - name: "Upload to code-scanning"
-  #       if: '!cancelled()'
-  #       uses: github/codeql-action/upload-sarif@6c089f53dd51dc3fc7e599c3cb5356453a52ca9e # v2.20.0
-  #       with:
-  #         sarif_file: results.sarif
