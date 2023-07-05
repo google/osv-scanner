@@ -28,10 +28,11 @@ last_arg="${!total_args}"
 # Remove the last argument from the list
 args=${@:1:$((total_args - 1))}
 
-echo $last_arg
-# Split the last argument by newline
-readarray -t split_args <<<"$last_arg"
+# () inteprets spaces as spearate entries in an array
+# "//\n/ " replaces new line as space
+split_args=(${last_arg//\n/ })
 
+# echo "${split_args[1]}"
 # Execute osv-scanner with the provided arguments
 osv-scanner $args "${split_args[@]}"
 
