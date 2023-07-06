@@ -47,7 +47,7 @@ jobs:
           results-format: json
           results-file: old-result.json
           to-scan: .
-          recursive-scan: true
+          recursive-search: true
       - name: "Checkout current branch"
         run: git checkout $GITHUB_SHA
       # - name: "Run scanner"
