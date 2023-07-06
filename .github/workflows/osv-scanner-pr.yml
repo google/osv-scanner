@@ -12,64 +12,18 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-name: OSV-Scanner PR scanning
-
-# env:
-#   # Generator
-#   BUILDER_BINARY: slsa-generator-generic-linux-amd64 # Name of the binary in the release assets.
-#   BUILDER_DIR: internal/builders/generic # Source directory if we compile the builder.
-
-# defaults:
-#   run:
-#     shell: bash
+name: osv-scanner
 
 on:
-  workflow_call:
+  pull_request:
+    # The branches below must be a subset of the branches above
+    branches: [ main ]
+  merge_group:
+    branches: [ main ]
+
+# Declare default permissions as read only.
+permissions: read-all
 
 jobs:
-  scan-pr:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
-          persist-credentials: false
-      - name: Get changed files
-        id: changed-files
-        uses: tj-actions/changed-files@v37
-
-          # To compare changes between the current commit and the last pushed remote commit set `since_last_remote_commit: true`. e.g
-          # with:
-          #   since_last_remote_commit: true 
-
-      - name: List all changed files
-        run: |
-          echo ${{ steps.changed-files.outputs.all_changed_files }}
-          echo ------------
-          for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
-            echo "$file was changed"
-          done
-      - name: "Run scanner"
-        uses: ./ # Uses ./action.yaml
-        with:
-          results-format: sarif
-          results-file: results.sarif
-          to-scan: ${{ steps.changed-files.outputs.all_changed_files }}
-
-      # Upload the results as artifacts (optional). Commenting out will disable uploads of run results in SARIF
-      # format to the repository Actions tab.
-      - name: "Upload artifact"
-        if: '!cancelled()'
-        uses: actions/upload-artifact@0b7f8abb1508181956e8e162db84b466c27e18ce # v3.1.2
-        with:
-          name: SARIF file
-          path: results.sarif
-          retention-days: 5
-
-      # Upload the results to GitHub's code scanning dashboard.
-      - name: "Upload to code-scanning"
-        if: '!cancelled()'
-        uses: github/codeql-action/upload-sarif@6c089f53dd51dc3fc7e599c3cb5356453a52ca9e # v2.20.0
-        with:
-          sarif_file: results.sarif
-
+  scan-pr-attempt:
+    uses: "./.github/workflows/osv-scanner-pr.yml"
