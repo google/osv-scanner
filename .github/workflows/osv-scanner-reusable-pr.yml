@@ -49,7 +49,7 @@ jobs:
           to-scan: .
           recursive-scan: true
       - name: "Checkout current branch"
-        run: git checkout ${{ github.event.pull_request.base.ref }}
+        run: git checkout $GITHUB_SHA
       # - name: "Run scanner"
       #   uses: ./ # Uses ./action.yaml
       #   with:
