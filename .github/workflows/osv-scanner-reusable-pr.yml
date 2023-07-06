@@ -24,7 +24,6 @@ jobs:
       - uses: actions/checkout@v3
         with:
           fetch-depth: 0
-          persist-credentials: false
       - name: Get changed files
         id: changed-files
         uses: tj-actions/changed-files@v37
@@ -40,27 +39,43 @@ jobs:
           for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
             echo "$file was changed"
           done
+      - name: "Checkout target branch"
+        run: git checkout $GITHUB_BASE_REF
       - name: "Run scanner"
         uses: ./ # Uses ./action.yaml
         with:
-          results-format: sarif
-          results-file: results.sarif
+          results-format: json
+          results-file: old-result.json
           to-scan: ${{ steps.changed-files.outputs.all_changed_files }}
-
+      - name: "Checkout current branch"
+        run: git checkout $GITHUB_HEAD_REF
+      # - name: "Run scanner"
+      #   uses: ./ # Uses ./action.yaml
+      #   with:
+      #     results-format: json
+      #     results-file: old-result.json
+      #     to-scan: ${{ steps.changed-files.outputs.all_changed_files }}
       # Upload the results as artifacts (optional). Commenting out will disable uploads of run results in SARIF
       # format to the repository Actions tab.
-      - name: "Upload artifact"
+      # - name: "Upload artifact"
+      #   if: '!cancelled()'
+      #   uses: actions/upload-artifact@0b7f8abb1508181956e8e162db84b466c27e18ce # v3.1.2
+      #   with:
+      #     name: SARIF file
+      #     path: results.sarif
+      #     retention-days: 5
+      - name: "Upload artifact 2"
         if: '!cancelled()'
         uses: actions/upload-artifact@0b7f8abb1508181956e8e162db84b466c27e18ce # v3.1.2
         with:
-          name: SARIF file
-          path: results.sarif
+          name: Old result
+          path: old-result.json
           retention-days: 5
 
       # Upload the results to GitHub's code scanning dashboard.
-      - name: "Upload to code-scanning"
-        if: '!cancelled()'
-        uses: github/codeql-action/upload-sarif@6c089f53dd51dc3fc7e599c3cb5356453a52ca9e # v2.20.0
-        with:
-          sarif_file: results.sarif
+      # - name: "Upload to code-scanning"
+      #   if: '!cancelled()'
+      #   uses: github/codeql-action/upload-sarif@6c089f53dd51dc3fc7e599c3cb5356453a52ca9e # v2.20.0
+      #   with:
+      #     sarif_file: results.sarif
 
