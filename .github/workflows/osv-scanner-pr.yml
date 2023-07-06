@@ -26,4 +26,4 @@ permissions: read-all
 
 jobs:
   scan-pr-attempt:
-    uses: "./.github/workflows/osv-scanner-pr.yml"
+    uses: "./.github/workflows/osv-scanner-reusable-pr.yml"
