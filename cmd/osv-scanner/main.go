@@ -103,6 +103,11 @@ func run(args []string, stdout, stderr io.Writer) int {
 				Usage: "attempt call analysis on code to detect only active vulnerabilities",
 				Value: false,
 			},
+			&cli.StringFlag{
+				Name:      "experimental-diff",
+				Usage:     "only show the difference between report",
+				TakesFile: true,
+			},
 			&cli.BoolFlag{
 				Name:  "no-ignore",
 				Usage: "also scan files that would be ignored by .gitignore",
@@ -138,6 +143,7 @@ func run(args []string, stdout, stderr io.Writer) int {
 				ConfigOverridePath:       context.String("config"),
 				DirectoryPaths:           context.Args().Slice(),
 				ExperimentalCallAnalysis: context.Bool("experimental-call-analysis"),
+				ExperimentalDiffPath:     context.String("experimental-diff"),
 			}, r)
 
 			if err != nil &&

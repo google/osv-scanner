@@ -2,6 +2,7 @@ package osvscanner
 
 import (
 	"bufio"
+	"encoding/json"
 	"errors"
 	"fmt"
 	"os"
@@ -34,6 +35,7 @@ type ScannerActions struct {
 	ConfigOverridePath   string
 
 	ExperimentalCallAnalysis bool
+	ExperimentalDiffPath     string
 }
 
 // NoPackagesFoundErr for when no packages is found during a scan.
@@ -487,6 +489,15 @@ func DoScan(actions ScannerActions, r reporter.Reporter) (models.VulnerabilityRe
 		}
 	}
 
+	var oldResults *models.VulnerabilityResults = nil
+	if actions.ExperimentalDiffPath != "" {
+		var err error
+		oldResults, err = loadVulnResults(actions.ExperimentalDiffPath)
+		if err != nil {
+			return models.VulnerabilityResults{}, err
+		}
+	}
+
 	for _, container := range actions.DockerContainerNames {
 		// TODO: Automatically figure out what docker base image
 		// and scan appropriately.
@@ -557,6 +568,11 @@ func DoScan(actions ScannerActions, r reporter.Reporter) (models.VulnerabilityRe
 		r.PrintText(fmt.Sprintf("Filtered %d vulnerabilities from output\n", filtered))
 	}
 
+	if oldResults != nil {
+		r.PrintText(fmt.Sprintf("Only showing different results from: %s", actions.ExperimentalDiffPath))
+		vulnerabilityResults = diffVulnerabilityResults(*oldResults, vulnerabilityResults)
+	}
+
 	// if vulnerability exists it should return error
 	if len(vulnerabilityResults.Results) > 0 {
 		// If any vulnerabilities are called, then we return VulnerabilitiesFoundErr
@@ -570,4 +586,18 @@ func DoScan(actions ScannerActions, r reporter.Reporter) (models.VulnerabilityRe
 	}
 
 	return vulnerabilityResults, nil
+}
+
+func loadVulnResults(path string) (*models.VulnerabilityResults, error) {
+	file, err := os.Open(path)
+	if err != nil {
+		return nil, fmt.Errorf("failed to load %s", path)
+	}
+	var value models.VulnerabilityResults
+	err = json.NewDecoder(file).Decode(&value)
+	if err != nil {
+		return nil, fmt.Errorf("failed to parse %s", path)
+	}
+
+	return &value, nil
 }
