@@ -50,21 +50,23 @@ jobs:
           recursive-search: true
       - name: "Checkout current branch"
         run: git checkout $GITHUB_SHA
-      # - name: "Run scanner"
-      #   uses: ./ # Uses ./action.yaml
-      #   with:
-      #     results-format: json
-      #     results-file: old-result.json
-      #     to-scan: ${{ steps.changed-files.outputs.all_changed_files }}
+      - name: "Run scanner"
+        uses: another-rex/osv-scanner@markdown-output
+        with:
+          results-format: sarif
+          results-file: results.sarif
+          to-scan: .
+          recursive-search: true
+          old-results: old-result.json
       # Upload the results as artifacts (optional). Commenting out will disable uploads of run results in SARIF
       # format to the repository Actions tab.
-      # - name: "Upload artifact"
-      #   if: '!cancelled()'
-      #   uses: actions/upload-artifact@0b7f8abb1508181956e8e162db84b466c27e18ce # v3.1.2
-      #   with:
-      #     name: SARIF file
-      #     path: results.sarif
-      #     retention-days: 5
+      - name: "Upload artifact"
+        if: '!cancelled()'
+        uses: actions/upload-artifact@0b7f8abb1508181956e8e162db84b466c27e18ce # v3.1.2
+        with:
+          name: SARIF file
+          path: results.sarif
+          retention-days: 5
       - name: "Upload artifact 2"
         if: '!cancelled()'
         uses: actions/upload-artifact@0b7f8abb1508181956e8e162db84b466c27e18ce # v3.1.2
@@ -74,9 +76,9 @@ jobs:
           retention-days: 5
 
       # Upload the results to GitHub's code scanning dashboard.
-      # - name: "Upload to code-scanning"
-      #   if: '!cancelled()'
-      #   uses: github/codeql-action/upload-sarif@6c089f53dd51dc3fc7e599c3cb5356453a52ca9e # v2.20.0
-      #   with:
-      #     sarif_file: results.sarif
+      - name: "Upload to code-scanning"
+        if: '!cancelled()'
+        uses: github/codeql-action/upload-sarif@6c089f53dd51dc3fc7e599c3cb5356453a52ca9e # v2.20.0
+        with:
+          sarif_file: results.sarif
 
