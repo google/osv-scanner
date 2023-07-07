@@ -1,4 +1,4 @@
-package govulncheckshim
+package sourceanalysis
 
 import (
 	"encoding/json"
@@ -11,9 +11,11 @@ import (
 	"github.com/google/osv-scanner/pkg/models"
 )
 
+var fixturesDir = "integration/fixtures"
+
 func Test_RunGoVulnCheck(t *testing.T) {
 	t.Parallel()
-	entries, err := os.ReadDir("fixtures")
+	entries, err := os.ReadDir(fixturesDir)
 	if err != nil {
 		t.Errorf("failed to read fixtures dir: %v", err)
 	}
@@ -28,7 +30,8 @@ func Test_RunGoVulnCheck(t *testing.T) {
 			continue
 		}
 
-		file, err := os.Open(filepath.Join("fixtures", de.Name()))
+		fn := filepath.Join(fixturesDir, de.Name())
+		file, err := os.Open(fn)
 		if err != nil {
 			t.Errorf("failed to open fixture vuln files: %v", err)
 		}
@@ -36,16 +39,16 @@ func Test_RunGoVulnCheck(t *testing.T) {
 		newVuln := models.Vulnerability{}
 		err = json.NewDecoder(file).Decode(&newVuln)
 		if err != nil {
-			t.Errorf("failed to decode fixture vuln files: %v", err)
+			t.Errorf("failed to decode fixture vuln file (%q): %v", fn, err)
 		}
 		vulns = append(vulns, newVuln)
 	}
 
-	res, err := RunGoVulnCheck("fixtures/test-project", vulns)
+	res, err := runGovulncheck(filepath.Join(fixturesDir, "test-project"), vulns)
 	if err != nil {
 		t.Errorf("failed to run RunGoVulnCheck: %v", err)
 	}
 
-	res.Vulns[0].Modules[0].Packages[0].CallStacks[0].Frames[0].Position.Filename = "<Any value>"
-	testutility.AssertMatchFixtureJSON(t, "fixtures/snapshots/govulncheckshim_test.json", res)
+	res["GO-2023-1558"][0].Trace[1].Position.Filename = "<Any value>"
+	testutility.AssertMatchFixtureJSON(t, filepath.Join(fixturesDir, "snapshots/govulncheckshim_test.json"), res)
 }
