@@ -244,7 +244,7 @@ func scanSBOMFile(r reporter.Reporter, query *osv.BatchedQuery, path string, fro
 		count := 0
 		ignoredCount := 0
 		err = provider.GetPackages(file, func(id sbom.Identifier) error {
-			_, err := PURLToPackage(id.PURL)
+			_, err := models.PURLToPackage(id.PURL)
 			if err != nil {
 				ignoredCount++
 				//nolint:nilerr
