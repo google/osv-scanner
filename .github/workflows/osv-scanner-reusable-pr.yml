@@ -43,6 +43,7 @@ jobs:
         run: git checkout $GITHUB_BASE_REF
       - name: "Run scanner"
         uses: another-rex/osv-scanner@markdown-output
+        continue-on-error: true
         with:
           results-format: json
           results-file: old-result.json
