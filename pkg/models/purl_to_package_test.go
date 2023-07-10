@@ -38,6 +38,28 @@ func TestPURLToPackage(t *testing.T) {
 			},
 		},
 		{
+			name: "valid PURL maven",
+			args: args{
+				purl: "pkg:maven/org.hdrhistogram/HdrHistogram@2.1.12",
+			},
+			want: PackageInfo{
+				Name:      "org.hdrhistogram:HdrHistogram",
+				Version:   "2.1.12",
+				Ecosystem: string(EcosystemMaven),
+			},
+		},
+		{
+			name: "valid Debian maven",
+			args: args{
+				purl: "pkg:deb/debian/nginx@2.36.1-8+deb11u1",
+			},
+			want: PackageInfo{
+				Name:      "nginx",
+				Version:   "2.36.1-8+deb11u1",
+				Ecosystem: string(EcosystemDebian),
+			},
+		},
+		{
 			name: "invalid PURL",
 			args: args{
 				purl: "pkg-golang/github.com/gogo/protobuf.0",

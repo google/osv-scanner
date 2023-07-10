@@ -32,7 +32,14 @@ func PURLToPackage(purl string) (PackageInfo, error) {
 	// PackageInfo expects the full namespace in the name for ecosystems that specify it.
 	name := parsedPURL.Name
 	if parsedPURL.Namespace != "" {
-		name = parsedPURL.Namespace + "/" + parsedPURL.Name
+		if ecosystem == string(EcosystemMaven) { // Maven uses : to separate namespace and package
+			name = parsedPURL.Namespace + ":" + parsedPURL.Name
+		} else if ecosystem == string(EcosystemDebian) || ecosystem == string(EcosystemAlpine) {
+			// Debian and Alpine repeats their namespace in PURL, so don't add it to the name
+			name = parsedPURL.Name
+		} else {
+			name = parsedPURL.Namespace + "/" + parsedPURL.Name
+		}
 	}
 
 	return PackageInfo{
