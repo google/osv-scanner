@@ -1,8 +1,10 @@
-package models
+package models_test
 
 import (
 	"reflect"
 	"testing"
+
+	"github.com/google/osv-scanner/pkg/models"
 )
 
 func TestPURLToPackage(t *testing.T) {
@@ -13,7 +15,7 @@ func TestPURLToPackage(t *testing.T) {
 	tests := []struct {
 		name    string
 		args    args
-		want    PackageInfo
+		want    models.PackageInfo
 		wantErr bool
 	}{
 		{
@@ -21,10 +23,10 @@ func TestPURLToPackage(t *testing.T) {
 			args: args{
 				purl: "pkg:cargo/memoffset@0.6.1",
 			},
-			want: PackageInfo{
+			want: models.PackageInfo{
 				Name:      "memoffset",
 				Version:   "0.6.1",
-				Ecosystem: string(EcosystemCratesIO),
+				Ecosystem: string(models.EcosystemCratesIO),
 			},
 		},
 		{
@@ -32,10 +34,10 @@ func TestPURLToPackage(t *testing.T) {
 			args: args{
 				purl: "pkg:golang/github.com/gogo/protobuf@5.6.0",
 			},
-			want: PackageInfo{
+			want: models.PackageInfo{
 				Name:      "github.com/gogo/protobuf",
 				Version:   "5.6.0",
-				Ecosystem: string(EcosystemGo),
+				Ecosystem: string(models.EcosystemGo),
 			},
 		},
 		{
@@ -43,10 +45,10 @@ func TestPURLToPackage(t *testing.T) {
 			args: args{
 				purl: "pkg:maven/org.hdrhistogram/HdrHistogram@2.1.12",
 			},
-			want: PackageInfo{
+			want: models.PackageInfo{
 				Name:      "org.hdrhistogram:HdrHistogram",
 				Version:   "2.1.12",
-				Ecosystem: string(EcosystemMaven),
+				Ecosystem: string(models.EcosystemMaven),
 			},
 		},
 		{
@@ -54,10 +56,10 @@ func TestPURLToPackage(t *testing.T) {
 			args: args{
 				purl: "pkg:deb/debian/nginx@2.36.1-8+deb11u1",
 			},
-			want: PackageInfo{
+			want: models.PackageInfo{
 				Name:      "nginx",
 				Version:   "2.36.1-8+deb11u1",
-				Ecosystem: string(EcosystemDebian),
+				Ecosystem: string(models.EcosystemDebian),
 			},
 		},
 		{
@@ -65,7 +67,7 @@ func TestPURLToPackage(t *testing.T) {
 			args: args{
 				purl: "pkg-golang/github.com/gogo/protobuf.0",
 			},
-			want:    PackageInfo{},
+			want:    models.PackageInfo{},
 			wantErr: true,
 		},
 	}
@@ -73,7 +75,7 @@ func TestPURLToPackage(t *testing.T) {
 		tt := tt
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
-			got, err := PURLToPackage(tt.args.purl)
+			got, err := models.PURLToPackage(tt.args.purl)
 			if (err != nil) != tt.wantErr {
 				t.Errorf("PURLToPackage() error = %v, wantErr %v", err, tt.wantErr)
 				return
