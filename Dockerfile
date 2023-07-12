@@ -22,12 +22,9 @@ COPY ./ ./
 RUN go build -o osv-scanner ./cmd/osv-scanner/
 
 FROM alpine:3.18@sha256:82d1e9d7ed48a7523bdebc18cf6290bdb97b82302a8a9c27d4fe885949ea94d1
-RUN apk --no-cache add \
-    ca-certificates \
-    git
 
-# Allow git to run on mounted directories
-RUN git config --global --add safe.directory '*'
+RUN apk --no-cache add ca-certificates git && \
+    git config --global --add safe.directory '*'
 
 WORKDIR /root/
 COPY --from=builder /src/osv-scanner .
