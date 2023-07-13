@@ -4,16 +4,14 @@ description: 'Scans your directory against the OSV database (Experimental)'
 inputs:
   to-scan:
     description: 'Directories to scan'
-    required: false
     default: "./"
   results-file:
-    description: 'OUTPUT: Path to file to store results'
+    description: 'Output path'
     required: true
   results-format:
     description: 'Output result format'
-    required: false
     default: 'sarif'
-  recursive-search:
+  recursive-scan:
     description: 'Recursively scan though subdirectories'
     required: false
     default: true
@@ -28,6 +26,6 @@ runs:
     - '--skip-git'
     - '--output=${{ inputs.results-file }}'
     - '--format=${{ inputs.results-format }}'
-    - '--recursive=${{ inputs.recursive-search}}'
+    - '--recursive=${{ inputs.recursive-scan }}'
     - '--experimental-diff=${{ inputs.old-results }}'
     - ${{ inputs.to-scan }}

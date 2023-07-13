@@ -1,7 +1,6 @@
 package main
 
 import (
-	"bytes"
 	"errors"
 	"fmt"
 	"io"
@@ -12,6 +11,7 @@ import (
 	"github.com/google/osv-scanner/pkg/osvscanner"
 	"github.com/google/osv-scanner/pkg/reporter"
 	"golang.org/x/exp/slices"
+	"golang.org/x/term"
 
 	"github.com/urfave/cli/v2"
 )
@@ -123,13 +123,27 @@ func run(args []string, stdout, stderr io.Writer) int {
 			}
 
 			outputPath := context.String("output")
-			outputBuffer := &bytes.Buffer{}
 			if outputPath != "" {
-				stdout = outputBuffer
+				var err error
+				stdout, err = os.Create(outputPath)
+				if err != nil {
+					return fmt.Errorf("failed to create output file: %w", err)
+				}
+			}
+
+			var width int
+			if outputPath != "" {
+				var err error
+				width, _, err = term.GetSize(int(os.Stdout.Fd()))
+				if err != nil { // If output is not a terminal,
+					width = 0
+				}
+			} else { // Output is a file
+				width = 0
 			}
 
 			var err error
-			if r, err = reporter.GetReporter(format, stdout, stderr, outputPath != ""); err != nil {
+			if r, err = reporter.New(format, stdout, stderr, width); err != nil {
 				return err
 			}
 
@@ -155,18 +169,6 @@ func run(args []string, stdout, stderr io.Writer) int {
 
 			if errPrint := r.PrintResult(&vulnResult); errPrint != nil {
 				return fmt.Errorf("failed to write output: %w", errPrint)
-			}
-
-			if outputPath != "" {
-				file, err := os.Create(outputPath)
-				if err != nil {
-					return fmt.Errorf("failed to create output file: %w", err)
-				}
-
-				_, err = file.Write(outputBuffer.Bytes())
-				if err != nil {
-					return fmt.Errorf("failed to write to output file: %w", err)
-				}
 			}
 
 			// Could be nil, VulnerabilitiesFoundErr, or OnlyUncalledVulnerabilitiesFoundErr

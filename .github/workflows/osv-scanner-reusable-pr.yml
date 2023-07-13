@@ -24,21 +24,7 @@ jobs:
       - uses: actions/checkout@v3
         with:
           fetch-depth: 0
-      # - name: Get changed files
-      #   id: changed-files
-      #   uses: tj-actions/changed-files@v37
-
-      #     # To compare changes between the current commit and the last pushed remote commit set `since_last_remote_commit: true`. e.g
-      #     # with:
-      #     #   since_last_remote_commit: true 
-
-      # - name: List all changed files
-      #   run: |
-      #     echo ${{ steps.changed-files.outputs.all_changed_files }}
-      #     echo ------------
-      #     for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
-      #       echo "$file was changed"
-      #     done
+          # Do persist credentials, as we need it for the git checkout later
       - name: "Checkout target branch"
         run: git checkout $GITHUB_BASE_REF
       - name: "Run scanner"
@@ -48,7 +34,7 @@ jobs:
           results-format: json
           results-file: old-result.json
           to-scan: .
-          recursive-search: true
+          recursive-scan: true
       - name: "Checkout current branch"
         run: git checkout $GITHUB_SHA
       - name: "Run scanner"
@@ -57,7 +43,7 @@ jobs:
           results-format: sarif
           results-file: results.sarif
           to-scan: .
-          recursive-search: true
+          recursive-scan: true
           old-results: old-result.json
       # Upload the results as artifacts (optional). Commenting out will disable uploads of run results in SARIF
       # format to the repository Actions tab.
