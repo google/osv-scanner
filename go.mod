@@ -18,7 +18,7 @@ require (
 	golang.org/x/mod v0.12.0
 	golang.org/x/sync v0.3.0
 	golang.org/x/term v0.10.0
-	golang.org/x/vuln v0.2.1-0.20230630202714-a443f34b1a4a
+	golang.org/x/vuln v1.0.0
 	gopkg.in/yaml.v3 v3.0.1
 )
 
