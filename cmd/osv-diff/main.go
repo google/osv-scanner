@@ -7,13 +7,12 @@ import (
 	"os"
 	"strings"
 
-	"github.com/google/osv-scanner/pkg/osv"
+	"github.com/google/osv-scanner/internal/osvscanner_internal"
 	"github.com/google/osv-scanner/pkg/osvscanner"
 	"github.com/google/osv-scanner/pkg/reporter"
+	"github.com/urfave/cli/v2"
 	"golang.org/x/exp/slices"
 	"golang.org/x/term"
-
-	"github.com/urfave/cli/v2"
 )
 
 var (
@@ -32,38 +31,26 @@ func run(args []string, stdout, stderr io.Writer) int {
 		r.PrintText(fmt.Sprintf("osv-scanner version: %s\ncommit: %s\nbuilt at: %s\n", ctx.App.Version, commit, date))
 	}
 
-	osv.RequestUserAgent = "osv-scanner/" + version
-
 	app := &cli.App{
-		Name:      "osv-scanner",
-		Version:   version,
-		Usage:     "scans various mediums for dependencies and matches it against the OSV database",
-		Suggest:   true,
-		Writer:    stdout,
-		ErrWriter: stderr,
+		Name:        "osv-scanner-diff",
+		Version:     version,
+		Usage:       "compares the output of multiple osv-scanner runs to find new vulnerabilities",
+		Description: "Remove vulnerabilities in the old OSV JSON output from the new OSV JSON output",
+		Suggest:     true,
+		Writer:      stdout,
+		ErrWriter:   stderr,
 		Flags: []cli.Flag{
-			&cli.StringSliceFlag{
-				Name:      "docker",
-				Aliases:   []string{"D"},
-				Usage:     "scan docker image with this name",
-				TakesFile: false,
-			},
-			&cli.StringSliceFlag{
-				Name:      "lockfile",
-				Aliases:   []string{"L"},
-				Usage:     "scan package lockfile on this path",
+			&cli.StringFlag{
+				Name:      "old",
+				Usage:     "the old osv json output",
 				TakesFile: true,
-			},
-			&cli.StringSliceFlag{
-				Name:      "sbom",
-				Aliases:   []string{"S"},
-				Usage:     "scan sbom file on this path",
-				TakesFile: true,
+				Required:  true,
 			},
 			&cli.StringFlag{
-				Name:      "config",
-				Usage:     "set/override config file",
+				Name:      "new",
+				Usage:     "the new osv json output",
 				TakesFile: true,
+				Required:  true,
 			},
 			&cli.StringFlag{
 				Name:    "format",
@@ -78,49 +65,14 @@ func run(args []string, stdout, stderr io.Writer) int {
 					return fmt.Errorf("unsupported output format \"%s\" - must be one of: %s", s, strings.Join(reporter.Format(), ", "))
 				},
 			},
-			&cli.BoolFlag{
-				Name:  "json",
-				Usage: "sets output to json (deprecated, use --format json instead)",
-			},
 			&cli.StringFlag{
 				Name:      "output",
 				Usage:     "saves the result to the given file path",
 				TakesFile: true,
 			},
-			&cli.BoolFlag{
-				Name:  "skip-git",
-				Usage: "skip scanning git repositories",
-				Value: false,
-			},
-			&cli.BoolFlag{
-				Name:    "recursive",
-				Aliases: []string{"r"},
-				Usage:   "check subdirectories",
-				Value:   false,
-			},
-			&cli.BoolFlag{
-				Name:  "experimental-call-analysis",
-				Usage: "attempt call analysis on code to detect only active vulnerabilities",
-				Value: false,
-			},
-			&cli.StringFlag{
-				Name:      "experimental-diff",
-				Usage:     "only show the difference between report",
-				TakesFile: true,
-			},
-			&cli.BoolFlag{
-				Name:  "no-ignore",
-				Usage: "also scan files that would be ignored by .gitignore",
-				Value: false,
-			},
 		},
-		ArgsUsage: "[directory1 directory2...]",
 		Action: func(context *cli.Context) error {
 			format := context.String("format")
-
-			if context.Bool("json") {
-				format = "json"
-			}
 
 			outputPath := context.String("output")
 			if outputPath != "" {
@@ -147,31 +99,38 @@ func run(args []string, stdout, stderr io.Writer) int {
 				return err
 			}
 
-			vulnResult, err := osvscanner.DoScan(osvscanner.ScannerActions{
-				LockfilePaths:            context.StringSlice("lockfile"),
-				SBOMPaths:                context.StringSlice("sbom"),
-				DockerContainerNames:     context.StringSlice("docker"),
-				Recursive:                context.Bool("recursive"),
-				SkipGit:                  context.Bool("skip-git"),
-				NoIgnore:                 context.Bool("no-ignore"),
-				ConfigOverridePath:       context.String("config"),
-				DirectoryPaths:           context.Args().Slice(),
-				ExperimentalCallAnalysis: context.Bool("experimental-call-analysis"),
-			}, r)
+			oldPath := context.String("old")
+			newPath := context.String("new")
 
-			if err != nil &&
-				!errors.Is(err, osvscanner.VulnerabilitiesFoundErr) &&
-				!errors.Is(err, osvscanner.OnlyUncalledVulnerabilitiesFoundErr) {
-				//nolint:wrapcheck
-				return err
+			oldVulns, err := osvscanner_internal.LoadVulnResults(oldPath)
+			if err != nil {
+				return fmt.Errorf("failed to open old results at %s: %w", oldPath, err)
 			}
 
-			if errPrint := r.PrintResult(&vulnResult); errPrint != nil {
+			newVulns, err := osvscanner_internal.LoadVulnResults(newPath)
+			if err != nil {
+				return fmt.Errorf("failed to open new results at %s: %w", newPath, err)
+			}
+
+			diffVulns := osvscanner_internal.DiffVulnerabilityResults(oldVulns, newVulns)
+
+			if errPrint := r.PrintResult(&diffVulns); errPrint != nil {
 				return fmt.Errorf("failed to write output: %w", errPrint)
 			}
 
-			// Could be nil, VulnerabilitiesFoundErr, or OnlyUncalledVulnerabilitiesFoundErr
-			return err
+			// if vulnerability exists it should return error
+			if len(diffVulns.Results) > 0 {
+				// If any vulnerabilities are called, then we return VulnerabilitiesFoundErr
+				for _, vf := range diffVulns.Flatten() {
+					if vf.GroupInfo.IsCalled() {
+						return osvscanner.VulnerabilitiesFoundErr
+					}
+				}
+				// Otherwise return OnlyUncalledVulnerabilitiesFoundErr
+				return osvscanner.OnlyUncalledVulnerabilitiesFoundErr
+			}
+
+			return nil
 		},
 	}
 
