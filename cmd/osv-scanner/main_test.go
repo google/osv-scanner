@@ -300,29 +300,29 @@ func TestRun(t *testing.T) {
 			args:         []string{"", "--format", "sarif", "./fixtures/locks-many/composer.lock"},
 			wantExitCode: 0,
 			wantStdout: `
-            {
-              "version": "2.1.0",
-              "$schema": "https://json.schemastore.org/sarif-2.1.0.json",
-              "runs": [
-                {
-                  "tool": {
-                    "driver": {
-                      "informationUri": "https://github.com/google/osv-scanner",
-                      "name": "osv-scanner",
-                      "rules": [
-                        {
-                          "id": "vulnerable-packages",
-                          "shortDescription": {
-                            "text": "This manifest file contains one or more vulnerable packages."
-                          }
-                        }
-                      ]
-                    }
-                  },
-                  "results": []
-                }
-              ]
-            }
+				{
+					"version": "2.1.0",
+					"$schema": "https://json.schemastore.org/sarif-2.1.0.json",
+					"runs": [
+						{
+							"tool": {
+								"driver": {
+									"informationUri": "https://github.com/google/osv-scanner",
+									"name": "osv-scanner",
+									"rules": [
+										{
+											"id": "vulnerable-packages",
+											"shortDescription": {
+												"text": "This manifest file contains one or more vulnerable packages."
+											}
+										}
+									]
+								}
+							},
+							"results": []
+						}
+					]
+				}
 			`,
 			wantStderr: `
 				Scanning dir ./fixtures/locks-many/composer.lock
@@ -334,55 +334,55 @@ func TestRun(t *testing.T) {
 			args:         []string{"", "--format", "sarif", "--config", "./fixtures/osv-scanner-empty-config.toml", "./fixtures/locks-many/package-lock.json"},
 			wantExitCode: 1,
 			wantStdout: `
-            {
-              "version": "2.1.0",
-              "$schema": "https://json.schemastore.org/sarif-2.1.0.json",
-              "runs": [
-                {
-                  "tool": {
-                    "driver": {
-                      "informationUri": "https://github.com/google/osv-scanner",
-                      "name": "osv-scanner",
-                      "rules": [
-                        {
-                          "id": "vulnerable-packages",
-                          "shortDescription": {
-                            "text": "This manifest file contains one or more vulnerable packages."
-                          }
-                        }
-                      ]
-                    }
-                  },
-                  "artifacts": [
-                    {
-                      "location": {
-                        "uri": "fixtures/locks-many/package-lock.json"
-                      },
-                      "length": -1
-                    }
-                  ],
-                  "results": [
-                    {
-                      "ruleId": "vulnerable-packages",
-                      "ruleIndex": 0,
-                      "level": "warning",
-                      "message": {
-                        "text": "+-----------+-------------------------------------+-----------------+---------------+\n| PACKAGE \u0026nbsp; | VULNERABILITY ID \u0026nbsp; \u0026nbsp; \u0026nbsp; \u0026nbsp; \u0026nbsp; \u0026nbsp; \u0026nbsp; \u0026nbsp; \u0026nbsp; \u0026nbsp;| CURRENT VERSION | FIXED VERSION |\n+-----------+-------------------------------------+-----------------+---------------+\n| ansi-html | https://osv.dev/GHSA-whgm-jr23-g3j9 | 0.0.1 \u0026nbsp; \u0026nbsp; \u0026nbsp; \u0026nbsp; \u0026nbsp; | 0.0.8 \u0026nbsp; \u0026nbsp; \u0026nbsp; \u0026nbsp; |\n+-----------+-------------------------------------+-----------------+---------------+"
-                      },
-                      "locations": [
-                        {
-                          "physicalLocation": {
-                            "artifactLocation": {
-                              "uri": "fixtures/locks-many/package-lock.json"
-                            }
-                          }
-                        }
-                      ]
-                    }
-                  ]
-                }
-              ]
-            }
+				{
+					"version": "2.1.0",
+					"$schema": "https://json.schemastore.org/sarif-2.1.0.json",
+					"runs": [
+						{
+							"tool": {
+								"driver": {
+									"informationUri": "https://github.com/google/osv-scanner",
+									"name": "osv-scanner",
+									"rules": [
+										{
+											"id": "vulnerable-packages",
+											"shortDescription": {
+												"text": "This manifest file contains one or more vulnerable packages."
+											}
+										}
+									]
+								}
+							},
+							"artifacts": [
+								{
+									"location": {
+										"uri": "fixtures/locks-many/package-lock.json"
+									},
+									"length": -1
+								}
+							],
+							"results": [
+								{
+									"ruleId": "vulnerable-packages",
+									"ruleIndex": 0,
+									"level": "warning",
+									"message": {
+										"text": "+-----------+-------------------------------------+-----------------+---------------+\n| PACKAGE \u0026nbsp; | VULNERABILITY ID \u0026nbsp; \u0026nbsp; \u0026nbsp; \u0026nbsp; \u0026nbsp; \u0026nbsp; \u0026nbsp; \u0026nbsp; \u0026nbsp; \u0026nbsp;| CURRENT VERSION | FIXED VERSION |\n+-----------+-------------------------------------+-----------------+---------------+\n| ansi-html | https://osv.dev/GHSA-whgm-jr23-g3j9 | 0.0.1 \u0026nbsp; \u0026nbsp; \u0026nbsp; \u0026nbsp; \u0026nbsp; | 0.0.8 \u0026nbsp; \u0026nbsp; \u0026nbsp; \u0026nbsp; |\n+-----------+-------------------------------------+-----------------+---------------+"
+									},
+									"locations": [
+										{
+											"physicalLocation": {
+												"artifactLocation": {
+													"uri": "fixtures/locks-many/package-lock.json"
+												}
+											}
+										}
+									]
+								}
+							]
+						}
+					]
+				}
 			`,
 			wantStderr: `
 				Scanning dir ./fixtures/locks-many/package-lock.json
