@@ -144,22 +144,22 @@ func TestRun(t *testing.T) {
 			wantStdout: `
 				Scanning dir ./fixtures/sbom-insecure/postgres-stretch.cdx.xml
 				Scanned %%/fixtures/sbom-insecure/postgres-stretch.cdx.xml as CycloneDX SBOM and found 136 packages
-				+-------------------------------------+------+-----------+---------+------------------------------------+-------------------------------------------------+
-				| OSV URL                             | CVSS | ECOSYSTEM | PACKAGE | VERSION                            | SOURCE                                          |
-				+-------------------------------------+------+-----------+---------+------------------------------------+-------------------------------------------------+
-				| https://osv.dev/DLA-3022-1          |      | Debian    | dpkg    | 1.18.25                            | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
-				| https://osv.dev/GHSA-v95c-p5hm-xq8f | 6    | Go        | runc    | v1.0.1                             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
-				| https://osv.dev/GO-2022-0274        |      |           |         |                                    |                                                 |
-				| https://osv.dev/GHSA-f3fp-gc8g-vw66 | 5.9  | Go        | runc    | v1.0.1                             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
-				| https://osv.dev/GHSA-g2j6-57v7-gm8c | 6.1  | Go        | runc    | v1.0.1                             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
-				| https://osv.dev/GHSA-m8cg-xc2p-r3fc | 2.5  | Go        | runc    | v1.0.1                             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
-				| https://osv.dev/GHSA-vpvm-3wq2-2wvm | 7    | Go        | runc    | v1.0.1                             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
-				| https://osv.dev/GHSA-p782-xgp4-8hr8 | 5.3  | Go        | sys     | v0.0.0-20210817142637-7d9622a276b7 | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
-				| https://osv.dev/GO-2022-0493        |      |           |         |                                    |                                                 |
-				| https://osv.dev/DLA-3012-1          |      | Debian    | libxml2 | 2.9.4+dfsg1-2.2+deb9u6             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
-				| https://osv.dev/DLA-3008-1          |      | Debian    | openssl | 1.1.0l-1~deb9u5                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
-				| https://osv.dev/DLA-3051-1          |      | Debian    | tzdata  | 2021a-0+deb9u3                     | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
-				+-------------------------------------+------+-----------+---------+------------------------------------+-------------------------------------------------+
+				+-------------------------------------+------+-----------+--------------------------------+------------------------------------+-------------------------------------------------+
+				| OSV URL                             | CVSS | ECOSYSTEM | PACKAGE                        | VERSION                            | SOURCE                                          |
+				+-------------------------------------+------+-----------+--------------------------------+------------------------------------+-------------------------------------------------+
+				| https://osv.dev/DLA-3022-1          |      | Debian    | dpkg                           | 1.18.25                            | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+				| https://osv.dev/GHSA-v95c-p5hm-xq8f | 6    | Go        | github.com/opencontainers/runc | v1.0.1                             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+				| https://osv.dev/GO-2022-0274        |      |           |                                |                                    |                                                 |
+				| https://osv.dev/GHSA-f3fp-gc8g-vw66 | 5.9  | Go        | github.com/opencontainers/runc | v1.0.1                             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+				| https://osv.dev/GHSA-g2j6-57v7-gm8c | 6.1  | Go        | github.com/opencontainers/runc | v1.0.1                             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+				| https://osv.dev/GHSA-m8cg-xc2p-r3fc | 2.5  | Go        | github.com/opencontainers/runc | v1.0.1                             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+				| https://osv.dev/GHSA-vpvm-3wq2-2wvm | 7    | Go        | github.com/opencontainers/runc | v1.0.1                             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+				| https://osv.dev/GHSA-p782-xgp4-8hr8 | 5.3  | Go        | golang.org/x/sys               | v0.0.0-20210817142637-7d9622a276b7 | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+				| https://osv.dev/GO-2022-0493        |      |           |                                |                                    |                                                 |
+				| https://osv.dev/DLA-3012-1          |      | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+				| https://osv.dev/DLA-3008-1          |      | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+				| https://osv.dev/DLA-3051-1          |      | Debian    | tzdata                         | 2021a-0+deb9u3                     | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+				+-------------------------------------+------+-----------+--------------------------------+------------------------------------+-------------------------------------------------+
 			`,
 			wantStderr: "",
 		},
