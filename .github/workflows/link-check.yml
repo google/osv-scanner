@@ -2,7 +2,7 @@ name: Check markdown links on schedule
 
 on: 
   schedule:
-    - cron: '45 22 * * *'
+    - cron: '45 22 * * 1,4'
 permissions:  # added using https://github.com/step-security/secure-repo
   contents: read
 jobs:
@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@master
-    - uses: gaurav-nelson/github-action-markdown-link-check@v1
+    - uses: gaurav-nelson/github-action-markdown-link-check@322b2315689b8cc8c65c14a07064ec862e62ee7c
       with:
         use-quiet-mode: "yes"
 # Documentation available here: https://github.com/marketplace/actions/markdown-link-check
