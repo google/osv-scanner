@@ -23,6 +23,7 @@ RUN go mod download
 
 COPY ./ /src/
 RUN go build -o osv-scanner ./cmd/osv-scanner/
+RUN go build -o osv-diff ./cmd/osv-diff/
 
 FROM alpine:3.17@sha256:124c7d2707904eea7431fffe91522a01e5a861a624ee31d03372cc1d138a3126
 RUN apk --no-cache add \
@@ -35,8 +36,9 @@ RUN git config --global --add safe.directory '*'
 
 WORKDIR /root/
 COPY --from=0 /src/osv-scanner ./
+COPY --from=0 /src/osv-diff ./
 COPY ./exit_code_redirect.sh ./
 
 ENV PATH="${PATH}:/root"
 
-ENTRYPOINT ["bash", "/root/exit_code_redirect.sh"]
+ENTRYPOINT ["bash", "./exit_code_redirect.sh"]

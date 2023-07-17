@@ -34,17 +34,21 @@ jobs:
           results-format: json
           results-file: old-result.json
           to-scan: .
-          recursive-scan: true
       - name: "Checkout current branch"
         run: git checkout $GITHUB_SHA
       - name: "Run scanner"
         uses: another-rex/osv-scanner@markdown-output
         with:
-          results-format: sarif
-          results-file: results.sarif
+          results-format: json
+          results-file: new-result.json
           to-scan: .
-          recursive-scan: true
+      - name: "Run osv-diff"
+        uses: another-rex/osv-scanner/diff-action.yml@markdown-output
+        with:
+          results-format: sarif
+          results-file: final-result.sarif
           old-results: old-result.json
+          new-results: new-result.json
       # Upload the results as artifacts (optional). Commenting out will disable uploads of run results in SARIF
       # format to the repository Actions tab.
       - name: "Upload artifact"
@@ -52,20 +56,26 @@ jobs:
         uses: actions/upload-artifact@0b7f8abb1508181956e8e162db84b466c27e18ce # v3.1.2
         with:
           name: SARIF file
-          path: results.sarif
+          path: final-result.sarif
           retention-days: 5
-      - name: "Upload artifact 2"
+      - name: "Upload old scan json result"
         if: '!cancelled()'
         uses: actions/upload-artifact@0b7f8abb1508181956e8e162db84b466c27e18ce # v3.1.2
         with:
-          name: Old result
+          name: old-json-results
           path: old-result.json
           retention-days: 5
-
+      - name: "Upload new scan json result"
+        if: '!cancelled()'
+        uses: actions/upload-artifact@0b7f8abb1508181956e8e162db84b466c27e18ce # v3.1.2
+        with:
+          name: new-json-results
+          path: new-result.json
+          retention-days: 5
       # Upload the results to GitHub's code scanning dashboard.
       - name: "Upload to code-scanning"
         if: '!cancelled()'
         uses: github/codeql-action/upload-sarif@6c089f53dd51dc3fc7e599c3cb5356453a52ca9e # v2.20.0
         with:
-          sarif_file: results.sarif
+          sarif_file: final-result.sarif
 
