@@ -28,7 +28,7 @@ jobs:
       - name: "Checkout target branch"
         run: git checkout $GITHUB_BASE_REF
       - name: "Run scanner"
-        uses: another-rex/osv-scanner@markdown-output
+        uses: another-rex/osv-scanner/actions/scanner@markdown-output
         continue-on-error: true
         with:
           results-format: json
@@ -43,7 +43,7 @@ jobs:
           results-file: new-result.json
           to-scan: .
       - name: "Run osv-diff"
-        uses: another-rex/osv-scanner/diff-action.yml@markdown-output
+        uses: another-rex/osv-scanner/actions/diff@markdown-output
         with:
           results-format: sarif
           results-file: final-result.sarif

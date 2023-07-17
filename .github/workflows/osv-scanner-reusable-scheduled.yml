@@ -27,7 +27,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: "Run scanner"
-        uses: another-rex/osv-scanner@markdown-output
+        uses: another-rex/osv-scanner/actions/scanner@markdown-output
         with:
           results-format: sarif
           results-file: results.sarif
