@@ -17,7 +17,7 @@ inputs:
 runs:
   using: 'docker'
   image: '../../action.dockerfile'
-  entrypoint: ./osv-diff
+  entrypoint: /root/osv-diff
   args:
     - '--output=${{ inputs.output-file }}'
     - '--format=${{ inputs.results-format }}'

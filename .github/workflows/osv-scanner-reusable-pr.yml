@@ -42,7 +42,7 @@ jobs:
           results-format: json
           results-file: new-result.json
           to-scan: .
-          continue-on-error: true
+        continue-on-error: true
       - name: "Run osv-diff"
         uses: another-rex/osv-scanner/actions/diff@markdown-output
         with:
