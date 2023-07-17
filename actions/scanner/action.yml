@@ -15,10 +15,6 @@ inputs:
     description: 'Recursively scan though subdirectories'
     required: false
     default: true
-  old-results:
-    description: 'Old results to get the difference against'
-    required: false
-    default: ''
 runs:
   using: 'docker'
   image: '../../action.dockerfile'
