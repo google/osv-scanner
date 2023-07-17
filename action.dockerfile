@@ -41,4 +41,4 @@ COPY ./exit_code_redirect.sh ./
 
 ENV PATH="${PATH}:/root"
 
-ENTRYPOINT ["bash", "./exit_code_redirect.sh"]
+ENTRYPOINT ["bash", "/root/exit_code_redirect.sh"]
