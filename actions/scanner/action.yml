@@ -21,7 +21,7 @@ inputs:
     default: ''
 runs:
   using: 'docker'
-  image: 'action.dockerfile'
+  image: '../../action.dockerfile'
   args:
     - '--skip-git'
     - '--output=${{ inputs.results-file }}'
