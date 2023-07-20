@@ -7,7 +7,7 @@ import (
 	"os"
 	"strings"
 
-	"github.com/google/osv-scanner/internal/osvscanner_internal"
+	"github.com/google/osv-scanner/internal/ci"
 	"github.com/google/osv-scanner/pkg/osvscanner"
 	"github.com/google/osv-scanner/pkg/reporter"
 	"github.com/urfave/cli/v2"
@@ -102,17 +102,17 @@ func run(args []string, stdout, stderr io.Writer) int {
 			oldPath := context.String("old")
 			newPath := context.String("new")
 
-			oldVulns, err := osvscanner_internal.LoadVulnResults(oldPath)
+			oldVulns, err := ci.LoadVulnResults(oldPath)
 			if err != nil {
 				return fmt.Errorf("failed to open old results at %s: %w", oldPath, err)
 			}
 
-			newVulns, err := osvscanner_internal.LoadVulnResults(newPath)
+			newVulns, err := ci.LoadVulnResults(newPath)
 			if err != nil {
 				return fmt.Errorf("failed to open new results at %s: %w", newPath, err)
 			}
 
-			diffVulns := osvscanner_internal.DiffVulnerabilityResults(oldVulns, newVulns)
+			diffVulns := ci.DiffVulnerabilityResults(oldVulns, newVulns)
 
 			if errPrint := r.PrintResult(&diffVulns); errPrint != nil {
 				return fmt.Errorf("failed to write output: %w", errPrint)

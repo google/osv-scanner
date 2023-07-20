@@ -1,4 +1,4 @@
-package osvscanner_internal
+package ci
 
 import (
 	"encoding/json"
