@@ -15,11 +15,10 @@
 name: osv-scanner
 
 on:
-  pull_request:
-    # The branches below must be a subset of the branches above
-    branches: [ main ]
-  merge_group:
-    branches: [ main ]
+  schedule:
+    - cron: '12 12 * * 1'
+  push:
+    branches: [ "main" ]
 
 # Declare default permissions as read only.
 permissions: read-all

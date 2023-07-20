@@ -15,11 +15,7 @@
 name: OSV-Scanner PR scanning
 
 on:
-  schedule:
-    - cron: '12 12 * * 1'
-  push:
-    branches: [ "main" ]
-
+  workflow_call:
 
 jobs:
   scan-pr:
