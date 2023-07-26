@@ -29,4 +29,4 @@ RUN apk --no-cache add ca-certificates git && \
 WORKDIR /root/
 COPY --from=builder /src/osv-scanner .
 
-ENTRYPOINT ["./osv-scanner"]
+ENTRYPOINT ["/root/osv-scanner"]
