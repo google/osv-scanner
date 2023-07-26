@@ -54,6 +54,7 @@ func matchAnalysisWithPackageVulns(pkgs []models.PackageVulns, idToFindings map[
 					fillNotImportedAnalysisInfo(vulnsByID, vulnID, pv, analysis)
 					continue
 				}
+				// TODO: There feels like something's wrong here, not sure what
 				(*analysis)[vulnID] = models.AnalysisInfo{
 					Called: moduleToCalled[pv.Package.Name],
 				}

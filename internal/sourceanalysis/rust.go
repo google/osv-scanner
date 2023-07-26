@@ -7,18 +7,21 @@ import (
 	"errors"
 	"fmt"
 	"io"
+	"log"
 	"os"
 	"os/exec"
 	"path/filepath"
 	"regexp"
 	"strings"
 
+	"github.com/google/osv-scanner/internal/sourceanalysis/ar"
 	"github.com/google/osv-scanner/pkg/models"
 	"github.com/google/osv-scanner/pkg/reporter"
 	"github.com/ianlancetaylor/demangle"
 )
 
 const RUST_FLAGS_ENV = "RUSTFLAGS=-C opt-level=3 -C debuginfo=1"
+const RUST_LIB_EXTENSION = ".rcgu.o/"
 
 // Used to remove generics from functions and types as they are not included in function calls
 // in advisories:
@@ -37,23 +40,52 @@ func rustAnalysis(r reporter.Reporter, pkgs []models.PackageVulns, source models
 		return
 	}
 
-	isIsCalled := map[string]bool{}
+	isCalledMap := map[string]bool{}
 
 	for _, path := range binaryPaths {
+		if strings.HasSuffix(path, ".rlib") {
+			// Is a library, so need an extra step to extract the object binary file before passing to parseDWARFData
+			objFile, err := extractRlibArchive(path)
+			if err != nil {
+				r.PrintError(fmt.Sprintf("failed to analyse '%s': %s", path, err))
+				continue
+			}
+			path = objFile.Name()
+			objFile.Close()
+			// TODO: Do we need to care about error on deletion here?
+			defer os.Remove(path)
+		}
 		calls, err := parseDWARFData(r, path)
 		if err != nil {
-			r.PrintError(fmt.Sprintf("failed to analyse %s: %s", path, err))
+			r.PrintError(fmt.Sprintf("failed to analyse '%s': %s", path, err))
 			continue
 		}
 
 		for _, pv := range pkgs {
 			for _, v := range pv.Vulnerabilities {
 				for _, a := range v.Affected {
-					affectedFunctions := a.EcosystemSpecific["affects"].(map[string][]string)["functions"]
+					// Example of RUSTSEC function level information:
+					//
+					// "affects": {
+					//     "os": [],
+					//     "functions": [
+					//         "smallvec::SmallVec::grow"
+					//     ],
+					//     "arch": []
+					// }
+					ecosystemAffects, ok := a.EcosystemSpecific["affects"].(map[string]interface{})
+					if !ok {
+						continue
+					}
+					affectedFunctions, ok := ecosystemAffects["functions"].([]interface{})
+					if !ok {
+						continue
+					}
 					for _, f := range affectedFunctions {
-						_, called := calls[f]
-						if called {
-							isIsCalled[v.ID] = true
+						if funcName, ok := f.(string); ok {
+							_, called := calls[funcName]
+							// Once one advisory marks this vuln as called, always mark as called
+							isCalledMap[v.ID] = isCalledMap[v.ID] || called
 						}
 					}
 				}
@@ -68,9 +100,11 @@ func rustAnalysis(r reporter.Reporter, pkgs []models.PackageVulns, source models
 						*analysis = make(map[string]models.AnalysisInfo)
 					}
 
-					_, called := isIsCalled[vulnID]
-					(*analysis)[vulnID] = models.AnalysisInfo{
-						Called: called,
+					called, checked := isCalledMap[vulnID]
+					if checked {
+						(*analysis)[vulnID] = models.AnalysisInfo{
+							Called: called, // If call hasn't been checked, assume it's been called
+						}
 					}
 				}
 			}
@@ -122,6 +156,51 @@ func parseDWARFData(r reporter.Reporter, binaryPath string) (map[string]struct{}
 	}
 
 	return output, nil
+}
+
+// extractRlibArchive return the file handle to a temporary ELF Object file extracted from the given rlib.
+//
+// It is the callers responsibility to remove the temporary file
+func extractRlibArchive(rlibPath string) (*os.File, error) {
+	file, err := os.CreateTemp("", "rust-*.o")
+	if err != nil {
+		return nil, fmt.Errorf("failed to create temporary file: %w", err)
+	}
+	rlibFile, err := os.Open(rlibPath)
+	if err != nil {
+		return nil, fmt.Errorf("failed to open .rlib file '%s': %w", rlibPath, err)
+	}
+
+	reader, err := ar.NewReader(rlibFile)
+	if err != nil {
+		return nil, fmt.Errorf(".rlib file '%s' is not valid ar archive: %w", rlibPath, err)
+	}
+	for {
+		header, err := reader.Next()
+		if err != nil {
+			log.Fatalf("%v", err)
+		}
+		if header.Name == "//" { // "//" is used in GNU ar format as a store for long file names
+			fileBuf := bytes.Buffer{}
+			io.Copy(&fileBuf, reader)
+			// There should only be one file (since we set codegen-units=1)
+			if !strings.HasSuffix(fileBuf.String(), RUST_LIB_EXTENSION) {
+				// TODO: Verify this, and return an error here instead.
+				log.Printf("rlib archive contents were unexpected: %s\n", fileBuf.String())
+			}
+		}
+		// /0 indicates the first file mentioned in the "//" store
+		if header.Name == "/0" || strings.HasSuffix(header.Name, RUST_LIB_EXTENSION) {
+			break
+		}
+	}
+	io.Copy(file, reader)
+	err = file.Close()
+	if err != nil {
+		return nil, fmt.Errorf("failed to write to temporary file '%s': %w", file.Name(), err)
+	}
+
+	return file, nil
 }
 
 func rustBuildSource(r reporter.Reporter, source models.SourceInfo) ([]string, error) {
