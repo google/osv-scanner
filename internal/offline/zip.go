@@ -45,13 +45,17 @@ func fetchRemoteArchiveCRC32CHash(url string) (uint32, error) {
 
 	defer resp.Body.Close()
 
+	if resp.StatusCode != http.StatusOK {
+		return 0, fmt.Errorf("db host returned %s", resp.Status)
+	}
+
 	for _, value := range resp.Header.Values("x-goog-hash") {
 		if strings.HasPrefix(value, "crc32c=") {
 			value = strings.TrimPrefix(value, "crc32c=")
 			out, err := base64.StdEncoding.DecodeString(value)
 
 			if err != nil {
-				return 0, err
+				return 0, fmt.Errorf("could not decode crc32c= checksum: %w", err)
 			}
 
 			return binary.BigEndian.Uint32(out), nil
@@ -80,7 +84,7 @@ func (db *ZipDB) fetchZip() ([]byte, error) {
 		remoteHash, err := fetchRemoteArchiveCRC32CHash(db.ArchiveURL)
 
 		if err != nil {
-			return nil, fmt.Errorf("could not determine remote crc32c checksum: %w", err)
+			return nil, err
 		}
 
 		if fetchLocalArchiveCRC32CHash(cache) == remoteHash {
