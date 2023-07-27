@@ -76,6 +76,7 @@ func PrintSARIFReport(vulnResult *models.VulnerabilityResults, outputWriter io.W
 		WithDescription("This manifest file contains one or more vulnerable packages.")
 	flattened := vulnResult.Flatten()
 
+	// TODO: Also support last affected
 	groupFixedVersions := GroupFixedVersions(flattened)
 	workingDir, workingDirErr := os.Getwd()
 
