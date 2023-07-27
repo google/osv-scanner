@@ -123,26 +123,23 @@ func run(args []string, stdout, stderr io.Writer) int {
 			}
 
 			outputPath := context.String("output")
-			if outputPath != "" {
-				var err error
+
+			termWidth := 0
+			var err error
+			if outputPath != "" { // Output is definitely a file
 				stdout, err = os.Create(outputPath)
 				if err != nil {
 					return fmt.Errorf("failed to create output file: %w", err)
 				}
-			}
-
-			var termWidth int
-			if outputPath != "" {
-				var err error
-				termWidth, _, err = term.GetSize(int(os.Stdout.Fd()))
-				if err != nil { // If output is not a terminal,
-					termWidth = 0
+			} else { // Output might be a terminal
+				if stdoutAsFile, ok := stdout.(*os.File); ok {
+					termWidth, _, err = term.GetSize(int(stdoutAsFile.Fd()))
+					if err != nil { // If output is not a terminal,
+						termWidth = 0
+					}
 				}
-			} else { // Output is a file
-				termWidth = 0
 			}
 
-			var err error
 			if r, err = reporter.New(format, stdout, stderr, termWidth); err != nil {
 				return err
 			}
