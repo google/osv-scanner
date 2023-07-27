@@ -1,4 +1,18 @@
 
+# v1.3.6:
+
+### Minor Updates
+- [Feature #431](https://github.com/google/osv-scanner/pull/431)
+  Update GoVulnCheck integration. 
+- [Feature #439](https://github.com/google/osv-scanner/pull/439)
+  Create `models.PURLToPackage()`, and deprecate `osvscanner.PURLToPackage()`.
+
+### Fixes
+- [Feature #439](https://github.com/google/osv-scanner/pull/439)
+  Fix `PURLToPackage` not returning the full namespace of packages in ecosystems
+  that use them (e.g. golang).
+
+
 # v1.3.5:
 
 ### Features
