@@ -23,5 +23,4 @@ runs:
     - '--output=${{ inputs.results-file }}'
     - '--format=${{ inputs.results-format }}'
     - '--recursive=${{ inputs.recursive-scan }}'
-    - '--experimental-diff=${{ inputs.old-results }}'
     - ${{ inputs.to-scan }}

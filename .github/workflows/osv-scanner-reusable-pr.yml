@@ -32,7 +32,7 @@ jobs:
         continue-on-error: true
         with:
           results-format: json
-          results-file: old-result.json
+          results-file: old-results.json
           to-scan: .
       - name: "Checkout current branch"
         run: git checkout $GITHUB_SHA
@@ -40,16 +40,16 @@ jobs:
         uses: another-rex/osv-scanner/actions/scanner@markdown-output
         with:
           results-format: json
-          results-file: new-result.json
+          results-file: new-results.json
           to-scan: .
         continue-on-error: true
       - name: "Run osv-diff"
         uses: another-rex/osv-scanner/actions/diff@markdown-output
         with:
           results-format: sarif
-          output-file: final-result.sarif
-          old-results: old-result.json
-          new-results: new-result.json
+          output-file: final-results.sarif
+          old-results: old-results.json
+          new-results: new-results.json
       # Upload the results as artifacts (optional). Commenting out will disable uploads of run results in SARIF
       # format to the repository Actions tab.
       - name: "Upload artifact"
@@ -57,26 +57,26 @@ jobs:
         uses: actions/upload-artifact@0b7f8abb1508181956e8e162db84b466c27e18ce # v3.1.2
         with:
           name: SARIF file
-          path: final-result.sarif
+          path: final-results.sarif
           retention-days: 5
-      - name: "Upload old scan json result"
+      - name: "Upload old scan json results"
         if: '!cancelled()'
         uses: actions/upload-artifact@0b7f8abb1508181956e8e162db84b466c27e18ce # v3.1.2
         with:
           name: old-json-results
-          path: old-result.json
+          path: old-results.json
           retention-days: 5
-      - name: "Upload new scan json result"
+      - name: "Upload new scan json results"
         if: '!cancelled()'
         uses: actions/upload-artifact@0b7f8abb1508181956e8e162db84b466c27e18ce # v3.1.2
         with:
           name: new-json-results
-          path: new-result.json
+          path: new-results.json
           retention-days: 5
       # Upload the results to GitHub's code scanning dashboard.
       - name: "Upload to code-scanning"
         if: '!cancelled()'
         uses: github/codeql-action/upload-sarif@6c089f53dd51dc3fc7e599c3cb5356453a52ca9e # v2.20.0
         with:
-          sarif_file: final-result.sarif
+          sarif_file: final-results.sarif
 
