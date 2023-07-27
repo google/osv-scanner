@@ -11,27 +11,17 @@ import (
 	"os"
 	"os/exec"
 	"path/filepath"
-	"regexp"
 	"strings"
 
+	"github.com/google/osv-scanner/internal/cachedregexp"
 	"github.com/google/osv-scanner/internal/sourceanalysis/ar"
 	"github.com/google/osv-scanner/pkg/models"
 	"github.com/google/osv-scanner/pkg/reporter"
 	"github.com/ianlancetaylor/demangle"
 )
 
-const RUST_FLAGS_ENV = "RUSTFLAGS=-C opt-level=3 -C debuginfo=1"
-const RUST_LIB_EXTENSION = ".rcgu.o/"
-
-// Used to remove generics from functions and types as they are not included in function calls
-// in advisories:
-// E.g.: `smallvec::SmallVec<A>::new` => `smallvec::SmallVec::new`
-var antiGenericRegex = regexp.MustCompile(`<[\w,]+>`)
-
-// Used to remove fully qualified trait implementation indicators from the function type,
-// since those are generally not included in advisorie:
-// E.g.: `<libflate::gzip::MultiDecoder as std::io::Read>::read` => `libflate::gzip::MultiDecoder::read`
-var antiTraitImplRegex = regexp.MustCompile(`<(.*) as .*>`)
+const RustFlagsEnv = "RUSTFLAGS=-C opt-level=3 -C debuginfo=1"
+const RustLibExtension = ".rcgu.o/"
 
 func rustAnalysis(r reporter.Reporter, pkgs []models.PackageVulns, source models.SourceInfo) {
 	binaryPaths, err := rustBuildSource(r, source)
@@ -45,15 +35,13 @@ func rustAnalysis(r reporter.Reporter, pkgs []models.PackageVulns, source models
 	for _, path := range binaryPaths {
 		if strings.HasSuffix(path, ".rlib") {
 			// Is a library, so need an extra step to extract the object binary file before passing to parseDWARFData
-			objFile, err := extractRlibArchive(path)
+			objFilePath, err := extractRlibArchive(path)
 			if err != nil {
 				r.PrintError(fmt.Sprintf("failed to analyse '%s': %s", path, err))
 				continue
 			}
-			path = objFile.Name()
-			objFile.Close()
 			// TODO: Do we need to care about error on deletion here?
-			defer os.Remove(path)
+			defer os.Remove(objFilePath)
 		}
 		calls, err := parseDWARFData(r, path)
 		if err != nil {
@@ -112,7 +100,7 @@ func rustAnalysis(r reporter.Reporter, pkgs []models.PackageVulns, source models
 	}
 }
 
-func parseDWARFData(r reporter.Reporter, binaryPath string) (map[string]struct{}, error) {
+func parseDWARFData(_ reporter.Reporter, binaryPath string) (map[string]struct{}, error) {
 	output := map[string]struct{}{}
 	file, err := elf.Open(binaryPath)
 	if err != nil {
@@ -126,7 +114,7 @@ func parseDWARFData(r reporter.Reporter, binaryPath string) (map[string]struct{}
 
 	for {
 		entry, err := entryReader.Next()
-		if err == io.EOF || entry == nil {
+		if errors.Is(err, io.EOF) || entry == nil {
 			// We've reached the end of DWARF entries
 			break
 		}
@@ -150,7 +138,8 @@ func parseDWARFData(r reporter.Reporter, binaryPath string) (map[string]struct{}
 				// most likely not a rust function, so just ignore it
 				continue
 			}
-			val = antiGenericRegex.ReplaceAllString(val, "")
+
+			val = cleanRustFunctionSymbols(val)
 			output[val] = struct{}{}
 		}
 	}
@@ -158,22 +147,22 @@ func parseDWARFData(r reporter.Reporter, binaryPath string) (map[string]struct{}
 	return output, nil
 }
 
-// extractRlibArchive return the file handle to a temporary ELF Object file extracted from the given rlib.
+// extractRlibArchive return the file path to a temporary ELF Object file extracted from the given rlib.
 //
 // It is the callers responsibility to remove the temporary file
-func extractRlibArchive(rlibPath string) (*os.File, error) {
+func extractRlibArchive(rlibPath string) (string, error) {
 	file, err := os.CreateTemp("", "rust-*.o")
 	if err != nil {
-		return nil, fmt.Errorf("failed to create temporary file: %w", err)
+		return "", fmt.Errorf("failed to create temporary file: %w", err)
 	}
 	rlibFile, err := os.Open(rlibPath)
 	if err != nil {
-		return nil, fmt.Errorf("failed to open .rlib file '%s': %w", rlibPath, err)
+		return "", fmt.Errorf("failed to open .rlib file '%s': %w", rlibPath, err)
 	}
 
 	reader, err := ar.NewReader(rlibFile)
 	if err != nil {
-		return nil, fmt.Errorf(".rlib file '%s' is not valid ar archive: %w", rlibPath, err)
+		return "", fmt.Errorf(".rlib file '%s' is not valid ar archive: %w", rlibPath, err)
 	}
 	for {
 		header, err := reader.Next()
@@ -182,32 +171,41 @@ func extractRlibArchive(rlibPath string) (*os.File, error) {
 		}
 		if header.Name == "//" { // "//" is used in GNU ar format as a store for long file names
 			fileBuf := bytes.Buffer{}
-			io.Copy(&fileBuf, reader)
+			// Ignore the error here as it's likely
+			_, err = io.Copy(&fileBuf, reader)
+			if err != nil {
+				return "", fmt.Errorf("failed to read // store in ar archive: %w", err)
+			}
 			// There should only be one file (since we set codegen-units=1)
-			if !strings.HasSuffix(fileBuf.String(), RUST_LIB_EXTENSION) {
+			if !strings.HasSuffix(fileBuf.String(), RustLibExtension) {
 				// TODO: Verify this, and return an error here instead.
 				log.Printf("rlib archive contents were unexpected: %s\n", fileBuf.String())
 			}
 		}
 		// /0 indicates the first file mentioned in the "//" store
-		if header.Name == "/0" || strings.HasSuffix(header.Name, RUST_LIB_EXTENSION) {
+		if header.Name == "/0" || strings.HasSuffix(header.Name, RustLibExtension) {
 			break
 		}
 	}
-	io.Copy(file, reader)
-	err = file.Close()
+	_, err = io.Copy(file, reader)
 	if err != nil {
-		return nil, fmt.Errorf("failed to write to temporary file '%s': %w", file.Name(), err)
+		return "", fmt.Errorf("failed to write to temporary file '%s': %w", file.Name(), err)
 	}
 
-	return file, nil
+	filePath := file.Name()
+	err = file.Close()
+	if err != nil {
+		return "", fmt.Errorf("failed to close the temporary file '%s': %w", file.Name(), err)
+	}
+
+	return filePath, nil
 }
 
 func rustBuildSource(r reporter.Reporter, source models.SourceInfo) ([]string, error) {
 	projectBaseDir := filepath.Dir(source.Path)
 
 	cmd := exec.Command("cargo", "build", "--all-targets", "--release")
-	cmd.Env = append(cmd.Environ(), RUST_FLAGS_ENV)
+	cmd.Env = append(cmd.Environ(), RustFlagsEnv)
 	cmd.Dir = projectBaseDir
 	if errors.Is(cmd.Err, exec.ErrDot) {
 		cmd.Err = nil
@@ -254,4 +252,24 @@ func rustBuildSource(r reporter.Reporter, source models.SourceInfo) ([]string, e
 	}
 
 	return resultBinaryPaths, nil
+}
+
+// cleanRustFunctionSymbols takes in demanged rust symbols and makes them fit format of
+// the common function level advisory information
+func cleanRustFunctionSymbols(val string) string {
+	// Used to remove generics from functions and types as they are not included in function calls
+	// in advisories:
+	// E.g.: `smallvec::SmallVec<A>::new` => `smallvec::SmallVec::new`
+	//
+	// Usage: antiGenericRegex.ReplaceAllString(val, "")
+	var antiGenericRegex = cachedregexp.MustCompile(`<[\w,]+>`)
+	val = antiGenericRegex.ReplaceAllString(val, "")
+
+	// Used to remove fully qualified trait implementation indicators from the function type,
+	// since those are generally not included in advisory:
+	// E.g.: `<libflate::gzip::MultiDecoder as std::io::Read>::read` => `libflate::gzip::MultiDecoder::read`
+	var antiTraitImplRegex = cachedregexp.MustCompile(`<(.*) as .*>`)
+	val = antiTraitImplRegex.ReplaceAllString(val, "$1")
+
+	return val
 }

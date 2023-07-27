@@ -26,15 +26,13 @@ import (
 	"bytes"
 	"fmt"
 	"io"
-	"io/ioutil"
-	"os"
 	"strconv"
 	"strings"
 )
 
 const (
-	HEADER_BYTE_SIZE = 60
-	AR_SIGNATURE     = "!<arch>\n"
+	HeaderByteSize = 60
+	ArSignature    = "!<arch>\n"
 )
 
 type Header struct {
@@ -79,10 +77,10 @@ type Reader struct {
 // Copies read data to r. Strips the global ar header.
 func NewReader(r io.Reader) (*Reader, error) {
 	sigBuf := bytes.Buffer{}
-	io.CopyN(&sigBuf, r, 8) // Discard global header
+	_, _ = io.CopyN(&sigBuf, r, 8) // Discard global header
 
-	if sigBuf.String() != AR_SIGNATURE {
-		return nil, fmt.Errorf("Not an rlib archive")
+	if sigBuf.String() != ArSignature {
+		return nil, fmt.Errorf("not an rlib archive")
 	}
 
 	return &Reader{r: r}, nil
@@ -118,16 +116,16 @@ func (rd *Reader) skipUnread() error {
 	bytesToSkip := int64(rd.bytesToRead + rd.pad)
 	rd.bytesToRead, rd.pad = 0, 0
 	if seeker, ok := rd.r.(io.Seeker); ok {
-		_, err := seeker.Seek(bytesToSkip, os.SEEK_CUR)
+		_, err := seeker.Seek(bytesToSkip, io.SeekCurrent)
 		return err
 	} else {
-		_, err := io.CopyN(ioutil.Discard, rd.r, bytesToSkip)
+		_, err := io.CopyN(io.Discard, rd.r, bytesToSkip)
 		return err
 	}
 }
 
 func (rd *Reader) readHeader() (*Header, error) {
-	headerBuf := make([]byte, HEADER_BYTE_SIZE)
+	headerBuf := make([]byte, HeaderByteSize)
 	if _, err := io.ReadFull(rd.r, headerBuf); err != nil {
 		return nil, err
 	}
