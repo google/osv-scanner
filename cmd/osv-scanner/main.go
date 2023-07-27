@@ -103,11 +103,6 @@ func run(args []string, stdout, stderr io.Writer) int {
 				Usage: "attempt call analysis on code to detect only active vulnerabilities",
 				Value: false,
 			},
-			&cli.StringFlag{
-				Name:      "experimental-diff",
-				Usage:     "only show the difference between report",
-				TakesFile: true,
-			},
 			&cli.BoolFlag{
 				Name:  "no-ignore",
 				Usage: "also scan files that would be ignored by .gitignore",
