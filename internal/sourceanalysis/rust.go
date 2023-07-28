@@ -49,7 +49,7 @@ func rustAnalysis(r reporter.Reporter, pkgs []models.PackageVulns, source models
 			// TODO: Do we need to care about error on deletion here?
 			defer os.Remove(objFilePath)
 		}
-		calls, err := parseDWARFData(r, path)
+		calls, err := functionsFromDWARF(path)
 		if err != nil {
 			r.PrintError(fmt.Sprintf("failed to analyse '%s': %s", path, err))
 			continue
@@ -106,7 +106,7 @@ func rustAnalysis(r reporter.Reporter, pkgs []models.PackageVulns, source models
 	}
 }
 
-func parseDWARFData(_ reporter.Reporter, binaryPath string) (map[string]struct{}, error) {
+func functionsFromDWARF(binaryPath string) (map[string]struct{}, error) {
 	output := map[string]struct{}{}
 	file, err := elf.Open(binaryPath)
 	if err != nil {
