@@ -14,7 +14,7 @@ import (
 	"strings"
 
 	"github.com/google/osv-scanner/internal/cachedregexp"
-	"github.com/google/osv-scanner/internal/sourceanalysis/ar"
+	"github.com/google/osv-scanner/internal/thirdparty/ar"
 	"github.com/google/osv-scanner/pkg/models"
 	"github.com/google/osv-scanner/pkg/reporter"
 	"github.com/ianlancetaylor/demangle"
