@@ -115,11 +115,11 @@ func run(args []string, stdout, stderr io.Writer) int {
 
 			switch format {
 			case "json":
-				r = reporter.NewJSONReporter(stdout, stderr)
+				r = reporter.NewJSONReporter(context.App.Writer, context.App.ErrWriter)
 			case "table":
-				r = reporter.NewTableReporter(stdout, stderr, false)
+				r = reporter.NewTableReporter(context.App.Writer, context.App.ErrWriter, false)
 			case "markdown":
-				r = reporter.NewTableReporter(stdout, stderr, true)
+				r = reporter.NewTableReporter(context.App.Writer, context.App.ErrWriter, true)
 			default:
 				return fmt.Errorf("%v is not a valid format", format)
 			}
