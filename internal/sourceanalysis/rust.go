@@ -20,8 +20,10 @@ import (
 	"github.com/ianlancetaylor/demangle"
 )
 
-const RustFlagsEnv = "RUSTFLAGS=-C opt-level=3 -C debuginfo=1"
-const RustLibExtension = ".rcgu.o/"
+const (
+	RustFlagsEnv     = "RUSTFLAGS=-C opt-level=3 -C debuginfo=1"
+	RustLibExtension = ".rcgu.o/"
+)
 
 func rustAnalysis(r reporter.Reporter, pkgs []models.PackageVulns, source models.SourceInfo) {
 	binaryPaths, err := rustBuildSource(r, source)
@@ -30,7 +32,11 @@ func rustAnalysis(r reporter.Reporter, pkgs []models.PackageVulns, source models
 		return
 	}
 
-	isCalledMap := map[string]bool{}
+	// This map stores 3 states for each vuln ID
+	// - There is function level vuln info, but it **wasn't** called   (false)
+	// - There is function level vuln info, and it **is** called    (true)
+	// - There is **no** functional level vuln info, so we don't know whether it is called (doesn't exist)
+	isCalledVulnMap := map[string]bool{}
 
 	for _, path := range binaryPaths {
 		if strings.HasSuffix(path, ".rlib") {
@@ -73,7 +79,7 @@ func rustAnalysis(r reporter.Reporter, pkgs []models.PackageVulns, source models
 						if funcName, ok := f.(string); ok {
 							_, called := calls[funcName]
 							// Once one advisory marks this vuln as called, always mark as called
-							isCalledMap[v.ID] = isCalledMap[v.ID] || called
+							isCalledVulnMap[v.ID] = isCalledVulnMap[v.ID] || called
 						}
 					}
 				}
@@ -88,10 +94,10 @@ func rustAnalysis(r reporter.Reporter, pkgs []models.PackageVulns, source models
 						*analysis = make(map[string]models.AnalysisInfo)
 					}
 
-					called, checked := isCalledMap[vulnID]
-					if checked {
+					called, hasFuncInfo := isCalledVulnMap[vulnID]
+					if hasFuncInfo {
 						(*analysis)[vulnID] = models.AnalysisInfo{
-							Called: called, // If call hasn't been checked, assume it's been called
+							Called: called,
 						}
 					}
 				}
@@ -233,7 +239,9 @@ func rustBuildSource(r reporter.Reporter, source models.SourceInfo) ([]string, e
 
 	resultBinaryPaths := []string{}
 	for _, de := range entries {
-		// We only want .d files
+		// We only want .d files, which is generated for each output binary from cargo
+		// These files contains a string to the full path of output binary/library file.
+		// This is a reasonably reliable way to identify the output in a cross platform way.
 		if de.IsDir() || !strings.HasSuffix(de.Name(), ".d") {
 			continue
 		}
