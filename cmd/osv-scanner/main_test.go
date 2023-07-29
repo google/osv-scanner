@@ -635,6 +635,7 @@ func TestRun_LocalDatabases(t *testing.T) {
 			wantStdout: `
 				Scanning dir ./fixtures/locks-many/composer.lock
 				Scanned %%/fixtures/locks-many/composer.lock file and found 1 package
+				Loaded Packagist local db from %%/osv-scanner/Packagist/all.zip
 				No vulnerabilities found
 			`,
 			wantStderr: "",
@@ -647,6 +648,9 @@ func TestRun_LocalDatabases(t *testing.T) {
 			wantStdout: `
 				Scanning dir ./fixtures/sbom-insecure/postgres-stretch.cdx.xml
 				Scanned %%/fixtures/sbom-insecure/postgres-stretch.cdx.xml as CycloneDX SBOM and found 136 packages
+				Loaded Debian local db from %%/osv-scanner/Debian/all.zip
+				Loaded Go local db from %%/osv-scanner/Go/all.zip
+				Loaded OSS-Fuzz local db from %%/osv-scanner/OSS-Fuzz/all.zip
 				+-------------------------------------+------+-----------+--------------------------------+------------------------------------+-------------------------------------------------+
 				| OSV URL                             | CVSS | ECOSYSTEM | PACKAGE                        | VERSION                            | SOURCE                                          |
 				+-------------------------------------+------+-----------+--------------------------------+------------------------------------+-------------------------------------------------+
@@ -684,6 +688,10 @@ func TestRun_LocalDatabases(t *testing.T) {
 				Scanned %%/fixtures/locks-many/composer.lock file and found 1 package
 				Scanned %%/fixtures/locks-many/package-lock.json file and found 1 package
 				Scanned %%/fixtures/locks-many/yarn.lock file and found 1 package
+				Loaded RubyGems local db from %%/osv-scanner/RubyGems/all.zip
+				Loaded Alpine local db from %%/osv-scanner/Alpine/all.zip
+				Loaded Packagist local db from %%/osv-scanner/Packagist/all.zip
+				Loaded npm local db from %%/osv-scanner/npm/all.zip
 				Loaded filter from: %%/fixtures/locks-many/osv-scanner.toml
 				GHSA-whgm-jr23-g3j9 has been filtered out because: Test manifest file
 				Filtered 1 vulnerability from output
@@ -700,6 +708,8 @@ func TestRun_LocalDatabases(t *testing.T) {
 				Scanning dir ./fixtures/locks-many-with-invalid
 				Scanned %%/fixtures/locks-many-with-invalid/Gemfile.lock file and found 1 package
 				Scanned %%/fixtures/locks-many-with-invalid/yarn.lock file and found 1 package
+				Loaded RubyGems local db from %%/osv-scanner/RubyGems/all.zip
+				Loaded npm local db from %%/osv-scanner/npm/all.zip
 			`,
 			wantStderr: `
 				Attempted to scan lockfile but failed: %%/fixtures/locks-many-with-invalid/composer.lock
@@ -713,6 +723,7 @@ func TestRun_LocalDatabases(t *testing.T) {
 			wantStdout: `
 				Scanning dir ./fixtures/locks-one-with-nested
 				Scanned %%/fixtures/locks-one-with-nested/yarn.lock file and found 1 package
+				Loaded npm local db from %%/osv-scanner/npm/all.zip
 				No vulnerabilities found
 			`,
 			wantStderr: "",
@@ -726,6 +737,8 @@ func TestRun_LocalDatabases(t *testing.T) {
 				Scanning dir ./fixtures/locks-one-with-nested
 				Scanned %%/fixtures/locks-one-with-nested/nested/composer.lock file and found 1 package
 				Scanned %%/fixtures/locks-one-with-nested/yarn.lock file and found 1 package
+				Loaded Packagist local db from %%/osv-scanner/Packagist/all.zip
+				Loaded npm local db from %%/osv-scanner/npm/all.zip
 				No vulnerabilities found
 			`,
 			wantStderr: "",
@@ -739,6 +752,8 @@ func TestRun_LocalDatabases(t *testing.T) {
 				Scanning dir ./fixtures/locks-gitignore
 				Scanned %%/fixtures/locks-gitignore/Gemfile.lock file and found 1 package
 				Scanned %%/fixtures/locks-gitignore/subdir/yarn.lock file and found 1 package
+				Loaded RubyGems local db from %%/osv-scanner/RubyGems/all.zip
+				Loaded npm local db from %%/osv-scanner/npm/all.zip
 				No vulnerabilities found
 			`,
 			wantStderr: "",
@@ -758,6 +773,9 @@ func TestRun_LocalDatabases(t *testing.T) {
 				Scanned %%/fixtures/locks-gitignore/subdir/composer.lock file and found 1 package
 				Scanned %%/fixtures/locks-gitignore/subdir/yarn.lock file and found 1 package
 				Scanned %%/fixtures/locks-gitignore/yarn.lock file and found 1 package
+				Loaded RubyGems local db from %%/osv-scanner/RubyGems/all.zip
+				Loaded Packagist local db from %%/osv-scanner/Packagist/all.zip
+				Loaded npm local db from %%/osv-scanner/npm/all.zip
 				No vulnerabilities found
 			`,
 			wantStderr: "",
@@ -775,6 +793,7 @@ func TestRun_LocalDatabases(t *testing.T) {
 			wantStderr: `
 				Scanning dir ./fixtures/locks-many/composer.lock
 				Scanned %%/fixtures/locks-many/composer.lock file and found 1 package
+				Loaded Packagist local db from %%/osv-scanner/Packagist/all.zip
 			`,
 		},
 		{
@@ -789,6 +808,7 @@ func TestRun_LocalDatabases(t *testing.T) {
 			wantStderr: `
 				Scanning dir ./fixtures/locks-many/composer.lock
 				Scanned %%/fixtures/locks-many/composer.lock file and found 1 package
+				Loaded Packagist local db from %%/osv-scanner/Packagist/all.zip
 			`,
 		},
 		// output format: markdown table
@@ -799,6 +819,7 @@ func TestRun_LocalDatabases(t *testing.T) {
 			wantStdout: `
 				Scanning dir ./fixtures/locks-many/composer.lock
 				Scanned %%/fixtures/locks-many/composer.lock file and found 1 package
+				Loaded Packagist local db from %%/osv-scanner/Packagist/all.zip
 				No vulnerabilities found
 			`,
 			wantStderr: "",

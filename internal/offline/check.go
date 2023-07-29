@@ -103,6 +103,8 @@ func Check(r reporter.Reporter, query osv.BatchedQuery, offline bool, localDBPat
 			return nil, err
 		}
 
+		r.PrintText(fmt.Sprintf("Loaded %s local db from %s\n", db.Name, db.StoredAt))
+
 		dbs[ecosystem] = db
 
 		return db, nil
