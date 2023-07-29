@@ -50,7 +50,7 @@ func matchAnalysisWithPackageVulns(pkgs []models.PackageVulns, idToFindings map[
 				}
 
 				moduleToCalled, ok := idToModuleToCalled[vulnID]
-				if !ok { // If vulnerability not found, check if it contain any source information
+				if !ok { // If vulnerability not found, check if it contains any source information
 					fillNotImportedAnalysisInfo(vulnsByID, vulnID, pv, analysis)
 					continue
 				}
