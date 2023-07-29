@@ -11,8 +11,11 @@ import (
 	"github.com/google/osv-scanner/pkg/reporter"
 )
 
+const zippedDBRemoteHost = "https://osv-vulnerabilities.storage.googleapis.com"
+const envKeyLocalDBCacheDirectory = "OSV_SCANNER_LOCAL_DB_CACHE_DIRECTORY"
+
 func loadDB(dbBasePath string, ecosystem lockfile.Ecosystem, offline bool) (*ZipDB, error) {
-	return NewZippedDB(dbBasePath, string(ecosystem), fmt.Sprintf("https://osv-vulnerabilities.storage.googleapis.com/%s/all.zip", ecosystem), offline)
+	return NewZippedDB(dbBasePath, string(ecosystem), fmt.Sprintf("%s/%s/all.zip", zippedDBRemoteHost, ecosystem), offline)
 }
 
 func toPackageDetails(query *osv.Query) (lockfile.PackageDetails, error) {
@@ -45,7 +48,7 @@ func setupLocalDBDirectory() (string, error) {
 	var err error
 	var envSet bool
 
-	if p, envSet := os.LookupEnv("OSV_SCANNER_LOCAL_DB_CACHE_DIRECTORY"); envSet {
+	if p, envSet := os.LookupEnv(envKeyLocalDBCacheDirectory); envSet {
 		localDBPath = p
 	} else {
 		localDBPath, err = os.UserCacheDir()
