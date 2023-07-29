@@ -43,19 +43,22 @@ func toPackageDetails(query *osv.Query) (lockfile.PackageDetails, error) {
 	}, nil
 }
 
-func setupLocalDBDirectory() (string, error) {
-	var localDBPath string
+func setupLocalDBDirectory(localDBPath string) (string, error) {
 	var err error
-	var envSet bool
+	var explicitPath bool
 
-	if p, envSet := os.LookupEnv(envKeyLocalDBCacheDirectory); envSet {
-		localDBPath = p
-	} else {
-		localDBPath, err = os.UserCacheDir()
+	if localDBPath == "" {
+		if p, envSet := os.LookupEnv(envKeyLocalDBCacheDirectory); envSet {
+			localDBPath = p
+		} else {
+			localDBPath, err = os.UserCacheDir()
 
-		if err != nil {
-			localDBPath = os.TempDir()
+			if err != nil {
+				localDBPath = os.TempDir()
+			}
 		}
+	} else {
+		explicitPath = true
 	}
 
 	err = os.Mkdir(path.Join(localDBPath, "osv-scanner"), 0750)
@@ -64,26 +67,26 @@ func setupLocalDBDirectory() (string, error) {
 	// has been provided, then it should error rather than fallback to another path
 	//
 	// otherwise, it should fall back to the temp directory before erroring
-	if err != nil && envSet {
-		return path.Join(localDBPath, "osv-scanner"), err
+	if err != nil && explicitPath {
+		return "", err
 	} else if localDBPath == os.TempDir() {
 		localDBPath = os.TempDir()
 
 		err = os.Mkdir(path.Join(localDBPath, "osv-scanner"), 0750)
 
 		if err != nil {
-			return path.Join(localDBPath, "osv-scanner"), err
+			return "", err
 		}
 	}
 
 	return path.Join(localDBPath, "osv-scanner"), nil
 }
 
-func Check(r reporter.Reporter, query osv.BatchedQuery, offline bool) (*osv.HydratedBatchedResponse, error) {
+func Check(r reporter.Reporter, query osv.BatchedQuery, offline bool, localDBPath string) (*osv.HydratedBatchedResponse, error) {
 	results := make([]osv.Response, 0, len(query.Queries))
 	dbs := make(map[lockfile.Ecosystem]*ZipDB)
 
-	dbBasePath, err := setupLocalDBDirectory()
+	dbBasePath, err := setupLocalDBDirectory(localDBPath)
 
 	if err != nil {
 		return &osv.HydratedBatchedResponse{}, fmt.Errorf("could not create %s: %w", dbBasePath, err)

@@ -13,6 +13,19 @@ import (
 	"github.com/go-git/go-git/v5"
 )
 
+func createTestDir(t *testing.T) (string, func()) {
+	t.Helper()
+
+	p, err := os.MkdirTemp("", "osv-scanner-test-*")
+	if err != nil {
+		t.Fatalf("could not create test directory: %v", err)
+	}
+
+	return p, func() {
+		_ = os.RemoveAll(p)
+	}
+}
+
 func dedent(t *testing.T, str string) string {
 	t.Helper()
 
@@ -795,6 +808,14 @@ func TestRun_LocalDatabases(t *testing.T) {
 		tt := tt
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
+
+			testDir, cleanupTestDir := createTestDir(t)
+			defer cleanupTestDir()
+
+			old := tt.args
+
+			tt.args = []string{"", "--experimental-local-db-path", testDir}
+			tt.args = append(tt.args, old[1:]...)
 
 			testCli(t, tt)
 		})

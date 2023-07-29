@@ -116,6 +116,11 @@ func run(args []string, stdout, stderr io.Writer) int {
 				Name:  "experimental-offline",
 				Usage: "checks for vulnerabilities using local databases that are already cached",
 			},
+			&cli.StringFlag{
+				Name:   "experimental-local-db-path",
+				Usage:  "sets the path that local databases should be stored",
+				Hidden: true,
+			},
 		},
 		ArgsUsage: "[directory1 directory2...]",
 		Action: func(context *cli.Context) error {
@@ -157,6 +162,7 @@ func run(args []string, stdout, stderr io.Writer) int {
 				ConfigOverridePath:   context.String("config"),
 				DirectoryPaths:       context.Args().Slice(),
 				ExperimentalScannerActions: osvscanner.ExperimentalScannerActions{
+					LocalDBPath:    context.String("experimental-local-db-path"),
 					CallAnalysis:   context.Bool("experimental-call-analysis"),
 					CompareLocally: context.Bool("experimental-local-db"),
 					CompareOffline: context.Bool("experimental-offline"),

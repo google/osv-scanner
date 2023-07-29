@@ -42,6 +42,8 @@ type ExperimentalScannerActions struct {
 	CallAnalysis   bool
 	CompareLocally bool
 	CompareOffline bool
+
+	LocalDBPath string
 }
 
 // NoPackagesFoundErr for when no packages are found during a scan.
@@ -572,7 +574,7 @@ func DoScan(actions ScannerActions, r reporter.Reporter) (models.VulnerabilityRe
 		return models.VulnerabilityResults{}, NoPackagesFoundErr
 	}
 
-	hydratedResp, err := MakeRequest(r, actions.CompareLocally, actions.CompareOffline, query)
+	hydratedResp, err := MakeRequest(r, actions.CompareLocally, actions.CompareOffline, query, actions.LocalDBPath)
 
 	if err != nil {
 		return models.VulnerabilityResults{}, err
@@ -609,9 +611,10 @@ func MakeRequest(
 	compareLocally bool,
 	compareOffline bool,
 	query osv.BatchedQuery,
+	localDBPath string,
 ) (*osv.HydratedBatchedResponse, error) {
 	if compareLocally {
-		hydratedResp, err := offline.Check(r, query, compareOffline)
+		hydratedResp, err := offline.Check(r, query, compareOffline, localDBPath)
 		if err != nil {
 			return &osv.HydratedBatchedResponse{}, fmt.Errorf("scan failed %w", err)
 		}
