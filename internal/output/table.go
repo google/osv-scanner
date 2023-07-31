@@ -15,26 +15,23 @@ import (
 
 	"github.com/jedib0t/go-pretty/v6/table"
 	"github.com/jedib0t/go-pretty/v6/text"
-	"golang.org/x/term"
 )
 
 // PrintTableResults prints the osv scan results into a human friendly table.
-func PrintTableResults(vulnResult *models.VulnerabilityResults, outputWriter io.Writer) {
+func PrintTableResults(vulnResult *models.VulnerabilityResults, outputWriter io.Writer, terminalWidth int) {
 	outputTable := table.NewWriter()
 	outputTable.SetOutputMirror(outputWriter)
 	outputTable.AppendHeader(table.Row{"OSV URL", "CVSS", "Ecosystem", "Package", "Version", "Source"})
-	width, _, err := term.GetSize(int(os.Stdout.Fd()))
-	isTerminal := false
-	if err == nil { // If output is a terminal, set max length to width and add styling
+
+	if terminalWidth > 0 { // If output is a terminal, set max length to width and add styling
 		outputTable.SetStyle(table.StyleRounded)
 		outputTable.Style().Color.Row = text.Colors{text.Reset, text.BgHiBlack}
 		outputTable.Style().Color.RowAlternate = text.Colors{text.Reset, text.BgBlack}
 		outputTable.Style().Options.DoNotColorBordersAndSeparators = true
-		outputTable.SetAllowedRowLength(width)
-		isTerminal = true
+		outputTable.SetAllowedRowLength(terminalWidth)
 	} // Otherwise use default ascii (e.g. getting piped to a file)
 
-	outputTable = tableBuilder(outputTable, vulnResult, isTerminal)
+	outputTable = tableBuilder(outputTable, vulnResult, terminalWidth > 0)
 
 	if outputTable.Length() == 0 {
 		return
@@ -128,7 +125,7 @@ func tableBuilderInner(vulnResult *models.VulnerabilityResults, addStyling bool,
 						outputSeverities = append(outputSeverities, outputSeverity)
 					}
 				}
-				outputRow = append(outputRow, strings.Join(outputSeverities, ",\n"))
+				outputRow = append(outputRow, strings.Join(outputSeverities, "\n"))
 
 				if pkg.Package.Ecosystem == "GIT" {
 					outputRow = append(outputRow, "GIT", pkg.Package.Version, pkg.Package.Version)

@@ -61,6 +61,8 @@ func Group(vulns []IDAliases) []models.GroupInfo {
 
 	result := make([]models.GroupInfo, 0, len(sortedKeys))
 	for _, key := range sortedKeys {
+		// Sort the strings so they are always in the same order
+		sort.Strings(extractedGroups[key])
 		result = append(result, models.GroupInfo{IDs: extractedGroups[key]})
 	}
 

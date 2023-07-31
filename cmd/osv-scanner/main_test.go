@@ -177,7 +177,7 @@ func TestRun(t *testing.T) {
 		},
 		// all supported lockfiles in the directory should be checked
 		{
-			name:         "",
+			name:         "Scan locks-many",
 			args:         []string{"", "./fixtures/locks-many"},
 			wantExitCode: 0,
 			wantStdout: `
@@ -185,7 +185,11 @@ func TestRun(t *testing.T) {
 				Scanned %%/fixtures/locks-many/Gemfile.lock file and found 1 packages
 				Scanned %%/fixtures/locks-many/alpine.cdx.xml as CycloneDX SBOM and found 15 packages
 				Scanned %%/fixtures/locks-many/composer.lock file and found 1 packages
+				Scanned %%/fixtures/locks-many/package-lock.json file and found 1 packages
 				Scanned %%/fixtures/locks-many/yarn.lock file and found 1 packages
+				Loaded filter from: %%/fixtures/locks-many/osv-scanner.toml
+				GHSA-whgm-jr23-g3j9 has been filtered out because: Test manifest file
+				Filtered 1 vulnerabilities from output
 				No vulnerabilities found
 			`,
 			wantStderr: "",
@@ -288,6 +292,101 @@ func TestRun(t *testing.T) {
 			wantStderr: `
 				Scanning dir ./fixtures/locks-many/composer.lock
 				Scanned %%/fixtures/locks-many/composer.lock file and found 1 packages
+			`,
+		},
+		// output format: sarif
+		{
+			name:         "Empty sarif output",
+			args:         []string{"", "--format", "sarif", "./fixtures/locks-many/composer.lock"},
+			wantExitCode: 0,
+			wantStdout: `
+				{
+					"version": "2.1.0",
+					"$schema": "https://json.schemastore.org/sarif-2.1.0.json",
+					"runs": [
+						{
+							"tool": {
+								"driver": {
+									"informationUri": "https://github.com/google/osv-scanner",
+									"name": "osv-scanner",
+									"rules": [
+										{
+											"id": "vulnerable-packages",
+											"shortDescription": {
+												"text": "This manifest file contains one or more vulnerable packages."
+											}
+										}
+									]
+								}
+							},
+							"results": []
+						}
+					]
+				}
+			`,
+			wantStderr: `
+				Scanning dir ./fixtures/locks-many/composer.lock
+				Scanned %%/fixtures/locks-many/composer.lock file and found 1 packages
+			`,
+		},
+		{
+			name:         "Sarif with vulns",
+			args:         []string{"", "--format", "sarif", "--config", "./fixtures/osv-scanner-empty-config.toml", "./fixtures/locks-many/package-lock.json"},
+			wantExitCode: 1,
+			wantStdout: `
+				{
+					"version": "2.1.0",
+					"$schema": "https://json.schemastore.org/sarif-2.1.0.json",
+					"runs": [
+						{
+							"tool": {
+								"driver": {
+									"informationUri": "https://github.com/google/osv-scanner",
+									"name": "osv-scanner",
+									"rules": [
+										{
+											"id": "vulnerable-packages",
+											"shortDescription": {
+												"text": "This manifest file contains one or more vulnerable packages."
+											}
+										}
+									]
+								}
+							},
+							"artifacts": [
+								{
+									"location": {
+										"uri": "fixtures/locks-many/package-lock.json"
+									},
+									"length": -1
+								}
+							],
+							"results": [
+								{
+									"ruleId": "vulnerable-packages",
+									"ruleIndex": 0,
+									"level": "warning",
+									"message": {
+										"text": "+-----------+-------------------------------------+-----------------+---------------+\n| PACKAGE \u0026nbsp; | VULNERABILITY ID \u0026nbsp; \u0026nbsp; \u0026nbsp; \u0026nbsp; \u0026nbsp; \u0026nbsp; \u0026nbsp; \u0026nbsp; \u0026nbsp; \u0026nbsp;| CURRENT VERSION | FIXED VERSION |\n+-----------+-------------------------------------+-----------------+---------------+\n| ansi-html | https://osv.dev/GHSA-whgm-jr23-g3j9 | 0.0.1 \u0026nbsp; \u0026nbsp; \u0026nbsp; \u0026nbsp; \u0026nbsp; | 0.0.8 \u0026nbsp; \u0026nbsp; \u0026nbsp; \u0026nbsp; |\n+-----------+-------------------------------------+-----------------+---------------+"
+									},
+									"locations": [
+										{
+											"physicalLocation": {
+												"artifactLocation": {
+													"uri": "fixtures/locks-many/package-lock.json"
+												}
+											}
+										}
+									]
+								}
+							]
+						}
+					]
+				}
+			`,
+			wantStderr: `
+				Scanning dir ./fixtures/locks-many/package-lock.json
+				Scanned %%/fixtures/locks-many/package-lock.json file and found 1 packages
 			`,
 		},
 		// output format: markdown table

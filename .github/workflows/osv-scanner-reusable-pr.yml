@@ -1,0 +1,82 @@
+# Copyright 2023 Google LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+name: OSV-Scanner PR scanning
+
+on:
+  workflow_call:
+
+jobs:
+  scan-pr:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          # Do persist credentials, as we need it for the git checkout later
+      - name: "Checkout target branch"
+        run: git checkout $GITHUB_BASE_REF
+      - name: "Run scanner on existing code"
+        uses: another-rex/osv-scanner/actions/scanner@markdown-output
+        continue-on-error: true
+        with:
+          results-format: json
+          results-file: old-results.json
+          to-scan: .
+      - name: "Checkout current branch"
+        run: git checkout $GITHUB_SHA
+      - name: "Run scanner on new code"
+        uses: another-rex/osv-scanner/actions/scanner@markdown-output
+        with:
+          results-format: json
+          results-file: new-results.json
+          to-scan: .
+        continue-on-error: true
+      - name: "Run osv-diff"
+        uses: another-rex/osv-scanner/actions/diff@markdown-output
+        with:
+          results-format: sarif
+          output-file: final-results.sarif
+          old-results: old-results.json
+          new-results: new-results.json
+      # Upload the results as artifacts (optional). Commenting out will disable uploads of run results in SARIF
+      # format to the repository Actions tab.
+      - name: "Upload artifact"
+        if: '!cancelled()'
+        uses: actions/upload-artifact@0b7f8abb1508181956e8e162db84b466c27e18ce # v3.1.2
+        with:
+          name: SARIF file
+          path: final-results.sarif
+          retention-days: 5
+      - name: "Upload old scan json results"
+        if: '!cancelled()'
+        uses: actions/upload-artifact@0b7f8abb1508181956e8e162db84b466c27e18ce # v3.1.2
+        with:
+          name: old-json-results
+          path: old-results.json
+          retention-days: 5
+      - name: "Upload new scan json results"
+        if: '!cancelled()'
+        uses: actions/upload-artifact@0b7f8abb1508181956e8e162db84b466c27e18ce # v3.1.2
+        with:
+          name: new-json-results
+          path: new-results.json
+          retention-days: 5
+      # Upload the results to GitHub's code scanning dashboard.
+      - name: "Upload to code-scanning"
+        if: '!cancelled()'
+        uses: github/codeql-action/upload-sarif@6c089f53dd51dc3fc7e599c3cb5356453a52ca9e # v2.20.0
+        with:
+          sarif_file: final-results.sarif
+
