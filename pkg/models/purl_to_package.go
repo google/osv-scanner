@@ -4,18 +4,40 @@ import (
 	"github.com/package-url/packageurl-go"
 )
 
-var purlEcosystems = map[string]Ecosystem{
-	"cargo":    EcosystemCratesIO,
-	"deb":      EcosystemDebian,
-	"hex":      EcosystemHex,
-	"golang":   EcosystemGo,
-	"maven":    EcosystemMaven,
-	"nuget":    EcosystemNuGet,
-	"npm":      EcosystemNPM,
-	"composer": EcosystemPackagist,
-	"generic":  EcosystemOSSFuzz,
-	"pypi":     EcosystemPyPI,
-	"gem":      EcosystemRubyGems,
+// used like so: purlEcosystems[PkgURL.Type][PkgURL.Namespace]
+// * means it should match any namespace string
+var purlEcosystems = map[string]map[string]Ecosystem{
+	"apk":      {"alpine": EcosystemAlpine},
+	"cargo":    {"*": EcosystemCratesIO},
+	"deb":      {"debian": EcosystemDebian},
+	"hex":      {"*": EcosystemHex},
+	"golang":   {"*": EcosystemGo},
+	"maven":    {"*": EcosystemMaven},
+	"nuget":    {"*": EcosystemNuGet},
+	"npm":      {"*": EcosystemNPM},
+	"composer": {"*": EcosystemPackagist},
+	"generic":  {"*": EcosystemOSSFuzz},
+	"pypi":     {"*": EcosystemPyPI},
+	"gem":      {"*": EcosystemRubyGems},
+}
+
+func getPURLEcosystem(pkgURL packageurl.PackageURL) Ecosystem {
+	ecoMap, ok := purlEcosystems[pkgURL.Type]
+	if !ok {
+		return Ecosystem(pkgURL.Type + ":" + pkgURL.Namespace)
+	}
+
+	wildcardRes, hasWildcard := ecoMap["*"]
+	if hasWildcard {
+		return wildcardRes
+	}
+
+	ecosystem, ok := ecoMap[pkgURL.Namespace]
+	if !ok {
+		return Ecosystem(pkgURL.Type + ":" + pkgURL.Namespace)
+	}
+
+	return ecosystem
 }
 
 // PURLToPackage converts a Package URL string to models.PackageInfo
@@ -24,10 +46,7 @@ func PURLToPackage(purl string) (PackageInfo, error) {
 	if err != nil {
 		return PackageInfo{}, err
 	}
-	ecosystem, ok := purlEcosystems[parsedPURL.Type]
-	if !ok {
-		ecosystem = Ecosystem(parsedPURL.Type)
-	}
+	ecosystem := getPURLEcosystem(parsedPURL)
 
 	// PackageInfo expects the full namespace in the name for ecosystems that specify it.
 	name := parsedPURL.Name
