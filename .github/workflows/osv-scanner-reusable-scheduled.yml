@@ -23,7 +23,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: "Run scanner"
-        uses: another-rex/osv-scanner/actions/scanner@markdown-output
+        uses: google/osv-scanner/actions/scanner@main
         with:
           results-format: sarif
           results-file: results.sarif
