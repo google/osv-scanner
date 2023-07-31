@@ -18,18 +18,18 @@ func Test_extractRlibArchive(t *testing.T) {
 		filename := file.Name()
 		t.Run("Extract Rlib "+filename, func(t *testing.T) {
 			t.Parallel()
-			buf, err := extractRlibArchive(filepath.Join("fixtures-rust/archives", file.Name()))
+			buf, err := extractRlibArchive(filepath.Join("fixtures-rust/archives", filename))
 			if err != nil {
 				t.Error(err)
 			}
 
-			expectedFileName := strings.Replace(file.Name(), ".rlib", ".o", 1)
+			expectedFileName := strings.Replace(filename, ".rlib", ".o", 1)
 			expectedBuf, err := os.ReadFile(filepath.Join("fixtures-rust/objs", expectedFileName))
 			if err != nil {
 				t.Error(err)
 			}
 			if !bytes.Equal(buf.Bytes(), expectedBuf) {
-				t.Fatalf("Extracted not identical to expected: %s", filepath.Join("fixtures-rust/archives", file.Name()))
+				t.Fatalf("Extracted not identical to expected: %s", filepath.Join("fixtures-rust/archives", filename))
 			}
 		})
 	}
