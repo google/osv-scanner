@@ -21,7 +21,13 @@ import (
 )
 
 const (
-	RustFlagsEnv     = "RUSTFLAGS=-C opt-level=3 -C debuginfo=1"
+	// - opt-level=3 (Use the highest optimisation level (default with --release))
+	// - debuginfo=1 (Include DWARF debug info which is extracted to find which funcs are called)
+	// - embed-bitcode=yes (Required to enable LTO)
+	// - lto (Enable full link time optimisation)
+	// - codegen-units=1 (Build everything in one codegen unit, increases build time but enables more optimisations
+	//                  and make libraries only generate one object file)
+	RustFlagsEnv     = "RUSTFLAGS=-C opt-level=3 -C debuginfo=1 -C embed-bitcode=yes -C lto -C codegen-units=1"
 	RustLibExtension = ".rcgu.o/"
 )
 
@@ -39,19 +45,30 @@ func rustAnalysis(r reporter.Reporter, pkgs []models.PackageVulns, source models
 	isCalledVulnMap := map[string]bool{}
 
 	for _, path := range binaryPaths {
+		var readAt io.ReaderAt
 		if strings.HasSuffix(path, ".rlib") {
 			// Is a library, so need an extra step to extract the object binary file before passing to parseDWARFData
-			objFilePath, err := extractRlibArchive(path)
+			buf, err := extractRlibArchive(path)
 			if err != nil {
-				r.PrintError(fmt.Sprintf("failed to analyse '%s': %s", path, err))
+				r.PrintError(fmt.Sprintf("failed to analyse '%s': %s\n", path, err))
 				continue
 			}
-			// TODO: Do we need to care about error on deletion here?
-			defer os.Remove(objFilePath)
+			readAt = bytes.NewReader(buf.Bytes())
+		} else {
+			f, err := os.Open(path)
+			if err != nil {
+				r.PrintError(fmt.Sprintf("failed to read binary '%s': %s\n", path, err))
+				continue
+			}
+			// This is fine to defer til the end of the function as there's
+			// generally single digit number of binaries in a project
+			defer f.Close()
+			readAt = f
 		}
-		calls, err := functionsFromDWARF(path)
+
+		calls, err := functionsFromDWARF(readAt)
 		if err != nil {
-			r.PrintError(fmt.Sprintf("failed to analyse '%s': %s", path, err))
+			r.PrintError(fmt.Sprintf("failed to analyse '%s': %s\n", path, err))
 			continue
 		}
 
@@ -106,15 +123,15 @@ func rustAnalysis(r reporter.Reporter, pkgs []models.PackageVulns, source models
 	}
 }
 
-func functionsFromDWARF(binaryPath string) (map[string]struct{}, error) {
+func functionsFromDWARF(readAt io.ReaderAt) (map[string]struct{}, error) {
 	output := map[string]struct{}{}
-	file, err := elf.Open(binaryPath)
+	file, err := elf.NewFile(readAt)
 	if err != nil {
-		return nil, fmt.Errorf("failed to open binary %s: %w", binaryPath, err)
+		return nil, fmt.Errorf("failed to read binary: %w", err)
 	}
 	dwarfData, err := file.DWARF()
 	if err != nil {
-		return nil, fmt.Errorf("failed to extract debug symbols from binary %s: %w", binaryPath, err)
+		return nil, fmt.Errorf("failed to extract debug symbols from binary: %w", err)
 	}
 	entryReader := dwarfData.Reader()
 
@@ -156,19 +173,16 @@ func functionsFromDWARF(binaryPath string) (map[string]struct{}, error) {
 // extractRlibArchive return the file path to a temporary ELF Object file extracted from the given rlib.
 //
 // It is the callers responsibility to remove the temporary file
-func extractRlibArchive(rlibPath string) (string, error) {
-	file, err := os.CreateTemp("", "rust-*.o")
-	if err != nil {
-		return "", fmt.Errorf("failed to create temporary file: %w", err)
-	}
+func extractRlibArchive(rlibPath string) (bytes.Buffer, error) {
+	buf := bytes.Buffer{}
 	rlibFile, err := os.Open(rlibPath)
 	if err != nil {
-		return "", fmt.Errorf("failed to open .rlib file '%s': %w", rlibPath, err)
+		return bytes.Buffer{}, fmt.Errorf("failed to open .rlib file '%s': %w", rlibPath, err)
 	}
 
 	reader, err := ar.NewReader(rlibFile)
 	if err != nil {
-		return "", fmt.Errorf(".rlib file '%s' is not valid ar archive: %w", rlibPath, err)
+		return bytes.Buffer{}, fmt.Errorf(".rlib file '%s' is not valid ar archive: %w", rlibPath, err)
 	}
 	for {
 		header, err := reader.Next()
@@ -180,12 +194,15 @@ func extractRlibArchive(rlibPath string) (string, error) {
 			// Ignore the error here as it's likely
 			_, err = io.Copy(&fileBuf, reader)
 			if err != nil {
-				return "", fmt.Errorf("failed to read // store in ar archive: %w", err)
+				return bytes.Buffer{}, fmt.Errorf("failed to read // store in ar archive: %w", err)
 			}
+
+			filename := strings.TrimSpace(fileBuf.String())
+
 			// There should only be one file (since we set codegen-units=1)
-			if !strings.HasSuffix(fileBuf.String(), RustLibExtension) {
+			if !strings.HasSuffix(filename, RustLibExtension) {
 				// TODO: Verify this, and return an error here instead.
-				log.Printf("rlib archive contents were unexpected: %s\n", fileBuf.String())
+				log.Printf("rlib archive contents were unexpected: %s\n", filename)
 			}
 		}
 		// /0 indicates the first file mentioned in the "//" store
@@ -193,18 +210,12 @@ func extractRlibArchive(rlibPath string) (string, error) {
 			break
 		}
 	}
-	_, err = io.Copy(file, reader)
+	_, err = io.Copy(&buf, reader)
 	if err != nil {
-		return "", fmt.Errorf("failed to write to temporary file '%s': %w", file.Name(), err)
+		return bytes.Buffer{}, fmt.Errorf("failed to read from archive '%s': %w", rlibPath, err)
 	}
 
-	filePath := file.Name()
-	err = file.Close()
-	if err != nil {
-		return "", fmt.Errorf("failed to close the temporary file '%s': %w", file.Name(), err)
-	}
-
-	return filePath, nil
+	return buf, nil
 }
 
 func rustBuildSource(r reporter.Reporter, source models.SourceInfo) ([]string, error) {
@@ -231,7 +242,7 @@ func rustBuildSource(r reporter.Reporter, source models.SourceInfo) ([]string, e
 		return nil, fmt.Errorf("failed to run cargo build: %w", err)
 	}
 
-	outputDir := filepath.Join(projectBaseDir, "target", "debug")
+	outputDir := filepath.Join(projectBaseDir, "target", "release")
 	entries, err := os.ReadDir(outputDir)
 	if err != nil {
 		return nil, fmt.Errorf("failed to read \"%s\" dir: %w", outputDir, err)
