@@ -36,7 +36,7 @@ type ScannerActions struct {
 	ExperimentalCallAnalysis bool
 }
 
-// NoPackagesFoundErr for when no packages is found during a scan.
+// NoPackagesFoundErr for when no packages are found during a scan.
 //
 //nolint:errname,stylecheck // Would require version major bump to change
 var NoPackagesFoundErr = errors.New("no packages found in scan")
@@ -290,7 +290,7 @@ func scanSBOMFile(r reporter.Reporter, query *osv.BatchedQuery, path string, fro
 		return err
 	}
 
-	// Don't log these errors if we're coming from a FS scan, since it can get very noisy.
+	// Don't log these errors if we're coming from an FS scan, since it can get very noisy.
 	if !fromFSScan {
 		r.PrintText("Failed to parse SBOM using all supported formats:\n")
 		for _, err := range errs {

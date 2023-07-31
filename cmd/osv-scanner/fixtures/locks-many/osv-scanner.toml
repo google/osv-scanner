@@ -1,0 +1,4 @@
+[[IgnoredVulns]]
+id = "GHSA-whgm-jr23-g3j9"
+# ignore_until = 2022-11-09
+reason = "Test manifest file"

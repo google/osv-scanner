@@ -13,14 +13,17 @@ type TableReporter struct {
 	stdout          io.Writer
 	stderr          io.Writer
 	markdown        bool
+	// 0 indicates not a terminal output
+	terminalWidth int
 }
 
-func NewTableReporter(stdout io.Writer, stderr io.Writer, markdown bool) *TableReporter {
+func NewTableReporter(stdout io.Writer, stderr io.Writer, markdown bool, terminalWidth int) *TableReporter {
 	return &TableReporter{
 		stdout:          stdout,
 		stderr:          stderr,
 		hasPrintedError: false,
 		markdown:        markdown,
+		terminalWidth:   terminalWidth,
 	}
 }
 
@@ -46,7 +49,7 @@ func (r *TableReporter) PrintResult(vulnResult *models.VulnerabilityResults) err
 	if r.markdown {
 		output.PrintMarkdownTableResults(vulnResult, r.stdout)
 	} else {
-		output.PrintTableResults(vulnResult, r.stdout)
+		output.PrintTableResults(vulnResult, r.stdout, r.terminalWidth)
 	}
 
 	return nil
