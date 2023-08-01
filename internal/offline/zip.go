@@ -22,10 +22,15 @@ import (
 )
 
 type ZipDB struct {
-	Name            string
-	ArchiveURL      string
-	Offline         bool
-	StoredAt        string
+	// the name of the database
+	Name string
+	// the url that the zip archive was downloaded from
+	ArchiveURL string
+	// whether this database should make any network requests
+	Offline bool
+	// the path to the zip archive on disk
+	StoredAt string
+	// the vulnerabilities that are loaded into this database
 	vulnerabilities []models.Vulnerability
 }
 
