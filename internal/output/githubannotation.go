@@ -39,7 +39,7 @@ func PrintGHAnnotationReport(vulnResult *models.VulnerabilityResults, outputWrit
 		// so we URL encode the new line character
 		renderedTable = strings.ReplaceAll(renderedTable, "\n", "%0A")
 		// Prepend the table with a new line to look nicer in the output
-		fmt.Fprintf(outputWriter, "::error file=%s::%s", artifactPath, "%0A"+renderedTable)
+		fmt.Fprintf(outputWriter, "::error file=%s::%s%s", artifactPath, artifactPath, "%0A"+renderedTable)
 	}
 
 	return nil

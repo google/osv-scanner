@@ -43,7 +43,7 @@ func GroupFixedVersions(flattened []models.VulnerabilityFlattened) map[string][]
 // CreateSourceRemediationTable creates a vulnerability table which includes the fixed versions for a specific source file
 func CreateSourceRemediationTable(source models.PackageSource, groupFixedVersions map[string][]string) table.Writer {
 	remediationTable := table.NewWriter()
-	remediationTable.AppendHeader(table.Row{"Package", "Vulnerability ID", "Current Version", "Fixed Version"})
+	remediationTable.AppendHeader(table.Row{"Package", "Vulnerability ID", "CVSS", "Current Version", "Fixed Version"})
 
 	for _, pv := range source.Packages {
 		for _, group := range pv.Groups {
@@ -56,6 +56,7 @@ func CreateSourceRemediationTable(source models.PackageSource, groupFixedVersion
 			remediationTable.AppendRow(table.Row{
 				pv.Package.Name,
 				strings.Join(vulnIDs, "\n"),
+				strings.Join(Severities(group, pv), "\n"),
 				pv.Package.Version,
 				strings.Join(fixedVersions, "\n")})
 		}
