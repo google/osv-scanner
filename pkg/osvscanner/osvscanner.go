@@ -574,7 +574,7 @@ func DoScan(actions ScannerActions, r reporter.Reporter) (models.VulnerabilityRe
 		return models.VulnerabilityResults{}, NoPackagesFoundErr
 	}
 
-	hydratedResp, err := MakeRequest(r, actions.CompareLocally, actions.CompareOffline, query, actions.LocalDBPath)
+	hydratedResp, err := makeRequest(r, actions.CompareLocally, actions.CompareOffline, query, actions.LocalDBPath)
 
 	if err != nil {
 		return models.VulnerabilityResults{}, err
@@ -606,7 +606,7 @@ func DoScan(actions ScannerActions, r reporter.Reporter) (models.VulnerabilityRe
 	return vulnerabilityResults, nil
 }
 
-func MakeRequest(
+func makeRequest(
 	r reporter.Reporter,
 	compareLocally bool,
 	compareOffline bool,
