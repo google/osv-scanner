@@ -69,7 +69,7 @@ func setupLocalDBDirectory(localDBPath string) (string, error) {
 	// otherwise, it should fall back to the temp directory before erroring
 	if err != nil && explicitPath {
 		return "", err
-	} else if localDBPath == os.TempDir() {
+	} else if localDBPath != os.TempDir() {
 		localDBPath = os.TempDir()
 
 		err = os.Mkdir(path.Join(localDBPath, "osv-scanner"), 0750)
