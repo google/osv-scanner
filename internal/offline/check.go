@@ -62,11 +62,10 @@ func setupLocalDBDirectory(localDBPath string) (string, error) {
 		}
 	}
 
-	explicitPath := localDBPath != ""
+	implicitPath := localDBPath == ""
 
-	// when an explicit path is not provided, use the user cache
-	// directory if available or otherwise the temp directory
-	if !explicitPath {
+	// if we're implicitly picking a path, use the user cache directory if available
+	if implicitPath {
 		localDBPath, err = os.UserCacheDir()
 
 		if err != nil {
@@ -81,7 +80,7 @@ func setupLocalDBDirectory(localDBPath string) (string, error) {
 	}
 
 	// if we're implicitly picking a path, try the temp directory before giving up
-	if !explicitPath && localDBPath != os.TempDir() {
+	if implicitPath && localDBPath != os.TempDir() {
 		return setupLocalDBDirectory(os.TempDir())
 	}
 
