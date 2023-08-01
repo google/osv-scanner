@@ -112,11 +112,11 @@ func (db *ZipDB) fetchZip() ([]byte, error) {
 		return nil, fmt.Errorf("could not retrieve OSV database archive: %w", err)
 	}
 
+	defer resp.Body.Close()
+
 	if resp.StatusCode != http.StatusOK {
 		return nil, fmt.Errorf("db host returned %s", resp.Status)
 	}
-
-	defer resp.Body.Close()
 
 	var body []byte
 
