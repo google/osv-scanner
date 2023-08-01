@@ -131,7 +131,7 @@ func TestRun(t *testing.T) {
 			wantExitCode: 0,
 			wantStdout: `
 				Scanning dir ./fixtures/locks-many/composer.lock
-				Scanned %%/fixtures/locks-many/composer.lock file and found 1 packages
+				Scanned %%/fixtures/locks-many/composer.lock file and found 1 package
 				No vulnerabilities found
 			`,
 			wantStderr: "",
@@ -182,14 +182,14 @@ func TestRun(t *testing.T) {
 			wantExitCode: 0,
 			wantStdout: `
 				Scanning dir ./fixtures/locks-many
-				Scanned %%/fixtures/locks-many/Gemfile.lock file and found 1 packages
+				Scanned %%/fixtures/locks-many/Gemfile.lock file and found 1 package
 				Scanned %%/fixtures/locks-many/alpine.cdx.xml as CycloneDX SBOM and found 15 packages
-				Scanned %%/fixtures/locks-many/composer.lock file and found 1 packages
-				Scanned %%/fixtures/locks-many/package-lock.json file and found 1 packages
-				Scanned %%/fixtures/locks-many/yarn.lock file and found 1 packages
+				Scanned %%/fixtures/locks-many/composer.lock file and found 1 package
+				Scanned %%/fixtures/locks-many/package-lock.json file and found 1 package
+				Scanned %%/fixtures/locks-many/yarn.lock file and found 1 package
 				Loaded filter from: %%/fixtures/locks-many/osv-scanner.toml
 				GHSA-whgm-jr23-g3j9 has been filtered out because: Test manifest file
-				Filtered 1 vulnerabilities from output
+				Filtered 1 vulnerability from output
 				No vulnerabilities found
 			`,
 			wantStderr: "",
@@ -201,8 +201,8 @@ func TestRun(t *testing.T) {
 			wantExitCode: 127,
 			wantStdout: `
 				Scanning dir ./fixtures/locks-many-with-invalid
-				Scanned %%/fixtures/locks-many-with-invalid/Gemfile.lock file and found 1 packages
-				Scanned %%/fixtures/locks-many-with-invalid/yarn.lock file and found 1 packages
+				Scanned %%/fixtures/locks-many-with-invalid/Gemfile.lock file and found 1 package
+				Scanned %%/fixtures/locks-many-with-invalid/yarn.lock file and found 1 package
 			`,
 			wantStderr: `
 				Attempted to scan lockfile but failed: %%/fixtures/locks-many-with-invalid/composer.lock
@@ -215,7 +215,7 @@ func TestRun(t *testing.T) {
 			wantExitCode: 0,
 			wantStdout: `
 				Scanning dir ./fixtures/locks-one-with-nested
-				Scanned %%/fixtures/locks-one-with-nested/yarn.lock file and found 1 packages
+				Scanned %%/fixtures/locks-one-with-nested/yarn.lock file and found 1 package
 				No vulnerabilities found
 			`,
 			wantStderr: "",
@@ -227,8 +227,8 @@ func TestRun(t *testing.T) {
 			wantExitCode: 0,
 			wantStdout: `
 				Scanning dir ./fixtures/locks-one-with-nested
-				Scanned %%/fixtures/locks-one-with-nested/nested/composer.lock file and found 1 packages
-				Scanned %%/fixtures/locks-one-with-nested/yarn.lock file and found 1 packages
+				Scanned %%/fixtures/locks-one-with-nested/nested/composer.lock file and found 1 package
+				Scanned %%/fixtures/locks-one-with-nested/yarn.lock file and found 1 package
 				No vulnerabilities found
 			`,
 			wantStderr: "",
@@ -240,8 +240,8 @@ func TestRun(t *testing.T) {
 			wantExitCode: 0,
 			wantStdout: `
 				Scanning dir ./fixtures/locks-gitignore
-				Scanned %%/fixtures/locks-gitignore/Gemfile.lock file and found 1 packages
-				Scanned %%/fixtures/locks-gitignore/subdir/yarn.lock file and found 1 packages
+				Scanned %%/fixtures/locks-gitignore/Gemfile.lock file and found 1 package
+				Scanned %%/fixtures/locks-gitignore/subdir/yarn.lock file and found 1 package
 				No vulnerabilities found
 			`,
 			wantStderr: "",
@@ -253,14 +253,14 @@ func TestRun(t *testing.T) {
 			wantExitCode: 0,
 			wantStdout: `
 				Scanning dir ./fixtures/locks-gitignore
-				Scanned %%/fixtures/locks-gitignore/Gemfile.lock file and found 1 packages
-				Scanned %%/fixtures/locks-gitignore/composer.lock file and found 1 packages
-				Scanned %%/fixtures/locks-gitignore/ignored/Gemfile.lock file and found 1 packages
-				Scanned %%/fixtures/locks-gitignore/ignored/yarn.lock file and found 1 packages
-				Scanned %%/fixtures/locks-gitignore/subdir/Gemfile.lock file and found 1 packages
-				Scanned %%/fixtures/locks-gitignore/subdir/composer.lock file and found 1 packages
-				Scanned %%/fixtures/locks-gitignore/subdir/yarn.lock file and found 1 packages
-				Scanned %%/fixtures/locks-gitignore/yarn.lock file and found 1 packages
+				Scanned %%/fixtures/locks-gitignore/Gemfile.lock file and found 1 package
+				Scanned %%/fixtures/locks-gitignore/composer.lock file and found 1 package
+				Scanned %%/fixtures/locks-gitignore/ignored/Gemfile.lock file and found 1 package
+				Scanned %%/fixtures/locks-gitignore/ignored/yarn.lock file and found 1 package
+				Scanned %%/fixtures/locks-gitignore/subdir/Gemfile.lock file and found 1 package
+				Scanned %%/fixtures/locks-gitignore/subdir/composer.lock file and found 1 package
+				Scanned %%/fixtures/locks-gitignore/subdir/yarn.lock file and found 1 package
+				Scanned %%/fixtures/locks-gitignore/yarn.lock file and found 1 package
 				No vulnerabilities found
 			`,
 			wantStderr: "",
@@ -277,7 +277,7 @@ func TestRun(t *testing.T) {
 			`,
 			wantStderr: `
 				Scanning dir ./fixtures/locks-many/composer.lock
-				Scanned %%/fixtures/locks-many/composer.lock file and found 1 packages
+				Scanned %%/fixtures/locks-many/composer.lock file and found 1 package
 			`,
 		},
 		{
@@ -291,7 +291,7 @@ func TestRun(t *testing.T) {
 			`,
 			wantStderr: `
 				Scanning dir ./fixtures/locks-many/composer.lock
-				Scanned %%/fixtures/locks-many/composer.lock file and found 1 packages
+				Scanned %%/fixtures/locks-many/composer.lock file and found 1 package
 			`,
 		},
 		// output format: sarif
@@ -326,7 +326,7 @@ func TestRun(t *testing.T) {
 			`,
 			wantStderr: `
 				Scanning dir ./fixtures/locks-many/composer.lock
-				Scanned %%/fixtures/locks-many/composer.lock file and found 1 packages
+				Scanned %%/fixtures/locks-many/composer.lock file and found 1 package
 			`,
 		},
 		{
@@ -386,7 +386,7 @@ func TestRun(t *testing.T) {
 			`,
 			wantStderr: `
 				Scanning dir ./fixtures/locks-many/package-lock.json
-				Scanned %%/fixtures/locks-many/package-lock.json file and found 1 packages
+				Scanned %%/fixtures/locks-many/package-lock.json file and found 1 package
 			`,
 		},
 		// output format: markdown table
@@ -396,7 +396,7 @@ func TestRun(t *testing.T) {
 			wantExitCode: 0,
 			wantStdout: `
 				Scanning dir ./fixtures/locks-many/composer.lock
-				Scanned %%/fixtures/locks-many/composer.lock file and found 1 packages
+				Scanned %%/fixtures/locks-many/composer.lock file and found 1 package
 				No vulnerabilities found
 			`,
 			wantStderr: "",
@@ -436,7 +436,7 @@ func TestRun_LockfileWithExplicitParseAs(t *testing.T) {
 			},
 			wantExitCode: 0,
 			wantStdout: `
-				Scanned %%/fixtures/locks-many/composer.lock file and found 1 packages
+				Scanned %%/fixtures/locks-many/composer.lock file and found 1 package
 				No vulnerabilities found
 			`,
 			wantStderr: "",
@@ -479,7 +479,7 @@ func TestRun_LockfileWithExplicitParseAs(t *testing.T) {
 			},
 			wantExitCode: 1,
 			wantStdout: `
-				Scanned %%/fixtures/locks-insecure/my-package-lock.json file as a package-lock.json and found 1 packages
+				Scanned %%/fixtures/locks-insecure/my-package-lock.json file as a package-lock.json and found 1 package
 				Scanning dir ./fixtures/locks-insecure
 				Scanned %%/fixtures/locks-insecure/composer.lock file and found 0 packages
 				+-------------------------------------+------+-----------+-----------+---------+----------------------------------------------+
@@ -501,8 +501,8 @@ func TestRun_LockfileWithExplicitParseAs(t *testing.T) {
 			},
 			wantExitCode: 1,
 			wantStdout: `
-				Scanned %%/fixtures/locks-insecure/my-package-lock.json file as a package-lock.json and found 1 packages
-				Scanned %%/fixtures/locks-insecure/my-yarn.lock file as a yarn.lock and found 1 packages
+				Scanned %%/fixtures/locks-insecure/my-package-lock.json file as a package-lock.json and found 1 package
+				Scanned %%/fixtures/locks-insecure/my-yarn.lock file as a yarn.lock and found 1 package
 				Scanning dir ./fixtures/locks-insecure
 				Scanned %%/fixtures/locks-insecure/composer.lock file and found 0 packages
 				+-------------------------------------+------+-----------+-----------+---------+----------------------------------------------+
@@ -524,8 +524,8 @@ func TestRun_LockfileWithExplicitParseAs(t *testing.T) {
 			},
 			wantExitCode: 1,
 			wantStdout: `
-				Scanned %%/fixtures/locks-insecure/my-yarn.lock file as a yarn.lock and found 1 packages
-				Scanned %%/fixtures/locks-insecure/my-package-lock.json file as a package-lock.json and found 1 packages
+				Scanned %%/fixtures/locks-insecure/my-yarn.lock file as a yarn.lock and found 1 package
+				Scanned %%/fixtures/locks-insecure/my-package-lock.json file as a package-lock.json and found 1 package
 				Scanning dir ./fixtures/locks-insecure
 				Scanned %%/fixtures/locks-insecure/composer.lock file and found 0 packages
 				+-------------------------------------+------+-----------+-----------+---------+----------------------------------------------+
@@ -577,7 +577,7 @@ func TestRun_LockfileWithExplicitParseAs(t *testing.T) {
 			},
 			wantExitCode: 0,
 			wantStdout: `
-				Scanned %%/fixtures/locks-many/installed file as a apk-installed and found 1 packages
+				Scanned %%/fixtures/locks-many/installed file as a apk-installed and found 1 package
 				No vulnerabilities found
 			`,
 			wantStderr: "",
@@ -592,7 +592,7 @@ func TestRun_LockfileWithExplicitParseAs(t *testing.T) {
 			},
 			wantExitCode: 0,
 			wantStdout: `
-				Scanned %%/fixtures/locks-many/status file as a dpkg-status and found 1 packages
+				Scanned %%/fixtures/locks-many/status file as a dpkg-status and found 1 package
 				No vulnerabilities found
 			`,
 			wantStderr: "",

@@ -9,6 +9,7 @@ import (
 	"path/filepath"
 	"strings"
 
+	"github.com/google/osv-scanner/internal/output"
 	"github.com/google/osv-scanner/internal/sbom"
 	"github.com/google/osv-scanner/pkg/config"
 	"github.com/google/osv-scanner/pkg/lockfile"
@@ -205,7 +206,13 @@ func scanLockfile(r reporter.Reporter, query *osv.BatchedQuery, path string, par
 		parsedAsComment = fmt.Sprintf("as a %s ", parseAs)
 	}
 
-	r.PrintText(fmt.Sprintf("Scanned %s file %sand found %d packages\n", path, parsedAsComment, len(parsedLockfile.Packages)))
+	r.PrintText(fmt.Sprintf(
+		"Scanned %s file %sand found %d %s\n",
+		path,
+		parsedAsComment,
+		len(parsedLockfile.Packages),
+		output.Form(len(parsedLockfile.Packages), "package", "packages"),
+	))
 
 	for _, pkgDetail := range parsedLockfile.Packages {
 		pkgDetailQuery := osv.MakePkgRequest(pkgDetail)
@@ -273,9 +280,19 @@ func scanSBOMFile(r reporter.Reporter, query *osv.BatchedQuery, path string, fro
 
 				continue
 			}
-			r.PrintText(fmt.Sprintf("Scanned %s as %s SBOM and found %d packages\n", path, provider.Name(), count))
+			r.PrintText(fmt.Sprintf(
+				"Scanned %s as %s SBOM and found %d %s\n",
+				path,
+				provider.Name(),
+				count,
+				output.Form(count, "package", "packages"),
+			))
 			if ignoredCount > 0 {
-				r.PrintText(fmt.Sprintf("Ignored %d packages with invalid PURLs\n", ignoredCount))
+				r.PrintText(fmt.Sprintf(
+					"Ignored %d %s with invalid PURLs\n",
+					ignoredCount,
+					output.Form(ignoredCount, "package", "packages"),
+				))
 			}
 
 			return nil
@@ -378,7 +395,11 @@ func scanDebianDocker(r reporter.Reporter, query *osv.BatchedQuery, dockerImageN
 		query.Queries = append(query.Queries, pkgDetailsQuery)
 		packages += 1
 	}
-	r.PrintText(fmt.Sprintf("Scanned docker image with %d packages\n", packages))
+	r.PrintText(fmt.Sprintf(
+		"Scanned docker image with %d %s\n",
+		packages,
+		output.Form(packages, "package", "packages"),
+	))
 
 	return nil
 }
@@ -554,7 +575,11 @@ func DoScan(actions ScannerActions, r reporter.Reporter) (models.VulnerabilityRe
 
 	filtered := filterResults(r, &vulnerabilityResults, &configManager)
 	if filtered > 0 {
-		r.PrintText(fmt.Sprintf("Filtered %d vulnerabilities from output\n", filtered))
+		r.PrintText(fmt.Sprintf(
+			"Filtered %d %s from output\n",
+			filtered,
+			output.Form(filtered, "vulnerability", "vulnerabilities"),
+		))
 	}
 
 	// if vulnerability exists it should return error
