@@ -43,44 +43,49 @@ func toPackageDetails(query *osv.Query) (lockfile.PackageDetails, error) {
 	}, nil
 }
 
+// setupLocalDBDirectory attempts to set up the directory the scanner should
+// use to store local databases.
+//
+// if a local path is explicitly provided either by the localDBPath parameter
+// or via the envKeyLocalDBCacheDirectory environment variable, the scanner will
+// attempt to use the user cache directory if possible or otherwise the temp directory
+//
+// if an error occurs at any point when a local path is not explicitly provided,
+// the scanner will fall back to the temp directory first before finally erroring
 func setupLocalDBDirectory(localDBPath string) (string, error) {
 	var err error
-	var explicitPath bool
 
+	// fallback to the env variable if a local database path has not been provided
 	if localDBPath == "" {
 		if p, envSet := os.LookupEnv(envKeyLocalDBCacheDirectory); envSet {
-			explicitPath = true
 			localDBPath = p
-		} else {
-			localDBPath, err = os.UserCacheDir()
-
-			if err != nil {
-				localDBPath = os.TempDir()
-			}
 		}
-	} else {
-		explicitPath = true
+	}
+
+	explicitPath := localDBPath != ""
+
+	// when an explicit path is not provided, use the user cache
+	// directory if available or otherwise the temp directory
+	if !explicitPath {
+		localDBPath, err = os.UserCacheDir()
+
+		if err != nil {
+			localDBPath = os.TempDir()
+		}
 	}
 
 	err = os.Mkdir(path.Join(localDBPath, "osv-scanner"), 0750)
 
-	// if the scanner cannot create its subdirectory when an explicit local db path
-	// has been provided, then it should error rather than fallback to another path
-	//
-	// otherwise, it should fall back to the temp directory before erroring
-	if err != nil && explicitPath {
-		return "", err
-	} else if localDBPath != os.TempDir() {
-		localDBPath = os.TempDir()
-
-		err = os.Mkdir(path.Join(localDBPath, "osv-scanner"), 0750)
-
-		if err != nil {
-			return "", err
-		}
+	if err == nil {
+		return path.Join(localDBPath, "osv-scanner"), nil
 	}
 
-	return path.Join(localDBPath, "osv-scanner"), nil
+	// if we're implicitly picking a path, try the temp directory before giving up
+	if !explicitPath && localDBPath != os.TempDir() {
+		return setupLocalDBDirectory(os.TempDir())
+	}
+
+	return "", err
 }
 
 func Check(r reporter.Reporter, query osv.BatchedQuery, offline bool, localDBPath string) (*osv.HydratedBatchedResponse, error) {
