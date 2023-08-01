@@ -19,3 +19,4 @@ runs:
     - '--output=${{ inputs.output-file }}'
     - '--old=${{ inputs.old-results }}'
     - '--new=${{ inputs.new-results }}'
+    - '--gh-annotations=true'

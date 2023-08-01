@@ -57,6 +57,10 @@ func run(args []string, stdout, stderr io.Writer) int {
 				Usage:     "saves the SARIF result to the given file path",
 				TakesFile: true,
 			},
+			&cli.BoolFlag{
+				Name:  "gh-annotations",
+				Usage: "prints github action annotations",
+			},
 		},
 		Action: func(context *cli.Context) error {
 			var termWidth int
@@ -108,6 +112,17 @@ func run(args []string, stdout, stderr io.Writer) int {
 				}
 
 				if errPrint := sarifReporter.PrintResult(&diffVulns); errPrint != nil {
+					return fmt.Errorf("failed to write output: %w", errPrint)
+				}
+			}
+
+			if context.Bool("gh-annotations") {
+				var ghAnnotationsReporter reporter.Reporter
+				if ghAnnotationsReporter, err = reporter.New("gh-annotations", stdout, stderr, termWidth); err != nil {
+					return err
+				}
+
+				if errPrint := ghAnnotationsReporter.PrintResult(&diffVulns); errPrint != nil {
 					return fmt.Errorf("failed to write output: %w", errPrint)
 				}
 			}

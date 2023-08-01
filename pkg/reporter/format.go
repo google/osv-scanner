@@ -5,7 +5,7 @@ import (
 	"io"
 )
 
-var format = []string{"table", "json", "markdown", "sarif"}
+var format = []string{"table", "json", "markdown", "sarif", "gh-annotations"}
 
 func Format() []string {
 	return format
@@ -23,6 +23,8 @@ func New(format string, stdout, stderr io.Writer, terminalWidth int) (Reporter, 
 		return NewTableReporter(stdout, stderr, true, terminalWidth), nil
 	case "sarif":
 		return NewSarifReporter(stdout, stderr), nil
+	case "gh-annotations":
+		return NewGHAnnotationsReporter(stdout, stderr), nil
 	default:
 		return nil, fmt.Errorf("%v is not a valid format", format)
 	}
