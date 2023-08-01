@@ -40,5 +40,6 @@ func PrintGHAnnotationReport(vulnResult *models.VulnerabilityResults, outputWrit
 		renderedTable = strings.ReplaceAll(renderedTable, "\n", "%0A")
 		fmt.Fprintf(outputWriter, "::error file=%s::%s", artifactPath, renderedTable)
 	}
+
 	return nil
 }
