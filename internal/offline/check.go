@@ -49,6 +49,7 @@ func setupLocalDBDirectory(localDBPath string) (string, error) {
 
 	if localDBPath == "" {
 		if p, envSet := os.LookupEnv(envKeyLocalDBCacheDirectory); envSet {
+			explicitPath = true
 			localDBPath = p
 		} else {
 			localDBPath, err = os.UserCacheDir()
