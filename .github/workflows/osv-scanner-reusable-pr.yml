@@ -44,7 +44,7 @@ jobs:
           to-scan: .
         continue-on-error: true
       - name: "Run osv-scanner-action-reporter"
-        uses: google/another-rex/actions/diff@fix-github-action
+        uses: another-rex/osv-scanner/actions/diff@fix-github-action
         with:
           output-file: final-results.sarif
           old-results: old-results.json
