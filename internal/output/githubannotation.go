@@ -35,10 +35,13 @@ func PrintGHAnnotationReport(vulnResult *models.VulnerabilityResults, outputWrit
 		remediationTable := CreateSourceRemediationTable(source, groupFixedVersions)
 
 		renderedTable := remediationTable.Render()
-		// This is required since the github message rendering is a mixture of
-		// monospaced font text and markdown. Continuous spaces will be compressed
-		// down to one space, breaking the table rendering
-		renderedTable = strings.ReplaceAll(renderedTable, "  ", " &nbsp;")
+		// // This is required since the github message rendering is a mixture of
+		// // monospaced font text and markdown. Continuous spaces will be compressed
+		// // down to one space, breaking the table rendering
+		// renderedTable = strings.ReplaceAll(renderedTable, "  ", " &nbsp;")
+		// This is required as github action annotations must be on the same terminal line
+		// so we URL encode the new line character
+		renderedTable = strings.ReplaceAll(renderedTable, "\n", "%0A")
 		fmt.Fprintf(outputWriter, "::error file=%s::%s", artifactPath, renderedTable)
 	}
 
