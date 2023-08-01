@@ -98,6 +98,17 @@ func run(args []string, stdout, stderr io.Writer) int {
 				return fmt.Errorf("failed to write output: %w", errPrint)
 			}
 
+			if context.Bool("gh-annotations") {
+				var ghAnnotationsReporter reporter.Reporter
+				if ghAnnotationsReporter, err = reporter.New("gh-annotations", stdout, stderr, termWidth); err != nil {
+					return err
+				}
+
+				if errPrint := ghAnnotationsReporter.PrintResult(&diffVulns); errPrint != nil {
+					return fmt.Errorf("failed to write output: %w", errPrint)
+				}
+			}
+
 			outputPath := context.String("output")
 			if outputPath != "" {
 				var err error
@@ -112,17 +123,6 @@ func run(args []string, stdout, stderr io.Writer) int {
 				}
 
 				if errPrint := sarifReporter.PrintResult(&diffVulns); errPrint != nil {
-					return fmt.Errorf("failed to write output: %w", errPrint)
-				}
-			}
-
-			if context.Bool("gh-annotations") {
-				var ghAnnotationsReporter reporter.Reporter
-				if ghAnnotationsReporter, err = reporter.New("gh-annotations", stdout, stderr, termWidth); err != nil {
-					return err
-				}
-
-				if errPrint := ghAnnotationsReporter.PrintResult(&diffVulns); errPrint != nil {
 					return fmt.Errorf("failed to write output: %w", errPrint)
 				}
 			}
