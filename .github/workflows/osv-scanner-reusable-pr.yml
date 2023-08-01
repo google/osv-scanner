@@ -43,10 +43,9 @@ jobs:
           results-file: new-results.json
           to-scan: .
         continue-on-error: true
-      - name: "Run osv-diff"
+      - name: "Run osv-scanner-action-reporter"
         uses: google/osv-scanner/actions/diff@main
         with:
-          results-format: sarif
           output-file: final-results.sarif
           old-results: old-results.json
           new-results: new-results.json

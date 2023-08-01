@@ -1,13 +1,10 @@
 # Currently experimental.
-name: 'osv-scanner-diff'
+name: 'osv-scanner-action-reporter'
 description: 'Finds the difference between two osv-scanner json results'
 inputs:
   output-file:
-    description: 'Output path'
+    description: 'Output SARIF file path'
     required: true
-  results-format:
-    description: 'Output result format'
-    default: 'sarif'
   old-results:
     description: 'Old results to get the difference against'
     required: true
@@ -20,6 +17,5 @@ runs:
   entrypoint: /root/osv-diff
   args:
     - '--output=${{ inputs.output-file }}'
-    - '--format=${{ inputs.results-format }}'
     - '--old=${{ inputs.old-results }}'
     - '--new=${{ inputs.new-results }}'

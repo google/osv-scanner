@@ -21,7 +21,9 @@ on:
     branches: [ "main" ]
 
 # Declare default permissions as read only.
-permissions: read-all
+permissions: 
+  security-events: write
+  contents: read
 
 jobs:
   scan-pr-attempt:
