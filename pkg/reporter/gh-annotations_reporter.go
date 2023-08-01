@@ -36,5 +36,5 @@ func (r *GHAnnotationsReporter) PrintText(msg string) {
 }
 
 func (r *GHAnnotationsReporter) PrintResult(vulnResult *models.VulnerabilityResults) error {
-	return output.PrintGHAnnotationReport(vulnResult, r.stdout)
+	return output.PrintGHAnnotationReport(vulnResult, r.stderr)
 }
