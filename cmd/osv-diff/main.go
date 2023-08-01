@@ -52,19 +52,6 @@ func run(args []string, stdout, stderr io.Writer) int {
 				TakesFile: true,
 				Required:  true,
 			},
-			// &cli.StringFlag{
-			// 	Name:    "format",
-			// 	Aliases: []string{"f"},
-			// 	Usage:   "sets the output format",
-			// 	Value:   "table",
-			// 	Action: func(context *cli.Context, s string) error {
-			// 		if slices.Contains(reporter.Format(), s) {
-			// 			return nil
-			// 		}
-
-			// 		return fmt.Errorf("unsupported output format \"%s\" - must be one of: %s", s, strings.Join(reporter.Format(), ", "))
-			// 	},
-			// },
 			&cli.StringFlag{
 				Name:      "output",
 				Usage:     "saves the SARIF result to the given file path",
