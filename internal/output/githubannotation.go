@@ -38,7 +38,8 @@ func PrintGHAnnotationReport(vulnResult *models.VulnerabilityResults, outputWrit
 		// This is required as github action annotations must be on the same terminal line
 		// so we URL encode the new line character
 		renderedTable = strings.ReplaceAll(renderedTable, "\n", "%0A")
-		fmt.Fprintf(outputWriter, "::error file=%s::%s", artifactPath, renderedTable)
+		// Prepend the table with a new line to look nicer in the output
+		fmt.Fprintf(outputWriter, "::error file=%s::%s", artifactPath, "%0A"+renderedTable)
 	}
 
 	return nil
