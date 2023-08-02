@@ -65,18 +65,18 @@ osv-scanner --format markdown your/project/dir
 **Raw output:**
 
 ```
-| OSV URL | CVSS | Ecosystem | Package | Version | Source |
-| --- | --- | --- | --- | --- | --- |
-| https://osv.dev/GHSA-c3h9-896r-86jm<br/>https://osv.dev/GO-2021-0053 | 8.6 | Go | github.com/gogo/protobuf | 1.3.1 | ../scorecard-check-osv-e2e/go.mod |
-| https://osv.dev/GHSA-m5pq-gvj9-9vr8<br/>https://osv.dev/RUSTSEC-2022-0013 | 7.5 | crates.io | regex | 1.5.1 | ../scorecard-check-osv-e2e/sub-rust-project/Cargo.lock |
+| OSV URL                                                                   | CVSS | Ecosystem | Package                  | Version | Source                                                 |
+| ------------------------------------------------------------------------- | ---- | --------- | ------------------------ | ------- | ------------------------------------------------------ |
+| https://osv.dev/GHSA-c3h9-896r-86jm<br/>https://osv.dev/GO-2021-0053      | 8.6  | Go        | github.com/gogo/protobuf | 1.3.1   | ../scorecard-check-osv-e2e/go.mod                      |
+| https://osv.dev/GHSA-m5pq-gvj9-9vr8<br/>https://osv.dev/RUSTSEC-2022-0013 | 7.5  | crates.io | regex                    | 1.5.1   | ../scorecard-check-osv-e2e/sub-rust-project/Cargo.lock |
 ```
 
 **Rendered:**
 
-| OSV URL | CVSS | Ecosystem | Package | Version | Source |
-| --- | --- | --- | --- | --- | --- |
-| https://osv.dev/GHSA-c3h9-896r-86jm<br/>https://osv.dev/GO-2021-0053 | 8.6 | Go | github.com/gogo/protobuf | 1.3.1 | ../scorecard-check-osv-e2e/go.mod |
-| https://osv.dev/GHSA-m5pq-gvj9-9vr8<br/>https://osv.dev/RUSTSEC-2022-0013 | 7.5 | crates.io | regex | 1.5.1 | ../scorecard-check-osv-e2e/sub-rust-project/Cargo.lock |
+| OSV URL                                                                   | CVSS | Ecosystem | Package                  | Version | Source                                                 |
+| ------------------------------------------------------------------------- | ---- | --------- | ------------------------ | ------- | ------------------------------------------------------ |
+| https://osv.dev/GHSA-c3h9-896r-86jm<br/>https://osv.dev/GO-2021-0053      | 8.6  | Go        | github.com/gogo/protobuf | 1.3.1   | ../scorecard-check-osv-e2e/go.mod                      |
+| https://osv.dev/GHSA-m5pq-gvj9-9vr8<br/>https://osv.dev/RUSTSEC-2022-0013 | 7.5  | crates.io | regex                    | 1.5.1   | ../scorecard-check-osv-e2e/sub-rust-project/Cargo.lock |
 
 </details>
 
@@ -198,11 +198,11 @@ osv-scanner --format json -L path/to/lockfile > /path/to/file.json
 ## Return Codes
 
 |----- 
-| Exit Code |Reason| 
-|:---------------:|------------| 
-| `0` | Packages were found when scanning, but does not match any known vulnerabilities. | 
-| `1` | Packages were found when scanning, and there are vulnerabilities. | 
-| `1-126` | Reserved for vulnerability result related errors. | 
-| `127` | General Error. | 
-| `128` | No packages found (likely caused by the scanning format not picking up any files to scan). | 
-| `129-255` | Reserved for non result related errors. | 
+| Exit Code | Reason                                                                                     |
+| :-------: | ------------------------------------------------------------------------------------------ |
+|    `0`    | Packages were found when scanning, but does not match any known vulnerabilities.           |
+|    `1`    | Packages were found when scanning, and there are vulnerabilities.                          |
+|  `1-126`  | Reserved for vulnerability result related errors.                                          |
+|   `127`   | General Error.                                                                             |
+|   `128`   | No packages found (likely caused by the scanning format not picking up any files to scan). |
+| `129-255` | Reserved for non result related errors.                                                    |

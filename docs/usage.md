@@ -122,9 +122,12 @@ is not being executed, these vulnerabilities will be marked as unexecuted.
 To enable call analysis, call OSV-Scanner with the `--experimental-call-analysis` flag.
 
 ### Supported languages
-- `go`
-  - Additional dependencies:
-    - `go` compiler needs to be installed and available on PATH
+
+| Language          | Additional Dependencies                                                                                                                                                                                                                                                     |
+| ----------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Go                | `go` compiler needs to be installed and available on `PATH`                                                                                                                                                                                                                 |
+| Rust              | Rust toolchain (including `cargo`) that can compile the source code being scanned needs to be installed and available on `PATH`.<br> To successfully do analysis, you must make sure that running `cargo build --release` in the scanned Rust project successfully compiles |
+| More coming soon! |                                                                                                                                                                                                                                                                             |
 
 ### Example
 ```bash
