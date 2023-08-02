@@ -100,6 +100,10 @@ func (v *Vulnerability) FixedVersions() map[Package][]string {
 			for _, e := range r.Events {
 				if e.Fixed != "" {
 					output[packageKey] = append(output[packageKey], e.Fixed)
+					if strings.Contains(string(packageKey.Ecosystem), ":") {
+						packageKey.Ecosystem = Ecosystem(strings.Split(string(packageKey.Ecosystem), ":")[0])
+					}
+					output[packageKey] = append(output[packageKey], e.Fixed)
 				}
 			}
 		}

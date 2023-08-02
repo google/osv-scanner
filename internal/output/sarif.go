@@ -56,7 +56,7 @@ func CreateSourceRemediationTable(source models.PackageSource, groupFixedVersion
 			remediationTable.AppendRow(table.Row{
 				pv.Package.Name,
 				strings.Join(vulnIDs, "\n"),
-				strings.Join(Severities(group, pv), "\n"),
+				MaxSeverity(group, pv),
 				pv.Package.Version,
 				strings.Join(fixedVersions, "\n")})
 		}

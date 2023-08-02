@@ -3,6 +3,7 @@ package output
 import (
 	"fmt"
 	"io"
+	"math"
 	"os"
 	"path/filepath"
 	"strings"
@@ -100,7 +101,7 @@ func tableBuilderInner(vulnResult *models.VulnerabilityResults, addStyling bool,
 				}
 
 				outputRow = append(outputRow, strings.Join(links, "\n"))
-				outputRow = append(outputRow, strings.Join(Severities(group, pkg), "\n"))
+				outputRow = append(outputRow, MaxSeverity(group, pkg))
 
 				if pkg.Package.Ecosystem == "GIT" {
 					outputRow = append(outputRow, "GIT", pkg.Package.Version, pkg.Package.Version)
@@ -121,8 +122,8 @@ func tableBuilderInner(vulnResult *models.VulnerabilityResults, addStyling bool,
 	return allOutputRows
 }
 
-func Severities(group models.GroupInfo, pkg models.PackageVulns) []string {
-	var outputSeverities []string
+func MaxSeverity(group models.GroupInfo, pkg models.PackageVulns) string {
+	var maxSeverity float64
 	for _, vulnID := range group.IDs {
 		var severities []models.Severity
 		for _, vuln := range pkg.Vulnerabilities {
@@ -131,20 +132,20 @@ func Severities(group models.GroupInfo, pkg models.PackageVulns) []string {
 			}
 		}
 		for _, severity := range severities {
-			var outputSeverity string
 			switch severity.Type {
 			case models.SeverityCVSSV2:
 				numericSeverity, _ := v2_metric.NewBase().Decode(severity.Score)
-				outputSeverity = fmt.Sprintf("%v", numericSeverity.Score())
+				maxSeverity = math.Max(maxSeverity, numericSeverity.Score())
 			case models.SeverityCVSSV3:
 				numericSeverity, _ := v3_metric.NewBase().Decode(severity.Score)
-				outputSeverity = fmt.Sprintf("%v", numericSeverity.Score())
-			default:
-				outputSeverity = severity.Score
+				maxSeverity = math.Max(maxSeverity, numericSeverity.Score())
 			}
-
-			outputSeverities = append(outputSeverities, outputSeverity)
 		}
 	}
-	return outputSeverities
+
+	if maxSeverity == 0 {
+		return ""
+	}
+
+	return fmt.Sprintf("%v", maxSeverity)
 }
