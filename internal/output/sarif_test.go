@@ -1,8 +1,9 @@
-package output
+package output_test
 
 import (
 	"testing"
 
+	"github.com/google/osv-scanner/internal/output"
 	"github.com/google/osv-scanner/internal/testutility"
 	"github.com/google/osv-scanner/pkg/models"
 )
@@ -30,7 +31,7 @@ func TestGroupFixedVersions(t *testing.T) {
 		tt := tt
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
-			got := GroupFixedVersions(tt.args.flattened)
+			got := output.GroupFixedVersions(tt.args.flattened)
 			testutility.AssertMatchFixtureJSON(t, tt.wantPath, got)
 		})
 	}

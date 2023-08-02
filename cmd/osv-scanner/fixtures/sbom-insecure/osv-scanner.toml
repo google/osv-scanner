@@ -47,3 +47,8 @@ reason = "This is a intentionally vulnerable test sbom"
 id = "DLA-3051-1"
 # ignoreUntil = n/a
 reason = "This is a intentionally vulnerable test sbom"
+
+[[IgnoredVulns]]
+id = "CVE-2022-37434"
+# ignoreUntil = n/a
+reason = "This is a intentionally vulnerable test sbom"
