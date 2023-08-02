@@ -123,19 +123,23 @@ To enable call analysis, call OSV-Scanner with the `--experimental-call-analysis
 
 ### Supported languages
 
-#### Go
+---
+
+#### **Go**
 
 OSV-Scanner uses the `govulncheck` library to analyze Go source code to identify called vulnerable functions.
 
-**Additional Dependencies:**
+##### Additional Dependencies
 
 `go` compiler needs to be installed and available on `PATH`    
 
-#### Rust
+---
+
+#### **Rust**
 
 OSV-Scanner compiles Rust source code and analyzes the output binary's DWARF debug information to identify called vulnerable functions.
 
-**Additional Dependencies:**
+##### Additional Dependencies
 Rust toolchain (including `cargo`) that can compile the source code being scanned needs to be installed and available on `PATH`.
 
 The installed Rust toolchain must be capable of compiling every crate/target in the scanned code, for code with
@@ -147,6 +151,8 @@ Current implementation has a few limitations:
 - Does not support dependencies on proc-macros (Tracked in [#464](https://github.com/google/osv-scanner/issues/464))
 - Does not support any dependencies that are dynamically linked
 - Does not support dependencies that link external non-rust code
+
+---
 
 ### Example
 ```bash
