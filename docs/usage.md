@@ -140,12 +140,14 @@ OSV-Scanner uses the `govulncheck` library to analyze Go source code to identify
 OSV-Scanner compiles Rust source code and analyzes the output binary's DWARF debug information to identify called vulnerable functions.
 
 ##### Additional Dependencies
+
 Rust toolchain (including `cargo`) that can compile the source code being scanned needs to be installed and available on `PATH`.
 
 The installed Rust toolchain must be capable of compiling every crate/target in the scanned code, for code with
 a lot of dependencies this will take a few minutes.
 
-**Limitations**
+##### **Limitations**
+
 Current implementation has a few limitations:
 
 - Does not support dependencies on proc-macros (Tracked in [#464](https://github.com/google/osv-scanner/issues/464))
