@@ -139,14 +139,16 @@ func TestRun(t *testing.T) {
 		// one specific supported sbom with vulns
 		{
 			name:         "",
-			args:         []string{"", "--config=./fixtures/osv-scanner-empty-config.toml", "./fixtures/sbom-insecure/postgres-stretch.cdx.xml"},
+			args:         []string{"", "--config=./fixtures/osv-scanner-empty-config.toml", "./fixtures/sbom-insecure/"},
 			wantExitCode: 1,
 			wantStdout: `
-				Scanning dir ./fixtures/sbom-insecure/postgres-stretch.cdx.xml
+				Scanning dir ./fixtures/sbom-insecure/
+				Scanned %%/fixtures/sbom-insecure/alpine.cdx.xml as CycloneDX SBOM and found 15 packages
 				Scanned %%/fixtures/sbom-insecure/postgres-stretch.cdx.xml as CycloneDX SBOM and found 136 packages
 				+-------------------------------------+------+-----------+--------------------------------+------------------------------------+-------------------------------------------------+
 				| OSV URL                             | CVSS | ECOSYSTEM | PACKAGE                        | VERSION                            | SOURCE                                          |
 				+-------------------------------------+------+-----------+--------------------------------+------------------------------------+-------------------------------------------------+
+				| https://osv.dev/CVE-2022-37434      |      | Alpine    | zlib                           | 1.2.10-r2                          | fixtures/sbom-insecure/alpine.cdx.xml           |
 				| https://osv.dev/DLA-3022-1          |      | Debian    | dpkg                           | 1.18.25                            | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 				| https://osv.dev/GHSA-v95c-p5hm-xq8f | 6    | Go        | github.com/opencontainers/runc | v1.0.1                             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 				| https://osv.dev/GO-2022-0274        |      |           |                                |                                    |                                                 |
