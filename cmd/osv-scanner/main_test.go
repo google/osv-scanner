@@ -369,7 +369,7 @@ func TestRun(t *testing.T) {
 									"ruleIndex": 0,
 									"level": "warning",
 									"message": {
-										"text": "+-----------+-------------------------------------+-----------------+---------------+\n| PACKAGE \u0026nbsp; | VULNERABILITY ID \u0026nbsp; \u0026nbsp; \u0026nbsp; \u0026nbsp; \u0026nbsp; \u0026nbsp; \u0026nbsp; \u0026nbsp; \u0026nbsp; \u0026nbsp;| CURRENT VERSION | FIXED VERSION |\n+-----------+-------------------------------------+-----------------+---------------+\n| ansi-html | https://osv.dev/GHSA-whgm-jr23-g3j9 | 0.0.1 \u0026nbsp; \u0026nbsp; \u0026nbsp; \u0026nbsp; \u0026nbsp; | 0.0.8 \u0026nbsp; \u0026nbsp; \u0026nbsp; \u0026nbsp; |\n+-----------+-------------------------------------+-----------------+---------------+"
+										"text": "+-----------+-------------------------------------+------+-----------------+---------------+\n| PACKAGE \u0026nbsp; | VULNERABILITY ID \u0026nbsp; \u0026nbsp; \u0026nbsp; \u0026nbsp; \u0026nbsp; \u0026nbsp; \u0026nbsp; \u0026nbsp; \u0026nbsp; \u0026nbsp;| CVSS | CURRENT VERSION | FIXED VERSION |\n+-----------+-------------------------------------+------+-----------------+---------------+\n| ansi-html | https://osv.dev/GHSA-whgm-jr23-g3j9 | 7.5 \u0026nbsp;| 0.0.1 \u0026nbsp; \u0026nbsp; \u0026nbsp; \u0026nbsp; \u0026nbsp; | 0.0.8 \u0026nbsp; \u0026nbsp; \u0026nbsp; \u0026nbsp; |\n+-----------+-------------------------------------+------+-----------------+---------------+"
 									},
 									"locations": [
 										{
