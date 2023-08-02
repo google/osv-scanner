@@ -5,13 +5,12 @@ import (
 	"fmt"
 	"io"
 	"os"
-	"strings"
 
 	"github.com/google/osv-scanner/internal/ci"
+	"github.com/google/osv-scanner/pkg/models"
 	"github.com/google/osv-scanner/pkg/osvscanner"
 	"github.com/google/osv-scanner/pkg/reporter"
 	"github.com/urfave/cli/v2"
-	"golang.org/x/exp/slices"
 	"golang.org/x/term"
 )
 
@@ -23,28 +22,29 @@ var (
 )
 
 func run(args []string, stdout, stderr io.Writer) int {
-	var r reporter.Reporter
+	var tableReporter reporter.Reporter
 
 	cli.VersionPrinter = func(ctx *cli.Context) {
 		// Use the app Writer and ErrWriter since they will be the writers to keep parallel tests consistent
-		r = reporter.NewTableReporter(ctx.App.Writer, ctx.App.ErrWriter, false, 0)
-		r.PrintText(fmt.Sprintf("osv-scanner version: %s\ncommit: %s\nbuilt at: %s\n", ctx.App.Version, commit, date))
+		tableReporter = reporter.NewTableReporter(ctx.App.Writer, ctx.App.ErrWriter, false, 0)
+		tableReporter.PrintText(fmt.Sprintf("osv-scanner version: %s\ncommit: %s\nbuilt at: %s\n", ctx.App.Version, commit, date))
 	}
 
 	app := &cli.App{
-		Name:        "osv-scanner-diff",
+		Name:        "osv-scanner-action-reporter",
 		Version:     version,
-		Usage:       "compares the output of multiple osv-scanner runs to find new vulnerabilities",
-		Description: "Remove vulnerabilities in the old OSV JSON output from the new OSV JSON output",
+		Usage:       "(Experimental) generates github action output",
+		Description: "(Experimental) Used specifically to generate github action output ",
 		Suggest:     true,
 		Writer:      stdout,
 		ErrWriter:   stderr,
 		Flags: []cli.Flag{
 			&cli.StringFlag{
-				Name:      "old",
-				Usage:     "the old osv json output",
-				TakesFile: true,
-				Required:  true,
+				Name:        "old",
+				Usage:       "the old osv json output",
+				TakesFile:   true,
+				Required:    false,
+				DefaultText: "",
 			},
 			&cli.StringFlag{
 				Name:      "new",
@@ -53,58 +53,38 @@ func run(args []string, stdout, stderr io.Writer) int {
 				Required:  true,
 			},
 			&cli.StringFlag{
-				Name:    "format",
-				Aliases: []string{"f"},
-				Usage:   "sets the output format",
-				Value:   "table",
-				Action: func(context *cli.Context, s string) error {
-					if slices.Contains(reporter.Format(), s) {
-						return nil
-					}
-
-					return fmt.Errorf("unsupported output format \"%s\" - must be one of: %s", s, strings.Join(reporter.Format(), ", "))
-				},
-			},
-			&cli.StringFlag{
 				Name:      "output",
-				Usage:     "saves the result to the given file path",
+				Usage:     "saves the SARIF result to the given file path",
 				TakesFile: true,
+			},
+			&cli.BoolFlag{
+				Name:  "gh-annotations",
+				Usage: "prints github action annotations",
 			},
 		},
 		Action: func(context *cli.Context) error {
-			format := context.String("format")
-
-			outputPath := context.String("output")
-			if outputPath != "" {
-				var err error
-				stdout, err = os.Create(outputPath)
-				if err != nil {
-					return fmt.Errorf("failed to create output file: %w", err)
-				}
-			}
-
 			var termWidth int
-			if outputPath != "" {
-				var err error
-				termWidth, _, err = term.GetSize(int(os.Stdout.Fd()))
+			var err error
+			if stdoutAsFile, ok := stdout.(*os.File); ok {
+				termWidth, _, err = term.GetSize(int(stdoutAsFile.Fd()))
 				if err != nil { // If output is not a terminal,
 					termWidth = 0
 				}
-			} else { // Output is a file
-				termWidth = 0
 			}
 
-			var err error
-			if r, err = reporter.New(format, stdout, stderr, termWidth); err != nil {
+			if tableReporter, err = reporter.New("table", stdout, stderr, termWidth); err != nil {
 				return err
 			}
 
 			oldPath := context.String("old")
 			newPath := context.String("new")
 
-			oldVulns, err := ci.LoadVulnResults(oldPath)
-			if err != nil {
-				return fmt.Errorf("failed to open old results at %s: %w", oldPath, err)
+			oldVulns := models.VulnerabilityResults{}
+			if oldPath != "" {
+				oldVulns, err = ci.LoadVulnResults(oldPath)
+				if err != nil {
+					return fmt.Errorf("failed to open old results at %s: %w", oldPath, err)
+				}
 			}
 
 			newVulns, err := ci.LoadVulnResults(newPath)
@@ -114,8 +94,37 @@ func run(args []string, stdout, stderr io.Writer) int {
 
 			diffVulns := ci.DiffVulnerabilityResults(oldVulns, newVulns)
 
-			if errPrint := r.PrintResult(&diffVulns); errPrint != nil {
+			if errPrint := tableReporter.PrintResult(&diffVulns); errPrint != nil {
 				return fmt.Errorf("failed to write output: %w", errPrint)
+			}
+
+			if context.Bool("gh-annotations") {
+				var ghAnnotationsReporter reporter.Reporter
+				if ghAnnotationsReporter, err = reporter.New("gh-annotations", stdout, stderr, termWidth); err != nil {
+					return err
+				}
+
+				if errPrint := ghAnnotationsReporter.PrintResult(&diffVulns); errPrint != nil {
+					return fmt.Errorf("failed to write output: %w", errPrint)
+				}
+			}
+
+			outputPath := context.String("output")
+			if outputPath != "" {
+				var err error
+				stdout, err = os.Create(outputPath)
+				if err != nil {
+					return fmt.Errorf("failed to create output file: %w", err)
+				}
+				termWidth = 0
+				var sarifReporter reporter.Reporter
+				if sarifReporter, err = reporter.New("sarif", stdout, stderr, termWidth); err != nil {
+					return err
+				}
+
+				if errPrint := sarifReporter.PrintResult(&diffVulns); errPrint != nil {
+					return fmt.Errorf("failed to write output: %w", errPrint)
+				}
 			}
 
 			// if vulnerability exists it should return error
@@ -135,8 +144,8 @@ func run(args []string, stdout, stderr io.Writer) int {
 	}
 
 	if err := app.Run(args); err != nil {
-		if r == nil {
-			r = reporter.NewTableReporter(stdout, stderr, false, 0)
+		if tableReporter == nil {
+			tableReporter = reporter.NewTableReporter(stdout, stderr, false, 0)
 		}
 		if errors.Is(err, osvscanner.VulnerabilitiesFoundErr) {
 			return 1
@@ -148,16 +157,16 @@ func run(args []string, stdout, stderr io.Writer) int {
 		}
 
 		if errors.Is(err, osvscanner.NoPackagesFoundErr) {
-			r.PrintError("No package sources found, --help for usage information.\n")
+			tableReporter.PrintError("No package sources found, --help for usage information.\n")
 			return 128
 		}
 
-		r.PrintError(fmt.Sprintf("%v\n", err))
+		tableReporter.PrintError(fmt.Sprintf("%v\n", err))
 	}
 
 	// if we've been told to print an error, and not already exited with
 	// a specific error code, then exit with a generic non-zero code
-	if r != nil && r.HasPrintedError() {
+	if tableReporter != nil && tableReporter.HasPrintedError() {
 		return 127
 	}
 

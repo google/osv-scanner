@@ -5,6 +5,7 @@ import (
 	"strings"
 	"testing"
 
+	"github.com/google/osv-scanner/internal/output"
 	"github.com/google/osv-scanner/pkg/lockfile"
 )
 
@@ -70,7 +71,12 @@ func expectPackages(t *testing.T, actualPackages []lockfile.PackageDetails, expe
 	t.Helper()
 
 	if len(expectedPackages) != len(actualPackages) {
-		t.Errorf("Expected to get %d packages, but got %d", len(expectedPackages), len(actualPackages))
+		t.Errorf(
+			"Expected to get %d %s, but got %d",
+			len(expectedPackages),
+			output.Form(len(expectedPackages), "package", "packages"),
+			len(actualPackages),
+		)
 	}
 
 	missingActualPackages := findMissingPackages(actualPackages, expectedPackages)

@@ -52,7 +52,7 @@ func TestPURLToPackage(t *testing.T) {
 			},
 		},
 		{
-			name: "valid Debian maven",
+			name: "valid PURL Debian",
 			args: args{
 				purl: "pkg:deb/debian/nginx@2.36.1-8+deb11u1",
 			},
@@ -60,6 +60,17 @@ func TestPURLToPackage(t *testing.T) {
 				Name:      "nginx",
 				Version:   "2.36.1-8+deb11u1",
 				Ecosystem: string(models.EcosystemDebian),
+			},
+		},
+		{
+			name: "valid PURL alpine",
+			args: args{
+				purl: "pkg:apk/alpine/zlib@1.2.13-r0?arch=x86_64upstream=zlib&distro=alpine-3.17.2",
+			},
+			want: models.PackageInfo{
+				Name:      "zlib",
+				Version:   "1.2.13-r0",
+				Ecosystem: string(models.EcosystemAlpine),
 			},
 		},
 		{

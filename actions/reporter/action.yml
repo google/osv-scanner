@@ -1,16 +1,17 @@
 # Currently experimental.
-name: 'osv-scanner-diff'
-description: 'Finds the difference between two osv-scanner json results'
+name: 'osv-scanner-reporter'
+description: 'Specialized reporting of scanner results for github actions'
 inputs:
-  output-file:
-    description: 'Output path'
+  output-sarif-file:
+    description: 'Output SARIF file path'
     required: true
-  results-format:
-    description: 'Output result format'
-    default: 'sarif'
+  gh-annotations:
+    description: 'Whether to print github annotations'
+    default: false
   old-results:
     description: 'Old results to get the difference against'
-    required: true
+    required: false
+    default: ""
   new-results:
     description: 'New results to get the difference against'
     required: true
@@ -19,7 +20,7 @@ runs:
   image: '../../action.dockerfile'
   entrypoint: /root/osv-diff
   args:
-    - '--output=${{ inputs.output-file }}'
-    - '--format=${{ inputs.results-format }}'
+    - '--output=${{ inputs.output-sarif-file }}'
     - '--old=${{ inputs.old-results }}'
     - '--new=${{ inputs.new-results }}'
+    - '--gh-annotations=${{ inputs.gh-annotations }}'

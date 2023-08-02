@@ -3,6 +3,8 @@ package output
 import (
 	"fmt"
 	"io"
+	"log"
+	"math"
 	"os"
 	"path/filepath"
 	"strings"
@@ -69,15 +71,16 @@ type tbInnerResponse struct {
 func tableBuilderInner(vulnResult *models.VulnerabilityResults, addStyling bool, calledVulns bool) []tbInnerResponse {
 	allOutputRows := []tbInnerResponse{}
 	// Working directory used to simplify path
-	workingDir, workingDirErr := os.Getwd()
+	workingDir, err := os.Getwd()
+	if err != nil {
+		log.Panicf("can't get working dir: %v", err)
+	}
 	for _, sourceRes := range vulnResult.Results {
 		for _, pkg := range sourceRes.Packages {
 			source := sourceRes.Source
-			if workingDirErr == nil {
-				sourcePath, err := filepath.Rel(workingDir, source.Path)
-				if err == nil { // Simplify the path if possible
-					source.Path = sourcePath
-				}
+			sourcePath, err := filepath.Rel(workingDir, source.Path)
+			if err == nil { // Simplify the path if possible
+				source.Path = sourcePath
 			}
 
 			// Merge groups into the same row
@@ -100,32 +103,7 @@ func tableBuilderInner(vulnResult *models.VulnerabilityResults, addStyling bool,
 				}
 
 				outputRow = append(outputRow, strings.Join(links, "\n"))
-
-				var outputSeverities []string
-				for _, vulnID := range group.IDs {
-					var severities []models.Severity
-					for _, vuln := range pkg.Vulnerabilities {
-						if vuln.ID == vulnID {
-							severities = vuln.Severity
-						}
-					}
-					for _, severity := range severities {
-						var outputSeverity string
-						switch severity.Type {
-						case models.SeverityCVSSV2:
-							numericSeverity, _ := v2_metric.NewBase().Decode(severity.Score)
-							outputSeverity = fmt.Sprintf("%v", numericSeverity.Score())
-						case models.SeverityCVSSV3:
-							numericSeverity, _ := v3_metric.NewBase().Decode(severity.Score)
-							outputSeverity = fmt.Sprintf("%v", numericSeverity.Score())
-						default:
-							outputSeverity = severity.Score
-						}
-
-						outputSeverities = append(outputSeverities, outputSeverity)
-					}
-				}
-				outputRow = append(outputRow, strings.Join(outputSeverities, "\n"))
+				outputRow = append(outputRow, MaxSeverity(group, pkg))
 
 				if pkg.Package.Ecosystem == "GIT" {
 					outputRow = append(outputRow, "GIT", pkg.Package.Version, pkg.Package.Version)
@@ -144,4 +122,32 @@ func tableBuilderInner(vulnResult *models.VulnerabilityResults, addStyling bool,
 	}
 
 	return allOutputRows
+}
+
+func MaxSeverity(group models.GroupInfo, pkg models.PackageVulns) string {
+	var maxSeverity float64
+	for _, vulnID := range group.IDs {
+		var severities []models.Severity
+		for _, vuln := range pkg.Vulnerabilities {
+			if vuln.ID == vulnID {
+				severities = vuln.Severity
+			}
+		}
+		for _, severity := range severities {
+			switch severity.Type {
+			case models.SeverityCVSSV2:
+				numericSeverity, _ := v2_metric.NewBase().Decode(severity.Score)
+				maxSeverity = math.Max(maxSeverity, numericSeverity.Score())
+			case models.SeverityCVSSV3:
+				numericSeverity, _ := v3_metric.NewBase().Decode(severity.Score)
+				maxSeverity = math.Max(maxSeverity, numericSeverity.Score())
+			}
+		}
+	}
+
+	if maxSeverity == 0 {
+		return ""
+	}
+
+	return fmt.Sprintf("%v", maxSeverity)
 }
