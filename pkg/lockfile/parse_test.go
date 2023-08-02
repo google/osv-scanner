@@ -7,6 +7,7 @@ import (
 	"strings"
 	"testing"
 
+	"github.com/google/osv-scanner/internal/output"
 	"github.com/google/osv-scanner/pkg/lockfile"
 )
 
@@ -30,8 +31,9 @@ func expectNumberOfParsersCalled(t *testing.T, numberOfParsersCalled int) {
 
 	if numberOfParsersCalled != count {
 		t.Errorf(
-			"Expected %d parsers to have been called, but had %d",
+			"Expected %d %s to have been called, but had %d",
 			count,
+			output.Form(count, "parser", "parsers"),
 			numberOfParsersCalled,
 		)
 	}
