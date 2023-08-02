@@ -239,7 +239,7 @@ func rustBuildSource(r reporter.Reporter, source models.SourceInfo) ([]string, e
 		r.PrintError(fmt.Sprintf("cargo stdout:\n%s", stdoutBuffer.String()))
 		r.PrintError(fmt.Sprintf("cargo stderr:\n%s", stderrBuffer.String()))
 
-		return nil, fmt.Errorf("failed to run cargo build: %w", err)
+		return nil, fmt.Errorf("failed to run `%v`: %w", cmd.String(), err)
 	}
 
 	outputDir := filepath.Join(projectBaseDir, "target", "release")
