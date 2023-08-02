@@ -3,6 +3,7 @@ package output
 import (
 	"fmt"
 	"io"
+	"log"
 	"os"
 	"path/filepath"
 	"strings"
@@ -43,7 +44,7 @@ func GroupFixedVersions(flattened []models.VulnerabilityFlattened) map[string][]
 // CreateSourceRemediationTable creates a vulnerability table which includes the fixed versions for a specific source file
 func CreateSourceRemediationTable(source models.PackageSource, groupFixedVersions map[string][]string) table.Writer {
 	remediationTable := table.NewWriter()
-	remediationTable.AppendHeader(table.Row{"Package", "Vulnerability ID", "Current Version", "Fixed Version"})
+	remediationTable.AppendHeader(table.Row{"Package", "Vulnerability ID", "CVSS", "Current Version", "Fixed Version"})
 
 	for _, pv := range source.Packages {
 		for _, group := range pv.Groups {
@@ -56,6 +57,7 @@ func CreateSourceRemediationTable(source models.PackageSource, groupFixedVersion
 			remediationTable.AppendRow(table.Row{
 				pv.Package.Name,
 				strings.Join(vulnIDs, "\n"),
+				MaxSeverity(group, pv),
 				pv.Package.Version,
 				strings.Join(fixedVersions, "\n")})
 		}
@@ -78,18 +80,16 @@ func PrintSARIFReport(vulnResult *models.VulnerabilityResults, outputWriter io.W
 
 	// TODO: Also support last affected
 	groupFixedVersions := GroupFixedVersions(flattened)
-	workingDir, workingDirErr := os.Getwd()
-
+	workingDir, err := os.Getwd()
+	if err != nil {
+		log.Panicf("can't get working dir: %v", err)
+	}
 	for _, source := range vulnResult.Results {
 		// TODO: Support docker images
 
 		var artifactPath string
-		if workingDirErr == nil {
-			artifactPath, err = filepath.Rel(workingDir, source.Source.Path)
-			if err != nil {
-				artifactPath = source.Source.Path
-			}
-		} else {
+		artifactPath, err = filepath.Rel(workingDir, source.Source.Path)
+		if err != nil {
 			artifactPath = source.Source.Path
 		}
 		run.AddDistinctArtifact(artifactPath)

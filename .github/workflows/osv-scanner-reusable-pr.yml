@@ -43,13 +43,13 @@ jobs:
           results-file: new-results.json
           to-scan: .
         continue-on-error: true
-      - name: "Run osv-diff"
-        uses: google/osv-scanner/actions/diff@main
+      - name: "Run osv-scanner-reporter"
+        uses: another-rex/osv-scanner/actions/reporter@fix-github-action
         with:
-          results-format: sarif
-          output-file: final-results.sarif
+          output-sarif-file: final-results.sarif
           old-results: old-results.json
           new-results: new-results.json
+          gh-annotations: true
       # Upload the results as artifacts (optional). Commenting out will disable uploads of run results in SARIF
       # format to the repository Actions tab.
       - name: "Upload artifact"
