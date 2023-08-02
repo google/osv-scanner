@@ -3,6 +3,7 @@ package output
 import (
 	"fmt"
 	"io"
+	"log"
 	"os"
 	"path/filepath"
 	"strings"
@@ -79,18 +80,16 @@ func PrintSARIFReport(vulnResult *models.VulnerabilityResults, outputWriter io.W
 
 	// TODO: Also support last affected
 	groupFixedVersions := GroupFixedVersions(flattened)
-	workingDir, workingDirErr := os.Getwd()
-
+	workingDir, err := os.Getwd()
+	if err != nil {
+		log.Panicf("can't get working dir: %v", err)
+	}
 	for _, source := range vulnResult.Results {
 		// TODO: Support docker images
 
 		var artifactPath string
-		if workingDirErr == nil {
-			artifactPath, err = filepath.Rel(workingDir, source.Source.Path)
-			if err != nil {
-				artifactPath = source.Source.Path
-			}
-		} else {
+		artifactPath, err = filepath.Rel(workingDir, source.Source.Path)
+		if err != nil {
 			artifactPath = source.Source.Path
 		}
 		run.AddDistinctArtifact(artifactPath)

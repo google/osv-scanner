@@ -3,6 +3,7 @@ package output
 import (
 	"fmt"
 	"io"
+	"log"
 	"math"
 	"os"
 	"path/filepath"
@@ -70,15 +71,16 @@ type tbInnerResponse struct {
 func tableBuilderInner(vulnResult *models.VulnerabilityResults, addStyling bool, calledVulns bool) []tbInnerResponse {
 	allOutputRows := []tbInnerResponse{}
 	// Working directory used to simplify path
-	workingDir, workingDirErr := os.Getwd()
+	workingDir, err := os.Getwd()
+	if err != nil {
+		log.Panicf("can't get working dir: %v", err)
+	}
 	for _, sourceRes := range vulnResult.Results {
 		for _, pkg := range sourceRes.Packages {
 			source := sourceRes.Source
-			if workingDirErr == nil {
-				sourcePath, err := filepath.Rel(workingDir, source.Path)
-				if err == nil { // Simplify the path if possible
-					source.Path = sourcePath
-				}
+			sourcePath, err := filepath.Rel(workingDir, source.Path)
+			if err == nil { // Simplify the path if possible
+				source.Path = sourcePath
 			}
 
 			// Merge groups into the same row

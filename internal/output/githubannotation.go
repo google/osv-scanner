@@ -3,6 +3,7 @@ package output
 import (
 	"fmt"
 	"io"
+	"log"
 	"os"
 	"path/filepath"
 	"strings"
@@ -16,19 +17,18 @@ func PrintGHAnnotationReport(vulnResult *models.VulnerabilityResults, outputWrit
 
 	// TODO: Also support last affected
 	groupFixedVersions := GroupFixedVersions(flattened)
-	workingDir, workingDirErr := os.Getwd()
+	workingDir, err := os.Getwd()
+	if err != nil {
+		log.Panicf("can't get working dir: %v", err)
+	}
 
 	for _, source := range vulnResult.Results {
 		// TODO: Support docker images
 
 		var artifactPath string
 		var err error
-		if workingDirErr == nil {
-			artifactPath, err = filepath.Rel(workingDir, source.Source.Path)
-			if err != nil {
-				artifactPath = source.Source.Path
-			}
-		} else {
+		artifactPath, err = filepath.Rel(workingDir, source.Source.Path)
+		if err != nil {
 			artifactPath = source.Source.Path
 		}
 
