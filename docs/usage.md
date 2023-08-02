@@ -123,11 +123,29 @@ To enable call analysis, call OSV-Scanner with the `--experimental-call-analysis
 
 ### Supported languages
 
-| Language          | Additional Dependencies                                                                                                                                                                                                                                                     |
-| ----------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Go                | `go` compiler needs to be installed and available on `PATH`                                                                                                                                                                                                                 |
-| Rust              | Rust toolchain (including `cargo`) that can compile the source code being scanned needs to be installed and available on `PATH`.<br> To successfully do analysis, you must make sure that running `cargo build --release` in the scanned Rust project successfully compiles |
-| More coming soon! |                                                                                                                                                                                                                                                                             |
+#### Go
+
+OSV-Scanner uses the `govulncheck` library to analyze Go source code to identify called vulnerable functions.
+
+**Additional Dependencies:**
+
+`go` compiler needs to be installed and available on `PATH`    
+
+#### Rust
+
+OSV-Scanner compiles Rust source code and analyzes the output binary's DWARF debug information to identify called vulnerable functions.
+
+**Additional Dependencies:**
+Rust toolchain (including `cargo`) that can compile the source code being scanned needs to be installed and available on `PATH`.
+
+The installed Rust toolchain must be capable of compiling every crate/target in the scanned code.
+
+**Limitations**
+Current implementation has a few limitations:
+
+- Does not support dependencies on proc-macros
+- Does not support any dependencies that are dynamically linked
+- Does not support dependencies that link external non-rust code
 
 ### Example
 ```bash

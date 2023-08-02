@@ -24,7 +24,7 @@ const (
 	// - opt-level=3 (Use the highest optimisation level (default with --release))
 	// - debuginfo=1 (Include DWARF debug info which is extracted to find which funcs are called)
 	// - embed-bitcode=yes (Required to enable LTO)
-	// - lto (Enable full link time optimisation)
+	// - lto (Enable full link time optimisation, this allows unused dynamic dispatch calls to be optimised out)
 	// - codegen-units=1 (Build everything in one codegen unit, increases build time but enables more optimisations
 	//                  and make libraries only generate one object file)
 	RustFlagsEnv     = "RUSTFLAGS=-C opt-level=3 -C debuginfo=1 -C embed-bitcode=yes -C lto -C codegen-units=1"
@@ -34,7 +34,7 @@ const (
 func rustAnalysis(r reporter.Reporter, pkgs []models.PackageVulns, source models.SourceInfo) {
 	binaryPaths, err := rustBuildSource(r, source)
 	if err != nil {
-		r.PrintError(fmt.Sprintf("failed to build cargo/rust project from source: %s", err))
+		r.PrintError(fmt.Sprintf("failed to build cargo/rust project from source: %s\n", err))
 		return
 	}
 
@@ -221,7 +221,7 @@ func extractRlibArchive(rlibPath string) (bytes.Buffer, error) {
 func rustBuildSource(r reporter.Reporter, source models.SourceInfo) ([]string, error) {
 	projectBaseDir := filepath.Dir(source.Path)
 
-	cmd := exec.Command("cargo", "build", "--all-targets", "--release")
+	cmd := exec.Command("cargo", "build", "--workspace", "--all-targets", "--release")
 	cmd.Env = append(cmd.Environ(), RustFlagsEnv)
 	cmd.Dir = projectBaseDir
 	if errors.Is(cmd.Err, exec.ErrDot) {
