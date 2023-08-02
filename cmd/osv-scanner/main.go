@@ -140,15 +140,17 @@ func run(args []string, stdout, stderr io.Writer) int {
 			}
 
 			vulnResult, err := osvscanner.DoScan(osvscanner.ScannerActions{
-				LockfilePaths:            context.StringSlice("lockfile"),
-				SBOMPaths:                context.StringSlice("sbom"),
-				DockerContainerNames:     context.StringSlice("docker"),
-				Recursive:                context.Bool("recursive"),
-				SkipGit:                  context.Bool("skip-git"),
-				NoIgnore:                 context.Bool("no-ignore"),
-				ConfigOverridePath:       context.String("config"),
-				DirectoryPaths:           context.Args().Slice(),
-				ExperimentalCallAnalysis: context.Bool("experimental-call-analysis"),
+				LockfilePaths:        context.StringSlice("lockfile"),
+				SBOMPaths:            context.StringSlice("sbom"),
+				DockerContainerNames: context.StringSlice("docker"),
+				Recursive:            context.Bool("recursive"),
+				SkipGit:              context.Bool("skip-git"),
+				NoIgnore:             context.Bool("no-ignore"),
+				ConfigOverridePath:   context.String("config"),
+				DirectoryPaths:       context.Args().Slice(),
+				ExperimentalScannerActions: osvscanner.ExperimentalScannerActions{
+					CallAnalysis: context.Bool("experimental-call-analysis"),
+				},
 			}, r)
 
 			if err != nil &&
