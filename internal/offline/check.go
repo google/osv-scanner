@@ -87,7 +87,7 @@ func setupLocalDBDirectory(localDBPath string) (string, error) {
 	return "", err
 }
 
-func Check(r reporter.Reporter, query osv.BatchedQuery, offline bool, localDBPath string) (*osv.HydratedBatchedResponse, error) {
+func MakeRequest(r reporter.Reporter, query osv.BatchedQuery, offline bool, localDBPath string) (*osv.HydratedBatchedResponse, error) {
 	results := make([]osv.Response, 0, len(query.Queries))
 	dbs := make(map[lockfile.Ecosystem]*ZipDB)
 
