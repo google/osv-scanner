@@ -4,6 +4,7 @@ import (
 	"encoding/xml"
 	"fmt"
 	"os"
+	"path/filepath"
 
 	"github.com/google/osv-scanner/internal/cachedregexp"
 )
@@ -100,19 +101,19 @@ func (p *MavenLockProperties) UnmarshalXML(d *xml.Decoder, start xml.StartElemen
 	}
 }
 
-func ParseMavenLock(pathToLockfile string) ([]PackageDetails, error) {
+type MavenLockExtractor struct{}
+
+func (e MavenLockExtractor) ShouldExtract(path string) bool {
+	return filepath.Base(path) == "pom.xml"
+}
+
+func (e MavenLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 	var parsedLockfile *MavenLockFile
 
-	lockfileContents, err := os.ReadFile(pathToLockfile)
+	err := xml.NewDecoder(f).Decode(&parsedLockfile)
 
 	if err != nil {
-		return []PackageDetails{}, fmt.Errorf("could not read %s: %w", pathToLockfile, err)
-	}
-
-	err = xml.Unmarshal(lockfileContents, &parsedLockfile)
-
-	if err != nil {
-		return []PackageDetails{}, fmt.Errorf("could not parse %s: %w", pathToLockfile, err)
+		return []PackageDetails{}, fmt.Errorf("could not parse %s: %w", f.Path(), err)
 	}
 
 	details := map[string]PackageDetails{}
@@ -141,4 +142,16 @@ func ParseMavenLock(pathToLockfile string) ([]PackageDetails, error) {
 	}
 
 	return pkgDetailsMapToSlice(details), nil
+}
+
+var _ Extractor = MavenLockExtractor{}
+
+func ParseMavenLock(pathToLockfile string) ([]PackageDetails, error) {
+	f, err := OpenLocalDepFile(pathToLockfile)
+
+	if err != nil {
+		return nil, err
+	}
+
+	return MavenLockExtractor{}.Extract(f)
 }

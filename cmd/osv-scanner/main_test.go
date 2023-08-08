@@ -480,7 +480,7 @@ func TestRun_LockfileWithExplicitParseAs(t *testing.T) {
 			wantExitCode: 127,
 			wantStdout:   "",
 			wantStderr: `
-				could not read %%/path/to/my:project/package-lock.json: open %%/path/to/my:project/package-lock.json: no such file or directory
+				open %%/path/to/my:project/package-lock.json: no such file or directory
 			`,
 		},
 		// when an explicit parse-as is given, it's applied to that file

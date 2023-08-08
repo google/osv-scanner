@@ -6,7 +6,7 @@ import (
 	"github.com/google/osv-scanner/pkg/lockfile"
 )
 
-func TestNuGetLockExtractor_ShouldExtract(t *testing.T) {
+func TestConanLockExtractor_ShouldExtract(t *testing.T) {
 	t.Parallel()
 
 	tests := []struct {
@@ -21,27 +21,27 @@ func TestNuGetLockExtractor_ShouldExtract(t *testing.T) {
 		},
 		{
 			name: "",
-			path: "packages.lock.json",
+			path: "conan.lock",
 			want: true,
 		},
 		{
 			name: "",
-			path: "path/to/my/packages.lock.json",
+			path: "path/to/my/conan.lock",
 			want: true,
 		},
 		{
 			name: "",
-			path: "path/to/my/packages.lock.json/file",
+			path: "path/to/my/conan.lock/file",
 			want: false,
 		},
 		{
 			name: "",
-			path: "path/to/my/packages.lock.json.file",
+			path: "path/to/my/conan.lock.file",
 			want: false,
 		},
 		{
 			name: "",
-			path: "path.to.my.packages.lock.json",
+			path: "path.to.my.conan.lock",
 			want: false,
 		},
 	}
@@ -49,20 +49,11 @@ func TestNuGetLockExtractor_ShouldExtract(t *testing.T) {
 		tt := tt
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
-			e := lockfile.NuGetLockExtractor{}
+			e := lockfile.ConanLockExtractor{}
 			got := e.ShouldExtract(tt.path)
 			if got != tt.want {
 				t.Errorf("Extract() got = %v, want %v", got, tt.want)
 			}
 		})
 	}
-}
-
-func TestParseNuGetLock_InvalidVersion(t *testing.T) {
-	t.Parallel()
-
-	packages, err := lockfile.ParseNuGetLock("fixtures/nuget/empty.v0.json")
-
-	expectErrContaining(t, err, "unsupported lock file version")
-	expectPackages(t, packages, []lockfile.PackageDetails{})
 }

@@ -6,12 +6,64 @@ import (
 	"github.com/google/osv-scanner/pkg/lockfile"
 )
 
+func TestRequirementsTxtExtractor_ShouldExtract(t *testing.T) {
+	t.Parallel()
+
+	tests := []struct {
+		name string
+		path string
+		want bool
+	}{
+		{
+			name: "",
+			path: "",
+			want: false,
+		},
+		{
+			name: "",
+			path: "requirements.txt",
+			want: true,
+		},
+		{
+			name: "",
+			path: "path/to/my/requirements.txt",
+			want: true,
+		},
+		{
+			name: "",
+			path: "path/to/my/requirements.txt/file",
+			want: false,
+		},
+		{
+			name: "",
+			path: "path/to/my/requirements.txt.file",
+			want: false,
+		},
+		{
+			name: "",
+			path: "path.to.my.requirements.txt",
+			want: false,
+		},
+	}
+	for _, tt := range tests {
+		tt := tt
+		t.Run(tt.name, func(t *testing.T) {
+			t.Parallel()
+			e := lockfile.RequirementsTxtExtractor{}
+			got := e.ShouldExtract(tt.path)
+			if got != tt.want {
+				t.Errorf("Extract() got = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
 func TestParseRequirementsTxt_FileDoesNotExist(t *testing.T) {
 	t.Parallel()
 
 	packages, err := lockfile.ParseRequirementsTxt("fixtures/pip/does-not-exist")
 
-	expectErrContaining(t, err, "could not open")
+	expectErrContaining(t, err, "no such file or directory")
 	expectPackages(t, packages, []lockfile.PackageDetails{})
 }
 
@@ -430,7 +482,7 @@ func TestParseRequirementsTxt_WithBadROption(t *testing.T) {
 
 	packages, err := lockfile.ParseRequirementsTxt("fixtures/pip/with-bad-r-option.txt")
 
-	expectErrContaining(t, err, "could not open")
+	expectErrContaining(t, err, "no such file or directory")
 	expectPackages(t, packages, []lockfile.PackageDetails{})
 }
 

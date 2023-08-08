@@ -11,7 +11,7 @@ func TestParseNuGetLock_v1_FileDoesNotExist(t *testing.T) {
 
 	packages, err := lockfile.ParseNuGetLock("fixtures/nuget/does-not-exist")
 
-	expectErrContaining(t, err, "could not read")
+	expectErrContaining(t, err, "no such file or directory")
 	expectPackages(t, packages, []lockfile.PackageDetails{})
 }
 

@@ -3,7 +3,7 @@ package lockfile
 import (
 	"encoding/json"
 	"fmt"
-	"os"
+	"path/filepath"
 	"strings"
 )
 
@@ -172,18 +172,31 @@ func parseConanLock(lockfile ConanLockFile) []PackageDetails {
 	return parseConanV2Lock(lockfile)
 }
 
-func ParseConanLock(pathToLockfile string) ([]PackageDetails, error) {
+type ConanLockExtractor struct{}
+
+func (e ConanLockExtractor) ShouldExtract(path string) bool {
+	return filepath.Base(path) == "conan.lock"
+}
+
+func (e ConanLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 	var parsedLockfile *ConanLockFile
 
-	lockfileContents, err := os.ReadFile(pathToLockfile)
+	err := json.NewDecoder(f).Decode(&parsedLockfile)
 	if err != nil {
-		return []PackageDetails{}, fmt.Errorf("could not read %s: %w", pathToLockfile, err)
-	}
-
-	err = json.Unmarshal(lockfileContents, &parsedLockfile)
-	if err != nil {
-		return []PackageDetails{}, fmt.Errorf("could not parse %s: %w", pathToLockfile, err)
+		return []PackageDetails{}, fmt.Errorf("could not parse %s: %w", f.Path(), err)
 	}
 
 	return parseConanLock(*parsedLockfile), nil
+}
+
+var _ Extractor = ConanLockExtractor{}
+
+func ParseConanLock(pathToLockfile string) ([]PackageDetails, error) {
+	f, err := OpenLocalDepFile(pathToLockfile)
+
+	if err != nil {
+		return nil, err
+	}
+
+	return ConanLockExtractor{}.Extract(f)
 }

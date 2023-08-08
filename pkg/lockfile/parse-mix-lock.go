@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"fmt"
 	"os"
+	"path/filepath"
 	"strings"
 
 	"github.com/google/osv-scanner/internal/cachedregexp"
@@ -11,16 +12,16 @@ import (
 
 const MixEcosystem Ecosystem = "Hex"
 
-func ParseMixLock(pathToLockfile string) ([]PackageDetails, error) {
-	file, err := os.Open(pathToLockfile)
-	if err != nil {
-		return []PackageDetails{}, fmt.Errorf("could not open %s: %w", pathToLockfile, err)
-	}
-	defer file.Close()
+type MixLockExtractor struct{}
 
+func (e MixLockExtractor) ShouldExtract(path string) bool {
+	return filepath.Base(path) == "mix.lock"
+}
+
+func (e MixLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 	re := cachedregexp.MustCompile(`^ +"(\w+)": \{.+,$`)
 
-	scanner := bufio.NewScanner(file)
+	scanner := bufio.NewScanner(f)
 
 	var packages []PackageDetails
 
@@ -71,8 +72,20 @@ func ParseMixLock(pathToLockfile string) ([]PackageDetails, error) {
 	}
 
 	if err := scanner.Err(); err != nil {
-		return []PackageDetails{}, fmt.Errorf("error while scanning %s: %w", pathToLockfile, err)
+		return []PackageDetails{}, fmt.Errorf("error while scanning %s: %w", f.Path(), err)
 	}
 
 	return packages, nil
+}
+
+var _ Extractor = MixLockExtractor{}
+
+func ParseMixLock(pathToLockfile string) ([]PackageDetails, error) {
+	f, err := OpenLocalDepFile(pathToLockfile)
+
+	if err != nil {
+		return nil, err
+	}
+
+	return MixLockExtractor{}.Extract(f)
 }

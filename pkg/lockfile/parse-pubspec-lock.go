@@ -1,8 +1,10 @@
 package lockfile
 
 import (
+	"errors"
 	"fmt"
-	"os"
+	"io"
+	"path/filepath"
 
 	"gopkg.in/yaml.v3"
 )
@@ -61,19 +63,19 @@ type PubspecLockfile struct {
 
 const PubEcosystem Ecosystem = "Pub"
 
-func ParsePubspecLock(pathToLockfile string) ([]PackageDetails, error) {
+type PubspecLockExtractor struct{}
+
+func (e PubspecLockExtractor) ShouldExtract(path string) bool {
+	return filepath.Base(path) == "pubspec.lock"
+}
+
+func (e PubspecLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 	var parsedLockfile *PubspecLockfile
 
-	lockfileContents, err := os.ReadFile(pathToLockfile)
+	err := yaml.NewDecoder(f).Decode(&parsedLockfile)
 
-	if err != nil {
-		return []PackageDetails{}, fmt.Errorf("could not read %s: %w", pathToLockfile, err)
-	}
-
-	err = yaml.Unmarshal(lockfileContents, &parsedLockfile)
-
-	if err != nil {
-		return []PackageDetails{}, fmt.Errorf("could not parse %s: %w", pathToLockfile, err)
+	if err != nil && !errors.Is(err, io.EOF) {
+		return []PackageDetails{}, fmt.Errorf("could not parse %s: %w", f.Path(), err)
 	}
 	if parsedLockfile == nil {
 		return []PackageDetails{}, nil
@@ -91,4 +93,16 @@ func ParsePubspecLock(pathToLockfile string) ([]PackageDetails, error) {
 	}
 
 	return packages, nil
+}
+
+var _ Extractor = PubspecLockExtractor{}
+
+func ParsePubspecLock(pathToLockfile string) ([]PackageDetails, error) {
+	f, err := OpenLocalDepFile(pathToLockfile)
+
+	if err != nil {
+		return nil, err
+	}
+
+	return PubspecLockExtractor{}.Extract(f)
 }
