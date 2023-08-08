@@ -147,11 +147,5 @@ func (e MavenLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 var _ Extractor = MavenLockExtractor{}
 
 func ParseMavenLock(pathToLockfile string) ([]PackageDetails, error) {
-	f, err := OpenLocalDepFile(pathToLockfile)
-
-	if err != nil {
-		return nil, err
-	}
-
-	return MavenLockExtractor{}.Extract(f)
+	return parseFile(pathToLockfile, MavenLockExtractor{})
 }

@@ -80,11 +80,5 @@ func (e GradleLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 var _ Extractor = GradleLockExtractor{}
 
 func ParseGradleLock(pathToLockfile string) ([]PackageDetails, error) {
-	f, err := OpenLocalDepFile(pathToLockfile)
-
-	if err != nil {
-		return nil, err
-	}
-
-	return GradleLockExtractor{}.Extract(f)
+	return parseFile(pathToLockfile, GradleLockExtractor{})
 }

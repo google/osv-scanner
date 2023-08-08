@@ -72,11 +72,5 @@ func (e NuGetLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 var _ Extractor = NuGetLockExtractor{}
 
 func ParseNuGetLock(pathToLockfile string) ([]PackageDetails, error) {
-	f, err := OpenLocalDepFile(pathToLockfile)
-
-	if err != nil {
-		return nil, err
-	}
-
-	return NuGetLockExtractor{}.Extract(f)
+	return parseFile(pathToLockfile, NuGetLockExtractor{})
 }

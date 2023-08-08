@@ -88,11 +88,5 @@ func (e GoLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 var _ Extractor = GoLockExtractor{}
 
 func ParseGoLock(pathToLockfile string) ([]PackageDetails, error) {
-	f, err := OpenLocalDepFile(pathToLockfile)
-
-	if err != nil {
-		return nil, err
-	}
-
-	return GoLockExtractor{}.Extract(f)
+	return parseFile(pathToLockfile, GoLockExtractor{})
 }

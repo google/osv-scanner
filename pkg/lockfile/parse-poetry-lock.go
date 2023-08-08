@@ -58,11 +58,5 @@ func (e PoetryLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 var _ Extractor = PoetryLockExtractor{}
 
 func ParsePoetryLock(pathToLockfile string) ([]PackageDetails, error) {
-	f, err := OpenLocalDepFile(pathToLockfile)
-
-	if err != nil {
-		return nil, err
-	}
-
-	return PoetryLockExtractor{}.Extract(f)
+	return parseFile(pathToLockfile, PoetryLockExtractor{})
 }

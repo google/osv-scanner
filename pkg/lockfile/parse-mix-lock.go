@@ -81,11 +81,5 @@ func (e MixLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 var _ Extractor = MixLockExtractor{}
 
 func ParseMixLock(pathToLockfile string) ([]PackageDetails, error) {
-	f, err := OpenLocalDepFile(pathToLockfile)
-
-	if err != nil {
-		return nil, err
-	}
-
-	return MixLockExtractor{}.Extract(f)
+	return parseFile(pathToLockfile, MixLockExtractor{})
 }

@@ -203,11 +203,5 @@ func (e YarnLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 var _ Extractor = YarnLockExtractor{}
 
 func ParseYarnLock(pathToLockfile string) ([]PackageDetails, error) {
-	f, err := OpenLocalDepFile(pathToLockfile)
-
-	if err != nil {
-		return nil, err
-	}
-
-	return YarnLockExtractor{}.Extract(f)
+	return parseFile(pathToLockfile, YarnLockExtractor{})
 }

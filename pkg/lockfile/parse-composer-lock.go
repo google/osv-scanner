@@ -69,11 +69,5 @@ func (e ComposerLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 var _ Extractor = ComposerLockExtractor{}
 
 func ParseComposerLock(pathToLockfile string) ([]PackageDetails, error) {
-	f, err := OpenLocalDepFile(pathToLockfile)
-
-	if err != nil {
-		return nil, err
-	}
-
-	return ComposerLockExtractor{}.Extract(f)
+	return parseFile(pathToLockfile, ComposerLockExtractor{})
 }

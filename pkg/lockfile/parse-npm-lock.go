@@ -163,11 +163,5 @@ func (e NpmLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 var _ Extractor = NpmLockExtractor{}
 
 func ParseNpmLock(pathToLockfile string) ([]PackageDetails, error) {
-	f, err := OpenLocalDepFile(pathToLockfile)
-
-	if err != nil {
-		return nil, err
-	}
-
-	return NpmLockExtractor{}.Extract(f)
+	return parseFile(pathToLockfile, NpmLockExtractor{})
 }

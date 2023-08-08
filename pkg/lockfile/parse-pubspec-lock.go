@@ -98,11 +98,5 @@ func (e PubspecLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 var _ Extractor = PubspecLockExtractor{}
 
 func ParsePubspecLock(pathToLockfile string) ([]PackageDetails, error) {
-	f, err := OpenLocalDepFile(pathToLockfile)
-
-	if err != nil {
-		return nil, err
-	}
-
-	return PubspecLockExtractor{}.Extract(f)
+	return parseFile(pathToLockfile, PubspecLockExtractor{})
 }

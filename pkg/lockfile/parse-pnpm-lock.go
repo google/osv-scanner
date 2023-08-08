@@ -190,11 +190,5 @@ func (e PnpmLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 var _ Extractor = PnpmLockExtractor{}
 
 func ParsePnpmLock(pathToLockfile string) ([]PackageDetails, error) {
-	f, err := OpenLocalDepFile(pathToLockfile)
-
-	if err != nil {
-		return nil, err
-	}
-
-	return PnpmLockExtractor{}.Extract(f)
+	return parseFile(pathToLockfile, PnpmLockExtractor{})
 }

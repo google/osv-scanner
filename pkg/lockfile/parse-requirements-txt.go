@@ -180,11 +180,5 @@ func parseRequirementsTxt(f DepFile, requiredAlready map[string]struct{}) ([]Pac
 var _ Extractor = RequirementsTxtExtractor{}
 
 func ParseRequirementsTxt(pathToLockfile string) ([]PackageDetails, error) {
-	f, err := OpenLocalDepFile(pathToLockfile)
-
-	if err != nil {
-		return nil, err
-	}
-
-	return RequirementsTxtExtractor{}.Extract(f)
+	return parseFile(pathToLockfile, RequirementsTxtExtractor{})
 }

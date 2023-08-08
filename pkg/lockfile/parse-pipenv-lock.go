@@ -60,11 +60,5 @@ func addPkgDetails(details map[string]PackageDetails, packages map[string]Pipenv
 var _ Extractor = PipenvLockExtractor{}
 
 func ParsePipenvLock(pathToLockfile string) ([]PackageDetails, error) {
-	f, err := OpenLocalDepFile(pathToLockfile)
-
-	if err != nil {
-		return nil, err
-	}
-
-	return PipenvLockExtractor{}.Extract(f)
+	return parseFile(pathToLockfile, PipenvLockExtractor{})
 }

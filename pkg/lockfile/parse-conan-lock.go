@@ -192,11 +192,5 @@ func (e ConanLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 var _ Extractor = ConanLockExtractor{}
 
 func ParseConanLock(pathToLockfile string) ([]PackageDetails, error) {
-	f, err := OpenLocalDepFile(pathToLockfile)
-
-	if err != nil {
-		return nil, err
-	}
-
-	return ConanLockExtractor{}.Extract(f)
+	return parseFile(pathToLockfile, ConanLockExtractor{})
 }
