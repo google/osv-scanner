@@ -71,6 +71,11 @@ func (e NuGetLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 
 var _ Extractor = NuGetLockExtractor{}
 
+//nolint:gochecknoinits
+func init() {
+	registerExtractor("packages.lock.json", NuGetLockExtractor{})
+}
+
 func ParseNuGetLock(pathToLockfile string) ([]PackageDetails, error) {
 	return parseFile(pathToLockfile, NuGetLockExtractor{})
 }

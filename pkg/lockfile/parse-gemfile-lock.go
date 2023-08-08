@@ -183,6 +183,11 @@ func (e GemfileLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 
 var _ Extractor = GemfileLockExtractor{}
 
+//nolint:gochecknoinits
+func init() {
+	registerExtractor("Gemfile.lock", GemfileLockExtractor{})
+}
+
 func ParseGemfileLock(pathToLockfile string) ([]PackageDetails, error) {
 	return parseFile(pathToLockfile, GemfileLockExtractor{})
 }

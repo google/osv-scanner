@@ -97,6 +97,11 @@ func (e PubspecLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 
 var _ Extractor = PubspecLockExtractor{}
 
+//nolint:gochecknoinits
+func init() {
+	registerExtractor("pubspec.lock", PubspecLockExtractor{})
+}
+
 func ParsePubspecLock(pathToLockfile string) ([]PackageDetails, error) {
 	return parseFile(pathToLockfile, PubspecLockExtractor{})
 }

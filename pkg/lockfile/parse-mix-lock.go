@@ -80,6 +80,11 @@ func (e MixLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 
 var _ Extractor = MixLockExtractor{}
 
+//nolint:gochecknoinits
+func init() {
+	registerExtractor("mix.lock", MixLockExtractor{})
+}
+
 func ParseMixLock(pathToLockfile string) ([]PackageDetails, error) {
 	return parseFile(pathToLockfile, MixLockExtractor{})
 }

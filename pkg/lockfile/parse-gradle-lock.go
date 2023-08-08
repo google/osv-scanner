@@ -79,6 +79,12 @@ func (e GradleLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 
 var _ Extractor = GradleLockExtractor{}
 
+//nolint:gochecknoinits
+func init() {
+	registerExtractor("buildscript-gradle.lockfile", GradleLockExtractor{})
+	registerExtractor("gradle.lockfile", GradleLockExtractor{})
+}
+
 func ParseGradleLock(pathToLockfile string) ([]PackageDetails, error) {
 	return parseFile(pathToLockfile, GradleLockExtractor{})
 }

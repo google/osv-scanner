@@ -179,6 +179,11 @@ func parseRequirementsTxt(f DepFile, requiredAlready map[string]struct{}) ([]Pac
 
 var _ Extractor = RequirementsTxtExtractor{}
 
+//nolint:gochecknoinits
+func init() {
+	registerExtractor("requirements.txt", RequirementsTxtExtractor{})
+}
+
 func ParseRequirementsTxt(pathToLockfile string) ([]PackageDetails, error) {
 	return parseFile(pathToLockfile, RequirementsTxtExtractor{})
 }

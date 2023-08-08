@@ -191,6 +191,11 @@ func (e ConanLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 
 var _ Extractor = ConanLockExtractor{}
 
+//nolint:gochecknoinits
+func init() {
+	registerExtractor("conan.lock", ConanLockExtractor{})
+}
+
 func ParseConanLock(pathToLockfile string) ([]PackageDetails, error) {
 	return parseFile(pathToLockfile, ConanLockExtractor{})
 }

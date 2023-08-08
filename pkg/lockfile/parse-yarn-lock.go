@@ -202,6 +202,11 @@ func (e YarnLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 
 var _ Extractor = YarnLockExtractor{}
 
+//nolint:gochecknoinits
+func init() {
+	registerExtractor("yarn.lock", YarnLockExtractor{})
+}
+
 func ParseYarnLock(pathToLockfile string) ([]PackageDetails, error) {
 	return parseFile(pathToLockfile, YarnLockExtractor{})
 }

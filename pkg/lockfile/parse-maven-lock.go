@@ -146,6 +146,11 @@ func (e MavenLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 
 var _ Extractor = MavenLockExtractor{}
 
+//nolint:gochecknoinits
+func init() {
+	registerExtractor("pom.xml", MavenLockExtractor{})
+}
+
 func ParseMavenLock(pathToLockfile string) ([]PackageDetails, error) {
 	return parseFile(pathToLockfile, MavenLockExtractor{})
 }

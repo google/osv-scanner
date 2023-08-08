@@ -189,6 +189,11 @@ func (e PnpmLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 
 var _ Extractor = PnpmLockExtractor{}
 
+//nolint:gochecknoinits
+func init() {
+	registerExtractor("pnpm-lock.yaml", PnpmLockExtractor{})
+}
+
 func ParsePnpmLock(pathToLockfile string) ([]PackageDetails, error) {
 	return parseFile(pathToLockfile, PnpmLockExtractor{})
 }

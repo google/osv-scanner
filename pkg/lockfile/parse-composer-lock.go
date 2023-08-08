@@ -68,6 +68,11 @@ func (e ComposerLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 
 var _ Extractor = ComposerLockExtractor{}
 
+//nolint:gochecknoinits
+func init() {
+	registerExtractor("composer.lock", ComposerLockExtractor{})
+}
+
 func ParseComposerLock(pathToLockfile string) ([]PackageDetails, error) {
 	return parseFile(pathToLockfile, ComposerLockExtractor{})
 }

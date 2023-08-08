@@ -50,6 +50,11 @@ func (e CargoLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 
 var _ Extractor = CargoLockExtractor{}
 
+//nolint:gochecknoinits
+func init() {
+	registerExtractor("Cargo.lock", CargoLockExtractor{})
+}
+
 func ParseCargoLock(pathToLockfile string) ([]PackageDetails, error) {
 	return parseFile(pathToLockfile, CargoLockExtractor{})
 }

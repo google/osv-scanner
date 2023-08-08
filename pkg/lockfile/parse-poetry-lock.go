@@ -57,6 +57,11 @@ func (e PoetryLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 
 var _ Extractor = PoetryLockExtractor{}
 
+//nolint:gochecknoinits
+func init() {
+	registerExtractor("poetry.lock", PoetryLockExtractor{})
+}
+
 func ParsePoetryLock(pathToLockfile string) ([]PackageDetails, error) {
 	return parseFile(pathToLockfile, PoetryLockExtractor{})
 }

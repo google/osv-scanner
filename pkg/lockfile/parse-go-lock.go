@@ -87,6 +87,11 @@ func (e GoLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 
 var _ Extractor = GoLockExtractor{}
 
+//nolint:gochecknoinits
+func init() {
+	registerExtractor("go.mod", GoLockExtractor{})
+}
+
 func ParseGoLock(pathToLockfile string) ([]PackageDetails, error) {
 	return parseFile(pathToLockfile, GoLockExtractor{})
 }

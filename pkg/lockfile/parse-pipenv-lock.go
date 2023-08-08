@@ -59,6 +59,11 @@ func addPkgDetails(details map[string]PackageDetails, packages map[string]Pipenv
 
 var _ Extractor = PipenvLockExtractor{}
 
+//nolint:gochecknoinits
+func init() {
+	registerExtractor("Pipfile.lock", PipenvLockExtractor{})
+}
+
 func ParsePipenvLock(pathToLockfile string) ([]PackageDetails, error) {
 	return parseFile(pathToLockfile, PipenvLockExtractor{})
 }
