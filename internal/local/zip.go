@@ -1,4 +1,4 @@
-package offline
+package local
 
 import (
 	"archive/zip"

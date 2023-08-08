@@ -9,7 +9,7 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/google/osv-scanner/internal/offline"
+	"github.com/google/osv-scanner/internal/local"
 	"github.com/google/osv-scanner/internal/output"
 	"github.com/google/osv-scanner/internal/sbom"
 	"github.com/google/osv-scanner/pkg/config"
@@ -614,7 +614,7 @@ func makeRequest(
 	localDBPath string,
 ) (*osv.HydratedBatchedResponse, error) {
 	if compareLocally {
-		hydratedResp, err := offline.MakeRequest(r, query, compareOffline, localDBPath)
+		hydratedResp, err := local.MakeRequest(r, query, compareOffline, localDBPath)
 		if err != nil {
 			return &osv.HydratedBatchedResponse{}, fmt.Errorf("scan failed %w", err)
 		}
