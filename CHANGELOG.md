@@ -3,15 +3,12 @@
 ## Features
 - [Feature #216](https://github.com/google/osv-scanner/pull/432)
   Add SARIF output.
-- [Feature #57](https://github.com/google/osv-scanner/pull/432)
-  Initial GitHub Action support.
 - [Feature #81](https://github.com/google/osv-scanner/pull/183)
   Experimental offline mode.
 
 ### Minor Updates
 - [Feature #57](https://github.com/google/osv-scanner/pull/432)
   `--experimental-diff` flag for difference between previous and current run
-  (for the GitHub Action/PR workflow)
   Output is sorted by ID
 
 # v1.3.6:
