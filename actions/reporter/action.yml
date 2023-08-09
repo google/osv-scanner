@@ -18,7 +18,7 @@ inputs:
 runs:
   using: 'docker'
   image: '../../action.dockerfile'
-  entrypoint: /root/osv-diff
+  entrypoint: /root/osv-reporter
   args:
     - '--output=${{ inputs.output-sarif-file }}'
     - '--old=${{ inputs.old-results }}'
