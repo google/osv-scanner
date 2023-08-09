@@ -6,7 +6,7 @@ GEM
       i18n (>= 1.6, < 2)
       minitest (>= 5.1)
       tzinfo (~> 2.0)
-    addressable (2.8.4)
+    addressable (2.8.5)
       public_suffix (>= 2.0.2, < 6.0)
     coffee-script (2.4.1)
       coffee-script-source
@@ -222,7 +222,7 @@ GEM
     rb-fsevent (0.11.2)
     rb-inotify (0.10.1)
       ffi (~> 1.0)
-    rexml (3.2.5)
+    rexml (3.2.6)
     rouge (3.26.0)
     ruby2_keywords (0.0.5)
     rubyzip (2.3.2)
