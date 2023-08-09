@@ -1,9 +1,24 @@
+# v1.3.7:
+
+## Features
+- [Feature #216](https://github.com/google/osv-scanner/pull/432)
+  Add SARIF output.
+- [Feature #57](https://github.com/google/osv-scanner/pull/432)
+  Initial GitHub Action support.
+- [Feature #81](https://github.com/google/osv-scanner/pull/183)
+  Experimental offline mode.
+
+### Minor Updates
+- [Feature #57](https://github.com/google/osv-scanner/pull/432)
+  `--experimental-diff` flag for difference between previous and current run
+  (for the GitHub Action/PR workflow)
+  Output is sorted by ID
 
 # v1.3.6:
 
 ### Minor Updates
 - [Feature #431](https://github.com/google/osv-scanner/pull/431)
-  Update GoVulnCheck integration. 
+  Update GoVulnCheck integration.
 - [Feature #439](https://github.com/google/osv-scanner/pull/439)
   Create `models.PURLToPackage()`, and deprecate `osvscanner.PURLToPackage()`.
 
@@ -16,7 +31,7 @@
 # v1.3.5:
 
 ### Features
-- [Feature #409](https://github.com/google/osv-scanner/pull/409) 
+- [Feature #409](https://github.com/google/osv-scanner/pull/409)
   Adds an additional column to the table output which shows the severity if available.
 
 ### API Features
