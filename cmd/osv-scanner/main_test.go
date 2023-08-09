@@ -13,6 +13,19 @@ import (
 	"github.com/go-git/go-git/v5"
 )
 
+func createTestDir(t *testing.T) (string, func()) {
+	t.Helper()
+
+	p, err := os.MkdirTemp("", "osv-scanner-test-*")
+	if err != nil {
+		t.Fatalf("could not create test directory: %v", err)
+	}
+
+	return p, func() {
+		_ = os.RemoveAll(p)
+	}
+}
+
 func dedent(t *testing.T, str string) string {
 	t.Helper()
 
@@ -604,6 +617,226 @@ func TestRun_LockfileWithExplicitParseAs(t *testing.T) {
 		tt := tt
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
+
+			testCli(t, tt)
+		})
+	}
+}
+
+func TestRun_LocalDatabases(t *testing.T) {
+	t.Parallel()
+
+	tests := []cliTestCase{
+		// one specific supported lockfile
+		{
+			name:         "",
+			args:         []string{"", "--experimental-local-db", "./fixtures/locks-many/composer.lock"},
+			wantExitCode: 0,
+			wantStdout: `
+				Scanning dir ./fixtures/locks-many/composer.lock
+				Scanned %%/fixtures/locks-many/composer.lock file and found 1 package
+				Loaded Packagist local db from %%/osv-scanner/Packagist/all.zip
+				No vulnerabilities found
+			`,
+			wantStderr: "",
+		},
+		// one specific supported sbom with vulns
+		{
+			name:         "",
+			args:         []string{"", "--experimental-local-db", "--config=./fixtures/osv-scanner-empty-config.toml", "./fixtures/sbom-insecure/postgres-stretch.cdx.xml"},
+			wantExitCode: 1,
+			wantStdout: `
+				Scanning dir ./fixtures/sbom-insecure/postgres-stretch.cdx.xml
+				Scanned %%/fixtures/sbom-insecure/postgres-stretch.cdx.xml as CycloneDX SBOM and found 136 packages
+				Loaded Debian local db from %%/osv-scanner/Debian/all.zip
+				Loaded Go local db from %%/osv-scanner/Go/all.zip
+				Loaded OSS-Fuzz local db from %%/osv-scanner/OSS-Fuzz/all.zip
+				+-------------------------------------+------+-----------+--------------------------------+------------------------------------+-------------------------------------------------+
+				| OSV URL                             | CVSS | ECOSYSTEM | PACKAGE                        | VERSION                            | SOURCE                                          |
+				+-------------------------------------+------+-----------+--------------------------------+------------------------------------+-------------------------------------------------+
+				| https://osv.dev/GHSA-f3fp-gc8g-vw66 | 5.9  | Go        | github.com/opencontainers/runc | v1.0.1                             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+				| https://osv.dev/GHSA-g2j6-57v7-gm8c | 6.1  | Go        | github.com/opencontainers/runc | v1.0.1                             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+				| https://osv.dev/GHSA-m8cg-xc2p-r3fc | 2.5  | Go        | github.com/opencontainers/runc | v1.0.1                             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+				| https://osv.dev/GHSA-v95c-p5hm-xq8f | 6    | Go        | github.com/opencontainers/runc | v1.0.1                             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+				| https://osv.dev/GHSA-vpvm-3wq2-2wvm | 7    | Go        | github.com/opencontainers/runc | v1.0.1                             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+				| https://osv.dev/GHSA-p782-xgp4-8hr8 | 5.3  | Go        | golang.org/x/sys               | v0.0.0-20210817142637-7d9622a276b7 | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+				+-------------------------------------+------+-----------+--------------------------------+------------------------------------+-------------------------------------------------+
+			`,
+			wantStderr: "",
+		},
+		// one specific unsupported lockfile
+		{
+			name:         "",
+			args:         []string{"", "--experimental-local-db", "./fixtures/locks-many/not-a-lockfile.toml"},
+			wantExitCode: 128,
+			wantStdout: `
+				Scanning dir ./fixtures/locks-many/not-a-lockfile.toml
+			`,
+			wantStderr: `
+				No package sources found, --help for usage information.
+			`,
+		},
+		// all supported lockfiles in the directory should be checked
+		{
+			name:         "",
+			args:         []string{"", "--experimental-local-db", "./fixtures/locks-many"},
+			wantExitCode: 0,
+			wantStdout: `
+				Scanning dir ./fixtures/locks-many
+				Scanned %%/fixtures/locks-many/Gemfile.lock file and found 1 package
+				Scanned %%/fixtures/locks-many/alpine.cdx.xml as CycloneDX SBOM and found 15 packages
+				Scanned %%/fixtures/locks-many/composer.lock file and found 1 package
+				Scanned %%/fixtures/locks-many/package-lock.json file and found 1 package
+				Scanned %%/fixtures/locks-many/yarn.lock file and found 1 package
+				Loaded RubyGems local db from %%/osv-scanner/RubyGems/all.zip
+				Loaded Alpine local db from %%/osv-scanner/Alpine/all.zip
+				Loaded Packagist local db from %%/osv-scanner/Packagist/all.zip
+				Loaded npm local db from %%/osv-scanner/npm/all.zip
+				Loaded filter from: %%/fixtures/locks-many/osv-scanner.toml
+				GHSA-whgm-jr23-g3j9 has been filtered out because: Test manifest file
+				Filtered 1 vulnerability from output
+				No vulnerabilities found
+			`,
+			wantStderr: "",
+		},
+		// all supported lockfiles in the directory should be checked
+		{
+			name:         "",
+			args:         []string{"", "--experimental-local-db", "./fixtures/locks-many-with-invalid"},
+			wantExitCode: 127,
+			wantStdout: `
+				Scanning dir ./fixtures/locks-many-with-invalid
+				Scanned %%/fixtures/locks-many-with-invalid/Gemfile.lock file and found 1 package
+				Scanned %%/fixtures/locks-many-with-invalid/yarn.lock file and found 1 package
+				Loaded RubyGems local db from %%/osv-scanner/RubyGems/all.zip
+				Loaded npm local db from %%/osv-scanner/npm/all.zip
+			`,
+			wantStderr: `
+				Attempted to scan lockfile but failed: %%/fixtures/locks-many-with-invalid/composer.lock
+			`,
+		},
+		// only the files in the given directories are checked by default (no recursion)
+		{
+			name:         "",
+			args:         []string{"", "--experimental-local-db", "./fixtures/locks-one-with-nested"},
+			wantExitCode: 0,
+			wantStdout: `
+				Scanning dir ./fixtures/locks-one-with-nested
+				Scanned %%/fixtures/locks-one-with-nested/yarn.lock file and found 1 package
+				Loaded npm local db from %%/osv-scanner/npm/all.zip
+				No vulnerabilities found
+			`,
+			wantStderr: "",
+		},
+		// nested directories are checked when `--recursive` is passed
+		{
+			name:         "",
+			args:         []string{"", "--experimental-local-db", "--recursive", "./fixtures/locks-one-with-nested"},
+			wantExitCode: 0,
+			wantStdout: `
+				Scanning dir ./fixtures/locks-one-with-nested
+				Scanned %%/fixtures/locks-one-with-nested/nested/composer.lock file and found 1 package
+				Scanned %%/fixtures/locks-one-with-nested/yarn.lock file and found 1 package
+				Loaded Packagist local db from %%/osv-scanner/Packagist/all.zip
+				Loaded npm local db from %%/osv-scanner/npm/all.zip
+				No vulnerabilities found
+			`,
+			wantStderr: "",
+		},
+		// .gitignored files
+		{
+			name:         "",
+			args:         []string{"", "--experimental-local-db", "--recursive", "./fixtures/locks-gitignore"},
+			wantExitCode: 0,
+			wantStdout: `
+				Scanning dir ./fixtures/locks-gitignore
+				Scanned %%/fixtures/locks-gitignore/Gemfile.lock file and found 1 package
+				Scanned %%/fixtures/locks-gitignore/subdir/yarn.lock file and found 1 package
+				Loaded RubyGems local db from %%/osv-scanner/RubyGems/all.zip
+				Loaded npm local db from %%/osv-scanner/npm/all.zip
+				No vulnerabilities found
+			`,
+			wantStderr: "",
+		},
+		// ignoring .gitignore
+		{
+			name:         "",
+			args:         []string{"", "--experimental-local-db", "--recursive", "--no-ignore", "./fixtures/locks-gitignore"},
+			wantExitCode: 0,
+			wantStdout: `
+				Scanning dir ./fixtures/locks-gitignore
+				Scanned %%/fixtures/locks-gitignore/Gemfile.lock file and found 1 package
+				Scanned %%/fixtures/locks-gitignore/composer.lock file and found 1 package
+				Scanned %%/fixtures/locks-gitignore/ignored/Gemfile.lock file and found 1 package
+				Scanned %%/fixtures/locks-gitignore/ignored/yarn.lock file and found 1 package
+				Scanned %%/fixtures/locks-gitignore/subdir/Gemfile.lock file and found 1 package
+				Scanned %%/fixtures/locks-gitignore/subdir/composer.lock file and found 1 package
+				Scanned %%/fixtures/locks-gitignore/subdir/yarn.lock file and found 1 package
+				Scanned %%/fixtures/locks-gitignore/yarn.lock file and found 1 package
+				Loaded RubyGems local db from %%/osv-scanner/RubyGems/all.zip
+				Loaded Packagist local db from %%/osv-scanner/Packagist/all.zip
+				Loaded npm local db from %%/osv-scanner/npm/all.zip
+				No vulnerabilities found
+			`,
+			wantStderr: "",
+		},
+		// output with json
+		{
+			name:         "",
+			args:         []string{"", "--experimental-local-db", "--json", "./fixtures/locks-many/composer.lock"},
+			wantExitCode: 0,
+			wantStdout: `
+				{
+					"results": []
+				}
+			`,
+			wantStderr: `
+				Scanning dir ./fixtures/locks-many/composer.lock
+				Scanned %%/fixtures/locks-many/composer.lock file and found 1 package
+				Loaded Packagist local db from %%/osv-scanner/Packagist/all.zip
+			`,
+		},
+		{
+			name:         "",
+			args:         []string{"", "--experimental-local-db", "--format", "json", "./fixtures/locks-many/composer.lock"},
+			wantExitCode: 0,
+			wantStdout: `
+				{
+					"results": []
+				}
+			`,
+			wantStderr: `
+				Scanning dir ./fixtures/locks-many/composer.lock
+				Scanned %%/fixtures/locks-many/composer.lock file and found 1 package
+				Loaded Packagist local db from %%/osv-scanner/Packagist/all.zip
+			`,
+		},
+		// output format: markdown table
+		{
+			name:         "",
+			args:         []string{"", "--experimental-local-db", "--format", "markdown", "./fixtures/locks-many/composer.lock"},
+			wantExitCode: 0,
+			wantStdout: `
+				Scanning dir ./fixtures/locks-many/composer.lock
+				Scanned %%/fixtures/locks-many/composer.lock file and found 1 package
+				Loaded Packagist local db from %%/osv-scanner/Packagist/all.zip
+				No vulnerabilities found
+			`,
+			wantStderr: "",
+		},
+	}
+	for _, tt := range tests {
+		tt := tt
+		t.Run(tt.name, func(t *testing.T) {
+			t.Parallel()
+
+			testDir, cleanupTestDir := createTestDir(t)
+			defer cleanupTestDir()
+
+			old := tt.args
+
+			tt.args = []string{"", "--experimental-local-db-path", testDir}
+			tt.args = append(tt.args, old[1:]...)
 
 			testCli(t, tt)
 		})
