@@ -92,7 +92,25 @@ func run(args []string, stdout, stderr io.Writer) int {
 				return fmt.Errorf("failed to open new results at %s: %w", newPath, err)
 			}
 
-			diffVulns := ci.DiffVulnerabilityResults(oldVulns, newVulns)
+			var diffVulns models.VulnerabilityResults
+
+			diffVulnCount := ci.DiffVulnerabilityResultsByUniqueVulnCount(oldVulns, newVulns)
+			if len(diffVulnCount) == 0 {
+				// There are actually no new vulns, no need to do full diff
+				//
+				// Since `DiffVulnerabilityResultsByUniqueVulnCount` does not account for Source or Package,
+				// this actually changes the results in some cases, e.g.
+				//
+				// When a lockfile is moved, `DiffVulnerabilityResults` will report the moved lockfile as having
+				// a new vulnerability if the existing lockfile has a vulnerability. However this check will
+				// report no vulnerabilities. This is desired behavior.
+
+				// TODO: This will need to be not empty when we change osv-scanner to report all packages
+				diffVulns = models.VulnerabilityResults{}
+			} else {
+				// TODO: This will need to contain all scanned packages when we change osv-scanner to report all packages
+				diffVulns = ci.DiffVulnerabilityResults(oldVulns, newVulns)
+			}
 
 			if errPrint := tableReporter.PrintResult(&diffVulns); errPrint != nil {
 				return fmt.Errorf("failed to write output: %w", errPrint)
