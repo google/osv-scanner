@@ -27,7 +27,7 @@ func getGoVersion() (string, error) {
 }
 
 func postLockfileEnricher(r reporter.Reporter, parsedLockfile *lockfile.Lockfile) {
-	switch parsedLockfile.ParsedAs {
+	switch parsedLockfile.ParsedAs { //nolint:gocritic
 	case "go.mod":
 		goVer, err := getGoVersion()
 		if err != nil {
