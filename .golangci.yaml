@@ -30,6 +30,7 @@ linters:
     - testpackage      # will re-add later (another-rex)
     - goerr113         # will re-add later (another-rex)
     - nonamedreturns   # disagree with, for now (another-rex)
+    - depguard         # not necessary at the moment (another-rex)
   presets:
     - bugs
     - comment
