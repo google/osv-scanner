@@ -15,7 +15,7 @@ require (
 	github.com/package-url/packageurl-go v0.1.1
 	github.com/spdx/tools-golang v0.5.3
 	github.com/urfave/cli/v2 v2.25.7
-	golang.org/x/exp v0.0.0-20230801115018-d63ba01acd4b
+	golang.org/x/exp v0.0.0-20230811145659-89c5cff77bcb
 	golang.org/x/mod v0.12.0
 	golang.org/x/sync v0.3.0
 	golang.org/x/term v0.11.0
