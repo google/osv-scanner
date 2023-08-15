@@ -434,7 +434,7 @@ func TestRun_LockfileWithExplicitParseAs(t *testing.T) {
 		// unsupported parse-as
 		{
 			name:         "",
-			args:         []string{"", "-L", "my-file:my-file"},
+			args:         []string{"", "-L", "my-file:./fixtures/locks-many/composer.lock"},
 			wantExitCode: 127,
 			wantStdout:   "",
 			wantStderr: `
@@ -467,7 +467,7 @@ func TestRun_LockfileWithExplicitParseAs(t *testing.T) {
 			wantExitCode: 127,
 			wantStdout:   "",
 			wantStderr: `
-				could not determine extractor for %%/path/to/my:file
+				open %%/path/to/my:file: no such file or directory
 			`,
 		},
 		{
