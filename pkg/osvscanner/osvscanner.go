@@ -9,6 +9,7 @@ import (
 	"path/filepath"
 	"strings"
 
+	"github.com/google/osv-scanner/internal/local"
 	"github.com/google/osv-scanner/internal/output"
 	"github.com/google/osv-scanner/internal/sbom"
 	"github.com/google/osv-scanner/pkg/config"
@@ -38,7 +39,11 @@ type ScannerActions struct {
 }
 
 type ExperimentalScannerActions struct {
-	CallAnalysis bool
+	CallAnalysis   bool
+	CompareLocally bool
+	CompareOffline bool
+
+	LocalDBPath string
 }
 
 // NoPackagesFoundErr for when no packages are found during a scan.
@@ -497,6 +502,14 @@ func DoScan(actions ScannerActions, r reporter.Reporter) (models.VulnerabilityRe
 		r = &reporter.VoidReporter{}
 	}
 
+	if actions.CompareOffline {
+		actions.CompareLocally = true
+	}
+
+	if actions.CompareLocally {
+		actions.SkipGit = true
+	}
+
 	configManager := config.ConfigManager{
 		DefaultConfig: config.Config{},
 		ConfigMap:     make(map[string]config.Config),
@@ -561,18 +574,10 @@ func DoScan(actions ScannerActions, r reporter.Reporter) (models.VulnerabilityRe
 		return models.VulnerabilityResults{}, NoPackagesFoundErr
 	}
 
-	if osv.RequestUserAgent == "" {
-		osv.RequestUserAgent = "osv-scanner-api"
-	}
+	hydratedResp, err := makeRequest(r, actions.CompareLocally, actions.CompareOffline, query, actions.LocalDBPath)
 
-	resp, err := osv.MakeRequest(query)
 	if err != nil {
-		return models.VulnerabilityResults{}, fmt.Errorf("scan failed %w", err)
-	}
-
-	hydratedResp, err := osv.Hydrate(resp)
-	if err != nil {
-		return models.VulnerabilityResults{}, fmt.Errorf("failed to hydrate OSV response: %w", err)
+		return models.VulnerabilityResults{}, err
 	}
 
 	vulnerabilityResults := groupResponseBySource(r, query, hydratedResp, actions.CallAnalysis)
@@ -599,4 +604,37 @@ func DoScan(actions ScannerActions, r reporter.Reporter) (models.VulnerabilityRe
 	}
 
 	return vulnerabilityResults, nil
+}
+
+func makeRequest(
+	r reporter.Reporter,
+	compareLocally bool,
+	compareOffline bool,
+	query osv.BatchedQuery,
+	localDBPath string,
+) (*osv.HydratedBatchedResponse, error) {
+	if compareLocally {
+		hydratedResp, err := local.MakeRequest(r, query, compareOffline, localDBPath)
+		if err != nil {
+			return &osv.HydratedBatchedResponse{}, fmt.Errorf("scan failed %w", err)
+		}
+
+		return hydratedResp, nil
+	}
+
+	if osv.RequestUserAgent == "" {
+		osv.RequestUserAgent = "osv-scanner-api"
+	}
+
+	resp, err := osv.MakeRequest(query)
+	if err != nil {
+		return &osv.HydratedBatchedResponse{}, fmt.Errorf("scan failed %w", err)
+	}
+
+	hydratedResp, err := osv.Hydrate(resp)
+	if err != nil {
+		return &osv.HydratedBatchedResponse{}, fmt.Errorf("failed to hydrate OSV response: %w", err)
+	}
+
+	return hydratedResp, nil
 }
