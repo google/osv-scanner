@@ -81,7 +81,6 @@ var _ Extractor = GradleLockExtractor{}
 
 //nolint:gochecknoinits
 func init() {
-	registerExtractor("buildscript-gradle.lockfile", GradleLockExtractor{})
 	registerExtractor("gradle.lockfile", GradleLockExtractor{})
 }
 

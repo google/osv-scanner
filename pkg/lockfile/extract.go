@@ -3,7 +3,6 @@ package lockfile
 import (
 	"errors"
 	"fmt"
-	"path/filepath"
 	"sort"
 	"strings"
 )
@@ -18,21 +17,6 @@ func registerExtractor(name string, extractor Extractor) {
 	extractors[name] = extractor
 }
 
-// stabilizeFindExtractorName is a workaround for the fact that the gradle extractor
-// supports two different filenames, but extractors cannot feed back which filename
-// was matched when checking if they should extract a file based on its path
-func stabilizeFindExtractorName(path, name string) string {
-	base := filepath.Base(path)
-
-	for _, lockfile := range []string{"buildscript-gradle.lockfile", "gradle.lockfile"} {
-		if lockfile == base {
-			return base
-		}
-	}
-
-	return name
-}
-
 func FindExtractor(path, extractAs string) (Extractor, string) {
 	if extractAs != "" {
 		return extractors[extractAs], extractAs
@@ -40,7 +24,7 @@ func FindExtractor(path, extractAs string) (Extractor, string) {
 
 	for name, extractor := range extractors {
 		if extractor.ShouldExtract(path) {
-			return extractor, stabilizeFindExtractorName(path, name)
+			return extractor, name
 		}
 	}
 

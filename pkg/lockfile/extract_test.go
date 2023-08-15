@@ -33,33 +33,33 @@ var _ lockfile.NestedDepFile = TestDepFile{}
 func TestFindExtractor(t *testing.T) {
 	t.Parallel()
 
-	lockfiles := []string{
-		"buildscript-gradle.lockfile",
-		"Cargo.lock",
-		"composer.lock",
-		"Gemfile.lock",
-		"go.mod",
-		"gradle.lockfile",
-		"mix.lock",
-		"Pipfile.lock",
-		"package-lock.json",
-		"packages.lock.json",
-		"pnpm-lock.yaml",
-		"poetry.lock",
-		"pom.xml",
-		"pubspec.lock",
-		"requirements.txt",
-		"yarn.lock",
+	lockfiles := map[string]string{
+		"buildscript-gradle.lockfile": "gradle.lockfile",
+		"Cargo.lock":                  "Cargo.lock",
+		"composer.lock":               "composer.lock",
+		"Gemfile.lock":                "Gemfile.lock",
+		"go.mod":                      "go.mod",
+		"gradle.lockfile":             "gradle.lockfile",
+		"mix.lock":                    "mix.lock",
+		"Pipfile.lock":                "Pipfile.lock",
+		"package-lock.json":           "package-lock.json",
+		"packages.lock.json":          "packages.lock.json",
+		"pnpm-lock.yaml":              "pnpm-lock.yaml",
+		"poetry.lock":                 "poetry.lock",
+		"pom.xml":                     "pom.xml",
+		"pubspec.lock":                "pubspec.lock",
+		"requirements.txt":            "requirements.txt",
+		"yarn.lock":                   "yarn.lock",
 	}
 
-	for _, file := range lockfiles {
+	for file, extractAs := range lockfiles {
 		extractor, extractedAs := lockfile.FindExtractor("/path/to/my/"+file, "")
 
 		if extractor == nil {
 			t.Errorf("Expected a extractor to be found for %s but did not", file)
 		}
 
-		if file != extractedAs {
+		if extractAs != extractedAs {
 			t.Errorf("Expected extractedAs to be %s but got %s instead", file, extractedAs)
 		}
 	}
@@ -139,7 +139,7 @@ func TestListExtractors(t *testing.T) {
 
 	extractors := lockfile.ListExtractors()
 
-	firstExpected := "buildscript-gradle.lockfile"
+	firstExpected := "Cargo.lock"
 	//nolint:ifshort
 	lastExpected := "yarn.lock"
 
