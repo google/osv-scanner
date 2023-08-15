@@ -72,7 +72,7 @@ func TestParsePoetryLock_InvalidToml(t *testing.T) {
 
 	packages, err := lockfile.ParsePoetryLock("fixtures/poetry/not-toml.txt")
 
-	expectErrContaining(t, err, "could not parse")
+	expectErrContaining(t, err, "could not extract from")
 	expectPackages(t, packages, []lockfile.PackageDetails{})
 }
 

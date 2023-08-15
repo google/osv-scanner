@@ -31,7 +31,7 @@ func (e CargoLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 	_, err := toml.NewDecoder(f).Decode(&parsedLockfile)
 
 	if err != nil {
-		return []PackageDetails{}, fmt.Errorf("could not parse %s: %w", f.Path(), err)
+		return []PackageDetails{}, fmt.Errorf("could not extract from %s: %w", f.Path(), err)
 	}
 
 	packages := make([]PackageDetails, 0, len(parsedLockfile.Packages))

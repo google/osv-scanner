@@ -72,7 +72,7 @@ func TestParsePnpmLock_InvalidYaml(t *testing.T) {
 
 	packages, err := lockfile.ParsePnpmLock("fixtures/pnpm/not-yaml.txt")
 
-	expectErrContaining(t, err, "could not parse")
+	expectErrContaining(t, err, "could not extract from")
 	expectPackages(t, packages, []lockfile.PackageDetails{})
 }
 

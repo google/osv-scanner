@@ -72,7 +72,7 @@ func TestParseCargoLock_InvalidToml(t *testing.T) {
 
 	packages, err := lockfile.ParseCargoLock("fixtures/cargo/not-toml.txt")
 
-	expectErrContaining(t, err, "could not parse")
+	expectErrContaining(t, err, "could not extract from")
 	expectPackages(t, packages, []lockfile.PackageDetails{})
 }
 

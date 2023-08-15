@@ -176,7 +176,7 @@ func (e PnpmLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 	err := yaml.NewDecoder(f).Decode(&parsedLockfile)
 
 	if err != nil && !errors.Is(err, io.EOF) {
-		return []PackageDetails{}, fmt.Errorf("could not parse %s: %w", f.Path(), err)
+		return []PackageDetails{}, fmt.Errorf("could not extract from %s: %w", f.Path(), err)
 	}
 
 	// this will happen if the file is empty

@@ -20,7 +20,7 @@ func TestParseConanLock_v2_InvalidJson(t *testing.T) {
 
 	packages, err := lockfile.ParseConanLock("fixtures/conan/not-json.txt")
 
-	expectErrContaining(t, err, "could not parse")
+	expectErrContaining(t, err, "could not extract from")
 	expectPackages(t, packages, []lockfile.PackageDetails{})
 }
 

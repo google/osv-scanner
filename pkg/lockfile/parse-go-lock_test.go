@@ -72,7 +72,7 @@ func TestParseGoLock_Invalid(t *testing.T) {
 
 	packages, err := lockfile.ParseGoLock("fixtures/go/not-go-mod.txt")
 
-	expectErrContaining(t, err, "could not parse")
+	expectErrContaining(t, err, "could not extract from")
 	expectPackages(t, packages, []lockfile.PackageDetails{})
 }
 

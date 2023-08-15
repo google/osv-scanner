@@ -59,11 +59,11 @@ func (e NuGetLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 	err := json.NewDecoder(f).Decode(&parsedLockfile)
 
 	if err != nil {
-		return []PackageDetails{}, fmt.Errorf("could not parse %s: %w", f.Path(), err)
+		return []PackageDetails{}, fmt.Errorf("could not extract from %s: %w", f.Path(), err)
 	}
 
 	if parsedLockfile.Version != 1 {
-		return []PackageDetails{}, fmt.Errorf("could not parse: unsupported lock file version")
+		return []PackageDetails{}, fmt.Errorf("could not extract: unsupported lock file version")
 	}
 
 	return parseNuGetLock(*parsedLockfile)

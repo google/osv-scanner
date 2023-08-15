@@ -141,7 +141,7 @@ func Parse(pathToLockfile string, parseAs string) (Lockfile, error) {
 	packages, err := parser(pathToLockfile)
 
 	if err != nil && parseAs != "" {
-		err = fmt.Errorf("(parsing as %s) %w", parsedAs, err)
+		err = fmt.Errorf("(extracting as %s) %w", parsedAs, err)
 	}
 
 	sort.Slice(packages, func(i, j int) bool {

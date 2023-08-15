@@ -72,7 +72,7 @@ func TestParseMavenLock_Invalid(t *testing.T) {
 
 	packages, err := lockfile.ParseMavenLock("fixtures/maven/not-pom.txt")
 
-	expectErrContaining(t, err, "could not parse")
+	expectErrContaining(t, err, "could not extract from")
 	expectPackages(t, packages, []lockfile.PackageDetails{})
 }
 

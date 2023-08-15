@@ -77,7 +77,7 @@ func ExtractDeps(f DepFile, extractAs string) (Lockfile, error) {
 	packages, err := extractor.Extract(f)
 
 	if err != nil && extractAs != "" {
-		err = fmt.Errorf("(parsing as %s) %w", extractedAs, err)
+		err = fmt.Errorf("(extracting as %s) %w", extractedAs, err)
 	}
 
 	sort.Slice(packages, func(i, j int) bool {

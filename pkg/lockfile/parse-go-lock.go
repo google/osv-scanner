@@ -37,7 +37,7 @@ func (e GoLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 	}
 
 	if err != nil {
-		return []PackageDetails{}, fmt.Errorf("could not parse %s: %w", f.Path(), err)
+		return []PackageDetails{}, fmt.Errorf("could not extract from %s: %w", f.Path(), err)
 	}
 
 	packages := map[string]PackageDetails{}

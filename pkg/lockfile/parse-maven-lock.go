@@ -113,7 +113,7 @@ func (e MavenLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 	err := xml.NewDecoder(f).Decode(&parsedLockfile)
 
 	if err != nil {
-		return []PackageDetails{}, fmt.Errorf("could not parse %s: %w", f.Path(), err)
+		return []PackageDetails{}, fmt.Errorf("could not extract from %s: %w", f.Path(), err)
 	}
 
 	details := map[string]PackageDetails{}

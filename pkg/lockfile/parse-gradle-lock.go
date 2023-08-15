@@ -63,7 +63,7 @@ func (e GradleLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 
 		pkg, err := parseToGradlePackageDetail(lockLine)
 		if err != nil {
-			fmt.Fprintf(os.Stderr, "failed to parse lockline: %s\n", err.Error())
+			fmt.Fprintf(os.Stderr, "failed to extract from lockline: %s\n", err.Error())
 			continue
 		}
 
