@@ -25,7 +25,7 @@ COPY ./ /src/
 RUN go build -o osv-scanner ./cmd/osv-scanner/
 RUN go build -o osv-reporter ./cmd/osv-reporter/
 
-FROM alpine:3.17@sha256:124c7d2707904eea7431fffe91522a01e5a861a624ee31d03372cc1d138a3126
+FROM alpine:3.17@sha256:f71a5f071694a785e064f05fed657bf8277f1b2113a8ed70c90ad486d6ee54dc
 RUN apk --no-cache add \
     ca-certificates \
     git \
