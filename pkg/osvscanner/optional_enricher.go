@@ -2,9 +2,7 @@ package osvscanner
 
 import (
 	"fmt"
-	"os"
-	"path/filepath"
-	"runtime"
+	"os/exec"
 	"strings"
 
 	"github.com/google/osv-scanner/pkg/lockfile"
@@ -13,13 +11,13 @@ import (
 
 // Get the go version of the default environment that osv-scanner is being ran on
 func getGoVersion() (string, error) {
-	// GOROOT will return either the custom go location specified by $GOROOT environment
-	// variable, or it will return the default go location used during the go build,
-	// which will match the default of the platform being ran on.
-	versionBytes, err := os.ReadFile(filepath.Join(runtime.GOROOT(), "VERSION"))
+	versionBytes, err := exec.Command("go", "env", "GOVERSION").Output()
 	if err != nil {
 		return "", err
 	}
+	// version format can be:
+	// - go1.20.6
+	// - go1.22-20230729-RC00 cl/552016856 +457721cd52 X:fieldtrack,boringcrypto
 	version := strings.TrimPrefix(string(versionBytes), "go")
 	version, _, _ = strings.Cut(version, " ")
 
