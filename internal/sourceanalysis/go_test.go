@@ -11,10 +11,22 @@ import (
 func Test_matchAnalysisWithPackageVulns(t *testing.T) {
 	t.Parallel()
 
-	pkgs := testutility.LoadJSONFixture[[]models.PackageVulns](t, "fixtures/input.json")
-	gvcResByVulnID := testutility.LoadJSONFixture[map[string][]*govulncheck.Finding](t, "fixtures/govulncheckinput.json")
-	vulnsByID := testutility.LoadJSONFixture[map[string]models.Vulnerability](t, "fixtures/vulnbyid.json")
+	pkgs := testutility.LoadJSONFixture[[]models.PackageVulns](t, "fixtures-go/input.json")
+	gvcResByVulnID := testutility.LoadJSONFixture[map[string][]*govulncheck.Finding](t, "fixtures-go/govulncheckinput.json")
+	vulnsByID := testutility.LoadJSONFixture[map[string]models.Vulnerability](t, "fixtures-go/vulnbyid.json")
 
 	matchAnalysisWithPackageVulns(pkgs, gvcResByVulnID, vulnsByID)
-	testutility.AssertMatchFixtureJSON(t, "fixtures/output.json", pkgs)
+	testutility.AssertMatchFixtureJSON(t, "fixtures-go/output.json", pkgs)
+}
+
+func Test_matchEmptyAnalysisWithPackageVulns(t *testing.T) {
+	t.Parallel()
+
+	pkgs := testutility.LoadJSONFixture[[]models.PackageVulns](t, "fixtures-go/input-no-call-data.json")
+	// When there is no ecosystem specific data, govulncheck will return no results
+	gvcResByVulnID := map[string][]*govulncheck.Finding{}
+	vulnsByID := testutility.LoadJSONFixture[map[string]models.Vulnerability](t, "fixtures-go/vulnbyid-no-call-data.json")
+
+	matchAnalysisWithPackageVulns(pkgs, gvcResByVulnID, vulnsByID)
+	testutility.AssertMatchFixtureJSON(t, "fixtures-go/output-no-call-data.json", pkgs)
 }

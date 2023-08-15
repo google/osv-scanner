@@ -30,4 +30,8 @@ func Run(r reporter.Reporter, source models.SourceInfo, pkgs []models.PackageVul
 	if source.Type == "lockfile" && filepath.Base(source.Path) == "go.mod" {
 		goAnalysis(r, pkgs, source)
 	}
+
+	if source.Type == "lockfile" && filepath.Base(source.Path) == "Cargo.lock" {
+		rustAnalysis(r, pkgs, source)
+	}
 }

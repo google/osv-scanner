@@ -148,7 +148,7 @@ func run(args []string, stdout, stderr io.Writer) int {
 				}
 			}
 
-			if r, err = reporter.New(format, stdout, stderr, termWidth); err != nil {
+			if r, err = reporter.New(format, context.App.Writer, context.App.ErrWriter, termWidth); err != nil {
 				return err
 			}
 
