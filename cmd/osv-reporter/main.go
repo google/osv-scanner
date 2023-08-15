@@ -94,8 +94,8 @@ func run(args []string, stdout, stderr io.Writer) int {
 
 			var diffVulns models.VulnerabilityResults
 
-			diffVulnCount := ci.DiffVulnerabilityResultsByUniqueVulnCount(oldVulns, newVulns)
-			if len(diffVulnCount) == 0 {
+			diffVulnOccurrences := ci.DiffVulnerabilityResultsByOccurrences(oldVulns, newVulns)
+			if len(diffVulnOccurrences) == 0 {
 				// There are actually no new vulns, no need to do full diff
 				//
 				// Since `DiffVulnerabilityResultsByUniqueVulnCount` does not account for Source or Package,
