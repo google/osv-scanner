@@ -1,10 +1,13 @@
 package lockfile
 
 import (
+	"errors"
 	"io"
 	"os"
 	"path/filepath"
 )
+
+var ErrNotSupported = errors.New("this file does not support opening files")
 
 // DepFile is an abstraction for a file that has been opened for extraction,
 // and that knows how to open other DepFiles relative to itself.
