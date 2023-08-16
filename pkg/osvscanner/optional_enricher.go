@@ -24,7 +24,7 @@ func getGoVersion() (string, error) {
 	return version, nil
 }
 
-func postLockfileEnricher(r reporter.Reporter, parsedLockfile *lockfile.Lockfile) {
+func addCompilerVersion(r reporter.Reporter, parsedLockfile *lockfile.Lockfile) {
 	switch parsedLockfile.ParsedAs { //nolint:gocritic
 	case "go.mod":
 		goVer, err := getGoVersion()

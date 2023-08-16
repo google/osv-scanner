@@ -210,7 +210,7 @@ func scanLockfile(r reporter.Reporter, query *osv.BatchedQuery, path string, par
 		return err
 	}
 
-	postLockfileEnricher(r, &parsedLockfile)
+	addCompilerVersion(r, &parsedLockfile)
 
 	parsedAsComment := ""
 
