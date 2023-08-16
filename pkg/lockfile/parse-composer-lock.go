@@ -74,5 +74,5 @@ func init() {
 }
 
 func ParseComposerLock(pathToLockfile string) ([]PackageDetails, error) {
-	return parseFile(pathToLockfile, ComposerLockExtractor{})
+	return extractFromFile(pathToLockfile, ComposerLockExtractor{})
 }

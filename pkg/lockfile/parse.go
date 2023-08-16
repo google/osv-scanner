@@ -158,15 +158,3 @@ func Parse(pathToLockfile string, parseAs string) (Lockfile, error) {
 		Packages: packages,
 	}, err
 }
-
-func parseFile(pathToLockfile string, extractor Extractor) ([]PackageDetails, error) {
-	f, err := OpenLocalDepFile(pathToLockfile)
-
-	if err != nil {
-		return []PackageDetails{}, err
-	}
-
-	defer f.Close()
-
-	return extractor.Extract(f)
-}

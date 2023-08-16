@@ -195,5 +195,5 @@ func init() {
 }
 
 func ParsePnpmLock(pathToLockfile string) ([]PackageDetails, error) {
-	return parseFile(pathToLockfile, PnpmLockExtractor{})
+	return extractFromFile(pathToLockfile, PnpmLockExtractor{})
 }

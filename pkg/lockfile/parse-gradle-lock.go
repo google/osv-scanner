@@ -85,5 +85,5 @@ func init() {
 }
 
 func ParseGradleLock(pathToLockfile string) ([]PackageDetails, error) {
-	return parseFile(pathToLockfile, GradleLockExtractor{})
+	return extractFromFile(pathToLockfile, GradleLockExtractor{})
 }

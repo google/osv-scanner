@@ -189,5 +189,5 @@ func init() {
 }
 
 func ParseGemfileLock(pathToLockfile string) ([]PackageDetails, error) {
-	return parseFile(pathToLockfile, GemfileLockExtractor{})
+	return extractFromFile(pathToLockfile, GemfileLockExtractor{})
 }

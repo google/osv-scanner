@@ -185,5 +185,5 @@ func init() {
 }
 
 func ParseRequirementsTxt(pathToLockfile string) ([]PackageDetails, error) {
-	return parseFile(pathToLockfile, RequirementsTxtExtractor{})
+	return extractFromFile(pathToLockfile, RequirementsTxtExtractor{})
 }

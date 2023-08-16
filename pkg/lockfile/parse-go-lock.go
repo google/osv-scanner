@@ -93,5 +93,5 @@ func init() {
 }
 
 func ParseGoLock(pathToLockfile string) ([]PackageDetails, error) {
-	return parseFile(pathToLockfile, GoLockExtractor{})
+	return extractFromFile(pathToLockfile, GoLockExtractor{})
 }

@@ -77,5 +77,5 @@ func init() {
 }
 
 func ParseNuGetLock(pathToLockfile string) ([]PackageDetails, error) {
-	return parseFile(pathToLockfile, NuGetLockExtractor{})
+	return extractFromFile(pathToLockfile, NuGetLockExtractor{})
 }

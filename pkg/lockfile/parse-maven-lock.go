@@ -152,5 +152,5 @@ func init() {
 }
 
 func ParseMavenLock(pathToLockfile string) ([]PackageDetails, error) {
-	return parseFile(pathToLockfile, MavenLockExtractor{})
+	return extractFromFile(pathToLockfile, MavenLockExtractor{})
 }

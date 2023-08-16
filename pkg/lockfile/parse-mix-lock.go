@@ -86,5 +86,5 @@ func init() {
 }
 
 func ParseMixLock(pathToLockfile string) ([]PackageDetails, error) {
-	return parseFile(pathToLockfile, MixLockExtractor{})
+	return extractFromFile(pathToLockfile, MixLockExtractor{})
 }

@@ -208,5 +208,5 @@ func init() {
 }
 
 func ParseYarnLock(pathToLockfile string) ([]PackageDetails, error) {
-	return parseFile(pathToLockfile, YarnLockExtractor{})
+	return extractFromFile(pathToLockfile, YarnLockExtractor{})
 }

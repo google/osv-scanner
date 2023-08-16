@@ -197,5 +197,5 @@ func init() {
 }
 
 func ParseConanLock(pathToLockfile string) ([]PackageDetails, error) {
-	return parseFile(pathToLockfile, ConanLockExtractor{})
+	return extractFromFile(pathToLockfile, ConanLockExtractor{})
 }

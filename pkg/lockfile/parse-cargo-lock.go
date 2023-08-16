@@ -56,5 +56,5 @@ func init() {
 }
 
 func ParseCargoLock(pathToLockfile string) ([]PackageDetails, error) {
-	return parseFile(pathToLockfile, CargoLockExtractor{})
+	return extractFromFile(pathToLockfile, CargoLockExtractor{})
 }
