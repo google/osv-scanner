@@ -209,6 +209,9 @@ func scanLockfile(r reporter.Reporter, query *osv.BatchedQuery, path string, par
 	if err != nil {
 		return err
 	}
+
+	addCompilerVersion(r, &parsedLockfile)
+
 	parsedAsComment := ""
 
 	if parseAs != "" {
