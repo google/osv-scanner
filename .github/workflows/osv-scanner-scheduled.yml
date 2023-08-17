@@ -26,5 +26,5 @@ permissions:
   contents: read
 
 jobs:
-  scan-pr-attempt:
+  scan-scheduled:
     uses: "./.github/workflows/osv-scanner-reusable-scheduled.yml"
