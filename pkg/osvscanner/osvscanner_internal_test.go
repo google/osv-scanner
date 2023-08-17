@@ -61,7 +61,7 @@ func Test_filterResults(t *testing.T) {
 				ConfigMap:     make(map[string]config.Config),
 			}
 			got := tt.testCase.input
-			filtered := filterResults(r, &got, &configManager)
+			filtered := filterResults(r, &got, &configManager, false)
 			if diff := cmp.Diff(tt.testCase.want, got); diff != "" {
 				out := filepath.Join(tt.testCase.path, "out.json")
 				t.Errorf("filterResults() returned an unexpected results (-want, +got):\n%s\n"+

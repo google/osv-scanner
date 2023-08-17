@@ -120,6 +120,10 @@ func run(args []string, stdout, stderr io.Writer) int {
 				Usage:  "sets the path that local databases should be stored",
 				Hidden: true,
 			},
+			&cli.BoolFlag{
+				Name:  "experimental-all-packages",
+				Usage: "when json output is selected, prints all packages",
+			},
 		},
 		ArgsUsage: "[directory1 directory2...]",
 		Action: func(context *cli.Context) error {
@@ -165,6 +169,7 @@ func run(args []string, stdout, stderr io.Writer) int {
 					CallAnalysis:   context.Bool("experimental-call-analysis"),
 					CompareLocally: context.Bool("experimental-local-db"),
 					CompareOffline: context.Bool("experimental-offline"),
+					AllPackages:    context.Bool("experimental-all-packages"),
 				},
 			}, r)
 

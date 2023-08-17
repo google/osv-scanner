@@ -42,6 +42,7 @@ type ExperimentalScannerActions struct {
 	CallAnalysis   bool
 	CompareLocally bool
 	CompareOffline bool
+	AllPackages    bool
 
 	LocalDBPath string
 }
@@ -432,7 +433,7 @@ func scanDebianDocker(r reporter.Reporter, dockerImageName string) ([]Package, e
 }
 
 // Filters results according to config, preserving order. Returns total number of vulnerabilities removed.
-func filterResults(r reporter.Reporter, results *models.VulnerabilityResults, configManager *config.ConfigManager) int {
+func filterResults(r reporter.Reporter, results *models.VulnerabilityResults, configManager *config.ConfigManager, allPackages bool) int {
 	removedCount := 0
 	newResults := []models.PackageSource{} // Want 0 vulnerabilities to show in JSON as an empty list, not null.
 	for _, pkgSrc := range results.Results {
@@ -441,8 +442,7 @@ func filterResults(r reporter.Reporter, results *models.VulnerabilityResults, co
 		for _, pkgVulns := range pkgSrc.Packages {
 			newVulns := filterPackageVulns(r, pkgVulns, configToUse)
 			removedCount += len(pkgVulns.Vulnerabilities) - len(newVulns.Vulnerabilities)
-			// Don't want to include the package at all if there are no vulns.
-			if len(newVulns.Vulnerabilities) > 0 {
+			if len(newVulns.Vulnerabilities) > 0 || allPackages {
 				newPackages = append(newPackages, newVulns)
 			}
 		}
@@ -608,9 +608,9 @@ func DoScan(actions ScannerActions, r reporter.Reporter) (models.VulnerabilityRe
 		return models.VulnerabilityResults{}, err
 	}
 
-	vulnerabilityResults := buildVulnerabilityResults(r, scannedPackages, hydratedResp, actions.CallAnalysis)
+	vulnerabilityResults := buildVulnerabilityResults(r, scannedPackages, hydratedResp, actions.CallAnalysis, actions.AllPackages)
 
-	filtered := filterResults(r, &vulnerabilityResults, &configManager)
+	filtered := filterResults(r, &vulnerabilityResults, &configManager, actions.AllPackages)
 	if filtered > 0 {
 		r.PrintText(fmt.Sprintf(
 			"Filtered %d %s from output\n",
