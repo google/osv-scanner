@@ -838,6 +838,9 @@ func TestRun_LocalDatabases(t *testing.T) {
 			tt.args = []string{"", "--experimental-local-db-path", testDir}
 			tt.args = append(tt.args, old[1:]...)
 
+			// run each test twice since they should provide the same output,
+			// and the second run should be fast as the db is already available
+			testCli(t, tt)
 			testCli(t, tt)
 		})
 	}

@@ -73,7 +73,7 @@ func setupLocalDBDirectory(localDBPath string) (string, error) {
 		}
 	}
 
-	err = os.Mkdir(path.Join(localDBPath, "osv-scanner"), 0750)
+	err = os.MkdirAll(path.Join(localDBPath, "osv-scanner"), 0750)
 
 	if err == nil {
 		return path.Join(localDBPath, "osv-scanner"), nil
