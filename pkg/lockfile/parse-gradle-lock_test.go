@@ -6,12 +6,89 @@ import (
 	"github.com/google/osv-scanner/pkg/lockfile"
 )
 
+func TestGradleLockExtractor_ShouldExtract(t *testing.T) {
+	t.Parallel()
+
+	tests := []struct {
+		name string
+		path string
+		want bool
+	}{
+		{
+			name: "",
+			path: "",
+			want: false,
+		},
+		{
+			name: "",
+			path: "buildscript-gradle.lockfile",
+			want: true,
+		},
+		{
+			name: "",
+			path: "path/to/my/buildscript-gradle.lockfile",
+			want: true,
+		},
+		{
+			name: "",
+			path: "path/to/my/buildscript-gradle.lockfile/file",
+			want: false,
+		},
+		{
+			name: "",
+			path: "path/to/my/buildscript-gradle.lockfile.file",
+			want: false,
+		},
+		{
+			name: "",
+			path: "path.to.my.buildscript-gradle.lockfile",
+			want: false,
+		},
+		{
+			name: "",
+			path: "gradle.lockfile",
+			want: true,
+		},
+		{
+			name: "",
+			path: "path/to/my/gradle.lockfile",
+			want: true,
+		},
+		{
+			name: "",
+			path: "path/to/my/gradle.lockfile/file",
+			want: false,
+		},
+		{
+			name: "",
+			path: "path/to/my/gradle.lockfile.file",
+			want: false,
+		},
+		{
+			name: "",
+			path: "path.to.my.gradle.lockfile",
+			want: false,
+		},
+	}
+	for _, tt := range tests {
+		tt := tt
+		t.Run(tt.name, func(t *testing.T) {
+			t.Parallel()
+			e := lockfile.GradleLockExtractor{}
+			got := e.ShouldExtract(tt.path)
+			if got != tt.want {
+				t.Errorf("Extract() got = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
 func TestParseGradleLock_FileDoesNotExist(t *testing.T) {
 	t.Parallel()
 
 	packages, err := lockfile.ParseGradleLock("fixtures/gradle/does-not-exist")
 
-	expectErrContaining(t, err, "could not open")
+	expectErrContaining(t, err, "no such file or directory")
 	expectPackages(t, packages, []lockfile.PackageDetails{})
 }
 

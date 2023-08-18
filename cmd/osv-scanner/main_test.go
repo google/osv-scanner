@@ -434,11 +434,11 @@ func TestRun_LockfileWithExplicitParseAs(t *testing.T) {
 		// unsupported parse-as
 		{
 			name:         "",
-			args:         []string{"", "-L", "my-file:my-file"},
+			args:         []string{"", "-L", "my-file:./fixtures/locks-many/composer.lock"},
 			wantExitCode: 127,
 			wantStdout:   "",
 			wantStderr: `
-				could not determine parser, requested my-file
+				could not determine extractor, requested my-file
 			`,
 		},
 		// empty is default
@@ -467,7 +467,7 @@ func TestRun_LockfileWithExplicitParseAs(t *testing.T) {
 			wantExitCode: 127,
 			wantStdout:   "",
 			wantStderr: `
-				could not determine parser for %%/path/to/my:file
+				open %%/path/to/my:file: no such file or directory
 			`,
 		},
 		{
@@ -480,7 +480,7 @@ func TestRun_LockfileWithExplicitParseAs(t *testing.T) {
 			wantExitCode: 127,
 			wantStdout:   "",
 			wantStderr: `
-				could not read %%/path/to/my:project/package-lock.json: open %%/path/to/my:project/package-lock.json: no such file or directory
+				open %%/path/to/my:project/package-lock.json: no such file or directory
 			`,
 		},
 		// when an explicit parse-as is given, it's applied to that file
@@ -565,7 +565,7 @@ func TestRun_LockfileWithExplicitParseAs(t *testing.T) {
 			wantExitCode: 127,
 			wantStdout:   "",
 			wantStderr: `
-				(parsing as Cargo.lock) could not parse %%/fixtures/locks-insecure/my-package-lock.json: toml: line 1: expected '.' or '=', but got '{' instead
+				(extracting as Cargo.lock) could not extract from %%/fixtures/locks-insecure/my-package-lock.json: toml: line 1: expected '.' or '=', but got '{' instead
 			`,
 		},
 		// parse-as takes priority, even if it's wrong
@@ -579,7 +579,7 @@ func TestRun_LockfileWithExplicitParseAs(t *testing.T) {
 			wantExitCode: 127,
 			wantStdout:   "",
 			wantStderr: `
-				(parsing as package-lock.json) could not parse %%/fixtures/locks-many/yarn.lock: invalid character '#' looking for beginning of value
+				(extracting as package-lock.json) could not extract from %%/fixtures/locks-many/yarn.lock: invalid character '#' looking for beginning of value
 			`,
 		},
 		// "apk-installed" is supported

@@ -115,7 +115,7 @@ func scanDir(r reporter.Reporter, query *osv.BatchedQuery, dir string, skipGit b
 		}
 
 		if !info.IsDir() {
-			if parser, _ := lockfile.FindParser(path, ""); parser != nil {
+			if extractor, _ := lockfile.FindExtractor(path, ""); extractor != nil {
 				err := scanLockfile(r, query, path, "")
 				if err != nil {
 					r.PrintError(fmt.Sprintf("Attempted to scan lockfile but failed: %s\n", path))
@@ -194,16 +194,20 @@ func scanLockfile(r reporter.Reporter, query *osv.BatchedQuery, path string, par
 	var err error
 	var parsedLockfile lockfile.Lockfile
 
-	// special case for the APK and DPKG parsers because they have a very generic name while
-	// living at a specific location, so they are not included in the map of parsers
-	// used by lockfile.Parse to avoid false-positives when scanning projects
-	switch parseAs {
-	case "apk-installed":
-		parsedLockfile, err = lockfile.FromApkInstalled(path)
-	case "dpkg-status":
-		parsedLockfile, err = lockfile.FromDpkgStatus(path)
-	default:
-		parsedLockfile, err = lockfile.Parse(path, parseAs)
+	f, err := lockfile.OpenLocalDepFile(path)
+
+	if err == nil {
+		// special case for the APK and DPKG parsers because they have a very generic name while
+		// living at a specific location, so they are not included in the map of parsers
+		// used by lockfile.Parse to avoid false-positives when scanning projects
+		switch parseAs {
+		case "apk-installed":
+			parsedLockfile, err = lockfile.FromApkInstalled(path)
+		case "dpkg-status":
+			parsedLockfile, err = lockfile.FromDpkgStatus(path)
+		default:
+			parsedLockfile, err = lockfile.ExtractDeps(f, parseAs)
+		}
 	}
 
 	if err != nil {

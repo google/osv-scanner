@@ -1,9 +1,10 @@
 package lockfile
 
 import (
+	"bufio"
 	"fmt"
 	"log"
-	"os"
+	"path/filepath"
 	"strings"
 
 	"github.com/google/osv-scanner/internal/cachedregexp"
@@ -127,53 +128,66 @@ func (parser *gemfileLockfileParser) parseLineBasedOnState(line string) {
 	}
 }
 
-func (parser *gemfileLockfileParser) parse(contents string) {
-	lineMatcher := cachedregexp.MustCompile(`(?:\r?\n)+`)
+func (parser *gemfileLockfileParser) parse(line string) {
+	if isSourceSection(line) {
+		// clear the stateful package details,
+		// since we're now parsing a new group
+		parser.currentGemCommit = ""
+		parser.state = parserStateSource
+		parser.parseSource(line)
 
-	lines := lineMatcher.Split(contents, -1)
+		return
+	}
 
-	for _, line := range lines {
-		if isSourceSection(line) {
-			// clear the stateful package details,
-			// since we're now parsing a new group
-			parser.currentGemCommit = ""
-			parser.state = parserStateSource
-			parser.parseSource(line)
-
-			continue
+	switch line {
+	case lockfileSectionDEPENDENCIES:
+		parser.state = parserStateDependency
+	case lockfileSectionPLATFORMS:
+		parser.state = parserStatePlatform
+	case lockfileSectionRUBY:
+		parser.state = parserStateRuby
+	case lockfileSectionBUNDLED:
+		parser.state = parserStateBundledWith
+	default:
+		if isNotIndented(line) {
+			parser.state = ""
 		}
 
-		switch line {
-		case lockfileSectionDEPENDENCIES:
-			parser.state = parserStateDependency
-		case lockfileSectionPLATFORMS:
-			parser.state = parserStatePlatform
-		case lockfileSectionRUBY:
-			parser.state = parserStateRuby
-		case lockfileSectionBUNDLED:
-			parser.state = parserStateBundledWith
-		default:
-			if isNotIndented(line) {
-				parser.state = ""
-			}
-
-			if parser.state != "" {
-				parser.parseLineBasedOnState(line)
-			}
+		if parser.state != "" {
+			parser.parseLineBasedOnState(line)
 		}
 	}
 }
 
-func ParseGemfileLock(pathToLockfile string) ([]PackageDetails, error) {
+type GemfileLockExtractor struct{}
+
+func (e GemfileLockExtractor) ShouldExtract(path string) bool {
+	return filepath.Base(path) == "Gemfile.lock"
+}
+
+func (e GemfileLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 	var parser gemfileLockfileParser
 
-	bytes, err := os.ReadFile(pathToLockfile)
+	scanner := bufio.NewScanner(f)
 
-	if err != nil {
-		return []PackageDetails{}, fmt.Errorf("could not read %s: %w", pathToLockfile, err)
+	for scanner.Scan() {
+		parser.parse(scanner.Text())
 	}
 
-	parser.parse(string(bytes))
+	if err := scanner.Err(); err != nil {
+		return []PackageDetails{}, fmt.Errorf("error while scanning %s: %w", f.Path(), err)
+	}
 
 	return parser.dependencies, nil
+}
+
+var _ Extractor = GemfileLockExtractor{}
+
+//nolint:gochecknoinits
+func init() {
+	registerExtractor("Gemfile.lock", GemfileLockExtractor{})
+}
+
+func ParseGemfileLock(pathToLockfile string) ([]PackageDetails, error) {
+	return extractFromFile(pathToLockfile, GemfileLockExtractor{})
 }

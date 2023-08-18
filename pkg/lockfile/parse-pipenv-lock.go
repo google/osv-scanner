@@ -3,7 +3,7 @@ package lockfile
 import (
 	"encoding/json"
 	"fmt"
-	"os"
+	"path/filepath"
 )
 
 type PipenvPackage struct {
@@ -17,19 +17,19 @@ type PipenvLock struct {
 
 const PipenvEcosystem = PipEcosystem
 
-func ParsePipenvLock(pathToLockfile string) ([]PackageDetails, error) {
+type PipenvLockExtractor struct{}
+
+func (e PipenvLockExtractor) ShouldExtract(path string) bool {
+	return filepath.Base(path) == "Pipfile.lock"
+}
+
+func (e PipenvLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 	var parsedLockfile *PipenvLock
 
-	lockfileContents, err := os.ReadFile(pathToLockfile)
+	err := json.NewDecoder(f).Decode(&parsedLockfile)
 
 	if err != nil {
-		return []PackageDetails{}, fmt.Errorf("could not read %s: %w", pathToLockfile, err)
-	}
-
-	err = json.Unmarshal(lockfileContents, &parsedLockfile)
-
-	if err != nil {
-		return []PackageDetails{}, fmt.Errorf("could not parse %s: %w", pathToLockfile, err)
+		return []PackageDetails{}, fmt.Errorf("could not extract from %s: %w", f.Path(), err)
 	}
 
 	details := make(map[string]PackageDetails)
@@ -55,4 +55,15 @@ func addPkgDetails(details map[string]PackageDetails, packages map[string]Pipenv
 			CompareAs: PipenvEcosystem,
 		}
 	}
+}
+
+var _ Extractor = PipenvLockExtractor{}
+
+//nolint:gochecknoinits
+func init() {
+	registerExtractor("Pipfile.lock", PipenvLockExtractor{})
+}
+
+func ParsePipenvLock(pathToLockfile string) ([]PackageDetails, error) {
+	return extractFromFile(pathToLockfile, PipenvLockExtractor{})
 }

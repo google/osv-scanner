@@ -2,7 +2,7 @@ package lockfile
 
 import (
 	"fmt"
-	"os"
+	"path/filepath"
 
 	"github.com/BurntSushi/toml"
 )
@@ -19,19 +19,19 @@ type CargoLockFile struct {
 
 const CargoEcosystem Ecosystem = "crates.io"
 
-func ParseCargoLock(pathToLockfile string) ([]PackageDetails, error) {
+type CargoLockExtractor struct{}
+
+func (e CargoLockExtractor) ShouldExtract(path string) bool {
+	return filepath.Base(path) == "Cargo.lock"
+}
+
+func (e CargoLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 	var parsedLockfile *CargoLockFile
 
-	lockfileContents, err := os.ReadFile(pathToLockfile)
+	_, err := toml.NewDecoder(f).Decode(&parsedLockfile)
 
 	if err != nil {
-		return []PackageDetails{}, fmt.Errorf("could not read %s: %w", pathToLockfile, err)
-	}
-
-	err = toml.Unmarshal(lockfileContents, &parsedLockfile)
-
-	if err != nil {
-		return []PackageDetails{}, fmt.Errorf("could not parse %s: %w", pathToLockfile, err)
+		return []PackageDetails{}, fmt.Errorf("could not extract from %s: %w", f.Path(), err)
 	}
 
 	packages := make([]PackageDetails, 0, len(parsedLockfile.Packages))
@@ -46,4 +46,15 @@ func ParseCargoLock(pathToLockfile string) ([]PackageDetails, error) {
 	}
 
 	return packages, nil
+}
+
+var _ Extractor = CargoLockExtractor{}
+
+//nolint:gochecknoinits
+func init() {
+	registerExtractor("Cargo.lock", CargoLockExtractor{})
+}
+
+func ParseCargoLock(pathToLockfile string) ([]PackageDetails, error) {
+	return extractFromFile(pathToLockfile, CargoLockExtractor{})
 }

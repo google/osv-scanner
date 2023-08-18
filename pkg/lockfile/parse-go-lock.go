@@ -2,7 +2,8 @@ package lockfile
 
 import (
 	"fmt"
-	"os"
+	"io"
+	"path/filepath"
 	"strings"
 
 	"golang.org/x/mod/modfile"
@@ -20,17 +21,23 @@ func deduplicatePackages(packages map[string]PackageDetails) map[string]PackageD
 	return details
 }
 
-func ParseGoLock(pathToLockfile string) ([]PackageDetails, error) {
-	lockfileContents, err := os.ReadFile(pathToLockfile)
+type GoLockExtractor struct{}
 
-	if err != nil {
-		return []PackageDetails{}, fmt.Errorf("could not read %s: %w", pathToLockfile, err)
+func (e GoLockExtractor) ShouldExtract(path string) bool {
+	return filepath.Base(path) == "go.mod"
+}
+
+func (e GoLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
+	var parsedLockfile *modfile.File
+
+	b, err := io.ReadAll(f)
+
+	if err == nil {
+		parsedLockfile, err = modfile.Parse(f.Path(), b, nil)
 	}
 
-	parsedLockfile, err := modfile.Parse(pathToLockfile, lockfileContents, nil)
-
 	if err != nil {
-		return []PackageDetails{}, fmt.Errorf("could not parse %s: %w", pathToLockfile, err)
+		return []PackageDetails{}, fmt.Errorf("could not extract from %s: %w", f.Path(), err)
 	}
 
 	packages := map[string]PackageDetails{}
@@ -76,4 +83,15 @@ func ParseGoLock(pathToLockfile string) ([]PackageDetails, error) {
 	}
 
 	return pkgDetailsMapToSlice(deduplicatePackages(packages)), nil
+}
+
+var _ Extractor = GoLockExtractor{}
+
+//nolint:gochecknoinits
+func init() {
+	registerExtractor("go.mod", GoLockExtractor{})
+}
+
+func ParseGoLock(pathToLockfile string) ([]PackageDetails, error) {
+	return extractFromFile(pathToLockfile, GoLockExtractor{})
 }

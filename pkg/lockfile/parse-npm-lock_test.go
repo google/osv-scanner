@@ -6,7 +6,7 @@ import (
 	"github.com/google/osv-scanner/pkg/lockfile"
 )
 
-func TestNuGetLockExtractor_ShouldExtract(t *testing.T) {
+func TestNpmLockExtractor_ShouldExtract(t *testing.T) {
 	t.Parallel()
 
 	tests := []struct {
@@ -21,27 +21,27 @@ func TestNuGetLockExtractor_ShouldExtract(t *testing.T) {
 		},
 		{
 			name: "",
-			path: "packages.lock.json",
+			path: "package-lock.json",
 			want: true,
 		},
 		{
 			name: "",
-			path: "path/to/my/packages.lock.json",
+			path: "path/to/my/package-lock.json",
 			want: true,
 		},
 		{
 			name: "",
-			path: "path/to/my/packages.lock.json/file",
+			path: "path/to/my/package-lock.json/file",
 			want: false,
 		},
 		{
 			name: "",
-			path: "path/to/my/packages.lock.json.file",
+			path: "path/to/my/package-lock.json.file",
 			want: false,
 		},
 		{
 			name: "",
-			path: "path.to.my.packages.lock.json",
+			path: "path.to.my.package-lock.json",
 			want: false,
 		},
 	}
@@ -49,20 +49,11 @@ func TestNuGetLockExtractor_ShouldExtract(t *testing.T) {
 		tt := tt
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
-			e := lockfile.NuGetLockExtractor{}
+			e := lockfile.NpmLockExtractor{}
 			got := e.ShouldExtract(tt.path)
 			if got != tt.want {
 				t.Errorf("Extract() got = %v, want %v", got, tt.want)
 			}
 		})
 	}
-}
-
-func TestParseNuGetLock_InvalidVersion(t *testing.T) {
-	t.Parallel()
-
-	packages, err := lockfile.ParseNuGetLock("fixtures/nuget/empty.v0.json")
-
-	expectErrContaining(t, err, "unsupported lock file version")
-	expectPackages(t, packages, []lockfile.PackageDetails{})
 }

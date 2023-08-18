@@ -11,7 +11,7 @@ func TestParseApkInstalled_FileDoesNotExist(t *testing.T) {
 
 	packages, err := lockfile.ParseApkInstalled("fixtures/apk/does-not-exist")
 
-	expectErrContaining(t, err, "could not open")
+	expectErrContaining(t, err, "no such file or directory")
 	expectPackages(t, packages, []lockfile.PackageDetails{})
 }
 
