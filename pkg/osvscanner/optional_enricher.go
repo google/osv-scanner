@@ -30,12 +30,13 @@ func addCompilerVersion(r reporter.Reporter, parsedLockfile *lockfile.Lockfile) 
 		goVer, err := getGoVersion()
 		if err != nil {
 			r.PrintError(fmt.Sprintf("cannot get go standard library version, go might not be installed: %s", err))
+		} else {
+			parsedLockfile.Packages = append(parsedLockfile.Packages, lockfile.PackageDetails{
+				Name:      "stdlib",
+				Version:   goVer,
+				Ecosystem: lockfile.GoEcosystem,
+				CompareAs: lockfile.GoEcosystem,
+			})
 		}
-		parsedLockfile.Packages = append(parsedLockfile.Packages, lockfile.PackageDetails{
-			Name:      "stdlib",
-			Version:   goVer,
-			Ecosystem: lockfile.GoEcosystem,
-			CompareAs: lockfile.GoEcosystem,
-		})
 	}
 }
