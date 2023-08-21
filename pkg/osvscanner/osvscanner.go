@@ -2,6 +2,8 @@ package osvscanner
 
 import (
 	"bufio"
+	"context"
+	"crypto/x509"
 	"errors"
 	"fmt"
 	"os"
@@ -17,7 +19,13 @@ import (
 	"github.com/google/osv-scanner/pkg/models"
 	"github.com/google/osv-scanner/pkg/osv"
 	"github.com/google/osv-scanner/pkg/reporter"
+	"golang.org/x/sync/errgroup"
+	"google.golang.org/grpc"
+	"google.golang.org/grpc/codes"
+	"google.golang.org/grpc/credentials"
+	"google.golang.org/grpc/status"
 
+	depsdevpb "deps.dev/api/v3alpha"
 	"github.com/go-git/go-billy/v5"
 	"github.com/go-git/go-billy/v5/osfs"
 	"github.com/go-git/go-git/v5"
@@ -43,6 +51,7 @@ type ExperimentalScannerActions struct {
 	CompareLocally bool
 	CompareOffline bool
 	AllPackages    bool
+	Licenses       bool
 
 	LocalDBPath string
 }
@@ -602,15 +611,21 @@ func DoScan(actions ScannerActions, r reporter.Reporter) (models.VulnerabilityRe
 		return models.VulnerabilityResults{}, NoPackagesFoundErr
 	}
 
-	hydratedResp, err := makeRequest(r, scannedPackages, actions.CompareLocally, actions.CompareOffline, actions.LocalDBPath)
-
+	vulnsResp, err := makeRequest(r, scannedPackages, actions.CompareLocally, actions.CompareOffline, actions.LocalDBPath)
 	if err != nil {
 		return models.VulnerabilityResults{}, err
 	}
 
-	vulnerabilityResults := buildVulnerabilityResults(r, scannedPackages, hydratedResp, actions.CallAnalysis, actions.AllPackages)
+	var licensesResp []models.Licenses
+	if actions.Licenses {
+		licensesResp, err = makeLicensesRequests(r, scannedPackages)
+		if err != nil {
+			return models.VulnerabilityResults{}, err
+		}
+	}
+	results := buildVulnerabilityResults(r, scannedPackages, vulnsResp, licensesResp, actions.CallAnalysis, actions.AllPackages, actions.Licenses)
 
-	filtered := filterResults(r, &vulnerabilityResults, &configManager, actions.AllPackages)
+	filtered := filterResults(r, &results, &configManager, actions.AllPackages)
 	if filtered > 0 {
 		r.PrintText(fmt.Sprintf(
 			"Filtered %d %s from output\n",
@@ -620,18 +635,79 @@ func DoScan(actions ScannerActions, r reporter.Reporter) (models.VulnerabilityRe
 	}
 
 	// if vulnerability exists it should return error
-	if len(vulnerabilityResults.Results) > 0 {
+	if len(results.Results) > 0 {
 		// If any vulnerabilities are called, then we return VulnerabilitiesFoundErr
-		for _, vf := range vulnerabilityResults.Flatten() {
+		for _, vf := range results.Flatten() {
 			if vf.GroupInfo.IsCalled() {
-				return vulnerabilityResults, VulnerabilitiesFoundErr
+				return results, VulnerabilitiesFoundErr
 			}
 		}
 		// Otherwise return OnlyUncalledVulnerabilitiesFoundErr
-		return vulnerabilityResults, OnlyUncalledVulnerabilitiesFoundErr
+		return results, OnlyUncalledVulnerabilitiesFoundErr
 	}
 
-	return vulnerabilityResults, nil
+	return results, nil
+}
+
+const DepsdevURL = "api.deps.dev:443"
+
+var depsdevSystem = map[lockfile.Ecosystem]depsdevpb.System{
+	lockfile.NpmEcosystem:   depsdevpb.System_NPM,
+	lockfile.NuGetEcosystem: depsdevpb.System_NUGET,
+	lockfile.CargoEcosystem: depsdevpb.System_CARGO,
+	lockfile.GoEcosystem:    depsdevpb.System_GO,
+	lockfile.MavenEcosystem: depsdevpb.System_MAVEN,
+	lockfile.PipEcosystem:   depsdevpb.System_PYPI,
+}
+
+func makeLicensesRequests(r reporter.Reporter, packages []Package) ([]models.Licenses, error) {
+	ctx := context.TODO()
+	certPool, err := x509.SystemCertPool()
+	if err != nil {
+		return nil, fmt.Errorf("Getting system cert pool: %v", err)
+	}
+	creds := credentials.NewClientTLSFromCert(certPool, "")
+	conn, err := grpc.Dial(DepsdevURL, grpc.WithTransportCredentials(creds))
+	if err != nil {
+		return nil, fmt.Errorf("Dialing deps.dev gRPC API: %v", err)
+	}
+	client := depsdevpb.NewInsightsClient(conn)
+	licenses := make([]models.Licenses, len(packages), len(packages))
+	var g errgroup.Group
+	for i, pkg := range packages {
+		i := i
+		system, ok := depsdevSystem[pkg.Ecosystem]
+		if !ok || pkg.Name == "" || pkg.Version == "" {
+			continue
+		}
+		req := depsdevpb.GetVersionRequest{
+			VersionKey: &depsdevpb.VersionKey{
+				System:  system,
+				Name:    pkg.Name,
+				Version: pkg.Version,
+			},
+		}
+		g.Go(func() error {
+			resp, err := client.GetVersion(ctx, &req)
+			fmt.Println(req)
+			if err == nil {
+				licenses[i] = resp.Licenses
+			} else if status.Code(err) != codes.NotFound {
+				return err
+			}
+			return nil
+		})
+	}
+	if err := g.Wait(); err != nil {
+		return nil, err
+	}
+	fmt.Println(licenses)
+	for i := range licenses {
+		if len(licenses[i]) == 0 {
+			licenses[i] = []string{"UNKNOWN"}
+		}
+	}
+	return licenses, nil
 }
 
 func makeRequest(
