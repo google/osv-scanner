@@ -25,7 +25,8 @@
     }
   ],
   "ignorePaths": [
-    "**/fixtures/**"
+    "**/fixtures/**",
+    "**/fixtures-go/**"
   ],
   "ignoreDeps": [
     "golang.org/x/vuln" 
