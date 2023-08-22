@@ -7,10 +7,12 @@ import (
 	"math"
 	"os"
 	"path/filepath"
+	"sort"
 	"strings"
 
 	v2_metric "github.com/goark/go-cvss/v2/metric"
 	v3_metric "github.com/goark/go-cvss/v3/metric"
+	"golang.org/x/exp/maps"
 
 	"github.com/google/osv-scanner/internal/utility/results"
 	"github.com/google/osv-scanner/pkg/models"
@@ -25,9 +27,26 @@ const OSVBaseVulnerabilityURL = "https://osv.dev/"
 
 // PrintTableResults prints the osv scan results into a human friendly table.
 func PrintTableResults(vulnResult *models.VulnerabilityResults, outputWriter io.Writer, terminalWidth int) {
+	// Render the vulnerabilities.
+	outputTable := newTable(outputWriter, table.Row{"OSV URL", "CVSS", "Ecosystem", "Package", "Version", "Source"}, terminalWidth)
+	outputTable = tableBuilder(outputTable, vulnResult, terminalWidth > 0)
+	if outputTable.Length() == 0 {
+		return
+	}
+	outputTable.Render()
+
+	outputTable = newTable(outputWriter, table.Row{"License", "No. of package versions"}, terminalWidth)
+	outputTable = licenseTableBuilder(outputTable, vulnResult)
+	if outputTable.Length() == 0 {
+		return
+	}
+	outputTable.Render()
+}
+
+func newTable(outputWriter io.Writer, header table.Row, terminalWidth int) table.Writer {
 	outputTable := table.NewWriter()
 	outputTable.SetOutputMirror(outputWriter)
-	outputTable.AppendHeader(table.Row{"OSV URL", "CVSS", "Ecosystem", "Package", "Version", "Source"})
+	outputTable.AppendHeader(header)
 
 	if terminalWidth > 0 { // If output is a terminal, set max length to width and add styling
 		outputTable.SetStyle(table.StyleRounded)
@@ -36,15 +55,9 @@ func PrintTableResults(vulnResult *models.VulnerabilityResults, outputWriter io.
 		outputTable.Style().Options.DoNotColorBordersAndSeparators = true
 		outputTable.SetAllowedRowLength(terminalWidth)
 	} // Otherwise use default ascii (e.g. getting piped to a file)
+	return outputTable
 
-	outputTable = tableBuilder(outputTable, vulnResult, terminalWidth > 0)
-
-	if outputTable.Length() == 0 {
-		return
-	}
-	outputTable.Render()
 }
-
 func tableBuilder(outputTable table.Writer, vulnResult *models.VulnerabilityResults, addStyling bool) table.Writer {
 	rows := tableBuilderInner(vulnResult, addStyling, true)
 	for _, elem := range rows {
@@ -155,4 +168,35 @@ func MaxSeverity(group models.GroupInfo, pkg models.PackageVulns) string {
 	}
 
 	return fmt.Sprintf("%v", maxSeverity)
+}
+
+func licenseTableBuilder(outputTable table.Writer, vulnResult *models.VulnerabilityResults) table.Writer {
+	counts := make(map[models.License]int)
+	for _, pkgSource := range vulnResult.Results {
+		for _, pkg := range pkgSource.Packages {
+			for _, l := range pkg.Licenses {
+				counts[l] += 1
+			}
+		}
+	}
+	if len(counts) == 0 {
+		// License-checking hasn't been enabled, don't render a table.
+		return outputTable
+	}
+
+	licenses := maps.Keys(counts)
+	sort.Slice(licenses, func(i, j int) bool {
+		if licenses[i] == "UNKNOWN" {
+			return false
+		}
+		if licenses[j] == "UNKNOWN" {
+			return true
+		}
+		return counts[licenses[i]] > counts[licenses[j]]
+	})
+	for _, license := range licenses {
+		outputTable.AppendRow(table.Row{license, counts[license]})
+	}
+
+	return outputTable
 }

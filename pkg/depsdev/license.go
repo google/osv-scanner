@@ -32,6 +32,9 @@ var System = map[lockfile.Ecosystem]depsdevpb.System{
 
 // VersionQuery constructs a GetVersion request from the arguments.
 func VersionQuery(system depsdevpb.System, name string, version string) *depsdevpb.GetVersionRequest {
+	if system == depsdevpb.System_GO {
+		version = "v" + version
+	}
 	return &depsdevpb.GetVersionRequest{
 		VersionKey: &depsdevpb.VersionKey{
 			System:  system,
