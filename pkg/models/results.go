@@ -63,12 +63,15 @@ type PackageSource struct {
 	Packages []PackageVulns `json:"packages"`
 }
 
+// License is an SPDX license.
+type License string
+
 // Vulnerabilities grouped by package
 type PackageVulns struct {
 	Package         PackageInfo     `json:"package"`
 	Vulnerabilities []Vulnerability `json:"vulnerabilities"`
 	Groups          []GroupInfo     `json:"groups"`
-	Licenses        Licenses        `json:"licenses,omitempty"`
+	Licenses        []License       `json:"licenses,omitempty"`
 }
 
 type GroupInfo struct {

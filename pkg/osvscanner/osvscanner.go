@@ -2,8 +2,6 @@ package osvscanner
 
 import (
 	"bufio"
-	"context"
-	"crypto/x509"
 	"errors"
 	"fmt"
 	"os"
@@ -15,15 +13,11 @@ import (
 	"github.com/google/osv-scanner/internal/output"
 	"github.com/google/osv-scanner/internal/sbom"
 	"github.com/google/osv-scanner/pkg/config"
+	"github.com/google/osv-scanner/pkg/depsdev"
 	"github.com/google/osv-scanner/pkg/lockfile"
 	"github.com/google/osv-scanner/pkg/models"
 	"github.com/google/osv-scanner/pkg/osv"
 	"github.com/google/osv-scanner/pkg/reporter"
-	"golang.org/x/sync/errgroup"
-	"google.golang.org/grpc"
-	"google.golang.org/grpc/codes"
-	"google.golang.org/grpc/credentials"
-	"google.golang.org/grpc/status"
 
 	depsdevpb "deps.dev/api/v3alpha"
 	"github.com/go-git/go-billy/v5"
@@ -84,8 +78,8 @@ func scanDir(r reporter.Reporter, dir string, skipGit bool, recursive bool, useG
 	}
 
 	root := true
-
 	var scannedPackages []Package
+
 	return scannedPackages, filepath.WalkDir(dir, func(path string, info os.DirEntry, err error) error {
 		if err != nil {
 			r.PrintText(fmt.Sprintf("Failed to walk %s: %v\n", path, err))
@@ -246,9 +240,9 @@ func scanLockfile(r reporter.Reporter, path string, parseAs string) ([]Package, 
 		output.Form(len(parsedLockfile.Packages), "package", "packages"),
 	))
 
-	var packages []Package
-	for _, pkgDetail := range parsedLockfile.Packages {
-		packages = append(packages, Package{
+	packages := make([]Package, len(parsedLockfile.Packages))
+	for i, pkgDetail := range parsedLockfile.Packages {
+		packages[i] = Package{
 			Name:      pkgDetail.Name,
 			Version:   pkgDetail.Version,
 			Commit:    pkgDetail.Commit,
@@ -257,7 +251,7 @@ func scanLockfile(r reporter.Reporter, path string, parseAs string) ([]Package, 
 				Path: path,
 				Type: "lockfile",
 			},
-		})
+		}
 	}
 
 	return packages, nil
@@ -303,6 +297,7 @@ func scanSBOMFile(r reporter.Reporter, path string, fromFSScan bool) ([]Package,
 				},
 			})
 			count++
+
 			return nil
 		})
 		if err == nil {
@@ -551,6 +546,7 @@ func DoScan(actions ScannerActions, r reporter.Reporter) (models.VulnerabilityRe
 		ConfigMap:     make(map[string]config.Config),
 	}
 
+	//nolint:prealloc // Not sure how many there will be in advance.
 	var scannedPackages []Package
 
 	if actions.ConfigOverridePath != "" {
@@ -616,9 +612,9 @@ func DoScan(actions ScannerActions, r reporter.Reporter) (models.VulnerabilityRe
 		return models.VulnerabilityResults{}, err
 	}
 
-	var licensesResp []models.Licenses
+	var licensesResp [][]models.License
 	if actions.Licenses {
-		licensesResp, err = makeLicensesRequests(r, scannedPackages)
+		licensesResp, err = makeLicensesRequests(scannedPackages)
 		if err != nil {
 			return models.VulnerabilityResults{}, err
 		}
@@ -649,80 +645,17 @@ func DoScan(actions ScannerActions, r reporter.Reporter) (models.VulnerabilityRe
 	return results, nil
 }
 
-const DepsdevURL = "api.deps.dev:443"
-
-var depsdevSystem = map[lockfile.Ecosystem]depsdevpb.System{
-	lockfile.NpmEcosystem:   depsdevpb.System_NPM,
-	lockfile.NuGetEcosystem: depsdevpb.System_NUGET,
-	lockfile.CargoEcosystem: depsdevpb.System_CARGO,
-	lockfile.GoEcosystem:    depsdevpb.System_GO,
-	lockfile.MavenEcosystem: depsdevpb.System_MAVEN,
-	lockfile.PipEcosystem:   depsdevpb.System_PYPI,
-}
-
-func makeLicensesRequests(r reporter.Reporter, packages []Package) ([]models.Licenses, error) {
-	ctx := context.TODO()
-	certPool, err := x509.SystemCertPool()
-	if err != nil {
-		return nil, fmt.Errorf("Getting system cert pool: %v", err)
-	}
-	creds := credentials.NewClientTLSFromCert(certPool, "")
-	conn, err := grpc.Dial(DepsdevURL, grpc.WithTransportCredentials(creds))
-	if err != nil {
-		return nil, fmt.Errorf("Dialing deps.dev gRPC API: %v", err)
-	}
-	client := depsdevpb.NewInsightsClient(conn)
-	licenses := make([]models.Licenses, len(packages), len(packages))
-	var g errgroup.Group
-	for i, pkg := range packages {
-		i := i
-		system, ok := depsdevSystem[pkg.Ecosystem]
-		if !ok || pkg.Name == "" || pkg.Version == "" {
-			continue
-		}
-		req := depsdevpb.GetVersionRequest{
-			VersionKey: &depsdevpb.VersionKey{
-				System:  system,
-				Name:    pkg.Name,
-				Version: pkg.Version,
-			},
-		}
-		g.Go(func() error {
-			resp, err := client.GetVersion(ctx, &req)
-			fmt.Println(req)
-			if err == nil {
-				licenses[i] = resp.Licenses
-			} else if status.Code(err) != codes.NotFound {
-				return err
-			}
-			return nil
-		})
-	}
-	if err := g.Wait(); err != nil {
-		return nil, err
-	}
-	fmt.Println(licenses)
-	for i := range licenses {
-		if len(licenses[i]) == 0 {
-			licenses[i] = []string{"UNKNOWN"}
-		}
-	}
-	return licenses, nil
-}
-
 func makeRequest(
 	r reporter.Reporter,
 	packages []Package,
 	compareLocally bool,
 	compareOffline bool,
-	localDBPath string,
-) (*osv.HydratedBatchedResponse, error) {
-
+	localDBPath string) (*osv.HydratedBatchedResponse, error) {
 	// Make OSV queries from the packages.
 	var query osv.BatchedQuery
 	for _, p := range packages {
 		switch {
-		// Prefer making paackage requests where possible.
+		// Prefer making package requests where possible.
 		case p.Ecosystem != "" && p.Name != "" && p.Version != "":
 			query.Queries = append(query.Queries, osv.MakePkgRequest(lockfile.PackageDetails{
 				Name:      p.Name,
@@ -762,4 +695,26 @@ func makeRequest(
 	}
 
 	return hydratedResp, nil
+}
+
+func makeLicensesRequests(packages []Package) ([][]models.License, error) {
+	queries := make([]*depsdevpb.GetVersionRequest, len(packages))
+	for i, pkg := range packages {
+		system, ok := depsdev.System[pkg.Ecosystem]
+		if !ok || pkg.Name == "" || pkg.Version == "" {
+			continue
+		}
+		queries[i] = depsdev.VersionQuery(system, pkg.Name, pkg.Version)
+	}
+	licenses, err := depsdev.MakeVersionRequests(queries)
+	if err != nil {
+		return nil, err
+	}
+	for i := range licenses {
+		if len(licenses[i]) == 0 {
+			licenses[i] = []models.License{"UNKNOWN"}
+		}
+	}
+
+	return licenses, nil
 }
