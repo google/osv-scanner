@@ -124,7 +124,7 @@ func run(args []string, stdout, stderr io.Writer) int {
 				Name:  "experimental-all-packages",
 				Usage: "when json output is selected, prints all packages",
 			},
-			&cli.BoolFlag{
+			&cli.StringSliceFlag{
 				Name:  "experimental-licenses",
 				Usage: "report on licenses",
 			},
@@ -169,12 +169,13 @@ func run(args []string, stdout, stderr io.Writer) int {
 				ConfigOverridePath:   context.String("config"),
 				DirectoryPaths:       context.Args().Slice(),
 				ExperimentalScannerActions: osvscanner.ExperimentalScannerActions{
-					LocalDBPath:    context.String("experimental-local-db-path"),
-					CallAnalysis:   context.Bool("experimental-call-analysis"),
-					CompareLocally: context.Bool("experimental-local-db"),
-					CompareOffline: context.Bool("experimental-offline"),
-					AllPackages:    context.Bool("experimental-all-packages"),
-					Licenses:       context.Bool("experimental-licenses"),
+					LocalDBPath:       context.String("experimental-local-db-path"),
+					CallAnalysis:      context.Bool("experimental-call-analysis"),
+					CompareLocally:    context.Bool("experimental-local-db"),
+					CompareOffline:    context.Bool("experimental-offline"),
+					AllPackages:       context.Bool("experimental-all-packages"),
+					Licenses:          context.IsSet("experimental-licenses"),
+					LicensesAllowlist: context.StringSlice("experimental-licenses"),
 				},
 			}, r)
 

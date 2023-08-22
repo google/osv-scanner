@@ -68,10 +68,11 @@ type License string
 
 // Vulnerabilities grouped by package
 type PackageVulns struct {
-	Package         PackageInfo     `json:"package"`
-	Vulnerabilities []Vulnerability `json:"vulnerabilities"`
-	Groups          []GroupInfo     `json:"groups"`
-	Licenses        []License       `json:"licenses,omitempty"`
+	Package           PackageInfo     `json:"package"`
+	Vulnerabilities   []Vulnerability `json:"vulnerabilities"`
+	Groups            []GroupInfo     `json:"groups"`
+	Licenses          []License       `json:"licenses,omitempty"`
+	LicenseViolations []License       `json:"license_violations,omitempty"`
 }
 
 type GroupInfo struct {

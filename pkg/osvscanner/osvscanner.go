@@ -41,11 +41,12 @@ type ScannerActions struct {
 }
 
 type ExperimentalScannerActions struct {
-	CallAnalysis   bool
-	CompareLocally bool
-	CompareOffline bool
-	AllPackages    bool
-	Licenses       bool
+	CallAnalysis      bool
+	CompareLocally    bool
+	CompareOffline    bool
+	AllPackages       bool
+	Licenses          bool
+	LicensesAllowlist []string
 
 	LocalDBPath string
 }
@@ -619,7 +620,7 @@ func DoScan(actions ScannerActions, r reporter.Reporter) (models.VulnerabilityRe
 			return models.VulnerabilityResults{}, err
 		}
 	}
-	results := buildVulnerabilityResults(r, scannedPackages, vulnsResp, licensesResp, actions.CallAnalysis, actions.AllPackages, actions.Licenses)
+	results := buildVulnerabilityResults(r, scannedPackages, vulnsResp, licensesResp, actions.CallAnalysis, actions.AllPackages, actions.Licenses, actions.LicensesAllowlist)
 
 	filtered := filterResults(r, &results, &configManager, actions.AllPackages)
 	if filtered > 0 {
