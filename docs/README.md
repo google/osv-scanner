@@ -10,9 +10,7 @@ Here are other [pre-requisites] and instructions for running the [docs locally].
 [docs locally]: https://docs.github.com/en/pages/setting-up-a-github-pages-site-with-jekyll/testing-your-github-pages-site-locally-with-jekyll#building-your-site-locally
 
 ## Contributing to the docs
-Documentation contributions are welcome! 
-
-See [CONTRIBUTING.md](../CONTRIBUTING.md) for contribution guidelines. 
+Please see [CONTRIBUTING.md](https://github.com/google/osv-scanner/blob/main/CONTRIBUTING.md/#contributing-documentation) for information on contributing documentation. 
 
 ## Documentation theme
 We are using the [Just the Docs](https://just-the-docs.github.io/just-the-docs/)
