@@ -79,6 +79,7 @@ func expectPackage(t *testing.T, packages []lockfile.PackageDetails, pkg lockfil
 }
 
 func findMissingPackages(t *testing.T, actualPackages []lockfile.PackageDetails, expectedPackages []lockfile.PackageDetails) []lockfile.PackageDetails {
+	t.Helper()
 	var missingPackages []lockfile.PackageDetails
 
 	for _, pkg := range actualPackages {

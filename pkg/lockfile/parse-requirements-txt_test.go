@@ -132,7 +132,7 @@ func TestParseRequirementsTxt_OneRequirementConstrained(t *testing.T) {
 }
 
 func TestParseRequirementsTxt_MultipleRequirementsConstrained(t *testing.T) {
-	// t.Parallel()
+	t.Parallel()
 
 	packages, err := lockfile.ParseRequirementsTxt("fixtures/pip/multiple-packages-constrained.txt")
 
