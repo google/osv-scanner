@@ -20,7 +20,7 @@
       "groupName": "osv-scanner minor"
     },
     {
-      "matchPaths": [".github/"],
+      "matchFileNames": [".github/"],
       "groupName": "workflows"
     }
   ],
