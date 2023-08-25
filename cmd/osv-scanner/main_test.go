@@ -91,6 +91,8 @@ type cliTestCase struct {
 func testCli(t *testing.T, tc cliTestCase) {
 	t.Helper()
 
+	t.Logf("Running test: [%s]", tc.name)
+
 	stdoutBuffer := &bytes.Buffer{}
 	stderrBuffer := &bytes.Buffer{}
 
@@ -101,7 +103,7 @@ func testCli(t *testing.T, tc cliTestCase) {
 	stderr := stderrBuffer.String()
 
 	if ec != tc.wantExitCode {
-		t.Errorf("%s cli exited with code %d, not %d", tc.name, ec, tc.wantExitCode)
+		t.Errorf("cli exited with code %d, not %d", ec, tc.wantExitCode)
 	}
 
 	if !areEqual(t, dedent(t, stdout), dedent(t, tc.wantStdout)) {
