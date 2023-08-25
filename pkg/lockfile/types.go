@@ -6,7 +6,8 @@ type PackageDetails struct {
 	Commit    string    `json:"commit,omitempty"`
 	Ecosystem Ecosystem `json:"ecosystem,omitempty"`
 	CompareAs Ecosystem `json:"compareAs,omitempty"`
-	Source    string    `json:"source,omitempty"`
+	// Optional string to specify the absolute path to the file specifying this package as a dependency
+	Source string `json:"source,omitempty"`
 }
 
 type Ecosystem string
