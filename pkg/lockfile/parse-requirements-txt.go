@@ -167,6 +167,7 @@ func parseRequirementsTxt(f DepFile, requiredAlready map[string]struct{}) ([]Pac
 		}
 
 		detail := parseLine(line)
+		detail.Source = f.Path()
 		packages[detail.Name+"@"+detail.Version] = detail
 	}
 

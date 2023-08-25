@@ -2,6 +2,7 @@ package lockfile_test
 
 import (
 	"fmt"
+	"regexp"
 	"strings"
 	"testing"
 
@@ -31,10 +32,32 @@ func packageToString(pkg lockfile.PackageDetails) string {
 	return fmt.Sprintf("%s@%s (%s, %s)", pkg.Name, pkg.Version, pkg.Ecosystem, commit)
 }
 
-func hasPackage(packages []lockfile.PackageDetails, pkg lockfile.PackageDetails) bool {
+// checks if two strings are equal, treating any occurrences of `%%` in the
+// expected string to mean "any text"
+func areEqual(t *testing.T, actual, expect string) bool {
+	t.Helper()
+
+	expect = regexp.QuoteMeta(expect)
+	expect = strings.ReplaceAll(expect, "%%", ".+")
+
+	re := regexp.MustCompile(`^` + expect + `$`)
+
+	return re.MatchString(actual)
+}
+
+func hasPackage(t *testing.T, packages []lockfile.PackageDetails, pkg lockfile.PackageDetails) bool {
+	t.Helper()
+	// Store source here since original source is set to empty string to do equal comparison
+	pkgSource := pkg.Source
 	for _, details := range packages {
-		if details == pkg {
-			return true
+		// Custom source equality check to not be too path specific
+		// areEqual is not symmetrical, so compare both ways
+		if areEqual(t, pkgSource, details.Source) || areEqual(t, details.Source, pkgSource) {
+			details.Source = ""
+			pkg.Source = ""
+			if details == pkg {
+				return true
+			}
 		}
 	}
 
@@ -44,7 +67,7 @@ func hasPackage(packages []lockfile.PackageDetails, pkg lockfile.PackageDetails)
 func expectPackage(t *testing.T, packages []lockfile.PackageDetails, pkg lockfile.PackageDetails) {
 	t.Helper()
 
-	if !hasPackage(packages, pkg) {
+	if !hasPackage(t, packages, pkg) {
 		t.Errorf(
 			"Expected packages to include %s@%s (%s, %s), but it did not",
 			pkg.Name,
@@ -55,11 +78,11 @@ func expectPackage(t *testing.T, packages []lockfile.PackageDetails, pkg lockfil
 	}
 }
 
-func findMissingPackages(actualPackages []lockfile.PackageDetails, expectedPackages []lockfile.PackageDetails) []lockfile.PackageDetails {
+func findMissingPackages(t *testing.T, actualPackages []lockfile.PackageDetails, expectedPackages []lockfile.PackageDetails) []lockfile.PackageDetails {
 	var missingPackages []lockfile.PackageDetails
 
 	for _, pkg := range actualPackages {
-		if !hasPackage(expectedPackages, pkg) {
+		if !hasPackage(t, expectedPackages, pkg) {
 			missingPackages = append(missingPackages, pkg)
 		}
 	}
@@ -79,8 +102,8 @@ func expectPackages(t *testing.T, actualPackages []lockfile.PackageDetails, expe
 		)
 	}
 
-	missingActualPackages := findMissingPackages(actualPackages, expectedPackages)
-	missingExpectedPackages := findMissingPackages(expectedPackages, actualPackages)
+	missingActualPackages := findMissingPackages(t, actualPackages, expectedPackages)
+	missingExpectedPackages := findMissingPackages(t, expectedPackages, actualPackages)
 
 	if len(missingActualPackages) != 0 {
 		for _, unexpectedPackage := range missingActualPackages {

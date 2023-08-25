@@ -16,6 +16,7 @@ import (
 	"path"
 	"strings"
 
+	"github.com/google/osv-scanner/internal/modelsutil"
 	"github.com/google/osv-scanner/pkg/lockfile"
 	"github.com/google/osv-scanner/pkg/models"
 	"github.com/google/osv-scanner/pkg/osv"
@@ -235,7 +236,7 @@ func (db *ZipDB) VulnerabilitiesAffectingPackage(pkg lockfile.PackageDetails) mo
 	var vulnerabilities models.Vulnerabilities
 
 	for _, vulnerability := range db.Vulnerabilities(false) {
-		if vulnerability.IsAffected(pkg) && !vulnerabilities.Includes(vulnerability) {
+		if modelsutil.IsAffected(vulnerability, pkg) && !modelsutil.VulnsInclude(vulnerabilities, vulnerability) {
 			vulnerabilities = append(vulnerabilities, vulnerability)
 		}
 	}

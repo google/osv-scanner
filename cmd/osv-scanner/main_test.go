@@ -101,7 +101,7 @@ func testCli(t *testing.T, tc cliTestCase) {
 	stderr := stderrBuffer.String()
 
 	if ec != tc.wantExitCode {
-		t.Errorf("cli exited with code %d, not %d", ec, tc.wantExitCode)
+		t.Errorf("%s cli exited with code %d, not %d", tc.name, ec, tc.wantExitCode)
 	}
 
 	if !areEqual(t, dedent(t, stdout), dedent(t, tc.wantStdout)) {
