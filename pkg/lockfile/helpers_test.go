@@ -2,7 +2,8 @@ package lockfile_test
 
 import (
 	"fmt"
-	"regexp"
+	"log"
+	"path/filepath"
 	"strings"
 	"testing"
 
@@ -32,36 +33,26 @@ func packageToString(pkg lockfile.PackageDetails) string {
 	return fmt.Sprintf("%s@%s (%s, %s)", pkg.Name, pkg.Version, pkg.Ecosystem, commit)
 }
 
-// checks if two strings are equal, treating any occurrences of `%%` in the
-// expected string to mean "any text"
-func areEqual(t *testing.T, actual, expect string) bool {
-	t.Helper()
-
-	expect = regexp.QuoteMeta(expect)
-	expect = strings.ReplaceAll(expect, "%%", ".+")
-
-	re := regexp.MustCompile(`^` + expect + `$`)
-
-	return re.MatchString(actual)
-}
-
 func hasPackage(t *testing.T, packages []lockfile.PackageDetails, pkg lockfile.PackageDetails) bool {
 	t.Helper()
-	// Store source here since original source is set to empty string to do equal comparison
-	pkgSource := pkg.Source
+
 	for _, details := range packages {
-		// Custom source equality check to not be too path specific
-		// areEqual is not symmetrical, so compare both ways
-		if areEqual(t, pkgSource, details.Source) || areEqual(t, details.Source, pkgSource) {
-			details.Source = ""
-			pkg.Source = ""
-			if details == pkg {
-				return true
-			}
+		if details == pkg {
+			return true
 		}
 	}
 
 	return false
+}
+
+func AbsPathNoErr(path string) string {
+	result, err := filepath.Abs(path)
+
+	if err != nil {
+		log.Panicf("failed to find abs path: %s", err)
+	}
+
+	return result
 }
 
 func expectPackage(t *testing.T, packages []lockfile.PackageDetails, pkg lockfile.PackageDetails) {
