@@ -67,10 +67,11 @@ type PackageSource struct {
 type License string
 
 // Vulnerabilities grouped by package
+// TODO: rename this to be Package as it now includes license information too.
 type PackageVulns struct {
 	Package           PackageInfo     `json:"package"`
-	Vulnerabilities   []Vulnerability `json:"vulnerabilities"`
-	Groups            []GroupInfo     `json:"groups"`
+	Vulnerabilities   []Vulnerability `json:"vulnerabilities,omitempty"`
+	Groups            []GroupInfo     `json:"groups,omitempty"`
 	Licenses          []License       `json:"licenses,omitempty"`
 	LicenseViolations []License       `json:"license_violations,omitempty"`
 }
