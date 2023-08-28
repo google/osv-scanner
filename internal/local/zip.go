@@ -236,7 +236,7 @@ func (db *ZipDB) VulnerabilitiesAffectingPackage(pkg lockfile.PackageDetails) mo
 	var vulnerabilities models.Vulnerabilities
 
 	for _, vulnerability := range db.Vulnerabilities(false) {
-		if vulns.IsAffected(vulnerability, pkg) && !vulns.VulnsInclude(vulnerabilities, vulnerability) {
+		if vulns.IsAffected(vulnerability, pkg) && !vulns.Include(vulnerabilities, vulnerability) {
 			vulnerabilities = append(vulnerabilities, vulnerability)
 		}
 	}

@@ -121,7 +121,7 @@ func TestVulnerabilities_Includes(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
 
-			if got := vulns.VulnsInclude(tt.vs, tt.args.osv); got != tt.want {
+			if got := vulns.Include(tt.vs, tt.args.osv); got != tt.want {
 				t.Errorf("Includes() = %v, want %v", got, tt.want)
 			}
 		})
