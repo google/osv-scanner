@@ -71,13 +71,22 @@ func MakeVersionRequests(queries []*depsdevpb.GetVersionRequest) ([][]models.Lic
 		i := i
 		g.Go(func() error {
 			resp, err := client.GetVersion(ctx, queries[i])
-			if err != nil && status.Code(err) != codes.NotFound {
+			if err != nil {
+				if status.Code(err) == codes.NotFound {
+					licenses[i] = append(licenses[i], "UNKNOWN")
+				}
 				return err
 			}
 			if err == nil {
 				ls := make([]models.License, len(resp.Licenses))
-				for i, license := range resp.Licenses {
-					ls[i] = models.License(license)
+				for j, license := range resp.Licenses {
+					ls[j] = models.License(license)
+				}
+				if len(ls) == 0 {
+					// The deps.dev API will return an
+					// empty array if the license is
+					// unknown.
+					ls = []models.License{models.License("UNKNOWN")}
 				}
 				licenses[i] = ls
 			}

@@ -21,15 +21,15 @@ func PrintMarkdownTableResults(vulnResult *models.VulnerabilityResults, outputWr
 	}
 	outputTable.RenderMarkdown()
 
-	outputTable = table.NewWriter()
-	outputTable.SetOutputMirror(outputWriter)
-	outputTable.AppendHeader(table.Row{"License", "No. of Package Versions"})
+	outputLicenseTable := table.NewWriter()
+	outputLicenseTable.SetOutputMirror(outputWriter)
+	outputLicenseTable.AppendHeader(table.Row{"License", "No. of Package Versions"})
 
-	outputTable = licenseTableBuilder(outputTable, vulnResult)
+	outputLicenseTable = licenseTableBuilder(outputTable, vulnResult)
 
-	if outputTable.Length() == 0 {
+	if outputLicenseTable.Length() == 0 {
 		return
 	}
-	outputTable.RenderMarkdown()
+	outputLicenseTable.RenderMarkdown()
 
 }

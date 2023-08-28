@@ -184,6 +184,8 @@ func licenseTableBuilder(outputTable table.Writer, vulnResult *models.Vulnerabil
 		return outputTable
 	}
 
+	// Sort the license count in descending count order with the UNKNOWN
+	// license last.
 	licenses := maps.Keys(counts)
 	sort.Slice(licenses, func(i, j int) bool {
 		if licenses[i] == "UNKNOWN" {

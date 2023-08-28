@@ -80,8 +80,7 @@ func scanDir(r reporter.Reporter, dir string, skipGit bool, recursive bool, useG
 
 	root := true
 	var scannedPackages []Package
-
-	return scannedPackages, filepath.WalkDir(dir, func(path string, info os.DirEntry, err error) error {
+	err := filepath.WalkDir(dir, func(path string, info os.DirEntry, err error) error {
 		if err != nil {
 			r.PrintText(fmt.Sprintf("Failed to walk %s: %v\n", path, err))
 			return err
@@ -143,6 +142,8 @@ func scanDir(r reporter.Reporter, dir string, skipGit bool, recursive bool, useG
 
 		return nil
 	})
+
+	return scannedPackages, err
 }
 
 type gitIgnoreMatcher struct {
@@ -710,11 +711,6 @@ func makeLicensesRequests(packages []Package) ([][]models.License, error) {
 	licenses, err := depsdev.MakeVersionRequests(queries)
 	if err != nil {
 		return nil, err
-	}
-	for i := range licenses {
-		if len(licenses[i]) == 0 {
-			licenses[i] = []models.License{"UNKNOWN"}
-		}
 	}
 
 	return licenses, nil
