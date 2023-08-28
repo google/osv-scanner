@@ -45,7 +45,7 @@ func hasPackage(t *testing.T, packages []lockfile.PackageDetails, pkg lockfile.P
 	return false
 }
 
-func AbsPathNoErr(path string) string {
+func absPathNoErr(path string) string {
 	result, err := filepath.Abs(path)
 
 	if err != nil {
