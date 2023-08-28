@@ -13,11 +13,14 @@ import (
 	v3_metric "github.com/goark/go-cvss/v3/metric"
 
 	"github.com/google/osv-scanner/pkg/models"
-	"github.com/google/osv-scanner/pkg/osv"
 
 	"github.com/jedib0t/go-pretty/v6/table"
 	"github.com/jedib0t/go-pretty/v6/text"
 )
+
+// OSVBaseVulnerabilityURL is the base URL for detailed vulnerability views.
+// Copied in from osv package to avoid referencing the osv package unnecessarily
+const OSVBaseVulnerabilityURL = "https://osv.dev/"
 
 // PrintTableResults prints the osv scan results into a human friendly table.
 func PrintTableResults(vulnResult *models.VulnerabilityResults, outputWriter io.Writer, terminalWidth int) {
@@ -96,9 +99,9 @@ func tableBuilderInner(vulnResult *models.VulnerabilityResults, addStyling bool,
 
 				for _, vuln := range group.IDs {
 					if addStyling {
-						links = append(links, osv.BaseVulnerabilityURL+text.Bold.EscapeSeq()+vuln+text.Reset.EscapeSeq())
+						links = append(links, OSVBaseVulnerabilityURL+text.Bold.EscapeSeq()+vuln+text.Reset.EscapeSeq())
 					} else {
-						links = append(links, osv.BaseVulnerabilityURL+vuln)
+						links = append(links, OSVBaseVulnerabilityURL+vuln)
 					}
 				}
 
