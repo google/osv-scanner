@@ -7,8 +7,6 @@ import (
 	"github.com/google/osv-scanner/pkg/models"
 )
 
-const OSVScannerEcosystem Ecosystem = "OSV-Scanner-Results"
-
 func ParseOSVScannerResults(pathToLockfile string) ([]PackageDetails, error) {
 	return extractFromFile(pathToLockfile, OSVScannerResultsExtractor{})
 }
