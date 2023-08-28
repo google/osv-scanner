@@ -35,12 +35,12 @@ func PrintTableResults(vulnResult *models.VulnerabilityResults, outputWriter io.
 	}
 	outputTable.Render()
 
-	outputTable = newTable(outputWriter, table.Row{"License", "No. of package versions"}, terminalWidth)
-	outputTable = licenseTableBuilder(outputTable, vulnResult)
-	if outputTable.Length() == 0 {
+	outputLicenseTable := newTable(outputWriter, table.Row{"License", "No. of package versions"}, terminalWidth)
+	outputLicenseTable = licenseTableBuilder(outputTable, vulnResult)
+	if outputLicenseTable.Length() == 0 {
 		return
 	}
-	outputTable.Render()
+	outputLicenseTable.Render()
 }
 
 func newTable(outputWriter io.Writer, header table.Row, terminalWidth int) table.Writer {

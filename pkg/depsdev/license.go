@@ -84,7 +84,7 @@ func MakeVersionRequests(queries []*depsdevpb.GetVersionRequest) ([][]models.Lic
 				}
 				if len(ls) == 0 {
 					// The deps.dev API will return an
-					// empty array if the license is
+					// empty slice if the license is
 					// unknown.
 					ls = []models.License{models.License("UNKNOWN")}
 				}
