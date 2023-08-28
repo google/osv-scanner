@@ -1,4 +1,4 @@
-package modelsutil
+package vulns
 
 import "github.com/google/osv-scanner/pkg/models"
 

@@ -1,9 +1,9 @@
-package modelsutil_test
+package vulns_test
 
 import (
 	"testing"
 
-	"github.com/google/osv-scanner/internal/modelsutil"
+	"github.com/google/osv-scanner/internal/utility/vulns"
 	"github.com/google/osv-scanner/pkg/models"
 )
 
@@ -121,7 +121,7 @@ func TestVulnerabilities_Includes(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
 
-			if got := modelsutil.VulnsInclude(tt.vs, tt.args.osv); got != tt.want {
+			if got := vulns.VulnsInclude(tt.vs, tt.args.osv); got != tt.want {
 				t.Errorf("Includes() = %v, want %v", got, tt.want)
 			}
 		})
