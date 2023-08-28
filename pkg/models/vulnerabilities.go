@@ -7,23 +7,6 @@ import (
 
 type Vulnerabilities []Vulnerability
 
-func (vs Vulnerabilities) Includes(vulnerability Vulnerability) bool {
-	for _, vuln := range vs {
-		if vuln.ID == vulnerability.ID {
-			return true
-		}
-
-		if vuln.isAliasOf(vulnerability) {
-			return true
-		}
-		if vulnerability.isAliasOf(vuln) {
-			return true
-		}
-	}
-
-	return false
-}
-
 // MarshalJSON ensures that if there are no vulnerabilities,
 // an empty array is used as the value instead of "null"
 func (vs Vulnerabilities) MarshalJSON() ([]byte, error) {
