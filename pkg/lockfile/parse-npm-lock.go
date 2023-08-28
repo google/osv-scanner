@@ -3,8 +3,8 @@ package lockfile
 import (
 	"encoding/json"
 	"fmt"
-	"os"
 	"path"
+	"path/filepath"
 	"strings"
 )
 
@@ -142,20 +142,31 @@ func parseNpmLock(lockfile NpmLockfile) map[string]PackageDetails {
 	return parseNpmLockDependencies(lockfile.Dependencies)
 }
 
-func ParseNpmLock(pathToLockfile string) ([]PackageDetails, error) {
+type NpmLockExtractor struct{}
+
+func (e NpmLockExtractor) ShouldExtract(path string) bool {
+	return filepath.Base(path) == "package-lock.json"
+}
+
+func (e NpmLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 	var parsedLockfile *NpmLockfile
 
-	lockfileContents, err := os.ReadFile(pathToLockfile)
+	err := json.NewDecoder(f).Decode(&parsedLockfile)
 
 	if err != nil {
-		return []PackageDetails{}, fmt.Errorf("could not read %s: %w", pathToLockfile, err)
-	}
-
-	err = json.Unmarshal(lockfileContents, &parsedLockfile)
-
-	if err != nil {
-		return []PackageDetails{}, fmt.Errorf("could not parse %s: %w", pathToLockfile, err)
+		return []PackageDetails{}, fmt.Errorf("could not extract from %s: %w", f.Path(), err)
 	}
 
 	return pkgDetailsMapToSlice(parseNpmLock(*parsedLockfile)), nil
+}
+
+var _ Extractor = NpmLockExtractor{}
+
+//nolint:gochecknoinits
+func init() {
+	registerExtractor("package-lock.json", NpmLockExtractor{})
+}
+
+func ParseNpmLock(pathToLockfile string) ([]PackageDetails, error) {
+	return extractFromFile(pathToLockfile, NpmLockExtractor{})
 }

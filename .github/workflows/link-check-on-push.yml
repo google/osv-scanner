@@ -1,0 +1,16 @@
+name: Check links on push
+
+on: push
+permissions:  # added using https://github.com/step-security/secure-repo
+  contents: read
+jobs:
+  markdown-link-check:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+    - uses: gaurav-nelson/github-action-markdown-link-check@46e442156b8161bfd0913357c7a411e0e610d2ad
+      with:
+        use-quiet-mode: "yes"
+        base-branch: "main"
+        check-modified-files-only: "yes"
+# Documentation available here: https://github.com/marketplace/actions/markdown-link-check

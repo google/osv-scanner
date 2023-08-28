@@ -73,3 +73,24 @@ To lint your code, run
 ```shell
 ./run_lints.sh
 ```
+
+## Contributing documentation
+
+Please follow these steps to successfully contribute documentation. 
+
+1. Fork the repository. 
+2. Make desired documentation changes. 
+3. Preview the changes by spinning up a GitHub page for your fork, building from your working branch. 
+    - On your fork, go to the settings tab and then the GitHub page settings. Sample URL: https://github.com/{your-github-profile}/osv-scanner/settings/pages
+    - Under "Build and deployment" select "Build from branch"
+    - Set the branch to your working branch
+    - Set the github page to build from the "/docs" folder
+    - Hit save and wait for your site to build
+    - Once it is ready, click the link and preview the docs
+
+![Image shows the UI settings for building the GitHub page, which is described in step 3 of the contributing documentation instructions.](docs/images/github-page.png)
+
+4. If you are satisfied with the changes, open a PR.
+5. In the PR, link to your fork's GitHub page, so we can preview the changes.
+
+For information on how to run the documentation locally, please see our [documentation readme](https://github.com/google/osv-scanner/blob/main/docs/README.md/#running-docs-locally).

@@ -27,3 +27,28 @@ reason = "This is a intentionally vulnerable test sbom"
 id = "GHSA-f3fp-gc8g-vw66"
 # ignoreUntil = n/a
 reason = "This is a intentionally vulnerable test sbom"
+
+[[IgnoredVulns]]
+id = "DLA-3008-1"
+# ignoreUntil = n/a
+reason = "This is a intentionally vulnerable test sbom"
+
+[[IgnoredVulns]]
+id = "DLA-3012-1"
+# ignoreUntil = n/a
+reason = "This is a intentionally vulnerable test sbom"
+
+[[IgnoredVulns]]
+id = "DLA-3022-1"
+# ignoreUntil = n/a
+reason = "This is a intentionally vulnerable test sbom"
+
+[[IgnoredVulns]]
+id = "DLA-3051-1"
+# ignoreUntil = n/a
+reason = "This is a intentionally vulnerable test sbom"
+
+[[IgnoredVulns]]
+id = "CVE-2022-37434"
+# ignoreUntil = n/a
+reason = "This is a intentionally vulnerable test sbom"

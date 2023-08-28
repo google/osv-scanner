@@ -1,12 +1,14 @@
 package lockfile
 
 import (
+	"errors"
 	"fmt"
-	"os"
-	"regexp"
+	"io"
+	"path/filepath"
 	"strconv"
 	"strings"
 
+	"github.com/google/osv-scanner/internal/cachedregexp"
 	"gopkg.in/yaml.v3"
 )
 
@@ -55,7 +57,7 @@ func (l *PnpmLockfile) UnmarshalYAML(unmarshal func(interface{}) error) error {
 const PnpmEcosystem = NpmEcosystem
 
 func startsWithNumber(str string) bool {
-	matcher := regexp.MustCompile(`^\d`)
+	matcher := cachedregexp.MustCompile(`^\d`)
 
 	return matcher.MatchString(str)
 }
@@ -108,7 +110,7 @@ func extractPnpmPackageNameAndVersion(dependencyPath string) (string, string) {
 
 func parseNameAtVersion(value string) (name string, version string) {
 	// look for pattern "name@version", where name is allowed to contain zero or more "@"
-	matches := regexp.MustCompile(`^(.+)@([\d.]+)$`).FindStringSubmatch(value)
+	matches := cachedregexp.MustCompile(`^(.+)@([\d.]+)$`).FindStringSubmatch(value)
 
 	if len(matches) != 3 {
 		return name, ""
@@ -142,7 +144,7 @@ func parsePnpmLock(lockfile PnpmLockfile) []PackageDetails {
 		commit := pkg.Resolution.Commit
 
 		if strings.HasPrefix(pkg.Resolution.Tarball, "https://codeload.github.com") {
-			re := regexp.MustCompile(`https://codeload\.github\.com(?:/[\w-.]+){2}/tar\.gz/(\w+)$`)
+			re := cachedregexp.MustCompile(`https://codeload\.github\.com(?:/[\w-.]+){2}/tar\.gz/(\w+)$`)
 			matched := re.FindStringSubmatch(pkg.Resolution.Tarball)
 
 			if matched != nil {
@@ -162,20 +164,36 @@ func parsePnpmLock(lockfile PnpmLockfile) []PackageDetails {
 	return packages
 }
 
-func ParsePnpmLock(pathToLockfile string) ([]PackageDetails, error) {
+type PnpmLockExtractor struct{}
+
+func (e PnpmLockExtractor) ShouldExtract(path string) bool {
+	return filepath.Base(path) == "pnpm-lock.yaml"
+}
+
+func (e PnpmLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 	var parsedLockfile *PnpmLockfile
 
-	lockfileContents, err := os.ReadFile(pathToLockfile)
+	err := yaml.NewDecoder(f).Decode(&parsedLockfile)
 
-	if err != nil {
-		return []PackageDetails{}, fmt.Errorf("could not read %s: %w", pathToLockfile, err)
+	if err != nil && !errors.Is(err, io.EOF) {
+		return []PackageDetails{}, fmt.Errorf("could not extract from %s: %w", f.Path(), err)
 	}
 
-	err = yaml.Unmarshal(lockfileContents, &parsedLockfile)
-
-	if err != nil {
-		return []PackageDetails{}, fmt.Errorf("could not parse %s: %w", pathToLockfile, err)
+	// this will happen if the file is empty
+	if parsedLockfile == nil {
+		parsedLockfile = &PnpmLockfile{}
 	}
 
 	return parsePnpmLock(*parsedLockfile), nil
+}
+
+var _ Extractor = PnpmLockExtractor{}
+
+//nolint:gochecknoinits
+func init() {
+	registerExtractor("pnpm-lock.yaml", PnpmLockExtractor{})
+}
+
+func ParsePnpmLock(pathToLockfile string) ([]PackageDetails, error) {
+	return extractFromFile(pathToLockfile, PnpmLockExtractor{})
 }

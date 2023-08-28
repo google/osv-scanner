@@ -3,10 +3,10 @@ package lockfile
 import (
 	"bufio"
 	"fmt"
-	"os"
 	"path/filepath"
-	"regexp"
 	"strings"
+
+	"github.com/google/osv-scanner/internal/cachedregexp"
 )
 
 const PipEcosystem Ecosystem = "PyPI"
@@ -37,12 +37,11 @@ func parseLine(line string) PackageDetails {
 	}
 
 	if constraint != "" {
-		splitted := strings.Split(line, constraint)
-
-		name = strings.TrimSpace(splitted[0])
+		unprocessedName, unprocessedVersion, _ := strings.Cut(line, constraint)
+		name = strings.TrimSpace(unprocessedName)
 
 		if constraint != "!=" {
-			version = strings.TrimSpace(splitted[1])
+			version, _, _ = strings.Cut(strings.TrimSpace(unprocessedVersion), " ")
 		}
 	}
 
@@ -67,15 +66,15 @@ func parseLine(line string) PackageDetails {
 // than false negatives, and can be dealt with when/if it actually happens.
 func normalizedRequirementName(name string) string {
 	// per https://www.python.org/dev/peps/pep-0503/#normalized-names
-	name = regexp.MustCompile(`[-_.]+`).ReplaceAllString(name, "-")
+	name = cachedregexp.MustCompile(`[-_.]+`).ReplaceAllString(name, "-")
 	name = strings.ToLower(name)
-	name = strings.Split(name, "[")[0]
+	name, _, _ = strings.Cut(name, "[")
 
 	return name
 }
 
 func removeComments(line string) string {
-	var re = regexp.MustCompile(`(^|\s+)#.*$`)
+	var re = cachedregexp.MustCompile(`(^|\s+)#.*$`)
 
 	return strings.TrimSpace(re.ReplaceAllString(line, ""))
 }
@@ -92,31 +91,72 @@ func isNotRequirementLine(line string) bool {
 		strings.HasPrefix(line, "/")
 }
 
-func ParseRequirementsTxt(pathToLockfile string) ([]PackageDetails, error) {
+func isLineContinuation(line string) bool {
+	// checks that the line ends with an odd number of back slashes,
+	// meaning the last one isn't escaped
+	var re = cachedregexp.MustCompile(`([^\\]|^)(\\{2})*\\$`)
+
+	return re.MatchString(line)
+}
+
+type RequirementsTxtExtractor struct{}
+
+func (e RequirementsTxtExtractor) ShouldExtract(path string) bool {
+	return filepath.Base(path) == "requirements.txt"
+}
+
+func (e RequirementsTxtExtractor) Extract(f DepFile) ([]PackageDetails, error) {
+	return parseRequirementsTxt(f, map[string]struct{}{})
+}
+
+func parseRequirementsTxt(f DepFile, requiredAlready map[string]struct{}) ([]PackageDetails, error) {
 	packages := map[string]PackageDetails{}
 
-	file, err := os.Open(pathToLockfile)
-	if err != nil {
-		return []PackageDetails{}, fmt.Errorf("could not open %s: %w", pathToLockfile, err)
-	}
-	defer file.Close()
-
-	scanner := bufio.NewScanner(file)
-
+	scanner := bufio.NewScanner(f)
 	for scanner.Scan() {
-		line := removeComments(scanner.Text())
+		line := scanner.Text()
 
-		if strings.HasPrefix(line, "-r ") {
-			details, err := ParseRequirementsTxt(
-				filepath.Join(filepath.Dir(pathToLockfile), strings.TrimPrefix(line, "-r ")),
-			)
+		for isLineContinuation(line) {
+			line = strings.TrimSuffix(line, "\\")
+
+			if scanner.Scan() {
+				line += scanner.Text()
+			}
+		}
+
+		line = removeComments(line)
+
+		if ar := strings.TrimPrefix(line, "-r "); ar != line {
+			err := func() error {
+				af, err := f.Open(ar)
+
+				if err != nil {
+					return fmt.Errorf("failed to include %s: %w", line, err)
+				}
+
+				defer af.Close()
+
+				if _, ok := requiredAlready[af.Path()]; ok {
+					return nil
+				}
+
+				requiredAlready[af.Path()] = struct{}{}
+
+				details, err := parseRequirementsTxt(af, requiredAlready)
+
+				if err != nil {
+					return fmt.Errorf("failed to include %s: %w", line, err)
+				}
+
+				for _, detail := range details {
+					packages[detail.Name+"@"+detail.Version] = detail
+				}
+
+				return nil
+			}()
 
 			if err != nil {
-				return []PackageDetails{}, fmt.Errorf("failed to include %s: %w", line, err)
-			}
-
-			for _, detail := range details {
-				packages[detail.Name+"@"+detail.Version] = detail
+				return []PackageDetails{}, err
 			}
 
 			continue
@@ -131,8 +171,19 @@ func ParseRequirementsTxt(pathToLockfile string) ([]PackageDetails, error) {
 	}
 
 	if err := scanner.Err(); err != nil {
-		return []PackageDetails{}, fmt.Errorf("error while scanning %s: %w", pathToLockfile, err)
+		return []PackageDetails{}, fmt.Errorf("error while scanning %s: %w", f.Path(), err)
 	}
 
 	return pkgDetailsMapToSlice(packages), nil
+}
+
+var _ Extractor = RequirementsTxtExtractor{}
+
+//nolint:gochecknoinits
+func init() {
+	registerExtractor("requirements.txt", RequirementsTxtExtractor{})
+}
+
+func ParseRequirementsTxt(pathToLockfile string) ([]PackageDetails, error) {
+	return extractFromFile(pathToLockfile, RequirementsTxtExtractor{})
 }

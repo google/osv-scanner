@@ -11,7 +11,7 @@ func TestParseDpkgStatus_FileDoesNotExist(t *testing.T) {
 
 	packages, err := lockfile.ParseDpkgStatus("fixtures/dpkg/does-not-exist")
 
-	expectErrContaining(t, err, "could not open")
+	expectErrContaining(t, err, "no such file or directory")
 	expectPackages(t, packages, []lockfile.PackageDetails{})
 }
 

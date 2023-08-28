@@ -4,22 +4,24 @@ import (
 	"bufio"
 	"fmt"
 	"os"
-	"regexp"
+	"path/filepath"
 	"strings"
+
+	"github.com/google/osv-scanner/internal/cachedregexp"
 )
 
 const MixEcosystem Ecosystem = "Hex"
 
-func ParseMixLock(pathToLockfile string) ([]PackageDetails, error) {
-	file, err := os.Open(pathToLockfile)
-	if err != nil {
-		return []PackageDetails{}, fmt.Errorf("could not open %s: %w", pathToLockfile, err)
-	}
-	defer file.Close()
+type MixLockExtractor struct{}
 
-	re := regexp.MustCompile(`^ +"(\w+)": \{.+,$`)
+func (e MixLockExtractor) ShouldExtract(path string) bool {
+	return filepath.Base(path) == "mix.lock"
+}
 
-	scanner := bufio.NewScanner(file)
+func (e MixLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
+	re := cachedregexp.MustCompile(`^ +"(\w+)": \{.+,$`)
+
+	scanner := bufio.NewScanner(f)
 
 	var packages []PackageDetails
 
@@ -70,8 +72,19 @@ func ParseMixLock(pathToLockfile string) ([]PackageDetails, error) {
 	}
 
 	if err := scanner.Err(); err != nil {
-		return []PackageDetails{}, fmt.Errorf("error while scanning %s: %w", pathToLockfile, err)
+		return []PackageDetails{}, fmt.Errorf("error while scanning %s: %w", f.Path(), err)
 	}
 
 	return packages, nil
+}
+
+var _ Extractor = MixLockExtractor{}
+
+//nolint:gochecknoinits
+func init() {
+	registerExtractor("mix.lock", MixLockExtractor{})
+}
+
+func ParseMixLock(pathToLockfile string) ([]PackageDetails, error) {
+	return extractFromFile(pathToLockfile, MixLockExtractor{})
 }

@@ -4,7 +4,9 @@ import (
 	"encoding/xml"
 	"fmt"
 	"os"
-	"regexp"
+	"path/filepath"
+
+	"github.com/google/osv-scanner/internal/cachedregexp"
 )
 
 type MavenLockDependency struct {
@@ -15,7 +17,7 @@ type MavenLockDependency struct {
 }
 
 func (mld MavenLockDependency) parseResolvedVersion(version string) string {
-	versionRequirementReg := regexp.MustCompile(`[[(]?(.*?)(?:,|[)\]]|$)`)
+	versionRequirementReg := cachedregexp.MustCompile(`[[(]?(.*?)(?:,|[)\]]|$)`)
 
 	results := versionRequirementReg.FindStringSubmatch(version)
 
@@ -27,7 +29,7 @@ func (mld MavenLockDependency) parseResolvedVersion(version string) string {
 }
 
 func (mld MavenLockDependency) resolveVersionValue(lockfile MavenLockFile) string {
-	interpolationReg := regexp.MustCompile(`\${(.+)}`)
+	interpolationReg := cachedregexp.MustCompile(`\${(.+)}`)
 
 	results := interpolationReg.FindStringSubmatch(mld.Version)
 
@@ -99,19 +101,19 @@ func (p *MavenLockProperties) UnmarshalXML(d *xml.Decoder, start xml.StartElemen
 	}
 }
 
-func ParseMavenLock(pathToLockfile string) ([]PackageDetails, error) {
+type MavenLockExtractor struct{}
+
+func (e MavenLockExtractor) ShouldExtract(path string) bool {
+	return filepath.Base(path) == "pom.xml"
+}
+
+func (e MavenLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 	var parsedLockfile *MavenLockFile
 
-	lockfileContents, err := os.ReadFile(pathToLockfile)
+	err := xml.NewDecoder(f).Decode(&parsedLockfile)
 
 	if err != nil {
-		return []PackageDetails{}, fmt.Errorf("could not read %s: %w", pathToLockfile, err)
-	}
-
-	err = xml.Unmarshal(lockfileContents, &parsedLockfile)
-
-	if err != nil {
-		return []PackageDetails{}, fmt.Errorf("could not parse %s: %w", pathToLockfile, err)
+		return []PackageDetails{}, fmt.Errorf("could not extract from %s: %w", f.Path(), err)
 	}
 
 	details := map[string]PackageDetails{}
@@ -140,4 +142,15 @@ func ParseMavenLock(pathToLockfile string) ([]PackageDetails, error) {
 	}
 
 	return pkgDetailsMapToSlice(details), nil
+}
+
+var _ Extractor = MavenLockExtractor{}
+
+//nolint:gochecknoinits
+func init() {
+	registerExtractor("pom.xml", MavenLockExtractor{})
+}
+
+func ParseMavenLock(pathToLockfile string) ([]PackageDetails, error) {
+	return extractFromFile(pathToLockfile, MavenLockExtractor{})
 }

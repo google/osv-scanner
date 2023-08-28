@@ -7,6 +7,8 @@
   "schedule": ["before 6am on monday"],
   "labels": ["dependencies"],
   "postUpdateOptions": ["gomodTidy"],
+  "osvVulnerabilityAlerts": true,
+  "lockFileMaintenance": { "enabled": true },
   "packageRules": [
     {
       "matchUpdateTypes": ["major"],
@@ -18,12 +20,13 @@
       "groupName": "osv-scanner minor"
     },
     {
-      "matchPaths": [".github/"],
+      "matchFileNames": [".github/"],
       "groupName": "workflows"
     }
   ],
   "ignorePaths": [
-    "**/fixtures/**"
+    "**/fixtures/**",
+    "**/fixtures-go/**"
   ],
   "ignoreDeps": [
     "golang.org/x/vuln" 

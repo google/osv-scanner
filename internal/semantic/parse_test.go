@@ -2,9 +2,10 @@ package semantic_test
 
 import (
 	"errors"
+	"testing"
+
 	"github.com/google/osv-scanner/internal/semantic"
 	"github.com/google/osv-scanner/pkg/lockfile"
-	"testing"
 )
 
 func TestParse(t *testing.T) {

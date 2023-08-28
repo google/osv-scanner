@@ -1,6 +1,8 @@
 package models
 
 import (
+	"strings"
+
 	"golang.org/x/exp/slices"
 )
 
@@ -61,6 +63,7 @@ type PackageVulns struct {
 }
 
 type GroupInfo struct {
+	// IDs expected to be sorted in alphanumeric order
 	IDs []string `json:"ids"`
 	// Map of Vulnerability IDs to AnalysisInfo
 	ExperimentalAnalysis map[string]AnalysisInfo `json:"experimentalAnalysis,omitempty"`
@@ -80,6 +83,33 @@ func (groupInfo *GroupInfo) IsCalled() bool {
 	}
 
 	return false
+}
+
+func (groupInfo *GroupInfo) IndexString() string {
+	// Assumes IDs is sorted
+	return strings.Join(groupInfo.IDs, ",")
+}
+
+// FixedVersions returns a map of fixed versions for each package, or a map of empty slices if no fixed versions are available
+func (v *Vulnerability) FixedVersions() map[Package][]string {
+	output := map[Package][]string{}
+	for _, a := range v.Affected {
+		packageKey := a.Package
+		packageKey.Purl = ""
+		for _, r := range a.Ranges {
+			for _, e := range r.Events {
+				if e.Fixed != "" {
+					output[packageKey] = append(output[packageKey], e.Fixed)
+					if strings.Contains(string(packageKey.Ecosystem), ":") {
+						packageKey.Ecosystem = Ecosystem(strings.Split(string(packageKey.Ecosystem), ":")[0])
+					}
+					output[packageKey] = append(output[packageKey], e.Fixed)
+				}
+			}
+		}
+	}
+
+	return output
 }
 
 type AnalysisInfo struct {

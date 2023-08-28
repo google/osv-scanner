@@ -28,11 +28,13 @@ const (
 	maxConcurrentRequests = 25
 )
 
+var RequestUserAgent = ""
+
 // Package represents a package identifier for OSV.
 type Package struct {
-	PURL      string `json:"purl,omitempty"`
-	Name      string `json:"name,omitempty"`
-	Ecosystem string `json:"ecosystem,omitempty"`
+	PURL      string             `json:"purl,omitempty"`
+	Name      string             `json:"name,omitempty"`
+	Ecosystem lockfile.Ecosystem `json:"ecosystem,omitempty"`
 }
 
 // Query represents a query to OSV.
@@ -55,7 +57,7 @@ type MinimalVulnerability struct {
 
 // Response represents a full response from OSV.
 type Response struct {
-	Vulns []models.Vulnerability `json:"vulns"`
+	Vulns models.Vulnerabilities `json:"vulns"`
 }
 
 // MinimalResponse represents an unhydrated response from OSV.
@@ -96,7 +98,7 @@ func MakePkgRequest(pkgDetails lockfile.PackageDetails) *Query {
 		// Commit:  pkgDetails.Commit,
 		Package: Package{
 			Name:      pkgDetails.Name,
-			Ecosystem: string(pkgDetails.Ecosystem),
+			Ecosystem: pkgDetails.Ecosystem,
 		},
 	}
 }
@@ -127,6 +129,12 @@ func checkResponseError(resp *http.Response) error {
 
 // MakeRequest sends a batched query to osv.dev
 func MakeRequest(request BatchedQuery) (*BatchedResponse, error) {
+	return MakeRequestWithClient(request, http.DefaultClient)
+}
+
+// MakeRequestWithClient sends a batched query to osv.dev with the provided
+// http client.
+func MakeRequestWithClient(request BatchedQuery, client *http.Client) (*BatchedResponse, error) {
 	// API has a limit of 1000 bulk query per request
 	queryChunks := chunkBy(request.Queries, maxQueriesPerRequest)
 	var totalOsvResp BatchedResponse
@@ -140,7 +148,16 @@ func MakeRequest(request BatchedQuery) (*BatchedResponse, error) {
 		resp, err := makeRetryRequest(func() (*http.Response, error) {
 			// We do not need a specific context
 			//nolint:noctx
-			return http.Post(QueryEndpoint, "application/json", requestBuf)
+			req, err := http.NewRequest(http.MethodPost, QueryEndpoint, requestBuf)
+			if err != nil {
+				return nil, err
+			}
+			req.Header.Set("Content-Type", "application/json")
+			if RequestUserAgent != "" {
+				req.Header.Set("User-Agent", RequestUserAgent)
+			}
+
+			return client.Do(req)
 		})
 		if err != nil {
 			return nil, err
@@ -166,9 +183,24 @@ func MakeRequest(request BatchedQuery) (*BatchedResponse, error) {
 
 // Get a Vulnerability for the given ID.
 func Get(id string) (*models.Vulnerability, error) {
+	return GetWithClient(id, http.DefaultClient)
+}
+
+// GetWithClient gets a Vulnerability for the given ID with the provided http
+// client.
+func GetWithClient(id string, client *http.Client) (*models.Vulnerability, error) {
 	resp, err := makeRetryRequest(func() (*http.Response, error) {
+		// We do not need a specific context
 		//nolint:noctx
-		return http.Get(GetEndpoint + "/" + id)
+		req, err := http.NewRequest(http.MethodGet, GetEndpoint+"/"+id, nil)
+		if err != nil {
+			return nil, err
+		}
+		if RequestUserAgent != "" {
+			req.Header.Set("User-Agent", RequestUserAgent)
+		}
+
+		return client.Do(req)
 	})
 	if err != nil {
 		return nil, err
@@ -192,6 +224,12 @@ func Get(id string) (*models.Vulnerability, error) {
 // Hydrate fills the results of the batched response with the full
 // Vulnerability details.
 func Hydrate(resp *BatchedResponse) (*HydratedBatchedResponse, error) {
+	return HydrateWithClient(resp, http.DefaultClient)
+}
+
+// HydrateWithClient fills the results of the batched response with the full
+// Vulnerability details using the provided http client.
+func HydrateWithClient(resp *BatchedResponse, client *http.Client) (*HydratedBatchedResponse, error) {
 	hydrated := HydratedBatchedResponse{}
 	ctx := context.TODO()
 	// Preallocate the array to avoid slice reallocations when inserting later
@@ -211,7 +249,7 @@ func Hydrate(resp *BatchedResponse) (*HydratedBatchedResponse, error) {
 			}
 
 			go func(id string, batchIdx int, resultIdx int) {
-				vuln, err := Get(id)
+				vuln, err := GetWithClient(id, client)
 				if err != nil {
 					errChan <- err
 				} else {

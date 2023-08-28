@@ -9,6 +9,8 @@ import (
 	"path/filepath"
 	"strings"
 
+	"github.com/google/osv-scanner/internal/local"
+	"github.com/google/osv-scanner/internal/output"
 	"github.com/google/osv-scanner/internal/sbom"
 	"github.com/google/osv-scanner/pkg/config"
 	"github.com/google/osv-scanner/pkg/lockfile"
@@ -33,10 +35,18 @@ type ScannerActions struct {
 	DockerContainerNames []string
 	ConfigOverridePath   string
 
-	ExperimentalCallAnalysis bool
+	ExperimentalScannerActions
 }
 
-// NoPackagesFoundErr for when no packages is found during a scan.
+type ExperimentalScannerActions struct {
+	CallAnalysis   bool
+	CompareLocally bool
+	CompareOffline bool
+
+	LocalDBPath string
+}
+
+// NoPackagesFoundErr for when no packages are found during a scan.
 //
 //nolint:errname,stylecheck // Would require version major bump to change
 var NoPackagesFoundErr = errors.New("no packages found in scan")
@@ -52,7 +62,7 @@ var OnlyUncalledVulnerabilitiesFoundErr = errors.New("only uncalled vulnerabilit
 //   - Any lockfiles with scanLockfile
 //   - Any SBOM files with scanSBOMFile
 //   - Any git repositories with scanGit
-func scanDir(r *reporter.Reporter, query *osv.BatchedQuery, dir string, skipGit bool, recursive bool, useGitIgnore bool) error {
+func scanDir(r reporter.Reporter, query *osv.BatchedQuery, dir string, skipGit bool, recursive bool, useGitIgnore bool) error {
 	var ignoreMatcher *gitIgnoreMatcher
 	if useGitIgnore {
 		var err error
@@ -105,7 +115,7 @@ func scanDir(r *reporter.Reporter, query *osv.BatchedQuery, dir string, skipGit 
 		}
 
 		if !info.IsDir() {
-			if parser, _ := lockfile.FindParser(path, ""); parser != nil {
+			if extractor, _ := lockfile.FindExtractor(path, ""); extractor != nil {
 				err := scanLockfile(r, query, path, "")
 				if err != nil {
 					r.PrintError(fmt.Sprintf("Attempted to scan lockfile but failed: %s\n", path))
@@ -180,32 +190,45 @@ func (m *gitIgnoreMatcher) match(absPath string, isDir bool) (bool, error) {
 
 // scanLockfile will load, identify, and parse the lockfile path passed in, and add the dependencies specified
 // within to `query`
-func scanLockfile(r *reporter.Reporter, query *osv.BatchedQuery, path string, parseAs string) error {
+func scanLockfile(r reporter.Reporter, query *osv.BatchedQuery, path string, parseAs string) error {
 	var err error
 	var parsedLockfile lockfile.Lockfile
 
-	// special case for the APK and DPKG parsers because they have a very generic name while
-	// living at a specific location, so they are not included in the map of parsers
-	// used by lockfile.Parse to avoid false-positives when scanning projects
-	switch parseAs {
-	case "apk-installed":
-		parsedLockfile, err = lockfile.FromApkInstalled(path)
-	case "dpkg-status":
-		parsedLockfile, err = lockfile.FromDpkgStatus(path)
-	default:
-		parsedLockfile, err = lockfile.Parse(path, parseAs)
+	f, err := lockfile.OpenLocalDepFile(path)
+
+	if err == nil {
+		// special case for the APK and DPKG parsers because they have a very generic name while
+		// living at a specific location, so they are not included in the map of parsers
+		// used by lockfile.Parse to avoid false-positives when scanning projects
+		switch parseAs {
+		case "apk-installed":
+			parsedLockfile, err = lockfile.FromApkInstalled(path)
+		case "dpkg-status":
+			parsedLockfile, err = lockfile.FromDpkgStatus(path)
+		default:
+			parsedLockfile, err = lockfile.ExtractDeps(f, parseAs)
+		}
 	}
 
 	if err != nil {
 		return err
 	}
+
+	addCompilerVersion(r, &parsedLockfile)
+
 	parsedAsComment := ""
 
 	if parseAs != "" {
 		parsedAsComment = fmt.Sprintf("as a %s ", parseAs)
 	}
 
-	r.PrintText(fmt.Sprintf("Scanned %s file %sand found %d packages\n", path, parsedAsComment, len(parsedLockfile.Packages)))
+	r.PrintText(fmt.Sprintf(
+		"Scanned %s file %sand found %d %s\n",
+		path,
+		parsedAsComment,
+		len(parsedLockfile.Packages),
+		output.Form(len(parsedLockfile.Packages), "package", "packages"),
+	))
 
 	for _, pkgDetail := range parsedLockfile.Packages {
 		pkgDetailQuery := osv.MakePkgRequest(pkgDetail)
@@ -221,7 +244,7 @@ func scanLockfile(r *reporter.Reporter, query *osv.BatchedQuery, path string, pa
 
 // scanSBOMFile will load, identify, and parse the SBOM path passed in, and add the dependencies specified
 // within to `query`
-func scanSBOMFile(r *reporter.Reporter, query *osv.BatchedQuery, path string, fromFSScan bool) error {
+func scanSBOMFile(r reporter.Reporter, query *osv.BatchedQuery, path string, fromFSScan bool) error {
 	var errs []error
 	for _, provider := range sbom.Providers {
 		if fromFSScan && !provider.MatchesRecognizedFileNames(path) {
@@ -244,7 +267,7 @@ func scanSBOMFile(r *reporter.Reporter, query *osv.BatchedQuery, path string, fr
 		count := 0
 		ignoredCount := 0
 		err = provider.GetPackages(file, func(id sbom.Identifier) error {
-			_, err := PURLToPackage(id.PURL)
+			_, err := models.PURLToPackage(id.PURL)
 			if err != nil {
 				ignoredCount++
 				//nolint:nilerr
@@ -261,10 +284,31 @@ func scanSBOMFile(r *reporter.Reporter, query *osv.BatchedQuery, path string, fr
 			return nil
 		})
 		if err == nil {
-			// Found the right format.
-			r.PrintText(fmt.Sprintf("Scanned %s as %s SBOM and found %d packages\n", path, provider.Name(), count))
+			// Found a parsable format.
+			if count == 0 {
+				// But no entries found, so maybe not the correct format
+				errs = append(errs, sbom.InvalidFormatError{
+					Msg: "no Package URLs found",
+					Errs: []error{
+						fmt.Errorf("scanned %s as %s SBOM, but failed to find any package URLs, this is required to scan SBOMs", path, provider.Name()),
+					},
+				})
+
+				continue
+			}
+			r.PrintText(fmt.Sprintf(
+				"Scanned %s as %s SBOM and found %d %s\n",
+				path,
+				provider.Name(),
+				count,
+				output.Form(count, "package", "packages"),
+			))
 			if ignoredCount > 0 {
-				r.PrintText(fmt.Sprintf("Ignored %d packages with invalid PURLs\n", ignoredCount))
+				r.PrintText(fmt.Sprintf(
+					"Ignored %d %s with invalid PURLs\n",
+					ignoredCount,
+					output.Form(ignoredCount, "package", "packages"),
+				))
 			}
 
 			return nil
@@ -279,7 +323,7 @@ func scanSBOMFile(r *reporter.Reporter, query *osv.BatchedQuery, path string, fr
 		return err
 	}
 
-	// Don't log these errors if we're coming from a FS scan, since it can get very noisy.
+	// Don't log these errors if we're coming from an FS scan, since it can get very noisy.
 	if !fromFSScan {
 		r.PrintText("Failed to parse SBOM using all supported formats:\n")
 		for _, err := range errs {
@@ -304,7 +348,7 @@ func getCommitSHA(repoDir string) (string, error) {
 }
 
 // Scan git repository. Expects repoDir to end with /
-func scanGit(r *reporter.Reporter, query *osv.BatchedQuery, repoDir string) error {
+func scanGit(r reporter.Reporter, query *osv.BatchedQuery, repoDir string) error {
 	commit, err := getCommitSHA(repoDir)
 	if err != nil {
 		return err
@@ -325,7 +369,7 @@ func scanGitCommit(query *osv.BatchedQuery, commit string, source string) error 
 	return nil
 }
 
-func scanDebianDocker(r *reporter.Reporter, query *osv.BatchedQuery, dockerImageName string) error {
+func scanDebianDocker(r reporter.Reporter, query *osv.BatchedQuery, dockerImageName string) error {
 	cmd := exec.Command("docker", "run", "--rm", "--entrypoint", "/usr/bin/dpkg-query", dockerImageName, "-f", "${Package}###${Version}\\n", "-W")
 	stdout, err := cmd.StdoutPipe()
 
@@ -367,13 +411,17 @@ func scanDebianDocker(r *reporter.Reporter, query *osv.BatchedQuery, dockerImage
 		query.Queries = append(query.Queries, pkgDetailsQuery)
 		packages += 1
 	}
-	r.PrintText(fmt.Sprintf("Scanned docker image with %d packages\n", packages))
+	r.PrintText(fmt.Sprintf(
+		"Scanned docker image with %d %s\n",
+		packages,
+		output.Form(packages, "package", "packages"),
+	))
 
 	return nil
 }
 
 // Filters results according to config, preserving order. Returns total number of vulnerabilities removed.
-func filterResults(r *reporter.Reporter, results *models.VulnerabilityResults, configManager *config.ConfigManager) int {
+func filterResults(r reporter.Reporter, results *models.VulnerabilityResults, configManager *config.ConfigManager) int {
 	removedCount := 0
 	newResults := []models.PackageSource{} // Want 0 vulnerabilities to show in JSON as an empty list, not null.
 	for _, pkgSrc := range results.Results {
@@ -399,7 +447,7 @@ func filterResults(r *reporter.Reporter, results *models.VulnerabilityResults, c
 }
 
 // Filters package-grouped vulnerabilities according to config, preserving ordering. Returns filtered package vulnerabilities.
-func filterPackageVulns(r *reporter.Reporter, pkgVulns models.PackageVulns, configToUse config.Config) models.PackageVulns {
+func filterPackageVulns(r reporter.Reporter, pkgVulns models.PackageVulns, configToUse config.Config) models.PackageVulns {
 	ignoredVulns := map[string]struct{}{}
 	// Iterate over groups first to remove all aliases of ignored vulnerabilities.
 	var newGroups []models.GroupInfo
@@ -456,9 +504,17 @@ func parseLockfilePath(lockfileElem string) (string, string) {
 }
 
 // Perform osv scanner action, with optional reporter to output information
-func DoScan(actions ScannerActions, r *reporter.Reporter) (models.VulnerabilityResults, error) {
+func DoScan(actions ScannerActions, r reporter.Reporter) (models.VulnerabilityResults, error) {
 	if r == nil {
-		r = reporter.NewVoidReporter()
+		r = &reporter.VoidReporter{}
+	}
+
+	if actions.CompareOffline {
+		actions.CompareLocally = true
+	}
+
+	if actions.CompareLocally {
+		actions.SkipGit = true
 	}
 
 	configManager := config.ConfigManager{
@@ -525,21 +581,21 @@ func DoScan(actions ScannerActions, r *reporter.Reporter) (models.VulnerabilityR
 		return models.VulnerabilityResults{}, NoPackagesFoundErr
 	}
 
-	resp, err := osv.MakeRequest(query)
+	hydratedResp, err := makeRequest(r, actions.CompareLocally, actions.CompareOffline, query, actions.LocalDBPath)
+
 	if err != nil {
-		return models.VulnerabilityResults{}, fmt.Errorf("scan failed %w", err)
+		return models.VulnerabilityResults{}, err
 	}
 
-	hydratedResp, err := osv.Hydrate(resp)
-	if err != nil {
-		return models.VulnerabilityResults{}, fmt.Errorf("failed to hydrate OSV response: %w", err)
-	}
-
-	vulnerabilityResults := groupResponseBySource(r, query, hydratedResp, actions.ExperimentalCallAnalysis)
+	vulnerabilityResults := groupResponseBySource(r, query, hydratedResp, actions.CallAnalysis)
 
 	filtered := filterResults(r, &vulnerabilityResults, &configManager)
 	if filtered > 0 {
-		r.PrintText(fmt.Sprintf("Filtered %d vulnerabilities from output\n", filtered))
+		r.PrintText(fmt.Sprintf(
+			"Filtered %d %s from output\n",
+			filtered,
+			output.Form(filtered, "vulnerability", "vulnerabilities"),
+		))
 	}
 
 	// if vulnerability exists it should return error
@@ -555,4 +611,37 @@ func DoScan(actions ScannerActions, r *reporter.Reporter) (models.VulnerabilityR
 	}
 
 	return vulnerabilityResults, nil
+}
+
+func makeRequest(
+	r reporter.Reporter,
+	compareLocally bool,
+	compareOffline bool,
+	query osv.BatchedQuery,
+	localDBPath string,
+) (*osv.HydratedBatchedResponse, error) {
+	if compareLocally {
+		hydratedResp, err := local.MakeRequest(r, query, compareOffline, localDBPath)
+		if err != nil {
+			return &osv.HydratedBatchedResponse{}, fmt.Errorf("scan failed %w", err)
+		}
+
+		return hydratedResp, nil
+	}
+
+	if osv.RequestUserAgent == "" {
+		osv.RequestUserAgent = "osv-scanner-api"
+	}
+
+	resp, err := osv.MakeRequest(query)
+	if err != nil {
+		return &osv.HydratedBatchedResponse{}, fmt.Errorf("scan failed %w", err)
+	}
+
+	hydratedResp, err := osv.Hydrate(resp)
+	if err != nil {
+		return &osv.HydratedBatchedResponse{}, fmt.Errorf("failed to hydrate OSV response: %w", err)
+	}
+
+	return hydratedResp, nil
 }

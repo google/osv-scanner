@@ -112,7 +112,7 @@ func (c *CycloneDX) GetPackages(r io.ReadSeeker, callback func(Identifier) error
 	}
 
 	return InvalidFormatError{
-		msg:  "failed to parse CycloneDX",
-		errs: errs,
+		Msg:  "failed to parse CycloneDX",
+		Errs: errs,
 	}
 }

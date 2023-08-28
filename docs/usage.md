@@ -4,11 +4,22 @@ title: Usage
 permalink: /usage/
 nav_order: 3
 ---
-## Usage
+# Usage
+
+{: .no_toc }
+
+<details open markdown="block">
+  <summary>
+    Table of contents
+  </summary>
+  {: .text-delta }
+- TOC
+{:toc}
+</details>
 
 OSV-Scanner parses lockfiles, SBOMs, and git directories to determine your project's open source dependencies. These dependencies are matched against the OSV database via the [OSV.dev API](https://osv.dev#use-the-api) and known vulnerabilities are returned to you in the output. 
 
-### General use case: scanning a directory
+## General use case: scanning a directory
 
 ```bash
 osv-scanner -r /path/to/your/dir
@@ -20,7 +31,7 @@ The recursive flag `-r` or `--recursive` will tell the scanner to search all sub
 
 Git directories are searched for the latest commit hash. Searching for git commit hash is intended to work with projects that use git submodules or a similar mechanism where dependencies are checked out as real git repositories. 
 
-### Ignored files
+## Ignored files
 
 By default, OSV-Scanner will not scan files that are ignored by `.gitignore` files. All recursively scanned files are matched to a git repository (if it exists) and any matching `.gitignore` files within that repository are taken into account.
 
@@ -28,22 +39,26 @@ There is a [known issue](https://github.com/google/osv-scanner/issues/209) that 
 
 The `--no-ignore` flag can be used to force the scanner to scan ignored files.
 
-### Specify SBOM
+## Specify SBOM
 
 If you want to check for known vulnerabilities only in dependencies in your SBOM, you can use the following command:
 
 ```bash
-osv-scanner --sbom=/path/to/your/sbom.json
+osv-scanner --sbom=/path/to/your/sbom.spdx.json
 ```
 
 [SPDX] and [CycloneDX] SBOMs using [Package URLs] are supported. The format is
-auto-detected based on the input file contents.
+auto-detected based on the input file contents and the file name.
+
+When scanning a directory, only SBOMs following the specification filename will be scanned. See the specs for [SPDX Filenames] and [CycloneDX Filenames].
 
 [SPDX]: https://spdx.dev/
+[SPDX Filenames]: https://spdx.github.io/spdx-spec/v2.3/conformance/
+[CycloneDX Filenames]: https://cyclonedx.org/specification/overview/#recognized-file-patterns
 [CycloneDX]: https://cyclonedx.org/
 [Package URLs]: https://github.com/package-url/purl-spec
 
-### Specify Lockfile(s)
+## Specify Lockfile(s)
 If you want to check for known vulnerabilities in specific lockfiles, you can use the following command:
 
 ```bash
@@ -95,7 +110,7 @@ it should infer the parser based on the filename:
 osv-scanner --lockfile ':/path/to/my:projects/package-lock.json'
 ```
 
-### Scanning with call analysis  
+## Scanning with call analysis  
 
 {: .note }
 Features and flags with the `experimental` prefix might change or be removed with only a minor version update.
@@ -106,17 +121,47 @@ is not being executed, these vulnerabilities will be marked as unexecuted.
 
 To enable call analysis, call OSV-Scanner with the `--experimental-call-analysis` flag.
 
-#### Supported languages
-- `go`
-  - Additional dependencies:
-    - `go` compiler needs to be installed and available on PATH
+### Supported languages
 
-#### Example
+---
+
+#### **Go**
+
+OSV-Scanner uses the `govulncheck` library to analyze Go source code to identify called vulnerable functions.
+
+##### Additional Dependencies
+
+`go` compiler needs to be installed and available on `PATH`    
+
+---
+
+#### **Rust**
+
+OSV-Scanner compiles Rust source code and analyzes the output binary's DWARF debug information to identify called vulnerable functions.
+
+##### Additional Dependencies
+
+Rust toolchain (including `cargo`) that can compile the source code being scanned needs to be installed and available on `PATH`.
+
+The installed Rust toolchain must be capable of compiling every crate/target in the scanned code, for code with
+a lot of dependencies this will take a few minutes.
+
+##### **Limitations**
+
+Current implementation has a few limitations:
+
+- Does not support dependencies on proc-macros (Tracked in [#464](https://github.com/google/osv-scanner/issues/464))
+- Does not support any dependencies that are dynamically linked
+- Does not support dependencies that link external non-rust code
+
+---
+
+### Example
 ```bash
 osv-scanner --experimental-call-analysis ./my/project/path
 ```
 
-### Scanning a Debian based docker image packages
+## Scanning a Debian based docker image packages
 Preview
 {: .label } 
 
@@ -128,13 +173,13 @@ Requires `docker` to be installed and the tool to have permission calling it.
 
 This currently does not scan the filesystem of the Docker container, and has various other limitations. Follow [this issue](https://github.com/google/osv-scanner/issues/64) for updates on container scanning!
 
-#### Example
+### Example
 
 ```bash
 osv-scanner --docker image_name:latest
 ```
 
-### Running in a Docker Container
+## Running in a Docker Container
 
 The simplest way to get the osv-scanner docker image is to pull from GitHub Container Registry:
 
