@@ -22,14 +22,18 @@ type HelpTemplateData struct {
 }
 
 const SARIFTemplate = `
-## {{.ID}}
+Your dependency is vulnerable to [{{.ID}}](https://osv.dev/vulnerability/{{.ID}}).
 
-{{.Details}}
+>## {{.ID}}
+>
+> {{.Details}}
+> 
 
 ---
 
 ### Affected Packages
 {{.AffectedPackagesTable}}
+
 `
 
 // GroupFixedVersions builds the fixed versions for each ID Group, with keys formatted like so:
