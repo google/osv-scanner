@@ -22,10 +22,10 @@ type HelpTemplateData struct {
 }
 
 const SARIFTemplate = `
-Your dependency is vulnerable to [{{.ID}}](https://osv.dev/vulnerability/{{.ID}}).
+#### Your dependency is vulnerable to [{{.ID}}](https://osv.dev/vulnerability/{{.ID}}).
 
->## {{.ID}}
->
+> ## {{.ID}}
+> 
 > {{.Details}}
 > 
 
@@ -131,10 +131,11 @@ func PrintSARIFReport(vulnResult *models.VulnerabilityResults, outputWriter io.W
 		}
 
 		helpText := strings.Builder{}
+
 		err = helpTextTemplate.Execute(&helpText, HelpTemplateData{
 			ID:                    pv.Vuln.ID,
 			AffectedPackagesTable: helpTable.RenderMarkdown(),
-			Details:               pv.Vuln.Details,
+			Details:               strings.ReplaceAll(pv.Vuln.Details, "\n", "\n> "),
 		})
 
 		if err != nil {
