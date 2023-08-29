@@ -35,6 +35,22 @@ func (vulns *VulnerabilityResults) GroupByVulnerability() map[string]PkgsForVuln
 	// Map of Vuln IDs to
 	results := map[string]PkgsForVulnerability{}
 
+	// for i, vf := range vulns.Flatten() {
+	// 	newPkgSource := PkgWithSource{
+	// 		Package: vf.Package,
+	// 		Source:  vf.Source,
+	// 	}
+	// 	if val, exists := results[vf.GroupInfo.IndexString()]; exists {
+	// 		val.PkgSource[newPkgSource] = struct{}{}
+	// 	} else {
+	// 		results[vf.GroupInfo.IndexString()] = PkgsForVulnerability{
+	// 			Vuln:      vf.V,
+	// 			Group:     getGroupInfoForVuln(pkg.Groups, v.ID),
+	// 			PkgSource: []PkgWithSource{newPkgSource},
+	// 		}
+	// 	}
+	// }
+
 	for _, res := range vulns.Results {
 		for _, pkg := range res.Packages {
 			for _, v := range pkg.Vulnerabilities {
@@ -98,6 +114,7 @@ type PkgsForVulnerability struct {
 	Vuln      Vulnerability
 	Group     GroupInfo
 	PkgSource []PkgWithSource
+	// PkgSource map[PkgWithSource]struct{}
 }
 
 type PkgWithSource struct {

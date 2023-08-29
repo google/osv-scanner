@@ -104,7 +104,7 @@ func PrintSARIFReport(vulnResult *models.VulnerabilityResults, outputWriter io.W
 		helpTable := CreateSARIFHelpTable(pv.PkgSource)
 
 		run.AddRule(pv.Vuln.ID).
-			WithShortDescription(sarif.NewMultiformatMessageString(pv.Vuln.Summary)).
+			WithShortDescription(sarif.NewMultiformatMessageString(fmt.Sprintf("%s: %s", pv.Vuln.ID, pv.Vuln.Summary))).
 			WithFullDescription(sarif.NewMultiformatMessageString(pv.Vuln.Details).WithMarkdown(pv.Vuln.Details)).
 			WithMarkdownHelp(helpTable.RenderMarkdown()).
 			WithTextHelp(helpTable.Render())
@@ -122,7 +122,7 @@ func PrintSARIFReport(vulnResult *models.VulnerabilityResults, outputWriter io.W
 				WithMessage(sarif.NewTextMessage(fmt.Sprintf("Package '%s@%s' is vulnerable to '%s', please upgrade to versions '%s' to fix this vulnerability", pws.Package.Name, pws.Package.Version, pv.Vuln.ID, strings.Join(pv.Vuln.FixedVersions()[models.Package{
 					Ecosystem: models.Ecosystem(pws.Package.Ecosystem),
 					Name:      pws.Package.Name,
-				}], ",")))).AddLocation(
+				}], ", ")))).AddLocation(
 				sarif.NewLocationWithPhysicalLocation(
 					sarif.NewPhysicalLocation().
 						WithArtifactLocation(sarif.NewSimpleArtifactLocation(artifactPath)),
