@@ -28,7 +28,7 @@ jobs:
       - name: "Checkout target branch"
         run: git checkout $GITHUB_BASE_REF
       - name: "Run scanner on existing code"
-        uses: another-rex/osv-scanner/actions/scanner@main
+        uses: another-rex/osv-scanner/actions/scanner@sarif-updates
         continue-on-error: true
         with:
           results-format: json
@@ -37,14 +37,14 @@ jobs:
       - name: "Checkout current branch"
         run: git checkout $GITHUB_SHA
       - name: "Run scanner on new code"
-        uses: another-rex/osv-scanner/actions/scanner@main
+        uses: another-rex/osv-scanner/actions/scanner@sarif-updates
         with:
           results-format: json
           results-file: new-results.json
           to-scan: .
         continue-on-error: true
       - name: "Run osv-scanner-reporter"
-        uses: another-rex/osv-scanner/actions/reporter@main
+        uses: another-rex/osv-scanner/actions/reporter@sarif-updates
         with:
           output-sarif-file: final-results.sarif
           old-results: old-results.json
