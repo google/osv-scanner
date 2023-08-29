@@ -2,8 +2,6 @@ package lockfile_test
 
 import (
 	"fmt"
-	"log"
-	"path/filepath"
 	"strings"
 	"testing"
 
@@ -43,16 +41,6 @@ func hasPackage(t *testing.T, packages []lockfile.PackageDetails, pkg lockfile.P
 	}
 
 	return false
-}
-
-func absPathOrPanic(path string) string {
-	result, err := filepath.Abs(path)
-
-	if err != nil {
-		log.Panicf("failed to find abs path: %s", err)
-	}
-
-	return result
 }
 
 func expectPackage(t *testing.T, packages []lockfile.PackageDetails, pkg lockfile.PackageDetails) {
