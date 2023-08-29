@@ -51,7 +51,6 @@ func TestParseOSVScannerResults_OnePackage(t *testing.T) {
 			Version:   "7.0.7",
 			Ecosystem: lockfile.BundlerEcosystem,
 			CompareAs: lockfile.BundlerEcosystem,
-			Source:    "/path/to/Gemfile.lock",
 		},
 	})
 }
@@ -71,21 +70,18 @@ func TestParseOSVScannerResults_MultiPackages(t *testing.T) {
 			Version:   "0.6.6",
 			Ecosystem: lockfile.CargoEcosystem,
 			CompareAs: lockfile.CargoEcosystem,
-			Source:    "/path/to/Cargo.lock",
 		},
 		{
 			Name:      "memoffset",
 			Version:   "0.5.6",
 			Ecosystem: lockfile.CargoEcosystem,
 			CompareAs: lockfile.CargoEcosystem,
-			Source:    "/path/to/Cargo.lock",
 		},
 		{
 			Name:      "smallvec",
 			Version:   "1.6.0",
 			Ecosystem: lockfile.CargoEcosystem,
 			CompareAs: lockfile.CargoEcosystem,
-			Source:    "/path/to/Cargo.lock",
 		},
 	})
 }

@@ -34,7 +34,6 @@ func (e OSVScannerResultsExtractor) Extract(f DepFile) ([]PackageDetails, error)
 				Ecosystem: Ecosystem(pkg.Package.Ecosystem),
 				Version:   pkg.Package.Version,
 				CompareAs: Ecosystem(pkg.Package.Ecosystem),
-				Source:    res.Source.Path,
 			})
 		}
 	}

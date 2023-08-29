@@ -167,9 +167,7 @@ func parseRequirementsTxt(f DepFile, requiredAlready map[string]struct{}) ([]Pac
 		}
 
 		detail := parseLine(line)
-		// Fill out source for requirements.txt because dependencies might not be in the initial lockfile
-		// that's passed
-		detail.Source = f.Path()
+
 		packages[detail.Name+"@"+detail.Version] = detail
 	}
 
