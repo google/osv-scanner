@@ -22,7 +22,7 @@ type HelpTemplateData struct {
 }
 
 const SARIFTemplate = `
-#### Your dependency is vulnerable to [{{.ID}}](https://osv.dev/vulnerability/{{.ID}}).
+**Your dependency is vulnerable to [{{.ID}}](https://osv.dev/vulnerability/{{.ID}}).**
 
 > ## {{.ID}}
 > 
