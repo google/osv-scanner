@@ -17,19 +17,51 @@ func (vulns *VulnerabilityResults) Flatten() []VulnerabilityFlattened {
 	for _, res := range vulns.Results {
 		for _, pkg := range res.Packages {
 			for _, v := range pkg.Vulnerabilities {
-				// groupIdx should never be -1 since vulnerabilities should always be in one group
-				groupIdx := slices.IndexFunc(pkg.Groups, func(g GroupInfo) bool { return slices.Contains(g.IDs, v.ID) })
 				results = append(results, VulnerabilityFlattened{
 					Source:        res.Source,
 					Package:       pkg.Package,
 					Vulnerability: v,
-					GroupInfo:     pkg.Groups[groupIdx],
+					GroupInfo:     getGroupInfoForVuln(pkg.Groups, v.ID),
 				})
 			}
 		}
 	}
 
 	return results
+}
+
+// Flatten the grouped/nested vulnerability results into one flat array.
+func (vulns *VulnerabilityResults) GroupByVulnerability() map[string]PkgsForVulnerability {
+	// Map of Vuln IDs to
+	results := map[string]PkgsForVulnerability{}
+
+	for _, res := range vulns.Results {
+		for _, pkg := range res.Packages {
+			for _, v := range pkg.Vulnerabilities {
+				newPkgSource := PkgWithSource{
+					Package: pkg.Package,
+					Source:  res.Source,
+				}
+				if val, exists := results[v.ID]; exists {
+					val.PkgSource = append(val.PkgSource, newPkgSource)
+				} else {
+					results[v.ID] = PkgsForVulnerability{
+						Vuln:      v,
+						Group:     getGroupInfoForVuln(pkg.Groups, v.ID),
+						PkgSource: []PkgWithSource{newPkgSource},
+					}
+				}
+			}
+		}
+	}
+
+	return results
+}
+
+func getGroupInfoForVuln(groups []GroupInfo, vulnID string) GroupInfo {
+	// groupIdx should never be -1 since vulnerabilities should always be in one group
+	groupIdx := slices.IndexFunc(groups, func(g GroupInfo) bool { return slices.Contains(g.IDs, vulnID) })
+	return groups[groupIdx]
 }
 
 // Flattened Vulnerability Information.
@@ -60,6 +92,17 @@ type PackageVulns struct {
 	Package         PackageInfo     `json:"package"`
 	Vulnerabilities []Vulnerability `json:"vulnerabilities"`
 	Groups          []GroupInfo     `json:"groups"`
+}
+
+type PkgsForVulnerability struct {
+	Vuln      Vulnerability
+	Group     GroupInfo
+	PkgSource []PkgWithSource
+}
+
+type PkgWithSource struct {
+	Package PackageInfo
+	Source  SourceInfo
 }
 
 type GroupInfo struct {

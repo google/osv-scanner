@@ -14,7 +14,8 @@ import (
 	"golang.org/x/exp/slices"
 )
 
-// GroupFixedVersions builds the fixed versions for each ID Group
+// GroupFixedVersions builds the fixed versions for each ID Group, with keys formatted like so:
+// `Source:ID`
 func GroupFixedVersions(flattened []models.VulnerabilityFlattened) map[string][]string {
 	groupFixedVersions := map[string][]string{}
 
@@ -66,6 +67,22 @@ func CreateSourceRemediationTable(source models.PackageSource, groupFixedVersion
 	return remediationTable
 }
 
+// CreateSourceRemediationTable creates a vulnerability table which includes the fixed versions for a specific source file
+func CreateSARIFHelpTable(pkgWithSrc []models.PkgWithSource) table.Writer {
+	helpTable := table.NewWriter()
+	helpTable.AppendHeader(table.Row{"Source", "Package Name", "Package Version"})
+
+	for _, ps := range pkgWithSrc {
+		helpTable.AppendRow(table.Row{
+			ps.Source.String(),
+			ps.Package.Name,
+			ps.Package.Version,
+		})
+	}
+
+	return helpTable
+}
+
 // PrintSARIFReport prints SARIF output to outputWriter
 func PrintSARIFReport(vulnResult *models.VulnerabilityResults, outputWriter io.Writer) error {
 	report, err := sarif.New(sarif.Version210)
@@ -74,41 +91,57 @@ func PrintSARIFReport(vulnResult *models.VulnerabilityResults, outputWriter io.W
 	}
 
 	run := sarif.NewRunWithInformationURI("osv-scanner", "https://github.com/google/osv-scanner")
-	run.AddRule("vulnerable-packages").
-		WithDescription("This manifest file contains one or more vulnerable packages.")
-	flattened := vulnResult.Flatten()
+	// run.Tool.Driver.WithVersion()
+	// run.AddRule("vulnerable-packages").
+	// 	WithDescription("This manifest file contains one or more vulnerable packages.")
+	// flattened := vulnResult.Flatten()
 
 	// TODO: Also support last affected
-	groupFixedVersions := GroupFixedVersions(flattened)
+	// groupFixedVersions := GroupFixedVersions(flattened)
 	workingDir, err := os.Getwd()
 	if err != nil {
 		log.Panicf("can't get working dir: %v", err)
 	}
-	for _, source := range vulnResult.Results {
-		// TODO: Support docker images
 
-		var artifactPath string
-		artifactPath, err = filepath.Rel(workingDir, source.Source.Path)
-		if err != nil {
-			artifactPath = source.Source.Path
-		}
-		run.AddDistinctArtifact(artifactPath)
+	vulnIdMap := vulnResult.GroupByVulnerability()
 
-		remediationTable := CreateSourceRemediationTable(source, groupFixedVersions)
+	// for _, source := range vulnResult.Results {
+	// 	var artifactPath string
+	// 	artifactPath, err = filepath.Rel(workingDir, source.Source.Path)
+	// 	if err != nil {
+	// 		artifactPath = source.Source.Path
+	// 	}
+	// 	run.AddDistinctArtifact(artifactPath)
+	// }
 
-		renderedTable := remediationTable.Render()
-		// This is required since the github message rendering is a mixture of
-		// monospaced font text and markdown. Continuous spaces will be compressed
-		// down to one space, breaking the table rendering
-		renderedTable = strings.ReplaceAll(renderedTable, "  ", " &nbsp;")
-		run.CreateResultForRule("vulnerable-packages").
-			WithLevel("warning").
-			WithMessage(sarif.NewMessage().WithText(renderedTable)).
-			AddLocation(
+	for _, pv := range vulnIdMap {
+		helpTable := CreateSARIFHelpTable(pv.PkgSource)
+
+		run.AddRule(pv.Vuln.ID).
+			WithShortDescription(sarif.NewMultiformatMessageString(pv.Vuln.Summary)).
+			WithFullDescription(sarif.NewMultiformatMessageString(pv.Vuln.Details).WithMarkdown(pv.Vuln.Details)).
+			WithMarkdownHelp(helpTable.RenderMarkdown()).
+			WithTextHelp(helpTable.Render())
+
+		for _, pws := range pv.PkgSource {
+			var artifactPath string
+			artifactPath, err = filepath.Rel(workingDir, pws.Source.Path)
+			if err != nil {
+				artifactPath = pws.Source.Path
+			}
+			run.AddDistinctArtifact(artifactPath)
+
+			run.CreateResultForRule(pv.Vuln.ID).
+				WithLevel("warning").
+				WithMessage(sarif.NewTextMessage(fmt.Sprintf("Package '%s@%s' is vulnerable to '%s', please upgrade to versions '%s' to fix this vulnerability", pws.Package.Name, pws.Package.Version, pv.Vuln.ID, strings.Join(pv.Vuln.FixedVersions()[models.Package{
+					Ecosystem: models.Ecosystem(pws.Package.Ecosystem),
+					Name:      pws.Package.Name,
+				}], ",")))).AddLocation(
 				sarif.NewLocationWithPhysicalLocation(
 					sarif.NewPhysicalLocation().
-						WithArtifactLocation(
-							sarif.NewSimpleArtifactLocation(artifactPath))))
+						WithArtifactLocation(sarif.NewSimpleArtifactLocation(artifactPath)),
+				))
+		}
 	}
 
 	report.AddRun(run)
