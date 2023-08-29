@@ -92,27 +92,13 @@ func PrintSARIFReport(vulnResult *models.VulnerabilityResults, outputWriter io.W
 
 	run := sarif.NewRunWithInformationURI("osv-scanner", "https://github.com/google/osv-scanner")
 	// run.Tool.Driver.WithVersion()
-	// run.AddRule("vulnerable-packages").
-	// 	WithDescription("This manifest file contains one or more vulnerable packages.")
-	// flattened := vulnResult.Flatten()
 
-	// TODO: Also support last affected
-	// groupFixedVersions := GroupFixedVersions(flattened)
 	workingDir, err := os.Getwd()
 	if err != nil {
 		log.Panicf("can't get working dir: %v", err)
 	}
 
 	vulnIdMap := vulnResult.GroupByVulnerability()
-
-	// for _, source := range vulnResult.Results {
-	// 	var artifactPath string
-	// 	artifactPath, err = filepath.Rel(workingDir, source.Source.Path)
-	// 	if err != nil {
-	// 		artifactPath = source.Source.Path
-	// 	}
-	// 	run.AddDistinctArtifact(artifactPath)
-	// }
 
 	for _, pv := range vulnIdMap {
 		helpTable := CreateSARIFHelpTable(pv.PkgSource)
