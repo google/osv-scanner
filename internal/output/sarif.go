@@ -7,12 +7,30 @@ import (
 	"os"
 	"path/filepath"
 	"strings"
+	"text/template"
 
 	"github.com/google/osv-scanner/pkg/models"
 	"github.com/jedib0t/go-pretty/v6/table"
 	"github.com/owenrumney/go-sarif/v2/sarif"
 	"golang.org/x/exp/slices"
 )
+
+type HelpTemplateData struct {
+	ID                    string
+	AffectedPackagesTable string
+	Details               string
+}
+
+const SARIFTemplate = `
+## {{.ID}}
+
+{{.Details}}
+
+---
+
+### Affected Packages
+{{.AffectedPackagesTable}}
+`
 
 // GroupFixedVersions builds the fixed versions for each ID Group, with keys formatted like so:
 // `Source:ID`
@@ -103,11 +121,27 @@ func PrintSARIFReport(vulnResult *models.VulnerabilityResults, outputWriter io.W
 	for _, pv := range vulnIdMap {
 		helpTable := CreateSARIFHelpTable(pv.PkgSource)
 
+		helpTextTemplate, err := template.New("helpText").Parse(SARIFTemplate)
+		if err != nil {
+			log.Panicf("failed to parse sarif help text template")
+		}
+
+		helpText := strings.Builder{}
+		err = helpTextTemplate.Execute(&helpText, HelpTemplateData{
+			ID:                    pv.Vuln.ID,
+			AffectedPackagesTable: helpTable.RenderMarkdown(),
+			Details:               pv.Vuln.Details,
+		})
+
+		if err != nil {
+			log.Panicf("failed to execute sarif help text template")
+		}
+
 		run.AddRule(pv.Vuln.ID).
 			WithShortDescription(sarif.NewMultiformatMessageString(fmt.Sprintf("%s: %s", pv.Vuln.ID, pv.Vuln.Summary))).
 			WithFullDescription(sarif.NewMultiformatMessageString(pv.Vuln.Details).WithMarkdown(pv.Vuln.Details)).
-			WithMarkdownHelp(helpTable.RenderMarkdown()).
-			WithTextHelp(helpTable.Render())
+			WithMarkdownHelp(helpText.String()).
+			WithTextHelp(helpText.String())
 
 		for _, pws := range pv.PkgSource {
 			var artifactPath string
