@@ -42,7 +42,7 @@ func (r *TableReporter) PrintText(msg string) {
 
 func (r *TableReporter) PrintResult(vulnResult *models.VulnerabilityResults) error {
 	if len(vulnResult.Results) == 0 && !r.hasPrintedError {
-		fmt.Fprintf(r.stdout, "No vulnerabilities found\n")
+		fmt.Fprintf(r.stdout, "No issues found\n")
 		return nil
 	}
 

@@ -24,6 +24,14 @@ func (vulns *VulnerabilityResults) Flatten() []VulnerabilityFlattened {
 					GroupInfo:     getGroupInfoForVuln(pkg.Groups, v.ID),
 				})
 			}
+			if len(pkg.LicenseViolations) > 0 {
+				results = append(results, VulnerabilityFlattened{
+					Source:            res.Source,
+					Package:           pkg.Package,
+					Licenses:          pkg.Licenses,
+					LicenseViolations: pkg.LicenseViolations,
+				})
+			}
 		}
 	}
 
@@ -37,11 +45,15 @@ func getGroupInfoForVuln(groups []GroupInfo, vulnID string) GroupInfo {
 }
 
 // Flattened Vulnerability Information.
+// TODO: rename this to IssueFlattened or similar in the next major release as
+// it now contains license violations.
 type VulnerabilityFlattened struct {
-	Source        SourceInfo
-	Package       PackageInfo
-	Vulnerability Vulnerability
-	GroupInfo     GroupInfo
+	Source            SourceInfo
+	Package           PackageInfo
+	Vulnerability     Vulnerability
+	GroupInfo         GroupInfo
+	Licenses          []License
+	LicenseViolations []License
 }
 
 type SourceInfo struct {
@@ -86,6 +98,12 @@ type GroupInfo struct {
 // IsCalled returns true if any analysis performed determines that the vulnerability is being called
 // Also returns true if no analysis is performed
 func (groupInfo *GroupInfo) IsCalled() bool {
+	if len(groupInfo.IDs) == 0 {
+		// This PackageVulns may be a license violation, not a
+		// vulnerability.
+		return false
+	}
+
 	if len(groupInfo.ExperimentalAnalysis) == 0 {
 		return true
 	}

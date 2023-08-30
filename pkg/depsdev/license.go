@@ -66,6 +66,7 @@ func MakeVersionRequests(queries []*depsdevpb.GetVersionRequest) ([][]models.Lic
 	for i := range queries {
 		if queries[i] == nil {
 			// This may be a private package.
+			licenses[i] = []models.License{models.License("UNKNOWN")}
 			continue
 		}
 		i := i
@@ -74,22 +75,21 @@ func MakeVersionRequests(queries []*depsdevpb.GetVersionRequest) ([][]models.Lic
 			if err != nil {
 				if status.Code(err) == codes.NotFound {
 					licenses[i] = append(licenses[i], "UNKNOWN")
+					return nil
 				}
 				return err
 			}
-			if err == nil {
-				ls := make([]models.License, len(resp.Licenses))
-				for j, license := range resp.Licenses {
-					ls[j] = models.License(license)
-				}
-				if len(ls) == 0 {
-					// The deps.dev API will return an
-					// empty slice if the license is
-					// unknown.
-					ls = []models.License{models.License("UNKNOWN")}
-				}
-				licenses[i] = ls
+			ls := make([]models.License, len(resp.Licenses))
+			for j, license := range resp.Licenses {
+				ls[j] = models.License(license)
 			}
+			if len(ls) == 0 {
+				// The deps.dev API will return an
+				// empty slice if the license is
+				// unknown.
+				ls = []models.License{models.License("UNKNOWN")}
+			}
+			licenses[i] = ls
 
 			return nil
 		})

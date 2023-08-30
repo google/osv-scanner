@@ -181,7 +181,8 @@ func run(args []string, stdout, stderr io.Writer) int {
 
 			if err != nil &&
 				!errors.Is(err, osvscanner.VulnerabilitiesFoundErr) &&
-				!errors.Is(err, osvscanner.OnlyUncalledVulnerabilitiesFoundErr) {
+				!errors.Is(err, osvscanner.OnlyUncalledVulnerabilitiesFoundErr) &&
+				!errors.Is(err, osvscanner.LicenseViolationsErr) {
 				//nolint:wrapcheck
 				return err
 			}

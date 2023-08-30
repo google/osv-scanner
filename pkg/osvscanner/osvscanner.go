@@ -62,6 +62,9 @@ var VulnerabilitiesFoundErr = errors.New("vulnerabilities found")
 //nolint:errname,stylecheck // Would require version bump to change
 var OnlyUncalledVulnerabilitiesFoundErr = errors.New("only uncalled vulnerabilities found")
 
+//nolint:errname,stylecheck // Would require version bump to change
+var LicenseViolationsErr = errors.New("license violations found")
+
 // scanDir walks through the given directory to try to find any relevant files
 // These include:
 //   - Any lockfiles with scanLockfile
@@ -448,7 +451,7 @@ func filterResults(r reporter.Reporter, results *models.VulnerabilityResults, co
 		for _, pkgVulns := range pkgSrc.Packages {
 			newVulns := filterPackageVulns(r, pkgVulns, configToUse)
 			removedCount += len(pkgVulns.Vulnerabilities) - len(newVulns.Vulnerabilities)
-			if len(newVulns.Vulnerabilities) > 0 || allPackages {
+			if allPackages || len(newVulns.Vulnerabilities) > 0 || len(pkgVulns.LicenseViolations) > 0 {
 				newPackages = append(newPackages, newVulns)
 			}
 		}
@@ -634,10 +637,12 @@ func DoScan(actions ScannerActions, r reporter.Reporter) (models.VulnerabilityRe
 
 	// if vulnerability exists it should return error
 	if len(results.Results) > 0 {
-		// If any vulnerabilities are called, then we return VulnerabilitiesFoundErr
 		for _, vf := range results.Flatten() {
 			if vf.GroupInfo.IsCalled() {
 				return results, VulnerabilitiesFoundErr
+			}
+			if len(vf.LicenseViolations) > 0 {
+				return results, LicenseViolationsErr
 			}
 		}
 		// Otherwise return OnlyUncalledVulnerabilitiesFoundErr

@@ -30,13 +30,12 @@ func PrintTableResults(vulnResult *models.VulnerabilityResults, outputWriter io.
 	// Render the vulnerabilities.
 	outputTable := newTable(outputWriter, table.Row{"OSV URL", "CVSS", "Ecosystem", "Package", "Version", "Source"}, terminalWidth)
 	outputTable = tableBuilder(outputTable, vulnResult, terminalWidth > 0)
-	if outputTable.Length() == 0 {
-		return
+	if outputTable.Length() != 0 {
+		outputTable.Render()
 	}
-	outputTable.Render()
 
 	outputLicenseTable := newTable(outputWriter, table.Row{"License", "No. of package versions"}, terminalWidth)
-	outputLicenseTable = licenseTableBuilder(outputTable, vulnResult)
+	outputLicenseTable = licenseTableBuilder(outputLicenseTable, vulnResult)
 	if outputLicenseTable.Length() == 0 {
 		return
 	}
