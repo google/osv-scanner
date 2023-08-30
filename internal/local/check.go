@@ -38,8 +38,8 @@ func toPackageDetails(query *osv.Query) (lockfile.PackageDetails, error) {
 		Name:      query.Package.Name,
 		Version:   query.Version,
 		Commit:    query.Commit,
-		Ecosystem: query.Package.Ecosystem,
-		CompareAs: query.Package.Ecosystem,
+		Ecosystem: lockfile.Ecosystem(query.Package.Ecosystem),
+		CompareAs: lockfile.Ecosystem(query.Package.Ecosystem),
 	}, nil
 }
 

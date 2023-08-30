@@ -32,9 +32,9 @@ var RequestUserAgent = ""
 
 // Package represents a package identifier for OSV.
 type Package struct {
-	PURL      string             `json:"purl,omitempty"`
-	Name      string             `json:"name,omitempty"`
-	Ecosystem lockfile.Ecosystem `json:"ecosystem,omitempty"`
+	PURL      string `json:"purl,omitempty"`
+	Name      string `json:"name,omitempty"`
+	Ecosystem string `json:"ecosystem,omitempty"`
 }
 
 // Query represents a query to OSV.
@@ -57,7 +57,7 @@ type MinimalVulnerability struct {
 
 // Response represents a full response from OSV.
 type Response struct {
-	Vulns models.Vulnerabilities `json:"vulns"`
+	Vulns []models.Vulnerability `json:"vulns"`
 }
 
 // MinimalResponse represents an unhydrated response from OSV.
@@ -98,7 +98,7 @@ func MakePkgRequest(pkgDetails lockfile.PackageDetails) *Query {
 		// Commit:  pkgDetails.Commit,
 		Package: Package{
 			Name:      pkgDetails.Name,
-			Ecosystem: pkgDetails.Ecosystem,
+			Ecosystem: string(pkgDetails.Ecosystem),
 		},
 	}
 }
