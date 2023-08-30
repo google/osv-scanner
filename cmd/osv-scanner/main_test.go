@@ -91,8 +91,6 @@ type cliTestCase struct {
 func testCli(t *testing.T, tc cliTestCase) {
 	t.Helper()
 
-	t.Logf("Running test: [%s]", tc.name)
-
 	stdoutBuffer := &bytes.Buffer{}
 	stderrBuffer := &bytes.Buffer{}
 
