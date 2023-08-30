@@ -182,16 +182,16 @@ func run(args []string, stdout, stderr io.Writer) int {
 			if err != nil &&
 				!errors.Is(err, osvscanner.VulnerabilitiesFoundErr) &&
 				!errors.Is(err, osvscanner.OnlyUncalledVulnerabilitiesFoundErr) &&
-				!errors.Is(err, osvscanner.LicenseViolationsErr) {
-				//nolint:wrapcheck
+				!errors.Is(err, osvscanner.LicenseViolationsErr) &&
+				!errors.Is(err, osvscanner.VulnerabilitiesFoundAndLicenseViolationsErr) &&
+				!errors.Is(err, osvscanner.OnlyUncalledVulnerabilitiesFoundAndLicenseViolationsErr) {
 				return err
 			}
-
 			if errPrint := r.PrintResult(&vulnResult); errPrint != nil {
 				return fmt.Errorf("failed to write output: %w", errPrint)
 			}
 
-			// Could be nil, VulnerabilitiesFoundErr, or OnlyUncalledVulnerabilitiesFoundErr
+			// This may be nil.
 			return err
 		},
 	}
@@ -200,20 +200,23 @@ func run(args []string, stdout, stderr io.Writer) int {
 		if r == nil {
 			r = reporter.NewTableReporter(stdout, stderr, false, 0)
 		}
-		if errors.Is(err, osvscanner.VulnerabilitiesFoundErr) {
+		switch {
+		case errors.Is(err, osvscanner.VulnerabilitiesFoundErr):
 			return 1
-		}
-
-		if errors.Is(err, osvscanner.OnlyUncalledVulnerabilitiesFoundErr) {
-			// TODO: Discuss whether to have a different exit code now that running call analysis is not default
+		case errors.Is(err, osvscanner.OnlyUncalledVulnerabilitiesFoundErr):
+			// TODO: Discuss whether to have a different exit code
+			// now that running call analysis is not default.
 			return 2
-		}
-
-		if errors.Is(err, osvscanner.NoPackagesFoundErr) {
+		case errors.Is(err, osvscanner.LicenseViolationsErr):
+			return 4
+		case errors.Is(err, osvscanner.VulnerabilitiesFoundAndLicenseViolationsErr):
+			return 5
+		case errors.Is(err, osvscanner.OnlyUncalledVulnerabilitiesFoundAndLicenseViolationsErr):
+			return 6
+		case errors.Is(err, osvscanner.NoPackagesFoundErr):
 			r.PrintError("No package sources found, --help for usage information.\n")
 			return 128
 		}
-
 		r.PrintError(fmt.Sprintf("%v\n", err))
 	}
 

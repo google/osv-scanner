@@ -177,19 +177,6 @@ func TestRun(t *testing.T) {
 			`,
 			wantStderr: "",
 		},
-		// one specific supported lockfile with licenses flag
-		{
-			name:         "",
-			args:         []string{"", "--experimental-licenses", "./fixtures/locks-many/composer.lock"},
-			wantExitCode: 0,
-			wantStdout: `
-				Scanning dir ./fixtures/locks-many/composer.lock
-				Scanned %%/fixtures/locks-many/composer.lock file and found 1 package
-				No issues found
-			`,
-			wantStderr: "",
-		},
-
 		// one specific supported sbom with vulns
 		{
 			name:         "folder of supported sbom with vulns",

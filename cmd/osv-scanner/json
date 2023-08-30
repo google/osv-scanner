@@ -1,0 +1,10 @@
+Scanning dir fixtures/locks-many/package-lock.json
+Scanned /Users/josieang/fork/osv-scanner/cmd/osv-scanner/fixtures/locks-many/package-lock.json file and found 1 package
+Loaded filter from: /Users/josieang/fork/osv-scanner/cmd/osv-scanner/fixtures/locks-many/osv-scanner.toml
+GHSA-whgm-jr23-g3j9 has been filtered out because: Test manifest file
+Filtered 1 vulnerability from output
++------------+-------------------------+
+| LICENSE    | NO. OF PACKAGE VERSIONS |
++------------+-------------------------+
+| Apache-2.0 |                       1 |
++------------+-------------------------+

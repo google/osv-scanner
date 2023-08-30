@@ -65,6 +65,12 @@ var OnlyUncalledVulnerabilitiesFoundErr = errors.New("only uncalled vulnerabilit
 //nolint:errname,stylecheck // Would require version bump to change
 var LicenseViolationsErr = errors.New("license violations found")
 
+//nolint:errname,stylecheck // Would require version bump to change
+var VulnerabilitiesFoundAndLicenseViolationsErr = errors.New("vulnerabilities found and license violations found")
+
+//nolint:errname,stylecheck // Would require version bump to change
+var OnlyUncalledVulnerabilitiesFoundAndLicenseViolationsErr = errors.New("only uncalled vulnerabilities found and license violations found")
+
 // scanDir walks through the given directory to try to find any relevant files
 // These include:
 //   - Any lockfiles with scanLockfile
@@ -635,18 +641,47 @@ func DoScan(actions ScannerActions, r reporter.Reporter) (models.VulnerabilityRe
 		))
 	}
 
-	// if vulnerability exists it should return error
 	if len(results.Results) > 0 {
+		// Determine the correct error to return.
+		// TODO: in the next breaking release of osv-scanner, consider
+		// returning a ScanError instead of an error.
+		var vuln bool
+		onlyUncalledVuln := true
+		var licenseViolation bool
 		for _, vf := range results.Flatten() {
-			if vf.GroupInfo.IsCalled() {
-				return results, VulnerabilitiesFoundErr
+			if vf.Vulnerability.ID != "" {
+				vuln = true
+				if vf.GroupInfo.IsCalled() {
+					onlyUncalledVuln = false
+				}
 			}
 			if len(vf.LicenseViolations) > 0 {
-				return results, LicenseViolationsErr
+				licenseViolation = true
 			}
 		}
-		// Otherwise return OnlyUncalledVulnerabilitiesFoundErr
-		return results, OnlyUncalledVulnerabilitiesFoundErr
+		onlyUncalledVuln = onlyUncalledVuln && vuln
+
+		switch {
+		case !vuln && !onlyUncalledVuln && !licenseViolation:
+			// There is no error.
+			return results, nil
+		case vuln && !onlyUncalledVuln && !licenseViolation:
+			return results, VulnerabilitiesFoundErr
+		case !vuln && onlyUncalledVuln && !licenseViolation:
+			// Impossible state.
+			return results, nil
+		case vuln && onlyUncalledVuln && !licenseViolation:
+			return results, OnlyUncalledVulnerabilitiesFoundErr
+		case !vuln && !onlyUncalledVuln && licenseViolation:
+			return results, LicenseViolationsErr
+		case vuln && !onlyUncalledVuln && licenseViolation:
+			return results, VulnerabilitiesFoundAndLicenseViolationsErr
+		case !vuln && onlyUncalledVuln && licenseViolation:
+			// Impossible state.
+			return results, nil
+		case vuln && onlyUncalledVuln && licenseViolation:
+			return results, OnlyUncalledVulnerabilitiesFoundAndLicenseViolationsErr
+		}
 	}
 
 	return results, nil
