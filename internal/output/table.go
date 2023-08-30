@@ -193,6 +193,9 @@ func licenseTableBuilder(outputTable table.Writer, vulnResult *models.Vulnerabil
 		if licenses[j] == "UNKNOWN" {
 			return true
 		}
+		if counts[licenses[i]] == counts[licenses[j]] {
+			return licenses[i] < licenses[j]
+		}
 		return counts[licenses[i]] > counts[licenses[j]]
 	})
 	for _, license := range licenses {

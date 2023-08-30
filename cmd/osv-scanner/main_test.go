@@ -1071,6 +1071,65 @@ func TestRun_LocalDatabases(t *testing.T) {
 	}
 }
 
+func TestRun_Licenses(t *testing.T) {
+	t.Parallel()
+	tests := []cliTestCase{
+		{
+			name:         "No vulnerabilities but contains license violations",
+			args:         []string{"", "--experimental-licenses=''", "./fixtures/locks-many"},
+			wantExitCode: 4,
+			wantStdout: `
+				Scanning dir ./fixtures/locks-many
+				Scanned <rootdir>/fixtures/locks-many/Gemfile.lock file and found 1 package
+				Scanned <rootdir>/fixtures/locks-many/alpine.cdx.xml as CycloneDX SBOM and found 15 packages
+				Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
+				Scanned <rootdir>/fixtures/locks-many/package-lock.json file and found 1 package
+				Scanned <rootdir>/fixtures/locks-many/yarn.lock file and found 1 package
+				Loaded filter from: <rootdir>/fixtures/locks-many/osv-scanner.toml
+				CVE-2022-48174 has been filtered out because: Test manifest file (alpine.cdx.xml)
+				GHSA-whgm-jr23-g3j9 has been filtered out because: Test manifest file
+				Filtered 2 vulnerabilities from output
+				+------------+-------------------------+
+				| LICENSE    | NO. OF PACKAGE VERSIONS |
+				+------------+-------------------------+
+				| Apache-2.0 |                       1 |
+				| MIT        |                       1 |
+				| UNKNOWN    |                      17 |
+				+------------+-------------------------+
+			`,
+			wantStderr: "",
+		},
+		{
+			name:         "Vulnerabilities and license violations",
+			args:         []string{"", "--experimental-licenses=''", "--config=./fixtures/osv-scanner-empty-config.toml", "./fixtures/locks-many/package-lock.json"},
+			wantExitCode: 5,
+			wantStdout: `
+				Scanning dir ./fixtures/locks-many/package-lock.json
+				Scanned <rootdir>/fixtures/locks-many/package-lock.json file and found 1 package
+				+-------------------------------------+------+-----------+-----------+---------+---------------------------------------+
+				| OSV URL                             | CVSS | ECOSYSTEM | PACKAGE   | VERSION | SOURCE                                |
+				+-------------------------------------+------+-----------+-----------+---------+---------------------------------------+
+				| https://osv.dev/GHSA-whgm-jr23-g3j9 | 7.5  | npm       | ansi-html | 0.0.1   | fixtures/locks-many/package-lock.json |
+				+-------------------------------------+------+-----------+-----------+---------+---------------------------------------+
+				+------------+-------------------------+
+				| LICENSE    | NO. OF PACKAGE VERSIONS |
+				+------------+-------------------------+
+				| Apache-2.0 |                       1 |
+				+------------+-------------------------+
+			`,
+			wantStderr: "",
+		},
+	}
+	for _, tt := range tests {
+		tt := tt
+		t.Run(tt.name, func(t *testing.T) {
+			t.Parallel()
+
+			testCli(t, tt)
+		})
+	}
+}
+
 func TestMain(m *testing.M) {
 	// ensure a git repository doesn't already exist in the fixtures directory,
 	// in case we didn't get a chance to clean-up properly in the last run
