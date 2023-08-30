@@ -60,6 +60,9 @@ func OpenLocalDepFile(path string) (NestedDepFile, error) {
 		return LocalFile{}, err
 	}
 
+	// Very unlikely to have Abs return an error if the file opens correctly
+	path, _ = filepath.Abs(path)
+
 	return LocalFile{r, path}, nil
 }
 
