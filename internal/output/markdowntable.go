@@ -12,8 +12,6 @@ import (
 func PrintMarkdownTableResults(vulnResult *models.VulnerabilityResults, outputWriter io.Writer) {
 	outputTable := table.NewWriter()
 	outputTable.SetOutputMirror(outputWriter)
-	outputTable.AppendHeader(table.Row{"OSV URL", "CVSS", "Ecosystem", "Package", "Version", "Source"})
-
 	outputTable = tableBuilder(outputTable, vulnResult, false)
 
 	if outputTable.Length() != 0 {

@@ -28,13 +28,14 @@ const OSVBaseVulnerabilityURL = "https://osv.dev/"
 // PrintTableResults prints the osv scan results into a human friendly table.
 func PrintTableResults(vulnResult *models.VulnerabilityResults, outputWriter io.Writer, terminalWidth int) {
 	// Render the vulnerabilities.
-	outputTable := newTable(outputWriter, table.Row{"OSV URL", "CVSS", "Ecosystem", "Package", "Version", "Source"}, terminalWidth)
+	outputTable := newTable(outputWriter, terminalWidth)
 	outputTable = tableBuilder(outputTable, vulnResult, terminalWidth > 0)
 	if outputTable.Length() != 0 {
 		outputTable.Render()
 	}
 
-	outputLicenseTable := newTable(outputWriter, table.Row{"License", "No. of package versions"}, terminalWidth)
+	// Render the licenses if any.
+	outputLicenseTable := newTable(outputWriter, terminalWidth)
 	outputLicenseTable = licenseTableBuilder(outputLicenseTable, vulnResult)
 	if outputLicenseTable.Length() == 0 {
 		return
@@ -42,10 +43,9 @@ func PrintTableResults(vulnResult *models.VulnerabilityResults, outputWriter io.
 	outputLicenseTable.Render()
 }
 
-func newTable(outputWriter io.Writer, header table.Row, terminalWidth int) table.Writer {
+func newTable(outputWriter io.Writer, terminalWidth int) table.Writer {
 	outputTable := table.NewWriter()
 	outputTable.SetOutputMirror(outputWriter)
-	outputTable.AppendHeader(header)
 
 	if terminalWidth > 0 { // If output is a terminal, set max length to width and add styling
 		outputTable.SetStyle(table.StyleRounded)
@@ -57,7 +57,9 @@ func newTable(outputWriter io.Writer, header table.Row, terminalWidth int) table
 	return outputTable
 
 }
+
 func tableBuilder(outputTable table.Writer, vulnResult *models.VulnerabilityResults, addStyling bool) table.Writer {
+	outputTable.AppendHeader(table.Row{"OSV URL", "CVSS", "Ecosystem", "Package", "Version", "Source"})
 	rows := tableBuilderInner(vulnResult, addStyling, true)
 	for _, elem := range rows {
 		outputTable.AppendRow(elem.row, table.RowConfig{AutoMerge: elem.shouldMerge})
@@ -170,6 +172,18 @@ func MaxSeverity(group models.GroupInfo, pkg models.PackageVulns) string {
 }
 
 func licenseTableBuilder(outputTable table.Writer, vulnResult *models.VulnerabilityResults) table.Writer {
+	licenseConfig := vulnResult.ExperimentalAnalysisConfig.Licenses
+	if !licenseConfig.Enabled {
+		return outputTable
+	}
+	if len(licenseConfig.Allowlist) == 0 {
+		return licenseSummaryTableBuilder(outputTable, vulnResult)
+	}
+
+	return licenseViolationsTableBuilder(outputTable, vulnResult)
+}
+
+func licenseSummaryTableBuilder(outputTable table.Writer, vulnResult *models.VulnerabilityResults) table.Writer {
 	counts := make(map[models.License]int)
 	for _, pkgSource := range vulnResult.Results {
 		for _, pkg := range pkgSource.Packages {
@@ -179,13 +193,12 @@ func licenseTableBuilder(outputTable table.Writer, vulnResult *models.Vulnerabil
 		}
 	}
 	if len(counts) == 0 {
-		// License-checking hasn't been enabled, don't render a table.
+		// No packages found.
 		return outputTable
 	}
-
+	licenses := maps.Keys(counts)
 	// Sort the license count in descending count order with the UNKNOWN
 	// license last.
-	licenses := maps.Keys(counts)
 	sort.Slice(licenses, func(i, j int) bool {
 		if licenses[i] == "UNKNOWN" {
 			return false
@@ -198,8 +211,32 @@ func licenseTableBuilder(outputTable table.Writer, vulnResult *models.Vulnerabil
 		}
 		return counts[licenses[i]] > counts[licenses[j]]
 	})
+	outputTable.AppendHeader(table.Row{"License", "No. of package versions"})
 	for _, license := range licenses {
 		outputTable.AppendRow(table.Row{license, counts[license]})
+	}
+	return outputTable
+}
+
+func licenseViolationsTableBuilder(outputTable table.Writer, vulnResult *models.VulnerabilityResults) table.Writer {
+	outputTable.AppendHeader(table.Row{"License Violation", "Ecosystem", "Package", "Version", "Source"})
+	for _, pkgSource := range vulnResult.Results {
+		for _, pkg := range pkgSource.Packages {
+			if len(pkg.LicenseViolations) == 0 {
+				continue
+			}
+			violations := make([]string, len(pkg.LicenseViolations))
+			for i, l := range pkg.LicenseViolations {
+				violations[i] = string(l)
+			}
+			outputTable.AppendRow(table.Row{
+				strings.Join(violations, ", "),
+				pkg.Package.Ecosystem,
+				pkg.Package.Name,
+				pkg.Package.Version,
+				pkgSource.Source.Path,
+			})
+		}
 	}
 
 	return outputTable

@@ -8,7 +8,24 @@ import (
 
 // Combined vulnerabilities found for the scanned packages
 type VulnerabilityResults struct {
-	Results []PackageSource `json:"results"`
+	Results                    []PackageSource            `json:"results"`
+	ExperimentalAnalysisConfig ExperimentalAnalysisConfig `json:"experimental_config"`
+}
+
+// ExperimentalAnalysisConfig is an experimental type intended to contain the
+// types of analysis performed on packages found by the scanner.
+type ExperimentalAnalysisConfig struct {
+	CallAnalysis ExperimentalCallAnalysisConfig `json:"call_analysis"`
+	Licenses     ExperimentalLicenseConfig      `json:"licenses"`
+}
+
+type ExperimentalCallAnalysisConfig struct {
+	Enabled bool `json:"enabled"`
+}
+
+type ExperimentalLicenseConfig struct {
+	Enabled   bool      `json:"enabled"`
+	Allowlist []License `json:"allowlist"`
 }
 
 // Flatten the grouped/nested vulnerability results into one flat array.

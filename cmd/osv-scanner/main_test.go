@@ -333,7 +333,16 @@ func TestRun(t *testing.T) {
 			wantExitCode: 0,
 			wantStdout: `
 				{
-					"results": []
+					"results": [],
+					"experimental_config": {
+						"call_analysis": {
+							"enabled": false
+						},
+						"licenses": {
+							"enabled": false,
+							"allowlist": null
+						}
+					}
 				}
 			`,
 			wantStderr: `
@@ -347,7 +356,16 @@ func TestRun(t *testing.T) {
 			wantExitCode: 0,
 			wantStdout: `
 				{
-					"results": []
+					"results": [],
+					"experimental_config": {
+						"call_analysis": {
+							"enabled": false
+						},
+						"licenses": {
+							"enabled": false,
+							"allowlist": null
+						}
+					}
 				}
 			`,
 			wantStderr: `
@@ -486,7 +504,7 @@ func TestRun(t *testing.T) {
 			args:         []string{"", "--format", "markdown", "--config", "./fixtures/osv-scanner-empty-config.toml", "./fixtures/locks-many/package-lock.json"},
 			wantExitCode: 1,
 			wantStdout: `
-				Scanning dir ./fixtures/locks-many/package-lock.json
+        Scanning dir ./fixtures/locks-many/package-lock.json
         Scanned <rootdir>/fixtures/locks-many/package-lock.json file and found 1 package
         | OSV URL | CVSS | Ecosystem | Package | Version | Source |
         | --- | --- | --- | --- | --- | --- |
@@ -1012,7 +1030,16 @@ func TestRun_LocalDatabases(t *testing.T) {
 			wantExitCode: 0,
 			wantStdout: `
 				{
-					"results": []
+					"results": [],
+					"experimental_config": {
+						"call_analysis": {
+							"enabled": false
+						},
+						"licenses": {
+							"enabled": false,
+							"allowlist": null
+						}
+					}
 				}
 			`,
 			wantStderr: `
@@ -1027,7 +1054,16 @@ func TestRun_LocalDatabases(t *testing.T) {
 			wantExitCode: 0,
 			wantStdout: `
 				{
-					"results": []
+					"results": [],
+					"experimental_config": {
+						"call_analysis": {
+							"enabled": false
+						},
+						"licenses": {
+							"enabled": false,
+							"allowlist": null
+						}
+					}
 				}
 			`,
 			wantStderr: `
@@ -1076,7 +1112,7 @@ func TestRun_Licenses(t *testing.T) {
 	tests := []cliTestCase{
 		{
 			name:         "No vulnerabilities but contains license violations",
-			args:         []string{"", "--experimental-licenses=''", "./fixtures/locks-many"},
+			args:         []string{"", "--experimental-licenses", "", "./fixtures/locks-many"},
 			wantExitCode: 4,
 			wantStdout: `
 				Scanning dir ./fixtures/locks-many
@@ -1101,7 +1137,7 @@ func TestRun_Licenses(t *testing.T) {
 		},
 		{
 			name:         "Vulnerabilities and license violations",
-			args:         []string{"", "--experimental-licenses=''", "--config=./fixtures/osv-scanner-empty-config.toml", "./fixtures/locks-many/package-lock.json"},
+			args:         []string{"", "--experimental-licenses", "", "--config=./fixtures/osv-scanner-empty-config.toml", "./fixtures/locks-many/package-lock.json"},
 			wantExitCode: 5,
 			wantStdout: `
 				Scanning dir ./fixtures/locks-many/package-lock.json
@@ -1116,6 +1152,41 @@ func TestRun_Licenses(t *testing.T) {
 				+------------+-------------------------+
 				| Apache-2.0 |                       1 |
 				+------------+-------------------------+
+			`,
+			wantStderr: "",
+		},
+		{
+			name:         "Vulnerabilities and license violations with allowlist",
+			args:         []string{"", "--experimental-licenses", "MIT", "--config=./fixtures/osv-scanner-empty-config.toml", "./fixtures/locks-many/package-lock.json"},
+			wantExitCode: 5,
+			wantStdout: `
+				Scanning dir ./fixtures/locks-many/package-lock.json
+				Scanned <rootdir>/fixtures/locks-many/package-lock.json file and found 1 package
+				+-------------------------------------+------+-----------+-----------+---------+---------------------------------------+
+				| OSV URL                             | CVSS | ECOSYSTEM | PACKAGE   | VERSION | SOURCE                                |
+				+-------------------------------------+------+-----------+-----------+---------+---------------------------------------+
+				| https://osv.dev/GHSA-whgm-jr23-g3j9 | 7.5  | npm       | ansi-html | 0.0.1   | fixtures/locks-many/package-lock.json |
+				+-------------------------------------+------+-----------+-----------+---------+---------------------------------------+
+				+-------------------+-----------+-----------+---------+----------------------------------------------------------------------------------------+
+				| LICENSE VIOLATION | ECOSYSTEM | PACKAGE   | VERSION | SOURCE                                                                                 |
+				+-------------------+-----------+-----------+---------+----------------------------------------------------------------------------------------+
+				| Apache-2.0        | npm       | ansi-html | 0.0.1   | <rootdir>/fixtures/locks-many/package-lock.json |
+				+-------------------+-----------+-----------+---------+----------------------------------------------------------------------------------------+
+			`,
+			wantStderr: "",
+		},
+		{
+			name:         "Vulnerabilities and all license violations allowlisted",
+			args:         []string{"", "--experimental-licenses", "Apache-2.0", "--config=./fixtures/osv-scanner-empty-config.toml", "./fixtures/locks-many/package-lock.json"},
+			wantExitCode: 1,
+			wantStdout: `
+				Scanning dir ./fixtures/locks-many/package-lock.json
+				Scanned <rootdir>/fixtures/locks-many/package-lock.json file and found 1 package
+				+-------------------------------------+------+-----------+-----------+---------+---------------------------------------+
+				| OSV URL                             | CVSS | ECOSYSTEM | PACKAGE   | VERSION | SOURCE                                |
+				+-------------------------------------+------+-----------+-----------+---------+---------------------------------------+
+				| https://osv.dev/GHSA-whgm-jr23-g3j9 | 7.5  | npm       | ansi-html | 0.0.1   | fixtures/locks-many/package-lock.json |
+				+-------------------------------------+------+-----------+-----------+---------+---------------------------------------+
 			`,
 			wantStderr: "",
 		},
