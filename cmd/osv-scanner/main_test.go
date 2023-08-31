@@ -1190,6 +1190,193 @@ func TestRun_Licenses(t *testing.T) {
 			`,
 			wantStderr: "",
 		},
+		{
+			name:         "Some packages with license violations and all-packages in json",
+			args:         []string{"", "--format=json", "--experimental-licenses", "MIT", "--experimental-all-packages", "./fixtures/locks-licenses/package-lock.json"},
+			wantExitCode: 4,
+			wantStdout: `
+			{
+				"results": [
+					{
+						"source": {
+							"path": "<rootdir>/fixtures/locks-licenses/package-lock.json",
+							"type": "lockfile"
+						},
+						"packages": [
+							{
+								"package": {
+									"name": "babel",
+									"version": "6.23.0",
+									"ecosystem": "npm",
+									"commit": ""
+								},
+								"licenses": [
+									"MIT"
+								]
+							},
+							{
+								"package": {
+									"name": "human-signals",
+									"version": "5.0.0",
+									"ecosystem": "npm",
+									"commit": ""
+								},
+								"licenses": [
+									"Apache-2.0"
+								],
+								"license_violations": [
+									"Apache-2.0"
+								]
+							},
+							{
+								"package": {
+									"name": "ms",
+									"version": "2.1.3",
+									"ecosystem": "npm",
+									"commit": ""
+								},
+								"licenses": [
+									"MIT"
+								]
+							}
+						]
+					}
+				],
+				"experimental_config": {
+					"call_analysis": {
+						"enabled": false
+					},
+					"licenses": {
+						"enabled": true,
+						"allowlist": [
+							"MIT"
+						]
+					}
+				}
+			}
+		`,
+			wantStderr: `
+			Scanning dir ./fixtures/locks-licenses/package-lock.json
+			Scanned %%/fixtures/locks-licenses/package-lock.json file and found 3 packages
+			`,
+		},
+		{
+			name: "Some packages with license violations in json",
+			// name:         "No license violations and all-packages in json",
+			args:         []string{"", "--format=json", "--experimental-licenses", "MIT", "./fixtures/locks-licenses/package-lock.json"},
+			wantExitCode: 4,
+			wantStdout: `
+			{
+				"results": [
+					{
+						"source": {
+							"path": "<rootdir>/fixtures/locks-licenses/package-lock.json",
+							"type": "lockfile"
+						},
+						"packages": [
+							{
+								"package": {
+									"name": "human-signals",
+									"version": "5.0.0",
+									"ecosystem": "npm",
+									"commit": ""
+								},
+								"licenses": [
+									"Apache-2.0"
+								],
+								"license_violations": [
+									"Apache-2.0"
+								]
+							}
+						]
+					}
+				],
+				"experimental_config": {
+					"call_analysis": {
+						"enabled": false
+					},
+					"licenses": {
+						"enabled": true,
+						"allowlist": [
+							"MIT"
+						]
+					}
+				}
+			}
+		`,
+			wantStderr: `
+			Scanning dir ./fixtures/locks-licenses/package-lock.json
+			Scanned <rootdir>/fixtures/locks-licenses/package-lock.json file and found 3 packages
+			`,
+		},
+		{
+			name:         "No license violations and all-packages in json",
+			args:         []string{"", "--format=json", "--experimental-licenses", "MIT,Apache-2.0", "--experimental-all-packages", "./fixtures/locks-licenses/package-lock.json"},
+			wantExitCode: 0,
+			wantStdout: `
+			{
+				"results": [
+					{
+						"source": {
+							"path": "<rootdir>/fixtures/locks-licenses/package-lock.json",
+							"type": "lockfile"
+						},
+						"packages": [
+							{
+								"package": {
+									"name": "babel",
+									"version": "6.23.0",
+									"ecosystem": "npm",
+									"commit": ""
+								},
+								"licenses": [
+									"MIT"
+								]
+							},
+							{
+								"package": {
+									"name": "human-signals",
+									"version": "5.0.0",
+									"ecosystem": "npm",
+									"commit": ""
+								},
+								"licenses": [
+									"Apache-2.0"
+								]
+							},
+							{
+								"package": {
+									"name": "ms",
+									"version": "2.1.3",
+									"ecosystem": "npm",
+									"commit": ""
+								},
+								"licenses": [
+									"MIT"
+								]
+							}
+						]
+					}
+				],
+				"experimental_config": {
+					"call_analysis": {
+						"enabled": false
+					},
+					"licenses": {
+						"enabled": true,
+						"allowlist": [
+							"MIT",
+							"Apache-2.0"
+						]
+					}
+				}
+			}
+		`,
+			wantStderr: `
+			Scanning dir ./fixtures/locks-licenses/package-lock.json
+			Scanned <rootdir>/fixtures/locks-licenses/package-lock.json file and found 3 packages
+			`,
+		},
 	}
 	for _, tt := range tests {
 		tt := tt
