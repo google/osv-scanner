@@ -1,7 +1,7 @@
 ---
 layout: page
 title: General Use Case
-permalink: /general/
+permalink: /usage/general/
 parent: Usage
 nav_order: 1
 ---

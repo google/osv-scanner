@@ -1,7 +1,7 @@
 ---
 layout: page
 title: Offline Mode
-permalink: /offline/
+permalink: /usage/offline/
 parent: Usage
 nav_order: 4
 ---

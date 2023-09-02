@@ -1,7 +1,7 @@
 ---
 layout: page
 title: Call Analysis
-permalink: /call-analysis/
+permalink: /usage/call-analysis/
 parent: Usage
 nav_order: 2
 ---

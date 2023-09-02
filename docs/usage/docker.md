@@ -1,7 +1,7 @@
 ---
 layout: page
 title: Docker
-permalink: /docker/
+permalink: /usage/docker/
 parent: Usage
 nav_order: 3
 ---
