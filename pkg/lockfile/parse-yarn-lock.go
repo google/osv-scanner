@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"net/url"
 	"os"
+	"path/filepath"
 	"strings"
 
 	"github.com/google/osv-scanner/internal/cachedregexp"
@@ -171,19 +172,19 @@ func parseYarnPackageGroup(group []string) PackageDetails {
 	}
 }
 
-func ParseYarnLock(pathToLockfile string) ([]PackageDetails, error) {
-	file, err := os.Open(pathToLockfile)
-	if err != nil {
-		return []PackageDetails{}, fmt.Errorf("could not open %s: %w", pathToLockfile, err)
-	}
-	defer file.Close()
+type YarnLockExtractor struct{}
 
-	scanner := bufio.NewScanner(file)
+func (e YarnLockExtractor) ShouldExtract(path string) bool {
+	return filepath.Base(path) == "yarn.lock"
+}
+
+func (e YarnLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
+	scanner := bufio.NewScanner(f)
 
 	packageGroups := groupYarnPackageLines(scanner)
 
 	if err := scanner.Err(); err != nil {
-		return []PackageDetails{}, fmt.Errorf("error while scanning %s: %w", pathToLockfile, err)
+		return []PackageDetails{}, fmt.Errorf("error while scanning %s: %w", f.Path(), err)
 	}
 
 	packages := make([]PackageDetails, 0, len(packageGroups))
@@ -197,4 +198,15 @@ func ParseYarnLock(pathToLockfile string) ([]PackageDetails, error) {
 	}
 
 	return packages, nil
+}
+
+var _ Extractor = YarnLockExtractor{}
+
+//nolint:gochecknoinits
+func init() {
+	registerExtractor("yarn.lock", YarnLockExtractor{})
+}
+
+func ParseYarnLock(pathToLockfile string) ([]PackageDetails, error) {
+	return extractFromFile(pathToLockfile, YarnLockExtractor{})
 }

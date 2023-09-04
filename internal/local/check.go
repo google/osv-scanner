@@ -38,8 +38,8 @@ func toPackageDetails(query *osv.Query) (lockfile.PackageDetails, error) {
 		Name:      query.Package.Name,
 		Version:   query.Version,
 		Commit:    query.Commit,
-		Ecosystem: query.Package.Ecosystem,
-		CompareAs: query.Package.Ecosystem,
+		Ecosystem: lockfile.Ecosystem(query.Package.Ecosystem),
+		CompareAs: lockfile.Ecosystem(query.Package.Ecosystem),
 	}, nil
 }
 
@@ -73,7 +73,7 @@ func setupLocalDBDirectory(localDBPath string) (string, error) {
 		}
 	}
 
-	err = os.Mkdir(path.Join(localDBPath, "osv-scanner"), 0750)
+	err = os.MkdirAll(path.Join(localDBPath, "osv-scanner"), 0750)
 
 	if err == nil {
 		return path.Join(localDBPath, "osv-scanner"), nil

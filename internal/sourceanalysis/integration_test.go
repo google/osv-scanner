@@ -11,7 +11,7 @@ import (
 	"github.com/google/osv-scanner/pkg/models"
 )
 
-var fixturesDir = "integration/fixtures"
+var fixturesDir = "integration/fixtures-go"
 
 func Test_RunGoVulnCheck(t *testing.T) {
 	t.Parallel()

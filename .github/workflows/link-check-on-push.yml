@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@master
-    - uses: gaurav-nelson/github-action-markdown-link-check@322b2315689b8cc8c65c14a07064ec862e62ee7c
+    - uses: gaurav-nelson/github-action-markdown-link-check@46e442156b8161bfd0913357c7a411e0e610d2ad
       with:
         use-quiet-mode: "yes"
         base-branch: "main"

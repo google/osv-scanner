@@ -31,7 +31,9 @@ func packageToString(pkg lockfile.PackageDetails) string {
 	return fmt.Sprintf("%s@%s (%s, %s)", pkg.Name, pkg.Version, pkg.Ecosystem, commit)
 }
 
-func hasPackage(packages []lockfile.PackageDetails, pkg lockfile.PackageDetails) bool {
+func hasPackage(t *testing.T, packages []lockfile.PackageDetails, pkg lockfile.PackageDetails) bool {
+	t.Helper()
+
 	for _, details := range packages {
 		if details == pkg {
 			return true
@@ -44,7 +46,7 @@ func hasPackage(packages []lockfile.PackageDetails, pkg lockfile.PackageDetails)
 func expectPackage(t *testing.T, packages []lockfile.PackageDetails, pkg lockfile.PackageDetails) {
 	t.Helper()
 
-	if !hasPackage(packages, pkg) {
+	if !hasPackage(t, packages, pkg) {
 		t.Errorf(
 			"Expected packages to include %s@%s (%s, %s), but it did not",
 			pkg.Name,
@@ -55,11 +57,12 @@ func expectPackage(t *testing.T, packages []lockfile.PackageDetails, pkg lockfil
 	}
 }
 
-func findMissingPackages(actualPackages []lockfile.PackageDetails, expectedPackages []lockfile.PackageDetails) []lockfile.PackageDetails {
+func findMissingPackages(t *testing.T, actualPackages []lockfile.PackageDetails, expectedPackages []lockfile.PackageDetails) []lockfile.PackageDetails {
+	t.Helper()
 	var missingPackages []lockfile.PackageDetails
 
 	for _, pkg := range actualPackages {
-		if !hasPackage(expectedPackages, pkg) {
+		if !hasPackage(t, expectedPackages, pkg) {
 			missingPackages = append(missingPackages, pkg)
 		}
 	}
@@ -79,8 +82,8 @@ func expectPackages(t *testing.T, actualPackages []lockfile.PackageDetails, expe
 		)
 	}
 
-	missingActualPackages := findMissingPackages(actualPackages, expectedPackages)
-	missingExpectedPackages := findMissingPackages(expectedPackages, actualPackages)
+	missingActualPackages := findMissingPackages(t, actualPackages, expectedPackages)
+	missingExpectedPackages := findMissingPackages(t, expectedPackages, actualPackages)
 
 	if len(missingActualPackages) != 0 {
 		for _, unexpectedPackage := range missingActualPackages {

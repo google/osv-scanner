@@ -11,7 +11,7 @@ func TestParseConanLock_v1_FileDoesNotExist(t *testing.T) {
 
 	packages, err := lockfile.ParseConanLock("fixtures/conan/does-not-exist")
 
-	expectErrContaining(t, err, "could not read")
+	expectErrContaining(t, err, "no such file or directory")
 	expectPackages(t, packages, []lockfile.PackageDetails{})
 }
 
@@ -20,7 +20,7 @@ func TestParseConanLock_v1_InvalidJson(t *testing.T) {
 
 	packages, err := lockfile.ParseConanLock("fixtures/conan/not-json.txt")
 
-	expectErrContaining(t, err, "could not parse")
+	expectErrContaining(t, err, "could not extract from")
 	expectPackages(t, packages, []lockfile.PackageDetails{})
 }
 
