@@ -15,7 +15,6 @@ nav_order: 3
 - TOC
 {:toc}
 </details>
-
 ## Scanning a Debian based docker image packages
 Preview
 {: .label } 
