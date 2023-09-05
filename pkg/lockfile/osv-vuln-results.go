@@ -29,12 +29,18 @@ func (e OSVScannerResultsExtractor) Extract(f DepFile) ([]PackageDetails, error)
 	packages := []PackageDetails{}
 	for _, res := range parsedResults.Results {
 		for _, pkg := range res.Packages {
-			packages = append(packages, PackageDetails{
-				Name:      pkg.Package.Name,
-				Ecosystem: Ecosystem(pkg.Package.Ecosystem),
-				Version:   pkg.Package.Version,
-				CompareAs: Ecosystem(pkg.Package.Ecosystem),
-			})
+			if pkg.Package.Ecosystem == "GIT" {
+				packages = append(packages, PackageDetails{
+					Commit: pkg.Package.Version,
+				})
+			} else {
+				packages = append(packages, PackageDetails{
+					Name:      pkg.Package.Name,
+					Ecosystem: Ecosystem(pkg.Package.Ecosystem),
+					Version:   pkg.Package.Version,
+					CompareAs: Ecosystem(pkg.Package.Ecosystem),
+				})
+			}
 		}
 	}
 
