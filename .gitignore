@@ -3,3 +3,5 @@
 .idea/
 /dist/
 /osv-scanner
+/coverage.out
+/coverage.html
