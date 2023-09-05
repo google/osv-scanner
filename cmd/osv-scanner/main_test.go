@@ -161,7 +161,7 @@ func TestRun(t *testing.T) {
 				+-------------------------------------+------+-----------+--------------------------------+------------------------------------+-------------------------------------------------+
 				| OSV URL                             | CVSS | ECOSYSTEM | PACKAGE                        | VERSION                            | SOURCE                                          |
 				+-------------------------------------+------+-----------+--------------------------------+------------------------------------+-------------------------------------------------+
-				| https://osv.dev/CVE-2022-37434      |      | Alpine    | zlib                           | 1.2.10-r2                          | fixtures/sbom-insecure/alpine.cdx.xml           |
+				| https://osv.dev/CVE-2022-37434      | 9.8  | Alpine    | zlib                           | 1.2.10-r2                          | fixtures/sbom-insecure/alpine.cdx.xml           |
 				| https://osv.dev/DLA-3022-1          |      | Debian    | dpkg                           | 1.18.25                            | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 				| https://osv.dev/GHSA-v95c-p5hm-xq8f | 6    | Go        | github.com/opencontainers/runc | v1.0.1                             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 				| https://osv.dev/GO-2022-0274        |      |           |                                |                                    |                                                 |
