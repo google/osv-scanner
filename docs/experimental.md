@@ -63,9 +63,9 @@ osv-scanner --experimental-call-analysis ./my/project/path
 {: .note }
 Features and flags with the `experimental` prefix might change or be removed with only a minor version update.
 
-OSV-Scanner now supports offline scanning as an experimental feature. Offline scanning checks your project against a local database instead of calling the OSV.dev API.
+OSV-Scanner now supports offline scanning as an experimental feature. Offline scanning checks your project against a local database instead of calling the OSV.dev API. Local copies of dependencies are not required because version comparison is done using Go-based implementation of each ecosystems version specificiation. OSV-Scanner does not callout to dependency managers when using `--experimental-local-db` or `--experimental-offline` flags. 
 
-### Local Database Option
+### Local database option
 
 The local database flag `--experimental-local-db` causes OSV-Scanner to download or update your local database and then scan your project against it. 
 
@@ -79,3 +79,42 @@ The offline database flag `--experimental-offline` causes OSV-Scanner to scan yo
 ```bash
 osv-scanner --experimental-offline ./path/to/your/dir
 ```
+
+### Manual database download
+Instead of using the `--experimental-local-db` flag to download the database, it is possible to manually download the database. 
+
+A downloadable copy of the OSV database is stored in a GCS bucket maintained by OSV:
+[`gs://osv-vulnerabilities`](https://osv-vulnerabilities.storage.googleapis.com)
+
+This bucket contains individual entries of the format
+`gs://osv-vulnerabilities/<ECOSYSTEM>/<ID>.json` as well as a zip containing all
+vulnerabilities for each ecosystem at
+`gs://osv-vulnerabilities/<ECOSYSTEM>/all.zip`.
+
+E.g. for PyPI vulnerabilities:
+
+```bash
+gsutil cp gs://osv-vulnerabilities/PyPI/all.zip .
+```
+
+You can also download over HTTP via https://osv-vulnerabilities.storage.googleapis.com/<ECOSYSTEM>/all.zip
+
+A list of all current ecosystems is available at 
+[`gs://osv-vulnerabilities/ecosystems.txt`](https://osv-vulnerabilities.storage.googleapis.com/ecosystems.txt)
+
+When run with the `--experimental-local-db` flag, OSV-Scanner downloads the database into the following file structure:
+
+```
+{local_db_dir}/
+  osv-scanner/
+    npm/all.zip
+    PyPI/all.zip
+    …
+    {ecosystem}/all.zip
+```
+
+If you manually dowload the files are store them in the same file structure, OSV-Scanner will be able to find the database when using the `--experimental-offline` flag. 
+
+### Limitations
+
+1. Commit level scanning is not supported. 
