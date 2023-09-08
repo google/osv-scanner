@@ -92,14 +92,19 @@ func MakePURLRequest(purl string) *Query {
 }
 
 func MakePkgRequest(pkgDetails lockfile.PackageDetails) *Query {
-	return &Query{
-		Version: pkgDetails.Version,
-		// API has trouble parsing requests with both commit and Package details filled ins
-		// Commit:  pkgDetails.Commit,
-		Package: Package{
-			Name:      pkgDetails.Name,
-			Ecosystem: string(pkgDetails.Ecosystem),
-		},
+	// API has trouble parsing requests with both commit and Package details filled in
+	if pkgDetails.Ecosystem == "" && pkgDetails.Commit != "" {
+		return &Query{
+			Commit: pkgDetails.Commit,
+		}
+	} else {
+		return &Query{
+			Version: pkgDetails.Version,
+			Package: Package{
+				Name:      pkgDetails.Name,
+				Ecosystem: string(pkgDetails.Ecosystem),
+			},
+		}
 	}
 }
 

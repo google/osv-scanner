@@ -55,6 +55,22 @@ func TestParseOSVScannerResults_OnePackage(t *testing.T) {
 	})
 }
 
+func TestParseOSVScannerResults_OnePackageCommit(t *testing.T) {
+	t.Parallel()
+
+	packages, err := lockfile.ParseOSVScannerResults("fixtures/osvscannerresults/one-package-commit.json")
+
+	if err != nil {
+		t.Errorf("Got unexpected error: %v", err)
+	}
+
+	expectPackages(t, packages, []lockfile.PackageDetails{
+		{
+			Commit: "9a6bd55c9d0722cb101fe85a3b22d89e4ff4fe52",
+		},
+	})
+}
+
 func TestParseOSVScannerResults_MultiPackages(t *testing.T) {
 	t.Parallel()
 
