@@ -108,7 +108,7 @@ func tableBuilderInner(vulnResult *models.VulnerabilityResults, addStyling bool,
 				outputRow = append(outputRow, strings.Join(links, "\n"))
 				outputRow = append(outputRow, MaxSeverity(group, pkg))
 
-				if pkg.Package.Commit != "" {
+				if pkg.Package.Ecosystem == "" && pkg.Package.Commit != "" {
 					outputRow = append(outputRow, "GIT", pkg.Package.Commit, pkg.Package.Commit)
 					shouldMerge = true
 				} else {
