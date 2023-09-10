@@ -126,6 +126,19 @@ func MakeRequest(r reporter.Reporter, query osv.BatchedQuery, offline bool, loca
 			continue
 		}
 
+		if pkg.Ecosystem == "" {
+			if pkg.Commit == "" {
+				// The only time this can happen should be when someone passes in their own OSV-Scanner-Results file.
+				return nil, fmt.Errorf("ecosystem is empty and there is no commit hash")
+			}
+
+			// Is a commit based query, skip local scanning
+			results = append(results, osv.Response{})
+			r.PrintText(fmt.Sprintf("Skipping commit scanning for: %s\n", pkg.Commit))
+
+			continue
+		}
+
 		db, err := loadDBFromCache(pkg.Ecosystem)
 
 		if err != nil {
