@@ -60,9 +60,6 @@ osv-scanner --experimental-call-analysis ./my/project/path
 
 ## Offline mode
 
-{: .note }
-Features and flags with the `experimental` prefix might change or be removed with only a minor version update.
-
 OSV-Scanner now supports offline scanning as an experimental feature. Offline scanning checks your project against a local database instead of calling the OSV.dev API. Local copies of dependencies are not required because version comparison is done using Go-based implementation of each ecosystems version specificiation. OSV-Scanner does not callout to dependency managers when using `--experimental-local-db` or `--experimental-offline` flags.
 
 ### Specify database location
@@ -114,9 +111,7 @@ Instead of using the `--experimental-local-db` flag to download the database, it
 A downloadable copy of the OSV database is stored in a GCS bucket maintained by OSV:
 [`gs://osv-vulnerabilities`](https://osv-vulnerabilities.storage.googleapis.com)
 
-This bucket contains individual entries of the format
-`gs://osv-vulnerabilities/<ECOSYSTEM>/<ID>.json` as well as a zip containing all
-vulnerabilities for each ecosystem at
+This bucket contains zip files  containing all vulnerabilities for each ecosystem at:
 `gs://osv-vulnerabilities/<ECOSYSTEM>/all.zip`.
 
 E.g. for PyPI vulnerabilities:
