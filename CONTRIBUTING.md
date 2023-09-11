@@ -28,7 +28,7 @@ This project follows
 [Google's Open Source Community Guidelines](https://opensource.google.com/conduct/).
 
 ## Contributing documentation
-Please review the documentation [README](docs/README.md) for more information about contributing to documentation. 
+Please review the documentation [README](docs/README.md) for more information about contributing to documentation.
 
 ## Contributing code
 
@@ -67,6 +67,12 @@ To run tests:
 ./run_tests.sh
 ```
 
+You can generate an HTML coverage report afterward by running:
+
+```
+go tool cover -html=coverage.out -o coverage.html
+```
+
 ### Linting
 To lint your code, run
 
@@ -76,11 +82,11 @@ To lint your code, run
 
 ## Contributing documentation
 
-Please follow these steps to successfully contribute documentation. 
+Please follow these steps to successfully contribute documentation.
 
-1. Fork the repository. 
-2. Make desired documentation changes. 
-3. Preview the changes by spinning up a GitHub page for your fork, building from your working branch. 
+1. Fork the repository.
+2. Make desired documentation changes.
+3. Preview the changes by spinning up a GitHub page for your fork, building from your working branch.
     - On your fork, go to the settings tab and then the GitHub page settings. Sample URL: https://github.com/{your-github-profile}/osv-scanner/settings/pages
     - Under "Build and deployment" select "Build from branch"
     - Set the branch to your working branch

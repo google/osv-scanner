@@ -181,4 +181,5 @@ type PackageInfo struct {
 	Name      string `json:"name"`
 	Version   string `json:"version"`
 	Ecosystem string `json:"ecosystem"`
+	Commit    string `json:"commit"`
 }

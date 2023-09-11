@@ -38,8 +38,8 @@ func toPackageDetails(query *osv.Query) (lockfile.PackageDetails, error) {
 		Name:      query.Package.Name,
 		Version:   query.Version,
 		Commit:    query.Commit,
-		Ecosystem: query.Package.Ecosystem,
-		CompareAs: query.Package.Ecosystem,
+		Ecosystem: lockfile.Ecosystem(query.Package.Ecosystem),
+		CompareAs: lockfile.Ecosystem(query.Package.Ecosystem),
 	}, nil
 }
 
@@ -122,6 +122,19 @@ func MakeRequest(r reporter.Reporter, query osv.BatchedQuery, offline bool, loca
 			// currently, this will actually only error if the PURL cannot be parses
 			r.PrintError(fmt.Sprintf("skipping %s as it is not a valid PURL: %v\n", query.Package.PURL, err))
 			results = append(results, osv.Response{Vulns: []models.Vulnerability{}})
+
+			continue
+		}
+
+		if pkg.Ecosystem == "" {
+			if pkg.Commit == "" {
+				// The only time this can happen should be when someone passes in their own OSV-Scanner-Results file.
+				return nil, fmt.Errorf("ecosystem is empty and there is no commit hash")
+			}
+
+			// Is a commit based query, skip local scanning
+			results = append(results, osv.Response{})
+			r.PrintText(fmt.Sprintf("Skipping commit scanning for: %s\n", pkg.Commit))
 
 			continue
 		}
