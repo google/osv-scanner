@@ -79,7 +79,7 @@ The local database file structure is in this form:
     {ecosystem}/all.zip
 ```
 
-Where `{local_db_dir}` is set by the `OSV_SCANNER_LOCAL_DB_CACHE_DIRECTORY` environment variable. 
+Where `{local_db_dir}` can be set by the `OSV_SCANNER_LOCAL_DB_CACHE_DIRECTORY` environment variable. 
 
 If the `OSV_SCANNER_LOCAL_DB_CACHE_DIRECTORY` environment variable is _not_ set, OSV-Scanner will attempt to look for the database in the following locations, in this order: 
 
@@ -88,7 +88,12 @@ If the `OSV_SCANNER_LOCAL_DB_CACHE_DIRECTORY` environment variable is _not_ set,
 
 The database can be [downloaded manually](./experimental.md#manual-database-download) or by using the [`--experimental-local-db` flag](./experimental.md#local-database-option). 
 
+### Offline option
+The offline database flag `--experimental-offline` causes OSV-Scanner to scan your project against a previously downloaded local database. OSV-Scanner will not download or update the local database, nor will it send any project or dependency information anywhere. When a local database is not present, you will get an error message. No network connection is required when using this flag.  
 
+```bash
+osv-scanner --experimental-offline ./path/to/your/dir
+```
 
 ### Local database option
 
@@ -96,13 +101,6 @@ The local database flag `--experimental-local-db` causes OSV-Scanner to download
 
 ```bash
 osv-scanner --experimental-local-db ./path/to/your/dir
-```
-
-### Offline option
-The offline database flag `--experimental-offline` causes OSV-Scanner to scan your project against a previously downloaded local database. OSV-Scanner will not download or update the local database. When a local database is not present, you will get an error message. No network connection is required when using this flag.
-
-```bash
-osv-scanner --experimental-offline ./path/to/your/dir
 ```
 
 ### Manual database download
