@@ -15,10 +15,10 @@ require (
 	github.com/package-url/packageurl-go v0.1.1
 	github.com/spdx/tools-golang v0.5.3
 	github.com/urfave/cli/v2 v2.25.7
-	golang.org/x/exp v0.0.0-20230817173708-d852ddb80c63
+	golang.org/x/exp v0.0.0-20230905200255-921286631fa9
 	golang.org/x/mod v0.12.0
 	golang.org/x/sync v0.3.0
-	golang.org/x/term v0.11.0
+	golang.org/x/term v0.12.0
 	golang.org/x/vuln v1.0.0
 	gopkg.in/yaml.v3 v3.0.1
 )
@@ -50,9 +50,9 @@ require (
 	github.com/spdx/gordf v0.0.0-20221230105357-b735bd5aac89 // indirect
 	github.com/xanzy/ssh-agent v0.3.3 // indirect
 	github.com/xrash/smetrics v0.0.0-20201216005158-039620a65673 // indirect
-	golang.org/x/crypto v0.12.0 // indirect
-	golang.org/x/net v0.14.0 // indirect
-	golang.org/x/sys v0.11.0 // indirect
-	golang.org/x/tools v0.12.1-0.20230815132531-74c255bcf846 // indirect
+	golang.org/x/crypto v0.13.0 // indirect
+	golang.org/x/net v0.15.0 // indirect
+	golang.org/x/sys v0.12.0 // indirect
+	golang.org/x/tools v0.13.0 // indirect
 	gopkg.in/warnings.v0 v0.1.2 // indirect
 )
