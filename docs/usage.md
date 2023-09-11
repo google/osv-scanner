@@ -4,6 +4,8 @@ title: Usage
 permalink: /usage/
 nav_order: 3
 ---
+# Usage
+
 {: .no_toc }
 
 <details open markdown="block">
