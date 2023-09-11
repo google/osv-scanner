@@ -60,7 +60,7 @@ osv-scanner --experimental-call-analysis ./my/project/path
 
 ## Offline mode
 
-OSV-Scanner now supports offline scanning as an experimental feature. Offline scanning checks your project against a local database instead of calling the OSV.dev API. Local copies of dependencies are not required because version comparison is done using Go-based implementation of each ecosystems version specificiation. OSV-Scanner does not callout to dependency managers when using `--experimental-local-db` or `--experimental-offline` flags.
+OSV-Scanner now supports offline scanning as an experimental feature. Offline scanning checks your project against a local database instead of calling the OSV.dev API.
 
 ### Specify database location
 
