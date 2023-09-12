@@ -118,43 +118,6 @@ func CreateSARIFHelpTable(pkgWithSrc map[models.PkgWithSource]struct{}) table.Wr
 	return helpTable
 }
 
-// idSortFunc sorts IDs ascending by CVE < [ECO-SPECIFIC] < GHSA
-func idSortFunc(a, b string) int {
-	aIsCVE := strings.HasPrefix(strings.ToUpper(a), "CVE")
-	bIsCVE := strings.HasPrefix(strings.ToUpper(b), "CVE")
-	if aIsCVE || bIsCVE {
-		if aIsCVE == bIsCVE {
-			// Both are CVEs, order by alphanumerically
-			return strings.Compare(a, b)
-		} else if aIsCVE {
-			// Only aIsCVE
-			return -1
-		} else {
-			// Only bIsCVE
-			return 1
-		}
-	}
-
-	// Neither is CVE
-	aIsGHSA := strings.HasPrefix(strings.ToUpper(a), "GHSA")
-	bIsGHSA := strings.HasPrefix(strings.ToUpper(b), "GHSA")
-	if aIsGHSA || bIsGHSA {
-		if aIsCVE == bIsCVE {
-			// Both are CVEs, order by alphanumerically
-			return strings.Compare(a, b)
-		} else if aIsCVE {
-			// Only aIsGHSA // 1, and -1 are intentionally swapped from CVEs
-			return 1
-		} else {
-			// Only bIsGHSA
-			return -1
-		}
-	}
-
-	// Neither is GHSA
-	return strings.Compare(a, b)
-}
-
 func groupByVulnGroups(vulns *models.VulnerabilityResults) map[string]*groupedVulns {
 	// Map of Vuln IDs to
 	results := map[string]*groupedVulns{}
