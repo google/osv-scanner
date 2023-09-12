@@ -7,6 +7,7 @@ import (
 	"os"
 	"strings"
 
+	"github.com/google/osv-scanner/internal/output"
 	"github.com/google/osv-scanner/pkg/osv"
 	"github.com/google/osv-scanner/pkg/osvscanner"
 	"github.com/google/osv-scanner/pkg/reporter"
@@ -215,6 +216,11 @@ func run(args []string, stdout, stderr io.Writer) int {
 	return 0
 }
 
+func initVersion() {
+	output.OSVVersion = version
+}
+
 func main() {
+	initVersion()
 	os.Exit(run(os.Args, os.Stdout, os.Stderr))
 }

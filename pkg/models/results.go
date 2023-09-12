@@ -30,49 +30,36 @@ func (vulns *VulnerabilityResults) Flatten() []VulnerabilityFlattened {
 	return results
 }
 
-// Flatten the grouped/nested vulnerability results into one flat array.
-func (vulns *VulnerabilityResults) GroupByVulnerability() map[string]PkgsForVulnerability {
-	// Map of Vuln IDs to
-	results := map[string]PkgsForVulnerability{}
+// // Flatten the grouped/nested vulnerability results into one flat array.
+// func (vulns *VulnerabilityResults) GroupByVulnerability() map[string]PkgsForVulnerability {
+// 	// Map of Vuln IDs to
+// 	results := map[string]PkgsForVulnerability{}
 
-	// for i, vf := range vulns.Flatten() {
-	// 	newPkgSource := PkgWithSource{
-	// 		Package: vf.Package,
-	// 		Source:  vf.Source,
-	// 	}
-	// 	if val, exists := results[vf.GroupInfo.IndexString()]; exists {
-	// 		val.PkgSource[newPkgSource] = struct{}{}
-	// 	} else {
-	// 		results[vf.GroupInfo.IndexString()] = PkgsForVulnerability{
-	// 			Vuln:      vf.V,
-	// 			Group:     getGroupInfoForVuln(pkg.Groups, v.ID),
-	// 			PkgSource: []PkgWithSource{newPkgSource},
-	// 		}
-	// 	}
-	// }
+// 	for _, res := range vulns.Results {
+// 		for _, pkg := range res.Packages {
+// 			for i, gi := range pkg.Groups {
+// 				gi.IndexString()
+// 			}
+// 			for _, v := range pkg.Vulnerabilities {
+// 				newPkgSource := PkgWithSource{
+// 					Package: pkg.Package,
+// 					Source:  res.Source,
+// 				}
+// 				if val, exists := results[v.ID]; exists {
+// 					val.PkgSource = append(val.PkgSource, newPkgSource)
+// 				} else {
+// 					results[v.ID] = PkgsForVulnerability{
+// 						Vuln:      v,
+// 						Group:     getGroupInfoForVuln(pkg.Groups, v.ID),
+// 						PkgSource: []PkgWithSource{newPkgSource},
+// 					}
+// 				}
+// 			}
+// 		}
+// 	}
 
-	for _, res := range vulns.Results {
-		for _, pkg := range res.Packages {
-			for _, v := range pkg.Vulnerabilities {
-				newPkgSource := PkgWithSource{
-					Package: pkg.Package,
-					Source:  res.Source,
-				}
-				if val, exists := results[v.ID]; exists {
-					val.PkgSource = append(val.PkgSource, newPkgSource)
-				} else {
-					results[v.ID] = PkgsForVulnerability{
-						Vuln:      v,
-						Group:     getGroupInfoForVuln(pkg.Groups, v.ID),
-						PkgSource: []PkgWithSource{newPkgSource},
-					}
-				}
-			}
-		}
-	}
-
-	return results
-}
+// 	return results
+// }
 
 func getGroupInfoForVuln(groups []GroupInfo, vulnID string) GroupInfo {
 	// groupIdx should never be -1 since vulnerabilities should always be in one group
@@ -108,13 +95,6 @@ type PackageVulns struct {
 	Package         PackageInfo     `json:"package"`
 	Vulnerabilities []Vulnerability `json:"vulnerabilities"`
 	Groups          []GroupInfo     `json:"groups"`
-}
-
-type PkgsForVulnerability struct {
-	Vuln      Vulnerability
-	Group     GroupInfo
-	PkgSource []PkgWithSource
-	// PkgSource map[PkgWithSource]struct{}
 }
 
 type PkgWithSource struct {

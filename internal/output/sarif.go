@@ -18,17 +18,30 @@ import (
 type HelpTemplateData struct {
 	ID                    string
 	AffectedPackagesTable string
-	Details               string
+	AliasedVulns          []VulnDescription
+}
+
+type VulnDescription struct {
+	ID      string
+	Details string
+}
+
+type groupedVulns struct {
+	DisplayID    string
+	PkgSource    map[models.PkgWithSource]struct{}
+	AliasedVulns map[string]models.Vulnerability
 }
 
 const SARIFTemplate = `
 **Your dependency is vulnerable to [{{.ID}}](https://osv.dev/vulnerability/{{.ID}}).**
 
+{{range .AliasedVulns}}
 > ## {{.ID}}
 > 
 > {{.Details}}
 > 
 
+{{end}}
 ---
 
 ### Affected Packages
@@ -90,11 +103,11 @@ func CreateSourceRemediationTable(source models.PackageSource, groupFixedVersion
 }
 
 // CreateSourceRemediationTable creates a vulnerability table which includes the fixed versions for a specific source file
-func CreateSARIFHelpTable(pkgWithSrc []models.PkgWithSource) table.Writer {
+func CreateSARIFHelpTable(pkgWithSrc map[models.PkgWithSource]struct{}) table.Writer {
 	helpTable := table.NewWriter()
 	helpTable.AppendHeader(table.Row{"Source", "Package Name", "Package Version"})
 
-	for _, ps := range pkgWithSrc {
+	for ps := range pkgWithSrc {
 		helpTable.AppendRow(table.Row{
 			ps.Source.String(),
 			ps.Package.Name,
@@ -105,6 +118,93 @@ func CreateSARIFHelpTable(pkgWithSrc []models.PkgWithSource) table.Writer {
 	return helpTable
 }
 
+// idSortFunc sorts IDs ascending by CVE < [ECO-SPECIFIC] < GHSA
+func idSortFunc(a, b string) int {
+	aIsCVE := strings.HasPrefix(strings.ToUpper(a), "CVE")
+	bIsCVE := strings.HasPrefix(strings.ToUpper(b), "CVE")
+	if aIsCVE || bIsCVE {
+		if aIsCVE == bIsCVE {
+			// Both are CVEs, order by alphanumerically
+			return strings.Compare(a, b)
+		} else if aIsCVE {
+			// Only aIsCVE
+			return -1
+		} else {
+			// Only bIsCVE
+			return 1
+		}
+	}
+
+	// Neither is CVE
+	aIsGHSA := strings.HasPrefix(strings.ToUpper(a), "GHSA")
+	bIsGHSA := strings.HasPrefix(strings.ToUpper(b), "GHSA")
+	if aIsGHSA || bIsGHSA {
+		if aIsCVE == bIsCVE {
+			// Both are CVEs, order by alphanumerically
+			return strings.Compare(a, b)
+		} else if aIsCVE {
+			// Only aIsGHSA // 1, and -1 are intentionally swapped from CVEs
+			return 1
+		} else {
+			// Only bIsGHSA
+			return -1
+		}
+	}
+
+	// Neither is GHSA
+	return strings.Compare(a, b)
+}
+
+func groupByVulnGroups(vulns *models.VulnerabilityResults) map[string]*groupedVulns {
+	// Map of Vuln IDs to
+	results := map[string]*groupedVulns{}
+
+	for _, res := range vulns.Results {
+		for _, pkg := range res.Packages {
+			for _, gi := range pkg.Groups {
+				var data *groupedVulns
+				// See if this vulnerability group already exists (from another package or source)
+				for _, id := range gi.IDs {
+					existingData, ok := results[id]
+					if ok {
+						data = existingData
+						break
+					}
+				}
+				// If not create this group
+				if data == nil {
+					data = &groupedVulns{
+						DisplayID:    slices.MinFunc(gi.IDs, idSortFunc),
+						PkgSource:    make(map[models.PkgWithSource]struct{}),
+						AliasedVulns: make(map[string]models.Vulnerability),
+					}
+				} else {
+					// Edge case can happen here where vulnerabilities in an alias group affect different packages
+					// And that the vuln of one package happen to have a higher priority DisplayID, it will not be selected.
+					//
+					// This line fixes that
+					data.DisplayID = slices.MinFunc(append(gi.IDs, data.DisplayID), idSortFunc)
+				}
+				// Point all the IDs of the same group to the same data, either newly created or existing
+				for _, id := range gi.IDs {
+					results[id] = data
+				}
+			}
+			for _, v := range pkg.Vulnerabilities {
+				newPkgSource := models.PkgWithSource{
+					Package: pkg.Package,
+					Source:  res.Source,
+				}
+				entry := results[v.ID]
+				entry.PkgSource[newPkgSource] = struct{}{}
+				entry.AliasedVulns[v.ID] = v
+			}
+		}
+	}
+
+	return results
+}
+
 // PrintSARIFReport prints SARIF output to outputWriter
 func PrintSARIFReport(vulnResult *models.VulnerabilityResults, outputWriter io.Writer) error {
 	report, err := sarif.New(sarif.Version210)
@@ -113,14 +213,14 @@ func PrintSARIFReport(vulnResult *models.VulnerabilityResults, outputWriter io.W
 	}
 
 	run := sarif.NewRunWithInformationURI("osv-scanner", "https://github.com/google/osv-scanner")
-	// run.Tool.Driver.WithVersion()
+	run.Tool.Driver.WithVersion(OSVVersion)
 
 	workingDir, err := os.Getwd()
 	if err != nil {
 		log.Panicf("can't get working dir: %v", err)
 	}
 
-	vulnIdMap := vulnResult.GroupByVulnerability()
+	vulnIdMap := groupByVulnGroups(vulnResult)
 
 	for _, pv := range vulnIdMap {
 		helpTable := CreateSARIFHelpTable(pv.PkgSource)
@@ -130,25 +230,50 @@ func PrintSARIFReport(vulnResult *models.VulnerabilityResults, outputWriter io.W
 			log.Panicf("failed to parse sarif help text template")
 		}
 
+		allAliasIDs := []string{}
+		vulnDescriptions := []VulnDescription{}
+		for _, v := range pv.AliasedVulns {
+			vulnDescriptions = append(vulnDescriptions, VulnDescription{
+				ID:      v.ID,
+				Details: strings.ReplaceAll(v.Details, "\n", "\n> "),
+			})
+			allAliasIDs = append(allAliasIDs, v.ID)
+		}
+
 		helpText := strings.Builder{}
 
 		err = helpTextTemplate.Execute(&helpText, HelpTemplateData{
-			ID:                    pv.Vuln.ID,
+			ID:                    pv.DisplayID,
 			AffectedPackagesTable: helpTable.RenderMarkdown(),
-			Details:               strings.ReplaceAll(pv.Vuln.Details, "\n", "\n> "),
+			AliasedVulns:          vulnDescriptions,
 		})
 
 		if err != nil {
 			log.Panicf("failed to execute sarif help text template")
 		}
 
-		run.AddRule(pv.Vuln.ID).
-			WithShortDescription(sarif.NewMultiformatMessageString(fmt.Sprintf("%s: %s", pv.Vuln.ID, pv.Vuln.Summary))).
-			WithFullDescription(sarif.NewMultiformatMessageString(pv.Vuln.Details).WithMarkdown(pv.Vuln.Details)).
-			WithMarkdownHelp(helpText.String()).
-			WithTextHelp(helpText.String())
+		// Set short description to the first entry with a non empty summary
+		// Set long description to the same entry as short description
+		// or use a random long description.
+		var shortDescription, longDescription string
+		for _, v := range pv.AliasedVulns {
+			longDescription = v.Details
+			if v.Summary != "" {
+				shortDescription = v.Summary
+				break
+			}
+		}
 
-		for _, pws := range pv.PkgSource {
+		pb := sarif.NewPropertyBag()
+		pb.Add("deprecatedIds", allAliasIDs)
+
+		run.AddRule(pv.DisplayID).
+			WithShortDescription(sarif.NewMultiformatMessageString(shortDescription)).
+			WithFullDescription(sarif.NewMultiformatMessageString(longDescription).WithMarkdown(longDescription)).
+			WithMarkdownHelp(helpText.String()).
+			WithTextHelp(helpText.String()).AttachPropertyBag(pb)
+
+		for pws := range pv.PkgSource {
 			var artifactPath string
 			artifactPath, err = filepath.Rel(workingDir, pws.Source.Path)
 			if err != nil {
@@ -156,16 +281,21 @@ func PrintSARIFReport(vulnResult *models.VulnerabilityResults, outputWriter io.W
 			}
 			run.AddDistinctArtifact(artifactPath)
 
-			run.CreateResultForRule(pv.Vuln.ID).
+			run.CreateResultForRule(pv.DisplayID).
 				WithLevel("warning").
-				WithMessage(sarif.NewTextMessage(fmt.Sprintf("Package '%s@%s' is vulnerable to '%s', please upgrade to versions '%s' to fix this vulnerability", pws.Package.Name, pws.Package.Version, pv.Vuln.ID, strings.Join(pv.Vuln.FixedVersions()[models.Package{
-					Ecosystem: models.Ecosystem(pws.Package.Ecosystem),
-					Name:      pws.Package.Name,
-				}], ", ")))).AddLocation(
-				sarif.NewLocationWithPhysicalLocation(
-					sarif.NewPhysicalLocation().
-						WithArtifactLocation(sarif.NewSimpleArtifactLocation(artifactPath)),
-				))
+				WithMessage(
+					sarif.NewTextMessage(
+						fmt.Sprintf(
+							"Package '%s@%s' is vulnerable to '%s' (also known as '%s')",
+							pws.Package.Name,
+							pws.Package.Version,
+							pv.DisplayID,
+							strings.Join(allAliasIDs, "', '")))).
+				AddLocation(
+					sarif.NewLocationWithPhysicalLocation(
+						sarif.NewPhysicalLocation().
+							WithArtifactLocation(sarif.NewSimpleArtifactLocation(artifactPath)),
+					))
 		}
 	}
 
