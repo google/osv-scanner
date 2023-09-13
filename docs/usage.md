@@ -118,10 +118,6 @@ Once you extracted your own dependency information, place it in a `osv-scanner-r
 {
   "results": [
     {
-      "packageSource": {
-        "path": "/absolute/path/to/custom.lockfile",
-        "type": "lockfile"
-      },
       "packages": [
         {
           "package": {
