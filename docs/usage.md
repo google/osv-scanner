@@ -108,6 +108,45 @@ it should infer the parser based on the filename:
 osv-scanner --lockfile ':/path/to/my:projects/package-lock.json'
 ```
 
+### Custom Lockfiles
+
+If you have a custom lockfile that we do not support or prefer to do your own custom parsing, you can extract the custom lockfile information and create a custom intermediate file containing dependency information so that osv-scanner can still check for vulnerabilities. 
+
+Once you extracted your own dependency information, place it in a `osv-scanner-results.json` file, with the same format as the JSON output of osv-scanner, e.g.:
+
+```
+{
+  "results": [
+    {
+      "packageSource": {
+        "path": "/absolute/path/to/custom.lockfile",
+        "type": "lockfile"
+      },
+      "packages": [
+        {
+          "package": {
+            "commit": "9a6bd55c9d0722cb101fe85a3b22d89e4ff4fe52"
+          }
+        },
+        {
+          "package": {
+            "name": "react",
+            "version": "1.2.3",
+            "ecosystem": "npm"
+          }
+        },
+        // ...
+      ]
+    }
+  ]
+}
+```
+
+Then pass this to `osv-scanner` with this:
+```
+osv-scanner --lockfile osv-scanner-results:/path/to/osv-scanner-results.json
+```
+
 ## Scanning a Debian based docker image packages
 Preview
 {: .label } 
