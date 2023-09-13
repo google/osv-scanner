@@ -33,10 +33,13 @@ type groupedVulns struct {
 }
 
 const SARIFTemplate = `
-**Your dependency is vulnerable to [{{.ID}}](https://osv.dev/vulnerability/{{.ID}}).**
+**Your dependency is vulnerable to [{{.ID}}](https://osv.dev/vulnerability/{{.ID}})** 
+{{if gt (len .AliasedVulns) 1 -}}
+(Also published as: {{range .AliasedVulns -}} {{if ne .ID $.ID}} [{{.ID}}](https://osv.dev/vulnerability/{{.ID}}) {{end}}{{end}})
+{{- end}}.
 
 {{range .AliasedVulns}}
-> ## {{.ID}}
+> ## [{{.ID}}](https://osv.dev/vulnerability/{{.ID}})
 > 
 > {{.Details}}
 > 
@@ -103,7 +106,7 @@ func CreateSourceRemediationTable(source models.PackageSource, groupFixedVersion
 }
 
 // CreateSourceRemediationTable creates a vulnerability table which includes the fixed versions for a specific source file
-func CreateSARIFHelpTable(pkgWithSrc map[models.PkgWithSource]struct{}) table.Writer {
+func createSARIFHelpTable(pkgWithSrc map[models.PkgWithSource]struct{}) table.Writer {
 	helpTable := table.NewWriter()
 	helpTable.AppendHeader(table.Row{"Source", "Package Name", "Package Version"})
 
@@ -168,6 +171,40 @@ func groupByVulnGroups(vulns *models.VulnerabilityResults) map[string]*groupedVu
 	return results
 }
 
+func createSARIFHelpText(gv *groupedVulns) string {
+	helpTable := createSARIFHelpTable(gv.PkgSource)
+
+	helpTextTemplate, err := template.New("helpText").Parse(SARIFTemplate)
+	if err != nil {
+		log.Panicf("failed to parse sarif help text template")
+	}
+
+	allAliasIDs := []string{}
+	vulnDescriptions := []VulnDescription{}
+	for _, v := range gv.AliasedVulns {
+		vulnDescriptions = append(vulnDescriptions, VulnDescription{
+			ID:      v.ID,
+			Details: strings.ReplaceAll(v.Details, "\n", "\n> "),
+		})
+		allAliasIDs = append(allAliasIDs, v.ID)
+	}
+	slices.SortFunc(vulnDescriptions, func(a, b VulnDescription) int { return idSortFunc(a.ID, b.ID) })
+
+	helpText := strings.Builder{}
+
+	err = helpTextTemplate.Execute(&helpText, HelpTemplateData{
+		ID:                    gv.DisplayID,
+		AffectedPackagesTable: helpTable.RenderMarkdown(),
+		AliasedVulns:          vulnDescriptions,
+	})
+
+	if err != nil {
+		log.Panicf("failed to execute sarif help text template")
+	}
+
+	return helpText.String()
+}
+
 // PrintSARIFReport prints SARIF output to outputWriter
 func PrintSARIFReport(vulnResult *models.VulnerabilityResults, outputWriter io.Writer) error {
 	report, err := sarif.New(sarif.Version210)
@@ -185,41 +222,14 @@ func PrintSARIFReport(vulnResult *models.VulnerabilityResults, outputWriter io.W
 
 	vulnIdMap := groupByVulnGroups(vulnResult)
 
-	for _, pv := range vulnIdMap {
-		helpTable := CreateSARIFHelpTable(pv.PkgSource)
-
-		helpTextTemplate, err := template.New("helpText").Parse(SARIFTemplate)
-		if err != nil {
-			log.Panicf("failed to parse sarif help text template")
-		}
-
-		allAliasIDs := []string{}
-		vulnDescriptions := []VulnDescription{}
-		for _, v := range pv.AliasedVulns {
-			vulnDescriptions = append(vulnDescriptions, VulnDescription{
-				ID:      v.ID,
-				Details: strings.ReplaceAll(v.Details, "\n", "\n> "),
-			})
-			allAliasIDs = append(allAliasIDs, v.ID)
-		}
-
-		helpText := strings.Builder{}
-
-		err = helpTextTemplate.Execute(&helpText, HelpTemplateData{
-			ID:                    pv.DisplayID,
-			AffectedPackagesTable: helpTable.RenderMarkdown(),
-			AliasedVulns:          vulnDescriptions,
-		})
-
-		if err != nil {
-			log.Panicf("failed to execute sarif help text template")
-		}
+	for _, gv := range vulnIdMap {
+		helpText := createSARIFHelpText(gv)
 
 		// Set short description to the first entry with a non empty summary
 		// Set long description to the same entry as short description
 		// or use a random long description.
 		var shortDescription, longDescription string
-		for _, v := range pv.AliasedVulns {
+		for _, v := range gv.AliasedVulns {
 			longDescription = v.Details
 			if v.Summary != "" {
 				shortDescription = v.Summary
@@ -227,16 +237,21 @@ func PrintSARIFReport(vulnResult *models.VulnerabilityResults, outputWriter io.W
 			}
 		}
 
+		// Set deprecatedIds with every aliased ID
+		allAliasIDs := []string{}
+		for _, v := range gv.AliasedVulns {
+			allAliasIDs = append(allAliasIDs, v.ID)
+		}
 		pb := sarif.NewPropertyBag()
 		pb.Add("deprecatedIds", allAliasIDs)
 
-		run.AddRule(pv.DisplayID).
+		run.AddRule(gv.DisplayID).
 			WithShortDescription(sarif.NewMultiformatMessageString(shortDescription)).
 			WithFullDescription(sarif.NewMultiformatMessageString(longDescription).WithMarkdown(longDescription)).
-			WithMarkdownHelp(helpText.String()).
-			WithTextHelp(helpText.String()).AttachPropertyBag(pb)
+			WithMarkdownHelp(helpText).
+			WithTextHelp(helpText).AttachPropertyBag(pb)
 
-		for pws := range pv.PkgSource {
+		for pws := range gv.PkgSource {
 			var artifactPath string
 			artifactPath, err = filepath.Rel(workingDir, pws.Source.Path)
 			if err != nil {
@@ -244,7 +259,7 @@ func PrintSARIFReport(vulnResult *models.VulnerabilityResults, outputWriter io.W
 			}
 			run.AddDistinctArtifact(artifactPath)
 
-			run.CreateResultForRule(pv.DisplayID).
+			run.CreateResultForRule(gv.DisplayID).
 				WithLevel("warning").
 				WithMessage(
 					sarif.NewTextMessage(
@@ -252,7 +267,7 @@ func PrintSARIFReport(vulnResult *models.VulnerabilityResults, outputWriter io.W
 							"Package '%s@%s' is vulnerable to '%s' (also known as '%s')",
 							pws.Package.Name,
 							pws.Package.Version,
-							pv.DisplayID,
+							gv.DisplayID,
 							strings.Join(allAliasIDs, "', '")))).
 				AddLocation(
 					sarif.NewLocationWithPhysicalLocation(
