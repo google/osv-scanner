@@ -55,7 +55,7 @@ func FromOSVScannerResults(pathToInstalled string) (Lockfile, error) {
 
 	return Lockfile{
 		FilePath: pathToInstalled,
-		ParsedAs: "osv-scanner-results",
+		ParsedAs: "osv-scanner",
 		Packages: packages,
 	}, err
 }

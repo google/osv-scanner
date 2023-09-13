@@ -205,7 +205,7 @@ func scanLockfile(r reporter.Reporter, query *osv.BatchedQuery, path string, par
 			parsedLockfile, err = lockfile.FromApkInstalled(path)
 		case "dpkg-status":
 			parsedLockfile, err = lockfile.FromDpkgStatus(path)
-		case "osv-scanner-results":
+		case "osv-scanner":
 			parsedLockfile, err = lockfile.FromOSVScannerResults(path)
 		default:
 			parsedLockfile, err = lockfile.ExtractDeps(f, parseAs)
