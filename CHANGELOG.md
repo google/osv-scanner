@@ -1,4 +1,23 @@
 
+# v1.4.0:
+
+### Features
+- [Feature #183](https://github.com/google/osv-scanner/pull/183)
+  Add (experimental) offline mode! See [our documentation](https://google.github.io/osv-scanner/experimental/#offline-mode) for how to use it.
+- [Feature #452](https://github.com/google/osv-scanner/pull/452)
+  Add (experimental) rust call analysis, detect whether vulnerable functions are actually called in your Rust project! See [our documentation](https://google.github.io/osv-scanner/experimental/#offline-mode) for limitations and how to use this.
+- [Feature #484](https://github.com/google/osv-scanner/pull/484) Detect the installed `go` version and checks for vulnerabilities in the standard library.
+- [Feature #505](https://github.com/google/osv-scanner/pull/505) OSV-Scanner doesn't support your lockfile format? You can now use your own parser for your format, and create an intermediate `osv-scanner.json` for osv-scanner to scan. See [our documentation](https://google.github.io/osv-scanner/usage/#custom-lockfiles) for instructions.
+
+### API Features
+- [Feature #451](https://github.com/google/osv-scanner/pull/451) The lockfile package now support extracting dependencies directly from any io.Reader, removing the requirement of a file path.
+
+### Fixes
+- [Bug #457](https://github.com/google/osv-scanner/pull/457)
+  Fix PURL mapping for Alpine packages
+- [Bug #462](https://github.com/google/osv-scanner/pull/462)
+  Use correct plural and singular forms based on count
+
 # v1.3.6:
 
 ### Minor Updates
