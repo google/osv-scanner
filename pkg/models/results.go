@@ -66,11 +66,6 @@ type PackageVulns struct {
 	Groups          []GroupInfo     `json:"groups"`
 }
 
-type PkgWithSource struct {
-	Package PackageInfo
-	Source  SourceInfo
-}
-
 type GroupInfo struct {
 	// IDs expected to be sorted in alphanumeric order
 	IDs []string `json:"ids"`
