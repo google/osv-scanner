@@ -123,14 +123,12 @@ func createSARIFHelpText(gv *groupedVuln) string {
 		log.Panicf("failed to parse sarif help text template")
 	}
 
-	allAliasIDs := []string{}
 	vulnDescriptions := []VulnDescription{}
 	for _, v := range gv.AliasedVulns {
 		vulnDescriptions = append(vulnDescriptions, VulnDescription{
 			ID:      v.ID,
 			Details: strings.ReplaceAll(v.Details, "\n", "\n> "),
 		})
-		allAliasIDs = append(allAliasIDs, v.ID)
 	}
 	slices.SortFunc(vulnDescriptions, func(a, b VulnDescription) int { return idSortFunc(a.ID, b.ID) })
 
@@ -164,9 +162,9 @@ func PrintSARIFReport(vulnResult *models.VulnerabilityResults, outputWriter io.W
 		log.Panicf("can't get working dir: %v", err)
 	}
 
-	vulnIdMap := groupByVulnGroups(vulnResult)
+	vulnIDMap := groupByVulnGroups(vulnResult)
 
-	for _, gv := range vulnIdMap {
+	for _, gv := range vulnIDMap {
 		helpText := createSARIFHelpText(gv)
 
 		// Set short description to the first entry with a non empty summary

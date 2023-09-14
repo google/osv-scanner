@@ -37,6 +37,8 @@ func Test_groupFixedVersions(t *testing.T) {
 }
 
 func Test_groupByVulnGroups(t *testing.T) {
+	t.Parallel()
+
 	tests := []struct {
 		name     string
 		args     models.VulnerabilityResults
@@ -52,6 +54,7 @@ func Test_groupByVulnGroups(t *testing.T) {
 
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
+
 			got := groupByVulnGroups(&tt.args)
 			testutility.AssertMatchFixtureJSON(t, tt.wantPath, got)
 		})
