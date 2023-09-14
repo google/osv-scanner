@@ -180,16 +180,22 @@ func PrintSARIFReport(vulnResult *models.VulnerabilityResults, outputWriter io.W
 			}
 			run.AddDistinctArtifact(artifactPath)
 
+			alsoKnownAsStr := ""
+			if len(allAliasIDsMinusDisplay) > 0 {
+				alsoKnownAsStr = fmt.Sprintf(" (also known as '%s')", strings.Join(allAliasIDsMinusDisplay, "', '"))
+			}
+
 			run.CreateResultForRule(gv.DisplayID).
 				WithLevel("warning").
 				WithMessage(
 					sarif.NewTextMessage(
 						fmt.Sprintf(
-							"Package '%s@%s' is vulnerable to '%s' (also known as '%s')",
+							"Package '%s@%s' is vulnerable to '%s'%s.",
 							pws.Package.Name,
 							pws.Package.Version,
 							gv.DisplayID,
-							strings.Join(allAliasIDsMinusDisplay, "', '")))).
+							alsoKnownAsStr,
+						))).
 				AddLocation(
 					sarif.NewLocationWithPhysicalLocation(
 						sarif.NewPhysicalLocation().
