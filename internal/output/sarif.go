@@ -74,32 +74,7 @@ func GroupFixedVersions(flattened []models.VulnerabilityFlattened) map[string][]
 	return groupFixedVersions
 }
 
-// CreateSourceRemediationTable creates a vulnerability table which includes the fixed versions for a specific source file
-func CreateSourceRemediationTable(source models.PackageSource, groupFixedVersions map[string][]string) table.Writer {
-	remediationTable := table.NewWriter()
-	remediationTable.AppendHeader(table.Row{"Package", "Vulnerability ID", "CVSS", "Current Version", "Fixed Version"})
-
-	for _, pv := range source.Packages {
-		for _, group := range pv.Groups {
-			fixedVersions := groupFixedVersions[source.Source.String()+":"+group.IndexString()]
-
-			vulnIDs := []string{}
-			for _, id := range group.IDs {
-				vulnIDs = append(vulnIDs, fmt.Sprintf("https://osv.dev/%s", id))
-			}
-			remediationTable.AppendRow(table.Row{
-				pv.Package.Name,
-				strings.Join(vulnIDs, "\n"),
-				MaxSeverity(group, pv),
-				pv.Package.Version,
-				strings.Join(fixedVersions, "\n")})
-		}
-	}
-
-	return remediationTable
-}
-
-// CreateSourceRemediationTable creates a vulnerability table which includes the fixed versions for a specific source file
+// createSARIFHelpTable creates a vulnerability table which includes the fixed versions for a specific source file
 func createSARIFHelpTable(pkgWithSrc map[pkgWithSource]struct{}) table.Writer {
 	helpTable := table.NewWriter()
 	helpTable.AppendHeader(table.Row{"Source", "Package Name", "Package Version"})
@@ -115,6 +90,7 @@ func createSARIFHelpTable(pkgWithSrc map[pkgWithSource]struct{}) table.Writer {
 	return helpTable
 }
 
+// createSARIFHelpText returns the text for SARIF rule's help field
 func createSARIFHelpText(gv *groupedVuln) string {
 	helpTable := createSARIFHelpTable(gv.PkgSource)
 
@@ -180,12 +156,15 @@ func PrintSARIFReport(vulnResult *models.VulnerabilityResults, outputWriter io.W
 		}
 
 		// Set deprecatedIds with every aliased ID
-		allAliasIDs := []string{}
+		allAliasIDsMinusDisplay := []string{}
 		for _, v := range gv.AliasedVulns {
-			allAliasIDs = append(allAliasIDs, v.ID)
+			if v.ID == gv.DisplayID {
+				continue
+			}
+			allAliasIDsMinusDisplay = append(allAliasIDsMinusDisplay, v.ID)
 		}
 		pb := sarif.NewPropertyBag()
-		pb.Add("deprecatedIds", allAliasIDs)
+		pb.Add("deprecatedIds", append(allAliasIDsMinusDisplay, gv.DisplayID))
 
 		run.AddRule(gv.DisplayID).
 			WithShortDescription(sarif.NewMultiformatMessageString(shortDescription)).
@@ -210,7 +189,7 @@ func PrintSARIFReport(vulnResult *models.VulnerabilityResults, outputWriter io.W
 							pws.Package.Name,
 							pws.Package.Version,
 							gv.DisplayID,
-							strings.Join(allAliasIDs, "', '")))).
+							strings.Join(allAliasIDsMinusDisplay, "', '")))).
 				AddLocation(
 					sarif.NewLocationWithPhysicalLocation(
 						sarif.NewPhysicalLocation().
