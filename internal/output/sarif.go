@@ -115,7 +115,7 @@ func createSARIFHelpTable(pkgWithSrc map[pkgWithSource]struct{}) table.Writer {
 	return helpTable
 }
 
-func createSARIFHelpText(gv *groupedVulns) string {
+func createSARIFHelpText(gv *groupedVuln) string {
 	helpTable := createSARIFHelpTable(gv.PkgSource)
 
 	helpTextTemplate, err := template.New("helpText").Parse(SARIFTemplate)

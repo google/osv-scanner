@@ -53,10 +53,7 @@ func Test_groupByVulnGroups(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
 			got := groupByVulnGroups(&tt.args)
-			testutility.CreateJSONFixture(t, tt.wantPath, got)
-			// if got := groupByVulnGroups(&tt.args); !reflect.DeepEqual(got, tt.want) {
-			// 	t.Errorf("groupByVulnGroups() = %v, want %v", got, tt.want)
-			// }
+			testutility.AssertMatchFixtureJSON(t, tt.wantPath, got)
 		})
 	}
 }

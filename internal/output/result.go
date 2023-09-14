@@ -1,6 +1,8 @@
 package output
 
 import (
+	"encoding/json"
+
 	"github.com/google/osv-scanner/pkg/models"
 	"golang.org/x/exp/slices"
 )
@@ -10,9 +12,36 @@ type pkgWithSource struct {
 	Source  models.SourceInfo
 }
 
-type groupedVulns struct {
+// Custom implementation of this unique set map to allow it to serialize to JSON
+type pkgSourceSet map[pkgWithSource]struct{}
+
+func (pss *pkgSourceSet) MarshalJSON() ([]byte, error) {
+	res := []pkgWithSource{}
+
+	for v := range *pss {
+		res = append(res, v)
+	}
+
+	return json.Marshal(res)
+}
+
+func (pss *pkgSourceSet) UnmarshalJSON(data []byte) error {
+	aux := []pkgWithSource{}
+	if err := json.Unmarshal(data, &aux); err != nil {
+		return err
+	}
+
+	*pss = make(pkgSourceSet)
+	for _, pws := range aux {
+		(*pss)[pws] = struct{}{}
+	}
+
+	return nil
+}
+
+type groupedVuln struct {
 	DisplayID    string
-	PkgSource    map[pkgWithSource]struct{}
+	PkgSource    pkgSourceSet
 	AliasedVulns map[string]models.Vulnerability
 }
 
@@ -44,14 +73,16 @@ func groupFixedVersions(flattened []models.VulnerabilityFlattened) map[string][]
 	return groupFixedVersions
 }
 
-func groupByVulnGroups(vulns *models.VulnerabilityResults) map[string]*groupedVulns {
+// groupByVulnGroups creates a map over all vulnerability IDs, with aliased vuln IDs
+// pointing to the same groupVulns object
+func groupByVulnGroups(vulns *models.VulnerabilityResults) map[string]*groupedVuln {
 	// Map of Vuln IDs to
-	results := map[string]*groupedVulns{}
+	results := map[string]*groupedVuln{}
 
 	for _, res := range vulns.Results {
 		for _, pkg := range res.Packages {
 			for _, gi := range pkg.Groups {
-				var data *groupedVulns
+				var data *groupedVuln
 				// See if this vulnerability group already exists (from another package or source)
 				for _, id := range gi.IDs {
 					existingData, ok := results[id]
@@ -62,9 +93,9 @@ func groupByVulnGroups(vulns *models.VulnerabilityResults) map[string]*groupedVu
 				}
 				// If not create this group
 				if data == nil {
-					data = &groupedVulns{
+					data = &groupedVuln{
 						DisplayID:    slices.MinFunc(gi.IDs, idSortFunc),
-						PkgSource:    make(map[pkgWithSource]struct{}),
+						PkgSource:    make(pkgSourceSet),
 						AliasedVulns: make(map[string]models.Vulnerability),
 					}
 				} else {
