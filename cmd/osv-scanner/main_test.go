@@ -423,80 +423,17 @@ func TestRun(t *testing.T) {
 				Scanned %%/fixtures/locks-many/composer.lock file and found 1 package
 			`,
 		},
-		// {
-		// 	name:         "gh-annotations with vulns",
-		// 	args:         []string{"", "--format", "sarif", "--config", "./fixtures/osv-scanner-empty-config.toml", "./fixtures/locks-many/package-lock.json"},
-		// 	wantExitCode: 1,
-		// 	wantStdout: `
-		//     {
-		//       "version": "2.1.0",
-		//       "$schema": "https://json.schemastore.org/sarif-2.1.0.json",
-		//       "runs": [
-		//         {
-		//           "tool": {
-		//             "driver": {
-		//               "informationUri": "https://github.com/google/osv-scanner",
-		//               "name": "osv-scanner",
-		//               "rules": [
-		//                 {
-		//                   "id": "GHSA-whgm-jr23-g3j9",
-		//                   "shortDescription": {
-		//                     "text": "Uncontrolled Resource Consumption in ansi-html"
-		//                   },
-		//                   "fullDescription": {
-		//                     "text": "This affects all versions of package ansi-html. If an attacker provides a malicious string, it will get stuck processing the input for an extremely long time.",
-		//                     "markdown": "This affects all versions of package ansi-html. If an attacker provides a malicious string, it will get stuck processing the input for an extremely long time."
-		//                   },
-		//                   "help": {
-		//                     "text": "\n**Your dependency is vulnerable to [GHSA-whgm-jr23-g3j9](https://osv.dev/vulnerability/GHSA-whgm-jr23-g3j9)** \n.\n\n\n\u003e ## [GHSA-whgm-jr23-g3j9](https://osv.dev/vulnerability/GHSA-whgm-jr23-g3j9)\n\u003e \n\u003e This affects all versions of package ansi-html. If an attacker provides a malicious string, it will get stuck processing the input for an extremely long time.\n\u003e \n\n\n---\n\n### Affected Packages\n| Source | Package Name | Package Version |\n| --- | --- | --- |\n| lockfile:%%/fixtures/locks-many/package-lock.json | ansi-html | 0.0.1 |\n\n",
-		//                     "markdown": "\n**Your dependency is vulnerable to [GHSA-whgm-jr23-g3j9](https://osv.dev/vulnerability/GHSA-whgm-jr23-g3j9)** \n.\n\n\n\u003e ## [GHSA-whgm-jr23-g3j9](https://osv.dev/vulnerability/GHSA-whgm-jr23-g3j9)\n\u003e \n\u003e This affects all versions of package ansi-html. If an attacker provides a malicious string, it will get stuck processing the input for an extremely long time.\n\u003e \n\n\n---\n\n### Affected Packages\n| Source | Package Name | Package Version |\n| --- | --- | --- |\n| lockfile:%%/fixtures/locks-many/package-lock.json | ansi-html | 0.0.1 |\n\n"
-		//                   },
-		//                   "properties": {
-		//                     "deprecatedIds": [
-		//                       "GHSA-whgm-jr23-g3j9"
-		//                     ]
-		//                   }
-		//                 }
-		//               ],
-		//               "version": "unknown"
-		//             }
-		//           },
-		//           "artifacts": [
-		//             {
-		//               "location": {
-		//                 "uri": "fixtures/locks-many/package-lock.json"
-		//               },
-		//               "length": -1
-		//             }
-		//           ],
-		//           "results": [
-		//             {
-		//               "ruleId": "GHSA-whgm-jr23-g3j9",
-		//               "ruleIndex": 0,
-		//               "level": "warning",
-		//               "message": {
-		//                 "text": "Package 'ansi-html@0.0.1' is vulnerable to 'GHSA-whgm-jr23-g3j9' (also known as 'GHSA-whgm-jr23-g3j9')"
-		//               },
-		//               "locations": [
-		//                 {
-		//                   "physicalLocation": {
-		//                     "artifactLocation": {
-		//                       "uri": "fixtures/locks-many/package-lock.json"
-		//                     }
-		//                   }
-		//                 }
-		//               ]
-		//             }
-		//           ]
-		//         }
-		//       ]
-		//     }
-		// 	`,
-		// 	wantStderr: `
-		// 		Scanning dir ./fixtures/locks-many/package-lock.json
-		// 		Scanned %%/fixtures/locks-many/package-lock.json file and found 1 package
-		// 	`,
-		// },
+		{
+			name:         "gh-annotations with vulns",
+			args:         []string{"", "--format", "gh-annotations", "--config", "./fixtures/osv-scanner-empty-config.toml", "./fixtures/locks-many/package-lock.json"},
+			wantExitCode: 1,
+			wantStdout:   ``,
+			wantStderr: `
+				Scanning dir ./fixtures/locks-many/package-lock.json
+				Scanned %%/fixtures/locks-many/package-lock.json file and found 1 package
+				::error file=fixtures/locks-many/package-lock.json::fixtures/locks-many/package-lock.json%0A+-----------+-------------------------------------+------+-----------------+---------------+%0A| PACKAGE   | VULNERABILITY ID                    | CVSS | CURRENT VERSION | FIXED VERSION |%0A+-----------+-------------------------------------+------+-----------------+---------------+%0A| ansi-html | https://osv.dev/GHSA-whgm-jr23-g3j9 | 7.5  | 0.0.1           | 0.0.8         |%0A+-----------+-------------------------------------+------+-----------------+---------------+
+			`,
+		},
 		// output format: markdown table
 		{
 			name:         "",
