@@ -17,8 +17,6 @@ nav_order: 3
 {:toc}
 </details>
 
-OSV-Scanner parses lockfiles, SBOMs, and git directories to determine your project's open source dependencies. These dependencies are matched against the OSV database via the [OSV.dev API](https://osv.dev#use-the-api) and known vulnerabilities are returned to you in the output. 
-
 ## General use case: scanning a directory
 
 ```bash
@@ -110,55 +108,39 @@ it should infer the parser based on the filename:
 osv-scanner --lockfile ':/path/to/my:projects/package-lock.json'
 ```
 
-## Scanning with call analysis  
+### Custom Lockfiles
 
-{: .note }
-Features and flags with the `experimental` prefix might change or be removed with only a minor version update.
+If you have a custom lockfile that we do not support or prefer to do your own custom parsing, you can extract the custom lockfile information and create a custom intermediate file containing dependency information so that osv-scanner can still check for vulnerabilities. 
 
-Call stack analysis can be performed on some languages to check if the 
-vulnerable code is actually being executed by your project. If the code
-is not being executed, these vulnerabilities will be marked as unexecuted.
+Once you extracted your own dependency information, place it in a `osv-scanner.json` file, with the same format as the JSON output of osv-scanner, e.g.:
 
-To enable call analysis, call OSV-Scanner with the `--experimental-call-analysis` flag.
+```
+{
+  "results": [
+    {
+      "packages": [
+        {
+          "package": {
+            "commit": "9a6bd55c9d0722cb101fe85a3b22d89e4ff4fe52"
+          }
+        },
+        {
+          "package": {
+            "name": "react",
+            "version": "1.2.3",
+            "ecosystem": "npm"
+          }
+        },
+        // ...
+      ]
+    }
+  ]
+}
+```
 
-### Supported languages
-
----
-
-#### **Go**
-
-OSV-Scanner uses the `govulncheck` library to analyze Go source code to identify called vulnerable functions.
-
-##### Additional Dependencies
-
-`go` compiler needs to be installed and available on `PATH`    
-
----
-
-#### **Rust**
-
-OSV-Scanner compiles Rust source code and analyzes the output binary's DWARF debug information to identify called vulnerable functions.
-
-##### Additional Dependencies
-
-Rust toolchain (including `cargo`) that can compile the source code being scanned needs to be installed and available on `PATH`.
-
-The installed Rust toolchain must be capable of compiling every crate/target in the scanned code, for code with
-a lot of dependencies this will take a few minutes.
-
-##### **Limitations**
-
-Current implementation has a few limitations:
-
-- Does not support dependencies on proc-macros (Tracked in [#464](https://github.com/google/osv-scanner/issues/464))
-- Does not support any dependencies that are dynamically linked
-- Does not support dependencies that link external non-rust code
-
----
-
-### Example
-```bash
-osv-scanner --experimental-call-analysis ./my/project/path
+Then pass this to `osv-scanner` with this:
+```
+osv-scanner --lockfile osv-scanner:/path/to/osv-scanner.json
 ```
 
 ## Scanning a Debian based docker image packages
