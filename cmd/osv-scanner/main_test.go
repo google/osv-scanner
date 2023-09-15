@@ -315,7 +315,7 @@ func TestRun(t *testing.T) {
 			name:         "Empty sarif output",
 			args:         []string{"", "--format", "sarif", "./fixtures/locks-many/composer.lock"},
 			wantExitCode: 0,
-			wantStdout: `
+			wantStdout: fmt.Sprintf(`
             {
               "version": "2.1.0",
               "$schema": "https://json.schemastore.org/sarif-2.1.0.json",
@@ -326,14 +326,14 @@ func TestRun(t *testing.T) {
                       "informationUri": "https://github.com/google/osv-scanner",
                       "name": "osv-scanner",
                       "rules": [],
-                      "version": "unknown"
+                      "version": "%s"
                     }
                   },
                   "results": []
                 }
               ]
             }
-			`,
+			`, version.OSVVersion),
 			wantStderr: `
 				Scanning dir ./fixtures/locks-many/composer.lock
 				Scanned %%/fixtures/locks-many/composer.lock file and found 1 package
@@ -343,7 +343,7 @@ func TestRun(t *testing.T) {
 			name:         "Sarif with vulns",
 			args:         []string{"", "--format", "sarif", "--config", "./fixtures/osv-scanner-empty-config.toml", "./fixtures/locks-many/package-lock.json"},
 			wantExitCode: 1,
-			wantStdout: `
+			wantStdout: fmt.Sprintf(`
             {
               "version": "2.1.0",
               "$schema": "https://json.schemastore.org/sarif-2.1.0.json",
@@ -374,7 +374,7 @@ func TestRun(t *testing.T) {
                           }
                         }
                       ],
-                      "version": "unknown"
+                      "version": "%s"
                     }
                   },
                   "artifacts": [
@@ -407,7 +407,7 @@ func TestRun(t *testing.T) {
                 }
               ]
             }
-			`,
+			`, version.OSVVersion),
 			wantStderr: `
 				Scanning dir ./fixtures/locks-many/package-lock.json
 				Scanned %%/fixtures/locks-many/package-lock.json file and found 1 package
