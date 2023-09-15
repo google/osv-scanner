@@ -55,7 +55,7 @@ func Test_groupByVulnGroups(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
 
-			got := groupByVulnGroups(&tt.args)
+			got := mapIDsToGroupedSARIFFinding(&tt.args)
 			testutility.AssertMatchFixtureJSON(t, tt.wantPath, got)
 		})
 	}

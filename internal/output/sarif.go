@@ -9,6 +9,7 @@ import (
 	"strings"
 	"text/template"
 
+	"github.com/google/osv-scanner/internal/version"
 	"github.com/google/osv-scanner/pkg/models"
 	"github.com/jedib0t/go-pretty/v6/table"
 	"github.com/owenrumney/go-sarif/v2/sarif"
@@ -91,7 +92,7 @@ func createSARIFHelpTable(pkgWithSrc map[pkgWithSource]struct{}) table.Writer {
 }
 
 // createSARIFHelpText returns the text for SARIF rule's help field
-func createSARIFHelpText(gv *groupedVuln) string {
+func createSARIFHelpText(gv *groupedSARIFFinding) string {
 	helpTable := createSARIFHelpTable(gv.PkgSource)
 
 	helpTextTemplate, err := template.New("helpText").Parse(SARIFTemplate)
@@ -131,14 +132,14 @@ func PrintSARIFReport(vulnResult *models.VulnerabilityResults, outputWriter io.W
 	}
 
 	run := sarif.NewRunWithInformationURI("osv-scanner", "https://github.com/google/osv-scanner")
-	run.Tool.Driver.WithVersion(OSVVersion)
+	run.Tool.Driver.WithVersion(version.OSVVersion)
 
 	workingDir, err := os.Getwd()
 	if err != nil {
 		log.Panicf("can't get working dir: %v", err)
 	}
 
-	vulnIDMap := groupByVulnGroups(vulnResult)
+	vulnIDMap := mapIDsToGroupedSARIFFinding(vulnResult)
 
 	for _, gv := range vulnIDMap {
 		helpText := createSARIFHelpText(gv)

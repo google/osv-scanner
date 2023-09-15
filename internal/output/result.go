@@ -39,12 +39,6 @@ func (pss *pkgSourceSet) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-type groupedVuln struct {
-	DisplayID    string
-	PkgSource    pkgSourceSet
-	AliasedVulns map[string]models.Vulnerability
-}
-
 // groupFixedVersions builds the fixed versions for each ID Group, with keys formatted like so:
 // `Source:ID`
 func groupFixedVersions(flattened []models.VulnerabilityFlattened) map[string][]string {
@@ -73,16 +67,23 @@ func groupFixedVersions(flattened []models.VulnerabilityFlattened) map[string][]
 	return groupFixedVersions
 }
 
-// groupByVulnGroups creates a map over all vulnerability IDs, with aliased vuln IDs
-// pointing to the same groupVulns object
-func groupByVulnGroups(vulns *models.VulnerabilityResults) map[string]*groupedVuln {
-	// Map of Vuln IDs to
-	results := map[string]*groupedVuln{}
+// groupedSARIFFinding groups vulnerabilities by aliases
+type groupedSARIFFinding struct {
+	DisplayID    string
+	PkgSource    pkgSourceSet
+	AliasedVulns map[string]models.Vulnerability
+}
+
+// mapIDsToGroupedSARIFFinding creates a map over all vulnerability IDs, with aliased vuln IDs
+// pointing to the same groupedSARIFFinding object
+func mapIDsToGroupedSARIFFinding(vulns *models.VulnerabilityResults) map[string]*groupedSARIFFinding {
+	// Map of vuln IDs to their respective groupedSARIFFinding
+	results := map[string]*groupedSARIFFinding{}
 
 	for _, res := range vulns.Results {
 		for _, pkg := range res.Packages {
 			for _, gi := range pkg.Groups {
-				var data *groupedVuln
+				var data *groupedSARIFFinding
 				// See if this vulnerability group already exists (from another package or source)
 				for _, id := range gi.IDs {
 					existingData, ok := results[id]
@@ -93,7 +94,7 @@ func groupByVulnGroups(vulns *models.VulnerabilityResults) map[string]*groupedVu
 				}
 				// If not create this group
 				if data == nil {
-					data = &groupedVuln{
+					data = &groupedSARIFFinding{
 						DisplayID:    slices.MinFunc(gi.IDs, idSortFunc),
 						PkgSource:    make(pkgSourceSet),
 						AliasedVulns: make(map[string]models.Vulnerability),

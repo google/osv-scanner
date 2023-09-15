@@ -11,6 +11,7 @@ import (
 	"testing"
 
 	"github.com/go-git/go-git/v5"
+	"github.com/google/osv-scanner/internal/version"
 )
 
 func createTestDir(t *testing.T) (string, func()) {
@@ -134,7 +135,7 @@ func TestRun(t *testing.T) {
 				osv-scanner version: %s
 				commit: n/a
 				built at: n/a
-			`, version),
+			`, version.OSVVersion),
 			wantStderr: "",
 		},
 		// one specific supported lockfile
