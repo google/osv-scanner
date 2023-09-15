@@ -36,7 +36,7 @@ func Test_groupFixedVersions(t *testing.T) {
 	}
 }
 
-func Test_groupByVulnGroups(t *testing.T) {
+func Test_mapIDsToGroupedSARIFFinding(t *testing.T) {
 	t.Parallel()
 
 	tests := []struct {
