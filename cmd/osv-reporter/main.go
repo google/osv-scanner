@@ -23,9 +23,9 @@ var (
 )
 
 func splitLastArg(args []string) []string {
-	last_arg := args[len(args)-1]
-	last_arg_splits := strings.Split(last_arg, "\n")
-	args = append(args[:len(args)-1], last_arg_splits...)
+	lastArg := args[len(args)-1]
+	lastArgSplits := strings.Split(lastArg, "\n")
+	args = append(args[:len(args)-1], lastArgSplits...)
 
 	return args
 }
