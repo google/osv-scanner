@@ -31,9 +31,12 @@ jobs:
         uses: another-rex/osv-scanner/actions/scanner@attempt-at-multiline-action
         continue-on-error: true
         with:
-          results-format: json
-          results-file: old-results.json
-          to-scan: .
+          scan-args: |-
+            --format=json
+            --output=old-results.json
+            -r
+            --skip-git
+            ./
       - name: "Checkout current branch"
         run: git checkout $GITHUB_SHA
       - name: "Run scanner on new code"
