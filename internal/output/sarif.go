@@ -164,15 +164,14 @@ func PrintSARIFReport(vulnResult *models.VulnerabilityResults, outputWriter io.W
 			}
 			allAliasIDsMinusDisplay = append(allAliasIDsMinusDisplay, v.ID)
 		}
-		pb := sarif.NewPropertyBag()
-		pb.Add("deprecatedIds", append(allAliasIDsMinusDisplay, gv.DisplayID))
 
-		run.AddRule(gv.DisplayID).
+		rule := run.AddRule(gv.DisplayID).
 			WithShortDescription(sarif.NewMultiformatMessageString(shortDescription)).
 			WithFullDescription(sarif.NewMultiformatMessageString(longDescription).WithMarkdown(longDescription)).
 			WithMarkdownHelp(helpText).
-			WithTextHelp(helpText).AttachPropertyBag(pb)
+			WithTextHelp(helpText)
 
+		rule.DeprecatedIds = append(allAliasIDsMinusDisplay, gv.DisplayID)
 		for pws := range gv.PkgSource {
 			var artifactPath string
 			artifactPath, err = filepath.Rel(workingDir, pws.Source.Path)

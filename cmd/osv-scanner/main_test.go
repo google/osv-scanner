@@ -363,15 +363,14 @@ func TestRun(t *testing.T) {
                             "text": "This affects all versions of package ansi-html. If an attacker provides a malicious string, it will get stuck processing the input for an extremely long time.",
                             "markdown": "This affects all versions of package ansi-html. If an attacker provides a malicious string, it will get stuck processing the input for an extremely long time."
                           },
+                          "deprecatedIds": [
+                            "GHSA-whgm-jr23-g3j9"
+                          ],
                           "help": {
                             "text": "\n**Your dependency is vulnerable to [GHSA-whgm-jr23-g3j9](https://osv.dev/vulnerability/GHSA-whgm-jr23-g3j9)** \n.\n\n\n\u003e ## [GHSA-whgm-jr23-g3j9](https://osv.dev/vulnerability/GHSA-whgm-jr23-g3j9)\n\u003e \n\u003e This affects all versions of package ansi-html. If an attacker provides a malicious string, it will get stuck processing the input for an extremely long time.\n\u003e \n\n\n---\n\n### Affected Packages\n| Source | Package Name | Package Version |\n| --- | --- | --- |\n| lockfile:%%%%/fixtures/locks-many/package-lock.json | ansi-html | 0.0.1 |\n\n",
                             "markdown": "\n**Your dependency is vulnerable to [GHSA-whgm-jr23-g3j9](https://osv.dev/vulnerability/GHSA-whgm-jr23-g3j9)** \n.\n\n\n\u003e ## [GHSA-whgm-jr23-g3j9](https://osv.dev/vulnerability/GHSA-whgm-jr23-g3j9)\n\u003e \n\u003e This affects all versions of package ansi-html. If an attacker provides a malicious string, it will get stuck processing the input for an extremely long time.\n\u003e \n\n\n---\n\n### Affected Packages\n| Source | Package Name | Package Version |\n| --- | --- | --- |\n| lockfile:%%%%/fixtures/locks-many/package-lock.json | ansi-html | 0.0.1 |\n\n"
                           },
-                          "properties": {
-                            "deprecatedIds": [
-                              "GHSA-whgm-jr23-g3j9"
-                            ]
-                          }
+                          "messageStrings": null
                         }
                       ],
                       "version": "%s"
