@@ -5,9 +5,9 @@ inputs:
   scan-args:
     description: 'Arguments to osv-scanner, separate by new line'
     default: |-
-    --skip-git
-    --recursive
-    ./
+      --skip-git
+      --recursive
+      ./
 runs:
   using: 'docker'
   image: '../../action.dockerfile'
