@@ -28,7 +28,7 @@ jobs:
       - name: "Checkout target branch"
         run: git checkout $GITHUB_BASE_REF
       - name: "Run scanner on existing code"
-        uses: another-rex/osv-scanner/actions/scanner@attempt-at-multiline-action
+        uses: google/osv-scanner/actions/scanner@main
         continue-on-error: true
         with:
           scan-args: |-
@@ -40,7 +40,7 @@ jobs:
       - name: "Checkout current branch"
         run: git checkout $GITHUB_SHA
       - name: "Run scanner on new code"
-        uses: another-rex/osv-scanner/actions/scanner@attempt-at-multiline-action
+        uses: google/osv-scanner/actions/scanner@main
         with:
           scan-args: |-
             --format=json
