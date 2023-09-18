@@ -7,6 +7,7 @@ import (
 	"os"
 
 	"github.com/google/osv-scanner/internal/ci"
+	"github.com/google/osv-scanner/internal/version"
 	"github.com/google/osv-scanner/pkg/models"
 	"github.com/google/osv-scanner/pkg/osvscanner"
 	"github.com/google/osv-scanner/pkg/reporter"
@@ -16,9 +17,8 @@ import (
 
 var (
 	// Update this variable when doing a release
-	version = "1.3.5"
-	commit  = "n/a"
-	date    = "n/a"
+	commit = "n/a"
+	date   = "n/a"
 )
 
 func run(args []string, stdout, stderr io.Writer) int {
@@ -32,7 +32,7 @@ func run(args []string, stdout, stderr io.Writer) int {
 
 	app := &cli.App{
 		Name:        "osv-scanner-action-reporter",
-		Version:     version,
+		Version:     version.OSVVersion,
 		Usage:       "(Experimental) generates github action output",
 		Description: "(Experimental) Used specifically to generate github action output ",
 		Suggest:     true,
