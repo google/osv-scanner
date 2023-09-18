@@ -52,10 +52,11 @@ jobs:
       - name: "Run osv-scanner-reporter"
         uses: google/osv-scanner/actions/reporter@main
         with:
-          output-sarif-file: final-results.sarif
-          old-results: old-results.json
-          new-results: new-results.json
-          gh-annotations: true
+          scan-args: |-
+            --output=final-results.sarif
+            --old=old-results.json
+            --new=new-results.json
+            --gh-annoatations: true
       # Upload the results as artifacts (optional). Commenting out will disable uploads of run results in SARIF
       # format to the repository Actions tab.
       - name: "Upload artifact"

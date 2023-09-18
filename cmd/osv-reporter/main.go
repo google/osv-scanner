@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"io"
 	"os"
+	"strings"
 
 	"github.com/google/osv-scanner/internal/ci"
 	"github.com/google/osv-scanner/pkg/models"
@@ -16,13 +17,23 @@ import (
 
 var (
 	// Update this variable when doing a release
-	version = "1.3.5"
+	version = "1.4.0"
 	commit  = "n/a"
 	date    = "n/a"
 )
 
+func splitLastArg(args []string) []string {
+	last_arg := args[len(args)-1]
+	last_arg_splits := strings.Split(last_arg, "\n")
+	args = append(args[:len(args)-1], last_arg_splits...)
+
+	return args
+}
+
 func run(args []string, stdout, stderr io.Writer) int {
 	var tableReporter reporter.Reporter
+
+	args = splitLastArg(args)
 
 	cli.VersionPrinter = func(ctx *cli.Context) {
 		// Use the app Writer and ErrWriter since they will be the writers to keep parallel tests consistent
