@@ -22,6 +22,8 @@ var (
 	date    = "n/a"
 )
 
+// splitLastArg splits the last argument by new lines and appends the split
+// elements onto args and returns it
 func splitLastArg(args []string) []string {
 	lastArg := args[len(args)-1]
 	lastArgSplits := strings.Split(lastArg, "\n")
@@ -33,6 +35,8 @@ func splitLastArg(args []string) []string {
 func run(args []string, stdout, stderr io.Writer) int {
 	var tableReporter reporter.Reporter
 
+	// Allow multiple arguments to be defined by github actions by splitting the last argument
+	// by new lines.
 	args = splitLastArg(args)
 
 	cli.VersionPrinter = func(ctx *cli.Context) {
