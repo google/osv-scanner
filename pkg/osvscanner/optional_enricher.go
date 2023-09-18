@@ -29,7 +29,7 @@ func addCompilerVersion(r reporter.Reporter, parsedLockfile *lockfile.Lockfile) 
 	case "go.mod":
 		goVer, err := getGoVersion()
 		if err != nil {
-			r.PrintError(fmt.Sprintf("cannot get go standard library version, go might not be installed: %s", err))
+			r.PrintError(fmt.Sprintf("cannot get go standard library version, go might not be installed: %s\n", err))
 		} else {
 			parsedLockfile.Packages = append(parsedLockfile.Packages, lockfile.PackageDetails{
 				Name:      "stdlib",
