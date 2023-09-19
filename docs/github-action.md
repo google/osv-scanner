@@ -58,7 +58,6 @@ name: osv-scanner
 
 on:
   pull_request:
-    # The branches below must be a subset of the branches above
     branches: [ main ]
   merge_group:
     branches: [ main ]
