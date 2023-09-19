@@ -7,6 +7,8 @@ nav_order: 6
 
 # GitHub Action
 
+{: .no_toc }
+
 OSV-Scanner is offered as a GitHub Action. We currently have two different GitHub Actions:
 
 1. An action that performs a vulnerability scan on a [regular schedule](./github-action.md#scheduled-scans). 
@@ -44,9 +46,13 @@ jobs:
 
 As written, the scanner will run on 12:12 pm UTC every Monday. You can change the schedule by following the instructions [here](https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#schedule). 
 
+### View results
+
+Maintainers can review results of the scan by navigating to their project's security > code scanning tab. Vulnerability details can also be viewed by clicking on the details of the failed action.
+
 ## Scans on PRs
 
-Scanning your project on each pull request can help you keep vulnerabilities out of your project. This GitHub Action compares a vulnerability scan of the main branch to a vulnerability scan of the feature branch. You will be notified of any new vulnerabilities introduced through the feature branch. You can also choose to prevent merging if new vulnerabilities are introduced through the feature branch. 
+Scanning your project on each pull request can help you keep vulnerabilities out of your project. This GitHub Action compares a vulnerability scan of the main branch to a vulnerability scan of the feature branch. You will be notified of any new vulnerabilities introduced through the feature branch. You can also choose to [prevent merging](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-protected-branches/about-protected-branches#require-status-checks-before-merging) if new vulnerabilities are introduced through the feature branch.
 
 ### Instructions
 
