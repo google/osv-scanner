@@ -155,7 +155,6 @@ func PrintSARIFReport(vulnResult *models.VulnerabilityResults, outputWriter io.W
 			WithMarkdownHelp(helpText).
 			WithTextHelp(helpText)
 
-		//nolint:gocritic
 		rule.DeprecatedIds = gv.AliasedIDList
 		for pws := range gv.PkgSource {
 			artifactPath := "file://" + pws.Source.Path
