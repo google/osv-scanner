@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-name: osv-scanner
+name: OSV-Scanner Scheduled Scan
 
 on:
   schedule:
@@ -20,9 +20,10 @@ on:
   push:
     branches: [ "main" ]
 
-# Declare default permissions as read only.
 permissions: 
+  # Require writing security events to upload SARIF file to security tab
   security-events: write
+  # Only need to read contents
   contents: read
 
 jobs:

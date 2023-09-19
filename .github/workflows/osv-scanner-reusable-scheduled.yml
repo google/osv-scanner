@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-name: OSV-Scanner Scheduled scanning
+name: OSV-Scanner scheduled scan reusable
 
 on:
   workflow_call:
@@ -21,14 +21,16 @@ jobs:
   scan-scheduled:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: "Run scanner"
         uses: google/osv-scanner/actions/scanner@main
         with:
-          results-format: sarif
-          results-file: results.sarif
-          to-scan: .
-          recursive-scan: true
+          scan-args: |-
+            --output=results.sarif
+            --format=sarif
+            -r
+            --skip-git
+            ./
       # Upload the results as artifacts (optional). Commenting out will disable uploads of run results in SARIF
       # format to the repository Actions tab.
       - name: "Upload artifact"

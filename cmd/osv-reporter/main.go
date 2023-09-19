@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"io"
 	"os"
+	"strings"
 
 	"github.com/google/osv-scanner/internal/ci"
 	"github.com/google/osv-scanner/pkg/models"
@@ -16,13 +17,27 @@ import (
 
 var (
 	// Update this variable when doing a release
-	version = "1.3.5"
+	version = "1.4.0"
 	commit  = "n/a"
 	date    = "n/a"
 )
 
+// splitLastArg splits the last argument by new lines and appends the split
+// elements onto args and returns it
+func splitLastArg(args []string) []string {
+	lastArg := args[len(args)-1]
+	lastArgSplits := strings.Split(lastArg, "\n")
+	args = append(args[:len(args)-1], lastArgSplits...)
+
+	return args
+}
+
 func run(args []string, stdout, stderr io.Writer) int {
 	var tableReporter reporter.Reporter
+
+	// Allow multiple arguments to be defined by github actions by splitting the last argument
+	// by new lines.
+	args = splitLastArg(args)
 
 	cli.VersionPrinter = func(ctx *cli.Context) {
 		// Use the app Writer and ErrWriter since they will be the writers to keep parallel tests consistent
