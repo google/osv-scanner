@@ -31,9 +31,10 @@ on:
   push:
     branches: [ "main" ]
 
-# Declare default permissions as read only.
 permissions: 
+  # Require writing security events to upload SARIF file to security tab
   security-events: write
+  # Only need to read contents
   contents: read
 
 jobs:
