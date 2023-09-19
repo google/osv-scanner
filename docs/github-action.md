@@ -23,7 +23,7 @@ In your project repository, create a new file `.github/workflows/osv-scanner-sch
 Include the following in the [`osv-scanner-scheduled.yml`](https://github.com/google/osv-scanner/blob/main/.github/workflows/osv-scanner-scheduled.yml) file:
 
 ```yml
-name: osv-scanner
+name: OSV-Scanner Scheduled Scan
 
 on:
   schedule:
