@@ -31,25 +31,32 @@ jobs:
         uses: google/osv-scanner/actions/scanner@main
         continue-on-error: true
         with:
-          results-format: json
-          results-file: old-results.json
-          to-scan: .
+          scan-args: |-
+            --format=json
+            --output=old-results.json
+            -r
+            --skip-git
+            ./
       - name: "Checkout current branch"
         run: git checkout $GITHUB_SHA
       - name: "Run scanner on new code"
         uses: google/osv-scanner/actions/scanner@main
         with:
-          results-format: json
-          results-file: new-results.json
-          to-scan: .
+          scan-args: |-
+            --format=json
+            --output=new-results.json
+            -r
+            --skip-git
+            ./
         continue-on-error: true
       - name: "Run osv-scanner-reporter"
         uses: google/osv-scanner/actions/reporter@main
         with:
-          output-sarif-file: final-results.sarif
-          old-results: old-results.json
-          new-results: new-results.json
-          gh-annotations: true
+          scan-args: |-
+            --output=final-results.sarif
+            --old=old-results.json
+            --new=new-results.json
+            --gh-annoatations: true
       # Upload the results as artifacts (optional). Commenting out will disable uploads of run results in SARIF
       # format to the repository Actions tab.
       - name: "Upload artifact"

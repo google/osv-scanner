@@ -2,25 +2,14 @@
 name: 'osv-scanner'
 description: 'Scans your directory against the OSV database (Experimental)'
 inputs:
-  to-scan:
-    description: 'Directories to scan'
-    default: "./"
-  results-file:
-    description: 'Output path'
-    required: true
-  results-format:
-    description: 'Output result format'
-    default: 'sarif'
-  recursive-scan:
-    description: 'Recursively scan though subdirectories'
-    required: false
-    default: true
+  scan-args:
+    description: 'Arguments to osv-scanner, separated by new line'
+    default: |-
+      --skip-git
+      --recursive
+      ./
 runs:
   using: 'docker'
   image: '../../action.dockerfile'
   args:
-    - '--skip-git'
-    - '--output=${{ inputs.results-file }}'
-    - '--format=${{ inputs.results-format }}'
-    - '--recursive=${{ inputs.recursive-scan }}'
-    - ${{ inputs.to-scan }}
+    - ${{ inputs.scan-args }}
