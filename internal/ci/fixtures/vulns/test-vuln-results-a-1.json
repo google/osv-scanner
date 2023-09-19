@@ -2,7 +2,7 @@
   "results": [
     {
       "source": {
-        "path": "/home/rexpan/Documents/Projects/different-dir/go.mod",
+        "path": "/path/to/different-dir/go.mod",
         "type": "lockfile"
       },
       "packages": [
@@ -83,7 +83,7 @@
     },
     {
       "source": {
-        "path": "/home/rexpan/Documents/Projects/scorecard-check-osv-e2e/sub-rust-project/Cargo.lock",
+        "path": "/path/to/scorecard-check-osv-e2e/sub-rust-project/Cargo.lock",
         "type": "lockfile"
       },
       "packages": [

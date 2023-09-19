@@ -1,6 +1,6 @@
 {
   "GHSA-m5pq-gvj9-9vr8": {
-    "DisplayID": "RUSTSEC-2022-0013",
+    "DisplayID": "CVE-2022-24713",
     "PkgSource": [
       {
         "Package": {
@@ -10,7 +10,7 @@
           "commit": ""
         },
         "Source": {
-          "path": "/home/rexpan/Documents/Projects/scorecard-check-osv-e2e/sub-rust-project/Cargo.lock",
+          "path": "/path/to/sub-rust-project/Cargo.lock",
           "type": "lockfile"
         }
       }
@@ -198,10 +198,15 @@
           }
         ]
       }
-    }
+    },
+    "AliasedIDList": [
+      "CVE-2022-24713",
+      "RUSTSEC-2022-0013",
+      "GHSA-m5pq-gvj9-9vr8"
+    ]
   },
   "GO-2021-0053": {
-    "DisplayID": "GO-2021-0053",
+    "DisplayID": "CVE-2021-3121",
     "PkgSource": [
       {
         "Package": {
@@ -211,7 +216,7 @@
           "commit": ""
         },
         "Source": {
-          "path": "/home/rexpan/Documents/Projects/scorecard-check-osv-e2e/go.mod",
+          "path": "/path/to/go.mod",
           "type": "lockfile"
         }
       }
@@ -274,10 +279,15 @@
           "url": "https://pkg.go.dev/vuln/GO-2021-0053"
         }
       }
-    }
+    },
+    "AliasedIDList": [
+      "CVE-2021-3121",
+      "GO-2021-0053",
+      "GHSA-c3h9-896r-86jm"
+    ]
   },
   "RUSTSEC-2022-0013": {
-    "DisplayID": "RUSTSEC-2022-0013",
+    "DisplayID": "CVE-2022-24713",
     "PkgSource": [
       {
         "Package": {
@@ -287,7 +297,7 @@
           "commit": ""
         },
         "Source": {
-          "path": "/home/rexpan/Documents/Projects/scorecard-check-osv-e2e/sub-rust-project/Cargo.lock",
+          "path": "/path/to/sub-rust-project/Cargo.lock",
           "type": "lockfile"
         }
       }
@@ -475,6 +485,11 @@
           }
         ]
       }
-    }
+    },
+    "AliasedIDList": [
+      "CVE-2022-24713",
+      "RUSTSEC-2022-0013",
+      "GHSA-m5pq-gvj9-9vr8"
+    ]
   }
 }

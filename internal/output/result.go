@@ -69,9 +69,13 @@ func groupFixedVersions(flattened []models.VulnerabilityFlattened) map[string][]
 
 // groupedSARIFFinding groups vulnerabilities by aliases
 type groupedSARIFFinding struct {
-	DisplayID    string
-	PkgSource    pkgSourceSet
+	DisplayID string
+	PkgSource pkgSourceSet
+	// AliasedVulns contains vulns that are OSV vulnerabilities
 	AliasedVulns map[string]models.Vulnerability
+	// AliasedIDList contains all aliased IDs, including ones that are not OSV (e.g. CVE IDs)
+	// Sorted by idSortFunc, therefore the first element will be the display ID
+	AliasedIDList []string
 }
 
 // mapIDsToGroupedSARIFFinding creates a map over all vulnerability IDs, with aliased vuln IDs
@@ -95,16 +99,9 @@ func mapIDsToGroupedSARIFFinding(vulns *models.VulnerabilityResults) map[string]
 				// If not create this group
 				if data == nil {
 					data = &groupedSARIFFinding{
-						DisplayID:    slices.MinFunc(gi.IDs, idSortFunc),
 						PkgSource:    make(pkgSourceSet),
 						AliasedVulns: make(map[string]models.Vulnerability),
 					}
-				} else {
-					// Edge case can happen here where vulnerabilities in an alias group affect different packages
-					// And that the vuln of one package happen to have a higher priority DisplayID, it will not be selected.
-					//
-					// This line fixes that
-					data.DisplayID = slices.MinFunc(append(gi.IDs, data.DisplayID), idSortFunc)
 				}
 				// Point all the IDs of the same group to the same data, either newly created or existing
 				for _, id := range gi.IDs {
@@ -119,8 +116,16 @@ func mapIDsToGroupedSARIFFinding(vulns *models.VulnerabilityResults) map[string]
 				entry := results[v.ID]
 				entry.PkgSource[newPkgSource] = struct{}{}
 				entry.AliasedVulns[v.ID] = v
+				entry.AliasedIDList = append(entry.AliasedIDList, v.ID)
+				entry.AliasedIDList = append(entry.AliasedIDList, v.Aliases...)
 			}
 		}
+	}
+
+	for _, gs := range results {
+		slices.SortFunc(gs.AliasedIDList, idSortFunc)
+		gs.AliasedIDList = slices.Compact(gs.AliasedIDList)
+		gs.DisplayID = gs.AliasedIDList[0]
 	}
 
 	return results

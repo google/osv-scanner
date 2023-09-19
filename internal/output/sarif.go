@@ -4,8 +4,6 @@ import (
 	"fmt"
 	"io"
 	"log"
-	"os"
-	"path/filepath"
 	"strings"
 	"text/template"
 
@@ -134,11 +132,6 @@ func PrintSARIFReport(vulnResult *models.VulnerabilityResults, outputWriter io.W
 	run := sarif.NewRunWithInformationURI("osv-scanner", "https://github.com/google/osv-scanner")
 	run.Tool.Driver.WithVersion(version.OSVVersion)
 
-	workingDir, err := os.Getwd()
-	if err != nil {
-		log.Panicf("can't get working dir: %v", err)
-	}
-
 	vulnIDMap := mapIDsToGroupedSARIFFinding(vulnResult)
 
 	for _, gv := range vulnIDMap {
@@ -156,15 +149,6 @@ func PrintSARIFReport(vulnResult *models.VulnerabilityResults, outputWriter io.W
 			}
 		}
 
-		// Set deprecatedIds with every aliased ID
-		allAliasIDsMinusDisplay := []string{}
-		for _, v := range gv.AliasedVulns {
-			if v.ID == gv.DisplayID {
-				continue
-			}
-			allAliasIDsMinusDisplay = append(allAliasIDsMinusDisplay, v.ID)
-		}
-
 		rule := run.AddRule(gv.DisplayID).
 			WithShortDescription(sarif.NewMultiformatMessageString(shortDescription)).
 			WithFullDescription(sarif.NewMultiformatMessageString(longDescription).WithMarkdown(longDescription)).
@@ -172,18 +156,14 @@ func PrintSARIFReport(vulnResult *models.VulnerabilityResults, outputWriter io.W
 			WithTextHelp(helpText)
 
 		//nolint:gocritic
-		rule.DeprecatedIds = append(allAliasIDsMinusDisplay, gv.DisplayID)
+		rule.DeprecatedIds = gv.AliasedIDList
 		for pws := range gv.PkgSource {
-			var artifactPath string
-			artifactPath, err = filepath.Rel(workingDir, pws.Source.Path)
-			if err != nil {
-				artifactPath = pws.Source.Path
-			}
+			artifactPath := "file://" + pws.Source.Path
 			run.AddDistinctArtifact(artifactPath)
 
 			alsoKnownAsStr := ""
-			if len(allAliasIDsMinusDisplay) > 0 {
-				alsoKnownAsStr = fmt.Sprintf(" (also known as '%s')", strings.Join(allAliasIDsMinusDisplay, "', '"))
+			if len(gv.AliasedIDList) > 1 {
+				alsoKnownAsStr = fmt.Sprintf(" (also known as '%s')", strings.Join(gv.AliasedIDList[1:], "', '"))
 			}
 
 			run.CreateResultForRule(gv.DisplayID).

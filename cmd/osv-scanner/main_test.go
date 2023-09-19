@@ -355,7 +355,7 @@ func TestRun(t *testing.T) {
                       "name": "osv-scanner",
                       "rules": [
                         {
-                          "id": "GHSA-whgm-jr23-g3j9",
+                          "id": "CVE-2021-23424",
                           "shortDescription": {
                             "text": "Uncontrolled Resource Consumption in ansi-html"
                           },
@@ -364,11 +364,12 @@ func TestRun(t *testing.T) {
                             "markdown": "This affects all versions of package ansi-html. If an attacker provides a malicious string, it will get stuck processing the input for an extremely long time."
                           },
                           "deprecatedIds": [
+                            "CVE-2021-23424",
                             "GHSA-whgm-jr23-g3j9"
                           ],
                           "help": {
-                            "text": "\n**Your dependency is vulnerable to [GHSA-whgm-jr23-g3j9](https://osv.dev/vulnerability/GHSA-whgm-jr23-g3j9)** \n.\n\n\n\u003e ## [GHSA-whgm-jr23-g3j9](https://osv.dev/vulnerability/GHSA-whgm-jr23-g3j9)\n\u003e \n\u003e This affects all versions of package ansi-html. If an attacker provides a malicious string, it will get stuck processing the input for an extremely long time.\n\u003e \n\n\n---\n\n### Affected Packages\n| Source | Package Name | Package Version |\n| --- | --- | --- |\n| lockfile:%%%%/fixtures/locks-many/package-lock.json | ansi-html | 0.0.1 |\n\n",
-                            "markdown": "\n**Your dependency is vulnerable to [GHSA-whgm-jr23-g3j9](https://osv.dev/vulnerability/GHSA-whgm-jr23-g3j9)** \n.\n\n\n\u003e ## [GHSA-whgm-jr23-g3j9](https://osv.dev/vulnerability/GHSA-whgm-jr23-g3j9)\n\u003e \n\u003e This affects all versions of package ansi-html. If an attacker provides a malicious string, it will get stuck processing the input for an extremely long time.\n\u003e \n\n\n---\n\n### Affected Packages\n| Source | Package Name | Package Version |\n| --- | --- | --- |\n| lockfile:%%%%/fixtures/locks-many/package-lock.json | ansi-html | 0.0.1 |\n\n"
+                            "text": "\n**Your dependency is vulnerable to [CVE-2021-23424](https://osv.dev/vulnerability/CVE-2021-23424)** \n.\n\n\n\u003e ## [GHSA-whgm-jr23-g3j9](https://osv.dev/vulnerability/GHSA-whgm-jr23-g3j9)\n\u003e \n\u003e This affects all versions of package ansi-html. If an attacker provides a malicious string, it will get stuck processing the input for an extremely long time.\n\u003e \n\n\n---\n\n### Affected Packages\n| Source | Package Name | Package Version |\n| --- | --- | --- |\n| lockfile:/usr/local/google/home/rexpan/Documents/Project/osv-scanner/cmd/osv-scanner/fixtures/locks-many/package-lock.json | ansi-html | 0.0.1 |\n\n",
+                            "markdown": "\n**Your dependency is vulnerable to [CVE-2021-23424](https://osv.dev/vulnerability/CVE-2021-23424)** \n.\n\n\n\u003e ## [GHSA-whgm-jr23-g3j9](https://osv.dev/vulnerability/GHSA-whgm-jr23-g3j9)\n\u003e \n\u003e This affects all versions of package ansi-html. If an attacker provides a malicious string, it will get stuck processing the input for an extremely long time.\n\u003e \n\n\n---\n\n### Affected Packages\n| Source | Package Name | Package Version |\n| --- | --- | --- |\n| lockfile:/usr/local/google/home/rexpan/Documents/Project/osv-scanner/cmd/osv-scanner/fixtures/locks-many/package-lock.json | ansi-html | 0.0.1 |\n\n"
                           }
                         }
                       ],
@@ -378,24 +379,24 @@ func TestRun(t *testing.T) {
                   "artifacts": [
                     {
                       "location": {
-                        "uri": "fixtures/locks-many/package-lock.json"
+                        "uri": "file://%%%%/fixtures/locks-many/package-lock.json"
                       },
                       "length": -1
                     }
                   ],
                   "results": [
                     {
-                      "ruleId": "GHSA-whgm-jr23-g3j9",
+                      "ruleId": "CVE-2021-23424",
                       "ruleIndex": 0,
                       "level": "warning",
                       "message": {
-                        "text": "Package 'ansi-html@0.0.1' is vulnerable to 'GHSA-whgm-jr23-g3j9'."
+                        "text": "Package 'ansi-html@0.0.1' is vulnerable to 'CVE-2021-23424' (also known as 'GHSA-whgm-jr23-g3j9')."
                       },
                       "locations": [
                         {
                           "physicalLocation": {
                             "artifactLocation": {
-                              "uri": "fixtures/locks-many/package-lock.json"
+                              "uri": "file://%%%%/fixtures/locks-many/package-lock.json"
                             }
                           }
                         }
