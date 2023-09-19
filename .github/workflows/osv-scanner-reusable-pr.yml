@@ -56,7 +56,7 @@ jobs:
             --output=final-results.sarif
             --old=old-results.json
             --new=new-results.json
-            --gh-annoatations=true
+            --gh-annotations=true
       # Upload the results as artifacts (optional). Commenting out will disable uploads of run results in SARIF
       # format to the repository Actions tab.
       - name: "Upload artifact"
