@@ -5,13 +5,13 @@ go 1.19
 require (
 	github.com/BurntSushi/toml v1.3.2
 	github.com/CycloneDX/cyclonedx-go v0.7.2
-	github.com/go-git/go-billy/v5 v5.4.1
-	github.com/go-git/go-git/v5 v5.8.1
+	github.com/go-git/go-billy/v5 v5.5.0
+	github.com/go-git/go-git/v5 v5.9.0
 	github.com/goark/go-cvss v1.6.6
 	github.com/google/go-cmp v0.5.9
 	github.com/jedib0t/go-pretty/v6 v6.4.7
 	github.com/kr/pretty v0.3.1
-	github.com/owenrumney/go-sarif/v2 v2.2.1
+	github.com/owenrumney/go-sarif/v2 v2.2.2
 	github.com/package-url/packageurl-go v0.1.1
 	github.com/spdx/tools-golang v0.5.3
 	github.com/urfave/cli/v2 v2.25.7
@@ -23,11 +23,13 @@ require (
 	gopkg.in/yaml.v3 v3.0.1
 )
 
+require github.com/cyphar/filepath-securejoin v0.2.4 // indirect
+
 require (
 	// Vanity URL for https://github.com/imdario/mergo
 	dario.cat/mergo v1.0.0 // indirect
 	github.com/Microsoft/go-winio v0.6.1 // indirect
-	github.com/ProtonMail/go-crypto v0.0.0-20230717121422-5aa5874ade95 // indirect
+	github.com/ProtonMail/go-crypto v0.0.0-20230828082145-3c4c8a2d2371 // indirect
 	github.com/acomagu/bufpipe v1.0.4 // indirect
 	github.com/anchore/go-struct-converter v0.0.0-20221118182256-c68fdcfa2092 // indirect
 	github.com/cloudflare/circl v1.3.3 // indirect
@@ -43,7 +45,7 @@ require (
 	github.com/mattn/go-runewidth v0.0.13 // indirect
 	github.com/pjbgf/sha1cd v0.3.0 // indirect
 	github.com/rivo/uniseg v0.2.0 // indirect
-	github.com/rogpeppe/go-internal v1.9.0 // indirect
+	github.com/rogpeppe/go-internal v1.11.0 // indirect
 	github.com/russross/blackfriday/v2 v2.1.0 // indirect
 	github.com/sergi/go-diff v1.1.0 // indirect
 	github.com/skeema/knownhosts v1.2.0 // indirect
