@@ -67,7 +67,7 @@ on:
 permissions: read-all
 
 jobs:
-  scan-pr-attempt:
+  scan-pr:
     uses: "google/osv-scanner/.github/workflows/osv-scanner-reusable-pr.yml@main"
 ```
 
