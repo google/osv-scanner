@@ -43,6 +43,7 @@ jobs:
   scan-scheduled:
     uses: "google/osv-scanner/.github/workflows/osv-scanner-reusable-scheduled.yml@main"
 ```
+The above code assumes that your primary branch is called `main`, if you use another name, like `master`, you will need to update the file to correspond with your primary branch name.
 
 As written, the scanner will run on 12:12 pm UTC every Monday. You can change the schedule by following the instructions [here](https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#schedule). 
 
@@ -77,4 +78,8 @@ jobs:
     uses: "google/osv-scanner/.github/workflows/osv-scanner-reusable-pr.yml@main"
 ```
 
+The above code assumes that your primary branch is called `main`, if you use another name, like `master`, you will need to update the file to correspond with your primary branch name.
 
+### View results
+
+Results may be viewed by clicking on the details of the failed action.
