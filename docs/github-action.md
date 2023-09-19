@@ -55,7 +55,7 @@ In your project repository, create a new file `.github/workflows/osv-scanner-pr.
 Include the following in the [`osv-scanner-pr.yml`](https://github.com/google/osv-scanner/blob/main/.github/workflows/osv-scanner-pr.yml) file:
 
 ```yml
-name: osv-scanner
+name: OSV-Scanner PR Scan
 
 on:
   pull_request:
