@@ -133,8 +133,16 @@ func PrintSARIFReport(vulnResult *models.VulnerabilityResults, outputWriter io.W
 	run.Tool.Driver.WithVersion(version.OSVVersion)
 
 	vulnIDMap := mapIDsToGroupedSARIFFinding(vulnResult)
+	// Sort the IDs to have deterministic loop of vulnIDMap
+	vulnIDs := []string{}
+	for vulnID := range vulnIDMap {
+		vulnIDs = append(vulnIDs, vulnID)
+	}
+	slices.Sort(vulnIDs)
 
-	for _, gv := range vulnIDMap {
+	for _, vulnID := range vulnIDs {
+		gv := vulnIDMap[vulnID]
+
 		helpText := createSARIFHelpText(gv)
 
 		// Set short description to the first entry with a non empty summary

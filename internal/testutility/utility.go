@@ -85,7 +85,7 @@ func AssertMatchFixtureText(t *testing.T, path string, val string) {
 		t.Fatalf("Failed to open fixture: %s", err)
 	}
 
-	if val == string(fileA) {
-		t.Errorf("Not equal: \n%s", strings.Join(pretty.Diff(val, string(fileA)), "\n"))
+	if val != string(fileA) {
+		t.Errorf("Not equal: \ngot: \n%s\n\n---\nwant:\n%s", val, string(fileA))
 	}
 }
