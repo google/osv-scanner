@@ -82,4 +82,4 @@ The above code assumes that your primary branch is called `main`, if you use ano
 
 ### View results
 
-Results may be viewed by clicking on the details of the failed action.
+Results may be viewed by clicking on the details of the failed action, either from your project's actions tab or directly on the PR.
