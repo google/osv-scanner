@@ -4,17 +4,49 @@ import (
 	"fmt"
 	"io"
 	"log"
-	"os"
-	"path/filepath"
 	"strings"
+	"text/template"
 
+	"github.com/google/osv-scanner/internal/version"
 	"github.com/google/osv-scanner/pkg/models"
 	"github.com/jedib0t/go-pretty/v6/table"
 	"github.com/owenrumney/go-sarif/v2/sarif"
 	"golang.org/x/exp/slices"
 )
 
-// GroupFixedVersions builds the fixed versions for each ID Group
+type HelpTemplateData struct {
+	ID                    string
+	AffectedPackagesTable string
+	AliasedVulns          []VulnDescription
+}
+
+type VulnDescription struct {
+	ID      string
+	Details string
+}
+
+const SARIFTemplate = `
+**Your dependency is vulnerable to [{{.ID}}](https://osv.dev/vulnerability/{{.ID}})** 
+{{if gt (len .AliasedVulns) 1 -}}
+(Also published as: {{range .AliasedVulns -}} {{if ne .ID $.ID}} [{{.ID}}](https://osv.dev/vulnerability/{{.ID}}) {{end}}{{end}})
+{{- end}}.
+
+{{range .AliasedVulns}}
+> ## [{{.ID}}](https://osv.dev/vulnerability/{{.ID}})
+> 
+> {{.Details}}
+> 
+
+{{end}}
+---
+
+### Affected Packages
+{{.AffectedPackagesTable}}
+
+`
+
+// GroupFixedVersions builds the fixed versions for each ID Group, with keys formatted like so:
+// `Source:ID`
 func GroupFixedVersions(flattened []models.VulnerabilityFlattened) map[string][]string {
 	groupFixedVersions := map[string][]string{}
 
@@ -41,29 +73,53 @@ func GroupFixedVersions(flattened []models.VulnerabilityFlattened) map[string][]
 	return groupFixedVersions
 }
 
-// CreateSourceRemediationTable creates a vulnerability table which includes the fixed versions for a specific source file
-func CreateSourceRemediationTable(source models.PackageSource, groupFixedVersions map[string][]string) table.Writer {
-	remediationTable := table.NewWriter()
-	remediationTable.AppendHeader(table.Row{"Package", "Vulnerability ID", "CVSS", "Current Version", "Fixed Version"})
+// createSARIFHelpTable creates a vulnerability table which includes the fixed versions for a specific source file
+func createSARIFHelpTable(pkgWithSrc map[pkgWithSource]struct{}) table.Writer {
+	helpTable := table.NewWriter()
+	helpTable.AppendHeader(table.Row{"Source", "Package Name", "Package Version"})
 
-	for _, pv := range source.Packages {
-		for _, group := range pv.Groups {
-			fixedVersions := groupFixedVersions[source.Source.String()+":"+group.IndexString()]
-
-			vulnIDs := []string{}
-			for _, id := range group.IDs {
-				vulnIDs = append(vulnIDs, fmt.Sprintf("https://osv.dev/%s", id))
-			}
-			remediationTable.AppendRow(table.Row{
-				pv.Package.Name,
-				strings.Join(vulnIDs, "\n"),
-				MaxSeverity(group, pv),
-				pv.Package.Version,
-				strings.Join(fixedVersions, "\n")})
-		}
+	for ps := range pkgWithSrc {
+		helpTable.AppendRow(table.Row{
+			ps.Source.String(),
+			ps.Package.Name,
+			ps.Package.Version,
+		})
 	}
 
-	return remediationTable
+	return helpTable
+}
+
+// createSARIFHelpText returns the text for SARIF rule's help field
+func createSARIFHelpText(gv *groupedSARIFFinding) string {
+	helpTable := createSARIFHelpTable(gv.PkgSource)
+
+	helpTextTemplate, err := template.New("helpText").Parse(SARIFTemplate)
+	if err != nil {
+		log.Panicf("failed to parse sarif help text template")
+	}
+
+	vulnDescriptions := []VulnDescription{}
+	for _, v := range gv.AliasedVulns {
+		vulnDescriptions = append(vulnDescriptions, VulnDescription{
+			ID:      v.ID,
+			Details: strings.ReplaceAll(v.Details, "\n", "\n> "),
+		})
+	}
+	slices.SortFunc(vulnDescriptions, func(a, b VulnDescription) int { return idSortFunc(a.ID, b.ID) })
+
+	helpText := strings.Builder{}
+
+	err = helpTextTemplate.Execute(&helpText, HelpTemplateData{
+		ID:                    gv.DisplayID,
+		AffectedPackagesTable: helpTable.RenderMarkdown(),
+		AliasedVulns:          vulnDescriptions,
+	})
+
+	if err != nil {
+		log.Panicf("failed to execute sarif help text template")
+	}
+
+	return helpText.String()
 }
 
 // PrintSARIFReport prints SARIF output to outputWriter
@@ -74,41 +130,66 @@ func PrintSARIFReport(vulnResult *models.VulnerabilityResults, outputWriter io.W
 	}
 
 	run := sarif.NewRunWithInformationURI("osv-scanner", "https://github.com/google/osv-scanner")
-	run.AddRule("vulnerable-packages").
-		WithDescription("This manifest file contains one or more vulnerable packages.")
-	flattened := vulnResult.Flatten()
+	run.Tool.Driver.WithVersion(version.OSVVersion)
 
-	// TODO: Also support last affected
-	groupFixedVersions := GroupFixedVersions(flattened)
-	workingDir, err := os.Getwd()
-	if err != nil {
-		log.Panicf("can't get working dir: %v", err)
+	vulnIDMap := mapIDsToGroupedSARIFFinding(vulnResult)
+	// Sort the IDs to have deterministic loop of vulnIDMap
+	vulnIDs := []string{}
+	for vulnID := range vulnIDMap {
+		vulnIDs = append(vulnIDs, vulnID)
 	}
-	for _, source := range vulnResult.Results {
-		// TODO: Support docker images
+	slices.Sort(vulnIDs)
 
-		var artifactPath string
-		artifactPath, err = filepath.Rel(workingDir, source.Source.Path)
-		if err != nil {
-			artifactPath = source.Source.Path
+	for _, vulnID := range vulnIDs {
+		gv := vulnIDMap[vulnID]
+
+		helpText := createSARIFHelpText(gv)
+
+		// Set short description to the first entry with a non empty summary
+		// Set long description to the same entry as short description
+		// or use a random long description.
+		var shortDescription, longDescription string
+		for _, v := range gv.AliasedVulns {
+			longDescription = v.Details
+			if v.Summary != "" {
+				shortDescription = v.Summary
+				break
+			}
 		}
-		run.AddDistinctArtifact(artifactPath)
 
-		remediationTable := CreateSourceRemediationTable(source, groupFixedVersions)
+		rule := run.AddRule(gv.DisplayID).
+			WithShortDescription(sarif.NewMultiformatMessageString(shortDescription)).
+			WithFullDescription(sarif.NewMultiformatMessageString(longDescription).WithMarkdown(longDescription)).
+			WithMarkdownHelp(helpText).
+			WithTextHelp(helpText)
 
-		renderedTable := remediationTable.Render()
-		// This is required since the github message rendering is a mixture of
-		// monospaced font text and markdown. Continuous spaces will be compressed
-		// down to one space, breaking the table rendering
-		renderedTable = strings.ReplaceAll(renderedTable, "  ", " &nbsp;")
-		run.CreateResultForRule("vulnerable-packages").
-			WithLevel("warning").
-			WithMessage(sarif.NewMessage().WithText(renderedTable)).
-			AddLocation(
-				sarif.NewLocationWithPhysicalLocation(
-					sarif.NewPhysicalLocation().
-						WithArtifactLocation(
-							sarif.NewSimpleArtifactLocation(artifactPath))))
+		rule.DeprecatedIds = gv.AliasedIDList
+		for pws := range gv.PkgSource {
+			artifactPath := "file://" + pws.Source.Path
+			run.AddDistinctArtifact(artifactPath)
+
+			alsoKnownAsStr := ""
+			if len(gv.AliasedIDList) > 1 {
+				alsoKnownAsStr = fmt.Sprintf(" (also known as '%s')", strings.Join(gv.AliasedIDList[1:], "', '"))
+			}
+
+			run.CreateResultForRule(gv.DisplayID).
+				WithLevel("warning").
+				WithMessage(
+					sarif.NewTextMessage(
+						fmt.Sprintf(
+							"Package '%s@%s' is vulnerable to '%s'%s.",
+							pws.Package.Name,
+							pws.Package.Version,
+							gv.DisplayID,
+							alsoKnownAsStr,
+						))).
+				AddLocation(
+					sarif.NewLocationWithPhysicalLocation(
+						sarif.NewPhysicalLocation().
+							WithArtifactLocation(sarif.NewSimpleArtifactLocation(artifactPath)),
+					))
+		}
 	}
 
 	report.AddRun(run)

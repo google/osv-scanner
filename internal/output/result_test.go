@@ -1,15 +1,13 @@
-package output_test
+package output
 
 import (
-	"bytes"
 	"testing"
 
-	"github.com/google/osv-scanner/internal/output"
 	"github.com/google/osv-scanner/internal/testutility"
 	"github.com/google/osv-scanner/pkg/models"
 )
 
-func TestGroupFixedVersions(t *testing.T) {
+func Test_groupFixedVersions(t *testing.T) {
 	t.Parallel()
 
 	type args struct {
@@ -32,42 +30,33 @@ func TestGroupFixedVersions(t *testing.T) {
 		tt := tt
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
-			got := output.GroupFixedVersions(tt.args.flattened)
+			got := groupFixedVersions(tt.args.flattened)
 			testutility.AssertMatchFixtureJSON(t, tt.wantPath, got)
 		})
 	}
 }
 
-func TestPrintSARIFReport(t *testing.T) {
+func Test_mapIDsToGroupedSARIFFinding(t *testing.T) {
 	t.Parallel()
 
-	type args struct {
-		vulnRes models.VulnerabilityResults
-	}
 	tests := []struct {
 		name     string
-		args     args
+		args     models.VulnerabilityResults
 		wantPath string
 	}{
 		{
-			name: "",
-			args: args{
-				vulnRes: testutility.LoadJSONFixture[models.VulnerabilityResults](t, "fixtures/test-vuln-results-a.json"),
-			},
-			wantPath: "fixtures/test-vuln-results-a.sarif",
+			args:     testutility.LoadJSONFixture[models.VulnerabilityResults](t, "fixtures/test-vuln-results-a.json"),
+			wantPath: "fixtures/test-vuln-results-a-grouped.json",
 		},
 	}
 	for _, tt := range tests {
 		tt := tt
+
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
 
-			bufOut := bytes.Buffer{}
-			err := output.PrintSARIFReport(&tt.args.vulnRes, &bufOut)
-			if err != nil {
-				t.Errorf("Error writing SARIF output: %s", err)
-			}
-			testutility.AssertMatchFixtureText(t, tt.wantPath, bufOut.String())
+			got := mapIDsToGroupedSARIFFinding(&tt.args)
+			testutility.AssertMatchFixtureJSON(t, tt.wantPath, got)
 		})
 	}
 }

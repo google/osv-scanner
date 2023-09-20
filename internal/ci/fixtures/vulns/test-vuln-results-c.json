@@ -2,7 +2,7 @@
   "results": [
     {
       "source": {
-        "path": "/home/rexpan/Documents/Projects/scorecard-check-osv-e2e/go.mod",
+        "path": "/path/to/scorecard-check-osv-e2e/go.mod",
         "type": "lockfile"
       },
       "packages": [
