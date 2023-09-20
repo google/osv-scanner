@@ -7,6 +7,7 @@ import (
 	"os"
 	"strings"
 
+	"github.com/google/osv-scanner/internal/version"
 	"github.com/google/osv-scanner/pkg/osv"
 	"github.com/google/osv-scanner/pkg/osvscanner"
 	"github.com/google/osv-scanner/pkg/reporter"
@@ -17,10 +18,8 @@ import (
 )
 
 var (
-	// Update this variable when doing a release
-	version = "1.4.0"
-	commit  = "n/a"
-	date    = "n/a"
+	commit = "n/a"
+	date   = "n/a"
 )
 
 func run(args []string, stdout, stderr io.Writer) int {
@@ -32,11 +31,11 @@ func run(args []string, stdout, stderr io.Writer) int {
 		r.PrintText(fmt.Sprintf("osv-scanner version: %s\ncommit: %s\nbuilt at: %s\n", ctx.App.Version, commit, date))
 	}
 
-	osv.RequestUserAgent = "osv-scanner/" + version
+	osv.RequestUserAgent = "osv-scanner/" + version.OSVVersion
 
 	app := &cli.App{
 		Name:      "osv-scanner",
-		Version:   version,
+		Version:   version.OSVVersion,
 		Usage:     "scans various mediums for dependencies and matches it against the OSV database",
 		Suggest:   true,
 		Writer:    stdout,

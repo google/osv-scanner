@@ -17,19 +17,23 @@ func (vulns *VulnerabilityResults) Flatten() []VulnerabilityFlattened {
 	for _, res := range vulns.Results {
 		for _, pkg := range res.Packages {
 			for _, v := range pkg.Vulnerabilities {
-				// groupIdx should never be -1 since vulnerabilities should always be in one group
-				groupIdx := slices.IndexFunc(pkg.Groups, func(g GroupInfo) bool { return slices.Contains(g.IDs, v.ID) })
 				results = append(results, VulnerabilityFlattened{
 					Source:        res.Source,
 					Package:       pkg.Package,
 					Vulnerability: v,
-					GroupInfo:     pkg.Groups[groupIdx],
+					GroupInfo:     getGroupInfoForVuln(pkg.Groups, v.ID),
 				})
 			}
 		}
 	}
 
 	return results
+}
+
+func getGroupInfoForVuln(groups []GroupInfo, vulnID string) GroupInfo {
+	// groupIdx should never be -1 since vulnerabilities should always be in one group
+	groupIdx := slices.IndexFunc(groups, func(g GroupInfo) bool { return slices.Contains(g.IDs, vulnID) })
+	return groups[groupIdx]
 }
 
 // Flattened Vulnerability Information.

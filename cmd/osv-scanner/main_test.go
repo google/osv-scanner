@@ -11,6 +11,7 @@ import (
 	"testing"
 
 	"github.com/go-git/go-git/v5"
+	"github.com/google/osv-scanner/internal/version"
 )
 
 func createTestDir(t *testing.T) (string, func()) {
@@ -134,7 +135,7 @@ func TestRun(t *testing.T) {
 				osv-scanner version: %s
 				commit: n/a
 				built at: n/a
-			`, version),
+			`, version.OSVVersion),
 			wantStderr: "",
 		},
 		// one specific supported lockfile
@@ -314,31 +315,25 @@ func TestRun(t *testing.T) {
 			name:         "Empty sarif output",
 			args:         []string{"", "--format", "sarif", "./fixtures/locks-many/composer.lock"},
 			wantExitCode: 0,
-			wantStdout: `
-				{
-					"version": "2.1.0",
-					"$schema": "https://json.schemastore.org/sarif-2.1.0.json",
-					"runs": [
-						{
-							"tool": {
-								"driver": {
-									"informationUri": "https://github.com/google/osv-scanner",
-									"name": "osv-scanner",
-									"rules": [
-										{
-											"id": "vulnerable-packages",
-											"shortDescription": {
-												"text": "This manifest file contains one or more vulnerable packages."
-											}
-										}
-									]
-								}
-							},
-							"results": []
-						}
-					]
-				}
-			`,
+			wantStdout: fmt.Sprintf(`
+            {
+              "version": "2.1.0",
+              "$schema": "https://json.schemastore.org/sarif-2.1.0.json",
+              "runs": [
+                {
+                  "tool": {
+                    "driver": {
+                      "informationUri": "https://github.com/google/osv-scanner",
+                      "name": "osv-scanner",
+                      "rules": [],
+                      "version": "%s"
+                    }
+                  },
+                  "results": []
+                }
+              ]
+            }
+			`, version.OSVVersion),
 			wantStderr: `
 				Scanning dir ./fixtures/locks-many/composer.lock
 				Scanned %%/fixtures/locks-many/composer.lock file and found 1 package
@@ -348,60 +343,95 @@ func TestRun(t *testing.T) {
 			name:         "Sarif with vulns",
 			args:         []string{"", "--format", "sarif", "--config", "./fixtures/osv-scanner-empty-config.toml", "./fixtures/locks-many/package-lock.json"},
 			wantExitCode: 1,
-			wantStdout: `
-				{
-					"version": "2.1.0",
-					"$schema": "https://json.schemastore.org/sarif-2.1.0.json",
-					"runs": [
-						{
-							"tool": {
-								"driver": {
-									"informationUri": "https://github.com/google/osv-scanner",
-									"name": "osv-scanner",
-									"rules": [
-										{
-											"id": "vulnerable-packages",
-											"shortDescription": {
-												"text": "This manifest file contains one or more vulnerable packages."
-											}
-										}
-									]
-								}
-							},
-							"artifacts": [
-								{
-									"location": {
-										"uri": "fixtures/locks-many/package-lock.json"
-									},
-									"length": -1
-								}
-							],
-							"results": [
-								{
-									"ruleId": "vulnerable-packages",
-									"ruleIndex": 0,
-									"level": "warning",
-									"message": {
-										"text": "+-----------+-------------------------------------+------+-----------------+---------------+\n| PACKAGE \u0026nbsp; | VULNERABILITY ID \u0026nbsp; \u0026nbsp; \u0026nbsp; \u0026nbsp; \u0026nbsp; \u0026nbsp; \u0026nbsp; \u0026nbsp; \u0026nbsp; \u0026nbsp;| CVSS | CURRENT VERSION | FIXED VERSION |\n+-----------+-------------------------------------+------+-----------------+---------------+\n| ansi-html | https://osv.dev/GHSA-whgm-jr23-g3j9 | 7.5 \u0026nbsp;| 0.0.1 \u0026nbsp; \u0026nbsp; \u0026nbsp; \u0026nbsp; \u0026nbsp; | 0.0.8 \u0026nbsp; \u0026nbsp; \u0026nbsp; \u0026nbsp; |\n+-----------+-------------------------------------+------+-----------------+---------------+"
-									},
-									"locations": [
-										{
-											"physicalLocation": {
-												"artifactLocation": {
-													"uri": "fixtures/locks-many/package-lock.json"
-												}
-											}
-										}
-									]
-								}
-							]
-						}
-					]
-				}
-			`,
+			wantStdout: fmt.Sprintf(`
+            {
+              "version": "2.1.0",
+              "$schema": "https://json.schemastore.org/sarif-2.1.0.json",
+              "runs": [
+                {
+                  "tool": {
+                    "driver": {
+                      "informationUri": "https://github.com/google/osv-scanner",
+                      "name": "osv-scanner",
+                      "rules": [
+                        {
+                          "id": "CVE-2021-23424",
+                          "shortDescription": {
+                            "text": "Uncontrolled Resource Consumption in ansi-html"
+                          },
+                          "fullDescription": {
+                            "text": "This affects all versions of package ansi-html. If an attacker provides a malicious string, it will get stuck processing the input for an extremely long time.",
+                            "markdown": "This affects all versions of package ansi-html. If an attacker provides a malicious string, it will get stuck processing the input for an extremely long time."
+                          },
+                          "deprecatedIds": [
+                            "CVE-2021-23424",
+                            "GHSA-whgm-jr23-g3j9"
+                          ],
+                          "help": {
+                            "text": "\n**Your dependency is vulnerable to [CVE-2021-23424](https://osv.dev/vulnerability/CVE-2021-23424)** \n.\n\n\n\u003e ## [GHSA-whgm-jr23-g3j9](https://osv.dev/vulnerability/GHSA-whgm-jr23-g3j9)\n\u003e \n\u003e This affects all versions of package ansi-html. If an attacker provides a malicious string, it will get stuck processing the input for an extremely long time.\n\u003e \n\n\n---\n\n### Affected Packages\n| Source | Package Name | Package Version |\n| --- | --- | --- |\n| lockfile:/%%%%/fixtures/locks-many/package-lock.json | ansi-html | 0.0.1 |\n\n",
+                            "markdown": "\n**Your dependency is vulnerable to [CVE-2021-23424](https://osv.dev/vulnerability/CVE-2021-23424)** \n.\n\n\n\u003e ## [GHSA-whgm-jr23-g3j9](https://osv.dev/vulnerability/GHSA-whgm-jr23-g3j9)\n\u003e \n\u003e This affects all versions of package ansi-html. If an attacker provides a malicious string, it will get stuck processing the input for an extremely long time.\n\u003e \n\n\n---\n\n### Affected Packages\n| Source | Package Name | Package Version |\n| --- | --- | --- |\n| lockfile:/%%%%/fixtures/locks-many/package-lock.json | ansi-html | 0.0.1 |\n\n"
+                          }
+                        }
+                      ],
+                      "version": "%s"
+                    }
+                  },
+                  "artifacts": [
+                    {
+                      "location": {
+                        "uri": "file://%%%%/fixtures/locks-many/package-lock.json"
+                      },
+                      "length": -1
+                    }
+                  ],
+                  "results": [
+                    {
+                      "ruleId": "CVE-2021-23424",
+                      "ruleIndex": 0,
+                      "level": "warning",
+                      "message": {
+                        "text": "Package 'ansi-html@0.0.1' is vulnerable to 'CVE-2021-23424' (also known as 'GHSA-whgm-jr23-g3j9')."
+                      },
+                      "locations": [
+                        {
+                          "physicalLocation": {
+                            "artifactLocation": {
+                              "uri": "file://%%%%/fixtures/locks-many/package-lock.json"
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+			`, version.OSVVersion),
 			wantStderr: `
 				Scanning dir ./fixtures/locks-many/package-lock.json
 				Scanned %%/fixtures/locks-many/package-lock.json file and found 1 package
+			`,
+		},
+		// output format: gh-annotations
+		{
+			name:         "Empty gh-annotations output",
+			args:         []string{"", "--format", "gh-annotations", "./fixtures/locks-many/composer.lock"},
+			wantExitCode: 0,
+			wantStdout:   ``,
+			wantStderr: `
+				Scanning dir ./fixtures/locks-many/composer.lock
+				Scanned %%/fixtures/locks-many/composer.lock file and found 1 package
+			`,
+		},
+		{
+			name:         "gh-annotations with vulns",
+			args:         []string{"", "--format", "gh-annotations", "--config", "./fixtures/osv-scanner-empty-config.toml", "./fixtures/locks-many/package-lock.json"},
+			wantExitCode: 1,
+			wantStdout:   ``,
+			wantStderr: `
+				Scanning dir ./fixtures/locks-many/package-lock.json
+				Scanned %%/fixtures/locks-many/package-lock.json file and found 1 package
+				::error file=fixtures/locks-many/package-lock.json::fixtures/locks-many/package-lock.json%0A+-----------+-------------------------------------+------+-----------------+---------------+%0A| PACKAGE   | VULNERABILITY ID                    | CVSS | CURRENT VERSION | FIXED VERSION |%0A+-----------+-------------------------------------+------+-----------------+---------------+%0A| ansi-html | https://osv.dev/GHSA-whgm-jr23-g3j9 | 7.5  | 0.0.1           | 0.0.8         |%0A+-----------+-------------------------------------+------+-----------------+---------------+
 			`,
 		},
 		// output format: markdown table
