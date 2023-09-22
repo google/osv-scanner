@@ -32,7 +32,7 @@ on:
     - cron: '12 12 * * 1'
 # Change "main" to your default branch if you use a different name, i.e. "master"
   push:
-    branches: [ "main" ]
+    branches: [ main ]
 
 permissions: 
   # Require writing security events to upload SARIF file to security tab
