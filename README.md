@@ -2,6 +2,7 @@
 
 [![OpenSSF Scorecard](https://api.securityscorecards.dev/projects/github.com/google/osv-scanner/badge)](https://api.securityscorecards.dev/projects/github.com/google/osv-scanner)
 [![Go Report Card](https://goreportcard.com/badge/github.com/google/osv-scanner)](https://goreportcard.com/report/github.com/google/osv-scanner)
+[![codecov](https://codecov.io/gh/google/osv-scanner/graph/badge.svg?token=C8IDVX9LP5)](https://codecov.io/gh/google/osv-scanner)
 [![SLSA 3](https://slsa.dev/images/gh-badge-level3.svg)](https://slsa.dev)
 [![GitHub Release](https://img.shields.io/github/v/release/google/osv-scanner)](https://github.com/google/osv-scanner/releases)
 
@@ -30,6 +31,6 @@ If you have what looks like a bug, please use the [GitHub issue tracking system]
 See [CONTRIBUTING.md](CONTRIBUTING.md) for documentation on how to contribute code.
 
 
-## Stargazers over time
+## Star History
 
-[![Stargazers over time](https://starchart.cc/google/osv-scanner.svg)](https://starchart.cc/google/osv-scanner)
+[![Star History Chart](https://api.star-history.com/svg?repos=google/osv-scanner&type=Date)](https://star-history.com/#google/osv-scanner&Date)
