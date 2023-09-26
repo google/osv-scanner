@@ -64,7 +64,7 @@ using the same Go version as the one used during the actual release (see gorelea
 
 To run tests:
 ```shell
-./run_tests.sh
+./scripts/run_tests.sh
 ```
 
 You can generate an HTML coverage report afterward by running:
@@ -77,7 +77,7 @@ go tool cover -html=coverage.out -o coverage.html
 To lint your code, run
 
 ```shell
-./run_lints.sh
+./scripts/run_lints.sh
 ```
 
 ## Contributing documentation
