@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"io"
 	"log"
+	"path/filepath"
 	"strings"
 	"text/template"
 
@@ -27,7 +28,7 @@ type VulnDescription struct {
 
 const SARIFTemplate = `
 **Your dependency is vulnerable to [{{.ID}}](https://osv.dev/vulnerability/{{.ID}})** 
-{{if gt (len .AliasedVulns) 1 -}}
+{{- if gt (len .AliasedVulns) 1 }}
 (Also published as: {{range .AliasedVulns -}} {{if ne .ID $.ID}} [{{.ID}}](https://osv.dev/vulnerability/{{.ID}}) {{end}}{{end}})
 {{- end}}.
 
@@ -89,6 +90,11 @@ func createSARIFHelpTable(pkgWithSrc map[pkgWithSource]struct{}) table.Writer {
 	return helpTable
 }
 
+// stripGitHubWorkspace strips /github/workspace/ from the given path.
+func stripGitHubWorkspace(path string) string {
+	return strings.TrimPrefix(path, "/github/workspace/")
+}
+
 // createSARIFHelpText returns the text for SARIF rule's help field
 func createSARIFHelpText(gv *groupedSARIFFinding) string {
 	helpTable := createSARIFHelpTable(gv.PkgSource)
@@ -145,14 +151,19 @@ func PrintSARIFReport(vulnResult *models.VulnerabilityResults, outputWriter io.W
 
 		helpText := createSARIFHelpText(gv)
 
+		// Pick the "best" description from the alias group based on the source.
 		// Set short description to the first entry with a non empty summary
 		// Set long description to the same entry as short description
 		// or use a random long description.
 		var shortDescription, longDescription string
-		for _, v := range gv.AliasedVulns {
+		ids := slices.Clone(gv.AliasedIDList)
+		slices.SortFunc(ids, idSortFuncForDescription)
+
+		for _, id := range ids {
+			v := gv.AliasedVulns[id]
 			longDescription = v.Details
 			if v.Summary != "" {
-				shortDescription = v.Summary
+				shortDescription = fmt.Sprintf("%s: %s", gv.DisplayID, v.Summary)
 				break
 			}
 		}
@@ -165,7 +176,12 @@ func PrintSARIFReport(vulnResult *models.VulnerabilityResults, outputWriter io.W
 
 		rule.DeprecatedIds = gv.AliasedIDList
 		for pws := range gv.PkgSource {
-			artifactPath := "file://" + pws.Source.Path
+			artifactPath := stripGitHubWorkspace(pws.Source.Path)
+			if filepath.IsAbs(artifactPath) {
+				// Support absolute paths.
+				artifactPath = "file://" + artifactPath
+			}
+
 			run.AddDistinctArtifact(artifactPath)
 
 			alsoKnownAsStr := ""
