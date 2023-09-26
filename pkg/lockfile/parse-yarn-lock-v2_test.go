@@ -1,6 +1,7 @@
 package lockfile_test
 
 import (
+	"io/fs"
 	"testing"
 
 	"github.com/google/osv-scanner/pkg/lockfile"
@@ -11,7 +12,7 @@ func TestParseYarnLock_v2_FileDoesNotExist(t *testing.T) {
 
 	packages, err := lockfile.ParseYarnLock("fixtures/yarn/does-not-exist")
 
-	expectErrContaining(t, err, "no such file or directory")
+	expectErrIs(t, err, fs.ErrNotExist)
 	expectPackages(t, packages, []lockfile.PackageDetails{})
 }
 

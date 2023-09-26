@@ -134,13 +134,7 @@ func TestParse_ParserNotFound(t *testing.T) {
 
 	_, err := lockfile.Parse("/path/to/my/", "")
 
-	if err == nil {
-		t.Errorf("Expected to get an error but did not")
-	}
-
-	if !errors.Is(err, lockfile.ErrParserNotFound) {
-		t.Errorf("Did not get the expected ErrParserNotFound error - got %v instead", err)
-	}
+	expectErrIs(t, err, lockfile.ErrParserNotFound)
 }
 
 func TestParse_ParserNotFound_WithExplicitParseAs(t *testing.T) {
