@@ -47,7 +47,7 @@ Install:
 
 Run the following in the project directory:
 ```shell
-$ go build ./cmd/osv-scanner/
+./scripts/build.sh
 ```
 Produces `osv-scanner` binary in the project directory.
 
@@ -55,7 +55,7 @@ Produces `osv-scanner` binary in the project directory.
 
 Run the following in the project directory:
 ```shell
-$ goreleaser build --rm-dist --single-target --snapshot
+./scripts/build_snapshot.sh
 ```
 
 See GoReleaser [documentation](https://goreleaser.com/cmd/goreleaser_build/) for build options.
