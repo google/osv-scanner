@@ -70,10 +70,10 @@ To run tests:
 ./scripts/run_tests.sh
 ```
 
-You can generate an HTML coverage report afterward by running:
+You can generate an HTML coverage report by running:
 
-```
-go tool cover -html=coverage.out -o coverage.html
+```shell
+./scripts/generate_coverage_report.sh
 ```
 
 ### Linting
