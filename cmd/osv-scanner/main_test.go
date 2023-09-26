@@ -11,6 +11,7 @@ import (
 	"testing"
 
 	"github.com/go-git/go-git/v5"
+	"github.com/google/go-cmp/cmp"
 	"github.com/google/osv-scanner/internal/version"
 )
 
@@ -89,6 +90,21 @@ type cliTestCase struct {
 	wantStderr   string
 }
 
+func expectAreEqual(t *testing.T, subject, actual, expect string) {
+	t.Helper()
+
+	actual = dedent(t, actual)
+	expect = dedent(t, expect)
+
+	if !areEqual(t, actual, expect) {
+		if os.Getenv("TEST_NO_DIFF") == "true" {
+			t.Errorf("\nactual %s does not match expected:\n got:\n%s\n\n want:\n%s", subject, actual, expect)
+		} else {
+			t.Errorf("\nactual %s does not match expected:\n%s", subject, cmp.Diff(expect, actual))
+		}
+	}
+}
+
 func testCli(t *testing.T, tc cliTestCase) {
 	t.Helper()
 
@@ -105,13 +121,8 @@ func testCli(t *testing.T, tc cliTestCase) {
 		t.Errorf("cli exited with code %d, not %d", ec, tc.wantExitCode)
 	}
 
-	if !areEqual(t, dedent(t, stdout), dedent(t, tc.wantStdout)) {
-		t.Errorf("stdout\n got:\n%s\n\n want:\n%s", dedent(t, stdout), dedent(t, tc.wantStdout))
-	}
-
-	if !areEqual(t, dedent(t, stderr), dedent(t, tc.wantStderr)) {
-		t.Errorf("stderr\n got:\n%s\n\n want:\n%s", dedent(t, stderr), dedent(t, tc.wantStderr))
-	}
+	expectAreEqual(t, "stdout output", stdout, tc.wantStdout)
+	expectAreEqual(t, "stderr output", stderr, tc.wantStderr)
 }
 
 func TestRun(t *testing.T) {
