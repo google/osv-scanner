@@ -16,6 +16,14 @@ name: OSV-Scanner PR scanning reusable
 
 on:
   workflow_call:
+    inputs:
+      custom-scan-args:
+        description: "Custom osv-scanner arguments (See https://google.github.io/osv-scanner/usage/ for options, you cannot set --format or --output)"
+        type: string
+        default: |-
+          -r
+          --skip-git
+          ./
 
 jobs:
   scan-pr:
@@ -34,9 +42,7 @@ jobs:
           scan-args: |-
             --format=json
             --output=old-results.json
-            -r
-            --skip-git
-            ./
+            ${{ inputs.custom-scan-args }}
       - name: "Checkout current branch"
         run: git checkout $GITHUB_SHA
       - name: "Run scanner on new code"
@@ -45,9 +51,7 @@ jobs:
           scan-args: |-
             --format=json
             --output=new-results.json
-            -r
-            --skip-git
-            ./
+            ${{ inputs.custom-scan-args }}
         continue-on-error: true
       - name: "Run osv-scanner-reporter"
         uses: google/osv-scanner/actions/reporter@main
