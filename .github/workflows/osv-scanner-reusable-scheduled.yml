@@ -17,7 +17,7 @@ name: OSV-Scanner scheduled scan reusable
 on:
   workflow_call:
     inputs:
-      custom-scan-args:
+      scan-args:
         description: "Custom osv-scanner arguments (See https://google.github.io/osv-scanner/usage/ for options, you cannot set --format or --output)"
         type: string
         default: |-
@@ -36,7 +36,7 @@ jobs:
           scan-args: |-
             --output=results.sarif
             --format=sarif
-            ${{ inputs.custom-scan-args }}
+            ${{ inputs.scan-args }}
       # Upload the results as artifacts (optional). Commenting out will disable uploads of run results in SARIF
       # format to the repository Actions tab.
       - name: "Upload artifact"
