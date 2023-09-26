@@ -53,13 +53,13 @@
       "artifacts": [
         {
           "location": {
-            "uri": "/path/to/sub-rust-project/Cargo.lock"
+            "uri": "file:///path/to/sub-rust-project/Cargo.lock"
           },
           "length": -1
         },
         {
           "location": {
-            "uri": "/path/to/go.mod"
+            "uri": "file:///path/to/go.mod"
           },
           "length": -1
         }
@@ -76,7 +76,7 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "/path/to/sub-rust-project/Cargo.lock"
+                  "uri": "file:///path/to/sub-rust-project/Cargo.lock"
                 }
               }
             }
@@ -93,7 +93,7 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "/path/to/go.mod"
+                  "uri": "file:///path/to/go.mod"
                 }
               }
             }
@@ -110,7 +110,7 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "/path/to/sub-rust-project/Cargo.lock"
+                  "uri": "file:///path/to/sub-rust-project/Cargo.lock"
                 }
               }
             }

@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"io"
 	"log"
+	"path/filepath"
 	"strings"
 	"text/template"
 
@@ -176,6 +177,11 @@ func PrintSARIFReport(vulnResult *models.VulnerabilityResults, outputWriter io.W
 		rule.DeprecatedIds = gv.AliasedIDList
 		for pws := range gv.PkgSource {
 			artifactPath := stripGitHubWorkspace(pws.Source.Path)
+			if filepath.IsAbs(artifactPath) {
+				// Support absolute paths.
+				artifactPath = "file://" + artifactPath
+			}
+
 			run.AddDistinctArtifact(artifactPath)
 
 			alsoKnownAsStr := ""
