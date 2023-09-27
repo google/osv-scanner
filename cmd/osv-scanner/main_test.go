@@ -446,6 +446,16 @@ func TestRun(t *testing.T) {
 			`,
 			wantStderr: "",
 		},
+		// output format: unsupported
+		{
+			name:         "",
+			args:         []string{"", "--format", "unknown", "./fixtures/locks-many/composer.lock"},
+			wantExitCode: 127,
+			wantStdout:   "",
+			wantStderr: `
+				unsupported output format "unknown" - must be one of: table, json, markdown, sarif, gh-annotations
+			`,
+		},
 	}
 	for _, tt := range tests {
 		tt := tt
