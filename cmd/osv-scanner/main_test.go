@@ -105,6 +105,16 @@ func expectAreEqual(t *testing.T, subject, actual, expect string) {
 	}
 }
 
+// Attempts to normalize any file paths in the given `output` so that they can
+// be compared reliably regardless of the file path separator being used.
+//
+// Namely, escaped forward slashes are replaced with backslashes.
+func normalizeFilePaths(t *testing.T, output string) string {
+	t.Helper()
+
+	return strings.ReplaceAll(strings.ReplaceAll(output, "\\\\", "/"), "\\", "/")
+}
+
 // normalizeRootDirectory attempts to replace references to the current working
 // directory with "<rootdir>", in order to reduce the noise of the cmp diff
 func normalizeRootDirectory(t *testing.T, str string) string {
@@ -127,11 +137,11 @@ func testCli(t *testing.T, tc cliTestCase) {
 	ec := run(tc.args, stdoutBuffer, stderrBuffer)
 	// ec := run(tc.args, os.Stdout, os.Stderr)
 
-	stdout := stdoutBuffer.String()
-	stderr := stderrBuffer.String()
+	stdout := normalizeFilePaths(t, normalizeRootDirectory(t, stdoutBuffer.String()))
+	stderr := normalizeFilePaths(t, normalizeRootDirectory(t, stderrBuffer.String()))
 
-	stdout = normalizeRootDirectory(t, stdout)
-	stderr = normalizeRootDirectory(t, stderr)
+	tc.wantStdout = normalizeFilePaths(t, tc.wantStdout)
+	tc.wantStderr = normalizeFilePaths(t, tc.wantStderr)
 
 	if ec != tc.wantExitCode {
 		t.Errorf("cli exited with code %d, not %d", ec, tc.wantExitCode)
