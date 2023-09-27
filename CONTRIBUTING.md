@@ -34,9 +34,12 @@ Please review the documentation [README](docs/README.md) for more information ab
 
 ### Prerequisites
 Install:
-1. [Go](https://go.dev/) 1.18+, use `go version` to check.
+1. [Go](https://go.dev/) 1.19+, use `go version` to check.
 2. [GoReleaser](https://goreleaser.com/) (Optional, only if you want reproducible builds).
-3. [golangci-lint](https://golangci-lint.run/) (Optional, only if you want to run the linters locally)
+
+> **Note**
+>
+> The scripts within `/scripts` expect to be run from the root of the repository
 
 ### Building
 
@@ -44,7 +47,7 @@ Install:
 
 Run the following in the project directory:
 ```shell
-$ go build ./cmd/osv-scanner/
+./scripts/build.sh
 ```
 Produces `osv-scanner` binary in the project directory.
 
@@ -52,7 +55,7 @@ Produces `osv-scanner` binary in the project directory.
 
 Run the following in the project directory:
 ```shell
-$ goreleaser build --rm-dist --single-target --snapshot
+./scripts/build_snapshot.sh
 ```
 
 See GoReleaser [documentation](https://goreleaser.com/cmd/goreleaser_build/) for build options.
@@ -64,20 +67,20 @@ using the same Go version as the one used during the actual release (see gorelea
 
 To run tests:
 ```shell
-./run_tests.sh
+./scripts/run_tests.sh
 ```
 
-You can generate an HTML coverage report afterward by running:
+You can generate an HTML coverage report by running:
 
-```
-go tool cover -html=coverage.out -o coverage.html
+```shell
+./scripts/generate_coverage_report.sh
 ```
 
 ### Linting
 To lint your code, run
 
 ```shell
-./run_lints.sh
+./scripts/run_lints.sh
 ```
 
 ## Contributing documentation
