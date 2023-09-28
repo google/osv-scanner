@@ -133,6 +133,7 @@ func TestParsePubspecLock_OnePackageDev(t *testing.T) {
 			Name:      "build_runner",
 			Version:   "2.2.1",
 			Ecosystem: lockfile.PubEcosystem,
+			DepGroup:  lockfile.PubDevDependency,
 		},
 	})
 }
@@ -179,6 +180,7 @@ func TestParsePubspecLock_MixedPackages(t *testing.T) {
 			Name:      "build_runner",
 			Version:   "2.2.1",
 			Ecosystem: lockfile.PubEcosystem,
+			DepGroup:  lockfile.PubDevDependency,
 		},
 		{
 			Name:      "shelf",

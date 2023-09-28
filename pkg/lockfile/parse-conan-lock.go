@@ -132,7 +132,12 @@ func parseConanV1Lock(lockfile ConanLockFile) []PackageDetails {
 	return packages
 }
 
-func parseConanRequires(packages *[]PackageDetails, requires []string) {
+const (
+	ConanBuildRequires  string = "build-requires"
+	ConanPythonRequires string = "python-requires"
+)
+
+func parseConanRequires(packages *[]PackageDetails, requires []string, group string) {
 	for _, ref := range requires {
 		reference := parseConanRenference(ref)
 		// skip entries with no name, they are most likely consumer's conanfiles
@@ -146,6 +151,7 @@ func parseConanRequires(packages *[]PackageDetails, requires []string) {
 			Version:   reference.Version,
 			Ecosystem: ConanEcosystem,
 			CompareAs: ConanEcosystem,
+			DepGroup:  group,
 		})
 	}
 }
@@ -157,9 +163,9 @@ func parseConanV2Lock(lockfile ConanLockFile) []PackageDetails {
 		uint64(len(lockfile.Requires))+uint64(len(lockfile.BuildRequires))+uint64(len(lockfile.PythonRequires)),
 	)
 
-	parseConanRequires(&packages, lockfile.Requires)
-	parseConanRequires(&packages, lockfile.BuildRequires)
-	parseConanRequires(&packages, lockfile.PythonRequires)
+	parseConanRequires(&packages, lockfile.Requires, "")
+	parseConanRequires(&packages, lockfile.BuildRequires, ConanBuildRequires)
+	parseConanRequires(&packages, lockfile.PythonRequires, ConanPythonRequires)
 
 	return packages
 }

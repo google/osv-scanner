@@ -79,7 +79,8 @@ type SourceInfo struct {
 }
 
 type Metadata struct {
-	RepoURL string `json:"repo_url"`
+	RepoURL  string `json:"repo_url"`
+	DepGroup string `json:"-"`
 }
 
 func (s SourceInfo) String() string {
@@ -171,4 +172,5 @@ type PackageInfo struct {
 	Version   string `json:"version"`
 	Ecosystem string `json:"ecosystem"`
 	Commit    string `json:"commit"`
+	DepGroup  string `json:"dependencyGroup,omitempty"`
 }

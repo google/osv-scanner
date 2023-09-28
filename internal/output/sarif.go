@@ -295,13 +295,19 @@ func PrintSARIFReport(vulnResult *models.VulnerabilityResults, outputWriter io.W
 				alsoKnownAsStr = fmt.Sprintf(" (also known as '%s')", strings.Join(gv.AliasedIDList[1:], "', '"))
 			}
 
+			depGroup := ""
+			if pws.Package.DepGroup != "" {
+				depGroup = fmt.Sprintf(" (%s)", pws.Package.DepGroup)
+			}
+
 			run.CreateResultForRule(gv.DisplayID).
 				WithLevel("warning").
 				WithMessage(
 					sarif.NewTextMessage(
 						fmt.Sprintf(
-							"Package '%s' is vulnerable to '%s'%s.",
+							"Package '%s'%s is vulnerable to '%s'%s.",
 							results.PkgToString(pws.Package),
+							depGroup,
 							gv.DisplayID,
 							alsoKnownAsStr,
 						))).

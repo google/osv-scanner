@@ -23,6 +23,7 @@ type PnpmLockPackage struct {
 	Resolution PnpmLockPackageResolution `yaml:"resolution"`
 	Name       string                    `yaml:"name"`
 	Version    string                    `yaml:"version"`
+	Dev        string                    `yaml:"dev"`
 }
 
 type PnpmLockfile struct {
@@ -119,6 +120,8 @@ func parseNameAtVersion(value string) (name string, version string) {
 	return matches[1], matches[2]
 }
 
+const PnpmDevDependency string = "dev"
+
 func parsePnpmLock(lockfile PnpmLockfile) []PackageDetails {
 	packages := make([]PackageDetails, 0, len(lockfile.Packages))
 
@@ -152,12 +155,18 @@ func parsePnpmLock(lockfile PnpmLockfile) []PackageDetails {
 			}
 		}
 
+		depGroup := ""
+		if strings.TrimSpace(pkg.Dev) == "true" {
+			depGroup = PnpmDevDependency
+		}
+
 		packages = append(packages, PackageDetails{
 			Name:      name,
 			Version:   version,
 			Ecosystem: PnpmEcosystem,
 			CompareAs: PnpmEcosystem,
 			Commit:    commit,
+			DepGroup:  depGroup,
 		})
 	}
 

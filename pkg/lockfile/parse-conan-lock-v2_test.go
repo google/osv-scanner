@@ -158,6 +158,7 @@ func TestParseConanLock_v2_OnePackageDev(t *testing.T) {
 			Version:   "1.11.1",
 			Ecosystem: lockfile.ConanEcosystem,
 			CompareAs: lockfile.ConanEcosystem,
+			DepGroup:  lockfile.ConanBuildRequires,
 		},
 	})
 }

@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
+	"strings"
 
 	"github.com/google/osv-scanner/internal/cachedregexp"
 )
@@ -14,6 +15,7 @@ type MavenLockDependency struct {
 	GroupID    string   `xml:"groupId"`
 	ArtifactID string   `xml:"artifactId"`
 	Version    string   `xml:"version"`
+	Scope      string   `xml:"scope"`
 }
 
 func (mld MavenLockDependency) parseResolvedVersion(version string) string {
@@ -126,6 +128,7 @@ func (e MavenLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 			Version:   lockPackage.ResolveVersion(*parsedLockfile),
 			Ecosystem: MavenEcosystem,
 			CompareAs: MavenEcosystem,
+			DepGroup:  strings.TrimSpace(lockPackage.Scope),
 		}
 	}
 
@@ -138,6 +141,7 @@ func (e MavenLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 			Version:   lockPackage.ResolveVersion(*parsedLockfile),
 			Ecosystem: MavenEcosystem,
 			CompareAs: MavenEcosystem,
+			DepGroup:  strings.TrimSpace(lockPackage.Scope),
 		}
 	}
 

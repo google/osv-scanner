@@ -71,6 +71,7 @@ func TestParseNpmLock_v1_OnePackageDev(t *testing.T) {
 			Version:   "1.0.2",
 			Ecosystem: lockfile.NpmEcosystem,
 			CompareAs: lockfile.NpmEcosystem,
+			DepGroup:  lockfile.NpmDevDependency,
 		},
 	})
 }
@@ -241,6 +242,7 @@ func TestParseNpmLock_v1_Commits(t *testing.T) {
 			Ecosystem: lockfile.NpmEcosystem,
 			CompareAs: lockfile.NpmEcosystem,
 			Commit:    "af885e2e890b9ef0875edd2b117305119ee5bdc5",
+			DepGroup:  lockfile.NpmDevDependency,
 		},
 		{
 			Name:      "is-number-1",
@@ -248,6 +250,7 @@ func TestParseNpmLock_v1_Commits(t *testing.T) {
 			Ecosystem: lockfile.NpmEcosystem,
 			CompareAs: lockfile.NpmEcosystem,
 			Commit:    "be5935f8d2595bcd97b05718ef1eeae08d812e10",
+			DepGroup:  lockfile.NpmDevDependency,
 		},
 		{
 			Name:      "is-number-2",
@@ -269,6 +272,7 @@ func TestParseNpmLock_v1_Commits(t *testing.T) {
 			Ecosystem: lockfile.NpmEcosystem,
 			CompareAs: lockfile.NpmEcosystem,
 			Commit:    "d5ac0584ee9ae7bd9288220a39780f155b9ad4c8",
+			DepGroup:  lockfile.NpmDevDependency,
 		},
 		{
 			Name:      "is-number-3",
@@ -276,6 +280,7 @@ func TestParseNpmLock_v1_Commits(t *testing.T) {
 			Ecosystem: lockfile.NpmEcosystem,
 			CompareAs: lockfile.NpmEcosystem,
 			Commit:    "82ae8802978da40d7f1be5ad5943c9e550ab2c89",
+			DepGroup:  lockfile.NpmDevDependency,
 		},
 		{
 			Name:      "is-number-4",
@@ -283,6 +288,7 @@ func TestParseNpmLock_v1_Commits(t *testing.T) {
 			Ecosystem: lockfile.NpmEcosystem,
 			CompareAs: lockfile.NpmEcosystem,
 			Commit:    "af885e2e890b9ef0875edd2b117305119ee5bdc5",
+			DepGroup:  lockfile.NpmDevDependency,
 		},
 		{
 			Name:      "is-number-5",
@@ -290,6 +296,7 @@ func TestParseNpmLock_v1_Commits(t *testing.T) {
 			Ecosystem: lockfile.NpmEcosystem,
 			CompareAs: lockfile.NpmEcosystem,
 			Commit:    "af885e2e890b9ef0875edd2b117305119ee5bdc5",
+			DepGroup:  lockfile.NpmDevDependency,
 		},
 		{
 			Name:      "is-number-6",
@@ -297,6 +304,7 @@ func TestParseNpmLock_v1_Commits(t *testing.T) {
 			Ecosystem: lockfile.NpmEcosystem,
 			CompareAs: lockfile.NpmEcosystem,
 			Commit:    "af885e2e890b9ef0875edd2b117305119ee5bdc5",
+			DepGroup:  lockfile.NpmDevDependency,
 		},
 		{
 			Name:      "postcss-calc",
@@ -318,6 +326,7 @@ func TestParseNpmLock_v1_Commits(t *testing.T) {
 			Ecosystem: lockfile.NpmEcosystem,
 			CompareAs: lockfile.NpmEcosystem,
 			Commit:    "280b560161b751ba226d50c7db1e0a14a78c2de0",
+			DepGroup:  lockfile.NpmDevDependency,
 		},
 	})
 }
@@ -376,6 +385,33 @@ func TestParseNpmLock_v1_Alias(t *testing.T) {
 			Version:   "5.1.2",
 			Ecosystem: lockfile.NpmEcosystem,
 			CompareAs: lockfile.NpmEcosystem,
+		},
+	})
+}
+
+func TestParseNpmLock_v1_OptionalPackage(t *testing.T) {
+	t.Parallel()
+
+	packages, err := lockfile.ParseNpmLock("fixtures/npm/optional-package.v1.json")
+
+	if err != nil {
+		t.Errorf("Got unexpected error: %v", err)
+	}
+
+	expectPackages(t, packages, []lockfile.PackageDetails{
+		{
+			Name:      "wrappy",
+			Version:   "1.0.2",
+			Ecosystem: lockfile.NpmEcosystem,
+			CompareAs: lockfile.NpmEcosystem,
+			DepGroup:  lockfile.NpmDevOptionalDependency,
+		},
+		{
+			Name:      "supports-color",
+			Version:   "5.5.0",
+			Ecosystem: lockfile.NpmEcosystem,
+			CompareAs: lockfile.NpmEcosystem,
+			DepGroup:  lockfile.NpmOptionalDependency,
 		},
 	})
 }

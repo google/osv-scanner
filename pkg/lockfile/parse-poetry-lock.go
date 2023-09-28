@@ -13,9 +13,10 @@ type PoetryLockPackageSource struct {
 }
 
 type PoetryLockPackage struct {
-	Name    string                  `toml:"name"`
-	Version string                  `toml:"version"`
-	Source  PoetryLockPackageSource `toml:"source"`
+	Name     string                  `toml:"name"`
+	Version  string                  `toml:"version"`
+	Optional bool                    `toml:"optional"`
+	Source   PoetryLockPackageSource `toml:"source"`
 }
 
 type PoetryLockFile struct {
@@ -26,6 +27,8 @@ type PoetryLockFile struct {
 const PoetryEcosystem = PipEcosystem
 
 type PoetryLockExtractor struct{}
+
+const PoetryOptionalDependency string = "optional"
 
 func (e PoetryLockExtractor) ShouldExtract(path string) bool {
 	return filepath.Base(path) == "poetry.lock"
@@ -43,13 +46,17 @@ func (e PoetryLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 	packages := make([]PackageDetails, 0, len(parsedLockfile.Packages))
 
 	for _, lockPackage := range parsedLockfile.Packages {
-		packages = append(packages, PackageDetails{
+		pkgDetails := PackageDetails{
 			Name:      lockPackage.Name,
 			Version:   lockPackage.Version,
 			Commit:    lockPackage.Source.Commit,
 			Ecosystem: PoetryEcosystem,
 			CompareAs: PoetryEcosystem,
-		})
+		}
+		if lockPackage.Optional {
+			pkgDetails.DepGroup = PoetryOptionalDependency
+		}
+		packages = append(packages, pkgDetails)
 	}
 
 	return packages, nil

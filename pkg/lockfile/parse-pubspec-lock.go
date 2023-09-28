@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"io"
 	"path/filepath"
+	"strings"
 
 	"gopkg.in/yaml.v3"
 )
@@ -54,6 +55,7 @@ type PubspecLockPackage struct {
 	Source      string                 `yaml:"source"`
 	Description PubspecLockDescription `yaml:"description"`
 	Version     string                 `yaml:"version"`
+	Dependency  string                 `yaml:"dependency"`
 }
 
 type PubspecLockfile struct {
@@ -68,6 +70,8 @@ type PubspecLockExtractor struct{}
 func (e PubspecLockExtractor) ShouldExtract(path string) bool {
 	return filepath.Base(path) == "pubspec.lock"
 }
+
+const PubDevDependency string = "dev"
 
 func (e PubspecLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 	var parsedLockfile *PubspecLockfile
@@ -84,12 +88,19 @@ func (e PubspecLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 	packages := make([]PackageDetails, 0, len(parsedLockfile.Packages))
 
 	for name, pkg := range parsedLockfile.Packages {
-		packages = append(packages, PackageDetails{
+		pkgDetails := PackageDetails{
 			Name:      name,
 			Version:   pkg.Version,
 			Commit:    pkg.Description.Ref,
 			Ecosystem: PubEcosystem,
-		})
+		}
+		for _, str := range strings.Split(pkg.Dependency, " ") {
+			if str == PubDevDependency {
+				pkgDetails.DepGroup = PubDevDependency
+				break
+			}
+		}
+		packages = append(packages, pkgDetails)
 	}
 
 	return packages, nil

@@ -508,12 +508,14 @@ func TestParseRequirementsTxt_DuplicateROptions(t *testing.T) {
 			Version:   "0.23.4",
 			Ecosystem: lockfile.PipEcosystem,
 			CompareAs: lockfile.PipEcosystem,
+			DepGroup:  lockfile.PipDevDependency,
 		},
 		{
 			Name:      "requests",
 			Version:   "1.2.3",
 			Ecosystem: lockfile.PipEcosystem,
 			CompareAs: lockfile.PipEcosystem,
+			DepGroup:  lockfile.PipDevDependency,
 		},
 		{
 			Name:      "unittest",
