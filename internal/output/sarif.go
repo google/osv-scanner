@@ -19,24 +19,35 @@ type HelpTemplateData struct {
 	ID                    string
 	AffectedPackagesTable string
 	AliasedVulns          []VulnDescription
+	HasFixedVersion       bool
+	FixedVersionTable     string
 }
 
+type PackageWithFixedVersion struct {
+	PackageName  string
+	FixedVersion string
+}
 type VulnDescription struct {
 	ID      string
 	Details string
 }
 
 const SARIFTemplate = `
-**Your dependency is vulnerable to [{{.ID}}](https://osv.dev/vulnerability/{{.ID}})** 
+**Your dependency is vulnerable to [{{.ID}}](https://osv.dev/vulnerability/{{.ID}})**
 {{- if gt (len .AliasedVulns) 1 }}
-(Also published as: {{range .AliasedVulns -}} {{if ne .ID $.ID}} [{{.ID}}](https://osv.dev/vulnerability/{{.ID}}) {{end}}{{end}})
+(Also published as: {{range .AliasedVulns -}} {{if ne .ID $.ID}} [{{.ID}}](https://osv.dev/vulnerability/{{.ID}}), {{end}}{{end}})
 {{- end}}.
 
 {{range .AliasedVulns}}
-> ## [{{.ID}}](https://osv.dev/vulnerability/{{.ID}})
-> 
+## [{{.ID}}](https://osv.dev/vulnerability/{{.ID}})
+
+<details>
+<summary>Details</summary>
+
 > {{.Details}}
-> 
+
+</details>
+
 
 {{end}}
 ---
@@ -44,6 +55,10 @@ const SARIFTemplate = `
 ### Affected Packages
 {{.AffectedPackagesTable}}
 
+{{if .HasFixedVersion}}
+### Fixed Versions
+{{.FixedVersionTable}}
+{{end}}
 `
 
 // GroupFixedVersions builds the fixed versions for each ID Group, with keys formatted like so:
@@ -74,8 +89,8 @@ func GroupFixedVersions(flattened []models.VulnerabilityFlattened) map[string][]
 	return groupFixedVersions
 }
 
-// createSARIFHelpTable creates a vulnerability table which includes the fixed versions for a specific source file
-func createSARIFHelpTable(pkgWithSrc map[pkgWithSource]struct{}) table.Writer {
+// createSARIFAffectedPkgTable creates a vulnerability table which includes the affected versions for a specific source file
+func createSARIFAffectedPkgTable(pkgWithSrc map[pkgWithSource]struct{}) table.Writer {
 	helpTable := table.NewWriter()
 	helpTable.AppendHeader(table.Row{"Source", "Package Name", "Package Version"})
 
@@ -90,6 +105,24 @@ func createSARIFHelpTable(pkgWithSrc map[pkgWithSource]struct{}) table.Writer {
 	return helpTable
 }
 
+// createSARIFFixedPkgTable creates a vulnerability table which includes the fixed versions for a specific source file
+func createSARIFFixedPkgTable(pkgWithVulns map[string][]PackageWithFixedVersion) table.Writer {
+	helpTable := table.NewWriter()
+	helpTable.AppendHeader(table.Row{"Vulnerability ID", "Package Name", "Fixed Version"})
+
+	for id, pkg := range pkgWithVulns {
+		for _, pwfv := range pkg {
+			helpTable.AppendRow(table.Row{
+				id,
+				pwfv.PackageName,
+				pwfv.FixedVersion,
+			})
+		}
+	}
+
+	return helpTable
+}
+
 // stripGitHubWorkspace strips /github/workspace/ from the given path.
 func stripGitHubWorkspace(path string) string {
 	return strings.TrimPrefix(path, "/github/workspace/")
@@ -97,15 +130,29 @@ func stripGitHubWorkspace(path string) string {
 
 // createSARIFHelpText returns the text for SARIF rule's help field
 func createSARIFHelpText(gv *groupedSARIFFinding) string {
-	helpTable := createSARIFHelpTable(gv.PkgSource)
+	helpTable := createSARIFAffectedPkgTable(gv.PkgSource)
 
 	helpTextTemplate, err := template.New("helpText").Parse(SARIFTemplate)
 	if err != nil {
-		log.Panicf("failed to parse sarif help text template")
+		log.Panicf("failed to parse sarif help text template: %v", err)
 	}
 
 	vulnDescriptions := []VulnDescription{}
+	vulnFixedVersion := map[string][]PackageWithFixedVersion{}
+
+	hasFixedVersion := false
 	for _, v := range gv.AliasedVulns {
+		fixedVersions := []PackageWithFixedVersion{}
+		for p, v2 := range v.FixedVersions() {
+			slices.Sort(v2)
+			fixedVersions = append(fixedVersions, PackageWithFixedVersion{
+				PackageName:  p.Name,
+				FixedVersion: strings.Join(slices.Compact(v2), ", "),
+			})
+			hasFixedVersion = true
+		}
+		vulnFixedVersion[v.ID] = fixedVersions
+
 		vulnDescriptions = append(vulnDescriptions, VulnDescription{
 			ID:      v.ID,
 			Details: strings.ReplaceAll(v.Details, "\n", "\n> "),
@@ -119,6 +166,8 @@ func createSARIFHelpText(gv *groupedSARIFFinding) string {
 		ID:                    gv.DisplayID,
 		AffectedPackagesTable: helpTable.RenderMarkdown(),
 		AliasedVulns:          vulnDescriptions,
+		HasFixedVersion:       hasFixedVersion,
+		FixedVersionTable:     createSARIFFixedPkgTable(vulnFixedVersion).RenderMarkdown(),
 	})
 
 	if err != nil {

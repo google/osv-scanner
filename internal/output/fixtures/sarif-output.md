@@ -1,0 +1,117 @@
+
+**Your dependency is vulnerable to [CVE-2022-24713](https://osv.dev/vulnerability/CVE-2022-24713)**
+(Also published as:  [RUSTSEC-2022-0013](https://osv.dev/vulnerability/RUSTSEC-2022-0013)  [GHSA-m5pq-gvj9-9vr8](https://osv.dev/vulnerability/GHSA-m5pq-gvj9-9vr8) ).
+
+
+## [RUSTSEC-2022-0013](https://osv.dev/vulnerability/RUSTSEC-2022-0013)
+
+<details>
+<summary>Details</summary>
+
+> The Rust Security Response WG was notified that the `regex` crate did not
+> properly limit the complexity of the regular expressions (regex) it parses. An
+> attacker could use this security issue to perform a denial of service, by
+> sending a specially crafted regex to a service accepting untrusted regexes. No
+> known vulnerability is present when parsing untrusted input with trusted
+> regexes.
+> 
+> This issue has been assigned CVE-2022-24713. The severity of this vulnerability
+> is "high" when the `regex` crate is used to parse untrusted regexes. Other uses
+> of the `regex` crate are not affected by this vulnerability.
+> 
+> ## Overview
+> 
+> The `regex` crate features built-in mitigations to prevent denial of service
+> attacks caused by untrusted regexes, or untrusted input matched by trusted
+> regexes. Those (tunable) mitigations already provide sane defaults to prevent
+> attacks. This guarantee is documented and it's considered part of the crate's
+> API.
+> 
+> Unfortunately a bug was discovered in the mitigations designed to prevent
+> untrusted regexes to take an arbitrary amount of time during parsing, and it's
+> possible to craft regexes that bypass such mitigations. This makes it possible
+> to perform denial of service attacks by sending specially crafted regexes to
+> services accepting user-controlled, untrusted regexes.
+> 
+> ## Affected versions
+> 
+> All versions of the `regex` crate before or equal to 1.5.4 are affected by this
+> issue. The fix is include starting from  `regex` 1.5.5.
+> 
+> ## Mitigations
+> 
+> We recommend everyone accepting user-controlled regexes to upgrade immediately
+> to the latest version of the `regex` crate.
+> 
+> Unfortunately there is no fixed set of problematic regexes, as there are
+> practically infinite regexes that could be crafted to exploit this
+> vulnerability. Because of this, we do not recommend denying known problematic
+> regexes.
+> 
+> ## Acknowledgements
+> 
+> We want to thank Addison Crump for responsibly disclosing this to us according
+> to the [Rust security policy][1], and for helping review the fix.
+> 
+> We also want to thank Andrew Gallant for developing the fix, and Pietro Albini
+> for coordinating the disclosure and writing this advisory.
+> 
+> [1]: https://www.rust-lang.org/policies/security
+
+</details>
+
+
+
+## [GHSA-m5pq-gvj9-9vr8](https://osv.dev/vulnerability/GHSA-m5pq-gvj9-9vr8)
+
+<details>
+<summary>Details</summary>
+
+> > This is a cross-post of [the official security advisory][advisory]. The official advisory contains a signed version with our PGP key, as well.
+> 
+> [advisory]: https://groups.google.com/g/rustlang-security-announcements/c/NcNNL1Jq7Yw
+> 
+> The Rust Security Response WG was notified that the `regex` crate did not properly limit the complexity of the regular expressions (regex) it parses. An attacker could use this security issue to perform a denial of service, by sending a specially crafted regex to a service accepting untrusted regexes. No known vulnerability is present when parsing untrusted input with trusted regexes.
+> 
+> This issue has been assigned CVE-2022-24713. The severity of this vulnerability is "high" when the `regex` crate is used to parse untrusted regexes. Other uses of the `regex` crate are not affected by this vulnerability.
+> 
+> ## Overview
+> 
+> The `regex` crate features built-in mitigations to prevent denial of service attacks caused by untrusted regexes, or untrusted input matched by trusted regexes. Those (tunable) mitigations already provide sane defaults to prevent attacks. This guarantee is documented and it's considered part of the crate's API.
+> 
+> Unfortunately a bug was discovered in the mitigations designed to prevent untrusted regexes to take an arbitrary amount of time during parsing, and it's possible to craft regexes that bypass such mitigations. This makes it possible to perform denial of service attacks by sending specially crafted regexes to services accepting user-controlled, untrusted regexes.
+> 
+> ## Affected versions
+> 
+> All versions of the `regex` crate before or equal to 1.5.4 are affected by this issue. The fix is include starting from  `regex` 1.5.5.
+> 
+> ## Mitigations
+> 
+> We recommend everyone accepting user-controlled regexes to upgrade immediately to the latest version of the `regex` crate.
+> 
+> Unfortunately there is no fixed set of problematic regexes, as there are practically infinite regexes that could be crafted to exploit this vulnerability. Because of this, we do not recommend denying known problematic regexes.
+> 
+> ## Acknowledgements
+> 
+> We want to thank Addison Crump for responsibly disclosing this to us according to the [Rust security policy](https://www.rust-lang.org/policies/security), and for helping review the fix.
+> 
+> We also want to thank Andrew Gallant for developing the fix, and Pietro Albini for coordinating the disclosure and writing this advisory.
+
+</details>
+
+
+
+---
+
+### Affected Packages
+| Source | Package Name | Package Version |
+| --- | --- | --- |
+| lockfile:/path/to/sub-rust-project/Cargo.lock | regex | 1.5.1 |
+
+
+### Fixed Versions
+| Vulnerability ID | Package Name | Fixed Version |
+| --- | --- | --- |
+| GHSA-m5pq-gvj9-9vr8 | regex | 1.5.5 |
+| RUSTSEC-2022-0013 | regex | 1.5.5 |
+
