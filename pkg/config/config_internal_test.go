@@ -2,7 +2,9 @@ package config
 
 import (
 	"path/filepath"
+	"reflect"
 	"testing"
+	"time"
 
 	"github.com/google/go-cmp/cmp"
 )
@@ -72,5 +74,120 @@ func TestTryLoadConfig(t *testing.T) {
 				t.Error("Config error not returned")
 			}
 		}
+	}
+}
+
+func TestConfig_ShouldIgnore(t *testing.T) {
+	t.Parallel()
+
+	type args struct {
+		vulnID string
+	}
+	tests := []struct {
+		name      string
+		config    Config
+		args      args
+		wantOk    bool
+		wantEntry IgnoreEntry
+	}{
+		// entry exists
+		{
+			name: "",
+			config: Config{
+				IgnoredVulns: []IgnoreEntry{
+					{
+						ID:          "GHSA-123",
+						IgnoreUntil: time.Time{},
+						Reason:      "",
+					},
+				},
+			},
+			args: args{
+				vulnID: "GHSA-123",
+			},
+			wantOk: true,
+			wantEntry: IgnoreEntry{
+				ID:          "GHSA-123",
+				IgnoreUntil: time.Time{},
+				Reason:      "",
+			},
+		},
+		// entry does not exist
+		{
+			name: "",
+			config: Config{
+				IgnoredVulns: []IgnoreEntry{
+					{
+						ID:          "GHSA-123",
+						IgnoreUntil: time.Time{},
+						Reason:      "",
+					},
+				},
+			},
+			args: args{
+				vulnID: "nonexistent",
+			},
+			wantOk:    false,
+			wantEntry: IgnoreEntry{},
+		},
+		// ignored until a time in the past
+		{
+			name: "",
+			config: Config{
+				IgnoredVulns: []IgnoreEntry{
+					{
+						ID:          "GHSA-123",
+						IgnoreUntil: time.Now().Add(-time.Hour).Round(time.Second),
+						Reason:      "",
+					},
+				},
+			},
+			args: args{
+				vulnID: "GHSA-123",
+			},
+			wantOk: false,
+			wantEntry: IgnoreEntry{
+				ID:          "GHSA-123",
+				IgnoreUntil: time.Now().Add(-time.Hour).Round(time.Second),
+				Reason:      "",
+			},
+		},
+		// ignored until a time in the future
+		{
+			name: "",
+			config: Config{
+				IgnoredVulns: []IgnoreEntry{
+					{
+						ID:          "GHSA-123",
+						IgnoreUntil: time.Now().Add(time.Hour).Round(time.Second),
+						Reason:      "",
+					},
+				},
+			},
+			args: args{
+				vulnID: "GHSA-123",
+			},
+			wantOk: true,
+			wantEntry: IgnoreEntry{
+				ID:          "GHSA-123",
+				IgnoreUntil: time.Now().Add(time.Hour).Round(time.Second),
+				Reason:      "",
+			},
+		},
+	}
+
+	for _, tt := range tests {
+		tt := tt
+		t.Run(tt.name, func(t *testing.T) {
+			t.Parallel()
+
+			gotOk, gotEntry := tt.config.ShouldIgnore(tt.args.vulnID)
+			if gotOk != tt.wantOk {
+				t.Errorf("ShouldIgnore() gotOk = %v, wantOk %v", gotOk, tt.wantOk)
+			}
+			if !reflect.DeepEqual(gotEntry, tt.wantEntry) {
+				t.Errorf("ShouldIgnore() gotEntry = %v, wantEntry %v", gotEntry, tt.wantEntry)
+			}
+		})
 	}
 }

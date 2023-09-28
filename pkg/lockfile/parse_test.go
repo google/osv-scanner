@@ -143,6 +143,20 @@ func TestParse_ParserNotFound(t *testing.T) {
 	}
 }
 
+func TestParse_ParserNotFound_WithExplicitParseAs(t *testing.T) {
+	t.Parallel()
+
+	_, err := lockfile.Parse("/path/to/my/", "unsupported")
+
+	if err == nil {
+		t.Errorf("Expected to get an error but did not")
+	}
+
+	if !errors.Is(err, lockfile.ErrParserNotFound) {
+		t.Errorf("Did not get the expected ErrParserNotFound error - got %v instead", err)
+	}
+}
+
 func TestListParsers(t *testing.T) {
 	t.Parallel()
 
