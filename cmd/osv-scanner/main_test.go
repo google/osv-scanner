@@ -370,8 +370,8 @@ func TestRun(t *testing.T) {
 			name:         "Sarif with vulns",
 			args:         []string{"", "--format", "sarif", "--config", "./fixtures/osv-scanner-empty-config.toml", "./fixtures/locks-many/package-lock.json"},
 			wantExitCode: 1,
-			wantStdout: fmt.Sprintf(`
-            {
+			wantStdout: fmt.Sprint(`
+						{
               "version": "2.1.0",
               "$schema": "https://json.schemastore.org/sarif-2.1.0.json",
               "runs": [
@@ -395,12 +395,12 @@ func TestRun(t *testing.T) {
                             "GHSA-whgm-jr23-g3j9"
                           ],
                           "help": {
-                            "text": "\n**Your dependency is vulnerable to [CVE-2021-23424](https://osv.dev/vulnerability/CVE-2021-23424)**.\n\n\n## [GHSA-whgm-jr23-g3j9](https://osv.dev/vulnerability/GHSA-whgm-jr23-g3j9)\n\n\u003cdetails\u003e\n\u003csummary\u003eDetails\u003c/summary\u003e\n\n\u003e This affects all versions of package ansi-html. If an attacker provides a malicious string, it will get stuck processing the input for an extremely long time.\n\n\u003c/details\u003e\n\n\n\n---\n\n### Affected Packages\n| Source | Package Name | Package Version |\n| --- | --- | --- |\n| lockfile:<rootdir>/fixtures/locks-many/package-lock.json | ansi-html | 0.0.1 |\n\n\n### Fixed Versions\n| Vulnerability ID | Package Name | Fixed Version |\n| --- | --- | --- |\n| GHSA-whgm-jr23-g3j9 | ansi-html | 0.0.8 |\n\n",
-                            "markdown": "\n**Your dependency is vulnerable to [CVE-2021-23424](https://osv.dev/vulnerability/CVE-2021-23424)**.\n\n\n## [GHSA-whgm-jr23-g3j9](https://osv.dev/vulnerability/GHSA-whgm-jr23-g3j9)\n\n\u003cdetails\u003e\n\u003csummary\u003eDetails\u003c/summary\u003e\n\n\u003e This affects all versions of package ansi-html. If an attacker provides a malicious string, it will get stuck processing the input for an extremely long time.\n\n\u003c/details\u003e\n\n\n\n---\n\n### Affected Packages\n| Source | Package Name | Package Version |\n| --- | --- | --- |\n| lockfile:<rootdir>/fixtures/locks-many/package-lock.json | ansi-html | 0.0.1 |\n\n\n### Fixed Versions\n| Vulnerability ID | Package Name | Fixed Version |\n| --- | --- | --- |\n| GHSA-whgm-jr23-g3j9 | ansi-html | 0.0.8 |\n\n"
+                            "text": "%%",
+                            "markdown": "%%"
                           }
                         }
                       ],
-                      "version": "%s"
+                      "version": "`, version.OSVVersion, `"
                     }
                   },
                   "artifacts": [
@@ -433,7 +433,7 @@ func TestRun(t *testing.T) {
                 }
               ]
             }
-			`, version.OSVVersion),
+			`),
 			wantStderr: `
 				Scanning dir ./fixtures/locks-many/package-lock.json
 				Scanned <rootdir>/fixtures/locks-many/package-lock.json file and found 1 package

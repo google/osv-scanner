@@ -33,6 +33,7 @@ type VulnDescription struct {
 	Details string
 }
 
+// Two double-quotes ("") is replaced with a single backtick (`), since we can't embed backticks in raw strings
 const SARIFTemplate = `
 **Your dependency is vulnerable to [{{.ID}}](https://osv.dev/vulnerability/{{.ID}})**
 {{- if gt (len .AliasedVulns) 1 }}
@@ -56,10 +57,29 @@ const SARIFTemplate = `
 ### Affected Packages
 {{.AffectedPackagesTable}}
 
+## Remediation
+
 {{if .HasFixedVersion}}
+
+To fix these vulnerabilities, update the vulnerabilities past the listed fixed versions below.
+
 ### Fixed Versions
 {{.FixedVersionTable}}
 {{end}}
+
+If you believe these vulnerabilities do not affect your code and wish to ignore them, add them to the ignore list in an
+""osv-scanner.toml"" file located in the same directory as the lockfile containing the vulnerable dependency.
+
+See the format and more options in our documentation here: https://google.github.io/osv-scanner/configuration/
+
+Example config to ignore this vulnerability:
+
+""path/to/lockfile-parent-dir/osv-scanner.toml""
+""""""
+[[IgnoredVulns]]
+id = "{{.ID}}"
+reason = "Your reason for ignoring this vulnerability"
+""""""
 `
 
 // GroupFixedVersions builds the fixed versions for each ID Group, with keys formatted like so:
@@ -133,7 +153,8 @@ func stripGitHubWorkspace(path string) string {
 
 // createSARIFHelpText returns the text for SARIF rule's help field
 func createSARIFHelpText(gv *groupedSARIFFinding) string {
-	helpTextTemplate, err := template.New("helpText").Parse(SARIFTemplate)
+	backtickSARIFTemplate := strings.ReplaceAll(SARIFTemplate, `""`, "`")
+	helpTextTemplate, err := template.New("helpText").Parse(backtickSARIFTemplate)
 	if err != nil {
 		log.Panicf("failed to parse sarif help text template: %v", err)
 	}
