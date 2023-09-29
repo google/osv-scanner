@@ -23,7 +23,10 @@ require (
 	gopkg.in/yaml.v3 v3.0.1
 )
 
-require github.com/cyphar/filepath-securejoin v0.2.4 // indirect
+require (
+	github.com/cyphar/filepath-securejoin v0.2.4 // indirect
+	github.com/hexops/gotextdiff v1.0.3 // indirect
+)
 
 require (
 	// Vanity URL for https://github.com/imdario/mergo
