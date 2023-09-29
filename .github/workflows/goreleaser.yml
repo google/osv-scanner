@@ -9,6 +9,12 @@ permissions:
   contents: read # to fetch code (actions/checkout)
 
 jobs:
+  osv-scan:
+    name: OSV-Scanner vulnerability scan
+    runs-on: ubuntu-latest
+    steps:
+      - name: Scan
+        uses: ./.github/workflows/osv-scanner-reusable.yml
   lint:
     name: golangci-lint
     runs-on: ubuntu-latest
@@ -55,6 +61,7 @@ jobs:
     needs:
       - lint
       - tests
+      - osv-scan
     env:
       # Required for buildx on docker 19.x
       DOCKER_CLI_EXPERIMENTAL: "enabled"
