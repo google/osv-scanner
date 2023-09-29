@@ -15,6 +15,13 @@ jobs:
     steps:
       - name: Scan
         uses: ./.github/workflows/osv-scanner-reusable.yml
+        with:
+          # Only scan the top level go.mod file without recursively scanning directories since
+          # this is pipeline is about releasing the go module and binary
+          scan-args: |-
+            --skip-git
+            ./
+
   lint:
     name: golangci-lint
     runs-on: ubuntu-latest
