@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-name: OSV-Scanner scheduled scan reusable
+name: OSV-Scanner scanning reusable
 
 on:
   workflow_call:
@@ -24,6 +24,10 @@ on:
           -r
           --skip-git
           ./
+      results-file-name:
+        description: "File name of the result SARIF file"
+        type: string
+        default: results.sarif
 
 jobs:
   scan-scheduled:
@@ -34,7 +38,7 @@ jobs:
         uses: google/osv-scanner/actions/scanner@main
         with:
           scan-args: |-
-            --output=results.sarif
+            --output=${{ inputs.results-file-name }}
             --format=sarif
             ${{ inputs.scan-args }}
       # Upload the results as artifacts (optional). Commenting out will disable uploads of run results in SARIF
@@ -44,12 +48,12 @@ jobs:
         uses: actions/upload-artifact@a8a3f3ad30e3422c9c7b888a15615d19a852ae32 # v3.1.3
         with:
           name: SARIF file
-          path: results.sarif
+          path: ${{ inputs.results-file-name }}
           retention-days: 5
       # Upload the results to GitHub's code scanning dashboard.
       - name: "Upload to code-scanning"
         if: '!cancelled()'
         uses: github/codeql-action/upload-sarif@6a28655e3dcb49cb0840ea372fd6d17733edd8a4 # v2.21.8
         with:
-          sarif_file: results.sarif
+          sarif_file: ${{ inputs.results-file-name }}
 

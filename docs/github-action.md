@@ -11,16 +11,16 @@ nav_order: 6
 
 OSV-Scanner is offered as a GitHub Action. We currently have two different GitHub Actions:
 
-1. An action that performs a vulnerability scan on a [regular schedule](./github-action.md#scheduled-scans). 
-2. An action that triggers a scan with each [pull request](./github-action.md#scans-on-prs) and will only check for new vulnerabilities introduced through the pull request. 
+1. An action that performs a vulnerability scan on a [regular schedule](./github-action.md#scheduled-scans).
+2. An action that triggers a scan with each [pull request](./github-action.md#scans-on-prs) and will only check for new vulnerabilities introduced through the pull request.
 
 ## Scheduled scans
 
-Regularly scanning your project for vulnerabilities can alert you to new vulnerabilities in your dependency tree. This GitHub Action will scan your project on a set schedule and report all known vulnerabilities. 
+Regularly scanning your project for vulnerabilities can alert you to new vulnerabilities in your dependency tree. This GitHub Action will scan your project on a set schedule and report all known vulnerabilities.
 
 ### Instructions
 
-In your project repository, create a new file `.github/workflows/osv-scanner-scheduled.yml`. 
+In your project repository, create a new file `.github/workflows/osv-scanner-scheduled.yml`.
 
 Include the following in the [`osv-scanner-scheduled.yml`](https://github.com/google/osv-scanner/blob/main/.github/workflows/osv-scanner-scheduled.yml) file:
 
@@ -34,7 +34,7 @@ on:
   push:
     branches: [ main ]
 
-permissions: 
+permissions:
   # Require writing security events to upload SARIF file to security tab
   security-events: write
   # Only need to read contents
@@ -42,10 +42,10 @@ permissions:
 
 jobs:
   scan-scheduled:
-    uses: "google/osv-scanner/.github/workflows/osv-scanner-reusable-scheduled.yml@main"
+    uses: "google/osv-scanner/.github/workflows/osv-scanner-reusable.yml@main"
 ```
 
-As written, the scanner will run on 12:12 pm UTC every Monday. You can change the schedule by following the instructions [here](https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#schedule). 
+As written, the scanner will run on 12:12 pm UTC every Monday. You can change the schedule by following the instructions [here](https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#schedule).
 
 ### View results
 
@@ -57,7 +57,7 @@ Scanning your project on each pull request can help you keep vulnerabilities out
 
 ### Instructions
 
-In your project repository, create a new file `.github/workflows/osv-scanner-pr.yml`. 
+In your project repository, create a new file `.github/workflows/osv-scanner-pr.yml`.
 
 Include the following in the [`osv-scanner-pr.yml`](https://github.com/google/osv-scanner/blob/main/.github/workflows/osv-scanner-pr.yml) file:
 
@@ -81,6 +81,6 @@ jobs:
 
 ### View results
 
-Results may be viewed by clicking on the details of the failed action, either from your project's actions tab or directly on the PR. Results are also included in GitHub annotations on the "Files changed" tab for the PR. 
+Results may be viewed by clicking on the details of the failed action, either from your project's actions tab or directly on the PR. Results are also included in GitHub annotations on the "Files changed" tab for the PR.
 
 Results are also available to maintainers by navigating to their project's security > code scanning tab.
