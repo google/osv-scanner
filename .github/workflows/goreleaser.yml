@@ -9,6 +9,53 @@ permissions:
   contents: read # to fetch code (actions/checkout)
 
 jobs:
+  osv-scan:
+    name: OSV-Scanner vulnerability scan
+    runs-on: ubuntu-latest
+    steps:
+      - name: Scan
+        uses: ./.github/workflows/osv-scanner-reusable.yml
+        with:
+          # Only scan the top level go.mod file without recursively scanning directories since
+          # this is pipeline is about releasing the go module and binary
+          scan-args: |-
+            --skip-git
+            ./
+
+  lint:
+    name: golangci-lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608 # v4.1.0
+        with:
+          persist-credentials: false
+      - name: Set up Go
+        uses: actions/setup-go@93397bea11091df50f3d7e59dc26a7711a8bcfbe # v4.1.0
+        with:
+          go-version-file: .go-version
+          check-latest: true
+      - name: Run lint action
+        uses: ./.github/workflows/lint-action
+  tests:
+    name: Run unit tests
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: Check out code
+        uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608 # v4.1.0
+        with:
+          persist-credentials: false
+      - name: Set up Go
+        uses: actions/setup-go@93397bea11091df50f3d7e59dc26a7711a8bcfbe # v4.1.0
+        with:
+          go-version-file: .go-version
+          check-latest: true
+      - name: Run test action
+        uses: ./.github/workflows/test-action
   goreleaser:
     outputs:
       hashes: ${{ steps.hash.outputs.hashes }}
@@ -16,6 +63,10 @@ jobs:
       contents: write  # for goreleaser/goreleaser-action to create a GitHub release
       packages: write # for goreleaser/goreleaser-action to publish docker images
     runs-on: ubuntu-latest
+    needs:
+      - lint
+      - tests
+      - osv-scan
     env:
       # Required for buildx on docker 19.x
       DOCKER_CLI_EXPERIMENTAL: "enabled"
@@ -27,12 +78,8 @@ jobs:
       - name: Set up Go
         uses: actions/setup-go@93397bea11091df50f3d7e59dc26a7711a8bcfbe # v4.1.0
         with:
-          go-version: 1.19
+          go-version-file: .go-version
           check-latest: true
-      - name: Run Tests
-        uses: ./.github/workflows/test-action
-      - name: Run Lints
-        uses: ./.github/workflows/lint-action
       - uses: docker/setup-qemu-action@68827325e0b33c7199eb31dd4e31fbe9023e06e3 # v3
       - uses: docker/setup-buildx-action@f95db51fddba0c2d1ec667646a06c2ce06100226 # v3
       - name: ghcr-login

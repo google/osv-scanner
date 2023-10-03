@@ -29,7 +29,7 @@ jobs:
   scan-pr:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608 # v4.1.0
         with:
           fetch-depth: 0
           # Do persist credentials, as we need it for the git checkout later
@@ -87,7 +87,6 @@ jobs:
       # Upload the results to GitHub's code scanning dashboard.
       - name: "Upload to code-scanning"
         if: '!cancelled()'
-        uses: github/codeql-action/upload-sarif@6a28655e3dcb49cb0840ea372fd6d17733edd8a4 # v2.21.8
+        uses: github/codeql-action/upload-sarif@ddccb873888234080b77e9bc2d4764d5ccaaccf9 # v2.21.9
         with:
           sarif_file: final-results.sarif
-
