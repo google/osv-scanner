@@ -197,7 +197,7 @@ func createSARIFHelpText(gv *groupedSARIFFinding) string {
 
 	affectedPackagePaths := []string{}
 	for _, pws := range pkgWithSrcKeys {
-		affectedPackagePaths = append(affectedPackagePaths, filepath.Dir(pws.Source.Path))
+		affectedPackagePaths = append(affectedPackagePaths, stripGitHubWorkspace(filepath.Dir(pws.Source.Path)))
 	}
 	// Compact to remove duplicates
 	// (which should already be next to each other since it's sorted in the previous step)
