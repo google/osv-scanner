@@ -126,11 +126,13 @@ If you believe these vulnerabilities do not affect your code and wish to ignore 
 
 See the format and more options in our documentation here: https://google.github.io/osv-scanner/configuration/
 
-Example config to ignore this vulnerability:
+Add or append these values to the following config files to ignore this vulnerability:
 
-`path/to/lockfile-parent-dir/osv-scanner.toml`
+
+`/path/to/sub-rust-project/osv-scanner.toml`
 ```
 [[IgnoredVulns]]
 id = "CVE-2022-24713"
 reason = "Your reason for ignoring this vulnerability"
 ```
+

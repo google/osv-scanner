@@ -12,12 +12,14 @@ import (
 	"github.com/google/osv-scanner/pkg/models"
 	"github.com/jedib0t/go-pretty/v6/table"
 	"github.com/owenrumney/go-sarif/v2/sarif"
+	"golang.org/x/exp/maps"
 	"golang.org/x/exp/slices"
 )
 
 type HelpTemplateData struct {
 	ID                    string
 	AffectedPackagesTable string
+	AffectedPackagePaths  []string
 	AliasedVulns          []VulnDescription
 	HasFixedVersion       bool
 	FixedVersionTable     string
@@ -72,14 +74,16 @@ If you believe these vulnerabilities do not affect your code and wish to ignore 
 
 See the format and more options in our documentation here: https://google.github.io/osv-scanner/configuration/
 
-Example config to ignore this vulnerability:
+Add or append these values to the following config files to ignore this vulnerability:
 
-""path/to/lockfile-parent-dir/osv-scanner.toml""
+{{range .AffectedPackagePaths}}
+""{{.}}/osv-scanner.toml""
 """"""
 [[IgnoredVulns]]
-id = "{{.ID}}"
+id = "{{$.ID}}"
 reason = "Your reason for ignoring this vulnerability"
 """"""
+{{end}}
 `
 
 // GroupFixedVersions builds the fixed versions for each ID Group, with keys formatted like so:
@@ -111,11 +115,11 @@ func GroupFixedVersions(flattened []models.VulnerabilityFlattened) map[string][]
 }
 
 // createSARIFAffectedPkgTable creates a vulnerability table which includes the affected versions for a specific source file
-func createSARIFAffectedPkgTable(pkgWithSrc map[pkgWithSource]struct{}) table.Writer {
+func createSARIFAffectedPkgTable(pkgWithSrc []pkgWithSource) table.Writer {
 	helpTable := table.NewWriter()
 	helpTable.AppendHeader(table.Row{"Source", "Package Name", "Package Version"})
 
-	for ps := range pkgWithSrc {
+	for _, ps := range pkgWithSrc {
 		helpTable.AppendRow(table.Row{
 			ps.Source.String(),
 			ps.Package.Name,
@@ -183,12 +187,29 @@ func createSARIFHelpText(gv *groupedSARIFFinding) string {
 
 	helpText := strings.Builder{}
 
+	pkgWithSrcKeys := maps.Keys(gv.PkgSource)
+	slices.SortFunc(pkgWithSrcKeys, func(a, b pkgWithSource) int {
+		// This doesn't take into account multiple packages within the same source file
+		// which will still be non deterministic. But since that is a rare edge case,
+		// no need to add significant extra logic here to make it deterministic.
+		return strings.Compare(a.Source.Path, b.Source.Path)
+	})
+
+	affectedPackagePaths := []string{}
+	for _, pws := range pkgWithSrcKeys {
+		affectedPackagePaths = append(affectedPackagePaths, filepath.Dir(pws.Source.Path))
+	}
+	// Compact to remove duplicates
+	// (which should already be next to each other since it's sorted in the previous step)
+	affectedPackagePaths = slices.Compact(affectedPackagePaths)
+
 	err = helpTextTemplate.Execute(&helpText, HelpTemplateData{
 		ID:                    gv.DisplayID,
-		AffectedPackagesTable: createSARIFAffectedPkgTable(gv.PkgSource).RenderMarkdown(),
+		AffectedPackagesTable: createSARIFAffectedPkgTable(pkgWithSrcKeys).RenderMarkdown(),
 		AliasedVulns:          vulnDescriptions,
 		HasFixedVersion:       hasFixedVersion,
 		FixedVersionTable:     createSARIFFixedPkgTable(fixedPkgTableData).RenderMarkdown(),
+		AffectedPackagePaths:  affectedPackagePaths,
 	})
 
 	if err != nil {
