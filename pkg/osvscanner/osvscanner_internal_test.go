@@ -76,6 +76,8 @@ func Test_filterResults(t *testing.T) {
 }
 
 func Test_scanGit(t *testing.T) {
+	t.Parallel()
+
 	type args struct {
 		r       reporter.Reporter
 		query   *osv.BatchedQuery
@@ -103,12 +105,10 @@ func Test_scanGit(t *testing.T) {
 	}
 
 	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			if err := scanGit(tt.args.r, tt.args.query, tt.args.repoDir); (err != nil) != tt.wantErr {
-				t.Errorf("scanGit() error = %v, wantErr %v", err, tt.wantErr)
-			}
-			testutility.CreateJSONFixture(t, "fixtures/git-scan-queries.txt", tt.args.query)
-		})
+		if err := scanGit(tt.args.r, tt.args.query, tt.args.repoDir); (err != nil) != tt.wantErr {
+			t.Errorf("scanGit() error = %v, wantErr %v", err, tt.wantErr)
+		}
+		testutility.CreateJSONFixture(t, "fixtures/git-scan-queries.txt", tt.args.query)
 	}
 
 	err = os.Rename("fixtures/example-git/.git", "fixtures/example-git/git-hidden")
