@@ -38,9 +38,16 @@ jobs:
         uses: google/osv-scanner/actions/scanner@main
         with:
           scan-args: |-
-            --output=${{ inputs.results-file-name }}
-            --format=sarif
+            --output=results.json
+            --format=json
             ${{ inputs.scan-args }}
+      - name: "Run osv-scanner-reporter"
+        uses: google/osv-scanner/actions/reporter@main
+        with:
+          scan-args: |-
+            --output=${{ inputs.results-file-name }}
+            --new=results.json
+            --gh-annotations=false
       # Upload the results as artifacts (optional). Commenting out will disable uploads of run results in SARIF
       # format to the repository Actions tab.
       - name: "Upload artifact"

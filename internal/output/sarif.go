@@ -12,31 +12,46 @@ import (
 	"github.com/google/osv-scanner/pkg/models"
 	"github.com/jedib0t/go-pretty/v6/table"
 	"github.com/owenrumney/go-sarif/v2/sarif"
+	"golang.org/x/exp/maps"
 	"golang.org/x/exp/slices"
 )
 
 type HelpTemplateData struct {
 	ID                    string
 	AffectedPackagesTable string
+	AffectedPackagePaths  []string
 	AliasedVulns          []VulnDescription
+	HasFixedVersion       bool
+	FixedVersionTable     string
 }
 
+type FixedPkgTableData struct {
+	VulnID       string
+	PackageName  string
+	FixedVersion string
+}
 type VulnDescription struct {
 	ID      string
 	Details string
 }
 
+// Two double-quotes ("") is replaced with a single backtick (`), since we can't embed backticks in raw strings
 const SARIFTemplate = `
-**Your dependency is vulnerable to [{{.ID}}](https://osv.dev/vulnerability/{{.ID}})** 
+**Your dependency is vulnerable to [{{.ID}}](https://osv.dev/list?q={{.ID}})**
 {{- if gt (len .AliasedVulns) 1 }}
-(Also published as: {{range .AliasedVulns -}} {{if ne .ID $.ID}} [{{.ID}}](https://osv.dev/vulnerability/{{.ID}}) {{end}}{{end}})
+(Also published as: {{range .AliasedVulns -}} {{if ne .ID $.ID}} [{{.ID}}](https://osv.dev/vulnerability/{{.ID}}), {{end}}{{end}})
 {{- end}}.
 
 {{range .AliasedVulns}}
-> ## [{{.ID}}](https://osv.dev/vulnerability/{{.ID}})
-> 
+## [{{.ID}}](https://osv.dev/vulnerability/{{.ID}})
+
+<details>
+<summary>Details</summary>
+
 > {{.Details}}
-> 
+
+</details>
+
 
 {{end}}
 ---
@@ -44,6 +59,31 @@ const SARIFTemplate = `
 ### Affected Packages
 {{.AffectedPackagesTable}}
 
+## Remediation
+
+{{if .HasFixedVersion}}
+
+To fix these vulnerabilities, update the vulnerabilities past the listed fixed versions below.
+
+### Fixed Versions
+{{.FixedVersionTable}}
+{{end}}
+
+If you believe these vulnerabilities do not affect your code and wish to ignore them, add them to the ignore list in an
+""osv-scanner.toml"" file located in the same directory as the lockfile containing the vulnerable dependency.
+
+See the format and more options in our documentation here: https://google.github.io/osv-scanner/configuration/
+
+Add or append these values to the following config files to ignore this vulnerability:
+
+{{range .AffectedPackagePaths}}
+""{{.}}/osv-scanner.toml""
+""""""
+[[IgnoredVulns]]
+id = "{{$.ID}}"
+reason = "Your reason for ignoring this vulnerability"
+""""""
+{{end}}
 `
 
 // GroupFixedVersions builds the fixed versions for each ID Group, with keys formatted like so:
@@ -74,16 +114,36 @@ func GroupFixedVersions(flattened []models.VulnerabilityFlattened) map[string][]
 	return groupFixedVersions
 }
 
-// createSARIFHelpTable creates a vulnerability table which includes the fixed versions for a specific source file
-func createSARIFHelpTable(pkgWithSrc map[pkgWithSource]struct{}) table.Writer {
+// createSARIFAffectedPkgTable creates a vulnerability table which includes the affected versions for a specific source file
+func createSARIFAffectedPkgTable(pkgWithSrc []pkgWithSource) table.Writer {
 	helpTable := table.NewWriter()
 	helpTable.AppendHeader(table.Row{"Source", "Package Name", "Package Version"})
 
-	for ps := range pkgWithSrc {
+	for _, ps := range pkgWithSrc {
 		helpTable.AppendRow(table.Row{
 			ps.Source.String(),
 			ps.Package.Name,
 			ps.Package.Version,
+		})
+	}
+
+	return helpTable
+}
+
+// createSARIFFixedPkgTable creates a vulnerability table which includes the fixed versions for a specific source file
+func createSARIFFixedPkgTable(fixedPkgTableData []FixedPkgTableData) table.Writer {
+	helpTable := table.NewWriter()
+	helpTable.AppendHeader(table.Row{"Vulnerability ID", "Package Name", "Fixed Version"})
+
+	slices.SortFunc(fixedPkgTableData, func(a, b FixedPkgTableData) int {
+		return strings.Compare(a.VulnID, b.VulnID)
+	})
+
+	for _, data := range fixedPkgTableData {
+		helpTable.AppendRow(table.Row{
+			data.VulnID,
+			data.PackageName,
+			data.FixedVersion,
 		})
 	}
 
@@ -97,15 +157,27 @@ func stripGitHubWorkspace(path string) string {
 
 // createSARIFHelpText returns the text for SARIF rule's help field
 func createSARIFHelpText(gv *groupedSARIFFinding) string {
-	helpTable := createSARIFHelpTable(gv.PkgSource)
-
-	helpTextTemplate, err := template.New("helpText").Parse(SARIFTemplate)
+	backtickSARIFTemplate := strings.ReplaceAll(SARIFTemplate, `""`, "`")
+	helpTextTemplate, err := template.New("helpText").Parse(backtickSARIFTemplate)
 	if err != nil {
-		log.Panicf("failed to parse sarif help text template")
+		log.Panicf("failed to parse sarif help text template: %v", err)
 	}
 
 	vulnDescriptions := []VulnDescription{}
+	fixedPkgTableData := []FixedPkgTableData{}
+
+	hasFixedVersion := false
 	for _, v := range gv.AliasedVulns {
+		for p, v2 := range v.FixedVersions() {
+			slices.Sort(v2)
+			fixedPkgTableData = append(fixedPkgTableData, FixedPkgTableData{
+				PackageName:  p.Name,
+				FixedVersion: strings.Join(slices.Compact(v2), ", "),
+				VulnID:       v.ID,
+			})
+			hasFixedVersion = true
+		}
+
 		vulnDescriptions = append(vulnDescriptions, VulnDescription{
 			ID:      v.ID,
 			Details: strings.ReplaceAll(v.Details, "\n", "\n> "),
@@ -115,10 +187,29 @@ func createSARIFHelpText(gv *groupedSARIFFinding) string {
 
 	helpText := strings.Builder{}
 
+	pkgWithSrcKeys := maps.Keys(gv.PkgSource)
+	slices.SortFunc(pkgWithSrcKeys, func(a, b pkgWithSource) int {
+		// This doesn't take into account multiple packages within the same source file
+		// which will still be non deterministic. But since that is a rare edge case,
+		// no need to add significant extra logic here to make it deterministic.
+		return strings.Compare(a.Source.Path, b.Source.Path)
+	})
+
+	affectedPackagePaths := []string{}
+	for _, pws := range pkgWithSrcKeys {
+		affectedPackagePaths = append(affectedPackagePaths, stripGitHubWorkspace(filepath.Dir(pws.Source.Path)))
+	}
+	// Compact to remove duplicates
+	// (which should already be next to each other since it's sorted in the previous step)
+	affectedPackagePaths = slices.Compact(affectedPackagePaths)
+
 	err = helpTextTemplate.Execute(&helpText, HelpTemplateData{
 		ID:                    gv.DisplayID,
-		AffectedPackagesTable: helpTable.RenderMarkdown(),
+		AffectedPackagesTable: createSARIFAffectedPkgTable(pkgWithSrcKeys).RenderMarkdown(),
 		AliasedVulns:          vulnDescriptions,
+		HasFixedVersion:       hasFixedVersion,
+		FixedVersionTable:     createSARIFFixedPkgTable(fixedPkgTableData).RenderMarkdown(),
+		AffectedPackagePaths:  affectedPackagePaths,
 	})
 
 	if err != nil {
