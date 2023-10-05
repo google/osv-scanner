@@ -66,32 +66,6 @@ func Test_functionsFromDWARF(t *testing.T) {
 	}
 }
 
-// func Test_rustAnalysis(t *testing.T) {
-// 	type args struct {
-// 		r      reporter.Reporter
-// 		pkgs   []models.PackageVulns
-// 		source models.SourceInfo
-// 	}
-// 	tests := []struct {
-// 		name string
-// 		args args
-// 	}{
-// 		{
-// 			name: "",
-// 			args: args{
-// 				r: &reporter.VoidReporter{},
-// 				pkgs: []models.PackageVulns{},
-// 				source: models.SourceInfo{},
-// 			},
-// 		}
-// 	}
-// 	for _, tt := range tests {
-// 		t.Run(tt.name, func(t *testing.T) {
-// 			rustAnalysis(tt.args.r, tt.args.pkgs, tt.args.source)
-// 		})
-// 	}
-// }//
-
 func Test_rustBuildSource(t *testing.T) {
 	t.Parallel()
 
