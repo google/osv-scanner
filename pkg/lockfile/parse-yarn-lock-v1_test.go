@@ -183,10 +183,10 @@ func TestParseYarnLock_v1_ScopedPackages(t *testing.T) {
 	})
 }
 
-func TestParseYarnLock_v1_VersionsWithBuildString(t *testing.T) {
+func TestParseYarnLock_v1_WithPrerelease(t *testing.T) {
 	t.Parallel()
 
-	packages, err := lockfile.ParseYarnLock("fixtures/yarn/versions-with-build-strings.v1.lock")
+	packages, err := lockfile.ParseYarnLock("fixtures/yarn/with-prerelease.v1.lock")
 
 	if err != nil {
 		t.Errorf("Got unexpected error: %v", err)
@@ -220,6 +220,31 @@ func TestParseYarnLock_v1_VersionsWithBuildString(t *testing.T) {
 		{
 			Name:      "resolve",
 			Version:   "2.0.0-next.3",
+			Ecosystem: lockfile.YarnEcosystem,
+			CompareAs: lockfile.YarnEcosystem,
+		},
+	})
+}
+
+func TestParseYarnLock_v1_WithBuildString(t *testing.T) {
+	t.Parallel()
+
+	packages, err := lockfile.ParseYarnLock("fixtures/yarn/with-build-string.v1.lock")
+
+	if err != nil {
+		t.Errorf("Got unexpected error: %v", err)
+	}
+
+	expectPackages(t, packages, []lockfile.PackageDetails{
+		{
+			Name:      "domino",
+			Version:   "2.1.6+git",
+			Ecosystem: lockfile.YarnEcosystem,
+			CompareAs: lockfile.YarnEcosystem,
+		},
+		{
+			Name:      "tslib",
+			Version:   "2.6.2",
 			Ecosystem: lockfile.YarnEcosystem,
 			CompareAs: lockfile.YarnEcosystem,
 		},

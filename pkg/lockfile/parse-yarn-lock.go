@@ -65,7 +65,7 @@ func extractYarnPackageName(str string) string {
 }
 
 func determineYarnPackageVersion(group []string) string {
-	re := cachedregexp.MustCompile(`^ {2}"?version"?:? "?([\w-.]+)"?$`)
+	re := cachedregexp.MustCompile(`^ {2}"?version"?:? "?([\w-.+]+)"?$`)
 
 	for _, s := range group {
 		matched := re.FindStringSubmatch(s)
