@@ -177,9 +177,9 @@ func TestRun(t *testing.T) {
 			`,
 			wantStderr: "",
 		},
-		// one specific supported sbom with vulns
+		// folder of supported sbom with vulns
 		{
-			name:         "",
+			name:         "folder of supported sbom with vulns",
 			args:         []string{"", "--config=./fixtures/osv-scanner-empty-config.toml", "./fixtures/sbom-insecure/"},
 			wantExitCode: 1,
 			wantStdout: `
@@ -203,6 +203,21 @@ func TestRun(t *testing.T) {
 				| https://osv.dev/DLA-3008-1          |      | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 				| https://osv.dev/DLA-3051-1          |      | Debian    | tzdata                         | 2021a-0+deb9u3                     | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 				+-------------------------------------+------+-----------+--------------------------------+------------------------------------+-------------------------------------------------+
+			`,
+			wantStderr: "",
+		},
+		// one specific supported sbom with vulns
+		{
+			name:         "one specific supported sbom with vulns",
+			args:         []string{"", "--config=./fixtures/osv-scanner-empty-config.toml", "--sbom", "./fixtures/sbom-insecure/alpine.cdx.xml"},
+			wantExitCode: 1,
+			wantStdout: `
+      	Scanned <rootdir>/fixtures/sbom-insecure/alpine.cdx.xml as CycloneDX SBOM and found 15 packages
+      	+--------------------------------+------+-----------+---------+-----------+---------------------------------------+
+      	| OSV URL                        | CVSS | ECOSYSTEM | PACKAGE | VERSION   | SOURCE                                |
+      	+--------------------------------+------+-----------+---------+-----------+---------------------------------------+
+      	| https://osv.dev/CVE-2022-37434 | 9.8  | Alpine    | zlib    | 1.2.10-r2 | fixtures/sbom-insecure/alpine.cdx.xml |
+      	+--------------------------------+------+-----------+---------+-----------+---------------------------------------+
 			`,
 			wantStderr: "",
 		},
@@ -464,12 +479,14 @@ func TestRun(t *testing.T) {
 		// output format: markdown table
 		{
 			name:         "",
-			args:         []string{"", "--format", "markdown", "./fixtures/locks-many/composer.lock"},
-			wantExitCode: 0,
+			args:         []string{"", "--format", "markdown", "--config", "./fixtures/osv-scanner-empty-config.toml", "./fixtures/locks-many/package-lock.json"},
+			wantExitCode: 1,
 			wantStdout: `
-				Scanning dir ./fixtures/locks-many/composer.lock
-				Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
-				No vulnerabilities found
+				Scanning dir ./fixtures/locks-many/package-lock.json
+        Scanned <rootdir>/fixtures/locks-many/package-lock.json file and found 1 package
+        | OSV URL | CVSS | Ecosystem | Package | Version | Source |
+        | --- | --- | --- | --- | --- | --- |
+        | https://osv.dev/GHSA-whgm-jr23-g3j9 | 7.5 | npm | ansi-html | 0.0.1 | fixtures/locks-many/package-lock.json |
 			`,
 			wantStderr: "",
 		},

@@ -4,10 +4,13 @@ import (
 	"bytes"
 	"os"
 	"path/filepath"
+	"reflect"
 	"strings"
 	"testing"
 
 	"github.com/google/osv-scanner/internal/testutility"
+	"github.com/google/osv-scanner/pkg/models"
+	"github.com/google/osv-scanner/pkg/reporter"
 )
 
 func Test_extractRlibArchive(t *testing.T) {
@@ -60,5 +63,48 @@ func Test_functionsFromDWARF(t *testing.T) {
 
 			testutility.AssertMatchFixtureJSON(t, "fixtures-rust/functions/"+outputName, functions)
 		})
+	}
+}
+
+func Test_rustBuildSource(t *testing.T) {
+	t.Parallel()
+
+	workingDir, err := os.Getwd()
+	if err != nil {
+		t.Error(err)
+	}
+
+	type args struct {
+		r      reporter.Reporter
+		source models.SourceInfo
+	}
+	tests := []struct {
+		name    string
+		args    args
+		want    []string
+		wantErr bool
+	}{
+		{
+			args: args{
+				r: &reporter.VoidReporter{},
+				source: models.SourceInfo{
+					Path: "fixtures-rust/rust-project/Cargo.lock",
+					Type: "lockfile",
+				},
+			},
+			want: []string{
+				workingDir + "/fixtures-rust/rust-project/target/release/test-project",
+			},
+		},
+	}
+	for _, tt := range tests {
+		got, err := rustBuildSource(tt.args.r, tt.args.source)
+		if (err != nil) != tt.wantErr {
+			t.Errorf("rustBuildSource() error = %v, wantErr %v", err, tt.wantErr)
+			return
+		}
+		if !reflect.DeepEqual(got, tt.want) {
+			t.Errorf("rustBuildSource() = %v, want %v", got, tt.want)
+		}
 	}
 }
