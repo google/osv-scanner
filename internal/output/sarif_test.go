@@ -67,7 +67,7 @@ func TestPrintSARIFReport(t *testing.T) {
 			if err != nil {
 				t.Errorf("Error writing SARIF output: %s", err)
 			}
-			testutility.CreateTextFixture(t, tt.wantPath, bufOut.String())
+			testutility.AssertMatchFixtureText(t, tt.wantPath, bufOut.String())
 		})
 	}
 }
