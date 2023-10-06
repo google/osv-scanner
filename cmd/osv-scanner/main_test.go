@@ -137,8 +137,8 @@ func testCli(t *testing.T, tc cliTestCase) {
 	ec := run(tc.args, stdoutBuffer, stderrBuffer)
 	// ec := run(tc.args, os.Stdout, os.Stderr)
 
-	stdout := normalizeFilePaths(t, normalizeRootDirectory(t, stdoutBuffer.String()))
-	stderr := normalizeFilePaths(t, normalizeRootDirectory(t, stderrBuffer.String()))
+	stdout := normalizeRootDirectory(t, normalizeFilePaths(t, stdoutBuffer.String()))
+	stderr := normalizeRootDirectory(t, normalizeFilePaths(t, stderrBuffer.String()))
 
 	tc.wantStdout = normalizeFilePaths(t, tc.wantStdout)
 	tc.wantStderr = normalizeFilePaths(t, tc.wantStderr)
