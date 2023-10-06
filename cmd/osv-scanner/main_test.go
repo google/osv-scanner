@@ -125,6 +125,8 @@ func normalizeRootDirectory(t *testing.T, str string) string {
 		t.Errorf("could not get cwd (%v) - results and diff might be inaccurate!", err)
 	}
 
+	cwd = normalizeFilePaths(t, cwd)
+
 	return strings.ReplaceAll(str, cwd, "<rootdir>")
 }
 
