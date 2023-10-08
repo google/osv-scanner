@@ -7,6 +7,7 @@ import (
 	"os"
 	"path/filepath"
 	"regexp"
+	"runtime"
 	"strings"
 	"testing"
 
@@ -14,6 +15,15 @@ import (
 	"github.com/google/go-cmp/cmp"
 	"github.com/google/osv-scanner/internal/version"
 )
+
+func valueIfOnWindows(win, or string) string {
+	if //goland:noinspection GoBoolExpressions
+	runtime.GOOS == "windows" {
+		return win
+	}
+
+	return or
+}
 
 func createTestDir(t *testing.T) (string, func()) {
 	t.Helper()
@@ -584,9 +594,10 @@ func TestRun_LockfileWithExplicitParseAs(t *testing.T) {
 			},
 			wantExitCode: 127,
 			wantStdout:   "",
-			wantStderr: `
-				open <rootdir>/path/to/my:file: %%
-			`,
+			wantStderr: valueIfOnWindows(
+				"open <rootdir>/path/to/my:file: The system cannot find the path specified.",
+				"open <rootdir>/path/to/my:file: no such file or directory",
+			),
 		},
 		{
 			name: "",
@@ -597,9 +608,10 @@ func TestRun_LockfileWithExplicitParseAs(t *testing.T) {
 			},
 			wantExitCode: 127,
 			wantStdout:   "",
-			wantStderr: `
-				open <rootdir>/path/to/my:project/package-lock.json: %%
-			`,
+			wantStderr: valueIfOnWindows(
+				"open <rootdir>/path/to/my:project/package-lock.json: The filename, directory name, or volume label syntax is incorrect.",
+				"open <rootdir>/path/to/my:project/package-lock.json: no such file or directory",
+			),
 		},
 		// one lockfile with local path
 		{
