@@ -585,7 +585,7 @@ func TestRun_LockfileWithExplicitParseAs(t *testing.T) {
 			wantExitCode: 127,
 			wantStdout:   "",
 			wantStderr: `
-				open <rootdir>/path/to/my:file: no such file or directory
+				open <rootdir>/path/to/my:file: %%
 			`,
 		},
 		{
@@ -598,7 +598,7 @@ func TestRun_LockfileWithExplicitParseAs(t *testing.T) {
 			wantExitCode: 127,
 			wantStdout:   "",
 			wantStderr: `
-				open <rootdir>/path/to/my:project/package-lock.json: no such file or directory
+				open <rootdir>/path/to/my:project/package-lock.json: %%
 			`,
 		},
 		// when an explicit parse-as is given, it's applied to that file
