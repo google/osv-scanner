@@ -24,6 +24,10 @@ on:
           -r
           --skip-git
           ./
+      results-file-name:
+        description: "File name of the result SARIF file"
+        type: string
+        default: results.sarif
 
 jobs:
   scan-pr:
@@ -57,7 +61,7 @@ jobs:
         uses: google/osv-scanner/actions/reporter@main
         with:
           scan-args: |-
-            --output=final-results.sarif
+            --output=${{ inputs.results-file-name }}
             --old=old-results.json
             --new=new-results.json
             --gh-annotations=true
@@ -68,7 +72,7 @@ jobs:
         uses: actions/upload-artifact@a8a3f3ad30e3422c9c7b888a15615d19a852ae32 # v3.1.3
         with:
           name: SARIF file
-          path: final-results.sarif
+          path: ${{ inputs.results-file-name }}
           retention-days: 5
       - name: "Upload old scan json results"
         if: '!cancelled()'
@@ -89,4 +93,4 @@ jobs:
         if: '!cancelled()'
         uses: github/codeql-action/upload-sarif@ddccb873888234080b77e9bc2d4764d5ccaaccf9 # v2.21.9
         with:
-          sarif_file: final-results.sarif
+          sarif_file: ${{ inputs.results-file-name }}
