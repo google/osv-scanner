@@ -6,13 +6,21 @@ nav_order: 6
 ---
 
 # GitHub Action
-
 {: .no_toc }
+
+<details open markdown="block">
+  <summary>
+    Table of contents
+  </summary>
+  {: .text-delta }
+- TOC
+{:toc}
+</details>
 
 OSV-Scanner is offered as a GitHub Action. We currently have two different GitHub Actions:
 
-1. An action that performs a single vulnerability scan, which can be configured to scan on a [regular schedule](./github-action.md#scheduled-scans), or used as a check [on releases](./github-action.md#scan-on-release) to prevent releasing with known vulnerabilities in dependencies.
-2. An action that triggers a scan with each [pull request](./github-action.md#scans-on-prs) and will only check for new vulnerabilities introduced through the pull request.
+1. An action that triggers a scan with each [pull request](./github-action.md#scans-on-prs) and will only check for new vulnerabilities introduced through the pull request.
+2. An action that performs a single vulnerability scan, which can be configured to scan on a [regular schedule](./github-action.md#scheduled-scans), or used as a check [on releases](./github-action.md#scan-on-release) to prevent releasing with known vulnerabilities in dependencies.
 
 ## Scans on PRs
 
