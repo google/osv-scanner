@@ -369,6 +369,7 @@ func getSubmodules(repoDir string) (submodules []*git.SubmoduleStatus, err error
 		}
 		submodules = append(submodules, status)
 	}
+
 	return submodules, nil
 }
 
@@ -397,6 +398,7 @@ func scanGit(r reporter.Reporter, query *osv.BatchedQuery, repoDir string) error
 			return err
 		}
 	}
+
 	return nil
 }
 
