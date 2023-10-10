@@ -196,6 +196,156 @@ osv-scanner --format json -L path/to/lockfile > /path/to/file.json
 </details>
 
 
+---
+
+### SARIF
+
+```bash
+osv-scanner --format sarif your/project/dir
+```
+
+Outputs the result in the [SARIF](https://sarifweb.azurewebsites.net/) v2.1.0 format. Each vulnerability (grouped by aliases) is a separate rule, and each package containing a vulnerable dependency is a rule violation. The help text within the SARIF report contains detailed information about the vulnerability and remediation instructions for how to resolve it.
+
+<details markdown="1">
+<summary><b>Sample SARIF output</b></summary>
+
+```json
+{
+  "version": "2.1.0",
+  "$schema": "https://json.schemastore.org/sarif-2.1.0.json",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "informationUri": "https://github.com/google/osv-scanner",
+          "name": "osv-scanner",
+          "rules": [
+            {
+              "id": "CVE-2022-24713",
+              "shortDescription": {
+                "text": "CVE-2022-24713: <advisory summary>"
+              },
+              "fullDescription": {
+                "text": "<Full advisory details>...",
+                "markdown": "<Full advisory details>..."
+              },
+              // Deprecated IDs field contains all alias IDs
+              "deprecatedIds": [
+                "CVE-2022-24713",
+                "RUSTSEC-2022-0013",
+                "GHSA-m5pq-gvj9-9vr8"
+              ],
+              "help": {
+                "text": "<Markdown help text>...",
+                "markdown": "<Markdown help text>..."
+              }
+            },
+          ],
+          "version": "1.4.1"
+        }
+      },
+      "artifacts": [
+        {
+          "location": {
+            "uri": "file:///path/to/sub-rust-project/Cargo.lock"
+          },
+          "length": -1
+        }
+      ],
+      "results": [
+        {
+          "ruleId": "CVE-2022-24713",
+          "ruleIndex": 0,
+          "level": "warning",
+          "message": {
+            "text": "Package 'regex@1.5.1' is vulnerable to 'CVE-2022-24713' (also known as 'RUSTSEC-2022-0013', 'GHSA-m5pq-gvj9-9vr8')."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///path/to/sub-rust-project/Cargo.lock"
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+```
+
+</details>
+
+<details markdown="1">
+<summary><b>Sample SARIF Help Text</b></summary>
+
+
+> **Your dependency is vulnerable to [CVE-2022-24713](https://osv.dev/list?q=CVE-2022-24713)**
+> (Also published as:  [RUSTSEC-2022-0013](https://osv.dev/vulnerability/RUSTSEC-2022-0013),  [GHSA-m5pq-gvj9-9vr8](https://osv.dev/vulnerability/GHSA-m5pq-gvj9-9vr8), ).
+>
+>
+> ## [RUSTSEC-2022-0013](https://osv.dev/vulnerability/RUSTSEC-2022-0013)
+>
+> <details>
+> <summary>Details</summary>
+>
+> > Full advisory details...
+>
+> </details>
+>
+>
+>
+> ## [GHSA-m5pq-gvj9-9vr8](https://osv.dev/vulnerability/GHSA-m5pq-gvj9-9vr8)
+>
+> <details>
+> <summary>Details</summary>
+>
+> > Full advisory details...
+>
+> </details>
+>
+>
+> ---
+>
+> ### Affected Packages
+> | Source | Package Name | Package Version |
+> | --- | --- | --- |
+> | lockfile:/path/to/rust-project/Cargo.lock | regex | 1.5.1 |
+>
+> ## Remediation
+>
+>
+>
+> To fix these vulnerabilities, update the vulnerabilities past the listed fixed versions below.
+>
+> ### Fixed Versions
+> | Vulnerability ID | Package Name | Fixed Version |
+> | --- | --- | --- |
+> | GHSA-m5pq-gvj9-9vr8 | regex | 1.5.5 |
+> | RUSTSEC-2022-0013 | regex | 1.5.5 |
+>
+>
+> If you believe these vulnerabilities do not affect your code and wish to ignore them, add them to the ignore list in an
+> `osv-scanner.toml` file located in the same directory as the lockfile containing the vulnerable dependency.
+>
+> See the format and more options in our documentation here: https://google.github.io/osv-scanner/configuration/
+>
+> Add or append these values to the following config files to ignore this vulnerability:
+>
+>
+> `/path/to/rust-project/osv-scanner.toml`
+> ```
+> [[IgnoredVulns]]
+> id = "CVE-2022-24713"
+> reason = "Your reason for ignoring this vulnerability"
+> ```
+
+</details>
+
+---
+
 ## Call analysis
 
 With `--experimental-call-analysis` flag enabled, call information will be included in the output.
@@ -367,12 +517,12 @@ osv-scanner --format json --experimental-call-analysis -L path/to/lockfile > /pa
 
 ## Return Codes
 
-|----- 
-| Exit Code |Reason| 
-|:---------------:|------------| 
-| `0` | Packages were found when scanning, but does not match any known vulnerabilities. | 
-| `1` | Packages were found when scanning, and there are vulnerabilities. | 
-| `1-126` | Reserved for vulnerability result related errors. | 
-| `127` | General Error. | 
-| `128` | No packages found (likely caused by the scanning format not picking up any files to scan). | 
-| `129-255` | Reserved for non result related errors. | 
+|-----
+| Exit Code |Reason|
+|:---------------:|------------|
+| `0` | Packages were found when scanning, but does not match any known vulnerabilities. |
+| `1` | Packages were found when scanning, and there are vulnerabilities. |
+| `1-126` | Reserved for vulnerability result related errors. |
+| `127` | General Error. |
+| `128` | No packages found (likely caused by the scanning format not picking up any files to scan). |
+| `129-255` | Reserved for non result related errors. |
