@@ -12,7 +12,7 @@ require (
 	github.com/hexops/gotextdiff v1.0.3
 	github.com/jedib0t/go-pretty/v6 v6.4.7
 	github.com/kr/pretty v0.3.1
-	github.com/owenrumney/go-sarif/v2 v2.2.2
+	github.com/owenrumney/go-sarif/v2 v2.3.0
 	github.com/package-url/packageurl-go v0.1.1
 	github.com/spdx/tools-golang v0.5.3
 	github.com/urfave/cli/v2 v2.25.7
