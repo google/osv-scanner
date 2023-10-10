@@ -189,6 +189,7 @@ func TestRun(t *testing.T) {
 				+-------------------------------------+------+-----------+--------------------------------+------------------------------------+-------------------------------------------------+
 				| OSV URL                             | CVSS | ECOSYSTEM | PACKAGE                        | VERSION                            | SOURCE                                          |
 				+-------------------------------------+------+-----------+--------------------------------+------------------------------------+-------------------------------------------------+
+				| https://osv.dev/CVE-2022-48174      | 9.8  | Alpine    | busybox                        | 1.35.0-r29                         | fixtures/sbom-insecure/alpine.cdx.xml           |
 				| https://osv.dev/CVE-2022-37434      | 9.8  | Alpine    | zlib                           | 1.2.10-r2                          | fixtures/sbom-insecure/alpine.cdx.xml           |
 				| https://osv.dev/DLA-3022-1          |      | Debian    | dpkg                           | 1.18.25                            | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 				| https://osv.dev/GHSA-v95c-p5hm-xq8f | 6    | Go        | github.com/opencontainers/runc | v1.0.1                             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
@@ -212,12 +213,13 @@ func TestRun(t *testing.T) {
 			args:         []string{"", "--config=./fixtures/osv-scanner-empty-config.toml", "--sbom", "./fixtures/sbom-insecure/alpine.cdx.xml"},
 			wantExitCode: 1,
 			wantStdout: `
-      	Scanned <rootdir>/fixtures/sbom-insecure/alpine.cdx.xml as CycloneDX SBOM and found 15 packages
-      	+--------------------------------+------+-----------+---------+-----------+---------------------------------------+
-      	| OSV URL                        | CVSS | ECOSYSTEM | PACKAGE | VERSION   | SOURCE                                |
-      	+--------------------------------+------+-----------+---------+-----------+---------------------------------------+
-      	| https://osv.dev/CVE-2022-37434 | 9.8  | Alpine    | zlib    | 1.2.10-r2 | fixtures/sbom-insecure/alpine.cdx.xml |
-      	+--------------------------------+------+-----------+---------+-----------+---------------------------------------+
+				Scanned <rootdir>/fixtures/sbom-insecure/alpine.cdx.xml as CycloneDX SBOM and found 15 packages
+				+--------------------------------+------+-----------+---------+------------+---------------------------------------+
+				| OSV URL                        | CVSS | ECOSYSTEM | PACKAGE | VERSION    | SOURCE                                |
+				+--------------------------------+------+-----------+---------+------------+---------------------------------------+
+				| https://osv.dev/CVE-2022-48174 | 9.8  | Alpine    | busybox | 1.35.0-r29 | fixtures/sbom-insecure/alpine.cdx.xml |
+				| https://osv.dev/CVE-2022-37434 | 9.8  | Alpine    | zlib    | 1.2.10-r2  | fixtures/sbom-insecure/alpine.cdx.xml |
+				+--------------------------------+------+-----------+---------+------------+---------------------------------------+
 			`,
 			wantStderr: "",
 		},
@@ -246,8 +248,9 @@ func TestRun(t *testing.T) {
 				Scanned <rootdir>/fixtures/locks-many/package-lock.json file and found 1 package
 				Scanned <rootdir>/fixtures/locks-many/yarn.lock file and found 1 package
 				Loaded filter from: <rootdir>/fixtures/locks-many/osv-scanner.toml
+				CVE-2022-48174 has been filtered out because: Test manifest file (alpine.cdx.xml)
 				GHSA-whgm-jr23-g3j9 has been filtered out because: Test manifest file
-				Filtered 1 vulnerability from output
+				Filtered 2 vulnerabilities from output
 				No vulnerabilities found
 			`,
 			wantStderr: "",
@@ -360,7 +363,7 @@ func TestRun(t *testing.T) {
 			wantStdout: fmt.Sprintf(`
             {
               "version": "2.1.0",
-              "$schema": "https://json.schemastore.org/sarif-2.1.0.json",
+              "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/master/Schemata/sarif-schema-2.1.0.json",
               "runs": [
                 {
                   "tool": {
@@ -388,7 +391,7 @@ func TestRun(t *testing.T) {
 			wantStdout: fmt.Sprint(`
 						{
               "version": "2.1.0",
-              "$schema": "https://json.schemastore.org/sarif-2.1.0.json",
+              "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/master/Schemata/sarif-schema-2.1.0.json",
               "runs": [
                 {
                   "tool": {
