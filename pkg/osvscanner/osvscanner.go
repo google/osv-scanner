@@ -349,6 +349,29 @@ func getCommitSHA(repoDir string) (string, error) {
 	return head.Hash().String(), nil
 }
 
+func getSubmodules(repoDir string) (submodules []*git.SubmoduleStatus, err error) {
+	repo, err := git.PlainOpen(repoDir)
+	if err != nil {
+		return nil, err
+	}
+	worktree, err := repo.Worktree()
+	if err != nil {
+		return nil, err
+	}
+	ss, err := worktree.Submodules()
+	if err != nil {
+		return nil, err
+	}
+	for _, s := range ss {
+		status, err := s.Status()
+		if err != nil {
+			continue
+		}
+		submodules = append(submodules, status)
+	}
+	return submodules, nil
+}
+
 // Scan git repository. Expects repoDir to end with /
 func scanGit(r reporter.Reporter, query *osv.BatchedQuery, repoDir string) error {
 	commit, err := getCommitSHA(repoDir)
@@ -357,7 +380,24 @@ func scanGit(r reporter.Reporter, query *osv.BatchedQuery, repoDir string) error
 	}
 	r.PrintText(fmt.Sprintf("Scanning %s at commit %s\n", repoDir, commit))
 
-	return scanGitCommit(query, commit, repoDir)
+	err = scanGitCommit(query, commit, repoDir)
+	if err != nil {
+		return err
+	}
+
+	submodules, err := getSubmodules(repoDir)
+	if err != nil {
+		return err
+	}
+
+	for _, s := range submodules {
+		r.PrintText(fmt.Sprintf("Scanning submodule %s at commit %s\n", s.Path, s.Current.String()))
+		err = scanGitCommit(query, s.Current.String(), repoDir)
+		if err != nil {
+			return err
+		}
+	}
+	return nil
 }
 
 func scanGitCommit(query *osv.BatchedQuery, commit string, source string) error {
