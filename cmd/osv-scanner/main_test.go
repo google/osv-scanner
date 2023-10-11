@@ -710,6 +710,141 @@ func TestRun_LockfileWithExplicitParseAs(t *testing.T) {
 	}
 }
 
+// TestRun_GithubActions tests common actions the github actions reusable workflow will run
+func TestRun_GithubActions(t *testing.T) {
+	t.Parallel()
+
+	tests := []cliTestCase{
+		{
+			name:         "scanning osv-scanner custom format",
+			args:         []string{"", "-L", "osv-scanner:./fixtures/locks-insecure/osv-scanner-flutter-deps.json"},
+			wantExitCode: 1,
+			wantStdout: `
+				Scanned <rootdir>/fixtures/locks-insecure/osv-scanner-flutter-deps.json file as a osv-scanner and found 3 packages
+				+--------------------------------+------+-----------+----------------------------+----------------------------+-------------------------------------------------------+
+				| OSV URL                        | CVSS | ECOSYSTEM | PACKAGE                    | VERSION                    | SOURCE                                                |
+				+--------------------------------+------+-----------+----------------------------+----------------------------+-------------------------------------------------------+
+				| https://osv.dev/CVE-2023-39137 | 7.8  | GIT       |  https://github.com/brendan-duncan/archive.git@9de7a054 | fixtures/locks-insecure/osv-scanner-flutter-deps.json |
+				| https://osv.dev/CVE-2023-39139 | 7.8  | GIT       |  https://github.com/brendan-duncan/archive.git@9de7a054 | fixtures/locks-insecure/osv-scanner-flutter-deps.json |
+				+--------------------------------+------+-----------+---------------------------------------------------------+-------------------------------------------------------+
+`,
+			wantStderr: "",
+		},
+		{
+			name:         "scanning osv-scanner custom format output json",
+			args:         []string{"", "-L", "osv-scanner:./fixtures/locks-insecure/osv-scanner-flutter-deps.json", "--format=sarif"},
+			wantExitCode: 1,
+			wantStdout: `
+        {
+          "version": "2.1.0",
+          "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/master/Schemata/sarif-schema-2.1.0.json",
+          "runs": [
+            {
+              "tool": {
+                "driver": {
+                  "informationUri": "https://github.com/google/osv-scanner",
+                  "name": "osv-scanner",
+                  "rules": [
+                    {
+                      "id": "CVE-2023-39137",
+                      "shortDescription": {
+                        "text": "CVE-2023-39137"
+                      },
+                      "fullDescription": {
+                        "text": "An issue in Archive v3.3.7 allows attackers to spoof zip filenames which can lead to inconsistent filename parsing.",
+                        "markdown": "An issue in Archive v3.3.7 allows attackers to spoof zip filenames which can lead to inconsistent filename parsing."
+                      },
+                      "deprecatedIds": [
+                        "CVE-2023-39137"
+                      ],
+                      "help": {
+                        "text": "%%",
+                        "markdown": "%%"
+                      }
+                    },
+                    {
+                      "id": "CVE-2023-39139",
+                      "shortDescription": {
+                        "text": "CVE-2023-39139"
+                      },
+                      "fullDescription": {
+                        "text": "An issue in Archive v3.3.7 allows attackers to execute a path traversal via extracting a crafted zip file.",
+                        "markdown": "An issue in Archive v3.3.7 allows attackers to execute a path traversal via extracting a crafted zip file."
+                      },
+                      "deprecatedIds": [
+                        "CVE-2023-39139"
+                      ],
+                      "help": {
+                        "text": "%%",
+                        "markdown": "%%"
+                      }
+                    }
+                  ],
+                  "version": "1.4.1"
+                }
+              },
+              "artifacts": [
+                {
+                  "location": {
+                    "uri": "file://<rootdir>/fixtures/locks-insecure/osv-scanner-flutter-deps.json"
+                  },
+                  "length": -1
+                }
+              ],
+              "results": [
+                {
+                  "ruleId": "CVE-2023-39137",
+                  "ruleIndex": 0,
+                  "level": "warning",
+                  "message": {
+                    "text": "Package 'https://github.com/brendan-duncan/archive.git@9de7a054' is vulnerable to 'CVE-2023-39137'."
+                  },
+                  "locations": [
+                    {
+                      "physicalLocation": {
+                        "artifactLocation": {
+                          "uri": "file://<rootdir>/fixtures/locks-insecure/osv-scanner-flutter-deps.json"
+                        }
+                      }
+                    }
+                  ]
+                },
+                {
+                  "ruleId": "CVE-2023-39139",
+                  "ruleIndex": 1,
+                  "level": "warning",
+                  "message": {
+                    "text": "Package 'https://github.com/brendan-duncan/archive.git@9de7a054' is vulnerable to 'CVE-2023-39139'."
+                  },
+                  "locations": [
+                    {
+                      "physicalLocation": {
+                        "artifactLocation": {
+                          "uri": "file://<rootdir>/fixtures/locks-insecure/osv-scanner-flutter-deps.json"
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }`,
+			wantStderr: `
+				Scanned <rootdir>/fixtures/locks-insecure/osv-scanner-flutter-deps.json file as a osv-scanner and found 3 packages
+			`,
+		},
+	}
+	for _, tt := range tests {
+		tt := tt
+		t.Run(tt.name, func(t *testing.T) {
+			t.Parallel()
+
+			testCli(t, tt)
+		})
+	}
+}
+
 func TestRun_LocalDatabases(t *testing.T) {
 	t.Parallel()
 

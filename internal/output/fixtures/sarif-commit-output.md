@@ -27,7 +27,7 @@
 ### Affected Packages
 | Source | Package Name | Package Version |
 | --- | --- | --- |
-| lockfile:/usr/local/google/home/rexpan/Documents/Project/engine/deps_flatten.txt | https://fuchsia.googlesource.com/third_party/android.googlesource.com/platform/external/perfetto | b8da0709 |
+| lockfile:/usr/local/google/home/rexpan/Documents/Project/engine/deps_flatten.txt | https://fuchsia.googlesource.com/third_party/android.googlesource.com/platform/external/perfetto | b8da07095979310818f0efde2ef3c69ea70d62c5 |
 
 ## Remediation
 

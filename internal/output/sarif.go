@@ -123,7 +123,7 @@ func createSARIFAffectedPkgTable(pkgWithSrc []pkgWithSource) table.Writer {
 	for _, ps := range pkgWithSrc {
 		version := ps.Package.Version
 		if ps.Package.Commit != "" {
-			version = ps.Package.Commit[:results.ShortCommitLen]
+			version = ps.Package.Commit
 		}
 		helpTable.AppendRow(table.Row{
 			ps.Source.String(),
