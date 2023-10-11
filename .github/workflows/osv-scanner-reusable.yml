@@ -14,6 +14,10 @@
 
 name: OSV-Scanner scanning reusable
 
+permissions:
+  contents: read
+  security-events: write
+
 on:
   workflow_call:
     inputs:
