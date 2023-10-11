@@ -45,10 +45,12 @@ jobs:
       - uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608 # v4.1.0
         with:
           persist-credentials: false
-      - uses: actions/download-artifact@v3
+      - name: "Download custom artifact if specified"
+        uses: actions/download-artifact@v3
         if: "${{ inputs.download-artifact != '' }}"
         with:
           name: "${{ inputs.download-artifact }}"
+          path: "./"
       - name: "Run scanner"
         uses: google/osv-scanner/actions/scanner@main
         with:
