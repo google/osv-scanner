@@ -19,5 +19,5 @@ func PkgToString(pkgInfo models.PackageInfo) string {
 	}
 
 	// abc@v1.2.3
-	return fmt.Sprintf(pkgInfo.Name, "@", pkgInfo.Version)
+	return fmt.Sprint(pkgInfo.Name, "@", pkgInfo.Version)
 }
