@@ -123,7 +123,7 @@ func createSARIFAffectedPkgTable(pkgWithSrc []pkgWithSource) table.Writer {
 	for _, ps := range pkgWithSrc {
 		version := ps.Package.Version
 		if ps.Package.Commit != "" {
-			version = ps.Package.Commit[:results.SHORT_COMMIT_LEN]
+			version = ps.Package.Commit[:results.ShortCommitLen]
 		}
 		helpTable.AppendRow(table.Row{
 			ps.Source.String(),
@@ -265,7 +265,7 @@ func PrintSARIFReport(vulnResult *models.VulnerabilityResults, outputWriter io.W
 		}
 
 		if shortDescription == "" {
-			shortDescription = fmt.Sprintf("%s: No Summary", gv.DisplayID)
+			shortDescription = gv.DisplayID
 		}
 
 		rule := run.AddRule(gv.DisplayID).

@@ -6,13 +6,14 @@ import (
 	"github.com/google/osv-scanner/pkg/models"
 )
 
-const SHORT_COMMIT_LEN = 8
+// Number of characters to display a git commit
+const ShortCommitLen = 8
 
 func PkgToString(pkgInfo models.PackageInfo) string {
 	if pkgInfo.Commit != "" {
 		if pkgInfo.Name != "" {
 			// https://github.com/google/osv-scanner@12345678
-			return fmt.Sprint(pkgInfo.Name, "@", pkgInfo.Commit[:SHORT_COMMIT_LEN])
+			return fmt.Sprint(pkgInfo.Name, "@", pkgInfo.Commit[:ShortCommitLen])
 		}
 		// 1234567890abcdefghij1234567890abcdefghij
 		return pkgInfo.Commit
