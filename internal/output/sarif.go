@@ -264,6 +264,10 @@ func PrintSARIFReport(vulnResult *models.VulnerabilityResults, outputWriter io.W
 			}
 		}
 
+		if shortDescription == "" {
+			shortDescription = fmt.Sprintf("%s: No Summary", gv.DisplayID)
+		}
+
 		rule := run.AddRule(gv.DisplayID).
 			WithShortDescription(sarif.NewMultiformatMessageString(shortDescription)).
 			WithFullDescription(sarif.NewMultiformatMessageString(longDescription).WithMarkdown(longDescription)).

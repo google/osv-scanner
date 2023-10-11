@@ -60,7 +60,7 @@ jobs:
             ${{ inputs.scan-args }}
         continue-on-error: true
       - name: "Run osv-scanner-reporter"
-        uses: google/osv-scanner/actions/reporter@main
+        uses: another-rex/osv-scanner/actions/reporter@fix-permisisons
         with:
           scan-args: |-
             --output=${{ inputs.results-file-name }}
