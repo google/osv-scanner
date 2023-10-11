@@ -264,6 +264,8 @@ func PrintSARIFReport(vulnResult *models.VulnerabilityResults, outputWriter io.W
 			}
 		}
 
+		// If no advisory for this vulnerability has a summary field,
+		// just show the ID in the shortDescription
 		if shortDescription == "" {
 			shortDescription = gv.DisplayID
 		}
