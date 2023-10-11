@@ -56,6 +56,7 @@ jobs:
             --output=results.json
             --format=json
             ${{ inputs.scan-args }}
+        continue-on-error: true
       - name: "Run osv-scanner-reporter"
         uses: google/osv-scanner/actions/reporter@main
         with:
