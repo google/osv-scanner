@@ -32,12 +32,23 @@ on:
         description: "File name of the result SARIF file"
         type: string
         default: results.sarif
+      download-artifact:
+        description: "Optional artifact to download for scanning"
+        required: false
+        default: ""
+        type: string
 
 jobs:
   osv-scan:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608 # v4.1.0
+        with:
+          persist-credentials: false
+      - uses: actions/download-artifact@v3
+        if: "${{ inputs.download-artifact != '' }}"
+        with:
+          name: "${{ inputs.download-artifact }}"
       - name: "Run scanner"
         uses: google/osv-scanner/actions/scanner@main
         with:
