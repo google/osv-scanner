@@ -61,13 +61,14 @@ Results may be viewed by clicking on the details of the failed action, either fr
 - `scan-args`: This value is passed to `osv-scanner` CLI after being split by each line. See the [usage]()./usage) page for the available options.
   Importantly `--format` and `--output` flags are already set by the reusable workflow and should not be overridden here.
   Default:
-  ```
+  ```bash
     --recursive # Recursively scan subdirectories
     --skip-git=true # Skip commit scanning to focus on dependencies
     ./ # Start the scan from the root of the repository
   ```
 - `results-file-name`: This is the name of the final SARIF file uploaded to Github.
   Default: `results.sarif`
+- `download-artifact`: Optional artifact to download for scanning. Can be used if you need to do some preprocessing to prepare the lockfiles for scanning.
 
 #### Examples
 ```yml
