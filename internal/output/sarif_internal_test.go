@@ -18,6 +18,10 @@ func Test_createSARIFHelpText(t *testing.T) {
 			gv:       testutility.LoadJSONFixture[groupedSARIFFinding](t, "fixtures/vuln-grouped.json"),
 			wantPath: "fixtures/sarif-output.md",
 		},
+		{
+			gv:       testutility.LoadJSONFixture[groupedSARIFFinding](t, "fixtures/commit-grouped.json"),
+			wantPath: "fixtures/sarif-commit-output.md",
+		},
 	}
 	for _, tt := range tests {
 		tt := tt

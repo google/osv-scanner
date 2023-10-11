@@ -8,6 +8,7 @@ import (
 	"strings"
 	"text/template"
 
+	"github.com/google/osv-scanner/internal/utility/results"
 	"github.com/google/osv-scanner/internal/version"
 	"github.com/google/osv-scanner/pkg/models"
 	"github.com/jedib0t/go-pretty/v6/table"
@@ -120,10 +121,14 @@ func createSARIFAffectedPkgTable(pkgWithSrc []pkgWithSource) table.Writer {
 	helpTable.AppendHeader(table.Row{"Source", "Package Name", "Package Version"})
 
 	for _, ps := range pkgWithSrc {
+		version := ps.Package.Version
+		if ps.Package.Commit != "" {
+			version = ps.Package.Commit[:results.SHORT_COMMIT_LEN]
+		}
 		helpTable.AppendRow(table.Row{
 			ps.Source.String(),
 			ps.Package.Name,
-			ps.Package.Version,
+			version,
 		})
 	}
 
@@ -285,9 +290,8 @@ func PrintSARIFReport(vulnResult *models.VulnerabilityResults, outputWriter io.W
 				WithMessage(
 					sarif.NewTextMessage(
 						fmt.Sprintf(
-							"Package '%s@%s' is vulnerable to '%s'%s.",
-							pws.Package.Name,
-							pws.Package.Version,
+							"Package '%s' is vulnerable to '%s'%s.",
+							results.PkgToString(pws.Package),
 							gv.DisplayID,
 							alsoKnownAsStr,
 						))).
