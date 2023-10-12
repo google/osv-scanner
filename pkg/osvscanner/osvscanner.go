@@ -589,7 +589,7 @@ func DoScan(actions ScannerActions, r reporter.Reporter) (models.VulnerabilityRe
 		return models.VulnerabilityResults{}, err
 	}
 
-	vulnerabilityResults := groupResponseBySource(r, query, hydratedResp, actions.CallAnalysis)
+	vulnerabilityResults := buildVulnerabilityResults(r, query, hydratedResp, actions.CallAnalysis)
 
 	filtered := filterResults(r, &vulnerabilityResults, &configManager)
 	if filtered > 0 {

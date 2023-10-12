@@ -32,6 +32,7 @@ func (e OSVScannerResultsExtractor) Extract(f DepFile) ([]PackageDetails, error)
 			if pkg.Package.Commit != "" { // Prioritize results
 				packages = append(packages, PackageDetails{
 					Commit: pkg.Package.Commit,
+					Name:   pkg.Package.Name,
 				})
 			} else {
 				packages = append(packages, PackageDetails{

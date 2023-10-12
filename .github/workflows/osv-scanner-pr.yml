@@ -20,9 +20,9 @@ on:
   merge_group:
     branches: [ main ]
 
-# Declare default permissions as read only.
-permissions: read-all
-
 jobs:
   scan-pr:
     uses: "./.github/workflows/osv-scanner-reusable-pr.yml"
+    permissions:
+      security-events: write
+      contents: read
