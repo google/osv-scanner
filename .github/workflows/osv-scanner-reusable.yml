@@ -52,7 +52,7 @@ jobs:
           name: "${{ inputs.download-artifact }}"
           path: "./"
       - name: "Run scanner"
-        uses: another-rex/osv-scanner/actions/scanner@fix-permisisons
+        uses: google/osv-scanner/actions/scanner@main
         with:
           scan-args: |-
             --output=results.json
@@ -60,7 +60,7 @@ jobs:
             ${{ inputs.scan-args }}
         continue-on-error: true
       - name: "Run osv-scanner-reporter"
-        uses: another-rex/osv-scanner/actions/reporter@fix-permisisons
+        uses: google/osv-scanner/actions/reporter@main
         with:
           scan-args: |-
             --output=${{ inputs.results-file-name }}
