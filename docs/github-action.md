@@ -72,10 +72,8 @@ Results may be viewed by clicking on the details of the failed action, either fr
   If the file names in the artifact are not standard lockfile names, make sure to add custom scan-args to specify the lockfile type and path (see [specify lockfiles](./usage#specify-lockfiles)).
 
 <details markdown="block">
-<summary markdown="1">
-
-#### Examples
-
+<summary>
+Examples
 </summary>
 
 ##### Scan specific lockfiles
