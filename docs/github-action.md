@@ -72,63 +72,65 @@ Results may be viewed by clicking on the details of the failed action, either fr
   If the file names in the artifact are not standard lockfile names, make sure to add custom scan-args to specify the lockfile type and path (see [specify lockfiles](./usage#specify-lockfiles)).
 
 <details markdown="block">
-  <summary>
-    Examples
-  </summary>
+<summary markdown="1">
 
-  ##### Scan specific lockfiles
-  ```yml
-  jobs:
-    scan-pr:
-      uses: "google/osv-scanner/.github/workflows/osv-scanner-reusable.yml"
-      with:
-        scan-args: |-
-          ./path/to/lockfile1
-          requirements.txt:./path/to/python-lockfile2.txt
-  ```
-  ##### Default arguments
-  ```yml
-  jobs:
-    scan-pr:
-      uses: "google/osv-scanner/.github/workflows/osv-scanner-reusable.yml"
-      with:
-        scan-args: |-
-          --recursive
-          --skip-git=true
-          ./
-  ```
+#### Examples
 
-  ##### Using download-artifact input to support preprocessing
-  ```yml
-  jobs:
-    extract-deps:
-      name: Extract Dependencies
-      # ...
-      steps:
-        # ... Steps to extract your dependencies
-        - name: "upload osv-scanner deps" # Upload the deps
-          uses: actions/upload-artifact@v4
-          with:
-            name: converted-OSV-Scanner-deps
-            path: osv-scanner-deps.json
-            retention-days: 2
-    vuln-scan:
-      name: Vulnerability scanning
-      # makes sure the extraction step is completed before running the scanner
-      needs:
-        extract-deps
-      uses: "google/osv-scanner/.github/workflows/osv-scanner-reusable.yml@main"
-      with:
-        # Download the artifact uploaded in extract-deps step
-        download-artifact: converted-OSV-Scanner-deps
-        # Scan only the file inside the uploaded artifact
-        scan-args: |-
-          --lockfile=osv-scanner:osv-scanner-deps.json
-      permissions:
-        # Needed to upload the SARIF results to code-scanning dashboard.
-        security-events: write
-        contents: read
-  ```
+</summary>
+
+##### Scan specific lockfiles
+```yml
+jobs:
+  scan-pr:
+    uses: "google/osv-scanner/.github/workflows/osv-scanner-reusable.yml"
+    with:
+      scan-args: |-
+        ./path/to/lockfile1
+        requirements.txt:./path/to/python-lockfile2.txt
+```
+##### Default arguments
+```yml
+jobs:
+  scan-pr:
+    uses: "google/osv-scanner/.github/workflows/osv-scanner-reusable.yml"
+    with:
+      scan-args: |-
+        --recursive
+        --skip-git=true
+        ./
+```
+
+##### Using download-artifact input to support preprocessing
+```yml
+jobs:
+  extract-deps:
+    name: Extract Dependencies
+    # ...
+    steps:
+      # ... Steps to extract your dependencies
+      - name: "upload osv-scanner deps" # Upload the deps
+        uses: actions/upload-artifact@v4
+        with:
+          name: converted-OSV-Scanner-deps
+          path: osv-scanner-deps.json
+          retention-days: 2
+  vuln-scan:
+    name: Vulnerability scanning
+    # makes sure the extraction step is completed before running the scanner
+    needs:
+      extract-deps
+    uses: "google/osv-scanner/.github/workflows/osv-scanner-reusable.yml@main"
+    with:
+      # Download the artifact uploaded in extract-deps step
+      download-artifact: converted-OSV-Scanner-deps
+      # Scan only the file inside the uploaded artifact
+      scan-args: |-
+        --lockfile=osv-scanner:osv-scanner-deps.json
+    permissions:
+      # Needed to upload the SARIF results to code-scanning dashboard.
+      security-events: write
+      contents: read
+```
 
 </details>
 
