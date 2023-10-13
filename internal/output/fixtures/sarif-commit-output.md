@@ -25,6 +25,7 @@
 ---
 
 ### Affected Packages
+
 | Source | Package Name | Package Version |
 | --- | --- | --- |
 | lockfile:/usr/local/google/home/rexpan/Documents/Project/engine/deps_flatten.txt | https://fuchsia.googlesource.com/third_party/android.googlesource.com/platform/external/perfetto | b8da07095979310818f0efde2ef3c69ea70d62c5 |
@@ -36,9 +37,11 @@
 To fix these vulnerabilities, update the vulnerabilities past the listed fixed versions below.
 
 ### Fixed Versions
+
 | Vulnerability ID | Package Name | Fixed Version |
 | --- | --- | --- |
 | OSV-2023-72 | perfetto | 9a7f09383dd39f19e662d428321ca708a2a600a3 |
+
 
 
 If you believe these vulnerabilities do not affect your code and wish to ignore them, add them to the ignore list in an

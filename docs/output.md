@@ -310,6 +310,7 @@ Outputs the result in the [SARIF](https://sarifweb.azurewebsites.net/) v2.1.0 fo
 > ---
 >
 > ### Affected Packages
+>
 > | Source | Package Name | Package Version |
 > | --- | --- | --- |
 > | lockfile:/path/to/rust-project/Cargo.lock | regex | 1.5.1 |
@@ -321,6 +322,7 @@ Outputs the result in the [SARIF](https://sarifweb.azurewebsites.net/) v2.1.0 fo
 > To fix these vulnerabilities, update the vulnerabilities past the listed fixed versions below.
 >
 > ### Fixed Versions
+>
 > | Vulnerability ID | Package Name | Fixed Version |
 > | --- | --- | --- |
 > | GHSA-m5pq-gvj9-9vr8 | regex | 1.5.5 |

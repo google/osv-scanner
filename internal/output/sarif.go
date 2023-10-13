@@ -58,6 +58,7 @@ const SARIFTemplate = `
 ---
 
 ### Affected Packages
+
 {{.AffectedPackagesTable}}
 
 ## Remediation
@@ -67,7 +68,9 @@ const SARIFTemplate = `
 To fix these vulnerabilities, update the vulnerabilities past the listed fixed versions below.
 
 ### Fixed Versions
+
 {{.FixedVersionTable}}
+
 {{end}}
 
 If you believe these vulnerabilities do not affect your code and wish to ignore them, add them to the ignore list in an
