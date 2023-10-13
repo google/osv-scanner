@@ -141,6 +141,31 @@ func TestParseMavenLock_TwoPackages(t *testing.T) {
 	})
 }
 
+func TestParseMavenLock_WithDuplicatePackages(t *testing.T) {
+	t.Parallel()
+
+	packages, err := lockfile.ParseMavenLock("fixtures/maven/with-duplicate-packages.xml")
+
+	if err != nil {
+		t.Errorf("Got unexpected error: %v", err)
+	}
+
+	expectPackages(t, packages, []lockfile.PackageDetails{
+		{
+			Name:      "com.fasterxml.jackson.core:jackson-annotations",
+			Version:   "2.13.3",
+			Ecosystem: lockfile.MavenEcosystem,
+			CompareAs: lockfile.MavenEcosystem,
+		},
+		{
+			Name:      "com.fasterxml.jackson.core:jackson-databind",
+			Version:   "2.13.4",
+			Ecosystem: lockfile.MavenEcosystem,
+			CompareAs: lockfile.MavenEcosystem,
+		},
+	})
+}
+
 func TestParseMavenLock_WithDependencyManagement(t *testing.T) {
 	t.Parallel()
 
@@ -166,6 +191,31 @@ func TestParseMavenLock_WithDependencyManagement(t *testing.T) {
 		{
 			Name:      "com.google.code.findbugs:jsr305",
 			Version:   "3.0.2",
+			Ecosystem: lockfile.MavenEcosystem,
+			CompareAs: lockfile.MavenEcosystem,
+		},
+	})
+}
+
+func TestParseMavenLock_WithDependencyManagementAndDuplicates(t *testing.T) {
+	t.Parallel()
+
+	packages, err := lockfile.ParseMavenLock("fixtures/maven/with-dependency-management-and-duplicates.xml")
+
+	if err != nil {
+		t.Errorf("Got unexpected error: %v", err)
+	}
+
+	expectPackages(t, packages, []lockfile.PackageDetails{
+		{
+			Name:      "com.fasterxml.jackson.core:jackson-annotations",
+			Version:   "2.13.3",
+			Ecosystem: lockfile.MavenEcosystem,
+			CompareAs: lockfile.MavenEcosystem,
+		},
+		{
+			Name:      "com.fasterxml.jackson.core:jackson-databind",
+			Version:   "2.13.4",
 			Ecosystem: lockfile.MavenEcosystem,
 			CompareAs: lockfile.MavenEcosystem,
 		},

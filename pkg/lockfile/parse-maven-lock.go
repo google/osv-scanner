@@ -68,6 +68,28 @@ type MavenLockFile struct {
 	ManagedDependencies []MavenLockDependency `xml:"dependencyManagement>dependencies>dependency"`
 }
 
+func (mlf *MavenLockFile) collectPackages(dependencies []MavenLockDependency) map[string]PackageDetails {
+	details := map[string]PackageDetails{}
+
+	for _, lockPackage := range dependencies {
+		finalName := lockPackage.GroupID + ":" + lockPackage.ArtifactID
+
+		// the first declaration of a dependency at a specific depth wins
+		if _, ok := details[finalName]; ok {
+			continue
+		}
+
+		details[finalName] = PackageDetails{
+			Name:      finalName,
+			Version:   lockPackage.ResolveVersion(*mlf),
+			Ecosystem: MavenEcosystem,
+			CompareAs: MavenEcosystem,
+		}
+	}
+
+	return details
+}
+
 const MavenEcosystem Ecosystem = "Maven"
 
 type MavenLockProperties struct {
@@ -116,29 +138,11 @@ func (e MavenLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 		return []PackageDetails{}, fmt.Errorf("could not extract from %s: %w", f.Path(), err)
 	}
 
-	details := map[string]PackageDetails{}
-
-	for _, lockPackage := range parsedLockfile.Dependencies {
-		finalName := lockPackage.GroupID + ":" + lockPackage.ArtifactID
-
-		details[finalName] = PackageDetails{
-			Name:      finalName,
-			Version:   lockPackage.ResolveVersion(*parsedLockfile),
-			Ecosystem: MavenEcosystem,
-			CompareAs: MavenEcosystem,
-		}
-	}
+	details := parsedLockfile.collectPackages(parsedLockfile.Dependencies)
 
 	// managed dependencies take precedent over standard dependencies
-	for _, lockPackage := range parsedLockfile.ManagedDependencies {
-		finalName := lockPackage.GroupID + ":" + lockPackage.ArtifactID
-
-		details[finalName] = PackageDetails{
-			Name:      finalName,
-			Version:   lockPackage.ResolveVersion(*parsedLockfile),
-			Ecosystem: MavenEcosystem,
-			CompareAs: MavenEcosystem,
-		}
+	for k, detail := range parsedLockfile.collectPackages(parsedLockfile.ManagedDependencies) {
+		details[k] = detail
 	}
 
 	return pkgDetailsMapToSlice(details), nil
