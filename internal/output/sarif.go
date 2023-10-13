@@ -1,10 +1,13 @@
 package output
 
 import (
+	"bytes"
+	"encoding/json"
 	"fmt"
 	"io"
 	"log"
 	"path/filepath"
+	"runtime"
 	"strings"
 	"text/template"
 
@@ -319,11 +322,121 @@ func PrintSARIFReport(vulnResult *models.VulnerabilityResults, outputWriter io.W
 
 	report.AddRun(run)
 
-	err = report.PrettyWrite(outputWriter)
+	err = prettyWrite(report, outputWriter)
 	if err != nil {
 		return err
 	}
 	fmt.Fprintln(outputWriter)
 
+	return nil
+}
+
+// -----------------------------------------------------------------------------
+
+// PrettyWrite writes the JSON output with indentation
+func prettyWrite(sarif *sarif.Report, w io.Writer) error {
+	marshal, err := marshalIndent(sarif, "", "  ")
+	if err != nil {
+		return err
+	}
+	_, err = w.Write(marshal)
+	return err
+}
+
+// MarshalIndent is like Marshal but applies Indent to format the output.
+// Each JSON element in the output will begin on a new line beginning with prefix
+// followed by one or more copies of indent according to the indentation nesting.
+func marshalIndent(v any, prefix, indent string) ([]byte, error) {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return nil, err
+	}
+	var buf bytes.Buffer
+	err = jsonIndent(&buf, b, prefix, indent)
+	if err != nil {
+		return nil, err
+	}
+	return buf.Bytes(), nil
+}
+
+func onWindows() bool {
+	//goland:noinspection GoBoolExpressions
+	return runtime.GOOS == "windows"
+}
+
+func newline(dst *bytes.Buffer, prefix, indent string, depth int) {
+	if onWindows() {
+		dst.WriteByte('\r')
+	}
+
+	dst.WriteByte('\n')
+
+	dst.WriteString(prefix)
+	for i := 0; i < depth; i++ {
+		dst.WriteString(indent)
+	}
+}
+
+func jsonIndent(dst *bytes.Buffer, src []byte, prefix, indent string) error {
+	origLen := dst.Len()
+	scan := newScanner()
+	defer freeScanner(scan)
+	needIndent := false
+	depth := 0
+	for _, c := range src {
+		scan.bytes++
+		v := scan.step(scan, c)
+		if v == scanSkipSpace {
+			continue
+		}
+		if v == scanError {
+			break
+		}
+		if needIndent && v != scanEndObject && v != scanEndArray {
+			needIndent = false
+			depth++
+			newline(dst, prefix, indent, depth)
+		}
+
+		// Emit semantically uninteresting bytes
+		// (in particular, punctuation in strings) unmodified.
+		if v == scanContinue {
+			dst.WriteByte(c)
+			continue
+		}
+
+		// Add spacing around real punctuation.
+		switch c {
+		case '{', '[':
+			// delay indent so that empty object and array are formatted as {} and [].
+			needIndent = true
+			dst.WriteByte(c)
+
+		case ',':
+			dst.WriteByte(c)
+			newline(dst, prefix, indent, depth)
+
+		case ':':
+			dst.WriteByte(c)
+			dst.WriteByte(' ')
+
+		case '}', ']':
+			if needIndent {
+				// suppress indent in empty object/array
+				needIndent = false
+			} else {
+				depth--
+				newline(dst, prefix, indent, depth)
+			}
+			dst.WriteByte(c)
+
+		default:
+			dst.WriteByte(c)
+		}
+	}
+	if scan.eof() == scanError {
+		dst.Truncate(origLen)
+		return scan.err
+	}
 	return nil
 }
