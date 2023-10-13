@@ -104,6 +104,7 @@
 ---
 
 ### Affected Packages
+
 | Source | Package Name | Package Version |
 | --- | --- | --- |
 | lockfile:/path/to/sub-rust-project/Cargo.lock | regex | 1.5.1 |
@@ -115,10 +116,12 @@
 To fix these vulnerabilities, update the vulnerabilities past the listed fixed versions below.
 
 ### Fixed Versions
+
 | Vulnerability ID | Package Name | Fixed Version |
 | --- | --- | --- |
 | GHSA-m5pq-gvj9-9vr8 | regex | 1.5.5 |
 | RUSTSEC-2022-0013 | regex | 1.5.5 |
+
 
 
 If you believe these vulnerabilities do not affect your code and wish to ignore them, add them to the ignore list in an
