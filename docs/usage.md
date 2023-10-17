@@ -182,3 +182,11 @@ appropriate osv-scanner flags:
 ```bash
 docker run -it -v ${PWD}:/src ghcr.io/google/osv-scanner -L /src/go.mod
 ```
+
+## Saving to file
+
+The `--output` flag can be used to save the scan results to a file instead of being printed on the stdout:
+
+```bash
+osv-scanner -L package-lock.json --output scan-results.txt
+```
