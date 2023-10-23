@@ -67,6 +67,8 @@ func Test_functionsFromDWARF(t *testing.T) {
 }
 
 func Test_rustBuildSource(t *testing.T) {
+	// Mark as extended test since it requires rust toolchain to be installed
+	testutility.ExtendedTest(t)
 	t.Parallel()
 
 	workingDir, err := os.Getwd()
