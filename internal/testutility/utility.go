@@ -80,6 +80,10 @@ func CreateTextFixture(t *testing.T, path string, val string) {
 	}
 }
 
+func normalizeNewlines(content string) string {
+	return strings.ReplaceAll(content, "\r\n", "\n")
+}
+
 // AssertMatchFixtureText matches the Text file at path with actual
 func AssertMatchFixtureText(t *testing.T, path string, actual string) {
 	t.Helper()
@@ -88,8 +92,10 @@ func AssertMatchFixtureText(t *testing.T, path string, actual string) {
 		t.Fatalf("Failed to open fixture: %s", err)
 	}
 
+	actual = normalizeNewlines(actual)
 	expect := string(fileA)
-	if actual != string(fileA) {
+	expect = normalizeNewlines(expect)
+	if actual != expect {
 		if os.Getenv("TEST_NO_DIFF") == "true" {
 			t.Errorf("\nactual %s does not match expected:\n got:\n%s\n\n want:\n%s", path, actual, expect)
 		} else {
