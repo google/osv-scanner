@@ -24,7 +24,7 @@ func determineWindowsFixturePath(t *testing.T, path string) string {
 	return strings.TrimSuffix(path, ext) + "_windows" + ext
 }
 
-func loadFixture(t *testing.T, path string) []byte {
+func loadFixture(t *testing.T, path string) ([]byte, string) {
 	t.Helper()
 
 	var file []byte
@@ -39,7 +39,7 @@ func loadFixture(t *testing.T, path string) []byte {
 		file, err = os.ReadFile(winFixturePath)
 
 		if err == nil {
-			return file
+			return file, winFixturePath
 		}
 		// load the original file if a Windows-specific version does not exist
 		if !os.IsNotExist(err) {
@@ -53,14 +53,14 @@ func loadFixture(t *testing.T, path string) []byte {
 		t.Fatalf("Failed to open fixture: %s", err)
 	}
 
-	return file
+	return file, path
 }
 
 // LoadJSONFixture loads a JSON fixture file and returns the decoded version.
 func LoadJSONFixture[V any](t *testing.T, path string) V {
 	t.Helper()
 
-	file := loadFixture(t, path)
+	file, _ := loadFixture(t, path)
 
 	var elem V
 	err := json.Unmarshal(file, &elem)
@@ -122,8 +122,10 @@ func normalizeNewlines(content string) string {
 func AssertMatchFixtureText(t *testing.T, path string, actual string) {
 	t.Helper()
 
+	fileA, path := loadFixture(t, path)
+
 	actual = normalizeNewlines(actual)
-	expect := string(loadFixture(t, path))
+	expect := string(fileA)
 	expect = normalizeNewlines(expect)
 	if actual != expect {
 		if os.Getenv("TEST_NO_DIFF") == "true" {
