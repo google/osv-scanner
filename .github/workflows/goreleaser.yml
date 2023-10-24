@@ -7,6 +7,10 @@ on:
         description: 'The version tag to release, (e.g. v1.2.3)'
         required: true
         type: string
+      commit:
+        description: 'The commit hash to release'
+        required: true
+        type: string
 
 permissions:
   contents: read # to fetch code (actions/checkout)
@@ -31,6 +35,7 @@ jobs:
         uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
         with:
           persist-credentials: false
+          ref: ${{ inputs.commit }}
       - name: Set up Go
         uses: actions/setup-go@93397bea11091df50f3d7e59dc26a7711a8bcfbe # v4.1.0
         with:
@@ -50,6 +55,7 @@ jobs:
         uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
         with:
           persist-credentials: false
+          ref: ${{ inputs.commit }}
       - name: Set up Go
         uses: actions/setup-go@93397bea11091df50f3d7e59dc26a7711a8bcfbe # v4.1.0
         with:
@@ -74,7 +80,7 @@ jobs:
               owner: context.repo.owner,
               repo: context.repo.repo,
               ref: 'refs/tags/${{ inputs.version }}',
-              sha: context.sha
+              sha: ${{ inputs.commit }}
             })
   goreleaser:
     outputs:
@@ -93,6 +99,7 @@ jobs:
         uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
         with:
           fetch-depth: 0
+          ref: ${{ inputs.commit }}
       - name: Set up Go
         uses: actions/setup-go@93397bea11091df50f3d7e59dc26a7711a8bcfbe # v4.1.0
         with:
