@@ -53,7 +53,6 @@ const SARIFTemplate = `
 
 </details>
 
-
 {{end}}
 ---
 

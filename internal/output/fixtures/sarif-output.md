@@ -58,7 +58,6 @@
 
 </details>
 
-
 ## [GHSA-m5pq-gvj9-9vr8](https://osv.dev/vulnerability/GHSA-m5pq-gvj9-9vr8)
 
 <details>
@@ -95,7 +94,6 @@
 > We also want to thank Andrew Gallant for developing the fix, and Pietro Albini for coordinating the disclosure and writing this advisory.
 
 </details>
-
 
 
 ---
