@@ -71,7 +71,7 @@ To run tests:
 ```
 
 By default, tests that require additional dependencies beyond the go toolchain are skipped.
-Enable these tests by setting the env variable `Acceptance_Tests=1`.
+Enable these tests by setting the env variable `ACCEPTANCE_TESTS=1`.
 
 You can generate an HTML coverage report by running:
 
