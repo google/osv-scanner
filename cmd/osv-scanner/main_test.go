@@ -401,6 +401,7 @@ func TestRun(t *testing.T) {
                       "rules": [
                         {
                           "id": "CVE-2021-23424",
+                          "name": "CVE-2021-23424",
                           "shortDescription": {
                             "text": "CVE-2021-23424: Uncontrolled Resource Consumption in ansi-html"
                           },
@@ -747,6 +748,7 @@ func TestRun_GithubActions(t *testing.T) {
                   "rules": [
                     {
                       "id": "CVE-2023-39137",
+                      "name": "CVE-2023-39137",
                       "shortDescription": {
                         "text": "CVE-2023-39137"
                       },
@@ -764,6 +766,7 @@ func TestRun_GithubActions(t *testing.T) {
                     },
                     {
                       "id": "CVE-2023-39139",
+                      "name": "CVE-2023-39139",
                       "shortDescription": {
                         "text": "CVE-2023-39139"
                       },

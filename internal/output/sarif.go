@@ -274,6 +274,7 @@ func PrintSARIFReport(vulnResult *models.VulnerabilityResults, outputWriter io.W
 		}
 
 		rule := run.AddRule(gv.DisplayID).
+			WithName(gv.DisplayID).
 			WithShortDescription(sarif.NewMultiformatMessageString(shortDescription)).
 			WithFullDescription(sarif.NewMultiformatMessageString(longDescription).WithMarkdown(longDescription)).
 			WithMarkdownHelp(helpText).

@@ -10,6 +10,7 @@
           "rules": [
             {
               "id": "CVE-2022-24713",
+              "name": "CVE-2022-24713",
               "shortDescription": {
                 "text": "CVE-2022-24713: Regexes with large repetitions on empty sub-expressions take a very long time to parse"
               },
@@ -29,6 +30,7 @@
             },
             {
               "id": "CVE-2021-3121",
+              "name": "CVE-2021-3121",
               "shortDescription": {
                 "text": "CVE-2021-3121: Panic due to improper input validation in github.com/gogo/protobuf"
               },
