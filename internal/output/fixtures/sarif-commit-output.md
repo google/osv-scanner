@@ -1,4 +1,3 @@
-
 **Your dependency is vulnerable to [OSV-2023-72](https://osv.dev/list?q=OSV-2023-72)**.
 
 
@@ -58,4 +57,3 @@ Add or append these values to the following config files to ignore this vulnerab
 id = "OSV-2023-72"
 reason = "Your reason for ignoring this vulnerability"
 ```
-
