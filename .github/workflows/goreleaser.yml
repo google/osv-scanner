@@ -1,9 +1,12 @@
 name: goreleaser
 
 on:
-  push:
-    tags:
-      - "*" # triggers only if push new tag version, like `0.8.4` or else
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'The version tag to release, (e.g. v1.2.3)'
+        required: true
+        type: string
 
 permissions:
   contents: read # to fetch code (actions/checkout)
@@ -54,6 +57,25 @@ jobs:
           check-latest: true
       - name: Run test action
         uses: ./.github/workflows/test-action
+  tag-release:
+    runs-on: ubuntu-latest
+    needs:
+      - lint
+      - tests
+      - osv-scan
+    permissions:
+      contents: write  # to write a tag
+    steps:
+      - name: Create tag
+        uses: actions/github-script@v5
+        with:
+          script: |
+            github.rest.git.createRef({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              ref: 'refs/tags/${{ inputs.version }}',
+              sha: context.sha
+            })
   goreleaser:
     outputs:
       hashes: ${{ steps.hash.outputs.hashes }}
@@ -65,6 +87,7 @@ jobs:
       - lint
       - tests
       - osv-scan
+      - tag-release
     env:
       # Required for buildx on docker 19.x
       DOCKER_CLI_EXPERIMENTAL: "enabled"
