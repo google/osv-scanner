@@ -32,17 +32,18 @@ var RequestUserAgent = ""
 
 // Package represents a package identifier for OSV.
 type Package struct {
-	PURL      string             `json:"purl,omitempty"`
-	Name      string             `json:"name,omitempty"`
-	Ecosystem lockfile.Ecosystem `json:"ecosystem,omitempty"`
+	PURL      string `json:"purl,omitempty"`
+	Name      string `json:"name,omitempty"`
+	Ecosystem string `json:"ecosystem,omitempty"`
 }
 
 // Query represents a query to OSV.
 type Query struct {
-	Commit  string            `json:"commit,omitempty"`
-	Package Package           `json:"package,omitempty"`
-	Version string            `json:"version,omitempty"`
-	Source  models.SourceInfo `json:"-"`
+	Commit   string            `json:"commit,omitempty"`
+	Package  Package           `json:"package,omitempty"`
+	Version  string            `json:"version,omitempty"`
+	Source   models.SourceInfo `json:"-"` // TODO: Move this into Info struct in v2
+	Metadata models.Metadata   `json:"-"`
 }
 
 // BatchedQuery represents a batched query to OSV.
@@ -57,7 +58,7 @@ type MinimalVulnerability struct {
 
 // Response represents a full response from OSV.
 type Response struct {
-	Vulns models.Vulnerabilities `json:"vulns"`
+	Vulns []models.Vulnerability `json:"vulns"`
 }
 
 // MinimalResponse represents an unhydrated response from OSV.
@@ -92,14 +93,22 @@ func MakePURLRequest(purl string) *Query {
 }
 
 func MakePkgRequest(pkgDetails lockfile.PackageDetails) *Query {
-	return &Query{
-		Version: pkgDetails.Version,
-		// API has trouble parsing requests with both commit and Package details filled ins
-		// Commit:  pkgDetails.Commit,
-		Package: Package{
-			Name:      pkgDetails.Name,
-			Ecosystem: pkgDetails.Ecosystem,
-		},
+	// API has trouble parsing requests with both commit and Package details filled in
+	if pkgDetails.Ecosystem == "" && pkgDetails.Commit != "" {
+		return &Query{
+			Metadata: models.Metadata{
+				RepoURL: pkgDetails.Name,
+			},
+			Commit: pkgDetails.Commit,
+		}
+	} else {
+		return &Query{
+			Version: pkgDetails.Version,
+			Package: Package{
+				Name:      pkgDetails.Name,
+				Ecosystem: string(pkgDetails.Ecosystem),
+			},
+		}
 	}
 }
 

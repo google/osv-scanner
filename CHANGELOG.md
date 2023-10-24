@@ -1,9 +1,39 @@
+# v1.4.1:
+
+### Features
+- [Feature #534](https://github.com/google/osv-scanner/pull/534)
+  New SARIF format that separates out individual vulnerabilities, see https://github.com/google/osv-scanner/issue/216
+- [Experimental Feature #57](https://github.com/google/osv-scanner/issues/57) Experimental Github Action!
+  Have a look at https://google.github.io/osv-scanner/experimental/ for how to use the new Github Action in your repo.
+  Experimental, so might change with only a minor update.
+
+### API Features
+- [Feature #557](https://github.com/google/osv-scanner/pull/557) Add new ecosystems, and a slice containing all of them.
+
+# v1.4.0:
+
+### Features
+- [Feature #183](https://github.com/google/osv-scanner/pull/183)
+  Add (experimental) offline mode! See [our documentation](https://google.github.io/osv-scanner/experimental/#offline-mode) for how to use it.
+- [Feature #452](https://github.com/google/osv-scanner/pull/452)
+  Add (experimental) rust call analysis, detect whether vulnerable functions are actually called in your Rust project! See [our documentation](https://google.github.io/osv-scanner/experimental/#call-analysis-in-rust) for limitations and how to use this.
+- [Feature #484](https://github.com/google/osv-scanner/pull/484) Detect the installed `go` version and checks for vulnerabilities in the standard library.
+- [Feature #505](https://github.com/google/osv-scanner/pull/505) OSV-Scanner doesn't support your lockfile format? You can now use your own parser for your format, and create an intermediate `osv-scanner.json` for osv-scanner to scan. See [our documentation](https://google.github.io/osv-scanner/usage/#custom-lockfiles) for instructions.
+
+### API Features
+- [Feature #451](https://github.com/google/osv-scanner/pull/451) The lockfile package now support extracting dependencies directly from any io.Reader, removing the requirement of a file path.
+
+### Fixes
+- [Bug #457](https://github.com/google/osv-scanner/pull/457)
+  Fix PURL mapping for Alpine packages
+- [Bug #462](https://github.com/google/osv-scanner/pull/462)
+  Use correct plural and singular forms based on count
 
 # v1.3.6:
 
 ### Minor Updates
 - [Feature #431](https://github.com/google/osv-scanner/pull/431)
-  Update GoVulnCheck integration. 
+  Update GoVulnCheck integration.
 - [Feature #439](https://github.com/google/osv-scanner/pull/439)
   Create `models.PURLToPackage()`, and deprecate `osvscanner.PURLToPackage()`.
 
@@ -16,7 +46,7 @@
 # v1.3.5:
 
 ### Features
-- [Feature #409](https://github.com/google/osv-scanner/pull/409) 
+- [Feature #409](https://github.com/google/osv-scanner/pull/409)
   Adds an additional column to the table output which shows the severity if available.
 
 ### API Features

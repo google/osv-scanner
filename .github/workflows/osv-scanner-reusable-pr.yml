@@ -12,16 +12,32 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-name: OSV-Scanner PR scanning
+name: OSV-Scanner PR scanning reusable
+
+permissions:
+  contents: read
+  security-events: write
 
 on:
   workflow_call:
+    inputs:
+      scan-args:
+        description: "Custom osv-scanner arguments (See https://google.github.io/osv-scanner/usage/ for options, you cannot set --format or --output)"
+        type: string
+        default: |-
+          -r
+          --skip-git
+          ./
+      results-file-name:
+        description: "File name of the result SARIF file"
+        type: string
+        default: results.sarif
 
 jobs:
   scan-pr:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
         with:
           fetch-depth: 0
           # Do persist credentials, as we need it for the git checkout later
@@ -31,44 +47,47 @@ jobs:
         uses: google/osv-scanner/actions/scanner@main
         continue-on-error: true
         with:
-          results-format: json
-          results-file: old-results.json
-          to-scan: .
+          scan-args: |-
+            --format=json
+            --output=old-results.json
+            ${{ inputs.scan-args }}
       - name: "Checkout current branch"
         run: git checkout $GITHUB_SHA
       - name: "Run scanner on new code"
         uses: google/osv-scanner/actions/scanner@main
         with:
-          results-format: json
-          results-file: new-results.json
-          to-scan: .
+          scan-args: |-
+            --format=json
+            --output=new-results.json
+            ${{ inputs.scan-args }}
         continue-on-error: true
       - name: "Run osv-scanner-reporter"
         uses: google/osv-scanner/actions/reporter@main
         with:
-          output-sarif-file: final-results.sarif
-          old-results: old-results.json
-          new-results: new-results.json
-          gh-annotations: true
+          scan-args: |-
+            --output=${{ inputs.results-file-name }}
+            --old=old-results.json
+            --new=new-results.json
+            --gh-annotations=true
       # Upload the results as artifacts (optional). Commenting out will disable uploads of run results in SARIF
       # format to the repository Actions tab.
       - name: "Upload artifact"
         if: '!cancelled()'
-        uses: actions/upload-artifact@0b7f8abb1508181956e8e162db84b466c27e18ce # v3.1.2
+        uses: actions/upload-artifact@a8a3f3ad30e3422c9c7b888a15615d19a852ae32 # v3.1.3
         with:
           name: SARIF file
-          path: final-results.sarif
+          path: ${{ inputs.results-file-name }}
           retention-days: 5
       - name: "Upload old scan json results"
         if: '!cancelled()'
-        uses: actions/upload-artifact@0b7f8abb1508181956e8e162db84b466c27e18ce # v3.1.2
+        uses: actions/upload-artifact@a8a3f3ad30e3422c9c7b888a15615d19a852ae32 # v3.1.3
         with:
           name: old-json-results
           path: old-results.json
           retention-days: 5
       - name: "Upload new scan json results"
         if: '!cancelled()'
-        uses: actions/upload-artifact@0b7f8abb1508181956e8e162db84b466c27e18ce # v3.1.2
+        uses: actions/upload-artifact@a8a3f3ad30e3422c9c7b888a15615d19a852ae32 # v3.1.3
         with:
           name: new-json-results
           path: new-results.json
@@ -76,7 +95,6 @@ jobs:
       # Upload the results to GitHub's code scanning dashboard.
       - name: "Upload to code-scanning"
         if: '!cancelled()'
-        uses: github/codeql-action/upload-sarif@a09933a12a80f87b87005513f0abb1494c27a716 # v2.21.4
+        uses: github/codeql-action/upload-sarif@0116bc2df50751f9724a2e35ef1f24d22f90e4e1 # v2.22.3
         with:
-          sarif_file: final-results.sarif
-
+          sarif_file: ${{ inputs.results-file-name }}

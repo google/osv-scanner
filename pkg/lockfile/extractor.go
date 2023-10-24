@@ -7,7 +7,7 @@ import (
 	"path/filepath"
 )
 
-var ErrNotSupported = errors.New("this file does not support opening files")
+var ErrOpenNotSupported = errors.New("this file does not support opening files")
 
 // DepFile is an abstraction for a file that has been opened for extraction,
 // and that knows how to open other DepFiles relative to itself.
@@ -59,6 +59,9 @@ func OpenLocalDepFile(path string) (NestedDepFile, error) {
 	if err != nil {
 		return LocalFile{}, err
 	}
+
+	// Very unlikely to have Abs return an error if the file opens correctly
+	path, _ = filepath.Abs(path)
 
 	return LocalFile{r, path}, nil
 }

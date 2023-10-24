@@ -205,6 +205,8 @@ func scanLockfile(r reporter.Reporter, query *osv.BatchedQuery, path string, par
 			parsedLockfile, err = lockfile.FromApkInstalled(path)
 		case "dpkg-status":
 			parsedLockfile, err = lockfile.FromDpkgStatus(path)
+		case "osv-scanner":
+			parsedLockfile, err = lockfile.FromOSVScannerResults(path)
 		default:
 			parsedLockfile, err = lockfile.ExtractDeps(f, parseAs)
 		}
@@ -587,7 +589,7 @@ func DoScan(actions ScannerActions, r reporter.Reporter) (models.VulnerabilityRe
 		return models.VulnerabilityResults{}, err
 	}
 
-	vulnerabilityResults := groupResponseBySource(r, query, hydratedResp, actions.CallAnalysis)
+	vulnerabilityResults := buildVulnerabilityResults(r, query, hydratedResp, actions.CallAnalysis)
 
 	filtered := filterResults(r, &vulnerabilityResults, &configManager)
 	if filtered > 0 {

@@ -12,6 +12,7 @@ import (
 	v2_metric "github.com/goark/go-cvss/v2/metric"
 	v3_metric "github.com/goark/go-cvss/v3/metric"
 
+	"github.com/google/osv-scanner/internal/utility/results"
 	"github.com/google/osv-scanner/pkg/models"
 
 	"github.com/jedib0t/go-pretty/v6/table"
@@ -108,8 +109,9 @@ func tableBuilderInner(vulnResult *models.VulnerabilityResults, addStyling bool,
 				outputRow = append(outputRow, strings.Join(links, "\n"))
 				outputRow = append(outputRow, MaxSeverity(group, pkg))
 
-				if pkg.Package.Ecosystem == "GIT" {
-					outputRow = append(outputRow, "GIT", pkg.Package.Version, pkg.Package.Version)
+				if pkg.Package.Ecosystem == "" && pkg.Package.Commit != "" {
+					pkgCommitStr := results.PkgToString(pkg.Package)
+					outputRow = append(outputRow, "GIT", pkgCommitStr, pkgCommitStr)
 					shouldMerge = true
 				} else {
 					outputRow = append(outputRow, pkg.Package.Ecosystem, pkg.Package.Name, pkg.Package.Version)

@@ -13,7 +13,7 @@ builds:
       - -trimpath
     ldflags:
       # prettier-ignore
-      - '-s -w -X main.version={{.Version}} -X main.commit={{.Commit}} -X main.date={{.CommitDate}}'
+      - '-s -w -X github.com/google/osv-scanner/internal/version.OSVVersion={{.Version}} -X main.commit={{.Commit}} -X main.date={{.CommitDate}}'
     goos:
       # Further testing before supporting freebsd
       # - freebsd

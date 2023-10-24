@@ -7,7 +7,7 @@ import (
 	"github.com/google/osv-scanner/pkg/reporter"
 )
 
-func TestGetReporter(t *testing.T) {
+func TestNew(t *testing.T) {
 	t.Parallel()
 
 	for _, format := range reporter.Format() {
@@ -18,5 +18,18 @@ func TestGetReporter(t *testing.T) {
 		if err != nil {
 			t.Errorf("Reporter for '%s' format not implemented", format)
 		}
+	}
+}
+
+func TestNew_UnsupportedFormatter(t *testing.T) {
+	t.Parallel()
+
+	stdout := &bytes.Buffer{}
+	stderr := &bytes.Buffer{}
+
+	_, err := reporter.New("unsupported", stdout, stderr, 0)
+
+	if err == nil {
+		t.Errorf("Did not get expected error")
 	}
 }

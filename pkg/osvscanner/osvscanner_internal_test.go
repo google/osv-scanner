@@ -1,6 +1,7 @@
 package osvscanner
 
 import (
+	"os"
 	"path/filepath"
 	"testing"
 
@@ -8,6 +9,7 @@ import (
 	"github.com/google/osv-scanner/internal/testutility"
 	"github.com/google/osv-scanner/pkg/config"
 	"github.com/google/osv-scanner/pkg/models"
+	"github.com/google/osv-scanner/pkg/osv"
 	"github.com/google/osv-scanner/pkg/reporter"
 )
 
@@ -70,5 +72,47 @@ func Test_filterResults(t *testing.T) {
 				t.Errorf("filterResults() = %v, want %v", filtered, tt.testCase.numFiltered)
 			}
 		})
+	}
+}
+
+func Test_scanGit(t *testing.T) {
+	t.Parallel()
+
+	type args struct {
+		r       reporter.Reporter
+		query   *osv.BatchedQuery
+		repoDir string
+	}
+	tests := []struct {
+		name    string
+		args    args
+		wantErr bool
+	}{
+		{
+			name: "Example Git repo",
+			args: args{
+				r:       &reporter.VoidReporter{},
+				query:   &osv.BatchedQuery{},
+				repoDir: "fixtures/example-git",
+			},
+			wantErr: false,
+		},
+	}
+
+	err := os.Rename("fixtures/example-git/git-hidden", "fixtures/example-git/.git")
+	if err != nil {
+		t.Errorf("can't find git-hidden folder")
+	}
+
+	for _, tt := range tests {
+		if err := scanGit(tt.args.r, tt.args.query, tt.args.repoDir); (err != nil) != tt.wantErr {
+			t.Errorf("scanGit() error = %v, wantErr %v", err, tt.wantErr)
+		}
+		testutility.CreateJSONFixture(t, "fixtures/git-scan-queries.txt", tt.args.query)
+	}
+
+	err = os.Rename("fixtures/example-git/.git", "fixtures/example-git/git-hidden")
+	if err != nil {
+		t.Errorf("can't find .git folder")
 	}
 }

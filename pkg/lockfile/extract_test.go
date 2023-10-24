@@ -134,6 +134,20 @@ func TestExtractDeps_ExtractorNotFound(t *testing.T) {
 	}
 }
 
+func TestExtractDeps_ExtractorNotFound_WithExplicitExtractAs(t *testing.T) {
+	t.Parallel()
+
+	_, err := lockfile.ExtractDeps(openTestDepFile("/path/to/my/"), "unsupported")
+
+	if err == nil {
+		t.Errorf("Expected to get an error but did not")
+	}
+
+	if !errors.Is(err, lockfile.ErrExtractorNotFound) {
+		t.Errorf("Did not get the expected ErrExtractorNotFound error - got %v instead", err)
+	}
+}
+
 func TestListExtractors(t *testing.T) {
 	t.Parallel()
 

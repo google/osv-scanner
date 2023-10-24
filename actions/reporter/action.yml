@@ -2,25 +2,12 @@
 name: 'osv-scanner-reporter'
 description: 'Specialized reporting of scanner results for github actions'
 inputs:
-  output-sarif-file:
-    description: 'Output SARIF file path'
-    required: true
-  gh-annotations:
-    description: 'Whether to print github annotations'
-    default: false
-  old-results:
-    description: 'Old results to get the difference against'
-    required: false
-    default: ""
-  new-results:
-    description: 'New results to get the difference against'
+  scan-args:
+    description: 'Arguments to osv-scanner, separated by new line'
     required: true
 runs:
   using: 'docker'
   image: '../../action.dockerfile'
   entrypoint: /root/osv-reporter
   args:
-    - '--output=${{ inputs.output-sarif-file }}'
-    - '--old=${{ inputs.old-results }}'
-    - '--new=${{ inputs.new-results }}'
-    - '--gh-annotations=${{ inputs.gh-annotations }}'
+    - '${{ inputs.scan-args }}'

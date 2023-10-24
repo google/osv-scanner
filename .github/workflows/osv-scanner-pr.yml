@@ -12,18 +12,23 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-name: osv-scanner
+name: OSV-Scanner PR Scan
 
 on:
   pull_request:
-    # The branches below must be a subset of the branches above
     branches: [ main ]
   merge_group:
     branches: [ main ]
 
-# Declare default permissions as read only.
-permissions: read-all
-
 jobs:
-  scan-pr-attempt:
+  scan-pr:
     uses: "./.github/workflows/osv-scanner-reusable-pr.yml"
+    with:
+      # Just scan the root directory and docs, since everything else is fixtures
+      scan-args: |-
+          --skip-git
+          ./
+          ./docs/
+    permissions:
+      security-events: write
+      contents: read

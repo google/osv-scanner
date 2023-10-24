@@ -28,15 +28,18 @@ This project follows
 [Google's Open Source Community Guidelines](https://opensource.google.com/conduct/).
 
 ## Contributing documentation
-Please review the documentation [README](docs/README.md) for more information about contributing to documentation. 
+Please review the documentation [README](docs/README.md) for more information about contributing to documentation.
 
 ## Contributing code
 
 ### Prerequisites
 Install:
-1. [Go](https://go.dev/) 1.18+, use `go version` to check.
+1. [Go](https://go.dev/) 1.19+, use `go version` to check.
 2. [GoReleaser](https://goreleaser.com/) (Optional, only if you want reproducible builds).
-3. [golangci-lint](https://golangci-lint.run/) (Optional, only if you want to run the linters locally)
+
+> **Note**
+>
+> The scripts within `/scripts` expect to be run from the root of the repository
 
 ### Building
 
@@ -44,7 +47,7 @@ Install:
 
 Run the following in the project directory:
 ```shell
-$ go build ./cmd/osv-scanner/
+./scripts/build.sh
 ```
 Produces `osv-scanner` binary in the project directory.
 
@@ -52,7 +55,7 @@ Produces `osv-scanner` binary in the project directory.
 
 Run the following in the project directory:
 ```shell
-$ goreleaser build --rm-dist --single-target --snapshot
+./scripts/build_snapshot.sh
 ```
 
 See GoReleaser [documentation](https://goreleaser.com/cmd/goreleaser_build/) for build options.
@@ -64,23 +67,29 @@ using the same Go version as the one used during the actual release (see gorelea
 
 To run tests:
 ```shell
-./run_tests.sh
+./scripts/run_tests.sh
+```
+
+You can generate an HTML coverage report by running:
+
+```shell
+./scripts/generate_coverage_report.sh
 ```
 
 ### Linting
 To lint your code, run
 
 ```shell
-./run_lints.sh
+./scripts/run_lints.sh
 ```
 
 ## Contributing documentation
 
-Please follow these steps to successfully contribute documentation. 
+Please follow these steps to successfully contribute documentation.
 
-1. Fork the repository. 
-2. Make desired documentation changes. 
-3. Preview the changes by spinning up a GitHub page for your fork, building from your working branch. 
+1. Fork the repository.
+2. Make desired documentation changes.
+3. Preview the changes by spinning up a GitHub page for your fork, building from your working branch.
     - On your fork, go to the settings tab and then the GitHub page settings. Sample URL: https://github.com/{your-github-profile}/osv-scanner/settings/pages
     - Under "Build and deployment" select "Build from branch"
     - Set the branch to your working branch

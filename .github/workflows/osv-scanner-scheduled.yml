@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-name: osv-scanner
+name: OSV-Scanner Scheduled Scan
 
 on:
   schedule:
@@ -20,11 +20,18 @@ on:
   push:
     branches: [ "main" ]
 
-# Declare default permissions as read only.
-permissions: 
-  security-events: write
-  contents: read
-
 jobs:
   scan-scheduled:
-    uses: "./.github/workflows/osv-scanner-reusable-scheduled.yml"
+    uses: "./.github/workflows/osv-scanner-reusable.yml"
+    with:
+      # Just scan the root directory and docs, since everything else is fixtures
+      scan-args: |-
+          --skip-git
+          ./
+          ./docs/
+    permissions:
+      # Require writing security events to upload SARIF file to security tab
+      security-events: write
+      # Read commit contents
+      contents: read
+
