@@ -121,8 +121,8 @@ See the format and more options in our documentation here: https://google.github
 
 Add or append these values to the following config files to ignore this vulnerability:
 
-
 `/path/to/sub-rust-project/osv-scanner.toml`
+
 ```
 [[IgnoredVulns]]
 id = "CVE-2022-24713"
