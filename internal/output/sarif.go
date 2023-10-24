@@ -43,7 +43,7 @@ const SARIFTemplate = `
 (Also published as: {{range .AliasedVulns -}} {{if ne .ID $.ID}} [{{.ID}}](https://osv.dev/vulnerability/{{.ID}}), {{end}}{{end}})
 {{- end}}.
 
-{{range .AliasedVulns}}
+{{range .AliasedVulns -}}
 ## [{{.ID}}](https://osv.dev/vulnerability/{{.ID}})
 
 <details>

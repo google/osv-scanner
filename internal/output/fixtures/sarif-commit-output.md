@@ -1,6 +1,5 @@
 **Your dependency is vulnerable to [OSV-2023-72](https://osv.dev/list?q=OSV-2023-72)**.
 
-
 ## [OSV-2023-72](https://osv.dev/vulnerability/OSV-2023-72)
 
 <details>
