@@ -1,4 +1,4 @@
-name: goreleaser
+name: Release new version
 
 on:
   workflow_dispatch:
