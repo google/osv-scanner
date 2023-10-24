@@ -1,0 +1,11 @@
+{
+  "requires": true,
+  "lockfileVersion": 1,
+  "dependencies": {
+    "string-width-cjs": {
+      "version": "npm:string-width@6.1.0",
+      "resolved": "https://registry.npmjs.org/string-width/-/string-width-6.1.0.tgz",
+      "integrity": "sha512-k01swCJAgQmuADB0YIc+7TuatfNvTBVOoaUWJjTB9R4VJzR5vNWzf5t42ESVZFPS8xTySF7CAdV4t/aaIm3UnQ=="
+    }
+  }
+}

@@ -178,7 +178,7 @@ func TestParseNpmLock_v1_NestedDependenciesDup(t *testing.T) {
 
 	// todo: convert to using expectPackages w/ listing all expected packages
 	if len(packages) != 39 {
-		t.Errorf("Expected to get two packages, but got %d", len(packages))
+		t.Errorf("Expected to get 39 packages, but got %d", len(packages))
 	}
 
 	expectPackage(t, packages, lockfile.PackageDetails{
@@ -344,6 +344,25 @@ func TestParseNpmLock_v1_Files(t *testing.T) {
 			Ecosystem: lockfile.NpmEcosystem,
 			CompareAs: lockfile.NpmEcosystem,
 			Commit:    "",
+		},
+	})
+}
+
+func TestParseNpmLock_v1_Alias(t *testing.T) {
+	t.Parallel()
+
+	packages, err := lockfile.ParseNpmLock("fixtures/npm/alias.v1.json")
+
+	if err != nil {
+		t.Errorf("Got unexpected error: %v", err)
+	}
+
+	expectPackages(t, packages, []lockfile.PackageDetails{
+		{
+			Name:      "string-width",
+			Version:   "6.1.0",
+			Ecosystem: lockfile.NpmEcosystem,
+			CompareAs: lockfile.NpmEcosystem,
 		},
 	})
 }

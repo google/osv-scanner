@@ -9,11 +9,14 @@ import (
 )
 
 type NpmLockDependency struct {
+	// For an aliased package, Version is like "npm:[name]@[version]"
 	Version      string                       `json:"version"`
 	Dependencies map[string]NpmLockDependency `json:"dependencies,omitempty"`
 }
 
 type NpmLockPackage struct {
+	// For an aliased package, Name is the real package name
+	Name         string            `json:"name"`
 	Version      string            `json:"version"`
 	Resolved     string            `json:"resolved"`
 	Dependencies map[string]string `json:"dependencies"`
@@ -65,6 +68,13 @@ func parseNpmLockDependencies(dependencies map[string]NpmLockDependency) map[str
 		finalVersion := version
 		commit := ""
 
+		// If the package is aliased, get the name and version
+		if strings.HasPrefix(detail.Version, "npm:") {
+			i := strings.Index(detail.Version, "@")
+			name = detail.Version[4:i]
+			finalVersion = detail.Version[i+1:]
+		}
+
 		// we can't resolve a version from a "file:" dependency
 		if strings.HasPrefix(detail.Version, "file:") {
 			finalVersion = ""
@@ -111,7 +121,12 @@ func parseNpmLockPackages(packages map[string]NpmLockPackage) map[string]Package
 		if namePath == "" {
 			continue
 		}
-		finalName := extractNpmPackageName(namePath)
+
+		finalName := detail.Name
+		if finalName == "" {
+			finalName = extractNpmPackageName(namePath)
+		}
+
 		finalVersion := detail.Version
 
 		commit := tryExtractCommit(detail.Resolved)

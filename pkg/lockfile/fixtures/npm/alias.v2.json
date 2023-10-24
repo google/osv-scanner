@@ -1,0 +1,19 @@
+{
+  "name": "my-library",
+  "lockfileVersion": 2,
+  "requires": true,
+  "packages": {
+    "": {
+      "dependencies": {
+        "string-width-cjs": "npm:string-width@^6.1.0"
+      }
+    },
+    "node_modules/string-width-cjs": {
+      "name": "string-width",
+      "version": "6.1.0",
+      "resolved": "https://registry.npmjs.org/string-width/-/string-width-6.1.0.tgz",
+      "integrity": "sha512-k01swCJAgQmuADB0YIc+7TuatfNvTBVOoaUWJjTB9R4VJzR5vNWzf5t42ESVZFPS8xTySF7CAdV4t/aaIm3UnQ=="
+    }
+  },
+  "dependencies": {}
+}
