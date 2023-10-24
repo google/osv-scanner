@@ -80,7 +80,7 @@ jobs:
               owner: context.repo.owner,
               repo: context.repo.repo,
               ref: 'refs/tags/${{ inputs.version }}',
-              sha: ${{ inputs.commit }}
+              sha: '${{ inputs.commit }}'
             })
   goreleaser:
     outputs:
