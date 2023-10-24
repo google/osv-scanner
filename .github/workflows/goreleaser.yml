@@ -84,9 +84,6 @@ jobs:
       packages: write # for goreleaser/goreleaser-action to publish docker images
     runs-on: ubuntu-latest
     needs:
-      - lint
-      - tests
-      - osv-scan
       - tag-release
     env:
       # Required for buildx on docker 19.x
