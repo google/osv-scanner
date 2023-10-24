@@ -70,6 +70,9 @@ To run tests:
 ./scripts/run_tests.sh
 ```
 
+By default, tests that require additional dependencies beyond the go toolchain are skipped.
+Enable these tests by setting the env variable `Acceptance_Tests=1`.
+
 You can generate an HTML coverage report by running:
 
 ```shell
