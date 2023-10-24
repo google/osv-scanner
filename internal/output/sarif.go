@@ -53,7 +53,7 @@ const SARIFTemplate = `
 
 </details>
 
-{{end}}
+{{end -}}
 ---
 
 ### Affected Packages
