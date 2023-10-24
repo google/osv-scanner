@@ -110,8 +110,6 @@
 
 ## Remediation
 
-
-
 To fix these vulnerabilities, update the vulnerabilities past the listed fixed versions below.
 
 ### Fixed Versions
@@ -120,8 +118,6 @@ To fix these vulnerabilities, update the vulnerabilities past the listed fixed v
 | --- | --- | --- |
 | GHSA-m5pq-gvj9-9vr8 | regex | 1.5.5 |
 | RUSTSEC-2022-0013 | regex | 1.5.5 |
-
-
 
 If you believe these vulnerabilities do not affect your code and wish to ignore them, add them to the ignore list in an
 `osv-scanner.toml` file located in the same directory as the lockfile containing the vulnerable dependency.

@@ -31,8 +31,6 @@
 
 ## Remediation
 
-
-
 To fix these vulnerabilities, update the vulnerabilities past the listed fixed versions below.
 
 ### Fixed Versions
@@ -40,8 +38,6 @@ To fix these vulnerabilities, update the vulnerabilities past the listed fixed v
 | Vulnerability ID | Package Name | Fixed Version |
 | --- | --- | --- |
 | OSV-2023-72 | perfetto | 9a7f09383dd39f19e662d428321ca708a2a600a3 |
-
-
 
 If you believe these vulnerabilities do not affect your code and wish to ignore them, add them to the ignore list in an
 `osv-scanner.toml` file located in the same directory as the lockfile containing the vulnerable dependency.

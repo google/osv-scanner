@@ -63,7 +63,7 @@ const SARIFTemplate = `
 
 ## Remediation
 
-{{if .HasFixedVersion}}
+{{- if .HasFixedVersion }}
 
 To fix these vulnerabilities, update the vulnerabilities past the listed fixed versions below.
 
@@ -71,7 +71,7 @@ To fix these vulnerabilities, update the vulnerabilities past the listed fixed v
 
 {{.FixedVersionTable}}
 
-{{end}}
+{{- end}}
 
 If you believe these vulnerabilities do not affect your code and wish to ignore them, add them to the ignore list in an
 ""osv-scanner.toml"" file located in the same directory as the lockfile containing the vulnerable dependency.
