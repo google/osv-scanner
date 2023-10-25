@@ -5,13 +5,12 @@ import (
 	"fmt"
 	"os"
 	"reflect"
-	"strings"
 	"testing"
 
+	"github.com/google/go-cmp/cmp"
 	"github.com/hexops/gotextdiff"
 	"github.com/hexops/gotextdiff/myers"
 	"github.com/hexops/gotextdiff/span"
-	"github.com/kr/pretty"
 )
 
 // LoadJSONFixture loads a JSON fixture file and returns the decoded version.
@@ -45,7 +44,7 @@ func AssertMatchFixtureJSON[V any](t *testing.T, path string, val V) {
 	}
 
 	if !reflect.DeepEqual(val, elem) {
-		t.Errorf("Not equal: \n%s", strings.Join(pretty.Diff(val, elem), "\n"))
+		t.Errorf("Not equal: \n%s", cmp.Diff(val, elem))
 	}
 }
 

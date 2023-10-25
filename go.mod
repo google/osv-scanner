@@ -11,7 +11,6 @@ require (
 	github.com/google/go-cmp v0.6.0
 	github.com/hexops/gotextdiff v1.0.3
 	github.com/jedib0t/go-pretty/v6 v6.4.8
-	github.com/kr/pretty v0.3.1
 	github.com/owenrumney/go-sarif/v2 v2.3.0
 	github.com/package-url/packageurl-go v0.1.2
 	github.com/spdx/tools-golang v0.5.3
@@ -41,11 +40,9 @@ require (
 	github.com/ianlancetaylor/demangle v0.0.0-20230524184225-eabc099b10ab
 	github.com/jbenet/go-context v0.0.0-20150711004518-d14ea06fba99 // indirect
 	github.com/kevinburke/ssh_config v1.2.0 // indirect
-	github.com/kr/text v0.2.0 // indirect
 	github.com/mattn/go-runewidth v0.0.15 // indirect
 	github.com/pjbgf/sha1cd v0.3.0 // indirect
 	github.com/rivo/uniseg v0.4.4 // indirect
-	github.com/rogpeppe/go-internal v1.11.0 // indirect
 	github.com/russross/blackfriday/v2 v2.1.0 // indirect
 	github.com/sergi/go-diff v1.3.1 // indirect
 	github.com/skeema/knownhosts v1.2.1 // indirect
