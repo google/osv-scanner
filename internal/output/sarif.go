@@ -40,7 +40,7 @@ type VulnDescription struct {
 const SARIFTemplate = `
 **Your dependency is vulnerable to [{{.ID}}](https://osv.dev/list?q={{.ID}})**
 {{- if gt (len .AliasedVulns) 1 }}
-(Also published as: {{range .AliasedVulns -}} {{if ne .ID $.ID}} [{{.ID}}](https://osv.dev/vulnerability/{{.ID}}), {{end}}{{end}})
+(Also published as: {{range .AliasedVulns -}} {{if ne .ID $.ID -}} [{{.ID}}](https://osv.dev/vulnerability/{{.ID}}), {{end}}{{end}})
 {{- end}}.
 
 {{range .AliasedVulns -}}
