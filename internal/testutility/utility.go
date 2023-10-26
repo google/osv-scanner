@@ -105,7 +105,7 @@ func AssertMatchFixtureText(t *testing.T, path string, actual string) {
 // automatically skipped unless running in a CI environment
 func AcceptanceTests(t *testing.T, reason string) {
 	t.Helper()
-	if os.Getenv("ACCEPTANCE_TESTS") != "true" {
+	if os.Getenv("TEST_ACCEPTANCE") != "true" {
 		t.Skip("Skipping extended test: ", reason)
 	}
 }
