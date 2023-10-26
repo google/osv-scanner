@@ -401,6 +401,7 @@ func TestRun(t *testing.T) {
                       "rules": [
                         {
                           "id": "CVE-2021-23424",
+                          "name": "CVE-2021-23424",
                           "shortDescription": {
                             "text": "CVE-2021-23424: Uncontrolled Resource Consumption in ansi-html"
                           },
@@ -734,7 +735,7 @@ func TestRun_GithubActions(t *testing.T) {
 			name:         "scanning osv-scanner custom format output json",
 			args:         []string{"", "-L", "osv-scanner:./fixtures/locks-insecure/osv-scanner-flutter-deps.json", "--format=sarif"},
 			wantExitCode: 1,
-			wantStdout: `
+			wantStdout: fmt.Sprint(`
         {
           "version": "2.1.0",
           "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/master/Schemata/sarif-schema-2.1.0.json",
@@ -747,6 +748,7 @@ func TestRun_GithubActions(t *testing.T) {
                   "rules": [
                     {
                       "id": "CVE-2023-39137",
+                      "name": "CVE-2023-39137",
                       "shortDescription": {
                         "text": "CVE-2023-39137"
                       },
@@ -764,6 +766,7 @@ func TestRun_GithubActions(t *testing.T) {
                     },
                     {
                       "id": "CVE-2023-39139",
+                      "name": "CVE-2023-39139",
                       "shortDescription": {
                         "text": "CVE-2023-39139"
                       },
@@ -780,7 +783,7 @@ func TestRun_GithubActions(t *testing.T) {
                       }
                     }
                   ],
-                  "version": "1.4.1"
+                  "version": "`, version.OSVVersion, `"
                 }
               },
               "artifacts": [
@@ -829,7 +832,7 @@ func TestRun_GithubActions(t *testing.T) {
               ]
             }
           ]
-        }`,
+        }`),
 			wantStderr: `
 				Scanned <rootdir>/fixtures/locks-insecure/osv-scanner-flutter-deps.json file as a osv-scanner and found 3 packages
 			`,

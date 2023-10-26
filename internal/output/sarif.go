@@ -165,7 +165,7 @@ func stripGitHubWorkspace(path string) string {
 
 // createSARIFHelpText returns the text for SARIF rule's help field
 func createSARIFHelpText(gv *groupedSARIFFinding) string {
-	backtickSARIFTemplate := strings.ReplaceAll(SARIFTemplate, `""`, "`")
+	backtickSARIFTemplate := strings.ReplaceAll(strings.TrimSpace(SARIFTemplate), `""`, "`")
 	helpTextTemplate, err := template.New("helpText").Parse(backtickSARIFTemplate)
 	if err != nil {
 		log.Panicf("failed to parse sarif help text template: %v", err)
@@ -274,6 +274,7 @@ func PrintSARIFReport(vulnResult *models.VulnerabilityResults, outputWriter io.W
 		}
 
 		rule := run.AddRule(gv.DisplayID).
+			WithName(gv.DisplayID).
 			WithShortDescription(sarif.NewMultiformatMessageString(shortDescription)).
 			WithFullDescription(sarif.NewMultiformatMessageString(longDescription).WithMarkdown(longDescription)).
 			WithMarkdownHelp(helpText).
