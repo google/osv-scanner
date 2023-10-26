@@ -83,8 +83,8 @@ jobs:
     uses: "google/osv-scanner/.github/workflows/osv-scanner-reusable.yml"
     with:
       scan-args: |-
-        ./path/to/lockfile1
-        requirements.txt:./path/to/python-lockfile2.txt
+        --lockfile=./path/to/lockfile1
+        --lockfile=requirements.txt:./path/to/python-lockfile2.txt
 ```
 ##### Default arguments
 ```yml

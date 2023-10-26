@@ -140,3 +140,4 @@ jobs:
       base64-subjects: "${{ needs.goreleaser.outputs.hashes }}"
       upload-assets: true # upload to a new release
       draft-release: true # upload to a new draft release
+      upload-tag-name: "${{ inputs.version }}"
