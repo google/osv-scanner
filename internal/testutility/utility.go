@@ -99,3 +99,12 @@ func AssertMatchFixtureText(t *testing.T, path string, actual string) {
 		}
 	}
 }
+
+// AcceptanceTests marks this test function as a extended that require additional dependencies
+// automatically skipped unless running in a CI environment
+func AcceptanceTests(t *testing.T, reason string) {
+	t.Helper()
+	if os.Getenv("TEST_ACCEPTANCE") != "true" {
+		t.Skip("Skipping extended test: ", reason)
+	}
+}
