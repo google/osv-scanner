@@ -1,0 +1,129 @@
+{
+  "DisplayID": "OSV-2023-72",
+  "PkgSource": [
+    {
+      "Package": {
+        "name": "https://fuchsia.googlesource.com/third_party/android.googlesource.com/platform/external/perfetto",
+        "version": "",
+        "ecosystem": "",
+        "commit": "b8da07095979310818f0efde2ef3c69ea70d62c5"
+      },
+      "Source": {
+        "path": "/usr/local/google/home/rexpan/Documents/Project/engine/deps_flatten.txt",
+        "type": "lockfile"
+      }
+    }
+  ],
+  "AliasedVulns": {
+    "OSV-2023-72": {
+      "modified": "2023-04-20T22:43:30Z",
+      "published": "2023-02-18T13:00:15Z",
+      "schema_version": "1.6.0",
+      "id": "OSV-2023-72",
+      "summary": "Heap-buffer-overflow in perfetto::trace_processor::TrackEventParser::ParseTrackDescriptor",
+      "details": "OSS-Fuzz report: https://bugs.chromium.org/p/oss-fuzz/issues/detail?id=56057\n\n```\nCrash type: Heap-buffer-overflow WRITE 4\nCrash state:\nperfetto::trace_processor::TrackEventParser::ParseTrackDescriptor\nperfetto::trace_processor::TrackEventModule::ParseTracePacketData\nperfetto::trace_processor::ProtoTraceParser::ParseTracePacket\n```\n",
+      "affected": [
+        {
+          "package": {
+            "ecosystem": "OSS-Fuzz",
+            "name": "perfetto",
+            "purl": "pkg:generic/perfetto"
+          },
+          "ranges": [
+            {
+              "type": "GIT",
+              "events": [
+                {
+                  "introduced": "8209fb9b9a4156232aa87ad4621e541bfb777ec1"
+                },
+                {
+                  "fixed": "9a7f09383dd39f19e662d428321ca708a2a600a3"
+                }
+              ],
+              "repo": "https://android.googlesource.com/platform/external/perfetto/"
+            }
+          ],
+          "versions": [
+            "android-13.0.0_r1",
+            "android-13.0.0_r12",
+            "android-13.0.0_r2",
+            "android-13.0.0_r3",
+            "android-13.0.0_r31",
+            "android-13.0.0_r4",
+            "android-13.0.0_r5",
+            "android-13.0.0_r6",
+            "android-13.0.0_r7",
+            "android-13.0.0_r8",
+            "android-cts-13.0_r1",
+            "android-cts-13.0_r2",
+            "android-cts-13.0_r3",
+            "android-mainline-12.0.0_r100",
+            "android-mainline-12.0.0_r122",
+            "android-mainline-12.0.0_r49",
+            "android-mainline-12.0.0_r59",
+            "android-mainline-12.0.0_r63",
+            "android-mainline-12.0.0_r70",
+            "android-mainline-12.0.0_r77",
+            "android-mainline-12.0.0_r99",
+            "android-platform-13.0.0_r1",
+            "android-platform-13.0.0_r2",
+            "android-security-13.0.0_r1",
+            "android-security-13.0.0_r2",
+            "android-vts-13.0_r1",
+            "android-vts-13.0_r2",
+            "android-vts-13.0_r3",
+            "platform-tools-29.0.1",
+            "platform-tools-29.0.2",
+            "platform-tools-29.0.3",
+            "platform-tools-29.0.4",
+            "platform-tools-29.0.5",
+            "platform-tools-29.0.6",
+            "platform-tools-30.0.0",
+            "platform-tools-30.0.1",
+            "platform-tools-30.0.2",
+            "platform-tools-30.0.3",
+            "platform-tools-30.0.4",
+            "platform-tools-30.0.5",
+            "platform-tools-31.0.0",
+            "platform-tools-31.0.1",
+            "platform-tools-31.0.2",
+            "platform-tools-31.0.3",
+            "platform-tools-32.0.0",
+            "platform-tools-33.0.0",
+            "platform-tools-33.0.1",
+            "platform-tools-33.0.2",
+            "platform-tools-33.0.3",
+            "platform-tools-33.0.4",
+            "platform-tools-34.0.0",
+            "v27.0",
+            "v27.1",
+            "v28.0",
+            "v29.0",
+            "v30.0",
+            "v31.0",
+            "v32.0",
+            "v32.1",
+            "v32.2",
+            "android-security-13.0.0_r3",
+            "android-security-13.0.0_r4"
+          ],
+          "database_specific": {
+            "source": "https://github.com/google/oss-fuzz-vulns/blob/main/vulns/perfetto/OSV-2023-72.yaml"
+          },
+          "ecosystem_specific": {
+            "severity": "HIGH"
+          }
+        }
+      ],
+      "references": [
+        {
+          "type": "REPORT",
+          "url": "https://bugs.chromium.org/p/oss-fuzz/issues/detail?id=56057"
+        }
+      ]
+    }
+  },
+  "AliasedIDList": [
+    "OSV-2023-72"
+  ]
+}

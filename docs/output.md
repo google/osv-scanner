@@ -285,7 +285,7 @@ Outputs the result in the [SARIF](https://sarifweb.azurewebsites.net/) v2.1.0 fo
 > **Your dependency is vulnerable to [CVE-2022-24713](https://osv.dev/list?q=CVE-2022-24713)**
 > (Also published as:  [RUSTSEC-2022-0013](https://osv.dev/vulnerability/RUSTSEC-2022-0013),  [GHSA-m5pq-gvj9-9vr8](https://osv.dev/vulnerability/GHSA-m5pq-gvj9-9vr8), ).
 >
->
+> {:.no_toc}
 > ## [RUSTSEC-2022-0013](https://osv.dev/vulnerability/RUSTSEC-2022-0013)
 >
 > <details>
@@ -296,7 +296,7 @@ Outputs the result in the [SARIF](https://sarifweb.azurewebsites.net/) v2.1.0 fo
 > </details>
 >
 >
->
+> {:.no_toc}
 > ## [GHSA-m5pq-gvj9-9vr8](https://osv.dev/vulnerability/GHSA-m5pq-gvj9-9vr8)
 >
 > <details>
@@ -309,18 +309,23 @@ Outputs the result in the [SARIF](https://sarifweb.azurewebsites.net/) v2.1.0 fo
 >
 > ---
 >
+> {:.no_toc}
 > ### Affected Packages
+>
 > | Source | Package Name | Package Version |
 > | --- | --- | --- |
 > | lockfile:/path/to/rust-project/Cargo.lock | regex | 1.5.1 |
 >
+> {:.no_toc}
 > ## Remediation
 >
 >
 >
 > To fix these vulnerabilities, update the vulnerabilities past the listed fixed versions below.
 >
+> {:.no_toc}
 > ### Fixed Versions
+>
 > | Vulnerability ID | Package Name | Fixed Version |
 > | --- | --- | --- |
 > | GHSA-m5pq-gvj9-9vr8 | regex | 1.5.5 |

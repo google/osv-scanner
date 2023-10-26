@@ -20,12 +20,18 @@ on:
   push:
     branches: [ "main" ]
 
-permissions:
-  # Require writing security events to upload SARIF file to security tab
-  security-events: write
-  # Only need to read contents
-  contents: read
-
 jobs:
   scan-scheduled:
     uses: "./.github/workflows/osv-scanner-reusable.yml"
+    with:
+      # Just scan the root directory and docs, since everything else is fixtures
+      scan-args: |-
+          --skip-git
+          ./
+          ./docs/
+    permissions:
+      # Require writing security events to upload SARIF file to security tab
+      security-events: write
+      # Read commit contents
+      contents: read
+

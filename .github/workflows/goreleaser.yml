@@ -1,9 +1,16 @@
-name: goreleaser
+name: Release new version
 
 on:
-  push:
-    tags:
-      - "*" # triggers only if push new tag version, like `0.8.4` or else
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'The version tag to release, (e.g. v1.2.3)'
+        required: true
+        type: string
+      commit:
+        description: 'The commit hash to release'
+        required: true
+        type: string
 
 permissions:
   contents: read # to fetch code (actions/checkout)
@@ -25,9 +32,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Check out code
-        uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608 # v4.1.0
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
         with:
           persist-credentials: false
+          ref: ${{ inputs.commit }}
       - name: Set up Go
         uses: actions/setup-go@93397bea11091df50f3d7e59dc26a7711a8bcfbe # v4.1.0
         with:
@@ -44,9 +52,10 @@ jobs:
     runs-on: ${{ matrix.os }}
     steps:
       - name: Check out code
-        uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608 # v4.1.0
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
         with:
           persist-credentials: false
+          ref: ${{ inputs.commit }}
       - name: Set up Go
         uses: actions/setup-go@93397bea11091df50f3d7e59dc26a7711a8bcfbe # v4.1.0
         with:
@@ -54,6 +63,25 @@ jobs:
           check-latest: true
       - name: Run test action
         uses: ./.github/workflows/test-action
+  tag-release:
+    runs-on: ubuntu-latest
+    needs:
+      - lint
+      - tests
+      - osv-scan
+    permissions:
+      contents: write  # to write a tag
+    steps:
+      - name: Create tag
+        uses: actions/github-script@v6
+        with:
+          script: |
+            github.rest.git.createRef({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              ref: 'refs/tags/${{ inputs.version }}',
+              sha: '${{ inputs.commit }}'
+            })
   goreleaser:
     outputs:
       hashes: ${{ steps.hash.outputs.hashes }}
@@ -62,17 +90,16 @@ jobs:
       packages: write # for goreleaser/goreleaser-action to publish docker images
     runs-on: ubuntu-latest
     needs:
-      - lint
-      - tests
-      - osv-scan
+      - tag-release
     env:
       # Required for buildx on docker 19.x
       DOCKER_CLI_EXPERIMENTAL: "enabled"
     steps:
       - name: Checkout
-        uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608 # v4.1.0
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
         with:
           fetch-depth: 0
+          ref: ${{ inputs.commit }}
       - name: Set up Go
         uses: actions/setup-go@93397bea11091df50f3d7e59dc26a7711a8bcfbe # v4.1.0
         with:
@@ -113,3 +140,4 @@ jobs:
       base64-subjects: "${{ needs.goreleaser.outputs.hashes }}"
       upload-assets: true # upload to a new release
       draft-release: true # upload to a new draft release
+      upload-tag-name: "${{ inputs.version }}"

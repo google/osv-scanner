@@ -14,6 +14,10 @@
 
 name: OSV-Scanner PR scanning reusable
 
+permissions:
+  contents: read
+  security-events: write
+
 on:
   workflow_call:
     inputs:
@@ -33,7 +37,7 @@ jobs:
   scan-pr:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608 # v4.1.0
+      - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
         with:
           fetch-depth: 0
           # Do persist credentials, as we need it for the git checkout later
@@ -91,6 +95,6 @@ jobs:
       # Upload the results to GitHub's code scanning dashboard.
       - name: "Upload to code-scanning"
         if: '!cancelled()'
-        uses: github/codeql-action/upload-sarif@2cb752a87e96af96708ab57187ab6372ee1973ab # v2.22.0
+        uses: github/codeql-action/upload-sarif@0116bc2df50751f9724a2e35ef1f24d22f90e4e1 # v2.22.3
         with:
           sarif_file: ${{ inputs.results-file-name }}
