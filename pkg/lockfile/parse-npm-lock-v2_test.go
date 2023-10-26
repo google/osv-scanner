@@ -348,8 +348,20 @@ func TestParseNpmLock_v2_Alias(t *testing.T) {
 
 	expectPackages(t, packages, []lockfile.PackageDetails{
 		{
+			Name:      "@babel/code-frame",
+			Version:   "7.0.0",
+			Ecosystem: lockfile.NpmEcosystem,
+			CompareAs: lockfile.NpmEcosystem,
+		},
+		{
 			Name:      "string-width",
-			Version:   "6.1.0",
+			Version:   "4.2.0",
+			Ecosystem: lockfile.NpmEcosystem,
+			CompareAs: lockfile.NpmEcosystem,
+		},
+		{
+			Name:      "string-width",
+			Version:   "5.1.2",
 			Ecosystem: lockfile.NpmEcosystem,
 			CompareAs: lockfile.NpmEcosystem,
 		},

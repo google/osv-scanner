@@ -70,7 +70,7 @@ func parseNpmLockDependencies(dependencies map[string]NpmLockDependency) map[str
 
 		// If the package is aliased, get the name and version
 		if strings.HasPrefix(detail.Version, "npm:") {
-			i := strings.Index(detail.Version, "@")
+			i := strings.LastIndex(detail.Version, "@")
 			name = detail.Version[4:i]
 			finalVersion = detail.Version[i+1:]
 		}
