@@ -14,6 +14,10 @@
 
 name: OSV-Scanner scanning reusable
 
+permissions:
+  contents: read
+  security-events: write
+
 on:
   workflow_call:
     inputs:
@@ -28,12 +32,25 @@ on:
         description: "File name of the result SARIF file"
         type: string
         default: results.sarif
+      download-artifact:
+        description: "Optional artifact to download for scanning"
+        required: false
+        default: ""
+        type: string
 
 jobs:
   osv-scan:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
+        with:
+          persist-credentials: false
+      - name: "Download custom artifact if specified"
+        uses: actions/download-artifact@v3
+        if: "${{ inputs.download-artifact != '' }}"
+        with:
+          name: "${{ inputs.download-artifact }}"
+          path: "./"
       - name: "Run scanner"
         uses: google/osv-scanner/actions/scanner@main
         with:
@@ -41,6 +58,7 @@ jobs:
             --output=results.json
             --format=json
             ${{ inputs.scan-args }}
+        continue-on-error: true
       - name: "Run osv-scanner-reporter"
         uses: google/osv-scanner/actions/reporter@main
         with:
@@ -60,7 +78,7 @@ jobs:
       # Upload the results to GitHub's code scanning dashboard.
       - name: "Upload to code-scanning"
         if: '!cancelled()'
-        uses: github/codeql-action/upload-sarif@2cb752a87e96af96708ab57187ab6372ee1973ab # v2.22.0
+        uses: github/codeql-action/upload-sarif@0116bc2df50751f9724a2e35ef1f24d22f90e4e1 # v2.22.3
         with:
           sarif_file: ${{ inputs.results-file-name }}
 

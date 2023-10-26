@@ -8,6 +8,7 @@ import (
 	"strings"
 	"text/template"
 
+	"github.com/google/osv-scanner/internal/utility/results"
 	"github.com/google/osv-scanner/internal/version"
 	"github.com/google/osv-scanner/pkg/models"
 	"github.com/jedib0t/go-pretty/v6/table"
@@ -39,10 +40,10 @@ type VulnDescription struct {
 const SARIFTemplate = `
 **Your dependency is vulnerable to [{{.ID}}](https://osv.dev/list?q={{.ID}})**
 {{- if gt (len .AliasedVulns) 1 }}
-(Also published as: {{range .AliasedVulns -}} {{if ne .ID $.ID}} [{{.ID}}](https://osv.dev/vulnerability/{{.ID}}), {{end}}{{end}})
+(Also published as: {{range .AliasedVulns -}} {{if ne .ID $.ID -}} [{{.ID}}](https://osv.dev/vulnerability/{{.ID}}), {{end}}{{end}})
 {{- end}}.
 
-{{range .AliasedVulns}}
+{{range .AliasedVulns -}}
 ## [{{.ID}}](https://osv.dev/vulnerability/{{.ID}})
 
 <details>
@@ -52,22 +53,24 @@ const SARIFTemplate = `
 
 </details>
 
-
-{{end}}
+{{end -}}
 ---
 
 ### Affected Packages
+
 {{.AffectedPackagesTable}}
 
 ## Remediation
 
-{{if .HasFixedVersion}}
+{{- if .HasFixedVersion }}
 
 To fix these vulnerabilities, update the vulnerabilities past the listed fixed versions below.
 
 ### Fixed Versions
+
 {{.FixedVersionTable}}
-{{end}}
+
+{{- end}}
 
 If you believe these vulnerabilities do not affect your code and wish to ignore them, add them to the ignore list in an
 ""osv-scanner.toml"" file located in the same directory as the lockfile containing the vulnerable dependency.
@@ -76,8 +79,9 @@ See the format and more options in our documentation here: https://google.github
 
 Add or append these values to the following config files to ignore this vulnerability:
 
-{{range .AffectedPackagePaths}}
+{{range .AffectedPackagePaths -}}
 ""{{.}}/osv-scanner.toml""
+
 """"""
 [[IgnoredVulns]]
 id = "{{$.ID}}"
@@ -120,10 +124,14 @@ func createSARIFAffectedPkgTable(pkgWithSrc []pkgWithSource) table.Writer {
 	helpTable.AppendHeader(table.Row{"Source", "Package Name", "Package Version"})
 
 	for _, ps := range pkgWithSrc {
+		version := ps.Package.Version
+		if ps.Package.Commit != "" {
+			version = ps.Package.Commit
+		}
 		helpTable.AppendRow(table.Row{
 			ps.Source.String(),
 			ps.Package.Name,
-			ps.Package.Version,
+			version,
 		})
 	}
 
@@ -157,7 +165,7 @@ func stripGitHubWorkspace(path string) string {
 
 // createSARIFHelpText returns the text for SARIF rule's help field
 func createSARIFHelpText(gv *groupedSARIFFinding) string {
-	backtickSARIFTemplate := strings.ReplaceAll(SARIFTemplate, `""`, "`")
+	backtickSARIFTemplate := strings.ReplaceAll(strings.TrimSpace(SARIFTemplate), `""`, "`")
 	helpTextTemplate, err := template.New("helpText").Parse(backtickSARIFTemplate)
 	if err != nil {
 		log.Panicf("failed to parse sarif help text template: %v", err)
@@ -259,7 +267,14 @@ func PrintSARIFReport(vulnResult *models.VulnerabilityResults, outputWriter io.W
 			}
 		}
 
+		// If no advisory for this vulnerability has a summary field,
+		// just show the ID in the shortDescription
+		if shortDescription == "" {
+			shortDescription = gv.DisplayID
+		}
+
 		rule := run.AddRule(gv.DisplayID).
+			WithName(gv.DisplayID).
 			WithShortDescription(sarif.NewMultiformatMessageString(shortDescription)).
 			WithFullDescription(sarif.NewMultiformatMessageString(longDescription).WithMarkdown(longDescription)).
 			WithMarkdownHelp(helpText).
@@ -285,9 +300,8 @@ func PrintSARIFReport(vulnResult *models.VulnerabilityResults, outputWriter io.W
 				WithMessage(
 					sarif.NewTextMessage(
 						fmt.Sprintf(
-							"Package '%s@%s' is vulnerable to '%s'%s.",
-							pws.Package.Name,
-							pws.Package.Version,
+							"Package '%s' is vulnerable to '%s'%s.",
+							results.PkgToString(pws.Package),
 							gv.DisplayID,
 							alsoKnownAsStr,
 						))).
