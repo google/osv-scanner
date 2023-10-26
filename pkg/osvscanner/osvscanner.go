@@ -392,8 +392,8 @@ func scanGit(r reporter.Reporter, query *osv.BatchedQuery, repoDir string) error
 	}
 
 	for _, s := range submodules {
-		r.PrintText(fmt.Sprintf("Scanning submodule %s at commit %s\n", s.Path, s.Current.String()))
-		err = scanGitCommit(query, s.Current.String(), repoDir)
+		r.PrintText(fmt.Sprintf("Scanning submodule %s at commit %s\n", s.Path, s.Expected.String()))
+		err = scanGitCommit(query, s.Expected.String(), repoDir)
 		if err != nil {
 			return err
 		}
