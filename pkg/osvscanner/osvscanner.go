@@ -76,6 +76,7 @@ func scanDir(r reporter.Reporter, dir string, skipGit bool, recursive bool, useG
 	root := true
 
 	var scannedPackages []Package
+
 	return scannedPackages, filepath.WalkDir(dir, func(path string, info os.DirEntry, err error) error {
 		if err != nil {
 			r.PrintText(fmt.Sprintf("Failed to walk %s: %v\n", path, err))
@@ -236,9 +237,9 @@ func scanLockfile(r reporter.Reporter, path string, parseAs string) ([]Package, 
 		output.Form(len(parsedLockfile.Packages), "package", "packages"),
 	))
 
-	var packages []Package
-	for _, pkgDetail := range parsedLockfile.Packages {
-		packages = append(packages, Package{
+	packages := make([]Package, len(parsedLockfile.Packages))
+	for i, pkgDetail := range parsedLockfile.Packages {
+		packages[i] = Package{
 			Name:      pkgDetail.Name,
 			Version:   pkgDetail.Version,
 			Commit:    pkgDetail.Commit,
@@ -247,7 +248,7 @@ func scanLockfile(r reporter.Reporter, path string, parseAs string) ([]Package, 
 				Path: path,
 				Type: "lockfile",
 			},
-		})
+		}
 	}
 
 	return packages, nil
@@ -293,6 +294,7 @@ func scanSBOMFile(r reporter.Reporter, path string, fromFSScan bool) ([]Package,
 				},
 			})
 			count++
+
 			return nil
 		})
 		if err == nil {
@@ -542,6 +544,7 @@ func DoScan(actions ScannerActions, r reporter.Reporter) (models.VulnerabilityRe
 		ConfigMap:     make(map[string]config.Config),
 	}
 
+	//nolint:prealloc // Not sure how many there will be in advance.
 	var scannedPackages []Package
 
 	if actions.ConfigOverridePath != "" {
@@ -639,9 +642,7 @@ func makeRequest(
 	packages []Package,
 	compareLocally bool,
 	compareOffline bool,
-	localDBPath string,
-) (*osv.HydratedBatchedResponse, error) {
-
+	localDBPath string) (*osv.HydratedBatchedResponse, error) {
 	// Make OSV queries from the packages.
 	var query osv.BatchedQuery
 	for _, p := range packages {
