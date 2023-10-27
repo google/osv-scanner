@@ -54,8 +54,8 @@ func newTable(outputWriter io.Writer, terminalWidth int) table.Writer {
 		outputTable.Style().Options.DoNotColorBordersAndSeparators = true
 		outputTable.SetAllowedRowLength(terminalWidth)
 	} // Otherwise use default ascii (e.g. getting piped to a file)
-	return outputTable
 
+	return outputTable
 }
 
 func tableBuilder(outputTable table.Writer, vulnResult *models.VulnerabilityResults, addStyling bool) table.Writer {
@@ -209,12 +209,14 @@ func licenseSummaryTableBuilder(outputTable table.Writer, vulnResult *models.Vul
 		if counts[licenses[i]] == counts[licenses[j]] {
 			return licenses[i] < licenses[j]
 		}
+
 		return counts[licenses[i]] > counts[licenses[j]]
 	})
 	outputTable.AppendHeader(table.Row{"License", "No. of package versions"})
 	for _, license := range licenses {
 		outputTable.AppendRow(table.Row{license, counts[license]})
 	}
+
 	return outputTable
 }
 

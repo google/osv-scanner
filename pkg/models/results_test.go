@@ -111,5 +111,4 @@ func TestFlatten(t *testing.T) {
 	if diff := cmp.Diff(flattened, expectedFlattened); diff != "" {
 		t.Errorf("Flatten() returned unexpected result (-got +want):\n%s", diff)
 	}
-
 }

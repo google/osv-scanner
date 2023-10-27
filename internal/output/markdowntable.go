@@ -28,5 +28,4 @@ func PrintMarkdownTableResults(vulnResult *models.VulnerabilityResults, outputWr
 		return
 	}
 	outputLicenseTable.RenderMarkdown()
-
 }

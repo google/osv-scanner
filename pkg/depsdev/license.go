@@ -35,6 +35,7 @@ func VersionQuery(system depsdevpb.System, name string, version string) *depsdev
 	if system == depsdevpb.System_GO {
 		version = "v" + version
 	}
+
 	return &depsdevpb.GetVersionRequest{
 		VersionKey: &depsdevpb.VersionKey{
 			System:  system,
@@ -77,6 +78,7 @@ func MakeVersionRequests(queries []*depsdevpb.GetVersionRequest) ([][]models.Lic
 					licenses[i] = append(licenses[i], "UNKNOWN")
 					return nil
 				}
+
 				return err
 			}
 			ls := make([]models.License, len(resp.Licenses))

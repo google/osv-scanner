@@ -1,7 +1,6 @@
 package osvscanner
 
 import (
-	"fmt"
 	"os"
 	"path/filepath"
 	"testing"
@@ -116,7 +115,6 @@ func Test_scanGit(t *testing.T) {
 			t.Errorf("scanGit() error = %v, wantErr %v", err, tt.wantErr)
 		}
 		if diff := cmp.Diff(tt.wantPkg, pkg); diff != "" {
-			fmt.Printf("%+v %+v", tt.wantPkg, pkg)
 			t.Errorf("scanGit() package = %v, wantPackage %v", pkg, tt.wantPkg)
 		}
 		testutility.CreateJSONFixture(t, "fixtures/git-scan-queries.txt", tt.args.repoDir)
