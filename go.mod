@@ -6,11 +6,11 @@ require (
 	github.com/BurntSushi/toml v1.3.2
 	github.com/CycloneDX/cyclonedx-go v0.7.2
 	github.com/go-git/go-billy/v5 v5.5.0
-	github.com/go-git/go-git/v5 v5.9.0
+	github.com/go-git/go-git/v5 v5.10.0
 	github.com/goark/go-cvss v1.6.6
 	github.com/google/go-cmp v0.6.0
 	github.com/hexops/gotextdiff v1.0.3
-	github.com/jedib0t/go-pretty/v6 v6.4.8
+	github.com/jedib0t/go-pretty/v6 v6.4.9
 	github.com/owenrumney/go-sarif/v2 v2.3.0
 	github.com/package-url/packageurl-go v0.1.2
 	github.com/spdx/tools-golang v0.5.3
@@ -37,7 +37,7 @@ require (
 	github.com/go-git/gcfg v1.5.1-0.20230307220236-3a3c6141e376 // indirect
 	github.com/goark/errs v1.3.2 // indirect
 	github.com/golang/groupcache v0.0.0-20210331224755-41bb18bfe9da // indirect
-	github.com/ianlancetaylor/demangle v0.0.0-20230524184225-eabc099b10ab
+	github.com/ianlancetaylor/demangle v0.0.0-20231023195312-e2daf7ba7156
 	github.com/jbenet/go-context v0.0.0-20150711004518-d14ea06fba99 // indirect
 	github.com/kevinburke/ssh_config v1.2.0 // indirect
 	github.com/mattn/go-runewidth v0.0.15 // indirect
