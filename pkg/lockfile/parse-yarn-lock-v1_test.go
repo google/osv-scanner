@@ -444,3 +444,34 @@ func TestParseYarnLock_v1_Files(t *testing.T) {
 		},
 	})
 }
+
+func TestParseYarnLock_v1_WithAliases(t *testing.T) {
+	t.Parallel()
+
+	packages, err := lockfile.ParseYarnLock("fixtures/yarn/with-aliases.v1.lock")
+
+	if err != nil {
+		t.Errorf("Got unexpected error: %v", err)
+	}
+
+	expectPackages(t, packages, []lockfile.PackageDetails{
+		{
+			Name:      "@babel/helper-validator-identifier",
+			Version:   "7.22.20",
+			Ecosystem: lockfile.YarnEcosystem,
+			CompareAs: lockfile.YarnEcosystem,
+		},
+		{
+			Name:      "ansi-regex",
+			Version:   "6.0.1",
+			Ecosystem: lockfile.YarnEcosystem,
+			CompareAs: lockfile.YarnEcosystem,
+		},
+		{
+			Name:      "ansi-regex",
+			Version:   "5.0.1",
+			Ecosystem: lockfile.YarnEcosystem,
+			CompareAs: lockfile.YarnEcosystem,
+		},
+	})
+}
