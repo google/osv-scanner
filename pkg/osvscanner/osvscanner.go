@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"os"
 	"os/exec"
+	"path"
 	"path/filepath"
 	"strings"
 
@@ -393,7 +394,7 @@ func scanGit(r reporter.Reporter, query *osv.BatchedQuery, repoDir string) error
 
 	for _, s := range submodules {
 		r.PrintText(fmt.Sprintf("Scanning submodule %s at commit %s\n", s.Path, s.Expected.String()))
-		err = scanGitCommit(query, s.Expected.String(), repoDir)
+		err = scanGitCommit(query, s.Expected.String(), path.Join(repoDir, s.Path))
 		if err != nil {
 			return err
 		}
