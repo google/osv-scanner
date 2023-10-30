@@ -341,6 +341,7 @@ func MakeDetermineVersionRequest(name string, hashes []DetermineVersionHash) (*D
 		return nil, err
 	}
 
+	//nolint:noctx
 	req, err := http.NewRequest(http.MethodPost, DetermineVersionEndpoint, &buf)
 	if err != nil {
 		return nil, err

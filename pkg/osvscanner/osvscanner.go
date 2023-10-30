@@ -2,7 +2,7 @@ package osvscanner
 
 import (
 	"bufio"
-	"crypto/md5"
+	"crypto/md5" //nolint:gosec
 	"errors"
 	"fmt"
 	"io/fs"
@@ -62,17 +62,17 @@ var OnlyUncalledVulnerabilitiesFoundErr = errors.New("only uncalled vulnerabilit
 
 var (
 	vendoredLibNames = map[string]struct{}{
-		"3rdparty":    struct{}{},
-		"dep":         struct{}{},
-		"deps":        struct{}{},
-		"thirdparty":  struct{}{},
-		"third-party": struct{}{},
-		"third_party": struct{}{},
-		"libs":        struct{}{},
-		"external":    struct{}{},
-		"externals":   struct{}{},
-		"vendor":      struct{}{},
-		"vendored":    struct{}{},
+		"3rdparty":    {},
+		"dep":         {},
+		"deps":        {},
+		"thirdparty":  {},
+		"third-party": {},
+		"third_party": {},
+		"libs":        {},
+		"external":    {},
+		"externals":   {},
+		"vendor":      {},
+		"vendored":    {},
 	}
 )
 
@@ -221,10 +221,6 @@ func queryDetermineVersions(repoDir string) (*osv.DetermineVersionResponse, erro
 
 	var hashes []osv.DetermineVersionHash
 	if err := filepath.Walk(repoDir, func(p string, info fs.FileInfo, err error) error {
-		if len(hashes) > maxDetermineVersionFiles {
-			return errors.New("too many files to hash")
-		}
-
 		if info.IsDir() {
 			if _, err := os.Stat(filepath.Join(p, ".git")); err == nil {
 				// Found a git repo, stop here as otherwise we may get duplicated
@@ -240,21 +236,25 @@ func queryDetermineVersions(repoDir string) (*osv.DetermineVersionResponse, erro
 				if err != nil {
 					return err
 				}
-				hash := md5.Sum(buf)
+				hash := md5.Sum(buf) //nolint:gosec
 				hashes = append(hashes, osv.DetermineVersionHash{
 					Path: strings.ReplaceAll(p, repoDir, ""),
 					Hash: hash[:],
 				})
+				if len(hashes) > maxDetermineVersionFiles {
+					return errors.New("too many files to hash")
+				}
 			}
 		}
+
 		return nil
 	}); err != nil {
-		return nil, fmt.Errorf("failed during hashing: %v", err)
+		return nil, fmt.Errorf("failed during hashing: %w", err)
 	}
 
 	result, err := osv.MakeDetermineVersionRequest(filepath.Base(repoDir), hashes)
 	if err != nil {
-		return nil, fmt.Errorf("failed to determine versions: %v", err)
+		return nil, fmt.Errorf("failed to determine versions: %w", err)
 	}
 
 	return result, nil
@@ -288,6 +288,7 @@ func scanDirWithVendoredLibs(r reporter.Reporter, query *osv.BatchedQuery, path 
 			}
 		}
 	}
+
 	return nil
 }
 
