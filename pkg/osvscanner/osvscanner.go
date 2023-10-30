@@ -77,8 +77,8 @@ var (
 )
 
 const (
-	// This value may need to be tweaked.
-	determineVersionThreshold = 0.5
+	// This value may need to be tweaked, or be provided as a configurable flag.
+	determineVersionThreshold = 0.15
 	maxDetermineVersionFiles  = 10000
 )
 
