@@ -20,6 +20,8 @@ const (
 	QueryEndpoint = "https://api.osv.dev/v1/querybatch"
 	// GetEndpoint is the URL for getting vulenrabilities from OSV.
 	GetEndpoint = "https://api.osv.dev/v1/vulns"
+	// DetermineVersionEndpoint is the URL for posting determineversion queries to OSV.
+	DetermineVersionEndpoint = "https://api.osv.dev/v1experimental/determineversion"
 	// BaseVulnerabilityURL is the base URL for detailed vulnerability views.
 	BaseVulnerabilityURL = "https://osv.dev/"
 	// maxQueriesPerRequest splits up querybatch into multiple requests if
@@ -74,6 +76,30 @@ type BatchedResponse struct {
 // HydratedBatchedResponse represents a hydrated batched response from OSV.
 type HydratedBatchedResponse struct {
 	Results []Response `json:"results"`
+}
+
+// DetermineVersionHash holds the per file hash and path information for determineversion.
+type DetermineVersionHash struct {
+	Path string `json:"path"`
+	Hash []byte `json:"hash"`
+}
+
+type DetermineVersionResponse struct {
+	Matches []struct {
+		Score    float64 `json:"score"`
+		RepoInfo struct {
+			Type    string `json:"type"`
+			Address string `json:"address"`
+			Tag     string `json:"tag"`
+			Version string `json:"version"`
+			Commit  string `json:"commit"`
+		} `json:"repo_info"`
+	} `json:"matches"`
+}
+
+type determineVersionsRequest struct {
+	Name       string                 `json:"name"`
+	FileHashes []DetermineVersionHash `json:"file_hashes"`
 }
 
 // MakeCommitRequest makes a commit hash request.
@@ -301,4 +327,41 @@ func makeRetryRequest(action func() (*http.Response, error)) (*http.Response, er
 	}
 
 	return resp, err
+}
+
+func MakeDetermineVersionRequest(name string, hashes []DetermineVersionHash) (*DetermineVersionResponse, error) {
+	var buf bytes.Buffer
+
+	request := determineVersionsRequest{
+		Name:       name,
+		FileHashes: hashes,
+	}
+
+	if err := json.NewEncoder(&buf).Encode(request); err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodPost, DetermineVersionEndpoint, &buf)
+	if err != nil {
+		return nil, err
+	}
+	req.Header.Set("Content-Type", "application/json")
+	if RequestUserAgent != "" {
+		req.Header.Set("User-Agent", RequestUserAgent)
+	}
+
+	client := http.DefaultClient
+	resp, err := client.Do(req)
+	if err != nil {
+		return nil, err
+	}
+	defer resp.Body.Close()
+
+	var result DetermineVersionResponse
+	decoder := json.NewDecoder(resp.Body)
+	if err := decoder.Decode(&result); err != nil {
+		return nil, err
+	}
+
+	return &result, nil
 }

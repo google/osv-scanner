@@ -2,8 +2,10 @@ package osvscanner
 
 import (
 	"bufio"
+	"crypto/md5"
 	"errors"
 	"fmt"
+	"io/fs"
 	"os"
 	"os/exec"
 	"path"
@@ -58,12 +60,34 @@ var VulnerabilitiesFoundErr = errors.New("vulnerabilities found")
 //nolint:errname,stylecheck // Would require version bump to change
 var OnlyUncalledVulnerabilitiesFoundErr = errors.New("only uncalled vulnerabilities found")
 
+var (
+	vendoredLibNames = map[string]struct{}{
+		"3rdparty":    struct{}{},
+		"dep":         struct{}{},
+		"deps":        struct{}{},
+		"thirdparty":  struct{}{},
+		"third-party": struct{}{},
+		"third_party": struct{}{},
+		"libs":        struct{}{},
+		"external":    struct{}{},
+		"externals":   struct{}{},
+		"vendor":      struct{}{},
+		"vendored":    struct{}{},
+	}
+)
+
+const (
+	// This value may need to be tweaked.
+	determineVersionThreshold = 0.5
+	maxDetermineVersionFiles  = 10000
+)
+
 // scanDir walks through the given directory to try to find any relevant files
 // These include:
 //   - Any lockfiles with scanLockfile
 //   - Any SBOM files with scanSBOMFile
 //   - Any git repositories with scanGit
-func scanDir(r reporter.Reporter, query *osv.BatchedQuery, dir string, skipGit bool, recursive bool, useGitIgnore bool) error {
+func scanDir(r reporter.Reporter, query *osv.BatchedQuery, dir string, skipGit bool, recursive bool, useGitIgnore bool, compareOffline bool) error {
 	var ignoreMatcher *gitIgnoreMatcher
 	if useGitIgnore {
 		var err error
@@ -128,6 +152,15 @@ func scanDir(r reporter.Reporter, query *osv.BatchedQuery, dir string, skipGit b
 			_ = scanSBOMFile(r, query, path, true)
 		}
 
+		if info.IsDir() && !compareOffline {
+			if _, ok := vendoredLibNames[filepath.Base(path)]; ok {
+				err := scanDirWithVendoredLibs(r, query, path)
+				if err != nil {
+					r.PrintText(fmt.Sprintf("scan failed for dir containing vendored libs %s: %v\n", path, err))
+				}
+			}
+		}
+
 		if !root && !recursive && info.IsDir() {
 			return filepath.SkipDir
 		}
@@ -174,6 +207,88 @@ func parseGitIgnores(path string) (*gitIgnoreMatcher, error) {
 	}
 
 	return &gitIgnoreMatcher{matcher: matcher, repoPath: repopath}, nil
+}
+
+func queryDetermineVersions(repoDir string) (*osv.DetermineVersionResponse, error) {
+	fileExts := []string{
+		".hpp",
+		".h",
+		".hh",
+		".cc",
+		".c",
+		".cpp",
+	}
+
+	var hashes []osv.DetermineVersionHash
+	if err := filepath.Walk(repoDir, func(p string, info fs.FileInfo, err error) error {
+		if len(hashes) > maxDetermineVersionFiles {
+			return errors.New("too many files to hash")
+		}
+
+		if info.IsDir() {
+			if _, err := os.Stat(filepath.Join(p, ".git")); err == nil {
+				// Found a git repo, stop here as otherwise we may get duplicated
+				// results with our regular git commit scanning.
+				return filepath.SkipDir
+			}
+
+			return nil
+		}
+		for _, ext := range fileExts {
+			if filepath.Ext(p) == ext {
+				buf, err := os.ReadFile(p)
+				if err != nil {
+					return err
+				}
+				hash := md5.Sum(buf)
+				hashes = append(hashes, osv.DetermineVersionHash{
+					Path: strings.ReplaceAll(p, repoDir, ""),
+					Hash: hash[:],
+				})
+			}
+		}
+		return nil
+	}); err != nil {
+		return nil, fmt.Errorf("failed during hashing: %v", err)
+	}
+
+	result, err := osv.MakeDetermineVersionRequest(filepath.Base(repoDir), hashes)
+	if err != nil {
+		return nil, fmt.Errorf("failed to determine versions: %v", err)
+	}
+
+	return result, nil
+}
+
+func scanDirWithVendoredLibs(r reporter.Reporter, query *osv.BatchedQuery, path string) error {
+	r.PrintText(fmt.Sprintf("Scanning directory for vendored libs: %s\n", path))
+	entries, err := os.ReadDir(path)
+	if err != nil {
+		return err
+	}
+	for _, entry := range entries {
+		if !entry.IsDir() {
+			continue
+		}
+
+		libPath := filepath.Join(path, entry.Name())
+
+		r.PrintText(fmt.Sprintf("Scanning potential vendored dir: %s\n", libPath))
+		results, err := queryDetermineVersions(libPath)
+		if err != nil {
+			return err
+		}
+
+		if len(results.Matches) > 0 && results.Matches[0].Score > determineVersionThreshold {
+			match := results.Matches[0]
+			r.PrintText(fmt.Sprintf("Identified %s as %s at %s.\n", libPath, match.RepoInfo.Address, match.RepoInfo.Commit))
+			err := scanGitCommit(query, match.RepoInfo.Commit, libPath)
+			if err != nil {
+				return err
+			}
+		}
+	}
+	return nil
 }
 
 // gitIgnoreMatcher.match will return true if the file/directory matches a gitignore entry
@@ -616,7 +731,7 @@ func DoScan(actions ScannerActions, r reporter.Reporter) (models.VulnerabilityRe
 
 	for _, dir := range actions.DirectoryPaths {
 		r.PrintText(fmt.Sprintf("Scanning dir %s\n", dir))
-		err := scanDir(r, &query, dir, actions.SkipGit, actions.Recursive, !actions.NoIgnore)
+		err := scanDir(r, &query, dir, actions.SkipGit, actions.Recursive, !actions.NoIgnore, actions.CompareOffline)
 		if err != nil {
 			return models.VulnerabilityResults{}, err
 		}
