@@ -2,12 +2,15 @@ package testutility
 
 import (
 	"encoding/json"
+	"fmt"
 	"os"
 	"reflect"
-	"strings"
 	"testing"
 
-	"github.com/kr/pretty"
+	"github.com/google/go-cmp/cmp"
+	"github.com/hexops/gotextdiff"
+	"github.com/hexops/gotextdiff/myers"
+	"github.com/hexops/gotextdiff/span"
 )
 
 // LoadJSONFixture loads a JSON fixture file and returns the decoded version.
@@ -41,7 +44,7 @@ func AssertMatchFixtureJSON[V any](t *testing.T, path string, val V) {
 	}
 
 	if !reflect.DeepEqual(val, elem) {
-		t.Errorf("Not equal: \n%s", strings.Join(pretty.Diff(val, elem), "\n"))
+		t.Errorf("Not equal: \n%s", cmp.Diff(val, elem))
 	}
 }
 
@@ -77,15 +80,31 @@ func CreateTextFixture(t *testing.T, path string, val string) {
 	}
 }
 
-// AssertMatchFixtureText matches the Text file at path with val
-func AssertMatchFixtureText(t *testing.T, path string, val string) {
+// AssertMatchFixtureText matches the Text file at path with actual
+func AssertMatchFixtureText(t *testing.T, path string, actual string) {
 	t.Helper()
 	fileA, err := os.ReadFile(path)
 	if err != nil {
 		t.Fatalf("Failed to open fixture: %s", err)
 	}
 
-	if val != string(fileA) {
-		t.Errorf("Not equal: \ngot: \n%s\n\n---\nwant:\n%s", val, string(fileA))
+	expect := string(fileA)
+	if actual != string(fileA) {
+		if os.Getenv("TEST_NO_DIFF") == "true" {
+			t.Errorf("\nactual %s does not match expected:\n got:\n%s\n\n want:\n%s", path, actual, expect)
+		} else {
+			edits := myers.ComputeEdits(span.URIFromPath(path), expect, actual)
+			diff := fmt.Sprint(gotextdiff.ToUnified(path, "test-output", expect, edits))
+			t.Errorf("\nactual %s does not match expected:\n%s", path, diff)
+		}
+	}
+}
+
+// AcceptanceTests marks this test function as a extended that require additional dependencies
+// automatically skipped unless running in a CI environment
+func AcceptanceTests(t *testing.T, reason string) {
+	t.Helper()
+	if os.Getenv("TEST_ACCEPTANCE") != "true" {
+		t.Skip("Skipping extended test: ", reason)
 	}
 }

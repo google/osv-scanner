@@ -39,10 +39,11 @@ type Package struct {
 
 // Query represents a query to OSV.
 type Query struct {
-	Commit  string            `json:"commit,omitempty"`
-	Package Package           `json:"package,omitempty"`
-	Version string            `json:"version,omitempty"`
-	Source  models.SourceInfo `json:"-"`
+	Commit   string            `json:"commit,omitempty"`
+	Package  Package           `json:"package,omitempty"`
+	Version  string            `json:"version,omitempty"`
+	Source   models.SourceInfo `json:"-"` // TODO: Move this into Info struct in v2
+	Metadata models.Metadata   `json:"-"`
 }
 
 // BatchedQuery represents a batched query to OSV.
@@ -95,6 +96,9 @@ func MakePkgRequest(pkgDetails lockfile.PackageDetails) *Query {
 	// API has trouble parsing requests with both commit and Package details filled in
 	if pkgDetails.Ecosystem == "" && pkgDetails.Commit != "" {
 		return &Query{
+			Metadata: models.Metadata{
+				RepoURL: pkgDetails.Name,
+			},
 			Commit: pkgDetails.Commit,
 		}
 	} else {

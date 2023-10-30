@@ -49,6 +49,10 @@ type SourceInfo struct {
 	Type string `json:"type"`
 }
 
+type Metadata struct {
+	RepoURL string `json:"repo_url"`
+}
+
 func (s SourceInfo) String() string {
 	return s.Type + ":" + s.Path
 }

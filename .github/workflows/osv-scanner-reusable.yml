@@ -12,7 +12,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-name: OSV-Scanner scheduled scan reusable
+name: OSV-Scanner scanning reusable
+
+permissions:
+  contents: read
+  security-events: write
 
 on:
   workflow_call:
@@ -24,19 +28,44 @@ on:
           -r
           --skip-git
           ./
+      results-file-name:
+        description: "File name of the result SARIF file"
+        type: string
+        default: results.sarif
+      download-artifact:
+        description: "Optional artifact to download for scanning"
+        required: false
+        default: ""
+        type: string
 
 jobs:
-  scan-scheduled:
+  osv-scan:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
+        with:
+          persist-credentials: false
+      - name: "Download custom artifact if specified"
+        uses: actions/download-artifact@v3
+        if: "${{ inputs.download-artifact != '' }}"
+        with:
+          name: "${{ inputs.download-artifact }}"
+          path: "./"
       - name: "Run scanner"
         uses: google/osv-scanner/actions/scanner@main
         with:
           scan-args: |-
-            --output=results.sarif
-            --format=sarif
+            --output=results.json
+            --format=json
             ${{ inputs.scan-args }}
+        continue-on-error: true
+      - name: "Run osv-scanner-reporter"
+        uses: google/osv-scanner/actions/reporter@main
+        with:
+          scan-args: |-
+            --output=${{ inputs.results-file-name }}
+            --new=results.json
+            --gh-annotations=false
       # Upload the results as artifacts (optional). Commenting out will disable uploads of run results in SARIF
       # format to the repository Actions tab.
       - name: "Upload artifact"
@@ -44,12 +73,12 @@ jobs:
         uses: actions/upload-artifact@a8a3f3ad30e3422c9c7b888a15615d19a852ae32 # v3.1.3
         with:
           name: SARIF file
-          path: results.sarif
+          path: ${{ inputs.results-file-name }}
           retention-days: 5
       # Upload the results to GitHub's code scanning dashboard.
       - name: "Upload to code-scanning"
         if: '!cancelled()'
-        uses: github/codeql-action/upload-sarif@00e563ead9f72a8461b24876bee2d0c2e8bd2ee8 # v2.21.5
+        uses: github/codeql-action/upload-sarif@74483a38d39275f33fcff5f35b679b5ca4a26a99 # v2.22.5
         with:
-          sarif_file: results.sarif
+          sarif_file: ${{ inputs.results-file-name }}
 
