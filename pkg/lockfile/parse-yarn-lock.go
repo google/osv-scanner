@@ -48,6 +48,7 @@ func groupYarnPackageLines(scanner *bufio.Scanner) [][]string {
 
 func extractYarnPackageName(str string) string {
 	str = strings.TrimPrefix(str, "\"")
+	str, _, _ = strings.Cut(str, ",")
 
 	isScoped := strings.HasPrefix(str, "@")
 
@@ -55,7 +56,11 @@ func extractYarnPackageName(str string) string {
 		str = strings.TrimPrefix(str, "@")
 	}
 
-	name := strings.SplitN(str, "@", 2)[0]
+	name, right, _ := strings.Cut(str, "@")
+
+	if strings.HasPrefix(right, "npm:") && strings.Contains(right, "@") {
+		return extractYarnPackageName(strings.TrimPrefix(right, "npm:"))
+	}
 
 	if isScoped {
 		name = "@" + name
