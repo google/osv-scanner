@@ -25,9 +25,9 @@ osv-scanner -r /path/to/your/dir
 
 The preceding command will find lockfiles, SBOMs, and git directories in your target directory and use them to determine the dependencies to check against the OSV database for any known vulnerabilities.
 
-The recursive flag `-r` or `--recursive` will tell the scanner to search all subdirectories in addition to the specified directory. It can find additional lockfiles, dependencies, and vulnerabilities. If your project has deeply nested subdirectories, a recursive search may take a long time. 
+The recursive flag `-r` or `--recursive` will tell the scanner to search all subdirectories in addition to the specified directory. It can find additional lockfiles, dependencies, and vulnerabilities. If your project has deeply nested subdirectories, a recursive search may take a long time.
 
-Git directories are searched for the latest commit hash. Searching for git commit hash is intended to work with projects that use git submodules or a similar mechanism where dependencies are checked out as real git repositories. 
+Git directories are searched for the latest commit hash. Searching for git commit hash is intended to work with projects that use git submodules or a similar mechanism where dependencies are checked out as real git repositories.
 
 ## Ignored files
 
@@ -110,7 +110,7 @@ osv-scanner --lockfile ':/path/to/my:projects/package-lock.json'
 
 ### Custom Lockfiles
 
-If you have a custom lockfile that we do not support or prefer to do your own custom parsing, you can extract the custom lockfile information and create a custom intermediate file containing dependency information so that osv-scanner can still check for vulnerabilities. 
+If you have a custom lockfile that we do not support or prefer to do your own custom parsing, you can extract the custom lockfile information and create a custom intermediate file containing dependency information so that osv-scanner can still check for vulnerabilities.
 
 Once you extracted your own dependency information, place it in a `osv-scanner.json` file, with the same format as the JSON output of osv-scanner, e.g.:
 
@@ -121,6 +121,7 @@ Once you extracted your own dependency information, place it in a `osv-scanner.j
       "packages": [
         {
           "package": {
+            "name": "github.com/repo/url",
             "commit": "9a6bd55c9d0722cb101fe85a3b22d89e4ff4fe52"
           }
         },
@@ -145,7 +146,7 @@ osv-scanner --lockfile osv-scanner:/path/to/osv-scanner.json
 
 ## Scanning a Debian based docker image packages
 Preview
-{: .label } 
+{: .label }
 
 This tool will scrape the list of installed packages in a Debian image and query for vulnerabilities on them.
 
@@ -180,4 +181,12 @@ appropriate osv-scanner flags:
 
 ```bash
 docker run -it -v ${PWD}:/src ghcr.io/google/osv-scanner -L /src/go.mod
+```
+
+## Saving to file
+
+The `--output` flag can be used to save the scan results to a file instead of being printed on the stdout:
+
+```bash
+osv-scanner -L package-lock.json --output scan-results.txt
 ```

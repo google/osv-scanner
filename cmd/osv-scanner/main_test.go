@@ -189,6 +189,7 @@ func TestRun(t *testing.T) {
 				+-------------------------------------+------+-----------+--------------------------------+------------------------------------+-------------------------------------------------+
 				| OSV URL                             | CVSS | ECOSYSTEM | PACKAGE                        | VERSION                            | SOURCE                                          |
 				+-------------------------------------+------+-----------+--------------------------------+------------------------------------+-------------------------------------------------+
+				| https://osv.dev/CVE-2022-48174      | 9.8  | Alpine    | busybox                        | 1.35.0-r29                         | fixtures/sbom-insecure/alpine.cdx.xml           |
 				| https://osv.dev/CVE-2022-37434      | 9.8  | Alpine    | zlib                           | 1.2.10-r2                          | fixtures/sbom-insecure/alpine.cdx.xml           |
 				| https://osv.dev/DLA-3022-1          |      | Debian    | dpkg                           | 1.18.25                            | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 				| https://osv.dev/GHSA-v95c-p5hm-xq8f | 6    | Go        | github.com/opencontainers/runc | v1.0.1                             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
@@ -212,12 +213,13 @@ func TestRun(t *testing.T) {
 			args:         []string{"", "--config=./fixtures/osv-scanner-empty-config.toml", "--sbom", "./fixtures/sbom-insecure/alpine.cdx.xml"},
 			wantExitCode: 1,
 			wantStdout: `
-      	Scanned <rootdir>/fixtures/sbom-insecure/alpine.cdx.xml as CycloneDX SBOM and found 15 packages
-      	+--------------------------------+------+-----------+---------+-----------+---------------------------------------+
-      	| OSV URL                        | CVSS | ECOSYSTEM | PACKAGE | VERSION   | SOURCE                                |
-      	+--------------------------------+------+-----------+---------+-----------+---------------------------------------+
-      	| https://osv.dev/CVE-2022-37434 | 9.8  | Alpine    | zlib    | 1.2.10-r2 | fixtures/sbom-insecure/alpine.cdx.xml |
-      	+--------------------------------+------+-----------+---------+-----------+---------------------------------------+
+				Scanned <rootdir>/fixtures/sbom-insecure/alpine.cdx.xml as CycloneDX SBOM and found 15 packages
+				+--------------------------------+------+-----------+---------+------------+---------------------------------------+
+				| OSV URL                        | CVSS | ECOSYSTEM | PACKAGE | VERSION    | SOURCE                                |
+				+--------------------------------+------+-----------+---------+------------+---------------------------------------+
+				| https://osv.dev/CVE-2022-48174 | 9.8  | Alpine    | busybox | 1.35.0-r29 | fixtures/sbom-insecure/alpine.cdx.xml |
+				| https://osv.dev/CVE-2022-37434 | 9.8  | Alpine    | zlib    | 1.2.10-r2  | fixtures/sbom-insecure/alpine.cdx.xml |
+				+--------------------------------+------+-----------+---------+------------+---------------------------------------+
 			`,
 			wantStderr: "",
 		},
@@ -246,8 +248,9 @@ func TestRun(t *testing.T) {
 				Scanned <rootdir>/fixtures/locks-many/package-lock.json file and found 1 package
 				Scanned <rootdir>/fixtures/locks-many/yarn.lock file and found 1 package
 				Loaded filter from: <rootdir>/fixtures/locks-many/osv-scanner.toml
+				CVE-2022-48174 has been filtered out because: Test manifest file (alpine.cdx.xml)
 				GHSA-whgm-jr23-g3j9 has been filtered out because: Test manifest file
-				Filtered 1 vulnerability from output
+				Filtered 2 vulnerabilities from output
 				No vulnerabilities found
 			`,
 			wantStderr: "",
@@ -360,7 +363,7 @@ func TestRun(t *testing.T) {
 			wantStdout: fmt.Sprintf(`
             {
               "version": "2.1.0",
-              "$schema": "https://json.schemastore.org/sarif-2.1.0.json",
+              "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/master/Schemata/sarif-schema-2.1.0.json",
               "runs": [
                 {
                   "tool": {
@@ -388,7 +391,7 @@ func TestRun(t *testing.T) {
 			wantStdout: fmt.Sprint(`
 						{
               "version": "2.1.0",
-              "$schema": "https://json.schemastore.org/sarif-2.1.0.json",
+              "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/master/Schemata/sarif-schema-2.1.0.json",
               "runs": [
                 {
                   "tool": {
@@ -398,6 +401,7 @@ func TestRun(t *testing.T) {
                       "rules": [
                         {
                           "id": "CVE-2021-23424",
+                          "name": "CVE-2021-23424",
                           "shortDescription": {
                             "text": "CVE-2021-23424: Uncontrolled Resource Consumption in ansi-html"
                           },
@@ -695,6 +699,143 @@ func TestRun_LockfileWithExplicitParseAs(t *testing.T) {
 				No vulnerabilities found
 			`,
 			wantStderr: "",
+		},
+	}
+	for _, tt := range tests {
+		tt := tt
+		t.Run(tt.name, func(t *testing.T) {
+			t.Parallel()
+
+			testCli(t, tt)
+		})
+	}
+}
+
+// TestRun_GithubActions tests common actions the github actions reusable workflow will run
+func TestRun_GithubActions(t *testing.T) {
+	t.Parallel()
+
+	tests := []cliTestCase{
+		{
+			name:         "scanning osv-scanner custom format",
+			args:         []string{"", "-L", "osv-scanner:./fixtures/locks-insecure/osv-scanner-flutter-deps.json"},
+			wantExitCode: 1,
+			wantStdout: `
+				Scanned <rootdir>/fixtures/locks-insecure/osv-scanner-flutter-deps.json file as a osv-scanner and found 3 packages
+				+--------------------------------+------+-----------+----------------------------+----------------------------+-------------------------------------------------------+
+				| OSV URL                        | CVSS | ECOSYSTEM | PACKAGE                    | VERSION                    | SOURCE                                                |
+				+--------------------------------+------+-----------+----------------------------+----------------------------+-------------------------------------------------------+
+				| https://osv.dev/CVE-2023-39137 | 7.8  | GIT       |  https://github.com/brendan-duncan/archive.git@9de7a054 | fixtures/locks-insecure/osv-scanner-flutter-deps.json |
+				| https://osv.dev/CVE-2023-39139 | 7.8  | GIT       |  https://github.com/brendan-duncan/archive.git@9de7a054 | fixtures/locks-insecure/osv-scanner-flutter-deps.json |
+				+--------------------------------+------+-----------+---------------------------------------------------------+-------------------------------------------------------+
+`,
+			wantStderr: "",
+		},
+		{
+			name:         "scanning osv-scanner custom format output json",
+			args:         []string{"", "-L", "osv-scanner:./fixtures/locks-insecure/osv-scanner-flutter-deps.json", "--format=sarif"},
+			wantExitCode: 1,
+			wantStdout: fmt.Sprint(`
+        {
+          "version": "2.1.0",
+          "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/master/Schemata/sarif-schema-2.1.0.json",
+          "runs": [
+            {
+              "tool": {
+                "driver": {
+                  "informationUri": "https://github.com/google/osv-scanner",
+                  "name": "osv-scanner",
+                  "rules": [
+                    {
+                      "id": "CVE-2023-39137",
+                      "name": "CVE-2023-39137",
+                      "shortDescription": {
+                        "text": "CVE-2023-39137"
+                      },
+                      "fullDescription": {
+                        "text": "An issue in Archive v3.3.7 allows attackers to spoof zip filenames which can lead to inconsistent filename parsing.",
+                        "markdown": "An issue in Archive v3.3.7 allows attackers to spoof zip filenames which can lead to inconsistent filename parsing."
+                      },
+                      "deprecatedIds": [
+                        "CVE-2023-39137"
+                      ],
+                      "help": {
+                        "text": "%%",
+                        "markdown": "%%"
+                      }
+                    },
+                    {
+                      "id": "CVE-2023-39139",
+                      "name": "CVE-2023-39139",
+                      "shortDescription": {
+                        "text": "CVE-2023-39139"
+                      },
+                      "fullDescription": {
+                        "text": "An issue in Archive v3.3.7 allows attackers to execute a path traversal via extracting a crafted zip file.",
+                        "markdown": "An issue in Archive v3.3.7 allows attackers to execute a path traversal via extracting a crafted zip file."
+                      },
+                      "deprecatedIds": [
+                        "CVE-2023-39139"
+                      ],
+                      "help": {
+                        "text": "%%",
+                        "markdown": "%%"
+                      }
+                    }
+                  ],
+                  "version": "`, version.OSVVersion, `"
+                }
+              },
+              "artifacts": [
+                {
+                  "location": {
+                    "uri": "file://<rootdir>/fixtures/locks-insecure/osv-scanner-flutter-deps.json"
+                  },
+                  "length": -1
+                }
+              ],
+              "results": [
+                {
+                  "ruleId": "CVE-2023-39137",
+                  "ruleIndex": 0,
+                  "level": "warning",
+                  "message": {
+                    "text": "Package 'https://github.com/brendan-duncan/archive.git@9de7a054' is vulnerable to 'CVE-2023-39137'."
+                  },
+                  "locations": [
+                    {
+                      "physicalLocation": {
+                        "artifactLocation": {
+                          "uri": "file://<rootdir>/fixtures/locks-insecure/osv-scanner-flutter-deps.json"
+                        }
+                      }
+                    }
+                  ]
+                },
+                {
+                  "ruleId": "CVE-2023-39139",
+                  "ruleIndex": 1,
+                  "level": "warning",
+                  "message": {
+                    "text": "Package 'https://github.com/brendan-duncan/archive.git@9de7a054' is vulnerable to 'CVE-2023-39139'."
+                  },
+                  "locations": [
+                    {
+                      "physicalLocation": {
+                        "artifactLocation": {
+                          "uri": "file://<rootdir>/fixtures/locks-insecure/osv-scanner-flutter-deps.json"
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }`),
+			wantStderr: `
+				Scanned <rootdir>/fixtures/locks-insecure/osv-scanner-flutter-deps.json file as a osv-scanner and found 3 packages
+			`,
 		},
 	}
 	for _, tt := range tests {

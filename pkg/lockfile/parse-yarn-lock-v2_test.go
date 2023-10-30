@@ -158,10 +158,10 @@ func TestParseYarnLock_v2_ScopedPackages(t *testing.T) {
 	})
 }
 
-func TestParseYarnLock_v2_VersionsWithBuildString(t *testing.T) {
+func TestParseYarnLock_v2_WithPrerelease(t *testing.T) {
 	t.Parallel()
 
-	packages, err := lockfile.ParseYarnLock("fixtures/yarn/versions-with-build-strings.v2.lock")
+	packages, err := lockfile.ParseYarnLock("fixtures/yarn/with-prerelease.v2.lock")
 
 	if err != nil {
 		t.Errorf("Got unexpected error: %v", err)
@@ -182,6 +182,38 @@ func TestParseYarnLock_v2_VersionsWithBuildString(t *testing.T) {
 		},
 		{
 			Name:      "eslint-plugin-jest",
+			Version:   "0.0.0-use.local",
+			Ecosystem: lockfile.YarnEcosystem,
+			CompareAs: lockfile.YarnEcosystem,
+		},
+	})
+}
+
+func TestParseYarnLock_v2_WithBuildString(t *testing.T) {
+	t.Parallel()
+
+	packages, err := lockfile.ParseYarnLock("fixtures/yarn/with-build-string.v2.lock")
+
+	if err != nil {
+		t.Errorf("Got unexpected error: %v", err)
+	}
+
+	expectPackages(t, packages, []lockfile.PackageDetails{
+		{
+			Name:      "domino",
+			Version:   "2.1.6+git",
+			Commit:    "f2435fe1f9f7c91ade0bd472c4723e5eacd7d19a",
+			Ecosystem: lockfile.YarnEcosystem,
+			CompareAs: lockfile.YarnEcosystem,
+		},
+		{
+			Name:      "tslib",
+			Version:   "2.6.2",
+			Ecosystem: lockfile.YarnEcosystem,
+			CompareAs: lockfile.YarnEcosystem,
+		},
+		{
+			Name:      "zone.js",
 			Version:   "0.0.0-use.local",
 			Ecosystem: lockfile.YarnEcosystem,
 			CompareAs: lockfile.YarnEcosystem,
