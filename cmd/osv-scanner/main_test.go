@@ -137,6 +137,9 @@ func normalizeRootDirectory(t *testing.T, str string) string {
 
 	cwd = normalizeFilePaths(t, cwd)
 
+	// file uris with Windows end up with three slashes, so we normalize that too
+	str = strings.ReplaceAll(str, "file:///"+cwd, "file://<rootdir>")
+
 	return strings.ReplaceAll(str, cwd, "<rootdir>")
 }
 
