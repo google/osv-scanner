@@ -153,7 +153,7 @@ func scanDir(r reporter.Reporter, query *osv.BatchedQuery, dir string, skipGit b
 		}
 
 		if info.IsDir() && !compareOffline {
-			if _, ok := vendoredLibNames[filepath.Base(path)]; ok {
+			if _, ok := vendoredLibNames[strings.ToLower(filepath.Base(path))]; ok {
 				err := scanDirWithVendoredLibs(r, query, path)
 				if err != nil {
 					r.PrintText(fmt.Sprintf("scan failed for dir containing vendored libs %s: %v\n", path, err))
