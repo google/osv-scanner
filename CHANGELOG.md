@@ -1,3 +1,11 @@
+# v1.4.2:
+
+### Fixes
+- [Bug #574](https://github.com/google/osv-scanner/issues/574)
+  Support versions with build metadata in `yarn.lock` files
+- [Bug #599](https://github.com/google/osv-scanner/issues/599)
+  Add name field to sarif rule output
+
 # v1.4.1:
 
 ### Features

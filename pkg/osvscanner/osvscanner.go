@@ -2,10 +2,13 @@ package osvscanner
 
 import (
 	"bufio"
+	"crypto/md5" //nolint:gosec
 	"errors"
 	"fmt"
+	"io/fs"
 	"os"
 	"os/exec"
+	"path"
 	"path/filepath"
 	"strings"
 
@@ -71,12 +74,34 @@ var VulnerabilitiesFoundAndLicenseViolationsErr = errors.New("vulnerabilities fo
 //nolint:errname,stylecheck // Would require version bump to change
 var OnlyUncalledVulnerabilitiesFoundAndLicenseViolationsErr = errors.New("only uncalled vulnerabilities found and license violations found")
 
+var (
+	vendoredLibNames = map[string]struct{}{
+		"3rdparty":    {},
+		"dep":         {},
+		"deps":        {},
+		"thirdparty":  {},
+		"third-party": {},
+		"third_party": {},
+		"libs":        {},
+		"external":    {},
+		"externals":   {},
+		"vendor":      {},
+		"vendored":    {},
+	}
+)
+
+const (
+	// This value may need to be tweaked, or be provided as a configurable flag.
+	determineVersionThreshold = 0.15
+	maxDetermineVersionFiles  = 10000
+)
+
 // scanDir walks through the given directory to try to find any relevant files
 // These include:
 //   - Any lockfiles with scanLockfile
 //   - Any SBOM files with scanSBOMFile
 //   - Any git repositories with scanGit
-func scanDir(r reporter.Reporter, dir string, skipGit bool, recursive bool, useGitIgnore bool) ([]Package, error) {
+func scanDir(r reporter.Reporter, dir string, skipGit bool, recursive bool, useGitIgnore bool, compareOffline bool) ([]scannedPackage, error) {
 	var ignoreMatcher *gitIgnoreMatcher
 	if useGitIgnore {
 		var err error
@@ -88,8 +113,10 @@ func scanDir(r reporter.Reporter, dir string, skipGit bool, recursive bool, useG
 	}
 
 	root := true
-	var scannedPackages []Package
-	err := filepath.WalkDir(dir, func(path string, info os.DirEntry, err error) error {
+
+	var scannedPackages []scannedPackage
+
+	return scannedPackages, filepath.WalkDir(dir, func(path string, info os.DirEntry, err error) error {
 		if err != nil {
 			r.PrintText(fmt.Sprintf("Failed to walk %s: %v\n", path, err))
 			return err
@@ -119,12 +146,12 @@ func scanDir(r reporter.Reporter, dir string, skipGit bool, recursive bool, useG
 		}
 
 		if !skipGit && info.IsDir() && info.Name() == ".git" {
-			pkg, err := scanGit(r, filepath.Dir(path)+"/")
+			pkgs, err := scanGit(r, filepath.Dir(path)+"/")
 			if err != nil {
 				r.PrintText(fmt.Sprintf("scan failed for git repository, %s: %v\n", path, err))
 				// Not fatal, so don't return and continue scanning other files
 			}
-			scannedPackages = append(scannedPackages, pkg)
+			scannedPackages = append(scannedPackages, pkgs...)
 
 			return filepath.SkipDir
 		}
@@ -144,6 +171,16 @@ func scanDir(r reporter.Reporter, dir string, skipGit bool, recursive bool, useG
 			scannedPackages = append(scannedPackages, pkgs...)
 		}
 
+		if info.IsDir() && !compareOffline {
+			if _, ok := vendoredLibNames[strings.ToLower(filepath.Base(path))]; ok {
+				pkgs, err := scanDirWithVendoredLibs(r, path)
+				if err != nil {
+					r.PrintText(fmt.Sprintf("scan failed for dir containing vendored libs %s: %v\n", path, err))
+				}
+				scannedPackages = append(scannedPackages, pkgs...)
+			}
+		}
+
 		if !root && !recursive && info.IsDir() {
 			return filepath.SkipDir
 		}
@@ -151,8 +188,6 @@ func scanDir(r reporter.Reporter, dir string, skipGit bool, recursive bool, useG
 
 		return nil
 	})
-
-	return scannedPackages, err
 }
 
 type gitIgnoreMatcher struct {
@@ -194,6 +229,90 @@ func parseGitIgnores(path string) (*gitIgnoreMatcher, error) {
 	return &gitIgnoreMatcher{matcher: matcher, repoPath: repopath}, nil
 }
 
+func queryDetermineVersions(repoDir string) (*osv.DetermineVersionResponse, error) {
+	fileExts := []string{
+		".hpp",
+		".h",
+		".hh",
+		".cc",
+		".c",
+		".cpp",
+	}
+
+	var hashes []osv.DetermineVersionHash
+	if err := filepath.Walk(repoDir, func(p string, info fs.FileInfo, err error) error {
+		if info.IsDir() {
+			if _, err := os.Stat(filepath.Join(p, ".git")); err == nil {
+				// Found a git repo, stop here as otherwise we may get duplicated
+				// results with our regular git commit scanning.
+				return filepath.SkipDir
+			}
+
+			return nil
+		}
+		for _, ext := range fileExts {
+			if filepath.Ext(p) == ext {
+				buf, err := os.ReadFile(p)
+				if err != nil {
+					return err
+				}
+				hash := md5.Sum(buf) //nolint:gosec
+				hashes = append(hashes, osv.DetermineVersionHash{
+					Path: strings.ReplaceAll(p, repoDir, ""),
+					Hash: hash[:],
+				})
+				if len(hashes) > maxDetermineVersionFiles {
+					return errors.New("too many files to hash")
+				}
+			}
+		}
+
+		return nil
+	}); err != nil {
+		return nil, fmt.Errorf("failed during hashing: %w", err)
+	}
+
+	result, err := osv.MakeDetermineVersionRequest(filepath.Base(repoDir), hashes)
+	if err != nil {
+		return nil, fmt.Errorf("failed to determine versions: %w", err)
+	}
+
+	return result, nil
+}
+
+func scanDirWithVendoredLibs(r reporter.Reporter, path string) ([]scannedPackage, error) {
+	r.PrintText(fmt.Sprintf("Scanning directory for vendored libs: %s\n", path))
+	entries, err := os.ReadDir(path)
+	if err != nil {
+		return nil, err
+	}
+
+	var packages []scannedPackage
+	for _, entry := range entries {
+		if !entry.IsDir() {
+			continue
+		}
+
+		libPath := filepath.Join(path, entry.Name())
+
+		r.PrintText(fmt.Sprintf("Scanning potential vendored dir: %s\n", libPath))
+		// TODO: make this a goroutine to parallelise this operation
+		results, err := queryDetermineVersions(libPath)
+		if err != nil {
+			r.PrintText(fmt.Sprintf("Error scanning sub-directory '%s' with error: %v", libPath, err))
+			continue
+		}
+
+		if len(results.Matches) > 0 && results.Matches[0].Score > determineVersionThreshold {
+			match := results.Matches[0]
+			r.PrintText(fmt.Sprintf("Identified %s as %s at %s.\n", libPath, match.RepoInfo.Address, match.RepoInfo.Commit))
+			packages = append(packages, createCommitQueryPackage(match.RepoInfo.Commit, libPath))
+		}
+	}
+
+	return packages, nil
+}
+
 // gitIgnoreMatcher.match will return true if the file/directory matches a gitignore entry
 // i.e. true if it should be ignored
 func (m *gitIgnoreMatcher) match(absPath string, isDir bool) (bool, error) {
@@ -202,14 +321,17 @@ func (m *gitIgnoreMatcher) match(absPath string, isDir bool) (bool, error) {
 		return false, err
 	}
 	// must prepend "." to paths because of how gitignore.ReadPatterns interprets paths
-	pathInGitSep := append([]string{"."}, strings.Split(pathInGit, string(filepath.Separator))...)
+	pathInGitSep := []string{"."}
+	if pathInGit != "." { // don't make the path "./."
+		pathInGitSep = append(pathInGitSep, strings.Split(pathInGit, string(filepath.Separator))...)
+	}
 
 	return m.matcher.Match(pathInGitSep, isDir), nil
 }
 
 // scanLockfile will load, identify, and parse the lockfile path passed in, and add the dependencies specified
 // within to `query`
-func scanLockfile(r reporter.Reporter, path string, parseAs string) ([]Package, error) {
+func scanLockfile(r reporter.Reporter, path string, parseAs string) ([]scannedPackage, error) {
 	var err error
 	var parsedLockfile lockfile.Lockfile
 
@@ -251,9 +373,9 @@ func scanLockfile(r reporter.Reporter, path string, parseAs string) ([]Package, 
 		output.Form(len(parsedLockfile.Packages), "package", "packages"),
 	))
 
-	packages := make([]Package, len(parsedLockfile.Packages))
+	packages := make([]scannedPackage, len(parsedLockfile.Packages))
 	for i, pkgDetail := range parsedLockfile.Packages {
-		packages[i] = Package{
+		packages[i] = scannedPackage{
 			Name:      pkgDetail.Name,
 			Version:   pkgDetail.Version,
 			Commit:    pkgDetail.Commit,
@@ -270,9 +392,9 @@ func scanLockfile(r reporter.Reporter, path string, parseAs string) ([]Package, 
 
 // scanSBOMFile will load, identify, and parse the SBOM path passed in, and add the dependencies specified
 // within to `query`
-func scanSBOMFile(r reporter.Reporter, path string, fromFSScan bool) ([]Package, error) {
+func scanSBOMFile(r reporter.Reporter, path string, fromFSScan bool) ([]scannedPackage, error) {
 	var errs []error
-	var packages []Package
+	var packages []scannedPackage
 	for _, provider := range sbom.Providers {
 		if fromFSScan && !provider.MatchesRecognizedFileNames(path) {
 			// Skip if filename is not usually a sbom file of this format.
@@ -291,7 +413,6 @@ func scanSBOMFile(r reporter.Reporter, path string, fromFSScan bool) ([]Package,
 		}
 		defer file.Close()
 
-		count := 0
 		ignoredCount := 0
 		err = provider.GetPackages(file, func(id sbom.Identifier) error {
 			_, err := models.PURLToPackage(id.PURL)
@@ -300,20 +421,19 @@ func scanSBOMFile(r reporter.Reporter, path string, fromFSScan bool) ([]Package,
 				//nolint:nilerr
 				return nil
 			}
-			packages = append(packages, Package{
+			packages = append(packages, scannedPackage{
 				PURL: id.PURL,
 				Source: models.SourceInfo{
 					Path: path,
 					Type: "sbom",
 				},
 			})
-			count++
 
 			return nil
 		})
 		if err == nil {
 			// Found a parsable format.
-			if count == 0 {
+			if len(packages) == 0 {
 				// But no entries found, so maybe not the correct format
 				errs = append(errs, sbom.InvalidFormatError{
 					Msg: "no Package URLs found",
@@ -328,8 +448,8 @@ func scanSBOMFile(r reporter.Reporter, path string, fromFSScan bool) ([]Package,
 				"Scanned %s as %s SBOM and found %d %s\n",
 				path,
 				provider.Name(),
-				count,
-				output.Form(count, "package", "packages"),
+				len(packages),
+				output.Form(len(packages), "package", "packages"),
 			))
 			if ignoredCount > 0 {
 				r.PrintText(fmt.Sprintf(
@@ -375,19 +495,57 @@ func getCommitSHA(repoDir string) (string, error) {
 	return head.Hash().String(), nil
 }
 
+func getSubmodules(repoDir string) (submodules []*git.SubmoduleStatus, err error) {
+	repo, err := git.PlainOpen(repoDir)
+	if err != nil {
+		return nil, err
+	}
+	worktree, err := repo.Worktree()
+	if err != nil {
+		return nil, err
+	}
+	ss, err := worktree.Submodules()
+	if err != nil {
+		return nil, err
+	}
+	for _, s := range ss {
+		status, err := s.Status()
+		if err != nil {
+			continue
+		}
+		submodules = append(submodules, status)
+	}
+
+	return submodules, nil
+}
+
 // Scan git repository. Expects repoDir to end with /
-func scanGit(r reporter.Reporter, repoDir string) (Package, error) {
+func scanGit(r reporter.Reporter, repoDir string) ([]scannedPackage, error) {
 	commit, err := getCommitSHA(repoDir)
 	if err != nil {
-		return Package{}, err
+		return nil, err
 	}
 	r.PrintText(fmt.Sprintf("Scanning %s at commit %s\n", repoDir, commit))
 
-	return scanGitCommit(commit, repoDir), nil
+	//nolint:prealloc // Not sure how many there will be in advance.
+	var packages []scannedPackage
+	packages = append(packages, createCommitQueryPackage(commit, repoDir))
+
+	submodules, err := getSubmodules(repoDir)
+	if err != nil {
+		return nil, err
+	}
+
+	for _, s := range submodules {
+		r.PrintText(fmt.Sprintf("Scanning submodule %s at commit %s\n", s.Path, s.Expected.String()))
+		packages = append(packages, createCommitQueryPackage(s.Expected.String(), path.Join(repoDir, s.Path)))
+	}
+
+	return packages, nil
 }
 
-func scanGitCommit(commit string, source string) Package {
-	return Package{
+func createCommitQueryPackage(commit string, source string) scannedPackage {
+	return scannedPackage{
 		Commit: commit,
 		Source: models.SourceInfo{
 			Path: source,
@@ -396,7 +554,7 @@ func scanGitCommit(commit string, source string) Package {
 	}
 }
 
-func scanDebianDocker(r reporter.Reporter, dockerImageName string) ([]Package, error) {
+func scanDebianDocker(r reporter.Reporter, dockerImageName string) ([]scannedPackage, error) {
 	cmd := exec.Command("docker", "run", "--rm", "--entrypoint", "/usr/bin/dpkg-query", dockerImageName, "-f", "${Package}###${Version}\\n", "-W")
 	stdout, err := cmd.StdoutPipe()
 
@@ -413,8 +571,7 @@ func scanDebianDocker(r reporter.Reporter, dockerImageName string) ([]Package, e
 	//nolint:errcheck
 	defer cmd.Wait()
 	scanner := bufio.NewScanner(stdout)
-	packagesCount := 0
-	var packages []Package
+	var packages []scannedPackage
 	for scanner.Scan() {
 		text := scanner.Text()
 		text = strings.TrimSpace(text)
@@ -427,7 +584,7 @@ func scanDebianDocker(r reporter.Reporter, dockerImageName string) ([]Package, e
 			return nil, fmt.Errorf("unexpected output from Debian container: \n\n%s", text)
 		}
 		// TODO(rexpan): Get and specify exact debian release version
-		packages = append(packages, Package{
+		packages = append(packages, scannedPackage{
 			Name:      splitText[0],
 			Version:   splitText[1],
 			Ecosystem: "Debian",
@@ -436,12 +593,11 @@ func scanDebianDocker(r reporter.Reporter, dockerImageName string) ([]Package, e
 				Type: "docker",
 			},
 		})
-		packagesCount += 1
 	}
 	r.PrintText(fmt.Sprintf(
 		"Scanned docker image with %d %s\n",
-		packagesCount,
-		output.Form(packagesCount, "package", "packages"),
+		len(packages),
+		output.Form(len(packages), "package", "packages"),
 	))
 
 	return packages, nil
@@ -529,7 +685,7 @@ func parseLockfilePath(lockfileElem string) (string, string) {
 	return splits[0], splits[1]
 }
 
-type Package struct {
+type scannedPackage struct {
 	PURL      string
 	Name      string
 	Ecosystem lockfile.Ecosystem
@@ -558,7 +714,7 @@ func DoScan(actions ScannerActions, r reporter.Reporter) (models.VulnerabilityRe
 	}
 
 	//nolint:prealloc // Not sure how many there will be in advance.
-	var scannedPackages []Package
+	var scannedPackages []scannedPackage
 
 	if actions.ConfigOverridePath != "" {
 		err := configManager.UseOverride(actions.ConfigOverridePath)
@@ -602,12 +758,12 @@ func DoScan(actions ScannerActions, r reporter.Reporter) (models.VulnerabilityRe
 	}
 
 	for _, commit := range actions.GitCommits {
-		scannedPackages = append(scannedPackages, scanGitCommit(commit, "HASH"))
+		scannedPackages = append(scannedPackages, createCommitQueryPackage(commit, "HASH"))
 	}
 
 	for _, dir := range actions.DirectoryPaths {
 		r.PrintText(fmt.Sprintf("Scanning dir %s\n", dir))
-		pkgs, err := scanDir(r, dir, actions.SkipGit, actions.Recursive, !actions.NoIgnore)
+		pkgs, err := scanDir(r, dir, actions.SkipGit, actions.Recursive, !actions.NoIgnore, actions.CompareOffline)
 		if err != nil {
 			return models.VulnerabilityResults{}, err
 		}
@@ -689,7 +845,7 @@ func DoScan(actions ScannerActions, r reporter.Reporter) (models.VulnerabilityRe
 
 func makeRequest(
 	r reporter.Reporter,
-	packages []Package,
+	packages []scannedPackage,
 	compareLocally bool,
 	compareOffline bool,
 	localDBPath string) (*osv.HydratedBatchedResponse, error) {
@@ -739,7 +895,7 @@ func makeRequest(
 	return hydratedResp, nil
 }
 
-func makeLicensesRequests(packages []Package) ([][]models.License, error) {
+func makeLicensesRequests(packages []scannedPackage) ([][]models.License, error) {
 	queries := make([]*depsdevpb.GetVersionRequest, len(packages))
 	for i, pkg := range packages {
 		system, ok := depsdev.System[pkg.Ecosystem]
