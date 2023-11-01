@@ -85,7 +85,7 @@ func Test_scanGit(t *testing.T) {
 		name    string
 		args    args
 		wantErr bool
-		wantPkg scannedPackage
+		wantPkg []scannedPackage
 	}{
 		{
 			name: "Example Git repo",
@@ -94,11 +94,13 @@ func Test_scanGit(t *testing.T) {
 				repoDir: "fixtures/example-git",
 			},
 			wantErr: false,
-			wantPkg: scannedPackage{
-				Commit: "862ac4bd2703b622e85f29f55a2fd8cd6caf8182",
-				Source: models.SourceInfo{
-					Path: "fixtures/example-git",
-					Type: "git",
+			wantPkg: []scannedPackage{
+				scannedPackage{
+					Commit: "862ac4bd2703b622e85f29f55a2fd8cd6caf8182",
+					Source: models.SourceInfo{
+						Path: "fixtures/example-git",
+						Type: "git",
+					},
 				},
 			},
 		},

@@ -40,10 +40,10 @@ type VulnDescription struct {
 const SARIFTemplate = `
 **Your dependency is vulnerable to [{{.ID}}](https://osv.dev/list?q={{.ID}})**
 {{- if gt (len .AliasedVulns) 1 }}
-(Also published as: {{range .AliasedVulns -}} {{if ne .ID $.ID}} [{{.ID}}](https://osv.dev/vulnerability/{{.ID}}), {{end}}{{end}})
+(Also published as: {{range .AliasedVulns -}} {{if ne .ID $.ID -}} [{{.ID}}](https://osv.dev/vulnerability/{{.ID}}), {{end}}{{end}})
 {{- end}}.
 
-{{range .AliasedVulns}}
+{{range .AliasedVulns -}}
 ## [{{.ID}}](https://osv.dev/vulnerability/{{.ID}})
 
 <details>
@@ -53,8 +53,7 @@ const SARIFTemplate = `
 
 </details>
 
-
-{{end}}
+{{end -}}
 ---
 
 ### Affected Packages
@@ -63,7 +62,7 @@ const SARIFTemplate = `
 
 ## Remediation
 
-{{if .HasFixedVersion}}
+{{- if .HasFixedVersion }}
 
 To fix these vulnerabilities, update the vulnerabilities past the listed fixed versions below.
 
@@ -71,7 +70,7 @@ To fix these vulnerabilities, update the vulnerabilities past the listed fixed v
 
 {{.FixedVersionTable}}
 
-{{end}}
+{{- end}}
 
 If you believe these vulnerabilities do not affect your code and wish to ignore them, add them to the ignore list in an
 ""osv-scanner.toml"" file located in the same directory as the lockfile containing the vulnerable dependency.
@@ -80,8 +79,9 @@ See the format and more options in our documentation here: https://google.github
 
 Add or append these values to the following config files to ignore this vulnerability:
 
-{{range .AffectedPackagePaths}}
+{{range .AffectedPackagePaths -}}
 ""{{.}}/osv-scanner.toml""
+
 """"""
 [[IgnoredVulns]]
 id = "{{$.ID}}"
@@ -165,7 +165,7 @@ func stripGitHubWorkspace(path string) string {
 
 // createSARIFHelpText returns the text for SARIF rule's help field
 func createSARIFHelpText(gv *groupedSARIFFinding) string {
-	backtickSARIFTemplate := strings.ReplaceAll(SARIFTemplate, `""`, "`")
+	backtickSARIFTemplate := strings.ReplaceAll(strings.TrimSpace(SARIFTemplate), `""`, "`")
 	helpTextTemplate, err := template.New("helpText").Parse(backtickSARIFTemplate)
 	if err != nil {
 		log.Panicf("failed to parse sarif help text template: %v", err)

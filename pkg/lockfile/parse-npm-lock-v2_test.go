@@ -336,3 +336,34 @@ func TestParseNpmLock_v2_Files(t *testing.T) {
 		},
 	})
 }
+
+func TestParseNpmLock_v2_Alias(t *testing.T) {
+	t.Parallel()
+
+	packages, err := lockfile.ParseNpmLock("fixtures/npm/alias.v2.json")
+
+	if err != nil {
+		t.Errorf("Got unexpected error: %v", err)
+	}
+
+	expectPackages(t, packages, []lockfile.PackageDetails{
+		{
+			Name:      "@babel/code-frame",
+			Version:   "7.0.0",
+			Ecosystem: lockfile.NpmEcosystem,
+			CompareAs: lockfile.NpmEcosystem,
+		},
+		{
+			Name:      "string-width",
+			Version:   "4.2.0",
+			Ecosystem: lockfile.NpmEcosystem,
+			CompareAs: lockfile.NpmEcosystem,
+		},
+		{
+			Name:      "string-width",
+			Version:   "5.1.2",
+			Ecosystem: lockfile.NpmEcosystem,
+			CompareAs: lockfile.NpmEcosystem,
+		},
+	})
+}

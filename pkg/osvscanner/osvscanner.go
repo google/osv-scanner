@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"os"
 	"os/exec"
+	"path"
 	"path/filepath"
 	"strings"
 
@@ -107,12 +108,12 @@ func scanDir(r reporter.Reporter, dir string, skipGit bool, recursive bool, useG
 		}
 
 		if !skipGit && info.IsDir() && info.Name() == ".git" {
-			pkg, err := scanGit(r, filepath.Dir(path)+"/")
+			pkgs, err := scanGit(r, filepath.Dir(path)+"/")
 			if err != nil {
 				r.PrintText(fmt.Sprintf("scan failed for git repository, %s: %v\n", path, err))
 				// Not fatal, so don't return and continue scanning other files
 			}
-			scannedPackages = append(scannedPackages, pkg)
+			scannedPackages = append(scannedPackages, pkgs...)
 
 			return filepath.SkipDir
 		}
@@ -188,7 +189,10 @@ func (m *gitIgnoreMatcher) match(absPath string, isDir bool) (bool, error) {
 		return false, err
 	}
 	// must prepend "." to paths because of how gitignore.ReadPatterns interprets paths
-	pathInGitSep := append([]string{"."}, strings.Split(pathInGit, string(filepath.Separator))...)
+	pathInGitSep := []string{"."}
+	if pathInGit != "." { // don't make the path "./."
+		pathInGitSep = append(pathInGitSep, strings.Split(pathInGit, string(filepath.Separator))...)
+	}
 
 	return m.matcher.Match(pathInGitSep, isDir), nil
 }
@@ -358,15 +362,52 @@ func getCommitSHA(repoDir string) (string, error) {
 	return head.Hash().String(), nil
 }
 
+func getSubmodules(repoDir string) (submodules []*git.SubmoduleStatus, err error) {
+	repo, err := git.PlainOpen(repoDir)
+	if err != nil {
+		return nil, err
+	}
+	worktree, err := repo.Worktree()
+	if err != nil {
+		return nil, err
+	}
+	ss, err := worktree.Submodules()
+	if err != nil {
+		return nil, err
+	}
+	for _, s := range ss {
+		status, err := s.Status()
+		if err != nil {
+			continue
+		}
+		submodules = append(submodules, status)
+	}
+
+	return submodules, nil
+}
+
 // Scan git repository. Expects repoDir to end with /
-func scanGit(r reporter.Reporter, repoDir string) (scannedPackage, error) {
+func scanGit(r reporter.Reporter, repoDir string) ([]scannedPackage, error) {
 	commit, err := getCommitSHA(repoDir)
 	if err != nil {
-		return scannedPackage{}, err
+		return nil, err
 	}
 	r.PrintText(fmt.Sprintf("Scanning %s at commit %s\n", repoDir, commit))
 
-	return createCommitQueryPackage(commit, repoDir), nil
+	var packages []scannedPackage
+	packages = append(packages, createCommitQueryPackage(commit, repoDir))
+
+	submodules, err := getSubmodules(repoDir)
+	if err != nil {
+		return nil, err
+	}
+
+	for _, s := range submodules {
+		r.PrintText(fmt.Sprintf("Scanning submodule %s at commit %s\n", s.Path, s.Expected.String()))
+		packages = append(packages, createCommitQueryPackage(s.Expected.String(), path.Join(repoDir, s.Path)))
+	}
+
+	return packages, nil
 }
 
 func createCommitQueryPackage(commit string, source string) scannedPackage {

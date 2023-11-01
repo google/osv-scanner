@@ -1,7 +1,5 @@
-
 **Your dependency is vulnerable to [CVE-2022-24713](https://osv.dev/list?q=CVE-2022-24713)**
-(Also published as:  [RUSTSEC-2022-0013](https://osv.dev/vulnerability/RUSTSEC-2022-0013),  [GHSA-m5pq-gvj9-9vr8](https://osv.dev/vulnerability/GHSA-m5pq-gvj9-9vr8), ).
-
+(Also published as: [RUSTSEC-2022-0013](https://osv.dev/vulnerability/RUSTSEC-2022-0013), [GHSA-m5pq-gvj9-9vr8](https://osv.dev/vulnerability/GHSA-m5pq-gvj9-9vr8), ).
 
 ## [RUSTSEC-2022-0013](https://osv.dev/vulnerability/RUSTSEC-2022-0013)
 
@@ -60,8 +58,6 @@
 
 </details>
 
-
-
 ## [GHSA-m5pq-gvj9-9vr8](https://osv.dev/vulnerability/GHSA-m5pq-gvj9-9vr8)
 
 <details>
@@ -99,8 +95,6 @@
 
 </details>
 
-
-
 ---
 
 ### Affected Packages
@@ -111,8 +105,6 @@
 
 ## Remediation
 
-
-
 To fix these vulnerabilities, update the vulnerabilities past the listed fixed versions below.
 
 ### Fixed Versions
@@ -122,8 +114,6 @@ To fix these vulnerabilities, update the vulnerabilities past the listed fixed v
 | GHSA-m5pq-gvj9-9vr8 | regex | 1.5.5 |
 | RUSTSEC-2022-0013 | regex | 1.5.5 |
 
-
-
 If you believe these vulnerabilities do not affect your code and wish to ignore them, add them to the ignore list in an
 `osv-scanner.toml` file located in the same directory as the lockfile containing the vulnerable dependency.
 
@@ -131,11 +121,10 @@ See the format and more options in our documentation here: https://google.github
 
 Add or append these values to the following config files to ignore this vulnerability:
 
-
 `/path/to/sub-rust-project/osv-scanner.toml`
+
 ```
 [[IgnoredVulns]]
 id = "CVE-2022-24713"
 reason = "Your reason for ignoring this vulnerability"
 ```
-
