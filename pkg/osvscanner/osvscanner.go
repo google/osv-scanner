@@ -88,8 +88,7 @@ const (
 //   - Any SBOM files with scanSBOMFile
 //   - Any git repositories with scanGit
 
-
-func scanDir(r reporter.Reporter, query *osv.BatchedQuery, dir string, skipGit bool, recursive bool, useGitIgnore bool, compareOffline bool) ([]scannedPackage, error) {
+func scanDir(r reporter.Reporter, dir string, skipGit bool, recursive bool, useGitIgnore bool, compareOffline bool) ([]scannedPackage, error) {
 	var ignoreMatcher *gitIgnoreMatcher
 	if useGitIgnore {
 		var err error
@@ -161,10 +160,11 @@ func scanDir(r reporter.Reporter, query *osv.BatchedQuery, dir string, skipGit b
 
 		if info.IsDir() && !compareOffline {
 			if _, ok := vendoredLibNames[strings.ToLower(filepath.Base(path))]; ok {
-				err := scanDirWithVendoredLibs(r, query, path)
+				pkgs, err := scanDirWithVendoredLibs(r, path)
 				if err != nil {
 					r.PrintText(fmt.Sprintf("scan failed for dir containing vendored libs %s: %v\n", path, err))
 				}
+				scannedPackages = append(scannedPackages, pkgs...)
 			}
 		}
 
@@ -267,12 +267,14 @@ func queryDetermineVersions(repoDir string) (*osv.DetermineVersionResponse, erro
 	return result, nil
 }
 
-func scanDirWithVendoredLibs(r reporter.Reporter, query *osv.BatchedQuery, path string) error {
+func scanDirWithVendoredLibs(r reporter.Reporter, path string) ([]scannedPackage, error) {
 	r.PrintText(fmt.Sprintf("Scanning directory for vendored libs: %s\n", path))
 	entries, err := os.ReadDir(path)
 	if err != nil {
-		return err
+		return nil, err
 	}
+
+	var packages []scannedPackage
 	for _, entry := range entries {
 		if !entry.IsDir() {
 			continue
@@ -291,14 +293,11 @@ func scanDirWithVendoredLibs(r reporter.Reporter, query *osv.BatchedQuery, path 
 		if len(results.Matches) > 0 && results.Matches[0].Score > determineVersionThreshold {
 			match := results.Matches[0]
 			r.PrintText(fmt.Sprintf("Identified %s as %s at %s.\n", libPath, match.RepoInfo.Address, match.RepoInfo.Commit))
-			err := scanGitCommit(query, match.RepoInfo.Commit, libPath)
-			if err != nil {
-				return err
-			}
+			packages = append(packages, createCommitQueryPackage(match.RepoInfo.Commit, libPath))
 		}
 	}
 
-	return nil
+	return packages, nil
 }
 
 // gitIgnoreMatcher.match will return true if the file/directory matches a gitignore entry
@@ -752,7 +751,7 @@ func DoScan(actions ScannerActions, r reporter.Reporter) (models.VulnerabilityRe
 
 	for _, dir := range actions.DirectoryPaths {
 		r.PrintText(fmt.Sprintf("Scanning dir %s\n", dir))
-    pkgs, err := scanDir(r, dir, actions.SkipGit, actions.Recursive, !actions.NoIgnore, actions.CompareOffline)
+		pkgs, err := scanDir(r, dir, actions.SkipGit, actions.Recursive, !actions.NoIgnore, actions.CompareOffline)
 		if err != nil {
 			return models.VulnerabilityResults{}, err
 		}
