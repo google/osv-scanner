@@ -3,35 +3,57 @@ package output
 import (
 	"testing"
 
-	"github.com/google/osv-scanner/internal/testutility"
+	"github.com/google/osv-scanner/internal/testsnapshot"
 	"github.com/google/osv-scanner/pkg/models"
 )
 
 func Test_groupFixedVersions(t *testing.T) {
 	t.Parallel()
 
-	type args struct {
-		flattened []models.VulnerabilityFlattened
-	}
 	tests := []struct {
-		name     string
-		args     args
-		wantPath string
+		name string
+		args []models.VulnerabilityFlattened
+		want testsnapshot.Snapshot
 	}{
 		{
 			name: "",
-			args: args{
-				flattened: testutility.LoadJSONFixture[[]models.VulnerabilityFlattened](t, "fixtures/flattened_vulns.json"),
-			},
-			wantPath: "fixtures/group_fixed_version_output.json",
+			args: testsnapshot.LoadJSON[[]models.VulnerabilityFlattened](t,
+				testsnapshot.New(
+					"fixtures/flattened_vulns.json",
+					map[string]string{},
+				),
+			),
+			want: testsnapshot.New(
+				"fixtures/group_fixed_version_output.json",
+				map[string]string{},
+			),
+		},
+		{
+			name: "",
+			args: testsnapshot.LoadJSON[[]models.VulnerabilityFlattened](t,
+				testsnapshot.New(
+					"fixtures/flattened_vulns.json",
+					map[string]string{
+						"/path/to/scorecard-check-osv-e2e/sub-rust-project/Cargo.lock": "D:\\\\path\\\\to\\\\scorecard-check-osv-e2e\\\\sub-rust-project\\\\Cargo.lock",
+						"/path/to/scorecard-check-osv-e2e/go.mod":                      "D:\\\\path\\\\to\\\\scorecard-check-osv-e2e\\\\go.mod",
+					},
+				),
+			),
+			want: testsnapshot.New(
+				"fixtures/group_fixed_version_output.json",
+				map[string]string{
+					"/path/to/scorecard-check-osv-e2e/sub-rust-project/Cargo.lock": "D:\\\\path\\\\to\\\\scorecard-check-osv-e2e\\\\sub-rust-project\\\\Cargo.lock",
+					"/path/to/scorecard-check-osv-e2e/go.mod":                      "D:\\\\path\\\\to\\\\scorecard-check-osv-e2e\\\\go.mod",
+				},
+			),
 		},
 	}
 	for _, tt := range tests {
 		tt := tt
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
-			got := groupFixedVersions(tt.args.flattened)
-			testutility.AssertMatchFixtureJSON(t, tt.wantPath, got)
+			got := groupFixedVersions(tt.args)
+			testsnapshot.AssertJSON(t, tt.want, got)
 		})
 	}
 }
@@ -40,13 +62,27 @@ func Test_mapIDsToGroupedSARIFFinding(t *testing.T) {
 	t.Parallel()
 
 	tests := []struct {
-		name     string
-		args     models.VulnerabilityResults
-		wantPath string
+		name string
+		args models.VulnerabilityResults
+		want testsnapshot.Snapshot
 	}{
 		{
-			args:     testutility.LoadJSONFixture[models.VulnerabilityResults](t, "fixtures/test-vuln-results-a.json"),
-			wantPath: "fixtures/test-vuln-results-a-grouped.json",
+			args: testsnapshot.LoadJSON[models.VulnerabilityResults](t,
+				testsnapshot.New(
+					"fixtures/test-vuln-results-a.json",
+					map[string]string{
+						"/path/to/sub-rust-project/Cargo.lock": "D:\\\\path\\\\to\\\\sub-rust-project\\\\Cargo.lock",
+						"/path/to/go.mod":                      "D:\\\\path\\\\to\\\\go.mod",
+					},
+				),
+			),
+			want: testsnapshot.New(
+				"fixtures/test-vuln-results-a-grouped.json",
+				map[string]string{
+					"/path/to/sub-rust-project/Cargo.lock": "D:\\\\path\\\\to\\\\sub-rust-project\\\\Cargo.lock",
+					"/path/to/go.mod":                      "D:\\\\path\\\\to\\\\go.mod",
+				},
+			),
 		},
 	}
 	for _, tt := range tests {
@@ -56,7 +92,7 @@ func Test_mapIDsToGroupedSARIFFinding(t *testing.T) {
 			t.Parallel()
 
 			got := mapIDsToGroupedSARIFFinding(&tt.args)
-			testutility.AssertMatchFixtureJSON(t, tt.wantPath, got)
+			testsnapshot.AssertJSON(t, tt.want, got)
 		})
 	}
 }
