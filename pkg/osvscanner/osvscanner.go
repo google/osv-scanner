@@ -274,6 +274,7 @@ func scanDirWithVendoredLibs(r reporter.Reporter, query *osv.BatchedQuery, path 
 		libPath := filepath.Join(path, entry.Name())
 
 		r.PrintText(fmt.Sprintf("Scanning potential vendored dir: %s\n", libPath))
+		// TODO: make this a goroutine to parallelise this operation
 		results, err := queryDetermineVersions(libPath)
 		if err != nil {
 			r.PrintText(fmt.Sprintf("Error scanning sub-directory '%s' with error: %v", libPath, err))
