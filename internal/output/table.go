@@ -222,6 +222,10 @@ func licenseSummaryTableBuilder(outputTable table.Writer, vulnResult *models.Vul
 
 func licenseViolationsTableBuilder(outputTable table.Writer, vulnResult *models.VulnerabilityResults) table.Writer {
 	outputTable.AppendHeader(table.Row{"License Violation", "Ecosystem", "Package", "Version", "Source"})
+	workingDir, err := os.Getwd()
+	if err != nil {
+		log.Panicf("can't get working dir: %v", err)
+	}
 	for _, pkgSource := range vulnResult.Results {
 		for _, pkg := range pkgSource.Packages {
 			if len(pkg.LicenseViolations) == 0 {
@@ -230,6 +234,10 @@ func licenseViolationsTableBuilder(outputTable table.Writer, vulnResult *models.
 			violations := make([]string, len(pkg.LicenseViolations))
 			for i, l := range pkg.LicenseViolations {
 				violations[i] = string(l)
+			}
+			sourcePath, err := filepath.Rel(workingDir, pkgSource.Source.Path)
+			if err == nil { // Simplify the path if possible
+				pkgSource.Source.Path = sourcePath
 			}
 			outputTable.AppendRow(table.Row{
 				strings.Join(violations, ", "),
