@@ -9,7 +9,6 @@ import (
 	"github.com/google/osv-scanner/internal/testutility"
 	"github.com/google/osv-scanner/pkg/config"
 	"github.com/google/osv-scanner/pkg/models"
-	"github.com/google/osv-scanner/pkg/osv"
 	"github.com/google/osv-scanner/pkg/reporter"
 )
 
@@ -80,22 +79,30 @@ func Test_scanGit(t *testing.T) {
 
 	type args struct {
 		r       reporter.Reporter
-		query   *osv.BatchedQuery
 		repoDir string
 	}
 	tests := []struct {
 		name    string
 		args    args
 		wantErr bool
+		wantPkg []scannedPackage
 	}{
 		{
 			name: "Example Git repo",
 			args: args{
 				r:       &reporter.VoidReporter{},
-				query:   &osv.BatchedQuery{},
 				repoDir: "fixtures/example-git",
 			},
 			wantErr: false,
+			wantPkg: []scannedPackage{
+				{
+					Commit: "862ac4bd2703b622e85f29f55a2fd8cd6caf8182",
+					Source: models.SourceInfo{
+						Path: "fixtures/example-git",
+						Type: "git",
+					},
+				},
+			},
 		},
 	}
 
@@ -105,10 +112,13 @@ func Test_scanGit(t *testing.T) {
 	}
 
 	for _, tt := range tests {
-		if err := scanGit(tt.args.r, tt.args.query, tt.args.repoDir); (err != nil) != tt.wantErr {
+		pkg, err := scanGit(tt.args.r, tt.args.repoDir)
+		if (err != nil) != tt.wantErr {
 			t.Errorf("scanGit() error = %v, wantErr %v", err, tt.wantErr)
 		}
-		testutility.CreateJSONFixture(t, "fixtures/git-scan-queries.txt", tt.args.query)
+		if diff := cmp.Diff(tt.wantPkg, pkg); diff != "" {
+			t.Errorf("scanGit() package = %v, wantPackage %v", pkg, tt.wantPkg)
+		}
 	}
 
 	err = os.Rename("fixtures/example-git/.git", "fixtures/example-git/git-hidden")
