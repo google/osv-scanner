@@ -184,7 +184,10 @@ func (m *gitIgnoreMatcher) match(absPath string, isDir bool) (bool, error) {
 		return false, err
 	}
 	// must prepend "." to paths because of how gitignore.ReadPatterns interprets paths
-	pathInGitSep := append([]string{"."}, strings.Split(pathInGit, string(filepath.Separator))...)
+	pathInGitSep := []string{"."}
+	if pathInGit != "." { // don't make the path "./."
+		pathInGitSep = append(pathInGitSep, strings.Split(pathInGit, string(filepath.Separator))...)
+	}
 
 	return m.matcher.Match(pathInGitSep, isDir), nil
 }
