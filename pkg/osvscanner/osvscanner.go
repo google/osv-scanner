@@ -296,6 +296,7 @@ func scanSBOMFile(r reporter.Reporter, path string, fromFSScan bool) ([]scannedP
 					Type: "sbom",
 				},
 			})
+
 			return nil
 		})
 		if err == nil {
@@ -394,6 +395,7 @@ func scanGit(r reporter.Reporter, repoDir string) ([]scannedPackage, error) {
 	}
 	r.PrintText(fmt.Sprintf("Scanning %s at commit %s\n", repoDir, commit))
 
+	//nolint:prealloc // Not sure how many there will be in advance.
 	var packages []scannedPackage
 	packages = append(packages, createCommitQueryPackage(commit, repoDir))
 
