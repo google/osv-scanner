@@ -683,7 +683,7 @@ func makeRequest(
 	var query osv.BatchedQuery
 	for _, p := range packages {
 		switch {
-		// Prefer making paackage requests where possible.
+		// Prefer making package requests where possible.
 		case p.Ecosystem != "" && p.Name != "" && p.Version != "":
 			query.Queries = append(query.Queries, osv.MakePkgRequest(lockfile.PackageDetails{
 				Name:      p.Name,
