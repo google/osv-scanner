@@ -276,7 +276,8 @@ func scanDirWithVendoredLibs(r reporter.Reporter, query *osv.BatchedQuery, path 
 		r.PrintText(fmt.Sprintf("Scanning potential vendored dir: %s\n", libPath))
 		results, err := queryDetermineVersions(libPath)
 		if err != nil {
-			return err
+			r.PrintText(fmt.Sprintf("Error scanning sub-directory '%s' with error: %v", libPath, err))
+			continue
 		}
 
 		if len(results.Matches) > 0 && results.Matches[0].Score > determineVersionThreshold {
