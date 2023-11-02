@@ -146,3 +146,12 @@ func AcceptanceTests(t *testing.T, reason string) {
 		t.Skip("Skipping extended test: ", reason)
 	}
 }
+
+func ValueIfOnWindows(win, or string) string {
+	if //goland:noinspection GoBoolExpressions
+	runtime.GOOS == "windows" {
+		return win
+	}
+
+	return or
+}
