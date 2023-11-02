@@ -1,4 +1,4 @@
-ignore:
-  - internal/testutility
-  - '**/*_test.go'
+ignore: []
+#  - internal/testutility
+#  - '**/*_test.go'
 #  - 'internal/**'
