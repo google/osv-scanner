@@ -150,7 +150,7 @@ name: OSV-Scanner Scheduled Scan
 
 on:
   schedule:
-    - cron: '12 12 * * 1'
+    - cron: '30 12 * * 1'
 # Change "main" to your default branch if you use a different name, i.e. "master"
   push:
     branches: [ main ]
@@ -166,7 +166,7 @@ jobs:
     uses: "google/osv-scanner/.github/workflows/osv-scanner-reusable.yml@main"
 ```
 
-As written, the scanner will run on 12:12 pm UTC every Monday. You can change the schedule by following the instructions [here](https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#schedule).
+As written, the scanner will run on 12:30 pm UTC every Monday, and also on every push to the main branch. You can change the schedule by following the instructions [here](https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#schedule).
 
 ### Customization
 
