@@ -1,3 +1,4 @@
 ignore:
   - internal/testutility
+  - '**/*_test.go'
 #  - 'internal/**'
