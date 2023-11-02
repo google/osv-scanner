@@ -10,8 +10,10 @@ import (
 	"os/exec"
 	"path"
 	"path/filepath"
+	"regexp"
 	"strings"
 
+	"github.com/google/osv-scanner/internal/exclusions"
 	"github.com/google/osv-scanner/internal/local"
 	"github.com/google/osv-scanner/internal/output"
 	"github.com/google/osv-scanner/internal/sbom"
@@ -37,6 +39,7 @@ type ScannerActions struct {
 	NoIgnore             bool
 	DockerContainerNames []string
 	ConfigOverridePath   string
+	Exclusions           []*regexp.Regexp
 
 	ExperimentalScannerActions
 }
@@ -88,7 +91,7 @@ const (
 //   - Any SBOM files with scanSBOMFile
 //   - Any git repositories with scanGit
 
-func scanDir(r reporter.Reporter, dir string, skipGit bool, recursive bool, useGitIgnore bool, compareOffline bool) ([]scannedPackage, error) {
+func scanDir(r reporter.Reporter, dir string, skipGit bool, recursive bool, useGitIgnore bool, compareOffline bool, exclusionRegexes []*regexp.Regexp) ([]scannedPackage, error) {
 	var ignoreMatcher *gitIgnoreMatcher
 	if useGitIgnore {
 		var err error
@@ -145,7 +148,7 @@ func scanDir(r reporter.Reporter, dir string, skipGit bool, recursive bool, useG
 
 		if !info.IsDir() {
 			if extractor, _ := lockfile.FindExtractor(path, ""); extractor != nil {
-				pkgs, err := scanLockfile(r, path, "")
+				pkgs, err := scanLockfile(r, path, "", exclusionRegexes)
 				if err != nil {
 					r.PrintError(fmt.Sprintf("Attempted to scan lockfile but failed: %s\n", path))
 				}
@@ -154,7 +157,7 @@ func scanDir(r reporter.Reporter, dir string, skipGit bool, recursive bool, useG
 			// No need to check for error
 			// If scan fails, it means it isn't a valid SBOM file,
 			// so just move onto the next file
-			pkgs, _ := scanSBOMFile(r, path, true)
+			pkgs, _ := scanSBOMFile(r, path, true, exclusionRegexes)
 			scannedPackages = append(scannedPackages, pkgs...)
 		}
 
@@ -318,7 +321,7 @@ func (m *gitIgnoreMatcher) match(absPath string, isDir bool) (bool, error) {
 
 // scanLockfile will load, identify, and parse the lockfile path passed in, and add the dependencies specified
 // within to `query`
-func scanLockfile(r reporter.Reporter, path string, parseAs string) ([]scannedPackage, error) {
+func scanLockfile(r reporter.Reporter, path string, parseAs string, exclusionRegexes []*regexp.Regexp) ([]scannedPackage, error) {
 	var err error
 	var parsedLockfile lockfile.Lockfile
 
@@ -360,6 +363,15 @@ func scanLockfile(r reporter.Reporter, path string, parseAs string) ([]scannedPa
 		output.Form(len(parsedLockfile.Packages), "package", "packages"),
 	))
 
+	// If exclusions are flagged, check if any packages should be excluded.
+	if exclusionRegexes != nil {
+		r.PrintText("Exclusions have been flagged, searching for packages to exclude...\n")
+		_, err := exclusions.ExcludePackages(r, exclusionRegexes, &parsedLockfile)
+		if err != nil {
+			r.PrintError(fmt.Sprintf("Failed to analyse lockfile packages for exclusions: %s\n", err))
+		}
+	}
+
 	packages := make([]scannedPackage, len(parsedLockfile.Packages))
 	for i, pkgDetail := range parsedLockfile.Packages {
 		packages[i] = scannedPackage{
@@ -379,7 +391,7 @@ func scanLockfile(r reporter.Reporter, path string, parseAs string) ([]scannedPa
 
 // scanSBOMFile will load, identify, and parse the SBOM path passed in, and add the dependencies specified
 // within to `query`
-func scanSBOMFile(r reporter.Reporter, path string, fromFSScan bool) ([]scannedPackage, error) {
+func scanSBOMFile(r reporter.Reporter, path string, fromFSScan bool, exclusionRegexes []*regexp.Regexp) ([]scannedPackage, error) {
 	var errs []error
 	var packages []scannedPackage
 	for _, provider := range sbom.Providers {
@@ -407,6 +419,18 @@ func scanSBOMFile(r reporter.Reporter, path string, fromFSScan bool) ([]scannedP
 				ignoredCount++
 				//nolint:nilerr
 				return nil
+			}
+			// If exclusions are flagged, check if the package should be excluded.
+			if exclusionRegexes != nil {
+				excluded, err := exclusions.ExcludeSBOMPackages(r, exclusionRegexes, &id)
+				if err != nil {
+					r.PrintError(fmt.Sprintf("Failed to analyse SBOM packages for exclusions: %s\n", err))
+					return nil
+				}
+				if excluded {
+					r.PrintText(fmt.Sprintf("Excluding package %s from OSV query\n", id.PURL))
+					return nil
+				}
 			}
 			packages = append(packages, scannedPackage{
 				PURL: id.PURL,
@@ -726,7 +750,7 @@ func DoScan(actions ScannerActions, r reporter.Reporter) (models.VulnerabilityRe
 			r.PrintError(fmt.Sprintf("Failed to resolved path with error %s\n", err))
 			return models.VulnerabilityResults{}, err
 		}
-		pkgs, err := scanLockfile(r, lockfilePath, parseAs)
+		pkgs, err := scanLockfile(r, lockfilePath, parseAs, actions.Exclusions)
 		if err != nil {
 			return models.VulnerabilityResults{}, err
 		}
@@ -738,7 +762,7 @@ func DoScan(actions ScannerActions, r reporter.Reporter) (models.VulnerabilityRe
 		if err != nil {
 			return models.VulnerabilityResults{}, fmt.Errorf("failed to resolved path with error %w", err)
 		}
-		pkgs, err := scanSBOMFile(r, sbomElem, false)
+		pkgs, err := scanSBOMFile(r, sbomElem, false, actions.Exclusions)
 		if err != nil {
 			return models.VulnerabilityResults{}, err
 		}
@@ -751,7 +775,7 @@ func DoScan(actions ScannerActions, r reporter.Reporter) (models.VulnerabilityRe
 
 	for _, dir := range actions.DirectoryPaths {
 		r.PrintText(fmt.Sprintf("Scanning dir %s\n", dir))
-		pkgs, err := scanDir(r, dir, actions.SkipGit, actions.Recursive, !actions.NoIgnore, actions.CompareOffline)
+		pkgs, err := scanDir(r, dir, actions.SkipGit, actions.Recursive, !actions.NoIgnore, actions.CompareOffline, actions.Exclusions)
 		if err != nil {
 			return models.VulnerabilityResults{}, err
 		}

@@ -207,6 +207,86 @@ func TestRun(t *testing.T) {
 			`,
 			wantStderr: "",
 		},
+		// invalid exclusion regex patterns
+		{
+			name:         "invalid exclusion regex patterns",
+			args:         []string{"", "--recursive", "--exclude-packages=*helloworld*", "./fixtures"},
+			wantExitCode: 127,
+			wantStdout:   "",
+			wantStderr:   "invalid regex pattern: *helloworld*",
+		},
+
+		// folder of supported sbom with vulns and single exclusion
+		{
+			name:         "folder of supported sbom with vulns and single exclusion",
+			args:         []string{"", "--config=./fixtures/osv-scanner-empty-config.toml", "--exclude-packages=.*opencontainers.*", "./fixtures/sbom-insecure/"},
+			wantExitCode: 1,
+			wantStdout: `
+				Scanning dir ./fixtures/sbom-insecure/
+				Scanned <rootdir>/fixtures/sbom-insecure/alpine.cdx.xml as CycloneDX SBOM and found 15 packages
+				Regex Match Found for exclusion pattern: '.*opencontainers.*'
+				Excluding package from OSV query: pkg:golang/github.com/opencontainers/runc@v1.0.1
+				Excluding package pkg:golang/github.com/opencontainers/runc@v1.0.1 from OSV query
+				Scanned <rootdir>/fixtures/sbom-insecure/postgres-stretch.cdx.xml as CycloneDX SBOM and found 135 packages
+				+-------------------------------------+------+-----------+------------------+------------------------------------+-------------------------------------------------+
+				| OSV URL                             | CVSS | ECOSYSTEM | PACKAGE          | VERSION                            | SOURCE                                          |
+				+-------------------------------------+------+-----------+------------------+------------------------------------+-------------------------------------------------+
+				| https://osv.dev/CVE-2022-48174      | 9.8  | Alpine    | busybox          | 1.35.0-r29                         | fixtures/sbom-insecure/alpine.cdx.xml           |
+				| https://osv.dev/CVE-2022-37434      | 9.8  | Alpine    | zlib             | 1.2.10-r2                          | fixtures/sbom-insecure/alpine.cdx.xml           |
+				| https://osv.dev/DLA-3022-1          |      | Debian    | dpkg             | 1.18.25                            | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+				| https://osv.dev/GHSA-p782-xgp4-8hr8 | 5.3  | Go        | golang.org/x/sys | v0.0.0-20210817142637-7d9622a276b7 | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+				| https://osv.dev/GO-2022-0493        |      |           |                  |                                    |                                                 |
+				| https://osv.dev/DLA-3012-1          |      | Debian    | libxml2          | 2.9.4+dfsg1-2.2+deb9u6             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+				| https://osv.dev/DLA-3008-1          |      | Debian    | openssl          | 1.1.0l-1~deb9u5                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+				| https://osv.dev/DLA-3051-1          |      | Debian    | tzdata           | 2021a-0+deb9u3                     | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+				+-------------------------------------+------+-----------+------------------+------------------------------------+-------------------------------------------------+
+			`,
+			wantStderr: "",
+		},
+
+		// folder of supported sbom with vulns and multiple exclusions
+		{
+			name:         "folder of supported sbom with vulns and multiple exclusions",
+			args:         []string{"", "--config=./fixtures/osv-scanner-empty-config.toml", "--exclude-packages=(zlib),open(s{2})l,.*opencontainers.*", "./fixtures/sbom-insecure/"},
+			wantExitCode: 1,
+			wantStdout: `
+				Scanning dir ./fixtures/sbom-insecure/
+				Regex Match Found for exclusion pattern: 'open(s{2})l'
+				Excluding package from OSV query: pkg:apk/alpine/libcrypto3@3.0.8-r0?arch=x86_64&upstream=openssl&distro=alpine-3.17.2
+				Excluding package pkg:apk/alpine/libcrypto3@3.0.8-r0?arch=x86_64&upstream=openssl&distro=alpine-3.17.2 from OSV query
+				Regex Match Found for exclusion pattern: 'open(s{2})l'
+				Excluding package from OSV query: pkg:apk/alpine/libssl3@3.0.8-r0?arch=x86_64&upstream=openssl&distro=alpine-3.17.2
+				Excluding package pkg:apk/alpine/libssl3@3.0.8-r0?arch=x86_64&upstream=openssl&distro=alpine-3.17.2 from OSV query
+				Regex Match Found for exclusion pattern: '(zlib)'
+				Excluding package from OSV query: pkg:apk/alpine/zlib@1.2.10-r2?arch=x86_64&upstream=zlib&distro=alpine-3.17.2
+				Excluding package pkg:apk/alpine/zlib@1.2.10-r2?arch=x86_64&upstream=zlib&distro=alpine-3.17.2 from OSV query
+				Scanned <rootdir>/fixtures/sbom-insecure/alpine.cdx.xml as CycloneDX SBOM and found 12 packages
+				Regex Match Found for exclusion pattern: '.*opencontainers.*'
+				Excluding package from OSV query: pkg:golang/github.com/opencontainers/runc@v1.0.1
+				Excluding package pkg:golang/github.com/opencontainers/runc@v1.0.1 from OSV query
+				Regex Match Found for exclusion pattern: 'open(s{2})l'
+				Excluding package from OSV query: pkg:deb/debian/libssl1.1@1.1.0l-1~deb9u5?arch=amd64&upstream=openssl&distro=debian-9
+				Excluding package pkg:deb/debian/libssl1.1@1.1.0l-1~deb9u5?arch=amd64&upstream=openssl&distro=debian-9 from OSV query
+				Regex Match Found for exclusion pattern: 'open(s{2})l'
+				Excluding package from OSV query: pkg:deb/debian/openssl@1.1.0l-1~deb9u5?arch=amd64&distro=debian-9
+				Excluding package pkg:deb/debian/openssl@1.1.0l-1~deb9u5?arch=amd64&distro=debian-9 from OSV query
+				Regex Match Found for exclusion pattern: '(zlib)'
+				Excluding package from OSV query: pkg:deb/debian/zlib1g@1:1.2.8.dfsg-5+deb9u1?arch=amd64&upstream=zlib&distro=debian-9
+				Excluding package pkg:deb/debian/zlib1g@1:1.2.8.dfsg-5+deb9u1?arch=amd64&upstream=zlib&distro=debian-9 from OSV query
+				Scanned <rootdir>/fixtures/sbom-insecure/postgres-stretch.cdx.xml as CycloneDX SBOM and found 132 packages
+				+-------------------------------------+------+-----------+------------------+------------------------------------+-------------------------------------------------+
+				| OSV URL                             | CVSS | ECOSYSTEM | PACKAGE          | VERSION                            | SOURCE                                          |
+				+-------------------------------------+------+-----------+------------------+------------------------------------+-------------------------------------------------+
+				| https://osv.dev/CVE-2022-48174      | 9.8  | Alpine    | busybox          | 1.35.0-r29                         | fixtures/sbom-insecure/alpine.cdx.xml           |
+				| https://osv.dev/DLA-3022-1          |      | Debian    | dpkg             | 1.18.25                            | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+				| https://osv.dev/GHSA-p782-xgp4-8hr8 | 5.3  | Go        | golang.org/x/sys | v0.0.0-20210817142637-7d9622a276b7 | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+				| https://osv.dev/GO-2022-0493        |      |           |                  |                                    |                                                 |
+				| https://osv.dev/DLA-3012-1          |      | Debian    | libxml2          | 2.9.4+dfsg1-2.2+deb9u6             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+				| https://osv.dev/DLA-3051-1          |      | Debian    | tzdata           | 2021a-0+deb9u3                     | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+				+-------------------------------------+------+-----------+------------------+------------------------------------+-------------------------------------------------+
+			`,
+			wantStderr: "",
+		},
 		// one specific supported sbom with vulns
 		{
 			name:         "one specific supported sbom with vulns",
@@ -639,6 +719,33 @@ func TestRun_LockfileWithExplicitParseAs(t *testing.T) {
 				+-------------------------------------+------+-----------+-----------+---------+----------------------------------------------+
 			`,
 			wantStderr: "",
+		},
+		// multiple with exclusions
+		// error is received here as each lockfile only has a single package, and the exclusion removes all packages from the OSV query
+		{
+			name: "multiple lockfiles with exclusions",
+			args: []string{
+				"",
+				"--exclude-packages=ansi-html",
+				"-L", "yarn.lock:" + filepath.FromSlash("./fixtures/locks-insecure/my-yarn.lock"),
+				"-L", "package-lock.json:" + filepath.FromSlash("./fixtures/locks-insecure/my-package-lock.json"),
+				filepath.FromSlash("./fixtures/locks-insecure"),
+			},
+			wantExitCode: 128,
+			wantStdout: `
+				Scanned <rootdir>/fixtures/locks-insecure/my-yarn.lock file as a yarn.lock and found 1 package
+				Exclusions have been flagged, searching for packages to exclude...
+				Regex Match Found for exclusion pattern: 'ansi-html'
+				Excluding package from OSV query: ansi-html
+				Scanned <rootdir>/fixtures/locks-insecure/my-package-lock.json file as a package-lock.json and found 1 package
+				Exclusions have been flagged, searching for packages to exclude...
+				Regex Match Found for exclusion pattern: 'ansi-html'
+				Excluding package from OSV query: ansi-html
+				Scanning dir ./fixtures/locks-insecure
+				Scanned <rootdir>/fixtures/locks-insecure/composer.lock file and found 0 packages
+				Exclusions have been flagged, searching for packages to exclude...
+			`,
+			wantStderr: "No package sources found, --help for usage information.",
 		},
 		// files that error on parsing stop parsable files from being checked
 		{

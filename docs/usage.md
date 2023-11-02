@@ -144,6 +144,18 @@ Then pass this to `osv-scanner` with this:
 osv-scanner --lockfile osv-scanner:/path/to/osv-scanner.json
 ```
 
+## Specify Package(s) to Exclude from OSV Query
+
+If you want to exclude a package or a range of packages from the query to the OSV database, you can pass a list of regex patterns with the '--exclude-packages' flag. OSV-Scanner will check for packages matching the specified regex patterns and exclude these packages from being checked for known vulnerabilities. The exclusions apply to both lockfile specified packages and SBOM specified packages.
+
+The exclusion regex patterns can be applied with the following flag:
+
+```bash
+osv-scanner --exclude-packages='^example.com/.*,^react$' <rest-of-cli-interaction>
+```
+
+Please note! It is best practice to specify the regex patterns in single quotes to avoid shell expansion of the regex patterns.
+
 ## Scanning a Debian based docker image packages
 Preview
 {: .label }

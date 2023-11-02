@@ -5,8 +5,10 @@ import (
 	"fmt"
 	"io"
 	"os"
+	"regexp"
 	"strings"
 
+	"github.com/google/osv-scanner/internal/exclusions"
 	"github.com/google/osv-scanner/internal/version"
 	"github.com/google/osv-scanner/pkg/osv"
 	"github.com/google/osv-scanner/pkg/osvscanner"
@@ -24,6 +26,7 @@ var (
 
 func run(args []string, stdout, stderr io.Writer) int {
 	var r reporter.Reporter
+	var parsedExclusions []*regexp.Regexp
 
 	cli.VersionPrinter = func(ctx *cli.Context) {
 		// Use the app Writer and ErrWriter since they will be the writers to keep parallel tests consistent
@@ -120,6 +123,18 @@ func run(args []string, stdout, stderr io.Writer) int {
 				Usage:  "sets the path that local databases should be stored",
 				Hidden: true,
 			},
+			&cli.StringSliceFlag{
+				Name:  "exclude-packages",
+				Usage: "list of regex patterns to exclude from scanning",
+				Action: func(context *cli.Context, s []string) error {
+					err := exclusions.IsRegexPatterns(s)
+					if err != nil {
+						return fmt.Errorf("invalid regex pattern: %w", err)
+					}
+
+					return nil
+				},
+			},
 		},
 		ArgsUsage: "[directory1 directory2...]",
 		Action: func(context *cli.Context) error {
@@ -151,6 +166,13 @@ func run(args []string, stdout, stderr io.Writer) int {
 				return err
 			}
 
+			if context.StringSlice("exclude-packages") != nil {
+				parsedExclusions, err = exclusions.ParseExclusions(context.StringSlice("exclude-packages")) // Parse our list of regex patterns into a list of regex objects
+				if err != nil {
+					return fmt.Errorf("invalid exclusion pattern: %w", err)
+				}
+			}
+
 			vulnResult, err := osvscanner.DoScan(osvscanner.ScannerActions{
 				LockfilePaths:        context.StringSlice("lockfile"),
 				SBOMPaths:            context.StringSlice("sbom"),
@@ -160,6 +182,7 @@ func run(args []string, stdout, stderr io.Writer) int {
 				NoIgnore:             context.Bool("no-ignore"),
 				ConfigOverridePath:   context.String("config"),
 				DirectoryPaths:       context.Args().Slice(),
+				Exclusions:           parsedExclusions,
 				ExperimentalScannerActions: osvscanner.ExperimentalScannerActions{
 					LocalDBPath:    context.String("experimental-local-db-path"),
 					CallAnalysis:   context.Bool("experimental-call-analysis"),
