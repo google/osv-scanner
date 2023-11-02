@@ -5,7 +5,6 @@ import (
 	"os"
 	"path/filepath"
 	"reflect"
-	"runtime"
 	"strings"
 	"testing"
 
@@ -67,15 +66,6 @@ func Test_functionsFromDWARF(t *testing.T) {
 	}
 }
 
-func valueIfOnWindows(win, or string) string {
-	if //goland:noinspection GoBoolExpressions
-	runtime.GOOS == "windows" {
-		return win
-	}
-
-	return or
-}
-
 func Test_rustBuildSource(t *testing.T) {
 	testutility.AcceptanceTests(t, "Requires rust toolchain to be installed")
 	t.Parallel()
@@ -104,7 +94,7 @@ func Test_rustBuildSource(t *testing.T) {
 				},
 			},
 			want: []string{
-				workingDir + filepath.FromSlash("/fixtures-rust/rust-project/target/release/test-project") + valueIfOnWindows(".exe", ""),
+				workingDir + filepath.FromSlash("/fixtures-rust/rust-project/target/release/test-project") + testutility.ValueIfOnWindows(".exe", ""),
 			},
 		},
 	}
