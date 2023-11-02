@@ -1,3 +1,21 @@
+# v1.4.3:
+
+### Features
+- [Feature #621](https://github.com/google/osv-scanner/pull/621)
+  Add support for scanning vendored C/C++ files.
+- [Feature #581](https://github.com/google/osv-scanner/pull/581)
+  Scan submodules commit hashes.
+
+### Fixes
+- [Bug #626](https://github.com/google/osv-scanner/issues/626)
+  Fix gitignore matching for root directory
+- [Bug #622](https://github.com/google/osv-scanner/issues/622)
+  Go binary not found should not be an error
+- [Bug #588](https://github.com/google/osv-scanner/issues/588)
+  handle npm/yarn aliased packages
+- [Bug #607](https://github.com/google/osv-scanner/pull/607)
+  fix: remove some extra newlines in sarif report
+
 # v1.4.2:
 
 ### Fixes
