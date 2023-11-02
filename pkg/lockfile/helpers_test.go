@@ -1,6 +1,7 @@
 package lockfile_test
 
 import (
+	"errors"
 	"fmt"
 	"strings"
 	"testing"
@@ -18,6 +19,18 @@ func expectErrContaining(t *testing.T, err error, str string) {
 
 	if !strings.Contains(err.Error(), str) {
 		t.Errorf("Expected to get \"%s\" error, but got \"%v\"", str, err)
+	}
+}
+
+func expectErrIs(t *testing.T, err error, expected error) {
+	t.Helper()
+
+	if err == nil {
+		t.Errorf("Expected to get error, but did not")
+	}
+
+	if !errors.Is(err, expected) {
+		t.Errorf("Expected to get \"%v\" error but got \"%v\" instead", expected, err)
 	}
 }
 

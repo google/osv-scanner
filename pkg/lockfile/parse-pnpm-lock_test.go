@@ -1,6 +1,7 @@
 package lockfile_test
 
 import (
+	"io/fs"
 	"testing"
 
 	"github.com/google/osv-scanner/pkg/lockfile"
@@ -63,7 +64,7 @@ func TestParsePnpmLock_FileDoesNotExist(t *testing.T) {
 
 	packages, err := lockfile.ParsePnpmLock("fixtures/pnpm/does-not-exist")
 
-	expectErrContaining(t, err, "no such file or directory")
+	expectErrIs(t, err, fs.ErrNotExist)
 	expectPackages(t, packages, []lockfile.PackageDetails{})
 }
 
