@@ -235,16 +235,16 @@ func licenseViolationsTableBuilder(outputTable table.Writer, vulnResult *models.
 			for i, l := range pkg.LicenseViolations {
 				violations[i] = string(l)
 			}
-			sourcePath, err := filepath.Rel(workingDir, pkgSource.Source.Path)
-			if err == nil { // Simplify the path if possible
-				pkgSource.Source.Path = sourcePath
+			path := pkgSource.Source.Path
+			if simplifiedPath, err := filepath.Rel(workingDir, pkgSource.Source.Path); err == nil {
+				path = simplifiedPath
 			}
 			outputTable.AppendRow(table.Row{
 				strings.Join(violations, ", "),
 				pkg.Package.Ecosystem,
 				pkg.Package.Name,
 				pkg.Package.Version,
-				pkgSource.Source.Path,
+				path,
 			})
 		}
 	}

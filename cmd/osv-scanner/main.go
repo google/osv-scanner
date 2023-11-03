@@ -121,11 +121,11 @@ func run(args []string, stdout, stderr io.Writer) int {
 				Hidden: true,
 			},
 			&cli.BoolFlag{
-				Name:  "experimental-all-packages",
+				Name:  "experimental-show-all-packages",
 				Usage: "when json output is selected, prints all packages",
 			},
 			&cli.StringSliceFlag{
-				Name:  "experimental-licenses",
+				Name:  "experimental-scan-licenses",
 				Usage: "report on licenses",
 			},
 		},
@@ -169,22 +169,24 @@ func run(args []string, stdout, stderr io.Writer) int {
 				ConfigOverridePath:   context.String("config"),
 				DirectoryPaths:       context.Args().Slice(),
 				ExperimentalScannerActions: osvscanner.ExperimentalScannerActions{
-					LocalDBPath:       context.String("experimental-local-db-path"),
-					CallAnalysis:      context.Bool("experimental-call-analysis"),
-					CompareLocally:    context.Bool("experimental-local-db"),
-					CompareOffline:    context.Bool("experimental-offline"),
-					AllPackages:       context.Bool("experimental-all-packages"),
-					Licenses:          context.IsSet("experimental-licenses"),
-					LicensesAllowlist: context.StringSlice("experimental-licenses"),
+					LocalDBPath:           context.String("experimental-local-db-path"),
+					CallAnalysis:          context.Bool("experimental-call-analysis"),
+					CompareLocally:        context.Bool("experimental-local-db"),
+					CompareOffline:        context.Bool("experimental-offline"),
+					ShowAllPackages:       context.Bool("experimental-show-all-packages"),
+					ScanLicenses:          context.IsSet("experimental-scan-licenses"),
+					ScanLicensesAllowlist: context.StringSlice("experimental-scan-licenses"),
 				},
 			}, r)
 
-			if err != nil &&
-				!errors.Is(err, osvscanner.VulnerabilitiesFoundErr) &&
-				!errors.Is(err, osvscanner.OnlyUncalledVulnerabilitiesFoundErr) &&
-				!errors.Is(err, osvscanner.LicenseViolationsErr) &&
-				!errors.Is(err, osvscanner.VulnerabilitiesFoundAndLicenseViolationsErr) &&
-				!errors.Is(err, osvscanner.OnlyUncalledVulnerabilitiesFoundAndLicenseViolationsErr) {
+			issueResultErr := errors.Join(
+				osvscanner.VulnerabilitiesFoundErr,
+				osvscanner.OnlyUncalledVulnerabilitiesFoundErr,
+				osvscanner.LicenseViolationsErr,
+				osvscanner.VulnerabilitiesFoundAndLicenseViolationsErr,
+				osvscanner.OnlyUncalledVulnerabilitiesFoundAndLicenseViolationsErr,
+			)
+			if err != nil && !errors.Is(issueResultErr, err) {
 				return err
 			}
 			if errPrint := r.PrintResult(&vulnResult); errPrint != nil {
@@ -202,17 +204,17 @@ func run(args []string, stdout, stderr io.Writer) int {
 		}
 		switch {
 		case errors.Is(err, osvscanner.VulnerabilitiesFoundErr):
-			return 1
+			return 0b0001 // 1
 		case errors.Is(err, osvscanner.OnlyUncalledVulnerabilitiesFoundErr):
 			// TODO: Discuss whether to have a different exit code
 			// now that running call analysis is not default.
-			return 2
+			return 0b0010 // 2
 		case errors.Is(err, osvscanner.LicenseViolationsErr):
-			return 4
+			return 0b0100 // 4
 		case errors.Is(err, osvscanner.VulnerabilitiesFoundAndLicenseViolationsErr):
-			return 5
+			return 0b0101 // 5
 		case errors.Is(err, osvscanner.OnlyUncalledVulnerabilitiesFoundAndLicenseViolationsErr):
-			return 6
+			return 0b0110 // 6
 		case errors.Is(err, osvscanner.NoPackagesFoundErr):
 			r.PrintError("No package sources found, --help for usage information.\n")
 			return 128

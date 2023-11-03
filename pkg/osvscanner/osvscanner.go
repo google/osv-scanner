@@ -44,12 +44,12 @@ type ScannerActions struct {
 }
 
 type ExperimentalScannerActions struct {
-	CallAnalysis      bool
-	CompareLocally    bool
-	CompareOffline    bool
-	AllPackages       bool
-	Licenses          bool
-	LicensesAllowlist []string
+	CallAnalysis          bool
+	CompareLocally        bool
+	CompareOffline        bool
+	ShowAllPackages       bool
+	ScanLicenses          bool
+	ScanLicensesAllowlist []string
 
 	LocalDBPath string
 }
@@ -780,15 +780,15 @@ func DoScan(actions ScannerActions, r reporter.Reporter) (models.VulnerabilityRe
 	}
 
 	var licensesResp [][]models.License
-	if actions.Licenses {
+	if actions.ScanLicenses {
 		licensesResp, err = makeLicensesRequests(scannedPackages)
 		if err != nil {
 			return models.VulnerabilityResults{}, err
 		}
 	}
-	results := buildVulnerabilityResults(r, scannedPackages, vulnsResp, licensesResp, actions.CallAnalysis, actions.AllPackages, actions.Licenses, actions.LicensesAllowlist)
+	results := buildVulnerabilityResults(r, scannedPackages, vulnsResp, licensesResp, actions.CallAnalysis, actions.ShowAllPackages, actions.ScanLicenses, actions.ScanLicensesAllowlist)
 
-	filtered := filterResults(r, &results, &configManager, actions.AllPackages)
+	filtered := filterResults(r, &results, &configManager, actions.ShowAllPackages)
 	if filtered > 0 {
 		r.PrintText(fmt.Sprintf(
 			"Filtered %d %s from output\n",
@@ -825,7 +825,7 @@ func DoScan(actions ScannerActions, r reporter.Reporter) (models.VulnerabilityRe
 			return results, VulnerabilitiesFoundErr
 		case !vuln && onlyUncalledVuln && !licenseViolation:
 			// Impossible state.
-			return results, nil
+			panic("internal error: uncalled vulnerabilities exist but no vulnerabilities exist")
 		case vuln && onlyUncalledVuln && !licenseViolation:
 			return results, OnlyUncalledVulnerabilitiesFoundErr
 		case !vuln && !onlyUncalledVuln && licenseViolation:
@@ -833,8 +833,7 @@ func DoScan(actions ScannerActions, r reporter.Reporter) (models.VulnerabilityRe
 		case vuln && !onlyUncalledVuln && licenseViolation:
 			return results, VulnerabilitiesFoundAndLicenseViolationsErr
 		case !vuln && onlyUncalledVuln && licenseViolation:
-			// Impossible state.
-			return results, nil
+			panic("internal error: uncalled vulnerabilities exist but no vulnerabilities exist")
 		case vuln && onlyUncalledVuln && licenseViolation:
 			return results, OnlyUncalledVulnerabilitiesFoundAndLicenseViolationsErr
 		}
