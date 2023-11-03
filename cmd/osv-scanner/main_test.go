@@ -1136,6 +1136,28 @@ func TestRun_Licenses(t *testing.T) {
 			wantStderr: "",
 		},
 		{
+			name:         "No vulnerabilities but contains license violations markdown",
+			args:         []string{"", "--experimental-scan-licenses", "", "--format=markdown", "./fixtures/locks-many"},
+			wantExitCode: 4,
+			wantStdout: `Scanning dir ./fixtures/locks-many
+Scanned <rootdir>/fixtures/locks-many/Gemfile.lock file and found 1 package
+Scanned <rootdir>/fixtures/locks-many/alpine.cdx.xml as CycloneDX SBOM and found 15 packages
+Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
+Scanned <rootdir>/fixtures/locks-many/package-lock.json file and found 1 package
+Scanned <rootdir>/fixtures/locks-many/yarn.lock file and found 1 package
+Loaded filter from: <rootdir>/fixtures/locks-many/osv-scanner.toml
+CVE-2022-48174 has been filtered out because: Test manifest file (alpine.cdx.xml)
+GHSA-whgm-jr23-g3j9 has been filtered out because: Test manifest file
+Filtered 2 vulnerabilities from output
+| License | No. of package versions |
+| --- | ---:|
+| Apache-2.0 | 1 |
+| MIT | 1 |
+| UNKNOWN | 17 |
+			`,
+			wantStderr: "",
+		},
+		{
 			name:         "Vulnerabilities and license violations",
 			args:         []string{"", "--experimental-scan-licenses", "", "--config=./fixtures/osv-scanner-empty-config.toml", "./fixtures/locks-many/package-lock.json"},
 			wantExitCode: 5,
