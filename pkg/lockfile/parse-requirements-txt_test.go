@@ -1,6 +1,7 @@
 package lockfile_test
 
 import (
+	"io/fs"
 	"testing"
 
 	"github.com/google/osv-scanner/pkg/lockfile"
@@ -63,7 +64,7 @@ func TestParseRequirementsTxt_FileDoesNotExist(t *testing.T) {
 
 	packages, err := lockfile.ParseRequirementsTxt("fixtures/pip/does-not-exist")
 
-	expectErrContaining(t, err, "no such file or directory")
+	expectErrIs(t, err, fs.ErrNotExist)
 	expectPackages(t, packages, []lockfile.PackageDetails{})
 }
 
@@ -482,7 +483,7 @@ func TestParseRequirementsTxt_WithBadROption(t *testing.T) {
 
 	packages, err := lockfile.ParseRequirementsTxt("fixtures/pip/with-bad-r-option.txt")
 
-	expectErrContaining(t, err, "no such file or directory")
+	expectErrIs(t, err, fs.ErrNotExist)
 	expectPackages(t, packages, []lockfile.PackageDetails{})
 }
 
