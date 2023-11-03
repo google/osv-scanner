@@ -121,11 +121,11 @@ func run(args []string, stdout, stderr io.Writer) int {
 				Hidden: true,
 			},
 			&cli.BoolFlag{
-				Name:  "experimental-show-all-packages",
+				Name:  "experimental-all-packages",
 				Usage: "when json output is selected, prints all packages",
 			},
 			&cli.StringSliceFlag{
-				Name:  "experimental-scan-licenses",
+				Name:  "experimental-licenses",
 				Usage: "report on licenses",
 			},
 		},
@@ -173,9 +173,9 @@ func run(args []string, stdout, stderr io.Writer) int {
 					CallAnalysis:          context.Bool("experimental-call-analysis"),
 					CompareLocally:        context.Bool("experimental-local-db"),
 					CompareOffline:        context.Bool("experimental-offline"),
-					ShowAllPackages:       context.Bool("experimental-show-all-packages"),
-					ScanLicenses:          context.IsSet("experimental-scan-licenses"),
-					ScanLicensesAllowlist: context.StringSlice("experimental-scan-licenses"),
+					ShowAllPackages:       context.Bool("experimental-all-packages"),
+					ScanLicenses:          context.IsSet("experimental-licenses"),
+					ScanLicensesAllowlist: context.StringSlice("experimental-licenses"),
 				},
 			}, r)
 
