@@ -120,6 +120,14 @@ func run(args []string, stdout, stderr io.Writer) int {
 				Usage:  "sets the path that local databases should be stored",
 				Hidden: true,
 			},
+			&cli.BoolFlag{
+				Name:  "experimental-all-packages",
+				Usage: "when json output is selected, prints all packages",
+			},
+			&cli.StringSliceFlag{
+				Name:  "experimental-licenses",
+				Usage: "report on licenses",
+			},
 		},
 		ArgsUsage: "[directory1 directory2...]",
 		Action: func(context *cli.Context) error {
@@ -161,25 +169,31 @@ func run(args []string, stdout, stderr io.Writer) int {
 				ConfigOverridePath:   context.String("config"),
 				DirectoryPaths:       context.Args().Slice(),
 				ExperimentalScannerActions: osvscanner.ExperimentalScannerActions{
-					LocalDBPath:    context.String("experimental-local-db-path"),
-					CallAnalysis:   context.Bool("experimental-call-analysis"),
-					CompareLocally: context.Bool("experimental-local-db"),
-					CompareOffline: context.Bool("experimental-offline"),
+					LocalDBPath:           context.String("experimental-local-db-path"),
+					CallAnalysis:          context.Bool("experimental-call-analysis"),
+					CompareLocally:        context.Bool("experimental-local-db"),
+					CompareOffline:        context.Bool("experimental-offline"),
+					ShowAllPackages:       context.Bool("experimental-all-packages"),
+					ScanLicenses:          context.IsSet("experimental-licenses"),
+					ScanLicensesAllowlist: context.StringSlice("experimental-licenses"),
 				},
 			}, r)
 
-			if err != nil &&
-				!errors.Is(err, osvscanner.VulnerabilitiesFoundErr) &&
-				!errors.Is(err, osvscanner.OnlyUncalledVulnerabilitiesFoundErr) {
-				//nolint:wrapcheck
+			issueResultErr := errors.Join(
+				osvscanner.VulnerabilitiesFoundErr,
+				osvscanner.OnlyUncalledVulnerabilitiesFoundErr,
+				osvscanner.LicenseViolationsErr,
+				osvscanner.VulnerabilitiesFoundAndLicenseViolationsErr,
+				osvscanner.OnlyUncalledVulnerabilitiesFoundAndLicenseViolationsErr,
+			)
+			if err != nil && !errors.Is(issueResultErr, err) {
 				return err
 			}
-
 			if errPrint := r.PrintResult(&vulnResult); errPrint != nil {
 				return fmt.Errorf("failed to write output: %w", errPrint)
 			}
 
-			// Could be nil, VulnerabilitiesFoundErr, or OnlyUncalledVulnerabilitiesFoundErr
+			// This may be nil.
 			return err
 		},
 	}
@@ -188,20 +202,23 @@ func run(args []string, stdout, stderr io.Writer) int {
 		if r == nil {
 			r = reporter.NewTableReporter(stdout, stderr, false, 0)
 		}
-		if errors.Is(err, osvscanner.VulnerabilitiesFoundErr) {
-			return 1
-		}
-
-		if errors.Is(err, osvscanner.OnlyUncalledVulnerabilitiesFoundErr) {
-			// TODO: Discuss whether to have a different exit code now that running call analysis is not default
-			return 2
-		}
-
-		if errors.Is(err, osvscanner.NoPackagesFoundErr) {
+		switch {
+		case errors.Is(err, osvscanner.VulnerabilitiesFoundErr):
+			return 0b0001 // 1
+		case errors.Is(err, osvscanner.OnlyUncalledVulnerabilitiesFoundErr):
+			// TODO: Discuss whether to have a different exit code
+			// now that running call analysis is not default.
+			return 0b0010 // 2
+		case errors.Is(err, osvscanner.LicenseViolationsErr):
+			return 0b0100 // 4
+		case errors.Is(err, osvscanner.VulnerabilitiesFoundAndLicenseViolationsErr):
+			return 0b0101 // 5
+		case errors.Is(err, osvscanner.OnlyUncalledVulnerabilitiesFoundAndLicenseViolationsErr):
+			return 0b0110 // 6
+		case errors.Is(err, osvscanner.NoPackagesFoundErr):
 			r.PrintError("No package sources found, --help for usage information.\n")
 			return 128
 		}
-
 		r.PrintError(fmt.Sprintf("%v\n", err))
 	}
 

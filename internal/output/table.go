@@ -7,10 +7,12 @@ import (
 	"math"
 	"os"
 	"path/filepath"
+	"sort"
 	"strings"
 
 	v2_metric "github.com/goark/go-cvss/v2/metric"
 	v3_metric "github.com/goark/go-cvss/v3/metric"
+	"golang.org/x/exp/maps"
 
 	"github.com/google/osv-scanner/internal/utility/results"
 	"github.com/google/osv-scanner/pkg/models"
@@ -25,9 +27,25 @@ const OSVBaseVulnerabilityURL = "https://osv.dev/"
 
 // PrintTableResults prints the osv scan results into a human friendly table.
 func PrintTableResults(vulnResult *models.VulnerabilityResults, outputWriter io.Writer, terminalWidth int) {
+	// Render the vulnerabilities.
+	outputTable := newTable(outputWriter, terminalWidth)
+	outputTable = tableBuilder(outputTable, vulnResult, terminalWidth > 0)
+	if outputTable.Length() != 0 {
+		outputTable.Render()
+	}
+
+	// Render the licenses if any.
+	outputLicenseTable := newTable(outputWriter, terminalWidth)
+	outputLicenseTable = licenseTableBuilder(outputLicenseTable, vulnResult)
+	if outputLicenseTable.Length() == 0 {
+		return
+	}
+	outputLicenseTable.Render()
+}
+
+func newTable(outputWriter io.Writer, terminalWidth int) table.Writer {
 	outputTable := table.NewWriter()
 	outputTable.SetOutputMirror(outputWriter)
-	outputTable.AppendHeader(table.Row{"OSV URL", "CVSS", "Ecosystem", "Package", "Version", "Source"})
 
 	if terminalWidth > 0 { // If output is a terminal, set max length to width and add styling
 		outputTable.SetStyle(table.StyleRounded)
@@ -37,15 +55,11 @@ func PrintTableResults(vulnResult *models.VulnerabilityResults, outputWriter io.
 		outputTable.SetAllowedRowLength(terminalWidth)
 	} // Otherwise use default ascii (e.g. getting piped to a file)
 
-	outputTable = tableBuilder(outputTable, vulnResult, terminalWidth > 0)
-
-	if outputTable.Length() == 0 {
-		return
-	}
-	outputTable.Render()
+	return outputTable
 }
 
 func tableBuilder(outputTable table.Writer, vulnResult *models.VulnerabilityResults, addStyling bool) table.Writer {
+	outputTable.AppendHeader(table.Row{"OSV URL", "CVSS", "Ecosystem", "Package", "Version", "Source"})
 	rows := tableBuilderInner(vulnResult, addStyling, true)
 	for _, elem := range rows {
 		outputTable.AppendRow(elem.row, table.RowConfig{AutoMerge: elem.shouldMerge})
@@ -155,4 +169,85 @@ func MaxSeverity(group models.GroupInfo, pkg models.PackageVulns) string {
 	}
 
 	return fmt.Sprintf("%v", maxSeverity)
+}
+
+func licenseTableBuilder(outputTable table.Writer, vulnResult *models.VulnerabilityResults) table.Writer {
+	licenseConfig := vulnResult.ExperimentalAnalysisConfig.Licenses
+	if !licenseConfig.Enabled {
+		return outputTable
+	}
+	if len(licenseConfig.Allowlist) == 0 {
+		return licenseSummaryTableBuilder(outputTable, vulnResult)
+	}
+
+	return licenseViolationsTableBuilder(outputTable, vulnResult)
+}
+
+func licenseSummaryTableBuilder(outputTable table.Writer, vulnResult *models.VulnerabilityResults) table.Writer {
+	counts := make(map[models.License]int)
+	for _, pkgSource := range vulnResult.Results {
+		for _, pkg := range pkgSource.Packages {
+			for _, l := range pkg.Licenses {
+				counts[l] += 1
+			}
+		}
+	}
+	if len(counts) == 0 {
+		// No packages found.
+		return outputTable
+	}
+	licenses := maps.Keys(counts)
+	// Sort the license count in descending count order with the UNKNOWN
+	// license last.
+	sort.Slice(licenses, func(i, j int) bool {
+		if licenses[i] == "UNKNOWN" {
+			return false
+		}
+		if licenses[j] == "UNKNOWN" {
+			return true
+		}
+		if counts[licenses[i]] == counts[licenses[j]] {
+			return licenses[i] < licenses[j]
+		}
+
+		return counts[licenses[i]] > counts[licenses[j]]
+	})
+	outputTable.AppendHeader(table.Row{"License", "No. of package versions"})
+	for _, license := range licenses {
+		outputTable.AppendRow(table.Row{license, counts[license]})
+	}
+
+	return outputTable
+}
+
+func licenseViolationsTableBuilder(outputTable table.Writer, vulnResult *models.VulnerabilityResults) table.Writer {
+	outputTable.AppendHeader(table.Row{"License Violation", "Ecosystem", "Package", "Version", "Source"})
+	workingDir, err := os.Getwd()
+	if err != nil {
+		log.Panicf("can't get working dir: %v", err)
+	}
+	for _, pkgSource := range vulnResult.Results {
+		for _, pkg := range pkgSource.Packages {
+			if len(pkg.LicenseViolations) == 0 {
+				continue
+			}
+			violations := make([]string, len(pkg.LicenseViolations))
+			for i, l := range pkg.LicenseViolations {
+				violations[i] = string(l)
+			}
+			path := pkgSource.Source.Path
+			if simplifiedPath, err := filepath.Rel(workingDir, pkgSource.Source.Path); err == nil {
+				path = simplifiedPath
+			}
+			outputTable.AppendRow(table.Row{
+				strings.Join(violations, ", "),
+				pkg.Package.Ecosystem,
+				pkg.Package.Name,
+				pkg.Package.Version,
+				path,
+			})
+		}
+	}
+
+	return outputTable
 }
