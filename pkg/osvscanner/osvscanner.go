@@ -6,7 +6,6 @@ import (
 	"errors"
 	"fmt"
 	"io/fs"
-	"log"
 	"os"
 	"os/exec"
 	"path"
@@ -890,7 +889,7 @@ func makeRequest(
 		case p.PURL != "":
 			query.Queries = append(query.Queries, osv.MakePURLRequest(p.PURL))
 		default:
-			log.Panic("packages received in makeRequest should have already been filtered")
+			return nil, fmt.Errorf("package %v does not have a commit, PURL or ecosystem/name/version identifier", p)
 		}
 	}
 
