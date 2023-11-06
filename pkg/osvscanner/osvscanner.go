@@ -890,7 +890,7 @@ func makeRequest(
 		case p.PURL != "":
 			query.Queries = append(query.Queries, osv.MakePURLRequest(p.PURL))
 		default:
-			log.Panic("packages recieved in makeRequest should have already been filtered")
+			log.Panic("packages received in makeRequest should have already been filtered")
 		}
 	}
 
