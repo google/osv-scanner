@@ -108,6 +108,8 @@ type PackageVulns struct {
 type GroupInfo struct {
 	// IDs expected to be sorted in alphanumeric order
 	IDs []string `json:"ids"`
+	// Aliases include all aliases and IDs
+	Aliases []string `json:"aliases"`
 	// Map of Vulnerability IDs to AnalysisInfo
 	ExperimentalAnalysis map[string]AnalysisInfo `json:"experimentalAnalysis,omitempty"`
 }
@@ -170,5 +172,5 @@ type PackageInfo struct {
 	Name      string `json:"name"`
 	Version   string `json:"version"`
 	Ecosystem string `json:"ecosystem"`
-	Commit    string `json:"commit"`
+	Commit    string `json:"commit,omitempty"`
 }
