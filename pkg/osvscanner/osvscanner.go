@@ -6,6 +6,7 @@ import (
 	"errors"
 	"fmt"
 	"io/fs"
+	"log"
 	"os"
 	"os/exec"
 	"path"
@@ -774,19 +775,25 @@ func DoScan(actions ScannerActions, r reporter.Reporter) (models.VulnerabilityRe
 		return models.VulnerabilityResults{}, NoPackagesFoundErr
 	}
 
-	vulnsResp, err := makeRequest(r, scannedPackages, actions.CompareLocally, actions.CompareOffline, actions.LocalDBPath)
+	filteredScannedPackages := filterUnscannablePackages(scannedPackages)
+
+	if len(filteredScannedPackages) != len(scannedPackages) {
+		r.PrintText(fmt.Sprintf("Filtered %d local package/s from the scan.\n", len(scannedPackages)-len(filteredScannedPackages)))
+	}
+
+	vulnsResp, err := makeRequest(r, filteredScannedPackages, actions.CompareLocally, actions.CompareOffline, actions.LocalDBPath)
 	if err != nil {
 		return models.VulnerabilityResults{}, err
 	}
 
 	var licensesResp [][]models.License
 	if actions.ScanLicenses {
-		licensesResp, err = makeLicensesRequests(scannedPackages)
+		licensesResp, err = makeLicensesRequests(filteredScannedPackages)
 		if err != nil {
 			return models.VulnerabilityResults{}, err
 		}
 	}
-	results := buildVulnerabilityResults(r, scannedPackages, vulnsResp, licensesResp, actions.CallAnalysis, actions.ShowAllPackages, actions.ScanLicenses, actions.ScanLicensesAllowlist)
+	results := buildVulnerabilityResults(r, filteredScannedPackages, vulnsResp, licensesResp, actions.CallAnalysis, actions.ShowAllPackages, actions.ScanLicenses, actions.ScanLicensesAllowlist)
 
 	filtered := filterResults(r, &results, &configManager, actions.ShowAllPackages)
 	if filtered > 0 {
@@ -842,6 +849,25 @@ func DoScan(actions ScannerActions, r reporter.Reporter) (models.VulnerabilityRe
 	return results, nil
 }
 
+// filterUnscannablePackages removes packages that don't have enough information to be scanned
+// e,g, local packages that specified by path
+func filterUnscannablePackages(packages []scannedPackage) []scannedPackage {
+	out := make([]scannedPackage, 0, len(packages))
+	for _, p := range packages {
+		switch {
+		// If none of the cases match, skip this package since it's not scannable
+		case p.Ecosystem != "" && p.Name != "" && p.Version != "":
+		case p.Commit != "":
+		case p.PURL != "":
+		default:
+			continue
+		}
+		out = append(out, p)
+	}
+
+	return out
+}
+
 func makeRequest(
 	r reporter.Reporter,
 	packages []scannedPackage,
@@ -864,7 +890,7 @@ func makeRequest(
 		case p.PURL != "":
 			query.Queries = append(query.Queries, osv.MakePURLRequest(p.PURL))
 		default:
-			return nil, fmt.Errorf("package %v does not have a commit, PURL or ecosystem/name/version identifier", p)
+			log.Panic("packages recieved in makeRequest should have already been filtered")
 		}
 	}
 
