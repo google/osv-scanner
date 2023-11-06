@@ -167,7 +167,7 @@ func TestRun(t *testing.T) {
 		},
 		// one specific supported lockfile
 		{
-			name:         "",
+			name:         "one specific supported lockfile",
 			args:         []string{"", "./fixtures/locks-many/composer.lock"},
 			wantExitCode: 0,
 			wantStdout: `
@@ -588,6 +588,18 @@ func TestRun_LockfileWithExplicitParseAs(t *testing.T) {
 			wantStderr: `
 				open <rootdir>/path/to/my:project/package-lock.json: no such file or directory
 			`,
+		},
+		// one lockfile with local path
+		{
+			name:         "one lockfile with local path",
+			args:         []string{"", "--lockfile=go.mod:./fixtures/locks-many/replace-local.mod"},
+			wantExitCode: 0,
+			wantStdout: `
+				Scanned <rootdir>/fixtures/locks-many/replace-local.mod file as a go.mod and found 2 packages
+				Filtered 1 local package/s from the scan.
+				No issues found
+			`,
+			wantStderr: "",
 		},
 		// when an explicit parse-as is given, it's applied to that file
 		{
