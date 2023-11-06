@@ -48,6 +48,9 @@ func AssertMatchFixtureJSON[V any](t *testing.T, path string, val V) {
 	}
 }
 
+// Deprecated: Not actually deprecated, deprecated tag used to warn users from checking in as
+// it's meant to be used as a helper func to generate fixtures
+//
 // CreateJSONFixture creates a JSON file at path of the value val,
 // can be used with AssertMatchFixtureJSON to compare against future values.
 func CreateJSONFixture[V any](t *testing.T, path string, val V) {
