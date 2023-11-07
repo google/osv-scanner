@@ -23,3 +23,15 @@ OSV-Scanner provides an officially supported frontend to the [OSV database](http
 The above all results in fewer, more actionable vulnerability notifications, which reduces the time needed to resolve them. Check out our [announcement blog post] for more details!
 
 [announcement blog post]: https://security.googleblog.com/2022/12/announcing-osv-scanner-vulnerability.html
+
+## Supported Languages
+
+- C/C++
+- Elixir
+- Go
+- Java
+- Javascript
+- Php
+- Python
+- Ruby
+- Rust

@@ -108,6 +108,8 @@ it should infer the parser based on the filename:
 osv-scanner --lockfile ':/path/to/my:projects/package-lock.json'
 ```
 
+OSV-Scanner also supports submoduled and vendored [C/C++ dependencies](#cc-scanning). There is no need to specify a lockfile, OSV-Scanner will automatically find them and return any corresponding vulnerabilities. 
+
 ### Custom Lockfiles
 
 If you have a custom lockfile that we do not support or prefer to do your own custom parsing, you can extract the custom lockfile information and create a custom intermediate file containing dependency information so that osv-scanner can still check for vulnerabilities.
@@ -190,3 +192,21 @@ The `--output` flag can be used to save the scan results to a file instead of be
 ```bash
 osv-scanner -L package-lock.json --output scan-results.txt
 ```
+
+## C/C++ scanning
+
+OSV-Scanner is compatible with C/C++ projects. 
+
+Because the C/C++ ecosystem does not have a centralized package manager, C/C++ dependencies tend to be bundled with the project. Dependencies are either [submoduled](#submoduled-dependencies) or [vendored](#vendored-dependencies). In either case, OSV-Scanner is able to find known vulnerabilities in your project dependencies. 
+
+### Submoduled dependencies
+
+Submoduled dependencies are included in the project folder retain their git histories. To scan a C/C++ project with submoduled dependencies:
+
+1. Navigate to the root folder of your project. 
+2. Ensure that your submodules are up to date using `git submodule update`. 
+3. Run scanner using `osv-scanner .`. 
+
+### Vendored dependencies
+
+Vendored dependencies have been copied into the project folder, but do not retain their Git histories. OSV-Scanner uses OSV's [determineversion API](https://google.github.io/osv.dev/post-v1-determineversion/) to estimate each dependency's version (and associated Git Commit). Vulnerabilities for the estimated version are returned. This process requires no additional work from the user. Run OSV-Scanner as you normally would. 
