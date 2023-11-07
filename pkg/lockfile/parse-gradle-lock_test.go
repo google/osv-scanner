@@ -1,6 +1,7 @@
 package lockfile_test
 
 import (
+	"io/fs"
 	"testing"
 
 	"github.com/google/osv-scanner/pkg/lockfile"
@@ -88,7 +89,7 @@ func TestParseGradleLock_FileDoesNotExist(t *testing.T) {
 
 	packages, err := lockfile.ParseGradleLock("fixtures/gradle/does-not-exist")
 
-	expectErrContaining(t, err, "no such file or directory")
+	expectErrIs(t, err, fs.ErrNotExist)
 	expectPackages(t, packages, []lockfile.PackageDetails{})
 }
 

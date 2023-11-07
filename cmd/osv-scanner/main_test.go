@@ -167,17 +167,17 @@ func TestRun(t *testing.T) {
 		},
 		// one specific supported lockfile
 		{
-			name:         "",
+			name:         "one specific supported lockfile",
 			args:         []string{"", "./fixtures/locks-many/composer.lock"},
 			wantExitCode: 0,
 			wantStdout: `
 				Scanning dir ./fixtures/locks-many/composer.lock
 				Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
-				No vulnerabilities found
+				No issues found
 			`,
 			wantStderr: "",
 		},
-		// folder of supported sbom with vulns
+		// one specific supported sbom with vulns
 		{
 			name:         "folder of supported sbom with vulns",
 			args:         []string{"", "--config=./fixtures/osv-scanner-empty-config.toml", "./fixtures/sbom-insecure/"},
@@ -251,7 +251,7 @@ func TestRun(t *testing.T) {
 				CVE-2022-48174 has been filtered out because: Test manifest file (alpine.cdx.xml)
 				GHSA-whgm-jr23-g3j9 has been filtered out because: Test manifest file
 				Filtered 2 vulnerabilities from output
-				No vulnerabilities found
+				No issues found
 			`,
 			wantStderr: "",
 		},
@@ -277,7 +277,7 @@ func TestRun(t *testing.T) {
 			wantStdout: `
 				Scanning dir ./fixtures/locks-one-with-nested
 				Scanned <rootdir>/fixtures/locks-one-with-nested/yarn.lock file and found 1 package
-				No vulnerabilities found
+				No issues found
 			`,
 			wantStderr: "",
 		},
@@ -290,7 +290,7 @@ func TestRun(t *testing.T) {
 				Scanning dir ./fixtures/locks-one-with-nested
 				Scanned <rootdir>/fixtures/locks-one-with-nested/nested/composer.lock file and found 1 package
 				Scanned <rootdir>/fixtures/locks-one-with-nested/yarn.lock file and found 1 package
-				No vulnerabilities found
+				No issues found
 			`,
 			wantStderr: "",
 		},
@@ -303,7 +303,7 @@ func TestRun(t *testing.T) {
 				Scanning dir ./fixtures/locks-gitignore
 				Scanned <rootdir>/fixtures/locks-gitignore/Gemfile.lock file and found 1 package
 				Scanned <rootdir>/fixtures/locks-gitignore/subdir/yarn.lock file and found 1 package
-				No vulnerabilities found
+				No issues found
 			`,
 			wantStderr: "",
 		},
@@ -322,7 +322,7 @@ func TestRun(t *testing.T) {
 				Scanned <rootdir>/fixtures/locks-gitignore/subdir/composer.lock file and found 1 package
 				Scanned <rootdir>/fixtures/locks-gitignore/subdir/yarn.lock file and found 1 package
         Scanned <rootdir>/fixtures/locks-gitignore/yarn.lock file and found 1 package
-				No vulnerabilities found
+				No issues found
 			`,
 			wantStderr: "",
 		},
@@ -333,7 +333,16 @@ func TestRun(t *testing.T) {
 			wantExitCode: 0,
 			wantStdout: `
 				{
-					"results": []
+					"results": [],
+					"experimental_config": {
+						"call_analysis": {
+							"enabled": false
+						},
+						"licenses": {
+							"enabled": false,
+							"allowlist": null
+						}
+					}
 				}
 			`,
 			wantStderr: `
@@ -347,7 +356,16 @@ func TestRun(t *testing.T) {
 			wantExitCode: 0,
 			wantStdout: `
 				{
-					"results": []
+					"results": [],
+					"experimental_config": {
+						"call_analysis": {
+							"enabled": false
+						},
+						"licenses": {
+							"enabled": false,
+							"allowlist": null
+						}
+					}
 				}
 			`,
 			wantStderr: `
@@ -486,7 +504,7 @@ func TestRun(t *testing.T) {
 			args:         []string{"", "--format", "markdown", "--config", "./fixtures/osv-scanner-empty-config.toml", "./fixtures/locks-many/package-lock.json"},
 			wantExitCode: 1,
 			wantStdout: `
-				Scanning dir ./fixtures/locks-many/package-lock.json
+        Scanning dir ./fixtures/locks-many/package-lock.json
         Scanned <rootdir>/fixtures/locks-many/package-lock.json file and found 1 package
         | OSV URL | CVSS | Ecosystem | Package | Version | Source |
         | --- | --- | --- | --- | --- | --- |
@@ -540,7 +558,7 @@ func TestRun_LockfileWithExplicitParseAs(t *testing.T) {
 			wantExitCode: 0,
 			wantStdout: `
 				Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
-				No vulnerabilities found
+				No issues found
 			`,
 			wantStderr: "",
 		},
@@ -570,6 +588,18 @@ func TestRun_LockfileWithExplicitParseAs(t *testing.T) {
 			wantStderr: `
 				open <rootdir>/path/to/my:project/package-lock.json: no such file or directory
 			`,
+		},
+		// one lockfile with local path
+		{
+			name:         "one lockfile with local path",
+			args:         []string{"", "--lockfile=go.mod:./fixtures/locks-many/replace-local.mod"},
+			wantExitCode: 0,
+			wantStdout: `
+				Scanned <rootdir>/fixtures/locks-many/replace-local.mod file as a go.mod and found 2 packages
+				Filtered 1 local package/s from the scan.
+				No issues found
+			`,
+			wantStderr: "",
 		},
 		// when an explicit parse-as is given, it's applied to that file
 		{
@@ -681,7 +711,7 @@ func TestRun_LockfileWithExplicitParseAs(t *testing.T) {
 			wantExitCode: 0,
 			wantStdout: `
 				Scanned <rootdir>/fixtures/locks-many/installed file as a apk-installed and found 1 package
-				No vulnerabilities found
+				No issues found
 			`,
 			wantStderr: "",
 		},
@@ -696,7 +726,7 @@ func TestRun_LockfileWithExplicitParseAs(t *testing.T) {
 			wantExitCode: 0,
 			wantStdout: `
 				Scanned <rootdir>/fixtures/locks-many/status file as a dpkg-status and found 1 package
-				No vulnerabilities found
+				No issues found
 			`,
 			wantStderr: "",
 		},
@@ -861,7 +891,7 @@ func TestRun_LocalDatabases(t *testing.T) {
 				Scanning dir ./fixtures/locks-many/composer.lock
 				Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
 				Loaded Packagist local db from %%/osv-scanner/Packagist/all.zip
-				No vulnerabilities found
+				No issues found
 			`,
 			wantStderr: "",
 		},
@@ -920,7 +950,7 @@ func TestRun_LocalDatabases(t *testing.T) {
 				Loaded filter from: <rootdir>/fixtures/locks-many/osv-scanner.toml
 				GHSA-whgm-jr23-g3j9 has been filtered out because: Test manifest file
 				Filtered 1 vulnerability from output
-				No vulnerabilities found
+				No issues found
 			`,
 			wantStderr: "",
 		},
@@ -949,7 +979,7 @@ func TestRun_LocalDatabases(t *testing.T) {
 				Scanning dir ./fixtures/locks-one-with-nested
 				Scanned <rootdir>/fixtures/locks-one-with-nested/yarn.lock file and found 1 package
 				Loaded npm local db from %%/osv-scanner/npm/all.zip
-				No vulnerabilities found
+				No issues found
 			`,
 			wantStderr: "",
 		},
@@ -964,7 +994,7 @@ func TestRun_LocalDatabases(t *testing.T) {
 				Scanned <rootdir>/fixtures/locks-one-with-nested/yarn.lock file and found 1 package
 				Loaded Packagist local db from %%/osv-scanner/Packagist/all.zip
 				Loaded npm local db from %%/osv-scanner/npm/all.zip
-				No vulnerabilities found
+				No issues found
 			`,
 			wantStderr: "",
 		},
@@ -979,7 +1009,7 @@ func TestRun_LocalDatabases(t *testing.T) {
 				Scanned <rootdir>/fixtures/locks-gitignore/subdir/yarn.lock file and found 1 package
 				Loaded RubyGems local db from %%/osv-scanner/RubyGems/all.zip
 				Loaded npm local db from %%/osv-scanner/npm/all.zip
-				No vulnerabilities found
+				No issues found
 			`,
 			wantStderr: "",
 		},
@@ -1001,7 +1031,7 @@ func TestRun_LocalDatabases(t *testing.T) {
 				Loaded RubyGems local db from %%/osv-scanner/RubyGems/all.zip
 				Loaded Packagist local db from %%/osv-scanner/Packagist/all.zip
 				Loaded npm local db from %%/osv-scanner/npm/all.zip
-				No vulnerabilities found
+				No issues found
 			`,
 			wantStderr: "",
 		},
@@ -1012,7 +1042,16 @@ func TestRun_LocalDatabases(t *testing.T) {
 			wantExitCode: 0,
 			wantStdout: `
 				{
-					"results": []
+					"results": [],
+					"experimental_config": {
+						"call_analysis": {
+							"enabled": false
+						},
+						"licenses": {
+							"enabled": false,
+							"allowlist": null
+						}
+					}
 				}
 			`,
 			wantStderr: `
@@ -1027,7 +1066,16 @@ func TestRun_LocalDatabases(t *testing.T) {
 			wantExitCode: 0,
 			wantStdout: `
 				{
-					"results": []
+					"results": [],
+					"experimental_config": {
+						"call_analysis": {
+							"enabled": false
+						},
+						"licenses": {
+							"enabled": false,
+							"allowlist": null
+						}
+					}
 				}
 			`,
 			wantStderr: `
@@ -1045,7 +1093,7 @@ func TestRun_LocalDatabases(t *testing.T) {
 				Scanning dir ./fixtures/locks-many/composer.lock
 				Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
 				Loaded Packagist local db from %%/osv-scanner/Packagist/all.zip
-				No vulnerabilities found
+				No issues found
 			`,
 			wantStderr: "",
 		},
@@ -1066,6 +1114,308 @@ func TestRun_LocalDatabases(t *testing.T) {
 			// run each test twice since they should provide the same output,
 			// and the second run should be fast as the db is already available
 			testCli(t, tt)
+			testCli(t, tt)
+		})
+	}
+}
+
+func TestRun_Licenses(t *testing.T) {
+	t.Parallel()
+	tests := []cliTestCase{
+		{
+			name:         "No vulnerabilities but contains license violations",
+			args:         []string{"", "--experimental-licenses", "", "./fixtures/locks-many"},
+			wantExitCode: 4,
+			wantStdout: `
+				Scanning dir ./fixtures/locks-many
+				Scanned <rootdir>/fixtures/locks-many/Gemfile.lock file and found 1 package
+				Scanned <rootdir>/fixtures/locks-many/alpine.cdx.xml as CycloneDX SBOM and found 15 packages
+				Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
+				Scanned <rootdir>/fixtures/locks-many/package-lock.json file and found 1 package
+				Scanned <rootdir>/fixtures/locks-many/yarn.lock file and found 1 package
+				Loaded filter from: <rootdir>/fixtures/locks-many/osv-scanner.toml
+				CVE-2022-48174 has been filtered out because: Test manifest file (alpine.cdx.xml)
+				GHSA-whgm-jr23-g3j9 has been filtered out because: Test manifest file
+				Filtered 2 vulnerabilities from output
+				+------------+-------------------------+
+				| LICENSE    | NO. OF PACKAGE VERSIONS |
+				+------------+-------------------------+
+				| Apache-2.0 |                       1 |
+				| MIT        |                       1 |
+				| UNKNOWN    |                      17 |
+				+------------+-------------------------+
+			`,
+			wantStderr: "",
+		},
+		{
+			name:         "No vulnerabilities but contains license violations markdown",
+			args:         []string{"", "--experimental-licenses", "", "--format=markdown", "./fixtures/locks-many"},
+			wantExitCode: 4,
+			wantStdout: `Scanning dir ./fixtures/locks-many
+Scanned <rootdir>/fixtures/locks-many/Gemfile.lock file and found 1 package
+Scanned <rootdir>/fixtures/locks-many/alpine.cdx.xml as CycloneDX SBOM and found 15 packages
+Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
+Scanned <rootdir>/fixtures/locks-many/package-lock.json file and found 1 package
+Scanned <rootdir>/fixtures/locks-many/yarn.lock file and found 1 package
+Loaded filter from: <rootdir>/fixtures/locks-many/osv-scanner.toml
+CVE-2022-48174 has been filtered out because: Test manifest file (alpine.cdx.xml)
+GHSA-whgm-jr23-g3j9 has been filtered out because: Test manifest file
+Filtered 2 vulnerabilities from output
+| License | No. of package versions |
+| --- | ---:|
+| Apache-2.0 | 1 |
+| MIT | 1 |
+| UNKNOWN | 17 |
+			`,
+			wantStderr: "",
+		},
+		{
+			name:         "Vulnerabilities and license violations",
+			args:         []string{"", "--experimental-licenses", "", "--config=./fixtures/osv-scanner-empty-config.toml", "./fixtures/locks-many/package-lock.json"},
+			wantExitCode: 5,
+			wantStdout: `
+				Scanning dir ./fixtures/locks-many/package-lock.json
+				Scanned <rootdir>/fixtures/locks-many/package-lock.json file and found 1 package
+				+-------------------------------------+------+-----------+-----------+---------+---------------------------------------+
+				| OSV URL                             | CVSS | ECOSYSTEM | PACKAGE   | VERSION | SOURCE                                |
+				+-------------------------------------+------+-----------+-----------+---------+---------------------------------------+
+				| https://osv.dev/GHSA-whgm-jr23-g3j9 | 7.5  | npm       | ansi-html | 0.0.1   | fixtures/locks-many/package-lock.json |
+				+-------------------------------------+------+-----------+-----------+---------+---------------------------------------+
+				+------------+-------------------------+
+				| LICENSE    | NO. OF PACKAGE VERSIONS |
+				+------------+-------------------------+
+				| Apache-2.0 |                       1 |
+				+------------+-------------------------+
+			`,
+			wantStderr: "",
+		},
+		{
+			name:         "Vulnerabilities and license violations with allowlist",
+			args:         []string{"", "--experimental-licenses", "MIT", "--config=./fixtures/osv-scanner-empty-config.toml", "./fixtures/locks-many/package-lock.json"},
+			wantExitCode: 5,
+			wantStdout: `
+				Scanning dir ./fixtures/locks-many/package-lock.json
+				Scanned <rootdir>/fixtures/locks-many/package-lock.json file and found 1 package
+				+-------------------------------------+------+-----------+-----------+---------+---------------------------------------+
+				| OSV URL                             | CVSS | ECOSYSTEM | PACKAGE   | VERSION | SOURCE                                |
+				+-------------------------------------+------+-----------+-----------+---------+---------------------------------------+
+				| https://osv.dev/GHSA-whgm-jr23-g3j9 | 7.5  | npm       | ansi-html | 0.0.1   | fixtures/locks-many/package-lock.json |
+				+-------------------------------------+------+-----------+-----------+---------+---------------------------------------+
+				+-------------------+-----------+-----------+---------+---------------------------------------+
+				| LICENSE VIOLATION | ECOSYSTEM | PACKAGE   | VERSION | SOURCE                                |
+				+-------------------+-----------+-----------+---------+---------------------------------------+
+				| Apache-2.0        | npm       | ansi-html | 0.0.1   | fixtures/locks-many/package-lock.json |
+				+-------------------+-----------+-----------+---------+---------------------------------------+
+			`,
+			wantStderr: "",
+		},
+		{
+			name:         "Vulnerabilities and all license violations allowlisted",
+			args:         []string{"", "--experimental-licenses", "Apache-2.0", "--config=./fixtures/osv-scanner-empty-config.toml", "./fixtures/locks-many/package-lock.json"},
+			wantExitCode: 1,
+			wantStdout: `
+				Scanning dir ./fixtures/locks-many/package-lock.json
+				Scanned <rootdir>/fixtures/locks-many/package-lock.json file and found 1 package
+				+-------------------------------------+------+-----------+-----------+---------+---------------------------------------+
+				| OSV URL                             | CVSS | ECOSYSTEM | PACKAGE   | VERSION | SOURCE                                |
+				+-------------------------------------+------+-----------+-----------+---------+---------------------------------------+
+				| https://osv.dev/GHSA-whgm-jr23-g3j9 | 7.5  | npm       | ansi-html | 0.0.1   | fixtures/locks-many/package-lock.json |
+				+-------------------------------------+------+-----------+-----------+---------+---------------------------------------+
+			`,
+			wantStderr: "",
+		},
+		{
+			name:         "Some packages with license violations and show-all-packages in json",
+			args:         []string{"", "--format=json", "--experimental-licenses", "MIT", "--experimental-all-packages", "./fixtures/locks-licenses/package-lock.json"},
+			wantExitCode: 4,
+			wantStdout: `
+			{
+				"results": [
+					{
+						"source": {
+							"path": "<rootdir>/fixtures/locks-licenses/package-lock.json",
+							"type": "lockfile"
+						},
+						"packages": [
+							{
+								"package": {
+									"name": "babel",
+									"version": "6.23.0",
+									"ecosystem": "npm",
+									"commit": ""
+								},
+								"licenses": [
+									"MIT"
+								]
+							},
+							{
+								"package": {
+									"name": "human-signals",
+									"version": "5.0.0",
+									"ecosystem": "npm",
+									"commit": ""
+								},
+								"licenses": [
+									"Apache-2.0"
+								],
+								"license_violations": [
+									"Apache-2.0"
+								]
+							},
+							{
+								"package": {
+									"name": "ms",
+									"version": "2.1.3",
+									"ecosystem": "npm",
+									"commit": ""
+								},
+								"licenses": [
+									"MIT"
+								]
+							}
+						]
+					}
+				],
+				"experimental_config": {
+					"call_analysis": {
+						"enabled": false
+					},
+					"licenses": {
+						"enabled": true,
+						"allowlist": [
+							"MIT"
+						]
+					}
+				}
+			}
+		`,
+			wantStderr: `
+			Scanning dir ./fixtures/locks-licenses/package-lock.json
+			Scanned %%/fixtures/locks-licenses/package-lock.json file and found 3 packages
+			`,
+		},
+		{
+			name:         "Some packages with license violations in json",
+			args:         []string{"", "--format=json", "--experimental-licenses", "MIT", "./fixtures/locks-licenses/package-lock.json"},
+			wantExitCode: 4,
+			wantStdout: `
+			{
+				"results": [
+					{
+						"source": {
+							"path": "<rootdir>/fixtures/locks-licenses/package-lock.json",
+							"type": "lockfile"
+						},
+						"packages": [
+							{
+								"package": {
+									"name": "human-signals",
+									"version": "5.0.0",
+									"ecosystem": "npm",
+									"commit": ""
+								},
+								"licenses": [
+									"Apache-2.0"
+								],
+								"license_violations": [
+									"Apache-2.0"
+								]
+							}
+						]
+					}
+				],
+				"experimental_config": {
+					"call_analysis": {
+						"enabled": false
+					},
+					"licenses": {
+						"enabled": true,
+						"allowlist": [
+							"MIT"
+						]
+					}
+				}
+			}
+		`,
+			wantStderr: `
+			Scanning dir ./fixtures/locks-licenses/package-lock.json
+			Scanned <rootdir>/fixtures/locks-licenses/package-lock.json file and found 3 packages
+			`,
+		},
+		{
+			name:         "No license violations and show-all-packages in json",
+			args:         []string{"", "--format=json", "--experimental-licenses", "MIT,Apache-2.0", "--experimental-all-packages", "./fixtures/locks-licenses/package-lock.json"},
+			wantExitCode: 0,
+			wantStdout: `
+			{
+				"results": [
+					{
+						"source": {
+							"path": "<rootdir>/fixtures/locks-licenses/package-lock.json",
+							"type": "lockfile"
+						},
+						"packages": [
+							{
+								"package": {
+									"name": "babel",
+									"version": "6.23.0",
+									"ecosystem": "npm",
+									"commit": ""
+								},
+								"licenses": [
+									"MIT"
+								]
+							},
+							{
+								"package": {
+									"name": "human-signals",
+									"version": "5.0.0",
+									"ecosystem": "npm",
+									"commit": ""
+								},
+								"licenses": [
+									"Apache-2.0"
+								]
+							},
+							{
+								"package": {
+									"name": "ms",
+									"version": "2.1.3",
+									"ecosystem": "npm",
+									"commit": ""
+								},
+								"licenses": [
+									"MIT"
+								]
+							}
+						]
+					}
+				],
+				"experimental_config": {
+					"call_analysis": {
+						"enabled": false
+					},
+					"licenses": {
+						"enabled": true,
+						"allowlist": [
+							"MIT",
+							"Apache-2.0"
+						]
+					}
+				}
+			}
+		`,
+			wantStderr: `
+			Scanning dir ./fixtures/locks-licenses/package-lock.json
+			Scanned <rootdir>/fixtures/locks-licenses/package-lock.json file and found 3 packages
+			`,
+		},
+	}
+	for _, tt := range tests {
+		tt := tt
+		t.Run(tt.name, func(t *testing.T) {
+			t.Parallel()
+
 			testCli(t, tt)
 		})
 	}

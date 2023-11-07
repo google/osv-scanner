@@ -1,6 +1,7 @@
 package lockfile_test
 
 import (
+	"io/fs"
 	"testing"
 
 	"github.com/google/osv-scanner/pkg/lockfile"
@@ -63,7 +64,7 @@ func TestParseCargoLock_FileDoesNotExist(t *testing.T) {
 
 	packages, err := lockfile.ParseCargoLock("fixtures/cargo/does-not-exist")
 
-	expectErrContaining(t, err, "no such file or directory")
+	expectErrIs(t, err, fs.ErrNotExist)
 	expectPackages(t, packages, []lockfile.PackageDetails{})
 }
 
@@ -126,6 +127,31 @@ func TestParseCargoLock_TwoPackages(t *testing.T) {
 		{
 			Name:      "syn",
 			Version:   "1.0.73",
+			Ecosystem: lockfile.CargoEcosystem,
+			CompareAs: lockfile.CargoEcosystem,
+		},
+	})
+}
+
+func TestParseCargoLock_TwoPackagesWithLocal(t *testing.T) {
+	t.Parallel()
+
+	packages, err := lockfile.ParseCargoLock("fixtures/cargo/two-packages-with-local.lock")
+
+	if err != nil {
+		t.Errorf("Got unexpected error: %v", err)
+	}
+
+	expectPackages(t, packages, []lockfile.PackageDetails{
+		{
+			Name:      "addr2line",
+			Version:   "0.15.2",
+			Ecosystem: lockfile.CargoEcosystem,
+			CompareAs: lockfile.CargoEcosystem,
+		},
+		{
+			Name:      "local-rust-pkg",
+			Version:   "0.1.0",
 			Ecosystem: lockfile.CargoEcosystem,
 			CompareAs: lockfile.CargoEcosystem,
 		},

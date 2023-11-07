@@ -12,12 +12,19 @@ import (
 func PrintMarkdownTableResults(vulnResult *models.VulnerabilityResults, outputWriter io.Writer) {
 	outputTable := table.NewWriter()
 	outputTable.SetOutputMirror(outputWriter)
-	outputTable.AppendHeader(table.Row{"OSV URL", "CVSS", "Ecosystem", "Package", "Version", "Source"})
-
 	outputTable = tableBuilder(outputTable, vulnResult, false)
 
-	if outputTable.Length() == 0 {
+	if outputTable.Length() != 0 {
+		outputTable.RenderMarkdown()
+	}
+
+	outputLicenseTable := table.NewWriter()
+	outputLicenseTable.SetOutputMirror(outputWriter)
+
+	outputLicenseTable = licenseTableBuilder(outputLicenseTable, vulnResult)
+
+	if outputLicenseTable.Length() == 0 {
 		return
 	}
-	outputTable.RenderMarkdown()
+	outputLicenseTable.RenderMarkdown()
 }

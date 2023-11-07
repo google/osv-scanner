@@ -16,11 +16,13 @@ import (
 	"github.com/google/osv-scanner/internal/output"
 	"github.com/google/osv-scanner/internal/sbom"
 	"github.com/google/osv-scanner/pkg/config"
+	"github.com/google/osv-scanner/pkg/depsdev"
 	"github.com/google/osv-scanner/pkg/lockfile"
 	"github.com/google/osv-scanner/pkg/models"
 	"github.com/google/osv-scanner/pkg/osv"
 	"github.com/google/osv-scanner/pkg/reporter"
 
+	depsdevpb "deps.dev/api/v3alpha"
 	"github.com/go-git/go-billy/v5"
 	"github.com/go-git/go-billy/v5/osfs"
 	"github.com/go-git/go-git/v5"
@@ -42,9 +44,12 @@ type ScannerActions struct {
 }
 
 type ExperimentalScannerActions struct {
-	CallAnalysis   bool
-	CompareLocally bool
-	CompareOffline bool
+	CallAnalysis          bool
+	CompareLocally        bool
+	CompareOffline        bool
+	ShowAllPackages       bool
+	ScanLicenses          bool
+	ScanLicensesAllowlist []string
 
 	LocalDBPath string
 }
@@ -59,6 +64,15 @@ var VulnerabilitiesFoundErr = errors.New("vulnerabilities found")
 
 //nolint:errname,stylecheck // Would require version bump to change
 var OnlyUncalledVulnerabilitiesFoundErr = errors.New("only uncalled vulnerabilities found")
+
+//nolint:errname,stylecheck // Would require version bump to change
+var LicenseViolationsErr = errors.New("license violations found")
+
+//nolint:errname,stylecheck // Would require version bump to change
+var VulnerabilitiesFoundAndLicenseViolationsErr = errors.New("vulnerabilities found and license violations found")
+
+//nolint:errname,stylecheck // Would require version bump to change
+var OnlyUncalledVulnerabilitiesFoundAndLicenseViolationsErr = errors.New("only uncalled vulnerabilities found and license violations found")
 
 var (
 	vendoredLibNames = map[string]struct{}{
@@ -87,7 +101,6 @@ const (
 //   - Any lockfiles with scanLockfile
 //   - Any SBOM files with scanSBOMFile
 //   - Any git repositories with scanGit
-
 func scanDir(r reporter.Reporter, dir string, skipGit bool, recursive bool, useGitIgnore bool, compareOffline bool) ([]scannedPackage, error) {
 	var ignoreMatcher *gitIgnoreMatcher
 	if useGitIgnore {
@@ -591,7 +604,7 @@ func scanDebianDocker(r reporter.Reporter, dockerImageName string) ([]scannedPac
 }
 
 // Filters results according to config, preserving order. Returns total number of vulnerabilities removed.
-func filterResults(r reporter.Reporter, results *models.VulnerabilityResults, configManager *config.ConfigManager) int {
+func filterResults(r reporter.Reporter, results *models.VulnerabilityResults, configManager *config.ConfigManager, allPackages bool) int {
 	removedCount := 0
 	newResults := []models.PackageSource{} // Want 0 vulnerabilities to show in JSON as an empty list, not null.
 	for _, pkgSrc := range results.Results {
@@ -600,8 +613,7 @@ func filterResults(r reporter.Reporter, results *models.VulnerabilityResults, co
 		for _, pkgVulns := range pkgSrc.Packages {
 			newVulns := filterPackageVulns(r, pkgVulns, configToUse)
 			removedCount += len(pkgVulns.Vulnerabilities) - len(newVulns.Vulnerabilities)
-			// Don't want to include the package at all if there are no vulns.
-			if len(newVulns.Vulnerabilities) > 0 {
+			if allPackages || len(newVulns.Vulnerabilities) > 0 || len(pkgVulns.LicenseViolations) > 0 {
 				newPackages = append(newPackages, newVulns)
 			}
 		}
@@ -762,15 +774,27 @@ func DoScan(actions ScannerActions, r reporter.Reporter) (models.VulnerabilityRe
 		return models.VulnerabilityResults{}, NoPackagesFoundErr
 	}
 
-	hydratedResp, err := makeRequest(r, scannedPackages, actions.CompareLocally, actions.CompareOffline, actions.LocalDBPath)
+	filteredScannedPackages := filterUnscannablePackages(scannedPackages)
 
+	if len(filteredScannedPackages) != len(scannedPackages) {
+		r.PrintText(fmt.Sprintf("Filtered %d local package/s from the scan.\n", len(scannedPackages)-len(filteredScannedPackages)))
+	}
+
+	vulnsResp, err := makeRequest(r, filteredScannedPackages, actions.CompareLocally, actions.CompareOffline, actions.LocalDBPath)
 	if err != nil {
 		return models.VulnerabilityResults{}, err
 	}
 
-	vulnerabilityResults := buildVulnerabilityResults(r, scannedPackages, hydratedResp, actions.CallAnalysis)
+	var licensesResp [][]models.License
+	if actions.ScanLicenses {
+		licensesResp, err = makeLicensesRequests(filteredScannedPackages)
+		if err != nil {
+			return models.VulnerabilityResults{}, err
+		}
+	}
+	results := buildVulnerabilityResults(r, filteredScannedPackages, vulnsResp, licensesResp, actions.CallAnalysis, actions.ShowAllPackages, actions.ScanLicenses, actions.ScanLicensesAllowlist)
 
-	filtered := filterResults(r, &vulnerabilityResults, &configManager)
+	filtered := filterResults(r, &results, &configManager, actions.ShowAllPackages)
 	if filtered > 0 {
 		r.PrintText(fmt.Sprintf(
 			"Filtered %d %s from output\n",
@@ -779,19 +803,68 @@ func DoScan(actions ScannerActions, r reporter.Reporter) (models.VulnerabilityRe
 		))
 	}
 
-	// if vulnerability exists it should return error
-	if len(vulnerabilityResults.Results) > 0 {
-		// If any vulnerabilities are called, then we return VulnerabilitiesFoundErr
-		for _, vf := range vulnerabilityResults.Flatten() {
-			if vf.GroupInfo.IsCalled() {
-				return vulnerabilityResults, VulnerabilitiesFoundErr
+	if len(results.Results) > 0 {
+		// Determine the correct error to return.
+		// TODO: in the next breaking release of osv-scanner, consider
+		// returning a ScanError instead of an error.
+		var vuln bool
+		onlyUncalledVuln := true
+		var licenseViolation bool
+		for _, vf := range results.Flatten() {
+			if vf.Vulnerability.ID != "" {
+				vuln = true
+				if vf.GroupInfo.IsCalled() {
+					onlyUncalledVuln = false
+				}
+			}
+			if len(vf.LicenseViolations) > 0 {
+				licenseViolation = true
 			}
 		}
-		// Otherwise return OnlyUncalledVulnerabilitiesFoundErr
-		return vulnerabilityResults, OnlyUncalledVulnerabilitiesFoundErr
+		onlyUncalledVuln = onlyUncalledVuln && vuln
+
+		switch {
+		case !vuln && !onlyUncalledVuln && !licenseViolation:
+			// There is no error.
+			return results, nil
+		case vuln && !onlyUncalledVuln && !licenseViolation:
+			return results, VulnerabilitiesFoundErr
+		case !vuln && onlyUncalledVuln && !licenseViolation:
+			// Impossible state.
+			panic("internal error: uncalled vulnerabilities exist but no vulnerabilities exist")
+		case vuln && onlyUncalledVuln && !licenseViolation:
+			return results, OnlyUncalledVulnerabilitiesFoundErr
+		case !vuln && !onlyUncalledVuln && licenseViolation:
+			return results, LicenseViolationsErr
+		case vuln && !onlyUncalledVuln && licenseViolation:
+			return results, VulnerabilitiesFoundAndLicenseViolationsErr
+		case !vuln && onlyUncalledVuln && licenseViolation:
+			panic("internal error: uncalled vulnerabilities exist but no vulnerabilities exist")
+		case vuln && onlyUncalledVuln && licenseViolation:
+			return results, OnlyUncalledVulnerabilitiesFoundAndLicenseViolationsErr
+		}
 	}
 
-	return vulnerabilityResults, nil
+	return results, nil
+}
+
+// filterUnscannablePackages removes packages that don't have enough information to be scanned
+// e,g, local packages that specified by path
+func filterUnscannablePackages(packages []scannedPackage) []scannedPackage {
+	out := make([]scannedPackage, 0, len(packages))
+	for _, p := range packages {
+		switch {
+		// If none of the cases match, skip this package since it's not scannable
+		case p.Ecosystem != "" && p.Name != "" && p.Version != "":
+		case p.Commit != "":
+		case p.PURL != "":
+		default:
+			continue
+		}
+		out = append(out, p)
+	}
+
+	return out
 }
 
 func makeRequest(
@@ -844,4 +917,21 @@ func makeRequest(
 	}
 
 	return hydratedResp, nil
+}
+
+func makeLicensesRequests(packages []scannedPackage) ([][]models.License, error) {
+	queries := make([]*depsdevpb.GetVersionRequest, len(packages))
+	for i, pkg := range packages {
+		system, ok := depsdev.System[pkg.Ecosystem]
+		if !ok || pkg.Name == "" || pkg.Version == "" {
+			continue
+		}
+		queries[i] = depsdev.VersionQuery(system, pkg.Name, pkg.Version)
+	}
+	licenses, err := depsdev.MakeVersionRequests(queries)
+	if err != nil {
+		return nil, err
+	}
+
+	return licenses, nil
 }
