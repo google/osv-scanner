@@ -26,7 +26,7 @@ The above all results in fewer, more actionable vulnerability notifications, whi
 
 ## Supported Languages
 
-- C/C++
+The following languages have supported [lockfile formats](./usage.md#specify-lockfiles).
 - Elixir
 - Go
 - Java
@@ -35,3 +35,7 @@ The above all results in fewer, more actionable vulnerability notifications, whi
 - Python
 - Ruby
 - Rust
+
+Additionally OSV-Scanner supports [C and C++](usage.md/#cc-scanning) with submoduled or vendored dependencies.
+
+
