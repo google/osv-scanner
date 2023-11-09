@@ -201,7 +201,7 @@ Because the C/C++ ecosystem does not have a centralized package manager, C/C++ d
 
 ### Submoduled dependencies
 
-Submoduled dependencies are included in the project folder retain their git histories. To scan a C/C++ project with submoduled dependencies:
+Submoduled dependencies are included in the project folder retain their Git histories. To scan a C/C++ project with submoduled dependencies:
 
 1. Navigate to the root folder of your project. 
 2. Ensure that your submodules are up to date using `git submodule update`. 
