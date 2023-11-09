@@ -36,6 +36,6 @@ The following languages have supported [lockfile formats](./usage.md#specify-loc
 - Ruby
 - Rust
 
-Additionally OSV-Scanner supports [C and C++](usage.md/#cc-scanning) with submoduled or vendored dependencies.
+Additionally, OSV-Scanner supports [C and C++](usage.md/#cc-scanning) with submoduled or vendored dependencies.
 
 
