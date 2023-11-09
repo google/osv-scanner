@@ -24,18 +24,16 @@ The above all results in fewer, more actionable vulnerability notifications, whi
 
 [announcement blog post]: https://security.googleblog.com/2022/12/announcing-osv-scanner-vulnerability.html
 
-## Supported Languages
+## Supported languages and lockfiles
 
-The following languages have supported [lockfile formats](./usage.md#specify-lockfiles).
-- Elixir
-- Go
-- Java
-- Javascript
-- Php
-- Python
-- Ruby
-- Rust
-
-Additionally, OSV-Scanner supports [C and C++](usage.md/#cc-scanning) with submoduled or vendored dependencies.
-
-
+|  Language  |                                                        Compatible Lockfile(s)                                                       |
+|:----------:|:-----------------------------------------------------------------------------------------------------------------------------------:|
+| Elixir     | `mix.lock`                                                                                                                          |
+| C/C++      | `conan.lock`                                                                                                                        |
+| Go         | `go.mod`                                                                                                                            |
+| Java       | `buildscript-gradle.lockfile`<br>`gradle.lockfile`<br>`pom.xml`[\*](https://github.com/google/osv-scanner/issues/35)<br>`yarn.lock` |
+| Javascript | `package-lock.json`<br>`packages.lock.json`                                                                                         |
+| PHP        | `composer.lock`                                                                                                                     |
+| Python     | `Pipfile.lock`<br>`poetry.lock`<br>`requirements.txt`[\*](https://github.com/google/osv-scanner/issues/34)                          |
+| Ruby       | `Gemfile.lock`                                                                                                                      |
+| Rust       | `Cargo.lock`  
