@@ -10,6 +10,7 @@ import (
 	"path/filepath"
 
 	"github.com/google/osv-scanner/internal/sourceanalysis/govulncheck"
+	"github.com/google/osv-scanner/internal/url"
 	"github.com/google/osv-scanner/pkg/models"
 	"github.com/google/osv-scanner/pkg/reporter"
 	"golang.org/x/vuln/scan"
@@ -109,9 +110,13 @@ func runGovulncheck(moddir string, vulns []models.Vulnerability) (map[string][]*
 		}
 	}
 
+	// this only errors if the file path is not absolute,
+	// which paths from os.MkdirTemp should always be
+	dbdirURL, _ := url.FromFilePath(dbdir)
+
 	// Run govulncheck on the module at moddir and vulnerability database that
 	// was just created.
-	cmd := scan.Command(context.Background(), "-db", fmt.Sprintf("file://%s", dbdir), "-C", moddir, "-json", "./...")
+	cmd := scan.Command(context.Background(), "-db", dbdirURL.String(), "-C", moddir, "-json", "./...")
 	var b bytes.Buffer
 	cmd.Stdout = &b
 	if err := cmd.Start(); err != nil {
