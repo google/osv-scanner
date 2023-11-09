@@ -207,7 +207,7 @@ Submoduled dependencies are included in the project folder retain their Git hist
 
 1. Navigate to the root folder of your project. 
 2. Ensure that your submodules are up to date using `git submodule update`. 
-3. Run scanner using `osv-scanner .`. 
+3. Run scanner using `osv-scanner -r ./`. 
 
 ### Vendored dependencies
 
