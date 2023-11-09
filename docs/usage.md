@@ -195,7 +195,7 @@ osv-scanner -L package-lock.json --output scan-results.txt
 
 ## C/C++ scanning
 
-OSV-Scanner is compatible with C/C++ projects. 
+OSV-Scanner supports C/C++ projects. 
 
 Because the C/C++ ecosystem does not have a centralized package manager, C/C++ dependencies tend to be bundled with the project. Dependencies are either [submoduled](#submoduled-dependencies) or [vendored](#vendored-dependencies). In either case, OSV-Scanner is able to find known vulnerabilities in your project dependencies. 
 
