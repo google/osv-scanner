@@ -8,6 +8,7 @@ import (
 	"strings"
 	"text/template"
 
+	"github.com/google/osv-scanner/internal/url"
 	"github.com/google/osv-scanner/internal/utility/results"
 	"github.com/google/osv-scanner/internal/version"
 	"github.com/google/osv-scanner/pkg/models"
@@ -284,8 +285,11 @@ func PrintSARIFReport(vulnResult *models.VulnerabilityResults, outputWriter io.W
 		for pws := range gv.PkgSource {
 			artifactPath := stripGitHubWorkspace(pws.Source.Path)
 			if filepath.IsAbs(artifactPath) {
-				// Support absolute paths.
-				artifactPath = "file://" + artifactPath
+				// this only errors if the file path is not absolute,
+				// which we've already confirmed is not the case
+				p, _ := url.FromFilePath(artifactPath)
+
+				artifactPath = p.String()
 			}
 
 			run.AddDistinctArtifact(artifactPath)
