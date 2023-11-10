@@ -69,81 +69,12 @@ It is possible to specify more than one lockfile at a time; you can also specify
 osv-scanner --lockfile 'requirements.txt:/path/to/your/extra-requirements.txt'
 ```
 
-A wide range of lockfiles are supported by utilizing this [lockfile package](https://github.com/google/osv-scanner/tree/main/pkg/lockfile). This is the current list of supported lockfiles:
-
-- `buildscript-gradle.lockfile`
-- `Cargo.lock`
-- `composer.lock`
-- `conan.lock`
-- `Gemfile.lock`
-- `go.mod`
-- `gradle.lockfile`
-- `mix.lock`
-- `package-lock.json`
-- `packages.lock.json`
-- `Pipfile.lock`
-- `pnpm-lock.yaml`
-- `poetry.lock`
-- `pom.xml`[\*](https://github.com/google/osv-scanner/issues/35)
-- `pubspec.lock`
-- `requirements.txt`[\*](https://github.com/google/osv-scanner/issues/34)
-- `yarn.lock`
-
-The scanner also supports:
-- `installed` files used by the Alpine Package Keeper (apk) that typically live at `/lib/apk/db/installed`
-- `status` files used by the Debian Package manager (dpkg) that typically live at `/var/lib/dpkg/status`
-
-however you must specify them explicitly using the `--lockfile` flag:
-
-```bash
-osv-scanner --lockfile 'apk-installed:/lib/apk/db/installed'
-osv-scanner --lockfile 'dpkg-status:/var/lib/dpkg/status'
-```
-
 If the file you are scanning is located in a directory that has a colon in its name,
 you can prefix the path to just a colon to explicitly signal to the scanner that
 it should infer the parser based on the filename:
 
 ```bash
 osv-scanner --lockfile ':/path/to/my:projects/package-lock.json'
-```
-
-OSV-Scanner also supports submoduled and vendored [C/C++ dependencies](#cc-scanning). There is no need to specify a lockfile, OSV-Scanner will automatically find them and return any corresponding vulnerabilities. 
-
-### Custom Lockfiles
-
-If you have a custom lockfile that we do not support or prefer to do your own custom parsing, you can extract the custom lockfile information and create a custom intermediate file containing dependency information so that osv-scanner can still check for vulnerabilities.
-
-Once you extracted your own dependency information, place it in a `osv-scanner.json` file, with the same format as the JSON output of osv-scanner, e.g.:
-
-```
-{
-  "results": [
-    {
-      "packages": [
-        {
-          "package": {
-            "name": "github.com/repo/url",
-            "commit": "9a6bd55c9d0722cb101fe85a3b22d89e4ff4fe52"
-          }
-        },
-        {
-          "package": {
-            "name": "react",
-            "version": "1.2.3",
-            "ecosystem": "npm"
-          }
-        },
-        // ...
-      ]
-    }
-  ]
-}
-```
-
-Then pass this to `osv-scanner` with this:
-```
-osv-scanner --lockfile osv-scanner:/path/to/osv-scanner.json
 ```
 
 ## Scanning a Debian based docker image packages
