@@ -23,17 +23,3 @@ OSV-Scanner provides an officially supported frontend to the [OSV database](http
 The above all results in fewer, more actionable vulnerability notifications, which reduces the time needed to resolve them. Check out our [announcement blog post] for more details!
 
 [announcement blog post]: https://security.googleblog.com/2022/12/announcing-osv-scanner-vulnerability.html
-
-## Supported languages and lockfiles
-
-|  Language  |                                                        Compatible Lockfile(s)                                                       |
-|:----------:|:-----------------------------------------------------------------------------------------------------------------------------------:|
-| Elixir     | `mix.lock`                                                                                                                          |
-| C/C++      | `conan.lock`                                                                                                                        |
-| Go         | `go.mod`                                                                                                                            |
-| Java       | `buildscript-gradle.lockfile`<br>`gradle.lockfile`<br>`pom.xml`[\*](https://github.com/google/osv-scanner/issues/35)<br>`yarn.lock` |
-| Javascript | `package-lock.json`<br>`packages.lock.json`                                                                                         |
-| PHP        | `composer.lock`                                                                                                                     |
-| Python     | `Pipfile.lock`<br>`poetry.lock`<br>`requirements.txt`[\*](https://github.com/google/osv-scanner/issues/34)                          |
-| Ruby       | `Gemfile.lock`                                                                                                                      |
-| Rust       | `Cargo.lock`  

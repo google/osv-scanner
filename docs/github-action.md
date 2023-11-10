@@ -2,7 +2,7 @@
 layout: page
 title: GitHub Action
 permalink: /github-action/
-nav_order: 6
+nav_order: 7
 ---
 
 # GitHub Action
