@@ -134,7 +134,7 @@ OSV-Scanner's C/C++ support is based on commit-level data. OSV's commit-level da
 
 ### Submoduled dependencies
 
-Submoduled dependencies are included in the project folder retain their Git histories. To scan a C/C++ project with submoduled dependencies:
+[Submoduled](https://git-scm.com/book/en/v2/Git-Tools-Submodules) dependencies are included in the project's source code and retain their Git histories. To scan a C/C++ project with submoduled dependencies:
 
 1. Navigate to the root folder of your project. 
 2. Ensure that your submodules are up to date using `git submodule update`. 
