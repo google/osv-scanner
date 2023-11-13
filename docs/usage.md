@@ -128,7 +128,7 @@ osv-scanner -L package-lock.json --output scan-results.txt
 
 OSV-Scanner supports C/C++ projects. 
 
-Because the C/C++ ecosystem does not have a centralized package manager, C/C++ dependencies tend to be bundled with the project. Dependencies are either [submoduled](#submoduled-dependencies) or [vendored](#vendored-dependencies). In either case, OSV-Scanner is able to find known vulnerabilities in your project dependencies. 
+Because the C/C++ ecosystem does not have a centralized package manager, C/C++ dependencies tend to be bundled with the project's source code. Dependencies are either [submoduled](#submoduled-dependencies) or [vendored](#vendored-dependencies). In either case, OSV-Scanner is able to find known vulnerabilities in your project dependencies. 
 
 OSV-Scanner's C/C++ support is based on commit-level data. OSV's commit-level data covers the majority of C/C++ vulnerabilities within the OSV database, but users should be aware that there may be vulnerabilities in their dependencies that may not be in the OSV database and therefore not included in OSV-Scanner results. Adding more commit-level data to the database is an ongoing project, follow [#783](https://github.com/google/osv.dev/issues/783) for more details. 
 
