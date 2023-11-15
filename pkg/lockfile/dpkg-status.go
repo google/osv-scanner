@@ -3,7 +3,6 @@ package lockfile
 import (
 	"bufio"
 	"fmt"
-	"os"
 	"reflect"
 	"sort"
 	"strings"
