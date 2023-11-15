@@ -24,7 +24,8 @@ func (sys Ecosystem) IsDevGroup(groups []string) bool {
 		dev = "build-requires"
 	case MavenEcosystem:
 		dev = "test"
-	case AlpineEcosystem, BundlerEcosystem, CargoEcosystem, DebianEcosystem, GoEcosystem, MixEcosystem, NuGetEcosystem:
+	case AlpineEcosystem, BundlerEcosystem, CargoEcosystem, CRANEcosystem,
+		DebianEcosystem, GoEcosystem, MixEcosystem, NuGetEcosystem:
 		// We are not able to report development dependencies for these ecosystems.
 		return false
 	}
