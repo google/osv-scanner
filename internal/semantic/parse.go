@@ -44,6 +44,8 @@ func Parse(str string, ecosystem Ecosystem) (Version, error) {
 		return parseSemverVersion(str), nil
 	case "ConanCenter":
 		return parseSemverVersion(str), nil
+	case "CRAN":
+		return parseCRANVersion(str), nil
 	}
 
 	return nil, fmt.Errorf("%w %s", ErrUnsupportedEcosystem, ecosystem)
