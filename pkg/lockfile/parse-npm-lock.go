@@ -63,24 +63,18 @@ func mergePkgDetailsMap(m1 map[string]PackageDetails, m2 map[string]PackageDetai
 	return details
 }
 
-const (
-	NpmDevDependency         string = "dev"
-	NpmOptionalDependency    string = "optional"
-	NpmDevOptionalDependency string = "devOptional"
-)
-
-func (dep NpmLockDependency) depGroup() string {
+func (dep NpmLockDependency) depGroups() []string {
 	if dep.Dev && dep.Optional {
-		return NpmDevOptionalDependency
+		return []string{"dev", "optional"}
 	}
 	if dep.Dev {
-		return NpmDevDependency
+		return []string{"dev"}
 	}
 	if dep.Optional {
-		return NpmOptionalDependency
+		return []string{"optional"}
 	}
 
-	return ""
+	return nil
 }
 
 func parseNpmLockDependencies(dependencies map[string]NpmLockDependency) map[string]PackageDetails {
@@ -124,7 +118,7 @@ func parseNpmLockDependencies(dependencies map[string]NpmLockDependency) map[str
 			Ecosystem: NpmEcosystem,
 			CompareAs: NpmEcosystem,
 			Commit:    commit,
-			DepGroup:  detail.depGroup(),
+			DepGroups: detail.depGroups(),
 		}
 	}
 
@@ -142,18 +136,18 @@ func extractNpmPackageName(name string) string {
 	return pkgName
 }
 
-func (pkg NpmLockPackage) depGroup() string {
+func (pkg NpmLockPackage) depGroups() []string {
 	if pkg.Dev {
-		return NpmDevDependency
+		return []string{"dev"}
 	}
 	if pkg.Optional {
-		return NpmOptionalDependency
+		return []string{"optional"}
 	}
 	if pkg.DevOptional {
-		return NpmDevOptionalDependency
+		return []string{"dev", "optional"}
 	}
 
-	return ""
+	return nil
 }
 
 func parseNpmLockPackages(packages map[string]NpmLockPackage) map[string]PackageDetails {
@@ -185,7 +179,7 @@ func parseNpmLockPackages(packages map[string]NpmLockPackage) map[string]Package
 			Ecosystem: NpmEcosystem,
 			CompareAs: NpmEcosystem,
 			Commit:    commit,
-			DepGroup:  detail.depGroup(),
+			DepGroups: detail.depGroups(),
 		}
 	}
 

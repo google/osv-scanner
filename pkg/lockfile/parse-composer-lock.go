@@ -27,8 +27,6 @@ func (e ComposerLockExtractor) ShouldExtract(path string) bool {
 	return filepath.Base(path) == "composer.lock"
 }
 
-const ComposerDevDependency string = "dev"
-
 func (e ComposerLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 	var parsedLockfile *ComposerLock
 
@@ -62,7 +60,7 @@ func (e ComposerLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 			Commit:    composerPackage.Dist.Reference,
 			Ecosystem: ComposerEcosystem,
 			CompareAs: ComposerEcosystem,
-			DepGroup:  ComposerDevDependency,
+			DepGroups: []string{"dev"},
 		})
 	}
 

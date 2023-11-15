@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"fmt"
 	"os"
+	"reflect"
 	"sort"
 	"strings"
 
@@ -143,7 +144,7 @@ func (e DpkgStatusExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 
 		// PackageDetails does not contain any field that represent a "not installed" state
 		// To manage this state and avoid false positives, empty struct means "not installed" so skip it
-		if (PackageDetails{}) == pkg {
+		if reflect.DeepEqual(PackageDetails{}, pkg) {
 			continue
 		}
 

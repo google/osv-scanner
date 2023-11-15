@@ -123,26 +123,31 @@ func (e MavenLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 	for _, lockPackage := range parsedLockfile.Dependencies {
 		finalName := lockPackage.GroupID + ":" + lockPackage.ArtifactID
 
-		details[finalName] = PackageDetails{
+		pkgDetails := PackageDetails{
 			Name:      finalName,
 			Version:   lockPackage.ResolveVersion(*parsedLockfile),
 			Ecosystem: MavenEcosystem,
 			CompareAs: MavenEcosystem,
-			DepGroup:  strings.TrimSpace(lockPackage.Scope),
 		}
+		if strings.TrimSpace(lockPackage.Scope) != "" {
+			pkgDetails.DepGroups = append(pkgDetails.DepGroups, lockPackage.Scope)
+		}
+		details[finalName] = pkgDetails
 	}
 
 	// managed dependencies take precedent over standard dependencies
 	for _, lockPackage := range parsedLockfile.ManagedDependencies {
 		finalName := lockPackage.GroupID + ":" + lockPackage.ArtifactID
-
-		details[finalName] = PackageDetails{
+		pkgDetails := PackageDetails{
 			Name:      finalName,
 			Version:   lockPackage.ResolveVersion(*parsedLockfile),
 			Ecosystem: MavenEcosystem,
 			CompareAs: MavenEcosystem,
-			DepGroup:  strings.TrimSpace(lockPackage.Scope),
 		}
+		if strings.TrimSpace(lockPackage.Scope) != "" {
+			pkgDetails.DepGroups = append(pkgDetails.DepGroups, lockPackage.Scope)
+		}
+		details[finalName] = pkgDetails
 	}
 
 	return pkgDetailsMapToSlice(details), nil

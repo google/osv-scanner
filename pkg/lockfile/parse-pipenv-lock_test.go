@@ -123,7 +123,7 @@ func TestParsePipenvLock_OnePackageDev(t *testing.T) {
 			Version:   "2.1.1",
 			Ecosystem: lockfile.PipenvEcosystem,
 			CompareAs: lockfile.PipenvEcosystem,
-			DepGroup:  lockfile.PipenvDevelopDependency,
+			DepGroups: []string{"dev"},
 		},
 	})
 }
@@ -149,7 +149,7 @@ func TestParsePipenvLock_TwoPackages(t *testing.T) {
 			Version:   "2.1.1",
 			Ecosystem: lockfile.PipenvEcosystem,
 			CompareAs: lockfile.PipenvEcosystem,
-			DepGroup:  lockfile.PipenvDevelopDependency,
+			DepGroups: []string{"dev"},
 		},
 	})
 }
@@ -206,7 +206,7 @@ func TestParsePipenvLock_MultiplePackages(t *testing.T) {
 			Version:   "1.0.0",
 			Ecosystem: lockfile.PipenvEcosystem,
 			CompareAs: lockfile.PipenvEcosystem,
-			DepGroup:  lockfile.PipenvDevelopDependency,
+			DepGroups: []string{"dev"},
 		},
 		{
 			Name:      "markupsafe",

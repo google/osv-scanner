@@ -79,8 +79,8 @@ type SourceInfo struct {
 }
 
 type Metadata struct {
-	RepoURL  string `json:"repo_url"`
-	DepGroup string `json:"-"`
+	RepoURL   string   `json:"repo_url"`
+	DepGroups []string `json:"-"`
 }
 
 func (s SourceInfo) String() string {
@@ -100,6 +100,7 @@ type License string
 // TODO: rename this to be Package as it now includes license information too.
 type PackageVulns struct {
 	Package           PackageInfo     `json:"package"`
+	DepGroups         []string        `json:"dependency_groups,omitempty"`
 	Vulnerabilities   []Vulnerability `json:"vulnerabilities,omitempty"`
 	Groups            []GroupInfo     `json:"groups,omitempty"`
 	Licenses          []License       `json:"licenses,omitempty"`
@@ -172,5 +173,4 @@ type PackageInfo struct {
 	Version   string `json:"version"`
 	Ecosystem string `json:"ecosystem"`
 	Commit    string `json:"commit"`
-	DepGroup  string `json:"dependencyGroup,omitempty"`
 }

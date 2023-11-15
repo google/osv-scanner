@@ -28,8 +28,6 @@ const PoetryEcosystem = PipEcosystem
 
 type PoetryLockExtractor struct{}
 
-const PoetryOptionalDependency string = "optional"
-
 func (e PoetryLockExtractor) ShouldExtract(path string) bool {
 	return filepath.Base(path) == "poetry.lock"
 }
@@ -54,7 +52,7 @@ func (e PoetryLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 			CompareAs: PoetryEcosystem,
 		}
 		if lockPackage.Optional {
-			pkgDetails.DepGroup = PoetryOptionalDependency
+			pkgDetails.DepGroups = append(pkgDetails.DepGroups, "optional")
 		}
 		packages = append(packages, pkgDetails)
 	}

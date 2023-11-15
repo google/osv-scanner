@@ -207,7 +207,7 @@ func TestParsePoetryLock_OptionalPackage(t *testing.T) {
 			Version:   "1.23.3",
 			Ecosystem: lockfile.PoetryEcosystem,
 			CompareAs: lockfile.PoetryEcosystem,
-			DepGroup:  lockfile.PoetryOptionalDependency,
+			DepGroups: []string{"optional"},
 		},
 	})
 }

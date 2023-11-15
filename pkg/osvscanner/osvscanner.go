@@ -380,7 +380,7 @@ func scanLockfile(r reporter.Reporter, path string, parseAs string) ([]scannedPa
 			Version:   pkgDetail.Version,
 			Commit:    pkgDetail.Commit,
 			Ecosystem: pkgDetail.Ecosystem,
-			DepGroup:  pkgDetail.DepGroup,
+			DepGroups: pkgDetail.DepGroups,
 			Source: models.SourceInfo{
 				Path: path,
 				Type: "lockfile",
@@ -693,7 +693,7 @@ type scannedPackage struct {
 	Commit    string
 	Version   string
 	Source    models.SourceInfo
-	DepGroup  string
+	DepGroups []string
 }
 
 // Perform osv scanner action, with optional reporter to output information

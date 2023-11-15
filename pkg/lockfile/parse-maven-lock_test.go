@@ -306,7 +306,7 @@ func TestParseMavenLock_WithScope(t *testing.T) {
 			Version:   "4.12",
 			Ecosystem: lockfile.MavenEcosystem,
 			CompareAs: lockfile.MavenEcosystem,
-			DepGroup:  "test",
+			DepGroups: []string{"test"},
 		},
 	})
 }

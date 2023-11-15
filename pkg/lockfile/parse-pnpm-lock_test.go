@@ -432,7 +432,7 @@ func TestParsePnpmLock_Tarball(t *testing.T) {
 			Ecosystem: lockfile.PnpmEcosystem,
 			CompareAs: lockfile.PnpmEcosystem,
 			Commit:    "",
-			DepGroup:  lockfile.PnpmDevDependency,
+			DepGroups: []string{"dev"},
 		},
 	})
 }

@@ -120,8 +120,6 @@ func parseNameAtVersion(value string) (name string, version string) {
 	return matches[1], matches[2]
 }
 
-const PnpmDevDependency string = "dev"
-
 func parsePnpmLock(lockfile PnpmLockfile) []PackageDetails {
 	packages := make([]PackageDetails, 0, len(lockfile.Packages))
 
@@ -155,9 +153,9 @@ func parsePnpmLock(lockfile PnpmLockfile) []PackageDetails {
 			}
 		}
 
-		depGroup := ""
+		var depGroups []string
 		if strings.TrimSpace(pkg.Dev) == "true" {
-			depGroup = PnpmDevDependency
+			depGroups = append(depGroups, "dev")
 		}
 
 		packages = append(packages, PackageDetails{
@@ -166,7 +164,7 @@ func parsePnpmLock(lockfile PnpmLockfile) []PackageDetails {
 			Ecosystem: PnpmEcosystem,
 			CompareAs: PnpmEcosystem,
 			Commit:    commit,
-			DepGroup:  depGroup,
+			DepGroups: depGroups,
 		})
 	}
 

@@ -109,10 +109,20 @@ func (e RequirementsTxtExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 	return parseRequirementsTxt(f, map[string]struct{}{})
 }
 
-const PipDevDependency string = "dev"
-
 func parseRequirementsTxt(f DepFile, requiredAlready map[string]struct{}) ([]PackageDetails, error) {
 	packages := map[string]PackageDetails{}
+
+	last := strings.LastIndex(f.Path(), "/")
+	group := strings.TrimSuffix(f.Path()[last+1:], ".txt")
+
+	hasGroup := func(groups []string) bool {
+		for _, g := range groups {
+			if g == group {
+				return true
+			}
+		}
+		return false
+	}
 
 	scanner := bufio.NewScanner(f)
 	for scanner.Scan() {
@@ -127,8 +137,6 @@ func parseRequirementsTxt(f DepFile, requiredAlready map[string]struct{}) ([]Pac
 		}
 
 		line = removeComments(line)
-		isDev := strings.HasSuffix(f.Path(), "dev.txt")
-
 		if ar := strings.TrimPrefix(line, "-r "); ar != line {
 			err := func() error {
 				af, err := f.Open(ar)
@@ -170,10 +178,15 @@ func parseRequirementsTxt(f DepFile, requiredAlready map[string]struct{}) ([]Pac
 		}
 
 		detail := parseLine(line)
-		if isDev {
-			detail.DepGroup = PipDevDependency
+		key := detail.Name + "@" + detail.Version
+		if _, ok := packages[key]; !ok {
+			packages[key] = detail
 		}
-		packages[detail.Name+"@"+detail.Version] = detail
+		d := packages[key]
+		if !hasGroup(d.DepGroups) {
+			d.DepGroups = append(d.DepGroups, group)
+			packages[key] = d
+		}
 	}
 
 	if err := scanner.Err(); err != nil {

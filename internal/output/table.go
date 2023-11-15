@@ -129,8 +129,8 @@ func tableBuilderInner(vulnResult *models.VulnerabilityResults, addStyling bool,
 					shouldMerge = true
 				} else {
 					name := pkg.Package.Name
-					if pkg.Package.DepGroup != "" {
-						name += fmt.Sprintf(" (%s)", pkg.Package.DepGroup)
+					if len(pkg.DepGroups) > 0 {
+						name += fmt.Sprintf(" (%s)", strings.Join(pkg.DepGroups, ","))
 					}
 					outputRow = append(outputRow, pkg.Package.Ecosystem, name, pkg.Package.Version)
 				}

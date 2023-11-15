@@ -125,7 +125,7 @@ func TestParseComposerLock_OnePackageDev(t *testing.T) {
 			Commit:    "4c115873c86ad5bd0ac6d962db70ca53bf8fb874",
 			Ecosystem: lockfile.ComposerEcosystem,
 			CompareAs: lockfile.ComposerEcosystem,
-			DepGroup:  lockfile.ComposerDevDependency,
+			DepGroups: []string{"dev"},
 		},
 	})
 }
@@ -153,7 +153,7 @@ func TestParseComposerLock_TwoPackages(t *testing.T) {
 			Commit:    "11336f6f84e16a720dae9d8e6ed5019efa85a0f9",
 			Ecosystem: lockfile.ComposerEcosystem,
 			CompareAs: lockfile.ComposerEcosystem,
-			DepGroup:  lockfile.ComposerDevDependency,
+			DepGroups: []string{"dev"},
 		},
 	})
 }

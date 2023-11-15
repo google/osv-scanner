@@ -71,8 +71,6 @@ func (e PubspecLockExtractor) ShouldExtract(path string) bool {
 	return filepath.Base(path) == "pubspec.lock"
 }
 
-const PubDevDependency string = "dev"
-
 func (e PubspecLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 	var parsedLockfile *PubspecLockfile
 
@@ -95,8 +93,8 @@ func (e PubspecLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 			Ecosystem: PubEcosystem,
 		}
 		for _, str := range strings.Split(pkg.Dependency, " ") {
-			if str == PubDevDependency {
-				pkgDetails.DepGroup = PubDevDependency
+			if str == "dev" {
+				pkgDetails.DepGroups = append(pkgDetails.DepGroups, "dev")
 				break
 			}
 		}
