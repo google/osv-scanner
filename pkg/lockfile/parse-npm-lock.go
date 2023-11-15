@@ -79,6 +79,7 @@ func (dep NpmLockDependency) depGroup() string {
 	if dep.Optional {
 		return NpmOptionalDependency
 	}
+
 	return ""
 }
 
@@ -151,6 +152,7 @@ func (pkg NpmLockPackage) depGroup() string {
 	if pkg.DevOptional {
 		return NpmDevOptionalDependency
 	}
+
 	return ""
 }
 
