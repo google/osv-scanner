@@ -28,7 +28,7 @@ A wide range of lockfiles are supported by utilizing this [lockfile package](htt
 | C/C++ | `conan.lock`|
 | Go | `go.mod` |
 | Java | `buildscript-gradle.lockfile`<br>`gradle.lockfile`<br>`pom.xml`[\*](https://github.com/google/osv-scanner/issues/35)<br>`yarn.lock` |
-| Javascript | `package-lock.json`<br>`packages.lock.json`|
+| Javascript | `package-lock.json`<br>`pnpm-lock.yaml`<br>`yarn.lock`|
 | PHP        | `composer.lock`|
 | Python     | `Pipfile.lock`<br>`poetry.lock`<br>`requirements.txt`[\*](https://github.com/google/osv-scanner/issues/34) |
 | Ruby       | `Gemfile.lock`|
