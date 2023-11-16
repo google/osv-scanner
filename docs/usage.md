@@ -69,6 +69,8 @@ It is possible to specify more than one lockfile at a time; you can also specify
 osv-scanner --lockfile 'requirements.txt:/path/to/your/extra-requirements.txt'
 ```
 
+The list of supported lockfile formats can be found [here](/osv-scanner/supported-languages-and-lockfiles/)
+
 If the file you are scanning is located in a directory that has a colon in its name,
 you can prefix the path to just a colon to explicitly signal to the scanner that
 it should infer the parser based on the filename:
