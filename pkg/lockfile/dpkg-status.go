@@ -3,7 +3,6 @@ package lockfile
 import (
 	"bufio"
 	"fmt"
-	"os"
 	"sort"
 	"strings"
 
@@ -48,7 +47,7 @@ func parseSourceField(source string) (string, string) {
 	return strings.TrimSpace(source), ""
 }
 
-func parseDpkgPackageGroup(group []string, pathToLockfile string) PackageDetails {
+func parseDpkgPackageGroup(group []string) PackageDetails {
 	var pkg = PackageDetails{
 		Ecosystem: DebianEcosystem,
 		CompareAs: DebianEcosystem,
@@ -62,14 +61,8 @@ func parseDpkgPackageGroup(group []string, pathToLockfile string) PackageDetails
 		case strings.HasPrefix(line, "Status:"):
 			status := strings.TrimPrefix(line, "Status:")
 			tokens := strings.Fields(status)
-			// Staus field is malformed. Expected: "Status: Want Flag Status"
+			// Status field is malformed. Expected: "Status: Want Flag Status"
 			if len(tokens) != 3 {
-				_, _ = fmt.Fprintf(
-					os.Stderr,
-					"warning: malformed DPKG status file. Found no valid \"Source\" field. File: %s\n",
-					pathToLockfile,
-				)
-
 				return PackageDetails{}
 			}
 			// Status field has correct number of fields but package is not installed or has only config files left
@@ -105,20 +98,6 @@ func parseDpkgPackageGroup(group []string, pathToLockfile string) PackageDetails
 		}
 	}
 
-	if pkg.Version == "" {
-		pkgPrintName := pkg.Name
-		if pkgPrintName == "" {
-			pkgPrintName = unknownPkgName
-		}
-
-		_, _ = fmt.Fprintf(
-			os.Stderr,
-			"warning: malformed DPKG status file. Found no version number in record. Package %s. File: %s\n",
-			pkgPrintName,
-			pathToLockfile,
-		)
-	}
-
 	return pkg
 }
 
@@ -139,7 +118,7 @@ func (e DpkgStatusExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 	packages := make([]PackageDetails, 0, len(packageGroups))
 
 	for _, group := range packageGroups {
-		pkg := parseDpkgPackageGroup(group, f.Path())
+		pkg := parseDpkgPackageGroup(group)
 
 		// PackageDetails does not contain any field that represent a "not installed" state
 		// To manage this state and avoid false positives, empty struct means "not installed" so skip it
@@ -148,12 +127,6 @@ func (e DpkgStatusExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 		}
 
 		if pkg.Name == "" {
-			_, _ = fmt.Fprintf(
-				os.Stderr,
-				"warning: malformed DPKG status file. Found no package name in record. File: %s\n",
-				f.Path(),
-			)
-
 			continue
 		}
 
