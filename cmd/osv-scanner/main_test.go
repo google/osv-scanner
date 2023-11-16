@@ -787,7 +787,8 @@ func TestRun_GithubActions(t *testing.T) {
                         "markdown": "An issue in Archive v3.3.7 allows attackers to spoof zip filenames which can lead to inconsistent filename parsing."
                       },
                       "deprecatedIds": [
-                        "CVE-2023-39137"
+                        "CVE-2023-39137",
+                        "GHSA-r285-q736-9v95"
                       ],
                       "help": {
                         "text": "%%",
@@ -805,7 +806,8 @@ func TestRun_GithubActions(t *testing.T) {
                         "markdown": "An issue in Archive v3.3.7 allows attackers to execute a path traversal via extracting a crafted zip file."
                       },
                       "deprecatedIds": [
-                        "CVE-2023-39139"
+                        "CVE-2023-39139",
+                        "GHSA-9v85-q87q-g4vg"
                       ],
                       "help": {
                         "text": "%%",
@@ -830,7 +832,7 @@ func TestRun_GithubActions(t *testing.T) {
                   "ruleIndex": 0,
                   "level": "warning",
                   "message": {
-                    "text": "Package 'https://github.com/brendan-duncan/archive.git@9de7a054' is vulnerable to 'CVE-2023-39137'."
+                    "text": "Package 'https://github.com/brendan-duncan/archive.git@9de7a054' is vulnerable to 'CVE-2023-39137' (also known as 'GHSA-r285-q736-9v95')."
                   },
                   "locations": [
                     {
@@ -847,7 +849,7 @@ func TestRun_GithubActions(t *testing.T) {
                   "ruleIndex": 1,
                   "level": "warning",
                   "message": {
-                    "text": "Package 'https://github.com/brendan-duncan/archive.git@9de7a054' is vulnerable to 'CVE-2023-39139'."
+                    "text": "Package 'https://github.com/brendan-duncan/archive.git@9de7a054' is vulnerable to 'CVE-2023-39139' (also known as 'GHSA-9v85-q87q-g4vg')."
                   },
                   "locations": [
                     {
