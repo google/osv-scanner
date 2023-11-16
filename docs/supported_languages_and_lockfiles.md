@@ -24,8 +24,9 @@ A wide range of lockfiles are supported by utilizing this [lockfile package](htt
 
 |  Language  | Compatible Lockfile(s) |
 |:-----------|:------------------|
+| C/C++ | `conan.lock`<br>[C/C++ commit scanning](#cc-scanning)|
+| Dart | `pubspec.lock`|
 | Elixir | `mix.lock` |
-| C/C++ | `conan.lock`|
 | Go | `go.mod` |
 | Java | `buildscript-gradle.lockfile`<br>`gradle.lockfile`<br>`pom.xml`[\*](https://github.com/google/osv-scanner/issues/35) |
 | Javascript | `package-lock.json`<br>`pnpm-lock.yaml`<br>`yarn.lock`|
@@ -49,7 +50,7 @@ osv-scanner --lockfile 'dpkg-status:/var/lib/dpkg/status'
 
 ## C/C++ scanning
 
-OSV-Scanner also supports vendored and submoduled C/C++ dependencies. 
+With the addition of [vulnerable commit ranges](https://osv.dev/blog/posts/introducing-broad-c-c++-support/) to the OSV.dev database, OSV-Scanner now supports vendored and submoduled C/C++ dependencies 
 
 Because the C/C++ ecosystem does not have a centralized package manager, C/C++ dependencies tend to be bundled with the project. Dependencies are either [submoduled](#submoduled-dependencies) or [vendored](#vendored-dependencies). In either case, OSV-Scanner is able to find known vulnerabilities in your project dependencies. 
 
