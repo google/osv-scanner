@@ -30,7 +30,6 @@ linters:
     - testpackage      # will re-add later (another-rex)
     - goerr113         # will re-add later (another-rex)
     - nonamedreturns   # disagree with, for now (another-rex)
-    - depguard         # not necessary at the moment (another-rex)
   presets:
     - bugs
     - comment
@@ -42,6 +41,16 @@ linters:
     - unused
 
 linters-settings:
+  depguard:
+    rules:
+      regexp:
+        files:
+          - '!**/internal/cachedregexp/**'
+          - '!**/main_test.go'
+        deny:
+          - pkg: 'regexp'
+            desc:
+              'Use github.com/google/osv-scanner/internal/cachedregexp instead'
   gocritic:
     disabled-checks:
       - ifElseChain
