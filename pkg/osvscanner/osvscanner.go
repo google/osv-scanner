@@ -39,6 +39,7 @@ type ScannerActions struct {
 	NoIgnore             bool
 	DockerContainerNames []string
 	ConfigOverridePath   string
+	DisableCallAnalysis  bool
 
 	ExperimentalScannerActions
 }
@@ -792,7 +793,13 @@ func DoScan(actions ScannerActions, r reporter.Reporter) (models.VulnerabilityRe
 			return models.VulnerabilityResults{}, err
 		}
 	}
-	results := buildVulnerabilityResults(r, filteredScannedPackages, vulnsResp, licensesResp, actions.CallAnalysis, actions.ShowAllPackages, actions.ScanLicenses, actions.ScanLicensesAllowlist)
+
+	experimentalCallAnalysis := actions.CallAnalysis
+	nonexperimentalCallAnalysis := true
+	if actions.DisableCallAnalysis {
+		nonexperimentalCallAnalysis, experimentalCallAnalysis = false, false
+	}
+	results := buildVulnerabilityResults(r, filteredScannedPackages, vulnsResp, licensesResp, experimentalCallAnalysis, nonexperimentalCallAnalysis, actions.ShowAllPackages, actions.ScanLicenses, actions.ScanLicensesAllowlist)
 
 	filtered := filterResults(r, &results, &configManager, actions.ShowAllPackages)
 	if filtered > 0 {

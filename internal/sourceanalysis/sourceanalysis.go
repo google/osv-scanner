@@ -25,13 +25,13 @@ func vulnsFromAllPkgs(pkgs []models.PackageVulns) ([]models.Vulnerability, map[s
 }
 
 // Run runs the language specific analyzers on the code given packages and source info
-func Run(r reporter.Reporter, source models.SourceInfo, pkgs []models.PackageVulns) {
+func Run(r reporter.Reporter, source models.SourceInfo, pkgs []models.PackageVulns, experimentalCallAnalysis bool, nonExperimentalCallAnalysis bool) {
 	// GoVulnCheck
-	if source.Type == "lockfile" && filepath.Base(source.Path) == "go.mod" {
+	if source.Type == "lockfile" && filepath.Base(source.Path) == "go.mod" && nonExperimentalCallAnalysis {
 		goAnalysis(r, pkgs, source)
 	}
 
-	if source.Type == "lockfile" && filepath.Base(source.Path) == "Cargo.lock" {
+	if source.Type == "lockfile" && filepath.Base(source.Path) == "Cargo.lock" && experimentalCallAnalysis {
 		rustAnalysis(r, pkgs, source)
 	}
 }

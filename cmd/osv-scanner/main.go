@@ -128,6 +128,11 @@ func run(args []string, stdout, stderr io.Writer) int {
 				Name:  "experimental-licenses",
 				Usage: "report on licenses",
 			},
+			&cli.BoolFlag{
+				Name:  "disable-call-analysis",
+				Usage: "disables all call graph analysis",
+				Value: false,
+			},
 		},
 		ArgsUsage: "[directory1 directory2...]",
 		Action: func(context *cli.Context) error {
@@ -168,6 +173,7 @@ func run(args []string, stdout, stderr io.Writer) int {
 				NoIgnore:             context.Bool("no-ignore"),
 				ConfigOverridePath:   context.String("config"),
 				DirectoryPaths:       context.Args().Slice(),
+				DisableCallAnalysis:  context.Bool("disable-call-analysis"),
 				ExperimentalScannerActions: osvscanner.ExperimentalScannerActions{
 					LocalDBPath:           context.String("experimental-local-db-path"),
 					CallAnalysis:          context.Bool("experimental-call-analysis"),
