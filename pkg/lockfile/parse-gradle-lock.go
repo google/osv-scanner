@@ -3,7 +3,6 @@ package lockfile
 import (
 	"bufio"
 	"fmt"
-	"os"
 	"path/filepath"
 	"strings"
 )
@@ -63,7 +62,6 @@ func (e GradleLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 
 		pkg, err := parseToGradlePackageDetail(lockLine)
 		if err != nil {
-			fmt.Fprintf(os.Stderr, "failed to extract from lockline: %s\n", err.Error())
 			continue
 		}
 
