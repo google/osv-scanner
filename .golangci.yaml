@@ -30,6 +30,7 @@ linters:
     - testpackage      # will re-add later (another-rex)
     - goerr113         # will re-add later (another-rex)
     - nonamedreturns   # disagree with, for now (another-rex)
+    - goconst          # not everything should be a constant
   presets:
     - bugs
     - comment
