@@ -4,7 +4,10 @@ import (
 	"encoding/json"
 	"fmt"
 	"os"
+	"path/filepath"
 	"reflect"
+	"runtime"
+	"strings"
 	"testing"
 
 	"github.com/google/go-cmp/cmp"
@@ -13,35 +16,66 @@ import (
 	"github.com/hexops/gotextdiff/span"
 )
 
-// LoadJSONFixture loads a JSON fixture file and returns the decoded version.
-func LoadJSONFixture[V any](t *testing.T, path string) V {
+func determineWindowsFixturePath(t *testing.T, path string) string {
 	t.Helper()
-	file, err := os.Open(path)
+
+	ext := filepath.Ext(path)
+
+	return strings.TrimSuffix(path, ext) + "_windows" + ext
+}
+
+func loadFixture(t *testing.T, path string) ([]byte, string) {
+	t.Helper()
+
+	var file []byte
+	var err error
+
+	// when on Windows, check if there is a version of the fixture whose filename
+	// ends with _windows and if so use that instead
+	if //goland:noinspection GoBoolExpressions
+	runtime.GOOS == "windows" {
+		winFixturePath := determineWindowsFixturePath(t, path)
+
+		file, err = os.ReadFile(winFixturePath)
+
+		if err == nil {
+			return file, winFixturePath
+		}
+		// load the original file if a Windows-specific version does not exist
+		if !os.IsNotExist(err) {
+			t.Fatalf("Failed to open fixture: %s", err)
+		}
+	}
+
+	file, err = os.ReadFile(path)
+
 	if err != nil {
 		t.Fatalf("Failed to open fixture: %s", err)
 	}
-	var value V
-	err = json.NewDecoder(file).Decode(&value)
+
+	return file, path
+}
+
+// LoadJSONFixture loads a JSON fixture file and returns the decoded version.
+func LoadJSONFixture[V any](t *testing.T, path string) V {
+	t.Helper()
+
+	file, _ := loadFixture(t, path)
+
+	var elem V
+	err := json.Unmarshal(file, &elem)
 	if err != nil {
-		t.Fatalf("Failed to parse fixture: %s", err)
+		t.Fatalf("Failed to unmarshal val: %s", err)
 	}
 
-	return value
+	return elem
 }
 
 // AssertMatchFixtureJSON matches the JSON at path with the value val, failing if not equal, printing out the difference.
 func AssertMatchFixtureJSON[V any](t *testing.T, path string, val V) {
 	t.Helper()
-	fileA, err := os.ReadFile(path)
-	if err != nil {
-		t.Fatalf("Failed to open fixture: %s", err)
-	}
 
-	var elem V
-	err = json.Unmarshal(fileA, &elem)
-	if err != nil {
-		t.Fatalf("Failed to unmarshal val: %s", err)
-	}
+	elem := LoadJSONFixture[V](t, path)
 
 	if !reflect.DeepEqual(val, elem) {
 		t.Errorf("Not equal: \n%s", cmp.Diff(val, elem))
@@ -80,16 +114,20 @@ func CreateTextFixture(t *testing.T, path string, val string) {
 	}
 }
 
+func normalizeNewlines(content string) string {
+	return strings.ReplaceAll(content, "\r\n", "\n")
+}
+
 // AssertMatchFixtureText matches the Text file at path with actual
 func AssertMatchFixtureText(t *testing.T, path string, actual string) {
 	t.Helper()
-	fileA, err := os.ReadFile(path)
-	if err != nil {
-		t.Fatalf("Failed to open fixture: %s", err)
-	}
 
+	fileA, path := loadFixture(t, path)
+
+	actual = normalizeNewlines(actual)
 	expect := string(fileA)
-	if actual != string(fileA) {
+	expect = normalizeNewlines(expect)
+	if actual != expect {
 		if os.Getenv("TEST_NO_DIFF") == "true" {
 			t.Errorf("\nactual %s does not match expected:\n got:\n%s\n\n want:\n%s", path, actual, expect)
 		} else {
@@ -107,4 +145,13 @@ func AcceptanceTests(t *testing.T, reason string) {
 	if os.Getenv("TEST_ACCEPTANCE") != "true" {
 		t.Skip("Skipping extended test: ", reason)
 	}
+}
+
+func ValueIfOnWindows(win, or string) string {
+	if //goland:noinspection GoBoolExpressions
+	runtime.GOOS == "windows" {
+		return win
+	}
+
+	return or
 }

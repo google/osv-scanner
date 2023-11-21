@@ -2,7 +2,7 @@
   "results": [
     {
       "source": {
-        "path": "/path/to/go.mod",
+        "path": "D:\\path\\to\\go.mod",
         "type": "lockfile"
       },
       "packages": [
@@ -83,7 +83,7 @@
     },
     {
       "source": {
-        "path": "/path/to/sub-rust-project/Cargo.lock",
+        "path": "D:\\path\\to\\sub-rust-project\\Cargo.lock",
         "type": "lockfile"
       },
       "packages": [
