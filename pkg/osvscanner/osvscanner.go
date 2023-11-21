@@ -247,6 +247,10 @@ func queryDetermineVersions(repoDir string) (*osv.DetermineVersionResponse, erro
 				// results with our regular git commit scanning.
 				return filepath.SkipDir
 			}
+			if _, ok := vendoredLibNames[strings.ToLower(info.Name())]; ok {
+				// Ignore nested vendored libraries, as they can cause bad matches.
+				return filepath.SkipDir
+			}
 
 			return nil
 		}
