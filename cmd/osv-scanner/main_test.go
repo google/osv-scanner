@@ -335,9 +335,6 @@ func TestRun(t *testing.T) {
 				{
 					"results": [],
 					"experimental_config": {
-						"call_analysis": {
-							"enabled": false
-						},
 						"licenses": {
 							"enabled": false,
 							"allowlist": null
@@ -358,9 +355,6 @@ func TestRun(t *testing.T) {
 				{
 					"results": [],
 					"experimental_config": {
-						"call_analysis": {
-							"enabled": false
-						},
 						"licenses": {
 							"enabled": false,
 							"allowlist": null
@@ -1046,9 +1040,6 @@ func TestRun_LocalDatabases(t *testing.T) {
 				{
 					"results": [],
 					"experimental_config": {
-						"call_analysis": {
-							"enabled": false
-						},
 						"licenses": {
 							"enabled": false,
 							"allowlist": null
@@ -1070,9 +1061,6 @@ func TestRun_LocalDatabases(t *testing.T) {
 				{
 					"results": [],
 					"experimental_config": {
-						"call_analysis": {
-							"enabled": false
-						},
 						"licenses": {
 							"enabled": false,
 							"allowlist": null
@@ -1279,9 +1267,6 @@ Filtered 2 vulnerabilities from output
 					}
 				],
 				"experimental_config": {
-					"call_analysis": {
-						"enabled": false
-					},
 					"licenses": {
 						"enabled": true,
 						"allowlist": [
@@ -1327,9 +1312,6 @@ Filtered 2 vulnerabilities from output
 					}
 				],
 				"experimental_config": {
-					"call_analysis": {
-						"enabled": false
-					},
 					"licenses": {
 						"enabled": true,
 						"allowlist": [
@@ -1394,9 +1376,6 @@ Filtered 2 vulnerabilities from output
 					}
 				],
 				"experimental_config": {
-					"call_analysis": {
-						"enabled": false
-					},
 					"licenses": {
 						"enabled": true,
 						"allowlist": [

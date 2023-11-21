@@ -98,14 +98,18 @@ func run(args []string, stdout, stderr io.Writer) int {
 				Value:   false,
 			},
 			&cli.BoolFlag{
-				Name:  "experimental-call-analysis",
-				Usage: "attempt call analysis on code to detect only active vulnerabilities",
-				Value: false,
-			},
-			&cli.BoolFlag{
 				Name:  "no-ignore",
 				Usage: "also scan files that would be ignored by .gitignore",
 				Value: false,
+			},
+			&cli.StringSliceFlag{
+				Name:    "call-analysis",
+				Aliases: []string{"ca"},
+				Usage:   "attempt call analysis on code to detect only active vulnerabilities",
+			},
+			&cli.StringSliceFlag{
+				Name:  "no-call-analysis",
+				Usage: "disables call graph analysis",
 			},
 			&cli.BoolFlag{
 				Name:  "experimental-local-db",
@@ -127,11 +131,6 @@ func run(args []string, stdout, stderr io.Writer) int {
 			&cli.StringSliceFlag{
 				Name:  "experimental-licenses",
 				Usage: "report on licenses",
-			},
-			&cli.BoolFlag{
-				Name:  "disable-call-analysis",
-				Usage: "disables all call graph analysis",
-				Value: false,
 			},
 		},
 		ArgsUsage: "[directory1 directory2...]",
@@ -173,10 +172,10 @@ func run(args []string, stdout, stderr io.Writer) int {
 				NoIgnore:             context.Bool("no-ignore"),
 				ConfigOverridePath:   context.String("config"),
 				DirectoryPaths:       context.Args().Slice(),
-				DisableCallAnalysis:  context.Bool("disable-call-analysis"),
+				NoCallAnalysis:       context.StringSlice("no-call-analysis"),
+				CallAnalysis:         context.StringSlice("call-analysis"),
 				ExperimentalScannerActions: osvscanner.ExperimentalScannerActions{
 					LocalDBPath:           context.String("experimental-local-db-path"),
-					CallAnalysis:          context.Bool("experimental-call-analysis"),
 					CompareLocally:        context.Bool("experimental-local-db"),
 					CompareOffline:        context.Bool("experimental-offline"),
 					ShowAllPackages:       context.Bool("experimental-all-packages"),

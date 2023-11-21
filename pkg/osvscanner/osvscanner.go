@@ -39,13 +39,13 @@ type ScannerActions struct {
 	NoIgnore             bool
 	DockerContainerNames []string
 	ConfigOverridePath   string
-	DisableCallAnalysis  bool
+	NoCallAnalysis       []string
+	CallAnalysis         []string
 
 	ExperimentalScannerActions
 }
 
 type ExperimentalScannerActions struct {
-	CallAnalysis          bool
 	CompareLocally        bool
 	CompareOffline        bool
 	ShowAllPackages       bool
@@ -90,6 +90,11 @@ var (
 		"vendored":    {},
 	}
 )
+
+var stableCallAnalysisStates = map[string]bool{
+	"go":   true,
+	"rust": false,
+}
 
 const (
 	// This value may need to be tweaked, or be provided as a configurable flag.
@@ -794,12 +799,9 @@ func DoScan(actions ScannerActions, r reporter.Reporter) (models.VulnerabilityRe
 		}
 	}
 
-	experimentalCallAnalysis := actions.CallAnalysis
-	nonexperimentalCallAnalysis := true
-	if actions.DisableCallAnalysis {
-		nonexperimentalCallAnalysis, experimentalCallAnalysis = false, false
-	}
-	results := buildVulnerabilityResults(r, filteredScannedPackages, vulnsResp, licensesResp, experimentalCallAnalysis, nonexperimentalCallAnalysis, actions.ShowAllPackages, actions.ScanLicenses, actions.ScanLicensesAllowlist)
+	callAnalysisStates := make(map[string]bool)
+	updateEnabledCallAnalysis(callAnalysisStates, actions.CallAnalysis, actions.NoCallAnalysis)
+	results := buildVulnerabilityResults(r, filteredScannedPackages, vulnsResp, licensesResp, callAnalysisStates, actions.ShowAllPackages, actions.ScanLicenses, actions.ScanLicensesAllowlist)
 
 	filtered := filterResults(r, &results, &configManager, actions.ShowAllPackages)
 	if filtered > 0 {
@@ -941,4 +943,37 @@ func makeLicensesRequests(packages []scannedPackage) ([][]models.License, error)
 	}
 
 	return licenses, nil
+}
+
+func updateEnabledCallAnalysis(callAnalysisStates map[string]bool, enabledCallAnalysis []string, disabledCallAnalysis []string) {
+	enableAll, disableAll := false, false
+
+	for _, language := range enabledCallAnalysis {
+		if language == "all" {
+			enableAll = true
+			break
+		}
+		callAnalysisStates[language] = true
+	}
+
+	for _, language := range disabledCallAnalysis {
+		if language == "all" {
+			disableAll = true
+			break
+		}
+		callAnalysisStates[language] = false
+	}
+
+	for language, isStable := range stableCallAnalysisStates {
+		if disableAll {
+			callAnalysisStates[language] = false
+			continue
+		}
+		if _, exists := callAnalysisStates[language]; !exists {
+			callAnalysisStates[language] = isStable
+			if enableAll {
+				callAnalysisStates[language] = true
+			}
+		}
+	}
 }
