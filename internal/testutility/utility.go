@@ -30,8 +30,8 @@ func loadFixture(t *testing.T, path string) ([]byte, string) {
 	var file []byte
 	var err error
 
-	// when on windows, check if there is a Windows version of the fixture
-	// file; that is, a version with the extension .windows. in the middle
+	// when on Windows, check if there is a version of the fixture whose filename
+	// ends with _windows and if so use that instead
 	if //goland:noinspection GoBoolExpressions
 	runtime.GOOS == "windows" {
 		winFixturePath := determineWindowsFixturePath(t, path)
