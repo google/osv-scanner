@@ -105,6 +105,27 @@ func TestParseRenvLock_WithMixedSources(t *testing.T) {
 		},
 	})
 }
+
+func TestParseRenvLock_WithBioconductor(t *testing.T) {
+	t.Parallel()
+
+	packages, err := lockfile.ParseRenvLock("fixtures/renv/with-bioconductor.lock")
+
+	if err != nil {
+		t.Errorf("Got unexpected error: %v", err)
+	}
+
+	// currently Bioconductor is not supported
+	expectPackages(t, packages, []lockfile.PackageDetails{
+		{
+			Name:      "BH",
+			Version:   "1.75.0-0",
+			Ecosystem: lockfile.CRANEcosystem,
+			CompareAs: lockfile.CRANEcosystem,
+		},
+	})
+}
+
 func TestParseRenvLock_WithoutRepository(t *testing.T) {
 	t.Parallel()
 
