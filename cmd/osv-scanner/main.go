@@ -98,6 +98,14 @@ func run(args []string, stdout, stderr io.Writer) int {
 				Value:   false,
 			},
 			&cli.BoolFlag{
+				Name:  "experimental-call-analysis",
+				Usage: "[Deprecated] attempt call analysis on code to detect only active vulnerabilities",
+				Value: false,
+				Action: func(context *cli.Context, b bool) error {
+					return fmt.Errorf("the experimental-call-analysis flag is no longer supported. Please use the call-analysis and no-call-analysis flags instead")
+				},
+			},
+			&cli.BoolFlag{
 				Name:  "no-ignore",
 				Usage: "also scan files that would be ignored by .gitignore",
 				Value: false,
@@ -162,6 +170,8 @@ func run(args []string, stdout, stderr io.Writer) int {
 				return err
 			}
 
+			callAnalysisStates := createCallAnalysisStates(context.StringSlice("call-analysis"), context.StringSlice("no-call-analysis"))
+
 			vulnResult, err := osvscanner.DoScan(osvscanner.ScannerActions{
 				LockfilePaths:        context.StringSlice("lockfile"),
 				SBOMPaths:            context.StringSlice("sbom"),
@@ -171,8 +181,7 @@ func run(args []string, stdout, stderr io.Writer) int {
 				NoIgnore:             context.Bool("no-ignore"),
 				ConfigOverridePath:   context.String("config"),
 				DirectoryPaths:       context.Args().Slice(),
-				NoCallAnalysis:       context.StringSlice("no-call-analysis"),
-				CallAnalysis:         context.StringSlice("call-analysis"),
+				CallAnalysisStates:   callAnalysisStates,
 				ExperimentalScannerActions: osvscanner.ExperimentalScannerActions{
 					LocalDBPath:           context.String("experimental-local-db-path"),
 					CompareLocally:        context.Bool("experimental-local-db"),

@@ -39,8 +39,7 @@ type ScannerActions struct {
 	NoIgnore             bool
 	DockerContainerNames []string
 	ConfigOverridePath   string
-	NoCallAnalysis       []string
-	CallAnalysis         []string
+	CallAnalysisStates   map[string]bool
 
 	ExperimentalScannerActions
 }
@@ -90,11 +89,6 @@ var (
 		"vendored":    {},
 	}
 )
-
-var stableCallAnalysisStates = map[string]bool{
-	"go":   true,
-	"rust": false,
-}
 
 const (
 	// This value may need to be tweaked, or be provided as a configurable flag.
@@ -799,8 +793,7 @@ func DoScan(actions ScannerActions, r reporter.Reporter) (models.VulnerabilityRe
 		}
 	}
 
-	callAnalysisStates := createCallAnalysisStates(actions.CallAnalysis, actions.NoCallAnalysis)
-	results := buildVulnerabilityResults(r, filteredScannedPackages, vulnsResp, licensesResp, callAnalysisStates, actions.ShowAllPackages, actions.ScanLicenses, actions.ScanLicensesAllowlist)
+	results := buildVulnerabilityResults(r, filteredScannedPackages, vulnsResp, licensesResp, actions.CallAnalysisStates, actions.ShowAllPackages, actions.ScanLicenses, actions.ScanLicensesAllowlist)
 
 	filtered := filterResults(r, &results, &configManager, actions.ShowAllPackages)
 	if filtered > 0 {
@@ -942,41 +935,4 @@ func makeLicensesRequests(packages []scannedPackage) ([][]models.License, error)
 	}
 
 	return licenses, nil
-}
-
-// Creates a map to record if languages are enabled or disabled for call analysis.
-func createCallAnalysisStates(enabledCallAnalysis []string, disabledCallAnalysis []string) map[string]bool {
-	enableAll, disableAll := false, false
-	callAnalysisStates := make(map[string]bool)
-
-	for _, language := range enabledCallAnalysis {
-		if language == "all" {
-			enableAll = true
-			break
-		}
-		callAnalysisStates[language] = true
-	}
-
-	for _, language := range disabledCallAnalysis {
-		if language == "all" {
-			disableAll = true
-			break
-		}
-		callAnalysisStates[language] = false
-	}
-
-	for language, isStable := range stableCallAnalysisStates {
-		if disableAll {
-			callAnalysisStates[language] = false
-			continue
-		}
-		if _, exists := callAnalysisStates[language]; !exists {
-			callAnalysisStates[language] = isStable
-			if enableAll {
-				callAnalysisStates[language] = true
-			}
-		}
-	}
-
-	return callAnalysisStates
 }
