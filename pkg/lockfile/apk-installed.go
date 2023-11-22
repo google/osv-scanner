@@ -3,7 +3,6 @@ package lockfile
 import (
 	"bufio"
 	"fmt"
-	"os"
 	"sort"
 	"strings"
 )
@@ -34,7 +33,7 @@ func groupApkPackageLines(scanner *bufio.Scanner) [][]string {
 	return groups
 }
 
-func parseApkPackageGroup(group []string, pathToLockfile string) PackageDetails {
+func parseApkPackageGroup(group []string) PackageDetails {
 	var pkg = PackageDetails{
 		Ecosystem: AlpineEcosystem,
 		CompareAs: AlpineEcosystem,
@@ -50,20 +49,6 @@ func parseApkPackageGroup(group []string, pathToLockfile string) PackageDetails 
 		case strings.HasPrefix(line, "c:"):
 			pkg.Commit = strings.TrimPrefix(line, "c:")
 		}
-	}
-
-	if pkg.Version == "" {
-		pkgPrintName := pkg.Name
-		if pkgPrintName == "" {
-			pkgPrintName = unknownPkgName
-		}
-
-		_, _ = fmt.Fprintf(
-			os.Stderr,
-			"warning: malformed APK installed file. Found no version number in record. Package %s. File: %s\n",
-			pkgPrintName,
-			pathToLockfile,
-		)
 	}
 
 	return pkg
@@ -87,15 +72,9 @@ func (e ApkInstalledExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 	packages := make([]PackageDetails, 0, len(packageGroups))
 
 	for _, group := range packageGroups {
-		pkg := parseApkPackageGroup(group, f.Path())
+		pkg := parseApkPackageGroup(group)
 
 		if pkg.Name == "" {
-			_, _ = fmt.Fprintf(
-				os.Stderr,
-				"warning: malformed APK installed file. Found no package name in record. File: %s\n",
-				f.Path(),
-			)
-
 			continue
 		}
 

@@ -12,6 +12,7 @@ import (
 
 	"github.com/go-git/go-git/v5"
 	"github.com/google/go-cmp/cmp"
+	"github.com/google/osv-scanner/internal/testutility"
 	"github.com/google/osv-scanner/internal/version"
 )
 
@@ -105,6 +106,16 @@ func expectAreEqual(t *testing.T, subject, actual, expect string) {
 	}
 }
 
+// Attempts to normalize any file paths in the given `output` so that they can
+// be compared reliably regardless of the file path separator being used.
+//
+// Namely, escaped forward slashes are replaced with backslashes.
+func normalizeFilePaths(t *testing.T, output string) string {
+	t.Helper()
+
+	return strings.ReplaceAll(strings.ReplaceAll(output, "\\\\", "/"), "\\", "/")
+}
+
 // normalizeRootDirectory attempts to replace references to the current working
 // directory with "<rootdir>", in order to reduce the noise of the cmp diff
 func normalizeRootDirectory(t *testing.T, str string) string {
@@ -114,6 +125,11 @@ func normalizeRootDirectory(t *testing.T, str string) string {
 	if err != nil {
 		t.Errorf("could not get cwd (%v) - results and diff might be inaccurate!", err)
 	}
+
+	cwd = normalizeFilePaths(t, cwd)
+
+	// file uris with Windows end up with three slashes, so we normalize that too
+	str = strings.ReplaceAll(str, "file:///"+cwd, "file://<rootdir>")
 
 	return strings.ReplaceAll(str, cwd, "<rootdir>")
 }
@@ -127,11 +143,11 @@ func testCli(t *testing.T, tc cliTestCase) {
 	ec := run(tc.args, stdoutBuffer, stderrBuffer)
 	// ec := run(tc.args, os.Stdout, os.Stderr)
 
-	stdout := stdoutBuffer.String()
-	stderr := stderrBuffer.String()
+	stdout := normalizeRootDirectory(t, normalizeFilePaths(t, stdoutBuffer.String()))
+	stderr := normalizeRootDirectory(t, normalizeFilePaths(t, stderrBuffer.String()))
 
-	stdout = normalizeRootDirectory(t, stdout)
-	stderr = normalizeRootDirectory(t, stderr)
+	tc.wantStdout = normalizeFilePaths(t, tc.wantStdout)
+	tc.wantStderr = normalizeFilePaths(t, tc.wantStderr)
 
 	if ec != tc.wantExitCode {
 		t.Errorf("cli exited with code %d, not %d", ec, tc.wantExitCode)
@@ -572,9 +588,10 @@ func TestRun_LockfileWithExplicitParseAs(t *testing.T) {
 			},
 			wantExitCode: 127,
 			wantStdout:   "",
-			wantStderr: `
-				open <rootdir>/path/to/my:file: no such file or directory
-			`,
+			wantStderr: testutility.ValueIfOnWindows(
+				"open <rootdir>/path/to/my:file: The system cannot find the path specified.",
+				"open <rootdir>/path/to/my:file: no such file or directory",
+			),
 		},
 		{
 			name: "",
@@ -585,9 +602,10 @@ func TestRun_LockfileWithExplicitParseAs(t *testing.T) {
 			},
 			wantExitCode: 127,
 			wantStdout:   "",
-			wantStderr: `
-				open <rootdir>/path/to/my:project/package-lock.json: no such file or directory
-			`,
+			wantStderr: testutility.ValueIfOnWindows(
+				"open <rootdir>/path/to/my:project/package-lock.json: The filename, directory name, or volume label syntax is incorrect.",
+				"open <rootdir>/path/to/my:project/package-lock.json: no such file or directory",
+			),
 		},
 		// one lockfile with local path
 		{

@@ -94,7 +94,7 @@ func Test_rustBuildSource(t *testing.T) {
 				},
 			},
 			want: []string{
-				workingDir + "/fixtures-rust/rust-project/target/release/test-project",
+				workingDir + filepath.FromSlash("/fixtures-rust/rust-project/target/release/test-project") + testutility.ValueIfOnWindows(".exe", ""),
 			},
 		},
 	}
