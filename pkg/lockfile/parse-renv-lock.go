@@ -36,9 +36,8 @@ func (e RenvLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 	packages := make([]PackageDetails, 0, len(parsedLockfile.Packages))
 
 	for _, pkg := range parsedLockfile.Packages {
-		// currently we assume that unless a package is explicitly for a different
-		// repository, it is a CRAN package (even if its Source is not Repository)
-		if pkg.Repository != "" && pkg.Repository != string(CRANEcosystem) {
+		// currently we only support CRAN
+		if pkg.Repository != string(CRANEcosystem) {
 			continue
 		}
 

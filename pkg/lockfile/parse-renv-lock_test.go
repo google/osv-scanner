@@ -97,12 +97,6 @@ func TestParseRenvLock_WithMixedSources(t *testing.T) {
 			Ecosystem: lockfile.CRANEcosystem,
 			CompareAs: lockfile.CRANEcosystem,
 		},
-		{
-			Name:      "mime",
-			Version:   "0.12.1",
-			Ecosystem: lockfile.CRANEcosystem,
-			CompareAs: lockfile.CRANEcosystem,
-		},
 	})
 }
 
@@ -135,12 +129,5 @@ func TestParseRenvLock_WithoutRepository(t *testing.T) {
 		t.Errorf("Got unexpected error: %v", err)
 	}
 
-	expectPackages(t, packages, []lockfile.PackageDetails{
-		{
-			Name:      "morning",
-			Version:   "0.1.0",
-			Ecosystem: lockfile.CRANEcosystem,
-			CompareAs: lockfile.CRANEcosystem,
-		},
-	})
+	expectPackages(t, packages, []lockfile.PackageDetails{})
 }
