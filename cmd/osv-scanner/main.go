@@ -103,9 +103,8 @@ func run(args []string, stdout, stderr io.Writer) int {
 				Value: false,
 			},
 			&cli.StringSliceFlag{
-				Name:    "call-analysis",
-				Aliases: []string{"ca"},
-				Usage:   "attempt call analysis on code to detect only active vulnerabilities",
+				Name:  "call-analysis",
+				Usage: "attempt call analysis on code to detect only active vulnerabilities",
 			},
 			&cli.StringSliceFlag{
 				Name:  "no-call-analysis",

@@ -799,8 +799,7 @@ func DoScan(actions ScannerActions, r reporter.Reporter) (models.VulnerabilityRe
 		}
 	}
 
-	callAnalysisStates := make(map[string]bool)
-	updateEnabledCallAnalysis(callAnalysisStates, actions.CallAnalysis, actions.NoCallAnalysis)
+	callAnalysisStates := createCallAnalysisStates(actions.CallAnalysis, actions.NoCallAnalysis)
 	results := buildVulnerabilityResults(r, filteredScannedPackages, vulnsResp, licensesResp, callAnalysisStates, actions.ShowAllPackages, actions.ScanLicenses, actions.ScanLicensesAllowlist)
 
 	filtered := filterResults(r, &results, &configManager, actions.ShowAllPackages)
@@ -945,8 +944,10 @@ func makeLicensesRequests(packages []scannedPackage) ([][]models.License, error)
 	return licenses, nil
 }
 
-func updateEnabledCallAnalysis(callAnalysisStates map[string]bool, enabledCallAnalysis []string, disabledCallAnalysis []string) {
+// Creates a map to record if languages are enabled or disabled for call analysis.
+func createCallAnalysisStates(enabledCallAnalysis []string, disabledCallAnalysis []string) map[string]bool {
 	enableAll, disableAll := false, false
+	callAnalysisStates := make(map[string]bool)
 
 	for _, language := range enabledCallAnalysis {
 		if language == "all" {
@@ -976,4 +977,6 @@ func updateEnabledCallAnalysis(callAnalysisStates map[string]bool, enabledCallAn
 			}
 		}
 	}
+
+	return callAnalysisStates
 }
