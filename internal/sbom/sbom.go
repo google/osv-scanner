@@ -11,16 +11,16 @@ type Identifier struct {
 	PURL string
 }
 
-// SBOMReader is an interface for all SBOM providers.
-type SBOMReader interface {
+// Reader is an interface for all SBOM providers.
+type Reader interface {
 	Name() string
-	// Checks if the file path is a standard recognized file name
-	MatchesRecognizedFileNames(string) bool
-	GetPackages(io.ReadSeeker, func(Identifier) error) error
+	// MatchesRecognizedFileNames checks if the file path is a standard recognized file name
+	MatchesRecognizedFileNames(path string) bool
+	GetPackages(r io.ReadSeeker, callback func(Identifier) error) error
 }
 
 var (
-	Providers = []SBOMReader{
+	Providers = []Reader{
 		&SPDX{},
 		&CycloneDX{},
 	}
