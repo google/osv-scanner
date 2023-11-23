@@ -18,7 +18,7 @@ type DepFile interface {
 	// current DepFile if the provided path is relative.
 	//
 	// If the path is an absolute path, then it is opened absolutely.
-	Open(string) (NestedDepFile, error)
+	Open(path string) (NestedDepFile, error)
 
 	Path() string
 }
