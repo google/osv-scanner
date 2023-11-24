@@ -102,7 +102,7 @@ func run(args []string, stdout, stderr io.Writer) int {
 				Usage: "[Deprecated] attempt call analysis on code to detect only active vulnerabilities",
 				Value: false,
 				Action: func(context *cli.Context, b bool) error {
-					return fmt.Errorf("the experimental-call-analysis flag is no longer supported. Please use the call-analysis and no-call-analysis flags instead")
+					return fmt.Errorf("the experimental-call-analysis flag has been replaced. Please use the call-analysis and no-call-analysis flags instead")
 				},
 			},
 			&cli.BoolFlag{
