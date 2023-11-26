@@ -81,8 +81,8 @@ func MakeVersionRequests(queries []*depsdevpb.GetVersionRequest) ([][]models.Lic
 
 				return err
 			}
-			ls := make([]models.License, len(resp.Licenses))
-			for j, license := range resp.Licenses {
+			ls := make([]models.License, len(resp.GetLicenses()))
+			for j, license := range resp.GetLicenses() {
 				ls[j] = models.License(license)
 			}
 			if len(ls) == 0 {

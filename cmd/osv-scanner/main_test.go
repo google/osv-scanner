@@ -7,6 +7,7 @@ import (
 	"os"
 	"path/filepath"
 	"regexp"
+	"strconv"
 	"strings"
 	"testing"
 
@@ -59,7 +60,7 @@ func dedent(t *testing.T, str string) string {
 			}
 		}
 
-		re := regexp.MustCompile(`\n[\t ]{` + fmt.Sprint(size) + `}`)
+		re := regexp.MustCompile(`\n[\t ]{` + strconv.Itoa(size) + `}`)
 		str = re.ReplaceAllString(str, "\n")
 	}
 
