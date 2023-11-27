@@ -357,6 +357,7 @@ func TestRun(t *testing.T) {
 						},
 						"licenses": {
 							"enabled": false,
+							"summary_mode": false,
 							"allowlist": null
 						}
 					}
@@ -380,6 +381,7 @@ func TestRun(t *testing.T) {
 						},
 						"licenses": {
 							"enabled": false,
+							"summary_mode": false,
 							"allowlist": null
 						}
 					}
@@ -1070,6 +1072,7 @@ func TestRun_LocalDatabases(t *testing.T) {
 						},
 						"licenses": {
 							"enabled": false,
+							"summary_mode": false,
 							"allowlist": null
 						}
 					}
@@ -1094,6 +1097,7 @@ func TestRun_LocalDatabases(t *testing.T) {
 						},
 						"licenses": {
 							"enabled": false,
+							"summary_mode": false,
 							"allowlist": null
 						}
 					}
@@ -1144,9 +1148,9 @@ func TestRun_Licenses(t *testing.T) {
 	t.Parallel()
 	tests := []cliTestCase{
 		{
-			name:         "No vulnerabilities but contains license violations",
-			args:         []string{"", "--experimental-licenses", "", "./fixtures/locks-many"},
-			wantExitCode: 4,
+			name:         "No vulnerabilities with license summary",
+			args:         []string{"", "--experimental-licenses-summary", "./fixtures/locks-many"},
+			wantExitCode: 0,
 			wantStdout: `
 				Scanning dir ./fixtures/locks-many
 				Scanned <rootdir>/fixtures/locks-many/Gemfile.lock file and found 1 package
@@ -1169,9 +1173,9 @@ func TestRun_Licenses(t *testing.T) {
 			wantStderr: "",
 		},
 		{
-			name:         "No vulnerabilities but contains license violations markdown",
-			args:         []string{"", "--experimental-licenses", "", "--format=markdown", "./fixtures/locks-many"},
-			wantExitCode: 4,
+			name:         "No vulnerabilities with license summary in markdown",
+			args:         []string{"", "--experimental-licenses-summary", "--format=markdown", "./fixtures/locks-many"},
+			wantExitCode: 0,
 			wantStdout: `Scanning dir ./fixtures/locks-many
 Scanned <rootdir>/fixtures/locks-many/Gemfile.lock file and found 1 package
 Scanned <rootdir>/fixtures/locks-many/alpine.cdx.xml as CycloneDX SBOM and found 15 packages
@@ -1191,9 +1195,9 @@ Filtered 2 vulnerabilities from output
 			wantStderr: "",
 		},
 		{
-			name:         "Vulnerabilities and license violations",
-			args:         []string{"", "--experimental-licenses", "", "--config=./fixtures/osv-scanner-empty-config.toml", "./fixtures/locks-many/package-lock.json"},
-			wantExitCode: 5,
+			name:         "Vulnerabilities and license summary",
+			args:         []string{"", "--experimental-licenses-summary", "--config=./fixtures/osv-scanner-empty-config.toml", "./fixtures/locks-many/package-lock.json"},
+			wantExitCode: 1,
 			wantStdout: `
 				Scanning dir ./fixtures/locks-many/package-lock.json
 				Scanned <rootdir>/fixtures/locks-many/package-lock.json file and found 1 package
@@ -1303,6 +1307,7 @@ Filtered 2 vulnerabilities from output
 					},
 					"licenses": {
 						"enabled": true,
+						"summary_mode": false,
 						"allowlist": [
 							"MIT"
 						]
@@ -1351,6 +1356,7 @@ Filtered 2 vulnerabilities from output
 					},
 					"licenses": {
 						"enabled": true,
+						"summary_mode": false,
 						"allowlist": [
 							"MIT"
 						]
@@ -1418,10 +1424,77 @@ Filtered 2 vulnerabilities from output
 					},
 					"licenses": {
 						"enabled": true,
+						"summary_mode": false,
 						"allowlist": [
 							"MIT",
 							"Apache-2.0"
 						]
+					}
+				}
+			}
+		`,
+			wantStderr: `
+			Scanning dir ./fixtures/locks-licenses/package-lock.json
+			Scanned <rootdir>/fixtures/locks-licenses/package-lock.json file and found 3 packages
+			`,
+		},
+		{
+			name:         "Licenses in summary mode json",
+			args:         []string{"", "--format=json", "--experimental-licenses-summary", "./fixtures/locks-licenses/package-lock.json"},
+			wantExitCode: 0,
+			wantStdout: `
+			{
+				"results": [
+					{
+						"source": {
+							"path": "<rootdir>/fixtures/locks-licenses/package-lock.json",
+							"type": "lockfile"
+						},
+						"packages": [
+							{
+								"package": {
+									"name": "babel",
+									"version": "6.23.0",
+									"ecosystem": "npm",
+									"commit": ""
+								},
+								"licenses": [
+									"MIT"
+								]
+							},
+							{
+								"package": {
+									"name": "human-signals",
+									"version": "5.0.0",
+									"ecosystem": "npm",
+									"commit": ""
+								},
+								"licenses": [
+									"Apache-2.0"
+								]
+							},
+							{
+								"package": {
+									"name": "ms",
+									"version": "2.1.3",
+									"ecosystem": "npm",
+									"commit": ""
+								},
+								"licenses": [
+									"MIT"
+								]
+							}
+						]
+					}
+				],
+				"experimental_config": {
+					"call_analysis": {
+						"enabled": false
+					},
+					"licenses": {
+						"enabled": true,
+						"summary_mode": true,
+						"allowlist": []
 					}
 				}
 			}

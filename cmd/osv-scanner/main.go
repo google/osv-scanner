@@ -124,9 +124,13 @@ func run(args []string, stdout, stderr io.Writer) int {
 				Name:  "experimental-all-packages",
 				Usage: "when json output is selected, prints all packages",
 			},
+			&cli.BoolFlag{
+				Name:  "experimental-licenses-summary",
+				Usage: "report a summary of all licenses present",
+			},
 			&cli.StringSliceFlag{
 				Name:  "experimental-licenses",
-				Usage: "report on licenses",
+				Usage: "report on licenses based on an allow-list",
 			},
 		},
 		ArgsUsage: "[directory1 directory2...]",
@@ -155,6 +159,17 @@ func run(args []string, stdout, stderr io.Writer) int {
 				}
 			}
 
+			if context.Bool("experimental-licenses-summary") && context.IsSet("experimental-licenses") {
+				return fmt.Errorf("both --experimental-licenses-summary and --experimental-licenses flags set")
+			}
+			allowlist := context.StringSlice("experimental-licenses")
+			if context.IsSet("experimental-licenses") &&
+				(len(allowlist) == 0 ||
+					(len(allowlist) == 1 && allowlist[0] == "")) {
+				return fmt.Errorf("--experimental-licenses flags is empty")
+			}
+			// TODO: verify that the licenses they passed in are indeed spdx.
+
 			if r, err = reporter.New(format, stdout, stderr, termWidth); err != nil {
 				return err
 			}
@@ -174,6 +189,7 @@ func run(args []string, stdout, stderr io.Writer) int {
 					CompareLocally:        context.Bool("experimental-local-db"),
 					CompareOffline:        context.Bool("experimental-offline"),
 					ShowAllPackages:       context.Bool("experimental-all-packages"),
+					ScanLicensesSummary:   context.Bool("experimental-licenses-summary"),
 					ScanLicenses:          context.IsSet("experimental-licenses"),
 					ScanLicensesAllowlist: context.StringSlice("experimental-licenses"),
 				},

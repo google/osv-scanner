@@ -24,8 +24,9 @@ type ExperimentalCallAnalysisConfig struct {
 }
 
 type ExperimentalLicenseConfig struct {
-	Enabled   bool      `json:"enabled"`
-	Allowlist []License `json:"allowlist"`
+	Enabled     bool      `json:"enabled"`
+	SummaryMode bool      `json:"summary_mode"`
+	Allowlist   []License `json:"allowlist"`
 }
 
 // Flatten the grouped/nested vulnerability results into one flat array.
