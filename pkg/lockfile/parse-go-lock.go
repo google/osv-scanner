@@ -21,6 +21,10 @@ func deduplicatePackages(packages map[string]PackageDetails) map[string]PackageD
 	return details
 }
 
+func lineToFilePosition(line modfile.Position) FilePosition {
+	return FilePosition{Line: line.Line, Column: line.LineRune}
+}
+
 type GoLockExtractor struct{}
 
 func (e GoLockExtractor) ShouldExtract(path string) bool {
@@ -43,15 +47,21 @@ func (e GoLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 	packages := map[string]PackageDetails{}
 
 	for _, require := range parsedLockfile.Require {
+		var startPosition = lineToFilePosition(require.Syntax.Start)
+		var endPosition = lineToFilePosition(require.Syntax.End)
 		packages[require.Mod.Path+"@"+require.Mod.Version] = PackageDetails{
 			Name:      require.Mod.Path,
 			Version:   strings.TrimPrefix(require.Mod.Version, "v"),
 			Ecosystem: GoEcosystem,
 			CompareAs: GoEcosystem,
+			Start:     startPosition,
+			End:       endPosition,
 		}
 	}
 
 	for _, replace := range parsedLockfile.Replace {
+		var startPosition = lineToFilePosition(replace.Syntax.Start)
+		var endPosition = lineToFilePosition(replace.Syntax.End)
 		var replacements []string
 
 		if replace.Old.Version == "" {
@@ -78,6 +88,8 @@ func (e GoLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 				Version:   strings.TrimPrefix(replace.New.Version, "v"),
 				Ecosystem: GoEcosystem,
 				CompareAs: GoEcosystem,
+				Start:     startPosition,
+				End:       endPosition,
 			}
 		}
 	}

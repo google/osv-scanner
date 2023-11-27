@@ -6,6 +6,13 @@ type PackageDetails struct {
 	Commit    string    `json:"commit,omitempty"`
 	Ecosystem Ecosystem `json:"ecosystem,omitempty"`
 	CompareAs Ecosystem `json:"compareAs,omitempty"`
+	Start     FilePosition
+	End       FilePosition
+}
+
+type FilePosition struct {
+	Line   int
+	Column int
 }
 
 type Ecosystem string
