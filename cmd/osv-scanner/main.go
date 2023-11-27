@@ -179,16 +179,10 @@ func run(args []string, stdout, stderr io.Writer) int {
 				},
 			}, r)
 
-			issueResultErr := errors.Join(
-				osvscanner.VulnerabilitiesFoundErr,
-				osvscanner.OnlyUncalledVulnerabilitiesFoundErr,
-				osvscanner.LicenseViolationsErr,
-				osvscanner.VulnerabilitiesFoundAndLicenseViolationsErr,
-				osvscanner.OnlyUncalledVulnerabilitiesFoundAndLicenseViolationsErr,
-			)
-			if err != nil && !errors.Is(issueResultErr, err) {
+			if err != nil && !errors.Is(err, osvscanner.VulnerabilitiesFoundErr) {
 				return err
 			}
+
 			if errPrint := r.PrintResult(&vulnResult); errPrint != nil {
 				return fmt.Errorf("failed to write output: %w", errPrint)
 			}
@@ -204,17 +198,7 @@ func run(args []string, stdout, stderr io.Writer) int {
 		}
 		switch {
 		case errors.Is(err, osvscanner.VulnerabilitiesFoundErr):
-			return 0b0001 // 1
-		case errors.Is(err, osvscanner.OnlyUncalledVulnerabilitiesFoundErr):
-			// TODO: Discuss whether to have a different exit code
-			// now that running call analysis is not default.
-			return 0b0010 // 2
-		case errors.Is(err, osvscanner.LicenseViolationsErr):
-			return 0b0100 // 4
-		case errors.Is(err, osvscanner.VulnerabilitiesFoundAndLicenseViolationsErr):
-			return 0b0101 // 5
-		case errors.Is(err, osvscanner.OnlyUncalledVulnerabilitiesFoundAndLicenseViolationsErr):
-			return 0b0110 // 6
+			return 1
 		case errors.Is(err, osvscanner.NoPackagesFoundErr):
 			r.PrintError("No package sources found, --help for usage information.\n")
 			return 128

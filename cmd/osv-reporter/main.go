@@ -162,14 +162,8 @@ func run(args []string, stdout, stderr io.Writer) int {
 
 			// if vulnerability exists it should return error
 			if len(diffVulns.Results) > 0 {
-				// If any vulnerabilities are called, then we return VulnerabilitiesFoundErr
-				for _, vf := range diffVulns.Flatten() {
-					if vf.GroupInfo.IsCalled() {
-						return osvscanner.VulnerabilitiesFoundErr
-					}
-				}
 				// Otherwise return OnlyUncalledVulnerabilitiesFoundErr
-				return osvscanner.OnlyUncalledVulnerabilitiesFoundErr
+				return osvscanner.VulnerabilitiesFoundErr
 			}
 
 			return nil
@@ -182,11 +176,6 @@ func run(args []string, stdout, stderr io.Writer) int {
 		}
 		if errors.Is(err, osvscanner.VulnerabilitiesFoundErr) {
 			return 1
-		}
-
-		if errors.Is(err, osvscanner.OnlyUncalledVulnerabilitiesFoundErr) {
-			// TODO: Discuss whether to have a different exit code now that running call analysis is not default
-			return 2
 		}
 
 		if errors.Is(err, osvscanner.NoPackagesFoundErr) {
