@@ -3,10 +3,10 @@ package lockfile
 import (
 	"encoding/xml"
 	"fmt"
+	"github.com/google/osv-scanner/internal/cachedregexp"
+	"github.com/google/osv-scanner/pkg/models"
 	"os"
 	"path/filepath"
-
-	"github.com/google/osv-scanner/internal/cachedregexp"
 )
 
 type MavenLockDependency struct {
@@ -14,6 +14,12 @@ type MavenLockDependency struct {
 	GroupID    string   `xml:"groupId"`
 	ArtifactID string   `xml:"artifactId"`
 	Version    string   `xml:"version"`
+	Start      models.FilePosition
+	End        models.FilePosition
+}
+
+type MavenLockDependencyHolder struct {
+	Dependencies []MavenLockDependency `xml:"dependency"`
 }
 
 func (mld MavenLockDependency) parseResolvedVersion(version string) string {
@@ -59,13 +65,13 @@ func (mld MavenLockDependency) ResolveVersion(lockfile MavenLockFile) string {
 }
 
 type MavenLockFile struct {
-	XMLName             xml.Name              `xml:"project"`
-	ModelVersion        string                `xml:"modelVersion"`
-	GroupID             string                `xml:"groupId"`
-	ArtifactID          string                `xml:"artifactId"`
-	Properties          MavenLockProperties   `xml:"properties"`
-	Dependencies        []MavenLockDependency `xml:"dependencies>dependency"`
-	ManagedDependencies []MavenLockDependency `xml:"dependencyManagement>dependencies>dependency"`
+	XMLName             xml.Name                  `xml:"project"`
+	ModelVersion        string                    `xml:"modelVersion"`
+	GroupID             string                    `xml:"groupId"`
+	ArtifactID          string                    `xml:"artifactId"`
+	Properties          MavenLockProperties       `xml:"properties"`
+	Dependencies        MavenLockDependencyHolder `xml:"dependencies"`
+	ManagedDependencies MavenLockDependencyHolder `xml:"dependencyManagement>dependencies"`
 }
 
 const MavenEcosystem Ecosystem = "Maven"
@@ -101,6 +107,35 @@ func (p *MavenLockProperties) UnmarshalXML(d *xml.Decoder, start xml.StartElemen
 	}
 }
 
+func (dependencyHolder *MavenLockDependencyHolder) UnmarshalXML(decoder *xml.Decoder, start xml.StartElement) error {
+	dependencyHolder.Dependencies = make([]MavenLockDependency, 0)
+DecodingLoop:
+	for {
+		startLine, startColumn := decoder.InputPos()
+		token, err := decoder.Token()
+		if err != nil {
+			return err
+		}
+		switch elem := token.(type) {
+		case xml.StartElement:
+			dependency := MavenLockDependency{}
+			dependency.Start = models.FilePosition{Line: startLine, Column: startColumn}
+			err := decoder.DecodeElement(&dependency, &elem)
+			if err != nil {
+				return err
+			}
+			endLine, endColumn := decoder.InputPos()
+			dependency.End = models.FilePosition{Line: endLine, Column: endColumn}
+			dependencyHolder.Dependencies = append(dependencyHolder.Dependencies, dependency)
+		case xml.EndElement:
+			if elem.Name == start.Name {
+				break DecodingLoop
+			}
+		}
+	}
+	return nil
+}
+
 type MavenLockExtractor struct{}
 
 func (e MavenLockExtractor) ShouldExtract(path string) bool {
@@ -118,7 +153,7 @@ func (e MavenLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 
 	details := map[string]PackageDetails{}
 
-	for _, lockPackage := range parsedLockfile.Dependencies {
+	for _, lockPackage := range parsedLockfile.Dependencies.Dependencies {
 		finalName := lockPackage.GroupID + ":" + lockPackage.ArtifactID
 
 		details[finalName] = PackageDetails{
@@ -126,11 +161,13 @@ func (e MavenLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 			Version:   lockPackage.ResolveVersion(*parsedLockfile),
 			Ecosystem: MavenEcosystem,
 			CompareAs: MavenEcosystem,
+			Start:     lockPackage.Start,
+			End:       lockPackage.End,
 		}
 	}
 
 	// managed dependencies take precedent over standard dependencies
-	for _, lockPackage := range parsedLockfile.ManagedDependencies {
+	for _, lockPackage := range parsedLockfile.ManagedDependencies.Dependencies {
 		finalName := lockPackage.GroupID + ":" + lockPackage.ArtifactID
 
 		details[finalName] = PackageDetails{
@@ -138,6 +175,8 @@ func (e MavenLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 			Version:   lockPackage.ResolveVersion(*parsedLockfile),
 			Ecosystem: MavenEcosystem,
 			CompareAs: MavenEcosystem,
+			Start:     lockPackage.Start,
+			End:       lockPackage.End,
 		}
 	}
 
