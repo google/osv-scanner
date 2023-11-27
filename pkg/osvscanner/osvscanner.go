@@ -62,7 +62,7 @@ var NoPackagesFoundErr = errors.New("no packages found in scan")
 //nolint:errname,stylecheck // Would require version major bump to change
 var VulnerabilitiesFoundErr = errors.New("vulnerabilities found")
 
-// deprecated: This error is no longer returned, check the results to determine if this is the case
+// Deprecated: This error is no longer returned, check the results to determine if this is the case
 //
 //nolint:errname,stylecheck // Would require version bump to change
 var OnlyUncalledVulnerabilitiesFoundErr = errors.New("only uncalled vulnerabilities found")
