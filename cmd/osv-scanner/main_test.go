@@ -158,6 +158,48 @@ func testCli(t *testing.T, tc cliTestCase) {
 	expectAreEqual(t, "stderr output", stderr, tc.wantStderr)
 }
 
+func TestRunSbom(t *testing.T) {
+	t.Parallel()
+
+	tests := []cliTestCase{
+		// output with sbom
+		{
+			name:         "",
+			args:         []string{"", "--format", "sbom", "./fixtures/locks-many/composer.lock"},
+			wantExitCode: 0,
+			wantStdout: `
+        {
+          "$schema": "http://cyclonedx.org/schema/bom-1.4.schema.json",
+					"bomFormat": "CycloneDX",
+					"specVersion": "1.4",
+					"version": 1,
+					"components": [
+						{
+							"bom-ref": "pkg:composer/sentry/sdk@2.0.4",
+							"type": "library",
+							"name": "sentry/sdk",
+							"version": "2.0.4",
+							"purl": "pkg:composer/sentry/sdk@2.0.4"
+						}
+					]
+				}
+			`,
+			wantStderr: `
+				Scanning dir ./fixtures/locks-many/composer.lock
+				Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
+			`,
+		},
+	}
+	for _, tt := range tests {
+		tt := tt
+		t.Run(tt.name, func(t *testing.T) {
+			t.Parallel()
+
+			testCli(t, tt)
+		})
+	}
+}
+
 func TestRun(t *testing.T) {
 	t.Parallel()
 
