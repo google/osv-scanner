@@ -188,9 +188,8 @@ func run(args []string, stdout, stderr io.Writer) int {
 					CallAnalysis:          context.Bool("experimental-call-analysis"),
 					CompareLocally:        context.Bool("experimental-local-db"),
 					CompareOffline:        context.Bool("experimental-offline"),
-					ShowAllPackages:       context.Bool("experimental-all-packages"),
+					ShowAllPackages:       context.Bool("experimental-all-packages") || context.Bool("experimental-licenses-summary"),
 					ScanLicensesSummary:   context.Bool("experimental-licenses-summary"),
-					ScanLicenses:          context.IsSet("experimental-licenses"),
 					ScanLicensesAllowlist: context.StringSlice("experimental-licenses"),
 				},
 			}, r)

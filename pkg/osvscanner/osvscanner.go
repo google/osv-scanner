@@ -49,7 +49,6 @@ type ExperimentalScannerActions struct {
 	CompareOffline        bool
 	ShowAllPackages       bool
 	ScanLicensesSummary   bool
-	ScanLicenses          bool
 	ScanLicensesAllowlist []string
 
 	LocalDBPath string
@@ -609,7 +608,7 @@ func scanDebianDocker(r reporter.Reporter, dockerImageName string) ([]scannedPac
 }
 
 // Filters results according to config, preserving order. Returns total number of vulnerabilities removed.
-func filterResults(r reporter.Reporter, results *models.VulnerabilityResults, configManager *config.ConfigManager, allPackages bool, scanLicensesSummary bool) int {
+func filterResults(r reporter.Reporter, results *models.VulnerabilityResults, configManager *config.ConfigManager, allPackages bool) int {
 	removedCount := 0
 	newResults := []models.PackageSource{} // Want 0 vulnerabilities to show in JSON as an empty list, not null.
 	for _, pkgSrc := range results.Results {
@@ -618,7 +617,7 @@ func filterResults(r reporter.Reporter, results *models.VulnerabilityResults, co
 		for _, pkgVulns := range pkgSrc.Packages {
 			newVulns := filterPackageVulns(r, pkgVulns, configToUse)
 			removedCount += len(pkgVulns.Vulnerabilities) - len(newVulns.Vulnerabilities)
-			if allPackages || scanLicensesSummary || len(newVulns.Vulnerabilities) > 0 || len(pkgVulns.LicenseViolations) > 0 {
+			if allPackages || len(newVulns.Vulnerabilities) > 0 || len(pkgVulns.LicenseViolations) > 0 {
 				newPackages = append(newPackages, newVulns)
 			}
 		}
@@ -791,7 +790,7 @@ func DoScan(actions ScannerActions, r reporter.Reporter) (models.VulnerabilityRe
 	}
 
 	var licensesResp [][]models.License
-	if actions.ScanLicenses || actions.ScanLicensesSummary {
+	if len(actions.ScanLicensesAllowlist) > 0 || actions.ScanLicensesSummary {
 		licensesResp, err = makeLicensesRequests(filteredScannedPackages)
 		if err != nil {
 			return models.VulnerabilityResults{}, err
@@ -799,7 +798,7 @@ func DoScan(actions ScannerActions, r reporter.Reporter) (models.VulnerabilityRe
 	}
 	results := buildVulnerabilityResults(r, filteredScannedPackages, vulnsResp, licensesResp, actions)
 
-	filtered := filterResults(r, &results, &configManager, actions.ShowAllPackages, actions.ScanLicensesSummary)
+	filtered := filterResults(r, &results, &configManager, actions.ShowAllPackages)
 	if filtered > 0 {
 		r.PrintText(fmt.Sprintf(
 			"Filtered %d %s from output\n",
@@ -827,7 +826,7 @@ func DoScan(actions ScannerActions, r reporter.Reporter) (models.VulnerabilityRe
 			}
 		}
 		onlyUncalledVuln = onlyUncalledVuln && vuln
-		licenseViolation = licenseViolation && actions.ScanLicenses
+		licenseViolation = licenseViolation && len(actions.ScanLicensesAllowlist) > 0
 
 		switch {
 		case !vuln && !onlyUncalledVuln && !licenseViolation:
