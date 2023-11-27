@@ -32,6 +32,7 @@ A wide range of lockfiles are supported by utilizing this [lockfile package](htt
 | Javascript | `package-lock.json`<br>`pnpm-lock.yaml`<br>`yarn.lock`|
 | PHP        | `composer.lock`|
 | Python     | `Pipfile.lock`<br>`poetry.lock`<br>`requirements.txt`[\*](https://github.com/google/osv-scanner/issues/34) |
+| R          | `renv.lock` |
 | Ruby       | `Gemfile.lock`|
 | Rust       | `Cargo.lock`|
 

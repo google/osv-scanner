@@ -59,20 +59,16 @@ type ExperimentalScannerActions struct {
 //nolint:errname,stylecheck // Would require version major bump to change
 var NoPackagesFoundErr = errors.New("no packages found in scan")
 
+// VulnerabilitiesFoundErr includes both vulnerabilities being found or license violations being found,
+// however, will not be raised if only uncalled vulnerabilities are found.
+//
 //nolint:errname,stylecheck // Would require version major bump to change
 var VulnerabilitiesFoundErr = errors.New("vulnerabilities found")
 
+// Deprecated: This error is no longer returned, check the results to determine if this is the case
+//
 //nolint:errname,stylecheck // Would require version bump to change
 var OnlyUncalledVulnerabilitiesFoundErr = errors.New("only uncalled vulnerabilities found")
-
-//nolint:errname,stylecheck // Would require version bump to change
-var LicenseViolationsErr = errors.New("license violations found")
-
-//nolint:errname,stylecheck // Would require version bump to change
-var VulnerabilitiesFoundAndLicenseViolationsErr = errors.New("vulnerabilities found and license violations found")
-
-//nolint:errname,stylecheck // Would require version bump to change
-var OnlyUncalledVulnerabilitiesFoundAndLicenseViolationsErr = errors.New("only uncalled vulnerabilities found and license violations found")
 
 var (
 	vendoredLibNames = map[string]struct{}{
@@ -829,25 +825,11 @@ func DoScan(actions ScannerActions, r reporter.Reporter) (models.VulnerabilityRe
 		}
 		onlyUncalledVuln = onlyUncalledVuln && vuln
 
-		switch {
-		case !vuln && !onlyUncalledVuln && !licenseViolation:
+		if (!vuln || onlyUncalledVuln) && !licenseViolation {
 			// There is no error.
 			return results, nil
-		case vuln && !onlyUncalledVuln && !licenseViolation:
+		} else {
 			return results, VulnerabilitiesFoundErr
-		case !vuln && onlyUncalledVuln && !licenseViolation:
-			// Impossible state.
-			panic("internal error: uncalled vulnerabilities exist but no vulnerabilities exist")
-		case vuln && onlyUncalledVuln && !licenseViolation:
-			return results, OnlyUncalledVulnerabilitiesFoundErr
-		case !vuln && !onlyUncalledVuln && licenseViolation:
-			return results, LicenseViolationsErr
-		case vuln && !onlyUncalledVuln && licenseViolation:
-			return results, VulnerabilitiesFoundAndLicenseViolationsErr
-		case !vuln && onlyUncalledVuln && licenseViolation:
-			panic("internal error: uncalled vulnerabilities exist but no vulnerabilities exist")
-		case vuln && onlyUncalledVuln && licenseViolation:
-			return results, OnlyUncalledVulnerabilitiesFoundAndLicenseViolationsErr
 		}
 	}
 

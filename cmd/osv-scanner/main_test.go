@@ -1146,7 +1146,7 @@ func TestRun_Licenses(t *testing.T) {
 		{
 			name:         "No vulnerabilities but contains license violations",
 			args:         []string{"", "--experimental-licenses", "", "./fixtures/locks-many"},
-			wantExitCode: 4,
+			wantExitCode: 1,
 			wantStdout: `
 				Scanning dir ./fixtures/locks-many
 				Scanned <rootdir>/fixtures/locks-many/Gemfile.lock file and found 1 package
@@ -1171,7 +1171,7 @@ func TestRun_Licenses(t *testing.T) {
 		{
 			name:         "No vulnerabilities but contains license violations markdown",
 			args:         []string{"", "--experimental-licenses", "", "--format=markdown", "./fixtures/locks-many"},
-			wantExitCode: 4,
+			wantExitCode: 1,
 			wantStdout: `Scanning dir ./fixtures/locks-many
 Scanned <rootdir>/fixtures/locks-many/Gemfile.lock file and found 1 package
 Scanned <rootdir>/fixtures/locks-many/alpine.cdx.xml as CycloneDX SBOM and found 15 packages
@@ -1193,7 +1193,7 @@ Filtered 2 vulnerabilities from output
 		{
 			name:         "Vulnerabilities and license violations",
 			args:         []string{"", "--experimental-licenses", "", "--config=./fixtures/osv-scanner-empty-config.toml", "./fixtures/locks-many/package-lock.json"},
-			wantExitCode: 5,
+			wantExitCode: 1,
 			wantStdout: `
 				Scanning dir ./fixtures/locks-many/package-lock.json
 				Scanned <rootdir>/fixtures/locks-many/package-lock.json file and found 1 package
@@ -1213,7 +1213,7 @@ Filtered 2 vulnerabilities from output
 		{
 			name:         "Vulnerabilities and license violations with allowlist",
 			args:         []string{"", "--experimental-licenses", "MIT", "--config=./fixtures/osv-scanner-empty-config.toml", "./fixtures/locks-many/package-lock.json"},
-			wantExitCode: 5,
+			wantExitCode: 1,
 			wantStdout: `
 				Scanning dir ./fixtures/locks-many/package-lock.json
 				Scanned <rootdir>/fixtures/locks-many/package-lock.json file and found 1 package
@@ -1248,7 +1248,7 @@ Filtered 2 vulnerabilities from output
 		{
 			name:         "Some packages with license violations and show-all-packages in json",
 			args:         []string{"", "--format=json", "--experimental-licenses", "MIT", "--experimental-all-packages", "./fixtures/locks-licenses/package-lock.json"},
-			wantExitCode: 4,
+			wantExitCode: 1,
 			wantStdout: `
 			{
 				"results": [
@@ -1318,7 +1318,7 @@ Filtered 2 vulnerabilities from output
 		{
 			name:         "Some packages with license violations in json",
 			args:         []string{"", "--format=json", "--experimental-licenses", "MIT", "./fixtures/locks-licenses/package-lock.json"},
-			wantExitCode: 4,
+			wantExitCode: 1,
 			wantStdout: `
 			{
 				"results": [
