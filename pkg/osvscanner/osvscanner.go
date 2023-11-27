@@ -49,6 +49,7 @@ type ExperimentalScannerActions struct {
 	CompareOffline        bool
 	ShowAllPackages       bool
 	ScanLicenses          bool
+	OnlySbom              bool
 	ScanLicensesAllowlist []string
 
 	LocalDBPath string
@@ -778,6 +779,12 @@ func DoScan(actions ScannerActions, r reporter.Reporter) (models.VulnerabilityRe
 
 	if len(filteredScannedPackages) != len(scannedPackages) {
 		r.PrintText(fmt.Sprintf("Filtered %d local package/s from the scan.\n", len(scannedPackages)-len(filteredScannedPackages)))
+	}
+
+	if actions.OnlySbom {
+		vulnerabilityResults := groupBySource(r, scannedPackages)
+
+		return vulnerabilityResults, nil
 	}
 
 	vulnsResp, err := makeRequest(r, filteredScannedPackages, actions.CompareLocally, actions.CompareOffline, actions.LocalDBPath)
