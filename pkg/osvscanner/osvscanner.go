@@ -59,6 +59,9 @@ type ExperimentalScannerActions struct {
 //nolint:errname,stylecheck // Would require version major bump to change
 var NoPackagesFoundErr = errors.New("no packages found in scan")
 
+// VulnerabilitiesFoundErr includes both vulnerabilities being found or license violations being found,
+// however, will not be raised if only uncalled vulnerabilities are found.
+//
 //nolint:errname,stylecheck // Would require version major bump to change
 var VulnerabilitiesFoundErr = errors.New("vulnerabilities found")
 
