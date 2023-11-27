@@ -101,9 +101,6 @@ func run(args []string, stdout, stderr io.Writer) int {
 				Name:  "experimental-call-analysis",
 				Usage: "[Deprecated] attempt call analysis on code to detect only active vulnerabilities",
 				Value: false,
-				Action: func(context *cli.Context, b bool) error {
-					return fmt.Errorf("the experimental-call-analysis flag has been replaced. Please use the call-analysis and no-call-analysis flags instead")
-				},
 			},
 			&cli.BoolFlag{
 				Name:  "no-ignore",
@@ -170,7 +167,13 @@ func run(args []string, stdout, stderr io.Writer) int {
 				return err
 			}
 
-			callAnalysisStates := createCallAnalysisStates(context.StringSlice("call-analysis"), context.StringSlice("no-call-analysis"))
+			var callAnalysisStates map[string]bool
+			if context.Bool("experimental-call-analysis") {
+				callAnalysisStates = createCallAnalysisStates([]string{"all"}, context.StringSlice("no-call-analysis"))
+				r.PrintText("Warning: the experimental-call-analysis flag has been replaced. Please use the call-analysis and no-call-analysis flags instead.\n")
+			} else {
+				callAnalysisStates = createCallAnalysisStates(context.StringSlice("call-analysis"), context.StringSlice("no-call-analysis"))
+			}
 
 			vulnResult, err := osvscanner.DoScan(osvscanner.ScannerActions{
 				LockfilePaths:        context.StringSlice("lockfile"),
