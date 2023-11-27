@@ -74,8 +74,10 @@ type VulnerabilityFlattened struct {
 }
 
 type SourceInfo struct {
-	Path string `json:"path"`
-	Type string `json:"type"`
+	Path  string       `json:"path"`
+	Type  string       `json:"type"`
+	Start FilePosition `json:"start"`
+	End   FilePosition `json:"end"`
 }
 
 type Metadata struct {

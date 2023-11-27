@@ -2,6 +2,7 @@ package lockfile
 
 import (
 	"fmt"
+	"github.com/google/osv-scanner/pkg/models"
 	"io"
 	"path/filepath"
 	"strings"
@@ -21,8 +22,8 @@ func deduplicatePackages(packages map[string]PackageDetails) map[string]PackageD
 	return details
 }
 
-func lineToFilePosition(line modfile.Position) FilePosition {
-	return FilePosition{Line: line.Line, Column: line.LineRune}
+func lineToFilePosition(line modfile.Position) models.FilePosition {
+	return models.FilePosition{Line: line.Line, Column: line.LineRune}
 }
 
 type GoLockExtractor struct{}
