@@ -179,6 +179,7 @@ func licenseTableBuilder(outputTable table.Writer, vulnResult *models.Vulnerabil
 	if licenseConfig.SummaryMode {
 		return licenseSummaryTableBuilder(outputTable, vulnResult)
 	}
+
 	return licenseViolationsTableBuilder(outputTable, vulnResult)
 }
 
