@@ -1,6 +1,7 @@
 package lockfile_test
 
 import (
+	"github.com/google/osv-scanner/pkg/models"
 	"io/fs"
 	"testing"
 
@@ -113,6 +114,8 @@ func TestParseMavenLock_OnePackage(t *testing.T) {
 			Version:   "1.0.0",
 			Ecosystem: lockfile.MavenEcosystem,
 			CompareAs: lockfile.MavenEcosystem,
+			Start:     models.FilePosition{Line: 7, Column: 5},
+			End:       models.FilePosition{Line: 11, Column: 18},
 		},
 	})
 }
@@ -132,12 +135,16 @@ func TestParseMavenLock_TwoPackages(t *testing.T) {
 			Version:   "4.1.42.Final",
 			Ecosystem: lockfile.MavenEcosystem,
 			CompareAs: lockfile.MavenEcosystem,
+			Start:     models.FilePosition{Line: 7, Column: 5},
+			End:       models.FilePosition{Line: 11, Column: 18},
 		},
 		{
 			Name:      "org.slf4j:slf4j-log4j12",
 			Version:   "1.7.25",
 			Ecosystem: lockfile.MavenEcosystem,
 			CompareAs: lockfile.MavenEcosystem,
+			Start:     models.FilePosition{Line: 12, Column: 5},
+			End:       models.FilePosition{Line: 16, Column: 18},
 		},
 	})
 }
@@ -157,18 +164,24 @@ func TestParseMavenLock_WithDependencyManagement(t *testing.T) {
 			Version:   "4.1.42.Final",
 			Ecosystem: lockfile.MavenEcosystem,
 			CompareAs: lockfile.MavenEcosystem,
+			Start:     models.FilePosition{Line: 21, Column: 7},
+			End:       models.FilePosition{Line: 25, Column: 20},
 		},
 		{
 			Name:      "org.slf4j:slf4j-log4j12",
 			Version:   "1.7.25",
 			Ecosystem: lockfile.MavenEcosystem,
 			CompareAs: lockfile.MavenEcosystem,
+			Start:     models.FilePosition{Line: 12, Column: 5},
+			End:       models.FilePosition{Line: 16, Column: 18},
 		},
 		{
 			Name:      "com.google.code.findbugs:jsr305",
 			Version:   "3.0.2",
 			Ecosystem: lockfile.MavenEcosystem,
 			CompareAs: lockfile.MavenEcosystem,
+			Start:     models.FilePosition{Line: 26, Column: 7},
+			End:       models.FilePosition{Line: 30, Column: 20},
 		},
 	})
 }
@@ -188,18 +201,24 @@ func TestParseMavenLock_Interpolation(t *testing.T) {
 			Version:   "1.0.0",
 			Ecosystem: lockfile.MavenEcosystem,
 			CompareAs: lockfile.MavenEcosystem,
+			Start:     models.FilePosition{Line: 18, Column: 5},
+			End:       models.FilePosition{Line: 22, Column: 18},
 		},
 		{
 			Name:      "org.mine:my.package",
 			Version:   "2.3.4",
 			Ecosystem: lockfile.MavenEcosystem,
 			CompareAs: lockfile.MavenEcosystem,
+			Start:     models.FilePosition{Line: 24, Column: 5},
+			End:       models.FilePosition{Line: 28, Column: 18},
 		},
 		{
 			Name:      "org.mine:ranged-package",
 			Version:   "9.4.35.v20201120",
 			Ecosystem: lockfile.MavenEcosystem,
 			CompareAs: lockfile.MavenEcosystem,
+			Start:     models.FilePosition{Line: 33, Column: 7},
+			End:       models.FilePosition{Line: 37, Column: 20},
 		},
 	})
 }
