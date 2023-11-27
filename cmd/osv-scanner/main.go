@@ -168,7 +168,7 @@ func run(args []string, stdout, stderr io.Writer) int {
 			}
 
 			var callAnalysisStates map[string]bool
-			if context.Bool("experimental-call-analysis") {
+			if context.IsSet("experimental-call-analysis") {
 				callAnalysisStates = createCallAnalysisStates([]string{"all"}, context.StringSlice("no-call-analysis"))
 				r.PrintText("Warning: the experimental-call-analysis flag has been replaced. Please use the call-analysis and no-call-analysis flags instead.\n")
 			} else {

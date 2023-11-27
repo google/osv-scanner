@@ -20,10 +20,7 @@ func createCallAnalysisStates(enabledCallAnalysis []string, disabledCallAnalysis
 	enableAll, containsAll := callAnalysisStates["all"]
 	for language, isStable := range stableCallAnalysisStates {
 		if _, exists := callAnalysisStates[language]; !exists {
-			callAnalysisStates[language] = isStable
-			if enableAll {
-				callAnalysisStates[language] = true
-			}
+			callAnalysisStates[language] = isStable || enableAll
 		}
 		if containsAll && !enableAll {
 			callAnalysisStates[language] = false
