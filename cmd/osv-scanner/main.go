@@ -176,6 +176,7 @@ func run(args []string, stdout, stderr io.Writer) int {
 					ShowAllPackages:       context.Bool("experimental-all-packages"),
 					ScanLicenses:          context.IsSet("experimental-licenses"),
 					ScanLicensesAllowlist: context.StringSlice("experimental-licenses"),
+					OnlySbom:              format == "sbom",
 				},
 			}, r)
 
