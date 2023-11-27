@@ -635,20 +635,20 @@ func filterPackageVulns(r reporter.Reporter, pkgVulns models.PackageVulns, confi
 	var newGroups []models.GroupInfo
 	for _, group := range pkgVulns.Groups {
 		ignore := false
-		for _, id := range group.IDs {
+		for _, id := range group.Aliases {
 			var ignoreLine config.IgnoreEntry
 			if ignore, ignoreLine = configToUse.ShouldIgnore(id); ignore {
-				for _, id := range group.IDs {
+				for _, id := range group.Aliases {
 					ignoredVulns[id] = struct{}{}
 				}
 				// NB: This only prints the first reason encountered in all the aliases.
-				switch len(group.IDs) {
+				switch len(group.Aliases) {
 				case 1:
 					r.PrintText(fmt.Sprintf("%s has been filtered out because: %s\n", ignoreLine.ID, ignoreLine.Reason))
 				case 2:
 					r.PrintText(fmt.Sprintf("%s and 1 alias have been filtered out because: %s\n", ignoreLine.ID, ignoreLine.Reason))
 				default:
-					r.PrintText(fmt.Sprintf("%s and %d aliases have been filtered out because: %s\n", ignoreLine.ID, len(group.IDs)-1, ignoreLine.Reason))
+					r.PrintText(fmt.Sprintf("%s and %d aliases have been filtered out because: %s\n", ignoreLine.ID, len(group.Aliases)-1, ignoreLine.Reason))
 				}
 
 				break

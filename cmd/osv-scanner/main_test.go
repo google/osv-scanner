@@ -266,7 +266,7 @@ func TestRun(t *testing.T) {
 				Scanned <rootdir>/fixtures/locks-many/yarn.lock file and found 1 package
 				Loaded filter from: <rootdir>/fixtures/locks-many/osv-scanner.toml
 				CVE-2022-48174 has been filtered out because: Test manifest file (alpine.cdx.xml)
-				GHSA-whgm-jr23-g3j9 has been filtered out because: Test manifest file
+				GHSA-whgm-jr23-g3j9 and 1 alias have been filtered out because: Test manifest file
 				Filtered 2 vulnerabilities from output
 				No issues found
 			`,
@@ -274,7 +274,7 @@ func TestRun(t *testing.T) {
 		},
 		// all supported lockfiles in the directory should be checked
 		{
-			name:         "",
+			name:         "all supported lockfiles in the directory should be checked",
 			args:         []string{"", "./fixtures/locks-many-with-invalid"},
 			wantExitCode: 127,
 			wantStdout: `
@@ -288,7 +288,7 @@ func TestRun(t *testing.T) {
 		},
 		// only the files in the given directories are checked by default (no recursion)
 		{
-			name:         "",
+			name:         "only the files in the given directories are checked by default (no recursion)",
 			args:         []string{"", "./fixtures/locks-one-with-nested"},
 			wantExitCode: 0,
 			wantStdout: `
@@ -300,7 +300,7 @@ func TestRun(t *testing.T) {
 		},
 		// nested directories are checked when `--recursive` is passed
 		{
-			name:         "",
+			name:         "nested directories are checked when `--recursive` is passed",
 			args:         []string{"", "--recursive", "./fixtures/locks-one-with-nested"},
 			wantExitCode: 0,
 			wantStdout: `
@@ -345,7 +345,7 @@ func TestRun(t *testing.T) {
 		},
 		// output with json
 		{
-			name:         "",
+			name:         "json output 1",
 			args:         []string{"", "--json", "./fixtures/locks-many/composer.lock"},
 			wantExitCode: 0,
 			wantStdout: `
@@ -368,7 +368,7 @@ func TestRun(t *testing.T) {
 			`,
 		},
 		{
-			name:         "",
+			name:         "json output 2",
 			args:         []string{"", "--format", "json", "./fixtures/locks-many/composer.lock"},
 			wantExitCode: 0,
 			wantStdout: `
@@ -538,6 +538,21 @@ func TestRun(t *testing.T) {
 			wantStderr: `
 				unsupported output format "unknown" - must be one of: table, json, markdown, sarif, gh-annotations
 			`,
+		},
+		// one specific supported lockfile with ignore
+		{
+			name:         "one specific supported lockfile with ignore",
+			args:         []string{"", "./fixtures/locks-test-ignore/package-lock.json"},
+			wantExitCode: 0,
+			wantStdout: `
+				Scanning dir ./fixtures/locks-test-ignore/package-lock.json
+				Scanned <rootdir>/fixtures/locks-test-ignore/package-lock.json file and found 1 package
+				Loaded filter from: <rootdir>/fixtures/locks-test-ignore/osv-scanner.toml
+				CVE-2021-23424 and 1 alias have been filtered out because: Test manifest file (alpine.cdx.xml)
+				Filtered 1 vulnerability from output
+				No issues found
+			`,
+			wantStderr: "",
 		},
 	}
 	for _, tt := range tests {
@@ -969,7 +984,7 @@ func TestRun_LocalDatabases(t *testing.T) {
 				Loaded Packagist local db from %%/osv-scanner/Packagist/all.zip
 				Loaded npm local db from %%/osv-scanner/npm/all.zip
 				Loaded filter from: <rootdir>/fixtures/locks-many/osv-scanner.toml
-				GHSA-whgm-jr23-g3j9 has been filtered out because: Test manifest file
+				GHSA-whgm-jr23-g3j9 and 1 alias have been filtered out because: Test manifest file
 				Filtered 1 vulnerability from output
 				No issues found
 			`,
@@ -1156,7 +1171,7 @@ func TestRun_Licenses(t *testing.T) {
 				Scanned <rootdir>/fixtures/locks-many/yarn.lock file and found 1 package
 				Loaded filter from: <rootdir>/fixtures/locks-many/osv-scanner.toml
 				CVE-2022-48174 has been filtered out because: Test manifest file (alpine.cdx.xml)
-				GHSA-whgm-jr23-g3j9 has been filtered out because: Test manifest file
+				GHSA-whgm-jr23-g3j9 and 1 alias have been filtered out because: Test manifest file
 				Filtered 2 vulnerabilities from output
 				+------------+-------------------------+
 				| LICENSE    | NO. OF PACKAGE VERSIONS |
@@ -1180,7 +1195,7 @@ Scanned <rootdir>/fixtures/locks-many/package-lock.json file and found 1 package
 Scanned <rootdir>/fixtures/locks-many/yarn.lock file and found 1 package
 Loaded filter from: <rootdir>/fixtures/locks-many/osv-scanner.toml
 CVE-2022-48174 has been filtered out because: Test manifest file (alpine.cdx.xml)
-GHSA-whgm-jr23-g3j9 has been filtered out because: Test manifest file
+GHSA-whgm-jr23-g3j9 and 1 alias have been filtered out because: Test manifest file
 Filtered 2 vulnerabilities from output
 | License | No. of package versions |
 | --- | ---:|
@@ -1262,8 +1277,7 @@ Filtered 2 vulnerabilities from output
 								"package": {
 									"name": "babel",
 									"version": "6.23.0",
-									"ecosystem": "npm",
-									"commit": ""
+									"ecosystem": "npm"
 								},
 								"licenses": [
 									"MIT"
@@ -1273,8 +1287,7 @@ Filtered 2 vulnerabilities from output
 								"package": {
 									"name": "human-signals",
 									"version": "5.0.0",
-									"ecosystem": "npm",
-									"commit": ""
+									"ecosystem": "npm"
 								},
 								"licenses": [
 									"Apache-2.0"
@@ -1287,8 +1300,7 @@ Filtered 2 vulnerabilities from output
 								"package": {
 									"name": "ms",
 									"version": "2.1.3",
-									"ecosystem": "npm",
-									"commit": ""
+									"ecosystem": "npm"
 								},
 								"licenses": [
 									"MIT"
@@ -1332,8 +1344,7 @@ Filtered 2 vulnerabilities from output
 								"package": {
 									"name": "human-signals",
 									"version": "5.0.0",
-									"ecosystem": "npm",
-									"commit": ""
+									"ecosystem": "npm"
 								},
 								"licenses": [
 									"Apache-2.0"
@@ -1380,8 +1391,7 @@ Filtered 2 vulnerabilities from output
 								"package": {
 									"name": "babel",
 									"version": "6.23.0",
-									"ecosystem": "npm",
-									"commit": ""
+									"ecosystem": "npm"
 								},
 								"licenses": [
 									"MIT"
@@ -1391,8 +1401,7 @@ Filtered 2 vulnerabilities from output
 								"package": {
 									"name": "human-signals",
 									"version": "5.0.0",
-									"ecosystem": "npm",
-									"commit": ""
+									"ecosystem": "npm"
 								},
 								"licenses": [
 									"Apache-2.0"
@@ -1402,8 +1411,7 @@ Filtered 2 vulnerabilities from output
 								"package": {
 									"name": "ms",
 									"version": "2.1.3",
-									"ecosystem": "npm",
-									"commit": ""
+									"ecosystem": "npm"
 								},
 								"licenses": [
 									"MIT"

@@ -81,16 +81,20 @@ func TestGroup(t *testing.T) {
 			},
 			want: []models.GroupInfo{
 				{
-					IDs: []string{v1.ID, v2.ID, v3.ID},
+					IDs:     []string{v1.ID, v2.ID, v3.ID},
+					Aliases: []string{v1.ID, v2.ID, v3.ID},
 				},
 				{
-					IDs: []string{v4.ID, v5.ID, v6.ID},
+					IDs:     []string{v4.ID, v5.ID, v6.ID},
+					Aliases: []string{v4.ID, v5.ID, v6.ID, v4.Aliases[0], v4.Aliases[1], v5.Aliases[1]},
 				},
 				{
-					IDs: []string{v7.ID},
+					IDs:     []string{v7.ID},
+					Aliases: []string{v7.Aliases[0], v7.ID},
 				},
 				{
-					IDs: []string{v8.ID},
+					IDs:     []string{v8.ID},
+					Aliases: []string{v8.Aliases[0], v8.ID},
 				},
 			},
 		},
@@ -100,22 +104,28 @@ func TestGroup(t *testing.T) {
 			},
 			want: []models.GroupInfo{
 				{
-					IDs: []string{v8.ID},
+					IDs:     []string{v8.ID},
+					Aliases: []string{v8.Aliases[0], v8.ID},
 				},
 				{
-					IDs: []string{v1.ID, v2.ID, v3.ID}, // Deterministic order
+					IDs:     []string{v1.ID, v2.ID, v3.ID}, // Deterministic order
+					Aliases: []string{v1.ID, v2.ID, v3.ID}, // Deterministic order
 				},
 				{
-					IDs: []string{v4.ID, v5.ID, v6.ID},
+					IDs:     []string{v4.ID, v5.ID, v6.ID},
+					Aliases: []string{v4.ID, v5.ID, v6.ID, v4.Aliases[0], v4.Aliases[1], v5.Aliases[1]},
 				},
 				{
-					IDs: []string{v7.ID},
+					IDs:     []string{v7.ID},
+					Aliases: []string{v7.Aliases[0], v7.ID},
 				},
 				{
-					IDs: []string{v9.ID},
+					IDs:     []string{v9.ID},
+					Aliases: []string{v9.ID},
 				},
 				{
-					IDs: []string{v10.ID},
+					IDs:     []string{v10.ID},
+					Aliases: []string{v10.ID},
 				},
 			},
 		},
@@ -125,10 +135,12 @@ func TestGroup(t *testing.T) {
 			},
 			want: []models.GroupInfo{
 				{
-					IDs: []string{v9.ID},
+					IDs:     []string{v9.ID},
+					Aliases: []string{v9.ID},
 				},
 				{
-					IDs: []string{v10.ID},
+					IDs:     []string{v10.ID},
+					Aliases: []string{v10.ID},
 				},
 			},
 		},
