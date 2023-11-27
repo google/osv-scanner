@@ -121,6 +121,7 @@ func parseRequirementsTxt(f DepFile, requiredAlready map[string]struct{}) ([]Pac
 				return true
 			}
 		}
+
 		return false
 	}
 
