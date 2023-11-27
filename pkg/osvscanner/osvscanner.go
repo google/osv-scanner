@@ -820,7 +820,7 @@ func DoScan(actions ScannerActions, r reporter.Reporter) (models.VulnerabilityRe
 		}
 		onlyUncalledVuln = onlyUncalledVuln && vuln
 
-		if !vuln && !onlyUncalledVuln && !licenseViolation {
+		if (!vuln || onlyUncalledVuln) && !licenseViolation {
 			// There is no error.
 			return results, nil
 		} else {
