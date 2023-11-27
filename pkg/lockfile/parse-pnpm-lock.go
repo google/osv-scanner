@@ -23,7 +23,7 @@ type PnpmLockPackage struct {
 	Resolution PnpmLockPackageResolution `yaml:"resolution"`
 	Name       string                    `yaml:"name"`
 	Version    string                    `yaml:"version"`
-	Dev        string                    `yaml:"dev"`
+	Dev        bool                      `yaml:"dev"`
 }
 
 type PnpmLockfile struct {
@@ -154,7 +154,7 @@ func parsePnpmLock(lockfile PnpmLockfile) []PackageDetails {
 		}
 
 		var depGroups []string
-		if strings.TrimSpace(pkg.Dev) == "true" {
+		if pkg.Dev {
 			depGroups = append(depGroups, "dev")
 		}
 
