@@ -1,0 +1,30 @@
+<project>
+  <properties>
+    <mavenVersion>3.0</mavenVersion>
+    <mypackageVersion>1.0.0</mypackageVersion>
+    <my.package.version>2.3.4</my.package.version>
+    <version-range>[9.4.35.v20201120,9.5)</version-range>
+  </properties>
+
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>io.netty</groupId>
+        <artifactId>netty-all</artifactId>
+        <version>4.1.42.Final</version>
+      </dependency>
+      <dependency>
+        <groupId>com.google.code.findbugs</groupId>
+        <artifactId>jsr305</artifactId>
+        <version>3.0.2</version>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+
+  <dependencies>
+    <dependency>
+      <groupId>com.google.code.findbugs</groupId>
+      <artifactId>jsr305</artifactId>
+    </dependency>
+  </dependencies>
+</project>
