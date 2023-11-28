@@ -143,7 +143,7 @@ osv-scanner --experimental-license path/to/repository`
 
 ### License violations
 
-To set an allowed license list and see the details of packages that do not conform, run the following:
+To set an allowed license list and see the details of packages that do not conform, use the `--experimental-license` flag:
 
 ```bash
 osv-scanner --experimental-license="comma separated list of allowed licenses" path/to/directory
