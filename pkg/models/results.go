@@ -15,12 +15,7 @@ type VulnerabilityResults struct {
 // ExperimentalAnalysisConfig is an experimental type intended to contain the
 // types of analysis performed on packages found by the scanner.
 type ExperimentalAnalysisConfig struct {
-	CallAnalysis ExperimentalCallAnalysisConfig `json:"call_analysis"`
-	Licenses     ExperimentalLicenseConfig      `json:"licenses"`
-}
-
-type ExperimentalCallAnalysisConfig struct {
-	Enabled bool `json:"enabled"`
+	Licenses ExperimentalLicenseConfig `json:"licenses"`
 }
 
 type ExperimentalLicenseConfig struct {

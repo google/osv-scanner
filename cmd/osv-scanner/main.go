@@ -99,13 +99,21 @@ func run(args []string, stdout, stderr io.Writer) int {
 			},
 			&cli.BoolFlag{
 				Name:  "experimental-call-analysis",
-				Usage: "attempt call analysis on code to detect only active vulnerabilities",
+				Usage: "[Deprecated] attempt call analysis on code to detect only active vulnerabilities",
 				Value: false,
 			},
 			&cli.BoolFlag{
 				Name:  "no-ignore",
 				Usage: "also scan files that would be ignored by .gitignore",
 				Value: false,
+			},
+			&cli.StringSliceFlag{
+				Name:  "call-analysis",
+				Usage: "attempt call analysis on code to detect only active vulnerabilities",
+			},
+			&cli.StringSliceFlag{
+				Name:  "no-call-analysis",
+				Usage: "disables call graph analysis",
 			},
 			&cli.BoolFlag{
 				Name:  "experimental-local-db",
@@ -159,6 +167,14 @@ func run(args []string, stdout, stderr io.Writer) int {
 				return err
 			}
 
+			var callAnalysisStates map[string]bool
+			if context.IsSet("experimental-call-analysis") {
+				callAnalysisStates = createCallAnalysisStates([]string{"all"}, context.StringSlice("no-call-analysis"))
+				r.PrintText("Warning: the experimental-call-analysis flag has been replaced. Please use the call-analysis and no-call-analysis flags instead.\n")
+			} else {
+				callAnalysisStates = createCallAnalysisStates(context.StringSlice("call-analysis"), context.StringSlice("no-call-analysis"))
+			}
+
 			vulnResult, err := osvscanner.DoScan(osvscanner.ScannerActions{
 				LockfilePaths:        context.StringSlice("lockfile"),
 				SBOMPaths:            context.StringSlice("sbom"),
@@ -168,9 +184,9 @@ func run(args []string, stdout, stderr io.Writer) int {
 				NoIgnore:             context.Bool("no-ignore"),
 				ConfigOverridePath:   context.String("config"),
 				DirectoryPaths:       context.Args().Slice(),
+				CallAnalysisStates:   callAnalysisStates,
 				ExperimentalScannerActions: osvscanner.ExperimentalScannerActions{
 					LocalDBPath:           context.String("experimental-local-db-path"),
-					CallAnalysis:          context.Bool("experimental-call-analysis"),
 					CompareLocally:        context.Bool("experimental-local-db"),
 					CompareOffline:        context.Bool("experimental-offline"),
 					ShowAllPackages:       context.Bool("experimental-all-packages"),
