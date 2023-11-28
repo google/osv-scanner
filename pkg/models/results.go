@@ -74,10 +74,8 @@ type VulnerabilityFlattened struct {
 }
 
 type SourceInfo struct {
-	Path  string       `json:"path"`
-	Type  string       `json:"type"`
-	Start FilePosition `json:"start"`
-	End   FilePosition `json:"end"`
+	Path string `json:"path"`
+	Type string `json:"type"`
 }
 
 type Metadata struct {
@@ -169,8 +167,10 @@ type AnalysisInfo struct {
 
 // Specific package information
 type PackageInfo struct {
-	Name      string `json:"name"`
-	Version   string `json:"version"`
-	Ecosystem string `json:"ecosystem"`
-	Commit    string `json:"commit"`
+	Name      string       `json:"name"`
+	Version   string       `json:"version"`
+	Ecosystem string       `json:"ecosystem"`
+	Commit    string       `json:"commit"`
+	Start     FilePosition `json:"start"`
+	End       FilePosition `json:"end"`
 }
