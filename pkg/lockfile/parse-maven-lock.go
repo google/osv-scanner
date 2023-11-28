@@ -165,13 +165,13 @@ func (e MavenLockExtractor) mergeLockfiles(childLockfile *MavenLockFile, parentL
 	return parentLockfile
 }
 
-func (e MavenLockExtractor) enrichDependencies(f DepFile, lockfile *MavenLockFile) {
-	for _, dependency := range lockfile.Dependencies.Dependencies {
+func (e MavenLockExtractor) enrichDependencies(f DepFile, dependencies []MavenLockDependency) MavenLockDependencyHolder {
+	result := make([]MavenLockDependency, len(dependencies))
+	for index, dependency := range dependencies {
 		dependency.SourceFile = f.Path()
+		result[index] = dependency
 	}
-	for _, dependency := range lockfile.ManagedDependencies.Dependencies {
-		dependency.SourceFile = f.Path()
-	}
+	return MavenLockDependencyHolder{Dependencies: result}
 }
 
 func (e MavenLockExtractor) decodeMavenFile(f DepFile) (*MavenLockFile, error) {
@@ -182,7 +182,8 @@ func (e MavenLockExtractor) decodeMavenFile(f DepFile) (*MavenLockFile, error) {
 	if err != nil {
 		return nil, err
 	}
-	e.enrichDependencies(f, parsedLockfile)
+	parsedLockfile.Dependencies = e.enrichDependencies(f, parsedLockfile.Dependencies.Dependencies)
+	parsedLockfile.ManagedDependencies = e.enrichDependencies(f, parsedLockfile.ManagedDependencies.Dependencies)
 	if len(parsedLockfile.Parent) == 0 {
 		return parsedLockfile, nil
 	}
@@ -197,10 +198,11 @@ func (e MavenLockExtractor) decodeMavenFile(f DepFile) (*MavenLockFile, error) {
 	if parentErr != nil {
 		return nil, parentErr
 	}
-	e.enrichDependencies(f, parentLockfile)
+	parentLockfile.Dependencies = e.enrichDependencies(parentFile, parentLockfile.Dependencies.Dependencies)
+	parentLockfile.ManagedDependencies = e.enrichDependencies(parentFile, parentLockfile.ManagedDependencies.Dependencies)
 
 	// Once everything is decoded and enriched, merge them together
-	return e.mergeLockfiles(parentLockfile, parentLockfile), nil
+	return e.mergeLockfiles(parsedLockfile, parentLockfile), nil
 }
 
 func (e MavenLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
