@@ -99,13 +99,21 @@ func run(args []string, stdout, stderr io.Writer) int {
 			},
 			&cli.BoolFlag{
 				Name:  "experimental-call-analysis",
-				Usage: "attempt call analysis on code to detect only active vulnerabilities",
+				Usage: "[Deprecated] attempt call analysis on code to detect only active vulnerabilities",
 				Value: false,
 			},
 			&cli.BoolFlag{
 				Name:  "no-ignore",
 				Usage: "also scan files that would be ignored by .gitignore",
 				Value: false,
+			},
+			&cli.StringSliceFlag{
+				Name:  "call-analysis",
+				Usage: "attempt call analysis on code to detect only active vulnerabilities",
+			},
+			&cli.StringSliceFlag{
+				Name:  "no-call-analysis",
+				Usage: "disables call graph analysis",
 			},
 			&cli.BoolFlag{
 				Name:  "experimental-local-db",
@@ -174,6 +182,14 @@ func run(args []string, stdout, stderr io.Writer) int {
 				return err
 			}
 
+			var callAnalysisStates map[string]bool
+			if context.IsSet("experimental-call-analysis") {
+				callAnalysisStates = createCallAnalysisStates([]string{"all"}, context.StringSlice("no-call-analysis"))
+				r.PrintText("Warning: the experimental-call-analysis flag has been replaced. Please use the call-analysis and no-call-analysis flags instead.\n")
+			} else {
+				callAnalysisStates = createCallAnalysisStates(context.StringSlice("call-analysis"), context.StringSlice("no-call-analysis"))
+			}
+
 			vulnResult, err := osvscanner.DoScan(osvscanner.ScannerActions{
 				LockfilePaths:        context.StringSlice("lockfile"),
 				SBOMPaths:            context.StringSlice("sbom"),
@@ -183,9 +199,9 @@ func run(args []string, stdout, stderr io.Writer) int {
 				NoIgnore:             context.Bool("no-ignore"),
 				ConfigOverridePath:   context.String("config"),
 				DirectoryPaths:       context.Args().Slice(),
+				CallAnalysisStates:   callAnalysisStates,
 				ExperimentalScannerActions: osvscanner.ExperimentalScannerActions{
 					LocalDBPath:    context.String("experimental-local-db-path"),
-					CallAnalysis:   context.Bool("experimental-call-analysis"),
 					CompareLocally: context.Bool("experimental-local-db"),
 					CompareOffline: context.Bool("experimental-offline"),
 					// License summary mode causes all
@@ -199,16 +215,10 @@ func run(args []string, stdout, stderr io.Writer) int {
 				},
 			}, r)
 
-			issueResultErr := errors.Join(
-				osvscanner.VulnerabilitiesFoundErr,
-				osvscanner.OnlyUncalledVulnerabilitiesFoundErr,
-				osvscanner.LicenseViolationsErr,
-				osvscanner.VulnerabilitiesFoundAndLicenseViolationsErr,
-				osvscanner.OnlyUncalledVulnerabilitiesFoundAndLicenseViolationsErr,
-			)
-			if err != nil && !errors.Is(issueResultErr, err) {
+			if err != nil && !errors.Is(err, osvscanner.VulnerabilitiesFoundErr) {
 				return err
 			}
+
 			if errPrint := r.PrintResult(&vulnResult); errPrint != nil {
 				return fmt.Errorf("failed to write output: %w", errPrint)
 			}
@@ -224,17 +234,7 @@ func run(args []string, stdout, stderr io.Writer) int {
 		}
 		switch {
 		case errors.Is(err, osvscanner.VulnerabilitiesFoundErr):
-			return 0b0001 // 1
-		case errors.Is(err, osvscanner.OnlyUncalledVulnerabilitiesFoundErr):
-			// TODO: Discuss whether to have a different exit code
-			// now that running call analysis is not default.
-			return 0b0010 // 2
-		case errors.Is(err, osvscanner.LicenseViolationsErr):
-			return 0b0100 // 4
-		case errors.Is(err, osvscanner.VulnerabilitiesFoundAndLicenseViolationsErr):
-			return 0b0101 // 5
-		case errors.Is(err, osvscanner.OnlyUncalledVulnerabilitiesFoundAndLicenseViolationsErr):
-			return 0b0110 // 6
+			return 1
 		case errors.Is(err, osvscanner.NoPackagesFoundErr):
 			r.PrintError("No package sources found, --help for usage information.\n")
 			return 128
