@@ -13,6 +13,7 @@ func KnownEcosystems() []Ecosystem {
 		PipEcosystem,
 		PubEcosystem,
 		ConanEcosystem,
+		CRANEcosystem,
 		// Disabled temporarily,
 		// see https://github.com/google/osv-scanner/pull/128 discussion for additional context
 		// AlpineEcosystem,

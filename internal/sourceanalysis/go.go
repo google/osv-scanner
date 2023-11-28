@@ -7,6 +7,7 @@ import (
 	"fmt"
 	"io"
 	"os"
+	"os/exec"
 	"path/filepath"
 
 	"github.com/google/osv-scanner/internal/sourceanalysis/govulncheck"
@@ -17,6 +18,13 @@ import (
 )
 
 func goAnalysis(r reporter.Reporter, pkgs []models.PackageVulns, source models.SourceInfo) {
+	cmd := exec.Command("go", "version")
+	_, err := cmd.Output()
+	if err != nil {
+		r.PrintText("Skipping call analysis on Go code since Go is not installed.\n")
+		return
+	}
+
 	vulns, vulnsByID := vulnsFromAllPkgs(pkgs)
 	res, err := runGovulncheck(filepath.Dir(source.Path), vulns)
 	if err != nil {

@@ -48,6 +48,7 @@ func TestFindExtractor(t *testing.T) {
 		"poetry.lock":                 "poetry.lock",
 		"pom.xml":                     "pom.xml",
 		"pubspec.lock":                "pubspec.lock",
+		"renv.lock":                   "renv.lock",
 		"requirements.txt":            "requirements.txt",
 		"yarn.lock":                   "yarn.lock",
 	}
@@ -98,6 +99,7 @@ func TestExtractDeps_FindsExpectedExtractor(t *testing.T) {
 		"poetry.lock",
 		"pom.xml",
 		"pubspec.lock",
+		"renv.lock",
 		"requirements.txt",
 		"yarn.lock",
 	}

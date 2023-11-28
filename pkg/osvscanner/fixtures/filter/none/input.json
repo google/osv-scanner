@@ -149,6 +149,10 @@
               "ids": [
                 "GHSA-mc8h-8q98-g5hr",
                 "RUSTSEC-2023-0018"
+              ],
+              "aliases": [
+                "GHSA-mc8h-8q98-g5hr",
+                "RUSTSEC-2023-0018"
               ]
             }
           ]
@@ -391,6 +395,10 @@
           "groups": [
             {
               "ids": [
+                "GHSA-wcg3-cvx6-7396",
+                "RUSTSEC-2020-0071"
+              ],
+              "aliases": [
                 "GHSA-wcg3-cvx6-7396",
                 "RUSTSEC-2020-0071"
               ]
@@ -867,15 +875,26 @@
               "ids": [
                 "GHSA-fxg5-wq6x-vr4w",
                 "GO-2023-1495"
+              ],
+              "aliases": [
+                "GHSA-fxg5-wq6x-vr4w",
+                "GO-2023-1495"
               ]
             },
             {
               "ids": [
                 "GO-2022-1144"
+              ],
+              "aliases": [
+                "GO-2022-1144"
               ]
             },
             {
               "ids": [
+                "GHSA-vvpx-j8f3-3w6h",
+                "GO-2023-1571"
+              ],
+              "aliases": [
                 "GHSA-vvpx-j8f3-3w6h",
                 "GO-2023-1571"
               ]
@@ -1021,11 +1040,17 @@
             {
               "ids": [
                 "GHSA-mrrw-grhq-86gf"
+              ],
+              "aliases": [
+                "GHSA-mrrw-grhq-86gf"
               ]
             },
             {
               "ids": [
                 "RUSTSEC-2023-0015"
+              ],
+              "aliases": [
+                "RUSTSEC-2023-0015"    
               ]
             }
           ]
@@ -1171,6 +1196,10 @@
           "groups": [
             {
               "ids": [
+                "GHSA-mc8h-8q98-g5hr",
+                "RUSTSEC-2023-0018"
+              ],
+              "aliases": [
                 "GHSA-mc8h-8q98-g5hr",
                 "RUSTSEC-2023-0018"
               ]
@@ -1415,6 +1444,10 @@
           "groups": [
             {
               "ids": [
+                "GHSA-wcg3-cvx6-7396",
+                "RUSTSEC-2020-0071"
+              ],
+              "aliases": [
                 "GHSA-wcg3-cvx6-7396",
                 "RUSTSEC-2020-0071"
               ]

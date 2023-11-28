@@ -39,12 +39,12 @@ type ScannerActions struct {
 	NoIgnore             bool
 	DockerContainerNames []string
 	ConfigOverridePath   string
+	CallAnalysisStates   map[string]bool
 
 	ExperimentalScannerActions
 }
 
 type ExperimentalScannerActions struct {
-	CallAnalysis          bool
 	CompareLocally        bool
 	CompareOffline        bool
 	ShowAllPackages       bool
@@ -59,20 +59,16 @@ type ExperimentalScannerActions struct {
 //nolint:errname,stylecheck // Would require version major bump to change
 var NoPackagesFoundErr = errors.New("no packages found in scan")
 
+// VulnerabilitiesFoundErr includes both vulnerabilities being found or license violations being found,
+// however, will not be raised if only uncalled vulnerabilities are found.
+//
 //nolint:errname,stylecheck // Would require version major bump to change
 var VulnerabilitiesFoundErr = errors.New("vulnerabilities found")
 
+// Deprecated: This error is no longer returned, check the results to determine if this is the case
+//
 //nolint:errname,stylecheck // Would require version bump to change
 var OnlyUncalledVulnerabilitiesFoundErr = errors.New("only uncalled vulnerabilities found")
-
-//nolint:errname,stylecheck // Would require version bump to change
-var LicenseViolationsErr = errors.New("license violations found")
-
-//nolint:errname,stylecheck // Would require version bump to change
-var VulnerabilitiesFoundAndLicenseViolationsErr = errors.New("vulnerabilities found and license violations found")
-
-//nolint:errname,stylecheck // Would require version bump to change
-var OnlyUncalledVulnerabilitiesFoundAndLicenseViolationsErr = errors.New("only uncalled vulnerabilities found and license violations found")
 
 var (
 	vendoredLibNames = map[string]struct{}{
@@ -639,20 +635,20 @@ func filterPackageVulns(r reporter.Reporter, pkgVulns models.PackageVulns, confi
 	var newGroups []models.GroupInfo
 	for _, group := range pkgVulns.Groups {
 		ignore := false
-		for _, id := range group.IDs {
+		for _, id := range group.Aliases {
 			var ignoreLine config.IgnoreEntry
 			if ignore, ignoreLine = configToUse.ShouldIgnore(id); ignore {
-				for _, id := range group.IDs {
+				for _, id := range group.Aliases {
 					ignoredVulns[id] = struct{}{}
 				}
 				// NB: This only prints the first reason encountered in all the aliases.
-				switch len(group.IDs) {
+				switch len(group.Aliases) {
 				case 1:
 					r.PrintText(fmt.Sprintf("%s has been filtered out because: %s\n", ignoreLine.ID, ignoreLine.Reason))
 				case 2:
 					r.PrintText(fmt.Sprintf("%s and 1 alias have been filtered out because: %s\n", ignoreLine.ID, ignoreLine.Reason))
 				default:
-					r.PrintText(fmt.Sprintf("%s and %d aliases have been filtered out because: %s\n", ignoreLine.ID, len(group.IDs)-1, ignoreLine.Reason))
+					r.PrintText(fmt.Sprintf("%s and %d aliases have been filtered out because: %s\n", ignoreLine.ID, len(group.Aliases)-1, ignoreLine.Reason))
 				}
 
 				break
@@ -796,7 +792,8 @@ func DoScan(actions ScannerActions, r reporter.Reporter) (models.VulnerabilityRe
 			return models.VulnerabilityResults{}, err
 		}
 	}
-	results := buildVulnerabilityResults(r, filteredScannedPackages, vulnsResp, licensesResp, actions.CallAnalysis, actions.ShowAllPackages, actions.ScanLicenses, actions.ScanLicensesAllowlist)
+
+	results := buildVulnerabilityResults(r, filteredScannedPackages, vulnsResp, licensesResp, actions.CallAnalysisStates, actions.ShowAllPackages, actions.ScanLicenses, actions.ScanLicensesAllowlist)
 
 	filtered := filterResults(r, &results, &configManager, actions.ShowAllPackages)
 	if filtered > 0 {
@@ -827,25 +824,11 @@ func DoScan(actions ScannerActions, r reporter.Reporter) (models.VulnerabilityRe
 		}
 		onlyUncalledVuln = onlyUncalledVuln && vuln
 
-		switch {
-		case !vuln && !onlyUncalledVuln && !licenseViolation:
+		if (!vuln || onlyUncalledVuln) && !licenseViolation {
 			// There is no error.
 			return results, nil
-		case vuln && !onlyUncalledVuln && !licenseViolation:
+		} else {
 			return results, VulnerabilitiesFoundErr
-		case !vuln && onlyUncalledVuln && !licenseViolation:
-			// Impossible state.
-			panic("internal error: uncalled vulnerabilities exist but no vulnerabilities exist")
-		case vuln && onlyUncalledVuln && !licenseViolation:
-			return results, OnlyUncalledVulnerabilitiesFoundErr
-		case !vuln && !onlyUncalledVuln && licenseViolation:
-			return results, LicenseViolationsErr
-		case vuln && !onlyUncalledVuln && licenseViolation:
-			return results, VulnerabilitiesFoundAndLicenseViolationsErr
-		case !vuln && onlyUncalledVuln && licenseViolation:
-			panic("internal error: uncalled vulnerabilities exist but no vulnerabilities exist")
-		case vuln && onlyUncalledVuln && licenseViolation:
-			return results, OnlyUncalledVulnerabilitiesFoundAndLicenseViolationsErr
 		}
 	}
 
