@@ -10,6 +10,8 @@ import (
 	"path/filepath"
 )
 
+const MAX_PARENT_DEPTH = 10
+
 type MavenLockDependency struct {
 	XMLName    xml.Name `xml:"dependency"`
 	GroupID    string   `xml:"groupId"`
@@ -176,9 +178,11 @@ func (e MavenLockExtractor) enrichDependencies(f DepFile, dependencies []MavenLo
 	return MavenLockDependencyHolder{Dependencies: result}
 }
 
-func (e MavenLockExtractor) decodeMavenFile(f DepFile) (*MavenLockFile, error) {
+func (e MavenLockExtractor) decodeMavenFile(f DepFile, depth int) (*MavenLockFile, error) {
 	var parsedLockfile *MavenLockFile
-
+	if depth >= MAX_PARENT_DEPTH {
+		return nil, fmt.Errorf("maven file decoding reached the max depth (%d/%d), check for a circular dependency", depth, MAX_PARENT_DEPTH)
+	}
 	// Decoding the original lockfile and enrich its dependencies
 	err := xml.NewDecoder(f).Decode(&parsedLockfile)
 	if err != nil {
@@ -196,7 +200,7 @@ func (e MavenLockExtractor) decodeMavenFile(f DepFile) (*MavenLockFile, error) {
 	if err != nil {
 		return nil, err
 	}
-	parentLockfile, parentErr := e.decodeMavenFile(parentFile)
+	parentLockfile, parentErr := e.decodeMavenFile(parentFile, depth+1)
 	if parentErr != nil {
 		return nil, parentErr
 	}
@@ -208,7 +212,7 @@ func (e MavenLockExtractor) decodeMavenFile(f DepFile) (*MavenLockFile, error) {
 }
 
 func (e MavenLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
-	parsedLockfile, err := e.decodeMavenFile(f)
+	parsedLockfile, err := e.decodeMavenFile(f, 0)
 	if err != nil {
 		return []PackageDetails{}, fmt.Errorf("could not extract from %s: %w", f.Path(), err)
 	}
