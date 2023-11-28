@@ -112,9 +112,7 @@ func (e RequirementsTxtExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 func parseRequirementsTxt(f DepFile, requiredAlready map[string]struct{}) ([]PackageDetails, error) {
 	packages := map[string]PackageDetails{}
 
-	last := strings.LastIndex(f.Path(), "/")
-	group := strings.TrimSuffix(f.Path()[last+1:], ".txt")
-
+	group := strings.TrimSuffix(filepath.Base(f.Path()), filepath.Ext(f.Path()))
 	hasGroup := func(groups []string) bool {
 		for _, g := range groups {
 			if g == group {
