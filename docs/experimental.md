@@ -138,7 +138,7 @@ OSV-Scanner supports license checking as an experimental feature. The data comes
 If you want a summary of your dependencies licenses, run the following command:
 
 ```bash
-osv-scanner --experimental-license path/to/repository`
+osv-scanner --experimental-license-summary path/to/repository`
 ```
 
 ### License violations
