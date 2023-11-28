@@ -148,7 +148,7 @@ To set an allowed license list and see the details of packages that do not confo
 ```bash
 osv-scanner --experimental-license="comma separated list of allowed licenses" path/to/directory
 ```
-Include your allowed licenses as a comma separated list. OSV-Scanner recognizes licenses in SPDX format. Please indicate your allowed licenses using [SPDX licenses](https://spdx.org/licenses/). 
+Include your allowed licenses as a comma separated list. OSV-Scanner recognizes licenses in SPDX format. Please indicate your allowed licenses using [SPDX license](https://spdx.org/licenses/) identifiers. 
 
 ### License violations example
 
