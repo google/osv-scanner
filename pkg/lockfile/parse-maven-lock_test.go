@@ -314,6 +314,71 @@ func TestMavenLock_WithParent(t *testing.T) {
 	})
 }
 
+func TestMavenLock_WithMultipleParents(t *testing.T) {
+	t.Parallel()
+
+	packages, err := lockfile.ParseMavenLock("fixtures/maven/children/with-multiple-parent.xml")
+
+	if err != nil {
+		t.Errorf("Got unexpected error: %v", err)
+	}
+
+	dir, err := os.Getwd()
+	if err != nil {
+		t.Errorf("Got unexpected error: %v", err)
+	}
+	rootPath := path.Join(dir, "fixtures/maven/parent.xml")
+	parentPath := path.Join(dir, "fixtures/maven/children/with-parent.xml")
+	childPath := path.Join(dir, "fixtures/maven/children/with-multiple-parent.xml")
+	expectPackages(t, packages, []lockfile.PackageDetails{
+		{
+			Name:       "com.google.code.findbugs:jsr305",
+			Version:    "3.0.2",
+			Ecosystem:  lockfile.MavenEcosystem,
+			CompareAs:  lockfile.MavenEcosystem,
+			Start:      models.FilePosition{Line: 16, Column: 7},
+			End:        models.FilePosition{Line: 20, Column: 20},
+			SourceFile: rootPath,
+		},
+		{
+			Name:       "io.netty:netty-all",
+			Version:    "4.1.42.Final",
+			Ecosystem:  lockfile.MavenEcosystem,
+			CompareAs:  lockfile.MavenEcosystem,
+			Start:      models.FilePosition{Line: 11, Column: 7},
+			End:        models.FilePosition{Line: 15, Column: 20},
+			SourceFile: rootPath,
+		},
+		{
+			Name:       "org.slf4j:slf4j-log4j12",
+			Version:    "1.7.25",
+			Ecosystem:  lockfile.MavenEcosystem,
+			CompareAs:  lockfile.MavenEcosystem,
+			Start:      models.FilePosition{Line: 18, Column: 5},
+			End:        models.FilePosition{Line: 22, Column: 18},
+			SourceFile: parentPath,
+		},
+		{
+			Name:       "org.mine:mypackage",
+			Version:    "1.0.0",
+			Ecosystem:  lockfile.MavenEcosystem,
+			CompareAs:  lockfile.MavenEcosystem,
+			Start:      models.FilePosition{Line: 23, Column: 5},
+			End:        models.FilePosition{Line: 27, Column: 18},
+			SourceFile: parentPath,
+		},
+		{
+			Name:       "org.mine:my.package",
+			Version:    "9.4.35.v20201120",
+			Ecosystem:  lockfile.MavenEcosystem,
+			CompareAs:  lockfile.MavenEcosystem,
+			Start:      models.FilePosition{Line: 14, Column: 5},
+			End:        models.FilePosition{Line: 18, Column: 18},
+			SourceFile: childPath,
+		},
+	})
+}
+
 func TestMavenLockDependency_ResolveVersion(t *testing.T) {
 	t.Parallel()
 

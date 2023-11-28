@@ -168,7 +168,9 @@ func (e MavenLockExtractor) mergeLockfiles(childLockfile *MavenLockFile, parentL
 func (e MavenLockExtractor) enrichDependencies(f DepFile, dependencies []MavenLockDependency) MavenLockDependencyHolder {
 	result := make([]MavenLockDependency, len(dependencies))
 	for index, dependency := range dependencies {
-		dependency.SourceFile = f.Path()
+		if len(dependency.SourceFile) == 0 {
+			dependency.SourceFile = f.Path()
+		}
 		result[index] = dependency
 	}
 	return MavenLockDependencyHolder{Dependencies: result}
