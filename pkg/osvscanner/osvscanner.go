@@ -49,7 +49,7 @@ type ExperimentalScannerActions struct {
 	CompareOffline        bool
 	ShowAllPackages       bool
 	ScanLicenses          bool
-	ParseOnly             bool
+	OnlyPackages          bool
 	ScanLicensesAllowlist []string
 
 	LocalDBPath string
@@ -381,8 +381,6 @@ func scanLockfile(r reporter.Reporter, path string, parseAs string) ([]scannedPa
 			Version:   pkgDetail.Version,
 			Commit:    pkgDetail.Commit,
 			Ecosystem: pkgDetail.Ecosystem,
-			Start:     pkgDetail.Start,
-			End:       pkgDetail.End,
 			Source: models.SourceInfo{
 				Path: path,
 				Type: "lockfile",
@@ -694,8 +692,6 @@ type scannedPackage struct {
 	Ecosystem lockfile.Ecosystem
 	Commit    string
 	Version   string
-	Start     models.FilePosition
-	End       models.FilePosition
 	Source    models.SourceInfo
 }
 
@@ -785,7 +781,7 @@ func DoScan(actions ScannerActions, r reporter.Reporter) (models.VulnerabilityRe
 		r.PrintText(fmt.Sprintf("Filtered %d local package/s from the scan.\n", len(scannedPackages)-len(filteredScannedPackages)))
 	}
 
-	if actions.ParseOnly {
+	if actions.OnlyPackages {
 		vulnerabilityResults := groupBySource(r, scannedPackages)
 
 		return vulnerabilityResults, nil
