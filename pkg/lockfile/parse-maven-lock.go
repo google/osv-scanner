@@ -6,6 +6,7 @@ import (
 	"github.com/google/osv-scanner/internal/cachedregexp"
 	"github.com/google/osv-scanner/pkg/models"
 	"os"
+	"path"
 	"path/filepath"
 )
 
@@ -16,6 +17,7 @@ type MavenLockDependency struct {
 	Version    string   `xml:"version"`
 	Start      models.FilePosition
 	End        models.FilePosition
+	SourceFile string
 }
 
 type MavenLockDependencyHolder struct {
@@ -143,28 +145,62 @@ func (e MavenLockExtractor) ShouldExtract(path string) bool {
 	return filepath.Base(path) == "pom.xml"
 }
 
-func (e MavenLockExtractor) mergeLockfiles(parsedLockfile *MavenLockFile, parentLockfile *MavenLockFile) {
+/**
+** This function merge a child lockfile into the parent one.
+** It copies all information originating from the child in it, overriding any common properties/dependencies
+**/
+func (e MavenLockExtractor) mergeLockfiles(childLockfile *MavenLockFile, parentLockfile *MavenLockFile) *MavenLockFile {
+	parentLockfile.Parent = childLockfile.Parent
+	parentLockfile.ArtifactID = childLockfile.ArtifactID
+	parentLockfile.GroupID = childLockfile.GroupID
+	parentLockfile.ModelVersion = childLockfile.ModelVersion
 
+	// Child properties take precedence over parent defined ones
+	for key, value := range childLockfile.Properties.m {
+		parentLockfile.Properties.m[key] = value
+	}
+	// We add child dependency at the end, this way they will override the parent ones during transformation to a map
+	parentLockfile.Dependencies.Dependencies = append(parentLockfile.Dependencies.Dependencies, childLockfile.Dependencies.Dependencies...)
+	parentLockfile.ManagedDependencies.Dependencies = append(parentLockfile.ManagedDependencies.Dependencies, childLockfile.ManagedDependencies.Dependencies...)
+	return parentLockfile
+}
+
+func (e MavenLockExtractor) enrichDependencies(f DepFile, lockfile *MavenLockFile) {
+	for _, dependency := range lockfile.Dependencies.Dependencies {
+		dependency.SourceFile = f.Path()
+	}
+	for _, dependency := range lockfile.ManagedDependencies.Dependencies {
+		dependency.SourceFile = f.Path()
+	}
 }
 
 func (e MavenLockExtractor) decodeMavenFile(f DepFile) (*MavenLockFile, error) {
 	var parsedLockfile *MavenLockFile
 
+	// Decoding the original lockfile and enrich its dependencies
 	err := xml.NewDecoder(f).Decode(&parsedLockfile)
 	if err != nil {
 		return nil, err
 	}
-	if len(parsedLockfile.Parent) > 0 {
-		parentFile, err := OpenLocalDepFile(parsedLockfile.Parent)
-		if err != nil {
-			parentLockfile, parentErr := e.decodeMavenFile(parentFile)
-			if parentErr != nil {
-				return nil, parentErr
-			}
-			e.mergeLockfiles(parentLockfile, parentLockfile)
-		}
+	e.enrichDependencies(f, parsedLockfile)
+	if len(parsedLockfile.Parent) == 0 {
+		return parsedLockfile, nil
 	}
-	return parsedLockfile, nil
+
+	// If a parent file is defined, use its relative path to find the file, then recurse to decode it properly and enrich its dependencies
+	parentPath := path.Join(path.Dir(f.Path()), parsedLockfile.Parent)
+	parentFile, err := OpenLocalDepFile(parentPath)
+	if err != nil {
+		return nil, err
+	}
+	parentLockfile, parentErr := e.decodeMavenFile(parentFile)
+	if parentErr != nil {
+		return nil, parentErr
+	}
+	e.enrichDependencies(f, parentLockfile)
+
+	// Once everything is decoded and enriched, merge them together
+	return e.mergeLockfiles(parentLockfile, parentLockfile), nil
 }
 
 func (e MavenLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
@@ -179,12 +215,13 @@ func (e MavenLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 		finalName := lockPackage.GroupID + ":" + lockPackage.ArtifactID
 
 		details[finalName] = PackageDetails{
-			Name:      finalName,
-			Version:   lockPackage.ResolveVersion(*parsedLockfile),
-			Ecosystem: MavenEcosystem,
-			CompareAs: MavenEcosystem,
-			Start:     lockPackage.Start,
-			End:       lockPackage.End,
+			Name:       finalName,
+			Version:    lockPackage.ResolveVersion(*parsedLockfile),
+			Ecosystem:  MavenEcosystem,
+			CompareAs:  MavenEcosystem,
+			Start:      lockPackage.Start,
+			End:        lockPackage.End,
+			SourceFile: lockPackage.SourceFile,
 		}
 	}
 
@@ -193,12 +230,13 @@ func (e MavenLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 		finalName := lockPackage.GroupID + ":" + lockPackage.ArtifactID
 
 		details[finalName] = PackageDetails{
-			Name:      finalName,
-			Version:   lockPackage.ResolveVersion(*parsedLockfile),
-			Ecosystem: MavenEcosystem,
-			CompareAs: MavenEcosystem,
-			Start:     lockPackage.Start,
-			End:       lockPackage.End,
+			Name:       finalName,
+			Version:    lockPackage.ResolveVersion(*parsedLockfile),
+			Ecosystem:  MavenEcosystem,
+			CompareAs:  MavenEcosystem,
+			Start:      lockPackage.Start,
+			End:        lockPackage.End,
+			SourceFile: lockPackage.SourceFile,
 		}
 	}
 
