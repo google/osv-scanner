@@ -380,11 +380,11 @@ func scanLockfile(r reporter.Reporter, path string, parseAs string) ([]scannedPa
 			Version:   pkgDetail.Version,
 			Commit:    pkgDetail.Commit,
 			Ecosystem: pkgDetail.Ecosystem,
+			Start:     pkgDetail.Start,
+			End:       pkgDetail.End,
 			Source: models.SourceInfo{
-				Path:  path,
-				Type:  "lockfile",
-				Start: pkgDetail.Start,
-				End:   pkgDetail.End,
+				Path: path,
+				Type: "lockfile",
 			},
 		}
 	}
@@ -693,6 +693,8 @@ type scannedPackage struct {
 	Ecosystem lockfile.Ecosystem
 	Commit    string
 	Version   string
+	Start     models.FilePosition
+	End       models.FilePosition
 	Source    models.SourceInfo
 }
 
