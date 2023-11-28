@@ -66,6 +66,7 @@ func (mld MavenLockDependency) ResolveVersion(lockfile MavenLockFile) string {
 
 type MavenLockFile struct {
 	XMLName             xml.Name                  `xml:"project"`
+	Parent              string                    `xml:"parent>relativePath"`
 	ModelVersion        string                    `xml:"modelVersion"`
 	GroupID             string                    `xml:"groupId"`
 	ArtifactID          string                    `xml:"artifactId"`
@@ -142,11 +143,32 @@ func (e MavenLockExtractor) ShouldExtract(path string) bool {
 	return filepath.Base(path) == "pom.xml"
 }
 
-func (e MavenLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
+func (e MavenLockExtractor) mergeLockfiles(parsedLockfile *MavenLockFile, parentLockfile *MavenLockFile) {
+
+}
+
+func (e MavenLockExtractor) decodeMavenFile(f DepFile) (*MavenLockFile, error) {
 	var parsedLockfile *MavenLockFile
 
 	err := xml.NewDecoder(f).Decode(&parsedLockfile)
+	if err != nil {
+		return nil, err
+	}
+	if len(parsedLockfile.Parent) > 0 {
+		parentFile, err := OpenLocalDepFile(parsedLockfile.Parent)
+		if err != nil {
+			parentLockfile, parentErr := e.decodeMavenFile(parentFile)
+			if parentErr != nil {
+				return nil, parentErr
+			}
+			e.mergeLockfiles(parentLockfile, parentLockfile)
+		}
+	}
+	return parsedLockfile, nil
+}
 
+func (e MavenLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
+	parsedLockfile, err := e.decodeMavenFile(f)
 	if err != nil {
 		return []PackageDetails{}, fmt.Errorf("could not extract from %s: %w", f.Path(), err)
 	}
