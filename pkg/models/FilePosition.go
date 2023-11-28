@@ -1,6 +1,6 @@
 package models
 
 type FilePosition struct {
-	Line   int
-	Column int
+	Line   int `json:"line"`
+	Column int `json:"column"`
 }
