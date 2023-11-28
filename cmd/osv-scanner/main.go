@@ -132,9 +132,13 @@ func run(args []string, stdout, stderr io.Writer) int {
 				Name:  "experimental-all-packages",
 				Usage: "when json output is selected, prints all packages",
 			},
+			&cli.BoolFlag{
+				Name:  "experimental-licenses-summary",
+				Usage: "report a license summary, implying the --experimental-all-packages flag",
+			},
 			&cli.StringSliceFlag{
 				Name:  "experimental-licenses",
-				Usage: "report on licenses",
+				Usage: "report on licenses based on an allowlist",
 			},
 		},
 		ArgsUsage: "[directory1 directory2...]",
@@ -163,6 +167,17 @@ func run(args []string, stdout, stderr io.Writer) int {
 				}
 			}
 
+			if context.Bool("experimental-licenses-summary") && context.IsSet("experimental-licenses") {
+				return fmt.Errorf("--experimental-licenses-summary and --experimental-licenses flags cannot be set")
+			}
+			allowlist := context.StringSlice("experimental-licenses")
+			if context.IsSet("experimental-licenses") &&
+				(len(allowlist) == 0 ||
+					(len(allowlist) == 1 && allowlist[0] == "")) {
+				return fmt.Errorf("--experimental-licenses requires at least one value")
+			}
+			// TODO: verify that the licenses they passed in are indeed spdx.
+
 			if r, err = reporter.New(format, stdout, stderr, termWidth); err != nil {
 				return err
 			}
@@ -186,11 +201,16 @@ func run(args []string, stdout, stderr io.Writer) int {
 				DirectoryPaths:       context.Args().Slice(),
 				CallAnalysisStates:   callAnalysisStates,
 				ExperimentalScannerActions: osvscanner.ExperimentalScannerActions{
-					LocalDBPath:           context.String("experimental-local-db-path"),
-					CompareLocally:        context.Bool("experimental-local-db"),
-					CompareOffline:        context.Bool("experimental-offline"),
-					ShowAllPackages:       context.Bool("experimental-all-packages"),
-					ScanLicenses:          context.IsSet("experimental-licenses"),
+					LocalDBPath:    context.String("experimental-local-db-path"),
+					CompareLocally: context.Bool("experimental-local-db"),
+					CompareOffline: context.Bool("experimental-offline"),
+					// License summary mode causes all
+					// packages to appear in the json as
+					// every package has a license - even
+					// if it's just the UNKNOWN license.
+					ShowAllPackages: context.Bool("experimental-all-packages") ||
+						context.Bool("experimental-licenses-summary"),
+					ScanLicensesSummary:   context.Bool("experimental-licenses-summary"),
 					ScanLicensesAllowlist: context.StringSlice("experimental-licenses"),
 				},
 			}, r)

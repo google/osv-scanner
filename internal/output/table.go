@@ -173,14 +173,13 @@ func MaxSeverity(group models.GroupInfo, pkg models.PackageVulns) string {
 
 func licenseTableBuilder(outputTable table.Writer, vulnResult *models.VulnerabilityResults) table.Writer {
 	licenseConfig := vulnResult.ExperimentalAnalysisConfig.Licenses
-	if !licenseConfig.Enabled {
+	if licenseConfig.Summary {
+		return licenseSummaryTableBuilder(outputTable, vulnResult)
+	} else if len(licenseConfig.Allowlist) > 0 {
+		return licenseViolationsTableBuilder(outputTable, vulnResult)
+	} else {
 		return outputTable
 	}
-	if len(licenseConfig.Allowlist) == 0 {
-		return licenseSummaryTableBuilder(outputTable, vulnResult)
-	}
-
-	return licenseViolationsTableBuilder(outputTable, vulnResult)
 }
 
 func licenseSummaryTableBuilder(outputTable table.Writer, vulnResult *models.VulnerabilityResults) table.Writer {
