@@ -356,8 +356,7 @@ func TestRun(t *testing.T) {
 							"enabled": false
 						},
 						"licenses": {
-							"enabled": false,
-							"summary_mode": false,
+							"summary": false,
 							"allowlist": null
 						}
 					}
@@ -380,8 +379,7 @@ func TestRun(t *testing.T) {
 							"enabled": false
 						},
 						"licenses": {
-							"enabled": false,
-							"summary_mode": false,
+							"summary": false,
 							"allowlist": null
 						}
 					}
@@ -1071,8 +1069,7 @@ func TestRun_LocalDatabases(t *testing.T) {
 							"enabled": false
 						},
 						"licenses": {
-							"enabled": false,
-							"summary_mode": false,
+							"summary": false,
 							"allowlist": null
 						}
 					}
@@ -1096,8 +1093,7 @@ func TestRun_LocalDatabases(t *testing.T) {
 							"enabled": false
 						},
 						"licenses": {
-							"enabled": false,
-							"summary_mode": false,
+							"summary": false,
 							"allowlist": null
 						}
 					}
@@ -1306,8 +1302,7 @@ Filtered 2 vulnerabilities from output
 						"enabled": false
 					},
 					"licenses": {
-						"enabled": true,
-						"summary_mode": false,
+						"summary": false,
 						"allowlist": [
 							"MIT"
 						]
@@ -1355,8 +1350,7 @@ Filtered 2 vulnerabilities from output
 						"enabled": false
 					},
 					"licenses": {
-						"enabled": true,
-						"summary_mode": false,
+						"summary": false,
 						"allowlist": [
 							"MIT"
 						]
@@ -1423,8 +1417,7 @@ Filtered 2 vulnerabilities from output
 						"enabled": false
 					},
 					"licenses": {
-						"enabled": true,
-						"summary_mode": false,
+						"summary": false,
 						"allowlist": [
 							"MIT",
 							"Apache-2.0"
@@ -1492,8 +1485,7 @@ Filtered 2 vulnerabilities from output
 						"enabled": false
 					},
 					"licenses": {
-						"enabled": true,
-						"summary_mode": true,
+						"summary": true,
 						"allowlist": []
 					}
 				}
