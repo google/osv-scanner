@@ -376,13 +376,19 @@ func scanLockfile(r reporter.Reporter, path string, parseAs string) ([]scannedPa
 
 	packages := make([]scannedPackage, len(parsedLockfile.Packages))
 	for i, pkgDetail := range parsedLockfile.Packages {
+		var sourcePath string
+		if len(pkgDetail.SourceFile) > 0 {
+			sourcePath = pkgDetail.SourceFile
+		} else {
+			sourcePath = path
+		}
 		packages[i] = scannedPackage{
 			Name:      pkgDetail.Name,
 			Version:   pkgDetail.Version,
 			Commit:    pkgDetail.Commit,
 			Ecosystem: pkgDetail.Ecosystem,
 			Source: models.SourceInfo{
-				Path: path,
+				Path: sourcePath,
 				Type: "lockfile",
 			},
 		}

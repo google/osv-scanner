@@ -1,0 +1,20 @@
+<project>
+  <properties>
+    <mavenVersion>3.0</mavenVersion>
+  </properties>
+
+  <parent>
+    <groupId>com.mycompany.app</groupId>
+    <artifactId>my-app</artifactId>
+    <version>1</version>
+    <relativePath>./with-parent.xml</relativePath>
+  </parent>
+
+  <dependencies>
+    <dependency>
+      <groupId>org.mine</groupId>
+      <artifactId>my.package</artifactId>
+      <version>${version-range}</version>
+    </dependency>
+  </dependencies>
+</project>
