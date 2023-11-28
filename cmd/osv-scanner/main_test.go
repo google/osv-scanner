@@ -1271,8 +1271,7 @@ Filtered 2 vulnerabilities from output
 									"end": {
 										"line": 0,
 										"column": 0
-									},
-									"source_file": ""
+									}
 								},
 								"licenses": [
 									"MIT"
@@ -1291,8 +1290,7 @@ Filtered 2 vulnerabilities from output
 									"end": {
 										"line": 0,
 										"column": 0
-									},
-									"source_file": ""
+									}
 								},
 								"licenses": [
 									"Apache-2.0"
@@ -1314,8 +1312,7 @@ Filtered 2 vulnerabilities from output
 									"end": {
 										"line": 0,
 										"column": 0
-									},
-									"source_file": ""
+									}
 								},
 								"licenses": [
 									"MIT"
@@ -1368,8 +1365,7 @@ Filtered 2 vulnerabilities from output
 									"end": {
 										"line": 0,
 										"column": 0
-									},
-									"source_file": ""
+									}
 								},
 								"licenses": [
 									"Apache-2.0"
@@ -1425,8 +1421,7 @@ Filtered 2 vulnerabilities from output
 									"end": {
 										"line": 0,
 										"column": 0
-									},
-									"source_file": ""
+									}
 								},
 								"licenses": [
 									"MIT"
@@ -1445,8 +1440,7 @@ Filtered 2 vulnerabilities from output
 									"end": {
 										"line": 0,
 										"column": 0
-									},
-									"source_file": ""
+									}
 								},
 								"licenses": [
 									"Apache-2.0"
@@ -1465,8 +1459,7 @@ Filtered 2 vulnerabilities from output
 									"end": {
 										"line": 0,
 										"column": 0
-									},
-									"source_file": ""
+									}
 								},
 								"licenses": [
 									"MIT"
