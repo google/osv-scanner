@@ -391,6 +391,8 @@ func scanLockfile(r reporter.Reporter, path string, parseAs string) ([]scannedPa
 				Path: sourcePath,
 				Type: "lockfile",
 			},
+			Start: pkgDetail.Start,
+			End:   pkgDetail.End,
 		}
 	}
 

@@ -128,6 +128,10 @@ func run(args []string, stdout, stderr io.Writer) int {
 				Name:  "experimental-licenses",
 				Usage: "report on licenses",
 			},
+			&cli.BoolFlag{
+				Name:  "experimental-only-packages",
+				Usage: "only collects packages, does not scan for vulnerabilities",
+			},
 		},
 		ArgsUsage: "[directory1 directory2...]",
 		Action: func(context *cli.Context) error {
@@ -176,6 +180,7 @@ func run(args []string, stdout, stderr io.Writer) int {
 					ShowAllPackages:       context.Bool("experimental-all-packages"),
 					ScanLicenses:          context.IsSet("experimental-licenses"),
 					ScanLicensesAllowlist: context.StringSlice("experimental-licenses"),
+					OnlyPackages:          context.Bool("experimental-only-packages"),
 				},
 			}, r)
 
