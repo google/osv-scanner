@@ -164,6 +164,9 @@ OSV-Scanner uses the [`govulncheck`](https://pkg.go.dev/golang.org/x/vuln/cmd/go
 
 ### Call analysis in Rust
 
+Experimental {: .label }
+Call analysis in Rust is still considered experimental. 
+
 OSV-Scanner compiles Rust source code and analyzes the output binary's DWARF debug information to identify called vulnerable functions.
 
 #### Additional Dependencies
