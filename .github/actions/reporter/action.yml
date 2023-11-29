@@ -2,12 +2,13 @@
 name: 'osv-scanner-reporter'
 description: 'Specialized reporting of scanner results for github actions'
 inputs:
-  scan-args:
-    description: 'Arguments to osv-scanner, separated by new line'
-    required: true
+  report-args:
+    description: 'Arguments to osv-reporter, separated by new line'
+    default: |-
+      --new=results.json
 runs:
   using: 'docker'
-  image: '../../action.dockerfile'
+  image: '../../../action.dockerfile'
   entrypoint: /root/osv-reporter
   args:
-    - '${{ inputs.scan-args }}'
+    - '${{ inputs.report-args }}'

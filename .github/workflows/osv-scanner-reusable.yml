@@ -67,7 +67,7 @@ jobs:
       - name: "Run osv-scanner-reporter"
         uses: DataDog/osv-scanner/actions/reporter@staging
         with:
-          scan-args: |-
+          report-args: |-
             --output=${{ inputs.results-file-name }}
             --new=results.json
             --gh-annotations=false
