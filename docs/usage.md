@@ -145,3 +145,43 @@ OSV-Scanner's C/C++ support is based on commit-level data. OSV's commit-level da
 ### Vendored dependencies
 
 Vendored dependencies have been directly copied into the project folder, but do not retain their Git histories. OSV-Scanner uses OSV's [determineversion API](https://google.github.io/osv.dev/post-v1-determineversion/) to estimate each dependency's version (and associated Git commit). Vulnerabilities for the estimated version are returned. This process requires no additional work from the user. Run OSV-Scanner as you normally would. 
+
+## Scanning with call analysis
+
+Call stack analysis can be performed on some languages to check if the 
+vulnerable code is actually being executed by your project. If the code
+is not being executed, these vulnerabilities will be marked as unexecuted.
+
+To enable call analysis in all languages, call OSV-Scanner with the `--call-analysis=all` flag. By default, call analysis in Go is enabled, but you can disable it using the `--no-call-analysis=go` flag.
+
+### Call analysis in Go
+
+OSV-Scanner uses the `govulncheck` library to analyze Go source code to identify called vulnerable functions.
+
+#### Additional Dependencies
+
+`go` compiler needs to be installed and available on `PATH`
+
+### Call analysis in Rust
+
+OSV-Scanner compiles Rust source code and analyzes the output binary's DWARF debug information to identify called vulnerable functions.
+
+#### Additional Dependencies
+
+Rust toolchain (including `cargo`) that can compile the source code being scanned needs to be installed and available on `PATH`.
+
+The installed Rust toolchain must be capable of compiling every crate/target in the scanned code, for code with
+a lot of dependencies this will take a few minutes.
+
+### Limitations
+
+Current implementation has a few limitations:
+
+- Does not support dependencies on proc-macros (Tracked in [#464](https://github.com/google/osv-scanner/issues/464))
+- Does not support any dependencies that are dynamically linked
+- Does not support dependencies that link external non-rust code
+
+### Example
+```bash
+osv-scanner --call-analysis=rust --no-call-analysis=go ./my/project/path
+```
