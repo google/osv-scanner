@@ -131,7 +131,7 @@ Set the location of your manually downloaded database by following the instructi
 
 ## License scanning
 
-OSV-Scanner supports license checking as an experimental feature. The data comes from the [deps.dev API](https://docs.deps.dev/api/v3alpha/).
+OSV-Scanner supports license checking as an experimental feature. The data comes from the [deps.dev API](https://docs.deps.dev/api/).
 
 ### License summary
 
