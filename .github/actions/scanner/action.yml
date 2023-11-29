@@ -7,6 +7,8 @@ inputs:
     default: |-
       --skip-git
       --recursive
+      --output=results.json
+      --format=json
       ./
 runs:
   using: 'docker'
