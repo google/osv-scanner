@@ -15,6 +15,10 @@ const PipEcosystem Ecosystem = "PyPI"
 //
 //	https://pip.pypa.io/en/stable/reference/requirements-file-format/#example
 func parseLine(line string) PackageDetails {
+	// Remove environment markers
+	// pre https://pip.pypa.io/en/stable/reference/requirement-specifiers/#overview
+	line = strings.Split(line, ";")[0]
+
 	var constraint string
 	name := line
 
@@ -43,6 +47,9 @@ func parseLine(line string) PackageDetails {
 		if constraint != "!=" {
 			version, _, _ = strings.Cut(strings.TrimSpace(unprocessedVersion), " ")
 		}
+	} else if strings.Contains(line, "@") {
+		unprocessedName, _, _ := strings.Cut(line, "@")
+		name = strings.TrimSpace(unprocessedName)
 	}
 
 	return PackageDetails{

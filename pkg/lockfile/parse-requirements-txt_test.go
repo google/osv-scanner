@@ -653,3 +653,53 @@ func TestParseRequirementsTxt_LineContinuation(t *testing.T) {
 		},
 	})
 }
+
+func TestParseRequirementsTxt_EnvironmentMarkers(t *testing.T) {
+	t.Parallel()
+
+	packages, err := lockfile.ParseRequirementsTxt("fixtures/pip/environment-markers.txt")
+
+	if err != nil {
+		t.Errorf("Got unexpected error: %v", err)
+	}
+
+	expectPackages(t, packages, []lockfile.PackageDetails{
+		{
+			Name:      "aa",
+			Version:   "0.0.0",
+			Ecosystem: lockfile.PipEcosystem,
+			CompareAs: lockfile.PipEcosystem,
+		},
+		{
+			Name:      "name6",
+			Version:   "0.0.0",
+			Ecosystem: lockfile.PipEcosystem,
+			CompareAs: lockfile.PipEcosystem,
+		},
+		{
+			Name:      "someproject",
+			Version:   "5.4",
+			Ecosystem: lockfile.PipEcosystem,
+			CompareAs: lockfile.PipEcosystem,
+		},
+	})
+}
+
+func TestParseRequirementsTxt_UrlPackages(t *testing.T) {
+	t.Parallel()
+
+	packages, err := lockfile.ParseRequirementsTxt("fixtures/pip/url-packages.txt")
+
+	if err != nil {
+		t.Errorf("Got unexpected error: %v", err)
+	}
+
+	expectPackages(t, packages, []lockfile.PackageDetails{
+		{
+			Name:      "pyroxy",
+			Version:   "0.0.0",
+			Ecosystem: lockfile.PipEcosystem,
+			CompareAs: lockfile.PipEcosystem,
+		},
+	})
+}

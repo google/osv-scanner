@@ -1,0 +1,3 @@
+aa; python_version=='2.7'
+name6[quux,strange];python_version<'2.7' and platform_version=='2'
+SomeProject==5.4; python_version < '2.7'
