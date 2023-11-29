@@ -20,6 +20,34 @@ nav_order: 8
 {: .note }
 Features and flags with the `experimental` prefix might change or be removed with only a minor version update.
 
+## Offline mode
+
+OSV-Scanner now supports offline scanning as an experimental feature. Offline scanning checks your project against a local database instead of calling the OSV.dev API.
+
+### Specify database location
+
+Our offline features require the use of a local database, the location of which is determined through the use of the `OSV_SCANNER_LOCAL_DB_CACHE_DIRECTORY` environment variable. 
+
+The local database file structure is in this form:
+
+```
+{local_db_dir}/
+  osv-scanner/
+    npm/all.zip
+    PyPI/all.zip
+    …
+    {ecosystem}/all.zip
+```
+
+Where `{local_db_dir}` can be set by the `OSV_SCANNER_LOCAL_DB_CACHE_DIRECTORY` environment variable. 
+
+If the `OSV_SCANNER_LOCAL_DB_CACHE_DIRECTORY` environment variable is _not_ set, OSV-Scanner will attempt to look for the database in the following locations, in this order: 
+
+1. The location returned by [`os.UserCacheDir`](https://pkg.go.dev/os#UserCacheDir)
+2. The location returned by [`os.TempDir`](https://pkg.go.dev/os#TempDir)
+
+The database can be [downloaded manually](./experimental.md#manual-database-download) or by using the [`--experimental-local-db` flag](./experimental.md#local-database-option). 
+
 ### Offline option
 The offline database flag `--experimental-offline` causes OSV-Scanner to scan your project against a previously downloaded local database. OSV-Scanner will not download or update the local database, nor will it send any project or dependency information anywhere. When a local database is not present, you will get an error message. No network connection is required when using this flag.  
 
