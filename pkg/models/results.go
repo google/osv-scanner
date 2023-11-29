@@ -19,7 +19,7 @@ type ExperimentalAnalysisConfig struct {
 }
 
 type ExperimentalLicenseConfig struct {
-	Enabled   bool      `json:"enabled"`
+	Summary   bool      `json:"summary"`
 	Allowlist []License `json:"allowlist"`
 }
 

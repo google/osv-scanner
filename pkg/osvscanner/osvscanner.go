@@ -48,7 +48,7 @@ type ExperimentalScannerActions struct {
 	CompareLocally        bool
 	CompareOffline        bool
 	ShowAllPackages       bool
-	ScanLicenses          bool
+	ScanLicensesSummary   bool
 	ScanLicensesAllowlist []string
 
 	LocalDBPath string
@@ -786,14 +786,13 @@ func DoScan(actions ScannerActions, r reporter.Reporter) (models.VulnerabilityRe
 	}
 
 	var licensesResp [][]models.License
-	if actions.ScanLicenses {
+	if len(actions.ScanLicensesAllowlist) > 0 || actions.ScanLicensesSummary {
 		licensesResp, err = makeLicensesRequests(filteredScannedPackages)
 		if err != nil {
 			return models.VulnerabilityResults{}, err
 		}
 	}
-
-	results := buildVulnerabilityResults(r, filteredScannedPackages, vulnsResp, licensesResp, actions.CallAnalysisStates, actions.ShowAllPackages, actions.ScanLicenses, actions.ScanLicensesAllowlist)
+	results := buildVulnerabilityResults(r, filteredScannedPackages, vulnsResp, licensesResp, actions)
 
 	filtered := filterResults(r, &results, &configManager, actions.ShowAllPackages)
 	if filtered > 0 {
@@ -823,6 +822,7 @@ func DoScan(actions ScannerActions, r reporter.Reporter) (models.VulnerabilityRe
 			}
 		}
 		onlyUncalledVuln = onlyUncalledVuln && vuln
+		licenseViolation = licenseViolation && len(actions.ScanLicensesAllowlist) > 0
 
 		if (!vuln || onlyUncalledVuln) && !licenseViolation {
 			// There is no error.
