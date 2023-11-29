@@ -135,7 +135,7 @@ OSV-Scanner supports license checking as an experimental feature. The data comes
 
 ### License summary
 
-If you want a summary of your dependencies licenses, use the `--experimental-license-summary` flag:
+If you want a summary of your dependencies licenses, use the `--experimental-licenses-summary` flag:
 
 ```bash
 osv-scanner --experimental-license-summary path/to/repository`
