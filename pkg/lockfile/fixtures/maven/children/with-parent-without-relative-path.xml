@@ -1,0 +1,33 @@
+<project>
+  <properties>
+    <mavenVersion>3.0</mavenVersion>
+  </properties>
+
+  <parent>
+    <groupId>com.mycompany.app</groupId>
+    <artifactId>my-app</artifactId>
+    <version>1</version>
+  </parent>
+
+  <dependencies>
+    <dependency>
+      <groupId>io.netty</groupId>
+      <artifactId>netty-all</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-log4j12</artifactId>
+      <version>1.7.25</version>
+    </dependency>
+    <dependency>
+      <groupId>org.mine</groupId>
+      <artifactId>mypackage</artifactId>
+      <version>${mypackageVersion}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.mine</groupId>
+      <artifactId>my.package</artifactId>
+      <version>${my.package.version}</version>
+    </dependency>
+  </dependencies>
+</project>
