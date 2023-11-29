@@ -156,7 +156,7 @@ To enable call analysis in all languages, call OSV-Scanner with the `--call-anal
 
 ### Call analysis in Go
 
-OSV-Scanner uses the `govulncheck` library to analyze Go source code to identify called vulnerable functions.
+OSV-Scanner uses the [`govulncheck`](https://pkg.go.dev/golang.org/x/vuln/cmd/govulncheck) library to analyze Go source code to identify called vulnerable functions.
 
 #### Additional Dependencies
 
