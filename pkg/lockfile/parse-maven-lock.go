@@ -22,6 +22,11 @@ type MavenLockDependency struct {
 	SourceFile string
 }
 
+type MavenLockParent struct {
+	XMLName      xml.Name `xml:"parent"`
+	RelativePath string   `xml:"relativePath"`
+}
+
 type MavenLockDependencyHolder struct {
 	Dependencies []MavenLockDependency `xml:"dependency"`
 }
@@ -70,7 +75,7 @@ func (mld MavenLockDependency) ResolveVersion(lockfile MavenLockFile) string {
 
 type MavenLockFile struct {
 	XMLName             xml.Name                  `xml:"project"`
-	Parent              string                    `xml:"parent>relativePath"`
+	Parent              MavenLockParent           `xml:"parent"`
 	ModelVersion        string                    `xml:"modelVersion"`
 	GroupID             string                    `xml:"groupId"`
 	ArtifactID          string                    `xml:"artifactId"`
@@ -190,12 +195,17 @@ func (e MavenLockExtractor) decodeMavenFile(f DepFile, depth int) (*MavenLockFil
 	}
 	parsedLockfile.Dependencies = e.enrichDependencies(f, parsedLockfile.Dependencies.Dependencies)
 	parsedLockfile.ManagedDependencies = e.enrichDependencies(f, parsedLockfile.ManagedDependencies.Dependencies)
-	if len(parsedLockfile.Parent) == 0 {
+	if parsedLockfile.Parent == (MavenLockParent{}) {
 		return parsedLockfile, nil
 	}
 
-	// If a parent file is defined, use its relative path to find the file, then recurse to decode it properly and enrich its dependencies
-	parentPath := path.Join(path.Dir(f.Path()), parsedLockfile.Parent)
+	// If a parent is defined, use its relative path to find the file, then recurse to decode it properly and enrich its dependencies
+	// If the relativePath is not defined, default to ../pom.xml
+	parentRelativePath := parsedLockfile.Parent.RelativePath
+	if len(parentRelativePath) == 0 {
+		parentRelativePath = "../pom.xml"
+	}
+	parentPath := path.Join(path.Dir(f.Path()), parentRelativePath)
 	parentFile, err := OpenLocalDepFile(parentPath)
 	if err != nil {
 		return nil, err
