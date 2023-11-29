@@ -76,6 +76,10 @@ func run(args []string, stdout, stderr io.Writer) int {
 				Name:  "gh-annotations",
 				Usage: "prints github action annotations",
 			},
+			&cli.BoolFlag{
+				Name:  "datadog-sbom",
+				Usage: "pushes sbom to datadog",
+			},
 		},
 		Action: func(context *cli.Context) error {
 			var termWidth int
@@ -138,6 +142,17 @@ func run(args []string, stdout, stderr io.Writer) int {
 				}
 
 				if errPrint := ghAnnotationsReporter.PrintResult(&diffVulns); errPrint != nil {
+					return fmt.Errorf("failed to write output: %w", errPrint)
+				}
+			}
+
+			if context.Bool("datadog-sbom") {
+				var datadogSbomReporter reporter.Reporter
+				if datadogSbomReporter, err = reporter.New("datadog-sbom", stdout, stderr, termWidth); err != nil {
+					return err
+				}
+
+				if errPrint := datadogSbomReporter.PrintResult(&diffVulns); errPrint != nil {
 					return fmt.Errorf("failed to write output: %w", errPrint)
 				}
 			}
