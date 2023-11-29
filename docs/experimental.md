@@ -161,5 +161,5 @@ If you wanted to allow the following licenses:
 Your command would be in this form:
 
 ```bash
-osv-scanner --experimental-license="BSD-3-Clause,Apache-2.0,MIT" path/to/directory
+osv-scanner --experimental-licenses="BSD-3-Clause,Apache-2.0,MIT" path/to/directory
 ```
