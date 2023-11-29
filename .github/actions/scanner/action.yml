@@ -12,6 +12,6 @@ inputs:
       ./
 runs:
   using: 'docker'
-  image: '../../action.dockerfile'
+  image: '../../../action.dockerfile'
   args:
     - ${{ inputs.scan-args }}

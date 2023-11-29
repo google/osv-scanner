@@ -8,7 +8,7 @@ inputs:
       --new=results.json
 runs:
   using: 'docker'
-  image: '../../action.dockerfile'
+  image: '../../../action.dockerfile'
   entrypoint: /root/osv-reporter
   args:
     - '${{ inputs.report-args }}'
