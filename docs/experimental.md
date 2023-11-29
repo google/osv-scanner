@@ -146,7 +146,7 @@ osv-scanner --experimental-licenses-summary path/to/repository`
 To set an allowed license list and see the details of packages that do not conform, use the `--experimental-license` flag:
 
 ```bash
-osv-scanner --experimental-license="comma separated list of allowed licenses" path/to/directory
+osv-scanner --experimental-licenses="comma-separated list of allowed licenses" path/to/directory
 ```
 Include your allowed licenses as a comma separated list. OSV-Scanner recognizes licenses in SPDX format. Please indicate your allowed licenses using [SPDX license](https://spdx.org/licenses/) identifiers. 
 
