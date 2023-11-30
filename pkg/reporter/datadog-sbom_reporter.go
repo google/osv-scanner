@@ -282,6 +282,8 @@ func getPackageURL(packageInfo models.PackageInfo) *packageurl.PackageURL {
 		purlType = packageurl.TypeNuget
 	case string(models.EcosystemNPM):
 		purlType = packageurl.TypeNPM
+	default:
+		return nil
 	}
 
 	return packageurl.NewPackageURL(purlType, namespace, name, version, nil, subpath)
