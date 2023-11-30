@@ -243,7 +243,6 @@ func getPackageURL(packageInfo models.PackageInfo) *packageurl.PackageURL {
 	var namespace string
 	name := packageInfo.Name
 	version := packageInfo.Version
-	var subpath string
 
 	switch packageInfo.Ecosystem {
 	case string(models.EcosystemMaven):
@@ -262,9 +261,8 @@ func getPackageURL(packageInfo models.PackageInfo) *packageurl.PackageURL {
 			return nil
 		}
 		purlType = packageurl.TypeGolang
-		namespace = nameParts[0]
-		name = nameParts[1]
-		subpath = strings.Join(nameParts[2:], "/")
+		namespace = strings.Join(nameParts[:len(nameParts)-1], "/")
+		name = nameParts[len(nameParts)-1]
 	case string(models.EcosystemPackagist):
 		nameParts := strings.Split(packageInfo.Name, "/")
 		if len(nameParts) != 2 {
@@ -286,7 +284,7 @@ func getPackageURL(packageInfo models.PackageInfo) *packageurl.PackageURL {
 		return nil
 	}
 
-	return packageurl.NewPackageURL(purlType, namespace, name, version, nil, subpath)
+	return packageurl.NewPackageURL(purlType, namespace, name, version, nil, "")
 }
 
 func getRepositoryURL() (string, error) {
