@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"github.com/golang/protobuf/proto"
 	"github.com/google/osv-scanner/pkg/models"
-	sbomproto "github.com/google/osv-scanner/pkg/reporter/proto"
+	sbomproto "github.com/google/osv-scanner/pkg/reporter/sbom"
 	"google.golang.org/protobuf/types/known/durationpb"
 	"google.golang.org/protobuf/types/known/timestamppb"
 	"io"
