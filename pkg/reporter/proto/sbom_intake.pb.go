@@ -60,11 +60,11 @@ func (x SBOMSourceType) String() string {
 }
 
 func (SBOMSourceType) Descriptor() protoreflect.EnumDescriptor {
-	return file_appsec_sbom_intake_proto_enumTypes[0].Descriptor()
+	return file_proto_sbom_intake_proto_enumTypes[0].Descriptor()
 }
 
 func (SBOMSourceType) Type() protoreflect.EnumType {
-	return &file_appsec_sbom_intake_proto_enumTypes[0]
+	return &file_proto_sbom_intake_proto_enumTypes[0]
 }
 
 func (x SBOMSourceType) Number() protoreflect.EnumNumber {
@@ -73,7 +73,7 @@ func (x SBOMSourceType) Number() protoreflect.EnumNumber {
 
 // Deprecated: Use SBOMSourceType.Descriptor instead.
 func (SBOMSourceType) EnumDescriptor() ([]byte, []int) {
-	return file_appsec_sbom_intake_proto_rawDescGZIP(), []int{0}
+	return file_proto_sbom_intake_proto_rawDescGZIP(), []int{0}
 }
 
 type SBOMStatus int32
@@ -109,11 +109,11 @@ func (x SBOMStatus) String() string {
 }
 
 func (SBOMStatus) Descriptor() protoreflect.EnumDescriptor {
-	return file_appsec_sbom_intake_proto_enumTypes[1].Descriptor()
+	return file_proto_sbom_intake_proto_enumTypes[1].Descriptor()
 }
 
 func (SBOMStatus) Type() protoreflect.EnumType {
-	return &file_appsec_sbom_intake_proto_enumTypes[1]
+	return &file_proto_sbom_intake_proto_enumTypes[1]
 }
 
 func (x SBOMStatus) Number() protoreflect.EnumNumber {
@@ -122,7 +122,7 @@ func (x SBOMStatus) Number() protoreflect.EnumNumber {
 
 // Deprecated: Use SBOMStatus.Descriptor instead.
 func (SBOMStatus) EnumDescriptor() ([]byte, []int) {
-	return file_appsec_sbom_intake_proto_rawDescGZIP(), []int{1}
+	return file_proto_sbom_intake_proto_rawDescGZIP(), []int{1}
 }
 
 // SBOMPayload represents the main SBOM payload
@@ -141,7 +141,7 @@ type SBOMPayload struct {
 func (x *SBOMPayload) Reset() {
 	*x = SBOMPayload{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_appsec_sbom_intake_proto_msgTypes[0]
+		mi := &file_proto_sbom_intake_proto_msgTypes[0]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -154,7 +154,7 @@ func (x *SBOMPayload) String() string {
 func (*SBOMPayload) ProtoMessage() {}
 
 func (x *SBOMPayload) ProtoReflect() protoreflect.Message {
-	mi := &file_appsec_sbom_intake_proto_msgTypes[0]
+	mi := &file_proto_sbom_intake_proto_msgTypes[0]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -167,7 +167,7 @@ func (x *SBOMPayload) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use SBOMPayload.ProtoReflect.Descriptor instead.
 func (*SBOMPayload) Descriptor() ([]byte, []int) {
-	return file_appsec_sbom_intake_proto_rawDescGZIP(), []int{0}
+	return file_proto_sbom_intake_proto_rawDescGZIP(), []int{0}
 }
 
 func (x *SBOMPayload) GetVersion() int32 {
@@ -210,7 +210,7 @@ type SBOMEntity struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Type               SBOMSourceType       `protobuf:"varint,1,opt,name=type,proto3,enum=appsecpb.SBOMSourceType" json:"type,omitempty"`
+	Type               SBOMSourceType       `protobuf:"varint,1,opt,name=type,proto3,enum=sbomproto.SBOMSourceType" json:"type,omitempty"`
 	Id                 string               `protobuf:"bytes,2,opt,name=id,proto3" json:"id,omitempty"`                                       // Unique identifier to be able to correlated and "deduplicate" SBOM
 	GeneratedAt        *timestamp.Timestamp `protobuf:"bytes,3,opt,name=generatedAt,proto3,oneof" json:"generatedAt,omitempty"`               // the datetime of the SBOM generation
 	RepoTags           []string             `protobuf:"bytes,4,rep,name=repo_tags,json=repoTags,proto3" json:"repo_tags,omitempty"`           // the tags of the container image
@@ -224,13 +224,13 @@ type SBOMEntity struct {
 	//	*SBOMEntity_Cyclonedx
 	//	*SBOMEntity_Error
 	Sbom   isSBOMEntity_Sbom `protobuf_oneof:"sbom"`
-	Status SBOMStatus        `protobuf:"varint,11,opt,name=status,proto3,enum=appsecpb.SBOMStatus" json:"status,omitempty"`
+	Status SBOMStatus        `protobuf:"varint,11,opt,name=status,proto3,enum=sbomproto.SBOMStatus" json:"status,omitempty"`
 }
 
 func (x *SBOMEntity) Reset() {
 	*x = SBOMEntity{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_appsec_sbom_intake_proto_msgTypes[1]
+		mi := &file_proto_sbom_intake_proto_msgTypes[1]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -243,7 +243,7 @@ func (x *SBOMEntity) String() string {
 func (*SBOMEntity) ProtoMessage() {}
 
 func (x *SBOMEntity) ProtoReflect() protoreflect.Message {
-	mi := &file_appsec_sbom_intake_proto_msgTypes[1]
+	mi := &file_proto_sbom_intake_proto_msgTypes[1]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -256,7 +256,7 @@ func (x *SBOMEntity) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use SBOMEntity.ProtoReflect.Descriptor instead.
 func (*SBOMEntity) Descriptor() ([]byte, []int) {
-	return file_appsec_sbom_intake_proto_rawDescGZIP(), []int{1}
+	return file_proto_sbom_intake_proto_rawDescGZIP(), []int{1}
 }
 
 func (x *SBOMEntity) GetType() SBOMSourceType {
@@ -367,9 +367,9 @@ func (*SBOMEntity_Cyclonedx) isSBOMEntity_Sbom() {}
 
 func (*SBOMEntity_Error) isSBOMEntity_Sbom() {}
 
-var File_appsec_sbom_intake_proto protoreflect.FileDescriptor
+var file_proto_sbom_intake_proto protoreflect.FileDescriptor
 
-var file_appsec_sbom_intake_proto_rawDesc = []byte{
+var file_proto_sbom_intake_proto_rawDesc = []byte{
 	0x0a, 0x18, 0x61, 0x70, 0x70, 0x73, 0x65, 0x63, 0x2f, 0x73, 0x62, 0x6f, 0x6d, 0x5f, 0x69, 0x6e,
 	0x74, 0x61, 0x6b, 0x65, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x12, 0x08, 0x61, 0x70, 0x70, 0x73,
 	0x65, 0x63, 0x70, 0x62, 0x1a, 0x1e, 0x67, 0x6f, 0x6f, 0x67, 0x6c, 0x65, 0x2f, 0x70, 0x72, 0x6f,
@@ -443,35 +443,35 @@ var file_appsec_sbom_intake_proto_rawDesc = []byte{
 }
 
 var (
-	file_appsec_sbom_intake_proto_rawDescOnce sync.Once
-	file_appsec_sbom_intake_proto_rawDescData = file_appsec_sbom_intake_proto_rawDesc
+	file_proto_sbom_intake_proto_rawDescOnce sync.Once
+	file_proto_sbom_intake_proto_rawDescData = file_proto_sbom_intake_proto_rawDesc
 )
 
-func file_appsec_sbom_intake_proto_rawDescGZIP() []byte {
-	file_appsec_sbom_intake_proto_rawDescOnce.Do(func() {
-		file_appsec_sbom_intake_proto_rawDescData = protoimpl.X.CompressGZIP(file_appsec_sbom_intake_proto_rawDescData)
+func file_proto_sbom_intake_proto_rawDescGZIP() []byte {
+	file_proto_sbom_intake_proto_rawDescOnce.Do(func() {
+		file_proto_sbom_intake_proto_rawDescData = protoimpl.X.CompressGZIP(file_proto_sbom_intake_proto_rawDescData)
 	})
-	return file_appsec_sbom_intake_proto_rawDescData
+	return file_proto_sbom_intake_proto_rawDescData
 }
 
-var file_appsec_sbom_intake_proto_enumTypes = make([]protoimpl.EnumInfo, 2)
-var file_appsec_sbom_intake_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
-var file_appsec_sbom_intake_proto_goTypes = []interface{}{
-	(SBOMSourceType)(0),         // 0: appsecpb.SBOMSourceType
-	(SBOMStatus)(0),             // 1: appsecpb.SBOMStatus
-	(*SBOMPayload)(nil),         // 2: appsecpb.SBOMPayload
-	(*SBOMEntity)(nil),          // 3: appsecpb.SBOMEntity
+var file_proto_sbom_intake_proto_enumTypes = make([]protoimpl.EnumInfo, 2)
+var file_proto_sbom_intake_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
+var file_proto_sbom_intake_proto_goTypes = []interface{}{
+	(SBOMSourceType)(0),         // 0: sbomproto.SBOMSourceType
+	(SBOMStatus)(0),             // 1: sbomproto.SBOMStatus
+	(*SBOMPayload)(nil),         // 2: sbomproto.SBOMPayload
+	(*SBOMEntity)(nil),          // 3: sbomproto.SBOMEntity
 	(*timestamp.Timestamp)(nil), // 4: google.protobuf.Timestamp
 	(*duration.Duration)(nil),   // 5: google.protobuf.Duration
 	(*Bom)(nil),                 // 6: v1_4.Bom
 }
-var file_appsec_sbom_intake_proto_depIdxs = []int32{
-	3, // 0: appsecpb.SBOMPayload.entities:type_name -> appsecpb.SBOMEntity
-	0, // 1: appsecpb.SBOMEntity.type:type_name -> appsecpb.SBOMSourceType
-	4, // 2: appsecpb.SBOMEntity.generatedAt:type_name -> google.protobuf.Timestamp
-	5, // 3: appsecpb.SBOMEntity.generationDuration:type_name -> google.protobuf.Duration
-	6, // 4: appsecpb.SBOMEntity.cyclonedx:type_name -> v1_4.Bom
-	1, // 5: appsecpb.SBOMEntity.status:type_name -> appsecpb.SBOMStatus
+var file_proto_sbom_intake_proto_depIdxs = []int32{
+	3, // 0: sbomproto.SBOMPayload.entities:type_name -> sbomproto.SBOMEntity
+	0, // 1: sbomproto.SBOMEntity.type:type_name -> sbomproto.SBOMSourceType
+	4, // 2: sbomproto.SBOMEntity.generatedAt:type_name -> google.protobuf.Timestamp
+	5, // 3: sbomproto.SBOMEntity.generationDuration:type_name -> google.protobuf.Duration
+	6, // 4: sbomproto.SBOMEntity.cyclonedx:type_name -> v1_4.Bom
+	1, // 5: sbomproto.SBOMEntity.status:type_name -> sbomproto.SBOMStatus
 	6, // [6:6] is the sub-list for method output_type
 	6, // [6:6] is the sub-list for method input_type
 	6, // [6:6] is the sub-list for extension type_name
@@ -479,13 +479,13 @@ var file_appsec_sbom_intake_proto_depIdxs = []int32{
 	0, // [0:6] is the sub-list for field type_name
 }
 
-func init() { file_appsec_sbom_intake_proto_init() }
-func file_appsec_sbom_intake_proto_init() {
-	if File_appsec_sbom_intake_proto != nil {
+func init() { file_proto_sbom_intake_proto_init() }
+func file_proto_sbom_intake_proto_init() {
+	if file_proto_sbom_intake_proto != nil {
 		return
 	}
 	if !protoimpl.UnsafeEnabled {
-		file_appsec_sbom_intake_proto_msgTypes[0].Exporter = func(v interface{}, i int) interface{} {
+		file_proto_sbom_intake_proto_msgTypes[0].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*SBOMPayload); i {
 			case 0:
 				return &v.state
@@ -497,7 +497,7 @@ func file_appsec_sbom_intake_proto_init() {
 				return nil
 			}
 		}
-		file_appsec_sbom_intake_proto_msgTypes[1].Exporter = func(v interface{}, i int) interface{} {
+		file_proto_sbom_intake_proto_msgTypes[1].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*SBOMEntity); i {
 			case 0:
 				return &v.state
@@ -510,8 +510,8 @@ func file_appsec_sbom_intake_proto_init() {
 			}
 		}
 	}
-	file_appsec_sbom_intake_proto_msgTypes[0].OneofWrappers = []interface{}{}
-	file_appsec_sbom_intake_proto_msgTypes[1].OneofWrappers = []interface{}{
+	file_proto_sbom_intake_proto_msgTypes[0].OneofWrappers = []interface{}{}
+	file_proto_sbom_intake_proto_msgTypes[1].OneofWrappers = []interface{}{
 		(*SBOMEntity_Cyclonedx)(nil),
 		(*SBOMEntity_Error)(nil),
 	}
@@ -519,19 +519,19 @@ func file_appsec_sbom_intake_proto_init() {
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
-			RawDescriptor: file_appsec_sbom_intake_proto_rawDesc,
+			RawDescriptor: file_proto_sbom_intake_proto_rawDesc,
 			NumEnums:      2,
 			NumMessages:   2,
 			NumExtensions: 0,
 			NumServices:   0,
 		},
-		GoTypes:           file_appsec_sbom_intake_proto_goTypes,
-		DependencyIndexes: file_appsec_sbom_intake_proto_depIdxs,
-		EnumInfos:         file_appsec_sbom_intake_proto_enumTypes,
-		MessageInfos:      file_appsec_sbom_intake_proto_msgTypes,
+		GoTypes:           file_proto_sbom_intake_proto_goTypes,
+		DependencyIndexes: file_proto_sbom_intake_proto_depIdxs,
+		EnumInfos:         file_proto_sbom_intake_proto_enumTypes,
+		MessageInfos:      file_proto_sbom_intake_proto_msgTypes,
 	}.Build()
-	File_appsec_sbom_intake_proto = out.File
-	file_appsec_sbom_intake_proto_rawDesc = nil
-	file_appsec_sbom_intake_proto_goTypes = nil
-	file_appsec_sbom_intake_proto_depIdxs = nil
+	file_proto_sbom_intake_proto = out.File
+	file_proto_sbom_intake_proto_rawDesc = nil
+	file_proto_sbom_intake_proto_goTypes = nil
+	file_proto_sbom_intake_proto_depIdxs = nil
 }

@@ -76,11 +76,11 @@ func (x Classification) String() string {
 }
 
 func (Classification) Descriptor() protoreflect.EnumDescriptor {
-	return file_appsec_bom_1_4_proto_enumTypes[0].Descriptor()
+	return file_proto_bom_1_4_proto_enumTypes[0].Descriptor()
 }
 
 func (Classification) Type() protoreflect.EnumType {
-	return &file_appsec_bom_1_4_proto_enumTypes[0]
+	return &file_proto_bom_1_4_proto_enumTypes[0]
 }
 
 func (x Classification) Number() protoreflect.EnumNumber {
@@ -89,7 +89,7 @@ func (x Classification) Number() protoreflect.EnumNumber {
 
 // Deprecated: Use Classification.Descriptor instead.
 func (Classification) EnumDescriptor() ([]byte, []int) {
-	return file_appsec_bom_1_4_proto_rawDescGZIP(), []int{0}
+	return file_proto_bom_1_4_proto_rawDescGZIP(), []int{0}
 }
 
 // Specifies the flow direction of the data. Valid values are: inbound, outbound, bi-directional, and unknown. Direction is relative to the service. Inbound flow states that data enters the service. Outbound flow states that data leaves the service. Bi-directional states that data flows both ways, and unknown states that the direction is not known.
@@ -132,11 +132,11 @@ func (x DataFlow) String() string {
 }
 
 func (DataFlow) Descriptor() protoreflect.EnumDescriptor {
-	return file_appsec_bom_1_4_proto_enumTypes[1].Descriptor()
+	return file_proto_bom_1_4_proto_enumTypes[1].Descriptor()
 }
 
 func (DataFlow) Type() protoreflect.EnumType {
-	return &file_appsec_bom_1_4_proto_enumTypes[1]
+	return &file_proto_bom_1_4_proto_enumTypes[1]
 }
 
 func (x DataFlow) Number() protoreflect.EnumNumber {
@@ -145,7 +145,7 @@ func (x DataFlow) Number() protoreflect.EnumNumber {
 
 // Deprecated: Use DataFlow.Descriptor instead.
 func (DataFlow) EnumDescriptor() ([]byte, []int) {
-	return file_appsec_bom_1_4_proto_rawDescGZIP(), []int{1}
+	return file_proto_bom_1_4_proto_rawDescGZIP(), []int{1}
 }
 
 type ExternalReferenceType int32
@@ -232,11 +232,11 @@ func (x ExternalReferenceType) String() string {
 }
 
 func (ExternalReferenceType) Descriptor() protoreflect.EnumDescriptor {
-	return file_appsec_bom_1_4_proto_enumTypes[2].Descriptor()
+	return file_proto_bom_1_4_proto_enumTypes[2].Descriptor()
 }
 
 func (ExternalReferenceType) Type() protoreflect.EnumType {
-	return &file_appsec_bom_1_4_proto_enumTypes[2]
+	return &file_proto_bom_1_4_proto_enumTypes[2]
 }
 
 func (x ExternalReferenceType) Number() protoreflect.EnumNumber {
@@ -245,7 +245,7 @@ func (x ExternalReferenceType) Number() protoreflect.EnumNumber {
 
 // Deprecated: Use ExternalReferenceType.Descriptor instead.
 func (ExternalReferenceType) EnumDescriptor() ([]byte, []int) {
-	return file_appsec_bom_1_4_proto_rawDescGZIP(), []int{2}
+	return file_proto_bom_1_4_proto_rawDescGZIP(), []int{2}
 }
 
 type HashAlg int32
@@ -311,11 +311,11 @@ func (x HashAlg) String() string {
 }
 
 func (HashAlg) Descriptor() protoreflect.EnumDescriptor {
-	return file_appsec_bom_1_4_proto_enumTypes[3].Descriptor()
+	return file_proto_bom_1_4_proto_enumTypes[3].Descriptor()
 }
 
 func (HashAlg) Type() protoreflect.EnumType {
-	return &file_appsec_bom_1_4_proto_enumTypes[3]
+	return &file_proto_bom_1_4_proto_enumTypes[3]
 }
 
 func (x HashAlg) Number() protoreflect.EnumNumber {
@@ -324,7 +324,7 @@ func (x HashAlg) Number() protoreflect.EnumNumber {
 
 // Deprecated: Use HashAlg.Descriptor instead.
 func (HashAlg) EnumDescriptor() ([]byte, []int) {
-	return file_appsec_bom_1_4_proto_rawDescGZIP(), []int{3}
+	return file_proto_bom_1_4_proto_rawDescGZIP(), []int{3}
 }
 
 type IssueClassification int32
@@ -366,11 +366,11 @@ func (x IssueClassification) String() string {
 }
 
 func (IssueClassification) Descriptor() protoreflect.EnumDescriptor {
-	return file_appsec_bom_1_4_proto_enumTypes[4].Descriptor()
+	return file_proto_bom_1_4_proto_enumTypes[4].Descriptor()
 }
 
 func (IssueClassification) Type() protoreflect.EnumType {
-	return &file_appsec_bom_1_4_proto_enumTypes[4]
+	return &file_proto_bom_1_4_proto_enumTypes[4]
 }
 
 func (x IssueClassification) Number() protoreflect.EnumNumber {
@@ -379,7 +379,7 @@ func (x IssueClassification) Number() protoreflect.EnumNumber {
 
 // Deprecated: Use IssueClassification.Descriptor instead.
 func (IssueClassification) EnumDescriptor() ([]byte, []int) {
-	return file_appsec_bom_1_4_proto_rawDescGZIP(), []int{4}
+	return file_proto_bom_1_4_proto_rawDescGZIP(), []int{4}
 }
 
 type PatchClassification int32
@@ -425,11 +425,11 @@ func (x PatchClassification) String() string {
 }
 
 func (PatchClassification) Descriptor() protoreflect.EnumDescriptor {
-	return file_appsec_bom_1_4_proto_enumTypes[5].Descriptor()
+	return file_proto_bom_1_4_proto_enumTypes[5].Descriptor()
 }
 
 func (PatchClassification) Type() protoreflect.EnumType {
-	return &file_appsec_bom_1_4_proto_enumTypes[5]
+	return &file_proto_bom_1_4_proto_enumTypes[5]
 }
 
 func (x PatchClassification) Number() protoreflect.EnumNumber {
@@ -438,7 +438,7 @@ func (x PatchClassification) Number() protoreflect.EnumNumber {
 
 // Deprecated: Use PatchClassification.Descriptor instead.
 func (PatchClassification) EnumDescriptor() ([]byte, []int) {
-	return file_appsec_bom_1_4_proto_rawDescGZIP(), []int{5}
+	return file_proto_bom_1_4_proto_rawDescGZIP(), []int{5}
 }
 
 type Scope int32
@@ -481,11 +481,11 @@ func (x Scope) String() string {
 }
 
 func (Scope) Descriptor() protoreflect.EnumDescriptor {
-	return file_appsec_bom_1_4_proto_enumTypes[6].Descriptor()
+	return file_proto_bom_1_4_proto_enumTypes[6].Descriptor()
 }
 
 func (Scope) Type() protoreflect.EnumType {
-	return &file_appsec_bom_1_4_proto_enumTypes[6]
+	return &file_proto_bom_1_4_proto_enumTypes[6]
 }
 
 func (x Scope) Number() protoreflect.EnumNumber {
@@ -494,7 +494,7 @@ func (x Scope) Number() protoreflect.EnumNumber {
 
 // Deprecated: Use Scope.Descriptor instead.
 func (Scope) EnumDescriptor() ([]byte, []int) {
-	return file_appsec_bom_1_4_proto_rawDescGZIP(), []int{6}
+	return file_proto_bom_1_4_proto_rawDescGZIP(), []int{6}
 }
 
 type Aggregate int32
@@ -545,11 +545,11 @@ func (x Aggregate) String() string {
 }
 
 func (Aggregate) Descriptor() protoreflect.EnumDescriptor {
-	return file_appsec_bom_1_4_proto_enumTypes[7].Descriptor()
+	return file_proto_bom_1_4_proto_enumTypes[7].Descriptor()
 }
 
 func (Aggregate) Type() protoreflect.EnumType {
-	return &file_appsec_bom_1_4_proto_enumTypes[7]
+	return &file_proto_bom_1_4_proto_enumTypes[7]
 }
 
 func (x Aggregate) Number() protoreflect.EnumNumber {
@@ -558,7 +558,7 @@ func (x Aggregate) Number() protoreflect.EnumNumber {
 
 // Deprecated: Use Aggregate.Descriptor instead.
 func (Aggregate) EnumDescriptor() ([]byte, []int) {
-	return file_appsec_bom_1_4_proto_rawDescGZIP(), []int{7}
+	return file_proto_bom_1_4_proto_rawDescGZIP(), []int{7}
 }
 
 type Severity int32
@@ -606,11 +606,11 @@ func (x Severity) String() string {
 }
 
 func (Severity) Descriptor() protoreflect.EnumDescriptor {
-	return file_appsec_bom_1_4_proto_enumTypes[8].Descriptor()
+	return file_proto_bom_1_4_proto_enumTypes[8].Descriptor()
 }
 
 func (Severity) Type() protoreflect.EnumType {
-	return &file_appsec_bom_1_4_proto_enumTypes[8]
+	return &file_proto_bom_1_4_proto_enumTypes[8]
 }
 
 func (x Severity) Number() protoreflect.EnumNumber {
@@ -619,7 +619,7 @@ func (x Severity) Number() protoreflect.EnumNumber {
 
 // Deprecated: Use Severity.Descriptor instead.
 func (Severity) EnumDescriptor() ([]byte, []int) {
-	return file_appsec_bom_1_4_proto_rawDescGZIP(), []int{8}
+	return file_proto_bom_1_4_proto_rawDescGZIP(), []int{8}
 }
 
 type ScoreMethod int32
@@ -670,11 +670,11 @@ func (x ScoreMethod) String() string {
 }
 
 func (ScoreMethod) Descriptor() protoreflect.EnumDescriptor {
-	return file_appsec_bom_1_4_proto_enumTypes[9].Descriptor()
+	return file_proto_bom_1_4_proto_enumTypes[9].Descriptor()
 }
 
 func (ScoreMethod) Type() protoreflect.EnumType {
-	return &file_appsec_bom_1_4_proto_enumTypes[9]
+	return &file_proto_bom_1_4_proto_enumTypes[9]
 }
 
 func (x ScoreMethod) Number() protoreflect.EnumNumber {
@@ -683,7 +683,7 @@ func (x ScoreMethod) Number() protoreflect.EnumNumber {
 
 // Deprecated: Use ScoreMethod.Descriptor instead.
 func (ScoreMethod) EnumDescriptor() ([]byte, []int) {
-	return file_appsec_bom_1_4_proto_rawDescGZIP(), []int{9}
+	return file_proto_bom_1_4_proto_rawDescGZIP(), []int{9}
 }
 
 type ImpactAnalysisState int32
@@ -738,11 +738,11 @@ func (x ImpactAnalysisState) String() string {
 }
 
 func (ImpactAnalysisState) Descriptor() protoreflect.EnumDescriptor {
-	return file_appsec_bom_1_4_proto_enumTypes[10].Descriptor()
+	return file_proto_bom_1_4_proto_enumTypes[10].Descriptor()
 }
 
 func (ImpactAnalysisState) Type() protoreflect.EnumType {
-	return &file_appsec_bom_1_4_proto_enumTypes[10]
+	return &file_proto_bom_1_4_proto_enumTypes[10]
 }
 
 func (x ImpactAnalysisState) Number() protoreflect.EnumNumber {
@@ -751,7 +751,7 @@ func (x ImpactAnalysisState) Number() protoreflect.EnumNumber {
 
 // Deprecated: Use ImpactAnalysisState.Descriptor instead.
 func (ImpactAnalysisState) EnumDescriptor() ([]byte, []int) {
-	return file_appsec_bom_1_4_proto_rawDescGZIP(), []int{10}
+	return file_proto_bom_1_4_proto_rawDescGZIP(), []int{10}
 }
 
 type ImpactAnalysisJustification int32
@@ -818,11 +818,11 @@ func (x ImpactAnalysisJustification) String() string {
 }
 
 func (ImpactAnalysisJustification) Descriptor() protoreflect.EnumDescriptor {
-	return file_appsec_bom_1_4_proto_enumTypes[11].Descriptor()
+	return file_proto_bom_1_4_proto_enumTypes[11].Descriptor()
 }
 
 func (ImpactAnalysisJustification) Type() protoreflect.EnumType {
-	return &file_appsec_bom_1_4_proto_enumTypes[11]
+	return &file_proto_bom_1_4_proto_enumTypes[11]
 }
 
 func (x ImpactAnalysisJustification) Number() protoreflect.EnumNumber {
@@ -831,7 +831,7 @@ func (x ImpactAnalysisJustification) Number() protoreflect.EnumNumber {
 
 // Deprecated: Use ImpactAnalysisJustification.Descriptor instead.
 func (ImpactAnalysisJustification) EnumDescriptor() ([]byte, []int) {
-	return file_appsec_bom_1_4_proto_rawDescGZIP(), []int{11}
+	return file_proto_bom_1_4_proto_rawDescGZIP(), []int{11}
 }
 
 type VulnerabilityResponse int32
@@ -876,11 +876,11 @@ func (x VulnerabilityResponse) String() string {
 }
 
 func (VulnerabilityResponse) Descriptor() protoreflect.EnumDescriptor {
-	return file_appsec_bom_1_4_proto_enumTypes[12].Descriptor()
+	return file_proto_bom_1_4_proto_enumTypes[12].Descriptor()
 }
 
 func (VulnerabilityResponse) Type() protoreflect.EnumType {
-	return &file_appsec_bom_1_4_proto_enumTypes[12]
+	return &file_proto_bom_1_4_proto_enumTypes[12]
 }
 
 func (x VulnerabilityResponse) Number() protoreflect.EnumNumber {
@@ -889,7 +889,7 @@ func (x VulnerabilityResponse) Number() protoreflect.EnumNumber {
 
 // Deprecated: Use VulnerabilityResponse.Descriptor instead.
 func (VulnerabilityResponse) EnumDescriptor() ([]byte, []int) {
-	return file_appsec_bom_1_4_proto_rawDescGZIP(), []int{12}
+	return file_proto_bom_1_4_proto_rawDescGZIP(), []int{12}
 }
 
 type VulnerabilityAffectedStatus int32
@@ -926,11 +926,11 @@ func (x VulnerabilityAffectedStatus) String() string {
 }
 
 func (VulnerabilityAffectedStatus) Descriptor() protoreflect.EnumDescriptor {
-	return file_appsec_bom_1_4_proto_enumTypes[13].Descriptor()
+	return file_proto_bom_1_4_proto_enumTypes[13].Descriptor()
 }
 
 func (VulnerabilityAffectedStatus) Type() protoreflect.EnumType {
-	return &file_appsec_bom_1_4_proto_enumTypes[13]
+	return &file_proto_bom_1_4_proto_enumTypes[13]
 }
 
 func (x VulnerabilityAffectedStatus) Number() protoreflect.EnumNumber {
@@ -939,7 +939,7 @@ func (x VulnerabilityAffectedStatus) Number() protoreflect.EnumNumber {
 
 // Deprecated: Use VulnerabilityAffectedStatus.Descriptor instead.
 func (VulnerabilityAffectedStatus) EnumDescriptor() ([]byte, []int) {
-	return file_appsec_bom_1_4_proto_rawDescGZIP(), []int{13}
+	return file_proto_bom_1_4_proto_rawDescGZIP(), []int{13}
 }
 
 // Specifies attributes of the text
@@ -959,7 +959,7 @@ type AttachedText struct {
 func (x *AttachedText) Reset() {
 	*x = AttachedText{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_appsec_bom_1_4_proto_msgTypes[0]
+		mi := &file_proto_bom_1_4_proto_msgTypes[0]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -972,7 +972,7 @@ func (x *AttachedText) String() string {
 func (*AttachedText) ProtoMessage() {}
 
 func (x *AttachedText) ProtoReflect() protoreflect.Message {
-	mi := &file_appsec_bom_1_4_proto_msgTypes[0]
+	mi := &file_proto_bom_1_4_proto_msgTypes[0]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -985,7 +985,7 @@ func (x *AttachedText) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use AttachedText.ProtoReflect.Descriptor instead.
 func (*AttachedText) Descriptor() ([]byte, []int) {
-	return file_appsec_bom_1_4_proto_rawDescGZIP(), []int{0}
+	return file_proto_bom_1_4_proto_rawDescGZIP(), []int{0}
 }
 
 func (x *AttachedText) GetContentType() string {
@@ -1039,7 +1039,7 @@ type Bom struct {
 func (x *Bom) Reset() {
 	*x = Bom{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_appsec_bom_1_4_proto_msgTypes[1]
+		mi := &file_proto_bom_1_4_proto_msgTypes[1]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1052,7 +1052,7 @@ func (x *Bom) String() string {
 func (*Bom) ProtoMessage() {}
 
 func (x *Bom) ProtoReflect() protoreflect.Message {
-	mi := &file_appsec_bom_1_4_proto_msgTypes[1]
+	mi := &file_proto_bom_1_4_proto_msgTypes[1]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1065,7 +1065,7 @@ func (x *Bom) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Bom.ProtoReflect.Descriptor instead.
 func (*Bom) Descriptor() ([]byte, []int) {
-	return file_appsec_bom_1_4_proto_rawDescGZIP(), []int{1}
+	return file_proto_bom_1_4_proto_rawDescGZIP(), []int{1}
 }
 
 func (x *Bom) GetSpecVersion() string {
@@ -1158,7 +1158,7 @@ type Commit struct {
 func (x *Commit) Reset() {
 	*x = Commit{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_appsec_bom_1_4_proto_msgTypes[2]
+		mi := &file_proto_bom_1_4_proto_msgTypes[2]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1171,7 +1171,7 @@ func (x *Commit) String() string {
 func (*Commit) ProtoMessage() {}
 
 func (x *Commit) ProtoReflect() protoreflect.Message {
-	mi := &file_appsec_bom_1_4_proto_msgTypes[2]
+	mi := &file_proto_bom_1_4_proto_msgTypes[2]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1184,7 +1184,7 @@ func (x *Commit) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Commit.ProtoReflect.Descriptor instead.
 func (*Commit) Descriptor() ([]byte, []int) {
-	return file_appsec_bom_1_4_proto_rawDescGZIP(), []int{2}
+	return file_proto_bom_1_4_proto_rawDescGZIP(), []int{2}
 }
 
 func (x *Commit) GetUid() string {
@@ -1278,7 +1278,7 @@ type Component struct {
 func (x *Component) Reset() {
 	*x = Component{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_appsec_bom_1_4_proto_msgTypes[3]
+		mi := &file_proto_bom_1_4_proto_msgTypes[3]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1291,7 +1291,7 @@ func (x *Component) String() string {
 func (*Component) ProtoMessage() {}
 
 func (x *Component) ProtoReflect() protoreflect.Message {
-	mi := &file_appsec_bom_1_4_proto_msgTypes[3]
+	mi := &file_proto_bom_1_4_proto_msgTypes[3]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1304,7 +1304,7 @@ func (x *Component) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Component.ProtoReflect.Descriptor instead.
 func (*Component) Descriptor() ([]byte, []int) {
-	return file_appsec_bom_1_4_proto_rawDescGZIP(), []int{3}
+	return file_proto_bom_1_4_proto_rawDescGZIP(), []int{3}
 }
 
 func (x *Component) GetType() Classification {
@@ -1490,7 +1490,7 @@ type DataClassification struct {
 func (x *DataClassification) Reset() {
 	*x = DataClassification{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_appsec_bom_1_4_proto_msgTypes[4]
+		mi := &file_proto_bom_1_4_proto_msgTypes[4]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1503,7 +1503,7 @@ func (x *DataClassification) String() string {
 func (*DataClassification) ProtoMessage() {}
 
 func (x *DataClassification) ProtoReflect() protoreflect.Message {
-	mi := &file_appsec_bom_1_4_proto_msgTypes[4]
+	mi := &file_proto_bom_1_4_proto_msgTypes[4]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1516,7 +1516,7 @@ func (x *DataClassification) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DataClassification.ProtoReflect.Descriptor instead.
 func (*DataClassification) Descriptor() ([]byte, []int) {
-	return file_appsec_bom_1_4_proto_rawDescGZIP(), []int{4}
+	return file_proto_bom_1_4_proto_rawDescGZIP(), []int{4}
 }
 
 func (x *DataClassification) GetFlow() DataFlow {
@@ -1546,7 +1546,7 @@ type Dependency struct {
 func (x *Dependency) Reset() {
 	*x = Dependency{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_appsec_bom_1_4_proto_msgTypes[5]
+		mi := &file_proto_bom_1_4_proto_msgTypes[5]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1559,7 +1559,7 @@ func (x *Dependency) String() string {
 func (*Dependency) ProtoMessage() {}
 
 func (x *Dependency) ProtoReflect() protoreflect.Message {
-	mi := &file_appsec_bom_1_4_proto_msgTypes[5]
+	mi := &file_proto_bom_1_4_proto_msgTypes[5]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1572,7 +1572,7 @@ func (x *Dependency) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Dependency.ProtoReflect.Descriptor instead.
 func (*Dependency) Descriptor() ([]byte, []int) {
-	return file_appsec_bom_1_4_proto_rawDescGZIP(), []int{5}
+	return file_proto_bom_1_4_proto_rawDescGZIP(), []int{5}
 }
 
 func (x *Dependency) GetRef() string {
@@ -1603,7 +1603,7 @@ type Diff struct {
 func (x *Diff) Reset() {
 	*x = Diff{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_appsec_bom_1_4_proto_msgTypes[6]
+		mi := &file_proto_bom_1_4_proto_msgTypes[6]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1616,7 +1616,7 @@ func (x *Diff) String() string {
 func (*Diff) ProtoMessage() {}
 
 func (x *Diff) ProtoReflect() protoreflect.Message {
-	mi := &file_appsec_bom_1_4_proto_msgTypes[6]
+	mi := &file_proto_bom_1_4_proto_msgTypes[6]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1629,7 +1629,7 @@ func (x *Diff) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Diff.ProtoReflect.Descriptor instead.
 func (*Diff) Descriptor() ([]byte, []int) {
-	return file_appsec_bom_1_4_proto_rawDescGZIP(), []int{6}
+	return file_proto_bom_1_4_proto_rawDescGZIP(), []int{6}
 }
 
 func (x *Diff) GetText() *AttachedText {
@@ -1664,7 +1664,7 @@ type ExternalReference struct {
 func (x *ExternalReference) Reset() {
 	*x = ExternalReference{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_appsec_bom_1_4_proto_msgTypes[7]
+		mi := &file_proto_bom_1_4_proto_msgTypes[7]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1677,7 +1677,7 @@ func (x *ExternalReference) String() string {
 func (*ExternalReference) ProtoMessage() {}
 
 func (x *ExternalReference) ProtoReflect() protoreflect.Message {
-	mi := &file_appsec_bom_1_4_proto_msgTypes[7]
+	mi := &file_proto_bom_1_4_proto_msgTypes[7]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1690,7 +1690,7 @@ func (x *ExternalReference) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ExternalReference.ProtoReflect.Descriptor instead.
 func (*ExternalReference) Descriptor() ([]byte, []int) {
-	return file_appsec_bom_1_4_proto_rawDescGZIP(), []int{7}
+	return file_proto_bom_1_4_proto_rawDescGZIP(), []int{7}
 }
 
 func (x *ExternalReference) GetType() ExternalReferenceType {
@@ -1736,7 +1736,7 @@ type Hash struct {
 func (x *Hash) Reset() {
 	*x = Hash{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_appsec_bom_1_4_proto_msgTypes[8]
+		mi := &file_proto_bom_1_4_proto_msgTypes[8]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1749,7 +1749,7 @@ func (x *Hash) String() string {
 func (*Hash) ProtoMessage() {}
 
 func (x *Hash) ProtoReflect() protoreflect.Message {
-	mi := &file_appsec_bom_1_4_proto_msgTypes[8]
+	mi := &file_proto_bom_1_4_proto_msgTypes[8]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1762,7 +1762,7 @@ func (x *Hash) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Hash.ProtoReflect.Descriptor instead.
 func (*Hash) Descriptor() ([]byte, []int) {
-	return file_appsec_bom_1_4_proto_rawDescGZIP(), []int{8}
+	return file_proto_bom_1_4_proto_rawDescGZIP(), []int{8}
 }
 
 func (x *Hash) GetAlg() HashAlg {
@@ -1795,7 +1795,7 @@ type IdentifiableAction struct {
 func (x *IdentifiableAction) Reset() {
 	*x = IdentifiableAction{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_appsec_bom_1_4_proto_msgTypes[9]
+		mi := &file_proto_bom_1_4_proto_msgTypes[9]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1808,7 +1808,7 @@ func (x *IdentifiableAction) String() string {
 func (*IdentifiableAction) ProtoMessage() {}
 
 func (x *IdentifiableAction) ProtoReflect() protoreflect.Message {
-	mi := &file_appsec_bom_1_4_proto_msgTypes[9]
+	mi := &file_proto_bom_1_4_proto_msgTypes[9]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1821,7 +1821,7 @@ func (x *IdentifiableAction) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use IdentifiableAction.ProtoReflect.Descriptor instead.
 func (*IdentifiableAction) Descriptor() ([]byte, []int) {
-	return file_appsec_bom_1_4_proto_rawDescGZIP(), []int{9}
+	return file_proto_bom_1_4_proto_rawDescGZIP(), []int{9}
 }
 
 func (x *IdentifiableAction) GetTimestamp() *timestamp.Timestamp {
@@ -1865,7 +1865,7 @@ type Issue struct {
 func (x *Issue) Reset() {
 	*x = Issue{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_appsec_bom_1_4_proto_msgTypes[10]
+		mi := &file_proto_bom_1_4_proto_msgTypes[10]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1878,7 +1878,7 @@ func (x *Issue) String() string {
 func (*Issue) ProtoMessage() {}
 
 func (x *Issue) ProtoReflect() protoreflect.Message {
-	mi := &file_appsec_bom_1_4_proto_msgTypes[10]
+	mi := &file_proto_bom_1_4_proto_msgTypes[10]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1891,7 +1891,7 @@ func (x *Issue) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Issue.ProtoReflect.Descriptor instead.
 func (*Issue) Descriptor() ([]byte, []int) {
-	return file_appsec_bom_1_4_proto_rawDescGZIP(), []int{10}
+	return file_proto_bom_1_4_proto_rawDescGZIP(), []int{10}
 }
 
 func (x *Issue) GetType() IssueClassification {
@@ -1951,7 +1951,7 @@ type Source struct {
 func (x *Source) Reset() {
 	*x = Source{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_appsec_bom_1_4_proto_msgTypes[11]
+		mi := &file_proto_bom_1_4_proto_msgTypes[11]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1964,7 +1964,7 @@ func (x *Source) String() string {
 func (*Source) ProtoMessage() {}
 
 func (x *Source) ProtoReflect() protoreflect.Message {
-	mi := &file_appsec_bom_1_4_proto_msgTypes[11]
+	mi := &file_proto_bom_1_4_proto_msgTypes[11]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1977,7 +1977,7 @@ func (x *Source) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Source.ProtoReflect.Descriptor instead.
 func (*Source) Descriptor() ([]byte, []int) {
-	return file_appsec_bom_1_4_proto_rawDescGZIP(), []int{11}
+	return file_proto_bom_1_4_proto_rawDescGZIP(), []int{11}
 }
 
 func (x *Source) GetName() string {
@@ -2009,7 +2009,7 @@ type LicenseChoice struct {
 func (x *LicenseChoice) Reset() {
 	*x = LicenseChoice{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_appsec_bom_1_4_proto_msgTypes[12]
+		mi := &file_proto_bom_1_4_proto_msgTypes[12]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -2022,7 +2022,7 @@ func (x *LicenseChoice) String() string {
 func (*LicenseChoice) ProtoMessage() {}
 
 func (x *LicenseChoice) ProtoReflect() protoreflect.Message {
-	mi := &file_appsec_bom_1_4_proto_msgTypes[12]
+	mi := &file_proto_bom_1_4_proto_msgTypes[12]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2035,7 +2035,7 @@ func (x *LicenseChoice) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use LicenseChoice.ProtoReflect.Descriptor instead.
 func (*LicenseChoice) Descriptor() ([]byte, []int) {
-	return file_appsec_bom_1_4_proto_rawDescGZIP(), []int{12}
+	return file_proto_bom_1_4_proto_rawDescGZIP(), []int{12}
 }
 
 func (m *LicenseChoice) GetChoice() isLicenseChoice_Choice {
@@ -2094,7 +2094,7 @@ type License struct {
 func (x *License) Reset() {
 	*x = License{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_appsec_bom_1_4_proto_msgTypes[13]
+		mi := &file_proto_bom_1_4_proto_msgTypes[13]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -2107,7 +2107,7 @@ func (x *License) String() string {
 func (*License) ProtoMessage() {}
 
 func (x *License) ProtoReflect() protoreflect.Message {
-	mi := &file_appsec_bom_1_4_proto_msgTypes[13]
+	mi := &file_proto_bom_1_4_proto_msgTypes[13]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2120,7 +2120,7 @@ func (x *License) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use License.ProtoReflect.Descriptor instead.
 func (*License) Descriptor() ([]byte, []int) {
-	return file_appsec_bom_1_4_proto_rawDescGZIP(), []int{13}
+	return file_proto_bom_1_4_proto_rawDescGZIP(), []int{13}
 }
 
 func (m *License) GetLicense() isLicense_License {
@@ -2202,7 +2202,7 @@ type Metadata struct {
 func (x *Metadata) Reset() {
 	*x = Metadata{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_appsec_bom_1_4_proto_msgTypes[14]
+		mi := &file_proto_bom_1_4_proto_msgTypes[14]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -2215,7 +2215,7 @@ func (x *Metadata) String() string {
 func (*Metadata) ProtoMessage() {}
 
 func (x *Metadata) ProtoReflect() protoreflect.Message {
-	mi := &file_appsec_bom_1_4_proto_msgTypes[14]
+	mi := &file_proto_bom_1_4_proto_msgTypes[14]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2228,7 +2228,7 @@ func (x *Metadata) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Metadata.ProtoReflect.Descriptor instead.
 func (*Metadata) Descriptor() ([]byte, []int) {
-	return file_appsec_bom_1_4_proto_rawDescGZIP(), []int{14}
+	return file_proto_bom_1_4_proto_rawDescGZIP(), []int{14}
 }
 
 func (x *Metadata) GetTimestamp() *timestamp.Timestamp {
@@ -2303,7 +2303,7 @@ type OrganizationalContact struct {
 func (x *OrganizationalContact) Reset() {
 	*x = OrganizationalContact{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_appsec_bom_1_4_proto_msgTypes[15]
+		mi := &file_proto_bom_1_4_proto_msgTypes[15]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -2316,7 +2316,7 @@ func (x *OrganizationalContact) String() string {
 func (*OrganizationalContact) ProtoMessage() {}
 
 func (x *OrganizationalContact) ProtoReflect() protoreflect.Message {
-	mi := &file_appsec_bom_1_4_proto_msgTypes[15]
+	mi := &file_proto_bom_1_4_proto_msgTypes[15]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2329,7 +2329,7 @@ func (x *OrganizationalContact) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use OrganizationalContact.ProtoReflect.Descriptor instead.
 func (*OrganizationalContact) Descriptor() ([]byte, []int) {
-	return file_appsec_bom_1_4_proto_rawDescGZIP(), []int{15}
+	return file_proto_bom_1_4_proto_rawDescGZIP(), []int{15}
 }
 
 func (x *OrganizationalContact) GetName() string {
@@ -2369,7 +2369,7 @@ type OrganizationalEntity struct {
 func (x *OrganizationalEntity) Reset() {
 	*x = OrganizationalEntity{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_appsec_bom_1_4_proto_msgTypes[16]
+		mi := &file_proto_bom_1_4_proto_msgTypes[16]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -2382,7 +2382,7 @@ func (x *OrganizationalEntity) String() string {
 func (*OrganizationalEntity) ProtoMessage() {}
 
 func (x *OrganizationalEntity) ProtoReflect() protoreflect.Message {
-	mi := &file_appsec_bom_1_4_proto_msgTypes[16]
+	mi := &file_proto_bom_1_4_proto_msgTypes[16]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2395,7 +2395,7 @@ func (x *OrganizationalEntity) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use OrganizationalEntity.ProtoReflect.Descriptor instead.
 func (*OrganizationalEntity) Descriptor() ([]byte, []int) {
-	return file_appsec_bom_1_4_proto_rawDescGZIP(), []int{16}
+	return file_proto_bom_1_4_proto_rawDescGZIP(), []int{16}
 }
 
 func (x *OrganizationalEntity) GetName() string {
@@ -2434,7 +2434,7 @@ type Patch struct {
 func (x *Patch) Reset() {
 	*x = Patch{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_appsec_bom_1_4_proto_msgTypes[17]
+		mi := &file_proto_bom_1_4_proto_msgTypes[17]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -2447,7 +2447,7 @@ func (x *Patch) String() string {
 func (*Patch) ProtoMessage() {}
 
 func (x *Patch) ProtoReflect() protoreflect.Message {
-	mi := &file_appsec_bom_1_4_proto_msgTypes[17]
+	mi := &file_proto_bom_1_4_proto_msgTypes[17]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2460,7 +2460,7 @@ func (x *Patch) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Patch.ProtoReflect.Descriptor instead.
 func (*Patch) Descriptor() ([]byte, []int) {
-	return file_appsec_bom_1_4_proto_rawDescGZIP(), []int{17}
+	return file_proto_bom_1_4_proto_rawDescGZIP(), []int{17}
 }
 
 func (x *Patch) GetType() PatchClassification {
@@ -2507,7 +2507,7 @@ type Pedigree struct {
 func (x *Pedigree) Reset() {
 	*x = Pedigree{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_appsec_bom_1_4_proto_msgTypes[18]
+		mi := &file_proto_bom_1_4_proto_msgTypes[18]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -2520,7 +2520,7 @@ func (x *Pedigree) String() string {
 func (*Pedigree) ProtoMessage() {}
 
 func (x *Pedigree) ProtoReflect() protoreflect.Message {
-	mi := &file_appsec_bom_1_4_proto_msgTypes[18]
+	mi := &file_proto_bom_1_4_proto_msgTypes[18]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2533,7 +2533,7 @@ func (x *Pedigree) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Pedigree.ProtoReflect.Descriptor instead.
 func (*Pedigree) Descriptor() ([]byte, []int) {
-	return file_appsec_bom_1_4_proto_rawDescGZIP(), []int{18}
+	return file_proto_bom_1_4_proto_rawDescGZIP(), []int{18}
 }
 
 func (x *Pedigree) GetAncestors() []*Component {
@@ -2615,7 +2615,7 @@ type Service struct {
 func (x *Service) Reset() {
 	*x = Service{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_appsec_bom_1_4_proto_msgTypes[19]
+		mi := &file_proto_bom_1_4_proto_msgTypes[19]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -2628,7 +2628,7 @@ func (x *Service) String() string {
 func (*Service) ProtoMessage() {}
 
 func (x *Service) ProtoReflect() protoreflect.Message {
-	mi := &file_appsec_bom_1_4_proto_msgTypes[19]
+	mi := &file_proto_bom_1_4_proto_msgTypes[19]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2641,7 +2641,7 @@ func (x *Service) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Service.ProtoReflect.Descriptor instead.
 func (*Service) Descriptor() ([]byte, []int) {
-	return file_appsec_bom_1_4_proto_rawDescGZIP(), []int{19}
+	return file_proto_bom_1_4_proto_rawDescGZIP(), []int{19}
 }
 
 func (x *Service) GetBomRef() string {
@@ -2773,7 +2773,7 @@ type Swid struct {
 func (x *Swid) Reset() {
 	*x = Swid{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_appsec_bom_1_4_proto_msgTypes[20]
+		mi := &file_proto_bom_1_4_proto_msgTypes[20]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -2786,7 +2786,7 @@ func (x *Swid) String() string {
 func (*Swid) ProtoMessage() {}
 
 func (x *Swid) ProtoReflect() protoreflect.Message {
-	mi := &file_appsec_bom_1_4_proto_msgTypes[20]
+	mi := &file_proto_bom_1_4_proto_msgTypes[20]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2799,7 +2799,7 @@ func (x *Swid) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Swid.ProtoReflect.Descriptor instead.
 func (*Swid) Descriptor() ([]byte, []int) {
-	return file_appsec_bom_1_4_proto_rawDescGZIP(), []int{20}
+	return file_proto_bom_1_4_proto_rawDescGZIP(), []int{20}
 }
 
 func (x *Swid) GetTagId() string {
@@ -2871,7 +2871,7 @@ type Tool struct {
 func (x *Tool) Reset() {
 	*x = Tool{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_appsec_bom_1_4_proto_msgTypes[21]
+		mi := &file_proto_bom_1_4_proto_msgTypes[21]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -2884,7 +2884,7 @@ func (x *Tool) String() string {
 func (*Tool) ProtoMessage() {}
 
 func (x *Tool) ProtoReflect() protoreflect.Message {
-	mi := &file_appsec_bom_1_4_proto_msgTypes[21]
+	mi := &file_proto_bom_1_4_proto_msgTypes[21]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2897,7 +2897,7 @@ func (x *Tool) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Tool.ProtoReflect.Descriptor instead.
 func (*Tool) Descriptor() ([]byte, []int) {
-	return file_appsec_bom_1_4_proto_rawDescGZIP(), []int{21}
+	return file_proto_bom_1_4_proto_rawDescGZIP(), []int{21}
 }
 
 func (x *Tool) GetVendor() string {
@@ -2948,7 +2948,7 @@ type Property struct {
 func (x *Property) Reset() {
 	*x = Property{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_appsec_bom_1_4_proto_msgTypes[22]
+		mi := &file_proto_bom_1_4_proto_msgTypes[22]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -2961,7 +2961,7 @@ func (x *Property) String() string {
 func (*Property) ProtoMessage() {}
 
 func (x *Property) ProtoReflect() protoreflect.Message {
-	mi := &file_appsec_bom_1_4_proto_msgTypes[22]
+	mi := &file_proto_bom_1_4_proto_msgTypes[22]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2974,7 +2974,7 @@ func (x *Property) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Property.ProtoReflect.Descriptor instead.
 func (*Property) Descriptor() ([]byte, []int) {
-	return file_appsec_bom_1_4_proto_rawDescGZIP(), []int{22}
+	return file_proto_bom_1_4_proto_rawDescGZIP(), []int{22}
 }
 
 func (x *Property) GetName() string {
@@ -3007,7 +3007,7 @@ type Composition struct {
 func (x *Composition) Reset() {
 	*x = Composition{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_appsec_bom_1_4_proto_msgTypes[23]
+		mi := &file_proto_bom_1_4_proto_msgTypes[23]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -3020,7 +3020,7 @@ func (x *Composition) String() string {
 func (*Composition) ProtoMessage() {}
 
 func (x *Composition) ProtoReflect() protoreflect.Message {
-	mi := &file_appsec_bom_1_4_proto_msgTypes[23]
+	mi := &file_proto_bom_1_4_proto_msgTypes[23]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -3033,7 +3033,7 @@ func (x *Composition) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Composition.ProtoReflect.Descriptor instead.
 func (*Composition) Descriptor() ([]byte, []int) {
-	return file_appsec_bom_1_4_proto_rawDescGZIP(), []int{23}
+	return file_proto_bom_1_4_proto_rawDescGZIP(), []int{23}
 }
 
 func (x *Composition) GetAggregate() Aggregate {
@@ -3069,7 +3069,7 @@ type EvidenceCopyright struct {
 func (x *EvidenceCopyright) Reset() {
 	*x = EvidenceCopyright{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_appsec_bom_1_4_proto_msgTypes[24]
+		mi := &file_proto_bom_1_4_proto_msgTypes[24]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -3082,7 +3082,7 @@ func (x *EvidenceCopyright) String() string {
 func (*EvidenceCopyright) ProtoMessage() {}
 
 func (x *EvidenceCopyright) ProtoReflect() protoreflect.Message {
-	mi := &file_appsec_bom_1_4_proto_msgTypes[24]
+	mi := &file_proto_bom_1_4_proto_msgTypes[24]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -3095,7 +3095,7 @@ func (x *EvidenceCopyright) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use EvidenceCopyright.ProtoReflect.Descriptor instead.
 func (*EvidenceCopyright) Descriptor() ([]byte, []int) {
-	return file_appsec_bom_1_4_proto_rawDescGZIP(), []int{24}
+	return file_proto_bom_1_4_proto_rawDescGZIP(), []int{24}
 }
 
 func (x *EvidenceCopyright) GetText() string {
@@ -3117,7 +3117,7 @@ type Evidence struct {
 func (x *Evidence) Reset() {
 	*x = Evidence{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_appsec_bom_1_4_proto_msgTypes[25]
+		mi := &file_proto_bom_1_4_proto_msgTypes[25]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -3130,7 +3130,7 @@ func (x *Evidence) String() string {
 func (*Evidence) ProtoMessage() {}
 
 func (x *Evidence) ProtoReflect() protoreflect.Message {
-	mi := &file_appsec_bom_1_4_proto_msgTypes[25]
+	mi := &file_proto_bom_1_4_proto_msgTypes[25]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -3143,7 +3143,7 @@ func (x *Evidence) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Evidence.ProtoReflect.Descriptor instead.
 func (*Evidence) Descriptor() ([]byte, []int) {
-	return file_appsec_bom_1_4_proto_rawDescGZIP(), []int{25}
+	return file_proto_bom_1_4_proto_rawDescGZIP(), []int{25}
 }
 
 func (x *Evidence) GetLicenses() []*LicenseChoice {
@@ -3174,7 +3174,7 @@ type Note struct {
 func (x *Note) Reset() {
 	*x = Note{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_appsec_bom_1_4_proto_msgTypes[26]
+		mi := &file_proto_bom_1_4_proto_msgTypes[26]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -3187,7 +3187,7 @@ func (x *Note) String() string {
 func (*Note) ProtoMessage() {}
 
 func (x *Note) ProtoReflect() protoreflect.Message {
-	mi := &file_appsec_bom_1_4_proto_msgTypes[26]
+	mi := &file_proto_bom_1_4_proto_msgTypes[26]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -3200,7 +3200,7 @@ func (x *Note) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Note.ProtoReflect.Descriptor instead.
 func (*Note) Descriptor() ([]byte, []int) {
-	return file_appsec_bom_1_4_proto_rawDescGZIP(), []int{26}
+	return file_proto_bom_1_4_proto_rawDescGZIP(), []int{26}
 }
 
 func (x *Note) GetLocale() string {
@@ -3249,7 +3249,7 @@ type ReleaseNotes struct {
 func (x *ReleaseNotes) Reset() {
 	*x = ReleaseNotes{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_appsec_bom_1_4_proto_msgTypes[27]
+		mi := &file_proto_bom_1_4_proto_msgTypes[27]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -3262,7 +3262,7 @@ func (x *ReleaseNotes) String() string {
 func (*ReleaseNotes) ProtoMessage() {}
 
 func (x *ReleaseNotes) ProtoReflect() protoreflect.Message {
-	mi := &file_appsec_bom_1_4_proto_msgTypes[27]
+	mi := &file_proto_bom_1_4_proto_msgTypes[27]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -3275,7 +3275,7 @@ func (x *ReleaseNotes) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ReleaseNotes.ProtoReflect.Descriptor instead.
 func (*ReleaseNotes) Descriptor() ([]byte, []int) {
-	return file_appsec_bom_1_4_proto_rawDescGZIP(), []int{27}
+	return file_proto_bom_1_4_proto_rawDescGZIP(), []int{27}
 }
 
 func (x *ReleaseNotes) GetType() string {
@@ -3401,7 +3401,7 @@ type Vulnerability struct {
 func (x *Vulnerability) Reset() {
 	*x = Vulnerability{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_appsec_bom_1_4_proto_msgTypes[28]
+		mi := &file_proto_bom_1_4_proto_msgTypes[28]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -3414,7 +3414,7 @@ func (x *Vulnerability) String() string {
 func (*Vulnerability) ProtoMessage() {}
 
 func (x *Vulnerability) ProtoReflect() protoreflect.Message {
-	mi := &file_appsec_bom_1_4_proto_msgTypes[28]
+	mi := &file_proto_bom_1_4_proto_msgTypes[28]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -3427,7 +3427,7 @@ func (x *Vulnerability) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Vulnerability.ProtoReflect.Descriptor instead.
 func (*Vulnerability) Descriptor() ([]byte, []int) {
-	return file_appsec_bom_1_4_proto_rawDescGZIP(), []int{28}
+	return file_proto_bom_1_4_proto_rawDescGZIP(), []int{28}
 }
 
 func (x *Vulnerability) GetBomRef() string {
@@ -3570,7 +3570,7 @@ type VulnerabilityReference struct {
 func (x *VulnerabilityReference) Reset() {
 	*x = VulnerabilityReference{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_appsec_bom_1_4_proto_msgTypes[29]
+		mi := &file_proto_bom_1_4_proto_msgTypes[29]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -3583,7 +3583,7 @@ func (x *VulnerabilityReference) String() string {
 func (*VulnerabilityReference) ProtoMessage() {}
 
 func (x *VulnerabilityReference) ProtoReflect() protoreflect.Message {
-	mi := &file_appsec_bom_1_4_proto_msgTypes[29]
+	mi := &file_proto_bom_1_4_proto_msgTypes[29]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -3596,7 +3596,7 @@ func (x *VulnerabilityReference) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use VulnerabilityReference.ProtoReflect.Descriptor instead.
 func (*VulnerabilityReference) Descriptor() ([]byte, []int) {
-	return file_appsec_bom_1_4_proto_rawDescGZIP(), []int{29}
+	return file_proto_bom_1_4_proto_rawDescGZIP(), []int{29}
 }
 
 func (x *VulnerabilityReference) GetId() string {
@@ -3635,7 +3635,7 @@ type VulnerabilityRating struct {
 func (x *VulnerabilityRating) Reset() {
 	*x = VulnerabilityRating{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_appsec_bom_1_4_proto_msgTypes[30]
+		mi := &file_proto_bom_1_4_proto_msgTypes[30]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -3648,7 +3648,7 @@ func (x *VulnerabilityRating) String() string {
 func (*VulnerabilityRating) ProtoMessage() {}
 
 func (x *VulnerabilityRating) ProtoReflect() protoreflect.Message {
-	mi := &file_appsec_bom_1_4_proto_msgTypes[30]
+	mi := &file_proto_bom_1_4_proto_msgTypes[30]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -3661,7 +3661,7 @@ func (x *VulnerabilityRating) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use VulnerabilityRating.ProtoReflect.Descriptor instead.
 func (*VulnerabilityRating) Descriptor() ([]byte, []int) {
-	return file_appsec_bom_1_4_proto_rawDescGZIP(), []int{30}
+	return file_proto_bom_1_4_proto_rawDescGZIP(), []int{30}
 }
 
 func (x *VulnerabilityRating) GetSource() *Source {
@@ -3720,7 +3720,7 @@ type Advisory struct {
 func (x *Advisory) Reset() {
 	*x = Advisory{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_appsec_bom_1_4_proto_msgTypes[31]
+		mi := &file_proto_bom_1_4_proto_msgTypes[31]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -3733,7 +3733,7 @@ func (x *Advisory) String() string {
 func (*Advisory) ProtoMessage() {}
 
 func (x *Advisory) ProtoReflect() protoreflect.Message {
-	mi := &file_appsec_bom_1_4_proto_msgTypes[31]
+	mi := &file_proto_bom_1_4_proto_msgTypes[31]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -3746,7 +3746,7 @@ func (x *Advisory) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Advisory.ProtoReflect.Descriptor instead.
 func (*Advisory) Descriptor() ([]byte, []int) {
-	return file_appsec_bom_1_4_proto_rawDescGZIP(), []int{31}
+	return file_proto_bom_1_4_proto_rawDescGZIP(), []int{31}
 }
 
 func (x *Advisory) GetTitle() string {
@@ -3777,7 +3777,7 @@ type VulnerabilityCredits struct {
 func (x *VulnerabilityCredits) Reset() {
 	*x = VulnerabilityCredits{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_appsec_bom_1_4_proto_msgTypes[32]
+		mi := &file_proto_bom_1_4_proto_msgTypes[32]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -3790,7 +3790,7 @@ func (x *VulnerabilityCredits) String() string {
 func (*VulnerabilityCredits) ProtoMessage() {}
 
 func (x *VulnerabilityCredits) ProtoReflect() protoreflect.Message {
-	mi := &file_appsec_bom_1_4_proto_msgTypes[32]
+	mi := &file_proto_bom_1_4_proto_msgTypes[32]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -3803,7 +3803,7 @@ func (x *VulnerabilityCredits) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use VulnerabilityCredits.ProtoReflect.Descriptor instead.
 func (*VulnerabilityCredits) Descriptor() ([]byte, []int) {
-	return file_appsec_bom_1_4_proto_rawDescGZIP(), []int{32}
+	return file_proto_bom_1_4_proto_rawDescGZIP(), []int{32}
 }
 
 func (x *VulnerabilityCredits) GetOrganizations() []*OrganizationalEntity {
@@ -3838,7 +3838,7 @@ type VulnerabilityAnalysis struct {
 func (x *VulnerabilityAnalysis) Reset() {
 	*x = VulnerabilityAnalysis{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_appsec_bom_1_4_proto_msgTypes[33]
+		mi := &file_proto_bom_1_4_proto_msgTypes[33]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -3851,7 +3851,7 @@ func (x *VulnerabilityAnalysis) String() string {
 func (*VulnerabilityAnalysis) ProtoMessage() {}
 
 func (x *VulnerabilityAnalysis) ProtoReflect() protoreflect.Message {
-	mi := &file_appsec_bom_1_4_proto_msgTypes[33]
+	mi := &file_proto_bom_1_4_proto_msgTypes[33]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -3864,7 +3864,7 @@ func (x *VulnerabilityAnalysis) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use VulnerabilityAnalysis.ProtoReflect.Descriptor instead.
 func (*VulnerabilityAnalysis) Descriptor() ([]byte, []int) {
-	return file_appsec_bom_1_4_proto_rawDescGZIP(), []int{33}
+	return file_proto_bom_1_4_proto_rawDescGZIP(), []int{33}
 }
 
 func (x *VulnerabilityAnalysis) GetState() ImpactAnalysisState {
@@ -3909,7 +3909,7 @@ type VulnerabilityAffects struct {
 func (x *VulnerabilityAffects) Reset() {
 	*x = VulnerabilityAffects{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_appsec_bom_1_4_proto_msgTypes[34]
+		mi := &file_proto_bom_1_4_proto_msgTypes[34]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -3922,7 +3922,7 @@ func (x *VulnerabilityAffects) String() string {
 func (*VulnerabilityAffects) ProtoMessage() {}
 
 func (x *VulnerabilityAffects) ProtoReflect() protoreflect.Message {
-	mi := &file_appsec_bom_1_4_proto_msgTypes[34]
+	mi := &file_proto_bom_1_4_proto_msgTypes[34]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -3935,7 +3935,7 @@ func (x *VulnerabilityAffects) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use VulnerabilityAffects.ProtoReflect.Descriptor instead.
 func (*VulnerabilityAffects) Descriptor() ([]byte, []int) {
-	return file_appsec_bom_1_4_proto_rawDescGZIP(), []int{34}
+	return file_proto_bom_1_4_proto_rawDescGZIP(), []int{34}
 }
 
 func (x *VulnerabilityAffects) GetRef() string {
@@ -3969,7 +3969,7 @@ type VulnerabilityAffectedVersions struct {
 func (x *VulnerabilityAffectedVersions) Reset() {
 	*x = VulnerabilityAffectedVersions{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_appsec_bom_1_4_proto_msgTypes[35]
+		mi := &file_proto_bom_1_4_proto_msgTypes[35]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -3982,7 +3982,7 @@ func (x *VulnerabilityAffectedVersions) String() string {
 func (*VulnerabilityAffectedVersions) ProtoMessage() {}
 
 func (x *VulnerabilityAffectedVersions) ProtoReflect() protoreflect.Message {
-	mi := &file_appsec_bom_1_4_proto_msgTypes[35]
+	mi := &file_proto_bom_1_4_proto_msgTypes[35]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -3995,7 +3995,7 @@ func (x *VulnerabilityAffectedVersions) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use VulnerabilityAffectedVersions.ProtoReflect.Descriptor instead.
 func (*VulnerabilityAffectedVersions) Descriptor() ([]byte, []int) {
-	return file_appsec_bom_1_4_proto_rawDescGZIP(), []int{35}
+	return file_proto_bom_1_4_proto_rawDescGZIP(), []int{35}
 }
 
 func (m *VulnerabilityAffectedVersions) GetChoice() isVulnerabilityAffectedVersions_Choice {
@@ -4044,9 +4044,9 @@ func (*VulnerabilityAffectedVersions_Version) isVulnerabilityAffectedVersions_Ch
 
 func (*VulnerabilityAffectedVersions_Range) isVulnerabilityAffectedVersions_Choice() {}
 
-var File_appsec_bom_1_4_proto protoreflect.FileDescriptor
+var file_proto_bom_1_4_proto protoreflect.FileDescriptor
 
-var file_appsec_bom_1_4_proto_rawDesc = []byte{
+var file_proto_bom_1_4_proto_rawDesc = []byte{
 	0x0a, 0x14, 0x61, 0x70, 0x70, 0x73, 0x65, 0x63, 0x2f, 0x62, 0x6f, 0x6d, 0x2d, 0x31, 0x2e, 0x34,
 	0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x12, 0x0e, 0x63, 0x79, 0x63, 0x6c, 0x6f, 0x6e, 0x65, 0x64,
 	0x78, 0x2e, 0x76, 0x31, 0x5f, 0x34, 0x1a, 0x1f, 0x67, 0x6f, 0x6f, 0x67, 0x6c, 0x65, 0x2f, 0x70,
@@ -4901,20 +4901,20 @@ var file_appsec_bom_1_4_proto_rawDesc = []byte{
 }
 
 var (
-	file_appsec_bom_1_4_proto_rawDescOnce sync.Once
-	file_appsec_bom_1_4_proto_rawDescData = file_appsec_bom_1_4_proto_rawDesc
+	file_proto_bom_1_4_proto_rawDescOnce sync.Once
+	file_proto_bom_1_4_proto_rawDescData = file_proto_bom_1_4_proto_rawDesc
 )
 
-func file_appsec_bom_1_4_proto_rawDescGZIP() []byte {
-	file_appsec_bom_1_4_proto_rawDescOnce.Do(func() {
-		file_appsec_bom_1_4_proto_rawDescData = protoimpl.X.CompressGZIP(file_appsec_bom_1_4_proto_rawDescData)
+func file_proto_bom_1_4_proto_rawDescGZIP() []byte {
+	file_proto_bom_1_4_proto_rawDescOnce.Do(func() {
+		file_proto_bom_1_4_proto_rawDescData = protoimpl.X.CompressGZIP(file_proto_bom_1_4_proto_rawDescData)
 	})
-	return file_appsec_bom_1_4_proto_rawDescData
+	return file_proto_bom_1_4_proto_rawDescData
 }
 
-var file_appsec_bom_1_4_proto_enumTypes = make([]protoimpl.EnumInfo, 14)
-var file_appsec_bom_1_4_proto_msgTypes = make([]protoimpl.MessageInfo, 36)
-var file_appsec_bom_1_4_proto_goTypes = []interface{}{
+var file_proto_bom_1_4_proto_enumTypes = make([]protoimpl.EnumInfo, 14)
+var file_proto_bom_1_4_proto_msgTypes = make([]protoimpl.MessageInfo, 36)
+var file_proto_bom_1_4_proto_goTypes = []interface{}{
 	(Classification)(0),                   // 0: cyclonedx.v1_4.Classification
 	(DataFlow)(0),                         // 1: cyclonedx.v1_4.DataFlow
 	(ExternalReferenceType)(0),            // 2: cyclonedx.v1_4.ExternalReferenceType
@@ -4967,7 +4967,7 @@ var file_appsec_bom_1_4_proto_goTypes = []interface{}{
 	(*VulnerabilityAffectedVersions)(nil), // 49: cyclonedx.v1_4.VulnerabilityAffectedVersions
 	(*timestamp.Timestamp)(nil),           // 50: google.protobuf.Timestamp
 }
-var file_appsec_bom_1_4_proto_depIdxs = []int32{
+var file_proto_bom_1_4_proto_depIdxs = []int32{
 	28, // 0: cyclonedx.v1_4.Bom.metadata:type_name -> cyclonedx.v1_4.Metadata
 	17, // 1: cyclonedx.v1_4.Bom.components:type_name -> cyclonedx.v1_4.Component
 	33, // 2: cyclonedx.v1_4.Bom.services:type_name -> cyclonedx.v1_4.Service
@@ -5065,13 +5065,13 @@ var file_appsec_bom_1_4_proto_depIdxs = []int32{
 	0,  // [0:90] is the sub-list for field type_name
 }
 
-func init() { file_appsec_bom_1_4_proto_init() }
-func file_appsec_bom_1_4_proto_init() {
-	if File_appsec_bom_1_4_proto != nil {
+func init() { file_proto_bom_1_4_proto_init() }
+func file_proto_bom_1_4_proto_init() {
+	if file_proto_bom_1_4_proto != nil {
 		return
 	}
 	if !protoimpl.UnsafeEnabled {
-		file_appsec_bom_1_4_proto_msgTypes[0].Exporter = func(v interface{}, i int) interface{} {
+		file_proto_bom_1_4_proto_msgTypes[0].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*AttachedText); i {
 			case 0:
 				return &v.state
@@ -5083,7 +5083,7 @@ func file_appsec_bom_1_4_proto_init() {
 				return nil
 			}
 		}
-		file_appsec_bom_1_4_proto_msgTypes[1].Exporter = func(v interface{}, i int) interface{} {
+		file_proto_bom_1_4_proto_msgTypes[1].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*Bom); i {
 			case 0:
 				return &v.state
@@ -5095,7 +5095,7 @@ func file_appsec_bom_1_4_proto_init() {
 				return nil
 			}
 		}
-		file_appsec_bom_1_4_proto_msgTypes[2].Exporter = func(v interface{}, i int) interface{} {
+		file_proto_bom_1_4_proto_msgTypes[2].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*Commit); i {
 			case 0:
 				return &v.state
@@ -5107,7 +5107,7 @@ func file_appsec_bom_1_4_proto_init() {
 				return nil
 			}
 		}
-		file_appsec_bom_1_4_proto_msgTypes[3].Exporter = func(v interface{}, i int) interface{} {
+		file_proto_bom_1_4_proto_msgTypes[3].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*Component); i {
 			case 0:
 				return &v.state
@@ -5119,7 +5119,7 @@ func file_appsec_bom_1_4_proto_init() {
 				return nil
 			}
 		}
-		file_appsec_bom_1_4_proto_msgTypes[4].Exporter = func(v interface{}, i int) interface{} {
+		file_proto_bom_1_4_proto_msgTypes[4].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*DataClassification); i {
 			case 0:
 				return &v.state
@@ -5131,7 +5131,7 @@ func file_appsec_bom_1_4_proto_init() {
 				return nil
 			}
 		}
-		file_appsec_bom_1_4_proto_msgTypes[5].Exporter = func(v interface{}, i int) interface{} {
+		file_proto_bom_1_4_proto_msgTypes[5].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*Dependency); i {
 			case 0:
 				return &v.state
@@ -5143,7 +5143,7 @@ func file_appsec_bom_1_4_proto_init() {
 				return nil
 			}
 		}
-		file_appsec_bom_1_4_proto_msgTypes[6].Exporter = func(v interface{}, i int) interface{} {
+		file_proto_bom_1_4_proto_msgTypes[6].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*Diff); i {
 			case 0:
 				return &v.state
@@ -5155,7 +5155,7 @@ func file_appsec_bom_1_4_proto_init() {
 				return nil
 			}
 		}
-		file_appsec_bom_1_4_proto_msgTypes[7].Exporter = func(v interface{}, i int) interface{} {
+		file_proto_bom_1_4_proto_msgTypes[7].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*ExternalReference); i {
 			case 0:
 				return &v.state
@@ -5167,7 +5167,7 @@ func file_appsec_bom_1_4_proto_init() {
 				return nil
 			}
 		}
-		file_appsec_bom_1_4_proto_msgTypes[8].Exporter = func(v interface{}, i int) interface{} {
+		file_proto_bom_1_4_proto_msgTypes[8].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*Hash); i {
 			case 0:
 				return &v.state
@@ -5179,7 +5179,7 @@ func file_appsec_bom_1_4_proto_init() {
 				return nil
 			}
 		}
-		file_appsec_bom_1_4_proto_msgTypes[9].Exporter = func(v interface{}, i int) interface{} {
+		file_proto_bom_1_4_proto_msgTypes[9].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*IdentifiableAction); i {
 			case 0:
 				return &v.state
@@ -5191,7 +5191,7 @@ func file_appsec_bom_1_4_proto_init() {
 				return nil
 			}
 		}
-		file_appsec_bom_1_4_proto_msgTypes[10].Exporter = func(v interface{}, i int) interface{} {
+		file_proto_bom_1_4_proto_msgTypes[10].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*Issue); i {
 			case 0:
 				return &v.state
@@ -5203,7 +5203,7 @@ func file_appsec_bom_1_4_proto_init() {
 				return nil
 			}
 		}
-		file_appsec_bom_1_4_proto_msgTypes[11].Exporter = func(v interface{}, i int) interface{} {
+		file_proto_bom_1_4_proto_msgTypes[11].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*Source); i {
 			case 0:
 				return &v.state
@@ -5215,7 +5215,7 @@ func file_appsec_bom_1_4_proto_init() {
 				return nil
 			}
 		}
-		file_appsec_bom_1_4_proto_msgTypes[12].Exporter = func(v interface{}, i int) interface{} {
+		file_proto_bom_1_4_proto_msgTypes[12].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*LicenseChoice); i {
 			case 0:
 				return &v.state
@@ -5227,7 +5227,7 @@ func file_appsec_bom_1_4_proto_init() {
 				return nil
 			}
 		}
-		file_appsec_bom_1_4_proto_msgTypes[13].Exporter = func(v interface{}, i int) interface{} {
+		file_proto_bom_1_4_proto_msgTypes[13].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*License); i {
 			case 0:
 				return &v.state
@@ -5239,7 +5239,7 @@ func file_appsec_bom_1_4_proto_init() {
 				return nil
 			}
 		}
-		file_appsec_bom_1_4_proto_msgTypes[14].Exporter = func(v interface{}, i int) interface{} {
+		file_proto_bom_1_4_proto_msgTypes[14].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*Metadata); i {
 			case 0:
 				return &v.state
@@ -5251,7 +5251,7 @@ func file_appsec_bom_1_4_proto_init() {
 				return nil
 			}
 		}
-		file_appsec_bom_1_4_proto_msgTypes[15].Exporter = func(v interface{}, i int) interface{} {
+		file_proto_bom_1_4_proto_msgTypes[15].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*OrganizationalContact); i {
 			case 0:
 				return &v.state
@@ -5263,7 +5263,7 @@ func file_appsec_bom_1_4_proto_init() {
 				return nil
 			}
 		}
-		file_appsec_bom_1_4_proto_msgTypes[16].Exporter = func(v interface{}, i int) interface{} {
+		file_proto_bom_1_4_proto_msgTypes[16].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*OrganizationalEntity); i {
 			case 0:
 				return &v.state
@@ -5275,7 +5275,7 @@ func file_appsec_bom_1_4_proto_init() {
 				return nil
 			}
 		}
-		file_appsec_bom_1_4_proto_msgTypes[17].Exporter = func(v interface{}, i int) interface{} {
+		file_proto_bom_1_4_proto_msgTypes[17].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*Patch); i {
 			case 0:
 				return &v.state
@@ -5287,7 +5287,7 @@ func file_appsec_bom_1_4_proto_init() {
 				return nil
 			}
 		}
-		file_appsec_bom_1_4_proto_msgTypes[18].Exporter = func(v interface{}, i int) interface{} {
+		file_proto_bom_1_4_proto_msgTypes[18].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*Pedigree); i {
 			case 0:
 				return &v.state
@@ -5299,7 +5299,7 @@ func file_appsec_bom_1_4_proto_init() {
 				return nil
 			}
 		}
-		file_appsec_bom_1_4_proto_msgTypes[19].Exporter = func(v interface{}, i int) interface{} {
+		file_proto_bom_1_4_proto_msgTypes[19].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*Service); i {
 			case 0:
 				return &v.state
@@ -5311,7 +5311,7 @@ func file_appsec_bom_1_4_proto_init() {
 				return nil
 			}
 		}
-		file_appsec_bom_1_4_proto_msgTypes[20].Exporter = func(v interface{}, i int) interface{} {
+		file_proto_bom_1_4_proto_msgTypes[20].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*Swid); i {
 			case 0:
 				return &v.state
@@ -5323,7 +5323,7 @@ func file_appsec_bom_1_4_proto_init() {
 				return nil
 			}
 		}
-		file_appsec_bom_1_4_proto_msgTypes[21].Exporter = func(v interface{}, i int) interface{} {
+		file_proto_bom_1_4_proto_msgTypes[21].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*Tool); i {
 			case 0:
 				return &v.state
@@ -5335,7 +5335,7 @@ func file_appsec_bom_1_4_proto_init() {
 				return nil
 			}
 		}
-		file_appsec_bom_1_4_proto_msgTypes[22].Exporter = func(v interface{}, i int) interface{} {
+		file_proto_bom_1_4_proto_msgTypes[22].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*Property); i {
 			case 0:
 				return &v.state
@@ -5347,7 +5347,7 @@ func file_appsec_bom_1_4_proto_init() {
 				return nil
 			}
 		}
-		file_appsec_bom_1_4_proto_msgTypes[23].Exporter = func(v interface{}, i int) interface{} {
+		file_proto_bom_1_4_proto_msgTypes[23].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*Composition); i {
 			case 0:
 				return &v.state
@@ -5359,7 +5359,7 @@ func file_appsec_bom_1_4_proto_init() {
 				return nil
 			}
 		}
-		file_appsec_bom_1_4_proto_msgTypes[24].Exporter = func(v interface{}, i int) interface{} {
+		file_proto_bom_1_4_proto_msgTypes[24].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*EvidenceCopyright); i {
 			case 0:
 				return &v.state
@@ -5371,7 +5371,7 @@ func file_appsec_bom_1_4_proto_init() {
 				return nil
 			}
 		}
-		file_appsec_bom_1_4_proto_msgTypes[25].Exporter = func(v interface{}, i int) interface{} {
+		file_proto_bom_1_4_proto_msgTypes[25].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*Evidence); i {
 			case 0:
 				return &v.state
@@ -5383,7 +5383,7 @@ func file_appsec_bom_1_4_proto_init() {
 				return nil
 			}
 		}
-		file_appsec_bom_1_4_proto_msgTypes[26].Exporter = func(v interface{}, i int) interface{} {
+		file_proto_bom_1_4_proto_msgTypes[26].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*Note); i {
 			case 0:
 				return &v.state
@@ -5395,7 +5395,7 @@ func file_appsec_bom_1_4_proto_init() {
 				return nil
 			}
 		}
-		file_appsec_bom_1_4_proto_msgTypes[27].Exporter = func(v interface{}, i int) interface{} {
+		file_proto_bom_1_4_proto_msgTypes[27].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*ReleaseNotes); i {
 			case 0:
 				return &v.state
@@ -5407,7 +5407,7 @@ func file_appsec_bom_1_4_proto_init() {
 				return nil
 			}
 		}
-		file_appsec_bom_1_4_proto_msgTypes[28].Exporter = func(v interface{}, i int) interface{} {
+		file_proto_bom_1_4_proto_msgTypes[28].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*Vulnerability); i {
 			case 0:
 				return &v.state
@@ -5419,7 +5419,7 @@ func file_appsec_bom_1_4_proto_init() {
 				return nil
 			}
 		}
-		file_appsec_bom_1_4_proto_msgTypes[29].Exporter = func(v interface{}, i int) interface{} {
+		file_proto_bom_1_4_proto_msgTypes[29].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*VulnerabilityReference); i {
 			case 0:
 				return &v.state
@@ -5431,7 +5431,7 @@ func file_appsec_bom_1_4_proto_init() {
 				return nil
 			}
 		}
-		file_appsec_bom_1_4_proto_msgTypes[30].Exporter = func(v interface{}, i int) interface{} {
+		file_proto_bom_1_4_proto_msgTypes[30].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*VulnerabilityRating); i {
 			case 0:
 				return &v.state
@@ -5443,7 +5443,7 @@ func file_appsec_bom_1_4_proto_init() {
 				return nil
 			}
 		}
-		file_appsec_bom_1_4_proto_msgTypes[31].Exporter = func(v interface{}, i int) interface{} {
+		file_proto_bom_1_4_proto_msgTypes[31].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*Advisory); i {
 			case 0:
 				return &v.state
@@ -5455,7 +5455,7 @@ func file_appsec_bom_1_4_proto_init() {
 				return nil
 			}
 		}
-		file_appsec_bom_1_4_proto_msgTypes[32].Exporter = func(v interface{}, i int) interface{} {
+		file_proto_bom_1_4_proto_msgTypes[32].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*VulnerabilityCredits); i {
 			case 0:
 				return &v.state
@@ -5467,7 +5467,7 @@ func file_appsec_bom_1_4_proto_init() {
 				return nil
 			}
 		}
-		file_appsec_bom_1_4_proto_msgTypes[33].Exporter = func(v interface{}, i int) interface{} {
+		file_proto_bom_1_4_proto_msgTypes[33].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*VulnerabilityAnalysis); i {
 			case 0:
 				return &v.state
@@ -5479,7 +5479,7 @@ func file_appsec_bom_1_4_proto_init() {
 				return nil
 			}
 		}
-		file_appsec_bom_1_4_proto_msgTypes[34].Exporter = func(v interface{}, i int) interface{} {
+		file_proto_bom_1_4_proto_msgTypes[34].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*VulnerabilityAffects); i {
 			case 0:
 				return &v.state
@@ -5491,7 +5491,7 @@ func file_appsec_bom_1_4_proto_init() {
 				return nil
 			}
 		}
-		file_appsec_bom_1_4_proto_msgTypes[35].Exporter = func(v interface{}, i int) interface{} {
+		file_proto_bom_1_4_proto_msgTypes[35].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*VulnerabilityAffectedVersions); i {
 			case 0:
 				return &v.state
@@ -5504,40 +5504,40 @@ func file_appsec_bom_1_4_proto_init() {
 			}
 		}
 	}
-	file_appsec_bom_1_4_proto_msgTypes[0].OneofWrappers = []interface{}{}
-	file_appsec_bom_1_4_proto_msgTypes[1].OneofWrappers = []interface{}{}
-	file_appsec_bom_1_4_proto_msgTypes[2].OneofWrappers = []interface{}{}
-	file_appsec_bom_1_4_proto_msgTypes[3].OneofWrappers = []interface{}{}
-	file_appsec_bom_1_4_proto_msgTypes[6].OneofWrappers = []interface{}{}
-	file_appsec_bom_1_4_proto_msgTypes[7].OneofWrappers = []interface{}{}
-	file_appsec_bom_1_4_proto_msgTypes[9].OneofWrappers = []interface{}{}
-	file_appsec_bom_1_4_proto_msgTypes[10].OneofWrappers = []interface{}{}
-	file_appsec_bom_1_4_proto_msgTypes[11].OneofWrappers = []interface{}{}
-	file_appsec_bom_1_4_proto_msgTypes[12].OneofWrappers = []interface{}{
+	file_proto_bom_1_4_proto_msgTypes[0].OneofWrappers = []interface{}{}
+	file_proto_bom_1_4_proto_msgTypes[1].OneofWrappers = []interface{}{}
+	file_proto_bom_1_4_proto_msgTypes[2].OneofWrappers = []interface{}{}
+	file_proto_bom_1_4_proto_msgTypes[3].OneofWrappers = []interface{}{}
+	file_proto_bom_1_4_proto_msgTypes[6].OneofWrappers = []interface{}{}
+	file_proto_bom_1_4_proto_msgTypes[7].OneofWrappers = []interface{}{}
+	file_proto_bom_1_4_proto_msgTypes[9].OneofWrappers = []interface{}{}
+	file_proto_bom_1_4_proto_msgTypes[10].OneofWrappers = []interface{}{}
+	file_proto_bom_1_4_proto_msgTypes[11].OneofWrappers = []interface{}{}
+	file_proto_bom_1_4_proto_msgTypes[12].OneofWrappers = []interface{}{
 		(*LicenseChoice_License)(nil),
 		(*LicenseChoice_Expression)(nil),
 	}
-	file_appsec_bom_1_4_proto_msgTypes[13].OneofWrappers = []interface{}{
+	file_proto_bom_1_4_proto_msgTypes[13].OneofWrappers = []interface{}{
 		(*License_Id)(nil),
 		(*License_Name)(nil),
 	}
-	file_appsec_bom_1_4_proto_msgTypes[14].OneofWrappers = []interface{}{}
-	file_appsec_bom_1_4_proto_msgTypes[15].OneofWrappers = []interface{}{}
-	file_appsec_bom_1_4_proto_msgTypes[16].OneofWrappers = []interface{}{}
-	file_appsec_bom_1_4_proto_msgTypes[17].OneofWrappers = []interface{}{}
-	file_appsec_bom_1_4_proto_msgTypes[18].OneofWrappers = []interface{}{}
-	file_appsec_bom_1_4_proto_msgTypes[19].OneofWrappers = []interface{}{}
-	file_appsec_bom_1_4_proto_msgTypes[20].OneofWrappers = []interface{}{}
-	file_appsec_bom_1_4_proto_msgTypes[21].OneofWrappers = []interface{}{}
-	file_appsec_bom_1_4_proto_msgTypes[22].OneofWrappers = []interface{}{}
-	file_appsec_bom_1_4_proto_msgTypes[26].OneofWrappers = []interface{}{}
-	file_appsec_bom_1_4_proto_msgTypes[27].OneofWrappers = []interface{}{}
-	file_appsec_bom_1_4_proto_msgTypes[28].OneofWrappers = []interface{}{}
-	file_appsec_bom_1_4_proto_msgTypes[29].OneofWrappers = []interface{}{}
-	file_appsec_bom_1_4_proto_msgTypes[30].OneofWrappers = []interface{}{}
-	file_appsec_bom_1_4_proto_msgTypes[31].OneofWrappers = []interface{}{}
-	file_appsec_bom_1_4_proto_msgTypes[33].OneofWrappers = []interface{}{}
-	file_appsec_bom_1_4_proto_msgTypes[35].OneofWrappers = []interface{}{
+	file_proto_bom_1_4_proto_msgTypes[14].OneofWrappers = []interface{}{}
+	file_proto_bom_1_4_proto_msgTypes[15].OneofWrappers = []interface{}{}
+	file_proto_bom_1_4_proto_msgTypes[16].OneofWrappers = []interface{}{}
+	file_proto_bom_1_4_proto_msgTypes[17].OneofWrappers = []interface{}{}
+	file_proto_bom_1_4_proto_msgTypes[18].OneofWrappers = []interface{}{}
+	file_proto_bom_1_4_proto_msgTypes[19].OneofWrappers = []interface{}{}
+	file_proto_bom_1_4_proto_msgTypes[20].OneofWrappers = []interface{}{}
+	file_proto_bom_1_4_proto_msgTypes[21].OneofWrappers = []interface{}{}
+	file_proto_bom_1_4_proto_msgTypes[22].OneofWrappers = []interface{}{}
+	file_proto_bom_1_4_proto_msgTypes[26].OneofWrappers = []interface{}{}
+	file_proto_bom_1_4_proto_msgTypes[27].OneofWrappers = []interface{}{}
+	file_proto_bom_1_4_proto_msgTypes[28].OneofWrappers = []interface{}{}
+	file_proto_bom_1_4_proto_msgTypes[29].OneofWrappers = []interface{}{}
+	file_proto_bom_1_4_proto_msgTypes[30].OneofWrappers = []interface{}{}
+	file_proto_bom_1_4_proto_msgTypes[31].OneofWrappers = []interface{}{}
+	file_proto_bom_1_4_proto_msgTypes[33].OneofWrappers = []interface{}{}
+	file_proto_bom_1_4_proto_msgTypes[35].OneofWrappers = []interface{}{
 		(*VulnerabilityAffectedVersions_Version)(nil),
 		(*VulnerabilityAffectedVersions_Range)(nil),
 	}
@@ -5545,19 +5545,19 @@ func file_appsec_bom_1_4_proto_init() {
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
-			RawDescriptor: file_appsec_bom_1_4_proto_rawDesc,
+			RawDescriptor: file_proto_bom_1_4_proto_rawDesc,
 			NumEnums:      14,
 			NumMessages:   36,
 			NumExtensions: 0,
 			NumServices:   0,
 		},
-		GoTypes:           file_appsec_bom_1_4_proto_goTypes,
-		DependencyIndexes: file_appsec_bom_1_4_proto_depIdxs,
-		EnumInfos:         file_appsec_bom_1_4_proto_enumTypes,
-		MessageInfos:      file_appsec_bom_1_4_proto_msgTypes,
+		GoTypes:           file_proto_bom_1_4_proto_goTypes,
+		DependencyIndexes: file_proto_bom_1_4_proto_depIdxs,
+		EnumInfos:         file_proto_bom_1_4_proto_enumTypes,
+		MessageInfos:      file_proto_bom_1_4_proto_msgTypes,
 	}.Build()
-	File_appsec_bom_1_4_proto = out.File
-	file_appsec_bom_1_4_proto_rawDesc = nil
-	file_appsec_bom_1_4_proto_goTypes = nil
-	file_appsec_bom_1_4_proto_depIdxs = nil
+	file_proto_bom_1_4_proto = out.File
+	file_proto_bom_1_4_proto_rawDesc = nil
+	file_proto_bom_1_4_proto_goTypes = nil
+	file_proto_bom_1_4_proto_depIdxs = nil
 }
