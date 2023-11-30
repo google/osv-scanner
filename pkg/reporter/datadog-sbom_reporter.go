@@ -6,6 +6,7 @@ import (
 	"github.com/golang/protobuf/proto"
 	"github.com/google/osv-scanner/pkg/models"
 	sbomproto "github.com/google/osv-scanner/pkg/reporter/sbom"
+	"github.com/package-url/packageurl-go"
 	"google.golang.org/protobuf/types/known/durationpb"
 	"google.golang.org/protobuf/types/known/timestamppb"
 	"io"
@@ -185,25 +186,25 @@ func toBom(results *models.VulnerabilityResults) *sbomproto.Bom {
 	for _, result := range results.Results {
 		filename := result.Source.Path
 		for _, packageInfo := range result.Packages {
-			ecosystem := strings.ToLower(packageInfo.Package.Ecosystem)
-			packageName := packageInfo.Package.Name
-			if ecosystem == "maven" {
-				packageName = strings.Join(strings.Split(packageName, ":"), "/")
+			packageURLInstance := getPackageURL(packageInfo.Package)
+			if packageURLInstance == nil {
+				continue
 			}
-			purl := fmt.Sprintf("pkg:%s/%s@%s", ecosystem, packageName, packageInfo.Package.Version)
+
+			purlString := packageURLInstance.ToString()
+			props := make([]*sbomproto.Property, 0)
+			props = append(props, &sbomproto.Property{
+				Name:  "location_file",
+				Value: &filename,
+			})
 
 			component := sbomproto.Component{
-				Type:    sbomproto.Classification_CLASSIFICATION_LIBRARY,
-				Name:    packageInfo.Package.Name,
-				Version: packageInfo.Package.Version,
-				BomRef:  &purl,
-				Purl:    &purl,
-				Properties: []*sbomproto.Property{
-					{
-						Name:  "location_file",
-						Value: &filename,
-					},
-				},
+				Type:       sbomproto.Classification_CLASSIFICATION_LIBRARY,
+				Name:       packageInfo.Package.Name,
+				Version:    packageInfo.Package.Version,
+				BomRef:     &purlString,
+				Purl:       &purlString,
+				Properties: props,
 			}
 
 			if packageInfo.Package.Start.Line != 0 {
@@ -235,6 +236,55 @@ func toBom(results *models.VulnerabilityResults) *sbomproto.Bom {
 	}
 
 	return bom
+}
+
+func getPackageURL(packageInfo models.PackageInfo) *packageurl.PackageURL {
+	var purlType string
+	var namespace string
+	name := packageInfo.Name
+	version := packageInfo.Version
+	var subpath string
+
+	switch packageInfo.Ecosystem {
+	case string(models.EcosystemMaven):
+		nameParts := strings.Split(packageInfo.Name, ":")
+		if len(nameParts) != 2 {
+			log.Printf("invalid maven package_name=%s", packageInfo.Name)
+			return nil
+		}
+		purlType = packageurl.TypeMaven
+		namespace = nameParts[0]
+		name = nameParts[1]
+	case string(models.EcosystemGo):
+		nameParts := strings.Split(packageInfo.Name, ":")
+		if len(nameParts) < 2 {
+			log.Printf("invalid maven package_name=%s", packageInfo.Name)
+			return nil
+		}
+		purlType = packageurl.TypeGolang
+		namespace = nameParts[0]
+		name = nameParts[1]
+		subpath = strings.Join(nameParts[2:], "/")
+	case string(models.EcosystemPackagist):
+		nameParts := strings.Split(packageInfo.Name, ":")
+		if len(nameParts) != 2 {
+			log.Printf("invalid maven package_name=%s", packageInfo.Name)
+			return nil
+		}
+		purlType = packageurl.TypeComposer
+		namespace = nameParts[0]
+		name = nameParts[1]
+	case string(models.EcosystemPyPI):
+		purlType = packageurl.TypePyPi
+	case string(models.EcosystemRubyGems):
+		purlType = packageurl.TypeGem
+	case string(models.EcosystemNuGet):
+		purlType = packageurl.TypeNuget
+	case string(models.EcosystemNPM):
+		purlType = packageurl.TypeNPM
+	}
+
+	return packageurl.NewPackageURL(purlType, namespace, name, version, nil, subpath)
 }
 
 func getRepositoryURL() (string, error) {
