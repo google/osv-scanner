@@ -111,6 +111,17 @@ func run(args []string, stdout, stderr io.Writer) int {
 				return fmt.Errorf("failed to open new results at %s: %w", newPath, err)
 			}
 
+			if context.Bool("datadog-sbom") {
+				var datadogSbomReporter reporter.Reporter
+				if datadogSbomReporter, err = reporter.New("datadog-sbom", stdout, stderr, termWidth); err != nil {
+					return err
+				}
+
+				if errPrint := datadogSbomReporter.PrintResult(&newVulns); errPrint != nil {
+					return fmt.Errorf("failed to write output: %w", errPrint)
+				}
+			}
+
 			var diffVulns models.VulnerabilityResults
 
 			diffVulnOccurrences := ci.DiffVulnerabilityResultsByOccurrences(oldVulns, newVulns)
@@ -142,17 +153,6 @@ func run(args []string, stdout, stderr io.Writer) int {
 				}
 
 				if errPrint := ghAnnotationsReporter.PrintResult(&diffVulns); errPrint != nil {
-					return fmt.Errorf("failed to write output: %w", errPrint)
-				}
-			}
-
-			if context.Bool("datadog-sbom") {
-				var datadogSbomReporter reporter.Reporter
-				if datadogSbomReporter, err = reporter.New("datadog-sbom", stdout, stderr, termWidth); err != nil {
-					return err
-				}
-
-				if errPrint := datadogSbomReporter.PrintResult(&diffVulns); errPrint != nil {
 					return fmt.Errorf("failed to write output: %w", errPrint)
 				}
 			}

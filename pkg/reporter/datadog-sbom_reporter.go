@@ -170,7 +170,7 @@ func readEnvironmentTags() []string {
 		ddtags = append(ddtags, fmt.Sprintf("git.branch:%s", branchName))
 	}
 	if commitSha != "" {
-		ddtags = append(ddtags, fmt.Sprintf("git.sha:%s", commitSha))
+		ddtags = append(ddtags, fmt.Sprintf("git.commit.sha:%s", commitSha))
 	}
 	return ddtags
 }
