@@ -256,9 +256,9 @@ func getPackageURL(packageInfo models.PackageInfo) *packageurl.PackageURL {
 		namespace = nameParts[0]
 		name = nameParts[1]
 	case string(models.EcosystemGo):
-		nameParts := strings.Split(packageInfo.Name, ":")
+		nameParts := strings.Split(packageInfo.Name, "/")
 		if len(nameParts) < 2 {
-			log.Printf("invalid maven package_name=%s", packageInfo.Name)
+			log.Printf("invalid golang package_name=%s", packageInfo.Name)
 			return nil
 		}
 		purlType = packageurl.TypeGolang
@@ -266,9 +266,9 @@ func getPackageURL(packageInfo models.PackageInfo) *packageurl.PackageURL {
 		name = nameParts[1]
 		subpath = strings.Join(nameParts[2:], "/")
 	case string(models.EcosystemPackagist):
-		nameParts := strings.Split(packageInfo.Name, ":")
+		nameParts := strings.Split(packageInfo.Name, "/")
 		if len(nameParts) != 2 {
-			log.Printf("invalid maven package_name=%s", packageInfo.Name)
+			log.Printf("invalid packagist package_name=%s", packageInfo.Name)
 			return nil
 		}
 		purlType = packageurl.TypeComposer
