@@ -10,8 +10,10 @@ import (
 	"sort"
 	"strings"
 
-	v2_metric "github.com/goark/go-cvss/v2/metric"
-	v3_metric "github.com/goark/go-cvss/v3/metric"
+	gocvss20 "github.com/pandatix/go-cvss/20"
+	gocvss30 "github.com/pandatix/go-cvss/30"
+	gocvss31 "github.com/pandatix/go-cvss/31"
+	gocvss40 "github.com/pandatix/go-cvss/40"
 	"golang.org/x/exp/maps"
 
 	"github.com/google/osv-scanner/internal/utility/results"
@@ -155,11 +157,20 @@ func MaxSeverity(group models.GroupInfo, pkg models.PackageVulns) string {
 		for _, severity := range severities {
 			switch severity.Type {
 			case models.SeverityCVSSV2:
-				numericSeverity, _ := v2_metric.NewBase().Decode(severity.Score)
-				maxSeverity = math.Max(maxSeverity, numericSeverity.Score())
+				vec, _ := gocvss20.ParseVector(severity.Score)
+				maxSeverity = math.Max(maxSeverity, vec.BaseScore())
 			case models.SeverityCVSSV3:
-				numericSeverity, _ := v3_metric.NewBase().Decode(severity.Score)
-				maxSeverity = math.Max(maxSeverity, numericSeverity.Score())
+				switch {
+				case strings.HasPrefix(severity.Score, "CVSS:3.0"):
+					vec, _ := gocvss30.ParseVector(severity.Score)
+					maxSeverity = math.Max(maxSeverity, vec.BaseScore())
+				case strings.HasPrefix(severity.Score, "CVSS:3.1"):
+					vec, _ := gocvss31.ParseVector(severity.Score)
+					maxSeverity = math.Max(maxSeverity, vec.BaseScore())
+				}
+			case models.SeverityCVSSV4:
+				vec, _ := gocvss40.ParseVector(severity.Score)
+				maxSeverity = math.Max(maxSeverity, vec.Score())
 			}
 		}
 	}
