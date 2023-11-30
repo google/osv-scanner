@@ -6,6 +6,7 @@ import (
 	"errors"
 	"fmt"
 	"io/fs"
+	"log"
 	"os"
 	"os/exec"
 	"path"
@@ -111,6 +112,12 @@ func scanDir(r reporter.Reporter, dir string, skipGit bool, recursive bool, useG
 
 	root := true
 
+	dirAbs, err := filepath.Abs(dir)
+	if err != nil {
+		r.PrintError(fmt.Sprintf("Failed to make dir=%s absolute: %s\n", dir, err.Error()))
+		return nil, err
+	}
+
 	var scannedPackages []scannedPackage
 
 	return scannedPackages, filepath.WalkDir(dir, func(path string, info os.DirEntry, err error) error {
@@ -148,7 +155,7 @@ func scanDir(r reporter.Reporter, dir string, skipGit bool, recursive bool, useG
 				r.PrintText(fmt.Sprintf("scan failed for git repository, %s: %v\n", path, err))
 				// Not fatal, so don't return and continue scanning other files
 			}
-			scannedPackages = append(scannedPackages, pkgs...)
+			scannedPackages = append(scannedPackages, relativizeSources(dirAbs, pkgs)...)
 
 			return filepath.SkipDir
 		}
@@ -159,13 +166,13 @@ func scanDir(r reporter.Reporter, dir string, skipGit bool, recursive bool, useG
 				if err != nil {
 					r.PrintError(fmt.Sprintf("Attempted to scan lockfile but failed: %s\n", path))
 				}
-				scannedPackages = append(scannedPackages, pkgs...)
+				scannedPackages = append(scannedPackages, relativizeSources(dirAbs, pkgs)...)
 			}
 			// No need to check for error
 			// If scan fails, it means it isn't a valid SBOM file,
 			// so just move onto the next file
 			pkgs, _ := scanSBOMFile(r, path, true)
-			scannedPackages = append(scannedPackages, pkgs...)
+			scannedPackages = append(scannedPackages, relativizeSources(dirAbs, pkgs)...)
 		}
 
 		if info.IsDir() && !compareOffline {
@@ -174,7 +181,7 @@ func scanDir(r reporter.Reporter, dir string, skipGit bool, recursive bool, useG
 				if err != nil {
 					r.PrintText(fmt.Sprintf("scan failed for dir containing vendored libs %s: %v\n", path, err))
 				}
-				scannedPackages = append(scannedPackages, pkgs...)
+				scannedPackages = append(scannedPackages, relativizeSources(dirAbs, pkgs)...)
 			}
 		}
 
@@ -185,6 +192,20 @@ func scanDir(r reporter.Reporter, dir string, skipGit bool, recursive bool, useG
 
 		return nil
 	})
+}
+
+func relativizeSources(basePath string, pkgs []scannedPackage) []scannedPackage {
+	var relativizedPkgs []scannedPackage
+	for _, pkg := range pkgs {
+		relativePath, err := filepath.Rel(basePath, pkg.Source.Path)
+		if err != nil {
+			log.Printf("Failed to make path=%s relative to base=%s: %s\n", pkg.Source.Path, basePath, err.Error())
+		} else {
+			pkg.Source.Path = relativePath
+		}
+		relativizedPkgs = append(relativizedPkgs, pkg)
+	}
+	return relativizedPkgs
 }
 
 type gitIgnoreMatcher struct {
