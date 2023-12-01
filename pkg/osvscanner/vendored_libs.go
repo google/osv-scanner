@@ -2,6 +2,7 @@ package osvscanner
 
 import (
 	"bytes"
+	//nolint:gosec
 	"crypto/md5"
 	"errors"
 	"fmt"

@@ -1,7 +1,7 @@
 package osvscanner
 
 import (
-	"bufio" //nolint:gosec
+	"bufio"
 	"errors"
 	"fmt"
 	"os"

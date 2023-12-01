@@ -9,6 +9,8 @@ import (
 )
 
 func Test_scanDirWithVendoredLibs(t *testing.T) {
+	t.Parallel()
+
 	type args struct {
 		r    reporter.Reporter
 		path string
@@ -37,7 +39,9 @@ func Test_scanDirWithVendoredLibs(t *testing.T) {
 		},
 	}
 	for _, tt := range tests {
+		tt := tt
 		t.Run(tt.name, func(t *testing.T) {
+			t.Parallel()
 			got, err := scanDirWithVendoredLibs(tt.args.r, tt.args.path)
 			if (err != nil) != tt.wantErr {
 				t.Errorf("scanDirWithVendoredLibs() error = %v, wantErr %v", err, tt.wantErr)
