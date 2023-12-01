@@ -188,3 +188,16 @@ Current implementation has a few limitations:
 ```bash
 osv-scanner --call-analysis=rust --no-call-analysis=go ./my/project/path
 ```
+
+## Pre-commit integration
+If you wish to install OSV-Scanner as a [pre-commit](https://pre-commit.com) plugin in your project, you may use the `osv-scanner` pre-commit hook. Use the `args` key in your `.pre-commit-config.yaml` to pass your command-line arguments as you would using OSV-Scanner in the command line.
+
+### Example
+```yaml
+repos:
+  - repo: https://github.com/google/osv-scanner/
+    rev: # pass a Git tag or commit hash here
+    hooks:
+      - id: osv-scanner
+        args: ["-r", "/path/to/your/dir"]
+```
