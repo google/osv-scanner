@@ -27,7 +27,7 @@ builds:
       # Further testing before supporting arm
       # - arm
       - arm64
-    main: ./cmd/osv-scanner/main.go
+    main: ./cmd/osv-scanner/
 
 dockers:
   # Arch: amd64
