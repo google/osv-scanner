@@ -117,8 +117,8 @@ func Test_scanGit(t *testing.T) {
 		if (err != nil) != tt.wantErr {
 			t.Errorf("scanGit() error = %v, wantErr %v", err, tt.wantErr)
 		}
-		if diff := cmp.Diff(tt.wantPkg, pkg); diff != "" {
-			t.Errorf("scanGit() package = %v, wantPackage %v", pkg, tt.wantPkg)
+		if diff := cmp.Diff(pkg, tt.wantPkg); diff != "" {
+			t.Errorf("scanGit() returned unexpected result (-got +want):\n%s", diff)
 		}
 	}
 
