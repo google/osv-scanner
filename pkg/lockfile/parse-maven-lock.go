@@ -43,34 +43,32 @@ func (mld MavenLockDependency) parseResolvedVersion(version string) string {
 	return results[1]
 }
 
+/*
+You can see the regex working here : https://regex101.com/r/inAPiN/2
+*/
 func (mld MavenLockDependency) resolveVersionValue(lockfile MavenLockFile) string {
-	interpolationReg := cachedregexp.MustCompile(`\${(.+)}`)
-
-	results := interpolationReg.FindStringSubmatch(mld.Version)
-
-	// no interpolation, so just return the version as-is
-	if results == nil {
-		return mld.Version
-	}
-	if val, ok := lockfile.Properties.m[results[1]]; ok {
-		return val
-	}
-
-	fmt.Fprintf(
-		os.Stderr,
-		"Failed to resolve version of %s: property \"%s\" could not be found for \"%s\"\n",
-		mld.GroupID+":"+mld.ArtifactID,
-		results[1],
-		lockfile.GroupID+":"+lockfile.ArtifactID,
-	)
-
-	return "0"
+	interpolationReg := cachedregexp.MustCompile(`\${([^}]+)}`)
+	result := interpolationReg.ReplaceAllFunc([]byte(mld.Version), func(bytes []byte) []byte {
+		propStr := string(bytes)
+		propName := propStr[2 : len(propStr)-1]
+		property, ok := lockfile.Properties.m[propName]
+		if !ok {
+			fmt.Fprintf(
+				os.Stderr,
+				"Failed to resolve version of %s: property \"%s\" could not be found for \"%s\"\n",
+				mld.GroupID+":"+mld.ArtifactID,
+				string(bytes),
+				lockfile.GroupID+":"+lockfile.ArtifactID,
+			)
+			return []byte("0")
+		}
+		return []byte(mld.parseResolvedVersion(property))
+	})
+	return mld.parseResolvedVersion(string(result))
 }
 
 func (mld MavenLockDependency) ResolveVersion(lockfile MavenLockFile) string {
-	version := mld.resolveVersionValue(lockfile)
-
-	return mld.parseResolvedVersion(version)
+	return mld.resolveVersionValue(lockfile)
 }
 
 type MavenLockFile struct {
