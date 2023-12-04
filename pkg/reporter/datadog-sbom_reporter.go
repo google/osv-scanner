@@ -163,7 +163,7 @@ func toRequestBody(results *models.VulnerabilityResults) ([]byte, error) {
 }
 
 func readEnvironmentTags() []string {
-	branchName := os.Getenv("GITHUB_REF")
+	branchName := os.Getenv("GITHUB_REF_NAME")
 	commitSha := os.Getenv("GITHUB_SHA")
 	var ddtags []string
 	if branchName != "" {
