@@ -1,10 +1,10 @@
 package grouper
 
 import (
+	"slices"
 	"sort"
 
 	"golang.org/x/exp/maps"
-	"golang.org/x/exp/slices"
 
 	"github.com/google/osv-scanner/pkg/models"
 )

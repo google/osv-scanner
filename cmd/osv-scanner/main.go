@@ -5,13 +5,13 @@ import (
 	"fmt"
 	"io"
 	"os"
+	"slices"
 	"strings"
 
 	"github.com/google/osv-scanner/internal/version"
 	"github.com/google/osv-scanner/pkg/osv"
 	"github.com/google/osv-scanner/pkg/osvscanner"
 	"github.com/google/osv-scanner/pkg/reporter"
-	"golang.org/x/exp/slices"
 	"golang.org/x/term"
 
 	"github.com/urfave/cli/v2"
