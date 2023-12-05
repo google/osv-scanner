@@ -1,9 +1,8 @@
 package models
 
 import (
+	"slices"
 	"strings"
-
-	"golang.org/x/exp/slices"
 )
 
 // Combined vulnerabilities found for the scanned packages

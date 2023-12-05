@@ -2,9 +2,9 @@ package output
 
 import (
 	"encoding/json"
+	"slices"
 
 	"github.com/google/osv-scanner/pkg/models"
-	"golang.org/x/exp/slices"
 )
 
 type pkgWithSource struct {
