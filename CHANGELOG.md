@@ -1,3 +1,39 @@
+# v1.5.0:
+
+### Features
+- [Feature #501](https://github.com/google/osv-scanner/pull/501)
+  Add experimental license scanning support! See https://osv.dev/blog/posts/introducing-license-scanning-with-osv-scanner/ for more information!
+- [Feature #642](https://github.com/google/osv-scanner/pull/642)
+  Support scanning `renv` files for the R language ecosystem.
+- [Feature #513](https://github.com/google/osv-scanner/pull/513)
+  Stabilize call analysis for Go! The experimental `--experimental-call-analysis` flag has now been updated to:
+  ```
+  --call-analysis=<language/all>
+  --no-call-analysis=<language/all>
+  ```
+  with call analysis for Go enabled by default. See https://google.github.io/osv-scanner/usage/#scanning-with-call-analysis for the documentation!
+- [Feature #676](https://github.com/google/osv-scanner/pull/676)
+  Simplify return codes:
+    - Return 0 if there are no findings or errors.
+    - Return 1 if there are any findings (license or vulns).
+    - Return 128 if no packages are found.
+- [Feature #651](https://github.com/google/osv-scanner/pull/651)
+  CVSS v4.0 support.
+- [Feature #60](https://github.com/google/osv-scanner/pull/60)
+  [Pre-commit hook](https://pre-commit.com/) support.
+
+### Fixes
+- [Bug #639](https://github.com/google/osv-scanner/issues/639)
+  We now filter local packages from scans, and report the filtering of those packages.
+- [Bug #645](https://github.com/google/osv-scanner/issues/645)
+  Properly handle file/url paths on Windows.
+- [Bug #660](https://github.com/google/osv-scanner/issues/660)
+  Remove noise from failed lockfile parsing.
+- [Bug #649](https://github.com/google/osv-scanner/issues/649)
+  No longer include vendored libraries in C/C++ package analysis.
+- [Bug #634](https://github.com/google/osv-scanner/issues/634)
+  Fix filtering of aliases to also include non OSV aliases
+
 # v1.4.3:
 
 ### Features
