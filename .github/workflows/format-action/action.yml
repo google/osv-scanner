@@ -13,7 +13,7 @@
 # limitations under the License.
 
 name: format
-description: "Runs file formatters"
+description: 'Runs file formatters'
 
 runs:
   using: composite

@@ -3,7 +3,7 @@ name: Release new version
 on:
   push:
     tags:
-      - "*" # triggers only if push new tag version, like `v0.8.4` 
+      - '*' # triggers only if push new tag version, like `v0.8.4`
 
 permissions:
   contents: read # to fetch code (actions/checkout)
@@ -15,12 +15,12 @@ jobs:
     outputs:
       hashes: ${{ steps.hash.outputs.hashes }}
     permissions:
-      contents: write  # for goreleaser/goreleaser-action to create a GitHub release
+      contents: write # for goreleaser/goreleaser-action to create a GitHub release
       packages: write # for goreleaser/goreleaser-action to publish docker images
     runs-on: ubuntu-latest
     env:
       # Required for buildx on docker 19.x
-      DOCKER_CLI_EXPERIMENTAL: "enabled"
+      DOCKER_CLI_EXPERIMENTAL: 'enabled'
     steps:
       - name: Checkout
         uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
@@ -51,7 +51,7 @@ jobs:
       - name: Generate subject
         id: hash
         env:
-          ARTIFACTS: "${{ steps.run-goreleaser.outputs.artifacts }}"
+          ARTIFACTS: '${{ steps.run-goreleaser.outputs.artifacts }}'
         run: |
           set -euo pipefail
           checksum_file=$(echo "$ARTIFACTS" | jq -r '.[] | select (.type=="Checksum") | .path')
@@ -64,6 +64,6 @@ jobs:
       contents: write # To add assets to a release.
     uses: slsa-framework/slsa-github-generator/.github/workflows/generator_generic_slsa3.yml@v1.9.0
     with:
-      base64-subjects: "${{ needs.goreleaser.outputs.hashes }}"
+      base64-subjects: '${{ needs.goreleaser.outputs.hashes }}'
       upload-assets: true # upload to a new release
       draft-release: true # upload to a new draft release

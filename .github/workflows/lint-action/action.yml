@@ -13,7 +13,7 @@
 # limitations under the License.
 
 name: lint
-description: "Runs go lints"
+description: 'Runs go lints'
 
 runs:
   using: composite

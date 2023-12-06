@@ -16,19 +16,19 @@ name: OSV-Scanner PR Scan
 
 on:
   pull_request:
-    branches: [ main ]
+    branches: [main]
   merge_group:
-    branches: [ main ]
+    branches: [main]
 
 jobs:
   scan-pr:
-    uses: "./.github/workflows/osv-scanner-reusable-pr.yml"
+    uses: './.github/workflows/osv-scanner-reusable-pr.yml'
     with:
       # Just scan the root directory and docs, since everything else is fixtures
       scan-args: |-
-          --skip-git
-          ./
-          ./docs/
+        --skip-git
+        ./
+        ./docs/
     permissions:
       security-events: write
       contents: read

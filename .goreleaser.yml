@@ -36,34 +36,34 @@ dockers:
     dockerfile: goreleaser.dockerfile
     use: buildx
     build_flag_templates:
-      - "--pull"
-      - "--label=org.opencontainers.image.title=osv-scanner"
-      - "--label=org.opencontainers.image.description=Vulnerability scanner written in Go which uses the data provided by https://osv.dev"
-      - "--label=org.opencontainers.image.licenses=Apache License 2.0"
-      - "--label=org.opencontainers.image.created={{.Date}}"
-      - "--label=org.opencontainers.image.name={{.ProjectName}}"
-      - "--label=org.opencontainers.image.revision={{.FullCommit}}"
-      - "--label=org.opencontainers.image.version={{.Version}}"
-      - "--label=org.opencontainers.image.source={{.GitURL}}"
-      - "--label=org.opencontainers.image.url={{.GitURL}}"
-      - "--platform=linux/amd64"
+      - '--pull'
+      - '--label=org.opencontainers.image.title=osv-scanner'
+      - '--label=org.opencontainers.image.description=Vulnerability scanner written in Go which uses the data provided by https://osv.dev'
+      - '--label=org.opencontainers.image.licenses=Apache License 2.0'
+      - '--label=org.opencontainers.image.created={{.Date}}'
+      - '--label=org.opencontainers.image.name={{.ProjectName}}'
+      - '--label=org.opencontainers.image.revision={{.FullCommit}}'
+      - '--label=org.opencontainers.image.version={{.Version}}'
+      - '--label=org.opencontainers.image.source={{.GitURL}}'
+      - '--label=org.opencontainers.image.url={{.GitURL}}'
+      - '--platform=linux/amd64'
   # Arch: arm64
   - image_templates:
       - 'ghcr.io/google/osv-scanner:{{ .Tag }}-arm64'
     dockerfile: goreleaser.dockerfile
     use: buildx
     build_flag_templates:
-      - "--pull"
-      - "--label=org.opencontainers.image.title=osv-scanner"
-      - "--label=org.opencontainers.image.description=Vulnerability scanner written in Go which uses the data provided by https://osv.dev"
-      - "--label=org.opencontainers.image.licenses=Apache-2.0"
-      - "--label=org.opencontainers.image.created={{.Date}}"
-      - "--label=org.opencontainers.image.name={{.ProjectName}}"
-      - "--label=org.opencontainers.image.revision={{.FullCommit}}"
-      - "--label=org.opencontainers.image.version={{.Version}}"
-      - "--label=org.opencontainers.image.source={{.GitURL}}"
-      - "--label=org.opencontainers.image.url={{.GitURL}}"
-      - "--platform=linux/arm64"
+      - '--pull'
+      - '--label=org.opencontainers.image.title=osv-scanner'
+      - '--label=org.opencontainers.image.description=Vulnerability scanner written in Go which uses the data provided by https://osv.dev'
+      - '--label=org.opencontainers.image.licenses=Apache-2.0'
+      - '--label=org.opencontainers.image.created={{.Date}}'
+      - '--label=org.opencontainers.image.name={{.ProjectName}}'
+      - '--label=org.opencontainers.image.revision={{.FullCommit}}'
+      - '--label=org.opencontainers.image.version={{.Version}}'
+      - '--label=org.opencontainers.image.source={{.GitURL}}'
+      - '--label=org.opencontainers.image.url={{.GitURL}}'
+      - '--platform=linux/arm64'
     goarch: arm64
 
 docker_manifests:
