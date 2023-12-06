@@ -15,7 +15,7 @@
 - [Feature #676](https://github.com/google/osv-scanner/pull/676)
   Simplify return codes:
     - Return 0 if there are no findings or errors.
-    - Return 1 if there are any findings (license or vulns).
+    - Return 1 if there are any findings (license violations or vulnerabilities).
     - Return 128 if no packages are found.
 - [Feature #651](https://github.com/google/osv-scanner/pull/651)
   CVSS v4.0 support.
