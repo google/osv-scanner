@@ -63,7 +63,7 @@ func (e NuGetLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 	}
 
 	if parsedLockfile.Version != 1 && parsedLockfile.Version != 2 {
-		return []PackageDetails{}, fmt.Errorf("could not extract: unsupported lock file version")
+		return []PackageDetails{}, fmt.Errorf("could not extract: unsupported lock file version %d", parsedLockfile.Version)
 	}
 
 	return parseNuGetLock(*parsedLockfile)
