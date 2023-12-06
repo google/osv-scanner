@@ -34,6 +34,9 @@
 - [Bug #634](https://github.com/google/osv-scanner/issues/634)
   Fix filtering of aliases to also include non OSV aliases
 
+### Miscellaneous
+- The minimum go version has been updated to go1.21 from go1.18.
+
 # v1.4.3:
 
 ### Features
