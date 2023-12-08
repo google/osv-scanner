@@ -4,6 +4,7 @@ import (
 	"testing"
 
 	"github.com/google/go-cmp/cmp"
+	"github.com/google/osv-scanner/internal/testutility"
 	"github.com/google/osv-scanner/pkg/models"
 	"github.com/google/osv-scanner/pkg/reporter"
 )
@@ -32,7 +33,9 @@ func Test_scanDirWithVendoredLibs(t *testing.T) {
 					Commit: "ce07a29894acd74c52b975a42c02f11d9483566a",
 					Source: models.SourceInfo{
 						Type: "git",
-						Path: "fixtures/example-vendor/bsdiff",
+						Path: testutility.ValueIfOnWindows(
+							"fixtures\\example-vendor\\bsdiff",
+							"fixtures/example-vendor/bsdiff"),
 					},
 				},
 			},
