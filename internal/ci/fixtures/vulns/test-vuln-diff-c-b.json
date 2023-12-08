@@ -112,6 +112,10 @@
             {
               "ids": [
                 "GHSA-c3h9-896r-86jm"
+              ],
+              "aliases": [
+                "CVE-2021-3121",
+                "GHSA-c3h9-896r-86jm"
               ]
             }
           ]
@@ -319,11 +323,21 @@
               "ids": [
                 "GHSA-m5pq-gvj9-9vr8",
                 "RUSTSEC-2022-0013"
-              ]
+              ],
+              "aliases": null
             }
           ]
         }
       ]
     }
-  ]
+  ],
+  "experimental_config": {
+    "call_analysis": {
+      "enabled": false
+    },
+    "licenses": {
+      "enabled": false,
+      "allowlist": null
+    }
+  }
 }

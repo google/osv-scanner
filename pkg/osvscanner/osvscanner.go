@@ -39,16 +39,16 @@ type ScannerActions struct {
 	NoIgnore             bool
 	DockerContainerNames []string
 	ConfigOverridePath   string
+	CallAnalysisStates   map[string]bool
 
 	ExperimentalScannerActions
 }
 
 type ExperimentalScannerActions struct {
-	CallAnalysis          bool
 	CompareLocally        bool
 	CompareOffline        bool
 	ShowAllPackages       bool
-	ScanLicenses          bool
+	ScanLicensesSummary   bool
 	ScanLicensesAllowlist []string
 
 	LocalDBPath string
@@ -636,20 +636,20 @@ func filterPackageVulns(r reporter.Reporter, pkgVulns models.PackageVulns, confi
 	var newGroups []models.GroupInfo
 	for _, group := range pkgVulns.Groups {
 		ignore := false
-		for _, id := range group.IDs {
+		for _, id := range group.Aliases {
 			var ignoreLine config.IgnoreEntry
 			if ignore, ignoreLine = configToUse.ShouldIgnore(id); ignore {
-				for _, id := range group.IDs {
+				for _, id := range group.Aliases {
 					ignoredVulns[id] = struct{}{}
 				}
 				// NB: This only prints the first reason encountered in all the aliases.
-				switch len(group.IDs) {
+				switch len(group.Aliases) {
 				case 1:
 					r.PrintText(fmt.Sprintf("%s has been filtered out because: %s\n", ignoreLine.ID, ignoreLine.Reason))
 				case 2:
 					r.PrintText(fmt.Sprintf("%s and 1 alias have been filtered out because: %s\n", ignoreLine.ID, ignoreLine.Reason))
 				default:
-					r.PrintText(fmt.Sprintf("%s and %d aliases have been filtered out because: %s\n", ignoreLine.ID, len(group.IDs)-1, ignoreLine.Reason))
+					r.PrintText(fmt.Sprintf("%s and %d aliases have been filtered out because: %s\n", ignoreLine.ID, len(group.Aliases)-1, ignoreLine.Reason))
 				}
 
 				break
@@ -788,13 +788,13 @@ func DoScan(actions ScannerActions, r reporter.Reporter) (models.VulnerabilityRe
 	}
 
 	var licensesResp [][]models.License
-	if actions.ScanLicenses {
+	if len(actions.ScanLicensesAllowlist) > 0 || actions.ScanLicensesSummary {
 		licensesResp, err = makeLicensesRequests(filteredScannedPackages)
 		if err != nil {
 			return models.VulnerabilityResults{}, err
 		}
 	}
-	results := buildVulnerabilityResults(r, filteredScannedPackages, vulnsResp, licensesResp, actions.CallAnalysis, actions.ShowAllPackages, actions.ScanLicenses, actions.ScanLicensesAllowlist)
+	results := buildVulnerabilityResults(r, filteredScannedPackages, vulnsResp, licensesResp, actions)
 
 	filtered := filterResults(r, &results, &configManager, actions.ShowAllPackages)
 	if filtered > 0 {
@@ -824,6 +824,7 @@ func DoScan(actions ScannerActions, r reporter.Reporter) (models.VulnerabilityRe
 			}
 		}
 		onlyUncalledVuln = onlyUncalledVuln && vuln
+		licenseViolation = licenseViolation && len(actions.ScanLicensesAllowlist) > 0
 
 		if (!vuln || onlyUncalledVuln) && !licenseViolation {
 			// There is no error.

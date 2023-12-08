@@ -4,11 +4,11 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
+	"slices"
 	"time"
 
 	"github.com/BurntSushi/toml"
 	"github.com/google/osv-scanner/pkg/reporter"
-	"golang.org/x/exp/slices"
 )
 
 const osvScannerConfigName = "osv-scanner.toml"

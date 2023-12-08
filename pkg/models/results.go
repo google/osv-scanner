@@ -1,9 +1,8 @@
 package models
 
 import (
+	"slices"
 	"strings"
-
-	"golang.org/x/exp/slices"
 )
 
 // Combined vulnerabilities found for the scanned packages
@@ -15,16 +14,11 @@ type VulnerabilityResults struct {
 // ExperimentalAnalysisConfig is an experimental type intended to contain the
 // types of analysis performed on packages found by the scanner.
 type ExperimentalAnalysisConfig struct {
-	CallAnalysis ExperimentalCallAnalysisConfig `json:"call_analysis"`
-	Licenses     ExperimentalLicenseConfig      `json:"licenses"`
-}
-
-type ExperimentalCallAnalysisConfig struct {
-	Enabled bool `json:"enabled"`
+	Licenses ExperimentalLicenseConfig `json:"licenses"`
 }
 
 type ExperimentalLicenseConfig struct {
-	Enabled   bool      `json:"enabled"`
+	Summary   bool      `json:"summary"`
 	Allowlist []License `json:"allowlist"`
 }
 
@@ -110,6 +104,8 @@ type PackageVulns struct {
 type GroupInfo struct {
 	// IDs expected to be sorted in alphanumeric order
 	IDs []string `json:"ids"`
+	// Aliases include all aliases and IDs
+	Aliases []string `json:"aliases"`
 	// Map of Vulnerability IDs to AnalysisInfo
 	ExperimentalAnalysis map[string]AnalysisInfo `json:"experimentalAnalysis,omitempty"`
 }
@@ -172,5 +168,5 @@ type PackageInfo struct {
 	Name      string `json:"name"`
 	Version   string `json:"version"`
 	Ecosystem string `json:"ecosystem"`
-	Commit    string `json:"commit"`
+	Commit    string `json:"commit,omitempty"`
 }

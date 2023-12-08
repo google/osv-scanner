@@ -75,11 +75,21 @@
             {
               "ids": [
                 "GO-2021-0053"
-              ]
+              ],
+              "aliases": null
             }
           ]
         }
       ]
     }
-  ]
+  ],
+  "experimental_config": {
+    "call_analysis": {
+      "enabled": false
+    },
+    "licenses": {
+      "enabled": false,
+      "allowlist": null
+    }
+  }
 }

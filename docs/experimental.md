@@ -20,46 +20,6 @@ nav_order: 8
 {: .note }
 Features and flags with the `experimental` prefix might change or be removed with only a minor version update.
 
-## Scanning with call analysis  
-
-Call stack analysis can be performed on some languages to check if the 
-vulnerable code is actually being executed by your project. If the code
-is not being executed, these vulnerabilities will be marked as unexecuted.
-
-To enable call analysis, call OSV-Scanner with the `--experimental-call-analysis` flag.
-
-### Call analysis in Go
-
-OSV-Scanner uses the `govulncheck` library to analyze Go source code to identify called vulnerable functions.
-
-#### Additional Dependencies
-
-`go` compiler needs to be installed and available on `PATH`    
-
-### Call analysis in Rust
-
-OSV-Scanner compiles Rust source code and analyzes the output binary's DWARF debug information to identify called vulnerable functions.
-
-#### Additional Dependencies
-
-Rust toolchain (including `cargo`) that can compile the source code being scanned needs to be installed and available on `PATH`.
-
-The installed Rust toolchain must be capable of compiling every crate/target in the scanned code, for code with
-a lot of dependencies this will take a few minutes.
-
-### Limitations
-
-Current implementation has a few limitations:
-
-- Does not support dependencies on proc-macros (Tracked in [#464](https://github.com/google/osv-scanner/issues/464))
-- Does not support any dependencies that are dynamically linked
-- Does not support dependencies that link external non-rust code
-
-### Example
-```bash
-osv-scanner --experimental-call-analysis ./my/project/path
-```
-
 ## Offline mode
 
 OSV-Scanner now supports offline scanning as an experimental feature. Offline scanning checks your project against a local database instead of calling the OSV.dev API.
@@ -128,3 +88,38 @@ Set the location of your manually downloaded database by following the instructi
 ### Limitations
 
 1. Commit level scanning is not supported. 
+
+## License scanning
+
+OSV-Scanner supports license checking as an experimental feature. The data comes from the [deps.dev API](https://docs.deps.dev/api/).
+
+### License summary
+
+If you want a summary of your dependencies licenses, use the `--experimental-licenses-summary` flag:
+
+```bash
+osv-scanner --experimental-licenses-summary path/to/repository
+```
+
+### License violations
+
+To set an allowed license list and see the details of packages that do not conform, use the `--experimental-licenses` flag:
+
+```bash
+osv-scanner --experimental-licenses="comma-separated list of allowed licenses" path/to/directory
+```
+Include your allowed licenses as a comma-separated list. OSV-Scanner recognizes licenses in SPDX format. Please indicate your allowed licenses using [SPDX license](https://spdx.org/licenses/) identifiers. 
+
+#### License violations example
+
+If you wanted to allow the following licenses:
+
+- [BSD 3-Clause "New" or "Revised" License](https://spdx.org/licenses/BSD-3-Clause.html)
+- [Apache License 2.0](https://spdx.org/licenses/Apache-2.0.html)
+- [MIT](https://spdx.org/licenses/MIT.html)
+
+Your command would be in this form:
+
+```bash
+osv-scanner --experimental-licenses="BSD-3-Clause,Apache-2.0,MIT" path/to/directory
+```
