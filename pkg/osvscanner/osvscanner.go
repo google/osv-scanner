@@ -2,10 +2,13 @@ package osvscanner
 
 import (
 	"bufio"
+	"bytes"
 	"crypto/md5" //nolint:gosec
 	"errors"
 	"fmt"
+	"io"
 	"io/fs"
+	"net/http"
 	"os"
 	"os/exec"
 	"path"
@@ -47,6 +50,7 @@ type ScannerActions struct {
 type ExperimentalScannerActions struct {
 	CompareLocally        bool
 	CompareOffline        bool
+	DryRun                bool
 	ShowAllPackages       bool
 	ScanLicensesSummary   bool
 	ScanLicensesAllowlist []string
@@ -780,7 +784,7 @@ func DoScan(actions ScannerActions, r reporter.Reporter) (models.VulnerabilityRe
 		r.PrintText(fmt.Sprintf("Filtered %d local package/s from the scan.\n", len(scannedPackages)-len(filteredScannedPackages)))
 	}
 
-	vulnsResp, err := makeRequest(r, filteredScannedPackages, actions.CompareLocally, actions.CompareOffline, actions.LocalDBPath)
+	vulnsResp, err := makeRequest(r, filteredScannedPackages, actions.CompareLocally, actions.CompareOffline, actions.DryRun, actions.LocalDBPath)
 	if err != nil {
 		return models.VulnerabilityResults{}, err
 	}
@@ -792,6 +796,12 @@ func DoScan(actions ScannerActions, r reporter.Reporter) (models.VulnerabilityRe
 			return models.VulnerabilityResults{}, err
 		}
 	}
+
+	// Since a dry run doesn't give us anything useful, let's just exit after we finish reporting API calls.
+	if actions.DryRun {
+		return models.VulnerabilityResults{}, nil
+	}
+
 	results := buildVulnerabilityResults(r, filteredScannedPackages, vulnsResp, licensesResp, actions)
 
 	filtered := filterResults(r, &results, &configManager, actions.ShowAllPackages)
@@ -859,6 +869,7 @@ func makeRequest(
 	packages []scannedPackage,
 	compareLocally bool,
 	compareOffline bool,
+	isDryRun bool,
 	localDBPath string) (*osv.HydratedBatchedResponse, error) {
 	// Make OSV queries from the packages.
 	var query osv.BatchedQuery
@@ -893,12 +904,17 @@ func makeRequest(
 		osv.RequestUserAgent = "osv-scanner-api"
 	}
 
-	resp, err := osv.MakeRequest(query)
+	client := http.DefaultClient
+	if isDryRun {
+		client = newDryRunHttpClient(r)
+	}
+
+	resp, err := osv.MakeRequestWithClient(query, client)
 	if err != nil {
 		return &osv.HydratedBatchedResponse{}, fmt.Errorf("scan failed %w", err)
 	}
 
-	hydratedResp, err := osv.Hydrate(resp)
+	hydratedResp, err := osv.HydrateWithClient(resp, client)
 	if err != nil {
 		return &osv.HydratedBatchedResponse{}, fmt.Errorf("failed to hydrate OSV response: %w", err)
 	}
@@ -921,4 +937,26 @@ func makeLicensesRequests(packages []scannedPackage) ([][]models.License, error)
 	}
 
 	return licenses, nil
+}
+
+// newDryRunHttpClient creates a http.Client that takes dryRunTransport as the Transport field so that
+// we essentially "mock" a client and only report API calls.
+func newDryRunHttpClient(reporter reporter.Reporter) *http.Client {
+	// NOTE: We pass an empty JSON object so that when decoding we get zero values for struct fields
+	// instead of an error.
+	fakeResponse := &http.Response{StatusCode: http.StatusOK, Body: io.NopCloser(bytes.NewBufferString("{}"))}
+	return &http.Client{Transport: &dryRunTransport{reporter: reporter, fakeResponse: fakeResponse}}
+}
+
+// dryRunTransport implements the http.RoundTripper interface but just reports API calls made rather than
+// performing an actual HTTP transaction.
+type dryRunTransport struct {
+	reporter     reporter.Reporter
+	fakeResponse *http.Response
+}
+
+func (drt *dryRunTransport) RoundTrip(req *http.Request) (*http.Response, error) {
+	drt.reporter.PrintText(fmt.Sprintf("%s %s\n", req.Method, req.URL))
+
+	return drt.fakeResponse, nil
 }

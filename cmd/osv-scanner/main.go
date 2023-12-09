@@ -116,6 +116,10 @@ func run(args []string, stdout, stderr io.Writer) int {
 				Usage: "disables call graph analysis",
 			},
 			&cli.BoolFlag{
+				Name:  "experimental-dry-run",
+				Usage: "Perform a dry run of OSV-Scanner, which prints API calls without actually sending anything",
+			},
+			&cli.BoolFlag{
 				Name:  "experimental-local-db",
 				Usage: "checks for vulnerabilities using local databases",
 			},
@@ -204,6 +208,7 @@ func run(args []string, stdout, stderr io.Writer) int {
 					LocalDBPath:    context.String("experimental-local-db-path"),
 					CompareLocally: context.Bool("experimental-local-db"),
 					CompareOffline: context.Bool("experimental-offline"),
+					DryRun:         context.Bool("experimental-dry-run"),
 					// License summary mode causes all
 					// packages to appear in the json as
 					// every package has a license - even
