@@ -330,6 +330,10 @@ func makeRetryRequest(action func() (*http.Response, error)) (*http.Response, er
 }
 
 func MakeDetermineVersionRequest(name string, hashes []DetermineVersionHash) (*DetermineVersionResponse, error) {
+	return MakeDetermineVersionRequestWithClient(name, hashes, http.DefaultClient)
+}
+
+func MakeDetermineVersionRequestWithClient(name string, hashes []DetermineVersionHash, client *http.Client) (*DetermineVersionResponse, error) {
 	var buf bytes.Buffer
 
 	request := determineVersionsRequest{
@@ -351,7 +355,6 @@ func MakeDetermineVersionRequest(name string, hashes []DetermineVersionHash) (*D
 		req.Header.Set("User-Agent", RequestUserAgent)
 	}
 
-	client := http.DefaultClient
 	resp, err := client.Do(req)
 	if err != nil {
 		return nil, err

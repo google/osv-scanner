@@ -101,7 +101,7 @@ const (
 //   - Any lockfiles with scanLockfile
 //   - Any SBOM files with scanSBOMFile
 //   - Any git repositories with scanGit
-func scanDir(r reporter.Reporter, dir string, skipGit bool, recursive bool, useGitIgnore bool, compareOffline bool) ([]scannedPackage, error) {
+func scanDir(r reporter.Reporter, dir string, skipGit bool, recursive bool, useGitIgnore bool, compareOffline bool, isDryRun bool) ([]scannedPackage, error) {
 	var ignoreMatcher *gitIgnoreMatcher
 	if useGitIgnore {
 		var err error
@@ -110,6 +110,11 @@ func scanDir(r reporter.Reporter, dir string, skipGit bool, recursive bool, useG
 			r.PrintError(fmt.Sprintf("Unable to parse git ignores: %v\n", err))
 			useGitIgnore = false
 		}
+	}
+
+	client := http.DefaultClient
+	if isDryRun {
+		client = newDryRunHttpClient(r)
 	}
 
 	root := true
@@ -173,7 +178,7 @@ func scanDir(r reporter.Reporter, dir string, skipGit bool, recursive bool, useG
 
 		if info.IsDir() && !compareOffline {
 			if _, ok := vendoredLibNames[strings.ToLower(filepath.Base(path))]; ok {
-				pkgs, err := scanDirWithVendoredLibs(r, path)
+				pkgs, err := scanDirWithVendoredLibs(r, path, client)
 				if err != nil {
 					r.PrintText(fmt.Sprintf("scan failed for dir containing vendored libs %s: %v\n", path, err))
 				}
@@ -229,7 +234,7 @@ func parseGitIgnores(path string) (*gitIgnoreMatcher, error) {
 	return &gitIgnoreMatcher{matcher: matcher, repoPath: repopath}, nil
 }
 
-func queryDetermineVersions(repoDir string) (*osv.DetermineVersionResponse, error) {
+func queryDetermineVersions(repoDir string, client *http.Client) (*osv.DetermineVersionResponse, error) {
 	fileExts := []string{
 		".hpp",
 		".h",
@@ -276,7 +281,7 @@ func queryDetermineVersions(repoDir string) (*osv.DetermineVersionResponse, erro
 		return nil, fmt.Errorf("failed during hashing: %w", err)
 	}
 
-	result, err := osv.MakeDetermineVersionRequest(filepath.Base(repoDir), hashes)
+	result, err := osv.MakeDetermineVersionRequestWithClient(filepath.Base(repoDir), hashes, client)
 	if err != nil {
 		return nil, fmt.Errorf("failed to determine versions: %w", err)
 	}
@@ -284,7 +289,7 @@ func queryDetermineVersions(repoDir string) (*osv.DetermineVersionResponse, erro
 	return result, nil
 }
 
-func scanDirWithVendoredLibs(r reporter.Reporter, path string) ([]scannedPackage, error) {
+func scanDirWithVendoredLibs(r reporter.Reporter, path string, client *http.Client) ([]scannedPackage, error) {
 	r.PrintText(fmt.Sprintf("Scanning directory for vendored libs: %s\n", path))
 	entries, err := os.ReadDir(path)
 	if err != nil {
@@ -301,7 +306,7 @@ func scanDirWithVendoredLibs(r reporter.Reporter, path string) ([]scannedPackage
 
 		r.PrintText(fmt.Sprintf("Scanning potential vendored dir: %s\n", libPath))
 		// TODO: make this a goroutine to parallelise this operation
-		results, err := queryDetermineVersions(libPath)
+		results, err := queryDetermineVersions(libPath, client)
 		if err != nil {
 			r.PrintText(fmt.Sprintf("Error scanning sub-directory '%s' with error: %v", libPath, err))
 			continue
@@ -767,7 +772,7 @@ func DoScan(actions ScannerActions, r reporter.Reporter) (models.VulnerabilityRe
 
 	for _, dir := range actions.DirectoryPaths {
 		r.PrintText(fmt.Sprintf("Scanning dir %s\n", dir))
-		pkgs, err := scanDir(r, dir, actions.SkipGit, actions.Recursive, !actions.NoIgnore, actions.CompareOffline)
+		pkgs, err := scanDir(r, dir, actions.SkipGit, actions.Recursive, !actions.NoIgnore, actions.CompareOffline, actions.DryRun)
 		if err != nil {
 			return models.VulnerabilityResults{}, err
 		}
