@@ -77,7 +77,7 @@ jobs:
           retention-days: 5
       # Upload the results to GitHub's code scanning dashboard.
       - name: "Upload to code-scanning"
-        if: '!cancelled()'
+        if: '!cancelled() && ${{ inputs.upload-sarif }}'
         uses: github/codeql-action/upload-sarif@407ffafae6a767df3e0230c3df91b6443ae8df75 # v2.22.8
         with:
           sarif_file: ${{ inputs.results-file-name }}
