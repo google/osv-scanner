@@ -11,6 +11,10 @@ func (r *VoidReporter) HasPrintedError() bool {
 }
 
 func (r *VoidReporter) PrintText(msg string) {
+	r.PrintTextf(msg)
+}
+
+func (r *VoidReporter) PrintTextf(msg string, a ...any) {
 }
 
 func (r *VoidReporter) PrintResult(vulnResult *models.VulnerabilityResults) error {

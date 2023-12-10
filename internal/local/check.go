@@ -108,7 +108,7 @@ func MakeRequest(r reporter.Reporter, query osv.BatchedQuery, offline bool, loca
 			return nil, err
 		}
 
-		r.PrintText(fmt.Sprintf("Loaded %s local db from %s\n", db.Name, db.StoredAt))
+		r.PrintTextf("Loaded %s local db from %s\n", db.Name, db.StoredAt)
 
 		dbs[ecosystem] = db
 
@@ -134,7 +134,7 @@ func MakeRequest(r reporter.Reporter, query osv.BatchedQuery, offline bool, loca
 
 			// Is a commit based query, skip local scanning
 			results = append(results, osv.Response{})
-			r.PrintText(fmt.Sprintf("Skipping commit scanning for: %s\n", pkg.Commit))
+			r.PrintTextf("Skipping commit scanning for: %s\n", pkg.Commit)
 
 			continue
 		}

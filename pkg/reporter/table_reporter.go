@@ -37,7 +37,11 @@ func (r *TableReporter) HasPrintedError() bool {
 }
 
 func (r *TableReporter) PrintText(msg string) {
-	fmt.Fprint(r.stdout, msg)
+	r.PrintTextf(msg)
+}
+
+func (r *TableReporter) PrintTextf(msg string, a ...any) {
+	fmt.Fprintf(r.stdout, msg, a...)
 }
 
 func (r *TableReporter) PrintResult(vulnResult *models.VulnerabilityResults) error {

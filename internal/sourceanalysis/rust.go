@@ -233,7 +233,7 @@ func rustBuildSource(r reporter.Reporter, source models.SourceInfo) ([]string, e
 	cmd.Stdout = &stdoutBuffer
 	cmd.Stderr = &stderrBuffer
 
-	r.PrintText("Begin building rust/cargo project\n")
+	r.PrintTextf("Begin building rust/cargo project\n")
 
 	if err := cmd.Run(); err != nil {
 		r.PrintError(fmt.Sprintf("cargo stdout:\n%s", stdoutBuffer.String()))

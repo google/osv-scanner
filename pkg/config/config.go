@@ -83,7 +83,7 @@ func (c *ConfigManager) Get(r reporter.Reporter, targetPath string) Config {
 
 	config, configErr := tryLoadConfig(configPath)
 	if configErr == nil {
-		r.PrintText(fmt.Sprintf("Loaded filter from: %s\n", config.LoadPath))
+		r.PrintTextf("Loaded filter from: %s\n", config.LoadPath)
 	} else {
 		// If config doesn't exist, use the default config
 		config = c.DefaultConfig

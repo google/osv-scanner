@@ -32,8 +32,12 @@ func (r *JSONReporter) HasPrintedError() bool {
 }
 
 func (r *JSONReporter) PrintText(msg string) {
+	r.PrintTextf(msg)
+}
+
+func (r *JSONReporter) PrintTextf(msg string, a ...any) {
 	// Print non json text to stderr
-	fmt.Fprint(r.stderr, msg)
+	fmt.Fprintf(r.stderr, msg, a...)
 }
 
 func (r *JSONReporter) PrintResult(vulnResult *models.VulnerabilityResults) error {

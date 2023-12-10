@@ -21,7 +21,7 @@ func goAnalysis(r reporter.Reporter, pkgs []models.PackageVulns, source models.S
 	cmd := exec.Command("go", "version")
 	_, err := cmd.Output()
 	if err != nil {
-		r.PrintText("Skipping call analysis on Go code since Go is not installed.\n")
+		r.PrintTextf("Skipping call analysis on Go code since Go is not installed.\n")
 		return
 	}
 

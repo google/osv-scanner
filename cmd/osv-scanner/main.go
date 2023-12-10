@@ -28,7 +28,7 @@ func run(args []string, stdout, stderr io.Writer) int {
 	cli.VersionPrinter = func(ctx *cli.Context) {
 		// Use the app Writer and ErrWriter since they will be the writers to keep parallel tests consistent
 		r = reporter.NewTableReporter(ctx.App.Writer, ctx.App.ErrWriter, false, 0)
-		r.PrintText(fmt.Sprintf("osv-scanner version: %s\ncommit: %s\nbuilt at: %s\n", ctx.App.Version, commit, date))
+		r.PrintTextf("osv-scanner version: %s\ncommit: %s\nbuilt at: %s\n", ctx.App.Version, commit, date)
 	}
 
 	osv.RequestUserAgent = "osv-scanner/" + version.OSVVersion
@@ -185,7 +185,7 @@ func run(args []string, stdout, stderr io.Writer) int {
 			var callAnalysisStates map[string]bool
 			if context.IsSet("experimental-call-analysis") {
 				callAnalysisStates = createCallAnalysisStates([]string{"all"}, context.StringSlice("no-call-analysis"))
-				r.PrintText("Warning: the experimental-call-analysis flag has been replaced. Please use the call-analysis and no-call-analysis flags instead.\n")
+				r.PrintTextf("Warning: the experimental-call-analysis flag has been replaced. Please use the call-analysis and no-call-analysis flags instead.\n")
 			} else {
 				callAnalysisStates = createCallAnalysisStates(context.StringSlice("call-analysis"), context.StringSlice("no-call-analysis"))
 			}
