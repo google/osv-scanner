@@ -120,7 +120,7 @@ func MakeRequest(r reporter.Reporter, query osv.BatchedQuery, offline bool, loca
 
 		if err != nil {
 			// currently, this will actually only error if the PURL cannot be parses
-			r.PrintError(fmt.Sprintf("skipping %s as it is not a valid PURL: %v\n", query.Package.PURL, err))
+			r.PrintErrorf("skipping %s as it is not a valid PURL: %v\n", query.Package.PURL, err)
 			results = append(results, osv.Response{Vulns: []models.Vulnerability{}})
 
 			continue
@@ -143,7 +143,7 @@ func MakeRequest(r reporter.Reporter, query osv.BatchedQuery, offline bool, loca
 
 		if err != nil {
 			// currently, this will actually only error if the PURL cannot be parses
-			r.PrintError(fmt.Sprintf("could not load db for %s ecosystem: %v\n", pkg.Ecosystem, err))
+			r.PrintErrorf("could not load db for %s ecosystem: %v\n", pkg.Ecosystem, err)
 			results = append(results, osv.Response{Vulns: []models.Vulnerability{}})
 
 			continue

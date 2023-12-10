@@ -23,7 +23,11 @@ func NewJSONReporter(stdout io.Writer, stderr io.Writer) *JSONReporter {
 }
 
 func (r *JSONReporter) PrintError(msg string) {
-	fmt.Fprint(r.stderr, msg)
+	r.PrintErrorf(msg)
+}
+
+func (r *JSONReporter) PrintErrorf(msg string, a ...any) {
+	fmt.Fprintf(r.stderr, msg, a...)
 	r.hasPrintedError = true
 }
 

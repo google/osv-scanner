@@ -179,11 +179,11 @@ func run(args []string, stdout, stderr io.Writer) int {
 		}
 
 		if errors.Is(err, osvscanner.NoPackagesFoundErr) {
-			tableReporter.PrintError("No package sources found, --help for usage information.\n")
+			tableReporter.PrintErrorf("No package sources found, --help for usage information.\n")
 			return 128
 		}
 
-		tableReporter.PrintError(fmt.Sprintf("%v\n", err))
+		tableReporter.PrintErrorf("%v\n", err)
 	}
 
 	// if we've been told to print an error, and not already exited with

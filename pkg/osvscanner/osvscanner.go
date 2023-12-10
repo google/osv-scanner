@@ -103,7 +103,7 @@ func scanDir(r reporter.Reporter, dir string, skipGit bool, recursive bool, useG
 		var err error
 		ignoreMatcher, err = parseGitIgnores(dir)
 		if err != nil {
-			r.PrintError(fmt.Sprintf("Unable to parse git ignores: %v\n", err))
+			r.PrintErrorf("Unable to parse git ignores: %v\n", err)
 			useGitIgnore = false
 		}
 	}
@@ -120,7 +120,7 @@ func scanDir(r reporter.Reporter, dir string, skipGit bool, recursive bool, useG
 
 		path, err = filepath.Abs(path)
 		if err != nil {
-			r.PrintError(fmt.Sprintf("Failed to walk path %s\n", err))
+			r.PrintErrorf("Failed to walk path %s\n", err)
 			return err
 		}
 
@@ -131,7 +131,7 @@ func scanDir(r reporter.Reporter, dir string, skipGit bool, recursive bool, useG
 				// Don't skip if we can't parse now - potentially noisy for directories with lots of items
 			} else if match {
 				if root { // Don't silently skip if the argument file was ignored.
-					r.PrintError(fmt.Sprintf("%s was not scanned because it is excluded by a .gitignore file. Use --no-ignore to scan it.\n", path))
+					r.PrintErrorf("%s was not scanned because it is excluded by a .gitignore file. Use --no-ignore to scan it.\n", path)
 				}
 				if info.IsDir() {
 					return filepath.SkipDir
@@ -156,7 +156,7 @@ func scanDir(r reporter.Reporter, dir string, skipGit bool, recursive bool, useG
 			if extractor, _ := lockfile.FindExtractor(path, ""); extractor != nil {
 				pkgs, err := scanLockfile(r, path, "")
 				if err != nil {
-					r.PrintError(fmt.Sprintf("Attempted to scan lockfile but failed: %s\n", path))
+					r.PrintErrorf("Attempted to scan lockfile but failed: %s\n", path)
 				}
 				scannedPackages = append(scannedPackages, pkgs...)
 			}
@@ -560,12 +560,12 @@ func scanDebianDocker(r reporter.Reporter, dockerImageName string) ([]scannedPac
 	stdout, err := cmd.StdoutPipe()
 
 	if err != nil {
-		r.PrintError(fmt.Sprintf("Failed to get stdout: %s\n", err))
+		r.PrintErrorf("Failed to get stdout: %s\n", err)
 		return nil, err
 	}
 	err = cmd.Start()
 	if err != nil {
-		r.PrintError(fmt.Sprintf("Failed to start docker image: %s\n", err))
+		r.PrintErrorf("Failed to start docker image: %s\n", err)
 		return nil, err
 	}
 	// TODO: Do error checking here
@@ -581,7 +581,7 @@ func scanDebianDocker(r reporter.Reporter, dockerImageName string) ([]scannedPac
 		}
 		splitText := strings.Split(text, "###")
 		if len(splitText) != 2 {
-			r.PrintError(fmt.Sprintf("Unexpected output from Debian container: \n\n%s\n", text))
+			r.PrintErrorf("Unexpected output from Debian container: \n\n%s\n", text)
 			return nil, fmt.Errorf("unexpected output from Debian container: \n\n%s", text)
 		}
 		// TODO(rexpan): Get and specify exact debian release version
@@ -725,7 +725,7 @@ func DoScan(actions ScannerActions, r reporter.Reporter) (models.VulnerabilityRe
 	if actions.ConfigOverridePath != "" {
 		err := configManager.UseOverride(actions.ConfigOverridePath)
 		if err != nil {
-			r.PrintError(fmt.Sprintf("Failed to read config file: %s\n", err))
+			r.PrintErrorf("Failed to read config file: %s\n", err)
 			return models.VulnerabilityResults{}, err
 		}
 	}
@@ -741,7 +741,7 @@ func DoScan(actions ScannerActions, r reporter.Reporter) (models.VulnerabilityRe
 		parseAs, lockfilePath := parseLockfilePath(lockfileElem)
 		lockfilePath, err := filepath.Abs(lockfilePath)
 		if err != nil {
-			r.PrintError(fmt.Sprintf("Failed to resolved path with error %s\n", err))
+			r.PrintErrorf("Failed to resolved path with error %s\n", err)
 			return models.VulnerabilityResults{}, err
 		}
 		pkgs, err := scanLockfile(r, lockfilePath, parseAs)

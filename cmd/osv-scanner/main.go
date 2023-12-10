@@ -236,10 +236,10 @@ func run(args []string, stdout, stderr io.Writer) int {
 		case errors.Is(err, osvscanner.VulnerabilitiesFoundErr):
 			return 1
 		case errors.Is(err, osvscanner.NoPackagesFoundErr):
-			r.PrintError("No package sources found, --help for usage information.\n")
+			r.PrintErrorf("No package sources found, --help for usage information.\n")
 			return 128
 		}
-		r.PrintError(fmt.Sprintf("%v\n", err))
+		r.PrintErrorf("%v\n", err)
 	}
 
 	// if we've been told to print an error, and not already exited with

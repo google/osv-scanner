@@ -23,7 +23,11 @@ func NewGHAnnotationsReporter(stdout io.Writer, stderr io.Writer) *GHAnnotations
 }
 
 func (r *GHAnnotationsReporter) PrintError(msg string) {
-	fmt.Fprint(r.stderr, msg)
+	r.PrintErrorf(msg)
+}
+
+func (r *GHAnnotationsReporter) PrintErrorf(msg string, a ...any) {
+	fmt.Fprintf(r.stderr, msg, a...)
 	r.hasPrintedError = true
 }
 

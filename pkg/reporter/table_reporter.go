@@ -28,7 +28,11 @@ func NewTableReporter(stdout io.Writer, stderr io.Writer, markdown bool, termina
 }
 
 func (r *TableReporter) PrintError(msg string) {
-	fmt.Fprint(r.stderr, msg)
+	r.PrintErrorf(msg)
+}
+
+func (r *TableReporter) PrintErrorf(msg string, a ...any) {
+	fmt.Fprintf(r.stderr, msg, a...)
 	r.hasPrintedError = true
 }
 
