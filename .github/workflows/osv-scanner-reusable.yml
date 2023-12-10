@@ -37,6 +37,10 @@ on:
         required: false
         default: ""
         type: string
+      upload-sarif:
+        description: "Whether to upload to Security > Code Scanning"
+        type: bool
+        default: true
 
 jobs:
   osv-scan:

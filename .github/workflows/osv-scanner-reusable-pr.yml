@@ -33,7 +33,7 @@ on:
         type: string
         default: results.sarif
       upload-sarif:
-        description: "Whether to upload to Security > Code Scanning"sarif
+        description: "Whether to upload to Security > Code Scanning"
         type: bool
         default: true
 
