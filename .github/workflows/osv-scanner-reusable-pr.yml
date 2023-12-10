@@ -36,7 +36,7 @@ on:
         description: "Whether to upload to Security > Code Scanning"
         type: boolean
         required: false
-        default: true
+        default: false
 
 jobs:
   scan-pr:
@@ -77,21 +77,21 @@ jobs:
       # Upload the results as artifacts (optional). Commenting out will disable uploads of run results in SARIF
       # format to the repository Actions tab.
       - name: "Upload artifact"
-        if: '!cancelled()'
+        if: "!cancelled()"
         uses: actions/upload-artifact@a8a3f3ad30e3422c9c7b888a15615d19a852ae32 # v3.1.3
         with:
           name: SARIF file
           path: ${{ inputs.results-file-name }}
           retention-days: 5
       - name: "Upload old scan json results"
-        if: '!cancelled()'
+        if: "!cancelled()"
         uses: actions/upload-artifact@a8a3f3ad30e3422c9c7b888a15615d19a852ae32 # v3.1.3
         with:
           name: old-json-results
           path: old-results.json
           retention-days: 5
       - name: "Upload new scan json results"
-        if: '!cancelled()'
+        if: "!cancelled()"
         uses: actions/upload-artifact@a8a3f3ad30e3422c9c7b888a15615d19a852ae32 # v3.1.3
         with:
           name: new-json-results
