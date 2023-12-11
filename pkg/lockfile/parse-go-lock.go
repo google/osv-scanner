@@ -82,6 +82,20 @@ func (e GoLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 		}
 	}
 
+	goVersion := parsedLockfile.Go.Version
+	if goVersion != "" {
+		parts := strings.Split(goVersion, ".")
+		if len(parts) == 2 {
+			goVersion += ".0"
+		}
+		packages["stdlib"] = PackageDetails{
+			Name:      "stdlib",
+			Version:   goVersion,
+			Ecosystem: GoEcosystem,
+			CompareAs: GoEcosystem,
+		}
+	}
+
 	return pkgDetailsMapToSlice(deduplicatePackages(packages)), nil
 }
 
