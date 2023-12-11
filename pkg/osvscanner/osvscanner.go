@@ -708,6 +708,10 @@ func DoScan(actions ScannerActions, r reporter.Reporter) (models.VulnerabilityRe
 
 	if actions.CompareLocally {
 		actions.SkipGit = true
+
+		if len(actions.ScanLicensesAllowlist) > 0 || actions.ScanLicensesSummary {
+			return models.VulnerabilityResults{}, fmt.Errorf("cannot retrieve licenses locally")
+		}
 	}
 
 	configManager := config.ConfigManager{
