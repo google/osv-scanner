@@ -39,8 +39,9 @@ on:
         type: string
       upload-sarif:
         description: "Whether to upload to Security > Code Scanning"
-        type: boolean
-        default: true
+        type: string # String type instead of boolean to workaround github action limitation (See https://github.com/actions/runner/issues/1483)
+        required: false
+        default: "true"
 
 jobs:
   osv-scan:
