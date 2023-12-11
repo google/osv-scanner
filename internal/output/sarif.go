@@ -5,6 +5,7 @@ import (
 	"io"
 	"log"
 	"path/filepath"
+	"slices"
 	"strings"
 	"text/template"
 
@@ -15,7 +16,6 @@ import (
 	"github.com/jedib0t/go-pretty/v6/table"
 	"github.com/owenrumney/go-sarif/v2/sarif"
 	"golang.org/x/exp/maps"
-	"golang.org/x/exp/slices"
 )
 
 type HelpTemplateData struct {
