@@ -32,3 +32,4 @@ jobs:
     permissions:
       security-events: write
       contents: read
+      upload-sarif: false
