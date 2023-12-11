@@ -36,7 +36,7 @@ on:
         description: "Whether to upload to Security > Code Scanning"
         type: boolean
         required: false
-        default: false
+        default: true
 
 jobs:
   scan-pr:
