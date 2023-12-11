@@ -73,6 +73,7 @@ Results may be viewed by clicking on the details of the failed action, either fr
   Default: `results.sarif`
 - `download-artifact`: Optional artifact to download for scanning. Can be used if you need to do some preprocessing to prepare the lockfiles for scanning.
   If the file names in the artifact are not standard lockfile names, make sure to add custom scan-args to specify the lockfile type and path (see [specify lockfiles](./usage#specify-lockfiles)).
+- `upload-sarif`: Whether to upload the results to Security > Code Scanning. Defaults to `true`.
 
 <details markdown="block">
 <summary>
