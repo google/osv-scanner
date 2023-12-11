@@ -29,7 +29,6 @@ jobs:
           --skip-git
           ./
           ./docs/
-      upload-sarif: false
     permissions:
       security-events: write
       contents: read
