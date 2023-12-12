@@ -16,13 +16,13 @@ name: OSV-Scanner Scheduled Scan
 
 on:
   schedule:
-    - cron: '12 12 * * 1'
+    - cron: "12 12 * * 1"
   push:
-    branches: ['main']
+    branches: ["main"]
 
 jobs:
   scan-scheduled:
-    uses: './.github/workflows/osv-scanner-reusable.yml'
+    uses: "./.github/workflows/osv-scanner-reusable.yml"
     with:
       # Just scan the root directory and docs, since everything else is fixtures
       scan-args: |-

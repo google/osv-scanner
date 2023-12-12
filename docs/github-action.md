@@ -51,7 +51,7 @@ permissions:
 
 jobs:
   scan-pr:
-    uses: 'google/osv-scanner/.github/workflows/osv-scanner-reusable-pr.yml@main'
+    uses: "google/osv-scanner/.github/workflows/osv-scanner-reusable-pr.yml@main"
 ```
 
 ### View results
@@ -86,7 +86,7 @@ Examples
 ```yml
 jobs:
   scan-pr:
-    uses: 'google/osv-scanner/.github/workflows/osv-scanner-reusable.yml'
+    uses: "google/osv-scanner/.github/workflows/osv-scanner-reusable.yml"
     with:
       scan-args: |-
         --lockfile=./path/to/lockfile1
@@ -98,7 +98,7 @@ jobs:
 ```yml
 jobs:
   scan-pr:
-    uses: 'google/osv-scanner/.github/workflows/osv-scanner-reusable.yml'
+    uses: "google/osv-scanner/.github/workflows/osv-scanner-reusable.yml"
     with:
       scan-args: |-
         --recursive
@@ -115,7 +115,7 @@ jobs:
     # ...
     steps:
       # ... Steps to extract your dependencies
-      - name: 'upload osv-scanner deps' # Upload the deps
+      - name: "upload osv-scanner deps" # Upload the deps
         uses: actions/upload-artifact@v4
         with:
           name: converted-OSV-Scanner-deps
@@ -125,7 +125,7 @@ jobs:
     name: Vulnerability scanning
     # makes sure the extraction step is completed before running the scanner
     needs: extract-deps
-    uses: 'google/osv-scanner/.github/workflows/osv-scanner-reusable.yml@main'
+    uses: "google/osv-scanner/.github/workflows/osv-scanner-reusable.yml@main"
     with:
       # Download the artifact uploaded in extract-deps step
       download-artifact: converted-OSV-Scanner-deps
@@ -155,7 +155,7 @@ name: OSV-Scanner Scheduled Scan
 
 on:
   schedule:
-    - cron: '30 12 * * 1'
+    - cron: "30 12 * * 1"
   # Change "main" to your default branch if you use a different name, i.e. "master"
   push:
     branches: [main]
@@ -168,7 +168,7 @@ permissions:
 
 jobs:
   scan-scheduled:
-    uses: 'google/osv-scanner/.github/workflows/osv-scanner-reusable.yml@main'
+    uses: "google/osv-scanner/.github/workflows/osv-scanner-reusable.yml@main"
 ```
 
 As written, the scanner will run on 12:30 pm UTC every Monday, and also on every push to the main branch. You can change the schedule by following the instructions [here](https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#schedule).

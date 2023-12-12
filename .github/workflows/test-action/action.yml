@@ -13,7 +13,7 @@
 # limitations under the License.
 
 name: test
-description: 'Runs go tests'
+description: "Runs go tests"
 
 runs:
   using: composite

@@ -207,5 +207,5 @@ repos:
     rev: # pass a Git tag or commit hash here
     hooks:
       - id: osv-scanner
-        args: ['-r', '/path/to/your/dir']
+        args: ["-r", "/path/to/your/dir"]
 ```

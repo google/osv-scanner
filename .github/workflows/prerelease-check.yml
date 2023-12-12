@@ -4,11 +4,11 @@ on:
   workflow_dispatch:
     inputs:
       version:
-        description: 'The version tag to release, (e.g. v1.2.3)'
+        description: "The version tag to release, (e.g. v1.2.3)"
         required: true
         type: string
       commit:
-        description: 'The commit hash to release'
+        description: "The commit hash to release"
         required: true
         type: string
 
