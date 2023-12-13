@@ -102,6 +102,7 @@ const (
 	CreditOther                CreditType = "OTHER"
 )
 
+// Returns a slice of all known ecosystems, matching the results in pkg/lockfile.
 func KnownEcosystems() []Ecosystem {
 	return []Ecosystem{
 		EcosystemNPM,
@@ -118,6 +119,6 @@ func KnownEcosystems() []Ecosystem {
 		EcosystemCRAN,
 		// Disabled temporarily,
 		// see https://github.com/google/osv-scanner/pull/128 discussion for additional context
-		// AlpineEcosystem,
+		// EcosystemAlpine,
 	}
 }

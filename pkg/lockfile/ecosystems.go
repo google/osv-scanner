@@ -1,5 +1,6 @@
 package lockfile
 
+// Returns a slice of all known ecosystems, matching the results in pkg/models.
 func KnownEcosystems() []Ecosystem {
 	return []Ecosystem{
 		NpmEcosystem,
