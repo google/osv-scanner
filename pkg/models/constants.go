@@ -104,6 +104,7 @@ const (
 
 func KnownEcosystems() []Ecosystem {
 	return []Ecosystem{
+		EcosystemNPM,
 		EcosystemNuGet,
 		EcosystemCratesIO,
 		EcosystemRubyGems,
