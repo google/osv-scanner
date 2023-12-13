@@ -104,7 +104,17 @@ const (
 
 func KnownEcosystems() []Ecosystem {
 	return []Ecosystem{
-		EcosystemNPM,
+		EcosystemNuGet,
+		EcosystemCratesIO,
+		EcosystemRubyGems,
+		EcosystemPackagist,
+		EcosystemGo,
+		EcosystemHex,
+		EcosystemMaven,
+		EcosystemPyPI,
+		EcosystemPub,
+		EcosystemConanCenter,
+		EcosystemCRAN,
 		// Disabled temporarily,
 		// see https://github.com/google/osv-scanner/pull/128 discussion for additional context
 		// AlpineEcosystem,
