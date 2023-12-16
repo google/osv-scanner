@@ -66,6 +66,9 @@ linters-settings:
 
 issues:
   exclude-rules:
+    - path: pkg/reporter
+      linters:
+        - dupl
     - path: _test\.go
       linters:
         - goerr113
