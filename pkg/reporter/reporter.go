@@ -11,6 +11,8 @@ type Reporter interface {
 	//
 	// Where the error is actually printed (if at all) is entirely up to the actual
 	// reporter, though generally it will be to stderr.
+	//
+	// Deprecated: use PrintErrorf instead
 	PrintError(msg string)
 	// PrintErrorf prints errors in an appropriate manner to ensure that results
 	// are printed in a way that is semantically valid for the intended consumer,
@@ -31,6 +33,8 @@ type Reporter interface {
 	// Where the text is actually printed (if at all) is entirely up to the actual
 	// reporter; in most cases for "human format" reporters this will be stdout
 	// whereas for "machine format" reporters this will stderr.
+	//
+	// Deprecated: use PrintTextf instead
 	PrintText(msg string)
 	// PrintTextf prints text in an appropriate manner to ensure that results
 	// are printed in a way that is semantically valid for the intended consumer.
