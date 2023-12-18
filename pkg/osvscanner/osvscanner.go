@@ -357,8 +357,6 @@ func scanLockfile(r reporter.Reporter, path string, parseAs string) ([]scannedPa
 		return nil, err
 	}
 
-	addCompilerVersion(r, &parsedLockfile)
-
 	parsedAsComment := ""
 
 	if parseAs != "" {
