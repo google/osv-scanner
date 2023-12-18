@@ -4,6 +4,8 @@ import (
 	"bytes"
 	"testing"
 
+	"github.com/gkampitakis/go-snaps/match"
+	"github.com/gkampitakis/go-snaps/snaps"
 	"github.com/google/osv-scanner/internal/output"
 	"github.com/google/osv-scanner/internal/testutility"
 	"github.com/google/osv-scanner/pkg/models"
@@ -21,7 +23,7 @@ func TestGroupFixedVersions(t *testing.T) {
 		wantPath string
 	}{
 		{
-			name: "",
+			name: "grouping fixed versions",
 			args: args{
 				flattened: testutility.LoadJSONFixture[[]models.VulnerabilityFlattened](t, "fixtures/flattened_vulns.json"),
 			},
@@ -33,6 +35,7 @@ func TestGroupFixedVersions(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
 			got := output.GroupFixedVersions(tt.args.flattened)
+			snaps.MatchJSON(t, got)
 			testutility.AssertMatchFixtureJSON(t, tt.wantPath, got)
 		})
 	}
@@ -67,6 +70,10 @@ func TestPrintSARIFReport(t *testing.T) {
 			if err != nil {
 				t.Errorf("Error writing SARIF output: %s", err)
 			}
+			snaps.MatchJSON(
+				t, bufOut.String(),
+				match.Any("runs.0.tool.driver.rules.#.fullDescription"),
+			)
 			testutility.AssertMatchFixtureText(t, tt.wantPath, bufOut.String())
 		})
 	}

@@ -1,11 +1,14 @@
 module github.com/google/osv-scanner
 
-go 1.21
+go 1.21.0
+
+toolchain go1.21.5
 
 require (
 	deps.dev/api/v3alpha v0.0.0-20231114023923-e40c4d5c34e5
 	github.com/BurntSushi/toml v1.3.2
 	github.com/CycloneDX/cyclonedx-go v0.8.0
+	github.com/gkampitakis/go-snaps v0.4.12
 	github.com/go-git/go-billy/v5 v5.5.0
 	github.com/go-git/go-git/v5 v5.11.0
 	github.com/google/go-cmp v0.6.0
@@ -24,6 +27,19 @@ require (
 	golang.org/x/vuln v1.0.1
 	google.golang.org/grpc v1.59.0
 	gopkg.in/yaml.v3 v3.0.1
+)
+
+require (
+	github.com/gkampitakis/ciinfo v0.3.0 // indirect
+	github.com/gkampitakis/go-diff v1.3.2 // indirect
+	github.com/kr/pretty v0.3.1 // indirect
+	github.com/kr/text v0.2.0 // indirect
+	github.com/maruel/natural v1.1.0 // indirect
+	github.com/rogpeppe/go-internal v1.11.0 // indirect
+	github.com/tidwall/gjson v1.17.0 // indirect
+	github.com/tidwall/match v1.1.1 // indirect
+	github.com/tidwall/pretty v1.2.1 // indirect
+	github.com/tidwall/sjson v1.2.5 // indirect
 )
 
 require (
