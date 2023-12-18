@@ -46,12 +46,11 @@ linters-settings:
     rules:
       regexp:
         files:
-          - '!**/internal/cachedregexp/**'
-          - '!**/main_test.go'
+          - "!**/internal/cachedregexp/**"
+          - "!**/main_test.go"
         deny:
-          - pkg: 'regexp'
-            desc:
-              'Use github.com/google/osv-scanner/internal/cachedregexp instead'
+          - pkg: "regexp"
+            desc: "Use github.com/google/osv-scanner/internal/cachedregexp instead"
   gocritic:
     disabled-checks:
       - ifElseChain

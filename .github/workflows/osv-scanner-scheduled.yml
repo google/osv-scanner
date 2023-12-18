@@ -16,9 +16,9 @@ name: OSV-Scanner Scheduled Scan
 
 on:
   schedule:
-    - cron: '12 12 * * 1'
+    - cron: "12 12 * * 1"
   push:
-    branches: [ "main" ]
+    branches: ["main"]
 
 jobs:
   scan-scheduled:
@@ -26,12 +26,11 @@ jobs:
     with:
       # Just scan the root directory and docs, since everything else is fixtures
       scan-args: |-
-          --skip-git
-          ./
-          ./docs/
+        --skip-git
+        ./
+        ./docs/
     permissions:
       # Require writing security events to upload SARIF file to security tab
       security-events: write
       # Read commit contents
       contents: read
-

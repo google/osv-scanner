@@ -6,6 +6,7 @@ nav_order: 7
 ---
 
 # GitHub Action
+
 {: .no_toc }
 
 <details open markdown="block">
@@ -38,9 +39,9 @@ name: OSV-Scanner PR Scan
 # Change "main" to your default branch if you use a different name, i.e. "master"
 on:
   pull_request:
-    branches: [ main ]
+    branches: [main]
   merge_group:
-    branches: [ main ]
+    branches: [main]
 
 permissions:
   # Require writing security events to upload SARIF file to security tab
@@ -81,6 +82,7 @@ Examples
 </summary>
 
 ##### Scan specific lockfiles
+
 ```yml
 jobs:
   scan-pr:
@@ -90,7 +92,9 @@ jobs:
         --lockfile=./path/to/lockfile1
         --lockfile=requirements.txt:./path/to/python-lockfile2.txt
 ```
+
 ##### Default arguments
+
 ```yml
 jobs:
   scan-pr:
@@ -103,6 +107,7 @@ jobs:
 ```
 
 ##### Using download-artifact input to support preprocessing
+
 ```yml
 jobs:
   extract-deps:
@@ -119,8 +124,7 @@ jobs:
   vuln-scan:
     name: Vulnerability scanning
     # makes sure the extraction step is completed before running the scanner
-    needs:
-      extract-deps
+    needs: extract-deps
     uses: "google/osv-scanner/.github/workflows/osv-scanner-reusable.yml@main"
     with:
       # Download the artifact uploaded in extract-deps step
@@ -151,10 +155,10 @@ name: OSV-Scanner Scheduled Scan
 
 on:
   schedule:
-    - cron: '30 12 * * 1'
-# Change "main" to your default branch if you use a different name, i.e. "master"
+    - cron: "30 12 * * 1"
+  # Change "main" to your default branch if you use a different name, i.e. "master"
   push:
-    branches: [ main ]
+    branches: [main]
 
 permissions:
   # Require writing security events to upload SARIF file to security tab
@@ -176,7 +180,6 @@ As written, the scanner will run on 12:30 pm UTC every Monday, and also on every
 ### View results
 
 Maintainers can review results of the scan by navigating to their project's `security > code scanning` tab. Vulnerability details can also be viewed by clicking on the details of the failed action.
-
 
 ## Scan on release
 
@@ -220,4 +223,3 @@ jobs:
 ### View results
 
 Results may be viewed by clicking on the details of the failed release action from the action tab.
-
