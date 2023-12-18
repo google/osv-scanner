@@ -12,16 +12,36 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-name: OSV-Scanner PR Scan
+name: OSV-Scanner Scheduled Scan
 
 on:
   pull_request:
-    branches: [main]
+    branches: ["main"]
   merge_group:
-    branches: [main]
+    branches: ["main"]
+  schedule:
+    - cron: "12 12 * * 1"
+  push:
+    branches: ["main"]
+
+permissions:
+  # Require writing security events to upload SARIF file to security tab
+  security-events: write
+  # Read commit contents
+  contents: read
 
 jobs:
+  scan-scheduled:
+    if: ${{ github.event_name == "push" || github.event_name == "schedule" }}
+    uses: "./.github/workflows/osv-scanner-reusable.yml"
+    with:
+      # Just scan the root directory and docs, since everything else is fixtures
+      scan-args: |-
+          --skip-git
+          ./
+          ./docs/
   scan-pr:
+    if: ${{ github.event_name == "pull_request" || github.event_name == "merge_group" }}
     uses: "./.github/workflows/osv-scanner-reusable-pr.yml"
     with:
       # Just scan the root directory and docs, since everything else is fixtures
@@ -29,6 +49,3 @@ jobs:
         --skip-git
         ./
         ./docs/
-    permissions:
-      security-events: write
-      contents: read
