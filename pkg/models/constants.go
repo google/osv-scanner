@@ -101,3 +101,24 @@ const (
 	CreditSponsor              CreditType = "SPONSOR"
 	CreditOther                CreditType = "OTHER"
 )
+
+// Returns a slice of all known ecosystems, matching the results in pkg/lockfile.
+func KnownEcosystems() []Ecosystem {
+	return []Ecosystem{
+		EcosystemNPM,
+		EcosystemNuGet,
+		EcosystemCratesIO,
+		EcosystemRubyGems,
+		EcosystemPackagist,
+		EcosystemGo,
+		EcosystemHex,
+		EcosystemMaven,
+		EcosystemPyPI,
+		EcosystemPub,
+		EcosystemConanCenter,
+		EcosystemCRAN,
+		// Disabled temporarily,
+		// see https://github.com/google/osv-scanner/pull/128 discussion for additional context
+		// EcosystemAlpine,
+	}
+}
