@@ -37,9 +37,9 @@ jobs:
     with:
       # Just scan the root directory and docs, since everything else is fixtures
       scan-args: |-
-          --skip-git
-          ./
-          ./docs/
+        --skip-git
+        ./
+        ./docs/
   scan-pr:
     if: ${{ github.event_name == "pull_request" || github.event_name == "merge_group" }}
     uses: "./.github/workflows/osv-scanner-reusable-pr.yml"
