@@ -2,18 +2,16 @@ package testsnapshot
 
 import (
 	"encoding/json"
-	"fmt"
 	"os"
-	"reflect"
 	"runtime"
 	"strings"
 	"testing"
 
-	"github.com/google/go-cmp/cmp"
-	"github.com/hexops/gotextdiff"
-	"github.com/hexops/gotextdiff/myers"
-	"github.com/hexops/gotextdiff/span"
+	"github.com/gkampitakis/go-snaps/snaps"
 )
+
+// "github.com/gkampitakis/go-snaps/match"
+// "github.com/gkampitakis/go-snaps/snaps"
 
 type Snapshot struct {
 	Path                string
@@ -82,11 +80,13 @@ func LoadText(t *testing.T, snapshot Snapshot) string {
 func AssertJSON[V any](t *testing.T, snapshot Snapshot, got V) {
 	t.Helper()
 
-	elem := LoadJSON[V](t, snapshot)
+	j, err := json.Marshal(got)
 
-	if !reflect.DeepEqual(got, elem) {
-		t.Errorf("Not equal: \n%s", cmp.Diff(got, elem))
+	if err != nil {
+		t.Fatalf("Failed to marshal JSON: %s", err)
 	}
+
+	snaps.MatchSnapshot(t, snapshot.applyWindowsReplacements(string(j)))
 }
 
 func normalizeNewlines(content string) string {
@@ -98,17 +98,19 @@ func normalizeNewlines(content string) string {
 func AssertText(t *testing.T, snapshot Snapshot, got string) {
 	t.Helper()
 
-	path := snapshot.Path
-	got = normalizeNewlines(got)
-	expect := normalizeNewlines(LoadText(t, snapshot))
+	// path := snapshot.Path
+	// got = normalizeNewlines(got)
+	// expect := normalizeNewlines(LoadText(t, snapshot))
 
-	if got != expect {
-		if os.Getenv("TEST_NO_DIFF") == "true" {
-			t.Errorf("\ngot does not match snapshot at %s:\n got:\n%s\n\n want:\n%s", path, got, expect)
-		} else {
-			edits := myers.ComputeEdits(span.URIFromPath(path), expect, got)
-			diff := fmt.Sprint(gotextdiff.ToUnified("snapshot", "received", expect, edits))
-			t.Errorf("\ngot does not match snapshot at %s:\n%s", path, diff)
-		}
-	}
+	snaps.MatchSnapshot(t, snapshot.applyWindowsReplacements(got))
+
+	// if got != expect {
+	// 	if os.Getenv("TEST_NO_DIFF") == "true" {
+	// 		t.Errorf("\ngot does not match snapshot at %s:\n got:\n%s\n\n want:\n%s", path, got, expect)
+	// 	} else {
+	// 		edits := myers.ComputeEdits(span.URIFromPath(path), expect, got)
+	// 		diff := fmt.Sprint(gotextdiff.ToUnified("snapshot", "received", expect, edits))
+	// 		t.Errorf("\ngot does not match snapshot at %s:\n%s", path, diff)
+	// 	}
+	// }
 }
