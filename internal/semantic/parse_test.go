@@ -5,19 +5,20 @@ import (
 	"testing"
 
 	"github.com/google/osv-scanner/internal/semantic"
+	"github.com/google/osv-scanner/pkg/lockfile"
 	"github.com/google/osv-scanner/pkg/models"
 )
 
 func TestParse(t *testing.T) {
 	t.Parallel()
 
-	ecosystems := models.KnownEcosystems()
+	ecosystems := lockfile.KnownEcosystems()
 
 	// todo: remove once CRAN is supported by lockfile
 	ecosystems = append(ecosystems, "CRAN")
 
 	for _, ecosystem := range ecosystems {
-		_, err := semantic.Parse("", ecosystem)
+		_, err := semantic.Parse("", models.Ecosystem(ecosystem))
 
 		if errors.Is(err, semantic.ErrUnsupportedEcosystem) {
 			t.Errorf("'%s' is not a supported ecosystem", ecosystem)
@@ -34,13 +35,13 @@ func TestMustParse(t *testing.T) {
 		}
 	}()
 
-	ecosystems := models.KnownEcosystems()
+	ecosystems := lockfile.KnownEcosystems()
 
 	// todo: remove once CRAN is supported by lockfile
 	ecosystems = append(ecosystems, "CRAN")
 
 	for _, ecosystem := range ecosystems {
-		semantic.MustParse("", ecosystem)
+		semantic.MustParse("", models.Ecosystem(ecosystem))
 	}
 }
 
