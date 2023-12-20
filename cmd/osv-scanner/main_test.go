@@ -13,6 +13,7 @@ import (
 
 	"github.com/go-git/go-git/v5"
 	"github.com/google/go-cmp/cmp"
+	"github.com/google/osv-scanner/internal/testsnapshot"
 	"github.com/google/osv-scanner/internal/testutility"
 	"github.com/google/osv-scanner/internal/version"
 )
@@ -92,6 +93,14 @@ type cliTestCase struct {
 	wantStderr   string
 }
 
+type cliTestCaseWithSnapshot struct {
+	name         string
+	args         []string
+	wantExitCode int
+	wantStdout   testsnapshot.Snapshot
+	wantStderr   testsnapshot.Snapshot
+}
+
 func expectAreEqual(t *testing.T, subject, actual, expect string) {
 	t.Helper()
 
@@ -156,6 +165,180 @@ func testCli(t *testing.T, tc cliTestCase) {
 
 	expectAreEqual(t, "stdout output", stdout, tc.wantStdout)
 	expectAreEqual(t, "stderr output", stderr, tc.wantStderr)
+}
+
+func testCliWithSnapshots(t *testing.T, tc cliTestCaseWithSnapshot) {
+	t.Helper()
+
+	stdoutBuffer := &bytes.Buffer{}
+	stderrBuffer := &bytes.Buffer{}
+
+	ec := run(tc.args, stdoutBuffer, stderrBuffer)
+
+	stdout := normalizeRootDirectory(t, normalizeFilePaths(t, stdoutBuffer.String()))
+	stderr := normalizeRootDirectory(t, normalizeFilePaths(t, stderrBuffer.String()))
+
+	if ec != tc.wantExitCode {
+		t.Errorf("cli exited with code %d, not %d", ec, tc.wantExitCode)
+	}
+
+	tc.wantStdout.MatchText(t, stdout)
+	tc.wantStderr.MatchText(t, stderr)
+}
+
+func TestRun2(t *testing.T) {
+	t.Parallel()
+
+	tests := []cliTestCaseWithSnapshot{
+		{
+			name:         "",
+			args:         []string{""},
+			wantExitCode: 128,
+			wantStdout:   testsnapshot.New("", map[string]string{}),
+			wantStderr:   testsnapshot.New("", map[string]string{}),
+		},
+		{
+			name:         "one specific supported lockfile",
+			args:         []string{"", "./fixtures/locks-many/composer.lock"},
+			wantExitCode: 0,
+			wantStdout:   testsnapshot.New("", map[string]string{}),
+			wantStderr:   testsnapshot.New("", map[string]string{}),
+		},
+		// one specific supported sbom with vulns
+		{
+			name:         "folder of supported sbom with vulns",
+			args:         []string{"", "--config=./fixtures/osv-scanner-empty-config.toml", "./fixtures/sbom-insecure/"},
+			wantExitCode: 1,
+			wantStdout:   testsnapshot.New("", map[string]string{}),
+			wantStderr:   testsnapshot.New("", map[string]string{}),
+		},
+		// one specific supported sbom with vulns
+		{
+			name:         "one specific supported sbom with vulns",
+			args:         []string{"", "--config=./fixtures/osv-scanner-empty-config.toml", "--sbom", "./fixtures/sbom-insecure/alpine.cdx.xml"},
+			wantExitCode: 1,
+			wantStdout:   testsnapshot.New("", map[string]string{}),
+			wantStderr:   testsnapshot.New("", map[string]string{}),
+		},
+		// one specific unsupported lockfile
+		{
+			name:         "",
+			args:         []string{"", "./fixtures/locks-many/not-a-lockfile.toml"},
+			wantExitCode: 128,
+			wantStdout:   testsnapshot.New("", map[string]string{}),
+			wantStderr:   testsnapshot.New("", map[string]string{}),
+		},
+		// all supported lockfiles in the directory should be checked
+		{
+			name:         "Scan locks-many",
+			args:         []string{"", "./fixtures/locks-many"},
+			wantExitCode: 0,
+			wantStdout:   testsnapshot.New("", map[string]string{}),
+			wantStderr:   testsnapshot.New("", map[string]string{}),
+		},
+		// all supported lockfiles in the directory should be checked
+		{
+			name:         "all supported lockfiles in the directory should be checked",
+			args:         []string{"", "./fixtures/locks-many-with-invalid"},
+			wantExitCode: 127,
+			wantStdout:   testsnapshot.New("", map[string]string{}),
+			wantStderr:   testsnapshot.New("", map[string]string{}),
+		},
+		// only the files in the given directories are checked by default (no recursion)
+		{
+			name:         "only the files in the given directories are checked by default (no recursion)",
+			args:         []string{"", "./fixtures/locks-one-with-nested"},
+			wantExitCode: 0,
+			wantStdout:   testsnapshot.New("", map[string]string{}),
+			wantStderr:   testsnapshot.New("", map[string]string{}),
+		},
+		// nested directories are checked when `--recursive` is passed
+		{
+			name:         "nested directories are checked when `--recursive` is passed",
+			args:         []string{"", "--recursive", "./fixtures/locks-one-with-nested"},
+			wantExitCode: 0,
+			wantStdout:   testsnapshot.New("", map[string]string{}),
+			wantStderr:   testsnapshot.New("", map[string]string{}),
+		},
+		// .gitignored files
+		{
+			name:         "",
+			args:         []string{"", "--recursive", "./fixtures/locks-gitignore"},
+			wantExitCode: 0,
+			wantStdout:   testsnapshot.New("", map[string]string{}),
+			wantStderr:   testsnapshot.New("", map[string]string{}),
+		},
+		// ignoring .gitignore
+		{
+			name:         "",
+			args:         []string{"", "--recursive", "--no-ignore", "./fixtures/locks-gitignore"},
+			wantExitCode: 0,
+			wantStdout:   testsnapshot.New("", map[string]string{}),
+			wantStderr:   testsnapshot.New("", map[string]string{}),
+		},
+		// output with json
+		{
+			name:         "json output 1",
+			args:         []string{"", "--json", "./fixtures/locks-many/composer.lock"},
+			wantExitCode: 0,
+			wantStdout:   testsnapshot.New("", map[string]string{}),
+			wantStderr:   testsnapshot.New("", map[string]string{}),
+		},
+		{
+			name:         "json output 2",
+			args:         []string{"", "--format", "json", "./fixtures/locks-many/composer.lock"},
+			wantExitCode: 0,
+			wantStdout:   testsnapshot.New("", map[string]string{}),
+			wantStderr:   testsnapshot.New("", map[string]string{}),
+		},
+		// output format: gh-annotations
+		{
+			name:         "Empty gh-annotations output",
+			args:         []string{"", "--format", "gh-annotations", "./fixtures/locks-many/composer.lock"},
+			wantExitCode: 0,
+			wantStdout:   testsnapshot.New("", map[string]string{}),
+			wantStderr:   testsnapshot.New("", map[string]string{}),
+		},
+		{
+			name:         "gh-annotations with vulns",
+			args:         []string{"", "--format", "gh-annotations", "--config", "./fixtures/osv-scanner-empty-config.toml", "./fixtures/locks-many/package-lock.json"},
+			wantExitCode: 1,
+			wantStdout:   testsnapshot.New("", map[string]string{}),
+			wantStderr:   testsnapshot.New("", map[string]string{}),
+		},
+		// output format: markdown table
+		{
+			name:         "",
+			args:         []string{"", "--format", "markdown", "--config", "./fixtures/osv-scanner-empty-config.toml", "./fixtures/locks-many/package-lock.json"},
+			wantExitCode: 1,
+			wantStdout:   testsnapshot.New("", map[string]string{}),
+			wantStderr:   testsnapshot.New("", map[string]string{}),
+		},
+		// output format: unsupported
+		{
+			name:         "",
+			args:         []string{"", "--format", "unknown", "./fixtures/locks-many/composer.lock"},
+			wantExitCode: 127,
+			wantStdout:   testsnapshot.New("", map[string]string{}),
+			wantStderr:   testsnapshot.New("", map[string]string{}),
+		},
+		// one specific supported lockfile with ignore
+		{
+			name:         "one specific supported lockfile with ignore",
+			args:         []string{"", "./fixtures/locks-test-ignore/package-lock.json"},
+			wantExitCode: 0,
+			wantStdout:   testsnapshot.New("", map[string]string{}),
+			wantStderr:   testsnapshot.New("", map[string]string{}),
+		},
+	}
+	for _, tt := range tests {
+		tt := tt
+		t.Run(tt.name, func(t *testing.T) {
+			t.Parallel()
+
+			testCliWithSnapshots(t, tt)
+		})
+	}
 }
 
 func TestRun(t *testing.T) {
