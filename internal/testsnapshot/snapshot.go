@@ -22,7 +22,7 @@ type Snapshot struct {
 func (s Snapshot) applyWindowsReplacements(content string) string {
 	if //goland:noinspection GoBoolExpressions
 	runtime.GOOS == "windows" {
-		for match, replacement := range s.WindowsReplacements {
+		for replacement, match := range s.WindowsReplacements {
 			content = strings.ReplaceAll(content, match, replacement)
 		}
 	}
