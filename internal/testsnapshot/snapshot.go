@@ -32,7 +32,7 @@ func New(path string, windowsReplacements map[string]string) Snapshot {
 
 // MatchJSON asserts the existing snapshot matches what was gotten in the test,
 // after being marshalled as JSON
-func MatchJSON[V any](t *testing.T, snapshot Snapshot, got V) {
+func (s Snapshot) MatchJSON(t *testing.T, got any) {
 	t.Helper()
 
 	j, err := json.Marshal(got)
@@ -41,12 +41,12 @@ func MatchJSON[V any](t *testing.T, snapshot Snapshot, got V) {
 		t.Fatalf("Failed to marshal JSON: %s", err)
 	}
 
-	snaps.MatchSnapshot(t, snapshot.applyWindowsReplacements(string(j)))
+	s.MatchText(t, string(j))
 }
 
 // MatchText asserts the existing snapshot matches what was gotten in the test
-func MatchText(t *testing.T, snapshot Snapshot, got string) {
+func (s Snapshot) MatchText(t *testing.T, got string) {
 	t.Helper()
 
-	snaps.MatchSnapshot(t, snapshot.applyWindowsReplacements(got))
+	snaps.MatchSnapshot(t, s.applyWindowsReplacements(got))
 }

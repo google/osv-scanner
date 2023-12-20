@@ -56,7 +56,7 @@ func TestGroupFixedVersions(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
 			got := output.GroupFixedVersions(tt.args)
-			testsnapshot.MatchJSON(t, tt.want, got)
+			tt.want.MatchJSON(t, got)
 		})
 	}
 }
@@ -102,7 +102,7 @@ func TestPrintSARIFReport(t *testing.T) {
 			if err != nil {
 				t.Errorf("Error writing SARIF output: %s", err)
 			}
-			testsnapshot.MatchText(t, tt.want, bufOut.String())
+			tt.want.MatchText(t, bufOut.String())
 		})
 	}
 }
