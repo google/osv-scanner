@@ -42,6 +42,12 @@ linters:
     - unused
 
 linters-settings:
+  govet:
+    settings:
+      printf:
+        funcs:
+          - (github.com/google/osv-scanner/pkg/reporter.Reporter).PrintErrorf
+          - (github.com/google/osv-scanner/pkg/reporter.Reporter).PrintTextf
   depguard:
     rules:
       regexp:
