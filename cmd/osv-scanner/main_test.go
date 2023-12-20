@@ -9,6 +9,7 @@ import (
 	"testing"
 
 	"github.com/go-git/go-git/v5"
+	"github.com/google/osv-scanner/internal/cachedregexp"
 	"github.com/google/osv-scanner/internal/testsnapshot"
 )
 
@@ -61,6 +62,18 @@ func normalizeRootDirectory(t *testing.T, str string) string {
 	return strings.ReplaceAll(str, cwd, "<rootdir>")
 }
 
+// normalizeRootDirectory attempts to replace references to the temp directory
+// with "<tempdir>", to ensure tests pass across different OSs
+func normalizeTempDirectory(t *testing.T, str string) string {
+	t.Helper()
+
+	//nolint:gocritic // ensure that the directory doesn't end with a trailing slash
+	tempDir := normalizeFilePaths(t, filepath.Join(os.TempDir()))
+	re := cachedregexp.MustCompile(tempDir + `/osv-scanner-test-\d+`)
+
+	return re.ReplaceAllString(str, "<tempdir>")
+}
+
 func testCli(t *testing.T, tc cliTestCase) {
 	t.Helper()
 
@@ -70,8 +83,8 @@ func testCli(t *testing.T, tc cliTestCase) {
 	ec := run(tc.args, stdoutBuffer, stderrBuffer)
 	// ec := run(tc.args, os.Stdout, os.Stderr)
 
-	stdout := normalizeRootDirectory(t, normalizeFilePaths(t, stdoutBuffer.String()))
-	stderr := normalizeRootDirectory(t, normalizeFilePaths(t, stderrBuffer.String()))
+	stdout := normalizeTempDirectory(t, normalizeRootDirectory(t, normalizeFilePaths(t, stdoutBuffer.String())))
+	stderr := normalizeTempDirectory(t, normalizeRootDirectory(t, normalizeFilePaths(t, stderrBuffer.String())))
 
 	if ec != tc.wantExitCode {
 		t.Errorf("cli exited with code %d, not %d", ec, tc.wantExitCode)
