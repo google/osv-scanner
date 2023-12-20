@@ -8,7 +8,6 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/go-git/go-git/v5"
 	"github.com/google/osv-scanner/internal/cachedregexp"
 	"github.com/google/osv-scanner/internal/testsnapshot"
 )
@@ -684,19 +683,4 @@ func TestRun_Licenses(t *testing.T) {
 			testCli(t, tt)
 		})
 	}
-}
-
-func TestMain(m *testing.M) {
-	// ensure a git repository doesn't already exist in the fixtures directory,
-	// in case we didn't get a chance to clean-up properly in the last run
-	os.RemoveAll("./fixtures/.git")
-
-	// Temporarily make the fixtures folder a git repository to prevent gitignore files messing with tests.
-	_, err := git.PlainInit("./fixtures", false)
-	if err != nil {
-		panic(err)
-	}
-	code := m.Run()
-	os.RemoveAll("./fixtures/.git")
-	os.Exit(code)
 }
