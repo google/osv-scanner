@@ -1,81 +1,47 @@
 
-[TestRun2/#00 - 1]
+[TestRun/#00 - 1]
 
 ---
 
-[TestRun2/#00 - 2]
+[TestRun/#00 - 2]
 No package sources found, --help for usage information.
 
 ---
 
-[TestRun2/#05 - 1]
+[TestRun/#01 - 1]
+osv-scanner version: 1.5.0
+commit: n/a
+built at: n/a
 
 ---
 
-[TestRun2/#05 - 2]
-unsupported output format "unknown" - must be one of: table, json, markdown, sarif, gh-annotations
+[TestRun/#01 - 2]
 
 ---
 
-[TestRun2/#01 - 1]
+[TestRun/#02 - 1]
 Scanning dir ./fixtures/locks-many/not-a-lockfile.toml
 
 ---
 
-[TestRun2/#01 - 2]
+[TestRun/#02 - 2]
 No package sources found, --help for usage information.
 
 ---
 
-[TestRun2/Empty_gh-annotations_output - 1]
+[TestRun/#03 - 1]
+Scanning dir ./fixtures/locks-gitignore
+Scanned <rootdir>/fixtures/locks-gitignore/Gemfile.lock file and found 1 package
+Scanned <rootdir>/fixtures/locks-gitignore/subdir/yarn.lock file and found 1 package
+No issues found
 
 ---
 
-[TestRun2/Empty_gh-annotations_output - 2]
-Scanning dir ./fixtures/locks-many/composer.lock
-Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
+[TestRun/#03 - 2]
 
 ---
 
-[TestRun2/json_output_2 - 1]
-{
-  "results": [],
-  "experimental_config": {
-    "licenses": {
-      "summary": false,
-      "allowlist": null
-    }
-  }
-}
-
----
-
-[TestRun2/json_output_2 - 2]
-Scanning dir ./fixtures/locks-many/composer.lock
-Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
-
----
-
-[TestRun2/json_output_1 - 1]
-{
-  "results": [],
-  "experimental_config": {
-    "licenses": {
-      "summary": false,
-      "allowlist": null
-    }
-  }
-}
-
----
-
-[TestRun2/json_output_1 - 2]
-Scanning dir ./fixtures/locks-many/composer.lock
-Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
-
----
-
-[TestRun2/#03 - 1]
+[TestRun/#04 - 1]
 Scanning dir ./fixtures/locks-gitignore
 Scanned <rootdir>/fixtures/locks-gitignore/Gemfile.lock file and found 1 package
 Scanned <rootdir>/fixtures/locks-gitignore/composer.lock file and found 1 package
@@ -89,46 +55,11 @@ No issues found
 
 ---
 
-[TestRun2/#03 - 2]
+[TestRun/#04 - 2]
 
 ---
 
-[TestRun2/#02 - 1]
-Scanning dir ./fixtures/locks-gitignore
-Scanned <rootdir>/fixtures/locks-gitignore/Gemfile.lock file and found 1 package
-Scanned <rootdir>/fixtures/locks-gitignore/subdir/yarn.lock file and found 1 package
-No issues found
-
----
-
-[TestRun2/#02 - 2]
-
----
-
-[TestRun2/only_the_files_in_the_given_directories_are_checked_by_default_(no_recursion) - 1]
-Scanning dir ./fixtures/locks-one-with-nested
-Scanned <rootdir>/fixtures/locks-one-with-nested/yarn.lock file and found 1 package
-No issues found
-
----
-
-[TestRun2/only_the_files_in_the_given_directories_are_checked_by_default_(no_recursion) - 2]
-
----
-
-[TestRun2/nested_directories_are_checked_when_`--recursive`_is_passed - 1]
-Scanning dir ./fixtures/locks-one-with-nested
-Scanned <rootdir>/fixtures/locks-one-with-nested/nested/composer.lock file and found 1 package
-Scanned <rootdir>/fixtures/locks-one-with-nested/yarn.lock file and found 1 package
-No issues found
-
----
-
-[TestRun2/nested_directories_are_checked_when_`--recursive`_is_passed - 2]
-
----
-
-[TestRun2/#04 - 1]
+[TestRun/#05 - 1]
 Scanning dir ./fixtures/locks-many/package-lock.json
 Scanned <rootdir>/fixtures/locks-many/package-lock.json file and found 1 package
 | OSV URL | CVSS | Ecosystem | Package | Version | Source |
@@ -137,73 +68,130 @@ Scanned <rootdir>/fixtures/locks-many/package-lock.json file and found 1 package
 
 ---
 
-[TestRun2/#04 - 2]
+[TestRun/#05 - 2]
 
 ---
 
-[TestRun2/all_supported_lockfiles_in_the_directory_should_be_checked - 1]
-Scanning dir ./fixtures/locks-many-with-invalid
-Scanned <rootdir>/fixtures/locks-many-with-invalid/Gemfile.lock file and found 1 package
-Scanned <rootdir>/fixtures/locks-many-with-invalid/yarn.lock file and found 1 package
+[TestRun/#06 - 1]
 
 ---
 
-[TestRun2/gh-annotations_with_vulns - 1]
+[TestRun/#06 - 2]
+unsupported output format "unknown" - must be one of: table, json, markdown, sarif, gh-annotations
 
 ---
 
-[TestRun2/all_supported_lockfiles_in_the_directory_should_be_checked - 2]
-Attempted to scan lockfile but failed: <rootdir>/fixtures/locks-many-with-invalid/composer.lock
+[TestRun/Empty_gh-annotations_output - 1]
 
 ---
 
-[TestRun2/gh-annotations_with_vulns - 2]
-Scanning dir ./fixtures/locks-many/package-lock.json
-Scanned <rootdir>/fixtures/locks-many/package-lock.json file and found 1 package
-::error file=fixtures/locks-many/package-lock.json::fixtures/locks-many/package-lock.json%0A+-----------+-------------------------------------+------+-----------------+---------------+%0A| PACKAGE   | VULNERABILITY ID                    | CVSS | CURRENT VERSION | FIXED VERSION |%0A+-----------+-------------------------------------+------+-----------------+---------------+%0A| ansi-html | https://osv.dev/GHSA-whgm-jr23-g3j9 | 7.5  | 0.0.1           | 0.0.8         |%0A+-----------+-------------------------------------+------+-----------------+---------------+
----
-
-[TestRun2/one_specific_supported_lockfile - 1]
+[TestRun/Empty_gh-annotations_output - 2]
 Scanning dir ./fixtures/locks-many/composer.lock
 Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
-No issues found
 
 ---
 
-[TestRun2/one_specific_supported_lockfile - 2]
+[TestRun/Empty_sarif_output - 1]
+{
+  "version": "2.1.0",
+  "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/master/Schemata/sarif-schema-2.1.0.json",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "informationUri": "https://github.com/google/osv-scanner",
+          "name": "osv-scanner",
+          "rules": [],
+          "version": "1.5.0"
+        }
+      },
+      "results": []
+    }
+  ]
+}
 
 ---
 
-[TestRun2/one_specific_supported_lockfile_with_ignore - 1]
-Scanning dir ./fixtures/locks-test-ignore/package-lock.json
-Scanned <rootdir>/fixtures/locks-test-ignore/package-lock.json file and found 1 package
-Loaded filter from: <rootdir>/fixtures/locks-test-ignore/osv-scanner.toml
-CVE-2021-23424 and 1 alias have been filtered out because: Test manifest file (alpine.cdx.xml)
-Filtered 1 vulnerability from output
-No issues found
+[TestRun/Empty_sarif_output - 2]
+Scanning dir ./fixtures/locks-many/composer.lock
+Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
 
 ---
 
-[TestRun2/one_specific_supported_lockfile_with_ignore - 2]
+[TestRun/Sarif_with_vulns - 1]
+{
+  "version": "2.1.0",
+  "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/master/Schemata/sarif-schema-2.1.0.json",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "informationUri": "https://github.com/google/osv-scanner",
+          "name": "osv-scanner",
+          "rules": [
+            {
+              "id": "CVE-2021-23424",
+              "name": "CVE-2021-23424",
+              "shortDescription": {
+                "text": "CVE-2021-23424: Uncontrolled Resource Consumption in ansi-html"
+              },
+              "fullDescription": {
+                "text": "This affects all versions of package ansi-html. If an attacker provides a malicious string, it will get stuck processing the input for an extremely long time.",
+                "markdown": "This affects all versions of package ansi-html. If an attacker provides a malicious string, it will get stuck processing the input for an extremely long time."
+              },
+              "deprecatedIds": [
+                "CVE-2021-23424",
+                "GHSA-whgm-jr23-g3j9"
+              ],
+              "help": {
+                "text": "**Your dependency is vulnerable to [CVE-2021-23424](https://osv.dev/list?q=CVE-2021-23424)**./n/n## [GHSA-whgm-jr23-g3j9](https://osv.dev/vulnerability/GHSA-whgm-jr23-g3j9)/n/n/u003cdetails/u003e/n/u003csummary/u003eDetails/u003c/summary/u003e/n/n/u003e This affects all versions of package ansi-html. If an attacker provides a malicious string, it will get stuck processing the input for an extremely long time./n/n/u003c/details/u003e/n/n---/n/n### Affected Packages/n/n| Source | Package Name | Package Version |/n| --- | --- | --- |/n| lockfile:<rootdir>/fixtures/locks-many/package-lock.json | ansi-html | 0.0.1 |/n/n## Remediation/n/nTo fix these vulnerabilities, update the vulnerabilities past the listed fixed versions below./n/n### Fixed Versions/n/n| Vulnerability ID | Package Name | Fixed Version |/n| --- | --- | --- |/n| GHSA-whgm-jr23-g3j9 | ansi-html | 0.0.8 |/n/nIf you believe these vulnerabilities do not affect your code and wish to ignore them, add them to the ignore list in an/n`osv-scanner.toml` file located in the same directory as the lockfile containing the vulnerable dependency./n/nSee the format and more options in our documentation here: https://google.github.io/osv-scanner/configuration//n/nAdd or append these values to the following config files to ignore this vulnerability:/n/n`<rootdir>/fixtures/locks-many/osv-scanner.toml`/n/n```/n[[IgnoredVulns]]/nid = /"CVE-2021-23424/"/nreason = /"Your reason for ignoring this vulnerability/"/n```/n",
+                "markdown": "**Your dependency is vulnerable to [CVE-2021-23424](https://osv.dev/list?q=CVE-2021-23424)**./n/n## [GHSA-whgm-jr23-g3j9](https://osv.dev/vulnerability/GHSA-whgm-jr23-g3j9)/n/n/u003cdetails/u003e/n/u003csummary/u003eDetails/u003c/summary/u003e/n/n/u003e This affects all versions of package ansi-html. If an attacker provides a malicious string, it will get stuck processing the input for an extremely long time./n/n/u003c/details/u003e/n/n---/n/n### Affected Packages/n/n| Source | Package Name | Package Version |/n| --- | --- | --- |/n| lockfile:<rootdir>/fixtures/locks-many/package-lock.json | ansi-html | 0.0.1 |/n/n## Remediation/n/nTo fix these vulnerabilities, update the vulnerabilities past the listed fixed versions below./n/n### Fixed Versions/n/n| Vulnerability ID | Package Name | Fixed Version |/n| --- | --- | --- |/n| GHSA-whgm-jr23-g3j9 | ansi-html | 0.0.8 |/n/nIf you believe these vulnerabilities do not affect your code and wish to ignore them, add them to the ignore list in an/n`osv-scanner.toml` file located in the same directory as the lockfile containing the vulnerable dependency./n/nSee the format and more options in our documentation here: https://google.github.io/osv-scanner/configuration//n/nAdd or append these values to the following config files to ignore this vulnerability:/n/n`<rootdir>/fixtures/locks-many/osv-scanner.toml`/n/n```/n[[IgnoredVulns]]/nid = /"CVE-2021-23424/"/nreason = /"Your reason for ignoring this vulnerability/"/n```/n"
+              }
+            }
+          ],
+          "version": "1.5.0"
+        }
+      },
+      "artifacts": [
+        {
+          "location": {
+            "uri": "file://<rootdir>/fixtures/locks-many/package-lock.json"
+          },
+          "length": -1
+        }
+      ],
+      "results": [
+        {
+          "ruleId": "CVE-2021-23424",
+          "ruleIndex": 0,
+          "level": "warning",
+          "message": {
+            "text": "Package 'ansi-html@0.0.1' is vulnerable to 'CVE-2021-23424' (also known as 'GHSA-whgm-jr23-g3j9')."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file://<rootdir>/fixtures/locks-many/package-lock.json"
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
 
 ---
 
-[TestRun2/one_specific_supported_sbom_with_vulns - 1]
-Scanned <rootdir>/fixtures/sbom-insecure/alpine.cdx.xml as CycloneDX SBOM and found 15 packages
-+--------------------------------+------+-----------+---------+------------+---------------------------------------+
-| OSV URL                        | CVSS | ECOSYSTEM | PACKAGE | VERSION    | SOURCE                                |
-+--------------------------------+------+-----------+---------+------------+---------------------------------------+
-| https://osv.dev/CVE-2022-48174 | 9.8  | Alpine    | busybox | 1.35.0-r29 | fixtures/sbom-insecure/alpine.cdx.xml |
-| https://osv.dev/CVE-2022-37434 | 9.8  | Alpine    | zlib    | 1.2.10-r2  | fixtures/sbom-insecure/alpine.cdx.xml |
-+--------------------------------+------+-----------+---------+------------+---------------------------------------+
+[TestRun/Sarif_with_vulns - 2]
+Scanning dir ./fixtures/locks-many/package-lock.json
+Scanned <rootdir>/fixtures/locks-many/package-lock.json file and found 1 package
 
 ---
 
-[TestRun2/one_specific_supported_sbom_with_vulns - 2]
-
----
-
-[TestRun2/Scan_locks-many - 1]
+[TestRun/Scan_locks-many - 1]
 Scanning dir ./fixtures/locks-many
 Scanned <rootdir>/fixtures/locks-many/Gemfile.lock file and found 1 package
 Scanned <rootdir>/fixtures/locks-many/alpine.cdx.xml as CycloneDX SBOM and found 15 packages
@@ -218,11 +206,23 @@ No issues found
 
 ---
 
-[TestRun2/Scan_locks-many - 2]
+[TestRun/Scan_locks-many - 2]
 
 ---
 
-[TestRun2/folder_of_supported_sbom_with_vulns - 1]
+[TestRun/all_supported_lockfiles_in_the_directory_should_be_checked - 1]
+Scanning dir ./fixtures/locks-many-with-invalid
+Scanned <rootdir>/fixtures/locks-many-with-invalid/Gemfile.lock file and found 1 package
+Scanned <rootdir>/fixtures/locks-many-with-invalid/yarn.lock file and found 1 package
+
+---
+
+[TestRun/all_supported_lockfiles_in_the_directory_should_be_checked - 2]
+Attempted to scan lockfile but failed: <rootdir>/fixtures/locks-many-with-invalid/composer.lock
+
+---
+
+[TestRun/folder_of_supported_sbom_with_vulns - 1]
 Scanning dir ./fixtures/sbom-insecure/
 Scanned <rootdir>/fixtures/sbom-insecure/alpine.cdx.xml as CycloneDX SBOM and found 15 packages
 Scanned <rootdir>/fixtures/sbom-insecure/postgres-stretch.cdx.xml as CycloneDX SBOM and found 136 packages
@@ -247,277 +247,30 @@ Scanned <rootdir>/fixtures/sbom-insecure/postgres-stretch.cdx.xml as CycloneDX S
 
 ---
 
-[TestRun2/folder_of_supported_sbom_with_vulns - 2]
+[TestRun/folder_of_supported_sbom_with_vulns - 2]
 
 ---
 
-[TestRun_LocalDatabases/#02 - 1]
-Scanning dir ./fixtures/locks-many/not-a-lockfile.toml
+[TestRun/gh-annotations_with_vulns - 1]
 
 ---
 
-[TestRun_LocalDatabases/#02 - 2]
-No package sources found, --help for usage information.
+[TestRun/gh-annotations_with_vulns - 2]
+Scanning dir ./fixtures/locks-many/package-lock.json
+Scanned <rootdir>/fixtures/locks-many/package-lock.json file and found 1 package
+::error file=fixtures/locks-many/package-lock.json::fixtures/locks-many/package-lock.json%0A+-----------+-------------------------------------+------+-----------------+---------------+%0A| PACKAGE   | VULNERABILITY ID                    | CVSS | CURRENT VERSION | FIXED VERSION |%0A+-----------+-------------------------------------+------+-----------------+---------------+%0A| ansi-html | https://osv.dev/GHSA-whgm-jr23-g3j9 | 7.5  | 0.0.1           | 0.0.8         |%0A+-----------+-------------------------------------+------+-----------------+---------------+
+---
+
+[TestRun/invalid_--verbosity_value - 1]
 
 ---
 
-[TestRun_LocalDatabases/#02 - 3]
-Scanning dir ./fixtures/locks-many/not-a-lockfile.toml
+[TestRun/invalid_--verbosity_value - 2]
+invalid verbosity level "unknown" - must be one of: error, warn, info, verbose
 
 ---
 
-[TestRun_LocalDatabases/#02 - 4]
-No package sources found, --help for usage information.
-
----
-
-[TestRun_Licenses/Some_packages_with_license_violations_and_show-all-packages_in_json - 1]
-{
-  "results": [
-    {
-      "source": {
-        "path": "<rootdir>/fixtures/locks-licenses/package-lock.json",
-        "type": "lockfile"
-      },
-      "packages": [
-        {
-          "package": {
-            "name": "babel",
-            "version": "6.23.0",
-            "ecosystem": "npm"
-          },
-          "licenses": [
-            "MIT"
-          ]
-        },
-        {
-          "package": {
-            "name": "human-signals",
-            "version": "5.0.0",
-            "ecosystem": "npm"
-          },
-          "licenses": [
-            "Apache-2.0"
-          ],
-          "license_violations": [
-            "Apache-2.0"
-          ]
-        },
-        {
-          "package": {
-            "name": "ms",
-            "version": "2.1.3",
-            "ecosystem": "npm"
-          },
-          "licenses": [
-            "MIT"
-          ]
-        }
-      ]
-    }
-  ],
-  "experimental_config": {
-    "licenses": {
-      "summary": false,
-      "allowlist": [
-        "MIT"
-      ]
-    }
-  }
-}
-
----
-
-[TestRun_Licenses/Some_packages_with_license_violations_and_show-all-packages_in_json - 2]
-Scanning dir ./fixtures/locks-licenses/package-lock.json
-Scanned <rootdir>/fixtures/locks-licenses/package-lock.json file and found 3 packages
-
----
-
-[TestRun_Licenses/No_license_violations_and_show-all-packages_in_json - 1]
-{
-  "results": [
-    {
-      "source": {
-        "path": "<rootdir>/fixtures/locks-licenses/package-lock.json",
-        "type": "lockfile"
-      },
-      "packages": [
-        {
-          "package": {
-            "name": "babel",
-            "version": "6.23.0",
-            "ecosystem": "npm"
-          },
-          "licenses": [
-            "MIT"
-          ]
-        },
-        {
-          "package": {
-            "name": "human-signals",
-            "version": "5.0.0",
-            "ecosystem": "npm"
-          },
-          "licenses": [
-            "Apache-2.0"
-          ]
-        },
-        {
-          "package": {
-            "name": "ms",
-            "version": "2.1.3",
-            "ecosystem": "npm"
-          },
-          "licenses": [
-            "MIT"
-          ]
-        }
-      ]
-    }
-  ],
-  "experimental_config": {
-    "licenses": {
-      "summary": false,
-      "allowlist": [
-        "MIT",
-        "Apache-2.0"
-      ]
-    }
-  }
-}
-
----
-
-[TestRun_Licenses/No_license_violations_and_show-all-packages_in_json - 2]
-Scanning dir ./fixtures/locks-licenses/package-lock.json
-Scanned <rootdir>/fixtures/locks-licenses/package-lock.json file and found 3 packages
-
----
-
-[TestRun_Licenses/Licenses_in_summary_mode_json - 1]
-{
-  "results": [
-    {
-      "source": {
-        "path": "<rootdir>/fixtures/locks-licenses/package-lock.json",
-        "type": "lockfile"
-      },
-      "packages": [
-        {
-          "package": {
-            "name": "babel",
-            "version": "6.23.0",
-            "ecosystem": "npm"
-          },
-          "licenses": [
-            "MIT"
-          ]
-        },
-        {
-          "package": {
-            "name": "human-signals",
-            "version": "5.0.0",
-            "ecosystem": "npm"
-          },
-          "licenses": [
-            "Apache-2.0"
-          ]
-        },
-        {
-          "package": {
-            "name": "ms",
-            "version": "2.1.3",
-            "ecosystem": "npm"
-          },
-          "licenses": [
-            "MIT"
-          ]
-        }
-      ]
-    }
-  ],
-  "experimental_config": {
-    "licenses": {
-      "summary": true,
-      "allowlist": []
-    }
-  }
-}
-
----
-
-[TestRun_Licenses/Licenses_in_summary_mode_json - 2]
-Scanning dir ./fixtures/locks-licenses/package-lock.json
-Scanned <rootdir>/fixtures/locks-licenses/package-lock.json file and found 3 packages
-
----
-
-[TestRun_Licenses/Some_packages_with_license_violations_in_json - 1]
-{
-  "results": [
-    {
-      "source": {
-        "path": "<rootdir>/fixtures/locks-licenses/package-lock.json",
-        "type": "lockfile"
-      },
-      "packages": [
-        {
-          "package": {
-            "name": "human-signals",
-            "version": "5.0.0",
-            "ecosystem": "npm"
-          },
-          "licenses": [
-            "Apache-2.0"
-          ],
-          "license_violations": [
-            "Apache-2.0"
-          ]
-        }
-      ]
-    }
-  ],
-  "experimental_config": {
-    "licenses": {
-      "summary": false,
-      "allowlist": [
-        "MIT"
-      ]
-    }
-  }
-}
-
----
-
-[TestRun_Licenses/Some_packages_with_license_violations_in_json - 2]
-Scanning dir ./fixtures/locks-licenses/package-lock.json
-Scanned <rootdir>/fixtures/locks-licenses/package-lock.json file and found 3 packages
-
----
-
-[TestRun_LockfileWithExplicitParseAs/#00 - 1]
-
----
-
-[TestRun_LockfileWithExplicitParseAs/#00 - 2]
-could not determine extractor, requested my-file
-
----
-
-[TestRun_LocalDatabases/#00 - 1]
-Scanning dir ./fixtures/locks-many/composer.lock
-Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
-Loaded Packagist local db from <tempdir>/osv-scanner/Packagist/all.zip
-No issues found
-
----
-
-[TestRun_LocalDatabases/#00 - 2]
-
----
-
-[TestRun_LocalDatabases/#09 - 1]
+[TestRun/json_output_1 - 1]
 {
   "results": [],
   "experimental_config": {
@@ -530,10 +283,111 @@ No issues found
 
 ---
 
-[TestRun_LocalDatabases/#09 - 2]
+[TestRun/json_output_1 - 2]
 Scanning dir ./fixtures/locks-many/composer.lock
 Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
-Loaded Packagist local db from <tempdir>/osv-scanner/Packagist/all.zip
+
+---
+
+[TestRun/json_output_2 - 1]
+{
+  "results": [],
+  "experimental_config": {
+    "licenses": {
+      "summary": false,
+      "allowlist": null
+    }
+  }
+}
+
+---
+
+[TestRun/json_output_2 - 2]
+Scanning dir ./fixtures/locks-many/composer.lock
+Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
+
+---
+
+[TestRun/nested_directories_are_checked_when_`--recursive`_is_passed - 1]
+Scanning dir ./fixtures/locks-one-with-nested
+Scanned <rootdir>/fixtures/locks-one-with-nested/nested/composer.lock file and found 1 package
+Scanned <rootdir>/fixtures/locks-one-with-nested/yarn.lock file and found 1 package
+No issues found
+
+---
+
+[TestRun/nested_directories_are_checked_when_`--recursive`_is_passed - 2]
+
+---
+
+[TestRun/one_specific_supported_lockfile - 1]
+Scanning dir ./fixtures/locks-many/composer.lock
+Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
+No issues found
+
+---
+
+[TestRun/one_specific_supported_lockfile - 2]
+
+---
+
+[TestRun/one_specific_supported_lockfile_with_ignore - 1]
+Scanning dir ./fixtures/locks-test-ignore/package-lock.json
+Scanned <rootdir>/fixtures/locks-test-ignore/package-lock.json file and found 1 package
+Loaded filter from: <rootdir>/fixtures/locks-test-ignore/osv-scanner.toml
+CVE-2021-23424 and 1 alias have been filtered out because: Test manifest file (alpine.cdx.xml)
+Filtered 1 vulnerability from output
+No issues found
+
+---
+
+[TestRun/one_specific_supported_lockfile_with_ignore - 2]
+
+---
+
+[TestRun/one_specific_supported_sbom_with_vulns - 1]
+Scanned <rootdir>/fixtures/sbom-insecure/alpine.cdx.xml as CycloneDX SBOM and found 15 packages
++--------------------------------+------+-----------+---------+------------+---------------------------------------+
+| OSV URL                        | CVSS | ECOSYSTEM | PACKAGE | VERSION    | SOURCE                                |
++--------------------------------+------+-----------+---------+------------+---------------------------------------+
+| https://osv.dev/CVE-2022-48174 | 9.8  | Alpine    | busybox | 1.35.0-r29 | fixtures/sbom-insecure/alpine.cdx.xml |
+| https://osv.dev/CVE-2022-37434 | 9.8  | Alpine    | zlib    | 1.2.10-r2  | fixtures/sbom-insecure/alpine.cdx.xml |
++--------------------------------+------+-----------+---------+------------+---------------------------------------+
+
+---
+
+[TestRun/one_specific_supported_sbom_with_vulns - 2]
+
+---
+
+[TestRun/only_the_files_in_the_given_directories_are_checked_by_default_(no_recursion) - 1]
+Scanning dir ./fixtures/locks-one-with-nested
+Scanned <rootdir>/fixtures/locks-one-with-nested/yarn.lock file and found 1 package
+No issues found
+
+---
+
+[TestRun/only_the_files_in_the_given_directories_are_checked_by_default_(no_recursion) - 2]
+
+---
+
+[TestRun/verbosity_level_=_error - 1]
+No issues found
+
+---
+
+[TestRun/verbosity_level_=_error - 2]
+
+---
+
+[TestRun/verbosity_level_=_info - 1]
+Scanning dir ./fixtures/locks-many/composer.lock
+Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
+No issues found
+
+---
+
+[TestRun/verbosity_level_=_info - 2]
 
 ---
 
@@ -549,56 +403,6 @@ Scanned <rootdir>/fixtures/locks-insecure/osv-scanner-flutter-deps.json file as 
 ---
 
 [TestRun_GithubActions/scanning_osv-scanner_custom_format - 2]
-
----
-
-[TestRun_LocalDatabases/#00 - 3]
-Scanning dir ./fixtures/locks-many/composer.lock
-Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
-Loaded Packagist local db from <tempdir>/osv-scanner/Packagist/all.zip
-No issues found
-
----
-
-[TestRun_LocalDatabases/#00 - 4]
-
----
-
-[TestRun_LockfileWithExplicitParseAs/#08 - 1]
-
----
-
-[TestRun_LockfileWithExplicitParseAs/#08 - 2]
-(extracting as package-lock.json) could not extract from <rootdir>/fixtures/locks-many/yarn.lock: invalid character '#' looking for beginning of value
-
----
-
-[TestRun_LockfileWithExplicitParseAs/#07 - 1]
-
----
-
-[TestRun_LockfileWithExplicitParseAs/#07 - 2]
-(extracting as Cargo.lock) could not extract from <rootdir>/fixtures/locks-insecure/my-package-lock.json: toml: line 1: expected '.' or '=', but got '{' instead
-
----
-
-[TestRun_LocalDatabases/#09 - 3]
-{
-  "results": [],
-  "experimental_config": {
-    "licenses": {
-      "summary": false,
-      "allowlist": null
-    }
-  }
-}
-
----
-
-[TestRun_LocalDatabases/#09 - 4]
-Scanning dir ./fixtures/locks-many/composer.lock
-Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
-Loaded Packagist local db from <tempdir>/osv-scanner/Packagist/all.zip
 
 ---
 
@@ -710,236 +514,128 @@ Scanned <rootdir>/fixtures/locks-insecure/osv-scanner-flutter-deps.json file as 
 
 ---
 
-[TestRun_Licenses/Vulnerabilities_and_all_license_violations_allowlisted - 1]
-Scanning dir ./fixtures/locks-many/package-lock.json
-Scanned <rootdir>/fixtures/locks-many/package-lock.json file and found 1 package
-+-------------------------------------+------+-----------+-----------+---------+---------------------------------------+
-| OSV URL                             | CVSS | ECOSYSTEM | PACKAGE   | VERSION | SOURCE                                |
-+-------------------------------------+------+-----------+-----------+---------+---------------------------------------+
-| https://osv.dev/GHSA-whgm-jr23-g3j9 | 7.5  | npm       | ansi-html | 0.0.1   | fixtures/locks-many/package-lock.json |
-+-------------------------------------+------+-----------+-----------+---------+---------------------------------------+
-
----
-
-[TestRun_Licenses/Vulnerabilities_and_all_license_violations_allowlisted - 2]
-
----
-
-[TestRun_LockfileWithExplicitParseAs/#02 - 1]
-
----
-
-[TestRun_LockfileWithExplicitParseAs/#02 - 2]
-open <rootdir>/path/to/my:file: no such file or directory
-
----
-
-[TestRun_LockfileWithExplicitParseAs/#03 - 1]
-
----
-
-[TestRun_LockfileWithExplicitParseAs/#03 - 2]
-open <rootdir>/path/to/my:project/package-lock.json: no such file or directory
-
----
-
-[TestRun_Licenses/Vulnerabilities_and_license_summary - 1]
-Scanning dir ./fixtures/locks-many/package-lock.json
-Scanned <rootdir>/fixtures/locks-many/package-lock.json file and found 1 package
-+-------------------------------------+------+-----------+-----------+---------+---------------------------------------+
-| OSV URL                             | CVSS | ECOSYSTEM | PACKAGE   | VERSION | SOURCE                                |
-+-------------------------------------+------+-----------+-----------+---------+---------------------------------------+
-| https://osv.dev/GHSA-whgm-jr23-g3j9 | 7.5  | npm       | ansi-html | 0.0.1   | fixtures/locks-many/package-lock.json |
-+-------------------------------------+------+-----------+-----------+---------+---------------------------------------+
-+------------+-------------------------+
-| LICENSE    | NO. OF PACKAGE VERSIONS |
-+------------+-------------------------+
-| Apache-2.0 |                       1 |
-+------------+-------------------------+
-
----
-
-[TestRun_Licenses/Vulnerabilities_and_license_summary - 2]
-
----
-
-[TestRun/#00 - 1]
-
----
-
-[TestRun/#00 - 2]
-No package sources found, --help for usage information.
-
----
-
-[TestRun_LockfileWithExplicitParseAs/#10 - 1]
-Scanned <rootdir>/fixtures/locks-many/status file as a dpkg-status and found 1 package
-No issues found
-
----
-
-[TestRun_LockfileWithExplicitParseAs/#10 - 2]
-
----
-
-[TestRun_Licenses/Vulnerabilities_and_license_violations_with_allowlist - 1]
-Scanning dir ./fixtures/locks-many/package-lock.json
-Scanned <rootdir>/fixtures/locks-many/package-lock.json file and found 1 package
-+-------------------------------------+------+-----------+-----------+---------+---------------------------------------+
-| OSV URL                             | CVSS | ECOSYSTEM | PACKAGE   | VERSION | SOURCE                                |
-+-------------------------------------+------+-----------+-----------+---------+---------------------------------------+
-| https://osv.dev/GHSA-whgm-jr23-g3j9 | 7.5  | npm       | ansi-html | 0.0.1   | fixtures/locks-many/package-lock.json |
-+-------------------------------------+------+-----------+-----------+---------+---------------------------------------+
-+-------------------+-----------+-----------+---------+---------------------------------------+
-| LICENSE VIOLATION | ECOSYSTEM | PACKAGE   | VERSION | SOURCE                                |
-+-------------------+-----------+-----------+---------+---------------------------------------+
-| Apache-2.0        | npm       | ansi-html | 0.0.1   | fixtures/locks-many/package-lock.json |
-+-------------------+-----------+-----------+---------+---------------------------------------+
-
----
-
-[TestRun_Licenses/Vulnerabilities_and_license_violations_with_allowlist - 2]
-
----
-
-[TestRun/#06 - 1]
-
----
-
-[TestRun/#06 - 2]
-unsupported output format "unknown" - must be one of: table, json, markdown, sarif, gh-annotations
-
----
-
-[TestRun_Licenses/No_vulnerabilities_with_license_summary_in_markdown - 1]
-Scanning dir ./fixtures/locks-many
-Scanned <rootdir>/fixtures/locks-many/Gemfile.lock file and found 1 package
-Scanned <rootdir>/fixtures/locks-many/alpine.cdx.xml as CycloneDX SBOM and found 15 packages
-Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
-Scanned <rootdir>/fixtures/locks-many/package-lock.json file and found 1 package
-Scanned <rootdir>/fixtures/locks-many/yarn.lock file and found 1 package
-Loaded filter from: <rootdir>/fixtures/locks-many/osv-scanner.toml
-CVE-2022-48174 has been filtered out because: Test manifest file (alpine.cdx.xml)
-GHSA-whgm-jr23-g3j9 and 1 alias have been filtered out because: Test manifest file
-Filtered 2 vulnerabilities from output
-| License | No. of package versions |
-| --- | ---:|
-| Apache-2.0 | 1 |
-| MIT | 1 |
-| UNKNOWN | 17 |
-
----
-
-[TestRun_Licenses/No_vulnerabilities_with_license_summary_in_markdown - 2]
-
----
-
-[TestRun_LockfileWithExplicitParseAs/#09 - 1]
-Scanned <rootdir>/fixtures/locks-many/installed file as a apk-installed and found 1 package
-No issues found
-
----
-
-[TestRun_LockfileWithExplicitParseAs/#09 - 2]
-
----
-
-[TestRun_LockfileWithExplicitParseAs/one_lockfile_with_local_path - 1]
-Scanned <rootdir>/fixtures/locks-many/replace-local.mod file as a go.mod and found 1 package
-Filtered 1 local package/s from the scan.
-No issues found
-
----
-
-[TestRun_LockfileWithExplicitParseAs/one_lockfile_with_local_path - 2]
-
----
-
-[TestRun_LockfileWithExplicitParseAs/#01 - 1]
-Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
-No issues found
-
----
-
-[TestRun_LockfileWithExplicitParseAs/#01 - 2]
-
----
-
-[TestRun/#04 - 1]
-Scanning dir ./fixtures/locks-gitignore
-Scanned <rootdir>/fixtures/locks-gitignore/Gemfile.lock file and found 1 package
-Scanned <rootdir>/fixtures/locks-gitignore/composer.lock file and found 1 package
-Scanned <rootdir>/fixtures/locks-gitignore/ignored/Gemfile.lock file and found 1 package
-Scanned <rootdir>/fixtures/locks-gitignore/ignored/yarn.lock file and found 1 package
-Scanned <rootdir>/fixtures/locks-gitignore/subdir/Gemfile.lock file and found 1 package
-Scanned <rootdir>/fixtures/locks-gitignore/subdir/composer.lock file and found 1 package
-Scanned <rootdir>/fixtures/locks-gitignore/subdir/yarn.lock file and found 1 package
-Scanned <rootdir>/fixtures/locks-gitignore/yarn.lock file and found 1 package
-No issues found
-
----
-
-[TestRun/#04 - 2]
-
----
-
-[TestRun_LockfileWithExplicitParseAs/#06 - 1]
-Scanned <rootdir>/fixtures/locks-insecure/my-yarn.lock file as a yarn.lock and found 1 package
-Scanned <rootdir>/fixtures/locks-insecure/my-package-lock.json file as a package-lock.json and found 1 package
-Scanning dir ./fixtures/locks-insecure
-Scanned <rootdir>/fixtures/locks-insecure/composer.lock file and found 0 packages
-+-------------------------------------+------+-----------+-----------+---------+----------------------------------------------+
-| OSV URL                             | CVSS | ECOSYSTEM | PACKAGE   | VERSION | SOURCE                                       |
-+-------------------------------------+------+-----------+-----------+---------+----------------------------------------------+
-| https://osv.dev/GHSA-whgm-jr23-g3j9 | 7.5  | npm       | ansi-html | 0.0.1   | fixtures/locks-insecure/my-package-lock.json |
-| https://osv.dev/GHSA-whgm-jr23-g3j9 | 7.5  | npm       | ansi-html | 0.0.1   | fixtures/locks-insecure/my-yarn.lock         |
-+-------------------------------------+------+-----------+-----------+---------+----------------------------------------------+
-
----
-
-[TestRun_LockfileWithExplicitParseAs/#06 - 2]
-
----
-
-[TestRun_LocalDatabases/#10 - 1]
+[TestRun_Licenses/Licenses_in_summary_mode_json - 1]
 {
-  "results": [],
+  "results": [
+    {
+      "source": {
+        "path": "<rootdir>/fixtures/locks-licenses/package-lock.json",
+        "type": "lockfile"
+      },
+      "packages": [
+        {
+          "package": {
+            "name": "babel",
+            "version": "6.23.0",
+            "ecosystem": "npm"
+          },
+          "licenses": [
+            "MIT"
+          ]
+        },
+        {
+          "package": {
+            "name": "human-signals",
+            "version": "5.0.0",
+            "ecosystem": "npm"
+          },
+          "licenses": [
+            "Apache-2.0"
+          ]
+        },
+        {
+          "package": {
+            "name": "ms",
+            "version": "2.1.3",
+            "ecosystem": "npm"
+          },
+          "licenses": [
+            "MIT"
+          ]
+        }
+      ]
+    }
+  ],
   "experimental_config": {
     "licenses": {
-      "summary": false,
-      "allowlist": null
+      "summary": true,
+      "allowlist": []
     }
   }
 }
 
 ---
 
-[TestRun_LocalDatabases/#10 - 2]
-Scanning dir ./fixtures/locks-many/composer.lock
-Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
-Loaded Packagist local db from <tempdir>/osv-scanner/Packagist/all.zip
+[TestRun_Licenses/Licenses_in_summary_mode_json - 2]
+Scanning dir ./fixtures/locks-licenses/package-lock.json
+Scanned <rootdir>/fixtures/locks-licenses/package-lock.json file and found 3 packages
 
 ---
 
-[TestRun_LocalDatabases/#11 - 1]
-Scanning dir ./fixtures/locks-many/composer.lock
-Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
-Loaded Packagist local db from <tempdir>/osv-scanner/Packagist/all.zip
-No issues found
+[TestRun_Licenses/Licenses_in_summary_mode_json - 2]
+Scanning dir ./fixtures/locks-licenses/package-lock.json
+Scanned <rootdir>/fixtures/locks-licenses/package-lock.json file and found 3 packages
 
 ---
 
-[TestRun_LocalDatabases/#11 - 2]
+[TestRun_Licenses/No_license_violations_and_show-all-packages_in_json - 1]
+{
+  "results": [
+    {
+      "source": {
+        "path": "<rootdir>/fixtures/locks-licenses/package-lock.json",
+        "type": "lockfile"
+      },
+      "packages": [
+        {
+          "package": {
+            "name": "babel",
+            "version": "6.23.0",
+            "ecosystem": "npm"
+          },
+          "licenses": [
+            "MIT"
+          ]
+        },
+        {
+          "package": {
+            "name": "human-signals",
+            "version": "5.0.0",
+            "ecosystem": "npm"
+          },
+          "licenses": [
+            "Apache-2.0"
+          ]
+        },
+        {
+          "package": {
+            "name": "ms",
+            "version": "2.1.3",
+            "ecosystem": "npm"
+          },
+          "licenses": [
+            "MIT"
+          ]
+        }
+      ]
+    }
+  ],
+  "experimental_config": {
+    "licenses": {
+      "summary": false,
+      "allowlist": [
+        "MIT",
+        "Apache-2.0"
+      ]
+    }
+  }
+}
 
 ---
 
-[TestRun/Empty_gh-annotations_output - 1]
-
----
-
-[TestRun/Empty_gh-annotations_output - 2]
-Scanning dir ./fixtures/locks-many/composer.lock
-Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
+[TestRun_Licenses/No_license_violations_and_show-all-packages_in_json - 2]
+Scanning dir ./fixtures/locks-licenses/package-lock.json
+Scanned <rootdir>/fixtures/locks-licenses/package-lock.json file and found 3 packages
 
 ---
 
@@ -968,327 +664,7 @@ Filtered 2 vulnerabilities from output
 
 ---
 
-[TestRun/Empty_sarif_output - 1]
-{
-  "version": "2.1.0",
-  "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/master/Schemata/sarif-schema-2.1.0.json",
-  "runs": [
-    {
-      "tool": {
-        "driver": {
-          "informationUri": "https://github.com/google/osv-scanner",
-          "name": "osv-scanner",
-          "rules": [],
-          "version": "1.5.0"
-        }
-      },
-      "results": []
-    }
-  ]
-}
-
----
-
-[TestRun/Empty_sarif_output - 2]
-Scanning dir ./fixtures/locks-many/composer.lock
-Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
-
----
-
-[TestRun_LocalDatabases/#11 - 3]
-Scanning dir ./fixtures/locks-many/composer.lock
-Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
-Loaded Packagist local db from <tempdir>/osv-scanner/Packagist/all.zip
-No issues found
-
----
-
-[TestRun_LocalDatabases/#11 - 4]
-
----
-
-[TestRun_LocalDatabases/#10 - 3]
-{
-  "results": [],
-  "experimental_config": {
-    "licenses": {
-      "summary": false,
-      "allowlist": null
-    }
-  }
-}
-
----
-
-[TestRun_LocalDatabases/#10 - 4]
-Scanning dir ./fixtures/locks-many/composer.lock
-Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
-Loaded Packagist local db from <tempdir>/osv-scanner/Packagist/all.zip
-
----
-
-[TestRun_LockfileWithExplicitParseAs/#05 - 1]
-Scanned <rootdir>/fixtures/locks-insecure/my-package-lock.json file as a package-lock.json and found 1 package
-Scanned <rootdir>/fixtures/locks-insecure/my-yarn.lock file as a yarn.lock and found 1 package
-Scanning dir ./fixtures/locks-insecure
-Scanned <rootdir>/fixtures/locks-insecure/composer.lock file and found 0 packages
-+-------------------------------------+------+-----------+-----------+---------+----------------------------------------------+
-| OSV URL                             | CVSS | ECOSYSTEM | PACKAGE   | VERSION | SOURCE                                       |
-+-------------------------------------+------+-----------+-----------+---------+----------------------------------------------+
-| https://osv.dev/GHSA-whgm-jr23-g3j9 | 7.5  | npm       | ansi-html | 0.0.1   | fixtures/locks-insecure/my-package-lock.json |
-| https://osv.dev/GHSA-whgm-jr23-g3j9 | 7.5  | npm       | ansi-html | 0.0.1   | fixtures/locks-insecure/my-yarn.lock         |
-+-------------------------------------+------+-----------+-----------+---------+----------------------------------------------+
-
----
-
-[TestRun_LockfileWithExplicitParseAs/#05 - 2]
-
----
-
-[TestRun/json_output_2 - 1]
-{
-  "results": [],
-  "experimental_config": {
-    "licenses": {
-      "summary": false,
-      "allowlist": null
-    }
-  }
-}
-
----
-
-[TestRun/json_output_2 - 2]
-Scanning dir ./fixtures/locks-many/composer.lock
-Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
-
----
-
-[TestRun/#02 - 1]
-Scanning dir ./fixtures/locks-many/not-a-lockfile.toml
-
----
-
-[TestRun/#02 - 2]
-No package sources found, --help for usage information.
-
----
-
-[TestRun/json_output_1 - 1]
-{
-  "results": [],
-  "experimental_config": {
-    "licenses": {
-      "summary": false,
-      "allowlist": null
-    }
-  }
-}
-
----
-
-[TestRun/json_output_1 - 2]
-Scanning dir ./fixtures/locks-many/composer.lock
-Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
-
----
-
-[TestRun_LockfileWithExplicitParseAs/#04 - 1]
-Scanned <rootdir>/fixtures/locks-insecure/my-package-lock.json file as a package-lock.json and found 1 package
-Scanning dir ./fixtures/locks-insecure
-Scanned <rootdir>/fixtures/locks-insecure/composer.lock file and found 0 packages
-+-------------------------------------+------+-----------+-----------+---------+----------------------------------------------+
-| OSV URL                             | CVSS | ECOSYSTEM | PACKAGE   | VERSION | SOURCE                                       |
-+-------------------------------------+------+-----------+-----------+---------+----------------------------------------------+
-| https://osv.dev/GHSA-whgm-jr23-g3j9 | 7.5  | npm       | ansi-html | 0.0.1   | fixtures/locks-insecure/my-package-lock.json |
-+-------------------------------------+------+-----------+-----------+---------+----------------------------------------------+
-
----
-
-[TestRun_LockfileWithExplicitParseAs/#04 - 2]
-
----
-
-[TestRun/#01 - 1]
-osv-scanner version: 1.5.0
-commit: n/a
-built at: n/a
-
----
-
-[TestRun/#01 - 2]
-
----
-
-[TestRun/one_specific_supported_lockfile_with_ignore - 1]
-Scanning dir ./fixtures/locks-test-ignore/package-lock.json
-Scanned <rootdir>/fixtures/locks-test-ignore/package-lock.json file and found 1 package
-Loaded filter from: <rootdir>/fixtures/locks-test-ignore/osv-scanner.toml
-CVE-2021-23424 and 1 alias have been filtered out because: Test manifest file (alpine.cdx.xml)
-Filtered 1 vulnerability from output
-No issues found
-
----
-
-[TestRun/one_specific_supported_lockfile_with_ignore - 2]
-
----
-
-[TestRun/#05 - 1]
-Scanning dir ./fixtures/locks-many/package-lock.json
-Scanned <rootdir>/fixtures/locks-many/package-lock.json file and found 1 package
-| OSV URL | CVSS | Ecosystem | Package | Version | Source |
-| --- | --- | --- | --- | --- | --- |
-| https://osv.dev/GHSA-whgm-jr23-g3j9 | 7.5 | npm | ansi-html | 0.0.1 | fixtures/locks-many/package-lock.json |
-
----
-
-[TestRun/#05 - 2]
-
----
-
-[TestRun/Sarif_with_vulns - 1]
-{
-  "version": "2.1.0",
-  "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/master/Schemata/sarif-schema-2.1.0.json",
-  "runs": [
-    {
-      "tool": {
-        "driver": {
-          "informationUri": "https://github.com/google/osv-scanner",
-          "name": "osv-scanner",
-          "rules": [
-            {
-              "id": "CVE-2021-23424",
-              "name": "CVE-2021-23424",
-              "shortDescription": {
-                "text": "CVE-2021-23424: Uncontrolled Resource Consumption in ansi-html"
-              },
-              "fullDescription": {
-                "text": "This affects all versions of package ansi-html. If an attacker provides a malicious string, it will get stuck processing the input for an extremely long time.",
-                "markdown": "This affects all versions of package ansi-html. If an attacker provides a malicious string, it will get stuck processing the input for an extremely long time."
-              },
-              "deprecatedIds": [
-                "CVE-2021-23424",
-                "GHSA-whgm-jr23-g3j9"
-              ],
-              "help": {
-                "text": "**Your dependency is vulnerable to [CVE-2021-23424](https://osv.dev/list?q=CVE-2021-23424)**./n/n## [GHSA-whgm-jr23-g3j9](https://osv.dev/vulnerability/GHSA-whgm-jr23-g3j9)/n/n/u003cdetails/u003e/n/u003csummary/u003eDetails/u003c/summary/u003e/n/n/u003e This affects all versions of package ansi-html. If an attacker provides a malicious string, it will get stuck processing the input for an extremely long time./n/n/u003c/details/u003e/n/n---/n/n### Affected Packages/n/n| Source | Package Name | Package Version |/n| --- | --- | --- |/n| lockfile:<rootdir>/fixtures/locks-many/package-lock.json | ansi-html | 0.0.1 |/n/n## Remediation/n/nTo fix these vulnerabilities, update the vulnerabilities past the listed fixed versions below./n/n### Fixed Versions/n/n| Vulnerability ID | Package Name | Fixed Version |/n| --- | --- | --- |/n| GHSA-whgm-jr23-g3j9 | ansi-html | 0.0.8 |/n/nIf you believe these vulnerabilities do not affect your code and wish to ignore them, add them to the ignore list in an/n`osv-scanner.toml` file located in the same directory as the lockfile containing the vulnerable dependency./n/nSee the format and more options in our documentation here: https://google.github.io/osv-scanner/configuration//n/nAdd or append these values to the following config files to ignore this vulnerability:/n/n`<rootdir>/fixtures/locks-many/osv-scanner.toml`/n/n```/n[[IgnoredVulns]]/nid = /"CVE-2021-23424/"/nreason = /"Your reason for ignoring this vulnerability/"/n```/n",
-                "markdown": "**Your dependency is vulnerable to [CVE-2021-23424](https://osv.dev/list?q=CVE-2021-23424)**./n/n## [GHSA-whgm-jr23-g3j9](https://osv.dev/vulnerability/GHSA-whgm-jr23-g3j9)/n/n/u003cdetails/u003e/n/u003csummary/u003eDetails/u003c/summary/u003e/n/n/u003e This affects all versions of package ansi-html. If an attacker provides a malicious string, it will get stuck processing the input for an extremely long time./n/n/u003c/details/u003e/n/n---/n/n### Affected Packages/n/n| Source | Package Name | Package Version |/n| --- | --- | --- |/n| lockfile:<rootdir>/fixtures/locks-many/package-lock.json | ansi-html | 0.0.1 |/n/n## Remediation/n/nTo fix these vulnerabilities, update the vulnerabilities past the listed fixed versions below./n/n### Fixed Versions/n/n| Vulnerability ID | Package Name | Fixed Version |/n| --- | --- | --- |/n| GHSA-whgm-jr23-g3j9 | ansi-html | 0.0.8 |/n/nIf you believe these vulnerabilities do not affect your code and wish to ignore them, add them to the ignore list in an/n`osv-scanner.toml` file located in the same directory as the lockfile containing the vulnerable dependency./n/nSee the format and more options in our documentation here: https://google.github.io/osv-scanner/configuration//n/nAdd or append these values to the following config files to ignore this vulnerability:/n/n`<rootdir>/fixtures/locks-many/osv-scanner.toml`/n/n```/n[[IgnoredVulns]]/nid = /"CVE-2021-23424/"/nreason = /"Your reason for ignoring this vulnerability/"/n```/n"
-              }
-            }
-          ],
-          "version": "1.5.0"
-        }
-      },
-      "artifacts": [
-        {
-          "location": {
-            "uri": "file://<rootdir>/fixtures/locks-many/package-lock.json"
-          },
-          "length": -1
-        }
-      ],
-      "results": [
-        {
-          "ruleId": "CVE-2021-23424",
-          "ruleIndex": 0,
-          "level": "warning",
-          "message": {
-            "text": "Package 'ansi-html@0.0.1' is vulnerable to 'CVE-2021-23424' (also known as 'GHSA-whgm-jr23-g3j9')."
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "file://<rootdir>/fixtures/locks-many/package-lock.json"
-                }
-              }
-            }
-          ]
-        }
-      ]
-    }
-  ]
-}
-
----
-
-[TestRun/Sarif_with_vulns - 2]
-Scanning dir ./fixtures/locks-many/package-lock.json
-Scanned <rootdir>/fixtures/locks-many/package-lock.json file and found 1 package
-
----
-
-[TestRun/#03 - 1]
-Scanning dir ./fixtures/locks-gitignore
-Scanned <rootdir>/fixtures/locks-gitignore/Gemfile.lock file and found 1 package
-Scanned <rootdir>/fixtures/locks-gitignore/subdir/yarn.lock file and found 1 package
-No issues found
-
----
-
-[TestRun/#03 - 2]
-
----
-
-[TestRun/gh-annotations_with_vulns - 1]
-
----
-
-[TestRun/gh-annotations_with_vulns - 2]
-Scanning dir ./fixtures/locks-many/package-lock.json
-Scanned <rootdir>/fixtures/locks-many/package-lock.json file and found 1 package
-::error file=fixtures/locks-many/package-lock.json::fixtures/locks-many/package-lock.json%0A+-----------+-------------------------------------+------+-----------------+---------------+%0A| PACKAGE   | VULNERABILITY ID                    | CVSS | CURRENT VERSION | FIXED VERSION |%0A+-----------+-------------------------------------+------+-----------------+---------------+%0A| ansi-html | https://osv.dev/GHSA-whgm-jr23-g3j9 | 7.5  | 0.0.1           | 0.0.8         |%0A+-----------+-------------------------------------+------+-----------------+---------------+
----
-
-[TestRun/nested_directories_are_checked_when_`--recursive`_is_passed - 1]
-Scanning dir ./fixtures/locks-one-with-nested
-Scanned <rootdir>/fixtures/locks-one-with-nested/nested/composer.lock file and found 1 package
-Scanned <rootdir>/fixtures/locks-one-with-nested/yarn.lock file and found 1 package
-No issues found
-
----
-
-[TestRun/nested_directories_are_checked_when_`--recursive`_is_passed - 2]
-
----
-
-[TestRun/only_the_files_in_the_given_directories_are_checked_by_default_(no_recursion) - 1]
-Scanning dir ./fixtures/locks-one-with-nested
-Scanned <rootdir>/fixtures/locks-one-with-nested/yarn.lock file and found 1 package
-No issues found
-
----
-
-[TestRun/all_supported_lockfiles_in_the_directory_should_be_checked - 1]
-Scanning dir ./fixtures/locks-many-with-invalid
-Scanned <rootdir>/fixtures/locks-many-with-invalid/Gemfile.lock file and found 1 package
-Scanned <rootdir>/fixtures/locks-many-with-invalid/yarn.lock file and found 1 package
-
----
-
-[TestRun/only_the_files_in_the_given_directories_are_checked_by_default_(no_recursion) - 2]
-
----
-
-[TestRun/all_supported_lockfiles_in_the_directory_should_be_checked - 2]
-Attempted to scan lockfile but failed: <rootdir>/fixtures/locks-many-with-invalid/composer.lock
-
----
-
-[TestRun/one_specific_supported_lockfile - 1]
-Scanning dir ./fixtures/locks-many/composer.lock
-Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
-No issues found
-
----
-
-[TestRun/one_specific_supported_lockfile - 2]
-
----
-
-[TestRun/Scan_locks-many - 1]
+[TestRun_Licenses/No_vulnerabilities_with_license_summary_in_markdown - 1]
 Scanning dir ./fixtures/locks-many
 Scanned <rootdir>/fixtures/locks-many/Gemfile.lock file and found 1 package
 Scanned <rootdir>/fixtures/locks-many/alpine.cdx.xml as CycloneDX SBOM and found 15 packages
@@ -1299,26 +675,200 @@ Loaded filter from: <rootdir>/fixtures/locks-many/osv-scanner.toml
 CVE-2022-48174 has been filtered out because: Test manifest file (alpine.cdx.xml)
 GHSA-whgm-jr23-g3j9 and 1 alias have been filtered out because: Test manifest file
 Filtered 2 vulnerabilities from output
+| License | No. of package versions |
+| --- | ---:|
+| Apache-2.0 | 1 |
+| MIT | 1 |
+| UNKNOWN | 17 |
+
+---
+
+[TestRun_Licenses/No_vulnerabilities_with_license_summary_in_markdown - 2]
+
+---
+
+[TestRun_Licenses/Some_packages_with_license_violations_and_show-all-packages_in_json - 1]
+{
+  "results": [
+    {
+      "source": {
+        "path": "<rootdir>/fixtures/locks-licenses/package-lock.json",
+        "type": "lockfile"
+      },
+      "packages": [
+        {
+          "package": {
+            "name": "babel",
+            "version": "6.23.0",
+            "ecosystem": "npm"
+          },
+          "licenses": [
+            "MIT"
+          ]
+        },
+        {
+          "package": {
+            "name": "human-signals",
+            "version": "5.0.0",
+            "ecosystem": "npm"
+          },
+          "licenses": [
+            "Apache-2.0"
+          ],
+          "license_violations": [
+            "Apache-2.0"
+          ]
+        },
+        {
+          "package": {
+            "name": "ms",
+            "version": "2.1.3",
+            "ecosystem": "npm"
+          },
+          "licenses": [
+            "MIT"
+          ]
+        }
+      ]
+    }
+  ],
+  "experimental_config": {
+    "licenses": {
+      "summary": false,
+      "allowlist": [
+        "MIT"
+      ]
+    }
+  }
+}
+
+---
+
+[TestRun_Licenses/Some_packages_with_license_violations_and_show-all-packages_in_json - 2]
+Scanning dir ./fixtures/locks-licenses/package-lock.json
+Scanned <rootdir>/fixtures/locks-licenses/package-lock.json file and found 3 packages
+
+---
+
+[TestRun_Licenses/Some_packages_with_license_violations_in_json - 1]
+{
+  "results": [
+    {
+      "source": {
+        "path": "<rootdir>/fixtures/locks-licenses/package-lock.json",
+        "type": "lockfile"
+      },
+      "packages": [
+        {
+          "package": {
+            "name": "human-signals",
+            "version": "5.0.0",
+            "ecosystem": "npm"
+          },
+          "licenses": [
+            "Apache-2.0"
+          ],
+          "license_violations": [
+            "Apache-2.0"
+          ]
+        }
+      ]
+    }
+  ],
+  "experimental_config": {
+    "licenses": {
+      "summary": false,
+      "allowlist": [
+        "MIT"
+      ]
+    }
+  }
+}
+
+---
+
+[TestRun_Licenses/Some_packages_with_license_violations_in_json - 2]
+Scanning dir ./fixtures/locks-licenses/package-lock.json
+Scanned <rootdir>/fixtures/locks-licenses/package-lock.json file and found 3 packages
+
+---
+
+[TestRun_Licenses/Vulnerabilities_and_all_license_violations_allowlisted - 1]
+Scanning dir ./fixtures/locks-many/package-lock.json
+Scanned <rootdir>/fixtures/locks-many/package-lock.json file and found 1 package
++-------------------------------------+------+-----------+-----------+---------+---------------------------------------+
+| OSV URL                             | CVSS | ECOSYSTEM | PACKAGE   | VERSION | SOURCE                                |
++-------------------------------------+------+-----------+-----------+---------+---------------------------------------+
+| https://osv.dev/GHSA-whgm-jr23-g3j9 | 7.5  | npm       | ansi-html | 0.0.1   | fixtures/locks-many/package-lock.json |
++-------------------------------------+------+-----------+-----------+---------+---------------------------------------+
+
+---
+
+[TestRun_Licenses/Vulnerabilities_and_all_license_violations_allowlisted - 2]
+
+---
+
+[TestRun_Licenses/Vulnerabilities_and_license_summary - 1]
+Scanning dir ./fixtures/locks-many/package-lock.json
+Scanned <rootdir>/fixtures/locks-many/package-lock.json file and found 1 package
++-------------------------------------+------+-----------+-----------+---------+---------------------------------------+
+| OSV URL                             | CVSS | ECOSYSTEM | PACKAGE   | VERSION | SOURCE                                |
++-------------------------------------+------+-----------+-----------+---------+---------------------------------------+
+| https://osv.dev/GHSA-whgm-jr23-g3j9 | 7.5  | npm       | ansi-html | 0.0.1   | fixtures/locks-many/package-lock.json |
++-------------------------------------+------+-----------+-----------+---------+---------------------------------------+
++------------+-------------------------+
+| LICENSE    | NO. OF PACKAGE VERSIONS |
++------------+-------------------------+
+| Apache-2.0 |                       1 |
++------------+-------------------------+
+
+---
+
+[TestRun_Licenses/Vulnerabilities_and_license_summary - 2]
+
+---
+
+[TestRun_Licenses/Vulnerabilities_and_license_violations_with_allowlist - 1]
+Scanning dir ./fixtures/locks-many/package-lock.json
+Scanned <rootdir>/fixtures/locks-many/package-lock.json file and found 1 package
++-------------------------------------+------+-----------+-----------+---------+---------------------------------------+
+| OSV URL                             | CVSS | ECOSYSTEM | PACKAGE   | VERSION | SOURCE                                |
++-------------------------------------+------+-----------+-----------+---------+---------------------------------------+
+| https://osv.dev/GHSA-whgm-jr23-g3j9 | 7.5  | npm       | ansi-html | 0.0.1   | fixtures/locks-many/package-lock.json |
++-------------------------------------+------+-----------+-----------+---------+---------------------------------------+
++-------------------+-----------+-----------+---------+---------------------------------------+
+| LICENSE VIOLATION | ECOSYSTEM | PACKAGE   | VERSION | SOURCE                                |
++-------------------+-----------+-----------+---------+---------------------------------------+
+| Apache-2.0        | npm       | ansi-html | 0.0.1   | fixtures/locks-many/package-lock.json |
++-------------------+-----------+-----------+---------+---------------------------------------+
+
+---
+
+[TestRun_Licenses/Vulnerabilities_and_license_violations_with_allowlist - 2]
+
+---
+
+[TestRun_LocalDatabases/#00 - 1]
+Scanning dir ./fixtures/locks-many/composer.lock
+Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
+Loaded Packagist local db from <tempdir>/osv-scanner/Packagist/all.zip
 No issues found
 
 ---
 
-[TestRun/Scan_locks-many - 2]
+[TestRun_LocalDatabases/#00 - 2]
 
 ---
 
-[TestRun/one_specific_supported_sbom_with_vulns - 1]
-Scanned <rootdir>/fixtures/sbom-insecure/alpine.cdx.xml as CycloneDX SBOM and found 15 packages
-+--------------------------------+------+-----------+---------+------------+---------------------------------------+
-| OSV URL                        | CVSS | ECOSYSTEM | PACKAGE | VERSION    | SOURCE                                |
-+--------------------------------+------+-----------+---------+------------+---------------------------------------+
-| https://osv.dev/CVE-2022-48174 | 9.8  | Alpine    | busybox | 1.35.0-r29 | fixtures/sbom-insecure/alpine.cdx.xml |
-| https://osv.dev/CVE-2022-37434 | 9.8  | Alpine    | zlib    | 1.2.10-r2  | fixtures/sbom-insecure/alpine.cdx.xml |
-+--------------------------------+------+-----------+---------+------------+---------------------------------------+
+[TestRun_LocalDatabases/#00 - 3]
+Scanning dir ./fixtures/locks-many/composer.lock
+Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
+Loaded Packagist local db from <tempdir>/osv-scanner/Packagist/all.zip
+No issues found
 
 ---
 
-[TestRun/one_specific_supported_sbom_with_vulns - 2]
+[TestRun_LocalDatabases/#00 - 4]
 
 ---
 
@@ -1345,35 +895,6 @@ Loaded OSS-Fuzz local db from <tempdir>/osv-scanner/OSS-Fuzz/all.zip
 
 ---
 
-[TestRun/folder_of_supported_sbom_with_vulns - 1]
-Scanning dir ./fixtures/sbom-insecure/
-Scanned <rootdir>/fixtures/sbom-insecure/alpine.cdx.xml as CycloneDX SBOM and found 15 packages
-Scanned <rootdir>/fixtures/sbom-insecure/postgres-stretch.cdx.xml as CycloneDX SBOM and found 136 packages
-+-------------------------------------+------+-----------+--------------------------------+------------------------------------+-------------------------------------------------+
-| OSV URL                             | CVSS | ECOSYSTEM | PACKAGE                        | VERSION                            | SOURCE                                          |
-+-------------------------------------+------+-----------+--------------------------------+------------------------------------+-------------------------------------------------+
-| https://osv.dev/CVE-2022-48174      | 9.8  | Alpine    | busybox                        | 1.35.0-r29                         | fixtures/sbom-insecure/alpine.cdx.xml           |
-| https://osv.dev/CVE-2022-37434      | 9.8  | Alpine    | zlib                           | 1.2.10-r2                          | fixtures/sbom-insecure/alpine.cdx.xml           |
-| https://osv.dev/DLA-3022-1          |      | Debian    | dpkg                           | 1.18.25                            | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
-| https://osv.dev/GHSA-v95c-p5hm-xq8f | 6    | Go        | github.com/opencontainers/runc | v1.0.1                             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
-| https://osv.dev/GO-2022-0274        |      |           |                                |                                    |                                                 |
-| https://osv.dev/GHSA-f3fp-gc8g-vw66 | 5.9  | Go        | github.com/opencontainers/runc | v1.0.1                             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
-| https://osv.dev/GHSA-g2j6-57v7-gm8c | 6.1  | Go        | github.com/opencontainers/runc | v1.0.1                             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
-| https://osv.dev/GHSA-m8cg-xc2p-r3fc | 2.5  | Go        | github.com/opencontainers/runc | v1.0.1                             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
-| https://osv.dev/GHSA-vpvm-3wq2-2wvm | 7    | Go        | github.com/opencontainers/runc | v1.0.1                             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
-| https://osv.dev/GHSA-p782-xgp4-8hr8 | 5.3  | Go        | golang.org/x/sys               | v0.0.0-20210817142637-7d9622a276b7 | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
-| https://osv.dev/GO-2022-0493        |      |           |                                |                                    |                                                 |
-| https://osv.dev/DLA-3012-1          |      | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
-| https://osv.dev/DLA-3008-1          |      | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
-| https://osv.dev/DLA-3051-1          |      | Debian    | tzdata                         | 2021a-0+deb9u3                     | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
-+-------------------------------------+------+-----------+--------------------------------+------------------------------------+-------------------------------------------------+
-
----
-
-[TestRun/folder_of_supported_sbom_with_vulns - 2]
-
----
-
 [TestRun_LocalDatabases/#01 - 3]
 Scanning dir ./fixtures/sbom-insecure/postgres-stretch.cdx.xml
 Scanned <rootdir>/fixtures/sbom-insecure/postgres-stretch.cdx.xml as CycloneDX SBOM and found 136 packages
@@ -1397,78 +918,23 @@ Loaded OSS-Fuzz local db from <tempdir>/osv-scanner/OSS-Fuzz/all.zip
 
 ---
 
-[TestRun_LocalDatabases/#05 - 1]
-Scanning dir ./fixtures/locks-one-with-nested
-Scanned <rootdir>/fixtures/locks-one-with-nested/yarn.lock file and found 1 package
-Loaded npm local db from <tempdir>/osv-scanner/npm/all.zip
-No issues found
+[TestRun_LocalDatabases/#02 - 1]
+Scanning dir ./fixtures/locks-many/not-a-lockfile.toml
 
 ---
 
-[TestRun_LocalDatabases/#05 - 2]
+[TestRun_LocalDatabases/#02 - 2]
+No package sources found, --help for usage information.
 
 ---
 
-[TestRun_LocalDatabases/#04 - 1]
-Scanning dir ./fixtures/locks-many-with-invalid
-Scanned <rootdir>/fixtures/locks-many-with-invalid/Gemfile.lock file and found 1 package
-Scanned <rootdir>/fixtures/locks-many-with-invalid/yarn.lock file and found 1 package
-Loaded RubyGems local db from <tempdir>/osv-scanner/RubyGems/all.zip
-Loaded npm local db from <tempdir>/osv-scanner/npm/all.zip
+[TestRun_LocalDatabases/#02 - 3]
+Scanning dir ./fixtures/locks-many/not-a-lockfile.toml
 
 ---
 
-[TestRun_LocalDatabases/#04 - 2]
-Attempted to scan lockfile but failed: <rootdir>/fixtures/locks-many-with-invalid/composer.lock
-
----
-
-[TestRun_LocalDatabases/#07 - 1]
-Scanning dir ./fixtures/locks-gitignore
-Scanned <rootdir>/fixtures/locks-gitignore/Gemfile.lock file and found 1 package
-Scanned <rootdir>/fixtures/locks-gitignore/subdir/yarn.lock file and found 1 package
-Loaded RubyGems local db from <tempdir>/osv-scanner/RubyGems/all.zip
-Loaded npm local db from <tempdir>/osv-scanner/npm/all.zip
-No issues found
-
----
-
-[TestRun_LocalDatabases/#07 - 2]
-
----
-
-[TestRun_LocalDatabases/#06 - 1]
-Scanning dir ./fixtures/locks-one-with-nested
-Scanned <rootdir>/fixtures/locks-one-with-nested/nested/composer.lock file and found 1 package
-Scanned <rootdir>/fixtures/locks-one-with-nested/yarn.lock file and found 1 package
-Loaded Packagist local db from <tempdir>/osv-scanner/Packagist/all.zip
-Loaded npm local db from <tempdir>/osv-scanner/npm/all.zip
-No issues found
-
----
-
-[TestRun_LocalDatabases/#06 - 2]
-
----
-
-[TestRun_LocalDatabases/#08 - 1]
-Scanning dir ./fixtures/locks-gitignore
-Scanned <rootdir>/fixtures/locks-gitignore/Gemfile.lock file and found 1 package
-Scanned <rootdir>/fixtures/locks-gitignore/composer.lock file and found 1 package
-Scanned <rootdir>/fixtures/locks-gitignore/ignored/Gemfile.lock file and found 1 package
-Scanned <rootdir>/fixtures/locks-gitignore/ignored/yarn.lock file and found 1 package
-Scanned <rootdir>/fixtures/locks-gitignore/subdir/Gemfile.lock file and found 1 package
-Scanned <rootdir>/fixtures/locks-gitignore/subdir/composer.lock file and found 1 package
-Scanned <rootdir>/fixtures/locks-gitignore/subdir/yarn.lock file and found 1 package
-Scanned <rootdir>/fixtures/locks-gitignore/yarn.lock file and found 1 package
-Loaded RubyGems local db from <tempdir>/osv-scanner/RubyGems/all.zip
-Loaded Packagist local db from <tempdir>/osv-scanner/Packagist/all.zip
-Loaded npm local db from <tempdir>/osv-scanner/npm/all.zip
-No issues found
-
----
-
-[TestRun_LocalDatabases/#08 - 2]
+[TestRun_LocalDatabases/#02 - 4]
+No package sources found, --help for usage information.
 
 ---
 
@@ -1494,15 +960,39 @@ No issues found
 
 ---
 
-[TestRun_LocalDatabases/#05 - 3]
-Scanning dir ./fixtures/locks-one-with-nested
-Scanned <rootdir>/fixtures/locks-one-with-nested/yarn.lock file and found 1 package
+[TestRun_LocalDatabases/#03 - 3]
+Scanning dir ./fixtures/locks-many
+Scanned <rootdir>/fixtures/locks-many/Gemfile.lock file and found 1 package
+Scanned <rootdir>/fixtures/locks-many/alpine.cdx.xml as CycloneDX SBOM and found 15 packages
+Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
+Scanned <rootdir>/fixtures/locks-many/package-lock.json file and found 1 package
+Scanned <rootdir>/fixtures/locks-many/yarn.lock file and found 1 package
+Loaded RubyGems local db from <tempdir>/osv-scanner/RubyGems/all.zip
+Loaded Alpine local db from <tempdir>/osv-scanner/Alpine/all.zip
+Loaded Packagist local db from <tempdir>/osv-scanner/Packagist/all.zip
 Loaded npm local db from <tempdir>/osv-scanner/npm/all.zip
+Loaded filter from: <rootdir>/fixtures/locks-many/osv-scanner.toml
+GHSA-whgm-jr23-g3j9 and 1 alias have been filtered out because: Test manifest file
+Filtered 1 vulnerability from output
 No issues found
 
 ---
 
-[TestRun_LocalDatabases/#05 - 4]
+[TestRun_LocalDatabases/#03 - 4]
+
+---
+
+[TestRun_LocalDatabases/#04 - 1]
+Scanning dir ./fixtures/locks-many-with-invalid
+Scanned <rootdir>/fixtures/locks-many-with-invalid/Gemfile.lock file and found 1 package
+Scanned <rootdir>/fixtures/locks-many-with-invalid/yarn.lock file and found 1 package
+Loaded RubyGems local db from <tempdir>/osv-scanner/RubyGems/all.zip
+Loaded npm local db from <tempdir>/osv-scanner/npm/all.zip
+
+---
+
+[TestRun_LocalDatabases/#04 - 2]
+Attempted to scan lockfile but failed: <rootdir>/fixtures/locks-many-with-invalid/composer.lock
 
 ---
 
@@ -1520,17 +1010,41 @@ Attempted to scan lockfile but failed: <rootdir>/fixtures/locks-many-with-invali
 
 ---
 
-[TestRun_LocalDatabases/#07 - 3]
-Scanning dir ./fixtures/locks-gitignore
-Scanned <rootdir>/fixtures/locks-gitignore/Gemfile.lock file and found 1 package
-Scanned <rootdir>/fixtures/locks-gitignore/subdir/yarn.lock file and found 1 package
-Loaded RubyGems local db from <tempdir>/osv-scanner/RubyGems/all.zip
+[TestRun_LocalDatabases/#05 - 1]
+Scanning dir ./fixtures/locks-one-with-nested
+Scanned <rootdir>/fixtures/locks-one-with-nested/yarn.lock file and found 1 package
 Loaded npm local db from <tempdir>/osv-scanner/npm/all.zip
 No issues found
 
 ---
 
-[TestRun_LocalDatabases/#07 - 4]
+[TestRun_LocalDatabases/#05 - 2]
+
+---
+
+[TestRun_LocalDatabases/#05 - 3]
+Scanning dir ./fixtures/locks-one-with-nested
+Scanned <rootdir>/fixtures/locks-one-with-nested/yarn.lock file and found 1 package
+Loaded npm local db from <tempdir>/osv-scanner/npm/all.zip
+No issues found
+
+---
+
+[TestRun_LocalDatabases/#05 - 4]
+
+---
+
+[TestRun_LocalDatabases/#06 - 1]
+Scanning dir ./fixtures/locks-one-with-nested
+Scanned <rootdir>/fixtures/locks-one-with-nested/nested/composer.lock file and found 1 package
+Scanned <rootdir>/fixtures/locks-one-with-nested/yarn.lock file and found 1 package
+Loaded Packagist local db from <tempdir>/osv-scanner/Packagist/all.zip
+Loaded npm local db from <tempdir>/osv-scanner/npm/all.zip
+No issues found
+
+---
+
+[TestRun_LocalDatabases/#06 - 2]
 
 ---
 
@@ -1545,6 +1059,55 @@ No issues found
 ---
 
 [TestRun_LocalDatabases/#06 - 4]
+
+---
+
+[TestRun_LocalDatabases/#07 - 1]
+Scanning dir ./fixtures/locks-gitignore
+Scanned <rootdir>/fixtures/locks-gitignore/Gemfile.lock file and found 1 package
+Scanned <rootdir>/fixtures/locks-gitignore/subdir/yarn.lock file and found 1 package
+Loaded RubyGems local db from <tempdir>/osv-scanner/RubyGems/all.zip
+Loaded npm local db from <tempdir>/osv-scanner/npm/all.zip
+No issues found
+
+---
+
+[TestRun_LocalDatabases/#07 - 2]
+
+---
+
+[TestRun_LocalDatabases/#07 - 3]
+Scanning dir ./fixtures/locks-gitignore
+Scanned <rootdir>/fixtures/locks-gitignore/Gemfile.lock file and found 1 package
+Scanned <rootdir>/fixtures/locks-gitignore/subdir/yarn.lock file and found 1 package
+Loaded RubyGems local db from <tempdir>/osv-scanner/RubyGems/all.zip
+Loaded npm local db from <tempdir>/osv-scanner/npm/all.zip
+No issues found
+
+---
+
+[TestRun_LocalDatabases/#07 - 4]
+
+---
+
+[TestRun_LocalDatabases/#08 - 1]
+Scanning dir ./fixtures/locks-gitignore
+Scanned <rootdir>/fixtures/locks-gitignore/Gemfile.lock file and found 1 package
+Scanned <rootdir>/fixtures/locks-gitignore/composer.lock file and found 1 package
+Scanned <rootdir>/fixtures/locks-gitignore/ignored/Gemfile.lock file and found 1 package
+Scanned <rootdir>/fixtures/locks-gitignore/ignored/yarn.lock file and found 1 package
+Scanned <rootdir>/fixtures/locks-gitignore/subdir/Gemfile.lock file and found 1 package
+Scanned <rootdir>/fixtures/locks-gitignore/subdir/composer.lock file and found 1 package
+Scanned <rootdir>/fixtures/locks-gitignore/subdir/yarn.lock file and found 1 package
+Scanned <rootdir>/fixtures/locks-gitignore/yarn.lock file and found 1 package
+Loaded RubyGems local db from <tempdir>/osv-scanner/RubyGems/all.zip
+Loaded Packagist local db from <tempdir>/osv-scanner/Packagist/all.zip
+Loaded npm local db from <tempdir>/osv-scanner/npm/all.zip
+No issues found
+
+---
+
+[TestRun_LocalDatabases/#08 - 2]
 
 ---
 
@@ -1569,25 +1132,23 @@ No issues found
 
 ---
 
-[TestRun_LocalDatabases/#03 - 3]
-Scanning dir ./fixtures/locks-many
-Scanned <rootdir>/fixtures/locks-many/Gemfile.lock file and found 1 package
-Scanned <rootdir>/fixtures/locks-many/alpine.cdx.xml as CycloneDX SBOM and found 15 packages
-Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
-Scanned <rootdir>/fixtures/locks-many/package-lock.json file and found 1 package
-Scanned <rootdir>/fixtures/locks-many/yarn.lock file and found 1 package
-Loaded RubyGems local db from <tempdir>/osv-scanner/RubyGems/all.zip
-Loaded Alpine local db from <tempdir>/osv-scanner/Alpine/all.zip
-Loaded Packagist local db from <tempdir>/osv-scanner/Packagist/all.zip
-Loaded npm local db from <tempdir>/osv-scanner/npm/all.zip
-Loaded filter from: <rootdir>/fixtures/locks-many/osv-scanner.toml
-GHSA-whgm-jr23-g3j9 and 1 alias have been filtered out because: Test manifest file
-Filtered 1 vulnerability from output
-No issues found
+[TestRun_LocalDatabases/#09 - 1]
+{
+  "results": [],
+  "experimental_config": {
+    "licenses": {
+      "summary": false,
+      "allowlist": null
+    }
+  }
+}
 
 ---
 
-[TestRun_LocalDatabases/#03 - 4]
+[TestRun_LocalDatabases/#09 - 2]
+Scanning dir ./fixtures/locks-many/composer.lock
+Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
+Loaded Packagist local db from <tempdir>/osv-scanner/Packagist/all.zip
 
 ---
 
@@ -1604,31 +1165,442 @@ No issues found
 
 ---
 
-[TestRun/invalid_--verbosity_value - 1]
+[TestRun_LocalDatabases/#09 - 3]
+{
+  "results": [],
+  "experimental_config": {
+    "licenses": {
+      "summary": false,
+      "allowlist": null
+    }
+  }
+}
 
 ---
 
-[TestRun/invalid_--verbosity_value - 2]
-invalid verbosity level "unknown" - must be one of: error, warn, info, verbose
-
----
-
-[TestRun/verbosity_level_=_info - 1]
+[TestRun_LocalDatabases/#09 - 4]
 Scanning dir ./fixtures/locks-many/composer.lock
+Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
+Loaded Packagist local db from <tempdir>/osv-scanner/Packagist/all.zip
+
+---
+
+[TestRun_LocalDatabases/#10 - 1]
+{
+  "results": [],
+  "experimental_config": {
+    "licenses": {
+      "summary": false,
+      "allowlist": null
+    }
+  }
+}
+
+---
+
+[TestRun_LocalDatabases/#10 - 2]
+Scanning dir ./fixtures/locks-many/composer.lock
+Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
+Loaded Packagist local db from <tempdir>/osv-scanner/Packagist/all.zip
+
+---
+
+[TestRun_LocalDatabases/#10 - 3]
+{
+  "results": [],
+  "experimental_config": {
+    "licenses": {
+      "summary": false,
+      "allowlist": null
+    }
+  }
+}
+
+---
+
+[TestRun_LocalDatabases/#10 - 4]
+Scanning dir ./fixtures/locks-many/composer.lock
+Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
+Loaded Packagist local db from <tempdir>/osv-scanner/Packagist/all.zip
+
+---
+
+[TestRun_LocalDatabases/#11 - 1]
+Scanning dir ./fixtures/locks-many/composer.lock
+Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
+Loaded Packagist local db from <tempdir>/osv-scanner/Packagist/all.zip
+No issues found
+
+---
+
+[TestRun_LocalDatabases/#11 - 2]
+
+---
+
+[TestRun_LocalDatabases/#11 - 3]
+Scanning dir ./fixtures/locks-many/composer.lock
+Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
+Loaded Packagist local db from <tempdir>/osv-scanner/Packagist/all.zip
+No issues found
+
+---
+
+[TestRun_LocalDatabases/#11 - 4]
+
+---
+
+[TestRun_LockfileWithExplicitParseAs/#00 - 1]
+
+---
+
+[TestRun_LockfileWithExplicitParseAs/#00 - 2]
+could not determine extractor, requested my-file
+
+---
+
+[TestRun_LockfileWithExplicitParseAs/#00 - 2]
+could not determine extractor, requested my-file
+
+---
+
+[TestRun_LockfileWithExplicitParseAs/#01 - 1]
 Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
 No issues found
 
 ---
 
-[TestRun/verbosity_level_=_error - 1]
+[TestRun_LockfileWithExplicitParseAs/#01 - 1]
+Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
 No issues found
 
 ---
 
-[TestRun/verbosity_level_=_error - 2]
+[TestRun_LockfileWithExplicitParseAs/#01 - 1]
+Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
+No issues found
 
 ---
 
-[TestRun/verbosity_level_=_info - 2]
+[TestRun_LockfileWithExplicitParseAs/#01 - 2]
+
+---
+
+[TestRun_LockfileWithExplicitParseAs/#01 - 2]
+
+---
+
+[TestRun_LockfileWithExplicitParseAs/#01 - 2]
+
+---
+
+[TestRun_LockfileWithExplicitParseAs/#02 - 1]
+
+---
+
+[TestRun_LockfileWithExplicitParseAs/#02 - 1]
+
+---
+
+[TestRun_LockfileWithExplicitParseAs/#02 - 1]
+
+---
+
+[TestRun_LockfileWithExplicitParseAs/#02 - 2]
+open <rootdir>/path/to/my:file: no such file or directory
+
+---
+
+[TestRun_LockfileWithExplicitParseAs/#02 - 2]
+open <rootdir>/path/to/my:file: no such file or directory
+
+---
+
+[TestRun_LockfileWithExplicitParseAs/#02 - 2]
+open <rootdir>/path/to/my:file: no such file or directory
+
+---
+
+[TestRun_LockfileWithExplicitParseAs/#03 - 1]
+
+---
+
+[TestRun_LockfileWithExplicitParseAs/#03 - 1]
+
+---
+
+[TestRun_LockfileWithExplicitParseAs/#03 - 1]
+
+---
+
+[TestRun_LockfileWithExplicitParseAs/#03 - 2]
+open <rootdir>/path/to/my:project/package-lock.json: no such file or directory
+
+---
+
+[TestRun_LockfileWithExplicitParseAs/#03 - 2]
+open <rootdir>/path/to/my:project/package-lock.json: no such file or directory
+
+---
+
+[TestRun_LockfileWithExplicitParseAs/#03 - 2]
+open <rootdir>/path/to/my:project/package-lock.json: no such file or directory
+
+---
+
+[TestRun_LockfileWithExplicitParseAs/#04 - 1]
+Scanned <rootdir>/fixtures/locks-insecure/my-package-lock.json file as a package-lock.json and found 1 package
+Scanning dir ./fixtures/locks-insecure
+Scanned <rootdir>/fixtures/locks-insecure/composer.lock file and found 1 package
++-------------------------------------+------+-----------+------------------+---------+----------------------------------------------+
+| OSV URL                             | CVSS | ECOSYSTEM | PACKAGE          | VERSION | SOURCE                                       |
++-------------------------------------+------+-----------+------------------+---------+----------------------------------------------+
+| https://osv.dev/GHSA-9f46-5r25-5wfm | 9.8  | Packagist | league/flysystem | 1.0.8   | fixtures/locks-insecure/composer.lock        |
+| https://osv.dev/GHSA-whgm-jr23-g3j9 | 7.5  | npm       | ansi-html        | 0.0.1   | fixtures/locks-insecure/my-package-lock.json |
++-------------------------------------+------+-----------+------------------+---------+----------------------------------------------+
+
+---
+
+[TestRun_LockfileWithExplicitParseAs/#04 - 1]
+Scanned <rootdir>/fixtures/locks-insecure/my-package-lock.json file as a package-lock.json and found 1 package
+Scanning dir ./fixtures/locks-insecure
+Scanned <rootdir>/fixtures/locks-insecure/composer.lock file and found 1 package
++-------------------------------------+------+-----------+------------------+---------+----------------------------------------------+
+| OSV URL                             | CVSS | ECOSYSTEM | PACKAGE          | VERSION | SOURCE                                       |
++-------------------------------------+------+-----------+------------------+---------+----------------------------------------------+
+| https://osv.dev/GHSA-9f46-5r25-5wfm | 9.8  | Packagist | league/flysystem | 1.0.8   | fixtures/locks-insecure/composer.lock        |
+| https://osv.dev/GHSA-whgm-jr23-g3j9 | 7.5  | npm       | ansi-html        | 0.0.1   | fixtures/locks-insecure/my-package-lock.json |
++-------------------------------------+------+-----------+------------------+---------+----------------------------------------------+
+
+---
+
+[TestRun_LockfileWithExplicitParseAs/#04 - 2]
+
+---
+
+[TestRun_LockfileWithExplicitParseAs/#04 - 2]
+
+---
+
+[TestRun_LockfileWithExplicitParseAs/#05 - 1]
+Scanned <rootdir>/fixtures/locks-insecure/my-package-lock.json file as a package-lock.json and found 1 package
+Scanned <rootdir>/fixtures/locks-insecure/my-yarn.lock file as a yarn.lock and found 1 package
+Scanning dir ./fixtures/locks-insecure
+Scanned <rootdir>/fixtures/locks-insecure/composer.lock file and found 1 package
++-------------------------------------+------+-----------+------------------+---------+----------------------------------------------+
+| OSV URL                             | CVSS | ECOSYSTEM | PACKAGE          | VERSION | SOURCE                                       |
++-------------------------------------+------+-----------+------------------+---------+----------------------------------------------+
+| https://osv.dev/GHSA-9f46-5r25-5wfm | 9.8  | Packagist | league/flysystem | 1.0.8   | fixtures/locks-insecure/composer.lock        |
+| https://osv.dev/GHSA-whgm-jr23-g3j9 | 7.5  | npm       | ansi-html        | 0.0.1   | fixtures/locks-insecure/my-package-lock.json |
+| https://osv.dev/GHSA-whgm-jr23-g3j9 | 7.5  | npm       | ansi-html        | 0.0.1   | fixtures/locks-insecure/my-yarn.lock         |
++-------------------------------------+------+-----------+------------------+---------+----------------------------------------------+
+
+---
+
+[TestRun_LockfileWithExplicitParseAs/#05 - 1]
+Scanned <rootdir>/fixtures/locks-insecure/my-package-lock.json file as a package-lock.json and found 1 package
+Scanned <rootdir>/fixtures/locks-insecure/my-yarn.lock file as a yarn.lock and found 1 package
+Scanning dir ./fixtures/locks-insecure
+Scanned <rootdir>/fixtures/locks-insecure/composer.lock file and found 1 package
++-------------------------------------+------+-----------+------------------+---------+----------------------------------------------+
+| OSV URL                             | CVSS | ECOSYSTEM | PACKAGE          | VERSION | SOURCE                                       |
++-------------------------------------+------+-----------+------------------+---------+----------------------------------------------+
+| https://osv.dev/GHSA-9f46-5r25-5wfm | 9.8  | Packagist | league/flysystem | 1.0.8   | fixtures/locks-insecure/composer.lock        |
+| https://osv.dev/GHSA-whgm-jr23-g3j9 | 7.5  | npm       | ansi-html        | 0.0.1   | fixtures/locks-insecure/my-package-lock.json |
+| https://osv.dev/GHSA-whgm-jr23-g3j9 | 7.5  | npm       | ansi-html        | 0.0.1   | fixtures/locks-insecure/my-yarn.lock         |
++-------------------------------------+------+-----------+------------------+---------+----------------------------------------------+
+
+---
+
+[TestRun_LockfileWithExplicitParseAs/#05 - 2]
+
+---
+
+[TestRun_LockfileWithExplicitParseAs/#05 - 2]
+
+---
+
+[TestRun_LockfileWithExplicitParseAs/#06 - 1]
+Scanned <rootdir>/fixtures/locks-insecure/my-yarn.lock file as a yarn.lock and found 1 package
+Scanned <rootdir>/fixtures/locks-insecure/my-package-lock.json file as a package-lock.json and found 1 package
+Scanning dir ./fixtures/locks-insecure
+Scanned <rootdir>/fixtures/locks-insecure/composer.lock file and found 1 package
++-------------------------------------+------+-----------+------------------+---------+----------------------------------------------+
+| OSV URL                             | CVSS | ECOSYSTEM | PACKAGE          | VERSION | SOURCE                                       |
++-------------------------------------+------+-----------+------------------+---------+----------------------------------------------+
+| https://osv.dev/GHSA-9f46-5r25-5wfm | 9.8  | Packagist | league/flysystem | 1.0.8   | fixtures/locks-insecure/composer.lock        |
+| https://osv.dev/GHSA-whgm-jr23-g3j9 | 7.5  | npm       | ansi-html        | 0.0.1   | fixtures/locks-insecure/my-package-lock.json |
+| https://osv.dev/GHSA-whgm-jr23-g3j9 | 7.5  | npm       | ansi-html        | 0.0.1   | fixtures/locks-insecure/my-yarn.lock         |
++-------------------------------------+------+-----------+------------------+---------+----------------------------------------------+
+
+---
+
+[TestRun_LockfileWithExplicitParseAs/#06 - 1]
+Scanned <rootdir>/fixtures/locks-insecure/my-yarn.lock file as a yarn.lock and found 1 package
+Scanned <rootdir>/fixtures/locks-insecure/my-package-lock.json file as a package-lock.json and found 1 package
+Scanning dir ./fixtures/locks-insecure
+Scanned <rootdir>/fixtures/locks-insecure/composer.lock file and found 1 package
++-------------------------------------+------+-----------+------------------+---------+----------------------------------------------+
+| OSV URL                             | CVSS | ECOSYSTEM | PACKAGE          | VERSION | SOURCE                                       |
++-------------------------------------+------+-----------+------------------+---------+----------------------------------------------+
+| https://osv.dev/GHSA-9f46-5r25-5wfm | 9.8  | Packagist | league/flysystem | 1.0.8   | fixtures/locks-insecure/composer.lock        |
+| https://osv.dev/GHSA-whgm-jr23-g3j9 | 7.5  | npm       | ansi-html        | 0.0.1   | fixtures/locks-insecure/my-package-lock.json |
+| https://osv.dev/GHSA-whgm-jr23-g3j9 | 7.5  | npm       | ansi-html        | 0.0.1   | fixtures/locks-insecure/my-yarn.lock         |
++-------------------------------------+------+-----------+------------------+---------+----------------------------------------------+
+
+---
+
+[TestRun_LockfileWithExplicitParseAs/#06 - 1]
+Scanned <rootdir>/fixtures/locks-insecure/my-yarn.lock file as a yarn.lock and found 1 package
+Scanned <rootdir>/fixtures/locks-insecure/my-package-lock.json file as a package-lock.json and found 1 package
+Scanning dir ./fixtures/locks-insecure
+Scanned <rootdir>/fixtures/locks-insecure/composer.lock file and found 1 package
++-------------------------------------+------+-----------+------------------+---------+----------------------------------------------+
+| OSV URL                             | CVSS | ECOSYSTEM | PACKAGE          | VERSION | SOURCE                                       |
++-------------------------------------+------+-----------+------------------+---------+----------------------------------------------+
+| https://osv.dev/GHSA-9f46-5r25-5wfm | 9.8  | Packagist | league/flysystem | 1.0.8   | fixtures/locks-insecure/composer.lock        |
+| https://osv.dev/GHSA-whgm-jr23-g3j9 | 7.5  | npm       | ansi-html        | 0.0.1   | fixtures/locks-insecure/my-package-lock.json |
+| https://osv.dev/GHSA-whgm-jr23-g3j9 | 7.5  | npm       | ansi-html        | 0.0.1   | fixtures/locks-insecure/my-yarn.lock         |
++-------------------------------------+------+-----------+------------------+---------+----------------------------------------------+
+
+---
+
+[TestRun_LockfileWithExplicitParseAs/#06 - 2]
+
+---
+
+[TestRun_LockfileWithExplicitParseAs/#06 - 2]
+
+---
+
+[TestRun_LockfileWithExplicitParseAs/#06 - 2]
+
+---
+
+[TestRun_LockfileWithExplicitParseAs/#07 - 1]
+
+---
+
+[TestRun_LockfileWithExplicitParseAs/#07 - 1]
+
+---
+
+[TestRun_LockfileWithExplicitParseAs/#07 - 2]
+(extracting as Cargo.lock) could not extract from <rootdir>/fixtures/locks-insecure/my-package-lock.json: toml: line 1: expected '.' or '=', but got '{' instead
+
+---
+
+[TestRun_LockfileWithExplicitParseAs/#07 - 2]
+(extracting as Cargo.lock) could not extract from <rootdir>/fixtures/locks-insecure/my-package-lock.json: toml: line 1: expected '.' or '=', but got '{' instead
+
+---
+
+[TestRun_LockfileWithExplicitParseAs/#08 - 1]
+
+---
+
+[TestRun_LockfileWithExplicitParseAs/#08 - 1]
+
+---
+
+[TestRun_LockfileWithExplicitParseAs/#08 - 2]
+(extracting as package-lock.json) could not extract from <rootdir>/fixtures/locks-many/yarn.lock: invalid character '#' looking for beginning of value
+
+---
+
+[TestRun_LockfileWithExplicitParseAs/#08 - 2]
+(extracting as package-lock.json) could not extract from <rootdir>/fixtures/locks-many/yarn.lock: invalid character '#' looking for beginning of value
+
+---
+
+[TestRun_LockfileWithExplicitParseAs/#09 - 1]
+Scanned <rootdir>/fixtures/locks-many/installed file as a apk-installed and found 1 package
+No issues found
+
+---
+
+[TestRun_LockfileWithExplicitParseAs/#09 - 1]
+Scanned <rootdir>/fixtures/locks-many/installed file as a apk-installed and found 1 package
+No issues found
+
+---
+
+[TestRun_LockfileWithExplicitParseAs/#09 - 1]
+Scanned <rootdir>/fixtures/locks-many/installed file as a apk-installed and found 1 package
+No issues found
+
+---
+
+[TestRun_LockfileWithExplicitParseAs/#09 - 2]
+
+---
+
+[TestRun_LockfileWithExplicitParseAs/#09 - 2]
+
+---
+
+[TestRun_LockfileWithExplicitParseAs/#09 - 2]
+
+---
+
+[TestRun_LockfileWithExplicitParseAs/#10 - 1]
+Scanned <rootdir>/fixtures/locks-many/status file as a dpkg-status and found 1 package
+No issues found
+
+---
+
+[TestRun_LockfileWithExplicitParseAs/#10 - 1]
+Scanned <rootdir>/fixtures/locks-many/status file as a dpkg-status and found 1 package
+No issues found
+
+---
+
+[TestRun_LockfileWithExplicitParseAs/#10 - 1]
+Scanned <rootdir>/fixtures/locks-many/status file as a dpkg-status and found 1 package
+No issues found
+
+---
+
+[TestRun_LockfileWithExplicitParseAs/#10 - 2]
+
+---
+
+[TestRun_LockfileWithExplicitParseAs/#10 - 2]
+
+---
+
+[TestRun_LockfileWithExplicitParseAs/#10 - 2]
+
+---
+
+[TestRun_LockfileWithExplicitParseAs/one_lockfile_with_local_path - 1]
+Scanned <rootdir>/fixtures/locks-many/replace-local.mod file as a go.mod and found 1 package
+Filtered 1 local package/s from the scan.
+No issues found
+
+---
+
+[TestRun_LockfileWithExplicitParseAs/one_lockfile_with_local_path - 1]
+Scanned <rootdir>/fixtures/locks-many/replace-local.mod file as a go.mod and found 1 package
+Filtered 1 local package/s from the scan.
+No issues found
+
+---
+
+[TestRun_LockfileWithExplicitParseAs/one_lockfile_with_local_path - 1]
+Scanned <rootdir>/fixtures/locks-many/replace-local.mod file as a go.mod and found 1 package
+Filtered 1 local package/s from the scan.
+No issues found
+
+---
+
+[TestRun_LockfileWithExplicitParseAs/one_lockfile_with_local_path - 2]
+
+---
+
+[TestRun_LockfileWithExplicitParseAs/one_lockfile_with_local_path - 2]
+
+---
+
+[TestRun_LockfileWithExplicitParseAs/one_lockfile_with_local_path - 2]
 
 ---

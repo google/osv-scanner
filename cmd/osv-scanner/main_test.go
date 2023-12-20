@@ -74,6 +74,17 @@ func normalizeTempDirectory(t *testing.T, str string) string {
 	return re.ReplaceAllString(str, "<tempdir>")
 }
 
+// normalizeErrors attempts to replace error messages on alternative OSs with their
+// known linux equivalents, to ensure tests pass across different OSs
+func normalizeErrors(t *testing.T, str string) string {
+	t.Helper()
+
+	str = strings.ReplaceAll(str, "The filename, directory name, or volume label syntax is incorrect.", "no such file or directory")
+	str = strings.ReplaceAll(str, "The system cannot find the path specified.", "no such file or directory")
+
+	return str
+}
+
 func testCli(t *testing.T, tc cliTestCase) {
 	t.Helper()
 
@@ -83,8 +94,8 @@ func testCli(t *testing.T, tc cliTestCase) {
 	ec := run(tc.args, stdoutBuffer, stderrBuffer)
 	// ec := run(tc.args, os.Stdout, os.Stderr)
 
-	stdout := normalizeTempDirectory(t, normalizeRootDirectory(t, normalizeFilePaths(t, stdoutBuffer.String())))
-	stderr := normalizeTempDirectory(t, normalizeRootDirectory(t, normalizeFilePaths(t, stderrBuffer.String())))
+	stdout := normalizeErrors(t, normalizeTempDirectory(t, normalizeRootDirectory(t, normalizeFilePaths(t, stdoutBuffer.String()))))
+	stderr := normalizeErrors(t, normalizeTempDirectory(t, normalizeRootDirectory(t, normalizeFilePaths(t, stderrBuffer.String()))))
 
 	if ec != tc.wantExitCode {
 		t.Errorf("cli exited with code %d, not %d", ec, tc.wantExitCode)
