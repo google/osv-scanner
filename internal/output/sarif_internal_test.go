@@ -3,6 +3,7 @@ package output
 import (
 	"testing"
 
+	"github.com/google/osv-scanner/internal/testfixture"
 	"github.com/google/osv-scanner/internal/testsnapshot"
 )
 
@@ -15,8 +16,8 @@ func Test_createSARIFHelpText(t *testing.T) {
 		want testsnapshot.Snapshot
 	}{
 		{
-			args: testsnapshot.LoadJSON[groupedSARIFFinding](t,
-				testsnapshot.New(
+			args: testfixture.LoadJSON[groupedSARIFFinding](t,
+				testfixture.New(
 					"fixtures/vuln-grouped.json",
 					map[string]string{},
 				),
@@ -29,8 +30,8 @@ func Test_createSARIFHelpText(t *testing.T) {
 			),
 		},
 		{
-			args: testsnapshot.LoadJSON[groupedSARIFFinding](t,
-				testsnapshot.New(
+			args: testfixture.LoadJSON[groupedSARIFFinding](t,
+				testfixture.New(
 					"fixtures/commit-grouped.json",
 					map[string]string{},
 				),

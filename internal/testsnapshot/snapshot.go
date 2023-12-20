@@ -51,30 +51,6 @@ func New(path string, windowsReplacements map[string]string) Snapshot {
 	return Snapshot{Path: path, WindowsReplacements: windowsReplacements}
 }
 
-// LoadJSON returns the contents of the snapshot file parsed as JSON after
-// applying any replacements if running on Windows
-func LoadJSON[V any](t *testing.T, snapshot Snapshot) V {
-	t.Helper()
-
-	file := snapshot.load(t)
-
-	var elem V
-	err := json.Unmarshal(file, &elem)
-	if err != nil {
-		t.Fatalf("Failed to unmarshal val: %s", err)
-	}
-
-	return elem
-}
-
-// LoadText returns the contents of the snapshot file as a string after
-// applying any replacements if running on Windows
-func LoadText(t *testing.T, snapshot Snapshot) string {
-	t.Helper()
-
-	return string(snapshot.load(t))
-}
-
 // AssertJSON checks that the contents of the snapshot file parsed as JSON equals
 // what was gotten in the test
 func AssertJSON[V any](t *testing.T, snapshot Snapshot, got V) {

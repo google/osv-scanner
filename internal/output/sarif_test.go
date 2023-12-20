@@ -5,6 +5,7 @@ import (
 	"testing"
 
 	"github.com/google/osv-scanner/internal/output"
+	"github.com/google/osv-scanner/internal/testfixture"
 	"github.com/google/osv-scanner/internal/testsnapshot"
 	"github.com/google/osv-scanner/pkg/models"
 )
@@ -19,8 +20,8 @@ func TestGroupFixedVersions(t *testing.T) {
 	}{
 		{
 			name: "",
-			args: testsnapshot.LoadJSON[[]models.VulnerabilityFlattened](t,
-				testsnapshot.New(
+			args: testfixture.LoadJSON[[]models.VulnerabilityFlattened](t,
+				testfixture.New(
 					"fixtures/flattened_vulns.json",
 					map[string]string{},
 				),
@@ -32,8 +33,8 @@ func TestGroupFixedVersions(t *testing.T) {
 		},
 		{
 			name: "",
-			args: testsnapshot.LoadJSON[[]models.VulnerabilityFlattened](t,
-				testsnapshot.New(
+			args: testfixture.LoadJSON[[]models.VulnerabilityFlattened](t,
+				testfixture.New(
 					"fixtures/flattened_vulns.json",
 					map[string]string{
 						"/path/to/scorecard-check-osv-e2e/sub-rust-project/Cargo.lock": "D:\\\\path\\\\to\\\\scorecard-check-osv-e2e\\\\sub-rust-project\\\\Cargo.lock",
@@ -70,8 +71,8 @@ func TestPrintSARIFReport(t *testing.T) {
 	}{
 		{
 			name: "",
-			args: testsnapshot.LoadJSON[models.VulnerabilityResults](t,
-				testsnapshot.New(
+			args: testfixture.LoadJSON[models.VulnerabilityResults](t,
+				testfixture.New(
 					"fixtures/test-vuln-results-a.json",
 					map[string]string{
 						"/path/to/sub-rust-project/Cargo.lock": "D:\\\\path\\\\to\\\\sub-rust-project\\\\Cargo.lock",
