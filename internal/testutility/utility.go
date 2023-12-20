@@ -11,6 +11,7 @@ import (
 	"testing"
 
 	"github.com/google/go-cmp/cmp"
+	"github.com/google/osv-scanner/internal/testsnapshot"
 	"github.com/hexops/gotextdiff"
 	"github.com/hexops/gotextdiff/myers"
 	"github.com/hexops/gotextdiff/span"
@@ -147,6 +148,7 @@ func AcceptanceTests(t *testing.T, reason string) {
 	t.Helper()
 	if os.Getenv("TEST_ACCEPTANCE") != "true" {
 		t.Skip("Skipping extended test: ", reason)
+		testsnapshot.Skip(t, "Skipping extended test: ", reason)
 	}
 }
 
