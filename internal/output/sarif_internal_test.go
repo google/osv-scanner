@@ -49,7 +49,7 @@ func Test_createSARIFHelpText(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
 			got := createSARIFHelpText(&tt.args)
-			testsnapshot.AssertText(t, tt.want, got)
+			testsnapshot.MatchText(t, tt.want, got)
 		})
 	}
 }

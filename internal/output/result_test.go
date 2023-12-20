@@ -54,7 +54,7 @@ func Test_groupFixedVersions(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
 			got := groupFixedVersions(tt.args)
-			testsnapshot.AssertJSON(t, tt.want, got)
+			testsnapshot.MatchJSON(t, tt.want, got)
 		})
 	}
 }
@@ -93,7 +93,7 @@ func Test_mapIDsToGroupedSARIFFinding(t *testing.T) {
 			t.Parallel()
 
 			got := mapIDsToGroupedSARIFFinding(&tt.args)
-			testsnapshot.AssertJSON(t, tt.want, got)
+			testsnapshot.MatchJSON(t, tt.want, got)
 		})
 	}
 }
