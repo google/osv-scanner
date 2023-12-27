@@ -1,7 +1,6 @@
 package osvscanner
 
 import (
-	"fmt"
 	"os/exec"
 	"strings"
 
@@ -29,7 +28,7 @@ func addCompilerVersion(r reporter.Reporter, parsedLockfile *lockfile.Lockfile) 
 	case "go.mod":
 		goVer, err := getGoVersion()
 		if err != nil {
-			r.PrintText(fmt.Sprintf("cannot get go standard library version, go might not be installed: %s\n", err))
+			r.PrintTextf("cannot get go standard library version, go might not be installed: %s\n", err)
 		} else {
 			parsedLockfile.Packages = append(parsedLockfile.Packages, lockfile.PackageDetails{
 				Name:      "stdlib",
