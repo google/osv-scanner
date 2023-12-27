@@ -290,3 +290,23 @@ func TestMavenLockDependency_ResolveVersion(t *testing.T) {
 		})
 	}
 }
+
+func TestParseMavenLock_WithScope(t *testing.T) {
+	t.Parallel()
+
+	packages, err := lockfile.ParseMavenLock("fixtures/maven/with-scope.xml")
+
+	if err != nil {
+		t.Errorf("Got unexpected error: %v", err)
+	}
+
+	expectPackages(t, packages, []lockfile.PackageDetails{
+		{
+			Name:      "junit:junit",
+			Version:   "4.12",
+			Ecosystem: lockfile.MavenEcosystem,
+			CompareAs: lockfile.MavenEcosystem,
+			DepGroups: []string{"test"},
+		},
+	})
+}

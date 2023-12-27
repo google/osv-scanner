@@ -191,3 +191,23 @@ func TestParsePoetryLock_PackageWithLegacySource(t *testing.T) {
 		},
 	})
 }
+
+func TestParsePoetryLock_OptionalPackage(t *testing.T) {
+	t.Parallel()
+
+	packages, err := lockfile.ParsePoetryLock("fixtures/poetry/optional-package.lock")
+
+	if err != nil {
+		t.Errorf("Got unexpected error: %v", err)
+	}
+
+	expectPackages(t, packages, []lockfile.PackageDetails{
+		{
+			Name:      "numpy",
+			Version:   "1.23.3",
+			Ecosystem: lockfile.PoetryEcosystem,
+			CompareAs: lockfile.PoetryEcosystem,
+			DepGroups: []string{"optional"},
+		},
+	})
+}

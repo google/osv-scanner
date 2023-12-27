@@ -23,7 +23,11 @@ func NewSarifReporter(stdout io.Writer, stderr io.Writer) *SARIFReporter {
 }
 
 func (r *SARIFReporter) PrintError(msg string) {
-	fmt.Fprint(r.stderr, msg)
+	r.PrintErrorf(msg)
+}
+
+func (r *SARIFReporter) PrintErrorf(msg string, a ...any) {
+	fmt.Fprintf(r.stderr, msg, a...)
 	r.hasPrintedError = true
 }
 
@@ -32,7 +36,11 @@ func (r *SARIFReporter) HasPrintedError() bool {
 }
 
 func (r *SARIFReporter) PrintText(msg string) {
-	fmt.Fprint(r.stderr, msg)
+	r.PrintTextf(msg)
+}
+
+func (r *SARIFReporter) PrintTextf(msg string, a ...any) {
+	fmt.Fprintf(r.stderr, msg, a...)
 }
 
 func (r *SARIFReporter) PrintResult(vulnResult *models.VulnerabilityResults) error {
