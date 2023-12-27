@@ -42,7 +42,7 @@ func run(args []string, stdout, stderr io.Writer) int {
 	cli.VersionPrinter = func(ctx *cli.Context) {
 		// Use the app Writer and ErrWriter since they will be the writers to keep parallel tests consistent
 		tableReporter = reporter.NewTableReporter(ctx.App.Writer, ctx.App.ErrWriter, false, 0)
-		tableReporter.PrintText(fmt.Sprintf("osv-scanner version: %s\ncommit: %s\nbuilt at: %s\n", ctx.App.Version, commit, date))
+		tableReporter.PrintTextf("osv-scanner version: %s\ncommit: %s\nbuilt at: %s\n", ctx.App.Version, commit, date)
 	}
 
 	app := &cli.App{
@@ -179,11 +179,11 @@ func run(args []string, stdout, stderr io.Writer) int {
 		}
 
 		if errors.Is(err, osvscanner.NoPackagesFoundErr) {
-			tableReporter.PrintError("No package sources found, --help for usage information.\n")
+			tableReporter.PrintErrorf("No package sources found, --help for usage information.\n")
 			return 128
 		}
 
-		tableReporter.PrintError(fmt.Sprintf("%v\n", err))
+		tableReporter.PrintErrorf("%v\n", err)
 	}
 
 	// if we've been told to print an error, and not already exited with
