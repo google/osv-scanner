@@ -623,7 +623,7 @@ func TestRun_LockfileWithExplicitParseAs(t *testing.T) {
 			args:         []string{"", "--lockfile=go.mod:./fixtures/locks-many/replace-local.mod"},
 			wantExitCode: 0,
 			wantStdout: `
-				Scanned <rootdir>/fixtures/locks-many/replace-local.mod file as a go.mod and found 2 packages
+				Scanned <rootdir>/fixtures/locks-many/replace-local.mod file as a go.mod and found 1 package
 				Filtered 1 local package/s from the scan.
 				No issues found
 			`,
