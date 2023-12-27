@@ -13,11 +13,11 @@ Here are other [pre-requisites] and instructions for running the [docs locally].
 
 ## Formatting docs
 
-### Dependencies
+We use - [Prettier](https://prettier.io/) to standardize the format of markdown and config files.
 
-- [Prettier](https://prettier.io/docs/en/install)
+This requires [node/npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm) to be installed.
 
-### Running formatter
+### Running the formatter
 
 Run the following in the project directory:
 
