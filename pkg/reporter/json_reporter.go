@@ -22,10 +22,6 @@ func NewJSONReporter(stdout io.Writer, stderr io.Writer) *JSONReporter {
 	}
 }
 
-func (r *JSONReporter) PrintError(msg string) {
-	r.PrintErrorf(msg)
-}
-
 func (r *JSONReporter) PrintErrorf(msg string, a ...any) {
 	fmt.Fprintf(r.stderr, msg, a...)
 	r.hasPrintedError = true
@@ -33,10 +29,6 @@ func (r *JSONReporter) PrintErrorf(msg string, a ...any) {
 
 func (r *JSONReporter) HasPrintedError() bool {
 	return r.hasPrintedError
-}
-
-func (r *JSONReporter) PrintText(msg string) {
-	r.PrintTextf(msg)
 }
 
 func (r *JSONReporter) PrintTextf(msg string, a ...any) {
