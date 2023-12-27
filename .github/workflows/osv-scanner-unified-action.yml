@@ -15,23 +15,37 @@
 name: OSV-Scanner Scheduled Scan
 
 on:
+  pull_request:
+    branches: ["main"]
+  merge_group:
+    branches: ["main"]
   schedule:
-    - cron: '12 12 * * 1'
+    - cron: "12 12 * * 1"
   push:
-    branches: [ "main" ]
+    branches: ["main"]
+
+permissions:
+  # Require writing security events to upload SARIF file to security tab
+  security-events: write
+  # Read commit contents
+  contents: read
 
 jobs:
   scan-scheduled:
+    if: ${{ github.event_name == 'push' || github.event_name == 'schedule' }}
     uses: "./.github/workflows/osv-scanner-reusable.yml"
     with:
       # Just scan the root directory and docs, since everything else is fixtures
       scan-args: |-
-          --skip-git
-          ./
-          ./docs/
-    permissions:
-      # Require writing security events to upload SARIF file to security tab
-      security-events: write
-      # Read commit contents
-      contents: read
-
+        --skip-git
+        ./
+        ./docs/
+  scan-pr:
+    if: ${{ github.event_name == 'pull_request' || github.event_name == 'merge_group' }}
+    uses: "./.github/workflows/osv-scanner-reusable-pr.yml"
+    with:
+      # Just scan the root directory and docs, since everything else is fixtures
+      scan-args: |-
+        --skip-git
+        ./
+        ./docs/

@@ -19,17 +19,18 @@ The above all results in fewer, more actionable vulnerability notifications, whi
 [announcement blog post]: https://security.googleblog.com/2022/12/announcing-osv-scanner-vulnerability.html
 
 ## Documentation
+
 Read our [detailed documentation](https://google.github.io/osv-scanner) to learn how to use OSV-Scanner.
 
 ## Contribute
 
 ### Report Problems
+
 If you have what looks like a bug, please use the [GitHub issue tracking system](https://github.com/google/osv-scanner/issues). Before you file an issue, please search existing issues to see if your issue is already covered.
 
 ### Contributing code to `osv-scanner`
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) for documentation on how to contribute code.
-
 
 ## Star History
 
