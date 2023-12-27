@@ -11,9 +11,19 @@ Here are other [pre-requisites] and instructions for running the [docs locally].
 [pre-requisites]: https://docs.github.com/en/pages/setting-up-a-github-pages-site-with-jekyll/testing-your-github-pages-site-locally-with-jekyll#prerequisites
 [docs locally]: https://docs.github.com/en/pages/setting-up-a-github-pages-site-with-jekyll/testing-your-github-pages-site-locally-with-jekyll#building-your-site-locally
 
-## Contributing to the docs
+## Formatting docs
 
-Please see [CONTRIBUTING.md](https://github.com/google/osv-scanner/blob/main/CONTRIBUTING.md/#contributing-documentation) for information on contributing documentation.
+### Dependencies
+
+- [Prettier](https://prettier.io/docs/en/install)
+
+### Running formatter
+
+Run the following in the project directory:
+
+```shell
+./scripts/run_formatters.sh
+```
 
 ## Documentation theme
 
