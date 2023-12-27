@@ -1,5 +1,7 @@
 package lockfile
 
+// KnownEcosystems returns a list of ecosystems that `lockfile` supports
+// automatically inferring an extractor for based on a file path.
 func KnownEcosystems() []Ecosystem {
 	return []Ecosystem{
 		NpmEcosystem,

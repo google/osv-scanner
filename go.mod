@@ -5,7 +5,7 @@ go 1.21
 require (
 	deps.dev/api/v3alpha v0.0.0-20231114023923-e40c4d5c34e5
 	github.com/BurntSushi/toml v1.3.2
-	github.com/CycloneDX/cyclonedx-go v0.7.2
+	github.com/CycloneDX/cyclonedx-go v0.8.0
 	github.com/go-git/go-billy/v5 v5.5.0
 	github.com/go-git/go-git/v5 v5.10.1
 	github.com/google/go-cmp v0.6.0
