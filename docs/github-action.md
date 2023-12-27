@@ -199,7 +199,7 @@ jobs:
     name: Vulnerability scanning
     # makes sure the extraction step is completed before running the scanner
     needs: extract-deps
-    uses: "google/osv-scanner/.github/workflows/osv-scanner-reusable.yml@main"
+    uses: "google/osv-scanner-action/.github/workflows/osv-scanner-reusable.yml@v1.5.0"
     with:
       # Download the artifact uploaded in extract-deps step
       download-artifact: converted-OSV-Scanner-deps
