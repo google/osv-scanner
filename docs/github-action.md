@@ -172,7 +172,7 @@ jobs:
 ```yml
 jobs:
   scan-pr:
-    uses: "google/osv-scanner/.github/workflows/osv-scanner-reusable.yml"
+    uses: "google/osv-scanner-action/.github/workflows/osv-scanner-reusable.yml@v1.5.0"
     with:
       scan-args: |-
         --recursive
