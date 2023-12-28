@@ -103,7 +103,7 @@ func scanDir(r reporter.Reporter, dir string, skipGit bool, recursive bool, useG
 		var err error
 		ignoreMatcher, err = parseGitIgnores(dir)
 		if err != nil {
-			r.PrintErrorf("Unable to parse git ignores: %v\n", err)
+			r.PrintError(fmt.Sprintf("Unable to parse git ignores: %v\n", err))
 			useGitIgnore = false
 		}
 	}
@@ -114,24 +114,24 @@ func scanDir(r reporter.Reporter, dir string, skipGit bool, recursive bool, useG
 
 	return scannedPackages, filepath.WalkDir(dir, func(path string, info os.DirEntry, err error) error {
 		if err != nil {
-			r.PrintTextf("Failed to walk %s: %v\n", path, err)
+			r.PrintText(fmt.Sprintf("Failed to walk %s: %v\n", path, err))
 			return err
 		}
 
 		path, err = filepath.Abs(path)
 		if err != nil {
-			r.PrintErrorf("Failed to walk path %s\n", err)
+			r.PrintError(fmt.Sprintf("Failed to walk path %s\n", err))
 			return err
 		}
 
 		if useGitIgnore {
 			match, err := ignoreMatcher.match(path, info.IsDir())
 			if err != nil {
-				r.PrintTextf("Failed to resolve gitignore for %s: %v\n", path, err)
+				r.PrintText(fmt.Sprintf("Failed to resolve gitignore for %s: %v\n", path, err))
 				// Don't skip if we can't parse now - potentially noisy for directories with lots of items
 			} else if match {
 				if root { // Don't silently skip if the argument file was ignored.
-					r.PrintErrorf("%s was not scanned because it is excluded by a .gitignore file. Use --no-ignore to scan it.\n", path)
+					r.PrintError(fmt.Sprintf("%s was not scanned because it is excluded by a .gitignore file. Use --no-ignore to scan it.\n", path))
 				}
 				if info.IsDir() {
 					return filepath.SkipDir
@@ -144,7 +144,7 @@ func scanDir(r reporter.Reporter, dir string, skipGit bool, recursive bool, useG
 		if !skipGit && info.IsDir() && info.Name() == ".git" {
 			pkgs, err := scanGit(r, filepath.Dir(path)+"/")
 			if err != nil {
-				r.PrintTextf("scan failed for git repository, %s: %v\n", path, err)
+				r.PrintText(fmt.Sprintf("scan failed for git repository, %s: %v\n", path, err))
 				// Not fatal, so don't return and continue scanning other files
 			}
 			scannedPackages = append(scannedPackages, pkgs...)
@@ -156,7 +156,7 @@ func scanDir(r reporter.Reporter, dir string, skipGit bool, recursive bool, useG
 			if extractor, _ := lockfile.FindExtractor(path, ""); extractor != nil {
 				pkgs, err := scanLockfile(r, path, "")
 				if err != nil {
-					r.PrintErrorf("Attempted to scan lockfile but failed: %s\n", path)
+					r.PrintError(fmt.Sprintf("Attempted to scan lockfile but failed: %s\n", path))
 				}
 				scannedPackages = append(scannedPackages, pkgs...)
 			}
@@ -171,7 +171,7 @@ func scanDir(r reporter.Reporter, dir string, skipGit bool, recursive bool, useG
 			if _, ok := vendoredLibNames[strings.ToLower(filepath.Base(path))]; ok {
 				pkgs, err := scanDirWithVendoredLibs(r, path)
 				if err != nil {
-					r.PrintTextf("scan failed for dir containing vendored libs %s: %v\n", path, err)
+					r.PrintText(fmt.Sprintf("scan failed for dir containing vendored libs %s: %v\n", path, err))
 				}
 				scannedPackages = append(scannedPackages, pkgs...)
 			}
@@ -281,7 +281,7 @@ func queryDetermineVersions(repoDir string) (*osv.DetermineVersionResponse, erro
 }
 
 func scanDirWithVendoredLibs(r reporter.Reporter, path string) ([]scannedPackage, error) {
-	r.PrintTextf("Scanning directory for vendored libs: %s\n", path)
+	r.PrintText(fmt.Sprintf("Scanning directory for vendored libs: %s\n", path))
 	entries, err := os.ReadDir(path)
 	if err != nil {
 		return nil, err
@@ -295,17 +295,17 @@ func scanDirWithVendoredLibs(r reporter.Reporter, path string) ([]scannedPackage
 
 		libPath := filepath.Join(path, entry.Name())
 
-		r.PrintTextf("Scanning potential vendored dir: %s\n", libPath)
+		r.PrintText(fmt.Sprintf("Scanning potential vendored dir: %s\n", libPath))
 		// TODO: make this a goroutine to parallelise this operation
 		results, err := queryDetermineVersions(libPath)
 		if err != nil {
-			r.PrintTextf("Error scanning sub-directory '%s' with error: %v", libPath, err)
+			r.PrintText(fmt.Sprintf("Error scanning sub-directory '%s' with error: %v", libPath, err))
 			continue
 		}
 
 		if len(results.Matches) > 0 && results.Matches[0].Score > determineVersionThreshold {
 			match := results.Matches[0]
-			r.PrintTextf("Identified %s as %s at %s.\n", libPath, match.RepoInfo.Address, match.RepoInfo.Commit)
+			r.PrintText(fmt.Sprintf("Identified %s as %s at %s.\n", libPath, match.RepoInfo.Address, match.RepoInfo.Commit))
 			packages = append(packages, createCommitQueryPackage(match.RepoInfo.Commit, libPath))
 		}
 	}
@@ -357,19 +357,21 @@ func scanLockfile(r reporter.Reporter, path string, parseAs string) ([]scannedPa
 		return nil, err
 	}
 
+	addCompilerVersion(r, &parsedLockfile)
+
 	parsedAsComment := ""
 
 	if parseAs != "" {
 		parsedAsComment = fmt.Sprintf("as a %s ", parseAs)
 	}
 
-	r.PrintTextf(
+	r.PrintText(fmt.Sprintf(
 		"Scanned %s file %sand found %d %s\n",
 		path,
 		parsedAsComment,
 		len(parsedLockfile.Packages),
 		output.Form(len(parsedLockfile.Packages), "package", "packages"),
-	)
+	))
 
 	packages := make([]scannedPackage, len(parsedLockfile.Packages))
 	for i, pkgDetail := range parsedLockfile.Packages {
@@ -378,7 +380,6 @@ func scanLockfile(r reporter.Reporter, path string, parseAs string) ([]scannedPa
 			Version:   pkgDetail.Version,
 			Commit:    pkgDetail.Commit,
 			Ecosystem: pkgDetail.Ecosystem,
-			DepGroups: pkgDetail.DepGroups,
 			Source: models.SourceInfo{
 				Path: path,
 				Type: "lockfile",
@@ -443,19 +444,19 @@ func scanSBOMFile(r reporter.Reporter, path string, fromFSScan bool) ([]scannedP
 
 				continue
 			}
-			r.PrintTextf(
+			r.PrintText(fmt.Sprintf(
 				"Scanned %s as %s SBOM and found %d %s\n",
 				path,
 				provider.Name(),
 				len(packages),
 				output.Form(len(packages), "package", "packages"),
-			)
+			))
 			if ignoredCount > 0 {
-				r.PrintTextf(
+				r.PrintText(fmt.Sprintf(
 					"Ignored %d %s with invalid PURLs\n",
 					ignoredCount,
 					output.Form(ignoredCount, "package", "packages"),
-				)
+				))
 			}
 
 			return packages, nil
@@ -472,9 +473,9 @@ func scanSBOMFile(r reporter.Reporter, path string, fromFSScan bool) ([]scannedP
 
 	// Don't log these errors if we're coming from an FS scan, since it can get very noisy.
 	if !fromFSScan {
-		r.PrintTextf("Failed to parse SBOM using all supported formats:\n")
+		r.PrintText("Failed to parse SBOM using all supported formats:\n")
 		for _, err := range errs {
-			r.PrintTextf(err.Error() + "\n")
+			r.PrintText(err.Error() + "\n")
 		}
 	}
 
@@ -524,7 +525,7 @@ func scanGit(r reporter.Reporter, repoDir string) ([]scannedPackage, error) {
 	if err != nil {
 		return nil, err
 	}
-	r.PrintTextf("Scanning %s at commit %s\n", repoDir, commit)
+	r.PrintText(fmt.Sprintf("Scanning %s at commit %s\n", repoDir, commit))
 
 	//nolint:prealloc // Not sure how many there will be in advance.
 	var packages []scannedPackage
@@ -536,7 +537,7 @@ func scanGit(r reporter.Reporter, repoDir string) ([]scannedPackage, error) {
 	}
 
 	for _, s := range submodules {
-		r.PrintTextf("Scanning submodule %s at commit %s\n", s.Path, s.Expected.String())
+		r.PrintText(fmt.Sprintf("Scanning submodule %s at commit %s\n", s.Path, s.Expected.String()))
 		packages = append(packages, createCommitQueryPackage(s.Expected.String(), path.Join(repoDir, s.Path)))
 	}
 
@@ -558,12 +559,12 @@ func scanDebianDocker(r reporter.Reporter, dockerImageName string) ([]scannedPac
 	stdout, err := cmd.StdoutPipe()
 
 	if err != nil {
-		r.PrintErrorf("Failed to get stdout: %s\n", err)
+		r.PrintError(fmt.Sprintf("Failed to get stdout: %s\n", err))
 		return nil, err
 	}
 	err = cmd.Start()
 	if err != nil {
-		r.PrintErrorf("Failed to start docker image: %s\n", err)
+		r.PrintError(fmt.Sprintf("Failed to start docker image: %s\n", err))
 		return nil, err
 	}
 	// TODO: Do error checking here
@@ -579,7 +580,7 @@ func scanDebianDocker(r reporter.Reporter, dockerImageName string) ([]scannedPac
 		}
 		splitText := strings.Split(text, "###")
 		if len(splitText) != 2 {
-			r.PrintErrorf("Unexpected output from Debian container: \n\n%s\n", text)
+			r.PrintError(fmt.Sprintf("Unexpected output from Debian container: \n\n%s\n", text))
 			return nil, fmt.Errorf("unexpected output from Debian container: \n\n%s", text)
 		}
 		// TODO(rexpan): Get and specify exact debian release version
@@ -593,11 +594,11 @@ func scanDebianDocker(r reporter.Reporter, dockerImageName string) ([]scannedPac
 			},
 		})
 	}
-	r.PrintTextf(
+	r.PrintText(fmt.Sprintf(
 		"Scanned docker image with %d %s\n",
 		len(packages),
 		output.Form(len(packages), "package", "packages"),
-	)
+	))
 
 	return packages, nil
 }
@@ -643,11 +644,11 @@ func filterPackageVulns(r reporter.Reporter, pkgVulns models.PackageVulns, confi
 				// NB: This only prints the first reason encountered in all the aliases.
 				switch len(group.Aliases) {
 				case 1:
-					r.PrintTextf("%s has been filtered out because: %s\n", ignoreLine.ID, ignoreLine.Reason)
+					r.PrintText(fmt.Sprintf("%s has been filtered out because: %s\n", ignoreLine.ID, ignoreLine.Reason))
 				case 2:
-					r.PrintTextf("%s and 1 alias have been filtered out because: %s\n", ignoreLine.ID, ignoreLine.Reason)
+					r.PrintText(fmt.Sprintf("%s and 1 alias have been filtered out because: %s\n", ignoreLine.ID, ignoreLine.Reason))
 				default:
-					r.PrintTextf("%s and %d aliases have been filtered out because: %s\n", ignoreLine.ID, len(group.Aliases)-1, ignoreLine.Reason)
+					r.PrintText(fmt.Sprintf("%s and %d aliases have been filtered out because: %s\n", ignoreLine.ID, len(group.Aliases)-1, ignoreLine.Reason))
 				}
 
 				break
@@ -691,7 +692,6 @@ type scannedPackage struct {
 	Commit    string
 	Version   string
 	Source    models.SourceInfo
-	DepGroups []string
 }
 
 // Perform osv scanner action, with optional reporter to output information
@@ -706,10 +706,6 @@ func DoScan(actions ScannerActions, r reporter.Reporter) (models.VulnerabilityRe
 
 	if actions.CompareLocally {
 		actions.SkipGit = true
-
-		if len(actions.ScanLicensesAllowlist) > 0 || actions.ScanLicensesSummary {
-			return models.VulnerabilityResults{}, fmt.Errorf("cannot retrieve licenses locally")
-		}
 	}
 
 	configManager := config.ConfigManager{
@@ -723,7 +719,7 @@ func DoScan(actions ScannerActions, r reporter.Reporter) (models.VulnerabilityRe
 	if actions.ConfigOverridePath != "" {
 		err := configManager.UseOverride(actions.ConfigOverridePath)
 		if err != nil {
-			r.PrintErrorf("Failed to read config file: %s\n", err)
+			r.PrintError(fmt.Sprintf("Failed to read config file: %s\n", err))
 			return models.VulnerabilityResults{}, err
 		}
 	}
@@ -739,7 +735,7 @@ func DoScan(actions ScannerActions, r reporter.Reporter) (models.VulnerabilityRe
 		parseAs, lockfilePath := parseLockfilePath(lockfileElem)
 		lockfilePath, err := filepath.Abs(lockfilePath)
 		if err != nil {
-			r.PrintErrorf("Failed to resolved path with error %s\n", err)
+			r.PrintError(fmt.Sprintf("Failed to resolved path with error %s\n", err))
 			return models.VulnerabilityResults{}, err
 		}
 		pkgs, err := scanLockfile(r, lockfilePath, parseAs)
@@ -766,7 +762,7 @@ func DoScan(actions ScannerActions, r reporter.Reporter) (models.VulnerabilityRe
 	}
 
 	for _, dir := range actions.DirectoryPaths {
-		r.PrintTextf("Scanning dir %s\n", dir)
+		r.PrintText(fmt.Sprintf("Scanning dir %s\n", dir))
 		pkgs, err := scanDir(r, dir, actions.SkipGit, actions.Recursive, !actions.NoIgnore, actions.CompareOffline)
 		if err != nil {
 			return models.VulnerabilityResults{}, err
@@ -781,7 +777,7 @@ func DoScan(actions ScannerActions, r reporter.Reporter) (models.VulnerabilityRe
 	filteredScannedPackages := filterUnscannablePackages(scannedPackages)
 
 	if len(filteredScannedPackages) != len(scannedPackages) {
-		r.PrintTextf("Filtered %d local package/s from the scan.\n", len(scannedPackages)-len(filteredScannedPackages))
+		r.PrintText(fmt.Sprintf("Filtered %d local package/s from the scan.\n", len(scannedPackages)-len(filteredScannedPackages)))
 	}
 
 	vulnsResp, err := makeRequest(r, filteredScannedPackages, actions.CompareLocally, actions.CompareOffline, actions.LocalDBPath)
@@ -800,11 +796,11 @@ func DoScan(actions ScannerActions, r reporter.Reporter) (models.VulnerabilityRe
 
 	filtered := filterResults(r, &results, &configManager, actions.ShowAllPackages)
 	if filtered > 0 {
-		r.PrintTextf(
+		r.PrintText(fmt.Sprintf(
 			"Filtered %d %s from output\n",
 			filtered,
 			output.Form(filtered, "vulnerability", "vulnerabilities"),
-		)
+		))
 	}
 
 	if len(results.Results) > 0 {

@@ -112,17 +112,6 @@ func (e RequirementsTxtExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 func parseRequirementsTxt(f DepFile, requiredAlready map[string]struct{}) ([]PackageDetails, error) {
 	packages := map[string]PackageDetails{}
 
-	group := strings.TrimSuffix(filepath.Base(f.Path()), filepath.Ext(f.Path()))
-	hasGroup := func(groups []string) bool {
-		for _, g := range groups {
-			if g == group {
-				return true
-			}
-		}
-
-		return false
-	}
-
 	scanner := bufio.NewScanner(f)
 	for scanner.Scan() {
 		line := scanner.Text()
@@ -136,6 +125,7 @@ func parseRequirementsTxt(f DepFile, requiredAlready map[string]struct{}) ([]Pac
 		}
 
 		line = removeComments(line)
+
 		if ar := strings.TrimPrefix(line, "-r "); ar != line {
 			err := func() error {
 				af, err := f.Open(ar)
@@ -177,15 +167,8 @@ func parseRequirementsTxt(f DepFile, requiredAlready map[string]struct{}) ([]Pac
 		}
 
 		detail := parseLine(line)
-		key := detail.Name + "@" + detail.Version
-		if _, ok := packages[key]; !ok {
-			packages[key] = detail
-		}
-		d := packages[key]
-		if !hasGroup(d.DepGroups) {
-			d.DepGroups = append(d.DepGroups, group)
-			packages[key] = d
-		}
+
+		packages[detail.Name+"@"+detail.Version] = detail
 	}
 
 	if err := scanner.Err(); err != nil {

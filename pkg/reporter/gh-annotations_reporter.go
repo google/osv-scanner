@@ -23,11 +23,7 @@ func NewGHAnnotationsReporter(stdout io.Writer, stderr io.Writer) *GHAnnotations
 }
 
 func (r *GHAnnotationsReporter) PrintError(msg string) {
-	r.PrintErrorf(msg)
-}
-
-func (r *GHAnnotationsReporter) PrintErrorf(msg string, a ...any) {
-	fmt.Fprintf(r.stderr, msg, a...)
+	fmt.Fprint(r.stderr, msg)
 	r.hasPrintedError = true
 }
 
@@ -36,11 +32,7 @@ func (r *GHAnnotationsReporter) HasPrintedError() bool {
 }
 
 func (r *GHAnnotationsReporter) PrintText(msg string) {
-	r.PrintTextf(msg)
-}
-
-func (r *GHAnnotationsReporter) PrintTextf(msg string, a ...any) {
-	fmt.Fprintf(r.stderr, msg, a...)
+	fmt.Fprint(r.stderr, msg)
 }
 
 func (r *GHAnnotationsReporter) PrintResult(vulnResult *models.VulnerabilityResults) error {

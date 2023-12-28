@@ -130,12 +130,6 @@ func TestParseGoLock_TwoPackages(t *testing.T) {
 			Ecosystem: lockfile.GoEcosystem,
 			CompareAs: lockfile.GoEcosystem,
 		},
-		{
-			Name:      "stdlib",
-			Version:   "1.17.0",
-			Ecosystem: lockfile.GoEcosystem,
-			CompareAs: lockfile.GoEcosystem,
-		},
 	})
 }
 
@@ -176,12 +170,6 @@ func TestParseGoLock_IndirectPackages(t *testing.T) {
 		{
 			Name:      "golang.org/x/sys",
 			Version:   "0.0.0-20210630005230-0f9fa26af87c",
-			Ecosystem: lockfile.GoEcosystem,
-			CompareAs: lockfile.GoEcosystem,
-		},
-		{
-			Name:      "stdlib",
-			Version:   "1.17.0",
 			Ecosystem: lockfile.GoEcosystem,
 			CompareAs: lockfile.GoEcosystem,
 		},

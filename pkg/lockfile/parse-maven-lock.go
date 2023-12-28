@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
-	"strings"
 
 	"github.com/google/osv-scanner/internal/cachedregexp"
 )
@@ -15,7 +14,6 @@ type MavenLockDependency struct {
 	GroupID    string   `xml:"groupId"`
 	ArtifactID string   `xml:"artifactId"`
 	Version    string   `xml:"version"`
-	Scope      string   `xml:"scope"`
 }
 
 func (mld MavenLockDependency) parseResolvedVersion(version string) string {
@@ -123,31 +121,24 @@ func (e MavenLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 	for _, lockPackage := range parsedLockfile.Dependencies {
 		finalName := lockPackage.GroupID + ":" + lockPackage.ArtifactID
 
-		pkgDetails := PackageDetails{
+		details[finalName] = PackageDetails{
 			Name:      finalName,
 			Version:   lockPackage.ResolveVersion(*parsedLockfile),
 			Ecosystem: MavenEcosystem,
 			CompareAs: MavenEcosystem,
 		}
-		if strings.TrimSpace(lockPackage.Scope) != "" {
-			pkgDetails.DepGroups = append(pkgDetails.DepGroups, lockPackage.Scope)
-		}
-		details[finalName] = pkgDetails
 	}
 
 	// managed dependencies take precedent over standard dependencies
 	for _, lockPackage := range parsedLockfile.ManagedDependencies {
 		finalName := lockPackage.GroupID + ":" + lockPackage.ArtifactID
-		pkgDetails := PackageDetails{
+
+		details[finalName] = PackageDetails{
 			Name:      finalName,
 			Version:   lockPackage.ResolveVersion(*parsedLockfile),
 			Ecosystem: MavenEcosystem,
 			CompareAs: MavenEcosystem,
 		}
-		if strings.TrimSpace(lockPackage.Scope) != "" {
-			pkgDetails.DepGroups = append(pkgDetails.DepGroups, lockPackage.Scope)
-		}
-		details[finalName] = pkgDetails
 	}
 
 	return pkgDetailsMapToSlice(details), nil

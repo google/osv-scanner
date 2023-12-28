@@ -28,11 +28,7 @@ func NewTableReporter(stdout io.Writer, stderr io.Writer, markdown bool, termina
 }
 
 func (r *TableReporter) PrintError(msg string) {
-	r.PrintErrorf(msg)
-}
-
-func (r *TableReporter) PrintErrorf(msg string, a ...any) {
-	fmt.Fprintf(r.stderr, msg, a...)
+	fmt.Fprint(r.stderr, msg)
 	r.hasPrintedError = true
 }
 
@@ -41,11 +37,7 @@ func (r *TableReporter) HasPrintedError() bool {
 }
 
 func (r *TableReporter) PrintText(msg string) {
-	r.PrintTextf(msg)
-}
-
-func (r *TableReporter) PrintTextf(msg string, a ...any) {
-	fmt.Fprintf(r.stdout, msg, a...)
+	fmt.Fprint(r.stdout, msg)
 }
 
 func (r *TableReporter) PrintResult(vulnResult *models.VulnerabilityResults) error {

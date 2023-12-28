@@ -72,7 +72,7 @@ func (c *ConfigManager) Get(r reporter.Reporter, targetPath string) Config {
 	if err != nil {
 		// TODO: This can happen when target is not a file (e.g. Docker container, git hash...etc.)
 		// Figure out a more robust way to load config from non files
-		// r.PrintErrorf("Can't find config path: %s\n", err)
+		// r.PrintError(fmt.Sprintf("Can't find config path: %s\n", err))
 		return Config{}
 	}
 
@@ -83,7 +83,7 @@ func (c *ConfigManager) Get(r reporter.Reporter, targetPath string) Config {
 
 	config, configErr := tryLoadConfig(configPath)
 	if configErr == nil {
-		r.PrintTextf("Loaded filter from: %s\n", config.LoadPath)
+		r.PrintText(fmt.Sprintf("Loaded filter from: %s\n", config.LoadPath))
 	} else {
 		// If config doesn't exist, use the default config
 		config = c.DefaultConfig

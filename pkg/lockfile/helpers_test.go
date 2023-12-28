@@ -3,7 +3,6 @@ package lockfile_test
 import (
 	"errors"
 	"fmt"
-	"reflect"
 	"strings"
 	"testing"
 
@@ -49,7 +48,7 @@ func hasPackage(t *testing.T, packages []lockfile.PackageDetails, pkg lockfile.P
 	t.Helper()
 
 	for _, details := range packages {
-		if reflect.DeepEqual(details, pkg) {
+		if details == pkg {
 			return true
 		}
 	}

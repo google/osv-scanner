@@ -34,13 +34,13 @@ func (e PipenvLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 
 	details := make(map[string]PackageDetails)
 
-	addPkgDetails(details, parsedLockfile.Packages, "")
-	addPkgDetails(details, parsedLockfile.PackagesDev, "dev")
+	addPkgDetails(details, parsedLockfile.Packages)
+	addPkgDetails(details, parsedLockfile.PackagesDev)
 
 	return pkgDetailsMapToSlice(details), nil
 }
 
-func addPkgDetails(details map[string]PackageDetails, packages map[string]PipenvPackage, group string) {
+func addPkgDetails(details map[string]PackageDetails, packages map[string]PipenvPackage) {
 	for name, pipenvPackage := range packages {
 		if pipenvPackage.Version == "" {
 			continue
@@ -48,17 +48,11 @@ func addPkgDetails(details map[string]PackageDetails, packages map[string]Pipenv
 
 		version := pipenvPackage.Version[2:]
 
-		if _, ok := details[name+"@"+version]; !ok {
-			pkgDetails := PackageDetails{
-				Name:      name,
-				Version:   version,
-				Ecosystem: PipenvEcosystem,
-				CompareAs: PipenvEcosystem,
-			}
-			if group != "" {
-				pkgDetails.DepGroups = append(pkgDetails.DepGroups, group)
-			}
-			details[name+"@"+version] = pkgDetails
+		details[name+"@"+version] = PackageDetails{
+			Name:      name,
+			Version:   version,
+			Ecosystem: PipenvEcosystem,
+			CompareAs: PipenvEcosystem,
 		}
 	}
 }

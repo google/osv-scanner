@@ -17,7 +17,6 @@ import (
 	"golang.org/x/exp/maps"
 
 	"github.com/google/osv-scanner/internal/utility/results"
-	"github.com/google/osv-scanner/pkg/lockfile"
 	"github.com/google/osv-scanner/pkg/models"
 
 	"github.com/jedib0t/go-pretty/v6/table"
@@ -131,11 +130,7 @@ func tableBuilderInner(vulnResult *models.VulnerabilityResults, addStyling bool,
 					outputRow = append(outputRow, "GIT", pkgCommitStr, pkgCommitStr)
 					shouldMerge = true
 				} else {
-					name := pkg.Package.Name
-					if lockfile.Ecosystem(pkg.Package.Ecosystem).IsDevGroup(pkg.DepGroups) {
-						name += " (dev)"
-					}
-					outputRow = append(outputRow, pkg.Package.Ecosystem, name, pkg.Package.Version)
+					outputRow = append(outputRow, pkg.Package.Ecosystem, pkg.Package.Name, pkg.Package.Version)
 				}
 
 				outputRow = append(outputRow, source.Path)

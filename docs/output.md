@@ -4,9 +4,7 @@ title: Output
 permalink: /output/
 nav_order: 6
 ---
-
 # Output
-
 {: .no_toc }
 
 <details open markdown="block">
@@ -30,7 +28,6 @@ For every vulnerability found, OSV-Scanner will display the following informatio
 - Source: Path to the sbom or lockfile where the package originated
 
 ## Output formats
-
 You can control the format used by the scanner to output results with the `--format` flag.
 
 ### Table (Default)
@@ -52,7 +49,6 @@ osv-scanner --format table your/project/dir
 │ https://osv.dev/GHSA-m5pq-gvj9-9vr8 | 7.5  │ crates.io │ regex                    │ 1.3.1   │ path/to/Cargo.lock │
 ╰─────────────────────────────────────┴──────┴───────────┴──────────────────────────┴─────────┴────────────────────╯
 ```
-
 </details>
 
 ---
@@ -77,10 +73,10 @@ osv-scanner --format markdown your/project/dir
 
 **Rendered:**
 
-| OSV URL                                                                   | CVSS | Ecosystem | Package                  | Version | Source                                                 |
-| ------------------------------------------------------------------------- | ---- | --------- | ------------------------ | ------- | ------------------------------------------------------ |
-| https://osv.dev/GHSA-c3h9-896r-86jm<br/>https://osv.dev/GO-2021-0053      | 8.6  | Go        | github.com/gogo/protobuf | 1.3.1   | ../scorecard-check-osv-e2e/go.mod                      |
-| https://osv.dev/GHSA-m5pq-gvj9-9vr8<br/>https://osv.dev/RUSTSEC-2022-0013 | 7.5  | crates.io | regex                    | 1.5.1   | ../scorecard-check-osv-e2e/sub-rust-project/Cargo.lock |
+| OSV URL | CVSS | Ecosystem | Package | Version | Source |
+| --- | --- | --- | --- | --- | --- |
+| https://osv.dev/GHSA-c3h9-896r-86jm<br/>https://osv.dev/GO-2021-0053 | 8.6 | Go | github.com/gogo/protobuf | 1.3.1 | ../scorecard-check-osv-e2e/go.mod |
+| https://osv.dev/GHSA-m5pq-gvj9-9vr8<br/>https://osv.dev/RUSTSEC-2022-0013 | 7.5 | crates.io | regex | 1.5.1 | ../scorecard-check-osv-e2e/sub-rust-project/Cargo.lock |
 
 </details>
 
@@ -93,7 +89,6 @@ osv-scanner --format json your/project/dir
 ```
 
 Outputs the results as a JSON object to stdout, with all other output being directed to stderr - this makes it safe to redirect the output to a file with
-
 ```bash
 osv-scanner --format json -L path/to/lockfile > /path/to/file.json
 ```
@@ -120,12 +115,17 @@ osv-scanner --format json -L path/to/lockfile > /path/to/file.json
           "vulnerabilities": [
             {
               "id": "GHSA-c3h9-896r-86jm",
-              "aliases": ["CVE-2021-3121"]
+              "aliases": [
+                "CVE-2021-3121"
+              ],
               // ... Full OSV
             },
             {
               "id": "GO-2021-0053",
-              "aliases": ["CVE-2021-3121", "GHSA-c3h9-896r-86jm"]
+              "aliases": [
+                "CVE-2021-3121",
+                "GHSA-c3h9-896r-86jm"
+              ],
               // ... Full OSV
             }
           ],
@@ -133,7 +133,10 @@ osv-scanner --format json -L path/to/lockfile > /path/to/file.json
           // they are considered the same vulnerability, and is grouped here under the id field.
           "groups": [
             {
-              "ids": ["GHSA-c3h9-896r-86jm", "GO-2021-0053"],
+              "ids": [
+                "GHSA-c3h9-896r-86jm",
+                "GO-2021-0053"
+              ],
               // Call stack analysis is done using the `--experimental-call-analysis` flag
               // and result is matched against data provided by the advisory to check if
               // affected code is actually being executed.
@@ -162,18 +165,25 @@ osv-scanner --format json -L path/to/lockfile > /path/to/file.json
           "vulnerabilities": [
             {
               "id": "GHSA-m5pq-gvj9-9vr8",
-              "aliases": ["CVE-2022-24713"]
+              "aliases": [
+                "CVE-2022-24713"
+              ],
               // ... Full OSV
             },
             {
               "id": "RUSTSEC-2022-0013",
-              "aliases": ["CVE-2022-24713"]
+              "aliases": [
+                "CVE-2022-24713"
+              ],
               // ... Full OSV
             }
           ],
           "groups": [
             {
-              "ids": ["GHSA-m5pq-gvj9-9vr8", "RUSTSEC-2022-0013"]
+              "ids": [
+                "GHSA-m5pq-gvj9-9vr8",
+                "RUSTSEC-2022-0013"
+              ]
             }
           ]
         }
@@ -184,6 +194,7 @@ osv-scanner --format json -L path/to/lockfile > /path/to/file.json
 ```
 
 </details>
+
 
 ---
 
@@ -228,7 +239,7 @@ Outputs the result in the [SARIF](https://sarifweb.azurewebsites.net/) v2.1.0 fo
                 "text": "<Markdown help text>...",
                 "markdown": "<Markdown help text>..."
               }
-            }
+            },
           ],
           "version": "1.4.1"
         }
@@ -270,11 +281,11 @@ Outputs the result in the [SARIF](https://sarifweb.azurewebsites.net/) v2.1.0 fo
 <details markdown="1">
 <summary><b>Sample SARIF Help Text</b></summary>
 
+
 > **Your dependency is vulnerable to [CVE-2022-24713](https://osv.dev/list?q=CVE-2022-24713)**
-> (Also published as: [RUSTSEC-2022-0013](https://osv.dev/vulnerability/RUSTSEC-2022-0013), [GHSA-m5pq-gvj9-9vr8](https://osv.dev/vulnerability/GHSA-m5pq-gvj9-9vr8), ).
+> (Also published as:  [RUSTSEC-2022-0013](https://osv.dev/vulnerability/RUSTSEC-2022-0013),  [GHSA-m5pq-gvj9-9vr8](https://osv.dev/vulnerability/GHSA-m5pq-gvj9-9vr8), ).
 >
 > {:.no_toc}
->
 > ## [RUSTSEC-2022-0013](https://osv.dev/vulnerability/RUSTSEC-2022-0013)
 >
 > <details>
@@ -284,8 +295,8 @@ Outputs the result in the [SARIF](https://sarifweb.azurewebsites.net/) v2.1.0 fo
 >
 > </details>
 >
-> {:.no_toc}
 >
+> {:.no_toc}
 > ## [GHSA-m5pq-gvj9-9vr8](https://osv.dev/vulnerability/GHSA-m5pq-gvj9-9vr8)
 >
 > <details>
@@ -295,30 +306,31 @@ Outputs the result in the [SARIF](https://sarifweb.azurewebsites.net/) v2.1.0 fo
 >
 > </details>
 >
+>
 > ---
 >
 > {:.no_toc}
->
 > ### Affected Packages
 >
-> | Source                                    | Package Name | Package Version |
-> | ----------------------------------------- | ------------ | --------------- |
-> | lockfile:/path/to/rust-project/Cargo.lock | regex        | 1.5.1           |
+> | Source | Package Name | Package Version |
+> | --- | --- | --- |
+> | lockfile:/path/to/rust-project/Cargo.lock | regex | 1.5.1 |
 >
 > {:.no_toc}
->
 > ## Remediation
+>
+>
 >
 > To fix these vulnerabilities, update the vulnerabilities past the listed fixed versions below.
 >
 > {:.no_toc}
->
 > ### Fixed Versions
 >
-> | Vulnerability ID    | Package Name | Fixed Version |
-> | ------------------- | ------------ | ------------- |
-> | GHSA-m5pq-gvj9-9vr8 | regex        | 1.5.5         |
-> | RUSTSEC-2022-0013   | regex        | 1.5.5         |
+> | Vulnerability ID | Package Name | Fixed Version |
+> | --- | --- | --- |
+> | GHSA-m5pq-gvj9-9vr8 | regex | 1.5.5 |
+> | RUSTSEC-2022-0013 | regex | 1.5.5 |
+>
 >
 > If you believe these vulnerabilities do not affect your code and wish to ignore them, add them to the ignore list in an
 > `osv-scanner.toml` file located in the same directory as the lockfile containing the vulnerable dependency.
@@ -327,8 +339,8 @@ Outputs the result in the [SARIF](https://sarifweb.azurewebsites.net/) v2.1.0 fo
 >
 > Add or append these values to the following config files to ignore this vulnerability:
 >
-> `/path/to/rust-project/osv-scanner.toml`
 >
+> `/path/to/rust-project/osv-scanner.toml`
 > ```
 > [[IgnoredVulns]]
 > id = "CVE-2022-24713"
@@ -371,7 +383,6 @@ osv-scanner --format table --experimental-call-analysis your/project/dir
 │ https://osv.dev/RUSTSEC-2023-0044   │      │           │                 │         │                    │
 ╰─────────────────────────────────────┴──────┴───────────┴─────────────────┴─────────┴────────────────────╯
 ```
-
 </details>
 
 ### JSON
@@ -394,7 +405,7 @@ osv-scanner --format json --experimental-call-analysis -L path/to/lockfile > /pa
         "type": "lockfile"
       },
       "packages": [
-        {
+                {
           "package": {
             "name": "crossbeam-utils",
             "version": "0.6.6",
@@ -403,19 +414,27 @@ osv-scanner --format json --experimental-call-analysis -L path/to/lockfile > /pa
           "vulnerabilities": [
             {
               "id": "GHSA-qc84-gqf4-9926",
-              "aliases": ["CVE-2022-23639"]
+              "aliases": [
+                "CVE-2022-23639"
+              ]
               // ... Full OSV
             },
             {
               "id": "RUSTSEC-2022-0041",
-              "aliases": ["GHSA-qc84-gqf4-9926", "CVE-2022-23639"]
+              "aliases": [
+                "GHSA-qc84-gqf4-9926",
+                "CVE-2022-23639"
+              ]
               // ... Full OSV
             }
           ],
           "groups": [
             {
               // This vuln has no function info, so no call analysis done
-              "ids": ["GHSA-qc84-gqf4-9926", "RUSTSEC-2022-0041"]
+              "ids": [
+                "GHSA-qc84-gqf4-9926",
+                "RUSTSEC-2022-0041"
+              ]
             }
           ]
         },
@@ -432,13 +451,18 @@ osv-scanner --format json --experimental-call-analysis -L path/to/lockfile > /pa
             },
             {
               "id": "RUSTSEC-2023-0045",
-              "aliases": ["GHSA-wfg4-322g-9vqv"]
+              "aliases": [
+                "GHSA-wfg4-322g-9vqv"
+              ]
               // ... Full OSV
             }
           ],
           "groups": [
             {
-              "ids": ["GHSA-wfg4-322g-9vqv", "RUSTSEC-2023-0045"],
+              "ids": [
+                "GHSA-wfg4-322g-9vqv",
+                "RUSTSEC-2023-0045"
+              ],
               // RUSTSEC-2023-0045 does have function info, call analysis is performed
               // the vulnerable function is not called
               "experimentalAnalysis": {
@@ -458,18 +482,26 @@ osv-scanner --format json --experimental-call-analysis -L path/to/lockfile > /pa
           "vulnerabilities": [
             {
               "id": "GHSA-43w2-9j62-hq99",
-              "aliases": ["CVE-2021-25900"]
+              "aliases": [
+                "CVE-2021-25900"
+              ]
               // ... Full OSV
             },
             {
               "id": "RUSTSEC-2021-0003",
-              "aliases": ["CVE-2021-25900", "GHSA-43w2-9j62-hq99"]
+              "aliases": [
+                "CVE-2021-25900",
+                "GHSA-43w2-9j62-hq99"
+              ]
               // ... Full OSV
             }
           ],
           "groups": [
             {
-              "ids": ["GHSA-43w2-9j62-hq99", "RUSTSEC-2021-0003"],
+              "ids": [
+                "GHSA-43w2-9j62-hq99",
+                "RUSTSEC-2021-0003"
+              ],
               // RUSTSEC-2021-0003 does have function info, call analysis is performed
               // the vulnerable function does get called.
               "experimentalAnalysis": {

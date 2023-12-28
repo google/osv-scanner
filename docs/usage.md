@@ -4,7 +4,6 @@ title: Usage
 permalink: /usage/
 nav_order: 4
 ---
-
 # Usage
 
 {: .no_toc }
@@ -58,7 +57,6 @@ When scanning a directory, only SBOMs following the specification filename will 
 [Package URLs]: https://github.com/package-url/purl-spec
 
 ## Specify Lockfile(s)
-
 If you want to check for known vulnerabilities in specific lockfiles, you can use the following command:
 
 ```bash
@@ -82,7 +80,6 @@ osv-scanner --lockfile ':/path/to/my:projects/package-lock.json'
 ```
 
 ## Scanning a Debian based docker image packages
-
 Preview
 {: .label }
 
@@ -190,17 +187,14 @@ Current implementation has a few limitations:
 - Does not support dependencies that link external non-rust code
 
 ### Example
-
 ```bash
 osv-scanner --call-analysis=rust --no-call-analysis=go ./my/project/path
 ```
 
 ## Pre-commit integration
-
 If you wish to install OSV-Scanner as a [pre-commit](https://pre-commit.com) plugin in your project, you may use the `osv-scanner` pre-commit hook. Use the `args` key in your `.pre-commit-config.yaml` to pass your command-line arguments as you would using OSV-Scanner in the command line.
 
 ### Example
-
 ```yaml
 repos:
   - repo: https://github.com/google/osv-scanner/

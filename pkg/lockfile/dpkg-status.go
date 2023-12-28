@@ -121,8 +121,8 @@ func (e DpkgStatusExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 		pkg := parseDpkgPackageGroup(group)
 
 		// PackageDetails does not contain any field that represent a "not installed" state
-		// To manage this state and avoid false positives, empty ecosystem means "not installed" so skip it
-		if pkg.Ecosystem == "" {
+		// To manage this state and avoid false positives, empty struct means "not installed" so skip it
+		if (PackageDetails{}) == pkg {
 			continue
 		}
 

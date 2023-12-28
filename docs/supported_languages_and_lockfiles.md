@@ -22,24 +22,23 @@ nav_order: 2
 
 A wide range of lockfiles are supported by utilizing this [lockfile package](https://github.com/google/osv-scanner/tree/main/pkg/lockfile).
 
-| Language   | Compatible Lockfile(s)                                                                                               |
-| :--------- | :------------------------------------------------------------------------------------------------------------------- |
-| C/C++      | `conan.lock`<br>[C/C++ commit scanning](#cc-scanning)                                                                |
-| Dart       | `pubspec.lock`                                                                                                       |
-| Elixir     | `mix.lock`                                                                                                           |
-| Go         | `go.mod`                                                                                                             |
-| Java       | `buildscript-gradle.lockfile`<br>`gradle.lockfile`<br>`pom.xml`[\*](https://github.com/google/osv-scanner/issues/35) |
-| Javascript | `package-lock.json`<br>`pnpm-lock.yaml`<br>`yarn.lock`                                                               |
-| PHP        | `composer.lock`                                                                                                      |
-| Python     | `Pipfile.lock`<br>`poetry.lock`<br>`requirements.txt`[\*](https://github.com/google/osv-scanner/issues/34)           |
-| R          | `renv.lock`                                                                                                          |
-| Ruby       | `Gemfile.lock`                                                                                                       |
-| Rust       | `Cargo.lock`                                                                                                         |
+|  Language  | Compatible Lockfile(s) |
+|:-----------|:------------------|
+| C/C++ | `conan.lock`<br>[C/C++ commit scanning](#cc-scanning)|
+| Dart | `pubspec.lock`|
+| Elixir | `mix.lock` |
+| Go | `go.mod` |
+| Java | `buildscript-gradle.lockfile`<br>`gradle.lockfile`<br>`pom.xml`[\*](https://github.com/google/osv-scanner/issues/35) |
+| Javascript | `package-lock.json`<br>`pnpm-lock.yaml`<br>`yarn.lock`|
+| PHP        | `composer.lock`|
+| Python     | `Pipfile.lock`<br>`poetry.lock`<br>`requirements.txt`[\*](https://github.com/google/osv-scanner/issues/34) |
+| R          | `renv.lock` |
+| Ruby       | `Gemfile.lock`|
+| Rust       | `Cargo.lock`|
 
 ## Alpine Package Keeper and Debian Package Keeper
 
 The scanner also supports:
-
 - `installed` files used by the Alpine Package Keeper (apk) that typically live at `/lib/apk/db/installed`
 - `status` files used by the Debian Package manager (dpkg) that typically live at `/var/lib/dpkg/status`
 
@@ -52,23 +51,23 @@ osv-scanner --lockfile 'dpkg-status:/var/lib/dpkg/status'
 
 ## C/C++ scanning
 
-With the addition of [vulnerable commit ranges](https://osv.dev/blog/posts/introducing-broad-c-c++-support/) to the OSV.dev database, OSV-Scanner now supports vendored and submoduled C/C++ dependencies
+With the addition of [vulnerable commit ranges](https://osv.dev/blog/posts/introducing-broad-c-c++-support/) to the OSV.dev database, OSV-Scanner now supports vendored and submoduled C/C++ dependencies 
 
-Because the C/C++ ecosystem does not have a centralized package manager, C/C++ dependencies tend to be bundled with the project. Dependencies are either [submoduled](#submoduled-dependencies) or [vendored](#vendored-dependencies). In either case, OSV-Scanner is able to find known vulnerabilities in your project dependencies.
+Because the C/C++ ecosystem does not have a centralized package manager, C/C++ dependencies tend to be bundled with the project. Dependencies are either [submoduled](#submoduled-dependencies) or [vendored](#vendored-dependencies). In either case, OSV-Scanner is able to find known vulnerabilities in your project dependencies. 
 
-OSV-Scanner's C/C++ support is based on commit-level data. OSV's commit-level data covers the majority of C/C++ vulnerabilities within the OSV database, but users should be aware that there may be vulnerabilities in their dependencies that could be excluded from OSV-Scanner results. Adding more commit-level data to the database is an ongoing project.
+OSV-Scanner's C/C++ support is based on commit-level data. OSV's commit-level data covers the majority of C/C++ vulnerabilities within the OSV database, but users should be aware that there may be vulnerabilities in their dependencies that could be excluded from OSV-Scanner results. Adding more commit-level data to the database is an ongoing project. 
 
 ### Submoduled dependencies
 
 Submoduled dependencies are included in the project folder retain their Git histories. To scan a C/C++ project with submoduled dependencies:
 
-1. Navigate to the root folder of your project.
-2. Ensure that your submodules are up to date using `git submodule update`.
-3. Run scanner using `osv-scanner -r .`.
+1. Navigate to the root folder of your project. 
+2. Ensure that your submodules are up to date using `git submodule update`. 
+3. Run scanner using `osv-scanner -r .`. 
 
 ### Vendored dependencies
 
-Vendored dependencies have been directly copied into the project folder, but do not retain their Git histories. OSV-Scanner uses OSV's [determineversion API](https://google.github.io/osv.dev/post-v1-determineversion/) to estimate each dependency's version (and associated Git Commit). Vulnerabilities for the estimated version are returned. This process requires no additional work from the user. Run OSV-Scanner as you normally would.
+Vendored dependencies have been directly copied into the project folder, but do not retain their Git histories. OSV-Scanner uses OSV's [determineversion API](https://google.github.io/osv.dev/post-v1-determineversion/) to estimate each dependency's version (and associated Git Commit). Vulnerabilities for the estimated version are returned. This process requires no additional work from the user. Run OSV-Scanner as you normally would. 
 
 ## Custom Lockfiles
 
@@ -102,7 +101,6 @@ Once you extracted your own dependency information, place it in a `osv-scanner.j
 ```
 
 Then pass this to `osv-scanner` with this:
-
 ```
 osv-scanner --lockfile osv-scanner:/path/to/osv-scanner.json
 ```

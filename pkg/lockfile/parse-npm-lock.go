@@ -12,9 +12,6 @@ type NpmLockDependency struct {
 	// For an aliased package, Version is like "npm:[name]@[version]"
 	Version      string                       `json:"version"`
 	Dependencies map[string]NpmLockDependency `json:"dependencies,omitempty"`
-
-	Dev      bool `json:"dev,omitempty"`
-	Optional bool `json:"optional,omitempty"`
 }
 
 type NpmLockPackage struct {
@@ -23,10 +20,6 @@ type NpmLockPackage struct {
 	Version      string            `json:"version"`
 	Resolved     string            `json:"resolved"`
 	Dependencies map[string]string `json:"dependencies"`
-
-	Dev         bool `json:"dev,omitempty"`
-	DevOptional bool `json:"devOptional,omitempty"`
-	Optional    bool `json:"optional,omitempty"`
 }
 
 type NpmLockfile struct {
@@ -61,20 +54,6 @@ func mergePkgDetailsMap(m1 map[string]PackageDetails, m2 map[string]PackageDetai
 	}
 
 	return details
-}
-
-func (dep NpmLockDependency) depGroups() []string {
-	if dep.Dev && dep.Optional {
-		return []string{"dev", "optional"}
-	}
-	if dep.Dev {
-		return []string{"dev"}
-	}
-	if dep.Optional {
-		return []string{"optional"}
-	}
-
-	return nil
 }
 
 func parseNpmLockDependencies(dependencies map[string]NpmLockDependency) map[string]PackageDetails {
@@ -118,7 +97,6 @@ func parseNpmLockDependencies(dependencies map[string]NpmLockDependency) map[str
 			Ecosystem: NpmEcosystem,
 			CompareAs: NpmEcosystem,
 			Commit:    commit,
-			DepGroups: detail.depGroups(),
 		}
 	}
 
@@ -134,20 +112,6 @@ func extractNpmPackageName(name string) string {
 	}
 
 	return pkgName
-}
-
-func (pkg NpmLockPackage) depGroups() []string {
-	if pkg.Dev {
-		return []string{"dev"}
-	}
-	if pkg.Optional {
-		return []string{"optional"}
-	}
-	if pkg.DevOptional {
-		return []string{"dev", "optional"}
-	}
-
-	return nil
 }
 
 func parseNpmLockPackages(packages map[string]NpmLockPackage) map[string]PackageDetails {
@@ -179,7 +143,6 @@ func parseNpmLockPackages(packages map[string]NpmLockPackage) map[string]Package
 			Ecosystem: NpmEcosystem,
 			CompareAs: NpmEcosystem,
 			Commit:    commit,
-			DepGroups: detail.depGroups(),
 		}
 	}
 
