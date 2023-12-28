@@ -30,7 +30,7 @@ Scanning your project on each pull request can help you keep vulnerabilities out
 
 In your project repository, create a new file `.github/workflows/osv-scanner-pr.yml`.
 
-Include the following in the [`osv-scanner-pr.yml`](https://github.com/google/osv-scanner/blob/main/.github/workflows/osv-scanner-pr.yml) file:
+Include the following in the `osv-scanner-pr.yml` file:
 
 ```yml
 name: OSV-Scanner PR Scan
@@ -143,7 +143,7 @@ Regularly scanning your project for vulnerabilities can alert you to new vulnera
 
 In your project repository, create a new file `.github/workflows/osv-scanner-scheduled.yml`.
 
-Include the following in the [`osv-scanner-scheduled.yml`](https://github.com/google/osv-scanner/blob/main/.github/workflows/osv-scanner-scheduled.yml) file:
+Include the following in the `osv-scanner-scheduled.yml` file:
 
 ```yml
 name: OSV-Scanner Scheduled Scan
