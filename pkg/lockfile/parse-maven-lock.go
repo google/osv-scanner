@@ -213,7 +213,7 @@ func (e MavenLockExtractor) decodeMavenFile(f DepFile, depth int) (*MavenLockFil
 	if len(parentRelativePath) == 0 {
 		parentRelativePath = "../pom.xml"
 	}
-	parentPath := path.Join(path.Dir(f.Path()), parentRelativePath)
+	parentPath := path.Join(path.Dir(f.Path()), filepath.FromSlash(parentRelativePath))
 	parentFile, err := OpenLocalDepFile(parentPath)
 	if err != nil {
 		return nil, err
