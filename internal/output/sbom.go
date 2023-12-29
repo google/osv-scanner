@@ -28,7 +28,6 @@ var purlEcosystems = map[string]string{
 
 // PrintCycloneDxSbomResults prints parsed results into a CycloneDX SBOM format.
 func PrintCycloneDxSbomResults(vulnResult *models.VulnerabilityResults, outputWriter io.Writer) error {
-
 	components := []cyclonedx.Component{}
 
 	// Working directory used to simplify path
@@ -80,8 +79,7 @@ func PackageToPurl(pkg models.PackageVulns) string {
 	instance := packageurl.NewPackageURL(ecosystem, "", pkg.Package.Name, pkg.Package.Version, nil, "")
 
 	// https://github.com/package-url/purl-spec/blob/master/PURL-TYPES.rst
-	switch ecosystem {
-	case "maven":
+	if ecosystem == "maven" {
 		instance.Name = strings.ReplaceAll(instance.Name, ":", "/")
 	}
 

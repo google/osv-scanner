@@ -11,7 +11,7 @@ type PackageDetails struct {
 	Start      models.FilePosition
 	End        models.FilePosition
 	SourceFile string
-	DepGroups  []string  `json:"-"`
+	DepGroups  []string `json:"-"`
 }
 
 type Ecosystem string

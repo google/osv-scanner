@@ -2,19 +2,21 @@ package reporter
 
 import (
 	"bytes"
+	"context"
 	"fmt"
-	"github.com/golang/protobuf/proto"
-	"github.com/google/osv-scanner/pkg/models"
-	sbomproto "github.com/google/osv-scanner/pkg/reporter/sbom"
-	"github.com/package-url/packageurl-go"
-	"google.golang.org/protobuf/types/known/durationpb"
-	"google.golang.org/protobuf/types/known/timestamppb"
 	"io"
 	"log"
 	"net/http"
 	"os"
 	"strconv"
 	"strings"
+
+	"github.com/google/osv-scanner/pkg/models"
+	sbomproto "github.com/google/osv-scanner/pkg/reporter/sbom"
+	"github.com/package-url/packageurl-go"
+	"google.golang.org/protobuf/proto"
+	"google.golang.org/protobuf/types/known/durationpb"
+	"google.golang.org/protobuf/types/known/timestamppb"
 )
 
 type DatadogSbomReporter struct {
@@ -29,7 +31,7 @@ const (
 )
 
 var (
-	apiUrlPerSite = map[string]string{
+	apiURLPerSite = map[string]string{
 		"us1": "https://event-platform-intake.datadoghq.com",
 		"eu1": "https://event-platform-intake.datadoghq.eu",
 		"us3": "https://event-platform-intake.us3.datadoghq.com",
@@ -74,7 +76,7 @@ func (r *DatadogSbomReporter) PrintResult(vulnResults *models.VulnerabilityResul
 
 	site := os.Getenv("DD_SITE")
 	if site != "" {
-		baseURL = apiUrlPerSite[site]
+		baseURL = apiURLPerSite[site]
 	}
 
 	if os.Getenv("DD_API_URL") != "" {
@@ -83,7 +85,7 @@ func (r *DatadogSbomReporter) PrintResult(vulnResults *models.VulnerabilityResul
 
 	if baseURL == "" {
 		log.Println("No DD_SITE or DD_API_URL defined, using us1 site as default")
-		baseURL = apiUrlPerSite["us1"]
+		baseURL = apiURLPerSite["us1"]
 	}
 
 	apiURL := baseURL + EndpointPath
@@ -98,7 +100,7 @@ func (r *DatadogSbomReporter) PrintResult(vulnResults *models.VulnerabilityResul
 		return err
 	}
 
-	req, err := http.NewRequest("POST", apiURL, bytes.NewReader(bs))
+	req, err := http.NewRequestWithContext(context.Background(), http.MethodPost, apiURL, bytes.NewReader(bs))
 	if err != nil {
 		return err
 	}
@@ -181,6 +183,7 @@ func readEnvironmentTags() []string {
 	if commitSha != "" {
 		ddtags = append(ddtags, fmt.Sprintf("git.commit.sha:%s", commitSha))
 	}
+
 	return ddtags
 }
 
@@ -221,7 +224,7 @@ func toBom(results *models.VulnerabilityResults) *sbomproto.Bom {
 				lineEnd := strconv.Itoa(packageInfo.Package.End.Line)
 				columnStart := strconv.Itoa(packageInfo.Package.Start.Column)
 				columnEnd := strconv.Itoa(packageInfo.Package.End.Column)
-				component.Properties = append(component.Properties,
+				component.Properties = append(component.GetProperties(),
 					&sbomproto.Property{
 						Name:  "location_line_start",
 						Value: &lineStart,
@@ -240,7 +243,7 @@ func toBom(results *models.VulnerabilityResults) *sbomproto.Bom {
 					})
 			}
 
-			bom.Components = append(bom.Components, &component)
+			bom.Components = append(bom.GetComponents(), &component)
 		}
 	}
 
@@ -302,9 +305,9 @@ func getRepositoryURL() (string, error) {
 		return fmt.Sprintf("git@github.com:%s.git", githubRepository), nil
 	}
 
-	repositoryUrl := os.Getenv("REPOSITORY_URL")
-	if repositoryUrl != "" {
-		return repositoryUrl, nil
+	repositoryURL := os.Getenv("REPOSITORY_URL")
+	if repositoryURL != "" {
+		return repositoryURL, nil
 	}
 
 	return "", fmt.Errorf("REPOSITORY_URL is not set")

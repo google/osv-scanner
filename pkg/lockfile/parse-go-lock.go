@@ -2,10 +2,11 @@ package lockfile
 
 import (
 	"fmt"
-	"github.com/google/osv-scanner/pkg/models"
 	"io"
 	"path/filepath"
 	"strings"
+
+	"github.com/google/osv-scanner/pkg/models"
 
 	"github.com/google/osv-scanner/internal/semantic"
 	"golang.org/x/mod/modfile"

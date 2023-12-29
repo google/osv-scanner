@@ -3,16 +3,17 @@ package lockfile
 import (
 	"encoding/xml"
 	"fmt"
-	"github.com/google/osv-scanner/pkg/models"
 	"os"
 	"path"
 	"path/filepath"
 	"strings"
 
+	"github.com/google/osv-scanner/pkg/models"
+
 	"github.com/google/osv-scanner/internal/cachedregexp"
 )
 
-const MAX_PARENT_DEPTH = 10
+const MaxParentDepth = 10
 
 type MavenLockDependency struct {
 	XMLName    xml.Name `xml:"dependency"`
@@ -63,10 +64,13 @@ func (mld MavenLockDependency) resolveVersionValue(lockfile MavenLockFile) strin
 				string(bytes),
 				lockfile.GroupID+":"+lockfile.ArtifactID,
 			)
+
 			return []byte("0")
 		}
+
 		return []byte(mld.parseResolvedVersion(property))
 	})
+
 	return mld.parseResolvedVersion(string(result))
 }
 
@@ -144,6 +148,7 @@ DecodingLoop:
 			}
 		}
 	}
+
 	return nil
 }
 
@@ -170,6 +175,7 @@ func (e MavenLockExtractor) mergeLockfiles(childLockfile *MavenLockFile, parentL
 	// We add child dependency at the end, this way they will override the parent ones during transformation to a map
 	parentLockfile.Dependencies.Dependencies = append(parentLockfile.Dependencies.Dependencies, childLockfile.Dependencies.Dependencies...)
 	parentLockfile.ManagedDependencies.Dependencies = append(parentLockfile.ManagedDependencies.Dependencies, childLockfile.ManagedDependencies.Dependencies...)
+
 	return parentLockfile
 }
 
@@ -181,13 +187,14 @@ func (e MavenLockExtractor) enrichDependencies(f DepFile, dependencies []MavenLo
 		}
 		result[index] = dependency
 	}
+
 	return MavenLockDependencyHolder{Dependencies: result}
 }
 
 func (e MavenLockExtractor) decodeMavenFile(f DepFile, depth int) (*MavenLockFile, error) {
 	var parsedLockfile *MavenLockFile
-	if depth >= MAX_PARENT_DEPTH {
-		return nil, fmt.Errorf("maven file decoding reached the max depth (%d/%d), check for a circular dependency", depth, MAX_PARENT_DEPTH)
+	if depth >= MaxParentDepth {
+		return nil, fmt.Errorf("maven file decoding reached the max depth (%d/%d), check for a circular dependency", depth, MaxParentDepth)
 	}
 	// Decoding the original lockfile and enrich its dependencies
 	err := xml.NewDecoder(f).Decode(&parsedLockfile)
