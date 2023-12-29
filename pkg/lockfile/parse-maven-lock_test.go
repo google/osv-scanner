@@ -560,17 +560,30 @@ func TestParseMavenLock_WithScope(t *testing.T) {
 	t.Parallel()
 
 	packages, err := lockfile.ParseMavenLock("fixtures/maven/with-scope.xml")
-
+	if err != nil {
+		t.Errorf("Got unexpected error: %v", err)
+	}
+	dir, err := os.Getwd()
 	if err != nil {
 		t.Errorf("Got unexpected error: %v", err)
 	}
 
 	expectPackages(t, packages, []lockfile.PackageDetails{
 		{
-			Name:      "junit:junit",
-			Version:   "4.12",
-			Ecosystem: lockfile.MavenEcosystem,
-			CompareAs: lockfile.MavenEcosystem,
+			Name:       "junit:junit",
+			Version:    "4.12",
+			Ecosystem:  lockfile.MavenEcosystem,
+			CompareAs:  lockfile.MavenEcosystem,
+			Commit:     "",
+			SourceFile: path.Join(dir, "fixtures/maven/with-scope.xml"),
+			Start: models.FilePosition{
+				Line:   3,
+				Column: 5,
+			},
+			End: models.FilePosition{
+				Line:   8,
+				Column: 18,
+			},
 			DepGroups: []string{"test"},
 		},
 	})

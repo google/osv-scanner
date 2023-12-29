@@ -70,6 +70,7 @@ func (c *ConfigManager) Get(r reporter.Reporter, targetPath string) Config {
 
 	configPath, err := normalizeConfigLoadPath(targetPath)
 	if err != nil {
+		r.PrintErrorf("%v\n", err.Error())
 		// TODO: This can happen when target is not a file (e.g. Docker container, git hash...etc.)
 		// Figure out a more robust way to load config from non files
 		// r.PrintErrorf("Can't find config path: %s\n", err)
