@@ -5,13 +5,13 @@ import (
 	"fmt"
 	"io"
 	"os"
+	"slices"
 	"strings"
 
 	"github.com/google/osv-scanner/internal/version"
 	"github.com/google/osv-scanner/pkg/osv"
 	"github.com/google/osv-scanner/pkg/osvscanner"
 	"github.com/google/osv-scanner/pkg/reporter"
-	"golang.org/x/exp/slices"
 	"golang.org/x/term"
 
 	"github.com/urfave/cli/v2"
@@ -28,7 +28,7 @@ func run(args []string, stdout, stderr io.Writer) int {
 	cli.VersionPrinter = func(ctx *cli.Context) {
 		// Use the app Writer and ErrWriter since they will be the writers to keep parallel tests consistent
 		r = reporter.NewTableReporter(ctx.App.Writer, ctx.App.ErrWriter, false, 0)
-		r.PrintText(fmt.Sprintf("osv-scanner version: %s\ncommit: %s\nbuilt at: %s\n", ctx.App.Version, commit, date))
+		r.PrintTextf("osv-scanner version: %s\ncommit: %s\nbuilt at: %s\n", ctx.App.Version, commit, date)
 	}
 
 	osv.RequestUserAgent = "osv-scanner/" + version.OSVVersion
@@ -67,7 +67,7 @@ func run(args []string, stdout, stderr io.Writer) int {
 			&cli.StringFlag{
 				Name:    "format",
 				Aliases: []string{"f"},
-				Usage:   "sets the output format",
+				Usage:   fmt.Sprintf("sets the output format; value can be: %s", strings.Join(reporter.Format(), ", ")),
 				Value:   "table",
 				Action: func(context *cli.Context, s string) error {
 					if slices.Contains(reporter.Format(), s) {
@@ -99,13 +99,21 @@ func run(args []string, stdout, stderr io.Writer) int {
 			},
 			&cli.BoolFlag{
 				Name:  "experimental-call-analysis",
-				Usage: "attempt call analysis on code to detect only active vulnerabilities",
+				Usage: "[Deprecated] attempt call analysis on code to detect only active vulnerabilities",
 				Value: false,
 			},
 			&cli.BoolFlag{
 				Name:  "no-ignore",
 				Usage: "also scan files that would be ignored by .gitignore",
 				Value: false,
+			},
+			&cli.StringSliceFlag{
+				Name:  "call-analysis",
+				Usage: "attempt call analysis on code to detect only active vulnerabilities",
+			},
+			&cli.StringSliceFlag{
+				Name:  "no-call-analysis",
+				Usage: "disables call graph analysis",
 			},
 			&cli.BoolFlag{
 				Name:  "experimental-local-db",
@@ -124,9 +132,13 @@ func run(args []string, stdout, stderr io.Writer) int {
 				Name:  "experimental-all-packages",
 				Usage: "when json output is selected, prints all packages",
 			},
+			&cli.BoolFlag{
+				Name:  "experimental-licenses-summary",
+				Usage: "report a license summary, implying the --experimental-all-packages flag",
+			},
 			&cli.StringSliceFlag{
 				Name:  "experimental-licenses",
-				Usage: "report on licenses",
+				Usage: "report on licenses based on an allowlist",
 			},
 		},
 		ArgsUsage: "[directory1 directory2...]",
@@ -155,8 +167,27 @@ func run(args []string, stdout, stderr io.Writer) int {
 				}
 			}
 
+			if context.Bool("experimental-licenses-summary") && context.IsSet("experimental-licenses") {
+				return fmt.Errorf("--experimental-licenses-summary and --experimental-licenses flags cannot be set")
+			}
+			allowlist := context.StringSlice("experimental-licenses")
+			if context.IsSet("experimental-licenses") &&
+				(len(allowlist) == 0 ||
+					(len(allowlist) == 1 && allowlist[0] == "")) {
+				return fmt.Errorf("--experimental-licenses requires at least one value")
+			}
+			// TODO: verify that the licenses they passed in are indeed spdx.
+
 			if r, err = reporter.New(format, stdout, stderr, termWidth); err != nil {
 				return err
+			}
+
+			var callAnalysisStates map[string]bool
+			if context.IsSet("experimental-call-analysis") {
+				callAnalysisStates = createCallAnalysisStates([]string{"all"}, context.StringSlice("no-call-analysis"))
+				r.PrintTextf("Warning: the experimental-call-analysis flag has been replaced. Please use the call-analysis and no-call-analysis flags instead.\n")
+			} else {
+				callAnalysisStates = createCallAnalysisStates(context.StringSlice("call-analysis"), context.StringSlice("no-call-analysis"))
 			}
 
 			vulnResult, err := osvscanner.DoScan(osvscanner.ScannerActions{
@@ -168,13 +199,18 @@ func run(args []string, stdout, stderr io.Writer) int {
 				NoIgnore:             context.Bool("no-ignore"),
 				ConfigOverridePath:   context.String("config"),
 				DirectoryPaths:       context.Args().Slice(),
+				CallAnalysisStates:   callAnalysisStates,
 				ExperimentalScannerActions: osvscanner.ExperimentalScannerActions{
-					LocalDBPath:           context.String("experimental-local-db-path"),
-					CallAnalysis:          context.Bool("experimental-call-analysis"),
-					CompareLocally:        context.Bool("experimental-local-db"),
-					CompareOffline:        context.Bool("experimental-offline"),
-					ShowAllPackages:       context.Bool("experimental-all-packages"),
-					ScanLicenses:          context.IsSet("experimental-licenses"),
+					LocalDBPath:    context.String("experimental-local-db-path"),
+					CompareLocally: context.Bool("experimental-local-db"),
+					CompareOffline: context.Bool("experimental-offline"),
+					// License summary mode causes all
+					// packages to appear in the json as
+					// every package has a license - even
+					// if it's just the UNKNOWN license.
+					ShowAllPackages: context.Bool("experimental-all-packages") ||
+						context.Bool("experimental-licenses-summary"),
+					ScanLicensesSummary:   context.Bool("experimental-licenses-summary"),
 					ScanLicensesAllowlist: context.StringSlice("experimental-licenses"),
 				},
 			}, r)
@@ -200,10 +236,10 @@ func run(args []string, stdout, stderr io.Writer) int {
 		case errors.Is(err, osvscanner.VulnerabilitiesFoundErr):
 			return 1
 		case errors.Is(err, osvscanner.NoPackagesFoundErr):
-			r.PrintError("No package sources found, --help for usage information.\n")
+			r.PrintErrorf("No package sources found, --help for usage information.\n")
 			return 128
 		}
-		r.PrintError(fmt.Sprintf("%v\n", err))
+		r.PrintErrorf("%v\n", err)
 	}
 
 	// if we've been told to print an error, and not already exited with

@@ -1,0 +1,3 @@
+**/fixtures/**
+**/fixtures-go/**
+/docs/vendor/**

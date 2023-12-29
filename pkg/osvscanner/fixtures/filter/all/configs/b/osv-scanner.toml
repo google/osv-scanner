@@ -11,6 +11,6 @@ reason = "Ignore 2"
 # Alias of GHSA-xrjj-mj9h-534m
 
 [[IgnoredVulns]]
-id = "GO-2023-1571"
+id = "CVE-2022-41723"
 reason = "Ignore 3"
-# Alias of GHSA-vvpx-j8f3-3w6h
+# Alias of GHSA-vvpx-j8f3-3w6h and GO-2023-1571

@@ -14,10 +14,10 @@
           },
           "vulnerabilities": [
             {
-              "schema_version": "1.4.0",
-              "id": "GHSA-vvpx-j8f3-3w6h",
               "modified": "2023-03-09T21:20:44Z",
               "published": "2023-02-17T14:00:02Z",
+              "schema_version": "1.4.0",
+              "id": "GHSA-vvpx-j8f3-3w6h",
               "aliases": [
                 "CVE-2022-41723"
               ],
@@ -89,15 +89,14 @@
               }
             },
             {
-              "schema_version": "1.4.0",
-              "id": "GO-2023-1571",
               "modified": "2023-02-22T20:13:12Z",
               "published": "2023-02-16T22:31:36Z",
+              "schema_version": "1.4.0",
+              "id": "GO-2023-1571",
               "aliases": [
                 "CVE-2022-41723",
                 "GHSA-vvpx-j8f3-3w6h"
               ],
-              "summary": "",
               "details": "A maliciously crafted HTTP/2 stream could cause excessive CPU consumption in the HPACK decoder, sufficient to cause a denial of service from a small number of small requests.",
               "affected": [
                 {
@@ -203,6 +202,10 @@
               "ids": [
                 "GHSA-vvpx-j8f3-3w6h",
                 "GO-2023-1571"
+              ],
+              "aliases": [
+                "GHSA-vvpx-j8f3-3w6h",
+                "GO-2023-1571"
               ]
             }
           ]
@@ -223,11 +226,10 @@
           },
           "vulnerabilities": [
             {
-              "schema_version": "1.4.0",
-              "id": "GHSA-mrrw-grhq-86gf",
               "modified": "2023-02-28T20:30:10Z",
               "published": "2023-02-28T20:30:10Z",
-              "aliases": null,
+              "schema_version": "1.4.0",
+              "id": "GHSA-mrrw-grhq-86gf",
               "summary": "Ascii (crate) allows out-of-bounds array indexing in safe code",
               "details": "Affected version of this crate had implementation of `From\u003c\u0026mut AsciiStr\u003e` for `\u0026mut [u8]` and `\u0026mut str`. This can result in out-of-bounds array indexing in safe code.\n\nThe flaw was corrected in commit [8a6c779](https://github.com/tomprogrammer/rust-ascii/pull/63/commits/8a6c7798c202766bd57d70fb8d12739dd68fb9dc) by removing those impls.\n",
               "affected": [
@@ -286,6 +288,9 @@
             {
               "ids": [
                 "GHSA-mrrw-grhq-86gf"
+              ],
+              "aliases": [
+                "GHSA-mrrw-grhq-86gf"
               ]
             }
           ]
@@ -298,10 +303,10 @@
           },
           "vulnerabilities": [
             {
-              "schema_version": "1.4.0",
-              "id": "GHSA-wcg3-cvx6-7396",
               "modified": "2022-12-06T00:16:25Z",
               "published": "2021-08-25T20:56:46Z",
+              "schema_version": "1.4.0",
+              "id": "GHSA-wcg3-cvx6-7396",
               "aliases": [
                 "CVE-2020-26235"
               ],
@@ -400,10 +405,10 @@
               }
             },
             {
-              "schema_version": "1.4.0",
-              "id": "RUSTSEC-2020-0071",
               "modified": "2023-02-08T15:06:38Z",
               "published": "2020-11-18T12:00:00Z",
+              "schema_version": "1.4.0",
+              "id": "RUSTSEC-2020-0071",
               "aliases": [
                 "CVE-2020-26235"
               ],
@@ -530,11 +535,24 @@
               "ids": [
                 "GHSA-wcg3-cvx6-7396",
                 "RUSTSEC-2020-0071"
+              ],
+              "aliases": [
+                "GHSA-wcg3-cvx6-7396",
+                "RUSTSEC-2020-0071"
               ]
             }
           ]
         }
       ]
     }
-  ]
+  ],
+  "experimental_config": {
+    "call_analysis": {
+      "enabled": false
+    },
+    "licenses": {
+      "enabled": false,
+      "allowlist": null
+    }
+  }
 }
