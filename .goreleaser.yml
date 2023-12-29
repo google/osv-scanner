@@ -17,7 +17,6 @@ builds:
     goos:
       # Further testing before supporting freebsd
       # - freebsd
-      - windows
       - linux
       - darwin
     goarch:
