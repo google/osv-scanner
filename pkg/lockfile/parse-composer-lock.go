@@ -60,6 +60,7 @@ func (e ComposerLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 			Commit:    composerPackage.Dist.Reference,
 			Ecosystem: ComposerEcosystem,
 			CompareAs: ComposerEcosystem,
+			DepGroups: []string{"dev"},
 		})
 	}
 

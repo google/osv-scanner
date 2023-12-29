@@ -16,17 +16,27 @@ name: Checks
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
   pull_request:
     # The branches below must be a subset of the branches above
-    branches: [ main ]
+    branches: [main]
   merge_group:
-    branches: [ main ]
+    branches: [main]
 
 permissions:
   contents: read # to fetch code (actions/checkout)
 
 jobs:
+  format:
+    name: prettier
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
+        with:
+          persist-credentials: false
+      - name: Run lint action
+        uses: ./.github/workflows/format-action
   lint:
     name: golangci-lint
     runs-on: ubuntu-latest
