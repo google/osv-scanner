@@ -14,11 +14,10 @@
           },
           "vulnerabilities": [
             {
-              "schema_version": "1.4.0",
-              "id": "GHSA-mc8h-8q98-g5hr",
               "modified": "2023-02-24T16:23:59Z",
               "published": "2023-02-24T16:23:59Z",
-              "aliases": null,
+              "schema_version": "1.4.0",
+              "id": "GHSA-mc8h-8q98-g5hr",
               "summary": "Race Condition Enabling Link Following and Time-of-check Time-of-use (TOCTOU) Race Condition in remove_dir_all",
               "details": "The `remove_dir_all` crate is a Rust library that offers additional features over the Rust standard library `fs::remove_dir_all` function. It suffers the same class of failure as the code it was layering over: TOCTOU race conditions, with the ability to cause arbitrary paths to be deleted by substituting a symlink for a path after the type of the path was checked.\n\nThanks to the Rust security team for identifying the problem and alerting us to it.",
               "affected": [
@@ -76,10 +75,10 @@
               }
             },
             {
-              "schema_version": "1.4.0",
-              "id": "RUSTSEC-2023-0018",
               "modified": "2023-03-04T21:50:30Z",
               "published": "2023-02-24T12:00:00Z",
+              "schema_version": "1.4.0",
+              "id": "RUSTSEC-2023-0018",
               "aliases": [
                 "GHSA-mc8h-8q98-g5hr"
               ],
@@ -149,6 +148,10 @@
               "ids": [
                 "GHSA-mc8h-8q98-g5hr",
                 "RUSTSEC-2023-0018"
+              ],
+              "aliases": [
+                "GHSA-mc8h-8q98-g5hr",
+                "RUSTSEC-2023-0018"
               ]
             }
           ]
@@ -161,10 +164,10 @@
           },
           "vulnerabilities": [
             {
-              "schema_version": "1.4.0",
-              "id": "GHSA-wcg3-cvx6-7396",
               "modified": "2022-12-06T00:16:25Z",
               "published": "2021-08-25T20:56:46Z",
+              "schema_version": "1.4.0",
+              "id": "GHSA-wcg3-cvx6-7396",
               "aliases": [
                 "CVE-2020-26235"
               ],
@@ -263,10 +266,10 @@
               }
             },
             {
-              "schema_version": "1.4.0",
-              "id": "RUSTSEC-2020-0071",
               "modified": "2023-02-08T15:06:38Z",
               "published": "2020-11-18T12:00:00Z",
+              "schema_version": "1.4.0",
+              "id": "RUSTSEC-2020-0071",
               "aliases": [
                 "CVE-2020-26235"
               ],
@@ -393,6 +396,10 @@
               "ids": [
                 "GHSA-wcg3-cvx6-7396",
                 "RUSTSEC-2020-0071"
+              ],
+              "aliases": [
+                "GHSA-wcg3-cvx6-7396",
+                "RUSTSEC-2020-0071"
               ]
             }
           ]
@@ -413,10 +420,10 @@
           },
           "vulnerabilities": [
             {
-              "schema_version": "1.4.0",
-              "id": "GHSA-fxg5-wq6x-vr4w",
               "modified": "2023-01-24T18:56:46Z",
               "published": "2023-01-14T00:30:23Z",
+              "schema_version": "1.4.0",
+              "id": "GHSA-fxg5-wq6x-vr4w",
               "aliases": [
                 "CVE-2022-41721"
               ],
@@ -503,15 +510,14 @@
               }
             },
             {
-              "schema_version": "1.4.0",
-              "id": "GO-2023-1495",
               "modified": "2023-01-31T21:39:17Z",
               "published": "2023-01-13T22:39:40Z",
+              "schema_version": "1.4.0",
+              "id": "GO-2023-1495",
               "aliases": [
                 "CVE-2022-41721",
                 "GHSA-fxg5-wq6x-vr4w"
               ],
-              "summary": "",
               "details": "A request smuggling attack is possible when using MaxBytesHandler.\n\nWhen using MaxBytesHandler, the body of an HTTP request is not fully consumed. When the server attempts to read HTTP2 frames from the connection, it will instead be reading the body of the HTTP request, which could be attacker-manipulated to represent arbitrary HTTP2 requests.",
               "affected": [
                 {
@@ -562,15 +568,14 @@
               ]
             },
             {
-              "schema_version": "1.4.0",
-              "id": "GO-2022-1144",
               "modified": "2023-01-31T21:39:15Z",
               "published": "2022-12-08T19:01:21Z",
+              "schema_version": "1.4.0",
+              "id": "GO-2022-1144",
               "aliases": [
                 "CVE-2022-41717",
                 "GHSA-xrjj-mj9h-534m"
               ],
-              "summary": "",
               "details": "An attacker can cause excessive memory growth in a Go server accepting HTTP/2 requests.\n\nHTTP/2 server connections contain a cache of HTTP header keys sent by the client. While the total number of entries in this cache is capped, an attacker sending very large keys can cause the server to allocate approximately 64 MiB per open connection.",
               "affected": [
                 {
@@ -678,10 +683,10 @@
               ]
             },
             {
-              "schema_version": "1.4.0",
-              "id": "GHSA-vvpx-j8f3-3w6h",
               "modified": "2023-03-09T21:20:44Z",
               "published": "2023-02-17T14:00:02Z",
+              "schema_version": "1.4.0",
+              "id": "GHSA-vvpx-j8f3-3w6h",
               "aliases": [
                 "CVE-2022-41723"
               ],
@@ -753,15 +758,14 @@
               }
             },
             {
-              "schema_version": "1.4.0",
-              "id": "GO-2023-1571",
               "modified": "2023-02-22T20:13:12Z",
               "published": "2023-02-16T22:31:36Z",
+              "schema_version": "1.4.0",
+              "id": "GO-2023-1571",
               "aliases": [
                 "CVE-2022-41723",
                 "GHSA-vvpx-j8f3-3w6h"
               ],
-              "summary": "",
               "details": "A maliciously crafted HTTP/2 stream could cause excessive CPU consumption in the HPACK decoder, sufficient to cause a denial of service from a small number of small requests.",
               "affected": [
                 {
@@ -867,15 +871,26 @@
               "ids": [
                 "GHSA-fxg5-wq6x-vr4w",
                 "GO-2023-1495"
+              ],
+              "aliases": [
+                "GHSA-fxg5-wq6x-vr4w",
+                "GO-2023-1495"
               ]
             },
             {
               "ids": [
                 "GO-2022-1144"
+              ],
+              "aliases": [
+                "GO-2022-1144"
               ]
             },
             {
               "ids": [
+                "GHSA-vvpx-j8f3-3w6h",
+                "GO-2023-1571"
+              ],
+              "aliases": [
                 "GHSA-vvpx-j8f3-3w6h",
                 "GO-2023-1571"
               ]
@@ -898,11 +913,10 @@
           },
           "vulnerabilities": [
             {
-              "schema_version": "1.4.0",
-              "id": "GHSA-mrrw-grhq-86gf",
               "modified": "2023-02-28T20:30:10Z",
               "published": "2023-02-28T20:30:10Z",
-              "aliases": null,
+              "schema_version": "1.4.0",
+              "id": "GHSA-mrrw-grhq-86gf",
               "summary": "Ascii (crate) allows out-of-bounds array indexing in safe code",
               "details": "Affected version of this crate had implementation of `From\u003c\u0026mut AsciiStr\u003e` for `\u0026mut [u8]` and `\u0026mut str`. This can result in out-of-bounds array indexing in safe code.\n\nThe flaw was corrected in commit [8a6c779](https://github.com/tomprogrammer/rust-ascii/pull/63/commits/8a6c7798c202766bd57d70fb8d12739dd68fb9dc) by removing those impls.\n",
               "affected": [
@@ -957,11 +971,10 @@
               }
             },
             {
-              "schema_version": "1.4.0",
-              "id": "RUSTSEC-2023-0015",
               "modified": "2023-02-25T15:13:09Z",
               "published": "2023-02-25T12:00:00Z",
-              "aliases": null,
+              "schema_version": "1.4.0",
+              "id": "RUSTSEC-2023-0015",
               "summary": "Ascii allows out-of-bounds array indexing in safe code",
               "details": "Affected version of this crate had implementation of `From\u003c\u0026mut AsciiStr\u003e` for `\u0026mut [u8]` and `\u0026mut str`. This can result in out-of-bounds array indexing in safe code.\n\nThe flaw was corrected in commit [8a6c779](https://github.com/tomprogrammer/rust-ascii/pull/63/commits/8a6c7798c202766bd57d70fb8d12739dd68fb9dc) by removing those impls.",
               "affected": [
@@ -1021,10 +1034,16 @@
             {
               "ids": [
                 "GHSA-mrrw-grhq-86gf"
+              ],
+              "aliases": [
+                "GHSA-mrrw-grhq-86gf"
               ]
             },
             {
               "ids": [
+                "RUSTSEC-2023-0015"
+              ],
+              "aliases": [
                 "RUSTSEC-2023-0015"
               ]
             }
@@ -1038,11 +1057,10 @@
           },
           "vulnerabilities": [
             {
-              "schema_version": "1.4.0",
-              "id": "GHSA-mc8h-8q98-g5hr",
               "modified": "2023-02-24T16:23:59Z",
               "published": "2023-02-24T16:23:59Z",
-              "aliases": null,
+              "schema_version": "1.4.0",
+              "id": "GHSA-mc8h-8q98-g5hr",
               "summary": "Race Condition Enabling Link Following and Time-of-check Time-of-use (TOCTOU) Race Condition in remove_dir_all",
               "details": "The `remove_dir_all` crate is a Rust library that offers additional features over the Rust standard library `fs::remove_dir_all` function. It suffers the same class of failure as the code it was layering over: TOCTOU race conditions, with the ability to cause arbitrary paths to be deleted by substituting a symlink for a path after the type of the path was checked.\n\nThanks to the Rust security team for identifying the problem and alerting us to it.",
               "affected": [
@@ -1100,10 +1118,10 @@
               }
             },
             {
-              "schema_version": "1.4.0",
-              "id": "RUSTSEC-2023-0018",
               "modified": "2023-03-04T21:50:30Z",
               "published": "2023-02-24T12:00:00Z",
+              "schema_version": "1.4.0",
+              "id": "RUSTSEC-2023-0018",
               "aliases": [
                 "GHSA-mc8h-8q98-g5hr"
               ],
@@ -1173,6 +1191,10 @@
               "ids": [
                 "GHSA-mc8h-8q98-g5hr",
                 "RUSTSEC-2023-0018"
+              ],
+              "aliases": [
+                "GHSA-mc8h-8q98-g5hr",
+                "RUSTSEC-2023-0018"
               ]
             }
           ]
@@ -1185,10 +1207,10 @@
           },
           "vulnerabilities": [
             {
-              "schema_version": "1.4.0",
-              "id": "GHSA-wcg3-cvx6-7396",
               "modified": "2022-12-06T00:16:25Z",
               "published": "2021-08-25T20:56:46Z",
+              "schema_version": "1.4.0",
+              "id": "GHSA-wcg3-cvx6-7396",
               "aliases": [
                 "CVE-2020-26235"
               ],
@@ -1287,10 +1309,10 @@
               }
             },
             {
-              "schema_version": "1.4.0",
-              "id": "RUSTSEC-2020-0071",
               "modified": "2023-02-08T15:06:38Z",
               "published": "2020-11-18T12:00:00Z",
+              "schema_version": "1.4.0",
+              "id": "RUSTSEC-2020-0071",
               "aliases": [
                 "CVE-2020-26235"
               ],
@@ -1417,11 +1439,24 @@
               "ids": [
                 "GHSA-wcg3-cvx6-7396",
                 "RUSTSEC-2020-0071"
+              ],
+              "aliases": [
+                "GHSA-wcg3-cvx6-7396",
+                "RUSTSEC-2020-0071"
               ]
             }
           ]
         }
       ]
     }
-  ]
+  ],
+  "experimental_config": {
+    "call_analysis": {
+      "enabled": false
+    },
+    "licenses": {
+      "enabled": false,
+      "allowlist": null
+    }
+  }
 }

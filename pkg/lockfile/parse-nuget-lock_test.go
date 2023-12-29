@@ -63,6 +63,6 @@ func TestParseNuGetLock_InvalidVersion(t *testing.T) {
 
 	packages, err := lockfile.ParseNuGetLock("fixtures/nuget/empty.v0.json")
 
-	expectErrContaining(t, err, "unsupported lock file version")
+	expectErrContaining(t, err, "unsupported lock file version 0")
 	expectPackages(t, packages, []lockfile.PackageDetails{})
 }

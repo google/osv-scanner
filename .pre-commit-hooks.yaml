@@ -1,0 +1,7 @@
+- id: osv-scanner
+  name: osv-scanner
+  description: Vulnerability scanner written in Go which uses the data provided by https://osv.dev
+  entry: osv-scanner
+  always_run: true
+  pass_filenames: false
+  language: golang

@@ -137,6 +137,12 @@ func TestParseGoLock_TwoPackages(t *testing.T) {
 			Start:     models.FilePosition{Line: 7, Column: 2},
 			End:       models.FilePosition{Line: 7, Column: 25},
 		},
+		{
+			Name:      "stdlib",
+			Version:   "1.17.0",
+			Ecosystem: lockfile.GoEcosystem,
+			CompareAs: lockfile.GoEcosystem,
+		},
 	})
 }
 
@@ -189,6 +195,12 @@ func TestParseGoLock_IndirectPackages(t *testing.T) {
 			CompareAs: lockfile.GoEcosystem,
 			Start:     models.FilePosition{Line: 13, Column: 2},
 			End:       models.FilePosition{Line: 13, Column: 53},
+		},
+		{
+			Name:      "stdlib",
+			Version:   "1.17.0",
+			Ecosystem: lockfile.GoEcosystem,
+			CompareAs: lockfile.GoEcosystem,
 		},
 	})
 }

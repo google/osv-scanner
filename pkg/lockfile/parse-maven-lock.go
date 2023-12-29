@@ -3,11 +3,13 @@ package lockfile
 import (
 	"encoding/xml"
 	"fmt"
-	"github.com/google/osv-scanner/internal/cachedregexp"
 	"github.com/google/osv-scanner/pkg/models"
 	"os"
 	"path"
 	"path/filepath"
+	"strings"
+
+	"github.com/google/osv-scanner/internal/cachedregexp"
 )
 
 const MAX_PARENT_DEPTH = 10
@@ -17,6 +19,7 @@ type MavenLockDependency struct {
 	GroupID    string   `xml:"groupId"`
 	ArtifactID string   `xml:"artifactId"`
 	Version    string   `xml:"version"`
+	Scope      string   `xml:"scope"`
 	Start      models.FilePosition
 	End        models.FilePosition
 	SourceFile string
@@ -230,7 +233,7 @@ func (e MavenLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 	for _, lockPackage := range parsedLockfile.Dependencies.Dependencies {
 		finalName := lockPackage.GroupID + ":" + lockPackage.ArtifactID
 
-		details[finalName] = PackageDetails{
+		pkgDetails := PackageDetails{
 			Name:       finalName,
 			Version:    lockPackage.ResolveVersion(*parsedLockfile),
 			Ecosystem:  MavenEcosystem,
@@ -239,13 +242,16 @@ func (e MavenLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 			End:        lockPackage.End,
 			SourceFile: lockPackage.SourceFile,
 		}
+		if strings.TrimSpace(lockPackage.Scope) != "" {
+			pkgDetails.DepGroups = append(pkgDetails.DepGroups, lockPackage.Scope)
+		}
+		details[finalName] = pkgDetails
 	}
 
 	// managed dependencies take precedent over standard dependencies
 	for _, lockPackage := range parsedLockfile.ManagedDependencies.Dependencies {
 		finalName := lockPackage.GroupID + ":" + lockPackage.ArtifactID
-
-		details[finalName] = PackageDetails{
+		pkgDetails := PackageDetails{
 			Name:       finalName,
 			Version:    lockPackage.ResolveVersion(*parsedLockfile),
 			Ecosystem:  MavenEcosystem,
@@ -254,6 +260,10 @@ func (e MavenLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 			End:        lockPackage.End,
 			SourceFile: lockPackage.SourceFile,
 		}
+		if strings.TrimSpace(lockPackage.Scope) != "" {
+			pkgDetails.DepGroups = append(pkgDetails.DepGroups, lockPackage.Scope)
+		}
+		details[finalName] = pkgDetails
 	}
 
 	return pkgDetailsMapToSlice(details), nil

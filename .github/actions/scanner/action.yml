@@ -1,9 +1,9 @@
 # Currently experimental.
-name: 'osv-scanner'
-description: 'Scans your directory against the OSV database (Experimental)'
+name: "osv-scanner"
+description: "Scans your directory against the OSV database (Experimental)"
 inputs:
   scan-args:
-    description: 'Arguments to osv-scanner, separated by new line'
+    description: "Arguments to osv-scanner, separated by new line"
     default: |-
       --skip-git
       --recursive
@@ -11,7 +11,7 @@ inputs:
       --format=json
       ./
 runs:
-  using: 'docker'
-  image: '../../../action.dockerfile'
+  using: "docker"
+  image: "../../../action.dockerfile"
   args:
     - ${{ inputs.scan-args }}

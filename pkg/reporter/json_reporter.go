@@ -23,7 +23,11 @@ func NewJSONReporter(stdout io.Writer, stderr io.Writer) *JSONReporter {
 }
 
 func (r *JSONReporter) PrintError(msg string) {
-	fmt.Fprint(r.stderr, msg)
+	r.PrintErrorf(msg)
+}
+
+func (r *JSONReporter) PrintErrorf(msg string, a ...any) {
+	fmt.Fprintf(r.stderr, msg, a...)
 	r.hasPrintedError = true
 }
 
@@ -32,8 +36,12 @@ func (r *JSONReporter) HasPrintedError() bool {
 }
 
 func (r *JSONReporter) PrintText(msg string) {
+	r.PrintTextf(msg)
+}
+
+func (r *JSONReporter) PrintTextf(msg string, a ...any) {
 	// Print non json text to stderr
-	fmt.Fprint(r.stderr, msg)
+	fmt.Fprintf(r.stderr, msg, a...)
 }
 
 func (r *JSONReporter) PrintResult(vulnResult *models.VulnerabilityResults) error {

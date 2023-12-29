@@ -1,9 +1,8 @@
 package output
 
 import (
+	"slices"
 	"testing"
-
-	"golang.org/x/exp/slices"
 )
 
 func Test_idSortFunc(t *testing.T) {
