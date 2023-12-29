@@ -4,6 +4,7 @@ import (
 	"io/fs"
 	"os"
 	"path"
+	"path/filepath"
 	"testing"
 
 	"github.com/google/osv-scanner/pkg/models"
@@ -123,7 +124,7 @@ func TestParseMavenLock_OnePackage(t *testing.T) {
 			CompareAs:  lockfile.MavenEcosystem,
 			Start:      models.FilePosition{Line: 7, Column: 5},
 			End:        models.FilePosition{Line: 11, Column: 18},
-			SourceFile: sourcePath,
+			SourceFile: filepath.FromSlash(sourcePath),
 		},
 	})
 }
@@ -149,7 +150,7 @@ func TestParseMavenLock_OnePackageWithMultipleVersionVariable(t *testing.T) {
 			CompareAs:  lockfile.MavenEcosystem,
 			Start:      models.FilePosition{Line: 9, Column: 5},
 			End:        models.FilePosition{Line: 13, Column: 18},
-			SourceFile: sourcePath,
+			SourceFile: filepath.FromSlash(sourcePath),
 		},
 	})
 }
@@ -175,7 +176,7 @@ func TestParseMavenLock_TwoPackages(t *testing.T) {
 			CompareAs:  lockfile.MavenEcosystem,
 			Start:      models.FilePosition{Line: 7, Column: 5},
 			End:        models.FilePosition{Line: 11, Column: 18},
-			SourceFile: sourcePath,
+			SourceFile: filepath.FromSlash(sourcePath),
 		},
 		{
 			Name:       "org.slf4j:slf4j-log4j12",
@@ -184,7 +185,7 @@ func TestParseMavenLock_TwoPackages(t *testing.T) {
 			CompareAs:  lockfile.MavenEcosystem,
 			Start:      models.FilePosition{Line: 12, Column: 5},
 			End:        models.FilePosition{Line: 16, Column: 18},
-			SourceFile: sourcePath,
+			SourceFile: filepath.FromSlash(sourcePath),
 		},
 	})
 }
@@ -210,7 +211,7 @@ func TestParseMavenLock_WithDependencyManagement(t *testing.T) {
 			CompareAs:  lockfile.MavenEcosystem,
 			Start:      models.FilePosition{Line: 21, Column: 7},
 			End:        models.FilePosition{Line: 25, Column: 20},
-			SourceFile: sourcePath,
+			SourceFile: filepath.FromSlash(sourcePath),
 		},
 		{
 			Name:       "org.slf4j:slf4j-log4j12",
@@ -219,7 +220,7 @@ func TestParseMavenLock_WithDependencyManagement(t *testing.T) {
 			CompareAs:  lockfile.MavenEcosystem,
 			Start:      models.FilePosition{Line: 12, Column: 5},
 			End:        models.FilePosition{Line: 16, Column: 18},
-			SourceFile: sourcePath,
+			SourceFile: filepath.FromSlash(sourcePath),
 		},
 		{
 			Name:       "com.google.code.findbugs:jsr305",
@@ -228,7 +229,7 @@ func TestParseMavenLock_WithDependencyManagement(t *testing.T) {
 			CompareAs:  lockfile.MavenEcosystem,
 			Start:      models.FilePosition{Line: 26, Column: 7},
 			End:        models.FilePosition{Line: 30, Column: 20},
-			SourceFile: sourcePath,
+			SourceFile: filepath.FromSlash(sourcePath),
 		},
 	})
 }
@@ -254,7 +255,7 @@ func TestParseMavenLock_Interpolation(t *testing.T) {
 			CompareAs:  lockfile.MavenEcosystem,
 			Start:      models.FilePosition{Line: 18, Column: 5},
 			End:        models.FilePosition{Line: 22, Column: 18},
-			SourceFile: sourcePath,
+			SourceFile: filepath.FromSlash(sourcePath),
 		},
 		{
 			Name:       "org.mine:my.package",
@@ -263,7 +264,7 @@ func TestParseMavenLock_Interpolation(t *testing.T) {
 			CompareAs:  lockfile.MavenEcosystem,
 			Start:      models.FilePosition{Line: 24, Column: 5},
 			End:        models.FilePosition{Line: 28, Column: 18},
-			SourceFile: sourcePath,
+			SourceFile: filepath.FromSlash(sourcePath),
 		},
 		{
 			Name:       "org.mine:ranged-package",
@@ -272,7 +273,7 @@ func TestParseMavenLock_Interpolation(t *testing.T) {
 			CompareAs:  lockfile.MavenEcosystem,
 			Start:      models.FilePosition{Line: 33, Column: 7},
 			End:        models.FilePosition{Line: 37, Column: 20},
-			SourceFile: sourcePath,
+			SourceFile: filepath.FromSlash(sourcePath),
 		},
 	})
 }
