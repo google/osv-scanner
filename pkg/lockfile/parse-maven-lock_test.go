@@ -67,7 +67,7 @@ func TestMavenLockExtractor_ShouldExtract(t *testing.T) {
 func TestParseMavenLock_FileDoesNotExist(t *testing.T) {
 	t.Parallel()
 
-	packages, err := lockfile.ParseMavenLock("fixtures/maven/does-not-exist")
+	packages, err := lockfile.ParseMavenLock(filepath.FromSlash("fixtures/maven/does-not-exist"))
 
 	expectErrIs(t, err, fs.ErrNotExist)
 	expectPackages(t, packages, []lockfile.PackageDetails{})
@@ -76,7 +76,7 @@ func TestParseMavenLock_FileDoesNotExist(t *testing.T) {
 func TestParseMavenLock_Invalid(t *testing.T) {
 	t.Parallel()
 
-	packages, err := lockfile.ParseMavenLock("fixtures/maven/not-pom.txt")
+	packages, err := lockfile.ParseMavenLock(filepath.FromSlash("fixtures/maven/not-pom.txt"))
 
 	expectErrContaining(t, err, "could not extract from")
 	expectPackages(t, packages, []lockfile.PackageDetails{})
@@ -85,7 +85,7 @@ func TestParseMavenLock_Invalid(t *testing.T) {
 func TestParseMavenLock_InvalidSyntax(t *testing.T) {
 	t.Parallel()
 
-	packages, err := lockfile.ParseMavenLock("fixtures/maven/invalid-syntax.xml")
+	packages, err := lockfile.ParseMavenLock(filepath.FromSlash("fixtures/maven/invalid-syntax.xml"))
 
 	expectErrContaining(t, err, "XML syntax error")
 	expectPackages(t, packages, []lockfile.PackageDetails{})
@@ -94,7 +94,7 @@ func TestParseMavenLock_InvalidSyntax(t *testing.T) {
 func TestParseMavenLock_NoPackages(t *testing.T) {
 	t.Parallel()
 
-	packages, err := lockfile.ParseMavenLock("fixtures/maven/empty.xml")
+	packages, err := lockfile.ParseMavenLock(filepath.FromSlash("fixtures/maven/empty.xml"))
 
 	if err != nil {
 		t.Errorf("Got unexpected error: %v", err)
@@ -131,7 +131,7 @@ func TestParseMavenLock_OnePackage(t *testing.T) {
 
 func TestParseMavenLock_OnePackageWithMultipleVersionVariable(t *testing.T) {
 	t.Parallel()
-	lockfileRelativePath := "fixtures/maven/multiple-version-variables.xml"
+	lockfileRelativePath := filepath.FromSlash("fixtures/maven/multiple-version-variables.xml")
 	packages, err := lockfile.ParseMavenLock(lockfileRelativePath)
 
 	if err != nil {
@@ -157,7 +157,7 @@ func TestParseMavenLock_OnePackageWithMultipleVersionVariable(t *testing.T) {
 
 func TestParseMavenLock_TwoPackages(t *testing.T) {
 	t.Parallel()
-	lockfileRelativePath := "fixtures/maven/two-packages.xml"
+	lockfileRelativePath := filepath.FromSlash("fixtures/maven/two-packages.xml")
 	packages, err := lockfile.ParseMavenLock(lockfileRelativePath)
 
 	if err != nil {
@@ -192,7 +192,7 @@ func TestParseMavenLock_TwoPackages(t *testing.T) {
 
 func TestParseMavenLock_WithDependencyManagement(t *testing.T) {
 	t.Parallel()
-	lockfileRelativePath := "fixtures/maven/with-dependency-management.xml"
+	lockfileRelativePath := filepath.FromSlash("fixtures/maven/with-dependency-management.xml")
 	packages, err := lockfile.ParseMavenLock("fixtures/maven/with-dependency-management.xml")
 
 	if err != nil {
@@ -236,7 +236,7 @@ func TestParseMavenLock_WithDependencyManagement(t *testing.T) {
 
 func TestParseMavenLock_Interpolation(t *testing.T) {
 	t.Parallel()
-	lockfileRelativePath := "fixtures/maven/interpolation.xml"
+	lockfileRelativePath := filepath.FromSlash("fixtures/maven/interpolation.xml")
 	packages, err := lockfile.ParseMavenLock(lockfileRelativePath)
 
 	if err != nil {
@@ -281,7 +281,7 @@ func TestParseMavenLock_Interpolation(t *testing.T) {
 func TestMavenLock_WithParent(t *testing.T) {
 	t.Parallel()
 
-	packages, err := lockfile.ParseMavenLock("fixtures/maven/children/with-parent.xml")
+	packages, err := lockfile.ParseMavenLock(filepath.FromSlash("fixtures/maven/children/with-parent.xml"))
 
 	if err != nil {
 		t.Errorf("Got unexpected error: %v", err)
@@ -291,8 +291,8 @@ func TestMavenLock_WithParent(t *testing.T) {
 	if err != nil {
 		t.Errorf("Got unexpected error: %v", err)
 	}
-	parentPath := path.Join(dir, "fixtures/maven/parent.xml")
-	childPath := path.Join(dir, "fixtures/maven/children/with-parent.xml")
+	parentPath := path.Join(dir, filepath.FromSlash("fixtures/maven/parent.xml"))
+	childPath := path.Join(dir, filepath.FromSlash("fixtures/maven/children/with-parent.xml"))
 	expectPackages(t, packages, []lockfile.PackageDetails{
 		{
 			Name:       "com.google.code.findbugs:jsr305",
@@ -344,7 +344,7 @@ func TestMavenLock_WithParent(t *testing.T) {
 
 func TestMavenLock_WithParentWithoutRelativePath(t *testing.T) {
 	t.Parallel()
-	lockfilePath := "fixtures/maven/children/with-parent-without-relative-path.xml"
+	lockfilePath := filepath.FromSlash("fixtures/maven/children/with-parent-without-relative-path.xml")
 	packages, err := lockfile.ParseMavenLock(lockfilePath)
 
 	if err != nil {
@@ -355,7 +355,7 @@ func TestMavenLock_WithParentWithoutRelativePath(t *testing.T) {
 	if err != nil {
 		t.Errorf("Got unexpected error: %v", err)
 	}
-	parentPath := path.Join(dir, "fixtures/maven/pom.xml")
+	parentPath := path.Join(dir, filepath.FromSlash("fixtures/maven/pom.xml"))
 	childPath := path.Join(dir, lockfilePath)
 	expectPackages(t, packages, []lockfile.PackageDetails{
 		{
@@ -409,7 +409,7 @@ func TestMavenLock_WithParentWithoutRelativePath(t *testing.T) {
 func TestMavenLock_WithMultipleParents(t *testing.T) {
 	t.Parallel()
 
-	packages, err := lockfile.ParseMavenLock("fixtures/maven/children/with-multiple-parent.xml")
+	packages, err := lockfile.ParseMavenLock(filepath.FromSlash("fixtures/maven/children/with-multiple-parent.xml"))
 
 	if err != nil {
 		t.Errorf("Got unexpected error: %v", err)
@@ -419,9 +419,9 @@ func TestMavenLock_WithMultipleParents(t *testing.T) {
 	if err != nil {
 		t.Errorf("Got unexpected error: %v", err)
 	}
-	rootPath := path.Join(dir, "fixtures/maven/parent.xml")
-	parentPath := path.Join(dir, "fixtures/maven/children/with-parent.xml")
-	childPath := path.Join(dir, "fixtures/maven/children/with-multiple-parent.xml")
+	rootPath := path.Join(dir, filepath.FromSlash("fixtures/maven/parent.xml"))
+	parentPath := path.Join(dir, filepath.FromSlash("fixtures/maven/children/with-parent.xml"))
+	childPath := path.Join(dir, filepath.FromSlash("fixtures/maven/children/with-multiple-parent.xml"))
 	expectPackages(t, packages, []lockfile.PackageDetails{
 		{
 			Name:       "com.google.code.findbugs:jsr305",
@@ -561,7 +561,7 @@ func TestMavenLockDependency_ResolveVersion(t *testing.T) {
 func TestParseMavenLock_WithScope(t *testing.T) {
 	t.Parallel()
 
-	packages, err := lockfile.ParseMavenLock("fixtures/maven/with-scope.xml")
+	packages, err := lockfile.ParseMavenLock(filepath.FromSlash("fixtures/maven/with-scope.xml"))
 	if err != nil {
 		t.Errorf("Got unexpected error: %v", err)
 	}
@@ -577,7 +577,7 @@ func TestParseMavenLock_WithScope(t *testing.T) {
 			Ecosystem:  lockfile.MavenEcosystem,
 			CompareAs:  lockfile.MavenEcosystem,
 			Commit:     "",
-			SourceFile: path.Join(dir, "fixtures/maven/with-scope.xml"),
+			SourceFile: path.Join(dir, filepath.FromSlash("fixtures/maven/with-scope.xml")),
 			Start: models.FilePosition{
 				Line:   3,
 				Column: 5,
