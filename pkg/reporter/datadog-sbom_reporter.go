@@ -52,12 +52,21 @@ func (r *DatadogSbomReporter) PrintError(msg string) {
 	r.hasPrintedError = true
 }
 
+func (r *DatadogSbomReporter) PrintErrorf(msg string, a ...any) {
+	fmt.Fprintf(r.stderr, msg, a...)
+	r.hasPrintedError = true
+}
+
 func (r *DatadogSbomReporter) HasPrintedError() bool {
 	return r.hasPrintedError
 }
 
 func (r *DatadogSbomReporter) PrintText(msg string) {
 	_, _ = fmt.Fprint(r.stderr, msg)
+}
+
+func (r *DatadogSbomReporter) PrintTextf(msg string, a ...any) {
+	fmt.Fprintf(r.stderr, msg, a...)
 }
 
 func (r *DatadogSbomReporter) PrintResult(vulnResults *models.VulnerabilityResults) error {
