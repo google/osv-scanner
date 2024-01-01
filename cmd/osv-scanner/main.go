@@ -12,6 +12,7 @@ import (
 	"github.com/google/osv-scanner/pkg/osv"
 	"github.com/google/osv-scanner/pkg/osvscanner"
 	"github.com/google/osv-scanner/pkg/reporter"
+	"github.com/google/osv-scanner/pkg/spdx"
 	"golang.org/x/term"
 
 	"github.com/urfave/cli/v2"
@@ -171,12 +172,15 @@ func run(args []string, stdout, stderr io.Writer) int {
 				return fmt.Errorf("--experimental-licenses-summary and --experimental-licenses flags cannot be set")
 			}
 			allowlist := context.StringSlice("experimental-licenses")
-			if context.IsSet("experimental-licenses") &&
-				(len(allowlist) == 0 ||
-					(len(allowlist) == 1 && allowlist[0] == "")) {
-				return fmt.Errorf("--experimental-licenses requires at least one value")
+			if context.IsSet("experimental-licenses") {
+				if len(allowlist) == 0 ||
+					(len(allowlist) == 1 && allowlist[0] == "") {
+					return fmt.Errorf("--experimental-licenses requires at least one value")
+				}
+				if unrecognized := spdx.Unrecognized(allowlist); len(unrecognized) > 0 {
+					return fmt.Errorf("--experimental-licenses requires comma-separated spdx licenses. The following license(s) are not recognized as spdx: %s", strings.Join(unrecognized, ","))
+				}
 			}
-			// TODO: verify that the licenses they passed in are indeed spdx.
 
 			if r, err = reporter.New(format, stdout, stderr, termWidth); err != nil {
 				return err
