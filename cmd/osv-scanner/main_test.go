@@ -548,6 +548,35 @@ func TestRun(t *testing.T) {
 			`,
 			wantStderr: "",
 		},
+		{
+			name:         "invalid --verbosity value",
+			args:         []string{"", "--verbosity", "unknown", "./fixtures/locks-many/composer.lock"},
+			wantExitCode: 127,
+			wantStdout:   "",
+			wantStderr: `
+			invalid verbosity level "unknown" - must be one of: error, warn, info, verbose
+			`,
+		},
+		{
+			name:         "verbosity level = error",
+			args:         []string{"", "--verbosity", "error", "--format", "table", "./fixtures/locks-many/composer.lock"},
+			wantExitCode: 0,
+			wantStdout: `
+			No issues found
+			`,
+			wantStderr: ``,
+		},
+		{
+			name:         "verbosity level = info",
+			args:         []string{"", "--verbosity", "info", "--format", "table", "./fixtures/locks-many/composer.lock"},
+			wantExitCode: 0,
+			wantStdout: `
+			Scanning dir ./fixtures/locks-many/composer.lock
+			Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
+			No issues found
+			`,
+			wantStderr: ``,
+		},
 	}
 	for _, tt := range tests {
 		tt := tt

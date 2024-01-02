@@ -116,6 +116,11 @@ func run(args []string, stdout, stderr io.Writer) int {
 				Name:  "no-call-analysis",
 				Usage: "disables call graph analysis",
 			},
+			&cli.StringFlag{
+				Name:  "verbosity",
+				Usage: fmt.Sprintf("specify the level of information that should be provided during runtime; value can be: %s", strings.Join(reporter.VerbosityLevels(), ", ")),
+				Value: "info",
+			},
 			&cli.BoolFlag{
 				Name:  "experimental-local-db",
 				Usage: "checks for vulnerabilities using local databases",
@@ -182,7 +187,12 @@ func run(args []string, stdout, stderr io.Writer) int {
 				}
 			}
 
-			if r, err = reporter.New(format, stdout, stderr, reporter.InfoLevel, termWidth); err != nil {
+			verbosityLevel, err := reporter.ParseVerbosityLevel(context.String("verbosity"))
+			if err != nil {
+				return err
+			}
+
+			if r, err = reporter.New(format, stdout, stderr, verbosityLevel, termWidth); err != nil {
 				return err
 			}
 
