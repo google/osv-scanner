@@ -41,8 +41,8 @@ func run(args []string, stdout, stderr io.Writer) int {
 
 	cli.VersionPrinter = func(ctx *cli.Context) {
 		// Use the app Writer and ErrWriter since they will be the writers to keep parallel tests consistent
-		tableReporter = reporter.NewTableReporter(ctx.App.Writer, ctx.App.ErrWriter, false, 0)
-		tableReporter.PrintTextf("osv-scanner version: %s\ncommit: %s\nbuilt at: %s\n", ctx.App.Version, commit, date)
+		tableReporter = reporter.NewTableReporter(ctx.App.Writer, ctx.App.ErrWriter, reporter.InfoLevel, false, 0)
+		tableReporter.Infof("osv-scanner version: %s\ncommit: %s\nbuilt at: %s\n", ctx.App.Version, commit, date)
 	}
 
 	app := &cli.App{
@@ -87,7 +87,7 @@ func run(args []string, stdout, stderr io.Writer) int {
 				}
 			}
 
-			if tableReporter, err = reporter.New("table", stdout, stderr, termWidth); err != nil {
+			if tableReporter, err = reporter.New("table", stdout, stderr, reporter.InfoLevel, termWidth); err != nil {
 				return err
 			}
 
@@ -133,7 +133,7 @@ func run(args []string, stdout, stderr io.Writer) int {
 
 			if context.Bool("gh-annotations") {
 				var ghAnnotationsReporter reporter.Reporter
-				if ghAnnotationsReporter, err = reporter.New("gh-annotations", stdout, stderr, termWidth); err != nil {
+				if ghAnnotationsReporter, err = reporter.New("gh-annotations", stdout, stderr, reporter.InfoLevel, termWidth); err != nil {
 					return err
 				}
 
@@ -151,7 +151,7 @@ func run(args []string, stdout, stderr io.Writer) int {
 				}
 				termWidth = 0
 				var sarifReporter reporter.Reporter
-				if sarifReporter, err = reporter.New("sarif", stdout, stderr, termWidth); err != nil {
+				if sarifReporter, err = reporter.New("sarif", stdout, stderr, reporter.InfoLevel, termWidth); err != nil {
 					return err
 				}
 
@@ -172,23 +172,23 @@ func run(args []string, stdout, stderr io.Writer) int {
 
 	if err := app.Run(args); err != nil {
 		if tableReporter == nil {
-			tableReporter = reporter.NewTableReporter(stdout, stderr, false, 0)
+			tableReporter = reporter.NewTableReporter(stdout, stderr, reporter.InfoLevel, false, 0)
 		}
 		if errors.Is(err, osvscanner.VulnerabilitiesFoundErr) {
 			return 1
 		}
 
 		if errors.Is(err, osvscanner.NoPackagesFoundErr) {
-			tableReporter.PrintErrorf("No package sources found, --help for usage information.\n")
+			tableReporter.Errorf("No package sources found, --help for usage information.\n")
 			return 128
 		}
 
-		tableReporter.PrintErrorf("%v\n", err)
+		tableReporter.Errorf("%v\n", err)
 	}
 
 	// if we've been told to print an error, and not already exited with
 	// a specific error code, then exit with a generic non-zero code
-	if tableReporter != nil && tableReporter.HasPrintedError() {
+	if tableReporter != nil && tableReporter.HasErrored() {
 		return 127
 	}
 
