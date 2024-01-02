@@ -11,5 +11,6 @@ func Unrecognized(licenses []string) (unrecognized []string) {
 			unrecognized = append(unrecognized, license)
 		}
 	}
+
 	return unrecognized
 }
