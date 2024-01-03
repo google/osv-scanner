@@ -61,7 +61,7 @@ Alternatively, you can install this from source by running:
 go install github.com/google/osv-scanner/cmd/osv-scanner@v1
 ```
 
-This requires Go 1.21.1+ to be installed.
+This requires Go 1.21.4+ to be installed.
 
 ## Build from source
 
