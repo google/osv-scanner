@@ -3,6 +3,7 @@ package reporter
 import (
 	"bytes"
 	"context"
+	"encoding/json"
 	"fmt"
 	"io"
 	"log"
@@ -24,6 +25,7 @@ type DatadogSbomReporter struct {
 	hasPrintedError bool
 	stdout          io.Writer
 	stderr          io.Writer
+	offline         bool
 }
 
 const (
@@ -40,12 +42,13 @@ var (
 	}
 )
 
-func NewDatadogSbomReporter(stdout io.Writer, stderr io.Writer) *DatadogSbomReporter {
+func NewDatadogSbomReporter(stdout io.Writer, stderr io.Writer, offline bool) *DatadogSbomReporter {
 	return &DatadogSbomReporter{
 		stdout:          stdout,
 		stderr:          stderr,
 		hasPrintedError: false,
 		client:          &http.Client{},
+		offline:         offline,
 	}
 }
 
@@ -71,7 +74,7 @@ func (r *DatadogSbomReporter) PrintTextf(msg string, a ...any) {
 	fmt.Fprintf(r.stderr, msg, a...)
 }
 
-func (r *DatadogSbomReporter) PrintResult(vulnResults *models.VulnerabilityResults) error {
+func (r *DatadogSbomReporter) sendToDatadog(data []byte) error {
 	var baseURL string
 
 	site := os.Getenv("DD_SITE")
@@ -94,13 +97,7 @@ func (r *DatadogSbomReporter) PrintResult(vulnResults *models.VulnerabilityResul
 	if apiKey == "" {
 		return fmt.Errorf("DD_API_KEY is not set")
 	}
-
-	bs, err := toRequestBody(vulnResults)
-	if err != nil {
-		return err
-	}
-
-	req, err := http.NewRequestWithContext(context.Background(), http.MethodPost, apiURL, bytes.NewReader(bs))
+	req, err := http.NewRequestWithContext(context.Background(), http.MethodPost, apiURL, bytes.NewReader(data))
 	if err != nil {
 		return err
 	}
@@ -111,7 +108,6 @@ func (r *DatadogSbomReporter) PrintResult(vulnResults *models.VulnerabilityResul
 	if err != nil {
 		return err
 	}
-
 	body, err := io.ReadAll(response.Body)
 	if err != nil {
 		return err
@@ -120,24 +116,35 @@ func (r *DatadogSbomReporter) PrintResult(vulnResults *models.VulnerabilityResul
 	if err != nil {
 		return err
 	}
-
 	if response.StatusCode != http.StatusAccepted {
 		return fmt.Errorf("error sending request with status='%v' and body='%v'", response.Status, string(body))
 	}
 
 	log.Println("Successfully sent SBOM to Datadog")
-
 	return nil
 }
 
-func toRequestBody(results *models.VulnerabilityResults) ([]byte, error) {
+func (r *DatadogSbomReporter) PrintResult(vulnResults *models.VulnerabilityResults) error {
+	bs, err := r.toRequestBody(vulnResults)
+	if err != nil {
+		return err
+	}
+
+	if !r.offline {
+		return r.sendToDatadog(bs)
+	}
+	_, err = r.stdout.Write(bs)
+	return err
+}
+
+func (r *DatadogSbomReporter) toRequestBody(results *models.VulnerabilityResults) ([]byte, error) {
 	source := "CI"
 
 	bom := toBom(results)
 
 	now := timestamppb.Now()
 
-	repositoryURL, err := getRepositoryURL()
+	repositoryURL, err := r.getRepositoryURL()
 	if err != nil {
 		return nil, err
 	}
@@ -165,12 +172,10 @@ func toRequestBody(results *models.VulnerabilityResults) ([]byte, error) {
 		},
 	}
 
-	bs, err := proto.Marshal(payload)
-	if err != nil {
-		return nil, err
+	if !r.offline {
+		return proto.Marshal(payload)
 	}
-
-	return bs, nil
+	return json.Marshal(bom)
 }
 
 func readEnvironmentTags() []string {
@@ -299,7 +304,7 @@ func getPackageURL(packageInfo models.PackageInfo) *packageurl.PackageURL {
 	return packageurl.NewPackageURL(purlType, namespace, name, version, nil, "")
 }
 
-func getRepositoryURL() (string, error) {
+func (r *DatadogSbomReporter) getRepositoryURL() (string, error) {
 	githubRepository := os.Getenv("GITHUB_REPOSITORY")
 	if githubRepository != "" {
 		return fmt.Sprintf("git@github.com:%s.git", githubRepository), nil
@@ -310,5 +315,8 @@ func getRepositoryURL() (string, error) {
 		return repositoryURL, nil
 	}
 
+	if r.offline {
+		return "offline-scan", nil
+	}
 	return "", fmt.Errorf("REPOSITORY_URL is not set")
 }

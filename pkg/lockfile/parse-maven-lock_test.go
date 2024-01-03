@@ -342,6 +342,70 @@ func TestMavenLock_WithParent(t *testing.T) {
 	})
 }
 
+func TestMavenLock_WithParentDirOnly(t *testing.T) {
+	t.Parallel()
+
+	packages, err := lockfile.ParseMavenLock(filepath.FromSlash("fixtures/maven/children/with-parent-dir-only.xml"))
+
+	if err != nil {
+		t.Errorf("Got unexpected error: %v", err)
+	}
+
+	dir, err := os.Getwd()
+	if err != nil {
+		t.Errorf("Got unexpected error: %v", err)
+	}
+	parentPath := path.Join(dir, filepath.FromSlash("fixtures/maven/pom.xml"))
+	childPath := path.Join(dir, filepath.FromSlash("fixtures/maven/children/with-parent-dir-only.xml"))
+	expectPackages(t, packages, []lockfile.PackageDetails{
+		{
+			Name:       "com.google.code.findbugs:jsr305",
+			Version:    "3.0.2",
+			Ecosystem:  lockfile.MavenEcosystem,
+			CompareAs:  lockfile.MavenEcosystem,
+			Start:      models.FilePosition{Line: 16, Column: 7},
+			End:        models.FilePosition{Line: 20, Column: 20},
+			SourceFile: parentPath,
+		},
+		{
+			Name:       "io.netty:netty-all",
+			Version:    "4.1.42.Final",
+			Ecosystem:  lockfile.MavenEcosystem,
+			CompareAs:  lockfile.MavenEcosystem,
+			Start:      models.FilePosition{Line: 11, Column: 7},
+			End:        models.FilePosition{Line: 15, Column: 20},
+			SourceFile: parentPath,
+		},
+		{
+			Name:       "org.slf4j:slf4j-log4j12",
+			Version:    "1.7.25",
+			Ecosystem:  lockfile.MavenEcosystem,
+			CompareAs:  lockfile.MavenEcosystem,
+			Start:      models.FilePosition{Line: 18, Column: 5},
+			End:        models.FilePosition{Line: 22, Column: 18},
+			SourceFile: childPath,
+		},
+		{
+			Name:       "org.mine:mypackage",
+			Version:    "1.0.0",
+			Ecosystem:  lockfile.MavenEcosystem,
+			CompareAs:  lockfile.MavenEcosystem,
+			Start:      models.FilePosition{Line: 23, Column: 5},
+			End:        models.FilePosition{Line: 27, Column: 18},
+			SourceFile: childPath,
+		},
+		{
+			Name:       "org.mine:my.package",
+			Version:    "2.3.4",
+			Ecosystem:  lockfile.MavenEcosystem,
+			CompareAs:  lockfile.MavenEcosystem,
+			Start:      models.FilePosition{Line: 28, Column: 5},
+			End:        models.FilePosition{Line: 32, Column: 18},
+			SourceFile: childPath,
+		},
+	})
+}
+
 func TestMavenLock_WithParentWithoutRelativePath(t *testing.T) {
 	t.Parallel()
 	lockfilePath := filepath.FromSlash("fixtures/maven/children/with-parent-without-relative-path.xml")
