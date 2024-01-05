@@ -49,4 +49,3 @@ jobs:
         --skip-git
         ./
         ./docs/
-      fail-on-vuln: false
