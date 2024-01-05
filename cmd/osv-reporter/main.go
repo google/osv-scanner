@@ -165,11 +165,8 @@ func run(args []string, stdout, stderr io.Writer) int {
 				}
 			}
 
-			failOnVuln := true // Default true
-			if context.IsSet("fail-on-vuln") && !context.Bool("fail-on-vuln") {
-				// If flag is set to false, only then set to false
-				failOnVuln = false
-			}
+			// Default to true, only false when explicitly set to false
+			failOnVuln := !context.IsSet("fail-on-vuln") || context.Bool("fail-on-vuln")
 
 			// if vulnerability exists it should return error
 			if len(diffVulns.Results) > 0 && failOnVuln {
