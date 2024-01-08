@@ -10,7 +10,6 @@ require (
 	github.com/go-git/go-billy/v5 v5.5.0
 	github.com/go-git/go-git/v5 v5.11.0
 	github.com/google/go-cmp v0.6.0
-	github.com/hexops/gotextdiff v1.0.3
 	github.com/ianlancetaylor/demangle v0.0.0-20231023195312-e2daf7ba7156
 	github.com/jedib0t/go-pretty/v6 v6.5.3
 	github.com/owenrumney/go-sarif/v2 v2.3.0
