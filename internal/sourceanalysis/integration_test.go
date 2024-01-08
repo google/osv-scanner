@@ -7,7 +7,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/google/osv-scanner/internal/testutility"
+	"github.com/google/osv-scanner/internal/testsnapshot"
 	"github.com/google/osv-scanner/pkg/models"
 )
 
@@ -51,5 +51,6 @@ func Test_RunGoVulnCheck(t *testing.T) {
 
 	res["GO-2023-1558"][0].Trace[1].Position.Filename = "<Any value>"
 	res["GO-2023-1558"][0].Trace[1].Position.Offset = -1
-	testutility.AssertMatchFixtureJSON(t, filepath.Join(fixturesDir, "snapshots/govulncheckshim_test.json"), res)
+
+	testsnapshot.New("", map[string]string{}).MatchJSON(t, res)
 }

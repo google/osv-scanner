@@ -8,6 +8,7 @@ import (
 	"strings"
 	"testing"
 
+	"github.com/google/osv-scanner/internal/testsnapshot"
 	"github.com/google/osv-scanner/internal/testutility"
 	"github.com/google/osv-scanner/pkg/models"
 	"github.com/google/osv-scanner/pkg/reporter"
@@ -59,9 +60,7 @@ func Test_functionsFromDWARF(t *testing.T) {
 				t.Error(err)
 			}
 
-			outputName := strings.TrimSuffix(filename, ".o") + ".json"
-
-			testutility.AssertMatchFixtureJSON(t, "fixtures-rust/functions/"+outputName, functions)
+			testsnapshot.New("", map[string]string{}).MatchJSON(t, functions)
 		})
 	}
 }
