@@ -121,6 +121,7 @@ func (r *DatadogSbomReporter) sendToDatadog(data []byte) error {
 	}
 
 	log.Println("Successfully sent SBOM to Datadog")
+
 	return nil
 }
 
@@ -134,6 +135,7 @@ func (r *DatadogSbomReporter) PrintResult(vulnResults *models.VulnerabilityResul
 		return r.sendToDatadog(bs)
 	}
 	_, err = r.stdout.Write(bs)
+
 	return err
 }
 
@@ -175,6 +177,7 @@ func (r *DatadogSbomReporter) toRequestBody(results *models.VulnerabilityResults
 	if !r.offline {
 		return proto.Marshal(payload)
 	}
+
 	return json.Marshal(bom)
 }
 
@@ -318,5 +321,6 @@ func (r *DatadogSbomReporter) getRepositoryURL() (string, error) {
 	if r.offline {
 		return "offline-scan", nil
 	}
+
 	return "", fmt.Errorf("REPOSITORY_URL is not set")
 }
