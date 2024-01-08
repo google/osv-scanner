@@ -7,9 +7,11 @@ inputs:
     default: |-
       --skip-git
       --recursive
+      --output=results.json
+      --format=json
       ./
 runs:
   using: "docker"
-  image: "../../action.dockerfile"
+  image: "../../../action.dockerfile"
   args:
     - ${{ inputs.scan-args }}

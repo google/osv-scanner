@@ -49,7 +49,7 @@ permissions:
 
 jobs:
   scan-pr:
-    uses: "google/osv-scanner-action/.github/workflows/osv-scanner-reusable.yml@v1.5.0"
+    uses: "google/osv-scanner/.github/workflows/osv-scanner-reusable-pr.yml@staging"
 ```
 
 ### View results
@@ -199,7 +199,7 @@ jobs:
     name: Vulnerability scanning
     # makes sure the extraction step is completed before running the scanner
     needs: extract-deps
-    uses: "google/osv-scanner-action/.github/workflows/osv-scanner-reusable.yml@v1.5.0"
+    uses: "google/osv-scanner/.github/workflows/osv-scanner-reusable.yml@staging"
     with:
       # Download the artifact uploaded in extract-deps step
       download-artifact: converted-OSV-Scanner-deps
@@ -213,3 +213,87 @@ jobs:
 ```
 
 </details>
+
+## Scheduled scans
+
+Regularly scanning your project for vulnerabilities can alert you to new vulnerabilities in your dependency tree. This GitHub Action will scan your project on a set schedule and report all known vulnerabilities. If vulnerabilities are found the action will return a failed status.
+
+### Instructions
+
+In your project repository, create a new file `.github/workflows/osv-scanner-scheduled.yml`.
+
+Include the following in the [`osv-scanner-scheduled.yml`](https://github.com/google/osv-scanner/blob/main/.github/workflows/osv-scanner-scheduled.yml) file:
+
+```yml
+name: OSV-Scanner Scheduled Scan
+
+on:
+  schedule:
+    - cron: "30 12 * * 1"
+  # Change "main" to your default branch if you use a different name, i.e. "master"
+  push:
+    branches: [main]
+
+permissions:
+  # Require writing security events to upload SARIF file to security tab
+  security-events: write
+  # Only need to read contents
+  contents: read
+
+jobs:
+  scan-scheduled:
+    uses: "google/osv-scanner/.github/workflows/osv-scanner-reusable.yml@staging"
+```
+
+As written, the scanner will run on 12:30 pm UTC every Monday, and also on every push to the main branch. You can change the schedule by following the instructions [here](https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#schedule).
+
+### Customization
+
+`osv-scanner-reusable-pr.yml` has the same customization options as `osv-scanner-reusable.yml`, which is described [here](./github-action.md#customization).
+
+### View results
+
+Maintainers can review results of the scan by navigating to their project's `security > code scanning` tab. Vulnerability details can also be viewed by clicking on the details of the failed action.
+
+## Scan on release
+
+Here is a example of blocking on release, though the actual implementation will heavily depend on your specific release process.
+
+```yml
+name: Go Release Process
+
+on:
+  push:
+    tags:
+      - "*" # triggers only if push new tag version, like `0.8.4` or else
+
+permissions:
+  contents: read # to fetch code (actions/checkout)
+
+jobs:
+  osv-scan:
+    uses: google/osv-scanner/.github/workflows/osv-scanner-reusable.yml
+    with:
+      # Only scan the top level go.mod file without recursively scanning directories since
+      # this is pipeline is about releasing the go module and binary
+      scan-args: |-
+        --skip-git
+        ./
+    permissions:
+      # Require writing security events to upload SARIF file to security tab
+      security-events: write
+  tests:
+    name: Run unit tests
+    ...
+  release:
+    needs: # Needs both tests and osv-scan to pass
+      - tests
+      - osv-scan
+    # Your actual release steps
+    steps:
+      ...
+```
+
+### View results
+
+Results may be viewed by clicking on the details of the failed release action from the action tab.

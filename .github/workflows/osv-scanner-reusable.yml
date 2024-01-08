@@ -28,6 +28,11 @@ on:
           -r
           --skip-git
           ./
+      report-args:
+        description: "Custom osv-reporter arguments (See https://google.github.io/osv-scanner/usage/ for options, you cannot set --format or --output)"
+        type: string
+        default: |-
+          --datadog-sbom
       results-file-name:
         description: "File name of the result SARIF file"
         type: string
@@ -57,7 +62,7 @@ jobs:
           name: "${{ inputs.download-artifact }}"
           path: "./"
       - name: "Run scanner"
-        uses: google/osv-scanner/actions/scanner@main
+        uses: DataDog/osv-scanner/actions/scanner@staging
         with:
           scan-args: |-
             --output=results.json
@@ -65,12 +70,13 @@ jobs:
             ${{ inputs.scan-args }}
         continue-on-error: true
       - name: "Run osv-scanner-reporter"
-        uses: google/osv-scanner/actions/reporter@main
+        uses: DataDog/osv-scanner/actions/reporter@staging
         with:
-          scan-args: |-
+          report-args: |-
             --output=${{ inputs.results-file-name }}
             --new=results.json
             --gh-annotations=false
+            ${{ inputs.report-args }}
       # Upload the results as artifacts (optional). Commenting out will disable uploads of run results in SARIF
       # format to the repository Actions tab.
       - name: "Upload artifact"

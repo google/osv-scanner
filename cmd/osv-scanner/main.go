@@ -140,6 +140,10 @@ func run(args []string, stdout, stderr io.Writer) int {
 				Name:  "experimental-licenses",
 				Usage: "report on licenses based on an allowlist",
 			},
+			&cli.BoolFlag{
+				Name:  "experimental-only-packages",
+				Usage: "only collects packages, does not scan for vulnerabilities",
+			},
 		},
 		ArgsUsage: "[directory1 directory2...]",
 		Action: func(context *cli.Context) error {
@@ -212,6 +216,7 @@ func run(args []string, stdout, stderr io.Writer) int {
 						context.Bool("experimental-licenses-summary"),
 					ScanLicensesSummary:   context.Bool("experimental-licenses-summary"),
 					ScanLicensesAllowlist: context.StringSlice("experimental-licenses"),
+					OnlyPackages:          context.Bool("experimental-only-packages"),
 				},
 			}, r)
 

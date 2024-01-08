@@ -530,7 +530,7 @@ func TestRun(t *testing.T) {
 			wantExitCode: 127,
 			wantStdout:   "",
 			wantStderr: `
-				unsupported output format "unknown" - must be one of: table, json, markdown, sarif, gh-annotations
+				unsupported output format "unknown" - must be one of: table, json, markdown, sarif, gh-annotations, datadog-sbom, datadog-offline-sbom
 			`,
 		},
 		// one specific supported lockfile with ignore
@@ -1265,7 +1265,15 @@ Filtered 2 vulnerabilities from output
 								"package": {
 									"name": "babel",
 									"version": "6.23.0",
-									"ecosystem": "npm"
+									"ecosystem": "npm",
+									"start": {
+										"line": 0,
+										"column": 0
+									},
+									"end": {
+										"line": 0,
+										"column": 0
+									}
 								},
 								"licenses": [
 									"MIT"
@@ -1275,7 +1283,15 @@ Filtered 2 vulnerabilities from output
 								"package": {
 									"name": "human-signals",
 									"version": "5.0.0",
-									"ecosystem": "npm"
+									"ecosystem": "npm",
+									"start": {
+										"line": 0,
+										"column": 0
+									},
+									"end": {
+										"line": 0,
+										"column": 0
+									}
 								},
 								"licenses": [
 									"Apache-2.0"
@@ -1288,7 +1304,15 @@ Filtered 2 vulnerabilities from output
 								"package": {
 									"name": "ms",
 									"version": "2.1.3",
-									"ecosystem": "npm"
+									"ecosystem": "npm",
+									"start": {
+										"line": 0,
+										"column": 0
+									},
+									"end": {
+										"line": 0,
+										"column": 0
+									}
 								},
 								"licenses": [
 									"MIT"
@@ -1329,7 +1353,15 @@ Filtered 2 vulnerabilities from output
 								"package": {
 									"name": "human-signals",
 									"version": "5.0.0",
-									"ecosystem": "npm"
+									"ecosystem": "npm",
+									"start": {
+										"line": 0,
+										"column": 0
+									},
+									"end": {
+										"line": 0,
+										"column": 0
+									}
 								},
 								"licenses": [
 									"Apache-2.0"
@@ -1373,7 +1405,15 @@ Filtered 2 vulnerabilities from output
 								"package": {
 									"name": "babel",
 									"version": "6.23.0",
-									"ecosystem": "npm"
+									"ecosystem": "npm",
+									"start": {
+										"line": 0,
+										"column": 0
+									},
+									"end": {
+										"line": 0,
+										"column": 0
+									}
 								},
 								"licenses": [
 									"MIT"
@@ -1383,7 +1423,15 @@ Filtered 2 vulnerabilities from output
 								"package": {
 									"name": "human-signals",
 									"version": "5.0.0",
-									"ecosystem": "npm"
+									"ecosystem": "npm",
+									"start": {
+										"line": 0,
+										"column": 0
+									},
+									"end": {
+										"line": 0,
+										"column": 0
+									}
 								},
 								"licenses": [
 									"Apache-2.0"
@@ -1393,7 +1441,15 @@ Filtered 2 vulnerabilities from output
 								"package": {
 									"name": "ms",
 									"version": "2.1.3",
-									"ecosystem": "npm"
+									"ecosystem": "npm",
+									"start": {
+										"line": 0,
+										"column": 0
+									},
+									"end": {
+										"line": 0,
+										"column": 0
+									}
 								},
 								"licenses": [
 									"MIT"
@@ -1435,7 +1491,15 @@ Filtered 2 vulnerabilities from output
 								"package": {
 									"name": "babel",
 									"version": "6.23.0",
-									"ecosystem": "npm"
+									"ecosystem": "npm",
+									"start": {
+										"line": 0,
+										"column": 0
+									},
+									"end": {
+										"line": 0,
+										"column": 0
+									}
 								},
 								"licenses": [
 									"MIT"
@@ -1445,7 +1509,15 @@ Filtered 2 vulnerabilities from output
 								"package": {
 									"name": "human-signals",
 									"version": "5.0.0",
-									"ecosystem": "npm"
+									"ecosystem": "npm",
+									"start": {
+										"line": 0,
+										"column": 0
+									},
+									"end": {
+										"line": 0,
+										"column": 0
+									}
 								},
 								"licenses": [
 									"Apache-2.0"
@@ -1455,7 +1527,15 @@ Filtered 2 vulnerabilities from output
 								"package": {
 									"name": "ms",
 									"version": "2.1.3",
-									"ecosystem": "npm"
+									"ecosystem": "npm",
+									"start": {
+										"line": 0,
+										"column": 0
+									},
+									"end": {
+										"line": 0,
+										"column": 0
+									}
 								},
 								"licenses": [
 									"MIT"

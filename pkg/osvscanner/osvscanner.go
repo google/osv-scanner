@@ -374,6 +374,12 @@ func scanLockfile(r reporter.Reporter, path string, parseAs string) ([]scannedPa
 
 	packages := make([]scannedPackage, len(parsedLockfile.Packages))
 	for i, pkgDetail := range parsedLockfile.Packages {
+		var sourcePath string
+		if len(pkgDetail.SourceFile) > 0 {
+			sourcePath = pkgDetail.SourceFile
+		} else {
+			sourcePath = path
+		}
 		packages[i] = scannedPackage{
 			Name:      pkgDetail.Name,
 			Version:   pkgDetail.Version,
@@ -381,9 +387,11 @@ func scanLockfile(r reporter.Reporter, path string, parseAs string) ([]scannedPa
 			Ecosystem: pkgDetail.Ecosystem,
 			DepGroups: pkgDetail.DepGroups,
 			Source: models.SourceInfo{
-				Path: path,
+				Path: sourcePath,
 				Type: "lockfile",
 			},
+			Start: pkgDetail.Start,
+			End:   pkgDetail.End,
 		}
 	}
 
@@ -691,6 +699,8 @@ type scannedPackage struct {
 	Ecosystem lockfile.Ecosystem
 	Commit    string
 	Version   string
+	Start     models.FilePosition
+	End       models.FilePosition
 	Source    models.SourceInfo
 	DepGroups []string
 }

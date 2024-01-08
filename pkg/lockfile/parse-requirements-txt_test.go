@@ -4,6 +4,8 @@ import (
 	"io/fs"
 	"testing"
 
+	"github.com/google/osv-scanner/pkg/models"
+
 	"github.com/google/osv-scanner/pkg/lockfile"
 )
 
@@ -714,6 +716,75 @@ func TestParseRequirementsTxt_LineContinuation(t *testing.T) {
 			Ecosystem: lockfile.PipEcosystem,
 			CompareAs: lockfile.PipEcosystem,
 			DepGroups: []string{"line-continuation"},
+		},
+	})
+}
+
+func TestParseRequirementsTxt_EnvironmentMarkers(t *testing.T) {
+	t.Parallel()
+
+	packages, err := lockfile.ParseRequirementsTxt("fixtures/pip/environment-markers.txt")
+
+	if err != nil {
+		t.Errorf("Got unexpected error: %v", err)
+	}
+
+	expectPackages(t, packages, []lockfile.PackageDetails{
+		{
+			Name:       "aa",
+			Version:    "0.0.0",
+			Ecosystem:  lockfile.PipEcosystem,
+			CompareAs:  lockfile.PipEcosystem,
+			Start:      models.FilePosition{Line: 0, Column: 0},
+			End:        models.FilePosition{Line: 0, Column: 0},
+			Commit:     "",
+			SourceFile: "",
+			DepGroups:  []string{"environment-markers"},
+		},
+		{
+			Name:       "name6",
+			Version:    "0.0.0",
+			Ecosystem:  lockfile.PipEcosystem,
+			CompareAs:  lockfile.PipEcosystem,
+			Start:      models.FilePosition{Line: 0, Column: 0},
+			End:        models.FilePosition{Line: 0, Column: 0},
+			Commit:     "",
+			SourceFile: "",
+			DepGroups:  []string{"environment-markers"},
+		},
+		{
+			Name:       "someproject",
+			Version:    "5.4",
+			Ecosystem:  lockfile.PipEcosystem,
+			CompareAs:  lockfile.PipEcosystem,
+			Start:      models.FilePosition{Line: 0, Column: 0},
+			End:        models.FilePosition{Line: 0, Column: 0},
+			Commit:     "",
+			SourceFile: "",
+			DepGroups:  []string{"environment-markers"},
+		},
+	})
+}
+
+func TestParseRequirementsTxt_UrlPackages(t *testing.T) {
+	t.Parallel()
+
+	packages, err := lockfile.ParseRequirementsTxt("fixtures/pip/url-packages.txt")
+
+	if err != nil {
+		t.Errorf("Got unexpected error: %v", err)
+	}
+	expectPackages(t, packages, []lockfile.PackageDetails{
+		{
+			Name:       "pyroxy",
+			Version:    "0.0.0",
+			Ecosystem:  lockfile.PipEcosystem,
+			CompareAs:  lockfile.PipEcosystem,
+			Start:      models.FilePosition{Line: 0, Column: 0},
+			End:        models.FilePosition{Line: 0, Column: 0},
+			Commit:     "",
+			SourceFile: "",
+			DepGroups:  []string{"url-packages"},
 		},
 	})
 }
