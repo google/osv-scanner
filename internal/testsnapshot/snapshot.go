@@ -10,7 +10,6 @@ import (
 )
 
 type Snapshot struct {
-	Path                string
 	WindowsReplacements map[string]string
 }
 
@@ -26,8 +25,8 @@ func (s Snapshot) applyWindowsReplacements(content string) string {
 	return content
 }
 
-func New(path string, windowsReplacements map[string]string) Snapshot {
-	return Snapshot{Path: path, WindowsReplacements: windowsReplacements}
+func New(windowsReplacements map[string]string) Snapshot {
+	return Snapshot{WindowsReplacements: windowsReplacements}
 }
 
 // MatchJSON asserts the existing snapshot matches what was gotten in the test,

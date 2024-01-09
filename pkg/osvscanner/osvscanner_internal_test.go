@@ -52,7 +52,7 @@ func Test_filterResults(t *testing.T) {
 			got := testfixture.LoadJSON[models.VulnerabilityResults](t, testfixture.New(filepath.Join(tt.path, "input.json"), map[string]string{}))
 			filtered := filterResults(r, &got, &configManager, false)
 
-			testsnapshot.New("", map[string]string{}).MatchJSON(t, got)
+			testsnapshot.New(map[string]string{}).MatchJSON(t, got)
 
 			if filtered != tt.want {
 				t.Errorf("filterResults() = %v, want %v", filtered, tt.want)

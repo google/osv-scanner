@@ -18,7 +18,7 @@ func Test_matchAnalysisWithPackageVulns(t *testing.T) {
 
 	matchAnalysisWithPackageVulns(pkgs, gvcResByVulnID, vulnsByID)
 
-	testsnapshot.New("", map[string]string{}).MatchJSON(t, pkgs)
+	testsnapshot.New(map[string]string{}).MatchJSON(t, pkgs)
 }
 
 func Test_matchEmptyAnalysisWithPackageVulns(t *testing.T) {
@@ -31,5 +31,5 @@ func Test_matchEmptyAnalysisWithPackageVulns(t *testing.T) {
 
 	matchAnalysisWithPackageVulns(pkgs, gvcResByVulnID, vulnsByID)
 
-	testsnapshot.New("", map[string]string{}).MatchJSON(t, pkgs)
+	testsnapshot.New(map[string]string{}).MatchJSON(t, pkgs)
 }

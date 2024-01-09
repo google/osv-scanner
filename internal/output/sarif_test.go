@@ -27,7 +27,7 @@ func TestGroupFixedVersions(t *testing.T) {
 				),
 			),
 			want: testsnapshot.New(
-				"fixtures/group_fixed_version_output.json",
+
 				map[string]string{},
 			),
 		},
@@ -42,13 +42,10 @@ func TestGroupFixedVersions(t *testing.T) {
 					},
 				),
 			),
-			want: testsnapshot.New(
-				"fixtures/group_fixed_version_output.json",
-				map[string]string{
-					"/path/to/scorecard-check-osv-e2e/sub-rust-project/Cargo.lock": "D:\\\\path\\\\to\\\\scorecard-check-osv-e2e\\\\sub-rust-project\\\\Cargo.lock",
-					"/path/to/scorecard-check-osv-e2e/go.mod":                      "D:\\\\path\\\\to\\\\scorecard-check-osv-e2e\\\\go.mod",
-				},
-			),
+			want: testsnapshot.New(map[string]string{
+				"/path/to/scorecard-check-osv-e2e/sub-rust-project/Cargo.lock": "D:\\\\path\\\\to\\\\scorecard-check-osv-e2e\\\\sub-rust-project\\\\Cargo.lock",
+				"/path/to/scorecard-check-osv-e2e/go.mod":                      "D:\\\\path\\\\to\\\\scorecard-check-osv-e2e\\\\go.mod",
+			}),
 		},
 	}
 	for _, tt := range tests {
@@ -80,16 +77,13 @@ func TestPrintSARIFReport(t *testing.T) {
 					},
 				),
 			),
-			want: testsnapshot.New(
-				"fixtures/test-vuln-results-a.sarif",
-				map[string]string{
-					"lockfile:/path/to/sub-rust-project/Cargo.lock": "lockfile:D:\\\\path\\\\to\\\\sub-rust-project\\\\Cargo.lock",
-					"lockfile:/path/to/go.mod":                      "lockfile:D:\\\\path\\\\to\\\\go.mod",
-					"/path/to/sub-rust-project/osv-scanner.toml":    "D:\\\\path\\\\to\\\\sub-rust-project/osv-scanner.toml",
-					"/path/to/osv-scanner.toml":                     "D:\\\\path\\\\to/osv-scanner.toml",
-					"file:///path/to":                               "file:///D:/path/to",
-				},
-			),
+			want: testsnapshot.New(map[string]string{
+				"lockfile:/path/to/sub-rust-project/Cargo.lock": "lockfile:D:\\\\path\\\\to\\\\sub-rust-project\\\\Cargo.lock",
+				"lockfile:/path/to/go.mod":                      "lockfile:D:\\\\path\\\\to\\\\go.mod",
+				"/path/to/sub-rust-project/osv-scanner.toml":    "D:\\\\path\\\\to\\\\sub-rust-project/osv-scanner.toml",
+				"/path/to/osv-scanner.toml":                     "D:\\\\path\\\\to/osv-scanner.toml",
+				"file:///path/to":                               "file:///D:/path/to",
+			}),
 		},
 	}
 	for _, tt := range tests {

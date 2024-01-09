@@ -25,7 +25,7 @@ func Test_groupFixedVersions(t *testing.T) {
 				),
 			),
 			want: testsnapshot.New(
-				"fixtures/group_fixed_version_output.json",
+
 				map[string]string{},
 			),
 		},
@@ -40,13 +40,10 @@ func Test_groupFixedVersions(t *testing.T) {
 					},
 				),
 			),
-			want: testsnapshot.New(
-				"fixtures/group_fixed_version_output.json",
-				map[string]string{
-					"/path/to/scorecard-check-osv-e2e/sub-rust-project/Cargo.lock": "D:\\\\path\\\\to\\\\scorecard-check-osv-e2e\\\\sub-rust-project\\\\Cargo.lock",
-					"/path/to/scorecard-check-osv-e2e/go.mod":                      "D:\\\\path\\\\to\\\\scorecard-check-osv-e2e\\\\go.mod",
-				},
-			),
+			want: testsnapshot.New(map[string]string{
+				"/path/to/scorecard-check-osv-e2e/sub-rust-project/Cargo.lock": "D:\\\\path\\\\to\\\\scorecard-check-osv-e2e\\\\sub-rust-project\\\\Cargo.lock",
+				"/path/to/scorecard-check-osv-e2e/go.mod":                      "D:\\\\path\\\\to\\\\scorecard-check-osv-e2e\\\\go.mod",
+			}),
 		},
 	}
 	for _, tt := range tests {
@@ -77,13 +74,10 @@ func Test_mapIDsToGroupedSARIFFinding(t *testing.T) {
 					},
 				),
 			),
-			want: testsnapshot.New(
-				"fixtures/test-vuln-results-a-grouped.json",
-				map[string]string{
-					"/path/to/sub-rust-project/Cargo.lock": "D:\\\\path\\\\to\\\\sub-rust-project\\\\Cargo.lock",
-					"/path/to/go.mod":                      "D:\\\\path\\\\to\\\\go.mod",
-				},
-			),
+			want: testsnapshot.New(map[string]string{
+				"/path/to/sub-rust-project/Cargo.lock": "D:\\\\path\\\\to\\\\sub-rust-project\\\\Cargo.lock",
+				"/path/to/go.mod":                      "D:\\\\path\\\\to\\\\go.mod",
+			}),
 		},
 	}
 	for _, tt := range tests {

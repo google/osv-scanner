@@ -22,12 +22,9 @@ func Test_createSARIFHelpText(t *testing.T) {
 					map[string]string{},
 				),
 			),
-			want: testsnapshot.New(
-				"fixtures/sarif-output.md",
-				map[string]string{
-					"/path/to/sub-rust-project/osv-scanner.toml": "\\path\\to\\sub-rust-project/osv-scanner.toml",
-				},
-			),
+			want: testsnapshot.New(map[string]string{
+				"/path/to/sub-rust-project/osv-scanner.toml": "\\path\\to\\sub-rust-project/osv-scanner.toml",
+			}),
 		},
 		{
 			args: testfixture.LoadJSON[groupedSARIFFinding](t,
@@ -36,12 +33,9 @@ func Test_createSARIFHelpText(t *testing.T) {
 					map[string]string{},
 				),
 			),
-			want: testsnapshot.New(
-				"fixtures/sarif-commit-output.md",
-				map[string]string{
-					"/usr/local/google/home/rexpan/Documents/Project/engine/osv-scanner.toml": "\\usr\\local\\google\\home\\rexpan\\Documents\\Project\\engine/osv-scanner.toml",
-				},
-			),
+			want: testsnapshot.New(map[string]string{
+				"/usr/local/google/home/rexpan/Documents/Project/engine/osv-scanner.toml": "\\usr\\local\\google\\home\\rexpan\\Documents\\Project\\engine/osv-scanner.toml",
+			}),
 		},
 	}
 	for _, tt := range tests {
