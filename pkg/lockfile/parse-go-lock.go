@@ -3,6 +3,7 @@ package lockfile
 import (
 	"fmt"
 	"io"
+	"log"
 	"path/filepath"
 	"strings"
 
@@ -86,12 +87,23 @@ func (e GoLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 	if parsedLockfile.Go != nil && parsedLockfile.Go.Version != "" {
 		v := semantic.ParseSemverLikeVersion(parsedLockfile.Go.Version, 3)
 
-		goVersion := fmt.Sprintf(
-			"%d.%d.%d",
-			v.Components.Fetch(0),
-			v.Components.Fetch(1),
-			v.Components.Fetch(2),
-		)
+		log.Printf("%v", v.Components)
+		var goVersion string
+		if len(v.Components) >= 3 {
+			goVersion = fmt.Sprintf(
+				"%d.%d.%d",
+				v.Components.Fetch(0),
+				v.Components.Fetch(1),
+				v.Components.Fetch(2),
+			)
+		} else {
+			goVersion = fmt.Sprintf(
+				"%d.%d.%d",
+				v.Components.Fetch(0),
+				v.Components.Fetch(1),
+				9999,
+			)
+		}
 
 		packages["stdlib"] = PackageDetails{
 			Name:      "stdlib",
