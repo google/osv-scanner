@@ -76,6 +76,11 @@ func run(args []string, stdout, stderr io.Writer) int {
 				Name:  "gh-annotations",
 				Usage: "prints github action annotations",
 			},
+			&cli.BoolFlag{
+				Name:        "fail-on-vuln",
+				Usage:       "whether to return 1 when vulnerabilities are found",
+				DefaultText: "true",
+			},
 		},
 		Action: func(context *cli.Context) error {
 			var termWidth int
@@ -160,9 +165,11 @@ func run(args []string, stdout, stderr io.Writer) int {
 				}
 			}
 
+			// Default to true, only false when explicitly set to false
+			failOnVuln := !context.IsSet("fail-on-vuln") || context.Bool("fail-on-vuln")
+
 			// if vulnerability exists it should return error
-			if len(diffVulns.Results) > 0 {
-				// Otherwise return OnlyUncalledVulnerabilitiesFoundErr
+			if len(diffVulns.Results) > 0 && failOnVuln {
 				return osvscanner.VulnerabilitiesFoundErr
 			}
 

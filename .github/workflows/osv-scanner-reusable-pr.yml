@@ -37,6 +37,10 @@ on:
         type: boolean
         required: false
         default: true
+      fail-on-vuln:
+        description: "Whether to fail the action on vulnerability found"
+        type: boolean
+        default: true
 
 jobs:
   scan-pr:
@@ -74,6 +78,7 @@ jobs:
             --old=old-results.json
             --new=new-results.json
             --gh-annotations=true
+            --fail-on-vuln=${{ inputs.fail-on-vuln }}
       # Upload the results as artifacts (optional). Commenting out will disable uploads of run results in SARIF
       # format to the repository Actions tab.
       - name: "Upload artifact"
