@@ -28,8 +28,8 @@ func run(args []string, stdout, stderr io.Writer) int {
 
 	cli.VersionPrinter = func(ctx *cli.Context) {
 		// Use the app Writer and ErrWriter since they will be the writers to keep parallel tests consistent
-		r = reporter.NewTableReporter(ctx.App.Writer, ctx.App.ErrWriter, false, 0)
-		r.PrintTextf("osv-scanner version: %s\ncommit: %s\nbuilt at: %s\n", ctx.App.Version, commit, date)
+		r = reporter.NewTableReporter(ctx.App.Writer, ctx.App.ErrWriter, reporter.InfoLevel, false, 0)
+		r.Infof("osv-scanner version: %s\ncommit: %s\nbuilt at: %s\n", ctx.App.Version, commit, date)
 	}
 
 	osv.RequestUserAgent = "osv-scanner/" + version.OSVVersion
@@ -116,6 +116,11 @@ func run(args []string, stdout, stderr io.Writer) int {
 				Name:  "no-call-analysis",
 				Usage: "disables call graph analysis",
 			},
+			&cli.StringFlag{
+				Name:  "verbosity",
+				Usage: fmt.Sprintf("specify the level of information that should be provided during runtime; value can be: %s", strings.Join(reporter.VerbosityLevels(), ", ")),
+				Value: "info",
+			},
 			&cli.BoolFlag{
 				Name:  "experimental-local-db",
 				Usage: "checks for vulnerabilities using local databases",
@@ -182,14 +187,19 @@ func run(args []string, stdout, stderr io.Writer) int {
 				}
 			}
 
-			if r, err = reporter.New(format, stdout, stderr, termWidth); err != nil {
+			verbosityLevel, err := reporter.ParseVerbosityLevel(context.String("verbosity"))
+			if err != nil {
+				return err
+			}
+
+			if r, err = reporter.New(format, stdout, stderr, verbosityLevel, termWidth); err != nil {
 				return err
 			}
 
 			var callAnalysisStates map[string]bool
 			if context.IsSet("experimental-call-analysis") {
 				callAnalysisStates = createCallAnalysisStates([]string{"all"}, context.StringSlice("no-call-analysis"))
-				r.PrintTextf("Warning: the experimental-call-analysis flag has been replaced. Please use the call-analysis and no-call-analysis flags instead.\n")
+				r.Infof("Warning: the experimental-call-analysis flag has been replaced. Please use the call-analysis and no-call-analysis flags instead.\n")
 			} else {
 				callAnalysisStates = createCallAnalysisStates(context.StringSlice("call-analysis"), context.StringSlice("no-call-analysis"))
 			}
@@ -234,21 +244,21 @@ func run(args []string, stdout, stderr io.Writer) int {
 
 	if err := app.Run(args); err != nil {
 		if r == nil {
-			r = reporter.NewTableReporter(stdout, stderr, false, 0)
+			r = reporter.NewTableReporter(stdout, stderr, reporter.InfoLevel, false, 0)
 		}
 		switch {
 		case errors.Is(err, osvscanner.VulnerabilitiesFoundErr):
 			return 1
 		case errors.Is(err, osvscanner.NoPackagesFoundErr):
-			r.PrintErrorf("No package sources found, --help for usage information.\n")
+			r.Errorf("No package sources found, --help for usage information.\n")
 			return 128
 		}
-		r.PrintErrorf("%v\n", err)
+		r.Errorf("%v\n", err)
 	}
 
 	// if we've been told to print an error, and not already exited with
 	// a specific error code, then exit with a generic non-zero code
-	if r != nil && r.HasPrintedError() {
+	if r != nil && r.HasErrored() {
 		return 127
 	}
 
