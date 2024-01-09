@@ -10,6 +10,7 @@ import (
 	"os/exec"
 	"path"
 	"path/filepath"
+	"sort"
 	"strings"
 
 	"github.com/google/osv-scanner/internal/local"
@@ -787,6 +788,13 @@ func DoScan(actions ScannerActions, r reporter.Reporter) (models.VulnerabilityRe
 	vulnsResp, err := makeRequest(r, filteredScannedPackages, actions.CompareLocally, actions.CompareOffline, actions.LocalDBPath)
 	if err != nil {
 		return models.VulnerabilityResults{}, err
+	}
+
+	// ensure results are sorted for consistency
+	for _, results := range vulnsResp.Results {
+		sort.Slice(results.Vulns, func(i, j int) bool {
+			return results.Vulns[i].ID > results.Vulns[j].ID
+		})
 	}
 
 	var licensesResp [][]models.License
