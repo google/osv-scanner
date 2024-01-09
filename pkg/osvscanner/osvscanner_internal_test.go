@@ -49,7 +49,7 @@ func Test_filterResults(t *testing.T) {
 				ConfigMap:     make(map[string]config.Config),
 			}
 
-			got := testfixture.LoadJSON[models.VulnerabilityResults](t, testfixture.New(filepath.Join(tt.path, "input.json"), map[string]string{}))
+			got := testfixture.LoadJSON[models.VulnerabilityResults](t, filepath.Join(tt.path, "input.json"))
 			filtered := filterResults(r, &got, &configManager, false)
 
 			testsnapshot.New(map[string]string{}).MatchJSON(t, got)

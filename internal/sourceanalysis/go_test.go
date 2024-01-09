@@ -12,9 +12,9 @@ import (
 func Test_matchAnalysisWithPackageVulns(t *testing.T) {
 	t.Parallel()
 
-	pkgs := testfixture.LoadJSON[[]models.PackageVulns](t, testfixture.New("fixtures-go/input.json", map[string]string{}))
-	gvcResByVulnID := testfixture.LoadJSON[map[string][]*govulncheck.Finding](t, testfixture.New("fixtures-go/govulncheckinput.json", map[string]string{}))
-	vulnsByID := testfixture.LoadJSON[map[string]models.Vulnerability](t, testfixture.New("fixtures-go/vulnbyid.json", map[string]string{}))
+	pkgs := testfixture.LoadJSON[[]models.PackageVulns](t, "fixtures-go/input.json")
+	gvcResByVulnID := testfixture.LoadJSON[map[string][]*govulncheck.Finding](t, "fixtures-go/govulncheckinput.json")
+	vulnsByID := testfixture.LoadJSON[map[string]models.Vulnerability](t, "fixtures-go/vulnbyid.json")
 
 	matchAnalysisWithPackageVulns(pkgs, gvcResByVulnID, vulnsByID)
 
@@ -24,10 +24,10 @@ func Test_matchAnalysisWithPackageVulns(t *testing.T) {
 func Test_matchEmptyAnalysisWithPackageVulns(t *testing.T) {
 	t.Parallel()
 
-	pkgs := testfixture.LoadJSON[[]models.PackageVulns](t, testfixture.New("fixtures-go/input-no-call-data.json", map[string]string{}))
+	pkgs := testfixture.LoadJSON[[]models.PackageVulns](t, "fixtures-go/input-no-call-data.json")
 	// When there is no ecosystem specific data, govulncheck will return no results
 	gvcResByVulnID := map[string][]*govulncheck.Finding{}
-	vulnsByID := testfixture.LoadJSON[map[string]models.Vulnerability](t, testfixture.New("fixtures-go/vulnbyid-no-call-data.json", map[string]string{}))
+	vulnsByID := testfixture.LoadJSON[map[string]models.Vulnerability](t, "fixtures-go/vulnbyid-no-call-data.json")
 
 	matchAnalysisWithPackageVulns(pkgs, gvcResByVulnID, vulnsByID)
 

@@ -8,16 +8,11 @@ import (
 	"testing"
 )
 
-type Fixture struct {
-	Path                string
-	WindowsReplacements map[string]string
-}
-
 // applyWindowsReplacements will replace any matching strings if on Windows
-func (s Fixture) applyWindowsReplacements(content string) string {
+func applyWindowsReplacements(content string, replacements map[string]string) string {
 	if //goland:noinspection GoBoolExpressions
 	runtime.GOOS == "windows" {
-		for match, replacement := range s.WindowsReplacements {
+		for match, replacement := range replacements {
 			content = strings.ReplaceAll(content, match, replacement)
 		}
 	}
@@ -25,33 +20,35 @@ func (s Fixture) applyWindowsReplacements(content string) string {
 	return content
 }
 
-// load returns the contents of the fixture file after applying any replacements
-// if on Windows
-func (s Fixture) load(t *testing.T) []byte {
+// load returns the contents of the fixture file after applying any replacements if on Windows
+func load(t *testing.T, path string, windowsReplacements map[string]string) []byte {
 	t.Helper()
 
 	var file []byte
 	var err error
 
-	file, err = os.ReadFile(s.Path)
+	file, err = os.ReadFile(path)
 
 	if err != nil {
 		t.Fatalf("Failed to open fixture: %s", err)
 	}
 
-	return []byte(s.applyWindowsReplacements(string(file)))
+	return []byte(applyWindowsReplacements(string(file), windowsReplacements))
 }
 
-func New(path string, windowsReplacements map[string]string) Fixture {
-	return Fixture{Path: path, WindowsReplacements: windowsReplacements}
-}
-
-// LoadJSON returns the contents of the fixture file parsed as JSON after
-// applying any replacements if running on Windows
-func LoadJSON[V any](t *testing.T, fixture Fixture) V {
+// LoadJSON returns the contents of the fixture file parsed as JSON
+func LoadJSON[V any](t *testing.T, path string) V {
 	t.Helper()
 
-	file := fixture.load(t)
+	return LoadJSONWithWindowsReplacements[V](t, path, map[string]string{})
+}
+
+// LoadJSONWithWindowsReplacements returns the contents of the fixture file
+// parsed as JSON after applying any replacements if running on Windows
+func LoadJSONWithWindowsReplacements[V any](t *testing.T, path string, replacements map[string]string) V {
+	t.Helper()
+
+	file := load(t, path, replacements)
 
 	var elem V
 	err := json.Unmarshal(file, &elem)
@@ -60,12 +57,4 @@ func LoadJSON[V any](t *testing.T, fixture Fixture) V {
 	}
 
 	return elem
-}
-
-// LoadText returns the contents of the fixture file as a string after
-// applying any replacements if running on Windows
-func LoadText(t *testing.T, fixture Fixture) string {
-	t.Helper()
-
-	return string(fixture.load(t))
 }

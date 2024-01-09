@@ -20,32 +20,24 @@ func TestGroupFixedVersions(t *testing.T) {
 	}{
 		{
 			name: "",
-			args: testfixture.LoadJSON[[]models.VulnerabilityFlattened](t,
-				testfixture.New(
-					"fixtures/flattened_vulns.json",
-					map[string]string{},
-				),
-			),
-			want: testsnapshot.New(
-
-				map[string]string{},
-			),
+			args: testfixture.LoadJSON[[]models.VulnerabilityFlattened](t, "fixtures/flattened_vulns.json"),
+			want: testsnapshot.New(map[string]string{}),
 		},
 		{
 			name: "",
-			args: testfixture.LoadJSON[[]models.VulnerabilityFlattened](t,
-				testfixture.New(
-					"fixtures/flattened_vulns.json",
-					map[string]string{
-						"/path/to/scorecard-check-osv-e2e/sub-rust-project/Cargo.lock": "D:\\\\path\\\\to\\\\scorecard-check-osv-e2e\\\\sub-rust-project\\\\Cargo.lock",
-						"/path/to/scorecard-check-osv-e2e/go.mod":                      "D:\\\\path\\\\to\\\\scorecard-check-osv-e2e\\\\go.mod",
-					},
-				),
+			args: testfixture.LoadJSONWithWindowsReplacements[[]models.VulnerabilityFlattened](t,
+				"fixtures/flattened_vulns.json",
+				map[string]string{
+					"/path/to/scorecard-check-osv-e2e/sub-rust-project/Cargo.lock": "D:\\\\path\\\\to\\\\scorecard-check-osv-e2e\\\\sub-rust-project\\\\Cargo.lock",
+					"/path/to/scorecard-check-osv-e2e/go.mod":                      "D:\\\\path\\\\to\\\\scorecard-check-osv-e2e\\\\go.mod",
+				},
 			),
-			want: testsnapshot.New(map[string]string{
-				"/path/to/scorecard-check-osv-e2e/sub-rust-project/Cargo.lock": "D:\\\\path\\\\to\\\\scorecard-check-osv-e2e\\\\sub-rust-project\\\\Cargo.lock",
-				"/path/to/scorecard-check-osv-e2e/go.mod":                      "D:\\\\path\\\\to\\\\scorecard-check-osv-e2e\\\\go.mod",
-			}),
+			want: testsnapshot.New(
+				map[string]string{
+					"/path/to/scorecard-check-osv-e2e/sub-rust-project/Cargo.lock": "D:\\\\path\\\\to\\\\scorecard-check-osv-e2e\\\\sub-rust-project\\\\Cargo.lock",
+					"/path/to/scorecard-check-osv-e2e/go.mod":                      "D:\\\\path\\\\to\\\\scorecard-check-osv-e2e\\\\go.mod",
+				},
+			),
 		},
 	}
 	for _, tt := range tests {
@@ -68,22 +60,22 @@ func TestPrintSARIFReport(t *testing.T) {
 	}{
 		{
 			name: "",
-			args: testfixture.LoadJSON[models.VulnerabilityResults](t,
-				testfixture.New(
-					"fixtures/test-vuln-results-a.json",
-					map[string]string{
-						"/path/to/sub-rust-project/Cargo.lock": "D:\\\\path\\\\to\\\\sub-rust-project\\\\Cargo.lock",
-						"/path/to/go.mod":                      "D:\\\\path\\\\to\\\\go.mod",
-					},
-				),
+			args: testfixture.LoadJSONWithWindowsReplacements[models.VulnerabilityResults](t,
+				"fixtures/test-vuln-results-a.json",
+				map[string]string{
+					"/path/to/sub-rust-project/Cargo.lock": "D:\\\\path\\\\to\\\\sub-rust-project\\\\Cargo.lock",
+					"/path/to/go.mod":                      "D:\\\\path\\\\to\\\\go.mod",
+				},
 			),
-			want: testsnapshot.New(map[string]string{
-				"lockfile:/path/to/sub-rust-project/Cargo.lock": "lockfile:D:\\\\path\\\\to\\\\sub-rust-project\\\\Cargo.lock",
-				"lockfile:/path/to/go.mod":                      "lockfile:D:\\\\path\\\\to\\\\go.mod",
-				"/path/to/sub-rust-project/osv-scanner.toml":    "D:\\\\path\\\\to\\\\sub-rust-project/osv-scanner.toml",
-				"/path/to/osv-scanner.toml":                     "D:\\\\path\\\\to/osv-scanner.toml",
-				"file:///path/to":                               "file:///D:/path/to",
-			}),
+			want: testsnapshot.New(
+				map[string]string{
+					"lockfile:/path/to/sub-rust-project/Cargo.lock": "lockfile:D:\\\\path\\\\to\\\\sub-rust-project\\\\Cargo.lock",
+					"lockfile:/path/to/go.mod":                      "lockfile:D:\\\\path\\\\to\\\\go.mod",
+					"/path/to/sub-rust-project/osv-scanner.toml":    "D:\\\\path\\\\to\\\\sub-rust-project/osv-scanner.toml",
+					"/path/to/osv-scanner.toml":                     "D:\\\\path\\\\to/osv-scanner.toml",
+					"file:///path/to":                               "file:///D:/path/to",
+				},
+			),
 		},
 	}
 	for _, tt := range tests {

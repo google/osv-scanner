@@ -16,23 +16,13 @@ func Test_createSARIFHelpText(t *testing.T) {
 		want testsnapshot.Snapshot
 	}{
 		{
-			args: testfixture.LoadJSON[groupedSARIFFinding](t,
-				testfixture.New(
-					"fixtures/vuln-grouped.json",
-					map[string]string{},
-				),
-			),
+			args: testfixture.LoadJSON[groupedSARIFFinding](t, "fixtures/vuln-grouped.json"),
 			want: testsnapshot.New(map[string]string{
 				"/path/to/sub-rust-project/osv-scanner.toml": "\\path\\to\\sub-rust-project/osv-scanner.toml",
 			}),
 		},
 		{
-			args: testfixture.LoadJSON[groupedSARIFFinding](t,
-				testfixture.New(
-					"fixtures/commit-grouped.json",
-					map[string]string{},
-				),
-			),
+			args: testfixture.LoadJSON[groupedSARIFFinding](t, "fixtures/commit-grouped.json"),
 			want: testsnapshot.New(map[string]string{
 				"/usr/local/google/home/rexpan/Documents/Project/engine/osv-scanner.toml": "\\usr\\local\\google\\home\\rexpan\\Documents\\Project\\engine/osv-scanner.toml",
 			}),
