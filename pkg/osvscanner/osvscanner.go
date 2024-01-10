@@ -15,6 +15,7 @@ import (
 	"github.com/google/osv-scanner/internal/local"
 	"github.com/google/osv-scanner/internal/output"
 	"github.com/google/osv-scanner/internal/sbom"
+	"github.com/google/osv-scanner/internal/semantic"
 	"github.com/google/osv-scanner/pkg/config"
 	"github.com/google/osv-scanner/pkg/depsdev"
 	"github.com/google/osv-scanner/pkg/lockfile"
@@ -858,6 +859,32 @@ func filterUnscannablePackages(packages []scannedPackage) []scannedPackage {
 	return out
 }
 
+// patchPackageForRequest modifies packages before they are sent to osv.dev to
+// account for edge cases.
+func patchPackageForRequest(pkg scannedPackage) scannedPackage {
+	// Assume Go stdlib patch version as the latest version
+	//
+	// This is done because go1.20 and earlier do not support patch
+	// version in go.mod file, and will fail to build.
+	//
+	// However, if we assume patch version as .0, this will cause a lot of
+	// false positives. This compromise still allows osv-scanner to pick up
+	// when the user is using a minor version that is out-of-support.
+	if pkg.Name == "stdlib" && pkg.Ecosystem == "Go" {
+		v := semantic.ParseSemverLikeVersion(pkg.Version, 3)
+		if len(v.Components) == 2 {
+			pkg.Version = fmt.Sprintf(
+				"%d.%d.%d",
+				v.Components.Fetch(0),
+				v.Components.Fetch(1),
+				9999,
+			)
+		}
+	}
+
+	return pkg
+}
+
 func makeRequest(
 	r reporter.Reporter,
 	packages []scannedPackage,
@@ -867,6 +894,7 @@ func makeRequest(
 	// Make OSV queries from the packages.
 	var query osv.BatchedQuery
 	for _, p := range packages {
+		p = patchPackageForRequest(p)
 		switch {
 		// Prefer making package requests where possible.
 		case p.Ecosystem != "" && p.Name != "" && p.Version != "":
