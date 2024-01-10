@@ -6,7 +6,6 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/google/osv-scanner/internal/semantic"
 	"golang.org/x/mod/modfile"
 )
 
@@ -84,28 +83,9 @@ func (e GoLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 	}
 
 	if parsedLockfile.Go != nil && parsedLockfile.Go.Version != "" {
-		v := semantic.ParseSemverLikeVersion(parsedLockfile.Go.Version, 3)
-
-		var goVersion string
-		if len(v.Components) >= 3 {
-			goVersion = fmt.Sprintf(
-				"%d.%d.%d",
-				v.Components.Fetch(0),
-				v.Components.Fetch(1),
-				v.Components.Fetch(2),
-			)
-		} else {
-			goVersion = fmt.Sprintf(
-				"%d.%d.%d",
-				v.Components.Fetch(0),
-				v.Components.Fetch(1),
-				9999,
-			)
-		}
-
 		packages["stdlib"] = PackageDetails{
 			Name:      "stdlib",
-			Version:   goVersion,
+			Version:   parsedLockfile.Go.Version,
 			Ecosystem: GoEcosystem,
 			CompareAs: GoEcosystem,
 		}
