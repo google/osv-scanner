@@ -8,18 +8,18 @@ import (
 )
 
 type Snapshot struct {
-	WindowsReplacements map[string]string
+	windowsReplacements map[string]string
 }
 
 // NewSnapshot creates a snapshot that can be passed around within tests
 func NewSnapshot() Snapshot {
-	return Snapshot{WindowsReplacements: map[string]string{}}
+	return Snapshot{windowsReplacements: map[string]string{}}
 }
 
 // WithWindowsReplacements adds a map of strings with values that they should be
 // replaced within before comparing the snapshot when running on Windows
 func (s Snapshot) WithWindowsReplacements(replacements map[string]string) Snapshot {
-	s.WindowsReplacements = replacements
+	s.windowsReplacements = replacements
 
 	return s
 }
@@ -42,5 +42,5 @@ func (s Snapshot) MatchJSON(t *testing.T, got any) {
 func (s Snapshot) MatchText(t *testing.T, got string) {
 	t.Helper()
 
-	snaps.MatchSnapshot(t, applyWindowsReplacements(got, s.WindowsReplacements))
+	snaps.MatchSnapshot(t, applyWindowsReplacements(got, s.windowsReplacements))
 }
