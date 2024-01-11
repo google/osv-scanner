@@ -29,7 +29,7 @@ func (s Snapshot) WithWindowsReplacements(replacements map[string]string) Snapsh
 func (s Snapshot) MatchJSON(t *testing.T, got any) {
 	t.Helper()
 
-	j, err := json.Marshal(got)
+	j, err := json.MarshalIndent(got, "", "  ")
 
 	if err != nil {
 		t.Fatalf("Failed to marshal JSON: %s", err)
