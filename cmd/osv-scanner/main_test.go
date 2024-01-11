@@ -29,8 +29,6 @@ type cliTestCase struct {
 	name         string
 	args         []string
 	wantExitCode int
-	wantStdout   testutility.Snapshot
-	wantStderr   testutility.Snapshot
 }
 
 // Attempts to normalize any file paths in the given `output` so that they can
@@ -100,8 +98,8 @@ func testCli(t *testing.T, tc cliTestCase) {
 		t.Errorf("cli exited with code %d, not %d", ec, tc.wantExitCode)
 	}
 
-	tc.wantStdout.MatchText(t, stdout)
-	tc.wantStderr.MatchText(t, stderr)
+	testutility.NewSnapshot().MatchText(t, stdout)
+	testutility.NewSnapshot().MatchText(t, stderr)
 }
 
 func TestRun(t *testing.T) {
@@ -112,185 +110,137 @@ func TestRun(t *testing.T) {
 			name:         "",
 			args:         []string{""},
 			wantExitCode: 128,
-			wantStdout:   testutility.NewSnapshot(),
-			wantStderr:   testutility.NewSnapshot(),
 		},
 		{
 			name:         "",
 			args:         []string{"", "--version"},
 			wantExitCode: 0,
-			wantStdout:   testutility.NewSnapshot(),
-			wantStderr:   testutility.NewSnapshot(),
 		},
 		// one specific supported lockfile
 		{
 			name:         "one specific supported lockfile",
 			args:         []string{"", "./fixtures/locks-many/composer.lock"},
 			wantExitCode: 0,
-			wantStdout:   testutility.NewSnapshot(),
-			wantStderr:   testutility.NewSnapshot(),
 		},
 		// one specific supported sbom with vulns
 		{
 			name:         "folder of supported sbom with vulns",
 			args:         []string{"", "--config=./fixtures/osv-scanner-empty-config.toml", "./fixtures/sbom-insecure/"},
 			wantExitCode: 1,
-			wantStdout:   testutility.NewSnapshot(),
-			wantStderr:   testutility.NewSnapshot(),
 		},
 		// one specific supported sbom with vulns
 		{
 			name:         "one specific supported sbom with vulns",
 			args:         []string{"", "--config=./fixtures/osv-scanner-empty-config.toml", "--sbom", "./fixtures/sbom-insecure/alpine.cdx.xml"},
 			wantExitCode: 1,
-			wantStdout:   testutility.NewSnapshot(),
-			wantStderr:   testutility.NewSnapshot(),
 		},
 		// one specific unsupported lockfile
 		{
 			name:         "",
 			args:         []string{"", "./fixtures/locks-many/not-a-lockfile.toml"},
 			wantExitCode: 128,
-			wantStdout:   testutility.NewSnapshot(),
-			wantStderr:   testutility.NewSnapshot(),
 		},
 		// all supported lockfiles in the directory should be checked
 		{
 			name:         "Scan locks-many",
 			args:         []string{"", "./fixtures/locks-many"},
 			wantExitCode: 0,
-			wantStdout:   testutility.NewSnapshot(),
-			wantStderr:   testutility.NewSnapshot(),
 		},
 		// all supported lockfiles in the directory should be checked
 		{
 			name:         "all supported lockfiles in the directory should be checked",
 			args:         []string{"", "./fixtures/locks-many-with-invalid"},
 			wantExitCode: 127,
-			wantStdout:   testutility.NewSnapshot(),
-			wantStderr:   testutility.NewSnapshot(),
 		},
 		// only the files in the given directories are checked by default (no recursion)
 		{
 			name:         "only the files in the given directories are checked by default (no recursion)",
 			args:         []string{"", "./fixtures/locks-one-with-nested"},
 			wantExitCode: 0,
-			wantStdout:   testutility.NewSnapshot(),
-			wantStderr:   testutility.NewSnapshot(),
 		},
 		// nested directories are checked when `--recursive` is passed
 		{
 			name:         "nested directories are checked when `--recursive` is passed",
 			args:         []string{"", "--recursive", "./fixtures/locks-one-with-nested"},
 			wantExitCode: 0,
-			wantStdout:   testutility.NewSnapshot(),
-			wantStderr:   testutility.NewSnapshot(),
 		},
 		// .gitignored files
 		{
 			name:         "",
 			args:         []string{"", "--recursive", "./fixtures/locks-gitignore"},
 			wantExitCode: 0,
-			wantStdout:   testutility.NewSnapshot(),
-			wantStderr:   testutility.NewSnapshot(),
 		},
 		// ignoring .gitignore
 		{
 			name:         "",
 			args:         []string{"", "--recursive", "--no-ignore", "./fixtures/locks-gitignore"},
 			wantExitCode: 0,
-			wantStdout:   testutility.NewSnapshot(),
-			wantStderr:   testutility.NewSnapshot(),
 		},
 		// output with json
 		{
 			name:         "json output 1",
 			args:         []string{"", "--json", "./fixtures/locks-many/composer.lock"},
 			wantExitCode: 0,
-			wantStdout:   testutility.NewSnapshot(),
-			wantStderr:   testutility.NewSnapshot(),
 		},
 		{
 			name:         "json output 2",
 			args:         []string{"", "--format", "json", "./fixtures/locks-many/composer.lock"},
 			wantExitCode: 0,
-			wantStdout:   testutility.NewSnapshot(),
-			wantStderr:   testutility.NewSnapshot(),
 		},
 		// output format: sarif
 		{
 			name:         "Empty sarif output",
 			args:         []string{"", "--format", "sarif", "./fixtures/locks-many/composer.lock"},
 			wantExitCode: 0,
-			wantStdout:   testutility.NewSnapshot(),
-			wantStderr:   testutility.NewSnapshot(),
 		},
 		{
 			name:         "Sarif with vulns",
 			args:         []string{"", "--format", "sarif", "--config", "./fixtures/osv-scanner-empty-config.toml", "./fixtures/locks-many/package-lock.json"},
 			wantExitCode: 1,
-			wantStdout:   testutility.NewSnapshot(),
-			wantStderr:   testutility.NewSnapshot(),
 		},
 		// output format: gh-annotations
 		{
 			name:         "Empty gh-annotations output",
 			args:         []string{"", "--format", "gh-annotations", "./fixtures/locks-many/composer.lock"},
 			wantExitCode: 0,
-			wantStdout:   testutility.NewSnapshot(),
-			wantStderr:   testutility.NewSnapshot(),
 		},
 		{
 			name:         "gh-annotations with vulns",
 			args:         []string{"", "--format", "gh-annotations", "--config", "./fixtures/osv-scanner-empty-config.toml", "./fixtures/locks-many/package-lock.json"},
 			wantExitCode: 1,
-			wantStdout:   testutility.NewSnapshot(),
-			wantStderr:   testutility.NewSnapshot(),
 		},
 		// output format: markdown table
 		{
 			name:         "",
 			args:         []string{"", "--format", "markdown", "--config", "./fixtures/osv-scanner-empty-config.toml", "./fixtures/locks-many/package-lock.json"},
 			wantExitCode: 1,
-			wantStdout:   testutility.NewSnapshot(),
-			wantStderr:   testutility.NewSnapshot(),
 		},
 		// output format: unsupported
 		{
 			name:         "",
 			args:         []string{"", "--format", "unknown", "./fixtures/locks-many/composer.lock"},
 			wantExitCode: 127,
-			wantStdout:   testutility.NewSnapshot(),
-			wantStderr:   testutility.NewSnapshot(),
 		},
 		// one specific supported lockfile with ignore
 		{
 			name:         "one specific supported lockfile with ignore",
 			args:         []string{"", "./fixtures/locks-test-ignore/package-lock.json"},
 			wantExitCode: 0,
-			wantStdout:   testutility.NewSnapshot(),
-			wantStderr:   testutility.NewSnapshot(),
 		},
 		{
 			name:         "invalid --verbosity value",
 			args:         []string{"", "--verbosity", "unknown", "./fixtures/locks-many/composer.lock"},
 			wantExitCode: 127,
-			wantStdout:   testutility.NewSnapshot(),
-			wantStderr:   testutility.NewSnapshot(),
 		},
 		{
 			name:         "verbosity level = error",
 			args:         []string{"", "--verbosity", "error", "--format", "table", "./fixtures/locks-many/composer.lock"},
 			wantExitCode: 0,
-			wantStdout:   testutility.NewSnapshot(),
-			wantStderr:   testutility.NewSnapshot(),
 		},
 		{
 			name:         "verbosity level = info",
 			args:         []string{"", "--verbosity", "info", "--format", "table", "./fixtures/locks-many/composer.lock"},
 			wantExitCode: 0,
-			wantStdout:   testutility.NewSnapshot(),
-			wantStderr:   testutility.NewSnapshot(),
 		},
 	}
 	for _, tt := range tests {
@@ -312,8 +262,6 @@ func TestRun_LockfileWithExplicitParseAs(t *testing.T) {
 			name:         "",
 			args:         []string{"", "-L", "my-file:./fixtures/locks-many/composer.lock"},
 			wantExitCode: 127,
-			wantStdout:   testutility.NewSnapshot(),
-			wantStderr:   testutility.NewSnapshot(),
 		},
 		// empty is default
 		{
@@ -324,8 +272,6 @@ func TestRun_LockfileWithExplicitParseAs(t *testing.T) {
 				":" + filepath.FromSlash("./fixtures/locks-many/composer.lock"),
 			},
 			wantExitCode: 0,
-			wantStdout:   testutility.NewSnapshot(),
-			wantStderr:   testutility.NewSnapshot(),
 		},
 		// empty works as an escape (no fixture because it's not valid on Windows)
 		{
@@ -336,8 +282,6 @@ func TestRun_LockfileWithExplicitParseAs(t *testing.T) {
 				":" + filepath.FromSlash("./path/to/my:file"),
 			},
 			wantExitCode: 127,
-			wantStdout:   testutility.NewSnapshot(),
-			wantStderr:   testutility.NewSnapshot(),
 		},
 		{
 			name: "",
@@ -347,16 +291,12 @@ func TestRun_LockfileWithExplicitParseAs(t *testing.T) {
 				":" + filepath.FromSlash("./path/to/my:project/package-lock.json"),
 			},
 			wantExitCode: 127,
-			wantStdout:   testutility.NewSnapshot(),
-			wantStderr:   testutility.NewSnapshot(),
 		},
 		// one lockfile with local path
 		{
 			name:         "one lockfile with local path",
 			args:         []string{"", "--lockfile=go.mod:./fixtures/locks-many/replace-local.mod"},
 			wantExitCode: 0,
-			wantStdout:   testutility.NewSnapshot(),
-			wantStderr:   testutility.NewSnapshot(),
 		},
 		// when an explicit parse-as is given, it's applied to that file
 		{
@@ -368,8 +308,6 @@ func TestRun_LockfileWithExplicitParseAs(t *testing.T) {
 				filepath.FromSlash("./fixtures/locks-insecure"),
 			},
 			wantExitCode: 1,
-			wantStdout:   testutility.NewSnapshot(),
-			wantStderr:   testutility.NewSnapshot(),
 		},
 		// multiple, + output order is deterministic
 		{
@@ -381,8 +319,6 @@ func TestRun_LockfileWithExplicitParseAs(t *testing.T) {
 				filepath.FromSlash("./fixtures/locks-insecure"),
 			},
 			wantExitCode: 1,
-			wantStdout:   testutility.NewSnapshot(),
-			wantStderr:   testutility.NewSnapshot(),
 		},
 		{
 			name: "",
@@ -393,8 +329,6 @@ func TestRun_LockfileWithExplicitParseAs(t *testing.T) {
 				filepath.FromSlash("./fixtures/locks-insecure"),
 			},
 			wantExitCode: 1,
-			wantStdout:   testutility.NewSnapshot(),
-			wantStderr:   testutility.NewSnapshot(),
 		},
 		// files that error on parsing stop parsable files from being checked
 		{
@@ -407,8 +341,6 @@ func TestRun_LockfileWithExplicitParseAs(t *testing.T) {
 				filepath.FromSlash("./fixtures/locks-many"),
 			},
 			wantExitCode: 127,
-			wantStdout:   testutility.NewSnapshot(),
-			wantStderr:   testutility.NewSnapshot(),
 		},
 		// parse-as takes priority, even if it's wrong
 		{
@@ -419,8 +351,6 @@ func TestRun_LockfileWithExplicitParseAs(t *testing.T) {
 				"package-lock.json:" + filepath.FromSlash("./fixtures/locks-many/yarn.lock"),
 			},
 			wantExitCode: 127,
-			wantStdout:   testutility.NewSnapshot(),
-			wantStderr:   testutility.NewSnapshot(),
 		},
 		// "apk-installed" is supported
 		{
@@ -431,8 +361,6 @@ func TestRun_LockfileWithExplicitParseAs(t *testing.T) {
 				"apk-installed:" + filepath.FromSlash("./fixtures/locks-many/installed"),
 			},
 			wantExitCode: 0,
-			wantStdout:   testutility.NewSnapshot(),
-			wantStderr:   testutility.NewSnapshot(),
 		},
 		// "dpkg-status" is supported
 		{
@@ -443,8 +371,6 @@ func TestRun_LockfileWithExplicitParseAs(t *testing.T) {
 				"dpkg-status:" + filepath.FromSlash("./fixtures/locks-many/status"),
 			},
 			wantExitCode: 0,
-			wantStdout:   testutility.NewSnapshot(),
-			wantStderr:   testutility.NewSnapshot(),
 		},
 	}
 	for _, tt := range tests {
@@ -466,15 +392,11 @@ func TestRun_GithubActions(t *testing.T) {
 			name:         "scanning osv-scanner custom format",
 			args:         []string{"", "-L", "osv-scanner:./fixtures/locks-insecure/osv-scanner-flutter-deps.json"},
 			wantExitCode: 1,
-			wantStdout:   testutility.NewSnapshot(),
-			wantStderr:   testutility.NewSnapshot(),
 		},
 		{
 			name:         "scanning osv-scanner custom format output json",
 			args:         []string{"", "-L", "osv-scanner:./fixtures/locks-insecure/osv-scanner-flutter-deps.json", "--format=sarif"},
 			wantExitCode: 1,
-			wantStdout:   testutility.NewSnapshot(),
-			wantStderr:   testutility.NewSnapshot(),
 		},
 	}
 	for _, tt := range tests {
@@ -496,95 +418,71 @@ func TestRun_LocalDatabases(t *testing.T) {
 			name:         "",
 			args:         []string{"", "--experimental-local-db", "./fixtures/locks-many/composer.lock"},
 			wantExitCode: 0,
-			wantStdout:   testutility.NewSnapshot(),
-			wantStderr:   testutility.NewSnapshot(),
 		},
 		// one specific supported sbom with vulns
 		{
 			name:         "",
 			args:         []string{"", "--experimental-local-db", "--config=./fixtures/osv-scanner-empty-config.toml", "./fixtures/sbom-insecure/postgres-stretch.cdx.xml"},
 			wantExitCode: 1,
-			wantStdout:   testutility.NewSnapshot(),
-			wantStderr:   testutility.NewSnapshot(),
 		},
 		// one specific unsupported lockfile
 		{
 			name:         "",
 			args:         []string{"", "--experimental-local-db", "./fixtures/locks-many/not-a-lockfile.toml"},
 			wantExitCode: 128,
-			wantStdout:   testutility.NewSnapshot(),
-			wantStderr:   testutility.NewSnapshot(),
 		},
 		// all supported lockfiles in the directory should be checked
 		{
 			name:         "",
 			args:         []string{"", "--experimental-local-db", "./fixtures/locks-many"},
 			wantExitCode: 0,
-			wantStdout:   testutility.NewSnapshot(),
-			wantStderr:   testutility.NewSnapshot(),
 		},
 		// all supported lockfiles in the directory should be checked
 		{
 			name:         "",
 			args:         []string{"", "--experimental-local-db", "./fixtures/locks-many-with-invalid"},
 			wantExitCode: 127,
-			wantStdout:   testutility.NewSnapshot(),
-			wantStderr:   testutility.NewSnapshot(),
 		},
 		// only the files in the given directories are checked by default (no recursion)
 		{
 			name:         "",
 			args:         []string{"", "--experimental-local-db", "./fixtures/locks-one-with-nested"},
 			wantExitCode: 0,
-			wantStdout:   testutility.NewSnapshot(),
-			wantStderr:   testutility.NewSnapshot(),
 		},
 		// nested directories are checked when `--recursive` is passed
 		{
 			name:         "",
 			args:         []string{"", "--experimental-local-db", "--recursive", "./fixtures/locks-one-with-nested"},
 			wantExitCode: 0,
-			wantStdout:   testutility.NewSnapshot(),
-			wantStderr:   testutility.NewSnapshot(),
 		},
 		// .gitignored files
 		{
 			name:         "",
 			args:         []string{"", "--experimental-local-db", "--recursive", "./fixtures/locks-gitignore"},
 			wantExitCode: 0,
-			wantStdout:   testutility.NewSnapshot(),
-			wantStderr:   testutility.NewSnapshot(),
 		},
 		// ignoring .gitignore
 		{
 			name:         "",
 			args:         []string{"", "--experimental-local-db", "--recursive", "--no-ignore", "./fixtures/locks-gitignore"},
 			wantExitCode: 0,
-			wantStdout:   testutility.NewSnapshot(),
-			wantStderr:   testutility.NewSnapshot(),
 		},
 		// output with json
 		{
 			name:         "",
 			args:         []string{"", "--experimental-local-db", "--json", "./fixtures/locks-many/composer.lock"},
 			wantExitCode: 0,
-			wantStdout:   testutility.NewSnapshot(),
-			wantStderr:   testutility.NewSnapshot(),
 		},
 		{
 			name:         "",
 			args:         []string{"", "--experimental-local-db", "--format", "json", "./fixtures/locks-many/composer.lock"},
 			wantExitCode: 0,
-			wantStdout:   testutility.NewSnapshot(),
-			wantStderr:   testutility.NewSnapshot(),
 		},
 		// output format: markdown table
 		{
 			name:         "",
 			args:         []string{"", "--experimental-local-db", "--format", "markdown", "./fixtures/locks-many/composer.lock"},
 			wantExitCode: 0,
-			wantStdout:   testutility.NewSnapshot(),
-			wantStderr:   testutility.NewSnapshot(),
 		},
 	}
 	for _, tt := range tests {
@@ -615,64 +513,46 @@ func TestRun_Licenses(t *testing.T) {
 			name:         "No vulnerabilities with license summary",
 			args:         []string{"", "--experimental-licenses-summary", "./fixtures/locks-many"},
 			wantExitCode: 0,
-			wantStdout:   testutility.NewSnapshot(),
-			wantStderr:   testutility.NewSnapshot(),
 		},
 		{
 			name:         "No vulnerabilities with license summary in markdown",
 			args:         []string{"", "--experimental-licenses-summary", "--format=markdown", "./fixtures/locks-many"},
 			wantExitCode: 0,
-			wantStdout:   testutility.NewSnapshot(),
-			wantStderr:   testutility.NewSnapshot(),
 		},
 		{
 			name:         "Vulnerabilities and license summary",
 			args:         []string{"", "--experimental-licenses-summary", "--config=./fixtures/osv-scanner-empty-config.toml", "./fixtures/locks-many/package-lock.json"},
 			wantExitCode: 1,
-			wantStdout:   testutility.NewSnapshot(),
-			wantStderr:   testutility.NewSnapshot(),
 		},
 		{
 			name:         "Vulnerabilities and license violations with allowlist",
 			args:         []string{"", "--experimental-licenses", "MIT", "--config=./fixtures/osv-scanner-empty-config.toml", "./fixtures/locks-many/package-lock.json"},
 			wantExitCode: 1,
-			wantStdout:   testutility.NewSnapshot(),
-			wantStderr:   testutility.NewSnapshot(),
 		},
 		{
 			name:         "Vulnerabilities and all license violations allowlisted",
 			args:         []string{"", "--experimental-licenses", "Apache-2.0", "--config=./fixtures/osv-scanner-empty-config.toml", "./fixtures/locks-many/package-lock.json"},
 			wantExitCode: 1,
-			wantStdout:   testutility.NewSnapshot(),
-			wantStderr:   testutility.NewSnapshot(),
 		},
 		{
 			name:         "Some packages with license violations and show-all-packages in json",
 			args:         []string{"", "--format=json", "--experimental-licenses", "MIT", "--experimental-all-packages", "./fixtures/locks-licenses/package-lock.json"},
 			wantExitCode: 1,
-			wantStdout:   testutility.NewSnapshot(),
-			wantStderr:   testutility.NewSnapshot(),
 		},
 		{
 			name:         "Some packages with license violations in json",
 			args:         []string{"", "--format=json", "--experimental-licenses", "MIT", "./fixtures/locks-licenses/package-lock.json"},
 			wantExitCode: 1,
-			wantStdout:   testutility.NewSnapshot(),
-			wantStderr:   testutility.NewSnapshot(),
 		},
 		{
 			name:         "No license violations and show-all-packages in json",
 			args:         []string{"", "--format=json", "--experimental-licenses", "MIT,Apache-2.0", "--experimental-all-packages", "./fixtures/locks-licenses/package-lock.json"},
 			wantExitCode: 0,
-			wantStdout:   testutility.NewSnapshot(),
-			wantStderr:   testutility.NewSnapshot(),
 		},
 		{
 			name:         "Licenses in summary mode json",
 			args:         []string{"", "--format=json", "--experimental-licenses-summary", "./fixtures/locks-licenses/package-lock.json"},
 			wantExitCode: 0,
-			wantStdout:   testutility.NewSnapshot(),
-			wantStderr:   testutility.NewSnapshot(),
 		},
 	}
 	for _, tt := range tests {
