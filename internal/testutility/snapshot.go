@@ -1,9 +1,7 @@
-package testsnapshot
+package testutility
 
 import (
 	"encoding/json"
-	"runtime"
-	"strings"
 	"testing"
 
 	"github.com/gkampitakis/go-snaps/snaps"
@@ -13,20 +11,8 @@ type Snapshot struct {
 	WindowsReplacements map[string]string
 }
 
-// applyWindowsReplacements will replace any matching strings if on Windows
-func (s Snapshot) applyWindowsReplacements(content string) string {
-	if //goland:noinspection GoBoolExpressions
-	runtime.GOOS == "windows" {
-		for replacement, match := range s.WindowsReplacements {
-			content = strings.ReplaceAll(content, match, replacement)
-		}
-	}
-
-	return content
-}
-
-// New creates a snapshot that can be passed around within tests
-func New() Snapshot {
+// NewSnapshot creates a snapshot that can be passed around within tests
+func NewSnapshot() Snapshot {
 	return Snapshot{WindowsReplacements: map[string]string{}}
 }
 
@@ -56,5 +42,5 @@ func (s Snapshot) MatchJSON(t *testing.T, got any) {
 func (s Snapshot) MatchText(t *testing.T, got string) {
 	t.Helper()
 
-	snaps.MatchSnapshot(t, s.applyWindowsReplacements(got))
+	snaps.MatchSnapshot(t, applyWindowsReplacements(got, s.WindowsReplacements))
 }

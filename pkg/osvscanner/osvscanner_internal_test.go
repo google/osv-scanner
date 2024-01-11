@@ -6,8 +6,7 @@ import (
 	"testing"
 
 	"github.com/google/go-cmp/cmp"
-	"github.com/google/osv-scanner/internal/testfixture"
-	"github.com/google/osv-scanner/internal/testsnapshot"
+	"github.com/google/osv-scanner/internal/testutility"
 	"github.com/google/osv-scanner/pkg/config"
 	"github.com/google/osv-scanner/pkg/models"
 	"github.com/google/osv-scanner/pkg/reporter"
@@ -49,10 +48,10 @@ func Test_filterResults(t *testing.T) {
 				ConfigMap:     make(map[string]config.Config),
 			}
 
-			got := testfixture.LoadJSON[models.VulnerabilityResults](t, filepath.Join(tt.path, "input.json"))
+			got := testutility.LoadJSONFixture[models.VulnerabilityResults](t, filepath.Join(tt.path, "input.json"))
 			filtered := filterResults(r, &got, &configManager, false)
 
-			testsnapshot.New().MatchJSON(t, got)
+			testutility.NewSnapshot().MatchJSON(t, got)
 
 			if filtered != tt.want {
 				t.Errorf("filterResults() = %v, want %v", filtered, tt.want)

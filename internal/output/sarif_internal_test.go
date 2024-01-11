@@ -3,8 +3,7 @@ package output
 import (
 	"testing"
 
-	"github.com/google/osv-scanner/internal/testfixture"
-	"github.com/google/osv-scanner/internal/testsnapshot"
+	"github.com/google/osv-scanner/internal/testutility"
 )
 
 func Test_createSARIFHelpText(t *testing.T) {
@@ -13,17 +12,17 @@ func Test_createSARIFHelpText(t *testing.T) {
 	tests := []struct {
 		name string
 		args groupedSARIFFinding
-		want testsnapshot.Snapshot
+		want testutility.Snapshot
 	}{
 		{
-			args: testfixture.LoadJSON[groupedSARIFFinding](t, "fixtures/vuln-grouped.json"),
-			want: testsnapshot.New().WithWindowsReplacements(map[string]string{
+			args: testutility.LoadJSONFixture[groupedSARIFFinding](t, "fixtures/vuln-grouped.json"),
+			want: testutility.NewSnapshot().WithWindowsReplacements(map[string]string{
 				"/path/to/sub-rust-project/osv-scanner.toml": "\\path\\to\\sub-rust-project/osv-scanner.toml",
 			}),
 		},
 		{
-			args: testfixture.LoadJSON[groupedSARIFFinding](t, "fixtures/commit-grouped.json"),
-			want: testsnapshot.New().WithWindowsReplacements(map[string]string{
+			args: testutility.LoadJSONFixture[groupedSARIFFinding](t, "fixtures/commit-grouped.json"),
+			want: testutility.NewSnapshot().WithWindowsReplacements(map[string]string{
 				"/usr/local/google/home/rexpan/Documents/Project/engine/osv-scanner.toml": "\\usr\\local\\google\\home\\rexpan\\Documents\\Project\\engine/osv-scanner.toml",
 			}),
 		},

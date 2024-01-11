@@ -5,7 +5,7 @@ import (
 	"testing"
 
 	"github.com/go-git/go-git/v5"
-	"github.com/google/osv-scanner/internal/testsnapshot"
+	"github.com/google/osv-scanner/internal/testutility"
 )
 
 func TestMain(m *testing.M) {
@@ -20,7 +20,7 @@ func TestMain(m *testing.M) {
 	}
 	code := m.Run()
 
-	testsnapshot.Clean(m)
+	testutility.CleanSnapshots(m)
 
 	os.RemoveAll("./fixtures/.git")
 	os.Exit(code)

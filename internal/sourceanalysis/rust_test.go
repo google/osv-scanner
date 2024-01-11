@@ -8,7 +8,6 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/google/osv-scanner/internal/testsnapshot"
 	"github.com/google/osv-scanner/internal/testutility"
 	"github.com/google/osv-scanner/pkg/models"
 	"github.com/google/osv-scanner/pkg/reporter"
@@ -60,7 +59,7 @@ func Test_functionsFromDWARF(t *testing.T) {
 				t.Error(err)
 			}
 
-			testsnapshot.New().MatchJSON(t, functions)
+			testutility.NewSnapshot().MatchJSON(t, functions)
 		})
 	}
 }

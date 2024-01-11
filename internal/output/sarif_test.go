@@ -5,8 +5,7 @@ import (
 	"testing"
 
 	"github.com/google/osv-scanner/internal/output"
-	"github.com/google/osv-scanner/internal/testfixture"
-	"github.com/google/osv-scanner/internal/testsnapshot"
+	"github.com/google/osv-scanner/internal/testutility"
 	"github.com/google/osv-scanner/pkg/models"
 )
 
@@ -16,23 +15,23 @@ func TestGroupFixedVersions(t *testing.T) {
 	tests := []struct {
 		name string
 		args []models.VulnerabilityFlattened
-		want testsnapshot.Snapshot
+		want testutility.Snapshot
 	}{
 		{
 			name: "",
-			args: testfixture.LoadJSON[[]models.VulnerabilityFlattened](t, "fixtures/flattened_vulns.json"),
-			want: testsnapshot.New(),
+			args: testutility.LoadJSONFixture[[]models.VulnerabilityFlattened](t, "fixtures/flattened_vulns.json"),
+			want: testutility.NewSnapshot(),
 		},
 		{
 			name: "",
-			args: testfixture.LoadJSONWithWindowsReplacements[[]models.VulnerabilityFlattened](t,
+			args: testutility.LoadJSONFixtureWithWindowsReplacements[[]models.VulnerabilityFlattened](t,
 				"fixtures/flattened_vulns.json",
 				map[string]string{
 					"/path/to/scorecard-check-osv-e2e/sub-rust-project/Cargo.lock": "D:\\\\path\\\\to\\\\scorecard-check-osv-e2e\\\\sub-rust-project\\\\Cargo.lock",
 					"/path/to/scorecard-check-osv-e2e/go.mod":                      "D:\\\\path\\\\to\\\\scorecard-check-osv-e2e\\\\go.mod",
 				},
 			),
-			want: testsnapshot.New().WithWindowsReplacements(
+			want: testutility.NewSnapshot().WithWindowsReplacements(
 				map[string]string{
 					"/path/to/scorecard-check-osv-e2e/sub-rust-project/Cargo.lock": "D:\\\\path\\\\to\\\\scorecard-check-osv-e2e\\\\sub-rust-project\\\\Cargo.lock",
 					"/path/to/scorecard-check-osv-e2e/go.mod":                      "D:\\\\path\\\\to\\\\scorecard-check-osv-e2e\\\\go.mod",
@@ -56,18 +55,18 @@ func TestPrintSARIFReport(t *testing.T) {
 	tests := []struct {
 		name string
 		args models.VulnerabilityResults
-		want testsnapshot.Snapshot
+		want testutility.Snapshot
 	}{
 		{
 			name: "",
-			args: testfixture.LoadJSONWithWindowsReplacements[models.VulnerabilityResults](t,
+			args: testutility.LoadJSONFixtureWithWindowsReplacements[models.VulnerabilityResults](t,
 				"fixtures/test-vuln-results-a.json",
 				map[string]string{
 					"/path/to/sub-rust-project/Cargo.lock": "D:\\\\path\\\\to\\\\sub-rust-project\\\\Cargo.lock",
 					"/path/to/go.mod":                      "D:\\\\path\\\\to\\\\go.mod",
 				},
 			),
-			want: testsnapshot.New().WithWindowsReplacements(
+			want: testutility.NewSnapshot().WithWindowsReplacements(
 				map[string]string{
 					"lockfile:/path/to/sub-rust-project/Cargo.lock": "lockfile:D:\\\\path\\\\to\\\\sub-rust-project\\\\Cargo.lock",
 					"lockfile:/path/to/go.mod":                      "lockfile:D:\\\\path\\\\to\\\\go.mod",
