@@ -19,7 +19,7 @@ func Test_groupFixedVersions(t *testing.T) {
 		{
 			name: "",
 			args: testfixture.LoadJSON[[]models.VulnerabilityFlattened](t, "fixtures/flattened_vulns.json"),
-			want: testsnapshot.New(map[string]string{}),
+			want: testsnapshot.New(),
 		},
 		{
 			name: "",
@@ -30,7 +30,7 @@ func Test_groupFixedVersions(t *testing.T) {
 					"/path/to/scorecard-check-osv-e2e/go.mod":                      "D:\\\\path\\\\to\\\\scorecard-check-osv-e2e\\\\go.mod",
 				},
 			),
-			want: testsnapshot.New(
+			want: testsnapshot.New().WithWindowsReplacements(
 				map[string]string{
 					"/path/to/scorecard-check-osv-e2e/sub-rust-project/Cargo.lock": "D:\\\\path\\\\to\\\\scorecard-check-osv-e2e\\\\sub-rust-project\\\\Cargo.lock",
 					"/path/to/scorecard-check-osv-e2e/go.mod":                      "D:\\\\path\\\\to\\\\scorecard-check-osv-e2e\\\\go.mod",
@@ -64,7 +64,7 @@ func Test_mapIDsToGroupedSARIFFinding(t *testing.T) {
 					"/path/to/go.mod":                      "D:\\\\path\\\\to\\\\go.mod",
 				},
 			),
-			want: testsnapshot.New(
+			want: testsnapshot.New().WithWindowsReplacements(
 				map[string]string{
 					"/path/to/sub-rust-project/Cargo.lock": "D:\\\\path\\\\to\\\\sub-rust-project\\\\Cargo.lock",
 					"/path/to/go.mod":                      "D:\\\\path\\\\to\\\\go.mod",

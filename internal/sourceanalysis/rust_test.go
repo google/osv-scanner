@@ -60,7 +60,7 @@ func Test_functionsFromDWARF(t *testing.T) {
 				t.Error(err)
 			}
 
-			testsnapshot.New(map[string]string{}).MatchJSON(t, functions)
+			testsnapshot.New().MatchJSON(t, functions)
 		})
 	}
 }

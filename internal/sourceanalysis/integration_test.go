@@ -52,5 +52,5 @@ func Test_RunGoVulnCheck(t *testing.T) {
 	res["GO-2023-1558"][0].Trace[1].Position.Filename = "<Any value>"
 	res["GO-2023-1558"][0].Trace[1].Position.Offset = -1
 
-	testsnapshot.New(map[string]string{}).MatchJSON(t, res)
+	testsnapshot.New().MatchJSON(t, res)
 }
