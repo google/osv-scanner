@@ -26,9 +26,9 @@ func createTestDir(t *testing.T) (string, func()) {
 }
 
 type cliTestCase struct {
-	name         string
-	args         []string
-	wantExitCode int
+	name string
+	args []string
+	exit int
 }
 
 // Attempts to normalize any file paths in the given `output` so that they can
@@ -94,8 +94,8 @@ func testCli(t *testing.T, tc cliTestCase) {
 	stdout := normalizeErrors(t, normalizeTempDirectory(t, normalizeRootDirectory(t, normalizeFilePaths(t, stdoutBuffer.String()))))
 	stderr := normalizeErrors(t, normalizeTempDirectory(t, normalizeRootDirectory(t, normalizeFilePaths(t, stderrBuffer.String()))))
 
-	if ec != tc.wantExitCode {
-		t.Errorf("cli exited with code %d, not %d", ec, tc.wantExitCode)
+	if ec != tc.exit {
+		t.Errorf("cli exited with code %d, not %d", ec, tc.exit)
 	}
 
 	testutility.NewSnapshot().MatchText(t, stdout)
@@ -107,140 +107,140 @@ func TestRun(t *testing.T) {
 
 	tests := []cliTestCase{
 		{
-			name:         "",
-			args:         []string{""},
-			wantExitCode: 128,
+			name: "",
+			args: []string{""},
+			exit: 128,
 		},
 		{
-			name:         "",
-			args:         []string{"", "--version"},
-			wantExitCode: 0,
+			name: "",
+			args: []string{"", "--version"},
+			exit: 0,
 		},
 		// one specific supported lockfile
 		{
-			name:         "one specific supported lockfile",
-			args:         []string{"", "./fixtures/locks-many/composer.lock"},
-			wantExitCode: 0,
+			name: "one specific supported lockfile",
+			args: []string{"", "./fixtures/locks-many/composer.lock"},
+			exit: 0,
 		},
 		// one specific supported sbom with vulns
 		{
-			name:         "folder of supported sbom with vulns",
-			args:         []string{"", "--config=./fixtures/osv-scanner-empty-config.toml", "./fixtures/sbom-insecure/"},
-			wantExitCode: 1,
+			name: "folder of supported sbom with vulns",
+			args: []string{"", "--config=./fixtures/osv-scanner-empty-config.toml", "./fixtures/sbom-insecure/"},
+			exit: 1,
 		},
 		// one specific supported sbom with vulns
 		{
-			name:         "one specific supported sbom with vulns",
-			args:         []string{"", "--config=./fixtures/osv-scanner-empty-config.toml", "--sbom", "./fixtures/sbom-insecure/alpine.cdx.xml"},
-			wantExitCode: 1,
+			name: "one specific supported sbom with vulns",
+			args: []string{"", "--config=./fixtures/osv-scanner-empty-config.toml", "--sbom", "./fixtures/sbom-insecure/alpine.cdx.xml"},
+			exit: 1,
 		},
 		// one specific unsupported lockfile
 		{
-			name:         "",
-			args:         []string{"", "./fixtures/locks-many/not-a-lockfile.toml"},
-			wantExitCode: 128,
+			name: "",
+			args: []string{"", "./fixtures/locks-many/not-a-lockfile.toml"},
+			exit: 128,
 		},
 		// all supported lockfiles in the directory should be checked
 		{
-			name:         "Scan locks-many",
-			args:         []string{"", "./fixtures/locks-many"},
-			wantExitCode: 0,
+			name: "Scan locks-many",
+			args: []string{"", "./fixtures/locks-many"},
+			exit: 0,
 		},
 		// all supported lockfiles in the directory should be checked
 		{
-			name:         "all supported lockfiles in the directory should be checked",
-			args:         []string{"", "./fixtures/locks-many-with-invalid"},
-			wantExitCode: 127,
+			name: "all supported lockfiles in the directory should be checked",
+			args: []string{"", "./fixtures/locks-many-with-invalid"},
+			exit: 127,
 		},
 		// only the files in the given directories are checked by default (no recursion)
 		{
-			name:         "only the files in the given directories are checked by default (no recursion)",
-			args:         []string{"", "./fixtures/locks-one-with-nested"},
-			wantExitCode: 0,
+			name: "only the files in the given directories are checked by default (no recursion)",
+			args: []string{"", "./fixtures/locks-one-with-nested"},
+			exit: 0,
 		},
 		// nested directories are checked when `--recursive` is passed
 		{
-			name:         "nested directories are checked when `--recursive` is passed",
-			args:         []string{"", "--recursive", "./fixtures/locks-one-with-nested"},
-			wantExitCode: 0,
+			name: "nested directories are checked when `--recursive` is passed",
+			args: []string{"", "--recursive", "./fixtures/locks-one-with-nested"},
+			exit: 0,
 		},
 		// .gitignored files
 		{
-			name:         "",
-			args:         []string{"", "--recursive", "./fixtures/locks-gitignore"},
-			wantExitCode: 0,
+			name: "",
+			args: []string{"", "--recursive", "./fixtures/locks-gitignore"},
+			exit: 0,
 		},
 		// ignoring .gitignore
 		{
-			name:         "",
-			args:         []string{"", "--recursive", "--no-ignore", "./fixtures/locks-gitignore"},
-			wantExitCode: 0,
+			name: "",
+			args: []string{"", "--recursive", "--no-ignore", "./fixtures/locks-gitignore"},
+			exit: 0,
 		},
 		// output with json
 		{
-			name:         "json output 1",
-			args:         []string{"", "--json", "./fixtures/locks-many/composer.lock"},
-			wantExitCode: 0,
+			name: "json output 1",
+			args: []string{"", "--json", "./fixtures/locks-many/composer.lock"},
+			exit: 0,
 		},
 		{
-			name:         "json output 2",
-			args:         []string{"", "--format", "json", "./fixtures/locks-many/composer.lock"},
-			wantExitCode: 0,
+			name: "json output 2",
+			args: []string{"", "--format", "json", "./fixtures/locks-many/composer.lock"},
+			exit: 0,
 		},
 		// output format: sarif
 		{
-			name:         "Empty sarif output",
-			args:         []string{"", "--format", "sarif", "./fixtures/locks-many/composer.lock"},
-			wantExitCode: 0,
+			name: "Empty sarif output",
+			args: []string{"", "--format", "sarif", "./fixtures/locks-many/composer.lock"},
+			exit: 0,
 		},
 		{
-			name:         "Sarif with vulns",
-			args:         []string{"", "--format", "sarif", "--config", "./fixtures/osv-scanner-empty-config.toml", "./fixtures/locks-many/package-lock.json"},
-			wantExitCode: 1,
+			name: "Sarif with vulns",
+			args: []string{"", "--format", "sarif", "--config", "./fixtures/osv-scanner-empty-config.toml", "./fixtures/locks-many/package-lock.json"},
+			exit: 1,
 		},
 		// output format: gh-annotations
 		{
-			name:         "Empty gh-annotations output",
-			args:         []string{"", "--format", "gh-annotations", "./fixtures/locks-many/composer.lock"},
-			wantExitCode: 0,
+			name: "Empty gh-annotations output",
+			args: []string{"", "--format", "gh-annotations", "./fixtures/locks-many/composer.lock"},
+			exit: 0,
 		},
 		{
-			name:         "gh-annotations with vulns",
-			args:         []string{"", "--format", "gh-annotations", "--config", "./fixtures/osv-scanner-empty-config.toml", "./fixtures/locks-many/package-lock.json"},
-			wantExitCode: 1,
+			name: "gh-annotations with vulns",
+			args: []string{"", "--format", "gh-annotations", "--config", "./fixtures/osv-scanner-empty-config.toml", "./fixtures/locks-many/package-lock.json"},
+			exit: 1,
 		},
 		// output format: markdown table
 		{
-			name:         "",
-			args:         []string{"", "--format", "markdown", "--config", "./fixtures/osv-scanner-empty-config.toml", "./fixtures/locks-many/package-lock.json"},
-			wantExitCode: 1,
+			name: "",
+			args: []string{"", "--format", "markdown", "--config", "./fixtures/osv-scanner-empty-config.toml", "./fixtures/locks-many/package-lock.json"},
+			exit: 1,
 		},
 		// output format: unsupported
 		{
-			name:         "",
-			args:         []string{"", "--format", "unknown", "./fixtures/locks-many/composer.lock"},
-			wantExitCode: 127,
+			name: "",
+			args: []string{"", "--format", "unknown", "./fixtures/locks-many/composer.lock"},
+			exit: 127,
 		},
 		// one specific supported lockfile with ignore
 		{
-			name:         "one specific supported lockfile with ignore",
-			args:         []string{"", "./fixtures/locks-test-ignore/package-lock.json"},
-			wantExitCode: 0,
+			name: "one specific supported lockfile with ignore",
+			args: []string{"", "./fixtures/locks-test-ignore/package-lock.json"},
+			exit: 0,
 		},
 		{
-			name:         "invalid --verbosity value",
-			args:         []string{"", "--verbosity", "unknown", "./fixtures/locks-many/composer.lock"},
-			wantExitCode: 127,
+			name: "invalid --verbosity value",
+			args: []string{"", "--verbosity", "unknown", "./fixtures/locks-many/composer.lock"},
+			exit: 127,
 		},
 		{
-			name:         "verbosity level = error",
-			args:         []string{"", "--verbosity", "error", "--format", "table", "./fixtures/locks-many/composer.lock"},
-			wantExitCode: 0,
+			name: "verbosity level = error",
+			args: []string{"", "--verbosity", "error", "--format", "table", "./fixtures/locks-many/composer.lock"},
+			exit: 0,
 		},
 		{
-			name:         "verbosity level = info",
-			args:         []string{"", "--verbosity", "info", "--format", "table", "./fixtures/locks-many/composer.lock"},
-			wantExitCode: 0,
+			name: "verbosity level = info",
+			args: []string{"", "--verbosity", "info", "--format", "table", "./fixtures/locks-many/composer.lock"},
+			exit: 0,
 		},
 	}
 	for _, tt := range tests {
@@ -259,9 +259,9 @@ func TestRun_LockfileWithExplicitParseAs(t *testing.T) {
 	tests := []cliTestCase{
 		// unsupported parse-as
 		{
-			name:         "",
-			args:         []string{"", "-L", "my-file:./fixtures/locks-many/composer.lock"},
-			wantExitCode: 127,
+			name: "",
+			args: []string{"", "-L", "my-file:./fixtures/locks-many/composer.lock"},
+			exit: 127,
 		},
 		// empty is default
 		{
@@ -271,7 +271,7 @@ func TestRun_LockfileWithExplicitParseAs(t *testing.T) {
 				"-L",
 				":" + filepath.FromSlash("./fixtures/locks-many/composer.lock"),
 			},
-			wantExitCode: 0,
+			exit: 0,
 		},
 		// empty works as an escape (no fixture because it's not valid on Windows)
 		{
@@ -281,7 +281,7 @@ func TestRun_LockfileWithExplicitParseAs(t *testing.T) {
 				"-L",
 				":" + filepath.FromSlash("./path/to/my:file"),
 			},
-			wantExitCode: 127,
+			exit: 127,
 		},
 		{
 			name: "",
@@ -290,13 +290,13 @@ func TestRun_LockfileWithExplicitParseAs(t *testing.T) {
 				"-L",
 				":" + filepath.FromSlash("./path/to/my:project/package-lock.json"),
 			},
-			wantExitCode: 127,
+			exit: 127,
 		},
 		// one lockfile with local path
 		{
-			name:         "one lockfile with local path",
-			args:         []string{"", "--lockfile=go.mod:./fixtures/locks-many/replace-local.mod"},
-			wantExitCode: 0,
+			name: "one lockfile with local path",
+			args: []string{"", "--lockfile=go.mod:./fixtures/locks-many/replace-local.mod"},
+			exit: 0,
 		},
 		// when an explicit parse-as is given, it's applied to that file
 		{
@@ -307,7 +307,7 @@ func TestRun_LockfileWithExplicitParseAs(t *testing.T) {
 				"package-lock.json:" + filepath.FromSlash("./fixtures/locks-insecure/my-package-lock.json"),
 				filepath.FromSlash("./fixtures/locks-insecure"),
 			},
-			wantExitCode: 1,
+			exit: 1,
 		},
 		// multiple, + output order is deterministic
 		{
@@ -318,7 +318,7 @@ func TestRun_LockfileWithExplicitParseAs(t *testing.T) {
 				"-L", "yarn.lock:" + filepath.FromSlash("./fixtures/locks-insecure/my-yarn.lock"),
 				filepath.FromSlash("./fixtures/locks-insecure"),
 			},
-			wantExitCode: 1,
+			exit: 1,
 		},
 		{
 			name: "",
@@ -328,7 +328,7 @@ func TestRun_LockfileWithExplicitParseAs(t *testing.T) {
 				"-L", "package-lock.json:" + filepath.FromSlash("./fixtures/locks-insecure/my-package-lock.json"),
 				filepath.FromSlash("./fixtures/locks-insecure"),
 			},
-			wantExitCode: 1,
+			exit: 1,
 		},
 		// files that error on parsing stop parsable files from being checked
 		{
@@ -340,7 +340,7 @@ func TestRun_LockfileWithExplicitParseAs(t *testing.T) {
 				filepath.FromSlash("./fixtures/locks-insecure"),
 				filepath.FromSlash("./fixtures/locks-many"),
 			},
-			wantExitCode: 127,
+			exit: 127,
 		},
 		// parse-as takes priority, even if it's wrong
 		{
@@ -350,7 +350,7 @@ func TestRun_LockfileWithExplicitParseAs(t *testing.T) {
 				"-L",
 				"package-lock.json:" + filepath.FromSlash("./fixtures/locks-many/yarn.lock"),
 			},
-			wantExitCode: 127,
+			exit: 127,
 		},
 		// "apk-installed" is supported
 		{
@@ -360,7 +360,7 @@ func TestRun_LockfileWithExplicitParseAs(t *testing.T) {
 				"-L",
 				"apk-installed:" + filepath.FromSlash("./fixtures/locks-many/installed"),
 			},
-			wantExitCode: 0,
+			exit: 0,
 		},
 		// "dpkg-status" is supported
 		{
@@ -370,7 +370,7 @@ func TestRun_LockfileWithExplicitParseAs(t *testing.T) {
 				"-L",
 				"dpkg-status:" + filepath.FromSlash("./fixtures/locks-many/status"),
 			},
-			wantExitCode: 0,
+			exit: 0,
 		},
 	}
 	for _, tt := range tests {
@@ -389,14 +389,14 @@ func TestRun_GithubActions(t *testing.T) {
 
 	tests := []cliTestCase{
 		{
-			name:         "scanning osv-scanner custom format",
-			args:         []string{"", "-L", "osv-scanner:./fixtures/locks-insecure/osv-scanner-flutter-deps.json"},
-			wantExitCode: 1,
+			name: "scanning osv-scanner custom format",
+			args: []string{"", "-L", "osv-scanner:./fixtures/locks-insecure/osv-scanner-flutter-deps.json"},
+			exit: 1,
 		},
 		{
-			name:         "scanning osv-scanner custom format output json",
-			args:         []string{"", "-L", "osv-scanner:./fixtures/locks-insecure/osv-scanner-flutter-deps.json", "--format=sarif"},
-			wantExitCode: 1,
+			name: "scanning osv-scanner custom format output json",
+			args: []string{"", "-L", "osv-scanner:./fixtures/locks-insecure/osv-scanner-flutter-deps.json", "--format=sarif"},
+			exit: 1,
 		},
 	}
 	for _, tt := range tests {
@@ -415,74 +415,74 @@ func TestRun_LocalDatabases(t *testing.T) {
 	tests := []cliTestCase{
 		// one specific supported lockfile
 		{
-			name:         "",
-			args:         []string{"", "--experimental-local-db", "./fixtures/locks-many/composer.lock"},
-			wantExitCode: 0,
+			name: "",
+			args: []string{"", "--experimental-local-db", "./fixtures/locks-many/composer.lock"},
+			exit: 0,
 		},
 		// one specific supported sbom with vulns
 		{
-			name:         "",
-			args:         []string{"", "--experimental-local-db", "--config=./fixtures/osv-scanner-empty-config.toml", "./fixtures/sbom-insecure/postgres-stretch.cdx.xml"},
-			wantExitCode: 1,
+			name: "",
+			args: []string{"", "--experimental-local-db", "--config=./fixtures/osv-scanner-empty-config.toml", "./fixtures/sbom-insecure/postgres-stretch.cdx.xml"},
+			exit: 1,
 		},
 		// one specific unsupported lockfile
 		{
-			name:         "",
-			args:         []string{"", "--experimental-local-db", "./fixtures/locks-many/not-a-lockfile.toml"},
-			wantExitCode: 128,
+			name: "",
+			args: []string{"", "--experimental-local-db", "./fixtures/locks-many/not-a-lockfile.toml"},
+			exit: 128,
 		},
 		// all supported lockfiles in the directory should be checked
 		{
-			name:         "",
-			args:         []string{"", "--experimental-local-db", "./fixtures/locks-many"},
-			wantExitCode: 0,
+			name: "",
+			args: []string{"", "--experimental-local-db", "./fixtures/locks-many"},
+			exit: 0,
 		},
 		// all supported lockfiles in the directory should be checked
 		{
-			name:         "",
-			args:         []string{"", "--experimental-local-db", "./fixtures/locks-many-with-invalid"},
-			wantExitCode: 127,
+			name: "",
+			args: []string{"", "--experimental-local-db", "./fixtures/locks-many-with-invalid"},
+			exit: 127,
 		},
 		// only the files in the given directories are checked by default (no recursion)
 		{
-			name:         "",
-			args:         []string{"", "--experimental-local-db", "./fixtures/locks-one-with-nested"},
-			wantExitCode: 0,
+			name: "",
+			args: []string{"", "--experimental-local-db", "./fixtures/locks-one-with-nested"},
+			exit: 0,
 		},
 		// nested directories are checked when `--recursive` is passed
 		{
-			name:         "",
-			args:         []string{"", "--experimental-local-db", "--recursive", "./fixtures/locks-one-with-nested"},
-			wantExitCode: 0,
+			name: "",
+			args: []string{"", "--experimental-local-db", "--recursive", "./fixtures/locks-one-with-nested"},
+			exit: 0,
 		},
 		// .gitignored files
 		{
-			name:         "",
-			args:         []string{"", "--experimental-local-db", "--recursive", "./fixtures/locks-gitignore"},
-			wantExitCode: 0,
+			name: "",
+			args: []string{"", "--experimental-local-db", "--recursive", "./fixtures/locks-gitignore"},
+			exit: 0,
 		},
 		// ignoring .gitignore
 		{
-			name:         "",
-			args:         []string{"", "--experimental-local-db", "--recursive", "--no-ignore", "./fixtures/locks-gitignore"},
-			wantExitCode: 0,
+			name: "",
+			args: []string{"", "--experimental-local-db", "--recursive", "--no-ignore", "./fixtures/locks-gitignore"},
+			exit: 0,
 		},
 		// output with json
 		{
-			name:         "",
-			args:         []string{"", "--experimental-local-db", "--json", "./fixtures/locks-many/composer.lock"},
-			wantExitCode: 0,
+			name: "",
+			args: []string{"", "--experimental-local-db", "--json", "./fixtures/locks-many/composer.lock"},
+			exit: 0,
 		},
 		{
-			name:         "",
-			args:         []string{"", "--experimental-local-db", "--format", "json", "./fixtures/locks-many/composer.lock"},
-			wantExitCode: 0,
+			name: "",
+			args: []string{"", "--experimental-local-db", "--format", "json", "./fixtures/locks-many/composer.lock"},
+			exit: 0,
 		},
 		// output format: markdown table
 		{
-			name:         "",
-			args:         []string{"", "--experimental-local-db", "--format", "markdown", "./fixtures/locks-many/composer.lock"},
-			wantExitCode: 0,
+			name: "",
+			args: []string{"", "--experimental-local-db", "--format", "markdown", "./fixtures/locks-many/composer.lock"},
+			exit: 0,
 		},
 	}
 	for _, tt := range tests {
@@ -510,49 +510,49 @@ func TestRun_Licenses(t *testing.T) {
 	t.Parallel()
 	tests := []cliTestCase{
 		{
-			name:         "No vulnerabilities with license summary",
-			args:         []string{"", "--experimental-licenses-summary", "./fixtures/locks-many"},
-			wantExitCode: 0,
+			name: "No vulnerabilities with license summary",
+			args: []string{"", "--experimental-licenses-summary", "./fixtures/locks-many"},
+			exit: 0,
 		},
 		{
-			name:         "No vulnerabilities with license summary in markdown",
-			args:         []string{"", "--experimental-licenses-summary", "--format=markdown", "./fixtures/locks-many"},
-			wantExitCode: 0,
+			name: "No vulnerabilities with license summary in markdown",
+			args: []string{"", "--experimental-licenses-summary", "--format=markdown", "./fixtures/locks-many"},
+			exit: 0,
 		},
 		{
-			name:         "Vulnerabilities and license summary",
-			args:         []string{"", "--experimental-licenses-summary", "--config=./fixtures/osv-scanner-empty-config.toml", "./fixtures/locks-many/package-lock.json"},
-			wantExitCode: 1,
+			name: "Vulnerabilities and license summary",
+			args: []string{"", "--experimental-licenses-summary", "--config=./fixtures/osv-scanner-empty-config.toml", "./fixtures/locks-many/package-lock.json"},
+			exit: 1,
 		},
 		{
-			name:         "Vulnerabilities and license violations with allowlist",
-			args:         []string{"", "--experimental-licenses", "MIT", "--config=./fixtures/osv-scanner-empty-config.toml", "./fixtures/locks-many/package-lock.json"},
-			wantExitCode: 1,
+			name: "Vulnerabilities and license violations with allowlist",
+			args: []string{"", "--experimental-licenses", "MIT", "--config=./fixtures/osv-scanner-empty-config.toml", "./fixtures/locks-many/package-lock.json"},
+			exit: 1,
 		},
 		{
-			name:         "Vulnerabilities and all license violations allowlisted",
-			args:         []string{"", "--experimental-licenses", "Apache-2.0", "--config=./fixtures/osv-scanner-empty-config.toml", "./fixtures/locks-many/package-lock.json"},
-			wantExitCode: 1,
+			name: "Vulnerabilities and all license violations allowlisted",
+			args: []string{"", "--experimental-licenses", "Apache-2.0", "--config=./fixtures/osv-scanner-empty-config.toml", "./fixtures/locks-many/package-lock.json"},
+			exit: 1,
 		},
 		{
-			name:         "Some packages with license violations and show-all-packages in json",
-			args:         []string{"", "--format=json", "--experimental-licenses", "MIT", "--experimental-all-packages", "./fixtures/locks-licenses/package-lock.json"},
-			wantExitCode: 1,
+			name: "Some packages with license violations and show-all-packages in json",
+			args: []string{"", "--format=json", "--experimental-licenses", "MIT", "--experimental-all-packages", "./fixtures/locks-licenses/package-lock.json"},
+			exit: 1,
 		},
 		{
-			name:         "Some packages with license violations in json",
-			args:         []string{"", "--format=json", "--experimental-licenses", "MIT", "./fixtures/locks-licenses/package-lock.json"},
-			wantExitCode: 1,
+			name: "Some packages with license violations in json",
+			args: []string{"", "--format=json", "--experimental-licenses", "MIT", "./fixtures/locks-licenses/package-lock.json"},
+			exit: 1,
 		},
 		{
-			name:         "No license violations and show-all-packages in json",
-			args:         []string{"", "--format=json", "--experimental-licenses", "MIT,Apache-2.0", "--experimental-all-packages", "./fixtures/locks-licenses/package-lock.json"},
-			wantExitCode: 0,
+			name: "No license violations and show-all-packages in json",
+			args: []string{"", "--format=json", "--experimental-licenses", "MIT,Apache-2.0", "--experimental-all-packages", "./fixtures/locks-licenses/package-lock.json"},
+			exit: 0,
 		},
 		{
-			name:         "Licenses in summary mode json",
-			args:         []string{"", "--format=json", "--experimental-licenses-summary", "./fixtures/locks-licenses/package-lock.json"},
-			wantExitCode: 0,
+			name: "Licenses in summary mode json",
+			args: []string{"", "--format=json", "--experimental-licenses-summary", "./fixtures/locks-licenses/package-lock.json"},
+			exit: 0,
 		},
 	}
 	for _, tt := range tests {
