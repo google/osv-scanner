@@ -51,6 +51,10 @@ func (r *SARIFReporter) Verbosef(format string, a ...any) {
 	}
 }
 
+func (r *SARIFReporter) CanPrintAtLevel(lvl VerbosityLevel) bool {
+	return lvl <= r.level
+}
+
 func (r *SARIFReporter) PrintResult(vulnResult *models.VulnerabilityResults) error {
 	return output.PrintSARIFReport(vulnResult, r.stdout)
 }

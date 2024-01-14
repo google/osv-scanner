@@ -29,6 +29,8 @@ type Reporter interface {
 	Infof(format string, a ...any)
 	// Verbosef prints text providing additional information about the inner workings of OSV-Scanner to the user.
 	Verbosef(format string, a ...any)
+	// CanPrintAtLevel determines if text can be printed at the given level.
+	CanPrintAtLevel(lvl VerbosityLevel) bool
 	// PrintResult prints the models.VulnerabilityResults per the logic of the
 	// actual reporter
 	PrintResult(vulnResult *models.VulnerabilityResults) error

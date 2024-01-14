@@ -94,3 +94,25 @@ func TestJSONReporter_Verbosef(t *testing.T) {
 		}
 	}
 }
+
+func TestJSONReporter_CanPrintAtLevel(t *testing.T) {
+	t.Parallel()
+
+	tests := []struct {
+		lvl      VerbosityLevel
+		expected bool
+	}{
+		{lvl: VerboseLevel, expected: true},
+		{lvl: InfoLevel, expected: false},
+	}
+
+	for _, test := range tests {
+		r := NewJSONReporter(io.Discard, io.Discard, test.lvl)
+
+		actual := r.CanPrintAtLevel(VerboseLevel)
+
+		if test.expected != actual {
+			t.Errorf("Expected CanPrintAtLevel to return %t given a verbosity level of VerboseLevel", test.expected)
+		}
+	}
+}

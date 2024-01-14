@@ -53,6 +53,10 @@ func (r *JSONReporter) Verbosef(format string, a ...any) {
 	}
 }
 
+func (r *JSONReporter) CanPrintAtLevel(lvl VerbosityLevel) bool {
+	return lvl <= r.level
+}
+
 func (r *JSONReporter) PrintResult(vulnResult *models.VulnerabilityResults) error {
 	return output.PrintJSONResults(vulnResult, r.stdout)
 }

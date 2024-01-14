@@ -25,6 +25,10 @@ func (r *VoidReporter) Infof(msg string, a ...any) {
 func (r *VoidReporter) Verbosef(msg string, a ...any) {
 }
 
+func (r *VoidReporter) CanPrintAtLevel(lvl VerbosityLevel) bool {
+	return false
+}
+
 func (r *VoidReporter) PrintResult(vulnResult *models.VulnerabilityResults) error {
 	return nil
 }

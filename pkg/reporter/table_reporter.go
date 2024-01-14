@@ -56,6 +56,10 @@ func (r *TableReporter) Verbosef(format string, a ...any) {
 	}
 }
 
+func (r *TableReporter) CanPrintAtLevel(lvl VerbosityLevel) bool {
+	return lvl <= r.level
+}
+
 func (r *TableReporter) PrintResult(vulnResult *models.VulnerabilityResults) error {
 	if len(vulnResult.Results) == 0 && !r.hasErrored {
 		fmt.Fprintf(r.stdout, "No issues found\n")

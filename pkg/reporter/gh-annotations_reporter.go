@@ -51,6 +51,10 @@ func (r *GHAnnotationsReporter) Verbosef(format string, a ...any) {
 	}
 }
 
+func (r *GHAnnotationsReporter) CanPrintAtLevel(lvl VerbosityLevel) bool {
+	return lvl <= r.level
+}
+
 func (r *GHAnnotationsReporter) PrintResult(vulnResult *models.VulnerabilityResults) error {
 	return output.PrintGHAnnotationReport(vulnResult, r.stderr)
 }
