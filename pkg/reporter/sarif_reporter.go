@@ -34,19 +34,19 @@ func (r *SARIFReporter) HasErrored() bool {
 }
 
 func (r *SARIFReporter) Warnf(format string, a ...any) {
-	if WarnLevel <= r.level {
+	if r.CanPrintAtLevel(WarnLevel) {
 		fmt.Fprintf(r.stderr, format, a...)
 	}
 }
 
 func (r *SARIFReporter) Infof(format string, a ...any) {
-	if InfoLevel <= r.level {
+	if r.CanPrintAtLevel(InfoLevel) {
 		fmt.Fprintf(r.stderr, format, a...)
 	}
 }
 
 func (r *SARIFReporter) Verbosef(format string, a ...any) {
-	if VerboseLevel <= r.level {
+	if r.CanPrintAtLevel(VerboseLevel) {
 		fmt.Fprintf(r.stderr, format, a...)
 	}
 }

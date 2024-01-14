@@ -39,19 +39,19 @@ func (r *TableReporter) HasErrored() bool {
 }
 
 func (r *TableReporter) Warnf(format string, a ...any) {
-	if WarnLevel <= r.level {
+	if r.CanPrintAtLevel(WarnLevel) {
 		fmt.Fprintf(r.stdout, format, a...)
 	}
 }
 
 func (r *TableReporter) Infof(format string, a ...any) {
-	if InfoLevel <= r.level {
+	if r.CanPrintAtLevel(InfoLevel) {
 		fmt.Fprintf(r.stdout, format, a...)
 	}
 }
 
 func (r *TableReporter) Verbosef(format string, a ...any) {
-	if VerboseLevel <= r.level {
+	if r.CanPrintAtLevel(VerboseLevel) {
 		fmt.Fprintf(r.stdout, format, a...)
 	}
 }

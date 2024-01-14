@@ -36,19 +36,19 @@ func (r *JSONReporter) HasErrored() bool {
 }
 
 func (r *JSONReporter) Warnf(format string, a ...any) {
-	if WarnLevel <= r.level {
+	if r.CanPrintAtLevel(WarnLevel) {
 		fmt.Fprintf(r.stderr, format, a...)
 	}
 }
 
 func (r *JSONReporter) Infof(format string, a ...any) {
-	if InfoLevel <= r.level {
+	if r.CanPrintAtLevel(InfoLevel) {
 		fmt.Fprintf(r.stderr, format, a...)
 	}
 }
 
 func (r *JSONReporter) Verbosef(format string, a ...any) {
-	if VerboseLevel <= r.level {
+	if r.CanPrintAtLevel(VerboseLevel) {
 		fmt.Fprintf(r.stderr, format, a...)
 	}
 }
