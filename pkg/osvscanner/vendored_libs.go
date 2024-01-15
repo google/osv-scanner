@@ -32,7 +32,7 @@ var (
 )
 
 func scanDirWithVendoredLibs(r reporter.Reporter, path string) ([]scannedPackage, error) {
-	r.PrintText(fmt.Sprintf("Scanning directory for vendored libs: %s\n", path))
+	r.Infof(fmt.Sprintf("Scanning directory for vendored libs: %s\n", path))
 	entries, err := os.ReadDir(path)
 	if err != nil {
 		return nil, err
@@ -46,17 +46,17 @@ func scanDirWithVendoredLibs(r reporter.Reporter, path string) ([]scannedPackage
 
 		libPath := filepath.Join(path, entry.Name())
 
-		r.PrintText(fmt.Sprintf("Scanning potential vendored dir: %s\n", libPath))
+		r.Infof(fmt.Sprintf("Scanning potential vendored dir: %s\n", libPath))
 		// TODO: make this a goroutine to parallelize this operation
 		results, err := queryDetermineVersions(libPath)
 		if err != nil {
-			r.PrintText(fmt.Sprintf("Error scanning sub-directory '%s' with error: %v", libPath, err))
+			r.Infof(fmt.Sprintf("Error scanning sub-directory '%s' with error: %v", libPath, err))
 			continue
 		}
 
 		if len(results.Matches) > 0 && results.Matches[0].Score > determineVersionThreshold {
 			match := results.Matches[0]
-			r.PrintText(fmt.Sprintf("Identified %s as %s at %s.\n", libPath, match.RepoInfo.Address, match.RepoInfo.Commit))
+			r.Infof(fmt.Sprintf("Identified %s as %s at %s.\n", libPath, match.RepoInfo.Address, match.RepoInfo.Commit))
 			packages = append(packages, createCommitQueryPackage(match.RepoInfo.Commit, libPath))
 		}
 	}

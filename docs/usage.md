@@ -4,6 +4,7 @@ title: Usage
 permalink: /usage/
 nav_order: 4
 ---
+
 # Usage
 
 {: .no_toc }
@@ -57,6 +58,7 @@ When scanning a directory, only SBOMs following the specification filename will 
 [Package URLs]: https://github.com/package-url/purl-spec
 
 ## Specify Lockfile(s)
+
 If you want to check for known vulnerabilities in specific lockfiles, you can use the following command:
 
 ```bash
@@ -80,6 +82,7 @@ osv-scanner --lockfile ':/path/to/my:projects/package-lock.json'
 ```
 
 ## Scanning a Debian based docker image packages
+
 Preview
 {: .label }
 
@@ -128,27 +131,27 @@ osv-scanner -L package-lock.json --output scan-results.txt
 
 ## C/C++ scanning
 
-OSV-Scanner supports C/C++ projects. 
+OSV-Scanner supports C/C++ projects.
 
-Because the C/C++ ecosystem does not have a centralized package manager, C/C++ dependencies tend to be bundled with the project's source code. Dependencies are either [submoduled](#submoduled-dependencies) or [vendored](#vendored-dependencies). In either case, OSV-Scanner is able to find known vulnerabilities in your project dependencies. 
+Because the C/C++ ecosystem does not have a centralized package manager, C/C++ dependencies tend to be bundled with the project's source code. Dependencies are either [submoduled](#submoduled-dependencies) or [vendored](#vendored-dependencies). In either case, OSV-Scanner is able to find known vulnerabilities in your project dependencies.
 
-OSV-Scanner's C/C++ support is based on commit-level data. OSV's commit-level data covers the majority of C/C++ vulnerabilities within the OSV database, but users should be aware that there may be vulnerabilities in their dependencies that may not be in the OSV database and therefore not included in OSV-Scanner results. Adding more commit-level data to the database is an ongoing project, follow [#783](https://github.com/google/osv.dev/issues/783) for more details. 
+OSV-Scanner's C/C++ support is based on commit-level data. OSV's commit-level data covers the majority of C/C++ vulnerabilities within the OSV database, but users should be aware that there may be vulnerabilities in their dependencies that may not be in the OSV database and therefore not included in OSV-Scanner results. Adding more commit-level data to the database is an ongoing project, follow [#783](https://github.com/google/osv.dev/issues/783) for more details.
 
 ### Submoduled dependencies
 
 [Submoduled](https://git-scm.com/book/en/v2/Git-Tools-Submodules) dependencies are included in the project's source code and retain their Git histories. To scan a C/C++ project with submoduled dependencies:
 
-1. Navigate to the root folder of your project. 
-2. Ensure that your submodules are up to date using `git submodule update`. 
-3. Run scanner using `osv-scanner -r .`. 
+1. Navigate to the root folder of your project.
+2. Ensure that your submodules are up to date using `git submodule update`.
+3. Run scanner using `osv-scanner -r .`.
 
 ### Vendored dependencies
 
-Vendored dependencies have been directly copied into the project folder, but do not retain their Git histories. OSV-Scanner uses OSV's [determineversion API](https://google.github.io/osv.dev/post-v1-determineversion/) to estimate each dependency's version (and associated Git commit). Vulnerabilities for the estimated version are returned. This process requires no additional work from the user. Run OSV-Scanner as you normally would. 
+Vendored dependencies have been directly copied into the project folder, but do not retain their Git histories. OSV-Scanner uses OSV's [determineversion API](https://google.github.io/osv.dev/post-v1-determineversion/) to estimate each dependency's version (and associated Git commit). Vulnerabilities for the estimated version are returned. This process requires no additional work from the user. Run OSV-Scanner as you normally would.
 
 ## Scanning with call analysis
 
-Call stack analysis can be performed on some languages to check if the 
+Call stack analysis can be performed on some languages to check if the
 vulnerable code is actually being executed by your project. If the code
 is not being executed, these vulnerabilities will be marked as unexecuted.
 
@@ -164,8 +167,10 @@ OSV-Scanner uses the [`govulncheck`](https://pkg.go.dev/golang.org/x/vuln/cmd/go
 
 ### Call analysis in Rust
 
-Experimental {: .label }
-Call analysis in Rust is still considered experimental. 
+Experimental
+{: .label }
+
+Call analysis in Rust is still considered experimental.
 
 OSV-Scanner compiles Rust source code and analyzes the output binary's DWARF debug information to identify called vulnerable functions.
 
@@ -185,6 +190,22 @@ Current implementation has a few limitations:
 - Does not support dependencies that link external non-rust code
 
 ### Example
+
 ```bash
 osv-scanner --call-analysis=rust --no-call-analysis=go ./my/project/path
+```
+
+## Pre-commit integration
+
+If you wish to install OSV-Scanner as a [pre-commit](https://pre-commit.com) plugin in your project, you may use the `osv-scanner` pre-commit hook. Use the `args` key in your `.pre-commit-config.yaml` to pass your command-line arguments as you would using OSV-Scanner in the command line.
+
+### Example
+
+```yaml
+repos:
+  - repo: https://github.com/google/osv-scanner/
+    rev: # pass a Git tag or commit hash here
+    hooks:
+      - id: osv-scanner
+        args: ["-r", "/path/to/your/dir"]
 ```

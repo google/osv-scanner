@@ -548,6 +548,35 @@ func TestRun(t *testing.T) {
 			`,
 			wantStderr: "",
 		},
+		{
+			name:         "invalid --verbosity value",
+			args:         []string{"", "--verbosity", "unknown", "./fixtures/locks-many/composer.lock"},
+			wantExitCode: 127,
+			wantStdout:   "",
+			wantStderr: `
+			invalid verbosity level "unknown" - must be one of: error, warn, info, verbose
+			`,
+		},
+		{
+			name:         "verbosity level = error",
+			args:         []string{"", "--verbosity", "error", "--format", "table", "./fixtures/locks-many/composer.lock"},
+			wantExitCode: 0,
+			wantStdout: `
+			No issues found
+			`,
+			wantStderr: ``,
+		},
+		{
+			name:         "verbosity level = info",
+			args:         []string{"", "--verbosity", "info", "--format", "table", "./fixtures/locks-many/composer.lock"},
+			wantExitCode: 0,
+			wantStdout: `
+			Scanning dir ./fixtures/locks-many/composer.lock
+			Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
+			No issues found
+			`,
+			wantStderr: ``,
+		},
 	}
 	for _, tt := range tests {
 		tt := tt
@@ -623,7 +652,7 @@ func TestRun_LockfileWithExplicitParseAs(t *testing.T) {
 			args:         []string{"", "--lockfile=go.mod:./fixtures/locks-many/replace-local.mod"},
 			wantExitCode: 0,
 			wantStdout: `
-				Scanned <rootdir>/fixtures/locks-many/replace-local.mod file as a go.mod and found 2 packages
+				Scanned <rootdir>/fixtures/locks-many/replace-local.mod file as a go.mod and found 1 package
 				Filtered 1 local package/s from the scan.
 				No issues found
 			`,
@@ -642,12 +671,13 @@ func TestRun_LockfileWithExplicitParseAs(t *testing.T) {
 			wantStdout: `
 				Scanned <rootdir>/fixtures/locks-insecure/my-package-lock.json file as a package-lock.json and found 1 package
 				Scanning dir ./fixtures/locks-insecure
-				Scanned <rootdir>/fixtures/locks-insecure/composer.lock file and found 0 packages
-				+-------------------------------------+------+-----------+-----------+---------+----------------------------------------------+
-				| OSV URL                             | CVSS | ECOSYSTEM | PACKAGE   | VERSION | SOURCE                                       |
-				+-------------------------------------+------+-----------+-----------+---------+----------------------------------------------+
-				| https://osv.dev/GHSA-whgm-jr23-g3j9 | 7.5  | npm       | ansi-html | 0.0.1   | fixtures/locks-insecure/my-package-lock.json |
-				+-------------------------------------+------+-----------+-----------+---------+----------------------------------------------+
+				Scanned <rootdir>/fixtures/locks-insecure/composer.lock file and found 1 package
+				+-------------------------------------+------+-----------+------------------+---------+----------------------------------------------+
+				| OSV URL                             | CVSS | ECOSYSTEM | PACKAGE          | VERSION | SOURCE                                       |
+				+-------------------------------------+------+-----------+------------------+---------+----------------------------------------------+
+				| https://osv.dev/GHSA-9f46-5r25-5wfm | 9.8  | Packagist | league/flysystem | 1.0.8   | fixtures/locks-insecure/composer.lock        |
+				| https://osv.dev/GHSA-whgm-jr23-g3j9 | 7.5  | npm       | ansi-html        | 0.0.1   | fixtures/locks-insecure/my-package-lock.json |
+				+-------------------------------------+------+-----------+------------------+---------+----------------------------------------------+
 			`,
 			wantStderr: "",
 		},
@@ -665,13 +695,14 @@ func TestRun_LockfileWithExplicitParseAs(t *testing.T) {
 				Scanned <rootdir>/fixtures/locks-insecure/my-package-lock.json file as a package-lock.json and found 1 package
 				Scanned <rootdir>/fixtures/locks-insecure/my-yarn.lock file as a yarn.lock and found 1 package
 				Scanning dir ./fixtures/locks-insecure
-				Scanned <rootdir>/fixtures/locks-insecure/composer.lock file and found 0 packages
-				+-------------------------------------+------+-----------+-----------+---------+----------------------------------------------+
-				| OSV URL                             | CVSS | ECOSYSTEM | PACKAGE   | VERSION | SOURCE                                       |
-				+-------------------------------------+------+-----------+-----------+---------+----------------------------------------------+
-				| https://osv.dev/GHSA-whgm-jr23-g3j9 | 7.5  | npm       | ansi-html | 0.0.1   | fixtures/locks-insecure/my-package-lock.json |
-				| https://osv.dev/GHSA-whgm-jr23-g3j9 | 7.5  | npm       | ansi-html | 0.0.1   | fixtures/locks-insecure/my-yarn.lock         |
-				+-------------------------------------+------+-----------+-----------+---------+----------------------------------------------+
+				Scanned <rootdir>/fixtures/locks-insecure/composer.lock file and found 1 package
+				+-------------------------------------+------+-----------+------------------+---------+----------------------------------------------+
+				| OSV URL                             | CVSS | ECOSYSTEM | PACKAGE          | VERSION | SOURCE                                       |
+				+-------------------------------------+------+-----------+------------------+---------+----------------------------------------------+
+				| https://osv.dev/GHSA-9f46-5r25-5wfm | 9.8  | Packagist | league/flysystem | 1.0.8   | fixtures/locks-insecure/composer.lock        |
+				| https://osv.dev/GHSA-whgm-jr23-g3j9 | 7.5  | npm       | ansi-html        | 0.0.1   | fixtures/locks-insecure/my-package-lock.json |
+				| https://osv.dev/GHSA-whgm-jr23-g3j9 | 7.5  | npm       | ansi-html        | 0.0.1   | fixtures/locks-insecure/my-yarn.lock         |
+				+-------------------------------------+------+-----------+------------------+---------+----------------------------------------------+
 			`,
 			wantStderr: "",
 		},
@@ -688,13 +719,14 @@ func TestRun_LockfileWithExplicitParseAs(t *testing.T) {
 				Scanned <rootdir>/fixtures/locks-insecure/my-yarn.lock file as a yarn.lock and found 1 package
 				Scanned <rootdir>/fixtures/locks-insecure/my-package-lock.json file as a package-lock.json and found 1 package
 				Scanning dir ./fixtures/locks-insecure
-				Scanned <rootdir>/fixtures/locks-insecure/composer.lock file and found 0 packages
-				+-------------------------------------+------+-----------+-----------+---------+----------------------------------------------+
-				| OSV URL                             | CVSS | ECOSYSTEM | PACKAGE   | VERSION | SOURCE                                       |
-				+-------------------------------------+------+-----------+-----------+---------+----------------------------------------------+
-				| https://osv.dev/GHSA-whgm-jr23-g3j9 | 7.5  | npm       | ansi-html | 0.0.1   | fixtures/locks-insecure/my-package-lock.json |
-				| https://osv.dev/GHSA-whgm-jr23-g3j9 | 7.5  | npm       | ansi-html | 0.0.1   | fixtures/locks-insecure/my-yarn.lock         |
-				+-------------------------------------+------+-----------+-----------+---------+----------------------------------------------+
+				Scanned <rootdir>/fixtures/locks-insecure/composer.lock file and found 1 package
+				+-------------------------------------+------+-----------+------------------+---------+----------------------------------------------+
+				| OSV URL                             | CVSS | ECOSYSTEM | PACKAGE          | VERSION | SOURCE                                       |
+				+-------------------------------------+------+-----------+------------------+---------+----------------------------------------------+
+				| https://osv.dev/GHSA-9f46-5r25-5wfm | 9.8  | Packagist | league/flysystem | 1.0.8   | fixtures/locks-insecure/composer.lock        |
+				| https://osv.dev/GHSA-whgm-jr23-g3j9 | 7.5  | npm       | ansi-html        | 0.0.1   | fixtures/locks-insecure/my-package-lock.json |
+				| https://osv.dev/GHSA-whgm-jr23-g3j9 | 7.5  | npm       | ansi-html        | 0.0.1   | fixtures/locks-insecure/my-yarn.lock         |
+				+-------------------------------------+------+-----------+------------------+---------+----------------------------------------------+
 			`,
 			wantStderr: "",
 		},

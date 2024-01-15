@@ -8,7 +8,7 @@ builds:
       # they are unable to install libraries.
       - CGO_ENABLED=0
       - GO111MODULE=on
-    mod_timestamp: '{{ .CommitTimestamp }}'
+    mod_timestamp: "{{ .CommitTimestamp }}"
     flags:
       - -trimpath
     ldflags:
@@ -27,12 +27,12 @@ builds:
       # Further testing before supporting arm
       # - arm
       - arm64
-    main: ./cmd/osv-scanner/main.go
+    main: ./cmd/osv-scanner/
 
 dockers:
   # Arch: amd64
   - image_templates:
-      - 'ghcr.io/google/osv-scanner:{{ .Tag }}-amd64'
+      - "ghcr.io/google/osv-scanner:{{ .Tag }}-amd64"
     dockerfile: goreleaser.dockerfile
     use: buildx
     build_flag_templates:
@@ -49,7 +49,7 @@ dockers:
       - "--platform=linux/amd64"
   # Arch: arm64
   - image_templates:
-      - 'ghcr.io/google/osv-scanner:{{ .Tag }}-arm64'
+      - "ghcr.io/google/osv-scanner:{{ .Tag }}-arm64"
     dockerfile: goreleaser.dockerfile
     use: buildx
     build_flag_templates:
@@ -67,20 +67,20 @@ dockers:
     goarch: arm64
 
 docker_manifests:
-  - name_template: 'ghcr.io/google/osv-scanner:{{ .Tag }}'
+  - name_template: "ghcr.io/google/osv-scanner:{{ .Tag }}"
     image_templates:
-      - 'ghcr.io/google/osv-scanner:{{ .Tag }}-amd64'
-      - 'ghcr.io/google/osv-scanner:{{ .Tag }}-arm64'
-  - name_template: 'ghcr.io/google/osv-scanner:latest'
+      - "ghcr.io/google/osv-scanner:{{ .Tag }}-amd64"
+      - "ghcr.io/google/osv-scanner:{{ .Tag }}-arm64"
+  - name_template: "ghcr.io/google/osv-scanner:latest"
     image_templates:
-      - 'ghcr.io/google/osv-scanner:{{ .Tag }}-amd64'
-      - 'ghcr.io/google/osv-scanner:{{ .Tag }}-arm64'
+      - "ghcr.io/google/osv-scanner:{{ .Tag }}-amd64"
+      - "ghcr.io/google/osv-scanner:{{ .Tag }}-arm64"
 
 archives:
   - format: binary
-    name_template: '{{ .ProjectName }}_{{ .Version }}_{{ .Os }}_{{ .Arch }}'
+    name_template: "{{ .ProjectName }}_{{ .Version }}_{{ .Os }}_{{ .Arch }}"
 checksum:
-  name_template: '{{ .ProjectName }}_{{ .Version }}_SHA256SUMS'
+  name_template: "{{ .ProjectName }}_{{ .Version }}_SHA256SUMS"
   algorithm: sha256
 release:
   draft: true

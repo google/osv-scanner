@@ -108,7 +108,7 @@ func MakeRequest(r reporter.Reporter, query osv.BatchedQuery, offline bool, loca
 			return nil, err
 		}
 
-		r.PrintText(fmt.Sprintf("Loaded %s local db from %s\n", db.Name, db.StoredAt))
+		r.Infof("Loaded %s local db from %s\n", db.Name, db.StoredAt)
 
 		dbs[ecosystem] = db
 
@@ -120,7 +120,7 @@ func MakeRequest(r reporter.Reporter, query osv.BatchedQuery, offline bool, loca
 
 		if err != nil {
 			// currently, this will actually only error if the PURL cannot be parses
-			r.PrintError(fmt.Sprintf("skipping %s as it is not a valid PURL: %v\n", query.Package.PURL, err))
+			r.Errorf("skipping %s as it is not a valid PURL: %v\n", query.Package.PURL, err)
 			results = append(results, osv.Response{Vulns: []models.Vulnerability{}})
 
 			continue
@@ -134,7 +134,7 @@ func MakeRequest(r reporter.Reporter, query osv.BatchedQuery, offline bool, loca
 
 			// Is a commit based query, skip local scanning
 			results = append(results, osv.Response{})
-			r.PrintText(fmt.Sprintf("Skipping commit scanning for: %s\n", pkg.Commit))
+			r.Infof("Skipping commit scanning for: %s\n", pkg.Commit)
 
 			continue
 		}
@@ -143,7 +143,7 @@ func MakeRequest(r reporter.Reporter, query osv.BatchedQuery, offline bool, loca
 
 		if err != nil {
 			// currently, this will actually only error if the PURL cannot be parses
-			r.PrintError(fmt.Sprintf("could not load db for %s ecosystem: %v\n", pkg.Ecosystem, err))
+			r.Errorf("could not load db for %s ecosystem: %v\n", pkg.Ecosystem, err)
 			results = append(results, osv.Response{Vulns: []models.Vulnerability{}})
 
 			continue

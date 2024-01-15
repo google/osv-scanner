@@ -23,7 +23,7 @@ description: >- # this means to ignore newlines until "baseurl:"
   Use OSV-Scanner to find existing vulnerabilities affecting your project's dependencies.
 baseurl: "/osv-scanner" # the subpath of your site, e.g. /blog
 url: "" # the base hostname & protocol for your site, e.g. http://example.com
-github_username:  google
+github_username: google
 ga_tracking: G-60SWD6J0TM
 
 # Build settings

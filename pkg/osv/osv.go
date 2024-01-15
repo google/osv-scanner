@@ -123,7 +123,8 @@ func MakePkgRequest(pkgDetails lockfile.PackageDetails) *Query {
 	if pkgDetails.Ecosystem == "" && pkgDetails.Commit != "" {
 		return &Query{
 			Metadata: models.Metadata{
-				RepoURL: pkgDetails.Name,
+				RepoURL:   pkgDetails.Name,
+				DepGroups: pkgDetails.DepGroups,
 			},
 			Commit: pkgDetails.Commit,
 		}
@@ -133,6 +134,9 @@ func MakePkgRequest(pkgDetails lockfile.PackageDetails) *Query {
 			Package: Package{
 				Name:      pkgDetails.Name,
 				Ecosystem: string(pkgDetails.Ecosystem),
+			},
+			Metadata: models.Metadata{
+				DepGroups: pkgDetails.DepGroups,
 			},
 		}
 	}

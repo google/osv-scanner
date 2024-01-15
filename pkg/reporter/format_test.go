@@ -14,7 +14,7 @@ func TestNew(t *testing.T) {
 		stdout := &bytes.Buffer{}
 		stderr := &bytes.Buffer{}
 
-		_, err := reporter.New(format, stdout, stderr, 0)
+		_, err := reporter.New(format, stdout, stderr, reporter.InfoLevel, 0)
 		if err != nil {
 			t.Errorf("Reporter for '%s' format not implemented", format)
 		}
@@ -27,7 +27,7 @@ func TestNew_UnsupportedFormatter(t *testing.T) {
 	stdout := &bytes.Buffer{}
 	stderr := &bytes.Buffer{}
 
-	_, err := reporter.New("unsupported", stdout, stderr, 0)
+	_, err := reporter.New("unsupported", stdout, stderr, reporter.InfoLevel, 0)
 
 	if err == nil {
 		t.Errorf("Did not get expected error")
