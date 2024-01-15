@@ -74,9 +74,9 @@ jobs:
       - name: Print Scripts
         env:
           OUTPUT: |
-            git fetch upstream &&
+            git fetch &&
             git tag ${{ inputs.version }} ${{ inputs.commit }} &&
-            git push upstream ${{ inputs.version }}
+            git push origin ${{ inputs.version }}
         shell: bash
         run: |
           echo $OUTPUT
