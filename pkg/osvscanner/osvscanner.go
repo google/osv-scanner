@@ -3,9 +3,11 @@ package osvscanner
 import (
 	"bufio"
 	"crypto/md5" //nolint:gosec
+	"encoding/json"
 	"errors"
 	"fmt"
 	"io/fs"
+	"net/http"
 	"os"
 	"os/exec"
 	"path"
@@ -930,6 +932,8 @@ func makeRequest(
 		return &osv.HydratedBatchedResponse{}, fmt.Errorf("scan failed %w", err)
 	}
 
+	printBatchQueryIfPossible(r, &query, resp)
+
 	hydratedResp, err := osv.Hydrate(resp)
 	if err != nil {
 		return &osv.HydratedBatchedResponse{}, fmt.Errorf("failed to hydrate OSV response: %w", err)
@@ -953,4 +957,40 @@ func makeLicensesRequests(packages []scannedPackage) ([][]models.License, error)
 	}
 
 	return licenses, nil
+}
+
+func printBatchQueryIfPossible(r reporter.Reporter, query *osv.BatchedQuery, resp *osv.BatchedResponse) {
+	if r.CanPrintAtLevel(reporter.VerboseLevel) {
+		method := http.MethodPost
+		endpoint := osv.QueryEndpoint
+
+		msg := buildHTTPMessage(method, endpoint, query, false)
+		r.Verbosef(msg)
+
+		msg = buildHTTPMessage(method, endpoint, resp, true)
+		r.Verbosef(msg)
+	}
+}
+
+func buildHTTPMessage(method, endpoint string, body any, isResponse bool) string {
+	prefix := "> "
+
+	if isResponse {
+		prefix = "< "
+	}
+
+	var bodyAsString string
+	if bodyAsBytes, err := json.MarshalIndent(body, prefix, "  "); err == nil {
+		b := strings.Builder{}
+		// Append prefix since MarshalIndent() doesn't include one in the first line.
+		b.WriteString(prefix)
+
+		for _, bbyte := range bodyAsBytes {
+			b.WriteByte(bbyte)
+		}
+
+		bodyAsString = b.String()
+	}
+
+	return fmt.Sprintf("%s%s %s\n%s\n", prefix, method, endpoint, bodyAsString)
 }
