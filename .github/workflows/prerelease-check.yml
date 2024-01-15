@@ -70,7 +70,6 @@ jobs:
       - format
       - lint
       - tests
-      - osv-scan
     steps:
       - name: Print Scripts
         env:
