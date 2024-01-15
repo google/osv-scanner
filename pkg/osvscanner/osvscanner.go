@@ -939,6 +939,8 @@ func makeRequest(
 		return &osv.HydratedBatchedResponse{}, fmt.Errorf("failed to hydrate OSV response: %w", err)
 	}
 
+	printHydrationCallsIfPossible(r, resp, hydratedResp)
+
 	return hydratedResp, nil
 }
 
@@ -972,11 +974,34 @@ func printBatchQueryIfPossible(r reporter.Reporter, query *osv.BatchedQuery, res
 	}
 }
 
+func printHydrationCallsIfPossible(r reporter.Reporter, resp *osv.BatchedResponse, hydratedResp *osv.HydratedBatchedResponse) {
+	if r.CanPrintAtLevel(reporter.VerboseLevel) {
+		method := http.MethodGet
+
+		for batchIdx, batchResp := range resp.Results {
+			for vulnIdx, vuln := range batchResp.Vulns {
+				endpoint := fmt.Sprintf("%s/%s", osv.GetEndpoint, vuln.ID)
+				msg := buildHTTPMessage(method, endpoint, nil, false)
+				r.Verbosef(msg)
+
+				hydratedResp := hydratedResp.Results[batchIdx]
+				msg = buildHTTPMessage(method, endpoint, hydratedResp.Vulns[vulnIdx], true)
+				r.Verbosef(msg)
+			}
+		}
+	}
+}
+
 func buildHTTPMessage(method, endpoint string, body any, isResponse bool) string {
 	prefix := "> "
 
 	if isResponse {
 		prefix = "< "
+	}
+
+	if body == nil {
+		// Given an empty HTTP body.
+		return fmt.Sprintf("%s%s %s\n", prefix, method, endpoint)
 	}
 
 	var bodyAsString string
