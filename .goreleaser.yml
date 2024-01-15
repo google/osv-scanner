@@ -19,6 +19,7 @@ builds:
       # - freebsd
       - linux
       - darwin
+      - windows
     goarch:
       - amd64
       # 32bit does not compile at the moment because of spdx dependency
