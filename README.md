@@ -12,43 +12,56 @@ For more details about the full capabilities of the tool, please refer to [the u
 This section will only explain how to build the project and run the tests. If you intend to only use the tool from pre-built binaries, please refer the [Documentation -> Run](#run) section.
 
 ### Build
+
 To build OSV-Scanner you'll need :
 
 - [Go](https://golang.org/doc/install) 1.21 or later. You'll also need to set your `$GOPATH` and have `$GOPATH/bin` in your path.
 - [GoReleaser](https://goreleaser.com/) (Optional, only if you want reproducible builds)
 
-You have two ways of producing a binary from the repository, using go build, or using  GoReleaser.
+You have two ways of producing a binary from the repository, using go build, or using GoReleaser.
 
 #### Build using only go
+
 Run the following command in the project directory:
+
 ```bash
 ./scripts/build.sh
 ```
+
 It will produce a binary called `osv-scanner` in the project directory
 
 #### Build using goreleaser
+
 Run the following command in the project directory:
+
 ```bash
 ./scripts/build_snapshot.sh
 ```
+
 See [GoReleaser documentation](https://goreleaser.com/cmd/goreleaser_build/) for build options.
 
 You can reproduce the downloadable builds by checking out the specific tag and running `goreleaser build`, using the same Go version as the one used during the actual release (see goreleaser workflows)
 
 ### Run tests
+
 Run the following command in the project directory :
+
 ```bash
  ./scripts/run_tests.sh
 ```
+
 By default, tests that require additional dependencies beyond the go toolchain are skipped. Enable these tests by setting the env variable `TEST_ACCEPTANCE=true`.
 
 You can generate an HTML coverage report by running:
+
 ```bash
 ./scripts/generate_coverage_report.sh
 ```
 
 ### Linting
+
 To lint your code, run the following command :
+
 ```bash
 ./scripts/run_lints.sh
 ```
@@ -72,6 +85,7 @@ To lint your code, run the following command :
    ```
 
 **Note** : You may want to run the tool only to export the SBOM, in that case you can run the following command :
+
 ```bash
 `./osv-scanner_<version>_<target>_<architecture> \
     --skip-git \
