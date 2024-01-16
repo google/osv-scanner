@@ -15,7 +15,7 @@ import (
 	"github.com/urfave/cli/v2"
 )
 
-func ScanAction(context *cli.Context, r reporter.Reporter, stdout, stderr io.Writer) error {
+func ScanAction(context *cli.Context, stdout, stderr io.Writer) error {
 	format := context.String("format")
 
 	if context.Bool("json") {
@@ -58,8 +58,8 @@ func ScanAction(context *cli.Context, r reporter.Reporter, stdout, stderr io.Wri
 	if err != nil {
 		return err
 	}
-
-	if r, err = reporter.New(format, stdout, stderr, verbosityLevel, termWidth); err != nil {
+	r, err := reporter.New(format, stdout, stderr, verbosityLevel, termWidth)
+	if err != nil {
 		return err
 	}
 

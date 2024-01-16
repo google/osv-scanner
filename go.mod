@@ -16,6 +16,7 @@ require (
 	github.com/package-url/packageurl-go v0.1.2
 	github.com/pandatix/go-cvss v0.6.2
 	github.com/spdx/tools-golang v0.5.3
+	github.com/urfave/cli/v2 v2.26.0
 	golang.org/x/exp v0.0.0-20231110203233-9a3e6036ecaa
 	golang.org/x/mod v0.14.0
 	golang.org/x/sync v0.5.0
@@ -26,13 +27,18 @@ require (
 )
 
 require (
+	github.com/cpuguy83/go-md2man/v2 v2.0.2 // indirect
+	github.com/russross/blackfriday/v2 v2.1.0 // indirect
+	github.com/xrash/smetrics v0.0.0-20201216005158-039620a65673 // indirect
+)
+
+require (
 	// Vanity URL for https://github.com/imdario/mergo
 	dario.cat/mergo v1.0.0 // indirect
 	github.com/Microsoft/go-winio v0.6.1 // indirect
 	github.com/ProtonMail/go-crypto v0.0.0-20230923063757-afb1ddc0824c // indirect
 	github.com/anchore/go-struct-converter v0.0.0-20230627203149-c72ef8859ca9 // indirect
 	github.com/cloudflare/circl v1.3.7 // indirect
-	github.com/cpuguy83/go-md2man/v2 v2.0.2 // indirect
 	github.com/cyphar/filepath-securejoin v0.2.4 // indirect
 	github.com/emirpasic/gods v1.18.1 // indirect
 	github.com/go-git/gcfg v1.5.1-0.20230307220236-3a3c6141e376 // indirect
@@ -43,12 +49,10 @@ require (
 	github.com/mattn/go-runewidth v0.0.15 // indirect
 	github.com/pjbgf/sha1cd v0.3.0 // indirect
 	github.com/rivo/uniseg v0.4.4 // indirect
-	github.com/russross/blackfriday/v2 v2.1.0 // indirect
 	github.com/sergi/go-diff v1.3.1 // indirect
 	github.com/skeema/knownhosts v1.2.1 // indirect
 	github.com/spdx/gordf v0.0.0-20221230105357-b735bd5aac89 // indirect
 	github.com/xanzy/ssh-agent v0.3.3 // indirect
-	github.com/xrash/smetrics v0.0.0-20201216005158-039620a65673 // indirect
 	golang.org/x/crypto v0.17.0 // indirect
 	golang.org/x/net v0.19.0 // indirect
 	golang.org/x/sys v0.15.0 // indirect

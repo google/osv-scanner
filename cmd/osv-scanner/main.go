@@ -154,7 +154,7 @@ func run(args []string, stdout, stderr io.Writer) int {
 				},
 				ArgsUsage: "[directory1 directory2...]",
 				Action: func(c *cli.Context) error {
-					return scan.ScanAction(c, r, stdout, stderr)
+					return scan.ScanAction(c, stdout, stderr)
 				},
 			},
 			{
@@ -171,7 +171,7 @@ func run(args []string, stdout, stderr io.Writer) int {
 	}
 
 	if len(args) >= 2 {
-		if args[1] != "scan" && args[1] != "update" && args[1] != "fix" && args[1] != "--help" {
+		if args[1] != "scan" && args[1] != "update" && args[1] != "fix" && args[1] != "--help" && args[1] != "--version" {
 			args = append(args, "")
 			copy(args[2:], args[1:])
 			args[1] = "scan"
