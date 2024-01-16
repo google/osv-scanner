@@ -65,6 +65,24 @@ dockers:
       - "--label=org.opencontainers.image.url={{.GitURL}}"
       - "--platform=linux/arm64"
     goarch: arm64
+  # Github Action
+  - image_templates:
+      - "ghcr.io/google/osv-scanner-action:{{ .Tag }}"
+    dockerfile: action.dockerfile
+    use: buildx
+    build_flag_templates:
+      - "--pull"
+      - "--label=org.opencontainers.image.title=osv-scanner-action"
+      - "--label=org.opencontainers.image.description=Vulnerability scanner written in Go which uses the data provided by https://osv.dev"
+      - "--label=org.opencontainers.image.licenses=Apache-2.0"
+      - "--label=org.opencontainers.image.created={{.Date}}"
+      - "--label=org.opencontainers.image.name={{.ProjectName}}"
+      - "--label=org.opencontainers.image.revision={{.FullCommit}}"
+      - "--label=org.opencontainers.image.version={{.Version}}"
+      - "--label=org.opencontainers.image.source={{.GitURL}}"
+      - "--label=org.opencontainers.image.url={{.GitURL}}"
+      - "--platform=linux/amd64"
+    goarch: amd64
 
 docker_manifests:
   - name_template: "ghcr.io/google/osv-scanner:{{ .Tag }}"
@@ -75,6 +93,12 @@ docker_manifests:
     image_templates:
       - "ghcr.io/google/osv-scanner:{{ .Tag }}-amd64"
       - "ghcr.io/google/osv-scanner:{{ .Tag }}-arm64"
+  - name_template: "ghcr.io/google/osv-scanner-action:{{ .Tag }}"
+    image_templates:
+      - "ghcr.io/google/osv-scanner-action:{{ .Tag }}"
+  - name_template: "ghcr.io/google/osv-scanner-action:latest"
+    image_templates:
+      - "ghcr.io/google/osv-scanner-action:{{ .Tag }}"
 
 archives:
   - format: binary
