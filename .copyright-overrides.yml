@@ -282,3 +282,6 @@ github.com/pjbgf/sha1cd:
   - Copyright 2009 The Go Authors. All rights reserved.
   - Copyright 2017 Marc Stevens <marc@marc-stevens.nl>, Dan Shumow <danshu@microsoft.com>
   - Copyright 2022 Paulo Gomes <pjbgf@linux.com>
+
+deps.dev/api/v3alpha: Copyright 2023 Google LLC
+github.com/anchore/go-struct-converter: "" # At date, this repository have no copyright
