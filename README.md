@@ -1,37 +1,95 @@
 # OSV-Scanner
 
-[![OpenSSF Scorecard](https://api.securityscorecards.dev/projects/github.com/google/osv-scanner/badge)](https://api.securityscorecards.dev/projects/github.com/google/osv-scanner)
-[![Go Report Card](https://goreportcard.com/badge/github.com/google/osv-scanner)](https://goreportcard.com/report/github.com/google/osv-scanner)
-[![codecov](https://codecov.io/gh/google/osv-scanner/graph/badge.svg?token=C8IDVX9LP5)](https://codecov.io/gh/google/osv-scanner)
-[![SLSA 3](https://slsa.dev/images/gh-badge-level3.svg)](https://slsa.dev)
-[![GitHub Release](https://img.shields.io/github/v/release/google/osv-scanner)](https://github.com/google/osv-scanner/releases)
+The present repository contains the source code of the Datadog version of OSV-Scanner.
+OSV-Scanner is a project originally owned by Google to extract libraries from package managers' files and match them against the [OSV database](https://osv.dev/).
 
-Use OSV-Scanner to find existing vulnerabilities affecting your project's dependencies.
+At Datadog, we use it to extract your dependencies in a CycloneDX formatted SBOM and report it to our backend.
 
-OSV-Scanner provides an officially supported frontend to the [OSV database](https://osv.dev/) that connects a project’s list of dependencies with the vulnerabilities that affect them. Since the OSV.dev database is open source and distributed, it has several benefits in comparison with closed source advisory databases and scanners:
+For more details about the full capabilities of the tool, please refer to [the upstream repository](https://www.github.com/google/osv-scanner)
 
-- Each advisory comes from an open and authoritative source (e.g. the [RustSec Advisory Database](https://github.com/rustsec/advisory-db))
-- Anyone can suggest improvements to advisories, resulting in a very high quality database
-- The OSV format unambiguously stores information about affected versions in a machine-readable format that precisely maps onto a developer’s list of packages
+## Getting Started
 
-The above all results in fewer, more actionable vulnerability notifications, which reduces the time needed to resolve them. Check out our [announcement blog post] for more details!
+This section will only explain how to build the project and run the tests. If you intend to only use the tool from pre-built binaries, please refer the [Documentation -> Run](#run) section.
 
-[announcement blog post]: https://security.googleblog.com/2022/12/announcing-osv-scanner-vulnerability.html
+### Build
+To build OSV-Scanner you'll need :
+
+- [Go](https://golang.org/doc/install) 1.21 or later. You'll also need to set your `$GOPATH` and have `$GOPATH/bin` in your path.
+- [GoReleaser](https://goreleaser.com/) (Optional, only if you want reproducible builds)
+
+You have two ways of producing a binary from the repository, using go build, or using  GoReleaser.
+
+#### Build using only go
+Run the following command in the project directory:
+```bash
+./scripts/build.sh
+```
+It will produce a binary called `osv-scanner` in the project directory
+
+#### Build using goreleaser
+Run the following command in the project directory:
+```bash
+./scripts/build_snapshot.sh
+```
+See [GoReleaser documentation](https://goreleaser.com/cmd/goreleaser_build/) for build options.
+
+You can reproduce the downloadable builds by checking out the specific tag and running `goreleaser build`, using the same Go version as the one used during the actual release (see goreleaser workflows)
+
+### Run tests
+Run the following command in the project directory :
+```bash
+ ./scripts/run_tests.sh
+```
+By default, tests that require additional dependencies beyond the go toolchain are skipped. Enable these tests by setting the env variable `TEST_ACCEPTANCE=true`.
+
+You can generate an HTML coverage report by running:
+```bash
+./scripts/generate_coverage_report.sh
+```
+
+### Linting
+To lint your code, run the following command :
+```bash
+./scripts/run_lints.sh
+```
 
 ## Documentation
 
-Read our [detailed documentation](https://google.github.io/osv-scanner) to learn how to use OSV-Scanner.
+### Run
 
-## Contribute
+1. Download the latest version of the scanner from the [release page](https://www.github.com/DataDog/osv-scanner/releases)
+2. Export few environment variables :
+   1. `REPOSITORY_URL` representing the URL of the repository you scan. Please note that if you run it through a GitHub action, you don't have to export it.
+   2. `DD_SITE` representing the region of your Datadog account. It defaults to `us1`
+   3. `DD_API_KEY` representing a Datadog API key
+3. Run the scanner using the following command :
+   ```bash
+   ./osv-scanner_<version>_<target>_<architecture> \
+      --skip-git \
+      --recursive \
+      --format=datadog-sbom \
+      <path to your repository root directory>
+   ```
 
-### Report Problems
+**Note** : You may want to run the tool only to export the SBOM, in that case you can run the following command :
+```bash
+`./osv-scanner_<version>_<target>_<architecture> \
+    --skip-git \
+    --recursive \
+    --format=datadog-offline-sbom \
+    --output=result.json \
+    <path to your repository root directory>`
+```
 
-If you have what looks like a bug, please use the [GitHub issue tracking system](https://github.com/google/osv-scanner/issues). Before you file an issue, please search existing issues to see if your issue is already covered.
+## Contributing code
 
-### Contributing code to `osv-scanner`
+This repository is already a fork of [Google's OSV-Scanner](https://www.github.com/google/osv-scanner).
 
-See [CONTRIBUTING.md](CONTRIBUTING.md) for documentation on how to contribute code.
+Before contributing, please ensure you want to change a Datadog specific behavior of the scanner.
+If not, please consider contributing directly to the upstream repository.
 
-## Star History
+If it is about Datadog's specific behavior, a contributing guide should come up soon. In the meantime, please [open an issue](https://www.github.com/DataDog/osv-scanner/issues) to start the discussion with us
 
-[![Star History Chart](https://api.star-history.com/svg?repos=google/osv-scanner&type=Date)](https://star-history.com/#google/osv-scanner&Date)
+## License
+
+The Datadog version of OSV-Scanner is licensed under the [Apache License, Version 2.0](LICENSE).
