@@ -87,12 +87,12 @@ To lint your code, run the following command :
 **Note** : You may want to run the tool only to export the SBOM, in that case you can run the following command :
 
 ```bash
-`./osv-scanner_<version>_<target>_<architecture> \
+./osv-scanner_<version>_<target>_<architecture> \
     --skip-git \
     --recursive \
     --format=datadog-offline-sbom \
     --output=result.json \
-    <path to your repository root directory>`
+    <path to your repository root directory>
 ```
 
 ## Contributing code
