@@ -19,11 +19,6 @@ func TestGroupFixedVersions(t *testing.T) {
 	}{
 		{
 			name: "",
-			args: testutility.LoadJSONFixture[[]models.VulnerabilityFlattened](t, "fixtures/flattened_vulns.json"),
-			want: testutility.NewSnapshot(),
-		},
-		{
-			name: "",
 			args: testutility.LoadJSONFixtureWithWindowsReplacements[[]models.VulnerabilityFlattened](t,
 				"fixtures/flattened_vulns.json",
 				map[string]string{
