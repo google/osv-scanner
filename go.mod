@@ -1,9 +1,9 @@
 module github.com/google/osv-scanner
 
-go 1.21.5
+go 1.21
 
 require (
-	deps.dev/api/v3alpha v0.0.0-20231114023923-e40c4d5c34e5
+	deps.dev/api/v3alpha v0.0.0-20240109042716-00b51ef52ece
 	github.com/BurntSushi/toml v1.3.2
 	github.com/CycloneDX/cyclonedx-go v0.8.0
 	github.com/go-git/go-billy/v5 v5.5.0
@@ -11,18 +11,18 @@ require (
 	github.com/google/go-cmp v0.6.0
 	github.com/hexops/gotextdiff v1.0.3
 	github.com/ianlancetaylor/demangle v0.0.0-20231023195312-e2daf7ba7156
-	github.com/jedib0t/go-pretty/v6 v6.4.9
+	github.com/jedib0t/go-pretty/v6 v6.5.3
 	github.com/owenrumney/go-sarif/v2 v2.3.0
 	github.com/package-url/packageurl-go v0.1.2
 	github.com/pandatix/go-cvss v0.6.2
 	github.com/spdx/tools-golang v0.5.3
-	github.com/urfave/cli/v2 v2.26.0
-	golang.org/x/exp v0.0.0-20231110203233-9a3e6036ecaa
+	github.com/urfave/cli/v2 v2.27.1
+	golang.org/x/exp v0.0.0-20240112132812-db7319d0e0e3
 	golang.org/x/mod v0.14.0
-	golang.org/x/sync v0.5.0
-	golang.org/x/term v0.15.0
+	golang.org/x/sync v0.6.0
+	golang.org/x/term v0.16.0
 	golang.org/x/vuln v1.0.1
-	google.golang.org/grpc v1.59.0
+	google.golang.org/grpc v1.60.1
 	gopkg.in/yaml.v3 v3.0.1
 )
 
@@ -53,12 +53,12 @@ require (
 	github.com/skeema/knownhosts v1.2.1 // indirect
 	github.com/spdx/gordf v0.0.0-20221230105357-b735bd5aac89 // indirect
 	github.com/xanzy/ssh-agent v0.3.3 // indirect
-	golang.org/x/crypto v0.17.0 // indirect
-	golang.org/x/net v0.19.0 // indirect
-	golang.org/x/sys v0.15.0 // indirect
+	golang.org/x/crypto v0.18.0 // indirect
+	golang.org/x/net v0.20.0 // indirect
+	golang.org/x/sys v0.16.0 // indirect
 	golang.org/x/text v0.14.0 // indirect
-	golang.org/x/tools v0.15.0 // indirect
-	google.golang.org/genproto/googleapis/rpc v0.0.0-20230822172742-b8732ec3820d // indirect
+	golang.org/x/tools v0.17.0 // indirect
+	google.golang.org/genproto/googleapis/rpc v0.0.0-20231002182017-d307bd883b97 // indirect
 	google.golang.org/protobuf v1.31.0 // indirect
 	gopkg.in/warnings.v0 v0.1.2 // indirect
 )
