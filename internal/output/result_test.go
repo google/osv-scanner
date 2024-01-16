@@ -31,8 +31,8 @@ func Test_groupFixedVersions(t *testing.T) {
 			),
 			want: testutility.NewSnapshot().WithWindowsReplacements(
 				map[string]string{
-					"/path/to/scorecard-check-osv-e2e/sub-rust-project/Cargo.lock": "D:\\\\path\\\\to\\\\scorecard-check-osv-e2e\\\\sub-rust-project\\\\Cargo.lock",
-					"/path/to/scorecard-check-osv-e2e/go.mod":                      "D:\\\\path\\\\to\\\\scorecard-check-osv-e2e\\\\go.mod",
+					"D:\\\\path\\\\to\\\\scorecard-check-osv-e2e\\\\sub-rust-project\\\\Cargo.lock": "/path/to/scorecard-check-osv-e2e/sub-rust-project/Cargo.lock",
+					"D:\\\\path\\\\to\\\\scorecard-check-osv-e2e\\\\go.mod":                         "/path/to/scorecard-check-osv-e2e/go.mod",
 				},
 			),
 		},
@@ -65,8 +65,8 @@ func Test_mapIDsToGroupedSARIFFinding(t *testing.T) {
 			),
 			want: testutility.NewSnapshot().WithWindowsReplacements(
 				map[string]string{
-					"/path/to/sub-rust-project/Cargo.lock": "D:\\\\path\\\\to\\\\sub-rust-project\\\\Cargo.lock",
-					"/path/to/go.mod":                      "D:\\\\path\\\\to\\\\go.mod",
+					"D:\\\\path\\\\to\\\\sub-rust-project\\\\Cargo.lock": "/path/to/sub-rust-project/Cargo.lock",
+					"D:\\\\path\\\\to\\\\go.mod":                         "/path/to/go.mod",
 				},
 			),
 		},

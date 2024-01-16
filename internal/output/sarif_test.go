@@ -28,8 +28,8 @@ func TestGroupFixedVersions(t *testing.T) {
 			),
 			want: testutility.NewSnapshot().WithWindowsReplacements(
 				map[string]string{
-					"/path/to/scorecard-check-osv-e2e/sub-rust-project/Cargo.lock": "D:\\\\path\\\\to\\\\scorecard-check-osv-e2e\\\\sub-rust-project\\\\Cargo.lock",
-					"/path/to/scorecard-check-osv-e2e/go.mod":                      "D:\\\\path\\\\to\\\\scorecard-check-osv-e2e\\\\go.mod",
+					"D:\\\\path\\\\to\\\\scorecard-check-osv-e2e\\\\sub-rust-project\\\\Cargo.lock": "/path/to/scorecard-check-osv-e2e/sub-rust-project/Cargo.lock",
+					"D:\\\\path\\\\to\\\\scorecard-check-osv-e2e\\\\go.mod":                         "/path/to/scorecard-check-osv-e2e/go.mod",
 				},
 			),
 		},
@@ -63,11 +63,11 @@ func TestPrintSARIFReport(t *testing.T) {
 			),
 			want: testutility.NewSnapshot().WithWindowsReplacements(
 				map[string]string{
-					"lockfile:/path/to/sub-rust-project/Cargo.lock": "lockfile:D:\\\\path\\\\to\\\\sub-rust-project\\\\Cargo.lock",
-					"lockfile:/path/to/go.mod":                      "lockfile:D:\\\\path\\\\to\\\\go.mod",
-					"/path/to/sub-rust-project/osv-scanner.toml":    "D:\\\\path\\\\to\\\\sub-rust-project/osv-scanner.toml",
-					"/path/to/osv-scanner.toml":                     "D:\\\\path\\\\to/osv-scanner.toml",
-					"file:///path/to":                               "file:///D:/path/to",
+					"lockfile:D:\\\\path\\\\to\\\\sub-rust-project\\\\Cargo.lock": "lockfile:/path/to/sub-rust-project/Cargo.lock",
+					"lockfile:D:\\\\path\\\\to\\\\go.mod":                         "lockfile:/path/to/go.mod",
+					"D:\\\\path\\\\to\\\\sub-rust-project/osv-scanner.toml":       "/path/to/sub-rust-project/osv-scanner.toml",
+					"D:\\\\path\\\\to/osv-scanner.toml":                           "/path/to/osv-scanner.toml",
+					"file:///D:/path/to":                                          "file:///path/to",
 				},
 			),
 		},
