@@ -17,5 +17,7 @@ jobs:
         with:
           python-version: "3.9.12"
           cache: "pip"
+      - name: Install dependencies
+        run: python3 -m pip install -r requirements.txt
       - name: Run license lint task
         run: inv -e lint-licenses
