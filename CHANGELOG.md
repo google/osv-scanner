@@ -1,6 +1,7 @@
 # v1.6.0:
 
 ### Features
+
 - [Feature #694](https://github.com/google/osv-scanner/pull/694)
   Add support for NuGet lock files version 2 by @giovanni-bozzano
 
@@ -8,7 +9,7 @@
   Scan and report dependency groups (e.g. "dev dependencies") for vulnerabilities
 
 - [Feature #702](https://github.com/google/osv-scanner/pull/702)
-  Created an option to skip/disable upload to code scanning by @another-rex in 
+  Created an option to skip/disable upload to code scanning by @another-rex in
 
 - [Feature #732](https://github.com/google/osv-scanner/pull/732)
   Add option to not fail on vulnerability being found for GitHub Actions.
@@ -17,6 +18,7 @@
   Verify the spdx licenses passed in to the license allowlist
 
 ### Fixes
+
 - [Bug #736](https://github.com/google/osv-scanner/pull/736)
   Show ecosystem and version even if git is shown if the info exists.
 
@@ -30,6 +32,7 @@
   Get go stdlib version from go.mod.
 
 ### Miscellaneous
+
 - Changes to `Reporter` methods to add verbosity levels and to deprecate functions.
 
 # v1.5.0:
