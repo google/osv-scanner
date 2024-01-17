@@ -5,7 +5,6 @@ core,github.com/BurntSushi/toml,MIT,Copyright (c) 2013 TOML authors
 core,github.com/BurntSushi/toml/internal,MIT,Copyright (c) 2013 TOML authors
 core,github.com/CycloneDX/cyclonedx-go,Apache-2.0,Copyright & License | Copyright (c) OWASP Foundation | Copyright (c) OWASP Foundation. All Rights Reserved | Copyright OWASP Foundation
 core,github.com/Microsoft/go-winio,MIT,Copyright (c) 2015 Microsoft
-core,github.com/Microsoft/go-winio/internal/fs,MIT,Copyright (c) 2015 Microsoft
 core,github.com/Microsoft/go-winio/internal/socket,MIT,Copyright (c) 2015 Microsoft
 core,github.com/Microsoft/go-winio/internal/stringbuffer,MIT,Copyright (c) 2015 Microsoft
 core,github.com/Microsoft/go-winio/pkg/guid,MIT,Copyright (c) 2015 Microsoft
