@@ -15,6 +15,8 @@ jobs:
           check-latest: true
       - name: Installing modvendor tool
         run: go install github.com/goware/modvendor@latest
+      - name: Installing wwhrd tool
+        run: go install github.com/frapposelli/wwhrd@latest
       - uses: actions/setup-python@v4
         with:
           python-version: "3.9.12"
