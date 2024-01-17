@@ -31,9 +31,10 @@
 - [Bug #704](https://github.com/google/osv-scanner/pull/704)
   Get go stdlib version from go.mod.
 
-### Miscellaneous
+### API Features
 
-- Changes to `Reporter` methods to add verbosity levels and to deprecate functions.
+- [Feature #727](https://github.com/google/osv-scanner/pull/727)
+  Changes to `Reporter` methods to add verbosity levels and to deprecate functions.
 
 # v1.5.0:
 
