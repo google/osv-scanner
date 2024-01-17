@@ -17,6 +17,8 @@ jobs:
         run: go install github.com/goware/modvendor@latest
       - name: Installing wwhrd tool
         run: go install github.com/frapposelli/wwhrd@latest
+      - name: Installing go-license-detector tool
+        run: GO111MODULE=on go install github.com/go-enry/go-license-detector/v4/cmd/license-detector@latest
       - uses: actions/setup-python@v4
         with:
           python-version: "3.9.12"
