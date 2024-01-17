@@ -3,13 +3,13 @@
 ### Features
 
 - [Feature #694](https://github.com/google/osv-scanner/pull/694)
-  Add support for NuGet lock files version 2 by @giovanni-bozzano
+  Add support for NuGet lock files version 2
 
 - [Feature #655](https://github.com/google/osv-scanner/pull/655)
   Scan and report dependency groups (e.g. "dev dependencies") for vulnerabilities
 
 - [Feature #702](https://github.com/google/osv-scanner/pull/702)
-  Created an option to skip/disable upload to code scanning by @another-rex in
+  Created an option to skip/disable upload to code scanning
 
 - [Feature #732](https://github.com/google/osv-scanner/pull/732)
   Add option to not fail on vulnerability being found for GitHub Actions.
