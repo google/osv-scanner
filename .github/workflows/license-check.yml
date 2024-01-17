@@ -13,6 +13,8 @@ jobs:
         with:
           go-version-file: .go-version
           check-latest: true
+      - name: Installing modvendor tool
+        run: go get -u github.com/goware/modvendor
       - uses: actions/setup-python@v4
         with:
           python-version: "3.9.12"
