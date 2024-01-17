@@ -82,24 +82,39 @@ func normalizeErrors(t *testing.T, str string) string {
 	return str
 }
 
+// normalizeStdStream applies a series of normalizes to the buffer from a std stream like stdout and stderr
+func normalizeStdStream(t *testing.T, std *bytes.Buffer) string {
+	t.Helper()
+
+	str := std.String()
+
+	for _, normalizer := range []func(t *testing.T, str string) string{
+		normalizeFilePaths,
+		normalizeRootDirectory,
+		normalizeTempDirectory,
+		normalizeErrors,
+	} {
+		str = normalizer(t, str)
+	}
+
+	return str
+}
+
 func testCli(t *testing.T, tc cliTestCase) {
 	t.Helper()
 
-	stdoutBuffer := &bytes.Buffer{}
-	stderrBuffer := &bytes.Buffer{}
+	stdout := &bytes.Buffer{}
+	stderr := &bytes.Buffer{}
 
-	ec := run(tc.args, stdoutBuffer, stderrBuffer)
+	ec := run(tc.args, stdout, stderr)
 	// ec := run(tc.args, os.Stdout, os.Stderr)
-
-	stdout := normalizeErrors(t, normalizeTempDirectory(t, normalizeRootDirectory(t, normalizeFilePaths(t, stdoutBuffer.String()))))
-	stderr := normalizeErrors(t, normalizeTempDirectory(t, normalizeRootDirectory(t, normalizeFilePaths(t, stderrBuffer.String()))))
 
 	if ec != tc.exit {
 		t.Errorf("cli exited with code %d, not %d", ec, tc.exit)
 	}
 
-	testutility.NewSnapshot().MatchText(t, stdout)
-	testutility.NewSnapshot().MatchText(t, stderr)
+	testutility.NewSnapshot().MatchText(t, normalizeStdStream(t, stdout))
+	testutility.NewSnapshot().MatchText(t, normalizeStdStream(t, stderr))
 }
 
 func TestRun(t *testing.T) {
