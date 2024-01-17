@@ -242,7 +242,7 @@ func TestRun(t *testing.T) {
 		},
 		// one specific unsupported lockfile
 		{
-			name:         "",
+			name:         "one specific unsupported lockfile",
 			args:         []string{"", "./fixtures/locks-many/not-a-lockfile.toml"},
 			wantExitCode: 128,
 			wantStdout: `
@@ -1508,6 +1508,48 @@ Filtered 2 vulnerabilities from output
 			Scanning dir ./fixtures/locks-licenses/package-lock.json
 			Scanned <rootdir>/fixtures/locks-licenses/package-lock.json file and found 3 packages
 			`,
+		},
+	}
+	for _, tt := range tests {
+		tt := tt
+		t.Run(tt.name, func(t *testing.T) {
+			t.Parallel()
+
+			testCli(t, tt)
+		})
+	}
+}
+
+func TestRun_SubCommands(t *testing.T) {
+	t.Parallel()
+	tests := []cliTestCase{
+		// with scan subcommand
+		{
+			name:         "with scan subcommand",
+			args:         []string{"", "scan", "./fixtures/locks-many/composer.lock"},
+			wantExitCode: 0,
+			// The warning message exists here as we have a folder called 'scan' under './cmd/osv-scanner'
+			wantStdout: `
+				Warning: 'scan' exists as both a subcommand of OSV-Scanner and as a file in the filesystem. It operates as a command here. If you intend to scan the file, please specify a subcommand.
+				Scanning dir ./fixtures/locks-many/composer.lock
+				Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
+				No issues found
+			`,
+			wantStderr: "",
+		},
+		// scan with a flag
+		{
+			name:         "scan with a flag",
+			args:         []string{"", "scan", "--recursive", "./fixtures/locks-one-with-nested"},
+			wantExitCode: 0,
+			wantStdout: `
+				Warning: 'scan' exists as both a subcommand of OSV-Scanner and as a file in the filesystem. It operates as a command here. If you intend to scan the file, please specify a subcommand.
+				Scanning dir ./fixtures/locks-one-with-nested
+				Scanned <rootdir>/fixtures/locks-one-with-nested/nested/composer.lock file and found 1 package
+				Scanned <rootdir>/fixtures/locks-one-with-nested/yarn.lock file and found 1 package
+				No issues found
+			`,
+			wantStderr: "",
 		},
 	}
 	for _, tt := range tests {

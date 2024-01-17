@@ -164,7 +164,7 @@ func run(args []string, stdout, stderr io.Writer) int {
 	}
 	allCommands := getAllCommands(app.Commands)
 	if len(args) >= 2 {
-		// insert the default command to args if no command is specified.
+		// Insert the default command to args if no command is specified.
 		if !slices.Contains(allCommands, args[1]) {
 			// Avoid in-place change to args as it is not a pointer.
 			argsTmp := make([]string, len(args)+1)
@@ -175,7 +175,7 @@ func run(args []string, stdout, stderr io.Writer) int {
 			if r == nil {
 				r = reporter.NewTableReporter(stdout, stderr, reporter.InfoLevel, false, 0)
 			}
-			r.Infof("Warning: `%v` exists as both a subcommand of OSV-Scanner and as a file in the filesystem. It operates as a command here. If you intend to scan the file, please specify a subcommand.\n", args[1])
+			r.Infof("Warning: '%v' exists as both a subcommand of OSV-Scanner and as a file in the filesystem. It operates as a command here. If you intend to scan the file, please specify a subcommand.\n", args[1])
 		}
 	}
 
