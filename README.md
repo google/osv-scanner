@@ -15,6 +15,7 @@ This section will only explain how to build the project and run the tests. If yo
 
 To build OSV-Scanner you'll need :
 
+- [Python]() 3.10 or later with the [invoke package](https://www.pyinvoke.org/installing.html) installed
 - [Go](https://golang.org/doc/install) 1.21 or later. You'll also need to set your `$GOPATH` and have `$GOPATH/bin` in your path.
 - [GoReleaser](https://goreleaser.com/) (Optional, only if you want reproducible builds)
 
@@ -64,6 +65,17 @@ To lint your code, run the following command :
 
 ```bash
 ./scripts/run_lints.sh
+```
+
+### Updating LICENSE-3rdparty.csv
+
+Whenever you need to add or upgrade a dependency, you should update the file called `LICENSE-3rdparty.csv`
+(This file represents the different license and copyrights of dependencies used in this project)
+
+To do it, please run the following command :
+
+```bash
+inv -e generate-licenses
 ```
 
 ## Documentation
