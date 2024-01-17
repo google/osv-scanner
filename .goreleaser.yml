@@ -113,12 +113,6 @@ docker_manifests:
     image_templates:
       - "ghcr.io/google/osv-scanner:{{ .Tag }}-amd64"
       - "ghcr.io/google/osv-scanner:{{ .Tag }}-arm64"
-  - name_template: "ghcr.io/google/osv-scanner-action:{{ .Tag }}"
-    image_templates:
-      - "ghcr.io/google/osv-scanner-action:{{ .Tag }}"
-  - name_template: "ghcr.io/google/osv-scanner-action:latest"
-    image_templates:
-      - "ghcr.io/google/osv-scanner-action:{{ .Tag }}"
 
 archives:
   - format: binary
