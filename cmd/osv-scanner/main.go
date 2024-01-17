@@ -154,27 +154,28 @@ func run(args []string, stdout, stderr io.Writer) int {
 				},
 				ArgsUsage: "[directory1 directory2...]",
 				Action: func(c *cli.Context) error {
-					return scan.ScanAction(c, stdout, stderr)
+					var err error
+					r, err = scan.ScanAction(c, stdout, stderr)
+
+					return err
 				},
-			},
-			{
-				Name:        "fix",
-				Usage:       "guided remediation",
-				Description: "guided remediation",
-			},
-			{
-				Name:        "update",
-				Usage:       "automated updates",
-				Description: "automated updates",
 			},
 		},
 	}
-
+	allCommands := getAllCommands(app.Commands)
 	if len(args) >= 2 {
-		if args[1] != "scan" && args[1] != "update" && args[1] != "fix" && args[1] != "--help" && args[1] != "--version" {
-			args = append(args, "")
-			copy(args[2:], args[1:])
-			args[1] = "scan"
+		// insert the default command to args if no command is specified.
+		if !slices.Contains(allCommands, args[1]) {
+			// Avoid in-place change to args as it is not a pointer.
+			argsTmp := make([]string, len(args)+1)
+			copy(argsTmp[2:], args[1:])
+			argsTmp[1] = app.DefaultCommand
+			args = argsTmp
+		} else if _, err := os.Stat(args[1]); err == nil {
+			if r == nil {
+				r = reporter.NewTableReporter(stdout, stderr, reporter.InfoLevel, false, 0)
+			}
+			r.Infof("Warning: `%v` exists as both a subcommand of OSV-Scanner and as a file in the filesystem. It operates as a command here. If you intend to scan the file, please specify a subcommand.\n", args[1])
 		}
 	}
 
@@ -199,6 +200,22 @@ func run(args []string, stdout, stderr io.Writer) int {
 	}
 
 	return 0
+}
+
+func getAllCommands(commands []*cli.Command) []string {
+	allCommands := make([]string, 0)
+	for _, command := range commands {
+		allCommands = append(allCommands, command.Name)
+	}
+	// Adding all global options and help commands
+	allCommands = append(allCommands, "--"+cli.VersionFlag.(*cli.BoolFlag).Name)
+	allCommands = append(allCommands, "-"+cli.VersionFlag.(*cli.BoolFlag).Aliases[0])
+	allCommands = append(allCommands, "--"+cli.HelpFlag.(*cli.BoolFlag).Name)
+	allCommands = append(allCommands, cli.HelpFlag.(*cli.BoolFlag).Name)
+	allCommands = append(allCommands, "-"+cli.HelpFlag.(*cli.BoolFlag).Aliases[0])
+	allCommands = append(allCommands, cli.HelpFlag.(*cli.BoolFlag).Aliases[0])
+
+	return allCommands
 }
 
 func main() {

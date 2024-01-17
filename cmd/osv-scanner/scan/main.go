@@ -15,7 +15,7 @@ import (
 	"github.com/urfave/cli/v2"
 )
 
-func ScanAction(context *cli.Context, stdout, stderr io.Writer) error {
+func ScanAction(context *cli.Context, stdout, stderr io.Writer) (reporter.Reporter, error) {
 	format := context.String("format")
 
 	if context.Bool("json") {
@@ -29,7 +29,7 @@ func ScanAction(context *cli.Context, stdout, stderr io.Writer) error {
 	if outputPath != "" { // Output is definitely a file
 		stdout, err = os.Create(outputPath)
 		if err != nil {
-			return fmt.Errorf("failed to create output file: %w", err)
+			return nil, fmt.Errorf("failed to create output file: %w", err)
 		}
 	} else { // Output might be a terminal
 		if stdoutAsFile, ok := stdout.(*os.File); ok {
@@ -41,26 +41,26 @@ func ScanAction(context *cli.Context, stdout, stderr io.Writer) error {
 	}
 
 	if context.Bool("experimental-licenses-summary") && context.IsSet("experimental-licenses") {
-		return fmt.Errorf("--experimental-licenses-summary and --experimental-licenses flags cannot be set")
+		return nil, fmt.Errorf("--experimental-licenses-summary and --experimental-licenses flags cannot be set")
 	}
 	allowlist := context.StringSlice("experimental-licenses")
 	if context.IsSet("experimental-licenses") {
 		if len(allowlist) == 0 ||
 			(len(allowlist) == 1 && allowlist[0] == "") {
-			return fmt.Errorf("--experimental-licenses requires at least one value")
+			return nil, fmt.Errorf("--experimental-licenses requires at least one value")
 		}
 		if unrecognized := spdx.Unrecognized(allowlist); len(unrecognized) > 0 {
-			return fmt.Errorf("--experimental-licenses requires comma-separated spdx licenses. The following license(s) are not recognized as spdx: %s", strings.Join(unrecognized, ","))
+			return nil, fmt.Errorf("--experimental-licenses requires comma-separated spdx licenses. The following license(s) are not recognized as spdx: %s", strings.Join(unrecognized, ","))
 		}
 	}
 
 	verbosityLevel, err := reporter.ParseVerbosityLevel(context.String("verbosity"))
 	if err != nil {
-		return err
+		return nil, err
 	}
 	r, err := reporter.New(format, stdout, stderr, verbosityLevel, termWidth)
 	if err != nil {
-		return err
+		return r, err
 	}
 
 	var callAnalysisStates map[string]bool
@@ -97,13 +97,13 @@ func ScanAction(context *cli.Context, stdout, stderr io.Writer) error {
 	}, r)
 
 	if err != nil && !errors.Is(err, osvscanner.VulnerabilitiesFoundErr) {
-		return err
+		return r, err
 	}
 
 	if errPrint := r.PrintResult(&vulnResult); errPrint != nil {
-		return fmt.Errorf("failed to write output: %w", errPrint)
+		return r, fmt.Errorf("failed to write output: %w", errPrint)
 	}
 
 	// This may be nil.
-	return err
+	return r, err
 }

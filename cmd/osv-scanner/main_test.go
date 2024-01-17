@@ -946,7 +946,7 @@ func TestRun_LocalDatabases(t *testing.T) {
 	tests := []cliTestCase{
 		// one specific supported lockfile
 		{
-			name:         "",
+			name:         "one specific supported lockfile",
 			args:         []string{"", "--experimental-local-db", "./fixtures/locks-many/composer.lock"},
 			wantExitCode: 0,
 			wantStdout: `
@@ -959,7 +959,7 @@ func TestRun_LocalDatabases(t *testing.T) {
 		},
 		// one specific supported sbom with vulns
 		{
-			name:         "",
+			name:         "one specific supported sbom with vulns",
 			args:         []string{"", "--experimental-local-db", "--config=./fixtures/osv-scanner-empty-config.toml", "./fixtures/sbom-insecure/postgres-stretch.cdx.xml"},
 			wantExitCode: 1,
 			wantStdout: `
@@ -983,7 +983,7 @@ func TestRun_LocalDatabases(t *testing.T) {
 		},
 		// one specific unsupported lockfile
 		{
-			name:         "",
+			name:         "one specific unsupported lockfile",
 			args:         []string{"", "--experimental-local-db", "./fixtures/locks-many/not-a-lockfile.toml"},
 			wantExitCode: 128,
 			wantStdout: `
@@ -995,7 +995,7 @@ func TestRun_LocalDatabases(t *testing.T) {
 		},
 		// all supported lockfiles in the directory should be checked
 		{
-			name:         "",
+			name:         "all supported lockfiles in the directory should be checked",
 			args:         []string{"", "--experimental-local-db", "./fixtures/locks-many"},
 			wantExitCode: 0,
 			wantStdout: `
@@ -1018,7 +1018,7 @@ func TestRun_LocalDatabases(t *testing.T) {
 		},
 		// all supported lockfiles in the directory should be checked
 		{
-			name:         "",
+			name:         "all supported lockfiles in the directory should be checked",
 			args:         []string{"", "--experimental-local-db", "./fixtures/locks-many-with-invalid"},
 			wantExitCode: 127,
 			wantStdout: `
@@ -1034,7 +1034,7 @@ func TestRun_LocalDatabases(t *testing.T) {
 		},
 		// only the files in the given directories are checked by default (no recursion)
 		{
-			name:         "",
+			name:         "only the files in the given directories are checked by default (no recursion)",
 			args:         []string{"", "--experimental-local-db", "./fixtures/locks-one-with-nested"},
 			wantExitCode: 0,
 			wantStdout: `
@@ -1047,7 +1047,7 @@ func TestRun_LocalDatabases(t *testing.T) {
 		},
 		// nested directories are checked when `--recursive` is passed
 		{
-			name:         "",
+			name:         "nested directories are checked when `--recursive` is passed",
 			args:         []string{"", "--experimental-local-db", "--recursive", "./fixtures/locks-one-with-nested"},
 			wantExitCode: 0,
 			wantStdout: `
@@ -1062,7 +1062,7 @@ func TestRun_LocalDatabases(t *testing.T) {
 		},
 		// .gitignored files
 		{
-			name:         "",
+			name:         ".gitignored files",
 			args:         []string{"", "--experimental-local-db", "--recursive", "./fixtures/locks-gitignore"},
 			wantExitCode: 0,
 			wantStdout: `
@@ -1077,7 +1077,7 @@ func TestRun_LocalDatabases(t *testing.T) {
 		},
 		// ignoring .gitignore
 		{
-			name:         "",
+			name:         "ignoring .gitignore",
 			args:         []string{"", "--experimental-local-db", "--recursive", "--no-ignore", "./fixtures/locks-gitignore"},
 			wantExitCode: 0,
 			wantStdout: `
@@ -1099,7 +1099,7 @@ func TestRun_LocalDatabases(t *testing.T) {
 		},
 		// output with json
 		{
-			name:         "",
+			name:         "output with json",
 			args:         []string{"", "--experimental-local-db", "--json", "./fixtures/locks-many/composer.lock"},
 			wantExitCode: 0,
 			wantStdout: `
@@ -1142,7 +1142,7 @@ func TestRun_LocalDatabases(t *testing.T) {
 		},
 		// output format: markdown table
 		{
-			name:         "",
+			name:         "output format: markdown table",
 			args:         []string{"", "--experimental-local-db", "--format", "markdown", "./fixtures/locks-many/composer.lock"},
 			wantExitCode: 0,
 			wantStdout: `
