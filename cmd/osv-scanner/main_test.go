@@ -1520,6 +1520,7 @@ Filtered 2 vulnerabilities from output
 	}
 }
 
+// Tests all subcommands here.
 func TestRun_SubCommands(t *testing.T) {
 	t.Parallel()
 	tests := []cliTestCase{
@@ -1530,12 +1531,11 @@ func TestRun_SubCommands(t *testing.T) {
 			wantExitCode: 0,
 			// The warning message exists here as we have a folder called 'scan' under './cmd/osv-scanner'
 			wantStdout: `
-				Warning: 'scan' exists as both a subcommand of OSV-Scanner and as a file in the filesystem. It operates as a command here. If you intend to scan the file, please specify a subcommand.
 				Scanning dir ./fixtures/locks-many/composer.lock
 				Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
 				No issues found
 			`,
-			wantStderr: "",
+			wantStderr: "Warning: 'scan' exists as both a subcommand of OSV-Scanner and as a file in the filesystem. It operates as a command here. If you intend to scan the file, please specify a subcommand.",
 		},
 		// scan with a flag
 		{
@@ -1543,14 +1543,14 @@ func TestRun_SubCommands(t *testing.T) {
 			args:         []string{"", "scan", "--recursive", "./fixtures/locks-one-with-nested"},
 			wantExitCode: 0,
 			wantStdout: `
-				Warning: 'scan' exists as both a subcommand of OSV-Scanner and as a file in the filesystem. It operates as a command here. If you intend to scan the file, please specify a subcommand.
 				Scanning dir ./fixtures/locks-one-with-nested
 				Scanned <rootdir>/fixtures/locks-one-with-nested/nested/composer.lock file and found 1 package
 				Scanned <rootdir>/fixtures/locks-one-with-nested/yarn.lock file and found 1 package
 				No issues found
 			`,
-			wantStderr: "",
+			wantStderr: "Warning: 'scan' exists as both a subcommand of OSV-Scanner and as a file in the filesystem. It operates as a command here. If you intend to scan the file, please specify a subcommand.",
 		},
+		// TODO: add tests for other future subcommands
 	}
 	for _, tt := range tests {
 		tt := tt
