@@ -1,0 +1,329 @@
+Component,Origin,License,Copyright
+core,dario.cat/mergo,BSD-3-Clause,Copyright (c) 2012 The Go Authors. All rights reserved | Copyright (c) 2013 Dario Castañé. All rights reserved
+core,deps.dev/api/v3alpha,Apache-2.0,Copyright 2023 Google LLC
+core,github.com/BurntSushi/toml,MIT,Copyright (c) 2013 TOML authors
+core,github.com/BurntSushi/toml/internal,MIT,Copyright (c) 2013 TOML authors
+core,github.com/CycloneDX/cyclonedx-go,Apache-2.0,Copyright & License | Copyright (c) OWASP Foundation | Copyright (c) OWASP Foundation. All Rights Reserved | Copyright OWASP Foundation
+core,github.com/Microsoft/go-winio,MIT,Copyright (c) 2015 Microsoft
+core,github.com/Microsoft/go-winio/internal/fs,MIT,Copyright (c) 2015 Microsoft
+core,github.com/Microsoft/go-winio/internal/socket,MIT,Copyright (c) 2015 Microsoft
+core,github.com/Microsoft/go-winio/internal/stringbuffer,MIT,Copyright (c) 2015 Microsoft
+core,github.com/Microsoft/go-winio/pkg/guid,MIT,Copyright (c) 2015 Microsoft
+core,github.com/ProtonMail/go-crypto/bitcurves,BSD-3-Clause,Copyright (c) 2009 The Go Authors. All rights reserved
+core,github.com/ProtonMail/go-crypto/brainpool,BSD-3-Clause,Copyright (c) 2009 The Go Authors. All rights reserved
+core,github.com/ProtonMail/go-crypto/eax,BSD-3-Clause,Copyright (c) 2009 The Go Authors. All rights reserved
+core,github.com/ProtonMail/go-crypto/internal/byteutil,BSD-3-Clause,Copyright (c) 2009 The Go Authors. All rights reserved
+core,github.com/ProtonMail/go-crypto/ocb,BSD-3-Clause,Copyright (c) 2009 The Go Authors. All rights reserved
+core,github.com/ProtonMail/go-crypto/openpgp,BSD-3-Clause,Copyright (c) 2009 The Go Authors. All rights reserved
+core,github.com/ProtonMail/go-crypto/openpgp/aes/keywrap,BSD-3-Clause,Copyright (c) 2009 The Go Authors. All rights reserved
+core,github.com/ProtonMail/go-crypto/openpgp/armor,BSD-3-Clause,Copyright (c) 2009 The Go Authors. All rights reserved
+core,github.com/ProtonMail/go-crypto/openpgp/ecdh,BSD-3-Clause,Copyright (c) 2009 The Go Authors. All rights reserved
+core,github.com/ProtonMail/go-crypto/openpgp/ecdsa,BSD-3-Clause,Copyright (c) 2009 The Go Authors. All rights reserved
+core,github.com/ProtonMail/go-crypto/openpgp/eddsa,BSD-3-Clause,Copyright (c) 2009 The Go Authors. All rights reserved
+core,github.com/ProtonMail/go-crypto/openpgp/elgamal,BSD-3-Clause,Copyright (c) 2009 The Go Authors. All rights reserved
+core,github.com/ProtonMail/go-crypto/openpgp/errors,BSD-3-Clause,Copyright (c) 2009 The Go Authors. All rights reserved
+core,github.com/ProtonMail/go-crypto/openpgp/internal/algorithm,BSD-3-Clause,Copyright (c) 2009 The Go Authors. All rights reserved
+core,github.com/ProtonMail/go-crypto/openpgp/internal/ecc,BSD-3-Clause,Copyright (c) 2009 The Go Authors. All rights reserved
+core,github.com/ProtonMail/go-crypto/openpgp/internal/encoding,BSD-3-Clause,Copyright (c) 2009 The Go Authors. All rights reserved
+core,github.com/ProtonMail/go-crypto/openpgp/packet,BSD-3-Clause,Copyright (c) 2009 The Go Authors. All rights reserved
+core,github.com/ProtonMail/go-crypto/openpgp/s2k,BSD-3-Clause,Copyright (c) 2009 The Go Authors. All rights reserved
+core,github.com/anchore/go-struct-converter,Apache-2.0,
+core,github.com/cloudflare/circl/dh/x25519,BSD-3-Clause,Copyright (c) 2009 The Go Authors. All rights reserved | Copyright (c) 2019 Cloudflare. All rights reserved
+core,github.com/cloudflare/circl/dh/x448,BSD-3-Clause,Copyright (c) 2009 The Go Authors. All rights reserved | Copyright (c) 2019 Cloudflare. All rights reserved
+core,github.com/cloudflare/circl/ecc/goldilocks,BSD-3-Clause,Copyright (c) 2009 The Go Authors. All rights reserved | Copyright (c) 2019 Cloudflare. All rights reserved
+core,github.com/cloudflare/circl/internal/conv,BSD-3-Clause,Copyright (c) 2009 The Go Authors. All rights reserved | Copyright (c) 2019 Cloudflare. All rights reserved
+core,github.com/cloudflare/circl/internal/sha3,BSD-3-Clause,Copyright (c) 2009 The Go Authors. All rights reserved | Copyright (c) 2019 Cloudflare. All rights reserved
+core,github.com/cloudflare/circl/math,BSD-3-Clause,Copyright (c) 2009 The Go Authors. All rights reserved | Copyright (c) 2019 Cloudflare. All rights reserved
+core,github.com/cloudflare/circl/math/fp25519,BSD-3-Clause,Copyright (c) 2009 The Go Authors. All rights reserved | Copyright (c) 2019 Cloudflare. All rights reserved
+core,github.com/cloudflare/circl/math/fp448,BSD-3-Clause,Copyright (c) 2009 The Go Authors. All rights reserved | Copyright (c) 2019 Cloudflare. All rights reserved
+core,github.com/cloudflare/circl/math/mlsbset,BSD-3-Clause,Copyright (c) 2009 The Go Authors. All rights reserved | Copyright (c) 2019 Cloudflare. All rights reserved
+core,github.com/cloudflare/circl/sign,BSD-3-Clause,Copyright (c) 2009 The Go Authors. All rights reserved | Copyright (c) 2019 Cloudflare. All rights reserved
+core,github.com/cloudflare/circl/sign/ed25519,BSD-3-Clause,Copyright (c) 2009 The Go Authors. All rights reserved | Copyright (c) 2019 Cloudflare. All rights reserved
+core,github.com/cloudflare/circl/sign/ed448,BSD-3-Clause,Copyright (c) 2009 The Go Authors. All rights reserved | Copyright (c) 2019 Cloudflare. All rights reserved
+core,github.com/cpuguy83/go-md2man/v2/md2man,MIT,Copyright (c) 2014 Brian Goff
+core,github.com/cyphar/filepath-securejoin,BSD-3-Clause,Copyright (C) 2014-2015 Docker Inc & Go Authors. All rights reserved | Copyright (C) 2017 SUSE LLC. All rights reserved
+core,github.com/emirpasic/gods/containers,BSD-2-Clause,"Copyright (c) 2015, Emir Pasic | Copyright (c) 2017 Benjamin Scher Purcell <benjapurcell@gmail.com>"
+core,github.com/emirpasic/gods/lists,BSD-2-Clause,"Copyright (c) 2015, Emir Pasic | Copyright (c) 2017 Benjamin Scher Purcell <benjapurcell@gmail.com>"
+core,github.com/emirpasic/gods/lists/arraylist,BSD-2-Clause,"Copyright (c) 2015, Emir Pasic | Copyright (c) 2017 Benjamin Scher Purcell <benjapurcell@gmail.com>"
+core,github.com/emirpasic/gods/trees,BSD-2-Clause,"Copyright (c) 2015, Emir Pasic | Copyright (c) 2017 Benjamin Scher Purcell <benjapurcell@gmail.com>"
+core,github.com/emirpasic/gods/trees/binaryheap,BSD-2-Clause,"Copyright (c) 2015, Emir Pasic | Copyright (c) 2017 Benjamin Scher Purcell <benjapurcell@gmail.com>"
+core,github.com/emirpasic/gods/utils,BSD-2-Clause,"Copyright (c) 2015, Emir Pasic | Copyright (c) 2017 Benjamin Scher Purcell <benjapurcell@gmail.com>"
+core,github.com/go-git/gcfg,BSD-3-Clause,Copyright (c) 2012 Péter Surányi. Portions Copyright (c) 2009 The Go
+core,github.com/go-git/gcfg/scanner,BSD-3-Clause,Copyright (c) 2012 Péter Surányi. Portions Copyright (c) 2009 The Go
+core,github.com/go-git/gcfg/token,BSD-3-Clause,Copyright (c) 2012 Péter Surányi. Portions Copyright (c) 2009 The Go
+core,github.com/go-git/gcfg/types,BSD-3-Clause,Copyright (c) 2012 Péter Surányi. Portions Copyright (c) 2009 The Go
+core,github.com/go-git/go-billy/v5,Apache-2.0,Copyright 2017 Sourced Technologies S.L
+core,github.com/go-git/go-billy/v5/helper/chroot,Apache-2.0,Copyright 2017 Sourced Technologies S.L
+core,github.com/go-git/go-billy/v5/helper/polyfill,Apache-2.0,Copyright 2017 Sourced Technologies S.L
+core,github.com/go-git/go-billy/v5/memfs,Apache-2.0,Copyright 2017 Sourced Technologies S.L
+core,github.com/go-git/go-billy/v5/osfs,Apache-2.0,Copyright 2017 Sourced Technologies S.L
+core,github.com/go-git/go-billy/v5/util,Apache-2.0,Copyright 2017 Sourced Technologies S.L
+core,github.com/go-git/go-git/v5,Apache-2.0,"Copyright 2018 Sourced Technologies, S.L"
+core,github.com/go-git/go-git/v5/config,Apache-2.0,"Copyright 2018 Sourced Technologies, S.L"
+core,github.com/go-git/go-git/v5/internal/path_util,Apache-2.0,"Copyright 2018 Sourced Technologies, S.L"
+core,github.com/go-git/go-git/v5/internal/revision,Apache-2.0,"Copyright 2018 Sourced Technologies, S.L"
+core,github.com/go-git/go-git/v5/internal/url,Apache-2.0,"Copyright 2018 Sourced Technologies, S.L"
+core,github.com/go-git/go-git/v5/plumbing,Apache-2.0,"Copyright 2018 Sourced Technologies, S.L"
+core,github.com/go-git/go-git/v5/plumbing/cache,Apache-2.0,"Copyright 2018 Sourced Technologies, S.L"
+core,github.com/go-git/go-git/v5/plumbing/color,Apache-2.0,"Copyright 2018 Sourced Technologies, S.L"
+core,github.com/go-git/go-git/v5/plumbing/filemode,Apache-2.0,"Copyright 2018 Sourced Technologies, S.L"
+core,github.com/go-git/go-git/v5/plumbing/format/config,Apache-2.0,"Copyright 2018 Sourced Technologies, S.L"
+core,github.com/go-git/go-git/v5/plumbing/format/diff,Apache-2.0,"Copyright 2018 Sourced Technologies, S.L"
+core,github.com/go-git/go-git/v5/plumbing/format/gitignore,Apache-2.0,"Copyright 2018 Sourced Technologies, S.L"
+core,github.com/go-git/go-git/v5/plumbing/format/idxfile,Apache-2.0,"Copyright 2018 Sourced Technologies, S.L"
+core,github.com/go-git/go-git/v5/plumbing/format/index,Apache-2.0,"Copyright 2018 Sourced Technologies, S.L"
+core,github.com/go-git/go-git/v5/plumbing/format/objfile,Apache-2.0,"Copyright 2018 Sourced Technologies, S.L"
+core,github.com/go-git/go-git/v5/plumbing/format/packfile,Apache-2.0,"Copyright 2018 Sourced Technologies, S.L"
+core,github.com/go-git/go-git/v5/plumbing/format/pktline,Apache-2.0,"Copyright 2018 Sourced Technologies, S.L"
+core,github.com/go-git/go-git/v5/plumbing/hash,Apache-2.0,"Copyright 2018 Sourced Technologies, S.L"
+core,github.com/go-git/go-git/v5/plumbing/object,Apache-2.0,"Copyright 2018 Sourced Technologies, S.L"
+core,github.com/go-git/go-git/v5/plumbing/protocol/packp,Apache-2.0,"Copyright 2018 Sourced Technologies, S.L"
+core,github.com/go-git/go-git/v5/plumbing/protocol/packp/capability,Apache-2.0,"Copyright 2018 Sourced Technologies, S.L"
+core,github.com/go-git/go-git/v5/plumbing/protocol/packp/sideband,Apache-2.0,"Copyright 2018 Sourced Technologies, S.L"
+core,github.com/go-git/go-git/v5/plumbing/revlist,Apache-2.0,"Copyright 2018 Sourced Technologies, S.L"
+core,github.com/go-git/go-git/v5/plumbing/storer,Apache-2.0,"Copyright 2018 Sourced Technologies, S.L"
+core,github.com/go-git/go-git/v5/plumbing/transport,Apache-2.0,"Copyright 2018 Sourced Technologies, S.L"
+core,github.com/go-git/go-git/v5/plumbing/transport/client,Apache-2.0,"Copyright 2018 Sourced Technologies, S.L"
+core,github.com/go-git/go-git/v5/plumbing/transport/file,Apache-2.0,"Copyright 2018 Sourced Technologies, S.L"
+core,github.com/go-git/go-git/v5/plumbing/transport/git,Apache-2.0,"Copyright 2018 Sourced Technologies, S.L"
+core,github.com/go-git/go-git/v5/plumbing/transport/http,Apache-2.0,"Copyright 2018 Sourced Technologies, S.L"
+core,github.com/go-git/go-git/v5/plumbing/transport/internal/common,Apache-2.0,"Copyright 2018 Sourced Technologies, S.L"
+core,github.com/go-git/go-git/v5/plumbing/transport/server,Apache-2.0,"Copyright 2018 Sourced Technologies, S.L"
+core,github.com/go-git/go-git/v5/plumbing/transport/ssh,Apache-2.0,"Copyright 2018 Sourced Technologies, S.L"
+core,github.com/go-git/go-git/v5/storage,Apache-2.0,"Copyright 2018 Sourced Technologies, S.L"
+core,github.com/go-git/go-git/v5/storage/filesystem,Apache-2.0,"Copyright 2018 Sourced Technologies, S.L"
+core,github.com/go-git/go-git/v5/storage/filesystem/dotgit,Apache-2.0,"Copyright 2018 Sourced Technologies, S.L"
+core,github.com/go-git/go-git/v5/storage/memory,Apache-2.0,"Copyright 2018 Sourced Technologies, S.L"
+core,github.com/go-git/go-git/v5/utils/binary,Apache-2.0,"Copyright 2018 Sourced Technologies, S.L"
+core,github.com/go-git/go-git/v5/utils/diff,Apache-2.0,"Copyright 2018 Sourced Technologies, S.L"
+core,github.com/go-git/go-git/v5/utils/ioutil,Apache-2.0,"Copyright 2018 Sourced Technologies, S.L"
+core,github.com/go-git/go-git/v5/utils/merkletrie,Apache-2.0,"Copyright 2018 Sourced Technologies, S.L"
+core,github.com/go-git/go-git/v5/utils/merkletrie/filesystem,Apache-2.0,"Copyright 2018 Sourced Technologies, S.L"
+core,github.com/go-git/go-git/v5/utils/merkletrie/index,Apache-2.0,"Copyright 2018 Sourced Technologies, S.L"
+core,github.com/go-git/go-git/v5/utils/merkletrie/internal/frame,Apache-2.0,"Copyright 2018 Sourced Technologies, S.L"
+core,github.com/go-git/go-git/v5/utils/merkletrie/noder,Apache-2.0,"Copyright 2018 Sourced Technologies, S.L"
+core,github.com/go-git/go-git/v5/utils/sync,Apache-2.0,"Copyright 2018 Sourced Technologies, S.L"
+core,github.com/go-git/go-git/v5/utils/trace,Apache-2.0,"Copyright 2018 Sourced Technologies, S.L"
+core,github.com/golang/groupcache/lru,Apache-2.0,Copyright (c) 2009 The Go Authors. All rights reserved.
+core,github.com/golang/protobuf/jsonpb,BSD-3-Clause,Copyright (c) 2009 The Go Authors. All rights reserved.
+core,github.com/golang/protobuf/proto,BSD-3-Clause,Copyright (c) 2009 The Go Authors. All rights reserved.
+core,github.com/golang/protobuf/ptypes,BSD-3-Clause,Copyright (c) 2009 The Go Authors. All rights reserved.
+core,github.com/golang/protobuf/ptypes/any,BSD-3-Clause,Copyright (c) 2009 The Go Authors. All rights reserved.
+core,github.com/golang/protobuf/ptypes/duration,BSD-3-Clause,Copyright (c) 2009 The Go Authors. All rights reserved.
+core,github.com/golang/protobuf/ptypes/timestamp,BSD-3-Clause,Copyright (c) 2009 The Go Authors. All rights reserved.
+core,github.com/google/go-cmp/cmp,BSD-3-Clause,Copyright (c) 2017 The Go Authors. All rights reserved.
+core,github.com/google/go-cmp/cmp/internal/diff,BSD-3-Clause,Copyright (c) 2017 The Go Authors. All rights reserved.
+core,github.com/google/go-cmp/cmp/internal/flags,BSD-3-Clause,Copyright (c) 2017 The Go Authors. All rights reserved.
+core,github.com/google/go-cmp/cmp/internal/function,BSD-3-Clause,Copyright (c) 2017 The Go Authors. All rights reserved.
+core,github.com/google/go-cmp/cmp/internal/value,BSD-3-Clause,Copyright (c) 2017 The Go Authors. All rights reserved.
+core,github.com/hexops/gotextdiff,BSD-3-Clause,Copyright (c) 2009 The Go Authors. All rights reserved
+core,github.com/hexops/gotextdiff/myers,BSD-3-Clause,Copyright (c) 2009 The Go Authors. All rights reserved
+core,github.com/hexops/gotextdiff/span,BSD-3-Clause,Copyright (c) 2009 The Go Authors. All rights reserved
+core,github.com/ianlancetaylor/demangle,BSD-3-Clause,Copyright (c) 2015 The Go Authors. All rights reserved
+core,github.com/jbenet/go-context/io,MIT,Copyright (c) 2014 Juan Batiz-Benet
+core,github.com/jedib0t/go-pretty/v6/table,MIT,Copyright (c) 2018 jedib0t
+core,github.com/jedib0t/go-pretty/v6/text,MIT,Copyright (c) 2018 jedib0t
+core,github.com/kevinburke/ssh_config,MIT,"Copyright (c) 2013 - 2017 Thomas Pelletier, Eric Anderton | Copyright (c) 2017 Kevin Burke"
+core,github.com/mattn/go-runewidth,MIT,Copyright (c) 2016 Yasuhiro Matsumoto
+core,github.com/owenrumney/go-sarif/v2/sarif,Unlicense,"copyright interest in the | copyright law | copyright laws, the author or authors"
+core,github.com/package-url/packageurl-go,MIT,Copyright (c) the purl authors
+core,github.com/pandatix/go-cvss/20,MIT,Copyright (c) 2022 Lucas TESSON - PandatiX <lucastesson@protonmail.com>
+core,github.com/pandatix/go-cvss/30,MIT,Copyright (c) 2022 Lucas TESSON - PandatiX <lucastesson@protonmail.com>
+core,github.com/pandatix/go-cvss/31,MIT,Copyright (c) 2022 Lucas TESSON - PandatiX <lucastesson@protonmail.com>
+core,github.com/pandatix/go-cvss/40,MIT,Copyright (c) 2022 Lucas TESSON - PandatiX <lucastesson@protonmail.com>
+core,github.com/pjbgf/sha1cd,Apache-2.0,"Copyright 2009 The Go Authors. All rights reserved. | Copyright 2017 Marc Stevens <marc@marc-stevens.nl>, Dan Shumow <danshu@microsoft.com> | Copyright 2022 Paulo Gomes <pjbgf@linux.com>"
+core,github.com/pjbgf/sha1cd/internal,Apache-2.0,"Copyright 2009 The Go Authors. All rights reserved. | Copyright 2017 Marc Stevens <marc@marc-stevens.nl>, Dan Shumow <danshu@microsoft.com> | Copyright 2022 Paulo Gomes <pjbgf@linux.com>"
+core,github.com/pjbgf/sha1cd/ubc,Apache-2.0,"Copyright 2009 The Go Authors. All rights reserved. | Copyright 2017 Marc Stevens <marc@marc-stevens.nl>, Dan Shumow <danshu@microsoft.com> | Copyright 2022 Paulo Gomes <pjbgf@linux.com>"
+core,github.com/rivo/uniseg,MIT,Copyright (c) 2019 Oliver Kuederle
+core,github.com/russross/blackfriday/v2,BSD-2-Clause,Copyright © 2011 Russ Ross
+core,github.com/sergi/go-diff/diffmatchpatch,MIT,Copyright (c) 2012-2016 The go-diff Authors. All rights reserved | Danny Yoo <dannyyoo@google.com> | James Kolb <jkolb@google.com> | Jonathan Amsterdam <jba@google.com> | Markus Zimmermann <markus.zimmermann@nethead.at> <markus.zimmermann@symflower.com> <zimmski@gmail.com> | Matt Kovars <akaskik@gmail.com> | Osman Masood <oamasood@gmail.com> | Robert Carlsen <rwcarlsen@gmail.com> | Rory Flynn <roryflynn@users.noreply.github.com> | Sergi Mansilla <sergi.mansilla@gmail.com> | Shatrugna Sadhu <ssadhu@apcera.com> | Shawn Smith <shawnpsmith@gmail.com> | Stas Maksimov <maksimov@gmail.com> | Tor Arvid Lund <torarvid@gmail.com> | Zac Bergquist <zbergquist99@gmail.com> | Örjan Persson <orjan@spotify.com>
+core,github.com/skeema/knownhosts,Apache-2.0,Copyright 2023 Skeema LLC and the Skeema Knownhosts authors | copyright 2023 Skeema LLC and the Skeema Knownhosts authors**
+core,github.com/spdx/gordf/rdfloader,MIT,Copyright (c) 2020 SPDX
+core,github.com/spdx/gordf/rdfloader/parser,MIT,Copyright (c) 2020 SPDX
+core,github.com/spdx/gordf/rdfloader/xmlreader,MIT,Copyright (c) 2020 SPDX
+core,github.com/spdx/gordf/rdfwriter,MIT,Copyright (c) 2020 SPDX
+core,github.com/spdx/gordf/uri,MIT,Copyright (c) 2020 SPDX
+core,github.com/spdx/tools-golang/convert,Apache-2.0,Copyright (c) 2018 The Authors
+core,github.com/spdx/tools-golang/json,Apache-2.0,Copyright (c) 2018 The Authors
+core,github.com/spdx/tools-golang/rdf,Apache-2.0,Copyright (c) 2018 The Authors
+core,github.com/spdx/tools-golang/spdx,Apache-2.0,Copyright (c) 2018 The Authors
+core,github.com/spdx/tools-golang/spdx/common,Apache-2.0,Copyright (c) 2018 The Authors
+core,github.com/spdx/tools-golang/spdx/v2/common,Apache-2.0,Copyright (c) 2018 The Authors
+core,github.com/spdx/tools-golang/spdx/v2/v2_1,Apache-2.0,Copyright (c) 2018 The Authors
+core,github.com/spdx/tools-golang/spdx/v2/v2_1/tagvalue/reader,Apache-2.0,Copyright (c) 2018 The Authors
+core,github.com/spdx/tools-golang/spdx/v2/v2_1/tagvalue/writer,Apache-2.0,Copyright (c) 2018 The Authors
+core,github.com/spdx/tools-golang/spdx/v2/v2_2,Apache-2.0,Copyright (c) 2018 The Authors
+core,github.com/spdx/tools-golang/spdx/v2/v2_2/rdf/reader,Apache-2.0,Copyright (c) 2018 The Authors
+core,github.com/spdx/tools-golang/spdx/v2/v2_2/tagvalue/reader,Apache-2.0,Copyright (c) 2018 The Authors
+core,github.com/spdx/tools-golang/spdx/v2/v2_2/tagvalue/writer,Apache-2.0,Copyright (c) 2018 The Authors
+core,github.com/spdx/tools-golang/spdx/v2/v2_3,Apache-2.0,Copyright (c) 2018 The Authors
+core,github.com/spdx/tools-golang/spdx/v2/v2_3/rdf/reader,Apache-2.0,Copyright (c) 2018 The Authors
+core,github.com/spdx/tools-golang/spdx/v2/v2_3/tagvalue/reader,Apache-2.0,Copyright (c) 2018 The Authors
+core,github.com/spdx/tools-golang/spdx/v2/v2_3/tagvalue/writer,Apache-2.0,Copyright (c) 2018 The Authors
+core,github.com/spdx/tools-golang/tagvalue,Apache-2.0,Copyright (c) 2018 The Authors
+core,github.com/spdx/tools-golang/tagvalue/reader,Apache-2.0,Copyright (c) 2018 The Authors
+core,github.com/urfave/cli/v2,MIT,Copyright (c) 2022 urfave/cli maintainers
+core,github.com/xanzy/ssh-agent,Apache-2.0,"Copyright (c) 2014 David Mzareulyan | Copyright 2015, Sander van Harmelen"
+core,github.com/xrash/smetrics,MIT,Copyright (C) 2016 Felipe da Cunha Gonçalves
+core,golang.org/x/crypto/argon2,BSD-3-Clause,Copyright (c) 2009 The Go Authors. All rights reserved
+core,golang.org/x/crypto/blake2b,BSD-3-Clause,Copyright (c) 2009 The Go Authors. All rights reserved
+core,golang.org/x/crypto/blowfish,BSD-3-Clause,Copyright (c) 2009 The Go Authors. All rights reserved
+core,golang.org/x/crypto/cast5,BSD-3-Clause,Copyright (c) 2009 The Go Authors. All rights reserved
+core,golang.org/x/crypto/chacha20,BSD-3-Clause,Copyright (c) 2009 The Go Authors. All rights reserved
+core,golang.org/x/crypto/curve25519,BSD-3-Clause,Copyright (c) 2009 The Go Authors. All rights reserved
+core,golang.org/x/crypto/curve25519/internal/field,BSD-3-Clause,Copyright (c) 2009 The Go Authors. All rights reserved
+core,golang.org/x/crypto/hkdf,BSD-3-Clause,Copyright (c) 2009 The Go Authors. All rights reserved
+core,golang.org/x/crypto/internal/alias,BSD-3-Clause,Copyright (c) 2009 The Go Authors. All rights reserved
+core,golang.org/x/crypto/internal/poly1305,BSD-3-Clause,Copyright (c) 2009 The Go Authors. All rights reserved
+core,golang.org/x/crypto/sha3,BSD-3-Clause,Copyright (c) 2009 The Go Authors. All rights reserved
+core,golang.org/x/crypto/ssh,BSD-3-Clause,Copyright (c) 2009 The Go Authors. All rights reserved
+core,golang.org/x/crypto/ssh/agent,BSD-3-Clause,Copyright (c) 2009 The Go Authors. All rights reserved
+core,golang.org/x/crypto/ssh/internal/bcrypt_pbkdf,BSD-3-Clause,Copyright (c) 2009 The Go Authors. All rights reserved
+core,golang.org/x/crypto/ssh/knownhosts,BSD-3-Clause,Copyright (c) 2009 The Go Authors. All rights reserved
+core,golang.org/x/exp/maps,BSD-3-Clause,Copyright (c) 2009 The Go Authors. All rights reserved
+core,golang.org/x/net/context,BSD-3-Clause,Copyright (c) 2009 The Go Authors. All rights reserved
+core,golang.org/x/net/http/httpguts,BSD-3-Clause,Copyright (c) 2009 The Go Authors. All rights reserved
+core,golang.org/x/net/http2,BSD-3-Clause,Copyright (c) 2009 The Go Authors. All rights reserved
+core,golang.org/x/net/http2/hpack,BSD-3-Clause,Copyright (c) 2009 The Go Authors. All rights reserved
+core,golang.org/x/net/idna,BSD-3-Clause,Copyright (c) 2009 The Go Authors. All rights reserved
+core,golang.org/x/net/internal/socks,BSD-3-Clause,Copyright (c) 2009 The Go Authors. All rights reserved
+core,golang.org/x/net/internal/timeseries,BSD-3-Clause,Copyright (c) 2009 The Go Authors. All rights reserved
+core,golang.org/x/net/proxy,BSD-3-Clause,Copyright (c) 2009 The Go Authors. All rights reserved
+core,golang.org/x/net/trace,BSD-3-Clause,Copyright (c) 2009 The Go Authors. All rights reserved
+core,golang.org/x/sync/errgroup,BSD-3-Clause,Copyright (c) 2009 The Go Authors. All rights reserved
+core,golang.org/x/sync/semaphore,BSD-3-Clause,Copyright (c) 2009 The Go Authors. All rights reserved
+core,golang.org/x/sys/cpu,BSD-3-Clause,Copyright (c) 2009 The Go Authors. All rights reserved
+core,golang.org/x/sys/execabs,BSD-3-Clause,Copyright (c) 2009 The Go Authors. All rights reserved
+core,golang.org/x/sys/plan9,BSD-3-Clause,Copyright (c) 2009 The Go Authors. All rights reserved
+core,golang.org/x/sys/unix,BSD-3-Clause,Copyright (c) 2009 The Go Authors. All rights reserved
+core,golang.org/x/sys/windows,BSD-3-Clause,Copyright (c) 2009 The Go Authors. All rights reserved
+core,golang.org/x/term,BSD-3-Clause,Copyright (c) 2009 The Go Authors. All rights reserved
+core,golang.org/x/text/secure/bidirule,BSD-3-Clause,Copyright (c) 2009 The Go Authors. All rights reserved
+core,golang.org/x/text/transform,BSD-3-Clause,Copyright (c) 2009 The Go Authors. All rights reserved
+core,golang.org/x/text/unicode/bidi,BSD-3-Clause,Copyright (c) 2009 The Go Authors. All rights reserved
+core,golang.org/x/text/unicode/norm,BSD-3-Clause,Copyright (c) 2009 The Go Authors. All rights reserved
+core,golang.org/x/tools/cmd/stringer,BSD-3-Clause,Copyright (c) 2009 The Go Authors. All rights reserved
+core,golang.org/x/tools/go/ast/astutil,BSD-3-Clause,Copyright (c) 2009 The Go Authors. All rights reserved
+core,golang.org/x/tools/go/buildutil,BSD-3-Clause,Copyright (c) 2009 The Go Authors. All rights reserved
+core,golang.org/x/tools/go/callgraph,BSD-3-Clause,Copyright (c) 2009 The Go Authors. All rights reserved
+core,golang.org/x/tools/go/callgraph/cha,BSD-3-Clause,Copyright (c) 2009 The Go Authors. All rights reserved
+core,golang.org/x/tools/go/callgraph/vta,BSD-3-Clause,Copyright (c) 2009 The Go Authors. All rights reserved
+core,golang.org/x/tools/go/callgraph/vta/internal/trie,BSD-3-Clause,Copyright (c) 2009 The Go Authors. All rights reserved
+core,golang.org/x/tools/go/gcexportdata,BSD-3-Clause,Copyright (c) 2009 The Go Authors. All rights reserved
+core,golang.org/x/tools/go/internal/cgo,BSD-3-Clause,Copyright (c) 2009 The Go Authors. All rights reserved
+core,golang.org/x/tools/go/internal/packagesdriver,BSD-3-Clause,Copyright (c) 2009 The Go Authors. All rights reserved
+core,golang.org/x/tools/go/loader,BSD-3-Clause,Copyright (c) 2009 The Go Authors. All rights reserved
+core,golang.org/x/tools/go/packages,BSD-3-Clause,Copyright (c) 2009 The Go Authors. All rights reserved
+core,golang.org/x/tools/go/ssa,BSD-3-Clause,Copyright (c) 2009 The Go Authors. All rights reserved
+core,golang.org/x/tools/go/ssa/ssautil,BSD-3-Clause,Copyright (c) 2009 The Go Authors. All rights reserved
+core,golang.org/x/tools/go/types/objectpath,BSD-3-Clause,Copyright (c) 2009 The Go Authors. All rights reserved
+core,golang.org/x/tools/go/types/typeutil,BSD-3-Clause,Copyright (c) 2009 The Go Authors. All rights reserved
+core,golang.org/x/tools/internal/event,BSD-3-Clause,Copyright (c) 2009 The Go Authors. All rights reserved
+core,golang.org/x/tools/internal/event/core,BSD-3-Clause,Copyright (c) 2009 The Go Authors. All rights reserved
+core,golang.org/x/tools/internal/event/keys,BSD-3-Clause,Copyright (c) 2009 The Go Authors. All rights reserved
+core,golang.org/x/tools/internal/event/label,BSD-3-Clause,Copyright (c) 2009 The Go Authors. All rights reserved
+core,golang.org/x/tools/internal/event/tag,BSD-3-Clause,Copyright (c) 2009 The Go Authors. All rights reserved
+core,golang.org/x/tools/internal/gcimporter,BSD-3-Clause,Copyright (c) 2009 The Go Authors. All rights reserved
+core,golang.org/x/tools/internal/gocommand,BSD-3-Clause,Copyright (c) 2009 The Go Authors. All rights reserved
+core,golang.org/x/tools/internal/packagesinternal,BSD-3-Clause,Copyright (c) 2009 The Go Authors. All rights reserved
+core,golang.org/x/tools/internal/pkgbits,BSD-3-Clause,Copyright (c) 2009 The Go Authors. All rights reserved
+core,golang.org/x/tools/internal/tokeninternal,BSD-3-Clause,Copyright (c) 2009 The Go Authors. All rights reserved
+core,golang.org/x/tools/internal/typeparams,BSD-3-Clause,Copyright (c) 2009 The Go Authors. All rights reserved
+core,golang.org/x/tools/internal/typesinternal,BSD-3-Clause,Copyright (c) 2009 The Go Authors. All rights reserved
+core,golang.org/x/vuln/internal,BSD-3-Clause,Copyright (c) 2009 The Go Authors. All rights reserved
+core,golang.org/x/vuln/internal/client,BSD-3-Clause,Copyright (c) 2009 The Go Authors. All rights reserved
+core,golang.org/x/vuln/internal/derrors,BSD-3-Clause,Copyright (c) 2009 The Go Authors. All rights reserved
+core,golang.org/x/vuln/internal/govulncheck,BSD-3-Clause,Copyright (c) 2009 The Go Authors. All rights reserved
+core,golang.org/x/vuln/internal/osv,BSD-3-Clause,Copyright (c) 2009 The Go Authors. All rights reserved
+core,golang.org/x/vuln/internal/scan,BSD-3-Clause,Copyright (c) 2009 The Go Authors. All rights reserved
+core,golang.org/x/vuln/internal/semver,BSD-3-Clause,Copyright (c) 2009 The Go Authors. All rights reserved
+core,golang.org/x/vuln/internal/vulncheck,BSD-3-Clause,Copyright (c) 2009 The Go Authors. All rights reserved
+core,golang.org/x/vuln/internal/vulncheck/internal/buildinfo,BSD-3-Clause,Copyright (c) 2009 The Go Authors. All rights reserved
+core,golang.org/x/vuln/internal/vulncheck/internal/gosym,BSD-3-Clause,Copyright (c) 2009 The Go Authors. All rights reserved
+core,golang.org/x/vuln/internal/web,BSD-3-Clause,Copyright (c) 2009 The Go Authors. All rights reserved
+core,golang.org/x/vuln/scan,BSD-3-Clause,Copyright (c) 2009 The Go Authors. All rights reserved
+core,golang/go,BSD-3-Clause,Copyright (c) 2009 The Go Authors. All rights reserved.
+core,google.golang.org/genproto/googleapis/rpc/status,Apache-2.0,Copyright 2015 Google LLC
+core,google.golang.org/grpc,Apache-2.0,Copyright 2014 gRPC authors.
+core,google.golang.org/grpc/attributes,Apache-2.0,Copyright 2014 gRPC authors.
+core,google.golang.org/grpc/backoff,Apache-2.0,Copyright 2014 gRPC authors.
+core,google.golang.org/grpc/balancer,Apache-2.0,Copyright 2014 gRPC authors.
+core,google.golang.org/grpc/balancer/base,Apache-2.0,Copyright 2014 gRPC authors.
+core,google.golang.org/grpc/balancer/grpclb/state,Apache-2.0,Copyright 2014 gRPC authors.
+core,google.golang.org/grpc/balancer/roundrobin,Apache-2.0,Copyright 2014 gRPC authors.
+core,google.golang.org/grpc/binarylog/grpc_binarylog_v1,Apache-2.0,Copyright 2014 gRPC authors.
+core,google.golang.org/grpc/channelz,Apache-2.0,Copyright 2014 gRPC authors.
+core,google.golang.org/grpc/codes,Apache-2.0,Copyright 2014 gRPC authors.
+core,google.golang.org/grpc/connectivity,Apache-2.0,Copyright 2014 gRPC authors.
+core,google.golang.org/grpc/credentials,Apache-2.0,Copyright 2014 gRPC authors.
+core,google.golang.org/grpc/credentials/insecure,Apache-2.0,Copyright 2014 gRPC authors.
+core,google.golang.org/grpc/encoding,Apache-2.0,Copyright 2014 gRPC authors.
+core,google.golang.org/grpc/encoding/proto,Apache-2.0,Copyright 2014 gRPC authors.
+core,google.golang.org/grpc/grpclog,Apache-2.0,Copyright 2014 gRPC authors.
+core,google.golang.org/grpc/internal,Apache-2.0,Copyright 2014 gRPC authors.
+core,google.golang.org/grpc/internal/backoff,Apache-2.0,Copyright 2014 gRPC authors.
+core,google.golang.org/grpc/internal/balancer/gracefulswitch,Apache-2.0,Copyright 2014 gRPC authors.
+core,google.golang.org/grpc/internal/balancerload,Apache-2.0,Copyright 2014 gRPC authors.
+core,google.golang.org/grpc/internal/binarylog,Apache-2.0,Copyright 2014 gRPC authors.
+core,google.golang.org/grpc/internal/buffer,Apache-2.0,Copyright 2014 gRPC authors.
+core,google.golang.org/grpc/internal/channelz,Apache-2.0,Copyright 2014 gRPC authors.
+core,google.golang.org/grpc/internal/credentials,Apache-2.0,Copyright 2014 gRPC authors.
+core,google.golang.org/grpc/internal/envconfig,Apache-2.0,Copyright 2014 gRPC authors.
+core,google.golang.org/grpc/internal/grpclog,Apache-2.0,Copyright 2014 gRPC authors.
+core,google.golang.org/grpc/internal/grpcrand,Apache-2.0,Copyright 2014 gRPC authors.
+core,google.golang.org/grpc/internal/grpcsync,Apache-2.0,Copyright 2014 gRPC authors.
+core,google.golang.org/grpc/internal/grpcutil,Apache-2.0,Copyright 2014 gRPC authors.
+core,google.golang.org/grpc/internal/idle,Apache-2.0,Copyright 2014 gRPC authors.
+core,google.golang.org/grpc/internal/metadata,Apache-2.0,Copyright 2014 gRPC authors.
+core,google.golang.org/grpc/internal/pretty,Apache-2.0,Copyright 2014 gRPC authors.
+core,google.golang.org/grpc/internal/resolver,Apache-2.0,Copyright 2014 gRPC authors.
+core,google.golang.org/grpc/internal/resolver/dns,Apache-2.0,Copyright 2014 gRPC authors.
+core,google.golang.org/grpc/internal/resolver/passthrough,Apache-2.0,Copyright 2014 gRPC authors.
+core,google.golang.org/grpc/internal/resolver/unix,Apache-2.0,Copyright 2014 gRPC authors.
+core,google.golang.org/grpc/internal/serviceconfig,Apache-2.0,Copyright 2014 gRPC authors.
+core,google.golang.org/grpc/internal/status,Apache-2.0,Copyright 2014 gRPC authors.
+core,google.golang.org/grpc/internal/syscall,Apache-2.0,Copyright 2014 gRPC authors.
+core,google.golang.org/grpc/internal/transport,Apache-2.0,Copyright 2014 gRPC authors.
+core,google.golang.org/grpc/internal/transport/networktype,Apache-2.0,Copyright 2014 gRPC authors.
+core,google.golang.org/grpc/keepalive,Apache-2.0,Copyright 2014 gRPC authors.
+core,google.golang.org/grpc/metadata,Apache-2.0,Copyright 2014 gRPC authors.
+core,google.golang.org/grpc/peer,Apache-2.0,Copyright 2014 gRPC authors.
+core,google.golang.org/grpc/resolver,Apache-2.0,Copyright 2014 gRPC authors.
+core,google.golang.org/grpc/serviceconfig,Apache-2.0,Copyright 2014 gRPC authors.
+core,google.golang.org/grpc/stats,Apache-2.0,Copyright 2014 gRPC authors.
+core,google.golang.org/grpc/status,Apache-2.0,Copyright 2014 gRPC authors.
+core,google.golang.org/grpc/tap,Apache-2.0,Copyright 2014 gRPC authors.
+core,google.golang.org/protobuf/encoding/protojson,BSD-3-Clause,Copyright (c) 2018 The Go Authors. All rights reserved
+core,google.golang.org/protobuf/encoding/prototext,BSD-3-Clause,Copyright (c) 2018 The Go Authors. All rights reserved
+core,google.golang.org/protobuf/encoding/protowire,BSD-3-Clause,Copyright (c) 2018 The Go Authors. All rights reserved
+core,google.golang.org/protobuf/internal/descfmt,BSD-3-Clause,Copyright (c) 2018 The Go Authors. All rights reserved
+core,google.golang.org/protobuf/internal/descopts,BSD-3-Clause,Copyright (c) 2018 The Go Authors. All rights reserved
+core,google.golang.org/protobuf/internal/detrand,BSD-3-Clause,Copyright (c) 2018 The Go Authors. All rights reserved
+core,google.golang.org/protobuf/internal/encoding/defval,BSD-3-Clause,Copyright (c) 2018 The Go Authors. All rights reserved
+core,google.golang.org/protobuf/internal/encoding/json,BSD-3-Clause,Copyright (c) 2018 The Go Authors. All rights reserved
+core,google.golang.org/protobuf/internal/encoding/messageset,BSD-3-Clause,Copyright (c) 2018 The Go Authors. All rights reserved
+core,google.golang.org/protobuf/internal/encoding/tag,BSD-3-Clause,Copyright (c) 2018 The Go Authors. All rights reserved
+core,google.golang.org/protobuf/internal/encoding/text,BSD-3-Clause,Copyright (c) 2018 The Go Authors. All rights reserved
+core,google.golang.org/protobuf/internal/errors,BSD-3-Clause,Copyright (c) 2018 The Go Authors. All rights reserved
+core,google.golang.org/protobuf/internal/filedesc,BSD-3-Clause,Copyright (c) 2018 The Go Authors. All rights reserved
+core,google.golang.org/protobuf/internal/filetype,BSD-3-Clause,Copyright (c) 2018 The Go Authors. All rights reserved
+core,google.golang.org/protobuf/internal/flags,BSD-3-Clause,Copyright (c) 2018 The Go Authors. All rights reserved
+core,google.golang.org/protobuf/internal/genid,BSD-3-Clause,Copyright (c) 2018 The Go Authors. All rights reserved
+core,google.golang.org/protobuf/internal/impl,BSD-3-Clause,Copyright (c) 2018 The Go Authors. All rights reserved
+core,google.golang.org/protobuf/internal/order,BSD-3-Clause,Copyright (c) 2018 The Go Authors. All rights reserved
+core,google.golang.org/protobuf/internal/pragma,BSD-3-Clause,Copyright (c) 2018 The Go Authors. All rights reserved
+core,google.golang.org/protobuf/internal/set,BSD-3-Clause,Copyright (c) 2018 The Go Authors. All rights reserved
+core,google.golang.org/protobuf/internal/strs,BSD-3-Clause,Copyright (c) 2018 The Go Authors. All rights reserved
+core,google.golang.org/protobuf/internal/version,BSD-3-Clause,Copyright (c) 2018 The Go Authors. All rights reserved
+core,google.golang.org/protobuf/proto,BSD-3-Clause,Copyright (c) 2018 The Go Authors. All rights reserved
+core,google.golang.org/protobuf/reflect/protodesc,BSD-3-Clause,Copyright (c) 2018 The Go Authors. All rights reserved
+core,google.golang.org/protobuf/reflect/protoreflect,BSD-3-Clause,Copyright (c) 2018 The Go Authors. All rights reserved
+core,google.golang.org/protobuf/reflect/protoregistry,BSD-3-Clause,Copyright (c) 2018 The Go Authors. All rights reserved
+core,google.golang.org/protobuf/runtime/protoiface,BSD-3-Clause,Copyright (c) 2018 The Go Authors. All rights reserved
+core,google.golang.org/protobuf/runtime/protoimpl,BSD-3-Clause,Copyright (c) 2018 The Go Authors. All rights reserved
+core,google.golang.org/protobuf/types/descriptorpb,BSD-3-Clause,Copyright (c) 2018 The Go Authors. All rights reserved
+core,google.golang.org/protobuf/types/known/anypb,BSD-3-Clause,Copyright (c) 2018 The Go Authors. All rights reserved
+core,google.golang.org/protobuf/types/known/durationpb,BSD-3-Clause,Copyright (c) 2018 The Go Authors. All rights reserved
+core,google.golang.org/protobuf/types/known/timestamppb,BSD-3-Clause,Copyright (c) 2018 The Go Authors. All rights reserved
+core,gopkg.in/warnings.v0,BSD-2-Clause,Copyright (c) 2016 Péter Surányi
+core,gopkg.in/yaml.v3,MIT,Copyright (c) 2006-2010 Kirill Simonov | Copyright 2011-2016 Canonical Ltd

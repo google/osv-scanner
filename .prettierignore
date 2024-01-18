@@ -1,3 +1,6 @@
 **/fixtures/**
 **/fixtures-go/**
 /docs/vendor/**
+.copyright-overrides.yml
+.wwhrd.yml
+tasks/**

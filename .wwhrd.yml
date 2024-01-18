@@ -1,0 +1,32 @@
+---
+denylist:
+  - GPL-2.0
+  - GPL-3.0
+
+allowlist:
+  - 0BSD
+  - Apache-2.0
+  - BSD-2-Clause
+  - BSD-3-Clause
+  - ISC
+  - JSON
+  - MIT
+  - MPL-2.0
+  - MPL-2.0-no-copyleft-exception
+  - NewBSD
+  - FreeBSD
+
+overrides:
+  # https://github.com/bmizerany/pat/blob/master/LICENSE
+  "github.com/bmizerany/pat": MIT
+  # https://github.com/xi2/xz/blob/master/LICENSE
+  "github.com/xi2/xz": Public Domain
+  # https://github.com/acomagu/bufpipe/blob/master/LICENSE
+  "github.com/acomagu/bufpipe": MIT
+
+exceptions:
+  - "golang.org/x/mod/..."
+
+additional:
+  # list here paths to additional licenses
+  golang/go: "raw.githubusercontent.com/golang/go/master/LICENSE"

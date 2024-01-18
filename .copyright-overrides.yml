@@ -1,0 +1,287 @@
+# this file contains overrides for the automatic determination of copyright
+# implemented in tasks/licenses.py.  The table keys are the golang package name
+# or pattern, and the value is either a copyright owner or a list of owners.
+#
+# Package patterns may end with a `*`.  When multiple patterns match, the longer
+# is preferred.
+#
+# Copyright statements should reflect the copyright exactly as it is shown on
+# the original component.
+
+# NOTE: in general, we prefer to pull data from the repository so that it will
+# be updated automatically, so prefer to make such a change in
+# tasks/licenses.py if possible.  Line-wrapping can be difficult to handle, and
+# may be overridden here.
+
+# These whole classes of package names have fixed copyright
+cloud.google.com/*: Copyright 2019 Google LLC
+code.cloudfoundry.org/*: Copyright (c) 2016-Present CloudFoundry.org Foundation, Inc. All Rights Reserved.
+github.com/GoogleCloudPlatform/docker-credential-gcr: Copyright 2016 Google, Inc.
+github.com/aws/aws-lambda-go: Copyright 2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+github.com/aws/aws-sdk-go: ["Copyright 2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.", "Copyright 2014-2015 Stripe, Inc."]
+github.com/aws/aws-sdk-go-v2: ["Copyright 2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.", "Copyright 2014-2015 Stripe, Inc."]
+github.com/containerd/*: Copyright 2012-2015 Docker, Inc.
+github.com/coreos/*: Copyright 2017 CoreOS, Inc
+github.com/docker/*: Copyright 2012-2017 Docker, Inc.
+github.com/elastic/*: Copyright 2017-2018 Elasticsearch B.V.
+github.com/golang/*: Copyright (c) 2009 The Go Authors. All rights reserved.
+github.com/googleapis/*: Copyright 2017 Google Inc.
+github.com/google/go-cmp/*: Copyright (c) 2017 The Go Authors. All rights reserved.
+github.com/grpc-ecosystem/*: Copyright (c) 2015, Gengo, Inc.
+github.com/hashicorp/*: Copyright © 2014-2018 HashiCorp, Inc
+github.com/prometheus/*: Copyright 2012-2015 The Prometheus Authors
+github.com/open-telemetry/*: Copyright The OpenTelemetry Authors
+go.etcd.io/*: Copyright 2016 The etcd Authors
+google.golang.org/appengine: Copyright 2011 Google Inc. All rights reserved.
+google.golang.org/appengine/*: Copyright 2011 Google Inc. All rights reserved.
+google.golang.org/genproto: Copyright 2020 Google LLC
+google.golang.org/genproto/*: Copyright 2020 Google LLC
+go.opentelemetry.io/*: Copyright The OpenTelemetry Authors
+gopkg.in/DataDog/*: Copyright 2016-Present Datadog, Inc.
+k8s.io/*: Copyright 2014 The Kubernetes Authors.
+sigs.k8s.io/*: Copyright 2017 The Kubernetes Authors.
+contrib.go.opencensus.io/exporter/prometheus: Copyright 2020, OpenCensus Authors
+go.opencensus.io: Copyright 2018, OpenCensus Authors
+go.opencensus.io/*: Copyright 2018, OpenCensus Authors
+github.com/grpc-ecosystem/*: Copyright 2016 Michal Witkowski. All Rights Reserved.
+google.golang.org/genproto/*: Copyright 2015 Google LLC
+google.golang.org/grpc: Copyright 2014 gRPC authors.
+google.golang.org/grpc/*: Copyright 2014 gRPC authors.
+github.com/skydive-project/go-debouncer: Copyright (C) 2018 Red Hat, Inc.
+
+# NOTE: We cannot use
+#   github.com/DataDog/*: Datadog, Inc.
+# because many of those repos are forks, where DD does not own the copyright.
+
+# https://raw.githubusercontent.com/golang/go/master/LICENSE
+golang/go: Copyright (c) 2009 The Go Authors. All rights reserved.
+
+# This has old and new code licensed to two different names, with some awkward
+# line wrapping
+gopkg.in/yaml.v3: ["Copyright (c) 2006-2010 Kirill Simonov", "Copyright 2011-2016 Canonical Ltd"]
+
+# This has awkward line wrapping.
+gopkg.in/inf.v0: "Copyright (c) 2012 Péter Surányi. Portions Copyright (c) 2009 The Go Authors. All rights reserved."
+
+# See https://github.com/googleapis/google-api-go-client/blob/master/AUTHORS
+google.golang.org/api/*: Copyright (c) 2011 Google Inc. All rights reserved.
+
+# See https://github.com/openshift/api/blob/master/quota/OWNERS
+github.com/openshift/api: Copyright 2020 Red Hat, Inc.
+
+# https://datadoghq.atlassian.net/browse/AC-1296
+github.com/DataDog/mmh3: Copyright (c) 2017 Datadog, Inc.
+
+# https://datadoghq.atlassian.net/browse/OTEL-345
+github.com/DataDog/opentelemetry-mapping-go: Copyright (c) 2023 Datadog, Inc.
+
+# https://github.com/briandowns/spinner/blob/master/NOTICE.txt
+github.com/briandowns/spinner: Copyright (c) 2022 Brian J. Downs
+
+# https://github.com/shibumi/go-pathspec/blob/master/GO-LICENSE
+github.com/shibumi/go-pathspec: Copyright (c) 2012 The Go Authors. All rights reserved.
+
+# https://github.com/acomagu/bufpipe/blob/master/LICENSE
+github.com/acomagu/bufpipe: Copyright (c) 2019 acomagu
+
+# For Apache projects, copyright is typically in individual source files and
+# not scanned automatically.
+github.com/tklauser/numcpus: Copyright 2018 Tobias Klauser
+github.com/Masterminds/goutils: "Copyright 2014 Alexander Okoli"
+github.com/outcaste-io/ristretto:
+  - "Copyright 2019 Dgraph Labs, Inc. and Contributors"
+  - "Copyright 2020 Dgraph Labs, Inc. and Contributors"
+  - "Copyright 2021 Dgraph Labs, Inc. and Contributors"
+  - "Copyright 2020 The LevelDB-Go and Pebble Authors. All rights reserved."
+  - "Copyright (c) 2014 Andreas Briese, eduToolbox@Bri-C GmbH, Sarstedt"
+  - "Copyright (c) 2019 Ewan Chou"
+github.com/dgraph-io/ristretto:
+  - "Copyright 2019 Dgraph Labs, Inc. and Contributors"
+  - "Copyright 2020 Dgraph Labs, Inc. and Contributors"
+  - "Copyright 2020 The LevelDB-Go and Pebble Authors. All rights reserved."
+  - "Copyright (c) 2014 Andreas Briese, eduToolbox@Bri-C GmbH, Sarstedt"
+  - "Copyright (c) 2019 Ewan Chou"
+github.com/go-logr/logr: ["Copyright 2019 The logr Authors.", "Copyright 2020 The logr Authors."]
+github.com/go-logr/stdr: "Copyright 2019 The logr Authors."
+github.com/go-openapi/analysis: Copyright 2015 go-swagger maintainers
+github.com/go-openapi/errors: Copyright 2015 go-swagger maintainers
+github.com/go-openapi/jsonpointer: "Copyright 2013 sigu-399 ( https://github.com/sigu-399 )"
+github.com/go-openapi/jsonreference: "Copyright 2013 sigu-399 ( https://github.com/sigu-399 )"
+github.com/go-openapi/loads: Copyright 2015 go-swagger maintainers
+github.com/go-openapi/runtime: Copyright 2015 go-swagger maintainers
+github.com/go-openapi/spec: Copyright 2015 go-swagger maintainers
+github.com/go-openapi/strfmt: Copyright 2015 go-swagger maintainers
+github.com/go-openapi/swag: Copyright 2015 go-swagger maintainers
+github.com/go-openapi/validate: Copyright 2015 go-swagger maintainers
+github.com/google/gofuzz: Copyright 2014 Google Inc. All rights reserved.
+github.com/kubernetes-sigs/custom-metrics-apiserver: Copyright 2018 The Kubernetes Authors.
+github.com/mostynb/go-grpc-compression/snappy: Copyright 2017 gRPC authors.
+github.com/mostynb/go-grpc-compression/zstd: ["Copyright 2020 Mostyn Bramley-Moore.","Copyright 2020 Mostyn Bramley-Moore."]
+github.com/sassoftware/go-rpmutils: Copyright (c) SAS Institute Inc.
+github.com/spf13/cobra: Copyright © 2013 Steve Francia <spf@spf13.com>.
+github.com/xeipuuv/gojsonpointer: Copyright 2015 xeipuuv ( https://github.com/xeipuuv )
+github.com/xeipuuv/gojsonreference: Copyright 2015 xeipuuv ( https://github.com/xeipuuv )
+github.com/xeipuuv/gojsonschema: Copyright 2015 xeipuuv
+github.com/open-policy-agent/opa: Copyright 2016 The OPA Authors.  All rights reserved.
+github.com/containernetworking/*: Copyright 2019 CNI authors
+github.com/xanzy/ssh-agent: ["Copyright (c) 2014 David Mzareulyan", "Copyright 2015, Sander van Harmelen"]
+github.com/google/go-containerregistry:
+  - "Copyright 2018 Google LLC All Rights Reserved."
+  - "Copyright 2019 Google LLC All Rights Reserved."
+  - "Copyright 2020 Google LLC All Rights Reserved."
+  - "Copyright 2021 Google LLC All Rights Reserved."
+  - "Copyright 2022 Google LLC All Rights Reserved."
+github.com/google/go-containerregistry/internal/compression:
+  - "Copyright 2018 Google LLC All Rights Reserved."
+  - "Copyright 2019 Google LLC All Rights Reserved."
+  - "Copyright 2020 Google LLC All Rights Reserved."
+  - "Copyright 2021 Google LLC All Rights Reserved."
+  - "Copyright 2022 Google LLC All Rights Reserved."
+github.com/google/go-containerregistry/internal/zstd:
+  - "Copyright 2018 Google LLC All Rights Reserved."
+  - "Copyright 2019 Google LLC All Rights Reserved."
+  - "Copyright 2020 Google LLC All Rights Reserved."
+  - "Copyright 2021 Google LLC All Rights Reserved."
+  - "Copyright 2022 Google LLC All Rights Reserved."
+github.com/google/go-containerregistry/pkg/compression:
+  - "Copyright 2018 Google LLC All Rights Reserved."
+  - "Copyright 2019 Google LLC All Rights Reserved."
+  - "Copyright 2020 Google LLC All Rights Reserved."
+  - "Copyright 2021 Google LLC All Rights Reserved."
+  - "Copyright 2022 Google LLC All Rights Reserved."
+github.com/google/licenseclassifier/v2:
+  - "Copyright 2017 Google LLC All Rights Reserved."
+  - "Copyright 2020 Google LLC All Rights Reserved."
+github.com/dgraph-io/badger:
+  - "Copyright 2013 The LevelDB-Go Authors. All rights reserved."
+  - "Copyright 2017 Dgraph Labs, Inc. and Contributors"
+  - "Copyright 2018 Dgraph Labs, Inc. and Contributors"
+  - "Copyright 2019 Dgraph Labs, Inc. and Contributors"
+  - "Copyright 2020 Dgraph Labs, Inc. and Contributors"
+  - "Copyright 2021 Dgraph Labs, Inc. and Contributors"
+github.com/mostynb/go-grpc-compression: "Copyright 2023 Mostyn Bramley-Moore."
+github.com/stormcat24/protodep: "Copyright Akinori Yamada"
+
+# These have large AUTHORS/CONTRIBUTORS files but attribute copyright as a group
+github.com/aptly-dev/aptly: Copyright 2013-2015 aptly authors. All rights reserved.
+github.com/google/gopacket: ["Copyright (c) 2012 Google, Inc. All rights reserved.", "Copyright (c) 2009-2011 Andreas Krennmair. All rights reserved."]
+github.com/fsnotify/fsnotify: ["Copyright (c) 2012 The Go Authors. All rights reserved.","Copyright (c) 2012-2019 fsnotify Authors. All rights reserved."]
+github.com/gosnmp/gosnmp: Copyright 2012-2020 The GoSNMP Authors. All rights reserved.
+github.com/shuLhan/go-bindata: Copyright 2018 The go-bindata Authors. All rights reserved.
+github.com/lxn/walk: Copyright (c) 2010 The Walk Authors. All rights reserved.
+github.com/lxn/win: Copyright (c) 2010 The win Authors. All rights reserved.
+github.com/klauspost/compress/snappy: Copyright (c) 2011 The Snappy-Go Authors. All rights reserved.
+github.com/klauspost/compress/s2: ["Copyright (c) 2011 The Snappy-Go Authors. All rights reserved.", "Copyright (c) 2019 Klaus Post. All rights reserved."]
+github.com/golang/snappy: Copyright (c) 2011 The Snappy-Go Authors. All rights reserved.
+github.com/shirou/w32: Copyright (c) 2010-2012 The w32 Authors. All rights reserved.
+github.com/gogo/protobuf: ["Copyright (c) 2013, The GoGo Authors. All rights reserved.", "Copyright 2010 The Go Authors.  All rights reserved."]
+
+# These are just difficult to figure out, as they have no full copyright declaration.
+# The following rules are applied:
+#  * Automatic "Copyright (c)"
+#  * Year is based on the year of the first commit to the repository
+#  * Author, when known only by GitHub username, is "GitHub Full Name (github-username)"
+github.com/moby/sys/mountinfo: Copyright (c) 2014-2018 The Docker & Go Authors. All rights reserved.
+github.com/moby/sys/signal: Copyright (c) 2014-2018 The Docker & Go Authors. All rights reserved.
+github.com/modern-go/concurrent: Copyright (c) 2018 Tao Wen
+github.com/modern-go/reflect2: Copyright (c) 2018 Tao Wen
+github.com/opencontainers/selinux/*: Copyright (c) 2017 The Authors
+github.com/spf13/afero: ["Copyright © 2014 Steve Francia <spf@spf13.com>.","Copyright 2013 tsuru authors. All rights reserved."]
+github.com/vito/go-sse/sse: Copyright (c) 2014 Alex Suraci
+gomodules.xyz/jsonpatch: Copyright (c) 2015 The Authors
+github.com/bytecodealliance/wasmtime-go: Copyright (c) 2020 The Bytecode Alliance
+github.com/OneOfOne/xxhash: Copyright (c) 2014 Ahmed W. (OneOfOne)
+github.com/yashtewari/glob-intersection: Copyright (c) 2018 Yash Tewari (yashtewari)
+go.mongodb.org/mongo-driver/*: Copyright © 2018 MongoDB, Inc.
+github.com/masahiro331/go-ext4-filesystem: Copyright (c) 2021 masahiro331
+github.com/masahiro331/go-mvn-version: Copyright (c) 2020 masahiro331
+github.com/masahiro331/go-vmdk-parser: Copyright (c) 2020 masahiro331
+github.com/masahiro331/go-xfs-filesystem: Copyright (c) 2021 masahiro331
+github.com/knqyf263/go-apk-version: Copyright (c) 2020 Teppei Fukuda (knqyf263)
+github.com/aquasecurity/go-gem-version: Copyright (c) 2020 Teppei Fukuda (knqyf263)
+github.com/aquasecurity/go-npm-version: Copyright (c) 2020 Teppei Fukuda (knqyf263)
+github.com/aquasecurity/go-pep440-version: Copyright (c) 2020 Teppei Fukuda (knqyf263)
+github.com/aquasecurity/go-version: Copyright (c) 2020 Teppei Fukuda (knqyf263)
+github.com/spdx/tools-golang: Copyright (c) 2018 The Authors
+github.com/google/flatbuffers: Copyright (c) 2014 Google
+github.com/gocomply/scap: "CC0 1.0 Universal"
+
+# The Copyright information is not contained in the LICENSE file, but it can be found in other
+# files in the package, such as:
+#  * https://github.com/godror/knownpb/blob/main/timestamppb/timestamp_test.go
+#  * https://github.com/godror/knownpb/blob/main/timestamppb/timestamp.go
+#  * https://github.com/godror/knownpb/blob/main/internal/writer.go
+github.com/godror/knownpb/internal: Copyright 2014, 2021 Tamás Gulácsi
+github.com/godror/knownpb/timestamppb: Copyright 2019, 2021 Tamás Gulácsi
+
+# Copyright information is in the README
+github.com/google/gnostic/compiler: Copyright 2017-2020, Google LLC.
+github.com/google/gnostic/extensions: Copyright 2017-2020, Google LLC.
+github.com/google/gnostic/jsonschema: Copyright 2017-2020, Google LLC.
+github.com/google/gnostic/openapiv2: Copyright 2017-2020, Google LLC.
+github.com/google/gnostic/openapiv3: Copyright 2017-2020, Google LLC.
+github.com/google/s2a-go: Copyright (c) 2020 Google
+github.com/google/s2a-go/fallback: Copyright (c) 2020 Google
+github.com/google/s2a-go/internal/authinfo: Copyright (c) 2020 Google
+github.com/google/s2a-go/internal/handshaker: Copyright (c) 2020 Google
+github.com/google/s2a-go/internal/handshaker/service: Copyright (c) 2020 Google
+github.com/google/s2a-go/internal/proto/common_go_proto: Copyright (c) 2020 Google
+github.com/google/s2a-go/internal/proto/s2a_context_go_proto: Copyright (c) 2020 Google
+github.com/google/s2a-go/internal/proto/s2a_go_proto: Copyright (c) 2020 Google
+github.com/google/s2a-go/internal/proto/v2/common_go_proto: Copyright (c) 2020 Google
+github.com/google/s2a-go/internal/proto/v2/s2a_context_go_proto: Copyright (c) 2020 Google
+github.com/google/s2a-go/internal/proto/v2/s2a_go_proto: Copyright (c) 2020 Google
+github.com/google/s2a-go/internal/record: Copyright (c) 2020 Google
+github.com/google/s2a-go/internal/record/internal/aeadcrypter: Copyright (c) 2020 Google
+github.com/google/s2a-go/internal/record/internal/halfconn: Copyright (c) 2020 Google
+github.com/google/s2a-go/internal/tokenmanager: Copyright (c) 2020 Google
+github.com/google/s2a-go/internal/v2: Copyright (c) 2020 Google
+github.com/google/s2a-go/internal/v2/certverifier: Copyright (c) 2020 Google
+github.com/google/s2a-go/internal/v2/remotesigner: Copyright (c) 2020 Google
+github.com/google/s2a-go/internal/v2/tlsconfigstore: Copyright (c) 2020 Google
+github.com/in-toto/in-toto-golang/in_toto/slsa_provenance/v1: Copyright 2018 New York University
+go.opentelemetry.io/otel/semconv/internal: Copyright The OpenTelemetry Authors
+go.opentelemetry.io/otel/semconv/v1.12.0: Copyright The OpenTelemetry Authors
+golang.org/x/crypto/chacha20poly1305: Copyright (c) 2009 The Go Authors. All rights reserved
+
+# Not added by inv generate-licenses but spotted by inv-e lint-licenses
+github.com/AdaLogics/go-fuzz-headers: AdamKorcz <44787359+AdamKorcz@users.noreply.github.com>|AdamKorcz <adam@adalogics.com>|Sebastiaan van Stijn <github@gone.nl>|AdaLogics <48351493+AdaLogics@users.noreply.github.com>|Kazuyoshi Kato <kato.kazuyoshi@gmail.com>
+github.com/AdamKorcz/go-118-fuzz-build/testing: AdamKorcz <adam@adalogics.com>|AdamKorcz <44787359+AdamKorcz@users.noreply.github.com>|John Howard <howardjohn@google.com>|Kazuyoshi Kato <katokazu@amazon.com>|Khaled Yakdan <yakdan@code-intelligence.de>|AdamKorcz <Adam@adalogics.com>|Sebastiaan van Stijn <thaJeztah@users.noreply.github.com>
+github.com/Microsoft/go-winio/pkg/bindfilter: Copyright (c) 2015 Microsoft
+github.com/Microsoft/go-winio/tools/mkwinsyscall: Copyright (c) 2015 Microsoft
+github.com/Microsoft/hcsshim/internal/memory: Copyright (c) 2015 Microsoft | Copyright (c) 2018 Microsoft Corp.  All rights reserved
+github.com/Microsoft/hcsshim/internal/protocol/guestrequest: Copyright (c) 2015 Microsoft | Copyright (c) 2018 Microsoft Corp.  All rights reserved
+github.com/Microsoft/hcsshim/internal/security: Copyright (c) 2015 Microsoft | Copyright (c) 2018 Microsoft Corp.  All rights reserved
+github.com/containerd/containerd/api/runtime/sandbox/v1: Copyright 2012-2015 Docker, Inc.
+github.com/containerd/containerd/api/services/sandbox/v1: Copyright 2012-2015 Docker, Inc.
+github.com/containerd/containerd/api/services/streaming/v1: Copyright 2012-2015 Docker, Inc.
+github.com/containerd/containerd/api/services/transfer/v1: Copyright 2012-2015 Docker, Inc.
+github.com/containerd/containerd/api/types/transfer: Copyright 2012-2015 Docker, Inc.
+github.com/containerd/containerd/content/local: Copyright 2012-2015 Docker, Inc.
+github.com/containerd/containerd/pkg/cleanup: Copyright 2012-2015 Docker, Inc.
+github.com/containerd/containerd/pkg/epoch: Copyright 2012-2015 Docker, Inc.
+github.com/containerd/containerd/pkg/randutil: Copyright 2012-2015 Docker, Inc.
+github.com/containerd/containerd/pkg/streaming: Copyright 2012-2015 Docker, Inc.
+github.com/containerd/containerd/pkg/transfer: Copyright 2012-2015 Docker, Inc.
+github.com/containerd/containerd/pkg/transfer/proxy: Copyright 2012-2015 Docker, Inc.
+github.com/containerd/containerd/pkg/transfer/streaming: Copyright 2012-2015 Docker, Inc.
+github.com/containerd/containerd/pkg/unpack: Copyright 2012-2015 Docker, Inc.
+github.com/containerd/containerd/protobuf: Copyright 2012-2015 Docker, Inc.
+github.com/containerd/containerd/protobuf/plugin: Copyright 2012-2015 Docker, Inc.
+github.com/containerd/containerd/protobuf/proto: Copyright 2012-2015 Docker, Inc.
+github.com/containerd/containerd/protobuf/types: Copyright 2012-2015 Docker, Inc.
+github.com/containerd/containerd/sandbox: Copyright 2012-2015 Docker, Inc.
+github.com/containerd/containerd/sandbox/proxy: Copyright 2012-2015 Docker, Inc.
+github.com/containerd/containerd/tracing: Copyright 2012-2015 Docker, Inc.
+github.com/containerd/typeurl/v2: Copyright 2012-2015 Docker, Inc.
+github.com/moby/sys/sequential: Kir Kolyshkin <kolyshkin@gmail.com>|Sebastiaan van Stijn <github@gone.nl>|Sebastiaan van Stijn <thaJeztah@users.noreply.github.com>|Tibor Vass <teabee89@gmail.com>|Brian Goff <cpuguy83@gmail.com>|John Howard <jhoward@microsoft.com>|Victor Vieux <victor.vieux@docker.com>|Michael Crosby <crosby.michael@gmail.com>|Daniel Nephin <dnephin@docker.com>|Tianon Gravi <admwiggin@gmail.com>|Vincent Batts <vbatts@redhat.com>|Akihiro Suda <akihiro.suda.cz@hco.ntt.co.jp>|Michael Crosby <michael@crosbymichael.com>|Yong Tang <yong.tang.github@outlook.com>|Kir Kolyshkin <kolyshkin@users.noreply.github.com>|Christopher Jones <tophj@linux.vnet.ibm.com>|Guillaume J. Charmes <guillaume@charmes.net>|Kato Kazuyoshi <kato.kazuyoshi@gmail.com>|Manu Gupta <manugupt1@gmail.com>|Michael Crosby <crosbymichael@gmail.com>|Vincent Demeester <vincent@sbr.pm>|Aleksa Sarai <cyphar@cyphar.com>|Amit Krishnan <amit.krishnan@oracle.com>|Arnaud Porterie <arnaud.porterie@docker.com>|Brian Goff <brian.goff@microsoft.com>|Brian Goff <cpuguy@hey.com>|Dan Walsh <dwalsh@redhat.com>|Michael Crosby <michael@docker.com>|Phil Estes <estesp@gmail.com>|Shengjing Zhu <zhsj@debian.org>|Solomon Hykes <solomon@docker.com>|Tobias Klauser <tklauser@distanz.ch>|lalyos <lalyos@yahoo.com>|unclejack <unclejacksons@gmail.com>|Akihiro Suda <suda.kyoto@gmail.com>|Alexander Morozov <lk4d4@docker.com>|Jessica Frazelle <acidburn@docker.com>|Jessica Frazelle <jess@docker.com>|Jessie Frazelle <jfrazelle@users.noreply.github.com>|Justas Brazauskas <brazauskasjustas@gmail.com>|Justin Cormack <justin.cormack@docker.com>|Kazuyoshi Kato <katokazu@amazon.com>|Naveed Jamil <naveed.jamil@tenpearls.com>|Vincent Demeester <vincent.demeester@docker.com>|shuai-z <zs.broccoli@gmail.com>|Ahmet Alp Balkan <ahmetb@microsoft.com>|Aleksa Sarai <asarai@suse.com>|Alexander Larsson <alexl@redhat.com>|Alexander Morozov <lk4d4math@gmail.com>|Alexandr Morozov <lk4d4@docker.com>|Alexandr Morozov <lk4d4math@gmail.com>|Antonio Murdaca <me@runcom.ninja>|Antonio Murdaca <runcom@linux.com>|Antonio Murdaca <runcom@users.noreply.github.com>|Artem Khramov <akhramov@pm.me>|Cezar Sa Espinola <cezarsa@gmail.com>|Chen Hanxiao <chenhanxiao@cn.fujitsu.com>|Darren Stahl <darst@microsoft.com>|David Calavera <david.calavera@gmail.com>|Derek McGowan <derek@mcgstyle.net>|Eng Zer Jun <engzerjun@gmail.com>|Erik Dubbelboer <erik@dubbelboer.com>|Fabian Kramm <kramm@covexo.com>|Guillaume Dufour <gdufour.prestataire@voyages-sncf.com>|Guillaume J. Charmes <guillaume.charmes@docker.com>|Hajime Tazaki <thehajime@gmail.com>|Jamie Hannaford <jamie.hannaford@rackspace.com>|Jason A. Donenfeld <Jason@zx2c4.com>|Jhon Honce <jhonce@redhat.com>|Josh Soref <jsoref@users.noreply.github.com>|Kasper Fabæch Brandt <poizan@poizan.dk>|Kathryn Baldauf <kabaldau@microsoft.com>|Kenfe-Mickael Laventure <mickael.laventure@gmail.com>|Kirill Kolyshkin <kolyshkin@users.noreply.github.com>|Muhammad Kaisar Arkhan <hi@yukiisbo.red>|Oli <oli@overrateddev.co>|Olli Janatuinen <olli.janatuinen@gmail.com>|Paul Nasrat <pnasrat@gmail.com>|Peter Bourgon <peter@bourgon.org>|Peter Waller <peter@scraperwiki.com>|Phil Estes <estesp@linux.vnet.ibm.com>|Samuel Karp <skarp@amazon.com>|Stefan J. Wernli <swernli@microsoft.com>|Steven Hartland <steven.hartland@multiplay.co.uk>|Stig Larsson <stig@larsson.dev>|Tim Wang <timwangdev@gmail.com>|Victor Vieux <victorvieux@gmail.com>|Victor Vieux <vieux@docker.com>|Yan Feng <yanfeng2@huawei.com>|jhowardmsft <jhoward@microsoft.com>|liuxiaodong <liuxiaodong@loongson.cn>|phineas <phin@phineas.io>|unclejack <unclejack@users.noreply.github.com>|yuexiao-wang <wang.yuexiao@zte.com.cn>|谢致邦 (XIE Zhibang) <Yeking@Red54.com>
+github.com/wk8/go-ordered-map/v2: Copyright 2023 Jean Rougé <wk8.github@gmail.com>
+github.com/ebitengine/purego: Copyright 2022 The Ebitengine Authors
+
+github.com/pjbgf/sha1cd:
+  - Copyright 2009 The Go Authors. All rights reserved.
+  - Copyright 2017 Marc Stevens <marc@marc-stevens.nl>, Dan Shumow <danshu@microsoft.com>
+  - Copyright 2022 Paulo Gomes <pjbgf@linux.com>
+
+deps.dev/api/v3alpha: Copyright 2023 Google LLC
+github.com/anchore/go-struct-converter: "" # At date, this repository have no copyright
