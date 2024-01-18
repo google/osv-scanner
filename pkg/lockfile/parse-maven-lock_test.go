@@ -285,8 +285,8 @@ func TestMavenLock_WithParent(t *testing.T) {
 		t.Errorf("Got unexpected error: %v", err)
 	}
 
-	parentPath := filepath.FromSlash(path.Join(dir, "fixtures/maven/parent.xml"))
-	childPath := filepath.FromSlash(path.Join(dir, "fixtures/maven/children/with-parent.xml"))
+	parentPath := filepath.FromSlash(filepath.Join(dir, "fixtures/maven/parent.xml"))
+	childPath := filepath.FromSlash(filepath.Join(dir, "fixtures/maven/children/with-parent.xml"))
 	packages, err := lockfile.ParseMavenLock(childPath)
 
 	if err != nil {
@@ -344,19 +344,19 @@ func TestMavenLock_WithParent(t *testing.T) {
 
 func TestMavenLock_WithParentDirOnly(t *testing.T) {
 	t.Parallel()
-
-	packages, err := lockfile.ParseMavenLock(filepath.FromSlash("fixtures/maven/children/with-parent-dir-only.xml"))
-
-	if err != nil {
-		t.Errorf("Got unexpected error: %v", err)
-	}
-
 	dir, err := os.Getwd()
 	if err != nil {
 		t.Errorf("Got unexpected error: %v", err)
 	}
-	parentPath := path.Join(dir, filepath.FromSlash("fixtures/maven/pom.xml"))
-	childPath := path.Join(dir, filepath.FromSlash("fixtures/maven/children/with-parent-dir-only.xml"))
+
+	parentPath := filepath.Join(dir, filepath.FromSlash("fixtures/maven/pom.xml"))
+	childPath := filepath.Join(dir, filepath.FromSlash("fixtures/maven/children/with-parent-dir-only.xml"))
+	packages, err := lockfile.ParseMavenLock(childPath)
+
+	if err != nil {
+		t.Errorf("Got unexpected error: %v", err)
+	}
+
 	expectPackages(t, packages, []lockfile.PackageDetails{
 		{
 			Name:       "com.google.code.findbugs:jsr305",
@@ -408,19 +408,19 @@ func TestMavenLock_WithParentDirOnly(t *testing.T) {
 
 func TestMavenLock_WithParentWithoutRelativePath(t *testing.T) {
 	t.Parallel()
-	lockfilePath := filepath.FromSlash("fixtures/maven/children/with-parent-without-relative-path.xml")
-	packages, err := lockfile.ParseMavenLock(lockfilePath)
-
-	if err != nil {
-		t.Errorf("Got unexpected error: %v", err)
-	}
-
 	dir, err := os.Getwd()
 	if err != nil {
 		t.Errorf("Got unexpected error: %v", err)
 	}
-	parentPath := path.Join(dir, filepath.FromSlash("fixtures/maven/pom.xml"))
-	childPath := path.Join(dir, lockfilePath)
+
+	parentPath := filepath.Join(dir, filepath.FromSlash("fixtures/maven/pom.xml"))
+	childPath := filepath.Join(dir, filepath.FromSlash("fixtures/maven/children/with-parent-without-relative-path.xml"))
+	packages, err := lockfile.ParseMavenLock(childPath)
+
+	if err != nil {
+		t.Errorf("Got unexpected error: %v", err)
+	}
+
 	expectPackages(t, packages, []lockfile.PackageDetails{
 		{
 			Name:       "com.google.code.findbugs:jsr305",
@@ -472,20 +472,20 @@ func TestMavenLock_WithParentWithoutRelativePath(t *testing.T) {
 
 func TestMavenLock_WithMultipleParents(t *testing.T) {
 	t.Parallel()
-
-	packages, err := lockfile.ParseMavenLock(filepath.FromSlash("fixtures/maven/children/with-multiple-parent.xml"))
-
-	if err != nil {
-		t.Errorf("Got unexpected error: %v", err)
-	}
-
 	dir, err := os.Getwd()
 	if err != nil {
 		t.Errorf("Got unexpected error: %v", err)
 	}
-	rootPath := path.Join(dir, filepath.FromSlash("fixtures/maven/parent.xml"))
-	parentPath := path.Join(dir, filepath.FromSlash("fixtures/maven/children/with-parent.xml"))
-	childPath := path.Join(dir, filepath.FromSlash("fixtures/maven/children/with-multiple-parent.xml"))
+	rootPath := filepath.Join(dir, filepath.FromSlash("fixtures/maven/parent.xml"))
+	parentPath := filepath.Join(dir, filepath.FromSlash("fixtures/maven/children/with-parent.xml"))
+	childPath := filepath.Join(dir, filepath.FromSlash("fixtures/maven/children/with-multiple-parent.xml"))
+
+	packages, err := lockfile.ParseMavenLock(childPath)
+
+	if err != nil {
+		t.Errorf("Got unexpected error: %v", err)
+	}
+
 	expectPackages(t, packages, []lockfile.PackageDetails{
 		{
 			Name:       "com.google.code.findbugs:jsr305",
@@ -624,12 +624,12 @@ func TestMavenLockDependency_ResolveVersion(t *testing.T) {
 
 func TestParseMavenLock_WithScope(t *testing.T) {
 	t.Parallel()
-
-	packages, err := lockfile.ParseMavenLock(filepath.FromSlash("fixtures/maven/with-scope.xml"))
+	dir, err := os.Getwd()
 	if err != nil {
 		t.Errorf("Got unexpected error: %v", err)
 	}
-	dir, err := os.Getwd()
+	lockfilePath := filepath.Join(dir, filepath.FromSlash("fixtures/maven/with-scope.xml"))
+	packages, err := lockfile.ParseMavenLock(lockfilePath)
 	if err != nil {
 		t.Errorf("Got unexpected error: %v", err)
 	}
@@ -641,7 +641,7 @@ func TestParseMavenLock_WithScope(t *testing.T) {
 			Ecosystem:  lockfile.MavenEcosystem,
 			CompareAs:  lockfile.MavenEcosystem,
 			Commit:     "",
-			SourceFile: path.Join(dir, filepath.FromSlash("fixtures/maven/with-scope.xml")),
+			SourceFile: lockfilePath,
 			Start: models.FilePosition{
 				Line:   3,
 				Column: 5,
