@@ -218,8 +218,8 @@ func (e MavenLockExtractor) decodeMavenFile(f DepFile, depth int) (*MavenLockFil
 		// It means we only have a path, we should append the default pom.xml
 		parentRelativePath = path.Join(parentRelativePath, "pom.xml")
 	}
-	parentPath := filepath.FromSlash(path.Join(path.Dir(f.Path()), parentRelativePath))
-	fmt.Printf("Opening parent file %v\n Dir path was %v\n Filepath was %v\n", parentPath, path.Dir(f.Path()), f.Path())
+	parentPath := filepath.FromSlash(path.Join(filepath.Dir(f.Path()), parentRelativePath))
+	fmt.Printf("Opening parent file %v\n Dir path was %v\n Filepath was %v\n", parentPath, filepath.Dir(f.Path()), f.Path())
 	parentFile, err := OpenLocalDepFile(parentPath)
 	if err != nil {
 		return nil, err
