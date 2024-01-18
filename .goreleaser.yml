@@ -2,7 +2,10 @@ before:
   hooks:
     - go mod tidy
 builds:
-  - env:
+  - main: ./cmd/osv-scanner/
+    id: osv-scanner
+    binary: osv-scanner
+    env:
       # goreleaser does not work with CGO, it could also complicate
       # usage by users in CI/CD systems like Terraform Cloud where
       # they are unable to install libraries.
@@ -27,7 +30,22 @@ builds:
       # Further testing before supporting arm
       # - arm
       - arm64
-    main: ./cmd/osv-scanner/
+  - main: ./cmd/osv-reporter/
+    id: osv-reporter
+    binary: osv-reporter
+    env: # osv-reporter for github action
+      - CGO_ENABLED=0
+      - GO111MODULE=on
+    mod_timestamp: "{{ .CommitTimestamp }}"
+    flags:
+      - -trimpath
+    ldflags:
+      # prettier-ignore
+      - '-s -w -X github.com/google/osv-scanner/internal/version.OSVVersion={{.Version}} -X main.commit={{.Commit}} -X main.date={{.CommitDate}}'
+    goos:
+      - linux
+    goarch:
+      - amd64
 
 dockers:
   # Arch: amd64
@@ -65,6 +83,26 @@ dockers:
       - "--label=org.opencontainers.image.url={{.GitURL}}"
       - "--platform=linux/arm64"
     goarch: arm64
+  # Github Action
+  - image_templates:
+      - "ghcr.io/google/osv-scanner-action:{{ .Tag }}"
+    dockerfile: goreleaser-action.dockerfile
+    use: buildx
+    extra_files:
+      - exit_code_redirect.sh
+    build_flag_templates:
+      - "--pull"
+      - "--label=org.opencontainers.image.title=osv-scanner-action"
+      - "--label=org.opencontainers.image.description=Vulnerability scanner written in Go which uses the data provided by https://osv.dev"
+      - "--label=org.opencontainers.image.licenses=Apache-2.0"
+      - "--label=org.opencontainers.image.created={{.Date}}"
+      - "--label=org.opencontainers.image.name={{.ProjectName}}"
+      - "--label=org.opencontainers.image.revision={{.FullCommit}}"
+      - "--label=org.opencontainers.image.version={{.Version}}"
+      - "--label=org.opencontainers.image.source={{.GitURL}}"
+      - "--label=org.opencontainers.image.url={{.GitURL}}"
+      - "--platform=linux/amd64"
+    goarch: amd64
 
 docker_manifests:
   - name_template: "ghcr.io/google/osv-scanner:{{ .Tag }}"
@@ -78,7 +116,9 @@ docker_manifests:
 
 archives:
   - format: binary
-    name_template: "{{ .ProjectName }}_{{ .Version }}_{{ .Os }}_{{ .Arch }}"
+    name_template: "{{ .Binary }}_{{ .Version }}_{{ .Os }}_{{ .Arch }}"
+    builds:
+      - osv-scanner
 checksum:
   name_template: "{{ .ProjectName }}_{{ .Version }}_SHA256SUMS"
   algorithm: sha256
