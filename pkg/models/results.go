@@ -31,6 +31,7 @@ func (vulns *VulnerabilityResults) Flatten() []VulnerabilityFlattened {
 				results = append(results, VulnerabilityFlattened{
 					Source:        res.Source,
 					Package:       pkg.Package,
+					DepGroups:     pkg.DepGroups,
 					Vulnerability: v,
 					GroupInfo:     getGroupInfoForVuln(pkg.Groups, v.ID),
 				})
@@ -39,6 +40,7 @@ func (vulns *VulnerabilityResults) Flatten() []VulnerabilityFlattened {
 				results = append(results, VulnerabilityFlattened{
 					Source:            res.Source,
 					Package:           pkg.Package,
+					DepGroups:         pkg.DepGroups,
 					Licenses:          pkg.Licenses,
 					LicenseViolations: pkg.LicenseViolations,
 				})
@@ -61,6 +63,7 @@ func getGroupInfoForVuln(groups []GroupInfo, vulnID string) GroupInfo {
 type VulnerabilityFlattened struct {
 	Source            SourceInfo
 	Package           PackageInfo
+	DepGroups         []string
 	Vulnerability     Vulnerability
 	GroupInfo         GroupInfo
 	Licenses          []License
