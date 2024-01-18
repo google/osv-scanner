@@ -1,0 +1,4 @@
+invoke==2.2.0
+PyYAML==6.0.1
+urllib3==1.26.15
+requests==2.31.0

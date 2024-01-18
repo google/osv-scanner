@@ -1,0 +1,29 @@
+name: Check if License-3rdparty is up to date on PR
+
+on: [pull_request]
+permissions:
+  contents: read
+
+jobs:
+  license-lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@0c52d547c9bc32b1aa3301fd7a9cb496313a4491 # v5.0.0
+        with:
+          go-version-file: .go-version
+          check-latest: true
+      - name: Installing modvendor tool
+        run: go install github.com/goware/modvendor@latest
+      - name: Installing wwhrd tool
+        run: go install github.com/frapposelli/wwhrd@latest
+      - name: Installing go-license-detector tool
+        run: GO111MODULE=on go install github.com/go-enry/go-license-detector/v4/cmd/license-detector@latest
+      - uses: actions/setup-python@v4
+        with:
+          python-version: "3.9.12"
+          cache: "pip"
+      - name: Install dependencies
+        run: python3 -m pip install -r requirements.txt
+      - name: Run license lint task
+        run: inv -e lint-licenses
