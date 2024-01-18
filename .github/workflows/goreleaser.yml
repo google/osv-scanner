@@ -55,9 +55,7 @@ jobs:
         run: |
           set -euo pipefail
           checksum_file=$(echo "$ARTIFACTS" | jq -r '.[] | select (.type=="Checksum") | .path')
-          if $checksum_file != *"osv-reporter"
-            echo "hashes=$(cat $checksum_file | base64 -w0)" >> "$GITHUB_OUTPUT"
-          fi
+          echo "hashes=$(cat $checksum_file | base64 -w0)" >> "$GITHUB_OUTPUT"
   provenance:
     needs: [goreleaser]
     permissions:
