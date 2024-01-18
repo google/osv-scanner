@@ -288,5 +288,6 @@ func init() {
 }
 
 func ParseMavenLock(pathToLockfile string) ([]PackageDetails, error) {
+	fmt.Printf("Parsing file %v\n", pathToLockfile)
 	return extractFromFile(pathToLockfile, MavenLockExtractor{})
 }
