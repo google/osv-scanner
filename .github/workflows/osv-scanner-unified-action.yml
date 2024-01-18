@@ -33,7 +33,7 @@ permissions:
 jobs:
   scan-scheduled:
     if: ${{ github.event_name == 'push' || github.event_name == 'schedule' }}
-    uses: "./.github/workflows/osv-scanner-reusable.yml"
+    uses: "github.com/google/osv-scanner-action:staging/.github/workflows/osv-scanner-reusable.yml"
     with:
       # Just scan the root directory and docs, since everything else is fixtures
       scan-args: |-
@@ -42,7 +42,7 @@ jobs:
         ./docs/
   scan-pr:
     if: ${{ github.event_name == 'pull_request' || github.event_name == 'merge_group' }}
-    uses: "./.github/workflows/osv-scanner-reusable-pr.yml"
+    uses: "github.com/google/osv-scanner-action:staging/.github/workflows/osv-scanner-reusable-pr.yml"
     with:
       # Just scan the root directory and docs, since everything else is fixtures
       scan-args: |-
