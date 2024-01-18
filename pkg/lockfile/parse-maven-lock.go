@@ -211,12 +211,14 @@ func (e MavenLockExtractor) decodeMavenFile(f DepFile, depth int) (*MavenLockFil
 	// If the relativePath is not defined, default to ../pom.xml
 	parentRelativePath := parsedLockfile.Parent.RelativePath
 	if len(parentRelativePath) == 0 {
+		fmt.Println("No relative path defined")
 		parentRelativePath = "../pom.xml"
 	} else if !strings.HasSuffix(parentRelativePath, ".xml") {
+		fmt.Println("Relative path does not define filename")
 		// It means we only have a path, we should append the default pom.xml
 		parentRelativePath = path.Join(parentRelativePath, "pom.xml")
 	}
-	parentPath, _ := filepath.Abs(filepath.FromSlash(path.Join(path.Dir(f.Path()), parentRelativePath)))
+	parentPath := filepath.FromSlash(path.Join(path.Dir(f.Path()), parentRelativePath))
 	fmt.Printf("Opening parent file %v\n", parentPath)
 	parentFile, err := OpenLocalDepFile(parentPath)
 	if err != nil {

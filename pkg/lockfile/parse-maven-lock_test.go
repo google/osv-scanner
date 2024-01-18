@@ -285,8 +285,8 @@ func TestMavenLock_WithParent(t *testing.T) {
 		t.Errorf("Got unexpected error: %v", err)
 	}
 
-	parentPath := path.Join(dir, filepath.FromSlash("fixtures/maven/parent.xml"))
-	childPath := path.Join(dir, filepath.FromSlash("fixtures/maven/children/with-parent.xml"))
+	parentPath := filepath.FromSlash(path.Join(dir, "fixtures/maven/parent.xml"))
+	childPath := filepath.FromSlash(path.Join(dir, "fixtures/maven/children/with-parent.xml"))
 	packages, err := lockfile.ParseMavenLock(childPath)
 
 	if err != nil {
