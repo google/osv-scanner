@@ -280,19 +280,19 @@ func TestParseMavenLock_Interpolation(t *testing.T) {
 
 func TestMavenLock_WithParent(t *testing.T) {
 	t.Parallel()
-
-	packages, err := lockfile.ParseMavenLock(filepath.FromSlash("fixtures/maven/children/with-parent.xml"))
-
-	if err != nil {
-		t.Errorf("Got unexpected error: %v", err)
-	}
-
 	dir, err := os.Getwd()
 	if err != nil {
 		t.Errorf("Got unexpected error: %v", err)
 	}
+
 	parentPath := path.Join(dir, filepath.FromSlash("fixtures/maven/parent.xml"))
 	childPath := path.Join(dir, filepath.FromSlash("fixtures/maven/children/with-parent.xml"))
+	packages, err := lockfile.ParseMavenLock(childPath)
+
+	if err != nil {
+		t.Errorf("Got unexpected error: %v", err)
+	}
+
 	expectPackages(t, packages, []lockfile.PackageDetails{
 		{
 			Name:       "com.google.code.findbugs:jsr305",
