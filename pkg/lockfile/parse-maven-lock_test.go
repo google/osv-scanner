@@ -656,6 +656,9 @@ func TestParseMavenLock_WithUnusedDependencyManagementDependencies(t *testing.T)
 
 	packages, err := lockfile.ParseMavenLock(lockfilePath)
 
+	if err != nil {
+		t.Errorf("Got unexpected error: %v", err)
+	}
 	expectPackages(t, packages, []lockfile.PackageDetails{
 		{
 			Name:       "io.netty:netty-all",
