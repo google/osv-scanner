@@ -654,3 +654,34 @@ func TestParseMavenLock_WithScope(t *testing.T) {
 		},
 	})
 }
+
+func TestParseMavenLock_WithUnusedDependencyManagementDependencies(t *testing.T) {
+	t.Parallel()
+	dir, err := os.Getwd()
+	if err != nil {
+		t.Errorf("Got unexpected error: %v", err)
+	}
+	lockfilePath := filepath.Join(dir, filepath.FromSlash("fixtures/maven/with-unused-dependency-management.xml"))
+
+	packages, err := lockfile.ParseMavenLock(lockfilePath)
+
+	expectPackages(t, packages, []lockfile.PackageDetails{
+		{
+			Name:       "io.netty:netty-all",
+			Version:    "4.1.42.Final",
+			Ecosystem:  lockfile.MavenEcosystem,
+			CompareAs:  lockfile.MavenEcosystem,
+			Commit:     "",
+			SourceFile: lockfilePath,
+			Start: models.FilePosition{
+				Line:   16,
+				Column: 7,
+			},
+			End: models.FilePosition{
+				Line:   20,
+				Column: 20,
+			},
+			DepGroups: []string{},
+		},
+	})
+}
