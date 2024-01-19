@@ -40,11 +40,11 @@ func run(args []string, stdout, stderr io.Writer) int {
 		ErrWriter:      stderr,
 		DefaultCommand: "scan",
 		Commands: []*cli.Command{
-			scan.GetCommand(stdout, stderr, &r),
+			scan.Command(stdout, stderr, &r),
 		},
 	}
 
-	insertDefaultCommand(&args, stdout, stderr, app, &r)
+	args = insertDefaultCommand(args, stdout, stderr, app)
 
 	if err := app.Run(args); err != nil {
 		if r == nil {
@@ -94,24 +94,26 @@ func getAllCommands(commands []*cli.Command) []string {
 }
 
 // Inserts the default command to args if no command is specified.
-func insertDefaultCommand(argsPointer *[]string, stdout, stderr io.Writer, app *cli.App, r *reporter.Reporter) {
-	allCommands := getAllCommands(app.Commands)
-	args := *argsPointer
-	if len(args) >= 2 {
-		if !slices.Contains(allCommands, args[1]) {
-			// Avoids modifying args in-place, as some unit tests rely on its original value for multiple calls.
-			argsTmp := make([]string, len(args)+1)
-			copy(argsTmp[2:], args[1:])
-			argsTmp[1] = app.DefaultCommand
-			// Executes the cli app with the new args.
-			*argsPointer = argsTmp
-		} else if _, err := os.Stat(args[1]); err == nil {
-			if *r == nil {
-				*r = reporter.NewJSONReporter(stdout, stderr, reporter.InfoLevel)
-			}
-			(*r).Warnf("Warning: '%v' exists as both a subcommand of OSV-Scanner and as a file in the filesystem. It operates as a command here. If you intend to scan the file, please specify a subcommand.\n", args[1])
-		}
+func insertDefaultCommand(args []string, stdout, stderr io.Writer, app *cli.App) []string {
+	if len(args) < 2 {
+		return args
 	}
+
+	allCommands := getAllCommands(app.Commands)
+	if !slices.Contains(allCommands, args[1]) {
+		// Avoids modifying args in-place, as some unit tests rely on its original value for multiple calls.
+		argsTmp := make([]string, len(args)+1)
+		copy(argsTmp[2:], args[1:])
+		argsTmp[1] = app.DefaultCommand
+
+		// Executes the cli app with the new args.
+		return argsTmp
+	} else if _, err := os.Stat(args[1]); err == nil {
+		r := reporter.NewJSONReporter(stdout, stderr, reporter.InfoLevel)
+		r.Warnf("Warning: '%v' exists as both a subcommand of OSV-Scanner and as a file in the filesystem. It operates as a command here. If you intend to scan the file, please specify a subcommand.\n", args[1])
+	}
+
+	return args
 }
 
 func main() {
