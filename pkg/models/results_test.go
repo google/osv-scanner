@@ -19,8 +19,9 @@ func TestFlatten(t *testing.T) {
 	// Test case 2: When there are vulnerabilities
 	group := GroupInfo{IDs: []string{"CVE-2021-1234"}}
 	pkg := PackageVulns{
-		Package: PackageInfo{Name: "package"},
-		Groups:  []GroupInfo{group},
+		Package:   PackageInfo{Name: "package"},
+		DepGroups: []string{"dev"},
+		Groups:    []GroupInfo{group},
 		Vulnerabilities: []Vulnerability{
 			{
 				ID: "CVE-2021-1234",
@@ -40,6 +41,7 @@ func TestFlatten(t *testing.T) {
 		{
 			Source:        source.Source,
 			Package:       pkg.Package,
+			DepGroups:     []string{"dev"},
 			Vulnerability: pkg.Vulnerabilities[0],
 			GroupInfo:     group,
 		},
@@ -53,6 +55,7 @@ func TestFlatten(t *testing.T) {
 	group = GroupInfo{IDs: []string{"CVE-2021-1234"}}
 	pkg = PackageVulns{
 		Package:           PackageInfo{Name: "package"},
+		DepGroups:         []string{"dev"},
 		Groups:            []GroupInfo{group},
 		Licenses:          []License{License("MIT")},
 		LicenseViolations: []License{License("MIT")},
@@ -63,6 +66,7 @@ func TestFlatten(t *testing.T) {
 		{
 			Source:            source.Source,
 			Package:           pkg.Package,
+			DepGroups:         []string{"dev"},
 			Licenses:          []License{License("MIT")},
 			LicenseViolations: []License{License("MIT")},
 		},
@@ -75,8 +79,9 @@ func TestFlatten(t *testing.T) {
 	// Test case 4: When there are vulnerabilities and license violations
 	group = GroupInfo{IDs: []string{"CVE-2021-1234"}}
 	pkg = PackageVulns{
-		Package: PackageInfo{Name: "package"},
-		Groups:  []GroupInfo{group},
+		Package:   PackageInfo{Name: "package"},
+		DepGroups: []string{"dev"},
+		Groups:    []GroupInfo{group},
 		Vulnerabilities: []Vulnerability{
 			{
 				ID: "CVE-2021-1234",
@@ -97,12 +102,14 @@ func TestFlatten(t *testing.T) {
 		{
 			Source:        source.Source,
 			Package:       pkg.Package,
+			DepGroups:     []string{"dev"},
 			Vulnerability: pkg.Vulnerabilities[0],
 			GroupInfo:     group,
 		},
 		{
 			Source:            source.Source,
 			Package:           pkg.Package,
+			DepGroups:         []string{"dev"},
 			Licenses:          []License{License("MIT")},
 			LicenseViolations: []License{License("MIT")},
 		},
