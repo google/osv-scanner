@@ -2,7 +2,10 @@ before:
   hooks:
     - go mod tidy
 builds:
-  - env:
+  - main: ./cmd/osv-scanner/
+    id: osv-scanner
+    binary: osv-scanner
+    env:
       # goreleaser does not work with CGO, it could also complicate
       # usage by users in CI/CD systems like Terraform Cloud where
       # they are unable to install libraries.
@@ -27,7 +30,22 @@ builds:
       # Further testing before supporting arm
       # - arm
       - arm64
-    main: ./cmd/osv-scanner/
+  - main: ./cmd/osv-reporter/
+    id: osv-reporter
+    binary: osv-reporter
+    env: # osv-reporter for github action
+      - CGO_ENABLED=0
+      - GO111MODULE=on
+    mod_timestamp: "{{ .CommitTimestamp }}"
+    flags:
+      - -trimpath
+    ldflags:
+      # prettier-ignore
+      - '-s -w -X github.com/google/osv-scanner/internal/version.OSVVersion={{.Version}} -X main.commit={{.Commit}} -X main.date={{.CommitDate}}'
+    goos:
+      - linux
+    goarch:
+      - amd64
 
 dockers:
   # Arch: amd64
@@ -68,8 +86,10 @@ dockers:
   # Github Action
   - image_templates:
       - "ghcr.io/google/osv-scanner-action:{{ .Tag }}"
-    dockerfile: action.dockerfile
+    dockerfile: goreleaser-action.dockerfile
     use: buildx
+    extra_files:
+      - exit_code_redirect.sh
     build_flag_templates:
       - "--pull"
       - "--label=org.opencontainers.image.title=osv-scanner-action"
@@ -93,16 +113,12 @@ docker_manifests:
     image_templates:
       - "ghcr.io/google/osv-scanner:{{ .Tag }}-amd64"
       - "ghcr.io/google/osv-scanner:{{ .Tag }}-arm64"
-  - name_template: "ghcr.io/google/osv-scanner-action:{{ .Tag }}"
-    image_templates:
-      - "ghcr.io/google/osv-scanner-action:{{ .Tag }}"
-  - name_template: "ghcr.io/google/osv-scanner-action:latest"
-    image_templates:
-      - "ghcr.io/google/osv-scanner-action:{{ .Tag }}"
 
 archives:
   - format: binary
-    name_template: "{{ .ProjectName }}_{{ .Version }}_{{ .Os }}_{{ .Arch }}"
+    name_template: "{{ .Binary }}_{{ .Version }}_{{ .Os }}_{{ .Arch }}"
+    builds:
+      - osv-scanner
 checksum:
   name_template: "{{ .ProjectName }}_{{ .Version }}_SHA256SUMS"
   algorithm: sha256
