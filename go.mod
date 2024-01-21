@@ -10,14 +10,14 @@ require (
 	github.com/go-git/go-git/v5 v5.11.0
 	github.com/google/go-cmp v0.6.0
 	github.com/hexops/gotextdiff v1.0.3
-	github.com/ianlancetaylor/demangle v0.0.0-20231023195312-e2daf7ba7156
+	github.com/ianlancetaylor/demangle v0.0.0-20240117034632-964b1d53ca6c
 	github.com/jedib0t/go-pretty/v6 v6.5.3
 	github.com/owenrumney/go-sarif/v2 v2.3.0
 	github.com/package-url/packageurl-go v0.1.2
 	github.com/pandatix/go-cvss v0.6.2
 	github.com/spdx/tools-golang v0.5.3
 	github.com/urfave/cli/v2 v2.27.1
-	golang.org/x/exp v0.0.0-20240112132812-db7319d0e0e3
+	golang.org/x/exp v0.0.0-20240119083558-1b970713d09a
 	golang.org/x/mod v0.14.0
 	golang.org/x/sync v0.6.0
 	golang.org/x/term v0.16.0
