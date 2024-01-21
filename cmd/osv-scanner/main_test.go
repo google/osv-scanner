@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
+	"reflect"
 	"regexp"
 	"strconv"
 	"strings"
@@ -15,6 +16,7 @@ import (
 	"github.com/google/go-cmp/cmp"
 	"github.com/google/osv-scanner/internal/testutility"
 	"github.com/google/osv-scanner/internal/version"
+	"github.com/urfave/cli/v2"
 )
 
 func createTestDir(t *testing.T) (string, func()) {
@@ -1524,18 +1526,30 @@ Filtered 2 vulnerabilities from output
 func TestRun_SubCommands(t *testing.T) {
 	t.Parallel()
 	tests := []cliTestCase{
-		// with scan subcommand
+		// without subcommands
 		{
-			name:         "with scan subcommand",
-			args:         []string{"", "scan", "./fixtures/locks-many/composer.lock"},
+			name:         "with no subcommand",
+			args:         []string{"", "./fixtures/locks-many/composer.lock"},
 			wantExitCode: 0,
-			// The warning message exists here as we have a folder called 'scan' under './cmd/osv-scanner'
 			wantStdout: `
 				Scanning dir ./fixtures/locks-many/composer.lock
 				Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
 				No issues found
 			`,
-			wantStderr: "Warning: 'scan' exists as both a subcommand of OSV-Scanner and as a file in the filesystem. It operates as a command here. If you intend to scan the file, please specify a subcommand.",
+			wantStderr: "",
+		},
+		// with scan subcommand
+		{
+			name:         "with scan subcommand",
+			args:         []string{"", "scan", "./fixtures/locks-many/composer.lock"},
+			wantExitCode: 0,
+			wantStdout: `
+				Scanning dir ./fixtures/locks-many/composer.lock
+				Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
+				No issues found
+			`,
+			// The warning message exists here as we have a folder called 'scan' under './cmd/osv-scanner'
+			wantStderr: "Warning: `scan` exists as both a subcommand of OSV-Scanner and as a file on the filesystem. `scan` is assumed to be a subcommand here. If you intended for `scan` to be an argument to `scan`, you must specify `scan scan` in your command line.\n",
 		},
 		// scan with a flag
 		{
@@ -1548,7 +1562,16 @@ func TestRun_SubCommands(t *testing.T) {
 				Scanned <rootdir>/fixtures/locks-one-with-nested/yarn.lock file and found 1 package
 				No issues found
 			`,
-			wantStderr: "Warning: 'scan' exists as both a subcommand of OSV-Scanner and as a file in the filesystem. It operates as a command here. If you intend to scan the file, please specify a subcommand.",
+			wantStderr: "Warning: `scan` exists as both a subcommand of OSV-Scanner and as a file on the filesystem. `scan` is assumed to be a subcommand here. If you intended for `scan` to be an argument to `scan`, you must specify `scan scan` in your command line.\n",
+		},
+		// with an invalid subcommand
+		{
+			name:         "with an invalid subcommand",
+			args:         []string{"", "invalid", "./fixtures/locks-many/composer.lock"},
+			wantExitCode: 127,
+			wantStdout:   "Scanning dir invalid\nFailed to walk invalid: lstat invalid: no such file or directory",
+			// The warning message exists here as we have a folder called 'scan' under './cmd/osv-scanner'
+			wantStderr: "Unable to parse git ignores: stat invalid: no such file or directory\nlstat invalid: no such file or directory",
 		},
 		// TODO: add tests for other future subcommands
 	}
@@ -1559,6 +1582,81 @@ func TestRun_SubCommands(t *testing.T) {
 
 			testCli(t, tt)
 		})
+	}
+}
+
+func TestInsertDefaultCommand(t *testing.T) {
+	t.Parallel()
+	commands := []*cli.Command{
+		{Name: "default"},
+		{Name: "scan"},
+	}
+	defaultCommand := "default"
+
+	tests := []struct {
+		OriginalArgs []string
+		wantArgs     []string
+		wantStdout   string
+		wantStderr   string
+	}{
+		// test when default command is specified
+		{
+			OriginalArgs: []string{"", "default", "file"},
+			wantArgs:     []string{"", "default", "file"},
+			wantStdout:   "",
+			wantStderr:   "",
+		},
+		// test when command is not specified
+		{
+			OriginalArgs: []string{"", "file"},
+			wantArgs:     []string{"", "default", "file"},
+			wantStdout:   "",
+			wantStderr:   "",
+		},
+		// test when command is also a filename
+		{
+			OriginalArgs: []string{"", "scan"}, // `scan` exists as a file on filesystem (`./cmd/osv-scanner/scan`)
+			wantArgs:     []string{"", "scan"},
+			wantStdout:   "",
+			wantStderr:   "Warning: `scan` exists as both a subcommand of OSV-Scanner and as a file on the filesystem. `scan` is assumed to be a subcommand here. If you intended for `scan` to be an argument to `scan`, you must specify `scan scan` in your command line.\n",
+		},
+		// test when command is a built-in option
+		{
+			OriginalArgs: []string{"", "--version"},
+			wantArgs:     []string{"", "--version"},
+			wantStdout:   "",
+			wantStderr:   "",
+		},
+		{
+			OriginalArgs: []string{"", "-h"},
+			wantArgs:     []string{"", "-h"},
+			wantStdout:   "",
+			wantStderr:   "",
+		},
+		{
+			OriginalArgs: []string{"", "help"},
+			wantArgs:     []string{"", "help"},
+			wantStdout:   "",
+			wantStderr:   "",
+		},
+	}
+
+	for _, tt := range tests {
+		tt := tt
+		stdoutBuffer := &bytes.Buffer{}
+		stderrBuffer := &bytes.Buffer{}
+		argsActual := insertDefaultCommand(tt.OriginalArgs, commands, defaultCommand, stdoutBuffer, stderrBuffer)
+		stdout := normalizeRootDirectory(t, normalizeFilePaths(t, stdoutBuffer.String()))
+		stderr := normalizeRootDirectory(t, normalizeFilePaths(t, stderrBuffer.String()))
+		if !reflect.DeepEqual(argsActual, tt.wantArgs) || !reflect.DeepEqual(stdout, tt.wantStdout) || !reflect.DeepEqual(stderr, tt.wantStderr) {
+			t.Errorf("Test Failed. Details:\n"+
+				"Args (Got):  %s\n"+
+				"Args (Want): %s\n"+
+				"Stdout (Got):  %s\n"+
+				"Stdout (Want): %s\n"+
+				"Stderr (Got):  %s\n"+
+				"Stderr (Want): %s", argsActual, tt.wantArgs, stdout, tt.wantStdout, stderr, tt.wantStderr)
+		}
 	}
 }
 

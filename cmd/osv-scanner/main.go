@@ -44,7 +44,7 @@ func run(args []string, stdout, stderr io.Writer) int {
 		},
 	}
 
-	args = insertDefaultCommand(args, stdout, stderr, app)
+	args = insertDefaultCommand(args, app.Commands, app.DefaultCommand, stdout, stderr)
 
 	if err := app.Run(args); err != nil {
 		if r == nil {
@@ -94,23 +94,23 @@ func getAllCommands(commands []*cli.Command) []string {
 }
 
 // Inserts the default command to args if no command is specified.
-func insertDefaultCommand(args []string, stdout, stderr io.Writer, app *cli.App) []string {
+func insertDefaultCommand(args []string, commands []*cli.Command, defaultCommand string, stdout, stderr io.Writer) []string {
 	if len(args) < 2 {
 		return args
 	}
 
-	allCommands := getAllCommands(app.Commands)
+	allCommands := getAllCommands(commands)
 	if !slices.Contains(allCommands, args[1]) {
 		// Avoids modifying args in-place, as some unit tests rely on its original value for multiple calls.
 		argsTmp := make([]string, len(args)+1)
 		copy(argsTmp[2:], args[1:])
-		argsTmp[1] = app.DefaultCommand
+		argsTmp[1] = defaultCommand
 
 		// Executes the cli app with the new args.
 		return argsTmp
 	} else if _, err := os.Stat(args[1]); err == nil {
 		r := reporter.NewJSONReporter(stdout, stderr, reporter.InfoLevel)
-		r.Warnf("Warning: '%v' exists as both a subcommand of OSV-Scanner and as a file in the filesystem. It operates as a command here. If you intend to scan the file, please specify a subcommand.\n", args[1])
+		r.Warnf("Warning: `%[1]s` exists as both a subcommand of OSV-Scanner and as a file on the filesystem. `%[1]s` is assumed to be a subcommand here. If you intended for `%[1]s` to be an argument to `%[1]s`, you must specify `%[1]s %[1]s` in your command line.\n", args[1])
 	}
 
 	return args
