@@ -679,3 +679,37 @@ func TestParseMavenLock_WithUnusedDependencyManagementDependencies(t *testing.T)
 		},
 	})
 }
+
+func TestParseMavenLock_WithOverriddenDependencyVersions(t *testing.T) {
+	t.Parallel()
+	dir, err := os.Getwd()
+	if err != nil {
+		t.Errorf("Got unexpected error: %v", err)
+	}
+	lockfilePath := filepath.Join(dir, filepath.FromSlash("fixtures/maven/with-overridden-dependency-version.xml"))
+
+	packages, err := lockfile.ParseMavenLock(lockfilePath)
+
+	if err != nil {
+		t.Errorf("Got unexpected error: %v", err)
+	}
+	expectPackages(t, packages, []lockfile.PackageDetails{
+		{
+			Name:       "junit:junit",
+			Version:    "4.12",
+			Ecosystem:  lockfile.MavenEcosystem,
+			CompareAs:  lockfile.MavenEcosystem,
+			Commit:     "",
+			SourceFile: lockfilePath,
+			Start: models.FilePosition{
+				Line:   14,
+				Column: 5,
+			},
+			End: models.FilePosition{
+				Line:   18,
+				Column: 18,
+			},
+			DepGroups: nil,
+		},
+	})
+}
