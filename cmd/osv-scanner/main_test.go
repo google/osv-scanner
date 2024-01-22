@@ -625,64 +625,55 @@ func TestRun_InsertDefaultCommand(t *testing.T) {
 	defaultCommand := "default"
 
 	tests := []struct {
-		OriginalArgs []string
+		originalArgs []string
 		wantArgs     []string
-		wantStderr   string
 	}{
 		// test when default command is specified
 		{
-			OriginalArgs: []string{"", "default", "file"},
+			originalArgs: []string{"", "default", "file"},
 			wantArgs:     []string{"", "default", "file"},
-			wantStderr:   "",
 		},
 		// test when command is not specified
 		{
-			OriginalArgs: []string{"", "file"},
+			originalArgs: []string{"", "file"},
 			wantArgs:     []string{"", "default", "file"},
-			wantStderr:   "",
 		},
 		// test when command is also a filename
 		{
-			OriginalArgs: []string{"", "scan"}, // `scan` exists as a file on filesystem (`./cmd/osv-scanner/scan`)
+			originalArgs: []string{"", "scan"}, // `scan` exists as a file on filesystem (`./cmd/osv-scanner/scan`)
 			wantArgs:     []string{"", "scan"},
-			wantStderr:   "Warning: `scan` exists as both a subcommand of OSV-Scanner and as a file on the filesystem. `scan` is assumed to be a subcommand here. If you intended for `scan` to be an argument to `scan`, you must specify `scan scan` in your command line.\n",
 		},
 		// test when command is not valid
 		{
-			OriginalArgs: []string{"", "invalid"},
+			originalArgs: []string{"", "invalid"},
 			wantArgs:     []string{"", "default", "invalid"},
-			wantStderr:   "",
 		},
 		// test when command is a built-in option
 		{
-			OriginalArgs: []string{"", "--version"},
+			originalArgs: []string{"", "--version"},
 			wantArgs:     []string{"", "--version"},
-			wantStderr:   "",
 		},
 		{
-			OriginalArgs: []string{"", "-h"},
+			originalArgs: []string{"", "-h"},
 			wantArgs:     []string{"", "-h"},
-			wantStderr:   "",
 		},
 		{
-			OriginalArgs: []string{"", "help"},
+			originalArgs: []string{"", "help"},
 			wantArgs:     []string{"", "help"},
-			wantStderr:   "",
 		},
 	}
 
 	for _, tt := range tests {
 		tt := tt
-		stdoutBuffer := &bytes.Buffer{}
-		stderrBuffer := &bytes.Buffer{}
-		argsActual := insertDefaultCommand(tt.OriginalArgs, commands, defaultCommand, stdoutBuffer, stderrBuffer)
-		stderr := normalizeRootDirectory(t, normalizeFilePaths(t, stderrBuffer.String()))
-		if !reflect.DeepEqual(argsActual, tt.wantArgs) || !reflect.DeepEqual(stderr, tt.wantStderr) {
+		stdout := &bytes.Buffer{}
+		stderr := &bytes.Buffer{}
+		argsActual := insertDefaultCommand(tt.originalArgs, commands, defaultCommand, stdout, stderr)
+		if !reflect.DeepEqual(argsActual, tt.wantArgs) {
 			t.Errorf("Test Failed. Details:\n"+
 				"Args (Got):  %s\n"+
-				"Args (Want): %s\n"+
-				"Stderr (Got):  %s\n"+
-				"Stderr (Want): %s", argsActual, tt.wantArgs, stderr, tt.wantStderr)
+				"Args (Want): %s\n", argsActual, tt.wantArgs)
 		}
+		testutility.NewSnapshot().MatchText(t, normalizeStdStream(t, stdout))
+		testutility.NewSnapshot().MatchText(t, normalizeStdStream(t, stderr))
 	}
 }

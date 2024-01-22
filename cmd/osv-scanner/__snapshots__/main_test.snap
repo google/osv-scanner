@@ -514,6 +514,63 @@ Scanned <rootdir>/fixtures/locks-insecure/osv-scanner-flutter-deps.json file as 
 
 ---
 
+[TestRun_InsertDefaultCommand - 1]
+
+---
+
+[TestRun_InsertDefaultCommand - 2]
+
+---
+
+[TestRun_InsertDefaultCommand - 3]
+
+---
+
+[TestRun_InsertDefaultCommand - 4]
+
+---
+
+[TestRun_InsertDefaultCommand - 5]
+
+---
+
+[TestRun_InsertDefaultCommand - 6]
+Warning: `scan` exists as both a subcommand of OSV-Scanner and as a file on the filesystem. `scan` is assumed to be a subcommand here. If you intended for `scan` to be an argument to `scan`, you must specify `scan scan` in your command line.
+
+---
+
+[TestRun_InsertDefaultCommand - 7]
+
+---
+
+[TestRun_InsertDefaultCommand - 8]
+
+---
+
+[TestRun_InsertDefaultCommand - 9]
+
+---
+
+[TestRun_InsertDefaultCommand - 10]
+
+---
+
+[TestRun_InsertDefaultCommand - 11]
+
+---
+
+[TestRun_InsertDefaultCommand - 12]
+
+---
+
+[TestRun_InsertDefaultCommand - 13]
+
+---
+
+[TestRun_InsertDefaultCommand - 14]
+
+---
+
 [TestRun_Licenses/Licenses_in_summary_mode_json - 1]
 {
   "results": [
@@ -1615,18 +1672,6 @@ No issues found
 
 [TestRun_SubCommands/scan_with_a_flag - 2]
 Warning: `scan` exists as both a subcommand of OSV-Scanner and as a file on the filesystem. `scan` is assumed to be a subcommand here. If you intended for `scan` to be an argument to `scan`, you must specify `scan scan` in your command line.
-
----
-
-[TestRun_SubCommands/with_an_invalid_subcommand - 1]
-Scanning dir invalid
-Failed to walk invalid: lstat invalid: no such file or directory
-
----
-
-[TestRun_SubCommands/with_an_invalid_subcommand - 2]
-Unable to parse git ignores: stat invalid: no such file or directory
-lstat invalid: no such file or directory
 
 ---
 
