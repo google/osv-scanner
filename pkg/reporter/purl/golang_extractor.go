@@ -6,7 +6,7 @@ import (
 	"strings"
 )
 
-func extractPURLFromGolang(packageInfo models.PackageInfo) (namespace string, name string, ok bool) {
+func ExtractPURLFromGolang(packageInfo models.PackageInfo) (namespace string, name string, ok bool) {
 	nameParts := strings.Split(packageInfo.Name, "/")
 	if len(nameParts) < 2 {
 		log.Printf("invalid golang package_name=%s", packageInfo.Name)
