@@ -59,9 +59,7 @@ func Test_functionsFromDWARF(t *testing.T) {
 				t.Error(err)
 			}
 
-			outputName := strings.TrimSuffix(filename, ".o") + ".json"
-
-			testutility.AssertMatchFixtureJSON(t, "fixtures-rust/functions/"+outputName, functions)
+			testutility.NewSnapshot().MatchJSON(t, functions)
 		})
 	}
 }
