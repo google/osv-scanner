@@ -1,9 +1,10 @@
 package purl_test
 
 import (
+	"testing"
+
 	"github.com/google/osv-scanner/pkg/models"
 	"github.com/google/osv-scanner/pkg/reporter/purl"
-	"testing"
 )
 
 func TestExtraction_shouldExtractPackages(t *testing.T) {
@@ -42,10 +43,10 @@ func TestExtraction_shouldExtractPackages(t *testing.T) {
 		},
 	}
 
-	for _, testCase := range testCases {
+	for _, test := range testCases {
+		testCase := test
 		t.Run(testCase.name, func(t *testing.T) {
 			t.Parallel()
-
 			namespace, name, ok := purl.ExtractPURLFromGolang(testCase.packageInfo)
 
 			if !ok {
@@ -91,7 +92,8 @@ func TestExtraction_shouldFilterPackages(t *testing.T) {
 		},
 	}
 
-	for _, testCase := range testCases {
+	for _, test := range testCases {
+		testCase := test
 		t.Run(testCase.name, func(t *testing.T) {
 			t.Parallel()
 			_, _, ok := purl.ExtractPURLFromGolang(testCase.packageInfo)

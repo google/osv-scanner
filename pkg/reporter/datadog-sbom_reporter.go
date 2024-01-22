@@ -5,17 +5,18 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"io"
+	"log"
+	"net/http"
+	"os"
+	"strconv"
+
 	"github.com/google/osv-scanner/pkg/models"
 	"github.com/google/osv-scanner/pkg/reporter/purl"
 	sbomproto "github.com/google/osv-scanner/pkg/reporter/sbom"
 	"google.golang.org/protobuf/proto"
 	"google.golang.org/protobuf/types/known/durationpb"
 	"google.golang.org/protobuf/types/known/timestamppb"
-	"io"
-	"log"
-	"net/http"
-	"os"
-	"strconv"
 )
 
 type DatadogSbomReporter struct {

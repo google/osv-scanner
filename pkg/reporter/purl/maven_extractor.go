@@ -1,9 +1,10 @@
 package purl
 
 import (
-	"github.com/google/osv-scanner/pkg/models"
 	"log"
 	"strings"
+
+	"github.com/google/osv-scanner/pkg/models"
 )
 
 func extractPURLFromMaven(packageInfo models.PackageInfo) (name string, namespace string, ok bool) {
@@ -15,5 +16,6 @@ func extractPURLFromMaven(packageInfo models.PackageInfo) (name string, namespac
 	ok = true
 	namespace = nameParts[0]
 	name = nameParts[1]
+
 	return
 }

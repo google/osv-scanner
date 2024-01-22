@@ -44,5 +44,6 @@ func From(packageInfo models.PackageInfo) *packageurl.PackageURL {
 	} else {
 		name = packageInfo.Name
 	}
+
 	return packageurl.NewPackageURL(purlType, namespace, name, version, nil, "")
 }

@@ -1,9 +1,10 @@
 package purl
 
 import (
-	"github.com/google/osv-scanner/pkg/models"
 	"log"
 	"strings"
+
+	"github.com/google/osv-scanner/pkg/models"
 )
 
 func ExtractPURLFromGolang(packageInfo models.PackageInfo) (namespace string, name string, ok bool) {
@@ -15,5 +16,6 @@ func ExtractPURLFromGolang(packageInfo models.PackageInfo) (namespace string, na
 	ok = true
 	namespace = strings.Join(nameParts[:len(nameParts)-1], "/")
 	name = nameParts[len(nameParts)-1]
+
 	return
 }
