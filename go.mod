@@ -4,6 +4,7 @@ go 1.21.5
 
 require (
 	deps.dev/api/v3alpha v0.0.0-20240109042716-00b51ef52ece
+	deps.dev/util/resolve v0.0.0-20240109042716-00b51ef52ece
 	github.com/BurntSushi/toml v1.3.2
 	github.com/CycloneDX/cyclonedx-go v0.8.0
 	github.com/gkampitakis/go-snaps v0.4.12
@@ -23,12 +24,13 @@ require (
 	golang.org/x/term v0.16.0
 	golang.org/x/vuln v1.0.1
 	google.golang.org/grpc v1.60.1
+	google.golang.org/protobuf v1.31.0
 	gopkg.in/yaml.v3 v3.0.1
 )
 
 require (
-	// Vanity URL for https://github.com/imdario/mergo
 	dario.cat/mergo v1.0.0 // indirect
+	deps.dev/util/semver v0.0.0-20240109040450-1e316b822bc4 // indirect
 	github.com/Microsoft/go-winio v0.6.1 // indirect
 	github.com/ProtonMail/go-crypto v0.0.0-20230923063757-afb1ddc0824c // indirect
 	github.com/anchore/go-struct-converter v0.0.0-20230627203149-c72ef8859ca9 // indirect
@@ -66,6 +68,5 @@ require (
 	golang.org/x/text v0.14.0 // indirect
 	golang.org/x/tools v0.17.0 // indirect
 	google.golang.org/genproto/googleapis/rpc v0.0.0-20231002182017-d307bd883b97 // indirect
-	google.golang.org/protobuf v1.31.0 // indirect
 	gopkg.in/warnings.v0 v0.1.2 // indirect
 )
