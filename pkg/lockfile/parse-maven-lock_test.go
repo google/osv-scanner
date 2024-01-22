@@ -209,8 +209,8 @@ func TestParseMavenLock_WithDependencyManagement(t *testing.T) {
 			Version:    "4.1.42.Final",
 			Ecosystem:  lockfile.MavenEcosystem,
 			CompareAs:  lockfile.MavenEcosystem,
-			Start:      models.FilePosition{Line: 21, Column: 7},
-			End:        models.FilePosition{Line: 25, Column: 20},
+			Start:      models.FilePosition{Line: 7, Column: 5},
+			End:        models.FilePosition{Line: 10, Column: 18},
 			SourceFile: filepath.FromSlash(sourcePath),
 		},
 		{
@@ -218,17 +218,8 @@ func TestParseMavenLock_WithDependencyManagement(t *testing.T) {
 			Version:    "1.7.25",
 			Ecosystem:  lockfile.MavenEcosystem,
 			CompareAs:  lockfile.MavenEcosystem,
-			Start:      models.FilePosition{Line: 12, Column: 5},
-			End:        models.FilePosition{Line: 16, Column: 18},
-			SourceFile: filepath.FromSlash(sourcePath),
-		},
-		{
-			Name:       "com.google.code.findbugs:jsr305",
-			Version:    "3.0.2",
-			Ecosystem:  lockfile.MavenEcosystem,
-			CompareAs:  lockfile.MavenEcosystem,
-			Start:      models.FilePosition{Line: 26, Column: 7},
-			End:        models.FilePosition{Line: 30, Column: 20},
+			Start:      models.FilePosition{Line: 11, Column: 5},
+			End:        models.FilePosition{Line: 15, Column: 18},
 			SourceFile: filepath.FromSlash(sourcePath),
 		},
 	})
@@ -271,8 +262,8 @@ func TestParseMavenLock_Interpolation(t *testing.T) {
 			Version:    "9.4.35.v20201120",
 			Ecosystem:  lockfile.MavenEcosystem,
 			CompareAs:  lockfile.MavenEcosystem,
-			Start:      models.FilePosition{Line: 33, Column: 7},
-			End:        models.FilePosition{Line: 37, Column: 20},
+			Start:      models.FilePosition{Line: 30, Column: 5},
+			End:        models.FilePosition{Line: 33, Column: 18},
 			SourceFile: filepath.FromSlash(sourcePath),
 		},
 	})
@@ -299,8 +290,8 @@ func TestMavenLock_WithParent(t *testing.T) {
 			Version:    "3.0.2",
 			Ecosystem:  lockfile.MavenEcosystem,
 			CompareAs:  lockfile.MavenEcosystem,
-			Start:      models.FilePosition{Line: 16, Column: 7},
-			End:        models.FilePosition{Line: 20, Column: 20},
+			Start:      models.FilePosition{Line: 25, Column: 5},
+			End:        models.FilePosition{Line: 28, Column: 18},
 			SourceFile: parentPath,
 		},
 		{
@@ -308,9 +299,9 @@ func TestMavenLock_WithParent(t *testing.T) {
 			Version:    "4.1.42.Final",
 			Ecosystem:  lockfile.MavenEcosystem,
 			CompareAs:  lockfile.MavenEcosystem,
-			Start:      models.FilePosition{Line: 11, Column: 7},
-			End:        models.FilePosition{Line: 15, Column: 20},
-			SourceFile: parentPath,
+			Start:      models.FilePosition{Line: 14, Column: 5},
+			End:        models.FilePosition{Line: 17, Column: 18},
+			SourceFile: childPath,
 		},
 		{
 			Name:       "org.slf4j:slf4j-log4j12",
@@ -363,8 +354,8 @@ func TestMavenLock_WithParentDirOnly(t *testing.T) {
 			Version:    "3.0.2",
 			Ecosystem:  lockfile.MavenEcosystem,
 			CompareAs:  lockfile.MavenEcosystem,
-			Start:      models.FilePosition{Line: 16, Column: 7},
-			End:        models.FilePosition{Line: 20, Column: 20},
+			Start:      models.FilePosition{Line: 25, Column: 5},
+			End:        models.FilePosition{Line: 28, Column: 18},
 			SourceFile: parentPath,
 		},
 		{
@@ -372,9 +363,9 @@ func TestMavenLock_WithParentDirOnly(t *testing.T) {
 			Version:    "4.1.42.Final",
 			Ecosystem:  lockfile.MavenEcosystem,
 			CompareAs:  lockfile.MavenEcosystem,
-			Start:      models.FilePosition{Line: 11, Column: 7},
-			End:        models.FilePosition{Line: 15, Column: 20},
-			SourceFile: parentPath,
+			Start:      models.FilePosition{Line: 14, Column: 5},
+			End:        models.FilePosition{Line: 17, Column: 18},
+			SourceFile: childPath,
 		},
 		{
 			Name:       "org.slf4j:slf4j-log4j12",
@@ -427,8 +418,8 @@ func TestMavenLock_WithParentWithoutRelativePath(t *testing.T) {
 			Version:    "3.0.2",
 			Ecosystem:  lockfile.MavenEcosystem,
 			CompareAs:  lockfile.MavenEcosystem,
-			Start:      models.FilePosition{Line: 16, Column: 7},
-			End:        models.FilePosition{Line: 20, Column: 20},
+			Start:      models.FilePosition{Line: 25, Column: 5},
+			End:        models.FilePosition{Line: 28, Column: 18},
 			SourceFile: parentPath,
 		},
 		{
@@ -436,9 +427,9 @@ func TestMavenLock_WithParentWithoutRelativePath(t *testing.T) {
 			Version:    "4.1.42.Final",
 			Ecosystem:  lockfile.MavenEcosystem,
 			CompareAs:  lockfile.MavenEcosystem,
-			Start:      models.FilePosition{Line: 11, Column: 7},
-			End:        models.FilePosition{Line: 15, Column: 20},
-			SourceFile: parentPath,
+			Start:      models.FilePosition{Line: 13, Column: 5},
+			End:        models.FilePosition{Line: 16, Column: 18},
+			SourceFile: childPath,
 		},
 		{
 			Name:       "org.slf4j:slf4j-log4j12",
@@ -492,8 +483,8 @@ func TestMavenLock_WithMultipleParents(t *testing.T) {
 			Version:    "3.0.2",
 			Ecosystem:  lockfile.MavenEcosystem,
 			CompareAs:  lockfile.MavenEcosystem,
-			Start:      models.FilePosition{Line: 16, Column: 7},
-			End:        models.FilePosition{Line: 20, Column: 20},
+			Start:      models.FilePosition{Line: 25, Column: 5},
+			End:        models.FilePosition{Line: 28, Column: 18},
 			SourceFile: rootPath,
 		},
 		{
@@ -501,9 +492,9 @@ func TestMavenLock_WithMultipleParents(t *testing.T) {
 			Version:    "4.1.42.Final",
 			Ecosystem:  lockfile.MavenEcosystem,
 			CompareAs:  lockfile.MavenEcosystem,
-			Start:      models.FilePosition{Line: 11, Column: 7},
-			End:        models.FilePosition{Line: 15, Column: 20},
-			SourceFile: rootPath,
+			Start:      models.FilePosition{Line: 14, Column: 5},
+			End:        models.FilePosition{Line: 17, Column: 18},
+			SourceFile: parentPath,
 		},
 		{
 			Name:       "org.slf4j:slf4j-log4j12",
@@ -651,6 +642,74 @@ func TestParseMavenLock_WithScope(t *testing.T) {
 				Column: 18,
 			},
 			DepGroups: []string{"test"},
+		},
+	})
+}
+
+func TestParseMavenLock_WithUnusedDependencyManagementDependencies(t *testing.T) {
+	t.Parallel()
+	dir, err := os.Getwd()
+	if err != nil {
+		t.Errorf("Got unexpected error: %v", err)
+	}
+	lockfilePath := filepath.Join(dir, filepath.FromSlash("fixtures/maven/with-unused-dependency-management.xml"))
+
+	packages, err := lockfile.ParseMavenLock(lockfilePath)
+
+	if err != nil {
+		t.Errorf("Got unexpected error: %v", err)
+	}
+	expectPackages(t, packages, []lockfile.PackageDetails{
+		{
+			Name:       "io.netty:netty-all",
+			Version:    "4.1.42.Final",
+			Ecosystem:  lockfile.MavenEcosystem,
+			CompareAs:  lockfile.MavenEcosystem,
+			Commit:     "",
+			SourceFile: lockfilePath,
+			Start: models.FilePosition{
+				Line:   17,
+				Column: 5,
+			},
+			End: models.FilePosition{
+				Line:   21,
+				Column: 18,
+			},
+			DepGroups: nil,
+		},
+	})
+}
+
+func TestParseMavenLock_WithOverriddenDependencyVersions(t *testing.T) {
+	t.Parallel()
+	dir, err := os.Getwd()
+	if err != nil {
+		t.Errorf("Got unexpected error: %v", err)
+	}
+	lockfilePath := filepath.Join(dir, filepath.FromSlash("fixtures/maven/with-overridden-dependency-version.xml"))
+
+	packages, err := lockfile.ParseMavenLock(lockfilePath)
+
+	if err != nil {
+		t.Errorf("Got unexpected error: %v", err)
+	}
+	expectPackages(t, packages, []lockfile.PackageDetails{
+		{
+			Name:       "junit:junit",
+			Version:    "4.12",
+			Ecosystem:  lockfile.MavenEcosystem,
+			CompareAs:  lockfile.MavenEcosystem,
+			Commit:     "",
+			SourceFile: lockfilePath,
+			Start: models.FilePosition{
+				Line:   14,
+				Column: 5,
+			},
+			End: models.FilePosition{
+				Line:   18,
+				Column: 18,
+			},
+			DepGroups: nil,
 		},
 	})
 }

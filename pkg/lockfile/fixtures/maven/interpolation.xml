@@ -26,6 +26,11 @@
       <artifactId>my.package</artifactId>
       <version>${my.package.version}</version>
     </dependency>
+
+    <dependency>
+      <groupId>org.mine</groupId>
+      <artifactId>ranged-package</artifactId>
+    </dependency>
   </dependencies>
 
   <dependencyManagement>

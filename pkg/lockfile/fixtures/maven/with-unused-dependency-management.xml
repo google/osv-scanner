@@ -1,0 +1,23 @@
+<project>
+  <properties>
+    <mavenVersion>3.0</mavenVersion>
+  </properties>
+
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>io.unused</groupId>
+        <artifactId>unused-artifact</artifactId>
+        <version>1.0.0</version>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+
+  <dependencies>
+    <dependency>
+      <groupId>io.netty</groupId>
+      <artifactId>netty-all</artifactId>
+      <version>4.1.42.Final</version>
+    </dependency>
+  </dependencies>
+</project>

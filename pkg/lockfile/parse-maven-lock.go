@@ -258,17 +258,16 @@ func (e MavenLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 		details[finalName] = pkgDetails
 	}
 
-	// managed dependencies take precedent over standard dependencies
+	// If a dependency is declared and have not specified its version, then use the one declared in the managed dependencies
 	for _, lockPackage := range parsedLockfile.ManagedDependencies.Dependencies {
 		finalName := lockPackage.GroupID + ":" + lockPackage.ArtifactID
-		pkgDetails := PackageDetails{
-			Name:       finalName,
-			Version:    lockPackage.ResolveVersion(*parsedLockfile),
-			Ecosystem:  MavenEcosystem,
-			CompareAs:  MavenEcosystem,
-			Start:      lockPackage.Start,
-			End:        lockPackage.End,
-			SourceFile: lockPackage.SourceFile,
+		pkgDetails, pkgExists := details[finalName]
+		if !pkgExists {
+			continue
+		}
+
+		if pkgDetails.IsVersionEmpty() {
+			pkgDetails.Version = lockPackage.ResolveVersion(*parsedLockfile)
 		}
 		if strings.TrimSpace(lockPackage.Scope) != "" {
 			pkgDetails.DepGroups = append(pkgDetails.DepGroups, lockPackage.Scope)

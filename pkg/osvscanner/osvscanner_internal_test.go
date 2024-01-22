@@ -65,7 +65,7 @@ func Test_filterResults(t *testing.T) {
 				out := filepath.Join(tt.testCase.path, "out.json")
 				t.Errorf("filterResults() returned an unexpected results (-want, +got):\n%s\n"+
 					"Full json output written to %s", diff, out)
-				//nolint:staticcheck
+				//nolint
 				testutility.CreateJSONFixture(t, out, got)
 			}
 			if filtered != tt.testCase.numFiltered {
