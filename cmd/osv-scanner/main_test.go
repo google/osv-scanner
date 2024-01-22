@@ -604,12 +604,6 @@ func TestRun_SubCommands(t *testing.T) {
 			args: []string{"", "scan", "--recursive", "./fixtures/locks-one-with-nested"},
 			exit: 0,
 		},
-		// with an invalid subcommand
-		{
-			name: "with an invalid subcommand",
-			args: []string{"", "invalid", "./fixtures/locks-many/composer.lock"},
-			exit: 127,
-		},
 		// TODO: add tests for other future subcommands
 	}
 	for _, tt := range tests {
@@ -652,6 +646,12 @@ func TestRun_InsertDefaultCommand(t *testing.T) {
 			OriginalArgs: []string{"", "scan"}, // `scan` exists as a file on filesystem (`./cmd/osv-scanner/scan`)
 			wantArgs:     []string{"", "scan"},
 			wantStderr:   "Warning: `scan` exists as both a subcommand of OSV-Scanner and as a file on the filesystem. `scan` is assumed to be a subcommand here. If you intended for `scan` to be an argument to `scan`, you must specify `scan scan` in your command line.\n",
+		},
+		// test when command is not valid
+		{
+			OriginalArgs: []string{"", "invalid"},
+			wantArgs:     []string{"", "default", "invalid"},
+			wantStderr:   "",
 		},
 		// test when command is a built-in option
 		{
