@@ -28,8 +28,8 @@ func NewDepsDevClient(addr string) (*DepsDevClient, error) {
 }
 
 func (d *DepsDevClient) PreFetch(ctx context.Context, requirements []resolve.RequirementVersion, manifestPath string) {
-	//nolint:errcheck // It doesn't matter if loading the cache fails
-	d.LoadCache(manifestPath)
+	// It doesn't matter if loading the cache fails
+	_ = d.LoadCache(manifestPath)
 
 	// Use the deps.dev client to fetch complete dependency graphs of the direct requirements
 	for _, im := range requirements {
