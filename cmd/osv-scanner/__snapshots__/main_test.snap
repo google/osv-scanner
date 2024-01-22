@@ -514,6 +514,63 @@ Scanned <rootdir>/fixtures/locks-insecure/osv-scanner-flutter-deps.json file as 
 
 ---
 
+[TestRun_InsertDefaultCommand - 1]
+
+---
+
+[TestRun_InsertDefaultCommand - 2]
+
+---
+
+[TestRun_InsertDefaultCommand - 3]
+
+---
+
+[TestRun_InsertDefaultCommand - 4]
+
+---
+
+[TestRun_InsertDefaultCommand - 5]
+
+---
+
+[TestRun_InsertDefaultCommand - 6]
+Warning: `scan` exists as both a subcommand of OSV-Scanner and as a file on the filesystem. `scan` is assumed to be a subcommand here. If you intended for `scan` to be an argument to `scan`, you must specify `scan scan` in your command line.
+
+---
+
+[TestRun_InsertDefaultCommand - 7]
+
+---
+
+[TestRun_InsertDefaultCommand - 8]
+
+---
+
+[TestRun_InsertDefaultCommand - 9]
+
+---
+
+[TestRun_InsertDefaultCommand - 10]
+
+---
+
+[TestRun_InsertDefaultCommand - 11]
+
+---
+
+[TestRun_InsertDefaultCommand - 12]
+
+---
+
+[TestRun_InsertDefaultCommand - 13]
+
+---
+
+[TestRun_InsertDefaultCommand - 14]
+
+---
+
 [TestRun_Licenses/Licenses_in_summary_mode_json - 1]
 {
   "results": [
@@ -1602,5 +1659,41 @@ No issues found
 ---
 
 [TestRun_LockfileWithExplicitParseAs/one_lockfile_with_local_path - 2]
+
+---
+
+[TestRun_SubCommands/scan_with_a_flag - 1]
+Scanning dir ./fixtures/locks-one-with-nested
+Scanned <rootdir>/fixtures/locks-one-with-nested/nested/composer.lock file and found 1 package
+Scanned <rootdir>/fixtures/locks-one-with-nested/yarn.lock file and found 1 package
+No issues found
+
+---
+
+[TestRun_SubCommands/scan_with_a_flag - 2]
+Warning: `scan` exists as both a subcommand of OSV-Scanner and as a file on the filesystem. `scan` is assumed to be a subcommand here. If you intended for `scan` to be an argument to `scan`, you must specify `scan scan` in your command line.
+
+---
+
+[TestRun_SubCommands/with_no_subcommand - 1]
+Scanning dir ./fixtures/locks-many/composer.lock
+Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
+No issues found
+
+---
+
+[TestRun_SubCommands/with_no_subcommand - 2]
+
+---
+
+[TestRun_SubCommands/with_scan_subcommand - 1]
+Scanning dir ./fixtures/locks-many/composer.lock
+Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
+No issues found
+
+---
+
+[TestRun_SubCommands/with_scan_subcommand - 2]
+Warning: `scan` exists as both a subcommand of OSV-Scanner and as a file on the filesystem. `scan` is assumed to be a subcommand here. If you intended for `scan` to be an argument to `scan`, you must specify `scan scan` in your command line.
 
 ---

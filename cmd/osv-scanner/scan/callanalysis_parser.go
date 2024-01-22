@@ -1,4 +1,4 @@
-package main
+package scan
 
 var stableCallAnalysisStates = map[string]bool{
 	"go":   true,

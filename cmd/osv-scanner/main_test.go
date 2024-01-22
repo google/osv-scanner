@@ -5,11 +5,13 @@ import (
 	"bytes"
 	"os"
 	"path/filepath"
+	"reflect"
 	"strings"
 	"testing"
 
 	"github.com/google/osv-scanner/internal/cachedregexp"
 	"github.com/google/osv-scanner/internal/testutility"
+	"github.com/urfave/cli/v2"
 )
 
 func createTestDir(t *testing.T) (string, func()) {
@@ -577,5 +579,101 @@ func TestRun_Licenses(t *testing.T) {
 
 			testCli(t, tt)
 		})
+	}
+}
+
+// Tests all subcommands here.
+func TestRun_SubCommands(t *testing.T) {
+	t.Parallel()
+	tests := []cliTestCase{
+		// without subcommands
+		{
+			name: "with no subcommand",
+			args: []string{"", "./fixtures/locks-many/composer.lock"},
+			exit: 0,
+		},
+		// with scan subcommand
+		{
+			name: "with scan subcommand",
+			args: []string{"", "scan", "./fixtures/locks-many/composer.lock"},
+			exit: 0,
+		},
+		// scan with a flag
+		{
+			name: "scan with a flag",
+			args: []string{"", "scan", "--recursive", "./fixtures/locks-one-with-nested"},
+			exit: 0,
+		},
+		// TODO: add tests for other future subcommands
+	}
+	for _, tt := range tests {
+		tt := tt
+		t.Run(tt.name, func(t *testing.T) {
+			t.Parallel()
+
+			testCli(t, tt)
+		})
+	}
+}
+
+func TestRun_InsertDefaultCommand(t *testing.T) {
+	t.Parallel()
+	commands := []*cli.Command{
+		{Name: "default"},
+		{Name: "scan"},
+	}
+	defaultCommand := "default"
+
+	tests := []struct {
+		originalArgs []string
+		wantArgs     []string
+	}{
+		// test when default command is specified
+		{
+			originalArgs: []string{"", "default", "file"},
+			wantArgs:     []string{"", "default", "file"},
+		},
+		// test when command is not specified
+		{
+			originalArgs: []string{"", "file"},
+			wantArgs:     []string{"", "default", "file"},
+		},
+		// test when command is also a filename
+		{
+			originalArgs: []string{"", "scan"}, // `scan` exists as a file on filesystem (`./cmd/osv-scanner/scan`)
+			wantArgs:     []string{"", "scan"},
+		},
+		// test when command is not valid
+		{
+			originalArgs: []string{"", "invalid"},
+			wantArgs:     []string{"", "default", "invalid"},
+		},
+		// test when command is a built-in option
+		{
+			originalArgs: []string{"", "--version"},
+			wantArgs:     []string{"", "--version"},
+		},
+		{
+			originalArgs: []string{"", "-h"},
+			wantArgs:     []string{"", "-h"},
+		},
+		{
+			originalArgs: []string{"", "help"},
+			wantArgs:     []string{"", "help"},
+		},
+	}
+
+	for _, tt := range tests {
+		tt := tt
+		stdout := &bytes.Buffer{}
+		stderr := &bytes.Buffer{}
+		argsActual := insertDefaultCommand(tt.originalArgs, commands, defaultCommand, stdout, stderr)
+		if !reflect.DeepEqual(argsActual, tt.wantArgs) {
+			t.Errorf("Test Failed. Details:\n"+
+				"Args (Got):  %s\n"+
+				"Args (Want): %s\n", argsActual, tt.wantArgs)
+		}
+		testutility.NewSnapshot().MatchText(t, normalizeStdStream(t, stdout))
+		testutility.NewSnapshot().MatchText(t, normalizeStdStream(t, stderr))
 	}
 }
