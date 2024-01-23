@@ -713,3 +713,37 @@ func TestParseMavenLock_WithOverriddenDependencyVersions(t *testing.T) {
 		},
 	})
 }
+
+func TestParseMavenLock_WithProjectVersionProperty(t *testing.T) {
+	t.Parallel()
+	dir, err := os.Getwd()
+	if err != nil {
+		t.Errorf("Got unexpected error: %v", err)
+	}
+	lockfilePath := filepath.Join(dir, filepath.FromSlash("fixtures/maven/with-project-version-property.xml"))
+
+	packages, err := lockfile.ParseMavenLock(lockfilePath)
+
+	if err != nil {
+		t.Errorf("Got unexpected error: %v", err)
+	}
+	expectPackages(t, packages, []lockfile.PackageDetails{
+		{
+			Name:       "dev.foo:bar",
+			Version:    "1.0-SNAPSHOT",
+			Ecosystem:  lockfile.MavenEcosystem,
+			CompareAs:  lockfile.MavenEcosystem,
+			Commit:     "",
+			SourceFile: lockfilePath,
+			Start: models.FilePosition{
+				Line:   8,
+				Column: 5,
+			},
+			End: models.FilePosition{
+				Line:   12,
+				Column: 18,
+			},
+			DepGroups: nil,
+		},
+	})
+}
