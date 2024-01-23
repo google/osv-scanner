@@ -41,6 +41,19 @@ func TestGolangExtraction_shouldExtractPackages(t *testing.T) {
 			expectedNamespace: "github.com/urfave/cli",
 			expectedName:      "v2",
 		},
+		{
+			name: "when_package_uses_a_domain",
+			packageInfo: models.PackageInfo{
+				Name:      "go.opencensus.io",
+				Version:   "v0.24.0",
+				Ecosystem: string(models.EcosystemGo),
+				Commit:    "",
+				Start:     models.FilePosition{},
+				End:       models.FilePosition{},
+			},
+			expectedNamespace: "",
+			expectedName:      "go.opencensus.io",
+		},
 	}
 
 	for _, test := range testCases {
@@ -68,17 +81,6 @@ func TestGolangExtraction_shouldFilterPackages(t *testing.T) {
 		name        string
 		packageInfo models.PackageInfo
 	}{
-		{
-			name: "when_package_contains_less_than_2_parts",
-			packageInfo: models.PackageInfo{
-				Name:      "go.consensus.io",
-				Version:   "v2.26.0",
-				Ecosystem: string(models.EcosystemGo),
-				Commit:    "",
-				Start:     models.FilePosition{},
-				End:       models.FilePosition{},
-			},
-		},
 		{
 			name: "when_package_have_no_name",
 			packageInfo: models.PackageInfo{
