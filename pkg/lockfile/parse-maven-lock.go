@@ -55,7 +55,17 @@ func (mld MavenLockDependency) resolveVersionValue(lockfile MavenLockFile) strin
 	result := interpolationReg.ReplaceAllFunc([]byte(mld.Version), func(bytes []byte) []byte {
 		propStr := string(bytes)
 		propName := propStr[2 : len(propStr)-1]
-		property, ok := lockfile.Properties.m[propName]
+		var property string
+		var ok bool
+
+		// If the property is the internal version property, then lets use the one declared
+		if strings.ToLower(propName) == "project.version" && len(lockfile.Version) > 0 {
+			property = lockfile.Version
+			ok = true
+		} else {
+			property, ok = lockfile.Properties.m[propName]
+		}
+
 		if !ok {
 			fmt.Fprintf(
 				os.Stderr,
@@ -81,6 +91,7 @@ func (mld MavenLockDependency) ResolveVersion(lockfile MavenLockFile) string {
 type MavenLockFile struct {
 	XMLName             xml.Name                  `xml:"project"`
 	Parent              MavenLockParent           `xml:"parent"`
+	Version             string                    `xml:"version"`
 	ModelVersion        string                    `xml:"modelVersion"`
 	GroupID             string                    `xml:"groupId"`
 	ArtifactID          string                    `xml:"artifactId"`
@@ -167,6 +178,11 @@ func (e MavenLockExtractor) mergeLockfiles(childLockfile *MavenLockFile, parentL
 	parentLockfile.ArtifactID = childLockfile.ArtifactID
 	parentLockfile.GroupID = childLockfile.GroupID
 	parentLockfile.ModelVersion = childLockfile.ModelVersion
+
+	// If child lockfile overrides the project version, let's use it instead
+	if len(childLockfile.Version) > 0 {
+		parentLockfile.Version = childLockfile.Version
+	}
 
 	// Child properties take precedence over parent defined ones
 	for key, value := range childLockfile.Properties.m {
