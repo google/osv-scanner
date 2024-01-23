@@ -290,8 +290,8 @@ func TestMavenLock_WithParent(t *testing.T) {
 			Version:    "3.0.2",
 			Ecosystem:  lockfile.MavenEcosystem,
 			CompareAs:  lockfile.MavenEcosystem,
-			Start:      models.FilePosition{Line: 25, Column: 5},
-			End:        models.FilePosition{Line: 28, Column: 18},
+			Start:      models.FilePosition{Line: 26, Column: 5},
+			End:        models.FilePosition{Line: 29, Column: 18},
 			SourceFile: parentPath,
 		},
 		{
@@ -328,6 +328,15 @@ func TestMavenLock_WithParent(t *testing.T) {
 			CompareAs:  lockfile.MavenEcosystem,
 			Start:      models.FilePosition{Line: 28, Column: 5},
 			End:        models.FilePosition{Line: 32, Column: 18},
+			SourceFile: childPath,
+		},
+		{
+			Name:       "dev.foo:bar",
+			Version:    "1.0-SNAPSHOT",
+			Ecosystem:  lockfile.MavenEcosystem,
+			CompareAs:  lockfile.MavenEcosystem,
+			Start:      models.FilePosition{Line: 33, Column: 5},
+			End:        models.FilePosition{Line: 37, Column: 18},
 			SourceFile: childPath,
 		},
 	})
@@ -483,8 +492,8 @@ func TestMavenLock_WithMultipleParents(t *testing.T) {
 			Version:    "3.0.2",
 			Ecosystem:  lockfile.MavenEcosystem,
 			CompareAs:  lockfile.MavenEcosystem,
-			Start:      models.FilePosition{Line: 25, Column: 5},
-			End:        models.FilePosition{Line: 28, Column: 18},
+			Start:      models.FilePosition{Line: 26, Column: 5},
+			End:        models.FilePosition{Line: 29, Column: 18},
 			SourceFile: rootPath,
 		},
 		{
@@ -522,6 +531,15 @@ func TestMavenLock_WithMultipleParents(t *testing.T) {
 			Start:      models.FilePosition{Line: 14, Column: 5},
 			End:        models.FilePosition{Line: 18, Column: 18},
 			SourceFile: childPath,
+		},
+		{
+			Name:       "dev.foo:bar",
+			Version:    "1.0-SNAPSHOT",
+			Ecosystem:  lockfile.MavenEcosystem,
+			CompareAs:  lockfile.MavenEcosystem,
+			Start:      models.FilePosition{Line: 33, Column: 5},
+			End:        models.FilePosition{Line: 37, Column: 18},
+			SourceFile: parentPath,
 		},
 	})
 }
