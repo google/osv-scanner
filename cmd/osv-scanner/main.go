@@ -34,7 +34,7 @@ func run(args []string, stdout, stderr io.Writer) int {
 	app := &cli.App{
 		Name:           "osv-scanner",
 		Version:        version.OSVVersion,
-		Usage:          "scans various mediums for dependencies and matches it against the OSV database",
+		Usage:          "scans various mediums for dependencies and checks them against the OSV database",
 		Suggest:        true,
 		Writer:         stdout,
 		ErrWriter:      stderr,
