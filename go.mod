@@ -17,6 +17,8 @@ require (
 	github.com/package-url/packageurl-go v0.1.2
 	github.com/pandatix/go-cvss v0.6.2
 	github.com/spdx/tools-golang v0.5.3
+	github.com/tidwall/gjson v1.17.0
+	github.com/tidwall/sjson v1.2.5
 	github.com/urfave/cli/v2 v2.27.1
 	golang.org/x/exp v0.0.0-20240119083558-1b970713d09a
 	golang.org/x/mod v0.14.0
@@ -56,10 +58,8 @@ require (
 	github.com/sergi/go-diff v1.3.1 // indirect
 	github.com/skeema/knownhosts v1.2.1 // indirect
 	github.com/spdx/gordf v0.0.0-20221230105357-b735bd5aac89 // indirect
-	github.com/tidwall/gjson v1.17.0 // indirect
 	github.com/tidwall/match v1.1.1 // indirect
 	github.com/tidwall/pretty v1.2.1 // indirect
-	github.com/tidwall/sjson v1.2.5 // indirect
 	github.com/xanzy/ssh-agent v0.3.3 // indirect
 	github.com/xrash/smetrics v0.0.0-20201216005158-039620a65673 // indirect
 	golang.org/x/crypto v0.18.0 // indirect
