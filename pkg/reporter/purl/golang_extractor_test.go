@@ -7,7 +7,7 @@ import (
 	"github.com/google/osv-scanner/pkg/reporter/purl"
 )
 
-func TestExtraction_shouldExtractPackages(t *testing.T) {
+func TestGolangExtraction_shouldExtractPackages(t *testing.T) {
 	t.Parallel()
 	testCases := []struct {
 		name              string
@@ -62,7 +62,7 @@ func TestExtraction_shouldExtractPackages(t *testing.T) {
 	}
 }
 
-func TestExtraction_shouldFilterPackages(t *testing.T) {
+func TestGolangExtraction_shouldFilterPackages(t *testing.T) {
 	t.Parallel()
 	testCases := []struct {
 		name        string
