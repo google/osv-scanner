@@ -20,7 +20,7 @@ var ecosystemToPurlMapper = map[models.Ecosystem]string{
 var ecosystemPURLExtractor = map[models.Ecosystem]ParameterExtractor{
 	models.EcosystemMaven:     ExtractPURLFromMaven,
 	models.EcosystemGo:        ExtractPURLFromGolang,
-	models.EcosystemPackagist: extractPURLFromComposer,
+	models.EcosystemPackagist: ExtractPURLFromComposer,
 }
 
 func From(packageInfo models.PackageInfo) *packageurl.PackageURL {
