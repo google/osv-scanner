@@ -27,7 +27,7 @@ func GetRelaxer(ecosystem resolve.System) (RequirementRelaxer, error) {
 	// TODO: is using ecosystem fine, or should this be per manifest?
 	switch ecosystem { //nolint:exhaustive
 	case resolve.NPM:
-		return &NPMRelaxer{}, nil
+		return NPMRelaxer{}, nil
 	default:
 		return nil, errors.New("unsupported ecosystem")
 	}
