@@ -2,7 +2,6 @@ package resolution
 
 import (
 	"context"
-	"maps"
 	"sync"
 
 	"deps.dev/util/resolve"
@@ -10,6 +9,7 @@ import (
 	"github.com/google/osv-scanner/pkg/lockfile"
 	"github.com/google/osv-scanner/pkg/models"
 	"github.com/google/osv-scanner/pkg/osv"
+	"golang.org/x/exp/maps"
 )
 
 // computeVulns scans for vulnerabilities in a resolved graph and populates res.Vulns
