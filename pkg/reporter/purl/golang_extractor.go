@@ -9,12 +9,14 @@ import (
 
 func ExtractPURLFromGolang(packageInfo models.PackageInfo) (namespace string, name string, ok bool) {
 	nameParts := strings.Split(packageInfo.Name, "/")
-	if len(nameParts) < 2 {
+	if len(nameParts) == 0 {
 		log.Printf("invalid golang package_name=%s", packageInfo.Name)
 		return
 	}
 	ok = true
-	namespace = strings.Join(nameParts[:len(nameParts)-1], "/")
+	if len(nameParts) > 1 {
+		namespace = strings.Join(nameParts[:len(nameParts)-1], "/")
+	}
 	name = nameParts[len(nameParts)-1]
 
 	return
