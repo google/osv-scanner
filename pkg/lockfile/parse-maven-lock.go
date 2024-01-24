@@ -13,7 +13,8 @@ import (
 	"github.com/google/osv-scanner/internal/cachedregexp"
 )
 
-const MaxParentDepth = 10
+const maxParentDepth = 10
+const projectVersionPropName = "project.version"
 
 type MavenLockDependency struct {
 	XMLName    xml.Name `xml:"dependency"`
@@ -59,7 +60,7 @@ func (mld MavenLockDependency) resolveVersionValue(lockfile MavenLockFile) strin
 		var ok bool
 
 		// If the property is the internal version property, then lets use the one declared
-		if strings.ToLower(propName) == "project.version" && len(lockfile.Version) > 0 {
+		if strings.ToLower(propName) == projectVersionPropName && len(lockfile.Version) > 0 {
 			property = lockfile.Version
 			ok = true
 		} else {
@@ -209,8 +210,8 @@ func (e MavenLockExtractor) enrichDependencies(f DepFile, dependencies []MavenLo
 
 func (e MavenLockExtractor) decodeMavenFile(f DepFile, depth int) (*MavenLockFile, error) {
 	var parsedLockfile *MavenLockFile
-	if depth >= MaxParentDepth {
-		return nil, fmt.Errorf("maven file decoding reached the max depth (%d/%d), check for a circular dependency", depth, MaxParentDepth)
+	if depth >= maxParentDepth {
+		return nil, fmt.Errorf("maven file decoding reached the max depth (%d/%d), check for a circular dependency", depth, maxParentDepth)
 	}
 	// Decoding the original lockfile and enrich its dependencies
 	err := xml.NewDecoder(f).Decode(&parsedLockfile)
