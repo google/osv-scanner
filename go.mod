@@ -5,6 +5,7 @@ go 1.21.5
 require (
 	deps.dev/api/v3alpha v0.0.0-20240109042716-00b51ef52ece
 	deps.dev/util/resolve v0.0.0-20240109042716-00b51ef52ece
+	deps.dev/util/semver v0.0.0-20240109040450-1e316b822bc4
 	github.com/BurntSushi/toml v1.3.2
 	github.com/CycloneDX/cyclonedx-go v0.8.0
 	github.com/gkampitakis/go-snaps v0.4.12
@@ -32,7 +33,6 @@ require (
 
 require (
 	dario.cat/mergo v1.0.0 // indirect
-	deps.dev/util/semver v0.0.0-20240109040450-1e316b822bc4 // indirect
 	github.com/Microsoft/go-winio v0.6.1 // indirect
 	github.com/ProtonMail/go-crypto v0.0.0-20230923063757-afb1ddc0824c // indirect
 	github.com/anchore/go-struct-converter v0.0.0-20230627203149-c72ef8859ca9 // indirect

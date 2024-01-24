@@ -159,6 +159,12 @@ func (res *ResolutionResult) computeVulns(ctx context.Context, cl resolve.Client
 			}
 			rv.DevOnly = rv.DevOnly && ChainIsDev(chain, res.Manifest)
 		}
+		if len(rv.ProblemChains) == 0 {
+			// There has to be at least one problem chain for the vulnerability to appear.
+			// If our heuristic couldn't determine any, treat them all as problematic.
+			rv.ProblemChains = rv.NonProblemChains
+			rv.NonProblemChains = nil
+		}
 		res.Vulns = append(res.Vulns, rv)
 	}
 
