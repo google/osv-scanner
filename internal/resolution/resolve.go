@@ -1,6 +1,7 @@
 package resolution
 
 import (
+	"cmp"
 	"context"
 	"errors"
 	"fmt"
@@ -11,7 +12,6 @@ import (
 	"github.com/google/osv-scanner/internal/resolution/client"
 	"github.com/google/osv-scanner/internal/resolution/manifest"
 	"github.com/google/osv-scanner/pkg/models"
-	"github.com/google/osv-scanner/pkg/osv"
 )
 
 type ResolutionVuln struct {
@@ -81,92 +81,131 @@ var OSVEcosystem = map[resolve.System]models.Ecosystem{
 	resolve.Maven: models.EcosystemMaven,
 }
 
-// computeVulns scans for vulnerabilities in a resolved graph and populates res.Vulns
-func (res *ResolutionResult) computeVulns(ctx context.Context, cl resolve.Client) error {
-	// TODO: local vulnerability db support
-	// TODO: when remediating, this is going to get called many times for the same packages, we should cache requests to the OSV API
-	// Find all vulnerability IDs affecting each node in the graph.
-	var request osv.BatchedQuery
-	request.Queries = make([]*osv.Query, len(res.Graph.Nodes)-1)
-	for i, n := range res.Graph.Nodes[1:] { // skipping the root node
-		request.Queries[i] = &osv.Query{
-			Package: osv.Package{
-				Name:      n.Version.Name,
-				Ecosystem: string(OSVEcosystem[n.Version.System]),
-			},
-			Version: n.Version.Version,
+// FilterVulns populates Vulns with the UnfilteredVulns that satisfy matchFn
+func (res *ResolutionResult) FilterVulns(matchFn func(ResolutionVuln) bool) {
+	var matchedVulns []ResolutionVuln
+	for _, v := range res.UnfilteredVulns {
+		if matchFn(v) {
+			matchedVulns = append(matchedVulns, v)
 		}
 	}
-	response, err := osv.MakeRequest(request)
-	if err != nil {
-		return err
-	}
-	nodeVulns := response.Results
+	res.Vulns = matchedVulns
+}
 
-	// Get the details for each vulnerability
-	// To save on request size, hydrate only unique IDs
-	vulnInfo := make(map[string]*models.Vulnerability)
-	var hydrateQuery osv.BatchedResponse
-	for _, vulns := range nodeVulns {
-		for _, vuln := range vulns.Vulns {
-			if _, ok := vulnInfo[vuln.ID]; !ok {
-				vulnInfo[vuln.ID] = nil
-				hydrateQuery.Results = append(hydrateQuery.Results, osv.MinimalResponse{Vulns: []osv.MinimalVulnerability{vuln}})
+type ResolutionDiff struct {
+	Original     *ResolutionResult
+	New          *ResolutionResult
+	RemovedVulns []ResolutionVuln
+	AddedVulns   []ResolutionVuln
+	manifest.ManifestPatch
+}
+
+func (res *ResolutionResult) CalculateDiff(other *ResolutionResult) ResolutionDiff {
+	diff := ResolutionDiff{
+		Original:      res,
+		New:           other,
+		ManifestPatch: manifest.ManifestPatch{Manifest: &res.Manifest},
+	}
+	// Find the changed requirements and the versions they resolve to
+	for i, oldReq := range res.Manifest.Requirements { // assuming these are in the same order and none are added/removed
+		newReq := other.Manifest.Requirements[i]
+		if oldReq.Version == newReq.Version {
+			continue
+		}
+		// Find the node in the graph to find which actual version it resolved to
+		var oldResolved string
+		for _, e := range res.Graph.Edges {
+			toNode := res.Graph.Nodes[e.To]
+			if e.From == 0 && toNode.Version.PackageKey == oldReq.PackageKey {
+				oldResolved = toNode.Version.Version
+				break
 			}
 		}
-	}
-	//nolint:contextcheck // TODO: Should Hydrate be accepting a context?
-	hydrated, err := osv.Hydrate(&hydrateQuery)
-	if err != nil {
-		return err
-	}
-
-	for _, resp := range hydrated.Results {
-		for _, vuln := range resp.Vulns {
-			vuln := vuln
-			vulnInfo[vuln.ID] = &vuln
-		}
-	}
-
-	// Find all dependency paths to the vulnerable dependencies
-	var vulnerableNodes []resolve.NodeID
-	var vulnNodeIdxs []int
-	for i, vulns := range nodeVulns {
-		if len(vulns.Vulns) > 0 {
-			vulnNodeIdxs = append(vulnNodeIdxs, i)
-			vulnerableNodes = append(vulnerableNodes, resolve.NodeID(i+1))
-		}
-	}
-	nodeChains := computeChains(res.Graph, vulnerableNodes)
-	vulnChains := make(map[string][]DependencyChain)
-	for i, idx := range vulnNodeIdxs {
-		for _, vuln := range nodeVulns[idx].Vulns {
-			vulnChains[vuln.ID] = append(vulnChains[vuln.ID], nodeChains[i]...)
-		}
-	}
-
-	// construct the ResolutionVulns
-	// TODO: This constructs a single ResolutionVuln per vulnerability ID.
-	// The scan action treats vulns with the same ID but affecting different versions of a package as distinct.
-	// TODO: Combine aliased IDs
-	for id, vuln := range vulnInfo {
-		rv := ResolutionVuln{Vulnerability: *vuln, DevOnly: true}
-		for _, chain := range vulnChains[id] {
-			if chainConstrains(ctx, cl, chain, vuln) {
-				rv.ProblemChains = append(rv.ProblemChains, chain)
-			} else {
-				rv.NonProblemChains = append(rv.NonProblemChains, chain)
+		var newResolved string
+		for _, e := range other.Graph.Edges {
+			toNode := other.Graph.Nodes[e.To]
+			if e.From == 0 && toNode.Version.PackageKey == newReq.PackageKey {
+				newResolved = toNode.Version.Version
+				break
 			}
-			rv.DevOnly = rv.DevOnly && ChainIsDev(chain, res.Manifest)
 		}
-		if len(rv.ProblemChains) == 0 {
-			// There has to be at least one problem chain for the vulnerability to appear.
-			// If our heuristic couldn't determine any, treat them all as problematic.
-			rv.ProblemChains = rv.NonProblemChains
-			rv.NonProblemChains = nil
-		}
-		res.Vulns = append(res.Vulns, rv)
+		diff.Deps = append(diff.Deps, manifest.DependencyPatch{
+			Pkg:          oldReq.PackageKey,
+			Type:         oldReq.Type.Clone(),
+			OrigRequire:  oldReq.Version,
+			OrigResolved: oldResolved,
+			NewRequire:   newReq.Version,
+			NewResolved:  newResolved,
+		})
 	}
 
-	return nil
+	// Compute differences in present vulnerabilities.
+	// Currently this relies on vulnerability IDs being unique in the Vulns slice.
+	oldVulns := make(map[string]int, len(res.Vulns))
+	for i, v := range res.Vulns {
+		oldVulns[v.Vulnerability.ID] = i
+	}
+	for _, v := range other.Vulns {
+		if _, ok := oldVulns[v.Vulnerability.ID]; ok {
+			// The vuln already existed.
+			delete(oldVulns, v.Vulnerability.ID) // delete so we know what's been removed
+		} else {
+			// This vuln was not in the original resolution - it was newly added
+			diff.AddedVulns = append(diff.AddedVulns, v)
+		}
+	}
+	// Any remaining oldVulns have been removed in the new resolution
+	for _, idx := range oldVulns {
+		diff.RemovedVulns = append(diff.RemovedVulns, res.Vulns[idx])
+	}
+
+	return diff
+}
+
+// Compare compares ResolutionDiffs based on 'effectiveness' (best first):
+//
+// Sort order:
+//  1. (number of fixed vulns - introduced vulns) / (number of changed direct dependencies) [descending]
+//     (i.e. more efficient first)
+//  2. number of fixed vulns [descending]
+//  3. number of changed direct dependencies [ascending]
+//  4. changed direct dependency name package names [ascending]
+//  5. size of changed direct dependency bump [ascending]
+func (a ResolutionDiff) Compare(b ResolutionDiff) int {
+	// 1. (fixed - introduced) / (changes) [desc]
+	// Multiply out to avoid float casts
+	aRatio := (len(a.RemovedVulns) - len(a.AddedVulns)) * (len(b.Deps))
+	bRatio := (len(b.RemovedVulns) - len(b.AddedVulns)) * (len(a.Deps))
+	if c := cmp.Compare(aRatio, bRatio); c != 0 {
+		return -c
+	}
+
+	// 2. number of fixed vulns [desc]
+	if c := cmp.Compare(len(a.RemovedVulns), len(b.RemovedVulns)); c != 0 {
+		return -c
+	}
+
+	// 3. number of changed deps [asc]
+	if c := cmp.Compare(len(a.Deps), len(b.Deps)); c != 0 {
+		return c
+	}
+
+	// 4. changed names [asc]
+	for i, aDep := range a.Deps {
+		bDep := b.Deps[i]
+		if c := aDep.Pkg.Compare(bDep.Pkg); c != 0 {
+			return c
+		}
+	}
+
+	// 5. dependency bump amount [asc]
+	for i, aDep := range a.Deps {
+		bDep := b.Deps[i]
+		sv := aDep.Pkg.Semver()
+		if c := sv.Compare(aDep.NewResolved, bDep.NewResolved); c != 0 {
+			return c
+		}
+	}
+
+	return 0
 }
