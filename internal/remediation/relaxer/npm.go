@@ -27,12 +27,12 @@ func (r NPMRelaxer) Relax(ctx context.Context, cl resolve.Client, req resolve.Re
 	}
 
 	// Get all the concrete versions of the package
-	allVks, err := cl.Versions(ctx, req.PackageKey)
+	allVKs, err := cl.Versions(ctx, req.PackageKey)
 	if err != nil {
 		return req, false
 	}
 	var vers []string
-	for _, vk := range allVks {
+	for _, vk := range allVKs {
 		if vk.VersionType == resolve.Concrete {
 			vers = append(vers, vk.Version)
 		}

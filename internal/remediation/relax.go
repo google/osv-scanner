@@ -63,13 +63,8 @@ func reqsToRelax(res *resolution.ResolutionResult, vulnIDs []string, opts Remedi
 		if !slices.Contains(vulnIDs, v.Vulnerability.ID) || (!opts.DevDeps && v.DevOnly) {
 			continue
 		}
-		chains := v.ProblemChains
-		if len(chains) == 0 {
-			// Just in case something is wrong with the problem heuristic
-			chains = v.NonProblemChains
-		}
 		// Only relax dependencies if their chain length is less than MaxDepth
-		for _, ch := range chains {
+		for _, ch := range v.ProblemChains {
 			if opts.MaxDepth <= 0 || len(ch.Edges) <= opts.MaxDepth {
 				vk, req := ch.DirectDependency()
 				toRelax[vk] = req
