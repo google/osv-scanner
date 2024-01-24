@@ -1,0 +1,21 @@
+package purl
+
+import (
+	"log"
+	"strings"
+
+	"github.com/google/osv-scanner/pkg/models"
+)
+
+func ExtractPURLFromGolang(packageInfo models.PackageInfo) (namespace string, name string, ok bool) {
+	nameParts := strings.Split(packageInfo.Name, "/")
+	if len(nameParts) < 2 {
+		log.Printf("invalid golang package_name=%s", packageInfo.Name)
+		return
+	}
+	ok = true
+	namespace = strings.Join(nameParts[:len(nameParts)-1], "/")
+	name = nameParts[len(nameParts)-1]
+
+	return
+}

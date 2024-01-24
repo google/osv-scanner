@@ -10,11 +10,10 @@ import (
 	"net/http"
 	"os"
 	"strconv"
-	"strings"
 
 	"github.com/google/osv-scanner/pkg/models"
+	"github.com/google/osv-scanner/pkg/reporter/purl"
 	sbomproto "github.com/google/osv-scanner/pkg/reporter/sbom"
-	"github.com/package-url/packageurl-go"
 	"google.golang.org/protobuf/proto"
 	"google.golang.org/protobuf/types/known/durationpb"
 	"google.golang.org/protobuf/types/known/timestamppb"
@@ -206,7 +205,7 @@ func toBom(results *models.VulnerabilityResults) *sbomproto.Bom {
 	for _, result := range results.Results {
 		filename := result.Source.Path
 		for _, packageInfo := range result.Packages {
-			packageURLInstance := getPackageURL(packageInfo.Package)
+			packageURLInstance := purl.From(packageInfo.Package)
 			if packageURLInstance == nil {
 				continue
 			}
@@ -256,55 +255,6 @@ func toBom(results *models.VulnerabilityResults) *sbomproto.Bom {
 	}
 
 	return bom
-}
-
-func getPackageURL(packageInfo models.PackageInfo) *packageurl.PackageURL {
-	var purlType string
-	var namespace string
-	name := packageInfo.Name
-	version := packageInfo.Version
-
-	switch packageInfo.Ecosystem {
-	case string(models.EcosystemMaven):
-		nameParts := strings.Split(packageInfo.Name, ":")
-		if len(nameParts) != 2 {
-			log.Printf("invalid maven package_name=%s", packageInfo.Name)
-			return nil
-		}
-		purlType = packageurl.TypeMaven
-		namespace = nameParts[0]
-		name = nameParts[1]
-	case string(models.EcosystemGo):
-		nameParts := strings.Split(packageInfo.Name, "/")
-		if len(nameParts) < 2 {
-			log.Printf("invalid golang package_name=%s", packageInfo.Name)
-			return nil
-		}
-		purlType = packageurl.TypeGolang
-		namespace = strings.Join(nameParts[:len(nameParts)-1], "/")
-		name = nameParts[len(nameParts)-1]
-	case string(models.EcosystemPackagist):
-		nameParts := strings.Split(packageInfo.Name, "/")
-		if len(nameParts) != 2 {
-			log.Printf("invalid packagist package_name=%s", packageInfo.Name)
-			return nil
-		}
-		purlType = packageurl.TypeComposer
-		namespace = nameParts[0]
-		name = nameParts[1]
-	case string(models.EcosystemPyPI):
-		purlType = packageurl.TypePyPi
-	case string(models.EcosystemRubyGems):
-		purlType = packageurl.TypeGem
-	case string(models.EcosystemNuGet):
-		purlType = packageurl.TypeNuget
-	case string(models.EcosystemNPM):
-		purlType = packageurl.TypeNPM
-	default:
-		return nil
-	}
-
-	return packageurl.NewPackageURL(purlType, namespace, name, version, nil, "")
 }
 
 func (r *DatadogSbomReporter) getRepositoryURL() (string, error) {
