@@ -16,7 +16,8 @@ func Test_matchAnalysisWithPackageVulns(t *testing.T) {
 	vulnsByID := testutility.LoadJSONFixture[map[string]models.Vulnerability](t, "fixtures-go/vulnbyid.json")
 
 	matchAnalysisWithPackageVulns(pkgs, gvcResByVulnID, vulnsByID)
-	testutility.AssertMatchFixtureJSON(t, "fixtures-go/output.json", pkgs)
+
+	testutility.NewSnapshot().MatchJSON(t, pkgs)
 }
 
 func Test_matchEmptyAnalysisWithPackageVulns(t *testing.T) {
@@ -28,5 +29,6 @@ func Test_matchEmptyAnalysisWithPackageVulns(t *testing.T) {
 	vulnsByID := testutility.LoadJSONFixture[map[string]models.Vulnerability](t, "fixtures-go/vulnbyid-no-call-data.json")
 
 	matchAnalysisWithPackageVulns(pkgs, gvcResByVulnID, vulnsByID)
-	testutility.AssertMatchFixtureJSON(t, "fixtures-go/output-no-call-data.json", pkgs)
+
+	testutility.NewSnapshot().MatchJSON(t, pkgs)
 }

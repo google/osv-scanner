@@ -42,16 +42,23 @@ linters:
     - unused
 
 linters-settings:
+  govet:
+    settings:
+      printf:
+        funcs:
+          - (github.com/google/osv-scanner/pkg/reporter.Reporter).Errorf
+          - (github.com/google/osv-scanner/pkg/reporter.Reporter).Warnf
+          - (github.com/google/osv-scanner/pkg/reporter.Reporter).Verbosef
+          - (github.com/google/osv-scanner/pkg/reporter.Reporter).Infof
   depguard:
     rules:
       regexp:
         files:
-          - '!**/internal/cachedregexp/**'
-          - '!**/main_test.go'
+          - "!**/internal/cachedregexp/**"
+          - "!**/main_test.go"
         deny:
-          - pkg: 'regexp'
-            desc:
-              'Use github.com/google/osv-scanner/internal/cachedregexp instead'
+          - pkg: "regexp"
+            desc: "Use github.com/google/osv-scanner/internal/cachedregexp instead"
   gocritic:
     disabled-checks:
       - ifElseChain
@@ -67,6 +74,9 @@ linters-settings:
 
 issues:
   exclude-rules:
+    - path: pkg/reporter
+      linters:
+        - dupl
     - path: _test\.go
       linters:
         - goerr113

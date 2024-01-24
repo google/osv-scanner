@@ -5,6 +5,7 @@
 layout: home
 nav_order: 1
 ---
+
 # OSV-Scanner
 
 [![OpenSSF Scorecard](https://api.securityscorecards.dev/projects/github.com/google/osv-scanner/badge)](https://api.securityscorecards.dev/projects/github.com/google/osv-scanner)

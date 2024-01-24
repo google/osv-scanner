@@ -3,7 +3,7 @@ name: Release new version
 on:
   push:
     tags:
-      - "*" # triggers only if push new tag version, like `v0.8.4` 
+      - "*" # triggers only if push new tag version, like `v0.8.4`
 
 permissions:
   contents: read # to fetch code (actions/checkout)
@@ -15,7 +15,7 @@ jobs:
     outputs:
       hashes: ${{ steps.hash.outputs.hashes }}
     permissions:
-      contents: write  # for goreleaser/goreleaser-action to create a GitHub release
+      contents: write # for goreleaser/goreleaser-action to create a GitHub release
       packages: write # for goreleaser/goreleaser-action to publish docker images
     runs-on: ubuntu-latest
     env:
@@ -28,7 +28,7 @@ jobs:
           fetch-depth: 0
           ref: ${{ inputs.commit }}
       - name: Set up Go
-        uses: actions/setup-go@93397bea11091df50f3d7e59dc26a7711a8bcfbe # v4.1.0
+        uses: actions/setup-go@0c52d547c9bc32b1aa3301fd7a9cb496313a4491 # v5.0.0
         with:
           go-version-file: .go-version
           check-latest: true

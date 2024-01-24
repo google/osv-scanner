@@ -1,4 +1,4 @@
-# Copyright 2023 Google LLC
+# Copyright 2024 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -12,23 +12,21 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-name: OSV-Scanner PR Scan
+FROM alpine:3.19@sha256:51b67269f354137895d43f3b3d810bfacd3945438e94dc5ac55fdac340352f48
+RUN apk --no-cache add \
+  ca-certificates \
+  git \
+  bash
 
-on:
-  pull_request:
-    branches: [ main ]
-  merge_group:
-    branches: [ main ]
+# Allow git to run on mounted directories
+RUN git config --global --add safe.directory '*'
 
-jobs:
-  scan-pr:
-    uses: "./.github/workflows/osv-scanner-reusable-pr.yml"
-    with:
-      # Just scan the root directory and docs, since everything else is fixtures
-      scan-args: |-
-          --skip-git
-          ./
-          ./docs/
-    permissions:
-      security-events: write
-      contents: read
+# Built binaries provided by goreleaser
+WORKDIR /root/
+COPY ./osv-scanner-action ./osv-scanner
+COPY ./osv-reporter ./
+COPY ./exit_code_redirect.sh ./
+
+ENV PATH="${PATH}:/root"
+
+ENTRYPOINT ["bash", "/root/exit_code_redirect.sh"]

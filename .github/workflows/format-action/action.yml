@@ -12,26 +12,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-name: OSV-Scanner Scheduled Scan
+name: format
+description: "Runs file formatters"
 
-on:
-  schedule:
-    - cron: '12 12 * * 1'
-  push:
-    branches: [ "main" ]
-
-jobs:
-  scan-scheduled:
-    uses: "./.github/workflows/osv-scanner-reusable.yml"
-    with:
-      # Just scan the root directory and docs, since everything else is fixtures
-      scan-args: |-
-          --skip-git
-          ./
-          ./docs/
-    permissions:
-      # Require writing security events to upload SARIF file to security tab
-      security-events: write
-      # Read commit contents
-      contents: read
-
+runs:
+  using: composite
+  steps:
+    - name: Run formatters
+      shell: bash
+      run: ./scripts/run_formatters.sh

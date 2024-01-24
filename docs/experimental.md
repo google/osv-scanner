@@ -4,6 +4,7 @@ title: Experimental Features
 permalink: /experimental/
 nav_order: 8
 ---
+
 # Experimental Features
 
 {: .no_toc }
@@ -26,7 +27,7 @@ OSV-Scanner now supports offline scanning as an experimental feature. Offline sc
 
 ### Specify database location
 
-Our offline features require the use of a local database, the location of which is determined through the use of the `OSV_SCANNER_LOCAL_DB_CACHE_DIRECTORY` environment variable. 
+Our offline features require the use of a local database, the location of which is determined through the use of the `OSV_SCANNER_LOCAL_DB_CACHE_DIRECTORY` environment variable.
 
 The local database file structure is in this form:
 
@@ -39,17 +40,18 @@ The local database file structure is in this form:
     {ecosystem}/all.zip
 ```
 
-Where `{local_db_dir}` can be set by the `OSV_SCANNER_LOCAL_DB_CACHE_DIRECTORY` environment variable. 
+Where `{local_db_dir}` can be set by the `OSV_SCANNER_LOCAL_DB_CACHE_DIRECTORY` environment variable.
 
-If the `OSV_SCANNER_LOCAL_DB_CACHE_DIRECTORY` environment variable is _not_ set, OSV-Scanner will attempt to look for the database in the following locations, in this order: 
+If the `OSV_SCANNER_LOCAL_DB_CACHE_DIRECTORY` environment variable is _not_ set, OSV-Scanner will attempt to look for the database in the following locations, in this order:
 
 1. The location returned by [`os.UserCacheDir`](https://pkg.go.dev/os#UserCacheDir)
 2. The location returned by [`os.TempDir`](https://pkg.go.dev/os#TempDir)
 
-The database can be [downloaded manually](./experimental.md#manual-database-download) or by using the [`--experimental-local-db` flag](./experimental.md#local-database-option). 
+The database can be [downloaded manually](./experimental.md#manual-database-download) or by using the [`--experimental-local-db` flag](./experimental.md#local-database-option).
 
 ### Offline option
-The offline database flag `--experimental-offline` causes OSV-Scanner to scan your project against a previously downloaded local database. OSV-Scanner will not download or update the local database, nor will it send any project or dependency information anywhere. When a local database is not present, you will get an error message. No network connection is required when using this flag.  
+
+The offline database flag `--experimental-offline` causes OSV-Scanner to scan your project against a previously downloaded local database. OSV-Scanner will not download or update the local database, nor will it send any project or dependency information anywhere. When a local database is not present, you will get an error message. No network connection is required when using this flag.
 
 ```bash
 osv-scanner --experimental-offline ./path/to/your/dir
@@ -57,19 +59,20 @@ osv-scanner --experimental-offline ./path/to/your/dir
 
 ### Local database option
 
-The local database flag `--experimental-local-db` causes OSV-Scanner to download or update your local database and then scan your project against it. 
+The local database flag `--experimental-local-db` causes OSV-Scanner to download or update your local database and then scan your project against it.
 
 ```bash
 osv-scanner --experimental-local-db ./path/to/your/dir
 ```
 
 ### Manual database download
-Instead of using the `--experimental-local-db` flag to download the database, it is possible to manually download the database. 
+
+Instead of using the `--experimental-local-db` flag to download the database, it is possible to manually download the database.
 
 A downloadable copy of the OSV database is stored in a GCS bucket maintained by OSV:
 [`gs://osv-vulnerabilities`](https://osv-vulnerabilities.storage.googleapis.com)
 
-This bucket contains zip files  containing all vulnerabilities for each ecosystem at:
+This bucket contains zip files containing all vulnerabilities for each ecosystem at:
 `gs://osv-vulnerabilities/<ECOSYSTEM>/all.zip`.
 
 E.g. for PyPI vulnerabilities:
@@ -80,14 +83,14 @@ gsutil cp gs://osv-vulnerabilities/PyPI/all.zip .
 
 You can also download over HTTP via https://osv-vulnerabilities.storage.googleapis.com/<ECOSYSTEM>/all.zip .
 
-A list of all current ecosystems is available at 
+A list of all current ecosystems is available at
 [`gs://osv-vulnerabilities/ecosystems.txt`](https://osv-vulnerabilities.storage.googleapis.com/ecosystems.txt).
 
 Set the location of your manually downloaded database by following the instructions [here](./experimental.md#specify-database-location).
 
 ### Limitations
 
-1. Commit level scanning is not supported. 
+1. Commit level scanning is not supported.
 
 ## License scanning
 
@@ -108,7 +111,8 @@ To set an allowed license list and see the details of packages that do not confo
 ```bash
 osv-scanner --experimental-licenses="comma-separated list of allowed licenses" path/to/directory
 ```
-Include your allowed licenses as a comma-separated list. OSV-Scanner recognizes licenses in SPDX format. Please indicate your allowed licenses using [SPDX license](https://spdx.org/licenses/) identifiers. 
+
+Include your allowed licenses as a comma-separated list. OSV-Scanner recognizes licenses in SPDX format. Please indicate your allowed licenses using [SPDX license](https://spdx.org/licenses/) identifiers.
 
 #### License violations example
 

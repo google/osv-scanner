@@ -31,6 +31,7 @@ func (vulns *VulnerabilityResults) Flatten() []VulnerabilityFlattened {
 				results = append(results, VulnerabilityFlattened{
 					Source:        res.Source,
 					Package:       pkg.Package,
+					DepGroups:     pkg.DepGroups,
 					Vulnerability: v,
 					GroupInfo:     getGroupInfoForVuln(pkg.Groups, v.ID),
 				})
@@ -39,6 +40,7 @@ func (vulns *VulnerabilityResults) Flatten() []VulnerabilityFlattened {
 				results = append(results, VulnerabilityFlattened{
 					Source:            res.Source,
 					Package:           pkg.Package,
+					DepGroups:         pkg.DepGroups,
 					Licenses:          pkg.Licenses,
 					LicenseViolations: pkg.LicenseViolations,
 				})
@@ -61,6 +63,7 @@ func getGroupInfoForVuln(groups []GroupInfo, vulnID string) GroupInfo {
 type VulnerabilityFlattened struct {
 	Source            SourceInfo
 	Package           PackageInfo
+	DepGroups         []string
 	Vulnerability     Vulnerability
 	GroupInfo         GroupInfo
 	Licenses          []License
@@ -73,7 +76,8 @@ type SourceInfo struct {
 }
 
 type Metadata struct {
-	RepoURL string `json:"repo_url"`
+	RepoURL   string   `json:"repo_url"`
+	DepGroups []string `json:"-"`
 }
 
 func (s SourceInfo) String() string {
@@ -93,6 +97,7 @@ type License string
 // TODO: rename this to be Package as it now includes license information too.
 type PackageVulns struct {
 	Package           PackageInfo     `json:"package"`
+	DepGroups         []string        `json:"dependency_groups,omitempty"`
 	Vulnerabilities   []Vulnerability `json:"vulnerabilities,omitempty"`
 	Groups            []GroupInfo     `json:"groups,omitempty"`
 	Licenses          []License       `json:"licenses,omitempty"`

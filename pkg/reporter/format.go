@@ -13,18 +13,18 @@ func Format() []string {
 
 // New returns an implementation of the reporter interface depending on the format passed in
 // set terminalWidth as 0 to indicate the output is not a terminal
-func New(format string, stdout, stderr io.Writer, terminalWidth int) (Reporter, error) {
+func New(format string, stdout, stderr io.Writer, level VerbosityLevel, terminalWidth int) (Reporter, error) {
 	switch format {
 	case "json":
-		return NewJSONReporter(stdout, stderr), nil
+		return NewJSONReporter(stdout, stderr, level), nil
 	case "table":
-		return NewTableReporter(stdout, stderr, false, terminalWidth), nil
+		return NewTableReporter(stdout, stderr, level, false, terminalWidth), nil
 	case "markdown":
-		return NewTableReporter(stdout, stderr, true, terminalWidth), nil
+		return NewTableReporter(stdout, stderr, level, true, terminalWidth), nil
 	case "sarif":
-		return NewSarifReporter(stdout, stderr), nil
+		return NewSarifReporter(stdout, stderr, level), nil
 	case "gh-annotations":
-		return NewGHAnnotationsReporter(stdout, stderr), nil
+		return NewGHAnnotationsReporter(stdout, stderr, level), nil
 	default:
 		return nil, fmt.Errorf("%v is not a valid format", format)
 	}
