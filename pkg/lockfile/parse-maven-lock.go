@@ -13,7 +13,8 @@ import (
 	"github.com/google/osv-scanner/internal/cachedregexp"
 )
 
-const MaxParentDepth = 10
+const maxParentDepth = 10
+const projectVersionPropName = "project.version"
 
 type MavenLockDependency struct {
 	XMLName    xml.Name `xml:"dependency"`
@@ -55,7 +56,17 @@ func (mld MavenLockDependency) resolveVersionValue(lockfile MavenLockFile) strin
 	result := interpolationReg.ReplaceAllFunc([]byte(mld.Version), func(bytes []byte) []byte {
 		propStr := string(bytes)
 		propName := propStr[2 : len(propStr)-1]
-		property, ok := lockfile.Properties.m[propName]
+		var property string
+		var ok bool
+
+		// If the property is the internal version property, then lets use the one declared
+		if strings.ToLower(propName) == projectVersionPropName && len(lockfile.Version) > 0 {
+			property = lockfile.Version
+			ok = true
+		} else {
+			property, ok = lockfile.Properties.m[propName]
+		}
+
 		if !ok {
 			fmt.Fprintf(
 				os.Stderr,
@@ -81,6 +92,7 @@ func (mld MavenLockDependency) ResolveVersion(lockfile MavenLockFile) string {
 type MavenLockFile struct {
 	XMLName             xml.Name                  `xml:"project"`
 	Parent              MavenLockParent           `xml:"parent"`
+	Version             string                    `xml:"version"`
 	ModelVersion        string                    `xml:"modelVersion"`
 	GroupID             string                    `xml:"groupId"`
 	ArtifactID          string                    `xml:"artifactId"`
@@ -168,6 +180,11 @@ func (e MavenLockExtractor) mergeLockfiles(childLockfile *MavenLockFile, parentL
 	parentLockfile.GroupID = childLockfile.GroupID
 	parentLockfile.ModelVersion = childLockfile.ModelVersion
 
+	// If child lockfile overrides the project version, let's use it instead
+	if len(childLockfile.Version) > 0 {
+		parentLockfile.Version = childLockfile.Version
+	}
+
 	// Child properties take precedence over parent defined ones
 	for key, value := range childLockfile.Properties.m {
 		parentLockfile.Properties.m[key] = value
@@ -193,8 +210,8 @@ func (e MavenLockExtractor) enrichDependencies(f DepFile, dependencies []MavenLo
 
 func (e MavenLockExtractor) decodeMavenFile(f DepFile, depth int) (*MavenLockFile, error) {
 	var parsedLockfile *MavenLockFile
-	if depth >= MaxParentDepth {
-		return nil, fmt.Errorf("maven file decoding reached the max depth (%d/%d), check for a circular dependency", depth, MaxParentDepth)
+	if depth >= maxParentDepth {
+		return nil, fmt.Errorf("maven file decoding reached the max depth (%d/%d), check for a circular dependency", depth, maxParentDepth)
 	}
 	// Decoding the original lockfile and enrich its dependencies
 	err := xml.NewDecoder(f).Decode(&parsedLockfile)

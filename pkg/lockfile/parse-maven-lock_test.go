@@ -290,8 +290,8 @@ func TestMavenLock_WithParent(t *testing.T) {
 			Version:    "3.0.2",
 			Ecosystem:  lockfile.MavenEcosystem,
 			CompareAs:  lockfile.MavenEcosystem,
-			Start:      models.FilePosition{Line: 25, Column: 5},
-			End:        models.FilePosition{Line: 28, Column: 18},
+			Start:      models.FilePosition{Line: 26, Column: 5},
+			End:        models.FilePosition{Line: 29, Column: 18},
 			SourceFile: parentPath,
 		},
 		{
@@ -328,6 +328,15 @@ func TestMavenLock_WithParent(t *testing.T) {
 			CompareAs:  lockfile.MavenEcosystem,
 			Start:      models.FilePosition{Line: 28, Column: 5},
 			End:        models.FilePosition{Line: 32, Column: 18},
+			SourceFile: childPath,
+		},
+		{
+			Name:       "dev.foo:bar",
+			Version:    "1.0-SNAPSHOT",
+			Ecosystem:  lockfile.MavenEcosystem,
+			CompareAs:  lockfile.MavenEcosystem,
+			Start:      models.FilePosition{Line: 33, Column: 5},
+			End:        models.FilePosition{Line: 37, Column: 18},
 			SourceFile: childPath,
 		},
 	})
@@ -483,8 +492,8 @@ func TestMavenLock_WithMultipleParents(t *testing.T) {
 			Version:    "3.0.2",
 			Ecosystem:  lockfile.MavenEcosystem,
 			CompareAs:  lockfile.MavenEcosystem,
-			Start:      models.FilePosition{Line: 25, Column: 5},
-			End:        models.FilePosition{Line: 28, Column: 18},
+			Start:      models.FilePosition{Line: 26, Column: 5},
+			End:        models.FilePosition{Line: 29, Column: 18},
 			SourceFile: rootPath,
 		},
 		{
@@ -522,6 +531,15 @@ func TestMavenLock_WithMultipleParents(t *testing.T) {
 			Start:      models.FilePosition{Line: 14, Column: 5},
 			End:        models.FilePosition{Line: 18, Column: 18},
 			SourceFile: childPath,
+		},
+		{
+			Name:       "dev.foo:bar",
+			Version:    "1.0-SNAPSHOT",
+			Ecosystem:  lockfile.MavenEcosystem,
+			CompareAs:  lockfile.MavenEcosystem,
+			Start:      models.FilePosition{Line: 33, Column: 5},
+			End:        models.FilePosition{Line: 37, Column: 18},
+			SourceFile: parentPath,
 		},
 	})
 }
@@ -707,6 +725,40 @@ func TestParseMavenLock_WithOverriddenDependencyVersions(t *testing.T) {
 			},
 			End: models.FilePosition{
 				Line:   18,
+				Column: 18,
+			},
+			DepGroups: nil,
+		},
+	})
+}
+
+func TestParseMavenLock_WithProjectVersionProperty(t *testing.T) {
+	t.Parallel()
+	dir, err := os.Getwd()
+	if err != nil {
+		t.Errorf("Got unexpected error: %v", err)
+	}
+	lockfilePath := filepath.Join(dir, filepath.FromSlash("fixtures/maven/with-project-version-property.xml"))
+
+	packages, err := lockfile.ParseMavenLock(lockfilePath)
+
+	if err != nil {
+		t.Errorf("Got unexpected error: %v", err)
+	}
+	expectPackages(t, packages, []lockfile.PackageDetails{
+		{
+			Name:       "dev.foo:bar",
+			Version:    "1.0-SNAPSHOT",
+			Ecosystem:  lockfile.MavenEcosystem,
+			CompareAs:  lockfile.MavenEcosystem,
+			Commit:     "",
+			SourceFile: lockfilePath,
+			Start: models.FilePosition{
+				Line:   8,
+				Column: 5,
+			},
+			End: models.FilePosition{
+				Line:   12,
 				Column: 18,
 			},
 			DepGroups: nil,

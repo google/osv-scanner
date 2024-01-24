@@ -30,5 +30,10 @@
       <artifactId>my.package</artifactId>
       <version>${my.package.version}</version>
     </dependency>
+    <dependency>
+      <groupId>dev.foo</groupId>
+      <artifactId>bar</artifactId>
+      <version>${project.version}</version>
+    </dependency>
   </dependencies>
 </project>
