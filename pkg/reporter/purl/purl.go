@@ -7,7 +7,7 @@ import (
 
 type ParameterExtractor func(packageInfo models.PackageInfo) (namespace string, name string, ok bool)
 
-var ecosystemToPurlMapper = map[models.Ecosystem]string{
+var ecosystemToPURLMapper = map[models.Ecosystem]string{
 	models.EcosystemMaven:     packageurl.TypeMaven,
 	models.EcosystemGo:        packageurl.TypeGolang,
 	models.EcosystemPackagist: packageurl.TypeComposer,
@@ -28,7 +28,7 @@ func From(packageInfo models.PackageInfo) *packageurl.PackageURL {
 	var name string
 	version := packageInfo.Version
 	ecosystem := models.Ecosystem(packageInfo.Ecosystem)
-	purlType, typeExists := ecosystemToPurlMapper[ecosystem]
+	purlType, typeExists := ecosystemToPURLMapper[ecosystem]
 	parameterExtractor, extractorExists := ecosystemPURLExtractor[ecosystem]
 
 	if !typeExists {
