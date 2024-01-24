@@ -1267,12 +1267,10 @@ Filtered 2 vulnerabilities from output
 									"version": "6.23.0",
 									"ecosystem": "npm",
 									"start": {
-										"line": 0,
-										"column": 0
+										"line": 0
 									},
 									"end": {
-										"line": 0,
-										"column": 0
+										"line": 0
 									}
 								},
 								"licenses": [
@@ -1285,12 +1283,10 @@ Filtered 2 vulnerabilities from output
 									"version": "5.0.0",
 									"ecosystem": "npm",
 									"start": {
-										"line": 0,
-										"column": 0
+										"line": 0
 									},
 									"end": {
-										"line": 0,
-										"column": 0
+										"line": 0
 									}
 								},
 								"licenses": [
@@ -1306,12 +1302,10 @@ Filtered 2 vulnerabilities from output
 									"version": "2.1.3",
 									"ecosystem": "npm",
 									"start": {
-										"line": 0,
-										"column": 0
+										"line": 0
 									},
 									"end": {
-										"line": 0,
-										"column": 0
+										"line": 0
 									}
 								},
 								"licenses": [
@@ -1355,12 +1349,10 @@ Filtered 2 vulnerabilities from output
 									"version": "5.0.0",
 									"ecosystem": "npm",
 									"start": {
-										"line": 0,
-										"column": 0
+										"line": 0
 									},
 									"end": {
-										"line": 0,
-										"column": 0
+										"line": 0
 									}
 								},
 								"licenses": [
@@ -1407,12 +1399,10 @@ Filtered 2 vulnerabilities from output
 									"version": "6.23.0",
 									"ecosystem": "npm",
 									"start": {
-										"line": 0,
-										"column": 0
+										"line": 0
 									},
 									"end": {
-										"line": 0,
-										"column": 0
+										"line": 0
 									}
 								},
 								"licenses": [
@@ -1425,12 +1415,10 @@ Filtered 2 vulnerabilities from output
 									"version": "5.0.0",
 									"ecosystem": "npm",
 									"start": {
-										"line": 0,
-										"column": 0
+										"line": 0
 									},
 									"end": {
-										"line": 0,
-										"column": 0
+										"line": 0
 									}
 								},
 								"licenses": [
@@ -1443,12 +1431,10 @@ Filtered 2 vulnerabilities from output
 									"version": "2.1.3",
 									"ecosystem": "npm",
 									"start": {
-										"line": 0,
-										"column": 0
+										"line": 0
 									},
 									"end": {
-										"line": 0,
-										"column": 0
+										"line": 0
 									}
 								},
 								"licenses": [
@@ -1493,12 +1479,10 @@ Filtered 2 vulnerabilities from output
 									"version": "6.23.0",
 									"ecosystem": "npm",
 									"start": {
-										"line": 0,
-										"column": 0
+										"line": 0
 									},
 									"end": {
-										"line": 0,
-										"column": 0
+										"line": 0
 									}
 								},
 								"licenses": [
@@ -1511,12 +1495,10 @@ Filtered 2 vulnerabilities from output
 									"version": "5.0.0",
 									"ecosystem": "npm",
 									"start": {
-										"line": 0,
-										"column": 0
+										"line": 0
 									},
 									"end": {
-										"line": 0,
-										"column": 0
+										"line": 0
 									}
 								},
 								"licenses": [
@@ -1529,12 +1511,10 @@ Filtered 2 vulnerabilities from output
 									"version": "2.1.3",
 									"ecosystem": "npm",
 									"start": {
-										"line": 0,
-										"column": 0
+										"line": 0
 									},
 									"end": {
-										"line": 0,
-										"column": 0
+										"line": 0
 									}
 								},
 								"licenses": [

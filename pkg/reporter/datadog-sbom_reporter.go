@@ -230,8 +230,6 @@ func toBom(results *models.VulnerabilityResults) *sbomproto.Bom {
 			if packageInfo.Package.Start.Line != 0 {
 				lineStart := strconv.Itoa(packageInfo.Package.Start.Line)
 				lineEnd := strconv.Itoa(packageInfo.Package.End.Line)
-				columnStart := strconv.Itoa(packageInfo.Package.Start.Column)
-				columnEnd := strconv.Itoa(packageInfo.Package.End.Column)
 				component.Properties = append(component.GetProperties(),
 					&sbomproto.Property{
 						Name:  "location_line_start",
@@ -240,14 +238,6 @@ func toBom(results *models.VulnerabilityResults) *sbomproto.Bom {
 					&sbomproto.Property{
 						Name:  "location_line_end",
 						Value: &lineEnd,
-					},
-					&sbomproto.Property{
-						Name:  "location_column_start",
-						Value: &columnStart,
-					},
-					&sbomproto.Property{
-						Name:  "location_column_end",
-						Value: &columnEnd,
 					})
 			}
 

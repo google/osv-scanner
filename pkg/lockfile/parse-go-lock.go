@@ -25,7 +25,7 @@ func deduplicatePackages(packages map[string]PackageDetails) map[string]PackageD
 }
 
 func lineToFilePosition(line modfile.Position) models.FilePosition {
-	return models.FilePosition{Line: line.Line, Column: line.LineRune}
+	return models.FilePosition{Line: line.Line}
 }
 
 type GoLockExtractor struct{}
