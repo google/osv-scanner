@@ -1,6 +1,7 @@
 package remediation
 
 import (
+	"math"
 	"slices"
 
 	"github.com/google/osv-scanner/internal/resolution"
@@ -44,8 +45,11 @@ func (opts RemediationOptions) matchSeverity(v resolution.ResolutionVuln) bool {
 		}
 	}
 
-	return maxScore < 0 || // Always include vulns with unknown severities
-		int(10*maxScore) >= int(10*opts.MinSeverity) // CVSS scores are only to 1 decimal place
+	// CVSS scores are meant to only be to 1 decimal place
+	// and we want to avoid something being falsely rejected/included due to floating point precision.
+	// Multiply and round to only consider relevant parts of the score.
+	return math.Round(10*maxScore) >= math.Round(10*opts.MinSeverity) ||
+		maxScore < 0 // Always include vulns with unknown severities
 }
 
 func (opts RemediationOptions) matchDepth(v resolution.ResolutionVuln) bool {

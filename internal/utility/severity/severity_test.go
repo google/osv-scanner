@@ -1,6 +1,7 @@
 package severity_test
 
 import (
+	"math"
 	"testing"
 
 	"github.com/google/osv-scanner/internal/utility/severity"
@@ -82,8 +83,9 @@ func TestSeverity_CalculateScore(t *testing.T) {
 			if err != nil {
 				t.Errorf("CalculateScore() error: %v", err)
 			}
-			// CVSS scores are to 1 decimal place, do an int comparison
-			if int(10*gotScore) != int(10*tt.want.score) || gotRating != tt.want.rating {
+			// CVSS scores are only supposed to be to 1 decimal place.
+			// Multiply and round to get around potential precision issues.
+			if math.Round(10*gotScore) != math.Round(10*tt.want.score) || gotRating != tt.want.rating {
 				t.Errorf("CalculateScore() = (%.1f, %s), want (%.1f, %s)", gotScore, gotRating, tt.want.score, tt.want.rating)
 			}
 		})
