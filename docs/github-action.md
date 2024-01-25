@@ -18,10 +18,12 @@ nav_order: 7
 {:toc}
 </details>
 
-OSV-Scanner is offered as a GitHub Action. We currently have two different GitHub Actions:
+OSV-Scanner is available as a CI/CD Action. We currently offer two different reusable workflows for Github:
 
-1. An action that triggers a scan with each [pull request](./github-action.md#scan-on-pull-request) and will only report new vulnerabilities introduced through the pull request.
-2. An action that performs a full vulnerability scan, which can be configured to scan on a [regular schedule](./github-action.md#scheduled-scans). The full vulnerability scan can also be configured to run [on release](./github-action.md#scan-on-release) to prevent releasing with known vulnerabilities in dependencies.
+1. A workflow that triggers a scan with each [pull request](./github-action.md#scan-on-pull-request) and will only report new vulnerabilities introduced through the pull request.
+2. A workflow that performs a full vulnerability scan, which can be configured to scan on pushes or a [regular schedule](./github-action.md#scheduled-scans). The full vulnerability scan can also be configured to run [on release](./github-action.md#scan-on-release) to prevent releasing with known vulnerabilities in dependencies.
+
+Currently there is no prebuilt workflows for other platforms, but we welcome any contributions for this!
 
 ## Scan on pull request
 
@@ -51,12 +53,18 @@ permissions:
 
 jobs:
   scan-pr:
-    uses: "google/osv-scanner-action/.github/workflows/osv-scanner-reusable.yml@v1.5.0"
+    uses: "google/osv-scanner-action/.github/workflows/osv-scanner-reusable.yml@v0.1.0"
 ```
 
 ### View results
 
-Results may be viewed by clicking on the details of the failed action, either from your project's actions tab or directly on the PR. Results are also included in GitHub annotations on the "Files changed" tab for the PR.
+Results may be viewed by clicking on the details of the failed action, either from your project's actions tab or directly on the PR.
+
+|                                                 OSV-Scanner PR Check Failing                                                  |                         PR Scanning Check Output                          |
+| :---------------------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------: |
+| ![Screenshot of PR introducing a vulnerable dependency, and osv-scanner blocking check](images/github-action-PR-scanning.png) | ![Screenshot of osv-scanner output](images/github-action-scan-output.png) |
+
+Results are also included in GitHub annotations on the "Files changed" tab for the PR.
 
 ## Scheduled scans
 
@@ -86,7 +94,7 @@ permissions:
 
 jobs:
   scan-scheduled:
-    uses: "google/osv-scanner-action/.github/workflows/osv-scanner-reusable.yml@v1.5.0"
+    uses: "google/osv-scanner-action/.github/workflows/osv-scanner-reusable.yml@v0.1.0"
 ```
 
 As written, the scanner will run on 12:30 pm UTC every Monday, and also on every push to the main branch. You can change the schedule by following the instructions [here](https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#schedule).
@@ -94,6 +102,10 @@ As written, the scanner will run on 12:30 pm UTC every Monday, and also on every
 ### View results
 
 Maintainers can review results of the scan by navigating to their project's `security > code scanning` tab. Vulnerability details can also be viewed by clicking on the details of the failed action.
+
+|                          OSV-Scanner Code Scanning Tab                           |                                 Code Scanning Detailed Entry                                  |
+| :------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------: |
+| ![Image of results in code scanning tab](images/github-action-code-scanning.png) | ![Image of details of specific in code scanning entry](images/github-action-code-details.png) |
 
 ## Scan on release
 
@@ -164,7 +176,7 @@ Examples
 ```yml
 jobs:
   scan-pr:
-    uses: "google/osv-scanner-action/.github/workflows/osv-scanner-reusable.yml@v1.5.0"
+    uses: "google/osv-scanner-action/.github/workflows/osv-scanner-reusable.yml@v0.1.0"
     with:
       scan-args: |-
         --lockfile=./path/to/lockfile1
@@ -176,7 +188,7 @@ jobs:
 ```yml
 jobs:
   scan-pr:
-    uses: "google/osv-scanner-action/.github/workflows/osv-scanner-reusable.yml@v1.5.0"
+    uses: "google/osv-scanner-action/.github/workflows/osv-scanner-reusable.yml@v0.1.0"
     with:
       scan-args: |-
         --recursive
@@ -203,7 +215,7 @@ jobs:
     name: Vulnerability scanning
     # makes sure the extraction step is completed before running the scanner
     needs: extract-deps
-    uses: "google/osv-scanner-action/.github/workflows/osv-scanner-reusable.yml@v1.5.0"
+    uses: "google/osv-scanner-action/.github/workflows/osv-scanner-reusable.yml@v0.1.0"
     with:
       # Download the artifact uploaded in extract-deps step
       download-artifact: converted-OSV-Scanner-deps
