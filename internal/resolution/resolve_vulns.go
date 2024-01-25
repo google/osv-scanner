@@ -67,6 +67,7 @@ func (res *ResolutionResult) computeVulns(ctx context.Context, cl resolve.Client
 	return nil
 }
 
+// TODO: Remove global cache; make an OSVClient to be passed alongside the resolve.Client to do requests.
 // vulnCache caches all vulnerabilities affecting any versions of particular packages.
 // We cache call vulns & manually check affected, rather than querying the affected versions directly
 // since remediation needs to query for OSV vulnerabilities multiple times for the same packages.
