@@ -58,10 +58,9 @@ jobs:
 
 Results may be viewed by clicking on the details of the failed action, either from your project's actions tab or directly on the PR.
 
-OSV-Scanner PR Check Failing              |   PR Scanning Check Output
-:-------------------------:|:-------------------------:
-![Screenshot of PR introducing a vulnerable dependency, and osv-scanner blocking check](images/github-action-PR-scanning.png) | ![Screenshot of osv-scanner output](images/github-action-scan-output.png)
-
+|                                                 OSV-Scanner PR Check Failing                                                  |                         PR Scanning Check Output                          |
+| :---------------------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------: |
+| ![Screenshot of PR introducing a vulnerable dependency, and osv-scanner blocking check](images/github-action-PR-scanning.png) | ![Screenshot of osv-scanner output](images/github-action-scan-output.png) |
 
 Results are also included in GitHub annotations on the "Files changed" tab for the PR.
 
@@ -100,9 +99,9 @@ As written, the scanner will run on 12:30 pm UTC every Monday, and also on every
 
 Maintainers can review results of the scan by navigating to their project's `security > code scanning` tab. Vulnerability details can also be viewed by clicking on the details of the failed action.
 
-OSV-Scanner Code Scanning Tab | Code Scanning Detailed Entry
-:-------------------------:|:-------------------------:
-![Image of results in code scanning tab](images/github-action-code-scanning.png) | ![Image of details of specific in code scanning entry](images/github-action-code-details.png)
+|                          OSV-Scanner Code Scanning Tab                           |                                 Code Scanning Detailed Entry                                  |
+| :------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------: |
+| ![Image of results in code scanning tab](images/github-action-code-scanning.png) | ![Image of details of specific in code scanning entry](images/github-action-code-details.png) |
 
 ## Scan on release
 
