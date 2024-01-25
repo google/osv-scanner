@@ -4,6 +4,7 @@ import (
 	"slices"
 
 	"github.com/google/osv-scanner/internal/resolution"
+	"github.com/google/osv-scanner/internal/utility/severity"
 )
 
 type RemediationOptions struct {
@@ -35,8 +36,16 @@ func (opts RemediationOptions) MatchVuln(v resolution.ResolutionVuln) bool {
 }
 
 func (opts RemediationOptions) matchSeverity(v resolution.ResolutionVuln) bool {
-	// TODO
-	return true
+	maxScore := -1.0
+	// TODO: also check Vulnerability.Affected[].Severity
+	for _, sev := range v.Vulnerability.Severity {
+		if score, _, _ := severity.CalculateScore(sev); score > maxScore {
+			maxScore = score
+		}
+	}
+
+	return maxScore < 0 || // Always include vulns with unknown severities
+		int(10*maxScore) >= int(10*opts.MinSeverity) // CVSS scores are only to 1 decimal place
 }
 
 func (opts RemediationOptions) matchDepth(v resolution.ResolutionVuln) bool {
