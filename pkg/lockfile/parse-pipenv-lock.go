@@ -3,11 +3,13 @@ package lockfile
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/google/osv-scanner/pkg/models"
 	"os"
 	"path/filepath"
-	"regexp"
 	"strings"
+
+	"github.com/google/osv-scanner/internal/cachedregexp"
+
+	"github.com/google/osv-scanner/pkg/models"
 )
 
 type PipenvPackage struct {
@@ -49,7 +51,7 @@ func (e PipenvLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 	packageType := ""
 
 	for i, line := range lines {
-		startRe := regexp.MustCompile(`"(\w+)": {`)
+		startRe := cachedregexp.MustCompile(`"(\w+)": {`)
 		startMatch := startRe.FindStringSubmatch(line)
 
 		if len(startMatch) == 2 {
@@ -67,12 +69,10 @@ func (e PipenvLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 					dep := parsedLockfile.Packages[key]
 					dep.Start = models.FilePosition{Line: i + 1}
 					parsedLockfile.Packages[key] = dep
-					break
 				case "packages-dev":
 					dep := parsedLockfile.PackagesDev[key]
 					dep.Start = models.FilePosition{Line: i + 1}
 					parsedLockfile.PackagesDev[key] = dep
-					break
 				}
 			}
 		}
@@ -83,12 +83,10 @@ func (e PipenvLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 				dep := parsedLockfile.Packages[key]
 				dep.End = models.FilePosition{Line: i + 1}
 				parsedLockfile.Packages[key] = dep
-				break
 			case "packages-dev":
 				dep := parsedLockfile.PackagesDev[key]
 				dep.End = models.FilePosition{Line: i + 1}
 				parsedLockfile.PackagesDev[key] = dep
-				break
 			}
 			key = ""
 		}

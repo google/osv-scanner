@@ -3,9 +3,10 @@ package lockfile
 import (
 	"bufio"
 	"fmt"
-	"github.com/google/osv-scanner/pkg/models"
 	"path/filepath"
 	"strings"
+
+	"github.com/google/osv-scanner/pkg/models"
 
 	"github.com/google/osv-scanner/internal/cachedregexp"
 )
