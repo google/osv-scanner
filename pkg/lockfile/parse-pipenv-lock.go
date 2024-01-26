@@ -3,11 +3,17 @@ package lockfile
 import (
 	"encoding/json"
 	"fmt"
+	"github.com/google/osv-scanner/pkg/models"
+	"os"
 	"path/filepath"
+	"regexp"
+	"strings"
 )
 
 type PipenvPackage struct {
 	Version string `json:"version"`
+	Start   models.FilePosition
+	End     models.FilePosition
 }
 
 type PipenvLock struct {
@@ -24,12 +30,68 @@ func (e PipenvLockExtractor) ShouldExtract(path string) bool {
 }
 
 func (e PipenvLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
-	var parsedLockfile *PipenvLock
+	var parsedLockfile PipenvLock
 
-	err := json.NewDecoder(f).Decode(&parsedLockfile)
-
+	content, err := os.ReadFile(f.Path())
 	if err != nil {
 		return []PackageDetails{}, fmt.Errorf("could not extract from %s: %w", f.Path(), err)
+	}
+
+	contentString := string(content)
+	lines := strings.Split(contentString, "\n")
+	decoder := json.NewDecoder(strings.NewReader(contentString))
+
+	if err := decoder.Decode(&parsedLockfile); err != nil {
+		return []PackageDetails{}, fmt.Errorf("could not decode json from %s: %w", f.Path(), err)
+	}
+
+	key := ""
+	packageType := ""
+
+	for i, line := range lines {
+		startRe := regexp.MustCompile(`"(\w+)": {`)
+		startMatch := startRe.FindStringSubmatch(line)
+
+		if len(startMatch) == 2 {
+			key = startMatch[1]
+
+			if key == "default" {
+				packageType = "packages"
+			} else if key == "develop" {
+				packageType = "packages-dev"
+			}
+
+			if packageType != "" {
+				switch packageType {
+				case "packages":
+					dep := parsedLockfile.Packages[key]
+					dep.Start = models.FilePosition{Line: i + 1}
+					parsedLockfile.Packages[key] = dep
+					break
+				case "packages-dev":
+					dep := parsedLockfile.PackagesDev[key]
+					dep.Start = models.FilePosition{Line: i + 1}
+					parsedLockfile.PackagesDev[key] = dep
+					break
+				}
+			}
+		}
+
+		if len(key) != 0 && strings.Contains(line, "}") {
+			switch packageType {
+			case "packages":
+				dep := parsedLockfile.Packages[key]
+				dep.End = models.FilePosition{Line: i + 1}
+				parsedLockfile.Packages[key] = dep
+				break
+			case "packages-dev":
+				dep := parsedLockfile.PackagesDev[key]
+				dep.End = models.FilePosition{Line: i + 1}
+				parsedLockfile.PackagesDev[key] = dep
+				break
+			}
+			key = ""
+		}
 	}
 
 	details := make(map[string]PackageDetails)
@@ -52,6 +114,8 @@ func addPkgDetails(details map[string]PackageDetails, packages map[string]Pipenv
 			pkgDetails := PackageDetails{
 				Name:      name,
 				Version:   version,
+				Start:     pipenvPackage.Start,
+				End:       pipenvPackage.End,
 				Ecosystem: PipenvEcosystem,
 				CompareAs: PipenvEcosystem,
 			}
