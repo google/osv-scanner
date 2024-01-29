@@ -6,6 +6,7 @@ import (
 
 	"deps.dev/util/resolve"
 	"github.com/google/osv-scanner/internal/resolution/manifest"
+	"github.com/google/osv-scanner/internal/resolution/util"
 	vulnUtil "github.com/google/osv-scanner/internal/utility/vulns"
 	"github.com/google/osv-scanner/pkg/lockfile"
 	"github.com/google/osv-scanner/pkg/models"
@@ -28,7 +29,7 @@ func (dc DependencyChain) EndDependency() (resolve.VersionKey, string) {
 
 func ChainIsDev(dc DependencyChain, m manifest.Manifest) bool {
 	direct, _ := dc.DirectDependency()
-	ecosystem, ok := OSVEcosystem[direct.System]
+	ecosystem, ok := util.OSVEcosystem[direct.System]
 	if !ok {
 		return false
 	}
@@ -112,8 +113,8 @@ func chainConstrains(ctx context.Context, cl resolve.Client, chain DependencyCha
 	pkg := lockfile.PackageDetails{
 		Name:      bestVk.Name,
 		Version:   bestVk.Version,
-		Ecosystem: lockfile.Ecosystem(OSVEcosystem[vk.System]),
-		CompareAs: lockfile.Ecosystem(OSVEcosystem[vk.System]),
+		Ecosystem: lockfile.Ecosystem(util.OSVEcosystem[vk.System]),
+		CompareAs: lockfile.Ecosystem(util.OSVEcosystem[vk.System]),
 	}
 
 	return vulnUtil.IsAffected(*vuln, pkg)
