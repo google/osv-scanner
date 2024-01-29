@@ -3,11 +3,10 @@ package lockfile
 import (
 	"encoding/json"
 	"fmt"
+	"github.com/google/osv-scanner/internal/cachedregexp"
 	"os"
 	"path/filepath"
 	"strings"
-
-	"github.com/google/osv-scanner/internal/cachedregexp"
 
 	"github.com/google/osv-scanner/pkg/models"
 )
@@ -23,6 +22,11 @@ type PipenvLock struct {
 	PackagesDev map[string]PipenvPackage `json:"develop"`
 }
 
+const (
+	packages    = "default"
+	packagesDev = "develop"
+)
+
 const PipenvEcosystem = PipEcosystem
 
 type PipenvLockExtractor struct{}
@@ -31,8 +35,48 @@ func (e PipenvLockExtractor) ShouldExtract(path string) bool {
 	return filepath.Base(path) == "Pipfile.lock"
 }
 
+func findPackagesLinePosition(groupMap map[string]map[string]PipenvPackage, lines []string) {
+	var group, key string
+	var groupLevel, stack int
+	for lineNumber, line := range lines {
+		if strings.Contains(line, "{") {
+			stack++
+			keyRegexp := cachedregexp.MustCompile(`"(.+)"`)
+			match := keyRegexp.FindStringSubmatch(line)
+			if len(match) == 2 {
+				key = match[1]
+				if group != "" {
+					dep := groupMap[group][key]
+					dep.Start = models.FilePosition{Line: lineNumber + 1}
+					groupMap[group][key] = dep
+				} else {
+					for groupKey := range groupMap {
+						if groupKey == key {
+							group = key
+							groupLevel = stack
+							break
+						}
+					}
+				}
+			}
+		}
+		if strings.Contains(line, "}") {
+			stack--
+			if group != "" {
+				if stack == groupLevel {
+					dep := groupMap[group][key]
+					dep.End = models.FilePosition{Line: lineNumber + 1}
+					groupMap[group][key] = dep
+				} else if stack == groupLevel-1 {
+					group = ""
+				}
+			}
+		}
+	}
+}
+
 func (e PipenvLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
-	var parsedLockfile PipenvLock
+	var parsedLockfile *PipenvLock
 
 	content, err := os.ReadFile(f.Path())
 	if err != nil {
@@ -47,50 +91,10 @@ func (e PipenvLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 		return []PackageDetails{}, fmt.Errorf("could not decode json from %s: %w", f.Path(), err)
 	}
 
-	key := ""
-	packageType := ""
-
-	for i, line := range lines {
-		startRe := cachedregexp.MustCompile(`"(\w+)": {`)
-		startMatch := startRe.FindStringSubmatch(line)
-
-		if len(startMatch) == 2 {
-			key = startMatch[1]
-
-			if key == "default" {
-				packageType = "packages"
-			} else if key == "develop" {
-				packageType = "packages-dev"
-			}
-
-			if packageType != "" {
-				switch packageType {
-				case "packages":
-					dep := parsedLockfile.Packages[key]
-					dep.Start = models.FilePosition{Line: i + 1}
-					parsedLockfile.Packages[key] = dep
-				case "packages-dev":
-					dep := parsedLockfile.PackagesDev[key]
-					dep.Start = models.FilePosition{Line: i + 1}
-					parsedLockfile.PackagesDev[key] = dep
-				}
-			}
-		}
-
-		if len(key) != 0 && strings.Contains(line, "}") {
-			switch packageType {
-			case "packages":
-				dep := parsedLockfile.Packages[key]
-				dep.End = models.FilePosition{Line: i + 1}
-				parsedLockfile.Packages[key] = dep
-			case "packages-dev":
-				dep := parsedLockfile.PackagesDev[key]
-				dep.End = models.FilePosition{Line: i + 1}
-				parsedLockfile.PackagesDev[key] = dep
-			}
-			key = ""
-		}
-	}
+	groupMap := make(map[string]map[string]PipenvPackage)
+	groupMap[packages] = parsedLockfile.Packages
+	groupMap[packagesDev] = parsedLockfile.PackagesDev
+	findPackagesLinePosition(groupMap, lines)
 
 	details := make(map[string]PackageDetails)
 
