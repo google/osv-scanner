@@ -40,14 +40,15 @@ func getResolver(sys resolve.System, cl resolve.Client) (resolve.Resolver, error
 	}
 }
 
-func Resolve(ctx context.Context, cl resolve.Client, m manifest.Manifest) (*ResolutionResult, error) {
-	c := client.NewOverrideClient(cl)
+func Resolve(ctx context.Context, cl client.ResolutionClient, m manifest.Manifest) (*ResolutionResult, error) {
+	c := client.NewOverrideClient(cl.DependencyClient)
 	c.AddVersion(m.Root, m.Requirements)
 	for _, loc := range m.LocalManifests {
 		c.AddVersion(loc.Root, loc.Requirements)
 		// TODO: may need to do this recursively
 	}
-	r, err := getResolver(m.System(), c)
+	cl.DependencyClient = c
+	r, err := getResolver(m.System(), cl.DependencyClient)
 	if err != nil {
 		return nil, err
 	}
@@ -66,7 +67,7 @@ func Resolve(ctx context.Context, cl resolve.Client, m manifest.Manifest) (*Reso
 		Graph:    graph,
 	}
 
-	if err := result.computeVulns(ctx, c); err != nil {
+	if err := result.computeVulns(ctx, cl); err != nil {
 		return nil, err
 	}
 
@@ -76,9 +77,56 @@ func Resolve(ctx context.Context, cl resolve.Client, m manifest.Manifest) (*Reso
 	return result, nil
 }
 
-var OSVEcosystem = map[resolve.System]models.Ecosystem{
-	resolve.NPM:   models.EcosystemNPM,
-	resolve.Maven: models.EcosystemMaven,
+// computeVulns scans for vulnerabilities in a resolved graph and populates res.Vulns
+func (res *ResolutionResult) computeVulns(ctx context.Context, cl client.ResolutionClient) error {
+	nodeVulns, err := cl.FindVulns(res.Graph)
+	if err != nil {
+		return err
+	}
+	// Find all dependency paths to the vulnerable dependencies
+	var vulnerableNodes []resolve.NodeID
+	vulnInfo := make(map[string]models.Vulnerability)
+	for i, vulns := range nodeVulns {
+		if len(vulns) > 0 {
+			vulnerableNodes = append(vulnerableNodes, resolve.NodeID(i))
+		}
+		for _, vuln := range vulns {
+			vulnInfo[vuln.ID] = vuln
+		}
+	}
+
+	nodeChains := computeChains(res.Graph, vulnerableNodes)
+	vulnChains := make(map[string][]DependencyChain)
+	for i, idx := range vulnerableNodes {
+		for _, vuln := range nodeVulns[idx] {
+			vulnChains[vuln.ID] = append(vulnChains[vuln.ID], nodeChains[i]...)
+		}
+	}
+
+	// construct the ResolutionVulns
+	// TODO: This constructs a single ResolutionVuln per vulnerability ID.
+	// The scan action treats vulns with the same ID but affecting different versions of a package as distinct.
+	// TODO: Combine aliased IDs
+	for id, vuln := range vulnInfo {
+		rv := ResolutionVuln{Vulnerability: vuln, DevOnly: true}
+		for _, chain := range vulnChains[id] {
+			if chainConstrains(ctx, cl, chain, &rv.Vulnerability) {
+				rv.ProblemChains = append(rv.ProblemChains, chain)
+			} else {
+				rv.NonProblemChains = append(rv.NonProblemChains, chain)
+			}
+			rv.DevOnly = rv.DevOnly && ChainIsDev(chain, res.Manifest)
+		}
+		if len(rv.ProblemChains) == 0 {
+			// There has to be at least one problem chain for the vulnerability to appear.
+			// If our heuristic couldn't determine any, treat them all as problematic.
+			rv.ProblemChains = rv.NonProblemChains
+			rv.NonProblemChains = nil
+		}
+		res.Vulns = append(res.Vulns, rv)
+	}
+
+	return nil
 }
 
 // FilterVulns populates Vulns with the UnfilteredVulns that satisfy matchFn

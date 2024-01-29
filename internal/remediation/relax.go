@@ -8,10 +8,11 @@ import (
 	"deps.dev/util/resolve"
 	"github.com/google/osv-scanner/internal/remediation/relaxer"
 	"github.com/google/osv-scanner/internal/resolution"
+	"github.com/google/osv-scanner/internal/resolution/client"
 )
 
 // ComputeRelaxPatches attempts to resolve each vulnerability found in result independently, returning the list of unique possible patches
-func ComputeRelaxPatches(ctx context.Context, cl resolve.Client, result *resolution.ResolutionResult, opts RemediationOptions) ([]resolution.ResolutionDiff, error) {
+func ComputeRelaxPatches(ctx context.Context, cl client.ResolutionClient, result *resolution.ResolutionResult, opts RemediationOptions) ([]resolution.ResolutionDiff, error) {
 	// Filter the original result just in case it hasn't been already
 	result.FilterVulns(opts.MatchVuln)
 
@@ -74,7 +75,7 @@ var errRelaxRemediateImpossible = errors.New("cannot fix vulns by relaxing")
 
 func tryRelaxRemediate(
 	ctx context.Context,
-	cl resolve.Client,
+	cl client.ResolutionClient,
 	orig *resolution.ResolutionResult,
 	vulnIDs []string,
 	opts RemediationOptions,
