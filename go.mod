@@ -17,7 +17,7 @@ require (
 	github.com/pandatix/go-cvss v0.6.2
 	github.com/spdx/tools-golang v0.5.3
 	github.com/urfave/cli/v2 v2.26.0
-	golang.org/x/exp v0.0.0-20231110203233-9a3e6036ecaa
+	golang.org/x/exp v0.0.0-20230522175609-2e198f4a06a1
 	golang.org/x/mod v0.14.0
 	golang.org/x/sync v0.5.0
 	golang.org/x/term v0.15.0
