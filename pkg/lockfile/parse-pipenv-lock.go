@@ -3,10 +3,11 @@ package lockfile
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/google/osv-scanner/internal/cachedregexp"
 	"os"
 	"path/filepath"
 	"strings"
+
+	"github.com/google/osv-scanner/internal/cachedregexp"
 
 	"github.com/google/osv-scanner/pkg/models"
 )
@@ -35,8 +36,12 @@ func (e PipenvLockExtractor) ShouldExtract(path string) bool {
 	return filepath.Base(path) == "Pipfile.lock"
 }
 
-func findPackagesLinePosition(groupMap map[string]map[string]PipenvPackage, lines []string) {
-	var group, key string
+// This function set the line location of a package within the file by updating the Start/End variables
+// for each of the PipenvPackages of each the groups in the groups map.
+// "groupsMap" contains different groups of packages. Each group contains different PipenvPackage
+// "groupsMap" keys MUST be the same ones as the JSON group keys (check PipenvLock struct)
+func findPackagesLinePosition(groupsMap map[string]map[string]PipenvPackage, lines []string) {
+	var group, dependency string
 	var groupLevel, stack int
 	for lineNumber, line := range lines {
 		if strings.Contains(line, "{") {
@@ -44,16 +49,17 @@ func findPackagesLinePosition(groupMap map[string]map[string]PipenvPackage, line
 			keyRegexp := cachedregexp.MustCompile(`"(.+)"`)
 			match := keyRegexp.FindStringSubmatch(line)
 			if len(match) == 2 {
-				key = match[1]
-				if group != "" {
-					dep := groupMap[group][key]
+				dependency = match[1]
+				if group != "" && stack == groupLevel+1 {
+					dep := groupsMap[group][dependency]
 					dep.Start = models.FilePosition{Line: lineNumber + 1}
-					groupMap[group][key] = dep
+					groupsMap[group][dependency] = dep
 				} else {
-					for groupKey := range groupMap {
-						if groupKey == key {
-							group = key
+					for groupKey := range groupsMap {
+						if groupKey == dependency {
+							group = dependency
 							groupLevel = stack
+
 							break
 						}
 					}
@@ -64,9 +70,10 @@ func findPackagesLinePosition(groupMap map[string]map[string]PipenvPackage, line
 			stack--
 			if group != "" {
 				if stack == groupLevel {
-					dep := groupMap[group][key]
+					dep := groupsMap[group][dependency]
 					dep.End = models.FilePosition{Line: lineNumber + 1}
-					groupMap[group][key] = dep
+					groupsMap[group][dependency] = dep
+					dependency = ""
 				} else if stack == groupLevel-1 {
 					group = ""
 				}
@@ -91,10 +98,10 @@ func (e PipenvLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 		return []PackageDetails{}, fmt.Errorf("could not decode json from %s: %w", f.Path(), err)
 	}
 
-	groupMap := make(map[string]map[string]PipenvPackage)
-	groupMap[packages] = parsedLockfile.Packages
-	groupMap[packagesDev] = parsedLockfile.PackagesDev
-	findPackagesLinePosition(groupMap, lines)
+	groupsMap := make(map[string]map[string]PipenvPackage)
+	groupsMap[packages] = parsedLockfile.Packages
+	groupsMap[packagesDev] = parsedLockfile.PackagesDev
+	findPackagesLinePosition(groupsMap, lines)
 
 	details := make(map[string]PackageDetails)
 
