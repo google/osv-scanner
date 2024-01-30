@@ -8,9 +8,9 @@ import (
 	"deps.dev/util/semver"
 )
 
-type NPMRelaxer struct{}
+type NpmRelaxer struct{}
 
-func (r NPMRelaxer) Relax(ctx context.Context, cl resolve.Client, req resolve.RequirementVersion, allowMajor bool) (resolve.RequirementVersion, bool) {
+func (r NpmRelaxer) Relax(ctx context.Context, cl resolve.Client, req resolve.RequirementVersion, allowMajor bool) (resolve.RequirementVersion, bool) {
 	c, err := semver.NPM.ParseConstraint(req.Version)
 	if err != nil {
 		// The specified version is not a valid semver constraint
