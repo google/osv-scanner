@@ -6,6 +6,8 @@ import (
 	"path/filepath"
 	"strings"
 
+	"github.com/google/osv-scanner/pkg/models"
+
 	"github.com/google/osv-scanner/internal/cachedregexp"
 )
 
@@ -14,7 +16,7 @@ const PipEcosystem Ecosystem = "PyPI"
 // todo: expand this to support more things, e.g.
 //
 //	https://pip.pypa.io/en/stable/reference/requirements-file-format/#example
-func parseLine(line string) PackageDetails {
+func parseLine(path string, line string, lineNumber int, lineOffset int) PackageDetails {
 	// Remove environment markers
 	// pre https://pip.pypa.io/en/stable/reference/requirement-specifiers/#overview
 	line = strings.Split(line, ";")[0]
@@ -53,10 +55,13 @@ func parseLine(line string) PackageDetails {
 	}
 
 	return PackageDetails{
-		Name:      normalizedRequirementName(name),
-		Version:   version,
-		Ecosystem: PipEcosystem,
-		CompareAs: PipEcosystem,
+		Name:       normalizedRequirementName(name),
+		Version:    version,
+		Start:      models.FilePosition{Line: lineNumber},
+		End:        models.FilePosition{Line: lineNumber + lineOffset},
+		Ecosystem:  PipEcosystem,
+		CompareAs:  PipEcosystem,
+		SourceFile: path,
 	}
 }
 
@@ -131,13 +136,20 @@ func parseRequirementsTxt(f DepFile, requiredAlready map[string]struct{}) ([]Pac
 	}
 
 	scanner := bufio.NewScanner(f)
+	lineNumber := 0
+	lineOffset := 0
+
 	for scanner.Scan() {
+		lineNumber += lineOffset + 1
+		lineOffset = 0
+
 		line := scanner.Text()
 
 		for isLineContinuation(line) {
 			line = strings.TrimSuffix(line, "\\")
 
 			if scanner.Scan() {
+				lineOffset++
 				line += scanner.Text()
 			}
 		}
@@ -183,7 +195,7 @@ func parseRequirementsTxt(f DepFile, requiredAlready map[string]struct{}) ([]Pac
 			continue
 		}
 
-		detail := parseLine(line)
+		detail := parseLine(f.Path(), line, lineNumber, lineOffset)
 		key := detail.Name + "@" + detail.Version
 		if _, ok := packages[key]; !ok {
 			packages[key] = detail
