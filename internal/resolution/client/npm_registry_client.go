@@ -2,6 +2,7 @@ package client
 
 import (
 	"context"
+	"crypto/x509"
 	"encoding/gob"
 	"fmt"
 	"os"
@@ -14,13 +15,18 @@ import (
 	"deps.dev/util/semver"
 	"github.com/google/osv-scanner/internal/resolution/datasource"
 	"github.com/google/osv-scanner/pkg/depsdev"
+	"google.golang.org/grpc"
+	"google.golang.org/grpc/credentials"
 )
 
 const npmRegistryCacheExt = ".resolve.npm"
 
 type NpmRegistryClient struct {
-	api      *datasource.NpmRegistryAPIClient
-	fallback *DepsDevClient // fallback client for dealing with bundleDependencies
+	api *datasource.NpmRegistryAPIClient
+
+	// Fallback client for dealing with bundleDependencies.
+	ic       pb.InsightsClient
+	fallback *resolve.APIClient
 }
 
 func NewNpmRegistryClient(workdir string) (*NpmRegistryClient, error) {
@@ -29,19 +35,26 @@ func NewNpmRegistryClient(workdir string) (*NpmRegistryClient, error) {
 		return nil, err
 	}
 
-	ddClient, err := NewDepsDevClient(depsdev.DepsdevAPI)
+	certPool, err := x509.SystemCertPool()
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("getting system cert pool: %w", err)
 	}
+	creds := credentials.NewClientTLSFromCert(certPool, "")
+	conn, err := grpc.Dial(depsdev.DepsdevAPI, grpc.WithTransportCredentials(creds))
+	if err != nil {
+		return nil, fmt.Errorf("dialling %q: %w", depsdev.DepsdevAPI, err)
+	}
+	ic := pb.NewInsightsClient(conn)
 
 	return &NpmRegistryClient{
 		api:      api,
-		fallback: ddClient,
+		ic:       ic,
+		fallback: resolve.NewAPIClient(ic),
 	}, nil
 }
 
 func (c *NpmRegistryClient) Version(ctx context.Context, vk resolve.VersionKey) (resolve.Version, error) {
-	if strings.Contains(vk.Name, ">") { // bundled dependencies, fallback to deps.dev client
+	if isNpmBundle(vk.PackageKey) { // bundled dependencies, fallback to deps.dev client
 		return c.fallback.Version(ctx, vk)
 	}
 
@@ -49,7 +62,7 @@ func (c *NpmRegistryClient) Version(ctx context.Context, vk resolve.VersionKey) 
 }
 
 func (c *NpmRegistryClient) Versions(ctx context.Context, pk resolve.PackageKey) ([]resolve.Version, error) {
-	if strings.Contains(pk.Name, ">") { // bundled dependencies, fallback to deps.dev client
+	if isNpmBundle(pk) { // bundled dependencies, fallback to deps.dev client
 		return c.fallback.Versions(ctx, pk)
 	}
 
@@ -78,7 +91,7 @@ func (c *NpmRegistryClient) Requirements(ctx context.Context, vk resolve.Version
 		return nil, fmt.Errorf("unsupported system: %v", vk.System)
 	}
 
-	if strings.Contains(vk.Name, ">") { // bundled dependencies, fallback to deps.dev client
+	if isNpmBundle(vk.PackageKey) { // bundled dependencies, fallback to deps.dev client
 		return c.fallback.Requirements(ctx, vk)
 	}
 	dependencies, err := c.api.Dependencies(ctx, vk.Name, vk.Version)
@@ -145,16 +158,16 @@ func (c *NpmRegistryClient) Requirements(ctx context.Context, vk resolve.Version
 		})
 	}
 
-	// Correctly resolving the bundled dependencies would require downloading the package
-	// call the fallback deps.dev client to get the bundled dependencies with mangled names
+	// Correctly resolving the bundled dependencies would require downloading the package.
+	// Instead, call the fallback deps.dev client to get the bundled dependencies with mangled names.
 	if len(dependencies.BundleDependencies) > 0 {
 		fallbackReqs, err := c.fallback.Requirements(ctx, vk)
 		if err != nil {
-			// TODO: make some placeholder if the package doesn't exist in the deps.dev data
+			// TODO: make some placeholder if the package doesn't exist on deps.dev
 			return nil, err
 		}
 		for _, req := range fallbackReqs {
-			if strings.Contains(req.Name, ">") {
+			if isNpmBundle(req.PackageKey) {
 				deps = append(deps, req)
 			}
 		}
@@ -166,7 +179,7 @@ func (c *NpmRegistryClient) Requirements(ctx context.Context, vk resolve.Version
 }
 
 func (c *NpmRegistryClient) MatchingVersions(ctx context.Context, vk resolve.VersionKey) ([]resolve.Version, error) {
-	if strings.Contains(vk.Name, ">") { // bundled dependencies, fallback to deps.dev client
+	if isNpmBundle(vk.PackageKey) { // bundled dependencies, fallback to deps.dev client
 		return c.fallback.MatchingVersions(ctx, vk)
 	}
 
@@ -201,6 +214,10 @@ func (c *NpmRegistryClient) MatchingVersions(ctx context.Context, vk resolve.Ver
 	return resolve.MatchRequirement(vk, resVersions), nil
 }
 
+func isNpmBundle(pk resolve.PackageKey) bool {
+	return strings.Contains(pk.Name, ">")
+}
+
 func (c *NpmRegistryClient) PreFetch(ctx context.Context, imports []resolve.RequirementVersion, manifestPath string) {
 	// It doesn't matter if loading the cache fails
 	_ = c.LoadCache(manifestPath)
@@ -216,8 +233,7 @@ func (c *NpmRegistryClient) PreFetch(ctx context.Context, imports []resolve.Requ
 		vk := vks[len(vks)-1]
 
 		// Make a request for the precomputed dependency tree
-		// TODO: avoid relying on DepsDevClient internals
-		resp, err := c.fallback.c.GetDependencies(ctx, &pb.GetDependenciesRequest{
+		resp, err := c.ic.GetDependencies(ctx, &pb.GetDependenciesRequest{
 			VersionKey: &pb.VersionKey{
 				System:  pb.System(vk.System),
 				Name:    vk.Name,
@@ -253,7 +269,6 @@ func (c *NpmRegistryClient) WriteCache(path string) error {
 	defer f.Close()
 
 	return gob.NewEncoder(f).Encode(c.api)
-	// Don't bother storing the fallback client's cache
 }
 
 func (c *NpmRegistryClient) LoadCache(path string) error {
