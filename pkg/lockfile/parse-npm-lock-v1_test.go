@@ -4,6 +4,8 @@ import (
 	"io/fs"
 	"testing"
 
+	"github.com/google/osv-scanner/pkg/models"
+
 	"github.com/google/osv-scanner/pkg/lockfile"
 )
 
@@ -21,7 +23,7 @@ func TestParseNpmLock_v1_InvalidJson(t *testing.T) {
 
 	packages, err := lockfile.ParseNpmLock("fixtures/npm/not-json.txt")
 
-	expectErrContaining(t, err, "could not extract from")
+	expectErrContaining(t, err, "could not decode json from")
 	expectPackages(t, packages, []lockfile.PackageDetails{})
 }
 
@@ -50,6 +52,8 @@ func TestParseNpmLock_v1_OnePackage(t *testing.T) {
 		{
 			Name:      "wrappy",
 			Version:   "1.0.2",
+			Start:     models.FilePosition{Line: 5},
+			End:       models.FilePosition{Line: 9},
 			Ecosystem: lockfile.NpmEcosystem,
 			CompareAs: lockfile.NpmEcosystem,
 		},
@@ -69,6 +73,8 @@ func TestParseNpmLock_v1_OnePackageDev(t *testing.T) {
 		{
 			Name:      "wrappy",
 			Version:   "1.0.2",
+			Start:     models.FilePosition{Line: 5},
+			End:       models.FilePosition{Line: 10},
 			Ecosystem: lockfile.NpmEcosystem,
 			CompareAs: lockfile.NpmEcosystem,
 			DepGroups: []string{"dev"},
@@ -89,12 +95,16 @@ func TestParseNpmLock_v1_TwoPackages(t *testing.T) {
 		{
 			Name:      "wrappy",
 			Version:   "1.0.2",
+			Start:     models.FilePosition{Line: 5},
+			End:       models.FilePosition{Line: 9},
 			Ecosystem: lockfile.NpmEcosystem,
 			CompareAs: lockfile.NpmEcosystem,
 		},
 		{
 			Name:      "supports-color",
 			Version:   "5.5.0",
+			Start:     models.FilePosition{Line: 10},
+			End:       models.FilePosition{Line: 17},
 			Ecosystem: lockfile.NpmEcosystem,
 			CompareAs: lockfile.NpmEcosystem,
 		},
@@ -114,12 +124,16 @@ func TestParseNpmLock_v1_ScopedPackages(t *testing.T) {
 		{
 			Name:      "wrappy",
 			Version:   "1.0.2",
+			Start:     models.FilePosition{Line: 13},
+			End:       models.FilePosition{Line: 17},
 			Ecosystem: lockfile.NpmEcosystem,
 			CompareAs: lockfile.NpmEcosystem,
 		},
 		{
 			Name:      "@babel/code-frame",
 			Version:   "7.0.0",
+			Start:     models.FilePosition{Line: 5},
+			End:       models.FilePosition{Line: 12},
 			Ecosystem: lockfile.NpmEcosystem,
 			CompareAs: lockfile.NpmEcosystem,
 		},
@@ -139,30 +153,40 @@ func TestParseNpmLock_v1_NestedDependencies(t *testing.T) {
 		{
 			Name:      "postcss",
 			Version:   "6.0.23",
+			Start:     models.FilePosition{Line: 5},
+			End:       models.FilePosition{Line: 14},
 			Ecosystem: lockfile.NpmEcosystem,
 			CompareAs: lockfile.NpmEcosystem,
 		},
 		{
 			Name:      "postcss",
 			Version:   "7.0.16",
+			Start:     models.FilePosition{Line: 26},
+			End:       models.FilePosition{Line: 35},
 			Ecosystem: lockfile.NpmEcosystem,
 			CompareAs: lockfile.NpmEcosystem,
 		},
 		{
 			Name:      "postcss-calc",
 			Version:   "7.0.1",
+			Start:     models.FilePosition{Line: 15},
+			End:       models.FilePosition{Line: 45},
 			Ecosystem: lockfile.NpmEcosystem,
 			CompareAs: lockfile.NpmEcosystem,
 		},
 		{
 			Name:      "supports-color",
 			Version:   "6.1.0",
+			Start:     models.FilePosition{Line: 36},
+			End:       models.FilePosition{Line: 43},
 			Ecosystem: lockfile.NpmEcosystem,
 			CompareAs: lockfile.NpmEcosystem,
 		},
 		{
 			Name:      "supports-color",
 			Version:   "5.5.0",
+			Start:     models.FilePosition{Line: 46},
+			End:       models.FilePosition{Line: 53},
 			Ecosystem: lockfile.NpmEcosystem,
 			CompareAs: lockfile.NpmEcosystem,
 		},
@@ -186,6 +210,8 @@ func TestParseNpmLock_v1_NestedDependenciesDup(t *testing.T) {
 	expectPackage(t, packages, lockfile.PackageDetails{
 		Name:      "supports-color",
 		Version:   "6.1.0",
+		Start:     models.FilePosition{Line: 21},
+		End:       models.FilePosition{Line: 28},
 		Ecosystem: lockfile.NpmEcosystem,
 		CompareAs: lockfile.NpmEcosystem,
 	})
@@ -193,6 +219,8 @@ func TestParseNpmLock_v1_NestedDependenciesDup(t *testing.T) {
 	expectPackage(t, packages, lockfile.PackageDetails{
 		Name:      "supports-color",
 		Version:   "5.5.0",
+		Start:     models.FilePosition{Line: 759},
+		End:       models.FilePosition{Line: 766},
 		Ecosystem: lockfile.NpmEcosystem,
 		CompareAs: lockfile.NpmEcosystem,
 	})
@@ -200,6 +228,8 @@ func TestParseNpmLock_v1_NestedDependenciesDup(t *testing.T) {
 	expectPackage(t, packages, lockfile.PackageDetails{
 		Name:      "supports-color",
 		Version:   "2.0.0",
+		Start:     models.FilePosition{Line: 64},
+		End:       models.FilePosition{Line: 68},
 		Ecosystem: lockfile.NpmEcosystem,
 		CompareAs: lockfile.NpmEcosystem,
 	})
@@ -218,6 +248,8 @@ func TestParseNpmLock_v1_Commits(t *testing.T) {
 		{
 			Name:      "@segment/analytics.js-integration-facebook-pixel",
 			Version:   "",
+			Start:     models.FilePosition{Line: 5},
+			End:       models.FilePosition{Line: 18},
 			Ecosystem: lockfile.NpmEcosystem,
 			CompareAs: lockfile.NpmEcosystem,
 			Commit:    "3b1bb80b302c2e552685dc8a029797ec832ea7c9",
@@ -225,6 +257,8 @@ func TestParseNpmLock_v1_Commits(t *testing.T) {
 		{
 			Name:      "ansi-styles",
 			Version:   "1.0.0",
+			Start:     models.FilePosition{Line: 19},
+			End:       models.FilePosition{Line: 23},
 			Ecosystem: lockfile.NpmEcosystem,
 			CompareAs: lockfile.NpmEcosystem,
 			Commit:    "",
@@ -232,6 +266,8 @@ func TestParseNpmLock_v1_Commits(t *testing.T) {
 		{
 			Name:      "babel-preset-php",
 			Version:   "",
+			Start:     models.FilePosition{Line: 24},
+			End:       models.FilePosition{Line: 30},
 			Ecosystem: lockfile.NpmEcosystem,
 			CompareAs: lockfile.NpmEcosystem,
 			Commit:    "c5a7ba5e0ad98b8db1cb8ce105403dd4b768cced",
@@ -239,6 +275,8 @@ func TestParseNpmLock_v1_Commits(t *testing.T) {
 		{
 			Name:      "is-number-1",
 			Version:   "",
+			Start:     models.FilePosition{Line: 31},
+			End:       models.FilePosition{Line: 37},
 			Ecosystem: lockfile.NpmEcosystem,
 			CompareAs: lockfile.NpmEcosystem,
 			Commit:    "af885e2e890b9ef0875edd2b117305119ee5bdc5",
@@ -247,6 +285,8 @@ func TestParseNpmLock_v1_Commits(t *testing.T) {
 		{
 			Name:      "is-number-1",
 			Version:   "",
+			Start:     models.FilePosition{Line: 75},
+			End:       models.FilePosition{Line: 81},
 			Ecosystem: lockfile.NpmEcosystem,
 			CompareAs: lockfile.NpmEcosystem,
 			Commit:    "be5935f8d2595bcd97b05718ef1eeae08d812e10",
@@ -255,6 +295,8 @@ func TestParseNpmLock_v1_Commits(t *testing.T) {
 		{
 			Name:      "is-number-2",
 			Version:   "",
+			Start:     models.FilePosition{Line: 38},
+			End:       models.FilePosition{Line: 41},
 			Ecosystem: lockfile.NpmEcosystem,
 			CompareAs: lockfile.NpmEcosystem,
 			Commit:    "d5ac0584ee9ae7bd9288220a39780f155b9ad4c8",
@@ -262,6 +304,8 @@ func TestParseNpmLock_v1_Commits(t *testing.T) {
 		{
 			Name:      "is-number-2",
 			Version:   "",
+			Start:     models.FilePosition{Line: 82},
+			End:       models.FilePosition{Line: 85},
 			Ecosystem: lockfile.NpmEcosystem,
 			CompareAs: lockfile.NpmEcosystem,
 			Commit:    "82dcc8e914dabd9305ab9ae580709a7825e824f5",
@@ -269,6 +313,8 @@ func TestParseNpmLock_v1_Commits(t *testing.T) {
 		{
 			Name:      "is-number-3",
 			Version:   "",
+			Start:     models.FilePosition{Line: 42},
+			End:       models.FilePosition{Line: 46},
 			Ecosystem: lockfile.NpmEcosystem,
 			CompareAs: lockfile.NpmEcosystem,
 			Commit:    "d5ac0584ee9ae7bd9288220a39780f155b9ad4c8",
@@ -277,6 +323,8 @@ func TestParseNpmLock_v1_Commits(t *testing.T) {
 		{
 			Name:      "is-number-3",
 			Version:   "",
+			Start:     models.FilePosition{Line: 86},
+			End:       models.FilePosition{Line: 90},
 			Ecosystem: lockfile.NpmEcosystem,
 			CompareAs: lockfile.NpmEcosystem,
 			Commit:    "82ae8802978da40d7f1be5ad5943c9e550ab2c89",
@@ -285,6 +333,8 @@ func TestParseNpmLock_v1_Commits(t *testing.T) {
 		{
 			Name:      "is-number-4",
 			Version:   "",
+			Start:     models.FilePosition{Line: 47},
+			End:       models.FilePosition{Line: 54},
 			Ecosystem: lockfile.NpmEcosystem,
 			CompareAs: lockfile.NpmEcosystem,
 			Commit:    "af885e2e890b9ef0875edd2b117305119ee5bdc5",
@@ -293,6 +343,8 @@ func TestParseNpmLock_v1_Commits(t *testing.T) {
 		{
 			Name:      "is-number-5",
 			Version:   "",
+			Start:     models.FilePosition{Line: 55},
+			End:       models.FilePosition{Line: 62},
 			Ecosystem: lockfile.NpmEcosystem,
 			CompareAs: lockfile.NpmEcosystem,
 			Commit:    "af885e2e890b9ef0875edd2b117305119ee5bdc5",
@@ -301,6 +353,8 @@ func TestParseNpmLock_v1_Commits(t *testing.T) {
 		{
 			Name:      "is-number-6",
 			Version:   "",
+			Start:     models.FilePosition{Line: 63},
+			End:       models.FilePosition{Line: 69},
 			Ecosystem: lockfile.NpmEcosystem,
 			CompareAs: lockfile.NpmEcosystem,
 			Commit:    "af885e2e890b9ef0875edd2b117305119ee5bdc5",
@@ -309,6 +363,8 @@ func TestParseNpmLock_v1_Commits(t *testing.T) {
 		{
 			Name:      "postcss-calc",
 			Version:   "7.0.1",
+			Start:     models.FilePosition{Line: 70},
+			End:       models.FilePosition{Line: 92},
 			Ecosystem: lockfile.NpmEcosystem,
 			CompareAs: lockfile.NpmEcosystem,
 			Commit:    "",
@@ -316,6 +372,8 @@ func TestParseNpmLock_v1_Commits(t *testing.T) {
 		{
 			Name:      "raven-js",
 			Version:   "",
+			Start:     models.FilePosition{Line: 93},
+			End:       models.FilePosition{Line: 96},
 			Ecosystem: lockfile.NpmEcosystem,
 			CompareAs: lockfile.NpmEcosystem,
 			Commit:    "c2b377e7a254264fd4a1fe328e4e3cfc9e245570",
@@ -323,6 +381,8 @@ func TestParseNpmLock_v1_Commits(t *testing.T) {
 		{
 			Name:      "slick-carousel",
 			Version:   "",
+			Start:     models.FilePosition{Line: 97},
+			End:       models.FilePosition{Line: 101},
 			Ecosystem: lockfile.NpmEcosystem,
 			CompareAs: lockfile.NpmEcosystem,
 			Commit:    "280b560161b751ba226d50c7db1e0a14a78c2de0",
@@ -344,6 +404,8 @@ func TestParseNpmLock_v1_Files(t *testing.T) {
 		{
 			Name:      "lodash",
 			Version:   "1.3.1",
+			Start:     models.FilePosition{Line: 5},
+			End:       models.FilePosition{Line: 9},
 			Ecosystem: lockfile.NpmEcosystem,
 			CompareAs: lockfile.NpmEcosystem,
 			Commit:    "",
@@ -351,6 +413,8 @@ func TestParseNpmLock_v1_Files(t *testing.T) {
 		{
 			Name:      "other_package",
 			Version:   "",
+			Start:     models.FilePosition{Line: 10},
+			End:       models.FilePosition{Line: 15},
 			Ecosystem: lockfile.NpmEcosystem,
 			CompareAs: lockfile.NpmEcosystem,
 			Commit:    "",
@@ -371,18 +435,24 @@ func TestParseNpmLock_v1_Alias(t *testing.T) {
 		{
 			Name:      "@babel/code-frame",
 			Version:   "7.0.0",
+			Start:     models.FilePosition{Line: 5},
+			End:       models.FilePosition{Line: 12},
 			Ecosystem: lockfile.NpmEcosystem,
 			CompareAs: lockfile.NpmEcosystem,
 		},
 		{
 			Name:      "string-width",
 			Version:   "4.2.0",
+			Start:     models.FilePosition{Line: 23},
+			End:       models.FilePosition{Line: 32},
 			Ecosystem: lockfile.NpmEcosystem,
 			CompareAs: lockfile.NpmEcosystem,
 		},
 		{
 			Name:      "string-width",
 			Version:   "5.1.2",
+			Start:     models.FilePosition{Line: 13},
+			End:       models.FilePosition{Line: 22},
 			Ecosystem: lockfile.NpmEcosystem,
 			CompareAs: lockfile.NpmEcosystem,
 		},
@@ -402,6 +472,8 @@ func TestParseNpmLock_v1_OptionalPackage(t *testing.T) {
 		{
 			Name:      "wrappy",
 			Version:   "1.0.2",
+			Start:     models.FilePosition{Line: 5},
+			End:       models.FilePosition{Line: 11},
 			Ecosystem: lockfile.NpmEcosystem,
 			CompareAs: lockfile.NpmEcosystem,
 			DepGroups: []string{"dev", "optional"},
@@ -409,6 +481,8 @@ func TestParseNpmLock_v1_OptionalPackage(t *testing.T) {
 		{
 			Name:      "supports-color",
 			Version:   "5.5.0",
+			Start:     models.FilePosition{Line: 12},
+			End:       models.FilePosition{Line: 20},
 			Ecosystem: lockfile.NpmEcosystem,
 			CompareAs: lockfile.NpmEcosystem,
 			DepGroups: []string{"optional"},
