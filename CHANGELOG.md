@@ -6,6 +6,9 @@
   Add subcommands! OSV-Scanner now has subcommands! The base command has been moved to `scan` (currently the only commands is `scan`).
   By default if you do not pass in a command, `scan` will be used, so CLI remains backwards compatible.
 
+  This is a building block to adding the guided remediation feature. See [issue #352](https://github.com/google/osv-scanner/issues/352)
+  for more details!
+
 - [Feature #776](https://github.com/google/osv-scanner/pull/776)
   Add pdm lockfile support.
 
