@@ -99,6 +99,9 @@ func (c *NpmRegistryClient) Requirements(ctx context.Context, vk resolve.Version
 		return nil, err
 	}
 
+	// Preallocate the dependency slice, which will hold all the dependencies of each type.
+	// The npm resolver expects bundled dependencies included twice in different forms:
+	// {foo@*|Scope="bundle"} and {mangled-name-of>0.1.2>foo@1.2.3}, hence the 2*len(bundled)
 	depCount := len(dependencies.Dependencies) + len(dependencies.DevDependencies) +
 		len(dependencies.OptionalDependencies) + len(dependencies.PeerDependencies) +
 		2*len(dependencies.BundleDependencies)
