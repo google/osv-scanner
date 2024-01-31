@@ -9,7 +9,7 @@ No package sources found, --help for usage information.
 ---
 
 [TestRun/#01 - 1]
-osv-scanner version: 1.6.0
+osv-scanner version: 1.6.2
 commit: n/a
 built at: n/a
 
@@ -102,7 +102,7 @@ Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
           "informationUri": "https://github.com/google/osv-scanner",
           "name": "osv-scanner",
           "rules": [],
-          "version": "1.6.0"
+          "version": "1.6.2"
         }
       },
       "results": []
@@ -149,7 +149,7 @@ Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
               }
             }
           ],
-          "version": "1.6.0"
+          "version": "1.6.2"
         }
       },
       "artifacts": [
@@ -456,7 +456,7 @@ Scanned <rootdir>/fixtures/locks-insecure/osv-scanner-flutter-deps.json file as 
               }
             }
           ],
-          "version": "1.6.0"
+          "version": "1.6.2"
         }
       },
       "artifacts": [
