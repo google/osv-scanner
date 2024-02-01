@@ -1,0 +1,48 @@
+{
+   "GO-2021-0053": [
+      {
+         "osv": "GO-2021-0053",
+         "fixed_version": "v1.3.2",
+         "trace": [
+            {
+               "module": "github.com/gogo/protobuf",
+               "version": "v1.3.1",
+               "package": "github.com/gogo/protobuf/plugin/unmarshal"
+            }
+         ]
+      }
+   ],
+   "GO-2023-1558": [
+      {
+         "osv": "GO-2023-1558",
+         "fixed_version": "v1.1.0",
+         "trace": [
+            {
+               "module": "github.com/ipfs/go-bitfield",
+               "version": "v1.0.0",
+               "package": "github.com/ipfs/go-bitfield",
+               "function": "NewBitfield",
+               "receiver": "",
+               "position": {
+                  "filename": "",
+                  "offset": 0,
+                  "line": 0,
+                  "column": 0
+               }
+            },
+            {
+               "module": "github.com/ossf-tests/osv-e2e",
+               "package": "github.com/ossf-tests/osv-e2e",
+               "function": "main",
+               "receiver": "",
+               "position": {
+                  "filename": "/path/to/osv-scanner/internal/govulncheckshim/fixtures/test-project/main.go",
+                  "offset": 234,
+                  "line": 13,
+                  "column": 22
+               }
+            }
+         ]
+      }
+   ]
+}

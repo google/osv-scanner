@@ -3,7 +3,7 @@ package lockfile
 import (
 	"bufio"
 	"fmt"
-	"os"
+	"path/filepath"
 	"strings"
 )
 
@@ -36,15 +36,23 @@ func parseToGradlePackageDetail(line string) (PackageDetails, error) {
 	}, nil
 }
 
-func ParseGradleLock(pathToLockfile string) ([]PackageDetails, error) {
-	file, err := os.Open(pathToLockfile)
-	if err != nil {
-		return []PackageDetails{}, fmt.Errorf("could not open %s: %w", pathToLockfile, err)
-	}
-	defer file.Close()
+type GradleLockExtractor struct{}
 
+func (e GradleLockExtractor) ShouldExtract(path string) bool {
+	base := filepath.Base(path)
+
+	for _, lockfile := range []string{"buildscript-gradle.lockfile", "gradle.lockfile"} {
+		if lockfile == base {
+			return true
+		}
+	}
+
+	return false
+}
+
+func (e GradleLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 	pkgs := make([]PackageDetails, 0)
-	scanner := bufio.NewScanner(file)
+	scanner := bufio.NewScanner(f)
 
 	for scanner.Scan() {
 		lockLine := strings.TrimSpace(scanner.Text())
@@ -54,7 +62,6 @@ func ParseGradleLock(pathToLockfile string) ([]PackageDetails, error) {
 
 		pkg, err := parseToGradlePackageDetail(lockLine)
 		if err != nil {
-			fmt.Fprintf(os.Stderr, "failed to parse lockline: %s\n", err.Error())
 			continue
 		}
 
@@ -62,8 +69,19 @@ func ParseGradleLock(pathToLockfile string) ([]PackageDetails, error) {
 	}
 
 	if err := scanner.Err(); err != nil {
-		return []PackageDetails{}, fmt.Errorf("failed to read %s: %w", pathToLockfile, err)
+		return []PackageDetails{}, fmt.Errorf("failed to read: %w", err)
 	}
 
 	return pkgs, nil
+}
+
+var _ Extractor = GradleLockExtractor{}
+
+//nolint:gochecknoinits
+func init() {
+	registerExtractor("gradle.lockfile", GradleLockExtractor{})
+}
+
+func ParseGradleLock(pathToLockfile string) ([]PackageDetails, error) {
+	return extractFromFile(pathToLockfile, GradleLockExtractor{})
 }

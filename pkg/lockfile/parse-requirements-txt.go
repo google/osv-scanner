@@ -3,7 +3,6 @@ package lockfile
 import (
 	"bufio"
 	"fmt"
-	"os"
 	"path/filepath"
 	"strings"
 
@@ -100,19 +99,31 @@ func isLineContinuation(line string) bool {
 	return re.MatchString(line)
 }
 
-func ParseRequirementsTxt(pathToLockfile string) ([]PackageDetails, error) {
-	return parseRequirementsTxt(pathToLockfile, map[string]struct{}{})
+type RequirementsTxtExtractor struct{}
+
+func (e RequirementsTxtExtractor) ShouldExtract(path string) bool {
+	return filepath.Base(path) == "requirements.txt"
 }
-func parseRequirementsTxt(pathToLockfile string, requiredAlready map[string]struct{}) ([]PackageDetails, error) {
+
+func (e RequirementsTxtExtractor) Extract(f DepFile) ([]PackageDetails, error) {
+	return parseRequirementsTxt(f, map[string]struct{}{})
+}
+
+func parseRequirementsTxt(f DepFile, requiredAlready map[string]struct{}) ([]PackageDetails, error) {
 	packages := map[string]PackageDetails{}
 
-	file, err := os.Open(pathToLockfile)
-	if err != nil {
-		return []PackageDetails{}, fmt.Errorf("could not open %s: %w", pathToLockfile, err)
-	}
-	defer file.Close()
+	group := strings.TrimSuffix(filepath.Base(f.Path()), filepath.Ext(f.Path()))
+	hasGroup := func(groups []string) bool {
+		for _, g := range groups {
+			if g == group {
+				return true
+			}
+		}
 
-	scanner := bufio.NewScanner(file)
+		return false
+	}
+
+	scanner := bufio.NewScanner(f)
 	for scanner.Scan() {
 		line := scanner.Text()
 
@@ -125,24 +136,37 @@ func parseRequirementsTxt(pathToLockfile string, requiredAlready map[string]stru
 		}
 
 		line = removeComments(line)
-
 		if ar := strings.TrimPrefix(line, "-r "); ar != line {
-			ar = filepath.Join(filepath.Dir(pathToLockfile), ar)
+			err := func() error {
+				af, err := f.Open(ar)
 
-			if _, ok := requiredAlready[ar]; ok {
-				continue
-			}
+				if err != nil {
+					return fmt.Errorf("failed to include %s: %w", line, err)
+				}
 
-			requiredAlready[ar] = struct{}{}
+				defer af.Close()
 
-			details, err := parseRequirementsTxt(ar, requiredAlready)
+				if _, ok := requiredAlready[af.Path()]; ok {
+					return nil
+				}
+
+				requiredAlready[af.Path()] = struct{}{}
+
+				details, err := parseRequirementsTxt(af, requiredAlready)
+
+				if err != nil {
+					return fmt.Errorf("failed to include %s: %w", line, err)
+				}
+
+				for _, detail := range details {
+					packages[detail.Name+"@"+detail.Version] = detail
+				}
+
+				return nil
+			}()
 
 			if err != nil {
-				return []PackageDetails{}, fmt.Errorf("failed to include %s: %w", line, err)
-			}
-
-			for _, detail := range details {
-				packages[detail.Name+"@"+detail.Version] = detail
+				return []PackageDetails{}, err
 			}
 
 			continue
@@ -153,12 +177,31 @@ func parseRequirementsTxt(pathToLockfile string, requiredAlready map[string]stru
 		}
 
 		detail := parseLine(line)
-		packages[detail.Name+"@"+detail.Version] = detail
+		key := detail.Name + "@" + detail.Version
+		if _, ok := packages[key]; !ok {
+			packages[key] = detail
+		}
+		d := packages[key]
+		if !hasGroup(d.DepGroups) {
+			d.DepGroups = append(d.DepGroups, group)
+			packages[key] = d
+		}
 	}
 
 	if err := scanner.Err(); err != nil {
-		return []PackageDetails{}, fmt.Errorf("error while scanning %s: %w", pathToLockfile, err)
+		return []PackageDetails{}, fmt.Errorf("error while scanning %s: %w", f.Path(), err)
 	}
 
 	return pkgDetailsMapToSlice(packages), nil
+}
+
+var _ Extractor = RequirementsTxtExtractor{}
+
+//nolint:gochecknoinits
+func init() {
+	registerExtractor("requirements.txt", RequirementsTxtExtractor{})
+}
+
+func ParseRequirementsTxt(pathToLockfile string) ([]PackageDetails, error) {
+	return extractFromFile(pathToLockfile, RequirementsTxtExtractor{})
 }

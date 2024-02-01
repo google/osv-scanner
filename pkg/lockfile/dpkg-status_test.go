@@ -1,6 +1,7 @@
 package lockfile_test
 
 import (
+	"io/fs"
 	"testing"
 
 	"github.com/google/osv-scanner/pkg/lockfile"
@@ -11,7 +12,7 @@ func TestParseDpkgStatus_FileDoesNotExist(t *testing.T) {
 
 	packages, err := lockfile.ParseDpkgStatus("fixtures/dpkg/does-not-exist")
 
-	expectErrContaining(t, err, "could not open")
+	expectErrIs(t, err, fs.ErrNotExist)
 	expectPackages(t, packages, []lockfile.PackageDetails{})
 }
 

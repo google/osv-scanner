@@ -1,10 +1,14 @@
 package lockfile_test
 
 import (
+	"errors"
 	"fmt"
-	"github.com/google/osv-scanner/pkg/lockfile"
+	"reflect"
 	"strings"
 	"testing"
+
+	"github.com/google/osv-scanner/internal/output"
+	"github.com/google/osv-scanner/pkg/lockfile"
 )
 
 func expectErrContaining(t *testing.T, err error, str string) {
@@ -19,6 +23,18 @@ func expectErrContaining(t *testing.T, err error, str string) {
 	}
 }
 
+func expectErrIs(t *testing.T, err error, expected error) {
+	t.Helper()
+
+	if err == nil {
+		t.Errorf("Expected to get error, but did not")
+	}
+
+	if !errors.Is(err, expected) {
+		t.Errorf("Expected to get \"%v\" error but got \"%v\" instead", expected, err)
+	}
+}
+
 func packageToString(pkg lockfile.PackageDetails) string {
 	commit := pkg.Commit
 
@@ -29,9 +45,11 @@ func packageToString(pkg lockfile.PackageDetails) string {
 	return fmt.Sprintf("%s@%s (%s, %s)", pkg.Name, pkg.Version, pkg.Ecosystem, commit)
 }
 
-func hasPackage(packages []lockfile.PackageDetails, pkg lockfile.PackageDetails) bool {
+func hasPackage(t *testing.T, packages []lockfile.PackageDetails, pkg lockfile.PackageDetails) bool {
+	t.Helper()
+
 	for _, details := range packages {
-		if details == pkg {
+		if reflect.DeepEqual(details, pkg) {
 			return true
 		}
 	}
@@ -42,7 +60,7 @@ func hasPackage(packages []lockfile.PackageDetails, pkg lockfile.PackageDetails)
 func expectPackage(t *testing.T, packages []lockfile.PackageDetails, pkg lockfile.PackageDetails) {
 	t.Helper()
 
-	if !hasPackage(packages, pkg) {
+	if !hasPackage(t, packages, pkg) {
 		t.Errorf(
 			"Expected packages to include %s@%s (%s, %s), but it did not",
 			pkg.Name,
@@ -53,11 +71,12 @@ func expectPackage(t *testing.T, packages []lockfile.PackageDetails, pkg lockfil
 	}
 }
 
-func findMissingPackages(actualPackages []lockfile.PackageDetails, expectedPackages []lockfile.PackageDetails) []lockfile.PackageDetails {
+func findMissingPackages(t *testing.T, actualPackages []lockfile.PackageDetails, expectedPackages []lockfile.PackageDetails) []lockfile.PackageDetails {
+	t.Helper()
 	var missingPackages []lockfile.PackageDetails
 
 	for _, pkg := range actualPackages {
-		if !hasPackage(expectedPackages, pkg) {
+		if !hasPackage(t, expectedPackages, pkg) {
 			missingPackages = append(missingPackages, pkg)
 		}
 	}
@@ -69,11 +88,16 @@ func expectPackages(t *testing.T, actualPackages []lockfile.PackageDetails, expe
 	t.Helper()
 
 	if len(expectedPackages) != len(actualPackages) {
-		t.Errorf("Expected to get %d packages, but got %d", len(expectedPackages), len(actualPackages))
+		t.Errorf(
+			"Expected to get %d %s, but got %d",
+			len(expectedPackages),
+			output.Form(len(expectedPackages), "package", "packages"),
+			len(actualPackages),
+		)
 	}
 
-	missingActualPackages := findMissingPackages(actualPackages, expectedPackages)
-	missingExpectedPackages := findMissingPackages(expectedPackages, actualPackages)
+	missingActualPackages := findMissingPackages(t, actualPackages, expectedPackages)
+	missingExpectedPackages := findMissingPackages(t, expectedPackages, actualPackages)
 
 	if len(missingActualPackages) != 0 {
 		for _, unexpectedPackage := range missingActualPackages {

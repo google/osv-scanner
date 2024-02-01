@@ -2,10 +2,12 @@ package semantic_test
 
 import (
 	"bufio"
-	"github.com/google/osv-scanner/internal/semantic"
 	"os"
 	"strings"
 	"testing"
+
+	"github.com/google/osv-scanner/internal/semantic"
+	"github.com/google/osv-scanner/pkg/models"
 )
 
 func expectedResult(t *testing.T, comparator string) int {
@@ -42,7 +44,7 @@ func compareWord(t *testing.T, result int) string {
 	}
 }
 
-func runAgainstEcosystemFixture(t *testing.T, ecosystem semantic.Ecosystem, filename string) {
+func runAgainstEcosystemFixture(t *testing.T, ecosystem models.Ecosystem, filename string) {
 	t.Helper()
 
 	file, err := os.Open("fixtures/" + filename)
@@ -89,7 +91,7 @@ func runAgainstEcosystemFixture(t *testing.T, ecosystem semantic.Ecosystem, file
 	}
 }
 
-func parseAsVersion(t *testing.T, str string, ecosystem semantic.Ecosystem) semantic.Version {
+func parseAsVersion(t *testing.T, str string, ecosystem models.Ecosystem) semantic.Version {
 	t.Helper()
 
 	v, err := semantic.Parse(str, ecosystem)
@@ -103,7 +105,7 @@ func parseAsVersion(t *testing.T, str string, ecosystem semantic.Ecosystem) sema
 
 func expectCompareResult(
 	t *testing.T,
-	ecosystem semantic.Ecosystem,
+	ecosystem models.Ecosystem,
 	a string,
 	b string,
 	expectedResult int,
@@ -129,7 +131,7 @@ func expectCompareResult(
 
 func expectEcosystemCompareResult(
 	t *testing.T,
-	ecosystem semantic.Ecosystem,
+	ecosystem models.Ecosystem,
 	a string,
 	c string,
 	b string,
@@ -216,13 +218,21 @@ func TestVersion_Compare_Ecosystems(t *testing.T) {
 			name: "Debian",
 			file: "debian-versions-generated.txt",
 		},
+		{
+			name: "CRAN",
+			file: "cran-versions.txt",
+		},
+		{
+			name: "CRAN",
+			file: "cran-versions-generated.txt",
+		},
 	}
 	for _, tt := range tests {
 		tt := tt
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
 
-			runAgainstEcosystemFixture(t, semantic.Ecosystem(tt.name), tt.file)
+			runAgainstEcosystemFixture(t, models.Ecosystem(tt.name), tt.file)
 		})
 	}
 }

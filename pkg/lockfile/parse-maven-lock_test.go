@@ -1,16 +1,70 @@
 package lockfile_test
 
 import (
-	"github.com/google/osv-scanner/pkg/lockfile"
+	"io/fs"
 	"testing"
+
+	"github.com/google/osv-scanner/pkg/lockfile"
 )
+
+func TestMavenLockExtractor_ShouldExtract(t *testing.T) {
+	t.Parallel()
+
+	tests := []struct {
+		name string
+		path string
+		want bool
+	}{
+		{
+			name: "",
+			path: "",
+			want: false,
+		},
+		{
+			name: "",
+			path: "pom.xml",
+			want: true,
+		},
+		{
+			name: "",
+			path: "path/to/my/pom.xml",
+			want: true,
+		},
+		{
+			name: "",
+			path: "path/to/my/pom.xml/file",
+			want: false,
+		},
+		{
+			name: "",
+			path: "path/to/my/pom.xml.file",
+			want: false,
+		},
+		{
+			name: "",
+			path: "path.to.my.pom.xml",
+			want: false,
+		},
+	}
+	for _, tt := range tests {
+		tt := tt
+		t.Run(tt.name, func(t *testing.T) {
+			t.Parallel()
+			e := lockfile.MavenLockExtractor{}
+			got := e.ShouldExtract(tt.path)
+			if got != tt.want {
+				t.Errorf("Extract() got = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
 
 func TestParseMavenLock_FileDoesNotExist(t *testing.T) {
 	t.Parallel()
 
 	packages, err := lockfile.ParseMavenLock("fixtures/maven/does-not-exist")
 
-	expectErrContaining(t, err, "could not read")
+	expectErrIs(t, err, fs.ErrNotExist)
 	expectPackages(t, packages, []lockfile.PackageDetails{})
 }
 
@@ -19,7 +73,7 @@ func TestParseMavenLock_Invalid(t *testing.T) {
 
 	packages, err := lockfile.ParseMavenLock("fixtures/maven/not-pom.txt")
 
-	expectErrContaining(t, err, "could not parse")
+	expectErrContaining(t, err, "could not extract from")
 	expectPackages(t, packages, []lockfile.PackageDetails{})
 }
 
@@ -235,4 +289,24 @@ func TestMavenLockDependency_ResolveVersion(t *testing.T) {
 			}
 		})
 	}
+}
+
+func TestParseMavenLock_WithScope(t *testing.T) {
+	t.Parallel()
+
+	packages, err := lockfile.ParseMavenLock("fixtures/maven/with-scope.xml")
+
+	if err != nil {
+		t.Errorf("Got unexpected error: %v", err)
+	}
+
+	expectPackages(t, packages, []lockfile.PackageDetails{
+		{
+			Name:      "junit:junit",
+			Version:   "4.12",
+			Ecosystem: lockfile.MavenEcosystem,
+			CompareAs: lockfile.MavenEcosystem,
+			DepGroups: []string{"test"},
+		},
+	})
 }

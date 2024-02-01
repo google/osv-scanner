@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"net/url"
 	"os"
+	"path/filepath"
 	"strings"
 
 	"github.com/google/osv-scanner/internal/cachedregexp"
@@ -47,6 +48,7 @@ func groupYarnPackageLines(scanner *bufio.Scanner) [][]string {
 
 func extractYarnPackageName(str string) string {
 	str = strings.TrimPrefix(str, "\"")
+	str, _, _ = strings.Cut(str, ",")
 
 	isScoped := strings.HasPrefix(str, "@")
 
@@ -54,7 +56,11 @@ func extractYarnPackageName(str string) string {
 		str = strings.TrimPrefix(str, "@")
 	}
 
-	name := strings.SplitN(str, "@", 2)[0]
+	name, right, _ := strings.Cut(str, "@")
+
+	if strings.HasPrefix(right, "npm:") && strings.Contains(right, "@") {
+		return extractYarnPackageName(strings.TrimPrefix(right, "npm:"))
+	}
 
 	if isScoped {
 		name = "@" + name
@@ -64,7 +70,7 @@ func extractYarnPackageName(str string) string {
 }
 
 func determineYarnPackageVersion(group []string) string {
-	re := cachedregexp.MustCompile(`^ {2}"?version"?:? "?([\w-.]+)"?$`)
+	re := cachedregexp.MustCompile(`^ {2}"?version"?:? "?([\w-.+]+)"?$`)
 
 	for _, s := range group {
 		matched := re.FindStringSubmatch(s)
@@ -171,19 +177,19 @@ func parseYarnPackageGroup(group []string) PackageDetails {
 	}
 }
 
-func ParseYarnLock(pathToLockfile string) ([]PackageDetails, error) {
-	file, err := os.Open(pathToLockfile)
-	if err != nil {
-		return []PackageDetails{}, fmt.Errorf("could not open %s: %w", pathToLockfile, err)
-	}
-	defer file.Close()
+type YarnLockExtractor struct{}
 
-	scanner := bufio.NewScanner(file)
+func (e YarnLockExtractor) ShouldExtract(path string) bool {
+	return filepath.Base(path) == "yarn.lock"
+}
+
+func (e YarnLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
+	scanner := bufio.NewScanner(f)
 
 	packageGroups := groupYarnPackageLines(scanner)
 
 	if err := scanner.Err(); err != nil {
-		return []PackageDetails{}, fmt.Errorf("error while scanning %s: %w", pathToLockfile, err)
+		return []PackageDetails{}, fmt.Errorf("error while scanning %s: %w", f.Path(), err)
 	}
 
 	packages := make([]PackageDetails, 0, len(packageGroups))
@@ -197,4 +203,15 @@ func ParseYarnLock(pathToLockfile string) ([]PackageDetails, error) {
 	}
 
 	return packages, nil
+}
+
+var _ Extractor = YarnLockExtractor{}
+
+//nolint:gochecknoinits
+func init() {
+	registerExtractor("yarn.lock", YarnLockExtractor{})
+}
+
+func ParseYarnLock(pathToLockfile string) ([]PackageDetails, error) {
+	return extractFromFile(pathToLockfile, YarnLockExtractor{})
 }

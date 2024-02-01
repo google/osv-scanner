@@ -1,17 +1,70 @@
 package lockfile_test
 
 import (
+	"io/fs"
 	"testing"
 
 	"github.com/google/osv-scanner/pkg/lockfile"
 )
+
+func TestGoLockExtractor_ShouldExtract(t *testing.T) {
+	t.Parallel()
+
+	tests := []struct {
+		name string
+		path string
+		want bool
+	}{
+		{
+			name: "",
+			path: "",
+			want: false,
+		},
+		{
+			name: "",
+			path: "go.mod",
+			want: true,
+		},
+		{
+			name: "",
+			path: "path/to/my/go.mod",
+			want: true,
+		},
+		{
+			name: "",
+			path: "path/to/my/go.mod/file",
+			want: false,
+		},
+		{
+			name: "",
+			path: "path/to/my/go.mod.file",
+			want: false,
+		},
+		{
+			name: "",
+			path: "path.to.my.go.mod",
+			want: false,
+		},
+	}
+	for _, tt := range tests {
+		tt := tt
+		t.Run(tt.name, func(t *testing.T) {
+			t.Parallel()
+			e := lockfile.GoLockExtractor{}
+			got := e.ShouldExtract(tt.path)
+			if got != tt.want {
+				t.Errorf("Extract() got = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
 
 func TestParseGoLock_FileDoesNotExist(t *testing.T) {
 	t.Parallel()
 
 	packages, err := lockfile.ParseGoLock("fixtures/go/does-not-exist")
 
-	expectErrContaining(t, err, "could not read")
+	expectErrIs(t, err, fs.ErrNotExist)
 	expectPackages(t, packages, []lockfile.PackageDetails{})
 }
 
@@ -20,7 +73,7 @@ func TestParseGoLock_Invalid(t *testing.T) {
 
 	packages, err := lockfile.ParseGoLock("fixtures/go/not-go-mod.txt")
 
-	expectErrContaining(t, err, "could not parse")
+	expectErrContaining(t, err, "could not extract from")
 	expectPackages(t, packages, []lockfile.PackageDetails{})
 }
 
@@ -77,6 +130,12 @@ func TestParseGoLock_TwoPackages(t *testing.T) {
 			Ecosystem: lockfile.GoEcosystem,
 			CompareAs: lockfile.GoEcosystem,
 		},
+		{
+			Name:      "stdlib",
+			Version:   "1.17",
+			Ecosystem: lockfile.GoEcosystem,
+			CompareAs: lockfile.GoEcosystem,
+		},
 	})
 }
 
@@ -117,6 +176,12 @@ func TestParseGoLock_IndirectPackages(t *testing.T) {
 		{
 			Name:      "golang.org/x/sys",
 			Version:   "0.0.0-20210630005230-0f9fa26af87c",
+			Ecosystem: lockfile.GoEcosystem,
+			CompareAs: lockfile.GoEcosystem,
+		},
+		{
+			Name:      "stdlib",
+			Version:   "1.17",
 			Ecosystem: lockfile.GoEcosystem,
 			CompareAs: lockfile.GoEcosystem,
 		},

@@ -1,16 +1,70 @@
 package lockfile_test
 
 import (
-	"github.com/google/osv-scanner/pkg/lockfile"
+	"io/fs"
 	"testing"
+
+	"github.com/google/osv-scanner/pkg/lockfile"
 )
+
+func TestPnpmLockExtractor_ShouldExtract(t *testing.T) {
+	t.Parallel()
+
+	tests := []struct {
+		name string
+		path string
+		want bool
+	}{
+		{
+			name: "",
+			path: "",
+			want: false,
+		},
+		{
+			name: "",
+			path: "pnpm-lock.yaml",
+			want: true,
+		},
+		{
+			name: "",
+			path: "path/to/my/pnpm-lock.yaml",
+			want: true,
+		},
+		{
+			name: "",
+			path: "path/to/my/pnpm-lock.yaml/file",
+			want: false,
+		},
+		{
+			name: "",
+			path: "path/to/my/pnpm-lock.yaml.file",
+			want: false,
+		},
+		{
+			name: "",
+			path: "path.to.my.pnpm-lock.yaml",
+			want: false,
+		},
+	}
+	for _, tt := range tests {
+		tt := tt
+		t.Run(tt.name, func(t *testing.T) {
+			t.Parallel()
+			e := lockfile.PnpmLockExtractor{}
+			got := e.ShouldExtract(tt.path)
+			if got != tt.want {
+				t.Errorf("Extract() got = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
 
 func TestParsePnpmLock_FileDoesNotExist(t *testing.T) {
 	t.Parallel()
 
 	packages, err := lockfile.ParsePnpmLock("fixtures/pnpm/does-not-exist")
 
-	expectErrContaining(t, err, "could not read")
+	expectErrIs(t, err, fs.ErrNotExist)
 	expectPackages(t, packages, []lockfile.PackageDetails{})
 }
 
@@ -19,7 +73,7 @@ func TestParsePnpmLock_InvalidYaml(t *testing.T) {
 
 	packages, err := lockfile.ParsePnpmLock("fixtures/pnpm/not-yaml.txt")
 
-	expectErrContaining(t, err, "could not parse")
+	expectErrContaining(t, err, "could not extract from")
 	expectPackages(t, packages, []lockfile.PackageDetails{})
 }
 
@@ -378,6 +432,7 @@ func TestParsePnpmLock_Tarball(t *testing.T) {
 			Ecosystem: lockfile.PnpmEcosystem,
 			CompareAs: lockfile.PnpmEcosystem,
 			Commit:    "",
+			DepGroups: []string{"dev"},
 		},
 	})
 }

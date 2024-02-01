@@ -1,10 +1,10 @@
 package grouper
 
 import (
+	"slices"
 	"sort"
 
 	"golang.org/x/exp/maps"
-	"golang.org/x/exp/slices"
 
 	"github.com/google/osv-scanner/pkg/models"
 )
@@ -51,8 +51,10 @@ func Group(vulns []IDAliases) []models.GroupInfo {
 
 	// Extract groups into the final result structure.
 	extractedGroups := map[int][]string{}
+	extractedAliases := map[int][]string{}
 	for i, gid := range groups {
 		extractedGroups[gid] = append(extractedGroups[gid], vulns[i].ID)
+		extractedAliases[gid] = append(extractedAliases[gid], vulns[i].Aliases...)
 	}
 
 	// Sort by group ID to maintain stable order for tests.
@@ -61,7 +63,17 @@ func Group(vulns []IDAliases) []models.GroupInfo {
 
 	result := make([]models.GroupInfo, 0, len(sortedKeys))
 	for _, key := range sortedKeys {
-		result = append(result, models.GroupInfo{IDs: extractedGroups[key]})
+		// Sort the strings so they are always in the same order
+		sort.Strings(extractedGroups[key])
+
+		// Add IDs to aliases
+		extractedAliases[key] = append(extractedAliases[key], extractedGroups[key]...)
+
+		// Dedup entries
+		sort.Strings(extractedAliases[key])
+		extractedAliases[key] = slices.Compact(extractedAliases[key])
+
+		result = append(result, models.GroupInfo{IDs: extractedGroups[key], Aliases: extractedAliases[key]})
 	}
 
 	return result

@@ -1,16 +1,70 @@
 package lockfile_test
 
 import (
-	"github.com/google/osv-scanner/pkg/lockfile"
+	"io/fs"
 	"testing"
+
+	"github.com/google/osv-scanner/pkg/lockfile"
 )
+
+func TestPubspecLockExtractor_ShouldExtract(t *testing.T) {
+	t.Parallel()
+
+	tests := []struct {
+		name string
+		path string
+		want bool
+	}{
+		{
+			name: "",
+			path: "",
+			want: false,
+		},
+		{
+			name: "",
+			path: "pubspec.lock",
+			want: true,
+		},
+		{
+			name: "",
+			path: "path/to/my/pubspec.lock",
+			want: true,
+		},
+		{
+			name: "",
+			path: "path/to/my/pubspec.lock/file",
+			want: false,
+		},
+		{
+			name: "",
+			path: "path/to/my/pubspec.lock.file",
+			want: false,
+		},
+		{
+			name: "",
+			path: "path.to.my.pubspec.lock",
+			want: false,
+		},
+	}
+	for _, tt := range tests {
+		tt := tt
+		t.Run(tt.name, func(t *testing.T) {
+			t.Parallel()
+			e := lockfile.PubspecLockExtractor{}
+			got := e.ShouldExtract(tt.path)
+			if got != tt.want {
+				t.Errorf("Extract() got = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
 
 func TestParsePubspecLock_FileDoesNotExist(t *testing.T) {
 	t.Parallel()
 
 	packages, err := lockfile.ParsePubspecLock("fixtures/pub/does-not-exist")
 
-	expectErrContaining(t, err, "could not read")
+	expectErrIs(t, err, fs.ErrNotExist)
 	expectPackages(t, packages, []lockfile.PackageDetails{})
 }
 
@@ -19,7 +73,7 @@ func TestParsePubspecLock_InvalidYaml(t *testing.T) {
 
 	packages, err := lockfile.ParsePubspecLock("fixtures/pub/not-yaml.txt")
 
-	expectErrContaining(t, err, "could not parse")
+	expectErrContaining(t, err, "could not extract from")
 	expectPackages(t, packages, []lockfile.PackageDetails{})
 }
 
@@ -79,6 +133,7 @@ func TestParsePubspecLock_OnePackageDev(t *testing.T) {
 			Name:      "build_runner",
 			Version:   "2.2.1",
 			Ecosystem: lockfile.PubEcosystem,
+			DepGroups: []string{"dev"},
 		},
 	})
 }
@@ -125,6 +180,7 @@ func TestParsePubspecLock_MixedPackages(t *testing.T) {
 			Name:      "build_runner",
 			Version:   "2.2.1",
 			Ecosystem: lockfile.PubEcosystem,
+			DepGroups: []string{"dev"},
 		},
 		{
 			Name:      "shelf",

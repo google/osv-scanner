@@ -1,6 +1,7 @@
 package lockfile_test
 
 import (
+	"io/fs"
 	"testing"
 
 	"github.com/google/osv-scanner/pkg/lockfile"
@@ -11,7 +12,7 @@ func TestParseConanLock_v1_revisions_FileDoesNotExist(t *testing.T) {
 
 	packages, err := lockfile.ParseConanLock("fixtures/conan/does-not-exist")
 
-	expectErrContaining(t, err, "could not read")
+	expectErrIs(t, err, fs.ErrNotExist)
 	expectPackages(t, packages, []lockfile.PackageDetails{})
 }
 
@@ -20,7 +21,7 @@ func TestParseConanLock_v1_revisions_InvalidJson(t *testing.T) {
 
 	packages, err := lockfile.ParseConanLock("fixtures/conan/not-json.txt")
 
-	expectErrContaining(t, err, "could not parse")
+	expectErrContaining(t, err, "could not extract from")
 	expectPackages(t, packages, []lockfile.PackageDetails{})
 }
 

@@ -1,8 +1,10 @@
 package lockfile_test
 
 import (
-	"github.com/google/osv-scanner/pkg/lockfile"
+	"io/fs"
 	"testing"
+
+	"github.com/google/osv-scanner/pkg/lockfile"
 )
 
 func TestParseNuGetLock_v1_FileDoesNotExist(t *testing.T) {
@@ -10,7 +12,7 @@ func TestParseNuGetLock_v1_FileDoesNotExist(t *testing.T) {
 
 	packages, err := lockfile.ParseNuGetLock("fixtures/nuget/does-not-exist")
 
-	expectErrContaining(t, err, "could not read")
+	expectErrIs(t, err, fs.ErrNotExist)
 	expectPackages(t, packages, []lockfile.PackageDetails{})
 }
 
@@ -19,7 +21,7 @@ func TestParseNuGetLock_v1_InvalidJson(t *testing.T) {
 
 	packages, err := lockfile.ParseNuGetLock("fixtures/nuget/not-json.txt")
 
-	expectErrContaining(t, err, "could not parse")
+	expectErrContaining(t, err, "could not extract from")
 	expectPackages(t, packages, []lockfile.PackageDetails{})
 }
 

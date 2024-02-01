@@ -1,22 +1,30 @@
 package reporter
 
-import "github.com/google/osv-scanner/pkg/models"
+import (
+	"github.com/google/osv-scanner/pkg/models"
+)
 
 type VoidReporter struct {
-	hasPrintedError bool
+	hasErrored bool
 }
 
-func (r *VoidReporter) HasPrintedError() bool {
-	return r.hasPrintedError
+func (r *VoidReporter) Errorf(msg string, a ...any) {
+	r.hasErrored = true
 }
 
-func (r *VoidReporter) PrintText(msg string) {
+func (r *VoidReporter) HasErrored() bool {
+	return r.hasErrored
+}
+
+func (r *VoidReporter) Warnf(msg string, a ...any) {
+}
+
+func (r *VoidReporter) Infof(msg string, a ...any) {
+}
+
+func (r *VoidReporter) Verbosef(msg string, a ...any) {
 }
 
 func (r *VoidReporter) PrintResult(vulnResult *models.VulnerabilityResults) error {
 	return nil
-}
-
-func (r *VoidReporter) PrintError(msg string) {
-	r.hasPrintedError = true
 }

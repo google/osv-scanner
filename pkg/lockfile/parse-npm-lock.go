@@ -3,20 +3,30 @@ package lockfile
 import (
 	"encoding/json"
 	"fmt"
-	"os"
 	"path"
+	"path/filepath"
 	"strings"
 )
 
 type NpmLockDependency struct {
+	// For an aliased package, Version is like "npm:[name]@[version]"
 	Version      string                       `json:"version"`
 	Dependencies map[string]NpmLockDependency `json:"dependencies,omitempty"`
+
+	Dev      bool `json:"dev,omitempty"`
+	Optional bool `json:"optional,omitempty"`
 }
 
 type NpmLockPackage struct {
+	// For an aliased package, Name is the real package name
+	Name         string            `json:"name"`
 	Version      string            `json:"version"`
 	Resolved     string            `json:"resolved"`
 	Dependencies map[string]string `json:"dependencies"`
+
+	Dev         bool `json:"dev,omitempty"`
+	DevOptional bool `json:"devOptional,omitempty"`
+	Optional    bool `json:"optional,omitempty"`
 }
 
 type NpmLockfile struct {
@@ -53,6 +63,20 @@ func mergePkgDetailsMap(m1 map[string]PackageDetails, m2 map[string]PackageDetai
 	return details
 }
 
+func (dep NpmLockDependency) depGroups() []string {
+	if dep.Dev && dep.Optional {
+		return []string{"dev", "optional"}
+	}
+	if dep.Dev {
+		return []string{"dev"}
+	}
+	if dep.Optional {
+		return []string{"optional"}
+	}
+
+	return nil
+}
+
 func parseNpmLockDependencies(dependencies map[string]NpmLockDependency) map[string]PackageDetails {
 	details := map[string]PackageDetails{}
 
@@ -64,6 +88,13 @@ func parseNpmLockDependencies(dependencies map[string]NpmLockDependency) map[str
 		version := detail.Version
 		finalVersion := version
 		commit := ""
+
+		// If the package is aliased, get the name and version
+		if strings.HasPrefix(detail.Version, "npm:") {
+			i := strings.LastIndex(detail.Version, "@")
+			name = detail.Version[4:i]
+			finalVersion = detail.Version[i+1:]
+		}
 
 		// we can't resolve a version from a "file:" dependency
 		if strings.HasPrefix(detail.Version, "file:") {
@@ -87,6 +118,7 @@ func parseNpmLockDependencies(dependencies map[string]NpmLockDependency) map[str
 			Ecosystem: NpmEcosystem,
 			CompareAs: NpmEcosystem,
 			Commit:    commit,
+			DepGroups: detail.depGroups(),
 		}
 	}
 
@@ -104,6 +136,20 @@ func extractNpmPackageName(name string) string {
 	return pkgName
 }
 
+func (pkg NpmLockPackage) depGroups() []string {
+	if pkg.Dev {
+		return []string{"dev"}
+	}
+	if pkg.Optional {
+		return []string{"optional"}
+	}
+	if pkg.DevOptional {
+		return []string{"dev", "optional"}
+	}
+
+	return nil
+}
+
 func parseNpmLockPackages(packages map[string]NpmLockPackage) map[string]PackageDetails {
 	details := map[string]PackageDetails{}
 
@@ -111,7 +157,12 @@ func parseNpmLockPackages(packages map[string]NpmLockPackage) map[string]Package
 		if namePath == "" {
 			continue
 		}
-		finalName := extractNpmPackageName(namePath)
+
+		finalName := detail.Name
+		if finalName == "" {
+			finalName = extractNpmPackageName(namePath)
+		}
+
 		finalVersion := detail.Version
 
 		commit := tryExtractCommit(detail.Resolved)
@@ -128,6 +179,7 @@ func parseNpmLockPackages(packages map[string]NpmLockPackage) map[string]Package
 			Ecosystem: NpmEcosystem,
 			CompareAs: NpmEcosystem,
 			Commit:    commit,
+			DepGroups: detail.depGroups(),
 		}
 	}
 
@@ -142,20 +194,31 @@ func parseNpmLock(lockfile NpmLockfile) map[string]PackageDetails {
 	return parseNpmLockDependencies(lockfile.Dependencies)
 }
 
-func ParseNpmLock(pathToLockfile string) ([]PackageDetails, error) {
+type NpmLockExtractor struct{}
+
+func (e NpmLockExtractor) ShouldExtract(path string) bool {
+	return filepath.Base(path) == "package-lock.json"
+}
+
+func (e NpmLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 	var parsedLockfile *NpmLockfile
 
-	lockfileContents, err := os.ReadFile(pathToLockfile)
+	err := json.NewDecoder(f).Decode(&parsedLockfile)
 
 	if err != nil {
-		return []PackageDetails{}, fmt.Errorf("could not read %s: %w", pathToLockfile, err)
-	}
-
-	err = json.Unmarshal(lockfileContents, &parsedLockfile)
-
-	if err != nil {
-		return []PackageDetails{}, fmt.Errorf("could not parse %s: %w", pathToLockfile, err)
+		return []PackageDetails{}, fmt.Errorf("could not extract from %s: %w", f.Path(), err)
 	}
 
 	return pkgDetailsMapToSlice(parseNpmLock(*parsedLockfile)), nil
+}
+
+var _ Extractor = NpmLockExtractor{}
+
+//nolint:gochecknoinits
+func init() {
+	registerExtractor("package-lock.json", NpmLockExtractor{})
+}
+
+func ParseNpmLock(pathToLockfile string) ([]PackageDetails, error) {
+	return extractFromFile(pathToLockfile, NpmLockExtractor{})
 }

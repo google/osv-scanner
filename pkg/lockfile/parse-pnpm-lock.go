@@ -1,8 +1,10 @@
 package lockfile
 
 import (
+	"errors"
 	"fmt"
-	"os"
+	"io"
+	"path/filepath"
 	"strconv"
 	"strings"
 
@@ -21,6 +23,7 @@ type PnpmLockPackage struct {
 	Resolution PnpmLockPackageResolution `yaml:"resolution"`
 	Name       string                    `yaml:"name"`
 	Version    string                    `yaml:"version"`
+	Dev        bool                      `yaml:"dev"`
 }
 
 type PnpmLockfile struct {
@@ -150,31 +153,37 @@ func parsePnpmLock(lockfile PnpmLockfile) []PackageDetails {
 			}
 		}
 
+		var depGroups []string
+		if pkg.Dev {
+			depGroups = append(depGroups, "dev")
+		}
+
 		packages = append(packages, PackageDetails{
 			Name:      name,
 			Version:   version,
 			Ecosystem: PnpmEcosystem,
 			CompareAs: PnpmEcosystem,
 			Commit:    commit,
+			DepGroups: depGroups,
 		})
 	}
 
 	return packages
 }
 
-func ParsePnpmLock(pathToLockfile string) ([]PackageDetails, error) {
+type PnpmLockExtractor struct{}
+
+func (e PnpmLockExtractor) ShouldExtract(path string) bool {
+	return filepath.Base(path) == "pnpm-lock.yaml"
+}
+
+func (e PnpmLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 	var parsedLockfile *PnpmLockfile
 
-	lockfileContents, err := os.ReadFile(pathToLockfile)
+	err := yaml.NewDecoder(f).Decode(&parsedLockfile)
 
-	if err != nil {
-		return []PackageDetails{}, fmt.Errorf("could not read %s: %w", pathToLockfile, err)
-	}
-
-	err = yaml.Unmarshal(lockfileContents, &parsedLockfile)
-
-	if err != nil {
-		return []PackageDetails{}, fmt.Errorf("could not parse %s: %w", pathToLockfile, err)
+	if err != nil && !errors.Is(err, io.EOF) {
+		return []PackageDetails{}, fmt.Errorf("could not extract from %s: %w", f.Path(), err)
 	}
 
 	// this will happen if the file is empty
@@ -183,4 +192,15 @@ func ParsePnpmLock(pathToLockfile string) ([]PackageDetails, error) {
 	}
 
 	return parsePnpmLock(*parsedLockfile), nil
+}
+
+var _ Extractor = PnpmLockExtractor{}
+
+//nolint:gochecknoinits
+func init() {
+	registerExtractor("pnpm-lock.yaml", PnpmLockExtractor{})
+}
+
+func ParsePnpmLock(pathToLockfile string) ([]PackageDetails, error) {
+	return extractFromFile(pathToLockfile, PnpmLockExtractor{})
 }

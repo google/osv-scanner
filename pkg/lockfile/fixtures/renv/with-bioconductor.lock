@@ -1,0 +1,29 @@
+{
+  "R": {
+    "Version": "4.1.0",
+    "Repositories": [
+      {
+        "Name": "CRAN",
+        "URL": "https://cran.rstudio.com"
+      }
+    ]
+  },
+  "Bioconductor": {
+    "Version": "3.13"
+  },
+  "Packages": {
+    "BH": {
+      "Package": "BH",
+      "Version": "1.75.0-0",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "e4c04affc2cac20c8fec18385cd14691"
+    },
+    "BSgenome": {
+      "Package": "BSgenome",
+      "Version": "1.60.0",
+      "Source": "Bioconductor",
+      "Hash": "bc39f66b170caed3ea67c03eb6b4b55c"
+    }
+  }
+}

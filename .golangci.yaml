@@ -3,10 +3,11 @@ output:
 linters:
   enable:
     - gofmt
+    - goimports
   # prettier-ignore
   disable:
-    - tagliatelle      # we're parsing data from external sources     (g-rath)
-    - varnamelen       # maybe later  (g-rath)
+    - tagliatelle      # we're parsing data from external sources (g-rath)
+    - varnamelen       # maybe later (g-rath)
     - exhaustivestruct # deprecated
     - exhaustruct      # overkill (g-rath)
     - forcetypeassert  # too hard (g-rath)
@@ -18,10 +19,10 @@ linters:
     - structcheck      # deprecated
     - deadcode         # deprecated
     - nosnakecase      # deprecated
-    - lll              # line length is hard  (g-rath)
-    - godox            # to-do comments are fine  (g-rath)
+    - lll              # line length is hard (g-rath)
+    - godox            # to-do comments are fine (g-rath)
     - godot            # comments are fine without full stops (g-rath)
-    - gomnd            # not every number is magic  (g-rath)
+    - gomnd            # not every number is magic (g-rath)
     - wsl              # disagree with, for now (g-rath)
     - ireturn          # disagree with, sort of (g-rath)
     - gochecknoglobals # disagree with, for non changing variables (another-rex)
@@ -29,6 +30,7 @@ linters:
     - testpackage      # will re-add later (another-rex)
     - goerr113         # will re-add later (another-rex)
     - nonamedreturns   # disagree with, for now (another-rex)
+    - goconst          # not everything should be a constant
   presets:
     - bugs
     - comment
@@ -40,6 +42,23 @@ linters:
     - unused
 
 linters-settings:
+  govet:
+    settings:
+      printf:
+        funcs:
+          - (github.com/google/osv-scanner/pkg/reporter.Reporter).Errorf
+          - (github.com/google/osv-scanner/pkg/reporter.Reporter).Warnf
+          - (github.com/google/osv-scanner/pkg/reporter.Reporter).Verbosef
+          - (github.com/google/osv-scanner/pkg/reporter.Reporter).Infof
+  depguard:
+    rules:
+      regexp:
+        files:
+          - "!**/internal/cachedregexp/**"
+          - "!**/main_test.go"
+        deny:
+          - pkg: "regexp"
+            desc: "Use github.com/google/osv-scanner/internal/cachedregexp instead"
   gocritic:
     disabled-checks:
       - ifElseChain
@@ -55,6 +74,9 @@ linters-settings:
 
 issues:
   exclude-rules:
+    - path: pkg/reporter
+      linters:
+        - dupl
     - path: _test\.go
       linters:
         - goerr113

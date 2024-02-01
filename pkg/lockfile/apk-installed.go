@@ -3,7 +3,6 @@ package lockfile
 import (
 	"bufio"
 	"fmt"
-	"os"
 	"sort"
 	"strings"
 )
@@ -34,7 +33,7 @@ func groupApkPackageLines(scanner *bufio.Scanner) [][]string {
 	return groups
 }
 
-func parseApkPackageGroup(group []string, pathToLockfile string) PackageDetails {
+func parseApkPackageGroup(group []string) PackageDetails {
 	var pkg = PackageDetails{
 		Ecosystem: AlpineEcosystem,
 		CompareAs: AlpineEcosystem,
@@ -52,46 +51,30 @@ func parseApkPackageGroup(group []string, pathToLockfile string) PackageDetails 
 		}
 	}
 
-	if pkg.Version == "" {
-		pkgPrintName := pkg.Name
-		if pkgPrintName == "" {
-			pkgPrintName = unknownPkgName
-		}
-
-		_, _ = fmt.Fprintf(
-			os.Stderr,
-			"warning: malformed APK installed file. Found no version number in record. Package %s. File: %s\n",
-			pkgPrintName,
-			pathToLockfile,
-		)
-	}
-
 	return pkg
 }
 
 func ParseApkInstalled(pathToLockfile string) ([]PackageDetails, error) {
-	file, err := os.Open(pathToLockfile)
-	if err != nil {
-		return []PackageDetails{}, fmt.Errorf("could not open %s: %w", pathToLockfile, err)
-	}
-	defer file.Close()
+	return extractFromFile(pathToLockfile, ApkInstalledExtractor{})
+}
 
-	scanner := bufio.NewScanner(file)
+type ApkInstalledExtractor struct{}
+
+func (e ApkInstalledExtractor) ShouldExtract(path string) bool {
+	return path == "/lib/apk/db/installed"
+}
+
+func (e ApkInstalledExtractor) Extract(f DepFile) ([]PackageDetails, error) {
+	scanner := bufio.NewScanner(f)
 
 	packageGroups := groupApkPackageLines(scanner)
 
 	packages := make([]PackageDetails, 0, len(packageGroups))
 
 	for _, group := range packageGroups {
-		pkg := parseApkPackageGroup(group, pathToLockfile)
+		pkg := parseApkPackageGroup(group)
 
 		if pkg.Name == "" {
-			_, _ = fmt.Fprintf(
-				os.Stderr,
-				"warning: malformed APK installed file. Found no package name in record. File: %s\n",
-				pathToLockfile,
-			)
-
 			continue
 		}
 
@@ -99,11 +82,13 @@ func ParseApkInstalled(pathToLockfile string) ([]PackageDetails, error) {
 	}
 
 	if err := scanner.Err(); err != nil {
-		return packages, fmt.Errorf("error while scanning %s: %w", pathToLockfile, err)
+		return packages, fmt.Errorf("error while scanning %s: %w", f.Path(), err)
 	}
 
 	return packages, nil
 }
+
+var _ Extractor = ApkInstalledExtractor{}
 
 // FromApkInstalled attempts to parse the given file as an "apk-installed" lockfile
 // used by the Alpine Package Keeper (apk) to record installed packages.

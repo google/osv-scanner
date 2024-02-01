@@ -1,8 +1,10 @@
 package lockfile_test
 
 import (
-	"github.com/google/osv-scanner/pkg/lockfile"
+	"io/fs"
 	"testing"
+
+	"github.com/google/osv-scanner/pkg/lockfile"
 )
 
 func TestParseYarnLock_v1_FileDoesNotExist(t *testing.T) {
@@ -10,7 +12,7 @@ func TestParseYarnLock_v1_FileDoesNotExist(t *testing.T) {
 
 	packages, err := lockfile.ParseYarnLock("fixtures/yarn/does-not-exist")
 
-	expectErrContaining(t, err, "could not open")
+	expectErrIs(t, err, fs.ErrNotExist)
 	expectPackages(t, packages, []lockfile.PackageDetails{})
 }
 
@@ -182,10 +184,10 @@ func TestParseYarnLock_v1_ScopedPackages(t *testing.T) {
 	})
 }
 
-func TestParseYarnLock_v1_VersionsWithBuildString(t *testing.T) {
+func TestParseYarnLock_v1_WithPrerelease(t *testing.T) {
 	t.Parallel()
 
-	packages, err := lockfile.ParseYarnLock("fixtures/yarn/versions-with-build-strings.v1.lock")
+	packages, err := lockfile.ParseYarnLock("fixtures/yarn/with-prerelease.v1.lock")
 
 	if err != nil {
 		t.Errorf("Got unexpected error: %v", err)
@@ -219,6 +221,31 @@ func TestParseYarnLock_v1_VersionsWithBuildString(t *testing.T) {
 		{
 			Name:      "resolve",
 			Version:   "2.0.0-next.3",
+			Ecosystem: lockfile.YarnEcosystem,
+			CompareAs: lockfile.YarnEcosystem,
+		},
+	})
+}
+
+func TestParseYarnLock_v1_WithBuildString(t *testing.T) {
+	t.Parallel()
+
+	packages, err := lockfile.ParseYarnLock("fixtures/yarn/with-build-string.v1.lock")
+
+	if err != nil {
+		t.Errorf("Got unexpected error: %v", err)
+	}
+
+	expectPackages(t, packages, []lockfile.PackageDetails{
+		{
+			Name:      "domino",
+			Version:   "2.1.6+git",
+			Ecosystem: lockfile.YarnEcosystem,
+			CompareAs: lockfile.YarnEcosystem,
+		},
+		{
+			Name:      "tslib",
+			Version:   "2.6.2",
 			Ecosystem: lockfile.YarnEcosystem,
 			CompareAs: lockfile.YarnEcosystem,
 		},
@@ -415,6 +442,37 @@ func TestParseYarnLock_v1_Files(t *testing.T) {
 			Ecosystem: lockfile.YarnEcosystem,
 			CompareAs: lockfile.YarnEcosystem,
 			Commit:    "",
+		},
+	})
+}
+
+func TestParseYarnLock_v1_WithAliases(t *testing.T) {
+	t.Parallel()
+
+	packages, err := lockfile.ParseYarnLock("fixtures/yarn/with-aliases.v1.lock")
+
+	if err != nil {
+		t.Errorf("Got unexpected error: %v", err)
+	}
+
+	expectPackages(t, packages, []lockfile.PackageDetails{
+		{
+			Name:      "@babel/helper-validator-identifier",
+			Version:   "7.22.20",
+			Ecosystem: lockfile.YarnEcosystem,
+			CompareAs: lockfile.YarnEcosystem,
+		},
+		{
+			Name:      "ansi-regex",
+			Version:   "6.0.1",
+			Ecosystem: lockfile.YarnEcosystem,
+			CompareAs: lockfile.YarnEcosystem,
+		},
+		{
+			Name:      "ansi-regex",
+			Version:   "5.0.1",
+			Ecosystem: lockfile.YarnEcosystem,
+			CompareAs: lockfile.YarnEcosystem,
 		},
 	})
 }

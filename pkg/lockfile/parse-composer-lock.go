@@ -3,7 +3,7 @@ package lockfile
 import (
 	"encoding/json"
 	"fmt"
-	"os"
+	"path/filepath"
 )
 
 type ComposerPackage struct {
@@ -21,19 +21,19 @@ type ComposerLock struct {
 
 const ComposerEcosystem Ecosystem = "Packagist"
 
-func ParseComposerLock(pathToLockfile string) ([]PackageDetails, error) {
+type ComposerLockExtractor struct{}
+
+func (e ComposerLockExtractor) ShouldExtract(path string) bool {
+	return filepath.Base(path) == "composer.lock"
+}
+
+func (e ComposerLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 	var parsedLockfile *ComposerLock
 
-	lockfileContents, err := os.ReadFile(pathToLockfile)
+	err := json.NewDecoder(f).Decode(&parsedLockfile)
 
 	if err != nil {
-		return []PackageDetails{}, fmt.Errorf("could not read %s: %w", pathToLockfile, err)
-	}
-
-	err = json.Unmarshal(lockfileContents, &parsedLockfile)
-
-	if err != nil {
-		return []PackageDetails{}, fmt.Errorf("could not parse %s: %w", pathToLockfile, err)
+		return []PackageDetails{}, fmt.Errorf("could not extract from %s: %w", f.Path(), err)
 	}
 
 	packages := make(
@@ -60,8 +60,20 @@ func ParseComposerLock(pathToLockfile string) ([]PackageDetails, error) {
 			Commit:    composerPackage.Dist.Reference,
 			Ecosystem: ComposerEcosystem,
 			CompareAs: ComposerEcosystem,
+			DepGroups: []string{"dev"},
 		})
 	}
 
 	return packages, nil
+}
+
+var _ Extractor = ComposerLockExtractor{}
+
+//nolint:gochecknoinits
+func init() {
+	registerExtractor("composer.lock", ComposerLockExtractor{})
+}
+
+func ParseComposerLock(pathToLockfile string) ([]PackageDetails, error) {
+	return extractFromFile(pathToLockfile, ComposerLockExtractor{})
 }

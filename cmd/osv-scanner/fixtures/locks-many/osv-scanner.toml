@@ -1,0 +1,8 @@
+[[IgnoredVulns]]
+id = "GHSA-whgm-jr23-g3j9"
+# ignore_until = 2022-11-09
+reason = "Test manifest file"
+
+[[IgnoredVulns]]
+id = "CVE-2022-48174"
+reason = "Test manifest file (alpine.cdx.xml)"

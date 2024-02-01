@@ -1,8 +1,11 @@
 package lockfile
 
 import (
+	"errors"
 	"fmt"
-	"os"
+	"io"
+	"path/filepath"
+	"strings"
 
 	"gopkg.in/yaml.v3"
 )
@@ -52,6 +55,7 @@ type PubspecLockPackage struct {
 	Source      string                 `yaml:"source"`
 	Description PubspecLockDescription `yaml:"description"`
 	Version     string                 `yaml:"version"`
+	Dependency  string                 `yaml:"dependency"`
 }
 
 type PubspecLockfile struct {
@@ -61,19 +65,19 @@ type PubspecLockfile struct {
 
 const PubEcosystem Ecosystem = "Pub"
 
-func ParsePubspecLock(pathToLockfile string) ([]PackageDetails, error) {
+type PubspecLockExtractor struct{}
+
+func (e PubspecLockExtractor) ShouldExtract(path string) bool {
+	return filepath.Base(path) == "pubspec.lock"
+}
+
+func (e PubspecLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 	var parsedLockfile *PubspecLockfile
 
-	lockfileContents, err := os.ReadFile(pathToLockfile)
+	err := yaml.NewDecoder(f).Decode(&parsedLockfile)
 
-	if err != nil {
-		return []PackageDetails{}, fmt.Errorf("could not read %s: %w", pathToLockfile, err)
-	}
-
-	err = yaml.Unmarshal(lockfileContents, &parsedLockfile)
-
-	if err != nil {
-		return []PackageDetails{}, fmt.Errorf("could not parse %s: %w", pathToLockfile, err)
+	if err != nil && !errors.Is(err, io.EOF) {
+		return []PackageDetails{}, fmt.Errorf("could not extract from %s: %w", f.Path(), err)
 	}
 	if parsedLockfile == nil {
 		return []PackageDetails{}, nil
@@ -82,13 +86,31 @@ func ParsePubspecLock(pathToLockfile string) ([]PackageDetails, error) {
 	packages := make([]PackageDetails, 0, len(parsedLockfile.Packages))
 
 	for name, pkg := range parsedLockfile.Packages {
-		packages = append(packages, PackageDetails{
+		pkgDetails := PackageDetails{
 			Name:      name,
 			Version:   pkg.Version,
 			Commit:    pkg.Description.Ref,
 			Ecosystem: PubEcosystem,
-		})
+		}
+		for _, str := range strings.Split(pkg.Dependency, " ") {
+			if str == "dev" {
+				pkgDetails.DepGroups = append(pkgDetails.DepGroups, "dev")
+				break
+			}
+		}
+		packages = append(packages, pkgDetails)
 	}
 
 	return packages, nil
+}
+
+var _ Extractor = PubspecLockExtractor{}
+
+//nolint:gochecknoinits
+func init() {
+	registerExtractor("pubspec.lock", PubspecLockExtractor{})
+}
+
+func ParsePubspecLock(pathToLockfile string) ([]PackageDetails, error) {
+	return extractFromFile(pathToLockfile, PubspecLockExtractor{})
 }

@@ -1,0 +1,92 @@
+name: Pre-release check
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "The version tag to release, (e.g. v1.2.3)"
+        required: true
+        type: string
+      commit:
+        description: "The commit hash to release"
+        required: true
+        type: string
+
+permissions:
+  contents: read # to fetch code (actions/checkout)
+  # Require writing security events to upload SARIF file to security tab
+  security-events: write
+
+jobs:
+  osv-scan:
+    uses: ./.github/workflows/osv-scanner-reusable.yml
+    with:
+      # Only scan the top level go.mod file without recursively scanning directories since
+      # this is pipeline is about releasing the go module and binary
+      scan-args: |-
+        --skip-git
+        ./
+
+  format:
+    name: prettier
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
+        with:
+          persist-credentials: false
+      - name: Run lint action
+        uses: ./.github/workflows/format-action
+  lint:
+    name: golangci-lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
+        with:
+          persist-credentials: false
+          ref: ${{ inputs.commit }}
+      - name: Set up Go
+        uses: actions/setup-go@0c52d547c9bc32b1aa3301fd7a9cb496313a4491 # v5.0.0
+        with:
+          go-version-file: .go-version
+          check-latest: true
+      - name: Run lint action
+        uses: ./.github/workflows/lint-action
+  tests:
+    name: Run unit tests
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: Check out code
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
+        with:
+          persist-credentials: false
+          ref: ${{ inputs.commit }}
+      - name: Set up Go
+        uses: actions/setup-go@0c52d547c9bc32b1aa3301fd7a9cb496313a4491 # v5.0.0
+        with:
+          go-version-file: .go-version
+          check-latest: true
+      - name: Run test action
+        uses: ./.github/workflows/test-action
+  release-helper:
+    runs-on: ubuntu-latest
+    needs:
+      - format
+      - lint
+      - tests
+      - osv-scan
+    steps:
+      - name: Print Scripts
+        env:
+          OUTPUT: |
+            git fetch upstream &&
+            git tag ${{ inputs.version }} ${{ inputs.commit }} &&
+            git push upstream ${{ inputs.version }}
+        shell: bash
+        run: |
+          echo $OUTPUT

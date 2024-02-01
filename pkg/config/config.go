@@ -4,11 +4,11 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
+	"slices"
 	"time"
 
 	"github.com/BurntSushi/toml"
 	"github.com/google/osv-scanner/pkg/reporter"
-	"golang.org/x/exp/slices"
 )
 
 const osvScannerConfigName = "osv-scanner.toml"
@@ -72,7 +72,7 @@ func (c *ConfigManager) Get(r reporter.Reporter, targetPath string) Config {
 	if err != nil {
 		// TODO: This can happen when target is not a file (e.g. Docker container, git hash...etc.)
 		// Figure out a more robust way to load config from non files
-		// r.PrintError(fmt.Sprintf("Can't find config path: %s\n", err))
+		// r.PrintErrorf("Can't find config path: %s\n", err)
 		return Config{}
 	}
 
@@ -83,7 +83,7 @@ func (c *ConfigManager) Get(r reporter.Reporter, targetPath string) Config {
 
 	config, configErr := tryLoadConfig(configPath)
 	if configErr == nil {
-		r.PrintText(fmt.Sprintf("Loaded filter from: %s\n", config.LoadPath))
+		r.Infof("Loaded filter from: %s\n", config.LoadPath)
 	} else {
 		// If config doesn't exist, use the default config
 		config = c.DefaultConfig

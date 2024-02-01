@@ -1,16 +1,70 @@
 package lockfile_test
 
 import (
-	"github.com/google/osv-scanner/pkg/lockfile"
+	"io/fs"
 	"testing"
+
+	"github.com/google/osv-scanner/pkg/lockfile"
 )
+
+func TestGemfileLockExtractor_ShouldExtract(t *testing.T) {
+	t.Parallel()
+
+	tests := []struct {
+		name string
+		path string
+		want bool
+	}{
+		{
+			name: "",
+			path: "",
+			want: false,
+		},
+		{
+			name: "",
+			path: "Gemfile.lock",
+			want: true,
+		},
+		{
+			name: "",
+			path: "path/to/my/Gemfile.lock",
+			want: true,
+		},
+		{
+			name: "",
+			path: "path/to/my/Gemfile.lock/file",
+			want: false,
+		},
+		{
+			name: "",
+			path: "path/to/my/Gemfile.lock.file",
+			want: false,
+		},
+		{
+			name: "",
+			path: "path.to.my.Gemfile.lock",
+			want: false,
+		},
+	}
+	for _, tt := range tests {
+		tt := tt
+		t.Run(tt.name, func(t *testing.T) {
+			t.Parallel()
+			e := lockfile.GemfileLockExtractor{}
+			got := e.ShouldExtract(tt.path)
+			if got != tt.want {
+				t.Errorf("Extract() got = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
 
 func TestParseGemfileLock_FileDoesNotExist(t *testing.T) {
 	t.Parallel()
 
 	packages, err := lockfile.ParseGemfileLock("fixtures/bundler/does-not-exist")
 
-	expectErrContaining(t, err, "could not read")
+	expectErrIs(t, err, fs.ErrNotExist)
 	expectPackages(t, packages, []lockfile.PackageDetails{})
 }
 

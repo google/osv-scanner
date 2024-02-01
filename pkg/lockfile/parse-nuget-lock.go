@@ -3,7 +3,7 @@ package lockfile
 import (
 	"encoding/json"
 	"fmt"
-	"os"
+	"path/filepath"
 )
 
 type NuGetLockPackage struct {
@@ -47,24 +47,35 @@ func parseNuGetLock(lockfile NuGetLockfile) ([]PackageDetails, error) {
 	return pkgDetailsMapToSlice(details), nil
 }
 
-func ParseNuGetLock(pathToLockfile string) ([]PackageDetails, error) {
+type NuGetLockExtractor struct{}
+
+func (e NuGetLockExtractor) ShouldExtract(path string) bool {
+	return filepath.Base(path) == "packages.lock.json"
+}
+
+func (e NuGetLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 	var parsedLockfile *NuGetLockfile
 
-	lockfileContents, err := os.ReadFile(pathToLockfile)
+	err := json.NewDecoder(f).Decode(&parsedLockfile)
 
 	if err != nil {
-		return []PackageDetails{}, fmt.Errorf("could not read %s: %w", pathToLockfile, err)
+		return []PackageDetails{}, fmt.Errorf("could not extract from %s: %w", f.Path(), err)
 	}
 
-	err = json.Unmarshal(lockfileContents, &parsedLockfile)
-
-	if err != nil {
-		return []PackageDetails{}, fmt.Errorf("could not parse %s: %w", pathToLockfile, err)
-	}
-
-	if parsedLockfile.Version != 1 {
-		return []PackageDetails{}, fmt.Errorf("could not parse %s: unsupported lock file version", pathToLockfile)
+	if parsedLockfile.Version != 1 && parsedLockfile.Version != 2 {
+		return []PackageDetails{}, fmt.Errorf("could not extract: unsupported lock file version %d", parsedLockfile.Version)
 	}
 
 	return parseNuGetLock(*parsedLockfile)
+}
+
+var _ Extractor = NuGetLockExtractor{}
+
+//nolint:gochecknoinits
+func init() {
+	registerExtractor("packages.lock.json", NuGetLockExtractor{})
+}
+
+func ParseNuGetLock(pathToLockfile string) ([]PackageDetails, error) {
+	return extractFromFile(pathToLockfile, NuGetLockExtractor{})
 }

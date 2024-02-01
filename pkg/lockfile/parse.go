@@ -8,11 +8,6 @@ import (
 	"strings"
 )
 
-// Represents when a package name could not be determined while parsing.
-// Currently, parsers are expected to omit such packages from their results.
-// Using a const is required to avoid linter error (goconst) due to multiple usage in parsers.
-const unknownPkgName = "<unknown>"
-
 func FindParser(pathToLockfile string, parseAs string) (PackageDetailsParser, string) {
 	if parseAs == "" {
 		parseAs = filepath.Base(pathToLockfile)
@@ -34,10 +29,12 @@ var parsers = map[string]PackageDetailsParser{
 	"Pipfile.lock":                ParsePipenvLock,
 	"package-lock.json":           ParseNpmLock,
 	"packages.lock.json":          ParseNuGetLock,
+	"pdm.lock":                    ParsePdmLock,
 	"pnpm-lock.yaml":              ParsePnpmLock,
 	"poetry.lock":                 ParsePoetryLock,
 	"pom.xml":                     ParseMavenLock,
 	"pubspec.lock":                ParsePubspecLock,
+	"renv.lock":                   ParseRenvLock,
 	"requirements.txt":            ParseRequirementsTxt,
 	"yarn.lock":                   ParseYarnLock,
 }
@@ -141,7 +138,7 @@ func Parse(pathToLockfile string, parseAs string) (Lockfile, error) {
 	packages, err := parser(pathToLockfile)
 
 	if err != nil && parseAs != "" {
-		err = fmt.Errorf("(parsing as %s) %w", parsedAs, err)
+		err = fmt.Errorf("(extracting as %s) %w", parsedAs, err)
 	}
 
 	sort.Slice(packages, func(i, j int) bool {
