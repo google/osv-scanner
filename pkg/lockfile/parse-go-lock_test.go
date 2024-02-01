@@ -4,8 +4,6 @@ import (
 	"io/fs"
 	"testing"
 
-	"github.com/google/osv-scanner/pkg/models"
-
 	"github.com/google/osv-scanner/pkg/lockfile"
 )
 
@@ -106,8 +104,8 @@ func TestParseGoLock_OnePackage(t *testing.T) {
 			Version:   "1.0.0",
 			Ecosystem: lockfile.GoEcosystem,
 			CompareAs: lockfile.GoEcosystem,
-			Start:     models.FilePosition{Line: 4},
-			End:       models.FilePosition{Line: 4},
+			Start:     4,
+			End:       4,
 		},
 	})
 }
@@ -127,16 +125,16 @@ func TestParseGoLock_TwoPackages(t *testing.T) {
 			Version:   "1.0.0",
 			Ecosystem: lockfile.GoEcosystem,
 			CompareAs: lockfile.GoEcosystem,
-			Start:     models.FilePosition{Line: 6},
-			End:       models.FilePosition{Line: 6},
+			Start:     6,
+			End:       6,
 		},
 		{
 			Name:      "gopkg.in/yaml.v2",
 			Version:   "2.4.0",
 			Ecosystem: lockfile.GoEcosystem,
 			CompareAs: lockfile.GoEcosystem,
-			Start:     models.FilePosition{Line: 7},
-			End:       models.FilePosition{Line: 7},
+			Start:     7,
+			End:       7,
 		},
 		{
 			Name:      "stdlib",
@@ -162,40 +160,40 @@ func TestParseGoLock_IndirectPackages(t *testing.T) {
 			Version:   "1.0.0",
 			Ecosystem: lockfile.GoEcosystem,
 			CompareAs: lockfile.GoEcosystem,
-			Start:     models.FilePosition{Line: 6},
-			End:       models.FilePosition{Line: 6},
+			Start:     6,
+			End:       6,
 		},
 		{
 			Name:      "gopkg.in/yaml.v2",
 			Version:   "2.4.0",
 			Ecosystem: lockfile.GoEcosystem,
 			CompareAs: lockfile.GoEcosystem,
-			Start:     models.FilePosition{Line: 7},
-			End:       models.FilePosition{Line: 7},
+			Start:     7,
+			End:       7,
 		},
 		{
 			Name:      "github.com/mattn/go-colorable",
 			Version:   "0.1.9",
 			Ecosystem: lockfile.GoEcosystem,
 			CompareAs: lockfile.GoEcosystem,
-			Start:     models.FilePosition{Line: 11},
-			End:       models.FilePosition{Line: 11},
+			Start:     11,
+			End:       11,
 		},
 		{
 			Name:      "github.com/mattn/go-isatty",
 			Version:   "0.0.14",
 			Ecosystem: lockfile.GoEcosystem,
 			CompareAs: lockfile.GoEcosystem,
-			Start:     models.FilePosition{Line: 12},
-			End:       models.FilePosition{Line: 12},
+			Start:     12,
+			End:       12,
 		},
 		{
 			Name:      "golang.org/x/sys",
 			Version:   "0.0.0-20210630005230-0f9fa26af87c",
 			Ecosystem: lockfile.GoEcosystem,
 			CompareAs: lockfile.GoEcosystem,
-			Start:     models.FilePosition{Line: 13},
-			End:       models.FilePosition{Line: 13},
+			Start:     13,
+			End:       13,
 		},
 		{
 			Name:      "stdlib",
@@ -221,8 +219,8 @@ func TestParseGoLock_Replacements_One(t *testing.T) {
 			Version:   "1.4.5",
 			Ecosystem: lockfile.GoEcosystem,
 			CompareAs: lockfile.GoEcosystem,
-			Start:     models.FilePosition{Line: 5},
-			End:       models.FilePosition{Line: 5},
+			Start:     5,
+			End:       5,
 		},
 	})
 }
@@ -242,16 +240,16 @@ func TestParseGoLock_Replacements_Mixed(t *testing.T) {
 			Version:   "1.4.5",
 			Ecosystem: lockfile.GoEcosystem,
 			CompareAs: lockfile.GoEcosystem,
-			Start:     models.FilePosition{Line: 7},
-			End:       models.FilePosition{Line: 7},
+			Start:     7,
+			End:       7,
 		},
 		{
 			Name:      "golang.org/x/net",
 			Version:   "0.5.6",
 			Ecosystem: lockfile.GoEcosystem,
 			CompareAs: lockfile.GoEcosystem,
-			Start:     models.FilePosition{Line: 3},
-			End:       models.FilePosition{Line: 3},
+			Start:     3,
+			End:       3,
 		},
 	})
 }
@@ -271,16 +269,16 @@ func TestParseGoLock_Replacements_Local(t *testing.T) {
 			Version:   "",
 			Ecosystem: lockfile.GoEcosystem,
 			CompareAs: lockfile.GoEcosystem,
-			Start:     models.FilePosition{Line: 7},
-			End:       models.FilePosition{Line: 7},
+			Start:     7,
+			End:       7,
 		},
 		{
 			Name:      "github.com/BurntSushi/toml",
 			Version:   "1.0.0",
 			Ecosystem: lockfile.GoEcosystem,
 			CompareAs: lockfile.GoEcosystem,
-			Start:     models.FilePosition{Line: 3},
-			End:       models.FilePosition{Line: 3},
+			Start:     3,
+			End:       3,
 		},
 	})
 }
@@ -300,16 +298,16 @@ func TestParseGoLock_Replacements_Different(t *testing.T) {
 			Version:   "1.4.5",
 			Ecosystem: lockfile.GoEcosystem,
 			CompareAs: lockfile.GoEcosystem,
-			Start:     models.FilePosition{Line: 7},
-			End:       models.FilePosition{Line: 7},
+			Start:     7,
+			End:       7,
 		},
 		{
 			Name:      "example.com/fork/foe",
 			Version:   "1.4.2",
 			Ecosystem: lockfile.GoEcosystem,
 			CompareAs: lockfile.GoEcosystem,
-			Start:     models.FilePosition{Line: 8},
-			End:       models.FilePosition{Line: 8},
+			Start:     8,
+			End:       8,
 		},
 	})
 }
@@ -329,16 +327,16 @@ func TestParseGoLock_Replacements_NotRequired(t *testing.T) {
 			Version:   "0.5.6",
 			Ecosystem: lockfile.GoEcosystem,
 			CompareAs: lockfile.GoEcosystem,
-			Start:     models.FilePosition{Line: 2},
-			End:       models.FilePosition{Line: 2},
+			Start:     2,
+			End:       2,
 		},
 		{
 			Name:      "github.com/BurntSushi/toml",
 			Version:   "1.0.0",
 			Ecosystem: lockfile.GoEcosystem,
 			CompareAs: lockfile.GoEcosystem,
-			Start:     models.FilePosition{Line: 3},
-			End:       models.FilePosition{Line: 3},
+			Start:     3,
+			End:       3,
 		},
 	})
 }
@@ -358,8 +356,8 @@ func TestParseGoLock_Replacements_NoVersion(t *testing.T) {
 			Version:   "1.4.5",
 			Ecosystem: lockfile.GoEcosystem,
 			CompareAs: lockfile.GoEcosystem,
-			Start:     models.FilePosition{Line: 7},
-			End:       models.FilePosition{Line: 7},
+			Start:     7,
+			End:       7,
 		},
 	})
 }
