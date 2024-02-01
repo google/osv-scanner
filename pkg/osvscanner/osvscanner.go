@@ -699,8 +699,8 @@ type scannedPackage struct {
 	Ecosystem lockfile.Ecosystem
 	Commit    string
 	Version   string
-	Start     models.FilePosition
-	End       models.FilePosition
+	Start     int
+	End       int
 	Source    models.SourceInfo
 	DepGroups []string
 }

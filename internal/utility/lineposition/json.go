@@ -17,12 +17,12 @@ func InJSON[P models.ILinePosition](groupKey string, dependencies map[string]P, 
 			match := keyRegexp.FindStringSubmatch(line)
 			if len(match) == 2 {
 				key := match[1]
-				if group != "" {
+				if key != "" && group != "" {
 					if stack == groupLevel+1 {
 						if dep, ok := dependencies[key]; ok {
 							// Start line of a dependency
 							dependency = key
-							dep.SetStart(models.FilePosition{Line: lineNumber + offset + 1})
+							dep.SetStart(lineNumber + offset + 1)
 							dependencies[dependency] = dep
 						}
 					}
@@ -47,11 +47,11 @@ func InJSON[P models.ILinePosition](groupKey string, dependencies map[string]P, 
 		}
 		if strings.Contains(line, "}") {
 			stack--
-			if group != "" {
+			if dependency != "" && group != "" {
 				if stack == groupLevel {
 					if dep, ok := dependencies[dependency]; ok {
 						// End line of a dependency
-						dep.SetEnd(models.FilePosition{Line: lineNumber + offset + 1})
+						dep.SetEnd(lineNumber + offset + 1)
 						dependencies[dependency] = dep
 						dependency = ""
 					}

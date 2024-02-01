@@ -6,8 +6,6 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/google/osv-scanner/pkg/models"
-
 	"github.com/google/osv-scanner/internal/cachedregexp"
 )
 
@@ -57,8 +55,8 @@ func parseLine(path string, line string, lineNumber int, lineOffset int) Package
 	return PackageDetails{
 		Name:       normalizedRequirementName(name),
 		Version:    version,
-		Start:      models.FilePosition{Line: lineNumber},
-		End:        models.FilePosition{Line: lineNumber + lineOffset},
+		Start:      lineNumber,
+		End:        lineNumber + lineOffset,
 		Ecosystem:  PipEcosystem,
 		CompareAs:  PipEcosystem,
 		SourceFile: path,
