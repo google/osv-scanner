@@ -199,8 +199,7 @@ func (c *NpmRegistryClient) MatchingVersions(ctx context.Context, vk resolve.Ver
 				Version:     concVer,
 				VersionType: resolve.Concrete,
 			},
-		},
-		}, nil
+		}}, nil
 	}
 
 	resVersions := make([]resolve.Version, len(versions.Versions))
@@ -218,6 +217,8 @@ func (c *NpmRegistryClient) MatchingVersions(ctx context.Context, vk resolve.Ver
 }
 
 func isNpmBundle(pk resolve.PackageKey) bool {
+	// Bundles are represented in resolution with a 'mangled' name containing its origin e.g. "root-pkg>1.0.0>bundled-package"
+	// '>' is not a valid character for a npm package, so it'll only be found here.
 	return strings.Contains(pk.Name, ">")
 }
 

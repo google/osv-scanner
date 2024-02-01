@@ -14,7 +14,9 @@ import (
 )
 
 type NpmRegistryAPIClient struct {
-	// registries from the npmrc config
+	// Registries from the npmrc config
+	// This should only be written to when the client is first being created.
+	// Other functions should not modify it & it is not covered by the mutex.
 	registries npmRegistries
 
 	// cache fields
@@ -140,8 +142,8 @@ func (c *NpmRegistryAPIClient) getPackageDetails(ctx context.Context, pkg string
 	}
 
 	c.mu.Lock()
-	defer c.mu.Unlock()
 	c.details[pkg] = pkgData
+	c.mu.Unlock()
 
 	return pkgData, nil
 }
