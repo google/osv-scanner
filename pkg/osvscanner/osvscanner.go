@@ -37,6 +37,7 @@ type ScannerActions struct {
 	Recursive            bool
 	SkipGit              bool
 	NoIgnore             bool
+	Debug                bool
 	DockerContainerNames []string
 	ConfigOverridePath   string
 	CallAnalysisStates   map[string]bool
@@ -730,6 +731,10 @@ func DoScan(actions ScannerActions, r reporter.Reporter) (models.VulnerabilityRe
 
 	//nolint:prealloc // Not sure how many there will be in advance.
 	var scannedPackages []scannedPackage
+
+	if actions.Debug {
+		os.Setenv("debug", "true")
+	}
 
 	if actions.ConfigOverridePath != "" {
 		err := configManager.UseOverride(actions.ConfigOverridePath)

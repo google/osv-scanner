@@ -1,6 +1,8 @@
 package lineposition
 
 import (
+	"fmt"
+	"os"
 	"strings"
 
 	"github.com/google/osv-scanner/internal/cachedregexp"
@@ -11,6 +13,7 @@ func InJSON[P models.ILinePosition](groupKey string, dependencies map[string]P, 
 	var group, dependency string
 	var groupLevel, stack int
 	for lineNumber, line := range lines {
+		position := lineNumber + offset + 1
 		if strings.Contains(line, "{") {
 			stack++
 			keyRegexp := cachedregexp.MustCompile(`"(.+)"`)
@@ -20,25 +23,30 @@ func InJSON[P models.ILinePosition](groupKey string, dependencies map[string]P, 
 				if key != "" && group != "" {
 					if stack == groupLevel+1 {
 						if dep, ok := dependencies[key]; ok {
-							// Start line of a dependency
 							dependency = key
-							dep.SetStart(lineNumber + offset + 1)
+							if os.Getenv("debug") == "true" {
+								fmt.Printf("[DEPENDENCY][START] '%s' at line %d\n", dependency, position)
+							}
+							dep.SetStart(position)
 							dependencies[dependency] = dep
 						}
 					}
 				}
 				if groupKey == key {
 					if group == "" {
-						// Start line of a group
+						if os.Getenv("debug") == "true" {
+							fmt.Printf("[GROUP][START] '%s' at line %d\n", groupKey, position)
+						}
 						group = key
 						groupLevel = stack
 					} else {
 						if dep, ok := dependencies[dependency]; ok {
-							// Nested groupKey
 							nestedDependencies := dep.GetNestedDependencies()
 							if nestedDependencies != nil {
-								// Handling nested dependencies
-								InJSON(groupKey, nestedDependencies, lines[lineNumber:], lineNumber)
+								if os.Getenv("debug") == "true" {
+									fmt.Printf("[NESTED][START] At line %d\n", position)
+								}
+								InJSON(groupKey, nestedDependencies, lines[lineNumber:], position-1)
 							}
 						}
 					}
@@ -47,19 +55,27 @@ func InJSON[P models.ILinePosition](groupKey string, dependencies map[string]P, 
 		}
 		if strings.Contains(line, "}") {
 			stack--
-			if dependency != "" && group != "" {
+			if group != "" {
 				if stack == groupLevel {
-					if dep, ok := dependencies[dependency]; ok {
-						// End line of a dependency
-						dep.SetEnd(lineNumber + offset + 1)
-						dependencies[dependency] = dep
-						dependency = ""
+					if dependency != "" {
+						if dep, ok := dependencies[dependency]; ok {
+							if os.Getenv("debug") == "true" {
+								fmt.Printf("[DEPENDENCY][END] '%s' at line %d\n", dependency, position)
+							}
+							dep.SetEnd(position)
+							dependencies[dependency] = dep
+							dependency = ""
+						}
 					}
 				} else if stack == groupLevel-1 {
-					// End line of a group
+					if os.Getenv("debug") == "true" {
+						fmt.Printf("[GROUP][END] '%s' at line %d\n", groupKey, position)
+					}
 					group = ""
 					if offset != 0 {
-						// End of nested dependencies
+						if os.Getenv("debug") == "true" {
+							fmt.Printf("[NESTED][END] At line %d\n", position)
+						}
 						return
 					}
 				}
