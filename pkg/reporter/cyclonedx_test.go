@@ -1,15 +1,19 @@
 package reporter_test
 
 import (
+	"strings"
+	"testing"
+
+	"github.com/stretchr/testify/require"
+
 	"github.com/CycloneDX/cyclonedx-go"
 	"github.com/google/osv-scanner/pkg/models"
 	"github.com/google/osv-scanner/pkg/reporter"
 	"github.com/stretchr/testify/assert"
-	"strings"
-	"testing"
 )
 
 func TestEncoding_EncodeComponentsInValidCycloneDX1_4(t *testing.T) {
+	t.Parallel()
 	var stdout, stderr strings.Builder
 	cycloneDXReporter := reporter.NewCycloneDXReporter(&stdout, &stderr)
 	vulnResults := models.VulnerabilityResults{
@@ -53,13 +57,13 @@ func TestEncoding_EncodeComponentsInValidCycloneDX1_4(t *testing.T) {
 
 	// First we format packages in CycloneDX format
 	err := cycloneDXReporter.PrintResult(&vulnResults)
-	assert.Nil(t, err, "an error occured when formatting : %v", err)
+	require.NoError(t, err, "an error occurred when formatting")
 
 	// Then we try to decode it using the CycloneDX library directly to check the content
 	var bom cyclonedx.BOM
 	decoder := cyclonedx.NewBOMDecoder(strings.NewReader(stdout.String()), cyclonedx.BOMFileFormatJSON)
 	err = decoder.Decode(&bom)
-	assert.Nil(t, err, "an error occured when decoding : %v", err)
+	require.NoError(t, err, "an error occurred when decoding")
 
 	expectedBOM := cyclonedx.BOM{
 		JSONSchema:  "http://cyclonedx.org/schema/bom-1.4.schema.json",

@@ -2,10 +2,11 @@ package reporter
 
 import (
 	"fmt"
+	"io"
+
 	"github.com/CycloneDX/cyclonedx-go"
 	"github.com/google/osv-scanner/pkg/models"
 	"github.com/google/osv-scanner/pkg/reporter/purl"
-	"io"
 )
 
 const cycloneDx14Schema = "http://cyclonedx.org/schema/bom-1.4.schema.json"
@@ -14,7 +15,6 @@ type CycloneDXReporter struct {
 	hasPrintedError bool
 	stdout          io.Writer
 	stderr          io.Writer
-	offline         bool
 }
 
 func NewCycloneDXReporter(stdout io.Writer, stderr io.Writer) *CycloneDXReporter {
