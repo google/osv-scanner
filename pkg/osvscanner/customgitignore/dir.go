@@ -1,7 +1,7 @@
 // based on https://github.com/go-git/go-git/blob/v5.7.0/plumbing/format/gitignore/dir.go
-// and skips ignored directories while traversing for gitignore files
+// but modified so that it skips ignored directories while traversing for gitignore files
 
-package osvscanner
+package customgitignore
 
 import (
 	"bufio"

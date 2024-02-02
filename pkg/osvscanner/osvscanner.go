@@ -23,6 +23,7 @@ import (
 	"github.com/google/osv-scanner/pkg/models"
 	"github.com/google/osv-scanner/pkg/osv"
 	"github.com/google/osv-scanner/pkg/reporter"
+	"github.com/google/osv-scanner/pkg/osvscanner/customgitignore"
 
 	depsdevpb "deps.dev/api/v3alpha"
 	"github.com/go-git/go-billy/v5"
@@ -214,7 +215,7 @@ func parseGitIgnores(path string) (*gitIgnoreMatcher, error) {
 		}
 	}
 
-	patterns, err := ReadPatterns(fs, []string{"."})
+	patterns, err := customgitignore.ReadPatterns(fs, []string{"."})
 	if err != nil {
 		return nil, err
 	}
