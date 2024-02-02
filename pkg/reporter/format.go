@@ -5,7 +5,7 @@ import (
 	"io"
 )
 
-var format = []string{"table", "json", "markdown", "sarif", "gh-annotations", "datadog-sbom", "datadog-offline-sbom"}
+var format = []string{"table", "json", "markdown", "sarif", "gh-annotations", "datadog-sbom", "datadog-offline-sbom", "cyclonedx-1-4"}
 
 func Format() []string {
 	return format
@@ -29,6 +29,9 @@ func New(format string, stdout, stderr io.Writer, terminalWidth int) (Reporter, 
 		return NewDatadogSbomReporter(stdout, stderr, false), nil
 	case "datadog-offline-sbom":
 		return NewDatadogSbomReporter(stdout, stderr, true), nil
+	case "cyclonedx-1-4":
+		return NewCycloneDXReporter(stdout, stderr), nil
+
 	default:
 		return nil, fmt.Errorf("%v is not a valid format", format)
 	}
