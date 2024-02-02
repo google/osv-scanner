@@ -37,6 +37,23 @@ func TestEncoding_EncodeComponentsInValidCycloneDX1_4(t *testing.T) {
 			},
 			{
 				Source: models.SourceInfo{
+					Path: "/path/to/another-lockfile.xml",
+					Type: "",
+				},
+				Packages: []models.PackageVulns{
+					{
+						Package: models.PackageInfo{
+							Name:      "com.foo:the-greatest-package",
+							Version:   "1.0.0",
+							Ecosystem: string(models.EcosystemMaven),
+							Start:     models.FilePosition{Line: 11},
+							End:       models.FilePosition{Line: 13},
+						},
+					},
+				},
+			},
+			{
+				Source: models.SourceInfo{
 					Path: "/path/to/npm/lockfile.lock",
 					Type: "",
 				},
