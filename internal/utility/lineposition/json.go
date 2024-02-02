@@ -25,7 +25,7 @@ func InJSON[P models.ILinePosition](groupKey string, dependencies map[string]P, 
 						if dep, ok := dependencies[key]; ok {
 							dependency = key
 							if os.Getenv("debug") == "true" {
-								fmt.Printf("[DEPENDENCY][START] '%s' at line %d\n", dependency, position)
+								fmt.Fprintf(os.Stdout, "[DEPENDENCY][START] '%s' at line %d\n", dependency, position)
 							}
 							dep.SetStart(position)
 							dependencies[dependency] = dep
@@ -35,7 +35,7 @@ func InJSON[P models.ILinePosition](groupKey string, dependencies map[string]P, 
 				if groupKey == key {
 					if group == "" {
 						if os.Getenv("debug") == "true" {
-							fmt.Printf("[GROUP][START] '%s' at line %d\n", groupKey, position)
+							fmt.Fprintf(os.Stdout, "[GROUP][START] '%s' at line %d\n", groupKey, position)
 						}
 						group = key
 						groupLevel = stack
@@ -44,7 +44,7 @@ func InJSON[P models.ILinePosition](groupKey string, dependencies map[string]P, 
 							nestedDependencies := dep.GetNestedDependencies()
 							if nestedDependencies != nil {
 								if os.Getenv("debug") == "true" {
-									fmt.Printf("[NESTED][START] At line %d\n", position)
+									fmt.Fprintf(os.Stdout, "[NESTED][START] At line %d\n", position)
 								}
 								InJSON(groupKey, nestedDependencies, lines[lineNumber:], position-1)
 							}
@@ -60,7 +60,7 @@ func InJSON[P models.ILinePosition](groupKey string, dependencies map[string]P, 
 					if dependency != "" {
 						if dep, ok := dependencies[dependency]; ok {
 							if os.Getenv("debug") == "true" {
-								fmt.Printf("[DEPENDENCY][END] '%s' at line %d\n", dependency, position)
+								fmt.Fprintf(os.Stdout, "[DEPENDENCY][END] '%s' at line %d\n", dependency, position)
 							}
 							dep.SetEnd(position)
 							dependencies[dependency] = dep
@@ -69,13 +69,14 @@ func InJSON[P models.ILinePosition](groupKey string, dependencies map[string]P, 
 					}
 				} else if stack == groupLevel-1 {
 					if os.Getenv("debug") == "true" {
-						fmt.Printf("[GROUP][END] '%s' at line %d\n", groupKey, position)
+						fmt.Fprintf(os.Stdout, "[GROUP][END] '%s' at line %d\n", groupKey, position)
 					}
 					group = ""
 					if offset != 0 {
 						if os.Getenv("debug") == "true" {
-							fmt.Printf("[NESTED][END] At line %d\n", position)
+							fmt.Fprintf(os.Stdout, "[NESTED][END] At line %d\n", position)
 						}
+
 						return
 					}
 				}
