@@ -25,7 +25,7 @@ type PnpmLockPackage struct {
 	Name       string                    `yaml:"name"`
 	Version    string                    `yaml:"version"`
 	Dev        bool                      `yaml:"dev"`
-	models.LinePosition
+	models.FilePosition
 }
 
 type PnpmLockPackages map[string]PnpmLockPackage
@@ -191,14 +191,13 @@ func parsePnpmLock(lockfile PnpmLockfile) []PackageDetails {
 		}
 
 		packages = append(packages, PackageDetails{
-			Name:      name,
-			Version:   version,
-			Ecosystem: PnpmEcosystem,
-			CompareAs: PnpmEcosystem,
-			Start:     pkg.Start,
-			End:       pkg.End,
-			Commit:    commit,
-			DepGroups: depGroups,
+			Name:         name,
+			Version:      version,
+			Ecosystem:    PnpmEcosystem,
+			CompareAs:    PnpmEcosystem,
+			LinePosition: pkg.FilePosition,
+			Commit:       commit,
+			DepGroups:    depGroups,
 		})
 	}
 

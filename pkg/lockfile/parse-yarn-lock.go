@@ -18,7 +18,7 @@ type YarnPackage struct {
 	Name       string
 	Version    string
 	Resolution string
-	models.LinePosition
+	models.FilePosition
 }
 
 func shouldSkipYarnLine(line string) bool {
@@ -30,7 +30,7 @@ func parseYarnPackageGroup(group []string, start int, end int) YarnPackage {
 		Name:         extractYarnPackageName(group[0]),
 		Version:      determineYarnPackageVersion(group),
 		Resolution:   determineYarnPackageResolution(group),
-		LinePosition: models.LinePosition{Start: start, End: end},
+		FilePosition: models.FilePosition{Start: start, End: end},
 	}
 }
 
@@ -189,13 +189,12 @@ func parseYarnPackage(dependency YarnPackage) PackageDetails {
 	}
 
 	return PackageDetails{
-		Name:      dependency.Name,
-		Version:   dependency.Version,
-		Ecosystem: YarnEcosystem,
-		CompareAs: YarnEcosystem,
-		Commit:    tryExtractCommit(dependency.Resolution),
-		Start:     dependency.Start,
-		End:       dependency.End,
+		Name:         dependency.Name,
+		Version:      dependency.Version,
+		Ecosystem:    YarnEcosystem,
+		CompareAs:    YarnEcosystem,
+		Commit:       tryExtractCommit(dependency.Resolution),
+		LinePosition: dependency.FilePosition,
 	}
 }
 
