@@ -15,7 +15,7 @@ import (
 func TestEncoding_EncodeComponentsInValidCycloneDX1_4(t *testing.T) {
 	t.Parallel()
 	var stdout, stderr strings.Builder
-	cycloneDXReporter := reporter.NewCycloneDXReporter(&stdout, &stderr)
+	cycloneDXReporter := reporter.NewCycloneDXReporter(&stdout, &stderr, reporter.CycloneDXVersion14)
 	vulnResults := models.VulnerabilityResults{
 		Results: []models.PackageSource{
 			{
@@ -89,7 +89,7 @@ func TestEncoding_EncodeComponentsInValidCycloneDX1_4(t *testing.T) {
 	require.NoError(t, err, "an error occurred when decoding")
 
 	expectedBOM := cyclonedx.BOM{
-		JSONSchema:  "http://cyclonedx.org/schema/bom-1.4.schema.json",
+		JSONSchema:  "https://cyclonedx.org/schema/bom-1.4.schema.json",
 		Version:     1,
 		BOMFormat:   cyclonedx.BOMFormat,
 		SpecVersion: cyclonedx.SpecVersion1_4,
