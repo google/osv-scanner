@@ -215,6 +215,7 @@ func TestRun(t *testing.T) {
 				| https://osv.dev/GHSA-g2j6-57v7-gm8c | 6.1  | Go        | github.com/opencontainers/runc | v1.0.1                             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 				| https://osv.dev/GHSA-m8cg-xc2p-r3fc | 2.5  | Go        | github.com/opencontainers/runc | v1.0.1                             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 				| https://osv.dev/GHSA-vpvm-3wq2-2wvm | 7    | Go        | github.com/opencontainers/runc | v1.0.1                             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+				| https://osv.dev/GHSA-xr7r-f8xq-vfvv | 8.6  | Go        | github.com/opencontainers/runc | v1.0.1                             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 				| https://osv.dev/GHSA-p782-xgp4-8hr8 | 5.3  | Go        | golang.org/x/sys               | v0.0.0-20210817142637-7d9622a276b7 | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 				| https://osv.dev/GO-2022-0493        |      |           |                                |                                    |                                                 |
 				| https://osv.dev/DLA-3012-1          |      | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
@@ -944,6 +945,7 @@ func TestRun_LocalDatabases(t *testing.T) {
 				| https://osv.dev/GHSA-m8cg-xc2p-r3fc | 2.5  | Go        | github.com/opencontainers/runc | v1.0.1                             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 				| https://osv.dev/GHSA-v95c-p5hm-xq8f | 6    | Go        | github.com/opencontainers/runc | v1.0.1                             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 				| https://osv.dev/GHSA-vpvm-3wq2-2wvm | 7    | Go        | github.com/opencontainers/runc | v1.0.1                             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+				| https://osv.dev/GHSA-xr7r-f8xq-vfvv | 8.6  | Go        | github.com/opencontainers/runc | v1.0.1                             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 				| https://osv.dev/GHSA-p782-xgp4-8hr8 | 5.3  | Go        | golang.org/x/sys               | v0.0.0-20210817142637-7d9622a276b7 | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 				+-------------------------------------+------+-----------+--------------------------------+------------------------------------+-------------------------------------------------+
 			`,
@@ -1266,11 +1268,9 @@ Filtered 2 vulnerabilities from output
 									"name": "babel",
 									"version": "6.23.0",
 									"ecosystem": "npm",
-									"start": {
-										"line": 13
-									},
-									"end": {
-										"line": 23
+									"line": {
+										"start": 13,
+										"end": 23
 									}
 								},
 								"licenses": [
@@ -1282,11 +1282,9 @@ Filtered 2 vulnerabilities from output
 									"name": "human-signals",
 									"version": "5.0.0",
 									"ecosystem": "npm",
-									"start": {
-										"line": 24
-									},
-									"end": {
-										"line": 31
+									"line": {
+										"start": 24,
+										"end": 31
 									}
 								},
 								"licenses": [
@@ -1301,11 +1299,9 @@ Filtered 2 vulnerabilities from output
 									"name": "ms",
 									"version": "2.1.3",
 									"ecosystem": "npm",
-									"start": {
-										"line": 32
-									},
-									"end": {
-										"line": 36
+									"line": {
+										"start": 32,
+										"end": 36
 									}
 								},
 								"licenses": [
@@ -1348,11 +1344,9 @@ Filtered 2 vulnerabilities from output
 									"name": "human-signals",
 									"version": "5.0.0",
 									"ecosystem": "npm",
-									"start": {
-										"line": 24
-									},
-									"end": {
-										"line": 31
+									"line": {
+										"start": 24,
+										"end": 31
 									}
 								},
 								"licenses": [
@@ -1398,11 +1392,9 @@ Filtered 2 vulnerabilities from output
 									"name": "babel",
 									"version": "6.23.0",
 									"ecosystem": "npm",
-									"start": {
-										"line": 13
-									},
-									"end": {
-										"line": 23
+									"line": {
+										"start": 13,
+										"end": 23
 									}
 								},
 								"licenses": [
@@ -1414,11 +1406,9 @@ Filtered 2 vulnerabilities from output
 									"name": "human-signals",
 									"version": "5.0.0",
 									"ecosystem": "npm",
-									"start": {
-										"line": 24
-									},
-									"end": {
-										"line": 31
+									"line": {
+										"start": 24,
+										"end": 31
 									}
 								},
 								"licenses": [
@@ -1430,11 +1420,9 @@ Filtered 2 vulnerabilities from output
 									"name": "ms",
 									"version": "2.1.3",
 									"ecosystem": "npm",
-									"start": {
-										"line": 32
-									},
-									"end": {
-										"line": 36
+									"line": {
+										"start": 32,
+										"end": 36
 									}
 								},
 								"licenses": [
@@ -1478,11 +1466,9 @@ Filtered 2 vulnerabilities from output
 									"name": "babel",
 									"version": "6.23.0",
 									"ecosystem": "npm",
-									"start": {
-										"line": 13
-									},
-									"end": {
-										"line": 23
+									"line": {
+										"start": 13,
+										"end": 23
 									}
 								},
 								"licenses": [
@@ -1494,11 +1480,9 @@ Filtered 2 vulnerabilities from output
 									"name": "human-signals",
 									"version": "5.0.0",
 									"ecosystem": "npm",
-									"start": {
-										"line": 24
-									},
-									"end": {
-										"line": 31
+									"line": {
+										"start": 24,
+										"end": 31
 									}
 								},
 								"licenses": [
@@ -1510,11 +1494,9 @@ Filtered 2 vulnerabilities from output
 									"name": "ms",
 									"version": "2.1.3",
 									"ecosystem": "npm",
-									"start": {
-										"line": 32
-									},
-									"end": {
-										"line": 36
+									"line": {
+										"start": 32,
+										"end": 36
 									}
 								},
 								"licenses": [

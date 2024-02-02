@@ -98,6 +98,12 @@ func run(args []string, stdout, stderr io.Writer) int {
 				Value:   false,
 			},
 			&cli.BoolFlag{
+				Name:    "debug",
+				Aliases: []string{"d"},
+				Usage:   "debug logs",
+				Value:   false,
+			},
+			&cli.BoolFlag{
 				Name:  "experimental-call-analysis",
 				Usage: "[Deprecated] attempt call analysis on code to detect only active vulnerabilities",
 				Value: false,
@@ -201,6 +207,7 @@ func run(args []string, stdout, stderr io.Writer) int {
 				Recursive:            context.Bool("recursive"),
 				SkipGit:              context.Bool("skip-git"),
 				NoIgnore:             context.Bool("no-ignore"),
+				Debug:                context.Bool("debug"),
 				ConfigOverridePath:   context.String("config"),
 				DirectoryPaths:       context.Args().Slice(),
 				CallAnalysisStates:   callAnalysisStates,

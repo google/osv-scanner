@@ -22,9 +22,8 @@ type MavenLockDependency struct {
 	ArtifactID string   `xml:"artifactId"`
 	Version    string   `xml:"version"`
 	Scope      string   `xml:"scope"`
-	Start      models.FilePosition
-	End        models.FilePosition
 	SourceFile string
+	models.FilePosition
 }
 
 type MavenLockParent struct {
@@ -146,13 +145,13 @@ DecodingLoop:
 		switch elem := token.(type) {
 		case xml.StartElement:
 			dependency := MavenLockDependency{}
-			dependency.Start = models.FilePosition{Line: startLine}
+			dependency.Start = startLine
 			err := decoder.DecodeElement(&dependency, &elem)
 			if err != nil {
 				return err
 			}
 			endLine, _ := decoder.InputPos()
-			dependency.End = models.FilePosition{Line: endLine}
+			dependency.End = endLine
 			dependencyHolder.Dependencies = append(dependencyHolder.Dependencies, dependency)
 		case xml.EndElement:
 			if elem.Name == start.Name {
@@ -261,13 +260,12 @@ func (e MavenLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 		finalName := lockPackage.GroupID + ":" + lockPackage.ArtifactID
 
 		pkgDetails := PackageDetails{
-			Name:       finalName,
-			Version:    lockPackage.ResolveVersion(*parsedLockfile),
-			Ecosystem:  MavenEcosystem,
-			CompareAs:  MavenEcosystem,
-			Start:      lockPackage.Start,
-			End:        lockPackage.End,
-			SourceFile: lockPackage.SourceFile,
+			Name:         finalName,
+			Version:      lockPackage.ResolveVersion(*parsedLockfile),
+			Ecosystem:    MavenEcosystem,
+			CompareAs:    MavenEcosystem,
+			LinePosition: models.FilePosition{Start: lockPackage.Start, End: lockPackage.End},
+			SourceFile:   lockPackage.SourceFile,
 		}
 		if strings.TrimSpace(lockPackage.Scope) != "" {
 			pkgDetails.DepGroups = append(pkgDetails.DepGroups, lockPackage.Scope)

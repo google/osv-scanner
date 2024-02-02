@@ -15,12 +15,11 @@ func TestComposerExtraction_shouldExtractPackages(t *testing.T) {
 		expectedName      string
 	}{
 		packageInfo: models.PackageInfo{
-			Name:      "symfony/yaml",
-			Version:   "7.0.0",
-			Ecosystem: string(models.EcosystemPackagist),
-			Commit:    "",
-			Start:     models.FilePosition{},
-			End:       models.FilePosition{},
+			Name:         "symfony/yaml",
+			Version:      "7.0.0",
+			Ecosystem:    string(models.EcosystemPackagist),
+			Commit:       "",
+			LinePosition: models.FilePosition{Start: 0, End: 0},
 		},
 		expectedNamespace: "symfony",
 		expectedName:      "yaml",
@@ -48,23 +47,21 @@ func TestComposerExtraction_shouldFilterPackages(t *testing.T) {
 		{
 			name: "when_package_contains_less_than_2_parts",
 			packageInfo: models.PackageInfo{
-				Name:      "symfony",
-				Version:   "7.0.0",
-				Ecosystem: string(models.EcosystemPackagist),
-				Commit:    "",
-				Start:     models.FilePosition{},
-				End:       models.FilePosition{},
+				Name:         "symfony",
+				Version:      "7.0.0",
+				Ecosystem:    string(models.EcosystemPackagist),
+				Commit:       "",
+				LinePosition: models.FilePosition{Start: 0, End: 0},
 			},
 		},
 		{
 			name: "when_package_have_no_name",
 			packageInfo: models.PackageInfo{
-				Name:      "",
-				Version:   "7.0.0",
-				Ecosystem: string(models.EcosystemPackagist),
-				Commit:    "",
-				Start:     models.FilePosition{},
-				End:       models.FilePosition{},
+				Name:         "",
+				Version:      "7.0.0",
+				Ecosystem:    string(models.EcosystemPackagist),
+				Commit:       "",
+				LinePosition: models.FilePosition{Start: 0, End: 0},
 			},
 		},
 	}

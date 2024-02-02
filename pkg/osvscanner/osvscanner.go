@@ -37,6 +37,7 @@ type ScannerActions struct {
 	Recursive            bool
 	SkipGit              bool
 	NoIgnore             bool
+	Debug                bool
 	DockerContainerNames []string
 	ConfigOverridePath   string
 	CallAnalysisStates   map[string]bool
@@ -390,8 +391,7 @@ func scanLockfile(r reporter.Reporter, path string, parseAs string) ([]scannedPa
 				Path: sourcePath,
 				Type: "lockfile",
 			},
-			Start: pkgDetail.Start,
-			End:   pkgDetail.End,
+			LinePosition: pkgDetail.LinePosition,
 		}
 	}
 
@@ -694,15 +694,14 @@ func parseLockfilePath(lockfileElem string) (string, string) {
 }
 
 type scannedPackage struct {
-	PURL      string
-	Name      string
-	Ecosystem lockfile.Ecosystem
-	Commit    string
-	Version   string
-	Start     models.FilePosition
-	End       models.FilePosition
-	Source    models.SourceInfo
-	DepGroups []string
+	PURL         string
+	Name         string
+	Ecosystem    lockfile.Ecosystem
+	Commit       string
+	Version      string
+	LinePosition models.FilePosition
+	Source       models.SourceInfo
+	DepGroups    []string
 }
 
 // Perform osv scanner action, with optional reporter to output information
@@ -730,6 +729,10 @@ func DoScan(actions ScannerActions, r reporter.Reporter) (models.VulnerabilityRe
 
 	//nolint:prealloc // Not sure how many there will be in advance.
 	var scannedPackages []scannedPackage
+
+	if actions.Debug {
+		os.Setenv("debug", "true")
+	}
 
 	if actions.ConfigOverridePath != "" {
 		err := configManager.UseOverride(actions.ConfigOverridePath)
