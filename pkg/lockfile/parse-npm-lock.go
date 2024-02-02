@@ -22,13 +22,13 @@ type NpmLockDependency struct {
 	Dev      bool `json:"dev,omitempty"`
 	Optional bool `json:"optional,omitempty"`
 
-	models.LinePosition
+	models.FilePosition
 }
 
-func (npmLockDependency *NpmLockDependency) GetNestedDependencies() map[string]*models.LinePosition {
-	result := make(map[string]*models.LinePosition)
+func (npmLockDependency *NpmLockDependency) GetNestedDependencies() map[string]*models.FilePosition {
+	result := make(map[string]*models.FilePosition)
 	for key, value := range npmLockDependency.Dependencies {
-		result[key] = &value.LinePosition
+		result[key] = &value.FilePosition
 	}
 
 	return result
@@ -45,7 +45,7 @@ type NpmLockPackage struct {
 	DevOptional bool `json:"devOptional,omitempty"`
 	Optional    bool `json:"optional,omitempty"`
 
-	models.LinePosition
+	models.FilePosition
 }
 
 type NpmLockfile struct {
@@ -140,14 +140,13 @@ func parseNpmLockDependencies(dependencies map[string]*NpmLockDependency) map[st
 		}
 
 		details[name+"@"+version] = PackageDetails{
-			Name:      name,
-			Version:   finalVersion,
-			Ecosystem: NpmEcosystem,
-			CompareAs: NpmEcosystem,
-			Start:     detail.Start,
-			End:       detail.End,
-			Commit:    commit,
-			DepGroups: detail.depGroups(),
+			Name:         name,
+			Version:      finalVersion,
+			Ecosystem:    NpmEcosystem,
+			CompareAs:    NpmEcosystem,
+			LinePosition: models.FilePosition{Start: detail.Start, End: detail.End},
+			Commit:       commit,
+			DepGroups:    detail.depGroups(),
 		}
 	}
 
@@ -210,14 +209,13 @@ func parseNpmLockPackages(packages map[string]*NpmLockPackage) map[string]Packag
 
 		if _, ok := details[finalName+"@"+finalVersion]; !ok {
 			details[finalName+"@"+finalVersion] = PackageDetails{
-				Name:      finalName,
-				Version:   detail.Version,
-				Ecosystem: NpmEcosystem,
-				CompareAs: NpmEcosystem,
-				Start:     detail.Start,
-				End:       detail.End,
-				Commit:    commit,
-				DepGroups: detail.depGroups(),
+				Name:         finalName,
+				Version:      detail.Version,
+				Ecosystem:    NpmEcosystem,
+				CompareAs:    NpmEcosystem,
+				LinePosition: models.FilePosition{Start: detail.Start, End: detail.End},
+				Commit:       commit,
+				DepGroups:    detail.depGroups(),
 			}
 		}
 	}

@@ -14,7 +14,7 @@ import (
 
 type PipenvPackage struct {
 	Version string `json:"version"`
-	models.LinePosition
+	models.FilePosition
 }
 
 type PipenvLock struct {
@@ -67,12 +67,11 @@ func addPkgDetails(details map[string]PackageDetails, packages map[string]*Pipen
 
 		if _, ok := details[name+"@"+version]; !ok {
 			pkgDetails := PackageDetails{
-				Name:      name,
-				Version:   version,
-				Start:     pipenvPackage.Start,
-				End:       pipenvPackage.End,
-				Ecosystem: PipenvEcosystem,
-				CompareAs: PipenvEcosystem,
+				Name:         name,
+				Version:      version,
+				LinePosition: models.FilePosition{Start: pipenvPackage.Start, End: pipenvPackage.End},
+				Ecosystem:    PipenvEcosystem,
+				CompareAs:    PipenvEcosystem,
 			}
 			if group != "" {
 				pkgDetails.DepGroups = append(pkgDetails.DepGroups, group)

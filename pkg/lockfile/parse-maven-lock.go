@@ -23,7 +23,7 @@ type MavenLockDependency struct {
 	Version    string   `xml:"version"`
 	Scope      string   `xml:"scope"`
 	SourceFile string
-	models.LinePosition
+	models.FilePosition
 }
 
 type MavenLockParent struct {
@@ -260,13 +260,12 @@ func (e MavenLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 		finalName := lockPackage.GroupID + ":" + lockPackage.ArtifactID
 
 		pkgDetails := PackageDetails{
-			Name:       finalName,
-			Version:    lockPackage.ResolveVersion(*parsedLockfile),
-			Ecosystem:  MavenEcosystem,
-			CompareAs:  MavenEcosystem,
-			Start:      lockPackage.Start,
-			End:        lockPackage.End,
-			SourceFile: lockPackage.SourceFile,
+			Name:         finalName,
+			Version:      lockPackage.ResolveVersion(*parsedLockfile),
+			Ecosystem:    MavenEcosystem,
+			CompareAs:    MavenEcosystem,
+			LinePosition: models.FilePosition{Start: lockPackage.Start, End: lockPackage.End},
+			SourceFile:   lockPackage.SourceFile,
 		}
 		if strings.TrimSpace(lockPackage.Scope) != "" {
 			pkgDetails.DepGroups = append(pkgDetails.DepGroups, lockPackage.Scope)
