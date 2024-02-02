@@ -226,9 +226,9 @@ func toBom(results *models.VulnerabilityResults) *sbomproto.Bom {
 				Properties: props,
 			}
 
-			if packageInfo.Package.Start != 0 {
-				lineStart := strconv.Itoa(packageInfo.Package.Start)
-				lineEnd := strconv.Itoa(packageInfo.Package.End)
+			if packageInfo.Package.LinePosition.Start != 0 {
+				lineStart := strconv.Itoa(packageInfo.Package.LinePosition.Start)
+				lineEnd := strconv.Itoa(packageInfo.Package.LinePosition.End)
 				component.Properties = append(component.GetProperties(),
 					&sbomproto.Property{
 						Name:  "location_line_start",
