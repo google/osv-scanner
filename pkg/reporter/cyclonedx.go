@@ -17,6 +17,12 @@ type CycloneDXReporter struct {
 	stderr          io.Writer
 }
 
+type packageDetails struct {
+	Name      string
+	Version   string
+	Ecosystem string
+}
+
 func NewCycloneDXReporter(stdout io.Writer, stderr io.Writer) *CycloneDXReporter {
 	return &CycloneDXReporter{
 		stdout:          stdout,
@@ -61,21 +67,40 @@ func toCycloneDX14Bom(packageSources []models.PackageSource) *cyclonedx.BOM {
 	bom.SpecVersion = cyclonedx.SpecVersion1_4
 	bom.Components = &components
 
+	uniquePackages := groupByPackage(packageSources)
+
+	for packageURL, packageDetail := range uniquePackages {
+		component := cyclonedx.Component{}
+		component.Name = packageDetail.Name
+		component.Version = packageDetail.Version
+		component.BOMRef = packageURL
+		component.PackageURL = packageURL
+		components = append(components, component)
+	}
+
+	return bom
+}
+
+func groupByPackage(packageSources []models.PackageSource) map[string]packageDetails {
+	uniquePackages := make(map[string]packageDetails)
+
 	for _, packageSource := range packageSources {
 		for _, pkg := range packageSource.Packages {
 			packageURL := purl.From(pkg.Package)
 			if packageURL == nil {
 				continue
 			}
-
-			component := cyclonedx.Component{}
-			component.Name = pkg.Package.Name
-			component.Version = pkg.Package.Version
-			component.BOMRef = packageURL.ToString()
-			component.PackageURL = packageURL.ToString()
-			components = append(components, component)
+			_, packageExists := uniquePackages[packageURL.ToString()]
+			if !packageExists {
+				newPackage := packageDetails{
+					Name:      pkg.Package.Name,
+					Version:   pkg.Package.Version,
+					Ecosystem: pkg.Package.Ecosystem,
+				}
+				uniquePackages[packageURL.ToString()] = newPackage
+			}
 		}
 	}
 
-	return bom
+	return uniquePackages
 }
