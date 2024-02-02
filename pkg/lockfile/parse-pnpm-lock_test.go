@@ -1,10 +1,10 @@
 package lockfile_test
 
 import (
-	"fmt"
-	"github.com/google/osv-scanner/pkg/models"
 	"io/fs"
 	"testing"
+
+	"github.com/google/osv-scanner/pkg/models"
 
 	"github.com/google/osv-scanner/pkg/lockfile"
 )
@@ -482,7 +482,6 @@ func TestParsePnpmLock_Exotic(t *testing.T) {
 		t.Errorf("Got unexpected error: %v", err)
 	}
 
-	fmt.Println(packages[1])
 	expectPackages(t, packages, []lockfile.PackageDetails{
 		{
 			Name:         "foo",
