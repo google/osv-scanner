@@ -725,7 +725,7 @@ func TestRun_LockfileWithExplicitParseAs(t *testing.T) {
 			wantExitCode: 127,
 			wantStdout:   "",
 			wantStderr: `
-				(extracting as package-lock.json) could not extract from <rootdir>/fixtures/locks-many/yarn.lock: invalid character '#' looking for beginning of value
+				(extracting as package-lock.json) could not decode json from <rootdir>/fixtures/locks-many/yarn.lock: invalid character '#' looking for beginning of value
 			`,
 		},
 		// "apk-installed" is supported
@@ -1267,10 +1267,10 @@ Filtered 2 vulnerabilities from output
 									"version": "6.23.0",
 									"ecosystem": "npm",
 									"start": {
-										"line": 0
+										"line": 13
 									},
 									"end": {
-										"line": 0
+										"line": 23
 									}
 								},
 								"licenses": [
@@ -1283,10 +1283,10 @@ Filtered 2 vulnerabilities from output
 									"version": "5.0.0",
 									"ecosystem": "npm",
 									"start": {
-										"line": 0
+										"line": 24
 									},
 									"end": {
-										"line": 0
+										"line": 31
 									}
 								},
 								"licenses": [
@@ -1302,10 +1302,10 @@ Filtered 2 vulnerabilities from output
 									"version": "2.1.3",
 									"ecosystem": "npm",
 									"start": {
-										"line": 0
+										"line": 32
 									},
 									"end": {
-										"line": 0
+										"line": 36
 									}
 								},
 								"licenses": [
@@ -1349,10 +1349,10 @@ Filtered 2 vulnerabilities from output
 									"version": "5.0.0",
 									"ecosystem": "npm",
 									"start": {
-										"line": 0
+										"line": 24
 									},
 									"end": {
-										"line": 0
+										"line": 31
 									}
 								},
 								"licenses": [
@@ -1399,10 +1399,10 @@ Filtered 2 vulnerabilities from output
 									"version": "6.23.0",
 									"ecosystem": "npm",
 									"start": {
-										"line": 0
+										"line": 13
 									},
 									"end": {
-										"line": 0
+										"line": 23
 									}
 								},
 								"licenses": [
@@ -1415,10 +1415,10 @@ Filtered 2 vulnerabilities from output
 									"version": "5.0.0",
 									"ecosystem": "npm",
 									"start": {
-										"line": 0
+										"line": 24
 									},
 									"end": {
-										"line": 0
+										"line": 31
 									}
 								},
 								"licenses": [
@@ -1431,10 +1431,10 @@ Filtered 2 vulnerabilities from output
 									"version": "2.1.3",
 									"ecosystem": "npm",
 									"start": {
-										"line": 0
+										"line": 32
 									},
 									"end": {
-										"line": 0
+										"line": 36
 									}
 								},
 								"licenses": [
@@ -1479,10 +1479,10 @@ Filtered 2 vulnerabilities from output
 									"version": "6.23.0",
 									"ecosystem": "npm",
 									"start": {
-										"line": 0
+										"line": 13
 									},
 									"end": {
-										"line": 0
+										"line": 23
 									}
 								},
 								"licenses": [
@@ -1495,10 +1495,10 @@ Filtered 2 vulnerabilities from output
 									"version": "5.0.0",
 									"ecosystem": "npm",
 									"start": {
-										"line": 0
+										"line": 24
 									},
 									"end": {
-										"line": 0
+										"line": 31
 									}
 								},
 								"licenses": [
@@ -1511,10 +1511,10 @@ Filtered 2 vulnerabilities from output
 									"version": "2.1.3",
 									"ecosystem": "npm",
 									"start": {
-										"line": 0
+										"line": 32
 									},
 									"end": {
-										"line": 0
+										"line": 36
 									}
 								},
 								"licenses": [
