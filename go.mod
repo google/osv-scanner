@@ -1,19 +1,19 @@
 module github.com/google/osv-scanner
 
-go 1.21.5
+go 1.21.6
 
 require (
-	deps.dev/api/v3alpha v0.0.0-20240109042716-00b51ef52ece
-	deps.dev/util/resolve v0.0.0-20240109042716-00b51ef52ece
-	deps.dev/util/semver v0.0.0-20240109040450-1e316b822bc4
+	deps.dev/api/v3alpha v0.0.0-20240204235316-c339c640e576
+	deps.dev/util/resolve v0.0.0-20240204235316-c339c640e576
+	deps.dev/util/semver v0.0.0-20240204235316-c339c640e576
 	github.com/BurntSushi/toml v1.3.2
 	github.com/CycloneDX/cyclonedx-go v0.8.0
-	github.com/gkampitakis/go-snaps v0.4.12
+	github.com/gkampitakis/go-snaps v0.5.2
 	github.com/go-git/go-billy/v5 v5.5.0
 	github.com/go-git/go-git/v5 v5.11.0
 	github.com/google/go-cmp v0.6.0
-	github.com/ianlancetaylor/demangle v0.0.0-20240117034632-964b1d53ca6c
-	github.com/jedib0t/go-pretty/v6 v6.5.3
+	github.com/ianlancetaylor/demangle v0.0.0-20240205174729-1f824a1a9b87
+	github.com/jedib0t/go-pretty/v6 v6.5.4
 	github.com/owenrumney/go-sarif/v2 v2.3.0
 	github.com/package-url/packageurl-go v0.1.2
 	github.com/pandatix/go-cvss v0.6.2
@@ -21,13 +21,13 @@ require (
 	github.com/tidwall/gjson v1.17.0
 	github.com/tidwall/sjson v1.2.5
 	github.com/urfave/cli/v2 v2.27.1
-	golang.org/x/exp v0.0.0-20240119083558-1b970713d09a
+	golang.org/x/exp v0.0.0-20240205201215-2c58cdc269a3
 	golang.org/x/mod v0.14.0
 	golang.org/x/sync v0.6.0
 	golang.org/x/term v0.16.0
 	golang.org/x/vuln v1.0.1
-	google.golang.org/grpc v1.60.1
-	google.golang.org/protobuf v1.31.0
+	google.golang.org/grpc v1.61.0
+	google.golang.org/protobuf v1.32.0
 	gopkg.in/ini.v1 v1.67.0
 	gopkg.in/yaml.v3 v3.0.1
 )
@@ -50,11 +50,11 @@ require (
 	github.com/kevinburke/ssh_config v1.2.0 // indirect
 	github.com/kr/pretty v0.3.1 // indirect
 	github.com/kr/text v0.2.0 // indirect
-	github.com/maruel/natural v1.1.0 // indirect
+	github.com/maruel/natural v1.1.1 // indirect
 	github.com/mattn/go-runewidth v0.0.15 // indirect
 	github.com/pjbgf/sha1cd v0.3.0 // indirect
 	github.com/rivo/uniseg v0.4.4 // indirect
-	github.com/rogpeppe/go-internal v1.11.0 // indirect
+	github.com/rogpeppe/go-internal v1.12.0 // indirect
 	github.com/russross/blackfriday/v2 v2.1.0 // indirect
 	github.com/sergi/go-diff v1.3.1 // indirect
 	github.com/skeema/knownhosts v1.2.1 // indirect
@@ -68,6 +68,6 @@ require (
 	golang.org/x/sys v0.16.0 // indirect
 	golang.org/x/text v0.14.0 // indirect
 	golang.org/x/tools v0.17.0 // indirect
-	google.golang.org/genproto/googleapis/rpc v0.0.0-20231002182017-d307bd883b97 // indirect
+	google.golang.org/genproto/googleapis/rpc v0.0.0-20231106174013-bbf56f31fb17 // indirect
 	gopkg.in/warnings.v0 v0.1.2 // indirect
 )
