@@ -2,9 +2,13 @@ package lockfile
 
 import (
 	"fmt"
+	"os"
 	"path/filepath"
+	"strings"
 
 	"github.com/BurntSushi/toml"
+	"github.com/google/osv-scanner/internal/utility/lineposition"
+	"github.com/google/osv-scanner/pkg/models"
 )
 
 type PoetryLockPackageSource struct {
@@ -17,11 +21,12 @@ type PoetryLockPackage struct {
 	Version  string                  `toml:"version"`
 	Optional bool                    `toml:"optional"`
 	Source   PoetryLockPackageSource `toml:"source"`
+	models.FilePosition
 }
 
 type PoetryLockFile struct {
-	Version  int                 `toml:"version"`
-	Packages []PoetryLockPackage `toml:"package"`
+	Version  int                  `toml:"version"`
+	Packages []*PoetryLockPackage `toml:"package"`
 }
 
 const PoetryEcosystem = PipEcosystem
@@ -35,21 +40,31 @@ func (e PoetryLockExtractor) ShouldExtract(path string) bool {
 func (e PoetryLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 	var parsedLockfile *PoetryLockFile
 
-	_, err := toml.NewDecoder(f).Decode(&parsedLockfile)
-
+	content, err := os.ReadFile(f.Path())
 	if err != nil {
 		return []PackageDetails{}, fmt.Errorf("could not extract from %s: %w", f.Path(), err)
 	}
+
+	contentString := string(content)
+	lines := strings.Split(contentString, "\n")
+	decoder := toml.NewDecoder(strings.NewReader(contentString))
+
+	if _, err := decoder.Decode(&parsedLockfile); err != nil {
+		return []PackageDetails{}, fmt.Errorf("could not decode toml from %s: %w", f.Path(), err)
+	}
+
+	lineposition.InTOML("[[package]]", "[metadata]", parsedLockfile.Packages, lines)
 
 	packages := make([]PackageDetails, 0, len(parsedLockfile.Packages))
 
 	for _, lockPackage := range parsedLockfile.Packages {
 		pkgDetails := PackageDetails{
-			Name:      lockPackage.Name,
-			Version:   lockPackage.Version,
-			Commit:    lockPackage.Source.Commit,
-			Ecosystem: PoetryEcosystem,
-			CompareAs: PoetryEcosystem,
+			Name:         lockPackage.Name,
+			Version:      lockPackage.Version,
+			Commit:       lockPackage.Source.Commit,
+			LinePosition: lockPackage.FilePosition,
+			Ecosystem:    PoetryEcosystem,
+			CompareAs:    PoetryEcosystem,
 		}
 		if lockPackage.Optional {
 			pkgDetails.DepGroups = append(pkgDetails.DepGroups, "optional")
