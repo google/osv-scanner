@@ -1,6 +1,7 @@
 package lockfile
 
 import (
+	"bufio"
 	"fmt"
 	"os"
 	"path/filepath"
@@ -40,14 +41,17 @@ func (e PoetryLockExtractor) ShouldExtract(path string) bool {
 func (e PoetryLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 	var parsedLockfile *PoetryLockFile
 
-	content, err := os.ReadFile(f.Path())
+	content, err := os.Open(f.Path())
 	if err != nil {
 		return []PackageDetails{}, fmt.Errorf("could not extract from %s: %w", f.Path(), err)
 	}
 
-	contentString := string(content)
-	lines := strings.Split(contentString, "\n")
-	decoder := toml.NewDecoder(strings.NewReader(contentString))
+	var lines []string
+	scanner := bufio.NewScanner(content)
+	for scanner.Scan() {
+		lines = append(lines, scanner.Text())
+	}
+	decoder := toml.NewDecoder(strings.NewReader(strings.Join(lines, "\n")))
 
 	if _, err := decoder.Decode(&parsedLockfile); err != nil {
 		return []PackageDetails{}, fmt.Errorf("could not decode toml from %s: %w", f.Path(), err)
