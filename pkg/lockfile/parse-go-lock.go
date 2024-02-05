@@ -46,20 +46,21 @@ func (e GoLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 	packages := map[string]PackageDetails{}
 
 	for _, require := range parsedLockfile.Require {
-		var startPosition = require.Syntax.Start.Line
-		var endPosition = require.Syntax.End.Line
+		var start = require.Syntax.Start
+		var end = require.Syntax.End
 		packages[require.Mod.Path+"@"+require.Mod.Version] = PackageDetails{
 			Name:      require.Mod.Path,
 			Version:   strings.TrimPrefix(require.Mod.Version, "v"),
 			Ecosystem: GoEcosystem,
 			CompareAs: GoEcosystem,
-			Line:      models.Position{Start: startPosition, End: endPosition},
+			Line:      models.Position{Start: start.Line, End: end.Line},
+			Column:    models.Position{Start: start.LineRune, End: end.LineRune},
 		}
 	}
 
 	for _, replace := range parsedLockfile.Replace {
-		var startPosition = replace.Syntax.Start.Line
-		var endPosition = replace.Syntax.End.Line
+		var start = replace.Syntax.Start
+		var end = replace.Syntax.End
 		var replacements []string
 
 		if replace.Old.Version == "" {
@@ -86,7 +87,8 @@ func (e GoLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 				Version:   strings.TrimPrefix(replace.New.Version, "v"),
 				Ecosystem: GoEcosystem,
 				CompareAs: GoEcosystem,
-				Line:      models.Position{Start: startPosition, End: endPosition},
+				Line:      models.Position{Start: start.Line, End: end.Line},
+				Column:    models.Position{Start: start.LineRune, End: end.LineRune},
 			}
 		}
 	}
