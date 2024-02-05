@@ -29,7 +29,7 @@ func TestEncoding_EncodeComponentsInValidCycloneDX1_4(t *testing.T) {
 							Name:      "com.foo:the-greatest-package",
 							Version:   "1.0.0",
 							Ecosystem: string(models.EcosystemMaven),
-							LinePosition: models.FilePosition{
+							Line: models.Position{
 								Start: 1,
 								End:   3,
 							},
@@ -48,7 +48,7 @@ func TestEncoding_EncodeComponentsInValidCycloneDX1_4(t *testing.T) {
 							Name:      "com.foo:the-greatest-package",
 							Version:   "1.0.0",
 							Ecosystem: string(models.EcosystemMaven),
-							LinePosition: models.FilePosition{
+							Line: models.Position{
 								Start: 11,
 								End:   13,
 							},
@@ -67,7 +67,7 @@ func TestEncoding_EncodeComponentsInValidCycloneDX1_4(t *testing.T) {
 							Name:      "the-npm-package",
 							Version:   "1.1.0",
 							Ecosystem: string(models.EcosystemNPM),
-							LinePosition: models.FilePosition{
+							Line: models.Position{
 								Start: 12,
 								End:   15,
 							},
