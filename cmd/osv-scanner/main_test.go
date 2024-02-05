@@ -526,12 +526,12 @@ func TestRun(t *testing.T) {
 		},
 		// output format: unsupported
 		{
-			name:         "",
+			name:         "unknown format used",
 			args:         []string{"", "--format", "unknown", "./fixtures/locks-many/composer.lock"},
 			wantExitCode: 127,
 			wantStdout:   "",
 			wantStderr: `
-				unsupported output format "unknown" - must be one of: table, json, markdown, sarif, gh-annotations, datadog-sbom, datadog-offline-sbom
+				unsupported output format "unknown" - must be one of: table, json, markdown, sarif, gh-annotations, datadog-sbom, datadog-offline-sbom, cyclonedx-1-4
 			`,
 		},
 		// one specific supported lockfile with ignore
