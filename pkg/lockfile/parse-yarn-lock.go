@@ -8,20 +8,41 @@ import (
 	"path/filepath"
 	"strings"
 
+	"github.com/google/osv-scanner/pkg/models"
+
 	"github.com/google/osv-scanner/internal/cachedregexp"
 )
 
 const YarnEcosystem = NpmEcosystem
 
+type YarnPackage struct {
+	Name       string
+	Version    string
+	Resolution string
+	models.FilePosition
+}
+
 func shouldSkipYarnLine(line string) bool {
 	return line == "" || strings.HasPrefix(line, "#")
 }
 
-func groupYarnPackageLines(scanner *bufio.Scanner) [][]string {
-	var groups [][]string
+func parseYarnPackageGroup(group []string, start int, end int) YarnPackage {
+	return YarnPackage{
+		Name:         extractYarnPackageName(group[0]),
+		Version:      determineYarnPackageVersion(group),
+		Resolution:   determineYarnPackageResolution(group),
+		FilePosition: models.FilePosition{Start: start, End: end},
+	}
+}
+
+func groupYarnPackageLines(scanner *bufio.Scanner) []YarnPackage {
+	var groups []YarnPackage
 	var group []string
+	var lineNumber, start, end int
 
 	for scanner.Scan() {
+		lineNumber++
+
 		line := scanner.Text()
 
 		if shouldSkipYarnLine(line) {
@@ -31,16 +52,19 @@ func groupYarnPackageLines(scanner *bufio.Scanner) [][]string {
 		// represents the start of a new dependency
 		if !strings.HasPrefix(line, " ") {
 			if len(group) > 0 {
-				groups = append(groups, group)
+				groups = append(groups, parseYarnPackageGroup(group, start, end))
 			}
+			start = lineNumber
 			group = make([]string, 0)
 		}
 
+		end = lineNumber
 		group = append(group, line)
 	}
 
 	if len(group) > 0 {
-		groups = append(groups, group)
+		end = lineNumber
+		groups = append(groups, parseYarnPackageGroup(group, start, end))
 	}
 
 	return groups
@@ -155,25 +179,22 @@ func tryExtractCommit(resolution string) string {
 	return ""
 }
 
-func parseYarnPackageGroup(group []string) PackageDetails {
-	name := extractYarnPackageName(group[0])
-	version := determineYarnPackageVersion(group)
-	resolution := determineYarnPackageResolution(group)
-
-	if version == "" {
+func parseYarnPackage(dependency YarnPackage) PackageDetails {
+	if dependency.Version == "" {
 		_, _ = fmt.Fprintf(
 			os.Stderr,
 			"Failed to determine version of %s while parsing a yarn.lock - please report this!\n",
-			name,
+			dependency.Name,
 		)
 	}
 
 	return PackageDetails{
-		Name:      name,
-		Version:   version,
-		Ecosystem: YarnEcosystem,
-		CompareAs: YarnEcosystem,
-		Commit:    tryExtractCommit(resolution),
+		Name:         dependency.Name,
+		Version:      dependency.Version,
+		Ecosystem:    YarnEcosystem,
+		CompareAs:    YarnEcosystem,
+		Commit:       tryExtractCommit(dependency.Resolution),
+		LinePosition: dependency.FilePosition,
 	}
 }
 
@@ -186,20 +207,20 @@ func (e YarnLockExtractor) ShouldExtract(path string) bool {
 func (e YarnLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 	scanner := bufio.NewScanner(f)
 
-	packageGroups := groupYarnPackageLines(scanner)
+	yarnPackages := groupYarnPackageLines(scanner)
 
 	if err := scanner.Err(); err != nil {
 		return []PackageDetails{}, fmt.Errorf("error while scanning %s: %w", f.Path(), err)
 	}
 
-	packages := make([]PackageDetails, 0, len(packageGroups))
+	packages := make([]PackageDetails, 0, len(yarnPackages))
 
-	for _, group := range packageGroups {
-		if group[0] == "__metadata:" {
+	for _, yarnPackage := range yarnPackages {
+		if yarnPackage.Name == "__metadata:" {
 			continue
 		}
 
-		packages = append(packages, parseYarnPackageGroup(group))
+		packages = append(packages, parseYarnPackage(yarnPackage))
 	}
 
 	return packages, nil

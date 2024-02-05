@@ -4,6 +4,8 @@ import (
 	"io/fs"
 	"testing"
 
+	"github.com/google/osv-scanner/pkg/models"
+
 	"github.com/google/osv-scanner/pkg/lockfile"
 )
 
@@ -39,10 +41,11 @@ func TestParseYarnLock_v2_OnePackage(t *testing.T) {
 
 	expectPackages(t, packages, []lockfile.PackageDetails{
 		{
-			Name:      "balanced-match",
-			Version:   "1.0.2",
-			Ecosystem: lockfile.YarnEcosystem,
-			CompareAs: lockfile.YarnEcosystem,
+			Name:         "balanced-match",
+			Version:      "1.0.2",
+			LinePosition: models.FilePosition{Start: 8, End: 13},
+			Ecosystem:    lockfile.YarnEcosystem,
+			CompareAs:    lockfile.YarnEcosystem,
 		},
 	})
 }
@@ -58,16 +61,18 @@ func TestParseYarnLock_v2_TwoPackages(t *testing.T) {
 
 	expectPackages(t, packages, []lockfile.PackageDetails{
 		{
-			Name:      "compare-func",
-			Version:   "2.0.0",
-			Ecosystem: lockfile.YarnEcosystem,
-			CompareAs: lockfile.YarnEcosystem,
+			Name:         "compare-func",
+			Version:      "2.0.0",
+			LinePosition: models.FilePosition{Start: 8, End: 16},
+			Ecosystem:    lockfile.YarnEcosystem,
+			CompareAs:    lockfile.YarnEcosystem,
 		},
 		{
-			Name:      "concat-map",
-			Version:   "0.0.1",
-			Ecosystem: lockfile.YarnEcosystem,
-			CompareAs: lockfile.YarnEcosystem,
+			Name:         "concat-map",
+			Version:      "0.0.1",
+			LinePosition: models.FilePosition{Start: 18, End: 23},
+			Ecosystem:    lockfile.YarnEcosystem,
+			CompareAs:    lockfile.YarnEcosystem,
 		},
 	})
 }
@@ -83,16 +88,18 @@ func TestParseYarnLock_v2_WithQuotes(t *testing.T) {
 
 	expectPackages(t, packages, []lockfile.PackageDetails{
 		{
-			Name:      "compare-func",
-			Version:   "2.0.0",
-			Ecosystem: lockfile.YarnEcosystem,
-			CompareAs: lockfile.YarnEcosystem,
+			Name:         "compare-func",
+			Version:      "2.0.0",
+			LinePosition: models.FilePosition{Start: 8, End: 16},
+			Ecosystem:    lockfile.YarnEcosystem,
+			CompareAs:    lockfile.YarnEcosystem,
 		},
 		{
-			Name:      "concat-map",
-			Version:   "0.0.1",
-			Ecosystem: lockfile.YarnEcosystem,
-			CompareAs: lockfile.YarnEcosystem,
+			Name:         "concat-map",
+			Version:      "0.0.1",
+			LinePosition: models.FilePosition{Start: 18, End: 23},
+			Ecosystem:    lockfile.YarnEcosystem,
+			CompareAs:    lockfile.YarnEcosystem,
 		},
 	})
 }
@@ -108,22 +115,25 @@ func TestParseYarnLock_v2_MultipleVersions(t *testing.T) {
 
 	expectPackages(t, packages, []lockfile.PackageDetails{
 		{
-			Name:      "debug",
-			Version:   "4.3.3",
-			Ecosystem: lockfile.YarnEcosystem,
-			CompareAs: lockfile.YarnEcosystem,
+			Name:         "debug",
+			Version:      "4.3.3",
+			LinePosition: models.FilePosition{Start: 8, End: 18},
+			Ecosystem:    lockfile.YarnEcosystem,
+			CompareAs:    lockfile.YarnEcosystem,
 		},
 		{
-			Name:      "debug",
-			Version:   "2.6.9",
-			Ecosystem: lockfile.YarnEcosystem,
-			CompareAs: lockfile.YarnEcosystem,
+			Name:         "debug",
+			Version:      "2.6.9",
+			LinePosition: models.FilePosition{Start: 20, End: 27},
+			Ecosystem:    lockfile.YarnEcosystem,
+			CompareAs:    lockfile.YarnEcosystem,
 		},
 		{
-			Name:      "debug",
-			Version:   "3.2.7",
-			Ecosystem: lockfile.YarnEcosystem,
-			CompareAs: lockfile.YarnEcosystem,
+			Name:         "debug",
+			Version:      "3.2.7",
+			LinePosition: models.FilePosition{Start: 29, End: 36},
+			Ecosystem:    lockfile.YarnEcosystem,
+			CompareAs:    lockfile.YarnEcosystem,
 		},
 	})
 }
@@ -139,22 +149,25 @@ func TestParseYarnLock_v2_ScopedPackages(t *testing.T) {
 
 	expectPackages(t, packages, []lockfile.PackageDetails{
 		{
-			Name:      "@babel/cli",
-			Version:   "7.16.8",
-			Ecosystem: lockfile.YarnEcosystem,
-			CompareAs: lockfile.YarnEcosystem,
+			Name:         "@babel/cli",
+			Version:      "7.16.8",
+			LinePosition: models.FilePosition{Start: 8, End: 33},
+			Ecosystem:    lockfile.YarnEcosystem,
+			CompareAs:    lockfile.YarnEcosystem,
 		},
 		{
-			Name:      "@babel/code-frame",
-			Version:   "7.16.7",
-			Ecosystem: lockfile.YarnEcosystem,
-			CompareAs: lockfile.YarnEcosystem,
+			Name:         "@babel/code-frame",
+			Version:      "7.16.7",
+			LinePosition: models.FilePosition{Start: 35, End: 42},
+			Ecosystem:    lockfile.YarnEcosystem,
+			CompareAs:    lockfile.YarnEcosystem,
 		},
 		{
-			Name:      "@babel/compat-data",
-			Version:   "7.16.8",
-			Ecosystem: lockfile.YarnEcosystem,
-			CompareAs: lockfile.YarnEcosystem,
+			Name:         "@babel/compat-data",
+			Version:      "7.16.8",
+			LinePosition: models.FilePosition{Start: 44, End: 49},
+			Ecosystem:    lockfile.YarnEcosystem,
+			CompareAs:    lockfile.YarnEcosystem,
 		},
 	})
 }
@@ -170,22 +183,25 @@ func TestParseYarnLock_v2_WithPrerelease(t *testing.T) {
 
 	expectPackages(t, packages, []lockfile.PackageDetails{
 		{
-			Name:      "@nicolo-ribaudo/chokidar-2",
-			Version:   "2.1.8-no-fsevents.3",
-			Ecosystem: lockfile.YarnEcosystem,
-			CompareAs: lockfile.YarnEcosystem,
+			Name:         "@nicolo-ribaudo/chokidar-2",
+			Version:      "2.1.8-no-fsevents.3",
+			LinePosition: models.FilePosition{Start: 8, End: 13},
+			Ecosystem:    lockfile.YarnEcosystem,
+			CompareAs:    lockfile.YarnEcosystem,
 		},
 		{
-			Name:      "gensync",
-			Version:   "1.0.0-beta.2",
-			Ecosystem: lockfile.YarnEcosystem,
-			CompareAs: lockfile.YarnEcosystem,
+			Name:         "gensync",
+			Version:      "1.0.0-beta.2",
+			LinePosition: models.FilePosition{Start: 15, End: 20},
+			Ecosystem:    lockfile.YarnEcosystem,
+			CompareAs:    lockfile.YarnEcosystem,
 		},
 		{
-			Name:      "eslint-plugin-jest",
-			Version:   "0.0.0-use.local",
-			Ecosystem: lockfile.YarnEcosystem,
-			CompareAs: lockfile.YarnEcosystem,
+			Name:         "eslint-plugin-jest",
+			Version:      "0.0.0-use.local",
+			LinePosition: models.FilePosition{Start: 22, End: 76},
+			Ecosystem:    lockfile.YarnEcosystem,
+			CompareAs:    lockfile.YarnEcosystem,
 		},
 	})
 }
@@ -201,23 +217,26 @@ func TestParseYarnLock_v2_WithBuildString(t *testing.T) {
 
 	expectPackages(t, packages, []lockfile.PackageDetails{
 		{
-			Name:      "domino",
-			Version:   "2.1.6+git",
-			Commit:    "f2435fe1f9f7c91ade0bd472c4723e5eacd7d19a",
-			Ecosystem: lockfile.YarnEcosystem,
-			CompareAs: lockfile.YarnEcosystem,
+			Name:         "domino",
+			Version:      "2.1.6+git",
+			Commit:       "f2435fe1f9f7c91ade0bd472c4723e5eacd7d19a",
+			LinePosition: models.FilePosition{Start: 8, End: 13},
+			Ecosystem:    lockfile.YarnEcosystem,
+			CompareAs:    lockfile.YarnEcosystem,
 		},
 		{
-			Name:      "tslib",
-			Version:   "2.6.2",
-			Ecosystem: lockfile.YarnEcosystem,
-			CompareAs: lockfile.YarnEcosystem,
+			Name:         "tslib",
+			Version:      "2.6.2",
+			LinePosition: models.FilePosition{Start: 15, End: 20},
+			Ecosystem:    lockfile.YarnEcosystem,
+			CompareAs:    lockfile.YarnEcosystem,
 		},
 		{
-			Name:      "zone.js",
-			Version:   "0.0.0-use.local",
-			Ecosystem: lockfile.YarnEcosystem,
-			CompareAs: lockfile.YarnEcosystem,
+			Name:         "zone.js",
+			Version:      "0.0.0-use.local",
+			LinePosition: models.FilePosition{Start: 22, End: 29},
+			Ecosystem:    lockfile.YarnEcosystem,
+			CompareAs:    lockfile.YarnEcosystem,
 		},
 	})
 }
@@ -233,53 +252,60 @@ func TestParseYarnLock_v2_Commits(t *testing.T) {
 
 	expectPackages(t, packages, []lockfile.PackageDetails{
 		{
-			Name:      "@my-scope/my-first-package",
-			Version:   "0.0.6",
-			Ecosystem: lockfile.YarnEcosystem,
-			CompareAs: lockfile.YarnEcosystem,
-			Commit:    "0b824c650d3a03444dbcf2b27a5f3566f6e41358",
+			Name:         "@my-scope/my-first-package",
+			Version:      "0.0.6",
+			Ecosystem:    lockfile.YarnEcosystem,
+			CompareAs:    lockfile.YarnEcosystem,
+			LinePosition: models.FilePosition{Start: 8, End: 10},
+			Commit:       "0b824c650d3a03444dbcf2b27a5f3566f6e41358",
 		},
 		{
-			Name:      "my-second-package",
-			Version:   "0.2.2",
-			Ecosystem: lockfile.YarnEcosystem,
-			CompareAs: lockfile.YarnEcosystem,
-			Commit:    "59e2127b9f9d4fda5f928c4204213b3502cd5bb0",
+			Name:         "my-second-package",
+			Version:      "0.2.2",
+			Ecosystem:    lockfile.YarnEcosystem,
+			CompareAs:    lockfile.YarnEcosystem,
+			LinePosition: models.FilePosition{Start: 12, End: 19},
+			Commit:       "59e2127b9f9d4fda5f928c4204213b3502cd5bb0",
 		},
 		{
-			Name:      "@typegoose/typegoose",
-			Version:   "7.2.0",
-			Ecosystem: lockfile.YarnEcosystem,
-			CompareAs: lockfile.YarnEcosystem,
-			Commit:    "3ed06e5097ab929f69755676fee419318aaec73a",
+			Name:         "@typegoose/typegoose",
+			Version:      "7.2.0",
+			Ecosystem:    lockfile.YarnEcosystem,
+			CompareAs:    lockfile.YarnEcosystem,
+			LinePosition: models.FilePosition{Start: 21, End: 35},
+			Commit:       "3ed06e5097ab929f69755676fee419318aaec73a",
 		},
 		{
-			Name:      "vuejs",
-			Version:   "2.5.0",
-			Ecosystem: lockfile.YarnEcosystem,
-			CompareAs: lockfile.YarnEcosystem,
-			Commit:    "0948d999f2fddf9f90991956493f976273c5da1f",
+			Name:         "vuejs",
+			Version:      "2.5.0",
+			Ecosystem:    lockfile.YarnEcosystem,
+			CompareAs:    lockfile.YarnEcosystem,
+			LinePosition: models.FilePosition{Start: 37, End: 42},
+			Commit:       "0948d999f2fddf9f90991956493f976273c5da1f",
 		},
 		{
-			Name:      "my-third-package",
-			Version:   "0.16.1-dev",
-			Ecosystem: lockfile.YarnEcosystem,
-			CompareAs: lockfile.YarnEcosystem,
-			Commit:    "5675a0aed98e067ff6ecccc5ac674fe8995960e0",
+			Name:         "my-third-package",
+			Version:      "0.16.1-dev",
+			Ecosystem:    lockfile.YarnEcosystem,
+			CompareAs:    lockfile.YarnEcosystem,
+			LinePosition: models.FilePosition{Start: 45, End: 47},
+			Commit:       "5675a0aed98e067ff6ecccc5ac674fe8995960e0",
 		},
 		{
-			Name:      "my-node-sdk",
-			Version:   "1.1.0",
-			Ecosystem: lockfile.YarnEcosystem,
-			CompareAs: lockfile.YarnEcosystem,
-			Commit:    "053dea9e0b8af442d8f867c8e690d2fb0ceb1bf5",
+			Name:         "my-node-sdk",
+			Version:      "1.1.0",
+			Ecosystem:    lockfile.YarnEcosystem,
+			CompareAs:    lockfile.YarnEcosystem,
+			LinePosition: models.FilePosition{Start: 50, End: 55},
+			Commit:       "053dea9e0b8af442d8f867c8e690d2fb0ceb1bf5",
 		},
 		{
-			Name:      "is-really-great",
-			Version:   "1.0.0",
-			Ecosystem: lockfile.YarnEcosystem,
-			CompareAs: lockfile.YarnEcosystem,
-			Commit:    "191eeef50c584714e1fb8927d17ee72b3b8c97c4",
+			Name:         "is-really-great",
+			Version:      "1.0.0",
+			Ecosystem:    lockfile.YarnEcosystem,
+			CompareAs:    lockfile.YarnEcosystem,
+			LinePosition: models.FilePosition{Start: 58, End: 63},
+			Commit:       "191eeef50c584714e1fb8927d17ee72b3b8c97c4",
 		},
 	})
 }
@@ -295,11 +321,12 @@ func TestParseYarnLock_v2_Files(t *testing.T) {
 
 	expectPackages(t, packages, []lockfile.PackageDetails{
 		{
-			Name:      "my-package",
-			Version:   "0.0.2",
-			Ecosystem: lockfile.YarnEcosystem,
-			CompareAs: lockfile.YarnEcosystem,
-			Commit:    "",
+			Name:         "my-package",
+			Version:      "0.0.2",
+			LinePosition: models.FilePosition{Start: 8, End: 13},
+			Ecosystem:    lockfile.YarnEcosystem,
+			CompareAs:    lockfile.YarnEcosystem,
+			Commit:       "",
 		},
 	})
 }
@@ -315,28 +342,32 @@ func TestParseYarnLock_v2_WithAliases(t *testing.T) {
 
 	expectPackages(t, packages, []lockfile.PackageDetails{
 		{
-			Name:      "@babel/helper-validator-identifier",
-			Version:   "7.22.20",
-			Ecosystem: lockfile.YarnEcosystem,
-			CompareAs: lockfile.YarnEcosystem,
+			Name:         "@babel/helper-validator-identifier",
+			Version:      "7.22.20",
+			LinePosition: models.FilePosition{Start: 22, End: 27},
+			Ecosystem:    lockfile.YarnEcosystem,
+			CompareAs:    lockfile.YarnEcosystem,
 		},
 		{
-			Name:      "ansi-regex",
-			Version:   "6.0.1",
-			Ecosystem: lockfile.YarnEcosystem,
-			CompareAs: lockfile.YarnEcosystem,
+			Name:         "ansi-regex",
+			Version:      "6.0.1",
+			LinePosition: models.FilePosition{Start: 15, End: 20},
+			Ecosystem:    lockfile.YarnEcosystem,
+			CompareAs:    lockfile.YarnEcosystem,
 		},
 		{
-			Name:      "ansi-regex",
-			Version:   "5.0.1",
-			Ecosystem: lockfile.YarnEcosystem,
-			CompareAs: lockfile.YarnEcosystem,
+			Name:         "ansi-regex",
+			Version:      "5.0.1",
+			LinePosition: models.FilePosition{Start: 8, End: 13},
+			Ecosystem:    lockfile.YarnEcosystem,
+			CompareAs:    lockfile.YarnEcosystem,
 		},
 		{
-			Name:      "mine",
-			Version:   "0.0.0-use.local",
-			Ecosystem: lockfile.YarnEcosystem,
-			CompareAs: lockfile.YarnEcosystem,
+			Name:         "mine",
+			Version:      "0.0.0-use.local",
+			LinePosition: models.FilePosition{Start: 29, End: 37},
+			Ecosystem:    lockfile.YarnEcosystem,
+			CompareAs:    lockfile.YarnEcosystem,
 		},
 	})
 }
