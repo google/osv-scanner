@@ -7,7 +7,7 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/google/osv-scanner/internal/utility/lineposition"
+	"github.com/google/osv-scanner/internal/utility/fileposition"
 
 	"github.com/google/osv-scanner/pkg/models"
 )
@@ -46,8 +46,8 @@ func (e PipenvLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 		return []PackageDetails{}, fmt.Errorf("could not decode json from %s: %w", f.Path(), err)
 	}
 
-	lineposition.InJSON("default", parsedLockfile.Packages, lines, 0)
-	lineposition.InJSON("develop", parsedLockfile.PackagesDev, lines, 0)
+	fileposition.InJSON("default", parsedLockfile.Packages, lines, 0)
+	fileposition.InJSON("develop", parsedLockfile.PackagesDev, lines, 0)
 
 	details := make(map[string]PackageDetails)
 
@@ -70,6 +70,7 @@ func addPkgDetails(details map[string]PackageDetails, packages map[string]*Pipen
 				Name:      name,
 				Version:   version,
 				Line:      pipenvPackage.Line,
+				Column:    pipenvPackage.Column,
 				Ecosystem: PipenvEcosystem,
 				CompareAs: PipenvEcosystem,
 			}
