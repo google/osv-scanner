@@ -7,8 +7,9 @@ import (
 	"path/filepath"
 	"strings"
 
+	"github.com/google/osv-scanner/internal/utility/fileposition"
+
 	"github.com/BurntSushi/toml"
-	"github.com/google/osv-scanner/internal/utility/lineposition"
 	"github.com/google/osv-scanner/pkg/models"
 )
 
@@ -57,7 +58,7 @@ func (e PoetryLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 		return []PackageDetails{}, fmt.Errorf("could not decode toml from %s: %w", f.Path(), err)
 	}
 
-	lineposition.InTOML("[[package]]", "[metadata]", parsedLockfile.Packages, lines)
+	fileposition.InTOML("[[package]]", "[metadata]", parsedLockfile.Packages, lines)
 
 	packages := make([]PackageDetails, 0, len(parsedLockfile.Packages))
 
@@ -67,6 +68,7 @@ func (e PoetryLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 			Version:   lockPackage.Version,
 			Commit:    lockPackage.Source.Commit,
 			Line:      lockPackage.Line,
+			Column:    lockPackage.Column,
 			Ecosystem: PoetryEcosystem,
 			CompareAs: PoetryEcosystem,
 		}
