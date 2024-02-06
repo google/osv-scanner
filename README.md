@@ -85,15 +85,16 @@ inv -e generate-licenses
 You can download the latest version of the scanner from the [release page](https://www.github.com/DataDog/osv-scanner/releases)
 
 Run the scanner using the following command to export the sbom in the file `result.json` :
-   ```bash
-   ./osv-scanner_<version>_<target>_<architecture> \
-      --skip-git \
-      --recursive \
-      --experimental-only-packages
-      --format=cyclonedx-1-4 \
-      --output=result.json
-      <path to your repository root directory>
-   ```
+
+```bash
+./osv-scanner_<version>_<target>_<architecture> \
+   --skip-git \
+   --recursive \
+   --experimental-only-packages
+   --format=cyclonedx-1-4 \
+   --output=result.json
+   <path to your repository root directory>
+```
 
 The SBOM will be formatted using the CycloneDX 1.4 format.
 
@@ -102,6 +103,7 @@ The SBOM will be formatted using the CycloneDX 1.4 format.
 ## Releasing OSV-Scanner
 
 Releasing OSV-Scanner is a pretty simple task :
+
 1. Go to the [Prerelease-check GitHub action](https://github.com/DataDog/osv-scanner/actions/workflows/prerelease-check.yml)
 2. Click on `Run workflow`, fill the inputs and run the workflow
 3. Once done, if everything went well, a command will be printed in the action's output. Copy it and paste it on your terminal to launch the release
