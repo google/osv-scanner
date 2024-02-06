@@ -10,6 +10,7 @@ import (
 )
 
 const cycloneDx14Schema = "http://cyclonedx.org/schema/bom-1.4.schema.json"
+const componentType = "library"
 
 type CycloneDXReporter struct {
 	hasPrintedError bool
@@ -75,6 +76,7 @@ func toCycloneDX14Bom(packageSources []models.PackageSource) *cyclonedx.BOM {
 		component.Version = packageDetail.Version
 		component.BOMRef = packageURL
 		component.PackageURL = packageURL
+		component.Type = componentType
 		components = append(components, component)
 	}
 
