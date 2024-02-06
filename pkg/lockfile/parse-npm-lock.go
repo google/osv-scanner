@@ -10,7 +10,8 @@ import (
 	"sort"
 	"strings"
 
-	"github.com/google/osv-scanner/internal/utility/lineposition"
+	"github.com/google/osv-scanner/internal/utility/fileposition"
+
 	"github.com/google/osv-scanner/pkg/models"
 )
 
@@ -225,12 +226,12 @@ func parseNpmLockPackages(packages map[string]*NpmLockPackage) map[string]Packag
 
 func parseNpmLock(lockfile NpmLockfile, lines []string) map[string]PackageDetails {
 	if lockfile.Packages != nil {
-		lineposition.InJSON("packages", lockfile.Packages, lines, 0)
+		fileposition.InJSON("packages", lockfile.Packages, lines, 0)
 
 		return parseNpmLockPackages(lockfile.Packages)
 	}
 
-	lineposition.InJSON("dependencies", lockfile.Dependencies, lines, 0)
+	fileposition.InJSON("dependencies", lockfile.Dependencies, lines, 0)
 
 	return parseNpmLockDependencies(lockfile.Dependencies)
 }
