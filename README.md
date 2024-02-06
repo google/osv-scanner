@@ -102,8 +102,6 @@ The SBOM will be formatted using the CycloneDX 1.4 format.
 
 ## Releasing OSV-Scanner
 
-Releasing OSV-Scanner is a pretty simple task :
-
 1. Go to the [Prerelease-check GitHub action](https://github.com/DataDog/osv-scanner/actions/workflows/prerelease-check.yml)
 2. Click on `Run workflow`, fill the inputs and run the workflow
 3. Once done, if everything went well, a command will be printed in the action's output. Copy it and paste it on your terminal to launch the release
