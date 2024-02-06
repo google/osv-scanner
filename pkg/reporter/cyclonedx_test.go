@@ -99,12 +99,14 @@ func TestEncoding_EncodeComponentsInValidCycloneDX1_4(t *testing.T) {
 				PackageURL: "pkg:maven/com.foo/the-greatest-package@1.0.0",
 				Name:       "com.foo:the-greatest-package",
 				Version:    "1.0.0",
+				Type:       "library",
 			},
 			{
 				BOMRef:     "pkg:npm/the-npm-package@1.1.0",
 				PackageURL: "pkg:npm/the-npm-package@1.1.0",
 				Name:       "the-npm-package",
 				Version:    "1.1.0",
+				Type:       "library",
 			},
 		},
 	}
