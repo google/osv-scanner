@@ -531,7 +531,7 @@ func TestRun(t *testing.T) {
 			wantExitCode: 127,
 			wantStdout:   "",
 			wantStderr: `
-				unsupported output format "unknown" - must be one of: table, json, markdown, sarif, gh-annotations, datadog-sbom, datadog-offline-sbom, cyclonedx-1-4
+				unsupported output format "unknown" - must be one of: table, json, markdown, sarif, gh-annotations, cyclonedx-1-4
 			`,
 		},
 		// one specific supported lockfile with ignore
