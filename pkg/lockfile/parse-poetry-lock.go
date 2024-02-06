@@ -63,12 +63,12 @@ func (e PoetryLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 
 	for _, lockPackage := range parsedLockfile.Packages {
 		pkgDetails := PackageDetails{
-			Name:         lockPackage.Name,
-			Version:      lockPackage.Version,
-			Commit:       lockPackage.Source.Commit,
-			LinePosition: lockPackage.FilePosition,
-			Ecosystem:    PoetryEcosystem,
-			CompareAs:    PoetryEcosystem,
+			Name:      lockPackage.Name,
+			Version:   lockPackage.Version,
+			Commit:    lockPackage.Source.Commit,
+			Line:      lockPackage.Line,
+			Ecosystem: PoetryEcosystem,
+			CompareAs: PoetryEcosystem,
 		}
 		if lockPackage.Optional {
 			pkgDetails.DepGroups = append(pkgDetails.DepGroups, "optional")
