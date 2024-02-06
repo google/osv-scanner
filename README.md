@@ -80,32 +80,34 @@ inv -e generate-licenses
 
 ## Documentation
 
-### Run
+### Running OSV to export a SBOM
 
-1. Download the latest version of the scanner from the [release page](https://www.github.com/DataDog/osv-scanner/releases)
-2. Export few environment variables :
-   1. `REPOSITORY_URL` representing the URL of the repository you scan. Please note that if you run it through a GitHub action, you don't have to export it.
-   2. `DD_SITE` representing the region of your Datadog account. It defaults to `us1`
-   3. `DD_API_KEY` representing a Datadog API key
-3. Run the scanner using the following command :
-   ```bash
-   ./osv-scanner_<version>_<target>_<architecture> \
-      --skip-git \
-      --recursive \
-      --format=datadog-sbom \
-      <path to your repository root directory>
-   ```
+You can download the latest version of the scanner from the [release page](https://www.github.com/DataDog/osv-scanner/releases)
 
-**Note** : You may want to run the tool only to export the SBOM, in that case you can run the following command :
+Run the scanner using the following command to export the sbom in the file `result.json` :
 
 ```bash
 ./osv-scanner_<version>_<target>_<architecture> \
-    --skip-git \
-    --recursive \
-    --format=datadog-offline-sbom \
-    --output=result.json \
-    <path to your repository root directory>
+   --skip-git \
+   --recursive \
+   --experimental-only-packages
+   --format=cyclonedx-1-4 \
+   --output=result.json
+   <path to your repository root directory>
 ```
+
+The SBOM will be formatted using the CycloneDX 1.4 format.
+
+**Note** : This format does not support file location reporting.
+
+## Releasing OSV-Scanner
+
+1. Go to the [Prerelease-check GitHub action](https://github.com/DataDog/osv-scanner/actions/workflows/prerelease-check.yml)
+2. Click on `Run workflow`, fill the inputs and run the workflow
+3. Once done, if everything went well, a command will be printed in the action's output. Copy it and paste it on your terminal to launch the release
+4. In the [release section](https://github.com/DataDog/osv-scanner/releases), a new one with your given version has been created.
+   1. If you want to test it, check the pre-release box before publishing it
+   2. Otherwise, publish it normally and you're all set
 
 ## Contributing code
 
