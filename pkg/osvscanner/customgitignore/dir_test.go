@@ -6,13 +6,14 @@ import (
 	"testing"
 	"os"
 	"path/filepath"
+	"slices"
 
 	"github.com/google/osv-scanner/pkg/osvscanner/customgitignore"
 
 	"github.com/go-git/go-git/v5"
 	"github.com/go-git/go-billy/v5"
 	"github.com/go-git/go-billy/v5/osfs"
-	// "github.com/go-git/go-git/v5/plumbing/format/gitignore"
+	"github.com/go-git/go-git/v5/plumbing/format/gitignore"
 )
 
 func TestBigBallOTest(t *testing.T) {
@@ -50,22 +51,22 @@ func TestBigBallOTest(t *testing.T) {
 
 	// create .gitignore files
 	f = filepath.Join(tDir, "git_repo/.gitignore")
-	s = "git_repo:.gitignore-file" + "\n" + "/dir_a/dir_b"
-	s = ( "git_repo:.gitignore-file")
+	s = "ROOT_GITIGNORE" + "\n" +
+		  "/dir_a/dir_b"
 	err = os.WriteFile(f, []byte(s), 0644)
 	if err != nil {
 		t.Fatalf("could not write file for test: %v", err)
 	}
 
 	f = filepath.Join(tDir, "git_repo/dir_a/.gitignore")
-	s = "git_repo:dir_a:.gitignore-file"
+	s = "DIR_A_GITIGNORE"
 	err = os.WriteFile(f, []byte(s), 0644)
 	if err != nil {
 		t.Fatalf("could not write file for test: %v", err)
 	}
 
 	f = filepath.Join(tDir, "git_repo/dir_a/dir_b/.gitignore")
-	s = "git_repo:dir_a:dir_b:.gitignore-file"
+	s = "DIR_B_GITIGNORE"
 	err = os.WriteFile(f, []byte(s), 0644)
 	if err != nil {
 		t.Fatalf("could not write file for test: %v", err)
@@ -85,18 +86,67 @@ func TestBigBallOTest(t *testing.T) {
 		t.Fatalf("could not read gitignore patterns for test: %v", err)
 	}
 
-	fmt.Printf("PATT: %d\n", len(patterns))
+
+	// TESTING
+
+	fmt.Printf("PATT-COUNT: %d\n", len(patterns))
 
 	for i, pp := range patterns {
-		fmt.Printf("PATT: %d, %v\n", i, pp)
+		fmt.Printf("PATT: %d:  %#v (%T)\n", i, pp, pp)
 	}
 
-	// p0 := patterns[1]
-	// path := []string{tDir, "git_repo:.gitignore-file"}
-	// // Match(path []string, isDir bool) MatchResult
-	// fmt.Printf("IS_MATCH: %t\n", p0.Match(path, false) == gitignore.Exclude)
+	// PATT-COUNT: 3
+	// PATT: 0:  &gitignore.pattern{domain:[]string{"."}, pattern:[]string{"ROOT_GITIGNORE"}, inclusion:false, dirOnly:false, isGlob:false} (*gitignore.pattern)
+	// PATT: 1:  &gitignore.pattern{domain:[]string{"."}, pattern:[]string{"", "dir_a", "dir_b"}, inclusion:false, dirOnly:false, isGlob:true} (*gitignore.pattern)
+	// PATT: 2:  &gitignore.pattern{domain:[]string{".", "dir_a"}, pattern:[]string{"DIR_A_GITIGNORE"}, inclusion:false, dirOnly:false, isGlob:false} (*gitignore.pattern)
+	// SUCCESS!
 
-	fmt.Println("SUCCESS!")
+	// TODO: using ToSlash and FromSlash with path.Fn calls to do all work in "/" separated paths then handle conversion when you use os.Fns
+
+	// p1 := patterns[0]
+	// // path := []string{tDir, "ROOT_GITIGNORE"}
+	// // path = path.split(os.path.sep)
+	// pathSlice := []string{".", "ROOT_GITIGNORE"}
+	// fmt.Println("---")
+	// fmt.Printf("path == %#v\n", pathSlice)
+	// fmt.Printf("p1 == %#v\n", p1)
+	// dir, err := os.Getwd() ; fmt.Printf("cwd == %#v\n", dir)
+	// fmt.Println("---")
+	// // Match(path []string, isDir bool) MatchResult
+	// rslt := p1.Match(pathSlice, false)
+	// fmt.
+	// fmt.Printf("IS_MATCH: val==%v bool==%t\n", rslt, rslt == gitignore.Exclude)
+
+	hasMatch := slices.ContainsFunc(patterns, func(p gitignore.Pattern) bool {
+		return p.Match([]string{".", "ROOT_GITIGNORE"}, false) == gitignore.Exclude
+	})
+
+	if !hasMatch {
+		t.Fatalf("Expected to find a pattern matching ./ROOT_GITIGNORE from repository-root .gitignore")
+	}
+
+  hasMatch = slices.ContainsFunc(patterns, func(p gitignore.Pattern) bool {
+		return p.Match([]string{".", "dir_a", "DIR_A_GITIGNORE"}, false) == gitignore.Exclude
+	})
+
+	if !hasMatch {
+		t.Fatalf("Expected to find a pattern matching ./dir_a/DIR_A_GITIGNORE from ./dir_a/.gitignore")
+	}
+
+  // hasMatch = slices.ContainsFunc(patterns, func(p gitignore.Pattern) bool {
+	// 	return p.Match([]string{".", "dir_a", "dir_b", "DIR_B_GITIGNORE"}, false) == gitignore.Exclude
+	// })
+
+	// if hasMatch {
+	// 	t.Fatalf(	"Expected not to find pattern matching ./dir_a/dir_b/DIR_B_GITIGNORE from ./dir_a/dir_b/.gitignore, " +
+	// 						"because it should have been ignored by a rule in repository-root .gitignore")
+	// }
+
+	// x := patterns[1].Match([]string{".", "dir_a", "dir_b", "DIR_B_GITIGNORE"}, false) == gitignore.Exclude
+	// fmt.Println("x:", x)
+	// fmt.Printf("patterns[1]: %#v", 	patterns[1])
+
+
 
 	// // given, the main REPO/.gitignore file has a /dir_a/dir_b pattern
 	// //
