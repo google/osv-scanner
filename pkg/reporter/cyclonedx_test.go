@@ -13,7 +13,7 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-type JsonMap = map[string]any
+type JSONMap = map[string]any
 
 var vulnResults = models.VulnerabilityResults{
 	Results: []models.PackageSource{
@@ -136,9 +136,9 @@ func TestEncoding_EncodeComponentsInValidCycloneDX1_5(t *testing.T) {
 	err = decoder.Decode(&bom)
 	require.NoError(t, err, "an error occurred when decoding")
 
-	expectedJsonLocations := []JsonMap{
+	expectedJSONLocations := []JSONMap{
 		{
-			"block": JsonMap{
+			"block": JSONMap{
 				"file_name":    "/path/to/lockfile.xml",
 				"line_start":   1,
 				"line_end":     3,
@@ -147,7 +147,7 @@ func TestEncoding_EncodeComponentsInValidCycloneDX1_5(t *testing.T) {
 			},
 		},
 		{
-			"block": JsonMap{
+			"block": JSONMap{
 				"file_name":    "/path/to/another-lockfile.xml",
 				"line_start":   11,
 				"line_end":     13,
@@ -157,7 +157,7 @@ func TestEncoding_EncodeComponentsInValidCycloneDX1_5(t *testing.T) {
 		},
 	}
 	expectedLocations := make([]string, 0)
-	for index, jsonLocation := range expectedJsonLocations {
+	for index, jsonLocation := range expectedJSONLocations {
 		builder := strings.Builder{}
 		err = json.NewEncoder(&builder).Encode(jsonLocation)
 		require.NoErrorf(t, err, "an error occurred when computing the expected json (index = %v)", index)
@@ -210,6 +210,7 @@ func TestEncoding_EncodeComponentsInValidCycloneDX1_5(t *testing.T) {
 }
 
 func assertBaseComponentEquals(t *testing.T, expected, actual cyclonedx.Component) {
+	t.Helper()
 	assert.EqualValues(t, expected.Name, actual.Name)
 	assert.EqualValues(t, expected.Version, actual.Version)
 	assert.EqualValues(t, expected.BOMRef, actual.BOMRef)
@@ -218,6 +219,7 @@ func assertBaseComponentEquals(t *testing.T, expected, actual cyclonedx.Componen
 }
 
 func assertBaseBomEquals(t *testing.T, expected, actual cyclonedx.BOM) {
+	t.Helper()
 	assert.EqualValues(t, expected.JSONSchema, actual.JSONSchema)
 	assert.EqualValues(t, expected.Version, actual.Version)
 	assert.EqualValues(t, expected.BOMFormat, actual.BOMFormat)
