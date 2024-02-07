@@ -95,7 +95,7 @@ func (res *ResolutionResult) computeVulns(ctx context.Context, cl client.Resolut
 		}
 	}
 
-	nodeChains := computeChains(res.Graph, vulnerableNodes)
+	nodeChains := ComputeChains(res.Graph, vulnerableNodes)
 	vulnChains := make(map[string][]DependencyChain)
 	for i, idx := range vulnerableNodes {
 		for _, vuln := range nodeVulns[idx] {
