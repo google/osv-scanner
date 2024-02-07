@@ -254,6 +254,7 @@ func assertContainsEquals(expectedLocations []JSONMap, actualLocation JSONMap) a
 				return true
 			}
 		}
+
 		return false
 	}
 }
@@ -278,6 +279,7 @@ func assertComponentsContains(t *testing.T, expected cyclonedx.Component, actual
 		assert.EqualValues(t, expected.BOMRef, component.BOMRef)
 		assert.EqualValues(t, expected.PackageURL, component.PackageURL)
 		assert.EqualValues(t, expected.Type, component.Type)
+
 		return &component
 	}
 	assert.FailNowf(t, "Received component array does not contains expected component", "%v", expected)
