@@ -3,6 +3,7 @@ package lockfile
 import (
 	"bufio"
 	"fmt"
+	"github.com/google/osv-scanner/internal/utility/fileposition"
 	"net/url"
 	"os"
 	"path/filepath"
@@ -26,13 +27,14 @@ func shouldSkipYarnLine(line string) bool {
 	return line == "" || strings.HasPrefix(line, "#")
 }
 
-func parseYarnPackageGroup(group []string, start int, end int) YarnPackage {
+func parseYarnPackageGroup(group []string, lineStart int, lineEnd int, columnStart int, columnEnd int) YarnPackage {
 	return YarnPackage{
 		Name:       extractYarnPackageName(group[0]),
 		Version:    determineYarnPackageVersion(group),
 		Resolution: determineYarnPackageResolution(group),
 		FilePosition: models.FilePosition{
-			Line: models.Position{Start: start, End: end},
+			Line:   models.Position{Start: lineStart, End: lineEnd},
+			Column: models.Position{Start: columnStart, End: columnEnd},
 		},
 	}
 }
@@ -40,33 +42,37 @@ func parseYarnPackageGroup(group []string, start int, end int) YarnPackage {
 func groupYarnPackageLines(scanner *bufio.Scanner) []YarnPackage {
 	var groups []YarnPackage
 	var group []string
-	var lineNumber, start, end int
+	var lineNumber, lineStart, lineEnd, columnStart, columnEnd int
 
+	var line string
 	for scanner.Scan() {
 		lineNumber++
 
-		line := scanner.Text()
+		line = scanner.Text()
 
 		if shouldSkipYarnLine(line) {
 			continue
 		}
 
-		// represents the start of a new dependency
+		// represents the lineStart of a new dependency
 		if !strings.HasPrefix(line, " ") {
 			if len(group) > 0 {
-				groups = append(groups, parseYarnPackageGroup(group, start, end))
+				groups = append(groups, parseYarnPackageGroup(group, lineStart, lineEnd, columnStart, columnEnd))
 			}
-			start = lineNumber
+			lineStart = lineNumber
+			columnStart = fileposition.GetFirstNonEmptyCharacterIndexInLine(line)
 			group = make([]string, 0)
 		}
 
-		end = lineNumber
+		lineEnd = lineNumber
+		columnEnd = fileposition.GetLastNonEmptyCharacterIndexInLine(line)
 		group = append(group, line)
 	}
 
 	if len(group) > 0 {
-		end = lineNumber
-		groups = append(groups, parseYarnPackageGroup(group, start, end))
+		lineEnd = lineNumber
+		columnEnd = fileposition.GetLastNonEmptyCharacterIndexInLine(line)
+		groups = append(groups, parseYarnPackageGroup(group, lineStart, lineEnd, columnStart, columnEnd))
 	}
 
 	return groups
@@ -197,6 +203,7 @@ func parseYarnPackage(dependency YarnPackage) PackageDetails {
 		CompareAs: YarnEcosystem,
 		Commit:    tryExtractCommit(dependency.Resolution),
 		Line:      dependency.Line,
+		Column:    dependency.Column,
 	}
 }
 
