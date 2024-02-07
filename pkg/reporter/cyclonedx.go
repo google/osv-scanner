@@ -40,10 +40,7 @@ type packageLocation struct {
 }
 
 type packageLocations struct {
-	Block     packageLocation `json:"block"`
-	Namespace packageLocation `json:"namespace,omitempty"`
-	Name      packageLocation `json:"name,omitempty"`
-	Version   packageLocation `json:"version,omitempty"`
+	Block packageLocation `json:"block"`
 }
 
 const (
@@ -105,7 +102,6 @@ func toCycloneDX14Bom(_ io.Writer, packageSources []models.PackageSource) *cyclo
 	components := make([]cyclonedx.Component, 0)
 	bom.JSONSchema = cycloneDx14Schema
 	bom.SpecVersion = cyclonedx.SpecVersion1_4
-	bom.Components = &components
 
 	uniquePackages := groupByPackage(packageSources)
 
@@ -118,6 +114,7 @@ func toCycloneDX14Bom(_ io.Writer, packageSources []models.PackageSource) *cyclo
 		component.Type = componentType
 		components = append(components, component)
 	}
+	bom.Components = &components
 
 	return bom
 }
@@ -185,6 +182,7 @@ func groupByPackage(packageSources []models.PackageSource) map[string]packageDet
 			if packageExists {
 				// Package exists we need to add a location
 				existingPackage.Locations = append(existingPackage.Locations, location)
+				uniquePackages[packageURL.ToString()] = existingPackage
 			} else {
 				// Create a new package and update the map
 				newPackage := packageDetails{
