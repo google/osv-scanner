@@ -15,11 +15,11 @@ func TestMavenExtraction_shouldExtractPackages(t *testing.T) {
 		expectedName      string
 	}{
 		packageInfo: models.PackageInfo{
-			Name:         "log4j:log4j-core",
-			Version:      "1.2.17",
-			Ecosystem:    string(models.EcosystemMaven),
-			Commit:       "",
-			LinePosition: models.FilePosition{Start: 0, End: 0},
+			Name:      "log4j:log4j-core",
+			Version:   "1.2.17",
+			Ecosystem: string(models.EcosystemMaven),
+			Commit:    "",
+			Line:      models.Position{Start: 0, End: 0},
 		},
 		expectedNamespace: "log4j",
 		expectedName:      "log4j-core",
@@ -47,21 +47,21 @@ func TestMavenExtraction_shouldFilterPackages(t *testing.T) {
 		{
 			name: "when_package_contains_less_than_2_parts",
 			packageInfo: models.PackageInfo{
-				Name:         "log4j",
-				Version:      "1.2.17",
-				Ecosystem:    string(models.EcosystemMaven),
-				Commit:       "",
-				LinePosition: models.FilePosition{Start: 0, End: 0},
+				Name:      "log4j",
+				Version:   "1.2.17",
+				Ecosystem: string(models.EcosystemMaven),
+				Commit:    "",
+				Line:      models.Position{Start: 0, End: 0},
 			},
 		},
 		{
 			name: "when_package_have_no_name",
 			packageInfo: models.PackageInfo{
-				Name:         "",
-				Version:      "1.2.17",
-				Ecosystem:    string(models.EcosystemMaven),
-				Commit:       "",
-				LinePosition: models.FilePosition{Start: 0, End: 0},
+				Name:      "",
+				Version:   "1.2.17",
+				Ecosystem: string(models.EcosystemMaven),
+				Commit:    "",
+				Line:      models.Position{Start: 0, End: 0},
 			},
 		},
 	}

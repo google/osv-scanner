@@ -140,13 +140,13 @@ func parseNpmLockDependencies(dependencies map[string]*NpmLockDependency) map[st
 		}
 
 		details[name+"@"+version] = PackageDetails{
-			Name:         name,
-			Version:      finalVersion,
-			Ecosystem:    NpmEcosystem,
-			CompareAs:    NpmEcosystem,
-			LinePosition: models.FilePosition{Start: detail.Start, End: detail.End},
-			Commit:       commit,
-			DepGroups:    detail.depGroups(),
+			Name:      name,
+			Version:   finalVersion,
+			Ecosystem: NpmEcosystem,
+			CompareAs: NpmEcosystem,
+			Line:      detail.Line,
+			Commit:    commit,
+			DepGroups: detail.depGroups(),
 		}
 	}
 
@@ -209,13 +209,13 @@ func parseNpmLockPackages(packages map[string]*NpmLockPackage) map[string]Packag
 
 		if _, ok := details[finalName+"@"+finalVersion]; !ok {
 			details[finalName+"@"+finalVersion] = PackageDetails{
-				Name:         finalName,
-				Version:      detail.Version,
-				Ecosystem:    NpmEcosystem,
-				CompareAs:    NpmEcosystem,
-				LinePosition: models.FilePosition{Start: detail.Start, End: detail.End},
-				Commit:       commit,
-				DepGroups:    detail.depGroups(),
+				Name:      finalName,
+				Version:   detail.Version,
+				Ecosystem: NpmEcosystem,
+				CompareAs: NpmEcosystem,
+				Line:      detail.Line,
+				Commit:    commit,
+				DepGroups: detail.depGroups(),
 			}
 		}
 	}

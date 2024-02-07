@@ -71,12 +71,12 @@ func (pnpmLockPackages *PnpmLockPackages) UnmarshalYAML(value *yaml.Node) error 
 		valueNode := value.Content[i+1]
 
 		// If is empty, start/end line are the same
-		pnpmLockPackage.Start = keyNode.Line
-		pnpmLockPackage.End = keyNode.Line
+		pnpmLockPackage.SetLineStart(keyNode.Line)
+		pnpmLockPackage.SetLineEnd(keyNode.Line)
 
 		// Is not empty
 		if valueNode.Kind == yaml.MappingNode {
-			pnpmLockPackage.End = valueNode.Content[len(valueNode.Content)-1].Line
+			pnpmLockPackage.SetLineEnd(valueNode.Content[len(valueNode.Content)-1].Line)
 			if err := valueNode.Decode(&pnpmLockPackage); err != nil {
 				return err
 			}
@@ -192,13 +192,13 @@ func parsePnpmLock(lockfile PnpmLockfile) []PackageDetails {
 		}
 
 		packages = append(packages, PackageDetails{
-			Name:         name,
-			Version:      version,
-			Ecosystem:    PnpmEcosystem,
-			CompareAs:    PnpmEcosystem,
-			LinePosition: pkg.FilePosition,
-			Commit:       commit,
-			DepGroups:    depGroups,
+			Name:      name,
+			Version:   version,
+			Ecosystem: PnpmEcosystem,
+			CompareAs: PnpmEcosystem,
+			Line:      pkg.Line,
+			Commit:    commit,
+			DepGroups: depGroups,
 		})
 	}
 

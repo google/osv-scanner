@@ -55,12 +55,12 @@ func parseLine(path string, line string, lineNumber int, lineOffset int) Package
 	}
 
 	return PackageDetails{
-		Name:         normalizedRequirementName(name),
-		Version:      version,
-		LinePosition: models.FilePosition{Start: lineNumber, End: lineNumber + lineOffset},
-		Ecosystem:    PipEcosystem,
-		CompareAs:    PipEcosystem,
-		SourceFile:   path,
+		Name:       normalizedRequirementName(name),
+		Version:    version,
+		Line:       models.Position{Start: lineNumber, End: lineNumber + lineOffset},
+		Ecosystem:  PipEcosystem,
+		CompareAs:  PipEcosystem,
+		SourceFile: path,
 	}
 }
 

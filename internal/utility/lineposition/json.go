@@ -68,7 +68,7 @@ func retrieveKeyFromLine(line string) string {
 func openJSONDependency[P models.IFilePosition](key string, dependencies map[string]P, position int, dependency *string) {
 	if dep, ok := dependencies[key]; ok {
 		*dependency = key
-		dep.SetStart(position + 1)
+		dep.SetLineStart(position + 1)
 		dependencies[*dependency] = dep
 		if shouldDebugInJSON {
 			_, _ = fmt.Fprintf(os.Stdout, "[DEPENDENCY][START] '%s' at line %d\n", *dependency, position+1)
@@ -78,7 +78,7 @@ func openJSONDependency[P models.IFilePosition](key string, dependencies map[str
 
 func closeJSONDependency[P models.IFilePosition](dependencies map[string]P, position int, dependency *string) {
 	if dep, ok := dependencies[*dependency]; ok {
-		dep.SetEnd(position + 1)
+		dep.SetLineEnd(position + 1)
 		dependencies[*dependency] = dep
 		*dependency = ""
 		if shouldDebugInJSON {

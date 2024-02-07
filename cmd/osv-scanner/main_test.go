@@ -1246,6 +1246,10 @@ Filtered 2 vulnerabilities from output
 									"line": {
 										"start": 13,
 										"end": 23
+									},
+									"column": {
+										"start": 0,
+										"end": 0
 									}
 								},
 								"licenses": [
@@ -1260,6 +1264,10 @@ Filtered 2 vulnerabilities from output
 									"line": {
 										"start": 24,
 										"end": 31
+									},
+									"column": {
+										"start": 0,
+										"end": 0
 									}
 								},
 								"licenses": [
@@ -1277,6 +1285,10 @@ Filtered 2 vulnerabilities from output
 									"line": {
 										"start": 32,
 										"end": 36
+									},
+									"column": {
+										"start": 0,
+										"end": 0
 									}
 								},
 								"licenses": [
@@ -1322,6 +1334,10 @@ Filtered 2 vulnerabilities from output
 									"line": {
 										"start": 24,
 										"end": 31
+									},
+									"column": {
+										"start": 0,
+										"end": 0
 									}
 								},
 								"licenses": [
@@ -1370,6 +1386,10 @@ Filtered 2 vulnerabilities from output
 									"line": {
 										"start": 13,
 										"end": 23
+									},
+									"column": {
+										"start": 0,
+										"end": 0
 									}
 								},
 								"licenses": [
@@ -1384,6 +1404,10 @@ Filtered 2 vulnerabilities from output
 									"line": {
 										"start": 24,
 										"end": 31
+									},
+									"column": {
+										"start": 0,
+										"end": 0
 									}
 								},
 								"licenses": [
@@ -1398,6 +1422,10 @@ Filtered 2 vulnerabilities from output
 									"line": {
 										"start": 32,
 										"end": 36
+									},
+									"column": {
+										"start": 0,
+										"end": 0
 									}
 								},
 								"licenses": [
@@ -1444,6 +1472,10 @@ Filtered 2 vulnerabilities from output
 									"line": {
 										"start": 13,
 										"end": 23
+									},
+									"column": {
+										"start": 0,
+										"end": 0
 									}
 								},
 								"licenses": [
@@ -1458,6 +1490,10 @@ Filtered 2 vulnerabilities from output
 									"line": {
 										"start": 24,
 										"end": 31
+									},
+									"column": {
+										"start": 0,
+										"end": 0
 									}
 								},
 								"licenses": [
@@ -1472,6 +1508,10 @@ Filtered 2 vulnerabilities from output
 									"line": {
 										"start": 32,
 										"end": 36
+									},
+									"column": {
+										"start": 0,
+										"end": 0
 									}
 								},
 								"licenses": [

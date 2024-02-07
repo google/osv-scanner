@@ -30,29 +30,29 @@ func InTOML[P models.IFilePosition](groupKey string, otherKey string, dependenci
 }
 
 func openTOMLDependency[P models.IFilePosition](lineNumber int, open *bool, dep P) {
-	position := lineNumber + 1
-	dep.SetStart(position)
+	lineStart := lineNumber + 1
+	dep.SetLineStart(lineStart)
 	*open = true
 	if shouldDebugInTOML {
 		name := reflect.Indirect(reflect.ValueOf(dep)).FieldByName("Name")
-		_, _ = fmt.Fprintf(os.Stdout, "[DEPENDENCY][START] '%s' at line %d\n", name, position)
+		_, _ = fmt.Fprintf(os.Stdout, "[DEPENDENCY][START] '%s' at line %d\n", name, lineStart)
 	}
 }
 
 func closeTOMLDependency[P models.IFilePosition](lineNumber int, open *bool, lines []string, dep P) {
 	// Closing when new package/other section
-	position := lineNumber
+	lineEnd := lineNumber
 	// When last line
 	if lineNumber == len(lines)-1 {
-		position++
+		lineEnd++
 		// Skip empty lines
 	} else if lines[lineNumber-1] == "" {
-		position--
+		lineEnd--
 	}
-	dep.SetEnd(position)
+	dep.SetLineEnd(lineEnd)
 	*open = false
 	if shouldDebugInTOML {
 		name := reflect.Indirect(reflect.ValueOf(dep)).FieldByName("Name")
-		_, _ = fmt.Fprintf(os.Stdout, "[DEPENDENCY][END] '%s' at line %d\n", name, position)
+		_, _ = fmt.Fprintf(os.Stdout, "[DEPENDENCY][END] '%s' at line %d\n", name, lineEnd)
 	}
 }
