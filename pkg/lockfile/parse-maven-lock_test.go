@@ -116,6 +116,7 @@ func TestParseMavenLock_OnePackage(t *testing.T) {
 		t.Errorf("Got unexpected error: %v", err)
 	}
 	sourcePath := path.Join(dir, lockfileRelativePath)
+
 	expectPackages(t, packages, []lockfile.PackageDetails{
 		{
 			Name:       "org.apache.maven:maven-artifact",
@@ -123,6 +124,7 @@ func TestParseMavenLock_OnePackage(t *testing.T) {
 			Ecosystem:  lockfile.MavenEcosystem,
 			CompareAs:  lockfile.MavenEcosystem,
 			Line:       models.Position{Start: 7, End: 11},
+			Column:     models.Position{Start: 5, End: 18},
 			SourceFile: filepath.FromSlash(sourcePath),
 		},
 	})
@@ -148,6 +150,7 @@ func TestParseMavenLock_OnePackageWithMultipleVersionVariable(t *testing.T) {
 			Ecosystem:  lockfile.MavenEcosystem,
 			CompareAs:  lockfile.MavenEcosystem,
 			Line:       models.Position{Start: 9, End: 13},
+			Column:     models.Position{Start: 5, End: 18},
 			SourceFile: filepath.FromSlash(sourcePath),
 		},
 	})
@@ -173,6 +176,7 @@ func TestParseMavenLock_TwoPackages(t *testing.T) {
 			Ecosystem:  lockfile.MavenEcosystem,
 			CompareAs:  lockfile.MavenEcosystem,
 			Line:       models.Position{Start: 7, End: 11},
+			Column:     models.Position{Start: 5, End: 18},
 			SourceFile: filepath.FromSlash(sourcePath),
 		},
 		{
@@ -181,6 +185,7 @@ func TestParseMavenLock_TwoPackages(t *testing.T) {
 			Ecosystem:  lockfile.MavenEcosystem,
 			CompareAs:  lockfile.MavenEcosystem,
 			Line:       models.Position{Start: 12, End: 16},
+			Column:     models.Position{Start: 5, End: 18},
 			SourceFile: filepath.FromSlash(sourcePath),
 		},
 	})
@@ -206,6 +211,7 @@ func TestParseMavenLock_WithDependencyManagement(t *testing.T) {
 			Ecosystem:  lockfile.MavenEcosystem,
 			CompareAs:  lockfile.MavenEcosystem,
 			Line:       models.Position{Start: 7, End: 10},
+			Column:     models.Position{Start: 5, End: 18},
 			SourceFile: filepath.FromSlash(sourcePath),
 		},
 		{
@@ -214,6 +220,7 @@ func TestParseMavenLock_WithDependencyManagement(t *testing.T) {
 			Ecosystem:  lockfile.MavenEcosystem,
 			CompareAs:  lockfile.MavenEcosystem,
 			Line:       models.Position{Start: 11, End: 15},
+			Column:     models.Position{Start: 5, End: 18},
 			SourceFile: filepath.FromSlash(sourcePath),
 		},
 	})
@@ -239,6 +246,7 @@ func TestParseMavenLock_Interpolation(t *testing.T) {
 			Ecosystem:  lockfile.MavenEcosystem,
 			CompareAs:  lockfile.MavenEcosystem,
 			Line:       models.Position{Start: 18, End: 22},
+			Column:     models.Position{Start: 5, End: 18},
 			SourceFile: filepath.FromSlash(sourcePath),
 		},
 		{
@@ -247,6 +255,7 @@ func TestParseMavenLock_Interpolation(t *testing.T) {
 			Ecosystem:  lockfile.MavenEcosystem,
 			CompareAs:  lockfile.MavenEcosystem,
 			Line:       models.Position{Start: 24, End: 28},
+			Column:     models.Position{Start: 5, End: 18},
 			SourceFile: filepath.FromSlash(sourcePath),
 		},
 		{
@@ -255,6 +264,7 @@ func TestParseMavenLock_Interpolation(t *testing.T) {
 			Ecosystem:  lockfile.MavenEcosystem,
 			CompareAs:  lockfile.MavenEcosystem,
 			Line:       models.Position{Start: 30, End: 33},
+			Column:     models.Position{Start: 5, End: 18},
 			SourceFile: filepath.FromSlash(sourcePath),
 		},
 	})
@@ -282,6 +292,7 @@ func TestMavenLock_WithParent(t *testing.T) {
 			Ecosystem:  lockfile.MavenEcosystem,
 			CompareAs:  lockfile.MavenEcosystem,
 			Line:       models.Position{Start: 26, End: 29},
+			Column:     models.Position{Start: 5, End: 18},
 			SourceFile: parentPath,
 		},
 		{
@@ -290,6 +301,7 @@ func TestMavenLock_WithParent(t *testing.T) {
 			Ecosystem:  lockfile.MavenEcosystem,
 			CompareAs:  lockfile.MavenEcosystem,
 			Line:       models.Position{Start: 14, End: 17},
+			Column:     models.Position{Start: 5, End: 18},
 			SourceFile: childPath,
 		},
 		{
@@ -298,6 +310,7 @@ func TestMavenLock_WithParent(t *testing.T) {
 			Ecosystem:  lockfile.MavenEcosystem,
 			CompareAs:  lockfile.MavenEcosystem,
 			Line:       models.Position{Start: 18, End: 22},
+			Column:     models.Position{Start: 5, End: 18},
 			SourceFile: childPath,
 		},
 		{
@@ -306,6 +319,7 @@ func TestMavenLock_WithParent(t *testing.T) {
 			Ecosystem:  lockfile.MavenEcosystem,
 			CompareAs:  lockfile.MavenEcosystem,
 			Line:       models.Position{Start: 23, End: 27},
+			Column:     models.Position{Start: 5, End: 18},
 			SourceFile: childPath,
 		},
 		{
@@ -314,6 +328,7 @@ func TestMavenLock_WithParent(t *testing.T) {
 			Ecosystem:  lockfile.MavenEcosystem,
 			CompareAs:  lockfile.MavenEcosystem,
 			Line:       models.Position{Start: 28, End: 32},
+			Column:     models.Position{Start: 5, End: 18},
 			SourceFile: childPath,
 		},
 		{
@@ -322,6 +337,7 @@ func TestMavenLock_WithParent(t *testing.T) {
 			Ecosystem:  lockfile.MavenEcosystem,
 			CompareAs:  lockfile.MavenEcosystem,
 			Line:       models.Position{Start: 33, End: 37},
+			Column:     models.Position{Start: 5, End: 18},
 			SourceFile: childPath,
 		},
 	})
@@ -349,6 +365,7 @@ func TestMavenLock_WithParentDirOnly(t *testing.T) {
 			Ecosystem:  lockfile.MavenEcosystem,
 			CompareAs:  lockfile.MavenEcosystem,
 			Line:       models.Position{Start: 25, End: 28},
+			Column:     models.Position{Start: 5, End: 18},
 			SourceFile: parentPath,
 		},
 		{
@@ -357,6 +374,7 @@ func TestMavenLock_WithParentDirOnly(t *testing.T) {
 			Ecosystem:  lockfile.MavenEcosystem,
 			CompareAs:  lockfile.MavenEcosystem,
 			Line:       models.Position{Start: 14, End: 17},
+			Column:     models.Position{Start: 5, End: 18},
 			SourceFile: childPath,
 		},
 		{
@@ -365,6 +383,7 @@ func TestMavenLock_WithParentDirOnly(t *testing.T) {
 			Ecosystem:  lockfile.MavenEcosystem,
 			CompareAs:  lockfile.MavenEcosystem,
 			Line:       models.Position{Start: 18, End: 22},
+			Column:     models.Position{Start: 5, End: 18},
 			SourceFile: childPath,
 		},
 		{
@@ -373,6 +392,7 @@ func TestMavenLock_WithParentDirOnly(t *testing.T) {
 			Ecosystem:  lockfile.MavenEcosystem,
 			CompareAs:  lockfile.MavenEcosystem,
 			Line:       models.Position{Start: 23, End: 27},
+			Column:     models.Position{Start: 5, End: 18},
 			SourceFile: childPath,
 		},
 		{
@@ -381,6 +401,7 @@ func TestMavenLock_WithParentDirOnly(t *testing.T) {
 			Ecosystem:  lockfile.MavenEcosystem,
 			CompareAs:  lockfile.MavenEcosystem,
 			Line:       models.Position{Start: 28, End: 32},
+			Column:     models.Position{Start: 5, End: 18},
 			SourceFile: childPath,
 		},
 	})
@@ -408,6 +429,7 @@ func TestMavenLock_WithParentWithoutRelativePath(t *testing.T) {
 			Ecosystem:  lockfile.MavenEcosystem,
 			CompareAs:  lockfile.MavenEcosystem,
 			Line:       models.Position{Start: 25, End: 28},
+			Column:     models.Position{Start: 5, End: 18},
 			SourceFile: parentPath,
 		},
 		{
@@ -416,6 +438,7 @@ func TestMavenLock_WithParentWithoutRelativePath(t *testing.T) {
 			Ecosystem:  lockfile.MavenEcosystem,
 			CompareAs:  lockfile.MavenEcosystem,
 			Line:       models.Position{Start: 13, End: 16},
+			Column:     models.Position{Start: 5, End: 18},
 			SourceFile: childPath,
 		},
 		{
@@ -424,6 +447,7 @@ func TestMavenLock_WithParentWithoutRelativePath(t *testing.T) {
 			Ecosystem:  lockfile.MavenEcosystem,
 			CompareAs:  lockfile.MavenEcosystem,
 			Line:       models.Position{Start: 17, End: 21},
+			Column:     models.Position{Start: 5, End: 18},
 			SourceFile: childPath,
 		},
 		{
@@ -432,6 +456,7 @@ func TestMavenLock_WithParentWithoutRelativePath(t *testing.T) {
 			Ecosystem:  lockfile.MavenEcosystem,
 			CompareAs:  lockfile.MavenEcosystem,
 			Line:       models.Position{Start: 22, End: 26},
+			Column:     models.Position{Start: 5, End: 18},
 			SourceFile: childPath,
 		},
 		{
@@ -440,6 +465,7 @@ func TestMavenLock_WithParentWithoutRelativePath(t *testing.T) {
 			Ecosystem:  lockfile.MavenEcosystem,
 			CompareAs:  lockfile.MavenEcosystem,
 			Line:       models.Position{Start: 27, End: 31},
+			Column:     models.Position{Start: 5, End: 18},
 			SourceFile: childPath,
 		},
 	})
@@ -468,6 +494,7 @@ func TestMavenLock_WithMultipleParents(t *testing.T) {
 			Ecosystem:  lockfile.MavenEcosystem,
 			CompareAs:  lockfile.MavenEcosystem,
 			Line:       models.Position{Start: 26, End: 29},
+			Column:     models.Position{Start: 5, End: 18},
 			SourceFile: rootPath,
 		},
 		{
@@ -476,6 +503,7 @@ func TestMavenLock_WithMultipleParents(t *testing.T) {
 			Ecosystem:  lockfile.MavenEcosystem,
 			CompareAs:  lockfile.MavenEcosystem,
 			Line:       models.Position{Start: 14, End: 17},
+			Column:     models.Position{Start: 5, End: 18},
 			SourceFile: parentPath,
 		},
 		{
@@ -484,6 +512,7 @@ func TestMavenLock_WithMultipleParents(t *testing.T) {
 			Ecosystem:  lockfile.MavenEcosystem,
 			CompareAs:  lockfile.MavenEcosystem,
 			Line:       models.Position{Start: 18, End: 22},
+			Column:     models.Position{Start: 5, End: 18},
 			SourceFile: parentPath,
 		},
 		{
@@ -492,6 +521,7 @@ func TestMavenLock_WithMultipleParents(t *testing.T) {
 			Ecosystem:  lockfile.MavenEcosystem,
 			CompareAs:  lockfile.MavenEcosystem,
 			Line:       models.Position{Start: 23, End: 27},
+			Column:     models.Position{Start: 5, End: 18},
 			SourceFile: parentPath,
 		},
 		{
@@ -500,6 +530,7 @@ func TestMavenLock_WithMultipleParents(t *testing.T) {
 			Ecosystem:  lockfile.MavenEcosystem,
 			CompareAs:  lockfile.MavenEcosystem,
 			Line:       models.Position{Start: 14, End: 18},
+			Column:     models.Position{Start: 5, End: 18},
 			SourceFile: childPath,
 		},
 		{
@@ -508,6 +539,7 @@ func TestMavenLock_WithMultipleParents(t *testing.T) {
 			Ecosystem:  lockfile.MavenEcosystem,
 			CompareAs:  lockfile.MavenEcosystem,
 			Line:       models.Position{Start: 33, End: 37},
+			Column:     models.Position{Start: 5, End: 18},
 			SourceFile: parentPath,
 		},
 	})
@@ -621,6 +653,7 @@ func TestParseMavenLock_WithScope(t *testing.T) {
 			Commit:     "",
 			SourceFile: lockfilePath,
 			Line:       models.Position{Start: 3, End: 8},
+			Column:     models.Position{Start: 5, End: 18},
 			DepGroups:  []string{"test"},
 		},
 	})
@@ -648,6 +681,7 @@ func TestParseMavenLock_WithUnusedDependencyManagementDependencies(t *testing.T)
 			Commit:     "",
 			SourceFile: lockfilePath,
 			Line:       models.Position{Start: 17, End: 21},
+			Column:     models.Position{Start: 5, End: 18},
 			DepGroups:  nil,
 		},
 	})
@@ -675,6 +709,7 @@ func TestParseMavenLock_WithOverriddenDependencyVersions(t *testing.T) {
 			Commit:     "",
 			SourceFile: lockfilePath,
 			Line:       models.Position{Start: 14, End: 18},
+			Column:     models.Position{Start: 5, End: 18},
 			DepGroups:  nil,
 		},
 	})
@@ -702,6 +737,7 @@ func TestParseMavenLock_WithProjectVersionProperty(t *testing.T) {
 			Commit:     "",
 			SourceFile: lockfilePath,
 			Line:       models.Position{Start: 8, End: 12},
+			Column:     models.Position{Start: 5, End: 18},
 			DepGroups:  nil,
 		},
 	})
