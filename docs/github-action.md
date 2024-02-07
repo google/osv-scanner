@@ -161,6 +161,7 @@ The GitHub Actions have the following optional inputs:
   Default: `results.sarif`
 - `download-artifact`: Optional artifact to download for scanning. Can be used if you need to do some preprocessing to prepare the lockfiles for scanning. If the file names in the artifact are not standard lockfile names, make sure to add custom scan-args to specify the lockfile type and path (see [specify lockfiles](./usage#specify-lockfiles)).
 - `upload-sarif`: Whether to upload the results to Security > Code Scanning. Defaults to `true`.
+- `fail-on-vuln`: Whether to fail the workflow when a vulnerability is found. Defaults to `true`.
 
 <details markdown="block">
 <summary>

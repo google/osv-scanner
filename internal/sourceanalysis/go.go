@@ -4,14 +4,12 @@ import (
 	"bytes"
 	"context"
 	"encoding/json"
-	"fmt"
 	"io"
 	"os"
 	"os/exec"
 	"path/filepath"
 
 	"github.com/google/osv-scanner/internal/sourceanalysis/govulncheck"
-	"github.com/google/osv-scanner/internal/url"
 	"github.com/google/osv-scanner/pkg/models"
 	"github.com/google/osv-scanner/pkg/reporter"
 	"golang.org/x/vuln/scan"
@@ -26,7 +24,7 @@ func goAnalysis(r reporter.Reporter, pkgs []models.PackageVulns, source models.S
 	}
 
 	vulns, vulnsByID := vulnsFromAllPkgs(pkgs)
-	res, err := runGovulncheck(filepath.Dir(source.Path), vulns)
+	res, err := runGovulncheck(filepath.Dir(source.Path), "", vulns)
 	if err != nil {
 		// TODO: Better method to identify the type of error and give advice specific to the error
 		r.Errorf(
@@ -92,7 +90,7 @@ func fillNotImportedAnalysisInfo(vulnsByID map[string]models.Vulnerability, vuln
 	}
 }
 
-func runGovulncheck(moddir string, vulns []models.Vulnerability) (map[string][]*govulncheck.Finding, error) {
+func runGovulncheck(modulePath string, binaryPath string, vulns []models.Vulnerability) (map[string][]*govulncheck.Finding, error) {
 	// Create a temporary directory containing all of the vulnerabilities that
 	// are passed in to check against govulncheck.
 	//
@@ -109,23 +107,28 @@ func runGovulncheck(moddir string, vulns []models.Vulnerability) (map[string][]*
 		}
 	}()
 
-	for _, vuln := range vulns {
-		dat, err := json.Marshal(vuln)
-		if err != nil {
-			return nil, err
-		}
-		if err := os.WriteFile(fmt.Sprintf("%s/%s.json", dbdir, vuln.ID), dat, 0600); err != nil {
-			return nil, err
-		}
-	}
+	// for _, vuln := range vulns {
+	// 	dat, err := json.Marshal(vuln)
+	// 	if err != nil {
+	// 		return nil, err
+	// 	}
+	// 	if err := os.WriteFile(fmt.Sprintf("%s/%s.json", dbdir, vuln.ID), dat, 0600); err != nil {
+	// 		return nil, err
+	// 	}
+	// }
 
 	// this only errors if the file path is not absolute,
 	// which paths from os.MkdirTemp should always be
-	dbdirURL, _ := url.FromFilePath(dbdir)
+	// dbdirURL, _ := url.FromFilePath(dbdir)
 
 	// Run govulncheck on the module at moddir and vulnerability database that
 	// was just created.
-	cmd := scan.Command(context.Background(), "-db", dbdirURL.String(), "-C", moddir, "-json", "./...")
+	var cmd *scan.Cmd
+	if binaryPath == "" { // Scanning source code
+		cmd = scan.Command(context.Background(), "-C", modulePath, "-json", "./...")
+	} else { // Scanning binary
+		cmd = scan.Command(context.Background(), "-mode=binary", "-json", binaryPath)
+	}
 	var b bytes.Buffer
 	cmd.Stdout = &b
 	if err := cmd.Start(); err != nil {
