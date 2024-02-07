@@ -2,9 +2,10 @@ package sbom
 
 import (
 	"fmt"
+	"io"
+
 	"github.com/CycloneDX/cyclonedx-go"
 	"github.com/google/osv-scanner/pkg/models"
-	"io"
 )
 
 func ToCycloneDX15Bom(stderr io.Writer, packageSources []models.PackageSource) *cyclonedx.BOM {

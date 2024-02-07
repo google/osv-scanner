@@ -3,9 +3,10 @@ package sbom_test
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/google/osv-scanner/pkg/reporter/sbom"
 	"strings"
 	"testing"
+
+	"github.com/google/osv-scanner/pkg/reporter/sbom"
 
 	"github.com/stretchr/testify/require"
 

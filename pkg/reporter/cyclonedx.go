@@ -2,10 +2,11 @@ package reporter
 
 import (
 	"fmt"
+	"io"
+
 	"github.com/CycloneDX/cyclonedx-go"
 	"github.com/google/osv-scanner/pkg/models"
 	"github.com/google/osv-scanner/pkg/reporter/sbom"
-	"io"
 )
 
 type CycloneDXReporter struct {

@@ -2,8 +2,9 @@ package reporter
 
 import (
 	"fmt"
-	"github.com/google/osv-scanner/pkg/reporter/sbom"
 	"io"
+
+	"github.com/google/osv-scanner/pkg/reporter/sbom"
 )
 
 var format = []string{"table", "json", "markdown", "sarif", "gh-annotations", "cyclonedx-1-4", "cyclonedx-1-5"}

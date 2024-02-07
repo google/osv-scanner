@@ -2,9 +2,10 @@ package sbom
 
 import (
 	"encoding/json"
+	"strings"
+
 	"github.com/google/osv-scanner/pkg/models"
 	"github.com/google/osv-scanner/pkg/reporter/purl"
-	"strings"
 )
 
 func createLocationString(location packageLocations) (string, error) {
