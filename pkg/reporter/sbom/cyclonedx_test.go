@@ -1,8 +1,9 @@
-package reporter_test
+package sbom_test
 
 import (
 	"encoding/json"
 	"fmt"
+	"github.com/google/osv-scanner/pkg/reporter/sbom"
 	"strings"
 	"testing"
 
@@ -10,71 +11,68 @@ import (
 
 	"github.com/CycloneDX/cyclonedx-go"
 	"github.com/google/osv-scanner/pkg/models"
-	"github.com/google/osv-scanner/pkg/reporter"
 	"github.com/stretchr/testify/assert"
 )
 
 type JSONMap = map[string]interface{}
 
-var vulnResults = models.VulnerabilityResults{
-	Results: []models.PackageSource{
-		{
-			Source: models.SourceInfo{
-				Path: "/path/to/lockfile.xml",
-				Type: "",
-			},
-			Packages: []models.PackageVulns{
-				{
-					Package: models.PackageInfo{
-						Name:      "com.foo:the-greatest-package",
-						Version:   "1.0.0",
-						Ecosystem: string(models.EcosystemMaven),
-						Line: models.Position{
-							Start: 1,
-							End:   3,
-						},
-						Column: models.Position{
-							Start: 30,
-							End:   35,
-						},
+var inputPackages = []models.PackageSource{
+	{
+		Source: models.SourceInfo{
+			Path: "/path/to/lockfile.xml",
+			Type: "",
+		},
+		Packages: []models.PackageVulns{
+			{
+				Package: models.PackageInfo{
+					Name:      "com.foo:the-greatest-package",
+					Version:   "1.0.0",
+					Ecosystem: string(models.EcosystemMaven),
+					Line: models.Position{
+						Start: 1,
+						End:   3,
+					},
+					Column: models.Position{
+						Start: 30,
+						End:   35,
 					},
 				},
 			},
 		},
-		{
-			Source: models.SourceInfo{
-				Path: "/path/to/another-lockfile.xml",
-				Type: "",
-			},
-			Packages: []models.PackageVulns{
-				{
-					Package: models.PackageInfo{
-						Name:      "com.foo:the-greatest-package",
-						Version:   "1.0.0",
-						Ecosystem: string(models.EcosystemMaven),
-						Line: models.Position{
-							Start: 11,
-							End:   13,
-						},
+	},
+	{
+		Source: models.SourceInfo{
+			Path: "/path/to/another-lockfile.xml",
+			Type: "",
+		},
+		Packages: []models.PackageVulns{
+			{
+				Package: models.PackageInfo{
+					Name:      "com.foo:the-greatest-package",
+					Version:   "1.0.0",
+					Ecosystem: string(models.EcosystemMaven),
+					Line: models.Position{
+						Start: 11,
+						End:   13,
 					},
 				},
 			},
 		},
-		{
-			Source: models.SourceInfo{
-				Path: "/path/to/npm/lockfile.lock",
-				Type: "",
-			},
-			Packages: []models.PackageVulns{
-				{
-					Package: models.PackageInfo{
-						Name:      "the-npm-package",
-						Version:   "1.1.0",
-						Ecosystem: string(models.EcosystemNPM),
-						Line: models.Position{
-							Start: 12,
-							End:   15,
-						},
+	},
+	{
+		Source: models.SourceInfo{
+			Path: "/path/to/npm/lockfile.lock",
+			Type: "",
+		},
+		Packages: []models.PackageVulns{
+			{
+				Package: models.PackageInfo{
+					Name:      "the-npm-package",
+					Version:   "1.1.0",
+					Ecosystem: string(models.EcosystemNPM),
+					Line: models.Position{
+						Start: 12,
+						End:   15,
 					},
 				},
 			},
@@ -84,19 +82,11 @@ var vulnResults = models.VulnerabilityResults{
 
 func TestEncoding_EncodeComponentsInValidCycloneDX1_4(t *testing.T) {
 	t.Parallel()
-	var stdout, stderr strings.Builder
-	cycloneDXReporter := reporter.NewCycloneDXReporter(&stdout, &stderr, reporter.CycloneDXVersion14)
 
-	// First we format packages in CycloneDX format
-	err := cycloneDXReporter.PrintResult(&vulnResults)
-	require.NoError(t, err, "an error occurred when formatting")
+	// Given
+	bom := sbom.ToCycloneDX14Bom(&strings.Builder{}, inputPackages)
 
-	// Then we try to decode it using the CycloneDX library directly to check the content
-	var bom cyclonedx.BOM
-	decoder := cyclonedx.NewBOMDecoder(strings.NewReader(stdout.String()), cyclonedx.BOMFileFormatJSON)
-	err = decoder.Decode(&bom)
-	require.NoError(t, err, "an error occurred when decoding")
-
+	// Then
 	expectedBOM := cyclonedx.BOM{
 		JSONSchema:  "https://cyclonedx.org/schema/bom-1.4.schema.json",
 		Version:     1,
@@ -119,7 +109,9 @@ func TestEncoding_EncodeComponentsInValidCycloneDX1_4(t *testing.T) {
 			},
 		},
 	}
-	assertBaseBomEquals(t, expectedBOM, bom)
+
+	assert.NotNil(t, bom)
+	assertBaseBomEquals(t, expectedBOM, *bom)
 	for _, expectedComponent := range *expectedBOM.Components {
 		assertComponentsContains(t, expectedComponent, *bom.Components)
 	}
@@ -127,19 +119,10 @@ func TestEncoding_EncodeComponentsInValidCycloneDX1_4(t *testing.T) {
 
 func TestEncoding_EncodeComponentsInValidCycloneDX1_5(t *testing.T) {
 	t.Parallel()
-	var stdout, stderr strings.Builder
-	cycloneDXReporter := reporter.NewCycloneDXReporter(&stdout, &stderr, reporter.CycloneDXVersion15)
+	// Given
+	bom := sbom.ToCycloneDX15Bom(&strings.Builder{}, inputPackages)
 
-	// First we format packages in CycloneDX format
-	err := cycloneDXReporter.PrintResult(&vulnResults)
-	require.NoError(t, err, "an error occurred when formatting")
-
-	// Then we try to decode it using the CycloneDX library directly to check the content
-	var bom cyclonedx.BOM
-	decoder := cyclonedx.NewBOMDecoder(strings.NewReader(stdout.String()), cyclonedx.BOMFileFormatJSON)
-	err = decoder.Decode(&bom)
-	require.NoError(t, err, "an error occurred when decoding")
-
+	// Then
 	expectedJSONLocations := map[string][]JSONMap{
 		"pkg:maven/com.foo/the-greatest-package@1.0.0": {
 			{
@@ -203,7 +186,8 @@ func TestEncoding_EncodeComponentsInValidCycloneDX1_5(t *testing.T) {
 		},
 	}
 
-	assertBaseBomEquals(t, expectedBOM, bom)
+	assert.NotNil(t, bom)
+	assertBaseBomEquals(t, expectedBOM, *bom)
 	for _, expectedComponent := range *expectedBOM.Components {
 		actualComponent := assertComponentsContains(t, expectedComponent, *bom.Components)
 		expectedLocations, ok := expectedJSONLocations[actualComponent.PackageURL]
