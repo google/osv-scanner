@@ -2,6 +2,7 @@ package reporter_test
 
 import (
 	"encoding/json"
+	"fmt"
 	"strings"
 	"testing"
 
@@ -13,7 +14,7 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-type JSONMap = map[string]any
+type JSONMap = map[string]interface{}
 
 var vulnResults = models.VulnerabilityResults{
 	Results: []models.PackageSource{
@@ -118,7 +119,10 @@ func TestEncoding_EncodeComponentsInValidCycloneDX1_4(t *testing.T) {
 			},
 		},
 	}
-	assert.EqualValuesf(t, expectedBOM, bom, "Decoded bom is different than expected bom")
+	assertBaseBomEquals(t, expectedBOM, bom)
+	for _, expectedComponent := range *expectedBOM.Components {
+		assertComponentsContains(t, expectedComponent, *bom.Components)
+	}
 }
 
 func TestEncoding_EncodeComponentsInValidCycloneDX1_5(t *testing.T) {
@@ -136,32 +140,38 @@ func TestEncoding_EncodeComponentsInValidCycloneDX1_5(t *testing.T) {
 	err = decoder.Decode(&bom)
 	require.NoError(t, err, "an error occurred when decoding")
 
-	expectedJSONLocations := []JSONMap{
-		{
-			"block": JSONMap{
-				"file_name":    "/path/to/lockfile.xml",
-				"line_start":   1,
-				"line_end":     3,
-				"column_start": 30,
-				"column_end":   35,
+	expectedJSONLocations := map[string][]JSONMap{
+		"pkg:maven/com.foo/the-greatest-package@1.0.0": {
+			{
+				"block": JSONMap{
+					"file_name":    "/path/to/lockfile.xml",
+					"line_start":   1,
+					"line_end":     3,
+					"column_start": 30,
+					"column_end":   35,
+				},
+			},
+			{
+				"block": JSONMap{
+					"file_name":    "/path/to/another-lockfile.xml",
+					"line_start":   11,
+					"line_end":     13,
+					"column_start": 0,
+					"column_end":   0,
+				},
 			},
 		},
-		{
-			"block": JSONMap{
-				"file_name":    "/path/to/another-lockfile.xml",
-				"line_start":   11,
-				"line_end":     13,
-				"column_start": 0,
-				"column_end":   0,
+		"pkg:npm/the-npm-package@1.1.0": {
+			{
+				"block": JSONMap{
+					"file_name":    "/path/to/npm/lockfile.lock",
+					"line_start":   12,
+					"line_end":     15,
+					"column_start": 0,
+					"column_end":   0,
+				},
 			},
 		},
-	}
-	expectedLocations := make([]string, 0)
-	for index, jsonLocation := range expectedJSONLocations {
-		builder := strings.Builder{}
-		err = json.NewEncoder(&builder).Encode(jsonLocation)
-		require.NoErrorf(t, err, "an error occurred when computing the expected json (index = %v)", index)
-		expectedLocations = append(expectedLocations, builder.String())
 	}
 
 	expectedBOM := cyclonedx.BOM{
@@ -177,11 +187,7 @@ func TestEncoding_EncodeComponentsInValidCycloneDX1_5(t *testing.T) {
 				Version:    "1.0.0",
 				Type:       "library",
 				Evidence: &cyclonedx.Evidence{
-					Occurrences: &[]cyclonedx.EvidenceOccurrence{
-						{
-							Location: expectedLocations[0],
-						},
-					},
+					Occurrences: buildOccurrences(t, "pkg:maven/com.foo/the-greatest-package@1.0.0", expectedJSONLocations),
 				},
 			},
 			{
@@ -191,31 +197,65 @@ func TestEncoding_EncodeComponentsInValidCycloneDX1_5(t *testing.T) {
 				Version:    "1.1.0",
 				Type:       "library",
 				Evidence: &cyclonedx.Evidence{
-					Occurrences: &[]cyclonedx.EvidenceOccurrence{
-						{
-							Location: expectedLocations[1],
-						},
-					},
+					Occurrences: buildOccurrences(t, "pkg:npm/the-npm-package@1.1.0", expectedJSONLocations),
 				},
 			},
 		},
 	}
 
 	assertBaseBomEquals(t, expectedBOM, bom)
-	for index, expectedComponent := range *expectedBOM.Components {
-		actualComponent := (*bom.Components)[index]
-		assertBaseComponentEquals(t, expectedComponent, actualComponent)
-		assert.JSONEq(t, (*expectedComponent.Evidence.Occurrences)[0].Location, expectedLocations[index])
+	for _, expectedComponent := range *expectedBOM.Components {
+		actualComponent := assertComponentsContains(t, expectedComponent, *bom.Components)
+		expectedLocations, ok := expectedJSONLocations[actualComponent.PackageURL]
+		if !ok {
+			continue
+		}
+		assertLocationsExactlyContains(t, expectedLocations, *actualComponent.Evidence.Occurrences)
 	}
 }
 
-func assertBaseComponentEquals(t *testing.T, expected, actual cyclonedx.Component) {
+func buildOccurrences(t *testing.T, purl string, expectedLocations map[string][]JSONMap) *[]cyclonedx.EvidenceOccurrence {
 	t.Helper()
-	assert.EqualValues(t, expected.Name, actual.Name)
-	assert.EqualValues(t, expected.Version, actual.Version)
-	assert.EqualValues(t, expected.BOMRef, actual.BOMRef)
-	assert.EqualValues(t, expected.PackageURL, actual.PackageURL)
-	assert.EqualValues(t, expected.Type, actual.Type)
+	locations, ok := expectedLocations[purl]
+
+	if !ok {
+		return nil
+	}
+
+	result := make([]cyclonedx.EvidenceOccurrence, len(locations))
+	for index, location := range locations {
+		builder := strings.Builder{}
+		err := json.NewEncoder(&builder).Encode(location)
+		require.NoError(t, err)
+		result[index] = cyclonedx.EvidenceOccurrence{
+			Location: builder.String(),
+		}
+	}
+
+	return &result
+}
+
+func assertLocationsExactlyContains(t *testing.T, expectedLocations []JSONMap, actualLocations []cyclonedx.EvidenceOccurrence) {
+	t.Helper()
+	assert.EqualValues(t, len(expectedLocations), len(actualLocations), "Size between expected and actual is different")
+	for _, occurrence := range actualLocations {
+		var actualLocation JSONMap
+		err := json.NewDecoder(strings.NewReader(occurrence.Location)).Decode(&actualLocation)
+		require.NoError(t, err)
+
+		assert.Condition(t, assertContainsEquals(expectedLocations, actualLocation))
+	}
+}
+
+func assertContainsEquals(expectedLocations []JSONMap, actualLocation JSONMap) assert.Comparison {
+	return func() bool {
+		for _, expected := range expectedLocations {
+			if fmt.Sprint(expected) == fmt.Sprint(actualLocation) {
+				return true
+			}
+		}
+		return false
+	}
 }
 
 func assertBaseBomEquals(t *testing.T, expected, actual cyclonedx.BOM) {
@@ -224,4 +264,23 @@ func assertBaseBomEquals(t *testing.T, expected, actual cyclonedx.BOM) {
 	assert.EqualValues(t, expected.Version, actual.Version)
 	assert.EqualValues(t, expected.BOMFormat, actual.BOMFormat)
 	assert.EqualValues(t, expected.SpecVersion, actual.SpecVersion)
+}
+
+func assertComponentsContains(t *testing.T, expected cyclonedx.Component, actual []cyclonedx.Component) *cyclonedx.Component {
+	t.Helper()
+
+	for _, component := range actual {
+		if component.PackageURL != expected.PackageURL {
+			continue
+		}
+		assert.EqualValues(t, expected.Name, component.Name)
+		assert.EqualValues(t, expected.Version, component.Version)
+		assert.EqualValues(t, expected.BOMRef, component.BOMRef)
+		assert.EqualValues(t, expected.PackageURL, component.PackageURL)
+		assert.EqualValues(t, expected.Type, component.Type)
+		return &component
+	}
+	assert.FailNowf(t, "Received component array does not contains expected component", "%v", expected)
+
+	return nil
 }
