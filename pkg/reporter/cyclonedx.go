@@ -127,7 +127,6 @@ func toCycloneDX15Bom(stderr io.Writer, packageSources []models.PackageSource) *
 	components := make([]cyclonedx.Component, 0)
 	bom.JSONSchema = cycloneDx15Schema
 	bom.SpecVersion = cyclonedx.SpecVersion1_5
-	bom.Components = &components
 
 	uniquePackages := groupByPackage(packageSources)
 
@@ -138,6 +137,7 @@ func toCycloneDX15Bom(stderr io.Writer, packageSources []models.PackageSource) *
 		component.Version = packageDetail.Version
 		component.BOMRef = packageURL
 		component.PackageURL = packageURL
+		component.Type = componentType
 		component.Evidence = &cyclonedx.Evidence{Occurrences: &occurrences}
 
 		for index, location := range packageDetail.Locations {
@@ -151,8 +151,10 @@ func toCycloneDX15Bom(stderr io.Writer, packageSources []models.PackageSource) *
 				Location: location,
 			}
 			(*component.Evidence.Occurrences)[index] = occurrence
+			components = append(components, component)
 		}
 	}
+	bom.Components = &components
 
 	return bom
 }
