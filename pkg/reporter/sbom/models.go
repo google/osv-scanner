@@ -41,8 +41,8 @@ type packageLocations struct {
 }
 
 const (
-	cycloneDx14Schema = "https://cyclonedx.org/schema/bom-1.4.schema.json"
-	cycloneDx15Schema = "https://cyclonedx.org/schema/bom-1.5.schema.json"
+	cycloneDx14Schema = "http://cyclonedx.org/schema/bom-1.4.schema.json"
+	cycloneDx15Schema = "http://cyclonedx.org/schema/bom-1.5.schema.json"
 )
 
 const componentType = "library"

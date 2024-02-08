@@ -89,7 +89,7 @@ func TestEncoding_EncodeComponentsInValidCycloneDX1_4(t *testing.T) {
 
 	// Then
 	expectedBOM := cyclonedx.BOM{
-		JSONSchema:  "https://cyclonedx.org/schema/bom-1.4.schema.json",
+		JSONSchema:  "http://cyclonedx.org/schema/bom-1.4.schema.json",
 		Version:     1,
 		BOMFormat:   cyclonedx.BOMFormat,
 		SpecVersion: cyclonedx.SpecVersion1_4,
@@ -160,7 +160,7 @@ func TestEncoding_EncodeComponentsInValidCycloneDX1_5(t *testing.T) {
 	}
 
 	expectedBOM := cyclonedx.BOM{
-		JSONSchema:  "https://cyclonedx.org/schema/bom-1.5.schema.json",
+		JSONSchema:  "http://cyclonedx.org/schema/bom-1.5.schema.json",
 		Version:     1,
 		BOMFormat:   cyclonedx.BOMFormat,
 		SpecVersion: cyclonedx.SpecVersion1_5,
