@@ -112,6 +112,7 @@ func TestEncoding_EncodeComponentsInValidCycloneDX1_4(t *testing.T) {
 	}
 
 	assert.NotNil(t, bom)
+	assert.Len(t, *bom.Components, 2)
 	assertBaseBomEquals(t, expectedBOM, *bom)
 	for _, expectedComponent := range *expectedBOM.Components {
 		assertComponentsContains(t, expectedComponent, *bom.Components)
@@ -189,6 +190,7 @@ func TestEncoding_EncodeComponentsInValidCycloneDX1_5(t *testing.T) {
 
 	assert.NotNil(t, bom)
 	assertBaseBomEquals(t, expectedBOM, *bom)
+	assert.Len(t, *bom.Components, 2)
 	for _, expectedComponent := range *expectedBOM.Components {
 		actualComponent := assertComponentsContains(t, expectedComponent, *bom.Components)
 		expectedLocations, ok := expectedJSONLocations[actualComponent.PackageURL]
