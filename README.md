@@ -90,7 +90,7 @@ Run the scanner using the following command to export the sbom in the file `resu
 ./osv-scanner_<version>_<target>_<architecture> \
    --skip-git \
    --recursive \
-   --experimental-only-packages
+   --experimental-only-packages \
    --format=cyclonedx-1-5 \
    --output=result.json
    <path to your repository root directory>
