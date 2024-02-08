@@ -37,8 +37,8 @@ func ToCycloneDX15Bom(stderr io.Writer, packageSources []models.PackageSource) *
 				Location: location,
 			}
 			(*component.Evidence.Occurrences)[index] = occurrence
-			components = append(components, component)
 		}
+		components = append(components, component)
 	}
 	bom.Components = &components
 
