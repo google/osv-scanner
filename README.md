@@ -91,14 +91,14 @@ Run the scanner using the following command to export the sbom in the file `resu
    --skip-git \
    --recursive \
    --experimental-only-packages
-   --format=cyclonedx-1-4 \
+   --format=cyclonedx-1-5 \
    --output=result.json
    <path to your repository root directory>
 ```
 
-The SBOM will be formatted using the CycloneDX 1.4 format.
+The SBOM will be formatted using the CycloneDX 1.5 specification and will include the locations of detected packages.
 
-**Note** : This format does not support file location reporting.
+**Note : You can also format the result using CycloneDX 1.4 using `--format=cyclonedx-1-4`, but it won't contain packages locations**
 
 ## Releasing OSV-Scanner
 
