@@ -7,6 +7,7 @@ import (
 	"os"
 	"path/filepath"
 	"slices"
+	"reflect"
 
 	"github.com/google/osv-scanner/pkg/osvscanner/customgitignore"
 
@@ -24,16 +25,6 @@ func TestBigBallOTest(t *testing.T) {
 
 	// Create a test-local tempdir
 	tDir := t.TempDir()
-
-	// // Create a temporary dir to test out .git tree passing
-	// tDir, err = os.MkdirTemp("", "customgitingore-*")
-	// if err != nil {
-	// 	t.Fatalf("could not create test directory: %v", err)
-	// }
-
-	// defer _ = function() {
-	// 	os.RemoveAll(tDir)
-	// }
 
 	// create tree within tempdir
   allPaths := filepath.Join(tDir, "git_repo/dir_a/dir_b")
@@ -117,35 +108,50 @@ func TestBigBallOTest(t *testing.T) {
 	// fmt.
 	// fmt.Printf("IS_MATCH: val==%v bool==%t\n", rslt, rslt == gitignore.Exclude)
 
-	hasMatch := slices.ContainsFunc(patterns, func(p gitignore.Pattern) bool {
+	var hasMatch bool
+
+	hasMatch = slices.ContainsFunc(patterns, func(p gitignore.Pattern) bool {
 		return p.Match([]string{".", "ROOT_GITIGNORE"}, false) == gitignore.Exclude
 	})
 
 	if !hasMatch {
-		t.Fatalf("Expected to find a pattern matching ./ROOT_GITIGNORE from repository-root .gitignore")
+		t.Fatalf("Expected to find a pattern matching ROOT_GITIGNORE from repository-root .gitignore")
 	}
 
-  hasMatch = slices.ContainsFunc(patterns, func(p gitignore.Pattern) bool {
+	hasMatch = slices.ContainsFunc(patterns, func(p gitignore.Pattern) bool {
 		return p.Match([]string{".", "dir_a", "DIR_A_GITIGNORE"}, false) == gitignore.Exclude
 	})
 
 	if !hasMatch {
-		t.Fatalf("Expected to find a pattern matching ./dir_a/DIR_A_GITIGNORE from ./dir_a/.gitignore")
+		t.Fatalf("Expected to find a pattern matching dir_a/DIR_A_GITIGNORE from ./dir_a/.gitignore")
 	}
 
-  // hasMatch = slices.ContainsFunc(patterns, func(p gitignore.Pattern) bool {
-	// 	return p.Match([]string{".", "dir_a", "dir_b", "DIR_B_GITIGNORE"}, false) == gitignore.Exclude
-	// })
+	// REMOVE:
 
-	// if hasMatch {
-	// 	t.Fatalf(	"Expected not to find pattern matching ./dir_a/dir_b/DIR_B_GITIGNORE from ./dir_a/dir_b/.gitignore, " +
-	// 						"because it should have been ignored by a rule in repository-root .gitignore")
-	// }
 
-	// x := patterns[1].Match([]string{".", "dir_a", "dir_b", "DIR_B_GITIGNORE"}, false) == gitignore.Exclude
-	// fmt.Println("x:", x)
-	// fmt.Printf("patterns[1]: %#v", 	patterns[1])
+	// I want to test for the lack of a GITIGNORE_B match,
+	// to show that dir_a/dir_b/.gitignore wasn't read,
+	// but the `dir_a/dir_b` pattern from .GITIGNORE_ROOT
+	// prevents this.
+	// Instead I'm doing dubious `reflect` hackery to get
+	// accecss to the unxported `Pattern.pattern` field
+	for _, pattern := range patterns {
+		// dubious `reflect` hackery means: slice := pattern.pattern
+		fv := reflect.ValueOf(pattern).Elem().FieldByName("pattern")
+		// slice := fv.Slice(0, fv.Len())
 
+		// fmt.Printf("%v (1/%v) \n", fv.Index(0), fv.Len())
+
+		// tests if pattern.patter == []string{"DIR_B_GITIGNORE"}
+		if fv.Len() == 1 && fv.Index(0).String() == "DIR_B_GITIGNORE" {
+		// if slices.Contains(slice, "DIR_B_GITIGNORE") {
+			t.Fatalf(	"Expected not to find pattern matching DIR_B_GITIGNORE from ./dir_a/dir_b/.gitignore; " +
+								"dir_b should have been ignored by a rule in repository-root .gitignore")
+		}
+	}
+
+
+	// --------------------------------
 
 
 	// // given, the main REPO/.gitignore file has a /dir_a/dir_b pattern
