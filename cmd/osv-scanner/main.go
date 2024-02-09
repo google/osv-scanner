@@ -41,6 +41,7 @@ func run(args []string, stdout, stderr io.Writer) int {
 		DefaultCommand: "scan",
 		Commands: []*cli.Command{
 			scan.Command(stdout, stderr, &r),
+			// fix.Command(stdout, stderr, &r), // TODO: Uncomment when implemented
 		},
 	}
 
