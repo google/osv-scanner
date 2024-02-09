@@ -16,31 +16,28 @@ import (
 	"github.com/go-git/go-git/v5/plumbing/format/gitignore"
 )
 
-
-
-var gitRepoMemo string
-
-// A unique tempdir for local funcs to create a git repo inside
-func gitRepo() string {
-	if gitRepoMemo == "" {
-		gitRepoMemo = path.Join(t.TempDir(), "git_repo")
-	}
-
-	return gitRepoMemo
-}
-
 func TestGitignoreFiles(t *testing.T) {
 	// Create a specific git repo with .gitignore files
-	setupGitRepo(t)
+	gitRepo := setupGitRepo(t)
 
 	// Read this dir-tree using customgitignore
-	fs := osfs.New(gitRepo())
+	fs := osfs.New(gitRepo)
 	patterns, err := customgitignore.ReadPatterns(fs, []string{"."})
 	if err != nil {
 		t.Fatalf("could not read gitignore patterns for test: %v", err)
 	}
 
 	var hasMatch bool
+
+	// expect ./.git/info/exclude to be processed
+	hasMatch = slices.ContainsFunc(patterns, func(p gitignore.Pattern) bool {
+		return p.Match([]string{".", "REPO_EXCLUE_FILE"}, false) == gitignore.Exclude
+	})
+
+	if !hasMatch {
+		t.Fatalf("Expected to find a pattern matching REPO_EXCLUE_FILE from ./.git/info/exclude ")
+	}
+
 
 	// expect ./.gitignore to be processed
 	hasMatch = slices.ContainsFunc(patterns, func(p gitignore.Pattern) bool {
@@ -80,28 +77,38 @@ func TestGitignoreFiles(t *testing.T) {
 	}
 }
 
-func setupGitRepo(t *testing.T) {
+func setupGitRepo(t *testing.T) string {
+	// A unique tempdir for local funcs to create a git repo inside
+	gitRepo := path.Join(t.TempDir(), "git_repo")
+
 	// create directory tree within tempdir
-  allPaths := path.Join(gitRepo(), "dir_a/dir_b")
+  allPaths := path.Join(gitRepo, "dir_a/dir_b")
+	if err := os.MkdirAll(filepath.FromSlash(allPaths), 0755); err != nil {
+		t.Fatalf("could not create paths for test: %v", err)
+  }
+  allPaths = path.Join(gitRepo, ".git/info/")
 	if err := os.MkdirAll(filepath.FromSlash(allPaths), 0755); err != nil {
 		t.Fatalf("could not create paths for test: %v", err)
   }
 
 	// initialise a git repo
-	if _, err := git.PlainInit(filepath.FromSlash(gitRepo()), false); err != nil {
+	if _, err := git.PlainInit(filepath.FromSlash(gitRepo), false); err != nil {
 		t.Fatalf("could not initialise git repot for test: %v", err)
 	}
 
 	// add .gitignore files within the tree
-	writeGitignore(t, ".gitignore", 						"ROOT_GITIGNORE\n" +
-																							"/dir_a/dir_b")
-	writeGitignore(t, "dir_a/.gitignore", 			"DIR_A_GITIGNORE")
-	writeGitignore(t, "dir_a/dir_b/.gitignore", "DIR_B_GITIGNORE")
+	writeGitignore(t, gitRepo, ".git/info/exclude", 			"REPO_EXCLUE_FILE")
+	writeGitignore(t, gitRepo, ".gitignore", 							"ROOT_GITIGNORE\n" +
+																												"/dir_a/dir_b")
+	writeGitignore(t, gitRepo, "dir_a/.gitignore", 				"DIR_A_GITIGNORE")
+	writeGitignore(t, gitRepo, "dir_a/dir_b/.gitignore",	"DIR_B_GITIGNORE")
+
+	return gitRepo
 }
 
-func writeGitignore(t *testing.T, iFile, text string) {
-	iFile = path.Join(gitRepo(), iFile)
-	if err := os.WriteFile(filepath.FromSlash(iFile), []byte(text), 0644); err != nil {
+func writeGitignore(t *testing.T, gitRepo, f, s string) {
+	f = path.Join(gitRepo, f)
+	if err := os.WriteFile(filepath.FromSlash(f), []byte(s), 0644); err != nil {
 		t.Fatalf("could not write file for test: %v", err)
 	}
 }
