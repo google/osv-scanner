@@ -30,17 +30,18 @@ import (
 )
 
 type ScannerActions struct {
-	LockfilePaths        []string
-	SBOMPaths            []string
-	DirectoryPaths       []string
-	GitCommits           []string
-	Recursive            bool
-	SkipGit              bool
-	NoIgnore             bool
-	Debug                bool
-	DockerContainerNames []string
-	ConfigOverridePath   string
-	CallAnalysisStates   map[string]bool
+	LockfilePaths          []string
+	SBOMPaths              []string
+	DirectoryPaths         []string
+	GitCommits             []string
+	Recursive              bool
+	SkipGit                bool
+	NoIgnore               bool
+	Debug                  bool
+	DockerContainerNames   []string
+	ConfigOverridePath     string
+	CallAnalysisStates     map[string]bool
+	ConsiderScanPathAsRoot bool
 
 	ExperimentalScannerActions
 }
@@ -787,6 +788,9 @@ func DoScan(actions ScannerActions, r reporter.Reporter) (models.VulnerabilityRe
 		if err != nil {
 			return models.VulnerabilityResults{}, err
 		}
+		if actions.ConsiderScanPathAsRoot {
+			pkgs, err = removeHostPath(dir, pkgs)
+		}
 		scannedPackages = append(scannedPackages, pkgs...)
 	}
 
@@ -856,6 +860,27 @@ func DoScan(actions ScannerActions, r reporter.Reporter) (models.VulnerabilityRe
 		} else {
 			return results, VulnerabilitiesFoundErr
 		}
+	}
+
+	return results, nil
+}
+
+func removeHostPath(scanPath string, results []scannedPackage) ([]scannedPackage, error) {
+	hostPath, err := filepath.Abs(scanPath)
+	if err != nil {
+		return nil, err
+	}
+	stats, err := os.Lstat(hostPath)
+	if err != nil {
+		return nil, err
+	}
+	if !stats.IsDir() {
+		hostPath = filepath.Dir(hostPath)
+	}
+
+	for index, pkg := range results {
+		pkg.Source.Path = strings.TrimPrefix(pkg.Source.Path, hostPath)
+		results[index] = pkg
 	}
 
 	return results, nil
