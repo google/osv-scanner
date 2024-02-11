@@ -31,11 +31,11 @@ func TestGitignoreFiles(t *testing.T) {
 
 	// expect ./.git/info/exclude to be processed
 	hasMatch = slices.ContainsFunc(patterns, func(p gitignore.Pattern) bool {
-		return p.Match([]string{".", "REPO_EXCLUE_FILE"}, false) == gitignore.Exclude
+		return p.Match([]string{".", "REPO_EXCLUDE_FILE"}, false) == gitignore.Exclude
 	})
 
 	if !hasMatch {
-		t.Fatalf("Expected to find a pattern matching REPO_EXCLUE_FILE from ./.git/info/exclude ")
+		t.Fatalf("Expected to find a pattern matching REPO_EXCLUDE_FILE from ./.git/info/exclude ")
 	}
 
 	// expect ./.gitignore to be processed
@@ -97,7 +97,7 @@ func setupGitRepo(t *testing.T) string {
 	}
 
 	// add .gitignore files within the tree
-	writeGitignore(t, gitRepo, ".git/info/exclude", "REPO_EXCLUE_FILE")
+	writeGitignore(t, gitRepo, ".git/info/exclude", "REPO_EXCLUDE_FILE")
 	writeGitignore(t, gitRepo, ".gitignore", "ROOT_GITIGNORE\n"+"/dir_a/dir_b")
 	writeGitignore(t, gitRepo, "dir_a/.gitignore", "DIR_A_GITIGNORE")
 	writeGitignore(t, gitRepo, "dir_a/dir_b/.gitignore", "DIR_B_GITIGNORE")
