@@ -16,11 +16,72 @@ import (
 	"github.com/go-git/go-git/v5/plumbing/format/gitignore"
 )
 
-func TestGitignoreFiles(t *testing.T) {
+func TestGitignoreFilesFromMidTree(t *testing.T) {
 	// Create a specific git repo with .gitignore files
 	gitRepo := setupGitRepo(t)
 
-	// Read this dir-tree using customgitignore
+	// Read this dir-tree using customgitignore, starting midway
+	// up the tree at at ./dir_a
+	fs := osfs.New(gitRepo)
+	patterns, err := customgitignore.ReadPatterns(fs, []string{".", "dir_a"})
+	if err != nil {
+		t.Fatalf("could not read gitignore patterns for test: %v", err)
+	}
+
+	var hasMatch bool
+
+	// expect ./.git/info/exclude to be processed, by backtracking up the tree
+	hasMatch = slices.ContainsFunc(patterns, func(p gitignore.Pattern) bool {
+		return p.Match([]string{".", "REPO_EXCLUDE_FILE"}, false) == gitignore.Exclude
+	})
+
+	if !hasMatch {
+		t.Fatalf("Expected to find a pattern matching REPO_EXCLUDE_FILE from ./.git/info/exclude ")
+	}
+
+	// expect ./.gitignore to be processed (by backtracking up the tree)
+	hasMatch = slices.ContainsFunc(patterns, func(p gitignore.Pattern) bool {
+		return p.Match([]string{".", "ROOT_GITIGNORE"}, false) == gitignore.Exclude
+	})
+
+	if !hasMatch {
+		t.Fatalf("Expected to find a pattern matching ROOT_GITIGNORE from repository-root .gitignore")
+	}
+
+	// expect ./dir_a/.gitignore to be processed
+	hasMatch = slices.ContainsFunc(patterns, func(p gitignore.Pattern) bool {
+		return p.Match([]string{".", "dir_a", "DIR_A_GITIGNORE"}, false) == gitignore.Exclude
+	})
+
+	if !hasMatch {
+		t.Fatalf("Expected to find a pattern matching dir_a/DIR_A_GITIGNORE from ./dir_a/.gitignore")
+	}
+
+	// expect ./dir_a/dir_b/.gitignore to be skipped over
+	//
+	// I want to test for the lack of a GITIGNORE_B match,
+	// to show that dir_a/dir_b/.gitignore wasn't processed.
+	// Annoyingly the `dir_a/dir_b` pattern from .GITIGNORE_ROOT
+	// prevents this.
+	// Instead I'm doing dubious `reflect` hackery to get
+	// access to the unxported `Pattern.pattern` field
+	for _, pattern := range patterns {
+		// dubious `reflect` hackery means: slice := pattern.pattern
+		fv := reflect.ValueOf(pattern).Elem().FieldByName("pattern")
+
+		// tests if pattern.patter == []string{"DIR_B_GITIGNORE"}
+		if fv.Len() == 1 && fv.Index(0).String() == "DIR_B_GITIGNORE" {
+			t.Fatalf("Expected not to find pattern matching DIR_B_GITIGNORE from ./dir_a/dir_b/.gitignore; " +
+				"dir_b should have been ignored by a rule in repository-root .gitignore")
+		}
+	}
+}
+
+func TestGitignoreFilesFromRoot(t *testing.T) {
+	// Create a specific git repo with .gitignore files
+	gitRepo := setupGitRepo(t)
+
+	// Read this dir-tree using customgitignore, starting at the root
 	fs := osfs.New(gitRepo)
 	patterns, err := customgitignore.ReadPatterns(fs, []string{"."})
 	if err != nil {
