@@ -106,6 +106,7 @@ func Command(stdout, stderr io.Writer, r *reporter.Reporter) *cli.Command {
 			},
 
 			&cli.BoolFlag{
+				// TODO: allow for finer control e.g. specific packages, major/minor/patch
 				Category: upgradeCategory,
 				Name:     "disallow-major-upgrades",
 				Usage:    "disallow major version changes to dependencies",
