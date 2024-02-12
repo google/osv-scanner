@@ -1,4 +1,4 @@
-package lineposition
+package fileposition
 
 import (
 	"fmt"
@@ -23,19 +23,21 @@ func InTOML[P models.IFilePosition](groupKey string, otherKey string, dependenci
 		}
 		if line == groupKey {
 			if !open {
-				openTOMLDependency(lineNumber, &open, dependencies[dependency])
+				openTOMLDependency(lineNumber, line, &open, dependencies[dependency])
 			}
 		}
 	}
 }
 
-func openTOMLDependency[P models.IFilePosition](lineNumber int, open *bool, dep P) {
+func openTOMLDependency[P models.IFilePosition](lineNumber int, line string, open *bool, dep P) {
 	lineStart := lineNumber + 1
+	columnStart := GetFirstNonEmptyCharacterIndexInLine(line)
 	dep.SetLineStart(lineStart)
+	dep.SetColumnStart(columnStart)
 	*open = true
 	if shouldDebugInTOML {
 		name := reflect.Indirect(reflect.ValueOf(dep)).FieldByName("Name")
-		_, _ = fmt.Fprintf(os.Stdout, "[DEPENDENCY][START] '%s' at line %d\n", name, lineStart)
+		_, _ = fmt.Fprintf(os.Stdout, "[DEPENDENCY][START] '%s' at line %d, column %d\n", name, lineStart, columnStart)
 	}
 }
 
@@ -49,10 +51,12 @@ func closeTOMLDependency[P models.IFilePosition](lineNumber int, open *bool, lin
 	} else if lines[lineNumber-1] == "" {
 		lineEnd--
 	}
+	columnEnd := GetLastNonEmptyCharacterIndexInLine(lines[lineEnd-1])
 	dep.SetLineEnd(lineEnd)
+	dep.SetColumnEnd(columnEnd)
 	*open = false
 	if shouldDebugInTOML {
 		name := reflect.Indirect(reflect.ValueOf(dep)).FieldByName("Name")
-		_, _ = fmt.Fprintf(os.Stdout, "[DEPENDENCY][END] '%s' at line %d\n", name, lineEnd)
+		_, _ = fmt.Fprintf(os.Stdout, "[DEPENDENCY][END] '%s' at line %d, column %d\n", name, lineEnd, columnEnd)
 	}
 }

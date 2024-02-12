@@ -1,4 +1,4 @@
-package lineposition
+package fileposition
 
 import (
 	"fmt"
@@ -22,7 +22,7 @@ func InJSON[P models.IFilePosition](groupKey string, dependencies map[string]P, 
 			stack++
 			if key := retrieveKeyFromLine(line); key != "" {
 				if group != "" && stack == groupLevel+1 {
-					openJSONDependency(key, dependencies, position, &dependency)
+					openJSONDependency(key, line, dependencies, position, &dependency)
 				}
 				if groupKey == key {
 					if group == "" {
@@ -38,7 +38,7 @@ func InJSON[P models.IFilePosition](groupKey string, dependencies map[string]P, 
 			if group != "" {
 				if stack == groupLevel {
 					if dependency != "" {
-						closeJSONDependency(dependencies, position, &dependency)
+						closeJSONDependency(line, dependencies, position, &dependency)
 					}
 				} else if stack == groupLevel-1 {
 					closeJSONGroup(position, &group)
@@ -65,24 +65,30 @@ func retrieveKeyFromLine(line string) string {
 	}
 }
 
-func openJSONDependency[P models.IFilePosition](key string, dependencies map[string]P, position int, dependency *string) {
+func openJSONDependency[P models.IFilePosition](key string, line string, dependencies map[string]P, position int, dependency *string) {
 	if dep, ok := dependencies[key]; ok {
 		*dependency = key
-		dep.SetLineStart(position + 1)
+		lineStart := position + 1
+		columnStart := GetFirstNonEmptyCharacterIndexInLine(line)
+		dep.SetLineStart(lineStart)
+		dep.SetColumnStart(columnStart)
 		dependencies[*dependency] = dep
 		if shouldDebugInJSON {
-			_, _ = fmt.Fprintf(os.Stdout, "[DEPENDENCY][START] '%s' at line %d\n", *dependency, position+1)
+			_, _ = fmt.Fprintf(os.Stdout, "[DEPENDENCY][START] '%s' at line %d, column %d\n", *dependency, lineStart, columnStart)
 		}
 	}
 }
 
-func closeJSONDependency[P models.IFilePosition](dependencies map[string]P, position int, dependency *string) {
+func closeJSONDependency[P models.IFilePosition](line string, dependencies map[string]P, position int, dependency *string) {
 	if dep, ok := dependencies[*dependency]; ok {
-		dep.SetLineEnd(position + 1)
+		lineEnd := position + 1
+		columnEnd := GetLastNonEmptyCharacterIndexInLine(line)
+		dep.SetLineEnd(lineEnd)
+		dep.SetColumnEnd(columnEnd)
 		dependencies[*dependency] = dep
 		*dependency = ""
 		if shouldDebugInJSON {
-			_, _ = fmt.Fprintf(os.Stdout, "[DEPENDENCY][END] '%s' at line %d\n", *dependency, position+1)
+			_, _ = fmt.Fprintf(os.Stdout, "[DEPENDENCY][END] '%s' at line %d, column %d\n", *dependency, lineEnd, columnEnd)
 		}
 	}
 }
