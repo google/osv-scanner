@@ -3,9 +3,11 @@ package reporter
 import (
 	"fmt"
 	"io"
+
+	"github.com/google/osv-scanner/pkg/reporter/sbom"
 )
 
-var format = []string{"table", "json", "markdown", "sarif", "gh-annotations", "cyclonedx-1-4"}
+var format = []string{"table", "json", "markdown", "sarif", "gh-annotations", "cyclonedx-1-4", "cyclonedx-1-5"}
 
 func Format() []string {
 	return format
@@ -26,7 +28,9 @@ func New(format string, stdout, stderr io.Writer, terminalWidth int) (Reporter, 
 	case "gh-annotations":
 		return NewGHAnnotationsReporter(stdout, stderr), nil
 	case "cyclonedx-1-4":
-		return NewCycloneDXReporter(stdout, stderr), nil
+		return NewCycloneDXReporter(stdout, stderr, sbom.CycloneDXVersion14), nil
+	case "cyclonedx-1-5":
+		return NewCycloneDXReporter(stdout, stderr, sbom.CycloneDXVersion15), nil
 
 	default:
 		return nil, fmt.Errorf("%v is not a valid format", format)
