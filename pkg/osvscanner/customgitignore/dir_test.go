@@ -170,7 +170,7 @@ func setupGitRepo(t *testing.T) string {
 func writeGitignore(t *testing.T, gitRepo, f, s string) {
 	f = path.Join(gitRepo, f)
 	if err := os.WriteFile(filepath.FromSlash(f), []byte(s), 0644); err != nil {
-		t.Fatalf("could not write file for test: %v", err)
+		t.Errorf("could not write file for test: %v", err)
 	}
 }
 
