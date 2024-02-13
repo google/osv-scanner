@@ -7,6 +7,7 @@ import (
 
 	"github.com/google/osv-scanner/pkg/lockfile"
 	"github.com/google/osv-scanner/pkg/models"
+	"github.com/google/osv-scanner/pkg/osv"
 
 	depsdevpb "deps.dev/api/v3alpha"
 	"golang.org/x/sync/errgroup"
@@ -56,7 +57,13 @@ func MakeVersionRequests(queries []*depsdevpb.GetVersionRequest) ([][]models.Lic
 		return nil, fmt.Errorf("getting system cert pool: %w", err)
 	}
 	creds := credentials.NewClientTLSFromCert(certPool, "")
-	conn, err := grpc.Dial(DepsdevAPI, grpc.WithTransportCredentials(creds))
+	dialOpts := []grpc.DialOption{grpc.WithTransportCredentials(creds)}
+
+	if osv.RequestUserAgent != "" {
+		dialOpts = append(dialOpts, grpc.WithUserAgent(osv.RequestUserAgent))
+	}
+
+	conn, err := grpc.Dial(DepsdevAPI, dialOpts...)
 	if err != nil {
 		return nil, fmt.Errorf("dialing deps.dev gRPC API: %w", err)
 	}
