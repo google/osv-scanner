@@ -22,10 +22,11 @@ func TestGitignoreFilesFromMidTree(t *testing.T) {
 
 	// Read this dir-tree using customgitignore, starting midway
 	// up the tree at at ./dir_a
+	gitRepo = filepath.Join(gitRepo, "dir_a")
 	fs := osfs.New(gitRepo)
-	patterns, err := customgitignore.ReadPatterns(fs, []string{".", "dir_a"})
+	patterns, err := customgitignore.ReadPatterns(fs, []string{"."})
 	if err != nil {
-		t.Fatalf("could not read gitignore patterns for test: %v", err)
+		t.Errorf("could not read gitignore patterns for test: %v", err)
 	}
 
 	var hasMatch bool
@@ -36,7 +37,7 @@ func TestGitignoreFilesFromMidTree(t *testing.T) {
 	})
 
 	if !hasMatch {
-		t.Fatalf("Expected to find a pattern matching REPO_EXCLUDE_FILE from ./.git/info/exclude ")
+		t.Errorf("Expected to find a pattern matching REPO_EXCLUDE_FILE from ./.git/info/exclude ")
 	}
 
 	// expect ./.gitignore to be processed (by backtracking up the tree)
@@ -45,7 +46,7 @@ func TestGitignoreFilesFromMidTree(t *testing.T) {
 	})
 
 	if !hasMatch {
-		t.Fatalf("Expected to find a pattern matching ROOT_GITIGNORE from repository-root .gitignore")
+		t.Errorf("Expected to find a pattern matching ROOT_GITIGNORE from repository-root .gitignore")
 	}
 
 	// expect ./dir_a/.gitignore to be processed
@@ -54,7 +55,7 @@ func TestGitignoreFilesFromMidTree(t *testing.T) {
 	})
 
 	if !hasMatch {
-		t.Fatalf("Expected to find a pattern matching dir_a/DIR_A_GITIGNORE from ./dir_a/.gitignore")
+		t.Errorf("Expected to find a pattern matching dir_a/DIR_A_GITIGNORE from ./dir_a/.gitignore")
 	}
 
 	// expect ./dir_a/dir_b/.gitignore to be skipped over
@@ -71,7 +72,7 @@ func TestGitignoreFilesFromMidTree(t *testing.T) {
 
 		// tests if pattern.patter == []string{"DIR_B_GITIGNORE"}
 		if fv.Len() == 1 && fv.Index(0).String() == "DIR_B_GITIGNORE" {
-			t.Fatalf("Expected not to find pattern matching DIR_B_GITIGNORE from ./dir_a/dir_b/.gitignore; " +
+			t.Errorf("Expected not to find pattern matching DIR_B_GITIGNORE from ./dir_a/dir_b/.gitignore; " +
 				"dir_b should have been ignored by a rule in repository-root .gitignore")
 		}
 	}
@@ -85,7 +86,7 @@ func TestGitignoreFilesFromRoot(t *testing.T) {
 	fs := osfs.New(gitRepo)
 	patterns, err := customgitignore.ReadPatterns(fs, []string{"."})
 	if err != nil {
-		t.Fatalf("could not read gitignore patterns for test: %v", err)
+		t.Errorf("could not read gitignore patterns for test: %v", err)
 	}
 
 	var hasMatch bool
@@ -96,7 +97,7 @@ func TestGitignoreFilesFromRoot(t *testing.T) {
 	})
 
 	if !hasMatch {
-		t.Fatalf("Expected to find a pattern matching REPO_EXCLUDE_FILE from ./.git/info/exclude ")
+		t.Errorf("Expected to find a pattern matching REPO_EXCLUDE_FILE from ./.git/info/exclude ")
 	}
 
 	// expect ./.gitignore to be processed
@@ -105,7 +106,7 @@ func TestGitignoreFilesFromRoot(t *testing.T) {
 	})
 
 	if !hasMatch {
-		t.Fatalf("Expected to find a pattern matching ROOT_GITIGNORE from repository-root .gitignore")
+		t.Errorf("Expected to find a pattern matching ROOT_GITIGNORE from repository-root .gitignore")
 	}
 
 	// expect ./dir_a/.gitignore to be processed
@@ -114,7 +115,7 @@ func TestGitignoreFilesFromRoot(t *testing.T) {
 	})
 
 	if !hasMatch {
-		t.Fatalf("Expected to find a pattern matching dir_a/DIR_A_GITIGNORE from ./dir_a/.gitignore")
+		t.Errorf("Expected to find a pattern matching dir_a/DIR_A_GITIGNORE from ./dir_a/.gitignore")
 	}
 
 	// expect ./dir_a/dir_b/.gitignore to be skipped over
@@ -131,7 +132,7 @@ func TestGitignoreFilesFromRoot(t *testing.T) {
 
 		// tests if pattern.patter == []string{"DIR_B_GITIGNORE"}
 		if fv.Len() == 1 && fv.Index(0).String() == "DIR_B_GITIGNORE" {
-			t.Fatalf("Expected not to find pattern matching DIR_B_GITIGNORE from ./dir_a/dir_b/.gitignore; " +
+			t.Errorf("Expected not to find pattern matching DIR_B_GITIGNORE from ./dir_a/dir_b/.gitignore; " +
 				"dir_b should have been ignored by a rule in repository-root .gitignore")
 		}
 	}
@@ -144,17 +145,17 @@ func setupGitRepo(t *testing.T) string {
 	// create directory tree within tempdir
 	allPaths := path.Join(gitRepo, "dir_a/dir_b")
 	if err := os.MkdirAll(filepath.FromSlash(allPaths), 0755); err != nil {
-		t.Fatalf("could not create paths for test: %v", err)
+		t.Errorf("could not create paths for test: %v", err)
 	}
 
 	allPaths = path.Join(gitRepo, ".git/info/")
 	if err := os.MkdirAll(filepath.FromSlash(allPaths), 0755); err != nil {
-		t.Fatalf("could not create paths for test: %v", err)
+		t.Errorf("could not create paths for test: %v", err)
 	}
 
 	// initialise a git repo
 	if _, err := git.PlainInit(filepath.FromSlash(gitRepo), false); err != nil {
-		t.Fatalf("could not initialise git repot for test: %v", err)
+		t.Errorf("could not initialise git repot for test: %v", err)
 	}
 
 	// add .gitignore files within the tree
