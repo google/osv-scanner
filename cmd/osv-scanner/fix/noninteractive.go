@@ -51,7 +51,7 @@ func autoInPlace(ctx context.Context, r reporter.Reporter, opts osvFixOptions, m
 }
 
 // returns the top {maxUpgrades} compatible patches, the number of vulns fixed, and the number of potentially fixable vulns left unfixed
-// if maxUpgrades is -1, do as many patches as possible
+// if maxUpgrades is < 0, do as many patches as possible
 func autoChooseInPlacePatches(res remediation.InPlaceResult, maxUpgrades int) ([]lf.DependencyPatch, int, int) {
 	seenVKs := make(map[resolve.VersionKey]struct{})
 	type vulnKey struct {
@@ -71,9 +71,7 @@ func autoChooseInPlacePatches(res remediation.InPlaceResult, maxUpgrades int) ([
 		if _, seen := seenVKs[vk]; maxUpgrades != 0 && !seen {
 			seenVKs[vk] = struct{}{}
 			patches = append(patches, p.DependencyPatch)
-			if maxUpgrades != -1 {
-				maxUpgrades--
-			}
+			maxUpgrades--
 			numFixed += len(p.ResolvedVulns)
 		}
 
@@ -155,7 +153,7 @@ func autoRelock(ctx context.Context, r reporter.Reporter, opts osvFixOptions, ma
 }
 
 // returns the top {maxUpgrades} compatible patches, the number of vulns fixed, and the number unfixable vulns
-// if maxUpgrades is -1, do as many patches as possible
+// if maxUpgrades is < 0, do as many patches as possible
 func autoChooseRelockPatches(diffs []resolution.ResolutionDiff, maxUpgrades int) ([]manifest.DependencyPatch, int, int) {
 	unfixableVulnIDs := make(map[string]struct{})
 	for _, v := range diffs[0].Original.Vulns {
@@ -182,9 +180,7 @@ func autoChooseRelockPatches(diffs []resolution.ResolutionDiff, maxUpgrades int)
 			patches = append(patches, dp)
 			pkgChanged[resolve.VersionKey{PackageKey: dp.Pkg, Version: dp.OrigRequire}] = true
 		}
-		if maxUpgrades != -1 {
-			maxUpgrades--
-		}
+		maxUpgrades--
 	}
 
 	return patches, numFixed, len(unfixableVulnIDs)
