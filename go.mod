@@ -1,11 +1,11 @@
 module github.com/google/osv-scanner
 
-go 1.21.6
+go 1.22.0
 
 require (
-	deps.dev/api/v3alpha v0.0.0-20240204235316-c339c640e576
-	deps.dev/util/resolve v0.0.0-20240204235316-c339c640e576
-	deps.dev/util/semver v0.0.0-20240204235316-c339c640e576
+	deps.dev/api/v3alpha v0.0.0-20240214003419-1729b6244a2d
+	deps.dev/util/resolve v0.0.0-20240214003419-1729b6244a2d
+	deps.dev/util/semver v0.0.0-20240214003419-1729b6244a2d
 	github.com/BurntSushi/toml v1.3.2
 	github.com/CycloneDX/cyclonedx-go v0.8.0
 	github.com/gkampitakis/go-snaps v0.5.2
@@ -21,12 +21,12 @@ require (
 	github.com/tidwall/gjson v1.17.0
 	github.com/tidwall/sjson v1.2.5
 	github.com/urfave/cli/v2 v2.27.1
-	golang.org/x/exp v0.0.0-20240205201215-2c58cdc269a3
-	golang.org/x/mod v0.14.0
+	golang.org/x/exp v0.0.0-20240213143201-ec583247a57a
+	golang.org/x/mod v0.15.0
 	golang.org/x/sync v0.6.0
-	golang.org/x/term v0.16.0
+	golang.org/x/term v0.17.0
 	golang.org/x/vuln v1.0.1
-	google.golang.org/grpc v1.61.0
+	google.golang.org/grpc v1.61.1
 	google.golang.org/protobuf v1.32.0
 	gopkg.in/ini.v1 v1.67.0
 	gopkg.in/yaml.v3 v3.0.1
@@ -63,11 +63,11 @@ require (
 	github.com/tidwall/pretty v1.2.1 // indirect
 	github.com/xanzy/ssh-agent v0.3.3 // indirect
 	github.com/xrash/smetrics v0.0.0-20201216005158-039620a65673 // indirect
-	golang.org/x/crypto v0.18.0 // indirect
-	golang.org/x/net v0.20.0 // indirect
-	golang.org/x/sys v0.16.0 // indirect
+	golang.org/x/crypto v0.19.0 // indirect
+	golang.org/x/net v0.21.0 // indirect
+	golang.org/x/sys v0.17.0 // indirect
 	golang.org/x/text v0.14.0 // indirect
-	golang.org/x/tools v0.17.0 // indirect
+	golang.org/x/tools v0.18.0 // indirect
 	google.golang.org/genproto/googleapis/rpc v0.0.0-20231106174013-bbf56f31fb17 // indirect
 	gopkg.in/warnings.v0 v0.1.2 // indirect
 )
