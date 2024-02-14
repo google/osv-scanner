@@ -44,6 +44,7 @@ func autoInPlace(ctx context.Context, r reporter.Reporter, opts osvFixOptions, m
 	}
 	r.Infof("REMAINING-VULNS: %d\n", totalVulns-nFixed)
 	r.Infof("UNFIXABLE-VULNS: %d\n", len(res.Unfixable))
+	// TODO: Print the FIXED-VULN-IDS, REMAINING-VULN-IDS, UNFIXABLE-VULN-IDS
 
 	r.Infof("Rewriting %s...\n", opts.Lockfile)
 
@@ -53,7 +54,10 @@ func autoInPlace(ctx context.Context, r reporter.Reporter, opts osvFixOptions, m
 // returns the top {maxUpgrades} compatible patches, the number of vulns fixed, and the number of potentially fixable vulns left unfixed
 // if maxUpgrades is < 0, do as many patches as possible
 func autoChooseInPlacePatches(res remediation.InPlaceResult, maxUpgrades int) ([]lf.DependencyPatch, int, int) {
-	seenVKs := make(map[resolve.VersionKey]struct{})
+	// Keep track of the VersionKeys we've already patched so we know which patches are incompatible
+	seenVKs := make(map[resolve.VersionKey]bool)
+
+	// Key vulnerabilities by (ID, package name, package version) to be consistent with scan action's counting
 	type vulnKey struct {
 		id string
 		vk resolve.VersionKey
@@ -68,15 +72,18 @@ func autoChooseInPlacePatches(res remediation.InPlaceResult, maxUpgrades int) ([
 			Version:    p.OrigVersion,
 		}
 
-		if _, seen := seenVKs[vk]; maxUpgrades != 0 && !seen {
-			seenVKs[vk] = struct{}{}
+		// add each of the resolved vulnKeys to the set of unique vulns
+		for _, rv := range p.ResolvedVulns {
+			uniqueVulns[vulnKey{id: rv.Vulnerability.ID, vk: vk}] = struct{}{}
+		}
+
+		// If we still are picking more patches, and we haven't already patched this specific version,
+		// then add this patch to our final set of patches and count the vulnerabilities
+		if maxUpgrades != 0 && !seenVKs[vk] {
+			seenVKs[vk] = true
 			patches = append(patches, p.DependencyPatch)
 			maxUpgrades--
 			numFixed += len(p.ResolvedVulns)
-		}
-
-		for _, rv := range p.ResolvedVulns {
-			uniqueVulns[vulnKey{id: rv.Vulnerability.ID, vk: vk}] = struct{}{}
 		}
 	}
 
@@ -136,6 +143,8 @@ func autoRelock(ctx context.Context, r reporter.Reporter, opts osvFixOptions, ma
 	}
 	r.Infof("REMAINING-VULNS: %d\n", totalVulns-nFixed)
 	r.Infof("UNFIXABLE-VULNS: %d\n", nUnfixable)
+	// TODO: Print the FIXED-VULN-IDS, REMAINING-VULN-IDS, UNFIXABLE-VULN-IDS
+	// TODO: Consider potentially introduced vulnerabilities
 
 	r.Infof("Rewriting %s...\n", opts.Manifest)
 	if err := manifest.Overwrite(opts.ManifestRW, opts.Manifest, manifest.ManifestPatch{Manifest: &manif, Deps: depPatches}); err != nil {
@@ -155,26 +164,31 @@ func autoRelock(ctx context.Context, r reporter.Reporter, opts osvFixOptions, ma
 // returns the top {maxUpgrades} compatible patches, the number of vulns fixed, and the number unfixable vulns
 // if maxUpgrades is < 0, do as many patches as possible
 func autoChooseRelockPatches(diffs []resolution.ResolutionDiff, maxUpgrades int) ([]manifest.DependencyPatch, int, int) {
+	// Treat every original vulnerability as unfixable until we see a patch that removes it
 	unfixableVulnIDs := make(map[string]struct{})
 	for _, v := range diffs[0].Original.Vulns {
 		unfixableVulnIDs[v.Vulnerability.ID] = struct{}{}
 	}
 
 	var patches []manifest.DependencyPatch
-	pkgChanged := make(map[resolve.VersionKey]bool)
+	pkgChanged := make(map[resolve.VersionKey]bool) // dependencies we've already applied a patch to
 	numFixed := 0
 
 	for _, diff := range diffs {
+		// remove all the vulns fixed by the patch from the set of unfixables
 		for _, v := range diff.RemovedVulns {
 			delete(unfixableVulnIDs, v.Vulnerability.ID)
 		}
 
+		// If we are not picking any more patches, or this patch is incompatible with existing patches, skip adding it to the patch list.
+		// A patch is incompatible if any of its changed packages have already been changed by an existing patch.
 		if maxUpgrades == 0 || slices.ContainsFunc(diff.Deps, func(dp manifest.DependencyPatch) bool {
 			return pkgChanged[resolve.VersionKey{PackageKey: dp.Pkg, Version: dp.OrigRequire}]
 		}) {
 			continue
 		}
 
+		// Add all individual package patches to the final patch list, and count the number of vulns this is anticipated to resolve
 		numFixed += len(diff.RemovedVulns)
 		for _, dp := range diff.Deps {
 			patches = append(patches, dp)
