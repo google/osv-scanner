@@ -150,6 +150,10 @@ func run(args []string, stdout, stderr io.Writer) int {
 				Name:  "experimental-only-packages",
 				Usage: "only collects packages, does not scan for vulnerabilities",
 			},
+			&cli.BoolFlag{
+				Name:  "consider-scan-path-as-root",
+				Usage: "Transform package path root to be the scanning path, thus removing any information about the host",
+			},
 		},
 		ArgsUsage: "[directory1 directory2...]",
 		Action: func(context *cli.Context) error {
@@ -201,16 +205,17 @@ func run(args []string, stdout, stderr io.Writer) int {
 			}
 
 			vulnResult, err := osvscanner.DoScan(osvscanner.ScannerActions{
-				LockfilePaths:        context.StringSlice("lockfile"),
-				SBOMPaths:            context.StringSlice("sbom"),
-				DockerContainerNames: context.StringSlice("docker"),
-				Recursive:            context.Bool("recursive"),
-				SkipGit:              context.Bool("skip-git"),
-				NoIgnore:             context.Bool("no-ignore"),
-				Debug:                context.Bool("debug"),
-				ConfigOverridePath:   context.String("config"),
-				DirectoryPaths:       context.Args().Slice(),
-				CallAnalysisStates:   callAnalysisStates,
+				LockfilePaths:          context.StringSlice("lockfile"),
+				SBOMPaths:              context.StringSlice("sbom"),
+				DockerContainerNames:   context.StringSlice("docker"),
+				Recursive:              context.Bool("recursive"),
+				SkipGit:                context.Bool("skip-git"),
+				NoIgnore:               context.Bool("no-ignore"),
+				Debug:                  context.Bool("debug"),
+				ConfigOverridePath:     context.String("config"),
+				DirectoryPaths:         context.Args().Slice(),
+				CallAnalysisStates:     callAnalysisStates,
+				ConsiderScanPathAsRoot: context.Bool("consider-scan-path-as-root"),
 				ExperimentalScannerActions: osvscanner.ExperimentalScannerActions{
 					LocalDBPath:    context.String("experimental-local-db-path"),
 					CompareLocally: context.Bool("experimental-local-db"),

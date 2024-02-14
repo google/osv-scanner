@@ -3,7 +3,11 @@ package main
 
 import (
 	"bytes"
+	"encoding/json"
 	"fmt"
+	"github.com/CycloneDX/cyclonedx-go"
+	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 	"os"
 	"path/filepath"
 	"regexp"
@@ -90,6 +94,13 @@ type cliTestCase struct {
 	wantExitCode int
 	wantStdout   string
 	wantStderr   string
+}
+
+type locationTestCase struct {
+	name          string
+	args          []string
+	wantExitCode  int
+	wantFilePaths []string
 }
 
 func expectAreEqual(t *testing.T, subject, actual, expect string) {
@@ -1543,6 +1554,66 @@ Filtered 2 vulnerabilities from output
 			testCli(t, tt)
 		})
 	}
+}
+
+func TestRun_WithoutHostPathInformation(t *testing.T) {
+	tests := []locationTestCase{
+		// one specific supported lockfile
+		{
+			name:          "one specific supported lockfile",
+			args:          []string{"", "--experimental-only-packages", "--format=cyclonedx-1-5", "--consider-scan-path-as-root", "./fixtures/locks-many/composer.lock"},
+			wantExitCode:  0,
+			wantFilePaths: []string{"/composer.lock"},
+		},
+		{
+			name:         "Multiple lockfiles",
+			args:         []string{"", "--experimental-only-packages", "--format=cyclonedx-1-5", "--consider-scan-path-as-root", "./fixtures/locks-many"},
+			wantExitCode: 0,
+			wantFilePaths: []string{
+				"/composer.lock",
+				"/Gemfile.lock",
+				"/package-lock.json",
+				"/yarn.lock",
+			},
+		},
+	}
+	for _, tt := range tests {
+		tt := tt
+		t.Run(tt.name, func(t *testing.T) {
+			t.Parallel()
+			tc := tt
+			stdoutBuffer := &bytes.Buffer{}
+			stderrBuffer := &bytes.Buffer{}
+
+			ec := run(tc.args, stdoutBuffer, stderrBuffer)
+
+			stdout := stdoutBuffer.String()
+			bom := cyclonedx.BOM{}
+			err := json.NewDecoder(strings.NewReader(stdout)).Decode(&bom)
+			require.NoError(t, err)
+
+			if ec != tc.wantExitCode {
+				t.Errorf("cli exited with code %d, not %d", ec, tc.wantExitCode)
+			}
+			filepaths := gatherFilepath(bom)
+			for _, expectedLocation := range tc.wantFilePaths {
+				assert.Contains(t, filepaths, expectedLocation)
+			}
+		})
+	}
+}
+
+func gatherFilepath(bom cyclonedx.BOM) []string {
+	locations := make([]string, 0)
+	for _, component := range *bom.Components {
+		for _, location := range *component.Evidence.Occurrences {
+			jsonLocation := make(map[string]map[string]interface{})
+			json.NewDecoder(strings.NewReader(location.Location)).Decode(&jsonLocation)
+			blockLocation := jsonLocation["block"]
+			locations = append(locations, blockLocation["file_name"].(string))
+		}
+	}
+	return locations
 }
 
 func TestMain(m *testing.M) {
