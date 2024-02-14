@@ -229,14 +229,15 @@ func action(ctx *cli.Context, stdout, stderr io.Writer) (reporter.Reporter, erro
 	// TODO: This isn't what the reporter is designed for.
 	// Only using r.Infof() and r.Errorf() to print to stdout & stderr respectively.
 	r := reporter.NewTableReporter(stdout, stderr, reporter.InfoLevel, false, 0)
-	numUpgrades := ctx.Int("apply-top")
+	maxUpgrades := ctx.Int("apply-top")
 
 	switch ctx.String("strategy") {
 	case "relock":
-		return r, autoRelock(ctx.Context, r, opts, numUpgrades)
+		return r, autoRelock(ctx.Context, r, opts, maxUpgrades)
 	case "in-place":
-		return r, autoInPlace(ctx.Context, r, opts, numUpgrades)
+		return r, autoInPlace(ctx.Context, r, opts, maxUpgrades)
+	default:
+		// The strategy flag should already be validated by this point.
+		panic(fmt.Sprintf("non-interactive mode attempted to run with unhandled strategy: \"%s\"", ctx.String("strategy")))
 	}
-
-	panic("no entrypoint for cli flags")
 }
