@@ -17,7 +17,7 @@ func copyFileTo(t *testing.T, file, dir string) string {
 	}
 
 	dst := filepath.Join(dir, filepath.Base(file))
-	if err := os.WriteFile(dst, b, 0666); err != nil {
+	if err := os.WriteFile(dst, b, 0600); err != nil {
 		t.Fatalf("could not copy test file: %v", err)
 	}
 
@@ -30,7 +30,7 @@ func matchFile(t *testing.T, file string) {
 	if err != nil {
 		t.Fatalf("could not read test file: %v", err)
 	}
-	testutility.NewSnapshot().MatchText(t, string(b))
+	testutility.NewSnapshot().WithWindowsReplacements(map[string]string{"\r\n": "\n"}).MatchText(t, string(b))
 }
 
 func TestRun_Fix(t *testing.T) {
