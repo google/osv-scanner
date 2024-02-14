@@ -162,7 +162,8 @@
           "GO-2021-0053": {
             "called": false
           }
-        }
+        },
+        "max_severity": ""
       }
     ]
   },
@@ -314,7 +315,8 @@
           "GO-2023-1558": {
             "called": true
           }
-        }
+        },
+        "max_severity": ""
       }
     ]
   },
@@ -467,7 +469,8 @@
           "GO-2023-1572": {
             "called": false
           }
-        }
+        },
+        "max_severity": ""
       }
     ]
   }
@@ -621,7 +624,8 @@
           "GHSA-c3h9-896r-86jm",
           "GO-2021-0053"
         ],
-        "aliases": null
+        "aliases": null,
+        "max_severity": ""
       }
     ]
   },
@@ -757,7 +761,8 @@
           "GHSA-2h6c-j3gf-xp9r",
           "GO-2023-1558"
         ],
-        "aliases": null
+        "aliases": null,
+        "max_severity": ""
       }
     ]
   },
@@ -892,7 +897,8 @@
           "GHSA-qgc7-mgm3-q253",
           "GO-2023-1572"
         ],
-        "aliases": null
+        "aliases": null,
+        "max_severity": ""
       }
     ]
   }
