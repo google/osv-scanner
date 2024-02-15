@@ -15,6 +15,7 @@ import (
 	"deps.dev/util/semver"
 	"github.com/google/osv-scanner/internal/resolution/datasource"
 	"github.com/google/osv-scanner/pkg/depsdev"
+	"github.com/google/osv-scanner/pkg/osv"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials"
 )
@@ -40,7 +41,13 @@ func NewNpmRegistryClient(workdir string) (*NpmRegistryClient, error) {
 		return nil, fmt.Errorf("getting system cert pool: %w", err)
 	}
 	creds := credentials.NewClientTLSFromCert(certPool, "")
-	conn, err := grpc.Dial(depsdev.DepsdevAPI, grpc.WithTransportCredentials(creds))
+	dialOpts := []grpc.DialOption{grpc.WithTransportCredentials(creds)}
+
+	if osv.RequestUserAgent != "" {
+		dialOpts = append(dialOpts, grpc.WithUserAgent(osv.RequestUserAgent))
+	}
+
+	conn, err := grpc.Dial(depsdev.DepsdevAPI, dialOpts...)
 	if err != nil {
 		return nil, fmt.Errorf("dialling %q: %w", depsdev.DepsdevAPI, err)
 	}
