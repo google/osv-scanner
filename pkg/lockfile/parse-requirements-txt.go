@@ -115,7 +115,8 @@ func isLineContinuation(line string) bool {
 type RequirementsTxtExtractor struct{}
 
 func (e RequirementsTxtExtractor) ShouldExtract(path string) bool {
-	return filepath.Base(path) == "requirements.txt"
+	baseFilepath := filepath.Base(path)
+	return strings.Contains(baseFilepath, "requirements") && strings.HasSuffix(baseFilepath, ".txt")
 }
 
 func (e RequirementsTxtExtractor) Extract(f DepFile) ([]PackageDetails, error) {
