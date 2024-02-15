@@ -5,15 +5,16 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
-	"github.com/CycloneDX/cyclonedx-go"
-	"github.com/stretchr/testify/assert"
-	"github.com/stretchr/testify/require"
 	"os"
 	"path/filepath"
 	"regexp"
 	"strconv"
 	"strings"
 	"testing"
+
+	"github.com/CycloneDX/cyclonedx-go"
+	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 
 	"github.com/go-git/go-git/v5"
 	"github.com/google/go-cmp/cmp"
@@ -1557,6 +1558,7 @@ Filtered 2 vulnerabilities from output
 }
 
 func TestRun_WithoutHostPathInformation(t *testing.T) {
+	t.Parallel()
 	tests := []locationTestCase{
 		// one specific supported lockfile
 		{
@@ -1608,11 +1610,12 @@ func gatherFilepath(bom cyclonedx.BOM) []string {
 	for _, component := range *bom.Components {
 		for _, location := range *component.Evidence.Occurrences {
 			jsonLocation := make(map[string]map[string]interface{})
-			json.NewDecoder(strings.NewReader(location.Location)).Decode(&jsonLocation)
+			_ = json.NewDecoder(strings.NewReader(location.Location)).Decode(&jsonLocation)
 			blockLocation := jsonLocation["block"]
 			locations = append(locations, blockLocation["file_name"].(string))
 		}
 	}
+
 	return locations
 }
 

@@ -790,6 +790,10 @@ func DoScan(actions ScannerActions, r reporter.Reporter) (models.VulnerabilityRe
 		}
 		if actions.ConsiderScanPathAsRoot {
 			pkgs, err = removeHostPath(dir, pkgs)
+
+			if err != nil {
+				return models.VulnerabilityResults{}, err
+			}
 		}
 		scannedPackages = append(scannedPackages, pkgs...)
 	}

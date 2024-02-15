@@ -3,11 +3,12 @@ package lockfile
 import (
 	"bufio"
 	"fmt"
-	"github.com/google/osv-scanner/internal/utility/fileposition"
 	"net/url"
 	"os"
 	"path/filepath"
 	"strings"
+
+	"github.com/google/osv-scanner/internal/utility/fileposition"
 
 	"github.com/google/osv-scanner/pkg/models"
 
