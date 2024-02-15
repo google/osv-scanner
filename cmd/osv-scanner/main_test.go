@@ -5,15 +5,16 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
-	"github.com/CycloneDX/cyclonedx-go"
-	"github.com/stretchr/testify/assert"
-	"github.com/stretchr/testify/require"
 	"os"
 	"path/filepath"
 	"regexp"
 	"strconv"
 	"strings"
 	"testing"
+
+	"github.com/CycloneDX/cyclonedx-go"
+	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 
 	"github.com/go-git/go-git/v5"
 	"github.com/google/go-cmp/cmp"
@@ -1557,23 +1558,24 @@ Filtered 2 vulnerabilities from output
 }
 
 func TestRun_WithoutHostPathInformation(t *testing.T) {
+	t.Parallel()
 	tests := []locationTestCase{
 		// one specific supported lockfile
 		{
 			name:          "one specific supported lockfile",
 			args:          []string{"", "--experimental-only-packages", "--format=cyclonedx-1-5", "--consider-scan-path-as-root", "./fixtures/locks-many/composer.lock"},
 			wantExitCode:  0,
-			wantFilePaths: []string{"/composer.lock"},
+			wantFilePaths: []string{filepath.FromSlash("/composer.lock")},
 		},
 		{
 			name:         "Multiple lockfiles",
 			args:         []string{"", "--experimental-only-packages", "--format=cyclonedx-1-5", "--consider-scan-path-as-root", "./fixtures/locks-many"},
 			wantExitCode: 0,
 			wantFilePaths: []string{
-				"/composer.lock",
-				"/Gemfile.lock",
-				"/package-lock.json",
-				"/yarn.lock",
+				filepath.FromSlash("/composer.lock"),
+				filepath.FromSlash("/Gemfile.lock"),
+				filepath.FromSlash("/package-lock.json"),
+				filepath.FromSlash("/yarn.lock"),
 			},
 		},
 	}
@@ -1608,11 +1610,12 @@ func gatherFilepath(bom cyclonedx.BOM) []string {
 	for _, component := range *bom.Components {
 		for _, location := range *component.Evidence.Occurrences {
 			jsonLocation := make(map[string]map[string]interface{})
-			json.NewDecoder(strings.NewReader(location.Location)).Decode(&jsonLocation)
+			_ = json.NewDecoder(strings.NewReader(location.Location)).Decode(&jsonLocation)
 			blockLocation := jsonLocation["block"]
 			locations = append(locations, blockLocation["file_name"].(string))
 		}
 	}
+
 	return locations
 }
 
