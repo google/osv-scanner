@@ -48,7 +48,12 @@ func TestRequirementsTxtExtractor_ShouldExtract(t *testing.T) {
 		{
 			name: "",
 			path: "path.to.my.requirements.txt",
-			want: false,
+			want: true,
+		},
+		{
+			name: "",
+			path: "requirements3.txt",
+			want: true,
 		},
 	}
 	for _, tt := range tests {
