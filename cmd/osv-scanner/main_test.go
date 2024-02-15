@@ -1565,17 +1565,17 @@ func TestRun_WithoutHostPathInformation(t *testing.T) {
 			name:          "one specific supported lockfile",
 			args:          []string{"", "--experimental-only-packages", "--format=cyclonedx-1-5", "--consider-scan-path-as-root", "./fixtures/locks-many/composer.lock"},
 			wantExitCode:  0,
-			wantFilePaths: []string{"/composer.lock"},
+			wantFilePaths: []string{filepath.FromSlash("/composer.lock")},
 		},
 		{
 			name:         "Multiple lockfiles",
 			args:         []string{"", "--experimental-only-packages", "--format=cyclonedx-1-5", "--consider-scan-path-as-root", "./fixtures/locks-many"},
 			wantExitCode: 0,
 			wantFilePaths: []string{
-				"/composer.lock",
-				"/Gemfile.lock",
-				"/package-lock.json",
-				"/yarn.lock",
+				filepath.FromSlash("/composer.lock"),
+				filepath.FromSlash("/Gemfile.lock"),
+				filepath.FromSlash("/package-lock.json"),
+				filepath.FromSlash("/yarn.lock"),
 			},
 		},
 	}
