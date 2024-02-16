@@ -35,7 +35,13 @@ type MavenLockDependencyHolder struct {
 	Dependencies []MavenLockDependency `xml:"dependency"`
 }
 
-func (mld MavenLockDependency) parseResolvedVersion(version string) string {
+type mapFunction = func(string) string
+
+func identity(value string) string {
+	return value
+}
+
+func parseResolvedVersion(version string) string {
 	versionRequirementReg := cachedregexp.MustCompile(`[[(]?(.*?)(?:,|[)\]]|$)`)
 
 	results := versionRequirementReg.FindStringSubmatch(version)
@@ -50,15 +56,19 @@ func (mld MavenLockDependency) parseResolvedVersion(version string) string {
 /*
 You can see the regex working here : https://regex101.com/r/inAPiN/2
 */
-func (mld MavenLockDependency) resolveVersionValue(lockfile MavenLockFile) string {
+func (mld MavenLockDependency) resolvePropertiesValue(lockfile MavenLockFile, fieldToResolve *string, defaultValue string, mapper mapFunction) string {
 	interpolationReg := cachedregexp.MustCompile(`\${([^}]+)}`)
-	result := interpolationReg.ReplaceAllFunc([]byte(mld.Version), func(bytes []byte) []byte {
+
+	if mapper == nil {
+		mapper = identity
+	}
+	result := interpolationReg.ReplaceAllFunc([]byte(*fieldToResolve), func(bytes []byte) []byte {
 		propStr := string(bytes)
 		propName := propStr[2 : len(propStr)-1]
 		var property string
 		var ok bool
 
-		// If the property is the internal version property, then lets use the one declared
+		// If the fieldToResolve is the internal version fieldToResolve, then lets use the one declared
 		if strings.ToLower(propName) == projectVersionPropName && len(lockfile.Version) > 0 {
 			property = lockfile.Version
 			ok = true
@@ -69,23 +79,30 @@ func (mld MavenLockDependency) resolveVersionValue(lockfile MavenLockFile) strin
 		if !ok {
 			fmt.Fprintf(
 				os.Stderr,
-				"Failed to resolve version of %s: property \"%s\" could not be found for \"%s\"\n",
-				mld.GroupID+":"+mld.ArtifactID,
+				"Failed to resolve a property. fieldToResolve \"%s\" could not be found for \"%s\"\n",
 				string(bytes),
 				lockfile.GroupID+":"+lockfile.ArtifactID,
 			)
 
-			return []byte("0")
+			return []byte(defaultValue)
 		}
 
-		return []byte(mld.parseResolvedVersion(property))
+		return []byte(mapper(property))
 	})
 
-	return mld.parseResolvedVersion(string(result))
+	return mapper(string(result))
 }
 
 func (mld MavenLockDependency) ResolveVersion(lockfile MavenLockFile) string {
-	return mld.resolveVersionValue(lockfile)
+	return mld.resolvePropertiesValue(lockfile, &mld.Version, "0", parseResolvedVersion)
+}
+
+func (mld MavenLockDependency) ResolveArtifactId(lockfile MavenLockFile) string {
+	return mld.resolvePropertiesValue(lockfile, &mld.ArtifactID, "", nil)
+}
+
+func (mld MavenLockDependency) ResolveGroup(lockfile MavenLockFile) string {
+	return mld.resolvePropertiesValue(lockfile, &mld.GroupID, "", nil)
 }
 
 type MavenLockFile struct {
@@ -259,7 +276,9 @@ func (e MavenLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 	details := map[string]PackageDetails{}
 
 	for _, lockPackage := range parsedLockfile.Dependencies.Dependencies {
-		finalName := lockPackage.GroupID + ":" + lockPackage.ArtifactID
+		resolvedGroupId := lockPackage.ResolveGroup(*parsedLockfile)
+		resolvedArtifactId := lockPackage.ResolveArtifactId(*parsedLockfile)
+		finalName := resolvedGroupId + ":" + resolvedArtifactId
 
 		pkgDetails := PackageDetails{
 			Name:       finalName,
