@@ -56,13 +56,13 @@ func parseResolvedVersion(version string) string {
 /*
 You can see the regex working here : https://regex101.com/r/inAPiN/2
 */
-func (mld MavenLockDependency) resolvePropertiesValue(lockfile MavenLockFile, fieldToResolve *string, defaultValue string, mapper mapFunction) string {
+func (mld MavenLockDependency) resolvePropertiesValue(lockfile MavenLockFile, fieldToResolve string, defaultValue string, mapper mapFunction) string {
 	interpolationReg := cachedregexp.MustCompile(`\${([^}]+)}`)
 
 	if mapper == nil {
 		mapper = identity
 	}
-	result := interpolationReg.ReplaceAllFunc([]byte(*fieldToResolve), func(bytes []byte) []byte {
+	result := interpolationReg.ReplaceAllFunc([]byte(fieldToResolve), func(bytes []byte) []byte {
 		propStr := string(bytes)
 		propName := propStr[2 : len(propStr)-1]
 		var property string
@@ -94,15 +94,15 @@ func (mld MavenLockDependency) resolvePropertiesValue(lockfile MavenLockFile, fi
 }
 
 func (mld MavenLockDependency) ResolveVersion(lockfile MavenLockFile) string {
-	return mld.resolvePropertiesValue(lockfile, &mld.Version, "0", parseResolvedVersion)
+	return mld.resolvePropertiesValue(lockfile, mld.Version, "0", parseResolvedVersion)
 }
 
 func (mld MavenLockDependency) ResolveArtifactId(lockfile MavenLockFile) string {
-	return mld.resolvePropertiesValue(lockfile, &mld.ArtifactID, "", nil)
+	return mld.resolvePropertiesValue(lockfile, mld.ArtifactID, "", nil)
 }
 
 func (mld MavenLockDependency) ResolveGroup(lockfile MavenLockFile) string {
-	return mld.resolvePropertiesValue(lockfile, &mld.GroupID, "", nil)
+	return mld.resolvePropertiesValue(lockfile, mld.GroupID, "", nil)
 }
 
 type MavenLockFile struct {
