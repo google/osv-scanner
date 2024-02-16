@@ -74,6 +74,10 @@ func (mld MavenLockDependency) resolvePropertiesValue(lockfile MavenLockFile, fi
 			ok = true
 		} else {
 			property, ok = lockfile.Properties.m[propName]
+			if ok && interpolationReg.MatchString(property) {
+				// Property uses other properties
+				property = mld.resolvePropertiesValue(lockfile, property, property, nil)
+			}
 		}
 
 		if !ok {
