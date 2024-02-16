@@ -1,6 +1,7 @@
 <project>
   <properties>
     <version-range>[9.4.35.v20201120,9.5)</version-range>
+    <netty.version>4.1.42.Final</netty.version>
     <netty.group>io.netty</netty.group>
     <netty.artifact>netty-all</netty.artifact>
     <findbugs.group>com.google.code.findbugs</findbugs.group>
@@ -17,7 +18,7 @@
       <dependency>
         <groupId>io.netty</groupId>
         <artifactId>netty-all</artifactId>
-        <version>4.1.42.Final</version>
+        <version>${netty.version}</version>
       </dependency>
     </dependencies>
   </dependencyManagement>

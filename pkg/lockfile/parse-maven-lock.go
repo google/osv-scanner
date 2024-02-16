@@ -288,7 +288,9 @@ func (e MavenLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 
 	// If a dependency is declared and have not specified its version, then use the one declared in the managed dependencies
 	for _, lockPackage := range parsedLockfile.ManagedDependencies.Dependencies {
-		finalName := lockPackage.GroupID + ":" + lockPackage.ArtifactID
+		resolvedGroupID := lockPackage.ResolveGroupID(*parsedLockfile)
+		resolvedArtifactID := lockPackage.ResolveArtifactID(*parsedLockfile)
+		finalName := resolvedGroupID + ":" + resolvedArtifactID
 		pkgDetails, pkgExists := details[finalName]
 		if !pkgExists {
 			continue
