@@ -88,11 +88,11 @@ func (mld MavenLockDependency) ResolveVersion(lockfile MavenLockFile) string {
 	return results[1]
 }
 
-func (mld MavenLockDependency) ResolveArtifactId(lockfile MavenLockFile) string {
+func (mld MavenLockDependency) ResolveArtifactID(lockfile MavenLockFile) string {
 	return mld.resolvePropertiesValue(lockfile, mld.ArtifactID)
 }
 
-func (mld MavenLockDependency) ResolveGroup(lockfile MavenLockFile) string {
+func (mld MavenLockDependency) ResolveGroupID(lockfile MavenLockFile) string {
 	return mld.resolvePropertiesValue(lockfile, mld.GroupID)
 }
 
@@ -267,9 +267,9 @@ func (e MavenLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 	details := map[string]PackageDetails{}
 
 	for _, lockPackage := range parsedLockfile.Dependencies.Dependencies {
-		resolvedGroupId := lockPackage.ResolveGroup(*parsedLockfile)
-		resolvedArtifactId := lockPackage.ResolveArtifactId(*parsedLockfile)
-		finalName := resolvedGroupId + ":" + resolvedArtifactId
+		resolvedGroupID := lockPackage.ResolveGroupID(*parsedLockfile)
+		resolvedArtifactID := lockPackage.ResolveArtifactID(*parsedLockfile)
+		finalName := resolvedGroupID + ":" + resolvedArtifactID
 
 		pkgDetails := PackageDetails{
 			Name:       finalName,

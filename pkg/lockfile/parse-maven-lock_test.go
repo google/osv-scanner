@@ -1,12 +1,13 @@
 package lockfile_test
 
 import (
-	"github.com/stretchr/testify/require"
 	"io/fs"
 	"os"
 	"path"
 	"path/filepath"
 	"testing"
+
+	"github.com/stretchr/testify/require"
 
 	"github.com/google/osv-scanner/pkg/models"
 
