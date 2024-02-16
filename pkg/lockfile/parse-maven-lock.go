@@ -35,33 +35,12 @@ type MavenLockDependencyHolder struct {
 	Dependencies []MavenLockDependency `xml:"dependency"`
 }
 
-type mapFunction = func(string) string
-
-func identity(value string) string {
-	return value
-}
-
-func parseResolvedVersion(version string) string {
-	versionRequirementReg := cachedregexp.MustCompile(`[[(]?(.*?)(?:,|[)\]]|$)`)
-
-	results := versionRequirementReg.FindStringSubmatch(version)
-
-	if results == nil || results[1] == "" {
-		return "0"
-	}
-
-	return results[1]
-}
-
 /*
 You can see the regex working here : https://regex101.com/r/inAPiN/2
 */
-func (mld MavenLockDependency) resolvePropertiesValue(lockfile MavenLockFile, fieldToResolve string, defaultValue string, mapper mapFunction) string {
+func (mld MavenLockDependency) resolvePropertiesValue(lockfile MavenLockFile, fieldToResolve string) string {
 	interpolationReg := cachedregexp.MustCompile(`\${([^}]+)}`)
 
-	if mapper == nil {
-		mapper = identity
-	}
 	result := interpolationReg.ReplaceAllFunc([]byte(fieldToResolve), func(bytes []byte) []byte {
 		propStr := string(bytes)
 		propName := propStr[2 : len(propStr)-1]
@@ -76,7 +55,7 @@ func (mld MavenLockDependency) resolvePropertiesValue(lockfile MavenLockFile, fi
 			property, ok = lockfile.Properties.m[propName]
 			if ok && interpolationReg.MatchString(property) {
 				// Property uses other properties
-				property = mld.resolvePropertiesValue(lockfile, property, property, nil)
+				property = mld.resolvePropertiesValue(lockfile, property)
 			}
 		}
 
@@ -88,25 +67,33 @@ func (mld MavenLockDependency) resolvePropertiesValue(lockfile MavenLockFile, fi
 				lockfile.GroupID+":"+lockfile.ArtifactID,
 			)
 
-			return []byte(defaultValue)
+			return []byte("")
 		}
 
-		return []byte(mapper(property))
+		return []byte(property)
 	})
 
-	return mapper(string(result))
+	return string(result)
 }
 
 func (mld MavenLockDependency) ResolveVersion(lockfile MavenLockFile) string {
-	return mld.resolvePropertiesValue(lockfile, mld.Version, "0", parseResolvedVersion)
+	versionRequirementReg := cachedregexp.MustCompile(`[[(]?(.*?)(?:,|[)\]]|$)`)
+	version := mld.resolvePropertiesValue(lockfile, mld.Version)
+	results := versionRequirementReg.FindStringSubmatch(version)
+
+	if results == nil || results[1] == "" {
+		return "0"
+	}
+
+	return results[1]
 }
 
 func (mld MavenLockDependency) ResolveArtifactId(lockfile MavenLockFile) string {
-	return mld.resolvePropertiesValue(lockfile, mld.ArtifactID, "", nil)
+	return mld.resolvePropertiesValue(lockfile, mld.ArtifactID)
 }
 
 func (mld MavenLockDependency) ResolveGroup(lockfile MavenLockFile) string {
-	return mld.resolvePropertiesValue(lockfile, mld.GroupID, "", nil)
+	return mld.resolvePropertiesValue(lockfile, mld.GroupID)
 }
 
 type MavenLockFile struct {
