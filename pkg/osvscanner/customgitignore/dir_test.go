@@ -17,11 +17,13 @@ import (
 )
 
 func TestGitignoreFilesFromMidTree(t *testing.T) {
+	t.Parallel()
+
 	// Create a specific git repo with .gitignore files
 	gitRepo := setupGitRepo(t)
 
 	// Read this dir-tree using customgitignore, starting midway
-	// up the tree at at ./dir_a
+	// up the tree at ./dir_a
 	gitRepo = filepath.Join(gitRepo, "dir_a")
 	fs := osfs.New(gitRepo)
 	patterns, err := customgitignore.ReadPatterns(fs, []string{"."})
@@ -79,6 +81,8 @@ func TestGitignoreFilesFromMidTree(t *testing.T) {
 }
 
 func TestGitignoreFilesFromRoot(t *testing.T) {
+	t.Parallel()
+
 	// Create a specific git repo with .gitignore files
 	gitRepo := setupGitRepo(t)
 
@@ -139,6 +143,8 @@ func TestGitignoreFilesFromRoot(t *testing.T) {
 }
 
 func setupGitRepo(t *testing.T) string {
+	t.Helper()
+
 	// A unique tempdir for local funcs to create a git repo inside
 	gitRepo := path.Join(t.TempDir(), "git_repo")
 
@@ -168,8 +174,10 @@ func setupGitRepo(t *testing.T) string {
 }
 
 func writeGitignore(t *testing.T, gitRepo, f, s string) {
+	t.Helper()
+
 	f = path.Join(gitRepo, f)
-	if err := os.WriteFile(filepath.FromSlash(f), []byte(s), 0644); err != nil {
+	if err := os.WriteFile(filepath.FromSlash(f), []byte(s), 0600); err != nil {
 		t.Errorf("could not write file for test: %v", err)
 	}
 }

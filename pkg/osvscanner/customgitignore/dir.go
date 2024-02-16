@@ -45,7 +45,7 @@ func readPatterns(fs billy.Filesystem, path []string, accumulatedPs []gitignore.
 	var fis []os.FileInfo
 	fis, err = fs.ReadDir(fs.Join(path...))
 	if err != nil {
-		return
+		return ps, err
 	}
 
 	accumulatedPs = append(accumulatedPs, ps...)
@@ -59,7 +59,7 @@ func readPatterns(fs billy.Filesystem, path []string, accumulatedPs []gitignore.
 				var subps []gitignore.Pattern
 				subps, err = readPatterns(fs, childPath, accumulatedPs)
 				if err != nil {
-					return
+					return ps, err
 				}
 
 				if len(subps) > 0 {
