@@ -1,6 +1,7 @@
 package lockfile_test
 
 import (
+	"github.com/stretchr/testify/require"
 	"io/fs"
 	"os"
 	"path"
@@ -737,6 +738,41 @@ func TestParseMavenLock_WithProjectVersionProperty(t *testing.T) {
 			Commit:     "",
 			SourceFile: lockfilePath,
 			Line:       models.Position{Start: 8, End: 12},
+			Column:     models.Position{Start: 5, End: 18},
+			DepGroups:  nil,
+		},
+	})
+}
+
+func TestParseMavenLock_ResolveProperties(t *testing.T) {
+	t.Parallel()
+	dir, err := os.Getwd()
+
+	require.NoError(t, err)
+	lockfilePath := filepath.Join(dir, filepath.FromSlash("fixtures/maven/resolve-properties.xml"))
+	packages, err := lockfile.ParseMavenLock(lockfilePath)
+	require.NoError(t, err)
+
+	expectPackages(t, packages, []lockfile.PackageDetails{
+		{
+			Name:       "io.netty:netty-all",
+			Version:    "4.1.42.Final",
+			Ecosystem:  lockfile.MavenEcosystem,
+			CompareAs:  lockfile.MavenEcosystem,
+			Commit:     "",
+			SourceFile: lockfilePath,
+			Line:       models.Position{Start: 21, End: 24},
+			Column:     models.Position{Start: 5, End: 18},
+			DepGroups:  nil,
+		},
+		{
+			Name:       "com.google.code.findbugs:jsr305",
+			Version:    "9.4.35.v20201120",
+			Ecosystem:  lockfile.MavenEcosystem,
+			CompareAs:  lockfile.MavenEcosystem,
+			Commit:     "",
+			SourceFile: lockfilePath,
+			Line:       models.Position{Start: 25, End: 29},
 			Column:     models.Position{Start: 5, End: 18},
 			DepGroups:  nil,
 		},

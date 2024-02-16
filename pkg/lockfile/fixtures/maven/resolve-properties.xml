@@ -1,0 +1,31 @@
+<project>
+  <properties>
+    <version-range>[9.4.35.v20201120,9.5)</version-range>
+    <netty.group>io.netty</netty.group>
+    <netty.artifact>netty-all</netty.artifact>
+    <findbugs.group>com.google.code.findbugs</findbugs.group>
+    <findbugs.artifact>jsr305</findbugs.artifact>
+  </properties>
+
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>io.netty</groupId>
+        <artifactId>netty-all</artifactId>
+        <version>4.1.42.Final</version>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+
+  <dependencies>
+    <dependency>
+      <groupId>${netty.group}</groupId>
+      <artifactId>${netty.artifact}</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>${findbugs.group}</groupId>
+      <artifactId>${findbugs.artifact}</artifactId>
+      <version>${version-range}</version>
+    </dependency>
+  </dependencies>
+</project>
