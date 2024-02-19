@@ -53,6 +53,7 @@ type ExperimentalScannerActions struct {
 	ShowAllPackages       bool
 	ScanLicensesSummary   bool
 	ScanLicensesAllowlist []string
+	ScanOCIImage          string
 
 	LocalDBPath string
 }
@@ -758,13 +759,19 @@ func DoScan(actions ScannerActions, r reporter.Reporter) (models.VulnerabilityRe
 		}
 	}
 
-	for _, path := range actions.DockerContainerNames {
-		r.Infof("Scanning image %s\n", path)
-		pkgs, err := scanImage(r, path)
+	if actions.ExperimentalScannerActions.ScanOCIImage != "" {
+		r.Infof("Scanning image %s\n", actions.ExperimentalScannerActions.ScanOCIImage)
+		pkgs, err := scanImage(r, actions.ExperimentalScannerActions.ScanOCIImage)
 		if err != nil {
 			return models.VulnerabilityResults{}, err
 		}
 
+		scannedPackages = append(scannedPackages, pkgs...)
+	}
+
+	// TODO: Deprecated
+	for _, container := range actions.DockerContainerNames {
+		pkgs, _ := scanDebianDocker(r, container)
 		scannedPackages = append(scannedPackages, pkgs...)
 	}
 

@@ -3,9 +3,12 @@ package image
 import (
 	"context"
 	"errors"
+	"fmt"
 	"io"
+	"log"
 	"os"
 	"slices"
+	"sort"
 	"strings"
 
 	"github.com/anchore/stereoscope"
@@ -28,6 +31,9 @@ var artifactExtractors map[string]lockfile.Extractor = map[string]lockfile.Extra
 func ScanImage(imagePath string) (ScanResults, error) {
 	ctx := context.Background() // TODO: use proper context
 	img, err := stereoscope.GetImage(ctx, imagePath)
+	if err != nil {
+		return ScanResults{}, fmt.Errorf("failed to open image %s: %w", imagePath, err)
+	}
 
 	fileTree := img.SquashedTree()
 	allFiles := fileTree.AllFiles()
@@ -47,23 +53,60 @@ func ScanImage(imagePath string) (ScanResults, error) {
 			r.Errorf("Attempted to open file but failed: %s\n", err)
 		}
 		path := string(file.RealPath)
-		parsedLockfile, err := lockfile.ExtractDeps(imgFile, "")
+		parsedLockfile, err := ExtractDeps(imgFile)
 		if err != nil && !errors.Is(err, lockfile.ErrExtractorNotFound) {
 			r.Errorf("Attempted to extract lockfile but failed: %s - %v\n", path, err)
 		}
 
 		scannedLockfiles.Lockfiles = append(scannedLockfiles.Lockfiles, parsedLockfile)
-
-		// No need to check for error
-		// If scan fails, it means it isn't a valid SBOM file,
-		// so just move onto the next file
-		// pkgs, _ := scanSBOMFile(r, path, true)
-		// scannedPackages = append(scannedPackages, pkgs...)
 	}
+
+	// f, _ := os.Create("mem.pprof")
+	// pprof.WriteHeapProfile(f)
+	// runtime.GC()
+	// f.Close()
 
 	err = img.Cleanup()
 
 	return scannedLockfiles, err
+}
+
+func FindExtractor(path string) (lockfile.Extractor, string) {
+	for name, extractor := range artifactExtractors {
+		if extractor.ShouldExtract(path) {
+			return extractor, name
+		}
+	}
+
+	return nil, ""
+}
+
+func ExtractDeps(f lockfile.DepFile) (lockfile.Lockfile, error) {
+	extractor, extractedAs := FindExtractor(f.Path())
+
+	if extractor == nil {
+		return lockfile.Lockfile{}, fmt.Errorf("%w for %s", lockfile.ErrExtractorNotFound, f.Path())
+	}
+
+	packages, err := extractor.Extract(f)
+	log.Printf("%v\n", packages)
+	if err != nil && extractedAs != "" {
+		err = fmt.Errorf("(extracting as %s) %w", extractedAs, err)
+	}
+
+	sort.Slice(packages, func(i, j int) bool {
+		if packages[i].Name == packages[j].Name {
+			return packages[i].Version < packages[j].Version
+		}
+
+		return packages[i].Name < packages[j].Name
+	})
+
+	return lockfile.Lockfile{
+		FilePath: f.Path(),
+		ParsedAs: extractedAs,
+		Packages: packages,
+	}, err
 }
 
 // A ImageFile represents a file that exists in an image

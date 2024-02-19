@@ -6,3 +6,4 @@
 /coverage.out
 /coverage.html
 fixtures/
+*.tar
