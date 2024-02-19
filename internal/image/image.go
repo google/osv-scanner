@@ -55,6 +55,7 @@ func ScanImage(r reporter.Reporter, imagePath string) (ScanResults, error) {
 			if !errors.Is(err, lockfile.ErrExtractorNotFound) {
 				r.Errorf("Attempted to extract lockfile but failed: %s - %v\n", path, err)
 			}
+
 			continue
 		}
 
