@@ -3,6 +3,7 @@ package fix
 import (
 	"context"
 	"fmt"
+	"os"
 	"slices"
 	"strings"
 
@@ -136,7 +137,8 @@ func autoRelock(ctx context.Context, r reporter.Reporter, opts osvFixOptions, ma
 		return nil
 	}
 
-	depPatches, nFixed, nUnfixable := autoChooseRelockPatches(allPatches, maxUpgrades)
+	depPatches, nFixed := autoChooseRelockPatches(allPatches, maxUpgrades)
+	nUnfixable := len(relockUnfixableVulns(allPatches))
 	r.Infof("Can fix %d/%d matching vulnerabilities by changing %d dependencies\n", nFixed, totalVulns, len(depPatches))
 	for _, p := range depPatches {
 		r.Infof("UPGRADED-PACKAGE: %s,%s,%s\n", p.Pkg.Name, p.OrigRequire, p.NewRequire)
@@ -155,31 +157,41 @@ func autoRelock(ctx context.Context, r reporter.Reporter, opts osvFixOptions, ma
 		// We only recreate the lockfile if we know a lockfile already exists
 		// or we've been given a command to run.
 		r.Infof("Shelling out to regenerate lockfile...\n")
-		return regenerateLockfile(r, opts)
+		cmd, err := regenerateLockfileCmd(opts)
+		if err != nil {
+			return err
+		}
+		// ideally I'd have the reporter's stdout/stderr here...
+		cmd.Stdout = os.Stdout
+		cmd.Stderr = os.Stderr
+		r.Infof("Executing `%s`...\n", cmd)
+		err = cmd.Run()
+		if err != nil && opts.RelockCmd == "" {
+			r.Warnf("Install failed. Trying again with `--legacy-peer-deps`...\n")
+			cmd, err := regenerateLockfileCmd(opts)
+			if err != nil {
+				return err
+			}
+			cmd.Args = append(cmd.Args, "--legacy-peer-deps")
+			cmd.Stdout = os.Stdout
+			cmd.Stderr = os.Stderr
+			err = cmd.Run()
+		}
+
+		return err
 	}
 
 	return nil
 }
 
-// returns the top {maxUpgrades} compatible patches, the number of vulns fixed, and the number unfixable vulns
+// returns the top {maxUpgrades} compatible patches, and the number of vulns fixed
 // if maxUpgrades is < 0, do as many patches as possible
-func autoChooseRelockPatches(diffs []resolution.ResolutionDiff, maxUpgrades int) ([]manifest.DependencyPatch, int, int) {
-	// Treat every original vulnerability as unfixable until we see a patch that removes it
-	unfixableVulnIDs := make(map[string]struct{})
-	for _, v := range diffs[0].Original.Vulns {
-		unfixableVulnIDs[v.Vulnerability.ID] = struct{}{}
-	}
-
+func autoChooseRelockPatches(diffs []resolution.ResolutionDiff, maxUpgrades int) ([]manifest.DependencyPatch, int) {
 	var patches []manifest.DependencyPatch
 	pkgChanged := make(map[resolve.VersionKey]bool) // dependencies we've already applied a patch to
 	numFixed := 0
 
 	for _, diff := range diffs {
-		// remove all the vulns fixed by the patch from the set of unfixables
-		for _, v := range diff.RemovedVulns {
-			delete(unfixableVulnIDs, v.Vulnerability.ID)
-		}
-
 		// If we are not picking any more patches, or this patch is incompatible with existing patches, skip adding it to the patch list.
 		// A patch is incompatible if any of its changed packages have already been changed by an existing patch.
 		if maxUpgrades == 0 || slices.ContainsFunc(diff.Deps, func(dp manifest.DependencyPatch) bool {
@@ -197,7 +209,30 @@ func autoChooseRelockPatches(diffs []resolution.ResolutionDiff, maxUpgrades int)
 		maxUpgrades--
 	}
 
-	return patches, numFixed, len(unfixableVulnIDs)
+	return patches, numFixed
+}
+
+func relockUnfixableVulns(diffs []resolution.ResolutionDiff) []*resolution.ResolutionVuln {
+	if len(diffs) == 0 {
+		return nil
+	}
+	// find every vuln ID fixed in any patch
+	fixableVulnIDs := make(map[string]struct{})
+	for _, diff := range diffs {
+		for _, v := range diff.RemovedVulns {
+			fixableVulnIDs[v.Vulnerability.ID] = struct{}{}
+		}
+	}
+
+	// select only vulns that aren't fixed in any patch
+	var unfixable []*resolution.ResolutionVuln
+	for i, v := range diffs[0].Original.Vulns {
+		if _, ok := fixableVulnIDs[v.Vulnerability.ID]; !ok {
+			unfixable = append(unfixable, &diffs[0].Original.Vulns[i])
+		}
+	}
+
+	return unfixable
 }
 
 func resolutionErrorString(res *resolution.ResolutionResult, errs []resolution.ResolutionError) string {

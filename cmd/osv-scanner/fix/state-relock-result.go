@@ -3,14 +3,13 @@ package fix
 import (
 	"context"
 	"fmt"
-	"os/exec"
-	"path/filepath"
 	"strings"
 
 	"github.com/charmbracelet/bubbles/key"
 	"github.com/charmbracelet/bubbles/spinner"
 	tea "github.com/charmbracelet/bubbletea"
 	"github.com/charmbracelet/lipgloss"
+	"github.com/google/osv-scanner/internal/remediation"
 	"github.com/google/osv-scanner/internal/resolution"
 	"github.com/google/osv-scanner/internal/resolution/client"
 	manif "github.com/google/osv-scanner/internal/resolution/manifest"
@@ -234,7 +233,7 @@ func (st *stateRelockResult) buildPatchInfoViews(m model) {
 		st.patchInfo = append(st.patchInfo, tui.NewRelockInfo(p))
 	}
 
-	unfixableVulns := computeRelockUnfixable(st.currRes, st.patches)
+	unfixableVulns := relockUnfixableVulns(st.patches)
 	st.unfixableList = tui.NewVulnList(unfixableVulns, "")
 	st.numUnfixable = len(unfixableVulns)
 	st.ResizeInfo(m.infoViewWidth, m.infoViewHeight)
@@ -288,12 +287,19 @@ func (st *stateRelockResult) relaxChoice(m model) (model, tea.Cmd) {
 	}
 
 	// Compute combined changes and re-resolve the graph
-	var patches []resolution.ResolutionDiff
+	manifest := st.currRes.Manifest.Clone()
 	for i := range st.selectedPatches {
-		patches = append(patches, st.patches[i])
+		for _, dp := range st.patches[i].Deps {
+			for idx := range manifest.Requirements {
+				rv := manifest.Requirements[idx]
+				if rv.Name == dp.Pkg.Name && rv.Version == dp.OrigRequire {
+					rv.Version = dp.NewRequire
+					manifest.Requirements[idx] = rv
+				}
+			}
+		}
 	}
 
-	manifest := applyRelockPatches(st.currRes.Manifest, patches)
 	st.currRes = nil
 	return m, func() tea.Msg {
 		return doRelock(m.ctx, m.cl, manifest, m.options.MatchVuln)
@@ -368,7 +374,7 @@ func (st *stateRelockResult) View(m model) string {
 				"%s ",
 				checkBox,
 			)
-			text := patch.ShortString()
+			text := diffString(patch)
 			var textSt lipgloss.Style
 			if st.patchCompatible(i) {
 				textSt = lipgloss.NewStyle()
@@ -412,6 +418,21 @@ func (st *stateRelockResult) View(m model) string {
 	))
 
 	return s.String()
+}
+
+func diffString(diff resolution.ResolutionDiff) string {
+	var depStr string
+	if len(diff.Deps) == 1 {
+		dep := diff.Deps[0]
+		depStr = fmt.Sprintf("%s@%s → @%s", dep.Pkg.Name, dep.OrigRequire, dep.NewRequire)
+	} else {
+		depStr = fmt.Sprintf("%d packages", len(diff.Deps))
+	}
+	str := fmt.Sprintf("Upgrading %s resolves %d vulns", depStr, len(diff.RemovedVulns))
+	if len(diff.AddedVulns) > 0 {
+		str += fmt.Sprintf(" but introduces %d new vulns", len(diff.AddedVulns))
+	}
+	return str
 }
 
 func (st *stateRelockResult) InfoView() string {
@@ -463,23 +484,27 @@ func (st *stateRelockResult) write(m model) tea.Msg {
 		return writeMsg{err}
 	}
 
-	// combine the relock & install commands into a single exec call
-	var cmds []string
-	// check if commands are empty before we add
-	if strings.TrimSpace(m.options.RelockCmd) != "" {
-		cmds = append(cmds, m.options.RelockCmd)
+	if m.options.Lockfile == "" && m.options.RelockCmd == "" {
+		return writeMsg{nil}
 	}
-	if strings.TrimSpace(m.options.InstallCmd) != "" {
-		cmds = append(cmds, m.options.InstallCmd)
+
+	c, err := regenerateLockfileCmd(m.options)
+	if err != nil {
+		return writeMsg{err}
 	}
-	cmd := strings.Join(cmds, " && ")
 
-	// TODO: remove dependence on sh, support Windows
-	// using -x so it's clear what's being run
-	c := exec.Command("sh", "-xec", cmd)
-	c.Dir = filepath.Dir(m.options.Manifest)
-
-	return tea.ExecProcess(c, func(err error) tea.Msg { return writeMsg{err} })()
+	return tea.ExecProcess(c, func(err error) tea.Msg {
+		if err != nil && m.options.RelockCmd == "" {
+			// try again with "--legacy-peer-deps"
+			c, err := regenerateLockfileCmd(m.options)
+			if err != nil {
+				return writeMsg{err}
+			}
+			c.Args = append(c.Args, "--legacy-peer-deps")
+			return tea.ExecProcess(c, func(err error) tea.Msg { return writeMsg{err} })()
+		}
+		return writeMsg{err}
+	})()
 }
 
 type relockPatchMsg struct {
@@ -489,7 +514,7 @@ type relockPatchMsg struct {
 
 // Find all groups of dependency bumps required to resolve each vulnerability individually
 func doComputeRelockPatches(ctx context.Context, cl client.ResolutionClient, currRes *resolution.ResolutionResult, opts osvFixOptions) relockPatchMsg {
-	patches, err := computeRelockPatches(ctx, cl, currRes, opts)
+	patches, err := remediation.ComputeRelaxPatches(ctx, cl, currRes, opts.RemediationOptions)
 	if err != nil {
 		return relockPatchMsg{err: err}
 	}

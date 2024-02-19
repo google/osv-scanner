@@ -211,8 +211,17 @@ type doRelockMsg struct {
 }
 
 func doRelock(ctx context.Context, cl client.ResolutionClient, m manif.Manifest, matchFn func(resolution.ResolutionVuln) bool) tea.Msg {
-	res, err := computeRelockVulns(ctx, cl, m, matchFn)
-	return doRelockMsg{res, err}
+	res, err := resolution.Resolve(ctx, cl, m)
+	if err != nil {
+		return doRelockMsg{nil, err}
+	}
+
+	if err := cl.WriteCache(m.FilePath); err != nil {
+		return doRelockMsg{nil, err}
+	}
+
+	res.FilterVulns(matchFn)
+	return doRelockMsg{res, nil}
 }
 
 func doInitialRelock(ctx context.Context, opts osvFixOptions) tea.Msg {
