@@ -16,7 +16,7 @@ type RemediationOptions struct {
 	MinSeverity float64 // Minimum vulnerability CVSS score to consider
 	MaxDepth    int     // Maximum depth of dependency to consider vulnerabilities for (e.g. 1 for direct only)
 
-	AvoidPkgs  []string // Names of direct dependencies to avoid upgrading
+	AvoidPkgs  []string // Names of dependencies to avoid upgrading
 	AllowMajor bool     // Whether to allow changes to major versions of direct dependencies
 }
 

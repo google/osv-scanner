@@ -37,8 +37,8 @@ func ChainIsDev(dc DependencyChain, m manifest.Manifest) bool {
 	return lockfile.Ecosystem(ecosystem).IsDevGroup(m.Groups[direct.PackageKey])
 }
 
-// computeChains computes all paths from each specified NodeID to the root node.
-func computeChains(g *resolve.Graph, nodes []resolve.NodeID) [][]DependencyChain {
+// ComputeChains computes all paths from each specified NodeID to the root node.
+func ComputeChains(g *resolve.Graph, nodes []resolve.NodeID) [][]DependencyChain {
 	// find the parent nodes of each node in graph, for easier traversal
 	parentEdges := make(map[resolve.NodeID][]resolve.Edge)
 	for _, e := range g.Edges {
@@ -110,12 +110,6 @@ func chainConstrains(ctx context.Context, cl resolve.Client, chain DependencyCha
 	}
 
 	bestVk := vers[len(vers)-1] // This should be the highest version for npm
-	pkg := lockfile.PackageDetails{
-		Name:      bestVk.Name,
-		Version:   bestVk.Version,
-		Ecosystem: lockfile.Ecosystem(util.OSVEcosystem[vk.System]),
-		CompareAs: lockfile.Ecosystem(util.OSVEcosystem[vk.System]),
-	}
 
-	return vulnUtil.IsAffected(*vuln, pkg)
+	return vulnUtil.IsAffected(*vuln, util.VKToPackageDetails(bestVk.VersionKey))
 }
