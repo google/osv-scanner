@@ -11,7 +11,7 @@ import (
 )
 
 type chainGraphNode struct {
-	node     resolution.FlattenedDependencyNode
+	vk       resolve.VersionKey
 	isDirect bool // if this is a direct dependency
 	children []*chainGraphNode
 	// in this representation, a child is something that depends on this node
@@ -55,8 +55,9 @@ func FindChainGraphs(chains []resolution.DependencyChain) []ChainGraph {
 		if _, ok := nodes[c.Edges[0].To]; !ok {
 			// haven't encountered this specific vulnerable node before
 			// create it and add it to the returned graphs
+			vk, _ := c.EndDependency()
 			n := &chainGraphNode{
-				node:     c.Flatten()[len(c.Edges)-1],
+				vk:       vk,
 				children: nil,
 				isDirect: c.Edges[0].From == 0,
 			}
@@ -68,8 +69,9 @@ func FindChainGraphs(chains []resolution.DependencyChain) []ChainGraph {
 			p := nodes[e.To]
 			n, ok := nodes[e.From]
 			if !ok {
+				vk, _ := c.DependencyAt(i + 1)
 				n = &chainGraphNode{
-					node:     c.Flatten()[len(c.Edges)-i-2],
+					vk:       vk,
 					children: nil,
 					isDirect: i == len(c.Edges)-2,
 				}
@@ -104,7 +106,7 @@ var (
 // recursive construction of the visualized tree
 // returns the subtree and the offset for where a child should connect to this
 func (c *chainGraphNode) subString(isVuln bool) (string, int) {
-	nodeStr := fmt.Sprintf("%s@%s", c.node.Name, c.node.Version)
+	nodeStr := fmt.Sprintf("%s@%s", c.vk.Name, c.vk.Version)
 	switch {
 	case isVuln && c.isDirect:
 		nodeStr = directVulnNodeStyle.Render(nodeStr)

@@ -17,14 +17,21 @@ type DependencyChain struct {
 	Edges []resolve.Edge // Edge from root node is at the end of the list
 }
 
-func (dc DependencyChain) DirectDependency() (resolve.VersionKey, string) {
-	edge := dc.Edges[len(dc.Edges)-1]
+// DependencyAt returns the dependency information of the dependency at the specified index along the chain.
+// Returns the resolved VersionKey of the dependency, and the version requirement string.
+// index 0 is the end dependency (usually the vulnerability)
+// index len(Edges)-1 is the direct dependency from the root node
+func (dc DependencyChain) DependencyAt(index int) (resolve.VersionKey, string) {
+	edge := dc.Edges[index]
 	return dc.Graph.Nodes[edge.To].Version, edge.Requirement
 }
 
+func (dc DependencyChain) DirectDependency() (resolve.VersionKey, string) {
+	return dc.DependencyAt(len(dc.Edges) - 1)
+}
+
 func (dc DependencyChain) EndDependency() (resolve.VersionKey, string) {
-	edge := dc.Edges[0]
-	return dc.Graph.Nodes[edge.To].Version, edge.Requirement
+	return dc.DependencyAt(0)
 }
 
 func ChainIsDev(dc DependencyChain, m manifest.Manifest) bool {
