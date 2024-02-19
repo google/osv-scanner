@@ -10,9 +10,11 @@ import (
 	gocvss40 "github.com/pandatix/go-cvss/40"
 )
 
+const unknownRating = "UNKNOWN"
+
 func CalculateScore(severity models.Severity) (float64, string, error) {
 	score := -1.0
-	rating := "UNKNOWN"
+	rating := unknownRating
 	var err error
 	switch severity.Type {
 	case models.SeverityCVSSV2:
@@ -50,4 +52,22 @@ func CalculateScore(severity models.Severity) (float64, string, error) {
 	}
 
 	return score, rating, err
+}
+
+func CalculateOverallScore(severities []models.Severity) (float64, string, error) {
+	maxScore := -1.0
+	maxRating := unknownRating
+
+	for _, severity := range severities {
+		score, rating, err := CalculateScore(severity)
+		if err != nil {
+			return -1, unknownRating, err
+		}
+		if score > maxScore {
+			maxScore = score
+			maxRating = rating
+		}
+	}
+
+	return maxScore, maxRating, nil
 }

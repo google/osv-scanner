@@ -25,7 +25,7 @@ var (
 
 func RenderSeverity(severities []models.Severity) string {
 	text := "UNKNOWN"
-	score, rating, _ := severity.CalculateScore(severities)
+	score, rating, _ := severity.CalculateOverallScore(severities)
 	if rating != "UNKNOWN" {
 		text = fmt.Sprintf("%1.1f %s", score, rating)
 	}
@@ -33,7 +33,7 @@ func RenderSeverity(severities []models.Severity) string {
 }
 
 func RenderSeverityShort(severities []models.Severity) string {
-	score, rating, _ := severity.CalculateScore(severities)
+	score, rating, _ := severity.CalculateOverallScore(severities)
 	scoreStr := fmt.Sprintf("%1.1f", score)
 	if rating == "UNKNOWN" {
 		scoreStr = "???"

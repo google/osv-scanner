@@ -34,12 +34,12 @@ func NewVulnList(vulns []*resolution.ResolutionVuln, preamble string) *vulnList 
 	// Sort the vulns by descending severity, then ID
 	vulns = slices.Clone(vulns)
 	slices.SortFunc(vulns, func(a, b *resolution.ResolutionVuln) int {
-		aScoreFloat, aRating, _ := severity.CalculateScore(a.Vulnerability.Severity)
+		aScoreFloat, aRating, _ := severity.CalculateOverallScore(a.Vulnerability.Severity)
 		aScore := int(aScoreFloat * 10) // CVSS scores are only to 1dp
 		if aRating == "UNKNOWN" {
 			aScore = 999 // Sort unknown before critical
 		}
-		bScoreFloat, bRating, _ := severity.CalculateScore(b.Vulnerability.Severity)
+		bScoreFloat, bRating, _ := severity.CalculateOverallScore(b.Vulnerability.Severity)
 		bScore := int(bScoreFloat * 10) // CVSS scores are only to 1dp
 		if bRating == "UNKNOWN" {
 			bScore = 999 // Sort unknown before critical
