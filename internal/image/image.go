@@ -27,6 +27,7 @@ var artifactExtractors map[string]lockfile.Extractor = map[string]lockfile.Extra
 	"dpkg":          lockfile.DpkgStatusExtractor{},
 }
 
+// ScanImage scans an exported docker image .tar file
 func ScanImage(r reporter.Reporter, imagePath string) (ScanResults, error) {
 	ctx := context.Background() // TODO: use proper context
 	img, err := stereoscope.GetImage(ctx, imagePath)
@@ -50,7 +51,7 @@ func ScanImage(r reporter.Reporter, imagePath string) (ScanResults, error) {
 			r.Errorf("Attempted to open file but failed: %s\n", err)
 		}
 		path := string(file.RealPath)
-		parsedLockfile, err := ExtractDeps(imgFile)
+		parsedLockfile, err := extractArtifactDeps(imgFile)
 		if err != nil {
 			if !errors.Is(err, lockfile.ErrExtractorNotFound) {
 				r.Errorf("Attempted to extract lockfile but failed: %s - %v\n", path, err)
@@ -62,17 +63,12 @@ func ScanImage(r reporter.Reporter, imagePath string) (ScanResults, error) {
 		scannedLockfiles.Lockfiles = append(scannedLockfiles.Lockfiles, parsedLockfile)
 	}
 
-	// f, _ := os.Create("mem.pprof")
-	// pprof.WriteHeapProfile(f)
-	// runtime.GC()
-	// f.Close()
-
 	err = img.Cleanup()
 
 	return scannedLockfiles, err
 }
 
-func FindExtractor(path string) (lockfile.Extractor, string) {
+func findArtifactExtractor(path string) (lockfile.Extractor, string) {
 	for name, extractor := range artifactExtractors {
 		if extractor.ShouldExtract(path) {
 			return extractor, name
@@ -82,8 +78,8 @@ func FindExtractor(path string) (lockfile.Extractor, string) {
 	return nil, ""
 }
 
-func ExtractDeps(f lockfile.DepFile) (lockfile.Lockfile, error) {
-	extractor, extractedAs := FindExtractor(f.Path())
+func extractArtifactDeps(f lockfile.DepFile) (lockfile.Lockfile, error) {
+	extractor, extractedAs := findArtifactExtractor(f.Path())
 
 	if extractor == nil {
 		return lockfile.Lockfile{}, fmt.Errorf("%w for %s", lockfile.ErrExtractorNotFound, f.Path())
