@@ -49,8 +49,10 @@ func Test_RunGoVulnCheck(t *testing.T) {
 		t.Errorf("failed to run RunGoVulnCheck: %v", err)
 	}
 
-	res["GO-2023-1558"][0].Trace[1].Position.Filename = "<Any value>"
-	res["GO-2023-1558"][0].Trace[1].Position.Offset = -1
+	res["GO-2023-1558"][2].Trace[0].Position.Filename = "<Any value>"
+	res["GO-2023-1558"][2].Trace[1].Position.Filename = "<Any value>"
+	res["GO-2023-1558"][2].Trace[0].Position.Offset = -1
+	res["GO-2023-1558"][2].Trace[1].Position.Offset = -1
 
 	testutility.NewSnapshot().MatchJSON(t, res)
 }

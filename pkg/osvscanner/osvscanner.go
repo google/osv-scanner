@@ -334,7 +334,7 @@ func (m *gitIgnoreMatcher) match(absPath string, isDir bool) (bool, error) {
 }
 
 func scanImage(r reporter.Reporter, path string) ([]scannedPackage, error) {
-	scanResults, err := image.ScanImage(path)
+	scanResults, err := image.ScanImage(r, path)
 	if err != nil {
 		return []scannedPackage{}, err
 	}

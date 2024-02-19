@@ -6,7 +6,6 @@ import (
 	"fmt"
 	"io"
 	"log"
-	"os"
 	"slices"
 	"sort"
 	"strings"
@@ -28,7 +27,7 @@ var artifactExtractors map[string]lockfile.Extractor = map[string]lockfile.Extra
 	"dpkg":          lockfile.DpkgStatusExtractor{},
 }
 
-func ScanImage(imagePath string) (ScanResults, error) {
+func ScanImage(r reporter.Reporter, imagePath string) (ScanResults, error) {
 	ctx := context.Background() // TODO: use proper context
 	img, err := stereoscope.GetImage(ctx, imagePath)
 	if err != nil {
@@ -41,8 +40,6 @@ func ScanImage(imagePath string) (ScanResults, error) {
 	slices.SortFunc(allFiles, func(a, b file.Reference) int {
 		return strings.Compare(string(a.RealPath), string(b.RealPath))
 	})
-
-	r := reporter.NewTableReporter(os.Stdout, os.Stderr, reporter.VerboseLevel, false, 80)
 
 	scannedLockfiles := ScanResults{
 		ImagePath: imagePath,

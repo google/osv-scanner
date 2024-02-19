@@ -110,7 +110,7 @@ func FromApkInstalled(pathToInstalled string) (Lockfile, error) {
 	}, err
 }
 
-//nolint:gochecknoinits
+//// nolint:gochecknoinits
 // func init() {
 // 	registerExtractor("apk-installed", ApkInstalledExtractor{})
 // }
