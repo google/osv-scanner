@@ -51,8 +51,11 @@ func ScanImage(r reporter.Reporter, imagePath string) (ScanResults, error) {
 		}
 		path := string(file.RealPath)
 		parsedLockfile, err := ExtractDeps(imgFile)
-		if err != nil && !errors.Is(err, lockfile.ErrExtractorNotFound) {
-			r.Errorf("Attempted to extract lockfile but failed: %s - %v\n", path, err)
+		if err != nil {
+			if !errors.Is(err, lockfile.ErrExtractorNotFound) {
+				r.Errorf("Attempted to extract lockfile but failed: %s - %v\n", path, err)
+			}
+			continue
 		}
 
 		scannedLockfiles.Lockfiles = append(scannedLockfiles.Lockfiles, parsedLockfile)
