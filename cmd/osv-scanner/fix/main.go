@@ -3,7 +3,6 @@ package fix
 import (
 	"fmt"
 	"io"
-	"os"
 	"path/filepath"
 
 	"github.com/google/osv-scanner/internal/remediation"
@@ -13,7 +12,6 @@ import (
 	"github.com/google/osv-scanner/pkg/depsdev"
 	"github.com/google/osv-scanner/pkg/reporter"
 	"github.com/urfave/cli/v2"
-	"golang.org/x/term"
 )
 
 const (
@@ -34,6 +32,7 @@ type osvFixOptions struct {
 
 func Command(stdout, stderr io.Writer, r *reporter.Reporter) *cli.Command {
 	return &cli.Command{
+		Hidden:      true, // TODO: un-hide when ready
 		Name:        "fix",
 		Usage:       "[EXPERIMENTAL] scans a manifest and/or lockfile for vulnerabilities and suggests changes for remediating them",
 		Description: "[EXPERIMENTAL] scans a manifest and/or lockfile for vulnerabilities and suggests changes for remediating them",
@@ -68,9 +67,10 @@ func Command(stdout, stderr io.Writer, r *reporter.Reporter) *cli.Command {
 			},
 
 			&cli.BoolFlag{
-				Name:  "non-interactive",
-				Usage: "run in the non-interactive mode",
-				Value: !term.IsTerminal(int(os.Stdin.Fd())), // Default to non-interactive if not being run in a terminal
+				Name:   "non-interactive",
+				Usage:  "run in the non-interactive mode",
+				Value:  true, //!term.IsTerminal(int(os.Stdin.Fd())), // Default to non-interactive if not being run in a terminal
+				Hidden: true, // TODO: un-hide when interactive mode is added
 			},
 			&cli.StringFlag{
 				Category: autoModeCategory,
@@ -146,18 +146,23 @@ func Command(stdout, stderr io.Writer, r *reporter.Reporter) *cli.Command {
 				Usage:    "ignore vulnerabilities affecting only development dependencies",
 			},
 		},
-		Action: action,
+		Action: func(ctx *cli.Context) error {
+			var err error
+			*r, err = action(ctx, stdout, stderr)
+
+			return err
+		},
 	}
 }
 
-func action(ctx *cli.Context) error {
+func action(ctx *cli.Context, stdout, stderr io.Writer) (reporter.Reporter, error) {
 	// The Action on strategy isn't run when using the default values. Check if the manifest is set.
 	if ctx.Bool("non-interactive") && ctx.String("strategy") == "relock" && !ctx.IsSet("manifest") {
-		return fmt.Errorf("relock strategy requires manifest file")
+		return nil, fmt.Errorf("relock strategy requires manifest file")
 	}
 
 	if !ctx.IsSet("manifest") && !ctx.IsSet("lockfile") {
-		return fmt.Errorf("manifest or lockfile is required")
+		return nil, fmt.Errorf("manifest or lockfile is required")
 	}
 
 	opts := osvFixOptions{
@@ -182,7 +187,7 @@ func action(ctx *cli.Context) error {
 	case "deps.dev":
 		cl, err := client.NewDepsDevClient(depsdev.DepsdevAPI)
 		if err != nil {
-			return err
+			return nil, err
 		}
 		opts.Client.DependencyClient = cl
 	case "native":
@@ -196,7 +201,7 @@ func action(ctx *cli.Context) error {
 		}
 		cl, err := client.NewNpmRegistryClient(workDir)
 		if err != nil {
-			return err
+			return nil, err
 		}
 		opts.Client.DependencyClient = cl
 	}
@@ -204,7 +209,7 @@ func action(ctx *cli.Context) error {
 	if opts.Manifest != "" {
 		rw, err := manifest.GetManifestIO(opts.Manifest)
 		if err != nil {
-			return err
+			return nil, err
 		}
 		opts.ManifestRW = rw
 	}
@@ -212,10 +217,27 @@ func action(ctx *cli.Context) error {
 	if opts.Lockfile != "" {
 		rw, err := lockfile.GetLockfileIO(opts.Lockfile)
 		if err != nil {
-			return err
+			return nil, err
 		}
 		opts.LockfileRW = rw
 	}
 
-	return fmt.Errorf("not implemented")
+	if !ctx.Bool("non-interactive") {
+		return nil, fmt.Errorf("not implemented")
+	}
+
+	// TODO: This isn't what the reporter is designed for.
+	// Only using r.Infof() and r.Errorf() to print to stdout & stderr respectively.
+	r := reporter.NewTableReporter(stdout, stderr, reporter.InfoLevel, false, 0)
+	maxUpgrades := ctx.Int("apply-top")
+
+	switch ctx.String("strategy") {
+	case "relock":
+		return r, autoRelock(ctx.Context, r, opts, maxUpgrades)
+	case "in-place":
+		return r, autoInPlace(ctx.Context, r, opts, maxUpgrades)
+	default:
+		// The strategy flag should already be validated by this point.
+		panic(fmt.Sprintf("non-interactive mode attempted to run with unhandled strategy: \"%s\"", ctx.String("strategy")))
+	}
 }

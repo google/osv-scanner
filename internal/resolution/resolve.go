@@ -31,6 +31,25 @@ type ResolutionResult struct {
 	UnfilteredVulns []ResolutionVuln
 }
 
+type ResolutionError struct {
+	NodeID resolve.NodeID
+	Error  resolve.NodeError
+}
+
+func (res *ResolutionResult) Errors() []ResolutionError {
+	var errs []ResolutionError
+	for i, n := range res.Graph.Nodes {
+		for _, err := range n.Errors {
+			errs = append(errs, ResolutionError{
+				NodeID: resolve.NodeID(i),
+				Error:  err,
+			})
+		}
+	}
+
+	return errs
+}
+
 func getResolver(sys resolve.System, cl resolve.Client) (resolve.Resolver, error) {
 	switch sys { //nolint:exhaustive
 	case resolve.NPM:
