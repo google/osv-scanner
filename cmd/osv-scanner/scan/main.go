@@ -25,7 +25,7 @@ func Command(stdout, stderr io.Writer, r *reporter.Reporter) *cli.Command {
 			&cli.StringSliceFlag{
 				Name:      "docker",
 				Aliases:   []string{"D"},
-				Usage:     "(deprecated: use --experimental-oci-image instead) scan docker image with this name",
+				Usage:     "scan docker image with this name",
 				TakesFile: false,
 			},
 			&cli.StringSliceFlag{
@@ -196,10 +196,6 @@ func action(context *cli.Context, stdout, stderr io.Writer) (reporter.Reporter, 
 		r.Infof("Warning: the experimental-call-analysis flag has been replaced. Please use the call-analysis and no-call-analysis flags instead.\n")
 	} else {
 		callAnalysisStates = createCallAnalysisStates(context.StringSlice("call-analysis"), context.StringSlice("no-call-analysis"))
-	}
-
-	if len(context.StringSlice("docker")) > 0 {
-		r.Warnf("-D/--docker is deprecated, please use --experimental-oci-image instead")
 	}
 
 	vulnResult, err := osvscanner.DoScan(osvscanner.ScannerActions{

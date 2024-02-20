@@ -5,7 +5,6 @@ import (
 	"errors"
 	"fmt"
 	"io"
-	"log"
 	"slices"
 	"sort"
 	"strings"
@@ -22,6 +21,8 @@ type ScanResults struct {
 	ImagePath string
 }
 
+// artifactExtractors contains only extractors for artifacts that are important in
+// the final layer of a container image
 var artifactExtractors map[string]lockfile.Extractor = map[string]lockfile.Extractor{
 	"apk-installed": lockfile.ApkInstalledExtractor{},
 	"dpkg":          lockfile.DpkgStatusExtractor{},
@@ -38,6 +39,10 @@ func ScanImage(r reporter.Reporter, imagePath string) (ScanResults, error) {
 	fileTree := img.SquashedTree()
 	allFiles := fileTree.AllFiles()
 
+	// Sort the files to:
+	//   - Easier reasoning when debugging the scan loop
+	//   - Allow us to find "folders", as allFiles only contain file references
+	//     we have to examine the path of the files for folders. (Not yet implemented)
 	slices.SortFunc(allFiles, func(a, b file.Reference) int {
 		return strings.Compare(string(a.RealPath), string(b.RealPath))
 	})
@@ -86,11 +91,11 @@ func extractArtifactDeps(f lockfile.DepFile) (lockfile.Lockfile, error) {
 	}
 
 	packages, err := extractor.Extract(f)
-	log.Printf("%v\n", packages)
 	if err != nil && extractedAs != "" {
 		err = fmt.Errorf("(extracting as %s) %w", extractedAs, err)
 	}
 
+	// Sort to have deterministic output, and to match behavior of lockfile.extractDeps
 	sort.Slice(packages, func(i, j int) bool {
 		if packages[i].Name == packages[j].Name {
 			return packages[i].Version < packages[j].Version
