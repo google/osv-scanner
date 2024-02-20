@@ -27,7 +27,6 @@ import (
 
 	depsdevpb "deps.dev/api/v3alpha"
 	"github.com/go-git/go-billy/v5"
-	"github.com/go-git/go-billy/v5/osfs"
 	"github.com/go-git/go-git/v5"
 	"github.com/go-git/go-git/v5/plumbing/format/gitignore"
 )
@@ -104,7 +103,7 @@ func scanDir(r reporter.Reporter, dir string, skipGit bool, recursive bool, useG
 	var ignoreMatcher *gitIgnoreMatcher
 	if useGitIgnore {
 		var err error
-		ignoreMatcher, err = parseGitIgnores(dir)
+		ignoreMatcher, err = parseGitIgnores(dir, recursive)
 		if err != nil {
 			r.Errorf("Unable to parse git ignores: %v\n", err)
 			useGitIgnore = false
@@ -194,36 +193,13 @@ type gitIgnoreMatcher struct {
 	repoPath string
 }
 
-func parseGitIgnores(path string) (*gitIgnoreMatcher, error) {
-	// We need to parse .gitignore files from the root of the git repo to correctly identify ignored files
-	var fs billy.Filesystem
-
-	// Default to path (or directory containing path if it's a file) is not in a repo or some other error
-	finfo, err := os.Stat(path)
+func parseGitIgnores(path string, recursive bool) (*gitIgnoreMatcher, error) {
+	patterns, repoRootPath, err := customgitignore.parseGitIgnores(path, recursive)
 	if err != nil {
 		return nil, err
 	}
-	if finfo.IsDir() {
-		fs = osfs.New(path)
-	} else {
-		fs = osfs.New(filepath.Dir(path))
-	}
 
-	if repo, err := git.PlainOpenWithOptions(path, &git.PlainOpenOptions{DetectDotGit: true}); err == nil {
-		if tree, err := repo.Worktree(); err == nil {
-			fs = tree.Filesystem
-		}
-	}
-
-	patterns, err := customgitignore.ReadPatterns(fs, []string{"."})
-	if err != nil {
-		return nil, err
-	}
 	matcher := gitignore.NewMatcher(patterns)
-	repopath, err := filepath.Abs(fs.Root())
-	if err != nil {
-		return nil, err
-	}
 
 	return &gitIgnoreMatcher{matcher: matcher, repoPath: repopath}, nil
 }
