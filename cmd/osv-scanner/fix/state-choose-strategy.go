@@ -16,6 +16,7 @@ import (
 
 type stateChooseStrategy struct {
 	cursorPos int // TODO: use an enum
+	canRelock bool
 
 	vulnList       tui.ViewModel
 	inPlaceInfo    tui.ViewModel
@@ -61,17 +62,23 @@ func (st *stateChooseStrategy) Init(m model) tea.Cmd {
 	// make the in-place view
 	st.inPlaceInfo = tui.NewInPlaceInfo(*m.inPlaceResult)
 
-	// find the vulns fixed by relocking to show on the relock hover
-	var relockFixes []*resolution.ResolutionVuln
-	for _, v := range allVulns {
-		if !slices.ContainsFunc(m.relockBaseRes.Vulns, func(r resolution.ResolutionVuln) bool {
-			return r.Vulnerability.ID == v.Vulnerability.ID
-		}) {
-			relockFixes = append(relockFixes, v)
+	if m.options.Manifest != "" {
+		// find the vulns fixed by relocking to show on the relock hover
+		st.canRelock = true
+		var relockFixes []*resolution.ResolutionVuln
+		for _, v := range allVulns {
+			if !slices.ContainsFunc(m.relockBaseRes.Vulns, func(r resolution.ResolutionVuln) bool {
+				return r.Vulnerability.ID == v.Vulnerability.ID
+			}) {
+				relockFixes = append(relockFixes, v)
+			}
 		}
+		st.relockFixVulns = tui.NewVulnList(relockFixes, "Relocking fixes the following vulns:")
+		st.ResizeInfo(m.infoViewWidth, m.infoViewHeight)
+	} else {
+		st.canRelock = false
+		st.relockFixVulns = infoStringView("Re-run with manifest to resolve vulnerabilities by re-locking")
 	}
-	st.relockFixVulns = tui.NewVulnList(relockFixes, "Relocking fixes the following vulns:")
-	st.ResizeInfo(m.infoViewWidth, m.infoViewHeight)
 
 	st.depthInput = textinput.New()
 	st.depthInput.CharLimit = 3
@@ -170,7 +177,7 @@ func (st *stateChooseStrategy) currentInfoView() (view tui.ViewModel, canFocus b
 	case stateChooseInPlace: // in-place
 		return st.inPlaceInfo, true
 	case stateChooseRelock: // relock
-		return st.relockFixVulns, true
+		return st.relockFixVulns, st.canRelock
 	case stateChooseQuit: // quit
 		return infoStringView("Exit Guided Remediation"), false
 	default:
@@ -192,8 +199,10 @@ func (st *stateChooseStrategy) parseInput(m model) (tea.Model, tea.Cmd) {
 		m.st = &stateInPlaceResult{inPlaceInfo: st.inPlaceInfo, selectedChanges: selected}
 		cmd = m.st.Init(m)
 	case stateChooseRelock: // relock
-		m.st = &stateRelockResult{}
-		cmd = m.st.Init(m)
+		if st.canRelock {
+			m.st = &stateRelockResult{}
+			cmd = m.st.Init(m)
+		}
 	case stateChooseDev:
 		m.options.DevDeps = !m.options.DevDeps
 	case stateChooseApplyCriteria:
@@ -228,8 +237,6 @@ func (st *stateChooseStrategy) View(m model) string {
 	vulnCount := m.inPlaceResult.VulnCount()
 	fixCount := vulnCount.Total() - len(m.inPlaceResult.Unfixable)
 	pkgChange := len(m.inPlaceResult.Patches)
-	// TODO: In-place and relock count vulns differently; this number is wrong
-	relockFix := vulnCount.Total() - len(m.relockBaseRes.Vulns)
 
 	s := strings.Builder{}
 	s.WriteString(tui.RenderSelectorOption(
@@ -255,12 +262,23 @@ func (st *stateChooseStrategy) View(m model) string {
 		"Modify lockfile in-place",
 	))
 
-	s.WriteString(tui.RenderSelectorOption(
-		st.cursorPos == stateChooseRelock,
-		" > ",
-		fmt.Sprintf("%%s (fixes %d/%d vulns) and try direct dependency upgrades\n", relockFix, vulnCount.Total()),
-		"Re-lock project",
-	))
+	// TODO: skip choseStrategy when relocking is unavailable
+	if st.canRelock {
+		// TODO: In-place and relock count vulns differently; this number is wrong
+		relockFix := vulnCount.Total() - len(m.relockBaseRes.Vulns)
+		s.WriteString(tui.RenderSelectorOption(
+			st.cursorPos == stateChooseRelock,
+			" > ",
+			fmt.Sprintf("%%s (fixes %d/%d vulns) and try direct dependency upgrades\n", relockFix, vulnCount.Total()),
+			"Re-lock project",
+		))
+	} else {
+		s.WriteString(tui.RenderSelectorOption(
+			st.cursorPos == stateChooseRelock,
+			" > ",
+			tui.DisabledTextStyle.Render("Cannot re-lock - missing manifest file\n"),
+		))
+	}
 	s.WriteString("\n")
 	s.WriteString("Criteria:\n")
 	s.WriteString(tui.RenderSelectorOption(

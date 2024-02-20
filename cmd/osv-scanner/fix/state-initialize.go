@@ -44,9 +44,15 @@ func (st *stateInitialize) Update(m model, msg tea.Msg) (tea.Model, tea.Cmd) {
 		// set the result and start the relock computation
 		m.lockfileGraph = msg.g
 		m.inPlaceResult = &msg.res
-		cmds = append(cmds, func() tea.Msg {
-			return doInitialRelock(m.ctx, m.options)
-		})
+		if m.options.Manifest != "" {
+			cmds = append(cmds, func() tea.Msg {
+				return doInitialRelock(m.ctx, m.options)
+			})
+		} else {
+			// TODO: skip choose strategy, go straight to in-place
+			m.st = &stateChooseStrategy{}
+			cmds = append(cmds, m.st.Init(m))
+		}
 
 	// relocking finished
 	case doRelockMsg:

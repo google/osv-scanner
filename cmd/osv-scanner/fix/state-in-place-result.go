@@ -15,6 +15,7 @@ import (
 
 type stateInPlaceResult struct {
 	cursorPos int // TODO: use an enum
+	canRelock bool
 
 	selectedChanges []bool // in-place changes to be applied
 
@@ -46,15 +47,21 @@ func (st *stateInPlaceResult) Init(m model) tea.Cmd {
 	st.vulnList = tui.NewVulnList(vulns, "")
 
 	// recompute the vulns fixed by relocking after the in-place update
-	var relockFixes []*resolution.ResolutionVuln
-	for _, v := range vulns {
-		if !slices.ContainsFunc(m.relockBaseRes.Vulns, func(r resolution.ResolutionVuln) bool {
-			return r.Vulnerability.ID == v.Vulnerability.ID
-		}) {
-			relockFixes = append(relockFixes, v)
+	if m.options.Manifest != "" {
+		st.canRelock = true
+		var relockFixes []*resolution.ResolutionVuln
+		for _, v := range vulns {
+			if !slices.ContainsFunc(m.relockBaseRes.Vulns, func(r resolution.ResolutionVuln) bool {
+				return r.Vulnerability.ID == v.Vulnerability.ID
+			}) {
+				relockFixes = append(relockFixes, v)
+			}
 		}
+		st.relockFixVulns = tui.NewVulnList(relockFixes, "Relocking fixes the following vulns:")
+	} else {
+		st.canRelock = false
+		st.relockFixVulns = infoStringView("Re-run with manifest to resolve vulnerabilities by re-locking")
 	}
-	st.relockFixVulns = tui.NewVulnList(relockFixes, "Relocking fixes the following vulns:")
 
 	st.cursorPos = stateInPlaceChoice
 	st.ResizeInfo(m.infoViewWidth, m.infoViewHeight)
@@ -131,7 +138,7 @@ func (st *stateInPlaceResult) currentInfoView() (view tui.ViewModel, canFocus bo
 	case stateInPlaceWrite: // write
 		return infoStringView("Write changes to lockfile"), false
 	case stateInPlaceRelock: // relock
-		return st.relockFixVulns, true
+		return st.relockFixVulns, st.canRelock
 	case stateInPlaceQuit: // quit
 		return infoStringView("Exit Guided Remediation"), false
 	default:
@@ -152,8 +159,10 @@ func (st *stateInPlaceResult) parseInput(m model) (tea.Model, tea.Cmd) {
 		m.writing = true
 		cmd = func() tea.Msg { return st.write(m) }
 	case stateInPlaceRelock: // relock
-		m.st = &stateRelockResult{}
-		cmd = m.st.Init(m)
+		if st.canRelock {
+			m.st = &stateRelockResult{}
+			cmd = m.st.Init(m)
+		}
 	case stateInPlaceQuit: // quit
 		cmd = tea.Quit
 	}
@@ -204,12 +213,20 @@ func (st *stateInPlaceResult) View(m model) string {
 		fmt.Sprintf("%%s %d changes to lockfile\n", nSelected),
 		"Write",
 	))
-	s.WriteString(tui.RenderSelectorOption(
-		st.cursorPos == stateInPlaceRelock,
-		" > ",
-		"%s the whole project instead\n",
-		"Relock",
-	))
+	if st.canRelock {
+		s.WriteString(tui.RenderSelectorOption(
+			st.cursorPos == stateInPlaceRelock,
+			" > ",
+			"%s the whole project instead\n",
+			"Relock",
+		))
+	} else {
+		s.WriteString(tui.RenderSelectorOption(
+			st.cursorPos == stateInPlaceRelock,
+			" > ",
+			tui.DisabledTextStyle.Render("Cannot re-lock - missing manifest file\n"),
+		))
+	}
 	s.WriteString("\n")
 	s.WriteString(tui.RenderSelectorOption(
 		st.cursorPos == stateInPlaceQuit,

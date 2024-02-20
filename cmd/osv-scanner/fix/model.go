@@ -180,16 +180,6 @@ type inPlaceResolutionMsg struct {
 }
 
 func doInPlaceResolution(ctx context.Context, cl client.ResolutionClient, opts osvFixOptions) tea.Msg {
-	mf, err := osvLockfile.OpenLocalDepFile(opts.Manifest)
-	if err != nil {
-		return inPlaceResolutionMsg{err: err}
-	}
-	defer mf.Close()
-	m, err := opts.ManifestRW.Read(mf)
-	if err != nil {
-		return inPlaceResolutionMsg{err: err}
-	}
-
 	lf, err := osvLockfile.OpenLocalDepFile(opts.Lockfile)
 	if err != nil {
 		return inPlaceResolutionMsg{err: err}
@@ -199,8 +189,6 @@ func doInPlaceResolution(ctx context.Context, cl client.ResolutionClient, opts o
 	if err != nil {
 		return inPlaceResolutionMsg{err: err}
 	}
-
-	cl.PreFetch(ctx, m.Requirements, m.FilePath)
 	res, err := remediation.ComputeInPlacePatches(ctx, cl, g, opts.RemediationOptions)
 	return inPlaceResolutionMsg{res, g, err}
 }

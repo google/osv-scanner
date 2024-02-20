@@ -3,6 +3,7 @@ package fix
 import (
 	"fmt"
 	"io"
+	"os"
 	"path/filepath"
 
 	"github.com/google/osv-scanner/internal/remediation"
@@ -12,6 +13,7 @@ import (
 	"github.com/google/osv-scanner/pkg/depsdev"
 	"github.com/google/osv-scanner/pkg/reporter"
 	"github.com/urfave/cli/v2"
+	"golang.org/x/term"
 )
 
 const (
@@ -69,8 +71,8 @@ func Command(stdout, stderr io.Writer, r *reporter.Reporter) *cli.Command {
 			&cli.BoolFlag{
 				Name:   "non-interactive",
 				Usage:  "run in the non-interactive mode",
-				Value:  true, //!term.IsTerminal(int(os.Stdin.Fd())), // Default to non-interactive if not being run in a terminal
-				Hidden: true, // TODO: un-hide when interactive mode is added
+				Value:  !term.IsTerminal(int(os.Stdin.Fd())), // Default to non-interactive if not being run in a terminal
+				Hidden: true,                                 // TODO: un-hide when interactive mode is added
 			},
 			&cli.StringFlag{
 				Category: autoModeCategory,
@@ -223,7 +225,7 @@ func action(ctx *cli.Context, stdout, stderr io.Writer) (reporter.Reporter, erro
 	}
 
 	if !ctx.Bool("non-interactive") {
-		return nil, fmt.Errorf("not implemented")
+		return nil, interactiveMode(ctx.Context, opts)
 	}
 
 	// TODO: This isn't what the reporter is designed for.
