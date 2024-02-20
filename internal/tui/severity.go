@@ -29,6 +29,7 @@ func RenderSeverity(severities []models.Severity) string {
 	if rating != "UNKNOWN" {
 		text = fmt.Sprintf("%1.1f %s", score, rating)
 	}
+
 	return severityStyle.Width(16).Background(severityColor[rating]).Render(text)
 }
 
@@ -38,5 +39,6 @@ func RenderSeverityShort(severities []models.Severity) string {
 	if rating == "UNKNOWN" {
 		scoreStr = "???"
 	}
+
 	return severityStyle.Width(5).Background(severityColor[rating]).Render(scoreStr)
 }

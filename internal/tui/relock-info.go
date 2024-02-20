@@ -28,9 +28,9 @@ func NewRelockInfo(change resolution.ResolutionDiff) *relockInfo {
 			dep.Pkg.Name, dep.OrigRequire, dep.OrigResolved, dep.NewRequire, dep.NewResolved))
 	}
 	preamble.WriteString("Will resolve the following:")
-	var fixedVulns []*resolution.ResolutionVuln
+	fixedVulns := make([]*resolution.ResolutionVuln, len(change.RemovedVulns))
 	for i := range change.RemovedVulns {
-		fixedVulns = append(fixedVulns, &change.RemovedVulns[i])
+		fixedVulns[i] = &change.RemovedVulns[i]
 	}
 	info.fixedList = NewVulnList(fixedVulns, preamble.String())
 
@@ -39,9 +39,9 @@ func NewRelockInfo(change resolution.ResolutionDiff) *relockInfo {
 	}
 
 	// Create a second list showing introduced vulns
-	var newVulns []*resolution.ResolutionVuln
+	newVulns := make([]*resolution.ResolutionVuln, len(change.AddedVulns))
 	for i := range change.AddedVulns {
-		newVulns = append(newVulns, &change.AddedVulns[i])
+		newVulns[i] = &change.AddedVulns[i]
 	}
 	info.addedList = NewVulnList(newVulns, "But will introduce the following new vulns:")
 	info.addedList.Blur()
@@ -82,6 +82,7 @@ func (r *relockInfo) Update(msg tea.Msg) (ViewModel, tea.Cmd) {
 			r.addedFocused = false
 			r.addedList.Blur()
 			r.fixedList.Focus()
+
 			return r, nil
 		}
 		// scrolling down out of fixed list
@@ -91,6 +92,7 @@ func (r *relockInfo) Update(msg tea.Msg) (ViewModel, tea.Cmd) {
 			r.addedFocused = true
 			r.addedList.Focus()
 			r.fixedList.Blur()
+
 			return r, nil
 		}
 	}
@@ -116,5 +118,6 @@ func (r *relockInfo) View() string {
 	if r.addedList.currVulnInfo != nil {
 		return r.addedList.View()
 	}
+
 	return lipgloss.JoinVertical(lipgloss.Center, r.fixedList.View(), r.addedList.View())
 }

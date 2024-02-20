@@ -96,9 +96,9 @@ func (st *stateRelockResult) Init(m model) tea.Cmd {
 	st.viewWidth = m.mainViewWidth
 
 	// Make the vulnerability list view model
-	var vulns []*resolution.ResolutionVuln
+	vulns := make([]*resolution.ResolutionVuln, len(st.currRes.Vulns))
 	for i := range st.currRes.Vulns {
-		vulns = append(vulns, &st.currRes.Vulns[i])
+		vulns[i] = &st.currRes.Vulns[i]
 	}
 	st.vulnList = tui.NewVulnList(vulns, "")
 	st.ResizeInfo(m.infoViewWidth, m.infoViewHeight)
@@ -201,6 +201,7 @@ func (st *stateRelockResult) Update(m model, msg tea.Msg) (tea.Model, tea.Cmd) {
 	}
 	var c tea.Cmd
 	st.spinner, c = st.spinner.Update(msg)
+
 	return m, tea.Batch(cmd, c)
 }
 
@@ -263,6 +264,7 @@ func (st *stateRelockResult) parseInput(m model) (tea.Model, tea.Cmd) {
 	case stateRelockQuit: // quit
 		cmd = tea.Quit
 	}
+
 	return m, cmd
 }
 
@@ -301,6 +303,7 @@ func (st *stateRelockResult) relaxChoice(m model) (model, tea.Cmd) {
 	}
 
 	st.currRes = nil
+
 	return m, func() tea.Msg {
 		return doRelock(m.ctx, m.cl, manifest, m.options.MatchVuln)
 	}
@@ -316,6 +319,7 @@ func (st *stateRelockResult) View(m model) string {
 		s.WriteString("Resolving dependency graph ")
 		s.WriteString(st.spinner.View())
 		s.WriteString("\n")
+
 		return s.String()
 	}
 
@@ -333,6 +337,7 @@ func (st *stateRelockResult) View(m model) string {
 		s.WriteString("Computing possible patches ")
 		s.WriteString(st.spinner.View())
 		s.WriteString("\n")
+
 		return s.String()
 	}
 
@@ -432,6 +437,7 @@ func diffString(diff resolution.ResolutionDiff) string {
 	if len(diff.AddedVulns) > 0 {
 		str += fmt.Sprintf(" but introduces %d new vulns", len(diff.AddedVulns))
 	}
+
 	return str
 }
 
@@ -459,6 +465,7 @@ func (st *stateRelockResult) patchCompatible(idx int) bool {
 			}
 		}
 	}
+
 	return true
 }
 
@@ -485,6 +492,7 @@ func (st *stateRelockResult) write(m model) tea.Msg {
 	}
 
 	if m.options.Lockfile == "" && m.options.RelockCmd == "" {
+		// TODO: there's no user feedback to show this was successful
 		return writeMsg{nil}
 	}
 
@@ -501,8 +509,10 @@ func (st *stateRelockResult) write(m model) tea.Msg {
 				return writeMsg{err}
 			}
 			c.Args = append(c.Args, "--legacy-peer-deps")
+
 			return tea.ExecProcess(c, func(err error) tea.Msg { return writeMsg{err} })()
 		}
+
 		return writeMsg{err}
 	})()
 }

@@ -68,6 +68,7 @@ func NewVulnInfo(vuln *resolution.ResolutionVuln) *vulnInfo {
 
 	chains := append(slices.Clone(vuln.ProblemChains), vuln.NonProblemChains...)
 	v.chainGraphs = FindChainGraphs(chains)
+
 	return &v
 }
 
@@ -87,11 +88,13 @@ func (v *vulnInfo) Update(msg tea.Msg) (ViewModel, tea.Cmd) {
 			if key.Matches(msg, Keys.Quit) {
 				v.onlyDetails = false
 				v.onlyGraphs = false
+
 				return v, nil
 			}
 		}
 		var cmd tea.Cmd
 		v.viewport, cmd = v.viewport.Update(msg)
+
 		return v, cmd
 	}
 	if msg, ok := msg.(tea.KeyMsg); ok {
@@ -119,6 +122,7 @@ func (v *vulnInfo) Update(msg tea.Msg) (ViewModel, tea.Cmd) {
 			}
 		}
 	}
+
 	return v, nil
 }
 
@@ -171,6 +175,7 @@ func (v *vulnInfo) View() string {
 		s.WriteString(DisabledTextStyle.Render(fmt.Sprintf("+%d other paths", len(v.chainGraphs)-1)))
 		s.WriteString("\n")
 	}
+
 	return s.String()
 }
 
@@ -190,6 +195,7 @@ func (v *vulnInfo) detailsOnlyView() string {
 		det = v.fallbackDetails(v.width)
 	}
 	s.WriteString(det)
+
 	return s.String()
 }
 
@@ -199,11 +205,12 @@ func (v *vulnInfo) graphOnlyView() string {
 	// and it's difficult to implement
 	s := strings.Builder{}
 	s.WriteString(vulnInfoHeadingStyle.Render("Affected:"))
-	var strs []string
+	strs := make([]string, 0, 2*len(v.chainGraphs))
 	for _, g := range v.chainGraphs {
 		strs = append(strs, "\n", g.String())
 	}
 	s.WriteString(lipgloss.JoinVertical(lipgloss.Center, strs...))
+
 	return s.String()
 }
 
@@ -211,6 +218,7 @@ func (v *vulnInfo) headingStyle(idx int) lipgloss.Style {
 	if idx == v.cursor {
 		return highlightedVulnInfoHeadingStyle
 	}
+
 	return vulnInfoHeadingStyle
 }
 

@@ -73,6 +73,7 @@ func NewSpinner() spinner.Model {
 	sp := spinner.New(spinner.WithSpinner(spinner.Line))
 	// Spinner.FPS is actually the duration of each frame, not the frames per second
 	sp.Spinner.FPS = 200 * time.Millisecond
+
 	return sp
 }
 
@@ -91,6 +92,7 @@ func RenderSelectorOption(
 			args[i] = SelectedTextStyle.Render(fmt.Sprintf("%v", args[i]))
 		}
 	}
+
 	return fmt.Sprintf(cursor+format, args...)
 }
 

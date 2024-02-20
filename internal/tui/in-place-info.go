@@ -34,7 +34,7 @@ func NewInPlaceInfo(res remediation.InPlaceResult) *inPlaceInfo {
 		cols[i].Width = lipgloss.Width(cols[i].Title)
 	}
 
-	var rows []table.Row
+	rows := make([]table.Row, 0, len(res.Patches))
 	for _, patch := range res.Patches {
 		// Make a new row for each vulnerability
 		// I wanted to have this as one entry with multiple vulnerabilities,
@@ -56,14 +56,14 @@ func NewInPlaceInfo(res remediation.InPlaceResult) *inPlaceInfo {
 		info.vulns = append(info.vulns, &patch.ResolvedVulns[0])
 
 		// use blank package name / bump for other vulns from same patch
-		for _, v := range patch.ResolvedVulns[1:] {
+		for i, v := range patch.ResolvedVulns[1:] {
 			row := table.Row{
 				"",
 				"",
 				v.Vulnerability.ID,
 			}
 			rows = append(rows, row)
-			info.vulns = append(info.vulns, &v)
+			info.vulns = append(info.vulns, &patch.ResolvedVulns[i+1])
 			if w := lipgloss.Width(row[2]); w > cols[2].Width {
 				cols[2].Width = w
 			}
@@ -94,6 +94,7 @@ func NewInPlaceInfo(res remediation.InPlaceResult) *inPlaceInfo {
 			PageDown: Keys.Right,
 		}),
 	)
+
 	return &info
 }
 
@@ -121,10 +122,12 @@ func (ip *inPlaceInfo) Update(msg tea.Msg) (ViewModel, tea.Cmd) {
 			vuln := ip.vulns[ip.Model.Cursor()]
 			ip.currVulnInfo = NewVulnInfo(vuln)
 			ip.currVulnInfo.Resize(ip.Width(), ip.Height())
+
 			return ip, nil
 		}
 	}
 	ip.Model, cmd = ip.Model.Update(msg)
+
 	return ip, cmd
 }
 

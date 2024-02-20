@@ -30,6 +30,7 @@ func (st *stateInitialize) Init(m model) tea.Cmd {
 			return doInitialRelock(m.ctx, m.options)
 		})
 	}
+
 	return tea.Batch(cmds...)
 }
 
@@ -73,6 +74,7 @@ func (st *stateInitialize) Update(m model, msg tea.Msg) (tea.Model, tea.Cmd) {
 	var c tea.Cmd
 	st.spinner, c = st.spinner.Update(msg)
 	cmds = append(cmds, c)
+
 	return m, tea.Batch(cmds...)
 }
 
@@ -85,6 +87,7 @@ func (st *stateInitialize) View(m model) string {
 		if m.inPlaceResult == nil {
 			s.WriteString(st.spinner.View())
 			s.WriteString("\n")
+
 			return s.String()
 		}
 		s.WriteString("✓\n")

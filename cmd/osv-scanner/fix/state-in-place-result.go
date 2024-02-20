@@ -65,6 +65,7 @@ func (st *stateInPlaceResult) Init(m model) tea.Cmd {
 
 	st.cursorPos = stateInPlaceChoice
 	st.ResizeInfo(m.infoViewWidth, m.infoViewHeight)
+
 	return nil
 }
 
@@ -88,6 +89,7 @@ func (st *stateInPlaceResult) Update(m model, msg tea.Msg) (tea.Model, tea.Cmd) 
 		st.selectedChanges = make([]bool, len(newPatches))
 		// regenerate the in-place info panel
 		st.inPlaceInfo = tui.NewInPlaceInfo(*m.inPlaceResult)
+
 		return m, cmd
 
 	case tui.ViewModelCloseMsg:
@@ -124,6 +126,7 @@ func (st *stateInPlaceResult) Update(m model, msg tea.Msg) (tea.Model, tea.Cmd) 
 			}
 		}
 	}
+
 	return m, cmd
 }
 
@@ -166,6 +169,7 @@ func (st *stateInPlaceResult) parseInput(m model) (tea.Model, tea.Cmd) {
 	case stateInPlaceQuit: // quit
 		cmd = tea.Quit
 	}
+
 	return m, cmd
 }
 

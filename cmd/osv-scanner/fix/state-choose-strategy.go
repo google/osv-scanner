@@ -48,7 +48,7 @@ func (st *stateChooseStrategy) Init(m model) tea.Cmd {
 
 	// make a slice of vuln pointers for the all vulnerabilities list
 	// TODO: be consistent & efficient with how we pass ResolutionVulns around
-	var allVulns []*resolution.ResolutionVuln
+	var allVulns []*resolution.ResolutionVuln //nolint:prealloc // it's a bit annoying to count beforehand
 	for _, p := range m.inPlaceResult.Patches {
 		for i := range p.ResolvedVulns {
 			allVulns = append(allVulns, &p.ResolvedVulns[i])
@@ -110,6 +110,7 @@ func (st *stateChooseStrategy) Update(m model, msg tea.Msg) (tea.Model, tea.Cmd)
 		case st.IsInfoFocused():
 			var cmd tea.Cmd
 			st.focusedInfo, cmd = st.focusedInfo.Update(msg)
+
 			return m, cmd
 		case key.Matches(msg, tui.Keys.Quit):
 			// only quit if the cursor is over the quit line
@@ -230,6 +231,7 @@ func (st *stateChooseStrategy) parseInput(m model) (tea.Model, tea.Cmd) {
 	case stateChooseQuit: // quit line
 		cmd = tea.Quit
 	}
+
 	return m, cmd
 }
 

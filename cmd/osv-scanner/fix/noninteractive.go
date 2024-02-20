@@ -166,19 +166,22 @@ func autoRelock(ctx context.Context, r reporter.Reporter, opts osvFixOptions, ma
 		cmd.Stderr = os.Stderr
 		r.Infof("Executing `%s`...\n", cmd)
 		err = cmd.Run()
-		if err != nil && opts.RelockCmd == "" {
-			r.Warnf("Install failed. Trying again with `--legacy-peer-deps`...\n")
-			cmd, err := regenerateLockfileCmd(opts)
-			if err != nil {
-				return err
-			}
-			cmd.Args = append(cmd.Args, "--legacy-peer-deps")
-			cmd.Stdout = os.Stdout
-			cmd.Stderr = os.Stderr
-			err = cmd.Run()
+		if err == nil {
+			return nil
 		}
+		if opts.RelockCmd != "" {
+			return err
+		}
+		r.Warnf("Install failed. Trying again with `--legacy-peer-deps`...\n")
+		cmd, err = regenerateLockfileCmd(opts)
+		if err != nil {
+			return err
+		}
+		cmd.Args = append(cmd.Args, "--legacy-peer-deps")
+		cmd.Stdout = os.Stdout
+		cmd.Stderr = os.Stderr
 
-		return err
+		return cmd.Run()
 	}
 
 	return nil

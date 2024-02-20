@@ -82,6 +82,7 @@ func FindChainGraphs(chains []resolution.DependencyChain) []ChainGraph {
 			}
 		}
 	}
+
 	return ret
 }
 
@@ -132,19 +133,18 @@ func (c *chainGraphNode) subString(isVuln bool) (string, int) {
 		}
 		nodeStr = strings.Repeat(" ", childCenter-nodeOffset) + nodeStr
 		joinerStr := strings.Repeat(" ", childCenter) + "│"
+
 		return fmt.Sprintf("%s\n%s\n%s", childStr, joinerStr, nodeStr), childCenter
 	}
 
 	// multiple children:
 	// Join the children together on one line
 	nChilds := len(c.children)
-	childStrs := make([]string, 0, nChilds)
-	paddedChildStrings := make([]string, 0, 2*nChilds) // childStrs, with padding strings in between
-	childOffsets := make([]int, 0, nChilds)            // where above the childStrs to connect the lines to them
+	paddedChildStrings := make([]string, 0, 2*nChilds) // string of children, with padding strings in between
+	childOffsets := make([]int, 0, nChilds)            // where above the children to connect the lines to them
 	width := 0
 	for _, ch := range c.children {
 		str, off := ch.subString(false)
-		childStrs = append(childStrs, str)
 		paddedChildStrings = append(paddedChildStrings, str, " ")
 		childOffsets = append(childOffsets, width+off)
 		width += lipgloss.Width(str) + 1
@@ -200,5 +200,6 @@ func (c *chainGraphNode) subString(isVuln bool) (string, int) {
 	}
 
 	nodeStr = strings.Repeat(" ", midOffset-nodeOffset) + nodeStr
+
 	return fmt.Sprintf("%s\n%s", linedChildren, nodeStr), midOffset
 }

@@ -26,5 +26,6 @@ func regenerateLockfileCmd(opts osvFixOptions) (*exec.Cmd, error) {
 	cmdParts := strings.Split(cmd, " ")
 	c := exec.Command(cmdParts[0], cmdParts[1:]...) //nolint:gosec
 	c.Dir = dir
+
 	return c, nil
 }

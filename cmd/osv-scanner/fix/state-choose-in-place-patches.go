@@ -149,6 +149,7 @@ func (st *stateChooseInPlacePatches) currentInfoView() (view tui.ViewModel, canF
 	if c := st.table.Cursor(); c > 0 && c < len(st.table.Rows())-1 {
 		return st.vulnsInfos[c-1], true
 	}
+
 	return emptyInfoView, false
 }
 

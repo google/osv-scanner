@@ -48,9 +48,10 @@ func NewVulnList(vulns []*resolution.ResolutionVuln, preamble string) *vulnList 
 		if c := cmp.Compare(aScore, bScore); c != 0 {
 			return -c
 		}
+
 		return cmp.Compare(a.Vulnerability.ID, b.Vulnerability.ID)
 	})
-	var items []list.Item
+	items := make([]list.Item, 0, len(vulns))
 	delegate := vulnListItemDelegate{idWidth: 0}
 	for _, v := range vulns {
 		items = append(items, vulnListItem{v})
@@ -78,6 +79,7 @@ func NewVulnList(vulns []*resolution.ResolutionVuln, preamble string) *vulnList 
 	)
 	vl.Model = l
 	vl.delegate = delegate
+
 	return &vl
 }
 
@@ -85,6 +87,7 @@ func (v *vulnList) preambleHeight() int {
 	if len(v.preamble) == 0 {
 		return 0
 	}
+
 	return lipgloss.Height(v.preamble)
 }
 
@@ -114,12 +117,14 @@ func (v *vulnList) Update(msg tea.Msg) (ViewModel, tea.Cmd) {
 			vuln := v.Model.SelectedItem().(vulnListItem)
 			v.currVulnInfo = NewVulnInfo(vuln.ResolutionVuln)
 			v.currVulnInfo.Resize(v.Width(), v.Height())
+
 			return v, nil
 		}
 	}
 	if v.currVulnInfo == nil {
 		v.Model, cmd = v.Model.Update(msg)
 	}
+
 	return v, cmd
 }
 
@@ -131,6 +136,7 @@ func (v *vulnList) View() string {
 	if len(v.preamble) > 0 {
 		str = lipgloss.JoinVertical(lipgloss.Left, v.preamble, str)
 	}
+
 	return str
 }
 

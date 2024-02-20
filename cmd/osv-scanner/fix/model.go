@@ -20,9 +20,10 @@ import (
 )
 
 type model struct {
-	ctx           context.Context         // Context, mostly used in sos functions
+	//nolint:containedctx
+	ctx           context.Context         // Context, mostly used in dep.dev functions
 	options       osvFixOptions           // options, from command line
-	cl            client.ResolutionClient // graph client used for sos functions
+	cl            client.ResolutionClient // graph client used for deps.dev functions
 	lockfileGraph *resolve.Graph
 
 	termWidth  int // width of the whole terminal
@@ -111,6 +112,7 @@ func (m *model) getBorderStyles() (lipgloss.Style, lipgloss.Style) {
 		m.infoViewStyle.BorderForeground(tui.ColorDisabled)
 		m.mainViewStyle.UnsetBorderForeground()
 	}
+
 	return m.mainViewStyle, m.infoViewStyle
 }
 
@@ -163,9 +165,9 @@ func (m model) View() string {
 }
 
 type modelState interface {
-	Init(model) tea.Cmd
-	Update(model, tea.Msg) (tea.Model, tea.Cmd)
-	View(model) string
+	Init(m model) tea.Cmd
+	Update(m model, msg tea.Msg) (tea.Model, tea.Cmd)
+	View(m model) string
 	Resize(w, h int)
 
 	InfoView() string
@@ -190,6 +192,7 @@ func doInPlaceResolution(ctx context.Context, cl client.ResolutionClient, opts o
 		return inPlaceResolutionMsg{err: err}
 	}
 	res, err := remediation.ComputeInPlacePatches(ctx, cl, g, opts.RemediationOptions)
+
 	return inPlaceResolutionMsg{res, g, err}
 }
 
@@ -209,6 +212,7 @@ func doRelock(ctx context.Context, cl client.ResolutionClient, m manif.Manifest,
 	}
 
 	res.FilterVulns(matchFn)
+
 	return doRelockMsg{res, nil}
 }
 
@@ -223,6 +227,7 @@ func doInitialRelock(ctx context.Context, opts osvFixOptions) tea.Msg {
 		return doRelockMsg{err: err}
 	}
 	opts.Client.PreFetch(ctx, m.Requirements, m.FilePath)
+
 	return doRelock(ctx, opts.Client, m, opts.MatchVuln)
 }
 
@@ -242,6 +247,7 @@ func resolutionErrorView(res *resolution.ResolutionResult, errs []resolution.Res
 	s := strings.Builder{}
 	s.WriteString("The following errors were encountered during resolution which may impact results:\n")
 	s.WriteString(resolutionErrorString(res, errs))
+
 	return infoStringView(s.String())
 }
 
