@@ -69,10 +69,9 @@ func Command(stdout, stderr io.Writer, r *reporter.Reporter) *cli.Command {
 			},
 
 			&cli.BoolFlag{
-				Name:   "non-interactive",
-				Usage:  "run in the non-interactive mode",
-				Value:  !term.IsTerminal(int(os.Stdin.Fd())), // Default to non-interactive if not being run in a terminal
-				Hidden: true,                                 // TODO: un-hide when interactive mode is added
+				Name:  "non-interactive",
+				Usage: "run in the non-interactive mode",
+				Value: !term.IsTerminal(int(os.Stdin.Fd())), // Default to non-interactive if not being run in a terminal
 			},
 			&cli.StringFlag{
 				Category: autoModeCategory,
