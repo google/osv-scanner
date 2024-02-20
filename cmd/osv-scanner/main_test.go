@@ -582,6 +582,30 @@ func TestRun_Licenses(t *testing.T) {
 	}
 }
 
+func TestRun_OCIImage(t *testing.T) {
+	t.Parallel()
+	tests := []cliTestCase{
+		{
+			name: "Alpine 3.10 image tar",
+			args: []string{"", "--experimental-oci-image", "./fixtures/oci-image/alpine-tester.tar"},
+			exit: 1,
+		},
+		{
+			name: "Invalid path",
+			args: []string{"", "--experimental-oci-image", "./fixtures/oci-image/no-file-here.tar"},
+			exit: 127,
+		},
+	}
+	for _, tt := range tests {
+		tt := tt
+		t.Run(tt.name, func(t *testing.T) {
+			t.Parallel()
+
+			testCli(t, tt)
+		})
+	}
+}
+
 // Tests all subcommands here.
 func TestRun_SubCommands(t *testing.T) {
 	t.Parallel()
