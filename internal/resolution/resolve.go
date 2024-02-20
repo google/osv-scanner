@@ -24,6 +24,11 @@ type ResolutionVuln struct {
 	NonProblemChains []DependencyChain
 }
 
+func (rv ResolutionVuln) IsDirect() bool {
+	fn := func(dc DependencyChain) bool { return len(dc.Edges) == 1 }
+	return slices.ContainsFunc(rv.ProblemChains, fn) || slices.ContainsFunc(rv.NonProblemChains, fn)
+}
+
 type ResolutionResult struct {
 	Manifest        manifest.Manifest
 	Graph           *resolve.Graph

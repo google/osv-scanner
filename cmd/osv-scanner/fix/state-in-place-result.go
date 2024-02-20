@@ -2,8 +2,6 @@ package fix
 
 import (
 	"fmt"
-	"os/exec"
-	"path/filepath"
 	"strings"
 
 	"github.com/charmbracelet/bubbles/key"
@@ -131,7 +129,7 @@ func (st *stateInPlaceResult) currentInfoView() (view tui.ViewModel, canFocus bo
 	case stateInPlaceChoice: // choose changes
 		return infoStringView("Choose which changes to apply"), false
 	case stateInPlaceWrite: // write
-		return infoStringView("Shell out to write lockfile"), false
+		return infoStringView("Write changes to lockfile"), false
 	case stateInPlaceRelock: // relock
 		return st.relockFixVulns, true
 	case stateInPlaceQuit: // quit
@@ -253,10 +251,5 @@ func (st *stateInPlaceResult) write(m model) tea.Msg {
 		return writeMsg{err}
 	}
 
-	// TODO: remove dependence on sh, support Windows
-	// using -x so it's clear what's being run
-	c := exec.Command("sh", "-xec", m.options.InstallCmd)
-	c.Dir = filepath.Dir(m.options.Lockfile)
-
-	return tea.ExecProcess(c, func(err error) tea.Msg { return writeMsg{err} })()
+	return writeMsg{nil}
 }

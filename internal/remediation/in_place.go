@@ -27,6 +27,80 @@ type InPlaceResult struct {
 	Unfixable []resolution.ResolutionVuln
 }
 
+type VulnCount struct {
+	Direct     int
+	Transitive int
+
+	// Note: These are metrics that overlap with Direct/Transitive, and with each other.
+	Unfixable int
+	Dev       int
+}
+
+func (vc VulnCount) Total() int {
+	return vc.Direct + vc.Transitive
+}
+
+func (r InPlaceResult) VulnCount() VulnCount {
+	devCount := 0
+	directCount := 0
+	transitiveCount := 0
+
+	for _, rv := range r.Unfixable {
+		if rv.DevOnly {
+			devCount++
+		}
+
+		if rv.IsDirect() {
+			directCount++
+		} else {
+			transitiveCount++
+		}
+	}
+
+	// Key vulnerabilities by (ID, package name, package version) to be consistent with scan action's counting
+	type vulnKey struct {
+		id string
+		vk resolve.VersionKey
+	}
+	uniqueVulns := make(map[vulnKey]struct {
+		dev    bool
+		direct bool
+	})
+	for _, p := range r.Patches {
+		vk := resolve.VersionKey{PackageKey: p.Pkg, Version: p.OrigVersion}
+		for _, rv := range p.ResolvedVulns {
+			key := vulnKey{id: rv.Vulnerability.ID, vk: vk}
+			d, ok := uniqueVulns[key]
+			if !ok {
+				d.dev = rv.DevOnly
+				d.direct = rv.IsDirect()
+			} else {
+				d.dev = d.dev && rv.DevOnly
+				d.direct = d.direct || rv.IsDirect()
+			}
+			uniqueVulns[key] = d
+		}
+	}
+
+	for _, d := range uniqueVulns {
+		if d.dev {
+			devCount++
+		}
+		if d.direct {
+			directCount++
+		} else {
+			transitiveCount++
+		}
+	}
+
+	return VulnCount{
+		Unfixable:  len(r.Unfixable),
+		Dev:        devCount,
+		Direct:     directCount,
+		Transitive: transitiveCount,
+	}
+}
+
 // ComputeInPlacePatches finds all possible targeting version changes that would fix vulnerabilities in a resolved graph.
 // TODO: Check for introduced vulnerabilities
 func ComputeInPlacePatches(ctx context.Context, cl client.ResolutionClient, graph *resolve.Graph, opts RemediationOptions) (InPlaceResult, error) {

@@ -140,6 +140,7 @@ func (st *stateChooseInPlacePatches) updateTableRows(m model) {
 }
 
 func (st *stateChooseInPlacePatches) toggleSelection(idx int) {
+	// TODO: Prevent selection of multiple (incompatible) patches for same package version
 	i := st.patchIdx[idx]
 	st.stateInPlace.selectedChanges[i] = !st.stateInPlace.selectedChanges[i]
 }
