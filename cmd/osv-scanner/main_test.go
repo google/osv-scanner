@@ -6,6 +6,7 @@ import (
 	"os"
 	"path/filepath"
 	"reflect"
+	"runtime"
 	"strings"
 	"testing"
 
@@ -584,6 +585,12 @@ func TestRun_Licenses(t *testing.T) {
 
 func TestRun_OCIImage(t *testing.T) {
 	t.Parallel()
+
+	if //goland:noinspection GoBoolExpressions
+	runtime.GOOS == "windows" {
+		return
+	}
+
 	tests := []cliTestCase{
 		{
 			name: "Alpine 3.10 image tar",
