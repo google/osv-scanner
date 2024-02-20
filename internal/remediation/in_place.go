@@ -115,7 +115,7 @@ func ComputeInPlacePatches(ctx context.Context, cl client.ResolutionClient, grap
 		reqVers := make(map[string]struct{})
 		for _, vuln := range vulns {
 			for _, c := range vuln.ProblemChains {
-				_, req := c.EndDependency()
+				_, req := c.End()
 				reqVers[req] = struct{}{}
 			}
 		}

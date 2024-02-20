@@ -55,7 +55,7 @@ func FindChainGraphs(chains []resolution.DependencyChain) []ChainGraph {
 		if _, ok := nodes[c.Edges[0].To]; !ok {
 			// haven't encountered this specific vulnerable node before
 			// create it and add it to the returned graphs
-			vk, _ := c.EndDependency()
+			vk, _ := c.End()
 			n := &chainGraphNode{
 				vk:       vk,
 				children: nil,
@@ -69,7 +69,7 @@ func FindChainGraphs(chains []resolution.DependencyChain) []ChainGraph {
 			p := nodes[e.To]
 			n, ok := nodes[e.From]
 			if !ok {
-				vk, _ := c.DependencyAt(i + 1)
+				vk, _ := c.At(i + 1)
 				n = &chainGraphNode{
 					vk:       vk,
 					children: nil,

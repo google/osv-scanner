@@ -205,7 +205,7 @@ func (v *vulnInfo) graphOnlyView() string {
 	// and it's difficult to implement
 	s := strings.Builder{}
 	s.WriteString(vulnInfoHeadingStyle.Render("Affected:"))
-	strs := make([]string, 0, 2*len(v.chainGraphs))
+	strs := make([]string, 0, 2*len(v.chainGraphs)) // 2x to include padding newlines between graphs
 	for _, g := range v.chainGraphs {
 		strs = append(strs, "\n", g.String())
 	}

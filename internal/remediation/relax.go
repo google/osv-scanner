@@ -124,7 +124,7 @@ func reqsToRelax(res *resolution.ResolutionResult, vulnIDs []string, opts Remedi
 		// Only relax dependencies if their chain length is less than MaxDepth
 		for _, ch := range v.ProblemChains {
 			if opts.MaxDepth <= 0 || len(ch.Edges) <= opts.MaxDepth {
-				vk, req := ch.DirectDependency()
+				vk, req := ch.Direct()
 				toRelax[vk] = req
 			}
 		}
