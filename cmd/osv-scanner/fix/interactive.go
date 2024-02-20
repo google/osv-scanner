@@ -6,8 +6,6 @@ import (
 	tea "github.com/charmbracelet/bubbletea"
 )
 
-// TODO: this file is too big
-
 // TODO: currently, it's impossible to undo commands
 // Need to think about how to support this
 
