@@ -1634,7 +1634,7 @@ func TestRun_WithCycloneDX15(t *testing.T) {
 	require.NoError(t, err)
 
 	location := sbom.PackageLocations{
-		Block: sbom.PackageLocation{
+		Block: &sbom.PackageLocation{
 			Filename:    filepath.FromSlash("/pom.xml"),
 			LineStart:   25,
 			LineEnd:     28,

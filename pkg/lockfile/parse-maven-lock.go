@@ -35,9 +35,50 @@ type MavenLockDependencyHolder struct {
 	Dependencies []MavenLockDependency `xml:"dependency"`
 }
 
-func (mld MavenLockDependency) parseResolvedVersion(version string) string {
-	versionRequirementReg := cachedregexp.MustCompile(`[[(]?(.*?)(?:,|[)\]]|$)`)
+/*
+You can see the regex working here : https://regex101.com/r/inAPiN/2
+*/
+func (mld MavenLockDependency) resolvePropertiesValue(lockfile MavenLockFile, fieldToResolve string) string {
+	interpolationReg := cachedregexp.MustCompile(`\${([^}]+)}`)
 
+	result := interpolationReg.ReplaceAllFunc([]byte(fieldToResolve), func(bytes []byte) []byte {
+		propStr := string(bytes)
+		propName := propStr[2 : len(propStr)-1]
+		var property string
+		var ok bool
+
+		// If the fieldToResolve is the internal version fieldToResolve, then lets use the one declared
+		if strings.ToLower(propName) == projectVersionPropName && len(lockfile.Version) > 0 {
+			property = lockfile.Version
+			ok = true
+		} else {
+			property, ok = lockfile.Properties.m[propName]
+			if ok && interpolationReg.MatchString(property) {
+				// Property uses other properties
+				property = mld.resolvePropertiesValue(lockfile, property)
+			}
+		}
+
+		if !ok {
+			fmt.Fprintf(
+				os.Stderr,
+				"Failed to resolve a property. fieldToResolve \"%s\" could not be found for \"%s\"\n",
+				string(bytes),
+				lockfile.GroupID+":"+lockfile.ArtifactID,
+			)
+
+			return []byte("")
+		}
+
+		return []byte(property)
+	})
+
+	return string(result)
+}
+
+func (mld MavenLockDependency) ResolveVersion(lockfile MavenLockFile) string {
+	versionRequirementReg := cachedregexp.MustCompile(`[[(]?(.*?)(?:,|[)\]]|$)`)
+	version := mld.resolvePropertiesValue(lockfile, mld.Version)
 	results := versionRequirementReg.FindStringSubmatch(version)
 
 	if results == nil || results[1] == "" {
@@ -47,45 +88,12 @@ func (mld MavenLockDependency) parseResolvedVersion(version string) string {
 	return results[1]
 }
 
-/*
-You can see the regex working here : https://regex101.com/r/inAPiN/2
-*/
-func (mld MavenLockDependency) resolveVersionValue(lockfile MavenLockFile) string {
-	interpolationReg := cachedregexp.MustCompile(`\${([^}]+)}`)
-	result := interpolationReg.ReplaceAllFunc([]byte(mld.Version), func(bytes []byte) []byte {
-		propStr := string(bytes)
-		propName := propStr[2 : len(propStr)-1]
-		var property string
-		var ok bool
-
-		// If the property is the internal version property, then lets use the one declared
-		if strings.ToLower(propName) == projectVersionPropName && len(lockfile.Version) > 0 {
-			property = lockfile.Version
-			ok = true
-		} else {
-			property, ok = lockfile.Properties.m[propName]
-		}
-
-		if !ok {
-			fmt.Fprintf(
-				os.Stderr,
-				"Failed to resolve version of %s: property \"%s\" could not be found for \"%s\"\n",
-				mld.GroupID+":"+mld.ArtifactID,
-				string(bytes),
-				lockfile.GroupID+":"+lockfile.ArtifactID,
-			)
-
-			return []byte("0")
-		}
-
-		return []byte(mld.parseResolvedVersion(property))
-	})
-
-	return mld.parseResolvedVersion(string(result))
+func (mld MavenLockDependency) ResolveArtifactID(lockfile MavenLockFile) string {
+	return mld.resolvePropertiesValue(lockfile, mld.ArtifactID)
 }
 
-func (mld MavenLockDependency) ResolveVersion(lockfile MavenLockFile) string {
-	return mld.resolveVersionValue(lockfile)
+func (mld MavenLockDependency) ResolveGroupID(lockfile MavenLockFile) string {
+	return mld.resolvePropertiesValue(lockfile, mld.GroupID)
 }
 
 type MavenLockFile struct {
@@ -259,7 +267,9 @@ func (e MavenLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 	details := map[string]PackageDetails{}
 
 	for _, lockPackage := range parsedLockfile.Dependencies.Dependencies {
-		finalName := lockPackage.GroupID + ":" + lockPackage.ArtifactID
+		resolvedGroupID := lockPackage.ResolveGroupID(*parsedLockfile)
+		resolvedArtifactID := lockPackage.ResolveArtifactID(*parsedLockfile)
+		finalName := resolvedGroupID + ":" + resolvedArtifactID
 
 		pkgDetails := PackageDetails{
 			Name:       finalName,
@@ -278,7 +288,9 @@ func (e MavenLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 
 	// If a dependency is declared and have not specified its version, then use the one declared in the managed dependencies
 	for _, lockPackage := range parsedLockfile.ManagedDependencies.Dependencies {
-		finalName := lockPackage.GroupID + ":" + lockPackage.ArtifactID
+		resolvedGroupID := lockPackage.ResolveGroupID(*parsedLockfile)
+		resolvedArtifactID := lockPackage.ResolveArtifactID(*parsedLockfile)
+		finalName := resolvedGroupID + ":" + resolvedArtifactID
 		pkgDetails, pkgExists := details[finalName]
 		if !pkgExists {
 			continue

@@ -7,6 +7,8 @@ import (
 	"path/filepath"
 	"testing"
 
+	"github.com/stretchr/testify/require"
+
 	"github.com/google/osv-scanner/pkg/models"
 
 	"github.com/google/osv-scanner/pkg/lockfile"
@@ -737,6 +739,52 @@ func TestParseMavenLock_WithProjectVersionProperty(t *testing.T) {
 			Commit:     "",
 			SourceFile: lockfilePath,
 			Line:       models.Position{Start: 8, End: 12},
+			Column:     models.Position{Start: 5, End: 18},
+			DepGroups:  nil,
+		},
+	})
+}
+
+func TestParseMavenLock_ResolveProperties(t *testing.T) {
+	t.Parallel()
+	dir, err := os.Getwd()
+
+	require.NoError(t, err)
+	lockfilePath := filepath.Join(dir, filepath.FromSlash("fixtures/maven/resolve-properties.xml"))
+	packages, err := lockfile.ParseMavenLock(lockfilePath)
+	require.NoError(t, err)
+
+	expectPackages(t, packages, []lockfile.PackageDetails{
+		{
+			Name:       "io.netty:netty-all",
+			Version:    "4.1.42.Final",
+			Ecosystem:  lockfile.MavenEcosystem,
+			CompareAs:  lockfile.MavenEcosystem,
+			Commit:     "",
+			SourceFile: lockfilePath,
+			Line:       models.Position{Start: 27, End: 30},
+			Column:     models.Position{Start: 5, End: 18},
+			DepGroups:  nil,
+		},
+		{
+			Name:       "com.google.code.findbugs:jsr305",
+			Version:    "9.4.35.v20201120",
+			Ecosystem:  lockfile.MavenEcosystem,
+			CompareAs:  lockfile.MavenEcosystem,
+			Commit:     "",
+			SourceFile: lockfilePath,
+			Line:       models.Position{Start: 31, End: 35},
+			Column:     models.Position{Start: 5, End: 18},
+			DepGroups:  nil,
+		},
+		{
+			Name:       "io.ktor:ktor-server-netty-jvm",
+			Version:    "9.4.35.v20201120",
+			Ecosystem:  lockfile.MavenEcosystem,
+			CompareAs:  lockfile.MavenEcosystem,
+			Commit:     "",
+			SourceFile: lockfilePath,
+			Line:       models.Position{Start: 36, End: 40},
 			Column:     models.Position{Start: 5, End: 18},
 			DepGroups:  nil,
 		},
