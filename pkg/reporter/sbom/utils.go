@@ -54,7 +54,7 @@ func groupByPackage(packageSources []models.PackageSource) map[string]packageDet
 
 func extractPackageLocations(pkgSource models.SourceInfo, pkgInfos models.PackageInfo) PackageLocations {
 	return PackageLocations{
-		Block: PackageLocation{
+		Block: &PackageLocation{
 			Filename:    pkgSource.Path,
 			LineStart:   pkgInfos.Line.Start,
 			LineEnd:     pkgInfos.Line.End,
