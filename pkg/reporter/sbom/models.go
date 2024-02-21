@@ -37,7 +37,10 @@ type PackageLocation struct {
 }
 
 type PackageLocations struct {
-	Block PackageLocation `json:"block"`
+	Block     PackageLocation `json:"block"`
+	Namespace PackageLocation `json:"namespace"`
+	Name      PackageLocation `json:"name"`
+	Version   PackageLocation `json:"version"`
 }
 
 const (
