@@ -1605,6 +1605,55 @@ func TestRun_WithoutHostPathInformation(t *testing.T) {
 	}
 }
 
+func TestRun_WithCycloneDX15(t *testing.T) {
+	t.Parallel()
+	args := []string{
+		"",
+		"-r",
+		"--experimental-only-packages",
+		"--format=cyclonedx-1-5",
+		"--consider-scan-path-as-root",
+		"./fixtures/integration-test-locks",
+	}
+	stdoutBuffer := &bytes.Buffer{}
+	stderrBuffer := &bytes.Buffer{}
+
+	ec := run(args, stdoutBuffer, stderrBuffer)
+
+	if ec != 0 {
+		require.Failf(t, "The run did not finish successfully", "Error code = %v ; Error = %v", ec, stderrBuffer.String())
+	}
+
+	stdout := stdoutBuffer.String()
+	bom := cyclonedx.BOM{}
+	err := json.NewDecoder(strings.NewReader(stdout)).Decode(&bom)
+
+	require.NoError(t, err)
+	components := bom.Components
+	expectedComponent := cyclonedx.Component{
+		BOMRef:     "pkg:maven/com.google.code.findbugs/jsr305@3.0.2",
+		PackageURL: "pkg:maven/com.google.code.findbugs/jsr305@3.0.2",
+		Type:       "library",
+		Name:       "com.google.code.findbugs:jsr305",
+		Version:    "3.0.2",
+		Evidence: &cyclonedx.Evidence{
+			Occurrences: &[]cyclonedx.EvidenceOccurrence{
+				{
+					Location: "{\"block\":{\"file_name\":\"/pom.xml\",\"line_start\":25,\"line_end\":28,\"column_start\":5,\"column_end\":18}}\n",
+				},
+			},
+		},
+	}
+	assert.Len(t, *components, 1)
+	component := (*components)[0]
+	assert.EqualValues(t, component.BOMRef, expectedComponent.BOMRef)
+	assert.EqualValues(t, component.PackageURL, expectedComponent.PackageURL)
+	assert.EqualValues(t, component.Type, expectedComponent.Type)
+	assert.EqualValues(t, component.Name, expectedComponent.Name)
+	assert.EqualValues(t, component.Version, expectedComponent.Version)
+	assert.JSONEq(t, (*component.Evidence.Occurrences)[0].Location, (*expectedComponent.Evidence.Occurrences)[0].Location)
+}
+
 func gatherFilepath(bom cyclonedx.BOM) []string {
 	locations := make([]string, 0)
 	for _, component := range *bom.Components {
