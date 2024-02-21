@@ -8,6 +8,16 @@
       "trace": [
         {
           "module": "github.com/gogo/protobuf",
+          "version": "v1.3.1"
+        }
+      ]
+    },
+    {
+      "osv": "GO-2021-0053",
+      "fixed_version": "v1.3.2",
+      "trace": [
+        {
+          "module": "github.com/gogo/protobuf",
           "version": "v1.3.1",
           "package": "github.com/gogo/protobuf/plugin/unmarshal"
         }
@@ -21,9 +31,36 @@
       "trace": [
         {
           "module": "github.com/ipfs/go-bitfield",
+          "version": "v1.0.0"
+        }
+      ]
+    },
+    {
+      "osv": "GO-2023-1558",
+      "fixed_version": "v1.1.0",
+      "trace": [
+        {
+          "module": "github.com/ipfs/go-bitfield",
+          "version": "v1.0.0",
+          "package": "github.com/ipfs/go-bitfield"
+        }
+      ]
+    },
+    {
+      "osv": "GO-2023-1558",
+      "fixed_version": "v1.1.0",
+      "trace": [
+        {
+          "module": "github.com/ipfs/go-bitfield",
           "version": "v1.0.0",
           "package": "github.com/ipfs/go-bitfield",
-          "function": "NewBitfield"
+          "function": "NewBitfield",
+          "position": {
+            "filename": "\u003cAny value\u003e",
+            "offset": -1,
+            "line": 12,
+            "column": 6
+          }
         },
         {
           "module": "github.com/ossf-tests/osv-e2e",
