@@ -3,6 +3,7 @@ package manifest
 import (
 	"bytes"
 	"os"
+	"path/filepath"
 	"reflect"
 	"strings"
 	"testing"
@@ -14,8 +15,8 @@ import (
 )
 
 const (
-	InputFile  = "fixtures/before.xml"
-	OutputFile = "fixtures/after.xml"
+	InputFile  = "before.xml"
+	OutputFile = "after.xml"
 )
 
 var (
@@ -35,11 +36,17 @@ func depTypeWithOrigin(origin string) dep.Type {
 
 func TestMavenRead(t *testing.T) {
 	t.Parallel()
-	mavenIO := MavenManifestIO{}
-	df, err := lockfile.OpenLocalDepFile(InputFile)
+
+	dir, err := os.Getwd()
+	if err != nil {
+		t.Fatalf("failed to get current directory: %v", err)
+	}
+	df, err := lockfile.OpenLocalDepFile(filepath.Join(dir, "fixtures", InputFile))
 	if err != nil {
 		t.Fatalf("fail to open file: %v", err)
 	}
+
+	mavenIO := MavenManifestIO{}
 	got, err := mavenIO.Read(df)
 	if err != nil {
 		t.Fatalf("fail to read file: %v", err)
@@ -251,8 +258,12 @@ func TestMavenRead(t *testing.T) {
 
 func TestMavenWrite(t *testing.T) {
 	t.Parallel()
-	mavenIO := MavenManifestIO{}
-	df, err := lockfile.OpenLocalDepFile(InputFile)
+
+	dir, err := os.Getwd()
+	if err != nil {
+		t.Fatalf("failed to get current directory: %v", err)
+	}
+	df, err := lockfile.OpenLocalDepFile(filepath.Join(dir, "fixtures", InputFile))
 	if err != nil {
 		t.Fatalf("fail to open file: %v", err)
 	}
@@ -320,11 +331,12 @@ func TestMavenWrite(t *testing.T) {
 	}
 
 	buf := new(bytes.Buffer)
+	mavenIO := MavenManifestIO{}
 	if err := mavenIO.Write(df, buf, changes); err != nil {
 		t.Fatalf("unable to update Maven pom.xml: %v", err)
 	}
 
-	want, err := os.ReadFile(OutputFile)
+	want, err := os.ReadFile(filepath.Join(dir, "fixtures", OutputFile))
 	if err != nil {
 		t.Fatalf("unable to read after.xml: %v", err)
 	}
