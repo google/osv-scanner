@@ -21,7 +21,7 @@ import (
 
 type model struct {
 	//nolint:containedctx
-	ctx           context.Context         // Context, mostly used in dep.dev functions
+	ctx           context.Context         // Context, mostly used in deps.dev functions
 	options       osvFixOptions           // options, from command line
 	cl            client.ResolutionClient // graph client used for deps.dev functions
 	lockfileGraph *resolve.Graph
