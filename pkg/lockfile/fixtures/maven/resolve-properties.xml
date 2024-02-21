@@ -1,0 +1,42 @@
+<project>
+  <properties>
+    <version-range>[9.4.35.v20201120,9.5)</version-range>
+    <netty.version>4.1.42.Final</netty.version>
+    <netty.group>io.netty</netty.group>
+    <netty.artifact>netty-all</netty.artifact>
+    <findbugs.group>com.google.code.findbugs</findbugs.group>
+    <findbugs.artifact>jsr305</findbugs.artifact>
+    <ktor.group>io.ktor</ktor.group>
+    <ktor.artifact.prefix>ktor-server</ktor.artifact.prefix>
+    <ktor.artifact.netty>netty-jvm</ktor.artifact.netty>
+    <ktor.artifact>${ktor.artifact.prefix}-${ktor.artifact.netty}</ktor.artifact>
+    <ktor.version>${version-range}</ktor.version>
+  </properties>
+
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>io.netty</groupId>
+        <artifactId>netty-all</artifactId>
+        <version>${netty.version}</version>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+
+  <dependencies>
+    <dependency>
+      <groupId>${netty.group}</groupId>
+      <artifactId>${netty.artifact}</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>${findbugs.group}</groupId>
+      <artifactId>${findbugs.artifact}</artifactId>
+      <version>${version-range}</version>
+    </dependency>
+    <dependency>
+      <groupId>${ktor.group}</groupId>
+      <artifactId>${ktor.artifact}</artifactId>
+      <version>${ktor.version}</version>
+    </dependency>
+  </dependencies>
+</project>
