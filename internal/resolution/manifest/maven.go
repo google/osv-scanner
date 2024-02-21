@@ -23,6 +23,11 @@ const (
 	OriginProfile    = "profile"
 )
 
+type MavenManifestSpecific struct {
+	Properties      []PropertyWithOrigin
+	OriginalImports []resolve.RequirementVersion
+}
+
 type PropertyWithOrigin struct {
 	maven.Property
 	Origin string // Origin indicates where the property comes from
@@ -36,23 +41,28 @@ func (m MavenManifestIO) Read(df lockfile.DepFile) (Manifest, error) {
 	if err := xml.NewDecoder(df).Decode(&project); err != nil {
 		return Manifest{}, fmt.Errorf("failed to unmarshal input: %v", err)
 	}
-	if err := project.Interpolate(); err != nil {
-		return Manifest{}, fmt.Errorf("failed to interpolate project: %v", err)
-	}
 
 	var properties []PropertyWithOrigin
 	for _, prop := range project.Properties.Properties {
 		properties = append(properties, PropertyWithOrigin{Property: prop})
 	}
-	var imports []resolve.RequirementVersion
+
 	groups := make(map[resolve.PackageKey][]string)
-	addImports := func(deps []maven.Dependency, origin string) {
+	// Convert Maven dependencies to an import and add them to imports.
+	// Only interpolated dependencies (free of property placehoders) are added to groups
+	// to avoid duplicates.
+	// For dependencies in profiles and plugins, we use origin to indicate where they are from.
+	// The origin is in the format prefix@identifier[@postfix] (where @ is the separator):
+	//  - prefix indicates it is from profile or plugin
+	//  - identifier to locate the profile/plugin which is profile ID or plugin name
+	//  - (optional) suffix indicates if this is a dependency management
+	addImports := func(imports *[]resolve.RequirementVersion, deps []maven.Dependency, origin string, interpolated bool) {
 		for _, dep := range deps {
 			pk := resolve.PackageKey{
 				System: resolve.Maven,
 				Name:   mavenDepName(dep),
 			}
-			imports = append(imports, resolve.RequirementVersion{
+			*imports = append(*imports, resolve.RequirementVersion{
 				VersionKey: resolve.VersionKey{
 					PackageKey:  pk,
 					VersionType: resolve.Requirement,
@@ -60,11 +70,29 @@ func (m MavenManifestIO) Read(df lockfile.DepFile) (Manifest, error) {
 				},
 				Type: makeMavenDepType(dep, origin),
 			})
-			if dep.Scope != "" {
+			if interpolated && dep.Scope != "" {
 				groups[pk] = append(groups[pk], string(dep.Scope))
 			}
 		}
 	}
+
+	var originalImports []resolve.RequirementVersion
+	addImports(&originalImports, project.Dependencies, "", false)
+	addImports(&originalImports, project.DependencyManagement.Dependencies, OriginManagement, false)
+	for _, profile := range project.Profiles {
+		addImports(&originalImports, profile.Dependencies, mavenOrigin(OriginProfile, string(profile.ID)), false)
+		addImports(&originalImports, profile.DependencyManagement.Dependencies, mavenOrigin(OriginProfile, string(profile.ID), OriginManagement), false)
+	}
+	for _, plugin := range project.Build.PluginManagement.Plugins {
+		addImports(&originalImports, plugin.Dependencies, mavenOrigin(OriginPlugin, mavenName(plugin.ProjectKey)), false)
+	}
+
+	// Interpolate the project to resolve the properties.
+	if err := project.Interpolate(); err != nil {
+		return Manifest{}, fmt.Errorf("failed to interpolate project: %v", err)
+	}
+
+	var imports []resolve.RequirementVersion
 	if project.Parent.GroupID != "" && project.Parent.ArtifactID != "" {
 		imports = append(imports, resolve.RequirementVersion{
 			VersionKey: resolve.VersionKey{
@@ -79,16 +107,11 @@ func (m MavenManifestIO) Read(df lockfile.DepFile) (Manifest, error) {
 			Type: makeMavenDepType(maven.Dependency{}, OriginParent),
 		})
 	}
-	addImports(project.Dependencies, "")
-	addImports(project.DependencyManagement.Dependencies, OriginManagement)
-	// For dependencies in profiles and plugins, we use origin to indicate where they are from.
-	// The origin is in the format prefix@identifier[@postfix] (where @ is the separator):
-	//  - prefix indicates it is from profile or plugin
-	//  - identifier to locate the profile/plugin which is profile ID or plugin name
-	//  - (optional) suffix indicates if this is a dependency management
+	addImports(&imports, project.Dependencies, "", true)
+	addImports(&imports, project.DependencyManagement.Dependencies, OriginManagement, true)
 	for _, profile := range project.Profiles {
-		addImports(profile.Dependencies, mavenOrigin(OriginProfile, string(profile.ID)))
-		addImports(profile.DependencyManagement.Dependencies, mavenOrigin(OriginProfile, string(profile.ID), OriginManagement))
+		addImports(&imports, profile.Dependencies, mavenOrigin(OriginProfile, string(profile.ID)), true)
+		addImports(&imports, profile.DependencyManagement.Dependencies, mavenOrigin(OriginProfile, string(profile.ID), OriginManagement), true)
 		for _, prop := range profile.Properties.Properties {
 			properties = append(properties, PropertyWithOrigin{
 				Property: prop,
@@ -97,8 +120,9 @@ func (m MavenManifestIO) Read(df lockfile.DepFile) (Manifest, error) {
 		}
 	}
 	for _, plugin := range project.Build.PluginManagement.Plugins {
-		addImports(plugin.Dependencies, mavenOrigin(OriginPlugin, mavenName(plugin.ProjectKey)))
+		addImports(&imports, plugin.Dependencies, mavenOrigin(OriginPlugin, mavenName(plugin.ProjectKey)), true)
 	}
+
 	return Manifest{
 		FilePath: df.Path(),
 		Root: resolve.Version{
@@ -111,9 +135,12 @@ func (m MavenManifestIO) Read(df lockfile.DepFile) (Manifest, error) {
 				Version:     string(project.Version),
 			},
 		},
-		Requirements:      imports,
-		Groups:            groups,
-		EcosystemSpecific: properties,
+		Requirements: imports,
+		Groups:       groups,
+		EcosystemSpecific: MavenManifestSpecific{
+			Properties:      properties,
+			OriginalImports: originalImports,
+		},
 	}, nil
 }
 
@@ -206,8 +233,10 @@ type MavenPropertyPatches map[string]map[string]string // origin -> tag -> value
 func (MavenManifestIO) Write(df lockfile.DepFile, w io.Writer, patch ManifestPatch) error {
 	buf := new(bytes.Buffer)
 	buf.ReadFrom(df)
+
 	dec := xml.NewDecoder(bytes.NewReader(buf.Bytes()))
 	enc := xml.NewEncoder(w)
+
 	patches := make(map[string][]DependencyPatch)
 	for _, changedDep := range patch.Deps {
 		_, o, err := depTypeToMavenDependency(changedDep.Type)
@@ -216,6 +245,7 @@ func (MavenManifestIO) Write(df lockfile.DepFile, w io.Writer, patch ManifestPat
 		}
 		patches[o] = append(patches[o], changedDep)
 	}
+
 	for {
 		token, err := dec.Token()
 		if err == io.EOF {
@@ -224,6 +254,7 @@ func (MavenManifestIO) Write(df lockfile.DepFile, w io.Writer, patch ManifestPat
 		if err != nil {
 			return fmt.Errorf("getting token: %v", err)
 		}
+
 		if tt, ok := token.(xml.StartElement); ok {
 			if tt.Name.Local == "project" {
 				type RawProject struct {
@@ -233,9 +264,11 @@ func (MavenManifestIO) Write(df lockfile.DepFile, w io.Writer, patch ManifestPat
 				if err := dec.DecodeElement(&rawProj, &tt); err != nil {
 					return err
 				}
+
 				// xml.EncodeToken writes a start element with its all name spaces.
 				// It's very common to have a start project element with a few name spaces in Maven.
 				// Thus this would cause a big diff when we try to encode the start element of project.
+
 				// We first capture the raw start element string and write it.
 				projectStart := projectStartElement(buf.String())
 				if projectStart == "" {
@@ -244,6 +277,7 @@ func (MavenManifestIO) Write(df lockfile.DepFile, w io.Writer, patch ManifestPat
 				if _, err := w.Write([]byte(projectStart)); err != nil {
 					return fmt.Errorf("writting start element of project: %v", err)
 				}
+
 				properties, ok := patch.EcosystemSpecific.(MavenPropertyPatches)
 				if !ok {
 					return fmt.Errorf("cannot convert ecosystem specific information to Maven properties")
@@ -252,6 +286,7 @@ func (MavenManifestIO) Write(df lockfile.DepFile, w io.Writer, patch ManifestPat
 				if err := updateProject(enc, rawProj.InnerXML, "", "", patches, properties); err != nil {
 					return fmt.Errorf("updating project: %v", err)
 				}
+
 				// Finally we write the end element of project.
 				if _, err := w.Write([]byte("</project>")); err != nil {
 					return fmt.Errorf("writting start element of project: %v", err)
@@ -268,7 +303,6 @@ func (MavenManifestIO) Write(df lockfile.DepFile, w io.Writer, patch ManifestPat
 	}
 	return nil
 }
-
 func updateProject(enc *xml.Encoder, raw, prefix, id string, patches map[string][]DependencyPatch, properties MavenPropertyPatches) error {
 	dec := xml.NewDecoder(bytes.NewReader([]byte(raw)))
 	for {
@@ -279,6 +313,7 @@ func updateProject(enc *xml.Encoder, raw, prefix, id string, patches map[string]
 		if err != nil {
 			return err
 		}
+
 		if tt, ok := token.(xml.StartElement); ok {
 			switch tt.Name.Local {
 			case "parent":
@@ -379,7 +414,6 @@ func updateProject(enc *xml.Encoder, raw, prefix, id string, patches map[string]
 	}
 	return enc.Flush()
 }
-
 func updateDependency(enc *xml.Encoder, raw string, patches []DependencyPatch) error {
 	dec := xml.NewDecoder(bytes.NewReader([]byte(raw)))
 	for {
@@ -390,6 +424,7 @@ func updateDependency(enc *xml.Encoder, raw string, patches []DependencyPatch) e
 		if err != nil {
 			return err
 		}
+
 		if tt, ok := token.(xml.StartElement); ok {
 			if tt.Name.Local == "dependency" {
 				type RawDependency struct {
@@ -425,7 +460,6 @@ func updateDependency(enc *xml.Encoder, raw string, patches []DependencyPatch) e
 	}
 	return enc.Flush()
 }
-
 func updateString(enc *xml.Encoder, raw string, values map[string]string) error {
 	dec := xml.NewDecoder(bytes.NewReader([]byte(raw)))
 	for {

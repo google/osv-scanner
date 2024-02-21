@@ -31,6 +31,7 @@ func depTypeWithOrigin(origin string) dep.Type {
 	result.AddAttr(dep.MavenDependencyOrigin, origin)
 	return result
 }
+
 func TestMavenRead(t *testing.T) {
 	mavenIO := MavenManifestIO{}
 	df, err := lockfile.OpenLocalDepFile(InputFile)
@@ -45,8 +46,10 @@ func TestMavenRead(t *testing.T) {
 		t.Errorf("manifest file path %v does not have input file path %v", got.FilePath, InputFile)
 	}
 	got.FilePath = ""
+
 	depProfileTwoMgmt.AddAttr(dep.MavenArtifactType, "pom")
 	depProfileTwoMgmt.AddAttr(dep.Scope, "import")
+
 	want := Manifest{
 		Root: resolve.Version{
 			VersionKey: resolve.VersionKey{
@@ -151,12 +154,92 @@ func TestMavenRead(t *testing.T) {
 			{System: resolve.Maven, Name: "junit:junit"}:    {"test"},
 			{System: resolve.Maven, Name: "org.import:xyz"}: {"import"},
 		},
-		EcosystemSpecific: []PropertyWithOrigin{
-			{Property: maven.Property{Name: "project.build.sourceEncoding", Value: "UTF-8"}},
-			{Property: maven.Property{Name: "maven.compiler.source", Value: "1.7"}},
-			{Property: maven.Property{Name: "maven.compiler.target", Value: "1.7"}},
-			{Property: maven.Property{Name: "junit.version", Value: "4.12"}},
-			{Property: maven.Property{Name: "def.version", Value: "2.3.4"}, Origin: "profile@profile-one"},
+		EcosystemSpecific: MavenManifestSpecific{
+			Properties: []PropertyWithOrigin{
+				{Property: maven.Property{Name: "project.build.sourceEncoding", Value: "UTF-8"}},
+				{Property: maven.Property{Name: "maven.compiler.source", Value: "1.7"}},
+				{Property: maven.Property{Name: "maven.compiler.target", Value: "1.7"}},
+				{Property: maven.Property{Name: "junit.version", Value: "4.12"}},
+				{Property: maven.Property{Name: "def.version", Value: "2.3.4"}, Origin: "profile@profile-one"},
+			},
+			OriginalImports: []resolve.RequirementVersion{
+				{
+					VersionKey: resolve.VersionKey{
+						PackageKey: resolve.PackageKey{
+							System: resolve.Maven,
+							Name:   "junit:junit",
+						},
+						VersionType: resolve.Requirement,
+						Version:     "${junit.version}",
+					},
+					Type: dep.NewType(dep.Test),
+				},
+				{
+					VersionKey: resolve.VersionKey{
+						PackageKey: resolve.PackageKey{
+							System: resolve.Maven,
+							Name:   "org.example:abc",
+						},
+						VersionType: resolve.Requirement,
+						Version:     "1.0.1",
+					},
+				},
+				{
+					VersionKey: resolve.VersionKey{
+						PackageKey: resolve.PackageKey{
+							System: resolve.Maven,
+							Name:   "org.example:xyz",
+						},
+						VersionType: resolve.Requirement,
+						Version:     "2.0.0",
+					},
+					Type: depMgmt,
+				},
+				{
+					VersionKey: resolve.VersionKey{
+						PackageKey: resolve.PackageKey{
+							System: resolve.Maven,
+							Name:   "org.profile:abc",
+						},
+						VersionType: resolve.Requirement,
+						Version:     "1.2.3",
+					},
+					Type: depProfileOne,
+				},
+				{
+					VersionKey: resolve.VersionKey{
+						PackageKey: resolve.PackageKey{
+							System: resolve.Maven,
+							Name:   "org.profile:def",
+						},
+						VersionType: resolve.Requirement,
+						Version:     "${def.version}",
+					},
+					Type: depProfileOne,
+				},
+				{
+					VersionKey: resolve.VersionKey{
+						PackageKey: resolve.PackageKey{
+							System: resolve.Maven,
+							Name:   "org.import:xyz",
+						},
+						VersionType: resolve.Requirement,
+						Version:     "6.6.6",
+					},
+					Type: depProfileTwoMgmt,
+				},
+				{
+					VersionKey: resolve.VersionKey{
+						PackageKey: resolve.PackageKey{
+							System: resolve.Maven,
+							Name:   "org.dep:plugin-dep",
+						},
+						VersionType: resolve.Requirement,
+						Version:     "2.3.3",
+					},
+					Type: depPlugin,
+				},
+			},
 		},
 	}
 	if !reflect.DeepEqual(got, want) {
@@ -170,8 +253,10 @@ func TestMavenWrite(t *testing.T) {
 	if err != nil {
 		t.Fatalf("fail to open file: %v", err)
 	}
+
 	depProfileTwoMgmt.AddAttr(dep.MavenArtifactType, "pom")
 	depProfileTwoMgmt.AddAttr(dep.Scope, "import")
+
 	changes := ManifestPatch{
 		Deps: []DependencyPatch{
 			{
@@ -230,14 +315,17 @@ func TestMavenWrite(t *testing.T) {
 			},
 		},
 	}
+
 	buf := new(bytes.Buffer)
 	if err := mavenIO.Write(df, buf, changes); err != nil {
 		t.Fatalf("unable to update Maven pom.xml: %v", err)
 	}
+
 	want, err := os.ReadFile(OutputFile)
 	if err != nil {
 		t.Fatalf("unable to read after.xml: %v", err)
 	}
+
 	got := buf.Bytes()
 	if !bytes.Equal(got, want) {
 		t.Errorf("Updated pom.xml does not match expected:\n got:\n %s\nwant:\n%s\n", got, want)
