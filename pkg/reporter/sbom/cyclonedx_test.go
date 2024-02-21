@@ -2,9 +2,10 @@ package sbom_test
 
 import (
 	"encoding/json"
-	"fmt"
 	"strings"
 	"testing"
+
+	sbom_test "github.com/google/osv-scanner/internal/utility/sbom"
 
 	"github.com/google/osv-scanner/pkg/reporter/sbom"
 
@@ -112,11 +113,7 @@ func TestEncoding_EncodeComponentsInValidCycloneDX1_4(t *testing.T) {
 	}
 
 	assert.NotNil(t, bom)
-	assert.Len(t, *bom.Components, 2)
-	assertBaseBomEquals(t, expectedBOM, *bom)
-	for _, expectedComponent := range *expectedBOM.Components {
-		assertComponentsContains(t, expectedComponent, *bom.Components)
-	}
+	sbom_test.AssertBomEqual(t, expectedBOM, *bom, false)
 }
 
 func TestEncoding_EncodeComponentsInValidCycloneDX1_5(t *testing.T) {
@@ -189,16 +186,7 @@ func TestEncoding_EncodeComponentsInValidCycloneDX1_5(t *testing.T) {
 	}
 
 	assert.NotNil(t, bom)
-	assertBaseBomEquals(t, expectedBOM, *bom)
-	assert.Len(t, *bom.Components, 2)
-	for _, expectedComponent := range *expectedBOM.Components {
-		actualComponent := assertComponentsContains(t, expectedComponent, *bom.Components)
-		expectedLocations, ok := expectedJSONLocations[actualComponent.PackageURL]
-		if !ok {
-			continue
-		}
-		assertLocationsExactlyContains(t, expectedLocations, *actualComponent.Evidence.Occurrences)
-	}
+	sbom_test.AssertBomEqual(t, expectedBOM, *bom, true)
 }
 
 func buildOccurrences(t *testing.T, purl string, expectedLocations map[string][]JSONMap) *[]cyclonedx.EvidenceOccurrence {
@@ -220,56 +208,4 @@ func buildOccurrences(t *testing.T, purl string, expectedLocations map[string][]
 	}
 
 	return &result
-}
-
-func assertLocationsExactlyContains(t *testing.T, expectedLocations []JSONMap, actualLocations []cyclonedx.EvidenceOccurrence) {
-	t.Helper()
-	assert.EqualValues(t, len(expectedLocations), len(actualLocations), "Size between expected and actual is different")
-	for _, occurrence := range actualLocations {
-		var actualLocation JSONMap
-		err := json.NewDecoder(strings.NewReader(occurrence.Location)).Decode(&actualLocation)
-		require.NoError(t, err)
-
-		assert.Condition(t, assertContainsEquals(expectedLocations, actualLocation))
-	}
-}
-
-func assertContainsEquals(expectedLocations []JSONMap, actualLocation JSONMap) assert.Comparison {
-	return func() bool {
-		for _, expected := range expectedLocations {
-			if fmt.Sprint(expected) == fmt.Sprint(actualLocation) {
-				return true
-			}
-		}
-
-		return false
-	}
-}
-
-func assertBaseBomEquals(t *testing.T, expected, actual cyclonedx.BOM) {
-	t.Helper()
-	assert.EqualValues(t, expected.JSONSchema, actual.JSONSchema)
-	assert.EqualValues(t, expected.Version, actual.Version)
-	assert.EqualValues(t, expected.BOMFormat, actual.BOMFormat)
-	assert.EqualValues(t, expected.SpecVersion, actual.SpecVersion)
-}
-
-func assertComponentsContains(t *testing.T, expected cyclonedx.Component, actual []cyclonedx.Component) *cyclonedx.Component {
-	t.Helper()
-
-	for _, component := range actual {
-		if component.PackageURL != expected.PackageURL {
-			continue
-		}
-		assert.EqualValues(t, expected.Name, component.Name)
-		assert.EqualValues(t, expected.Version, component.Version)
-		assert.EqualValues(t, expected.BOMRef, component.BOMRef)
-		assert.EqualValues(t, expected.PackageURL, component.PackageURL)
-		assert.EqualValues(t, expected.Type, component.Type)
-
-		return &component
-	}
-	assert.FailNowf(t, "Received component array does not contains expected component", "%v", expected)
-
-	return nil
 }

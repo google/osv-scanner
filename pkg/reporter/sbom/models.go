@@ -25,7 +25,7 @@ type packageDetails struct {
 	Name      string
 	Version   string
 	Ecosystem string
-	Locations []packageLocations
+	Locations []PackageLocations
 }
 
 type packageLocation struct {
@@ -36,7 +36,7 @@ type packageLocation struct {
 	ColumnEnd   int    `json:"column_end"`
 }
 
-type packageLocations struct {
+type PackageLocations struct {
 	Block packageLocation `json:"block"`
 }
 

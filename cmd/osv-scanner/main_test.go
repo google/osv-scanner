@@ -12,6 +12,8 @@ import (
 	"strings"
 	"testing"
 
+	sbom_test "github.com/google/osv-scanner/internal/utility/sbom"
+
 	"github.com/CycloneDX/cyclonedx-go"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
@@ -1629,7 +1631,6 @@ func TestRun_WithCycloneDX15(t *testing.T) {
 	err := json.NewDecoder(strings.NewReader(stdout)).Decode(&bom)
 
 	require.NoError(t, err)
-	components := bom.Components
 	expectedComponent := cyclonedx.Component{
 		BOMRef:     "pkg:maven/com.google.code.findbugs/jsr305@3.0.2",
 		PackageURL: "pkg:maven/com.google.code.findbugs/jsr305@3.0.2",
@@ -1644,14 +1645,15 @@ func TestRun_WithCycloneDX15(t *testing.T) {
 			},
 		},
 	}
-	assert.Len(t, *components, 1)
-	component := (*components)[0]
-	assert.EqualValues(t, component.BOMRef, expectedComponent.BOMRef)
-	assert.EqualValues(t, component.PackageURL, expectedComponent.PackageURL)
-	assert.EqualValues(t, component.Type, expectedComponent.Type)
-	assert.EqualValues(t, component.Name, expectedComponent.Name)
-	assert.EqualValues(t, component.Version, expectedComponent.Version)
-	assert.JSONEq(t, (*component.Evidence.Occurrences)[0].Location, (*expectedComponent.Evidence.Occurrences)[0].Location)
+	expectedBom := cyclonedx.BOM{
+		JSONSchema:  "http://cyclonedx.org/schema/bom-1.5.schema.json",
+		BOMFormat:   cyclonedx.BOMFormat,
+		SpecVersion: cyclonedx.SpecVersion1_5,
+		Version:     1,
+		Components:  &[]cyclonedx.Component{expectedComponent},
+	}
+
+	sbom_test.AssertBomEqual(t, expectedBom, bom, true)
 }
 
 func gatherFilepath(bom cyclonedx.BOM) []string {
