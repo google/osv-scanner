@@ -28,7 +28,7 @@ type packageDetails struct {
 	Locations []PackageLocations
 }
 
-type packageLocation struct {
+type PackageLocation struct {
 	Filename    string `json:"file_name"`
 	LineStart   int    `json:"line_start"`
 	LineEnd     int    `json:"line_end"`
@@ -37,7 +37,7 @@ type packageLocation struct {
 }
 
 type PackageLocations struct {
-	Block packageLocation `json:"block"`
+	Block PackageLocation `json:"block"`
 }
 
 const (

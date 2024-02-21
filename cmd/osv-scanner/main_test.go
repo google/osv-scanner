@@ -12,6 +12,8 @@ import (
 	"strings"
 	"testing"
 
+	"github.com/google/osv-scanner/pkg/reporter/sbom"
+
 	sbom_test "github.com/google/osv-scanner/internal/utility/sbom"
 
 	"github.com/CycloneDX/cyclonedx-go"
@@ -1629,8 +1631,20 @@ func TestRun_WithCycloneDX15(t *testing.T) {
 	stdout := stdoutBuffer.String()
 	bom := cyclonedx.BOM{}
 	err := json.NewDecoder(strings.NewReader(stdout)).Decode(&bom)
-
 	require.NoError(t, err)
+
+	location := sbom.PackageLocations{
+		Block: sbom.PackageLocation{
+			Filename:    filepath.FromSlash("/pom.xml"),
+			LineStart:   25,
+			LineEnd:     28,
+			ColumnStart: 5,
+			ColumnEnd:   18,
+		},
+	}
+	jsonLocation := strings.Builder{}
+	require.NoError(t, json.NewEncoder(&jsonLocation).Encode(location))
+
 	expectedComponent := cyclonedx.Component{
 		BOMRef:     "pkg:maven/com.google.code.findbugs/jsr305@3.0.2",
 		PackageURL: "pkg:maven/com.google.code.findbugs/jsr305@3.0.2",
@@ -1640,7 +1654,7 @@ func TestRun_WithCycloneDX15(t *testing.T) {
 		Evidence: &cyclonedx.Evidence{
 			Occurrences: &[]cyclonedx.EvidenceOccurrence{
 				{
-					Location: "{\"block\":{\"file_name\":\"/pom.xml\",\"line_start\":25,\"line_end\":28,\"column_start\":5,\"column_end\":18}}\n",
+					Location: jsonLocation.String(),
 				},
 			},
 		},
