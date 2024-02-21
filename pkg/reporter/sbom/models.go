@@ -25,10 +25,10 @@ type packageDetails struct {
 	Name      string
 	Version   string
 	Ecosystem string
-	Locations []packageLocations
+	Locations []PackageLocations
 }
 
-type packageLocation struct {
+type PackageLocation struct {
 	Filename    string `json:"file_name"`
 	LineStart   int    `json:"line_start"`
 	LineEnd     int    `json:"line_end"`
@@ -36,8 +36,11 @@ type packageLocation struct {
 	ColumnEnd   int    `json:"column_end"`
 }
 
-type packageLocations struct {
-	Block packageLocation `json:"block"`
+type PackageLocations struct {
+	Block     *PackageLocation `json:"block"`
+	Namespace *PackageLocation `json:"namespace,omitempty"`
+	Name      *PackageLocation `json:"name,omitempty"`
+	Version   *PackageLocation `json:"version,omitempty"`
 }
 
 const (

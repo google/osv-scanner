@@ -8,7 +8,7 @@ import (
 	"github.com/google/osv-scanner/pkg/reporter/purl"
 )
 
-func createLocationString(location packageLocations) (string, error) {
+func createLocationString(location PackageLocations) (string, error) {
 	buffer := strings.Builder{}
 	encoder := json.NewEncoder(&buffer)
 
@@ -41,7 +41,7 @@ func groupByPackage(packageSources []models.PackageSource) map[string]packageDet
 					Name:      pkg.Package.Name,
 					Version:   pkg.Package.Version,
 					Ecosystem: pkg.Package.Ecosystem,
-					Locations: make([]packageLocations, 1),
+					Locations: make([]PackageLocations, 1),
 				}
 				newPackage.Locations[0] = location
 				uniquePackages[packageURL.ToString()] = newPackage
@@ -52,9 +52,9 @@ func groupByPackage(packageSources []models.PackageSource) map[string]packageDet
 	return uniquePackages
 }
 
-func extractPackageLocations(pkgSource models.SourceInfo, pkgInfos models.PackageInfo) packageLocations {
-	return packageLocations{
-		Block: packageLocation{
+func extractPackageLocations(pkgSource models.SourceInfo, pkgInfos models.PackageInfo) PackageLocations {
+	return PackageLocations{
+		Block: &PackageLocation{
 			Filename:    pkgSource.Path,
 			LineStart:   pkgInfos.Line.Start,
 			LineEnd:     pkgInfos.Line.End,
