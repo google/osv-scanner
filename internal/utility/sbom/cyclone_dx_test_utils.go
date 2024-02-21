@@ -59,7 +59,7 @@ func assertOccurrencesEquals(t *testing.T, expected []cyclonedx.EvidenceOccurren
 	for _, occurrences := range groupedLocations {
 		if len(occurrences) < 2 {
 			// If there is less than 2 occurrences, it means the arrays are not equals
-			assert.Fail(t, "expected and actual ")
+			assert.Fail(t, "Expected and actual locations does not contain the same paths. expected = %v ; actual = %v", expected, actual)
 		}
 		reference := occurrences[0] // If we have location to compare, then we take the first one as a reference
 		for _, location := range occurrences[1:] {
