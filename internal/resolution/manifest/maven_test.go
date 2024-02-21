@@ -29,10 +29,12 @@ var (
 func depTypeWithOrigin(origin string) dep.Type {
 	var result dep.Type
 	result.AddAttr(dep.MavenDependencyOrigin, origin)
+
 	return result
 }
 
 func TestMavenRead(t *testing.T) {
+	t.Parallel()
 	mavenIO := MavenManifestIO{}
 	df, err := lockfile.OpenLocalDepFile(InputFile)
 	if err != nil {
@@ -248,6 +250,7 @@ func TestMavenRead(t *testing.T) {
 }
 
 func TestMavenWrite(t *testing.T) {
+	t.Parallel()
 	mavenIO := MavenManifestIO{}
 	df, err := lockfile.OpenLocalDepFile(InputFile)
 	if err != nil {
