@@ -11,12 +11,8 @@ import (
 	"deps.dev/util/maven"
 	"deps.dev/util/resolve"
 	"deps.dev/util/resolve/dep"
+	"github.com/google/osv-scanner/internal/testutility"
 	"github.com/google/osv-scanner/pkg/lockfile"
-)
-
-const (
-	InputFile  = "before.xml"
-	OutputFile = "after.xml"
 )
 
 var (
@@ -41,18 +37,18 @@ func TestMavenRead(t *testing.T) {
 	if err != nil {
 		t.Fatalf("failed to get current directory: %v", err)
 	}
-	df, err := lockfile.OpenLocalDepFile(filepath.Join(dir, "fixtures", InputFile))
+	df, err := lockfile.OpenLocalDepFile(filepath.Join(dir, "fixtures", "pom.xml"))
 	if err != nil {
-		t.Fatalf("fail to open file: %v", err)
+		t.Fatalf("failed to open file: %v", err)
 	}
 
 	mavenIO := MavenManifestIO{}
 	got, err := mavenIO.Read(df)
 	if err != nil {
-		t.Fatalf("fail to read file: %v", err)
+		t.Fatalf("failed to read file: %v", err)
 	}
-	if !strings.HasSuffix(got.FilePath, InputFile) {
-		t.Errorf("manifest file path %v does not have input file path %v", got.FilePath, InputFile)
+	if !strings.HasSuffix(got.FilePath, "pom.xml") {
+		t.Errorf("manifest file path %v does not have pom.xml", got.FilePath)
 	}
 	got.FilePath = ""
 
@@ -263,7 +259,7 @@ func TestMavenWrite(t *testing.T) {
 	if err != nil {
 		t.Fatalf("failed to get current directory: %v", err)
 	}
-	df, err := lockfile.OpenLocalDepFile(filepath.Join(dir, "fixtures", InputFile))
+	df, err := lockfile.OpenLocalDepFile(filepath.Join(dir, "fixtures", "pom.xml"))
 	if err != nil {
 		t.Fatalf("fail to open file: %v", err)
 	}
@@ -335,14 +331,5 @@ func TestMavenWrite(t *testing.T) {
 	if err := mavenIO.Write(df, buf, changes); err != nil {
 		t.Fatalf("unable to update Maven pom.xml: %v", err)
 	}
-
-	want, err := os.ReadFile(filepath.Join(dir, "fixtures", OutputFile))
-	if err != nil {
-		t.Fatalf("unable to read after.xml: %v", err)
-	}
-
-	got := buf.Bytes()
-	if !bytes.Equal(got, want) {
-		t.Errorf("Updated pom.xml does not match expected:\n got:\n %s\nwant:\n%s\n", got, want)
-	}
+	testutility.NewSnapshot().WithWindowsReplacements(map[string]string{"\r\n": "\n"}).MatchText(t, buf.String())
 }
