@@ -3,7 +3,6 @@ package customgitignore_test
 
 import (
 	"os"
-	"path"
 	"path/filepath"
 	"reflect"
 	"slices"
@@ -146,29 +145,29 @@ func setupGitRepo(t *testing.T) string {
 	t.Helper()
 
 	// A unique tempdir for local funcs to create a git repo inside
-	gitRepo := path.Join(t.TempDir(), "git_repo")
+	gitRepo := filepath.Join(t.TempDir(), "git_repo")
 
 	// create directory tree within tempdir
-	allPaths := path.Join(gitRepo, "dir_a/dir_b")
-	if err := os.MkdirAll(filepath.FromSlash(allPaths), 0755); err != nil {
+	allPaths := filepath.Join(gitRepo, filepath.FromSlash("dir_a/dir_b"))
+	if err := os.MkdirAll(allPaths, 0755); err != nil {
 		t.Errorf("could not create paths for test: %v", err)
 	}
 
-	allPaths = path.Join(gitRepo, ".git/info/")
-	if err := os.MkdirAll(filepath.FromSlash(allPaths), 0755); err != nil {
+	allPaths = filepath.Join(gitRepo, filepath.FromSlash(".git/info/"))
+	if err := os.MkdirAll(allPaths, 0755); err != nil {
 		t.Errorf("could not create paths for test: %v", err)
 	}
 
 	// initialise a git repo
-	if _, err := git.PlainInit(filepath.FromSlash(gitRepo), false); err != nil {
+	if _, err := git.PlainInit(gitRepo, false); err != nil {
 		t.Errorf("could not initialise git repot for test: %v", err)
 	}
 
 	// add .gitignore files within the tree
-	writeGitignore(t, gitRepo, ".git/info/exclude", "REPO_EXCLUDE_FILE")
-	writeGitignore(t, gitRepo, ".gitignore", "ROOT_GITIGNORE\n"+"/dir_a/dir_b")
-	writeGitignore(t, gitRepo, "dir_a/.gitignore", "DIR_A_GITIGNORE")
-	writeGitignore(t, gitRepo, "dir_a/dir_b/.gitignore", "DIR_B_GITIGNORE")
+	writeGitignore(t, gitRepo, filepath.FromSlash(".git/info/exclude"), "REPO_EXCLUDE_FILE")
+	writeGitignore(t, gitRepo, filepath.FromSlash(".gitignore"), "ROOT_GITIGNORE\n"+"/dir_a/dir_b")
+	writeGitignore(t, gitRepo, filepath.FromSlash("dir_a/.gitignore"), "DIR_A_GITIGNORE")
+	writeGitignore(t, gitRepo, filepath.FromSlash("dir_a/dir_b/.gitignore"), "DIR_B_GITIGNORE")
 
 	return gitRepo
 }
@@ -176,8 +175,8 @@ func setupGitRepo(t *testing.T) string {
 func writeGitignore(t *testing.T, gitRepo, f, s string) {
 	t.Helper()
 
-	f = path.Join(gitRepo, f)
-	if err := os.WriteFile(filepath.FromSlash(f), []byte(s), 0600); err != nil {
+	f = filepath.Join(gitRepo, f)
+	if err := os.WriteFile(f, []byte(s), 0600); err != nil {
 		t.Errorf("could not write file for test: %v", err)
 	}
 }
