@@ -786,7 +786,7 @@ func DoScan(actions ScannerActions, r reporter.Reporter) (models.VulnerabilityRe
 		r.Infof("Filtered %d local package/s from the scan.\n", len(scannedPackages)-len(filteredScannedPackages))
 	}
 
-	vulnsResp, err := makeRequest(r, filteredScannedPackages, actions.CompareLocally, actions.CompareOffline, actions.LocalDBPath)
+	vulnsResp, err := makeRequest(r, &filteredScannedPackages, actions.CompareLocally, actions.CompareOffline, actions.LocalDBPath)
 	if err != nil {
 		return models.VulnerabilityResults{}, err
 	}
@@ -862,7 +862,7 @@ func filterUnscannablePackages(packages []scannedPackage) []scannedPackage {
 
 // patchPackageForRequest modifies packages before they are sent to osv.dev to
 // account for edge cases.
-func patchPackageForRequest(pkg scannedPackage) scannedPackage {
+func patchPackageForRequest(pkg *scannedPackage) *scannedPackage {
 	// Assume Go stdlib patch version as the latest version
 	//
 	// This is done because go1.20 and earlier do not support patch
@@ -888,13 +888,14 @@ func patchPackageForRequest(pkg scannedPackage) scannedPackage {
 
 func makeRequest(
 	r reporter.Reporter,
-	packages []scannedPackage,
+	packages *[]scannedPackage,
 	compareLocally bool,
 	compareOffline bool,
 	localDBPath string) (*osv.HydratedBatchedResponse, error) {
 	// Make OSV queries from the packages.
 	var query osv.BatchedQuery
-	for _, p := range packages {
+	for i := range *packages {
+		p := &(*packages)[i]
 		p = patchPackageForRequest(p)
 		switch {
 		// Prefer making package requests where possible.

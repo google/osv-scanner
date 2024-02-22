@@ -25,6 +25,15 @@ func goAnalysis(r reporter.Reporter, pkgs []models.PackageVulns, source models.S
 		return
 	}
 
+	// Set GOVERSION to the Go version in go.mod.
+	var goVersion string
+	for _, pkg := range pkgs {
+		if pkg.Package.Name == "stdlib" {
+			goVersion = pkg.Package.Version
+		}
+	}
+	os.Setenv("GOVERSION", fmt.Sprintf("go%s", goVersion))
+
 	vulns, vulnsByID := vulnsFromAllPkgs(pkgs)
 	res, err := runGovulncheck(filepath.Dir(source.Path), vulns)
 	if err != nil {
