@@ -126,6 +126,11 @@ func Command(stdout, stderr io.Writer, r *reporter.Reporter) *cli.Command {
 				Name:  "experimental-licenses",
 				Usage: "report on licenses based on an allowlist",
 			},
+			&cli.StringFlag{
+				Name:      "experimental-oci-image",
+				Usage:     "scan an exported OCI compatible container image .tar file",
+				TakesFile: true,
+			},
 		},
 		ArgsUsage: "[directory1 directory2...]",
 		Action: func(c *cli.Context) error {
@@ -215,6 +220,7 @@ func action(context *cli.Context, stdout, stderr io.Writer) (reporter.Reporter, 
 				context.Bool("experimental-licenses-summary"),
 			ScanLicensesSummary:   context.Bool("experimental-licenses-summary"),
 			ScanLicensesAllowlist: context.StringSlice("experimental-licenses"),
+			ScanOCIImage:          context.String("experimental-oci-image"),
 		},
 	}, r)
 

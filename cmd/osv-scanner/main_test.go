@@ -6,6 +6,7 @@ import (
 	"os"
 	"path/filepath"
 	"reflect"
+	"runtime"
 	"strings"
 	"testing"
 
@@ -570,6 +571,36 @@ func TestRun_Licenses(t *testing.T) {
 			name: "Licenses in summary mode json",
 			args: []string{"", "--format=json", "--experimental-licenses-summary", "./fixtures/locks-licenses/package-lock.json"},
 			exit: 0,
+		},
+	}
+	for _, tt := range tests {
+		tt := tt
+		t.Run(tt.name, func(t *testing.T) {
+			t.Parallel()
+
+			testCli(t, tt)
+		})
+	}
+}
+
+func TestRun_OCIImage(t *testing.T) {
+	t.Parallel()
+
+	if //goland:noinspection GoBoolExpressions
+	runtime.GOOS == "windows" {
+		return
+	}
+
+	tests := []cliTestCase{
+		{
+			name: "Alpine 3.10 image tar",
+			args: []string{"", "--experimental-oci-image", "./fixtures/oci-image/alpine-tester.tar"},
+			exit: 1,
+		},
+		{
+			name: "Invalid path",
+			args: []string{"", "--experimental-oci-image", "./fixtures/oci-image/no-file-here.tar"},
+			exit: 127,
 		},
 	}
 	for _, tt := range tests {

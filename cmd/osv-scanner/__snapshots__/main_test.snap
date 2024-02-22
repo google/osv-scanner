@@ -1698,6 +1698,31 @@ No issues found
 
 ---
 
+[TestRun_OCIImage/Alpine_3.10_image_tar - 1]
+Scanning image ./fixtures/oci-image/alpine-tester.tar
++--------------------------------+------+-----------+---------+-----------+--------------------------------------------------------------+
+| OSV URL                        | CVSS | ECOSYSTEM | PACKAGE | VERSION   | SOURCE                                                       |
++--------------------------------+------+-----------+---------+-----------+--------------------------------------------------------------+
+| https://osv.dev/CVE-2018-25032 | 7.5  | Alpine    | zlib    | 1.2.11-r1 | ./fixtures/oci-image/alpine-tester.tar:/lib/apk/db/installed |
+| https://osv.dev/CVE-2022-37434 | 9.8  | Alpine    | zlib    | 1.2.11-r1 | ./fixtures/oci-image/alpine-tester.tar:/lib/apk/db/installed |
++--------------------------------+------+-----------+---------+-----------+--------------------------------------------------------------+
+
+---
+
+[TestRun_OCIImage/Alpine_3.10_image_tar - 2]
+
+---
+
+[TestRun_OCIImage/Invalid_path - 1]
+Scanning image ./fixtures/oci-image/no-file-here.tar
+
+---
+
+[TestRun_OCIImage/Invalid_path - 2]
+failed to open image ./fixtures/oci-image/no-file-here.tar: unable to determine image source
+
+---
+
 [TestRun_SubCommands/scan_with_a_flag - 1]
 Scanning dir ./fixtures/locks-one-with-nested
 Scanned <rootdir>/fixtures/locks-one-with-nested/nested/composer.lock file and found 1 package

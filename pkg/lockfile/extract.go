@@ -7,22 +7,22 @@ import (
 	"strings"
 )
 
-var extractors = map[string]Extractor{}
+var lockfileExtractors = map[string]Extractor{}
 
 func registerExtractor(name string, extractor Extractor) {
-	if _, ok := extractors[name]; ok {
+	if _, ok := lockfileExtractors[name]; ok {
 		panic(fmt.Sprintf("an extractor is already registered as %s", name))
 	}
 
-	extractors[name] = extractor
+	lockfileExtractors[name] = extractor
 }
 
 func FindExtractor(path, extractAs string) (Extractor, string) {
 	if extractAs != "" {
-		return extractors[extractAs], extractAs
+		return lockfileExtractors[extractAs], extractAs
 	}
 
-	for name, extractor := range extractors {
+	for name, extractor := range lockfileExtractors {
 		if extractor.ShouldExtract(path) {
 			return extractor, name
 		}
@@ -32,9 +32,9 @@ func FindExtractor(path, extractAs string) (Extractor, string) {
 }
 
 func ListExtractors() []string {
-	es := make([]string, 0, len(extractors))
+	es := make([]string, 0, len(lockfileExtractors))
 
-	for s := range extractors {
+	for s := range lockfileExtractors {
 		es = append(es, s)
 	}
 
@@ -60,7 +60,7 @@ func ExtractDeps(f DepFile, extractAs string) (Lockfile, error) {
 
 	packages, err := extractor.Extract(f)
 
-	if err != nil && extractAs != "" {
+	if err != nil && extractedAs != "" {
 		err = fmt.Errorf("(extracting as %s) %w", extractedAs, err)
 	}
 

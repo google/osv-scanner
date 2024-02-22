@@ -1,0 +1,112 @@
+
+[TestScanImage/Alpine_3.10_scan - 1]
+{
+  "Lockfiles": [
+    {
+      "filePath": "/lib/apk/db/installed",
+      "parsedAs": "apk-installed",
+      "packages": [
+        {
+          "name": "alpine-baselayout",
+          "version": "3.1.2-r0",
+          "commit": "770d8ce7c6c556d952884ad436dd82b17ceb1a9a",
+          "ecosystem": "Alpine",
+          "compareAs": "Alpine"
+        },
+        {
+          "name": "alpine-keys",
+          "version": "2.1-r2",
+          "commit": "bdc861e495d33e961b7b9884324bea64a16d2b91",
+          "ecosystem": "Alpine",
+          "compareAs": "Alpine"
+        },
+        {
+          "name": "apk-tools",
+          "version": "2.10.6-r0",
+          "commit": "ee458ccae264321745e9622c759baf110130eb2f",
+          "ecosystem": "Alpine",
+          "compareAs": "Alpine"
+        },
+        {
+          "name": "busybox",
+          "version": "1.30.1-r5",
+          "commit": "26527b0535f65a4ac0ae7f3c9afb2294885b21cc",
+          "ecosystem": "Alpine",
+          "compareAs": "Alpine"
+        },
+        {
+          "name": "ca-certificates-cacert",
+          "version": "20191127-r2",
+          "commit": "9677580919b73ca6eff94d3d31b9a846b4e40612",
+          "ecosystem": "Alpine",
+          "compareAs": "Alpine"
+        },
+        {
+          "name": "libc-utils",
+          "version": "0.7.1-r0",
+          "commit": "cdca45021830765ad71e58af7ed31f42d1d3d644",
+          "ecosystem": "Alpine",
+          "compareAs": "Alpine"
+        },
+        {
+          "name": "libcrypto1.1",
+          "version": "1.1.1k-r0",
+          "commit": "b5417b32170f2c945de1735ea728199291ff97b6",
+          "ecosystem": "Alpine",
+          "compareAs": "Alpine"
+        },
+        {
+          "name": "libssl1.1",
+          "version": "1.1.1k-r0",
+          "commit": "b5417b32170f2c945de1735ea728199291ff97b6",
+          "ecosystem": "Alpine",
+          "compareAs": "Alpine"
+        },
+        {
+          "name": "libtls-standalone",
+          "version": "2.9.1-r0",
+          "commit": "981bf8f8fb3cbbc210ee4f2a2fb5b55d0132e02a",
+          "ecosystem": "Alpine",
+          "compareAs": "Alpine"
+        },
+        {
+          "name": "musl",
+          "version": "1.1.22-r4",
+          "commit": "5c22bb085e8e49c9cb402315efad998f7f992dff",
+          "ecosystem": "Alpine",
+          "compareAs": "Alpine"
+        },
+        {
+          "name": "musl-utils",
+          "version": "1.1.22-r4",
+          "commit": "5c22bb085e8e49c9cb402315efad998f7f992dff",
+          "ecosystem": "Alpine",
+          "compareAs": "Alpine"
+        },
+        {
+          "name": "scanelf",
+          "version": "1.2.3-r0",
+          "commit": "7768569c07c52f01b11e62e523cd6ddcb4690889",
+          "ecosystem": "Alpine",
+          "compareAs": "Alpine"
+        },
+        {
+          "name": "ssl_client",
+          "version": "1.30.1-r5",
+          "commit": "26527b0535f65a4ac0ae7f3c9afb2294885b21cc",
+          "ecosystem": "Alpine",
+          "compareAs": "Alpine"
+        },
+        {
+          "name": "zlib",
+          "version": "1.2.11-r1",
+          "commit": "d2bfb22c8e8f67ad7d8d02704f35ec4d2a19f9b9",
+          "ecosystem": "Alpine",
+          "compareAs": "Alpine"
+        }
+      ]
+    }
+  ],
+  "ImagePath": "fixtures/alpine-tester.tar"
+}
+---
