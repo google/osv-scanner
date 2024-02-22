@@ -23,7 +23,8 @@ type npmNodeModule struct {
 	Children     map[string]*npmNodeModule // keyed on package name
 	Deps         map[string]string
 	OptionalDeps map[string]string
-	ActualName   string // set if the node is an alias, the real package name this refers to
+	DevDeps      map[string]string // dev dependencies are also included in Deps
+	ActualName   string            // set if the node is an alias, the real package name this refers to
 }
 
 func (n npmNodeModule) IsAliased() bool {
@@ -84,8 +85,11 @@ func (rw NpmLockfileIO) Read(file lockfile.DepFile) (*resolve.Graph, error) {
 		// Add edges to the correct dependency nodes
 		for depName, depVer := range node.Deps {
 			depNode := rw.findDependencyNode(node, depName)
-			// Using the correct dep.Type{} doesn't really matter for our purposes
-			if err := g.AddEdge(node.NodeID, depNode, depVer, dep.Type{}); err != nil {
+			var typ dep.Type
+			if node.DevDeps[depName] == depVer {
+				typ = dep.NewType(dep.Dev)
+			}
+			if err := g.AddEdge(node.NodeID, depNode, depVer, typ); err != nil {
 				return nil, err
 			}
 		}
@@ -95,7 +99,8 @@ func (rw NpmLockfileIO) Read(file lockfile.DepFile) (*resolve.Graph, error) {
 			if depNode == -1 {
 				continue
 			}
-			if err := g.AddEdge(node.NodeID, depNode, depVer, dep.Type{}); err != nil {
+			typ := dep.NewType(dep.Opt)
+			if err := g.AddEdge(node.NodeID, depNode, depVer, typ); err != nil {
 				return nil, err
 			}
 		}

@@ -27,18 +27,27 @@ func (rw NpmLockfileIO) nodesFromDependencies(lockJSON lockfile.NpmLockfile, man
 	if err := json.NewDecoder(manifestFile).Decode(&manifestJSON); err != nil {
 		return nil, nil, err
 	}
-	deps := make(map[string]string)
-	maps.Copy(deps, manifestJSON.Dependencies)
-	maps.Copy(deps, manifestJSON.DevDependencies)
-	optDeps := make(map[string]string)
-	maps.Copy(optDeps, manifestJSON.OptionalDependencies)
-	// Some versions of npm apparently do not automatically install peerDependencies, so treat them as optional
-	maps.Copy(optDeps, manifestJSON.PeerDependencies)
-	rw.reVersionAliasedDeps(deps)
-	rw.reVersionAliasedDeps(optDeps)
+
+	nodeModuleTree := &npmNodeModule{
+		Children:     make(map[string]*npmNodeModule),
+		Deps:         make(map[string]string),
+		OptionalDeps: make(map[string]string),
+	}
+
+	maps.Copy(nodeModuleTree.Deps, manifestJSON.Dependencies)
+	maps.Copy(nodeModuleTree.Deps, manifestJSON.DevDependencies)
+	rw.reVersionAliasedDeps(nodeModuleTree.Deps)
+
+	nodeModuleTree.DevDeps = maps.Clone(manifestJSON.DevDependencies)
+	rw.reVersionAliasedDeps(nodeModuleTree.DevDeps)
+
+	maps.Copy(nodeModuleTree.OptionalDeps, manifestJSON.OptionalDependencies)
+	// old npm versions / using the --legacy-peer-deps flag doesn't automatically install peer deps, so treat them as optional
+	maps.Copy(nodeModuleTree.OptionalDeps, manifestJSON.PeerDependencies)
+	rw.reVersionAliasedDeps(nodeModuleTree.OptionalDeps)
 
 	var g resolve.Graph
-	nID := g.AddNode(resolve.VersionKey{
+	nodeModuleTree.NodeID = g.AddNode(resolve.VersionKey{
 		PackageKey: resolve.PackageKey{
 			System: resolve.NPM,
 			Name:   manifestJSON.Name,
@@ -46,12 +55,6 @@ func (rw NpmLockfileIO) nodesFromDependencies(lockJSON lockfile.NpmLockfile, man
 		VersionType: resolve.Concrete,
 		Version:     manifestJSON.Version,
 	})
-	nodeModuleTree := &npmNodeModule{
-		NodeID:       nID,
-		Children:     make(map[string]*npmNodeModule),
-		Deps:         deps,
-		OptionalDeps: optDeps,
-	}
 
 	err := rw.computeDependenciesRecursive(&g, nodeModuleTree, lockJSON.Dependencies)
 

@@ -132,23 +132,26 @@ func (rw NpmLockfileIO) nodesFromPackages(lockJSON lockfile.NpmLockfile) (*resol
 }
 
 func (rw NpmLockfileIO) makeNodeModuleDeps(pkg lockfile.NpmLockPackage, includeDev bool) *npmNodeModule {
-	deps := make(map[string]string)
-	maps.Copy(deps, pkg.Dependencies)
-	if includeDev {
-		maps.Copy(deps, pkg.DevDependencies)
-	}
-	optDeps := make(map[string]string)
-	maps.Copy(optDeps, pkg.OptionalDependencies)
-	// Some versions of npm apparently do not automatically install peerDependencies, so treat them as optional
-	maps.Copy(optDeps, pkg.PeerDependencies)
-	rw.reVersionAliasedDeps(deps)
-	rw.reVersionAliasedDeps(optDeps)
-
-	return &npmNodeModule{
+	nm := npmNodeModule{
 		Children:     make(map[string]*npmNodeModule),
-		Deps:         deps,
-		OptionalDeps: optDeps,
+		Deps:         make(map[string]string),
+		OptionalDeps: make(map[string]string),
 	}
+
+	maps.Copy(nm.Deps, pkg.Dependencies)
+	if includeDev {
+		maps.Copy(nm.Deps, pkg.DevDependencies)
+		nm.DevDeps = maps.Clone(pkg.DevDependencies)
+		rw.reVersionAliasedDeps(nm.DevDeps)
+	}
+	rw.reVersionAliasedDeps(nm.Deps)
+
+	maps.Copy(nm.OptionalDeps, pkg.OptionalDependencies)
+	// old npm versions / using the --legacy-peer-deps flag doesn't automatically install peer deps, so treat them as optional
+	maps.Copy(nm.OptionalDeps, pkg.PeerDependencies)
+	rw.reVersionAliasedDeps(nm.OptionalDeps)
+
+	return &nm
 }
 
 func (rw NpmLockfileIO) packageNamesByNodeModuleDepth(packages map[string]lockfile.NpmLockPackage) []string {
