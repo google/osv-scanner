@@ -26,7 +26,7 @@ func TestGitignoreFilesFromMidTree(t *testing.T) {
 	// up the tree at ./dir_a
 	gitRepo = filepath.Join(gitRepo, "dir_a")
 	fs := osfs.New(gitRepo)
-	patterns, err := customgitignore.ReadPatterns(fs, []string{"."})
+	patterns, err := customgitignore.ReadPatterns(fs, []string{"."}, true)
 	if err != nil {
 		t.Errorf("could not read gitignore patterns for test: %v", err)
 	}
@@ -88,7 +88,7 @@ func TestGitignoreFilesFromRoot(t *testing.T) {
 
 	// Read this dir-tree using customgitignore, starting at the root
 	fs := osfs.New(gitRepo)
-	patterns, err := customgitignore.ReadPatterns(fs, []string{"."})
+	patterns, err := customgitignore.ReadPatterns(fs, []string{"."}, true)
 	if err != nil {
 		t.Errorf("could not read gitignore patterns for test: %v", err)
 	}

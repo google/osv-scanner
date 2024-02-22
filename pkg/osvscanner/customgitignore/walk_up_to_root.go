@@ -12,7 +12,7 @@ import (
 	"github.com/go-git/go-git/v5/plumbing/format/gitignore"
 )
 
-func parseGitIgnores(path string, recursive bool) (ps []gitignore.Pattern, repoRootPath string, err error) {
+func parseGitIgnores(path string, recursive bool) (returnPs []gitignore.Pattern, repoRootPath string, err error) {
 	// We need to parse .gitignore files from the root of the git repo to correctly identify ignored files
 	var fs billy.Filesystem
 	var ps, newPs []gitignore.Pattern
@@ -82,6 +82,8 @@ func parseGitIgnores(path string, recursive bool) (ps []gitignore.Pattern, repoR
 		newPs, err = readIgnoreFile(fs, toGoGitPath(pathRel), gitignoreFile)
 		ps = append(ps, newPs...)
 	}
+
+	return ps, repoRootPath, nil
 }
 
 // Recursively walk up the the directory tree processing .gitignore files as we go.
