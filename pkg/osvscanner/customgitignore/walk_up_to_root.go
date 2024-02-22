@@ -1,16 +1,15 @@
 package customgitignore
 
 import (
-	"bufio"
-	"os"
-	"strings"
-	"path/filepath"
 	"errors"
+	"os"
+	"path/filepath"
+	"strings"
 
-	"github.com/go-git/go-git/v5"
-	"github.com/go-git/go-git/v5/plumbing/format/gitignore"
 	"github.com/go-git/go-billy/v5"
 	"github.com/go-git/go-billy/v5/osfs"
+	"github.com/go-git/go-git/v5"
+	"github.com/go-git/go-git/v5/plumbing/format/gitignore"
 )
 
 func parseGitIgnores(path string, recursive bool) (ps []gitignore.Pattern, repoRootPath string, err error) {
@@ -119,7 +118,6 @@ func readIgnoreFilesFromParents(fs billy.Filesystem, pathRel string, pathGitRoot
 	}
 }
 
-
 // returns the path of the root of this repo (ie with the .git dir in it)
 func getRepoRootPath(repo *git.Repository) (string, error) {
 	tree, err := repo.Worktree()
@@ -161,9 +159,12 @@ func toGoGitPath(path string) (pathSlice []string) {
 func getNormalisedDir(path string) (string, error) {
 	checkIsDir, err := isDir(path)
 	switch {
-	case err != nil:	return "", err
-	case checkIsDir:	return filepath.Clean(path), nil // remove any trailing slash separator
-	default: 					return filepath.Dir(path), nil
+	case err != nil:
+		return "", err
+	case checkIsDir:
+		return filepath.Clean(path), nil // remove any trailing slash separator
+	default:
+		return filepath.Dir(path), nil
 	}
 }
 
@@ -171,9 +172,12 @@ func getNormalisedDir(path string) (string, error) {
 func isDir(path string) (b bool, err error) {
 	finfo, err := os.Stat(path)
 	switch {
-	case err != nil: 		return
-	case finfo.IsDir():	return true, nil
-	default:						return false, nil
+	case err != nil:
+		return
+	case finfo.IsDir():
+		return true, nil
+	default:
+		return false, nil
 	}
 }
 
@@ -208,7 +212,6 @@ func isDir(path string) (b bool, err error) {
 //
 // - (In all cases any dirs matched by a .gitignore that was read are skipped, including reading .gitignore files, and any matching files are ignored)
 
-
 // ---------------- REMOVE ----------------
 
 // // Make sure path does't have a trailing slash (os.PathSeparator )
@@ -220,7 +223,6 @@ func isDir(path string) (b bool, err error) {
 // 		return path // /this -> /this
 // 	}
 // }
-
 
 // func readPatternsWithParents(fs billy.Filesystem, path string, ps []gitignore.Pattern) (returnPs []gitignore.Pattern, err error) {
 // }

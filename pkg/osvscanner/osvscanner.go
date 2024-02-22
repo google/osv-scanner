@@ -22,8 +22,8 @@ import (
 	"github.com/google/osv-scanner/pkg/lockfile"
 	"github.com/google/osv-scanner/pkg/models"
 	"github.com/google/osv-scanner/pkg/osv"
-	"github.com/google/osv-scanner/pkg/reporter"
 	"github.com/google/osv-scanner/pkg/osvscanner/customgitignore"
+	"github.com/google/osv-scanner/pkg/reporter"
 
 	depsdevpb "deps.dev/api/v3alpha"
 	"github.com/go-git/go-billy/v5"
