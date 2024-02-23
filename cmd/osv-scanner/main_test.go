@@ -12,6 +12,10 @@ import (
 	"strings"
 	"testing"
 
+	"github.com/google/osv-scanner/pkg/reporter/sbom"
+
+	sbom_test "github.com/google/osv-scanner/internal/utility/sbom"
+
 	"github.com/CycloneDX/cyclonedx-go"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
@@ -1603,6 +1607,67 @@ func TestRun_WithoutHostPathInformation(t *testing.T) {
 			}
 		})
 	}
+}
+
+func TestRun_WithCycloneDX15(t *testing.T) {
+	t.Parallel()
+	args := []string{
+		"",
+		"-r",
+		"--experimental-only-packages",
+		"--format=cyclonedx-1-5",
+		"--consider-scan-path-as-root",
+		"./fixtures/integration-test-locks",
+	}
+	stdoutBuffer := &bytes.Buffer{}
+	stderrBuffer := &bytes.Buffer{}
+
+	ec := run(args, stdoutBuffer, stderrBuffer)
+
+	if ec != 0 {
+		require.Failf(t, "The run did not finish successfully", "Error code = %v ; Error = %v", ec, stderrBuffer.String())
+	}
+
+	stdout := stdoutBuffer.String()
+	bom := cyclonedx.BOM{}
+	err := json.NewDecoder(strings.NewReader(stdout)).Decode(&bom)
+	require.NoError(t, err)
+
+	location := sbom.PackageLocations{
+		Block: &sbom.PackageLocation{
+			Filename:    filepath.FromSlash("/pom.xml"),
+			LineStart:   25,
+			LineEnd:     28,
+			ColumnStart: 5,
+			ColumnEnd:   18,
+		},
+	}
+	jsonLocation := strings.Builder{}
+	require.NoError(t, json.NewEncoder(&jsonLocation).Encode(location))
+
+	expectedComponent := cyclonedx.Component{
+		BOMRef:     "pkg:maven/com.google.code.findbugs/jsr305@3.0.2",
+		PackageURL: "pkg:maven/com.google.code.findbugs/jsr305@3.0.2",
+		Type:       "library",
+		Name:       "com.google.code.findbugs:jsr305",
+		Version:    "3.0.2",
+		Evidence: &cyclonedx.Evidence{
+			Occurrences: &[]cyclonedx.EvidenceOccurrence{
+				{
+					Location: jsonLocation.String(),
+				},
+			},
+		},
+	}
+	expectedBom := cyclonedx.BOM{
+		JSONSchema:  "http://cyclonedx.org/schema/bom-1.5.schema.json",
+		BOMFormat:   cyclonedx.BOMFormat,
+		SpecVersion: cyclonedx.SpecVersion1_5,
+		Version:     1,
+		Components:  &[]cyclonedx.Component{expectedComponent},
+	}
+
+	sbom_test.AssertBomEqual(t, expectedBom, bom, true)
 }
 
 func gatherFilepath(bom cyclonedx.BOM) []string {
