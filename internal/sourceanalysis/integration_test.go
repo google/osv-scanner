@@ -44,13 +44,18 @@ func Test_RunGoVulnCheck(t *testing.T) {
 		vulns = append(vulns, newVuln)
 	}
 
-	res, err := runGovulncheck(filepath.Join(fixturesDir, "test-project"), vulns, "1.21")
+	res, err := runGovulncheck(filepath.Join(fixturesDir, "test-project"), vulns, "1.19")
 	if err != nil {
 		t.Errorf("failed to run RunGoVulnCheck: %v", err)
 	}
 
 	res["GO-2023-1558"][0].Trace[1].Position.Filename = "<Any value>"
 	res["GO-2023-1558"][0].Trace[1].Position.Offset = -1
+
+	for i := 1; i < len(res["GO-2023-2382"][0].Trace); i++ {
+		res["GO-2023-2382"][0].Trace[i].Position.Filename = "<Any value>"
+		res["GO-2023-2382"][0].Trace[i].Position.Offset = -1
+	}
 
 	testutility.NewSnapshot().MatchJSON(t, res)
 }
