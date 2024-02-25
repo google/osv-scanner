@@ -84,8 +84,7 @@ func TestGitignoreFilesFromRoot(t *testing.T) {
 	gitRepo := setupGitRepo(t)
 
 	// Read this dir-tree using customgitignore, starting at the root
-	start := filepath.Join(gitRepo, "dir_a")
-	patterns, _, err := customgitignore.ParseGitIgnores(start, true)
+	patterns, _, err := customgitignore.ParseGitIgnores(gitRepo, true)
 	if err != nil {
 		t.Errorf("could not read gitignore patterns for test: %v", err)
 	}

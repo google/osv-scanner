@@ -75,7 +75,8 @@ func ParseGitIgnores(path string, recursive bool) (returnPs []gitignore.Pattern,
 	switch {
 	case recursive:
 		// Read subdirs, recursively
-		ps, err = readPatterns(fs, toGoGitPath(pathRel), ps)
+		newPs, err = readPatterns(fs, toGoGitPath(pathRel), ps)
+		ps = append(ps, newPs...)
 
 	default: // !recursive
 		// only read single .gitignore file in this dir
@@ -147,7 +148,12 @@ func parentPath(path string) string {
 // This assumes slash-separated paths (eg paths.Join, as
 // opposed to filepath.Join)
 func toGoGitPath(path string) (pathSlice []string) {
-	return strings.Split(path, string(os.PathSeparator))
+	dirPath := strings.Split(path, string(os.PathSeparator))
+	if dirPath[0] != "." {
+		dirPath = append([]string{"."}, dirPath...)
+	}
+
+	return dirPath
 }
 
 // Convert path directory without a trailing slash,
