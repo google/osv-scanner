@@ -10,7 +10,6 @@ import (
 
 	"github.com/google/osv-scanner/pkg/osvscanner/customgitignore"
 
-	"github.com/go-git/go-billy/v5/osfs"
 	"github.com/go-git/go-git/v5"
 	"github.com/go-git/go-git/v5/plumbing/format/gitignore"
 )
@@ -23,9 +22,8 @@ func TestGitignoreFilesFromMidTree(t *testing.T) {
 
 	// Read this dir-tree using customgitignore, starting midway
 	// up the tree at ./dir_a
-	gitRepo = filepath.Join(gitRepo, "dir_a")
-	fs := osfs.New(gitRepo)
-	patterns, err := customgitignore.ReadPatterns(fs, []string{"."}, true)
+	start := filepath.Join(gitRepo, "dir_a")
+	patterns, _, err := customgitignore.ParseGitIgnores(start, true)
 	if err != nil {
 		t.Errorf("could not read gitignore patterns for test: %v", err)
 	}
@@ -86,8 +84,8 @@ func TestGitignoreFilesFromRoot(t *testing.T) {
 	gitRepo := setupGitRepo(t)
 
 	// Read this dir-tree using customgitignore, starting at the root
-	fs := osfs.New(gitRepo)
-	patterns, err := customgitignore.ReadPatterns(fs, []string{"."}, true)
+	start := filepath.Join(gitRepo, "dir_a")
+	patterns, _, err := customgitignore.ParseGitIgnores(start, true)
 	if err != nil {
 		t.Errorf("could not read gitignore patterns for test: %v", err)
 	}
