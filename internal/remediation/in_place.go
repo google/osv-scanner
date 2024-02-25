@@ -275,7 +275,7 @@ func inPlaceVulnsNodes(cl client.VulnerabilityClient, graph *resolve.Graph) (inP
 			resVuln := resolution.ResolutionVuln{
 				Vulnerability: vuln,
 				ProblemChains: slices.Clone(chains),
-				DevOnly:       false, // TODO: parse & compute from lockfile
+				DevOnly:       !slices.ContainsFunc(chains, func(dc resolution.DependencyChain) bool { return !resolution.ChainIsDev(dc, nil) }),
 			}
 			idx := slices.IndexFunc(result.vkVulns[vk], func(rv resolution.ResolutionVuln) bool { return rv.Vulnerability.ID == resVuln.Vulnerability.ID })
 			if idx >= 0 {
