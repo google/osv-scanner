@@ -57,6 +57,20 @@ func TestGitignoreFilesFromMidTree(t *testing.T) {
 		t.Errorf("Expected to find a pattern matching dir_a/DIR_A_GITIGNORE from ./dir_a/.gitignore")
 	}
 
+	// expect ./parallel_a/.gitignore to be skipped over
+	//
+	// NOTE: see usage of reflect below to see what's going on
+	for _, pattern := range patterns {
+		// dubious `reflect` hackery means: slice := pattern.pattern
+		fv := reflect.ValueOf(pattern).Elem().FieldByName("pattern")
+
+		// tests if pattern.patter == []string{"DIR_B_GITIGNORE"}
+		if fv.Len() == 1 && fv.Index(0).String() == "PARALLEL_A_GITIGNORE" {
+			t.Fatalf("Expected not to find pattern matching PARALLEL_A_GITIGNORE from ./parallel_a/.gitignore; " +
+				"dir_b should have been ignored by a rule in repository-root .gitignore")
+		}
+	}
+
 	// expect ./dir_a/dir_b/.gitignore to be skipped over
 	//
 	// I want to test for the lack of a GITIGNORE_B match,
@@ -118,6 +132,15 @@ func TestGitignoreFilesFromRoot(t *testing.T) {
 		t.Errorf("Expected to find a pattern matching dir_a/DIR_A_GITIGNORE from ./dir_a/.gitignore")
 	}
 
+	// expect ./parallel_a/.gitignore to be processed
+	hasMatch = slices.ContainsFunc(patterns, func(p gitignore.Pattern) bool {
+		return p.Match([]string{".", "parallel_a", "PARALLEL_A_GITIGNORE"}, false) == gitignore.Exclude
+	})
+
+	if !hasMatch {
+		t.Errorf("Expected to find a pattern matching parallel_a/PARALLEL_A_GITIGNORE from ./dir_a/.gitignore")
+	}
+
 	// expect ./dir_a/dir_b/.gitignore to be skipped over
 	//
 	// I want to test for the lack of a GITIGNORE_B match,
@@ -144,8 +167,10 @@ func setupGitRepo(t *testing.T) string {
 	// A unique tempdir for local funcs to create a git repo inside
 	gitRepo := filepath.Join(t.TempDir(), "git_repo")
 
+	var allPaths string
+
 	// create directory tree within tempdir
-	allPaths := filepath.Join(gitRepo, filepath.FromSlash("dir_a/dir_b"))
+	allPaths = filepath.Join(gitRepo, filepath.FromSlash("dir_a/dir_b"))
 	if err := os.MkdirAll(allPaths, 0755); err != nil {
 		t.Errorf("could not create paths for test: %v", err)
 	}
@@ -153,6 +178,11 @@ func setupGitRepo(t *testing.T) string {
 	allPaths = filepath.Join(gitRepo, filepath.FromSlash(".git/info/"))
 	if err := os.MkdirAll(allPaths, 0755); err != nil {
 		t.Errorf("could not create paths for test: %v", err)
+	}
+
+	allPaths = filepath.Join(gitRepo, "parallel_a/")
+	if err := os.MkdirAll(filepath.FromSlash(allPaths), 0755); err != nil {
+		t.Fatalf("could not create paths for test: %v", err)
 	}
 
 	// initialise a git repo
@@ -165,6 +195,7 @@ func setupGitRepo(t *testing.T) string {
 	writeGitignore(t, gitRepo, filepath.FromSlash(".gitignore"), "ROOT_GITIGNORE\n"+"/dir_a/dir_b")
 	writeGitignore(t, gitRepo, filepath.FromSlash("dir_a/.gitignore"), "DIR_A_GITIGNORE")
 	writeGitignore(t, gitRepo, filepath.FromSlash("dir_a/dir_b/.gitignore"), "DIR_B_GITIGNORE")
+	writeGitignore(t, gitRepo, filepath.FromSlash("parallel_a/.gitignore"), "PARALLEL_A_GITIGNORE")
 
 	return gitRepo
 }
