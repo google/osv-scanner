@@ -167,7 +167,7 @@ func TestMavenRead(t *testing.T) {
 				{Property: maven.Property{Name: "junit.version", Value: "4.12"}},
 				{Property: maven.Property{Name: "def.version", Value: "2.3.4"}, Origin: "profile@profile-one"},
 			},
-			OriginalImports: []resolve.RequirementVersion{
+			OriginalRequirements: []resolve.RequirementVersion{
 				{
 					VersionKey: resolve.VersionKey{
 						PackageKey: resolve.PackageKey{

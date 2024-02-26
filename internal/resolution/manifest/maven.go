@@ -24,8 +24,8 @@ const (
 )
 
 type MavenManifestSpecific struct {
-	Properties      []PropertyWithOrigin
-	OriginalImports []resolve.RequirementVersion
+	Properties           []PropertyWithOrigin
+	OriginalRequirements []resolve.RequirementVersion
 }
 
 type PropertyWithOrigin struct {
@@ -51,23 +51,23 @@ func (m MavenManifestIO) Read(df lockfile.DepFile) (Manifest, error) {
 		properties = append(properties, PropertyWithOrigin{Property: prop})
 	}
 
-	var originalImports []resolve.RequirementVersion
-	addOriginalImports := func(deps []maven.Dependency, origin string) {
+	var originalRequirements []resolve.RequirementVersion
+	addOriginalRequirements := func(deps []maven.Dependency, origin string) {
 		for _, dep := range deps {
 			if ContainsProperty(dep.Version) {
 				// We only need the original import if the version contains any property.
-				originalImports = append(originalImports, makeRequirementVersion(dep, origin))
+				originalRequirements = append(originalRequirements, makeRequirementVersion(dep, origin))
 			}
 		}
 	}
-	addOriginalImports(project.Dependencies, "")
-	addOriginalImports(project.DependencyManagement.Dependencies, OriginManagement)
+	addOriginalRequirements(project.Dependencies, "")
+	addOriginalRequirements(project.DependencyManagement.Dependencies, OriginManagement)
 	for _, profile := range project.Profiles {
-		addOriginalImports(profile.Dependencies, mavenOrigin(OriginProfile, string(profile.ID)))
-		addOriginalImports(profile.DependencyManagement.Dependencies, mavenOrigin(OriginProfile, string(profile.ID), OriginManagement))
+		addOriginalRequirements(profile.Dependencies, mavenOrigin(OriginProfile, string(profile.ID)))
+		addOriginalRequirements(profile.DependencyManagement.Dependencies, mavenOrigin(OriginProfile, string(profile.ID), OriginManagement))
 	}
 	for _, plugin := range project.Build.PluginManagement.Plugins {
-		addOriginalImports(plugin.Dependencies, mavenOrigin(OriginPlugin, mavenName(plugin.ProjectKey)))
+		addOriginalRequirements(plugin.Dependencies, mavenOrigin(OriginPlugin, mavenName(plugin.ProjectKey)))
 	}
 
 	// Interpolate the project to resolve the properties.
@@ -75,11 +75,11 @@ func (m MavenManifestIO) Read(df lockfile.DepFile) (Manifest, error) {
 		return Manifest{}, fmt.Errorf("failed to interpolate project: %w", err)
 	}
 
-	var imports []resolve.RequirementVersion
+	var requirements []resolve.RequirementVersion
 	groups := make(map[resolve.PackageKey][]string)
-	addImports := func(deps []maven.Dependency, origin string) {
+	addRequirements := func(deps []maven.Dependency, origin string) {
 		for _, dep := range deps {
-			imports = append(imports, makeRequirementVersion(dep, origin))
+			requirements = append(requirements, makeRequirementVersion(dep, origin))
 			if dep.Scope != "" {
 				pk := resolve.PackageKey{
 					System: resolve.Maven,
@@ -90,7 +90,7 @@ func (m MavenManifestIO) Read(df lockfile.DepFile) (Manifest, error) {
 		}
 	}
 	if project.Parent.GroupID != "" && project.Parent.ArtifactID != "" {
-		imports = append(imports, resolve.RequirementVersion{
+		requirements = append(requirements, resolve.RequirementVersion{
 			VersionKey: resolve.VersionKey{
 				PackageKey: resolve.PackageKey{
 					System: resolve.Maven,
@@ -103,11 +103,11 @@ func (m MavenManifestIO) Read(df lockfile.DepFile) (Manifest, error) {
 			Type: makeMavenDepType(maven.Dependency{}, OriginParent),
 		})
 	}
-	addImports(project.Dependencies, "")
-	addImports(project.DependencyManagement.Dependencies, OriginManagement)
+	addRequirements(project.Dependencies, "")
+	addRequirements(project.DependencyManagement.Dependencies, OriginManagement)
 	for _, profile := range project.Profiles {
-		addImports(profile.Dependencies, mavenOrigin(OriginProfile, string(profile.ID)))
-		addImports(profile.DependencyManagement.Dependencies, mavenOrigin(OriginProfile, string(profile.ID), OriginManagement))
+		addRequirements(profile.Dependencies, mavenOrigin(OriginProfile, string(profile.ID)))
+		addRequirements(profile.DependencyManagement.Dependencies, mavenOrigin(OriginProfile, string(profile.ID), OriginManagement))
 		for _, prop := range profile.Properties.Properties {
 			properties = append(properties, PropertyWithOrigin{
 				Property: prop,
@@ -116,7 +116,7 @@ func (m MavenManifestIO) Read(df lockfile.DepFile) (Manifest, error) {
 		}
 	}
 	for _, plugin := range project.Build.PluginManagement.Plugins {
-		addImports(plugin.Dependencies, mavenOrigin(OriginPlugin, mavenName(plugin.ProjectKey)))
+		addRequirements(plugin.Dependencies, mavenOrigin(OriginPlugin, mavenName(plugin.ProjectKey)))
 	}
 
 	return Manifest{
@@ -131,11 +131,11 @@ func (m MavenManifestIO) Read(df lockfile.DepFile) (Manifest, error) {
 				Version:     string(project.Version),
 			},
 		},
-		Requirements: imports,
+		Requirements: requirements,
 		Groups:       groups,
 		EcosystemSpecific: MavenManifestSpecific{
-			Properties:      properties,
-			OriginalImports: originalImports,
+			Properties:           properties,
+			OriginalRequirements: originalRequirements,
 		},
 	}, nil
 }
