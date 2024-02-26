@@ -8,6 +8,7 @@ import (
 // Combined vulnerabilities found for the scanned packages
 type VulnerabilityResults struct {
 	Results                    []PackageSource            `json:"results"`
+	ResultsByPURL              map[string]PackageDetails  `json:"results_by_purl"`
 	ExperimentalAnalysisConfig ExperimentalAnalysisConfig `json:"experimental_config"`
 }
 

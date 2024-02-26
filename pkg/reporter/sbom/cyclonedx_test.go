@@ -18,64 +18,44 @@ import (
 
 type JSONMap = map[string]interface{}
 
-var inputPackages = []models.PackageSource{
-	{
-		Source: models.SourceInfo{
-			Path: "/path/to/lockfile.xml",
-			Type: "",
-		},
-		Packages: []models.PackageVulns{
+var input = map[string]models.PackageDetails{
+	"pkg:maven/com.foo/the-greatest-package@1.0.0": {
+		Name:      "com.foo:the-greatest-package",
+		Version:   "1.0.0",
+		Ecosystem: string(models.EcosystemMaven),
+		Locations: []models.PackageLocations{
 			{
-				Package: models.PackageInfo{
-					Name:      "com.foo:the-greatest-package",
-					Version:   "1.0.0",
-					Ecosystem: string(models.EcosystemMaven),
-					Line: models.Position{
-						Start: 1,
-						End:   3,
-					},
-					Column: models.Position{
-						Start: 30,
-						End:   35,
-					},
+				Block: &models.PackageLocation{
+					Filename:    "/path/to/lockfile.xml",
+					LineStart:   1,
+					LineEnd:     3,
+					ColumnStart: 30,
+					ColumnEnd:   35,
+				},
+			},
+			{
+				Block: &models.PackageLocation{
+					Filename:    "/path/to/another-lockfile.xml",
+					LineStart:   11,
+					LineEnd:     13,
+					ColumnStart: 0,
+					ColumnEnd:   0,
 				},
 			},
 		},
 	},
-	{
-		Source: models.SourceInfo{
-			Path: "/path/to/another-lockfile.xml",
-			Type: "",
-		},
-		Packages: []models.PackageVulns{
+	"pkg:npm/the-npm-package@1.1.0": {
+		Name:      "the-npm-package",
+		Version:   "1.1.0",
+		Ecosystem: string(models.EcosystemMaven),
+		Locations: []models.PackageLocations{
 			{
-				Package: models.PackageInfo{
-					Name:      "com.foo:the-greatest-package",
-					Version:   "1.0.0",
-					Ecosystem: string(models.EcosystemMaven),
-					Line: models.Position{
-						Start: 11,
-						End:   13,
-					},
-				},
-			},
-		},
-	},
-	{
-		Source: models.SourceInfo{
-			Path: "/path/to/npm/lockfile.lock",
-			Type: "",
-		},
-		Packages: []models.PackageVulns{
-			{
-				Package: models.PackageInfo{
-					Name:      "the-npm-package",
-					Version:   "1.1.0",
-					Ecosystem: string(models.EcosystemNPM),
-					Line: models.Position{
-						Start: 12,
-						End:   15,
-					},
+				Block: &models.PackageLocation{
+					Filename:    "/path/to/npm/lockfile.lock",
+					LineStart:   12,
+					LineEnd:     15,
+					ColumnStart: 0,
+					ColumnEnd:   0,
 				},
 			},
 		},
@@ -86,7 +66,7 @@ func TestEncoding_EncodeComponentsInValidCycloneDX1_4(t *testing.T) {
 	t.Parallel()
 
 	// Given
-	bom := sbom.ToCycloneDX14Bom(&strings.Builder{}, inputPackages)
+	bom := sbom.ToCycloneDX14Bom(&strings.Builder{}, input)
 
 	// Then
 	expectedBOM := cyclonedx.BOM{
@@ -119,7 +99,7 @@ func TestEncoding_EncodeComponentsInValidCycloneDX1_4(t *testing.T) {
 func TestEncoding_EncodeComponentsInValidCycloneDX1_5(t *testing.T) {
 	t.Parallel()
 	// Given
-	bom := sbom.ToCycloneDX15Bom(&strings.Builder{}, inputPackages)
+	bom := sbom.ToCycloneDX15Bom(&strings.Builder{}, input)
 
 	// Then
 	expectedJSONLocations := map[string][]JSONMap{
