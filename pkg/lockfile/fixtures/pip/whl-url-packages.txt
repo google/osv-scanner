@@ -1,0 +1,1 @@
+pandas @ https://files.pythonhosted.org/packages/bc/57/8c61a6b2f9798349748701938dfed6d645bd329bfd96245ad98245238b6f/pandas-2.2.1-cp39-cp39-macosx_11_0_arm64.whl
