@@ -3,8 +3,11 @@ package sbom
 import (
 	"io"
 
-	"github.com/CycloneDX/cyclonedx-go"
+	"github.com/google/osv-scanner/pkg/grouper"
+
 	"github.com/google/osv-scanner/pkg/models"
+
+	"github.com/CycloneDX/cyclonedx-go"
 )
 
 func ToCycloneDX14Bom(_ io.Writer, packageSources []models.PackageSource) *cyclonedx.BOM {
@@ -13,7 +16,7 @@ func ToCycloneDX14Bom(_ io.Writer, packageSources []models.PackageSource) *cyclo
 	bom.JSONSchema = cycloneDx14Schema
 	bom.SpecVersion = cyclonedx.SpecVersion1_4
 
-	uniquePackages := groupByPackage(packageSources)
+	uniquePackages := grouper.GroupByPURL(packageSources)
 
 	for packageURL, packageDetail := range uniquePackages {
 		component := cyclonedx.Component{}

@@ -5,8 +5,9 @@ import (
 	"strings"
 	"testing"
 
+	"github.com/google/osv-scanner/pkg/models"
+
 	"github.com/CycloneDX/cyclonedx-go"
-	"github.com/google/osv-scanner/pkg/reporter/sbom"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )
@@ -77,7 +78,7 @@ func groupLocationsByBlockFilePath(occurrences ...[]cyclonedx.EvidenceOccurrence
 
 	for _, currentOccurences := range occurrences {
 		for _, occurrence := range currentOccurences {
-			decodedLocation := sbom.PackageLocations{}
+			decodedLocation := models.PackageLocations{}
 			err := json.NewDecoder(strings.NewReader(occurrence.Location)).Decode(&decodedLocation)
 
 			if err != nil {

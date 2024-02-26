@@ -12,7 +12,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/google/osv-scanner/pkg/reporter/sbom"
+	"github.com/google/osv-scanner/pkg/models"
 
 	sbom_test "github.com/google/osv-scanner/internal/utility/sbom"
 
@@ -1633,8 +1633,8 @@ func TestRun_WithCycloneDX15(t *testing.T) {
 	err := json.NewDecoder(strings.NewReader(stdout)).Decode(&bom)
 	require.NoError(t, err)
 
-	location := sbom.PackageLocations{
-		Block: &sbom.PackageLocation{
+	packageLocations := models.PackageLocations{
+		Block: &models.PackageLocation{
 			Filename:    filepath.FromSlash("/pom.xml"),
 			LineStart:   25,
 			LineEnd:     28,
@@ -1643,7 +1643,7 @@ func TestRun_WithCycloneDX15(t *testing.T) {
 		},
 	}
 	jsonLocation := strings.Builder{}
-	require.NoError(t, json.NewEncoder(&jsonLocation).Encode(location))
+	require.NoError(t, json.NewEncoder(&jsonLocation).Encode(packageLocations))
 
 	expectedComponent := cyclonedx.Component{
 		BOMRef:     "pkg:maven/com.google.code.findbugs/jsr305@3.0.2",
