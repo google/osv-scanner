@@ -30,6 +30,7 @@ func goAnalysis(r reporter.Reporter, pkgs []models.PackageVulns, source models.S
 	for _, pkg := range pkgs {
 		if pkg.Package.Name == "stdlib" {
 			goVersion = pkg.Package.Version
+			break
 		}
 	}
 
