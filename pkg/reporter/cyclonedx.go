@@ -49,7 +49,7 @@ func (r *CycloneDXReporter) PrintTextf(msg string, a ...any) {
 
 func (r *CycloneDXReporter) PrintResult(vulnerabilityResults *models.VulnerabilityResults) error {
 	bomCreator := sbom.SpecVersionToBomCreator[r.version]
-	bom := bomCreator(r.stderr, vulnerabilityResults.Results)
+	bom := bomCreator(r.stderr, vulnerabilityResults.ResultsByPURL)
 	encoder := cyclonedx.NewBOMEncoder(r.stdout, cyclonedx.BOMFileFormatJSON)
 
 	return encoder.Encode(bom)

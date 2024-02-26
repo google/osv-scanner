@@ -4,19 +4,15 @@ import (
 	"fmt"
 	"io"
 
-	"github.com/google/osv-scanner/pkg/grouper"
-
 	"github.com/CycloneDX/cyclonedx-go"
 	"github.com/google/osv-scanner/pkg/models"
 )
 
-func ToCycloneDX15Bom(stderr io.Writer, packageSources []models.PackageSource) *cyclonedx.BOM {
+func ToCycloneDX15Bom(stderr io.Writer, uniquePackages map[string]models.PackageDetails) *cyclonedx.BOM {
 	bom := cyclonedx.NewBOM()
 	components := make([]cyclonedx.Component, 0)
 	bom.JSONSchema = cycloneDx15Schema
 	bom.SpecVersion = cyclonedx.SpecVersion1_5
-
-	uniquePackages := grouper.GroupByPURL(packageSources)
 
 	for packageURL, packageDetail := range uniquePackages {
 		component := cyclonedx.Component{}
