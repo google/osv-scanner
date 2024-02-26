@@ -51,8 +51,12 @@ func parseLine(path string, line string, lineNumber int, lineOffset int, columnS
 			version, _, _ = strings.Cut(strings.TrimSpace(unprocessedVersion), " ")
 		}
 	} else if strings.Contains(line, "@") {
-		unprocessedName, _, _ := strings.Cut(line, "@")
+		unprocessedName, unprocessedFileLocation, _ := strings.Cut(line, "@")
 		name = strings.TrimSpace(unprocessedName)
+		fileLocation := strings.TrimSpace(unprocessedFileLocation)
+		if strings.HasSuffix(fileLocation, ".whl") {
+			version = extractVersionFromWheelURL(fileLocation)
+		}
 	}
 
 	return PackageDetails{
@@ -110,6 +114,20 @@ func isLineContinuation(line string) bool {
 	var re = cachedregexp.MustCompile(`([^\\]|^)(\\{2})*\\$`)
 
 	return re.MatchString(line)
+}
+
+// Please note the whl filename has been standardized here :
+// https://packaging.python.org/en/latest/specifications/binary-distribution-format/#file-name-convention
+func extractVersionFromWheelURL(wheelURL string) string {
+	paths := strings.Split(wheelURL, "/")
+	filename := paths[len(paths)-1]
+	parts := strings.Split(filename, "-")
+
+	if len(parts) < 2 {
+		return "0.0.0"
+	}
+
+	return parts[1]
 }
 
 type RequirementsTxtExtractor struct{}

@@ -1072,7 +1072,7 @@ func TestParseRequirementsTxt_EnvironmentMarkers(t *testing.T) {
 	})
 }
 
-func TestParseRequirementsTxt_UrlPackages(t *testing.T) {
+func TestParseRequirementsTxt_GitUrlPackages(t *testing.T) {
 	t.Parallel()
 
 	lockfileRelativePath := filepath.FromSlash("fixtures/pip/url-packages.txt")
@@ -1101,6 +1101,39 @@ func TestParseRequirementsTxt_UrlPackages(t *testing.T) {
 			Commit:     "",
 			SourceFile: filepath.FromSlash(sourcePath),
 			DepGroups:  []string{"url-packages"},
+		},
+	})
+}
+
+func TestParseRequirementsTxt_WhlUrlPackages(t *testing.T) {
+	t.Parallel()
+
+	lockfileRelativePath := filepath.FromSlash("fixtures/pip/whl-url-packages.txt")
+	packages, err := lockfile.ParseRequirementsTxt(lockfileRelativePath)
+
+	if err != nil {
+		t.Errorf("Got unexpected error: %v", err)
+	}
+	dir, err := os.Getwd()
+	if err != nil {
+		t.Errorf("Got unexpected error: %v", err)
+	}
+	sourcePath := path.Join(dir, lockfileRelativePath)
+
+	if err != nil {
+		t.Errorf("Got unexpected error: %v", err)
+	}
+	expectPackages(t, packages, []lockfile.PackageDetails{
+		{
+			Name:       "pandas",
+			Version:    "2.2.1",
+			Ecosystem:  lockfile.PipEcosystem,
+			CompareAs:  lockfile.PipEcosystem,
+			Line:       models.Position{Start: 1, End: 1},
+			Column:     models.Position{Start: 1, End: 161},
+			Commit:     "",
+			SourceFile: filepath.FromSlash(sourcePath),
+			DepGroups:  []string{"whl-url-packages"},
 		},
 	})
 }
