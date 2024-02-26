@@ -14,6 +14,8 @@ import (
 
 const PipEcosystem Ecosystem = "PyPI"
 
+var wheelPattern = cachedregexp.MustCompile("")
+
 // todo: expand this to support more things, e.g.
 //
 //	https://pip.pypa.io/en/stable/reference/requirements-file-format/#example
@@ -51,8 +53,12 @@ func parseLine(path string, line string, lineNumber int, lineOffset int, columnS
 			version, _, _ = strings.Cut(strings.TrimSpace(unprocessedVersion), " ")
 		}
 	} else if strings.Contains(line, "@") {
-		unprocessedName, _, _ := strings.Cut(line, "@")
+		unprocessedName, unprocessedWheelUrl, _ := strings.Cut(line, "@")
 		name = strings.TrimSpace(unprocessedName)
+		wheelUrl := strings.TrimSpace(unprocessedWheelUrl)
+		if strings.HasSuffix(wheelUrl, ".whl") {
+			version = extractVersionFromWheelUrl(wheelUrl)
+		}
 	}
 
 	return PackageDetails{
@@ -110,6 +116,17 @@ func isLineContinuation(line string) bool {
 	var re = cachedregexp.MustCompile(`([^\\]|^)(\\{2})*\\$`)
 
 	return re.MatchString(line)
+}
+
+func extractVersionFromWheelUrl(wheelUrl string) string {
+	paths := strings.Split(wheelUrl, "/")
+	filename := paths[len(paths)-1]
+	parts := strings.Split(filename, "-")
+
+	if len(parts) < 2 {
+		return "0.0.0"
+	}
+	return parts[1]
 }
 
 type RequirementsTxtExtractor struct{}
