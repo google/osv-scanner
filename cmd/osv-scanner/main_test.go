@@ -1268,8 +1268,8 @@ Filtered 2 vulnerabilities from output
 										"end": 23
 									},
 									"column": {
-										"start": 0,
-										"end": 0
+										"start": 5,
+										"end": 6
 									}
 								},
 								"licenses": [
@@ -1286,8 +1286,8 @@ Filtered 2 vulnerabilities from output
 										"end": 31
 									},
 									"column": {
-										"start": 0,
-										"end": 0
+										"start": 5,
+										"end": 6
 									}
 								},
 								"licenses": [
@@ -1307,8 +1307,8 @@ Filtered 2 vulnerabilities from output
 										"end": 36
 									},
 									"column": {
-										"start": 0,
-										"end": 0
+										"start": 5,
+										"end": 6
 									}
 								},
 								"licenses": [
@@ -1329,8 +1329,8 @@ Filtered 2 vulnerabilities from output
 									"file_name": "<rootdir>/fixtures/locks-licenses/package-lock.json",
 									"line_start": 13,
 									"line_end": 23,
-									"column_start": 0,
-									"column_end": 0
+									"column_start": 5,
+									"column_end": 6
 								}
 							}
 						]
@@ -1345,8 +1345,8 @@ Filtered 2 vulnerabilities from output
 									"file_name": "<rootdir>/fixtures/locks-licenses/package-lock.json",
 									"line_start": 24,
 									"line_end": 31,
-									"column_start": 0,
-									"column_end": 0
+									"column_start": 5,
+									"column_end": 6
 								}
 							}
 						]
@@ -1361,8 +1361,8 @@ Filtered 2 vulnerabilities from output
 									"file_name": "<rootdir>/fixtures/locks-licenses/package-lock.json",
 									"line_start": 32,
 									"line_end": 36,
-									"column_start": 0,
-									"column_end": 0
+									"column_start": 5,
+									"column_end": 6
 								}
 							}
 						]
@@ -1406,8 +1406,8 @@ Filtered 2 vulnerabilities from output
 										"end": 31
 									},
 									"column": {
-										"start": 0,
-										"end": 0
+										"start": 5,
+										"end": 6
 									}
 								},
 								"licenses": [
@@ -1431,8 +1431,8 @@ Filtered 2 vulnerabilities from output
 									"file_name": "<rootdir>/fixtures/locks-licenses/package-lock.json",
 									"line_start": 24,
 									"line_end": 31,
-									"column_start": 0,
-									"column_end": 0
+									"column_start": 5,
+									"column_end": 6
 								}
 							}
 						]
@@ -1476,8 +1476,8 @@ Filtered 2 vulnerabilities from output
 										"end": 23
 									},
 									"column": {
-										"start": 0,
-										"end": 0
+										"start": 5,
+										"end": 6
 									}
 								},
 								"licenses": [
@@ -1494,8 +1494,8 @@ Filtered 2 vulnerabilities from output
 										"end": 31
 									},
 									"column": {
-										"start": 0,
-										"end": 0
+										"start": 5,
+										"end": 6
 									}
 								},
 								"licenses": [
@@ -1512,8 +1512,8 @@ Filtered 2 vulnerabilities from output
 										"end": 36
 									},
 									"column": {
-										"start": 0,
-										"end": 0
+										"start": 5,
+										"end": 6
 									}
 								},
 								"licenses": [
@@ -1534,8 +1534,8 @@ Filtered 2 vulnerabilities from output
 									"file_name": "<rootdir>/fixtures/locks-licenses/package-lock.json",
 									"line_start": 13,
 									"line_end": 23,
-									"column_start": 0,
-									"column_end": 0
+									"column_start": 5,
+									"column_end": 6
 								}
 							}
 						]
@@ -1550,8 +1550,8 @@ Filtered 2 vulnerabilities from output
 									"file_name": "<rootdir>/fixtures/locks-licenses/package-lock.json",
 									"line_start": 24,
 									"line_end": 31,
-									"column_start": 0,
-									"column_end": 0
+									"column_start": 5,
+									"column_end": 6
 								}
 							}
 						]
@@ -1566,8 +1566,8 @@ Filtered 2 vulnerabilities from output
 									"file_name": "<rootdir>/fixtures/locks-licenses/package-lock.json",
 									"line_start": 32,
 									"line_end": 36,
-									"column_start": 0,
-									"column_end": 0
+									"column_start": 5,
+									"column_end": 6
 								}
 							}
 						]
@@ -1612,8 +1612,8 @@ Filtered 2 vulnerabilities from output
 										"end": 23
 									},
 									"column": {
-										"start": 0,
-										"end": 0
+										"start": 5,
+										"end": 6
 									}
 								},
 								"licenses": [
@@ -1630,8 +1630,8 @@ Filtered 2 vulnerabilities from output
 										"end": 31
 									},
 									"column": {
-										"start": 0,
-										"end": 0
+										"start": 5,
+										"end": 6
 									}
 								},
 								"licenses": [
@@ -1648,8 +1648,8 @@ Filtered 2 vulnerabilities from output
 										"end": 36
 									},
 									"column": {
-										"start": 0,
-										"end": 0
+										"start": 5,
+										"end": 6
 									}
 								},
 								"licenses": [
@@ -1670,8 +1670,8 @@ Filtered 2 vulnerabilities from output
 									"file_name": "<rootdir>/fixtures/locks-licenses/package-lock.json",
 									"line_start": 13,
 									"line_end": 23,
-									"column_start": 0,
-									"column_end": 0
+									"column_start": 5,
+									"column_end": 6
 								}
 							}
 						]
@@ -1686,8 +1686,8 @@ Filtered 2 vulnerabilities from output
 									"file_name": "<rootdir>/fixtures/locks-licenses/package-lock.json",
 									"line_start": 24,
 									"line_end": 31,
-									"column_start": 0,
-									"column_end": 0
+									"column_start": 5,
+									"column_end": 6
 								}
 							}
 						]
@@ -1702,8 +1702,8 @@ Filtered 2 vulnerabilities from output
 									"file_name": "<rootdir>/fixtures/locks-licenses/package-lock.json",
 									"line_start": 32,
 									"line_end": 36,
-									"column_start": 0,
-									"column_end": 0
+									"column_start": 5,
+									"column_end": 6
 								}
 							}
 						]

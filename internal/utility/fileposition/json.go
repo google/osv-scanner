@@ -82,7 +82,8 @@ func openJSONDependency[P models.IFilePosition](key string, line string, depende
 func closeJSONDependency[P models.IFilePosition](line string, dependencies map[string]P, position int, dependency *string) {
 	if dep, ok := dependencies[*dependency]; ok {
 		lineEnd := position + 1
-		columnEnd := GetLastNonEmptyCharacterIndexInLine(line)
+		// Adding two because we want an index start at 1 on columns, and we want to include the closing curly bracket
+		columnEnd := strings.Index(line, "}") + 2
 		dep.SetLineEnd(lineEnd)
 		dep.SetColumnEnd(columnEnd)
 		dependencies[*dependency] = dep
