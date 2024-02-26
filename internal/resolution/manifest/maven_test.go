@@ -183,66 +183,12 @@ func TestMavenRead(t *testing.T) {
 					VersionKey: resolve.VersionKey{
 						PackageKey: resolve.PackageKey{
 							System: resolve.Maven,
-							Name:   "org.example:abc",
-						},
-						VersionType: resolve.Requirement,
-						Version:     "1.0.1",
-					},
-				},
-				{
-					VersionKey: resolve.VersionKey{
-						PackageKey: resolve.PackageKey{
-							System: resolve.Maven,
-							Name:   "org.example:xyz",
-						},
-						VersionType: resolve.Requirement,
-						Version:     "2.0.0",
-					},
-					Type: depMgmt,
-				},
-				{
-					VersionKey: resolve.VersionKey{
-						PackageKey: resolve.PackageKey{
-							System: resolve.Maven,
-							Name:   "org.profile:abc",
-						},
-						VersionType: resolve.Requirement,
-						Version:     "1.2.3",
-					},
-					Type: depProfileOne,
-				},
-				{
-					VersionKey: resolve.VersionKey{
-						PackageKey: resolve.PackageKey{
-							System: resolve.Maven,
 							Name:   "org.profile:def",
 						},
 						VersionType: resolve.Requirement,
 						Version:     "${def.version}",
 					},
 					Type: depProfileOne,
-				},
-				{
-					VersionKey: resolve.VersionKey{
-						PackageKey: resolve.PackageKey{
-							System: resolve.Maven,
-							Name:   "org.import:xyz",
-						},
-						VersionType: resolve.Requirement,
-						Version:     "6.6.6",
-					},
-					Type: depProfileTwoMgmt,
-				},
-				{
-					VersionKey: resolve.VersionKey{
-						PackageKey: resolve.PackageKey{
-							System: resolve.Maven,
-							Name:   "org.dep:plugin-dep",
-						},
-						VersionType: resolve.Requirement,
-						Version:     "2.3.3",
-					},
-					Type: depPlugin,
 				},
 			},
 		},

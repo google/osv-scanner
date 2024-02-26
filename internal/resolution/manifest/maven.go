@@ -35,7 +35,7 @@ type PropertyWithOrigin struct {
 
 // TODO: fetch and merge parent data
 // TODO: process dependencies (imports and dedupe)
-// TODO: handle profiles (activation and intepolation)
+// TODO: handle profiles (activation and interpolation)
 func (m MavenManifestIO) Read(df lockfile.DepFile) (Manifest, error) {
 	var project maven.Project
 	if err := xml.NewDecoder(df).Decode(&project); err != nil {
@@ -51,44 +51,23 @@ func (m MavenManifestIO) Read(df lockfile.DepFile) (Manifest, error) {
 		properties = append(properties, PropertyWithOrigin{Property: prop})
 	}
 
-	groups := make(map[resolve.PackageKey][]string)
 	// Convert Maven dependencies to an import and add them to imports.
-	// Only interpolated dependencies (free of property placehoders) are added to groups
-	// to avoid duplicates.
-	// For dependencies in profiles and plugins, we use origin to indicate where they are from.
-	// The origin is in the format prefix@identifier[@postfix] (where @ is the separator):
-	//  - prefix indicates it is from profile or plugin
-	//  - identifier to locate the profile/plugin which is profile ID or plugin name
-	//  - (optional) suffix indicates if this is a dependency management
-	addImports := func(imports *[]resolve.RequirementVersion, deps []maven.Dependency, origin string, interpolated bool) {
+	var originalImports []resolve.RequirementVersion
+	addOriginalImports := func(deps []maven.Dependency, origin string) {
 		for _, dep := range deps {
-			pk := resolve.PackageKey{
-				System: resolve.Maven,
-				Name:   mavenDepName(dep),
-			}
-			*imports = append(*imports, resolve.RequirementVersion{
-				VersionKey: resolve.VersionKey{
-					PackageKey:  pk,
-					VersionType: resolve.Requirement,
-					Version:     string(dep.Version),
-				},
-				Type: makeMavenDepType(dep, origin),
-			})
-			if interpolated && dep.Scope != "" {
-				groups[pk] = append(groups[pk], string(dep.Scope))
+			if ContainsProperty(dep.Version) {
+				originalImports = append(originalImports, makeRequirementVersion(dep, origin))
 			}
 		}
 	}
-
-	var originalImports []resolve.RequirementVersion
-	addImports(&originalImports, project.Dependencies, "", false)
-	addImports(&originalImports, project.DependencyManagement.Dependencies, OriginManagement, false)
+	addOriginalImports(project.Dependencies, "")
+	addOriginalImports(project.DependencyManagement.Dependencies, OriginManagement)
 	for _, profile := range project.Profiles {
-		addImports(&originalImports, profile.Dependencies, mavenOrigin(OriginProfile, string(profile.ID)), false)
-		addImports(&originalImports, profile.DependencyManagement.Dependencies, mavenOrigin(OriginProfile, string(profile.ID), OriginManagement), false)
+		addOriginalImports(profile.Dependencies, mavenOrigin(OriginProfile, string(profile.ID)))
+		addOriginalImports(profile.DependencyManagement.Dependencies, mavenOrigin(OriginProfile, string(profile.ID), OriginManagement))
 	}
 	for _, plugin := range project.Build.PluginManagement.Plugins {
-		addImports(&originalImports, plugin.Dependencies, mavenOrigin(OriginPlugin, mavenName(plugin.ProjectKey)), false)
+		addOriginalImports(plugin.Dependencies, mavenOrigin(OriginPlugin, mavenName(plugin.ProjectKey)))
 	}
 
 	// Interpolate the project to resolve the properties.
@@ -97,6 +76,19 @@ func (m MavenManifestIO) Read(df lockfile.DepFile) (Manifest, error) {
 	}
 
 	var imports []resolve.RequirementVersion
+	groups := make(map[resolve.PackageKey][]string)
+	addImports := func(deps []maven.Dependency, origin string) {
+		for _, dep := range deps {
+			imports = append(imports, makeRequirementVersion(dep, origin))
+			if dep.Scope != "" {
+				pk := resolve.PackageKey{
+					System: resolve.Maven,
+					Name:   mavenDepName(dep),
+				}
+				groups[pk] = append(groups[pk], string(dep.Scope))
+			}
+		}
+	}
 	if project.Parent.GroupID != "" && project.Parent.ArtifactID != "" {
 		imports = append(imports, resolve.RequirementVersion{
 			VersionKey: resolve.VersionKey{
@@ -111,11 +103,11 @@ func (m MavenManifestIO) Read(df lockfile.DepFile) (Manifest, error) {
 			Type: makeMavenDepType(maven.Dependency{}, OriginParent),
 		})
 	}
-	addImports(&imports, project.Dependencies, "", true)
-	addImports(&imports, project.DependencyManagement.Dependencies, OriginManagement, true)
+	addImports(project.Dependencies, "")
+	addImports(project.DependencyManagement.Dependencies, OriginManagement)
 	for _, profile := range project.Profiles {
-		addImports(&imports, profile.Dependencies, mavenOrigin(OriginProfile, string(profile.ID)), true)
-		addImports(&imports, profile.DependencyManagement.Dependencies, mavenOrigin(OriginProfile, string(profile.ID), OriginManagement), true)
+		addImports(profile.Dependencies, mavenOrigin(OriginProfile, string(profile.ID)))
+		addImports(profile.DependencyManagement.Dependencies, mavenOrigin(OriginProfile, string(profile.ID), OriginManagement))
 		for _, prop := range profile.Properties.Properties {
 			properties = append(properties, PropertyWithOrigin{
 				Property: prop,
@@ -124,7 +116,7 @@ func (m MavenManifestIO) Read(df lockfile.DepFile) (Manifest, error) {
 		}
 	}
 	for _, plugin := range project.Build.PluginManagement.Plugins {
-		addImports(&imports, plugin.Dependencies, mavenOrigin(OriginPlugin, mavenName(plugin.ProjectKey)), true)
+		addImports(plugin.Dependencies, mavenOrigin(OriginPlugin, mavenName(plugin.ProjectKey)))
 	}
 
 	return Manifest{
@@ -146,6 +138,31 @@ func (m MavenManifestIO) Read(df lockfile.DepFile) (Manifest, error) {
 			OriginalImports: originalImports,
 		},
 	}, nil
+}
+
+// ContainsProperty returns whether a string contains property placeholder.
+func ContainsProperty(str maven.String) bool {
+	i := strings.Index(string(str), "${")
+	return i >= 0 && strings.Contains(string(str[i+2:]), "}")
+}
+
+// For dependencies in profiles and plugins, we use origin to indicate where they are from.
+// The origin is in the format prefix@identifier[@postfix] (where @ is the separator):
+//   - prefix indicates it is from profile or plugin
+//   - identifier to locate the profile/plugin which is profile ID or plugin name
+//   - (optional) suffix indicates if this is a dependency management
+func makeRequirementVersion(dep maven.Dependency, origin string) resolve.RequirementVersion {
+	return resolve.RequirementVersion{
+		VersionKey: resolve.VersionKey{
+			PackageKey: resolve.PackageKey{
+				System: resolve.Maven,
+				Name:   mavenDepName(dep),
+			},
+			VersionType: resolve.Requirement,
+			Version:     string(dep.Version),
+		},
+		Type: makeMavenDepType(dep, origin),
+	}
 }
 
 func mavenName(key maven.ProjectKey) string {
