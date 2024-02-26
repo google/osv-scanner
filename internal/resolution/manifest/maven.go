@@ -51,11 +51,11 @@ func (m MavenManifestIO) Read(df lockfile.DepFile) (Manifest, error) {
 		properties = append(properties, PropertyWithOrigin{Property: prop})
 	}
 
-	// Convert Maven dependencies to an import and add them to imports.
 	var originalImports []resolve.RequirementVersion
 	addOriginalImports := func(deps []maven.Dependency, origin string) {
 		for _, dep := range deps {
 			if ContainsProperty(dep.Version) {
+				// We only need the original import if the version contains any property.
 				originalImports = append(originalImports, makeRequirementVersion(dep, origin))
 			}
 		}
