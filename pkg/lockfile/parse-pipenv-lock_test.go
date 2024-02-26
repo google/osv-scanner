@@ -180,7 +180,7 @@ func TestParsePipenvLock_TwoPackagesAlt(t *testing.T) {
 			Ecosystem: lockfile.PipenvEcosystem,
 			CompareAs: lockfile.PipenvEcosystem,
 			Line:      models.Position{Start: 19, End: 26},
-			Column:    models.Position{Start: 7, End: 9},
+			Column:    models.Position{Start: 7, End: 8},
 		},
 		{
 			Name:      "markupsafe",
@@ -209,7 +209,7 @@ func TestParsePipenvLock_MultiplePackages(t *testing.T) {
 			Ecosystem: lockfile.PipenvEcosystem,
 			CompareAs: lockfile.PipenvEcosystem,
 			Line:      models.Position{Start: 19, End: 26},
-			Column:    models.Position{Start: 7, End: 9},
+			Column:    models.Position{Start: 7, End: 8},
 		},
 		{
 			Name:      "pluggy",
@@ -217,7 +217,7 @@ func TestParsePipenvLock_MultiplePackages(t *testing.T) {
 			Ecosystem: lockfile.PipenvEcosystem,
 			CompareAs: lockfile.PipenvEcosystem,
 			Line:      models.Position{Start: 27, End: 31},
-			Column:    models.Position{Start: 7, End: 9},
+			Column:    models.Position{Start: 7, End: 8},
 		},
 		{
 			Name:      "pluggy",
