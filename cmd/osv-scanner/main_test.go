@@ -1806,7 +1806,7 @@ func TestRun_WithCycloneDX15(t *testing.T) {
 	require.NoError(t, err)
 
 	packageLocations := models.PackageLocations{
-		Block: &models.PackageLocation{
+		Block: models.PackageLocation{
 			Filename:    filepath.FromSlash("/pom.xml"),
 			LineStart:   25,
 			LineEnd:     28,

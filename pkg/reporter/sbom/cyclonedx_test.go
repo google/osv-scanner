@@ -25,7 +25,7 @@ var input = map[string]models.PackageDetails{
 		Ecosystem: string(models.EcosystemMaven),
 		Locations: []models.PackageLocations{
 			{
-				Block: &models.PackageLocation{
+				Block: models.PackageLocation{
 					Filename:    "/path/to/lockfile.xml",
 					LineStart:   1,
 					LineEnd:     3,
@@ -34,7 +34,7 @@ var input = map[string]models.PackageDetails{
 				},
 			},
 			{
-				Block: &models.PackageLocation{
+				Block: models.PackageLocation{
 					Filename:    "/path/to/another-lockfile.xml",
 					LineStart:   11,
 					LineEnd:     13,
@@ -50,7 +50,7 @@ var input = map[string]models.PackageDetails{
 		Ecosystem: string(models.EcosystemMaven),
 		Locations: []models.PackageLocations{
 			{
-				Block: &models.PackageLocation{
+				Block: models.PackageLocation{
 					Filename:    "/path/to/npm/lockfile.lock",
 					LineStart:   12,
 					LineEnd:     15,
