@@ -24,8 +24,8 @@ const (
 )
 
 type MavenManifestSpecific struct {
-	Properties           []PropertyWithOrigin
-	OriginalRequirements []resolve.RequirementVersion
+	Properties                 []PropertyWithOrigin
+	RequirementsWithProperties []resolve.RequirementVersion
 }
 
 type PropertyWithOrigin struct {
@@ -51,23 +51,23 @@ func (m MavenManifestIO) Read(df lockfile.DepFile) (Manifest, error) {
 		properties = append(properties, PropertyWithOrigin{Property: prop})
 	}
 
-	var originalRequirements []resolve.RequirementVersion
-	addOriginalRequirements := func(deps []maven.Dependency, origin string) {
+	var reqsWithProps []resolve.RequirementVersion
+	addReqsWithProps := func(deps []maven.Dependency, origin string) {
 		for _, dep := range deps {
 			if ContainsProperty(dep.Version) {
 				// We only need the original import if the version contains any property.
-				originalRequirements = append(originalRequirements, makeRequirementVersion(dep, origin))
+				reqsWithProps = append(reqsWithProps, makeRequirementVersion(dep, origin))
 			}
 		}
 	}
-	addOriginalRequirements(project.Dependencies, "")
-	addOriginalRequirements(project.DependencyManagement.Dependencies, OriginManagement)
+	addReqsWithProps(project.Dependencies, "")
+	addReqsWithProps(project.DependencyManagement.Dependencies, OriginManagement)
 	for _, profile := range project.Profiles {
-		addOriginalRequirements(profile.Dependencies, mavenOrigin(OriginProfile, string(profile.ID)))
-		addOriginalRequirements(profile.DependencyManagement.Dependencies, mavenOrigin(OriginProfile, string(profile.ID), OriginManagement))
+		addReqsWithProps(profile.Dependencies, mavenOrigin(OriginProfile, string(profile.ID)))
+		addReqsWithProps(profile.DependencyManagement.Dependencies, mavenOrigin(OriginProfile, string(profile.ID), OriginManagement))
 	}
 	for _, plugin := range project.Build.PluginManagement.Plugins {
-		addOriginalRequirements(plugin.Dependencies, mavenOrigin(OriginPlugin, mavenName(plugin.ProjectKey)))
+		addReqsWithProps(plugin.Dependencies, mavenOrigin(OriginPlugin, mavenName(plugin.ProjectKey)))
 	}
 
 	// Interpolate the project to resolve the properties.
@@ -134,8 +134,8 @@ func (m MavenManifestIO) Read(df lockfile.DepFile) (Manifest, error) {
 		Requirements: requirements,
 		Groups:       groups,
 		EcosystemSpecific: MavenManifestSpecific{
-			Properties:           properties,
-			OriginalRequirements: originalRequirements,
+			Properties:                 properties,
+			RequirementsWithProperties: reqsWithProps,
 		},
 	}, nil
 }
