@@ -169,13 +169,13 @@ func action(context *cli.Context, stdout, stderr io.Writer) (reporter.Reporter, 
 	}
 
 	if context.Bool("experimental-licenses-summary") && context.IsSet("experimental-licenses") {
-		return nil, fmt.Errorf("--experimental-licenses-summary and --experimental-licenses flags cannot be set")
+		return nil, errors.New("--experimental-licenses-summary and --experimental-licenses flags cannot be set")
 	}
 	allowlist := context.StringSlice("experimental-licenses")
 	if context.IsSet("experimental-licenses") {
 		if len(allowlist) == 0 ||
 			(len(allowlist) == 1 && allowlist[0] == "") {
-			return nil, fmt.Errorf("--experimental-licenses requires at least one value")
+			return nil, errors.New("--experimental-licenses requires at least one value")
 		}
 		if unrecognized := spdx.Unrecognized(allowlist); len(unrecognized) > 0 {
 			return nil, fmt.Errorf("--experimental-licenses requires comma-separated spdx licenses. The following license(s) are not recognized as spdx: %s", strings.Join(unrecognized, ","))

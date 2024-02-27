@@ -2,7 +2,6 @@ package lockfile_test
 
 import (
 	"errors"
-	"fmt"
 	"io"
 	"strings"
 	"testing"
@@ -17,7 +16,7 @@ type TestDepFile struct {
 }
 
 func (f TestDepFile) Open(_ string) (lockfile.NestedDepFile, error) {
-	return TestDepFile{}, fmt.Errorf("file opening is not supported")
+	return TestDepFile{}, errors.New("file opening is not supported")
 }
 
 func (f TestDepFile) Path() string { return f.path }
