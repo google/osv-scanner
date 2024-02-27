@@ -144,7 +144,7 @@ func TestGitignoreFilesFromMidTree(t *testing.T) {
 		// dubious `reflect` hackery means: slice := pattern.pattern
 		fv := reflect.ValueOf(pattern).Elem().FieldByName("pattern")
 
-		// tests if pattern.patter == []string{"DIR_B_GITIGNORE"}
+		// tests if pattern.pattern == []string{"DIR_B_GITIGNORE"}
 		if fv.Len() == 1 && fv.Index(0).String() == "DIR_B_GITIGNORE" {
 			t.Errorf("Expected not to find pattern matching DIR_B_GITIGNORE from ./dir_a/dir_b/.gitignore; " +
 				"dir_b should have been ignored by a rule in repository-root .gitignore")
@@ -240,7 +240,7 @@ func TestGitignoreFilesFromRoot(t *testing.T) {
 		// dubious `reflect` hackery means: slice := pattern.pattern
 		fv := reflect.ValueOf(pattern).Elem().FieldByName("pattern")
 
-		// tests if pattern.patter == []string{"DIR_B_GITIGNORE"}
+		// tests if pattern.pattern == []string{"DIR_B_GITIGNORE"}
 		if fv.Len() == 1 && fv.Index(0).String() == "DIR_B_GITIGNORE" {
 			t.Errorf("Expected not to find pattern matching DIR_B_GITIGNORE from ./dir_a/dir_b/.gitignore; " +
 				"dir_b should have been ignored by a rule in repository-root .gitignore")
@@ -309,19 +309,3 @@ func writeGitignore(t *testing.T, gitRepo, f, s string) {
 		t.Errorf("could not write file for test: %v", err)
 	}
 }
-
-// --- NOTES BEGIN ---
-
-// // to pick up:
-//
-// 	f = filepath.Join(tDir, "git_repo/.gitignore")
-//
-// 	f = filepath.Join(tDir, "git_repo/dir_a/.gitignore")
-// 	f = filepath.Join(tDir, "git_repo/dir_a/dir_b/.gitignore")
-//
-// // but not
-//
-// 	f = filepath.Join(tDir, "git_repo/dir_a/dir_b/subdir/.gitignore")
-// 	f = filepath.Join(tDir, "git_repo/not_in_original_path/.gitignore")
-//
-// // Is that about right?
