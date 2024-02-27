@@ -1,0 +1,10 @@
+// Always show child pages in the navigation menu
+// https://github.com/just-the-docs/just-the-docs/issues/245#issuecomment-656334333
+.nav-list .nav-list-item > .nav-list {
+  display: block !important;
+}
+
+// Hide the child page expand arrow, since it doesn't do anything
+.nav-list .nav-list-expander {
+  display: none !important;
+}
