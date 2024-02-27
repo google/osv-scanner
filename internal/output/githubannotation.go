@@ -23,7 +23,7 @@ func createSourceRemediationTable(source models.PackageSource, groupFixedVersion
 
 			vulnIDs := []string{}
 			for _, id := range group.IDs {
-				vulnIDs = append(vulnIDs, fmt.Sprintf("https://osv.dev/%s", id))
+				vulnIDs = append(vulnIDs, "https://osv.dev/"+id)
 			}
 			remediationTable.AppendRow(table.Row{
 				pv.Package.Name,

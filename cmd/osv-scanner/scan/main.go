@@ -48,7 +48,7 @@ func Command(stdout, stderr io.Writer, r *reporter.Reporter) *cli.Command {
 			&cli.StringFlag{
 				Name:    "format",
 				Aliases: []string{"f"},
-				Usage:   fmt.Sprintf("sets the output format; value can be: %s", strings.Join(reporter.Format(), ", ")),
+				Usage:   "sets the output format; value can be: " + strings.Join(reporter.Format(), ", "),
 				Value:   "table",
 				Action: func(context *cli.Context, s string) error {
 					if slices.Contains(reporter.Format(), s) {
@@ -98,7 +98,7 @@ func Command(stdout, stderr io.Writer, r *reporter.Reporter) *cli.Command {
 			},
 			&cli.StringFlag{
 				Name:  "verbosity",
-				Usage: fmt.Sprintf("specify the level of information that should be provided during runtime; value can be: %s", strings.Join(reporter.VerbosityLevels(), ", ")),
+				Usage: "specify the level of information that should be provided during runtime; value can be: " + strings.Join(reporter.VerbosityLevels(), ", "),
 				Value: "info",
 			},
 			&cli.BoolFlag{

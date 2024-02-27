@@ -137,7 +137,7 @@ func runGovulncheck(moddir string, vulns []models.Vulnerability, goVersion strin
 	cmd := scan.Command(context.Background(), "-db", dbdirURL.String(), "-C", moddir, "-json", "./...")
 	var b bytes.Buffer
 	cmd.Stdout = &b
-	cmd.Env = append(os.Environ(), fmt.Sprintf("GOVERSION=go%s", goVersion))
+	cmd.Env = append(os.Environ(), "GOVERSION=go"+goVersion)
 	if err := cmd.Start(); err != nil {
 		return nil, err
 	}
