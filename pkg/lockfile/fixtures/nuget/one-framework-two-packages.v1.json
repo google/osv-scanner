@@ -16,6 +16,9 @@
         "dependencies": {
           "Test.Core": "6.0.0"
         }
+      },
+      "project": {
+        "type": "Project"
       }
     }
   }

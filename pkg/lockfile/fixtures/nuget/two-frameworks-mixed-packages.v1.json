@@ -32,6 +32,9 @@
         "contentHash": "t85dpuIJQkPJYEns5hpfv5r9yBPe7XOnb4zAQYzyvl/cXFgmDjjh0ihVB0vvChuCQJbC4uBHVqnrzqiPlTiaWE==",
         "dependencies": {
           "Test.Core": "6.0.0"
+        },
+        "project": {
+          "type": "Project"
         }
       }
     }
