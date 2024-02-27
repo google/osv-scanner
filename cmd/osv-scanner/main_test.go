@@ -503,16 +503,19 @@ func TestRun_LocalDatabases(t *testing.T) {
 			exit: 0,
 		},
 	}
+
+	var testDir string
+	var cleanupTestDir func()
+	if os.Getenv("TEST_ACCEPTANCE") != "true" {
+		testDir = filepath.Join(os.TempDir(), "osv-scanner-test-0")
+	}
+
 	for _, tt := range tests {
 		tt := tt
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
 
-			var testDir string
-			var cleanupTestDir func()
-
-			if os.Getenv("TEST_ACCEPTANCE") != "true" {
-				testDir = filepath.Join(os.TempDir(), "osv-scanner-test-0")
+			if testDir != "" {
 				err := os.MkdirAll(testDir, 0777)
 				if err != nil {
 					t.Fatalf("could not create test directory: %v", err)
