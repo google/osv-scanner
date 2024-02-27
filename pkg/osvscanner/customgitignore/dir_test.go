@@ -14,6 +14,70 @@ import (
 	"github.com/go-git/go-git/v5/plumbing/format/gitignore"
 )
 
+
+func TestGitignoreFilesFromIgnoredDir(t *testing.T) {
+ 	t.Parallel()
+
+	// Create a specific git repo with .gitignore files
+	gitRepo := setupGitRepo(t)
+
+	// Read this dir-tree using customgitignore, starting at
+	// the top of the tree at ./dir_a/dir_b
+	start := filepath.Join(gitRepo, "dir_a", "dir_b")
+
+	// Read this dir-tree using customgitignore, starting at the root
+	patterns, _, err := customgitignore.ParseGitIgnores(start, true)
+	if err != nil {
+		t.Errorf("could not read gitignore patterns for test: %v", err)
+	}
+
+	var hasMatch bool
+
+	// expect ./dir_a/dir_b/.gitignore to be processed
+	//
+	// Normally the `dir_a/dir_b/.gitignore` entry in
+	// REPO_ROOT/.gitignore would stop this .gitignore from being
+	// processed, but it's read because the file has been explicitly
+	// supplied from the command-line.
+	hasMatch = slices.ContainsFunc(patterns, func(p gitignore.Pattern) bool {
+		return p.Match([]string{".", "dir_a", "dir_b", "DIR_A_GITIGNORE"}, false) == gitignore.Exclude
+	})
+
+	if !hasMatch {
+		t.Errorf("Expected to find a pattern matching dir_a/dir_b/DIR_B_GITIGNORE from ./dir_a/dir_b/.gitignore")
+	}
+
+
+	// expect ./.git/info/exclude to be processed, by backtracking up the tree
+	hasMatch = slices.ContainsFunc(patterns, func(p gitignore.Pattern) bool {
+		return p.Match([]string{".", "REPO_EXCLUDE_FILE"}, false) == gitignore.Exclude
+	})
+
+	if !hasMatch {
+		t.Errorf("Expected to find a pattern matching REPO_EXCLUDE_FILE from ./.git/info/exclude ")
+	}
+
+	// expect ./.gitignore to be processed (by backtracking up the tree)
+	hasMatch = slices.ContainsFunc(patterns, func(p gitignore.Pattern) bool {
+		return p.Match([]string{".", "ROOT_GITIGNORE"}, false) == gitignore.Exclude
+	})
+
+	if !hasMatch {
+		t.Errorf("Expected to find a pattern matching ROOT_GITIGNORE from repository-root .gitignore")
+	}
+
+	// expect ./dir_a/.gitignore to be processed
+	hasMatch = slices.ContainsFunc(patterns, func(p gitignore.Pattern) bool {
+		return p.Match([]string{".", "dir_a", "DIR_A_GITIGNORE"}, false) == gitignore.Exclude
+	})
+
+	if !hasMatch {
+		t.Errorf("Expected to find a pattern matching dir_a/DIR_A_GITIGNORE from ./dir_a/.gitignore")
+	}
+
+
+}
+
 func TestGitignoreFilesFromMidTree(t *testing.T) {
 	t.Parallel()
 
