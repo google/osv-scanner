@@ -39,7 +39,7 @@ func GroupByPURL(packageSources []models.PackageSource) map[string]models.Packag
 
 func extractPackageLocations(pkgSource models.SourceInfo, pkgInfos models.PackageInfo) models.PackageLocations {
 	return models.PackageLocations{
-		Block: &models.PackageLocation{
+		Block: models.PackageLocation{
 			Filename:    pkgSource.Path,
 			LineStart:   pkgInfos.Line.Start,
 			LineEnd:     pkgInfos.Line.End,
