@@ -62,7 +62,7 @@ func normalizeRootDirectory(t *testing.T, str string) string {
 	return strings.ReplaceAll(str, cwd, "<rootdir>")
 }
 
-// normalizeRootDirectory attempts to replace references to the temp directory
+// normalizeTempDirectory attempts to replace references to the temp directory
 // with "<tempdir>", to ensure tests pass across different OSs
 func normalizeTempDirectory(t *testing.T, str string) string {
 	t.Helper()
@@ -508,8 +508,19 @@ func TestRun_LocalDatabases(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
 
-			testDir, cleanupTestDir := createTestDir(t)
-			defer cleanupTestDir()
+			var testDir string
+			var cleanupTestDir func()
+
+			if os.Getenv("TEST_ACCEPTANCE") != "true" {
+				testDir = filepath.Join(os.TempDir(), "osv-scanner-test-0")
+				err := os.MkdirAll(testDir, 0777)
+				if err != nil {
+					t.Fatalf("could not create test directory: %v", err)
+				}
+			} else {
+				testDir, cleanupTestDir = createTestDir(t)
+				defer cleanupTestDir()
+			}
 
 			old := tt.args
 
