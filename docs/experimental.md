@@ -4,7 +4,6 @@ title: Experimental Features
 permalink: /experimental/
 nav_order: 8
 has_children: true
-nav_no_fold: true
 ---
 
 # Experimental Features
