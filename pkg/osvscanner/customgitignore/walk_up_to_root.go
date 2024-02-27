@@ -209,6 +209,10 @@ func isDir(path string) (b bool, err error) {
 // 		- read all .gitignore files in parent dirs up to and including repo-root
 // 			(ie only dirs that are an ancestor)
 // 		- read .git/info/exclude for repo
+//  - NOTE: the dir you're passing in directly could be a dir that is ignored
+//      by a parent's .gitignore or the per-repo exclude file; in this
+//      case, we still process the dir's .gitignore file and, possibly, but
+//      not it's sub-dirs
 //
 // 	- without flag:
 // 		- read .gitignore in start dir
