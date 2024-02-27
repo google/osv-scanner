@@ -17,6 +17,10 @@ import (
 // This uses go-git under the hood and returns a slice
 // of go-git's gitignore.Pattern structs.
 //
+// It also returns the path to the root of the git-repo,
+// or "" if this path isn't within a git repo, allowing
+// a caller to know how .gitingore files were parsed.
+//
 // The actual parsing is inteded to be similar to how tools
 // rg work, but means that `path` may not necessarily be
 // the root of a git repo, and can produces these parsing
@@ -75,7 +79,7 @@ func ParseGitIgnores(path string, recursive bool) (returnPs []gitignore.Pattern,
 	// not in a git repo; do not read .gitignore files
 	// (and ignore recursive setting)
 	if errors.Is(err, git.ErrRepositoryNotExists) {
-		return ps, path, nil
+		return ps, "", nil
 	}
 
 	// inside a git repo
