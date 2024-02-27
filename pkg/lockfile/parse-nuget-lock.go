@@ -4,10 +4,12 @@ import (
 	"encoding/json"
 	"fmt"
 	"path/filepath"
+	"strings"
 )
 
 type NuGetLockPackage struct {
 	Resolved string `json:"resolved"`
+	Type     string `json:"type"`
 }
 
 // NuGetLockfile contains the required dependency information as defined in
@@ -18,11 +20,15 @@ type NuGetLockfile struct {
 }
 
 const NuGetEcosystem Ecosystem = "NuGet"
+const projectDependencyType = "Project"
 
 func parseNuGetLockDependencies(dependencies map[string]NuGetLockPackage) map[string]PackageDetails {
 	details := map[string]PackageDetails{}
 
 	for name, dependency := range dependencies {
+		if strings.EqualFold(dependency.Type, projectDependencyType) {
+			continue
+		}
 		details[name+"@"+dependency.Resolved] = PackageDetails{
 			Name:      name,
 			Version:   dependency.Resolved,

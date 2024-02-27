@@ -7,6 +7,9 @@
         "requested": "[6.0.5, )",
         "resolved": "6.0.5",
         "contentHash": "FwdQVtpj34xt8vKyFUUeNIS+obWlEnSrSW7y1ivRVts/ZsrUsKyOd0bZehgFhWdnB/NBsa9DCWvNFMTO0XDFcg=="
+      },
+      "project": {
+        "type": "Project"
       }
     }
   }

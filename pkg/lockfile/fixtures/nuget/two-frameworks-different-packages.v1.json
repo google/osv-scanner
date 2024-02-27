@@ -7,6 +7,9 @@
         "requested": "[6.0.5, )",
         "resolved": "6.0.5",
         "contentHash": "FwdQVtpj34xt8vKyFUUeNIS+obWlEnSrSW7y1ivRVts/ZsrUsKyOd0bZehgFhWdnB/NBsa9DCWvNFMTO0XDFcg=="
+      },
+      "project": {
+        "type": "Project"
       }
     },
     "net7.0": {
@@ -15,6 +18,9 @@
         "requested": "[0.13.0-beta4, )",
         "resolved": "0.13.0-beta4",
         "contentHash": "5r9yBPe7XOnb4zAQYzyvlt85dpuIJQkPJYEns5hpfv/JbC4uBHVqnrzqiPlTiaWEcXFgmDjjh0ihVB0vvChuCQ=="
+      },
+      "project": {
+        "type": "Project"
       }
     }
   }
