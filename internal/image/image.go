@@ -74,9 +74,9 @@ func ScanImage(r reporter.Reporter, imagePath string) (ScanResults, error) {
 		scannedLockfiles.Lockfiles = append(scannedLockfiles.Lockfiles, parsedLockfile)
 	}
 
-	// err = img.Cleanup()
+	err = img.Cleanup()
 
-	return scannedLockfiles, nil
+	return scannedLockfiles, err
 }
 
 type Image struct {
@@ -93,7 +93,7 @@ func (img *Image) ReadFile(virtualPath string) (fs.File, error) {
 func (img *Image) AllFiles() []FileNode {
 	allFiles := []FileNode{}
 	for _, fn := range img.flattenedFileMaps[len(img.flattenedFileMaps)-1].hashedKeys {
-		if fn.isWhiteout == false {
+		if !fn.isWhiteout {
 			allFiles = append(allFiles, fn)
 		}
 	}
@@ -121,15 +121,15 @@ func loadImage(path string) (Image, error) {
 		return Image{}, err
 	}
 
-	outputImage := Image{
-		tempDir:           tempPath,
-		manifest:          manifest,
-		flattenedFileMaps: make([]FileMap, len(manifest.Layers)),
-	}
-
 	layers, err := image.Layers()
 	if err != nil {
 		return Image{}, err
+	}
+
+	outputImage := Image{
+		tempDir:           tempPath,
+		manifest:          manifest,
+		flattenedFileMaps: make([]FileMap, len(layers)),
 	}
 
 	// Reverse loop through the layers to start from the latest layer first
@@ -141,7 +141,10 @@ func loadImage(path string) (Image, error) {
 		}
 
 		dirPath := filepath.Join(tempPath, hash.String())
-		os.Mkdir(dirPath, 0755)
+		err = os.Mkdir(dirPath, 0755)
+		if err != nil {
+			return Image{}, err
+		}
 
 		layerReader, err := layers[i].Uncompressed()
 		if err != nil {
