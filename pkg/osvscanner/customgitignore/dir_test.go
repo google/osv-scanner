@@ -14,9 +14,8 @@ import (
 	"github.com/go-git/go-git/v5/plumbing/format/gitignore"
 )
 
-
 func TestGitignoreFilesFromIgnoredDir(t *testing.T) {
- 	t.Parallel()
+	t.Parallel()
 
 	// Create a specific git repo with .gitignore files
 	gitRepo := setupGitRepo(t)
@@ -46,7 +45,6 @@ func TestGitignoreFilesFromIgnoredDir(t *testing.T) {
 	if !hasMatch {
 		t.Errorf("Expected to find a pattern matching dir_a/dir_b/DIR_B_GITIGNORE from ./dir_a/dir_b/.gitignore")
 	}
-
 
 	// expect ./.git/info/exclude to be processed, by backtracking up the tree
 	hasMatch = slices.ContainsFunc(patterns, func(p gitignore.Pattern) bool {
