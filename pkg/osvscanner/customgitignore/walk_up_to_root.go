@@ -12,6 +12,50 @@ import (
 	"github.com/go-git/go-git/v5/plumbing/format/gitignore"
 )
 
+// Takes a dir and processes .gitignore files from it.
+//
+// This uses go-git under the hood and returns a slice
+// of go-git's gitignore.Pattern structs.
+//
+// The actual parsing is inteded to be similar to how tools
+// rg work, but means that `path` may not necessarily be
+// the root of a git repo, and can produces these parsing
+// behaviours:
+//
+// - parsing file:
+// 	- find the file's dir and then run the following rules...
+//
+// - parsing dir at the root of a git-repo
+// 	- with recursive flag:
+// 		- read all .gitignore files in repo
+// 		- read .git/info/exclude for repo
+// 	- without recursive flag:
+// 		- read .gitignore files in repo-root
+// 		- read .git/info/exclude for repo
+//
+// - parsing dir within, a git-repo
+// 	- with recursive flag:
+// 		- read .gitignore in start dir
+// 		- read all .gitignore files in child-dirs
+// 		- read all .gitignore files in parent dirs up to and including repo-root
+// 			(ie only dirs that are an ancestor)
+// 		- read .git/info/exclude for repo
+//  - NOTE: the dir you're passing in directly could be a dir that is ignored
+//      by a parent's .gitignore or the per-repo exclude file; in this
+//      case, we still process the dir's .gitignore file and, possibly, but
+//      not it's sub-dirs
+//
+// 	- without recursive flag:
+// 		- read .gitignore in start dir
+// 		- read all .gitignore files in parent dirs up to and including repo-root
+// 			(ie only dirs that are an ancestor)
+// 		- read .git/info/exclude for repo
+//
+// - parsing a plain dir: .gitignore files are ignored
+//
+// In all cases any dirs matched by a previously read
+// .gitignore are skipped, unless it's the path (ie directly
+// supplied by the user).
 func ParseGitIgnores(path string, recursive bool) (returnPs []gitignore.Pattern, repoRootPath string, err error) {
 	// We need to parse .gitignore files from the root of the git repo to correctly identify ignored files
 	var fs billy.Filesystem
@@ -188,59 +232,3 @@ func isDir(path string) (b bool, err error) {
 		return false, nil
 	}
 }
-
-// ---------------- MAYBE ----------------
-
-// - parsing file:
-// 	- find the file's dir and then run the following rules...
-//
-// - parsing dir at the root of a git-repo
-// 	- with recursive flag:
-// 		- read all .gitignore files in repo
-// 		- read .git/info/exclude for repo
-// 	- without flag:
-// 		- read .gitignore files in repo-root
-// 		- read .git/info/exclude for repo
-//
-// - parsing dir within, a git-repo
-// 	- with recursive flag:
-// 		- read .gitignore in start dir
-// 		- read all .gitignore files in child-dirs
-// 		- read all .gitignore files in parent dirs up to and including repo-root
-// 			(ie only dirs that are an ancestor)
-// 		- read .git/info/exclude for repo
-//  - NOTE: the dir you're passing in directly could be a dir that is ignored
-//      by a parent's .gitignore or the per-repo exclude file; in this
-//      case, we still process the dir's .gitignore file and, possibly, but
-//      not it's sub-dirs
-//
-// 	- without flag:
-// 		- read .gitignore in start dir
-// 		- read all .gitignore files in parent dirs up to and including repo-root
-// 			(ie only dirs that are an ancestor)
-// 		- read .git/info/exclude for repo
-//
-// - parsing a plain dir: .gitignore files are ignored
-//
-// - (In all cases any dirs matched by a .gitignore that was read are skipped, including reading .gitignore files, and any matching files are ignored)
-
-// ---------------- REMOVE ----------------
-
-// // Make sure path does't have a trailing slash (os.PathSeparator )
-// func removeTrailingSeparator(path string) string {
-// 	l := len(path)
-// 	if path[l-1] == os.PathSeparator {
-// 		return path[:l-1] // /this/ -> this
-// 	} else {
-// 		return path // /this -> /this
-// 	}
-// }
-
-// func readPatternsWithParents(fs billy.Filesystem, path string, ps []gitignore.Pattern) (returnPs []gitignore.Pattern, err error) {
-// }
-
-// func parseGitIgnoreForGitRoot(path string, recursive bool) (ps []gitignore.Pattern, repoRootPath string, err error) {
-// }
-
-// func parseGitIgnoreForGitMidTree(path string, recursive bool) (ps []gitignore.Pattern, repoRootPath string, err error) {
-// }
