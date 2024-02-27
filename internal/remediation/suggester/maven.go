@@ -5,7 +5,6 @@ import (
 	"errors"
 	"fmt"
 	"log"
-	"os"
 	"strings"
 
 	"deps.dev/util/resolve"
@@ -39,7 +38,7 @@ func (ms *MavenSuggester) Suggest(ctx context.Context, client resolve.Client, mf
 			continue
 		}
 
-		latest, err := suggestVersion(ctx, client, req, slices.Contains(opts.AvoidMajor, req.Name))
+		latest, err := suggestMavenVersion(ctx, client, req, slices.Contains(opts.AvoidMajor, req.Name))
 		if err != nil {
 			return manifest.ManifestPatch{}, fmt.Errorf("suggesting latest version of %s: %w", req.Version, err)
 		}
@@ -48,8 +47,6 @@ func (ms *MavenSuggester) Suggest(ctx context.Context, client resolve.Client, mf
 			continue
 		}
 
-		// TODO: this should go to reporter?
-		fmt.Fprintf(os.Stdout, "Dependency %s has a newer version %s (now using %s)\n", req.Name, latest.Version, req.Version)
 		patch := manifest.DependencyPatch{
 			Pkg:        req.PackageKey,
 			Type:       req.Type,
@@ -112,14 +109,14 @@ func (ms *MavenSuggester) Suggest(ctx context.Context, client resolve.Client, mf
 	}, nil
 }
 
-// suggestVersion returns the latest version based on the given Maven requirement version.
+// suggestMavenVersion returns the latest version based on the given Maven requirement version.
 // If there is no newer version available, req will be returned.
 // For a version range requirement,
 //   - the greatest version matching the constraint is assumed when deciding whether the
 //     update is a major update or not.
 //   - if the latest version does not satisfy the constraint, this version is returned;
 //     otherwise, the original version range requirement is returned.
-func suggestVersion(ctx context.Context, client resolve.Client, req resolve.RequirementVersion, noMajorUpdates bool) (resolve.RequirementVersion, error) {
+func suggestMavenVersion(ctx context.Context, client resolve.Client, req resolve.RequirementVersion, noMajorUpdates bool) (resolve.RequirementVersion, error) {
 	versions, err := client.Versions(ctx, req.PackageKey)
 	if err != nil {
 		return resolve.RequirementVersion{}, fmt.Errorf("requesting versions of Maven package %s: %w", req.Name, err)

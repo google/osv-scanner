@@ -421,12 +421,12 @@ func TestSuggestVersion(t *testing.T) {
 				Version:     test.want,
 			},
 		}
-		got, err := suggestVersion(ctx, lc, resolve.RequirementVersion{VersionKey: vk}, test.noMajorUpdates)
+		got, err := suggestMavenVersion(ctx, lc, resolve.RequirementVersion{VersionKey: vk}, test.noMajorUpdates)
 		if err != nil {
 			t.Fatalf("fail to suggest a new version for %v: %v", vk, err)
 		}
 		if !reflect.DeepEqual(got, want) {
-			t.Errorf("suggestVersion(%v, %t): got %s want %s", vk, test.noMajorUpdates, got, want)
+			t.Errorf("suggestMavenVersion(%v, %t): got %s want %s", vk, test.noMajorUpdates, got, want)
 		}
 	}
 }
