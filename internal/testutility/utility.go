@@ -36,7 +36,7 @@ func Skip(t *testing.T, args ...any) {
 
 // Access to environment variable that toggles acceptance testing execution paths
 // Acceptance testing is "On" only when var set to "true"
-func AcceptanceTestOn() bool {
+func IsAcceptanceTest() bool {
 	return os.Getenv("TEST_ACCEPTANCE") == "true"
 }
 
@@ -44,7 +44,7 @@ func AcceptanceTestOn() bool {
 // automatically skipped unless running in a CI environment
 func SkipIfNotAcceptanceTesting(t *testing.T, reason string) {
 	t.Helper()
-	if !AcceptanceTestOn() {
+	if !IsAcceptanceTest() {
 		Skip(t, "Skipping extended test: ", reason)
 	}
 }

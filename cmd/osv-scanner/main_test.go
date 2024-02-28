@@ -528,7 +528,7 @@ func TestRun_LocalDatabases(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
 
-			if testutility.AcceptanceTestOn() {
+			if testutility.IsAcceptanceTest() {
 				testDir, cleanupTestDir := createTestDir(t)
 				defer cleanupTestDir()
 				old := tt.args
