@@ -57,7 +57,7 @@ From the first results screen, you can select which of the two remediation strat
 
 'In-place' remediation involves replacing vulnerable versions of packages in your lockfile with non-vulnerable versions, while still respecting the existing constraints for that dependency. This approach is usually less risky, but often fixes the least vulnerabilities.
 
-Selecting the "Modify lockfile in place" option will bring you to the in-place information page. From here, you can see which vulnerabilities can and cannot be resolved by this strategy. By default, every possible in-place patch will chosen to be applied. You may instead choose which subset of patches you wish to apply.
+Selecting the "Modify lockfile in place" option will bring you to the in-place information page. From here, you can see which vulnerabilities can and cannot be resolved by this strategy. By default, every possible in-place patch will be chosen to be applied. You may instead choose which subset of patches you wish to apply.
 
 ![Screenshot of the interactive in-place results screen](images/guided-remediation-in-place-results.png)
 
