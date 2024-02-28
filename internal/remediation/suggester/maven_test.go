@@ -235,7 +235,7 @@ func TestSuggest(t *testing.T) {
 				{Property: maven.Property{Name: "property.version", Value: "1.0.0"}},
 				{Property: maven.Property{Name: "no.update.minor", Value: "9"}},
 			},
-			OriginalImports: []resolve.RequirementVersion{
+			RequirementsWithProperties: []resolve.RequirementVersion{
 				{
 					// The universal property should be updated.
 					VersionKey: resolve.VersionKey{

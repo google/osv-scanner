@@ -53,7 +53,7 @@ func (ms *MavenSuggester) Suggest(ctx context.Context, client resolve.Client, mf
 			NewRequire: latest.Version,
 		}
 
-		origReq := originalRequirement(req, specific.OriginalImports)
+		origReq := originalRequirement(req, specific.RequirementsWithProperties)
 		if !requirementHasProperty(origReq) {
 			// The original requirement does not contain a property placeholder.
 			changedDeps = append(changedDeps, patch)
