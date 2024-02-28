@@ -12,6 +12,7 @@ import (
 // artifactExtractors contains only extractors for artifacts that are important in
 // the final layer of a container image
 var artifactExtractors map[string]lockfile.Extractor = map[string]lockfile.Extractor{
+	"node_modules":  lockfile.NodeModulesExtractor{},
 	"apk-installed": lockfile.ApkInstalledExtractor{},
 	"dpkg":          lockfile.DpkgStatusExtractor{},
 }
