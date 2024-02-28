@@ -3,9 +3,7 @@ package main
 import (
 	"errors"
 	"io"
-	"log"
 	"os"
-	"runtime/pprof"
 	"slices"
 
 	"github.com/google/osv-scanner/cmd/osv-scanner/fix"
@@ -120,14 +118,7 @@ func insertDefaultCommand(args []string, commands []*cli.Command, defaultCommand
 }
 
 func main() {
-
-	f, err := os.Create("profile.pprof")
-	if err != nil {
-		log.Panicf("%v\n\n", err)
-	}
-	pprof.StartCPUProfile(f)
-
 	exitCode := run(os.Args, os.Stdout, os.Stderr)
-	pprof.StopCPUProfile()
+
 	os.Exit(exitCode)
 }

@@ -11,6 +11,7 @@ import (
 	"sort"
 	"strings"
 
+	"github.com/dghubble/trie"
 	v1 "github.com/google/go-containerregistry/pkg/v1"
 	"github.com/google/go-containerregistry/pkg/v1/tarball"
 	"github.com/google/osv-scanner/pkg/lockfile"
@@ -41,14 +42,6 @@ func ScanImage(r reporter.Reporter, imagePath string) (ScanResults, error) {
 	}
 
 	allFiles := img.AllFiles()
-
-	// Sort the files to:
-	//   - Easier reasoning when debugging the scan loop
-	//   - Allow us to find "folders", as allFiles only contain file references
-	//     we have to examine the path of the files for folders. (Not yet implemented)
-	// slices.SortFunc(allFiles, func(a, b file.Reference) int {
-	// 	return strings.Compare(string(a.RealPath), string(b.RealPath))
-	// })
 
 	scannedLockfiles := ScanResults{
 		ImagePath: imagePath,
@@ -83,22 +76,14 @@ type Image struct {
 	flattenedFileMaps []FileMap
 	innerImage        *v1.Image
 	tempDir           string
-	manifest          *v1.Manifest
 }
 
 func (img *Image) ReadFile(virtualPath string) (fs.File, error) {
-	return img.flattenedFileMaps[len(img.flattenedFileMaps)-1].OpenFile(img.tempDir, virtualPath)
+	return img.flattenedFileMaps[len(img.flattenedFileMaps)-1].OpenFile(virtualPath)
 }
 
 func (img *Image) AllFiles() []FileNode {
-	allFiles := []FileNode{}
-	for _, fn := range img.flattenedFileMaps[len(img.flattenedFileMaps)-1].hashedKeys {
-		if !fn.isWhiteout {
-			allFiles = append(allFiles, fn)
-		}
-	}
-
-	return allFiles
+	return img.flattenedFileMaps[len(img.flattenedFileMaps)-1].AllFiles()
 }
 
 func (img *Image) Cleanup() error {
@@ -116,11 +101,6 @@ func loadImage(path string) (Image, error) {
 		return Image{}, err
 	}
 
-	manifest, err := image.Manifest()
-	if err != nil {
-		return Image{}, err
-	}
-
 	layers, err := image.Layers()
 	if err != nil {
 		return Image{}, err
@@ -128,14 +108,14 @@ func loadImage(path string) (Image, error) {
 
 	outputImage := Image{
 		tempDir:           tempPath,
-		manifest:          manifest,
+		innerImage:        &image,
 		flattenedFileMaps: make([]FileMap, len(layers)),
 	}
 
 	// Reverse loop through the layers to start from the latest layer first
 	// this allows us to skip all files already seen
 	for i := len(layers) - 1; i >= 0; i-- {
-		hash, err := layers[i].Digest()
+		hash, err := layers[i].DiffID()
 		if err != nil {
 			return Image{}, err
 		}
@@ -186,21 +166,21 @@ func loadImage(path string) (Image, error) {
 			}
 
 			// where the file will be written to disk
-			diskTargetPath := filepath.Join(dirPath, header.Name)
+			absoluteDiskPath := filepath.Join(dirPath, header.Name)
 
 			var fileType FileType = RegularFile
 			// write out the file/dir to disk
 			switch header.Typeflag {
 			case tar.TypeDir:
-				if _, err := os.Stat(diskTargetPath); err != nil {
-					if err := os.MkdirAll(diskTargetPath, 0755); err != nil {
+				if _, err := os.Stat(absoluteDiskPath); err != nil {
+					if err := os.MkdirAll(absoluteDiskPath, 0755); err != nil {
 						return Image{}, err
 					}
 				}
 				fileType = Dir
 
 			default: // Assume if it's not a directory, it's a normal file
-				f, err := os.OpenFile(diskTargetPath, os.O_CREATE|os.O_RDWR, os.FileMode(header.Mode))
+				f, err := os.OpenFile(absoluteDiskPath, os.O_CREATE|os.O_RDWR, os.FileMode(header.Mode))
 				if err != nil {
 					return Image{}, err
 				}
@@ -212,18 +192,14 @@ func loadImage(path string) (Image, error) {
 				f.Close()
 			}
 
-			// Remove temporary directory name from the filemap path
-			// These paths will be joined together again when opening files
-			fileMapDiskPath := strings.TrimPrefix(diskTargetPath, tempPath)
-
 			// Loop back up through the layers and add files
 			for ii := i; ii < len(layers); ii++ {
 				currentMap := &outputImage.flattenedFileMaps[ii]
-				if currentMap.hashedKeys == nil {
-					currentMap.hashedKeys = map[string]FileNode{}
+				if currentMap.fileNodeTrie == nil {
+					currentMap.fileNodeTrie = trie.NewPathTrie()
 				}
 
-				if _, ok := currentMap.hashedKeys[virtualPath]; ok {
+				if item := currentMap.fileNodeTrie.Get(virtualPath); item != nil {
 					// File already exists in a later layer
 					continue
 				}
@@ -233,18 +209,15 @@ func loadImage(path string) (Image, error) {
 					continue
 				}
 
-				currentMap.hashedKeys[virtualPath] = FileNode{
+				currentMap.fileNodeTrie.Put(virtualPath, FileNode{
 					virtualPath:      virtualPath,
-					relativeDiskPath: fileMapDiskPath,
+					absoluteDiskPath: absoluteDiskPath,
 					fileType:         fileType,
 					isWhiteout:       tombstone,
-				}
+				})
 			}
 		}
-
-		if err != nil { // TODO: Cleanup temporary dir as there will be leftovers on errors
-			return Image{}, err
-		}
+		// TODO: Cleanup temporary dir as there will be leftovers on errors
 	}
 
 	return outputImage, nil
@@ -259,7 +232,9 @@ func inWhiteoutDir(fileMap FileMap, filePath string) bool {
 		if filePath == dirname {
 			break
 		}
-		if val, ok := fileMap.hashedKeys[dirname]; ok && val.isWhiteout {
+		val := fileMap.fileNodeTrie.Get(dirname)
+		item, ok := val.(FileNode)
+		if ok && item.isWhiteout {
 			return true
 		}
 		filePath = dirname
@@ -321,14 +296,14 @@ func (f ImageFile) Path() string {
 }
 
 func OpenImageFile(path string, img *Image) (ImageFile, error) {
-	readcloser, err := img.ReadFile(path)
+	readCloser, err := img.ReadFile(path)
 
 	if err != nil {
 		return ImageFile{}, err
 	}
 
 	return ImageFile{
-		ReadCloser: readcloser,
+		ReadCloser: readCloser,
 		path:       path,
 	}, nil
 }

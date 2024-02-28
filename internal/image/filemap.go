@@ -3,7 +3,8 @@ package image
 import (
 	"io/fs"
 	"os"
-	"path/filepath"
+
+	"github.com/dghubble/trie"
 )
 
 type FileType int
@@ -16,16 +17,30 @@ const (
 type FileNode struct {
 	fileType         FileType
 	isWhiteout       bool
-	relativeDiskPath string
+	absoluteDiskPath string
 	virtualPath      string
 }
 
 type FileMap struct {
-	hashedKeys map[string]FileNode
+	fileNodeTrie *trie.PathTrie
+	// TODO: Use hashset to speed up path lookups
 }
 
-func (filemap *FileMap) OpenFile(rootPath string, path string) (fs.File, error) {
-	realPath := filepath.Join(rootPath, filemap.hashedKeys[path].relativeDiskPath)
+func (filemap *FileMap) OpenFile(path string) (fs.File, error) {
+	node, ok := filemap.fileNodeTrie.Get(path).(FileNode)
+	if !ok {
+		return nil, fs.ErrNotExist
+	}
 
-	return os.Open(realPath)
+	return os.Open(node.absoluteDiskPath)
+}
+
+func (filemap *FileMap) AllFiles() []FileNode {
+	allFiles := []FileNode{}
+	filemap.fileNodeTrie.Walk(func(key string, value interface{}) error {
+		allFiles = append(allFiles, value.(FileNode))
+		return nil
+	})
+
+	return allFiles
 }

@@ -1,6 +1,6 @@
 module github.com/google/osv-scanner
 
-go 1.22.0
+go 1.21.5
 
 require (
 	deps.dev/api/v3alpha v0.0.0-20240214003419-1729b6244a2d
@@ -52,6 +52,7 @@ require (
 	github.com/containerd/stargz-snapshotter/estargz v0.14.3 // indirect
 	github.com/cpuguy83/go-md2man/v2 v2.0.3 // indirect
 	github.com/cyphar/filepath-securejoin v0.2.4 // indirect
+	github.com/dghubble/trie v0.1.0 // indirect
 	github.com/dlclark/regexp2 v1.4.0 // indirect
 	github.com/emirpasic/gods v1.18.1 // indirect
 	github.com/gkampitakis/ciinfo v0.3.0 // indirect
