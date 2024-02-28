@@ -3,7 +3,7 @@ layout: page
 title: Guided Remediation
 permalink: /experimental/guided-remediation/
 parent: Experimental Features
-nav_order: 1
+nav_order: 3
 ---
 
 # Guided Remediation
