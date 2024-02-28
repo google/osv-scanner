@@ -127,7 +127,7 @@ func (f ImageFile) Path() string {
 }
 
 func OpenImageFile(path string, img *image.Image, fileRef file.Reference) (ImageFile, error) {
-	readcloser, err := img.FileContentsByRef(fileRef)
+	readcloser, err := img.OpenReference(fileRef)
 
 	if err != nil {
 		return ImageFile{}, err
