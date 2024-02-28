@@ -523,16 +523,13 @@ func TestRun_LocalDatabases(t *testing.T) {
 		},
 	}
 
-	var testDir string
-	var cleanupTestDir func()
-
 	for _, tt := range tests {
 		tt := tt
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
 
 			if os.Getenv("TEST_ACCEPTANCE") == "true" {
-				testDir, cleanupTestDir = createTestDir(t)
+				testDir, cleanupTestDir := createTestDir(t)
 				defer cleanupTestDir()
 				old := tt.args
 				tt.args = []string{"", "--experimental-local-db-path", testDir}

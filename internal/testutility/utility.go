@@ -37,10 +37,7 @@ func Skip(t *testing.T, args ...any) {
 // Access to environment variable that toggles acceptance testing execution paths
 // Acceptance testing is "On" only when var set to "true"
 func AcceptanceTestOn() bool {
-	if os.Getenv("TEST_ACCEPTANCE") == "true" {
-		return true
-	}
-	return false
+	return os.Getenv("TEST_ACCEPTANCE") == "true"
 }
 
 // AcceptanceTests marks this test function as a extended that require additional dependencies
