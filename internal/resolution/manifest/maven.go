@@ -141,6 +141,8 @@ func (m MavenManifestIO) Read(df lockfile.DepFile) (Manifest, error) {
 }
 
 // ContainsProperty returns whether a string contains property placeholder.
+// Any Maven string could contain property placeholders like ${name},
+// and the corresponding values are defined in properties section.
 func ContainsProperty(str maven.String) bool {
 	i := strings.Index(string(str), "${")
 	return i >= 0 && strings.Contains(string(str[i+2:]), "}")
