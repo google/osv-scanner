@@ -15,19 +15,6 @@ import (
 	"github.com/urfave/cli/v2"
 )
 
-func createTestDir(t *testing.T) (string, func()) {
-	t.Helper()
-
-	p, err := os.MkdirTemp("", "osv-scanner-test-*")
-	if err != nil {
-		t.Fatalf("could not create test directory: %v", err)
-	}
-
-	return p, func() {
-		_ = os.RemoveAll(p)
-	}
-}
-
 type cliTestCase struct {
 	name string
 	args []string
@@ -529,7 +516,7 @@ func TestRun_LocalDatabases(t *testing.T) {
 			t.Parallel()
 
 			if testutility.IsAcceptanceTest() {
-				testDir, cleanupTestDir := createTestDir(t)
+				testDir, cleanupTestDir := testutility.CreateTestDir(t)
 				defer cleanupTestDir()
 				old := tt.args
 				tt.args = []string{"", "--experimental-local-db-path", testDir}

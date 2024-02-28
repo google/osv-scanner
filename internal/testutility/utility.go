@@ -57,3 +57,18 @@ func ValueIfOnWindows(win, or string) string {
 
 	return or
 }
+
+// CreateTestDir makes a temporary directory for use in testing that involves
+// writing and reading files from disk - make sure to call the cleanup function!
+func CreateTestDir(t *testing.T) (string, func()) {
+	t.Helper()
+
+	p, err := os.MkdirTemp("", "osv-scanner-test-*")
+	if err != nil {
+		t.Fatalf("could not create test directory: %v", err)
+	}
+
+	return p, func() {
+		_ = os.RemoveAll(p)
+	}
+}
