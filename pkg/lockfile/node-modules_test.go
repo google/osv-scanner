@@ -57,7 +57,15 @@ func testParsingNodeModules(t *testing.T, fixture string) ([]lockfile.PackageDet
 
 	file := copyFile(t, fixture, filepath.Join(testDir, "node_modules", ".package-lock.json"))
 
-	return lockfile.ParseNodeModules(file)
+	f, err := lockfile.OpenLocalDepFile(file)
+
+	if err != nil {
+		t.Fatalf("could not open file %v", err)
+	}
+
+	defer f.Close()
+
+	return lockfile.NodeModulesExtractor{}.Extract(f)
 }
 
 func TestNodeModulesExtractor_ShouldExtract(t *testing.T) {

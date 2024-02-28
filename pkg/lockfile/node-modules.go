@@ -17,12 +17,3 @@ func (e NodeModulesExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 }
 
 var _ Extractor = NodeModulesExtractor{}
-
-// //nolint:gochecknoinits
-// func init() {
-// 	registerExtractor("package-lock.json", NodeModulesExtractor{})
-// }
-
-func ParseNodeModules(pathToLockfile string) ([]PackageDetails, error) {
-	return extractFromFile(pathToLockfile, NodeModulesExtractor{})
-}

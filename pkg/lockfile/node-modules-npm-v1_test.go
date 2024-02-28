@@ -1,26 +1,12 @@
 package lockfile_test
 
 import (
-	"io/fs"
-	"path/filepath"
 	"testing"
 
 	"github.com/google/osv-scanner/pkg/lockfile"
 )
 
-func TestParseNodeModules_npm_v2_FileDoesNotExist(t *testing.T) {
-	t.Parallel()
-
-	testDir, cleanupTestDir := createTestDirWithNodeModulesDir(t)
-	defer cleanupTestDir()
-
-	packages, err := lockfile.ParseNodeModules(filepath.Join(testDir, "node_modules", "does-not-exist"))
-
-	expectErrIs(t, err, fs.ErrNotExist)
-	expectPackages(t, packages, []lockfile.PackageDetails{})
-}
-
-func TestParseNodeModules_npm_v2_InvalidJson(t *testing.T) {
+func TestNodeModulesExtractor_Extract_npm_v1_InvalidJson(t *testing.T) {
 	t.Parallel()
 
 	packages, err := testParsingNodeModules(t, "fixtures/npm/not-json.txt")
@@ -29,10 +15,10 @@ func TestParseNodeModules_npm_v2_InvalidJson(t *testing.T) {
 	expectPackages(t, packages, []lockfile.PackageDetails{})
 }
 
-func TestParseNodeModules_npm_v2_NoPackages(t *testing.T) {
+func TestNodeModulesExtractor_Extract_npm_v1_NoPackages(t *testing.T) {
 	t.Parallel()
 
-	packages, err := testParsingNodeModules(t, "fixtures/npm/empty.v2.json")
+	packages, err := testParsingNodeModules(t, "fixtures/npm/empty.v1.json")
 
 	if err != nil {
 		t.Errorf("Got unexpected error: %v", err)
@@ -41,10 +27,10 @@ func TestParseNodeModules_npm_v2_NoPackages(t *testing.T) {
 	expectPackages(t, packages, []lockfile.PackageDetails{})
 }
 
-func TestParseNodeModules_npm_v2_OnePackage(t *testing.T) {
+func TestNodeModulesExtractor_Extract_npm_v1_OnePackage(t *testing.T) {
 	t.Parallel()
 
-	packages, err := testParsingNodeModules(t, "fixtures/npm/one-package.v2.json")
+	packages, err := testParsingNodeModules(t, "fixtures/npm/one-package.v1.json")
 
 	if err != nil {
 		t.Errorf("Got unexpected error: %v", err)
@@ -60,10 +46,10 @@ func TestParseNodeModules_npm_v2_OnePackage(t *testing.T) {
 	})
 }
 
-func TestParseNodeModules_npm_v2_OnePackageDev(t *testing.T) {
+func TestNodeModulesExtractor_Extract_npm_v1_OnePackageDev(t *testing.T) {
 	t.Parallel()
 
-	packages, err := testParsingNodeModules(t, "fixtures/npm/one-package-dev.v2.json")
+	packages, err := testParsingNodeModules(t, "fixtures/npm/one-package-dev.v1.json")
 
 	if err != nil {
 		t.Errorf("Got unexpected error: %v", err)
@@ -80,10 +66,10 @@ func TestParseNodeModules_npm_v2_OnePackageDev(t *testing.T) {
 	})
 }
 
-func TestParseNodeModules_npm_v2_TwoPackages(t *testing.T) {
+func TestNodeModulesExtractor_Extract_npm_v1_TwoPackages(t *testing.T) {
 	t.Parallel()
 
-	packages, err := testParsingNodeModules(t, "fixtures/npm/two-packages.v2.json")
+	packages, err := testParsingNodeModules(t, "fixtures/npm/two-packages.v1.json")
 
 	if err != nil {
 		t.Errorf("Got unexpected error: %v", err)
@@ -105,10 +91,10 @@ func TestParseNodeModules_npm_v2_TwoPackages(t *testing.T) {
 	})
 }
 
-func TestParseNodeModules_npm_v2_ScopedPackages(t *testing.T) {
+func TestNodeModulesExtractor_Extract_npm_v1_ScopedPackages(t *testing.T) {
 	t.Parallel()
 
-	packages, err := testParsingNodeModules(t, "fixtures/npm/scoped-packages.v2.json")
+	packages, err := testParsingNodeModules(t, "fixtures/npm/scoped-packages.v1.json")
 
 	if err != nil {
 		t.Errorf("Got unexpected error: %v", err)
@@ -130,10 +116,10 @@ func TestParseNodeModules_npm_v2_ScopedPackages(t *testing.T) {
 	})
 }
 
-func TestParseNodeModules_npm_v2_NestedDependencies(t *testing.T) {
+func TestNodeModulesExtractor_Extract_npm_v1_NestedDependencies(t *testing.T) {
 	t.Parallel()
 
-	packages, err := testParsingNodeModules(t, "fixtures/npm/nested-dependencies.v2.json")
+	packages, err := testParsingNodeModules(t, "fixtures/npm/nested-dependencies.v1.json")
 
 	if err != nil {
 		t.Errorf("Got unexpected error: %v", err)
@@ -173,35 +159,46 @@ func TestParseNodeModules_npm_v2_NestedDependencies(t *testing.T) {
 	})
 }
 
-func TestParseNodeModules_npm_v2_NestedDependenciesDup(t *testing.T) {
+func TestNodeModulesExtractor_Extract_npm_v1_NestedDependenciesDup(t *testing.T) {
 	t.Parallel()
 
-	packages, err := testParsingNodeModules(t, "fixtures/npm/nested-dependencies-dup.v2.json")
+	packages, err := testParsingNodeModules(t, "fixtures/npm/nested-dependencies-dup.v1.json")
 
 	if err != nil {
 		t.Errorf("Got unexpected error: %v", err)
 	}
 
-	expectPackages(t, packages, []lockfile.PackageDetails{
-		{
-			Name:      "supports-color",
-			Version:   "6.1.0",
-			Ecosystem: lockfile.NpmEcosystem,
-			CompareAs: lockfile.NpmEcosystem,
-		},
-		{
-			Name:      "supports-color",
-			Version:   "2.0.0",
-			Ecosystem: lockfile.NpmEcosystem,
-			CompareAs: lockfile.NpmEcosystem,
-		},
+	// todo: convert to using expectPackages w/ listing all expected packages
+	if len(packages) != 39 {
+		t.Errorf("Expected to get 39 packages, but got %d", len(packages))
+	}
+
+	expectPackage(t, packages, lockfile.PackageDetails{
+		Name:      "supports-color",
+		Version:   "6.1.0",
+		Ecosystem: lockfile.NpmEcosystem,
+		CompareAs: lockfile.NpmEcosystem,
+	})
+
+	expectPackage(t, packages, lockfile.PackageDetails{
+		Name:      "supports-color",
+		Version:   "5.5.0",
+		Ecosystem: lockfile.NpmEcosystem,
+		CompareAs: lockfile.NpmEcosystem,
+	})
+
+	expectPackage(t, packages, lockfile.PackageDetails{
+		Name:      "supports-color",
+		Version:   "2.0.0",
+		Ecosystem: lockfile.NpmEcosystem,
+		CompareAs: lockfile.NpmEcosystem,
 	})
 }
 
-func TestParseNodeModules_npm_v2_Commits(t *testing.T) {
+func TestNodeModulesExtractor_Extract_npm_v1_Commits(t *testing.T) {
 	t.Parallel()
 
-	packages, err := testParsingNodeModules(t, "fixtures/npm/commits.v2.json")
+	packages, err := testParsingNodeModules(t, "fixtures/npm/commits.v1.json")
 
 	if err != nil {
 		t.Errorf("Got unexpected error: %v", err)
@@ -210,7 +207,7 @@ func TestParseNodeModules_npm_v2_Commits(t *testing.T) {
 	expectPackages(t, packages, []lockfile.PackageDetails{
 		{
 			Name:      "@segment/analytics.js-integration-facebook-pixel",
-			Version:   "2.4.1",
+			Version:   "",
 			Ecosystem: lockfile.NpmEcosystem,
 			CompareAs: lockfile.NpmEcosystem,
 			Commit:    "3b1bb80b302c2e552685dc8a029797ec832ea7c9",
@@ -224,15 +221,14 @@ func TestParseNodeModules_npm_v2_Commits(t *testing.T) {
 		},
 		{
 			Name:      "babel-preset-php",
-			Version:   "1.1.1",
+			Version:   "",
 			Ecosystem: lockfile.NpmEcosystem,
 			CompareAs: lockfile.NpmEcosystem,
 			Commit:    "c5a7ba5e0ad98b8db1cb8ce105403dd4b768cced",
-			DepGroups: []string{"dev"},
 		},
 		{
 			Name:      "is-number-1",
-			Version:   "3.0.0",
+			Version:   "",
 			Ecosystem: lockfile.NpmEcosystem,
 			CompareAs: lockfile.NpmEcosystem,
 			Commit:    "af885e2e890b9ef0875edd2b117305119ee5bdc5",
@@ -240,7 +236,7 @@ func TestParseNodeModules_npm_v2_Commits(t *testing.T) {
 		},
 		{
 			Name:      "is-number-1",
-			Version:   "3.0.0",
+			Version:   "",
 			Ecosystem: lockfile.NpmEcosystem,
 			CompareAs: lockfile.NpmEcosystem,
 			Commit:    "be5935f8d2595bcd97b05718ef1eeae08d812e10",
@@ -248,23 +244,21 @@ func TestParseNodeModules_npm_v2_Commits(t *testing.T) {
 		},
 		{
 			Name:      "is-number-2",
-			Version:   "2.0.0",
+			Version:   "",
 			Ecosystem: lockfile.NpmEcosystem,
 			CompareAs: lockfile.NpmEcosystem,
 			Commit:    "d5ac0584ee9ae7bd9288220a39780f155b9ad4c8",
-			DepGroups: []string{"dev"},
 		},
 		{
 			Name:      "is-number-2",
-			Version:   "2.0.0",
+			Version:   "",
 			Ecosystem: lockfile.NpmEcosystem,
 			CompareAs: lockfile.NpmEcosystem,
 			Commit:    "82dcc8e914dabd9305ab9ae580709a7825e824f5",
-			DepGroups: []string{"dev"},
 		},
 		{
 			Name:      "is-number-3",
-			Version:   "2.0.0",
+			Version:   "",
 			Ecosystem: lockfile.NpmEcosystem,
 			CompareAs: lockfile.NpmEcosystem,
 			Commit:    "d5ac0584ee9ae7bd9288220a39780f155b9ad4c8",
@@ -272,7 +266,7 @@ func TestParseNodeModules_npm_v2_Commits(t *testing.T) {
 		},
 		{
 			Name:      "is-number-3",
-			Version:   "3.0.0",
+			Version:   "",
 			Ecosystem: lockfile.NpmEcosystem,
 			CompareAs: lockfile.NpmEcosystem,
 			Commit:    "82ae8802978da40d7f1be5ad5943c9e550ab2c89",
@@ -280,7 +274,7 @@ func TestParseNodeModules_npm_v2_Commits(t *testing.T) {
 		},
 		{
 			Name:      "is-number-4",
-			Version:   "3.0.0",
+			Version:   "",
 			Ecosystem: lockfile.NpmEcosystem,
 			CompareAs: lockfile.NpmEcosystem,
 			Commit:    "af885e2e890b9ef0875edd2b117305119ee5bdc5",
@@ -288,7 +282,15 @@ func TestParseNodeModules_npm_v2_Commits(t *testing.T) {
 		},
 		{
 			Name:      "is-number-5",
-			Version:   "3.0.0",
+			Version:   "",
+			Ecosystem: lockfile.NpmEcosystem,
+			CompareAs: lockfile.NpmEcosystem,
+			Commit:    "af885e2e890b9ef0875edd2b117305119ee5bdc5",
+			DepGroups: []string{"dev"},
+		},
+		{
+			Name:      "is-number-6",
+			Version:   "",
 			Ecosystem: lockfile.NpmEcosystem,
 			CompareAs: lockfile.NpmEcosystem,
 			Commit:    "af885e2e890b9ef0875edd2b117305119ee5bdc5",
@@ -310,7 +312,7 @@ func TestParseNodeModules_npm_v2_Commits(t *testing.T) {
 		},
 		{
 			Name:      "slick-carousel",
-			Version:   "1.7.1",
+			Version:   "",
 			Ecosystem: lockfile.NpmEcosystem,
 			CompareAs: lockfile.NpmEcosystem,
 			Commit:    "280b560161b751ba226d50c7db1e0a14a78c2de0",
@@ -319,10 +321,10 @@ func TestParseNodeModules_npm_v2_Commits(t *testing.T) {
 	})
 }
 
-func TestParseNodeModules_npm_v2_Files(t *testing.T) {
+func TestNodeModulesExtractor_Extract_npm_v1_Files(t *testing.T) {
 	t.Parallel()
 
-	packages, err := testParsingNodeModules(t, "fixtures/npm/files.v2.json")
+	packages, err := testParsingNodeModules(t, "fixtures/npm/files.v1.json")
 
 	if err != nil {
 		t.Errorf("Got unexpected error: %v", err)
@@ -330,36 +332,26 @@ func TestParseNodeModules_npm_v2_Files(t *testing.T) {
 
 	expectPackages(t, packages, []lockfile.PackageDetails{
 		{
-			Name:      "etag",
-			Version:   "1.8.0",
+			Name:      "lodash",
+			Version:   "1.3.1",
 			Ecosystem: lockfile.NpmEcosystem,
 			CompareAs: lockfile.NpmEcosystem,
 			Commit:    "",
-			DepGroups: []string{"dev"},
 		},
 		{
-			Name:      "abbrev",
-			Version:   "1.0.9",
+			Name:      "other_package",
+			Version:   "",
 			Ecosystem: lockfile.NpmEcosystem,
 			CompareAs: lockfile.NpmEcosystem,
 			Commit:    "",
-			DepGroups: []string{"dev"},
-		},
-		{
-			Name:      "abbrev",
-			Version:   "2.3.4",
-			Ecosystem: lockfile.NpmEcosystem,
-			CompareAs: lockfile.NpmEcosystem,
-			Commit:    "",
-			DepGroups: []string{"dev"},
 		},
 	})
 }
 
-func TestParseNodeModules_npm_v2_Alias(t *testing.T) {
+func TestNodeModulesExtractor_Extract_npm_v1_Alias(t *testing.T) {
 	t.Parallel()
 
-	packages, err := testParsingNodeModules(t, "fixtures/npm/alias.v2.json")
+	packages, err := testParsingNodeModules(t, "fixtures/npm/alias.v1.json")
 
 	if err != nil {
 		t.Errorf("Got unexpected error: %v", err)
@@ -387,10 +379,10 @@ func TestParseNodeModules_npm_v2_Alias(t *testing.T) {
 	})
 }
 
-func TestParseNodeModules_npm_v2_OptionalPackage(t *testing.T) {
+func TestNodeModulesExtractor_Extract_npm_v1_OptionalPackage(t *testing.T) {
 	t.Parallel()
 
-	packages, err := testParsingNodeModules(t, "fixtures/npm/optional-package.v2.json")
+	packages, err := testParsingNodeModules(t, "fixtures/npm/optional-package.v1.json")
 
 	if err != nil {
 		t.Errorf("Got unexpected error: %v", err)
@@ -402,14 +394,14 @@ func TestParseNodeModules_npm_v2_OptionalPackage(t *testing.T) {
 			Version:   "1.0.2",
 			Ecosystem: lockfile.NpmEcosystem,
 			CompareAs: lockfile.NpmEcosystem,
-			DepGroups: []string{"optional"},
+			DepGroups: []string{"dev", "optional"},
 		},
 		{
 			Name:      "supports-color",
 			Version:   "5.5.0",
 			Ecosystem: lockfile.NpmEcosystem,
 			CompareAs: lockfile.NpmEcosystem,
-			DepGroups: []string{"dev", "optional"},
+			DepGroups: []string{"optional"},
 		},
 	})
 }
