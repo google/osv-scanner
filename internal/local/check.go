@@ -73,10 +73,10 @@ func setupLocalDBDirectory(localDBPath string) (string, error) {
 		}
 	}
 
-	err = os.MkdirAll(path.Join(localDBPath, "osv-scanner"), 0750)
-
+	altPath := path.Join(localDBPath, "osv-scanner")
+	err = os.MkdirAll(altPath, 0750)
 	if err == nil {
-		return path.Join(localDBPath, "osv-scanner"), nil
+		return altPath, nil
 	}
 
 	// if we're implicitly picking a path, try the temp directory before giving up
