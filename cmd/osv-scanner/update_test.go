@@ -22,6 +22,7 @@ func TestRunUpdate(t *testing.T) {
 			manifest: "./update/fixtures/pom.xml",
 			exit:     0,
 		},
+		// TODO: add other test cases.
 	}
 
 	for _, tt := range tests {

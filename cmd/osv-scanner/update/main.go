@@ -29,16 +29,16 @@ func Command(stdout, stderr io.Writer, r *reporter.Reporter) *cli.Command {
 				Required:  true,
 			},
 			&cli.StringSliceFlag{
-				Name:  "no-updates",
+				Name:  "disallow-package-upgrades",
 				Usage: "list of packages that disallow updates",
 			},
 			&cli.StringSliceFlag{
-				Name:  "avoid-major",
+				Name:  "disallow-major-upgrades",
 				Usage: "list of packages that disallow major updates",
 			},
 			&cli.BoolFlag{
 				Name:  "ignore-dev",
-				Usage: "whether to ignore developement dependencies for updates",
+				Usage: "whether to ignore development dependencies for updates",
 			},
 		},
 		Action: func(ctx *cli.Context) error {
@@ -55,6 +55,7 @@ type updateOptions struct {
 	NoUpdates  []string
 	AvoidMajor []string
 	IgnoreDev  bool
+
 	Client     client.ResolutionClient
 	ManifestRW manifest.ManifestIO
 }
@@ -62,8 +63,8 @@ type updateOptions struct {
 func action(ctx *cli.Context, stdout, stderr io.Writer) (reporter.Reporter, error) {
 	options := updateOptions{
 		Manifest:   ctx.String("manifest"),
-		NoUpdates:  ctx.StringSlice("no-updates"),
-		AvoidMajor: ctx.StringSlice("avoid-major"),
+		NoUpdates:  ctx.StringSlice("disallow-package-upgrades"),
+		AvoidMajor: ctx.StringSlice("disallow-major-upgrades"),
 		IgnoreDev:  ctx.Bool("ignore-dev"),
 	}
 	if _, err := os.Stat(options.Manifest); errors.Is(err, os.ErrNotExist) {
