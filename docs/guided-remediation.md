@@ -49,7 +49,7 @@ The command will launch the Guided Remediation TUI and begin scanning your manif
 >
 > - Max dependency depth: `--max-depth`
 > - Min CVSS score: `--min-severity`
-> - Include dev only: `--ignore-dev`
+> - Exclude dev only: `--ignore-dev`
 
 From the first results screen, you can select which of the two remediation strategies to attempt.
 
