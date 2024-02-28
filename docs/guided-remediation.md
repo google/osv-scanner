@@ -29,7 +29,7 @@ Currently, only npm `package.json` manifests and `package-lock.json` lockfiles a
 {: .note }
 This feature is experimental and may change in future updates.
 
-## Basic Usage: Interactive Mode
+## Basic usage: interactive mode
 
 Interactive mode provides a step-by-step process to understand and fix vulnerabilities in your project.
 
@@ -53,7 +53,7 @@ The command will launch the Guided Remediation TUI and begin scanning your manif
 
 From the first results screen, you can select which of the two remediation strategies to attempt.
 
-## In-Place Lockfile Remediation
+## In-place lockfile remediation
 
 'In-place' remediation involves replacing vulnerable versions of packages in your lockfile with non-vulnerable versions, while still respecting the existing constraints for that dependency. This approach is usually less risky, but often fixes the least vulnerabilities.
 
@@ -71,7 +71,7 @@ The subcommand cannot revert the changes it makes to your lockfile. Make sure yo
 {: .note }
 Writing these changes will not reinstall your dependencies. You'll need to run `npm ci` (or equivalent) separately.
 
-## Relock and Relax Direct Dependency Remediation
+## Relock and relax direct dependency remediation
 
 Relocking recomputes your entire dependency graph based on your manifest file, taking the newest possible versions of all your required packages. This causes a large number of changes to your dependency graph, which potentially carries a larger risk of breakages.
 
@@ -94,7 +94,7 @@ The subcommand cannot revert the changes it makes to your manifest and lockfile.
 >
 > The `--relock-cmd` flag can be used to change the executed install command.
 
-## Non-Interactive Mode
+## Non-interactive mode
 
 To enable usage in scripting and automation, we provide a non-interactive mode:
 
@@ -108,13 +108,13 @@ osv-scanner fix --non-interactive --strategy=relock -M path/to/package.json -L p
 
 By default, non-interactive mode will resolve and apply every compatible in-place/relaxation patch according to the selected strategy. If you wish to limit the number of patches applied, you can use the `--apply-top=N` flag. Subsets of patches will be chosen in the same order as they would be presented in the interactive mode. For further control over the patches that should be applied, use the [remediation flags](#remediation-flags).
 
-### Sample Outputs
+### Sample outputs
 
 {: .note }
 The output format might change with minor version updates.
 
 <details markdown="1">
-<summary><b>In-Place Strategy</b></summary>
+<summary><b>In-place strategy</b></summary>
 ```bash
 osv-scanner fix --non-interactive --strategy=in-place -M path/to/package.json -L path/to/package-lock.json
 ```
@@ -150,7 +150,7 @@ Rewriting path/to/package-lock.json...
 </details>
 
 <details markdown="1">
-<summary><b>Relock Strategy</b></summary>
+<summary><b>Relock strategy</b></summary>
 ```bash
 osv-scanner fix --non-interactive --strategy=relock --apply-top=2 -M path/to/package.json -L path/to/package-lock.json
 ```
@@ -169,11 +169,11 @@ Executing `npm install --package-lock-only`...
 ```
 </details>
 
-## Remediation Flags
+## Remediation flags
 
 The `fix` subcommand has a number of flags to allow you to control which vulnerabilities and patches may be considered during remediation.
 
-### Vulnerability Selection
+### Vulnerability selection
 
 The following flags may be used to filter which vulnerabilities will be selected for remediation:
 
@@ -191,14 +191,14 @@ The following flags may be used to filter which vulnerabilities will be selected
 
 A vulnerability is only considered if it satisfies all the conditions set by these flags.
 
-### Dependency Upgrade Options
+### Dependency upgrade options
 
 The following flags may be used to limit the patches allowed for your dependencies:
 
 - `--disallow-major-upgrades`: Do no allow patches that would result in the major version number of any dependency from being changed.
 - `--disallow-package-upgrades=<comma-separated list of package names>`: Do no allow patches to any of the listed packages.
 
-### Data Source
+### Data source
 
 By default, we use the [deps.dev API](https://docs.deps.dev/api/v3alpha/) to find version and dependency information of packages during remediation.
 
@@ -213,7 +213,7 @@ If your project uses mirrored or private registries, you will need to use `--dat
 >
 > The native npm cache will store the addresses of private registries used, though not any authentication information.
 
-## Known Issues
+## Known issues
 
 - The subcommand does not use the `osv-scanner.toml` configuration. Use the `--ignore-vulns` flag instead.
 
