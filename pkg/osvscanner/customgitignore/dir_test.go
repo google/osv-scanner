@@ -2,10 +2,11 @@
 package customgitignore_test
 
 import (
+	"fmt"
 	"os"
 	"path/filepath"
-	"reflect"
 	"slices"
+	"strings"
 	"testing"
 
 	"github.com/google/osv-scanner/pkg/osvscanner/customgitignore"
@@ -74,16 +75,9 @@ func TestGitignoreFilesFromIgnoredDir(t *testing.T) {
 	}
 
 	// expect ./dir_a/dir_b/dir_c/.gitignore to be skipped over
-	// NOTE: see usage of reflect above to see what's going on
-	for _, pattern := range patterns {
-		// dubious `reflect` hackery means: slice := pattern.pattern
-		fv := reflect.ValueOf(pattern).Elem().FieldByName("pattern")
-
-		// tests if pattern.pattern == []string{"DIR_B_GITIGNORE"}
-		if fv.Len() == 1 && fv.Index(0).String() == "DIR_C_GITIGNORE" {
-			t.Errorf("Expected not to find pattern matching DIR_C_GITIGNORE from ./dir_a/dir_b/dir_c/.gitignore; " +
-				"because it's parent dir_b should have been ignored by a rule in repository-root .gitignore")
-		}
+	if hasPatternContaining(patterns, "DIR_C_GITIGNORE") {
+		t.Errorf(	"Expected not to find pattern matching DIR_C_GITIGNORE from ./dir_a/dir_b/dir_c/.gitignore; " +
+							"because it's parent dir_b should have been ignored by a rule in repository-root .gitignore")
 	}
 }
 
@@ -131,48 +125,21 @@ func TestGitignoreFilesFromMidTree(t *testing.T) {
 	}
 
 	// expect ./dir_a/dir_b/.gitignore to be skipped over
-	//
-	// I want to test for the lack of a GITIGNORE_B match,
-	// to show that dir_a/dir_b/.gitignore wasn't processed.
-	// Annoyingly the `dir_a/dir_b` pattern from .GITIGNORE_ROOT
-	// prevents this.
-	// Instead I'm doing dubious `reflect` hackery to get
-	// access to the unxported `Pattern.pattern` field
-	for _, pattern := range patterns {
-		// dubious `reflect` hackery means: slice := pattern.pattern
-		fv := reflect.ValueOf(pattern).Elem().FieldByName("pattern")
-
-		// tests if pattern.pattern == []string{"DIR_B_GITIGNORE"}
-		if fv.Len() == 1 && fv.Index(0).String() == "DIR_B_GITIGNORE" {
-			t.Errorf("Expected not to find pattern matching DIR_B_GITIGNORE from ./dir_a/dir_b/.gitignore; " +
-				"dir_b should have been ignored by a rule in repository-root .gitignore")
-		}
+	if hasPatternContaining(patterns, "DIR_B_GITIGNORE") {
+		t.Errorf("Expected not to find pattern matching DIR_B_GITIGNORE from ./dir_a/dir_b/.gitignore; " +
+			"dir_b should have been ignored by a rule in repository-root .gitignore")
 	}
 
 	// expect ./dir_a/dir_b/dir_c/.gitignore to be skipped over
-	// NOTE: see usage of reflect above to see what's going on
-	for _, pattern := range patterns {
-		// dubious `reflect` hackery means: slice := pattern.pattern
-		fv := reflect.ValueOf(pattern).Elem().FieldByName("pattern")
-
-		// tests if pattern.pattern == []string{"DIR_B_GITIGNORE"}
-		if fv.Len() == 1 && fv.Index(0).String() == "DIR_C_GITIGNORE" {
-			t.Errorf("Expected not to find pattern matching DIR_C_GITIGNORE from ./dir_a/dir_b/dir_c/.gitignore; " +
-				"because it's parent dir_b should have been ignored by a rule in repository-root .gitignore")
-		}
+	if hasPatternContaining(patterns, "DIR_C_GITIGNORE") {
+		t.Errorf("Expected not to find pattern matching DIR_C_GITIGNORE from ./dir_a/dir_b/dir_c/.gitignore; " +
+			"because it's parent dir_b should have been ignored by a rule in repository-root .gitignore")
 	}
 
 	// expect ./parallel_a/.gitignore to be skipped over
-	// NOTE: see usage of reflect above to see what's going on
-	for _, pattern := range patterns {
-		// dubious `reflect` hackery means: slice := pattern.pattern
-		fv := reflect.ValueOf(pattern).Elem().FieldByName("pattern")
-
-		// tests if pattern.pattern == []string{"DIR_B_GITIGNORE"}
-		if fv.Len() == 1 && fv.Index(0).String() == "PARALLEL_A_GITIGNORE" {
-			t.Fatalf("Expected not to find pattern matching PARALLEL_A_GITIGNORE from ./parallel_a/.gitignore; " +
-				"dir_b should have been ignored by a rule in repository-root .gitignore")
-		}
+	if hasPatternContaining(patterns, "PARALLEL_A_GITIGNORE") {
+		t.Fatalf("Expected not to find pattern matching PARALLEL_A_GITIGNORE from ./parallel_a/.gitignore; " +
+			"dir_b should have been ignored by a rule in repository-root .gitignore")
 	}
 }
 
@@ -227,35 +194,15 @@ func TestGitignoreFilesFromRoot(t *testing.T) {
 	}
 
 	// expect ./dir_a/dir_b/.gitignore to be skipped over
-	//
-	// I want to test for the lack of a GITIGNORE_B match,
-	// to show that dir_a/dir_b/.gitignore wasn't processed.
-	// Annoyingly the `dir_a/dir_b` pattern from .GITIGNORE_ROOT
-	// prevents this.
-	// Instead I'm doing dubious `reflect` hackery to get
-	// access to the unxported `Pattern.pattern` field
-	for _, pattern := range patterns {
-		// dubious `reflect` hackery means: slice := pattern.pattern
-		fv := reflect.ValueOf(pattern).Elem().FieldByName("pattern")
-
-		// tests if pattern.pattern == []string{"DIR_B_GITIGNORE"}
-		if fv.Len() == 1 && fv.Index(0).String() == "DIR_B_GITIGNORE" {
-			t.Errorf("Expected not to find pattern matching DIR_B_GITIGNORE from ./dir_a/dir_b/.gitignore; " +
-				"dir_b should have been ignored by a rule in repository-root .gitignore")
-		}
+	if hasPatternContaining(patterns, "DIR_B_GITIGNORE") {
+		t.Errorf("Expected not to find pattern matching DIR_B_GITIGNORE from ./dir_a/dir_b/.gitignore; " +
+			"dir_b should have been ignored by a rule in repository-root .gitignore")
 	}
 
 	// expect ./dir_a/dir_b/dir_c/.gitignore to be skipped over
-	// NOTE: see usage of reflect above to see what's going on
-	for _, pattern := range patterns {
-		// dubious `reflect` hackery means: slice := pattern.pattern
-		fv := reflect.ValueOf(pattern).Elem().FieldByName("pattern")
-
-		// tests if pattern.pattern == []string{"DIR_B_GITIGNORE"}
-		if fv.Len() == 1 && fv.Index(0).String() == "DIR_C_GITIGNORE" {
-			t.Errorf("Expected not to find pattern matching DIR_C_GITIGNORE from ./dir_a/dir_b/dir_c/.gitignore; " +
-				"because it's parent dir_b should have been ignored by a rule in repository-root .gitignore")
-		}
+	if hasPatternContaining(patterns, "DIR_C_GITIGNORE") {
+		t.Errorf("Expected not to find pattern matching DIR_C_GITIGNORE from ./dir_a/dir_b/dir_c/.gitignore; " +
+			"because it's parent dir_b should have been ignored by a rule in repository-root .gitignore")
 	}
 }
 
@@ -306,4 +253,44 @@ func writeGitignore(t *testing.T, gitRepo, f, s string) {
 	if err := os.WriteFile(f, []byte(s), 0600); err != nil {
 		t.Errorf("could not write file for test: %v", err)
 	}
+}
+
+
+// hasPatternContaining checks whether any of the gitignore.Pattern-s
+// in gip contain a `pattern` field with the string `test` in it.
+// For why see patternContains()
+func hasPatternContaining(gips []gitignore.Pattern, test string) bool {
+	for _, gip := range gips {
+		if patternContains(gip, test) {
+			return true
+		}
+	}
+
+	return false
+}
+
+
+// Hack to test if gip.pattern == []string{"TEST_STRING"}
+//
+// This is necessary because gitignore.Pattern.pattern is
+// non-exported.
+//
+// This matches against the return value from fmt.Sprintf
+// with %#v, which means it may trip up on complicated or
+// user supplied strings.
+//
+// By why can't we just test something like
+// p.Match([]string{".", "dir_a", "DIR_A_GITIGNORE"}, false) != gitignore.Exclude
+// instead ?
+//
+// ... because the changes in customgitignore adjust the
+// implementation details of the upstream packge so that
+// it doesn't read .gitingore files from ignored dirs.
+// This means that before _and_ after the change p.Match()
+// will return false.
+func patternContains(gip gitignore.Pattern, test string) bool {
+	summary := fmt.Sprintf("%#v", gip)
+	actualTest := fmt.Sprintf("pattern:[]string{\"%s\"}", test)
+
+	return strings.Contains(summary, actualTest)
 }
