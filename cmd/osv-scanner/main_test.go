@@ -516,8 +516,7 @@ func TestRun_LocalDatabases(t *testing.T) {
 			t.Parallel()
 
 			if testutility.IsAcceptanceTest() {
-				testDir, cleanupTestDir := testutility.CreateTestDir(t)
-				defer cleanupTestDir()
+				testDir := testutility.CreateTestDir(t)
 				old := tt.args
 				tt.args = []string{"", "--experimental-local-db-path", testDir}
 				tt.args = append(tt.args, old[1:]...)

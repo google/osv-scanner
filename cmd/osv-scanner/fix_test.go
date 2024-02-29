@@ -68,8 +68,7 @@ func TestRun_Fix(t *testing.T) {
 			}
 
 			// fix action overwrites files, copy them to a temporary directory
-			testDir, cleanupTestDir := testutility.CreateTestDir(t)
-			defer cleanupTestDir()
+			testDir := testutility.CreateTestDir(t)
 
 			var lockfile, manifest string
 			if tt.lockfile != "" {
