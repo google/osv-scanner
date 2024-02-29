@@ -285,6 +285,151 @@ func TestNonRecursivelyParsingGitignoreFilesFromMidTree(t *testing.T) {
 	}
 }
 
+func TestRecursivelyParsingGitignoreFilesFromMidTreeFile(t *testing.T) {
+	t.Parallel()
+
+	// expect this to be the same as TestNonRecursivelyParsingGitignoreFilesFromMidTree
+	//   because the a_file is inside the that tests start-dir
+
+	// Create a specific git repo with .gitignore files
+	gitRepo := setupGitRepo(t)
+
+	// Read this dir-tree using customgitignore, starting midway
+	// up the tree at ./dir_a
+	start := filepath.Join(gitRepo, "dir_a", "a_file")
+	patterns, _, err := customgitignore.ParseGitIgnores(start, true)
+	if err != nil {
+		t.Errorf("could not read gitignore patterns for test: %v", err)
+	}
+
+	var hasMatch bool
+
+	// expect ./.git/info/exclude to be processed, by backtracking up the tree
+	hasMatch = slices.ContainsFunc(patterns, func(p gitignore.Pattern) bool {
+		return p.Match([]string{".", "REPO_EXCLUDE_FILE"}, false) == gitignore.Exclude
+	})
+
+	if !hasMatch {
+		t.Errorf("Expected to find a pattern matching REPO_EXCLUDE_FILE from ./.git/info/exclude ")
+	}
+
+	// expect ./.gitignore to be processed (by backtracking up the tree)
+	hasMatch = slices.ContainsFunc(patterns, func(p gitignore.Pattern) bool {
+		return p.Match([]string{".", "ROOT_GITIGNORE"}, false) == gitignore.Exclude
+	})
+
+	if !hasMatch {
+		t.Errorf("Expected to find a pattern matching ROOT_GITIGNORE from repository-root .gitignore")
+	}
+
+	// expect ./dir_a/.gitignore to be processed
+	hasMatch = slices.ContainsFunc(patterns, func(p gitignore.Pattern) bool {
+		return p.Match([]string{".", "dir_a", "DIR_A_GITIGNORE"}, false) == gitignore.Exclude
+	})
+
+	if !hasMatch {
+		t.Errorf("Expected to find a pattern matching dir_a/DIR_A_GITIGNORE from ./dir_a/.gitignore")
+	}
+
+	// expect ./dir_a/parallel_b/.gitignore to be processed
+	hasMatch = slices.ContainsFunc(patterns, func(p gitignore.Pattern) bool {
+		return p.Match([]string{".", "dir_a", "parallel_b", "PARALLEL_B_GITIGNORE"}, false) == gitignore.Exclude
+	})
+
+	if !hasMatch {
+		t.Errorf("Expected to find a pattern matching dir_a/parallel_b/PARALLEL_B_GITIGNORE from ./dir_a/parallel_b/.gitignore")
+	}
+
+	// expect ./dir_a/dir_b/.gitignore to be skipped over
+	if hasPatternContaining(patterns, "DIR_B_GITIGNORE") {
+		t.Errorf("Expected not to find pattern matching DIR_B_GITIGNORE from ./dir_a/dir_b/.gitignore; " +
+			"dir_b should have been ignored by a rule in repository-root .gitignore")
+	}
+
+	// expect ./dir_a/dir_b/dir_c/.gitignore to be skipped over
+	if hasPatternContaining(patterns, "DIR_C_GITIGNORE") {
+		t.Errorf("Expected not to find pattern matching DIR_C_GITIGNORE from ./dir_a/dir_b/dir_c/.gitignore; " +
+			"because it's parent dir_b should have been ignored by a rule in repository-root .gitignore")
+	}
+
+	// expect ./parallel_a/.gitignore to be skipped over
+	if hasPatternContaining(patterns, "PARALLEL_A_GITIGNORE") {
+		t.Fatalf("Expected not to find pattern matching PARALLEL_A_GITIGNORE from ./parallel_a/.gitignore; " +
+			"dir_b should have been ignored by a rule in repository-root .gitignore")
+	}
+}
+
+func TestNonRecursivelyParsingGitignoreFilesFromMidTreeFile(t *testing.T) {
+	t.Parallel()
+
+	// expect this to be have the same results as TestNonRecursivelyParsingGitignoreFilesFromMidTree
+	//   because the a_file is inside the that tests start-dir
+
+	// Create a specific git repo with .gitignore files
+	gitRepo := setupGitRepo(t)
+
+	// Read this dir-tree using customgitignore, starting midway
+	// up the tree at ./dir_a
+	start := filepath.Join(gitRepo, "dir_a", "a_file")
+	patterns, _, err := customgitignore.ParseGitIgnores(start, false)
+	if err != nil {
+		t.Errorf("could not read gitignore patterns for test: %v", err)
+	}
+
+	var hasMatch bool
+
+	// expect ./.git/info/exclude to be processed, by backtracking up the tree
+	hasMatch = slices.ContainsFunc(patterns, func(p gitignore.Pattern) bool {
+		return p.Match([]string{".", "REPO_EXCLUDE_FILE"}, false) == gitignore.Exclude
+	})
+
+	if !hasMatch {
+		t.Errorf("Expected to find a pattern matching REPO_EXCLUDE_FILE from ./.git/info/exclude ")
+	}
+
+	// expect ./.gitignore to be processed (by backtracking up the tree)
+	hasMatch = slices.ContainsFunc(patterns, func(p gitignore.Pattern) bool {
+		return p.Match([]string{".", "ROOT_GITIGNORE"}, false) == gitignore.Exclude
+	})
+
+	if !hasMatch {
+		t.Errorf("Expected to find a pattern matching ROOT_GITIGNORE from repository-root .gitignore")
+	}
+
+	// expect ./dir_a/.gitignore to be processed
+	hasMatch = slices.ContainsFunc(patterns, func(p gitignore.Pattern) bool {
+		return p.Match([]string{".", "dir_a", "DIR_A_GITIGNORE"}, false) == gitignore.Exclude
+	})
+
+	if !hasMatch {
+		t.Errorf("Expected to find a pattern matching dir_a/DIR_A_GITIGNORE from ./dir_a/.gitignore")
+	}
+
+	// expect ./dir_a/parallel_b/.gitignore not to be processed
+	if hasPatternContaining(patterns, "PARALLEL_B_GITIGNORE") {
+		t.Errorf("Expected not to find a pattern matching dir_a/parallel_b/PARALLEL_B_GITIGNORE from ./dir_a/parallel_b/.gitignore" +
+			"because parsing isn't recursive")
+	}
+
+	// expect ./dir_a/dir_b/.gitignore to be skipped over
+	if hasPatternContaining(patterns, "DIR_B_GITIGNORE") {
+		t.Errorf("Expected not to find pattern matching DIR_B_GITIGNORE from ./dir_a/dir_b/.gitignore; " +
+			"dir_b should have been ignored by a rule in repository-root .gitignore")
+	}
+
+	// expect ./dir_a/dir_b/dir_c/.gitignore to be skipped over
+	if hasPatternContaining(patterns, "DIR_C_GITIGNORE") {
+		t.Errorf("Expected not to find pattern matching DIR_C_GITIGNORE from ./dir_a/dir_b/dir_c/.gitignore; " +
+			"because it's parent dir_b should have been ignored by a rule in repository-root .gitignore")
+	}
+
+	// expect ./parallel_a/.gitignore to be skipped over
+	if hasPatternContaining(patterns, "PARALLEL_A_GITIGNORE") {
+		t.Fatalf("Expected not to find pattern matching PARALLEL_A_GITIGNORE from ./parallel_a/.gitignore; " +
+			"dir_b should have been ignored by a rule in repository-root .gitignore")
+	}
+}
+
 func TestRecursivelyParsingGitignoreFilesFromRoot(t *testing.T) {
 	t.Parallel()
 
@@ -445,6 +590,9 @@ func setupGitRepo(t *testing.T) string {
 	writeGitignore(t, gitRepo, filepath.FromSlash("dir_a/dir_b/dir_c/.gitignore"), "DIR_C_GITIGNORE")
 	writeGitignore(t, gitRepo, filepath.FromSlash("dir_a/parallel_b/.gitignore"), "PARALLEL_B_GITIGNORE")
 	writeGitignore(t, gitRepo, filepath.FromSlash("parallel_a/.gitignore"), "PARALLEL_A_GITIGNORE")
+
+	// Create an everyday one (not actually a git-ignore file)
+	writeGitignore(t, gitRepo, filepath.FromSlash("dir_a/a_file"), "A_FILE")
 
 	return gitRepo
 }
