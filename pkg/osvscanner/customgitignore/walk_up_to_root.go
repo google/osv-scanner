@@ -22,41 +22,46 @@ import (
 // a caller to know how .gitingore files were parsed.
 //
 // The actual parsing is inteded to be similar to how tools
-// rg work, but means that `path` may not necessarily be
+// like rg work, but means that `path` may not necessarily be
 // the root of a git repo, and can produces these parsing
 // behaviours:
 //
-// - parsing file:
-// 	- find the file's dir and then run the following rules...
+// `path` is a plain dir:
 //
-// - parsing dir at the root of a git-repo
-// 	- with recursive flag:
-// 		- read all .gitignore files in repo
-// 		- read .git/info/exclude for repo
-// 	- without recursive flag:
-// 		- read .gitignore files in repo-root
-// 		- read .git/info/exclude for repo
+//   - .gitignore files are ignored
 //
-// - parsing dir within, a git-repo
-// 	- with recursive flag:
+// `path` is a file:
+//
+//   - find the file's dir and then run the following rules...
+//
+// `path` is a dir at the root of a git-repo, with recursive flag:
+//
+//   - read all .gitignore files in repo
+//   - read .git/info/exclude for repo
+//
+// `path` is a dir at the root of a git-repo, without recursive flag:
+//
+//   - only read .gitignore files in repo-root
+//   - read .git/info/exclude for repo
+//
+// `path` is a dir within a git-repo, with recursive flag:
+//
+//   - read .gitignore in start dir
+//   - read all .gitignore files in child-dirs
+//   - read all .gitignore files in parent dirs up to and including repo-root
+//     (but only dirs that are an ancestor)
+//
+// `path` is a dir within, a git-repo, without recursive flag:
+//
 // 		- read .gitignore in start dir
-// 		- read all .gitignore files in child-dirs
 // 		- read all .gitignore files in parent dirs up to and including repo-root
-// 			(ie only dirs that are an ancestor)
-// 		- read .git/info/exclude for repo
-//  - NOTE: the dir you're passing in directly could be a dir that is ignored
-//      by a parent's .gitignore or the per-repo exclude file; in this
-//      case, we still process the dir's .gitignore file and, possibly, but
-//      not it's sub-dirs
-//
-// 	- without recursive flag:
-// 		- read .gitignore in start dir
-// 		- read all .gitignore files in parent dirs up to and including repo-root
-// 			(ie only dirs that are an ancestor)
+// 			(but only dirs that are an ancestor)
 // 		- read .git/info/exclude for repo
 //
-// - parsing a plain dir: .gitignore files are ignored
-//
+// NOTE: the dir you're passing in directly could be a dir that is ignored
+// (targeted by a parent's .gitignore or the per-repo exclude file); in this
+// case, the dir's .gitignore file is still processed, but not its sub-dirs.
+
 // In all cases any dirs matched by a previously read
 // .gitignore are skipped, unless it's the path (ie directly
 // supplied by the user).
