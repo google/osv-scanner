@@ -1,4 +1,3 @@
-// TODO: check if there's a way to make this: `package customgitignore` instead
 package customgitignore_test
 
 import (
