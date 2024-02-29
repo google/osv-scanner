@@ -25,7 +25,7 @@ func ToCycloneDX15Bom(stderr io.Writer, uniquePackages map[string]models.Package
 		component.Evidence = &cyclonedx.Evidence{Occurrences: &occurrences}
 
 		for index, packageLocations := range packageDetail.Locations {
-			jsonLocation, err := packageLocations.EncodeToJSONString()
+			jsonLocation, err := packageLocations.MarshalToJSONString()
 			if err != nil {
 				_, _ = fmt.Fprintf(stderr, "An error occurred when creating the jsonLocation structure : %v", err.Error())
 				continue

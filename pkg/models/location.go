@@ -2,7 +2,6 @@ package models
 
 import (
 	"encoding/json"
-	"strings"
 )
 
 type PackageDetails struct {
@@ -27,14 +26,11 @@ type PackageLocations struct {
 	Version   *PackageLocation `json:"version,omitempty"`
 }
 
-func (location PackageLocations) EncodeToJSONString() (string, error) {
-	buffer := strings.Builder{}
-	encoder := json.NewEncoder(&buffer)
-
-	err := encoder.Encode(location)
+func (location PackageLocations) MarshalToJSONString() (string, error) {
+	str, err := json.Marshal(location)
 	if err != nil {
 		return "", err
 	}
 
-	return buffer.String(), nil
+	return string(str), nil
 }
