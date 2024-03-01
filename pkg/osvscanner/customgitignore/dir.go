@@ -78,7 +78,7 @@ func readPatterns(fs billy.Filesystem, path []string, accumulatedPs []gitignore.
 // ReadPatterns reads the .git/info/exclude and then the gitignore patterns
 // recursively traversing through the directory structure. The result is in
 // the ascending order of priority (last higher).
-func ReadPatterns(fs billy.Filesystem, path []string, recursive bool) (ps []gitignore.Pattern, err error) {
+func ReadPatterns(fs billy.Filesystem, path []string) (ps []gitignore.Pattern, err error) {
 	subps, err := readPatterns(fs, path, ps)
 	ps = append(ps, subps...)
 
