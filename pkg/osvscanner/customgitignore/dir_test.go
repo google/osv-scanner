@@ -260,7 +260,7 @@ func TestNonRecursivelyParsingGitignoreFilesFromMidTree(t *testing.T) {
 		t.Errorf("Expected to find a pattern matching dir_a/DIR_A_GITIGNORE from ./dir_a/.gitignore")
 	}
 
-	// expect ./dir_a/parallel_b/.gitignore not to be processed
+	// expect ./dir_a/parallel_b/.gitignore to be skipped over
 	if hasPatternContaining(patterns, "PARALLEL_B_GITIGNORE") {
 		t.Errorf("Expected not to find a pattern matching dir_a/parallel_b/PARALLEL_B_GITIGNORE from ./dir_a/parallel_b/.gitignore" +
 			"because parsing isn't recursive")
@@ -405,7 +405,7 @@ func TestNonRecursivelyParsingGitignoreFilesFromMidTreeFile(t *testing.T) {
 		t.Errorf("Expected to find a pattern matching dir_a/DIR_A_GITIGNORE from ./dir_a/.gitignore")
 	}
 
-	// expect ./dir_a/parallel_b/.gitignore not to be processed
+	// expect ./dir_a/parallel_b/.gitignore to be skipped over
 	if hasPatternContaining(patterns, "PARALLEL_B_GITIGNORE") {
 		t.Errorf("Expected not to find a pattern matching dir_a/parallel_b/PARALLEL_B_GITIGNORE from ./dir_a/parallel_b/.gitignore" +
 			"because parsing isn't recursive")
@@ -525,12 +525,12 @@ func TestNonRecursivelyParsingGitignoreFilesFromRoot(t *testing.T) {
 		t.Errorf("Expected to find a pattern matching ROOT_GITIGNORE from repository-root .gitignore")
 	}
 
-	// expect ./dir_a/.gitignore not to be processed
+	// expect ./dir_a/.gitignore to be skipped over
 	if hasPatternContaining(patterns, "DIR_A_GITIGNORE") {
 		t.Errorf("Expected to find a pattern matching dir_a/DIR_A_GITIGNORE from ./dir_a/.gitignore")
 	}
 
-	// expect ./parallel_a/.gitignore not to be processed
+	// expect ./parallel_a/.gitignore to be skipped over
 	if hasPatternContaining(patterns, "PARALLEL_A_GITIGNORE") {
 		t.Errorf("Expected to find a pattern matching parallel_a/PARALLEL_A_GITIGNORE from ./dir_a/.gitignore")
 	}
