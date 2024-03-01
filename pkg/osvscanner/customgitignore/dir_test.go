@@ -592,7 +592,7 @@ func setupGitRepo(t *testing.T) string {
 
 	// initialise a git repo
 	if _, err := git.PlainInit(gitRepo, false); err != nil {
-		t.Errorf("could not initialise git repo for test: %v", err)
+		t.Fatalf("could not initialise git repo for test: %v", err)
 	}
 
 	return gitRepo
@@ -608,18 +608,18 @@ func setupPlainDirWithGitignores(t *testing.T) string {
 
 	allPaths = filepath.Join(dir, filepath.FromSlash(".git/info/"))
 	if err := os.MkdirAll(allPaths, 0755); err != nil {
-		t.Errorf("could not create paths for test: %v", err)
+		t.Fatalf("could not create paths for test: %v", err)
 	}
 
 	// create directory tree within tempdir
 	allPaths = filepath.Join(dir, filepath.FromSlash("dir_a/dir_b/dir_c"))
 	if err := os.MkdirAll(allPaths, 0755); err != nil {
-		t.Errorf("could not create paths for test: %v", err)
+		t.Fatalf("could not create paths for test: %v", err)
 	}
 
 	allPaths = filepath.Join(dir, filepath.FromSlash("dir_a/parallel_b/"))
 	if err := os.MkdirAll(allPaths, 0755); err != nil {
-		t.Errorf("could not create paths for test: %v", err)
+		t.Fatalf("could not create paths for test: %v", err)
 	}
 
 	allPaths = filepath.Join(dir, "parallel_a/")
