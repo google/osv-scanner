@@ -75,8 +75,8 @@ func TestRecursivelyParsingGitignoreFilesFromIgnoredDir(t *testing.T) {
 
 	// expect ./dir_a/dir_b/dir_c/.gitignore to be skipped over
 	if hasPatternContaining(patterns, "DIR_C_GITIGNORE") {
-		t.Errorf(	"Expected not to find pattern matching DIR_C_GITIGNORE from ./dir_a/dir_b/dir_c/.gitignore; " +
-							"because it's parent dir_b should have been ignored by a rule in repository-root .gitignore")
+		t.Errorf("Expected not to find pattern matching DIR_C_GITIGNORE from ./dir_a/dir_b/dir_c/.gitignore; " +
+			"because it's parent dir_b should have been ignored by a rule in repository-root .gitignore")
 	}
 }
 
@@ -141,8 +141,8 @@ func TestNonRecursivelyParsingGitignoreFilesFromIgnoredDir(t *testing.T) {
 
 	// expect ./dir_a/dir_b/dir_c/.gitignore to be skipped over
 	if hasPatternContaining(patterns, "DIR_C_GITIGNORE") {
-		t.Errorf(	"Expected not to find pattern matching DIR_C_GITIGNORE from ./dir_a/dir_b/dir_c/.gitignore; " +
-							"because it's parent dir_b should have been ignored by a rule in repository-root .gitignore")
+		t.Errorf("Expected not to find pattern matching DIR_C_GITIGNORE from ./dir_a/dir_b/dir_c/.gitignore; " +
+			"because it's parent dir_b should have been ignored by a rule in repository-root .gitignore")
 	}
 }
 
@@ -549,10 +549,9 @@ func TestNonRecursivelyParsingGitignoreFilesFromRoot(t *testing.T) {
 }
 
 func TestRecursivelyParsingGitignoreFilesFromPlainDir(t *testing.T) {
- 	t.Parallel()
+	t.Parallel()
 
 	plainDir := setupPlainDirWithGitignores(t)
-
 
 	// Read this dir-tree using customgitignore
 	patterns, _, err := customgitignore.ParseGitIgnores(plainDir, true)
@@ -591,7 +590,7 @@ func setupGitRepo(t *testing.T) string {
 
 	gitRepo := setupPlainDirWithGitignores(t)
 
-		// initialise a git repo
+	// initialise a git repo
 	if _, err := git.PlainInit(gitRepo, false); err != nil {
 		t.Errorf("could not initialise git repo for test: %v", err)
 	}
@@ -651,7 +650,6 @@ func writeGitignore(t *testing.T, gitRepo, f, s string) {
 		t.Errorf("could not write file for test: %v", err)
 	}
 }
-
 
 // hasPatternContaining checks whether any of the gitignore.Pattern-s
 // in gip contain a `pattern` field with the string `test` in it.
