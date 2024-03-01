@@ -548,53 +548,99 @@ func TestNonRecursivelyParsingGitignoreFilesFromRoot(t *testing.T) {
 	}
 }
 
+func TestRecursivelyParsingGitignoreFilesFromPlainDir(t *testing.T) {
+ 	t.Parallel()
+
+	plainDir := setupPlainDirWithGitignores(t)
+
+
+	// Read this dir-tree using customgitignore
+	patterns, _, err := customgitignore.ParseGitIgnores(plainDir, true)
+	if err != nil {
+		t.Errorf("could not read gitignore patterns for test: %v", err)
+	}
+
+	// expect gitignore.Pattern[] to be empty, meaning no .gitignores were processed
+	if len(patterns) != 0 {
+		t.Errorf("Expected patterns slice read from to be empty, non git-repo," +
+			"because .gitignores are meaningless")
+	}
+
+}
+
+func TestNonRecursivelyParsingGitignoreFilesFromPlainDir(t *testing.T) {
+	t.Parallel()
+
+	plainDir := setupPlainDirWithGitignores(t)
+
+	// Read this dir-tree using customgitignore
+	patterns, _, err := customgitignore.ParseGitIgnores(plainDir, false)
+	if err != nil {
+		t.Errorf("could not read gitignore patterns for test: %v", err)
+	}
+
+	// expect gitignore.Pattern[] to be empty, meaning no .gitignores were processed
+	if len(patterns) != 0 {
+		t.Errorf("Expected patterns slice read from to be empty, non git-repo," +
+			"because .gitignores are meaningless")
+	}
+}
+
 func setupGitRepo(t *testing.T) string {
 	t.Helper()
 
+	gitRepo := setupPlainDirWithGitignores(t)
+
+		// initialise a git repo
+	if _, err := git.PlainInit(gitRepo, false); err != nil {
+		t.Errorf("could not initialise git repo for test: %v", err)
+	}
+
+	return gitRepo
+}
+
+func setupPlainDirWithGitignores(t *testing.T) string {
+	t.Helper()
+
 	// A unique tempdir for local funcs to create a git repo inside
-	gitRepo := filepath.Join(t.TempDir(), "git_repo")
+	dir := filepath.Join(t.TempDir(), "base_dir")
 
 	var allPaths string
 
-	allPaths = filepath.Join(gitRepo, filepath.FromSlash(".git/info/"))
+	allPaths = filepath.Join(dir, filepath.FromSlash(".git/info/"))
 	if err := os.MkdirAll(allPaths, 0755); err != nil {
 		t.Errorf("could not create paths for test: %v", err)
 	}
 
 	// create directory tree within tempdir
-	allPaths = filepath.Join(gitRepo, filepath.FromSlash("dir_a/dir_b/dir_c"))
+	allPaths = filepath.Join(dir, filepath.FromSlash("dir_a/dir_b/dir_c"))
 	if err := os.MkdirAll(allPaths, 0755); err != nil {
 		t.Errorf("could not create paths for test: %v", err)
 	}
 
-	allPaths = filepath.Join(gitRepo, filepath.FromSlash("dir_a/parallel_b/"))
+	allPaths = filepath.Join(dir, filepath.FromSlash("dir_a/parallel_b/"))
 	if err := os.MkdirAll(allPaths, 0755); err != nil {
 		t.Errorf("could not create paths for test: %v", err)
 	}
 
-	allPaths = filepath.Join(gitRepo, "parallel_a/")
+	allPaths = filepath.Join(dir, "parallel_a/")
 	if err := os.MkdirAll(filepath.FromSlash(allPaths), 0755); err != nil {
 		t.Fatalf("could not create paths for test: %v", err)
 	}
 
-	// initialise a git repo
-	if _, err := git.PlainInit(gitRepo, false); err != nil {
-		t.Errorf("could not initialise git repot for test: %v", err)
-	}
-
 	// add .gitignore files within the tree
-	writeGitignore(t, gitRepo, filepath.FromSlash(".git/info/exclude"), "REPO_EXCLUDE_FILE")
-	writeGitignore(t, gitRepo, filepath.FromSlash(".gitignore"), "ROOT_GITIGNORE\n"+"/dir_a/dir_b")
-	writeGitignore(t, gitRepo, filepath.FromSlash("dir_a/.gitignore"), "DIR_A_GITIGNORE")
-	writeGitignore(t, gitRepo, filepath.FromSlash("dir_a/dir_b/.gitignore"), "DIR_B_GITIGNORE")
-	writeGitignore(t, gitRepo, filepath.FromSlash("dir_a/dir_b/dir_c/.gitignore"), "DIR_C_GITIGNORE")
-	writeGitignore(t, gitRepo, filepath.FromSlash("dir_a/parallel_b/.gitignore"), "PARALLEL_B_GITIGNORE")
-	writeGitignore(t, gitRepo, filepath.FromSlash("parallel_a/.gitignore"), "PARALLEL_A_GITIGNORE")
+	writeGitignore(t, dir, filepath.FromSlash(".git/info/exclude"), "REPO_EXCLUDE_FILE")
+	writeGitignore(t, dir, filepath.FromSlash(".gitignore"), "ROOT_GITIGNORE\n"+"/dir_a/dir_b")
+	writeGitignore(t, dir, filepath.FromSlash("dir_a/.gitignore"), "DIR_A_GITIGNORE")
+	writeGitignore(t, dir, filepath.FromSlash("dir_a/dir_b/.gitignore"), "DIR_B_GITIGNORE")
+	writeGitignore(t, dir, filepath.FromSlash("dir_a/dir_b/dir_c/.gitignore"), "DIR_C_GITIGNORE")
+	writeGitignore(t, dir, filepath.FromSlash("dir_a/parallel_b/.gitignore"), "PARALLEL_B_GITIGNORE")
+	writeGitignore(t, dir, filepath.FromSlash("parallel_a/.gitignore"), "PARALLEL_A_GITIGNORE")
 
 	// Create an everyday one (not actually a git-ignore file)
-	writeGitignore(t, gitRepo, filepath.FromSlash("dir_a/a_file"), "A_FILE")
+	writeGitignore(t, dir, filepath.FromSlash("dir_a/a_file"), "A_FILE")
 
-	return gitRepo
+	return dir
 }
 
 func writeGitignore(t *testing.T, gitRepo, f, s string) {
