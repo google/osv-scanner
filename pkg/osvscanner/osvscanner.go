@@ -26,7 +26,6 @@ import (
 	"github.com/google/osv-scanner/pkg/reporter"
 
 	depsdevpb "deps.dev/api/v3alpha"
-	"github.com/go-git/go-billy/v5"
 	"github.com/go-git/go-git/v5"
 	"github.com/go-git/go-git/v5/plumbing/format/gitignore"
 )
@@ -194,14 +193,14 @@ type gitIgnoreMatcher struct {
 }
 
 func parseGitIgnores(path string, recursive bool) (*gitIgnoreMatcher, error) {
-	patterns, repoRootPath, err := customgitignore.parseGitIgnores(path, recursive)
+	patterns, repoRootPath, err := customgitignore.ParseGitIgnores(path, recursive)
 	if err != nil {
 		return nil, err
 	}
 
 	matcher := gitignore.NewMatcher(patterns)
 
-	return &gitIgnoreMatcher{matcher: matcher, repoPath: repopath}, nil
+	return &gitIgnoreMatcher{matcher: matcher, repoPath: repoRootPath}, nil
 }
 
 func queryDetermineVersions(repoDir string) (*osv.DetermineVersionResponse, error) {
