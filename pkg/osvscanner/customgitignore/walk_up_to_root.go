@@ -126,7 +126,7 @@ func ParseGitIgnores(path string, recursive bool) (returnPs []gitignore.Pattern,
 	// Read children's subdirs
 	//
 	if recursive {
-		newPs, err = readPatterns(fs, toGoGitPath(pathRel), ps)
+		newPs, err = ReadPatternsIgnoringDirs(fs, toGoGitPath(pathRel), ps)
 		ps = append(ps, newPs...)
 	} else {
 		// only read single .gitignore file in this dir

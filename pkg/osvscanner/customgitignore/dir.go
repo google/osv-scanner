@@ -39,7 +39,22 @@ func readIgnoreFile(fs billy.Filesystem, path []string, ignoreFile string) (ps [
 	return
 }
 
-func readPatterns(fs billy.Filesystem, path []string, accumulatedPs []gitignore.Pattern) (ps []gitignore.Pattern, err error) {
+// ReadPatterns reads the .git/info/exclude and then the gitignore patterns
+// recursively traversing through the directory structure. The result is in
+// the ascending order of priority (last higher).
+func ReadPatterns(fs billy.Filesystem, path []string) (ps []gitignore.Pattern, err error) {
+	ps, _ = readIgnoreFile(fs, path, infoExcludeFile)
+	subps, err := ReadPatternsIgnoringDirs(fs, path, ps)
+	ps = append(ps, subps...)
+
+	return ps, err
+}
+
+// ReadPatternsIgnoringDirs keeps track of the patterns it has read so far,
+// and does not parse directories these match for efficiency.
+//
+// Optionally a list of existing patterns to ignore can be supplied.
+func ReadPatternsIgnoringDirs(fs billy.Filesystem, path []string, accumulatedPs []gitignore.Pattern) (ps []gitignore.Pattern, err error) {
 	ps, err = readIgnoreFile(fs, path, gitignoreFile)
 	if err != nil {
 		return ps, err
@@ -60,7 +75,7 @@ func readPatterns(fs billy.Filesystem, path []string, accumulatedPs []gitignore.
 			childPath = append(childPath, fi.Name())
 			if !matcherForThisDir.Match(childPath, fi.IsDir()) {
 				var subps []gitignore.Pattern
-				subps, err = readPatterns(fs, childPath, accumulatedPs)
+				subps, err = ReadPatternsIgnoringDirs(fs, childPath, accumulatedPs)
 				if err != nil {
 					return ps, err
 				}
@@ -75,12 +90,3 @@ func readPatterns(fs billy.Filesystem, path []string, accumulatedPs []gitignore.
 	return ps, err
 }
 
-// ReadPatterns reads the .git/info/exclude and then the gitignore patterns
-// recursively traversing through the directory structure. The result is in
-// the ascending order of priority (last higher).
-func ReadPatterns(fs billy.Filesystem, path []string) (ps []gitignore.Pattern, err error) {
-	subps, err := readPatterns(fs, path, ps)
-	ps = append(ps, subps...)
-
-	return
-}
