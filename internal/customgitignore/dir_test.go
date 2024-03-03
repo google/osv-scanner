@@ -9,7 +9,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/google/osv-scanner/pkg/osvscanner/customgitignore"
+	"github.com/google/osv-scanner/internal/customgitignore"
 
 	"github.com/go-git/go-git/v5"
 	"github.com/go-git/go-git/v5/plumbing/format/gitignore"

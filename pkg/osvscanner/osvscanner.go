@@ -12,6 +12,7 @@ import (
 	"path/filepath"
 	"strings"
 
+	"github.com/google/osv-scanner/internal/customgitignore"
 	"github.com/google/osv-scanner/internal/local"
 	"github.com/google/osv-scanner/internal/output"
 	"github.com/google/osv-scanner/internal/sbom"
@@ -22,7 +23,6 @@ import (
 	"github.com/google/osv-scanner/pkg/lockfile"
 	"github.com/google/osv-scanner/pkg/models"
 	"github.com/google/osv-scanner/pkg/osv"
-	"github.com/google/osv-scanner/pkg/osvscanner/customgitignore"
 	"github.com/google/osv-scanner/pkg/reporter"
 
 	depsdevpb "deps.dev/api/v3alpha"
