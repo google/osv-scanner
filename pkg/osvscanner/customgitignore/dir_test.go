@@ -597,15 +597,15 @@ func TestParsingGitRepoWithoutGitignoreFiles(t *testing.T) {
 
 	// context: the dir has been crawled, and all its .gitignores removed
 	err := filepath.WalkDir(gitRepo, func(path string, d fs.DirEntry, err error) error {
-    if err != nil {
-        return err
-    }
+		if err != nil {
+			return err
+		}
 
 		if !d.IsDir() && d.Name() == ".gitignore" {
 			os.Remove(path)
 		}
 
-    return nil
+		return nil
 	})
 
 	// context: reading this dir-tree using customgitignore, starting midway
@@ -623,7 +623,6 @@ func TestParsingGitRepoWithoutGitignoreFiles(t *testing.T) {
 		t.Errorf("Expected patterns slice read from to be empty")
 	}
 }
-
 
 func setupGitRepo(t *testing.T) string {
 	t.Helper()
@@ -719,7 +718,7 @@ func hasPatternContaining(gips []gitignore.Pattern, test string) bool {
 // instead ?
 //
 // ... because the changes in customgitignore adjust the
-// implementation details of the upstream packge so that
+// implementation details of the upstream package so that
 // it doesn't read .gitingore files from ignored dirs.
 // This means that before _and_ after the change p.Match()
 // will return false.

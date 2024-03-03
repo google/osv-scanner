@@ -89,4 +89,3 @@ func ReadPatternsIgnoringDirs(fs billy.Filesystem, path []string, accumulatedPs 
 
 	return ps, err
 }
-
