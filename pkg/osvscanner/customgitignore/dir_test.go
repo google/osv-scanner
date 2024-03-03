@@ -2,6 +2,7 @@ package customgitignore_test
 
 import (
 	"fmt"
+	"io/fs"
 	"os"
 	"path/filepath"
 	"slices"
@@ -584,6 +585,45 @@ func TestNonRecursivelyParsingGitignoreFilesFromPlainDir(t *testing.T) {
 			"because .gitignores are meaningless")
 	}
 }
+
+func TestParsingGitRepoWithoutGitignoreFiles(t *testing.T) {
+	t.Parallel()
+
+	gitRepo := setupGitRepo(t)
+
+	// context: the repo doesn't have a repo-wide gitignore file
+	repoExcludeFile := filepath.Join(gitRepo, filepath.FromSlash(".git/info/exclude"))
+	os.Remove(repoExcludeFile)
+
+	// context: the dir has been crawled, and all its .gitignores removed
+	err := filepath.WalkDir(gitRepo, func(path string, d fs.DirEntry, err error) error {
+    if err != nil {
+        return err
+    }
+
+		if !d.IsDir() && d.Name() == ".gitignore" {
+			os.Remove(path)
+		}
+
+    return nil
+	})
+
+	// context: reading this dir-tree using customgitignore, starting midway
+	// up the tree at ./dir_a
+	start := filepath.Join(gitRepo, "dir_a")
+	patterns, _, err := customgitignore.ParseGitIgnores(start, true)
+
+	// expect the parser to handle these missing files
+	if err != nil {
+		t.Errorf("customgitignore.ParseGitIgnores should have worked but instead it failed with: %v", err)
+	}
+
+	// expect gitignore.Pattern[] to be empty, meaning no .gitignores were processed
+	if len(patterns) != 0 {
+		t.Errorf("Expected patterns slice read from to be empty")
+	}
+}
+
 
 func setupGitRepo(t *testing.T) string {
 	t.Helper()

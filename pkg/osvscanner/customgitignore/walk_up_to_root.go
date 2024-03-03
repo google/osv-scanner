@@ -111,7 +111,7 @@ func ParseGitIgnores(path string, recursive bool) (returnPs []gitignore.Pattern,
 
 	// read the per-repo info/exclude file
 	newPs, err = readIgnoreFile(fs, []string{"."}, infoExcludeFile)
-	if err != nil {
+	if err != nil && !os.IsNotExist(err) {
 		return ps, "", err
 	}
 	ps = append(ps, newPs...)
@@ -120,6 +120,9 @@ func ParseGitIgnores(path string, recursive bool) (returnPs []gitignore.Pattern,
 	//
 	if pathAbs != repoRootPath {
 		newPs, err = readIgnoreFilesFromParents(fs, pathRel, repoRootPath)
+		if err != nil && !os.IsNotExist(err) {
+			return ps, "", err
+		}
 		ps = append(ps, newPs...)
 	}
 
@@ -127,12 +130,16 @@ func ParseGitIgnores(path string, recursive bool) (returnPs []gitignore.Pattern,
 	//
 	if recursive {
 		newPs, err = ReadPatternsIgnoringDirs(fs, toGoGitPath(pathRel), ps)
-		ps = append(ps, newPs...)
 	} else {
 		// only read single .gitignore file in this dir
 		newPs, err = readIgnoreFile(fs, toGoGitPath(pathRel), gitignoreFile)
-		ps = append(ps, newPs...)
 	}
+
+	if err != nil && !os.IsNotExist(err) {
+		return ps, "", err
+	}
+
+	ps = append(ps, newPs...)
 
 	return ps, repoRootPath, nil
 }
