@@ -17,6 +17,16 @@ import (
 // This uses go-git under the hood and returns a slice
 // of go-git's gitignore.Pattern structs.
 //
+// Because this function finds the enclosing git repo, it
+// returns that as its second argument, which may be
+// `path`, or a parent of `path`, or "" if there's no
+// enclosing git repo.
+//
+// Because it detects the root of any enclosing git repo
+// if path doesn't exist the root, it returns this repoPath
+// or "" if there is none.
+
+//
 // It also returns the path to the root of the git-repo,
 // or "" if this path isn't within a git repo, allowing
 // a caller to know how .gitingore files were parsed.
@@ -65,13 +75,13 @@ import (
 // In all cases any dirs matched by a previously read
 // .gitignore are skipped, unless it's the path (ie directly
 // supplied by the user).
-func ParseGitIgnores(path string, recursive bool) (returnPs []gitignore.Pattern, repoRootPath string, err error) {
+func ParseGitIgnores(path string, recursive bool) ([]gitignore.Pattern, string, error) {
 	// We need to parse .gitignore files from the root of the git repo to correctly identify ignored files
 	var fs billy.Filesystem
 	var ps, newPs []gitignore.Pattern
 
 	// Normalise to path (or directory containing path if it's a file)
-	path, err = getNormalisedDir(path)
+	path, err := getNormalisedDir(path)
 	if err != nil {
 		return nil, "", err
 	}
@@ -89,7 +99,7 @@ func ParseGitIgnores(path string, recursive bool) (returnPs []gitignore.Pattern,
 
 	// inside a git repo
 
-	repoRootPath, err = getRepoRootPath(repo)
+	repoRootPath, err := getRepoRootPath(repo)
 	if err != nil {
 		return ps, "", err
 	}
@@ -146,7 +156,7 @@ func ParseGitIgnores(path string, recursive bool) (returnPs []gitignore.Pattern,
 
 // Recursively walk up the directory tree processing .gitignore files as we go.
 // Once we reach the git-root dir, process it but don't recurse any further.
-func readIgnoreFilesFromParents(fs billy.Filesystem, pathRel string, pathGitRoot string) (returnPs []gitignore.Pattern, err error) {
+func readIgnoreFilesFromParents(fs billy.Filesystem, pathRel string, pathGitRoot string) ([]gitignore.Pattern, error) {
 	var ps []gitignore.Pattern
 
 	// Recurse up the tree to path's parent
@@ -204,7 +214,7 @@ func parentPath(path string) string {
 //
 // This assumes slash-separated paths (eg paths.Join, as
 // opposed to filepath.Join)
-func toGoGitPath(path string) (pathSlice []string) {
+func toGoGitPath(path string) []string {
 	dirPath := strings.Split(path, string(os.PathSeparator))
 	if dirPath[0] != "." {
 		dirPath = append([]string{"."}, dirPath...)
@@ -234,11 +244,11 @@ func getNormalisedDir(path string) (string, error) {
 }
 
 // Use file system operations to test for dir-y-ness
-func isDir(path string) (b bool, err error) {
+func isDir(path string) (bool, error) {
 	finfo, err := os.Stat(path)
 	switch {
 	case err != nil:
-		return
+		return false, err
 	case finfo.IsDir():
 		return true, nil
 	default:
