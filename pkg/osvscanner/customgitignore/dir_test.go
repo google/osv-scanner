@@ -565,7 +565,6 @@ func TestRecursivelyParsingGitignoreFilesFromPlainDir(t *testing.T) {
 		t.Errorf("Expected patterns slice read from to be empty, non git-repo," +
 			"because .gitignores are meaningless")
 	}
-
 }
 
 func TestNonRecursivelyParsingGitignoreFilesFromPlainDir(t *testing.T) {
@@ -607,6 +606,9 @@ func TestParsingGitRepoWithoutGitignoreFiles(t *testing.T) {
 
 		return nil
 	})
+	if err != nil {
+		t.Errorf("Could not walk tree removing .gitignores because: %v", err)
+	}
 
 	// context: reading this dir-tree using customgitignore, starting midway
 	// up the tree at ./dir_a

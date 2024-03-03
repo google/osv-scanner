@@ -144,7 +144,7 @@ func ParseGitIgnores(path string, recursive bool) (returnPs []gitignore.Pattern,
 	return ps, repoRootPath, nil
 }
 
-// Recursively walk up the the directory tree processing .gitignore files as we go.
+// Recursively walk up the directory tree processing .gitignore files as we go.
 // Once we reach the git-root dir, process it but don't recurse any further.
 func readIgnoreFilesFromParents(fs billy.Filesystem, pathRel string, pathGitRoot string) (returnPs []gitignore.Pattern, err error) {
 	var ps []gitignore.Pattern
