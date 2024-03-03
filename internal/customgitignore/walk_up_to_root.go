@@ -71,7 +71,7 @@ import (
 // NOTE: the dir you're passing in directly could be a dir that is ignored
 // (targeted by a parent's .gitignore or the per-repo exclude file); in this
 // case, the dir's .gitignore file is still processed, but not its sub-dirs.
-
+//
 // In all cases any dirs matched by a previously read
 // .gitignore are skipped, unless it's the path (ie directly
 // supplied by the user).
