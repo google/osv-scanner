@@ -67,7 +67,11 @@ func ScanImage(r reporter.Reporter, imagePath string) (ScanResults, error) {
 		scannedLockfiles.Lockfiles = append(scannedLockfiles.Lockfiles, parsedLockfile)
 	}
 
-	err = fmt.Errorf("failed to cleanup: %w", img.Cleanup())
+	err = img.Cleanup()
+	if err != nil {
+		err = fmt.Errorf("failed to cleanup: %w", img.Cleanup())
+	}
+
 	return scannedLockfiles, err
 }
 
