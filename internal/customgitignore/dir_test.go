@@ -28,7 +28,7 @@ func TestRecursivelyParsingGitignoreFilesFromIgnoredDir(t *testing.T) {
 	// Read this dir-tree using customgitignore, starting at the root
 	patterns, _, err := customgitignore.ParseGitIgnores(start, true)
 	if err != nil {
-		t.Errorf("could not read gitignore patterns for test: %v", err)
+		t.Fatalf("could not read gitignore patterns for test: %v", err)
 	}
 
 	var hasMatch bool
