@@ -37,7 +37,8 @@ func (filemap *FileMap) OpenFile(path string) (fs.File, error) {
 
 func (filemap *FileMap) AllFiles() []FileNode {
 	allFiles := []FileNode{}
-	filemap.fileNodeTrie.Walk(func(key string, value interface{}) error {
+	// No need to check error since we are not returning any errors
+	_ = filemap.fileNodeTrie.Walk(func(key string, value interface{}) error {
 		allFiles = append(allFiles, value.(FileNode))
 		return nil
 	})

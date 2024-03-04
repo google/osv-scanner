@@ -19,6 +19,9 @@ import (
 
 const whiteoutPrefix = ".wh."
 
+// 2 GB
+const fileReadLimit = 2 * 1 << (10 * 3)
+
 type ScanResults struct {
 	Lockfiles []lockfile.Lockfile
 	ImagePath string
@@ -136,14 +139,14 @@ func loadImage(path string) (Image, error) {
 			}
 			// Some tools prepend everything with "./", so if we don't Clean the
 			// name, we may have duplicate entries, which angers tar-split.
-			header.Name = filepath.Clean(header.Name)
+			cleanedFileName := filepath.Clean(header.Name)
 			// force PAX format to remove Name/Linkname length limit of 100 characters
 			// required by USTAR and to not depend on internal tar package guess which
 			// prefers USTAR over PAX
 			header.Format = tar.FormatPAX
 
-			basename := filepath.Base(header.Name)
-			dirname := filepath.Dir(header.Name)
+			basename := filepath.Base(cleanedFileName)
+			dirname := filepath.Dir(cleanedFileName)
 			tombstone := strings.HasPrefix(basename, whiteoutPrefix)
 			if tombstone { // TODO: Handle Opaque Whiteouts
 				basename = basename[len(whiteoutPrefix):]
@@ -153,15 +156,15 @@ func loadImage(path string) (Image, error) {
 			// if we're checking a directory, don't filepath.Join names
 			var virtualPath string
 			if header.Typeflag == tar.TypeDir {
-				virtualPath = "/" + header.Name
+				virtualPath = "/" + cleanedFileName
 			} else {
 				virtualPath = "/" + filepath.Join(dirname, basename)
 			}
 
 			// where the file will be written to disk
-			absoluteDiskPath := filepath.Join(dirPath, header.Name)
+			absoluteDiskPath := filepath.Join(dirPath, cleanedFileName)
 
-			var fileType FileType = RegularFile
+			var fileType FileType
 			// write out the file/dir to disk
 			switch header.Typeflag {
 			case tar.TypeDir:
@@ -177,9 +180,12 @@ func loadImage(path string) (Image, error) {
 				if err != nil {
 					return Image{}, err
 				}
-
-				if _, err := io.Copy(f, tarReader); err != nil {
-					return Image{}, err
+				numBytes, err := io.Copy(f, io.LimitReader(tarReader, fileReadLimit))
+				if numBytes >= fileReadLimit || errors.Is(err, io.EOF) {
+					return Image{}, fmt.Errorf("file exceeds read limit (potential decompression bomb attack)")
+				}
+				if err != nil {
+					return Image{}, fmt.Errorf("unable to copy file: %w", err)
 				}
 				fileType = RegularFile
 				f.Close()
@@ -232,6 +238,7 @@ func inWhiteoutDir(fileMap FileMap, filePath string) bool {
 		}
 		filePath = dirname
 	}
+
 	return false
 }
 
