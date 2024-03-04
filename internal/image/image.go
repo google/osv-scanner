@@ -73,17 +73,17 @@ func ScanImage(r reporter.Reporter, imagePath string) (ScanResults, error) {
 }
 
 type Image struct {
-	flattenedFileMaps []FileMap
-	innerImage        *v1.Image
-	tempDir           string
+	flattenedLayers []FileMap
+	innerImage      *v1.Image
+	extractDir      string
 }
 
 func (img *Image) LastLayer() *FileMap {
-	return &img.flattenedFileMaps[len(img.flattenedFileMaps)-1]
+	return &img.flattenedLayers[len(img.flattenedLayers)-1]
 }
 
 func (img *Image) Cleanup() error {
-	return os.RemoveAll(img.tempDir)
+	return os.RemoveAll(img.extractDir)
 }
 
 func loadImage(path string) (Image, error) {
@@ -103,9 +103,9 @@ func loadImage(path string) (Image, error) {
 	}
 
 	outputImage := Image{
-		tempDir:           tempPath,
-		innerImage:        &image,
-		flattenedFileMaps: make([]FileMap, len(layers)),
+		extractDir:      tempPath,
+		innerImage:      &image,
+		flattenedLayers: make([]FileMap, len(layers)),
 	}
 
 	// Reverse loop through the layers to start from the latest layer first
@@ -193,7 +193,7 @@ func loadImage(path string) (Image, error) {
 
 			// Loop back up through the layers and add files
 			for ii := i; ii < len(layers); ii++ {
-				currentMap := &outputImage.flattenedFileMaps[ii]
+				currentMap := &outputImage.flattenedLayers[ii]
 				if currentMap.fileNodeTrie == nil {
 					currentMap.fileNodeTrie = trie.NewPathTrie()
 				}
