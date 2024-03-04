@@ -117,8 +117,6 @@ func ParseGitIgnores(path string, recursive bool) ([]gitignore.Pattern, string, 
 
 	fs = osfs.New(repoRootPath)
 
-	// Read parent dirs
-
 	// read the per-repo info/exclude file
 	newPs, err = readIgnoreFile(fs, []string{"."}, infoExcludeFile)
 	if err != nil && !os.IsNotExist(err) {
