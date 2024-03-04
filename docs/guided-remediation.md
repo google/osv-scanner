@@ -36,6 +36,7 @@ To fix as many vulnerabilities as possible in your `package-lock.json` file [in-
 ```bash
 osv-scanner fix --non-interactive --strategy=in-place -L path/to/package-lock.json
 ```
+
 <details markdown="1">
 <summary><b>Sample in-place output</b></summary>
 
@@ -71,6 +72,7 @@ REMAINING-VULNS: 29
 UNFIXABLE-VULNS: 29
 Rewriting path/to/package-lock.json...
 ```
+
 </details>
 
 Alternatively, to potentially resolve even more vulnerabilities with larger (potentially breaking) changes, you can [regenerate your lockfile and update your direct dependencies](#relock-and-relax-direct-dependency-remediation) with the following command:
@@ -101,6 +103,7 @@ Rewriting path/to/package.json...
 Shelling out to regenerate lockfile...
 Executing `/usr/bin/npm install --package-lock-only`...
 ```
+
 </details>
 
 {: .warning }
@@ -179,7 +182,6 @@ If you wish to apply your current relock & relaxation changes, select the "Write
 >
 > The `--relock-cmd` flag can be used to change the executed install command.
 
-
 ## Remediation flags
 
 The `fix` subcommand has a number of flags to allow you to control which vulnerabilities and patches may be considered during remediation.
@@ -187,6 +189,7 @@ The `fix` subcommand has a number of flags to allow you to control which vulnera
 ### Non-interactive flags
 
 The following flags may be used when running in non-interactive mode only:
+
 - `--strategy=` [`in-place`](#in-place-lockfile-remediation) OR [`relock`](#relock-and-relax-direct-dependency-remediation): Which remediation strategy to use.
 - `--apply-top=<value>`: Specifies the maximum number of patches to apply. Patches are chosen in the same order as they would appear in the interactive mode.
 
