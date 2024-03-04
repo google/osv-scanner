@@ -142,7 +142,7 @@ func loadImage(path string) (Image, error) {
 			// name, we may have duplicate entries, which angers tar-split.
 			cleanedFileName := filepath.Clean(header.Name)
 			// Prevent "Zip Slip"
-			if strings.HasPrefix(cleanedFileName, "..") {
+			if strings.HasPrefix(cleanedFileName, "../") {
 				// TODO: Could this occur with a normal image?
 				// e.g. maybe a bad symbolic link?
 				continue
