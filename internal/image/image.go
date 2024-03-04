@@ -141,6 +141,12 @@ func loadImage(path string) (Image, error) {
 			// Some tools prepend everything with "./", so if we don't Clean the
 			// name, we may have duplicate entries, which angers tar-split.
 			cleanedFileName := filepath.Clean(header.Name)
+			// Prevent "Zip Slip"
+			if strings.HasPrefix(cleanedFileName, "..") {
+				// TODO: Could this occur with a normal image?
+				// e.g. maybe a bad symbolic link?
+				continue
+			}
 			// force PAX format to remove Name/Linkname length limit of 100 characters
 			// required by USTAR and to not depend on internal tar package guess which
 			// prefers USTAR over PAX
