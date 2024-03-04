@@ -53,7 +53,7 @@ func TestRecursivelyParsingGitignoreFilesFromIgnoredDir(t *testing.T) {
 	})
 
 	if !hasMatch {
-		t.Errorf("Expected to find a pattern matching REPO_EXCLUDE_FILE from ./.git/info/exclude ")
+		t.Errorf("Expected to find a pattern matching REPO_EXCLUDE_FILE from ./.git/info/exclude")
 	}
 
 	// expect ./.gitignore to be processed (by backtracking up the tree)
