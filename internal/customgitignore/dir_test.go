@@ -607,7 +607,7 @@ func TestParsingGitRepoWithoutGitignoreFiles(t *testing.T) {
 		return nil
 	})
 	if err != nil {
-		t.Errorf("Could not walk tree removing .gitignores because: %v", err)
+		t.Fatalf("Could not walk tree removing .gitignores because: %v", err)
 	}
 
 	// context: reading this dir-tree using customgitignore, starting midway
