@@ -67,8 +67,7 @@ func ScanImage(r reporter.Reporter, imagePath string) (ScanResults, error) {
 		scannedLockfiles.Lockfiles = append(scannedLockfiles.Lockfiles, parsedLockfile)
 	}
 
-	err = img.Cleanup()
-
+	err = fmt.Errorf("failed to cleanup: %w", img.Cleanup())
 	return scannedLockfiles, err
 }
 
@@ -140,9 +139,9 @@ func loadImage(path string) (Image, error) {
 			}
 			// Some tools prepend everything with "./", so if we don't Clean the
 			// name, we may have duplicate entries, which angers tar-split.
-			cleanedFileName := filepath.Clean(header.Name)
+			cleanedFilePath := filepath.Clean(header.Name)
 			// Prevent "Zip Slip"
-			if strings.HasPrefix(cleanedFileName, "../") {
+			if strings.HasPrefix(cleanedFilePath, "../") {
 				// TODO: Could this occur with a normal image?
 				// e.g. maybe a bad symbolic link?
 				continue
@@ -152,8 +151,8 @@ func loadImage(path string) (Image, error) {
 			// prefers USTAR over PAX
 			header.Format = tar.FormatPAX
 
-			basename := filepath.Base(cleanedFileName)
-			dirname := filepath.Dir(cleanedFileName)
+			basename := filepath.Base(cleanedFilePath)
+			dirname := filepath.Dir(cleanedFilePath)
 			tombstone := strings.HasPrefix(basename, whiteoutPrefix)
 			if tombstone { // TODO: Handle Opaque Whiteouts
 				basename = basename[len(whiteoutPrefix):]
@@ -163,13 +162,13 @@ func loadImage(path string) (Image, error) {
 			// if we're checking a directory, don't filepath.Join names
 			var virtualPath string
 			if header.Typeflag == tar.TypeDir {
-				virtualPath = "/" + cleanedFileName
+				virtualPath = "/" + cleanedFilePath
 			} else {
 				virtualPath = "/" + filepath.Join(dirname, basename)
 			}
 
 			// where the file will be written to disk
-			absoluteDiskPath := filepath.Join(dirPath, cleanedFileName)
+			absoluteDiskPath := filepath.Join(dirPath, cleanedFilePath)
 
 			var fileType FileType
 			// write out the file/dir to disk
