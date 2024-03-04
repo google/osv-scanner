@@ -5,7 +5,6 @@ import (
 	"errors"
 	"fmt"
 	"io"
-	"io/fs"
 	"os"
 	"path/filepath"
 	"sort"
@@ -41,7 +40,7 @@ func ScanImage(r reporter.Reporter, imagePath string) (ScanResults, error) {
 		return ScanResults{}, fmt.Errorf("failed to open image %s: %w", imagePath, err)
 	}
 
-	allFiles := img.AllFiles()
+	allFiles := img.LastLayer().AllFiles()
 
 	scannedLockfiles := ScanResults{
 		ImagePath: imagePath,
@@ -78,12 +77,8 @@ type Image struct {
 	tempDir           string
 }
 
-func (img *Image) ReadFile(virtualPath string) (fs.File, error) {
-	return img.flattenedFileMaps[len(img.flattenedFileMaps)-1].OpenFile(virtualPath)
-}
-
-func (img *Image) AllFiles() []FileNode {
-	return img.flattenedFileMaps[len(img.flattenedFileMaps)-1].AllFiles()
+func (img *Image) LastLayer() *FileMap {
+	return &img.flattenedFileMaps[len(img.flattenedFileMaps)-1]
 }
 
 func (img *Image) Cleanup() error {
@@ -296,7 +291,7 @@ func (f ImageFile) Path() string {
 }
 
 func OpenImageFile(path string, img *Image) (ImageFile, error) {
-	readCloser, err := img.ReadFile(path)
+	readCloser, err := img.LastLayer().OpenFile(path)
 
 	if err != nil {
 		return ImageFile{}, err
