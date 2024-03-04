@@ -74,12 +74,14 @@ func cacheWriteBad(t *testing.T, storedAt string, contents string) {
 	}
 }
 
-func createZipServer(t *testing.T, handler http.HandlerFunc) (*httptest.Server, func()) {
+func createZipServer(t *testing.T, handler http.HandlerFunc) *httptest.Server {
 	t.Helper()
 
 	ts := httptest.NewServer(handler)
 
-	return ts, ts.Close
+	t.Cleanup(ts.Close)
+
+	return ts
 }
 
 func computeCRC32CHash(t *testing.T, data []byte) string {
@@ -139,10 +141,9 @@ func TestNewZippedDB_Offline_WithoutCache(t *testing.T) {
 
 	testDir := testutility.CreateTestDir(t)
 
-	ts, cleanupTestServer := createZipServer(t, func(w http.ResponseWriter, r *http.Request) {
+	ts := createZipServer(t, func(w http.ResponseWriter, r *http.Request) {
 		t.Errorf("a server request was made when running offline")
 	})
-	defer cleanupTestServer()
 
 	_, err := local.NewZippedDB(testDir, "my-db", ts.URL, true)
 
@@ -164,10 +165,9 @@ func TestNewZippedDB_Offline_WithCache(t *testing.T) {
 
 	testDir := testutility.CreateTestDir(t)
 
-	ts, cleanupTestServer := createZipServer(t, func(w http.ResponseWriter, r *http.Request) {
+	ts := createZipServer(t, func(w http.ResponseWriter, r *http.Request) {
 		t.Errorf("a server request was made when running offline")
 	})
-	defer cleanupTestServer()
 
 	cacheWrite(t, determineStoredAtPath(testDir, "my-db"), zipOSVs(t, map[string]models.Vulnerability{
 		"GHSA-1.json": {ID: "GHSA-1"},
@@ -191,10 +191,9 @@ func TestNewZippedDB_BadZip(t *testing.T) {
 
 	testDir := testutility.CreateTestDir(t)
 
-	ts, cleanupTestServer := createZipServer(t, func(w http.ResponseWriter, r *http.Request) {
+	ts := createZipServer(t, func(w http.ResponseWriter, r *http.Request) {
 		_, _ = w.Write([]byte("this is not a zip"))
 	})
-	defer cleanupTestServer()
 
 	_, err := local.NewZippedDB(testDir, "my-db", ts.URL, false)
 
@@ -228,7 +227,7 @@ func TestNewZippedDB_Online_WithoutCache(t *testing.T) {
 
 	testDir := testutility.CreateTestDir(t)
 
-	ts, cleanupTestServer := createZipServer(t, func(w http.ResponseWriter, r *http.Request) {
+	ts := createZipServer(t, func(w http.ResponseWriter, r *http.Request) {
 		_, _ = writeOSVsZip(t, w, map[string]models.Vulnerability{
 			"GHSA-1.json": {ID: "GHSA-1"},
 			"GHSA-2.json": {ID: "GHSA-2"},
@@ -237,7 +236,6 @@ func TestNewZippedDB_Online_WithoutCache(t *testing.T) {
 			"GHSA-5.json": {ID: "GHSA-5"},
 		})
 	})
-	defer cleanupTestServer()
 
 	db, err := local.NewZippedDB(testDir, "my-db", ts.URL, false)
 
@@ -261,7 +259,7 @@ func TestNewZippedDB_Online_WithoutCacheAndNoHashHeader(t *testing.T) {
 
 	testDir := testutility.CreateTestDir(t)
 
-	ts, cleanupTestServer := createZipServer(t, func(w http.ResponseWriter, r *http.Request) {
+	ts := createZipServer(t, func(w http.ResponseWriter, r *http.Request) {
 		_, _ = w.Write(zipOSVs(t, map[string]models.Vulnerability{
 			"GHSA-1.json": {ID: "GHSA-1"},
 			"GHSA-2.json": {ID: "GHSA-2"},
@@ -270,7 +268,6 @@ func TestNewZippedDB_Online_WithoutCacheAndNoHashHeader(t *testing.T) {
 			"GHSA-5.json": {ID: "GHSA-5"},
 		}))
 	})
-	defer cleanupTestServer()
 
 	db, err := local.NewZippedDB(testDir, "my-db", ts.URL, false)
 
@@ -298,7 +295,7 @@ func TestNewZippedDB_Online_WithSameCache(t *testing.T) {
 		"GHSA-3.json": {ID: "GHSA-3"},
 	})
 
-	ts, cleanupTestServer := createZipServer(t, func(w http.ResponseWriter, r *http.Request) {
+	ts := createZipServer(t, func(w http.ResponseWriter, r *http.Request) {
 		if r.Method != http.MethodHead {
 			t.Errorf("unexpected %s request", r.Method)
 		}
@@ -307,7 +304,6 @@ func TestNewZippedDB_Online_WithSameCache(t *testing.T) {
 
 		_, _ = w.Write(cache)
 	})
-	defer cleanupTestServer()
 
 	cacheWrite(t, determineStoredAtPath(testDir, "my-db"), cache)
 
@@ -333,7 +329,7 @@ func TestNewZippedDB_Online_WithDifferentCache(t *testing.T) {
 
 	testDir := testutility.CreateTestDir(t)
 
-	ts, cleanupTestServer := createZipServer(t, func(w http.ResponseWriter, r *http.Request) {
+	ts := createZipServer(t, func(w http.ResponseWriter, r *http.Request) {
 		_, _ = writeOSVsZip(t, w, map[string]models.Vulnerability{
 			"GHSA-1.json": {ID: "GHSA-1"},
 			"GHSA-2.json": {ID: "GHSA-2"},
@@ -342,7 +338,6 @@ func TestNewZippedDB_Online_WithDifferentCache(t *testing.T) {
 			"GHSA-5.json": {ID: "GHSA-5"},
 		})
 	})
-	defer cleanupTestServer()
 
 	cacheWrite(t, determineStoredAtPath(testDir, "my-db"), zipOSVs(t, map[string]models.Vulnerability{
 		"GHSA-1.json": {ID: "GHSA-1"},
@@ -364,7 +359,7 @@ func TestNewZippedDB_Online_WithCacheButNoHashHeader(t *testing.T) {
 
 	testDir := testutility.CreateTestDir(t)
 
-	ts, cleanupTestServer := createZipServer(t, func(w http.ResponseWriter, r *http.Request) {
+	ts := createZipServer(t, func(w http.ResponseWriter, r *http.Request) {
 		_, _ = w.Write(zipOSVs(t, map[string]models.Vulnerability{
 			"GHSA-1.json": {ID: "GHSA-1"},
 			"GHSA-2.json": {ID: "GHSA-2"},
@@ -373,7 +368,6 @@ func TestNewZippedDB_Online_WithCacheButNoHashHeader(t *testing.T) {
 			"GHSA-5.json": {ID: "GHSA-5"},
 		}))
 	})
-	defer cleanupTestServer()
 
 	cacheWrite(t, determineStoredAtPath(testDir, "my-db"), zipOSVs(t, map[string]models.Vulnerability{
 		"GHSA-1.json": {ID: "GHSA-1"},
@@ -399,14 +393,13 @@ func TestNewZippedDB_Online_WithBadCache(t *testing.T) {
 
 	testDir := testutility.CreateTestDir(t)
 
-	ts, cleanupTestServer := createZipServer(t, func(w http.ResponseWriter, r *http.Request) {
+	ts := createZipServer(t, func(w http.ResponseWriter, r *http.Request) {
 		_, _ = writeOSVsZip(t, w, map[string]models.Vulnerability{
 			"GHSA-1.json": {ID: "GHSA-1"},
 			"GHSA-2.json": {ID: "GHSA-2"},
 			"GHSA-3.json": {ID: "GHSA-3"},
 		})
 	})
-	defer cleanupTestServer()
 
 	cacheWriteBad(t, determineStoredAtPath(testDir, "my-db"), "this is not json!")
 
@@ -426,7 +419,7 @@ func TestNewZippedDB_FileChecks(t *testing.T) {
 
 	testDir := testutility.CreateTestDir(t)
 
-	ts, cleanupTestServer := createZipServer(t, func(w http.ResponseWriter, r *http.Request) {
+	ts := createZipServer(t, func(w http.ResponseWriter, r *http.Request) {
 		_, _ = writeOSVsZip(t, w, map[string]models.Vulnerability{
 			"file.json": {ID: "GHSA-1234"},
 			// only files with .json suffix should be loaded
@@ -435,7 +428,6 @@ func TestNewZippedDB_FileChecks(t *testing.T) {
 			"advisory-database-main/advisories/unreviewed/file.json": {ID: "GHSA-4321"},
 		})
 	})
-	defer cleanupTestServer()
 
 	db, err := local.NewZippedDB(testDir, "my-db", ts.URL, false)
 
