@@ -112,11 +112,12 @@ func loadImage(path string) (Image, error) {
 	// this allows us to skip all files already seen
 	for i := len(layers) - 1; i >= 0; i-- {
 		hash, err := layers[i].DiffID()
+		hashStr := strings.TrimPrefix(hash.String(), "sha256:")
 		if err != nil {
 			return Image{}, err
 		}
 
-		dirPath := filepath.Join(tempPath, hash.String())
+		dirPath := filepath.Join(tempPath, hashStr)
 		err = os.Mkdir(dirPath, 0755)
 		if err != nil {
 			return Image{}, err
