@@ -6,7 +6,6 @@ import (
 	"deps.dev/util/resolve"
 	"github.com/google/osv-scanner/internal/resolution/util"
 	"github.com/google/osv-scanner/internal/utility/vulns"
-	"github.com/google/osv-scanner/pkg/lockfile"
 	"github.com/google/osv-scanner/pkg/models"
 	"github.com/google/osv-scanner/pkg/osv"
 	"golang.org/x/exp/maps"
@@ -82,12 +81,7 @@ func (c *OSVClient) FindVulns(g *resolve.Graph) ([]models.Vulnerabilities, error
 		}
 
 		var affectedVulns []models.Vulnerability
-		pkgDetails := lockfile.PackageDetails{
-			Name:      n.Version.Name,
-			Version:   n.Version.Version,
-			Ecosystem: lockfile.Ecosystem(util.OSVEcosystem[n.Version.System]),
-			CompareAs: lockfile.Ecosystem(util.OSVEcosystem[n.Version.System]),
-		}
+		pkgDetails := util.VKToPackageDetails(n.Version)
 		for _, vuln := range pkgVulns {
 			if vulns.IsAffected(vuln, pkgDetails) {
 				affectedVulns = append(affectedVulns, vuln)

@@ -24,11 +24,35 @@ type ResolutionVuln struct {
 	NonProblemChains []DependencyChain
 }
 
+func (rv ResolutionVuln) IsDirect() bool {
+	fn := func(dc DependencyChain) bool { return len(dc.Edges) == 1 }
+	return slices.ContainsFunc(rv.ProblemChains, fn) || slices.ContainsFunc(rv.NonProblemChains, fn)
+}
+
 type ResolutionResult struct {
 	Manifest        manifest.Manifest
 	Graph           *resolve.Graph
 	Vulns           []ResolutionVuln
 	UnfilteredVulns []ResolutionVuln
+}
+
+type ResolutionError struct {
+	NodeID resolve.NodeID
+	Error  resolve.NodeError
+}
+
+func (res *ResolutionResult) Errors() []ResolutionError {
+	var errs []ResolutionError
+	for i, n := range res.Graph.Nodes {
+		for _, err := range n.Errors {
+			errs = append(errs, ResolutionError{
+				NodeID: resolve.NodeID(i),
+				Error:  err,
+			})
+		}
+	}
+
+	return errs
 }
 
 func getResolver(sys resolve.System, cl resolve.Client) (resolve.Resolver, error) {
@@ -95,7 +119,7 @@ func (res *ResolutionResult) computeVulns(ctx context.Context, cl client.Resolut
 		}
 	}
 
-	nodeChains := computeChains(res.Graph, vulnerableNodes)
+	nodeChains := ComputeChains(res.Graph, vulnerableNodes)
 	vulnChains := make(map[string][]DependencyChain)
 	for i, idx := range vulnerableNodes {
 		for _, vuln := range nodeVulns[idx] {
@@ -115,7 +139,7 @@ func (res *ResolutionResult) computeVulns(ctx context.Context, cl client.Resolut
 			} else {
 				rv.NonProblemChains = append(rv.NonProblemChains, chain)
 			}
-			rv.DevOnly = rv.DevOnly && ChainIsDev(chain, res.Manifest)
+			rv.DevOnly = rv.DevOnly && ChainIsDev(chain, res.Manifest.Groups)
 		}
 		if len(rv.ProblemChains) == 0 {
 			// There has to be at least one problem chain for the vulnerability to appear.

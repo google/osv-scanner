@@ -25,8 +25,17 @@ func goAnalysis(r reporter.Reporter, pkgs []models.PackageVulns, source models.S
 		return
 	}
 
+	// Set GOVERSION to the Go version in go.mod.
+	var goVersion string
+	for _, pkg := range pkgs {
+		if pkg.Package.Name == "stdlib" {
+			goVersion = pkg.Package.Version
+			break
+		}
+	}
+
 	vulns, vulnsByID := vulnsFromAllPkgs(pkgs)
-	res, err := runGovulncheck(filepath.Dir(source.Path), vulns)
+	res, err := runGovulncheck(filepath.Dir(source.Path), vulns, goVersion)
 	if err != nil {
 		// TODO: Better method to identify the type of error and give advice specific to the error
 		r.Errorf(
@@ -92,7 +101,7 @@ func fillNotImportedAnalysisInfo(vulnsByID map[string]models.Vulnerability, vuln
 	}
 }
 
-func runGovulncheck(moddir string, vulns []models.Vulnerability) (map[string][]*govulncheck.Finding, error) {
+func runGovulncheck(moddir string, vulns []models.Vulnerability, goVersion string) (map[string][]*govulncheck.Finding, error) {
 	// Create a temporary directory containing all of the vulnerabilities that
 	// are passed in to check against govulncheck.
 	//
@@ -128,6 +137,7 @@ func runGovulncheck(moddir string, vulns []models.Vulnerability) (map[string][]*
 	cmd := scan.Command(context.Background(), "-db", dbdirURL.String(), "-C", moddir, "-json", "./...")
 	var b bytes.Buffer
 	cmd.Stdout = &b
+	cmd.Env = append(os.Environ(), fmt.Sprintf("GOVERSION=go%s", goVersion))
 	if err := cmd.Start(); err != nil {
 		return nil, err
 	}

@@ -15,24 +15,32 @@ type NpmLockDependency struct {
 
 	Dev      bool `json:"dev,omitempty"`
 	Optional bool `json:"optional,omitempty"`
+
+	Requires map[string]string `json:"requires,omitempty"`
 }
 
 type NpmLockPackage struct {
 	// For an aliased package, Name is the real package name
-	Name         string            `json:"name"`
-	Version      string            `json:"version"`
-	Resolved     string            `json:"resolved"`
-	Dependencies map[string]string `json:"dependencies"`
+	Name     string `json:"name"`
+	Version  string `json:"version"`
+	Resolved string `json:"resolved"`
+
+	Dependencies         map[string]string `json:"dependencies,omitempty"`
+	DevDependencies      map[string]string `json:"devDependencies,omitempty"`
+	OptionalDependencies map[string]string `json:"optionalDependencies,omitempty"`
+	PeerDependencies     map[string]string `json:"peerDependencies,omitempty"`
 
 	Dev         bool `json:"dev,omitempty"`
 	DevOptional bool `json:"devOptional,omitempty"`
 	Optional    bool `json:"optional,omitempty"`
+
+	Link bool `json:"link,omitempty"`
 }
 
 type NpmLockfile struct {
 	Version int `json:"lockfileVersion"`
 	// npm v1- lockfiles use "dependencies"
-	Dependencies map[string]NpmLockDependency `json:"dependencies"`
+	Dependencies map[string]NpmLockDependency `json:"dependencies,omitempty"`
 	// npm v2+ lockfiles use "packages"
 	Packages map[string]NpmLockPackage `json:"packages,omitempty"`
 }

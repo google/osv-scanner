@@ -1,7 +1,16 @@
-
 [Test_RunGoVulnCheck - 1]
 {
   "GO-2021-0053": [
+    {
+      "osv": "GO-2021-0053",
+      "fixed_version": "v1.3.2",
+      "trace": [
+        {
+          "module": "github.com/gogo/protobuf",
+          "version": "v1.3.1"
+        }
+      ]
+    },
     {
       "osv": "GO-2021-0053",
       "fixed_version": "v1.3.2",
@@ -21,9 +30,36 @@
       "trace": [
         {
           "module": "github.com/ipfs/go-bitfield",
+          "version": "v1.0.0"
+        }
+      ]
+    },
+    {
+      "osv": "GO-2023-1558",
+      "fixed_version": "v1.1.0",
+      "trace": [
+        {
+          "module": "github.com/ipfs/go-bitfield",
+          "version": "v1.0.0",
+          "package": "github.com/ipfs/go-bitfield"
+        }
+      ]
+    },
+    {
+      "osv": "GO-2023-1558",
+      "fixed_version": "v1.1.0",
+      "trace": [
+        {
+          "module": "github.com/ipfs/go-bitfield",
           "version": "v1.0.0",
           "package": "github.com/ipfs/go-bitfield",
-          "function": "NewBitfield"
+          "function": "NewBitfield",
+          "position": {
+            "filename": "\u003cAny value\u003e",
+            "offset": -1,
+            "line": 12,
+            "column": 6
+          }
         },
         {
           "module": "github.com/ossf-tests/osv-e2e",
@@ -32,8 +68,189 @@
           "position": {
             "filename": "\u003cAny value\u003e",
             "offset": -1,
-            "line": 13,
+            "line": 16,
             "column": 22
+          }
+        }
+      ]
+    }
+  ],
+  "GO-2023-2382": [
+    {
+      "osv": "GO-2023-2382",
+      "fixed_version": "v1.20.12",
+      "trace": [
+        {
+          "module": "stdlib",
+          "version": "v1.19.0",
+          "package": "net/http/internal"
+        }
+      ]
+    },
+    {
+      "osv": "GO-2023-2382",
+      "fixed_version": "v1.20.12",
+      "trace": [
+        {
+          "module": "stdlib",
+          "version": "v1.19.0",
+          "package": "net/http/internal"
+        }
+      ]
+    },
+    {
+      "osv": "GO-2023-2382",
+      "fixed_version": "v1.20.12",
+      "trace": [
+        {
+          "module": "stdlib",
+          "version": "v1.19.0",
+          "package": "net/http/internal",
+          "function": "Read",
+          "receiver": "*chunkedReader",
+          "position": {
+            "filename": "\u003cAny value\u003e",
+            "offset": -1,
+            "line": 97,
+            "column": 26
+          }
+        },
+        {
+          "module": "stdlib",
+          "version": "v1.19.0",
+          "package": "net/http",
+          "function": "readLocked",
+          "receiver": "*body",
+          "position": {
+            "filename": "\u003cAny value\u003e",
+            "offset": -1,
+            "line": 840,
+            "column": 21
+          }
+        },
+        {
+          "module": "stdlib",
+          "version": "v1.19.0",
+          "package": "net/http",
+          "function": "Read",
+          "receiver": "bodyLocked",
+          "position": {
+            "filename": "\u003cAny value\u003e",
+            "offset": -1,
+            "line": 1039,
+            "column": 24
+          }
+        },
+        {
+          "module": "stdlib",
+          "version": "v1.19.0",
+          "package": "io",
+          "function": "copyBuffer",
+          "position": {
+            "filename": "\u003cAny value\u003e",
+            "offset": -1,
+            "line": 429,
+            "column": 21
+          }
+        },
+        {
+          "module": "stdlib",
+          "version": "v1.19.0",
+          "package": "io",
+          "function": "Copy",
+          "position": {
+            "filename": "\u003cAny value\u003e",
+            "offset": -1,
+            "line": 388,
+            "column": 19
+          }
+        },
+        {
+          "module": "stdlib",
+          "version": "v1.19.0",
+          "package": "net/http",
+          "function": "Close",
+          "receiver": "*body",
+          "position": {
+            "filename": "\u003cAny value\u003e",
+            "offset": -1,
+            "line": 1003,
+            "column": 19
+          }
+        },
+        {
+          "module": "stdlib",
+          "version": "v1.19.0",
+          "package": "net/http",
+          "function": "finishRequest",
+          "receiver": "*response",
+          "position": {
+            "filename": "\u003cAny value\u003e",
+            "offset": -1,
+            "line": 1675,
+            "column": 17
+          }
+        },
+        {
+          "module": "stdlib",
+          "version": "v1.19.0",
+          "package": "net/http",
+          "function": "serve",
+          "receiver": "*conn",
+          "position": {
+            "filename": "\u003cAny value\u003e",
+            "offset": -1,
+            "line": 2045,
+            "column": 18
+          }
+        },
+        {
+          "module": "stdlib",
+          "version": "v1.19.0",
+          "package": "net/http",
+          "function": "Serve",
+          "receiver": "*Server",
+          "position": {
+            "filename": "\u003cAny value\u003e",
+            "offset": -1,
+            "line": 3285,
+            "column": 3
+          }
+        },
+        {
+          "module": "stdlib",
+          "version": "v1.19.0",
+          "package": "net/http",
+          "function": "ListenAndServe",
+          "receiver": "*Server",
+          "position": {
+            "filename": "\u003cAny value\u003e",
+            "offset": -1,
+            "line": 3184,
+            "column": 18
+          }
+        },
+        {
+          "module": "stdlib",
+          "version": "v1.19.0",
+          "package": "net/http",
+          "function": "ListenAndServe",
+          "position": {
+            "filename": "\u003cAny value\u003e",
+            "offset": -1,
+            "line": 3438,
+            "column": 30
+          }
+        },
+        {
+          "module": "github.com/ossf-tests/osv-e2e",
+          "package": "github.com/ossf-tests/osv-e2e",
+          "function": "main",
+          "position": {
+            "filename": "\u003cAny value\u003e",
+            "offset": -1,
+            "line": 19,
+            "column": 28
           }
         }
       ]

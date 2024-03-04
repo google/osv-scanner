@@ -156,10 +156,8 @@ func MaxSeverity(group models.GroupInfo, pkg models.PackageVulns) string {
 				severities = vuln.Severity
 			}
 		}
-		for _, sev := range severities {
-			score, _, _ := severity.CalculateScore(sev)
-			maxSeverity = math.Max(maxSeverity, score)
-		}
+		score, _, _ := severity.CalculateOverallScore(severities)
+		maxSeverity = math.Max(maxSeverity, score)
 	}
 
 	if maxSeverity < 0 {

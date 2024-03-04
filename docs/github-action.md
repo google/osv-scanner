@@ -31,7 +31,9 @@ Scanning your project on each pull request can help you keep vulnerabilities out
 
 ### Instructions
 
-In your project repository, create a new file `.github/workflows/osv-scanner-pr.yml` and include the following:
+In your project repository, create a new file `.github/workflows/osv-scanner-pr.yml`.
+
+Include the following in the `osv-scanner-pr.yml` file:
 
 ```yml
 name: OSV-Scanner PR Scan
@@ -51,7 +53,7 @@ permissions:
 
 jobs:
   scan-pr:
-    uses: "google/osv-scanner-action/.github/workflows/osv-scanner-reusable.yml@v0.1.0"
+    uses: "google/osv-scanner-action/.github/workflows/osv-scanner-reusable.yml@v1.6.2-beta1"
 ```
 
 ### View results
@@ -70,7 +72,9 @@ Regularly scanning your project for vulnerabilities can alert you to new vulnera
 
 ### Instructions
 
-In your project repository, create a new file `.github/workflows/osv-scanner-scheduled.yml` and include the following:
+In your project repository, create a new file `.github/workflows/osv-scanner-scheduled.yml`.
+
+Include the following in the `osv-scanner-scheduled.yml` file:
 
 ```yml
 name: OSV-Scanner Scheduled Scan
@@ -90,7 +94,7 @@ permissions:
 
 jobs:
   scan-scheduled:
-    uses: "google/osv-scanner-action/.github/workflows/osv-scanner-reusable.yml@v0.1.0"
+    uses: "google/osv-scanner-action/.github/workflows/osv-scanner-reusable.yml@v1.6.2-beta"
 ```
 
 As written, the scanner will run on 12:30 pm UTC every Monday, and also on every push to the main branch. You can change the schedule by following the instructions [here](https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#schedule).
@@ -161,6 +165,7 @@ The GitHub Actions have the following optional inputs:
   Default: `results.sarif`
 - `download-artifact`: Optional artifact to download for scanning. Can be used if you need to do some preprocessing to prepare the lockfiles for scanning. If the file names in the artifact are not standard lockfile names, make sure to add custom scan-args to specify the lockfile type and path (see [specify lockfiles](./usage#specify-lockfiles)).
 - `upload-sarif`: Whether to upload the results to Security > Code Scanning. Defaults to `true`.
+- `fail-on-vuln`: Whether to fail the workflow when a vulnerability is found. Defaults to `true`.
 
 <details markdown="block">
 <summary>
@@ -172,7 +177,7 @@ Examples
 ```yml
 jobs:
   scan-pr:
-    uses: "google/osv-scanner-action/.github/workflows/osv-scanner-reusable.yml@v0.1.0"
+    uses: "google/osv-scanner-action/.github/workflows/osv-scanner-reusable.yml@v1.6.2-beta1"
     with:
       scan-args: |-
         --lockfile=./path/to/lockfile1
@@ -184,7 +189,7 @@ jobs:
 ```yml
 jobs:
   scan-pr:
-    uses: "google/osv-scanner-action/.github/workflows/osv-scanner-reusable.yml@v0.1.0"
+    uses: "google/osv-scanner-action/.github/workflows/osv-scanner-reusable.yml@v1.6.2-beta1"
     with:
       scan-args: |-
         --recursive
@@ -211,7 +216,7 @@ jobs:
     name: Vulnerability scanning
     # makes sure the extraction step is completed before running the scanner
     needs: extract-deps
-    uses: "google/osv-scanner-action/.github/workflows/osv-scanner-reusable.yml@v0.1.0"
+    uses: "google/osv-scanner-action/.github/workflows/osv-scanner-reusable.yml@v1.6.2-beta1"
     with:
       # Download the artifact uploaded in extract-deps step
       download-artifact: converted-OSV-Scanner-deps
