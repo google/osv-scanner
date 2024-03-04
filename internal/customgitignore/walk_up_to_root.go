@@ -25,7 +25,6 @@ import (
 // Because it detects the root of any enclosing git repo
 // if path doesn't exist the root, it returns this repoPath
 // or "" if there is none.
-
 //
 // It also returns the path to the root of the git-repo,
 // or "" if this path isn't within a git repo, allowing
@@ -63,10 +62,10 @@ import (
 //
 // `path` is a dir within, a git-repo, without recursive flag:
 //
-// 		- read .gitignore in start dir
-// 		- read all .gitignore files in parent dirs up to and including repo-root
-// 			(but only dirs that are an ancestor)
-// 		- read .git/info/exclude for repo
+//   - read .gitignore in start dir
+//   - read all .gitignore files in parent dirs up to and including repo-root
+//     (but only dirs that are an ancestor)
+//   - read .git/info/exclude for repo
 //
 // NOTE: the dir you're passing in directly could be a dir that is ignored
 // (targeted by a parent's .gitignore or the per-repo exclude file); in this
