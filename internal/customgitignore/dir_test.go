@@ -715,7 +715,7 @@ func hasPatternContaining(gips []gitignore.Pattern, test string) bool {
 // with %#v, which means it may trip up on complicated or
 // user supplied strings.
 //
-// By why can't we just test something like
+// But why can't we just test something like
 // p.Match([]string{".", "dir_a", "DIR_A_GITIGNORE"}, false) != gitignore.Exclude
 // instead ?
 //
