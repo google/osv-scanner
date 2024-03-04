@@ -33,8 +33,6 @@ var artifactExtractors map[string]lockfile.Extractor = map[string]lockfile.Extra
 
 // ScanImage scans an exported docker image .tar file
 func ScanImage(r reporter.Reporter, imagePath string) (ScanResults, error) {
-	// ctx := context.Background() // TODO: use proper context
-	// img, err := stereoscope.GetImage(ctx, imagePath)
 	img, err := loadImage(imagePath)
 	if err != nil {
 		return ScanResults{}, fmt.Errorf("failed to open image %s: %w", imagePath, err)
@@ -283,6 +281,7 @@ type ImageFile struct {
 }
 
 func (f ImageFile) Open(path string) (lockfile.NestedDepFile, error) {
+	// TODO: Implement this after interface change has been performed.
 	return nil, errors.New("not implemented")
 }
 
