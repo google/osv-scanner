@@ -1,0 +1,72 @@
+{
+    "schema_version": "1.3.1",
+    "id": "GO-2023-2382",
+    "modified": "2023-12-06T16:22:36Z",
+    "published": "2023-12-06T16:22:36Z",
+    "aliases": [
+        "CVE-2023-39326"
+    ],
+    "summary": "Denial of service via chunk extensions in net/http",
+    "details": "A malicious HTTP sender can use chunk extensions to cause a receiver reading from a request or response body to read many more bytes from the network than are in the body.\n\nA malicious HTTP client can further exploit this to cause a server to automatically read a large amount of data (up to about 1GiB) when a handler fails to read the entire body of a request.\n\nChunk extensions are a little-used HTTP feature which permit including additional metadata in a request or response body sent using the chunked encoding. The net/http chunked encoding reader discards this metadata. A sender can exploit this by inserting a large metadata segment with each byte transferred. The chunk reader now produces an error if the ratio of real body to encoded bytes grows too small.",
+    "affected": [
+        {
+            "package": {
+                "name": "stdlib",
+                "ecosystem": "Go"
+            },
+            "ranges": [
+                {
+                    "type": "SEMVER",
+                    "events": [
+                        {
+                            "introduced": "0"
+                        },
+                        {
+                            "fixed": "1.20.12"
+                        },
+                        {
+                            "introduced": "1.21.0-0"
+                        },
+                        {
+                            "fixed": "1.21.5"
+                        }
+                    ]
+                }
+            ],
+            "ecosystem_specific": {
+                "imports": [
+                    {
+                        "path": "net/http/internal",
+                        "symbols": [
+                            "chunkedReader.Read",
+                            "chunkedReader.beginChunk",
+                            "readChunkLine"
+                        ]
+                    }
+                ]
+            }
+        }
+    ],
+    "references": [
+        {
+            "type": "REPORT",
+            "url": "https://go.dev/issue/64433"
+        },
+        {
+            "type": "FIX",
+            "url": "https://go.dev/cl/547335"
+        },
+        {
+            "type": "WEB",
+            "url": "https://groups.google.com/g/golang-dev/c/6ypN5EjibjM/m/KmLVYH_uAgAJ"
+        }
+    ],
+    "credits": [
+        {
+            "name": "Bartek Nowotarski"
+        }
+    ],
+    "database_specific": {
+        "url": "https://pkg.go.dev/vuln/GO-2023-2382"
+    }
+}

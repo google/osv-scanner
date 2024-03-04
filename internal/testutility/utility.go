@@ -34,11 +34,17 @@ func Skip(t *testing.T, args ...any) {
 	snaps.Skip(t, args...)
 }
 
+// Access to environment variable that toggles acceptance testing execution paths
+// Acceptance testing is "On" only when var set to "true"
+func IsAcceptanceTest() bool {
+	return os.Getenv("TEST_ACCEPTANCE") == "true"
+}
+
 // AcceptanceTests marks this test function as a extended that require additional dependencies
 // automatically skipped unless running in a CI environment
-func AcceptanceTests(t *testing.T, reason string) {
+func SkipIfNotAcceptanceTesting(t *testing.T, reason string) {
 	t.Helper()
-	if os.Getenv("TEST_ACCEPTANCE") != "true" {
+	if !IsAcceptanceTest() {
 		Skip(t, "Skipping extended test: ", reason)
 	}
 }

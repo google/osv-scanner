@@ -139,7 +139,7 @@ func (res *ResolutionResult) computeVulns(ctx context.Context, cl client.Resolut
 			} else {
 				rv.NonProblemChains = append(rv.NonProblemChains, chain)
 			}
-			rv.DevOnly = rv.DevOnly && ChainIsDev(chain, res.Manifest)
+			rv.DevOnly = rv.DevOnly && ChainIsDev(chain, res.Manifest.Groups)
 		}
 		if len(rv.ProblemChains) == 0 {
 			// There has to be at least one problem chain for the vulnerability to appear.

@@ -4,6 +4,7 @@ go 1.21.5
 
 require (
 	deps.dev/api/v3alpha v0.0.0-20240214003419-1729b6244a2d
+	deps.dev/util/maven v0.0.0-20240214003419-1729b6244a2d
 	deps.dev/util/resolve v0.0.0-20240214003419-1729b6244a2d
 	deps.dev/util/semver v0.0.0-20240214003419-1729b6244a2d
 	github.com/BurntSushi/toml v1.3.2

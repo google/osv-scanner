@@ -5,7 +5,7 @@ import (
 	"slices"
 
 	"deps.dev/util/resolve"
-	"github.com/google/osv-scanner/internal/resolution/manifest"
+	"deps.dev/util/resolve/dep"
 	"github.com/google/osv-scanner/internal/resolution/util"
 	vulnUtil "github.com/google/osv-scanner/internal/utility/vulns"
 	"github.com/google/osv-scanner/pkg/lockfile"
@@ -34,14 +34,21 @@ func (dc DependencyChain) End() (resolve.VersionKey, string) {
 	return dc.At(0)
 }
 
-func ChainIsDev(dc DependencyChain, m manifest.Manifest) bool {
-	direct, _ := dc.Direct()
-	ecosystem, ok := util.OSVEcosystem[direct.System]
+func ChainIsDev(dc DependencyChain, groups map[resolve.PackageKey][]string) bool {
+	edge := dc.Edges[len(dc.Edges)-1]
+	// This check only applies to the graphs created from the in-place lockfile scanning.
+	// TODO: consider dev dependencies in e.g. workspaces that aren't direct
+	if edge.Type.HasAttr(dep.Dev) {
+		return true
+	}
+
+	vk := dc.Graph.Nodes[edge.To].Version
+	ecosystem, ok := util.OSVEcosystem[vk.System]
 	if !ok {
 		return false
 	}
 
-	return lockfile.Ecosystem(ecosystem).IsDevGroup(m.Groups[direct.PackageKey])
+	return lockfile.Ecosystem(ecosystem).IsDevGroup(groups[vk.PackageKey])
 }
 
 // ComputeChains computes all paths from each specified NodeID to the root node.
