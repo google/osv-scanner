@@ -94,7 +94,7 @@ func TestNonRecursivelyParsingGitignoreFilesFromIgnoredDir(t *testing.T) {
 	// Read this dir-tree using customgitignore, starting at the root
 	patterns, _, err := customgitignore.ParseGitIgnores(start, false)
 	if err != nil {
-		t.Errorf("could not read gitignore patterns for test: %v", err)
+		t.Fatalf("could not read gitignore patterns for test: %v", err)
 	}
 
 	var hasMatch bool
@@ -119,7 +119,7 @@ func TestNonRecursivelyParsingGitignoreFilesFromIgnoredDir(t *testing.T) {
 	})
 
 	if !hasMatch {
-		t.Errorf("Expected to find a pattern matching REPO_EXCLUDE_FILE from ./.git/info/exclude ")
+		t.Errorf("Expected to find a pattern matching REPO_EXCLUDE_FILE from ./.git/info/exclude")
 	}
 
 	// expect ./.gitignore to be processed (by backtracking up the tree)
@@ -158,7 +158,7 @@ func TestRecursivelyParsingGitignoreFilesFromMidTree(t *testing.T) {
 	start := filepath.Join(gitRepo, "dir_a")
 	patterns, _, err := customgitignore.ParseGitIgnores(start, true)
 	if err != nil {
-		t.Errorf("could not read gitignore patterns for test: %v", err)
+		t.Fatalf("could not read gitignore patterns for test: %v", err)
 	}
 
 	var hasMatch bool
@@ -169,7 +169,7 @@ func TestRecursivelyParsingGitignoreFilesFromMidTree(t *testing.T) {
 	})
 
 	if !hasMatch {
-		t.Errorf("Expected to find a pattern matching REPO_EXCLUDE_FILE from ./.git/info/exclude ")
+		t.Errorf("Expected to find a pattern matching REPO_EXCLUDE_FILE from ./.git/info/exclude")
 	}
 
 	// expect ./.gitignore to be processed (by backtracking up the tree)
@@ -229,7 +229,7 @@ func TestNonRecursivelyParsingGitignoreFilesFromMidTree(t *testing.T) {
 	start := filepath.Join(gitRepo, "dir_a")
 	patterns, _, err := customgitignore.ParseGitIgnores(start, false)
 	if err != nil {
-		t.Errorf("could not read gitignore patterns for test: %v", err)
+		t.Fatalf("could not read gitignore patterns for test: %v", err)
 	}
 
 	var hasMatch bool
@@ -240,7 +240,7 @@ func TestNonRecursivelyParsingGitignoreFilesFromMidTree(t *testing.T) {
 	})
 
 	if !hasMatch {
-		t.Errorf("Expected to find a pattern matching REPO_EXCLUDE_FILE from ./.git/info/exclude ")
+		t.Errorf("Expected to find a pattern matching REPO_EXCLUDE_FILE from ./.git/info/exclude")
 	}
 
 	// expect ./.gitignore to be processed (by backtracking up the tree)
@@ -300,7 +300,7 @@ func TestRecursivelyParsingGitignoreFilesFromMidTreeFile(t *testing.T) {
 	start := filepath.Join(gitRepo, "dir_a", "a_file")
 	patterns, _, err := customgitignore.ParseGitIgnores(start, true)
 	if err != nil {
-		t.Errorf("could not read gitignore patterns for test: %v", err)
+		t.Fatalf("could not read gitignore patterns for test: %v", err)
 	}
 
 	var hasMatch bool
@@ -311,7 +311,7 @@ func TestRecursivelyParsingGitignoreFilesFromMidTreeFile(t *testing.T) {
 	})
 
 	if !hasMatch {
-		t.Errorf("Expected to find a pattern matching REPO_EXCLUDE_FILE from ./.git/info/exclude ")
+		t.Errorf("Expected to find a pattern matching REPO_EXCLUDE_FILE from ./.git/info/exclude")
 	}
 
 	// expect ./.gitignore to be processed (by backtracking up the tree)
@@ -374,7 +374,7 @@ func TestNonRecursivelyParsingGitignoreFilesFromMidTreeFile(t *testing.T) {
 	start := filepath.Join(gitRepo, "dir_a", "a_file")
 	patterns, _, err := customgitignore.ParseGitIgnores(start, false)
 	if err != nil {
-		t.Errorf("could not read gitignore patterns for test: %v", err)
+		t.Fatalf("could not read gitignore patterns for test: %v", err)
 	}
 
 	var hasMatch bool
@@ -385,7 +385,7 @@ func TestNonRecursivelyParsingGitignoreFilesFromMidTreeFile(t *testing.T) {
 	})
 
 	if !hasMatch {
-		t.Errorf("Expected to find a pattern matching REPO_EXCLUDE_FILE from ./.git/info/exclude ")
+		t.Errorf("Expected to find a pattern matching REPO_EXCLUDE_FILE from ./.git/info/exclude")
 	}
 
 	// expect ./.gitignore to be processed (by backtracking up the tree)
@@ -440,7 +440,7 @@ func TestRecursivelyParsingGitignoreFilesFromRoot(t *testing.T) {
 	// Read this dir-tree using customgitignore, starting at the root
 	patterns, _, err := customgitignore.ParseGitIgnores(gitRepo, true)
 	if err != nil {
-		t.Errorf("could not read gitignore patterns for test: %v", err)
+		t.Fatalf("could not read gitignore patterns for test: %v", err)
 	}
 
 	var hasMatch bool
@@ -451,7 +451,7 @@ func TestRecursivelyParsingGitignoreFilesFromRoot(t *testing.T) {
 	})
 
 	if !hasMatch {
-		t.Errorf("Expected to find a pattern matching REPO_EXCLUDE_FILE from ./.git/info/exclude ")
+		t.Errorf("Expected to find a pattern matching REPO_EXCLUDE_FILE from ./.git/info/exclude")
 	}
 
 	// expect ./.gitignore to be processed
@@ -503,7 +503,7 @@ func TestNonRecursivelyParsingGitignoreFilesFromRoot(t *testing.T) {
 	// Read this dir-tree using customgitignore, starting at the root
 	patterns, _, err := customgitignore.ParseGitIgnores(gitRepo, false)
 	if err != nil {
-		t.Errorf("could not read gitignore patterns for test: %v", err)
+		t.Fatalf("could not read gitignore patterns for test: %v", err)
 	}
 
 	var hasMatch bool
@@ -514,7 +514,7 @@ func TestNonRecursivelyParsingGitignoreFilesFromRoot(t *testing.T) {
 	})
 
 	if !hasMatch {
-		t.Errorf("Expected to find a pattern matching REPO_EXCLUDE_FILE from ./.git/info/exclude ")
+		t.Errorf("Expected to find a pattern matching REPO_EXCLUDE_FILE from ./.git/info/exclude")
 	}
 
 	// expect ./.gitignore to be processed
@@ -557,7 +557,7 @@ func TestRecursivelyParsingGitignoreFilesFromPlainDir(t *testing.T) {
 	// Read this dir-tree using customgitignore
 	patterns, _, err := customgitignore.ParseGitIgnores(plainDir, true)
 	if err != nil {
-		t.Errorf("could not read gitignore patterns for test: %v", err)
+		t.Fatalf("could not read gitignore patterns for test: %v", err)
 	}
 
 	// expect gitignore.Pattern[] to be empty, meaning no .gitignores were processed
@@ -575,7 +575,7 @@ func TestNonRecursivelyParsingGitignoreFilesFromPlainDir(t *testing.T) {
 	// Read this dir-tree using customgitignore
 	patterns, _, err := customgitignore.ParseGitIgnores(plainDir, false)
 	if err != nil {
-		t.Errorf("could not read gitignore patterns for test: %v", err)
+		t.Fatalf("could not read gitignore patterns for test: %v", err)
 	}
 
 	// expect gitignore.Pattern[] to be empty, meaning no .gitignores were processed
@@ -617,7 +617,7 @@ func TestParsingGitRepoWithoutGitignoreFiles(t *testing.T) {
 
 	// expect the parser to handle these missing files
 	if err != nil {
-		t.Errorf("customgitignore.ParseGitIgnores should have worked but instead it failed with: %v", err)
+		t.Fatalf("customgitignore.ParseGitIgnores should have worked but instead it failed with: %v", err)
 	}
 
 	// expect gitignore.Pattern[] to be empty, meaning no .gitignores were processed
@@ -689,7 +689,7 @@ func writeGitignore(t *testing.T, gitRepo, f, s string) {
 
 	f = filepath.Join(gitRepo, f)
 	if err := os.WriteFile(f, []byte(s), 0600); err != nil {
-		t.Errorf("could not write file for test: %v", err)
+		t.Fatalf("could not write file for test: %v", err)
 	}
 }
 

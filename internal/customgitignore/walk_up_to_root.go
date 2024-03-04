@@ -168,12 +168,10 @@ func readIgnoreFilesFromParents(fs billy.Filesystem, pathRel string, pathGitRoot
 	}
 	ps = append(ps, newPs...)
 
-	switch {
-	case pathAbs == pathGitRoot:
+	if pathAbs == pathGitRoot {
 		// Don't recurse any further
 		return ps, nil
-
-	default:
+	} else {
 		// continue recursing up tree
 		newPs, err = readIgnoreFilesFromParents(fs, pathRel, pathGitRoot)
 		if err != nil {
