@@ -5,19 +5,25 @@ import (
 	"fmt"
 
 	"deps.dev/util/resolve"
+	"github.com/google/osv-scanner/internal/resolution/manifest"
 )
 
 type SuggestOptions struct {
-	NoMajorUpdates bool
+	IgnoreDev  bool     // Whether we should ignore development dependencies for updates
+	NoUpdates  []string // List of packages that disallow updates
+	AvoidMajor []string // List of packages that disallow major updates
 }
 
-// A VersionSuggester provides an ecosystem-specific method for 'suggesting'
-// the latest version of a dependency based on the given options.
-type VersionSuggester interface {
-	Suggest(ctx context.Context, client resolve.Client, req resolve.RequirementVersion, opts SuggestOptions) (resolve.RequirementVersion, error)
+// A PatchSuggester provides an ecosystem-specific method for 'suggesting'
+// ManifestPatch for dependency updates.
+type PatchSuggester interface {
+	// Suggest returns the ManifestPatch required to update the dependencies to
+	// a newer version based on the given options.
+	// ManifestPatch includes ecosystem-specific information.
+	Suggest(ctx context.Context, client resolve.Client, mf manifest.Manifest, opts SuggestOptions) (manifest.ManifestPatch, error)
 }
 
-func GetSuggester(system resolve.System) (VersionSuggester, error) {
+func GetSuggester(system resolve.System) (PatchSuggester, error) {
 	switch system {
 	case resolve.Maven:
 		return &MavenSuggester{}, nil

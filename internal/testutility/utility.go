@@ -34,11 +34,17 @@ func Skip(t *testing.T, args ...any) {
 	snaps.Skip(t, args...)
 }
 
+// Access to environment variable that toggles acceptance testing execution paths
+// Acceptance testing is "On" only when var set to "true"
+func IsAcceptanceTest() bool {
+	return os.Getenv("TEST_ACCEPTANCE") == "true"
+}
+
 // AcceptanceTests marks this test function as a extended that require additional dependencies
 // automatically skipped unless running in a CI environment
-func AcceptanceTests(t *testing.T, reason string) {
+func SkipIfNotAcceptanceTesting(t *testing.T, reason string) {
 	t.Helper()
-	if os.Getenv("TEST_ACCEPTANCE") != "true" {
+	if !IsAcceptanceTest() {
 		Skip(t, "Skipping extended test: ", reason)
 	}
 }
@@ -50,4 +56,23 @@ func ValueIfOnWindows(win, or string) string {
 	}
 
 	return or
+}
+
+// CreateTestDir makes a temporary directory for use in testing that involves
+// writing and reading files from disk, which is automatically cleaned up
+// when testing finishes
+func CreateTestDir(t *testing.T) string {
+	t.Helper()
+
+	p, err := os.MkdirTemp("", "osv-scanner-test-*")
+	if err != nil {
+		t.Fatalf("could not create test directory: %v", err)
+	}
+
+	// ensure the test directory is removed when we're done testing
+	t.Cleanup(func() {
+		_ = os.RemoveAll(p)
+	})
+
+	return p
 }
