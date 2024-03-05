@@ -1,4 +1,4 @@
-package relaxer
+package relax
 
 import (
 	"context"
@@ -23,7 +23,7 @@ type RequirementRelaxer interface {
 	Relax(ctx context.Context, cl resolve.Client, req resolve.RequirementVersion, allowMajor bool) (resolve.RequirementVersion, bool)
 }
 
-func GetRelaxer(ecosystem resolve.System) (RequirementRelaxer, error) {
+func Get(ecosystem resolve.System) (RequirementRelaxer, error) {
 	// TODO: is using ecosystem fine, or should this be per manifest?
 	switch ecosystem { //nolint:exhaustive
 	case resolve.NPM:

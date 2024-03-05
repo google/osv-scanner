@@ -1,4 +1,4 @@
-package suggester
+package suggest
 
 import (
 	"context"
@@ -59,7 +59,7 @@ func TestSuggest(t *testing.T) {
 	addVersions(resolve.Maven, "org.import:xyz", []string{"6.6.6", "6.7.0", "7.0.0"})
 	addVersions(resolve.Maven, "org.dep:plugin-dep", []string{"2.3.1", "2.3.2", "2.3.3", "2.3.4"})
 
-	suggester, err := GetSuggester(resolve.Maven)
+	suggester, err := Get(resolve.Maven)
 	if err != nil {
 		t.Fatalf("failed to get Maven suggester: %v", err)
 	}
@@ -285,7 +285,7 @@ func TestSuggest(t *testing.T) {
 		},
 	}
 
-	got, err := suggester.Suggest(ctx, client, mf, SuggestOptions{
+	got, err := suggester.Suggest(ctx, client, mf, Options{
 		IgnoreDev:  true, // Do no update test dependencies.
 		NoUpdates:  []string{"org.example:no-updates"},
 		AvoidMajor: []string{"org.import:xyz"},
