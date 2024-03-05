@@ -53,28 +53,13 @@ func ScanImage(r reporter.Reporter, imagePath string) (ScanResults, error) {
 			continue
 		}
 
-		imgFile, err := OpenImageFile(file.virtualPath, &img)
-
-		if err != nil {
-			r.Errorf("Attempted to open file but failed: %s\n", err)
-		}
-		parsedLockfile, err := extractArtifactDeps(imgFile)
+		parsedLockfile, err := extractArtifactDeps(file.virtualPath, &img)
 		if err != nil {
 			if !errors.Is(err, lockfile.ErrExtractorNotFound) {
 				r.Errorf("Attempted to extract lockfile but failed: %s - %v\n", file.virtualPath, err)
 			}
 
-			err = imgFile.Close()
-			if err != nil {
-				return ScanResults{}, err
-			}
-
 			continue
-		}
-
-		err = imgFile.Close()
-		if err != nil {
-			return ScanResults{}, err
 		}
 
 		scannedLockfiles.Lockfiles = append(scannedLockfiles.Lockfiles, parsedLockfile)
@@ -280,16 +265,27 @@ func findArtifactExtractor(path string) (lockfile.Extractor, string) {
 	return nil, ""
 }
 
-func extractArtifactDeps(f lockfile.DepFile) (lockfile.Lockfile, error) {
-	extractor, extractedAs := findArtifactExtractor(f.Path())
+func extractArtifactDeps(path string, img *Image) (lockfile.Lockfile, error) {
+	extractor, extractedAs := findArtifactExtractor(path)
 
 	if extractor == nil {
-		return lockfile.Lockfile{}, fmt.Errorf("%w for %s", lockfile.ErrExtractorNotFound, f.Path())
+		return lockfile.Lockfile{}, fmt.Errorf("%w for %s", lockfile.ErrExtractorNotFound, path)
+	}
+
+	f, err := OpenImageFile(path, img)
+	if err != nil {
+		return lockfile.Lockfile{}, fmt.Errorf("attempted to open file but failed: %w", err)
 	}
 
 	packages, err := extractor.Extract(f)
 	if err != nil && extractedAs != "" {
 		err = fmt.Errorf("(extracting as %s) %w", extractedAs, err)
+		return lockfile.Lockfile{}, fmt.Errorf("failed to close file: %w", err)
+	}
+
+	err = f.Close()
+	if err != nil {
+		return lockfile.Lockfile{}, fmt.Errorf("failed to close file: %w", err)
 	}
 
 	// Sort to have deterministic output, and to match behavior of lockfile.extractDeps
