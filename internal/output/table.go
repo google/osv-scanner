@@ -121,7 +121,7 @@ func tableBuilderInner(vulnResult *models.VulnerabilityResults, addStyling bool,
 				}
 
 				outputRow = append(outputRow, strings.Join(links, "\n"))
-				outputRow = append(outputRow, MaxSeverity(group, pkg))
+				outputRow = append(outputRow, group.MaxSeverity)
 
 				if pkg.Package.Ecosystem == "" && pkg.Package.Commit != "" {
 					pkgCommitStr := results.PkgToString(pkg.Package)

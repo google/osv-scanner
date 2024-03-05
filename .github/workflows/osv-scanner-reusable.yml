@@ -55,7 +55,7 @@ jobs:
         with:
           persist-credentials: false
       - name: "Download custom artifact if specified"
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@6b208ae046db98c579e8a3aa621ab581ff575935 # v4.1.1
         if: "${{ inputs.download-artifact != '' }}"
         with:
           name: "${{ inputs.download-artifact }}"

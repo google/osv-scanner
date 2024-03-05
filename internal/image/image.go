@@ -52,7 +52,7 @@ func ScanImage(r reporter.Reporter, imagePath string) (ScanResults, error) {
 		}
 
 		imgFile, err := OpenImageFile(file.virtualPath, &img)
-		defer imgFile.Close()
+
 		if err != nil {
 			r.Errorf("Attempted to open file but failed: %s\n", err)
 		}
@@ -62,7 +62,17 @@ func ScanImage(r reporter.Reporter, imagePath string) (ScanResults, error) {
 				r.Errorf("Attempted to extract lockfile but failed: %s - %v\n", file.virtualPath, err)
 			}
 
+			err = imgFile.Close()
+			if err != nil {
+				return ScanResults{}, err
+			}
+
 			continue
+		}
+
+		err = imgFile.Close()
+		if err != nil {
+			return ScanResults{}, err
 		}
 
 		scannedLockfiles.Lockfiles = append(scannedLockfiles.Lockfiles, parsedLockfile)

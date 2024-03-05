@@ -3,16 +3,17 @@ module github.com/google/osv-scanner
 go 1.21.5
 
 require (
-	deps.dev/api/v3alpha v0.0.0-20240214003419-1729b6244a2d
-	deps.dev/util/maven v0.0.0-20240214003419-1729b6244a2d
-	deps.dev/util/resolve v0.0.0-20240214003419-1729b6244a2d
-	deps.dev/util/semver v0.0.0-20240214003419-1729b6244a2d
+	deps.dev/api/v3alpha v0.0.0-20240223021916-3ec708cc3f2e
+	deps.dev/util/maven v0.0.0-20240223021916-3ec708cc3f2e
+	deps.dev/util/resolve v0.0.0-20240223021916-3ec708cc3f2e
+	deps.dev/util/semver v0.0.0-20240223021916-3ec708cc3f2e
 	github.com/BurntSushi/toml v1.3.2
 	github.com/CycloneDX/cyclonedx-go v0.8.0
 	github.com/charmbracelet/bubbles v0.18.0
 	github.com/charmbracelet/bubbletea v0.25.0
 	github.com/charmbracelet/glamour v0.6.0
 	github.com/charmbracelet/lipgloss v0.9.1
+	github.com/dghubble/trie v0.1.0
 	github.com/gkampitakis/go-snaps v0.5.2
 	github.com/go-git/go-billy/v5 v5.5.0
 	github.com/go-git/go-git/v5 v5.11.0
@@ -28,12 +29,12 @@ require (
 	github.com/tidwall/gjson v1.17.1
 	github.com/tidwall/sjson v1.2.5
 	github.com/urfave/cli/v2 v2.27.1
-	golang.org/x/exp v0.0.0-20240213143201-ec583247a57a
-	golang.org/x/mod v0.15.0
+	golang.org/x/exp v0.0.0-20240222234643-814bf88cf225
+	golang.org/x/mod v0.16.0
 	golang.org/x/sync v0.6.0
-	golang.org/x/term v0.17.0
+	golang.org/x/term v0.18.0
 	golang.org/x/vuln v1.0.4
-	google.golang.org/grpc v1.61.1
+	google.golang.org/grpc v1.62.0
 	google.golang.org/protobuf v1.32.0
 	gopkg.in/ini.v1 v1.67.0
 	gopkg.in/yaml.v3 v3.0.1
@@ -53,7 +54,6 @@ require (
 	github.com/containerd/stargz-snapshotter/estargz v0.14.3 // indirect
 	github.com/cpuguy83/go-md2man/v2 v2.0.3 // indirect
 	github.com/cyphar/filepath-securejoin v0.2.4 // indirect
-	github.com/dghubble/trie v0.1.0 // indirect
 	github.com/dlclark/regexp2 v1.4.0 // indirect
 	github.com/emirpasic/gods v1.18.1 // indirect
 	github.com/gkampitakis/ciinfo v0.3.0 // indirect
@@ -97,9 +97,11 @@ require (
 	github.com/yuin/goldmark-emoji v1.0.1 // indirect
 	golang.org/x/crypto v0.19.0 // indirect
 	golang.org/x/net v0.21.0 // indirect
-	golang.org/x/sys v0.17.0 // indirect
+	golang.org/x/sys v0.18.0 // indirect
 	golang.org/x/text v0.14.0 // indirect
 	golang.org/x/tools v0.18.0 // indirect
+	google.golang.org/genproto v0.0.0-20240213162025-012b6fc9bca9 // indirect
+	google.golang.org/genproto/googleapis/api v0.0.0-20240205150955-31a09d347014 // indirect
 	google.golang.org/genproto/googleapis/rpc v0.0.0-20240213162025-012b6fc9bca9 // indirect
 	gopkg.in/warnings.v0 v0.1.2 // indirect
 )
