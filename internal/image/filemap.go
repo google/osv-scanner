@@ -7,28 +7,30 @@ import (
 	"github.com/dghubble/trie"
 )
 
-type FileType int
+type fileType int
 
 const (
-	RegularFile FileType = iota
+	RegularFile fileType = iota
 	Dir
 )
 
-type FileNode struct {
-	fileType         FileType
+// fileNode represents a file on a specific layer, mapping the contents to an extracted file on disk
+type fileNode struct {
+	fileType         fileType
 	isWhiteout       bool
 	absoluteDiskPath string
 	virtualPath      string
 	permission       fs.FileMode
 }
 
-type FileMap struct {
+// fileMap represents all the files on a layer
+type fileMap struct {
 	fileNodeTrie *trie.PathTrie
 	// TODO: Use hashset to speed up path lookups
 }
 
-func (filemap *FileMap) OpenFile(path string) (fs.File, error) {
-	node, ok := filemap.fileNodeTrie.Get(path).(FileNode)
+func (filemap *fileMap) OpenFile(path string) (fs.File, error) {
+	node, ok := filemap.fileNodeTrie.Get(path).(fileNode)
 	if !ok {
 		return nil, fs.ErrNotExist
 	}
@@ -36,11 +38,17 @@ func (filemap *FileMap) OpenFile(path string) (fs.File, error) {
 	return os.Open(node.absoluteDiskPath)
 }
 
-func (filemap *FileMap) AllFiles() []FileNode {
-	allFiles := []FileNode{}
+// AllFiles return all files that exist on the layer the FileMap is representing
+func (filemap *fileMap) AllFiles() []fileNode {
+	allFiles := []fileNode{}
 	// No need to check error since we are not returning any errors
 	_ = filemap.fileNodeTrie.Walk(func(key string, value interface{}) error {
-		allFiles = append(allFiles, value.(FileNode))
+		node := value.(fileNode)
+		if node.fileType != RegularFile { // Only add regular files
+			return nil
+		}
+
+		allFiles = append(allFiles, value.(fileNode))
 		return nil
 	})
 

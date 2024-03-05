@@ -9,14 +9,12 @@ import (
 	"os"
 	"path"
 	"path/filepath"
-	"sort"
 	"strings"
 
 	"github.com/dghubble/trie"
 	v1 "github.com/google/go-containerregistry/pkg/v1"
 	"github.com/google/go-containerregistry/pkg/v1/tarball"
 	"github.com/google/osv-scanner/pkg/lockfile"
-	"github.com/google/osv-scanner/pkg/reporter"
 )
 
 const whiteoutPrefix = ".wh."
@@ -29,57 +27,13 @@ type ScanResults struct {
 	ImagePath string
 }
 
-// artifactExtractors contains only extractors for artifacts that are important in
-// the final layer of a container image
-var artifactExtractors map[string]lockfile.Extractor = map[string]lockfile.Extractor{
-	"apk-installed": lockfile.ApkInstalledExtractor{},
-	"dpkg":          lockfile.DpkgStatusExtractor{},
-}
-
-// ScanImage scans an exported docker image .tar file
-func ScanImage(r reporter.Reporter, imagePath string) (ScanResults, error) {
-	img, err := loadImage(imagePath)
-	if err != nil {
-		return ScanResults{}, fmt.Errorf("failed to open image %s: %w", imagePath, err)
-	}
-
-	allFiles := img.LastLayer().AllFiles()
-
-	scannedLockfiles := ScanResults{
-		ImagePath: imagePath,
-	}
-	for _, file := range allFiles {
-		if file.fileType != RegularFile {
-			continue
-		}
-
-		parsedLockfile, err := extractArtifactDeps(file.virtualPath, &img)
-		if err != nil {
-			if !errors.Is(err, lockfile.ErrExtractorNotFound) {
-				r.Errorf("Attempted to extract lockfile but failed: %s - %v\n", file.virtualPath, err)
-			}
-
-			continue
-		}
-
-		scannedLockfiles.Lockfiles = append(scannedLockfiles.Lockfiles, parsedLockfile)
-	}
-
-	err = img.Cleanup()
-	if err != nil {
-		err = fmt.Errorf("failed to cleanup: %w", img.Cleanup())
-	}
-
-	return scannedLockfiles, err
-}
-
 type Image struct {
-	flattenedLayers []FileMap
+	flattenedLayers []fileMap
 	innerImage      *v1.Image
 	extractDir      string
 }
 
-func (img *Image) LastLayer() *FileMap {
+func (img *Image) LastLayer() *fileMap {
 	return &img.flattenedLayers[len(img.flattenedLayers)-1]
 }
 
@@ -106,7 +60,7 @@ func loadImage(imagePath string) (Image, error) {
 	outputImage := Image{
 		extractDir:      tempPath,
 		innerImage:      &image,
-		flattenedLayers: make([]FileMap, len(layers)),
+		flattenedLayers: make([]fileMap, len(layers)),
 	}
 
 	// Reverse loop through the layers to start from the latest layer first
@@ -175,12 +129,12 @@ func loadImage(imagePath string) (Image, error) {
 			// TODO: Escape invalid characters on windows that's valid on linux
 			absoluteDiskPath := filepath.Join(dirPath, filepath.Clean(cleanedFilePath))
 
-			var fileType FileType
+			var fileType fileType
 			// write out the file/dir to disk
 			switch header.Typeflag {
 			case tar.TypeDir:
 				if _, err := os.Stat(absoluteDiskPath); err != nil {
-					if err := os.MkdirAll(absoluteDiskPath, 0600); err != nil {
+					if err := os.MkdirAll(absoluteDiskPath, 0700); err != nil {
 						return Image{}, err
 					}
 				}
@@ -223,7 +177,7 @@ func loadImage(imagePath string) (Image, error) {
 					continue
 				}
 
-				currentMap.fileNodeTrie.Put(virtualPath, FileNode{
+				currentMap.fileNodeTrie.Put(virtualPath, fileNode{
 					virtualPath:      virtualPath,
 					absoluteDiskPath: absoluteDiskPath,
 					fileType:         fileType,
@@ -238,7 +192,7 @@ func loadImage(imagePath string) (Image, error) {
 	return outputImage, nil
 }
 
-func inWhiteoutDir(fileMap FileMap, filePath string) bool {
+func inWhiteoutDir(fileMap fileMap, filePath string) bool {
 	for {
 		if filePath == "" {
 			break
@@ -248,7 +202,7 @@ func inWhiteoutDir(fileMap FileMap, filePath string) bool {
 			break
 		}
 		val := fileMap.fileNodeTrie.Get(dirname)
-		item, ok := val.(FileNode)
+		item, ok := val.(fileNode)
 		if ok && item.isWhiteout {
 			return true
 		}
@@ -257,81 +211,3 @@ func inWhiteoutDir(fileMap FileMap, filePath string) bool {
 
 	return false
 }
-
-func findArtifactExtractor(path string) (lockfile.Extractor, string) {
-	for name, extractor := range artifactExtractors {
-		if extractor.ShouldExtract(path) {
-			return extractor, name
-		}
-	}
-
-	return nil, ""
-}
-
-func extractArtifactDeps(path string, img *Image) (lockfile.Lockfile, error) {
-	extractor, extractedAs := findArtifactExtractor(path)
-
-	if extractor == nil {
-		return lockfile.Lockfile{}, fmt.Errorf("%w for %s", lockfile.ErrExtractorNotFound, path)
-	}
-
-	f, err := OpenImageFile(path, img)
-	if err != nil {
-		return lockfile.Lockfile{}, fmt.Errorf("attempted to open file but failed: %w", err)
-	}
-
-	defer f.Close()
-
-	packages, err := extractor.Extract(f)
-	if err != nil && extractedAs != "" {
-		err = fmt.Errorf("(extracting as %s) %w", extractedAs, err)
-		return lockfile.Lockfile{}, fmt.Errorf("failed to close file: %w", err)
-	}
-
-	// Sort to have deterministic output, and to match behavior of lockfile.extractDeps
-	sort.Slice(packages, func(i, j int) bool {
-		if packages[i].Name == packages[j].Name {
-			return packages[i].Version < packages[j].Version
-		}
-
-		return packages[i].Name < packages[j].Name
-	})
-
-	return lockfile.Lockfile{
-		FilePath: f.Path(),
-		ParsedAs: extractedAs,
-		Packages: packages,
-	}, err
-}
-
-// A ImageFile represents a file that exists in an image
-type ImageFile struct {
-	io.ReadCloser
-
-	path string
-}
-
-func (f ImageFile) Open(path string) (lockfile.NestedDepFile, error) {
-	// TODO: Implement this after interface change has been performed.
-	return nil, errors.New("not implemented")
-}
-
-func (f ImageFile) Path() string {
-	return f.path
-}
-
-func OpenImageFile(path string, img *Image) (ImageFile, error) {
-	readCloser, err := img.LastLayer().OpenFile(path)
-
-	if err != nil {
-		return ImageFile{}, err
-	}
-
-	return ImageFile{
-		ReadCloser: readCloser,
-		path:       path,
-	}, nil
-}
-
-var _ lockfile.DepFile = ImageFile{}
-var _ lockfile.NestedDepFile = ImageFile{}
