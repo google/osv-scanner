@@ -22,13 +22,11 @@ Experimental
 {:toc}
 </details>
 
-Guided remediation aims to help developers with fixing with the high number of known vulnerabilities in dependencies typically reported by vulnerability scanners by providing a small number of actionable steps.
-
-The `osv-scanner fix` subcommand leverages [deps.dev](https://deps.dev) to provide automated and guided remediation of vulnerabilities in your project's dependencies by suggesting upgrades to dependencies.
+Guided remediation (`osv-scanner fix`) aims to help developers with fixing with the high number of known vulnerabilities in dependencies typically reported by vulnerability scanners by providing a small number of actionable steps.
 
 This tool provides several options to users for how to prioritise and remediate their vulnerabilities, with easy to understand information on how we arrived at these options and how to compare them. This includes features such as:
 
-- Resolution and analysis of the entire transitive graph to determine the minimal changes required to remove vulnerabilities.
+- Resolution and analysis of the entire transitive graph (leveraging [deps.dev](https://deps.dev)) to determine the minimal changes required to remove vulnerabilities.
 - Prioritising direct dependency upgrades by the total number of transitive vulnerabilities fixed.
 - Prioritising vulnerabilities by dependency depth, severity, and whether or not to care about dev-only dependencies.
 - Modification of package manifest and lockfiles (e.g. `package.json`/`package-lock.json`) to fix vulnerabilities.
