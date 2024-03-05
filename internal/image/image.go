@@ -180,14 +180,16 @@ func loadImage(imagePath string) (Image, error) {
 			switch header.Typeflag {
 			case tar.TypeDir:
 				if _, err := os.Stat(absoluteDiskPath); err != nil {
-					if err := os.MkdirAll(absoluteDiskPath, fs.FileMode(header.Mode)); err != nil {
+					if err := os.MkdirAll(absoluteDiskPath, 0600); err != nil {
 						return Image{}, err
 					}
 				}
 				fileType = Dir
 
 			default: // Assume if it's not a directory, it's a normal file
-				f, err := os.OpenFile(absoluteDiskPath, os.O_CREATE|os.O_RDWR, os.FileMode(header.Mode))
+				// Write all files as read/writable by the current user, inaccessible by anyone else
+				// Actual permission bits are stored in FileNode
+				f, err := os.OpenFile(absoluteDiskPath, os.O_CREATE|os.O_RDWR, 0600)
 				if err != nil {
 					return Image{}, err
 				}
@@ -226,6 +228,7 @@ func loadImage(imagePath string) (Image, error) {
 					absoluteDiskPath: absoluteDiskPath,
 					fileType:         fileType,
 					isWhiteout:       tombstone,
+					permission:       fs.FileMode(header.Mode),
 				})
 			}
 		}
@@ -277,14 +280,11 @@ func extractArtifactDeps(path string, img *Image) (lockfile.Lockfile, error) {
 		return lockfile.Lockfile{}, fmt.Errorf("attempted to open file but failed: %w", err)
 	}
 
+	defer f.Close()
+
 	packages, err := extractor.Extract(f)
 	if err != nil && extractedAs != "" {
 		err = fmt.Errorf("(extracting as %s) %w", extractedAs, err)
-		return lockfile.Lockfile{}, fmt.Errorf("failed to close file: %w", err)
-	}
-
-	err = f.Close()
-	if err != nil {
 		return lockfile.Lockfile{}, fmt.Errorf("failed to close file: %w", err)
 	}
 

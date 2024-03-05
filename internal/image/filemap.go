@@ -19,6 +19,7 @@ type FileNode struct {
 	isWhiteout       bool
 	absoluteDiskPath string
 	virtualPath      string
+	permission       fs.FileMode
 }
 
 type FileMap struct {
