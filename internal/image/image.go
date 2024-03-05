@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"io"
 	"os"
+	"path"
 	"path/filepath"
 	"sort"
 	"strings"
@@ -100,8 +101,8 @@ func (img *Image) Cleanup() error {
 	return os.RemoveAll(img.extractDir)
 }
 
-func loadImage(path string) (Image, error) {
-	image, err := tarball.ImageFromPath(path, nil)
+func loadImage(imagePath string) (Image, error) {
+	image, err := tarball.ImageFromPath(imagePath, nil)
 	if err != nil {
 		return Image{}, err
 	}
@@ -154,7 +155,8 @@ func loadImage(path string) (Image, error) {
 			}
 			// Some tools prepend everything with "./", so if we don't Clean the
 			// name, we may have duplicate entries, which angers tar-split.
-			cleanedFilePath := filepath.Clean(header.Name)
+			// Using path instead of filepath to keep `/` and deterministic behavior
+			cleanedFilePath := path.Clean(header.Name)
 			// Prevent "Zip Slip"
 			if strings.HasPrefix(cleanedFilePath, "../") {
 				// TODO: Could this occur with a normal image?
@@ -166,8 +168,8 @@ func loadImage(path string) (Image, error) {
 			// prefers USTAR over PAX
 			header.Format = tar.FormatPAX
 
-			basename := filepath.Base(cleanedFilePath)
-			dirname := filepath.Dir(cleanedFilePath)
+			basename := path.Base(cleanedFilePath)
+			dirname := path.Dir(cleanedFilePath)
 			tombstone := strings.HasPrefix(basename, whiteoutPrefix)
 			if tombstone { // TODO: Handle Opaque Whiteouts
 				basename = basename[len(whiteoutPrefix):]
@@ -179,11 +181,13 @@ func loadImage(path string) (Image, error) {
 			if header.Typeflag == tar.TypeDir {
 				virtualPath = "/" + cleanedFilePath
 			} else {
-				virtualPath = "/" + filepath.Join(dirname, basename)
+				virtualPath = "/" + path.Join(dirname, basename)
 			}
 
 			// where the file will be written to disk
-			absoluteDiskPath := filepath.Join(dirPath, cleanedFilePath)
+			// filepath.Clean first to convert to OS specific file path
+			// TODO: Escape invalid characters on windows that's valid on linux
+			absoluteDiskPath := filepath.Join(dirPath, filepath.Clean(cleanedFilePath))
 
 			var fileType FileType
 			// write out the file/dir to disk
