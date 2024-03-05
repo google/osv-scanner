@@ -190,14 +190,14 @@ func loadImage(path string) (Image, error) {
 			switch header.Typeflag {
 			case tar.TypeDir:
 				if _, err := os.Stat(absoluteDiskPath); err != nil {
-					if err := os.MkdirAll(absoluteDiskPath, 0755); err != nil {
+					if err := os.MkdirAll(absoluteDiskPath, 0777); err != nil {
 						return Image{}, err
 					}
 				}
 				fileType = Dir
 
 			default: // Assume if it's not a directory, it's a normal file
-				f, err := os.OpenFile(absoluteDiskPath, os.O_CREATE|os.O_RDWR, os.FileMode(header.Mode))
+				f, err := os.OpenFile(absoluteDiskPath, os.O_CREATE|os.O_RDWR, os.FileMode(0777))
 				if err != nil {
 					return Image{}, err
 				}
