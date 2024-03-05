@@ -22,7 +22,17 @@ Experimental
 {:toc}
 </details>
 
+Guided remediation aims to help developers with fixing with the high number of known vulnerabilities in dependencies typically reported by vulnerability scanners by providing a small number of actionable steps.
+
 The `osv-scanner fix` subcommand leverages [deps.dev](https://deps.dev) to provide automated and guided remediation of vulnerabilities in your project's dependencies by suggesting upgrades to dependencies.
+
+This tool provides several options to users for how to prioritise and remediate their vulnerabilities, with easy to understand information on how we arrived at these options and how to compare them. This includes features such as:
+
+- Resolution and analysis of the entire transitive graph to determine the minimal changes required to remove vulnerabilities.
+- Prioritising direct dependency upgrades by the total number of transitive vulnerabilities fixed.
+- Prioritising vulnerabilities by dependency depth, severity, and whether or not to care about dev-only dependencies.
+- Modification of package manifest and lockfiles (e.g. `package.json`/`package-lock.json`) to fix vulnerabilities.
+- Different strategies with different risk/reward ratios (e.g. in-place fixes vs relocking).
 
 Currently, only npm `package.json` manifests and `package-lock.json` lockfiles are supported.
 
@@ -164,7 +174,7 @@ Writing these changes will not reinstall your dependencies. You'll need to run `
 
 ## Relock and relax direct dependency remediation
 
-Relocking recomputes your entire dependency graph based on your manifest file, taking the newest possible versions of all your required packages. This causes a large number of changes to your dependency graph, which potentially carries a larger risk of breakages.
+Relocking recomputes your entire dependency graph based on your manifest file, taking the newest possible versions of all your required packages. Doing so will often allow for constraints on vulnerable packages to be unblocked and thus able to be remediated. However, relocking may cause a large number of changes to your dependency graph, which potentially carries a larger risk of breakages.
 
 Selecting the "Relock" option will bring you to the relock information page. Here, you can see which vulnerabilities are present after relocking.
 
@@ -244,4 +254,13 @@ If your project uses mirrored or private registries, you will need to use `--dat
 - Non-registry dependencies (local paths, URLs, Git, etc.) are not evaluated.
 - `peerDependencies` are not properly considered during dependency resolution (treated as if using `--legacy-peer-deps`).
 - `overrides` are ignored during dependency resolution.
-- The `node_modules/` in workspaces are not deleted when relocking, which may impact the resulting dependency graph.
+
+#### Workspaces
+
+Remediation in npm `workspaces` is only partially supported:
+
+- In-place updates should function correctly on the workspace `package-lock.json`.
+- Dependency relaxation can change dependencies in the `package.json` file being being scanned. This means only dependencies declared in the root package can be changed.
+  - You can remediate the individual `package.json` files of each workspace, but this will be unaware of any packages or constraints caused by sibling workspaces.
+- The `node_modules/` in workspaces are not deleted when relocking, which may impact the resulting dependency graph when running `npm install`.
+- Each workspace package is considered dependency depth 1 from the root workspace.
