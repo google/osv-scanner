@@ -52,6 +52,7 @@ func ScanImage(r reporter.Reporter, imagePath string) (ScanResults, error) {
 		}
 
 		imgFile, err := OpenImageFile(file.virtualPath, &img)
+		defer imgFile.Close()
 		if err != nil {
 			r.Errorf("Attempted to open file but failed: %s\n", err)
 		}
@@ -192,9 +193,11 @@ func loadImage(path string) (Image, error) {
 				}
 				numBytes, err := io.Copy(f, io.LimitReader(tarReader, fileReadLimit))
 				if numBytes >= fileReadLimit || errors.Is(err, io.EOF) {
+					f.Close()
 					return Image{}, fmt.Errorf("file exceeds read limit (potential decompression bomb attack)")
 				}
 				if err != nil {
+					f.Close()
 					return Image{}, fmt.Errorf("unable to copy file: %w", err)
 				}
 				fileType = RegularFile
