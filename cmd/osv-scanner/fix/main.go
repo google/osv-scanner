@@ -34,7 +34,6 @@ type osvFixOptions struct {
 
 func Command(stdout, stderr io.Writer, r *reporter.Reporter) *cli.Command {
 	return &cli.Command{
-		Hidden:      true, // TODO: un-hide when ready
 		Name:        "fix",
 		Usage:       "[EXPERIMENTAL] scans a manifest and/or lockfile for vulnerabilities and suggests changes for remediating them",
 		Description: "[EXPERIMENTAL] scans a manifest and/or lockfile for vulnerabilities and suggests changes for remediating them",
