@@ -246,6 +246,10 @@ If your project uses mirrored or private registries, you will need to use `--dat
 ## Known issues
 
 - The subcommand does not use the `osv-scanner.toml` configuration. Use the `--ignore-vulns` flag instead.
+- The subcommand does not group aliases of the same vulnerabilities together.
+- Unique vulnerabilities are counted differently with `fix --strategy=relock` versus with `fix --strategy=in-place` and with `scan`. `scan` will count the same OSV ID affecting two different package versions separately, whereas `fix --strategy=relock` will count this as one vulnerability.
+
+  e.g. if `OSV-123-456` affects both `foo@1.0.0` and `foo@2.0.0` in your project, `scan` and `fix --strategy=in-place` will treat this as two distinct vulnerabilities, while `fix --strategy=relock` will treat this as only one.
 
 ### npm
 
