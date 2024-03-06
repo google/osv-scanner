@@ -1,3 +1,27 @@
+# v1.7.0:
+
+### Features
+
+- [Feature #352](https://github.com/google/osv-scanner/issues/352) Guided Remediation 
+  Introducing our new experimental guided remediation feature on `osv-scanner fix` subcommand. 
+  See our [docs](https://google.github.io/osv-scanner/experimental/guided-remediation/) for detailed usage instructions. 
+
+- [Feature #805](https://github.com/google/osv-scanner/pull/805)
+  Include CVSS MaxSevirity in JSON output.
+
+### Fixes
+
+- [Bug #818](https://github.com/google/osv-scanner/pull/818)
+  Align GoVulncheck Go version with go.mod.
+
+- [Bug #797](https://github.com/google/osv-scanner/pull/797)
+  Don't traverse gitignored dirs for gitignore files.
+
+### Miscellaneous
+
+- [#831](https://github.com/google/osv-scanner/pull/831)
+   Remove version number from the release binary name.
+
 # v1.6.2:
 
 ### Features
