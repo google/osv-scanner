@@ -6,7 +6,7 @@ import (
 	"io"
 	"os"
 
-	suggest "github.com/google/osv-scanner/internal/remediation/suggester"
+	"github.com/google/osv-scanner/internal/remediation/suggest"
 	"github.com/google/osv-scanner/internal/resolution/client"
 	"github.com/google/osv-scanner/internal/resolution/manifest"
 	"github.com/google/osv-scanner/pkg/depsdev"
@@ -97,7 +97,7 @@ func action(ctx *cli.Context, stdout, stderr io.Writer) (reporter.Reporter, erro
 	if err != nil {
 		return nil, err
 	}
-	patch, err := suggester.Suggest(ctx.Context, options.Client, mf, suggest.SuggestOptions{
+	patch, err := suggester.Suggest(ctx.Context, options.Client, mf, suggest.Options{
 		IgnoreDev:  options.IgnoreDev,
 		NoUpdates:  options.NoUpdates,
 		AvoidMajor: options.AvoidMajor,

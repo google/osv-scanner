@@ -36,8 +36,7 @@ func TestRunUpdate(t *testing.T) {
 			}
 
 			// Update action overwrites files, copy them to a temporary directory.
-			testDir, cleanupTestDir := createTestDir(t)
-			defer cleanupTestDir()
+			testDir := testutility.CreateTestDir(t)
 
 			var manifest string
 			if tt.manifest != "" {
