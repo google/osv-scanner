@@ -1,4 +1,4 @@
-package suggester
+package suggest
 
 import (
 	"context"
@@ -285,7 +285,7 @@ func TestSuggest(t *testing.T) {
 		},
 	}
 
-	got, err := suggester.Suggest(ctx, client, mf, SuggestOptions{
+	got, err := suggester.Suggest(ctx, client, mf, Options{
 		IgnoreDev:  true, // Do no update test dependencies.
 		NoUpdates:  []string{"org.example:no-updates"},
 		AvoidMajor: []string{"org.import:xyz"},

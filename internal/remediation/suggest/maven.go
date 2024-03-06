@@ -1,4 +1,4 @@
-package suggester
+package suggest
 
 import (
 	"context"
@@ -20,7 +20,7 @@ type MavenSuggester struct{}
 // Suggest returns the ManifestPatch to update Maven dependencies to a newer
 // version based on the options.
 // ManifestPatch also includes the property patches to update.
-func (ms *MavenSuggester) Suggest(ctx context.Context, client resolve.Client, mf manifest.Manifest, opts SuggestOptions) (manifest.ManifestPatch, error) {
+func (ms *MavenSuggester) Suggest(ctx context.Context, client resolve.Client, mf manifest.Manifest, opts Options) (manifest.ManifestPatch, error) {
 	specific, ok := mf.EcosystemSpecific.(manifest.MavenManifestSpecific)
 	if !ok {
 		return manifest.ManifestPatch{}, errors.New("invalid MavenManifestSpecific data")
