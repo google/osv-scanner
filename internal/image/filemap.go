@@ -49,6 +49,7 @@ func (filemap *fileMap) AllFiles() []fileNode {
 		}
 
 		allFiles = append(allFiles, value.(fileNode))
+
 		return nil
 	})
 
