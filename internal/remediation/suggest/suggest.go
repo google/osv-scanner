@@ -23,7 +23,7 @@ type PatchSuggester interface {
 	Suggest(ctx context.Context, client resolve.Client, mf manifest.Manifest, opts Options) (manifest.ManifestPatch, error)
 }
 
-func Get(system resolve.System) (PatchSuggester, error) {
+func GetSuggester(system resolve.System) (PatchSuggester, error) {
 	switch system {
 	case resolve.Maven:
 		return &MavenSuggester{}, nil

@@ -80,7 +80,7 @@ func tryRelaxRemediate(
 	vulnIDs []string,
 	opts RemediationOptions,
 ) (*resolution.ResolutionResult, error) {
-	relaxer, err := relax.Get(orig.Manifest.System())
+	relaxer, err := relax.GetRelaxer(orig.Manifest.System())
 	if err != nil {
 		return nil, err
 	}
