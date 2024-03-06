@@ -130,6 +130,7 @@ func Command(stdout, stderr io.Writer, r *reporter.Reporter) *cli.Command {
 				Name:      "experimental-oci-image",
 				Usage:     "scan an exported OCI compatible container image .tar file",
 				TakesFile: true,
+				Hidden:    true,
 			},
 		},
 		ArgsUsage: "[directory1 directory2...]",
