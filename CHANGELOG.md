@@ -20,7 +20,7 @@
 ### Miscellaneous
 
 - [#831](https://github.com/google/osv-scanner/pull/831)
-   Remove version number from the release binary name.
+  Remove version number from the release binary name.
 
 # v1.6.2:
 
