@@ -12,6 +12,7 @@ import (
 func ScanImage(r reporter.Reporter, imagePath string) (ScanResults, error) {
 	img, err := loadImage(imagePath)
 	if err != nil {
+		img.Cleanup()
 		return ScanResults{}, fmt.Errorf("failed to load image %s: %w", imagePath, err)
 	}
 
