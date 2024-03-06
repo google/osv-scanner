@@ -9,7 +9,7 @@ No package sources found, --help for usage information.
 ---
 
 [TestRun/#01 - 1]
-osv-scanner version: 1.6.0
+osv-scanner version: 1.7.0
 commit: n/a
 built at: n/a
 
@@ -102,7 +102,7 @@ Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
           "informationUri": "https://github.com/google/osv-scanner",
           "name": "osv-scanner",
           "rules": [],
-          "version": "1.6.0"
+          "version": "1.7.0"
         }
       },
       "results": []
@@ -149,7 +149,7 @@ Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
               }
             }
           ],
-          "version": "1.6.0"
+          "version": "1.7.0"
         }
       },
       "artifacts": [
@@ -232,12 +232,13 @@ Scanned <rootdir>/fixtures/sbom-insecure/postgres-stretch.cdx.xml as CycloneDX S
 | https://osv.dev/CVE-2022-48174      | 9.8  | Alpine    | busybox                        | 1.35.0-r29                         | fixtures/sbom-insecure/alpine.cdx.xml           |
 | https://osv.dev/CVE-2022-37434      | 9.8  | Alpine    | zlib                           | 1.2.10-r2                          | fixtures/sbom-insecure/alpine.cdx.xml           |
 | https://osv.dev/DLA-3022-1          |      | Debian    | dpkg                           | 1.18.25                            | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
-| https://osv.dev/GHSA-v95c-p5hm-xq8f | 6    | Go        | github.com/opencontainers/runc | v1.0.1                             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/GHSA-v95c-p5hm-xq8f | 6.0  | Go        | github.com/opencontainers/runc | v1.0.1                             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/GO-2022-0274        |      |           |                                |                                    |                                                 |
 | https://osv.dev/GHSA-f3fp-gc8g-vw66 | 5.9  | Go        | github.com/opencontainers/runc | v1.0.1                             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/GHSA-g2j6-57v7-gm8c | 6.1  | Go        | github.com/opencontainers/runc | v1.0.1                             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/GHSA-m8cg-xc2p-r3fc | 2.5  | Go        | github.com/opencontainers/runc | v1.0.1                             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
-| https://osv.dev/GHSA-vpvm-3wq2-2wvm | 7    | Go        | github.com/opencontainers/runc | v1.0.1                             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/GHSA-vpvm-3wq2-2wvm | 7.0  | Go        | github.com/opencontainers/runc | v1.0.1                             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/GHSA-xr7r-f8xq-vfvv | 8.6  | Go        | github.com/opencontainers/runc | v1.0.1                             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/GHSA-p782-xgp4-8hr8 | 5.3  | Go        | golang.org/x/sys               | v0.0.0-20210817142637-7d9622a276b7 | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/GO-2022-0493        |      |           |                                |                                    |                                                 |
 | https://osv.dev/DLA-3012-1          |      | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
@@ -391,6 +392,39 @@ No issues found
 
 ---
 
+[TestRun_Fix/fix_non-interactive_in-place_package-lock.json - 1]
+Scanning <tempdir>/package-lock.json...
+Found 7 vulnerabilities matching the filter
+Can fix 2/7 matching vulnerabilities by changing 2 dependencies
+UPGRADED-PACKAGE: concat-stream,1.5.0,1.6.1
+UPGRADED-PACKAGE: hosted-git-info,2.1.4,2.8.9
+REMAINING-VULNS: 5
+UNFIXABLE-VULNS: 5
+Rewriting <tempdir>/package-lock.json...
+
+---
+
+[TestRun_Fix/fix_non-interactive_in-place_package-lock.json - 2]
+Warning: `fix` exists as both a subcommand of OSV-Scanner and as a file on the filesystem. `fix` is assumed to be a subcommand here. If you intended for `fix` to be an argument to `fix`, you must specify `fix fix` in your command line.
+
+---
+
+[TestRun_Fix/fix_non-interactive_relock_package.json - 1]
+Resolving <tempdir>/package.json...
+Found 5 vulnerabilities matching the filter
+Can fix 3/5 matching vulnerabilities by changing 1 dependencies
+UPGRADED-PACKAGE: npm-registry-client,6.2.0,^7.5.0
+REMAINING-VULNS: 2
+UNFIXABLE-VULNS: 2
+Rewriting <tempdir>/package.json...
+
+---
+
+[TestRun_Fix/fix_non-interactive_relock_package.json - 2]
+Warning: `fix` exists as both a subcommand of OSV-Scanner and as a file on the filesystem. `fix` is assumed to be a subcommand here. If you intended for `fix` to be an argument to `fix`, you must specify `fix fix` in your command line.
+
+---
+
 [TestRun_GithubActions/scanning_osv-scanner_custom_format - 1]
 Scanned <rootdir>/fixtures/locks-insecure/osv-scanner-flutter-deps.json file as a osv-scanner and found 3 packages
 +--------------------------------+------+-----------+----------------------------+----------------------------+-------------------------------------------------------+
@@ -456,7 +490,7 @@ Scanned <rootdir>/fixtures/locks-insecure/osv-scanner-flutter-deps.json file as 
               }
             }
           ],
-          "version": "1.6.0"
+          "version": "1.7.0"
         }
       },
       "artifacts": [
@@ -941,8 +975,9 @@ Loaded OSS-Fuzz local db from <tempdir>/osv-scanner/OSS-Fuzz/all.zip
 | https://osv.dev/GHSA-f3fp-gc8g-vw66 | 5.9  | Go        | github.com/opencontainers/runc | v1.0.1                             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/GHSA-g2j6-57v7-gm8c | 6.1  | Go        | github.com/opencontainers/runc | v1.0.1                             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/GHSA-m8cg-xc2p-r3fc | 2.5  | Go        | github.com/opencontainers/runc | v1.0.1                             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
-| https://osv.dev/GHSA-v95c-p5hm-xq8f | 6    | Go        | github.com/opencontainers/runc | v1.0.1                             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
-| https://osv.dev/GHSA-vpvm-3wq2-2wvm | 7    | Go        | github.com/opencontainers/runc | v1.0.1                             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/GHSA-v95c-p5hm-xq8f | 6.0  | Go        | github.com/opencontainers/runc | v1.0.1                             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/GHSA-vpvm-3wq2-2wvm | 7.0  | Go        | github.com/opencontainers/runc | v1.0.1                             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/GHSA-xr7r-f8xq-vfvv | 8.6  | Go        | github.com/opencontainers/runc | v1.0.1                             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/GHSA-p782-xgp4-8hr8 | 5.3  | Go        | golang.org/x/sys               | v0.0.0-20210817142637-7d9622a276b7 | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 +-------------------------------------+------+-----------+--------------------------------+------------------------------------+-------------------------------------------------+
 
@@ -964,8 +999,9 @@ Loaded OSS-Fuzz local db from <tempdir>/osv-scanner/OSS-Fuzz/all.zip
 | https://osv.dev/GHSA-f3fp-gc8g-vw66 | 5.9  | Go        | github.com/opencontainers/runc | v1.0.1                             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/GHSA-g2j6-57v7-gm8c | 6.1  | Go        | github.com/opencontainers/runc | v1.0.1                             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/GHSA-m8cg-xc2p-r3fc | 2.5  | Go        | github.com/opencontainers/runc | v1.0.1                             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
-| https://osv.dev/GHSA-v95c-p5hm-xq8f | 6    | Go        | github.com/opencontainers/runc | v1.0.1                             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
-| https://osv.dev/GHSA-vpvm-3wq2-2wvm | 7    | Go        | github.com/opencontainers/runc | v1.0.1                             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/GHSA-v95c-p5hm-xq8f | 6.0  | Go        | github.com/opencontainers/runc | v1.0.1                             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/GHSA-vpvm-3wq2-2wvm | 7.0  | Go        | github.com/opencontainers/runc | v1.0.1                             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/GHSA-xr7r-f8xq-vfvv | 8.6  | Go        | github.com/opencontainers/runc | v1.0.1                             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/GHSA-p782-xgp4-8hr8 | 5.3  | Go        | golang.org/x/sys               | v0.0.0-20210817142637-7d9622a276b7 | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 +-------------------------------------+------+-----------+--------------------------------+------------------------------------+-------------------------------------------------+
 
@@ -1659,6 +1695,31 @@ No issues found
 ---
 
 [TestRun_LockfileWithExplicitParseAs/one_lockfile_with_local_path - 2]
+
+---
+
+[TestRun_OCIImage/Alpine_3.10_image_tar - 1]
+Scanning image ./fixtures/oci-image/alpine-tester.tar
++--------------------------------+------+-----------+---------+-----------+--------------------------------------------------------------+
+| OSV URL                        | CVSS | ECOSYSTEM | PACKAGE | VERSION   | SOURCE                                                       |
++--------------------------------+------+-----------+---------+-----------+--------------------------------------------------------------+
+| https://osv.dev/CVE-2018-25032 | 7.5  | Alpine    | zlib    | 1.2.11-r1 | ./fixtures/oci-image/alpine-tester.tar:/lib/apk/db/installed |
+| https://osv.dev/CVE-2022-37434 | 9.8  | Alpine    | zlib    | 1.2.11-r1 | ./fixtures/oci-image/alpine-tester.tar:/lib/apk/db/installed |
++--------------------------------+------+-----------+---------+-----------+--------------------------------------------------------------+
+
+---
+
+[TestRun_OCIImage/Alpine_3.10_image_tar - 2]
+
+---
+
+[TestRun_OCIImage/Invalid_path - 1]
+Scanning image ./fixtures/oci-image/no-file-here.tar
+
+---
+
+[TestRun_OCIImage/Invalid_path - 2]
+failed to load image ./fixtures/oci-image/no-file-here.tar: open ./fixtures/oci-image/no-file-here.tar: no such file or directory
 
 ---
 

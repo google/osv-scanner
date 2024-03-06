@@ -6,6 +6,7 @@ import (
 	"os"
 	"path/filepath"
 	"reflect"
+	"runtime"
 	"strings"
 	"testing"
 
@@ -13,19 +14,6 @@ import (
 	"github.com/google/osv-scanner/internal/testutility"
 	"github.com/urfave/cli/v2"
 )
-
-func createTestDir(t *testing.T) (string, func()) {
-	t.Helper()
-
-	p, err := os.MkdirTemp("", "osv-scanner-test-*")
-	if err != nil {
-		t.Fatalf("could not create test directory: %v", err)
-	}
-
-	return p, func() {
-		_ = os.RemoveAll(p)
-	}
-}
 
 type cliTestCase struct {
 	name string
@@ -61,7 +49,25 @@ func normalizeRootDirectory(t *testing.T, str string) string {
 	return strings.ReplaceAll(str, cwd, "<rootdir>")
 }
 
-// normalizeRootDirectory attempts to replace references to the temp directory
+// normalizeUserCacheDirectory attempts to replace references to the current working
+// directory with "<tempdir>", in order to reduce the noise of the cmp diff
+func normalizeUserCacheDirectory(t *testing.T, str string) string {
+	t.Helper()
+
+	cacheDir, err := os.UserCacheDir()
+	if err != nil {
+		t.Errorf("could not get user cache (%v) - results and diff might be inaccurate!", err)
+	}
+
+	cacheDir = normalizeFilePaths(t, cacheDir)
+
+	// file uris with Windows end up with three slashes, so we normalize that too
+	str = strings.ReplaceAll(str, "file:///"+cacheDir, "file://<tempdir>")
+
+	return strings.ReplaceAll(str, cacheDir, "<tempdir>")
+}
+
+// normalizeTempDirectory attempts to replace references to the temp directory
 // with "<tempdir>", to ensure tests pass across different OSs
 func normalizeTempDirectory(t *testing.T, str string) string {
 	t.Helper()
@@ -94,6 +100,7 @@ func normalizeStdStream(t *testing.T, std *bytes.Buffer) string {
 		normalizeFilePaths,
 		normalizeRootDirectory,
 		normalizeTempDirectory,
+		normalizeUserCacheDirectory,
 		normalizeErrors,
 	} {
 		str = normalizer(t, str)
@@ -502,18 +509,18 @@ func TestRun_LocalDatabases(t *testing.T) {
 			exit: 0,
 		},
 	}
+
 	for _, tt := range tests {
 		tt := tt
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
 
-			testDir, cleanupTestDir := createTestDir(t)
-			defer cleanupTestDir()
-
-			old := tt.args
-
-			tt.args = []string{"", "--experimental-local-db-path", testDir}
-			tt.args = append(tt.args, old[1:]...)
+			if testutility.IsAcceptanceTest() {
+				testDir := testutility.CreateTestDir(t)
+				old := tt.args
+				tt.args = []string{"", "--experimental-local-db-path", testDir}
+				tt.args = append(tt.args, old[1:]...)
+			}
 
 			// run each test twice since they should provide the same output,
 			// and the second run should be fast as the db is already available
@@ -570,6 +577,36 @@ func TestRun_Licenses(t *testing.T) {
 			name: "Licenses in summary mode json",
 			args: []string{"", "--format=json", "--experimental-licenses-summary", "./fixtures/locks-licenses/package-lock.json"},
 			exit: 0,
+		},
+	}
+	for _, tt := range tests {
+		tt := tt
+		t.Run(tt.name, func(t *testing.T) {
+			t.Parallel()
+
+			testCli(t, tt)
+		})
+	}
+}
+
+func TestRun_OCIImage(t *testing.T) {
+	t.Parallel()
+
+	if //goland:noinspection GoBoolExpressions
+	runtime.GOOS == "windows" {
+		return
+	}
+
+	tests := []cliTestCase{
+		{
+			name: "Alpine 3.10 image tar",
+			args: []string{"", "--experimental-oci-image", "./fixtures/oci-image/alpine-tester.tar"},
+			exit: 1,
+		},
+		{
+			name: "Invalid path",
+			args: []string{"", "--experimental-oci-image", "./fixtures/oci-image/no-file-here.tar"},
+			exit: 127,
 		},
 	}
 	for _, tt := range tests {

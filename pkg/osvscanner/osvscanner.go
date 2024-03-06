@@ -12,6 +12,8 @@ import (
 	"path/filepath"
 	"strings"
 
+	"github.com/google/osv-scanner/internal/customgitignore"
+	"github.com/google/osv-scanner/internal/image"
 	"github.com/google/osv-scanner/internal/local"
 	"github.com/google/osv-scanner/internal/output"
 	"github.com/google/osv-scanner/internal/sbom"
@@ -25,8 +27,6 @@ import (
 	"github.com/google/osv-scanner/pkg/reporter"
 
 	depsdevpb "deps.dev/api/v3alpha"
-	"github.com/go-git/go-billy/v5"
-	"github.com/go-git/go-billy/v5/osfs"
 	"github.com/go-git/go-git/v5"
 	"github.com/go-git/go-git/v5/plumbing/format/gitignore"
 )
@@ -52,6 +52,7 @@ type ExperimentalScannerActions struct {
 	ShowAllPackages       bool
 	ScanLicensesSummary   bool
 	ScanLicensesAllowlist []string
+	ScanOCIImage          string
 
 	LocalDBPath string
 }
@@ -103,7 +104,7 @@ func scanDir(r reporter.Reporter, dir string, skipGit bool, recursive bool, useG
 	var ignoreMatcher *gitIgnoreMatcher
 	if useGitIgnore {
 		var err error
-		ignoreMatcher, err = parseGitIgnores(dir)
+		ignoreMatcher, err = parseGitIgnores(dir, recursive)
 		if err != nil {
 			r.Errorf("Unable to parse git ignores: %v\n", err)
 			useGitIgnore = false
@@ -193,38 +194,15 @@ type gitIgnoreMatcher struct {
 	repoPath string
 }
 
-func parseGitIgnores(path string) (*gitIgnoreMatcher, error) {
-	// We need to parse .gitignore files from the root of the git repo to correctly identify ignored files
-	var fs billy.Filesystem
-
-	// Default to path (or directory containing path if it's a file) is not in a repo or some other error
-	finfo, err := os.Stat(path)
+func parseGitIgnores(path string, recursive bool) (*gitIgnoreMatcher, error) {
+	patterns, repoRootPath, err := customgitignore.ParseGitIgnores(path, recursive)
 	if err != nil {
 		return nil, err
 	}
-	if finfo.IsDir() {
-		fs = osfs.New(path)
-	} else {
-		fs = osfs.New(filepath.Dir(path))
-	}
 
-	if repo, err := git.PlainOpenWithOptions(path, &git.PlainOpenOptions{DetectDotGit: true}); err == nil {
-		if tree, err := repo.Worktree(); err == nil {
-			fs = tree.Filesystem
-		}
-	}
-
-	patterns, err := gitignore.ReadPatterns(fs, []string{"."})
-	if err != nil {
-		return nil, err
-	}
 	matcher := gitignore.NewMatcher(patterns)
-	repopath, err := filepath.Abs(fs.Root())
-	if err != nil {
-		return nil, err
-	}
 
-	return &gitIgnoreMatcher{matcher: matcher, repoPath: repopath}, nil
+	return &gitIgnoreMatcher{matcher: matcher, repoPath: repoRootPath}, nil
 }
 
 func queryDetermineVersions(repoDir string) (*osv.DetermineVersionResponse, error) {
@@ -329,6 +307,33 @@ func (m *gitIgnoreMatcher) match(absPath string, isDir bool) (bool, error) {
 	}
 
 	return m.matcher.Match(pathInGitSep, isDir), nil
+}
+
+func scanImage(r reporter.Reporter, path string) ([]scannedPackage, error) {
+	scanResults, err := image.ScanImage(r, path)
+	if err != nil {
+		return []scannedPackage{}, err
+	}
+
+	packages := make([]scannedPackage, 0)
+
+	for _, l := range scanResults.Lockfiles {
+		for _, pkgDetail := range l.Packages {
+			packages = append(packages, scannedPackage{
+				Name:      pkgDetail.Name,
+				Version:   pkgDetail.Version,
+				Commit:    pkgDetail.Commit,
+				Ecosystem: pkgDetail.Ecosystem,
+				DepGroups: pkgDetail.DepGroups,
+				Source: models.SourceInfo{
+					Path: path + ":" + l.FilePath,
+					Type: "docker",
+				},
+			})
+		}
+	}
+
+	return packages, nil
 }
 
 // scanLockfile will load, identify, and parse the lockfile path passed in, and add the dependencies specified
@@ -730,9 +735,18 @@ func DoScan(actions ScannerActions, r reporter.Reporter) (models.VulnerabilityRe
 		}
 	}
 
+	if actions.ExperimentalScannerActions.ScanOCIImage != "" {
+		r.Infof("Scanning image %s\n", actions.ExperimentalScannerActions.ScanOCIImage)
+		pkgs, err := scanImage(r, actions.ExperimentalScannerActions.ScanOCIImage)
+		if err != nil {
+			return models.VulnerabilityResults{}, err
+		}
+
+		scannedPackages = append(scannedPackages, pkgs...)
+	}
+
+	// TODO: Deprecated
 	for _, container := range actions.DockerContainerNames {
-		// TODO: Automatically figure out what docker base image
-		// and scan appropriately.
 		pkgs, _ := scanDebianDocker(r, container)
 		scannedPackages = append(scannedPackages, pkgs...)
 	}

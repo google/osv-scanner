@@ -54,8 +54,9 @@ type DependencyPatch struct {
 }
 
 type ManifestPatch struct {
-	Manifest *Manifest         // The original manifest
-	Deps     []DependencyPatch // changed direct dependencies
+	Manifest          *Manifest         // The original manifest
+	Deps              []DependencyPatch // Changed direct dependencies
+	EcosystemSpecific any               // Any ecosystem-specific information
 }
 
 type ManifestIO interface {

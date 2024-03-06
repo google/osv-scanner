@@ -5,7 +5,8 @@ import (
 	"slices"
 
 	"deps.dev/util/resolve"
-	"github.com/google/osv-scanner/internal/resolution/manifest"
+	"deps.dev/util/resolve/dep"
+	"github.com/google/osv-scanner/internal/resolution/util"
 	vulnUtil "github.com/google/osv-scanner/internal/utility/vulns"
 	"github.com/google/osv-scanner/pkg/lockfile"
 	"github.com/google/osv-scanner/pkg/models"
@@ -16,28 +17,42 @@ type DependencyChain struct {
 	Edges []resolve.Edge // Edge from root node is at the end of the list
 }
 
-func (dc DependencyChain) DirectDependency() (resolve.VersionKey, string) {
+// At returns the dependency information of the dependency at the specified index along the chain.
+// Returns the resolved VersionKey of the dependency, and the version requirement string.
+// index 0 is the end dependency (usually the vulnerability)
+// index len(Edges)-1 is the direct dependency from the root node
+func (dc DependencyChain) At(index int) (resolve.VersionKey, string) {
+	edge := dc.Edges[index]
+	return dc.Graph.Nodes[edge.To].Version, edge.Requirement
+}
+
+func (dc DependencyChain) Direct() (resolve.VersionKey, string) {
+	return dc.At(len(dc.Edges) - 1)
+}
+
+func (dc DependencyChain) End() (resolve.VersionKey, string) {
+	return dc.At(0)
+}
+
+func ChainIsDev(dc DependencyChain, groups map[resolve.PackageKey][]string) bool {
 	edge := dc.Edges[len(dc.Edges)-1]
-	return dc.Graph.Nodes[edge.To].Version, edge.Requirement
-}
+	// This check only applies to the graphs created from the in-place lockfile scanning.
+	// TODO: consider dev dependencies in e.g. workspaces that aren't direct
+	if edge.Type.HasAttr(dep.Dev) {
+		return true
+	}
 
-func (dc DependencyChain) EndDependency() (resolve.VersionKey, string) {
-	edge := dc.Edges[0]
-	return dc.Graph.Nodes[edge.To].Version, edge.Requirement
-}
-
-func ChainIsDev(dc DependencyChain, m manifest.Manifest) bool {
-	direct, _ := dc.DirectDependency()
-	ecosystem, ok := OSVEcosystem[direct.System]
+	vk := dc.Graph.Nodes[edge.To].Version
+	ecosystem, ok := util.OSVEcosystem[vk.System]
 	if !ok {
 		return false
 	}
 
-	return lockfile.Ecosystem(ecosystem).IsDevGroup(m.Groups[direct.PackageKey])
+	return lockfile.Ecosystem(ecosystem).IsDevGroup(groups[vk.PackageKey])
 }
 
-// computeChains computes all paths from each specified NodeID to the root node.
-func computeChains(g *resolve.Graph, nodes []resolve.NodeID) [][]DependencyChain {
+// ComputeChains computes all paths from each specified NodeID to the root node.
+func ComputeChains(g *resolve.Graph, nodes []resolve.NodeID) [][]DependencyChain {
 	// find the parent nodes of each node in graph, for easier traversal
 	parentEdges := make(map[resolve.NodeID][]resolve.Edge)
 	for _, e := range g.Edges {
@@ -99,7 +114,7 @@ func chainConstrains(ctx context.Context, cl resolve.Client, chain DependencyCha
 	// Similarly, a direct dependency could be constrained by an indirect dependency with similar results.
 
 	// Check if the latest allowable version of the package is vulnerable
-	vk, req := chain.EndDependency()
+	vk, req := chain.End()
 	vk.Version = req
 	vk.VersionType = resolve.Requirement
 	vers, err := cl.MatchingVersions(ctx, vk)
@@ -109,12 +124,6 @@ func chainConstrains(ctx context.Context, cl resolve.Client, chain DependencyCha
 	}
 
 	bestVk := vers[len(vers)-1] // This should be the highest version for npm
-	pkg := lockfile.PackageDetails{
-		Name:      bestVk.Name,
-		Version:   bestVk.Version,
-		Ecosystem: lockfile.Ecosystem(OSVEcosystem[vk.System]),
-		CompareAs: lockfile.Ecosystem(OSVEcosystem[vk.System]),
-	}
 
-	return vulnUtil.IsAffected(*vuln, pkg)
+	return vulnUtil.IsAffected(*vuln, util.VKToPackageDetails(bestVk.VersionKey))
 }

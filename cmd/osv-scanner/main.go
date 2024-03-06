@@ -6,6 +6,7 @@ import (
 	"os"
 	"slices"
 
+	"github.com/google/osv-scanner/cmd/osv-scanner/fix"
 	"github.com/google/osv-scanner/cmd/osv-scanner/scan"
 	"github.com/google/osv-scanner/internal/version"
 	"github.com/google/osv-scanner/pkg/osv"
@@ -22,7 +23,6 @@ var (
 
 func run(args []string, stdout, stderr io.Writer) int {
 	var r reporter.Reporter
-
 	cli.VersionPrinter = func(ctx *cli.Context) {
 		// Use the app Writer and ErrWriter since they will be the writers to keep parallel tests consistent
 		r = reporter.NewTableReporter(ctx.App.Writer, ctx.App.ErrWriter, reporter.InfoLevel, false, 0)
@@ -41,6 +41,7 @@ func run(args []string, stdout, stderr io.Writer) int {
 		DefaultCommand: "scan",
 		Commands: []*cli.Command{
 			scan.Command(stdout, stderr, &r),
+			fix.Command(stdout, stderr, &r),
 		},
 	}
 
@@ -117,5 +118,7 @@ func insertDefaultCommand(args []string, commands []*cli.Command, defaultCommand
 }
 
 func main() {
-	os.Exit(run(os.Args, os.Stdout, os.Stderr))
+	exitCode := run(os.Args, os.Stdout, os.Stderr)
+
+	os.Exit(exitCode)
 }
