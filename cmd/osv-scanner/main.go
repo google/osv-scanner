@@ -118,5 +118,7 @@ func insertDefaultCommand(args []string, commands []*cli.Command, defaultCommand
 }
 
 func main() {
-	os.Exit(run(os.Args, os.Stdout, os.Stderr))
+	exitCode := run(os.Args, os.Stdout, os.Stderr)
+
+	os.Exit(exitCode)
 }

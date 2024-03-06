@@ -1719,7 +1719,7 @@ Scanning image ./fixtures/oci-image/no-file-here.tar
 ---
 
 [TestRun_OCIImage/Invalid_path - 2]
-failed to open image ./fixtures/oci-image/no-file-here.tar: unable to determine image source
+failed to load image ./fixtures/oci-image/no-file-here.tar: open ./fixtures/oci-image/no-file-here.tar: no such file or directory
 
 ---
 
