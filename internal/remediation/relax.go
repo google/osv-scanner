@@ -6,7 +6,7 @@ import (
 	"slices"
 
 	"deps.dev/util/resolve"
-	"github.com/google/osv-scanner/internal/remediation/relaxer"
+	"github.com/google/osv-scanner/internal/remediation/relax"
 	"github.com/google/osv-scanner/internal/resolution"
 	"github.com/google/osv-scanner/internal/resolution/client"
 )
@@ -80,7 +80,7 @@ func tryRelaxRemediate(
 	vulnIDs []string,
 	opts RemediationOptions,
 ) (*resolution.ResolutionResult, error) {
-	relaxer, err := relaxer.GetRelaxer(orig.Manifest.System())
+	relaxer, err := relax.GetRelaxer(orig.Manifest.System())
 	if err != nil {
 		return nil, err
 	}
