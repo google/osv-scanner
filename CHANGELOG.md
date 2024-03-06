@@ -2,9 +2,9 @@
 
 ### Features
 
-- [Feature #352](https://github.com/google/osv-scanner/issues/352) Guided Remediation 
-  Introducing our new experimental guided remediation feature on `osv-scanner fix` subcommand. 
-  See our [docs](https://google.github.io/osv-scanner/experimental/guided-remediation/) for detailed usage instructions. 
+- [Feature #352](https://github.com/google/osv-scanner/issues/352) Guided Remediation
+  Introducing our new experimental guided remediation feature on `osv-scanner fix` subcommand.
+  See our [docs](https://google.github.io/osv-scanner/experimental/guided-remediation/) for detailed usage instructions.
 
 - [Feature #805](https://github.com/google/osv-scanner/pull/805)
   Include CVSS MaxSevirity in JSON output.
