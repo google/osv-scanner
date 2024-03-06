@@ -1,4 +1,4 @@
-package suggester
+package suggest
 
 import (
 	"context"
@@ -235,7 +235,7 @@ func TestSuggest(t *testing.T) {
 				{Property: maven.Property{Name: "property.version", Value: "1.0.0"}},
 				{Property: maven.Property{Name: "no.update.minor", Value: "9"}},
 			},
-			OriginalImports: []resolve.RequirementVersion{
+			RequirementsWithProperties: []resolve.RequirementVersion{
 				{
 					// The universal property should be updated.
 					VersionKey: resolve.VersionKey{
@@ -285,7 +285,7 @@ func TestSuggest(t *testing.T) {
 		},
 	}
 
-	got, err := suggester.Suggest(ctx, client, mf, SuggestOptions{
+	got, err := suggester.Suggest(ctx, client, mf, Options{
 		IgnoreDev:  true, // Do no update test dependencies.
 		NoUpdates:  []string{"org.example:no-updates"},
 		AvoidMajor: []string{"org.import:xyz"},

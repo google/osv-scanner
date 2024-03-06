@@ -1,4 +1,4 @@
-package suggester
+package suggest
 
 import (
 	"context"
@@ -8,7 +8,7 @@ import (
 	"github.com/google/osv-scanner/internal/resolution/manifest"
 )
 
-type SuggestOptions struct {
+type Options struct {
 	IgnoreDev  bool     // Whether we should ignore development dependencies for updates
 	NoUpdates  []string // List of packages that disallow updates
 	AvoidMajor []string // List of packages that disallow major updates
@@ -20,7 +20,7 @@ type PatchSuggester interface {
 	// Suggest returns the ManifestPatch required to update the dependencies to
 	// a newer version based on the given options.
 	// ManifestPatch includes ecosystem-specific information.
-	Suggest(ctx context.Context, client resolve.Client, mf manifest.Manifest, opts SuggestOptions) (manifest.ManifestPatch, error)
+	Suggest(ctx context.Context, client resolve.Client, mf manifest.Manifest, opts Options) (manifest.ManifestPatch, error)
 }
 
 func GetSuggester(system resolve.System) (PatchSuggester, error) {

@@ -55,7 +55,7 @@ jobs:
         with:
           persist-credentials: false
       - name: "Download custom artifact if specified"
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@c850b930e6ba138125429b7e5c93fc707a7f8427 # v4.1.4
         if: "${{ inputs.download-artifact != '' }}"
         with:
           name: "${{ inputs.download-artifact }}"
@@ -88,6 +88,6 @@ jobs:
       # Upload the results to GitHub's code scanning dashboard.
       - name: "Upload to code-scanning"
         if: "${{ !cancelled() && inputs.upload-sarif == true }}"
-        uses: github/codeql-action/upload-sarif@e675ced7a7522a761fc9c8eb26682c8b27c42b2b # v3.24.1
+        uses: github/codeql-action/upload-sarif@8a470fddafa5cbb6266ee11b37ef4d8aae19c571 # v3.24.6
         with:
           sarif_file: ${{ inputs.results-file-name }}

@@ -1,4 +1,4 @@
-package relaxer
+package relax
 
 import (
 	"context"

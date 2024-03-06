@@ -297,14 +297,14 @@ func (st *stateChooseStrategy) View(m model) string {
 	))
 
 	devString := "YES"
-	if !m.options.DevDeps {
+	if m.options.DevDeps {
 		devString = "NO"
 	}
 	s.WriteString(tui.RenderSelectorOption(
 		st.cursorPos == stateChooseDev,
 		" > ",
 		fmt.Sprintf("%%s: %s\n", devString),
-		"Include dev only",
+		"Exclude dev only",
 	))
 	s.WriteString(tui.RenderSelectorOption(
 		st.cursorPos == stateChooseApplyCriteria,
