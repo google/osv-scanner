@@ -41,6 +41,7 @@ func TestMavenRead(t *testing.T) {
 	if err != nil {
 		t.Fatalf("failed to open file: %v", err)
 	}
+	defer df.Close()
 
 	mavenIO := MavenManifestIO{}
 	got, err := mavenIO.Read(df)
@@ -209,6 +210,7 @@ func TestMavenWrite(t *testing.T) {
 	if err != nil {
 		t.Fatalf("fail to open file: %v", err)
 	}
+	defer df.Close()
 
 	depProfileTwoMgmt.AddAttr(dep.MavenArtifactType, "pom")
 	depProfileTwoMgmt.AddAttr(dep.Scope, "import")
@@ -277,5 +279,5 @@ func TestMavenWrite(t *testing.T) {
 	if err := mavenIO.Write(df, buf, changes); err != nil {
 		t.Fatalf("unable to update Maven pom.xml: %v", err)
 	}
-	testutility.NewSnapshot().WithWindowsReplacements(map[string]string{"\r\n": "\n"}).MatchText(t, buf.String())
+	testutility.NewSnapshot().WithCRLFReplacement().MatchText(t, buf.String())
 }

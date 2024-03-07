@@ -1,0 +1,22 @@
+{
+  "name": "npm-workspace-test",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "workspaces": [
+    "z",
+    "ws/*"
+  ],
+  "devDependencies": {
+    "jquery": "^3.7.1",
+    "jquery-real": "npm:jquery@^3.7.1"
+  },
+  "dependencies": {
+    "@workspace/ugh": "*"
+  }
+}
