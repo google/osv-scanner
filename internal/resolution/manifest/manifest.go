@@ -93,6 +93,8 @@ func Overwrite(rw ManifestIO, filename string, p ManifestPatch) error {
 func GetManifestIO(pathToManifest string) (ManifestIO, error) {
 	base := filepath.Base(pathToManifest)
 	switch {
+	case base == "pom.xml":
+		return MavenManifestIO{}, nil
 	case base == "package.json":
 		return NpmManifestIO{}, nil
 	default:
