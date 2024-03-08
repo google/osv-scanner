@@ -44,7 +44,7 @@ func Test_RunGoVulnCheck(t *testing.T) {
 		vulns = append(vulns, newVuln)
 	}
 
-	res, err := runGovulncheck(filepath.Join(fixturesDir, "test-project"), vulns, "1.19")
+	res, err := runGovulncheck(filepath.Join(fixturesDir, "test-project"), vulns, "go1.19")
 	if err != nil {
 		t.Errorf("failed to run RunGoVulnCheck: %v", err)
 	}
