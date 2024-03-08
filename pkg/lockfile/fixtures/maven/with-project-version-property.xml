@@ -10,5 +10,10 @@
       <artifactId>bar</artifactId>
       <version>${project.version}</version>
     </dependency>
+    <dependency>
+      <groupId>dev.bar</groupId>
+      <artifactId>foo</artifactId>
+      <version>${pom.version}</version>
+    </dependency>
   </dependencies>
 </project>

@@ -2,6 +2,7 @@ package lockfile
 
 import (
 	"encoding/xml"
+	"errors"
 	"fmt"
 	"os"
 	"path"
@@ -14,7 +15,6 @@ import (
 )
 
 const maxParentDepth = 10
-const projectVersionPropName = "project.version"
 
 type MavenLockDependency struct {
 	XMLName    xml.Name `xml:"dependency"`
@@ -35,11 +35,21 @@ type MavenLockDependencyHolder struct {
 	Dependencies []MavenLockDependency `xml:"dependency"`
 }
 
+func buildProjectProperties(lockfile MavenLockFile) map[string]string {
+	return map[string]string{
+		"project.version":      lockfile.Version,
+		"project.modelVersion": lockfile.ModelVersion,
+		"project.groupId":      lockfile.GroupID,
+		"project.artifactId":   lockfile.ArtifactID,
+	}
+}
+
 /*
 You can see the regex working here : https://regex101.com/r/inAPiN/2
 */
 func (mld MavenLockDependency) resolvePropertiesValue(lockfile MavenLockFile, fieldToResolve string) string {
 	interpolationReg := cachedregexp.MustCompile(`\${([^}]+)}`)
+	projectProperties := buildProjectProperties(lockfile)
 
 	result := interpolationReg.ReplaceAllFunc([]byte(fieldToResolve), func(bytes []byte) []byte {
 		propStr := string(bytes)
@@ -47,10 +57,14 @@ func (mld MavenLockDependency) resolvePropertiesValue(lockfile MavenLockFile, fi
 		var property string
 		var ok bool
 
+		if strings.HasPrefix(propName, "pom.") {
+			// the pom. prefix is the legacy value of project. prefix even if it is deprecated, it is still supported
+			propName = "project" + strings.TrimPrefix(propName, "pom")
+		}
+
 		// If the fieldToResolve is the internal version fieldToResolve, then lets use the one declared
-		if strings.ToLower(propName) == projectVersionPropName && len(lockfile.Version) > 0 {
-			property = lockfile.Version
-			ok = true
+		if strings.HasPrefix(propName, "project.") {
+			property, ok = projectProperties[propName]
 		} else {
 			property, ok = lockfile.Properties.m[propName]
 			if ok && interpolationReg.MatchString(property) {
@@ -62,9 +76,10 @@ func (mld MavenLockDependency) resolvePropertiesValue(lockfile MavenLockFile, fi
 		if !ok {
 			fmt.Fprintf(
 				os.Stderr,
-				"Failed to resolve a property. fieldToResolve \"%s\" could not be found for \"%s\"\n",
+				"Failed to resolve a property. fieldToResolve \"%s\" could not be found for \"%s\" (%s)\n",
 				string(bytes),
 				lockfile.GroupID+":"+lockfile.ArtifactID,
+				mld.SourceFile,
 			)
 
 			return []byte("")
@@ -227,6 +242,10 @@ func (e MavenLockExtractor) decodeMavenFile(f DepFile, depth int) (*MavenLockFil
 	if err != nil {
 		return nil, err
 	}
+
+	if parsedLockfile.Properties.m == nil {
+		parsedLockfile.Properties.m = map[string]string{}
+	}
 	parsedLockfile.Dependencies = e.enrichDependencies(f, parsedLockfile.Dependencies.Dependencies)
 	parsedLockfile.ManagedDependencies = e.enrichDependencies(f, parsedLockfile.ManagedDependencies.Dependencies)
 	if parsedLockfile.Parent == (MavenLockParent{}) {
@@ -243,6 +262,11 @@ func (e MavenLockExtractor) decodeMavenFile(f DepFile, depth int) (*MavenLockFil
 		parentRelativePath = path.Join(parentRelativePath, "pom.xml")
 	}
 	parentPath := filepath.FromSlash(filepath.Join(filepath.Dir(f.Path()), parentRelativePath))
+	if _, err := os.Stat(parentPath); errors.Is(err, os.ErrNotExist) {
+		// If the parent pom does not exist, it still can be in an external repository, but it is unreachable from the parser
+		_, _ = fmt.Fprintf(os.Stderr, "Maven lockfile parser couldn't reach the parent because it is not locally defined\n")
+		return parsedLockfile, nil
+	}
 	parentFile, err := OpenLocalDepFile(parentPath)
 	if err != nil {
 		return nil, err

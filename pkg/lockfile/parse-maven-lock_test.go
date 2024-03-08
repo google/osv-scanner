@@ -742,6 +742,17 @@ func TestParseMavenLock_WithProjectVersionProperty(t *testing.T) {
 			Column:     models.Position{Start: 5, End: 18},
 			DepGroups:  nil,
 		},
+		{
+			Name:       "dev.bar:foo",
+			Version:    "1.0-SNAPSHOT",
+			Ecosystem:  lockfile.MavenEcosystem,
+			CompareAs:  lockfile.MavenEcosystem,
+			Commit:     "",
+			SourceFile: lockfilePath,
+			Line:       models.Position{Start: 13, End: 17},
+			Column:     models.Position{Start: 5, End: 18},
+			DepGroups:  nil,
+		},
 	})
 }
 
