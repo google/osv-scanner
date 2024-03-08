@@ -21,6 +21,10 @@ type Reporter interface {
 	// Where the error is actually printed (if at all) is entirely up to the actual
 	// reporter, though generally it will be to stderr.
 	PrintErrorf(msg string, a ...any)
+	// PrintWarnf does the same thing than PrintErrorf but does not consider it as an error
+	// The direct result of it is the result code which will still be a success if the error outputs only have
+	// warnings.
+	PrintWarnf(msg string, a ...any)
 	// HasPrintedError returns true if there have been any calls to PrintError or
 	// PrintErrorf.
 	//

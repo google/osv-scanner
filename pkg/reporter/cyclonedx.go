@@ -35,6 +35,10 @@ func (r *CycloneDXReporter) PrintErrorf(msg string, a ...any) {
 	r.hasPrintedError = true
 }
 
+func (r *CycloneDXReporter) PrintWarnf(msg string, a ...any) {
+	fmt.Fprintf(r.stderr, msg, a...)
+}
+
 func (r *CycloneDXReporter) HasPrintedError() bool {
 	return r.hasPrintedError
 }

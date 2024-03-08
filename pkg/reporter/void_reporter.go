@@ -16,6 +16,8 @@ func (r *VoidReporter) PrintErrorf(msg string, a ...any) {
 	r.hasPrintedError = true
 }
 
+func (r *VoidReporter) PrintWarnf(msg string, a ...any) {}
+
 func (r *VoidReporter) HasPrintedError() bool {
 	return r.hasPrintedError
 }

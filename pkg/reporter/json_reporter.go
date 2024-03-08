@@ -31,6 +31,10 @@ func (r *JSONReporter) PrintErrorf(msg string, a ...any) {
 	r.hasPrintedError = true
 }
 
+func (r *JSONReporter) PrintWarnf(msg string, a ...any) {
+	fmt.Fprintf(r.stderr, msg, a...)
+}
+
 func (r *JSONReporter) HasPrintedError() bool {
 	return r.hasPrintedError
 }

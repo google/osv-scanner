@@ -159,7 +159,7 @@ func scanDir(r reporter.Reporter, dir string, skipGit bool, recursive bool, useG
 			if extractor, _ := lockfile.FindExtractor(path, ""); extractor != nil {
 				pkgs, err := scanLockfile(r, path, "")
 				if err != nil {
-					r.PrintErrorf("Attempted to scan lockfile but failed: %s\n", path)
+					r.PrintWarnf("Attempted to scan lockfile but failed: %s (%v)\n", path, err.Error())
 				}
 				scannedPackages = append(scannedPackages, pkgs...)
 			}

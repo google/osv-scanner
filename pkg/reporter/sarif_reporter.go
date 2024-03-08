@@ -26,6 +26,10 @@ func (r *SARIFReporter) PrintError(msg string) {
 	r.PrintErrorf(msg)
 }
 
+func (r *SARIFReporter) PrintWarnf(msg string, a ...any) {
+	fmt.Fprintf(r.stderr, msg, a...)
+}
+
 func (r *SARIFReporter) PrintErrorf(msg string, a ...any) {
 	fmt.Fprintf(r.stderr, msg, a...)
 	r.hasPrintedError = true

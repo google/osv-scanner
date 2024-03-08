@@ -36,6 +36,10 @@ func (r *TableReporter) PrintErrorf(msg string, a ...any) {
 	r.hasPrintedError = true
 }
 
+func (r *TableReporter) PrintWarnf(msg string, a ...any) {
+	fmt.Fprintf(r.stderr, msg, a...)
+}
+
 func (r *TableReporter) HasPrintedError() bool {
 	return r.hasPrintedError
 }

@@ -26,6 +26,10 @@ func (r *GHAnnotationsReporter) PrintError(msg string) {
 	r.PrintErrorf(msg)
 }
 
+func (r *GHAnnotationsReporter) PrintWarnf(msg string, a ...any) {
+	fmt.Fprintf(r.stderr, msg, a...)
+}
+
 func (r *GHAnnotationsReporter) PrintErrorf(msg string, a ...any) {
 	fmt.Fprintf(r.stderr, msg, a...)
 	r.hasPrintedError = true
