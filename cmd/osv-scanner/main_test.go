@@ -641,13 +641,11 @@ func TestRun_LockfileWithExplicitParseAs(t *testing.T) {
 		{
 			name:         "one lockfile with local path",
 			args:         []string{"", "--lockfile=go.mod:./fixtures/locks-many/replace-local.mod"},
-			wantExitCode: 0,
+			wantExitCode: 128,
 			wantStdout: `
-				Scanned <rootdir>/fixtures/locks-many/replace-local.mod file as a go.mod and found 1 package
-				Filtered 1 local package/s from the scan.
-				No issues found
+				Scanned <rootdir>/fixtures/locks-many/replace-local.mod file as a go.mod and found 0 packages
 			`,
-			wantStderr: "",
+			wantStderr: "No package sources found, --help for usage information.",
 		},
 		// when an explicit parse-as is given, it's applied to that file
 		{

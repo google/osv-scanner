@@ -3,8 +3,11 @@ package lockfile
 import (
 	"fmt"
 	"io"
+	"os"
 	"path/filepath"
 	"strings"
+
+	"golang.org/x/mod/module"
 
 	"github.com/google/osv-scanner/pkg/models"
 
@@ -26,6 +29,26 @@ func deduplicatePackages(packages map[string]PackageDetails) map[string]PackageD
 
 type GoLockExtractor struct{}
 
+func defaultNonCanonicalVersions(path, version string) (string, error) {
+	resolvedVersion := module.CanonicalVersion(version)
+
+	// If the resolvedVersion is not canonical, we try to find the major resolvedVersion in the path and report that
+	if resolvedVersion == "" {
+		_, pathMajor, ok := module.SplitPathVersion(path)
+		if ok {
+			resolvedVersion = module.PathMajorPrefix(pathMajor)
+		}
+	}
+
+	if resolvedVersion == "" {
+		// If it is still not resolved, we default on 0.0.0 as we do with other package managers
+		_, _ = fmt.Fprintf(os.Stderr, "%s@%s is not a canonical path, defaulting to v0.0.0\n", path, resolvedVersion)
+		return "v0.0.0", nil
+	}
+
+	return resolvedVersion, nil
+}
+
 func (e GoLockExtractor) ShouldExtract(path string) bool {
 	return filepath.Base(path) == "go.mod"
 }
@@ -36,7 +59,7 @@ func (e GoLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 	b, err := io.ReadAll(f)
 
 	if err == nil {
-		parsedLockfile, err = modfile.Parse(f.Path(), b, nil)
+		parsedLockfile, err = modfile.Parse(f.Path(), b, defaultNonCanonicalVersions)
 	}
 
 	if err != nil {
@@ -82,9 +105,17 @@ func (e GoLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 		}
 
 		for _, replacement := range replacements {
+			version := strings.TrimPrefix(replace.New.Version, "v")
+
+			if len(version) == 0 {
+				// There is no version specified on the replacement, it means the artifact is directly accessible
+				// the package itself will then be scanned so there is no need to keep it
+				delete(packages, replacement)
+				continue
+			}
 			packages[replacement] = PackageDetails{
 				Name:      replace.New.Path,
-				Version:   strings.TrimPrefix(replace.New.Version, "v"),
+				Version:   version,
 				Ecosystem: GoEcosystem,
 				CompareAs: GoEcosystem,
 				Line:      models.Position{Start: start.Line, End: end.Line},
