@@ -113,9 +113,10 @@ func (rw NpmManifestIO) Read(f lockfile.DepFile) (Manifest, error) {
 			workspaceReqVers[req.PackageKey] = req
 			continue
 		}
-		if idx := slices.IndexFunc(manif.Requirements, func(imp resolve.RequirementVersion) bool {
+		idx := slices.IndexFunc(manif.Requirements, func(imp resolve.RequirementVersion) bool {
 			return imp.PackageKey == req.PackageKey
-		}); idx != -1 {
+		})
+		if idx != -1 {
 			manif.Requirements[idx] = req
 		} else {
 			manif.Requirements = append(manif.Requirements, req)
@@ -130,9 +131,10 @@ func (rw NpmManifestIO) Read(f lockfile.DepFile) (Manifest, error) {
 			workspaceReqVers[req.PackageKey] = req
 			continue
 		}
-		if idx := slices.IndexFunc(manif.Requirements, func(imp resolve.RequirementVersion) bool {
+		idx := slices.IndexFunc(manif.Requirements, func(imp resolve.RequirementVersion) bool {
 			return imp.PackageKey == req.PackageKey
-		}); idx != -1 {
+		})
+		if idx != -1 {
 			// In newer versions of npm, having a package in both the `dependencies` and `devDependencies`
 			// makes it treated as ONLY a devDependency (using the devDependency version)
 			// npm v6 and below seems to do the opposite and there's no easy way of seeing the npm version :/
