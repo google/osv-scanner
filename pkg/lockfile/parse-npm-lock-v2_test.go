@@ -82,6 +82,28 @@ func TestParseNpmLock_v2_OnePackageDev(t *testing.T) {
 	})
 }
 
+func TestParseNpmLock_v2_LinkDependency(t *testing.T) {
+	t.Parallel()
+
+	packages, err := lockfile.ParseNpmLock("fixtures/npm/link-dependency.v2.json")
+
+	if err != nil {
+		t.Errorf("Got unexpected error: %v", err)
+	}
+
+	expectPackages(t, packages, []lockfile.PackageDetails{
+		{
+			Name:      "wrappy",
+			Version:   "1.0.2",
+			Line:      models.Position{Start: 10, End: 15},
+			Column:    models.Position{Start: 5, End: 6},
+			Ecosystem: lockfile.NpmEcosystem,
+			CompareAs: lockfile.NpmEcosystem,
+			DepGroups: []string{"dev"},
+		},
+	})
+}
+
 func TestParseNpmLock_v2_TwoPackages(t *testing.T) {
 	t.Parallel()
 

@@ -412,7 +412,7 @@ func TestParseNpmLock_v1_Files(t *testing.T) {
 		},
 		{
 			Name:      "other_package",
-			Version:   "",
+			Version:   "0.0.0",
 			Line:      models.Position{Start: 10, End: 15},
 			Column:    models.Position{Start: 5, End: 6},
 			Ecosystem: lockfile.NpmEcosystem,
