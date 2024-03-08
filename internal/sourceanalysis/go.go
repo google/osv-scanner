@@ -17,8 +17,6 @@ import (
 	"golang.org/x/vuln/scan"
 )
 
-const goVersionEnv = "GOVERSION"
-
 func goAnalysis(r reporter.Reporter, pkgs []models.PackageVulns, source models.SourceInfo) {
 	cmd := exec.Command("go", "version")
 	_, err := cmd.Output()
@@ -140,12 +138,7 @@ func runGovulncheck(moddir string, vulns []models.Vulnerability, goVersion strin
 	var b bytes.Buffer
 	cmd.Stdout = &b
 
-	// Allow GOVERSION to be overridden
-	if val, ok := os.LookupEnv(goVersionEnv); ok {
-		goVersion = val
-	}
-
-	cmd.Env = append(os.Environ(), fmt.Sprintf("%s=%s", goVersionEnv, goVersion))
+	cmd.Env = append(os.Environ(), fmt.Sprintf("GOVERSION=%s", goVersion))
 	if err := cmd.Start(); err != nil {
 		return nil, err
 	}

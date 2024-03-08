@@ -88,6 +88,7 @@ unsupported output format "unknown" - must be one of: table, json, markdown, sar
 [TestRun/Empty_gh-annotations_output - 2]
 Scanning dir ./fixtures/locks-many/composer.lock
 Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
+Loaded filter from: <rootdir>/fixtures/locks-many/osv-scanner.toml
 
 ---
 
@@ -115,6 +116,7 @@ Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
 [TestRun/Empty_sarif_output - 2]
 Scanning dir ./fixtures/locks-many/composer.lock
 Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
+Loaded filter from: <rootdir>/fixtures/locks-many/osv-scanner.toml
 
 ---
 
@@ -287,6 +289,7 @@ invalid verbosity level "unknown" - must be one of: error, warn, info, verbose
 [TestRun/json_output_1 - 2]
 Scanning dir ./fixtures/locks-many/composer.lock
 Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
+Loaded filter from: <rootdir>/fixtures/locks-many/osv-scanner.toml
 
 ---
 
@@ -306,6 +309,7 @@ Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
 [TestRun/json_output_2 - 2]
 Scanning dir ./fixtures/locks-many/composer.lock
 Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
+Loaded filter from: <rootdir>/fixtures/locks-many/osv-scanner.toml
 
 ---
 
@@ -324,6 +328,7 @@ No issues found
 [TestRun/one_specific_supported_lockfile - 1]
 Scanning dir ./fixtures/locks-many/composer.lock
 Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
+Loaded filter from: <rootdir>/fixtures/locks-many/osv-scanner.toml
 No issues found
 
 ---
@@ -384,6 +389,7 @@ No issues found
 [TestRun/verbosity_level_=_info - 1]
 Scanning dir ./fixtures/locks-many/composer.lock
 Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
+Loaded filter from: <rootdir>/fixtures/locks-many/osv-scanner.toml
 No issues found
 
 ---
@@ -951,6 +957,7 @@ Scanned <rootdir>/fixtures/locks-many/package-lock.json file and found 1 package
 [TestRun_LocalDatabases/#00 - 1]
 Scanning dir ./fixtures/locks-many/composer.lock
 Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
+Loaded filter from: <rootdir>/fixtures/locks-many/osv-scanner.toml
 Loaded Packagist local db from <tempdir>/osv-scanner/Packagist/all.zip
 No issues found
 
@@ -963,6 +970,7 @@ No issues found
 [TestRun_LocalDatabases/#00 - 3]
 Scanning dir ./fixtures/locks-many/composer.lock
 Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
+Loaded filter from: <rootdir>/fixtures/locks-many/osv-scanner.toml
 Loaded Packagist local db from <tempdir>/osv-scanner/Packagist/all.zip
 No issues found
 
@@ -1047,11 +1055,11 @@ Scanned <rootdir>/fixtures/locks-many/alpine.cdx.xml as CycloneDX SBOM and found
 Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
 Scanned <rootdir>/fixtures/locks-many/package-lock.json file and found 1 package
 Scanned <rootdir>/fixtures/locks-many/yarn.lock file and found 1 package
+Loaded filter from: <rootdir>/fixtures/locks-many/osv-scanner.toml
 Loaded RubyGems local db from <tempdir>/osv-scanner/RubyGems/all.zip
 Loaded Alpine local db from <tempdir>/osv-scanner/Alpine/all.zip
 Loaded Packagist local db from <tempdir>/osv-scanner/Packagist/all.zip
 Loaded npm local db from <tempdir>/osv-scanner/npm/all.zip
-Loaded filter from: <rootdir>/fixtures/locks-many/osv-scanner.toml
 GHSA-whgm-jr23-g3j9 and 1 alias have been filtered out because: Test manifest file
 Filtered 1 vulnerability from output
 No issues found
@@ -1069,11 +1077,11 @@ Scanned <rootdir>/fixtures/locks-many/alpine.cdx.xml as CycloneDX SBOM and found
 Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
 Scanned <rootdir>/fixtures/locks-many/package-lock.json file and found 1 package
 Scanned <rootdir>/fixtures/locks-many/yarn.lock file and found 1 package
+Loaded filter from: <rootdir>/fixtures/locks-many/osv-scanner.toml
 Loaded RubyGems local db from <tempdir>/osv-scanner/RubyGems/all.zip
 Loaded Alpine local db from <tempdir>/osv-scanner/Alpine/all.zip
 Loaded Packagist local db from <tempdir>/osv-scanner/Packagist/all.zip
 Loaded npm local db from <tempdir>/osv-scanner/npm/all.zip
-Loaded filter from: <rootdir>/fixtures/locks-many/osv-scanner.toml
 GHSA-whgm-jr23-g3j9 and 1 alias have been filtered out because: Test manifest file
 Filtered 1 vulnerability from output
 No issues found
@@ -1250,6 +1258,7 @@ No issues found
 [TestRun_LocalDatabases/#09 - 2]
 Scanning dir ./fixtures/locks-many/composer.lock
 Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
+Loaded filter from: <rootdir>/fixtures/locks-many/osv-scanner.toml
 Loaded Packagist local db from <tempdir>/osv-scanner/Packagist/all.zip
 
 ---
@@ -1283,6 +1292,7 @@ Loaded Packagist local db from <tempdir>/osv-scanner/Packagist/all.zip
 [TestRun_LocalDatabases/#09 - 4]
 Scanning dir ./fixtures/locks-many/composer.lock
 Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
+Loaded filter from: <rootdir>/fixtures/locks-many/osv-scanner.toml
 Loaded Packagist local db from <tempdir>/osv-scanner/Packagist/all.zip
 
 ---
@@ -1303,6 +1313,7 @@ Loaded Packagist local db from <tempdir>/osv-scanner/Packagist/all.zip
 [TestRun_LocalDatabases/#10 - 2]
 Scanning dir ./fixtures/locks-many/composer.lock
 Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
+Loaded filter from: <rootdir>/fixtures/locks-many/osv-scanner.toml
 Loaded Packagist local db from <tempdir>/osv-scanner/Packagist/all.zip
 
 ---
@@ -1323,6 +1334,7 @@ Loaded Packagist local db from <tempdir>/osv-scanner/Packagist/all.zip
 [TestRun_LocalDatabases/#10 - 4]
 Scanning dir ./fixtures/locks-many/composer.lock
 Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
+Loaded filter from: <rootdir>/fixtures/locks-many/osv-scanner.toml
 Loaded Packagist local db from <tempdir>/osv-scanner/Packagist/all.zip
 
 ---
@@ -1330,6 +1342,7 @@ Loaded Packagist local db from <tempdir>/osv-scanner/Packagist/all.zip
 [TestRun_LocalDatabases/#11 - 1]
 Scanning dir ./fixtures/locks-many/composer.lock
 Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
+Loaded filter from: <rootdir>/fixtures/locks-many/osv-scanner.toml
 Loaded Packagist local db from <tempdir>/osv-scanner/Packagist/all.zip
 No issues found
 
@@ -1342,6 +1355,7 @@ No issues found
 [TestRun_LocalDatabases/#11 - 3]
 Scanning dir ./fixtures/locks-many/composer.lock
 Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
+Loaded filter from: <rootdir>/fixtures/locks-many/osv-scanner.toml
 Loaded Packagist local db from <tempdir>/osv-scanner/Packagist/all.zip
 No issues found
 
@@ -1367,18 +1381,21 @@ could not determine extractor, requested my-file
 
 [TestRun_LockfileWithExplicitParseAs/#01 - 1]
 Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
+Loaded filter from: <rootdir>/fixtures/locks-many/osv-scanner.toml
 No issues found
 
 ---
 
 [TestRun_LockfileWithExplicitParseAs/#01 - 1]
 Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
+Loaded filter from: <rootdir>/fixtures/locks-many/osv-scanner.toml
 No issues found
 
 ---
 
 [TestRun_LockfileWithExplicitParseAs/#01 - 1]
 Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
+Loaded filter from: <rootdir>/fixtures/locks-many/osv-scanner.toml
 No issues found
 
 ---
@@ -1616,18 +1633,21 @@ Scanned <rootdir>/fixtures/locks-insecure/composer.lock file and found 1 package
 
 [TestRun_LockfileWithExplicitParseAs/#09 - 1]
 Scanned <rootdir>/fixtures/locks-many/installed file as a apk-installed and found 1 package
+Loaded filter from: <rootdir>/fixtures/locks-many/osv-scanner.toml
 No issues found
 
 ---
 
 [TestRun_LockfileWithExplicitParseAs/#09 - 1]
 Scanned <rootdir>/fixtures/locks-many/installed file as a apk-installed and found 1 package
+Loaded filter from: <rootdir>/fixtures/locks-many/osv-scanner.toml
 No issues found
 
 ---
 
 [TestRun_LockfileWithExplicitParseAs/#09 - 1]
 Scanned <rootdir>/fixtures/locks-many/installed file as a apk-installed and found 1 package
+Loaded filter from: <rootdir>/fixtures/locks-many/osv-scanner.toml
 No issues found
 
 ---
@@ -1646,18 +1666,21 @@ No issues found
 
 [TestRun_LockfileWithExplicitParseAs/#10 - 1]
 Scanned <rootdir>/fixtures/locks-many/status file as a dpkg-status and found 1 package
+Loaded filter from: <rootdir>/fixtures/locks-many/osv-scanner.toml
 No issues found
 
 ---
 
 [TestRun_LockfileWithExplicitParseAs/#10 - 1]
 Scanned <rootdir>/fixtures/locks-many/status file as a dpkg-status and found 1 package
+Loaded filter from: <rootdir>/fixtures/locks-many/osv-scanner.toml
 No issues found
 
 ---
 
 [TestRun_LockfileWithExplicitParseAs/#10 - 1]
 Scanned <rootdir>/fixtures/locks-many/status file as a dpkg-status and found 1 package
+Loaded filter from: <rootdir>/fixtures/locks-many/osv-scanner.toml
 No issues found
 
 ---
@@ -1748,6 +1771,7 @@ Warning: `scan` exists as both a subcommand of OSV-Scanner and as a file on the 
 [TestRun_SubCommands/with_no_subcommand - 1]
 Scanning dir ./fixtures/locks-many/composer.lock
 Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
+Loaded filter from: <rootdir>/fixtures/locks-many/osv-scanner.toml
 No issues found
 
 ---
@@ -1759,6 +1783,7 @@ No issues found
 [TestRun_SubCommands/with_scan_subcommand - 1]
 Scanning dir ./fixtures/locks-many/composer.lock
 Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
+Loaded filter from: <rootdir>/fixtures/locks-many/osv-scanner.toml
 No issues found
 
 ---

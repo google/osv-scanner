@@ -23,8 +23,9 @@ type ConfigManager struct {
 }
 
 type Config struct {
-	IgnoredVulns []IgnoreEntry `toml:"IgnoredVulns"`
-	LoadPath     string        `toml:"LoadPath"`
+	IgnoredVulns      []IgnoreEntry `toml:"IgnoredVulns"`
+	LoadPath          string        `toml:"LoadPath"`
+	GoVersionOverride string        `toml:"GoVersionOverride"`
 }
 
 type IgnoreEntry struct {

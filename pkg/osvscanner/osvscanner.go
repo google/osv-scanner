@@ -800,6 +800,8 @@ func DoScan(actions ScannerActions, r reporter.Reporter) (models.VulnerabilityRe
 		r.Infof("Filtered %d local package/s from the scan.\n", len(scannedPackages)-len(filteredScannedPackages))
 	}
 
+	overrideGoVersion(r, filteredScannedPackages, &configManager)
+
 	vulnsResp, err := makeRequest(r, filteredScannedPackages, actions.CompareLocally, actions.CompareOffline, actions.LocalDBPath)
 	if err != nil {
 		return models.VulnerabilityResults{}, err
@@ -968,4 +970,24 @@ func makeLicensesRequests(packages []scannedPackage) ([][]models.License, error)
 	}
 
 	return licenses, nil
+}
+
+func overrideGoVersion(r reporter.Reporter, packages []scannedPackage, configManager *config.ConfigManager) {
+	// Overrides Go version
+
+	if len(packages) == 0 {
+		return
+	}
+
+	configToUse := configManager.Get(r, packages[0].Source.Path)
+	if configToUse.GoVersionOverride == "" {
+		return // No override specified
+	}
+
+	for i, pkg := range packages {
+		if pkg.Name == "stdlib" && pkg.Ecosystem == "Go" {
+			packages[i].Version = configToUse.GoVersionOverride
+			break
+		}
+	}
 }
