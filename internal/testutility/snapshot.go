@@ -24,6 +24,14 @@ func (s Snapshot) WithWindowsReplacements(replacements map[string]string) Snapsh
 	return s
 }
 
+// WithCRLFReplacement adds a Windows replacement for "\r\n" to "\n".
+// This should be called after WithWindowsReplacements if used together.
+func (s Snapshot) WithCRLFReplacement() Snapshot {
+	s.windowsReplacements["\r\n"] = "\n"
+
+	return s
+}
+
 // MatchJSON asserts the existing snapshot matches what was gotten in the test,
 // after being marshalled as JSON
 func (s Snapshot) MatchJSON(t *testing.T, got any) {

@@ -1,0 +1,31 @@
+
+[TestNpmWrite - 1]
+{
+  "name": "npm-manifest",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cliui": "npm:@isaacs/cliui@^9.0.0",
+    "jquery": "~0.0.1",
+    "lodash": "^4.17.21",
+    "string-width": "^7.1.0",
+    "string-width-aliased": "npm:string-width@^6.1.0"
+  },
+  "devDependencies": {
+    "eslint": "*"
+  },
+  "optionalDependencies": {
+    "glob": "^1.0.0"
+  },
+  "peerDependencies": {
+    "@babel/core": "^7.24.0"
+  }
+}
+
+---
