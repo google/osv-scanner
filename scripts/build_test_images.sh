@@ -16,4 +16,8 @@ function build_docker_image_fixture {
   fi
 }
 
-build_docker_image_fixture "test-node_modules"
+for dockerfile in internal/image/fixtures/*.Dockerfile; do
+  image_name=$(basename "$dockerfile" .Dockerfile)
+
+  build_docker_image_fixture "$image_name"
+done
