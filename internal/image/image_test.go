@@ -29,8 +29,14 @@ func TestScanImage(t *testing.T) {
 			wantErr: false,
 		},
 		{
-			name:    "node_modules scan",
-			args:    args{imagePath: "fixtures/test-node_modules.tar"},
+			name:    "scanning node_modules using npm with no packages",
+			args:    args{imagePath: "fixtures/test-node_modules-npm-empty.tar"},
+			want:    testutility.NewSnapshot(),
+			wantErr: false,
+		},
+		{
+			name:    "scanning node_modules using npm with some packages",
+			args:    args{imagePath: "fixtures/test-node_modules-npm-full.tar"},
 			want:    testutility.NewSnapshot(),
 			wantErr: false,
 		},
