@@ -685,18 +685,6 @@
           "compareAs": "Alpine"
         }
       ]
-    },
-    {
-      "filePath": "/root/.npm/_npx/b63c85463b794901/node_modules/.package-lock.json",
-      "parsedAs": "node_modules",
-      "packages": [
-        {
-          "name": "yarn",
-          "version": "1.22.22",
-          "ecosystem": "npm",
-          "compareAs": "npm"
-        }
-      ]
     }
   ],
   "ImagePath": "fixtures/test-node_modules-yarn-empty.tar"
@@ -828,18 +816,6 @@
           "commit": "9406f6fc5fca057d990eb0d260d75839eeb34d83",
           "ecosystem": "Alpine",
           "compareAs": "Alpine"
-        }
-      ]
-    },
-    {
-      "filePath": "/root/.npm/_npx/b63c85463b794901/node_modules/.package-lock.json",
-      "parsedAs": "node_modules",
-      "packages": [
-        {
-          "name": "yarn",
-          "version": "1.22.22",
-          "ecosystem": "npm",
-          "compareAs": "npm"
         }
       ]
     }
@@ -975,18 +951,6 @@
           "compareAs": "Alpine"
         }
       ]
-    },
-    {
-      "filePath": "/root/.npm/_npx/53c81b72b862b08a/node_modules/.package-lock.json",
-      "parsedAs": "node_modules",
-      "packages": [
-        {
-          "name": "pnpm",
-          "version": "8.15.4",
-          "ecosystem": "npm",
-          "compareAs": "npm"
-        }
-      ]
     }
   ],
   "ImagePath": "fixtures/test-node_modules-pnpm-empty.tar"
@@ -1118,18 +1082,6 @@
           "commit": "9406f6fc5fca057d990eb0d260d75839eeb34d83",
           "ecosystem": "Alpine",
           "compareAs": "Alpine"
-        }
-      ]
-    },
-    {
-      "filePath": "/root/.npm/_npx/53c81b72b862b08a/node_modules/.package-lock.json",
-      "parsedAs": "node_modules",
-      "packages": [
-        {
-          "name": "pnpm",
-          "version": "8.15.4",
-          "ecosystem": "npm",
-          "compareAs": "npm"
         }
       ]
     }
