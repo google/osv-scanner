@@ -40,6 +40,30 @@ func TestScanImage(t *testing.T) {
 			want:    testutility.NewSnapshot(),
 			wantErr: false,
 		},
+		{
+			name:    "scanning node_modules using yarn with no packages",
+			args:    args{imagePath: "fixtures/test-node_modules-yarn-empty.tar"},
+			want:    testutility.NewSnapshot(),
+			wantErr: false,
+		},
+		{
+			name:    "scanning node_modules using yarn with some packages",
+			args:    args{imagePath: "fixtures/test-node_modules-yarn-full.tar"},
+			want:    testutility.NewSnapshot(),
+			wantErr: false,
+		},
+		{
+			name:    "scanning node_modules using pnpm with no packages",
+			args:    args{imagePath: "fixtures/test-node_modules-pnpm-empty.tar"},
+			want:    testutility.NewSnapshot(),
+			wantErr: false,
+		},
+		{
+			name:    "scanning node_modules using pnpm with some packages",
+			args:    args{imagePath: "fixtures/test-node_modules-pnpm-full.tar"},
+			want:    testutility.NewSnapshot(),
+			wantErr: false,
+		},
 	}
 	for _, tt := range tests {
 		tt := tt
