@@ -43,6 +43,7 @@ func TestNpmReadV2(t *testing.T) {
 	}
 
 	want := new(resolve.Graph)
+	//nolint:errcheck // AddEdge only errors if the nodes do not exist
 	{
 		root := want.AddNode(npmVK("r", "1.0.0"))
 		workspace := want.AddNode(npmVK("w", "1.0.0"))
@@ -105,6 +106,7 @@ func TestNpmReadV1(t *testing.T) {
 	}
 
 	want := new(resolve.Graph)
+	//nolint:errcheck // AddEdge only errors if the nodes do not exist
 	{
 		root := want.AddNode(npmVK("r", "1.0.0"))
 		a1 := want.AddNode(npmVK("@fake-registry/a", "1.2.3"))
