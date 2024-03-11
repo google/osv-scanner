@@ -157,6 +157,7 @@ func getReleaseVersion(packages []PackageDetails) string {
 		// Example base-files version: 12.4+deb12u5
 		versionWithMinor, _, _ := strings.Cut(pkg.Version, "+")
 		majorVersion, _, _ := strings.Cut(versionWithMinor, ".")
+
 		return majorVersion
 	}
 

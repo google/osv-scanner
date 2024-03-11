@@ -129,6 +129,7 @@ func osReleaseVersionExtractor(releaseReader io.Reader) (string, error) {
 			// E.g. VERSION_ID=3.20.0_alpha20231219
 			valueSplit := strings.Split(value, ".")
 			returnVersion = valueSplit[0] + "." + valueSplit[1]
+
 			continue
 		}
 	}
