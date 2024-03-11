@@ -118,6 +118,28 @@ Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
 
 ---
 
+[TestRun/Go_project_with_an_overridden_go_version - 1]
+Scanning dir ./fixtures/go-project
+Scanned <rootdir>/fixtures/go-project/go.mod file and found 1 package
+Loaded filter from: <rootdir>/fixtures/go-project/osv-scanner.toml
++------------------------------+------+-----------+---------+---------+----------------------------+
+| OSV URL                      | CVSS | ECOSYSTEM | PACKAGE | VERSION | SOURCE                     |
++------------------------------+------+-----------+---------+---------+----------------------------+
+| Uncalled vulnerabilities     |      |           |         |         |                            |
++------------------------------+------+-----------+---------+---------+----------------------------+
+| https://osv.dev/GO-2024-2598 |      | Go        | stdlib  | 1.21.7  | fixtures/go-project/go.mod |
+| https://osv.dev/GO-2024-2599 |      | Go        | stdlib  | 1.21.7  | fixtures/go-project/go.mod |
+| https://osv.dev/GO-2024-2600 |      | Go        | stdlib  | 1.21.7  | fixtures/go-project/go.mod |
+| https://osv.dev/GO-2024-2609 |      | Go        | stdlib  | 1.21.7  | fixtures/go-project/go.mod |
+| https://osv.dev/GO-2024-2610 |      | Go        | stdlib  | 1.21.7  | fixtures/go-project/go.mod |
++------------------------------+------+-----------+---------+---------+----------------------------+
+
+---
+
+[TestRun/Go_project_with_an_overridden_go_version - 2]
+
+---
+
 [TestRun/Sarif_with_vulns - 1]
 {
   "version": "2.1.0",
