@@ -6,7 +6,6 @@ import (
 	"os"
 	"path/filepath"
 	"reflect"
-	"runtime"
 	"strings"
 	"testing"
 
@@ -592,16 +591,12 @@ func TestRun_Licenses(t *testing.T) {
 func TestRun_OCIImage(t *testing.T) {
 	t.Parallel()
 
-	if //goland:noinspection GoBoolExpressions
-	runtime.GOOS == "windows" {
-		return
-	}
-
 	tests := []cliTestCase{
 		{
 			name: "Alpine 3.10 image tar",
 			args: []string{"", "--experimental-oci-image", "./fixtures/oci-image/alpine-tester.tar"},
-			exit: 1,
+			// No vulnerabilities found because none is published for 3.10, only for later versions
+			exit: 0,
 		},
 		{
 			name: "Invalid path",

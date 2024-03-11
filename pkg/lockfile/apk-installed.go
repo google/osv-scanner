@@ -3,6 +3,7 @@ package lockfile
 import (
 	"bufio"
 	"fmt"
+	"io"
 	"sort"
 	"strings"
 )
@@ -81,11 +82,66 @@ func (e ApkInstalledExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 		packages = append(packages, pkg)
 	}
 
+	alpineOSReleaseFile, openErr := f.Open("/etc/os-release")
+	if openErr == nil {
+		alpineVersion, extractErr := osReleaseVersionExtractor(alpineOSReleaseFile)
+		if extractErr != nil {
+			return packages, fmt.Errorf("error while parsing /etc/os-release: %w", extractErr)
+		}
+
+		if alpineVersion != "" {
+			for i := range packages {
+				packages[i].Ecosystem = Ecosystem(string(packages[i].Ecosystem) + ":" + alpineVersion)
+			}
+		}
+	}
+
 	if err := scanner.Err(); err != nil {
 		return packages, fmt.Errorf("error while scanning %s: %w", f.Path(), err)
 	}
 
 	return packages, nil
+}
+
+// osReleaseVersionExtractor extracts the release version for an alpine distro
+// will return "" if no release version can be found, or if distro is not alpine
+func osReleaseVersionExtractor(releaseReader io.Reader) (string, error) {
+	scanner := bufio.NewScanner(releaseReader)
+	returnVersion := ""
+	isAlpine := false
+
+	for scanner.Scan() {
+		key, value, isEntry := strings.Cut(scanner.Text(), "=")
+		if !isEntry {
+			continue
+		}
+
+		if key == "ID" {
+			value = strings.Trim(value, "\"")
+			isAlpine = value == "alpine"
+		}
+
+		if key == "VERSION_ID" {
+			value = strings.Trim(value, "\"")
+			// We only care about the major and minor version
+			// because that's the Alpine version that advisories are published against
+			//
+			// E.g. VERSION_ID=3.20.0_alpha20231219
+			valueSplit := strings.Split(value, ".")
+			returnVersion = valueSplit[0] + "." + valueSplit[1]
+			continue
+		}
+	}
+
+	if err := scanner.Err(); err != nil {
+		return "", err
+	}
+
+	if !isAlpine {
+		returnVersion = ""
+	}
+
+	return returnVersion, nil
 }
 
 var _ Extractor = ApkInstalledExtractor{}
