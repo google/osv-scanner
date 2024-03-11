@@ -179,6 +179,10 @@ func parseRequirementsTxt(f DepFile, requiredAlready map[string]struct{}) ([]Pac
 
 		line = removeComments(line)
 		if ar := strings.TrimPrefix(line, "-r "); ar != line {
+			if strings.HasPrefix(ar, "http://") || strings.HasPrefix(ar, "https://") {
+				// If the linked requirement file is not locally stored, we skip it
+				continue
+			}
 			err := func() error {
 				af, err := f.Open(ar)
 
