@@ -266,6 +266,12 @@ func TestRun(t *testing.T) {
 			args: []string{"", "--verbosity", "info", "--format", "table", "./fixtures/locks-many/composer.lock"},
 			exit: 0,
 		},
+		// Go project with an overridden go version
+		{
+			name: "Go project with an overridden go version",
+			args: []string{"", "./fixtures/go-project"},
+			exit: 0,
+		},
 	}
 	for _, tt := range tests {
 		tt := tt

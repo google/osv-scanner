@@ -979,14 +979,13 @@ func overrideGoVersion(r reporter.Reporter, packages []scannedPackage, configMan
 		return
 	}
 
-	configToUse := configManager.Get(r, packages[0].Source.Path)
-	if configToUse.GoVersionOverride == "" {
-		return // No override specified
-	}
-
 	for i, pkg := range packages {
 		if pkg.Name == "stdlib" && pkg.Ecosystem == "Go" {
-			packages[i].Version = configToUse.GoVersionOverride
+			configToUse := configManager.Get(r, packages[0].Source.Path)
+			if configToUse.GoVersionOverride != "" {
+				packages[i].Version = configToUse.GoVersionOverride
+			}
+
 			break
 		}
 	}
