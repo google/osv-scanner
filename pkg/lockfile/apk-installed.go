@@ -82,17 +82,10 @@ func (e ApkInstalledExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 		packages = append(packages, pkg)
 	}
 
-	alpineOSReleaseFile, openErr := f.Open("/etc/os-release")
-	if openErr == nil {
-		alpineVersion, extractErr := osReleaseVersionExtractor(alpineOSReleaseFile)
-		if extractErr != nil {
-			return packages, fmt.Errorf("error while parsing /etc/os-release: %w", extractErr)
-		}
-
-		if alpineVersion != "" {
-			for i := range packages {
-				packages[i].Ecosystem = Ecosystem(string(packages[i].Ecosystem) + ":" + alpineVersion)
-			}
+	alpineVersion, alpineVerErr := alpineReleaseExtractor(f)
+	if alpineVerErr == nil { // TODO: Log error? We might not be on a alpine system
+		for i := range packages {
+			packages[i].Ecosystem = Ecosystem(string(packages[i].Ecosystem) + ":" + alpineVersion)
 		}
 	}
 
@@ -103,44 +96,27 @@ func (e ApkInstalledExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 	return packages, nil
 }
 
-// osReleaseVersionExtractor extracts the release version for an alpine distro
+// alpineReleaseExtractor extracts the release version for an alpine distro
 // will return "" if no release version can be found, or if distro is not alpine
-func osReleaseVersionExtractor(releaseReader io.Reader) (string, error) {
-	scanner := bufio.NewScanner(releaseReader)
-	returnVersion := ""
-	isAlpine := false
-
-	for scanner.Scan() {
-		key, value, isEntry := strings.Cut(scanner.Text(), "=")
-		if !isEntry {
-			continue
-		}
-
-		if key == "ID" {
-			value = strings.Trim(value, "\"")
-			isAlpine = value == "alpine"
-		}
-
-		if key == "VERSION_ID" {
-			value = strings.Trim(value, "\"")
-			// We only care about the major and minor version
-			// because that's the Alpine version that advisories are published against
-			//
-			// E.g. VERSION_ID=3.20.0_alpha20231219
-			valueSplit := strings.Split(value, ".")
-			returnVersion = valueSplit[0] + "." + valueSplit[1]
-
-			continue
-		}
-	}
-
-	if err := scanner.Err(); err != nil {
+func alpineReleaseExtractor(opener DepFile) (string, error) {
+	alpineReleaseFile, err := opener.Open("/etc/alpine-release")
+	if err != nil {
 		return "", err
 	}
 
-	if !isAlpine {
-		returnVersion = ""
+	// Read to string
+	buf := new(strings.Builder)
+	_, err = io.Copy(buf, alpineReleaseFile)
+	if err != nil {
+		return "", err
 	}
+
+	// We only care about the major and minor version
+	// because that's the Alpine version that advisories are published against
+	//
+	// E.g. 3.20.0_alpha20231219  --->  v3.20
+	valueSplit := strings.Split(buf.String(), ".")
+	returnVersion := "v" + valueSplit[0] + "." + valueSplit[1]
 
 	return returnVersion, nil
 }

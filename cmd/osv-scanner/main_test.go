@@ -594,10 +594,9 @@ func TestRun_OCIImage(t *testing.T) {
 
 	tests := []cliTestCase{
 		{
-			name: "Alpine 3.10 image tar",
-			args: []string{"", "--experimental-oci-image", "./fixtures/oci-image/alpine-tester.tar"},
-			// No vulnerabilities found because none is published for 3.10, only for later versions
-			exit: 0,
+			name: "Alpine 3.10 image tar with 3.18 version file",
+			args: []string{"", "--experimental-oci-image", "../../internal/image/fixtures/test-alpine.tar"},
+			exit: 1,
 		},
 		{
 			name: "Invalid path",
