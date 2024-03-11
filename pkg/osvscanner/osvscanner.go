@@ -972,16 +972,11 @@ func makeLicensesRequests(packages []scannedPackage) ([][]models.License, error)
 	return licenses, nil
 }
 
+// Overrides Go version using osv-scanner.toml
 func overrideGoVersion(r reporter.Reporter, packages []scannedPackage, configManager *config.ConfigManager) {
-	// Overrides Go version
-
-	if len(packages) == 0 {
-		return
-	}
-
 	for i, pkg := range packages {
 		if pkg.Name == "stdlib" && pkg.Ecosystem == "Go" {
-			configToUse := configManager.Get(r, packages[0].Source.Path)
+			configToUse := configManager.Get(r, pkg.Source.Path)
 			if configToUse.GoVersionOverride != "" {
 				packages[i].Version = configToUse.GoVersionOverride
 			}
