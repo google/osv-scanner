@@ -29,7 +29,7 @@ func goAnalysis(r reporter.Reporter, pkgs []models.PackageVulns, source models.S
 	var goVersion string
 	for _, pkg := range pkgs {
 		if pkg.Package.Name == "stdlib" {
-			goVersion = fmt.Sprintf("go%s", pkg.Package.Version)
+			goVersion = pkg.Package.Version
 			break
 		}
 	}
@@ -137,8 +137,7 @@ func runGovulncheck(moddir string, vulns []models.Vulnerability, goVersion strin
 	cmd := scan.Command(context.Background(), "-db", dbdirURL.String(), "-C", moddir, "-json", "./...")
 	var b bytes.Buffer
 	cmd.Stdout = &b
-
-	cmd.Env = append(os.Environ(), fmt.Sprintf("GOVERSION=%s", goVersion))
+	cmd.Env = append(os.Environ(), fmt.Sprintf("GOVERSION=go%s", goVersion))
 	if err := cmd.Start(); err != nil {
 		return nil, err
 	}
