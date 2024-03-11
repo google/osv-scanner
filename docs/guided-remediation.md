@@ -32,6 +32,7 @@ This tool provides several options to users for how to prioritise and remediate 
 - Modification of package manifest and lockfiles (e.g. `package.json`/`package-lock.json`) to fix vulnerabilities.
 - Different strategies with different risk/reward ratios (e.g. in-place fixes vs relocking).
 
+{: .highlight }
 Currently, only npm `package.json` manifests and `package-lock.json` lockfiles are supported.
 
 {: .note }
