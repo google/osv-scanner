@@ -1707,7 +1707,7 @@ No issues found
 
 ---
 
-[TestRun_OCIImage/Alpine_3.10_image_tar_with_3.19_version_file - 1]
+[TestRun_OCIImage/Alpine_3.10_image_tar_with_3.18_version_file - 1]
 Scanning image ../../internal/image/fixtures/test-alpine.tar
 +--------------------------------+------+--------------+---------+-----------+---------------------------------------------------------------------+
 | OSV URL                        | CVSS | ECOSYSTEM    | PACKAGE | VERSION   | SOURCE                                                              |
@@ -1718,7 +1718,7 @@ Scanning image ../../internal/image/fixtures/test-alpine.tar
 
 ---
 
-[TestRun_OCIImage/Alpine_3.10_image_tar_with_3.19_version_file - 2]
+[TestRun_OCIImage/Alpine_3.10_image_tar_with_3.18_version_file - 2]
 
 ---
 
