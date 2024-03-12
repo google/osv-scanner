@@ -1729,18 +1729,18 @@ No issues found
 
 ---
 
-[TestRun_OCIImage/Alpine_3.10_image_tar - 1]
-Scanning image ./fixtures/oci-image/alpine-tester.tar
-+--------------------------------+------+-----------+---------+-----------+--------------------------------------------------------------+
-| OSV URL                        | CVSS | ECOSYSTEM | PACKAGE | VERSION   | SOURCE                                                       |
-+--------------------------------+------+-----------+---------+-----------+--------------------------------------------------------------+
-| https://osv.dev/CVE-2018-25032 | 7.5  | Alpine    | zlib    | 1.2.11-r1 | ./fixtures/oci-image/alpine-tester.tar:/lib/apk/db/installed |
-| https://osv.dev/CVE-2022-37434 | 9.8  | Alpine    | zlib    | 1.2.11-r1 | ./fixtures/oci-image/alpine-tester.tar:/lib/apk/db/installed |
-+--------------------------------+------+-----------+---------+-----------+--------------------------------------------------------------+
+[TestRun_OCIImage/Alpine_3.10_image_tar_with_3.18_version_file - 1]
+Scanning image ../../internal/image/fixtures/test-alpine.tar
++--------------------------------+------+--------------+---------+-----------+---------------------------------------------------------------------+
+| OSV URL                        | CVSS | ECOSYSTEM    | PACKAGE | VERSION   | SOURCE                                                              |
++--------------------------------+------+--------------+---------+-----------+---------------------------------------------------------------------+
+| https://osv.dev/CVE-2018-25032 | 7.5  | Alpine:v3.18 | zlib    | 1.2.11-r1 | ../../internal/image/fixtures/test-alpine.tar:/lib/apk/db/installed |
+| https://osv.dev/CVE-2022-37434 | 9.8  | Alpine:v3.18 | zlib    | 1.2.11-r1 | ../../internal/image/fixtures/test-alpine.tar:/lib/apk/db/installed |
++--------------------------------+------+--------------+---------+-----------+---------------------------------------------------------------------+
 
 ---
 
-[TestRun_OCIImage/Alpine_3.10_image_tar - 2]
+[TestRun_OCIImage/Alpine_3.10_image_tar_with_3.18_version_file - 2]
 
 ---
 

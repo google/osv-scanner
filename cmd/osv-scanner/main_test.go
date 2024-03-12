@@ -6,7 +6,6 @@ import (
 	"os"
 	"path/filepath"
 	"reflect"
-	"runtime"
 	"strings"
 	"testing"
 
@@ -86,6 +85,7 @@ func normalizeErrors(t *testing.T, str string) string {
 
 	str = strings.ReplaceAll(str, "The filename, directory name, or volume label syntax is incorrect.", "no such file or directory")
 	str = strings.ReplaceAll(str, "The system cannot find the path specified.", "no such file or directory")
+	str = strings.ReplaceAll(str, "The system cannot find the file specified.", "no such file or directory")
 
 	return str
 }
@@ -598,15 +598,10 @@ func TestRun_Licenses(t *testing.T) {
 func TestRun_OCIImage(t *testing.T) {
 	t.Parallel()
 
-	if //goland:noinspection GoBoolExpressions
-	runtime.GOOS == "windows" {
-		return
-	}
-
 	tests := []cliTestCase{
 		{
-			name: "Alpine 3.10 image tar",
-			args: []string{"", "--experimental-oci-image", "./fixtures/oci-image/alpine-tester.tar"},
+			name: "Alpine 3.10 image tar with 3.18 version file",
+			args: []string{"", "--experimental-oci-image", "../../internal/image/fixtures/test-alpine.tar"},
 			exit: 1,
 		},
 		{

@@ -23,8 +23,8 @@ func TestScanImage(t *testing.T) {
 		wantErr bool
 	}{
 		{
-			name:    "Alpine 3.10 scan",
-			args:    args{imagePath: "fixtures/alpine-tester.tar"},
+			name:    "Alpine 3.10 image tar with 3.18 version file",
+			args:    args{imagePath: "fixtures/test-alpine.tar"},
 			want:    testutility.NewSnapshot(),
 			wantErr: false,
 		},
