@@ -103,6 +103,7 @@ func alpineReleaseExtractor(opener DepFile) (string, error) {
 	if err != nil {
 		return "", err
 	}
+	defer alpineReleaseFile.Close()
 
 	// Read to string
 	buf := new(strings.Builder)
