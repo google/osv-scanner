@@ -73,7 +73,7 @@ var VulnerabilitiesFoundErr = errors.New("vulnerabilities found")
 //nolint:errname,stylecheck // Would require version bump to change
 var OnlyUncalledVulnerabilitiesFoundErr = errors.New("only uncalled vulnerabilities found")
 
-// Error related to querying API endpoints.
+// ErrAPIFailed describes errors related to querying API endpoints.
 var ErrAPIFailed = errors.New("API query failed")
 
 var (
