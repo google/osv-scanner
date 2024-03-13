@@ -73,6 +73,9 @@ var VulnerabilitiesFoundErr = errors.New("vulnerabilities found")
 //nolint:errname,stylecheck // Would require version bump to change
 var OnlyUncalledVulnerabilitiesFoundErr = errors.New("only uncalled vulnerabilities found")
 
+// ErrAPIFailed describes errors related to querying API endpoints.
+var ErrAPIFailed = errors.New("API query failed")
+
 var (
 	vendoredLibNames = map[string]struct{}{
 		"3rdparty":    {},
@@ -932,7 +935,7 @@ func makeRequest(
 	if compareLocally {
 		hydratedResp, err := local.MakeRequest(r, query, compareOffline, localDBPath)
 		if err != nil {
-			return &osv.HydratedBatchedResponse{}, fmt.Errorf("scan failed %w", err)
+			return &osv.HydratedBatchedResponse{}, fmt.Errorf("local comparison failed %w", err)
 		}
 
 		return hydratedResp, nil
@@ -944,12 +947,12 @@ func makeRequest(
 
 	resp, err := osv.MakeRequest(query)
 	if err != nil {
-		return &osv.HydratedBatchedResponse{}, fmt.Errorf("scan failed %w", err)
+		return &osv.HydratedBatchedResponse{}, fmt.Errorf("%w: osv.dev query failed: %w", ErrAPIFailed, err)
 	}
 
 	hydratedResp, err := osv.Hydrate(resp)
 	if err != nil {
-		return &osv.HydratedBatchedResponse{}, fmt.Errorf("failed to hydrate OSV response: %w", err)
+		return &osv.HydratedBatchedResponse{}, fmt.Errorf("%w: failed to hydrate OSV response: %w", ErrAPIFailed, err)
 	}
 
 	return hydratedResp, nil
@@ -966,7 +969,7 @@ func makeLicensesRequests(packages []scannedPackage) ([][]models.License, error)
 	}
 	licenses, err := depsdev.MakeVersionRequests(queries)
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("%w: deps.dev query failed: %w", ErrAPIFailed, err)
 	}
 
 	return licenses, nil

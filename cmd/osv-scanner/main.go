@@ -59,6 +59,9 @@ func run(args []string, stdout, stderr io.Writer) int {
 		case errors.Is(err, osvscanner.NoPackagesFoundErr):
 			r.Errorf("No package sources found, --help for usage information.\n")
 			return 128
+		case errors.Is(err, osvscanner.ErrAPIFailed):
+			r.Errorf("%v\n", err)
+			return 129
 		}
 		r.Errorf("%v\n", err)
 	}
