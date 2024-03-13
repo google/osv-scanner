@@ -31,7 +31,7 @@ A wide range of lockfiles are supported by utilizing this [lockfile package](htt
 | Java       | `buildscript-gradle.lockfile`<br>`gradle.lockfile`<br>`pom.xml`[\*](https://github.com/google/osv-scanner/issues/35)     |
 | Javascript | `package-lock.json`<br>`pnpm-lock.yaml`<br>`yarn.lock`                                                                   |
 | PHP        | `composer.lock`                                                                                                          |
-| Python     | `Pipfile.lock`<br>`poetry.lock`<br>`requirements.txt`<br>`pdm.lock`[\*](https://github.com/google/osv-scanner/issues/34) |
+| Python     | `Pipfile.lock`<br>`poetry.lock`<br>`requirements.txt`[\*](https://github.com/google/osv-scanner/issues/34)<br>`pdm.lock` |
 | R          | `renv.lock`                                                                                                              |
 | Ruby       | `Gemfile.lock`                                                                                                           |
 | Rust       | `Cargo.lock`                                                                                                             |
