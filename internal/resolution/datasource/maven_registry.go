@@ -3,7 +3,6 @@ package datasource
 import (
 	"context"
 	"encoding/xml"
-	"errors"
 	"fmt"
 	"net/http"
 	"net/url"
@@ -43,7 +42,7 @@ func (m *MavenRegistryAPIClient) GetProject(ctx context.Context, groupID, artifa
 	defer resp.Body.Close()
 
 	if resp.StatusCode != http.StatusOK {
-		return maven.Project{}, errors.New(resp.Status)
+		return maven.Project{}, fmt.Errorf("%w: Maven registry query status: %s", osvscanner.ErrAPIFailed, resp.Status)
 	}
 
 	var proj maven.Project
