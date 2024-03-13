@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"deps.dev/util/maven"
+	"github.com/google/osv-scanner/pkg/osvscanner"
 )
 
 const MavenCentral = "https://repo.maven.apache.org/maven2"
@@ -27,17 +28,17 @@ func NewMavenRegistryAPIClient() (*MavenRegistryAPIClient, error) {
 func (m *MavenRegistryAPIClient) GetProject(ctx context.Context, groupID, artifactID, version string) (maven.Project, error) {
 	url, err := url.JoinPath(m.Registry, strings.ReplaceAll(groupID, ".", "/"), artifactID, version, fmt.Sprintf("%s-%s.pom", artifactID, version))
 	if err != nil {
-		return maven.Project{}, err
+		return maven.Project{}, fmt.Errorf("failed to join path: %w", err)
 	}
 
 	req, err := http.NewRequestWithContext(ctx, http.MethodGet, url, nil)
 	if err != nil {
-		return maven.Project{}, err
+		return maven.Project{}, fmt.Errorf("failed to make new request: %w", err)
 	}
 
 	resp, err := http.DefaultClient.Do(req)
 	if err != nil {
-		return maven.Project{}, err
+		return maven.Project{}, fmt.Errorf("%w: Maven registry query failed: %w", osvscanner.ErrAPIFailed, err)
 	}
 	defer resp.Body.Close()
 
@@ -47,7 +48,7 @@ func (m *MavenRegistryAPIClient) GetProject(ctx context.Context, groupID, artifa
 
 	var proj maven.Project
 	if err := xml.NewDecoder(resp.Body).Decode(&proj); err != nil {
-		return maven.Project{}, err
+		return maven.Project{}, fmt.Errorf("failed to decode Maven project: %w", err)
 	}
 
 	return proj, nil
