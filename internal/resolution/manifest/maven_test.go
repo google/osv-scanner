@@ -11,17 +11,21 @@ import (
 	"deps.dev/util/maven"
 	"deps.dev/util/resolve"
 	"deps.dev/util/resolve/dep"
+	"github.com/google/osv-scanner/internal/resolution/datasource"
 	"github.com/google/osv-scanner/internal/resolution/manifest"
 	"github.com/google/osv-scanner/internal/testutility"
 	"github.com/google/osv-scanner/pkg/lockfile"
 )
 
 var (
-	depMgmt           = depTypeWithOrigin("management")
-	depParent         = depTypeWithOrigin("parent")
-	depPlugin         = depTypeWithOrigin("plugin@org.plugin:plugin")
-	depProfileOne     = depTypeWithOrigin("profile@profile-one")
-	depProfileTwoMgmt = depTypeWithOrigin("profile@profile-two@management")
+	depImport             = depTypeWithOrigin("import@org.import:import@management")
+	depMgmt               = depTypeWithOrigin("management")
+	depParent             = depTypeWithOrigin("parent")
+	depParentMgmt         = depTypeWithOrigin("parent@org.parent:parent-pom@management")
+	depParentUpstreamMgmt = depTypeWithOrigin("parent@org.upstream:parent-pom@management")
+	depPlugin             = depTypeWithOrigin("plugin@org.plugin:plugin")
+	depProfileOne         = depTypeWithOrigin("profile@profile-one")
+	depProfileTwoMgmt     = depTypeWithOrigin("profile@profile-two@management")
 )
 
 func depTypeWithOrigin(origin string) dep.Type {
@@ -34,6 +38,48 @@ func depTypeWithOrigin(origin string) dep.Type {
 func TestMavenRead(t *testing.T) {
 	t.Parallel()
 
+	srv := testutility.NewMockHTTPServer(t)
+	srv.SetResponse(t, "org/upstream/parent-pom/1.2.3/parent-pom-1.2.3.pom", []byte(`
+	<project>
+	  <groupId>org.upstream</groupId>
+	  <artifactId>parent-pom</artifactId>
+	  <version>1.2.3</version>
+	  <packaging>pom</packaging>
+	  <properties>
+		  <bbb.version>2.2.2</bbb.version>
+	  </properties>
+	  <dependencyManagement>
+		<dependencies>
+		  <dependency>
+			<groupId>org.example</groupId>
+			<artifactId>bbb</artifactId>
+			<version>${bbb.version}</version>
+		  </dependency>
+		</dependencies>
+	  </dependencyManagement>
+	</project>
+	`))
+	srv.SetResponse(t, "org/import/import/1.0.0/import-1.0.0.pom", []byte(`
+	<project>
+	  <groupId>org.import</groupId>
+	  <artifactId>import</artifactId>
+	  <version>1.0.0</version>
+	  <packaging>pom</packaging>
+	  <properties>
+		  <ccc.version>3.3.3</ccc.version>
+	  </properties>
+	  <dependencyManagement>
+		  <dependencies>
+		    <dependency>
+			    <groupId>org.example</groupId>
+			    <artifactId>ccc</artifactId>
+			    <version>${ccc.version}</version>
+		    </dependency>
+		  </dependencies>
+	  </dependencyManagement>
+	</project>
+	`))
+
 	dir, err := os.Getwd()
 	if err != nil {
 		t.Fatalf("failed to get current directory: %v", err)
@@ -44,7 +90,10 @@ func TestMavenRead(t *testing.T) {
 	}
 	defer df.Close()
 
-	mavenIO := manifest.MavenManifestIO{}
+	mavenIO := manifest.MavenManifestIO{
+		MavenRegistryAPIClient: *datasource.NewMavenRegistryAPIClient(srv.URL),
+	}
+
 	got, err := mavenIO.Read(df)
 	if err != nil {
 		t.Fatalf("failed to read file: %v", err)
@@ -163,6 +212,9 @@ func TestMavenRead(t *testing.T) {
 		},
 		EcosystemSpecific: manifest.MavenManifestSpecific{
 			Properties: []manifest.PropertyWithOrigin{
+				{Property: maven.Property{Name: "bbb.version", Value: "2.2.2"}},
+				{Property: maven.Property{Name: "aaa.version", Value: "1.1.1"}},
+
 				{Property: maven.Property{Name: "project.build.sourceEncoding", Value: "UTF-8"}},
 				{Property: maven.Property{Name: "maven.compiler.source", Value: "1.7"}},
 				{Property: maven.Property{Name: "maven.compiler.target", Value: "1.7"}},
@@ -191,6 +243,74 @@ func TestMavenRead(t *testing.T) {
 						Version:     "${def.version}",
 					},
 					Type: depProfileOne,
+				},
+				{
+					VersionKey: resolve.VersionKey{
+						PackageKey: resolve.PackageKey{
+							System: resolve.Maven,
+							Name:   "org.example:aaa",
+						},
+						VersionType: resolve.Requirement,
+						Version:     "${aaa.version}",
+					},
+					Type: depParentMgmt,
+				},
+				{
+					VersionKey: resolve.VersionKey{
+						PackageKey: resolve.PackageKey{
+							System: resolve.Maven,
+							Name:   "org.example:bbb",
+						},
+						VersionType: resolve.Requirement,
+						Version:     "${bbb.version}",
+					},
+					Type: depParentUpstreamMgmt,
+				},
+				{
+					VersionKey: resolve.VersionKey{
+						PackageKey: resolve.PackageKey{
+							System: resolve.Maven,
+							Name:   "org.example:ccc",
+						},
+						VersionType: resolve.Requirement,
+						Version:     "${ccc.version}",
+					},
+					Type: depImport,
+				},
+			},
+			RequirementsFromOtherPOMs: []resolve.RequirementVersion{
+				{
+					VersionKey: resolve.VersionKey{
+						PackageKey: resolve.PackageKey{
+							System: resolve.Maven,
+							Name:   "org.example:aaa",
+						},
+						VersionType: resolve.Requirement,
+						Version:     "1.1.1",
+					},
+					Type: depParentMgmt,
+				},
+				{
+					VersionKey: resolve.VersionKey{
+						PackageKey: resolve.PackageKey{
+							System: resolve.Maven,
+							Name:   "org.example:bbb",
+						},
+						VersionType: resolve.Requirement,
+						Version:     "2.2.2",
+					},
+					Type: depParentUpstreamMgmt,
+				},
+				{
+					VersionKey: resolve.VersionKey{
+						PackageKey: resolve.PackageKey{
+							System: resolve.Maven,
+							Name:   "org.example:ccc",
+						},
+						VersionType: resolve.Requirement,
+						Version:     "3.3.3",
+					},
+					Type: depImport,
 				},
 			},
 		},
