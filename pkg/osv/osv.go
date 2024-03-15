@@ -190,7 +190,6 @@ func MakeRequestWithClient(request BatchedQuery, client *http.Client) (*BatchedR
 			// http request would finish the buffer, and retried requests would be empty
 			requestBuf := bytes.NewBuffer(requestBytes)
 			// We do not need a specific context
-			//nolint:noctx
 			req, err := http.NewRequest(http.MethodPost, QueryEndpoint, requestBuf)
 			if err != nil {
 				return nil, err
@@ -361,6 +360,7 @@ func MakeDetermineVersionRequest(name string, hashes []DetermineVersionHash) (*D
 		}
 
 		client := http.DefaultClient
+
 		return client.Do(req)
 	})
 
