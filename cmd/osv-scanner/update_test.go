@@ -54,7 +54,7 @@ func TestRun_Update(t *testing.T) {
 				if err != nil {
 					t.Fatalf("could not read test file: %v", err)
 				}
-				testutility.NewSnapshot().WithWindowsReplacements(map[string]string{"\r\n": "\n"}).MatchText(t, string(b))
+				testutility.NewSnapshot().WithCRLFReplacement().MatchText(t, string(b))
 			}
 		})
 	}
