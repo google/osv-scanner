@@ -8,7 +8,7 @@ import (
 	"github.com/google/osv-scanner/internal/testutility"
 )
 
-func TestRunUpdate(t *testing.T) {
+func TestRun_Update(t *testing.T) {
 	t.Parallel()
 	tests := []struct {
 		name     string
