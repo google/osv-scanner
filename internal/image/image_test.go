@@ -11,6 +11,7 @@ import (
 )
 
 func TestScanImage(t *testing.T) {
+	testutility.SkipIfNotAcceptanceTesting(t, "Not consistent on MacOS/Windows")
 	t.Parallel()
 
 	type args struct {
