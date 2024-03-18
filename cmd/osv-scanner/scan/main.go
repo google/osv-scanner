@@ -128,7 +128,7 @@ func Command(stdout, stderr io.Writer, r *reporter.Reporter) *cli.Command {
 			},
 			&cli.StringFlag{
 				Name:      "experimental-oci-image",
-				Usage:     "scan an exported OCI compatible container image .tar file",
+				Usage:     "scan an exported *docker* container image archive (exported using `docker save` command) file",
 				TakesFile: true,
 				Hidden:    true,
 			},

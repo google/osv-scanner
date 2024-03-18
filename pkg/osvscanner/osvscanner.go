@@ -73,6 +73,9 @@ var VulnerabilitiesFoundErr = errors.New("vulnerabilities found")
 //nolint:errname,stylecheck // Would require version bump to change
 var OnlyUncalledVulnerabilitiesFoundErr = errors.New("only uncalled vulnerabilities found")
 
+// ErrAPIFailed describes errors related to querying API endpoints.
+var ErrAPIFailed = errors.New("API query failed")
+
 var (
 	vendoredLibNames = map[string]struct{}{
 		"3rdparty":    {},
@@ -800,6 +803,8 @@ func DoScan(actions ScannerActions, r reporter.Reporter) (models.VulnerabilityRe
 		r.Infof("Filtered %d local package/s from the scan.\n", len(scannedPackages)-len(filteredScannedPackages))
 	}
 
+	overrideGoVersion(r, filteredScannedPackages, &configManager)
+
 	vulnsResp, err := makeRequest(r, filteredScannedPackages, actions.CompareLocally, actions.CompareOffline, actions.LocalDBPath)
 	if err != nil {
 		return models.VulnerabilityResults{}, err
@@ -930,7 +935,7 @@ func makeRequest(
 	if compareLocally {
 		hydratedResp, err := local.MakeRequest(r, query, compareOffline, localDBPath)
 		if err != nil {
-			return &osv.HydratedBatchedResponse{}, fmt.Errorf("scan failed %w", err)
+			return &osv.HydratedBatchedResponse{}, fmt.Errorf("local comparison failed %w", err)
 		}
 
 		return hydratedResp, nil
@@ -942,12 +947,12 @@ func makeRequest(
 
 	resp, err := osv.MakeRequest(query)
 	if err != nil {
-		return &osv.HydratedBatchedResponse{}, fmt.Errorf("scan failed %w", err)
+		return &osv.HydratedBatchedResponse{}, fmt.Errorf("%w: osv.dev query failed: %w", ErrAPIFailed, err)
 	}
 
 	hydratedResp, err := osv.Hydrate(resp)
 	if err != nil {
-		return &osv.HydratedBatchedResponse{}, fmt.Errorf("failed to hydrate OSV response: %w", err)
+		return &osv.HydratedBatchedResponse{}, fmt.Errorf("%w: failed to hydrate OSV response: %w", ErrAPIFailed, err)
 	}
 
 	return hydratedResp, nil
@@ -964,8 +969,22 @@ func makeLicensesRequests(packages []scannedPackage) ([][]models.License, error)
 	}
 	licenses, err := depsdev.MakeVersionRequests(queries)
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("%w: deps.dev query failed: %w", ErrAPIFailed, err)
 	}
 
 	return licenses, nil
+}
+
+// Overrides Go version using osv-scanner.toml
+func overrideGoVersion(r reporter.Reporter, packages []scannedPackage, configManager *config.ConfigManager) {
+	for i, pkg := range packages {
+		if pkg.Name == "stdlib" && pkg.Ecosystem == "Go" {
+			configToUse := configManager.Get(r, pkg.Source.Path)
+			if configToUse.GoVersionOverride != "" {
+				packages[i].Version = configToUse.GoVersionOverride
+			}
+
+			break
+		}
+	}
 }

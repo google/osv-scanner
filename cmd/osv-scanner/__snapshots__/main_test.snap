@@ -118,6 +118,28 @@ Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
 
 ---
 
+[TestRun/Go_project_with_an_overridden_go_version - 1]
+Scanning dir ./fixtures/go-project
+Scanned <rootdir>/fixtures/go-project/go.mod file and found 1 package
+Loaded filter from: <rootdir>/fixtures/go-project/osv-scanner.toml
++------------------------------+------+-----------+---------+---------+----------------------------+
+| OSV URL                      | CVSS | ECOSYSTEM | PACKAGE | VERSION | SOURCE                     |
++------------------------------+------+-----------+---------+---------+----------------------------+
+| Uncalled vulnerabilities     |      |           |         |         |                            |
++------------------------------+------+-----------+---------+---------+----------------------------+
+| https://osv.dev/GO-2024-2598 |      | Go        | stdlib  | 1.21.7  | fixtures/go-project/go.mod |
+| https://osv.dev/GO-2024-2599 |      | Go        | stdlib  | 1.21.7  | fixtures/go-project/go.mod |
+| https://osv.dev/GO-2024-2600 |      | Go        | stdlib  | 1.21.7  | fixtures/go-project/go.mod |
+| https://osv.dev/GO-2024-2609 |      | Go        | stdlib  | 1.21.7  | fixtures/go-project/go.mod |
+| https://osv.dev/GO-2024-2610 |      | Go        | stdlib  | 1.21.7  | fixtures/go-project/go.mod |
++------------------------------+------+-----------+---------+---------+----------------------------+
+
+---
+
+[TestRun/Go_project_with_an_overridden_go_version - 2]
+
+---
+
 [TestRun/Sarif_with_vulns - 1]
 {
   "version": "2.1.0",
@@ -663,12 +685,6 @@ Warning: `scan` exists as both a subcommand of OSV-Scanner and as a file on the 
     }
   }
 }
-
----
-
-[TestRun_Licenses/Licenses_in_summary_mode_json - 2]
-Scanning dir ./fixtures/locks-licenses/package-lock.json
-Scanned <rootdir>/fixtures/locks-licenses/package-lock.json file and found 3 packages
 
 ---
 
@@ -1267,19 +1283,6 @@ Loaded Packagist local db from <tempdir>/osv-scanner/Packagist/all.zip
 
 ---
 
-[TestRun_LocalDatabases/#09 - 3]
-{
-  "results": [],
-  "experimental_config": {
-    "licenses": {
-      "summary": false,
-      "allowlist": null
-    }
-  }
-}
-
----
-
 [TestRun_LocalDatabases/#09 - 4]
 Scanning dir ./fixtures/locks-many/composer.lock
 Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
@@ -1360,23 +1363,6 @@ could not determine extractor, requested my-file
 
 ---
 
-[TestRun_LockfileWithExplicitParseAs/#00 - 2]
-could not determine extractor, requested my-file
-
----
-
-[TestRun_LockfileWithExplicitParseAs/#01 - 1]
-Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
-No issues found
-
----
-
-[TestRun_LockfileWithExplicitParseAs/#01 - 1]
-Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
-No issues found
-
----
-
 [TestRun_LockfileWithExplicitParseAs/#01 - 1]
 Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
 No issues found
@@ -1384,22 +1370,6 @@ No issues found
 ---
 
 [TestRun_LockfileWithExplicitParseAs/#01 - 2]
-
----
-
-[TestRun_LockfileWithExplicitParseAs/#01 - 2]
-
----
-
-[TestRun_LockfileWithExplicitParseAs/#01 - 2]
-
----
-
-[TestRun_LockfileWithExplicitParseAs/#02 - 1]
-
----
-
-[TestRun_LockfileWithExplicitParseAs/#02 - 1]
 
 ---
 
@@ -1412,35 +1382,7 @@ open <rootdir>/path/to/my:file: no such file or directory
 
 ---
 
-[TestRun_LockfileWithExplicitParseAs/#02 - 2]
-open <rootdir>/path/to/my:file: no such file or directory
-
----
-
-[TestRun_LockfileWithExplicitParseAs/#02 - 2]
-open <rootdir>/path/to/my:file: no such file or directory
-
----
-
 [TestRun_LockfileWithExplicitParseAs/#03 - 1]
-
----
-
-[TestRun_LockfileWithExplicitParseAs/#03 - 1]
-
----
-
-[TestRun_LockfileWithExplicitParseAs/#03 - 1]
-
----
-
-[TestRun_LockfileWithExplicitParseAs/#03 - 2]
-open <rootdir>/path/to/my:project/package-lock.json: no such file or directory
-
----
-
-[TestRun_LockfileWithExplicitParseAs/#03 - 2]
-open <rootdir>/path/to/my:project/package-lock.json: no such file or directory
 
 ---
 
@@ -1459,23 +1401,6 @@ Scanned <rootdir>/fixtures/locks-insecure/composer.lock file and found 1 package
 | https://osv.dev/GHSA-9f46-5r25-5wfm | 9.8  | Packagist | league/flysystem | 1.0.8   | fixtures/locks-insecure/composer.lock        |
 | https://osv.dev/GHSA-whgm-jr23-g3j9 | 7.5  | npm       | ansi-html        | 0.0.1   | fixtures/locks-insecure/my-package-lock.json |
 +-------------------------------------+------+-----------+------------------+---------+----------------------------------------------+
-
----
-
-[TestRun_LockfileWithExplicitParseAs/#04 - 1]
-Scanned <rootdir>/fixtures/locks-insecure/my-package-lock.json file as a package-lock.json and found 1 package
-Scanning dir ./fixtures/locks-insecure
-Scanned <rootdir>/fixtures/locks-insecure/composer.lock file and found 1 package
-+-------------------------------------+------+-----------+------------------+---------+----------------------------------------------+
-| OSV URL                             | CVSS | ECOSYSTEM | PACKAGE          | VERSION | SOURCE                                       |
-+-------------------------------------+------+-----------+------------------+---------+----------------------------------------------+
-| https://osv.dev/GHSA-9f46-5r25-5wfm | 9.8  | Packagist | league/flysystem | 1.0.8   | fixtures/locks-insecure/composer.lock        |
-| https://osv.dev/GHSA-whgm-jr23-g3j9 | 7.5  | npm       | ansi-html        | 0.0.1   | fixtures/locks-insecure/my-package-lock.json |
-+-------------------------------------+------+-----------+------------------+---------+----------------------------------------------+
-
----
-
-[TestRun_LockfileWithExplicitParseAs/#04 - 2]
 
 ---
 
@@ -1498,25 +1423,6 @@ Scanned <rootdir>/fixtures/locks-insecure/composer.lock file and found 1 package
 
 ---
 
-[TestRun_LockfileWithExplicitParseAs/#05 - 1]
-Scanned <rootdir>/fixtures/locks-insecure/my-package-lock.json file as a package-lock.json and found 1 package
-Scanned <rootdir>/fixtures/locks-insecure/my-yarn.lock file as a yarn.lock and found 1 package
-Scanning dir ./fixtures/locks-insecure
-Scanned <rootdir>/fixtures/locks-insecure/composer.lock file and found 1 package
-+-------------------------------------+------+-----------+------------------+---------+----------------------------------------------+
-| OSV URL                             | CVSS | ECOSYSTEM | PACKAGE          | VERSION | SOURCE                                       |
-+-------------------------------------+------+-----------+------------------+---------+----------------------------------------------+
-| https://osv.dev/GHSA-9f46-5r25-5wfm | 9.8  | Packagist | league/flysystem | 1.0.8   | fixtures/locks-insecure/composer.lock        |
-| https://osv.dev/GHSA-whgm-jr23-g3j9 | 7.5  | npm       | ansi-html        | 0.0.1   | fixtures/locks-insecure/my-package-lock.json |
-| https://osv.dev/GHSA-whgm-jr23-g3j9 | 7.5  | npm       | ansi-html        | 0.0.1   | fixtures/locks-insecure/my-yarn.lock         |
-+-------------------------------------+------+-----------+------------------+---------+----------------------------------------------+
-
----
-
-[TestRun_LockfileWithExplicitParseAs/#05 - 2]
-
----
-
 [TestRun_LockfileWithExplicitParseAs/#05 - 2]
 
 ---
@@ -1536,49 +1442,7 @@ Scanned <rootdir>/fixtures/locks-insecure/composer.lock file and found 1 package
 
 ---
 
-[TestRun_LockfileWithExplicitParseAs/#06 - 1]
-Scanned <rootdir>/fixtures/locks-insecure/my-yarn.lock file as a yarn.lock and found 1 package
-Scanned <rootdir>/fixtures/locks-insecure/my-package-lock.json file as a package-lock.json and found 1 package
-Scanning dir ./fixtures/locks-insecure
-Scanned <rootdir>/fixtures/locks-insecure/composer.lock file and found 1 package
-+-------------------------------------+------+-----------+------------------+---------+----------------------------------------------+
-| OSV URL                             | CVSS | ECOSYSTEM | PACKAGE          | VERSION | SOURCE                                       |
-+-------------------------------------+------+-----------+------------------+---------+----------------------------------------------+
-| https://osv.dev/GHSA-9f46-5r25-5wfm | 9.8  | Packagist | league/flysystem | 1.0.8   | fixtures/locks-insecure/composer.lock        |
-| https://osv.dev/GHSA-whgm-jr23-g3j9 | 7.5  | npm       | ansi-html        | 0.0.1   | fixtures/locks-insecure/my-package-lock.json |
-| https://osv.dev/GHSA-whgm-jr23-g3j9 | 7.5  | npm       | ansi-html        | 0.0.1   | fixtures/locks-insecure/my-yarn.lock         |
-+-------------------------------------+------+-----------+------------------+---------+----------------------------------------------+
-
----
-
-[TestRun_LockfileWithExplicitParseAs/#06 - 1]
-Scanned <rootdir>/fixtures/locks-insecure/my-yarn.lock file as a yarn.lock and found 1 package
-Scanned <rootdir>/fixtures/locks-insecure/my-package-lock.json file as a package-lock.json and found 1 package
-Scanning dir ./fixtures/locks-insecure
-Scanned <rootdir>/fixtures/locks-insecure/composer.lock file and found 1 package
-+-------------------------------------+------+-----------+------------------+---------+----------------------------------------------+
-| OSV URL                             | CVSS | ECOSYSTEM | PACKAGE          | VERSION | SOURCE                                       |
-+-------------------------------------+------+-----------+------------------+---------+----------------------------------------------+
-| https://osv.dev/GHSA-9f46-5r25-5wfm | 9.8  | Packagist | league/flysystem | 1.0.8   | fixtures/locks-insecure/composer.lock        |
-| https://osv.dev/GHSA-whgm-jr23-g3j9 | 7.5  | npm       | ansi-html        | 0.0.1   | fixtures/locks-insecure/my-package-lock.json |
-| https://osv.dev/GHSA-whgm-jr23-g3j9 | 7.5  | npm       | ansi-html        | 0.0.1   | fixtures/locks-insecure/my-yarn.lock         |
-+-------------------------------------+------+-----------+------------------+---------+----------------------------------------------+
-
----
-
 [TestRun_LockfileWithExplicitParseAs/#06 - 2]
-
----
-
-[TestRun_LockfileWithExplicitParseAs/#06 - 2]
-
----
-
-[TestRun_LockfileWithExplicitParseAs/#06 - 2]
-
----
-
-[TestRun_LockfileWithExplicitParseAs/#07 - 1]
 
 ---
 
@@ -1591,21 +1455,7 @@ Scanned <rootdir>/fixtures/locks-insecure/composer.lock file and found 1 package
 
 ---
 
-[TestRun_LockfileWithExplicitParseAs/#07 - 2]
-(extracting as Cargo.lock) could not extract from <rootdir>/fixtures/locks-insecure/my-package-lock.json: toml: line 1: expected '.' or '=', but got '{' instead
-
----
-
 [TestRun_LockfileWithExplicitParseAs/#08 - 1]
-
----
-
-[TestRun_LockfileWithExplicitParseAs/#08 - 1]
-
----
-
-[TestRun_LockfileWithExplicitParseAs/#08 - 2]
-(extracting as package-lock.json) could not extract from <rootdir>/fixtures/locks-many/yarn.lock: invalid character '#' looking for beginning of value
 
 ---
 
@@ -1620,26 +1470,6 @@ No issues found
 
 ---
 
-[TestRun_LockfileWithExplicitParseAs/#09 - 1]
-Scanned <rootdir>/fixtures/locks-many/installed file as a apk-installed and found 1 package
-No issues found
-
----
-
-[TestRun_LockfileWithExplicitParseAs/#09 - 1]
-Scanned <rootdir>/fixtures/locks-many/installed file as a apk-installed and found 1 package
-No issues found
-
----
-
-[TestRun_LockfileWithExplicitParseAs/#09 - 2]
-
----
-
-[TestRun_LockfileWithExplicitParseAs/#09 - 2]
-
----
-
 [TestRun_LockfileWithExplicitParseAs/#09 - 2]
 
 ---
@@ -1647,26 +1477,6 @@ No issues found
 [TestRun_LockfileWithExplicitParseAs/#10 - 1]
 Scanned <rootdir>/fixtures/locks-many/status file as a dpkg-status and found 1 package
 No issues found
-
----
-
-[TestRun_LockfileWithExplicitParseAs/#10 - 1]
-Scanned <rootdir>/fixtures/locks-many/status file as a dpkg-status and found 1 package
-No issues found
-
----
-
-[TestRun_LockfileWithExplicitParseAs/#10 - 1]
-Scanned <rootdir>/fixtures/locks-many/status file as a dpkg-status and found 1 package
-No issues found
-
----
-
-[TestRun_LockfileWithExplicitParseAs/#10 - 2]
-
----
-
-[TestRun_LockfileWithExplicitParseAs/#10 - 2]
 
 ---
 
@@ -1681,44 +1491,22 @@ No issues found
 
 ---
 
-[TestRun_LockfileWithExplicitParseAs/one_lockfile_with_local_path - 1]
-Scanned <rootdir>/fixtures/locks-many/replace-local.mod file as a go.mod and found 1 package
-Filtered 1 local package/s from the scan.
-No issues found
-
----
-
-[TestRun_LockfileWithExplicitParseAs/one_lockfile_with_local_path - 1]
-Scanned <rootdir>/fixtures/locks-many/replace-local.mod file as a go.mod and found 1 package
-Filtered 1 local package/s from the scan.
-No issues found
-
----
-
 [TestRun_LockfileWithExplicitParseAs/one_lockfile_with_local_path - 2]
 
 ---
 
-[TestRun_LockfileWithExplicitParseAs/one_lockfile_with_local_path - 2]
+[TestRun_OCIImage/Alpine_3.10_image_tar_with_3.18_version_file - 1]
+Scanning image ../../internal/image/fixtures/test-alpine.tar
++--------------------------------+------+--------------+---------+-----------+---------------------------------------------------------------------+
+| OSV URL                        | CVSS | ECOSYSTEM    | PACKAGE | VERSION   | SOURCE                                                              |
++--------------------------------+------+--------------+---------+-----------+---------------------------------------------------------------------+
+| https://osv.dev/CVE-2018-25032 | 7.5  | Alpine:v3.18 | zlib    | 1.2.11-r1 | ../../internal/image/fixtures/test-alpine.tar:/lib/apk/db/installed |
+| https://osv.dev/CVE-2022-37434 | 9.8  | Alpine:v3.18 | zlib    | 1.2.11-r1 | ../../internal/image/fixtures/test-alpine.tar:/lib/apk/db/installed |
++--------------------------------+------+--------------+---------+-----------+---------------------------------------------------------------------+
 
 ---
 
-[TestRun_LockfileWithExplicitParseAs/one_lockfile_with_local_path - 2]
-
----
-
-[TestRun_OCIImage/Alpine_3.10_image_tar - 1]
-Scanning image ./fixtures/oci-image/alpine-tester.tar
-+--------------------------------+------+-----------+---------+-----------+--------------------------------------------------------------+
-| OSV URL                        | CVSS | ECOSYSTEM | PACKAGE | VERSION   | SOURCE                                                       |
-+--------------------------------+------+-----------+---------+-----------+--------------------------------------------------------------+
-| https://osv.dev/CVE-2018-25032 | 7.5  | Alpine    | zlib    | 1.2.11-r1 | ./fixtures/oci-image/alpine-tester.tar:/lib/apk/db/installed |
-| https://osv.dev/CVE-2022-37434 | 9.8  | Alpine    | zlib    | 1.2.11-r1 | ./fixtures/oci-image/alpine-tester.tar:/lib/apk/db/installed |
-+--------------------------------+------+-----------+---------+-----------+--------------------------------------------------------------+
-
----
-
-[TestRun_OCIImage/Alpine_3.10_image_tar - 2]
+[TestRun_OCIImage/Alpine_3.10_image_tar_with_3.18_version_file - 2]
 
 ---
 

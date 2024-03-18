@@ -28,6 +28,7 @@ const (
 	// number of queries exceed this number
 	maxQueriesPerRequest  = 1000
 	maxConcurrentRequests = 25
+	maxRetryAttempts      = 3
 )
 
 var RequestUserAgent = ""
@@ -321,8 +322,7 @@ func HydrateWithClient(resp *BatchedResponse, client *http.Client) (*HydratedBat
 func makeRetryRequest(action func() (*http.Response, error)) (*http.Response, error) {
 	var resp *http.Response
 	var err error
-	retries := 3
-	for i := 0; i < retries; i++ {
+	for i := 0; i < maxRetryAttempts; i++ {
 		resp, err = action()
 		if err == nil {
 			break
