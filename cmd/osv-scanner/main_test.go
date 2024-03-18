@@ -109,21 +109,28 @@ func normalizeStdStream(t *testing.T, std *bytes.Buffer) string {
 	return str
 }
 
-func testCli(t *testing.T, tc cliTestCase) {
+func runCli(t *testing.T, tc cliTestCase) (string, string) {
 	t.Helper()
 
 	stdout := &bytes.Buffer{}
 	stderr := &bytes.Buffer{}
 
 	ec := run(tc.args, stdout, stderr)
-	// ec := run(tc.args, os.Stdout, os.Stderr)
 
 	if ec != tc.exit {
 		t.Errorf("cli exited with code %d, not %d", ec, tc.exit)
 	}
 
-	testutility.NewSnapshot().MatchText(t, normalizeStdStream(t, stdout))
-	testutility.NewSnapshot().MatchText(t, normalizeStdStream(t, stderr))
+	return normalizeStdStream(t, stdout), normalizeStdStream(t, stderr)
+}
+
+func testCli(t *testing.T, tc cliTestCase) {
+	t.Helper()
+
+	stdout, stderr := runCli(t, tc)
+
+	testutility.NewSnapshot().MatchText(t, stdout)
+	testutility.NewSnapshot().MatchText(t, stderr)
 }
 
 func TestRun(t *testing.T) {

@@ -44,7 +44,11 @@ func TestRunUpdate(t *testing.T) {
 				tc.args = append(tc.args, "-M", manifest)
 			}
 
-			testCli(t, tc)
+			stdout, stderr := runCli(t, tc)
+
+			testutility.NewSnapshot().MatchText(t, stdout)
+			testutility.NewSnapshot().MatchText(t, stderr)
+
 			if manifest != "" {
 				b, err := os.ReadFile(manifest)
 				if err != nil {
