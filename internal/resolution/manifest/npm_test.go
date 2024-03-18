@@ -13,14 +13,16 @@ import (
 	"github.com/google/osv-scanner/pkg/lockfile"
 )
 
-func aliasType(aliasedName string) dep.Type {
-	t := dep.NewType()
-	t.AddAttr(dep.KnownAs, aliasedName)
+func aliasType(t *testing.T, aliasedName string) dep.Type {
+	t.Helper()
+	typ := dep.NewType()
+	typ.AddAttr(dep.KnownAs, aliasedName)
 
-	return t
+	return typ
 }
 
-func npmVK(name, version string, versionType resolve.VersionType) resolve.VersionKey {
+func npmVK(t *testing.T, name, version string, versionType resolve.VersionType) resolve.VersionKey {
+	t.Helper()
 	return resolve.VersionKey{
 		PackageKey: resolve.PackageKey{
 			System: resolve.NPM,
@@ -52,35 +54,35 @@ func TestNpmRead(t *testing.T) {
 
 	want := manifest.Manifest{
 		Root: resolve.Version{
-			VersionKey: npmVK("npm-manifest", "1.0.0", resolve.Concrete),
+			VersionKey: npmVK(t, "npm-manifest", "1.0.0", resolve.Concrete),
 		},
 		// npm dependencies should resolve in alphabetical order, regardless of type
 		Requirements: []resolve.RequirementVersion{
 			// TODO: @babel/core peerDependency currently not resolved
 			{
-				Type:       aliasType("cliui"), // sorts on aliased name, not real package name
-				VersionKey: npmVK("@isaacs/cliui", "^8.0.2", resolve.Requirement),
+				Type:       aliasType(t, "cliui"), // sorts on aliased name, not real package name
+				VersionKey: npmVK(t, "@isaacs/cliui", "^8.0.2", resolve.Requirement),
 			},
 			{
 				// Type: dep.NewType(dep.Dev), devDependencies treated as prod to make resolution work
-				VersionKey: npmVK("eslint", "^8.57.0", resolve.Requirement),
+				VersionKey: npmVK(t, "eslint", "^8.57.0", resolve.Requirement),
 			},
 			{
 				Type:       dep.NewType(dep.Opt),
-				VersionKey: npmVK("glob", "^10.3.10", resolve.Requirement),
+				VersionKey: npmVK(t, "glob", "^10.3.10", resolve.Requirement),
 			},
 			{
-				VersionKey: npmVK("jquery", "latest", resolve.Requirement),
+				VersionKey: npmVK(t, "jquery", "latest", resolve.Requirement),
 			},
 			{
-				VersionKey: npmVK("lodash", "4.17.17", resolve.Requirement),
+				VersionKey: npmVK(t, "lodash", "4.17.17", resolve.Requirement),
 			},
 			{
-				VersionKey: npmVK("string-width", "^5.1.2", resolve.Requirement),
+				VersionKey: npmVK(t, "string-width", "^5.1.2", resolve.Requirement),
 			},
 			{
-				Type:       aliasType("string-width-aliased"),
-				VersionKey: npmVK("string-width", "^4.2.3", resolve.Requirement),
+				Type:       aliasType(t, "string-width-aliased"),
+				VersionKey: npmVK(t, "string-width", "^4.2.3", resolve.Requirement),
 			},
 		},
 		Groups: map[resolve.PackageKey][]string{
@@ -120,23 +122,23 @@ func TestNpmWorkspaceRead(t *testing.T) {
 
 	want := manifest.Manifest{
 		Root: resolve.Version{
-			VersionKey: npmVK("npm-workspace-test", "1.0.0", resolve.Concrete),
+			VersionKey: npmVK(t, "npm-workspace-test", "1.0.0", resolve.Concrete),
 		},
 		Requirements: []resolve.RequirementVersion{
 			// root dependencies always before workspace
 			{
-				Type:       aliasType("jquery-real"),
-				VersionKey: npmVK("jquery", "^3.7.1", resolve.Requirement),
+				Type:       aliasType(t, "jquery-real"),
+				VersionKey: npmVK(t, "jquery", "^3.7.1", resolve.Requirement),
 			},
 			// workspaces in path order
 			{
-				VersionKey: npmVK("jquery:workspace", "^3.7.1", resolve.Requirement),
+				VersionKey: npmVK(t, "jquery:workspace", "^3.7.1", resolve.Requirement),
 			},
 			{
-				VersionKey: npmVK("@workspace/ugh:workspace", "*", resolve.Requirement),
+				VersionKey: npmVK(t, "@workspace/ugh:workspace", "*", resolve.Requirement),
 			},
 			{
-				VersionKey: npmVK("z-z-z:workspace", "*", resolve.Requirement),
+				VersionKey: npmVK(t, "z-z-z:workspace", "*", resolve.Requirement),
 			},
 		},
 		Groups: map[resolve.PackageKey][]string{
@@ -146,25 +148,25 @@ func TestNpmWorkspaceRead(t *testing.T) {
 		LocalManifests: []manifest.Manifest{
 			{
 				Root: resolve.Version{
-					VersionKey: npmVK("jquery:workspace", "3.7.1", resolve.Concrete),
+					VersionKey: npmVK(t, "jquery:workspace", "3.7.1", resolve.Concrete),
 				},
 				Requirements: []resolve.RequirementVersion{
 					{
-						VersionKey: npmVK("semver", "^7.6.0", resolve.Requirement),
+						VersionKey: npmVK(t, "semver", "^7.6.0", resolve.Requirement),
 					},
 				},
 				Groups: map[resolve.PackageKey][]string{},
 			},
 			{
 				Root: resolve.Version{
-					VersionKey: npmVK("@workspace/ugh:workspace", "0.0.1", resolve.Concrete),
+					VersionKey: npmVK(t, "@workspace/ugh:workspace", "0.0.1", resolve.Concrete),
 				},
 				Requirements: []resolve.RequirementVersion{
 					{
-						VersionKey: npmVK("jquery:workspace", "*", resolve.Requirement),
+						VersionKey: npmVK(t, "jquery:workspace", "*", resolve.Requirement),
 					},
 					{
-						VersionKey: npmVK("semver", "^6.3.1", resolve.Requirement),
+						VersionKey: npmVK(t, "semver", "^6.3.1", resolve.Requirement),
 					},
 				},
 				Groups: map[resolve.PackageKey][]string{
@@ -174,14 +176,14 @@ func TestNpmWorkspaceRead(t *testing.T) {
 			},
 			{
 				Root: resolve.Version{
-					VersionKey: npmVK("z-z-z:workspace", "1.0.0", resolve.Concrete),
+					VersionKey: npmVK(t, "z-z-z:workspace", "1.0.0", resolve.Concrete),
 				},
 				Requirements: []resolve.RequirementVersion{
 					{
-						VersionKey: npmVK("@workspace/ugh:workspace", "*", resolve.Requirement),
+						VersionKey: npmVK(t, "@workspace/ugh:workspace", "*", resolve.Requirement),
 					},
 					{
-						VersionKey: npmVK("semver", "^5.7.2", resolve.Requirement),
+						VersionKey: npmVK(t, "semver", "^5.7.2", resolve.Requirement),
 					},
 				},
 				Groups: map[resolve.PackageKey][]string{},
@@ -241,7 +243,7 @@ func TestNpmWrite(t *testing.T) {
 					System: resolve.NPM,
 					Name:   "@isaacs/cliui",
 				},
-				Type:        aliasType("cliui"),
+				Type:        aliasType(t, "cliui"),
 				OrigRequire: "^8.0.2",
 				NewRequire:  "^9.0.0",
 			},
@@ -258,7 +260,7 @@ func TestNpmWrite(t *testing.T) {
 					System: resolve.NPM,
 					Name:   "string-width",
 				},
-				Type:        aliasType("string-width-aliased"),
+				Type:        aliasType(t, "string-width-aliased"),
 				OrigRequire: "^4.2.3",
 				NewRequire:  "^6.1.0",
 			},

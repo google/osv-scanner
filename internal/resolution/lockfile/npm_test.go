@@ -10,7 +10,8 @@ import (
 	lf "github.com/google/osv-scanner/pkg/lockfile"
 )
 
-func npmVK(name, version string) resolve.VersionKey {
+func npmVK(t *testing.T, name, version string) resolve.VersionKey {
+	t.Helper()
 	return resolve.VersionKey{
 		PackageKey: resolve.PackageKey{
 			System: resolve.NPM,
@@ -45,16 +46,16 @@ func TestNpmReadV2(t *testing.T) {
 	want := new(resolve.Graph)
 	//nolint:errcheck // AddEdge only errors if the nodes do not exist
 	{
-		root := want.AddNode(npmVK("r", "1.0.0"))
-		workspace := want.AddNode(npmVK("w", "1.0.0"))
-		a1 := want.AddNode(npmVK("@fake-registry/a", "1.2.3"))
-		a2 := want.AddNode(npmVK("@fake-registry/a", "2.3.4"))
-		a2A := want.AddNode(npmVK("@fake-registry/a", "2.3.4"))
-		b1 := want.AddNode(npmVK("@fake-registry/b", "1.0.1"))
-		b2 := want.AddNode(npmVK("@fake-registry/b", "2.0.0"))
-		b2A := want.AddNode(npmVK("@fake-registry/b", "2.0.0"))
-		c := want.AddNode(npmVK("@fake-registry/c", "1.1.1"))
-		d := want.AddNode(npmVK("@fake-registry/d", "2.2.2"))
+		root := want.AddNode(npmVK(t, "r", "1.0.0"))
+		workspace := want.AddNode(npmVK(t, "w", "1.0.0"))
+		a1 := want.AddNode(npmVK(t, "@fake-registry/a", "1.2.3"))
+		a2 := want.AddNode(npmVK(t, "@fake-registry/a", "2.3.4"))
+		a2A := want.AddNode(npmVK(t, "@fake-registry/a", "2.3.4"))
+		b1 := want.AddNode(npmVK(t, "@fake-registry/b", "1.0.1"))
+		b2 := want.AddNode(npmVK(t, "@fake-registry/b", "2.0.0"))
+		b2A := want.AddNode(npmVK(t, "@fake-registry/b", "2.0.0"))
+		c := want.AddNode(npmVK(t, "@fake-registry/c", "1.1.1"))
+		d := want.AddNode(npmVK(t, "@fake-registry/d", "2.2.2"))
 
 		want.AddEdge(root, a1, "^1.2.3", dep.NewType())
 		want.AddEdge(root, b1, "^1.0.1", dep.NewType())
@@ -108,13 +109,13 @@ func TestNpmReadV1(t *testing.T) {
 	want := new(resolve.Graph)
 	//nolint:errcheck // AddEdge only errors if the nodes do not exist
 	{
-		root := want.AddNode(npmVK("r", "1.0.0"))
-		a1 := want.AddNode(npmVK("@fake-registry/a", "1.2.3"))
-		a2 := want.AddNode(npmVK("@fake-registry/a", "2.3.4"))
-		b1 := want.AddNode(npmVK("@fake-registry/b", "1.0.1"))
-		b2 := want.AddNode(npmVK("@fake-registry/b", "2.0.0"))
-		c := want.AddNode(npmVK("@fake-registry/c", "1.1.1"))
-		d := want.AddNode(npmVK("@fake-registry/d", "2.2.2"))
+		root := want.AddNode(npmVK(t, "r", "1.0.0"))
+		a1 := want.AddNode(npmVK(t, "@fake-registry/a", "1.2.3"))
+		a2 := want.AddNode(npmVK(t, "@fake-registry/a", "2.3.4"))
+		b1 := want.AddNode(npmVK(t, "@fake-registry/b", "1.0.1"))
+		b2 := want.AddNode(npmVK(t, "@fake-registry/b", "2.0.0"))
+		c := want.AddNode(npmVK(t, "@fake-registry/c", "1.1.1"))
+		d := want.AddNode(npmVK(t, "@fake-registry/d", "2.2.2"))
 		// v1 does not support workspaces
 
 		want.AddEdge(root, a1, "^1.2.3", dep.NewType())
