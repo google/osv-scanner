@@ -11,8 +11,8 @@ import (
 )
 
 func TestScanImage(t *testing.T) {
-	testutility.SkipIfNotAcceptanceTesting(t, "Not consistent on MacOS/Windows")
 	t.Parallel()
+	testutility.SkipIfNotAcceptanceTesting(t, "Not consistent on MacOS/Windows")
 
 	type args struct {
 		imagePath string
