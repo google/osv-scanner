@@ -1,4 +1,4 @@
-package manifest
+package manifest_test
 
 import (
 	"bytes"
@@ -11,6 +11,7 @@ import (
 	"deps.dev/util/maven"
 	"deps.dev/util/resolve"
 	"deps.dev/util/resolve/dep"
+	"github.com/google/osv-scanner/internal/resolution/manifest"
 	"github.com/google/osv-scanner/internal/testutility"
 	"github.com/google/osv-scanner/pkg/lockfile"
 )
@@ -43,7 +44,7 @@ func TestMavenRead(t *testing.T) {
 	}
 	defer df.Close()
 
-	mavenIO := MavenManifestIO{}
+	mavenIO := manifest.MavenManifestIO{}
 	got, err := mavenIO.Read(df)
 	if err != nil {
 		t.Fatalf("failed to read file: %v", err)
@@ -56,7 +57,7 @@ func TestMavenRead(t *testing.T) {
 	depProfileTwoMgmt.AddAttr(dep.MavenArtifactType, "pom")
 	depProfileTwoMgmt.AddAttr(dep.Scope, "import")
 
-	want := Manifest{
+	want := manifest.Manifest{
 		Root: resolve.Version{
 			VersionKey: resolve.VersionKey{
 				PackageKey: resolve.PackageKey{
@@ -160,8 +161,8 @@ func TestMavenRead(t *testing.T) {
 			{System: resolve.Maven, Name: "junit:junit"}:    {"test"},
 			{System: resolve.Maven, Name: "org.import:xyz"}: {"import"},
 		},
-		EcosystemSpecific: MavenManifestSpecific{
-			Properties: []PropertyWithOrigin{
+		EcosystemSpecific: manifest.MavenManifestSpecific{
+			Properties: []manifest.PropertyWithOrigin{
 				{Property: maven.Property{Name: "project.build.sourceEncoding", Value: "UTF-8"}},
 				{Property: maven.Property{Name: "maven.compiler.source", Value: "1.7"}},
 				{Property: maven.Property{Name: "maven.compiler.target", Value: "1.7"}},
@@ -215,8 +216,8 @@ func TestMavenWrite(t *testing.T) {
 	depProfileTwoMgmt.AddAttr(dep.MavenArtifactType, "pom")
 	depProfileTwoMgmt.AddAttr(dep.Scope, "import")
 
-	changes := ManifestPatch{
-		Deps: []DependencyPatch{
+	changes := manifest.ManifestPatch{
+		Deps: []manifest.DependencyPatch{
 			{
 				Pkg: resolve.PackageKey{
 					System: resolve.Maven,
@@ -264,7 +265,7 @@ func TestMavenWrite(t *testing.T) {
 				NewRequire: "1.2.0",
 			},
 		},
-		EcosystemSpecific: MavenPropertyPatches{
+		EcosystemSpecific: manifest.MavenPropertyPatches{
 			"": {
 				"junit.version": "4.13.2",
 			},
@@ -275,7 +276,7 @@ func TestMavenWrite(t *testing.T) {
 	}
 
 	buf := new(bytes.Buffer)
-	mavenIO := MavenManifestIO{}
+	mavenIO := manifest.MavenManifestIO{}
 	if err := mavenIO.Write(df, buf, changes); err != nil {
 		t.Fatalf("unable to update Maven pom.xml: %v", err)
 	}
