@@ -23,11 +23,14 @@ on:
   merge_group:
     branches: [main]
 
-permissions:
-  contents: read # to fetch code (actions/checkout)
+# Restrict jobs in this workflow to have no permissions by default; permissions
+# should be granted per job as needed using a dedicated `permissions` block
+permissions: {}
 
 jobs:
   format:
+    permissions:
+      contents: read # to fetch code (actions/checkout)
     name: prettier
     runs-on: ubuntu-latest
     steps:
@@ -38,6 +41,8 @@ jobs:
       - name: Run lint action
         uses: ./.github/workflows/format-action
   lint:
+    permissions:
+      contents: read # to fetch code (actions/checkout)
     name: golangci-lint
     runs-on: ubuntu-latest
     steps:
@@ -53,6 +58,8 @@ jobs:
       - name: Run lint action
         uses: ./.github/workflows/lint-action
   prepare_test_image_fixtures:
+    permissions:
+      contents: read # to fetch code (actions/checkout)
     runs-on: ubuntu-latest
     steps:
       - name: Check out code
@@ -66,6 +73,8 @@ jobs:
           path: internal/image/fixtures/*.tar
           retention-days: 1
   tests:
+    permissions:
+      contents: read # to fetch code (actions/checkout)
     needs:
       - prepare_test_image_fixtures
     name: Run unit tests

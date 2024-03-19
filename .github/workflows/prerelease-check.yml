@@ -12,13 +12,15 @@ on:
         required: true
         type: string
 
-permissions:
-  contents: read # to fetch code (actions/checkout)
-  # Require writing security events to upload SARIF file to security tab
-  security-events: write
+# Restrict jobs in this workflow to have no permissions by default; permissions
+# should be granted per job as needed using a dedicated `permissions` block
+permissions: {}
 
 jobs:
   osv-scan:
+    permissions:
+      contents: read # to fetch code (actions/checkout)
+      security-events: write # for uploading SARIF files
     uses: ./.github/workflows/osv-scanner-reusable.yml
     with:
       # Only scan the top level go.mod file without recursively scanning directories since
@@ -28,6 +30,8 @@ jobs:
         ./
 
   format:
+    permissions:
+      contents: read # to fetch code (actions/checkout)
     name: prettier
     runs-on: ubuntu-latest
     steps:
@@ -38,6 +42,8 @@ jobs:
       - name: Run lint action
         uses: ./.github/workflows/format-action
   lint:
+    permissions:
+      contents: read # to fetch code (actions/checkout)
     name: golangci-lint
     runs-on: ubuntu-latest
     steps:
@@ -54,6 +60,8 @@ jobs:
       - name: Run lint action
         uses: ./.github/workflows/lint-action
   prepare_test_image_fixtures:
+    permissions:
+      contents: read # to fetch code (actions/checkout)
     runs-on: ubuntu-latest
     steps:
       - name: Check out code
@@ -67,6 +75,8 @@ jobs:
           path: internal/image/fixtures/*.tar
           retention-days: 1
   tests:
+    permissions:
+      contents: read # to fetch code (actions/checkout)
     name: Run unit tests
     needs:
       - prepare_test_image_fixtures
@@ -93,6 +103,8 @@ jobs:
       - name: Run test action
         uses: ./.github/workflows/test-action
   release-helper:
+    permissions:
+      contents: read # to fetch code (actions/checkout)
     runs-on: ubuntu-latest
     needs:
       - format
