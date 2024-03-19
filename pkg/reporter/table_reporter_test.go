@@ -1,16 +1,18 @@
-package reporter
+package reporter_test
 
 import (
 	"bytes"
 	"io"
 	"testing"
+
+	"github.com/google/osv-scanner/pkg/reporter"
 )
 
 func TestTableReporter_Errorf(t *testing.T) {
 	t.Parallel()
 
 	writer := &bytes.Buffer{}
-	r := NewTableReporter(io.Discard, writer, ErrorLevel, false, 0)
+	r := reporter.NewTableReporter(io.Discard, writer, reporter.ErrorLevel, false, 0)
 	text := "hello world!"
 
 	r.Errorf(text)
@@ -28,16 +30,16 @@ func TestTableReporter_Warnf(t *testing.T) {
 
 	text := "hello world!"
 	tests := []struct {
-		lvl              VerbosityLevel
+		lvl              reporter.VerbosityLevel
 		expectedPrintout string
 	}{
-		{lvl: WarnLevel, expectedPrintout: text},
-		{lvl: ErrorLevel, expectedPrintout: ""},
+		{lvl: reporter.WarnLevel, expectedPrintout: text},
+		{lvl: reporter.ErrorLevel, expectedPrintout: ""},
 	}
 
 	for _, test := range tests {
 		writer := &bytes.Buffer{}
-		r := NewTableReporter(writer, io.Discard, test.lvl, false, 0)
+		r := reporter.NewTableReporter(writer, io.Discard, test.lvl, false, 0)
 
 		r.Warnf(text)
 
@@ -52,16 +54,16 @@ func TestTableReporter_Infof(t *testing.T) {
 
 	text := "hello world!"
 	tests := []struct {
-		lvl              VerbosityLevel
+		lvl              reporter.VerbosityLevel
 		expectedPrintout string
 	}{
-		{lvl: InfoLevel, expectedPrintout: text},
-		{lvl: WarnLevel, expectedPrintout: ""},
+		{lvl: reporter.InfoLevel, expectedPrintout: text},
+		{lvl: reporter.WarnLevel, expectedPrintout: ""},
 	}
 
 	for _, test := range tests {
 		writer := &bytes.Buffer{}
-		r := NewTableReporter(writer, io.Discard, test.lvl, false, 0)
+		r := reporter.NewTableReporter(writer, io.Discard, test.lvl, false, 0)
 
 		r.Infof(text)
 
@@ -76,16 +78,16 @@ func TestTableReporter_Verbosef(t *testing.T) {
 
 	text := "hello world!"
 	tests := []struct {
-		lvl              VerbosityLevel
+		lvl              reporter.VerbosityLevel
 		expectedPrintout string
 	}{
-		{lvl: VerboseLevel, expectedPrintout: text},
-		{lvl: InfoLevel, expectedPrintout: ""},
+		{lvl: reporter.VerboseLevel, expectedPrintout: text},
+		{lvl: reporter.InfoLevel, expectedPrintout: ""},
 	}
 
 	for _, test := range tests {
 		writer := &bytes.Buffer{}
-		r := NewTableReporter(writer, io.Discard, test.lvl, false, 0)
+		r := reporter.NewTableReporter(writer, io.Discard, test.lvl, false, 0)
 
 		r.Verbosef(text)
 

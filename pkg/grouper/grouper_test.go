@@ -1,9 +1,10 @@
-package grouper
+package grouper_test
 
 import (
 	"testing"
 
 	"github.com/google/go-cmp/cmp"
+	"github.com/google/osv-scanner/pkg/grouper"
 	"github.com/google/osv-scanner/pkg/models"
 )
 
@@ -11,17 +12,17 @@ func TestGroup(t *testing.T) {
 	t.Parallel()
 
 	// Should be grouped by IDs appearing in alias.
-	v1 := IDAliases{
+	v1 := grouper.IDAliases{
 		ID: "CVE-1",
 		Aliases: []string{
 			"FOO-1",
 		},
 	}
-	v2 := IDAliases{
+	v2 := grouper.IDAliases{
 		ID:      "FOO-1",
 		Aliases: []string{},
 	}
-	v3 := IDAliases{
+	v3 := grouper.IDAliases{
 		ID: "FOO-2",
 		Aliases: []string{
 			"FOO-1",
@@ -29,21 +30,21 @@ func TestGroup(t *testing.T) {
 	}
 
 	// Should be grouped by aliases intersecting.
-	v4 := IDAliases{
+	v4 := grouper.IDAliases{
 		ID: "BAR-1",
 		Aliases: []string{
 			"CVE-2",
 			"CVE-3",
 		},
 	}
-	v5 := IDAliases{
+	v5 := grouper.IDAliases{
 		ID: "BAR-2",
 		Aliases: []string{
 			"CVE-3",
 			"CVE-4",
 		},
 	}
-	v6 := IDAliases{
+	v6 := grouper.IDAliases{
 		ID: "BAR-3",
 		Aliases: []string{
 			"CVE-4",
@@ -51,13 +52,13 @@ func TestGroup(t *testing.T) {
 	}
 
 	// Unrelated.
-	v7 := IDAliases{
+	v7 := grouper.IDAliases{
 		ID: "UNRELATED-1",
 		Aliases: []string{
 			"BAR-1337",
 		},
 	}
-	v8 := IDAliases{
+	v8 := grouper.IDAliases{
 		ID: "UNRELATED-2",
 		Aliases: []string{
 			"BAR-1338",
@@ -65,18 +66,18 @@ func TestGroup(t *testing.T) {
 	}
 
 	// Unrelated, empty aliases
-	v9 := IDAliases{
+	v9 := grouper.IDAliases{
 		ID: "UNRELATED-3",
 	}
-	v10 := IDAliases{
+	v10 := grouper.IDAliases{
 		ID: "UNRELATED-4",
 	}
 	for _, tc := range []struct {
-		vulns []IDAliases
+		vulns []grouper.IDAliases
 		want  []models.GroupInfo
 	}{
 		{
-			vulns: []IDAliases{
+			vulns: []grouper.IDAliases{
 				v1, v2, v3, v4, v5, v6, v7, v8,
 			},
 			want: []models.GroupInfo{
@@ -99,7 +100,7 @@ func TestGroup(t *testing.T) {
 			},
 		},
 		{
-			vulns: []IDAliases{
+			vulns: []grouper.IDAliases{
 				v8, v2, v1, v5, v7, v4, v6, v3, v9, v10,
 			},
 			want: []models.GroupInfo{
@@ -130,7 +131,7 @@ func TestGroup(t *testing.T) {
 			},
 		},
 		{
-			vulns: []IDAliases{
+			vulns: []grouper.IDAliases{
 				v9, v10,
 			},
 			want: []models.GroupInfo{
@@ -145,7 +146,7 @@ func TestGroup(t *testing.T) {
 			},
 		},
 	} {
-		grouped := Group(tc.vulns)
+		grouped := grouper.Group(tc.vulns)
 		if diff := cmp.Diff(tc.want, grouped); diff != "" {
 			t.Errorf("GroupedVulns() returned an unexpected result (-want, +got):\n%s", diff)
 		}
