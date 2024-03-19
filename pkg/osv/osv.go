@@ -7,6 +7,7 @@ import (
 	"fmt"
 	"io"
 	"log"
+	"math/rand"
 	"net/http"
 	"time"
 
@@ -29,6 +30,8 @@ const (
 	maxQueriesPerRequest  = 1000
 	maxConcurrentRequests = 25
 	maxRetryAttempts      = 4
+	// jitterMultiplier is multiplied to the retry delay multiplied by rand(0, 1.0)
+	jitterMultiplier = 2
 )
 
 var RequestUserAgent = ""
@@ -318,8 +321,11 @@ func HydrateWithClient(resp *BatchedResponse, client *http.Client) (*HydratedBat
 func makeRetryRequest(action func() (*http.Response, error)) (*http.Response, error) {
 	var resp *http.Response
 	var err error
+
 	for i := 0; i < maxRetryAttempts; i++ {
-		time.Sleep(time.Duration(i*i) * time.Second)
+		jitterAmount := (rand.Float64() * float64(jitterMultiplier) * float64(i))
+		time.Sleep(time.Duration(i*i)*time.Second + time.Duration(jitterAmount*1000)*time.Millisecond)
+
 		resp, err = action()
 		if err == nil {
 			// Check the response for HTTP errors
@@ -359,9 +365,7 @@ func MakeDetermineVersionRequest(name string, hashes []DetermineVersionHash) (*D
 			req.Header.Set("User-Agent", RequestUserAgent)
 		}
 
-		client := http.DefaultClient
-
-		return client.Do(req)
+		return http.DefaultClient.Do(req)
 	})
 
 	if err != nil {
