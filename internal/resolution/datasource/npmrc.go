@@ -28,6 +28,7 @@ func loadNpmrc(workdir string) (npmrcConfig, error) {
 
 	// project npmrc is always in ./.npmrc
 	projectFile, _ := filepath.Abs(filepath.Join(workdir, ".npmrc"))
+	// TODO: Pass in environment variables so we can sandbox tests
 	builtinFile := builtinNpmrc()
 	envVarOpts, _ := envVarNpmrc()
 
@@ -68,6 +69,7 @@ func loadNpmrc(workdir string) (npmrcConfig, error) {
 	switch {
 	case fullNpmrc.Section("").HasKey("globalconfig"):
 		globalFile = os.ExpandEnv(fullNpmrc.Section("").Key("globalconfig").String())
+	// TODO: Windows
 	case fullNpmrc.Section("").HasKey("prefix"):
 		prefix := os.ExpandEnv(fullNpmrc.Section("").Key("prefix").String())
 		globalFile, _ = filepath.Abs(filepath.Join(prefix, "etc", "npmrc"))
@@ -182,11 +184,20 @@ func (info npmRegistryInfo) buildRequest(ctx context.Context, urlComponents ...s
 	return req, nil
 }
 
-type npmRegistries map[string]npmRegistryInfo
+type NpmRegistryConfig map[string]npmRegistryInfo
 
-// create the http request to the corresponding npm registry api
+func LoadNpmRegistryConfig(workdir string) (NpmRegistryConfig, error) {
+	npmrc, err := loadNpmrc(workdir)
+	if err != nil {
+		return nil, err
+	}
+
+	return parseNpmRegistryInfo(npmrc), nil
+}
+
+// BuildRequest creates the http request to the corresponding npm registry api
 // urlComponents should be (package) or (package, version)
-func (r npmRegistries) buildRequest(ctx context.Context, urlComponents ...string) (*http.Request, error) {
+func (r NpmRegistryConfig) BuildRequest(ctx context.Context, urlComponents ...string) (*http.Request, error) {
 	if len(urlComponents) == 0 {
 		return nil, errors.New("no package specified in npm request")
 	}
@@ -205,8 +216,8 @@ func (r npmRegistries) buildRequest(ctx context.Context, urlComponents ...string
 	return info.buildRequest(ctx, urlComponents...)
 }
 
-func parseRegistryInfo(npmrc npmrcConfig) npmRegistries {
-	infos := make(npmRegistries)                   // map of @scope to info
+func parseNpmRegistryInfo(npmrc npmrcConfig) NpmRegistryConfig {
+	infos := make(NpmRegistryConfig)               // map of @scope to info
 	auths := make(map[string]*npmRegistryAuthInfo) // map of host url to auth
 
 	getOrCreateAuth := func(host string) *npmRegistryAuthInfo {
