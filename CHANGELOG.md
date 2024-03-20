@@ -21,7 +21,7 @@
   See our [docs](https://google.github.io/osv-scanner/experimental/guided-remediation/) for detailed usage instructions.
 
 - [Feature #805](https://github.com/google/osv-scanner/pull/805)
-  Include CVSS MaxSevirity in JSON output.
+  Include CVSS MaxSeverity in JSON output.
 
 ### Fixes
 
