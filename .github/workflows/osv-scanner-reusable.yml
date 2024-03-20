@@ -14,9 +14,9 @@
 
 name: OSV-Scanner scanning reusable
 
-permissions:
-  contents: read
-  security-events: write
+# Restrict jobs in this workflow to have no permissions by default; permissions
+# should be granted per job as needed using a dedicated `permissions` block
+permissions: {}
 
 on:
   workflow_call:
@@ -49,6 +49,9 @@ on:
 
 jobs:
   osv-scan:
+    permissions:
+      contents: read # to fetch code (actions/checkout)
+      security-events: write # for uploading SARIF files
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1

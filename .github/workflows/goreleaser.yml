@@ -5,10 +5,9 @@ on:
     tags:
       - "*" # triggers only if push new tag version, like `v0.8.4`
 
-permissions:
-  contents: read # to fetch code (actions/checkout)
-  # Require writing security events to upload SARIF file to security tab
-  security-events: write
+# Restrict jobs in this workflow to have no permissions by default; permissions
+# should be granted per job as needed using a dedicated `permissions` block
+permissions: {}
 
 jobs:
   goreleaser:

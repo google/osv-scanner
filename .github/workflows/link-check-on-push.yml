@@ -1,10 +1,15 @@
 name: Check links on push
 
 on: push
-permissions: # added using https://github.com/step-security/secure-repo
-  contents: read
+
+# Restrict jobs in this workflow to have no permissions by default; permissions
+# should be granted per job as needed using a dedicated `permissions` block
+permissions: {}
+
 jobs:
   markdown-link-check:
+    permissions:
+      contents: read # to fetch code (actions/checkout)
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
