@@ -718,7 +718,7 @@ func DoScan(actions ScannerActions, r reporter.Reporter) (models.VulnerabilityRe
 		actions.SkipGit = true
 
 		if len(actions.ScanLicensesAllowlist) > 0 || actions.ScanLicensesSummary {
-			return models.VulnerabilityResults{}, fmt.Errorf("cannot retrieve licenses locally")
+			return models.VulnerabilityResults{}, errors.New("cannot retrieve licenses locally")
 		}
 	}
 

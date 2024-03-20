@@ -265,7 +265,7 @@ func rustBuildSource(r reporter.Reporter, source models.SourceInfo) ([]string, e
 		fileSplit := strings.Split(string(file), ": ")
 		if len(fileSplit) != 2 {
 			// TODO: this can probably be fixed with more effort
-			return nil, fmt.Errorf("file path contains ': ', which is unsupported")
+			return nil, errors.New("file path contains ': ', which is unsupported")
 		}
 		resultBinaryPaths = append(resultBinaryPaths, fileSplit[0])
 	}

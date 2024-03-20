@@ -22,6 +22,6 @@ runs:
       uses: golangci/golangci-lint-action@3cfe3a4abbb849e10058ce4af15d205b6da42804 # v4.0.0
       with:
         # Optional: version of golangci-lint to use in form of v1.2 or v1.2.3 or `latest` to use the latest version
-        version: v1.55.2
+        version: v1.56.2
         # https://github.com/golangci/golangci-lint-action/issues/135
         skip-pkg-cache: true
