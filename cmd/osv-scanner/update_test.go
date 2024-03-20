@@ -8,7 +8,7 @@ import (
 	"github.com/google/osv-scanner/internal/testutility"
 )
 
-func TestRunUpdate(t *testing.T) {
+func TestRun_Update(t *testing.T) {
 	t.Parallel()
 	tests := []struct {
 		name     string
@@ -44,13 +44,17 @@ func TestRunUpdate(t *testing.T) {
 				tc.args = append(tc.args, "-M", manifest)
 			}
 
-			testCli(t, tc)
+			stdout, stderr := runCli(t, tc)
+
+			testutility.NewSnapshot().MatchText(t, stdout)
+			testutility.NewSnapshot().MatchText(t, stderr)
+
 			if manifest != "" {
 				b, err := os.ReadFile(manifest)
 				if err != nil {
 					t.Fatalf("could not read test file: %v", err)
 				}
-				testutility.NewSnapshot().WithWindowsReplacements(map[string]string{"\r\n": "\n"}).MatchText(t, string(b))
+				testutility.NewSnapshot().WithCRLFReplacement().MatchText(t, string(b))
 			}
 		})
 	}
