@@ -1,8 +1,0 @@
-{
-  "lockfile:/path/to/scorecard-check-osv-e2e/go.mod:GHSA-c3h9-896r-86jm,GO-2021-0053": [
-    "1.3.2"
-  ],
-  "lockfile:/path/to/scorecard-check-osv-e2e/sub-rust-project/Cargo.lock:GHSA-m5pq-gvj9-9vr8,RUSTSEC-2022-0013": [
-    "1.5.5"
-  ]
-}
