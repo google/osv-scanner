@@ -82,6 +82,7 @@ jobs:
           persist-credentials: false
           ref: ${{ inputs.commit }}
       - uses: actions/download-artifact@c850b930e6ba138125429b7e5c93fc707a7f8427 # v4.1.4
+        if: matrix.os != 'windows-latest'
         with:
           name: image-fixtures-${{ github.run_number }}-${{ github.run_attempt }}
           path: internal/image/fixtures/
