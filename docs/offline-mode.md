@@ -83,7 +83,7 @@ E.g. for PyPI vulnerabilities:
 gsutil cp gs://osv-vulnerabilities/PyPI/all.zip .
 ```
 
-You can also download over HTTP via https://osv-vulnerabilities.storage.googleapis.com/<ECOSYSTEM>/all.zip .
+You can also download over HTTP via `https://osv-vulnerabilities.storage.googleapis.com/<ECOSYSTEM>/all.zip`.
 
 A list of all current ecosystems is available at
 [`gs://osv-vulnerabilities/ecosystems.txt`](https://osv-vulnerabilities.storage.googleapis.com/ecosystems.txt).
