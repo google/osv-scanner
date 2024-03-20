@@ -309,7 +309,7 @@ func (MavenManifestIO) Write(df lockfile.DepFile, w io.Writer, patch ManifestPat
 
 				properties, ok := patch.EcosystemSpecific.(MavenPropertyPatches)
 				if !ok {
-					return fmt.Errorf("cannot convert ecosystem specific information to Maven properties")
+					return errors.New("cannot convert ecosystem specific information to Maven properties")
 				}
 				// Then we update the project by passing the innerXML and name spaces are not passed.
 				if err := updateProject(enc, rawProj.InnerXML, "", "", patches, properties); err != nil {

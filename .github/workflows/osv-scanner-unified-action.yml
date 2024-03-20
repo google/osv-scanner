@@ -24,14 +24,15 @@ on:
   push:
     branches: ["main"]
 
-permissions:
-  # Require writing security events to upload SARIF file to security tab
-  security-events: write
-  # Read commit contents
-  contents: read
+# Restrict jobs in this workflow to have no permissions by default; permissions
+# should be granted per job as needed using a dedicated `permissions` block
+permissions: {}
 
 jobs:
   scan-scheduled:
+    permissions:
+      contents: read # to fetch code (actions/checkout)
+      security-events: write # for uploading SARIF files
     if: ${{ github.event_name == 'push' || github.event_name == 'schedule' }}
     uses: "google/osv-scanner-action/.github/workflows/osv-scanner-reusable.yml@staging"
     with:
@@ -41,6 +42,9 @@ jobs:
         ./
         ./docs/
   scan-pr:
+    permissions:
+      contents: read # to fetch code (actions/checkout)
+      security-events: write # for uploading SARIF files
     if: ${{ github.event_name == 'pull_request' || github.event_name == 'merge_group' }}
     uses: "google/osv-scanner-action/.github/workflows/osv-scanner-reusable-pr.yml@staging"
     with:

@@ -2,6 +2,7 @@ package suggest
 
 import (
 	"context"
+	"errors"
 	"fmt"
 
 	"deps.dev/util/resolve"
@@ -28,9 +29,9 @@ func GetSuggester(system resolve.System) (PatchSuggester, error) {
 	case resolve.Maven:
 		return &MavenSuggester{}, nil
 	case resolve.NPM:
-		return nil, fmt.Errorf("npm not yet supported")
+		return nil, errors.New("npm not yet supported")
 	case resolve.UnknownSystem:
-		return nil, fmt.Errorf("unknown system")
+		return nil, errors.New("unknown system")
 	default:
 		return nil, fmt.Errorf("unsupported ecosystem: %v", system)
 	}

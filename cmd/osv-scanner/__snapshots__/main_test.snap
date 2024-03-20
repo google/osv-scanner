@@ -9,7 +9,7 @@ No package sources found, --help for usage information.
 ---
 
 [TestRun/#01 - 1]
-osv-scanner version: 1.7.0
+osv-scanner version: 1.7.1
 commit: n/a
 built at: n/a
 
@@ -102,7 +102,7 @@ Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
           "informationUri": "https://github.com/google/osv-scanner",
           "name": "osv-scanner",
           "rules": [],
-          "version": "1.7.0"
+          "version": "1.7.1"
         }
       },
       "results": []
@@ -171,7 +171,7 @@ Loaded filter from: <rootdir>/fixtures/go-project/osv-scanner.toml
               }
             }
           ],
-          "version": "1.7.0"
+          "version": "1.7.1"
         }
       },
       "artifacts": [
@@ -414,48 +414,6 @@ No issues found
 
 ---
 
-[TestRunUpdate/update_pom.xml_with_in-place_changes - 1]
-
----
-
-[TestRunUpdate/update_pom.xml_with_in-place_changes - 2]
-Warning: `update` exists as both a subcommand of OSV-Scanner and as a file on the filesystem. `update` is assumed to be a subcommand here. If you intended for `update` to be an argument to `update`, you must specify `update update` in your command line.
-
----
-
-[TestRun_Fix/fix_non-interactive_in-place_package-lock.json - 1]
-Scanning <tempdir>/package-lock.json...
-Found 7 vulnerabilities matching the filter
-Can fix 2/7 matching vulnerabilities by changing 2 dependencies
-UPGRADED-PACKAGE: concat-stream,1.5.0,1.6.1
-UPGRADED-PACKAGE: hosted-git-info,2.1.4,2.8.9
-REMAINING-VULNS: 5
-UNFIXABLE-VULNS: 5
-Rewriting <tempdir>/package-lock.json...
-
----
-
-[TestRun_Fix/fix_non-interactive_in-place_package-lock.json - 2]
-Warning: `fix` exists as both a subcommand of OSV-Scanner and as a file on the filesystem. `fix` is assumed to be a subcommand here. If you intended for `fix` to be an argument to `fix`, you must specify `fix fix` in your command line.
-
----
-
-[TestRun_Fix/fix_non-interactive_relock_package.json - 1]
-Resolving <tempdir>/package.json...
-Found 5 vulnerabilities matching the filter
-Can fix 3/5 matching vulnerabilities by changing 1 dependencies
-UPGRADED-PACKAGE: npm-registry-client,6.2.0,^7.5.0
-REMAINING-VULNS: 2
-UNFIXABLE-VULNS: 2
-Rewriting <tempdir>/package.json...
-
----
-
-[TestRun_Fix/fix_non-interactive_relock_package.json - 2]
-Warning: `fix` exists as both a subcommand of OSV-Scanner and as a file on the filesystem. `fix` is assumed to be a subcommand here. If you intended for `fix` to be an argument to `fix`, you must specify `fix fix` in your command line.
-
----
-
 [TestRun_GithubActions/scanning_osv-scanner_custom_format - 1]
 Scanned <rootdir>/fixtures/locks-insecure/osv-scanner-flutter-deps.json file as a osv-scanner and found 3 packages
 +--------------------------------+------+-----------+----------------------------+----------------------------+-------------------------------------------------------+
@@ -521,7 +479,7 @@ Scanned <rootdir>/fixtures/locks-insecure/osv-scanner-flutter-deps.json file as 
               }
             }
           ],
-          "version": "1.7.0"
+          "version": "1.7.1"
         }
       },
       "artifacts": [
@@ -1517,6 +1475,72 @@ Scanning image ./fixtures/oci-image/no-file-here.tar
 
 [TestRun_OCIImage/Invalid_path - 2]
 failed to load image ./fixtures/oci-image/no-file-here.tar: open ./fixtures/oci-image/no-file-here.tar: no such file or directory
+
+---
+
+[TestRun_OCIImage/scanning_node_modules_using_npm_with_no_packages - 1]
+Scanning image ../../internal/image/fixtures/test-node_modules-npm-empty.tar
+No issues found
+
+---
+
+[TestRun_OCIImage/scanning_node_modules_using_npm_with_no_packages - 2]
+
+---
+
+[TestRun_OCIImage/scanning_node_modules_using_npm_with_some_packages - 1]
+Scanning image ../../internal/image/fixtures/test-node_modules-npm-full.tar
++-------------------------------------+------+-----------+----------+---------+-------------------------------------------------------------------------------------------------------+
+| OSV URL                             | CVSS | ECOSYSTEM | PACKAGE  | VERSION | SOURCE                                                                                                |
++-------------------------------------+------+-----------+----------+---------+-------------------------------------------------------------------------------------------------------+
+| https://osv.dev/GHSA-38f5-ghc2-fcmv | 9.8  | npm       | cryo     | 0.0.6   | ../../internal/image/fixtures/test-node_modules-npm-full.tar:/usr/app/node_modules/.package-lock.json |
+| https://osv.dev/GHSA-vh95-rmgr-6w4m | 5.6  | npm       | minimist | 0.0.8   | ../../internal/image/fixtures/test-node_modules-npm-full.tar:/usr/app/node_modules/.package-lock.json |
+| https://osv.dev/GHSA-xvch-5gv4-984h | 9.8  | npm       | minimist | 0.0.8   | ../../internal/image/fixtures/test-node_modules-npm-full.tar:/usr/app/node_modules/.package-lock.json |
++-------------------------------------+------+-----------+----------+---------+-------------------------------------------------------------------------------------------------------+
+
+---
+
+[TestRun_OCIImage/scanning_node_modules_using_npm_with_some_packages - 2]
+
+---
+
+[TestRun_OCIImage/scanning_node_modules_using_pnpm_with_no_packages - 1]
+Scanning image ../../internal/image/fixtures/test-node_modules-pnpm-empty.tar
+No issues found
+
+---
+
+[TestRun_OCIImage/scanning_node_modules_using_pnpm_with_no_packages - 2]
+
+---
+
+[TestRun_OCIImage/scanning_node_modules_using_pnpm_with_some_packages - 1]
+Scanning image ../../internal/image/fixtures/test-node_modules-pnpm-full.tar
+No issues found
+
+---
+
+[TestRun_OCIImage/scanning_node_modules_using_pnpm_with_some_packages - 2]
+
+---
+
+[TestRun_OCIImage/scanning_node_modules_using_yarn_with_no_packages - 1]
+Scanning image ../../internal/image/fixtures/test-node_modules-yarn-empty.tar
+No issues found
+
+---
+
+[TestRun_OCIImage/scanning_node_modules_using_yarn_with_no_packages - 2]
+
+---
+
+[TestRun_OCIImage/scanning_node_modules_using_yarn_with_some_packages - 1]
+Scanning image ../../internal/image/fixtures/test-node_modules-yarn-full.tar
+No issues found
+
+---
+
+[TestRun_OCIImage/scanning_node_modules_using_yarn_with_some_packages - 2]
 
 ---
 

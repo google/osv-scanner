@@ -80,7 +80,11 @@ func TestRun_Fix(t *testing.T) {
 				tc.args = append(tc.args, "-M", manifest)
 			}
 
-			testCli(t, tc)
+			stdout, stderr := runCli(t, tc)
+
+			testutility.NewSnapshot().MatchText(t, stdout)
+			testutility.NewSnapshot().MatchText(t, stderr)
+
 			if lockfile != "" {
 				matchFile(t, lockfile)
 			}

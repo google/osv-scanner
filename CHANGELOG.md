@@ -1,3 +1,17 @@
+# v1.7.1:
+
+### Fixes
+
+- [Bug #856](https://github.com/google/osv-scanner/issues/856)
+  Add retry logic to make calls to OSV.dev API more resilient. This combined with changes in OSV.dev's API should result in much less timeout errors.
+
+### API Features
+
+- [Feature #781](https://github.com/google/osv-scanner/pull/781)
+  add `MakeVersionRequestsWithContext()`
+- [Feature #857](https://github.com/google/osv-scanner/pull/857)
+  API and networking related errors now has their own error and exit code (Exit Code 129)
+
 # v1.7.0:
 
 ### Features
@@ -7,7 +21,7 @@
   See our [docs](https://google.github.io/osv-scanner/experimental/guided-remediation/) for detailed usage instructions.
 
 - [Feature #805](https://github.com/google/osv-scanner/pull/805)
-  Include CVSS MaxSevirity in JSON output.
+  Include CVSS MaxSeverity in JSON output.
 
 ### Fixes
 
