@@ -24,7 +24,7 @@
     {
       "matchDepTypes": ["golang"],
       "enabled": false
-    },
+    }
   ],
   "constraints": {
     "go": "1.21"
