@@ -1,4 +1,4 @@
-[Test_RunGoVulnCheck - 1]
+[Test_runGovulncheck - 1]
 {
   "GO-2021-0053": [
     {

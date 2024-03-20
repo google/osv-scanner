@@ -1,4 +1,4 @@
-package image
+package image_test
 
 import (
 	"errors"
@@ -6,12 +6,14 @@ import (
 	"sort"
 	"testing"
 
+	"github.com/google/osv-scanner/internal/image"
 	"github.com/google/osv-scanner/internal/testutility"
 	"github.com/google/osv-scanner/pkg/reporter"
 )
 
 func TestScanImage(t *testing.T) {
 	t.Parallel()
+	testutility.SkipIfNotAcceptanceTesting(t, "Not consistent on MacOS/Windows")
 
 	type args struct {
 		imagePath string
@@ -75,7 +77,7 @@ func TestScanImage(t *testing.T) {
 				t.Fatalf("%s does not exist - have you run scripts/build_test_images.sh?", tt.args.imagePath)
 			}
 
-			got, err := ScanImage(&reporter.VoidReporter{}, tt.args.imagePath)
+			got, err := image.ScanImage(&reporter.VoidReporter{}, tt.args.imagePath)
 			if (err != nil) != tt.wantErr {
 				t.Errorf("ScanImage() error = %v, wantErr %v", err, tt.wantErr)
 				return

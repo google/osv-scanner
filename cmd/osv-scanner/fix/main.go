@@ -1,6 +1,7 @@
 package fix
 
 import (
+	"errors"
 	"fmt"
 	"io"
 	"os"
@@ -85,11 +86,11 @@ func Command(stdout, stderr io.Writer, r *reporter.Reporter) *cli.Command {
 					switch s {
 					case "in-place":
 						if !ctx.IsSet("lockfile") {
-							return fmt.Errorf("in-place strategy requires lockfile")
+							return errors.New("in-place strategy requires lockfile")
 						}
 					case "relock":
 						if !ctx.IsSet("manifest") {
-							return fmt.Errorf("relock strategy requires manifest file")
+							return errors.New("relock strategy requires manifest file")
 						}
 					default:
 						return fmt.Errorf("unsupported strategy \"%s\" - must be one of: in-place, relock", s)
@@ -158,11 +159,11 @@ func Command(stdout, stderr io.Writer, r *reporter.Reporter) *cli.Command {
 func action(ctx *cli.Context, stdout, stderr io.Writer) (reporter.Reporter, error) {
 	// The Action on strategy isn't run when using the default values. Check if the manifest is set.
 	if ctx.Bool("non-interactive") && ctx.String("strategy") == "relock" && !ctx.IsSet("manifest") {
-		return nil, fmt.Errorf("relock strategy requires manifest file")
+		return nil, errors.New("relock strategy requires manifest file")
 	}
 
 	if !ctx.IsSet("manifest") && !ctx.IsSet("lockfile") {
-		return nil, fmt.Errorf("manifest or lockfile is required")
+		return nil, errors.New("manifest or lockfile is required")
 	}
 
 	opts := osvFixOptions{

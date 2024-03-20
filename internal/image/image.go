@@ -153,7 +153,7 @@ func loadImage(imagePath string) (Image, error) {
 				numBytes, err := io.Copy(f, io.LimitReader(tarReader, fileReadLimit))
 				if numBytes >= fileReadLimit || errors.Is(err, io.EOF) {
 					f.Close()
-					return Image{}, fmt.Errorf("file exceeds read limit (potential decompression bomb attack)")
+					return Image{}, errors.New("file exceeds read limit (potential decompression bomb attack)")
 				}
 				if err != nil {
 					f.Close()

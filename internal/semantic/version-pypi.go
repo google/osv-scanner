@@ -94,7 +94,7 @@ func normalizePyPILegacyPart(part string) string {
 		return fmt.Sprintf("%08s", part)
 	}
 
-	return fmt.Sprintf("*%s", part)
+	return "*" + part
 }
 
 func parsePyPIVersionParts(str string) (parts []string) {
@@ -191,7 +191,7 @@ func (pv PyPIVersion) preIndex() int {
 		}
 	}
 
-	panic(fmt.Sprintf("unknown prefix %s", pv.pre.letter))
+	panic("unknown prefix " + pv.pre.letter)
 }
 
 // Checks if this PyPIVersion should apply a sort trick when comparing pre,
