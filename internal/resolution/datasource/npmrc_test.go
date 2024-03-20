@@ -111,7 +111,7 @@ func TestNpmrcRegistryAuth(t *testing.T) {
 	checkNpmRegistryRequest(t, config, "@test2/test")
 }
 
-//nolint:paralleltest  // Do not make this test parallel because it calls t.Setenv()
+// Do not make this test parallel because it calls t.Setenv()
 func TestNpmrcRegistryOverriding(t *testing.T) {
 	check := func(t *testing.T, npmrcFiles testNpmrcFiles) {
 		t.Helper()
