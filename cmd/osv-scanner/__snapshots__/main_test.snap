@@ -1520,6 +1520,72 @@ failed to load image ./fixtures/oci-image/no-file-here.tar: open ./fixtures/oci-
 
 ---
 
+[TestRun_OCIImage/scanning_node_modules_using_npm_with_no_packages - 1]
+Scanning image ../../internal/image/fixtures/test-node_modules-npm-empty.tar
+No issues found
+
+---
+
+[TestRun_OCIImage/scanning_node_modules_using_npm_with_no_packages - 2]
+
+---
+
+[TestRun_OCIImage/scanning_node_modules_using_npm_with_some_packages - 1]
+Scanning image ../../internal/image/fixtures/test-node_modules-npm-full.tar
++-------------------------------------+------+-----------+----------+---------+-------------------------------------------------------------------------------------------------------+
+| OSV URL                             | CVSS | ECOSYSTEM | PACKAGE  | VERSION | SOURCE                                                                                                |
++-------------------------------------+------+-----------+----------+---------+-------------------------------------------------------------------------------------------------------+
+| https://osv.dev/GHSA-38f5-ghc2-fcmv | 9.8  | npm       | cryo     | 0.0.6   | ../../internal/image/fixtures/test-node_modules-npm-full.tar:/usr/app/node_modules/.package-lock.json |
+| https://osv.dev/GHSA-vh95-rmgr-6w4m | 5.6  | npm       | minimist | 0.0.8   | ../../internal/image/fixtures/test-node_modules-npm-full.tar:/usr/app/node_modules/.package-lock.json |
+| https://osv.dev/GHSA-xvch-5gv4-984h | 9.8  | npm       | minimist | 0.0.8   | ../../internal/image/fixtures/test-node_modules-npm-full.tar:/usr/app/node_modules/.package-lock.json |
++-------------------------------------+------+-----------+----------+---------+-------------------------------------------------------------------------------------------------------+
+
+---
+
+[TestRun_OCIImage/scanning_node_modules_using_npm_with_some_packages - 2]
+
+---
+
+[TestRun_OCIImage/scanning_node_modules_using_pnpm_with_no_packages - 1]
+Scanning image ../../internal/image/fixtures/test-node_modules-pnpm-empty.tar
+No issues found
+
+---
+
+[TestRun_OCIImage/scanning_node_modules_using_pnpm_with_no_packages - 2]
+
+---
+
+[TestRun_OCIImage/scanning_node_modules_using_pnpm_with_some_packages - 1]
+Scanning image ../../internal/image/fixtures/test-node_modules-pnpm-full.tar
+No issues found
+
+---
+
+[TestRun_OCIImage/scanning_node_modules_using_pnpm_with_some_packages - 2]
+
+---
+
+[TestRun_OCIImage/scanning_node_modules_using_yarn_with_no_packages - 1]
+Scanning image ../../internal/image/fixtures/test-node_modules-yarn-empty.tar
+No issues found
+
+---
+
+[TestRun_OCIImage/scanning_node_modules_using_yarn_with_no_packages - 2]
+
+---
+
+[TestRun_OCIImage/scanning_node_modules_using_yarn_with_some_packages - 1]
+Scanning image ../../internal/image/fixtures/test-node_modules-yarn-full.tar
+No issues found
+
+---
+
+[TestRun_OCIImage/scanning_node_modules_using_yarn_with_some_packages - 2]
+
+---
+
 [TestRun_SubCommands/scan_with_a_flag - 1]
 Scanning dir ./fixtures/locks-one-with-nested
 Scanned <rootdir>/fixtures/locks-one-with-nested/nested/composer.lock file and found 1 package
