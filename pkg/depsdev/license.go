@@ -9,7 +9,7 @@ import (
 	"github.com/google/osv-scanner/pkg/models"
 	"github.com/google/osv-scanner/pkg/osv"
 
-	depsdevpb "deps.dev/api/v3alpha"
+	depsdevpb "deps.dev/api/v3"
 	"golang.org/x/sync/errgroup"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/codes"
