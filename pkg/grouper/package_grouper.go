@@ -9,6 +9,7 @@ func GroupByPURL(packageSources []models.PackageSource) map[string]models.Packag
 	uniquePackages := make(map[string]models.PackageDetails)
 
 	for _, packageSource := range packageSources {
+		pkgLocations := make(map[string]bool)
 		for _, pkg := range packageSource.Packages {
 			packageURL := purl.From(pkg.Package)
 			if packageURL == nil {
@@ -19,8 +20,14 @@ func GroupByPURL(packageSources []models.PackageSource) map[string]models.Packag
 			location := extractPackageLocations(packageSource.Source, pkg.Package)
 
 			if packageExists && isLocationExtracted {
-				// Package exists and location exists we need to add a location
+				locationHash := location.Block.Hash()
+				if _, isLocationDuplicated := pkgLocations[locationHash]; isLocationDuplicated {
+					continue
+				}
+
+				// Package exists, location exists and is not a duplicate => we need to add it
 				existingPackage.Locations = append(existingPackage.Locations, location)
+				pkgLocations[locationHash] = true
 				uniquePackages[packageURL.ToString()] = existingPackage
 			} else if !packageExists {
 				// The package does not exists we need to add it
@@ -35,6 +42,7 @@ func GroupByPURL(packageSources []models.PackageSource) map[string]models.Packag
 				if isLocationExtracted {
 					// We add location only if it has been extracted successfully
 					newPackage.Locations = append(newPackage.Locations, location)
+					pkgLocations[location.Block.Hash()] = true
 				}
 				uniquePackages[packageURL.ToString()] = newPackage
 			}

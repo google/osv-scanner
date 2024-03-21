@@ -2,6 +2,8 @@ package models
 
 import (
 	"encoding/json"
+	"strconv"
+	"strings"
 )
 
 type PackageDetails struct {
@@ -33,4 +35,14 @@ func (location PackageLocations) MarshalToJSONString() (string, error) {
 	}
 
 	return string(str), nil
+}
+
+func (location PackageLocation) Hash() string {
+	return strings.Join([]string{
+		location.Filename,
+		strconv.Itoa(location.LineStart),
+		strconv.Itoa(location.LineEnd),
+		strconv.Itoa(location.ColumnStart),
+		strconv.Itoa(location.ColumnEnd),
+	}, "#")
 }
