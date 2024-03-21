@@ -137,5 +137,5 @@ func TestNpmRegistryClient(t *testing.T) {
 	if err != nil {
 		t.Fatalf("failed getting full json: %v", err)
 	}
-	snap.MatchText(t, json.String())
+	snap.WithCRLFReplacement().MatchText(t, json.String())
 }
