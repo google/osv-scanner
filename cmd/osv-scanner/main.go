@@ -154,6 +154,10 @@ func run(args []string, stdout, stderr io.Writer) int {
 				Name:  "consider-scan-path-as-root",
 				Usage: "Transform package path root to be the scanning path, thus removing any information about the host",
 			},
+			&cli.BoolFlag{
+				Name:  "paths-relative-to-scan-dir",
+				Usage: "Same than --consider-scan-path-as-root but reports a path relative to the scan dir (removing the leading path separator)",
+			},
 		},
 		ArgsUsage: "[directory1 directory2...]",
 		Action: func(context *cli.Context) error {
@@ -216,6 +220,7 @@ func run(args []string, stdout, stderr io.Writer) int {
 				DirectoryPaths:         context.Args().Slice(),
 				CallAnalysisStates:     callAnalysisStates,
 				ConsiderScanPathAsRoot: context.Bool("consider-scan-path-as-root"),
+				PathRelativeToScanDir:  context.Bool("paths-relative-to-scan-dir"),
 				ExperimentalScannerActions: osvscanner.ExperimentalScannerActions{
 					LocalDBPath:    context.String("experimental-local-db-path"),
 					CompareLocally: context.Bool("experimental-local-db"),

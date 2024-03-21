@@ -42,6 +42,7 @@ type ScannerActions struct {
 	ConfigOverridePath     string
 	CallAnalysisStates     map[string]bool
 	ConsiderScanPathAsRoot bool
+	PathRelativeToScanDir  bool
 
 	ExperimentalScannerActions
 }
@@ -788,8 +789,8 @@ func DoScan(actions ScannerActions, r reporter.Reporter) (models.VulnerabilityRe
 		if err != nil {
 			return models.VulnerabilityResults{}, err
 		}
-		if actions.ConsiderScanPathAsRoot {
-			pkgs, err = removeHostPath(dir, pkgs)
+		if actions.ConsiderScanPathAsRoot || actions.PathRelativeToScanDir {
+			pkgs, err = removeHostPath(dir, pkgs, actions.PathRelativeToScanDir)
 
 			if err != nil {
 				return models.VulnerabilityResults{}, err
@@ -869,7 +870,7 @@ func DoScan(actions ScannerActions, r reporter.Reporter) (models.VulnerabilityRe
 	return results, nil
 }
 
-func removeHostPath(scanPath string, results []scannedPackage) ([]scannedPackage, error) {
+func removeHostPath(scanPath string, results []scannedPackage, shouldBeRelative bool) ([]scannedPackage, error) {
 	hostPath, err := filepath.Abs(scanPath)
 	if err != nil {
 		return nil, err
@@ -883,7 +884,10 @@ func removeHostPath(scanPath string, results []scannedPackage) ([]scannedPackage
 	}
 
 	for index, pkg := range results {
-		pkg.Source.Path = strings.TrimPrefix(pkg.Source.Path, hostPath)
+		pkg.Source.Path = filepath.ToSlash(strings.TrimPrefix(pkg.Source.Path, hostPath))
+		if shouldBeRelative {
+			pkg.Source.Path = strings.TrimPrefix(pkg.Source.Path, "/")
+		}
 		results[index] = pkg
 	}
 

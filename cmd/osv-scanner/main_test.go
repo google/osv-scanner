@@ -1741,15 +1741,30 @@ func TestRun_WithoutHostPathInformation(t *testing.T) {
 			name:          "one specific supported lockfile",
 			args:          []string{"", "--experimental-only-packages", "--format=cyclonedx-1-5", "--consider-scan-path-as-root", "./fixtures/locks-many/yarn.lock"},
 			wantExitCode:  0,
-			wantFilePaths: []string{filepath.FromSlash("/yarn.lock")},
+			wantFilePaths: []string{"/yarn.lock"},
 		},
 		{
 			name:         "Multiple lockfiles",
 			args:         []string{"", "--experimental-only-packages", "--format=cyclonedx-1-5", "--consider-scan-path-as-root", "./fixtures/locks-many"},
 			wantExitCode: 0,
 			wantFilePaths: []string{
-				filepath.FromSlash("/package-lock.json"),
-				filepath.FromSlash("/yarn.lock"),
+				"/package-lock.json",
+				"/yarn.lock",
+			},
+		},
+		{
+			name:          "one specific supported lockfile (relative path)",
+			args:          []string{"", "--experimental-only-packages", "--format=cyclonedx-1-5", "--paths-relative-to-scan-dir", "./fixtures/locks-many/yarn.lock"},
+			wantExitCode:  0,
+			wantFilePaths: []string{"yarn.lock"},
+		},
+		{
+			name:         "Multiple lockfiles (relative path)",
+			args:         []string{"", "--experimental-only-packages", "--format=cyclonedx-1-5", "--paths-relative-to-scan-dir", "./fixtures/locks-many"},
+			wantExitCode: 0,
+			wantFilePaths: []string{
+				"package-lock.json",
+				"yarn.lock",
 			},
 		},
 	}
@@ -1817,7 +1832,7 @@ func TestRun_WithCycloneDX15(t *testing.T) {
 				Version:    "3.0.2",
 				Evidence: buildLocationEvidence(t, models.PackageLocations{
 					Block: models.PackageLocation{
-						Filename:    filepath.FromSlash("/pom.xml"),
+						Filename:    "/pom.xml",
 						LineStart:   25,
 						LineEnd:     28,
 						ColumnStart: 5,
