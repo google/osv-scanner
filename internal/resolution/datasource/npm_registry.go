@@ -17,7 +17,7 @@ type NpmRegistryAPIClient struct {
 	// Registries from the npmrc config
 	// This should only be written to when the client is first being created.
 	// Other functions should not modify it & it is not covered by the mutex.
-	registries npmRegistries
+	registries NpmRegistryConfig
 
 	// cache fields
 	mu             sync.Mutex
@@ -32,13 +32,13 @@ type npmRegistryPackageDetails struct {
 }
 
 func NewNpmRegistryAPIClient(workdir string) (*NpmRegistryAPIClient, error) {
-	npmrc, err := loadNpmrc(workdir)
+	registries, err := LoadNpmRegistryConfig(workdir)
 	if err != nil {
 		return nil, err
 	}
 
 	return &NpmRegistryAPIClient{
-		registries: parseRegistryInfo(npmrc),
+		registries: registries,
 		details:    make(map[string]npmRegistryPackageDetails),
 	}, nil
 }
@@ -87,7 +87,7 @@ func (c *NpmRegistryAPIClient) FullJSON(ctx context.Context, pkg, version string
 }
 
 func (c *NpmRegistryAPIClient) get(ctx context.Context, urlComponents ...string) (gjson.Result, error) {
-	req, err := c.registries.buildRequest(ctx, urlComponents...)
+	req, err := c.registries.BuildRequest(ctx, urlComponents...)
 	if err != nil {
 		return gjson.Result{}, err
 	}

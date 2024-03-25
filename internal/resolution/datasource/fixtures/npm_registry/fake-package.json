@@ -1,0 +1,79 @@
+{
+  "name": "fake-package",
+  "versions": {
+    "1.0.0": {
+      "name": "fake-package",
+      "version": "1.0.0",
+      "main": "index.js",
+      "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+      },
+      "author": "",
+      "license": "ISC",
+      "_id": "fake-package@1.0.0",
+      "_nodeVersion": "20.9.0",
+      "_npmVersion": "10.1.0",
+      "dist": {
+        "integrity": "sha512-leL6CT1Ld/eHfO5bYq0NQRKBh0fu0WyKGMbZ/IA/wcfDlZpA+5NBARcCciGmswKgdIk/zD+7uRQ8366YwVuoEg==",
+        "shasum": "0d2ff81ce4e33cbb95d45c8ee394c5f90398cf2e",
+        "tarball": "http://localhost:4873/fake-package/-/fake-package-1.0.0.tgz"
+      },
+      "contributors": []
+    },
+    "2.2.2": {
+      "name": "fake-package",
+      "version": "2.2.2",
+      "main": "index.js",
+      "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+      },
+      "author": "",
+      "license": "ISC",
+      "dependencies": {
+        "a": "^3.0.1",
+        "b": "^2.0.1",
+        "e": "^0.2.33",
+        "f": "npm:g@^2.0.1"
+      },
+      "devDependencies": {
+        "c": "^1.1.1",
+        "d": "^1.0.2"
+      },
+      "optionalDependencies": {
+        "e": "^0.2.33",
+        "f": "npm:g@^2.0.1"
+      },
+      "peerDependencies": {
+        "h": "^1.0.0"
+      },
+      "bundleDependencies": [
+        "a"
+      ],
+      "_id": "fake-package@2.2.2",
+      "_nodeVersion": "20.9.0",
+      "_npmVersion": "10.1.0",
+      "dist": {
+        "integrity": "sha512-NWvNE9fxykrzSQVr1CSKchzkQr5qwplvgn3O/0JL46qM6BhoGlKRjLiaZYdo1byXJWLGthghOgGpUZiEL04HQQ==",
+        "shasum": "8dc47515da4e67bb794a4c9c7f4750bb4d67c7fc",
+        "tarball": "http://localhost:4873/fake-package/-/fake-package-2.2.2.tgz"
+      },
+      "contributors": []
+    }
+  },
+  "time": {
+    "modified": "2024-03-20T04:11:53.692Z",
+    "created": "2024-03-20T04:03:14.913Z",
+    "1.0.0": "2024-03-20T04:03:14.913Z",
+    "2.2.2": "2024-03-20T04:11:53.692Z"
+  },
+  "users": {},
+  "dist-tags": {
+    "latest": "1.0.0",
+    "version1": "1.0.0",
+    "version2": "2.2.2"
+  },
+  "_rev": "6-08472a5a07b7c076",
+  "_id": "fake-package",
+  "readme": "ERROR: No README data found!",
+  "_attachments": {}
+}

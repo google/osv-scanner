@@ -1,0 +1,94 @@
+
+[TestNpmRegistryClient - 1]
+{
+  "Versions": [
+    "1.0.0",
+    "2.2.2"
+  ],
+  "Tags": {
+    "latest": "1.0.0",
+    "version1": "1.0.0",
+    "version2": "2.2.2"
+  }
+}
+---
+
+[TestNpmRegistryClient - 2]
+{
+  "Versions": [
+    "1.2.3",
+    "2.3.4"
+  ],
+  "Tags": {
+    "latest": "2.3.4"
+  }
+}
+---
+
+[TestNpmRegistryClient - 3]
+{
+  "Dependencies": {
+    "a": "^3.0.1",
+    "b": "^2.0.1",
+    "e": "^0.2.33",
+    "f": "npm:g@^2.0.1"
+  },
+  "DevDependencies": {
+    "c": "^1.1.1",
+    "d": "^1.0.2"
+  },
+  "PeerDependencies": {
+    "h": "^1.0.0"
+  },
+  "OptionalDependencies": {
+    "e": "^0.2.33",
+    "f": "npm:g@^2.0.1"
+  },
+  "BundleDependencies": [
+    "a"
+  ]
+}
+---
+
+[TestNpmRegistryClient - 4]
+{
+  "name": "fake-package",
+  "version": "2.2.2",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "a": "^3.0.1",
+    "b": "^2.0.1",
+    "e": "^0.2.33",
+    "f": "npm:g@^2.0.1"
+  },
+  "devDependencies": {
+    "c": "^1.1.1",
+    "d": "^1.0.2"
+  },
+  "optionalDependencies": {
+    "e": "^0.2.33",
+    "f": "npm:g@^2.0.1"
+  },
+  "peerDependencies": {
+    "h": "^1.0.0"
+  },
+  "bundleDependencies": [
+    "a"
+  ],
+  "_id": "fake-package@2.2.2",
+  "_nodeVersion": "20.9.0",
+  "_npmVersion": "10.1.0",
+  "dist": {
+    "integrity": "sha512-NWvNE9fxykrzSQVr1CSKchzkQr5qwplvgn3O/0JL46qM6BhoGlKRjLiaZYdo1byXJWLGthghOgGpUZiEL04HQQ==",
+    "shasum": "8dc47515da4e67bb794a4c9c7f4750bb4d67c7fc",
+    "tarball": "http://localhost:4873/fake-package/-/fake-package-2.2.2.tgz"
+  },
+  "contributors": []
+}
+
+---
