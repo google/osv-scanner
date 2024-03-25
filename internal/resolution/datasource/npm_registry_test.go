@@ -98,15 +98,15 @@ func TestNpmRegistryClient(t *testing.T) {
 	srv2 := httptest.NewServer(reg2)
 	defer srv2.Close()
 
-	npmrcFiles := makeBlankNpmrcFiles(t)
-	writeToNpmrc(t, npmrcFiles.project,
+	npmrcFile := createTempNpmrc(t, ".npmrc")
+	writeToNpmrc(t, npmrcFile,
 		"registry="+srv1.URL,
 		"//"+strings.TrimPrefix(srv1.URL, "http://")+"/:_auth="+auth,
 		"@fake-registry:registry="+srv2.URL,
 		"//"+strings.TrimPrefix(srv2.URL, "http://")+"/:_authToken="+authToken,
 	)
 
-	cl, err := datasource.NewNpmRegistryAPIClient(filepath.Dir(npmrcFiles.project))
+	cl, err := datasource.NewNpmRegistryAPIClient(filepath.Dir(npmrcFile))
 	if err != nil {
 		t.Fatalf("failed creating npm api client: %v", err)
 	}
