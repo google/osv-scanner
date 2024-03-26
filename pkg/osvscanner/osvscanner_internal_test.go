@@ -59,6 +59,71 @@ func Test_filterResults(t *testing.T) {
 	}
 }
 
+func Test_getSubmodulesVia_scanGit(t *testing.T) {
+	t.Parallel()
+
+	type args struct {
+		r       reporter.Reporter
+		repoDir string
+	}
+	tests := []struct {
+		name    string
+		args    args
+		wantErr bool
+		wantPkg []scannedPackage
+	}{
+		{
+			name: "Example Git repo",
+			args: args{
+				r:       &reporter.VoidReporter{},
+				repoDir: "fixtures/example-git-with-submodule",
+			},
+			wantErr: false,
+			wantPkg: []scannedPackage{
+				{
+					Commit: "862ac4bd2703b622e85f29f55a2fd8cd6caf8182",
+					Source: models.SourceInfo{
+						Path: "fixtures/example-git-with-submodule",
+						Type: "git",
+					},
+				},
+			},
+		},
+	}
+
+	err := os.Rename("fixtures/example-git/git-hidden", "fixtures/example-git/.git")
+	if err != nil {
+		t.Errorf("can't find git-hidden folder")
+	}
+
+	err := os.Rename("fixtures/example-git-with-submodule/submodule-test/git-hidden",
+		"fixtures/example-git-with-submodule/submodule-test/.git")
+	if err != nil {
+		t.Errorf("can't find subdir's git-hidden folder")
+	}
+
+	for _, tt := range tests {
+		pkg, err := scanGit(tt.args.r, tt.args.repoDir)
+		if (err != nil) != tt.wantErr {
+			t.Errorf("scanGit() error = %v, wantErr %v", err, tt.wantErr)
+		}
+		if diff := cmp.Diff(tt.wantPkg, pkg); diff != "" {
+			t.Errorf("scanGit() package = %v, wantPackage %v", pkg, tt.wantPkg)
+		}
+	}
+
+	err = os.Rename("fixtures/example-git/.git", "fixtures/example-git/git-hidden")
+	if err != nil {
+		t.Errorf("can't find .git folder")
+	}
+
+	err := os.Rename("fixtures/example-git-with-submodule/submodule-test/git-hidden",
+		"fixtures/example-git-with-submodule/submodule-test/.git")
+	if err != nil {
+		t.Errorf("can't find subdir's git-hidden folder")
+	}
+}
+
 func Test_scanGit(t *testing.T) {
 	t.Parallel()
 
