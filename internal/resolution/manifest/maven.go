@@ -61,6 +61,7 @@ func makeMavenDepKey(dep maven.Dependency) DependencyKey {
 	if dep.Type == "" {
 		dep.Type = "jar"
 	}
+
 	return DependencyKey{
 		GroupID:    dep.GroupID,
 		ArtifactID: dep.ArtifactID,
@@ -120,6 +121,7 @@ func (m MavenManifestIO) Read(df lockfile.DepFile) (Manifest, error) {
 		if err := m.MergeParents(ctx, &result, root, 0, df.Path(), addAllRequirements, OriginImport); err != nil {
 			return maven.DependencyManagement{}, err
 		}
+
 		return result.DependencyManagement, nil
 	})
 
@@ -505,6 +507,7 @@ func updateProject(enc *xml.Encoder, raw, prefix, id string, patches map[string]
 				if err := updateProject(enc, "<profile>"+rawProfile.InnerXML+"</profile>", OriginProfile, string(rawProfile.ID), patches, properties); err != nil {
 					return fmt.Errorf("updating profile: %w", err)
 				}
+
 				continue
 			case "plugin":
 				if prefix != "" || id != "" {
