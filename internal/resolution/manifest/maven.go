@@ -551,7 +551,7 @@ func updateDependency(enc *xml.Encoder, raw string, patches []DependencyPatch) e
 						return fmt.Errorf("depTypeToMavenDependency: %w", err)
 					}
 					// A Maven dependency key consists of Type and Classifier together with GroupID and ArtifactID.
-					if patch.Pkg.Name == rawDep.Name() && d.Type == rawDep.Type && d.Classifier == rawDep.Classifier {
+					if patch.Pkg.Name == rawDep.Dependency.Name() && d.Type == rawDep.Type && d.Classifier == rawDep.Classifier {
 						req = patch.NewRequire
 					}
 				}
