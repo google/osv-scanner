@@ -4,9 +4,9 @@ go 1.21.8
 
 require (
 	deps.dev/api/v3 v3.0.0-20240318003216-81f538734eda
-	deps.dev/util/maven v0.0.0-20240318003216-81f538734eda
-	deps.dev/util/resolve v0.0.0-20240318003216-81f538734eda
-	deps.dev/util/semver v0.0.0-20240318003216-81f538734eda
+	deps.dev/util/maven v0.0.0-20240322043601-ff53416fec6a
+	deps.dev/util/resolve v0.0.0-20240322043601-ff53416fec6a
+	deps.dev/util/semver v0.0.0-20240322043601-ff53416fec6a
 	github.com/BurntSushi/toml v1.3.2
 	github.com/CycloneDX/cyclonedx-go v0.8.0
 	github.com/charmbracelet/bubbles v0.18.0
