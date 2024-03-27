@@ -3,7 +3,7 @@ module github.com/google/osv-scanner
 go 1.21.8
 
 require (
-	deps.dev/api/v3 v3.0.0-20240318003216-81f538734eda
+	deps.dev/api/v3 v3.0.0-20240322043601-ff53416fec6a
 	deps.dev/util/maven v0.0.0-20240322043601-ff53416fec6a
 	deps.dev/util/resolve v0.0.0-20240322043601-ff53416fec6a
 	deps.dev/util/semver v0.0.0-20240322043601-ff53416fec6a
@@ -11,7 +11,7 @@ require (
 	github.com/CycloneDX/cyclonedx-go v0.8.0
 	github.com/charmbracelet/bubbles v0.18.0
 	github.com/charmbracelet/bubbletea v0.25.0
-	github.com/charmbracelet/glamour v0.6.0
+	github.com/charmbracelet/glamour v0.7.0
 	github.com/charmbracelet/lipgloss v0.10.0
 	github.com/dghubble/trie v0.1.0
 	github.com/gkampitakis/go-snaps v0.5.2
@@ -20,16 +20,16 @@ require (
 	github.com/google/go-cmp v0.6.0
 	github.com/google/go-containerregistry v0.19.1
 	github.com/ianlancetaylor/demangle v0.0.0-20240312041847-bd984b5ce465
-	github.com/jedib0t/go-pretty/v6 v6.5.5
+	github.com/jedib0t/go-pretty/v6 v6.5.6
 	github.com/muesli/reflow v0.3.0
-	github.com/owenrumney/go-sarif/v2 v2.3.0
+	github.com/owenrumney/go-sarif/v2 v2.3.1
 	github.com/package-url/packageurl-go v0.1.2
 	github.com/pandatix/go-cvss v0.6.2
 	github.com/spdx/tools-golang v0.5.3
 	github.com/tidwall/gjson v1.17.1
 	github.com/tidwall/sjson v1.2.5
 	github.com/urfave/cli/v2 v2.27.1
-	golang.org/x/exp v0.0.0-20240314144324-c7f7c6466f7f
+	golang.org/x/exp v0.0.0-20240325151524-a685a6edb6d8
 	golang.org/x/mod v0.16.0
 	golang.org/x/sync v0.6.0
 	golang.org/x/term v0.18.0
@@ -44,7 +44,7 @@ require (
 	dario.cat/mergo v1.0.0 // indirect
 	github.com/Microsoft/go-winio v0.6.1 // indirect
 	github.com/ProtonMail/go-crypto v1.0.0 // indirect
-	github.com/alecthomas/chroma v0.10.0 // indirect
+	github.com/alecthomas/chroma/v2 v2.8.0 // indirect
 	github.com/anchore/go-struct-converter v0.0.0-20230627203149-c72ef8859ca9 // indirect
 	github.com/atotto/clipboard v0.1.4 // indirect
 	github.com/aymanbagabas/go-osc52/v2 v2.0.1 // indirect
