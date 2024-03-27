@@ -47,42 +47,19 @@ type PropertyWithOrigin struct {
 	Origin string // Origin indicates where the property comes from
 }
 
-// DependencyKey uniquely identifies a Maven dependency.
-// TODO: this will be provided by deps.dev/util/maven soon
-type DependencyKey struct {
-	GroupID    maven.String
-	ArtifactID maven.String
-	Type       maven.String
-	Classifier maven.String
-}
-
-// TODO: this will be provided by deps.dev/util/maven soon
-func makeMavenDepKey(dep maven.Dependency) DependencyKey {
-	if dep.Type == "" {
-		dep.Type = "jar"
-	}
-
-	return DependencyKey{
-		GroupID:    dep.GroupID,
-		ArtifactID: dep.ArtifactID,
-		Type:       dep.Type,
-		Classifier: dep.Classifier,
-	}
-}
-
 // TODO: handle profiles (activation and interpolation)
 func (m MavenManifestIO) Read(df lockfile.DepFile) (Manifest, error) {
 	ctx := context.Background()
 
 	var reqsWithProps []resolve.RequirementVersion
-	requirementOrigins := make(map[DependencyKey]string)
+	requirementOrigins := make(map[maven.DependencyKey]string)
 	addRequirementOrigins := func(deps []maven.Dependency, origin string) {
 		for _, dep := range deps {
-			key := makeMavenDepKey(dep)
+			key := dep.Key()
 			if _, ok := requirementOrigins[key]; !ok {
 				requirementOrigins[key] = origin
 			}
-			if ContainsProperty(dep.Version) {
+			if dep.Version.ContainsProperty() {
 				// We only need the original import if the version contains any property.
 				reqsWithProps = append(reqsWithProps, makeRequirementVersion(dep, origin))
 			}
@@ -96,7 +73,7 @@ func (m MavenManifestIO) Read(df lockfile.DepFile) (Manifest, error) {
 			addRequirementOrigins(profile.DependencyManagement.Dependencies, mavenOrigin(origin, OriginProfile, string(profile.ID), OriginManagement))
 		}
 		for _, plugin := range project.Build.PluginManagement.Plugins {
-			addRequirementOrigins(plugin.Dependencies, mavenOrigin(origin, OriginPlugin, mavenName(plugin.ProjectKey)))
+			addRequirementOrigins(plugin.Dependencies, mavenOrigin(origin, OriginPlugin, plugin.ProjectKey.Name()))
 		}
 	}
 
@@ -139,7 +116,7 @@ func (m MavenManifestIO) Read(df lockfile.DepFile) (Manifest, error) {
 	groups := make(map[resolve.PackageKey][]string)
 	addRequirements := func(deps []maven.Dependency) {
 		for _, dep := range deps {
-			origin := requirementOrigins[makeMavenDepKey(dep)]
+			origin := requirementOrigins[dep.Key()]
 			if strings.HasPrefix(origin, OriginParent+"@") || strings.HasPrefix(origin, OriginImport) {
 				otherRequirements = append(otherRequirements, makeRequirementVersion(dep, origin))
 			} else {
@@ -148,7 +125,7 @@ func (m MavenManifestIO) Read(df lockfile.DepFile) (Manifest, error) {
 			if dep.Scope != "" {
 				pk := resolve.PackageKey{
 					System: resolve.Maven,
-					Name:   mavenDepName(dep),
+					Name:   dep.Name(),
 				}
 				groups[pk] = append(groups[pk], string(dep.Scope))
 			}
@@ -159,7 +136,7 @@ func (m MavenManifestIO) Read(df lockfile.DepFile) (Manifest, error) {
 			VersionKey: resolve.VersionKey{
 				PackageKey: resolve.PackageKey{
 					System: resolve.Maven,
-					Name:   mavenName(project.Parent.ProjectKey),
+					Name:   project.Parent.ProjectKey.Name(),
 				},
 				// Parent version is a concrete version, but we model parent as dependency here.
 				VersionType: resolve.Requirement,
@@ -190,7 +167,7 @@ func (m MavenManifestIO) Read(df lockfile.DepFile) (Manifest, error) {
 			VersionKey: resolve.VersionKey{
 				PackageKey: resolve.PackageKey{
 					System: resolve.Maven,
-					Name:   mavenName(project.ProjectKey),
+					Name:   project.ProjectKey.Name(),
 				},
 				VersionType: resolve.Concrete,
 				Version:     string(project.Version),
@@ -240,20 +217,12 @@ func (m MavenManifestIO) MergeParents(ctx context.Context, result *maven.Project
 				return fmt.Errorf("invalid packaging for parent project %s", proj.Packaging)
 			}
 		}
-		addRequirements(proj, mavenOrigin(prefix, mavenName(current.ProjectKey)))
+		addRequirements(proj, mavenOrigin(prefix, current.ProjectKey.Name()))
 		result.MergeParent(proj)
 		current = proj.Parent
 	}
 	// Interpolate the project to resolve the properties.
 	return result.Interpolate()
-}
-
-// ContainsProperty returns whether a string contains property placeholder.
-// Any Maven string could contain property placeholders like ${name},
-// and the corresponding values are defined in properties section.
-func ContainsProperty(str maven.String) bool {
-	i := strings.Index(string(str), "${")
-	return i >= 0 && strings.Contains(string(str[i+2:]), "}")
 }
 
 // For dependencies in profiles and plugins, we use origin to indicate where they are from.
@@ -266,23 +235,13 @@ func makeRequirementVersion(dep maven.Dependency, origin string) resolve.Require
 		VersionKey: resolve.VersionKey{
 			PackageKey: resolve.PackageKey{
 				System: resolve.Maven,
-				Name:   mavenDepName(dep),
+				Name:   dep.Name(),
 			},
 			VersionType: resolve.Requirement,
 			Version:     string(dep.Version),
 		},
 		Type: makeMavenDepType(dep, origin),
 	}
-}
-
-// TODO: this will be provided by deps.dev/util/maven soon
-func mavenName(key maven.ProjectKey) string {
-	return fmt.Sprintf("%s:%s", key.GroupID, key.ArtifactID)
-}
-
-// TODO: this will be provided by deps.dev/util/maven soon
-func mavenDepName(dep maven.Dependency) string {
-	return fmt.Sprintf("%s:%s", dep.GroupID, dep.ArtifactID)
 }
 
 func mavenOrigin(list ...string) string {
@@ -522,7 +481,7 @@ func updateProject(enc *xml.Encoder, raw, prefix, id string, patches map[string]
 				if err := dec.DecodeElement(&rawPlugin, &tt); err != nil {
 					return err
 				}
-				if err := updateProject(enc, "<plugin>"+rawPlugin.InnerXML+"</plugin>", OriginPlugin, mavenName(rawPlugin.ProjectKey), patches, properties); err != nil {
+				if err := updateProject(enc, "<plugin>"+rawPlugin.InnerXML+"</plugin>", OriginPlugin, rawPlugin.ProjectKey.Name(), patches, properties); err != nil {
 					return fmt.Errorf("updating profile: %w", err)
 				}
 
@@ -592,7 +551,7 @@ func updateDependency(enc *xml.Encoder, raw string, patches []DependencyPatch) e
 						return fmt.Errorf("depTypeToMavenDependency: %w", err)
 					}
 					// A Maven dependency key consists of Type and Classifier together with GroupID and ArtifactID.
-					if patch.Pkg.Name == mavenDepName(rawDep.Dependency) && d.Type == rawDep.Type && d.Classifier == rawDep.Classifier {
+					if patch.Pkg.Name == rawDep.Name() && d.Type == rawDep.Type && d.Classifier == rawDep.Classifier {
 						req = patch.NewRequire
 					}
 				}
