@@ -269,7 +269,7 @@ func makeMavenDepType(dependency maven.Dependency, origin string) dep.Type {
 	} else if dependency.Scope != "" && dependency.Scope != "compile" {
 		dt.AddAttr(dep.Scope, string(dependency.Scope))
 	}
-	if dependency.Type != "" {
+	if dependency.Type != "" && dependency.Type != "jar" {
 		dt.AddAttr(dep.MavenArtifactType, string(dependency.Type))
 	}
 	if dependency.Classifier != "" {
