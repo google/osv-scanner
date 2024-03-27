@@ -60,6 +60,59 @@ func Test_filterResults(t *testing.T) {
 	}
 }
 
+func Test_getSubmodulesVia_scanGit(t *testing.T) {
+	t.Parallel()
+
+	type args struct {
+		r       reporter.Reporter
+		repoDir string
+	}
+	tests := []struct {
+		name    string
+		args    args
+		wantErr bool
+		wantPkg []scannedPackage
+	}{
+		{
+			name: "Example Git repo",
+			args: args{
+				r:       &reporter.VoidReporter{},
+				repoDir: "fixtures/example-git-with-submodule",
+			},
+			wantErr: false,
+			wantPkg: []scannedPackage{
+				{
+					Commit: "d96688a8b8e6aa0a88f63d36c1f30ca143d75291",
+					Source: models.SourceInfo{
+						Path: "fixtures/example-git-with-submodule",
+						Type: "git",
+					},
+				},
+				{
+					Commit: "35689cf0b9cd25b127dcc6fd5461577dd1cbef25",
+					Source: models.SourceInfo{
+						Path: "fixtures/example-git-with-submodule/submodule-test",
+						Type: "git",
+					},
+				},
+			},
+		},
+	}
+
+	makeSubmodulesFixtureDotGit(t)
+	defer makeSubmodulesFixtureHiddenGit(t)
+
+	for _, tt := range tests {
+		pkg, err := scanGit(tt.args.r, tt.args.repoDir)
+		if (err != nil) != tt.wantErr {
+			t.Errorf("scanGit() error = %v, wantErr %v", err, tt.wantErr)
+		}
+		if diff := cmp.Diff(tt.wantPkg, pkg); diff != "" {
+			t.Errorf("scanGit() package = %v, wantPackage %v", pkg, tt.wantPkg)
+		}
+	}
+}
+
 func Test_scanGit(t *testing.T) {
 	t.Parallel()
 
@@ -92,10 +145,8 @@ func Test_scanGit(t *testing.T) {
 		},
 	}
 
-	err := os.Rename("fixtures/example-git/git-hidden", "fixtures/example-git/.git")
-	if err != nil {
-		t.Errorf("can't find git-hidden folder")
-	}
+	makeGitFixtureDotGit(t)
+	defer makeGitFixtureHiddenGit(t)
 
 	for _, tt := range tests {
 		pkg, err := scanGit(tt.args.r, tt.args.repoDir)
@@ -106,9 +157,53 @@ func Test_scanGit(t *testing.T) {
 			t.Errorf("scanGit() package = %v, wantPackage %v", pkg, tt.wantPkg)
 		}
 	}
+}
 
-	err = os.Rename("fixtures/example-git/.git", "fixtures/example-git/git-hidden")
+func makeSubmodulesFixtureDotGit(t *testing.T) {
+	t.Helper()
+
+	err := os.Rename("fixtures/example-git-with-submodule/git-hidden", "fixtures/example-git-with-submodule/.git")
 	if err != nil {
-		t.Errorf("can't find .git folder")
+		t.Fatalf("can't rename git-hidden folder: %s", err)
+	}
+
+	err = os.Rename("fixtures/example-git-with-submodule/submodule-test/git-hidden",
+		"fixtures/example-git-with-submodule/submodule-test/.git")
+	if err != nil {
+		t.Fatalf("can't rename subdir's git-hidden folder because: %s", err)
+	}
+}
+
+func makeSubmodulesFixtureHiddenGit(t *testing.T) {
+	// func makeGitFixtureHiddenGit(t *testing.T) {
+	t.Helper()
+
+	err := os.Rename("fixtures/example-git-with-submodule/.git", "fixtures/example-git-with-submodule/git-hidden")
+	if err != nil {
+		t.Fatalf("can't rename .git folder, because: %s", err)
+	}
+
+	err = os.Rename("fixtures/example-git-with-submodule/submodule-test/.git",
+		"fixtures/example-git-with-submodule/submodule-test/git-hidden")
+	if err != nil {
+		t.Fatalf("can't rename subdir's .git folder, because: %s", err)
+	}
+}
+
+func makeGitFixtureDotGit(t *testing.T) {
+	t.Helper()
+
+	err := os.Rename("fixtures/example-git/git-hidden", "fixtures/example-git/.git")
+	if err != nil {
+		t.Fatalf("can't rename git-hidden folder: %s", err)
+	}
+}
+
+func makeGitFixtureHiddenGit(t *testing.T) {
+	t.Helper()
+
+	err := os.Rename("fixtures/example-git/.git", "fixtures/example-git/git-hidden")
+	if err != nil {
+		t.Fatalf("can't rename git-hidden folder: %s", err)
 	}
 }
