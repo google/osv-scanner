@@ -165,7 +165,9 @@ Warning: `fix` exists as both a subcommand of OSV-Scanner and as a file on the f
       "version": "1.6.1",
       "resolved": "https://registry.npmjs.org/concat-stream/-/concat-stream-1.6.1.tgz",
       "integrity": "sha512-gslSSJx03QKa59cIKqeJO9HQ/WZMotvYJCuaUULrLpjj8oG40kV2Z+gz82pVxlTkOADi4PJxQPPfhl1ELYrrXw==",
-      "engines": ["node >= 0.8"],
+      "engines": [
+        "node >= 0.8"
+      ],
       "dependencies": {
         "inherits": "^2.0.3",
         "typedarray": "^0.0.6",
