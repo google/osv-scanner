@@ -105,7 +105,7 @@ func (rw NpmLockfileIO) modifyPackageLockDependencies(lockJSON string, patches m
 
 func (rw NpmLockfileIO) modifyPackageLockDependenciesRecurse(lockJSON, path string, depth int, patches map[string]map[string]string, api *datasource.NpmRegistryAPIClient) (string, error) {
 	for pkg, data := range gjson.Get(lockJSON, path).Map() {
-		pkgPath := fmt.Sprintf("%s.%s", path, strings.ReplaceAll(pkg, ".", "\\."))
+		pkgPath := fmt.Sprintf("%s.%s", path, gjson.Escape(pkg))
 		if data.Get("dependencies").Exists() {
 			var err error
 			lockJSON, err = rw.modifyPackageLockDependenciesRecurse(lockJSON, pkgPath+".dependencies", depth+1, patches, api)

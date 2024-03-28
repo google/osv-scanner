@@ -1,0 +1,26 @@
+{
+  "name": "@fake-registry/a",
+  "version": "1.2.4",
+  "description": "package a",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": {
+    "name": "a author"
+  },
+  "license": "OriginalLicenseDoNotSteal",
+  "dependencies": {
+    "@fake-registry/b": "^1.0.0",
+    "@fake-registry/e": "^1.0.0"
+  },
+  "_id": "@fake-registry/a@1.2.4",
+  "_nodeVersion": "10.24.1",
+  "_npmVersion": "7.24.2",
+  "dist": {
+    "integrity": "sha512-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa==",
+    "shasum": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "tarball": "http://localhost:4873/@fake-registry%2fa/-/a-1.2.4.tgz"
+  },
+  "contributors": []
+}
