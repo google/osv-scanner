@@ -274,6 +274,12 @@ func TestRun(t *testing.T) {
 			args: []string{"", "--verbosity", "info", "--format", "table", "./fixtures/locks-many/composer.lock"},
 			exit: 0,
 		},
+		{ // Currently failing due to forced offline mode to surface bug.
+		  // I guess this will be better as a seperate test tbh
+			name: "PURL SBOM case sensitivity",
+			args: []string{"", "--verbosity", "info", "--experimental-offline", "--format", "table", "./fixtures/sbom-insecure/alpine.cdx.xml"},
+			exit: 1,
+		},
 		// Go project with an overridden go version
 		{
 			name: "Go project with an overridden go version",
