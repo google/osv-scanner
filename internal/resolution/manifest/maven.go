@@ -13,7 +13,6 @@ import (
 
 	"deps.dev/util/maven"
 	"deps.dev/util/resolve"
-	"deps.dev/util/resolve/dep"
 	"github.com/google/osv-scanner/internal/resolution/datasource"
 	"github.com/google/osv-scanner/pkg/lockfile"
 )
@@ -142,7 +141,7 @@ func (m MavenManifestIO) Read(df lockfile.DepFile) (Manifest, error) {
 				VersionType: resolve.Requirement,
 				Version:     string(project.Parent.Version),
 			},
-			Type: makeMavenDepType(maven.Dependency{}, OriginParent),
+			Type: resolve.MavenDepType(maven.Dependency{}, OriginParent),
 		})
 	}
 	addRequirements(project.Dependencies)
@@ -240,7 +239,7 @@ func makeRequirementVersion(dep maven.Dependency, origin string) resolve.Require
 			VersionType: resolve.Requirement,
 			Version:     string(dep.Version),
 		},
-		Type: makeMavenDepType(dep, origin),
+		Type: resolve.MavenDepType(dep, origin),
 	}
 }
 
@@ -256,59 +255,6 @@ func mavenOrigin(list ...string) string {
 	}
 
 	return result
-}
-
-// TODO: this will be provided by deps.dev/util/resolve soon
-func makeMavenDepType(dependency maven.Dependency, origin string) dep.Type {
-	var dt dep.Type
-	if dependency.Optional == "true" {
-		dt.AddAttr(dep.Opt, "")
-	}
-	if dependency.Scope == "test" {
-		dt.AddAttr(dep.Test, "")
-	} else if dependency.Scope != "" && dependency.Scope != "compile" {
-		dt.AddAttr(dep.Scope, string(dependency.Scope))
-	}
-	if dependency.Type != "" && dependency.Type != "jar" {
-		dt.AddAttr(dep.MavenArtifactType, string(dependency.Type))
-	}
-	if dependency.Classifier != "" {
-		dt.AddAttr(dep.MavenClassifier, string(dependency.Classifier))
-	}
-	// Only add Maven dependency origin when it is not direct dependency.
-	if origin != "" {
-		dt.AddAttr(dep.MavenDependencyOrigin, origin)
-	}
-
-	return dt
-}
-
-// TODO: this will be provided by deps.dev/util/resolve soon
-func depTypeToMavenDependency(typ dep.Type) (maven.Dependency, string, error) {
-	result := maven.Dependency{}
-	if _, ok := typ.GetAttr(dep.Opt); ok {
-		result.Optional = "true"
-	}
-	if _, ok := typ.GetAttr(dep.Test); ok {
-		result.Scope = "test"
-	}
-	if s, ok := typ.GetAttr(dep.Scope); ok {
-		if result.Scope != "" {
-			return maven.Dependency{}, "", errors.New("invalid Maven dep.Type")
-		}
-		result.Scope = maven.String(s)
-	}
-	if c, ok := typ.GetAttr(dep.MavenClassifier); ok {
-		result.Classifier = maven.String(c)
-	}
-	if t, ok := typ.GetAttr(dep.MavenArtifactType); ok {
-		result.Type = maven.String(t)
-	}
-	if o, ok := typ.GetAttr(dep.MavenDependencyOrigin); ok {
-		return result, o, nil
-	}
-
-	return result, "", nil
 }
 
 func projectStartElement(raw string) string {
@@ -339,7 +285,7 @@ func (MavenManifestIO) Write(df lockfile.DepFile, w io.Writer, patch ManifestPat
 
 	patches := make(map[string][]DependencyPatch)
 	for _, changedDep := range patch.Deps {
-		_, o, err := depTypeToMavenDependency(changedDep.Type)
+		_, o, err := resolve.MavenDepTypeToDependency(changedDep.Type)
 		if err != nil {
 			return fmt.Errorf("depTypeToMavenDependency: %w", err)
 		}
@@ -546,7 +492,7 @@ func updateDependency(enc *xml.Encoder, raw string, patches []DependencyPatch) e
 				}
 				req := string(rawDep.Version)
 				for _, patch := range patches {
-					d, _, err := depTypeToMavenDependency(patch.Type)
+					d, _, err := resolve.MavenDepTypeToDependency(patch.Type)
 					if err != nil {
 						return fmt.Errorf("depTypeToMavenDependency: %w", err)
 					}
