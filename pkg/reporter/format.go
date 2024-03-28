@@ -5,7 +5,7 @@ import (
 	"io"
 )
 
-var format = []string{"table", "json", "markdown", "sarif", "gh-annotations"}
+var format = []string{"table", "vertical", "json", "markdown", "sarif", "gh-annotations"}
 
 func Format() []string {
 	return format
@@ -17,6 +17,8 @@ func New(format string, stdout, stderr io.Writer, level VerbosityLevel, terminal
 	switch format {
 	case "json":
 		return NewJSONReporter(stdout, stderr, level), nil
+	case "vertical":
+		return NewVerticalReporter(stdout, stderr, level, false, terminalWidth), nil
 	case "table":
 		return NewTableReporter(stdout, stderr, level, false, terminalWidth), nil
 	case "markdown":

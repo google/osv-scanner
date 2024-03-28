@@ -77,7 +77,7 @@ Scanned <rootdir>/fixtures/locks-many/package-lock.json file and found 1 package
 ---
 
 [TestRun/#06 - 2]
-unsupported output format "unknown" - must be one of: table, json, markdown, sarif, gh-annotations
+unsupported output format "unknown" - must be one of: table, vertical, json, markdown, sarif, gh-annotations
 
 ---
 
