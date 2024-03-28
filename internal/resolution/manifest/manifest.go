@@ -94,7 +94,7 @@ func GetManifestIO(pathToManifest string) (ManifestIO, error) {
 	base := filepath.Base(pathToManifest)
 	switch {
 	case base == "pom.xml":
-		return MavenManifestIO{}, nil
+		return NewMavenManifestIO(), nil
 	case base == "package.json":
 		return NpmManifestIO{}, nil
 	default:
