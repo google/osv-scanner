@@ -3,7 +3,6 @@ package output
 import (
 	"fmt"
 	"io"
-	"strings"
 	"unicode"
 
 	"github.com/fatih/color"
@@ -12,8 +11,65 @@ import (
 
 func PrintVerticalResults(vulnResult *models.VulnerabilityResults, outputWriter io.Writer) {
 	for _, result := range vulnResult.Results {
-		fmt.Fprintln(outputWriter, toString(result))
+		printVerticalResult(result, outputWriter)
 	}
+}
+
+func printVerticalResult(result models.PackageSource, out io.Writer) {
+	fmt.Fprintf(
+		out,
+		"%s: found %s %s\n",
+		color.MagentaString("%s", result.Source.Path),
+		color.YellowString("%d", len(result.Packages)),
+		Form(len(result.Packages), "package", "packages"),
+	)
+
+	printVerticalVulnerabilities(result, out)
+}
+
+func printVerticalVulnerabilities(result models.PackageSource, out io.Writer) {
+	count := countVulnerabilities(result)
+
+	if count == 0 {
+		fmt.Fprintf(
+			out,
+			"  %s\n",
+			color.GreenString("no known vulnerabilities found"),
+		)
+
+		return
+	}
+
+	fmt.Fprintln(out)
+
+	for _, pkg := range result.Packages {
+		if len(pkg.Vulnerabilities) == 0 {
+			continue
+		}
+
+		fmt.Fprintf(out,
+			"  %s %s\n",
+			color.YellowString("%s@%s", pkg.Package.Name, pkg.Package.Version),
+			color.RedString("is affected by the following vulnerabilities:"),
+		)
+
+		for _, vulnerability := range pkg.Vulnerabilities {
+			fmt.Fprintf(out,
+				"    %s %s\n",
+				color.CyanString("%s:", vulnerability.ID),
+				describe(vulnerability),
+			)
+		}
+	}
+
+	fmt.Fprintf(out, "\n  %s\n",
+		color.RedString(
+			"%d known %s found in %s",
+			count,
+			Form(count, "vulnerability", "vulnerabilities"),
+			result.Source.Path,
+		),
+	)
 }
 
 func countVulnerabilities(result models.PackageSource) int {
@@ -70,66 +126,4 @@ func describe(vulnerability models.Vulnerability) string {
 	description += " (" + OSVBaseVulnerabilityURL + vulnerability.ID + ")"
 
 	return description
-}
-
-func formatLineByLine(result models.PackageSource) string {
-	lines := make([]string, 0, len(result.Packages))
-
-	for _, pkg := range result.Packages {
-		if len(pkg.Vulnerabilities) == 0 {
-			continue
-		}
-
-		lines = append(lines, fmt.Sprintf(
-			"  %s %s",
-			color.YellowString("%s@%s", pkg.Package.Name, pkg.Package.Version),
-			color.RedString("is affected by the following vulnerabilities:"),
-		))
-
-		for _, vulnerability := range pkg.Vulnerabilities {
-			lines = append(lines, fmt.Sprintf(
-				"    %s %s",
-				color.CyanString("%s:", vulnerability.ID),
-				describe(vulnerability),
-			))
-		}
-	}
-
-	return strings.Join(lines, "\n")
-}
-
-func toString(result models.PackageSource) string {
-	count := countVulnerabilities(result)
-	word := "known"
-
-	out := ""
-	out += fmt.Sprintf(
-		"%s: found %s %s\n",
-		color.MagentaString("%s", result.Source.Path),
-		color.YellowString("%d", len(result.Packages)),
-		Form(len(result.Packages), "package", "packages"),
-	)
-
-	if count == 0 {
-		return out + fmt.Sprintf(
-			"  %s\n",
-			color.GreenString("no %s vulnerabilities found", word),
-		)
-	}
-
-	out += "\n"
-	out += formatLineByLine(result)
-	out += "\n"
-
-	out += fmt.Sprintf("\n  %s\n",
-		color.RedString(
-			"%d %s %s found in %s",
-			count,
-			word,
-			Form(count, "vulnerability", "vulnerabilities"),
-			result.Source.Path,
-		),
-	)
-
-	return out
 }
