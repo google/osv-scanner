@@ -164,11 +164,20 @@ type npmRegistryInfo struct {
 	authInfo *npmRegistryAuthInfo
 }
 
+// urlPathEscapeLower is url.PathEscape but with lowercase letters in hex codes (matching npm's behaviour)
+// e.g. "@reg/pkg" -> "@reg%2fpkg"
+func urlPathEscapeLower(s string) string {
+	escaped := url.PathEscape(s)
+
+	re := cachedregexp.MustCompile(`%[0-9A-F]{2}`)
+	return re.ReplaceAllStringFunc(escaped, strings.ToLower)
+}
+
 // create the http request to the registry api
 // urlComponents should be (package) or (package, version)
 func (info npmRegistryInfo) buildRequest(ctx context.Context, urlComponents ...string) (*http.Request, error) {
 	for i := range urlComponents {
-		urlComponents[i] = url.PathEscape(urlComponents[i])
+		urlComponents[i] = urlPathEscapeLower(urlComponents[i])
 	}
 	reqURL, err := url.JoinPath(info.URL, urlComponents...)
 	if err != nil {
