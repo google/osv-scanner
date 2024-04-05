@@ -1,52 +1,4 @@
 
-[TestNpmrcNoRegistries - 1]
-https://registry.npmjs.org/@test%2Fpackage/1.2.3
----
-
-[TestNpmrcNoRegistries - 2]
-null
----
-
-[TestNpmrcRegistryAuth - 1]
-https://registry1.test.com/foo
----
-
-[TestNpmrcRegistryAuth - 2]
-[
-  "Basic bXVjaDphdXRoCg=="
-]
----
-
-[TestNpmrcRegistryAuth - 3]
-https://registry1.test.com/@test0%2Fbar
----
-
-[TestNpmrcRegistryAuth - 4]
-[
-  "Basic bXVjaDphdXRoCg=="
-]
----
-
-[TestNpmrcRegistryAuth - 5]
-https://registry2.test.com/@test1%2Fbaz
----
-
-[TestNpmrcRegistryAuth - 6]
-[
-  "Bearer c3VjaCB0b2tlbgo="
-]
----
-
-[TestNpmrcRegistryAuth - 7]
-https://sub.registry2.test.com/@test2%2Ftest
----
-
-[TestNpmrcRegistryAuth - 8]
-[
-  "Basic dXNlcjp3b3cK"
-]
----
-
 [TestNpmrcRegistryOverriding - 1]
 https://global.registry.com/pkg
 ---
@@ -205,4 +157,52 @@ https://project.registry.com/@project%2Fpkg
 
 [TestNpmrcRegistryOverriding - 40]
 null
+---
+
+[TestNpmrcNoRegistries - 1]
+https://registry.npmjs.org/@test%2Fpackage/1.2.3
+---
+
+[TestNpmrcNoRegistries - 2]
+null
+---
+
+[TestNpmrcRegistryAuth - 1]
+https://registry1.test.com/foo
+---
+
+[TestNpmrcRegistryAuth - 2]
+[
+  "Basic bXVjaDphdXRoCg=="
+]
+---
+
+[TestNpmrcRegistryAuth - 3]
+https://registry1.test.com/@test0%2Fbar
+---
+
+[TestNpmrcRegistryAuth - 4]
+[
+  "Basic bXVjaDphdXRoCg=="
+]
+---
+
+[TestNpmrcRegistryAuth - 5]
+https://registry2.test.com/@test1%2Fbaz
+---
+
+[TestNpmrcRegistryAuth - 6]
+[
+  "Bearer c3VjaCB0b2tlbgo="
+]
+---
+
+[TestNpmrcRegistryAuth - 7]
+https://sub.registry2.test.com/@test2%2Ftest
+---
+
+[TestNpmrcRegistryAuth - 8]
+[
+  "Basic dXNlcjp3b3cK"
+]
 ---
