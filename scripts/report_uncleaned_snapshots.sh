@@ -21,7 +21,7 @@ while IFS= read -r snapshot_dir; do
   parent_dir=$(dirname "$snapshot_dir")
 
   if [ -f "$parent_dir/testmain_test.go" ]; then
-    if grep -q "testutility.CleanSnapshots(m)" "$parent_dir/testmain_test.go"; then
+    if grep -q "	testutility.CleanSnapshots(m)" "$parent_dir/testmain_test.go"; then
       continue
     fi
   fi
