@@ -8,11 +8,11 @@ report_lack_of_snapshot_cleaning() {
   # if this file exists, then the problem will be it's not calling the cleaning function
   if [ -f "$directory/testmain_test.go" ]; then
     echo "::error file=$directory/testmain_test.go::Make sure that \`TestMain\` is calling \`testutility.CleanSnapshots(m)\` after the tests have been run"
+    echo "$directory/testmain_test.go is not calling \`testutility.CleanSnapshots(m)\`"
   else
     echo "::error file=$directory::Please add a \`testmain_test.go\` file with a \`TestMain\` function that calls \`testutility.CleanSnapshots(m)\` after the tests have been run"
+    echo "$directory does not have a \`testmain_test.go\` file with a \`TestMain\` function that calls \`testutility.CleanSnapshots(m)\` after the tests have been run"
   fi
-
-#  echo "$parent_dir is using snapshots but not cleaning them up!"
 }
 
 uncleaned_snapshots=0
