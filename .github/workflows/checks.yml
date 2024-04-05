@@ -28,6 +28,16 @@ on:
 permissions: {}
 
 jobs:
+  ensure_snapshots_are_being_cleaned:
+    permissions:
+      contents: read # to fetch code (actions/checkout)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
+        with:
+          persist-credentials: false
+      - run: scripts/report_uncleaned_snapshots.sh
   format:
     permissions:
       contents: read # to fetch code (actions/checkout)
