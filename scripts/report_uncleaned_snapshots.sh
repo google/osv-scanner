@@ -2,6 +2,15 @@
 
 set -e
 
+annotate_file() {
+  local file="$1"
+  local msg="$2"
+
+  if [[ -v "CI" ]]; then
+    echo "::error file=$file::$msg"
+  fi
+}
+
 report_lack_of_snapshot_cleaning() {
   local directory="$1"
 
@@ -9,12 +18,12 @@ report_lack_of_snapshot_cleaning() {
   if [ -f "$directory/testmain_test.go" ]; then
     file="$directory/testmain_test.go"
 
-    echo "::error file=$file::Make sure that \`TestMain\` is calling \`testutility.CleanSnapshots(m)\` after the tests have been run"
+    annotate_file "$file" "Make sure that \`TestMain\` is calling \`testutility.CleanSnapshots(m)\` after the tests have been run"
     echo "$file is not calling \`testutility.CleanSnapshots(m)\`"
   else
     file=("$directory"/*_test.go)
 
-    echo "::error file=${file[0]}::Please add a \`testmain_test.go\` file with a \`TestMain\` function that calls \`testutility.CleanSnapshots(m)\` after the tests have been run"
+    annotate_file "${file[0]}" "Please add a \`testmain_test.go\` file with a \`TestMain\` function that calls \`testutility.CleanSnapshots(m)\` after the tests have been run"
     echo "$directory does not have a \`testmain_test.go\` file with a \`TestMain\` function that calls \`testutility.CleanSnapshots(m)\` after the tests have been run"
   fi
 }
