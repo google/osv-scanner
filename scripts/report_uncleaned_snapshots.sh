@@ -12,9 +12,9 @@ report_lack_of_snapshot_cleaning() {
     echo "::error file=$file::Make sure that \`TestMain\` is calling \`testutility.CleanSnapshots(m)\` after the tests have been run"
     echo "$file is not calling \`testutility.CleanSnapshots(m)\`"
   else
-    file=($directory/*_test.go)
+    file=("$directory"/*_test.go)
 
-    echo "::error file=$file::Please add a \`testmain_test.go\` file with a \`TestMain\` function that calls \`testutility.CleanSnapshots(m)\` after the tests have been run"
+    echo "::error file=${file[0]}::Please add a \`testmain_test.go\` file with a \`TestMain\` function that calls \`testutility.CleanSnapshots(m)\` after the tests have been run"
     echo "$directory does not have a \`testmain_test.go\` file with a \`TestMain\` function that calls \`testutility.CleanSnapshots(m)\` after the tests have been run"
   fi
 }
