@@ -43,7 +43,7 @@ while IFS= read -r snapshot_dir; do
   uncleaned_snapshots=1
 done < <(find . -type d -name "__snapshots__")
 
-if [ $uncleaned_snapshots ]; then
+if [ $uncleaned_snapshots -eq 1 ]; then
   echo ""
   echo "one or more packages are using snapshots but not ensuring they're cleaned up"
   echo "make sure these packages have a testmain_test.go file that defines a TestMain function that calls testutility.CleanSnapshots(m)"
