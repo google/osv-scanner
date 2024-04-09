@@ -68,32 +68,133 @@ func TestResolve(t *testing.T) {
 		requirements []requirement
 	}{
 		{
-			name:     "test",
+			name:     "simple",
 			version:  "1.0.0",
 			system:   resolve.NPM,
-			universe: "./fixtures/universe.yaml",
+			universe: "./fixtures/basic-universe.yaml",
 			requirements: []requirement{
 				{
-					name:    "bob",
+					name:    "dependency",
+					version: "^1.0.0",
+					groups:  []string{"dev"},
+				},
+			},
+		},
+		{
+			name:     "direct", // vulnerability in direct dependency
+			version:  "1.0.0",
+			system:   resolve.NPM,
+			universe: "./fixtures/basic-universe.yaml",
+			requirements: []requirement{
+				{
+					name:    "bad",
+					version: "^2.0.0",
+				},
+			},
+		},
+		{
+			name:     "duplicates", // same package with vulns included multiple times
+			version:  "1.1.1",
+			system:   resolve.NPM,
+			universe: "./fixtures/basic-universe.yaml",
+			requirements: []requirement{
+				{
+					name:    "bad",
+					version: "^1.0.0",
+					typ:     aliasType("bad-aliased"),
+				},
+				{
+					name:    "dependency",
+					version: "^2.0.0",
+					groups:  []string{"dev"},
+				},
+				{
+					name:    "dependency",
+					version: "^1.0.0",
+					typ:     aliasType("dependency-v1"),
+				},
+			},
+		},
+		{
+			name:     "different-pkgs", // same vuln in two different packages
+			version:  "3.0.0",
+			system:   resolve.NPM,
+			universe: "./fixtures/basic-universe.yaml",
+			requirements: []requirement{
+				{
+					name:    "bad2",
 					version: "^1.0.0",
 				},
 				{
-					name:    "charlie",
-					version: "2.0.1",
+					name:    "dependency",
+					version: "^1.0.0",
+				},
+			},
+		},
+		{
+			name:     "existing", // manifest package/version exists in universe already
+			version:  "1.0.0",
+			system:   resolve.NPM,
+			universe: "./fixtures/basic-universe.yaml",
+			requirements: []requirement{
+				{
+					name:    "dependency",
+					version: "^2.0.0",
+					typ:     dep.NewType(dep.Opt),
+				},
+			},
+		},
+		{
+			name:     "non-problem", // non-problem chains
+			version:  "1.0.0",
+			system:   resolve.NPM,
+			universe: "./fixtures/basic-universe.yaml",
+			requirements: []requirement{
+				{
+					name:    "bad",
+					version: "^1.0.0",
 				},
 				{
-					name:    "charlie",
-					version: "2.0.0",
-					typ:     aliasType("sharlie"),
+					name:    "dependency",
+					version: "^3.0.0",
 				},
+			},
+		},
+		{
+			name:     "diamond", // diamond dependency on vulnerable pkg
+			version:  "1.0.0",
+			system:   resolve.NPM,
+			universe: "./fixtures/diamond-universe.yaml",
+			requirements: []requirement{
+				{
+					name:    "pkg",
+					version: "^1.0.0",
+				},
+				{
+					name:    "dep-one",
+					version: "^1.0.0",
+					groups:  []string{"dev"},
+				},
+			},
+		},
+		{
+			name:     "complex",
+			version:  "9.9.9",
+			system:   resolve.NPM,
+			universe: "./fixtures/complex-universe.yaml",
+			requirements: []requirement{
 				{
 					name:    "alice",
-					version: "1.0.0",
-					typ:     aliasType("zalice"),
+					version: "^1.0.0",
+					typ:     aliasType("chuck"),
 				},
 				{
-					name:    "alice",
-					version: "^1.2.3",
+					name:    "bob",
+					version: "2.2.2",
+				},
+				{
+					name:    "dave",
+					version: "~3.3.3",
 					groups:  []string{"dev"},
 				},
 			},
@@ -141,5 +242,4 @@ func TestResolve(t *testing.T) {
 			checkResult(t, res)
 		})
 	}
-	t.Fail()
 }

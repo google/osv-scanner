@@ -1,0 +1,27 @@
+system: npm
+schema: |
+  pkg
+    1.0.0
+      bad@^1.0.0
+  dep-one
+    1.0.0
+      bad@^1.0.0
+      dep-two@^1.0.0
+  dep-two
+    1.0.0
+      bad@^1.0.0
+  bad
+    1.0.0
+    1.1.1
+
+vulns:
+  - id: DIA-000-000
+    affected:
+      - package:
+          ecosystem: npm
+          name: bad
+        ranges:
+        - type: SEMVER
+          events:
+            - introduced: '0'
+            - fixed: '2.0.0'
