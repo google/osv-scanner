@@ -185,7 +185,7 @@ func TestNpmRegistryAuthOpts(t *testing.T) {
 			opts: datasource.NpmRegistryAuthOpts{
 				"//my.custom.registry/here/:_authToken": "c0ffee",
 				"//my.custom.registry/here/:token":      "nope",
-				"//my.custom.registry/:_authToken":      "c0ffee",
+				"//my.custom.registry/:_authToken":      "7ea",
 				"//my.custom.registry/:token":           "nope",
 			},
 			requestURL: "https://my.custom.registry/here//foo/-/foo.tgz",

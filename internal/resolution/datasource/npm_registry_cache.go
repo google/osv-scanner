@@ -8,9 +8,9 @@ import (
 )
 
 type npmRegistryCache struct {
-	Timestamp *time.Time
-	Details   map[string]npmRegistryPackageDetails
-	ScopeURLs map[string]string
+	Timestamp *time.Time                           // Timestamp of when this cache was made
+	Details   map[string]npmRegistryPackageDetails // For a package name, the versions & their dependencies, and the list of tags
+	ScopeURLs map[string]string                    // The URL of the registry used for a given package @scope. Used to invalidate cache if registry has changed.
 }
 
 func (c *NpmRegistryAPIClient) GobEncode() ([]byte, error) {

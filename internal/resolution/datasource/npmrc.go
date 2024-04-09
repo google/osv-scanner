@@ -136,6 +136,7 @@ type npmRegistryAuthInfo struct {
 	auth      string
 	username  string
 	password  string
+	// TODO: certfile, keyfile
 }
 
 func (authInfo npmRegistryAuthInfo) AddToHeader(header http.Header) {
@@ -151,6 +152,7 @@ func (authInfo npmRegistryAuthInfo) AddToHeader(header http.Header) {
 		b, err := base64.StdEncoding.DecodeString(authInfo.password)
 		if err != nil {
 			// TODO: mimic the behaviour of node's Buffer.from(s, 'base64').toString()
+			// e.g. ignore invalid characters, stop parsing after first '=', just never throw an error
 			panic(fmt.Sprintf("Unable to decode registry password: %v", err))
 		}
 		authBytes = append(authBytes, b...)
@@ -214,8 +216,8 @@ func urlPathEscapeLower(s string) string {
 }
 
 type NpmRegistryConfig struct {
-	ScopeURLs map[string]string // map of @scope to registry
-	RegOpts   NpmRegistryAuthOpts
+	ScopeURLs map[string]string   // map of @scope to registry URL
+	RegOpts   NpmRegistryAuthOpts // the full key-value pairs of relevant npmrc config options.
 }
 
 func LoadNpmRegistryConfig(workdir string) (NpmRegistryConfig, error) {
