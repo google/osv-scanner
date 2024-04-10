@@ -7,8 +7,8 @@ import (
 	"testing"
 
 	"deps.dev/util/resolve"
+	"deps.dev/util/resolve/schema"
 	"github.com/google/osv-scanner/internal/resolution/client"
-	"github.com/google/osv-scanner/internal/resolution/clienttest/tmp/schema"
 	"github.com/google/osv-scanner/internal/resolution/util"
 	"github.com/google/osv-scanner/internal/utility/vulns"
 	"github.com/google/osv-scanner/pkg/models"

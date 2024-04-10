@@ -48,10 +48,13 @@ func checkResult(t *testing.T, result *resolution.ResolutionResult) {
 }
 
 func TestResolve(t *testing.T) {
+	t.Parallel()
+
 	aliasType := func(knownAs string) dep.Type {
 		t.Helper()
 		typ := dep.NewType()
 		typ.AddAttr(dep.KnownAs, knownAs)
+
 		return typ
 	}
 
