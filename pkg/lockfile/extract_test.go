@@ -52,9 +52,10 @@ func TestFindExtractor(t *testing.T) {
 		"requirements.txt":            "requirements.txt",
 		"yarn.lock":                   "yarn.lock",
 	}
-
+	enabledParsers := make(map[string]bool)
 	for file, extractAs := range lockfiles {
-		extractor, extractedAs := lockfile.FindExtractor("/path/to/my/"+file, "")
+		enabledParsers[extractAs] = true
+		extractor, extractedAs := lockfile.FindExtractor("/path/to/my/"+file, "", enabledParsers)
 
 		if extractor == nil {
 			t.Errorf("Expected a extractor to be found for %s but did not", file)
@@ -69,7 +70,10 @@ func TestFindExtractor(t *testing.T) {
 func TestFindExtractor_ExplicitExtractAs(t *testing.T) {
 	t.Parallel()
 
-	extractor, extractedAs := lockfile.FindExtractor("/path/to/my/package-lock.json", "composer.lock")
+	enabledParsers := map[string]bool{
+		"composer.lock": true,
+	}
+	extractor, extractedAs := lockfile.FindExtractor("/path/to/my/package-lock.json", "composer.lock", enabledParsers)
 
 	if extractor == nil {
 		t.Errorf("Expected a extractor to be found for package-lock.json (overridden as composer.lock) but did not")
@@ -103,11 +107,15 @@ func TestExtractDeps_FindsExpectedExtractor(t *testing.T) {
 		"requirements.txt",
 		"yarn.lock",
 	}
-
+	enabledParsers := make(map[string]bool)
+	for _, name := range lockfiles {
+		enabledParsers[name] = true
+	}
+	delete(enabledParsers, "buildscript-gradle.lockfile") // This extractor does not exists, it uses the gradle one
 	count := 0
 
 	for _, file := range lockfiles {
-		_, err := lockfile.ExtractDeps(openTestDepFile("/path/to/my/"+file), "")
+		_, err := lockfile.ExtractDeps(openTestDepFile("/path/to/my/"+file), "", enabledParsers)
 
 		if errors.Is(err, lockfile.ErrExtractorNotFound) {
 			t.Errorf("No extractor was found for %s", file)
@@ -125,7 +133,7 @@ func TestExtractDeps_FindsExpectedExtractor(t *testing.T) {
 func TestExtractDeps_ExtractorNotFound(t *testing.T) {
 	t.Parallel()
 
-	_, err := lockfile.ExtractDeps(openTestDepFile("/path/to/my/"), "")
+	_, err := lockfile.ExtractDeps(openTestDepFile("/path/to/my/"), "", map[string]bool{})
 
 	if err == nil {
 		t.Errorf("Expected to get an error but did not")
@@ -139,7 +147,7 @@ func TestExtractDeps_ExtractorNotFound(t *testing.T) {
 func TestExtractDeps_ExtractorNotFound_WithExplicitExtractAs(t *testing.T) {
 	t.Parallel()
 
-	_, err := lockfile.ExtractDeps(openTestDepFile("/path/to/my/"), "unsupported")
+	_, err := lockfile.ExtractDeps(openTestDepFile("/path/to/my/"), "unsupported", map[string]bool{})
 
 	if err == nil {
 		t.Errorf("Expected to get an error but did not")
@@ -165,5 +173,15 @@ func TestListExtractors(t *testing.T) {
 
 	if last := extractors[len(extractors)-1]; last != lastExpected {
 		t.Errorf("Expected last element to be %s, but got %s", lastExpected, last)
+	}
+}
+
+func TestDisabledExtractor(t *testing.T) {
+	t.Parallel()
+
+	extractor, extractedAs := lockfile.FindExtractor("/path/to/my/composer.lock", "", map[string]bool{})
+
+	if extractor != nil {
+		t.Errorf("Expected no extractor to be found but one has been found (%s)", extractedAs)
 	}
 }

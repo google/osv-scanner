@@ -43,6 +43,7 @@ type ScannerActions struct {
 	CallAnalysisStates     map[string]bool
 	ConsiderScanPathAsRoot bool
 	PathRelativeToScanDir  bool
+	EnableParsers          []string
 
 	ExperimentalScannerActions
 }
@@ -101,7 +102,7 @@ const (
 //   - Any lockfiles with scanLockfile
 //   - Any SBOM files with scanSBOMFile
 //   - Any git repositories with scanGit
-func scanDir(r reporter.Reporter, dir string, skipGit bool, recursive bool, useGitIgnore bool, compareOffline bool) ([]scannedPackage, error) {
+func scanDir(r reporter.Reporter, dir string, skipGit bool, recursive bool, useGitIgnore bool, compareOffline bool, enabledParsers map[string]bool) ([]scannedPackage, error) {
 	var ignoreMatcher *gitIgnoreMatcher
 	if useGitIgnore {
 		var err error
@@ -157,8 +158,8 @@ func scanDir(r reporter.Reporter, dir string, skipGit bool, recursive bool, useG
 		}
 
 		if !info.IsDir() {
-			if extractor, _ := lockfile.FindExtractor(path, ""); extractor != nil {
-				pkgs, err := scanLockfile(r, path, "")
+			if extractor, _ := lockfile.FindExtractor(path, "", enabledParsers); extractor != nil {
+				pkgs, err := scanLockfile(r, path, "", enabledParsers)
 				if err != nil {
 					r.PrintWarnf("Attempted to scan lockfile but failed: %s (%v)\n", path, err.Error())
 				}
@@ -335,7 +336,7 @@ func (m *gitIgnoreMatcher) match(absPath string, isDir bool) (bool, error) {
 
 // scanLockfile will load, identify, and parse the lockfile path passed in, and add the dependencies specified
 // within to `query`
-func scanLockfile(r reporter.Reporter, path string, parseAs string) ([]scannedPackage, error) {
+func scanLockfile(r reporter.Reporter, path string, parseAs string, enabledParsers map[string]bool) ([]scannedPackage, error) {
 	var err error
 	var parsedLockfile lockfile.Lockfile
 
@@ -353,7 +354,7 @@ func scanLockfile(r reporter.Reporter, path string, parseAs string) ([]scannedPa
 		case "osv-scanner":
 			parsedLockfile, err = lockfile.FromOSVScannerResults(path)
 		default:
-			parsedLockfile, err = lockfile.ExtractDeps(f, parseAs)
+			parsedLockfile, err = lockfile.ExtractDeps(f, parseAs, enabledParsers)
 		}
 	}
 
@@ -708,8 +709,27 @@ type scannedPackage struct {
 	DepGroups []string
 }
 
+func initializeEnabledParsers(enabledParsers []string) map[string]bool {
+	result := make(map[string]bool)
+
+	if len(enabledParsers) == 0 {
+		// If the list is empty, it means the flag is not set on the CLI, everything should be enabled
+		for _, parser := range lockfile.ListExtractors() {
+			result[parser] = true
+		}
+	} else {
+		for _, parser := range enabledParsers {
+			result[parser] = true
+		}
+	}
+
+	return result
+}
+
 // Perform osv scanner action, with optional reporter to output information
 func DoScan(actions ScannerActions, r reporter.Reporter) (models.VulnerabilityResults, error) {
+	enabledParsers := initializeEnabledParsers(actions.EnableParsers)
+
 	if r == nil {
 		r = &reporter.VoidReporter{}
 	}
@@ -760,7 +780,7 @@ func DoScan(actions ScannerActions, r reporter.Reporter) (models.VulnerabilityRe
 			r.PrintErrorf("Failed to resolved path with error %s\n", err)
 			return models.VulnerabilityResults{}, err
 		}
-		pkgs, err := scanLockfile(r, lockfilePath, parseAs)
+		pkgs, err := scanLockfile(r, lockfilePath, parseAs, enabledParsers)
 		if err != nil {
 			return models.VulnerabilityResults{}, err
 		}
@@ -785,7 +805,7 @@ func DoScan(actions ScannerActions, r reporter.Reporter) (models.VulnerabilityRe
 
 	for _, dir := range actions.DirectoryPaths {
 		r.PrintTextf("Scanning dir %s\n", dir)
-		pkgs, err := scanDir(r, dir, actions.SkipGit, actions.Recursive, !actions.NoIgnore, actions.CompareOffline)
+		pkgs, err := scanDir(r, dir, actions.SkipGit, actions.Recursive, !actions.NoIgnore, actions.CompareOffline, enabledParsers)
 		if err != nil {
 			return models.VulnerabilityResults{}, err
 		}

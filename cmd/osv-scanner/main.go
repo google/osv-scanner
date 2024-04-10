@@ -8,6 +8,8 @@ import (
 	"slices"
 	"strings"
 
+	"github.com/google/osv-scanner/pkg/lockfile"
+
 	"github.com/google/osv-scanner/internal/version"
 	"github.com/google/osv-scanner/pkg/osv"
 	"github.com/google/osv-scanner/pkg/osvscanner"
@@ -158,6 +160,10 @@ func run(args []string, stdout, stderr io.Writer) int {
 				Name:  "paths-relative-to-scan-dir",
 				Usage: "Same than --consider-scan-path-as-root but reports a path relative to the scan dir (removing the leading path separator)",
 			},
+			&cli.StringSliceFlag{
+				Name:  "enable-parsers",
+				Usage: fmt.Sprintf("Explicitly define which lockfile to parse. If set, any non-set parsers will be ignored. (Available parsers: %v)", lockfile.ListExtractors()),
+			},
 		},
 		ArgsUsage: "[directory1 directory2...]",
 		Action: func(context *cli.Context) error {
@@ -221,6 +227,7 @@ func run(args []string, stdout, stderr io.Writer) int {
 				CallAnalysisStates:     callAnalysisStates,
 				ConsiderScanPathAsRoot: context.Bool("consider-scan-path-as-root"),
 				PathRelativeToScanDir:  context.Bool("paths-relative-to-scan-dir"),
+				EnableParsers:          context.StringSlice("enable-parsers"),
 				ExperimentalScannerActions: osvscanner.ExperimentalScannerActions{
 					LocalDBPath:    context.String("experimental-local-db-path"),
 					CompareLocally: context.Bool("experimental-local-db"),
