@@ -237,7 +237,8 @@ func run(args []string, stdout, stderr io.Writer) int {
 				},
 			}, r)
 
-			if err != nil && !errors.Is(err, osvscanner.VulnerabilitiesFoundErr) {
+			shouldIgnoreError := errors.Is(err, osvscanner.VulnerabilitiesFoundErr) || errors.Is(err, osvscanner.NoPackagesFoundErr)
+			if err != nil && !shouldIgnoreError {
 				return err
 			}
 
@@ -258,8 +259,8 @@ func run(args []string, stdout, stderr io.Writer) int {
 		case errors.Is(err, osvscanner.VulnerabilitiesFoundErr):
 			return 1
 		case errors.Is(err, osvscanner.NoPackagesFoundErr):
-			r.PrintErrorf("No package sources found, --help for usage information.\n")
-			return 128
+			r.PrintWarnf("No package sources found, --help for usage information.\n")
+			return 0
 		}
 		r.PrintErrorf("%v\n", err)
 	}
