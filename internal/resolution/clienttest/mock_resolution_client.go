@@ -72,7 +72,6 @@ func NewMockResolutionClient(t *testing.T, universeYAML string) client.Resolutio
 	default:
 		t.Fatalf("unknown ecosystem in universe: %s", universe.System)
 	}
-	_ = sys
 
 	// schema needs a strict tab indentation, which is awkward to do within the YAML.
 	// Replace double space from yaml with single tab
