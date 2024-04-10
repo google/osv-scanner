@@ -62,13 +62,9 @@ func (m *MockHTTPServer) SetAuthorization(t *testing.T, auth string) {
 
 // ServeHTTP is the http.Handler for the underlying httptest.Server.
 func (m *MockHTTPServer) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-	path := r.URL.RawPath
-	if path == "" {
-		path = r.URL.Path
-	}
 	m.mu.Lock()
 	wantAuth := m.authorization
-	resp, ok := m.response[strings.TrimPrefix(path, "/")]
+	resp, ok := m.response[strings.TrimPrefix(r.URL.EscapedPath(), "/")]
 	m.mu.Unlock()
 
 	if wantAuth != "" && r.Header.Get("Authorization") != wantAuth {

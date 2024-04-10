@@ -2,7 +2,9 @@ package datasource_test
 
 import (
 	"context"
+	"encoding/base64"
 	"fmt"
+	"net/http"
 	"os"
 	"path/filepath"
 	"testing"
@@ -80,7 +82,7 @@ func TestNpmrcNoRegistries(t *testing.T) {
 		t.Fatalf("could not parse npmrc: %v", err)
 	}
 
-	if nRegs := len(config); nRegs != 1 {
+	if nRegs := len(config.ScopeURLs); nRegs != 1 {
 		t.Errorf("expected 1 npm registry, got %v", nRegs)
 	}
 
@@ -153,4 +155,142 @@ func TestNpmrcRegistryOverriding(t *testing.T) {
 	// override global/user/project in environment variable
 	t.Setenv("NPM_CONFIG_REGISTRY", "https://environ.registry.com")
 	check(t, npmrcFiles)
+}
+
+func TestNpmRegistryAuthOpts(t *testing.T) {
+	t.Parallel()
+	b64enc := func(s string) string {
+		t.Helper()
+		return base64.StdEncoding.EncodeToString([]byte(s))
+	}
+	tests := []struct {
+		name       string
+		opts       datasource.NpmRegistryAuthOpts
+		requestURL string
+		wantAuth   string
+	}{
+		// Auth tests adapted from npm-registry-fetch
+		// https://github.com/npm/npm-registry-fetch/blob/237d33b45396caa00add61e0549cf09fbf9deb4f/test/auth.js
+		{
+			name: "basic auth",
+			opts: datasource.NpmRegistryAuthOpts{
+				"//my.custom.registry/here/:username":  "user",
+				"//my.custom.registry/here/:_password": b64enc("pass"),
+			},
+			requestURL: "https://my.custom.registry/here/",
+			wantAuth:   "Basic " + b64enc("user:pass"),
+		},
+		{
+			name: "token auth",
+			opts: datasource.NpmRegistryAuthOpts{
+				"//my.custom.registry/here/:_authToken": "c0ffee",
+				"//my.custom.registry/here/:token":      "nope",
+				"//my.custom.registry/:_authToken":      "7ea",
+				"//my.custom.registry/:token":           "nope",
+			},
+			requestURL: "https://my.custom.registry/here//foo/-/foo.tgz",
+			wantAuth:   "Bearer c0ffee",
+		},
+		{
+			name: "_auth auth",
+			opts: datasource.NpmRegistryAuthOpts{
+				"//my.custom.registry/:_auth":      "decafbad",
+				"//my.custom.registry/here/:_auth": "c0ffee",
+			},
+			requestURL: "https://my.custom.registry/here//asdf/foo/bard/baz",
+			wantAuth:   "Basic c0ffee",
+		},
+		{
+			name: "_auth username:pass auth",
+			opts: datasource.NpmRegistryAuthOpts{
+				"//my.custom.registry/here/:_auth": b64enc("foo:bar"),
+			},
+			requestURL: "https://my.custom.registry/here/",
+			wantAuth:   "Basic " + b64enc("foo:bar"),
+		},
+		{
+			name: "ignore user/pass when _auth is set",
+			opts: datasource.NpmRegistryAuthOpts{
+				"//registry/:_auth":     b64enc("not:foobar"),
+				"//registry/:username":  "foo",
+				"//registry/:_password": b64enc("bar"),
+			},
+			requestURL: "http://registry/pkg/-/pkg-1.2.3.tgz",
+			wantAuth:   "Basic " + b64enc("not:foobar"),
+		},
+		{
+			name: "different hosts for uri vs registry",
+			opts: datasource.NpmRegistryAuthOpts{
+				"//my.custom.registry/here/:_authToken": "c0ffee",
+				"//my.custom.registry/here/:token":      "nope",
+			},
+			requestURL: "https://some.other.host/",
+			wantAuth:   "",
+		},
+		{
+			name: "do not be thrown by other weird configs",
+			opts: datasource.NpmRegistryAuthOpts{
+				"@asdf:_authToken":                 "does this work?",
+				"//registry.npmjs.org:_authToken":  "do not share this",
+				"_authToken":                       "definitely do not share this, either",
+				"//localhost:15443:_authToken":     "wrong",
+				"//localhost:15443/foo:_authToken": "correct bearer token",
+				"//localhost:_authToken":           "not this one",
+				"//other-registry:_authToken":      "this should not be used",
+				"@asdf:registry":                   "https://other-registry/",
+			},
+			requestURL: "http://localhost:15443/foo/@asdf/bar/-/bar-1.2.3.tgz",
+			wantAuth:   "Bearer correct bearer token",
+		},
+		// Some extra tests, based on experimentation with npm config
+		{
+			name: "exact package path uri",
+			opts: datasource.NpmRegistryAuthOpts{
+				"//custom.registry/:_authToken":         "less specific match",
+				"//custom.registry/package:_authToken":  "exact match",
+				"//custom.registry/package/:_authToken": "no match trailing slash",
+			},
+			requestURL: "http://custom.registry/package",
+			wantAuth:   "Bearer exact match",
+		},
+		{
+			name: "percent-encoding case-sensitivity",
+			opts: datasource.NpmRegistryAuthOpts{
+				"//custom.registry/:_authToken":                 "expected",
+				"//custom.registry/@scope%2Fpackage:_authToken": "bad config",
+			},
+			requestURL: "http://custom.registry/@scope%2fpackage",
+			wantAuth:   "Bearer expected",
+		},
+		{
+			name: "require both user and pass",
+			opts: datasource.NpmRegistryAuthOpts{
+				"//custom.registry/:_authToken":  "fallback",
+				"//custom.registry/foo:username": "user",
+			},
+			requestURL: "https://custom.registry/foo/bar",
+			wantAuth:   "Bearer fallback",
+		},
+		{
+			name: "don't inherit username",
+			opts: datasource.NpmRegistryAuthOpts{
+				"//custom.registry/:_authToken":       "fallback",
+				"//custom.registry/foo:username":      "user",
+				"//custom.registry/foo/bar:_password": b64enc("pass"),
+			},
+			requestURL: "https://custom.registry/foo/bar/baz",
+			wantAuth:   "Bearer fallback",
+		},
+	}
+	for _, tt := range tests {
+		tt := tt
+		t.Run(tt.name, func(t *testing.T) {
+			t.Parallel()
+			header := make(http.Header)
+			tt.opts.GetAuth(tt.requestURL).AddToHeader(header)
+			if got := header.Get("Authorization"); got != tt.wantAuth {
+				t.Errorf("authorization header got = \"%s\", want \"%s\"", got, tt.wantAuth)
+			}
+		})
+	}
 }

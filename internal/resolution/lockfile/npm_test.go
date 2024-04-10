@@ -152,8 +152,8 @@ func TestNpmWrite(t *testing.T) {
 
 	// Set up mock npm registry
 	srv := testutility.NewMockHTTPServer(t)
-	srv.SetResponseFromFile(t, "/@fake-registry%2Fa/1.2.4", "./fixtures/npm_registry/@fake-registry-a-1.2.4.json")
-	srv.SetResponseFromFile(t, "/@fake-registry%2Fa/2.3.5", "./fixtures/npm_registry/@fake-registry-a-2.3.5.json")
+	srv.SetResponseFromFile(t, "/@fake-registry%2fa/1.2.4", "./fixtures/npm_registry/@fake-registry-a-1.2.4.json")
+	srv.SetResponseFromFile(t, "/@fake-registry%2fa/2.3.5", "./fixtures/npm_registry/@fake-registry-a-2.3.5.json")
 
 	// Copy package-lock.json to temporary directory
 	dir := testutility.CreateTestDir(t)

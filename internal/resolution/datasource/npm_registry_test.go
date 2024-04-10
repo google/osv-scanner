@@ -27,7 +27,7 @@ func TestNpmRegistryClient(t *testing.T) {
 
 	srv2 := testutility.NewMockHTTPServer(t)
 	srv2.SetAuthorization(t, "Bearer "+authToken)
-	srv2.SetResponseFromFile(t, "/@fake-registry%2Fa", "./fixtures/npm_registry/@fake-registry-a.json")
+	srv2.SetResponseFromFile(t, "/@fake-registry%2fa", "./fixtures/npm_registry/@fake-registry-a.json")
 
 	npmrcFile := createTempNpmrc(t, ".npmrc")
 	writeToNpmrc(t, npmrcFile,
