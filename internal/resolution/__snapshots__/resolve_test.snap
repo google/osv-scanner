@@ -391,12 +391,6 @@ existing 1.0.0
       ]
     ],
     "NonProblemChains": []
-  },
-  {
-    "ID": "OSV-000-003",
-    "DevOnly": true,
-    "ProblemChains": [],
-    "NonProblemChains": []
   }
 ]
 ---

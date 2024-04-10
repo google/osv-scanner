@@ -25,8 +25,10 @@ type mockVulnerabilityClient []models.Vulnerability
 
 func (mvc mockVulnerabilityClient) FindVulns(g *resolve.Graph) ([]models.Vulnerabilities, error) {
 	result := make([]models.Vulnerabilities, len(g.Nodes))
-
 	for i, n := range g.Nodes {
+		if i == 0 {
+			continue // skip root node
+		}
 		for _, v := range mvc {
 			if vulns.IsAffected(v, util.VKToPackageDetails(n.Version)) {
 				result[i] = append(result[i], v)
