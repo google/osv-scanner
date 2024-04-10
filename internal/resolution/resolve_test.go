@@ -47,13 +47,14 @@ func checkResult(t *testing.T, result *resolution.ResolutionResult) {
 	snap.MatchJSON(t, minVulns)
 }
 
-func aliasType(knownAs string) dep.Type {
-	typ := dep.NewType()
-	typ.AddAttr(dep.KnownAs, knownAs)
-	return typ
-}
-
 func TestResolve(t *testing.T) {
+	aliasType := func(knownAs string) dep.Type {
+		t.Helper()
+		typ := dep.NewType()
+		typ.AddAttr(dep.KnownAs, knownAs)
+		return typ
+	}
+
 	type requirement struct {
 		name    string
 		version string
@@ -68,7 +69,7 @@ func TestResolve(t *testing.T) {
 		requirements []requirement
 	}{
 		{
-			name:     "simple",
+			name:     "simple", // simple root -> dependency -> vuln
 			version:  "1.0.0",
 			system:   resolve.NPM,
 			universe: "./fixtures/basic-universe.yaml",
@@ -178,7 +179,7 @@ func TestResolve(t *testing.T) {
 			},
 		},
 		{
-			name:     "complex",
+			name:     "complex", // more complex graph/vulnerability structure
 			version:  "9.9.9",
 			system:   resolve.NPM,
 			universe: "./fixtures/complex-universe.yaml",
