@@ -1,0 +1,522 @@
+
+[TestResolve/complex - 1]
+complex 9.9.9
+├─ reg|KnownAs="chuck"|Selector="" | alice@^1.0.0 1.0.1
+│  └─ $1@^2.0.0
+├─ 1: reg|Selector="" | bob@2.2.2 2.2.2
+└─ reg|Selector="" | dave@~3.3.3 3.3.3
+   ├─ $1@^2.2.2
+   └─ reg|KnownAs="duck"|Selector="" | chuck@^2.0.0 2.0.0
+      └─ $1@^2.0.1
+
+---
+
+[TestResolve/complex - 2]
+[
+  {
+    "ID": "CMPLX-0000-0000",
+    "DevOnly": false,
+    "ProblemChains": [
+      [
+        {
+          "From": 0,
+          "To": 1,
+          "Requirement": "^1.0.0",
+          "Type": {}
+        }
+      ]
+    ],
+    "NonProblemChains": []
+  },
+  {
+    "ID": "CMPLX-1000-0000",
+    "DevOnly": false,
+    "ProblemChains": [
+      [
+        {
+          "From": 0,
+          "To": 2,
+          "Requirement": "2.2.2",
+          "Type": {}
+        }
+      ],
+      [
+        {
+          "From": 1,
+          "To": 2,
+          "Requirement": "^2.0.0",
+          "Type": {}
+        },
+        {
+          "From": 0,
+          "To": 1,
+          "Requirement": "^1.0.0",
+          "Type": {}
+        }
+      ],
+      [
+        {
+          "From": 3,
+          "To": 2,
+          "Requirement": "^2.2.2",
+          "Type": {}
+        },
+        {
+          "From": 0,
+          "To": 3,
+          "Requirement": "~3.3.3",
+          "Type": {}
+        }
+      ],
+      [
+        {
+          "From": 4,
+          "To": 2,
+          "Requirement": "^2.0.1",
+          "Type": {}
+        },
+        {
+          "From": 3,
+          "To": 4,
+          "Requirement": "^2.0.0",
+          "Type": {}
+        },
+        {
+          "From": 0,
+          "To": 3,
+          "Requirement": "~3.3.3",
+          "Type": {}
+        }
+      ]
+    ],
+    "NonProblemChains": []
+  },
+  {
+    "ID": "CMPLX-2000-0000",
+    "DevOnly": true,
+    "ProblemChains": [
+      [
+        {
+          "From": 3,
+          "To": 4,
+          "Requirement": "^2.0.0",
+          "Type": {}
+        },
+        {
+          "From": 0,
+          "To": 3,
+          "Requirement": "~3.3.3",
+          "Type": {}
+        }
+      ]
+    ],
+    "NonProblemChains": []
+  }
+]
+---
+
+[TestResolve/diamond - 1]
+diamond 1.0.0
+├─ reg|Selector="" | pkg@^1.0.0 1.0.0
+│  └─ 1: reg|Selector="" | bad@^1.0.0 1.1.1
+└─ reg|Selector="" | dep-one@^1.0.0 1.0.0
+   ├─ $1@^1.0.0
+   └─ reg|Selector="" | dep-two@^1.0.0 1.0.0
+      └─ $1@^1.0.0
+
+---
+
+[TestResolve/diamond - 2]
+[
+  {
+    "ID": "DIA-000-000",
+    "DevOnly": false,
+    "ProblemChains": [
+      [
+        {
+          "From": 1,
+          "To": 3,
+          "Requirement": "^1.0.0",
+          "Type": {}
+        },
+        {
+          "From": 0,
+          "To": 1,
+          "Requirement": "^1.0.0",
+          "Type": {}
+        }
+      ],
+      [
+        {
+          "From": 2,
+          "To": 3,
+          "Requirement": "^1.0.0",
+          "Type": {}
+        },
+        {
+          "From": 0,
+          "To": 2,
+          "Requirement": "^1.0.0",
+          "Type": {}
+        }
+      ],
+      [
+        {
+          "From": 4,
+          "To": 3,
+          "Requirement": "^1.0.0",
+          "Type": {}
+        },
+        {
+          "From": 2,
+          "To": 4,
+          "Requirement": "^1.0.0",
+          "Type": {}
+        },
+        {
+          "From": 0,
+          "To": 2,
+          "Requirement": "^1.0.0",
+          "Type": {}
+        }
+      ]
+    ],
+    "NonProblemChains": []
+  }
+]
+---
+
+[TestResolve/different-pkgs - 1]
+different-pkgs 3.0.0
+├─ reg|Selector="" | bad2@^1.0.0 1.0.0
+└─ reg|Selector="" | dependency@^1.0.0 1.0.0
+   └─ reg|Selector="" | bad@^1.0.0 1.1.1
+
+---
+
+[TestResolve/different-pkgs - 2]
+[
+  {
+    "ID": "OSV-000-000",
+    "DevOnly": false,
+    "ProblemChains": [
+      [
+        {
+          "From": 2,
+          "To": 3,
+          "Requirement": "^1.0.0",
+          "Type": {}
+        },
+        {
+          "From": 0,
+          "To": 2,
+          "Requirement": "^1.0.0",
+          "Type": {}
+        }
+      ]
+    ],
+    "NonProblemChains": []
+  },
+  {
+    "ID": "OSV-000-001",
+    "DevOnly": false,
+    "ProblemChains": [
+      [
+        {
+          "From": 0,
+          "To": 1,
+          "Requirement": "^1.0.0",
+          "Type": {}
+        }
+      ],
+      [
+        {
+          "From": 2,
+          "To": 3,
+          "Requirement": "^1.0.0",
+          "Type": {}
+        },
+        {
+          "From": 0,
+          "To": 2,
+          "Requirement": "^1.0.0",
+          "Type": {}
+        }
+      ]
+    ],
+    "NonProblemChains": []
+  }
+]
+---
+
+[TestResolve/direct - 1]
+direct 1.0.0
+└─ reg|Selector="" | bad@^2.0.0 2.2.2
+
+---
+
+[TestResolve/direct - 2]
+[
+  {
+    "ID": "OSV-000-001",
+    "DevOnly": false,
+    "ProblemChains": [
+      [
+        {
+          "From": 0,
+          "To": 1,
+          "Requirement": "^2.0.0",
+          "Type": {}
+        }
+      ]
+    ],
+    "NonProblemChains": []
+  }
+]
+---
+
+[TestResolve/duplicates - 1]
+duplicates 1.1.1
+├─ reg|KnownAs="bad-aliased"|Selector="" | bad@^1.0.0 1.1.1
+├─ reg|Selector="" | dependency@^2.0.0 2.0.0
+│  └─ reg|Selector="" | bad@^2.0.0 2.2.2
+└─ reg|KnownAs="dependency-v1"|Selector="" | dependency@^1.0.0 1.0.0
+   └─ reg|Selector="" | bad@^1.0.0 1.1.1
+
+---
+
+[TestResolve/duplicates - 2]
+[
+  {
+    "ID": "OSV-000-000",
+    "DevOnly": false,
+    "ProblemChains": [
+      [
+        {
+          "From": 0,
+          "To": 1,
+          "Requirement": "^1.0.0",
+          "Type": {}
+        }
+      ],
+      [
+        {
+          "From": 3,
+          "To": 5,
+          "Requirement": "^1.0.0",
+          "Type": {}
+        },
+        {
+          "From": 0,
+          "To": 3,
+          "Requirement": "^1.0.0",
+          "Type": {}
+        }
+      ]
+    ],
+    "NonProblemChains": []
+  },
+  {
+    "ID": "OSV-000-001",
+    "DevOnly": false,
+    "ProblemChains": [
+      [
+        {
+          "From": 0,
+          "To": 1,
+          "Requirement": "^1.0.0",
+          "Type": {}
+        }
+      ],
+      [
+        {
+          "From": 2,
+          "To": 4,
+          "Requirement": "^2.0.0",
+          "Type": {}
+        },
+        {
+          "From": 0,
+          "To": 2,
+          "Requirement": "^2.0.0",
+          "Type": {}
+        }
+      ],
+      [
+        {
+          "From": 3,
+          "To": 5,
+          "Requirement": "^1.0.0",
+          "Type": {}
+        },
+        {
+          "From": 0,
+          "To": 3,
+          "Requirement": "^1.0.0",
+          "Type": {}
+        }
+      ]
+    ],
+    "NonProblemChains": []
+  }
+]
+---
+
+[TestResolve/existing - 1]
+existing 1.0.0
+└─ opt|Selector="" | dependency@^2.0.0 2.0.0
+   └─ reg|Selector="" | bad@^2.0.0 2.2.2
+
+---
+
+[TestResolve/existing - 2]
+[
+  {
+    "ID": "OSV-000-001",
+    "DevOnly": false,
+    "ProblemChains": [
+      [
+        {
+          "From": 1,
+          "To": 2,
+          "Requirement": "^2.0.0",
+          "Type": {}
+        },
+        {
+          "From": 0,
+          "To": 1,
+          "Requirement": "^2.0.0",
+          "Type": {}
+        }
+      ]
+    ],
+    "NonProblemChains": []
+  }
+]
+---
+
+[TestResolve/non-problem - 1]
+non-problem 1.0.0
+├─ 1: reg|Selector="" | bad@^1.0.0 1.1.1
+└─ reg|Selector="" | dependency@^3.0.0 3.0.0
+   └─ $1@*
+
+---
+
+[TestResolve/non-problem - 2]
+[
+  {
+    "ID": "OSV-000-000",
+    "DevOnly": false,
+    "ProblemChains": [
+      [
+        {
+          "From": 0,
+          "To": 1,
+          "Requirement": "^1.0.0",
+          "Type": {}
+        }
+      ]
+    ],
+    "NonProblemChains": [
+      [
+        {
+          "From": 2,
+          "To": 1,
+          "Requirement": "*",
+          "Type": {}
+        },
+        {
+          "From": 0,
+          "To": 2,
+          "Requirement": "^3.0.0",
+          "Type": {}
+        }
+      ]
+    ]
+  },
+  {
+    "ID": "OSV-000-001",
+    "DevOnly": false,
+    "ProblemChains": [
+      [
+        {
+          "From": 0,
+          "To": 1,
+          "Requirement": "^1.0.0",
+          "Type": {}
+        }
+      ],
+      [
+        {
+          "From": 2,
+          "To": 1,
+          "Requirement": "*",
+          "Type": {}
+        },
+        {
+          "From": 0,
+          "To": 2,
+          "Requirement": "^3.0.0",
+          "Type": {}
+        }
+      ]
+    ],
+    "NonProblemChains": []
+  }
+]
+---
+
+[TestResolve/simple - 1]
+simple 1.0.0
+└─ reg|Selector="" | dependency@^1.0.0 1.0.0
+   └─ reg|Selector="" | bad@^1.0.0 1.1.1
+
+---
+
+[TestResolve/simple - 2]
+[
+  {
+    "ID": "OSV-000-000",
+    "DevOnly": true,
+    "ProblemChains": [
+      [
+        {
+          "From": 1,
+          "To": 2,
+          "Requirement": "^1.0.0",
+          "Type": {}
+        },
+        {
+          "From": 0,
+          "To": 1,
+          "Requirement": "^1.0.0",
+          "Type": {}
+        }
+      ]
+    ],
+    "NonProblemChains": []
+  },
+  {
+    "ID": "OSV-000-001",
+    "DevOnly": true,
+    "ProblemChains": [
+      [
+        {
+          "From": 1,
+          "To": 2,
+          "Requirement": "^1.0.0",
+          "Type": {}
+        },
+        {
+          "From": 0,
+          "To": 1,
+          "Requirement": "^1.0.0",
+          "Type": {}
+        }
+      ]
+    ],
+    "NonProblemChains": []
+  }
+]
+---
