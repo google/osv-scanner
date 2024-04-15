@@ -5,6 +5,10 @@ import (
 	"io"
 	"os"
 	"path/filepath"
+
+	"golang.org/x/text/encoding"
+	"golang.org/x/text/encoding/unicode"
+	"golang.org/x/text/transform"
 )
 
 var ErrOpenNotSupported = errors.New("this file does not support opening files")
@@ -38,7 +42,8 @@ type Extractor interface {
 
 // A LocalFile represents a file that exists on the local filesystem.
 type LocalFile struct {
-	io.ReadCloser
+	io.Reader
+	io.Closer
 
 	path string
 }
@@ -63,7 +68,11 @@ func OpenLocalDepFile(path string) (NestedDepFile, error) {
 	// Very unlikely to have Abs return an error if the file opens correctly
 	path, _ = filepath.Abs(path)
 
-	return LocalFile{r, path}, nil
+	// We apply a decoder on it to avoid issues with utf-16
+	var transformer = unicode.BOMOverride(encoding.Nop.NewDecoder())
+	decodedReader := transform.NewReader(r, transformer)
+
+	return LocalFile{decodedReader, r, path}, nil
 }
 
 var _ DepFile = LocalFile{}

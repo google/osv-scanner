@@ -27,6 +27,12 @@ func AssertBomEqual(t *testing.T, expected, actual cyclonedx.BOM, assertLocation
 	}
 }
 
+func BuildEmptyEvidence() *cyclonedx.Evidence {
+	return &cyclonedx.Evidence{
+		Occurrences: &[]cyclonedx.EvidenceOccurrence{},
+	}
+}
+
 func assertBaseBomEquals(t *testing.T, expected, actual cyclonedx.BOM) {
 	t.Helper()
 	assert.EqualValues(t, expected.JSONSchema, actual.JSONSchema)

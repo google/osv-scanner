@@ -3,7 +3,7 @@ package lockfile
 import (
 	"encoding/json"
 	"fmt"
-	"os"
+	"io"
 	"path/filepath"
 	"strings"
 
@@ -33,12 +33,16 @@ func (e PipenvLockExtractor) ShouldExtract(path string) bool {
 func (e PipenvLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 	var parsedLockfile *PipenvLock
 
-	content, err := os.ReadFile(f.Path())
+	content, err := OpenLocalDepFile(f.Path())
 	if err != nil {
 		return []PackageDetails{}, fmt.Errorf("could not extract from %s: %w", f.Path(), err)
 	}
 
-	contentString := string(content)
+	contentBytes, err := io.ReadAll(content)
+	if err != nil {
+		return []PackageDetails{}, fmt.Errorf("could not read from %s: %w", f.Path(), err)
+	}
+	contentString := string(contentBytes)
 	lines := strings.Split(contentString, "\n")
 	decoder := json.NewDecoder(strings.NewReader(contentString))
 

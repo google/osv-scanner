@@ -8,13 +8,18 @@ import (
 type ParameterExtractor func(packageInfo models.PackageInfo) (namespace string, name string, ok bool)
 
 var ecosystemToPURLMapper = map[models.Ecosystem]string{
-	models.EcosystemMaven:     packageurl.TypeMaven,
-	models.EcosystemGo:        packageurl.TypeGolang,
-	models.EcosystemPackagist: packageurl.TypeComposer,
-	models.EcosystemPyPI:      packageurl.TypePyPi,
-	models.EcosystemRubyGems:  packageurl.TypeGem,
-	models.EcosystemNuGet:     packageurl.TypeNuget,
-	models.EcosystemNPM:       packageurl.TypeNPM,
+	models.EcosystemMaven:       packageurl.TypeMaven,
+	models.EcosystemGo:          packageurl.TypeGolang,
+	models.EcosystemPackagist:   packageurl.TypeComposer,
+	models.EcosystemPyPI:        packageurl.TypePyPi,
+	models.EcosystemRubyGems:    packageurl.TypeGem,
+	models.EcosystemNuGet:       packageurl.TypeNuget,
+	models.EcosystemNPM:         packageurl.TypeNPM,
+	models.EcosystemConanCenter: packageurl.TypeConan,
+	models.EcosystemCratesIO:    packageurl.TypeCargo,
+	models.EcosystemPub:         packageurl.TypePub,
+	models.EcosystemHex:         packageurl.TypeHex,
+	models.EcosystemCRAN:        packageurl.TypeCran,
 }
 
 var ecosystemPURLExtractor = map[models.Ecosystem]ParameterExtractor{
