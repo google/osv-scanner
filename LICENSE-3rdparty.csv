@@ -228,6 +228,7 @@ core,golang.org/x/tools/go/ssa,BSD-3-Clause,Copyright (c) 2009 The Go Authors. A
 core,golang.org/x/tools/go/ssa/ssautil,BSD-3-Clause,Copyright (c) 2009 The Go Authors. All rights reserved
 core,golang.org/x/tools/go/types/objectpath,BSD-3-Clause,Copyright (c) 2009 The Go Authors. All rights reserved
 core,golang.org/x/tools/go/types/typeutil,BSD-3-Clause,Copyright (c) 2009 The Go Authors. All rights reserved
+core,golang.org/x/tools/internal/aliases,BSD-3-Clause,Copyright (c) 2009 The Go Authors. All rights reserved
 core,golang.org/x/tools/internal/event,BSD-3-Clause,Copyright (c) 2009 The Go Authors. All rights reserved
 core,golang.org/x/tools/internal/event/core,BSD-3-Clause,Copyright (c) 2009 The Go Authors. All rights reserved
 core,golang.org/x/tools/internal/event/keys,BSD-3-Clause,Copyright (c) 2009 The Go Authors. All rights reserved
@@ -240,6 +241,7 @@ core,golang.org/x/tools/internal/pkgbits,BSD-3-Clause,Copyright (c) 2009 The Go 
 core,golang.org/x/tools/internal/tokeninternal,BSD-3-Clause,Copyright (c) 2009 The Go Authors. All rights reserved
 core,golang.org/x/tools/internal/typeparams,BSD-3-Clause,Copyright (c) 2009 The Go Authors. All rights reserved
 core,golang.org/x/tools/internal/typesinternal,BSD-3-Clause,Copyright (c) 2009 The Go Authors. All rights reserved
+core,golang.org/x/tools/internal/versions,BSD-3-Clause,Copyright (c) 2009 The Go Authors. All rights reserved
 core,golang.org/x/vuln/internal,BSD-3-Clause,Copyright (c) 2009 The Go Authors. All rights reserved
 core,golang.org/x/vuln/internal/client,BSD-3-Clause,Copyright (c) 2009 The Go Authors. All rights reserved
 core,golang.org/x/vuln/internal/derrors,BSD-3-Clause,Copyright (c) 2009 The Go Authors. All rights reserved
