@@ -73,7 +73,12 @@ func matchAnalysisWithPackageVulns(pkgs []models.PackageVulns, idToFindings map[
 					fillNotImportedAnalysisInfo(vulnsByID, vulnID, pv, analysis)
 					continue
 				}
-				// TODO: There feels like something's wrong here, not sure what
+
+				if !vulnHasImportsField(vulnsByID[vulnID], pv.Package) && moduleToCalled[pv.Package.Name] {
+					// Vuln entry does not have any symbol information, therefore called being true is not useful
+					continue
+				}
+
 				(*analysis)[vulnID] = models.AnalysisInfo{
 					Called: moduleToCalled[pv.Package.Name],
 				}
@@ -82,21 +87,29 @@ func matchAnalysisWithPackageVulns(pkgs []models.PackageVulns, idToFindings map[
 	}
 }
 
-// fillNotImportedAnalysisInfo checks for any source information in advisories, and sets called to false
-func fillNotImportedAnalysisInfo(vulnsByID map[string]models.Vulnerability, vulnID string, pv models.PackageVulns, analysis *map[string]models.AnalysisInfo) {
-	for _, v := range vulnsByID[vulnID].Affected {
+func vulnHasImportsField(vuln models.Vulnerability, pkg models.PackageInfo) bool {
+	for _, affected := range vuln.Affected {
 		// TODO: Compare versions to see if this is the correct affected element
 		// ver, err := semantic.Parse(pv.Package.Version, semantic.SemverVersion)
-		if v.Package.Name != pv.Package.Name {
+		if affected.Package.Name != pkg.Name {
 			continue
 		}
-		_, hasImportsField := v.EcosystemSpecific["imports"]
+		_, hasImportsField := affected.EcosystemSpecific["imports"]
 		if hasImportsField {
-			// If there is source information, then analysis has been performed, and
-			// code does not import the vulnerable package, so definitely not called
-			(*analysis)[vulnID] = models.AnalysisInfo{
-				Called: false,
-			}
+			return true
+		}
+	}
+
+	return false
+}
+
+// fillNotImportedAnalysisInfo checks for any source information in advisories, and sets called to false
+func fillNotImportedAnalysisInfo(vulnsByID map[string]models.Vulnerability, vulnID string, pv models.PackageVulns, analysis *map[string]models.AnalysisInfo) {
+	if vulnHasImportsField(vulnsByID[vulnID], pv.Package) {
+		// If there is source information, then analysis has been performed, and
+		// code does not import the vulnerable package, so definitely not called
+		(*analysis)[vulnID] = models.AnalysisInfo{
+			Called: false,
 		}
 	}
 }
