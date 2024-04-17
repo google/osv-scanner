@@ -3,10 +3,10 @@ module github.com/google/osv-scanner
 go 1.21.8
 
 require (
-	deps.dev/api/v3 v3.0.0-20240410004301-2c48bd578133
-	deps.dev/util/maven v0.0.0-20240410004301-2c48bd578133
-	deps.dev/util/resolve v0.0.0-20240410004301-2c48bd578133
-	deps.dev/util/semver v0.0.0-20240410004301-2c48bd578133
+	deps.dev/api/v3 v3.0.0-20240411010756-f6f382da6e02
+	deps.dev/util/maven v0.0.0-20240411010756-f6f382da6e02
+	deps.dev/util/resolve v0.0.0-20240411010756-f6f382da6e02
+	deps.dev/util/semver v0.0.0-20240411010756-f6f382da6e02
 	github.com/BurntSushi/toml v1.3.2
 	github.com/CycloneDX/cyclonedx-go v0.8.0
 	github.com/charmbracelet/bubbles v0.18.0
@@ -25,12 +25,12 @@ require (
 	github.com/owenrumney/go-sarif/v2 v2.3.1
 	github.com/package-url/packageurl-go v0.1.2
 	github.com/pandatix/go-cvss v0.6.2
-	github.com/spdx/tools-golang v0.5.3
+	github.com/spdx/tools-golang v0.5.4
 	github.com/tidwall/gjson v1.17.1
 	github.com/tidwall/pretty v1.2.1
 	github.com/tidwall/sjson v1.2.5
 	github.com/urfave/cli/v2 v2.27.1
-	golang.org/x/exp v0.0.0-20240409090435-93d18d7e34b8
+	golang.org/x/exp v0.0.0-20240416160154-fe59bbe5cc7f
 	golang.org/x/mod v0.17.0
 	golang.org/x/sync v0.7.0
 	golang.org/x/term v0.19.0
