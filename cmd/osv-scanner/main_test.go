@@ -303,7 +303,7 @@ func TestRunCallAnalysis(t *testing.T) {
 			args: []string{"",
 				"--call-analysis=go",
 				"--config=./fixtures/osv-scanner-empty-config.toml",
-				"../../internal/sourceanalysis/integration/fixtures-go/test-project"},
+				"./fixtures/call-analysis-go-project"},
 			exit: 1,
 		},
 	}
