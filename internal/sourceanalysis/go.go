@@ -83,7 +83,8 @@ func matchAnalysisWithPackageVulns(pkgs []models.PackageVulns, idToFindings map[
 					continue
 				}
 
-				if !vulnHasImportsField(vulnsByID[vulnID], &pv.Package) && moduleToCalled[pv.Package.Name] {
+				pkg := pv.Package
+				if !vulnHasImportsField(vulnsByID[vulnID], &pkg) && moduleToCalled[pv.Package.Name] {
 					// Vuln entry does not have any symbol information, therefore called being true is not useful
 					continue
 				}
@@ -98,7 +99,6 @@ func matchAnalysisWithPackageVulns(pkgs []models.PackageVulns, idToFindings map[
 
 func vulnHasImportsField(vuln models.Vulnerability, pkg *models.PackageInfo) bool {
 	for _, affected := range vuln.Affected {
-
 		if pkg != nil {
 			// TODO: Compare versions to see if this is the correct affected element
 			// ver, err := semantic.Parse(pv.Package.Version, semantic.SemverVersion)
