@@ -23,7 +23,7 @@ func Test_createSARIFHelpText(t *testing.T) {
 		{
 			args: testutility.LoadJSONFixture[groupedSARIFFinding](t, "fixtures/commit-grouped.json"),
 			want: testutility.NewSnapshot().WithWindowsReplacements(map[string]string{
-				"\\usr\\local\\google\\home\\rexpan\\Documents\\Project\\engine/osv-scanner.toml": "/usr/local/google/home/rexpan/Documents/Project/engine/osv-scanner.toml",
+				"<rootdir>\\Documents\\Project\\engine/osv-scanner.toml": "<rootdir>/Documents/Project/engine/osv-scanner.toml",
 			}),
 		},
 	}

@@ -9,7 +9,7 @@
           "package": "github.com/gogo/protobuf/proto",
           "function": "RegisterEnum",
           "position": {
-            "filename": "/usr/local/google/home/rexpan/go/pkg/mod/github.com/gogo/protobuf@v1.3.1/proto/properties.go",
+            "filename": "<rootdir>/go/pkg/mod/github.com/gogo/protobuf@v1.3.1/proto/properties.go",
             "offset": 14200,
             "line": 518,
             "column": 6
@@ -21,7 +21,7 @@
           "package": "github.com/gogo/protobuf/protoc-gen-gogo/descriptor",
           "function": "init#1",
           "position": {
-            "filename": "/usr/local/google/home/rexpan/go/pkg/mod/github.com/gogo/protobuf@v1.3.1/protoc-gen-gogo/descriptor/descriptor.pb.go",
+            "filename": "<rootdir>/go/pkg/mod/github.com/gogo/protobuf@v1.3.1/protoc-gen-gogo/descriptor/descriptor.pb.go",
             "offset": 98891,
             "line": 2668,
             "column": 20
@@ -33,7 +33,7 @@
           "package": "github.com/gogo/protobuf/protoc-gen-gogo/descriptor",
           "function": "init",
           "position": {
-            "filename": "/usr/local/google/home/rexpan/go/pkg/mod/github.com/gogo/protobuf@v1.3.1/protoc-gen-gogo/descriptor/descriptor.go",
+            "filename": "<rootdir>/go/pkg/mod/github.com/gogo/protobuf@v1.3.1/protoc-gen-gogo/descriptor/descriptor.go",
             "offset": 1932,
             "line": 37,
             "column": 1
@@ -45,7 +45,7 @@
           "package": "github.com/gogo/protobuf/plugin/unmarshal",
           "function": "init",
           "position": {
-            "filename": "/usr/local/google/home/rexpan/go/pkg/mod/github.com/gogo/protobuf@v1.3.1/plugin/unmarshal/unmarshal.go",
+            "filename": "<rootdir>/go/pkg/mod/github.com/gogo/protobuf@v1.3.1/plugin/unmarshal/unmarshal.go",
             "offset": 5007,
             "line": 184,
             "column": 2
@@ -56,7 +56,7 @@
           "package": "github.com/ossf-tests/osv-e2e",
           "function": "init",
           "position": {
-            "filename": "/usr/local/google/home/rexpan/Documents/Project/osv-scanner/internal/sourceanalysis/integration/fixtures-go/test-project/main.go",
+            "filename": "<rootdir>/Documents/Project/osv-scanner/internal/sourceanalysis/integration/fixtures-go/test-project/main.go",
             "offset": 44,
             "line": 7,
             "column": 2

@@ -160,7 +160,7 @@ reason = "Your reason for ignoring this vulnerability"
 
 | Source | Package Name | Package Version |
 | --- | --- | --- |
-| lockfile:/usr/local/google/home/rexpan/Documents/Project/engine/deps_flatten.txt | https://fuchsia.googlesource.com/third_party/android.googlesource.com/platform/external/perfetto | b8da07095979310818f0efde2ef3c69ea70d62c5 |
+| lockfile:<rootdir>/Documents/Project/engine/deps_flatten.txt | https://fuchsia.googlesource.com/third_party/android.googlesource.com/platform/external/perfetto | b8da07095979310818f0efde2ef3c69ea70d62c5 |
 
 ## Remediation
 
@@ -179,7 +179,7 @@ See the format and more options in our documentation here: https://google.github
 
 Add or append these values to the following config files to ignore this vulnerability:
 
-`/usr/local/google/home/rexpan/Documents/Project/engine/osv-scanner.toml`
+`<rootdir>/Documents/Project/engine/osv-scanner.toml`
 
 ```
 [[IgnoredVulns]]
