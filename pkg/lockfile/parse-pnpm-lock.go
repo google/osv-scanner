@@ -31,26 +31,29 @@ type PnpmLockfile struct {
 	Packages map[string]PnpmLockPackage `yaml:"packages,omitempty"`
 }
 
-type pnpmLockfileV6 struct {
+type pnpmLockfileV9 struct {
 	Version  string                     `yaml:"lockfileVersion"`
 	Packages map[string]PnpmLockPackage `yaml:"packages,omitempty"`
 }
 
 func (l *PnpmLockfile) UnmarshalYAML(unmarshal func(interface{}) error) error {
-	var lockfileV6 pnpmLockfileV6
+	var lf struct {
+		Version  string                     `yaml:"lockfileVersion"`
+		Packages map[string]PnpmLockPackage `yaml:"packages,omitempty"`
+	}
 
-	if err := unmarshal(&lockfileV6); err != nil {
+	if err := unmarshal(&lf); err != nil {
 		return err
 	}
 
-	parsedVersion, err := strconv.ParseFloat(lockfileV6.Version, 64)
+	parsedVersion, err := strconv.ParseFloat(lf.Version, 64)
 
 	if err != nil {
 		return err
 	}
 
 	l.Version = parsedVersion
-	l.Packages = lockfileV6.Packages
+	l.Packages = lf.Packages
 
 	return nil
 }
@@ -171,6 +174,57 @@ func parsePnpmLock(lockfile PnpmLockfile) []PackageDetails {
 	return packages
 }
 
+func parsePnpmLockV9(lockfile pnpmLockfileV9) []PackageDetails {
+	packages := make([]PackageDetails, 0, len(lockfile.Packages))
+
+	for s, pkg := range lockfile.Packages {
+		name, version := extractPnpmPackageNameAndVersion(s)
+
+		// "name" is only present if it's not in the dependency path and takes
+		// priority over whatever name we think we've extracted (if any)
+		if pkg.Name != "" {
+			name = pkg.Name
+		}
+
+		// "version" is only present if it's not in the dependency path and takes
+		// priority over whatever version we think we've extracted (if any)
+		if pkg.Version != "" {
+			version = pkg.Version
+		}
+
+		if name == "" || version == "" {
+			continue
+		}
+
+		commit := pkg.Resolution.Commit
+
+		if strings.HasPrefix(pkg.Resolution.Tarball, "https://codeload.github.com") {
+			re := cachedregexp.MustCompile(`https://codeload\.github\.com(?:/[\w-.]+){2}/tar\.gz/(\w+)$`)
+			matched := re.FindStringSubmatch(pkg.Resolution.Tarball)
+
+			if matched != nil {
+				commit = matched[1]
+			}
+		}
+
+		var depGroups []string
+		if pkg.Dev {
+			depGroups = append(depGroups, "dev")
+		}
+
+		packages = append(packages, PackageDetails{
+			Name:      name,
+			Version:   version,
+			Ecosystem: PnpmEcosystem,
+			CompareAs: PnpmEcosystem,
+			Commit:    commit,
+			DepGroups: depGroups,
+		})
+	}
+
+	return packages
+}
+
 type PnpmLockExtractor struct{}
 
 func (e PnpmLockExtractor) ShouldExtract(path string) bool {
@@ -191,7 +245,28 @@ func (e PnpmLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 		parsedLockfile = &PnpmLockfile{}
 	}
 
+	if parsedLockfile.Version == 9.0 {
+		return e.extractPnpmV9(f)
+	}
+
 	return parsePnpmLock(*parsedLockfile), nil
+}
+
+func (e PnpmLockExtractor) extractPnpmV9(f DepFile) ([]PackageDetails, error) {
+	var parsedLockfile *pnpmLockfileV9
+
+	err := yaml.NewDecoder(f).Decode(&parsedLockfile)
+
+	if err != nil && !errors.Is(err, io.EOF) {
+		return []PackageDetails{}, fmt.Errorf("could not extract from %s: %w", f.Path(), err)
+	}
+
+	// this will happen if the file is empty
+	if parsedLockfile == nil {
+		parsedLockfile = &pnpmLockfileV9{}
+	}
+
+	return parsePnpmLockV9(*parsedLockfile), nil
 }
 
 var _ Extractor = PnpmLockExtractor{}
