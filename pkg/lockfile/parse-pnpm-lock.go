@@ -31,24 +31,26 @@ type PnpmLockfile struct {
 	Packages map[string]PnpmLockPackage `yaml:"packages,omitempty"`
 }
 
-func (l *PnpmLockfile) UnmarshalYAML(unmarshal func(interface{}) error) error {
-	var lf struct {
-		Version  string                     `yaml:"lockfileVersion"`
-		Packages map[string]PnpmLockPackage `yaml:"packages,omitempty"`
-	}
+type pnpmLockfileV6 struct {
+	Version  string                     `yaml:"lockfileVersion"`
+	Packages map[string]PnpmLockPackage `yaml:"packages,omitempty"`
+}
 
-	if err := unmarshal(&lf); err != nil {
+func (l *PnpmLockfile) UnmarshalYAML(unmarshal func(interface{}) error) error {
+	var lockfileV6 pnpmLockfileV6
+
+	if err := unmarshal(&lockfileV6); err != nil {
 		return err
 	}
 
-	parsedVersion, err := strconv.ParseFloat(lf.Version, 64)
+	parsedVersion, err := strconv.ParseFloat(lockfileV6.Version, 64)
 
 	if err != nil {
 		return err
 	}
 
 	l.Version = parsedVersion
-	l.Packages = lf.Packages
+	l.Packages = lockfileV6.Packages
 
 	return nil
 }
