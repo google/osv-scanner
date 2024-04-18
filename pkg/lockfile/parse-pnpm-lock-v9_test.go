@@ -111,56 +111,80 @@ func TestParsePnpmLock_v9_PeerDependenciesAdvanced(t *testing.T) {
 
 	expectPackages(t, packages, []lockfile.PackageDetails{
 		{
+			Name:      "@eslint-community/eslint-utils",
+			Version:   "4.4.0",
+			Ecosystem: lockfile.PnpmEcosystem,
+			CompareAs: lockfile.PnpmEcosystem,
+		},
+		{
+			Name:      "@eslint/eslintrc",
+			Version:   "2.1.4",
+			Ecosystem: lockfile.PnpmEcosystem,
+			CompareAs: lockfile.PnpmEcosystem,
+		},
+		{
 			Name:      "@typescript-eslint/eslint-plugin",
-			Version:   "5.13.0",
+			Version:   "5.62.0",
 			Ecosystem: lockfile.PnpmEcosystem,
 			CompareAs: lockfile.PnpmEcosystem,
 		},
 		{
 			Name:      "@typescript-eslint/parser",
-			Version:   "5.13.0",
+			Version:   "5.62.0",
 			Ecosystem: lockfile.PnpmEcosystem,
 			CompareAs: lockfile.PnpmEcosystem,
 		},
 		{
 			Name:      "@typescript-eslint/type-utils",
-			Version:   "5.13.0",
-			Ecosystem: lockfile.PnpmEcosystem,
-			CompareAs: lockfile.PnpmEcosystem,
-		},
-		{
-			Name:      "@typescript-eslint/types",
-			Version:   "5.13.0",
+			Version:   "5.62.0",
 			Ecosystem: lockfile.PnpmEcosystem,
 			CompareAs: lockfile.PnpmEcosystem,
 		},
 		{
 			Name:      "@typescript-eslint/typescript-estree",
-			Version:   "5.13.0",
+			Version:   "5.62.0",
 			Ecosystem: lockfile.PnpmEcosystem,
 			CompareAs: lockfile.PnpmEcosystem,
 		},
 		{
 			Name:      "@typescript-eslint/utils",
-			Version:   "5.13.0",
+			Version:   "5.62.0",
 			Ecosystem: lockfile.PnpmEcosystem,
 			CompareAs: lockfile.PnpmEcosystem,
 		},
 		{
-			Name:      "eslint-utils",
-			Version:   "3.0.0",
+			Name:      "debug",
+			Version:   "4.3.4",
 			Ecosystem: lockfile.PnpmEcosystem,
 			CompareAs: lockfile.PnpmEcosystem,
 		},
 		{
 			Name:      "eslint",
-			Version:   "8.10.0",
+			Version:   "8.57.0",
+			Ecosystem: lockfile.PnpmEcosystem,
+			CompareAs: lockfile.PnpmEcosystem,
+		},
+		{
+			Name:      "has-flag",
+			Version:   "4.0.0",
+			Ecosystem: lockfile.PnpmEcosystem,
+			CompareAs: lockfile.PnpmEcosystem,
+		},
+		{
+			Name:      "supports-color",
+			Version:   "7.2.0",
 			Ecosystem: lockfile.PnpmEcosystem,
 			CompareAs: lockfile.PnpmEcosystem,
 		},
 		{
 			Name:      "tsutils",
 			Version:   "3.21.0",
+			Ecosystem: lockfile.PnpmEcosystem,
+			CompareAs: lockfile.PnpmEcosystem,
+		},
+		{
+			Name:      "typescript",
+			Version:   "4.9.5",
 			Ecosystem: lockfile.PnpmEcosystem,
 			CompareAs: lockfile.PnpmEcosystem,
 		},
@@ -179,7 +203,7 @@ func TestParsePnpmLock_v9_MultipleVersions(t *testing.T) {
 	expectPackages(t, packages, []lockfile.PackageDetails{
 		{
 			Name:      "uuid",
-			Version:   "3.3.2",
+			Version:   "8.0.0",
 			Ecosystem: lockfile.PnpmEcosystem,
 			CompareAs: lockfile.PnpmEcosystem,
 		},
@@ -191,7 +215,7 @@ func TestParsePnpmLock_v9_MultipleVersions(t *testing.T) {
 		},
 		{
 			Name:      "xmlbuilder",
-			Version:   "9.0.7",
+			Version:   "11.0.1",
 			Ecosystem: lockfile.PnpmEcosystem,
 			CompareAs: lockfile.PnpmEcosystem,
 		},
