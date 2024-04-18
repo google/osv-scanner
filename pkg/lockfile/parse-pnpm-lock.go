@@ -255,6 +255,9 @@ func (e PnpmLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 func (e PnpmLockExtractor) extractPnpmV9(f DepFile) ([]PackageDetails, error) {
 	var parsedLockfile *pnpmLockfileV9
 
+	// we have to reopen the file since it will have already been parsed
+	f, _ = f.Open(f.Path())
+
 	err := yaml.NewDecoder(f).Decode(&parsedLockfile)
 
 	if err != nil && !errors.Is(err, io.EOF) {
