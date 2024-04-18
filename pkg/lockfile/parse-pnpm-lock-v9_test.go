@@ -49,7 +49,7 @@ func TestParsePnpmLock_v9_OnePackageDev(t *testing.T) {
 	expectPackages(t, packages, []lockfile.PackageDetails{
 		{
 			Name:      "acorn",
-			Version:   "8.7.0",
+			Version:   "8.11.3",
 			Ecosystem: lockfile.PnpmEcosystem,
 			CompareAs: lockfile.PnpmEcosystem,
 		},
@@ -68,7 +68,7 @@ func TestParsePnpmLock_v9_ScopedPackages(t *testing.T) {
 	expectPackages(t, packages, []lockfile.PackageDetails{
 		{
 			Name:      "@typescript-eslint/types",
-			Version:   "5.13.0",
+			Version:   "5.62.0",
 			Ecosystem: lockfile.PnpmEcosystem,
 			CompareAs: lockfile.PnpmEcosystem,
 		},
