@@ -248,3 +248,36 @@ func TestParsePnpmLock_v9_Commits(t *testing.T) {
 		},
 	})
 }
+
+func TestParsePnpmLock_v9_MixedGroups(t *testing.T) {
+	t.Parallel()
+
+	packages, err := lockfile.ParsePnpmLock("fixtures/pnpm/mixed-groups.v9.yaml")
+
+	if err != nil {
+		t.Errorf("Got unexpected error: %v", err)
+	}
+
+	expectPackages(t, packages, []lockfile.PackageDetails{
+		{
+			Name:      "ansi-regex",
+			Version:   "5.0.1",
+			Ecosystem: lockfile.PnpmEcosystem,
+			CompareAs: lockfile.PnpmEcosystem,
+		},
+		{
+			Name:      "uuid",
+			Version:   "8.3.2",
+			Ecosystem: lockfile.PnpmEcosystem,
+			CompareAs: lockfile.PnpmEcosystem,
+			DepGroups: []string{"optional"},
+		},
+		{
+			Name:      "is-number",
+			Version:   "7.0.0",
+			Ecosystem: lockfile.PnpmEcosystem,
+			CompareAs: lockfile.PnpmEcosystem,
+			DepGroups: []string{"dev"},
+		},
+	})
+}
