@@ -233,39 +233,18 @@ func TestParsePnpmLock_v9_Commits(t *testing.T) {
 
 	expectPackages(t, packages, []lockfile.PackageDetails{
 		{
-			Name:      "my-bitbucket-package",
-			Version:   "1.0.0",
+			Name:      "ansi-regex",
+			Version:   "6.0.1",
 			Ecosystem: lockfile.PnpmEcosystem,
 			CompareAs: lockfile.PnpmEcosystem,
-			Commit:    "6104ae42cd32c3d724036d3964678f197b2c9cdb",
+			Commit:    "02fa893d619d3da85411acc8fd4e2eea0e95a9d9",
 		},
 		{
-			Name:      "@my-scope/my-package",
-			Version:   "1.0.0",
+			Name:      "is-number",
+			Version:   "7.0.0",
 			Ecosystem: lockfile.PnpmEcosystem,
 			CompareAs: lockfile.PnpmEcosystem,
-			Commit:    "267087851ad5fac92a184749c27cd539e2fc862e",
-		},
-		{
-			Name:      "@my-scope/my-other-package",
-			Version:   "1.0.0",
-			Ecosystem: lockfile.PnpmEcosystem,
-			CompareAs: lockfile.PnpmEcosystem,
-			Commit:    "fbfc962ab51eb1d754749b68c064460221fbd689",
-		},
-		{
-			Name:      "faker-parser",
-			Version:   "0.0.1",
-			Ecosystem: lockfile.PnpmEcosystem,
-			CompareAs: lockfile.PnpmEcosystem,
-			Commit:    "d2dc42a9351d4d89ec48c525e34f612b6d77993f",
-		},
-		{
-			Name:      "mocks",
-			Version:   "20.0.1",
-			Ecosystem: lockfile.PnpmEcosystem,
-			CompareAs: lockfile.PnpmEcosystem,
-			Commit:    "590f321b4eb3f692bb211bd74e22947639a6f79d",
+			Commit:    "98e8ff1da1a89f93d1397a24d7413ed15421c139",
 		},
 	})
 }
