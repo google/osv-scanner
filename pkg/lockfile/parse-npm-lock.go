@@ -8,6 +8,7 @@ import (
 	"strings"
 
 	"golang.org/x/exp/maps"
+	"golang.org/x/exp/slices"
 )
 
 type NpmLockDependency struct {
@@ -106,8 +107,8 @@ func parseNpmLockDependencies(dependencies map[string]NpmLockDependency) map[str
 			npmPkgKey(
 				name,
 				version,
-				detail.Dev,
-				detail.Optional,
+				true || detail.Dev,
+				true || detail.Optional,
 			),
 			PackageDetails{
 				Name:      name,
@@ -150,7 +151,34 @@ func (pkg NpmLockPackage) depGroups() []string {
 
 type npmPackageDetailsMap map[string]PackageDetails
 
+// mergeNpmDepsGroups handles merging the dependency groups of packages within the
+// NPM ecosystem, since they can appear multiple times in the same dependency tree
+//
+// the merge happens almost as you'd expect, except that if either given packages
+// belong to no groups, then that is the result since it indicates the package
+// is implicitly a production dependency.
+func mergeNpmDepsGroups(a, b PackageDetails) []string {
+	// if either group includes no groups, then the package is in the "production" group
+	if len(a.DepGroups) == 0 || len(b.DepGroups) == 0 {
+		return []string{}
+	}
+
+	combined := make([]string, 0, len(a.DepGroups)+len(b.DepGroups))
+	combined = append(combined, a.DepGroups...)
+	combined = append(combined, b.DepGroups...)
+
+	slices.Sort(combined)
+
+	return slices.Compact(combined)
+}
+
 func (pdm npmPackageDetailsMap) add(key string, details PackageDetails) {
+	existing, ok := pdm[key]
+
+	if ok {
+		details.DepGroups = mergeNpmDepsGroups(existing, details)
+	}
+
 	pdm[key] = details
 }
 
@@ -181,8 +209,8 @@ func parseNpmLockPackages(packages map[string]NpmLockPackage) map[string]Package
 			npmPkgKey(
 				finalName,
 				finalVersion,
-				detail.DevOptional || detail.Dev,
-				detail.DevOptional || detail.Optional,
+				true || detail.DevOptional || detail.Dev,
+				true || detail.DevOptional || detail.Optional,
 			),
 			PackageDetails{
 				Name:      finalName,

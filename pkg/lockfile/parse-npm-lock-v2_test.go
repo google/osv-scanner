@@ -432,35 +432,13 @@ func TestParseNpmLock_v2_SamePackageDifferentGroups(t *testing.T) {
 			Version:   "1.0.0",
 			Ecosystem: lockfile.NpmEcosystem,
 			CompareAs: lockfile.NpmEcosystem,
-			DepGroups: nil,
 		},
 		{
 			Name:      "ajv",
 			Version:   "5.5.2",
 			Ecosystem: lockfile.NpmEcosystem,
 			CompareAs: lockfile.NpmEcosystem,
-			DepGroups: nil,
-		},
-		{
-			Name:      "ajv",
-			Version:   "5.5.2",
-			Ecosystem: lockfile.NpmEcosystem,
-			CompareAs: lockfile.NpmEcosystem,
-			DepGroups: []string{"dev"},
-		},
-		{
-			Name:      "ajv",
-			Version:   "5.5.2",
-			Ecosystem: lockfile.NpmEcosystem,
-			CompareAs: lockfile.NpmEcosystem,
-			DepGroups: []string{"optional"},
-		},
-		{
-			Name:      "ajv",
-			Version:   "5.5.2",
-			Ecosystem: lockfile.NpmEcosystem,
-			CompareAs: lockfile.NpmEcosystem,
-			DepGroups: []string{"dev", "optional"},
+			DepGroups: []string{},
 		},
 	})
 }
