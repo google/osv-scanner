@@ -270,14 +270,12 @@ func TestParsePnpmLock_v9_MixedGroups(t *testing.T) {
 			Version:   "8.3.2",
 			Ecosystem: lockfile.PnpmEcosystem,
 			CompareAs: lockfile.PnpmEcosystem,
-			DepGroups: []string{"optional"},
 		},
 		{
 			Name:      "is-number",
 			Version:   "7.0.0",
 			Ecosystem: lockfile.PnpmEcosystem,
 			CompareAs: lockfile.PnpmEcosystem,
-			DepGroups: []string{"dev"},
 		},
 	})
 }

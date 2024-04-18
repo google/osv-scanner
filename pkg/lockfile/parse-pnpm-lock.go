@@ -223,18 +223,12 @@ func parsePnpmLockV9(lockfile pnpmLockfileV9) []PackageDetails {
 			}
 		}
 
-		var depGroups []string
-		if pkg.Dev {
-			depGroups = append(depGroups, "dev")
-		}
-
 		packages = append(packages, PackageDetails{
 			Name:      name,
 			Version:   version,
 			Ecosystem: PnpmEcosystem,
 			CompareAs: PnpmEcosystem,
 			Commit:    commit,
-			DepGroups: depGroups,
 		})
 	}
 
