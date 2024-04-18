@@ -1,6 +1,7 @@
 # v1.7.2:
 
 ### Fixes:
+
 - [Bug #899](https://github.com/google/osv-scanner/issues/899) Guided Remediation: Parse paths in npmrc auth fields correctly.
 - [Bug #908](https://github.com/google/osv-scanner/issues/908) Fix rust call analysis by explicitly disabling stripping of debug info.
 - [Bug #914](https://github.com/google/osv-scanner/issues/914) Fix rust call analysis by explicitly disabling stripping of debug info.
