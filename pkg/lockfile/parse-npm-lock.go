@@ -68,7 +68,7 @@ func npmPkgKey(name string, version string, dev bool, optional bool) string {
 }
 
 func parseNpmLockDependencies(dependencies map[string]NpmLockDependency) map[string]PackageDetails {
-	details := map[string]PackageDetails{}
+	details := npmPackageDetailsMap{}
 
 	for name, detail := range dependencies {
 		if detail.Dependencies != nil {
@@ -102,19 +102,22 @@ func parseNpmLockDependencies(dependencies map[string]NpmLockDependency) map[str
 			}
 		}
 
-		details[npmPkgKey(
-			name,
-			version,
-			detail.Dev,
-			detail.Optional,
-		)] = PackageDetails{
-			Name:      name,
-			Version:   finalVersion,
-			Ecosystem: NpmEcosystem,
-			CompareAs: NpmEcosystem,
-			Commit:    commit,
-			DepGroups: detail.depGroups(),
-		}
+		details.add(
+			npmPkgKey(
+				name,
+				version,
+				detail.Dev,
+				detail.Optional,
+			),
+			PackageDetails{
+				Name:      name,
+				Version:   finalVersion,
+				Ecosystem: NpmEcosystem,
+				CompareAs: NpmEcosystem,
+				Commit:    commit,
+				DepGroups: detail.depGroups(),
+			},
+		)
 	}
 
 	return details
@@ -145,8 +148,14 @@ func (pkg NpmLockPackage) depGroups() []string {
 	return nil
 }
 
+type npmPackageDetailsMap map[string]PackageDetails
+
+func (pdm npmPackageDetailsMap) add(key string, details PackageDetails) {
+	pdm[key] = details
+}
+
 func parseNpmLockPackages(packages map[string]NpmLockPackage) map[string]PackageDetails {
-	details := map[string]PackageDetails{}
+	details := npmPackageDetailsMap{}
 
 	for namePath, detail := range packages {
 		if namePath == "" {
@@ -168,19 +177,22 @@ func parseNpmLockPackages(packages map[string]NpmLockPackage) map[string]Package
 			finalVersion = commit
 		}
 
-		details[npmPkgKey(
-			finalName,
-			finalVersion,
-			detail.DevOptional || detail.Dev,
-			detail.DevOptional || detail.Optional,
-		)] = PackageDetails{
-			Name:      finalName,
-			Version:   detail.Version,
-			Ecosystem: NpmEcosystem,
-			CompareAs: NpmEcosystem,
-			Commit:    commit,
-			DepGroups: detail.depGroups(),
-		}
+		details.add(
+			npmPkgKey(
+				finalName,
+				finalVersion,
+				detail.DevOptional || detail.Dev,
+				detail.DevOptional || detail.Optional,
+			),
+			PackageDetails{
+				Name:      finalName,
+				Version:   detail.Version,
+				Ecosystem: NpmEcosystem,
+				CompareAs: NpmEcosystem,
+				Commit:    commit,
+				DepGroups: detail.depGroups(),
+			},
+		)
 	}
 
 	return details
