@@ -63,6 +63,10 @@ func (dep NpmLockDependency) depGroups() []string {
 	return nil
 }
 
+func npmPkgKey(name string, version string, dev bool, optional bool) string {
+	return fmt.Sprintf("%s@%s@%t+%t", name, version, dev, optional)
+}
+
 func parseNpmLockDependencies(dependencies map[string]NpmLockDependency) map[string]PackageDetails {
 	details := map[string]PackageDetails{}
 
@@ -98,7 +102,12 @@ func parseNpmLockDependencies(dependencies map[string]NpmLockDependency) map[str
 			}
 		}
 
-		details[name+"@"+version] = PackageDetails{
+		details[npmPkgKey(
+			name,
+			version,
+			detail.Dev,
+			detail.Optional,
+		)] = PackageDetails{
 			Name:      name,
 			Version:   finalVersion,
 			Ecosystem: NpmEcosystem,
@@ -159,7 +168,12 @@ func parseNpmLockPackages(packages map[string]NpmLockPackage) map[string]Package
 			finalVersion = commit
 		}
 
-		details[finalName+"@"+finalVersion] = PackageDetails{
+		details[npmPkgKey(
+			finalName,
+			finalVersion,
+			detail.DevOptional || detail.Dev,
+			detail.DevOptional || detail.Optional,
+		)] = PackageDetails{
 			Name:      finalName,
 			Version:   detail.Version,
 			Ecosystem: NpmEcosystem,
