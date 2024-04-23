@@ -50,6 +50,53 @@ type NpmLockfile struct {
 
 const NpmEcosystem Ecosystem = "npm"
 
+type npmPackageDetailsMap map[string]PackageDetails
+
+// mergeNpmDepsGroups handles merging the dependency groups of packages within the
+// NPM ecosystem, since they can appear multiple times in the same dependency tree
+//
+// the merge happens almost as you'd expect, except that if either given packages
+// belong to no groups, then that is the result since it indicates the package
+// is implicitly a production dependency.
+func mergeNpmDepsGroups(a, b PackageDetails) []string {
+	// if either group includes no groups, then the package is in the "production" group
+	if len(a.DepGroups) == 0 || len(b.DepGroups) == 0 {
+		return []string{}
+	}
+
+	combined := make([]string, 0, len(a.DepGroups)+len(b.DepGroups))
+	combined = append(combined, a.DepGroups...)
+	combined = append(combined, b.DepGroups...)
+
+	slices.Sort(combined)
+
+	return slices.Compact(combined)
+}
+
+func (pdm npmPackageDetailsMap) add(key string, details PackageDetails) {
+	existing, ok := pdm[key]
+
+	if ok {
+		details.DepGroups = mergeNpmDepsGroups(existing, details)
+	}
+
+	pdm[key] = details
+}
+
+func mergePkgDetailsMap(m1 map[string]PackageDetails, m2 map[string]PackageDetails) map[string]PackageDetails {
+	details := map[string]PackageDetails{}
+
+	for name, detail := range m1 {
+		details[name] = detail
+	}
+
+	for name, detail := range m2 {
+		details[name] = detail
+	}
+
+	return details
+}
+
 func (dep NpmLockDependency) depGroups() []string {
 	if dep.Dev && dep.Optional {
 		return []string{"dev", "optional"}
@@ -62,10 +109,6 @@ func (dep NpmLockDependency) depGroups() []string {
 	}
 
 	return nil
-}
-
-func npmPkgKey(name string, version string, dev bool, optional bool) string {
-	return fmt.Sprintf("%s@%s@%t+%t", name, version, dev, optional)
 }
 
 func parseNpmLockDependencies(dependencies map[string]NpmLockDependency) map[string]PackageDetails {
@@ -103,22 +146,14 @@ func parseNpmLockDependencies(dependencies map[string]NpmLockDependency) map[str
 			}
 		}
 
-		details.add(
-			npmPkgKey(
-				name,
-				version,
-				true || detail.Dev,
-				true || detail.Optional,
-			),
-			PackageDetails{
-				Name:      name,
-				Version:   finalVersion,
-				Ecosystem: NpmEcosystem,
-				CompareAs: NpmEcosystem,
-				Commit:    commit,
-				DepGroups: detail.depGroups(),
-			},
-		)
+		details.add(name+"@"+version, PackageDetails{
+			Name:      name,
+			Version:   finalVersion,
+			Ecosystem: NpmEcosystem,
+			CompareAs: NpmEcosystem,
+			Commit:    commit,
+			DepGroups: detail.depGroups(),
+		})
 	}
 
 	return details
@@ -149,39 +184,6 @@ func (pkg NpmLockPackage) depGroups() []string {
 	return nil
 }
 
-type npmPackageDetailsMap map[string]PackageDetails
-
-// mergeNpmDepsGroups handles merging the dependency groups of packages within the
-// NPM ecosystem, since they can appear multiple times in the same dependency tree
-//
-// the merge happens almost as you'd expect, except that if either given packages
-// belong to no groups, then that is the result since it indicates the package
-// is implicitly a production dependency.
-func mergeNpmDepsGroups(a, b PackageDetails) []string {
-	// if either group includes no groups, then the package is in the "production" group
-	if len(a.DepGroups) == 0 || len(b.DepGroups) == 0 {
-		return []string{}
-	}
-
-	combined := make([]string, 0, len(a.DepGroups)+len(b.DepGroups))
-	combined = append(combined, a.DepGroups...)
-	combined = append(combined, b.DepGroups...)
-
-	slices.Sort(combined)
-
-	return slices.Compact(combined)
-}
-
-func (pdm npmPackageDetailsMap) add(key string, details PackageDetails) {
-	existing, ok := pdm[key]
-
-	if ok {
-		details.DepGroups = mergeNpmDepsGroups(existing, details)
-	}
-
-	pdm[key] = details
-}
-
 func parseNpmLockPackages(packages map[string]NpmLockPackage) map[string]PackageDetails {
 	details := npmPackageDetailsMap{}
 
@@ -205,22 +207,14 @@ func parseNpmLockPackages(packages map[string]NpmLockPackage) map[string]Package
 			finalVersion = commit
 		}
 
-		details.add(
-			npmPkgKey(
-				finalName,
-				finalVersion,
-				true || detail.DevOptional || detail.Dev,
-				true || detail.DevOptional || detail.Optional,
-			),
-			PackageDetails{
-				Name:      finalName,
-				Version:   detail.Version,
-				Ecosystem: NpmEcosystem,
-				CompareAs: NpmEcosystem,
-				Commit:    commit,
-				DepGroups: detail.depGroups(),
-			},
-		)
+		details.add(finalName+"@"+finalVersion, PackageDetails{
+			Name:      finalName,
+			Version:   detail.Version,
+			Ecosystem: NpmEcosystem,
+			CompareAs: NpmEcosystem,
+			Commit:    commit,
+			DepGroups: detail.depGroups(),
+		})
 	}
 
 	return details
