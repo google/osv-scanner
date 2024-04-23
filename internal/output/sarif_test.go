@@ -86,3 +86,54 @@ func TestPrintSARIFReport(t *testing.T) {
 		})
 	}
 }
+
+func TestPrintSARIFReport_WithVulnerabilities(t *testing.T) {
+	t.Parallel()
+
+	testOutputWithVulnerabilities(t, func(t *testing.T, vulnResult *models.VulnerabilityResults) {
+		t.Helper()
+
+		outputWriter := &bytes.Buffer{}
+		err := output.PrintSARIFReport(vulnResult, outputWriter)
+
+		if err != nil {
+			t.Errorf("Error writing SARIF output: %s", err)
+		}
+
+		testutility.NewSnapshot().MatchText(t, outputWriter.String())
+	})
+}
+
+func TestPrintSARIFReport_WithLicenseViolations(t *testing.T) {
+	t.Parallel()
+
+	testOutputWithLicenseViolations(t, func(t *testing.T, vulnResult *models.VulnerabilityResults) {
+		t.Helper()
+
+		outputWriter := &bytes.Buffer{}
+		err := output.PrintSARIFReport(vulnResult, outputWriter)
+
+		if err != nil {
+			t.Errorf("Error writing SARIF output: %s", err)
+		}
+
+		testutility.NewSnapshot().MatchText(t, outputWriter.String())
+	})
+}
+
+func TestPrintSARIFReport_WithMixedIssues(t *testing.T) {
+	t.Parallel()
+
+	testOutputWithMixedIssues(t, func(t *testing.T, vulnResult *models.VulnerabilityResults) {
+		t.Helper()
+
+		outputWriter := &bytes.Buffer{}
+		err := output.PrintSARIFReport(vulnResult, outputWriter)
+
+		if err != nil {
+			t.Errorf("Error writing SARIF output: %s", err)
+		}
+
+		testutility.NewSnapshot().MatchText(t, outputWriter.String())
+	})
+}
