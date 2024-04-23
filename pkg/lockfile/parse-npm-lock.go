@@ -83,18 +83,10 @@ func (pdm npmPackageDetailsMap) add(key string, details PackageDetails) {
 	pdm[key] = details
 }
 
-func mergePkgDetailsMap(m1 npmPackageDetailsMap, m2 npmPackageDetailsMap) map[string]PackageDetails {
-	details := npmPackageDetailsMap{}
-
-	for name, detail := range m1 {
-		details.add(name, detail)
+func (pdm npmPackageDetailsMap) merge(m npmPackageDetailsMap) {
+	for key, details := range m {
+		pdm.add(key, details)
 	}
-
-	for name, detail := range m2 {
-		details.add(name, detail)
-	}
-
-	return details
 }
 
 func (dep NpmLockDependency) depGroups() []string {
@@ -116,7 +108,7 @@ func parseNpmLockDependencies(dependencies map[string]NpmLockDependency) map[str
 
 	for name, detail := range dependencies {
 		if detail.Dependencies != nil {
-			maps.Copy(details, parseNpmLockDependencies(detail.Dependencies))
+			details.merge(parseNpmLockDependencies(detail.Dependencies))
 		}
 
 		version := detail.Version
