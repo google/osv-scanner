@@ -83,15 +83,15 @@ func (pdm npmPackageDetailsMap) add(key string, details PackageDetails) {
 	pdm[key] = details
 }
 
-func mergePkgDetailsMap(m1 map[string]PackageDetails, m2 map[string]PackageDetails) map[string]PackageDetails {
-	details := map[string]PackageDetails{}
+func mergePkgDetailsMap(m1 npmPackageDetailsMap, m2 npmPackageDetailsMap) map[string]PackageDetails {
+	details := npmPackageDetailsMap{}
 
 	for name, detail := range m1 {
-		details[name] = detail
+		details.add(name, detail)
 	}
 
 	for name, detail := range m2 {
-		details[name] = detail
+		details.add(name, detail)
 	}
 
 	return details
