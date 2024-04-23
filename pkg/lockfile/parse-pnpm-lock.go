@@ -73,6 +73,7 @@ func extractPnpmPackageNameAndVersion(dependencyPath string, lockfileVersion flo
 		return "", ""
 	}
 
+	// v9.0 specifies the dependencies as <package>@<version> rather than as a path
 	if lockfileVersion == 9.0 {
 		dependencyPath = strings.Trim(dependencyPath, "'")
 		dependencyPath, isScoped := strings.CutPrefix(dependencyPath, "@")
