@@ -49,20 +49,6 @@ type NpmLockfile struct {
 
 const NpmEcosystem Ecosystem = "npm"
 
-func mergePkgDetailsMap(m1 map[string]PackageDetails, m2 map[string]PackageDetails) map[string]PackageDetails {
-	details := map[string]PackageDetails{}
-
-	for name, detail := range m1 {
-		details[name] = detail
-	}
-
-	for name, detail := range m2 {
-		details[name] = detail
-	}
-
-	return details
-}
-
 func (dep NpmLockDependency) depGroups() []string {
 	if dep.Dev && dep.Optional {
 		return []string{"dev", "optional"}
@@ -82,7 +68,7 @@ func parseNpmLockDependencies(dependencies map[string]NpmLockDependency) map[str
 
 	for name, detail := range dependencies {
 		if detail.Dependencies != nil {
-			details = mergePkgDetailsMap(details, parseNpmLockDependencies(detail.Dependencies))
+			maps.Copy(details, parseNpmLockDependencies(detail.Dependencies))
 		}
 
 		version := detail.Version
