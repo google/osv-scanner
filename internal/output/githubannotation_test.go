@@ -6,17 +6,16 @@ import (
 
 	"github.com/google/osv-scanner/internal/output"
 	"github.com/google/osv-scanner/internal/testutility"
-	"github.com/google/osv-scanner/pkg/models"
 )
 
 func TestPrintGHAnnotationReport_WithVulnerabilities(t *testing.T) {
 	t.Parallel()
 
-	testOutputWithVulnerabilities(t, func(t *testing.T, vulnResult *models.VulnerabilityResults) {
+	testOutputWithVulnerabilities(t, func(t *testing.T, args outputTestCaseArgs) {
 		t.Helper()
 
 		outputWriter := &bytes.Buffer{}
-		err := output.PrintGHAnnotationReport(vulnResult, outputWriter)
+		err := output.PrintGHAnnotationReport(args.vulnResult, outputWriter)
 
 		if err != nil {
 			t.Errorf("Error writing GH annotation output: %s", err)
@@ -29,11 +28,11 @@ func TestPrintGHAnnotationReport_WithVulnerabilities(t *testing.T) {
 func TestPrintGHAnnotationReport_WithLicenseViolations(t *testing.T) {
 	t.Parallel()
 
-	testOutputWithLicenseViolations(t, func(t *testing.T, vulnResult *models.VulnerabilityResults) {
+	testOutputWithLicenseViolations(t, func(t *testing.T, args outputTestCaseArgs) {
 		t.Helper()
 
 		outputWriter := &bytes.Buffer{}
-		err := output.PrintGHAnnotationReport(vulnResult, outputWriter)
+		err := output.PrintGHAnnotationReport(args.vulnResult, outputWriter)
 
 		if err != nil {
 			t.Errorf("Error writing GH annotation output: %s", err)
@@ -46,11 +45,11 @@ func TestPrintGHAnnotationReport_WithLicenseViolations(t *testing.T) {
 func TestPrintGHAnnotationReport_WithMixedIssues(t *testing.T) {
 	t.Parallel()
 
-	testOutputWithMixedIssues(t, func(t *testing.T, vulnResult *models.VulnerabilityResults) {
+	testOutputWithMixedIssues(t, func(t *testing.T, args outputTestCaseArgs) {
 		t.Helper()
 
 		outputWriter := &bytes.Buffer{}
-		err := output.PrintGHAnnotationReport(vulnResult, outputWriter)
+		err := output.PrintGHAnnotationReport(args.vulnResult, outputWriter)
 
 		if err != nil {
 			t.Errorf("Error writing GH annotation output: %s", err)
