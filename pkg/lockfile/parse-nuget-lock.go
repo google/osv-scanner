@@ -4,6 +4,8 @@ import (
 	"encoding/json"
 	"fmt"
 	"path/filepath"
+
+	"golang.org/x/exp/maps"
 )
 
 type NuGetLockPackage struct {
@@ -44,7 +46,7 @@ func parseNuGetLock(lockfile NuGetLockfile) ([]PackageDetails, error) {
 		details = mergePkgDetailsMap(details, parseNuGetLockDependencies(dependencies))
 	}
 
-	return pkgDetailsMapToSlice(details), nil
+	return maps.Values(details), nil
 }
 
 type NuGetLockExtractor struct{}

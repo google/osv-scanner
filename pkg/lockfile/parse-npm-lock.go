@@ -6,6 +6,8 @@ import (
 	"path"
 	"path/filepath"
 	"strings"
+
+	"golang.org/x/exp/maps"
 )
 
 type NpmLockDependency struct {
@@ -46,16 +48,6 @@ type NpmLockfile struct {
 }
 
 const NpmEcosystem Ecosystem = "npm"
-
-func pkgDetailsMapToSlice(m map[string]PackageDetails) []PackageDetails {
-	details := make([]PackageDetails, 0, len(m))
-
-	for _, detail := range m {
-		details = append(details, detail)
-	}
-
-	return details
-}
 
 func mergePkgDetailsMap(m1 map[string]PackageDetails, m2 map[string]PackageDetails) map[string]PackageDetails {
 	details := map[string]PackageDetails{}
@@ -217,7 +209,7 @@ func (e NpmLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 		return []PackageDetails{}, fmt.Errorf("could not extract from %s: %w", f.Path(), err)
 	}
 
-	return pkgDetailsMapToSlice(parseNpmLock(*parsedLockfile)), nil
+	return maps.Values(parseNpmLock(*parsedLockfile)), nil
 }
 
 var _ Extractor = NpmLockExtractor{}
