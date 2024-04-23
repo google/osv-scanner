@@ -3,6 +3,7 @@ package output
 import (
 	"encoding/json"
 	"slices"
+	"strings"
 
 	"github.com/google/osv-scanner/pkg/models"
 )
@@ -10,6 +11,20 @@ import (
 type pkgWithSource struct {
 	Package models.PackageInfo
 	Source  models.SourceInfo
+}
+
+func (pws pkgWithSource) Compare(b pkgWithSource) int {
+	for _, fn := range []func() int{
+		func() int { return strings.Compare(pws.Source.Path, b.Source.Path) },
+		func() int { return strings.Compare(pws.Package.Name, b.Package.Name) },
+		func() int { return strings.Compare(pws.Package.Version, b.Package.Version) },
+	} {
+		if r := fn(); r != 0 {
+			return r
+		}
+	}
+
+	return 0
 }
 
 // Custom implementation of this unique set map to allow it to serialize to JSON
