@@ -188,7 +188,6 @@ func TestParseNpmLock_v1_NestedDependenciesDup(t *testing.T) {
 		Version:   "6.1.0",
 		Ecosystem: lockfile.NpmEcosystem,
 		CompareAs: lockfile.NpmEcosystem,
-		DepGroups: []string{},
 	})
 
 	expectPackage(t, packages, lockfile.PackageDetails{
@@ -196,7 +195,6 @@ func TestParseNpmLock_v1_NestedDependenciesDup(t *testing.T) {
 		Version:   "5.5.0",
 		Ecosystem: lockfile.NpmEcosystem,
 		CompareAs: lockfile.NpmEcosystem,
-		DepGroups: []string{},
 	})
 
 	expectPackage(t, packages, lockfile.PackageDetails{
@@ -204,7 +202,6 @@ func TestParseNpmLock_v1_NestedDependenciesDup(t *testing.T) {
 		Version:   "2.0.0",
 		Ecosystem: lockfile.NpmEcosystem,
 		CompareAs: lockfile.NpmEcosystem,
-		DepGroups: []string{},
 	})
 }
 
@@ -448,7 +445,6 @@ func TestParseNpmLock_v1_SamePackageDifferentGroups(t *testing.T) {
 			Version:   "5.5.2",
 			Ecosystem: lockfile.NpmEcosystem,
 			CompareAs: lockfile.NpmEcosystem,
-			DepGroups: []string{},
 		},
 	})
 }

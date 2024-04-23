@@ -184,14 +184,12 @@ func TestParseNpmLock_v2_NestedDependenciesDup(t *testing.T) {
 			Version:   "6.1.0",
 			Ecosystem: lockfile.NpmEcosystem,
 			CompareAs: lockfile.NpmEcosystem,
-			DepGroups: []string{},
 		},
 		{
 			Name:      "supports-color",
 			Version:   "2.0.0",
 			Ecosystem: lockfile.NpmEcosystem,
 			CompareAs: lockfile.NpmEcosystem,
-			DepGroups: []string{},
 		},
 	})
 }
@@ -440,7 +438,6 @@ func TestParseNpmLock_v2_SamePackageDifferentGroups(t *testing.T) {
 			Version:   "5.5.2",
 			Ecosystem: lockfile.NpmEcosystem,
 			CompareAs: lockfile.NpmEcosystem,
-			DepGroups: []string{},
 		},
 	})
 }

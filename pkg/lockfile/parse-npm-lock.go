@@ -61,7 +61,7 @@ type npmPackageDetailsMap map[string]PackageDetails
 func mergeNpmDepsGroups(a, b PackageDetails) []string {
 	// if either group includes no groups, then the package is in the "production" group
 	if len(a.DepGroups) == 0 || len(b.DepGroups) == 0 {
-		return []string{}
+		return nil
 	}
 
 	combined := make([]string, 0, len(a.DepGroups)+len(b.DepGroups))
