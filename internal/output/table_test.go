@@ -7,6 +7,7 @@ import (
 	"github.com/google/osv-scanner/internal/output"
 	"github.com/google/osv-scanner/internal/testutility"
 	"github.com/google/osv-scanner/pkg/models"
+	"github.com/jedib0t/go-pretty/v6/text"
 )
 
 func TestPrintTableResults_StandardTerminalWidth_WithVulnerabilities(t *testing.T) {
@@ -18,7 +19,7 @@ func TestPrintTableResults_StandardTerminalWidth_WithVulnerabilities(t *testing.
 		outputWriter := &bytes.Buffer{}
 		output.PrintTableResults(vulnResult, outputWriter, 80)
 
-		testutility.NewSnapshot().MatchText(t, outputWriter.String())
+		testutility.NewSnapshot().MatchText(t, text.StripEscape(outputWriter.String()))
 	})
 }
 
@@ -31,7 +32,7 @@ func TestPrintTableResults_StandardTerminalWidth_WithLicenseViolations(t *testin
 		outputWriter := &bytes.Buffer{}
 		output.PrintTableResults(vulnResult, outputWriter, 80)
 
-		testutility.NewSnapshot().MatchText(t, outputWriter.String())
+		testutility.NewSnapshot().MatchText(t, text.StripEscape(outputWriter.String()))
 	})
 }
 
@@ -44,7 +45,7 @@ func TestPrintTableResults_StandardTerminalWidth_WithMixedIssues(t *testing.T) {
 		outputWriter := &bytes.Buffer{}
 		output.PrintTableResults(vulnResult, outputWriter, 80)
 
-		testutility.NewSnapshot().MatchText(t, outputWriter.String())
+		testutility.NewSnapshot().MatchText(t, text.StripEscape(outputWriter.String()))
 	})
 }
 
@@ -57,7 +58,7 @@ func TestPrintTableResults_LongTerminalWidth_WithVulnerabilities(t *testing.T) {
 		outputWriter := &bytes.Buffer{}
 		output.PrintTableResults(vulnResult, outputWriter, 800)
 
-		testutility.NewSnapshot().MatchText(t, outputWriter.String())
+		testutility.NewSnapshot().MatchText(t, text.StripEscape(outputWriter.String()))
 	})
 }
 
@@ -70,7 +71,7 @@ func TestPrintTableResults_LongTerminalWidth_WithLicenseViolations(t *testing.T)
 		outputWriter := &bytes.Buffer{}
 		output.PrintTableResults(vulnResult, outputWriter, 800)
 
-		testutility.NewSnapshot().MatchText(t, outputWriter.String())
+		testutility.NewSnapshot().MatchText(t, text.StripEscape(outputWriter.String()))
 	})
 }
 
@@ -83,7 +84,7 @@ func TestPrintTableResults_LongTerminalWidth_WithMixedIssues(t *testing.T) {
 		outputWriter := &bytes.Buffer{}
 		output.PrintTableResults(vulnResult, outputWriter, 800)
 
-		testutility.NewSnapshot().MatchText(t, outputWriter.String())
+		testutility.NewSnapshot().MatchText(t, text.StripEscape(outputWriter.String()))
 	})
 }
 
