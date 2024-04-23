@@ -100,7 +100,12 @@ func TestPrintSARIFReport_WithVulnerabilities(t *testing.T) {
 			t.Errorf("Error writing SARIF output: %s", err)
 		}
 
-		testutility.NewSnapshot().MatchText(t, outputWriter.String())
+		testutility.NewSnapshot().WithWindowsReplacements(
+			map[string]string{
+				"path\\\\to\\\\my\\\\first/osv-scanner.toml":  "path/to/my/first/osv-scanner.toml",
+				"path\\\\to\\\\my\\\\second/osv-scanner.toml": "path/to/my/second/osv-scanner.toml",
+				"path\\\\to\\\\my\\\\third/osv-scanner.toml":  "path/to/my/third/osv-scanner.toml",
+			}).MatchText(t, outputWriter.String())
 	})
 }
 
@@ -117,7 +122,12 @@ func TestPrintSARIFReport_WithLicenseViolations(t *testing.T) {
 			t.Errorf("Error writing SARIF output: %s", err)
 		}
 
-		testutility.NewSnapshot().MatchText(t, outputWriter.String())
+		testutility.NewSnapshot().WithWindowsReplacements(
+			map[string]string{
+				"path\\\\to\\\\my\\\\first/osv-scanner.toml":  "path/to/my/first/osv-scanner.toml",
+				"path\\\\to\\\\my\\\\second/osv-scanner.toml": "path/to/my/second/osv-scanner.toml",
+				"path\\\\to\\\\my\\\\third/osv-scanner.toml":  "path/to/my/third/osv-scanner.toml",
+			}).MatchText(t, outputWriter.String())
 	})
 }
 
@@ -134,6 +144,11 @@ func TestPrintSARIFReport_WithMixedIssues(t *testing.T) {
 			t.Errorf("Error writing SARIF output: %s", err)
 		}
 
-		testutility.NewSnapshot().MatchText(t, outputWriter.String())
+		testutility.NewSnapshot().WithWindowsReplacements(
+			map[string]string{
+				"path\\\\to\\\\my\\\\first/osv-scanner.toml":  "path/to/my/first/osv-scanner.toml",
+				"path\\\\to\\\\my\\\\second/osv-scanner.toml": "path/to/my/second/osv-scanner.toml",
+				"path\\\\to\\\\my\\\\third/osv-scanner.toml":  "path/to/my/third/osv-scanner.toml",
+			}).MatchText(t, outputWriter.String())
 	})
 }
