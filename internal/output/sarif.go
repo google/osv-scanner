@@ -282,7 +282,16 @@ func PrintSARIFReport(vulnResult *models.VulnerabilityResults, outputWriter io.W
 			WithTextHelp(helpText)
 
 		rule.DeprecatedIds = gv.AliasedIDList
-		for pws := range gv.PkgSource {
+
+		pkgWithSrcKeys := maps.Keys(gv.PkgSource)
+		slices.SortFunc(pkgWithSrcKeys, func(a, b pkgWithSource) int {
+			// This doesn't take into account multiple packages within the same source file
+			// which will still be non deterministic. But since that is a rare edge case,
+			// no need to add significant extra logic here to make it deterministic.
+			return strings.Compare(a.Source.Path, b.Source.Path)
+		})
+
+		for _, pws := range pkgWithSrcKeys {
 			artifactPath := stripGitHubWorkspace(pws.Source.Path)
 			if filepath.IsAbs(artifactPath) {
 				// this only errors if the file path is not absolute,
