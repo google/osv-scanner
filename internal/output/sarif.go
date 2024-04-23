@@ -15,7 +15,6 @@ import (
 	"github.com/google/osv-scanner/pkg/models"
 	"github.com/jedib0t/go-pretty/v6/table"
 	"github.com/owenrumney/go-sarif/v2/sarif"
-	"golang.org/x/exp/maps"
 )
 
 type HelpTemplateData struct {
@@ -196,10 +195,7 @@ func createSARIFHelpText(gv *groupedSARIFFinding) string {
 
 	helpText := strings.Builder{}
 
-	pkgWithSrcKeys := maps.Keys(gv.PkgSource)
-	slices.SortFunc(pkgWithSrcKeys, func(a, b pkgWithSource) int {
-		return a.Compare(b)
-	})
+	pkgWithSrcKeys := gv.PkgSource.StableKeys()
 
 	affectedPackagePaths := []string{}
 	for _, pws := range pkgWithSrcKeys {
@@ -280,12 +276,7 @@ func PrintSARIFReport(vulnResult *models.VulnerabilityResults, outputWriter io.W
 
 		rule.DeprecatedIds = gv.AliasedIDList
 
-		pkgWithSrcKeys := maps.Keys(gv.PkgSource)
-		slices.SortFunc(pkgWithSrcKeys, func(a, b pkgWithSource) int {
-			return a.Compare(b)
-		})
-
-		for _, pws := range pkgWithSrcKeys {
+		for _, pws := range gv.PkgSource.StableKeys() {
 			artifactPath := stripGitHubWorkspace(pws.Source.Path)
 			if filepath.IsAbs(artifactPath) {
 				// this only errors if the file path is not absolute,

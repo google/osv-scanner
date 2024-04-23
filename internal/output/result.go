@@ -6,6 +6,7 @@ import (
 	"strings"
 
 	"github.com/google/osv-scanner/pkg/models"
+	"golang.org/x/exp/maps"
 )
 
 type pkgWithSource struct {
@@ -13,22 +14,29 @@ type pkgWithSource struct {
 	Source  models.SourceInfo
 }
 
-func (pws pkgWithSource) Compare(b pkgWithSource) int {
-	for _, fn := range []func() int{
-		func() int { return strings.Compare(pws.Source.Path, b.Source.Path) },
-		func() int { return strings.Compare(pws.Package.Name, b.Package.Name) },
-		func() int { return strings.Compare(pws.Package.Version, b.Package.Version) },
-	} {
-		if r := fn(); r != 0 {
-			return r
-		}
-	}
-
-	return 0
-}
-
 // Custom implementation of this unique set map to allow it to serialize to JSON
 type pkgSourceSet map[pkgWithSource]struct{}
+
+// StableKeys returns the pkgWithSource keys in a deterministic order
+func (pss *pkgSourceSet) StableKeys() []pkgWithSource {
+	pkgWithSrcKeys := maps.Keys(*pss)
+
+	slices.SortFunc(pkgWithSrcKeys, func(a, b pkgWithSource) int {
+		for _, fn := range []func() int{
+			func() int { return strings.Compare(a.Source.Path, b.Source.Path) },
+			func() int { return strings.Compare(a.Package.Name, b.Package.Name) },
+			func() int { return strings.Compare(a.Package.Version, b.Package.Version) },
+		} {
+			if r := fn(); r != 0 {
+				return r
+			}
+		}
+
+		return 0
+	})
+
+	return pkgWithSrcKeys
+}
 
 func (pss *pkgSourceSet) MarshalJSON() ([]byte, error) {
 	res := []pkgWithSource{}
