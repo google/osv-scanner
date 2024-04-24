@@ -1270,13 +1270,15 @@ Filtered 2 vulnerabilities from output
 									"name": "babel",
 									"version": "6.23.0",
 									"ecosystem": "npm",
-									"line": {
-										"start": 13,
-										"end": 23
-									},
-									"column": {
-										"start": 5,
-										"end": 6
+									"blockLocation": {
+										"line": {
+											"start": 13,
+											"end": 23
+										},
+										"column": {
+											"start": 5,
+											"end": 6
+										}
 									}
 								},
 								"licenses": [
@@ -1288,13 +1290,15 @@ Filtered 2 vulnerabilities from output
 									"name": "human-signals",
 									"version": "5.0.0",
 									"ecosystem": "npm",
-									"line": {
-										"start": 24,
-										"end": 31
-									},
-									"column": {
-										"start": 5,
-										"end": 6
+									"blockLocation": {
+										"line": {
+											"start": 24,
+											"end": 31
+										},
+										"column": {
+											"start": 5,
+											"end": 6
+										}
 									}
 								},
 								"licenses": [
@@ -1309,13 +1313,15 @@ Filtered 2 vulnerabilities from output
 									"name": "ms",
 									"version": "2.1.3",
 									"ecosystem": "npm",
-									"line": {
-										"start": 32,
-										"end": 36
-									},
-									"column": {
-										"start": 5,
-										"end": 6
+									"blockLocation": {
+										"line": {
+											"start": 32,
+											"end": 36
+										},
+										"column": {
+											"start": 5,
+											"end": 6
+										}
 									}
 								},
 								"licenses": [
@@ -1408,13 +1414,15 @@ Filtered 2 vulnerabilities from output
 									"name": "human-signals",
 									"version": "5.0.0",
 									"ecosystem": "npm",
-									"line": {
-										"start": 24,
-										"end": 31
-									},
-									"column": {
-										"start": 5,
-										"end": 6
+									"blockLocation": {
+										"line": {
+											"start": 24,
+											"end": 31
+										},
+										"column": {
+											"start": 5,
+											"end": 6
+										}
 									}
 								},
 								"licenses": [
@@ -1478,13 +1486,15 @@ Filtered 2 vulnerabilities from output
 									"name": "babel",
 									"version": "6.23.0",
 									"ecosystem": "npm",
-									"line": {
-										"start": 13,
-										"end": 23
-									},
-									"column": {
-										"start": 5,
-										"end": 6
+									"blockLocation": {
+										"line": {
+											"start": 13,
+											"end": 23
+										},
+										"column": {
+											"start": 5,
+											"end": 6
+										}
 									}
 								},
 								"licenses": [
@@ -1496,13 +1506,15 @@ Filtered 2 vulnerabilities from output
 									"name": "human-signals",
 									"version": "5.0.0",
 									"ecosystem": "npm",
-									"line": {
-										"start": 24,
-										"end": 31
-									},
-									"column": {
-										"start": 5,
-										"end": 6
+									"blockLocation": {
+										"line": {
+											"start": 24,
+											"end": 31
+										},
+										"column": {
+											"start": 5,
+											"end": 6
+										}
 									}
 								},
 								"licenses": [
@@ -1514,13 +1526,15 @@ Filtered 2 vulnerabilities from output
 									"name": "ms",
 									"version": "2.1.3",
 									"ecosystem": "npm",
-									"line": {
-										"start": 32,
-										"end": 36
-									},
-									"column": {
-										"start": 5,
-										"end": 6
+									"blockLocation": {
+										"line": {
+											"start": 32,
+											"end": 36
+										},
+										"column": {
+											"start": 5,
+											"end": 6
+										}
 									}
 								},
 								"licenses": [
@@ -1614,13 +1628,15 @@ Filtered 2 vulnerabilities from output
 									"name": "babel",
 									"version": "6.23.0",
 									"ecosystem": "npm",
-									"line": {
-										"start": 13,
-										"end": 23
-									},
-									"column": {
-										"start": 5,
-										"end": 6
+									"blockLocation": {
+										"line": {
+											"start": 13,
+											"end": 23
+										},
+										"column": {
+											"start": 5,
+											"end": 6
+										}
 									}
 								},
 								"licenses": [
@@ -1632,13 +1648,15 @@ Filtered 2 vulnerabilities from output
 									"name": "human-signals",
 									"version": "5.0.0",
 									"ecosystem": "npm",
-									"line": {
-										"start": 24,
-										"end": 31
-									},
-									"column": {
-										"start": 5,
-										"end": 6
+									"blockLocation": {
+										"line": {
+											"start": 24,
+											"end": 31
+										},
+										"column": {
+											"start": 5,
+											"end": 6
+										}
 									}
 								},
 								"licenses": [
@@ -1650,13 +1668,15 @@ Filtered 2 vulnerabilities from output
 									"name": "ms",
 									"version": "2.1.3",
 									"ecosystem": "npm",
-									"line": {
-										"start": 32,
-										"end": 36
-									},
-									"column": {
-										"start": 5,
-										"end": 6
+									"blockLocation": {
+										"line": {
+											"start": 32,
+											"end": 36
+										},
+										"column": {
+											"start": 5,
+											"end": 6
+										}
 									}
 								},
 								"licenses": [

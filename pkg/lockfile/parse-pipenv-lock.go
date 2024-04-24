@@ -73,10 +73,12 @@ func addPkgDetails(details map[string]PackageDetails, packages map[string]*Pipen
 			pkgDetails := PackageDetails{
 				Name:      name,
 				Version:   version,
-				Line:      pipenvPackage.Line,
-				Column:    pipenvPackage.Column,
 				Ecosystem: PipenvEcosystem,
 				CompareAs: PipenvEcosystem,
+				BlockLocation: models.FilePosition{
+					Line:   pipenvPackage.Line,
+					Column: pipenvPackage.Column,
+				},
 			}
 			if group != "" {
 				pkgDetails.DepGroups = append(pkgDetails.DepGroups, group)

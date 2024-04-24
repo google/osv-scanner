@@ -174,8 +174,10 @@ func parsePnpmLock(lockfile PnpmLockfile) []PackageDetails {
 			Version:   version,
 			Ecosystem: PnpmEcosystem,
 			CompareAs: PnpmEcosystem,
-			Line:      pkg.Line,
-			Column:    pkg.Column,
+			BlockLocation: models.FilePosition{
+				Line:   pkg.Line,
+				Column: pkg.Column,
+			},
 			Commit:    commit,
 			DepGroups: depGroups,
 		})

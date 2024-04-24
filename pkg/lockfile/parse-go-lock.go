@@ -76,8 +76,10 @@ func (e GoLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 			Version:   strings.TrimPrefix(require.Mod.Version, "v"),
 			Ecosystem: GoEcosystem,
 			CompareAs: GoEcosystem,
-			Line:      models.Position{Start: start.Line, End: end.Line},
-			Column:    models.Position{Start: start.LineRune, End: end.LineRune},
+			BlockLocation: models.FilePosition{
+				Line:   models.Position{Start: start.Line, End: end.Line},
+				Column: models.Position{Start: start.LineRune, End: end.LineRune},
+			},
 		}
 	}
 
@@ -118,8 +120,10 @@ func (e GoLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 				Version:   version,
 				Ecosystem: GoEcosystem,
 				CompareAs: GoEcosystem,
-				Line:      models.Position{Start: start.Line, End: end.Line},
-				Column:    models.Position{Start: start.LineRune, End: end.LineRune},
+				BlockLocation: models.FilePosition{
+					Line:   models.Position{Start: start.Line, End: end.Line},
+					Column: models.Position{Start: start.LineRune, End: end.LineRune},
+				},
 			}
 		}
 	}

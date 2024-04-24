@@ -102,10 +102,12 @@ func TestParsePoetryLock_OnePackage(t *testing.T) {
 
 	expectPackages(t, packages, []lockfile.PackageDetails{
 		{
-			Name:      "numpy",
-			Version:   "1.23.3",
-			Line:      models.Position{Start: 1, End: 7},
-			Column:    models.Position{Start: 1, End: 26},
+			Name:    "numpy",
+			Version: "1.23.3",
+			BlockLocation: models.FilePosition{
+				Line:   models.Position{Start: 1, End: 7},
+				Column: models.Position{Start: 1, End: 26},
+			},
 			Ecosystem: lockfile.PoetryEcosystem,
 			CompareAs: lockfile.PoetryEcosystem,
 		},
@@ -123,18 +125,22 @@ func TestParsePoetryLock_TwoPackages(t *testing.T) {
 
 	expectPackages(t, packages, []lockfile.PackageDetails{
 		{
-			Name:      "proto-plus",
-			Version:   "1.22.0",
-			Line:      models.Position{Start: 1, End: 13},
-			Column:    models.Position{Start: 1, End: 47},
+			Name:    "proto-plus",
+			Version: "1.22.0",
+			BlockLocation: models.FilePosition{
+				Line:   models.Position{Start: 1, End: 13},
+				Column: models.Position{Start: 1, End: 47},
+			},
 			Ecosystem: lockfile.PoetryEcosystem,
 			CompareAs: lockfile.PoetryEcosystem,
 		},
 		{
-			Name:      "protobuf",
-			Version:   "4.21.5",
-			Line:      models.Position{Start: 15, End: 21},
-			Column:    models.Position{Start: 1, End: 26},
+			Name:    "protobuf",
+			Version: "4.21.5",
+			BlockLocation: models.FilePosition{
+				Line:   models.Position{Start: 15, End: 21},
+				Column: models.Position{Start: 1, End: 26},
+			},
 			Ecosystem: lockfile.PoetryEcosystem,
 			CompareAs: lockfile.PoetryEcosystem,
 		},
@@ -152,10 +158,12 @@ func TestParsePoetryLock_PackageWithMetadata(t *testing.T) {
 
 	expectPackages(t, packages, []lockfile.PackageDetails{
 		{
-			Name:      "emoji",
-			Version:   "2.0.0",
-			Line:      models.Position{Start: 1, End: 10},
-			Column:    models.Position{Start: 1, End: 42},
+			Name:    "emoji",
+			Version: "2.0.0",
+			BlockLocation: models.FilePosition{
+				Line:   models.Position{Start: 1, End: 10},
+				Column: models.Position{Start: 1, End: 42},
+			},
 			Ecosystem: lockfile.PoetryEcosystem,
 			CompareAs: lockfile.PoetryEcosystem,
 		},
@@ -173,10 +181,12 @@ func TestParsePoetryLock_PackageWithGitSource(t *testing.T) {
 
 	expectPackages(t, packages, []lockfile.PackageDetails{
 		{
-			Name:      "ike",
-			Version:   "0.2.0",
-			Line:      models.Position{Start: 1, End: 14},
-			Column:    models.Position{Start: 1, End: 64},
+			Name:    "ike",
+			Version: "0.2.0",
+			BlockLocation: models.FilePosition{
+				Line:   models.Position{Start: 1, End: 14},
+				Column: models.Position{Start: 1, End: 64},
+			},
 			Ecosystem: lockfile.PoetryEcosystem,
 			CompareAs: lockfile.PoetryEcosystem,
 			Commit:    "cd66602cd29f61a2d2e7fb995fef1e61708c034d",
@@ -195,10 +205,12 @@ func TestParsePoetryLock_PackageWithLegacySource(t *testing.T) {
 
 	expectPackages(t, packages, []lockfile.PackageDetails{
 		{
-			Name:      "appdirs",
-			Version:   "1.4.4",
-			Line:      models.Position{Start: 1, End: 12},
-			Column:    models.Position{Start: 1, End: 23},
+			Name:    "appdirs",
+			Version: "1.4.4",
+			BlockLocation: models.FilePosition{
+				Line:   models.Position{Start: 1, End: 12},
+				Column: models.Position{Start: 1, End: 23},
+			},
 			Ecosystem: lockfile.PoetryEcosystem,
 			CompareAs: lockfile.PoetryEcosystem,
 			Commit:    "",
@@ -217,10 +229,12 @@ func TestParsePoetryLock_OptionalPackage(t *testing.T) {
 
 	expectPackages(t, packages, []lockfile.PackageDetails{
 		{
-			Name:      "numpy",
-			Version:   "1.23.3",
-			Line:      models.Position{Start: 1, End: 7},
-			Column:    models.Position{Start: 1, End: 26},
+			Name:    "numpy",
+			Version: "1.23.3",
+			BlockLocation: models.FilePosition{
+				Line:   models.Position{Start: 1, End: 7},
+				Column: models.Position{Start: 1, End: 26},
+			},
 			Ecosystem: lockfile.PoetryEcosystem,
 			CompareAs: lockfile.PoetryEcosystem,
 			DepGroups: []string{"optional"},

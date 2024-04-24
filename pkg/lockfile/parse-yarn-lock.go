@@ -203,8 +203,10 @@ func parseYarnPackage(dependency YarnPackage) PackageDetails {
 		Ecosystem: YarnEcosystem,
 		CompareAs: YarnEcosystem,
 		Commit:    tryExtractCommit(dependency.Resolution),
-		Line:      dependency.Line,
-		Column:    dependency.Column,
+		BlockLocation: models.FilePosition{
+			Line:   dependency.Line,
+			Column: dependency.Column,
+		},
 	}
 }
 

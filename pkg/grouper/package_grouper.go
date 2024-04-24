@@ -53,17 +53,17 @@ func GroupByPURL(packageSources []models.PackageSource) map[string]models.Packag
 }
 
 func isLocationExtractedSuccessfully(pkgInfos models.PackageInfo) bool {
-	return pkgInfos.Line.Start > 0 && pkgInfos.Line.End > 0 && pkgInfos.Column.Start > 0 && pkgInfos.Column.End > 0
+	return pkgInfos.BlockLocation.Line.Start > 0 && pkgInfos.BlockLocation.Line.End > 0 && pkgInfos.BlockLocation.Column.Start > 0 && pkgInfos.BlockLocation.Column.End > 0
 }
 
 func extractPackageLocations(pkgSource models.SourceInfo, pkgInfos models.PackageInfo) models.PackageLocations {
 	return models.PackageLocations{
 		Block: models.PackageLocation{
 			Filename:    pkgSource.Path,
-			LineStart:   pkgInfos.Line.Start,
-			LineEnd:     pkgInfos.Line.End,
-			ColumnStart: pkgInfos.Column.Start,
-			ColumnEnd:   pkgInfos.Column.End,
+			LineStart:   pkgInfos.BlockLocation.Line.Start,
+			LineEnd:     pkgInfos.BlockLocation.Line.End,
+			ColumnStart: pkgInfos.BlockLocation.Column.Start,
+			ColumnEnd:   pkgInfos.BlockLocation.Column.End,
 		},
 	}
 }

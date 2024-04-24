@@ -300,12 +300,14 @@ func (e MavenLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 		finalName := resolvedGroupID + ":" + resolvedArtifactID
 
 		pkgDetails := PackageDetails{
-			Name:       finalName,
-			Version:    lockPackage.ResolveVersion(*parsedLockfile),
-			Ecosystem:  MavenEcosystem,
-			CompareAs:  MavenEcosystem,
-			Line:       lockPackage.Line,
-			Column:     lockPackage.Column,
+			Name:      finalName,
+			Version:   lockPackage.ResolveVersion(*parsedLockfile),
+			Ecosystem: MavenEcosystem,
+			CompareAs: MavenEcosystem,
+			BlockLocation: models.FilePosition{
+				Line:   lockPackage.Line,
+				Column: lockPackage.Column,
+			},
 			SourceFile: lockPackage.SourceFile,
 		}
 		if strings.TrimSpace(lockPackage.Scope) != "" {

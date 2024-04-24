@@ -23,8 +23,10 @@ func TestGroupPackageByPURL_ShouldUnifyPackages(t *testing.T) {
 						Name:      "foo.bar:the-first-package",
 						Version:   "1.0.0",
 						Ecosystem: string(lockfile.MavenEcosystem),
-						Line:      models.Position{Start: 1, End: 2},
-						Column:    models.Position{Start: 10, End: 21},
+						BlockLocation: models.FilePosition{
+							Line:   models.Position{Start: 1, End: 2},
+							Column: models.Position{Start: 10, End: 21},
+						},
 					},
 				},
 				{
@@ -32,8 +34,10 @@ func TestGroupPackageByPURL_ShouldUnifyPackages(t *testing.T) {
 						Name:      "foo.bar:the-first-package",
 						Version:   "1.0.0",
 						Ecosystem: string(lockfile.MavenEcosystem),
-						Line:      models.Position{Start: 1, End: 2},
-						Column:    models.Position{Start: 10, End: 21},
+						BlockLocation: models.FilePosition{
+							Line:   models.Position{Start: 1, End: 2},
+							Column: models.Position{Start: 10, End: 21},
+						},
 					},
 				},
 				{
@@ -41,8 +45,10 @@ func TestGroupPackageByPURL_ShouldUnifyPackages(t *testing.T) {
 						Name:      "foo.bar:the-first-package",
 						Version:   "1.0.0",
 						Ecosystem: string(lockfile.MavenEcosystem),
-						Line:      models.Position{Start: 1, End: 2},
-						Column:    models.Position{Start: 10, End: 21},
+						BlockLocation: models.FilePosition{
+							Line:   models.Position{Start: 1, End: 2},
+							Column: models.Position{Start: 10, End: 21},
+						},
 					},
 				},
 				{
@@ -50,8 +56,10 @@ func TestGroupPackageByPURL_ShouldUnifyPackages(t *testing.T) {
 						Name:      "foo.bar:package-2",
 						Ecosystem: string(lockfile.MavenEcosystem),
 						Version:   "1.0.0",
-						Line:      models.Position{Start: 11, End: 22},
-						Column:    models.Position{Start: 10, End: 21},
+						BlockLocation: models.FilePosition{
+							Line:   models.Position{Start: 11, End: 22},
+							Column: models.Position{Start: 10, End: 21},
+						},
 					},
 				},
 			},
@@ -67,8 +75,10 @@ func TestGroupPackageByPURL_ShouldUnifyPackages(t *testing.T) {
 						Name:      "foo.bar:the-first-package",
 						Version:   "1.0.0",
 						Ecosystem: string(lockfile.MavenEcosystem),
-						Line:      models.Position{Start: 1, End: 2},
-						Column:    models.Position{Start: 10, End: 21},
+						BlockLocation: models.FilePosition{
+							Line:   models.Position{Start: 1, End: 2},
+							Column: models.Position{Start: 10, End: 21},
+						},
 					},
 				},
 				{

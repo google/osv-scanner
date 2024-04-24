@@ -166,10 +166,9 @@ type AnalysisInfo struct {
 
 // Specific package information
 type PackageInfo struct {
-	Name      string   `json:"name"`
-	Version   string   `json:"version"`
-	Ecosystem string   `json:"ecosystem"`
-	Commit    string   `json:"commit,omitempty"`
-	Line      Position `json:"line"`
-	Column    Position `json:"column"`
+	Name          string       `json:"name"`
+	Version       string       `json:"version"`
+	Ecosystem     string       `json:"ecosystem"`
+	Commit        string       `json:"commit,omitempty"`
+	BlockLocation FilePosition `json:"blockLocation,omitempty"`
 }

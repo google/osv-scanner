@@ -63,11 +63,13 @@ func (e PoetryLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 
 	for _, lockPackage := range parsedLockfile.Packages {
 		pkgDetails := PackageDetails{
-			Name:      lockPackage.Name,
-			Version:   lockPackage.Version,
-			Commit:    lockPackage.Source.Commit,
-			Line:      lockPackage.Line,
-			Column:    lockPackage.Column,
+			Name:    lockPackage.Name,
+			Version: lockPackage.Version,
+			Commit:  lockPackage.Source.Commit,
+			BlockLocation: models.FilePosition{
+				Line:   lockPackage.Line,
+				Column: lockPackage.Column,
+			},
 			Ecosystem: PoetryEcosystem,
 			CompareAs: PoetryEcosystem,
 		}
