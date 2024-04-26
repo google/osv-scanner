@@ -830,7 +830,7 @@ func DoScan(actions ScannerActions, r reporter.Reporter) (models.VulnerabilityRe
 			return models.VulnerabilityResults{}, err
 		}
 	}
-	results := buildVulnerabilityResults(r, filteredScannedPackages, vulnsResp, licensesResp, actions)
+	results := buildVulnerabilityResults(r, filteredScannedPackages, vulnsResp, licensesResp, actions, &configManager)
 
 	filtered := filterResults(r, &results, &configManager, actions.ShowAllPackages)
 	if filtered > 0 {

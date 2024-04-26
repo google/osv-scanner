@@ -5,6 +5,7 @@ import (
 	"os"
 	"path/filepath"
 	"slices"
+	"strings"
 	"time"
 
 	"github.com/BurntSushi/toml"
@@ -23,10 +24,11 @@ type ConfigManager struct {
 }
 
 type Config struct {
-	IgnoredVulns           []IgnoreEntry               `toml:"IgnoredVulns"`
-	IgnoredPackageVersions []IgnorePackageVersionEntry `toml:"IgnoredPackageVersions"`
-	LoadPath               string                      `toml:"LoadPath"`
-	GoVersionOverride      string                      `toml:"GoVersionOverride"`
+	IgnoredVulns                   []IgnoreEntry                        `toml:"IgnoredVulns"`
+	IgnoredPackageVersions         []IgnorePackageVersionEntry          `toml:"IgnoredPackageVersions"`
+	OverridePackageVersionLicenses []OverridePackageVersionLicenseEntry `toml:"OverridePackageVersionLicenses"`
+	LoadPath                       string                               `toml:"LoadPath"`
+	GoVersionOverride              string                               `toml:"GoVersionOverride"`
 }
 
 type IgnoreEntry struct {
@@ -36,13 +38,22 @@ type IgnoreEntry struct {
 }
 
 type IgnorePackageVersionEntry struct {
-	Name      string `json:"name"`
-	Version   string `json:"version"` // Q: If empty all versions of the package are ignored?
-	Ecosystem string `json:"ecosystem"`
-	// TODO: Commit? Should we use models.PackageInfo? Or keep this config
-	// decoupled from that model. I lean towards keeping it decoupled.
+	Name        string    `toml:"name"`
+	Version     string    `toml:"version"`
+	Ecosystem   string    `toml:"ecosystem"`
 	IgnoreUntil time.Time `toml:"ignoreUntil"`
 	Reason      string    `toml:"reason"`
+}
+
+type OverridePackageVersionLicenseEntry struct {
+	Name            string   `toml:"name"`
+	Major           string   `toml:"major"`
+	Minor           string   `toml:"minor"`
+	Patch           string   `toml:"patch"`
+	ExactVersion    string   `toml:"exactVersion"`
+	Ecosystem       string   `toml:"ecosystem"`
+	LicenseOverride []string `toml:"licenseOverride"`
+	Reason          string   `toml:"reason"`
 }
 
 func (c *Config) ShouldIgnore(vulnID string) (bool, IgnoreEntry) {
@@ -69,6 +80,34 @@ func (c *Config) ShouldIgnorePackageVersion(name, version, ecosystem string) (bo
 	ignoredLine := c.IgnoredPackageVersions[index]
 
 	return shouldIgnoreTimestamp(ignoredLine.IgnoreUntil), ignoredLine
+}
+
+func (c *Config) ShouldOverridePackageVersionLicense(name, version, ecosystem string) (bool, OverridePackageVersionLicenseEntry) {
+	versionParts := strings.Split(version, ".")
+	index := slices.IndexFunc(c.OverridePackageVersionLicenses, func(elem OverridePackageVersionLicenseEntry) bool {
+		if ecosystem != elem.Ecosystem || name != elem.Name {
+			return false
+		}
+		if elem.ExactVersion != "" {
+			return elem.ExactVersion == version
+		}
+		if elem.Major != "" && (len(versionParts) < 1 || versionParts[0] != elem.Major) {
+			return false
+		}
+		if elem.Minor != "" && (len(versionParts) < 2 || versionParts[1] != elem.Minor) {
+			return false
+		}
+		if elem.Patch != "" && (len(versionParts) < 3 || versionParts[2] != elem.Patch) {
+			return false
+		}
+
+		return true
+	})
+	if index == -1 {
+		return false, OverridePackageVersionLicenseEntry{}
+	}
+
+	return true, c.OverridePackageVersionLicenses[index]
 }
 
 func shouldIgnoreTimestamp(ignoreUntil time.Time) bool {

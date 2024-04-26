@@ -14,3 +14,10 @@ version = "1.0.0"
 ecosystem = "Go"
 # ignore_until = 2022-11-09 # Optional exception expiry date
 reason = "abc"
+
+[[OverridePackageVersionLicenses]]
+name = "my-pkg"
+exactVersion = "1.0.0"
+ecosystem = "Go"
+licenseOverride = ["MIT", "0BSD"]
+reason = "abc"
