@@ -143,6 +143,36 @@ Loaded filter from: <rootdir>/fixtures/go-project/osv-scanner.toml
 
 ---
 
+[TestRun/PURL_SBOM_case_sensitivity_(api) - 1]
+Scanning dir ./fixtures/sbom-insecure/alpine.cdx.xml
+Scanned <rootdir>/fixtures/sbom-insecure/alpine.cdx.xml as CycloneDX SBOM and found 14 packages
+Loaded filter from: <rootdir>/fixtures/sbom-insecure/osv-scanner.toml
+CVE-2022-37434 has been filtered out because: This is a intentionally vulnerable test sbom
+Filtered 1 vulnerability from output
++--------------------------------+------+-----------+---------+-----------+---------------------------------------+
+| OSV URL                        | CVSS | ECOSYSTEM | PACKAGE | VERSION   | SOURCE                                |
++--------------------------------+------+-----------+---------+-----------+---------------------------------------+
+| https://osv.dev/CVE-2018-25032 | 7.5  | Alpine    | zlib    | 1.2.10-r0 | fixtures/sbom-insecure/alpine.cdx.xml |
++--------------------------------+------+-----------+---------+-----------+---------------------------------------+
+
+---
+
+[TestRun/PURL_SBOM_case_sensitivity_(api) - 2]
+
+---
+
+[TestRun/PURL_SBOM_case_sensitivity_(local) - 1]
+Scanning dir ./fixtures/sbom-insecure/alpine.cdx.xml
+Scanned <rootdir>/fixtures/sbom-insecure/alpine.cdx.xml as CycloneDX SBOM and found 14 packages
+Loaded Alpine local db from <tempdir>/osv-scanner/Alpine/all.zip
+No issues found
+
+---
+
+[TestRun/PURL_SBOM_case_sensitivity_(local) - 2]
+
+---
+
 [TestRun/Sarif_with_vulns - 1]
 {
   "version": "2.1.0",
