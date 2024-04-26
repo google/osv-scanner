@@ -23,13 +23,24 @@ type ConfigManager struct {
 }
 
 type Config struct {
-	IgnoredVulns      []IgnoreEntry `toml:"IgnoredVulns"`
-	LoadPath          string        `toml:"LoadPath"`
-	GoVersionOverride string        `toml:"GoVersionOverride"`
+	IgnoredVulns           []IgnoreEntry               `toml:"IgnoredVulns"`
+	IgnoredPackageVersions []IgnorePackageVersionEntry `toml:"IgnoredPackageVersions"`
+	LoadPath               string                      `toml:"LoadPath"`
+	GoVersionOverride      string                      `toml:"GoVersionOverride"`
 }
 
 type IgnoreEntry struct {
 	ID          string    `toml:"id"`
+	IgnoreUntil time.Time `toml:"ignoreUntil"`
+	Reason      string    `toml:"reason"`
+}
+
+type IgnorePackageVersionEntry struct {
+	Name      string `json:"name"`
+	Version   string `json:"version"` // Q: If empty all versions of the package are ignored?
+	Ecosystem string `json:"ecosystem"`
+	// TODO: Commit? Should we use models.PackageInfo? Or keep this config
+	// decoupled from that model. I lean towards keeping it decoupled.
 	IgnoreUntil time.Time `toml:"ignoreUntil"`
 	Reason      string    `toml:"reason"`
 }
@@ -40,13 +51,34 @@ func (c *Config) ShouldIgnore(vulnID string) (bool, IgnoreEntry) {
 		return false, IgnoreEntry{}
 	}
 	ignoredLine := c.IgnoredVulns[index]
-	if ignoredLine.IgnoreUntil.IsZero() {
+
+	return shouldIgnoreTimestamp(ignoredLine.IgnoreUntil), ignoredLine
+}
+
+func (c *Config) ShouldIgnorePackageVersion(name, version, ecosystem string) (bool, IgnorePackageVersionEntry) {
+	index := slices.IndexFunc(c.IgnoredPackageVersions, func(elem IgnorePackageVersionEntry) bool {
+		if name != elem.Name {
+			return false
+		}
+
+		return version == elem.Version || elem.Version == ""
+	})
+	if index == -1 {
+		return false, IgnorePackageVersionEntry{}
+	}
+	ignoredLine := c.IgnoredPackageVersions[index]
+
+	return shouldIgnoreTimestamp(ignoredLine.IgnoreUntil), ignoredLine
+}
+
+func shouldIgnoreTimestamp(ignoreUntil time.Time) bool {
+	if ignoreUntil.IsZero() {
 		// If IgnoreUntil is not set, should ignore.
-		return true, ignoredLine
+		return true
 	}
 	// Should ignore if IgnoreUntil is still after current time
 	// Takes timezone offsets into account if it is specified. otherwise it's using local time
-	return ignoredLine.IgnoreUntil.After(time.Now()), ignoredLine
+	return ignoreUntil.After(time.Now())
 }
 
 // Sets the override config by reading the config file at configPath.

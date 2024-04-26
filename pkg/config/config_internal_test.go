@@ -27,6 +27,14 @@ func TestTryLoadConfig(t *testing.T) {
 				ID: "GO-2022-1059",
 			},
 		},
+		IgnoredPackageVersions: []IgnorePackageVersionEntry{
+			{
+				Name:      "lib",
+				Version:   "1.0.0",
+				Ecosystem: "Go",
+				Reason:    "abc",
+			},
+		},
 	}
 	testPaths := []testStruct{
 		{
@@ -67,6 +75,9 @@ func TestTryLoadConfig(t *testing.T) {
 		}
 		config, configErr := tryLoadConfig(configPath)
 		if !cmp.Equal(config.IgnoredVulns, testData.config.IgnoredVulns) {
+			t.Errorf("Configs not equal: %+v != %+v", config, testData.config)
+		}
+		if !cmp.Equal(config.IgnoredPackageVersions, testData.config.IgnoredPackageVersions) {
 			t.Errorf("Configs not equal: %+v != %+v", config, testData.config)
 		}
 		if testData.configHasErr {
@@ -187,6 +198,119 @@ func TestConfig_ShouldIgnore(t *testing.T) {
 			}
 			if !reflect.DeepEqual(gotEntry, tt.wantEntry) {
 				t.Errorf("ShouldIgnore() gotEntry = %v, wantEntry %v", gotEntry, tt.wantEntry)
+			}
+		})
+	}
+}
+
+func TestConfig_ShouldIgnorePackageVersion(t *testing.T) {
+	t.Parallel()
+
+	type args struct {
+		name      string
+		version   string
+		ecosystem string
+	}
+	tests := []struct {
+		name      string
+		config    Config
+		args      args
+		wantOk    bool
+		wantEntry IgnorePackageVersionEntry
+	}{
+		{
+			name: "Version-level entry exists",
+			config: Config{
+				IgnoredPackageVersions: []IgnorePackageVersionEntry{
+					{
+						Name:        "lib1",
+						Version:     "1.0.0",
+						Ecosystem:   "Go",
+						IgnoreUntil: time.Time{},
+						Reason:      "abc",
+					},
+				},
+			},
+			args: args{
+				name:      "lib1",
+				version:   "1.0.0",
+				ecosystem: "Go",
+			},
+			wantOk: true,
+			wantEntry: IgnorePackageVersionEntry{
+				Name:        "lib1",
+				Version:     "1.0.0",
+				Ecosystem:   "Go",
+				IgnoreUntil: time.Time{},
+				Reason:      "abc",
+			},
+		},
+		{
+			name: "Package-level entry exists",
+			config: Config{
+				IgnoredPackageVersions: []IgnorePackageVersionEntry{
+					{
+						Name:        "lib1",
+						Ecosystem:   "Go",
+						IgnoreUntil: time.Time{},
+						Reason:      "abc",
+					},
+				},
+			},
+			args: args{
+				name:      "lib1",
+				version:   "1.0.0",
+				ecosystem: "Go",
+			},
+			wantOk: true,
+			wantEntry: IgnorePackageVersionEntry{
+				Name:        "lib1",
+				Ecosystem:   "Go",
+				IgnoreUntil: time.Time{},
+				Reason:      "abc",
+			},
+		},
+		{
+			name: "Entry doesn't exists",
+			config: Config{
+				IgnoredPackageVersions: []IgnorePackageVersionEntry{
+					{
+						Name:        "lib1",
+						Version:     "1.0.0",
+						Ecosystem:   "Go",
+						IgnoreUntil: time.Time{},
+						Reason:      "abc",
+					},
+					{
+						Name:        "lib2",
+						Version:     "2.0.0",
+						Ecosystem:   "Go",
+						IgnoreUntil: time.Time{},
+						Reason:      "abc",
+					},
+				},
+			},
+			args: args{
+				name:      "lib1",
+				version:   "2.0.0",
+				ecosystem: "Go",
+			},
+			wantOk:    false,
+			wantEntry: IgnorePackageVersionEntry{},
+		},
+	}
+
+	for _, tt := range tests {
+		tt := tt
+		t.Run(tt.name, func(t *testing.T) {
+			t.Parallel()
+
+			gotOk, gotEntry := tt.config.ShouldIgnorePackageVersion(tt.args.name, tt.args.version, tt.args.ecosystem)
+			if gotOk != tt.wantOk {
+				t.Errorf("ShouldIgnorePackageVersion() gotOk = %v, wantOk %v", gotOk, tt.wantOk)
+			}
+			if !reflect.DeepEqual(gotEntry, tt.wantEntry) {
+				t.Errorf("ShouldIgnorePackageVersion() gotEntry = %v, wantEntry %v", gotEntry, tt.wantEntry)
 			}
 		})
 	}

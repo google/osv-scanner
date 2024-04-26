@@ -7,3 +7,10 @@ id = "GO-2022-0968"
 id = "GO-2022-1059"
 # ignore_until = 2022-11-09 # Optional exception expiry date
 # reason = "" # Optional reason
+
+[[IgnoredPackageVersions]]
+name = "lib"
+version = "1.0.0"
+ecosystem = "Go"
+# ignore_until = 2022-11-09 # Optional exception expiry date
+reason = "abc"
