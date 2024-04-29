@@ -53,10 +53,40 @@ func (e GoLockExtractor) ShouldExtract(path string) bool {
 	return filepath.Base(path) == "go.mod"
 }
 
+func splitLines(data []byte) []string {
+	str := string(data)
+	return strings.Split(str, "\n")
+}
+
+func extractVersionPosition(lines []string, version string, start modfile.Position, end modfile.Position) *models.FilePosition {
+	if start.Line > len(lines) {
+		return nil
+	}
+
+	line := lines[start.Line-1]
+	versionStartColumn := strings.LastIndex(line, version) + 1 // column start is 1-based
+
+	if versionStartColumn == 0 {
+		// It may happen if the version is not defined in the gomod file
+		// e.g. `require github.com/elastic/go-elasticsearch master`
+		// In this case the reported version is v0.0.0 (see func `defaultNonCanonicalVersions`).
+		return nil
+	}
+
+	// versionStartColumn is the first character of the version, we should not count it to calculate the end
+	versionEndColumn := versionStartColumn + len(version) - 1
+
+	return &models.FilePosition{
+		Line:   models.Position{Start: start.Line, End: end.Line},
+		Column: models.Position{Start: versionStartColumn, End: versionEndColumn},
+	}
+}
+
 func (e GoLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 	var parsedLockfile *modfile.File
 
 	b, err := io.ReadAll(f)
+	lines := splitLines(b)
 
 	if err == nil {
 		parsedLockfile, err = modfile.Parse(f.Path(), b, defaultNonCanonicalVersions)
@@ -71,15 +101,19 @@ func (e GoLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 	for _, require := range parsedLockfile.Require {
 		var start = require.Syntax.Start
 		var end = require.Syntax.End
+		version := strings.TrimPrefix(require.Mod.Version, "v")
+		versionLocation := extractVersionPosition(lines, version, start, end)
+
 		packages[require.Mod.Path+"@"+require.Mod.Version] = PackageDetails{
 			Name:      require.Mod.Path,
-			Version:   strings.TrimPrefix(require.Mod.Version, "v"),
+			Version:   version,
 			Ecosystem: GoEcosystem,
 			CompareAs: GoEcosystem,
 			BlockLocation: models.FilePosition{
 				Line:   models.Position{Start: start.Line, End: end.Line},
 				Column: models.Position{Start: start.LineRune, End: end.LineRune},
 			},
+			VersionLocation: versionLocation,
 		}
 	}
 
@@ -124,6 +158,7 @@ func (e GoLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 					Line:   models.Position{Start: start.Line, End: end.Line},
 					Column: models.Position{Start: start.LineRune, End: end.LineRune},
 				},
+				VersionLocation: extractVersionPosition(lines, version, start, end),
 			}
 		}
 	}

@@ -16,7 +16,7 @@ func GroupByPURL(packageSources []models.PackageSource) map[string]models.Packag
 				continue
 			}
 			existingPackage, packageExists := uniquePackages[packageURL.ToString()]
-			isLocationExtracted := isLocationExtractedSuccessfully(pkg.Package)
+			isLocationExtracted := isLocationExtractedSuccessfully(pkg.Package.BlockLocation)
 			location := extractPackageLocations(packageSource.Source, pkg.Package)
 
 			if packageExists && isLocationExtracted {
@@ -52,12 +52,12 @@ func GroupByPURL(packageSources []models.PackageSource) map[string]models.Packag
 	return uniquePackages
 }
 
-func isLocationExtractedSuccessfully(pkgInfos models.PackageInfo) bool {
-	return pkgInfos.BlockLocation.Line.Start > 0 && pkgInfos.BlockLocation.Line.End > 0 && pkgInfos.BlockLocation.Column.Start > 0 && pkgInfos.BlockLocation.Column.End > 0
+func isLocationExtractedSuccessfully(filePosition models.FilePosition) bool {
+	return filePosition.Line.Start > 0 && filePosition.Line.End > 0 && filePosition.Column.Start > 0 && filePosition.Column.End > 0
 }
 
 func extractPackageLocations(pkgSource models.SourceInfo, pkgInfos models.PackageInfo) models.PackageLocations {
-	return models.PackageLocations{
+	locations := models.PackageLocations{
 		Block: models.PackageLocation{
 			Filename:    pkgSource.Path,
 			LineStart:   pkgInfos.BlockLocation.Line.Start,
@@ -66,4 +66,16 @@ func extractPackageLocations(pkgSource models.SourceInfo, pkgInfos models.Packag
 			ColumnEnd:   pkgInfos.BlockLocation.Column.End,
 		},
 	}
+
+	if pkgInfos.VersionLocation != nil && isLocationExtractedSuccessfully(*pkgInfos.VersionLocation) {
+		locations.Version = &models.PackageLocation{
+			Filename:    pkgSource.Path,
+			LineStart:   pkgInfos.VersionLocation.Line.Start,
+			LineEnd:     pkgInfos.VersionLocation.Line.End,
+			ColumnStart: pkgInfos.VersionLocation.Column.Start,
+			ColumnEnd:   pkgInfos.VersionLocation.Column.End,
+		}
+	}
+
+	return locations
 }
