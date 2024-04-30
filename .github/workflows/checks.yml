@@ -109,3 +109,5 @@ jobs:
           check-latest: true
       - name: Run test action
         uses: ./.github/workflows/test-action
+        with:
+          codecov_token: ${{ secrets.CODECOV_TOKEN }}
