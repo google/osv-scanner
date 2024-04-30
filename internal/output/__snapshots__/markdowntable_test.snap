@@ -12,6 +12,19 @@
 
 ---
 
+[TestPrintMarkdownTableResults_WithLicenseViolations/multiple_sources_with_a_mixed_count_of_packages,_some_license_violations#01 - 1]
+
+---
+
+[TestPrintMarkdownTableResults_WithLicenseViolations/multiple_sources_with_a_mixed_count_of_packages_across_ecosystems,_some_license_violations - 1]
+| License Violation | Ecosystem | Package | Version | Source |
+| --- | --- | --- | --- | --- |
+| MIT | Packagist | mine1 | 1.2.3 | path/to/my/first/lockfile |
+| Apache-2.0 | npm | mine2 | 3.2.5 | path/to/my/second/lockfile |
+| MIT | Packagist | mine1 | 1.2.3 | path/to/my/third/lockfile |
+
+---
+
 [TestPrintMarkdownTableResults_WithLicenseViolations/multiple_sources_with_a_mixed_count_of_packages_and_groups,_some_license_violations - 1]
 | License Violation | Ecosystem | Package | Version | Source |
 | --- | --- | --- | --- | --- |
@@ -34,6 +47,14 @@
 ---
 
 [TestPrintMarkdownTableResults_WithLicenseViolations/one_source_with_one_package,_no_license_violations - 1]
+
+---
+
+[TestPrintMarkdownTableResults_WithLicenseViolations/one_source_with_one_package,_no_licenses - 1]
+
+---
+
+[TestPrintMarkdownTableResults_WithLicenseViolations/one_source_with_one_package_and_an_unknown_license - 1]
 
 ---
 
@@ -136,6 +157,18 @@
 
 ---
 
+[TestPrintMarkdownTableResults_WithVulnerabilities/multiple_sources_with_a_mixed_count_of_packages_across_ecosystems,_and_multiple_vulnerabilities - 1]
+| OSV URL | CVSS | Ecosystem | Package | Version | Source |
+| --- | --- | --- | --- | --- | --- |
+| https://osv.dev/OSV-1 |  | Packagist | mine1 | 1.2.3 | path/to/my/first/lockfile |
+| https://osv.dev/OSV-5 |  | Packagist | mine1 | 1.2.3 | path/to/my/first/lockfile |
+| https://osv.dev/OSV-1 |  | npm | mine1 | 1.2.2 | path/to/my/first/lockfile |
+| https://osv.dev/OSV-2 |  | NuGet | mine2 | 3.2.5 | path/to/my/second/lockfile |
+| https://osv.dev/OSV-3 |  | Packagist | mine3 | 0.4.1 | path/to/my/second/lockfile |
+| https://osv.dev/OSV-5 |  | Packagist | mine3 | 0.4.1 | path/to/my/second/lockfile |
+
+---
+
 [TestPrintMarkdownTableResults_WithVulnerabilities/multiple_sources_with_no_packages - 1]
 
 ---
@@ -185,5 +218,13 @@
 | OSV URL | CVSS | Ecosystem | Package | Version | Source |
 | --- | --- | --- | --- | --- | --- |
 | https://osv.dev/OSV-1 |  | npm | mine1 | 1.2.3 | path/to/my/first/lockfile |
+
+---
+
+[TestPrintMarkdownTableResults_WithVulnerabilities/two_sources_with_the_same_vulnerable_package - 1]
+| OSV URL | CVSS | Ecosystem | Package | Version | Source |
+| --- | --- | --- | --- | --- | --- |
+| https://osv.dev/OSV-1 |  | npm | mine1 | 1.2.3 | path/to/my/first/lockfile |
+| https://osv.dev/OSV-1 |  | npm | mine1 (dev) | 1.2.3 | path/to/my/second/lockfile |
 
 ---
