@@ -176,7 +176,7 @@
         },
         {
           "name": "libcrypto3",
-          "version": "3.1.4-r5",
+          "version": "3.1.4-r6",
           "commit": "b784a22cad0c452586b438cb7a597d846fc09ff4",
           "ecosystem": "Alpine:v3.19",
           "compareAs": "Alpine"
@@ -190,7 +190,7 @@
         },
         {
           "name": "libssl3",
-          "version": "3.1.4-r5",
+          "version": "3.1.4-r6",
           "commit": "b784a22cad0c452586b438cb7a597d846fc09ff4",
           "ecosystem": "Alpine:v3.19",
           "compareAs": "Alpine"
