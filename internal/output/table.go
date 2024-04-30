@@ -3,9 +3,7 @@ package output
 import (
 	"fmt"
 	"io"
-	"log"
 	"math"
-	"os"
 	"path/filepath"
 	"sort"
 	"strings"
@@ -88,11 +86,8 @@ type tbInnerResponse struct {
 
 func tableBuilderInner(vulnResult *models.VulnerabilityResults, addStyling bool, calledVulns bool) []tbInnerResponse {
 	allOutputRows := []tbInnerResponse{}
-	// Working directory used to simplify path
-	workingDir, err := os.Getwd()
-	if err != nil {
-		log.Panicf("can't get working dir: %v", err)
-	}
+	workingDir := mustGetWorkingDirectory()
+
 	for _, sourceRes := range vulnResult.Results {
 		for _, pkg := range sourceRes.Packages {
 			source := sourceRes.Source
@@ -217,10 +212,7 @@ func licenseSummaryTableBuilder(outputTable table.Writer, vulnResult *models.Vul
 
 func licenseViolationsTableBuilder(outputTable table.Writer, vulnResult *models.VulnerabilityResults) table.Writer {
 	outputTable.AppendHeader(table.Row{"License Violation", "Ecosystem", "Package", "Version", "Source"})
-	workingDir, err := os.Getwd()
-	if err != nil {
-		log.Panicf("can't get working dir: %v", err)
-	}
+	workingDir := mustGetWorkingDirectory()
 	for _, pkgSource := range vulnResult.Results {
 		for _, pkg := range pkgSource.Packages {
 			if len(pkg.LicenseViolations) == 0 {
