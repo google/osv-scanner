@@ -15,6 +15,11 @@
 name: test
 description: "Runs go tests"
 
+inputs:
+  codecov_token:
+    description: "Token for uploading coverage reports to Codecov"
+    required: true
+
 runs:
   using: composite
   steps:
@@ -25,3 +30,5 @@ runs:
       run: ./scripts/run_tests.sh
     - name: Upload coverage to Codecov
       uses: codecov/codecov-action@ab904c41d6ece82784817410c45d8b8c02684457 # v3.1.6
+      with:
+        token: ${{ inputs.CODECOV_TOKEN }}
