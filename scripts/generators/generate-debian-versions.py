@@ -47,6 +47,9 @@ def extract_packages_with_versions(osvs):
 
   for osv in osvs:
     for affected in osv['affected']:
+      if not affected['package']['ecosystem'].startswith('Debian'):
+        continue
+
       package = affected['package']['name']
 
       if package not in dict:
