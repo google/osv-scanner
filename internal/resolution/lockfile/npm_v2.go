@@ -12,6 +12,7 @@ import (
 	"github.com/google/osv-scanner/internal/resolution/datasource"
 	"github.com/google/osv-scanner/pkg/lockfile"
 	"github.com/tidwall/gjson"
+	"github.com/tidwall/pretty"
 	"github.com/tidwall/sjson"
 	"golang.org/x/exp/maps"
 )
@@ -186,7 +187,7 @@ func (rw NpmLockfileIO) modifyPackageLockPackages(lockJSON string, patches map[s
 		}
 		if upgrades, ok := patches[pkg]; ok {
 			if newVer, ok := upgrades[value.Get("version").String()]; ok {
-				fullPath := "packages." + strings.ReplaceAll(key, ".", "\\.")
+				fullPath := "packages." + gjson.Escape(key)
 				var err error
 				if lockJSON, err = rw.updatePackage(lockJSON, fullPath, pkg, newVer, api); err != nil {
 					return lockJSON, err
@@ -207,9 +208,18 @@ func (rw NpmLockfileIO) updatePackage(jsonText, jsonPath, packageName, newVersio
 	// The "dependencies" returned from the registry includes (can include?) both optional and regular dependencies
 	// But the "optionalDependencies" are (always?) removed from "dependencies" package-lock.json.
 	for _, opt := range npmData.Get("optionalDependencies|@keys").Array() {
-		s, _ := sjson.Delete(npmData.Raw, "dependencies."+opt.String())
+		depName := gjson.Escape(opt.String())
+		s, _ := sjson.Delete(npmData.Raw, "dependencies."+depName)
 		npmData = gjson.Parse(s)
 	}
+
+	if len(npmData.Get("dependencies").Map()) == 0 {
+		s, _ := sjson.Delete(npmData.Raw, "dependencies")
+		npmData = gjson.Parse(s)
+	}
+
+	pkgData := gjson.Get(jsonText, jsonPath)
+	pkgText := pkgData.Raw
 
 	// I can't find a consistent list of what fields should be included in package-lock.json packages
 	// https://docs.npmjs.com/cli/v9/configuring-npm/package-lock-json#packages seems list some
@@ -217,27 +227,38 @@ func (rw NpmLockfileIO) updatePackage(jsonText, jsonPath, packageName, newVersio
 	// Might fill in as much of package.json? https://docs.npmjs.com/cli/v9/configuring-npm/package-json
 	// It also seems to depend on npm version?
 	// Instead, just modify the fields that are present
-	for _, key := range gjson.Get(jsonText, jsonPath+"|@keys").Array() {
-		switch key.String() {
+	keyArray := pkgData.Get("@keys").Array()
+	// If dependency types were not previously present, we want to add them.
+	necessaryKeys := []string{"dependencies", "optionalDependencies", "peerDependencies"}
+
+	keys := make([]string, len(keyArray), len(keyArray)+len(necessaryKeys))
+	for i, key := range keyArray {
+		keys[i] = gjson.Escape(key.String())
+	}
+	for _, key := range necessaryKeys {
+		if npmData.Get(key).Exists() && !pkgData.Get(key).Exists() {
+			keys = append(keys, key)
+		}
+	}
+	for _, key := range keys {
+		switch key {
 		case "resolved":
-			jsonText, _ = sjson.Set(jsonText, jsonPath+".resolved", npmData.Get("dist.tarball").String())
+			pkgText, _ = sjson.Set(pkgText, "resolved", npmData.Get("dist.tarball").String())
 		case "integrity":
-			jsonText, _ = sjson.Set(jsonText, jsonPath+".integrity", npmData.Get("dist.integrity").String())
+			pkgText, _ = sjson.Set(pkgText, "integrity", npmData.Get("dist.integrity").String())
 		case "bin":
 			// the api formats the paths as "./path/to", while package-lock.json seem to use "path/to"
 			// TODO: smarter way for indentation
-			newVal := npmData.Get(key.String() + "|@pretty:{\"prefix\": \"      \"}")
+			newVal := npmData.Get(key)
 			if newVal.Exists() {
 				text := newVal.Raw
-				// remove trailing newlines that @pretty creates for objects
-				text = strings.TrimSuffix(text, "\n")
 				for k, v := range newVal.Map() {
 					text, _ = sjson.Set(text, k, filepath.Clean(v.String()))
 				}
-				jsonText, _ = sjson.SetRaw(jsonText, jsonPath+".bin", text)
+				pkgText, _ = sjson.SetRaw(pkgText, "bin", text)
 			} else {
 				// explicitly remove it if it's no longer present
-				jsonText, _ = sjson.Delete(jsonText, jsonPath+".bin")
+				pkgText, _ = sjson.Delete(pkgText, "bin")
 			}
 		// if all dependencies have been removed, explicitly remove the field
 		case "dependencies":
@@ -247,27 +268,27 @@ func (rw NpmLockfileIO) updatePackage(jsonText, jsonPath, packageName, newVersio
 		case "peerDependencies":
 			fallthrough
 		case "optionalDependencies":
-			if !npmData.Get(key.String()).Exists() {
+			if !npmData.Get(key).Exists() {
 				// TODO: Think of the orphaned children
-				jsonText, _ = sjson.Delete(jsonText, jsonPath+"."+key.String())
+				pkgText, _ = sjson.Delete(pkgText, key)
 				continue
 			}
 
 			fallthrough
 		default:
-			// use @pretty to format objects correctly & with correct indentation
-			// TODO: smarter way for indentation
-			newVal := npmData.Get(key.String() + "|@pretty:{\"prefix\": \"      \"}")
+			newVal := npmData.Get(key)
 			if newVal.Exists() {
-				text := newVal.Raw
-				// remove trailing newlines that @pretty creates for objects
-				text = strings.TrimSuffix(text, "\n")
-				jsonText, _ = sjson.SetRaw(jsonText, jsonPath+"."+key.String(), text)
+				pkgText, _ = sjson.SetRaw(pkgText, key, newVal.Raw)
 			}
 			// if it doesn't exist, assume it's one of the package-lock flags e.g. "dev"
 			// TODO: It could be a removed field
 		}
 	}
 
-	return jsonText, nil
+	// pretty the json because setting nested objects breaks the formatting.
+	// Setting Prefix & Indent to account for the fact that this is not the top-level object.
+	pkgText = string(pretty.PrettyOptions([]byte(pkgText), &pretty.Options{Prefix: "    ", Indent: "  "}))
+	pkgText = strings.TrimSpace(pkgText) // remove leading spaces & newline pretty creates
+
+	return sjson.SetRaw(jsonText, jsonPath, pkgText)
 }

@@ -42,7 +42,13 @@ func packageToString(pkg lockfile.PackageDetails) string {
 		commit = "<no commit>"
 	}
 
-	return fmt.Sprintf("%s@%s (%s, %s)", pkg.Name, pkg.Version, pkg.Ecosystem, commit)
+	groups := strings.Join(pkg.DepGroups, ", ")
+
+	if groups == "" {
+		groups = "<no groups>"
+	}
+
+	return fmt.Sprintf("%s@%s (%s, %s, %s)", pkg.Name, pkg.Version, pkg.Ecosystem, commit, groups)
 }
 
 func hasPackage(t *testing.T, packages []lockfile.PackageDetails, pkg lockfile.PackageDetails) bool {

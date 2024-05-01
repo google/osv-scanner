@@ -35,7 +35,16 @@ func goAnalysis(r reporter.Reporter, pkgs []models.PackageVulns, source models.S
 	}
 
 	vulns, vulnsByID := vulnsFromAllPkgs(pkgs)
-	res, err := runGovulncheck(filepath.Dir(source.Path), vulns, goVersion)
+	// Filter out advisories with no symbol information first
+	// This is purely an optimisation step, further filtering is done in matchAnalysisWithPackageVulns function
+	filteredVulns := models.Vulnerabilities{}
+	for _, vuln := range vulns {
+		if vulnHasImportsField(vuln, nil) {
+			filteredVulns = append(filteredVulns, vuln)
+		}
+	}
+
+	res, err := runGovulncheck(filepath.Dir(source.Path), filteredVulns, goVersion)
 	if err != nil {
 		// TODO: Better method to identify the type of error and give advice specific to the error
 		r.Errorf(
@@ -73,7 +82,13 @@ func matchAnalysisWithPackageVulns(pkgs []models.PackageVulns, idToFindings map[
 					fillNotImportedAnalysisInfo(vulnsByID, vulnID, pv, analysis)
 					continue
 				}
-				// TODO: There feels like something's wrong here, not sure what
+
+				pkg := pv.Package
+				if !vulnHasImportsField(vulnsByID[vulnID], &pkg) && moduleToCalled[pv.Package.Name] {
+					// Vuln entry does not have any symbol information, therefore called being true is not useful
+					continue
+				}
+
 				(*analysis)[vulnID] = models.AnalysisInfo{
 					Called: moduleToCalled[pv.Package.Name],
 				}
@@ -82,21 +97,31 @@ func matchAnalysisWithPackageVulns(pkgs []models.PackageVulns, idToFindings map[
 	}
 }
 
+func vulnHasImportsField(vuln models.Vulnerability, pkg *models.PackageInfo) bool {
+	for _, affected := range vuln.Affected {
+		if pkg != nil {
+			// TODO: Compare versions to see if this is the correct affected element
+			// ver, err := semantic.Parse(pv.Package.Version, semantic.SemverVersion)
+			if affected.Package.Name != pkg.Name {
+				continue
+			}
+		}
+		_, hasImportsField := affected.EcosystemSpecific["imports"]
+		if hasImportsField {
+			return true
+		}
+	}
+
+	return false
+}
+
 // fillNotImportedAnalysisInfo checks for any source information in advisories, and sets called to false
 func fillNotImportedAnalysisInfo(vulnsByID map[string]models.Vulnerability, vulnID string, pv models.PackageVulns, analysis *map[string]models.AnalysisInfo) {
-	for _, v := range vulnsByID[vulnID].Affected {
-		// TODO: Compare versions to see if this is the correct affected element
-		// ver, err := semantic.Parse(pv.Package.Version, semantic.SemverVersion)
-		if v.Package.Name != pv.Package.Name {
-			continue
-		}
-		_, hasImportsField := v.EcosystemSpecific["imports"]
-		if hasImportsField {
-			// If there is source information, then analysis has been performed, and
-			// code does not import the vulnerable package, so definitely not called
-			(*analysis)[vulnID] = models.AnalysisInfo{
-				Called: false,
-			}
+	if vulnHasImportsField(vulnsByID[vulnID], &pv.Package) {
+		// If there is source information, then analysis has been performed, and
+		// code does not import the vulnerable package, so definitely not called
+		(*analysis)[vulnID] = models.AnalysisInfo{
+			Called: false,
 		}
 	}
 }

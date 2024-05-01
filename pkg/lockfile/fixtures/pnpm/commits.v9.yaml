@@ -1,0 +1,34 @@
+lockfileVersion: '9.0'
+
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
+
+importers:
+
+  .:
+    dependencies:
+      ansi-regex:
+        specifier: git@github.com/chalk/ansi-regex.git
+        version: https://codeload.github.com/chalk/ansi-regex/tar.gz/02fa893d619d3da85411acc8fd4e2eea0e95a9d9
+      is-number:
+        specifier: github:jonschlinkert/is-number#master
+        version: https://codeload.github.com/jonschlinkert/is-number/tar.gz/98e8ff1da1a89f93d1397a24d7413ed15421c139
+
+packages:
+
+  ansi-regex@https://codeload.github.com/chalk/ansi-regex/tar.gz/02fa893d619d3da85411acc8fd4e2eea0e95a9d9:
+    resolution: {tarball: https://codeload.github.com/chalk/ansi-regex/tar.gz/02fa893d619d3da85411acc8fd4e2eea0e95a9d9}
+    version: 6.0.1
+    engines: {node: '>=12'}
+
+  is-number@https://codeload.github.com/jonschlinkert/is-number/tar.gz/98e8ff1da1a89f93d1397a24d7413ed15421c139:
+    resolution: {tarball: https://codeload.github.com/jonschlinkert/is-number/tar.gz/98e8ff1da1a89f93d1397a24d7413ed15421c139}
+    version: 7.0.0
+    engines: {node: '>=0.12.0'}
+
+snapshots:
+
+  ansi-regex@https://codeload.github.com/chalk/ansi-regex/tar.gz/02fa893d619d3da85411acc8fd4e2eea0e95a9d9: {}
+
+  is-number@https://codeload.github.com/jonschlinkert/is-number/tar.gz/98e8ff1da1a89f93d1397a24d7413ed15421c139: {}

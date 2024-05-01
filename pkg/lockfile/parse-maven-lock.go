@@ -8,6 +8,7 @@ import (
 	"strings"
 
 	"github.com/google/osv-scanner/internal/cachedregexp"
+	"golang.org/x/exp/maps"
 )
 
 type MavenLockDependency struct {
@@ -150,7 +151,7 @@ func (e MavenLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 		details[finalName] = pkgDetails
 	}
 
-	return pkgDetailsMapToSlice(details), nil
+	return maps.Values(details), nil
 }
 
 var _ Extractor = MavenLockExtractor{}
