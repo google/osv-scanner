@@ -182,6 +182,8 @@ func (m MavenManifestIO) Read(df lockfile.DepFile) (Manifest, error) {
 	}, nil
 }
 
+// To avoid indefinite loop when fetching parents,
+// set a limit on the number of parents.
 const MaxParent = 100
 
 func (m MavenManifestIO) MergeParents(ctx context.Context, result *maven.Project, current maven.Parent, start int, path string, addRequirements func(maven.Project, string), prefix string) error {
