@@ -1,6 +1,7 @@
 package output
 
 import (
+	"cmp"
 	"encoding/json"
 	"slices"
 	"strings"
@@ -23,17 +24,11 @@ func (pss *pkgSourceSet) StableKeys() []pkgWithSource {
 
 	slices.SortFunc(pkgWithSrcKeys, func(a, b pkgWithSource) int {
 		// compare based on each field in descending priority
-		for _, fn := range []func() int{
-			func() int { return strings.Compare(a.Source.Path, b.Source.Path) },
-			func() int { return strings.Compare(a.Package.Name, b.Package.Name) },
-			func() int { return strings.Compare(a.Package.Version, b.Package.Version) },
-		} {
-			if r := fn(); r != 0 {
-				return r
-			}
-		}
-
-		return 0
+		return cmp.Or(
+			strings.Compare(a.Source.Path, b.Source.Path),
+			strings.Compare(a.Package.Name, b.Package.Name),
+			strings.Compare(a.Package.Version, b.Package.Version),
+		)
 	})
 
 	return pkgWithSrcKeys
