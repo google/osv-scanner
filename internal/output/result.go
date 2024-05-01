@@ -22,6 +22,7 @@ func (pss *pkgSourceSet) StableKeys() []pkgWithSource {
 	pkgWithSrcKeys := maps.Keys(*pss)
 
 	slices.SortFunc(pkgWithSrcKeys, func(a, b pkgWithSource) int {
+		// compare based on each field in descending priority
 		for _, fn := range []func() int{
 			func() int { return strings.Compare(a.Source.Path, b.Source.Path) },
 			func() int { return strings.Compare(a.Package.Name, b.Package.Name) },
