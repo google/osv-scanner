@@ -5,6 +5,28 @@ require "open-uri"
 require "json"
 require "zip"
 
+# An array of version comparisons that are known to be unsupported and so
+# should be commented out in the generated fixture.
+#
+# Generally this is because the native implementation has a suspected bug
+# that causes the comparison to return incorrect results, and so supporting
+# such comparisons in the detector would in fact be wrong.
+#
+# @type [Array<String>]
+UNSUPPORTED_COMPARISONS = []
+
+# @param [String] line
+# @return [Boolean]
+def is_unsupported_comparison?(line)
+  UNSUPPORTED_COMPARISONS.include? line
+end
+
+# @param [String] line
+# @return [String]
+def uncomment(line)
+  line.sub(/^#|\/\//, "")
+end
+
 def download_rubygems_db
   URI.open("https://osv-vulnerabilities.storage.googleapis.com/RubyGems/all.zip") do |zip|
     File.open("rubygems-db.zip", "wb") { |f| f.write(zip.read) }
@@ -42,7 +64,13 @@ def compare_versions(lines, select = :all)
   lines.each do |line|
     line = line.strip
 
-    next if line.empty? || line.start_with?("#") || line.start_with?("//")
+    if line.empty? || line.start_with?("#") || line.start_with?("//")
+      maybe_unsupported = uncomment(line).strip
+
+      puts "\033[96mS\033[0m: \033[93m#{maybe_unsupported}\033[0m" if is_unsupported_comparison?(maybe_unsupported)
+
+      next
+    end
 
     parts = line.split(" ")
     v1 = parts[0]
@@ -77,7 +105,10 @@ def generate_version_compares(versions)
     op = "<"
     op = "=" if versions[i - 1] == version
 
-    comparisons << "#{versions[i - 1]} #{op} #{version}"
+    comparison = "#{versions[i - 1]} #{op} #{version}"
+    comparison = "# #{comparison}" if is_unsupported_comparison?(comparison)
+
+    comparisons << comparison
   end
 
   comparisons
