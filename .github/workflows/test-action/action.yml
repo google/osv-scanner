@@ -31,5 +31,5 @@ runs:
     - name: Upload coverage to Codecov
       uses: codecov/codecov-action@84508663e988701840491b86de86b666e8a86bed # v4.3.0
       with:
-        token: ${{ inputs.CODECOV_TOKEN }}
+        token: ${{ inputs.codecov_token }}
         fail_ci_if_error: true
