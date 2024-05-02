@@ -21,11 +21,11 @@ type RemediationOptions struct {
 }
 
 func (opts RemediationOptions) MatchVuln(v resolution.ResolutionVuln) bool {
-	if slices.Contains(opts.IgnoreVulns, v.Vulnerability.ID) {
+	if opts.matchID(v, opts.IgnoreVulns) {
 		return false
 	}
 
-	if len(opts.ExplicitVulns) > 0 && !slices.Contains(opts.ExplicitVulns, v.Vulnerability.ID) {
+	if len(opts.ExplicitVulns) > 0 && !opts.matchID(v, opts.ExplicitVulns) {
 		return false
 	}
 
@@ -34,6 +34,20 @@ func (opts RemediationOptions) MatchVuln(v resolution.ResolutionVuln) bool {
 	}
 
 	return opts.matchSeverity(v) && opts.matchDepth(v)
+}
+
+func (opts RemediationOptions) matchID(v resolution.ResolutionVuln, ids []string) bool {
+	if slices.Contains(ids, v.Vulnerability.ID) {
+		return true
+	}
+
+	for _, id := range v.Vulnerability.Aliases {
+		if slices.Contains(ids, id) {
+			return true
+		}
+	}
+
+	return false
 }
 
 func (opts RemediationOptions) matchSeverity(v resolution.ResolutionVuln) bool {
