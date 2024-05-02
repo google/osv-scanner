@@ -18,6 +18,7 @@
     <groupId>org.parent</groupId>
     <artifactId>parent-pom</artifactId>
     <version>1.2.0</version>
+    <relativePath>./parent/pom.xml</relativePath>
   </parent>
 
   <properties>
@@ -47,6 +48,13 @@
         <groupId>org.example</groupId>
         <artifactId>xyz</artifactId>
         <version>2.0.1</version>
+      </dependency>
+      <dependency>
+        <groupId>org.import</groupId>
+        <artifactId>import</artifactId>
+        <version>1.0.0</version>
+        <type>pom</type>
+        <scope>import</scope>
       </dependency>
     </dependencies>
   </dependencyManagement>
