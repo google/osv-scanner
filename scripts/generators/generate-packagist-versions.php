@@ -1,5 +1,35 @@
 <?php
 
+//
+
+// An array of version comparisons that are known to be unsupported and so
+// should be commented out in the generated fixture.
+//
+// Generally this is because the native implementation has a suspected bug
+// that causes the comparison to return incorrect results, and so supporting
+// such comparisons in the detector would in fact be wrong.
+$UNSUPPORTED_COMPARISONS = [];
+
+function isUnsupportedComparison(string $line): bool
+{
+  global $UNSUPPORTED_COMPARISONS;
+
+  return in_array($line, $UNSUPPORTED_COMPARISONS, true);
+}
+
+function uncomment(string $line): string
+{
+  if (str_starts_with($line, '#')) {
+    return substr($line, 1);
+  }
+
+  if (str_starts_with($line, '//')) {
+    return substr($line, 2);
+  }
+
+  return $line;
+}
+
 function downloadPackagistDb(): string
 {
   $url = 'https://osv-vulnerabilities.storage.googleapis.com/Packagist/all.zip';
@@ -115,7 +145,13 @@ function generateVersionCompares(array $versions): array
     $prevVersion = normalizePrevVersion($version, $versions[$index - 1]);
     $op          = version_compare($prevVersion, $version) === 0 ? "=" : "<";
 
-    $comparisons[] = "$prevVersion $op $version";
+    $comparison = "$prevVersion $op $version";
+
+    if (isUnsupportedComparison($comparison)) {
+      $comparison = "# $comparison";
+    }
+
+    $comparisons[] = $comparison;
   }
 
   return $comparisons;
@@ -140,6 +176,12 @@ function compareVersions(array $lines, string $select = "all"): bool
     $line = trim($line);
 
     if (empty($line) || str_starts_with($line, "#") || str_starts_with($line, "//")) {
+      $maybeUnsupported = trim(uncomment($line));
+
+      if (isUnsupportedComparison($maybeUnsupported)) {
+        echo "\033[96mS\033[0m: \033[93m$maybeUnsupported\033[0m\n";
+      }
+
       continue;
     }
 

@@ -7,9 +7,29 @@ import packaging.version
 import urllib.request
 import zipfile
 
-
 # this requires you run "pip install packaging" - have to be careful about versions too
 # because of the "legacy version" stuff
+
+# An array of version comparisons that are known to be unsupported and so
+# should be commented out in the generated fixture.
+#
+# Generally this is because the native implementation has a suspected bug
+# that causes the comparison to return incorrect results, and so supporting
+# such comparisons in the detector would in fact be wrong.
+UNSUPPORTED_COMPARISONS = []
+
+
+def is_unsupported_comparison(line):
+  return line in UNSUPPORTED_COMPARISONS
+
+
+def uncomment(line):
+  if line.startswith("#"):
+    return line[1:]
+  if line.startswith("//"):
+    return line[2:]
+  return line
+
 
 def download_pypi_db():
   urllib.request.urlretrieve("https://osv-vulnerabilities.storage.googleapis.com/PyPI/all.zip", "pypi-db.zip")
@@ -50,6 +70,10 @@ def compare_versions(lines, select="all"):
     line = line.strip()
 
     if line == "" or line.startswith('#') or line.startswith('//'):
+      maybe_unsupported = uncomment(line).strip()
+
+      if is_unsupported_comparison(maybe_unsupported):
+        print(f"\033[96mS\033[0m: \033[93m{maybe_unsupported}\033[0m")
       continue
 
     v1, op, v2 = line.strip().split(" ")
@@ -82,7 +106,12 @@ def generate_version_compares(versions):
   for i, version in enumerate(versions):
     if i == 0:
       continue
-    comparisons.append(f"{versions[i - 1]} < {version}\n")
+
+    comparison = f"{versions[i - 1]} < {version}\n"
+
+    if is_unsupported_comparison(comparison.strip()):
+      comparison = "# " + comparison
+    comparisons.append(comparison)
   return comparisons
 
 
