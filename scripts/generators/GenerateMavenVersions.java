@@ -94,6 +94,10 @@ public class GenerateMavenVersions {
     osvs.forEach(osv -> osv.getJSONArray("affected").forEach(aff -> {
       JSONObject affected = (JSONObject) aff;
 
+      if(affected.getJSONObject("package").getString("ecosystem").equals("Maven")) {
+        return;
+      }
+
       String pkgName = affected.getJSONObject("package").getString("name");
 
       if(!affected.has("versions")) {
