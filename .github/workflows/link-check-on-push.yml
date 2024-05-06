@@ -12,7 +12,7 @@ jobs:
       contents: read # to fetch code (actions/checkout)
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
+      - uses: actions/checkout@0ad4b8fadaa221de15dcec353f45205ec38ea70b # v4.1.4
       - uses: gaurav-nelson/github-action-markdown-link-check@25b2c436c653f0d4500d3c2df86e5c14e71e44e1
         with:
           use-quiet-mode: "yes"
