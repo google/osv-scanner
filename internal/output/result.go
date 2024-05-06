@@ -2,6 +2,8 @@ package output
 
 import (
 	"encoding/json"
+	"log"
+	"os"
 	"slices"
 	"strings"
 
@@ -61,6 +63,16 @@ func (pss *pkgSourceSet) UnmarshalJSON(data []byte) error {
 	}
 
 	return nil
+}
+
+// mustGetWorkingDirectory panics if it can't get the working directory
+func mustGetWorkingDirectory() string {
+	dir, err := os.Getwd()
+	if err != nil {
+		log.Panicf("can't get working dir: %v", err)
+	}
+
+	return dir
 }
 
 // groupFixedVersions builds the fixed versions for each ID Group, with keys formatted like so:
