@@ -24,7 +24,7 @@ type ConfigManager struct {
 
 type Config struct {
 	IgnoredVulns      []IgnoreEntry         `toml:"IgnoredVulns"`
-	PackageVersions   []PackageVersionEntry `toml:"PackageVersionEntry"`
+	PackageVersions   []PackageVersionEntry `toml:"PackageVersions"`
 	LoadPath          string                `toml:"LoadPath"`
 	GoVersionOverride string                `toml:"GoVersionOverride"`
 }
@@ -42,7 +42,7 @@ type PackageVersionEntry struct {
 	Ecosystem      string    `toml:"ecosystem"`
 	Ignore         bool      `toml:"ignore"`
 	License        License   `toml:"license"`
-	EffectiveUntil time.Time `toml:"ignoreUntil"`
+	EffectiveUntil time.Time `toml:"effectiveUntil"`
 	Reason         string    `toml:"reason"`
 }
 
@@ -62,7 +62,7 @@ func (c *Config) ShouldIgnore(vulnID string) (bool, IgnoreEntry) {
 
 func (c *Config) filterPackageVersionEntries(name string, version string, ecosystem string, condition func(PackageVersionEntry) bool) (bool, PackageVersionEntry) {
 	index := slices.IndexFunc(c.PackageVersions, func(e PackageVersionEntry) bool {
-		if name != e.Name {
+		if ecosystem != e.Ecosystem || name != e.Name {
 			return false
 		}
 

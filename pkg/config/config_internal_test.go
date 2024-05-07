@@ -27,21 +27,23 @@ func TestTryLoadConfig(t *testing.T) {
 				ID: "GO-2022-1059",
 			},
 		},
-		IgnoredPackageVersions: []IgnorePackageVersionEntry{
+		PackageVersions: []PackageVersionEntry{
 			{
 				Name:      "lib",
 				Version:   "1.0.0",
 				Ecosystem: "Go",
+				Ignore:    true,
 				Reason:    "abc",
 			},
-		},
-		OverridePackageVersionLicenses: []OverridePackageVersionLicenseEntry{
 			{
-				Name:            "my-pkg",
-				ExactVersion:    "1.0.0",
-				Ecosystem:       "Go",
-				Reason:          "abc",
-				LicenseOverride: []string{"MIT", "0BSD"},
+				Name:      "my-pkg",
+				Version:   "1.0.0",
+				Ecosystem: "Go",
+				Reason:    "abc",
+				Ignore:    true,
+				License: License{
+					Override: []string{"MIT", "0BSD"},
+				},
 			},
 		},
 	}
@@ -86,7 +88,7 @@ func TestTryLoadConfig(t *testing.T) {
 		if !cmp.Equal(config.IgnoredVulns, testData.config.IgnoredVulns) {
 			t.Errorf("Configs not equal: %+v != %+v", config, testData.config)
 		}
-		if !cmp.Equal(config.IgnoredPackageVersions, testData.config.IgnoredPackageVersions) {
+		if !cmp.Equal(config.PackageVersions, testData.config.PackageVersions) {
 			t.Errorf("Configs not equal: %+v != %+v", config, testData.config)
 		}
 		if testData.configHasErr {
@@ -225,18 +227,19 @@ func TestConfig_ShouldIgnorePackageVersion(t *testing.T) {
 		config    Config
 		args      args
 		wantOk    bool
-		wantEntry IgnorePackageVersionEntry
+		wantEntry PackageVersionEntry
 	}{
 		{
 			name: "Version-level entry exists",
 			config: Config{
-				IgnoredPackageVersions: []IgnorePackageVersionEntry{
+				PackageVersions: []PackageVersionEntry{
 					{
-						Name:        "lib1",
-						Version:     "1.0.0",
-						Ecosystem:   "Go",
-						IgnoreUntil: time.Time{},
-						Reason:      "abc",
+						Name:           "lib1",
+						Version:        "1.0.0",
+						Ecosystem:      "Go",
+						Ignore:         true,
+						EffectiveUntil: time.Time{},
+						Reason:         "abc",
 					},
 				},
 			},
@@ -246,23 +249,25 @@ func TestConfig_ShouldIgnorePackageVersion(t *testing.T) {
 				ecosystem: "Go",
 			},
 			wantOk: true,
-			wantEntry: IgnorePackageVersionEntry{
-				Name:        "lib1",
-				Version:     "1.0.0",
-				Ecosystem:   "Go",
-				IgnoreUntil: time.Time{},
-				Reason:      "abc",
+			wantEntry: PackageVersionEntry{
+				Name:           "lib1",
+				Version:        "1.0.0",
+				Ecosystem:      "Go",
+				Ignore:         true,
+				EffectiveUntil: time.Time{},
+				Reason:         "abc",
 			},
 		},
 		{
 			name: "Package-level entry exists",
 			config: Config{
-				IgnoredPackageVersions: []IgnorePackageVersionEntry{
+				PackageVersions: []PackageVersionEntry{
 					{
-						Name:        "lib1",
-						Ecosystem:   "Go",
-						IgnoreUntil: time.Time{},
-						Reason:      "abc",
+						Name:           "lib1",
+						Ecosystem:      "Go",
+						Ignore:         true,
+						EffectiveUntil: time.Time{},
+						Reason:         "abc",
 					},
 				},
 			},
@@ -272,30 +277,33 @@ func TestConfig_ShouldIgnorePackageVersion(t *testing.T) {
 				ecosystem: "Go",
 			},
 			wantOk: true,
-			wantEntry: IgnorePackageVersionEntry{
-				Name:        "lib1",
-				Ecosystem:   "Go",
-				IgnoreUntil: time.Time{},
-				Reason:      "abc",
+			wantEntry: PackageVersionEntry{
+				Name:           "lib1",
+				Ecosystem:      "Go",
+				Ignore:         true,
+				EffectiveUntil: time.Time{},
+				Reason:         "abc",
 			},
 		},
 		{
-			name: "Entry doesn't exists",
+			name: "Entry doesn't exist",
 			config: Config{
-				IgnoredPackageVersions: []IgnorePackageVersionEntry{
+				PackageVersions: []PackageVersionEntry{
 					{
-						Name:        "lib1",
-						Version:     "1.0.0",
-						Ecosystem:   "Go",
-						IgnoreUntil: time.Time{},
-						Reason:      "abc",
+						Name:           "lib1",
+						Version:        "2.0.0",
+						Ecosystem:      "Go",
+						Ignore:         false,
+						EffectiveUntil: time.Time{},
+						Reason:         "abc",
 					},
 					{
-						Name:        "lib2",
-						Version:     "2.0.0",
-						Ecosystem:   "Go",
-						IgnoreUntil: time.Time{},
-						Reason:      "abc",
+						Name:           "lib2",
+						Version:        "2.0.0",
+						Ignore:         true,
+						Ecosystem:      "Go",
+						EffectiveUntil: time.Time{},
+						Reason:         "abc",
 					},
 				},
 			},
@@ -305,7 +313,7 @@ func TestConfig_ShouldIgnorePackageVersion(t *testing.T) {
 				ecosystem: "Go",
 			},
 			wantOk:    false,
-			wantEntry: IgnorePackageVersionEntry{},
+			wantEntry: PackageVersionEntry{},
 		},
 	}
 
@@ -338,18 +346,20 @@ func TestConfig_ShouldOverridePackageVersionLicense(t *testing.T) {
 		config    Config
 		args      args
 		wantOk    bool
-		wantEntry OverridePackageVersionLicenseEntry
+		wantEntry PackageVersionEntry
 	}{
 		{
 			name: "Exact version entry exists",
 			config: Config{
-				OverridePackageVersionLicenses: []OverridePackageVersionLicenseEntry{
+				PackageVersions: []PackageVersionEntry{
 					{
-						Name:            "lib1",
-						ExactVersion:    "1.0.0",
-						Ecosystem:       "Go",
-						LicenseOverride: []string{"mit"},
-						Reason:          "abc",
+						Name:      "lib1",
+						Version:   "1.0.0",
+						Ecosystem: "Go",
+						License: License{
+							Override: []string{"mit"},
+						},
+						Reason: "abc",
 					},
 				},
 			},
@@ -359,24 +369,28 @@ func TestConfig_ShouldOverridePackageVersionLicense(t *testing.T) {
 				ecosystem: "Go",
 			},
 			wantOk: true,
-			wantEntry: OverridePackageVersionLicenseEntry{
-				Name:            "lib1",
-				ExactVersion:    "1.0.0",
-				Ecosystem:       "Go",
-				LicenseOverride: []string{"mit"},
-				Reason:          "abc",
+			wantEntry: PackageVersionEntry{
+				Name:      "lib1",
+				Version:   "1.0.0",
+				Ecosystem: "Go",
+				License: License{
+					Override: []string{"mit"},
+				},
+				Reason: "abc",
 			},
 		},
 		{
-			name: "Exact version entry doesn't exist",
+			name: "Version entry doesn't exist",
 			config: Config{
-				OverridePackageVersionLicenses: []OverridePackageVersionLicenseEntry{
+				PackageVersions: []PackageVersionEntry{
 					{
-						Name:            "lib1",
-						ExactVersion:    "1.0.0",
-						Ecosystem:       "Go",
-						LicenseOverride: []string{"mit"},
-						Reason:          "abc",
+						Name:      "lib1",
+						Version:   "1.0.0",
+						Ecosystem: "Go",
+						License: License{
+							Override: []string{"mit"},
+						},
+						Reason: "abc",
 					},
 				},
 			},
@@ -386,149 +400,19 @@ func TestConfig_ShouldOverridePackageVersionLicense(t *testing.T) {
 				ecosystem: "Go",
 			},
 			wantOk:    false,
-			wantEntry: OverridePackageVersionLicenseEntry{},
-		},
-		{
-			name: "Major version matches",
-			config: Config{
-				OverridePackageVersionLicenses: []OverridePackageVersionLicenseEntry{
-					{
-						Name:            "lib1",
-						Major:           "1",
-						Ecosystem:       "Go",
-						LicenseOverride: []string{"mit"},
-						Reason:          "abc",
-					},
-				},
-			},
-			args: args{
-				name:      "lib1",
-				version:   "1.0.1",
-				ecosystem: "Go",
-			},
-			wantOk: true,
-			wantEntry: OverridePackageVersionLicenseEntry{
-				Name:            "lib1",
-				Major:           "1",
-				Ecosystem:       "Go",
-				LicenseOverride: []string{"mit"},
-				Reason:          "abc",
-			},
-		},
-		{
-			name: "Major and minor version matches",
-			config: Config{
-				OverridePackageVersionLicenses: []OverridePackageVersionLicenseEntry{
-					{
-						Name:            "lib1",
-						Major:           "1",
-						Minor:           "0",
-						Ecosystem:       "Go",
-						LicenseOverride: []string{"mit"},
-						Reason:          "abc",
-					},
-				},
-			},
-			args: args{
-				name:      "lib1",
-				version:   "1.0.1",
-				ecosystem: "Go",
-			},
-			wantOk: true,
-			wantEntry: OverridePackageVersionLicenseEntry{
-				Name:            "lib1",
-				Major:           "1",
-				Minor:           "0",
-				Ecosystem:       "Go",
-				LicenseOverride: []string{"mit"},
-				Reason:          "abc",
-			},
-		},
-		{
-			name: "Major, minor and patch version matches",
-			config: Config{
-				OverridePackageVersionLicenses: []OverridePackageVersionLicenseEntry{
-					{
-						Name:            "lib1",
-						Major:           "1",
-						Minor:           "0",
-						Patch:           "1",
-						Ecosystem:       "Go",
-						LicenseOverride: []string{"mit"},
-						Reason:          "abc",
-					},
-				},
-			},
-			args: args{
-				name:      "lib1",
-				version:   "1.0.1",
-				ecosystem: "Go",
-			},
-			wantOk: true,
-			wantEntry: OverridePackageVersionLicenseEntry{
-				Name:            "lib1",
-				Major:           "1",
-				Minor:           "0",
-				Patch:           "1",
-				Ecosystem:       "Go",
-				LicenseOverride: []string{"mit"},
-				Reason:          "abc",
-			},
-		},
-		{
-			name: "Major matches, minor doesn't",
-			config: Config{
-				OverridePackageVersionLicenses: []OverridePackageVersionLicenseEntry{
-					{
-						Name:            "lib1",
-						Major:           "1",
-						Minor:           "2",
-						Ecosystem:       "Go",
-						LicenseOverride: []string{"mit"},
-						Reason:          "abc",
-					},
-				},
-			},
-			args: args{
-				name:      "lib1",
-				version:   "1.0.1",
-				ecosystem: "Go",
-			},
-			wantOk:    false,
-			wantEntry: OverridePackageVersionLicenseEntry{},
-		},
-		{
-			name: "Major and minor matches, patch doesn't",
-			config: Config{
-				OverridePackageVersionLicenses: []OverridePackageVersionLicenseEntry{
-					{
-						Name:            "lib1",
-						Major:           "1",
-						Minor:           "0",
-						Patch:           "3",
-						Ecosystem:       "Go",
-						LicenseOverride: []string{"mit"},
-						Reason:          "abc",
-					},
-				},
-			},
-			args: args{
-				name:      "lib1",
-				version:   "1.0.1",
-				ecosystem: "Go",
-			},
-			wantOk:    false,
-			wantEntry: OverridePackageVersionLicenseEntry{},
+			wantEntry: PackageVersionEntry{},
 		},
 		{
 			name: "Name matches",
 			config: Config{
-				OverridePackageVersionLicenses: []OverridePackageVersionLicenseEntry{
+				PackageVersions: []PackageVersionEntry{
 					{
-						Name:            "lib1",
-						Ecosystem:       "Go",
-						LicenseOverride: []string{"mit"},
-						Reason:          "abc",
+						Name:      "lib1",
+						Ecosystem: "Go",
+						License: License{
+							Override: []string{"mit"},
+						},
+						Reason: "abc",
 					},
 				},
 			},
@@ -538,11 +422,13 @@ func TestConfig_ShouldOverridePackageVersionLicense(t *testing.T) {
 				ecosystem: "Go",
 			},
 			wantOk: true,
-			wantEntry: OverridePackageVersionLicenseEntry{
-				Name:            "lib1",
-				Ecosystem:       "Go",
-				LicenseOverride: []string{"mit"},
-				Reason:          "abc",
+			wantEntry: PackageVersionEntry{
+				Name:      "lib1",
+				Ecosystem: "Go",
+				License: License{
+					Override: []string{"mit"},
+				},
+				Reason: "abc",
 			},
 		},
 	}
