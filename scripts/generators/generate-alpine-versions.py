@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+import atexit
 import json
 import operator
 import os
@@ -67,11 +68,44 @@ def extract_packages_with_versions(osvs):
 
 
 class AlpineVersionComparer:
-  def __init__(self, cache_path):
+  def __init__(self, cache_path, how):
     self.cache_path = Path(cache_path)
     self.cache = {}
 
+    self._compare_method = how
+    self._docker_container = None
     self._load_cache()
+
+  def _start_docker_container(self):
+    """
+    Starts the Alpine docker container for use in comparing versions using apk,
+    assigning the name of the container to `self._docker_container` if success.
+
+    If a container has already been started, this does nothing.
+    """
+
+    if self._docker_container is not None:
+      return
+
+    container_name = "alpine-310-container"
+
+    cmd = ["docker", "run", "--rm", "--name", container_name, "-d", "alpine:3.10", "tail", "-f", "/dev/null"]
+    out = subprocess.run(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+
+    if out.returncode != 0:
+      raise Exception(f"failed to start {container_name} container: {out.stderr.decode('utf-8')}")
+    self._docker_container = container_name
+    atexit.register(self._stop_docker_container)
+
+  def _stop_docker_container(self):
+    if self._docker_container is None:
+      raise Exception(f"called to stop docker container when none was started")
+
+    cmd = ["docker", "stop", "-t", "0", self._docker_container]
+    out = subprocess.run(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+
+    if out.returncode != 0:
+      raise Exception(f"failed to stop {self._docker_container} container: {out.stderr.decode('utf-8')}")
 
   def _load_cache(self):
     if self.cache_path:
@@ -99,13 +133,20 @@ class AlpineVersionComparer:
       with open(self.cache_path, "a") as f:
         f.write(f"{key},{result}\n")
 
+  def _compare_command(self, a, b):
+    if self._compare_method == "run":
+      return ["docker", "run", "--rm", "alpine:3.10", "apk", "version", "-t", a, b]
+
+    self._start_docker_container()
+
+    return ["docker", "exec", self._docker_container, "apk", "version", "-t", a, b]
+
   def compare(self, a, op, b):
     key = f"{a} {op} {b}"
     if key in self.cache:
       return self.cache[key]
 
-    cmd = ["docker", "run", "--rm", "alpine:3.10", "apk", "version", "-t", a, b]
-    out = subprocess.run(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    out = subprocess.run(self._compare_command(a, b), stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 
     if out.returncode != 0:
       raise Exception(f"apk did not like comparing {a} {op} {b}: {out.stderr.decode('utf-8')}")
@@ -115,7 +156,7 @@ class AlpineVersionComparer:
     return r
 
 
-alpine_comparer = AlpineVersionComparer("/tmp/alpine-versions-generator-cache.csv")
+alpine_comparer = AlpineVersionComparer("/tmp/alpine-versions-generator-cache.csv", "exec")
 
 
 class AlpineVersion:
