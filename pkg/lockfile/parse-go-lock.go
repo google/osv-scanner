@@ -82,6 +82,25 @@ func extractVersionPosition(lines []string, version string, start modfile.Positi
 	}
 }
 
+func extractNamePosition(lines []string, name string, start modfile.Position, end modfile.Position) *models.FilePosition {
+	if start.Line > len(lines) {
+		return nil
+	}
+
+	line := lines[start.Line-1]
+	nameStartColumn := strings.Index(line, name) + 1
+
+	if nameStartColumn == 0 {
+		return nil
+	}
+	nameEndColumn := nameStartColumn + len(name)
+
+	return &models.FilePosition{
+		Line:   models.Position{Start: start.Line, End: end.Line},
+		Column: models.Position{Start: nameStartColumn, End: nameEndColumn},
+	}
+}
+
 func (e GoLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 	var parsedLockfile *modfile.File
 
@@ -103,6 +122,7 @@ func (e GoLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 		var end = require.Syntax.End
 		version := strings.TrimPrefix(require.Mod.Version, "v")
 		versionLocation := extractVersionPosition(lines, version, start, end)
+		nameLocation := extractNamePosition(lines, require.Mod.Path, start, end)
 
 		packages[require.Mod.Path+"@"+require.Mod.Version] = PackageDetails{
 			Name:      require.Mod.Path,
@@ -114,6 +134,7 @@ func (e GoLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 				Column: models.Position{Start: start.LineRune, End: end.LineRune},
 			},
 			VersionLocation: versionLocation,
+			NameLocation:    nameLocation,
 		}
 	}
 
@@ -159,6 +180,7 @@ func (e GoLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 					Column: models.Position{Start: start.LineRune, End: end.LineRune},
 				},
 				VersionLocation: extractVersionPosition(lines, version, start, end),
+				NameLocation:    extractNamePosition(lines, replace.New.Path, start, end),
 			}
 		}
 	}

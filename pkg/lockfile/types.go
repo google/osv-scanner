@@ -12,6 +12,7 @@ type PackageDetails struct {
 	DepGroups       []string             `json:"-"`
 	BlockLocation   models.FilePosition  `json:"blockLocation,omitempty"`
 	VersionLocation *models.FilePosition `json:"versionLocation,omitempty"`
+	NameLocation    *models.FilePosition `json:"nameLocation,omitempty"`
 }
 
 type Ecosystem string

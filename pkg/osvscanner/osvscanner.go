@@ -396,6 +396,7 @@ func scanLockfile(r reporter.Reporter, path string, parseAs string, enabledParse
 			},
 			BlockLocation:   pkgDetail.BlockLocation,
 			VersionLocation: pkgDetail.VersionLocation,
+			NameLocation:    pkgDetail.NameLocation,
 		}
 	}
 
@@ -707,6 +708,7 @@ type scannedPackage struct {
 	DepGroups       []string
 	BlockLocation   models.FilePosition
 	VersionLocation *models.FilePosition
+	NameLocation    *models.FilePosition
 }
 
 func initializeEnabledParsers(enabledParsers []string) map[string]bool {

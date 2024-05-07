@@ -236,7 +236,6 @@ func TestRun(t *testing.T) {
 				| https://osv.dev/GHSA-m8cg-xc2p-r3fc | 2.5  | Go        | github.com/opencontainers/runc | v1.0.1                             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 				| https://osv.dev/GHSA-vpvm-3wq2-2wvm | 7    | Go        | github.com/opencontainers/runc | v1.0.1                             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 				| https://osv.dev/GHSA-xr7r-f8xq-vfvv | 8.6  | Go        | github.com/opencontainers/runc | v1.0.1                             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
-				| https://osv.dev/GHSA-c5pj-mqfh-rvc3 | 7.2  | Go        | github.com/opencontainers/runc | v1.0.1                             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 				| https://osv.dev/GHSA-p782-xgp4-8hr8 | 5.3  | Go        | golang.org/x/sys               | v0.0.0-20210817142637-7d9622a276b7 | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 				| https://osv.dev/GO-2022-0493        |      |           |                                |                                    |                                                 |
 				| https://osv.dev/DLA-3012-1          |      | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
@@ -1998,6 +1997,13 @@ func TestRun_WithEncodedLockfile(t *testing.T) {
 						LineEnd:     5,
 						ColumnStart: 37,
 						ColumnEnd:   41,
+					},
+					Name: &models.PackageLocation{
+						Filename:    "go.mod",
+						LineStart:   5,
+						LineEnd:     5,
+						ColumnStart: 9,
+						ColumnEnd:   35,
 					},
 				}),
 			},

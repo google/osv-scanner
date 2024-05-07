@@ -67,15 +67,22 @@ func extractPackageLocations(pkgSource models.SourceInfo, pkgInfos models.Packag
 		},
 	}
 
-	if pkgInfos.VersionLocation != nil && isLocationExtractedSuccessfully(*pkgInfos.VersionLocation) {
-		locations.Version = &models.PackageLocation{
-			Filename:    pkgSource.Path,
-			LineStart:   pkgInfos.VersionLocation.Line.Start,
-			LineEnd:     pkgInfos.VersionLocation.Line.End,
-			ColumnStart: pkgInfos.VersionLocation.Column.Start,
-			ColumnEnd:   pkgInfos.VersionLocation.Column.End,
-		}
-	}
+	locations.Version = mapToPackageLocation(pkgSource.Path, pkgInfos.VersionLocation)
+	locations.Name = mapToPackageLocation(pkgSource.Path, pkgInfos.NameLocation)
 
 	return locations
+}
+
+func mapToPackageLocation(path string, location *models.FilePosition) *models.PackageLocation {
+	if location == nil || !isLocationExtractedSuccessfully(*location) {
+		return nil
+	}
+
+	return &models.PackageLocation{
+		Filename:    path,
+		LineStart:   location.Line.Start,
+		LineEnd:     location.Line.End,
+		ColumnStart: location.Column.Start,
+		ColumnEnd:   location.Column.End,
+	}
 }

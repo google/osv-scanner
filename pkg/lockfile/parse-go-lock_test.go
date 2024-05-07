@@ -114,6 +114,10 @@ func TestParseGoLock_WithPathMajor(t *testing.T) {
 				Line:   models.Position{Start: 2, End: 2},
 				Column: models.Position{Start: 46, End: 46},
 			},
+			NameLocation: &models.FilePosition{
+				Line:   models.Position{Start: 2, End: 2},
+				Column: models.Position{Start: 9, End: 47},
+			},
 		},
 		{
 			Name:      "stdlib",
@@ -146,6 +150,10 @@ func TestParseGoLock_WithoutSupportedVersioning(t *testing.T) {
 			BlockLocation: models.FilePosition{
 				Line:   models.Position{Start: 2, End: 2},
 				Column: models.Position{Start: 1, End: 51},
+			},
+			NameLocation: &models.FilePosition{
+				Line:   models.Position{Start: 2, End: 2},
+				Column: models.Position{Start: 9, End: 44},
 			},
 		},
 		{
@@ -184,6 +192,10 @@ func TestParseGoLock_OnePackage(t *testing.T) {
 				Line:   models.Position{Start: 4, End: 4},
 				Column: models.Position{Start: 30, End: 34},
 			},
+			NameLocation: &models.FilePosition{
+				Line:   models.Position{Start: 4, End: 4},
+				Column: models.Position{Start: 2, End: 28},
+			},
 		},
 	})
 }
@@ -211,6 +223,10 @@ func TestParseGoLock_TwoPackages(t *testing.T) {
 				Line:   models.Position{Start: 6, End: 6},
 				Column: models.Position{Start: 30, End: 34},
 			},
+			NameLocation: &models.FilePosition{
+				Line:   models.Position{Start: 6, End: 6},
+				Column: models.Position{Start: 2, End: 28},
+			},
 		},
 		{
 			Name:      "gopkg.in/yaml.v2",
@@ -224,6 +240,10 @@ func TestParseGoLock_TwoPackages(t *testing.T) {
 			VersionLocation: &models.FilePosition{
 				Line:   models.Position{Start: 7, End: 7},
 				Column: models.Position{Start: 20, End: 24},
+			},
+			NameLocation: &models.FilePosition{
+				Line:   models.Position{Start: 7, End: 7},
+				Column: models.Position{Start: 2, End: 18},
 			},
 		},
 		{
@@ -258,6 +278,10 @@ func TestParseGoLock_IndirectPackages(t *testing.T) {
 				Line:   models.Position{Start: 6, End: 6},
 				Column: models.Position{Start: 30, End: 34},
 			},
+			NameLocation: &models.FilePosition{
+				Line:   models.Position{Start: 6, End: 6},
+				Column: models.Position{Start: 2, End: 28},
+			},
 		},
 		{
 			Name:      "gopkg.in/yaml.v2",
@@ -271,6 +295,10 @@ func TestParseGoLock_IndirectPackages(t *testing.T) {
 			VersionLocation: &models.FilePosition{
 				Line:   models.Position{Start: 7, End: 7},
 				Column: models.Position{Start: 20, End: 24},
+			},
+			NameLocation: &models.FilePosition{
+				Line:   models.Position{Start: 7, End: 7},
+				Column: models.Position{Start: 2, End: 18},
 			},
 		},
 		{
@@ -286,6 +314,10 @@ func TestParseGoLock_IndirectPackages(t *testing.T) {
 				Line:   models.Position{Start: 11, End: 11},
 				Column: models.Position{Start: 33, End: 37},
 			},
+			NameLocation: &models.FilePosition{
+				Line:   models.Position{Start: 11, End: 11},
+				Column: models.Position{Start: 2, End: 31},
+			},
 		},
 		{
 			Name:      "github.com/mattn/go-isatty",
@@ -300,6 +332,10 @@ func TestParseGoLock_IndirectPackages(t *testing.T) {
 				Line:   models.Position{Start: 12, End: 12},
 				Column: models.Position{Start: 30, End: 35},
 			},
+			NameLocation: &models.FilePosition{
+				Line:   models.Position{Start: 12, End: 12},
+				Column: models.Position{Start: 2, End: 28},
+			},
 		},
 		{
 			Name:      "golang.org/x/sys",
@@ -313,6 +349,10 @@ func TestParseGoLock_IndirectPackages(t *testing.T) {
 			VersionLocation: &models.FilePosition{
 				Line:   models.Position{Start: 13, End: 13},
 				Column: models.Position{Start: 20, End: 52},
+			},
+			NameLocation: &models.FilePosition{
+				Line:   models.Position{Start: 13, End: 13},
+				Column: models.Position{Start: 2, End: 18},
 			},
 		},
 		{
@@ -347,6 +387,10 @@ func TestParseGoLock_Replacements_One(t *testing.T) {
 				Line:   models.Position{Start: 5, End: 5},
 				Column: models.Position{Start: 58, End: 62},
 			},
+			NameLocation: &models.FilePosition{
+				Line:   models.Position{Start: 5, End: 5},
+				Column: models.Position{Start: 36, End: 56},
+			},
 		},
 	})
 }
@@ -374,6 +418,10 @@ func TestParseGoLock_Replacements_Mixed(t *testing.T) {
 				Line:   models.Position{Start: 7, End: 7},
 				Column: models.Position{Start: 54, End: 58},
 			},
+			NameLocation: &models.FilePosition{
+				Line:   models.Position{Start: 7, End: 7},
+				Column: models.Position{Start: 32, End: 52},
+			},
 		},
 		{
 			Name:      "golang.org/x/net",
@@ -387,6 +435,10 @@ func TestParseGoLock_Replacements_Mixed(t *testing.T) {
 			VersionLocation: &models.FilePosition{
 				Line:   models.Position{Start: 3, End: 3},
 				Column: models.Position{Start: 23, End: 27},
+			},
+			NameLocation: &models.FilePosition{
+				Line:   models.Position{Start: 3, End: 3},
+				Column: models.Position{Start: 5, End: 21},
 			},
 		},
 	})
@@ -415,6 +467,10 @@ func TestParseGoLock_Replacements_Local(t *testing.T) {
 				Line:   models.Position{Start: 3, End: 3},
 				Column: models.Position{Start: 33, End: 37},
 			},
+			NameLocation: &models.FilePosition{
+				Line:   models.Position{Start: 3, End: 3},
+				Column: models.Position{Start: 5, End: 31},
+			},
 		},
 	})
 }
@@ -442,6 +498,10 @@ func TestParseGoLock_Replacements_Different(t *testing.T) {
 				Line:   models.Position{Start: 7, End: 7},
 				Column: models.Position{Start: 54, End: 58},
 			},
+			NameLocation: &models.FilePosition{
+				Line:   models.Position{Start: 7, End: 7},
+				Column: models.Position{Start: 32, End: 52},
+			},
 		},
 		{
 			Name:      "example.com/fork/foe",
@@ -455,6 +515,10 @@ func TestParseGoLock_Replacements_Different(t *testing.T) {
 			VersionLocation: &models.FilePosition{
 				Line:   models.Position{Start: 8, End: 8},
 				Column: models.Position{Start: 54, End: 58},
+			},
+			NameLocation: &models.FilePosition{
+				Line:   models.Position{Start: 8, End: 8},
+				Column: models.Position{Start: 32, End: 52},
 			},
 		},
 	})
@@ -483,6 +547,10 @@ func TestParseGoLock_Replacements_NotRequired(t *testing.T) {
 				Line:   models.Position{Start: 2, End: 2},
 				Column: models.Position{Start: 23, End: 27},
 			},
+			NameLocation: &models.FilePosition{
+				Line:   models.Position{Start: 2, End: 2},
+				Column: models.Position{Start: 5, End: 21},
+			},
 		},
 		{
 			Name:      "github.com/BurntSushi/toml",
@@ -496,6 +564,10 @@ func TestParseGoLock_Replacements_NotRequired(t *testing.T) {
 			VersionLocation: &models.FilePosition{
 				Line:   models.Position{Start: 3, End: 3},
 				Column: models.Position{Start: 33, End: 37},
+			},
+			NameLocation: &models.FilePosition{
+				Line:   models.Position{Start: 3, End: 3},
+				Column: models.Position{Start: 5, End: 31},
 			},
 		},
 	})
@@ -523,6 +595,10 @@ func TestParseGoLock_Replacements_NoVersion(t *testing.T) {
 			VersionLocation: &models.FilePosition{
 				Line:   models.Position{Start: 7, End: 7},
 				Column: models.Position{Start: 47, End: 51},
+			},
+			NameLocation: &models.FilePosition{
+				Line:   models.Position{Start: 7, End: 7},
+				Column: models.Position{Start: 25, End: 45},
 			},
 		},
 	})
