@@ -10,14 +10,17 @@ import urllib.request
 import zipfile
 from pathlib import Path
 
-# this requires being run on an OS that has a version of "dpkg" which supports the
-# "--compare-versions" option; also make sure to consider the version of dpkg being
-# used in case there are changes to the comparing logic (last run with 1.19.7).
+# this requires being run on an OS with docker available to run an alpine container
+# through which apk can be invoked to compare versions natively.
 #
-# also note that because of the large amount of versions being used there is
-# significant overhead in having to use a subprocess, so this generator caches
-# the results of said subprocess calls; a typical no-cache run takes about 5+
-# minutes whereas with the cache it only takes seconds.
+# this generator will attempt to run an alpine container in the background
+# for the lifetime of the generator that will be used to exec apk; this is a lot faster
+# than running a dedicated container for each invocation, but does mean the container
+# may need to be cleaned up manually if the generator explodes in a way that prevents
+# it from stopping the container before exiting.
+#
+# this generator also uses cache to store the results of comparisons given the large
+# volume of packages and versions to compare, which is stored in the /tmp directory.
 
 # An array of version comparisons that are known to be unsupported and so
 # should be commented out in the generated fixture.
