@@ -717,6 +717,9 @@
                   ],
                   "database_specific": {
                     "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2023/02/GHSA-vvpx-j8f3-3w6h/GHSA-vvpx-j8f3-3w6h.json"
+                  },
+                  "ecosystem_specific": {
+                    "urgency": "unimportant"
                   }
                 }
               ],
@@ -806,7 +809,8 @@
                       {
                         "path": "net/http"
                       }
-                    ]
+                    ],
+                    "urgency": "low"
                   }
                 },
                 {

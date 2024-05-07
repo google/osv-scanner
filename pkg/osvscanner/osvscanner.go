@@ -671,7 +671,15 @@ func filterPackageVulns(r reporter.Reporter, pkgVulns models.PackageVulns, confi
 	var newVulns []models.Vulnerability
 	if len(newGroups) > 0 { // If there are no groups left then there would be no vulnerabilities.
 		for _, vuln := range pkgVulns.Vulnerabilities {
-			if _, filtered := ignoredVulns[vuln.ID]; !filtered {
+			unimportant := false
+			for _, affected := range vuln.Affected {
+				if affected.EcosystemSpecific["urgency"] == "unimportant" {
+					unimportant = true
+					break
+				}
+			}
+
+			if _, filtered := ignoredVulns[vuln.ID]; !filtered && !unimportant {
 				newVulns = append(newVulns, vuln)
 			}
 		}

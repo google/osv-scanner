@@ -1499,81 +1499,6 @@
           },
           "vulnerabilities": [
             {
-              "modified": "2023-03-09T21:20:44Z",
-              "published": "2023-02-17T14:00:02Z",
-              "schema_version": "1.4.0",
-              "id": "GHSA-vvpx-j8f3-3w6h",
-              "aliases": [
-                "CVE-2022-41723"
-              ],
-              "summary": "Uncontrolled Resource Consumption",
-              "details": "A maliciously crafted HTTP/2 stream could cause excessive CPU consumption in the HPACK decoder, sufficient to cause a denial of service from a small number of small requests.",
-              "affected": [
-                {
-                  "package": {
-                    "ecosystem": "Go",
-                    "name": "golang.org/x/net",
-                    "purl": "pkg:golang/golang.org/x/net"
-                  },
-                  "ranges": [
-                    {
-                      "type": "SEMVER",
-                      "events": [
-                        {
-                          "introduced": "0"
-                        },
-                        {
-                          "fixed": "0.7.0"
-                        }
-                      ]
-                    }
-                  ],
-                  "database_specific": {
-                    "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2023/02/GHSA-vvpx-j8f3-3w6h/GHSA-vvpx-j8f3-3w6h.json"
-                  }
-                }
-              ],
-              "references": [
-                {
-                  "type": "ADVISORY",
-                  "url": "https://nvd.nist.gov/vuln/detail/CVE-2022-41723"
-                },
-                {
-                  "type": "WEB",
-                  "url": "https://go.dev/cl/468135"
-                },
-                {
-                  "type": "WEB",
-                  "url": "https://go.dev/cl/468295"
-                },
-                {
-                  "type": "WEB",
-                  "url": "https://go.dev/issue/57855"
-                },
-                {
-                  "type": "WEB",
-                  "url": "https://groups.google.com/g/golang-announce/c/V0aBFqaFs_E"
-                },
-                {
-                  "type": "WEB",
-                  "url": "https://pkg.go.dev/vuln/GO-2023-1571"
-                },
-                {
-                  "type": "WEB",
-                  "url": "https://vuln.go.dev/ID/GO-2023-1571.json"
-                }
-              ],
-              "database_specific": {
-                "cwe_ids": [
-                  "CWE-400"
-                ],
-                "github_reviewed": true,
-                "github_reviewed_at": "2023-02-17T14:00:02Z",
-                "nvd_published_at": "2023-02-28T18:15:00Z",
-                "severity": "HIGH"
-              }
-            },
-            {
               "modified": "2023-02-22T20:13:12Z",
               "published": "2023-02-16T22:31:36Z",
               "schema_version": "1.4.0",
@@ -1618,7 +1543,8 @@
                       {
                         "path": "net/http"
                       }
-                    ]
+                    ],
+                    "urgency": "low"
                   }
                 },
                 {
