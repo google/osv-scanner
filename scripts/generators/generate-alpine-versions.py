@@ -72,6 +72,7 @@ class AlpineVersionComparer:
     self.cache_path = Path(cache_path)
     self.cache = {}
 
+    self._alpine_version = "3.10"
     self._compare_method = how
     self._docker_container = None
     self._load_cache()
@@ -87,9 +88,9 @@ class AlpineVersionComparer:
     if self._docker_container is not None:
       return
 
-    container_name = "alpine-310-container"
+    container_name = f"alpine-{self._alpine_version}-container"
 
-    cmd = ["docker", "run", "--rm", "--name", container_name, "-d", "alpine:3.10", "tail", "-f", "/dev/null"]
+    cmd = ["docker", "run", "--rm", "--name", container_name, "-d", f"alpine:{self._alpine_version}", "tail", "-f", "/dev/null"]
     out = subprocess.run(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 
     if out.returncode != 0:
@@ -135,7 +136,7 @@ class AlpineVersionComparer:
 
   def _compare_command(self, a, b):
     if self._compare_method == "run":
-      return ["docker", "run", "--rm", "alpine:3.10", "apk", "version", "-t", a, b]
+      return ["docker", "run", "--rm", f"alpine:{self._alpine_version}", "apk", "version", "-t", a, b]
 
     self._start_docker_container()
 
