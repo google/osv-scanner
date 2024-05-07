@@ -5,7 +5,6 @@ import (
 	"os"
 	"path/filepath"
 	"slices"
-	"strings"
 	"time"
 
 	"github.com/BurntSushi/toml"
@@ -24,11 +23,10 @@ type ConfigManager struct {
 }
 
 type Config struct {
-	IgnoredVulns                   []IgnoreEntry                        `toml:"IgnoredVulns"`
-	IgnoredPackageVersions         []IgnorePackageVersionEntry          `toml:"IgnoredPackageVersions"`
-	OverridePackageVersionLicenses []OverridePackageVersionLicenseEntry `toml:"OverridePackageVersionLicenses"`
-	LoadPath                       string                               `toml:"LoadPath"`
-	GoVersionOverride              string                               `toml:"GoVersionOverride"`
+	IgnoredVulns      []IgnoreEntry         `toml:"IgnoredVulns"`
+	PackageVersions   []PackageVersionEntry `toml:"PackageVersionEntry"`
+	LoadPath          string                `toml:"LoadPath"`
+	GoVersionOverride string                `toml:"GoVersionOverride"`
 }
 
 type IgnoreEntry struct {
@@ -37,27 +35,23 @@ type IgnoreEntry struct {
 	Reason      string    `toml:"reason"`
 }
 
-type IgnorePackageVersionEntry struct {
-	Name        string    `toml:"name"`
-	Version     string    `toml:"version"`
-	Ecosystem   string    `toml:"ecosystem"`
-	IgnoreUntil time.Time `toml:"ignoreUntil"`
-	Reason      string    `toml:"reason"`
+type PackageVersionEntry struct {
+	Name string `toml:"name"`
+	// If the version is empty, the entry applies to all versions.
+	Version        string    `toml:"version"`
+	Ecosystem      string    `toml:"ecosystem"`
+	Ignore         bool      `toml:"ignore"`
+	License        License   `toml:"license"`
+	EffectiveUntil time.Time `toml:"ignoreUntil"`
+	Reason         string    `toml:"reason"`
 }
 
-type OverridePackageVersionLicenseEntry struct {
-	Name            string   `toml:"name"`
-	Major           string   `toml:"major"`
-	Minor           string   `toml:"minor"`
-	Patch           string   `toml:"patch"`
-	ExactVersion    string   `toml:"exactVersion"`
-	Ecosystem       string   `toml:"ecosystem"`
-	LicenseOverride []string `toml:"licenseOverride"`
-	Reason          string   `toml:"reason"`
+type License struct {
+	Override []string `toml:"override"`
 }
 
 func (c *Config) ShouldIgnore(vulnID string) (bool, IgnoreEntry) {
-	index := slices.IndexFunc(c.IgnoredVulns, func(elem IgnoreEntry) bool { return elem.ID == vulnID })
+	index := slices.IndexFunc(c.IgnoredVulns, func(e IgnoreEntry) bool { return e.ID == vulnID })
 	if index == -1 {
 		return false, IgnoreEntry{}
 	}
@@ -66,48 +60,32 @@ func (c *Config) ShouldIgnore(vulnID string) (bool, IgnoreEntry) {
 	return shouldIgnoreTimestamp(ignoredLine.IgnoreUntil), ignoredLine
 }
 
-func (c *Config) ShouldIgnorePackageVersion(name, version, ecosystem string) (bool, IgnorePackageVersionEntry) {
-	index := slices.IndexFunc(c.IgnoredPackageVersions, func(elem IgnorePackageVersionEntry) bool {
-		if name != elem.Name {
+func (c *Config) filterPackageVersionEntries(name string, version string, ecosystem string, condition func(PackageVersionEntry) bool) (bool, PackageVersionEntry) {
+	index := slices.IndexFunc(c.PackageVersions, func(e PackageVersionEntry) bool {
+		if name != e.Name {
 			return false
 		}
 
-		return version == elem.Version || elem.Version == ""
+		return (version == e.Version || e.Version == "") && condition(e)
 	})
 	if index == -1 {
-		return false, IgnorePackageVersionEntry{}
+		return false, PackageVersionEntry{}
 	}
-	ignoredLine := c.IgnoredPackageVersions[index]
+	ignoredLine := c.PackageVersions[index]
 
-	return shouldIgnoreTimestamp(ignoredLine.IgnoreUntil), ignoredLine
+	return shouldIgnoreTimestamp(ignoredLine.EffectiveUntil), ignoredLine
 }
 
-func (c *Config) ShouldOverridePackageVersionLicense(name, version, ecosystem string) (bool, OverridePackageVersionLicenseEntry) {
-	versionParts := strings.Split(version, ".")
-	index := slices.IndexFunc(c.OverridePackageVersionLicenses, func(elem OverridePackageVersionLicenseEntry) bool {
-		if ecosystem != elem.Ecosystem || name != elem.Name {
-			return false
-		}
-		if elem.ExactVersion != "" {
-			return elem.ExactVersion == version
-		}
-		if elem.Major != "" && (len(versionParts) < 1 || versionParts[0] != elem.Major) {
-			return false
-		}
-		if elem.Minor != "" && (len(versionParts) < 2 || versionParts[1] != elem.Minor) {
-			return false
-		}
-		if elem.Patch != "" && (len(versionParts) < 3 || versionParts[2] != elem.Patch) {
-			return false
-		}
-
-		return true
+func (c *Config) ShouldIgnorePackageVersion(name, version, ecosystem string) (bool, PackageVersionEntry) {
+	return c.filterPackageVersionEntries(name, version, ecosystem, func(e PackageVersionEntry) bool {
+		return e.Ignore
 	})
-	if index == -1 {
-		return false, OverridePackageVersionLicenseEntry{}
-	}
+}
 
-	return true, c.OverridePackageVersionLicenses[index]
+func (c *Config) ShouldOverridePackageVersionLicense(name, version, ecosystem string) (bool, PackageVersionEntry) {
+	return c.filterPackageVersionEntries(name, version, ecosystem, func(e PackageVersionEntry) bool {
+		return len(e.License.Override) > 0
+	})
 }
 
 func shouldIgnoreTimestamp(ignoreUntil time.Time) bool {
