@@ -671,8 +671,7 @@ func filterPackageVulns(r reporter.Reporter, pkgVulns models.PackageVulns, confi
 	var newVulns []models.Vulnerability
 	if len(newGroups) > 0 { // If there are no groups left then there would be no vulnerabilities.
 		for _, vuln := range pkgVulns.Vulnerabilities {
-			// Checks if a Debian vulnerability is unimportant. Debian ecosystems may be listed with a version number, such as 'Debian:10'.
-			if strings.HasPrefix(pkgVulns.Package.Ecosystem, string(models.EcosystemDebian)) && isUnimportant(vuln.Affected) {
+			if isUnimportant(pkgVulns.Package.Ecosystem, vuln.Affected) {
 				continue
 			}
 
@@ -689,9 +688,14 @@ func filterPackageVulns(r reporter.Reporter, pkgVulns models.PackageVulns, confi
 	return pkgVulns
 }
 
-// isUnimportant returns if a Debian vulnerability is unimportant
-// Details: https://security-team.debian.org/security_tracker.html#severity-levels
-func isUnimportant(affectedPackages []models.Affected) bool {
+// isUnimportant checks if a Debian vulnerability is tagged with an "unimportant" urgency tag
+// Urgency levels are defined here: https://security-team.debian.org/security_tracker.html#severity-levels
+func isUnimportant(ecosystem string, affectedPackages []models.Affected) bool {
+	// Debian ecosystems may be listed with a version number, such as "Debian:10".
+	if !strings.HasPrefix(ecosystem, string(models.EcosystemDebian)) {
+		return false
+	}
+
 	for _, affected := range affectedPackages {
 		if affected.EcosystemSpecific["urgency"] == "unimportant" {
 			return true
