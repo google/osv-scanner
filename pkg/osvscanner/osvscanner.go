@@ -701,6 +701,7 @@ func isUnimportant(affectedPackages []models.Affected) bool {
 			return true
 		}
 	}
+
 	return false
 }
 
