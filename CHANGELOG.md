@@ -1,3 +1,14 @@
+# v1.7.3:
+
+### Features:
+
+- [Feature #934](https://github.com/google/osv-scanner/pull/934) add support for PNPM v9 lockfiles.
+
+### Fixes:
+
+- [Bug #938](https://github.com/google/osv-scanner/issues/938) Ensure the sarif output has a stable order.
+- [Bug #922](https://github.com/google/osv-scanner/issues/922) Support filtering on alias IDs in Guided Remediation.
+
 # v1.7.2:
 
 ### Fixes:
