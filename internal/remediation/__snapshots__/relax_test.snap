@@ -1,0 +1,265 @@
+
+[TestComputeRelaxPatches/npm-santatracker - 1]
+[
+  {
+    "Patch": {
+      "Deps": [
+        {
+          "Pkg": {
+            "System": 3,
+            "Name": "mocha"
+          },
+          "Type": {},
+          "OrigRequire": "^5.2.0",
+          "NewRequire": "^9.2.2",
+          "OrigResolved": "5.2.0",
+          "NewResolved": "9.2.2"
+        }
+      ],
+      "EcosystemSpecific": null
+    },
+    "RemovedVulns": [
+      {
+        "ID": "GHSA-f8q6-p94x-37v3",
+        "AffectedNodes": [
+          571
+        ]
+      },
+      {
+        "ID": "GHSA-vh95-rmgr-6w4m",
+        "AffectedNodes": [
+          575
+        ]
+      },
+      {
+        "ID": "GHSA-xvch-5gv4-984h",
+        "AffectedNodes": [
+          575
+        ]
+      }
+    ],
+    "AddedVulns": []
+  },
+  {
+    "Patch": {
+      "Deps": [
+        {
+          "Pkg": {
+            "System": 3,
+            "Name": "mocha"
+          },
+          "Type": {},
+          "OrigRequire": "^5.2.0",
+          "NewRequire": "^8.4.0",
+          "OrigResolved": "5.2.0",
+          "NewResolved": "8.4.0"
+        }
+      ],
+      "EcosystemSpecific": null
+    },
+    "RemovedVulns": [
+      {
+        "ID": "GHSA-vh95-rmgr-6w4m",
+        "AffectedNodes": [
+          575
+        ]
+      },
+      {
+        "ID": "GHSA-xvch-5gv4-984h",
+        "AffectedNodes": [
+          575
+        ]
+      }
+    ],
+    "AddedVulns": [
+      {
+        "ID": "GHSA-qrpm-p2h7-hrv2",
+        "AffectedNodes": [
+          578
+        ]
+      }
+    ]
+  },
+  {
+    "Patch": {
+      "Deps": [
+        {
+          "Pkg": {
+            "System": 3,
+            "Name": "@google-cloud/cloudbuild"
+          },
+          "Type": {},
+          "OrigRequire": "^2.6.0",
+          "NewRequire": "^4.4.0",
+          "OrigResolved": "2.6.0",
+          "NewResolved": "4.4.0"
+        }
+      ],
+      "EcosystemSpecific": null
+    },
+    "RemovedVulns": [
+      {
+        "ID": "GHSA-h755-8qp9-cq85",
+        "AffectedNodes": [
+          221
+        ]
+      }
+    ],
+    "AddedVulns": []
+  },
+  {
+    "Patch": {
+      "Deps": [
+        {
+          "Pkg": {
+            "System": 3,
+            "Name": "autoprefixer"
+          },
+          "Type": {},
+          "OrigRequire": "^9.3.0",
+          "NewRequire": "^10.4.19",
+          "OrigResolved": "9.8.8",
+          "NewResolved": "10.4.19"
+        }
+      ],
+      "EcosystemSpecific": null
+    },
+    "RemovedVulns": [
+      {
+        "ID": "GHSA-7fh5-64p2-3v2j",
+        "AffectedNodes": [
+          327
+        ]
+      }
+    ],
+    "AddedVulns": []
+  },
+  {
+    "Patch": {
+      "Deps": [
+        {
+          "Pkg": {
+            "System": 3,
+            "Name": "google-closure-library"
+          },
+          "Type": {},
+          "OrigRequire": "^20190909.0.0",
+          "NewRequire": "^20200315.0.0",
+          "OrigResolved": "20190909.0.0",
+          "NewResolved": "20200315.0.0"
+        }
+      ],
+      "EcosystemSpecific": null
+    },
+    "RemovedVulns": [
+      {
+        "ID": "GHSA-vh5w-fg69-rc8m",
+        "AffectedNodes": [
+          24
+        ]
+      }
+    ],
+    "AddedVulns": []
+  },
+  {
+    "Patch": {
+      "Deps": [
+        {
+          "Pkg": {
+            "System": 3,
+            "Name": "terser"
+          },
+          "Type": {},
+          "OrigRequire": "^3.10.11",
+          "NewRequire": "^4.8.1",
+          "OrigResolved": "3.17.0",
+          "NewResolved": "4.8.1"
+        }
+      ],
+      "EcosystemSpecific": null
+    },
+    "RemovedVulns": [
+      {
+        "ID": "GHSA-4wf5-vphf-c2xc",
+        "AffectedNodes": [
+          44
+        ]
+      }
+    ],
+    "AddedVulns": []
+  },
+  {
+    "Patch": {
+      "Deps": [
+        {
+          "Pkg": {
+            "System": 3,
+            "Name": "yargs"
+          },
+          "Type": {},
+          "OrigRequire": "^12.0.2",
+          "NewRequire": "^13.3.2",
+          "OrigResolved": "12.0.5",
+          "NewResolved": "13.3.2"
+        }
+      ],
+      "EcosystemSpecific": null
+    },
+    "RemovedVulns": [
+      {
+        "ID": "GHSA-p9pc-299p-vxgp",
+        "AffectedNodes": [
+          610
+        ]
+      }
+    ],
+    "AddedVulns": []
+  },
+  {
+    "Patch": {
+      "Deps": [
+        {
+          "Pkg": {
+            "System": 3,
+            "Name": "mocha"
+          },
+          "Type": {},
+          "OrigRequire": "^5.2.0",
+          "NewRequire": "^6.2.3",
+          "OrigResolved": "5.2.0",
+          "NewResolved": "6.2.3"
+        }
+      ],
+      "EcosystemSpecific": null
+    },
+    "RemovedVulns": [
+      {
+        "ID": "GHSA-vh95-rmgr-6w4m",
+        "AffectedNodes": [
+          575
+        ]
+      },
+      {
+        "ID": "GHSA-xvch-5gv4-984h",
+        "AffectedNodes": [
+          575
+        ]
+      }
+    ],
+    "AddedVulns": [
+      {
+        "ID": "GHSA-2j2x-2gpw-g8fm",
+        "AffectedNodes": [
+          675
+        ]
+      },
+      {
+        "ID": "GHSA-gxpj-cx7g-858c",
+        "AffectedNodes": [
+          566
+        ]
+      }
+    ]
+  }
+]
+---
