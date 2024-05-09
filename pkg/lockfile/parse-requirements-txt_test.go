@@ -129,6 +129,10 @@ func TestParseRequirementsTxt_OneRequirementUnconstrained(t *testing.T) {
 				Line:   models.Position{Start: 1, End: 1},
 				Column: models.Position{Start: 1, End: 6},
 			},
+			NameLocation: &models.FilePosition{
+				Line:   models.Position{Start: 1, End: 1},
+				Column: models.Position{Start: 1, End: 6},
+			},
 			SourceFile: filepath.FromSlash(sourcePath),
 			DepGroups:  []string{"one-package-unconstrained"},
 		},
@@ -159,6 +163,14 @@ func TestParseRequirementsTxt_OneRequirementConstrained(t *testing.T) {
 			BlockLocation: models.FilePosition{
 				Line:   models.Position{Start: 1, End: 1},
 				Column: models.Position{Start: 1, End: 15},
+			},
+			NameLocation: &models.FilePosition{
+				Line:   models.Position{Start: 1, End: 1},
+				Column: models.Position{Start: 1, End: 7},
+			},
+			VersionLocation: &models.FilePosition{
+				Line:   models.Position{Start: 1, End: 1},
+				Column: models.Position{Start: 9, End: 15},
 			},
 			SourceFile: filepath.FromSlash(sourcePath),
 			DepGroups:  []string{"one-package-constrained"},
@@ -191,6 +203,14 @@ func TestParseRequirementsTxt_MultipleRequirementsConstrained(t *testing.T) {
 				Line:   models.Position{Start: 1, End: 1},
 				Column: models.Position{Start: 1, End: 15},
 			},
+			NameLocation: &models.FilePosition{
+				Line:   models.Position{Start: 1, End: 1},
+				Column: models.Position{Start: 1, End: 8},
+			},
+			VersionLocation: &models.FilePosition{
+				Line:   models.Position{Start: 1, End: 1},
+				Column: models.Position{Start: 10, End: 15},
+			},
 			SourceFile: filepath.FromSlash(sourcePath),
 			DepGroups:  []string{"multiple-packages-constrained"},
 		},
@@ -202,6 +222,14 @@ func TestParseRequirementsTxt_MultipleRequirementsConstrained(t *testing.T) {
 			BlockLocation: models.FilePosition{
 				Line:   models.Position{Start: 3, End: 3},
 				Column: models.Position{Start: 1, End: 22},
+			},
+			NameLocation: &models.FilePosition{
+				Line:   models.Position{Start: 3, End: 3},
+				Column: models.Position{Start: 1, End: 15},
+			},
+			VersionLocation: &models.FilePosition{
+				Line:   models.Position{Start: 3, End: 3},
+				Column: models.Position{Start: 17, End: 22},
 			},
 			SourceFile: filepath.FromSlash(sourcePath),
 			DepGroups:  []string{"multiple-packages-constrained"},
@@ -215,6 +243,14 @@ func TestParseRequirementsTxt_MultipleRequirementsConstrained(t *testing.T) {
 				Line:   models.Position{Start: 5, End: 5},
 				Column: models.Position{Start: 1, End: 15},
 			},
+			NameLocation: &models.FilePosition{
+				Line:   models.Position{Start: 5, End: 5},
+				Column: models.Position{Start: 1, End: 6},
+			},
+			VersionLocation: &models.FilePosition{
+				Line:   models.Position{Start: 5, End: 5},
+				Column: models.Position{Start: 8, End: 15},
+			},
 			SourceFile: filepath.FromSlash(sourcePath),
 			DepGroups:  []string{"multiple-packages-constrained"},
 		},
@@ -226,6 +262,14 @@ func TestParseRequirementsTxt_MultipleRequirementsConstrained(t *testing.T) {
 			BlockLocation: models.FilePosition{
 				Line:   models.Position{Start: 7, End: 7},
 				Column: models.Position{Start: 1, End: 18},
+			},
+			NameLocation: &models.FilePosition{
+				Line:   models.Position{Start: 7, End: 7},
+				Column: models.Position{Start: 1, End: 9},
+			},
+			VersionLocation: &models.FilePosition{
+				Line:   models.Position{Start: 7, End: 7},
+				Column: models.Position{Start: 11, End: 18},
 			},
 			SourceFile: filepath.FromSlash(sourcePath),
 			DepGroups:  []string{"multiple-packages-constrained"},
@@ -239,6 +283,14 @@ func TestParseRequirementsTxt_MultipleRequirementsConstrained(t *testing.T) {
 				Line:   models.Position{Start: 11, End: 11},
 				Column: models.Position{Start: 1, End: 19},
 			},
+			NameLocation: &models.FilePosition{
+				Line:   models.Position{Start: 11, End: 11},
+				Column: models.Position{Start: 1, End: 8},
+			},
+			VersionLocation: &models.FilePosition{
+				Line:   models.Position{Start: 11, End: 11},
+				Column: models.Position{Start: 10, End: 19},
+			},
 			SourceFile: filepath.FromSlash(sourcePath),
 			DepGroups:  []string{"multiple-packages-constrained"},
 		},
@@ -250,6 +302,14 @@ func TestParseRequirementsTxt_MultipleRequirementsConstrained(t *testing.T) {
 			BlockLocation: models.FilePosition{
 				Line:   models.Position{Start: 13, End: 13},
 				Column: models.Position{Start: 1, End: 15},
+			},
+			NameLocation: &models.FilePosition{
+				Line:   models.Position{Start: 13, End: 13},
+				Column: models.Position{Start: 1, End: 8},
+			},
+			VersionLocation: &models.FilePosition{
+				Line:   models.Position{Start: 13, End: 13},
+				Column: models.Position{Start: 10, End: 15},
 			},
 			SourceFile: filepath.FromSlash(sourcePath),
 			DepGroups:  []string{"multiple-packages-constrained"},
@@ -263,6 +323,14 @@ func TestParseRequirementsTxt_MultipleRequirementsConstrained(t *testing.T) {
 				Line:   models.Position{Start: 15, End: 15},
 				Column: models.Position{Start: 1, End: 15},
 			},
+			NameLocation: &models.FilePosition{
+				Line:   models.Position{Start: 15, End: 15},
+				Column: models.Position{Start: 1, End: 7},
+			},
+			VersionLocation: &models.FilePosition{
+				Line:   models.Position{Start: 15, End: 15},
+				Column: models.Position{Start: 9, End: 15},
+			},
 			SourceFile: filepath.FromSlash(sourcePath),
 			DepGroups:  []string{"multiple-packages-constrained"},
 		},
@@ -274,6 +342,14 @@ func TestParseRequirementsTxt_MultipleRequirementsConstrained(t *testing.T) {
 			BlockLocation: models.FilePosition{
 				Line:   models.Position{Start: 17, End: 17},
 				Column: models.Position{Start: 1, End: 13},
+			},
+			NameLocation: &models.FilePosition{
+				Line:   models.Position{Start: 17, End: 17},
+				Column: models.Position{Start: 1, End: 6},
+			},
+			VersionLocation: &models.FilePosition{
+				Line:   models.Position{Start: 17, End: 17},
+				Column: models.Position{Start: 8, End: 13},
 			},
 			SourceFile: filepath.FromSlash(sourcePath),
 			DepGroups:  []string{"multiple-packages-constrained"},
@@ -287,6 +363,14 @@ func TestParseRequirementsTxt_MultipleRequirementsConstrained(t *testing.T) {
 				Line:   models.Position{Start: 19, End: 19},
 				Column: models.Position{Start: 1, End: 28},
 			},
+			NameLocation: &models.FilePosition{
+				Line:   models.Position{Start: 19, End: 19},
+				Column: models.Position{Start: 1, End: 21},
+			},
+			VersionLocation: &models.FilePosition{
+				Line:   models.Position{Start: 19, End: 19},
+				Column: models.Position{Start: 23, End: 28},
+			},
 			SourceFile: filepath.FromSlash(sourcePath),
 			DepGroups:  []string{"multiple-packages-constrained"},
 		},
@@ -298,6 +382,14 @@ func TestParseRequirementsTxt_MultipleRequirementsConstrained(t *testing.T) {
 			BlockLocation: models.FilePosition{
 				Line:   models.Position{Start: 21, End: 21},
 				Column: models.Position{Start: 1, End: 21},
+			},
+			NameLocation: &models.FilePosition{
+				Line:   models.Position{Start: 21, End: 21},
+				Column: models.Position{Start: 1, End: 14},
+			},
+			VersionLocation: &models.FilePosition{
+				Line:   models.Position{Start: 21, End: 21},
+				Column: models.Position{Start: 16, End: 21},
 			},
 			SourceFile: filepath.FromSlash(sourcePath),
 			DepGroups:  []string{"multiple-packages-constrained"},
@@ -311,6 +403,14 @@ func TestParseRequirementsTxt_MultipleRequirementsConstrained(t *testing.T) {
 				Line:   models.Position{Start: 23, End: 23},
 				Column: models.Position{Start: 1, End: 19},
 			},
+			NameLocation: &models.FilePosition{
+				Line:   models.Position{Start: 23, End: 23},
+				Column: models.Position{Start: 1, End: 12},
+			},
+			VersionLocation: &models.FilePosition{
+				Line:   models.Position{Start: 23, End: 23},
+				Column: models.Position{Start: 14, End: 19},
+			},
 			SourceFile: filepath.FromSlash(sourcePath),
 			DepGroups:  []string{"multiple-packages-constrained"},
 		},
@@ -323,6 +423,14 @@ func TestParseRequirementsTxt_MultipleRequirementsConstrained(t *testing.T) {
 				Line:   models.Position{Start: 25, End: 25},
 				Column: models.Position{Start: 1, End: 24},
 			},
+			NameLocation: &models.FilePosition{
+				Line:   models.Position{Start: 25, End: 25},
+				Column: models.Position{Start: 1, End: 16},
+			},
+			VersionLocation: &models.FilePosition{
+				Line:   models.Position{Start: 25, End: 25},
+				Column: models.Position{Start: 18, End: 24},
+			},
 			SourceFile: filepath.FromSlash(sourcePath),
 			DepGroups:  []string{"multiple-packages-constrained"},
 		},
@@ -334,6 +442,14 @@ func TestParseRequirementsTxt_MultipleRequirementsConstrained(t *testing.T) {
 			BlockLocation: models.FilePosition{
 				Line:   models.Position{Start: 27, End: 27},
 				Column: models.Position{Start: 1, End: 15},
+			},
+			NameLocation: &models.FilePosition{
+				Line:   models.Position{Start: 27, End: 27},
+				Column: models.Position{Start: 1, End: 7},
+			},
+			VersionLocation: &models.FilePosition{
+				Line:   models.Position{Start: 27, End: 27},
+				Column: models.Position{Start: 9, End: 15},
 			},
 			SourceFile: filepath.FromSlash(sourcePath),
 			DepGroups:  []string{"multiple-packages-constrained"},
@@ -366,6 +482,10 @@ func TestParseRequirementsTxt_MultipleRequirementsMixed(t *testing.T) {
 				Line:   models.Position{Start: 1, End: 1},
 				Column: models.Position{Start: 1, End: 6},
 			},
+			NameLocation: &models.FilePosition{
+				Line:   models.Position{Start: 1, End: 1},
+				Column: models.Position{Start: 1, End: 6},
+			},
 			SourceFile: filepath.FromSlash(sourcePath),
 			DepGroups:  []string{"multiple-packages-mixed"},
 		},
@@ -375,6 +495,10 @@ func TestParseRequirementsTxt_MultipleRequirementsMixed(t *testing.T) {
 			Ecosystem: lockfile.PipEcosystem,
 			CompareAs: lockfile.PipEcosystem,
 			BlockLocation: models.FilePosition{
+				Line:   models.Position{Start: 2, End: 2},
+				Column: models.Position{Start: 1, End: 11},
+			},
+			NameLocation: &models.FilePosition{
 				Line:   models.Position{Start: 2, End: 2},
 				Column: models.Position{Start: 1, End: 11},
 			},
@@ -390,6 +514,14 @@ func TestParseRequirementsTxt_MultipleRequirementsMixed(t *testing.T) {
 				Line:   models.Position{Start: 3, End: 3},
 				Column: models.Position{Start: 1, End: 15},
 			},
+			NameLocation: &models.FilePosition{
+				Line:   models.Position{Start: 3, End: 3},
+				Column: models.Position{Start: 1, End: 7},
+			},
+			VersionLocation: &models.FilePosition{
+				Line:   models.Position{Start: 3, End: 3},
+				Column: models.Position{Start: 9, End: 15},
+			},
 			SourceFile: filepath.FromSlash(sourcePath),
 			DepGroups:  []string{"multiple-packages-mixed"},
 		},
@@ -401,6 +533,14 @@ func TestParseRequirementsTxt_MultipleRequirementsMixed(t *testing.T) {
 			BlockLocation: models.FilePosition{
 				Line:   models.Position{Start: 4, End: 4},
 				Column: models.Position{Start: 1, End: 14},
+			},
+			NameLocation: &models.FilePosition{
+				Line:   models.Position{Start: 4, End: 4},
+				Column: models.Position{Start: 1, End: 6},
+			},
+			VersionLocation: &models.FilePosition{
+				Line:   models.Position{Start: 4, End: 4},
+				Column: models.Position{Start: 8, End: 14},
 			},
 			SourceFile: filepath.FromSlash(sourcePath),
 			DepGroups:  []string{"multiple-packages-mixed"},
@@ -414,6 +554,14 @@ func TestParseRequirementsTxt_MultipleRequirementsMixed(t *testing.T) {
 				Line:   models.Position{Start: 5, End: 5},
 				Column: models.Position{Start: 1, End: 21},
 			},
+			NameLocation: &models.FilePosition{
+				Line:   models.Position{Start: 5, End: 5},
+				Column: models.Position{Start: 1, End: 13},
+			},
+			VersionLocation: &models.FilePosition{
+				Line:   models.Position{Start: 5, End: 5},
+				Column: models.Position{Start: 15, End: 21},
+			},
 			SourceFile: filepath.FromSlash(sourcePath),
 			DepGroups:  []string{"multiple-packages-mixed"},
 		},
@@ -423,6 +571,10 @@ func TestParseRequirementsTxt_MultipleRequirementsMixed(t *testing.T) {
 			Ecosystem: lockfile.PipEcosystem,
 			CompareAs: lockfile.PipEcosystem,
 			BlockLocation: models.FilePosition{
+				Line:   models.Position{Start: 6, End: 6},
+				Column: models.Position{Start: 1, End: 8},
+			},
+			NameLocation: &models.FilePosition{
 				Line:   models.Position{Start: 6, End: 6},
 				Column: models.Position{Start: 1, End: 8},
 			},
@@ -438,6 +590,10 @@ func TestParseRequirementsTxt_MultipleRequirementsMixed(t *testing.T) {
 				Line:   models.Position{Start: 7, End: 7},
 				Column: models.Position{Start: 1, End: 9},
 			},
+			NameLocation: &models.FilePosition{
+				Line:   models.Position{Start: 7, End: 7},
+				Column: models.Position{Start: 1, End: 9},
+			},
 			SourceFile: filepath.FromSlash(sourcePath),
 			DepGroups:  []string{"multiple-packages-mixed"},
 		},
@@ -447,6 +603,10 @@ func TestParseRequirementsTxt_MultipleRequirementsMixed(t *testing.T) {
 			Ecosystem: lockfile.PipEcosystem,
 			CompareAs: lockfile.PipEcosystem,
 			BlockLocation: models.FilePosition{
+				Line:   models.Position{Start: 8, End: 8},
+				Column: models.Position{Start: 1, End: 7},
+			},
+			NameLocation: &models.FilePosition{
 				Line:   models.Position{Start: 8, End: 8},
 				Column: models.Position{Start: 1, End: 7},
 			},
@@ -483,6 +643,10 @@ func TestParseRequirementsTxt_FileFormatExample(t *testing.T) {
 				Line:   models.Position{Start: 3, End: 3},
 				Column: models.Position{Start: 1, End: 7},
 			},
+			NameLocation: &models.FilePosition{
+				Line:   models.Position{Start: 3, End: 3},
+				Column: models.Position{Start: 1, End: 7},
+			},
 			SourceFile: filepath.FromSlash(sourcePath),
 			DepGroups:  []string{"file-format-example"},
 		},
@@ -492,6 +656,10 @@ func TestParseRequirementsTxt_FileFormatExample(t *testing.T) {
 			Ecosystem: lockfile.PipEcosystem,
 			CompareAs: lockfile.PipEcosystem,
 			BlockLocation: models.FilePosition{
+				Line:   models.Position{Start: 4, End: 4},
+				Column: models.Position{Start: 1, End: 11},
+			},
+			NameLocation: &models.FilePosition{
 				Line:   models.Position{Start: 4, End: 4},
 				Column: models.Position{Start: 1, End: 11},
 			},
@@ -507,6 +675,10 @@ func TestParseRequirementsTxt_FileFormatExample(t *testing.T) {
 				Line:   models.Position{Start: 5, End: 5},
 				Column: models.Position{Start: 1, End: 15},
 			},
+			NameLocation: &models.FilePosition{
+				Line:   models.Position{Start: 5, End: 5},
+				Column: models.Position{Start: 1, End: 15},
+			},
 			SourceFile: filepath.FromSlash(sourcePath),
 			DepGroups:  []string{"file-format-example"},
 		},
@@ -518,6 +690,14 @@ func TestParseRequirementsTxt_FileFormatExample(t *testing.T) {
 			BlockLocation: models.FilePosition{
 				Line:   models.Position{Start: 9, End: 9},
 				Column: models.Position{Start: 1, End: 70},
+			},
+			NameLocation: &models.FilePosition{
+				Line:   models.Position{Start: 9, End: 9},
+				Column: models.Position{Start: 1, End: 7},
+			},
+			VersionLocation: &models.FilePosition{
+				Line:   models.Position{Start: 9, End: 9},
+				Column: models.Position{Start: 11, End: 16},
 			},
 			SourceFile: filepath.FromSlash(sourcePath),
 			DepGroups:  []string{"file-format-example"},
@@ -531,6 +711,14 @@ func TestParseRequirementsTxt_FileFormatExample(t *testing.T) {
 				Line:   models.Position{Start: 10, End: 10},
 				Column: models.Position{Start: 1, End: 52},
 			},
+			NameLocation: &models.FilePosition{
+				Line:   models.Position{Start: 10, End: 10},
+				Column: models.Position{Start: 1, End: 8},
+			},
+			VersionLocation: &models.FilePosition{
+				Line:   models.Position{Start: 10, End: 10},
+				Column: models.Position{Start: 12, End: 17},
+			},
 			SourceFile: filepath.FromSlash(sourcePath),
 			DepGroups:  []string{"file-format-example"},
 		},
@@ -542,6 +730,10 @@ func TestParseRequirementsTxt_FileFormatExample(t *testing.T) {
 			BlockLocation: models.FilePosition{
 				Line:   models.Position{Start: 11, End: 11},
 				Column: models.Position{Start: 1, End: 77},
+			},
+			NameLocation: &models.FilePosition{
+				Line:   models.Position{Start: 11, End: 11},
+				Column: models.Position{Start: 1, End: 9},
 			},
 			SourceFile: filepath.FromSlash(sourcePath),
 			DepGroups:  []string{"file-format-example"},
@@ -555,6 +747,14 @@ func TestParseRequirementsTxt_FileFormatExample(t *testing.T) {
 				Line:   models.Position{Start: 12, End: 12},
 				Column: models.Position{Start: 1, End: 73},
 			},
+			NameLocation: &models.FilePosition{
+				Line:   models.Position{Start: 12, End: 12},
+				Column: models.Position{Start: 1, End: 14},
+			},
+			VersionLocation: &models.FilePosition{
+				Line:   models.Position{Start: 12, End: 12},
+				Column: models.Position{Start: 18, End: 21},
+			},
 			SourceFile: filepath.FromSlash(sourcePath),
 			DepGroups:  []string{"file-format-example"},
 		},
@@ -564,6 +764,10 @@ func TestParseRequirementsTxt_FileFormatExample(t *testing.T) {
 			Ecosystem: lockfile.PipEcosystem,
 			CompareAs: lockfile.PipEcosystem,
 			BlockLocation: models.FilePosition{
+				Line:   models.Position{Start: 23, End: 23},
+				Column: models.Position{Start: 1, End: 9},
+			},
+			NameLocation: &models.FilePosition{
 				Line:   models.Position{Start: 23, End: 23},
 				Column: models.Position{Start: 1, End: 9},
 			},
@@ -579,6 +783,10 @@ func TestParseRequirementsTxt_FileFormatExample(t *testing.T) {
 				Line:   models.Position{Start: 24, End: 24},
 				Column: models.Position{Start: 1, End: 6},
 			},
+			NameLocation: &models.FilePosition{
+				Line:   models.Position{Start: 24, End: 24},
+				Column: models.Position{Start: 1, End: 6},
+			},
 			SourceFile: filepath.FromSlash(sourcePath),
 			DepGroups:  []string{"file-format-example"},
 		},
@@ -590,6 +798,14 @@ func TestParseRequirementsTxt_FileFormatExample(t *testing.T) {
 			BlockLocation: models.FilePosition{
 				Line:   models.Position{Start: 1, End: 1},
 				Column: models.Position{Start: 1, End: 15},
+			},
+			NameLocation: &models.FilePosition{
+				Line:   models.Position{Start: 1, End: 1},
+				Column: models.Position{Start: 1, End: 7},
+			},
+			VersionLocation: &models.FilePosition{
+				Line:   models.Position{Start: 1, End: 1},
+				Column: models.Position{Start: 9, End: 15},
 			},
 			SourceFile: filepath.FromSlash(otherPath),
 			DepGroups:  []string{"other-file"},
@@ -622,6 +838,14 @@ func TestParseRequirementsTxt_WithAddedSupport(t *testing.T) {
 				Line:   models.Position{Start: 1, End: 1},
 				Column: models.Position{Start: 1, End: 23},
 			},
+			NameLocation: &models.FilePosition{
+				Line:   models.Position{Start: 1, End: 1},
+				Column: models.Position{Start: 1, End: 15},
+			},
+			VersionLocation: &models.FilePosition{
+				Line:   models.Position{Start: 1, End: 1},
+				Column: models.Position{Start: 17, End: 23},
+			},
 			SourceFile: filepath.FromSlash(sourcePath),
 			DepGroups:  []string{"with-added-support"},
 		},
@@ -653,6 +877,14 @@ func TestParseRequirementsTxt_NonNormalizedNames(t *testing.T) {
 				Line:   models.Position{Start: 1, End: 1},
 				Column: models.Position{Start: 1, End: 22},
 			},
+			NameLocation: &models.FilePosition{
+				Line:   models.Position{Start: 1, End: 1},
+				Column: models.Position{Start: 1, End: 15},
+			},
+			VersionLocation: &models.FilePosition{
+				Line:   models.Position{Start: 1, End: 1},
+				Column: models.Position{Start: 17, End: 22},
+			},
 			SourceFile: filepath.FromSlash(sourcePath),
 			DepGroups:  []string{"non-normalized-names"},
 		},
@@ -665,6 +897,14 @@ func TestParseRequirementsTxt_NonNormalizedNames(t *testing.T) {
 				Line:   models.Position{Start: 6, End: 6},
 				Column: models.Position{Start: 1, End: 14},
 			},
+			NameLocation: &models.FilePosition{
+				Line:   models.Position{Start: 6, End: 6},
+				Column: models.Position{Start: 1, End: 7},
+			},
+			VersionLocation: &models.FilePosition{
+				Line:   models.Position{Start: 6, End: 6},
+				Column: models.Position{Start: 9, End: 14},
+			},
 			SourceFile: filepath.FromSlash(sourcePath),
 			DepGroups:  []string{"non-normalized-names"},
 		},
@@ -676,6 +916,14 @@ func TestParseRequirementsTxt_NonNormalizedNames(t *testing.T) {
 			BlockLocation: models.FilePosition{
 				Line:   models.Position{Start: 8, End: 8},
 				Column: models.Position{Start: 1, End: 23},
+			},
+			NameLocation: &models.FilePosition{
+				Line:   models.Position{Start: 8, End: 8},
+				Column: models.Position{Start: 1, End: 15},
+			},
+			VersionLocation: &models.FilePosition{
+				Line:   models.Position{Start: 8, End: 8},
+				Column: models.Position{Start: 17, End: 23},
 			},
 			SourceFile: filepath.FromSlash(sourcePath),
 			DepGroups:  []string{"non-normalized-names"},
@@ -712,6 +960,10 @@ func TestParseRequirementsTxt_WithMultipleROptions(t *testing.T) {
 				Line:   models.Position{Start: 1, End: 1},
 				Column: models.Position{Start: 1, End: 6},
 			},
+			NameLocation: &models.FilePosition{
+				Line:   models.Position{Start: 1, End: 1},
+				Column: models.Position{Start: 1, End: 6},
+			},
 			SourceFile: filepath.FromSlash(multiplePackagesPath),
 			DepGroups:  []string{"multiple-packages-mixed"},
 		},
@@ -721,6 +973,10 @@ func TestParseRequirementsTxt_WithMultipleROptions(t *testing.T) {
 			Ecosystem: lockfile.PipEcosystem,
 			CompareAs: lockfile.PipEcosystem,
 			BlockLocation: models.FilePosition{
+				Line:   models.Position{Start: 2, End: 2},
+				Column: models.Position{Start: 1, End: 11},
+			},
+			NameLocation: &models.FilePosition{
 				Line:   models.Position{Start: 2, End: 2},
 				Column: models.Position{Start: 1, End: 11},
 			},
@@ -736,6 +992,14 @@ func TestParseRequirementsTxt_WithMultipleROptions(t *testing.T) {
 				Line:   models.Position{Start: 3, End: 3},
 				Column: models.Position{Start: 1, End: 15},
 			},
+			NameLocation: &models.FilePosition{
+				Line:   models.Position{Start: 3, End: 3},
+				Column: models.Position{Start: 1, End: 7},
+			},
+			VersionLocation: &models.FilePosition{
+				Line:   models.Position{Start: 3, End: 3},
+				Column: models.Position{Start: 9, End: 15},
+			},
 			SourceFile: filepath.FromSlash(multiplePackagesPath),
 			DepGroups:  []string{"multiple-packages-mixed", "with-multiple-r-options"},
 		},
@@ -747,6 +1011,14 @@ func TestParseRequirementsTxt_WithMultipleROptions(t *testing.T) {
 			BlockLocation: models.FilePosition{
 				Line:   models.Position{Start: 4, End: 4},
 				Column: models.Position{Start: 1, End: 14},
+			},
+			NameLocation: &models.FilePosition{
+				Line:   models.Position{Start: 4, End: 4},
+				Column: models.Position{Start: 1, End: 6},
+			},
+			VersionLocation: &models.FilePosition{
+				Line:   models.Position{Start: 4, End: 4},
+				Column: models.Position{Start: 8, End: 14},
 			},
 			SourceFile: filepath.FromSlash(multiplePackagesPath),
 			DepGroups:  []string{"multiple-packages-mixed"},
@@ -760,6 +1032,14 @@ func TestParseRequirementsTxt_WithMultipleROptions(t *testing.T) {
 				Line:   models.Position{Start: 5, End: 5},
 				Column: models.Position{Start: 1, End: 21},
 			},
+			NameLocation: &models.FilePosition{
+				Line:   models.Position{Start: 5, End: 5},
+				Column: models.Position{Start: 1, End: 13},
+			},
+			VersionLocation: &models.FilePosition{
+				Line:   models.Position{Start: 5, End: 5},
+				Column: models.Position{Start: 15, End: 21},
+			},
 			SourceFile: filepath.FromSlash(multiplePackagesPath),
 			DepGroups:  []string{"multiple-packages-mixed"},
 		},
@@ -769,6 +1049,10 @@ func TestParseRequirementsTxt_WithMultipleROptions(t *testing.T) {
 			Ecosystem: lockfile.PipEcosystem,
 			CompareAs: lockfile.PipEcosystem,
 			BlockLocation: models.FilePosition{
+				Line:   models.Position{Start: 6, End: 6},
+				Column: models.Position{Start: 1, End: 8},
+			},
+			NameLocation: &models.FilePosition{
 				Line:   models.Position{Start: 6, End: 6},
 				Column: models.Position{Start: 1, End: 8},
 			},
@@ -784,6 +1068,10 @@ func TestParseRequirementsTxt_WithMultipleROptions(t *testing.T) {
 				Line:   models.Position{Start: 7, End: 7},
 				Column: models.Position{Start: 1, End: 9},
 			},
+			NameLocation: &models.FilePosition{
+				Line:   models.Position{Start: 7, End: 7},
+				Column: models.Position{Start: 1, End: 9},
+			},
 			SourceFile: filepath.FromSlash(multiplePackagesPath),
 			DepGroups:  []string{"multiple-packages-mixed"},
 		},
@@ -793,6 +1081,10 @@ func TestParseRequirementsTxt_WithMultipleROptions(t *testing.T) {
 			Ecosystem: lockfile.PipEcosystem,
 			CompareAs: lockfile.PipEcosystem,
 			BlockLocation: models.FilePosition{
+				Line:   models.Position{Start: 8, End: 8},
+				Column: models.Position{Start: 1, End: 7},
+			},
+			NameLocation: &models.FilePosition{
 				Line:   models.Position{Start: 8, End: 8},
 				Column: models.Position{Start: 1, End: 7},
 			},
@@ -808,6 +1100,14 @@ func TestParseRequirementsTxt_WithMultipleROptions(t *testing.T) {
 				Line:   models.Position{Start: 4, End: 4},
 				Column: models.Position{Start: 1, End: 16},
 			},
+			NameLocation: &models.FilePosition{
+				Line:   models.Position{Start: 4, End: 4},
+				Column: models.Position{Start: 1, End: 9},
+			},
+			VersionLocation: &models.FilePosition{
+				Line:   models.Position{Start: 4, End: 4},
+				Column: models.Position{Start: 11, End: 16},
+			},
 			SourceFile: filepath.FromSlash(sourcePath),
 			DepGroups:  []string{"with-multiple-r-options"},
 		},
@@ -819,6 +1119,14 @@ func TestParseRequirementsTxt_WithMultipleROptions(t *testing.T) {
 			BlockLocation: models.FilePosition{
 				Line:   models.Position{Start: 1, End: 1},
 				Column: models.Position{Start: 1, End: 15},
+			},
+			NameLocation: &models.FilePosition{
+				Line:   models.Position{Start: 1, End: 1},
+				Column: models.Position{Start: 1, End: 7},
+			},
+			VersionLocation: &models.FilePosition{
+				Line:   models.Position{Start: 1, End: 1},
+				Column: models.Position{Start: 9, End: 15},
 			},
 			SourceFile: filepath.FromSlash(onePackagePath),
 			DepGroups:  []string{"one-package-constrained"},
@@ -853,14 +1161,16 @@ func TestParseRequirementsTxt_WithURLROption(t *testing.T) {
 			Ecosystem: lockfile.PipEcosystem,
 			CompareAs: lockfile.PipEcosystem,
 			BlockLocation: models.FilePosition{
-				Line: models.Position{
-					Start: 1,
-					End:   1,
-				},
-				Column: models.Position{
-					Start: 1,
-					End:   16,
-				},
+				Line:   models.Position{Start: 1, End: 1},
+				Column: models.Position{Start: 1, End: 16},
+			},
+			NameLocation: &models.FilePosition{
+				Line:   models.Position{Start: 1, End: 1},
+				Column: models.Position{Start: 1, End: 9},
+			},
+			VersionLocation: &models.FilePosition{
+				Line:   models.Position{Start: 1, End: 1},
+				Column: models.Position{Start: 11, End: 16},
 			},
 			SourceFile: basePath,
 			DepGroups:  []string{"with-url-r-option"},
@@ -901,6 +1211,14 @@ func TestParseRequirementsTxt_DuplicateROptions(t *testing.T) {
 				Line:   models.Position{Start: 1, End: 1},
 				Column: models.Position{Start: 1, End: 14},
 			},
+			NameLocation: &models.FilePosition{
+				Line:   models.Position{Start: 1, End: 1},
+				Column: models.Position{Start: 1, End: 7},
+			},
+			VersionLocation: &models.FilePosition{
+				Line:   models.Position{Start: 1, End: 1},
+				Column: models.Position{Start: 9, End: 14},
+			},
 			SourceFile: filepath.FromSlash(basePath),
 			DepGroups:  []string{"duplicate-r-base"},
 		},
@@ -912,6 +1230,14 @@ func TestParseRequirementsTxt_DuplicateROptions(t *testing.T) {
 			BlockLocation: models.FilePosition{
 				Line:   models.Position{Start: 4, End: 4},
 				Column: models.Position{Start: 1, End: 15},
+			},
+			NameLocation: &models.FilePosition{
+				Line:   models.Position{Start: 4, End: 4},
+				Column: models.Position{Start: 1, End: 7},
+			},
+			VersionLocation: &models.FilePosition{
+				Line:   models.Position{Start: 4, End: 4},
+				Column: models.Position{Start: 9, End: 15},
 			},
 			SourceFile: filepath.FromSlash(sourcePath),
 			DepGroups:  []string{"duplicate-r-dev"},
@@ -925,6 +1251,14 @@ func TestParseRequirementsTxt_DuplicateROptions(t *testing.T) {
 				Line:   models.Position{Start: 3, End: 3},
 				Column: models.Position{Start: 1, End: 16},
 			},
+			NameLocation: &models.FilePosition{
+				Line:   models.Position{Start: 3, End: 3},
+				Column: models.Position{Start: 1, End: 9},
+			},
+			VersionLocation: &models.FilePosition{
+				Line:   models.Position{Start: 3, End: 3},
+				Column: models.Position{Start: 11, End: 16},
+			},
 			SourceFile: filepath.FromSlash(testPath),
 			DepGroups:  []string{"duplicate-r-test", "duplicate-r-dev"},
 		},
@@ -936,6 +1270,14 @@ func TestParseRequirementsTxt_DuplicateROptions(t *testing.T) {
 			BlockLocation: models.FilePosition{
 				Line:   models.Position{Start: 4, End: 4},
 				Column: models.Position{Start: 1, End: 16},
+			},
+			NameLocation: &models.FilePosition{
+				Line:   models.Position{Start: 4, End: 4},
+				Column: models.Position{Start: 1, End: 9},
+			},
+			VersionLocation: &models.FilePosition{
+				Line:   models.Position{Start: 4, End: 4},
+				Column: models.Position{Start: 11, End: 16},
 			},
 			SourceFile: filepath.FromSlash(testPath),
 			DepGroups:  []string{"duplicate-r-test"},
@@ -968,6 +1310,14 @@ func TestParseRequirementsTxt_CyclicRSelf(t *testing.T) {
 				Line:   models.Position{Start: 4, End: 4},
 				Column: models.Position{Start: 1, End: 15},
 			},
+			NameLocation: &models.FilePosition{
+				Line:   models.Position{Start: 4, End: 4},
+				Column: models.Position{Start: 1, End: 7},
+			},
+			VersionLocation: &models.FilePosition{
+				Line:   models.Position{Start: 4, End: 4},
+				Column: models.Position{Start: 9, End: 15},
+			},
 			SourceFile: filepath.FromSlash(sourcePath),
 			DepGroups:  []string{"cyclic-r-self"},
 		},
@@ -979,6 +1329,14 @@ func TestParseRequirementsTxt_CyclicRSelf(t *testing.T) {
 			BlockLocation: models.FilePosition{
 				Line:   models.Position{Start: 3, End: 3},
 				Column: models.Position{Start: 1, End: 16},
+			},
+			NameLocation: &models.FilePosition{
+				Line:   models.Position{Start: 3, End: 3},
+				Column: models.Position{Start: 1, End: 9},
+			},
+			VersionLocation: &models.FilePosition{
+				Line:   models.Position{Start: 3, End: 3},
+				Column: models.Position{Start: 11, End: 16},
 			},
 			SourceFile: filepath.FromSlash(sourcePath),
 			DepGroups:  []string{"cyclic-r-self"},
@@ -1015,6 +1373,14 @@ func TestParseRequirementsTxt_CyclicRComplex(t *testing.T) {
 				Line:   models.Position{Start: 3, End: 3},
 				Column: models.Position{Start: 1, End: 20},
 			},
+			NameLocation: &models.FilePosition{
+				Line:   models.Position{Start: 3, End: 3},
+				Column: models.Position{Start: 1, End: 17},
+			},
+			VersionLocation: &models.FilePosition{
+				Line:   models.Position{Start: 3, End: 3},
+				Column: models.Position{Start: 19, End: 20},
+			},
 			SourceFile: filepath.FromSlash(sourcePath),
 			DepGroups:  []string{"cyclic-r-complex-1"},
 		},
@@ -1027,6 +1393,14 @@ func TestParseRequirementsTxt_CyclicRComplex(t *testing.T) {
 				Line:   models.Position{Start: 4, End: 4},
 				Column: models.Position{Start: 1, End: 20},
 			},
+			NameLocation: &models.FilePosition{
+				Line:   models.Position{Start: 4, End: 4},
+				Column: models.Position{Start: 1, End: 17},
+			},
+			VersionLocation: &models.FilePosition{
+				Line:   models.Position{Start: 4, End: 4},
+				Column: models.Position{Start: 19, End: 20},
+			},
 			SourceFile: filepath.FromSlash(cyclic2Path),
 			DepGroups:  []string{"cyclic-r-complex-2"},
 		},
@@ -1038,6 +1412,14 @@ func TestParseRequirementsTxt_CyclicRComplex(t *testing.T) {
 			BlockLocation: models.FilePosition{
 				Line:   models.Position{Start: 4, End: 4},
 				Column: models.Position{Start: 1, End: 20},
+			},
+			NameLocation: &models.FilePosition{
+				Line:   models.Position{Start: 4, End: 4},
+				Column: models.Position{Start: 1, End: 17},
+			},
+			VersionLocation: &models.FilePosition{
+				Line:   models.Position{Start: 4, End: 4},
+				Column: models.Position{Start: 19, End: 20},
 			},
 			SourceFile: filepath.FromSlash(cyclic3Path),
 			DepGroups:  []string{"cyclic-r-complex-3"},
@@ -1070,6 +1452,14 @@ func TestParseRequirementsTxt_WithPerRequirementOptions(t *testing.T) {
 				Line:   models.Position{Start: 1, End: 1},
 				Column: models.Position{Start: 1, End: 95},
 			},
+			NameLocation: &models.FilePosition{
+				Line:   models.Position{Start: 1, End: 1},
+				Column: models.Position{Start: 1, End: 6},
+			},
+			VersionLocation: &models.FilePosition{
+				Line:   models.Position{Start: 1, End: 1},
+				Column: models.Position{Start: 8, End: 16},
+			},
 			SourceFile: filepath.FromSlash(sourcePath),
 			DepGroups:  []string{"with-per-requirement-options"},
 		},
@@ -1081,6 +1471,14 @@ func TestParseRequirementsTxt_WithPerRequirementOptions(t *testing.T) {
 			BlockLocation: models.FilePosition{
 				Line:   models.Position{Start: 2, End: 2},
 				Column: models.Position{Start: 1, End: 13},
+			},
+			NameLocation: &models.FilePosition{
+				Line:   models.Position{Start: 2, End: 2},
+				Column: models.Position{Start: 1, End: 4},
+			},
+			VersionLocation: &models.FilePosition{
+				Line:   models.Position{Start: 2, End: 2},
+				Column: models.Position{Start: 8, End: 13},
 			},
 			SourceFile: filepath.FromSlash(sourcePath),
 			DepGroups:  []string{"with-per-requirement-options"},
@@ -1094,6 +1492,14 @@ func TestParseRequirementsTxt_WithPerRequirementOptions(t *testing.T) {
 				Line:   models.Position{Start: 6, End: 8},
 				Column: models.Position{Start: 1, End: 81},
 			},
+			NameLocation: &models.FilePosition{
+				Line:   models.Position{Start: 6, End: 6},
+				Column: models.Position{Start: 1, End: 11},
+			},
+			VersionLocation: &models.FilePosition{
+				Line:   models.Position{Start: 6, End: 6},
+				Column: models.Position{Start: 15, End: 18},
+			},
 			SourceFile: filepath.FromSlash(sourcePath),
 			DepGroups:  []string{"with-per-requirement-options"},
 		},
@@ -1105,6 +1511,14 @@ func TestParseRequirementsTxt_WithPerRequirementOptions(t *testing.T) {
 			BlockLocation: models.FilePosition{
 				Line:   models.Position{Start: 12, End: 12},
 				Column: models.Position{Start: 1, End: 50},
+			},
+			NameLocation: &models.FilePosition{
+				Line:   models.Position{Start: 12, End: 12},
+				Column: models.Position{Start: 1, End: 11},
+			},
+			VersionLocation: &models.FilePosition{
+				Line:   models.Position{Start: 12, End: 12},
+				Column: models.Position{Start: 15, End: 18},
 			},
 			SourceFile: filepath.FromSlash(sourcePath),
 			DepGroups:  []string{"with-per-requirement-options"},
@@ -1137,6 +1551,14 @@ func TestParseRequirementsTxt_LineContinuation(t *testing.T) {
 				Line:   models.Position{Start: 2, End: 6},
 				Column: models.Position{Start: 1, End: 6},
 			},
+			NameLocation: &models.FilePosition{
+				Line:   models.Position{Start: 2, End: 2},
+				Column: models.Position{Start: 1, End: 4},
+			},
+			VersionLocation: &models.FilePosition{
+				Line:   models.Position{Start: 6, End: 6},
+				Column: models.Position{Start: 1, End: 6},
+			},
 			SourceFile: filepath.FromSlash(sourcePath),
 			DepGroups:  []string{"line-continuation"},
 		},
@@ -1148,6 +1570,14 @@ func TestParseRequirementsTxt_LineContinuation(t *testing.T) {
 			BlockLocation: models.FilePosition{
 				Line:   models.Position{Start: 9, End: 9},
 				Column: models.Position{Start: 1, End: 13},
+			},
+			NameLocation: &models.FilePosition{
+				Line:   models.Position{Start: 9, End: 9},
+				Column: models.Position{Start: 1, End: 4},
+			},
+			VersionLocation: &models.FilePosition{
+				Line:   models.Position{Start: 9, End: 9},
+				Column: models.Position{Start: 8, End: 13},
 			},
 			SourceFile: filepath.FromSlash(sourcePath),
 			DepGroups:  []string{"line-continuation"},
@@ -1161,6 +1591,14 @@ func TestParseRequirementsTxt_LineContinuation(t *testing.T) {
 				Line:   models.Position{Start: 13, End: 14},
 				Column: models.Position{Start: 1, End: 13},
 			},
+			NameLocation: &models.FilePosition{
+				Line:   models.Position{Start: 13, End: 13},
+				Column: models.Position{Start: 1, End: 4},
+			},
+			VersionLocation: &models.FilePosition{
+				Line:   models.Position{Start: 13, End: 13},
+				Column: models.Position{Start: 8, End: 13},
+			},
 			SourceFile: filepath.FromSlash(sourcePath),
 			DepGroups:  []string{"line-continuation"},
 		},
@@ -1172,6 +1610,14 @@ func TestParseRequirementsTxt_LineContinuation(t *testing.T) {
 			BlockLocation: models.FilePosition{
 				Line:   models.Position{Start: 17, End: 17},
 				Column: models.Position{Start: 1, End: 17},
+			},
+			NameLocation: &models.FilePosition{
+				Line:   models.Position{Start: 17, End: 17},
+				Column: models.Position{Start: 1, End: 4},
+			},
+			VersionLocation: &models.FilePosition{
+				Line:   models.Position{Start: 17, End: 17},
+				Column: models.Position{Start: 8, End: 16},
 			},
 			SourceFile: filepath.FromSlash(sourcePath),
 			DepGroups:  []string{"line-continuation"},
@@ -1208,6 +1654,10 @@ func TestParseRequirementsTxt_EnvironmentMarkers(t *testing.T) {
 				Line:   models.Position{Start: 1, End: 1},
 				Column: models.Position{Start: 1, End: 26},
 			},
+			NameLocation: &models.FilePosition{
+				Line:   models.Position{Start: 1, End: 1},
+				Column: models.Position{Start: 1, End: 3},
+			},
 			Commit:     "",
 			SourceFile: filepath.FromSlash(sourcePath),
 			DepGroups:  []string{"environment-markers"},
@@ -1221,6 +1671,10 @@ func TestParseRequirementsTxt_EnvironmentMarkers(t *testing.T) {
 				Line:   models.Position{Start: 2, End: 2},
 				Column: models.Position{Start: 1, End: 67},
 			},
+			NameLocation: &models.FilePosition{
+				Line:   models.Position{Start: 2, End: 2},
+				Column: models.Position{Start: 1, End: 20},
+			},
 			Commit:     "",
 			SourceFile: filepath.FromSlash(sourcePath),
 			DepGroups:  []string{"environment-markers"},
@@ -1233,6 +1687,14 @@ func TestParseRequirementsTxt_EnvironmentMarkers(t *testing.T) {
 			BlockLocation: models.FilePosition{
 				Line:   models.Position{Start: 3, End: 3},
 				Column: models.Position{Start: 1, End: 41},
+			},
+			NameLocation: &models.FilePosition{
+				Line:   models.Position{Start: 3, End: 3},
+				Column: models.Position{Start: 1, End: 12},
+			},
+			VersionLocation: &models.FilePosition{
+				Line:   models.Position{Start: 3, End: 3},
+				Column: models.Position{Start: 14, End: 17},
 			},
 			Commit:     "",
 			SourceFile: filepath.FromSlash(sourcePath),
@@ -1269,6 +1731,10 @@ func TestParseRequirementsTxt_GitUrlPackages(t *testing.T) {
 				Line:   models.Position{Start: 1, End: 1},
 				Column: models.Position{Start: 1, End: 52},
 			},
+			NameLocation: &models.FilePosition{
+				Line:   models.Position{Start: 1, End: 1},
+				Column: models.Position{Start: 1, End: 7},
+			},
 			Commit:     "",
 			SourceFile: filepath.FromSlash(sourcePath),
 			DepGroups:  []string{"url-packages"},
@@ -1303,6 +1769,14 @@ func TestParseRequirementsTxt_WhlUrlPackages(t *testing.T) {
 			BlockLocation: models.FilePosition{
 				Line:   models.Position{Start: 1, End: 1},
 				Column: models.Position{Start: 1, End: 161},
+			},
+			NameLocation: &models.FilePosition{
+				Line:   models.Position{Start: 1, End: 1},
+				Column: models.Position{Start: 1, End: 7},
+			},
+			VersionLocation: &models.FilePosition{
+				Line:   models.Position{Start: 1, End: 1},
+				Column: models.Position{Start: 124, End: 129},
 			},
 			Commit:     "",
 			SourceFile: filepath.FromSlash(sourcePath),

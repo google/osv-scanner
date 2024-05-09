@@ -2141,6 +2141,20 @@ func TestRun_WithEncodedLockfile(t *testing.T) {
 						ColumnStart: 1,
 						ColumnEnd:   15,
 					},
+					Version: &models.PackageLocation{
+						Filename:    "requirements.txt",
+						LineStart:   1,
+						LineEnd:     1,
+						ColumnStart: 9,
+						ColumnEnd:   15,
+					},
+					Name: &models.PackageLocation{
+						Filename:    "requirements.txt",
+						LineStart:   1,
+						LineEnd:     1,
+						ColumnStart: 1,
+						ColumnEnd:   7,
+					},
 				}),
 			},
 			{

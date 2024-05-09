@@ -59,6 +59,8 @@ func parseLine(path string, line string, lineNumber int, lineOffset int, columnS
 		}
 	}
 
+	block := strings.Split(line, "\n")
+
 	return PackageDetails{
 		Name:    normalizedRequirementName(name),
 		Version: version,
@@ -66,9 +68,11 @@ func parseLine(path string, line string, lineNumber int, lineOffset int, columnS
 			Line:   models.Position{Start: lineNumber, End: lineNumber + lineOffset},
 			Column: models.Position{Start: columnStart, End: columnEnd},
 		},
-		Ecosystem:  PipEcosystem,
-		CompareAs:  PipEcosystem,
-		SourceFile: path,
+		NameLocation:    fileposition.ExtractStringPositionInBlock(block, name, lineNumber),
+		VersionLocation: fileposition.ExtractStringPositionInBlock(block, version, lineNumber),
+		Ecosystem:       PipEcosystem,
+		CompareAs:       PipEcosystem,
+		SourceFile:      path,
 	}
 }
 
@@ -174,7 +178,7 @@ func parseRequirementsTxt(f DepFile, requiredAlready map[string]struct{}) ([]Pac
 			if scanner.Scan() {
 				lineOffset++
 				newLine := scanner.Text()
-				line += newLine
+				line += "\n" + newLine
 				lastLine = newLine
 			}
 		}
