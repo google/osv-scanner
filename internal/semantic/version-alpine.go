@@ -29,7 +29,7 @@ import (
 // Also see https://github.com/alpinelinux/apk-tools/blob/master/doc/apk-package.5.scd#package-info-metadata
 type AlpineVersion struct {
 	// slice of number components which can be compared in a semver-like manner
-	components []*big.Int
+	components Components
 	// optional single lower-case letter
 	letter string
 	// slice of one or more suffixes, prefixed with "_" and optionally followed by a number.
@@ -44,6 +44,10 @@ type AlpineVersion struct {
 }
 
 func (v AlpineVersion) Compare(w AlpineVersion) int {
+	if diff := v.components.Cmp(w.components); diff != 0 {
+		return diff
+	}
+
 	return 0
 }
 
