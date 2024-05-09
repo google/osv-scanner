@@ -121,16 +121,18 @@ func parseAlpineHash(v *AlpineVersion, str string) string {
 //
 // This parser must be applied *after* parseAlpineBuildComponent
 func parseAlpineBuildComponent(v *AlpineVersion, str string) string {
-	// todo: we should be handling "-r" without a number
-	str, hasPrefix := strings.CutPrefix(str, "-r")
+	re := cachedregexp.MustCompile(`-r(\d+)`)
 
-	if hasPrefix {
-		v.buildComponent = convertToBigIntOrPanic(str)
+	matches := re.FindStringSubmatch(str)
+
+	// no build component, so nothing to do
+	if matches == nil {
+		return str
 	}
 
-	// todo: we're expected to return the "remainder" of the string, which doesn't
-	//   matter here because this is the last parser, but we should be professional
-	return str
+	v.buildComponent = convertToBigIntOrPanic(matches[1])
+
+	return strings.TrimPrefix(str, matches[0])
 }
 
 func parseAlpineVersion(str string) AlpineVersion {
