@@ -112,7 +112,7 @@ func TestParseGoLock_WithPathMajor(t *testing.T) {
 			},
 			VersionLocation: &models.FilePosition{
 				Line:   models.Position{Start: 2, End: 2},
-				Column: models.Position{Start: 46, End: 46},
+				Column: models.Position{Start: 46, End: 47},
 			},
 			NameLocation: &models.FilePosition{
 				Line:   models.Position{Start: 2, End: 2},
@@ -190,7 +190,7 @@ func TestParseGoLock_OnePackage(t *testing.T) {
 			},
 			VersionLocation: &models.FilePosition{
 				Line:   models.Position{Start: 4, End: 4},
-				Column: models.Position{Start: 30, End: 34},
+				Column: models.Position{Start: 30, End: 35},
 			},
 			NameLocation: &models.FilePosition{
 				Line:   models.Position{Start: 4, End: 4},
@@ -221,7 +221,7 @@ func TestParseGoLock_TwoPackages(t *testing.T) {
 			},
 			VersionLocation: &models.FilePosition{
 				Line:   models.Position{Start: 6, End: 6},
-				Column: models.Position{Start: 30, End: 34},
+				Column: models.Position{Start: 30, End: 35},
 			},
 			NameLocation: &models.FilePosition{
 				Line:   models.Position{Start: 6, End: 6},
@@ -239,7 +239,7 @@ func TestParseGoLock_TwoPackages(t *testing.T) {
 			},
 			VersionLocation: &models.FilePosition{
 				Line:   models.Position{Start: 7, End: 7},
-				Column: models.Position{Start: 20, End: 24},
+				Column: models.Position{Start: 20, End: 25},
 			},
 			NameLocation: &models.FilePosition{
 				Line:   models.Position{Start: 7, End: 7},
@@ -276,7 +276,7 @@ func TestParseGoLock_IndirectPackages(t *testing.T) {
 			},
 			VersionLocation: &models.FilePosition{
 				Line:   models.Position{Start: 6, End: 6},
-				Column: models.Position{Start: 30, End: 34},
+				Column: models.Position{Start: 30, End: 35},
 			},
 			NameLocation: &models.FilePosition{
 				Line:   models.Position{Start: 6, End: 6},
@@ -294,7 +294,7 @@ func TestParseGoLock_IndirectPackages(t *testing.T) {
 			},
 			VersionLocation: &models.FilePosition{
 				Line:   models.Position{Start: 7, End: 7},
-				Column: models.Position{Start: 20, End: 24},
+				Column: models.Position{Start: 20, End: 25},
 			},
 			NameLocation: &models.FilePosition{
 				Line:   models.Position{Start: 7, End: 7},
@@ -312,7 +312,7 @@ func TestParseGoLock_IndirectPackages(t *testing.T) {
 			},
 			VersionLocation: &models.FilePosition{
 				Line:   models.Position{Start: 11, End: 11},
-				Column: models.Position{Start: 33, End: 37},
+				Column: models.Position{Start: 33, End: 38},
 			},
 			NameLocation: &models.FilePosition{
 				Line:   models.Position{Start: 11, End: 11},
@@ -330,7 +330,7 @@ func TestParseGoLock_IndirectPackages(t *testing.T) {
 			},
 			VersionLocation: &models.FilePosition{
 				Line:   models.Position{Start: 12, End: 12},
-				Column: models.Position{Start: 30, End: 35},
+				Column: models.Position{Start: 30, End: 36},
 			},
 			NameLocation: &models.FilePosition{
 				Line:   models.Position{Start: 12, End: 12},
@@ -348,7 +348,7 @@ func TestParseGoLock_IndirectPackages(t *testing.T) {
 			},
 			VersionLocation: &models.FilePosition{
 				Line:   models.Position{Start: 13, End: 13},
-				Column: models.Position{Start: 20, End: 52},
+				Column: models.Position{Start: 20, End: 53},
 			},
 			NameLocation: &models.FilePosition{
 				Line:   models.Position{Start: 13, End: 13},
@@ -385,7 +385,7 @@ func TestParseGoLock_Replacements_One(t *testing.T) {
 			},
 			VersionLocation: &models.FilePosition{
 				Line:   models.Position{Start: 5, End: 5},
-				Column: models.Position{Start: 58, End: 62},
+				Column: models.Position{Start: 58, End: 63},
 			},
 			NameLocation: &models.FilePosition{
 				Line:   models.Position{Start: 5, End: 5},
@@ -416,7 +416,7 @@ func TestParseGoLock_Replacements_Mixed(t *testing.T) {
 			},
 			VersionLocation: &models.FilePosition{
 				Line:   models.Position{Start: 7, End: 7},
-				Column: models.Position{Start: 54, End: 58},
+				Column: models.Position{Start: 54, End: 59},
 			},
 			NameLocation: &models.FilePosition{
 				Line:   models.Position{Start: 7, End: 7},
@@ -434,7 +434,7 @@ func TestParseGoLock_Replacements_Mixed(t *testing.T) {
 			},
 			VersionLocation: &models.FilePosition{
 				Line:   models.Position{Start: 3, End: 3},
-				Column: models.Position{Start: 23, End: 27},
+				Column: models.Position{Start: 23, End: 28},
 			},
 			NameLocation: &models.FilePosition{
 				Line:   models.Position{Start: 3, End: 3},
@@ -465,7 +465,7 @@ func TestParseGoLock_Replacements_Local(t *testing.T) {
 			},
 			VersionLocation: &models.FilePosition{
 				Line:   models.Position{Start: 3, End: 3},
-				Column: models.Position{Start: 33, End: 37},
+				Column: models.Position{Start: 33, End: 38},
 			},
 			NameLocation: &models.FilePosition{
 				Line:   models.Position{Start: 3, End: 3},
@@ -496,7 +496,7 @@ func TestParseGoLock_Replacements_Different(t *testing.T) {
 			},
 			VersionLocation: &models.FilePosition{
 				Line:   models.Position{Start: 7, End: 7},
-				Column: models.Position{Start: 54, End: 58},
+				Column: models.Position{Start: 54, End: 59},
 			},
 			NameLocation: &models.FilePosition{
 				Line:   models.Position{Start: 7, End: 7},
@@ -514,7 +514,7 @@ func TestParseGoLock_Replacements_Different(t *testing.T) {
 			},
 			VersionLocation: &models.FilePosition{
 				Line:   models.Position{Start: 8, End: 8},
-				Column: models.Position{Start: 54, End: 58},
+				Column: models.Position{Start: 54, End: 59},
 			},
 			NameLocation: &models.FilePosition{
 				Line:   models.Position{Start: 8, End: 8},
@@ -545,7 +545,7 @@ func TestParseGoLock_Replacements_NotRequired(t *testing.T) {
 			},
 			VersionLocation: &models.FilePosition{
 				Line:   models.Position{Start: 2, End: 2},
-				Column: models.Position{Start: 23, End: 27},
+				Column: models.Position{Start: 23, End: 28},
 			},
 			NameLocation: &models.FilePosition{
 				Line:   models.Position{Start: 2, End: 2},
@@ -563,7 +563,7 @@ func TestParseGoLock_Replacements_NotRequired(t *testing.T) {
 			},
 			VersionLocation: &models.FilePosition{
 				Line:   models.Position{Start: 3, End: 3},
-				Column: models.Position{Start: 33, End: 37},
+				Column: models.Position{Start: 33, End: 38},
 			},
 			NameLocation: &models.FilePosition{
 				Line:   models.Position{Start: 3, End: 3},
@@ -594,7 +594,7 @@ func TestParseGoLock_Replacements_NoVersion(t *testing.T) {
 			},
 			VersionLocation: &models.FilePosition{
 				Line:   models.Position{Start: 7, End: 7},
-				Column: models.Position{Start: 47, End: 51},
+				Column: models.Position{Start: 47, End: 52},
 			},
 			NameLocation: &models.FilePosition{
 				Line:   models.Position{Start: 7, End: 7},

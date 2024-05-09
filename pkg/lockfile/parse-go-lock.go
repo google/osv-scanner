@@ -7,6 +7,8 @@ import (
 	"path/filepath"
 	"strings"
 
+	"github.com/google/osv-scanner/internal/utility/fileposition"
+
 	"golang.org/x/mod/module"
 
 	"github.com/google/osv-scanner/pkg/models"
@@ -57,50 +59,6 @@ func splitLines(data []byte) []string {
 	str := string(data)
 	return strings.Split(str, "\n")
 }
-
-func extractVersionPosition(lines []string, version string, start modfile.Position, end modfile.Position) *models.FilePosition {
-	if start.Line > len(lines) {
-		return nil
-	}
-
-	line := lines[start.Line-1]
-	versionStartColumn := strings.LastIndex(line, version) + 1 // column start is 1-based
-
-	if versionStartColumn == 0 {
-		// It may happen if the version is not defined in the gomod file
-		// e.g. `require github.com/elastic/go-elasticsearch master`
-		// In this case the reported version is v0.0.0 (see func `defaultNonCanonicalVersions`).
-		return nil
-	}
-
-	// versionStartColumn is the first character of the version, we should not count it to calculate the end
-	versionEndColumn := versionStartColumn + len(version) - 1
-
-	return &models.FilePosition{
-		Line:   models.Position{Start: start.Line, End: end.Line},
-		Column: models.Position{Start: versionStartColumn, End: versionEndColumn},
-	}
-}
-
-func extractNamePosition(lines []string, name string, start modfile.Position, end modfile.Position) *models.FilePosition {
-	if start.Line > len(lines) {
-		return nil
-	}
-
-	line := lines[start.Line-1]
-	nameStartColumn := strings.Index(line, name) + 1
-
-	if nameStartColumn == 0 {
-		return nil
-	}
-	nameEndColumn := nameStartColumn + len(name)
-
-	return &models.FilePosition{
-		Line:   models.Position{Start: start.Line, End: end.Line},
-		Column: models.Position{Start: nameStartColumn, End: nameEndColumn},
-	}
-}
-
 func (e GoLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 	var parsedLockfile *modfile.File
 
@@ -120,12 +78,12 @@ func (e GoLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 	for _, require := range parsedLockfile.Require {
 		var start = require.Syntax.Start
 		var end = require.Syntax.End
+		block := lines[start.Line-1 : end.Line]
 		version := strings.TrimPrefix(require.Mod.Version, "v")
-		versionLocation := extractVersionPosition(lines, version, start, end)
-		nameLocation := extractNamePosition(lines, require.Mod.Path, start, end)
+		name := require.Mod.Path
 
 		packages[require.Mod.Path+"@"+require.Mod.Version] = PackageDetails{
-			Name:      require.Mod.Path,
+			Name:      name,
 			Version:   version,
 			Ecosystem: GoEcosystem,
 			CompareAs: GoEcosystem,
@@ -133,14 +91,15 @@ func (e GoLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 				Line:   models.Position{Start: start.Line, End: end.Line},
 				Column: models.Position{Start: start.LineRune, End: end.LineRune},
 			},
-			VersionLocation: versionLocation,
-			NameLocation:    nameLocation,
+			VersionLocation: fileposition.ExtractStringPositionInBlock(block, version, start.Line),
+			NameLocation:    fileposition.ExtractStringPositionInBlock(block, name, start.Line),
 		}
 	}
 
 	for _, replace := range parsedLockfile.Replace {
 		var start = replace.Syntax.Start
 		var end = replace.Syntax.End
+		block := lines[start.Line-1 : end.Line]
 		var replacements []string
 
 		if replace.Old.Version == "" {
@@ -163,6 +122,7 @@ func (e GoLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 
 		for _, replacement := range replacements {
 			version := strings.TrimPrefix(replace.New.Version, "v")
+			name := replace.New.Path
 
 			if len(version) == 0 {
 				// There is no version specified on the replacement, it means the artifact is directly accessible
@@ -171,7 +131,7 @@ func (e GoLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 				continue
 			}
 			packages[replacement] = PackageDetails{
-				Name:      replace.New.Path,
+				Name:      name,
 				Version:   version,
 				Ecosystem: GoEcosystem,
 				CompareAs: GoEcosystem,
@@ -179,8 +139,8 @@ func (e GoLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 					Line:   models.Position{Start: start.Line, End: end.Line},
 					Column: models.Position{Start: start.LineRune, End: end.LineRune},
 				},
-				VersionLocation: extractVersionPosition(lines, version, start, end),
-				NameLocation:    extractNamePosition(lines, replace.New.Path, start, end),
+				VersionLocation: fileposition.ExtractStringPositionInBlock(block, version, start.Line),
+				NameLocation:    fileposition.ExtractStringPositionInBlock(block, name, start.Line),
 			}
 		}
 	}

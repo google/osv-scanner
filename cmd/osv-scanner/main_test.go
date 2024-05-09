@@ -1996,7 +1996,7 @@ func TestRun_WithEncodedLockfile(t *testing.T) {
 						LineStart:   5,
 						LineEnd:     5,
 						ColumnStart: 37,
-						ColumnEnd:   41,
+						ColumnEnd:   42,
 					},
 					Name: &models.PackageLocation{
 						Filename:    "go.mod",
