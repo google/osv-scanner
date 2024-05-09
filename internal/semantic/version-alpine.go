@@ -43,8 +43,55 @@ type AlpineVersion struct {
 	buildComponent *big.Int
 }
 
+// weights the given suffix based on the sort order of official supported suffixes.
+func weightSuffix(versionSuffix string) int {
+	supported := []string{"alpha", "beta", "pre", "rc", "", "cvs", "svn", "git", "hg", "p"}
+
+	// the leading underscore does not factor into the weighting
+	versionSuffix = strings.TrimSuffix(versionSuffix, "_")
+
+	for i, s := range supported {
+		if (s != "" && strings.HasSuffix(versionSuffix, s)) || versionSuffix == "" {
+			return i
+		}
+	}
+
+	return len(supported)
+}
+
+// Returns the first suffix of this version, or otherwise an empty string
+func (v AlpineVersion) firstSuffix() string {
+	if len(v.suffixes) == 0 {
+		return ""
+	}
+
+	return v.suffixes[0]
+}
+
+func (v AlpineVersion) compareSuffixes(w AlpineVersion) int {
+	// todo: the "spec" says "this can follow one or more *\_suffix{number}* components",
+	//   indicating that there could be multiple suffixes, but it does not comment on if
+	//   more or less suffixes take priority?
+
+	// *alpha*, *beta*, *pre*, *rc*, <no suffix>, *cvs*, *svn*, *git*, *hg*, *p*
+	vWeight := weightSuffix(v.firstSuffix())
+	wWeight := weightSuffix(w.firstSuffix())
+
+	if vWeight > wWeight {
+		return +1
+	}
+	if vWeight < wWeight {
+		return -1
+	}
+
+	return 0
+}
+
 func (v AlpineVersion) Compare(w AlpineVersion) int {
 	if diff := v.components.Cmp(w.components); diff != 0 {
+		return diff
+	}
+	if diff := v.compareSuffixes(w); diff != 0 {
 		return diff
 	}
 
