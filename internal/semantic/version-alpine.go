@@ -72,7 +72,7 @@ func weightSuffixString(suffixStr string) int {
 // Returns the first suffix of this version, or otherwise an empty string
 func (v AlpineVersion) firstSuffix() alpineSuffix {
 	if len(v.suffixes) == 0 {
-		return alpineSuffix{}
+		return alpineSuffix{number: new(big.Int)}
 	}
 
 	return v.suffixes[0]
@@ -94,7 +94,7 @@ func (v AlpineVersion) compareSuffixes(w AlpineVersion) int {
 		return -1
 	}
 
-	return 0
+	return vs.number.Cmp(ws.number)
 }
 
 func (v AlpineVersion) Compare(w AlpineVersion) int {
