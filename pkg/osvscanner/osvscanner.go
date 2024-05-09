@@ -670,8 +670,11 @@ func filterPackageVulns(r reporter.Reporter, pkgVulns models.PackageVulns, confi
 
 	var newVulns []models.Vulnerability
 	if len(newGroups) > 0 { // If there are no groups left then there would be no vulnerabilities.
+		unimportantCount := 0
 		for _, vuln := range pkgVulns.Vulnerabilities {
 			if isUnimportant(pkgVulns.Package.Ecosystem, vuln.Affected) {
+				unimportantCount++
+				r.Verbosef("%s has been filtered out due to its unimportance.", vuln.ID)
 				continue
 			}
 
@@ -679,6 +682,7 @@ func filterPackageVulns(r reporter.Reporter, pkgVulns models.PackageVulns, confi
 				newVulns = append(newVulns, vuln)
 			}
 		}
+		r.Infof("%d unimportant vulnerabilities have been filtered out.", unimportantCount)
 	}
 
 	// Passed by value. We don't want to alter the original PackageVulns.
