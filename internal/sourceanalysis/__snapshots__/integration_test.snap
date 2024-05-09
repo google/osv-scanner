@@ -124,7 +124,7 @@
           "position": {
             "filename": "\u003cAny value\u003e",
             "offset": -1,
-            "line": 844,
+            "line": 839,
             "column": 21
           }
         },
@@ -133,38 +133,62 @@
           "version": "v1.19.0",
           "package": "net/http",
           "function": "Read",
-          "receiver": "*body",
+          "receiver": "bodyLocked",
           "position": {
             "filename": "\u003cAny value\u003e",
             "offset": -1,
-            "line": 836,
+            "line": 1038,
+            "column": 24
+          }
+        },
+        {
+          "module": "stdlib",
+          "version": "v1.19.0",
+          "package": "io",
+          "function": "copyBuffer",
+          "position": {
+            "filename": "\u003cAny value\u003e",
+            "offset": -1,
+            "line": 430,
             "column": 21
           }
         },
         {
           "module": "stdlib",
           "version": "v1.19.0",
-          "package": "bufio",
-          "function": "fill",
-          "receiver": "*Reader",
+          "package": "io",
+          "function": "Copy",
           "position": {
             "filename": "\u003cAny value\u003e",
             "offset": -1,
-            "line": 110,
-            "column": 22
+            "line": 389,
+            "column": 19
           }
         },
         {
           "module": "stdlib",
           "version": "v1.19.0",
-          "package": "bufio",
-          "function": "Peek",
-          "receiver": "*Reader",
+          "package": "net/http",
+          "function": "Close",
+          "receiver": "*body",
           "position": {
             "filename": "\u003cAny value\u003e",
             "offset": -1,
-            "line": 148,
-            "column": 9
+            "line": 1002,
+            "column": 19
+          }
+        },
+        {
+          "module": "stdlib",
+          "version": "v1.19.0",
+          "package": "net/http",
+          "function": "finishRequest",
+          "receiver": "*response",
+          "position": {
+            "filename": "\u003cAny value\u003e",
+            "offset": -1,
+            "line": 1670,
+            "column": 17
           }
         },
         {
@@ -176,8 +200,8 @@
           "position": {
             "filename": "\u003cAny value\u003e",
             "offset": -1,
-            "line": 2076,
-            "column": 27
+            "line": 2015,
+            "column": 18
           }
         },
         {
@@ -189,7 +213,7 @@
           "position": {
             "filename": "\u003cAny value\u003e",
             "offset": -1,
-            "line": 3290,
+            "line": 3086,
             "column": 3
           }
         },
@@ -202,7 +226,7 @@
           "position": {
             "filename": "\u003cAny value\u003e",
             "offset": -1,
-            "line": 3187,
+            "line": 2985,
             "column": 18
           }
         },
@@ -214,7 +238,7 @@
           "position": {
             "filename": "\u003cAny value\u003e",
             "offset": -1,
-            "line": 3445,
+            "line": 3239,
             "column": 30
           }
         },
