@@ -7,6 +7,14 @@ import (
 	"github.com/google/osv-scanner/internal/cachedregexp"
 )
 
+type alpineSuffix struct {
+	// the weight of this suffix for sorting, and implicitly what actual string it is:
+	//   *alpha*, *beta*, *pre*, *rc*, <no suffix>, *cvs*, *svn*, *git*, *hg*, *p*
+	weight int
+	// the number value of this suffix component
+	number *big.Int
+}
+
 // AlpineVersion represents a version of an Alpine package.
 //
 // Currently, the APK version specification is as follows:
@@ -36,33 +44,35 @@ type AlpineVersion struct {
 	//
 	// supported suffixes and their sort order are:
 	//	*alpha*, *beta*, *pre*, *rc*, <no suffix>, *cvs*, *svn*, *git*, *hg*, *p*
-	suffixes []string
+	suffixes []alpineSuffix
 	// optional commit hash made up of any number of lower case hexadecimal digits (0-9a-f)
 	hash string
 	// prefixed with "-r{number}"
 	buildComponent *big.Int
 }
 
-// weights the given suffix based on the sort order of official supported suffixes.
-func weightSuffix(versionSuffix string) int {
+// weights the given suffix string based on the sort order of official supported suffixes.
+//
+// this is expected to be _just_ the suffix "string" i.e. it should not start with a "_"
+// or have any trailing numbers.
+func weightSuffixString(suffixStr string) int {
 	supported := []string{"alpha", "beta", "pre", "rc", "", "cvs", "svn", "git", "hg", "p"}
 
-	// the leading underscore does not factor into the weighting
-	versionSuffix = strings.TrimSuffix(versionSuffix, "_")
-
 	for i, s := range supported {
-		if (s != "" && strings.HasSuffix(versionSuffix, s)) || versionSuffix == "" {
+		if (s != "" && strings.HasSuffix(suffixStr, s)) || suffixStr == "" {
 			return i
 		}
 	}
 
+	// anything else gets sorted at the end
+	// todo: or should they be sorted to the start..?
 	return len(supported)
 }
 
 // Returns the first suffix of this version, or otherwise an empty string
-func (v AlpineVersion) firstSuffix() string {
+func (v AlpineVersion) firstSuffix() alpineSuffix {
 	if len(v.suffixes) == 0 {
-		return ""
+		return alpineSuffix{}
 	}
 
 	return v.suffixes[0]
@@ -74,13 +84,13 @@ func (v AlpineVersion) compareSuffixes(w AlpineVersion) int {
 	//   more or less suffixes take priority?
 
 	// *alpha*, *beta*, *pre*, *rc*, <no suffix>, *cvs*, *svn*, *git*, *hg*, *p*
-	vWeight := weightSuffix(v.firstSuffix())
-	wWeight := weightSuffix(w.firstSuffix())
+	vs := v.firstSuffix()
+	ws := w.firstSuffix()
 
-	if vWeight > wWeight {
+	if vs.weight > ws.weight {
 		return +1
 	}
-	if vWeight < wWeight {
+	if vs.weight < ws.weight {
 		return -1
 	}
 
@@ -139,11 +149,15 @@ func parseAlpineLetter(v *AlpineVersion, str string) string {
 //
 // This parser must be applied *after* parseAlpineLetter.
 func parseAlpineSuffixes(v *AlpineVersion, str string) string {
-	re := cachedregexp.MustCompile(`_(alpha|beta|pre|rc|cvs|svn|git|hg|p)\d+`)
+	// todo: ensure we're matching "no number" suffixes too
+	re := cachedregexp.MustCompile(`_(alpha|beta|pre|rc|cvs|svn|git|hg|p)(\d+)`)
 
-	for _, suffix := range re.FindAllString(str, -1) {
-		v.suffixes = append(v.suffixes, suffix)
-		str = strings.TrimSuffix(str, suffix)
+	for _, suffix := range re.FindAllStringSubmatch(str, -1) {
+		v.suffixes = append(v.suffixes, alpineSuffix{
+			weight: weightSuffixString(suffix[1]),
+			number: convertToBigIntOrPanic(suffix[2]),
+		})
+		str = strings.TrimSuffix(str, suffix[0])
 	}
 
 	return str
