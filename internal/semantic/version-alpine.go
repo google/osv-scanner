@@ -114,12 +114,15 @@ func (v AlpineVersion) compareBuildComponents(w AlpineVersion) int {
 }
 
 func (v AlpineVersion) Compare(w AlpineVersion) int {
+	// todo: handle invalid versions
 	if diff := v.components.Cmp(w.components); diff != 0 {
 		return diff
 	}
+	// todo: we should probably be comparing letters but none of our fixtures have them...
 	if diff := v.compareSuffixes(w); diff != 0 {
 		return diff
 	}
+	// todo: compare hashes
 	if diff := v.compareBuildComponents(w); diff != 0 {
 		return diff
 	}
