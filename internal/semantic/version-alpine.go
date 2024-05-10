@@ -97,11 +97,26 @@ func (v AlpineVersion) compareSuffixes(w AlpineVersion) int {
 	return vs.number.Cmp(ws.number)
 }
 
+func (v AlpineVersion) compareBuildComponents(w AlpineVersion) int {
+	if v.buildComponent == nil && w.buildComponent != nil {
+		return -1
+	}
+	if v.buildComponent != nil && w.buildComponent == nil {
+		return +1
+	}
+
+	// todo: we should actually _compare_ the values...
+	return 0
+}
+
 func (v AlpineVersion) Compare(w AlpineVersion) int {
 	if diff := v.components.Cmp(w.components); diff != 0 {
 		return diff
 	}
 	if diff := v.compareSuffixes(w); diff != 0 {
+		return diff
+	}
+	if diff := v.compareBuildComponents(w); diff != 0 {
 		return diff
 	}
 
