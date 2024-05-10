@@ -171,8 +171,12 @@ func parseAlpineLetter(v *AlpineVersion, str string) string {
 //
 // This parser must be applied *after* parseAlpineLetter.
 func parseAlpineSuffixes(v *AlpineVersion, str string) string {
+	// consider the leading underscore optional for now to account for legacy versions
+	// that were published before apk started to enforce it at build time
+	//
+	// see https://gitlab.alpinelinux.org/alpine/abuild/-/issues/10088 & co
 	// todo: ensure we're matching "no number" suffixes too
-	re := cachedregexp.MustCompile(`^_(alpha|beta|pre|rc|cvs|svn|git|hg|p)(\d+)`)
+	re := cachedregexp.MustCompile(`^_?(alpha|beta|pre|rc|cvs|svn|git|hg|p)(\d+)`)
 
 	for _, match := range re.FindAllStringSubmatch(str, -1) {
 		v.suffixes = append(v.suffixes, alpineSuffix{
