@@ -110,6 +110,14 @@ func TestParsePipenvLock_OnePackage(t *testing.T) {
 				Line:   models.Position{Start: 19, End: 64},
 				Column: models.Position{Start: 9, End: 10},
 			},
+			NameLocation: &models.FilePosition{
+				Line:   models.Position{Start: 19, End: 19},
+				Column: models.Position{Start: 10, End: 20},
+			},
+			VersionLocation: &models.FilePosition{
+				Line:   models.Position{Start: 63, End: 63},
+				Column: models.Position{Start: 25, End: 32},
+			},
 		},
 	})
 }
@@ -132,6 +140,14 @@ func TestParsePipenvLock_OnePackageDev(t *testing.T) {
 			BlockLocation: models.FilePosition{
 				Line:   models.Position{Start: 20, End: 65},
 				Column: models.Position{Start: 9, End: 10},
+			},
+			NameLocation: &models.FilePosition{
+				Line:   models.Position{Start: 20, End: 20},
+				Column: models.Position{Start: 10, End: 20},
+			},
+			VersionLocation: &models.FilePosition{
+				Line:   models.Position{Start: 64, End: 64},
+				Column: models.Position{Start: 25, End: 32},
 			},
 			DepGroups: []string{"dev"},
 		},
@@ -157,6 +173,14 @@ func TestParsePipenvLock_TwoPackages(t *testing.T) {
 				Line:   models.Position{Start: 19, End: 26},
 				Column: models.Position{Start: 7, End: 8},
 			},
+			NameLocation: &models.FilePosition{
+				Line:   models.Position{Start: 19, End: 19},
+				Column: models.Position{Start: 8, End: 20},
+			},
+			VersionLocation: &models.FilePosition{
+				Line:   models.Position{Start: 25, End: 25},
+				Column: models.Position{Start: 23, End: 30},
+			},
 		},
 		{
 			Name:      "markupsafe",
@@ -166,6 +190,14 @@ func TestParsePipenvLock_TwoPackages(t *testing.T) {
 			BlockLocation: models.FilePosition{
 				Line:   models.Position{Start: 29, End: 74},
 				Column: models.Position{Start: 7, End: 8},
+			},
+			NameLocation: &models.FilePosition{
+				Line:   models.Position{Start: 29, End: 29},
+				Column: models.Position{Start: 8, End: 18},
+			},
+			VersionLocation: &models.FilePosition{
+				Line:   models.Position{Start: 73, End: 73},
+				Column: models.Position{Start: 23, End: 30},
 			},
 			DepGroups: []string{"dev"},
 		},
@@ -191,6 +223,14 @@ func TestParsePipenvLock_TwoPackagesAlt(t *testing.T) {
 				Line:   models.Position{Start: 19, End: 26},
 				Column: models.Position{Start: 7, End: 8},
 			},
+			NameLocation: &models.FilePosition{
+				Line:   models.Position{Start: 19, End: 19},
+				Column: models.Position{Start: 8, End: 20},
+			},
+			VersionLocation: &models.FilePosition{
+				Line:   models.Position{Start: 25, End: 25},
+				Column: models.Position{Start: 23, End: 30},
+			},
 		},
 		{
 			Name:      "markupsafe",
@@ -200,6 +240,14 @@ func TestParsePipenvLock_TwoPackagesAlt(t *testing.T) {
 			BlockLocation: models.FilePosition{
 				Line:   models.Position{Start: 27, End: 72},
 				Column: models.Position{Start: 7, End: 8},
+			},
+			NameLocation: &models.FilePosition{
+				Line:   models.Position{Start: 27, End: 27},
+				Column: models.Position{Start: 8, End: 18},
+			},
+			VersionLocation: &models.FilePosition{
+				Line:   models.Position{Start: 71, End: 71},
+				Column: models.Position{Start: 23, End: 30},
 			},
 		},
 	})
@@ -224,6 +272,14 @@ func TestParsePipenvLock_MultiplePackages(t *testing.T) {
 				Line:   models.Position{Start: 19, End: 26},
 				Column: models.Position{Start: 7, End: 8},
 			},
+			NameLocation: &models.FilePosition{
+				Line:   models.Position{Start: 19, End: 19},
+				Column: models.Position{Start: 8, End: 20},
+			},
+			VersionLocation: &models.FilePosition{
+				Line:   models.Position{Start: 25, End: 25},
+				Column: models.Position{Start: 23, End: 30},
+			},
 		},
 		{
 			Name:      "pluggy",
@@ -233,6 +289,14 @@ func TestParsePipenvLock_MultiplePackages(t *testing.T) {
 			BlockLocation: models.FilePosition{
 				Line:   models.Position{Start: 27, End: 31},
 				Column: models.Position{Start: 7, End: 8},
+			},
+			NameLocation: &models.FilePosition{
+				Line:   models.Position{Start: 27, End: 27},
+				Column: models.Position{Start: 8, End: 14},
+			},
+			VersionLocation: &models.FilePosition{
+				Line:   models.Position{Start: 30, End: 30},
+				Column: models.Position{Start: 23, End: 30},
 			},
 		},
 		{
@@ -244,6 +308,14 @@ func TestParsePipenvLock_MultiplePackages(t *testing.T) {
 				Line:   models.Position{Start: 88, End: 95},
 				Column: models.Position{Start: 7, End: 8},
 			},
+			NameLocation: &models.FilePosition{
+				Line:   models.Position{Start: 88, End: 88},
+				Column: models.Position{Start: 8, End: 14},
+			},
+			VersionLocation: &models.FilePosition{
+				Line:   models.Position{Start: 94, End: 94},
+				Column: models.Position{Start: 23, End: 30},
+			},
 			DepGroups: []string{"dev"},
 		},
 		{
@@ -254,6 +326,14 @@ func TestParsePipenvLock_MultiplePackages(t *testing.T) {
 			BlockLocation: models.FilePosition{
 				Line:   models.Position{Start: 32, End: 77},
 				Column: models.Position{Start: 7, End: 8},
+			},
+			NameLocation: &models.FilePosition{
+				Line:   models.Position{Start: 32, End: 32},
+				Column: models.Position{Start: 8, End: 18},
+			},
+			VersionLocation: &models.FilePosition{
+				Line:   models.Position{Start: 76, End: 76},
+				Column: models.Position{Start: 23, End: 30},
 			},
 		},
 	})

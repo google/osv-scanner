@@ -15,6 +15,8 @@ import (
 type PipenvPackage struct {
 	Version string `json:"version"`
 	models.FilePosition
+	NamePosition    *models.FilePosition
+	VersionPosition *models.FilePosition
 }
 
 type PipenvLock struct {
@@ -53,12 +55,30 @@ func (e PipenvLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 	fileposition.InJSON("default", parsedLockfile.Packages, lines, 0)
 	fileposition.InJSON("develop", parsedLockfile.PackagesDev, lines, 0)
 
+	extractNameAndVersionPosition(lines, parsedLockfile.Packages)
+	extractNameAndVersionPosition(lines, parsedLockfile.PackagesDev)
+
 	details := make(map[string]PackageDetails)
 
 	addPkgDetails(details, parsedLockfile.Packages, "")
 	addPkgDetails(details, parsedLockfile.PackagesDev, "dev")
 
 	return pkgDetailsMapToSlice(details), nil
+}
+
+func extractNameAndVersionPosition(lines []string, packages map[string]*PipenvPackage) {
+	namePrefix := `"`
+	nameSuffix := `": {`
+
+	versionPrefix := `"version": "`
+	versionSuffix := `"`
+
+	for name, pipenvPackage := range packages {
+		blockLine := lines[pipenvPackage.Line.Start-1 : pipenvPackage.Line.End]
+
+		pipenvPackage.NamePosition = fileposition.ExtractDelimitedStringPositionInBlock(blockLine, name, pipenvPackage.Line.Start, namePrefix, nameSuffix)
+		pipenvPackage.VersionPosition = fileposition.ExtractDelimitedStringPositionInBlock(blockLine, pipenvPackage.Version, pipenvPackage.Line.Start, versionPrefix, versionSuffix)
+	}
 }
 
 func addPkgDetails(details map[string]PackageDetails, packages map[string]*PipenvPackage, group string) {
@@ -79,6 +99,8 @@ func addPkgDetails(details map[string]PackageDetails, packages map[string]*Pipen
 					Line:   pipenvPackage.Line,
 					Column: pipenvPackage.Column,
 				},
+				NameLocation:    pipenvPackage.NamePosition,
+				VersionLocation: pipenvPackage.VersionPosition,
 			}
 			if group != "" {
 				pkgDetails.DepGroups = append(pkgDetails.DepGroups, group)

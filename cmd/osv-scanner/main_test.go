@@ -2061,6 +2061,20 @@ func TestRun_WithEncodedLockfile(t *testing.T) {
 						ColumnStart: 9,
 						ColumnEnd:   10,
 					},
+					Version: &models.PackageLocation{
+						Filename:    "Pipfile.lock",
+						LineStart:   63,
+						LineEnd:     63,
+						ColumnStart: 25,
+						ColumnEnd:   32,
+					},
+					Name: &models.PackageLocation{
+						Filename:    "Pipfile.lock",
+						LineStart:   19,
+						LineEnd:     19,
+						ColumnStart: 10,
+						ColumnEnd:   20,
+					},
 				}),
 			},
 			{
