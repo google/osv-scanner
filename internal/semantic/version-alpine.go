@@ -223,7 +223,7 @@ func parseAlpineBuildComponent(v *AlpineVersion, str string) string {
 }
 
 func parseAlpineVersion(str string) AlpineVersion {
-	v := AlpineVersion{}
+	v := AlpineVersion{buildComponent: new(big.Int)}
 
 	// todo: look at making these methods on AlpineVersion (though might need a pointer receiver)
 	str = parseAlpineNumberComponents(&v, str)
