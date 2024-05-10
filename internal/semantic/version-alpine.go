@@ -157,7 +157,7 @@ func parseAlpineNumberComponents(v *AlpineVersion, str string) string {
 //
 // This parser must be applied *after* parseAlpineNumberComponents.
 func parseAlpineLetter(v *AlpineVersion, str string) string {
-	if cachedregexp.MustCompile(`[a-z]`).MatchString(str[:0]) {
+	if cachedregexp.MustCompile(`^[a-z]`).MatchString(str) {
 		v.letter = str[:0]
 	}
 
@@ -172,14 +172,14 @@ func parseAlpineLetter(v *AlpineVersion, str string) string {
 // This parser must be applied *after* parseAlpineLetter.
 func parseAlpineSuffixes(v *AlpineVersion, str string) string {
 	// todo: ensure we're matching "no number" suffixes too
-	re := cachedregexp.MustCompile(`_(alpha|beta|pre|rc|cvs|svn|git|hg|p)(\d+)`)
+	re := cachedregexp.MustCompile(`^_(alpha|beta|pre|rc|cvs|svn|git|hg|p)(\d+)`)
 
-	for _, suffix := range re.FindAllStringSubmatch(str, -1) {
+	for _, match := range re.FindAllStringSubmatch(str, -1) {
 		v.suffixes = append(v.suffixes, alpineSuffix{
-			weight: weightSuffixString(suffix[1]),
-			number: convertToBigIntOrPanic(suffix[2]),
+			weight: weightSuffixString(match[1]),
+			number: convertToBigIntOrPanic(match[2]),
 		})
-		str = strings.TrimSuffix(str, suffix[0])
+		str = strings.TrimPrefix(str, match[0])
 	}
 
 	return str
@@ -193,7 +193,7 @@ func parseAlpineSuffixes(v *AlpineVersion, str string) string {
 //
 // This parser must be applied *after* parseAlpineSuffixes.
 func parseAlpineHash(v *AlpineVersion, str string) string {
-	re := cachedregexp.MustCompile(`([0-9a-f]+)`)
+	re := cachedregexp.MustCompile(`^([0-9a-f]+)`)
 
 	v.hash = re.FindString(str)
 
@@ -208,7 +208,7 @@ func parseAlpineHash(v *AlpineVersion, str string) string {
 //
 // This parser must be applied *after* parseAlpineBuildComponent
 func parseAlpineBuildComponent(v *AlpineVersion, str string) string {
-	re := cachedregexp.MustCompile(`-r(\d+)`)
+	re := cachedregexp.MustCompile(`^-r(\d+)`)
 
 	matches := re.FindStringSubmatch(str)
 
