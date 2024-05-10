@@ -1,8 +1,15 @@
+1-r1 = 1-r01
+1-r = 1-r0
+1-r-0 > 1-r0
+1-r-1 > 1-r0
+
 # invalid
 1-r2 > 1-r-1
 1 < 1-ruff
 
 # yes, these are all correct...
+1-r0-1 = 1-r-2
+1-r0-1 = 1-r0-2
 1-ruff2 = 1-ruff1
 1-ruff2 < 1--ruff1
 1-r0-ruff2 = 1-r0-ruff1
