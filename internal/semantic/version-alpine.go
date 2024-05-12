@@ -158,7 +158,7 @@ func parseAlpineNumberComponents(v *AlpineVersion, str string) string {
 // This parser must be applied *after* parseAlpineNumberComponents.
 func parseAlpineLetter(v *AlpineVersion, str string) string {
 	if cachedregexp.MustCompile(`^[a-z]`).MatchString(str) {
-		v.letter = str[:0]
+		v.letter = str[:1]
 	}
 
 	return strings.TrimPrefix(str, v.letter)
