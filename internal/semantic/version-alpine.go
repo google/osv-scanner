@@ -78,6 +78,17 @@ func (v AlpineVersion) firstSuffix() alpineSuffix {
 	return v.suffixes[0]
 }
 
+func (v AlpineVersion) compareLetters(w AlpineVersion) int {
+	if v.letter == "" && w.letter != "" {
+		return -1
+	}
+	if v.letter != "" && w.letter == "" {
+		return +1
+	}
+
+	return strings.Compare(v.letter, w.letter)
+}
+
 func (v AlpineVersion) compareSuffixes(w AlpineVersion) int {
 	// todo: the "spec" says "this can follow one or more *\_suffix{number}* components",
 	//   indicating that there could be multiple suffixes, but it does not comment on if
@@ -118,7 +129,9 @@ func (v AlpineVersion) Compare(w AlpineVersion) int {
 	if diff := v.components.Cmp(w.components); diff != 0 {
 		return diff
 	}
-	// todo: we should probably be comparing letters but none of our fixtures have them...
+	if diff := v.compareLetters(w); diff != 0 {
+		return diff
+	}
 	if diff := v.compareSuffixes(w); diff != 0 {
 		return diff
 	}
