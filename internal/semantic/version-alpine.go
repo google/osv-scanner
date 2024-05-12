@@ -175,10 +175,13 @@ func parseAlpineSuffixes(v *AlpineVersion, str string) string {
 	// that were published before apk started to enforce it at build time
 	//
 	// see https://gitlab.alpinelinux.org/alpine/abuild/-/issues/10088 & co
-	// todo: ensure we're matching "no number" suffixes too
-	re := cachedregexp.MustCompile(`^_?(alpha|beta|pre|rc|cvs|svn|git|hg|p)(\d+)`)
+	re := cachedregexp.MustCompile(`^_?(alpha|beta|pre|rc|cvs|svn|git|hg|p)(\d*)`)
 
 	for _, match := range re.FindAllStringSubmatch(str, -1) {
+		if match[2] == "" {
+			match[2] = "0"
+		}
+
 		v.suffixes = append(v.suffixes, alpineSuffix{
 			weight: weightSuffixString(match[1]),
 			number: convertToBigIntOrPanic(match[2]),
