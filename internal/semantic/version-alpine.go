@@ -242,7 +242,7 @@ func parseAlpineBuildComponent(v *AlpineVersion, str string) string {
 		return str
 	}
 
-	re := cachedregexp.MustCompile(`^-r(\d+)`)
+	re := cachedregexp.MustCompile(`^-r(\d*)`)
 
 	matches := re.FindStringSubmatch(str)
 
@@ -252,6 +252,10 @@ func parseAlpineBuildComponent(v *AlpineVersion, str string) string {
 		v.invalid = true
 
 		return str
+	}
+
+	if matches[1] == "" {
+		matches[1] = "0"
 	}
 
 	v.buildComponent = convertToBigIntOrPanic(matches[1])
