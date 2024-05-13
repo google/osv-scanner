@@ -58,21 +58,29 @@ func (e PoetryLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 	}
 
 	fileposition.InTOML("[[package]]", "[metadata]", parsedLockfile.Packages, lines)
-
 	packages := make([]PackageDetails, 0, len(parsedLockfile.Packages))
 
 	for _, lockPackage := range parsedLockfile.Packages {
-		pkgDetails := PackageDetails{
-			Name:    lockPackage.Name,
-			Version: lockPackage.Version,
-			Commit:  lockPackage.Source.Commit,
-			BlockLocation: models.FilePosition{
-				Line:   lockPackage.Line,
-				Column: lockPackage.Column,
-			},
-			Ecosystem: PoetryEcosystem,
-			CompareAs: PoetryEcosystem,
+		block := lines[lockPackage.Line.Start-1 : lockPackage.Line.End]
+
+		blockLocation := models.FilePosition{
+			Line:   lockPackage.Line,
+			Column: lockPackage.Column,
 		}
+		nameLocation := fileposition.ExtractDelimitedStringPositionInBlock(block, lockPackage.Name, lockPackage.Line.Start, "name = \"", "\"")
+		versionLocation := fileposition.ExtractDelimitedStringPositionInBlock(block, lockPackage.Version, lockPackage.Line.Start, "version = \"", "\"")
+
+		pkgDetails := PackageDetails{
+			Name:            lockPackage.Name,
+			Version:         lockPackage.Version,
+			Commit:          lockPackage.Source.Commit,
+			BlockLocation:   blockLocation,
+			NameLocation:    nameLocation,
+			VersionLocation: versionLocation,
+			Ecosystem:       PoetryEcosystem,
+			CompareAs:       PoetryEcosystem,
+		}
+
 		if lockPackage.Optional {
 			pkgDetails.DepGroups = append(pkgDetails.DepGroups, "optional")
 		}

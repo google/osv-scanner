@@ -2107,6 +2107,20 @@ func TestRun_WithEncodedLockfile(t *testing.T) {
 						ColumnStart: 1,
 						ColumnEnd:   26,
 					},
+					Version: &models.PackageLocation{
+						Filename:    "poetry.lock",
+						LineStart:   3,
+						LineEnd:     3,
+						ColumnStart: 12,
+						ColumnEnd:   18,
+					},
+					Name: &models.PackageLocation{
+						Filename:    "poetry.lock",
+						LineStart:   2,
+						LineEnd:     2,
+						ColumnStart: 9,
+						ColumnEnd:   14,
+					},
 				}),
 			},
 			{
