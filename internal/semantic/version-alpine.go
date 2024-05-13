@@ -36,6 +36,10 @@ type alpineSuffix struct {
 //
 // Also see https://github.com/alpinelinux/apk-tools/blob/master/doc/apk-package.5.scd#package-info-metadata
 type AlpineVersion struct {
+	// the original string that was parsed
+	original string
+	// whether the version was found to be invalid while parsing
+	invalid bool
 	// slice of number components which can be compared in a semver-like manner
 	components Components
 	// optional single lower-case letter
@@ -125,6 +129,11 @@ func (v AlpineVersion) compareBuildComponents(w AlpineVersion) int {
 }
 
 func (v AlpineVersion) Compare(w AlpineVersion) int {
+	// if both versions are invalid, then just use a string compare
+	if v.invalid && w.invalid {
+		return strings.Compare(v.original, w.original)
+	}
+
 	// todo: handle invalid versions
 	if diff := v.components.Cmp(w.components); diff != 0 {
 		return diff
@@ -229,12 +238,19 @@ func parseAlpineHash(v *AlpineVersion, str string) string {
 //
 // This parser must be applied *after* parseAlpineBuildComponent
 func parseAlpineBuildComponent(v *AlpineVersion, str string) string {
+	if str == "" {
+		return str
+	}
+
 	re := cachedregexp.MustCompile(`^-r(\d+)`)
 
 	matches := re.FindStringSubmatch(str)
 
-	// no build component, so nothing to do
 	if matches == nil {
+		// since this is the last part of parsing, anything other than an empty string
+		// must match as a build component or otherwise the version is invalid
+		v.invalid = true
+
 		return str
 	}
 
@@ -244,7 +260,7 @@ func parseAlpineBuildComponent(v *AlpineVersion, str string) string {
 }
 
 func parseAlpineVersion(str string) AlpineVersion {
-	v := AlpineVersion{buildComponent: new(big.Int)}
+	v := AlpineVersion{original: str, buildComponent: new(big.Int)}
 
 	// todo: look at making these methods on AlpineVersion (though might need a pointer receiver)
 	str = parseAlpineNumberComponents(&v, str)
