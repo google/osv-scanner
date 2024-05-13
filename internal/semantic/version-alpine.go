@@ -7,6 +7,33 @@ import (
 	"github.com/google/osv-scanner/internal/cachedregexp"
 )
 
+type alpineNumberComponent struct {
+	original string
+	value    *big.Int
+	index    int
+}
+
+func (anc alpineNumberComponent) Cmp(b alpineNumberComponent) int {
+	// ignore trailing zeros for the first digits in each version
+	if anc.index != 0 && b.index != 0 {
+		if anc.original[0] == '0' || b.original[0] == '0' {
+			return strings.Compare(anc.original, b.original)
+		}
+	}
+
+	return anc.value.Cmp(b.value)
+}
+
+type alpineNumberComponents []alpineNumberComponent
+
+func (components *alpineNumberComponents) Fetch(n int) alpineNumberComponent {
+	if len(*components) <= n {
+		return alpineNumberComponent{original: "0", value: new(big.Int)}
+	}
+
+	return (*components)[n]
+}
+
 type alpineSuffix struct {
 	// the weight of this suffix for sorting, and implicitly what actual string it is:
 	//   *alpha*, *beta*, *pre*, *rc*, <no suffix>, *cvs*, *svn*, *git*, *hg*, *p*
@@ -41,7 +68,7 @@ type AlpineVersion struct {
 	// whether the version was found to be invalid while parsing
 	invalid bool
 	// slice of number components which can be compared in a semver-like manner
-	components Components
+	components alpineNumberComponents
 	// optional single lower-case letter
 	letter string
 	// slice of one or more suffixes, prefixed with "_" and optionally followed by a number.
@@ -80,6 +107,20 @@ func (v AlpineVersion) firstSuffix() alpineSuffix {
 	}
 
 	return v.suffixes[0]
+}
+
+func (v AlpineVersion) compareComponents(w AlpineVersion) int {
+	numberOfComponents := maxInt(len(v.components), len(w.components))
+
+	for i := 0; i < numberOfComponents; i++ {
+		diff := v.components.Fetch(i).Cmp(w.components.Fetch(i))
+
+		if diff != 0 {
+			return diff
+		}
+	}
+
+	return 0
 }
 
 func (v AlpineVersion) compareLetters(w AlpineVersion) int {
@@ -135,7 +176,7 @@ func (v AlpineVersion) Compare(w AlpineVersion) int {
 	}
 
 	// todo: handle invalid versions
-	if diff := v.components.Cmp(w.components); diff != 0 {
+	if diff := v.compareComponents(w); diff != 0 {
 		return diff
 	}
 	if diff := v.compareLetters(w); diff != 0 {
@@ -164,11 +205,18 @@ func (v AlpineVersion) CompareStr(str string) int {
 //
 // This parser must be applied *before* any other parser.
 func parseAlpineNumberComponents(v *AlpineVersion, str string) string {
-	// todo: trailing "v" (we should probably return)
-	parsed := parseSemverLike(str)
-	v.components = parsed.Components
+	sub := cachedregexp.MustCompile(`^((\d+)\.?)*`).FindString(str)
+	str = strings.TrimPrefix(str, sub)
 
-	return parsed.Build
+	for i, d := range strings.Split(sub, ".") {
+		v.components = append(v.components, alpineNumberComponent{
+			value:    convertToBigIntOrPanic(d),
+			index:    i,
+			original: d,
+		})
+	}
+
+	return str
 }
 
 // parseAlpineLetter parses the given string into an AlpineVersion.letter
