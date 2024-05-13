@@ -100,15 +100,6 @@ func weightSuffixString(suffixStr string) int {
 	return len(supported)
 }
 
-// Returns the first suffix of this version, or otherwise an empty string
-func (v AlpineVersion) firstSuffix() alpineSuffix {
-	if len(v.suffixes) == 0 {
-		return alpineSuffix{number: new(big.Int), weight: 5}
-	}
-
-	return v.suffixes[0]
-}
-
 func (v AlpineVersion) compareComponents(w AlpineVersion) int {
 	numberOfComponents := maxInt(len(v.components), len(w.components))
 
@@ -134,23 +125,38 @@ func (v AlpineVersion) compareLetters(w AlpineVersion) int {
 	return strings.Compare(v.letter, w.letter)
 }
 
-func (v AlpineVersion) compareSuffixes(w AlpineVersion) int {
-	// todo: the "spec" says "this can follow one or more *\_suffix{number}* components",
-	//   indicating that there could be multiple suffixes, but it does not comment on if
-	//   more or less suffixes take priority?
+func (v AlpineVersion) fetchSuffix(n int) alpineSuffix {
+	if len(v.suffixes) <= n {
+		return alpineSuffix{number: big.NewInt(0), weight: 5}
+	}
 
-	// *alpha*, *beta*, *pre*, *rc*, <no suffix>, *cvs*, *svn*, *git*, *hg*, *p*
-	vs := v.firstSuffix()
-	ws := w.firstSuffix()
+	return v.suffixes[n]
+}
 
-	if vs.weight > ws.weight {
+func (as alpineSuffix) Cmp(bs alpineSuffix) int {
+	if as.weight > bs.weight {
 		return +1
 	}
-	if vs.weight < ws.weight {
+	if as.weight < bs.weight {
 		return -1
 	}
 
-	return vs.number.Cmp(ws.number)
+	return as.number.Cmp(bs.number)
+}
+
+func (v AlpineVersion) compareSuffixes(w AlpineVersion) int {
+	// *alpha*, *beta*, *pre*, *rc*, <no suffix>, *cvs*, *svn*, *git*, *hg*, *p*
+	numberOfSuffixes := maxInt(len(v.suffixes), len(w.suffixes))
+
+	for i := 0; i < numberOfSuffixes; i++ {
+		diff := v.fetchSuffix(i).Cmp(w.fetchSuffix(i))
+
+		if diff != 0 {
+			return diff
+		}
+	}
+
+	return 0
 }
 
 func (v AlpineVersion) compareBuildComponents(w AlpineVersion) int {
@@ -245,7 +251,7 @@ func parseAlpineSuffixes(v *AlpineVersion, str string) string {
 	// that were published before apk started to enforce it at build time
 	//
 	// see https://gitlab.alpinelinux.org/alpine/abuild/-/issues/10088 & co
-	re := cachedregexp.MustCompile(`^_?(alpha|beta|pre|rc|cvs|svn|git|hg|p)(\d*)`)
+	re := cachedregexp.MustCompile(`_?(alpha|beta|pre|rc|cvs|svn|git|hg|p)(\d*)`)
 
 	for _, match := range re.FindAllStringSubmatch(str, -1) {
 		if match[2] == "" {
