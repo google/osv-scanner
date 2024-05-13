@@ -11,9 +11,9 @@
 
 1.2.3b > 1.2.0d
 
-# letters (invalid)
-1.2.0A > 1.2.0d
-1.2.0D > 1.2.0d
+# letters (invalid) - note on latest apk these are "<" but on 3.x line they're ">"
+1.2.0A < 1.2.0d
+1.2.0D < 1.2.0d
 
 # https://gitlab.alpinelinux.org/alpine/abuild/-/issues/10088
 6.6.2p1 = 6.6.2p1
