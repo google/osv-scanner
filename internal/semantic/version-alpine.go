@@ -208,12 +208,13 @@ func parseAlpineSuffixes(v *AlpineVersion, str string) string {
 // parseAlpineHash parses the given string into AlpineVersion.hash and then returns
 // the remainder of the string for continued parsing.
 //
-// The hash is an optional value representing a commit hash, which can be any length
-// string of lower case hexadecimal digits (0-9a-f).
+// The hash is an optional value representing a commit hash, which is a string of
+// that starts with a "~" and is followed by any number of lower case hexadecimal
+// digits (0-9a-f).
 //
 // This parser must be applied *after* parseAlpineSuffixes.
 func parseAlpineHash(v *AlpineVersion, str string) string {
-	re := cachedregexp.MustCompile(`^([0-9a-f]+)`)
+	re := cachedregexp.MustCompile(`^~([0-9a-f]+)`)
 
 	v.hash = re.FindString(str)
 
