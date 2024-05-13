@@ -2013,7 +2013,15 @@ func TestRun_WithEncodedLockfile(t *testing.T) {
 				Type:       "library",
 				Name:       "org.springframework.security:spring-security-crypto",
 				Version:    "5.7.3",
-				Evidence:   sbom_test.BuildEmptyEvidence(),
+				Evidence: buildLocationEvidence(t, models.PackageLocations{
+					Block: models.PackageLocation{
+						Filename:    "gradle.lockfile",
+						LineStart:   4,
+						LineEnd:     4,
+						ColumnStart: 1,
+						ColumnEnd:   119,
+					},
+				}),
 			},
 			{
 				BOMRef:     "pkg:hex/plug@1.11.1",
