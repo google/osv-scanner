@@ -148,7 +148,6 @@ func (as alpineSuffix) Cmp(bs alpineSuffix) int {
 }
 
 func (v AlpineVersion) compareSuffixes(w AlpineVersion) int {
-	// *alpha*, *beta*, *pre*, *rc*, <no suffix>, *cvs*, *svn*, *git*, *hg*, *p*
 	numberOfSuffixes := maxInt(len(v.suffixes), len(w.suffixes))
 
 	for i := 0; i < numberOfSuffixes; i++ {
