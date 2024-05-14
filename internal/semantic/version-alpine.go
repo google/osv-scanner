@@ -42,6 +42,24 @@ type alpineSuffix struct {
 	number *big.Int
 }
 
+// weights the given suffix string based on the sort order of official supported suffixes.
+//
+// this is expected to be _just_ the suffix "string" i.e. it should not start with a "_"
+// or have any trailing numbers.
+func weightAlpineSuffixString(suffixStr string) int {
+	supported := []string{"alpha", "beta", "pre", "rc", "", "cvs", "svn", "git", "hg", "p"}
+
+	for i, s := range supported {
+		if (s != "" && strings.HasSuffix(suffixStr, s)) || suffixStr == "" {
+			return i
+		}
+	}
+
+	// anything else gets sorted at the end
+	// todo: or should they be sorted to the start..?
+	return len(supported)
+}
+
 // AlpineVersion represents a version of an Alpine package.
 //
 // Currently, the APK version specification is as follows:
@@ -82,24 +100,6 @@ type AlpineVersion struct {
 	hash string
 	// prefixed with "-r{number}"
 	buildComponent *big.Int
-}
-
-// weights the given suffix string based on the sort order of official supported suffixes.
-//
-// this is expected to be _just_ the suffix "string" i.e. it should not start with a "_"
-// or have any trailing numbers.
-func weightSuffixString(suffixStr string) int {
-	supported := []string{"alpha", "beta", "pre", "rc", "", "cvs", "svn", "git", "hg", "p"}
-
-	for i, s := range supported {
-		if (s != "" && strings.HasSuffix(suffixStr, s)) || suffixStr == "" {
-			return i
-		}
-	}
-
-	// anything else gets sorted at the end
-	// todo: or should they be sorted to the start..?
-	return len(supported)
 }
 
 func (v AlpineVersion) compareComponents(w AlpineVersion) int {
@@ -276,7 +276,7 @@ func parseAlpineSuffixes(v *AlpineVersion, str string) string {
 		}
 
 		v.suffixes = append(v.suffixes, alpineSuffix{
-			weight: weightSuffixString(match[1]),
+			weight: weightAlpineSuffixString(match[1]),
 			number: convertToBigIntOrPanic(match[2]),
 		})
 		str = strings.TrimPrefix(str, match[0])
