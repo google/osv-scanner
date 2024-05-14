@@ -167,12 +167,6 @@ func (v AlpineVersion) compareBuildComponents(w AlpineVersion) int {
 			return diff
 		}
 	}
-	if v.buildComponent == nil && w.buildComponent != nil {
-		return -1
-	}
-	if v.buildComponent != nil && w.buildComponent == nil {
-		return +1
-	}
 
 	return 0
 }
