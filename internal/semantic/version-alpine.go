@@ -67,6 +67,8 @@ type AlpineVersion struct {
 	original string
 	// whether the version was found to be invalid while parsing
 	invalid bool
+	// the remainder of the string after parsing has been completed
+	remainder string
 	// slice of number components which can be compared in a semver-like manner
 	components alpineNumberComponents
 	// optional single lower-case letter
@@ -175,6 +177,18 @@ func (v AlpineVersion) compareBuildComponents(w AlpineVersion) int {
 	return 0
 }
 
+func (v AlpineVersion) compareRemainder(w AlpineVersion) int {
+	if v.remainder == "" && w.remainder != "" {
+		return +1
+	}
+
+	if v.remainder != "" && w.remainder == "" {
+		return -1
+	}
+
+	return 0
+}
+
 func (v AlpineVersion) Compare(w AlpineVersion) int {
 	// if both versions are invalid, then just use a string compare
 	if v.invalid && w.invalid {
@@ -193,6 +207,9 @@ func (v AlpineVersion) Compare(w AlpineVersion) int {
 	}
 	// todo: compare hashes
 	if diff := v.compareBuildComponents(w); diff != 0 {
+		return diff
+	}
+	if diff := v.compareRemainder(w); diff != 0 {
 		return diff
 	}
 
@@ -326,6 +343,8 @@ func parseAlpineVersion(str string) AlpineVersion {
 	str = parseAlpineSuffixes(&v, str)
 	str = parseAlpineHash(&v, str)
 	str = parseAlpineBuildComponent(&v, str)
+
+	v.remainder = str
 
 	return v
 }

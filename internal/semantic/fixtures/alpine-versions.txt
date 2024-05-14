@@ -1,7 +1,8 @@
 1-r1 = 1-r01
 1-r = 1-r0
-1-r-0 > 1-r0
-1-r-1 > 1-r0
+# on latest apk these are "<" but on 3.x they're ">"
+1-r-0 < 1-r0
+1-r-1 < 1-r0
 
 # letters
 1a = 1a
@@ -24,13 +25,15 @@
 
 # invalid
 1-r2 > 1-r-1
-1 < 1-ruff
+# on latest apk this is ">" but on 3.x they're "<"
+1 > 1-ruff
 
 # yes, these are all correct...
 1-r0-1 = 1-r-2
 1-r0-1 = 1-r0-2
 1-ruff2 = 1-ruff1
-1-ruff2 < 1--ruff1
+# on latest apk these are "<" but on 3.x they're ">"
+1-ruff2 = 1--ruff1
 1-r0-ruff2 = 1-r0-ruff1
 
 # from https://raw.githubusercontent.com/alpinelinux/apk-tools/master/tests/version.data
