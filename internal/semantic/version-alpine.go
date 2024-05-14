@@ -56,7 +56,6 @@ func weightAlpineSuffixString(suffixStr string) int {
 	}
 
 	// anything else gets sorted at the end
-	// todo: or should they be sorted to the start..?
 	return len(supported)
 }
 
@@ -195,7 +194,7 @@ func (v AlpineVersion) Compare(w AlpineVersion) int {
 		return strings.Compare(v.original, w.original)
 	}
 
-	// todo: handle invalid versions
+	// note: commit hashes are ignored as we can't properly compare them
 	if diff := v.compareComponents(w); diff != 0 {
 		return diff
 	}
@@ -205,7 +204,6 @@ func (v AlpineVersion) Compare(w AlpineVersion) int {
 	if diff := v.compareSuffixes(w); diff != 0 {
 		return diff
 	}
-	// todo: compare hashes
 	if diff := v.compareBuildComponents(w); diff != 0 {
 		return diff
 	}
@@ -337,7 +335,6 @@ func parseAlpineBuildComponent(v *AlpineVersion, str string) string {
 func parseAlpineVersion(str string) AlpineVersion {
 	v := AlpineVersion{original: str, buildComponent: new(big.Int)}
 
-	// todo: look at making these methods on AlpineVersion (though might need a pointer receiver)
 	str = parseAlpineNumberComponents(&v, str)
 	str = parseAlpineLetter(&v, str)
 	str = parseAlpineSuffixes(&v, str)
