@@ -47,7 +47,8 @@ type alpineSuffix struct {
 // this is expected to be _just_ the suffix "string" i.e. it should not start with a "_"
 // or have any trailing numbers.
 func weightAlpineSuffixString(suffixStr string) int {
-	supported := []string{"alpha", "beta", "pre", "rc", "", "cvs", "svn", "git", "hg", "p"}
+	// "p" is omitted since it's the highest suffix, so it will be the final return
+	supported := []string{"alpha", "beta", "pre", "rc", "", "cvs", "svn", "git", "hg"}
 
 	for i, s := range supported {
 		if (s != "" && strings.HasSuffix(suffixStr, s)) || suffixStr == "" {
@@ -55,7 +56,8 @@ func weightAlpineSuffixString(suffixStr string) int {
 		}
 	}
 
-	// anything else gets sorted at the end
+	// if we didn't match a support suffix already, then we're "p" which
+	// has the highest weight as our parser only captures valid suffixes
 	return len(supported)
 }
 

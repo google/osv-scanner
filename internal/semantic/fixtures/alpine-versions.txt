@@ -36,6 +36,17 @@
 1-ruff2 = 1--ruff1
 1-r0-ruff2 = 1-r0-ruff1
 
+1.2 > 1.2_blah
+1.2 > 1.2_rc1
+1.2 < 1.2_cvs1
+1.2 < 1.2_svn1
+1.2 < 1.2_git1
+1.2 < 1.2_hg1
+1.2 < 1.2_p1
+1.2_svn2 < 1.2_git1
+1.2_svn1 > 1.2_csv2
+1.2_cvs1 > 1.2_blah
+
 # from https://raw.githubusercontent.com/alpinelinux/apk-tools/master/tests/version.data
 2.34 > 0.1.0_alpha
 # todo: this might be invalid?
