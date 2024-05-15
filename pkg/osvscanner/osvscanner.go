@@ -18,6 +18,7 @@ import (
 	"github.com/google/osv-scanner/internal/output"
 	"github.com/google/osv-scanner/internal/sbom"
 	"github.com/google/osv-scanner/internal/semantic"
+	"github.com/google/osv-scanner/internal/useragent"
 	"github.com/google/osv-scanner/internal/version"
 	"github.com/google/osv-scanner/pkg/config"
 	"github.com/google/osv-scanner/pkg/depsdev"
@@ -941,8 +942,8 @@ func makeRequest(
 		return hydratedResp, nil
 	}
 
-	if osv.RequestUserAgent == "" {
-		osv.RequestUserAgent = "osv-scanner-api_v" + version.OSVVersion
+	if useragent.RequestUserAgent == "" {
+		useragent.RequestUserAgent = "osv-scanner-api_v" + version.OSVVersion
 	}
 
 	resp, err := osv.MakeRequest(query)

@@ -16,10 +16,10 @@ import (
 	"path"
 	"strings"
 
+	"github.com/google/osv-scanner/internal/useragent"
 	"github.com/google/osv-scanner/internal/utility/vulns"
 	"github.com/google/osv-scanner/pkg/lockfile"
 	"github.com/google/osv-scanner/pkg/models"
-	"github.com/google/osv-scanner/pkg/osv"
 )
 
 type ZipDB struct {
@@ -104,8 +104,8 @@ func (db *ZipDB) fetchZip() ([]byte, error) {
 		return nil, fmt.Errorf("could not retrieve OSV database archive: %w", err)
 	}
 
-	if osv.RequestUserAgent != "" {
-		req.Header.Set("User-Agent", osv.RequestUserAgent)
+	if useragent.RequestUserAgent != "" {
+		req.Header.Set("User-Agent", useragent.RequestUserAgent)
 	}
 
 	resp, err := http.DefaultClient.Do(req)

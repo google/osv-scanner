@@ -5,9 +5,9 @@ import (
 	"crypto/x509"
 	"fmt"
 
+	"github.com/google/osv-scanner/internal/useragent"
 	"github.com/google/osv-scanner/pkg/lockfile"
 	"github.com/google/osv-scanner/pkg/models"
-	"github.com/google/osv-scanner/pkg/osv"
 
 	depsdevpb "deps.dev/api/v3"
 	"golang.org/x/sync/errgroup"
@@ -63,8 +63,8 @@ func MakeVersionRequestsWithContext(ctx context.Context, queries []*depsdevpb.Ge
 	creds := credentials.NewClientTLSFromCert(certPool, "")
 	dialOpts := []grpc.DialOption{grpc.WithTransportCredentials(creds)}
 
-	if osv.RequestUserAgent != "" {
-		dialOpts = append(dialOpts, grpc.WithUserAgent(osv.RequestUserAgent))
+	if useragent.RequestUserAgent != "" {
+		dialOpts = append(dialOpts, grpc.WithUserAgent(useragent.RequestUserAgent))
 	}
 
 	conn, err := grpc.Dial(DepsdevAPI, dialOpts...)

@@ -8,7 +8,7 @@ import (
 	"time"
 
 	pb "deps.dev/api/v3"
-	"github.com/google/osv-scanner/pkg/osv"
+	"github.com/google/osv-scanner/internal/useragent"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials"
 )
@@ -60,8 +60,8 @@ func NewDepsDevAPIClient(addr string) (*DepsDevAPIClient, error) {
 	creds := credentials.NewClientTLSFromCert(certPool, "")
 	dialOpts := []grpc.DialOption{grpc.WithTransportCredentials(creds)}
 
-	if osv.RequestUserAgent != "" {
-		dialOpts = append(dialOpts, grpc.WithUserAgent(osv.RequestUserAgent))
+	if useragent.RequestUserAgent != "" {
+		dialOpts = append(dialOpts, grpc.WithUserAgent(useragent.RequestUserAgent))
 	}
 
 	conn, err := grpc.Dial(addr, dialOpts...)

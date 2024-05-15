@@ -9,8 +9,8 @@ import (
 	"github.com/google/osv-scanner/cmd/osv-scanner/fix"
 	"github.com/google/osv-scanner/cmd/osv-scanner/scan"
 	"github.com/google/osv-scanner/cmd/osv-scanner/update"
+	"github.com/google/osv-scanner/internal/useragent"
 	"github.com/google/osv-scanner/internal/version"
-	"github.com/google/osv-scanner/pkg/osv"
 	"github.com/google/osv-scanner/pkg/osvscanner"
 	"github.com/google/osv-scanner/pkg/reporter"
 
@@ -30,7 +30,7 @@ func run(args []string, stdout, stderr io.Writer) int {
 		r.Infof("osv-scanner version: %s\ncommit: %s\nbuilt at: %s\n", ctx.App.Version, commit, date)
 	}
 
-	osv.RequestUserAgent = "osv-scanner/" + version.OSVVersion
+	useragent.RequestUserAgent = "osv-scanner/" + version.OSVVersion
 
 	app := &cli.App{
 		Name:           "osv-scanner",

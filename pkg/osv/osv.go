@@ -11,6 +11,7 @@ import (
 	"net/http"
 	"time"
 
+	"github.com/google/osv-scanner/internal/useragent"
 	"github.com/google/osv-scanner/pkg/lockfile"
 	"github.com/google/osv-scanner/pkg/models"
 	"golang.org/x/sync/semaphore"
@@ -33,8 +34,6 @@ const (
 	// jitterMultiplier is multiplied to the retry delay multiplied by rand(0, 1.0)
 	jitterMultiplier = 2
 )
-
-var RequestUserAgent = ""
 
 // Package represents a package identifier for OSV.
 type Package struct {
@@ -198,8 +197,8 @@ func MakeRequestWithClient(request BatchedQuery, client *http.Client) (*BatchedR
 				return nil, err
 			}
 			req.Header.Set("Content-Type", "application/json")
-			if RequestUserAgent != "" {
-				req.Header.Set("User-Agent", RequestUserAgent)
+			if useragent.RequestUserAgent != "" {
+				req.Header.Set("User-Agent", useragent.RequestUserAgent)
 			}
 
 			return client.Do(req)
@@ -237,8 +236,8 @@ func GetWithClient(id string, client *http.Client) (*models.Vulnerability, error
 		if err != nil {
 			return nil, err
 		}
-		if RequestUserAgent != "" {
-			req.Header.Set("User-Agent", RequestUserAgent)
+		if useragent.RequestUserAgent != "" {
+			req.Header.Set("User-Agent", useragent.RequestUserAgent)
 		}
 
 		return client.Do(req)
@@ -364,8 +363,8 @@ func MakeDetermineVersionRequest(name string, hashes []DetermineVersionHash) (*D
 			return nil, err
 		}
 		req.Header.Set("Content-Type", "application/json")
-		if RequestUserAgent != "" {
-			req.Header.Set("User-Agent", RequestUserAgent)
+		if useragent.RequestUserAgent != "" {
+			req.Header.Set("User-Agent", useragent.RequestUserAgent)
 		}
 
 		return http.DefaultClient.Do(req)
