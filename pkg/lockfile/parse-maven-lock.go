@@ -1,12 +1,16 @@
 package lockfile
 
 import (
+	"context"
 	"encoding/xml"
 	"fmt"
 	"os"
 	"path/filepath"
 	"strings"
 
+	depsdevpb "deps.dev/api/v3"
+	"deps.dev/util/maven"
+	"deps.dev/util/semver"
 	"github.com/google/osv-scanner/internal/cachedregexp"
 	"golang.org/x/exp/maps"
 )
@@ -163,4 +167,102 @@ func init() {
 
 func ParseMavenLock(pathToLockfile string) ([]PackageDetails, error) {
 	return extractFromFile(pathToLockfile, MavenLockExtractor{})
+}
+
+type MavenLockExtractor2 struct {
+	Client depsdevpb.InsightsClient
+}
+
+func (e MavenLockExtractor2) ShouldExtract(path string) bool {
+	return filepath.Base(path) == "pom.xml"
+}
+
+func (e MavenLockExtractor2) Extract(f DepFile) ([]PackageDetails, error) {
+	ctx := context.Background()
+
+	var project *maven.Project
+	if err := xml.NewDecoder(f).Decode(&project); err != nil {
+		return []PackageDetails{}, fmt.Errorf("could not extract from %s: %w", f.Path(), err)
+	}
+	if err := project.Interpolate(); err != nil {
+		return []PackageDetails{}, fmt.Errorf("could not interpolate Maven project %s: %w", project.ProjectKey.Name(), err)
+	}
+
+	details := map[string]PackageDetails{}
+
+	for _, dep := range project.Dependencies {
+		name := dep.Name()
+		v, err := e.resolveVersion(ctx, dep)
+		if err != nil {
+			return []PackageDetails{}, err
+		}
+		pkgDetails := PackageDetails{
+			Name:      name,
+			Version:   v,
+			Ecosystem: MavenEcosystem,
+			CompareAs: MavenEcosystem,
+		}
+		if dep.Scope != "" {
+			pkgDetails.DepGroups = append(pkgDetails.DepGroups, string(dep.Scope))
+		}
+		details[name] = pkgDetails
+	}
+
+	// managed dependencies take precedent over standard dependencies
+	for _, dep := range project.DependencyManagement.Dependencies {
+		name := dep.Name()
+		v, err := e.resolveVersion(ctx, dep)
+		if err != nil {
+			return []PackageDetails{}, err
+		}
+		pkgDetails := PackageDetails{
+			Name:      name,
+			Version:   v,
+			Ecosystem: MavenEcosystem,
+			CompareAs: MavenEcosystem,
+		}
+		if dep.Scope != "" {
+			pkgDetails.DepGroups = append(pkgDetails.DepGroups, string(dep.Scope))
+		}
+		details[name] = pkgDetails
+	}
+
+	return maps.Values(details), nil
+}
+
+
+func (e MavenLockExtractor2) resolveVersion(ctx context.Context, dep maven.Dependency) (string, error) {
+	constraint, err := semver.Maven.ParseConstraint(string(dep.Version))
+	if err != nil {
+		return "", fmt.Errorf("parsing Maven constraint %s: %w", dep.Version, err)
+	}
+	if constraint.IsSimple() {
+		// Return the constraint if it is a simpel version string.
+		return constraint.String(), nil
+	}
+
+	// Otherwise return the greatest version matching the constraint.
+	// TODO: invoke Maven resolver to decide the exact version.
+	resp, err := e.Client.GetPackage(ctx, &depsdevpb.GetPackageRequest{
+		PackageKey: &depsdevpb.PackageKey{
+			System: depsdevpb.System_MAVEN,
+			Name:   dep.Name(),
+		},
+	})
+	if err != nil {
+		return "", fmt.Errorf("requesting versions of Maven package %s: %w", dep.Name(), err)
+	}
+
+	var result *semver.Version
+	for _, ver := range resp.Versions {
+		v, _ := semver.Maven.Parse(ver.VersionKey.Version)
+		if constraint.MatchVersion(v) && result.Compare(v) < 0 {
+			result = v
+		}
+	}
+	return result.String(), nil
+}
+
+func ParseMavenLock2(depsdev depsdevpb.InsightsClient, pathToLockfile string) ([]PackageDetails, error) {
+	return extractFromFile(pathToLockfile, MavenLockExtractor2{Client: depsdev})
 }
