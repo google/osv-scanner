@@ -55,15 +55,11 @@ func (e GoLockExtractor) ShouldExtract(path string) bool {
 	return filepath.Base(path) == "go.mod"
 }
 
-func splitLines(data []byte) []string {
-	str := string(data)
-	return strings.Split(str, "\n")
-}
 func (e GoLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 	var parsedLockfile *modfile.File
 
 	b, err := io.ReadAll(f)
-	lines := splitLines(b)
+	lines := fileposition.BytesToLines(b)
 
 	if err == nil {
 		parsedLockfile, err = modfile.Parse(f.Path(), b, defaultNonCanonicalVersions)

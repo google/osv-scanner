@@ -1,13 +1,18 @@
 package lockfile
 
 import (
+	"bytes"
 	"encoding/xml"
 	"errors"
 	"fmt"
+	"io"
 	"os"
 	"path"
 	"path/filepath"
 	"strings"
+
+	"github.com/google/osv-scanner/internal/utility/fileposition"
+	"golang.org/x/exp/maps"
 
 	"github.com/google/osv-scanner/internal/utility/filereader"
 
@@ -49,13 +54,21 @@ func buildProjectProperties(lockfile MavenLockFile) map[string]string {
 /*
 You can see the regex working here : https://regex101.com/r/inAPiN/2
 */
-func (mld MavenLockDependency) resolvePropertiesValue(lockfile MavenLockFile, fieldToResolve string) string {
+func (mld MavenLockDependency) resolvePropertiesValue(lockfile MavenLockFile, fieldToResolve string) (string, *models.FilePosition) {
+	var position *models.FilePosition
+	variablesCount := 0
+
 	interpolationReg := cachedregexp.MustCompile(`\${([^}]+)}`)
 	projectProperties := buildProjectProperties(lockfile)
 
 	result := interpolationReg.ReplaceAllFunc([]byte(fieldToResolve), func(bytes []byte) []byte {
+		variablesCount += 1
 		propStr := string(bytes)
 		propName := propStr[2 : len(propStr)-1]
+		propOpenTag := fmt.Sprintf("<%s>", propName)
+		propCloseTag := fmt.Sprintf("</%s>", propName)
+
+		var lockProperty MavenLockProperty
 		var property string
 		var ok bool
 
@@ -67,11 +80,30 @@ func (mld MavenLockDependency) resolvePropertiesValue(lockfile MavenLockFile, fi
 		// If the fieldToResolve is the internal version fieldToResolve, then lets use the one declared
 		if strings.HasPrefix(propName, "project.") {
 			property, ok = projectProperties[propName]
+			// The property is located in the main source file...
+			projectPropertySourceFile := lockfile.MainSourceFile
+			// Except if it is the version -> It could be located in some parent file
+			if strings.HasSuffix(propName, "version") {
+				projectPropertySourceFile = lockfile.ProjectVersionSourceFile
+			}
+			position = fileposition.ExtractRegexpPositionInBlock(lockfile.Lines[projectPropertySourceFile], property, 1)
+			if projectPropertySourceFile != lockfile.MainSourceFile {
+				position.Filename = &projectPropertySourceFile
+			}
 		} else {
-			property, ok = lockfile.Properties.m[propName]
-			if ok && interpolationReg.MatchString(property) {
-				// Property uses other properties
-				property = mld.resolvePropertiesValue(lockfile, property)
+			lockProperty, ok = lockfile.Properties.m[propName]
+			if ok {
+				property = lockProperty.Property
+				if interpolationReg.MatchString(property) {
+					// Property uses other properties
+					property, position = mld.resolvePropertiesValue(lockfile, property)
+				} else {
+					// We should locate the property in its source file
+					position = fileposition.ExtractDelimitedRegexpPositionInBlock(lockfile.Lines[lockProperty.SourceFile], "(.*)", 1, propOpenTag, propCloseTag)
+					if lockProperty.SourceFile != lockfile.MainSourceFile {
+						position.Filename = &(lockProperty.SourceFile)
+					}
+				}
 			}
 		}
 
@@ -90,49 +122,61 @@ func (mld MavenLockDependency) resolvePropertiesValue(lockfile MavenLockFile, fi
 		return []byte(property)
 	})
 
-	return string(result)
+	if variablesCount > 1 {
+		position = nil
+	}
+
+	return string(result), position
 }
 
-func (mld MavenLockDependency) ResolveVersion(lockfile MavenLockFile) string {
+func (mld MavenLockDependency) ResolveVersion(lockfile MavenLockFile) (string, *models.FilePosition) {
 	versionRequirementReg := cachedregexp.MustCompile(`[[(]?(.*?)(?:,|[)\]]|$)`)
-	version := mld.resolvePropertiesValue(lockfile, mld.Version)
+	version, position := mld.resolvePropertiesValue(lockfile, mld.Version)
 	results := versionRequirementReg.FindStringSubmatch(version)
 
 	if results == nil || results[1] == "" {
-		return "0"
+		return "0", nil
 	}
 
-	return results[1]
+	return results[1], position
 }
 
-func (mld MavenLockDependency) ResolveArtifactID(lockfile MavenLockFile) string {
+func (mld MavenLockDependency) ResolveArtifactID(lockfile MavenLockFile) (string, *models.FilePosition) {
 	return mld.resolvePropertiesValue(lockfile, mld.ArtifactID)
 }
 
-func (mld MavenLockDependency) ResolveGroupID(lockfile MavenLockFile) string {
+func (mld MavenLockDependency) ResolveGroupID(lockfile MavenLockFile) (string, *models.FilePosition) {
 	return mld.resolvePropertiesValue(lockfile, mld.GroupID)
 }
 
 type MavenLockFile struct {
-	XMLName             xml.Name                  `xml:"project"`
-	Parent              MavenLockParent           `xml:"parent"`
-	Version             string                    `xml:"version"`
-	ModelVersion        string                    `xml:"modelVersion"`
-	GroupID             string                    `xml:"groupId"`
-	ArtifactID          string                    `xml:"artifactId"`
-	Properties          MavenLockProperties       `xml:"properties"`
-	Dependencies        MavenLockDependencyHolder `xml:"dependencies"`
-	ManagedDependencies MavenLockDependencyHolder `xml:"dependencyManagement>dependencies"`
+	XMLName                  xml.Name                  `xml:"project"`
+	Parent                   MavenLockParent           `xml:"parent"`
+	Version                  string                    `xml:"version"`
+	ModelVersion             string                    `xml:"modelVersion"`
+	GroupID                  string                    `xml:"groupId"`
+	ArtifactID               string                    `xml:"artifactId"`
+	Properties               MavenLockProperties       `xml:"properties"`
+	Dependencies             MavenLockDependencyHolder `xml:"dependencies"`
+	ManagedDependencies      MavenLockDependencyHolder `xml:"dependencyManagement>dependencies"`
+	MainSourceFile           string
+	ProjectVersionSourceFile string
+	Lines                    map[string][]string
 }
 
 const MavenEcosystem Ecosystem = "Maven"
 
+type MavenLockProperty struct {
+	Property   string
+	SourceFile string
+}
+
 type MavenLockProperties struct {
-	m map[string]string
+	m map[string]MavenLockProperty
 }
 
 func (p *MavenLockProperties) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error {
-	p.m = map[string]string{}
+	p.m = map[string]MavenLockProperty{}
 
 	for {
 		t, err := d.Token()
@@ -148,7 +192,9 @@ func (p *MavenLockProperties) UnmarshalXML(d *xml.Decoder, start xml.StartElemen
 				return fmt.Errorf("%w", err)
 			}
 
-			p.m[tt.Name.Local] = s
+			p.m[tt.Name.Local] = MavenLockProperty{
+				Property: s,
+			}
 
 		case xml.EndElement:
 			if tt.Name == start.Name {
@@ -206,10 +252,17 @@ func (e MavenLockExtractor) mergeLockfiles(childLockfile *MavenLockFile, parentL
 	parentLockfile.GroupID = childLockfile.GroupID
 	parentLockfile.ModelVersion = childLockfile.ModelVersion
 
+	// Merge lock file lines
+	maps.Copy(parentLockfile.Lines, childLockfile.Lines)
+
 	// If child lockfile overrides the project version, let's use it instead
 	if len(childLockfile.Version) > 0 {
 		parentLockfile.Version = childLockfile.Version
+		parentLockfile.ProjectVersionSourceFile = parentLockfile.MainSourceFile
 	}
+
+	// Keep track of the main source file
+	parentLockfile.MainSourceFile = childLockfile.MainSourceFile
 
 	// Child properties take precedence over parent defined ones
 	for key, value := range childLockfile.Properties.m {
@@ -234,22 +287,46 @@ func (e MavenLockExtractor) enrichDependencies(f DepFile, dependencies []MavenLo
 	return MavenLockDependencyHolder{Dependencies: result}
 }
 
+func (e MavenLockExtractor) enrichProperties(f DepFile, properties map[string]MavenLockProperty) MavenLockProperties {
+	for key, property := range properties {
+		if len(property.SourceFile) == 0 {
+			property.SourceFile = f.Path()
+		}
+		properties[key] = property
+	}
+
+	return MavenLockProperties{m: properties}
+}
+
 func (e MavenLockExtractor) decodeMavenFile(f DepFile, depth int) (*MavenLockFile, error) {
 	var parsedLockfile *MavenLockFile
 	if depth >= maxParentDepth {
 		return nil, fmt.Errorf("maven file decoding reached the max depth (%d/%d), check for a circular dependency", depth, maxParentDepth)
 	}
 	// Decoding the original lockfile and enrich its dependencies
-	decoder := xml.NewDecoder(f)
+	b, err := io.ReadAll(f)
+	if err != nil {
+		return nil, fmt.Errorf("could not extract from %s: %w", f.Path(), err)
+	}
+
+	decoder := xml.NewDecoder(bytes.NewReader(b))
 	decoder.CharsetReader = filereader.CharsetDecoder
-	err := decoder.Decode(&parsedLockfile)
+	err = decoder.Decode(&parsedLockfile)
 	if err != nil {
 		return nil, err
 	}
 
-	if parsedLockfile.Properties.m == nil {
-		parsedLockfile.Properties.m = map[string]string{}
+	if parsedLockfile.Lines == nil {
+		parsedLockfile.Lines = map[string][]string{}
 	}
+	parsedLockfile.Lines[f.Path()] = fileposition.BytesToLines(b)
+	parsedLockfile.MainSourceFile = f.Path()
+	parsedLockfile.ProjectVersionSourceFile = f.Path()
+
+	if parsedLockfile.Properties.m == nil {
+		parsedLockfile.Properties.m = map[string]MavenLockProperty{}
+	}
+	parsedLockfile.Properties = e.enrichProperties(f, parsedLockfile.Properties.m)
 	parsedLockfile.Dependencies = e.enrichDependencies(f, parsedLockfile.Dependencies.Dependencies)
 	parsedLockfile.ManagedDependencies = e.enrichDependencies(f, parsedLockfile.ManagedDependencies.Dependencies)
 	if parsedLockfile.Parent == (MavenLockParent{}) {
@@ -279,6 +356,7 @@ func (e MavenLockExtractor) decodeMavenFile(f DepFile, depth int) (*MavenLockFil
 	if parentErr != nil {
 		return nil, parentErr
 	}
+	parentLockfile.Properties = e.enrichProperties(f, parentLockfile.Properties.m)
 	parentLockfile.Dependencies = e.enrichDependencies(parentFile, parentLockfile.Dependencies.Dependencies)
 	parentLockfile.ManagedDependencies = e.enrichDependencies(parentFile, parentLockfile.ManagedDependencies.Dependencies)
 
@@ -295,20 +373,34 @@ func (e MavenLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 	details := map[string]PackageDetails{}
 
 	for _, lockPackage := range parsedLockfile.Dependencies.Dependencies {
-		resolvedGroupID := lockPackage.ResolveGroupID(*parsedLockfile)
-		resolvedArtifactID := lockPackage.ResolveArtifactID(*parsedLockfile)
+		resolvedGroupID, _ := lockPackage.ResolveGroupID(*parsedLockfile)
+		resolvedArtifactID, artifactPosition := lockPackage.ResolveArtifactID(*parsedLockfile)
+		resolvedVersion, versionPosition := lockPackage.ResolveVersion(*parsedLockfile)
 		finalName := resolvedGroupID + ":" + resolvedArtifactID
 
+		blockLocation := models.FilePosition{
+			Line:   lockPackage.Line,
+			Column: lockPackage.Column,
+		}
+		block := parsedLockfile.Lines[lockPackage.SourceFile][lockPackage.Line.Start-1 : lockPackage.Line.End]
+
+		// A position is null after resolving the value in case the value is directly defined in the block
+		if artifactPosition == nil {
+			artifactPosition = fileposition.ExtractDelimitedRegexpPositionInBlock(block, "(.*)", lockPackage.Line.Start, "<artifactId>", "</artifactId>")
+		}
+		if versionPosition == nil {
+			versionPosition = fileposition.ExtractDelimitedRegexpPositionInBlock(block, "(.*)", lockPackage.Line.Start, "<version>", "</version>")
+		}
+
 		pkgDetails := PackageDetails{
-			Name:      finalName,
-			Version:   lockPackage.ResolveVersion(*parsedLockfile),
-			Ecosystem: MavenEcosystem,
-			CompareAs: MavenEcosystem,
-			BlockLocation: models.FilePosition{
-				Line:   lockPackage.Line,
-				Column: lockPackage.Column,
-			},
-			SourceFile: lockPackage.SourceFile,
+			Name:            finalName,
+			Version:         resolvedVersion,
+			Ecosystem:       MavenEcosystem,
+			CompareAs:       MavenEcosystem,
+			BlockLocation:   blockLocation,
+			NameLocation:    artifactPosition,
+			VersionLocation: versionPosition,
+			SourceFile:      lockPackage.SourceFile,
 		}
 		if strings.TrimSpace(lockPackage.Scope) != "" {
 			pkgDetails.DepGroups = append(pkgDetails.DepGroups, lockPackage.Scope)
@@ -318,16 +410,29 @@ func (e MavenLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 
 	// If a dependency is declared and have not specified its version, then use the one declared in the managed dependencies
 	for _, lockPackage := range parsedLockfile.ManagedDependencies.Dependencies {
-		resolvedGroupID := lockPackage.ResolveGroupID(*parsedLockfile)
-		resolvedArtifactID := lockPackage.ResolveArtifactID(*parsedLockfile)
+		resolvedGroupID, _ := lockPackage.ResolveGroupID(*parsedLockfile)
+		resolvedArtifactID, _ := lockPackage.ResolveArtifactID(*parsedLockfile)
 		finalName := resolvedGroupID + ":" + resolvedArtifactID
 		pkgDetails, pkgExists := details[finalName]
 		if !pkgExists {
 			continue
 		}
 
+		block := parsedLockfile.Lines[lockPackage.SourceFile][lockPackage.Line.Start-1 : lockPackage.Line.End]
+
 		if pkgDetails.IsVersionEmpty() {
-			pkgDetails.Version = lockPackage.ResolveVersion(*parsedLockfile)
+			resolvedVersion, versionPosition := lockPackage.ResolveVersion(*parsedLockfile)
+			pkgDetails.Version = resolvedVersion
+
+			// A position is null after resolving the value in case the value is directly defined in the block
+			if versionPosition == nil {
+				versionPosition = fileposition.ExtractDelimitedRegexpPositionInBlock(block, "(.*)", lockPackage.Line.Start, "<version>", "</version>")
+			}
+
+			pkgDetails.VersionLocation = versionPosition
+			if lockPackage.SourceFile != pkgDetails.SourceFile {
+				pkgDetails.VersionLocation.Filename = &(lockPackage.SourceFile)
+			}
 		}
 		if strings.TrimSpace(lockPackage.Scope) != "" {
 			pkgDetails.DepGroups = append(pkgDetails.DepGroups, lockPackage.Scope)

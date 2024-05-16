@@ -15,3 +15,7 @@ func MustCompile(exp string) *regexp.Regexp {
 
 	return compiled.(*regexp.Regexp)
 }
+
+func QuoteMeta(s string) string {
+	return regexp.QuoteMeta(s)
+}
