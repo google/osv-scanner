@@ -230,7 +230,6 @@ func (e MavenLockExtractor2) Extract(f DepFile) ([]PackageDetails, error) {
 	return maps.Values(details), nil
 }
 
-
 func (e MavenLockExtractor2) resolveVersion(ctx context.Context, dep maven.Dependency) (string, error) {
 	constraint, err := semver.Maven.ParseConstraint(string(dep.Version))
 	if err != nil {
@@ -254,12 +253,13 @@ func (e MavenLockExtractor2) resolveVersion(ctx context.Context, dep maven.Depen
 	}
 
 	var result *semver.Version
-	for _, ver := range resp.Versions {
-		v, _ := semver.Maven.Parse(ver.VersionKey.Version)
+	for _, ver := range resp.GetVersions() {
+		v, _ := semver.Maven.Parse(ver.GetVersionKey().GetVersion())
 		if constraint.MatchVersion(v) && result.Compare(v) < 0 {
 			result = v
 		}
 	}
+
 	return result.String(), nil
 }
 

@@ -320,7 +320,7 @@ type fakeDepsDevClient struct {
 }
 
 func (c *fakeDepsDevClient) GetPackage(ctx context.Context, in *depsdevpb.GetPackageRequest, opts ...grpc.CallOption) (*depsdevpb.Package, error) {
-	if in.PackageKey.Name == "org.mine:ranged-package" {
+	if in.GetPackageKey().GetName() == "org.mine:ranged-package" {
 		return &depsdevpb.Package{
 			Versions: []*depsdevpb.Package_Version{
 				{
@@ -346,6 +346,7 @@ func (c *fakeDepsDevClient) GetPackage(ctx context.Context, in *depsdevpb.GetPac
 			},
 		}, nil
 	}
+
 	return nil, errors.New("package not found")
 }
 
