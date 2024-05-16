@@ -733,6 +733,45 @@ func TestMavenLock_WithParentWithoutRelativePath(t *testing.T) {
 	})
 }
 
+func TestMavenLock_WithParent_Child_Project(t *testing.T) {
+	t.Parallel()
+	dir, err := os.Getwd()
+	if err != nil {
+		t.Errorf("Got unexpected error: %v", err)
+	}
+
+	parentPath := filepath.FromSlash(filepath.Join(dir, "fixtures/maven/parent-project-version.xml"))
+	childPath := filepath.FromSlash(filepath.Join(dir, "fixtures/maven/children/with-parent-child-project-version.xml"))
+	packages, err := lockfile.ParseMavenLock(childPath)
+
+	if err != nil {
+		t.Errorf("Got unexpected error: %v", err)
+	}
+
+	expectPackages(t, packages, []lockfile.PackageDetails{
+		{
+			Name:      "com.google.code.findbugs:jsr305",
+			Version:   "1.0-CHILD-SNAPSHOT",
+			Ecosystem: lockfile.MavenEcosystem,
+			CompareAs: lockfile.MavenEcosystem,
+			BlockLocation: models.FilePosition{
+				Line:   models.Position{Start: 11, End: 15},
+				Column: models.Position{Start: 5, End: 18},
+			},
+			NameLocation: &models.FilePosition{
+				Line:   models.Position{Start: 13, End: 13},
+				Column: models.Position{Start: 19, End: 25},
+			},
+			VersionLocation: &models.FilePosition{
+				Line:     models.Position{Start: 6, End: 6},
+				Column:   models.Position{Start: 12, End: 30},
+				Filename: &childPath,
+			},
+			SourceFile: parentPath,
+		},
+	})
+}
+
 func TestMavenLock_WithMultipleParents(t *testing.T) {
 	t.Parallel()
 	dir, err := os.Getwd()

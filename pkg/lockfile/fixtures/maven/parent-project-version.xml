@@ -1,0 +1,17 @@
+<project>
+  <properties>
+    <mavenVersion>3.0</mavenVersion>
+    <mypackageVersion>1.0.0</mypackageVersion>
+    <my.package.version>2.3.4</my.package.version>
+    <version-range>[9.4.35.v20201120,9.5)</version-range>
+  </properties>
+  <version>1.0-PARENT-SNAPSHOT</version>
+
+  <dependencies>
+    <dependency>
+      <groupId>com.google.code.findbugs</groupId>
+      <artifactId>jsr305</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+  </dependencies>
+</project>

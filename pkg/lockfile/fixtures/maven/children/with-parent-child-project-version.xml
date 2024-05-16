@@ -1,0 +1,15 @@
+<project>
+  <properties>
+    <mavenVersion>3.0</mavenVersion>
+  </properties>
+
+  <version>1.0-CHILD-SNAPSHOT</version>
+
+  <parent>
+    <groupId>com.mycompany.app</groupId>
+    <artifactId>my-app</artifactId>
+    <version>1</version>
+    <relativePath>../parent-project-version.xml</relativePath>
+  </parent>
+
+</project>
