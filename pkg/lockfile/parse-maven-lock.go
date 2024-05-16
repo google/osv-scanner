@@ -180,7 +180,7 @@ func (e MavenLockExtractor2) ShouldExtract(path string) bool {
 func (e MavenLockExtractor2) Extract(f DepFile) ([]PackageDetails, error) {
 	ctx := context.Background()
 
-	var project *maven.Project
+	var project maven.Project
 	if err := xml.NewDecoder(f).Decode(&project); err != nil {
 		return []PackageDetails{}, fmt.Errorf("could not extract from %s: %w", f.Path(), err)
 	}
@@ -237,7 +237,7 @@ func (e MavenLockExtractor2) resolveVersion(ctx context.Context, dep maven.Depen
 		return "", fmt.Errorf("parsing Maven constraint %s: %w", dep.Version, err)
 	}
 	if constraint.IsSimple() {
-		// Return the constraint if it is a simpel version string.
+		// Return the constraint if it is a simple version string.
 		return constraint.String(), nil
 	}
 
