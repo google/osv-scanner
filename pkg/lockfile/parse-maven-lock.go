@@ -169,15 +169,15 @@ func ParseMavenLock(pathToLockfile string) ([]PackageDetails, error) {
 	return extractFromFile(pathToLockfile, MavenLockExtractor{})
 }
 
-type MavenLockExtractor2 struct {
+type MavenResolverExtractor struct {
 	Client depsdevpb.InsightsClient
 }
 
-func (e MavenLockExtractor2) ShouldExtract(path string) bool {
+func (e MavenResolverExtractor) ShouldExtract(path string) bool {
 	return filepath.Base(path) == "pom.xml"
 }
 
-func (e MavenLockExtractor2) Extract(f DepFile) ([]PackageDetails, error) {
+func (e MavenResolverExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 	ctx := context.Background()
 
 	var project maven.Project
@@ -230,7 +230,7 @@ func (e MavenLockExtractor2) Extract(f DepFile) ([]PackageDetails, error) {
 	return maps.Values(details), nil
 }
 
-func (e MavenLockExtractor2) resolveVersion(ctx context.Context, dep maven.Dependency) (string, error) {
+func (e MavenResolverExtractor) resolveVersion(ctx context.Context, dep maven.Dependency) (string, error) {
 	constraint, err := semver.Maven.ParseConstraint(string(dep.Version))
 	if err != nil {
 		return "", fmt.Errorf("parsing Maven constraint %s: %w", dep.Version, err)
@@ -264,5 +264,5 @@ func (e MavenLockExtractor2) resolveVersion(ctx context.Context, dep maven.Depen
 }
 
 func ParseMavenLock2(depsdev depsdevpb.InsightsClient, pathToLockfile string) ([]PackageDetails, error) {
-	return extractFromFile(pathToLockfile, MavenLockExtractor2{Client: depsdev})
+	return extractFromFile(pathToLockfile, MavenResolverExtractor{Client: depsdev})
 }

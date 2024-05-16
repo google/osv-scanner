@@ -421,7 +421,7 @@ func TestMavenLockExtractor2_ShouldExtract(t *testing.T) {
 		tt := tt
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
-			e := lockfile.MavenLockExtractor2{}
+			e := lockfile.MavenResolverExtractor{}
 			got := e.ShouldExtract(tt.path)
 			if got != tt.want {
 				t.Errorf("Extract() got = %v, want %v", got, tt.want)
