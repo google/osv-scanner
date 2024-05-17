@@ -378,7 +378,7 @@ func (c *fakeDepsDevClient) Query(ctx context.Context, in *depsdevpb.QueryReques
 	return nil, errors.New("not implemented")
 }
 
-func TestMavenLockExtractor2_ShouldExtract(t *testing.T) {
+func TestMavenResolverExtractor_ShouldExtract(t *testing.T) {
 	t.Parallel()
 
 	tests := []struct {
@@ -430,7 +430,7 @@ func TestMavenLockExtractor2_ShouldExtract(t *testing.T) {
 	}
 }
 
-func TestParseMavenLock2_FileDoesNotExist(t *testing.T) {
+func TestParseMavenWithResolver_FileDoesNotExist(t *testing.T) {
 	t.Parallel()
 
 	packages, err := lockfile.ParseMavenWithResolver(nil, "fixtures/maven/does-not-exist")
@@ -439,7 +439,7 @@ func TestParseMavenLock2_FileDoesNotExist(t *testing.T) {
 	expectPackages(t, packages, []lockfile.PackageDetails{})
 }
 
-func TestParseMavenLock2_Invalid(t *testing.T) {
+func TestParseMavenWithResolver_Invalid(t *testing.T) {
 	t.Parallel()
 
 	packages, err := lockfile.ParseMavenWithResolver(nil, "fixtures/maven/not-pom.txt")
@@ -448,7 +448,7 @@ func TestParseMavenLock2_Invalid(t *testing.T) {
 	expectPackages(t, packages, []lockfile.PackageDetails{})
 }
 
-func TestParseMavenLock2_InvalidSyntax(t *testing.T) {
+func TestParseMavenWithResolver_InvalidSyntax(t *testing.T) {
 	t.Parallel()
 
 	packages, err := lockfile.ParseMavenWithResolver(nil, "fixtures/maven/invalid-syntax.xml")
@@ -457,7 +457,7 @@ func TestParseMavenLock2_InvalidSyntax(t *testing.T) {
 	expectPackages(t, packages, []lockfile.PackageDetails{})
 }
 
-func TestParseMavenLock2_NoPackages(t *testing.T) {
+func TestParseMavenWithResolver_NoPackages(t *testing.T) {
 	t.Parallel()
 
 	packages, err := lockfile.ParseMavenWithResolver(nil, "fixtures/maven/empty.xml")
@@ -469,7 +469,7 @@ func TestParseMavenLock2_NoPackages(t *testing.T) {
 	expectPackages(t, packages, []lockfile.PackageDetails{})
 }
 
-func TestParseMavenLock2_OnePackage(t *testing.T) {
+func TestParseMavenWithResolver_OnePackage(t *testing.T) {
 	t.Parallel()
 
 	packages, err := lockfile.ParseMavenWithResolver(nil, "fixtures/maven/one-package.xml")
@@ -488,7 +488,7 @@ func TestParseMavenLock2_OnePackage(t *testing.T) {
 	})
 }
 
-func TestParseMavenLock2_TwoPackages(t *testing.T) {
+func TestParseMavenWithResolver_TwoPackages(t *testing.T) {
 	t.Parallel()
 
 	packages, err := lockfile.ParseMavenWithResolver(nil, "fixtures/maven/two-packages.xml")
@@ -513,7 +513,7 @@ func TestParseMavenLock2_TwoPackages(t *testing.T) {
 	})
 }
 
-func TestParseMavenLock2_WithDependencyManagement(t *testing.T) {
+func TestParseMavenWithResolver_WithDependencyManagement(t *testing.T) {
 	t.Parallel()
 
 	packages, err := lockfile.ParseMavenWithResolver(nil, "fixtures/maven/with-dependency-management.xml")
@@ -544,7 +544,7 @@ func TestParseMavenLock2_WithDependencyManagement(t *testing.T) {
 	})
 }
 
-func TestParseMavenLock2_Interpolation(t *testing.T) {
+func TestParseMavenWithResolver_Interpolation(t *testing.T) {
 	t.Parallel()
 
 	packages, err := lockfile.ParseMavenWithResolver(&fakeDepsDevClient{}, "fixtures/maven/interpolation.xml")
@@ -575,7 +575,7 @@ func TestParseMavenLock2_Interpolation(t *testing.T) {
 	})
 }
 
-func TestParseMavenLock2_WithScope(t *testing.T) {
+func TestParseMavenWithResolver_WithScope(t *testing.T) {
 	t.Parallel()
 
 	packages, err := lockfile.ParseMavenWithResolver(nil, "fixtures/maven/with-scope.xml")
