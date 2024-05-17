@@ -263,6 +263,6 @@ func (e MavenResolverExtractor) resolveVersion(ctx context.Context, dep maven.De
 	return result.String(), nil
 }
 
-func ParseMavenLock2(depsdev depsdevpb.InsightsClient, pathToLockfile string) ([]PackageDetails, error) {
+func ParseMavenWithResolver(depsdev depsdevpb.InsightsClient, pathToLockfile string) ([]PackageDetails, error) {
 	return extractFromFile(pathToLockfile, MavenResolverExtractor{Client: depsdev})
 }
