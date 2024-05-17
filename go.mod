@@ -3,10 +3,10 @@ module github.com/google/osv-scanner
 go 1.21.10
 
 require (
-	deps.dev/api/v3 v3.0.0-20240503042720-6166138ce783
-	deps.dev/util/maven v0.0.0-20240503042720-6166138ce783
-	deps.dev/util/resolve v0.0.0-20240503042720-6166138ce783
-	deps.dev/util/semver v0.0.0-20240503042720-6166138ce783
+	deps.dev/api/v3 v3.0.0-20240516073147-b352d7eeeae6
+	deps.dev/util/maven v0.0.0-20240516073147-b352d7eeeae6
+	deps.dev/util/resolve v0.0.0-20240516073147-b352d7eeeae6
+	deps.dev/util/semver v0.0.0-20240516073147-b352d7eeeae6
 	github.com/BurntSushi/toml v1.3.2
 	github.com/CycloneDX/cyclonedx-go v0.8.0
 	github.com/charmbracelet/bubbles v0.18.0
