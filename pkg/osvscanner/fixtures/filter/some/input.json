@@ -8,6 +8,159 @@
       "packages": [
         {
           "package": {
+            "name": "unixodbc",
+            "version": "2.3.11-2",
+            "ecosystem": "Debian:10"
+          },
+          "vulnerabilities": [
+            {
+              "id": "CVE-2024-1013",
+              "details": "An out-of-bounds stack write flaw was found in unixODBC on 64-bit architectures where the caller has 4 bytes and callee writes 8 bytes. This issue may go unnoticed on little-endian architectures, while big-endian architectures can be broken.",
+              "affected": [
+                {
+                  "package": {
+                    "name": "unixodbc",
+                    "ecosystem": "Debian:10"
+                  },
+                  "ranges": [
+                    {
+                      "type": "ECOSYSTEM",
+                      "events": [
+                        {
+                          "introduced": "0"
+                        }
+                      ]
+                    }
+                  ],
+                  "ecosystem_specific": {
+                    "urgency": "unimportant"
+                  }
+                }
+              ],
+              "references": [
+                {
+                  "type": "REPORT",
+                  "url": "https://bugzilla.redhat.com/show_bug.cgi?id=2260823"
+                },
+                {
+                  "type": "WEB",
+                  "url": "https://access.redhat.com/security/cve/CVE-2024-1013"
+                },
+                {
+                  "type": "WEB",
+                  "url": "https://github.com/lurcher/unixODBC/pull/157"
+                }
+              ],
+              "modified": "2024-03-18T12:38:25Z",
+              "published": "2024-03-18T11:15:09Z"
+            }
+          ],
+          "groups": [
+            {
+              "ids": [
+                "CVE-2024-1013"
+              ]
+            }
+          ]
+        },
+        {
+          "package": {
+            "name": "chromium",
+            "version": "73.0.3683.75-1",
+            "ecosystem": "Debian:10"
+          },
+          "vulnerabilities": [
+            {
+              "id": "CVE-2024-3847",
+              "details": "Insufficient policy enforcement in WebUI in Google Chrome prior to 124.0.6367.60 allowed a remote attacker to bypass content security policy via a crafted HTML page. (Chromium security severity: Low)",
+              "affected": [
+                {
+                  "package": {
+                    "name": "chromium",
+                    "ecosystem": "Debian:10"
+                  },
+                  "ranges": [
+                    {
+                      "type": "ECOSYSTEM",
+                      "events": [
+                        {
+                          "introduced": "0"
+                        }
+                      ]
+                    }
+                  ],
+                  "ecosystem_specific": {
+                    "urgency": "low"
+                  }
+                },
+                {
+                  "package": {
+                    "name": "chromium",
+                    "ecosystem": "Debian:11"
+                  },
+                  "ranges": [
+                    {
+                      "type": "ECOSYSTEM",
+                      "events": [
+                        {
+                          "introduced": "0"
+                        }
+                      ]
+                    }
+                  ],
+                  "ecosystem_specific": {
+                    "urgency": "low"
+                  }
+                }
+              ],
+              "references": [
+                {
+                  "type": "ARTICLE",
+                  "url": "https://chromereleases.googleblog.com/2024/04/stable-channel-update-for-desktop_16.html"
+                },
+                {
+                  "type": "WEB",
+                  "url": "https://issues.chromium.org/issues/328690293"
+                },
+                {
+                  "type": "WEB",
+                  "url": "https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/CWIVXXSVO5VB3NAZVFJ7CWVBN6W2735T/"
+                },
+                {
+                  "type": "WEB",
+                  "url": "https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/IDLUD644WEWGOFKMZWC2K7Z4CQOKQYR7/"
+                },
+                {
+                  "type": "WEB",
+                  "url": "https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/M4PCXKCOVBUUU6GOSN46DCPI4HMER3PJ/"
+                },
+                {
+                  "type": "WEB",
+                  "url": "https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/PCWPUBGTBNT4EW32YNZMRIPB3Y4R6XL6/"
+                },
+                {
+                  "type": "WEB",
+                  "url": "https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/UOC3HLIZCGMIJLJ6LME5UWUUIFLXEGRN/"
+                },
+                {
+                  "type": "WEB",
+                  "url": "https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/WEP5NJUWMDRLDQUKU4LFDUHF5PCYAPIO/"
+                }
+              ],
+              "modified": "2024-05-03T03:16:29Z",
+              "published": "2024-04-17T08:15:10Z"
+            }
+          ],
+          "groups": [
+            {
+              "ids": [
+                "CVE-2024-3847"
+              ]
+            }
+          ]
+        },
+        {
+          "package": {
             "name": "remove_dir_all",
             "version": "0.5.3",
             "ecosystem": "crates.io"
@@ -717,6 +870,9 @@
                   ],
                   "database_specific": {
                     "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2023/02/GHSA-vvpx-j8f3-3w6h/GHSA-vvpx-j8f3-3w6h.json"
+                  },
+                  "ecosystem_specific": {
+                    "urgency": "unimportant"
                   }
                 }
               ],
@@ -806,7 +962,8 @@
                       {
                         "path": "net/http"
                       }
-                    ]
+                    ],
+                    "urgency": "low"
                   }
                 },
                 {
