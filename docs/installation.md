@@ -45,6 +45,22 @@ Alpine Linux users can install osv-scanner from the official repo:
 apk add osv-scanner
 ```
 
+### FreeBSD
+
+FreeBSD users can install osv-scanner from the official repo:
+
+```bash
+pkg install osv-scanner
+```
+
+### NetBSD
+
+NetBSD users can install osv-scanner from the official repo:
+
+```bash
+pkg_add osv-scanner
+```
+
 ### OpenBSD
 
 OpenBSD users can install osv-scanner from the official repo:
