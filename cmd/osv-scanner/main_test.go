@@ -227,6 +227,7 @@ func TestRun(t *testing.T) {
 				| OSV URL                             | CVSS | ECOSYSTEM | PACKAGE                        | VERSION                            | SOURCE                                          |
 				+-------------------------------------+------+-----------+--------------------------------+------------------------------------+-------------------------------------------------+
 				| https://osv.dev/CVE-2022-48174      | 9.8  | Alpine    | busybox                        | 1.35.0-r29                         | fixtures/sbom-insecure/alpine.cdx.xml           |
+				| https://osv.dev/CVE-2023-42366      | 5.5  | Alpine    | busybox                        | 1.35.0-r29                         | fixtures/sbom-insecure/alpine.cdx.xml           |
 				| https://osv.dev/CVE-2022-37434      | 9.8  | Alpine    | zlib                           | 1.2.10-r2                          | fixtures/sbom-insecure/alpine.cdx.xml           |
 				| https://osv.dev/DLA-3022-1          |      | Debian    | dpkg                           | 1.18.25                            | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 				| https://osv.dev/GHSA-v95c-p5hm-xq8f | 6    | Go        | github.com/opencontainers/runc | v1.0.1                             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
@@ -256,6 +257,7 @@ func TestRun(t *testing.T) {
 				| OSV URL                        | CVSS | ECOSYSTEM | PACKAGE | VERSION    | SOURCE                                |
 				+--------------------------------+------+-----------+---------+------------+---------------------------------------+
 				| https://osv.dev/CVE-2022-48174 | 9.8  | Alpine    | busybox | 1.35.0-r29 | fixtures/sbom-insecure/alpine.cdx.xml |
+				| https://osv.dev/CVE-2023-42366 | 5.5  | Alpine    | busybox | 1.35.0-r29 | fixtures/sbom-insecure/alpine.cdx.xml |
 				| https://osv.dev/CVE-2022-37434 | 9.8  | Alpine    | zlib    | 1.2.10-r2  | fixtures/sbom-insecure/alpine.cdx.xml |
 				+--------------------------------+------+-----------+---------+------------+---------------------------------------+
 			`,
@@ -278,7 +280,7 @@ func TestRun(t *testing.T) {
 		{
 			name:         "Scan locks-many",
 			args:         []string{"", "./fixtures/locks-many"},
-			wantExitCode: 0,
+			wantExitCode: 1,
 			wantStdout: `
 				Scanning dir ./fixtures/locks-many
 				Scanned <rootdir>/fixtures/locks-many/Gemfile.lock file and found 1 package
@@ -290,7 +292,11 @@ func TestRun(t *testing.T) {
 				CVE-2022-48174 has been filtered out because: Test manifest file (alpine.cdx.xml)
 				GHSA-whgm-jr23-g3j9 and 1 alias have been filtered out because: Test manifest file
 				Filtered 2 vulnerabilities from output
-				No issues found
+				+--------------------------------+------+-----------+---------+------------+------------------------------------+
+        | OSV URL                        | CVSS | ECOSYSTEM | PACKAGE | VERSION    | SOURCE                             |
+        +--------------------------------+------+-----------+---------+------------+------------------------------------+
+        | https://osv.dev/CVE-2023-42366 | 5.5  | Alpine    | busybox | 1.35.0-r29 | fixtures/locks-many/alpine.cdx.xml |
+        +--------------------------------+------+-----------+---------+------------+------------------------------------+
 			`,
 			wantStderr: "",
 		},
@@ -1153,7 +1159,7 @@ func TestRun_Licenses(t *testing.T) {
 		{
 			name:         "No vulnerabilities with license summary",
 			args:         []string{"", "--experimental-licenses-summary", "./fixtures/locks-many"},
-			wantExitCode: 0,
+			wantExitCode: 1,
 			wantStdout: `
 				Scanning dir ./fixtures/locks-many
 				Scanned <rootdir>/fixtures/locks-many/Gemfile.lock file and found 1 package
@@ -1165,6 +1171,11 @@ func TestRun_Licenses(t *testing.T) {
 				CVE-2022-48174 has been filtered out because: Test manifest file (alpine.cdx.xml)
 				GHSA-whgm-jr23-g3j9 and 1 alias have been filtered out because: Test manifest file
 				Filtered 2 vulnerabilities from output
+				+--------------------------------+------+-----------+---------+------------+------------------------------------+
+        | OSV URL                        | CVSS | ECOSYSTEM | PACKAGE | VERSION    | SOURCE                             |
+        +--------------------------------+------+-----------+---------+------------+------------------------------------+
+        | https://osv.dev/CVE-2023-42366 | 5.5  | Alpine    | busybox | 1.35.0-r29 | fixtures/locks-many/alpine.cdx.xml |
+        +--------------------------------+------+-----------+---------+------------+------------------------------------+
 				+------------+-------------------------+
 				| LICENSE    | NO. OF PACKAGE VERSIONS |
 				+------------+-------------------------+
@@ -1178,7 +1189,7 @@ func TestRun_Licenses(t *testing.T) {
 		{
 			name:         "No vulnerabilities with license summary in markdown",
 			args:         []string{"", "--experimental-licenses-summary", "--format=markdown", "./fixtures/locks-many"},
-			wantExitCode: 0,
+			wantExitCode: 1,
 			wantStdout: `Scanning dir ./fixtures/locks-many
 Scanned <rootdir>/fixtures/locks-many/Gemfile.lock file and found 1 package
 Scanned <rootdir>/fixtures/locks-many/alpine.cdx.xml as CycloneDX SBOM and found 15 packages
@@ -1189,6 +1200,9 @@ Loaded filter from: <rootdir>/fixtures/locks-many/osv-scanner.toml
 CVE-2022-48174 has been filtered out because: Test manifest file (alpine.cdx.xml)
 GHSA-whgm-jr23-g3j9 and 1 alias have been filtered out because: Test manifest file
 Filtered 2 vulnerabilities from output
+| OSV URL | CVSS | Ecosystem | Package | Version | Source |
+| --- | --- | --- | --- | --- | --- |
+| https://osv.dev/CVE-2023-42366 | 5.5 | Alpine | busybox | 1.35.0-r29 | fixtures/locks-many/alpine.cdx.xml |
 | License | No. of package versions |
 | --- | ---:|
 | Apache-2.0 | 1 |
