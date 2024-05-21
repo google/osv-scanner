@@ -51,7 +51,8 @@ type NpmLockPackage struct {
 }
 
 type NpmLockfile struct {
-	Version int `json:"lockfileVersion"`
+	Version    int `json:"lockfileVersion"`
+	SourceFile string
 	// npm v1- lockfiles use "dependencies"
 	Dependencies map[string]*NpmLockDependency `json:"dependencies"`
 	// npm v2+ lockfiles use "packages"
@@ -100,7 +101,7 @@ func (npmLockDependency *NpmLockDependency) depGroups() []string {
 	return nil
 }
 
-func parseNpmLockDependencies(dependencies map[string]*NpmLockDependency) map[string]PackageDetails {
+func parseNpmLockDependencies(dependencies map[string]*NpmLockDependency, path string) map[string]PackageDetails {
 	details := map[string]PackageDetails{}
 
 	keys := reflect.ValueOf(dependencies).MapKeys()
@@ -111,7 +112,7 @@ func parseNpmLockDependencies(dependencies map[string]*NpmLockDependency) map[st
 		name := key.Interface().(string)
 		detail := dependencies[name]
 		if detail.Dependencies != nil {
-			details = mergePkgDetailsMap(details, parseNpmLockDependencies(detail.Dependencies))
+			details = mergePkgDetailsMap(details, parseNpmLockDependencies(detail.Dependencies, path))
 		}
 
 		version := detail.Version
@@ -148,8 +149,9 @@ func parseNpmLockDependencies(dependencies map[string]*NpmLockDependency) map[st
 			Ecosystem: NpmEcosystem,
 			CompareAs: NpmEcosystem,
 			BlockLocation: models.FilePosition{
-				Line:   detail.Line,
-				Column: detail.Column,
+				Line:     detail.Line,
+				Column:   detail.Column,
+				Filename: path,
 			},
 			Commit:    commit,
 			DepGroups: detail.depGroups(),
@@ -184,7 +186,7 @@ func (npmLockDependency NpmLockPackage) depGroups() []string {
 	return nil
 }
 
-func parseNpmLockPackages(packages map[string]*NpmLockPackage) map[string]PackageDetails {
+func parseNpmLockPackages(packages map[string]*NpmLockPackage, path string) map[string]PackageDetails {
 	details := map[string]PackageDetails{}
 
 	keys := reflect.ValueOf(packages).MapKeys()
@@ -227,8 +229,9 @@ func parseNpmLockPackages(packages map[string]*NpmLockPackage) map[string]Packag
 				Ecosystem: NpmEcosystem,
 				CompareAs: NpmEcosystem,
 				BlockLocation: models.FilePosition{
-					Line:   detail.Line,
-					Column: detail.Column,
+					Line:     detail.Line,
+					Column:   detail.Column,
+					Filename: path,
 				},
 				Commit:    commit,
 				DepGroups: detail.depGroups(),
@@ -243,12 +246,12 @@ func parseNpmLock(lockfile NpmLockfile, lines []string) map[string]PackageDetail
 	if lockfile.Packages != nil {
 		fileposition.InJSON("packages", lockfile.Packages, lines, 0)
 
-		return parseNpmLockPackages(lockfile.Packages)
+		return parseNpmLockPackages(lockfile.Packages, lockfile.SourceFile)
 	}
 
 	fileposition.InJSON("dependencies", lockfile.Dependencies, lines, 0)
 
-	return parseNpmLockDependencies(lockfile.Dependencies)
+	return parseNpmLockDependencies(lockfile.Dependencies, lockfile.SourceFile)
 }
 
 type NpmLockExtractor struct{}
@@ -276,6 +279,7 @@ func (e NpmLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 	if err := decoder.Decode(&parsedLockfile); err != nil {
 		return []PackageDetails{}, fmt.Errorf("could not decode json from %s: %w", f.Path(), err)
 	}
+	parsedLockfile.SourceFile = f.Path()
 
 	return pkgDetailsMapToSlice(parseNpmLock(*parsedLockfile, lines)), nil
 }

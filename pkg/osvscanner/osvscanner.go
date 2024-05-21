@@ -12,6 +12,8 @@ import (
 	"path/filepath"
 	"strings"
 
+	"github.com/google/osv-scanner/internal/utility/fileposition"
+
 	"github.com/google/osv-scanner/internal/local"
 	"github.com/google/osv-scanner/internal/output"
 	"github.com/google/osv-scanner/internal/sbom"
@@ -378,12 +380,6 @@ func scanLockfile(r reporter.Reporter, path string, parseAs string, enabledParse
 
 	packages := make([]scannedPackage, len(parsedLockfile.Packages))
 	for i, pkgDetail := range parsedLockfile.Packages {
-		var sourcePath string
-		if len(pkgDetail.SourceFile) > 0 {
-			sourcePath = pkgDetail.SourceFile
-		} else {
-			sourcePath = path
-		}
 		packages[i] = scannedPackage{
 			Name:      pkgDetail.Name,
 			Version:   pkgDetail.Version,
@@ -391,7 +387,7 @@ func scanLockfile(r reporter.Reporter, path string, parseAs string, enabledParse
 			Ecosystem: pkgDetail.Ecosystem,
 			DepGroups: pkgDetail.DepGroups,
 			Source: models.SourceInfo{
-				Path: sourcePath,
+				Path: path,
 				Type: "lockfile",
 			},
 			BlockLocation:   pkgDetail.BlockLocation,
@@ -812,7 +808,10 @@ func DoScan(actions ScannerActions, r reporter.Reporter) (models.VulnerabilityRe
 			return models.VulnerabilityResults{}, err
 		}
 		if actions.ConsiderScanPathAsRoot || actions.PathRelativeToScanDir {
-			pkgs, err = removeHostPath(dir, pkgs, actions.PathRelativeToScanDir)
+			for index, pkg := range pkgs {
+				pkgs[index].Source.ScanPath = dir
+				pkgs[index].Source.Path = fileposition.RemoveHostPath(dir, pkg.Source.Path, actions.ConsiderScanPathAsRoot, actions.PathRelativeToScanDir)
+			}
 
 			if err != nil {
 				return models.VulnerabilityResults{}, err
@@ -832,7 +831,7 @@ func DoScan(actions ScannerActions, r reporter.Reporter) (models.VulnerabilityRe
 	}
 
 	if actions.OnlyPackages {
-		vulnerabilityResults := groupBySource(r, scannedPackages)
+		vulnerabilityResults := groupBySource(r, scannedPackages, actions)
 
 		return vulnerabilityResults, nil
 	}
@@ -887,30 +886,6 @@ func DoScan(actions ScannerActions, r reporter.Reporter) (models.VulnerabilityRe
 		} else {
 			return results, VulnerabilitiesFoundErr
 		}
-	}
-
-	return results, nil
-}
-
-func removeHostPath(scanPath string, results []scannedPackage, shouldBeRelative bool) ([]scannedPackage, error) {
-	hostPath, err := filepath.Abs(scanPath)
-	if err != nil {
-		return nil, err
-	}
-	stats, err := os.Lstat(hostPath)
-	if err != nil {
-		return nil, err
-	}
-	if !stats.IsDir() {
-		hostPath = filepath.Dir(hostPath)
-	}
-
-	for index, pkg := range results {
-		pkg.Source.Path = filepath.ToSlash(strings.TrimPrefix(pkg.Source.Path, hostPath))
-		if shouldBeRelative {
-			pkg.Source.Path = strings.TrimPrefix(pkg.Source.Path, "/")
-		}
-		results[index] = pkg
 	}
 
 	return results, nil

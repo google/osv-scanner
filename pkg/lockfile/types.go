@@ -3,12 +3,11 @@ package lockfile
 import "github.com/google/osv-scanner/pkg/models"
 
 type PackageDetails struct {
-	Name            string    `json:"name"`
-	Version         string    `json:"version"`
-	Commit          string    `json:"commit,omitempty"`
-	Ecosystem       Ecosystem `json:"ecosystem,omitempty"`
-	CompareAs       Ecosystem `json:"compareAs,omitempty"`
-	SourceFile      string
+	Name            string               `json:"name"`
+	Version         string               `json:"version"`
+	Commit          string               `json:"commit,omitempty"`
+	Ecosystem       Ecosystem            `json:"ecosystem,omitempty"`
+	CompareAs       Ecosystem            `json:"compareAs,omitempty"`
 	DepGroups       []string             `json:"-"`
 	BlockLocation   models.FilePosition  `json:"blockLocation,omitempty"`
 	VersionLocation *models.FilePosition `json:"versionLocation,omitempty"`

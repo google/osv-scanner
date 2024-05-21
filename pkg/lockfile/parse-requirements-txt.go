@@ -60,19 +60,30 @@ func parseLine(path string, line string, lineNumber int, lineOffset int, columnS
 	}
 
 	block := strings.Split(line, "\n")
+	blockLocation := models.FilePosition{
+		Line:     models.Position{Start: lineNumber, End: lineNumber + lineOffset},
+		Column:   models.Position{Start: columnStart, End: columnEnd},
+		Filename: path,
+	}
+
+	nameLocation := fileposition.ExtractStringPositionInBlock(block, name, lineNumber)
+	if nameLocation != nil {
+		nameLocation.Filename = path
+	}
+
+	versionLocation := fileposition.ExtractStringPositionInBlock(block, version, lineNumber)
+	if versionLocation != nil {
+		versionLocation.Filename = path
+	}
 
 	return PackageDetails{
-		Name:    normalizedRequirementName(name),
-		Version: version,
-		BlockLocation: models.FilePosition{
-			Line:   models.Position{Start: lineNumber, End: lineNumber + lineOffset},
-			Column: models.Position{Start: columnStart, End: columnEnd},
-		},
-		NameLocation:    fileposition.ExtractStringPositionInBlock(block, name, lineNumber),
-		VersionLocation: fileposition.ExtractStringPositionInBlock(block, version, lineNumber),
+		Name:            normalizedRequirementName(name),
+		Version:         version,
+		BlockLocation:   blockLocation,
+		NameLocation:    nameLocation,
+		VersionLocation: versionLocation,
 		Ecosystem:       PipEcosystem,
 		CompareAs:       PipEcosystem,
-		SourceFile:      path,
 	}
 }
 

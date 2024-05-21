@@ -14,8 +14,9 @@ func TestGroupPackageByPURL_ShouldUnifyPackages(t *testing.T) {
 	input := []models.PackageSource{
 		{
 			Source: models.SourceInfo{
-				Path: "/dir/lockfile.xml",
-				Type: "",
+				ScanPath: "/dir",
+				Path:     "/dir/lockfile.xml",
+				Type:     "",
 			},
 			Packages: []models.PackageVulns{
 				{
@@ -24,8 +25,9 @@ func TestGroupPackageByPURL_ShouldUnifyPackages(t *testing.T) {
 						Version:   "1.0.0",
 						Ecosystem: string(lockfile.MavenEcosystem),
 						BlockLocation: models.FilePosition{
-							Line:   models.Position{Start: 1, End: 2},
-							Column: models.Position{Start: 10, End: 21},
+							Line:     models.Position{Start: 1, End: 2},
+							Column:   models.Position{Start: 10, End: 21},
+							Filename: "/dir/lockfile.xml",
 						},
 					},
 				},
@@ -35,8 +37,9 @@ func TestGroupPackageByPURL_ShouldUnifyPackages(t *testing.T) {
 						Version:   "1.0.0",
 						Ecosystem: string(lockfile.MavenEcosystem),
 						BlockLocation: models.FilePosition{
-							Line:   models.Position{Start: 1, End: 2},
-							Column: models.Position{Start: 10, End: 21},
+							Line:     models.Position{Start: 1, End: 2},
+							Column:   models.Position{Start: 10, End: 21},
+							Filename: "/dir/lockfile.xml",
 						},
 					},
 				},
@@ -46,8 +49,9 @@ func TestGroupPackageByPURL_ShouldUnifyPackages(t *testing.T) {
 						Version:   "1.0.0",
 						Ecosystem: string(lockfile.MavenEcosystem),
 						BlockLocation: models.FilePosition{
-							Line:   models.Position{Start: 1, End: 2},
-							Column: models.Position{Start: 10, End: 21},
+							Line:     models.Position{Start: 1, End: 2},
+							Column:   models.Position{Start: 10, End: 21},
+							Filename: "/dir/lockfile.xml",
 						},
 					},
 				},
@@ -57,8 +61,9 @@ func TestGroupPackageByPURL_ShouldUnifyPackages(t *testing.T) {
 						Ecosystem: string(lockfile.MavenEcosystem),
 						Version:   "1.0.0",
 						BlockLocation: models.FilePosition{
-							Line:   models.Position{Start: 11, End: 22},
-							Column: models.Position{Start: 10, End: 21},
+							Line:     models.Position{Start: 11, End: 22},
+							Column:   models.Position{Start: 10, End: 21},
+							Filename: "/dir/lockfile.xml",
 						},
 					},
 				},
@@ -66,8 +71,9 @@ func TestGroupPackageByPURL_ShouldUnifyPackages(t *testing.T) {
 		},
 		{
 			Source: models.SourceInfo{
-				Path: "/dir2/lockfile.json",
-				Type: "",
+				ScanPath: "/dir2",
+				Path:     "/dir2/lockfile.json",
+				Type:     "",
 			},
 			Packages: []models.PackageVulns{
 				{
@@ -76,8 +82,9 @@ func TestGroupPackageByPURL_ShouldUnifyPackages(t *testing.T) {
 						Version:   "1.0.0",
 						Ecosystem: string(lockfile.MavenEcosystem),
 						BlockLocation: models.FilePosition{
-							Line:   models.Position{Start: 1, End: 2},
-							Column: models.Position{Start: 10, End: 21},
+							Line:     models.Position{Start: 1, End: 2},
+							Column:   models.Position{Start: 10, End: 21},
+							Filename: "/dir2/lockfile.json",
 						},
 					},
 				},
@@ -92,7 +99,7 @@ func TestGroupPackageByPURL_ShouldUnifyPackages(t *testing.T) {
 		},
 	}
 
-	result := grouper.GroupByPURL(input)
+	result := grouper.GroupByPURL(input, false, false)
 
 	expected := map[string]models.PackageDetails{
 		"pkg:maven/foo.bar/the-first-package@1.0.0": {

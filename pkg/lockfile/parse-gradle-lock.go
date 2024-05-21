@@ -21,7 +21,7 @@ func isGradleLockFileDepLine(line string) bool {
 	return !ret
 }
 
-func parseToGradlePackageDetail(line string, lineNumber int) (PackageDetails, error) {
+func parseToGradlePackageDetail(line string, lineNumber int, path string) (PackageDetails, error) {
 	parts := strings.SplitN(line, ":", 3)
 	if len(parts) < 3 {
 		return PackageDetails{}, fmt.Errorf("invalid line in gradle lockfile: %s", line)
@@ -36,8 +36,9 @@ func parseToGradlePackageDetail(line string, lineNumber int) (PackageDetails, er
 		Ecosystem: MavenEcosystem,
 		CompareAs: MavenEcosystem,
 		BlockLocation: models.FilePosition{
-			Line:   models.Position{Start: lineNumber, End: lineNumber},
-			Column: models.Position{Start: 1, End: len(line) + 1},
+			Line:     models.Position{Start: lineNumber, End: lineNumber},
+			Column:   models.Position{Start: 1, End: len(line) + 1},
+			Filename: path,
 		},
 	}, nil
 }
@@ -69,7 +70,7 @@ func (e GradleLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 			continue
 		}
 
-		pkg, err := parseToGradlePackageDetail(lockLine, lineNumber)
+		pkg, err := parseToGradlePackageDetail(lockLine, lineNumber, f.Path())
 		if err != nil {
 			continue
 		}

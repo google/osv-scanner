@@ -2,6 +2,8 @@ package lockfile_test
 
 import (
 	"io/fs"
+	"os"
+	"path/filepath"
 	"testing"
 
 	"github.com/google/osv-scanner/pkg/models"
@@ -93,9 +95,13 @@ func TestParseGoLock_NoPackages(t *testing.T) {
 
 func TestParseGoLock_WithPathMajor(t *testing.T) {
 	t.Parallel()
+	dir, err := os.Getwd()
+	if err != nil {
+		t.Errorf("Got unexpected error: %v", err)
+	}
 
-	packages, err := lockfile.ParseGoLock("fixtures/go/with-path-major.mod")
-
+	path := filepath.FromSlash(filepath.Join(dir, "fixtures/go/with-path-major.mod"))
+	packages, err := lockfile.ParseGoLock(path)
 	if err != nil {
 		t.Errorf("Got unexpected error: %v", err)
 	}
@@ -107,16 +113,19 @@ func TestParseGoLock_WithPathMajor(t *testing.T) {
 			Ecosystem: lockfile.GoEcosystem,
 			CompareAs: lockfile.GoEcosystem,
 			BlockLocation: models.FilePosition{
-				Line:   models.Position{Start: 2, End: 2},
-				Column: models.Position{Start: 1, End: 54},
+				Line:     models.Position{Start: 2, End: 2},
+				Column:   models.Position{Start: 1, End: 54},
+				Filename: path,
 			},
 			VersionLocation: &models.FilePosition{
-				Line:   models.Position{Start: 2, End: 2},
-				Column: models.Position{Start: 46, End: 47},
+				Line:     models.Position{Start: 2, End: 2},
+				Column:   models.Position{Start: 46, End: 47},
+				Filename: path,
 			},
 			NameLocation: &models.FilePosition{
-				Line:   models.Position{Start: 2, End: 2},
-				Column: models.Position{Start: 9, End: 47},
+				Line:     models.Position{Start: 2, End: 2},
+				Column:   models.Position{Start: 9, End: 47},
+				Filename: path,
 			},
 		},
 		{
@@ -125,8 +134,9 @@ func TestParseGoLock_WithPathMajor(t *testing.T) {
 			Ecosystem: lockfile.GoEcosystem,
 			CompareAs: lockfile.GoEcosystem,
 			BlockLocation: models.FilePosition{
-				Line:   models.Position{Start: 0, End: 0},
-				Column: models.Position{Start: 0, End: 0},
+				Line:     models.Position{Start: 0, End: 0},
+				Column:   models.Position{Start: 0, End: 0},
+				Filename: path,
 			},
 		},
 	})
@@ -134,9 +144,13 @@ func TestParseGoLock_WithPathMajor(t *testing.T) {
 
 func TestParseGoLock_WithoutSupportedVersioning(t *testing.T) {
 	t.Parallel()
+	dir, err := os.Getwd()
+	if err != nil {
+		t.Errorf("Got unexpected error: %v", err)
+	}
 
-	packages, err := lockfile.ParseGoLock("fixtures/go/without-supported-versioning.mod")
-
+	path := filepath.FromSlash(filepath.Join(dir, "fixtures/go/without-supported-versioning.mod"))
+	packages, err := lockfile.ParseGoLock(path)
 	if err != nil {
 		t.Errorf("Got unexpected error: %v", err)
 	}
@@ -148,12 +162,14 @@ func TestParseGoLock_WithoutSupportedVersioning(t *testing.T) {
 			Ecosystem: lockfile.GoEcosystem,
 			CompareAs: lockfile.GoEcosystem,
 			BlockLocation: models.FilePosition{
-				Line:   models.Position{Start: 2, End: 2},
-				Column: models.Position{Start: 1, End: 51},
+				Line:     models.Position{Start: 2, End: 2},
+				Column:   models.Position{Start: 1, End: 51},
+				Filename: path,
 			},
 			NameLocation: &models.FilePosition{
-				Line:   models.Position{Start: 2, End: 2},
-				Column: models.Position{Start: 9, End: 44},
+				Line:     models.Position{Start: 2, End: 2},
+				Column:   models.Position{Start: 9, End: 44},
+				Filename: path,
 			},
 		},
 		{
@@ -162,8 +178,9 @@ func TestParseGoLock_WithoutSupportedVersioning(t *testing.T) {
 			Ecosystem: lockfile.GoEcosystem,
 			CompareAs: lockfile.GoEcosystem,
 			BlockLocation: models.FilePosition{
-				Line:   models.Position{Start: 0, End: 0},
-				Column: models.Position{Start: 0, End: 0},
+				Line:     models.Position{Start: 0, End: 0},
+				Column:   models.Position{Start: 0, End: 0},
+				Filename: path,
 			},
 		},
 	})
@@ -171,9 +188,13 @@ func TestParseGoLock_WithoutSupportedVersioning(t *testing.T) {
 
 func TestParseGoLock_OnePackage(t *testing.T) {
 	t.Parallel()
+	dir, err := os.Getwd()
+	if err != nil {
+		t.Errorf("Got unexpected error: %v", err)
+	}
 
-	packages, err := lockfile.ParseGoLock("fixtures/go/one-package.mod")
-
+	path := filepath.FromSlash(filepath.Join(dir, "fixtures/go/one-package.mod"))
+	packages, err := lockfile.ParseGoLock(path)
 	if err != nil {
 		t.Errorf("Got unexpected error: %v", err)
 	}
@@ -185,16 +206,19 @@ func TestParseGoLock_OnePackage(t *testing.T) {
 			Ecosystem: lockfile.GoEcosystem,
 			CompareAs: lockfile.GoEcosystem,
 			BlockLocation: models.FilePosition{
-				Line:   models.Position{Start: 4, End: 4},
-				Column: models.Position{Start: 2, End: 35},
+				Line:     models.Position{Start: 4, End: 4},
+				Column:   models.Position{Start: 2, End: 35},
+				Filename: path,
 			},
 			VersionLocation: &models.FilePosition{
-				Line:   models.Position{Start: 4, End: 4},
-				Column: models.Position{Start: 30, End: 35},
+				Line:     models.Position{Start: 4, End: 4},
+				Column:   models.Position{Start: 30, End: 35},
+				Filename: path,
 			},
 			NameLocation: &models.FilePosition{
-				Line:   models.Position{Start: 4, End: 4},
-				Column: models.Position{Start: 2, End: 28},
+				Line:     models.Position{Start: 4, End: 4},
+				Column:   models.Position{Start: 2, End: 28},
+				Filename: path,
 			},
 		},
 	})
@@ -202,9 +226,13 @@ func TestParseGoLock_OnePackage(t *testing.T) {
 
 func TestParseGoLock_TwoPackages(t *testing.T) {
 	t.Parallel()
+	dir, err := os.Getwd()
+	if err != nil {
+		t.Errorf("Got unexpected error: %v", err)
+	}
 
-	packages, err := lockfile.ParseGoLock("fixtures/go/two-packages.mod")
-
+	path := filepath.FromSlash(filepath.Join(dir, "fixtures/go/two-packages.mod"))
+	packages, err := lockfile.ParseGoLock(path)
 	if err != nil {
 		t.Errorf("Got unexpected error: %v", err)
 	}
@@ -216,16 +244,19 @@ func TestParseGoLock_TwoPackages(t *testing.T) {
 			Ecosystem: lockfile.GoEcosystem,
 			CompareAs: lockfile.GoEcosystem,
 			BlockLocation: models.FilePosition{
-				Line:   models.Position{Start: 6, End: 6},
-				Column: models.Position{Start: 2, End: 35},
+				Line:     models.Position{Start: 6, End: 6},
+				Column:   models.Position{Start: 2, End: 35},
+				Filename: path,
 			},
 			VersionLocation: &models.FilePosition{
-				Line:   models.Position{Start: 6, End: 6},
-				Column: models.Position{Start: 30, End: 35},
+				Line:     models.Position{Start: 6, End: 6},
+				Column:   models.Position{Start: 30, End: 35},
+				Filename: path,
 			},
 			NameLocation: &models.FilePosition{
-				Line:   models.Position{Start: 6, End: 6},
-				Column: models.Position{Start: 2, End: 28},
+				Line:     models.Position{Start: 6, End: 6},
+				Column:   models.Position{Start: 2, End: 28},
+				Filename: path,
 			},
 		},
 		{
@@ -234,16 +265,19 @@ func TestParseGoLock_TwoPackages(t *testing.T) {
 			Ecosystem: lockfile.GoEcosystem,
 			CompareAs: lockfile.GoEcosystem,
 			BlockLocation: models.FilePosition{
-				Line:   models.Position{Start: 7, End: 7},
-				Column: models.Position{Start: 2, End: 25},
+				Line:     models.Position{Start: 7, End: 7},
+				Column:   models.Position{Start: 2, End: 25},
+				Filename: path,
 			},
 			VersionLocation: &models.FilePosition{
-				Line:   models.Position{Start: 7, End: 7},
-				Column: models.Position{Start: 20, End: 25},
+				Line:     models.Position{Start: 7, End: 7},
+				Column:   models.Position{Start: 20, End: 25},
+				Filename: path,
 			},
 			NameLocation: &models.FilePosition{
-				Line:   models.Position{Start: 7, End: 7},
-				Column: models.Position{Start: 2, End: 18},
+				Line:     models.Position{Start: 7, End: 7},
+				Column:   models.Position{Start: 2, End: 18},
+				Filename: path,
 			},
 		},
 		{
@@ -251,15 +285,24 @@ func TestParseGoLock_TwoPackages(t *testing.T) {
 			Version:   "1.17.0",
 			Ecosystem: lockfile.GoEcosystem,
 			CompareAs: lockfile.GoEcosystem,
+			BlockLocation: models.FilePosition{
+				Line:     models.Position{Start: 0, End: 0},
+				Column:   models.Position{Start: 0, End: 0},
+				Filename: path,
+			},
 		},
 	})
 }
 
 func TestParseGoLock_IndirectPackages(t *testing.T) {
 	t.Parallel()
+	dir, err := os.Getwd()
+	if err != nil {
+		t.Errorf("Got unexpected error: %v", err)
+	}
 
-	packages, err := lockfile.ParseGoLock("fixtures/go/indirect-packages.mod")
-
+	path := filepath.FromSlash(filepath.Join(dir, "fixtures/go/indirect-packages.mod"))
+	packages, err := lockfile.ParseGoLock(path)
 	if err != nil {
 		t.Errorf("Got unexpected error: %v", err)
 	}
@@ -271,16 +314,19 @@ func TestParseGoLock_IndirectPackages(t *testing.T) {
 			Ecosystem: lockfile.GoEcosystem,
 			CompareAs: lockfile.GoEcosystem,
 			BlockLocation: models.FilePosition{
-				Line:   models.Position{Start: 6, End: 6},
-				Column: models.Position{Start: 2, End: 35},
+				Line:     models.Position{Start: 6, End: 6},
+				Column:   models.Position{Start: 2, End: 35},
+				Filename: path,
 			},
 			VersionLocation: &models.FilePosition{
-				Line:   models.Position{Start: 6, End: 6},
-				Column: models.Position{Start: 30, End: 35},
+				Line:     models.Position{Start: 6, End: 6},
+				Column:   models.Position{Start: 30, End: 35},
+				Filename: path,
 			},
 			NameLocation: &models.FilePosition{
-				Line:   models.Position{Start: 6, End: 6},
-				Column: models.Position{Start: 2, End: 28},
+				Line:     models.Position{Start: 6, End: 6},
+				Column:   models.Position{Start: 2, End: 28},
+				Filename: path,
 			},
 		},
 		{
@@ -289,16 +335,19 @@ func TestParseGoLock_IndirectPackages(t *testing.T) {
 			Ecosystem: lockfile.GoEcosystem,
 			CompareAs: lockfile.GoEcosystem,
 			BlockLocation: models.FilePosition{
-				Line:   models.Position{Start: 7, End: 7},
-				Column: models.Position{Start: 2, End: 25},
+				Line:     models.Position{Start: 7, End: 7},
+				Column:   models.Position{Start: 2, End: 25},
+				Filename: path,
 			},
 			VersionLocation: &models.FilePosition{
-				Line:   models.Position{Start: 7, End: 7},
-				Column: models.Position{Start: 20, End: 25},
+				Line:     models.Position{Start: 7, End: 7},
+				Column:   models.Position{Start: 20, End: 25},
+				Filename: path,
 			},
 			NameLocation: &models.FilePosition{
-				Line:   models.Position{Start: 7, End: 7},
-				Column: models.Position{Start: 2, End: 18},
+				Line:     models.Position{Start: 7, End: 7},
+				Column:   models.Position{Start: 2, End: 18},
+				Filename: path,
 			},
 		},
 		{
@@ -307,16 +356,19 @@ func TestParseGoLock_IndirectPackages(t *testing.T) {
 			Ecosystem: lockfile.GoEcosystem,
 			CompareAs: lockfile.GoEcosystem,
 			BlockLocation: models.FilePosition{
-				Line:   models.Position{Start: 11, End: 11},
-				Column: models.Position{Start: 2, End: 38},
+				Line:     models.Position{Start: 11, End: 11},
+				Column:   models.Position{Start: 2, End: 38},
+				Filename: path,
 			},
 			VersionLocation: &models.FilePosition{
-				Line:   models.Position{Start: 11, End: 11},
-				Column: models.Position{Start: 33, End: 38},
+				Line:     models.Position{Start: 11, End: 11},
+				Column:   models.Position{Start: 33, End: 38},
+				Filename: path,
 			},
 			NameLocation: &models.FilePosition{
-				Line:   models.Position{Start: 11, End: 11},
-				Column: models.Position{Start: 2, End: 31},
+				Line:     models.Position{Start: 11, End: 11},
+				Column:   models.Position{Start: 2, End: 31},
+				Filename: path,
 			},
 		},
 		{
@@ -325,16 +377,19 @@ func TestParseGoLock_IndirectPackages(t *testing.T) {
 			Ecosystem: lockfile.GoEcosystem,
 			CompareAs: lockfile.GoEcosystem,
 			BlockLocation: models.FilePosition{
-				Line:   models.Position{Start: 12, End: 12},
-				Column: models.Position{Start: 2, End: 36},
+				Line:     models.Position{Start: 12, End: 12},
+				Column:   models.Position{Start: 2, End: 36},
+				Filename: path,
 			},
 			VersionLocation: &models.FilePosition{
-				Line:   models.Position{Start: 12, End: 12},
-				Column: models.Position{Start: 30, End: 36},
+				Line:     models.Position{Start: 12, End: 12},
+				Column:   models.Position{Start: 30, End: 36},
+				Filename: path,
 			},
 			NameLocation: &models.FilePosition{
-				Line:   models.Position{Start: 12, End: 12},
-				Column: models.Position{Start: 2, End: 28},
+				Line:     models.Position{Start: 12, End: 12},
+				Column:   models.Position{Start: 2, End: 28},
+				Filename: path,
 			},
 		},
 		{
@@ -343,16 +398,19 @@ func TestParseGoLock_IndirectPackages(t *testing.T) {
 			Ecosystem: lockfile.GoEcosystem,
 			CompareAs: lockfile.GoEcosystem,
 			BlockLocation: models.FilePosition{
-				Line:   models.Position{Start: 13, End: 13},
-				Column: models.Position{Start: 2, End: 53},
+				Line:     models.Position{Start: 13, End: 13},
+				Column:   models.Position{Start: 2, End: 53},
+				Filename: path,
 			},
 			VersionLocation: &models.FilePosition{
-				Line:   models.Position{Start: 13, End: 13},
-				Column: models.Position{Start: 20, End: 53},
+				Line:     models.Position{Start: 13, End: 13},
+				Column:   models.Position{Start: 20, End: 53},
+				Filename: path,
 			},
 			NameLocation: &models.FilePosition{
-				Line:   models.Position{Start: 13, End: 13},
-				Column: models.Position{Start: 2, End: 18},
+				Line:     models.Position{Start: 13, End: 13},
+				Column:   models.Position{Start: 2, End: 18},
+				Filename: path,
 			},
 		},
 		{
@@ -360,15 +418,24 @@ func TestParseGoLock_IndirectPackages(t *testing.T) {
 			Version:   "1.17.0",
 			Ecosystem: lockfile.GoEcosystem,
 			CompareAs: lockfile.GoEcosystem,
+			BlockLocation: models.FilePosition{
+				Line:     models.Position{Start: 0, End: 0},
+				Column:   models.Position{Start: 0, End: 0},
+				Filename: path,
+			},
 		},
 	})
 }
 
 func TestParseGoLock_Replacements_One(t *testing.T) {
 	t.Parallel()
+	dir, err := os.Getwd()
+	if err != nil {
+		t.Errorf("Got unexpected error: %v", err)
+	}
 
-	packages, err := lockfile.ParseGoLock("fixtures/go/replace-one.mod")
-
+	path := filepath.FromSlash(filepath.Join(dir, "fixtures/go/replace-one.mod"))
+	packages, err := lockfile.ParseGoLock(path)
 	if err != nil {
 		t.Errorf("Got unexpected error: %v", err)
 	}
@@ -380,16 +447,19 @@ func TestParseGoLock_Replacements_One(t *testing.T) {
 			Ecosystem: lockfile.GoEcosystem,
 			CompareAs: lockfile.GoEcosystem,
 			BlockLocation: models.FilePosition{
-				Line:   models.Position{Start: 5, End: 5},
-				Column: models.Position{Start: 1, End: 63},
+				Line:     models.Position{Start: 5, End: 5},
+				Column:   models.Position{Start: 1, End: 63},
+				Filename: path,
 			},
 			VersionLocation: &models.FilePosition{
-				Line:   models.Position{Start: 5, End: 5},
-				Column: models.Position{Start: 58, End: 63},
+				Line:     models.Position{Start: 5, End: 5},
+				Column:   models.Position{Start: 58, End: 63},
+				Filename: path,
 			},
 			NameLocation: &models.FilePosition{
-				Line:   models.Position{Start: 5, End: 5},
-				Column: models.Position{Start: 36, End: 56},
+				Line:     models.Position{Start: 5, End: 5},
+				Column:   models.Position{Start: 36, End: 56},
+				Filename: path,
 			},
 		},
 	})
@@ -397,9 +467,13 @@ func TestParseGoLock_Replacements_One(t *testing.T) {
 
 func TestParseGoLock_Replacements_Mixed(t *testing.T) {
 	t.Parallel()
+	dir, err := os.Getwd()
+	if err != nil {
+		t.Errorf("Got unexpected error: %v", err)
+	}
 
-	packages, err := lockfile.ParseGoLock("fixtures/go/replace-mixed.mod")
-
+	path := filepath.FromSlash(filepath.Join(dir, "fixtures/go/replace-mixed.mod"))
+	packages, err := lockfile.ParseGoLock(path)
 	if err != nil {
 		t.Errorf("Got unexpected error: %v", err)
 	}
@@ -411,16 +485,19 @@ func TestParseGoLock_Replacements_Mixed(t *testing.T) {
 			Ecosystem: lockfile.GoEcosystem,
 			CompareAs: lockfile.GoEcosystem,
 			BlockLocation: models.FilePosition{
-				Line:   models.Position{Start: 7, End: 7},
-				Column: models.Position{Start: 5, End: 59},
+				Line:     models.Position{Start: 7, End: 7},
+				Column:   models.Position{Start: 5, End: 59},
+				Filename: path,
 			},
 			VersionLocation: &models.FilePosition{
-				Line:   models.Position{Start: 7, End: 7},
-				Column: models.Position{Start: 54, End: 59},
+				Line:     models.Position{Start: 7, End: 7},
+				Column:   models.Position{Start: 54, End: 59},
+				Filename: path,
 			},
 			NameLocation: &models.FilePosition{
-				Line:   models.Position{Start: 7, End: 7},
-				Column: models.Position{Start: 32, End: 52},
+				Line:     models.Position{Start: 7, End: 7},
+				Column:   models.Position{Start: 32, End: 52},
+				Filename: path,
 			},
 		},
 		{
@@ -429,16 +506,19 @@ func TestParseGoLock_Replacements_Mixed(t *testing.T) {
 			Ecosystem: lockfile.GoEcosystem,
 			CompareAs: lockfile.GoEcosystem,
 			BlockLocation: models.FilePosition{
-				Line:   models.Position{Start: 3, End: 3},
-				Column: models.Position{Start: 5, End: 28},
+				Line:     models.Position{Start: 3, End: 3},
+				Column:   models.Position{Start: 5, End: 28},
+				Filename: path,
 			},
 			VersionLocation: &models.FilePosition{
-				Line:   models.Position{Start: 3, End: 3},
-				Column: models.Position{Start: 23, End: 28},
+				Line:     models.Position{Start: 3, End: 3},
+				Column:   models.Position{Start: 23, End: 28},
+				Filename: path,
 			},
 			NameLocation: &models.FilePosition{
-				Line:   models.Position{Start: 3, End: 3},
-				Column: models.Position{Start: 5, End: 21},
+				Line:     models.Position{Start: 3, End: 3},
+				Column:   models.Position{Start: 5, End: 21},
+				Filename: path,
 			},
 		},
 	})
@@ -446,9 +526,13 @@ func TestParseGoLock_Replacements_Mixed(t *testing.T) {
 
 func TestParseGoLock_Replacements_Local(t *testing.T) {
 	t.Parallel()
+	dir, err := os.Getwd()
+	if err != nil {
+		t.Errorf("Got unexpected error: %v", err)
+	}
 
-	packages, err := lockfile.ParseGoLock("fixtures/go/replace-local.mod")
-
+	path := filepath.FromSlash(filepath.Join(dir, "fixtures/go/replace-local.mod"))
+	packages, err := lockfile.ParseGoLock(path)
 	if err != nil {
 		t.Errorf("Got unexpected error: %v", err)
 	}
@@ -460,16 +544,19 @@ func TestParseGoLock_Replacements_Local(t *testing.T) {
 			Ecosystem: lockfile.GoEcosystem,
 			CompareAs: lockfile.GoEcosystem,
 			BlockLocation: models.FilePosition{
-				Line:   models.Position{Start: 3, End: 3},
-				Column: models.Position{Start: 5, End: 38},
+				Line:     models.Position{Start: 3, End: 3},
+				Column:   models.Position{Start: 5, End: 38},
+				Filename: path,
 			},
 			VersionLocation: &models.FilePosition{
-				Line:   models.Position{Start: 3, End: 3},
-				Column: models.Position{Start: 33, End: 38},
+				Line:     models.Position{Start: 3, End: 3},
+				Column:   models.Position{Start: 33, End: 38},
+				Filename: path,
 			},
 			NameLocation: &models.FilePosition{
-				Line:   models.Position{Start: 3, End: 3},
-				Column: models.Position{Start: 5, End: 31},
+				Line:     models.Position{Start: 3, End: 3},
+				Column:   models.Position{Start: 5, End: 31},
+				Filename: path,
 			},
 		},
 	})
@@ -477,9 +564,13 @@ func TestParseGoLock_Replacements_Local(t *testing.T) {
 
 func TestParseGoLock_Replacements_Different(t *testing.T) {
 	t.Parallel()
+	dir, err := os.Getwd()
+	if err != nil {
+		t.Errorf("Got unexpected error: %v", err)
+	}
 
-	packages, err := lockfile.ParseGoLock("fixtures/go/replace-different.mod")
-
+	path := filepath.FromSlash(filepath.Join(dir, "fixtures/go/replace-different.mod"))
+	packages, err := lockfile.ParseGoLock(path)
 	if err != nil {
 		t.Errorf("Got unexpected error: %v", err)
 	}
@@ -491,16 +582,19 @@ func TestParseGoLock_Replacements_Different(t *testing.T) {
 			Ecosystem: lockfile.GoEcosystem,
 			CompareAs: lockfile.GoEcosystem,
 			BlockLocation: models.FilePosition{
-				Line:   models.Position{Start: 7, End: 7},
-				Column: models.Position{Start: 5, End: 59},
+				Line:     models.Position{Start: 7, End: 7},
+				Column:   models.Position{Start: 5, End: 59},
+				Filename: path,
 			},
 			VersionLocation: &models.FilePosition{
-				Line:   models.Position{Start: 7, End: 7},
-				Column: models.Position{Start: 54, End: 59},
+				Line:     models.Position{Start: 7, End: 7},
+				Column:   models.Position{Start: 54, End: 59},
+				Filename: path,
 			},
 			NameLocation: &models.FilePosition{
-				Line:   models.Position{Start: 7, End: 7},
-				Column: models.Position{Start: 32, End: 52},
+				Line:     models.Position{Start: 7, End: 7},
+				Column:   models.Position{Start: 32, End: 52},
+				Filename: path,
 			},
 		},
 		{
@@ -509,16 +603,19 @@ func TestParseGoLock_Replacements_Different(t *testing.T) {
 			Ecosystem: lockfile.GoEcosystem,
 			CompareAs: lockfile.GoEcosystem,
 			BlockLocation: models.FilePosition{
-				Line:   models.Position{Start: 8, End: 8},
-				Column: models.Position{Start: 5, End: 59},
+				Line:     models.Position{Start: 8, End: 8},
+				Column:   models.Position{Start: 5, End: 59},
+				Filename: path,
 			},
 			VersionLocation: &models.FilePosition{
-				Line:   models.Position{Start: 8, End: 8},
-				Column: models.Position{Start: 54, End: 59},
+				Line:     models.Position{Start: 8, End: 8},
+				Column:   models.Position{Start: 54, End: 59},
+				Filename: path,
 			},
 			NameLocation: &models.FilePosition{
-				Line:   models.Position{Start: 8, End: 8},
-				Column: models.Position{Start: 32, End: 52},
+				Line:     models.Position{Start: 8, End: 8},
+				Column:   models.Position{Start: 32, End: 52},
+				Filename: path,
 			},
 		},
 	})
@@ -526,9 +623,13 @@ func TestParseGoLock_Replacements_Different(t *testing.T) {
 
 func TestParseGoLock_Replacements_NotRequired(t *testing.T) {
 	t.Parallel()
+	dir, err := os.Getwd()
+	if err != nil {
+		t.Errorf("Got unexpected error: %v", err)
+	}
 
-	packages, err := lockfile.ParseGoLock("fixtures/go/replace-not-required.mod")
-
+	path := filepath.FromSlash(filepath.Join(dir, "fixtures/go/replace-not-required.mod"))
+	packages, err := lockfile.ParseGoLock(path)
 	if err != nil {
 		t.Errorf("Got unexpected error: %v", err)
 	}
@@ -540,16 +641,19 @@ func TestParseGoLock_Replacements_NotRequired(t *testing.T) {
 			Ecosystem: lockfile.GoEcosystem,
 			CompareAs: lockfile.GoEcosystem,
 			BlockLocation: models.FilePosition{
-				Line:   models.Position{Start: 2, End: 2},
-				Column: models.Position{Start: 5, End: 28},
+				Line:     models.Position{Start: 2, End: 2},
+				Column:   models.Position{Start: 5, End: 28},
+				Filename: path,
 			},
 			VersionLocation: &models.FilePosition{
-				Line:   models.Position{Start: 2, End: 2},
-				Column: models.Position{Start: 23, End: 28},
+				Line:     models.Position{Start: 2, End: 2},
+				Column:   models.Position{Start: 23, End: 28},
+				Filename: path,
 			},
 			NameLocation: &models.FilePosition{
-				Line:   models.Position{Start: 2, End: 2},
-				Column: models.Position{Start: 5, End: 21},
+				Line:     models.Position{Start: 2, End: 2},
+				Column:   models.Position{Start: 5, End: 21},
+				Filename: path,
 			},
 		},
 		{
@@ -558,16 +662,19 @@ func TestParseGoLock_Replacements_NotRequired(t *testing.T) {
 			Ecosystem: lockfile.GoEcosystem,
 			CompareAs: lockfile.GoEcosystem,
 			BlockLocation: models.FilePosition{
-				Line:   models.Position{Start: 3, End: 3},
-				Column: models.Position{Start: 5, End: 38},
+				Line:     models.Position{Start: 3, End: 3},
+				Column:   models.Position{Start: 5, End: 38},
+				Filename: path,
 			},
 			VersionLocation: &models.FilePosition{
-				Line:   models.Position{Start: 3, End: 3},
-				Column: models.Position{Start: 33, End: 38},
+				Line:     models.Position{Start: 3, End: 3},
+				Column:   models.Position{Start: 33, End: 38},
+				Filename: path,
 			},
 			NameLocation: &models.FilePosition{
-				Line:   models.Position{Start: 3, End: 3},
-				Column: models.Position{Start: 5, End: 31},
+				Line:     models.Position{Start: 3, End: 3},
+				Column:   models.Position{Start: 5, End: 31},
+				Filename: path,
 			},
 		},
 	})
@@ -575,9 +682,13 @@ func TestParseGoLock_Replacements_NotRequired(t *testing.T) {
 
 func TestParseGoLock_Replacements_NoVersion(t *testing.T) {
 	t.Parallel()
+	dir, err := os.Getwd()
+	if err != nil {
+		t.Errorf("Got unexpected error: %v", err)
+	}
 
-	packages, err := lockfile.ParseGoLock("fixtures/go/replace-no-version.mod")
-
+	path := filepath.FromSlash(filepath.Join(dir, "fixtures/go/replace-no-version.mod"))
+	packages, err := lockfile.ParseGoLock(path)
 	if err != nil {
 		t.Errorf("Got unexpected error: %v", err)
 	}
@@ -589,16 +700,19 @@ func TestParseGoLock_Replacements_NoVersion(t *testing.T) {
 			Ecosystem: lockfile.GoEcosystem,
 			CompareAs: lockfile.GoEcosystem,
 			BlockLocation: models.FilePosition{
-				Line:   models.Position{Start: 7, End: 7},
-				Column: models.Position{Start: 5, End: 52},
+				Line:     models.Position{Start: 7, End: 7},
+				Column:   models.Position{Start: 5, End: 52},
+				Filename: path,
 			},
 			VersionLocation: &models.FilePosition{
-				Line:   models.Position{Start: 7, End: 7},
-				Column: models.Position{Start: 47, End: 52},
+				Line:     models.Position{Start: 7, End: 7},
+				Column:   models.Position{Start: 47, End: 52},
+				Filename: path,
 			},
 			NameLocation: &models.FilePosition{
-				Line:   models.Position{Start: 7, End: 7},
-				Column: models.Position{Start: 25, End: 45},
+				Line:     models.Position{Start: 7, End: 7},
+				Column:   models.Position{Start: 25, End: 45},
+				Filename: path,
 			},
 		},
 	})

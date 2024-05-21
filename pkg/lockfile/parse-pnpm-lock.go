@@ -31,8 +31,9 @@ type PnpmLockPackage struct {
 type PnpmLockPackages map[string]PnpmLockPackage
 
 type PnpmLockfile struct {
-	Version  string           `yaml:"lockfileVersion"`
-	Packages PnpmLockPackages `yaml:"packages,omitempty"`
+	Version    string           `yaml:"lockfileVersion"`
+	Packages   PnpmLockPackages `yaml:"packages,omitempty"`
+	SourceFile string
 }
 
 func (pnpmLockPackages *PnpmLockPackages) UnmarshalYAML(value *yaml.Node) error {
@@ -175,8 +176,9 @@ func parsePnpmLock(lockfile PnpmLockfile) []PackageDetails {
 			Ecosystem: PnpmEcosystem,
 			CompareAs: PnpmEcosystem,
 			BlockLocation: models.FilePosition{
-				Line:   pkg.Line,
-				Column: pkg.Column,
+				Line:     pkg.Line,
+				Column:   pkg.Column,
+				Filename: lockfile.SourceFile,
 			},
 			Commit:    commit,
 			DepGroups: depGroups,
@@ -205,6 +207,7 @@ func (e PnpmLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 	if parsedLockfile == nil {
 		parsedLockfile = &PnpmLockfile{}
 	}
+	parsedLockfile.SourceFile = f.Path()
 
 	return parsePnpmLock(*parsedLockfile), nil
 }

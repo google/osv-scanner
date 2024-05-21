@@ -64,11 +64,20 @@ func (e PoetryLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 		block := lines[lockPackage.Line.Start-1 : lockPackage.Line.End]
 
 		blockLocation := models.FilePosition{
-			Line:   lockPackage.Line,
-			Column: lockPackage.Column,
+			Line:     lockPackage.Line,
+			Column:   lockPackage.Column,
+			Filename: f.Path(),
 		}
+
 		nameLocation := fileposition.ExtractDelimitedStringPositionInBlock(block, lockPackage.Name, lockPackage.Line.Start, "name = \"", "\"")
+		if nameLocation != nil {
+			nameLocation.Filename = f.Path()
+		}
+
 		versionLocation := fileposition.ExtractDelimitedStringPositionInBlock(block, lockPackage.Version, lockPackage.Line.Start, "version = \"", "\"")
+		if versionLocation != nil {
+			versionLocation.Filename = f.Path()
+		}
 
 		pkgDetails := PackageDetails{
 			Name:            lockPackage.Name,

@@ -2,6 +2,8 @@ package lockfile_test
 
 import (
 	"io/fs"
+	"os"
+	"path/filepath"
 	"testing"
 
 	"github.com/google/osv-scanner/pkg/models"
@@ -93,9 +95,13 @@ func TestParsePipenvLock_NoPackages(t *testing.T) {
 
 func TestParsePipenvLock_OnePackage(t *testing.T) {
 	t.Parallel()
+	dir, err := os.Getwd()
+	if err != nil {
+		t.Errorf("Got unexpected error: %v", err)
+	}
 
-	packages, err := lockfile.ParsePipenvLock("fixtures/pipenv/one-package.json")
-
+	path := filepath.FromSlash(filepath.Join(dir, "fixtures/pipenv/one-package.json"))
+	packages, err := lockfile.ParsePipenvLock(path)
 	if err != nil {
 		t.Errorf("Got unexpected error: %v", err)
 	}
@@ -107,16 +113,19 @@ func TestParsePipenvLock_OnePackage(t *testing.T) {
 			Ecosystem: lockfile.PipenvEcosystem,
 			CompareAs: lockfile.PipenvEcosystem,
 			BlockLocation: models.FilePosition{
-				Line:   models.Position{Start: 19, End: 64},
-				Column: models.Position{Start: 9, End: 10},
+				Line:     models.Position{Start: 19, End: 64},
+				Column:   models.Position{Start: 9, End: 10},
+				Filename: path,
 			},
 			NameLocation: &models.FilePosition{
-				Line:   models.Position{Start: 19, End: 19},
-				Column: models.Position{Start: 10, End: 20},
+				Line:     models.Position{Start: 19, End: 19},
+				Column:   models.Position{Start: 10, End: 20},
+				Filename: path,
 			},
 			VersionLocation: &models.FilePosition{
-				Line:   models.Position{Start: 63, End: 63},
-				Column: models.Position{Start: 25, End: 32},
+				Line:     models.Position{Start: 63, End: 63},
+				Column:   models.Position{Start: 25, End: 32},
+				Filename: path,
 			},
 		},
 	})
@@ -124,9 +133,13 @@ func TestParsePipenvLock_OnePackage(t *testing.T) {
 
 func TestParsePipenvLock_OnePackageDev(t *testing.T) {
 	t.Parallel()
+	dir, err := os.Getwd()
+	if err != nil {
+		t.Errorf("Got unexpected error: %v", err)
+	}
 
-	packages, err := lockfile.ParsePipenvLock("fixtures/pipenv/one-package-dev.json")
-
+	path := filepath.FromSlash(filepath.Join(dir, "fixtures/pipenv/one-package-dev.json"))
+	packages, err := lockfile.ParsePipenvLock(path)
 	if err != nil {
 		t.Errorf("Got unexpected error: %v", err)
 	}
@@ -138,16 +151,19 @@ func TestParsePipenvLock_OnePackageDev(t *testing.T) {
 			Ecosystem: lockfile.PipenvEcosystem,
 			CompareAs: lockfile.PipenvEcosystem,
 			BlockLocation: models.FilePosition{
-				Line:   models.Position{Start: 20, End: 65},
-				Column: models.Position{Start: 9, End: 10},
+				Line:     models.Position{Start: 20, End: 65},
+				Column:   models.Position{Start: 9, End: 10},
+				Filename: path,
 			},
 			NameLocation: &models.FilePosition{
-				Line:   models.Position{Start: 20, End: 20},
-				Column: models.Position{Start: 10, End: 20},
+				Line:     models.Position{Start: 20, End: 20},
+				Column:   models.Position{Start: 10, End: 20},
+				Filename: path,
 			},
 			VersionLocation: &models.FilePosition{
-				Line:   models.Position{Start: 64, End: 64},
-				Column: models.Position{Start: 25, End: 32},
+				Line:     models.Position{Start: 64, End: 64},
+				Column:   models.Position{Start: 25, End: 32},
+				Filename: path,
 			},
 			DepGroups: []string{"dev"},
 		},
@@ -156,9 +172,13 @@ func TestParsePipenvLock_OnePackageDev(t *testing.T) {
 
 func TestParsePipenvLock_TwoPackages(t *testing.T) {
 	t.Parallel()
+	dir, err := os.Getwd()
+	if err != nil {
+		t.Errorf("Got unexpected error: %v", err)
+	}
 
-	packages, err := lockfile.ParsePipenvLock("fixtures/pipenv/two-packages.json")
-
+	path := filepath.FromSlash(filepath.Join(dir, "fixtures/pipenv/two-packages.json"))
+	packages, err := lockfile.ParsePipenvLock(path)
 	if err != nil {
 		t.Errorf("Got unexpected error: %v", err)
 	}
@@ -170,16 +190,19 @@ func TestParsePipenvLock_TwoPackages(t *testing.T) {
 			Ecosystem: lockfile.PipenvEcosystem,
 			CompareAs: lockfile.PipenvEcosystem,
 			BlockLocation: models.FilePosition{
-				Line:   models.Position{Start: 19, End: 26},
-				Column: models.Position{Start: 7, End: 8},
+				Line:     models.Position{Start: 19, End: 26},
+				Column:   models.Position{Start: 7, End: 8},
+				Filename: path,
 			},
 			NameLocation: &models.FilePosition{
-				Line:   models.Position{Start: 19, End: 19},
-				Column: models.Position{Start: 8, End: 20},
+				Line:     models.Position{Start: 19, End: 19},
+				Column:   models.Position{Start: 8, End: 20},
+				Filename: path,
 			},
 			VersionLocation: &models.FilePosition{
-				Line:   models.Position{Start: 25, End: 25},
-				Column: models.Position{Start: 23, End: 30},
+				Line:     models.Position{Start: 25, End: 25},
+				Column:   models.Position{Start: 23, End: 30},
+				Filename: path,
 			},
 		},
 		{
@@ -188,16 +211,19 @@ func TestParsePipenvLock_TwoPackages(t *testing.T) {
 			Ecosystem: lockfile.PipenvEcosystem,
 			CompareAs: lockfile.PipenvEcosystem,
 			BlockLocation: models.FilePosition{
-				Line:   models.Position{Start: 29, End: 74},
-				Column: models.Position{Start: 7, End: 8},
+				Line:     models.Position{Start: 29, End: 74},
+				Column:   models.Position{Start: 7, End: 8},
+				Filename: path,
 			},
 			NameLocation: &models.FilePosition{
-				Line:   models.Position{Start: 29, End: 29},
-				Column: models.Position{Start: 8, End: 18},
+				Line:     models.Position{Start: 29, End: 29},
+				Column:   models.Position{Start: 8, End: 18},
+				Filename: path,
 			},
 			VersionLocation: &models.FilePosition{
-				Line:   models.Position{Start: 73, End: 73},
-				Column: models.Position{Start: 23, End: 30},
+				Line:     models.Position{Start: 73, End: 73},
+				Column:   models.Position{Start: 23, End: 30},
+				Filename: path,
 			},
 			DepGroups: []string{"dev"},
 		},
@@ -206,9 +232,13 @@ func TestParsePipenvLock_TwoPackages(t *testing.T) {
 
 func TestParsePipenvLock_TwoPackagesAlt(t *testing.T) {
 	t.Parallel()
+	dir, err := os.Getwd()
+	if err != nil {
+		t.Errorf("Got unexpected error: %v", err)
+	}
 
-	packages, err := lockfile.ParsePipenvLock("fixtures/pipenv/two-packages-alt.json")
-
+	path := filepath.FromSlash(filepath.Join(dir, "fixtures/pipenv/two-packages-alt.json"))
+	packages, err := lockfile.ParsePipenvLock(path)
 	if err != nil {
 		t.Errorf("Got unexpected error: %v", err)
 	}
@@ -220,16 +250,19 @@ func TestParsePipenvLock_TwoPackagesAlt(t *testing.T) {
 			Ecosystem: lockfile.PipenvEcosystem,
 			CompareAs: lockfile.PipenvEcosystem,
 			BlockLocation: models.FilePosition{
-				Line:   models.Position{Start: 19, End: 26},
-				Column: models.Position{Start: 7, End: 8},
+				Line:     models.Position{Start: 19, End: 26},
+				Column:   models.Position{Start: 7, End: 8},
+				Filename: path,
 			},
 			NameLocation: &models.FilePosition{
-				Line:   models.Position{Start: 19, End: 19},
-				Column: models.Position{Start: 8, End: 20},
+				Line:     models.Position{Start: 19, End: 19},
+				Column:   models.Position{Start: 8, End: 20},
+				Filename: path,
 			},
 			VersionLocation: &models.FilePosition{
-				Line:   models.Position{Start: 25, End: 25},
-				Column: models.Position{Start: 23, End: 30},
+				Line:     models.Position{Start: 25, End: 25},
+				Column:   models.Position{Start: 23, End: 30},
+				Filename: path,
 			},
 		},
 		{
@@ -238,16 +271,19 @@ func TestParsePipenvLock_TwoPackagesAlt(t *testing.T) {
 			Ecosystem: lockfile.PipenvEcosystem,
 			CompareAs: lockfile.PipenvEcosystem,
 			BlockLocation: models.FilePosition{
-				Line:   models.Position{Start: 27, End: 72},
-				Column: models.Position{Start: 7, End: 8},
+				Line:     models.Position{Start: 27, End: 72},
+				Column:   models.Position{Start: 7, End: 8},
+				Filename: path,
 			},
 			NameLocation: &models.FilePosition{
-				Line:   models.Position{Start: 27, End: 27},
-				Column: models.Position{Start: 8, End: 18},
+				Line:     models.Position{Start: 27, End: 27},
+				Column:   models.Position{Start: 8, End: 18},
+				Filename: path,
 			},
 			VersionLocation: &models.FilePosition{
-				Line:   models.Position{Start: 71, End: 71},
-				Column: models.Position{Start: 23, End: 30},
+				Line:     models.Position{Start: 71, End: 71},
+				Column:   models.Position{Start: 23, End: 30},
+				Filename: path,
 			},
 		},
 	})
@@ -255,9 +291,13 @@ func TestParsePipenvLock_TwoPackagesAlt(t *testing.T) {
 
 func TestParsePipenvLock_MultiplePackages(t *testing.T) {
 	t.Parallel()
+	dir, err := os.Getwd()
+	if err != nil {
+		t.Errorf("Got unexpected error: %v", err)
+	}
 
-	packages, err := lockfile.ParsePipenvLock("fixtures/pipenv/multiple-packages.json")
-
+	path := filepath.FromSlash(filepath.Join(dir, "fixtures/pipenv/multiple-packages.json"))
+	packages, err := lockfile.ParsePipenvLock(path)
 	if err != nil {
 		t.Errorf("Got unexpected error: %v", err)
 	}
@@ -269,16 +309,19 @@ func TestParsePipenvLock_MultiplePackages(t *testing.T) {
 			Ecosystem: lockfile.PipenvEcosystem,
 			CompareAs: lockfile.PipenvEcosystem,
 			BlockLocation: models.FilePosition{
-				Line:   models.Position{Start: 19, End: 26},
-				Column: models.Position{Start: 7, End: 8},
+				Line:     models.Position{Start: 19, End: 26},
+				Column:   models.Position{Start: 7, End: 8},
+				Filename: path,
 			},
 			NameLocation: &models.FilePosition{
-				Line:   models.Position{Start: 19, End: 19},
-				Column: models.Position{Start: 8, End: 20},
+				Line:     models.Position{Start: 19, End: 19},
+				Column:   models.Position{Start: 8, End: 20},
+				Filename: path,
 			},
 			VersionLocation: &models.FilePosition{
-				Line:   models.Position{Start: 25, End: 25},
-				Column: models.Position{Start: 23, End: 30},
+				Line:     models.Position{Start: 25, End: 25},
+				Column:   models.Position{Start: 23, End: 30},
+				Filename: path,
 			},
 		},
 		{
@@ -287,16 +330,19 @@ func TestParsePipenvLock_MultiplePackages(t *testing.T) {
 			Ecosystem: lockfile.PipenvEcosystem,
 			CompareAs: lockfile.PipenvEcosystem,
 			BlockLocation: models.FilePosition{
-				Line:   models.Position{Start: 27, End: 31},
-				Column: models.Position{Start: 7, End: 8},
+				Line:     models.Position{Start: 27, End: 31},
+				Column:   models.Position{Start: 7, End: 8},
+				Filename: path,
 			},
 			NameLocation: &models.FilePosition{
-				Line:   models.Position{Start: 27, End: 27},
-				Column: models.Position{Start: 8, End: 14},
+				Line:     models.Position{Start: 27, End: 27},
+				Column:   models.Position{Start: 8, End: 14},
+				Filename: path,
 			},
 			VersionLocation: &models.FilePosition{
-				Line:   models.Position{Start: 30, End: 30},
-				Column: models.Position{Start: 23, End: 30},
+				Line:     models.Position{Start: 30, End: 30},
+				Column:   models.Position{Start: 23, End: 30},
+				Filename: path,
 			},
 		},
 		{
@@ -305,16 +351,19 @@ func TestParsePipenvLock_MultiplePackages(t *testing.T) {
 			Ecosystem: lockfile.PipenvEcosystem,
 			CompareAs: lockfile.PipenvEcosystem,
 			BlockLocation: models.FilePosition{
-				Line:   models.Position{Start: 88, End: 95},
-				Column: models.Position{Start: 7, End: 8},
+				Line:     models.Position{Start: 88, End: 95},
+				Column:   models.Position{Start: 7, End: 8},
+				Filename: path,
 			},
 			NameLocation: &models.FilePosition{
-				Line:   models.Position{Start: 88, End: 88},
-				Column: models.Position{Start: 8, End: 14},
+				Line:     models.Position{Start: 88, End: 88},
+				Column:   models.Position{Start: 8, End: 14},
+				Filename: path,
 			},
 			VersionLocation: &models.FilePosition{
-				Line:   models.Position{Start: 94, End: 94},
-				Column: models.Position{Start: 23, End: 30},
+				Line:     models.Position{Start: 94, End: 94},
+				Column:   models.Position{Start: 23, End: 30},
+				Filename: path,
 			},
 			DepGroups: []string{"dev"},
 		},
@@ -324,16 +373,19 @@ func TestParsePipenvLock_MultiplePackages(t *testing.T) {
 			Ecosystem: lockfile.PipenvEcosystem,
 			CompareAs: lockfile.PipenvEcosystem,
 			BlockLocation: models.FilePosition{
-				Line:   models.Position{Start: 32, End: 77},
-				Column: models.Position{Start: 7, End: 8},
+				Line:     models.Position{Start: 32, End: 77},
+				Column:   models.Position{Start: 7, End: 8},
+				Filename: path,
 			},
 			NameLocation: &models.FilePosition{
-				Line:   models.Position{Start: 32, End: 32},
-				Column: models.Position{Start: 8, End: 18},
+				Line:     models.Position{Start: 32, End: 32},
+				Column:   models.Position{Start: 8, End: 18},
+				Filename: path,
 			},
 			VersionLocation: &models.FilePosition{
-				Line:   models.Position{Start: 76, End: 76},
-				Column: models.Position{Start: 23, End: 30},
+				Line:     models.Position{Start: 76, End: 76},
+				Column:   models.Position{Start: 23, End: 30},
+				Filename: path,
 			},
 		},
 	})

@@ -2,6 +2,8 @@ package lockfile_test
 
 import (
 	"io/fs"
+	"os"
+	"path/filepath"
 	"testing"
 
 	"github.com/google/osv-scanner/pkg/models"
@@ -121,9 +123,13 @@ func TestParseGradleLock_EmptyStatement(t *testing.T) {
 
 func TestParseGradleLock_OnePackage(t *testing.T) {
 	t.Parallel()
+	dir, err := os.Getwd()
+	if err != nil {
+		t.Errorf("Got unexpected error: %v", err)
+	}
 
-	packages, err := lockfile.ParseGradleLock("fixtures/gradle/one-pkg")
-
+	path := filepath.FromSlash(filepath.Join(dir, "fixtures/gradle/one-pkg"))
+	packages, err := lockfile.ParseGradleLock(path)
 	if err != nil {
 		t.Errorf("Got unexpected error: %v", err)
 	}
@@ -135,8 +141,9 @@ func TestParseGradleLock_OnePackage(t *testing.T) {
 			Ecosystem: lockfile.MavenEcosystem,
 			CompareAs: lockfile.MavenEcosystem,
 			BlockLocation: models.FilePosition{
-				Line:   models.Position{Start: 4, End: 4},
-				Column: models.Position{Start: 1, End: 119},
+				Line:     models.Position{Start: 4, End: 4},
+				Column:   models.Position{Start: 1, End: 119},
+				Filename: path,
 			},
 		},
 	})
@@ -144,9 +151,13 @@ func TestParseGradleLock_OnePackage(t *testing.T) {
 
 func TestParseGradleLock_MultiplePackage(t *testing.T) {
 	t.Parallel()
+	dir, err := os.Getwd()
+	if err != nil {
+		t.Errorf("Got unexpected error: %v", err)
+	}
 
-	packages, err := lockfile.ParseGradleLock("fixtures/gradle/5-pkg")
-
+	path := filepath.FromSlash(filepath.Join(dir, "fixtures/gradle/5-pkg"))
+	packages, err := lockfile.ParseGradleLock(path)
 	if err != nil {
 		t.Errorf("Got unexpected error: %v", err)
 	}
@@ -158,8 +169,9 @@ func TestParseGradleLock_MultiplePackage(t *testing.T) {
 			Ecosystem: lockfile.MavenEcosystem,
 			CompareAs: lockfile.MavenEcosystem,
 			BlockLocation: models.FilePosition{
-				Line:   models.Position{Start: 5, End: 5},
-				Column: models.Position{Start: 1, End: 134},
+				Line:     models.Position{Start: 5, End: 5},
+				Column:   models.Position{Start: 1, End: 134},
+				Filename: path,
 			},
 		},
 		{
@@ -168,8 +180,9 @@ func TestParseGradleLock_MultiplePackage(t *testing.T) {
 			Ecosystem: lockfile.MavenEcosystem,
 			CompareAs: lockfile.MavenEcosystem,
 			BlockLocation: models.FilePosition{
-				Line:   models.Position{Start: 6, End: 6},
-				Column: models.Position{Start: 1, End: 104},
+				Line:     models.Position{Start: 6, End: 6},
+				Column:   models.Position{Start: 1, End: 104},
+				Filename: path,
 			},
 		},
 		{
@@ -178,19 +191,20 @@ func TestParseGradleLock_MultiplePackage(t *testing.T) {
 			Ecosystem: lockfile.MavenEcosystem,
 			CompareAs: lockfile.MavenEcosystem,
 			BlockLocation: models.FilePosition{
-				Line:   models.Position{Start: 7, End: 7},
-				Column: models.Position{Start: 1, End: 85},
+				Line:     models.Position{Start: 7, End: 7},
+				Column:   models.Position{Start: 1, End: 85},
+				Filename: path,
 			},
 		},
-
 		{
 			Name:      "org.springframework.boot:spring-boot-starter-aop",
 			Version:   "2.7.7",
 			Ecosystem: lockfile.MavenEcosystem,
 			CompareAs: lockfile.MavenEcosystem,
 			BlockLocation: models.FilePosition{
-				Line:   models.Position{Start: 8, End: 8},
-				Column: models.Position{Start: 1, End: 116},
+				Line:     models.Position{Start: 8, End: 8},
+				Column:   models.Position{Start: 1, End: 116},
+				Filename: path,
 			},
 		},
 		{
@@ -199,8 +213,9 @@ func TestParseGradleLock_MultiplePackage(t *testing.T) {
 			Ecosystem: lockfile.MavenEcosystem,
 			CompareAs: lockfile.MavenEcosystem,
 			BlockLocation: models.FilePosition{
-				Line:   models.Position{Start: 9, End: 9},
-				Column: models.Position{Start: 1, End: 121},
+				Line:     models.Position{Start: 9, End: 9},
+				Column:   models.Position{Start: 1, End: 121},
+				Filename: path,
 			},
 		},
 	})
@@ -208,9 +223,13 @@ func TestParseGradleLock_MultiplePackage(t *testing.T) {
 
 func TestParseGradleLock_WithInvalidLines(t *testing.T) {
 	t.Parallel()
+	dir, err := os.Getwd()
+	if err != nil {
+		t.Errorf("Got unexpected error: %v", err)
+	}
 
-	packages, err := lockfile.ParseGradleLock("fixtures/gradle/with-bad-pkg")
-
+	path := filepath.FromSlash(filepath.Join(dir, "fixtures/gradle/with-bad-pkg"))
+	packages, err := lockfile.ParseGradleLock(path)
 	if err != nil {
 		t.Errorf("Got unexpected error: %v", err)
 	}
@@ -222,8 +241,9 @@ func TestParseGradleLock_WithInvalidLines(t *testing.T) {
 			Ecosystem: lockfile.MavenEcosystem,
 			CompareAs: lockfile.MavenEcosystem,
 			BlockLocation: models.FilePosition{
-				Line:   models.Position{Start: 7, End: 7},
-				Column: models.Position{Start: 1, End: 134},
+				Line:     models.Position{Start: 7, End: 7},
+				Column:   models.Position{Start: 1, End: 134},
+				Filename: path,
 			},
 		},
 		{
@@ -232,8 +252,9 @@ func TestParseGradleLock_WithInvalidLines(t *testing.T) {
 			Ecosystem: lockfile.MavenEcosystem,
 			CompareAs: lockfile.MavenEcosystem,
 			BlockLocation: models.FilePosition{
-				Line:   models.Position{Start: 14, End: 14},
-				Column: models.Position{Start: 1, End: 144},
+				Line:     models.Position{Start: 14, End: 14},
+				Column:   models.Position{Start: 1, End: 144},
+				Filename: path,
 			},
 		},
 	})

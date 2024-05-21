@@ -2,6 +2,8 @@ package lockfile_test
 
 import (
 	"io/fs"
+	"os"
+	"path/filepath"
 	"testing"
 
 	"github.com/google/osv-scanner/pkg/models"
@@ -32,9 +34,13 @@ func TestParseYarnLock_v1_NoPackages(t *testing.T) {
 
 func TestParseYarnLock_v1_OnePackage(t *testing.T) {
 	t.Parallel()
+	dir, err := os.Getwd()
+	if err != nil {
+		t.Errorf("Got unexpected error: %v", err)
+	}
 
-	packages, err := lockfile.ParseYarnLock("fixtures/yarn/one-package.v1.lock")
-
+	path := filepath.FromSlash(filepath.Join(dir, "fixtures/yarn/one-package.v1.lock"))
+	packages, err := lockfile.ParseYarnLock(path)
 	if err != nil {
 		t.Errorf("Got unexpected error: %v", err)
 	}
@@ -44,8 +50,9 @@ func TestParseYarnLock_v1_OnePackage(t *testing.T) {
 			Name:    "balanced-match",
 			Version: "1.0.2",
 			BlockLocation: models.FilePosition{
-				Line:   models.Position{Start: 5, End: 8},
-				Column: models.Position{Start: 1, End: 108},
+				Line:     models.Position{Start: 5, End: 8},
+				Column:   models.Position{Start: 1, End: 108},
+				Filename: path,
 			},
 			Ecosystem: lockfile.YarnEcosystem,
 			CompareAs: lockfile.YarnEcosystem,
@@ -55,9 +62,13 @@ func TestParseYarnLock_v1_OnePackage(t *testing.T) {
 
 func TestParseYarnLock_v1_TwoPackages(t *testing.T) {
 	t.Parallel()
+	dir, err := os.Getwd()
+	if err != nil {
+		t.Errorf("Got unexpected error: %v", err)
+	}
 
-	packages, err := lockfile.ParseYarnLock("fixtures/yarn/two-packages.v1.lock")
-
+	path := filepath.FromSlash(filepath.Join(dir, "fixtures/yarn/two-packages.v1.lock"))
+	packages, err := lockfile.ParseYarnLock(path)
 	if err != nil {
 		t.Errorf("Got unexpected error: %v", err)
 	}
@@ -67,8 +78,9 @@ func TestParseYarnLock_v1_TwoPackages(t *testing.T) {
 			Name:    "concat-stream",
 			Version: "1.6.2",
 			BlockLocation: models.FilePosition{
-				Line:   models.Position{Start: 10, End: 18},
-				Column: models.Position{Start: 1, End: 24},
+				Line:     models.Position{Start: 10, End: 18},
+				Column:   models.Position{Start: 1, End: 24},
+				Filename: path,
 			},
 			Ecosystem: lockfile.YarnEcosystem,
 			CompareAs: lockfile.YarnEcosystem,
@@ -77,8 +89,9 @@ func TestParseYarnLock_v1_TwoPackages(t *testing.T) {
 			Name:    "concat-map",
 			Version: "0.0.1",
 			BlockLocation: models.FilePosition{
-				Line:   models.Position{Start: 5, End: 8},
-				Column: models.Position{Start: 1, End: 46},
+				Line:     models.Position{Start: 5, End: 8},
+				Column:   models.Position{Start: 1, End: 46},
+				Filename: path,
 			},
 			Ecosystem: lockfile.YarnEcosystem,
 			CompareAs: lockfile.YarnEcosystem,
@@ -88,9 +101,13 @@ func TestParseYarnLock_v1_TwoPackages(t *testing.T) {
 
 func TestParseYarnLock_v1_WithQuotes(t *testing.T) {
 	t.Parallel()
+	dir, err := os.Getwd()
+	if err != nil {
+		t.Errorf("Got unexpected error: %v", err)
+	}
 
-	packages, err := lockfile.ParseYarnLock("fixtures/yarn/with-quotes.v1.lock")
-
+	path := filepath.FromSlash(filepath.Join(dir, "fixtures/yarn/with-quotes.v1.lock"))
+	packages, err := lockfile.ParseYarnLock(path)
 	if err != nil {
 		t.Errorf("Got unexpected error: %v", err)
 	}
@@ -100,8 +117,9 @@ func TestParseYarnLock_v1_WithQuotes(t *testing.T) {
 			Name:    "concat-stream",
 			Version: "1.6.2",
 			BlockLocation: models.FilePosition{
-				Line:   models.Position{Start: 10, End: 18},
-				Column: models.Position{Start: 1, End: 26},
+				Line:     models.Position{Start: 10, End: 18},
+				Column:   models.Position{Start: 1, End: 26},
+				Filename: path,
 			},
 			Ecosystem: lockfile.YarnEcosystem,
 			CompareAs: lockfile.YarnEcosystem,
@@ -110,8 +128,9 @@ func TestParseYarnLock_v1_WithQuotes(t *testing.T) {
 			Name:    "concat-map",
 			Version: "0.0.1",
 			BlockLocation: models.FilePosition{
-				Line:   models.Position{Start: 5, End: 8},
-				Column: models.Position{Start: 1, End: 48},
+				Line:     models.Position{Start: 5, End: 8},
+				Column:   models.Position{Start: 1, End: 48},
+				Filename: path,
 			},
 			Ecosystem: lockfile.YarnEcosystem,
 			CompareAs: lockfile.YarnEcosystem,
@@ -121,9 +140,13 @@ func TestParseYarnLock_v1_WithQuotes(t *testing.T) {
 
 func TestParseYarnLock_v1_MultipleVersions(t *testing.T) {
 	t.Parallel()
+	dir, err := os.Getwd()
+	if err != nil {
+		t.Errorf("Got unexpected error: %v", err)
+	}
 
-	packages, err := lockfile.ParseYarnLock("fixtures/yarn/multiple-versions.v1.lock")
-
+	path := filepath.FromSlash(filepath.Join(dir, "fixtures/yarn/multiple-versions.v1.lock"))
+	packages, err := lockfile.ParseYarnLock(path)
 	if err != nil {
 		t.Errorf("Got unexpected error: %v", err)
 	}
@@ -133,8 +156,9 @@ func TestParseYarnLock_v1_MultipleVersions(t *testing.T) {
 			Name:    "define-properties",
 			Version: "1.1.3",
 			BlockLocation: models.FilePosition{
-				Line:   models.Position{Start: 5, End: 10},
-				Column: models.Position{Start: 1, End: 26},
+				Line:     models.Position{Start: 5, End: 10},
+				Column:   models.Position{Start: 1, End: 26},
+				Filename: path,
 			},
 			Ecosystem: lockfile.YarnEcosystem,
 			CompareAs: lockfile.YarnEcosystem,
@@ -143,8 +167,9 @@ func TestParseYarnLock_v1_MultipleVersions(t *testing.T) {
 			Name:    "define-property",
 			Version: "0.2.5",
 			BlockLocation: models.FilePosition{
-				Line:   models.Position{Start: 12, End: 17},
-				Column: models.Position{Start: 1, End: 27},
+				Line:     models.Position{Start: 12, End: 17},
+				Column:   models.Position{Start: 1, End: 27},
+				Filename: path,
 			},
 			Ecosystem: lockfile.YarnEcosystem,
 			CompareAs: lockfile.YarnEcosystem,
@@ -153,8 +178,9 @@ func TestParseYarnLock_v1_MultipleVersions(t *testing.T) {
 			Name:    "define-property",
 			Version: "1.0.0",
 			BlockLocation: models.FilePosition{
-				Line:   models.Position{Start: 19, End: 24},
-				Column: models.Position{Start: 1, End: 27},
+				Line:     models.Position{Start: 19, End: 24},
+				Column:   models.Position{Start: 1, End: 27},
+				Filename: path,
 			},
 			Ecosystem: lockfile.YarnEcosystem,
 			CompareAs: lockfile.YarnEcosystem,
@@ -163,8 +189,9 @@ func TestParseYarnLock_v1_MultipleVersions(t *testing.T) {
 			Name:    "define-property",
 			Version: "2.0.2",
 			BlockLocation: models.FilePosition{
-				Line:   models.Position{Start: 26, End: 32},
-				Column: models.Position{Start: 1, End: 22},
+				Line:     models.Position{Start: 26, End: 32},
+				Column:   models.Position{Start: 1, End: 22},
+				Filename: path,
 			},
 			Ecosystem: lockfile.YarnEcosystem,
 			CompareAs: lockfile.YarnEcosystem,
@@ -174,9 +201,13 @@ func TestParseYarnLock_v1_MultipleVersions(t *testing.T) {
 
 func TestParseYarnLock_v1_MultipleConstraints(t *testing.T) {
 	t.Parallel()
+	dir, err := os.Getwd()
+	if err != nil {
+		t.Errorf("Got unexpected error: %v", err)
+	}
 
-	packages, err := lockfile.ParseYarnLock("fixtures/yarn/multiple-constraints.v1.lock")
-
+	path := filepath.FromSlash(filepath.Join(dir, "fixtures/yarn/multiple-constraints.v1.lock"))
+	packages, err := lockfile.ParseYarnLock(path)
 	if err != nil {
 		t.Errorf("Got unexpected error: %v", err)
 	}
@@ -186,8 +217,9 @@ func TestParseYarnLock_v1_MultipleConstraints(t *testing.T) {
 			Name:    "@babel/code-frame",
 			Version: "7.12.13",
 			BlockLocation: models.FilePosition{
-				Line:   models.Position{Start: 10, End: 15},
-				Column: models.Position{Start: 1, End: 34},
+				Line:     models.Position{Start: 10, End: 15},
+				Column:   models.Position{Start: 1, End: 34},
+				Filename: path,
 			},
 			Ecosystem: lockfile.YarnEcosystem,
 			CompareAs: lockfile.YarnEcosystem,
@@ -196,8 +228,9 @@ func TestParseYarnLock_v1_MultipleConstraints(t *testing.T) {
 			Name:    "domelementtype",
 			Version: "1.3.1",
 			BlockLocation: models.FilePosition{
-				Line:   models.Position{Start: 5, End: 8},
-				Column: models.Position{Start: 1, End: 108},
+				Line:     models.Position{Start: 5, End: 8},
+				Column:   models.Position{Start: 1, End: 108},
+				Filename: path,
 			},
 			Ecosystem: lockfile.YarnEcosystem,
 			CompareAs: lockfile.YarnEcosystem,
@@ -207,9 +240,13 @@ func TestParseYarnLock_v1_MultipleConstraints(t *testing.T) {
 
 func TestParseYarnLock_v1_ScopedPackages(t *testing.T) {
 	t.Parallel()
+	dir, err := os.Getwd()
+	if err != nil {
+		t.Errorf("Got unexpected error: %v", err)
+	}
 
-	packages, err := lockfile.ParseYarnLock("fixtures/yarn/scoped-packages.v1.lock")
-
+	path := filepath.FromSlash(filepath.Join(dir, "fixtures/yarn/scoped-packages.v1.lock"))
+	packages, err := lockfile.ParseYarnLock(path)
 	if err != nil {
 		t.Errorf("Got unexpected error: %v", err)
 	}
@@ -219,8 +256,9 @@ func TestParseYarnLock_v1_ScopedPackages(t *testing.T) {
 			Name:    "@babel/code-frame",
 			Version: "7.12.11",
 			BlockLocation: models.FilePosition{
-				Line:   models.Position{Start: 5, End: 10},
-				Column: models.Position{Start: 1, End: 33},
+				Line:     models.Position{Start: 5, End: 10},
+				Column:   models.Position{Start: 1, End: 33},
+				Filename: path,
 			},
 			Ecosystem: lockfile.YarnEcosystem,
 			CompareAs: lockfile.YarnEcosystem,
@@ -229,8 +267,9 @@ func TestParseYarnLock_v1_ScopedPackages(t *testing.T) {
 			Name:    "@babel/compat-data",
 			Version: "7.14.0",
 			BlockLocation: models.FilePosition{
-				Line:   models.Position{Start: 12, End: 15},
-				Column: models.Position{Start: 1, End: 108},
+				Line:     models.Position{Start: 12, End: 15},
+				Column:   models.Position{Start: 1, End: 108},
+				Filename: path,
 			},
 			Ecosystem: lockfile.YarnEcosystem,
 			CompareAs: lockfile.YarnEcosystem,
@@ -240,9 +279,13 @@ func TestParseYarnLock_v1_ScopedPackages(t *testing.T) {
 
 func TestParseYarnLock_v1_WithPrerelease(t *testing.T) {
 	t.Parallel()
+	dir, err := os.Getwd()
+	if err != nil {
+		t.Errorf("Got unexpected error: %v", err)
+	}
 
-	packages, err := lockfile.ParseYarnLock("fixtures/yarn/with-prerelease.v1.lock")
-
+	path := filepath.FromSlash(filepath.Join(dir, "fixtures/yarn/with-prerelease.v1.lock"))
+	packages, err := lockfile.ParseYarnLock(path)
 	if err != nil {
 		t.Errorf("Got unexpected error: %v", err)
 	}
@@ -252,8 +295,9 @@ func TestParseYarnLock_v1_WithPrerelease(t *testing.T) {
 			Name:    "css-tree",
 			Version: "1.0.0-alpha.37",
 			BlockLocation: models.FilePosition{
-				Line:   models.Position{Start: 5, End: 11},
-				Column: models.Position{Start: 1, End: 24},
+				Line:     models.Position{Start: 5, End: 11},
+				Column:   models.Position{Start: 1, End: 24},
+				Filename: path,
 			},
 			Ecosystem: lockfile.YarnEcosystem,
 			CompareAs: lockfile.YarnEcosystem,
@@ -262,8 +306,9 @@ func TestParseYarnLock_v1_WithPrerelease(t *testing.T) {
 			Name:    "gensync",
 			Version: "1.0.0-beta.2",
 			BlockLocation: models.FilePosition{
-				Line:   models.Position{Start: 13, End: 16},
-				Column: models.Position{Start: 1, End: 108},
+				Line:     models.Position{Start: 13, End: 16},
+				Column:   models.Position{Start: 1, End: 108},
+				Filename: path,
 			},
 			Ecosystem: lockfile.YarnEcosystem,
 			CompareAs: lockfile.YarnEcosystem,
@@ -272,8 +317,9 @@ func TestParseYarnLock_v1_WithPrerelease(t *testing.T) {
 			Name:    "node-fetch",
 			Version: "3.0.0-beta.9",
 			BlockLocation: models.FilePosition{
-				Line:   models.Position{Start: 18, End: 24},
-				Column: models.Position{Start: 1, End: 24},
+				Line:     models.Position{Start: 18, End: 24},
+				Column:   models.Position{Start: 1, End: 24},
+				Filename: path,
 			},
 			Ecosystem: lockfile.YarnEcosystem,
 			CompareAs: lockfile.YarnEcosystem,
@@ -282,8 +328,9 @@ func TestParseYarnLock_v1_WithPrerelease(t *testing.T) {
 			Name:    "resolve",
 			Version: "1.20.0",
 			BlockLocation: models.FilePosition{
-				Line:   models.Position{Start: 26, End: 32},
-				Column: models.Position{Start: 1, End: 24},
+				Line:     models.Position{Start: 26, End: 32},
+				Column:   models.Position{Start: 1, End: 24},
+				Filename: path,
 			},
 			Ecosystem: lockfile.YarnEcosystem,
 			CompareAs: lockfile.YarnEcosystem,
@@ -292,8 +339,9 @@ func TestParseYarnLock_v1_WithPrerelease(t *testing.T) {
 			Name:    "resolve",
 			Version: "2.0.0-next.3",
 			BlockLocation: models.FilePosition{
-				Line:   models.Position{Start: 34, End: 40},
-				Column: models.Position{Start: 1, End: 24},
+				Line:     models.Position{Start: 34, End: 40},
+				Column:   models.Position{Start: 1, End: 24},
+				Filename: path,
 			},
 			Ecosystem: lockfile.YarnEcosystem,
 			CompareAs: lockfile.YarnEcosystem,
@@ -303,9 +351,13 @@ func TestParseYarnLock_v1_WithPrerelease(t *testing.T) {
 
 func TestParseYarnLock_v1_WithBuildString(t *testing.T) {
 	t.Parallel()
+	dir, err := os.Getwd()
+	if err != nil {
+		t.Errorf("Got unexpected error: %v", err)
+	}
 
-	packages, err := lockfile.ParseYarnLock("fixtures/yarn/with-build-string.v1.lock")
-
+	path := filepath.FromSlash(filepath.Join(dir, "fixtures/yarn/with-build-string.v1.lock"))
+	packages, err := lockfile.ParseYarnLock(path)
 	if err != nil {
 		t.Errorf("Got unexpected error: %v", err)
 	}
@@ -315,8 +367,9 @@ func TestParseYarnLock_v1_WithBuildString(t *testing.T) {
 			Name:    "domino",
 			Version: "2.1.6+git",
 			BlockLocation: models.FilePosition{
-				Line:   models.Position{Start: 5, End: 8},
-				Column: models.Position{Start: 1, End: 108},
+				Line:     models.Position{Start: 5, End: 8},
+				Column:   models.Position{Start: 1, End: 108},
+				Filename: path,
 			},
 			Ecosystem: lockfile.YarnEcosystem,
 			CompareAs: lockfile.YarnEcosystem,
@@ -325,8 +378,9 @@ func TestParseYarnLock_v1_WithBuildString(t *testing.T) {
 			Name:    "tslib",
 			Version: "2.6.2",
 			BlockLocation: models.FilePosition{
-				Line:   models.Position{Start: 10, End: 13},
-				Column: models.Position{Start: 1, End: 108},
+				Line:     models.Position{Start: 10, End: 13},
+				Column:   models.Position{Start: 1, End: 108},
+				Filename: path,
 			},
 			Ecosystem: lockfile.YarnEcosystem,
 			CompareAs: lockfile.YarnEcosystem,
@@ -336,9 +390,13 @@ func TestParseYarnLock_v1_WithBuildString(t *testing.T) {
 
 func TestParseYarnLock_v1_Commits(t *testing.T) {
 	t.Parallel()
+	dir, err := os.Getwd()
+	if err != nil {
+		t.Errorf("Got unexpected error: %v", err)
+	}
 
-	packages, err := lockfile.ParseYarnLock("fixtures/yarn/commits.v1.lock")
-
+	path := filepath.FromSlash(filepath.Join(dir, "fixtures/yarn/commits.v1.lock"))
+	packages, err := lockfile.ParseYarnLock(path)
 	if err != nil {
 		t.Errorf("Got unexpected error: %v", err)
 	}
@@ -350,8 +408,9 @@ func TestParseYarnLock_v1_Commits(t *testing.T) {
 			Ecosystem: lockfile.YarnEcosystem,
 			CompareAs: lockfile.YarnEcosystem,
 			BlockLocation: models.FilePosition{
-				Line:   models.Position{Start: 5, End: 9},
-				Column: models.Position{Start: 1, End: 31},
+				Line:     models.Position{Start: 5, End: 9},
+				Column:   models.Position{Start: 1, End: 31},
+				Filename: path,
 			},
 			Commit: "0a2d2506c1fe299691fc5db53a2097db3bd615bc",
 		},
@@ -361,8 +420,9 @@ func TestParseYarnLock_v1_Commits(t *testing.T) {
 			Ecosystem: lockfile.YarnEcosystem,
 			CompareAs: lockfile.YarnEcosystem,
 			BlockLocation: models.FilePosition{
-				Line:   models.Position{Start: 11, End: 15},
-				Column: models.Position{Start: 1, End: 31},
+				Line:     models.Position{Start: 11, End: 15},
+				Column:   models.Position{Start: 1, End: 31},
+				Filename: path,
 			},
 			Commit: "0a2d2506c1fe299691fc5db53a2097db3bd615bc",
 		},
@@ -372,8 +432,9 @@ func TestParseYarnLock_v1_Commits(t *testing.T) {
 			Ecosystem: lockfile.YarnEcosystem,
 			CompareAs: lockfile.YarnEcosystem,
 			BlockLocation: models.FilePosition{
-				Line:   models.Position{Start: 17, End: 19},
-				Column: models.Position{Start: 1, End: 111},
+				Line:     models.Position{Start: 17, End: 19},
+				Column:   models.Position{Start: 1, End: 111},
+				Filename: path,
 			},
 			Commit: "094e581aaf927d010e4b61d706ba584551dac502",
 		},
@@ -381,8 +442,9 @@ func TestParseYarnLock_v1_Commits(t *testing.T) {
 			Name:    "mine4",
 			Version: "0.0.2",
 			BlockLocation: models.FilePosition{
-				Line:   models.Position{Start: 21, End: 23},
-				Column: models.Position{Start: 1, End: 101},
+				Line:     models.Position{Start: 21, End: 23},
+				Column:   models.Position{Start: 1, End: 101},
+				Filename: path,
 			},
 			Ecosystem: lockfile.YarnEcosystem,
 			CompareAs: lockfile.YarnEcosystem,
@@ -394,8 +456,9 @@ func TestParseYarnLock_v1_Commits(t *testing.T) {
 			Ecosystem: lockfile.YarnEcosystem,
 			CompareAs: lockfile.YarnEcosystem,
 			BlockLocation: models.FilePosition{
-				Line:   models.Position{Start: 25, End: 27},
-				Column: models.Position{Start: 1, End: 111},
+				Line:     models.Position{Start: 25, End: 27},
+				Column:   models.Position{Start: 1, End: 111},
+				Filename: path,
 			},
 			Commit: "aa3bdfcb1d845c79f14abb66f60d35b8a3ee5998",
 		},
@@ -405,8 +468,9 @@ func TestParseYarnLock_v1_Commits(t *testing.T) {
 			Ecosystem: lockfile.YarnEcosystem,
 			CompareAs: lockfile.YarnEcosystem,
 			BlockLocation: models.FilePosition{
-				Line:   models.Position{Start: 29, End: 31},
-				Column: models.Position{Start: 1, End: 103},
+				Line:     models.Position{Start: 29, End: 31},
+				Column:   models.Position{Start: 1, End: 103},
+				Filename: path,
 			},
 			Commit: "b3bd3f1b3dad036e671251f5258beaae398f983a",
 		},
@@ -416,8 +480,9 @@ func TestParseYarnLock_v1_Commits(t *testing.T) {
 			Ecosystem: lockfile.YarnEcosystem,
 			CompareAs: lockfile.YarnEcosystem,
 			BlockLocation: models.FilePosition{
-				Line:   models.Position{Start: 33, End: 35},
-				Column: models.Position{Start: 1, End: 105},
+				Line:     models.Position{Start: 33, End: 35},
+				Column:   models.Position{Start: 1, End: 105},
+				Filename: path,
 			},
 			Commit: "e7f778fc054a086ba3326d898a00fa1bc78650a8",
 		},
@@ -427,8 +492,9 @@ func TestParseYarnLock_v1_Commits(t *testing.T) {
 			Ecosystem: lockfile.YarnEcosystem,
 			CompareAs: lockfile.YarnEcosystem,
 			BlockLocation: models.FilePosition{
-				Line:   models.Position{Start: 37, End: 39},
-				Column: models.Position{Start: 1, End: 115},
+				Line:     models.Position{Start: 37, End: 39},
+				Column:   models.Position{Start: 1, End: 115},
+				Filename: path,
 			},
 			Commit: "e7b6c46d76604d297c389d830817b611c9a8f17c",
 		},
@@ -438,8 +504,9 @@ func TestParseYarnLock_v1_Commits(t *testing.T) {
 			Ecosystem: lockfile.YarnEcosystem,
 			CompareAs: lockfile.YarnEcosystem,
 			BlockLocation: models.FilePosition{
-				Line:   models.Position{Start: 41, End: 43},
-				Column: models.Position{Start: 1, End: 93},
+				Line:     models.Position{Start: 41, End: 43},
+				Column:   models.Position{Start: 1, End: 93},
+				Filename: path,
 			},
 			Commit: "3754568bfd43a841d2d72d7fb54598635aea8fa4",
 		},
@@ -449,8 +516,9 @@ func TestParseYarnLock_v1_Commits(t *testing.T) {
 			Ecosystem: lockfile.YarnEcosystem,
 			CompareAs: lockfile.YarnEcosystem,
 			BlockLocation: models.FilePosition{
-				Line:   models.Position{Start: 45, End: 47},
-				Column: models.Position{Start: 1, End: 95},
+				Line:     models.Position{Start: 45, End: 47},
+				Column:   models.Position{Start: 1, End: 95},
+				Filename: path,
 			},
 			Commit: "4bdd58d3fbcdce3209033d44d884e87add1d8405",
 		},
@@ -460,8 +528,9 @@ func TestParseYarnLock_v1_Commits(t *testing.T) {
 			Ecosystem: lockfile.YarnEcosystem,
 			CompareAs: lockfile.YarnEcosystem,
 			BlockLocation: models.FilePosition{
-				Line:   models.Position{Start: 49, End: 51},
-				Column: models.Position{Start: 1, End: 96},
+				Line:     models.Position{Start: 49, End: 51},
+				Column:   models.Position{Start: 1, End: 96},
+				Filename: path,
 			},
 			Commit: "d140a65044b2d6810381935ae7f0c94c7023c8c3",
 		},
@@ -471,8 +540,9 @@ func TestParseYarnLock_v1_Commits(t *testing.T) {
 			Ecosystem: lockfile.YarnEcosystem,
 			CompareAs: lockfile.YarnEcosystem,
 			BlockLocation: models.FilePosition{
-				Line:   models.Position{Start: 53, End: 55},
-				Column: models.Position{Start: 1, End: 93},
+				Line:     models.Position{Start: 53, End: 55},
+				Column:   models.Position{Start: 1, End: 93},
+				Filename: path,
 			},
 			Commit: "172580d2ce19ee33780b5f1df817bbddced43789",
 		},
@@ -482,8 +552,9 @@ func TestParseYarnLock_v1_Commits(t *testing.T) {
 			Ecosystem: lockfile.YarnEcosystem,
 			CompareAs: lockfile.YarnEcosystem,
 			BlockLocation: models.FilePosition{
-				Line:   models.Position{Start: 57, End: 59},
-				Column: models.Position{Start: 1, End: 87},
+				Line:     models.Position{Start: 57, End: 59},
+				Column:   models.Position{Start: 1, End: 87},
+				Filename: path,
 			},
 			Commit: "bb253db0b3e17124b6d1fe93fbf2db35470a1347",
 		},
@@ -493,8 +564,9 @@ func TestParseYarnLock_v1_Commits(t *testing.T) {
 			Ecosystem: lockfile.YarnEcosystem,
 			CompareAs: lockfile.YarnEcosystem,
 			BlockLocation: models.FilePosition{
-				Line:   models.Position{Start: 61, End: 66},
-				Column: models.Position{Start: 1, End: 32},
+				Line:     models.Position{Start: 61, End: 66},
+				Column:   models.Position{Start: 1, End: 32},
+				Filename: path,
 			},
 			Commit: "5b6830c0252eb73c6024d40a8ff5106d3023a2a6",
 		},
@@ -504,8 +576,9 @@ func TestParseYarnLock_v1_Commits(t *testing.T) {
 			Ecosystem: lockfile.YarnEcosystem,
 			CompareAs: lockfile.YarnEcosystem,
 			BlockLocation: models.FilePosition{
-				Line:   models.Position{Start: 68, End: 70},
-				Column: models.Position{Start: 1, End: 110},
+				Line:     models.Position{Start: 68, End: 70},
+				Column:   models.Position{Start: 1, End: 110},
+				Filename: path,
 			},
 			Commit: "f0308391f0c50104182bfb2332a53e4e523a4603",
 		},
@@ -515,8 +588,9 @@ func TestParseYarnLock_v1_Commits(t *testing.T) {
 			Ecosystem: lockfile.YarnEcosystem,
 			CompareAs: lockfile.YarnEcosystem,
 			BlockLocation: models.FilePosition{
-				Line:   models.Position{Start: 72, End: 76},
-				Column: models.Position{Start: 1, End: 24},
+				Line:     models.Position{Start: 72, End: 76},
+				Column:   models.Position{Start: 1, End: 24},
+				Filename: path,
 			},
 			Commit: "c5a7ba5e0ad98b8db1cb8ce105403dd4b768cced",
 		},
@@ -526,8 +600,9 @@ func TestParseYarnLock_v1_Commits(t *testing.T) {
 			Ecosystem: lockfile.YarnEcosystem,
 			CompareAs: lockfile.YarnEcosystem,
 			BlockLocation: models.FilePosition{
-				Line:   models.Position{Start: 78, End: 80},
-				Column: models.Position{Start: 1, End: 113},
+				Line:     models.Position{Start: 78, End: 80},
+				Column:   models.Position{Start: 1, End: 113},
+				Filename: path,
 			},
 			Commit: "d5ac0584ee9ae7bd9288220a39780f155b9ad4c8",
 		},
@@ -535,8 +610,9 @@ func TestParseYarnLock_v1_Commits(t *testing.T) {
 			Name:    "is-number",
 			Version: "5.0.0",
 			BlockLocation: models.FilePosition{
-				Line:   models.Position{Start: 82, End: 84},
-				Column: models.Position{Start: 1, End: 113},
+				Line:     models.Position{Start: 82, End: 84},
+				Column:   models.Position{Start: 1, End: 113},
+				Filename: path,
 			},
 			Ecosystem: lockfile.YarnEcosystem,
 			CompareAs: lockfile.YarnEcosystem,
@@ -547,9 +623,13 @@ func TestParseYarnLock_v1_Commits(t *testing.T) {
 
 func TestParseYarnLock_v1_Files(t *testing.T) {
 	t.Parallel()
+	dir, err := os.Getwd()
+	if err != nil {
+		t.Errorf("Got unexpected error: %v", err)
+	}
 
-	packages, err := lockfile.ParseYarnLock("fixtures/yarn/files.v1.lock")
-
+	path := filepath.FromSlash(filepath.Join(dir, "fixtures/yarn/files.v1.lock"))
+	packages, err := lockfile.ParseYarnLock(path)
 	if err != nil {
 		t.Errorf("Got unexpected error: %v", err)
 	}
@@ -559,8 +639,9 @@ func TestParseYarnLock_v1_Files(t *testing.T) {
 			Name:    "etag",
 			Version: "1.8.1",
 			BlockLocation: models.FilePosition{
-				Line:   models.Position{Start: 5, End: 7},
-				Column: models.Position{Start: 1, End: 105},
+				Line:     models.Position{Start: 5, End: 7},
+				Column:   models.Position{Start: 1, End: 105},
+				Filename: path,
 			},
 			Ecosystem: lockfile.YarnEcosystem,
 			CompareAs: lockfile.YarnEcosystem,
@@ -570,8 +651,9 @@ func TestParseYarnLock_v1_Files(t *testing.T) {
 			Name:    "filedep",
 			Version: "1.2.0",
 			BlockLocation: models.FilePosition{
-				Line:   models.Position{Start: 9, End: 10},
-				Column: models.Position{Start: 1, End: 18},
+				Line:     models.Position{Start: 9, End: 10},
+				Column:   models.Position{Start: 1, End: 18},
+				Filename: path,
 			},
 			Ecosystem: lockfile.YarnEcosystem,
 			CompareAs: lockfile.YarnEcosystem,
@@ -581,8 +663,9 @@ func TestParseYarnLock_v1_Files(t *testing.T) {
 			Name:    "lodash",
 			Version: "1.3.1",
 			BlockLocation: models.FilePosition{
-				Line:   models.Position{Start: 12, End: 14},
-				Column: models.Position{Start: 1, End: 109},
+				Line:     models.Position{Start: 12, End: 14},
+				Column:   models.Position{Start: 1, End: 109},
+				Filename: path,
 			},
 			Ecosystem: lockfile.YarnEcosystem,
 			CompareAs: lockfile.YarnEcosystem,
@@ -592,8 +675,9 @@ func TestParseYarnLock_v1_Files(t *testing.T) {
 			Name:    "other_package",
 			Version: "0.0.2",
 			BlockLocation: models.FilePosition{
-				Line:   models.Position{Start: 16, End: 22},
-				Column: models.Position{Start: 1, End: 18},
+				Line:     models.Position{Start: 16, End: 22},
+				Column:   models.Position{Start: 1, End: 18},
+				Filename: path,
 			},
 			Ecosystem: lockfile.YarnEcosystem,
 			CompareAs: lockfile.YarnEcosystem,
@@ -603,8 +687,9 @@ func TestParseYarnLock_v1_Files(t *testing.T) {
 			Name:    "sprintf-js",
 			Version: "0.0.0",
 			BlockLocation: models.FilePosition{
-				Line:   models.Position{Start: 24, End: 25},
-				Column: models.Position{Start: 1, End: 18},
+				Line:     models.Position{Start: 24, End: 25},
+				Column:   models.Position{Start: 1, End: 18},
+				Filename: path,
 			},
 			Ecosystem: lockfile.YarnEcosystem,
 			CompareAs: lockfile.YarnEcosystem,
@@ -614,8 +699,9 @@ func TestParseYarnLock_v1_Files(t *testing.T) {
 			Name:    "etag",
 			Version: "1.8.0",
 			BlockLocation: models.FilePosition{
-				Line:   models.Position{Start: 27, End: 28},
-				Column: models.Position{Start: 1, End: 18},
+				Line:     models.Position{Start: 27, End: 28},
+				Column:   models.Position{Start: 1, End: 18},
+				Filename: path,
 			},
 			Ecosystem: lockfile.YarnEcosystem,
 			CompareAs: lockfile.YarnEcosystem,
@@ -626,9 +712,13 @@ func TestParseYarnLock_v1_Files(t *testing.T) {
 
 func TestParseYarnLock_v1_WithAliases(t *testing.T) {
 	t.Parallel()
+	dir, err := os.Getwd()
+	if err != nil {
+		t.Errorf("Got unexpected error: %v", err)
+	}
 
-	packages, err := lockfile.ParseYarnLock("fixtures/yarn/with-aliases.v1.lock")
-
+	path := filepath.FromSlash(filepath.Join(dir, "fixtures/yarn/with-aliases.v1.lock"))
+	packages, err := lockfile.ParseYarnLock(path)
 	if err != nil {
 		t.Errorf("Got unexpected error: %v", err)
 	}
@@ -638,8 +728,9 @@ func TestParseYarnLock_v1_WithAliases(t *testing.T) {
 			Name:    "@babel/helper-validator-identifier",
 			Version: "7.22.20",
 			BlockLocation: models.FilePosition{
-				Line:   models.Position{Start: 15, End: 18},
-				Column: models.Position{Start: 1, End: 108},
+				Line:     models.Position{Start: 15, End: 18},
+				Column:   models.Position{Start: 1, End: 108},
+				Filename: path,
 			},
 			Ecosystem: lockfile.YarnEcosystem,
 			CompareAs: lockfile.YarnEcosystem,
@@ -648,8 +739,9 @@ func TestParseYarnLock_v1_WithAliases(t *testing.T) {
 			Name:    "ansi-regex",
 			Version: "6.0.1",
 			BlockLocation: models.FilePosition{
-				Line:   models.Position{Start: 10, End: 13},
-				Column: models.Position{Start: 1, End: 108},
+				Line:     models.Position{Start: 10, End: 13},
+				Column:   models.Position{Start: 1, End: 108},
+				Filename: path,
 			},
 			Ecosystem: lockfile.YarnEcosystem,
 			CompareAs: lockfile.YarnEcosystem,
@@ -658,8 +750,9 @@ func TestParseYarnLock_v1_WithAliases(t *testing.T) {
 			Name:    "ansi-regex",
 			Version: "5.0.1",
 			BlockLocation: models.FilePosition{
-				Line:   models.Position{Start: 5, End: 8},
-				Column: models.Position{Start: 1, End: 108},
+				Line:     models.Position{Start: 5, End: 8},
+				Column:   models.Position{Start: 1, End: 108},
+				Filename: path,
 			},
 			Ecosystem: lockfile.YarnEcosystem,
 			CompareAs: lockfile.YarnEcosystem,

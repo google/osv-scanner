@@ -2,6 +2,8 @@ package lockfile_test
 
 import (
 	"io/fs"
+	"os"
+	"path/filepath"
 	"testing"
 
 	"github.com/google/osv-scanner/pkg/models"
@@ -11,8 +13,13 @@ import (
 
 func TestParseNpmLock_v2_FileDoesNotExist(t *testing.T) {
 	t.Parallel()
+	dir, err := os.Getwd()
+	if err != nil {
+		t.Errorf("got unexpected error: %v", err)
+	}
 
-	packages, err := lockfile.ParseNpmLock("fixtures/npm/does-not-exist")
+	path := filepath.FromSlash(filepath.Join(dir, "fixtures/npm/does-not-exist"))
+	packages, err := lockfile.ParseNpmLock(path)
 
 	expectErrIs(t, err, fs.ErrNotExist)
 	expectPackages(t, packages, []lockfile.PackageDetails{})
@@ -20,8 +27,13 @@ func TestParseNpmLock_v2_FileDoesNotExist(t *testing.T) {
 
 func TestParseNpmLock_v2_InvalidJson(t *testing.T) {
 	t.Parallel()
+	dir, err := os.Getwd()
+	if err != nil {
+		t.Errorf("got unexpected error: %v", err)
+	}
 
-	packages, err := lockfile.ParseNpmLock("fixtures/npm/not-json.txt")
+	path := filepath.FromSlash(filepath.Join(dir, "fixtures/npm/not-json.txt"))
+	packages, err := lockfile.ParseNpmLock(path)
 
 	expectErrContaining(t, err, "could not decode json from")
 	expectPackages(t, packages, []lockfile.PackageDetails{})
@@ -29,9 +41,13 @@ func TestParseNpmLock_v2_InvalidJson(t *testing.T) {
 
 func TestParseNpmLock_v2_NoPackages(t *testing.T) {
 	t.Parallel()
+	dir, err := os.Getwd()
+	if err != nil {
+		t.Errorf("got unexpected error: %v", err)
+	}
 
-	packages, err := lockfile.ParseNpmLock("fixtures/npm/empty.v2.json")
-
+	path := filepath.FromSlash(filepath.Join(dir, "fixtures/npm/empty.v2.json"))
+	packages, err := lockfile.ParseNpmLock(path)
 	if err != nil {
 		t.Errorf("Got unexpected error: %v", err)
 	}
@@ -41,9 +57,13 @@ func TestParseNpmLock_v2_NoPackages(t *testing.T) {
 
 func TestParseNpmLock_v2_OnePackage(t *testing.T) {
 	t.Parallel()
+	dir, err := os.Getwd()
+	if err != nil {
+		t.Errorf("Got unexpected error: %v", err)
+	}
 
-	packages, err := lockfile.ParseNpmLock("fixtures/npm/one-package.v2.json")
-
+	path := filepath.FromSlash(filepath.Join(dir, "fixtures/npm/one-package.v2.json"))
+	packages, err := lockfile.ParseNpmLock(path)
 	if err != nil {
 		t.Errorf("Got unexpected error: %v", err)
 	}
@@ -53,8 +73,9 @@ func TestParseNpmLock_v2_OnePackage(t *testing.T) {
 			Name:    "wrappy",
 			Version: "1.0.2",
 			BlockLocation: models.FilePosition{
-				Line:   models.Position{Start: 10, End: 14},
-				Column: models.Position{Start: 5, End: 6},
+				Line:     models.Position{Start: 10, End: 14},
+				Column:   models.Position{Start: 5, End: 6},
+				Filename: path,
 			},
 			Ecosystem: lockfile.NpmEcosystem,
 			CompareAs: lockfile.NpmEcosystem,
@@ -64,9 +85,13 @@ func TestParseNpmLock_v2_OnePackage(t *testing.T) {
 
 func TestParseNpmLock_v2_OnePackageDev(t *testing.T) {
 	t.Parallel()
+	dir, err := os.Getwd()
+	if err != nil {
+		t.Errorf("Got unexpected error: %v", err)
+	}
 
-	packages, err := lockfile.ParseNpmLock("fixtures/npm/one-package-dev.v2.json")
-
+	path := filepath.FromSlash(filepath.Join(dir, "fixtures/npm/one-package-dev.v2.json"))
+	packages, err := lockfile.ParseNpmLock(path)
 	if err != nil {
 		t.Errorf("Got unexpected error: %v", err)
 	}
@@ -76,8 +101,9 @@ func TestParseNpmLock_v2_OnePackageDev(t *testing.T) {
 			Name:    "wrappy",
 			Version: "1.0.2",
 			BlockLocation: models.FilePosition{
-				Line:   models.Position{Start: 10, End: 15},
-				Column: models.Position{Start: 5, End: 6},
+				Line:     models.Position{Start: 10, End: 15},
+				Column:   models.Position{Start: 5, End: 6},
+				Filename: path,
 			},
 			Ecosystem: lockfile.NpmEcosystem,
 			CompareAs: lockfile.NpmEcosystem,
@@ -88,9 +114,13 @@ func TestParseNpmLock_v2_OnePackageDev(t *testing.T) {
 
 func TestParseNpmLock_v2_LinkDependency(t *testing.T) {
 	t.Parallel()
+	dir, err := os.Getwd()
+	if err != nil {
+		t.Errorf("Got unexpected error: %v", err)
+	}
 
-	packages, err := lockfile.ParseNpmLock("fixtures/npm/link-dependency.v2.json")
-
+	path := filepath.FromSlash(filepath.Join(dir, "fixtures/npm/link-dependency.v2.json"))
+	packages, err := lockfile.ParseNpmLock(path)
 	if err != nil {
 		t.Errorf("Got unexpected error: %v", err)
 	}
@@ -100,8 +130,9 @@ func TestParseNpmLock_v2_LinkDependency(t *testing.T) {
 			Name:    "wrappy",
 			Version: "1.0.2",
 			BlockLocation: models.FilePosition{
-				Line:   models.Position{Start: 10, End: 15},
-				Column: models.Position{Start: 5, End: 6},
+				Line:     models.Position{Start: 10, End: 15},
+				Column:   models.Position{Start: 5, End: 6},
+				Filename: path,
 			},
 			Ecosystem: lockfile.NpmEcosystem,
 			CompareAs: lockfile.NpmEcosystem,
@@ -112,9 +143,13 @@ func TestParseNpmLock_v2_LinkDependency(t *testing.T) {
 
 func TestParseNpmLock_v2_TwoPackages(t *testing.T) {
 	t.Parallel()
+	dir, err := os.Getwd()
+	if err != nil {
+		t.Errorf("Got unexpected error: %v", err)
+	}
 
-	packages, err := lockfile.ParseNpmLock("fixtures/npm/two-packages.v2.json")
-
+	path := filepath.FromSlash(filepath.Join(dir, "fixtures/npm/two-packages.v2.json"))
+	packages, err := lockfile.ParseNpmLock(path)
 	if err != nil {
 		t.Errorf("Got unexpected error: %v", err)
 	}
@@ -124,8 +159,9 @@ func TestParseNpmLock_v2_TwoPackages(t *testing.T) {
 			Name:    "wrappy",
 			Version: "1.0.2",
 			BlockLocation: models.FilePosition{
-				Line:   models.Position{Start: 13, End: 17},
-				Column: models.Position{Start: 5, End: 6},
+				Line:     models.Position{Start: 13, End: 17},
+				Column:   models.Position{Start: 5, End: 6},
+				Filename: path,
 			},
 			Ecosystem: lockfile.NpmEcosystem,
 			CompareAs: lockfile.NpmEcosystem,
@@ -134,8 +170,9 @@ func TestParseNpmLock_v2_TwoPackages(t *testing.T) {
 			Name:    "supports-color",
 			Version: "5.5.0",
 			BlockLocation: models.FilePosition{
-				Line:   models.Position{Start: 18, End: 28},
-				Column: models.Position{Start: 5, End: 6},
+				Line:     models.Position{Start: 18, End: 28},
+				Column:   models.Position{Start: 5, End: 6},
+				Filename: path,
 			},
 			Ecosystem: lockfile.NpmEcosystem,
 			CompareAs: lockfile.NpmEcosystem,
@@ -145,9 +182,13 @@ func TestParseNpmLock_v2_TwoPackages(t *testing.T) {
 
 func TestParseNpmLock_v2_ScopedPackages(t *testing.T) {
 	t.Parallel()
+	dir, err := os.Getwd()
+	if err != nil {
+		t.Errorf("Got unexpected error: %v", err)
+	}
 
-	packages, err := lockfile.ParseNpmLock("fixtures/npm/scoped-packages.v2.json")
-
+	path := filepath.FromSlash(filepath.Join(dir, "fixtures/npm/scoped-packages.v2.json"))
+	packages, err := lockfile.ParseNpmLock(path)
 	if err != nil {
 		t.Errorf("Got unexpected error: %v", err)
 	}
@@ -157,8 +198,9 @@ func TestParseNpmLock_v2_ScopedPackages(t *testing.T) {
 			Name:    "wrappy",
 			Version: "1.0.2",
 			BlockLocation: models.FilePosition{
-				Line:   models.Position{Start: 18, End: 22},
-				Column: models.Position{Start: 5, End: 6},
+				Line:     models.Position{Start: 18, End: 22},
+				Column:   models.Position{Start: 5, End: 6},
+				Filename: path,
 			},
 			Ecosystem: lockfile.NpmEcosystem,
 			CompareAs: lockfile.NpmEcosystem,
@@ -167,8 +209,9 @@ func TestParseNpmLock_v2_ScopedPackages(t *testing.T) {
 			Name:    "@babel/code-frame",
 			Version: "7.0.0",
 			BlockLocation: models.FilePosition{
-				Line:   models.Position{Start: 10, End: 17},
-				Column: models.Position{Start: 5, End: 6},
+				Line:     models.Position{Start: 10, End: 17},
+				Column:   models.Position{Start: 5, End: 6},
+				Filename: path,
 			},
 			Ecosystem: lockfile.NpmEcosystem,
 			CompareAs: lockfile.NpmEcosystem,
@@ -178,9 +221,13 @@ func TestParseNpmLock_v2_ScopedPackages(t *testing.T) {
 
 func TestParseNpmLock_v2_NestedDependencies(t *testing.T) {
 	t.Parallel()
+	dir, err := os.Getwd()
+	if err != nil {
+		t.Errorf("Got unexpected error: %v", err)
+	}
 
-	packages, err := lockfile.ParseNpmLock("fixtures/npm/nested-dependencies.v2.json")
-
+	path := filepath.FromSlash(filepath.Join(dir, "fixtures/npm/nested-dependencies.v2.json"))
+	packages, err := lockfile.ParseNpmLock(path)
 	if err != nil {
 		t.Errorf("Got unexpected error: %v", err)
 	}
@@ -190,8 +237,9 @@ func TestParseNpmLock_v2_NestedDependencies(t *testing.T) {
 			Name:    "postcss",
 			Version: "6.0.23",
 			BlockLocation: models.FilePosition{
-				Line:   models.Position{Start: 10, End: 22},
-				Column: models.Position{Start: 5, End: 6},
+				Line:     models.Position{Start: 10, End: 22},
+				Column:   models.Position{Start: 5, End: 6},
+				Filename: path,
 			},
 			Ecosystem: lockfile.NpmEcosystem,
 			CompareAs: lockfile.NpmEcosystem,
@@ -200,8 +248,9 @@ func TestParseNpmLock_v2_NestedDependencies(t *testing.T) {
 			Name:    "postcss",
 			Version: "7.0.16",
 			BlockLocation: models.FilePosition{
-				Line:   models.Position{Start: 34, End: 46},
-				Column: models.Position{Start: 5, End: 6},
+				Line:     models.Position{Start: 34, End: 46},
+				Column:   models.Position{Start: 5, End: 6},
+				Filename: path,
 			},
 			Ecosystem: lockfile.NpmEcosystem,
 			CompareAs: lockfile.NpmEcosystem,
@@ -210,8 +259,9 @@ func TestParseNpmLock_v2_NestedDependencies(t *testing.T) {
 			Name:    "postcss-calc",
 			Version: "7.0.1",
 			BlockLocation: models.FilePosition{
-				Line:   models.Position{Start: 23, End: 33},
-				Column: models.Position{Start: 5, End: 6},
+				Line:     models.Position{Start: 23, End: 33},
+				Column:   models.Position{Start: 5, End: 6},
+				Filename: path,
 			},
 			Ecosystem: lockfile.NpmEcosystem,
 			CompareAs: lockfile.NpmEcosystem,
@@ -220,8 +270,9 @@ func TestParseNpmLock_v2_NestedDependencies(t *testing.T) {
 			Name:    "supports-color",
 			Version: "6.1.0",
 			BlockLocation: models.FilePosition{
-				Line:   models.Position{Start: 47, End: 57},
-				Column: models.Position{Start: 5, End: 6},
+				Line:     models.Position{Start: 47, End: 57},
+				Column:   models.Position{Start: 5, End: 6},
+				Filename: path,
 			},
 			Ecosystem: lockfile.NpmEcosystem,
 			CompareAs: lockfile.NpmEcosystem,
@@ -230,8 +281,9 @@ func TestParseNpmLock_v2_NestedDependencies(t *testing.T) {
 			Name:    "supports-color",
 			Version: "5.5.0",
 			BlockLocation: models.FilePosition{
-				Line:   models.Position{Start: 58, End: 68},
-				Column: models.Position{Start: 5, End: 6},
+				Line:     models.Position{Start: 58, End: 68},
+				Column:   models.Position{Start: 5, End: 6},
+				Filename: path,
 			},
 			Ecosystem: lockfile.NpmEcosystem,
 			CompareAs: lockfile.NpmEcosystem,
@@ -241,9 +293,13 @@ func TestParseNpmLock_v2_NestedDependencies(t *testing.T) {
 
 func TestParseNpmLock_v2_NestedDependenciesDup(t *testing.T) {
 	t.Parallel()
+	dir, err := os.Getwd()
+	if err != nil {
+		t.Errorf("Got unexpected error: %v", err)
+	}
 
-	packages, err := lockfile.ParseNpmLock("fixtures/npm/nested-dependencies-dup.v2.json")
-
+	path := filepath.FromSlash(filepath.Join(dir, "fixtures/npm/nested-dependencies-dup.v2.json"))
+	packages, err := lockfile.ParseNpmLock(path)
 	if err != nil {
 		t.Errorf("Got unexpected error: %v", err)
 	}
@@ -253,8 +309,9 @@ func TestParseNpmLock_v2_NestedDependenciesDup(t *testing.T) {
 			Name:    "supports-color",
 			Version: "6.1.0",
 			BlockLocation: models.FilePosition{
-				Line:   models.Position{Start: 10, End: 20},
-				Column: models.Position{Start: 5, End: 6},
+				Line:     models.Position{Start: 10, End: 20},
+				Column:   models.Position{Start: 5, End: 6},
+				Filename: path,
 			},
 			Ecosystem: lockfile.NpmEcosystem,
 			CompareAs: lockfile.NpmEcosystem,
@@ -263,8 +320,9 @@ func TestParseNpmLock_v2_NestedDependenciesDup(t *testing.T) {
 			Name:    "supports-color",
 			Version: "2.0.0",
 			BlockLocation: models.FilePosition{
-				Line:   models.Position{Start: 32, End: 39},
-				Column: models.Position{Start: 5, End: 6},
+				Line:     models.Position{Start: 32, End: 39},
+				Column:   models.Position{Start: 5, End: 6},
+				Filename: path,
 			},
 			Ecosystem: lockfile.NpmEcosystem,
 			CompareAs: lockfile.NpmEcosystem,
@@ -274,9 +332,13 @@ func TestParseNpmLock_v2_NestedDependenciesDup(t *testing.T) {
 
 func TestParseNpmLock_v2_Commits(t *testing.T) {
 	t.Parallel()
+	dir, err := os.Getwd()
+	if err != nil {
+		t.Errorf("got unexpected error: %v", err)
+	}
 
-	packages, err := lockfile.ParseNpmLock("fixtures/npm/commits.v2.json")
-
+	path := filepath.FromSlash(filepath.Join(dir, "fixtures/npm/commits.v2.json"))
+	packages, err := lockfile.ParseNpmLock(path)
 	if err != nil {
 		t.Errorf("Got unexpected error: %v", err)
 	}
@@ -286,8 +348,9 @@ func TestParseNpmLock_v2_Commits(t *testing.T) {
 			Name:    "@segment/analytics.js-integration-facebook-pixel",
 			Version: "2.4.1",
 			BlockLocation: models.FilePosition{
-				Line:   models.Position{Start: 26, End: 41},
-				Column: models.Position{Start: 5, End: 6},
+				Line:     models.Position{Start: 26, End: 41},
+				Column:   models.Position{Start: 5, End: 6},
+				Filename: path,
 			},
 			Ecosystem: lockfile.NpmEcosystem,
 			CompareAs: lockfile.NpmEcosystem,
@@ -297,8 +360,9 @@ func TestParseNpmLock_v2_Commits(t *testing.T) {
 			Name:    "ansi-styles",
 			Version: "1.0.0",
 			BlockLocation: models.FilePosition{
-				Line:   models.Position{Start: 42, End: 49},
-				Column: models.Position{Start: 5, End: 6},
+				Line:     models.Position{Start: 42, End: 49},
+				Column:   models.Position{Start: 5, End: 6},
+				Filename: path,
 			},
 			Ecosystem: lockfile.NpmEcosystem,
 			CompareAs: lockfile.NpmEcosystem,
@@ -308,8 +372,9 @@ func TestParseNpmLock_v2_Commits(t *testing.T) {
 			Name:    "babel-preset-php",
 			Version: "1.1.1",
 			BlockLocation: models.FilePosition{
-				Line:   models.Position{Start: 50, End: 59},
-				Column: models.Position{Start: 5, End: 6},
+				Line:     models.Position{Start: 50, End: 59},
+				Column:   models.Position{Start: 5, End: 6},
+				Filename: path,
 			},
 			Ecosystem: lockfile.NpmEcosystem,
 			CompareAs: lockfile.NpmEcosystem,
@@ -320,8 +385,9 @@ func TestParseNpmLock_v2_Commits(t *testing.T) {
 			Name:    "is-number-1",
 			Version: "3.0.0",
 			BlockLocation: models.FilePosition{
-				Line:   models.Position{Start: 60, End: 72},
-				Column: models.Position{Start: 5, End: 6},
+				Line:     models.Position{Start: 60, End: 72},
+				Column:   models.Position{Start: 5, End: 6},
+				Filename: path,
 			},
 			Ecosystem: lockfile.NpmEcosystem,
 			CompareAs: lockfile.NpmEcosystem,
@@ -332,8 +398,9 @@ func TestParseNpmLock_v2_Commits(t *testing.T) {
 			Name:    "is-number-1",
 			Version: "3.0.0",
 			BlockLocation: models.FilePosition{
-				Line:   models.Position{Start: 130, End: 142},
-				Column: models.Position{Start: 5, End: 6},
+				Line:     models.Position{Start: 130, End: 142},
+				Column:   models.Position{Start: 5, End: 6},
+				Filename: path,
 			},
 			Ecosystem: lockfile.NpmEcosystem,
 			CompareAs: lockfile.NpmEcosystem,
@@ -344,8 +411,9 @@ func TestParseNpmLock_v2_Commits(t *testing.T) {
 			Name:    "is-number-2",
 			Version: "2.0.0",
 			BlockLocation: models.FilePosition{
-				Line:   models.Position{Start: 73, End: 82},
-				Column: models.Position{Start: 5, End: 6},
+				Line:     models.Position{Start: 73, End: 82},
+				Column:   models.Position{Start: 5, End: 6},
+				Filename: path,
 			},
 			Ecosystem: lockfile.NpmEcosystem,
 			CompareAs: lockfile.NpmEcosystem,
@@ -356,8 +424,9 @@ func TestParseNpmLock_v2_Commits(t *testing.T) {
 			Name:    "is-number-2",
 			Version: "2.0.0",
 			BlockLocation: models.FilePosition{
-				Line:   models.Position{Start: 143, End: 152},
-				Column: models.Position{Start: 5, End: 6},
+				Line:     models.Position{Start: 143, End: 152},
+				Column:   models.Position{Start: 5, End: 6},
+				Filename: path,
 			},
 			Ecosystem: lockfile.NpmEcosystem,
 			CompareAs: lockfile.NpmEcosystem,
@@ -368,8 +437,9 @@ func TestParseNpmLock_v2_Commits(t *testing.T) {
 			Name:    "is-number-3",
 			Version: "2.0.0",
 			BlockLocation: models.FilePosition{
-				Line:   models.Position{Start: 83, End: 92},
-				Column: models.Position{Start: 5, End: 6},
+				Line:     models.Position{Start: 83, End: 92},
+				Column:   models.Position{Start: 5, End: 6},
+				Filename: path,
 			},
 			Ecosystem: lockfile.NpmEcosystem,
 			CompareAs: lockfile.NpmEcosystem,
@@ -382,8 +452,9 @@ func TestParseNpmLock_v2_Commits(t *testing.T) {
 			Ecosystem: lockfile.NpmEcosystem,
 			CompareAs: lockfile.NpmEcosystem,
 			BlockLocation: models.FilePosition{
-				Line:   models.Position{Start: 153, End: 162},
-				Column: models.Position{Start: 5, End: 6},
+				Line:     models.Position{Start: 153, End: 162},
+				Column:   models.Position{Start: 5, End: 6},
+				Filename: path,
 			},
 			Commit:    "82ae8802978da40d7f1be5ad5943c9e550ab2c89",
 			DepGroups: []string{"dev"},
@@ -392,8 +463,9 @@ func TestParseNpmLock_v2_Commits(t *testing.T) {
 			Name:    "is-number-4",
 			Version: "3.0.0",
 			BlockLocation: models.FilePosition{
-				Line:   models.Position{Start: 93, End: 105},
-				Column: models.Position{Start: 5, End: 6},
+				Line:     models.Position{Start: 93, End: 105},
+				Column:   models.Position{Start: 5, End: 6},
+				Filename: path,
 			},
 			Ecosystem: lockfile.NpmEcosystem,
 			CompareAs: lockfile.NpmEcosystem,
@@ -404,8 +476,9 @@ func TestParseNpmLock_v2_Commits(t *testing.T) {
 			Name:    "is-number-5",
 			Version: "3.0.0",
 			BlockLocation: models.FilePosition{
-				Line:   models.Position{Start: 106, End: 118},
-				Column: models.Position{Start: 5, End: 6},
+				Line:     models.Position{Start: 106, End: 118},
+				Column:   models.Position{Start: 5, End: 6},
+				Filename: path,
 			},
 			Ecosystem: lockfile.NpmEcosystem,
 			CompareAs: lockfile.NpmEcosystem,
@@ -416,8 +489,9 @@ func TestParseNpmLock_v2_Commits(t *testing.T) {
 			Name:    "postcss-calc",
 			Version: "7.0.1",
 			BlockLocation: models.FilePosition{
-				Line:   models.Position{Start: 119, End: 129},
-				Column: models.Position{Start: 5, End: 6},
+				Line:     models.Position{Start: 119, End: 129},
+				Column:   models.Position{Start: 5, End: 6},
+				Filename: path,
 			},
 			Ecosystem: lockfile.NpmEcosystem,
 			CompareAs: lockfile.NpmEcosystem,
@@ -427,8 +501,9 @@ func TestParseNpmLock_v2_Commits(t *testing.T) {
 			Name:    "raven-js",
 			Version: "",
 			BlockLocation: models.FilePosition{
-				Line:   models.Position{Start: 163, End: 165},
-				Column: models.Position{Start: 5, End: 6},
+				Line:     models.Position{Start: 163, End: 165},
+				Column:   models.Position{Start: 5, End: 6},
+				Filename: path,
 			},
 			Ecosystem: lockfile.NpmEcosystem,
 			CompareAs: lockfile.NpmEcosystem,
@@ -438,8 +513,9 @@ func TestParseNpmLock_v2_Commits(t *testing.T) {
 			Name:    "slick-carousel",
 			Version: "1.7.1",
 			BlockLocation: models.FilePosition{
-				Line:   models.Position{Start: 166, End: 175},
-				Column: models.Position{Start: 5, End: 6},
+				Line:     models.Position{Start: 166, End: 175},
+				Column:   models.Position{Start: 5, End: 6},
+				Filename: path,
 			},
 			Ecosystem: lockfile.NpmEcosystem,
 			CompareAs: lockfile.NpmEcosystem,
@@ -451,9 +527,13 @@ func TestParseNpmLock_v2_Commits(t *testing.T) {
 
 func TestParseNpmLock_v2_Files(t *testing.T) {
 	t.Parallel()
+	dir, err := os.Getwd()
+	if err != nil {
+		t.Errorf("got unexpected error: %v", err)
+	}
 
-	packages, err := lockfile.ParseNpmLock("fixtures/npm/files.v2.json")
-
+	path := filepath.FromSlash(filepath.Join(dir, "fixtures/npm/files.v2.json"))
+	packages, err := lockfile.ParseNpmLock(path)
 	if err != nil {
 		t.Errorf("Got unexpected error: %v", err)
 	}
@@ -463,8 +543,9 @@ func TestParseNpmLock_v2_Files(t *testing.T) {
 			Name:    "etag",
 			Version: "1.8.0",
 			BlockLocation: models.FilePosition{
-				Line:   models.Position{Start: 16, End: 35},
-				Column: models.Position{Start: 5, End: 6},
+				Line:     models.Position{Start: 16, End: 35},
+				Column:   models.Position{Start: 5, End: 6},
+				Filename: path,
 			},
 			Ecosystem: lockfile.NpmEcosystem,
 			CompareAs: lockfile.NpmEcosystem,
@@ -475,8 +556,9 @@ func TestParseNpmLock_v2_Files(t *testing.T) {
 			Name:    "abbrev",
 			Version: "1.0.9",
 			BlockLocation: models.FilePosition{
-				Line:   models.Position{Start: 36, End: 41},
-				Column: models.Position{Start: 5, End: 6},
+				Line:     models.Position{Start: 36, End: 41},
+				Column:   models.Position{Start: 5, End: 6},
+				Filename: path,
 			},
 			Ecosystem: lockfile.NpmEcosystem,
 			CompareAs: lockfile.NpmEcosystem,
@@ -487,8 +569,9 @@ func TestParseNpmLock_v2_Files(t *testing.T) {
 			Name:    "abbrev",
 			Version: "2.3.4",
 			BlockLocation: models.FilePosition{
-				Line:   models.Position{Start: 42, End: 47},
-				Column: models.Position{Start: 5, End: 6},
+				Line:     models.Position{Start: 42, End: 47},
+				Column:   models.Position{Start: 5, End: 6},
+				Filename: path,
 			},
 			Ecosystem: lockfile.NpmEcosystem,
 			CompareAs: lockfile.NpmEcosystem,
@@ -500,9 +583,13 @@ func TestParseNpmLock_v2_Files(t *testing.T) {
 
 func TestParseNpmLock_v2_Alias(t *testing.T) {
 	t.Parallel()
+	dir, err := os.Getwd()
+	if err != nil {
+		t.Errorf("got unexpected error: %v", err)
+	}
 
-	packages, err := lockfile.ParseNpmLock("fixtures/npm/alias.v2.json")
-
+	path := filepath.FromSlash(filepath.Join(dir, "fixtures/npm/alias.v2.json"))
+	packages, err := lockfile.ParseNpmLock(path)
 	if err != nil {
 		t.Errorf("Got unexpected error: %v", err)
 	}
@@ -512,8 +599,9 @@ func TestParseNpmLock_v2_Alias(t *testing.T) {
 			Name:    "@babel/code-frame",
 			Version: "7.0.0",
 			BlockLocation: models.FilePosition{
-				Line:   models.Position{Start: 13, End: 21},
-				Column: models.Position{Start: 5, End: 6},
+				Line:     models.Position{Start: 13, End: 21},
+				Column:   models.Position{Start: 5, End: 6},
+				Filename: path,
 			},
 			Ecosystem: lockfile.NpmEcosystem,
 			CompareAs: lockfile.NpmEcosystem,
@@ -522,8 +610,9 @@ func TestParseNpmLock_v2_Alias(t *testing.T) {
 			Name:    "string-width",
 			Version: "4.2.0",
 			BlockLocation: models.FilePosition{
-				Line:   models.Position{Start: 32, End: 42},
-				Column: models.Position{Start: 5, End: 6},
+				Line:     models.Position{Start: 32, End: 42},
+				Column:   models.Position{Start: 5, End: 6},
+				Filename: path,
 			},
 			Ecosystem: lockfile.NpmEcosystem,
 			CompareAs: lockfile.NpmEcosystem,
@@ -532,8 +621,9 @@ func TestParseNpmLock_v2_Alias(t *testing.T) {
 			Name:    "string-width",
 			Version: "5.1.2",
 			BlockLocation: models.FilePosition{
-				Line:   models.Position{Start: 22, End: 31},
-				Column: models.Position{Start: 5, End: 6},
+				Line:     models.Position{Start: 22, End: 31},
+				Column:   models.Position{Start: 5, End: 6},
+				Filename: path,
 			},
 			Ecosystem: lockfile.NpmEcosystem,
 			CompareAs: lockfile.NpmEcosystem,
@@ -543,9 +633,13 @@ func TestParseNpmLock_v2_Alias(t *testing.T) {
 
 func TestParseNpmLock_v2_OptionalPackage(t *testing.T) {
 	t.Parallel()
+	dir, err := os.Getwd()
+	if err != nil {
+		t.Errorf("got unexpected error: %v", err)
+	}
 
-	packages, err := lockfile.ParseNpmLock("fixtures/npm/optional-package.v2.json")
-
+	path := filepath.FromSlash(filepath.Join(dir, "fixtures/npm/optional-package.v2.json"))
+	packages, err := lockfile.ParseNpmLock(path)
 	if err != nil {
 		t.Errorf("Got unexpected error: %v", err)
 	}
@@ -555,8 +649,9 @@ func TestParseNpmLock_v2_OptionalPackage(t *testing.T) {
 			Name:    "wrappy",
 			Version: "1.0.2",
 			BlockLocation: models.FilePosition{
-				Line:   models.Position{Start: 10, End: 15},
-				Column: models.Position{Start: 5, End: 6},
+				Line:     models.Position{Start: 10, End: 15},
+				Column:   models.Position{Start: 5, End: 6},
+				Filename: path,
 			},
 			Ecosystem: lockfile.NpmEcosystem,
 			CompareAs: lockfile.NpmEcosystem,
@@ -566,8 +661,9 @@ func TestParseNpmLock_v2_OptionalPackage(t *testing.T) {
 			Name:    "supports-color",
 			Version: "5.5.0",
 			BlockLocation: models.FilePosition{
-				Line:   models.Position{Start: 16, End: 27},
-				Column: models.Position{Start: 6, End: 6},
+				Line:     models.Position{Start: 16, End: 27},
+				Column:   models.Position{Start: 6, End: 6},
+				Filename: path,
 			},
 			Ecosystem: lockfile.NpmEcosystem,
 			CompareAs: lockfile.NpmEcosystem,

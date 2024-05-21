@@ -204,8 +204,9 @@ func parseYarnPackage(dependency YarnPackage) PackageDetails {
 		CompareAs: YarnEcosystem,
 		Commit:    tryExtractCommit(dependency.Resolution),
 		BlockLocation: models.FilePosition{
-			Line:   dependency.Line,
-			Column: dependency.Column,
+			Line:     dependency.Line,
+			Column:   dependency.Column,
+			Filename: dependency.Filename,
 		},
 	}
 }
@@ -232,6 +233,7 @@ func (e YarnLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 			continue
 		}
 
+		yarnPackage.FilePosition.Filename = f.Path()
 		packages = append(packages, parseYarnPackage(yarnPackage))
 	}
 

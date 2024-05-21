@@ -69,8 +69,9 @@ type VulnerabilityFlattened struct {
 }
 
 type SourceInfo struct {
-	Path string `json:"path"`
-	Type string `json:"type"`
+	ScanPath string `json:"scan_path,omitempty"`
+	Path     string `json:"path"`
+	Type     string `json:"type"`
 }
 
 type Metadata struct {
@@ -170,7 +171,7 @@ type PackageInfo struct {
 	Version         string        `json:"version"`
 	Ecosystem       string        `json:"ecosystem"`
 	Commit          string        `json:"commit,omitempty"`
-	BlockLocation   FilePosition  `json:"blockLocation,omitempty"`
+	BlockLocation   FilePosition  `json:"blockLocation"`
 	VersionLocation *FilePosition `json:"versionLocation,omitempty"`
 	NameLocation    *FilePosition `json:"nameLocation,omitempty"`
 }

@@ -60,8 +60,8 @@ func (e PipenvLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 
 	details := make(map[string]PackageDetails)
 
-	addPkgDetails(details, parsedLockfile.Packages, "")
-	addPkgDetails(details, parsedLockfile.PackagesDev, "dev")
+	addPkgDetails(details, parsedLockfile.Packages, "", f.Path())
+	addPkgDetails(details, parsedLockfile.PackagesDev, "dev", f.Path())
 
 	return pkgDetailsMapToSlice(details), nil
 }
@@ -81,7 +81,7 @@ func extractNameAndVersionPosition(lines []string, packages map[string]*PipenvPa
 	}
 }
 
-func addPkgDetails(details map[string]PackageDetails, packages map[string]*PipenvPackage, group string) {
+func addPkgDetails(details map[string]PackageDetails, packages map[string]*PipenvPackage, group string, path string) {
 	for name, pipenvPackage := range packages {
 		if pipenvPackage.Version == "" {
 			continue
@@ -89,16 +89,21 @@ func addPkgDetails(details map[string]PackageDetails, packages map[string]*Pipen
 
 		version := pipenvPackage.Version[2:]
 
+		blockLocation := models.FilePosition{
+			Line:     pipenvPackage.Line,
+			Column:   pipenvPackage.Column,
+			Filename: path,
+		}
+		pipenvPackage.NamePosition.Filename = path
+		pipenvPackage.VersionPosition.Filename = path
+
 		if _, ok := details[name+"@"+version]; !ok {
 			pkgDetails := PackageDetails{
-				Name:      name,
-				Version:   version,
-				Ecosystem: PipenvEcosystem,
-				CompareAs: PipenvEcosystem,
-				BlockLocation: models.FilePosition{
-					Line:   pipenvPackage.Line,
-					Column: pipenvPackage.Column,
-				},
+				Name:            name,
+				Version:         version,
+				Ecosystem:       PipenvEcosystem,
+				CompareAs:       PipenvEcosystem,
+				BlockLocation:   blockLocation,
 				NameLocation:    pipenvPackage.NamePosition,
 				VersionLocation: pipenvPackage.VersionPosition,
 			}
