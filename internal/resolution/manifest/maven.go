@@ -187,6 +187,7 @@ func (m MavenManifestIO) Read(df lockfile.DepFile) (Manifest, error) {
 const MaxParent = 100
 
 func (m MavenManifestIO) MergeParents(ctx context.Context, result *maven.Project, current maven.Parent, start int, path string, addRequirements func(maven.Project, string), prefix string) error {
+	currentPath := path
 	visited := make(map[maven.ProjectKey]bool, MaxParent)
 	for n := start; n < MaxParent; n++ {
 		if current.GroupID == "" || current.ArtifactID == "" || current.Version == "" {
@@ -200,7 +201,12 @@ func (m MavenManifestIO) MergeParents(ctx context.Context, result *maven.Project
 
 		var proj maven.Project
 		if current.RelativePath != "" {
-			f, err := os.Open(filepath.Join(filepath.Dir(path), string(current.RelativePath)))
+			currentPath = filepath.Join(filepath.Dir(currentPath), string(current.RelativePath))
+			if filepath.Base(currentPath) != "pom.xml" {
+				// If the base is not pom.xml, this path is a directory but not a file.
+				currentPath = filepath.Join(currentPath, "pom.xml")
+			}
+			f, err := os.Open(currentPath)
 			if err != nil {
 				return fmt.Errorf("failed to open parent file %s: %w", current.RelativePath, err)
 			}
