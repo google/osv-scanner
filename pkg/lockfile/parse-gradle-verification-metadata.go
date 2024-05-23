@@ -7,7 +7,6 @@ import (
 )
 
 type GradleVerificationMetadataFile struct {
-	// XMLName             xml.Name              `xml:"project"`
 	Components []struct {
 		Group   string `xml:"group,attr"`
 		Name    string `xml:"name,attr"`
