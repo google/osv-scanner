@@ -1,6 +1,7 @@
 package fileposition
 
 import (
+	"fmt"
 	"strings"
 
 	"github.com/google/osv-scanner/internal/cachedregexp"
@@ -43,15 +44,13 @@ func ExtractRegexpPositionInBlock(block []string, str string, blockStartLine int
 }
 
 func ExtractDelimitedRegexpPositionInBlock(block []string, str string, blockStartLine int, prefix string, suffix string) *models.FilePosition {
-	// We expect 'str' to be a literal value or in case it is a regexp to be only one capturing group
-	regex := cachedregexp.MustCompile(cachedregexp.QuoteMeta(prefix) + str + cachedregexp.QuoteMeta(suffix))
+	group := fmt.Sprintf("(%s)", str)
+	regex := cachedregexp.MustCompile(cachedregexp.QuoteMeta(prefix) + group + cachedregexp.QuoteMeta(suffix))
 	for i, line := range block {
 		matches := regex.FindStringSubmatch(line)
 		if len(matches) > 0 {
-			// A group was captured -> Replace group regexp with captured value
-			if len(matches) == 2 {
-				str = matches[1]
-			}
+			// Replace regexp with captured value
+			str = matches[1]
 
 			return extractPositionFromLine(blockStartLine+i, line, str)
 		}

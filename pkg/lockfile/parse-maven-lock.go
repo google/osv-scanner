@@ -86,7 +86,7 @@ func (mld MavenLockDependency) resolvePropertiesValue(lockfile MavenLockFile, fi
 			if strings.HasSuffix(propName, "version") {
 				projectPropertySourceFile = lockfile.ProjectVersionSourceFile
 			}
-			position = fileposition.ExtractRegexpPositionInBlock(lockfile.Lines[projectPropertySourceFile], property, 1)
+			position = fileposition.ExtractStringPositionInBlock(lockfile.Lines[projectPropertySourceFile], property, 1)
 			position.Filename = projectPropertySourceFile
 		} else {
 			lockProperty, ok = lockfile.Properties.m[propName]
@@ -97,7 +97,7 @@ func (mld MavenLockDependency) resolvePropertiesValue(lockfile MavenLockFile, fi
 					property, position = mld.resolvePropertiesValue(lockfile, property)
 				} else {
 					// We should locate the property in its source file
-					position = fileposition.ExtractDelimitedRegexpPositionInBlock(lockfile.Lines[lockProperty.SourceFile], "(.*)", 1, propOpenTag, propCloseTag)
+					position = fileposition.ExtractDelimitedRegexpPositionInBlock(lockfile.Lines[lockProperty.SourceFile], ".*", 1, propOpenTag, propCloseTag)
 					position.Filename = lockProperty.SourceFile
 				}
 			}
@@ -383,11 +383,11 @@ func (e MavenLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 
 		// A position is null after resolving the value in case the value is directly defined in the block
 		if artifactPosition == nil {
-			artifactPosition = fileposition.ExtractDelimitedRegexpPositionInBlock(block, "(.*)", lockPackage.Line.Start, "<artifactId>", "</artifactId>")
+			artifactPosition = fileposition.ExtractDelimitedRegexpPositionInBlock(block, ".*", lockPackage.Line.Start, "<artifactId>", "</artifactId>")
 			artifactPosition.Filename = lockPackage.SourceFile
 		}
 		if versionPosition == nil {
-			versionPosition = fileposition.ExtractDelimitedRegexpPositionInBlock(block, "(.*)", lockPackage.Line.Start, "<version>", "</version>")
+			versionPosition = fileposition.ExtractDelimitedRegexpPositionInBlock(block, ".*", lockPackage.Line.Start, "<version>", "</version>")
 			if versionPosition != nil {
 				versionPosition.Filename = lockPackage.SourceFile
 			}
@@ -425,7 +425,7 @@ func (e MavenLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 
 			// A position is null after resolving the value in case the value is directly defined in the block
 			if versionPosition == nil {
-				versionPosition = fileposition.ExtractDelimitedRegexpPositionInBlock(block, "(.*)", lockPackage.Line.Start, "<version>", "</version>")
+				versionPosition = fileposition.ExtractDelimitedRegexpPositionInBlock(block, ".*", lockPackage.Line.Start, "<version>", "</version>")
 				versionPosition.Filename = lockPackage.SourceFile
 			}
 
