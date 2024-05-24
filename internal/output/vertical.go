@@ -11,12 +11,16 @@ import (
 )
 
 func PrintVerticalResults(vulnResult *models.VulnerabilityResults, outputWriter io.Writer) {
-	for _, result := range vulnResult.Results {
+	for i, result := range vulnResult.Results {
 		printVerticalHeader(result, outputWriter)
 		printVerticalVulnerabilities(result, outputWriter)
 
 		if len(vulnResult.ExperimentalAnalysisConfig.Licenses.Allowlist) > 0 {
 			printVerticalLicenseViolations(result, outputWriter)
+		}
+
+		if i < len(vulnResult.Results) - 1 {
+			fmt.Fprintln(outputWriter)
 		}
 	}
 }
@@ -88,6 +92,8 @@ func printVerticalLicenseViolations(result models.PackageSource, out io.Writer) 
 
 		return
 	}
+
+	fmt.Fprintln(out)
 
 	for _, pkg := range result.Packages {
 		if len(pkg.LicenseViolations) == 0 {
