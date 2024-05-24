@@ -51,7 +51,7 @@ func weightAlpineSuffixString(suffixStr string) int {
 	supported := []string{"alpha", "beta", "pre", "rc", "", "cvs", "svn", "git", "hg"}
 
 	for i, s := range supported {
-		if (s != "" && strings.HasSuffix(suffixStr, s)) || suffixStr == "" {
+		if suffixStr == s {
 			return i
 		}
 	}
