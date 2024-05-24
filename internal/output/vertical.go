@@ -28,7 +28,7 @@ func PrintVerticalResults(vulnResult *models.VulnerabilityResults, outputWriter 
 func printVerticalHeader(result models.PackageSource, out io.Writer) {
 	fmt.Fprintf(
 		out,
-		"%s: found %s %s\n",
+		"%s: found %s %s with issues\n",
 		color.MagentaString("%s", result.Source.Path),
 		color.YellowString("%d", len(result.Packages)),
 		Form(len(result.Packages), "package", "packages"),
