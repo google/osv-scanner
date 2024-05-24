@@ -11,11 +11,16 @@ import (
 
 func PrintVerticalResults(vulnResult *models.VulnerabilityResults, outputWriter io.Writer) {
 	for _, result := range vulnResult.Results {
-		printVerticalResult(result, outputWriter)
+		printVerticalHeader(result, outputWriter)
+		printVerticalVulnerabilities(result, outputWriter)
+
+		if len(vulnResult.ExperimentalAnalysisConfig.Licenses.Allowlist) > 0 {
+			printVerticalLicenseViolations(result, outputWriter)
+		}
 	}
 }
 
-func printVerticalResult(result models.PackageSource, out io.Writer) {
+func printVerticalHeader(result models.PackageSource, out io.Writer) {
 	fmt.Fprintf(
 		out,
 		"%s: found %s %s\n",
@@ -23,8 +28,6 @@ func printVerticalResult(result models.PackageSource, out io.Writer) {
 		color.YellowString("%d", len(result.Packages)),
 		Form(len(result.Packages), "package", "packages"),
 	)
-
-	printVerticalVulnerabilities(result, out)
 }
 
 func printVerticalVulnerabilities(result models.PackageSource, out io.Writer) {
@@ -72,11 +75,58 @@ func printVerticalVulnerabilities(result models.PackageSource, out io.Writer) {
 	)
 }
 
+func printVerticalLicenseViolations(result models.PackageSource, out io.Writer) {
+	count := countLicenseViolations(result)
+
+	if count == 0 {
+		fmt.Fprintf(
+			out,
+			"  %s\n",
+			color.GreenString("no license violations found"),
+		)
+
+		return
+	}
+
+	for _, pkg := range result.Packages {
+		if len(pkg.LicenseViolations) == 0 {
+			continue
+		}
+
+		fmt.Fprintf(out,
+			"  %s %s %s\n",
+			color.YellowString("%s@%s", pkg.Package.Name, pkg.Package.Version),
+			color.RedString("is using an incompatible license:"),
+			// todo: handle multiple licenses
+			color.CyanString(string(pkg.LicenseViolations[0])),
+		)
+	}
+
+	fmt.Fprintf(out, "\n  %s\n",
+		color.RedString(
+			"%d license %s found in %s",
+			count,
+			Form(count, "violation", "violations"),
+			result.Source.Path,
+		),
+	)
+}
+
 func countVulnerabilities(result models.PackageSource) int {
 	count := 0
 
 	for _, pkg := range result.Packages {
 		count += len(pkg.Vulnerabilities)
+	}
+
+	return count
+}
+
+func countLicenseViolations(result models.PackageSource) int {
+	count := 0
+
+	for _, pkg := range result.Packages {
+		count += len(pkg.LicenseViolations)
 	}
 
 	return count
