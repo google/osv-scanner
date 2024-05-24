@@ -49,6 +49,8 @@ func (e MavenResolverExtractor) Extract(f lockfile.DepFile) ([]lockfile.PackageD
 		if dep.Scope != "" {
 			pkgDetails.DepGroups = append(pkgDetails.DepGroups, string(dep.Scope))
 		}
+		// A dependency may be declared more than one times, we keep the details
+		// from the last declared one as what `mvn` does.
 		details[name] = pkgDetails
 	}
 
@@ -68,6 +70,8 @@ func (e MavenResolverExtractor) Extract(f lockfile.DepFile) ([]lockfile.PackageD
 		if dep.Scope != "" {
 			pkgDetails.DepGroups = append(pkgDetails.DepGroups, string(dep.Scope))
 		}
+		// A dependency may be declared more than one times, we keep the details
+		// from the last declared one as what `mvn` does.
 		details[name] = pkgDetails
 	}
 
@@ -77,7 +81,7 @@ func (e MavenResolverExtractor) Extract(f lockfile.DepFile) ([]lockfile.PackageD
 func (e MavenResolverExtractor) resolveVersion(ctx context.Context, dep maven.Dependency) (string, error) {
 	constraint, err := semver.Maven.ParseConstraint(string(dep.Version))
 	if err != nil {
-		return "", fmt.Errorf("parsing Maven constraint %s: %w", dep.Version, err)
+		return "", fmt.Errorf("failed parsing Maven constraint %s: %w", dep.Version, err)
 	}
 	if constraint.IsSimple() {
 		// Return the constraint if it is a simple version string.
