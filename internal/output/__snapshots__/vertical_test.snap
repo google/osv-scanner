@@ -127,7 +127,7 @@ path/to/my/first/lockfile: found 1 package
 [TestPrintVerticalResults_WithLicenseViolations/one_source_with_one_package_and_multiple_license_violations - 1]
 path/to/my/first/lockfile: found 1 package
   no known vulnerabilities found
-  mine1@1.2.3 is using an incompatible license: MIT
+  mine1@1.2.3 is using incompatible licenses: MIT, Apache-2.0
 
   2 license violations found in path/to/my/first/lockfile
 

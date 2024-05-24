@@ -3,6 +3,7 @@ package output
 import (
 	"fmt"
 	"io"
+	"strings"
 	"unicode"
 
 	"github.com/fatih/color"
@@ -93,12 +94,19 @@ func printVerticalLicenseViolations(result models.PackageSource, out io.Writer) 
 			continue
 		}
 
+		violations := make([]string, len(pkg.LicenseViolations))
+		for i, l := range pkg.LicenseViolations {
+			violations[i] = string(l)
+		}
+
 		fmt.Fprintf(out,
 			"  %s %s %s\n",
 			color.YellowString("%s@%s", pkg.Package.Name, pkg.Package.Version),
-			color.RedString("is using an incompatible license:"),
-			// todo: handle multiple licenses
-			color.CyanString(string(pkg.LicenseViolations[0])),
+			color.RedString(Form(len(violations),
+				"is using an incompatible license:",
+				"is using incompatible licenses:",
+			)),
+			color.CyanString(strings.Join(violations, ", ")),
 		)
 	}
 
