@@ -26,6 +26,7 @@ var parsers = map[string]PackageDetailsParser{
 	"conan.lock":                  ParseConanLock,
 	"Gemfile.lock":                ParseGemfileLock,
 	"go.mod":                      ParseGoLock,
+	"verification-metadata.xml":   ParseGradleVerificationMetadata,
 	"gradle.lockfile":             ParseGradleLock,
 	"mix.lock":                    ParseMixLock,
 	"Pipfile.lock":                ParsePipenvLock,
