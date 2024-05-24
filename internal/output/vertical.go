@@ -19,7 +19,7 @@ func PrintVerticalResults(vulnResult *models.VulnerabilityResults, outputWriter 
 			printVerticalLicenseViolations(result, outputWriter)
 		}
 
-		if i < len(vulnResult.Results) - 1 {
+		if i < len(vulnResult.Results)-1 {
 			fmt.Fprintln(outputWriter)
 		}
 	}
@@ -93,7 +93,7 @@ func printVerticalLicenseViolations(result models.PackageSource, out io.Writer) 
 		return
 	}
 
-	fmt.Fprintln(out)
+	fmt.Fprintf(out, "\n  %s\n", color.RedString("license violations found:"))
 
 	for _, pkg := range result.Packages {
 		if len(pkg.LicenseViolations) == 0 {
@@ -106,12 +106,8 @@ func printVerticalLicenseViolations(result models.PackageSource, out io.Writer) 
 		}
 
 		fmt.Fprintf(out,
-			"  %s %s %s\n",
+			"    %s (%s)\n",
 			color.YellowString("%s@%s", pkg.Package.Name, pkg.Package.Version),
-			color.RedString(Form(len(violations),
-				"is using an incompatible license:",
-				"is using incompatible licenses:",
-			)),
 			color.CyanString(strings.Join(violations, ", ")),
 		)
 	}
