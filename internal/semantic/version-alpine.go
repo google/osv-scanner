@@ -222,7 +222,6 @@ func (v AlpineVersion) CompareStr(str string) int {
 // This parser must be applied *before* any other parser.
 func parseAlpineNumberComponents(v *AlpineVersion, str string) string {
 	sub := cachedregexp.MustCompile(`^((\d+)\.?)*`).FindString(str)
-	str = strings.TrimPrefix(str, sub)
 
 	for i, d := range strings.Split(sub, ".") {
 		v.components = append(v.components, alpineNumberComponent{
@@ -232,7 +231,7 @@ func parseAlpineNumberComponents(v *AlpineVersion, str string) string {
 		})
 	}
 
-	return str
+	return strings.TrimPrefix(str, sub)
 }
 
 // parseAlpineLetter parses the given string into an AlpineVersion.letter
