@@ -2,6 +2,7 @@ package lockfile
 
 import (
 	"errors"
+	"fmt"
 	"io"
 	"os"
 	"path/filepath"
@@ -38,6 +39,19 @@ type Extractor interface {
 	// ShouldExtract checks if the Extractor should be used for the given path.
 	ShouldExtract(path string) bool
 	Extract(f DepFile) ([]PackageDetails, error)
+}
+
+type WithMatcher struct {
+	Matcher Matcher
+}
+
+type ExtractorWithMatcher interface {
+	Extractor
+	GetMatcher() Matcher
+}
+
+func (e WithMatcher) GetMatcher() Matcher {
+	return e.Matcher
 }
 
 // A LocalFile represents a file that exists on the local filesystem.
@@ -87,5 +101,20 @@ func extractFromFile(pathToLockfile string, extractor Extractor) ([]PackageDetai
 
 	defer f.Close()
 
-	return extractor.Extract(f)
+	packages, err := extractor.Extract(f)
+	if err != nil {
+		return []PackageDetails{}, err
+	}
+
+	// Match extracted packages with source file to enrich their details
+	if e, ok := extractor.(ExtractorWithMatcher); ok {
+		if matcher := e.GetMatcher(); matcher != nil {
+			err = matchWithFile(f, packages, matcher)
+			if err != nil {
+				_, _ = fmt.Fprintf(os.Stderr, "there was an error matching the source file: %s", err.Error())
+			}
+		}
+	}
+
+	return packages, nil
 }
