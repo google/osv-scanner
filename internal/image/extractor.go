@@ -15,6 +15,7 @@ var artifactExtractors map[string]lockfile.Extractor = map[string]lockfile.Extra
 	"node_modules":  lockfile.NodeModulesExtractor{},
 	"apk-installed": lockfile.ApkInstalledExtractor{},
 	"dpkg":          lockfile.DpkgStatusExtractor{},
+	"go-binary":     lockfile.GoBinaryExtractor{},
 }
 
 func findArtifactExtractor(path string) (lockfile.Extractor, string) {
