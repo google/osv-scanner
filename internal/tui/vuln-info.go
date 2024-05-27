@@ -38,7 +38,7 @@ var (
 				Width(10).
 				MarginRight(2).
 				Foreground(ColorPrimary)
-	highlightedVulnInfoHeadingStyle = vulnInfoHeadingStyle.Copy().Reverse(true)
+	highlightedVulnInfoHeadingStyle = vulnInfoHeadingStyle.Reverse(true)
 )
 
 func NewVulnInfo(vuln *resolution.ResolutionVuln) *vulnInfo {
