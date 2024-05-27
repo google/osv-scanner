@@ -1,4 +1,8 @@
 <project>
+  <groupId>com.mycompany.app</groupId>
+  <artifactId>my-app</artifactId>
+  <version>1.0</version>
+
   <properties>
     <mavenVersion>3.0</mavenVersion>
   </properties>
