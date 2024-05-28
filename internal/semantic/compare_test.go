@@ -226,6 +226,14 @@ func TestVersion_Compare_Ecosystems(t *testing.T) {
 			name: "CRAN",
 			file: "cran-versions-generated.txt",
 		},
+		{
+			name: "Alpine",
+			file: "alpine-versions.txt",
+		},
+		{
+			name: "Alpine",
+			file: "alpine-versions-generated.txt",
+		},
 	}
 	for _, tt := range tests {
 		tt := tt
