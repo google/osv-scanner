@@ -10,8 +10,11 @@ import (
 )
 
 func BytesToLines(data []byte) []string {
+	re := cachedregexp.MustCompile(`\r\n|\r|\n`)
 	str := string(data)
-	return strings.Split(str, "\n")
+	lines := re.Split(str, -1)
+
+	return lines
 }
 
 func extractPositionFromLine(linePosition int, line string, str string) *models.FilePosition {
@@ -43,9 +46,14 @@ func ExtractRegexpPositionInBlock(block []string, str string, blockStartLine int
 	return ExtractDelimitedRegexpPositionInBlock(block, str, blockStartLine, "", "")
 }
 
+func QuoteMetaDelimiters(prefix string, suffix string) (string, string) {
+	return cachedregexp.QuoteMeta(prefix), cachedregexp.QuoteMeta(suffix)
+}
+
 func ExtractDelimitedRegexpPositionInBlock(block []string, str string, blockStartLine int, prefix string, suffix string) *models.FilePosition {
 	group := fmt.Sprintf("(%s)", str)
-	regex := cachedregexp.MustCompile(cachedregexp.QuoteMeta(prefix) + group + cachedregexp.QuoteMeta(suffix))
+	// Prefix & Suffix could be regexp
+	regex := cachedregexp.MustCompile(prefix + group + suffix)
 	for i, line := range block {
 		matches := regex.FindStringSubmatch(line)
 		if len(matches) > 0 {

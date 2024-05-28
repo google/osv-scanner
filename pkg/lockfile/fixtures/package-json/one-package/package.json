@@ -1,0 +1,6 @@
+{
+  "name": "one-package",
+  "dependencies": {
+    "lodash": "^4.0.0"
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "name": "transitive",
+  "dependencies": {
+    "jear": "^0.1.4",
+    "debug": "^0.7"
+  }
+}

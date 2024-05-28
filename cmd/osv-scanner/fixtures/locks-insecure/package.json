@@ -1,0 +1,6 @@
+{
+  "name": "osv-scanner",
+  "dependencies": {
+    "ansi-html": "^0.0.1"
+  }
+}

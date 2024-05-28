@@ -1,0 +1,102 @@
+{
+  "name": "osv-scanner",
+  "lockfileVersion": 2,
+  "requires": true,
+  "packages": {
+    "": {
+      "name": "osv-scanner",
+      "dependencies": {
+        "debug": "^0.7",
+        "jear": "^0.1.4"
+      }
+    },
+    "node_modules/commander": {
+      "version": "2.0.0",
+      "resolved": "https://registry.npmjs.org/commander/-/commander-2.0.0.tgz",
+      "integrity": "sha512-qebjpyeaA/nJ4w3EO2cV2++/zEkccPnjWogzA2rff+Lk8ILI75vULeTmyd4wPxWdKwtP3J+G39IXVZadh0UHyw==",
+      "engines": {
+        "node": ">= 0.6.x"
+      }
+    },
+    "node_modules/debug": {
+      "version": "0.7.4",
+      "resolved": "https://registry.npmjs.org/debug/-/debug-0.7.4.tgz",
+      "integrity": "sha512-EohAb3+DSHSGx8carOSKJe8G0ayV5/i609OD0J2orCkuyae7SyZSz2aoLmQF2s0Pj5gITDebwPH7GFBlqOUQ1Q==",
+      "engines": {
+        "node": "*"
+      }
+    },
+    "node_modules/jear": {
+      "version": "0.1.4",
+      "resolved": "https://registry.npmjs.org/jear/-/jear-0.1.4.tgz",
+      "integrity": "sha512-vhbsHDNMtMg3sSMUQsnOHGBHvdbLY2iCJEjbW9PC9wfQIR9+FDcIarauJ6HY1A7q3TFmuCqK0pK0iE1fn/A7Yw==",
+      "dependencies": {
+        "commander": "~2.0.0",
+        "debug": "~0.7.2",
+        "shelljs": "~0.1.4",
+        "velocityjs": "~0.3.15"
+      },
+      "bin": {
+        "jear": "bin/jear"
+      },
+      "engines": {
+        "node": ">=0.10"
+      }
+    },
+    "node_modules/shelljs": {
+      "version": "0.1.4",
+      "resolved": "https://registry.npmjs.org/shelljs/-/shelljs-0.1.4.tgz",
+      "integrity": "sha512-UkXLBuUzAJwkal/0eYnQs8LpXQ4grKL5kPtA0RkUzhj1khUvw5Z2d717GRTRclDWQ+Y14yWkiM9cJX2CwSHxpw==",
+      "bin": {
+        "shjs": "bin/shjs"
+      },
+      "engines": {
+        "node": "*"
+      }
+    },
+    "node_modules/velocityjs": {
+      "version": "0.3.16",
+      "resolved": "https://registry.npmjs.org/velocityjs/-/velocityjs-0.3.16.tgz",
+      "integrity": "sha512-XRFM5ZMDi8l2zjt9UaVcdn999KOVfF7Bj5HYh0QReMMStSqO6Nz9INP4oJD4lKz1vxMnqrHfmlgu+bA8OHpDCg==",
+      "bin": {
+        "velocity": "bin/velocity"
+      },
+      "engines": {
+        "node": ">=0.8.0"
+      }
+    }
+  },
+  "dependencies": {
+    "commander": {
+      "version": "2.0.0",
+      "resolved": "https://registry.npmjs.org/commander/-/commander-2.0.0.tgz",
+      "integrity": "sha512-qebjpyeaA/nJ4w3EO2cV2++/zEkccPnjWogzA2rff+Lk8ILI75vULeTmyd4wPxWdKwtP3J+G39IXVZadh0UHyw=="
+    },
+    "debug": {
+      "version": "0.7.4",
+      "resolved": "https://registry.npmjs.org/debug/-/debug-0.7.4.tgz",
+      "integrity": "sha512-EohAb3+DSHSGx8carOSKJe8G0ayV5/i609OD0J2orCkuyae7SyZSz2aoLmQF2s0Pj5gITDebwPH7GFBlqOUQ1Q=="
+    },
+    "jear": {
+      "version": "0.1.4",
+      "resolved": "https://registry.npmjs.org/jear/-/jear-0.1.4.tgz",
+      "integrity": "sha512-vhbsHDNMtMg3sSMUQsnOHGBHvdbLY2iCJEjbW9PC9wfQIR9+FDcIarauJ6HY1A7q3TFmuCqK0pK0iE1fn/A7Yw==",
+      "requires": {
+        "commander": "~2.0.0",
+        "debug": "~0.7.2",
+        "shelljs": "~0.1.4",
+        "velocityjs": "~0.3.15"
+      }
+    },
+    "shelljs": {
+      "version": "0.1.4",
+      "resolved": "https://registry.npmjs.org/shelljs/-/shelljs-0.1.4.tgz",
+      "integrity": "sha512-UkXLBuUzAJwkal/0eYnQs8LpXQ4grKL5kPtA0RkUzhj1khUvw5Z2d717GRTRclDWQ+Y14yWkiM9cJX2CwSHxpw=="
+    },
+    "velocityjs": {
+      "version": "0.3.16",
+      "resolved": "https://registry.npmjs.org/velocityjs/-/velocityjs-0.3.16.tgz",
+      "integrity": "sha512-XRFM5ZMDi8l2zjt9UaVcdn999KOVfF7Bj5HYh0QReMMStSqO6Nz9INP4oJD4lKz1vxMnqrHfmlgu+bA8OHpDCg=="
+    }
+  }
+}

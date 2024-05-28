@@ -2271,13 +2271,26 @@ func TestRun_WithEncodedLockfile(t *testing.T) {
 				Name:       "balanced-match",
 				Version:    "1.0.2",
 				Evidence: buildLocationEvidence(t, models.PackageLocations{
-					// TODO: Update when matching is working
 					Block: models.PackageLocation{
 						Filename:    "package.json",
-						LineStart:   1,
-						LineEnd:     1,
-						ColumnStart: 1,
-						ColumnEnd:   1,
+						LineStart:   4,
+						LineEnd:     4,
+						ColumnStart: 5,
+						ColumnEnd:   31,
+					},
+					Name: &models.PackageLocation{
+						Filename:    "package.json",
+						LineStart:   4,
+						LineEnd:     4,
+						ColumnStart: 6,
+						ColumnEnd:   20,
+					},
+					Version: &models.PackageLocation{
+						Filename:    "package.json",
+						LineStart:   4,
+						LineEnd:     4,
+						ColumnStart: 24,
+						ColumnEnd:   30,
 					},
 				}),
 			},

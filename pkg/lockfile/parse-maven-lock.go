@@ -97,6 +97,7 @@ func (mld MavenLockDependency) resolvePropertiesValue(lockfile MavenLockFile, fi
 					property, position = mld.resolvePropertiesValue(lockfile, property)
 				} else {
 					// We should locate the property in its source file
+					propOpenTag, propCloseTag = fileposition.QuoteMetaDelimiters(propOpenTag, propCloseTag)
 					position = fileposition.ExtractDelimitedRegexpPositionInBlock(lockfile.Lines[lockProperty.SourceFile], ".*", 1, propOpenTag, propCloseTag)
 					position.Filename = lockProperty.SourceFile
 				}
@@ -383,11 +384,13 @@ func (e MavenLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 
 		// A position is null after resolving the value in case the value is directly defined in the block
 		if artifactPosition == nil {
-			artifactPosition = fileposition.ExtractDelimitedRegexpPositionInBlock(block, ".*", lockPackage.Line.Start, "<artifactId>", "</artifactId>")
+			openTag, closeTag := fileposition.QuoteMetaDelimiters("<artifactId>", "</artifactId>")
+			artifactPosition = fileposition.ExtractDelimitedRegexpPositionInBlock(block, ".*", lockPackage.Line.Start, openTag, closeTag)
 			artifactPosition.Filename = lockPackage.SourceFile
 		}
 		if versionPosition == nil {
-			versionPosition = fileposition.ExtractDelimitedRegexpPositionInBlock(block, ".*", lockPackage.Line.Start, "<version>", "</version>")
+			openTag, closeTag := fileposition.QuoteMetaDelimiters("<version>", "</version>")
+			versionPosition = fileposition.ExtractDelimitedRegexpPositionInBlock(block, ".*", lockPackage.Line.Start, openTag, closeTag)
 			if versionPosition != nil {
 				versionPosition.Filename = lockPackage.SourceFile
 			}
@@ -425,7 +428,8 @@ func (e MavenLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 
 			// A position is null after resolving the value in case the value is directly defined in the block
 			if versionPosition == nil {
-				versionPosition = fileposition.ExtractDelimitedRegexpPositionInBlock(block, ".*", lockPackage.Line.Start, "<version>", "</version>")
+				openTag, closeTag := fileposition.QuoteMetaDelimiters("<version>", "</version>")
+				versionPosition = fileposition.ExtractDelimitedRegexpPositionInBlock(block, ".*", lockPackage.Line.Start, openTag, closeTag)
 				versionPosition.Filename = lockPackage.SourceFile
 			}
 
