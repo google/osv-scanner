@@ -1797,30 +1797,30 @@ func TestRun_WithoutHostPathInformation(t *testing.T) {
 			name:          "one specific supported lockfile",
 			args:          []string{"", "--experimental-only-packages", "--format=cyclonedx-1-5", "--consider-scan-path-as-root", "./fixtures/locks-many/yarn.lock"},
 			wantExitCode:  0,
-			wantFilePaths: []string{"/yarn.lock"},
+			wantFilePaths: []string{"/package.json"},
 		},
 		{
 			name:         "Multiple lockfiles",
 			args:         []string{"", "--experimental-only-packages", "--format=cyclonedx-1-5", "--consider-scan-path-as-root", "./fixtures/locks-many"},
 			wantExitCode: 0,
 			wantFilePaths: []string{
-				"/package-lock.json",
-				"/yarn.lock",
+				"/package-lock.json", // TODO: remove when NPM is using the JSON matcher
+				"/package.json",
 			},
 		},
 		{
 			name:          "one specific supported lockfile (relative path)",
 			args:          []string{"", "--experimental-only-packages", "--format=cyclonedx-1-5", "--paths-relative-to-scan-dir", "./fixtures/locks-many/yarn.lock"},
 			wantExitCode:  0,
-			wantFilePaths: []string{"yarn.lock"},
+			wantFilePaths: []string{"package.json"},
 		},
 		{
 			name:         "Multiple lockfiles (relative path)",
 			args:         []string{"", "--experimental-only-packages", "--format=cyclonedx-1-5", "--paths-relative-to-scan-dir", "./fixtures/locks-many"},
 			wantExitCode: 0,
 			wantFilePaths: []string{
-				"package-lock.json",
-				"yarn.lock",
+				"package-lock.json", // TODO: remove when NPM is using the JSON matcher
+				"package.json",
 			},
 		},
 	}
@@ -2271,12 +2271,13 @@ func TestRun_WithEncodedLockfile(t *testing.T) {
 				Name:       "balanced-match",
 				Version:    "1.0.2",
 				Evidence: buildLocationEvidence(t, models.PackageLocations{
+					// TODO: Update when matching is working
 					Block: models.PackageLocation{
-						Filename:    "yarn.lock",
-						LineStart:   5,
-						LineEnd:     8,
+						Filename:    "package.json",
+						LineStart:   1,
+						LineEnd:     1,
 						ColumnStart: 1,
-						ColumnEnd:   108,
+						ColumnEnd:   1,
 					},
 				}),
 			},

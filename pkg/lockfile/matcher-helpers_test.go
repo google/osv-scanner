@@ -14,7 +14,7 @@ func TestMain(m *testing.M) {
 
 func MockAllMatchers() {
 	// TODO: Mock extractors with matcher to use SuccessfulMatcher by default in all tests
-	// lockfile.YarnExtractor.Matcher = SuccessfulMatcher{}
+	lockfile.YarnExtractor.Matcher = SuccessfulMatcher{}
 }
 
 type SuccessfulMatcher struct{}

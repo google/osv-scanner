@@ -3,6 +3,7 @@ package lockfile
 import (
 	"errors"
 	"fmt"
+	"os"
 	"sort"
 	"strings"
 )
@@ -67,6 +68,16 @@ func ExtractDeps(f DepFile, extractAs string, enabledParsers map[string]bool) (L
 
 	if err != nil && extractAs != "" {
 		err = fmt.Errorf("(extracting as %s) %w", extractedAs, err)
+	}
+
+	// Match extracted packages with source file to enrich their details
+	if e, ok := extractor.(ExtractorWithMatcher); ok {
+		if matcher := e.GetMatcher(); matcher != nil {
+			matchError := matchWithFile(f, packages, matcher)
+			if matchError != nil {
+				_, _ = fmt.Fprintf(os.Stderr, "there was an error matching the source file: %s", matchError.Error())
+			}
+		}
 	}
 
 	sort.Slice(packages, func(i, j int) bool {

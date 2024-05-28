@@ -1,0 +1,6 @@
+{
+  "name": "osv-scanner",
+  "dependencies": {
+    "balanced-match": "^1.0.0"
+  }
+}

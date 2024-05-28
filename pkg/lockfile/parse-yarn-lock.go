@@ -8,47 +8,38 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/google/osv-scanner/internal/utility/fileposition"
-
-	"github.com/google/osv-scanner/pkg/models"
-
 	"github.com/google/osv-scanner/internal/cachedregexp"
 )
 
 const YarnEcosystem = NpmEcosystem
 
 type YarnPackage struct {
-	Name       string
-	Version    string
-	Resolution string
-	models.FilePosition
+	Name           string
+	Version        string
+	TargetVersions []string
+	Resolution     string
 }
 
 func shouldSkipYarnLine(line string) bool {
 	return line == "" || strings.HasPrefix(line, "#")
 }
 
-func parseYarnPackageGroup(group []string, lineStart int, lineEnd int, columnStart int, columnEnd int) YarnPackage {
+func parseYarnPackageGroup(group []string) YarnPackage {
+	name, targetVersions := extractYarnPackageNameAndTargetVersions(group[0])
 	return YarnPackage{
-		Name:       extractYarnPackageName(group[0]),
-		Version:    determineYarnPackageVersion(group),
-		Resolution: determineYarnPackageResolution(group),
-		FilePosition: models.FilePosition{
-			Line:   models.Position{Start: lineStart, End: lineEnd},
-			Column: models.Position{Start: columnStart, End: columnEnd},
-		},
+		Name:           name,
+		Version:        determineYarnPackageVersion(group),
+		TargetVersions: targetVersions,
+		Resolution:     determineYarnPackageResolution(group),
 	}
 }
 
 func groupYarnPackageLines(scanner *bufio.Scanner) []YarnPackage {
 	var groups []YarnPackage
 	var group []string
-	var lineNumber, lineStart, lineEnd, columnStart, columnEnd int
 
 	var line string
 	for scanner.Scan() {
-		lineNumber++
-
 		line = scanner.Text()
 
 		if shouldSkipYarnLine(line) {
@@ -58,48 +49,75 @@ func groupYarnPackageLines(scanner *bufio.Scanner) []YarnPackage {
 		// represents the lineStart of a new dependency
 		if !strings.HasPrefix(line, " ") {
 			if len(group) > 0 {
-				groups = append(groups, parseYarnPackageGroup(group, lineStart, lineEnd, columnStart, columnEnd))
+				groups = append(groups, parseYarnPackageGroup(group))
 			}
-			lineStart = lineNumber
-			columnStart = fileposition.GetFirstNonEmptyCharacterIndexInLine(line)
 			group = make([]string, 0)
 		}
 
-		lineEnd = lineNumber
-		columnEnd = fileposition.GetLastNonEmptyCharacterIndexInLine(line)
 		group = append(group, line)
 	}
 
 	if len(group) > 0 {
-		lineEnd = lineNumber
-		columnEnd = fileposition.GetLastNonEmptyCharacterIndexInLine(line)
-		groups = append(groups, parseYarnPackageGroup(group, lineStart, lineEnd, columnStart, columnEnd))
+		groups = append(groups, parseYarnPackageGroup(group))
 	}
 
 	return groups
 }
 
-func extractYarnPackageName(str string) string {
-	str = strings.TrimPrefix(str, "\"")
-	str, _, _ = strings.Cut(str, ",")
+func extractYarnPackageNameAndTargetVersions(str string) (string, []string) {
+	str = strings.ReplaceAll(str, "\"", "")
+	str = strings.TrimSuffix(str, ":")
+	parts := strings.Split(str, ",")
 
-	isScoped := strings.HasPrefix(str, "@")
+	var name, right string
+	var isScoped bool
+	var targetVersions = make([]string, 0)
 
-	if isScoped {
-		str = strings.TrimPrefix(str, "@")
-	}
+	for _, part := range parts {
+		part = strings.TrimPrefix(part, " ")
+		partIsScoped := strings.HasPrefix(part, "@")
+		isScoped = isScoped || partIsScoped
 
-	name, right, _ := strings.Cut(str, "@")
+		if partIsScoped {
+			part = strings.TrimPrefix(part, "@")
+		}
 
-	if strings.HasPrefix(right, "npm:") && strings.Contains(right, "@") {
-		return extractYarnPackageName(strings.TrimPrefix(right, "npm:"))
+		_name, _right, _ := strings.Cut(part, "@")
+		if len(name) == 0 {
+			name = _name
+		}
+		right = _right
+
+		if strings.HasPrefix(right, "npm:") {
+			right = strings.TrimPrefix(right, "npm:")
+			if strings.Contains(right, "@") {
+				resolvedName, resolvedTargetVersions := extractYarnPackageNameAndTargetVersions(right)
+				name = resolvedName
+				targetVersions = append(targetVersions, resolvedTargetVersions...)
+
+				continue
+			}
+		}
+
+		// for yarn v2 - it could include these prefixes even when they are not included in package.json
+		prefixes := []string{"file", "link", "portal"}
+		for _, prefix := range prefixes {
+			if strings.HasPrefix(right, prefix+":") {
+				right = strings.TrimPrefix(right, prefix+":")
+			}
+		}
+
+		// for yarn v2 - "file:path/to/dir::locator=...%40workspace%3A.": -> file:path/to/dir
+		right, _, _ = strings.Cut(right, "::locator")
+
+		targetVersions = append(targetVersions, right)
 	}
 
 	if isScoped {
 		name = "@" + name
 	}
 
-	return name
+	return name, targetVersions
 }
 
 func determineYarnPackageVersion(group []string) string {
@@ -198,20 +216,18 @@ func parseYarnPackage(dependency YarnPackage) PackageDetails {
 	}
 
 	return PackageDetails{
-		Name:      dependency.Name,
-		Version:   dependency.Version,
-		Ecosystem: YarnEcosystem,
-		CompareAs: YarnEcosystem,
-		Commit:    tryExtractCommit(dependency.Resolution),
-		BlockLocation: models.FilePosition{
-			Line:     dependency.Line,
-			Column:   dependency.Column,
-			Filename: dependency.Filename,
-		},
+		Name:           dependency.Name,
+		Version:        dependency.Version,
+		TargetVersions: dependency.TargetVersions,
+		Ecosystem:      YarnEcosystem,
+		CompareAs:      YarnEcosystem,
+		Commit:         tryExtractCommit(dependency.Resolution),
 	}
 }
 
-type YarnLockExtractor struct{}
+type YarnLockExtractor struct {
+	WithMatcher
+}
 
 func (e YarnLockExtractor) ShouldExtract(path string) bool {
 	return filepath.Base(path) == "yarn.lock"
@@ -229,24 +245,25 @@ func (e YarnLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 	packages := make([]PackageDetails, 0, len(yarnPackages))
 
 	for _, yarnPackage := range yarnPackages {
-		if yarnPackage.Name == "__metadata:" {
+		if yarnPackage.Name == "__metadata" {
 			continue
 		}
 
-		yarnPackage.FilePosition.Filename = f.Path()
 		packages = append(packages, parseYarnPackage(yarnPackage))
 	}
 
 	return packages, nil
 }
 
-var _ Extractor = YarnLockExtractor{}
+var YarnExtractor = YarnLockExtractor{
+	WithMatcher{Matcher: PackageJSONMatcher{}},
+}
 
 //nolint:gochecknoinits
 func init() {
-	registerExtractor("yarn.lock", YarnLockExtractor{})
+	registerExtractor("yarn.lock", YarnExtractor)
 }
 
 func ParseYarnLock(pathToLockfile string) ([]PackageDetails, error) {
-	return extractFromFile(pathToLockfile, YarnLockExtractor{})
+	return extractFromFile(pathToLockfile, YarnExtractor)
 }
