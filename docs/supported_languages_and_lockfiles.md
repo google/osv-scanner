@@ -36,7 +36,7 @@ A wide range of lockfiles are supported by utilizing this [lockfile package](htt
 | Ruby       | `Gemfile.lock`                                                                                                                                             |
 | Rust       | `Cargo.lock`                                                                                                                                               |
 
-## Alpine Package Keeper and Debian Package Keeper
+## Alpine Package Keeper and Debian Package Manager
 
 The scanner also supports:
 
