@@ -6,8 +6,8 @@ import (
 	"strings"
 	"unicode"
 
-	"github.com/fatih/color"
 	"github.com/google/osv-scanner/pkg/models"
+	"github.com/jedib0t/go-pretty/v6/text"
 )
 
 func PrintVerticalResults(vulnResult *models.VulnerabilityResults, outputWriter io.Writer) {
@@ -29,8 +29,8 @@ func printVerticalHeader(result models.PackageSource, out io.Writer) {
 	fmt.Fprintf(
 		out,
 		"%s: found %s %s with issues\n",
-		color.MagentaString("%s", result.Source.Path),
-		color.YellowString("%d", len(result.Packages)),
+		text.FgMagenta.Sprintf("%s", result.Source.Path),
+		text.FgYellow.Sprintf("%d", len(result.Packages)),
 		Form(len(result.Packages), "package", "packages"),
 	)
 }
@@ -42,7 +42,7 @@ func printVerticalVulnerabilities(result models.PackageSource, out io.Writer) {
 		fmt.Fprintf(
 			out,
 			"  %s\n",
-			color.GreenString("no known vulnerabilities found"),
+			text.FgGreen.Sprintf("no known vulnerabilities found"),
 		)
 
 		return
@@ -57,21 +57,21 @@ func printVerticalVulnerabilities(result models.PackageSource, out io.Writer) {
 
 		fmt.Fprintf(out,
 			"  %s %s\n",
-			color.YellowString("%s@%s", pkg.Package.Name, pkg.Package.Version),
-			color.RedString("is affected by the following vulnerabilities:"),
+			text.FgYellow.Sprintf("%s@%s", pkg.Package.Name, pkg.Package.Version),
+			text.FgRed.Sprintf("is affected by the following vulnerabilities:"),
 		)
 
 		for _, vulnerability := range pkg.Vulnerabilities {
 			fmt.Fprintf(out,
 				"    %s %s\n",
-				color.CyanString("%s:", vulnerability.ID),
+				text.FgCyan.Sprintf("%s:", vulnerability.ID),
 				describe(vulnerability),
 			)
 		}
 	}
 
 	fmt.Fprintf(out, "\n  %s\n",
-		color.RedString(
+		text.FgRed.Sprintf(
 			"%d known %s found in %s",
 			count,
 			Form(count, "vulnerability", "vulnerabilities"),
@@ -87,13 +87,13 @@ func printVerticalLicenseViolations(result models.PackageSource, out io.Writer) 
 		fmt.Fprintf(
 			out,
 			"  %s\n",
-			color.GreenString("no license violations found"),
+			text.FgGreen.Sprintf("no license violations found"),
 		)
 
 		return
 	}
 
-	fmt.Fprintf(out, "\n  %s\n", color.RedString("license violations found:"))
+	fmt.Fprintf(out, "\n  %s\n", text.FgRed.Sprintf("license violations found:"))
 
 	for _, pkg := range result.Packages {
 		if len(pkg.LicenseViolations) == 0 {
@@ -107,13 +107,13 @@ func printVerticalLicenseViolations(result models.PackageSource, out io.Writer) 
 
 		fmt.Fprintf(out,
 			"    %s (%s)\n",
-			color.YellowString("%s@%s", pkg.Package.Name, pkg.Package.Version),
-			color.CyanString(strings.Join(violations, ", ")),
+			text.FgYellow.Sprintf("%s@%s", pkg.Package.Name, pkg.Package.Version),
+			text.FgCyan.Sprintf(strings.Join(violations, ", ")),
 		)
 	}
 
 	fmt.Fprintf(out, "\n  %s\n",
-		color.RedString(
+		text.FgRed.Sprintf(
 			"%d license %s found in %s",
 			count,
 			Form(count, "violation", "violations"),
