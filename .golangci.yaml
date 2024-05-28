@@ -66,6 +66,8 @@ linters-settings:
     rules:
       - name: increment-decrement
         disabled: true
+      - name: indent-error-flow
+        disabled: false
   nlreturn:
     # Size of the block (including return statement that is still "OK")
     # so no return split required.
