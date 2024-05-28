@@ -4,21 +4,32 @@ import (
 	"bytes"
 	"debug/buildinfo"
 	"io"
-	"log"
 	"path/filepath"
 	"strings"
 )
 
-// //nolint:gochecknoinits
-// func init() {
-// 	registerExtractor("go-binary", GoBinaryExtractor{})
-// }
-
 type GoBinaryExtractor struct{}
 
 func (e GoBinaryExtractor) ShouldExtract(path string) bool {
-	// Always return true on any non directory path, as a binary can be at any path
-	return !strings.HasSuffix(path, string(filepath.Separator))
+	if path == "" {
+		return false
+	}
+
+	if strings.HasSuffix(path, string(filepath.Separator)) { // Don't extract directories
+		return false
+	}
+
+	if filepath.Ext(path) != ".exe" && filepath.Ext(path) != "" {
+		// Assume if a file has an extension (that's not exe), it is not a go binary
+		// This also filters out hidden files on Unix
+		// This is a heuristic to improve performance and can result in false negatives
+		// TODO(another-rex): When we have access to the full FS interface, we can open and check
+		// magic bytes to be more accurate
+		return false
+	}
+
+	// Any other path can be a go binary
+	return true
 }
 
 func (e GoBinaryExtractor) Extract(f DepFile) ([]PackageDetails, error) {
@@ -36,9 +47,8 @@ func (e GoBinaryExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 
 	info, err := buildinfo.Read(readerAt)
 	if err != nil {
-		return []PackageDetails{}, err
+		return []PackageDetails{}, ErrIncompatibleFileFormat
 	}
-	log.Println(info.GoVersion)
 
 	pkgs := make([]PackageDetails, 0, len(info.Deps)+1)
 	pkgs = append(pkgs, PackageDetails{

@@ -1,6 +1,7 @@
 package image
 
 import (
+	"errors"
 	"fmt"
 	"io"
 	"path"
@@ -18,6 +19,7 @@ var artifactExtractors map[string]lockfile.Extractor = map[string]lockfile.Extra
 	"go-binary":     lockfile.GoBinaryExtractor{},
 }
 
+// TODO(another-rex): Return a []struct{} with all the extractors, as currently it's not deterministic which extractor is returned
 func findArtifactExtractor(path string) (lockfile.Extractor, string) {
 	for name, extractor := range artifactExtractors {
 		if extractor.ShouldExtract(path) {
@@ -44,8 +46,10 @@ func extractArtifactDeps(path string, img *Image) (lockfile.Lockfile, error) {
 
 	packages, err := extractor.Extract(f)
 	if err != nil && extractedAs != "" {
-		err = fmt.Errorf("(extracting as %s) %w", extractedAs, err)
-		return lockfile.Lockfile{}, fmt.Errorf("failed to close file: %w", err)
+		if !errors.Is(lockfile.ErrIncompatibleFileFormat, err) {
+			err = fmt.Errorf("(extracting as %s) %w", extractedAs, err)
+			return lockfile.Lockfile{}, err
+		}
 	}
 
 	// Sort to have deterministic output, and to match behavior of lockfile.extractDeps
@@ -61,7 +65,7 @@ func extractArtifactDeps(path string, img *Image) (lockfile.Lockfile, error) {
 		FilePath: f.Path(),
 		ParsedAs: extractedAs,
 		Packages: packages,
-	}, err
+	}, nil
 }
 
 // A ImageFile represents a file that exists in an image

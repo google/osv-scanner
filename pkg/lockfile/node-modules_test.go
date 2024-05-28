@@ -8,18 +8,6 @@ import (
 	"github.com/google/osv-scanner/pkg/lockfile"
 )
 
-func createTestDir(t *testing.T) (string, func()) {
-	t.Helper()
-
-	p, err := os.MkdirTemp("", "osv-scanner-test-*")
-	if err != nil {
-		t.Fatalf("could not create test directory: %v", err)
-	}
-
-	return p, func() {
-		_ = os.RemoveAll(p)
-	}
-}
 
 func createTestDirWithNodeModulesDir(t *testing.T) (string, func()) {
 	t.Helper()
@@ -34,20 +22,6 @@ func createTestDirWithNodeModulesDir(t *testing.T) (string, func()) {
 	return testDir, cleanupTestDir
 }
 
-func copyFile(t *testing.T, from, to string) string {
-	t.Helper()
-
-	b, err := os.ReadFile(from)
-	if err != nil {
-		t.Fatalf("could not read test file: %v", err)
-	}
-
-	if err := os.WriteFile(to, b, 0600); err != nil {
-		t.Fatalf("could not copy test file: %v", err)
-	}
-
-	return to
-}
 
 func testParsingNodeModules(t *testing.T, fixture string) ([]lockfile.PackageDetails, error) {
 	t.Helper()
