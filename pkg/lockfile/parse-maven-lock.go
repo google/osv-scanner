@@ -121,9 +121,8 @@ func (e MavenLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 
 	details := map[string]PackageDetails{}
 
-	for _, lockPackage := range parsedLockfile.Dependencies {
+	for _, lockPackage := range parsedLockfile.ManagedDependencies {
 		finalName := lockPackage.GroupID + ":" + lockPackage.ArtifactID
-
 		pkgDetails := PackageDetails{
 			Name:      finalName,
 			Version:   lockPackage.ResolveVersion(*parsedLockfile),
@@ -136,9 +135,10 @@ func (e MavenLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 		details[finalName] = pkgDetails
 	}
 
-	// managed dependencies take precedent over standard dependencies
-	for _, lockPackage := range parsedLockfile.ManagedDependencies {
+	// standard dependencies take precedent over managed dependencies
+	for _, lockPackage := range parsedLockfile.Dependencies {
 		finalName := lockPackage.GroupID + ":" + lockPackage.ArtifactID
+
 		pkgDetails := PackageDetails{
 			Name:      finalName,
 			Version:   lockPackage.ResolveVersion(*parsedLockfile),
