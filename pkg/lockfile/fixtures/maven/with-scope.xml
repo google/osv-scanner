@@ -1,6 +1,12 @@
 <project>
   <dependencies>
     <dependency>
+      <groupId>abc</groupId>
+      <artifactId>xyz</artifactId>
+      <version>1.2.3</version>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
       <version>4.12</version>
