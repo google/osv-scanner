@@ -717,6 +717,11 @@ func TestRun_SubCommands(t *testing.T) {
 			args: []string{"", "scan", "--recursive", "./fixtures/locks-one-with-nested"},
 			exit: 0,
 		},
+		{
+			name: "scan with only package being returned",
+			args: []string{"", "scan", "--experimental-only-packages", "--experimental-all-packages", "--format=json", "./fixtures/locks-one-with-nested"},
+			exit: 0,
+		},
 		// TODO: add tests for other future subcommands
 	}
 	for _, tt := range tests {
