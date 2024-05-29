@@ -132,6 +132,10 @@ func Command(stdout, stderr io.Writer, r *reporter.Reporter) *cli.Command {
 				TakesFile: true,
 				Hidden:    true,
 			},
+			&cli.BoolFlag{
+				Name:  "experimental-only-packages",
+				Usage: "only report packages without running any additional logic",
+			},
 		},
 		ArgsUsage: "[directory1 directory2...]",
 		Action: func(c *cli.Context) error {
@@ -222,6 +226,7 @@ func action(context *cli.Context, stdout, stderr io.Writer) (reporter.Reporter, 
 			ScanLicensesSummary:   context.Bool("experimental-licenses-summary"),
 			ScanLicensesAllowlist: context.StringSlice("experimental-licenses"),
 			ScanOCIImage:          context.String("experimental-oci-image"),
+			OnlyPackages:          context.Bool("experimental-only-packages"),
 		},
 	}, r)
 

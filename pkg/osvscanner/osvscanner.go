@@ -53,6 +53,7 @@ type ExperimentalScannerActions struct {
 	ScanLicensesSummary   bool
 	ScanLicensesAllowlist []string
 	ScanOCIImage          string
+	OnlyPackages          bool
 
 	LocalDBPath string
 }
@@ -833,6 +834,11 @@ func DoScan(actions ScannerActions, r reporter.Reporter) (models.VulnerabilityRe
 	}
 
 	overrideGoVersion(r, filteredScannedPackages, &configManager)
+
+	if actions.OnlyPackages {
+		vulnerabilityResults := buildVulnerabilityResults(r, filteredScannedPackages, nil, [][]models.License{}, actions)
+		return vulnerabilityResults, nil
+	}
 
 	vulnsResp, err := makeRequest(r, filteredScannedPackages, actions.CompareLocally, actions.CompareOffline, actions.LocalDBPath)
 	if err != nil {
