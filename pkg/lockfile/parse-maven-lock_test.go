@@ -154,7 +154,7 @@ func TestParseMavenLock_WithDependencyManagement(t *testing.T) {
 	expectPackages(t, packages, []lockfile.PackageDetails{
 		{
 			Name:      "io.netty:netty-all",
-			Version:   "4.1.42.Final",
+			Version:   "4.1.9",
 			Ecosystem: lockfile.MavenEcosystem,
 			CompareAs: lockfile.MavenEcosystem,
 		},
