@@ -9,42 +9,46 @@ import (
 )
 
 type GHAnnotationsReporter struct {
-	hasPrintedError bool
-	stdout          io.Writer
-	stderr          io.Writer
+	hasErrored bool
+	stdout     io.Writer
+	stderr     io.Writer
+	level      VerbosityLevel
 }
 
-func NewGHAnnotationsReporter(stdout io.Writer, stderr io.Writer) *GHAnnotationsReporter {
+func NewGHAnnotationsReporter(stdout io.Writer, stderr io.Writer, level VerbosityLevel) *GHAnnotationsReporter {
 	return &GHAnnotationsReporter{
-		stdout:          stdout,
-		stderr:          stderr,
-		hasPrintedError: false,
+		stdout:     stdout,
+		stderr:     stderr,
+		level:      level,
+		hasErrored: false,
 	}
 }
 
-func (r *GHAnnotationsReporter) PrintError(msg string) {
-	r.PrintErrorf(msg)
+func (r *GHAnnotationsReporter) Errorf(format string, a ...any) {
+	fmt.Fprintf(r.stderr, format, a...)
+	r.hasErrored = true
 }
 
-func (r *GHAnnotationsReporter) PrintWarnf(msg string, a ...any) {
-	fmt.Fprintf(r.stderr, msg, a...)
+func (r *GHAnnotationsReporter) HasErrored() bool {
+	return r.hasErrored
 }
 
-func (r *GHAnnotationsReporter) PrintErrorf(msg string, a ...any) {
-	fmt.Fprintf(r.stderr, msg, a...)
-	r.hasPrintedError = true
+func (r *GHAnnotationsReporter) Warnf(format string, a ...any) {
+	if WarnLevel <= r.level {
+		fmt.Fprintf(r.stderr, format, a...)
+	}
 }
 
-func (r *GHAnnotationsReporter) HasPrintedError() bool {
-	return r.hasPrintedError
+func (r *GHAnnotationsReporter) Infof(format string, a ...any) {
+	if InfoLevel <= r.level {
+		fmt.Fprintf(r.stderr, format, a...)
+	}
 }
 
-func (r *GHAnnotationsReporter) PrintText(msg string) {
-	r.PrintTextf(msg)
-}
-
-func (r *GHAnnotationsReporter) PrintTextf(msg string, a ...any) {
-	fmt.Fprintf(r.stderr, msg, a...)
+func (r *GHAnnotationsReporter) Verbosef(format string, a ...any) {
+	if VerboseLevel <= r.level {
+		fmt.Fprintf(r.stderr, format, a...)
+	}
 }
 
 func (r *GHAnnotationsReporter) PrintResult(vulnResult *models.VulnerabilityResults) error {

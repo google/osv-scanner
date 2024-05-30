@@ -33,7 +33,7 @@ func TestParseNpmLock_v2_InvalidJson(t *testing.T) {
 	path := filepath.FromSlash(filepath.Join(dir, "fixtures/npm/not-json.txt"))
 	packages, err := lockfile.ParseNpmLock(path)
 
-	expectErrContaining(t, err, "could not decode json from")
+	expectErrContaining(t, err, "could not extract from")
 	expectPackagesWithoutLocations(t, packages, []lockfile.PackageDetails{})
 }
 

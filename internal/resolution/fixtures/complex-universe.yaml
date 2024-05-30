@@ -1,0 +1,61 @@
+system: npm
+schema: |
+  alice
+    1.0.0
+    1.0.1
+      bob@^2.0.0
+  bob
+    2.0.0
+    2.0.1
+    2.2.2
+  chuck
+    2.0.0
+      bob@^2.0.1
+  dave
+    3.3.3
+      bob@^2.2.2
+      KnownAs duck|chuck@^2.0.0
+
+vulns:
+  - id: CMPLX-0000-0000
+    affected:
+      - package:
+          ecosystem: npm
+          name: alice
+        ranges:
+        - type: SEMVER
+          events:
+            - introduced: '1.0.1'
+            - fixed: '2.0.0'
+  - id: CMPLX-1000-0000
+    affected:
+      - package:
+          ecosystem: npm
+          name: bob
+        ranges:
+        - type: SEMVER
+          events:
+            - introduced: '0'
+  - id: CMPLX-2000-0000
+    affected:
+      - package:
+          ecosystem: npm
+          name: chuck
+        ranges:
+        - type: SEMVER
+          events:
+            - introduced: '0'
+            - fixed: '1.0.1'
+            - introduced: '2.0.0'
+            - fixed: '3.0.0'
+  - id: CMPLX-3000-0000
+    affected:
+      - package:
+          ecosystem: npm
+          name: dave
+        ranges:
+        - type: SEMVER
+          events:
+            - introduced: '0'
+            - fixed: '3.3.2'
+            - introduced: '3.3.4'

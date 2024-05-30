@@ -23,6 +23,7 @@ overrides:
   "github.com/xi2/xz": Public Domain
   # https://github.com/acomagu/bufpipe/blob/master/LICENSE
   "github.com/acomagu/bufpipe": MIT
+  "github.com/mattn/go-localereader": MIT
 
 exceptions:
   - "golang.org/x/mod/..."

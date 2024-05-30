@@ -5,28 +5,24 @@ import (
 )
 
 type VoidReporter struct {
-	hasPrintedError bool
+	hasErrored bool
 }
 
-func (r *VoidReporter) PrintError(msg string) {
-	r.PrintErrorf(msg)
+func (r *VoidReporter) Errorf(msg string, a ...any) {
+	r.hasErrored = true
 }
 
-func (r *VoidReporter) PrintErrorf(msg string, a ...any) {
-	r.hasPrintedError = true
+func (r *VoidReporter) HasErrored() bool {
+	return r.hasErrored
 }
 
-func (r *VoidReporter) PrintWarnf(msg string, a ...any) {}
-
-func (r *VoidReporter) HasPrintedError() bool {
-	return r.hasPrintedError
+func (r *VoidReporter) Warnf(msg string, a ...any) {
 }
 
-func (r *VoidReporter) PrintText(msg string) {
-	r.PrintTextf(msg)
+func (r *VoidReporter) Infof(msg string, a ...any) {
 }
 
-func (r *VoidReporter) PrintTextf(msg string, a ...any) {
+func (r *VoidReporter) Verbosef(msg string, a ...any) {
 }
 
 func (r *VoidReporter) PrintResult(vulnResult *models.VulnerabilityResults) error {

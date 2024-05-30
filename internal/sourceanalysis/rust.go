@@ -27,14 +27,14 @@ const (
 	// - lto (Enable full link time optimisation, this allows unused dynamic dispatch calls to be optimised out)
 	// - codegen-units=1 (Build everything in one codegen unit, increases build time but enables more optimisations
 	//                  and make libraries only generate one object file)
-	RustFlagsEnv     = "RUSTFLAGS=-C opt-level=3 -C debuginfo=1 -C embed-bitcode=yes -C lto -C codegen-units=1"
+	RustFlagsEnv     = "RUSTFLAGS=-C opt-level=3 -C debuginfo=1 -C embed-bitcode=yes -C lto -C codegen-units=1 -C strip=none"
 	RustLibExtension = ".rcgu.o/"
 )
 
 func rustAnalysis(r reporter.Reporter, pkgs []models.PackageVulns, source models.SourceInfo) {
 	binaryPaths, err := rustBuildSource(r, source)
 	if err != nil {
-		r.PrintErrorf("failed to build cargo/rust project from source: %s\n", err)
+		r.Errorf("failed to build cargo/rust project from source: %s\n", err)
 		return
 	}
 
@@ -50,14 +50,14 @@ func rustAnalysis(r reporter.Reporter, pkgs []models.PackageVulns, source models
 			// Is a library, so need an extra step to extract the object binary file before passing to parseDWARFData
 			buf, err := extractRlibArchive(path)
 			if err != nil {
-				r.PrintErrorf("failed to analyse '%s': %s\n", path, err)
+				r.Errorf("failed to analyse '%s': %s\n", path, err)
 				continue
 			}
 			readAt = bytes.NewReader(buf.Bytes())
 		} else {
 			f, err := os.Open(path)
 			if err != nil {
-				r.PrintErrorf("failed to read binary '%s': %s\n", path, err)
+				r.Errorf("failed to read binary '%s': %s\n", path, err)
 				continue
 			}
 			// This is fine to defer til the end of the function as there's
@@ -68,7 +68,7 @@ func rustAnalysis(r reporter.Reporter, pkgs []models.PackageVulns, source models
 
 		calls, err := functionsFromDWARF(readAt)
 		if err != nil {
-			r.PrintErrorf("failed to analyse '%s': %s\n", path, err)
+			r.Errorf("failed to analyse '%s': %s\n", path, err)
 			continue
 		}
 
@@ -233,11 +233,11 @@ func rustBuildSource(r reporter.Reporter, source models.SourceInfo) ([]string, e
 	cmd.Stdout = &stdoutBuffer
 	cmd.Stderr = &stderrBuffer
 
-	r.PrintTextf("Begin building rust/cargo project\n")
+	r.Infof("Begin building rust/cargo project\n")
 
 	if err := cmd.Run(); err != nil {
-		r.PrintErrorf("cargo stdout:\n%s", stdoutBuffer.String())
-		r.PrintErrorf("cargo stderr:\n%s", stderrBuffer.String())
+		r.Errorf("cargo stdout:\n%s", stdoutBuffer.String())
+		r.Errorf("cargo stderr:\n%s", stderrBuffer.String())
 
 		return nil, fmt.Errorf("failed to run `%v`: %w", cmd.String(), err)
 	}
@@ -265,7 +265,7 @@ func rustBuildSource(r reporter.Reporter, source models.SourceInfo) ([]string, e
 		fileSplit := strings.Split(string(file), ": ")
 		if len(fileSplit) != 2 {
 			// TODO: this can probably be fixed with more effort
-			return nil, fmt.Errorf("file path contains ': ', which is unsupported")
+			return nil, errors.New("file path contains ': ', which is unsupported")
 		}
 		resultBinaryPaths = append(resultBinaryPaths, fileSplit[0])
 	}

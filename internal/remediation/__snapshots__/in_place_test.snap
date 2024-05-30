@@ -1,0 +1,584 @@
+
+[TestComputeInPlacePatches/npm-santatracker - 1]
+{
+  "Patches": [
+    {
+      "Patch": {
+        "Pkg": {
+          "System": 3,
+          "Name": "lodash"
+        },
+        "OrigVersion": "4.17.20",
+        "NewVersion": "4.17.21"
+      },
+      "Resolved": [
+        {
+          "ID": "GHSA-29mw-wpgm-hmr9",
+          "AffectedNodes": [
+            338
+          ]
+        },
+        {
+          "ID": "GHSA-35jh-r3h4-6jhm",
+          "AffectedNodes": [
+            338
+          ]
+        }
+      ]
+    },
+    {
+      "Patch": {
+        "Pkg": {
+          "System": 3,
+          "Name": "minimist"
+        },
+        "OrigVersion": "1.2.0",
+        "NewVersion": "1.2.8"
+      },
+      "Resolved": [
+        {
+          "ID": "GHSA-vh95-rmgr-6w4m",
+          "AffectedNodes": [
+            357
+          ]
+        },
+        {
+          "ID": "GHSA-xvch-5gv4-984h",
+          "AffectedNodes": [
+            357
+          ]
+        }
+      ]
+    },
+    {
+      "Patch": {
+        "Pkg": {
+          "System": 3,
+          "Name": "acorn"
+        },
+        "OrigVersion": "5.7.3",
+        "NewVersion": "5.4.1"
+      },
+      "Resolved": [
+        {
+          "ID": "GHSA-6chw-6frg-f759",
+          "AffectedNodes": [
+            620
+          ]
+        }
+      ]
+    },
+    {
+      "Patch": {
+        "Pkg": {
+          "System": 3,
+          "Name": "acorn"
+        },
+        "OrigVersion": "6.0.2",
+        "NewVersion": "6.4.2"
+      },
+      "Resolved": [
+        {
+          "ID": "GHSA-6chw-6frg-f759",
+          "AffectedNodes": [
+            133,
+            649
+          ]
+        }
+      ]
+    },
+    {
+      "Patch": {
+        "Pkg": {
+          "System": 3,
+          "Name": "acorn"
+        },
+        "OrigVersion": "7.1.0",
+        "NewVersion": "7.4.1"
+      },
+      "Resolved": [
+        {
+          "ID": "GHSA-6chw-6frg-f759",
+          "AffectedNodes": [
+            595
+          ]
+        }
+      ]
+    },
+    {
+      "Patch": {
+        "Pkg": {
+          "System": 3,
+          "Name": "ansi-regex"
+        },
+        "OrigVersion": "3.0.0",
+        "NewVersion": "3.0.1"
+      },
+      "Resolved": [
+        {
+          "ID": "GHSA-93q8-gq69-wqmw",
+          "AffectedNodes": [
+            564,
+            644
+          ]
+        }
+      ]
+    },
+    {
+      "Patch": {
+        "Pkg": {
+          "System": 3,
+          "Name": "dat.gui"
+        },
+        "OrigVersion": "0.7.3",
+        "NewVersion": "0.7.9"
+      },
+      "Resolved": [
+        {
+          "ID": "GHSA-chwr-hf3w-c984",
+          "AffectedNodes": [
+            208
+          ]
+        }
+      ]
+    },
+    {
+      "Patch": {
+        "Pkg": {
+          "System": 3,
+          "Name": "get-func-name"
+        },
+        "OrigVersion": "2.0.0",
+        "NewVersion": "2.0.2"
+      },
+      "Resolved": [
+        {
+          "ID": "GHSA-4q6p-r6v2-jvc5",
+          "AffectedNodes": [
+            264
+          ]
+        }
+      ]
+    },
+    {
+      "Patch": {
+        "Pkg": {
+          "System": 3,
+          "Name": "glob-parent"
+        },
+        "OrigVersion": "5.0.0",
+        "NewVersion": "5.1.2"
+      },
+      "Resolved": [
+        {
+          "ID": "GHSA-ww39-953v-wcq6",
+          "AffectedNodes": [
+            269
+          ]
+        }
+      ]
+    },
+    {
+      "Patch": {
+        "Pkg": {
+          "System": 3,
+          "Name": "json5"
+        },
+        "OrigVersion": "2.1.0",
+        "NewVersion": "2.2.3"
+      },
+      "Resolved": [
+        {
+          "ID": "GHSA-9c47-m6qq-7p4h",
+          "AffectedNodes": [
+            329
+          ]
+        }
+      ]
+    },
+    {
+      "Patch": {
+        "Pkg": {
+          "System": 3,
+          "Name": "minimist"
+        },
+        "OrigVersion": "1.2.5",
+        "NewVersion": "1.2.8"
+      },
+      "Resolved": [
+        {
+          "ID": "GHSA-xvch-5gv4-984h",
+          "AffectedNodes": [
+            580
+          ]
+        }
+      ]
+    },
+    {
+      "Patch": {
+        "Pkg": {
+          "System": 3,
+          "Name": "node-fetch"
+        },
+        "OrigVersion": "2.6.6",
+        "NewVersion": "2.7.0"
+      },
+      "Resolved": [
+        {
+          "ID": "GHSA-r683-j2x4-v87g",
+          "AffectedNodes": [
+            586,
+            591,
+            634
+          ]
+        }
+      ]
+    },
+    {
+      "Patch": {
+        "Pkg": {
+          "System": 3,
+          "Name": "path-parse"
+        },
+        "OrigVersion": "1.0.6",
+        "NewVersion": "1.0.7"
+      },
+      "Resolved": [
+        {
+          "ID": "GHSA-hj48-42vr-x3v9",
+          "AffectedNodes": [
+            398
+          ]
+        }
+      ]
+    },
+    {
+      "Patch": {
+        "Pkg": {
+          "System": 3,
+          "Name": "pathval"
+        },
+        "OrigVersion": "1.1.0",
+        "NewVersion": "1.1.1"
+      },
+      "Resolved": [
+        {
+          "ID": "GHSA-g6ww-v8xp-vmwg",
+          "AffectedNodes": [
+            400
+          ]
+        }
+      ]
+    },
+    {
+      "Patch": {
+        "Pkg": {
+          "System": 3,
+          "Name": "qs"
+        },
+        "OrigVersion": "6.5.2",
+        "NewVersion": "6.5.3"
+      },
+      "Resolved": [
+        {
+          "ID": "GHSA-hrpp-h998-j3pp",
+          "AffectedNodes": [
+            422
+          ]
+        }
+      ]
+    },
+    {
+      "Patch": {
+        "Pkg": {
+          "System": 3,
+          "Name": "semver"
+        },
+        "OrigVersion": "5.5.1",
+        "NewVersion": "5.7.2"
+      },
+      "Resolved": [
+        {
+          "ID": "GHSA-c2qf-rxjj-qqgw",
+          "AffectedNodes": [
+            449
+          ]
+        }
+      ]
+    },
+    {
+      "Patch": {
+        "Pkg": {
+          "System": 3,
+          "Name": "semver"
+        },
+        "OrigVersion": "5.6.0",
+        "NewVersion": "5.7.2"
+      },
+      "Resolved": [
+        {
+          "ID": "GHSA-c2qf-rxjj-qqgw",
+          "AffectedNodes": [
+            539,
+            572
+          ]
+        }
+      ]
+    },
+    {
+      "Patch": {
+        "Pkg": {
+          "System": 3,
+          "Name": "semver"
+        },
+        "OrigVersion": "6.3.0",
+        "NewVersion": "6.3.1"
+      },
+      "Resolved": [
+        {
+          "ID": "GHSA-c2qf-rxjj-qqgw",
+          "AffectedNodes": [
+            571
+          ]
+        }
+      ]
+    },
+    {
+      "Patch": {
+        "Pkg": {
+          "System": 3,
+          "Name": "ws"
+        },
+        "OrigVersion": "6.2.1",
+        "NewVersion": "6.2.2"
+      },
+      "Resolved": [
+        {
+          "ID": "GHSA-6fc8-4gx4-v693",
+          "AffectedNodes": [
+            513
+          ]
+        }
+      ]
+    },
+    {
+      "Patch": {
+        "Pkg": {
+          "System": 3,
+          "Name": "ws"
+        },
+        "OrigVersion": "7.1.2",
+        "NewVersion": "7.5.9"
+      },
+      "Resolved": [
+        {
+          "ID": "GHSA-6fc8-4gx4-v693",
+          "AffectedNodes": [
+            609
+          ]
+        }
+      ]
+    },
+    {
+      "Patch": {
+        "Pkg": {
+          "System": 3,
+          "Name": "y18n"
+        },
+        "OrigVersion": "4.0.0",
+        "NewVersion": "4.0.3"
+      },
+      "Resolved": [
+        {
+          "ID": "GHSA-c4w7-xm78-47vh",
+          "AffectedNodes": [
+            518
+          ]
+        }
+      ]
+    }
+  ],
+  "Unfixable": [
+    {
+      "ID": "GHSA-2r2c-g63r-vccr",
+      "AffectedNodes": [
+        366
+      ]
+    },
+    {
+      "ID": "GHSA-4wf5-vphf-c2xc",
+      "AffectedNodes": [
+        470
+      ]
+    },
+    {
+      "ID": "GHSA-566m-qj78-rww5",
+      "AffectedNodes": [
+        406
+      ]
+    },
+    {
+      "ID": "GHSA-5rrq-pxf6-6jx5",
+      "AffectedNodes": [
+        366
+      ]
+    },
+    {
+      "ID": "GHSA-67hx-6x53-jw92",
+      "AffectedNodes": [
+        71
+      ]
+    },
+    {
+      "ID": "GHSA-72xf-g2v4-qvf3",
+      "AffectedNodes": [
+        475
+      ]
+    },
+    {
+      "ID": "GHSA-72xf-g2v4-qvf3",
+      "AffectedNodes": [
+        607
+      ]
+    },
+    {
+      "ID": "GHSA-72xf-g2v4-qvf3",
+      "AffectedNodes": [
+        652
+      ]
+    },
+    {
+      "ID": "GHSA-7fh5-64p2-3v2j",
+      "AffectedNodes": [
+        406
+      ]
+    },
+    {
+      "ID": "GHSA-896r-f27r-55mw",
+      "AffectedNodes": [
+        326
+      ]
+    },
+    {
+      "ID": "GHSA-8fr3-hfg3-gpgp",
+      "AffectedNodes": [
+        366
+      ]
+    },
+    {
+      "ID": "GHSA-cfm4-qjh2-4765",
+      "AffectedNodes": [
+        366
+      ]
+    },
+    {
+      "ID": "GHSA-f4c9-cqv8-9v98",
+      "AffectedNodes": [
+        323
+      ]
+    },
+    {
+      "ID": "GHSA-f4c9-cqv8-9v98",
+      "AffectedNodes": [
+        601
+      ]
+    },
+    {
+      "ID": "GHSA-f8q6-p94x-37v3",
+      "AffectedNodes": [
+        356
+      ]
+    },
+    {
+      "ID": "GHSA-g954-5hwp-pp24",
+      "AffectedNodes": [
+        415
+      ]
+    },
+    {
+      "ID": "GHSA-gf8q-jrpm-jvxq",
+      "AffectedNodes": [
+        366
+      ]
+    },
+    {
+      "ID": "GHSA-h755-8qp9-cq85",
+      "AffectedNodes": [
+        415
+      ]
+    },
+    {
+      "ID": "GHSA-hwj9-h5mp-3pm3",
+      "AffectedNodes": [
+        406
+      ]
+    },
+    {
+      "ID": "GHSA-p8p7-x288-28g6",
+      "AffectedNodes": [
+        436
+      ]
+    },
+    {
+      "ID": "GHSA-p9pc-299p-vxgp",
+      "AffectedNodes": [
+        521
+      ]
+    },
+    {
+      "ID": "GHSA-pfq8-rq6v-vf5m",
+      "AffectedNodes": [
+        291
+      ]
+    },
+    {
+      "ID": "GHSA-r683-j2x4-v87g",
+      "AffectedNodes": [
+        365
+      ]
+    },
+    {
+      "ID": "GHSA-v88g-cgmw-v5xw",
+      "AffectedNodes": [
+        138
+      ]
+    },
+    {
+      "ID": "GHSA-vh5w-fg69-rc8m",
+      "AffectedNodes": [
+        278
+      ]
+    },
+    {
+      "ID": "GHSA-vh95-rmgr-6w4m",
+      "AffectedNodes": [
+        615
+      ]
+    },
+    {
+      "ID": "GHSA-w8qv-6jwh-64r5",
+      "AffectedNodes": [
+        166
+      ]
+    },
+    {
+      "ID": "GHSA-w8qv-6jwh-64r5",
+      "AffectedNodes": [
+        560
+      ]
+    },
+    {
+      "ID": "GHSA-x4jg-mjrx-434g",
+      "AffectedNodes": [
+        366
+      ]
+    },
+    {
+      "ID": "GHSA-xvch-5gv4-984h",
+      "AffectedNodes": [
+        615
+      ]
+    }
+  ]
+}
+---

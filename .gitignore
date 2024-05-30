@@ -5,3 +5,6 @@
 /osv-scanner
 /coverage.out
 /coverage.html
+*.tar
+*.pprof
+.DS_Store

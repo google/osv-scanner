@@ -23,8 +23,9 @@ type ConfigManager struct {
 }
 
 type Config struct {
-	IgnoredVulns []IgnoreEntry `toml:"IgnoredVulns"`
-	LoadPath     string        `toml:"LoadPath"`
+	IgnoredVulns      []IgnoreEntry `toml:"IgnoredVulns"`
+	LoadPath          string        `toml:"LoadPath"`
+	GoVersionOverride string        `toml:"GoVersionOverride"`
 }
 
 type IgnoreEntry struct {
@@ -70,7 +71,6 @@ func (c *ConfigManager) Get(r reporter.Reporter, targetPath string) Config {
 
 	configPath, err := normalizeConfigLoadPath(targetPath)
 	if err != nil {
-		r.PrintErrorf("%v\n", err.Error())
 		// TODO: This can happen when target is not a file (e.g. Docker container, git hash...etc.)
 		// Figure out a more robust way to load config from non files
 		// r.PrintErrorf("Can't find config path: %s\n", err)
@@ -84,7 +84,7 @@ func (c *ConfigManager) Get(r reporter.Reporter, targetPath string) Config {
 
 	config, configErr := tryLoadConfig(configPath)
 	if configErr == nil {
-		r.PrintTextf("Loaded filter from: %s\n", config.LoadPath)
+		r.Infof("Loaded filter from: %s\n", config.LoadPath)
 	} else {
 		// If config doesn't exist, use the default config
 		config = c.DefaultConfig

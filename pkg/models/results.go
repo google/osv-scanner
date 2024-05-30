@@ -8,7 +8,7 @@ import (
 // Combined vulnerabilities found for the scanned packages
 type VulnerabilityResults struct {
 	Results                    []PackageSource            `json:"results"`
-	ResultsByPURL              map[string]PackageDetails  `json:"results_by_purl"`
+	ResultsByPURL              map[string]PackageDetails  `json:"results_by_purl,omitempty"`
 	ExperimentalAnalysisConfig ExperimentalAnalysisConfig `json:"experimental_config"`
 }
 
@@ -32,6 +32,7 @@ func (vulns *VulnerabilityResults) Flatten() []VulnerabilityFlattened {
 				results = append(results, VulnerabilityFlattened{
 					Source:        res.Source,
 					Package:       pkg.Package,
+					DepGroups:     pkg.DepGroups,
 					Vulnerability: v,
 					GroupInfo:     getGroupInfoForVuln(pkg.Groups, v.ID),
 				})
@@ -40,6 +41,7 @@ func (vulns *VulnerabilityResults) Flatten() []VulnerabilityFlattened {
 				results = append(results, VulnerabilityFlattened{
 					Source:            res.Source,
 					Package:           pkg.Package,
+					DepGroups:         pkg.DepGroups,
 					Licenses:          pkg.Licenses,
 					LicenseViolations: pkg.LicenseViolations,
 				})
@@ -62,6 +64,7 @@ func getGroupInfoForVuln(groups []GroupInfo, vulnID string) GroupInfo {
 type VulnerabilityFlattened struct {
 	Source            SourceInfo
 	Package           PackageInfo
+	DepGroups         []string
 	Vulnerability     Vulnerability
 	GroupInfo         GroupInfo
 	Licenses          []License
@@ -110,6 +113,7 @@ type GroupInfo struct {
 	Aliases []string `json:"aliases"`
 	// Map of Vulnerability IDs to AnalysisInfo
 	ExperimentalAnalysis map[string]AnalysisInfo `json:"experimentalAnalysis,omitempty"`
+	MaxSeverity          string                  `json:"max_severity"`
 }
 
 // IsCalled returns true if any analysis performed determines that the vulnerability is being called

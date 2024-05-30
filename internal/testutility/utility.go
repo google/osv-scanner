@@ -1,152 +1,51 @@
 package testutility
 
 import (
-	"encoding/json"
-	"fmt"
 	"os"
-	"path/filepath"
-	"reflect"
 	"runtime"
 	"strings"
 	"testing"
 
-	"github.com/google/go-cmp/cmp"
-	"github.com/hexops/gotextdiff"
-	"github.com/hexops/gotextdiff/myers"
-	"github.com/hexops/gotextdiff/span"
+	"github.com/gkampitakis/go-snaps/snaps"
 )
 
-func determineWindowsFixturePath(t *testing.T, path string) string {
-	t.Helper()
-
-	ext := filepath.Ext(path)
-
-	return strings.TrimSuffix(path, ext) + "_windows" + ext
-}
-
-func loadFixture(t *testing.T, path string) ([]byte, string) {
-	t.Helper()
-
-	var file []byte
-	var err error
-
-	// when on Windows, check if there is a version of the fixture whose filename
-	// ends with _windows and if so use that instead
+// applyWindowsReplacements will replace any matching strings if on Windows
+func applyWindowsReplacements(content string, replacements map[string]string) string {
 	if //goland:noinspection GoBoolExpressions
 	runtime.GOOS == "windows" {
-		winFixturePath := determineWindowsFixturePath(t, path)
-
-		file, err = os.ReadFile(winFixturePath)
-
-		if err == nil {
-			return file, winFixturePath
-		}
-		// load the original file if a Windows-specific version does not exist
-		if !os.IsNotExist(err) {
-			t.Fatalf("Failed to open fixture: %s", err)
+		for match, replacement := range replacements {
+			content = strings.ReplaceAll(content, match, replacement)
 		}
 	}
 
-	file, err = os.ReadFile(path)
-
-	if err != nil {
-		t.Fatalf("Failed to open fixture: %s", err)
-	}
-
-	return file, path
+	return content
 }
 
-// LoadJSONFixture loads a JSON fixture file and returns the decoded version.
-func LoadJSONFixture[V any](t *testing.T, path string) V {
+// CleanSnapshots ensures that snapshots are relevant and sorted for consistency
+func CleanSnapshots(m *testing.M) {
+	snaps.Clean(m, snaps.CleanOpts{Sort: true})
+}
+
+// Skip is equivalent to t.Log followed by t.SkipNow, but allows tracking of
+// what snapshots are skipped so that they're not marked as obsolete
+func Skip(t *testing.T, args ...any) {
 	t.Helper()
 
-	file, _ := loadFixture(t, path)
-
-	var elem V
-	err := json.Unmarshal(file, &elem)
-	if err != nil {
-		t.Fatalf("Failed to unmarshal val: %s", err)
-	}
-
-	return elem
+	snaps.Skip(t, args...)
 }
 
-// AssertMatchFixtureJSON matches the JSON at path with the value val, failing if not equal, printing out the difference.
-func AssertMatchFixtureJSON[V any](t *testing.T, path string, val V) {
-	t.Helper()
-
-	elem := LoadJSONFixture[V](t, path)
-
-	if !reflect.DeepEqual(val, elem) {
-		t.Errorf("Not equal: \n%s", cmp.Diff(val, elem))
-	}
-}
-
-// Deprecated: Not actually deprecated, deprecated tag used to warn users from checking in as
-// it's meant to be used as a helper func to generate fixtures
-//
-// CreateJSONFixture creates a JSON file at path of the value val,
-// can be used with AssertMatchFixtureJSON to compare against future values.
-func CreateJSONFixture[V any](t *testing.T, path string, val V) {
-	t.Helper()
-	file, err := os.Create(path)
-	if err != nil {
-		t.Fatalf("Failed to open file to write: %s", err)
-	}
-
-	encoder := json.NewEncoder(file)
-	encoder.SetIndent("", "  ")
-	err = encoder.Encode(val)
-	if err != nil {
-		t.Fatalf("Failed to encode val: %s", err)
-	}
-}
-
-// CreateTextFixture creates a text file at path of the value val,
-// can be used with AssertMatchFixtureJSON to compare against future values.
-func CreateTextFixture(t *testing.T, path string, val string) {
-	t.Helper()
-	file, err := os.Create(path)
-	if err != nil {
-		t.Fatalf("Failed to open file to write: %s", err)
-	}
-
-	_, err = file.WriteString(val)
-	if err != nil {
-		t.Fatalf("Failed to write string to file: %s", err)
-	}
-}
-
-func normalizeNewlines(content string) string {
-	return strings.ReplaceAll(content, "\r\n", "\n")
-}
-
-// AssertMatchFixtureText matches the Text file at path with actual
-func AssertMatchFixtureText(t *testing.T, path string, actual string) {
-	t.Helper()
-
-	fileA, path := loadFixture(t, path)
-
-	actual = normalizeNewlines(actual)
-	expect := string(fileA)
-	expect = normalizeNewlines(expect)
-	if actual != expect {
-		if os.Getenv("TEST_NO_DIFF") == "true" {
-			t.Errorf("\nactual %s does not match expected:\n got:\n%s\n\n want:\n%s", path, actual, expect)
-		} else {
-			edits := myers.ComputeEdits(span.URIFromPath(path), expect, actual)
-			diff := fmt.Sprint(gotextdiff.ToUnified(path, "test-output", expect, edits))
-			t.Errorf("\nactual %s does not match expected:\n%s", path, diff)
-		}
-	}
+// Access to environment variable that toggles acceptance testing execution paths
+// Acceptance testing is "On" only when var set to "true"
+func IsAcceptanceTest() bool {
+	return os.Getenv("TEST_ACCEPTANCE") == "true"
 }
 
 // AcceptanceTests marks this test function as a extended that require additional dependencies
 // automatically skipped unless running in a CI environment
-func AcceptanceTests(t *testing.T, reason string) {
+func SkipIfNotAcceptanceTesting(t *testing.T, reason string) {
 	t.Helper()
-	if os.Getenv("TEST_ACCEPTANCE") != "true" {
-		t.Skip("Skipping extended test: ", reason)
+	if !IsAcceptanceTest() {
+		Skip(t, "Skipping extended test: ", reason)
 	}
 }
 
@@ -157,4 +56,23 @@ func ValueIfOnWindows(win, or string) string {
 	}
 
 	return or
+}
+
+// CreateTestDir makes a temporary directory for use in testing that involves
+// writing and reading files from disk, which is automatically cleaned up
+// when testing finishes
+func CreateTestDir(t *testing.T) string {
+	t.Helper()
+
+	p, err := os.MkdirTemp("", "osv-scanner-test-*")
+	if err != nil {
+		t.Fatalf("could not create test directory: %v", err)
+	}
+
+	// ensure the test directory is removed when we're done testing
+	t.Cleanup(func() {
+		_ = os.RemoveAll(p)
+	})
+
+	return p
 }

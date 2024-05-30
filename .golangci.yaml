@@ -47,8 +47,10 @@ linters-settings:
     settings:
       printf:
         funcs:
-          - (github.com/google/osv-scanner/pkg/reporter.Reporter).PrintErrorf
-          - (github.com/google/osv-scanner/pkg/reporter.Reporter).PrintTextf
+          - (github.com/google/osv-scanner/pkg/reporter.Reporter).Errorf
+          - (github.com/google/osv-scanner/pkg/reporter.Reporter).Warnf
+          - (github.com/google/osv-scanner/pkg/reporter.Reporter).Verbosef
+          - (github.com/google/osv-scanner/pkg/reporter.Reporter).Infof
   depguard:
     rules:
       regexp:

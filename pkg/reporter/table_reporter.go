@@ -9,51 +9,55 @@ import (
 )
 
 type TableReporter struct {
-	hasPrintedError bool
-	stdout          io.Writer
-	stderr          io.Writer
-	markdown        bool
+	hasErrored bool
+	stdout     io.Writer
+	stderr     io.Writer
+	level      VerbosityLevel
+	markdown   bool
 	// 0 indicates not a terminal output
 	terminalWidth int
 }
 
-func NewTableReporter(stdout io.Writer, stderr io.Writer, markdown bool, terminalWidth int) *TableReporter {
+func NewTableReporter(stdout io.Writer, stderr io.Writer, level VerbosityLevel, markdown bool, terminalWidth int) *TableReporter {
 	return &TableReporter{
-		stdout:          stdout,
-		stderr:          stderr,
-		hasPrintedError: false,
-		markdown:        markdown,
-		terminalWidth:   terminalWidth,
+		stdout:        stdout,
+		stderr:        stderr,
+		hasErrored:    false,
+		level:         level,
+		markdown:      markdown,
+		terminalWidth: terminalWidth,
 	}
 }
 
-func (r *TableReporter) PrintError(msg string) {
-	r.PrintErrorf(msg)
+func (r *TableReporter) Errorf(format string, a ...any) {
+	fmt.Fprintf(r.stderr, format, a...)
+	r.hasErrored = true
 }
 
-func (r *TableReporter) PrintErrorf(msg string, a ...any) {
-	fmt.Fprintf(r.stderr, msg, a...)
-	r.hasPrintedError = true
+func (r *TableReporter) HasErrored() bool {
+	return r.hasErrored
 }
 
-func (r *TableReporter) PrintWarnf(msg string, a ...any) {
-	fmt.Fprintf(r.stderr, msg, a...)
+func (r *TableReporter) Warnf(format string, a ...any) {
+	if WarnLevel <= r.level {
+		fmt.Fprintf(r.stdout, format, a...)
+	}
 }
 
-func (r *TableReporter) HasPrintedError() bool {
-	return r.hasPrintedError
+func (r *TableReporter) Infof(format string, a ...any) {
+	if InfoLevel <= r.level {
+		fmt.Fprintf(r.stdout, format, a...)
+	}
 }
 
-func (r *TableReporter) PrintText(msg string) {
-	r.PrintTextf(msg)
-}
-
-func (r *TableReporter) PrintTextf(msg string, a ...any) {
-	fmt.Fprintf(r.stdout, msg, a...)
+func (r *TableReporter) Verbosef(format string, a ...any) {
+	if VerboseLevel <= r.level {
+		fmt.Fprintf(r.stdout, format, a...)
+	}
 }
 
 func (r *TableReporter) PrintResult(vulnResult *models.VulnerabilityResults) error {
-	if len(vulnResult.Results) == 0 && !r.hasPrintedError {
+	if len(vulnResult.Results) == 0 && !r.hasErrored {
 		fmt.Fprintf(r.stdout, "No issues found\n")
 		return nil
 	}

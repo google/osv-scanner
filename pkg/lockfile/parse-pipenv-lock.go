@@ -10,6 +10,8 @@ import (
 	"github.com/google/osv-scanner/internal/utility/fileposition"
 
 	"github.com/google/osv-scanner/pkg/models"
+
+	"golang.org/x/exp/maps"
 )
 
 type PipenvPackage struct {
@@ -63,7 +65,7 @@ func (e PipenvLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 	addPkgDetails(details, parsedLockfile.Packages, "", f.Path())
 	addPkgDetails(details, parsedLockfile.PackagesDev, "dev", f.Path())
 
-	return pkgDetailsMapToSlice(details), nil
+	return maps.Values(details), nil
 }
 
 func extractNameAndVersionPosition(lines []string, packages map[string]*PipenvPackage) {

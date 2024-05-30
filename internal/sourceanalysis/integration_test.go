@@ -13,7 +13,7 @@ import (
 
 var fixturesDir = "integration/fixtures-go"
 
-func Test_RunGoVulnCheck(t *testing.T) {
+func Test_runGovulncheck(t *testing.T) {
 	t.Parallel()
 	entries, err := os.ReadDir(fixturesDir)
 	if err != nil {
@@ -44,12 +44,20 @@ func Test_RunGoVulnCheck(t *testing.T) {
 		vulns = append(vulns, newVuln)
 	}
 
-	res, err := runGovulncheck(filepath.Join(fixturesDir, "test-project"), vulns)
+	res, err := runGovulncheck(filepath.Join(fixturesDir, "test-project"), vulns, "1.19")
 	if err != nil {
 		t.Errorf("failed to run RunGoVulnCheck: %v", err)
 	}
 
-	res["GO-2023-1558"][0].Trace[1].Position.Filename = "<Any value>"
-	res["GO-2023-1558"][0].Trace[1].Position.Offset = -1
-	testutility.AssertMatchFixtureJSON(t, filepath.Join(fixturesDir, "snapshots/govulncheckshim_test.json"), res)
+	res["GO-2023-1558"][2].Trace[0].Position.Filename = "<Any value>"
+	res["GO-2023-1558"][2].Trace[1].Position.Filename = "<Any value>"
+	res["GO-2023-1558"][2].Trace[0].Position.Offset = -1
+	res["GO-2023-1558"][2].Trace[1].Position.Offset = -1
+
+	for _, traceItem := range res["GO-2023-2382"][2].Trace {
+		traceItem.Position.Filename = "<Any value>"
+		traceItem.Position.Offset = -1
+	}
+
+	testutility.NewSnapshot().MatchJSON(t, res)
 }

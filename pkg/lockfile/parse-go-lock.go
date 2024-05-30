@@ -8,12 +8,12 @@ import (
 	"strings"
 
 	"github.com/google/osv-scanner/internal/utility/fileposition"
+	"golang.org/x/exp/maps"
 
 	"golang.org/x/mod/module"
 
 	"github.com/google/osv-scanner/pkg/models"
 
-	"github.com/google/osv-scanner/internal/semantic"
 	"golang.org/x/mod/modfile"
 )
 
@@ -138,13 +138,6 @@ func (e GoLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 			version := strings.TrimPrefix(replace.New.Version, "v")
 			name := replace.New.Path
 
-			if len(version) == 0 {
-				// There is no version specified on the replacement, it means the artifact is directly accessible
-				// the package itself will then be scanned so there is no need to keep it
-				delete(packages, replacement)
-				continue
-			}
-
 			blockLocation, nameLocation, versionLocation := extractLocations(block, start, end, f.Path(), name, version)
 			packages[replacement] = PackageDetails{
 				Name:            name,
@@ -159,18 +152,9 @@ func (e GoLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 	}
 
 	if parsedLockfile.Go != nil && parsedLockfile.Go.Version != "" {
-		v := semantic.ParseSemverLikeVersion(parsedLockfile.Go.Version, 3)
-
-		goVersion := fmt.Sprintf(
-			"%d.%d.%d",
-			v.Components.Fetch(0),
-			v.Components.Fetch(1),
-			v.Components.Fetch(2),
-		)
-
 		packages["stdlib"] = PackageDetails{
 			Name:      "stdlib",
-			Version:   goVersion,
+			Version:   parsedLockfile.Go.Version,
 			Ecosystem: GoEcosystem,
 			CompareAs: GoEcosystem,
 			BlockLocation: models.FilePosition{
@@ -179,7 +163,7 @@ func (e GoLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 		}
 	}
 
-	return pkgDetailsMapToSlice(deduplicatePackages(packages)), nil
+	return maps.Values(deduplicatePackages(packages)), nil
 }
 
 var _ Extractor = GoLockExtractor{}

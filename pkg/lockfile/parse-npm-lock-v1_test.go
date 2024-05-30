@@ -23,7 +23,7 @@ func TestParseNpmLock_v1_InvalidJson(t *testing.T) {
 
 	packages, err := lockfile.ParseNpmLock("fixtures/npm/not-json.txt")
 
-	expectErrContaining(t, err, "could not decode json from")
+	expectErrContaining(t, err, "could not extract from")
 	expectPackagesWithoutLocations(t, packages, []lockfile.PackageDetails{})
 }
 
@@ -384,7 +384,7 @@ func TestParseNpmLock_v1_Files(t *testing.T) {
 		},
 		{
 			Name:      "other_package",
-			Version:   "0.0.0",
+			Version:   "",
 			Ecosystem: lockfile.NpmEcosystem,
 			CompareAs: lockfile.NpmEcosystem,
 			Commit:    "",

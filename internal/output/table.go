@@ -3,20 +3,15 @@ package output
 import (
 	"fmt"
 	"io"
-	"log"
 	"math"
-	"os"
 	"path/filepath"
 	"sort"
 	"strings"
 
-	gocvss20 "github.com/pandatix/go-cvss/20"
-	gocvss30 "github.com/pandatix/go-cvss/30"
-	gocvss31 "github.com/pandatix/go-cvss/31"
-	gocvss40 "github.com/pandatix/go-cvss/40"
 	"golang.org/x/exp/maps"
 
 	"github.com/google/osv-scanner/internal/utility/results"
+	"github.com/google/osv-scanner/internal/utility/severity"
 	"github.com/google/osv-scanner/pkg/lockfile"
 	"github.com/google/osv-scanner/pkg/models"
 
@@ -91,11 +86,8 @@ type tbInnerResponse struct {
 
 func tableBuilderInner(vulnResult *models.VulnerabilityResults, addStyling bool, calledVulns bool) []tbInnerResponse {
 	allOutputRows := []tbInnerResponse{}
-	// Working directory used to simplify path
-	workingDir, err := os.Getwd()
-	if err != nil {
-		log.Panicf("can't get working dir: %v", err)
-	}
+	workingDir := mustGetWorkingDirectory()
+
 	for _, sourceRes := range vulnResult.Results {
 		for _, pkg := range sourceRes.Packages {
 			source := sourceRes.Source
@@ -124,7 +116,7 @@ func tableBuilderInner(vulnResult *models.VulnerabilityResults, addStyling bool,
 				}
 
 				outputRow = append(outputRow, strings.Join(links, "\n"))
-				outputRow = append(outputRow, MaxSeverity(group, pkg))
+				outputRow = append(outputRow, group.MaxSeverity)
 
 				if pkg.Package.Ecosystem == "" && pkg.Package.Commit != "" {
 					pkgCommitStr := results.PkgToString(pkg.Package)
@@ -151,7 +143,7 @@ func tableBuilderInner(vulnResult *models.VulnerabilityResults, addStyling bool,
 }
 
 func MaxSeverity(group models.GroupInfo, pkg models.PackageVulns) string {
-	var maxSeverity float64
+	var maxSeverity float64 = -1
 	for _, vulnID := range group.IDs {
 		var severities []models.Severity
 		for _, vuln := range pkg.Vulnerabilities {
@@ -159,32 +151,15 @@ func MaxSeverity(group models.GroupInfo, pkg models.PackageVulns) string {
 				severities = vuln.Severity
 			}
 		}
-		for _, severity := range severities {
-			switch severity.Type {
-			case models.SeverityCVSSV2:
-				vec, _ := gocvss20.ParseVector(severity.Score)
-				maxSeverity = math.Max(maxSeverity, vec.BaseScore())
-			case models.SeverityCVSSV3:
-				switch {
-				case strings.HasPrefix(severity.Score, "CVSS:3.0"):
-					vec, _ := gocvss30.ParseVector(severity.Score)
-					maxSeverity = math.Max(maxSeverity, vec.BaseScore())
-				case strings.HasPrefix(severity.Score, "CVSS:3.1"):
-					vec, _ := gocvss31.ParseVector(severity.Score)
-					maxSeverity = math.Max(maxSeverity, vec.BaseScore())
-				}
-			case models.SeverityCVSSV4:
-				vec, _ := gocvss40.ParseVector(severity.Score)
-				maxSeverity = math.Max(maxSeverity, vec.Score())
-			}
-		}
+		score, _, _ := severity.CalculateOverallScore(severities)
+		maxSeverity = math.Max(maxSeverity, score)
 	}
 
-	if maxSeverity == 0 {
+	if maxSeverity < 0 {
 		return ""
 	}
 
-	return fmt.Sprintf("%v", maxSeverity)
+	return fmt.Sprintf("%.1f", maxSeverity)
 }
 
 func licenseTableBuilder(outputTable table.Writer, vulnResult *models.VulnerabilityResults) table.Writer {
@@ -237,10 +212,7 @@ func licenseSummaryTableBuilder(outputTable table.Writer, vulnResult *models.Vul
 
 func licenseViolationsTableBuilder(outputTable table.Writer, vulnResult *models.VulnerabilityResults) table.Writer {
 	outputTable.AppendHeader(table.Row{"License Violation", "Ecosystem", "Package", "Version", "Source"})
-	workingDir, err := os.Getwd()
-	if err != nil {
-		log.Panicf("can't get working dir: %v", err)
-	}
+	workingDir := mustGetWorkingDirectory()
 	for _, pkgSource := range vulnResult.Results {
 		for _, pkg := range pkgSource.Packages {
 			if len(pkg.LicenseViolations) == 0 {

@@ -1,6 +1,7 @@
 package local
 
 import (
+	"errors"
 	"fmt"
 	"os"
 	"path"
@@ -73,10 +74,10 @@ func setupLocalDBDirectory(localDBPath string) (string, error) {
 		}
 	}
 
-	err = os.MkdirAll(path.Join(localDBPath, "osv-scanner"), 0750)
-
+	altPath := path.Join(localDBPath, "osv-scanner")
+	err = os.MkdirAll(altPath, 0750)
 	if err == nil {
-		return path.Join(localDBPath, "osv-scanner"), nil
+		return altPath, nil
 	}
 
 	// if we're implicitly picking a path, try the temp directory before giving up
@@ -108,7 +109,7 @@ func MakeRequest(r reporter.Reporter, query osv.BatchedQuery, offline bool, loca
 			return nil, err
 		}
 
-		r.PrintTextf("Loaded %s local db from %s\n", db.Name, db.StoredAt)
+		r.Infof("Loaded %s local db from %s\n", db.Name, db.StoredAt)
 
 		dbs[ecosystem] = db
 
@@ -120,7 +121,7 @@ func MakeRequest(r reporter.Reporter, query osv.BatchedQuery, offline bool, loca
 
 		if err != nil {
 			// currently, this will actually only error if the PURL cannot be parses
-			r.PrintErrorf("skipping %s as it is not a valid PURL: %v\n", query.Package.PURL, err)
+			r.Errorf("skipping %s as it is not a valid PURL: %v\n", query.Package.PURL, err)
 			results = append(results, osv.Response{Vulns: []models.Vulnerability{}})
 
 			continue
@@ -129,12 +130,12 @@ func MakeRequest(r reporter.Reporter, query osv.BatchedQuery, offline bool, loca
 		if pkg.Ecosystem == "" {
 			if pkg.Commit == "" {
 				// The only time this can happen should be when someone passes in their own OSV-Scanner-Results file.
-				return nil, fmt.Errorf("ecosystem is empty and there is no commit hash")
+				return nil, errors.New("ecosystem is empty and there is no commit hash")
 			}
 
 			// Is a commit based query, skip local scanning
 			results = append(results, osv.Response{})
-			r.PrintTextf("Skipping commit scanning for: %s\n", pkg.Commit)
+			r.Infof("Skipping commit scanning for: %s\n", pkg.Commit)
 
 			continue
 		}
@@ -143,7 +144,7 @@ func MakeRequest(r reporter.Reporter, query osv.BatchedQuery, offline bool, loca
 
 		if err != nil {
 			// currently, this will actually only error if the PURL cannot be parses
-			r.PrintErrorf("could not load db for %s ecosystem: %v\n", pkg.Ecosystem, err)
+			r.Errorf("could not load db for %s ecosystem: %v\n", pkg.Ecosystem, err)
 			results = append(results, osv.Response{Vulns: []models.Vulnerability{}})
 
 			continue

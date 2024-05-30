@@ -5,6 +5,8 @@ import (
 	"fmt"
 	"path/filepath"
 	"strings"
+
+	"golang.org/x/exp/maps"
 )
 
 type NuGetLockPackage struct {
@@ -47,10 +49,10 @@ func parseNuGetLock(lockfile NuGetLockfile) ([]PackageDetails, error) {
 	// its dependencies, there might be different or duplicate dependencies
 	// between frameworks
 	for _, dependencies := range lockfile.Dependencies {
-		details = mergePkgDetailsMap(details, parseNuGetLockDependencies(dependencies))
+		maps.Copy(details, parseNuGetLockDependencies(dependencies))
 	}
 
-	return pkgDetailsMapToSlice(details), nil
+	return maps.Values(details), nil
 }
 
 type NuGetLockExtractor struct{}

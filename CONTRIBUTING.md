@@ -86,6 +86,12 @@ You can generate an HTML coverage report by running:
 ./scripts/generate_coverage_report.sh
 ```
 
+You can regenerate snapshots by setting `UPDATE_SNAPS=true` when running tests:
+
+```shell
+UPDATE_SNAPS=true ./scripts/run_tests.sh
+```
+
 ### Linting
 
 To lint your code, run

@@ -15,37 +15,25 @@ import (
 func Test_filterResults(t *testing.T) {
 	t.Parallel()
 
-	type testCase struct {
-		input       models.VulnerabilityResults
-		want        models.VulnerabilityResults
-		numFiltered int
-		path        string
-	}
-
-	loadTestCase := func(path string) testCase {
-		var testCase testCase
-		testCase.input = testutility.LoadJSONFixture[models.VulnerabilityResults](t, filepath.Join(path, "input.json"))
-		testCase.want = testutility.LoadJSONFixture[models.VulnerabilityResults](t, filepath.Join(path, "want.json"))
-		testCase.numFiltered = len(testCase.input.Flatten()) - len(testCase.want.Flatten())
-		testCase.path = path
-
-		return testCase
-	}
 	tests := []struct {
-		name     string
-		testCase testCase
+		name string
+		path string
+		want int
 	}{
 		{
-			name:     "filter_everything",
-			testCase: loadTestCase("fixtures/filter/all/"),
+			name: "filter_everything",
+			path: "fixtures/filter/all",
+			want: 15,
 		},
 		{
-			name:     "filter_nothing",
-			testCase: loadTestCase("fixtures/filter/none/"),
+			name: "filter_nothing",
+			path: "fixtures/filter/none",
+			want: 0,
 		},
 		{
-			name:     "filter_partially",
-			testCase: loadTestCase("fixtures/filter/some/"),
+			name: "filter_partially",
+			path: "fixtures/filter/some",
+			want: 11,
 		},
 	}
 	for _, tt := range tests {
@@ -59,17 +47,14 @@ func Test_filterResults(t *testing.T) {
 				DefaultConfig: config.Config{},
 				ConfigMap:     make(map[string]config.Config),
 			}
-			got := tt.testCase.input
+
+			got := testutility.LoadJSONFixture[models.VulnerabilityResults](t, filepath.Join(tt.path, "input.json"))
 			filtered := filterResults(r, &got, &configManager, false)
-			if diff := cmp.Diff(tt.testCase.want, got); diff != "" {
-				out := filepath.Join(tt.testCase.path, "out.json")
-				t.Errorf("filterResults() returned an unexpected results (-want, +got):\n%s\n"+
-					"Full json output written to %s", diff, out)
-				//nolint
-				testutility.CreateJSONFixture(t, out, got)
-			}
-			if filtered != tt.testCase.numFiltered {
-				t.Errorf("filterResults() = %v, want %v", filtered, tt.testCase.numFiltered)
+
+			testutility.NewSnapshot().MatchJSON(t, got)
+
+			if filtered != tt.want {
+				t.Errorf("filterResults() = %v, want %v", filtered, tt.want)
 			}
 		})
 	}

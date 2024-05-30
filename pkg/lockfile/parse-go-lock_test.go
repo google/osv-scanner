@@ -130,7 +130,7 @@ func TestParseGoLock_WithPathMajor(t *testing.T) {
 		},
 		{
 			Name:      "stdlib",
-			Version:   "1.11.0",
+			Version:   "1.11",
 			Ecosystem: lockfile.GoEcosystem,
 			CompareAs: lockfile.GoEcosystem,
 			BlockLocation: models.FilePosition{
@@ -174,7 +174,7 @@ func TestParseGoLock_WithoutSupportedVersioning(t *testing.T) {
 		},
 		{
 			Name:      "stdlib",
-			Version:   "1.11.0",
+			Version:   "1.11",
 			Ecosystem: lockfile.GoEcosystem,
 			CompareAs: lockfile.GoEcosystem,
 			BlockLocation: models.FilePosition{
@@ -282,7 +282,7 @@ func TestParseGoLock_TwoPackages(t *testing.T) {
 		},
 		{
 			Name:      "stdlib",
-			Version:   "1.17.0",
+			Version:   "1.17",
 			Ecosystem: lockfile.GoEcosystem,
 			CompareAs: lockfile.GoEcosystem,
 			BlockLocation: models.FilePosition{
@@ -415,7 +415,7 @@ func TestParseGoLock_IndirectPackages(t *testing.T) {
 		},
 		{
 			Name:      "stdlib",
-			Version:   "1.17.0",
+			Version:   "1.17",
 			Ecosystem: lockfile.GoEcosystem,
 			CompareAs: lockfile.GoEcosystem,
 			BlockLocation: models.FilePosition{
@@ -556,6 +556,22 @@ func TestParseGoLock_Replacements_Local(t *testing.T) {
 			NameLocation: &models.FilePosition{
 				Line:     models.Position{Start: 3, End: 3},
 				Column:   models.Position{Start: 5, End: 31},
+				Filename: path,
+			},
+		},
+		{
+			Name:      "./fork/net",
+			Version:   "",
+			Ecosystem: lockfile.GoEcosystem,
+			CompareAs: lockfile.GoEcosystem,
+			BlockLocation: models.FilePosition{
+				Line:     models.Position{Start: 7, End: 7},
+				Column:   models.Position{Start: 5, End: 42},
+				Filename: path,
+			},
+			NameLocation: &models.FilePosition{
+				Line:     models.Position{Start: 7, End: 7},
+				Column:   models.Position{Start: 32, End: 42},
 				Filename: path,
 			},
 		},

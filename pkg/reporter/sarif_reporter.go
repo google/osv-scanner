@@ -9,42 +9,46 @@ import (
 )
 
 type SARIFReporter struct {
-	hasPrintedError bool
-	stdout          io.Writer
-	stderr          io.Writer
+	hasErrored bool
+	stdout     io.Writer
+	stderr     io.Writer
+	level      VerbosityLevel
 }
 
-func NewSarifReporter(stdout io.Writer, stderr io.Writer) *SARIFReporter {
+func NewSarifReporter(stdout io.Writer, stderr io.Writer, level VerbosityLevel) *SARIFReporter {
 	return &SARIFReporter{
-		stdout:          stdout,
-		stderr:          stderr,
-		hasPrintedError: false,
+		stdout:     stdout,
+		stderr:     stderr,
+		level:      level,
+		hasErrored: false,
 	}
 }
 
-func (r *SARIFReporter) PrintError(msg string) {
-	r.PrintErrorf(msg)
+func (r *SARIFReporter) Errorf(format string, a ...any) {
+	fmt.Fprintf(r.stderr, format, a...)
+	r.hasErrored = true
 }
 
-func (r *SARIFReporter) PrintWarnf(msg string, a ...any) {
-	fmt.Fprintf(r.stderr, msg, a...)
+func (r *SARIFReporter) HasErrored() bool {
+	return r.hasErrored
 }
 
-func (r *SARIFReporter) PrintErrorf(msg string, a ...any) {
-	fmt.Fprintf(r.stderr, msg, a...)
-	r.hasPrintedError = true
+func (r *SARIFReporter) Warnf(format string, a ...any) {
+	if WarnLevel <= r.level {
+		fmt.Fprintf(r.stderr, format, a...)
+	}
 }
 
-func (r *SARIFReporter) HasPrintedError() bool {
-	return r.hasPrintedError
+func (r *SARIFReporter) Infof(format string, a ...any) {
+	if InfoLevel <= r.level {
+		fmt.Fprintf(r.stderr, format, a...)
+	}
 }
 
-func (r *SARIFReporter) PrintText(msg string) {
-	r.PrintTextf(msg)
-}
-
-func (r *SARIFReporter) PrintTextf(msg string, a ...any) {
-	fmt.Fprintf(r.stderr, msg, a...)
+func (r *SARIFReporter) Verbosef(format string, a ...any) {
+	if VerboseLevel <= r.level {
+		fmt.Fprintf(r.stderr, format, a...)
+	}
 }
 
 func (r *SARIFReporter) PrintResult(vulnResult *models.VulnerabilityResults) error {

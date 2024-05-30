@@ -24,6 +24,10 @@ extract_packages_with_versions <- function(osvs) {
 
   for (osv in osvs) {
     for (affected in osv$affected) {
+      if (affected$package$ecosystem != "CRAN") {
+        next
+      }
+
       package <- affected$package$name
 
       if (!(package %in% names(result))) {
