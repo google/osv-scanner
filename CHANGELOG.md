@@ -2,7 +2,6 @@
 
 ### Features:
 
-- [Feature #980](https://github.com/google/osv-scanner/pull/980) Support comparing alpine package versions locally. (Using --experimental-local-db can now scan alpine packages)
 - [Feature #943](https://github.com/google/osv-scanner/pull/943) Support scanning gradle/verification-metadata.xml files.
 
 ### Misc:
