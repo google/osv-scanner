@@ -15,7 +15,7 @@ import (
 
 func aliasType(t *testing.T, aliasedName string) dep.Type {
 	t.Helper()
-	typ := dep.NewType()
+	var typ dep.Type
 	typ.AddAttr(dep.KnownAs, aliasedName)
 
 	return typ
@@ -31,6 +31,24 @@ func npmVK(t *testing.T, name, version string, versionType resolve.VersionType) 
 		Version:     version,
 		VersionType: versionType,
 	}
+}
+
+func npmReqKey(t *testing.T, name, knownAs string) manifest.RequirementKey {
+	t.Helper()
+	var typ dep.Type
+	if knownAs != "" {
+		typ.AddAttr(dep.KnownAs, knownAs)
+	}
+
+	return manifest.MakeRequirementKey(resolve.RequirementVersion{
+		VersionKey: resolve.VersionKey{
+			PackageKey: resolve.PackageKey{
+				Name:   name,
+				System: resolve.NPM,
+			},
+		},
+		Type: typ,
+	})
 }
 
 func TestNpmRead(t *testing.T) {
@@ -85,9 +103,9 @@ func TestNpmRead(t *testing.T) {
 				VersionKey: npmVK(t, "string-width", "^4.2.3", resolve.Requirement),
 			},
 		},
-		Groups: map[resolve.PackageKey][]string{
-			{System: resolve.NPM, Name: "eslint"}: {"dev"},
-			{System: resolve.NPM, Name: "glob"}:   {"optional"},
+		Groups: map[manifest.RequirementKey][]string{
+			npmReqKey(t, "eslint", ""): {"dev"},
+			npmReqKey(t, "glob", ""):   {"optional"},
 		},
 	}
 	if !reflect.DeepEqual(got, want) {
@@ -141,8 +159,8 @@ func TestNpmWorkspaceRead(t *testing.T) {
 				VersionKey: npmVK(t, "z-z-z:workspace", "*", resolve.Requirement),
 			},
 		},
-		Groups: map[resolve.PackageKey][]string{
-			{System: resolve.NPM, Name: "jquery"}: {"dev"},
+		Groups: map[manifest.RequirementKey][]string{
+			npmReqKey(t, "jquery", "jquery-real"): {"dev"},
 			// excludes workspace dev dependency
 		},
 		LocalManifests: []manifest.Manifest{
@@ -155,7 +173,7 @@ func TestNpmWorkspaceRead(t *testing.T) {
 						VersionKey: npmVK(t, "semver", "^7.6.0", resolve.Requirement),
 					},
 				},
-				Groups: map[resolve.PackageKey][]string{},
+				Groups: map[manifest.RequirementKey][]string{},
 			},
 			{
 				Root: resolve.Version{
@@ -169,9 +187,9 @@ func TestNpmWorkspaceRead(t *testing.T) {
 						VersionKey: npmVK(t, "semver", "^6.3.1", resolve.Requirement),
 					},
 				},
-				Groups: map[resolve.PackageKey][]string{
-					{System: resolve.NPM, Name: "jquery:workspace"}: {"dev"},
-					{System: resolve.NPM, Name: "semver"}:           {"dev"},
+				Groups: map[manifest.RequirementKey][]string{
+					npmReqKey(t, "jquery:workspace", ""): {"dev"},
+					npmReqKey(t, "semver", ""):           {"dev"},
 				},
 			},
 			{
@@ -186,7 +204,7 @@ func TestNpmWorkspaceRead(t *testing.T) {
 						VersionKey: npmVK(t, "semver", "^5.7.2", resolve.Requirement),
 					},
 				},
-				Groups: map[resolve.PackageKey][]string{},
+				Groups: map[manifest.RequirementKey][]string{},
 			},
 		},
 	}
