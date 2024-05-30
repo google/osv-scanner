@@ -1,3 +1,13 @@
+# v1.7.4:
+
+### Features:
+
+- [Feature #943](https://github.com/google/osv-scanner/pull/943) Support scanning gradle/verification-metadata.xml files.
+
+### Misc:
+
+- [Bug #968](https://github.com/google/osv-scanner/issues/968) Hide unimportant Debian vulnerabilities to reduce noise.
+
 # v1.7.3:
 
 ### Features:

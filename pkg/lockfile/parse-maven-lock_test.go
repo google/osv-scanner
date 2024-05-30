@@ -302,6 +302,12 @@ func TestParseMavenLock_WithScope(t *testing.T) {
 
 	expectPackages(t, packages, []lockfile.PackageDetails{
 		{
+			Name:      "abc:xyz",
+			Version:   "1.2.3",
+			Ecosystem: lockfile.MavenEcosystem,
+			CompareAs: lockfile.MavenEcosystem,
+		},
+		{
 			Name:      "junit:junit",
 			Version:   "4.12",
 			Ecosystem: lockfile.MavenEcosystem,
