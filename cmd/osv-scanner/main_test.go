@@ -247,6 +247,28 @@ func TestRun(t *testing.T) {
 			args: []string{"", "--format", "markdown", "--config", "./fixtures/osv-scanner-empty-config.toml", "./fixtures/locks-many/package-lock.json"},
 			exit: 1,
 		},
+		// output format: cyclonedx 1.4
+		{
+			name: "Empty cyclonedx 1.4 output",
+			args: []string{"", "--format", "cyclonedx-1-4", "./fixtures/locks-many/composer.lock"},
+			exit: 0,
+		},
+		{
+			name: "cyclonedx 1.4 output",
+			args: []string{"", "--format", "cyclonedx-1-4", "--experimental-all-packages", "./fixtures/locks-insecure"},
+			exit: 1,
+		},
+		// output format: cyclonedx 1.5
+		{
+			name: "Empty cyclonedx 1.5 output",
+			args: []string{"", "--format", "cyclonedx-1-5", "./fixtures/locks-many/composer.lock"},
+			exit: 0,
+		},
+		{
+			name: "cyclonedx 1.5 output",
+			args: []string{"", "--format", "cyclonedx-1-5", "--experimental-all-packages", "./fixtures/locks-insecure"},
+			exit: 1,
+		},
 		// output format: unsupported
 		{
 			name: "",
