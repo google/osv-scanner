@@ -42,17 +42,18 @@ func extractArtifactDeps(path string, img *Image) (lockfile.Lockfile, error) {
 		return lockfile.Lockfile{}, fmt.Errorf("%w for %s", lockfile.ErrExtractorNotFound, path)
 	}
 
-	f, err := OpenLayerFile(path, img.LastLayer())
-	if err != nil {
-		return lockfile.Lockfile{}, fmt.Errorf("attempted to open file but failed: %w", err)
-	}
-
-	defer f.Close()
-
 	packages := []lockfile.PackageDetails{}
 	var extractedAs string
 	for _, extPair := range foundExtractors {
+		// File has to be reopened per extractor as each extractor moves the read cursor
+		f, err := OpenLayerFile(path, img.LastLayer())
+		if err != nil {
+			return lockfile.Lockfile{}, fmt.Errorf("attempted to open file but failed: %w", err)
+		}
+
 		newPackages, err := extPair.extractor.Extract(f)
+		f.Close()
+
 		if err != nil {
 			if errors.Is(lockfile.ErrIncompatibleFileFormat, err) {
 				continue
@@ -82,7 +83,7 @@ func extractArtifactDeps(path string, img *Image) (lockfile.Lockfile, error) {
 	})
 
 	return lockfile.Lockfile{
-		FilePath: f.Path(),
+		FilePath: path,
 		ParsedAs: extractedAs,
 		Packages: packages,
 	}, nil
