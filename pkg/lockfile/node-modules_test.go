@@ -8,7 +8,6 @@ import (
 	"github.com/google/osv-scanner/pkg/lockfile"
 )
 
-
 func createTestDirWithNodeModulesDir(t *testing.T) (string, func()) {
 	t.Helper()
 
@@ -21,7 +20,6 @@ func createTestDirWithNodeModulesDir(t *testing.T) (string, func()) {
 
 	return testDir, cleanupTestDir
 }
-
 
 func testParsingNodeModules(t *testing.T, fixture string) ([]lockfile.PackageDetails, error) {
 	t.Helper()
