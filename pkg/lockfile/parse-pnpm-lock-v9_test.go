@@ -29,10 +29,11 @@ func TestParsePnpmLock_v9_OnePackage(t *testing.T) {
 
 	expectPackagesWithoutLocations(t, packages, []lockfile.PackageDetails{
 		{
-			Name:      "acorn",
-			Version:   "8.11.3",
-			Ecosystem: lockfile.PnpmEcosystem,
-			CompareAs: lockfile.PnpmEcosystem,
+			Name:           "acorn",
+			Version:        "8.11.3",
+			TargetVersions: []string{"^8.11.3"},
+			Ecosystem:      lockfile.PnpmEcosystem,
+			CompareAs:      lockfile.PnpmEcosystem,
 		},
 	})
 }
@@ -48,10 +49,11 @@ func TestParsePnpmLock_v9_OnePackageDev(t *testing.T) {
 
 	expectPackagesWithoutLocations(t, packages, []lockfile.PackageDetails{
 		{
-			Name:      "acorn",
-			Version:   "8.11.3",
-			Ecosystem: lockfile.PnpmEcosystem,
-			CompareAs: lockfile.PnpmEcosystem,
+			Name:           "acorn",
+			Version:        "8.11.3",
+			TargetVersions: []string{"^8.11.3"},
+			Ecosystem:      lockfile.PnpmEcosystem,
+			CompareAs:      lockfile.PnpmEcosystem,
 		},
 	})
 }
@@ -67,10 +69,11 @@ func TestParsePnpmLock_v9_ScopedPackages(t *testing.T) {
 
 	expectPackagesWithoutLocations(t, packages, []lockfile.PackageDetails{
 		{
-			Name:      "@typescript-eslint/types",
-			Version:   "5.62.0",
-			Ecosystem: lockfile.PnpmEcosystem,
-			CompareAs: lockfile.PnpmEcosystem,
+			Name:           "@typescript-eslint/types",
+			Version:        "5.62.0",
+			TargetVersions: []string{"^5.0.0"},
+			Ecosystem:      lockfile.PnpmEcosystem,
+			CompareAs:      lockfile.PnpmEcosystem,
 		},
 	})
 }
@@ -86,10 +89,11 @@ func TestParsePnpmLock_v9_PeerDependencies(t *testing.T) {
 
 	expectPackagesWithoutLocations(t, packages, []lockfile.PackageDetails{
 		{
-			Name:      "acorn-jsx",
-			Version:   "5.3.2",
-			Ecosystem: lockfile.PnpmEcosystem,
-			CompareAs: lockfile.PnpmEcosystem,
+			Name:           "acorn-jsx",
+			Version:        "5.3.2",
+			TargetVersions: []string{"^5.3.2"},
+			Ecosystem:      lockfile.PnpmEcosystem,
+			CompareAs:      lockfile.PnpmEcosystem,
 		},
 		{
 			Name:      "acorn",
@@ -123,16 +127,18 @@ func TestParsePnpmLock_v9_PeerDependenciesAdvanced(t *testing.T) {
 			CompareAs: lockfile.PnpmEcosystem,
 		},
 		{
-			Name:      "@typescript-eslint/eslint-plugin",
-			Version:   "5.62.0",
-			Ecosystem: lockfile.PnpmEcosystem,
-			CompareAs: lockfile.PnpmEcosystem,
+			Name:           "@typescript-eslint/eslint-plugin",
+			Version:        "5.62.0",
+			TargetVersions: []string{"^5.12.0"},
+			Ecosystem:      lockfile.PnpmEcosystem,
+			CompareAs:      lockfile.PnpmEcosystem,
 		},
 		{
-			Name:      "@typescript-eslint/parser",
-			Version:   "5.62.0",
-			Ecosystem: lockfile.PnpmEcosystem,
-			CompareAs: lockfile.PnpmEcosystem,
+			Name:           "@typescript-eslint/parser",
+			Version:        "5.62.0",
+			TargetVersions: []string{"^5.12.0"},
+			Ecosystem:      lockfile.PnpmEcosystem,
+			CompareAs:      lockfile.PnpmEcosystem,
 		},
 		{
 			Name:      "@typescript-eslint/type-utils",
@@ -159,10 +165,11 @@ func TestParsePnpmLock_v9_PeerDependenciesAdvanced(t *testing.T) {
 			CompareAs: lockfile.PnpmEcosystem,
 		},
 		{
-			Name:      "eslint",
-			Version:   "8.57.0",
-			Ecosystem: lockfile.PnpmEcosystem,
-			CompareAs: lockfile.PnpmEcosystem,
+			Name:           "eslint",
+			Version:        "8.57.0",
+			TargetVersions: []string{"^8.0.0"},
+			Ecosystem:      lockfile.PnpmEcosystem,
+			CompareAs:      lockfile.PnpmEcosystem,
 		},
 		{
 			Name:      "has-flag",
@@ -183,10 +190,11 @@ func TestParsePnpmLock_v9_PeerDependenciesAdvanced(t *testing.T) {
 			CompareAs: lockfile.PnpmEcosystem,
 		},
 		{
-			Name:      "typescript",
-			Version:   "4.9.5",
-			Ecosystem: lockfile.PnpmEcosystem,
-			CompareAs: lockfile.PnpmEcosystem,
+			Name:           "typescript",
+			Version:        "4.9.5",
+			TargetVersions: []string{"^4.0.0"},
+			Ecosystem:      lockfile.PnpmEcosystem,
+			CompareAs:      lockfile.PnpmEcosystem,
 		},
 	})
 }
@@ -208,10 +216,11 @@ func TestParsePnpmLock_v9_MultipleVersions(t *testing.T) {
 			CompareAs: lockfile.PnpmEcosystem,
 		},
 		{
-			Name:      "uuid",
-			Version:   "8.3.2",
-			Ecosystem: lockfile.PnpmEcosystem,
-			CompareAs: lockfile.PnpmEcosystem,
+			Name:           "uuid",
+			Version:        "8.3.2",
+			TargetVersions: []string{"^8.0.0"},
+			Ecosystem:      lockfile.PnpmEcosystem,
+			CompareAs:      lockfile.PnpmEcosystem,
 		},
 		{
 			Name:      "xmlbuilder",
@@ -233,18 +242,20 @@ func TestParsePnpmLock_v9_Commits(t *testing.T) {
 
 	expectPackagesWithoutLocations(t, packages, []lockfile.PackageDetails{
 		{
-			Name:      "ansi-regex",
-			Version:   "6.0.1",
-			Ecosystem: lockfile.PnpmEcosystem,
-			CompareAs: lockfile.PnpmEcosystem,
-			Commit:    "02fa893d619d3da85411acc8fd4e2eea0e95a9d9",
+			Name:           "ansi-regex",
+			Version:        "6.0.1",
+			TargetVersions: []string{"git@github.com/chalk/ansi-regex.git"},
+			Ecosystem:      lockfile.PnpmEcosystem,
+			CompareAs:      lockfile.PnpmEcosystem,
+			Commit:         "02fa893d619d3da85411acc8fd4e2eea0e95a9d9",
 		},
 		{
-			Name:      "is-number",
-			Version:   "7.0.0",
-			Ecosystem: lockfile.PnpmEcosystem,
-			CompareAs: lockfile.PnpmEcosystem,
-			Commit:    "98e8ff1da1a89f93d1397a24d7413ed15421c139",
+			Name:           "is-number",
+			Version:        "7.0.0",
+			TargetVersions: []string{"github:jonschlinkert/is-number#master"},
+			Ecosystem:      lockfile.PnpmEcosystem,
+			CompareAs:      lockfile.PnpmEcosystem,
+			Commit:         "98e8ff1da1a89f93d1397a24d7413ed15421c139",
 		},
 	})
 }
@@ -260,22 +271,25 @@ func TestParsePnpmLock_v9_MixedGroups(t *testing.T) {
 
 	expectPackagesWithoutLocations(t, packages, []lockfile.PackageDetails{
 		{
-			Name:      "ansi-regex",
-			Version:   "5.0.1",
-			Ecosystem: lockfile.PnpmEcosystem,
-			CompareAs: lockfile.PnpmEcosystem,
+			Name:           "ansi-regex",
+			Version:        "5.0.1",
+			TargetVersions: []string{"^5.0.0"},
+			Ecosystem:      lockfile.PnpmEcosystem,
+			CompareAs:      lockfile.PnpmEcosystem,
 		},
 		{
-			Name:      "uuid",
-			Version:   "8.3.2",
-			Ecosystem: lockfile.PnpmEcosystem,
-			CompareAs: lockfile.PnpmEcosystem,
+			Name:           "uuid",
+			Version:        "8.3.2",
+			TargetVersions: []string{"^8.0.0"},
+			Ecosystem:      lockfile.PnpmEcosystem,
+			CompareAs:      lockfile.PnpmEcosystem,
 		},
 		{
-			Name:      "is-number",
-			Version:   "7.0.0",
-			Ecosystem: lockfile.PnpmEcosystem,
-			CompareAs: lockfile.PnpmEcosystem,
+			Name:           "is-number",
+			Version:        "7.0.0",
+			TargetVersions: []string{"^7.0.0"},
+			Ecosystem:      lockfile.PnpmEcosystem,
+			CompareAs:      lockfile.PnpmEcosystem,
 		},
 	})
 }

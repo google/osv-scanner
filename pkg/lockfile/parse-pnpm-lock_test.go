@@ -1,10 +1,15 @@
 package lockfile_test
 
 import (
+	"bytes"
+	"errors"
+	"io"
 	"io/fs"
 	"os"
 	"path/filepath"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 
 	"github.com/google/osv-scanner/pkg/lockfile"
 )
@@ -118,12 +123,62 @@ func TestParsePnpmLock_OnePackage(t *testing.T) {
 
 	expectPackagesWithoutLocations(t, packages, []lockfile.PackageDetails{
 		{
-			Name:      "acorn",
-			Version:   "8.7.0",
-			Ecosystem: lockfile.PnpmEcosystem,
-			CompareAs: lockfile.PnpmEcosystem,
+			Name:           "acorn",
+			Version:        "8.7.0",
+			TargetVersions: []string{"^8.7.0"},
+			Ecosystem:      lockfile.PnpmEcosystem,
+			CompareAs:      lockfile.PnpmEcosystem,
 		},
 	})
+}
+
+//nolint:paralleltest
+func TestParsePnpmLock_OnePackage_MatcherFailed(t *testing.T) {
+	dir, err := os.Getwd()
+	if err != nil {
+		t.Errorf("Got unexpected error: %v", err)
+	}
+
+	stderr := os.Stderr
+	r, w, err := os.Pipe()
+	if err != nil {
+		t.Errorf("Got unexpected error: %v", err)
+	}
+	os.Stderr = w
+
+	// Mock matcher to fail
+	matcherError := errors.New("matcher failed")
+	lockfile.PnpmExtractor.Matcher = FailingMatcher{Error: matcherError}
+
+	path := filepath.FromSlash(filepath.Join(dir, "fixtures/pnpm/one-package.yaml"))
+	packages, err := lockfile.ParsePnpmLock(path)
+	if err != nil {
+		t.Errorf("Got unexpected error: %v", err)
+	}
+
+	// Capture stderr
+	_ = w.Close()
+	os.Stderr = stderr
+	var buffer bytes.Buffer
+	_, err = io.Copy(&buffer, r)
+	if err != nil {
+		t.Errorf("failed to copy stderr output: %v", err)
+	}
+	_ = r.Close()
+
+	assert.Contains(t, buffer.String(), matcherError.Error())
+	expectPackagesWithoutLocations(t, packages, []lockfile.PackageDetails{
+		{
+			Name:           "acorn",
+			Version:        "8.7.0",
+			TargetVersions: []string{"^8.7.0"},
+			Ecosystem:      lockfile.PnpmEcosystem,
+			CompareAs:      lockfile.PnpmEcosystem,
+		},
+	})
+
+	// Reset matcher mock
+	MockAllMatchers()
 }
 
 func TestParsePnpmLock_OnePackageV6Lockfile(t *testing.T) {
@@ -141,10 +196,11 @@ func TestParsePnpmLock_OnePackageV6Lockfile(t *testing.T) {
 
 	expectPackagesWithoutLocations(t, packages, []lockfile.PackageDetails{
 		{
-			Name:      "acorn",
-			Version:   "8.7.0",
-			Ecosystem: lockfile.PnpmEcosystem,
-			CompareAs: lockfile.PnpmEcosystem,
+			Name:           "acorn",
+			Version:        "8.7.0",
+			TargetVersions: []string{"8.7.0"},
+			Ecosystem:      lockfile.PnpmEcosystem,
+			CompareAs:      lockfile.PnpmEcosystem,
 		},
 	})
 }
@@ -164,10 +220,11 @@ func TestParsePnpmLock_OnePackageDev(t *testing.T) {
 
 	expectPackagesWithoutLocations(t, packages, []lockfile.PackageDetails{
 		{
-			Name:      "acorn",
-			Version:   "8.7.0",
-			Ecosystem: lockfile.PnpmEcosystem,
-			CompareAs: lockfile.PnpmEcosystem,
+			Name:           "acorn",
+			Version:        "8.7.0",
+			TargetVersions: []string{"^8.7.0"},
+			Ecosystem:      lockfile.PnpmEcosystem,
+			CompareAs:      lockfile.PnpmEcosystem,
 		},
 	})
 }
@@ -187,10 +244,11 @@ func TestParsePnpmLock_ScopedPackages(t *testing.T) {
 
 	expectPackagesWithoutLocations(t, packages, []lockfile.PackageDetails{
 		{
-			Name:      "@typescript-eslint/types",
-			Version:   "5.13.0",
-			Ecosystem: lockfile.PnpmEcosystem,
-			CompareAs: lockfile.PnpmEcosystem,
+			Name:           "@typescript-eslint/types",
+			Version:        "5.13.0",
+			TargetVersions: []string{"^5.0.0"},
+			Ecosystem:      lockfile.PnpmEcosystem,
+			CompareAs:      lockfile.PnpmEcosystem,
 		},
 	})
 }
@@ -210,10 +268,11 @@ func TestParsePnpmLock_ScopedPackagesV6Lockfile(t *testing.T) {
 
 	expectPackagesWithoutLocations(t, packages, []lockfile.PackageDetails{
 		{
-			Name:      "@typescript-eslint/types",
-			Version:   "5.57.1",
-			Ecosystem: lockfile.PnpmEcosystem,
-			CompareAs: lockfile.PnpmEcosystem,
+			Name:           "@typescript-eslint/types",
+			Version:        "5.57.1",
+			TargetVersions: []string{"^5.0.0"},
+			Ecosystem:      lockfile.PnpmEcosystem,
+			CompareAs:      lockfile.PnpmEcosystem,
 		},
 	})
 }
@@ -233,16 +292,18 @@ func TestParsePnpmLock_PeerDependencies(t *testing.T) {
 
 	expectPackagesWithoutLocations(t, packages, []lockfile.PackageDetails{
 		{
-			Name:      "acorn-jsx",
-			Version:   "5.3.2",
-			Ecosystem: lockfile.PnpmEcosystem,
-			CompareAs: lockfile.PnpmEcosystem,
+			Name:           "acorn-jsx",
+			Version:        "5.3.2",
+			TargetVersions: []string{"^5.3.2"},
+			Ecosystem:      lockfile.PnpmEcosystem,
+			CompareAs:      lockfile.PnpmEcosystem,
 		},
 		{
-			Name:      "acorn",
-			Version:   "8.7.0",
-			Ecosystem: lockfile.PnpmEcosystem,
-			CompareAs: lockfile.PnpmEcosystem,
+			Name:           "acorn",
+			Version:        "8.7.0",
+			TargetVersions: []string{"^8.7.0"},
+			Ecosystem:      lockfile.PnpmEcosystem,
+			CompareAs:      lockfile.PnpmEcosystem,
 		},
 	})
 }
@@ -262,16 +323,18 @@ func TestParsePnpmLock_PeerDependenciesAdvanced(t *testing.T) {
 
 	expectPackagesWithoutLocations(t, packages, []lockfile.PackageDetails{
 		{
-			Name:      "@typescript-eslint/eslint-plugin",
-			Version:   "5.13.0",
-			Ecosystem: lockfile.PnpmEcosystem,
-			CompareAs: lockfile.PnpmEcosystem,
+			Name:           "@typescript-eslint/eslint-plugin",
+			Version:        "5.13.0",
+			TargetVersions: []string{"^5.12.0"},
+			Ecosystem:      lockfile.PnpmEcosystem,
+			CompareAs:      lockfile.PnpmEcosystem,
 		},
 		{
-			Name:      "@typescript-eslint/parser",
-			Version:   "5.13.0",
-			Ecosystem: lockfile.PnpmEcosystem,
-			CompareAs: lockfile.PnpmEcosystem,
+			Name:           "@typescript-eslint/parser",
+			Version:        "5.13.0",
+			TargetVersions: []string{"^5.12.0"},
+			Ecosystem:      lockfile.PnpmEcosystem,
+			CompareAs:      lockfile.PnpmEcosystem,
 		},
 		{
 			Name:      "@typescript-eslint/type-utils",
@@ -304,10 +367,11 @@ func TestParsePnpmLock_PeerDependenciesAdvanced(t *testing.T) {
 			CompareAs: lockfile.PnpmEcosystem,
 		},
 		{
-			Name:      "eslint",
-			Version:   "8.10.0",
-			Ecosystem: lockfile.PnpmEcosystem,
-			CompareAs: lockfile.PnpmEcosystem,
+			Name:           "eslint",
+			Version:        "8.10.0",
+			TargetVersions: []string{"^8.0.0"},
+			Ecosystem:      lockfile.PnpmEcosystem,
+			CompareAs:      lockfile.PnpmEcosystem,
 		},
 		{
 			Name:      "tsutils",
@@ -333,10 +397,11 @@ func TestParsePnpmLock_MultiplePackages(t *testing.T) {
 
 	expectPackagesWithoutLocations(t, packages, []lockfile.PackageDetails{
 		{
-			Name:      "aws-sdk",
-			Version:   "2.1087.0",
-			Ecosystem: lockfile.PnpmEcosystem,
-			CompareAs: lockfile.PnpmEcosystem,
+			Name:           "aws-sdk",
+			Version:        "2.1087.0",
+			TargetVersions: []string{"^2.1087.0"},
+			Ecosystem:      lockfile.PnpmEcosystem,
+			CompareAs:      lockfile.PnpmEcosystem,
 		},
 		{
 			Name:      "base64-js",
@@ -440,10 +505,11 @@ func TestParsePnpmLock_MultipleVersions(t *testing.T) {
 			CompareAs: lockfile.PnpmEcosystem,
 		},
 		{
-			Name:      "uuid",
-			Version:   "8.3.2",
-			Ecosystem: lockfile.PnpmEcosystem,
-			CompareAs: lockfile.PnpmEcosystem,
+			Name:           "uuid",
+			Version:        "8.3.2",
+			TargetVersions: []string{"^8.0.0"},
+			Ecosystem:      lockfile.PnpmEcosystem,
+			CompareAs:      lockfile.PnpmEcosystem,
 		},
 		{
 			Name:      "xmlbuilder",
@@ -469,12 +535,13 @@ func TestParsePnpmLock_Tarball(t *testing.T) {
 
 	expectPackagesWithoutLocations(t, packages, []lockfile.PackageDetails{
 		{
-			Name:      "@my-org/my-package",
-			Version:   "3.2.3",
-			Ecosystem: lockfile.PnpmEcosystem,
-			CompareAs: lockfile.PnpmEcosystem,
-			Commit:    "",
-			DepGroups: []string{"dev"},
+			Name:           "@my-org/my-package",
+			Version:        "3.2.3",
+			TargetVersions: []string{"https://gitlab.my-org.org/api/v4/projects/1/packages/npm/@my-org/my-package/-/@my-org/my-package-3.2.3.tgz"},
+			Ecosystem:      lockfile.PnpmEcosystem,
+			CompareAs:      lockfile.PnpmEcosystem,
+			Commit:         "",
+			DepGroups:      []string{"dev"},
 		},
 	})
 }
@@ -553,18 +620,20 @@ func TestParsePnpmLock_Commits(t *testing.T) {
 
 	expectPackagesWithoutLocations(t, packages, []lockfile.PackageDetails{
 		{
-			Name:      "my-bitbucket-package",
-			Version:   "1.0.0",
-			Ecosystem: lockfile.PnpmEcosystem,
-			CompareAs: lockfile.PnpmEcosystem,
-			Commit:    "6104ae42cd32c3d724036d3964678f197b2c9cdb",
+			Name:           "my-bitbucket-package",
+			Version:        "1.0.0",
+			TargetVersions: []string{"ssh://git@bitbucket.org:my-org/my-bitbucket-package#main"},
+			Ecosystem:      lockfile.PnpmEcosystem,
+			CompareAs:      lockfile.PnpmEcosystem,
+			Commit:         "6104ae42cd32c3d724036d3964678f197b2c9cdb",
 		},
 		{
-			Name:      "@my-scope/my-package",
-			Version:   "1.0.0",
-			Ecosystem: lockfile.PnpmEcosystem,
-			CompareAs: lockfile.PnpmEcosystem,
-			Commit:    "267087851ad5fac92a184749c27cd539e2fc862e",
+			Name:           "@my-scope/my-package",
+			Version:        "1.0.0",
+			TargetVersions: []string{"git@github.com:my-org/my-package.git"},
+			Ecosystem:      lockfile.PnpmEcosystem,
+			CompareAs:      lockfile.PnpmEcosystem,
+			Commit:         "267087851ad5fac92a184749c27cd539e2fc862e",
 		},
 		{
 			Name:      "@my-scope/my-other-package",
@@ -581,11 +650,12 @@ func TestParsePnpmLock_Commits(t *testing.T) {
 			Commit:    "d2dc42a9351d4d89ec48c525e34f612b6d77993f",
 		},
 		{
-			Name:      "mocks",
-			Version:   "20.0.1",
-			Ecosystem: lockfile.PnpmEcosystem,
-			CompareAs: lockfile.PnpmEcosystem,
-			Commit:    "590f321b4eb3f692bb211bd74e22947639a6f79d",
+			Name:           "mocks",
+			Version:        "20.0.1",
+			TargetVersions: []string{"github:my-org/mocks#main"},
+			Ecosystem:      lockfile.PnpmEcosystem,
+			CompareAs:      lockfile.PnpmEcosystem,
+			Commit:         "590f321b4eb3f692bb211bd74e22947639a6f79d",
 		},
 	})
 }
@@ -605,11 +675,12 @@ func TestParsePnpmLock_Files(t *testing.T) {
 
 	expectPackagesWithoutLocations(t, packages, []lockfile.PackageDetails{
 		{
-			Name:      "my-file-package",
-			Version:   "0.0.0",
-			Ecosystem: lockfile.NpmEcosystem,
-			CompareAs: lockfile.NpmEcosystem,
-			Commit:    "",
+			Name:           "my-file-package",
+			Version:        "0.0.0",
+			TargetVersions: []string{"projects/package-a.tgz"},
+			Ecosystem:      lockfile.NpmEcosystem,
+			CompareAs:      lockfile.NpmEcosystem,
+			Commit:         "",
 		},
 		{
 			Name:      "a-local-package",

@@ -11,7 +11,7 @@ dependencies:
   mocks: github.com/my-org/mocks/590f321b4eb3f692bb211bd74e22947639a6f79d
 
 packages:
-  git@bitbucket.org+my-org/my-bitbucket-project/6104ae42cd32c3d724036d3964678f197b2c9cdb:
+  git@bitbucket.org+my-org/my-bitbucket-package/6104ae42cd32c3d724036d3964678f197b2c9cdb:
     resolution: { commit: 6104ae42cd32c3d724036d3964678f197b2c9cdb, repo: git@bitbucket.org:my-org/my-bitbucket-project.git, type: git }
     name: my-bitbucket-package
     version: 1.0.0
