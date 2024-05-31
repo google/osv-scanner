@@ -58,8 +58,7 @@ func extractArtifactDeps(path string, img *Image) (lockfile.Lockfile, error) {
 				continue
 			}
 
-			err = fmt.Errorf("(extracting as %s) %w", extPair.name, err)
-			return lockfile.Lockfile{}, err
+			return lockfile.Lockfile{}, fmt.Errorf("(extracting as %s) %w", extPair.name, err)
 		}
 
 		extractedAs = extPair.name
