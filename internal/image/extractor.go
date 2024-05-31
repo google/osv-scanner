@@ -54,8 +54,7 @@ func extractArtifactDeps(path string, img *Image) (lockfile.Lockfile, error) {
 	for _, extPair := range foundExtractors {
 		newPackages, err := extPair.extractor.Extract(f)
 		if err != nil {
-
-			if !errors.Is(lockfile.ErrIncompatibleFileFormat, err) {
+			if errors.Is(lockfile.ErrIncompatibleFileFormat, err) {
 				continue
 			}
 
