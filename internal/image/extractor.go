@@ -19,21 +19,26 @@ var artifactExtractors map[string]lockfile.Extractor = map[string]lockfile.Extra
 	"go-binary":     lockfile.GoBinaryExtractor{},
 }
 
-// TODO(another-rex): Return a []struct{} with all the extractors, as currently it's not deterministic which extractor is returned
-func findArtifactExtractor(path string) (lockfile.Extractor, string) {
+type extractorPair struct {
+	extractor lockfile.Extractor
+	name      string
+}
+
+func findArtifactExtractor(path string) []extractorPair {
+	// Use ShouldExtract to collect and return a slice of artifactExtractors
+	var extractors []extractorPair
 	for name, extractor := range artifactExtractors {
 		if extractor.ShouldExtract(path) {
-			return extractor, name
+			extractors = append(extractors, extractorPair{extractor, name})
 		}
 	}
 
-	return nil, ""
+	return extractors
 }
 
 func extractArtifactDeps(path string, img *Image) (lockfile.Lockfile, error) {
-	extractor, extractedAs := findArtifactExtractor(path)
-
-	if extractor == nil {
+	foundExtractors := findArtifactExtractor(path)
+	if len(foundExtractors) == 0 {
 		return lockfile.Lockfile{}, fmt.Errorf("%w for %s", lockfile.ErrExtractorNotFound, path)
 	}
 
@@ -44,12 +49,29 @@ func extractArtifactDeps(path string, img *Image) (lockfile.Lockfile, error) {
 
 	defer f.Close()
 
-	packages, err := extractor.Extract(f)
-	if err != nil && extractedAs != "" {
-		if !errors.Is(lockfile.ErrIncompatibleFileFormat, err) {
-			err = fmt.Errorf("(extracting as %s) %w", extractedAs, err)
+	packages := []lockfile.PackageDetails{}
+	var extractedAs string
+	for _, extPair := range foundExtractors {
+		newPackages, err := extPair.extractor.Extract(f)
+		if err != nil {
+
+			if !errors.Is(lockfile.ErrIncompatibleFileFormat, err) {
+				continue
+			}
+
+			err = fmt.Errorf("(extracting as %s) %w", extPair.name, err)
 			return lockfile.Lockfile{}, err
 		}
+
+		extractedAs = extPair.name
+		packages = newPackages
+		// TODO(rexpan): Determine if this it's acceptable to have multiple extractors
+		// extract from the same file successfully
+		break
+	}
+
+	if extractedAs == "" {
+		return lockfile.Lockfile{}, fmt.Errorf("%w for %s", lockfile.ErrExtractorNotFound, path)
 	}
 
 	// Sort to have deterministic output, and to match behavior of lockfile.extractDeps
