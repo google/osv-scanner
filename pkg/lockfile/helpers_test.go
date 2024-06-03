@@ -83,10 +83,10 @@ func innerExpectPackage(t *testing.T, packages []lockfile.PackageDetails, pkg lo
 	}
 }
 
-func expectPackageWithoutLocations(t *testing.T, packages []lockfile.PackageDetails, pkg lockfile.PackageDetails) {
+func expectPackage(t *testing.T, packages []lockfile.PackageDetails, pkg lockfile.PackageDetails) {
 	t.Helper()
 
-	innerExpectPackage(t, packages, pkg, true)
+	innerExpectPackage(t, packages, pkg, false)
 }
 
 func findMissingPackages(t *testing.T, actualPackages []lockfile.PackageDetails, expectedPackages []lockfile.PackageDetails, ignoreLocations bool) []lockfile.PackageDetails {

@@ -63,7 +63,7 @@ type NpmLockfile struct {
 	Version    int `json:"lockfileVersion"`
 	SourceFile string
 	// npm v1- lockfiles use "dependencies"
-	Dependencies map[string]*NpmLockDependency `json:"dependencies,omitempty"`
+	Dependencies map[string]*NpmLockDependency `json:"dependencies"`
 	// npm v2+ lockfiles use "packages"
 	Packages map[string]*NpmLockPackage `json:"packages,omitempty"`
 }
@@ -155,6 +155,11 @@ func extractNpmPackageName(name string) string {
 	return pkgName
 }
 
+func extractRootKeyPackageName(name string) string {
+	_, right, _ := strings.Cut(name, "/")
+	return right
+}
+
 func (pkg NpmLockPackage) depGroups() []string {
 	if pkg.Dev {
 		return []string{"dev"}
@@ -204,13 +209,45 @@ func parseNpmLockPackages(packages map[string]*NpmLockPackage, path string) map[
 			detail.Version = "0.0.0"
 		}
 
+		// Element "" in packages, contains in its dependencies/devDependencies
+		// the dependencies with the version written as it appears in the package.json
+		var targetVersions []string
+		var targetVersion string
+		rootKey := extractRootKeyPackageName(namePath)
+		if p, ok := packages[""]; ok {
+			if dep, ok := p.Dependencies[rootKey]; ok {
+				targetVersion = dep
+			} else if devDep, ok := p.DevDependencies[rootKey]; ok {
+				targetVersion = devDep
+			}
+		}
+
+		if len(targetVersion) > 0 {
+			// Clean aliased target version
+			if strings.HasPrefix(targetVersion, "npm:") {
+				_, targetVersion, _ = strings.Cut(targetVersion, "@")
+			}
+
+			// Clean some prefixes that may not be included in package.json
+			prefixes := []string{"file", "link", "portal"}
+			for _, prefix := range prefixes {
+				if strings.HasPrefix(targetVersion, prefix+":") {
+					targetVersion = strings.TrimPrefix(targetVersion, prefix+":")
+					targetVersion = strings.TrimPrefix(targetVersion, "./")
+				}
+			}
+
+			targetVersions = []string{targetVersion}
+		}
+
 		_, exists := details[finalName+"@"+finalVersion]
 		if !exists && !detail.Link {
 			details[finalName+"@"+finalVersion] = PackageDetails{
-				Name:      finalName,
-				Version:   detail.Version,
-				Ecosystem: NpmEcosystem,
-				CompareAs: NpmEcosystem,
+				Name:           finalName,
+				Version:        detail.Version,
+				TargetVersions: targetVersions,
+				Ecosystem:      NpmEcosystem,
+				CompareAs:      NpmEcosystem,
 				BlockLocation: models.FilePosition{
 					Line:     detail.Line,
 					Column:   detail.Column,
@@ -237,7 +274,9 @@ func parseNpmLock(lockfile NpmLockfile, lines []string) map[string]PackageDetail
 	return parseNpmLockDependencies(lockfile.Dependencies, lockfile.SourceFile)
 }
 
-type NpmLockExtractor struct{}
+type NpmLockExtractor struct {
+	WithMatcher
+}
 
 func (e NpmLockExtractor) ShouldExtract(path string) bool {
 	return filepath.Base(path) == "package-lock.json"
@@ -262,13 +301,15 @@ func (e NpmLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 	return maps.Values(parseNpmLock(*parsedLockfile, lines)), nil
 }
 
-var _ Extractor = NpmLockExtractor{}
+var NpmExtractor = NpmLockExtractor{
+	WithMatcher{Matcher: PackageJSONMatcher{}},
+}
 
 //nolint:gochecknoinits
 func init() {
-	registerExtractor("package-lock.json", NpmLockExtractor{})
+	registerExtractor("package-lock.json", NpmExtractor)
 }
 
 func ParseNpmLock(pathToLockfile string) ([]PackageDetails, error) {
-	return extractFromFile(pathToLockfile, NpmLockExtractor{})
+	return extractFromFile(pathToLockfile, NpmExtractor)
 }

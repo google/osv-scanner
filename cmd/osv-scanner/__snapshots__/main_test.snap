@@ -649,14 +649,36 @@ Warning: `scan` exists as both a subcommand of OSV-Scanner and as a file on the 
             "ecosystem": "npm",
             "blockLocation": {
               "line": {
-                "start": 13,
-                "end": 23
+                "start": 3,
+                "end": 3
               },
               "column": {
                 "start": 5,
-                "end": 6
+                "end": 23
               },
-              "file_name": "<rootdir>/fixtures/locks-licenses/package-lock.json"
+              "file_name": "<rootdir>/fixtures/locks-licenses/package.json"
+            },
+            "versionLocation": {
+              "line": {
+                "start": 3,
+                "end": 3
+              },
+              "column": {
+                "start": 15,
+                "end": 22
+              },
+              "file_name": "<rootdir>/fixtures/locks-licenses/package.json"
+            },
+            "nameLocation": {
+              "line": {
+                "start": 3,
+                "end": 3
+              },
+              "column": {
+                "start": 6,
+                "end": 11
+              },
+              "file_name": "<rootdir>/fixtures/locks-licenses/package.json"
             }
           },
           "licenses": [
@@ -670,14 +692,36 @@ Warning: `scan` exists as both a subcommand of OSV-Scanner and as a file on the 
             "ecosystem": "npm",
             "blockLocation": {
               "line": {
-                "start": 24,
-                "end": 31
+                "start": 4,
+                "end": 4
               },
               "column": {
                 "start": 5,
-                "end": 6
+                "end": 30
               },
-              "file_name": "<rootdir>/fixtures/locks-licenses/package-lock.json"
+              "file_name": "<rootdir>/fixtures/locks-licenses/package.json"
+            },
+            "versionLocation": {
+              "line": {
+                "start": 4,
+                "end": 4
+              },
+              "column": {
+                "start": 23,
+                "end": 29
+              },
+              "file_name": "<rootdir>/fixtures/locks-licenses/package.json"
+            },
+            "nameLocation": {
+              "line": {
+                "start": 4,
+                "end": 4
+              },
+              "column": {
+                "start": 6,
+                "end": 19
+              },
+              "file_name": "<rootdir>/fixtures/locks-licenses/package.json"
             }
           },
           "licenses": [
@@ -691,14 +735,36 @@ Warning: `scan` exists as both a subcommand of OSV-Scanner and as a file on the 
             "ecosystem": "npm",
             "blockLocation": {
               "line": {
-                "start": 32,
-                "end": 36
+                "start": 5,
+                "end": 5
               },
               "column": {
                 "start": 5,
-                "end": 6
+                "end": 19
               },
-              "file_name": "<rootdir>/fixtures/locks-licenses/package-lock.json"
+              "file_name": "<rootdir>/fixtures/locks-licenses/package.json"
+            },
+            "versionLocation": {
+              "line": {
+                "start": 5,
+                "end": 5
+              },
+              "column": {
+                "start": 12,
+                "end": 18
+              },
+              "file_name": "<rootdir>/fixtures/locks-licenses/package.json"
+            },
+            "nameLocation": {
+              "line": {
+                "start": 5,
+                "end": 5
+              },
+              "column": {
+                "start": 6,
+                "end": 8
+              },
+              "file_name": "<rootdir>/fixtures/locks-licenses/package.json"
             }
           },
           "licenses": [
@@ -716,11 +782,25 @@ Warning: `scan` exists as both a subcommand of OSV-Scanner and as a file on the 
       "Locations": [
         {
           "block": {
-            "file_name": "<rootdir>/fixtures/locks-licenses/package-lock.json",
-            "line_start": 13,
-            "line_end": 23,
+            "file_name": "<rootdir>/fixtures/locks-licenses/package.json",
+            "line_start": 3,
+            "line_end": 3,
             "column_start": 5,
-            "column_end": 6
+            "column_end": 23
+          },
+          "name": {
+            "file_name": "<rootdir>/fixtures/locks-licenses/package.json",
+            "line_start": 3,
+            "line_end": 3,
+            "column_start": 6,
+            "column_end": 11
+          },
+          "version": {
+            "file_name": "<rootdir>/fixtures/locks-licenses/package.json",
+            "line_start": 3,
+            "line_end": 3,
+            "column_start": 15,
+            "column_end": 22
           }
         }
       ]
@@ -732,11 +812,25 @@ Warning: `scan` exists as both a subcommand of OSV-Scanner and as a file on the 
       "Locations": [
         {
           "block": {
-            "file_name": "<rootdir>/fixtures/locks-licenses/package-lock.json",
-            "line_start": 24,
-            "line_end": 31,
+            "file_name": "<rootdir>/fixtures/locks-licenses/package.json",
+            "line_start": 4,
+            "line_end": 4,
             "column_start": 5,
-            "column_end": 6
+            "column_end": 30
+          },
+          "name": {
+            "file_name": "<rootdir>/fixtures/locks-licenses/package.json",
+            "line_start": 4,
+            "line_end": 4,
+            "column_start": 6,
+            "column_end": 19
+          },
+          "version": {
+            "file_name": "<rootdir>/fixtures/locks-licenses/package.json",
+            "line_start": 4,
+            "line_end": 4,
+            "column_start": 23,
+            "column_end": 29
           }
         }
       ]
@@ -748,11 +842,25 @@ Warning: `scan` exists as both a subcommand of OSV-Scanner and as a file on the 
       "Locations": [
         {
           "block": {
-            "file_name": "<rootdir>/fixtures/locks-licenses/package-lock.json",
-            "line_start": 32,
-            "line_end": 36,
+            "file_name": "<rootdir>/fixtures/locks-licenses/package.json",
+            "line_start": 5,
+            "line_end": 5,
             "column_start": 5,
-            "column_end": 6
+            "column_end": 19
+          },
+          "name": {
+            "file_name": "<rootdir>/fixtures/locks-licenses/package.json",
+            "line_start": 5,
+            "line_end": 5,
+            "column_start": 6,
+            "column_end": 8
+          },
+          "version": {
+            "file_name": "<rootdir>/fixtures/locks-licenses/package.json",
+            "line_start": 5,
+            "line_end": 5,
+            "column_start": 12,
+            "column_end": 18
           }
         }
       ]
@@ -790,14 +898,36 @@ Scanned <rootdir>/fixtures/locks-licenses/package-lock.json file and found 3 pac
             "ecosystem": "npm",
             "blockLocation": {
               "line": {
-                "start": 13,
-                "end": 23
+                "start": 3,
+                "end": 3
               },
               "column": {
                 "start": 5,
-                "end": 6
+                "end": 23
               },
-              "file_name": "<rootdir>/fixtures/locks-licenses/package-lock.json"
+              "file_name": "<rootdir>/fixtures/locks-licenses/package.json"
+            },
+            "versionLocation": {
+              "line": {
+                "start": 3,
+                "end": 3
+              },
+              "column": {
+                "start": 15,
+                "end": 22
+              },
+              "file_name": "<rootdir>/fixtures/locks-licenses/package.json"
+            },
+            "nameLocation": {
+              "line": {
+                "start": 3,
+                "end": 3
+              },
+              "column": {
+                "start": 6,
+                "end": 11
+              },
+              "file_name": "<rootdir>/fixtures/locks-licenses/package.json"
             }
           },
           "licenses": [
@@ -811,14 +941,36 @@ Scanned <rootdir>/fixtures/locks-licenses/package-lock.json file and found 3 pac
             "ecosystem": "npm",
             "blockLocation": {
               "line": {
-                "start": 24,
-                "end": 31
+                "start": 4,
+                "end": 4
               },
               "column": {
                 "start": 5,
-                "end": 6
+                "end": 30
               },
-              "file_name": "<rootdir>/fixtures/locks-licenses/package-lock.json"
+              "file_name": "<rootdir>/fixtures/locks-licenses/package.json"
+            },
+            "versionLocation": {
+              "line": {
+                "start": 4,
+                "end": 4
+              },
+              "column": {
+                "start": 23,
+                "end": 29
+              },
+              "file_name": "<rootdir>/fixtures/locks-licenses/package.json"
+            },
+            "nameLocation": {
+              "line": {
+                "start": 4,
+                "end": 4
+              },
+              "column": {
+                "start": 6,
+                "end": 19
+              },
+              "file_name": "<rootdir>/fixtures/locks-licenses/package.json"
             }
           },
           "licenses": [
@@ -832,14 +984,36 @@ Scanned <rootdir>/fixtures/locks-licenses/package-lock.json file and found 3 pac
             "ecosystem": "npm",
             "blockLocation": {
               "line": {
-                "start": 32,
-                "end": 36
+                "start": 5,
+                "end": 5
               },
               "column": {
                 "start": 5,
-                "end": 6
+                "end": 19
               },
-              "file_name": "<rootdir>/fixtures/locks-licenses/package-lock.json"
+              "file_name": "<rootdir>/fixtures/locks-licenses/package.json"
+            },
+            "versionLocation": {
+              "line": {
+                "start": 5,
+                "end": 5
+              },
+              "column": {
+                "start": 12,
+                "end": 18
+              },
+              "file_name": "<rootdir>/fixtures/locks-licenses/package.json"
+            },
+            "nameLocation": {
+              "line": {
+                "start": 5,
+                "end": 5
+              },
+              "column": {
+                "start": 6,
+                "end": 8
+              },
+              "file_name": "<rootdir>/fixtures/locks-licenses/package.json"
             }
           },
           "licenses": [
@@ -857,11 +1031,25 @@ Scanned <rootdir>/fixtures/locks-licenses/package-lock.json file and found 3 pac
       "Locations": [
         {
           "block": {
-            "file_name": "<rootdir>/fixtures/locks-licenses/package-lock.json",
-            "line_start": 13,
-            "line_end": 23,
+            "file_name": "<rootdir>/fixtures/locks-licenses/package.json",
+            "line_start": 3,
+            "line_end": 3,
             "column_start": 5,
-            "column_end": 6
+            "column_end": 23
+          },
+          "name": {
+            "file_name": "<rootdir>/fixtures/locks-licenses/package.json",
+            "line_start": 3,
+            "line_end": 3,
+            "column_start": 6,
+            "column_end": 11
+          },
+          "version": {
+            "file_name": "<rootdir>/fixtures/locks-licenses/package.json",
+            "line_start": 3,
+            "line_end": 3,
+            "column_start": 15,
+            "column_end": 22
           }
         }
       ]
@@ -873,11 +1061,25 @@ Scanned <rootdir>/fixtures/locks-licenses/package-lock.json file and found 3 pac
       "Locations": [
         {
           "block": {
-            "file_name": "<rootdir>/fixtures/locks-licenses/package-lock.json",
-            "line_start": 24,
-            "line_end": 31,
+            "file_name": "<rootdir>/fixtures/locks-licenses/package.json",
+            "line_start": 4,
+            "line_end": 4,
             "column_start": 5,
-            "column_end": 6
+            "column_end": 30
+          },
+          "name": {
+            "file_name": "<rootdir>/fixtures/locks-licenses/package.json",
+            "line_start": 4,
+            "line_end": 4,
+            "column_start": 6,
+            "column_end": 19
+          },
+          "version": {
+            "file_name": "<rootdir>/fixtures/locks-licenses/package.json",
+            "line_start": 4,
+            "line_end": 4,
+            "column_start": 23,
+            "column_end": 29
           }
         }
       ]
@@ -889,11 +1091,25 @@ Scanned <rootdir>/fixtures/locks-licenses/package-lock.json file and found 3 pac
       "Locations": [
         {
           "block": {
-            "file_name": "<rootdir>/fixtures/locks-licenses/package-lock.json",
-            "line_start": 32,
-            "line_end": 36,
+            "file_name": "<rootdir>/fixtures/locks-licenses/package.json",
+            "line_start": 5,
+            "line_end": 5,
             "column_start": 5,
-            "column_end": 6
+            "column_end": 19
+          },
+          "name": {
+            "file_name": "<rootdir>/fixtures/locks-licenses/package.json",
+            "line_start": 5,
+            "line_end": 5,
+            "column_start": 6,
+            "column_end": 8
+          },
+          "version": {
+            "file_name": "<rootdir>/fixtures/locks-licenses/package.json",
+            "line_start": 5,
+            "line_end": 5,
+            "column_start": 12,
+            "column_end": 18
           }
         }
       ]
@@ -980,14 +1196,36 @@ Filtered 1 vulnerability from output
             "ecosystem": "npm",
             "blockLocation": {
               "line": {
-                "start": 13,
-                "end": 23
+                "start": 3,
+                "end": 3
               },
               "column": {
                 "start": 5,
-                "end": 6
+                "end": 23
               },
-              "file_name": "<rootdir>/fixtures/locks-licenses/package-lock.json"
+              "file_name": "<rootdir>/fixtures/locks-licenses/package.json"
+            },
+            "versionLocation": {
+              "line": {
+                "start": 3,
+                "end": 3
+              },
+              "column": {
+                "start": 15,
+                "end": 22
+              },
+              "file_name": "<rootdir>/fixtures/locks-licenses/package.json"
+            },
+            "nameLocation": {
+              "line": {
+                "start": 3,
+                "end": 3
+              },
+              "column": {
+                "start": 6,
+                "end": 11
+              },
+              "file_name": "<rootdir>/fixtures/locks-licenses/package.json"
             }
           },
           "licenses": [
@@ -1001,14 +1239,36 @@ Filtered 1 vulnerability from output
             "ecosystem": "npm",
             "blockLocation": {
               "line": {
-                "start": 24,
-                "end": 31
+                "start": 4,
+                "end": 4
               },
               "column": {
                 "start": 5,
-                "end": 6
+                "end": 30
               },
-              "file_name": "<rootdir>/fixtures/locks-licenses/package-lock.json"
+              "file_name": "<rootdir>/fixtures/locks-licenses/package.json"
+            },
+            "versionLocation": {
+              "line": {
+                "start": 4,
+                "end": 4
+              },
+              "column": {
+                "start": 23,
+                "end": 29
+              },
+              "file_name": "<rootdir>/fixtures/locks-licenses/package.json"
+            },
+            "nameLocation": {
+              "line": {
+                "start": 4,
+                "end": 4
+              },
+              "column": {
+                "start": 6,
+                "end": 19
+              },
+              "file_name": "<rootdir>/fixtures/locks-licenses/package.json"
             }
           },
           "licenses": [
@@ -1025,14 +1285,36 @@ Filtered 1 vulnerability from output
             "ecosystem": "npm",
             "blockLocation": {
               "line": {
-                "start": 32,
-                "end": 36
+                "start": 5,
+                "end": 5
               },
               "column": {
                 "start": 5,
-                "end": 6
+                "end": 19
               },
-              "file_name": "<rootdir>/fixtures/locks-licenses/package-lock.json"
+              "file_name": "<rootdir>/fixtures/locks-licenses/package.json"
+            },
+            "versionLocation": {
+              "line": {
+                "start": 5,
+                "end": 5
+              },
+              "column": {
+                "start": 12,
+                "end": 18
+              },
+              "file_name": "<rootdir>/fixtures/locks-licenses/package.json"
+            },
+            "nameLocation": {
+              "line": {
+                "start": 5,
+                "end": 5
+              },
+              "column": {
+                "start": 6,
+                "end": 8
+              },
+              "file_name": "<rootdir>/fixtures/locks-licenses/package.json"
             }
           },
           "licenses": [
@@ -1050,11 +1332,25 @@ Filtered 1 vulnerability from output
       "Locations": [
         {
           "block": {
-            "file_name": "<rootdir>/fixtures/locks-licenses/package-lock.json",
-            "line_start": 13,
-            "line_end": 23,
+            "file_name": "<rootdir>/fixtures/locks-licenses/package.json",
+            "line_start": 3,
+            "line_end": 3,
             "column_start": 5,
-            "column_end": 6
+            "column_end": 23
+          },
+          "name": {
+            "file_name": "<rootdir>/fixtures/locks-licenses/package.json",
+            "line_start": 3,
+            "line_end": 3,
+            "column_start": 6,
+            "column_end": 11
+          },
+          "version": {
+            "file_name": "<rootdir>/fixtures/locks-licenses/package.json",
+            "line_start": 3,
+            "line_end": 3,
+            "column_start": 15,
+            "column_end": 22
           }
         }
       ]
@@ -1066,11 +1362,25 @@ Filtered 1 vulnerability from output
       "Locations": [
         {
           "block": {
-            "file_name": "<rootdir>/fixtures/locks-licenses/package-lock.json",
-            "line_start": 24,
-            "line_end": 31,
+            "file_name": "<rootdir>/fixtures/locks-licenses/package.json",
+            "line_start": 4,
+            "line_end": 4,
             "column_start": 5,
-            "column_end": 6
+            "column_end": 30
+          },
+          "name": {
+            "file_name": "<rootdir>/fixtures/locks-licenses/package.json",
+            "line_start": 4,
+            "line_end": 4,
+            "column_start": 6,
+            "column_end": 19
+          },
+          "version": {
+            "file_name": "<rootdir>/fixtures/locks-licenses/package.json",
+            "line_start": 4,
+            "line_end": 4,
+            "column_start": 23,
+            "column_end": 29
           }
         }
       ]
@@ -1082,11 +1392,25 @@ Filtered 1 vulnerability from output
       "Locations": [
         {
           "block": {
-            "file_name": "<rootdir>/fixtures/locks-licenses/package-lock.json",
-            "line_start": 32,
-            "line_end": 36,
+            "file_name": "<rootdir>/fixtures/locks-licenses/package.json",
+            "line_start": 5,
+            "line_end": 5,
             "column_start": 5,
-            "column_end": 6
+            "column_end": 19
+          },
+          "name": {
+            "file_name": "<rootdir>/fixtures/locks-licenses/package.json",
+            "line_start": 5,
+            "line_end": 5,
+            "column_start": 6,
+            "column_end": 8
+          },
+          "version": {
+            "file_name": "<rootdir>/fixtures/locks-licenses/package.json",
+            "line_start": 5,
+            "line_end": 5,
+            "column_start": 12,
+            "column_end": 18
           }
         }
       ]
@@ -1126,14 +1450,36 @@ Scanned <rootdir>/fixtures/locks-licenses/package-lock.json file and found 3 pac
             "ecosystem": "npm",
             "blockLocation": {
               "line": {
-                "start": 24,
-                "end": 31
+                "start": 4,
+                "end": 4
               },
               "column": {
                 "start": 5,
-                "end": 6
+                "end": 30
               },
-              "file_name": "<rootdir>/fixtures/locks-licenses/package-lock.json"
+              "file_name": "<rootdir>/fixtures/locks-licenses/package.json"
+            },
+            "versionLocation": {
+              "line": {
+                "start": 4,
+                "end": 4
+              },
+              "column": {
+                "start": 23,
+                "end": 29
+              },
+              "file_name": "<rootdir>/fixtures/locks-licenses/package.json"
+            },
+            "nameLocation": {
+              "line": {
+                "start": 4,
+                "end": 4
+              },
+              "column": {
+                "start": 6,
+                "end": 19
+              },
+              "file_name": "<rootdir>/fixtures/locks-licenses/package.json"
             }
           },
           "licenses": [
@@ -1154,11 +1500,25 @@ Scanned <rootdir>/fixtures/locks-licenses/package-lock.json file and found 3 pac
       "Locations": [
         {
           "block": {
-            "file_name": "<rootdir>/fixtures/locks-licenses/package-lock.json",
-            "line_start": 24,
-            "line_end": 31,
+            "file_name": "<rootdir>/fixtures/locks-licenses/package.json",
+            "line_start": 4,
+            "line_end": 4,
             "column_start": 5,
-            "column_end": 6
+            "column_end": 30
+          },
+          "name": {
+            "file_name": "<rootdir>/fixtures/locks-licenses/package.json",
+            "line_start": 4,
+            "line_end": 4,
+            "column_start": 6,
+            "column_end": 19
+          },
+          "version": {
+            "file_name": "<rootdir>/fixtures/locks-licenses/package.json",
+            "line_start": 4,
+            "line_end": 4,
+            "column_start": 23,
+            "column_end": 29
           }
         }
       ]

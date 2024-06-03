@@ -1,0 +1,6 @@
+{
+  "name": "osv-scanner",
+  "dependencies": {
+    "wrappy": "1"
+  }
+}

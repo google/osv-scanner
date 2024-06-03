@@ -49,13 +49,14 @@ func copyFile(t *testing.T, from, to string) string {
 	return to
 }
 
-func testParsingNodeModules(t *testing.T, fixture string) ([]lockfile.PackageDetails, error) {
+func testParsingNodeModules(t *testing.T, fixture string) ([]lockfile.PackageDetails, string, error) {
 	t.Helper()
 
 	testDir, cleanupTestDir := createTestDirWithNodeModulesDir(t)
 	defer cleanupTestDir()
 
-	file := copyFile(t, fixture, filepath.Join(testDir, "node_modules", ".package-lock.json"))
+	filePath := filepath.Join(testDir, "node_modules", ".package-lock.json")
+	file := copyFile(t, fixture, filePath)
 
 	f, err := lockfile.OpenLocalDepFile(file)
 
@@ -65,7 +66,9 @@ func testParsingNodeModules(t *testing.T, fixture string) ([]lockfile.PackageDet
 
 	defer f.Close()
 
-	return lockfile.NodeModulesExtractor{}.Extract(f)
+	packages, err := lockfile.NodeModulesExtractor{}.Extract(f)
+
+	return packages, filePath, err
 }
 
 func TestNodeModulesExtractor_ShouldExtract(t *testing.T) {
