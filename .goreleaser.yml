@@ -2,10 +2,7 @@ before:
   hooks:
     - go mod tidy
 builds:
-  - main: ./cmd/osv-scanner/
-    id: osv-scanner
-    binary: osv-scanner
-    env:
+  - env:
       # goreleaser does not work with CGO, it could also complicate
       # usage by users in CI/CD systems like Terraform Cloud where
       # they are unable to install libraries.
@@ -30,41 +27,7 @@ builds:
       # Further testing before supporting arm
       # - arm
       - arm64
-  - main: ./cmd/osv-scanner/
-    id: osv-scanner-action
-    binary: osv-scanner-action
-    env:
-      # goreleaser does not work with CGO, it could also complicate
-      # usage by users in CI/CD systems like Terraform Cloud where
-      # they are unable to install libraries.
-      - CGO_ENABLED=0
-      - GO111MODULE=on
-    mod_timestamp: "{{ .CommitTimestamp }}"
-    flags:
-      - -trimpath
-    ldflags:
-      # prettier-ignore
-      - '-s -w -X github.com/google/osv-scanner/internal/version.OSVVersion={{.Version}}_GHAction -X main.commit={{.Commit}} -X main.date={{.CommitDate}}'
-    goos:
-      - linux
-    goarch:
-      - amd64
-  - main: ./cmd/osv-reporter/
-    id: osv-reporter
-    binary: osv-reporter
-    env: # osv-reporter for github action
-      - CGO_ENABLED=0
-      - GO111MODULE=on
-    mod_timestamp: "{{ .CommitTimestamp }}"
-    flags:
-      - -trimpath
-    ldflags:
-      # prettier-ignore
-      - '-s -w -X github.com/google/osv-scanner/internal/version.OSVVersion={{.Version}} -X main.commit={{.Commit}} -X main.date={{.CommitDate}}'
-    goos:
-      - linux
-    goarch:
-      - amd64
+    main: ./cmd/osv-scanner/
 
 archives:
   - format: zip
