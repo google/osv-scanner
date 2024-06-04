@@ -35,6 +35,27 @@ func depTypeWithOrigin(origin string) dep.Type {
 	return result
 }
 
+func mavenReqKey(t *testing.T, name, artifactType, classifier string) manifest.RequirementKey {
+	t.Helper()
+	var typ dep.Type
+	if artifactType != "" {
+		typ.AddAttr(dep.MavenArtifactType, artifactType)
+	}
+	if classifier != "" {
+		typ.AddAttr(dep.MavenClassifier, classifier)
+	}
+
+	return manifest.MakeRequirementKey(resolve.RequirementVersion{
+		VersionKey: resolve.VersionKey{
+			PackageKey: resolve.PackageKey{
+				Name:   name,
+				System: resolve.Maven,
+			},
+		},
+		Type: typ,
+	})
+}
+
 func TestMavenRead(t *testing.T) {
 	t.Parallel()
 
@@ -46,13 +67,14 @@ func TestMavenRead(t *testing.T) {
 	  <version>1.2.3</version>
 	  <packaging>pom</packaging>
 	  <properties>
+			<bbb.artifact>bbb</bbb.artifact>
 		  <bbb.version>2.2.2</bbb.version>
 	  </properties>
 	  <dependencyManagement>
 		<dependencies>
 		  <dependency>
 			<groupId>org.example</groupId>
-			<artifactId>bbb</artifactId>
+			<artifactId>${bbb.artifact}</artifactId>
 			<version>${bbb.version}</version>
 		  </dependency>
 		</dependencies>
@@ -138,7 +160,7 @@ func TestMavenRead(t *testing.T) {
 					VersionType: resolve.Requirement,
 					Version:     "4.12",
 				},
-				Type: dep.NewType(dep.Test),
+				// Type: dep.NewType(dep.Test), test scope is ignored to make resolution work.
 			},
 			{
 				VersionKey: resolve.VersionKey{
@@ -206,12 +228,13 @@ func TestMavenRead(t *testing.T) {
 				Type: depPlugin,
 			},
 		},
-		Groups: map[resolve.PackageKey][]string{
-			{System: resolve.Maven, Name: "junit:junit"}:    {"test"},
-			{System: resolve.Maven, Name: "org.import:xyz"}: {"import"},
+		Groups: map[manifest.RequirementKey][]string{
+			mavenReqKey(t, "junit:junit", "", ""):       {"test"},
+			mavenReqKey(t, "org.import:xyz", "pom", ""): {"import"},
 		},
 		EcosystemSpecific: manifest.MavenManifestSpecific{
 			Properties: []manifest.PropertyWithOrigin{
+				{Property: maven.Property{Name: "bbb.artifact", Value: "bbb"}},
 				{Property: maven.Property{Name: "bbb.version", Value: "2.2.2"}},
 				{Property: maven.Property{Name: "aaa.version", Value: "1.1.1"}},
 
@@ -231,7 +254,7 @@ func TestMavenRead(t *testing.T) {
 						VersionType: resolve.Requirement,
 						Version:     "${junit.version}",
 					},
-					Type: dep.NewType(dep.Test),
+					// Type: dep.NewType(dep.Test), test scope is ignored to make resolution work.
 				},
 				{
 					VersionKey: resolve.VersionKey{
@@ -259,7 +282,7 @@ func TestMavenRead(t *testing.T) {
 					VersionKey: resolve.VersionKey{
 						PackageKey: resolve.PackageKey{
 							System: resolve.Maven,
-							Name:   "org.example:bbb",
+							Name:   "org.example:${bbb.artifact}",
 						},
 						VersionType: resolve.Requirement,
 						Version:     "${bbb.version}",
