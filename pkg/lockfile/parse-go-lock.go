@@ -18,6 +18,7 @@ import (
 )
 
 const GoEcosystem Ecosystem = "Go"
+const unknownVersion = "v0.0.0-unresolved-version"
 
 func deduplicatePackages(packages map[string]PackageDetails) map[string]PackageDetails {
 	details := map[string]PackageDetails{}
@@ -44,8 +45,8 @@ func defaultNonCanonicalVersions(path, version string) (string, error) {
 
 	if resolvedVersion == "" {
 		// If it is still not resolved, we default on 0.0.0 as we do with other package managers
-		_, _ = fmt.Fprintf(os.Stderr, "%s@%s is not a canonical path, defaulting to v0.0.0\n", path, resolvedVersion)
-		return "v0.0.0", nil
+		_, _ = fmt.Fprintf(os.Stderr, "%s@%s is not a canonical path, defaulting to %s\n", path, resolvedVersion, unknownVersion)
+		return unknownVersion, nil
 	}
 
 	return resolvedVersion, nil
@@ -98,6 +99,10 @@ func (e GoLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 		name := require.Mod.Path
 		version := strings.TrimPrefix(require.Mod.Version, "v")
 
+		if require.Mod.Version == unknownVersion {
+			version = ""
+		}
+
 		blockLocation, nameLocation, versionLocation := extractLocations(block, start, end, f.Path(), name, version)
 		packages[require.Mod.Path+"@"+require.Mod.Version] = PackageDetails{
 			Name:            name,
@@ -137,6 +142,10 @@ func (e GoLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 		for _, replacement := range replacements {
 			version := strings.TrimPrefix(replace.New.Version, "v")
 			name := replace.New.Path
+
+			if replace.New.Version == unknownVersion {
+				version = ""
+			}
 
 			blockLocation, nameLocation, versionLocation := extractLocations(block, start, end, f.Path(), name, version)
 			packages[replacement] = PackageDetails{

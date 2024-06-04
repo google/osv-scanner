@@ -881,7 +881,7 @@ func DoScan(actions ScannerActions, r reporter.Reporter) (models.VulnerabilityRe
 	overrideGoVersion(r, filteredScannedPackages, &configManager)
 
 	if actions.OnlyPackages {
-		vulnerabilityResults := groupBySource(r, filteredScannedPackages, actions)
+		vulnerabilityResults := groupBySource(r, scannedPackages, actions)
 
 		return vulnerabilityResults, nil
 	}

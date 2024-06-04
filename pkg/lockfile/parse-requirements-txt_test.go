@@ -117,7 +117,7 @@ func TestParseRequirementsTxt_OneRequirementUnconstrained(t *testing.T) {
 	expectPackages(t, packages, []lockfile.PackageDetails{
 		{
 			Name:      "flask",
-			Version:   "0.0.0",
+			Version:   "",
 			Ecosystem: lockfile.PipEcosystem,
 			CompareAs: lockfile.PipEcosystem,
 			BlockLocation: models.FilePosition{
@@ -493,7 +493,7 @@ func TestParseRequirementsTxt_MultipleRequirementsMixed(t *testing.T) {
 	expectPackages(t, packages, []lockfile.PackageDetails{
 		{
 			Name:      "flask",
-			Version:   "0.0.0",
+			Version:   "",
 			Ecosystem: lockfile.PipEcosystem,
 			CompareAs: lockfile.PipEcosystem,
 			BlockLocation: models.FilePosition{
@@ -510,7 +510,7 @@ func TestParseRequirementsTxt_MultipleRequirementsMixed(t *testing.T) {
 		},
 		{
 			Name:      "flask-cors",
-			Version:   "0.0.0",
+			Version:   "",
 			Ecosystem: lockfile.PipEcosystem,
 			CompareAs: lockfile.PipEcosystem,
 			BlockLocation: models.FilePosition{
@@ -593,7 +593,7 @@ func TestParseRequirementsTxt_MultipleRequirementsMixed(t *testing.T) {
 		},
 		{
 			Name:      "sklearn",
-			Version:   "0.0.0",
+			Version:   "",
 			Ecosystem: lockfile.PipEcosystem,
 			CompareAs: lockfile.PipEcosystem,
 			BlockLocation: models.FilePosition{
@@ -610,7 +610,7 @@ func TestParseRequirementsTxt_MultipleRequirementsMixed(t *testing.T) {
 		},
 		{
 			Name:      "requests",
-			Version:   "0.0.0",
+			Version:   "",
 			Ecosystem: lockfile.PipEcosystem,
 			CompareAs: lockfile.PipEcosystem,
 			BlockLocation: models.FilePosition{
@@ -627,7 +627,7 @@ func TestParseRequirementsTxt_MultipleRequirementsMixed(t *testing.T) {
 		},
 		{
 			Name:      "gevent",
-			Version:   "0.0.0",
+			Version:   "",
 			Ecosystem: lockfile.PipEcosystem,
 			CompareAs: lockfile.PipEcosystem,
 			BlockLocation: models.FilePosition{
@@ -662,7 +662,7 @@ func TestParseRequirementsTxt_FileFormatExample(t *testing.T) {
 	expectPackages(t, packages, []lockfile.PackageDetails{
 		{
 			Name:      "pytest",
-			Version:   "0.0.0",
+			Version:   "",
 			Ecosystem: lockfile.PipEcosystem,
 			CompareAs: lockfile.PipEcosystem,
 			BlockLocation: models.FilePosition{
@@ -679,7 +679,7 @@ func TestParseRequirementsTxt_FileFormatExample(t *testing.T) {
 		},
 		{
 			Name:      "pytest-cov",
-			Version:   "0.0.0",
+			Version:   "",
 			Ecosystem: lockfile.PipEcosystem,
 			CompareAs: lockfile.PipEcosystem,
 			BlockLocation: models.FilePosition{
@@ -696,7 +696,7 @@ func TestParseRequirementsTxt_FileFormatExample(t *testing.T) {
 		},
 		{
 			Name:      "beautifulsoup4",
-			Version:   "0.0.0",
+			Version:   "",
 			Ecosystem: lockfile.PipEcosystem,
 			CompareAs: lockfile.PipEcosystem,
 			BlockLocation: models.FilePosition{
@@ -757,7 +757,7 @@ func TestParseRequirementsTxt_FileFormatExample(t *testing.T) {
 		},
 		{
 			Name:      "coverage",
-			Version:   "0.0.0",
+			Version:   "",
 			Ecosystem: lockfile.PipEcosystem,
 			CompareAs: lockfile.PipEcosystem,
 			BlockLocation: models.FilePosition{
@@ -796,7 +796,7 @@ func TestParseRequirementsTxt_FileFormatExample(t *testing.T) {
 		},
 		{
 			Name:      "rejected",
-			Version:   "0.0.0",
+			Version:   "",
 			Ecosystem: lockfile.PipEcosystem,
 			CompareAs: lockfile.PipEcosystem,
 			BlockLocation: models.FilePosition{
@@ -813,7 +813,7 @@ func TestParseRequirementsTxt_FileFormatExample(t *testing.T) {
 		},
 		{
 			Name:      "green",
-			Version:   "0.0.0",
+			Version:   "",
 			Ecosystem: lockfile.PipEcosystem,
 			CompareAs: lockfile.PipEcosystem,
 			BlockLocation: models.FilePosition{
@@ -993,7 +993,7 @@ func TestParseRequirementsTxt_WithMultipleROptions(t *testing.T) {
 	expectPackages(t, packages, []lockfile.PackageDetails{
 		{
 			Name:      "flask",
-			Version:   "0.0.0",
+			Version:   "",
 			Ecosystem: lockfile.PipEcosystem,
 			CompareAs: lockfile.PipEcosystem,
 			BlockLocation: models.FilePosition{
@@ -1010,7 +1010,7 @@ func TestParseRequirementsTxt_WithMultipleROptions(t *testing.T) {
 		},
 		{
 			Name:      "flask-cors",
-			Version:   "0.0.0",
+			Version:   "",
 			Ecosystem: lockfile.PipEcosystem,
 			CompareAs: lockfile.PipEcosystem,
 			BlockLocation: models.FilePosition{
@@ -1093,7 +1093,7 @@ func TestParseRequirementsTxt_WithMultipleROptions(t *testing.T) {
 		},
 		{
 			Name:      "sklearn",
-			Version:   "0.0.0",
+			Version:   "",
 			Ecosystem: lockfile.PipEcosystem,
 			CompareAs: lockfile.PipEcosystem,
 			BlockLocation: models.FilePosition{
@@ -1110,7 +1110,7 @@ func TestParseRequirementsTxt_WithMultipleROptions(t *testing.T) {
 		},
 		{
 			Name:      "requests",
-			Version:   "0.0.0",
+			Version:   "",
 			Ecosystem: lockfile.PipEcosystem,
 			CompareAs: lockfile.PipEcosystem,
 			BlockLocation: models.FilePosition{
@@ -1127,7 +1127,7 @@ func TestParseRequirementsTxt_WithMultipleROptions(t *testing.T) {
 		},
 		{
 			Name:      "gevent",
-			Version:   "0.0.0",
+			Version:   "",
 			Ecosystem: lockfile.PipEcosystem,
 			CompareAs: lockfile.PipEcosystem,
 			BlockLocation: models.FilePosition{
@@ -1717,7 +1717,7 @@ func TestParseRequirementsTxt_EnvironmentMarkers(t *testing.T) {
 	expectPackages(t, packages, []lockfile.PackageDetails{
 		{
 			Name:      "aa",
-			Version:   "0.0.0",
+			Version:   "",
 			Ecosystem: lockfile.PipEcosystem,
 			CompareAs: lockfile.PipEcosystem,
 			BlockLocation: models.FilePosition{
@@ -1735,7 +1735,7 @@ func TestParseRequirementsTxt_EnvironmentMarkers(t *testing.T) {
 		},
 		{
 			Name:      "name6",
-			Version:   "0.0.0",
+			Version:   "",
 			Ecosystem: lockfile.PipEcosystem,
 			CompareAs: lockfile.PipEcosystem,
 			BlockLocation: models.FilePosition{
@@ -1793,7 +1793,7 @@ func TestParseRequirementsTxt_GitUrlPackages(t *testing.T) {
 	expectPackages(t, packages, []lockfile.PackageDetails{
 		{
 			Name:      "pyroxy",
-			Version:   "0.0.0",
+			Version:   "",
 			Ecosystem: lockfile.PipEcosystem,
 			CompareAs: lockfile.PipEcosystem,
 			BlockLocation: models.FilePosition{

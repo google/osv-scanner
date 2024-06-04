@@ -132,7 +132,7 @@ func (mld MavenLockDependency) ResolveVersion(lockfile MavenLockFile) (string, *
 	results := versionRequirementReg.FindStringSubmatch(version)
 
 	if results == nil || results[1] == "" {
-		return "0", nil
+		return "", nil
 	}
 
 	return results[1], position

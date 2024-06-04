@@ -17,10 +17,14 @@ func ToCycloneDX14Bom(_ io.Writer, uniquePackages map[string]models.PackageDetai
 	for packageURL, packageDetail := range uniquePackages {
 		component := cyclonedx.Component{}
 		component.Name = packageDetail.Name
-		component.Version = packageDetail.Version
 		component.BOMRef = packageURL
 		component.PackageURL = packageURL
 		component.Type = componentType
+
+		if packageDetail.Version != "" {
+			component.Version = packageDetail.Version
+		}
+
 		components = append(components, component)
 	}
 	bom.Components = &components

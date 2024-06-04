@@ -46,5 +46,5 @@ func (sys Ecosystem) IsDevGroup(groups []string) bool {
 }
 
 func (pkg PackageDetails) IsVersionEmpty() bool {
-	return pkg.Version == "0"
+	return pkg.Version == ""
 }

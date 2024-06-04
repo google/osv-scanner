@@ -60,6 +60,21 @@ var input = map[string]models.PackageDetails{
 			},
 		},
 	},
+	"pkg:npm/the-no-version-package": {
+		Name:      "the-no-version-package",
+		Ecosystem: string(models.EcosystemMaven),
+		Locations: []models.PackageLocations{
+			{
+				Block: models.PackageLocation{
+					Filename:    "/path/to/npm/lockfile.lock",
+					LineStart:   12,
+					LineEnd:     15,
+					ColumnStart: 0,
+					ColumnEnd:   0,
+				},
+			},
+		},
+	},
 }
 
 func TestEncoding_EncodeComponentsInValidCycloneDX1_4(t *testing.T) {
@@ -87,6 +102,12 @@ func TestEncoding_EncodeComponentsInValidCycloneDX1_4(t *testing.T) {
 				PackageURL: "pkg:npm/the-npm-package@1.1.0",
 				Name:       "the-npm-package",
 				Version:    "1.1.0",
+				Type:       "library",
+			},
+			{
+				BOMRef:     "pkg:npm/the-no-version-package",
+				PackageURL: "pkg:npm/the-no-version-package",
+				Name:       "the-no-version-package",
 				Type:       "library",
 			},
 		},
@@ -134,6 +155,17 @@ func TestEncoding_EncodeComponentsInValidCycloneDX1_5(t *testing.T) {
 				},
 			},
 		},
+		"pkg:npm/the-no-version-package": {
+			{
+				"block": JSONMap{
+					"file_name":    "/path/to/npm/lockfile.lock",
+					"line_start":   12,
+					"line_end":     15,
+					"column_start": 0,
+					"column_end":   0,
+				},
+			},
+		},
 	}
 
 	expectedBOM := cyclonedx.BOM{
@@ -160,6 +192,15 @@ func TestEncoding_EncodeComponentsInValidCycloneDX1_5(t *testing.T) {
 				Type:       "library",
 				Evidence: &cyclonedx.Evidence{
 					Occurrences: buildOccurrences(t, "pkg:npm/the-npm-package@1.1.0", expectedJSONLocations),
+				},
+			},
+			{
+				BOMRef:     "pkg:npm/the-no-version-package",
+				PackageURL: "pkg:npm/the-no-version-package",
+				Name:       "the-no-version-package",
+				Type:       "library",
+				Evidence: &cyclonedx.Evidence{
+					Occurrences: buildOccurrences(t, "pkg:npm/the-no-version-package", expectedJSONLocations),
 				},
 			},
 		},

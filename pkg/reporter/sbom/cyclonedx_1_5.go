@@ -18,11 +18,14 @@ func ToCycloneDX15Bom(stderr io.Writer, uniquePackages map[string]models.Package
 		component := cyclonedx.Component{}
 		occurrences := make([]cyclonedx.EvidenceOccurrence, len(packageDetail.Locations))
 		component.Name = packageDetail.Name
-		component.Version = packageDetail.Version
 		component.BOMRef = packageURL
 		component.PackageURL = packageURL
 		component.Type = componentType
 		component.Evidence = &cyclonedx.Evidence{Occurrences: &occurrences}
+
+		if packageDetail.Version != "" {
+			component.Version = packageDetail.Version
+		}
 
 		for index, packageLocations := range packageDetail.Locations {
 			jsonLocation, err := packageLocations.MarshalToJSONString()

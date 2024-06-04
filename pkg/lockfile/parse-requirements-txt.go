@@ -26,7 +26,7 @@ func parseLine(path string, line string, lineNumber int, lineOffset int, columnS
 	var constraint string
 	name := line
 
-	version := "0.0.0"
+	version := ""
 
 	if strings.Contains(line, "==") {
 		constraint = "=="
@@ -142,7 +142,7 @@ func extractVersionFromWheelURL(wheelURL string) string {
 	parts := strings.Split(filename, "-")
 
 	if len(parts) < 2 {
-		return "0.0.0"
+		return ""
 	}
 
 	return parts[1]
