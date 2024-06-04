@@ -128,6 +128,8 @@ func (m MavenManifestIO) Read(df lockfile.DepFile) (Manifest, error) {
 
 		newKeys := allKeys()
 		if len(prevKeys) != len(newKeys) {
+			// The length can change if properties fail to resolve, which should be rare.
+			// It's difficult to determine which dependencies were removed in these cases, so just error.
 			return errors.New("number of dependencies changed after interpolation")
 		}
 

@@ -119,7 +119,7 @@ func TestSuggest(t *testing.T) {
 					VersionType: resolve.Requirement,
 					Version:     "4.12",
 				},
-				// Type: dep.NewType(dep.Test),
+				// Type: dep.NewType(dep.Test), test scope is ignored to make resolution work.
 			},
 			{
 				VersionKey: resolve.VersionKey{
