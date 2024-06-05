@@ -3,7 +3,6 @@ package image
 import (
 	"errors"
 	"fmt"
-	"io"
 	"os"
 	"path"
 	"sort"
