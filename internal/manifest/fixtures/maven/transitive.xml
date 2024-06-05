@@ -3,15 +3,16 @@
   <artifactId>my-app</artifactId>
   <version>1.0</version>
 
-  <properties>
-    <mavenVersion>3.0</mavenVersion>
-  </properties>
-
   <dependencies>
     <dependency>
-      <groupId>org.apache.maven</groupId>
-      <artifactId>maven-artifact</artifactId>
+      <groupId>org.direct</groupId>
+      <artifactId>alice</artifactId>
       <version>1.0.0</version>
+    </dependency>
+    <dependency>
+      <groupId>org.direct</groupId>
+      <artifactId>bob</artifactId>
+      <version>2.0.0</version>
     </dependency>
   </dependencies>
 </project>

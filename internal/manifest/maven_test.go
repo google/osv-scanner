@@ -1,79 +1,13 @@
 package manifest_test
 
 import (
-	"context"
-	"errors"
 	"io/fs"
 	"testing"
 
-	depsdevpb "deps.dev/api/v3"
 	"github.com/google/osv-scanner/internal/manifest"
+	"github.com/google/osv-scanner/internal/resolution/clienttest"
 	"github.com/google/osv-scanner/pkg/lockfile"
-	"google.golang.org/grpc"
 )
-
-type fakeDepsDevClient struct {
-	depsdevpb.InsightsClient
-}
-
-func (c *fakeDepsDevClient) GetPackage(ctx context.Context, in *depsdevpb.GetPackageRequest, opts ...grpc.CallOption) (*depsdevpb.Package, error) {
-	if in.GetPackageKey().GetName() == "org.mine:ranged-package" {
-		return &depsdevpb.Package{
-			Versions: []*depsdevpb.Package_Version{
-				{
-					VersionKey: &depsdevpb.VersionKey{
-						Version: "9.4.35",
-					},
-				},
-				{
-					VersionKey: &depsdevpb.VersionKey{
-						Version: "9.4.36",
-					},
-				},
-				{
-					VersionKey: &depsdevpb.VersionKey{
-						Version: "9.4.37",
-					},
-				},
-				{
-					VersionKey: &depsdevpb.VersionKey{
-						Version: "9.5",
-					},
-				},
-			},
-		}, nil
-	}
-
-	return nil, errors.New("package not found")
-}
-
-func (c *fakeDepsDevClient) GetVersion(ctx context.Context, in *depsdevpb.GetVersionRequest, opts ...grpc.CallOption) (*depsdevpb.Version, error) {
-	return nil, errors.New("not implemented")
-}
-
-func (c *fakeDepsDevClient) GetRequirements(ctx context.Context, in *depsdevpb.GetRequirementsRequest, opts ...grpc.CallOption) (*depsdevpb.Requirements, error) {
-	return nil, errors.New("not implemented")
-}
-
-func (c *fakeDepsDevClient) GetDependencies(ctx context.Context, in *depsdevpb.GetDependenciesRequest, opts ...grpc.CallOption) (*depsdevpb.Dependencies, error) {
-	return nil, errors.New("not implemented")
-}
-
-func (c *fakeDepsDevClient) GetProject(ctx context.Context, in *depsdevpb.GetProjectRequest, opts ...grpc.CallOption) (*depsdevpb.Project, error) {
-	return nil, errors.New("not implemented")
-}
-
-func (c *fakeDepsDevClient) GetProjectPackageVersions(ctx context.Context, in *depsdevpb.GetProjectPackageVersionsRequest, opts ...grpc.CallOption) (*depsdevpb.ProjectPackageVersions, error) {
-	return nil, errors.New("not implemented")
-}
-
-func (c *fakeDepsDevClient) GetAdvisory(ctx context.Context, in *depsdevpb.GetAdvisoryRequest, opts ...grpc.CallOption) (*depsdevpb.Advisory, error) {
-	return nil, errors.New("not implemented")
-}
-
-func (c *fakeDepsDevClient) Query(ctx context.Context, in *depsdevpb.QueryRequest, opts ...grpc.CallOption) (*depsdevpb.QueryResult, error) {
-	return nil, errors.New("not implemented")
-}
 
 func TestMavenResolverExtractor_ShouldExtract(t *testing.T) {
 	t.Parallel()
@@ -158,7 +92,6 @@ func TestParseMavenWithResolver_NoPackages(t *testing.T) {
 	t.Parallel()
 
 	packages, err := manifest.ParseMavenWithResolver(nil, "fixtures/maven/empty.xml")
-
 	if err != nil {
 		t.Errorf("Got unexpected error: %v", err)
 	}
@@ -169,8 +102,8 @@ func TestParseMavenWithResolver_NoPackages(t *testing.T) {
 func TestParseMavenWithResolver_OnePackage(t *testing.T) {
 	t.Parallel()
 
-	packages, err := manifest.ParseMavenWithResolver(nil, "fixtures/maven/one-package.xml")
-
+	resolutionClient := clienttest.NewMockResolutionClient(t, "fixtures/universe/basic-universe.yaml")
+	packages, err := manifest.ParseMavenWithResolver(resolutionClient, "fixtures/maven/one-package.xml")
 	if err != nil {
 		t.Errorf("Got unexpected error: %v", err)
 	}
@@ -188,8 +121,8 @@ func TestParseMavenWithResolver_OnePackage(t *testing.T) {
 func TestParseMavenWithResolver_TwoPackages(t *testing.T) {
 	t.Parallel()
 
-	packages, err := manifest.ParseMavenWithResolver(nil, "fixtures/maven/two-packages.xml")
-
+	resolutionClient := clienttest.NewMockResolutionClient(t, "fixtures/universe/basic-universe.yaml")
+	packages, err := manifest.ParseMavenWithResolver(resolutionClient, "fixtures/maven/two-packages.xml")
 	if err != nil {
 		t.Errorf("Got unexpected error: %v", err)
 	}
@@ -213,8 +146,8 @@ func TestParseMavenWithResolver_TwoPackages(t *testing.T) {
 func TestParseMavenWithResolver_WithDependencyManagement(t *testing.T) {
 	t.Parallel()
 
-	packages, err := manifest.ParseMavenWithResolver(nil, "fixtures/maven/with-dependency-management.xml")
-
+	resolutionClient := clienttest.NewMockResolutionClient(t, "fixtures/universe/basic-universe.yaml")
+	packages, err := manifest.ParseMavenWithResolver(resolutionClient, "fixtures/maven/with-dependency-management.xml")
 	if err != nil {
 		t.Errorf("Got unexpected error: %v", err)
 	}
@@ -222,7 +155,7 @@ func TestParseMavenWithResolver_WithDependencyManagement(t *testing.T) {
 	expectPackages(t, packages, []lockfile.PackageDetails{
 		{
 			Name:      "io.netty:netty-all",
-			Version:   "4.1.42.Final",
+			Version:   "4.1.9",
 			Ecosystem: lockfile.MavenEcosystem,
 			CompareAs: lockfile.MavenEcosystem,
 		},
@@ -232,20 +165,14 @@ func TestParseMavenWithResolver_WithDependencyManagement(t *testing.T) {
 			Ecosystem: lockfile.MavenEcosystem,
 			CompareAs: lockfile.MavenEcosystem,
 		},
-		{
-			Name:      "com.google.code.findbugs:jsr305",
-			Version:   "3.0.2",
-			Ecosystem: lockfile.MavenEcosystem,
-			CompareAs: lockfile.MavenEcosystem,
-		},
 	})
 }
 
 func TestParseMavenWithResolver_Interpolation(t *testing.T) {
 	t.Parallel()
 
-	packages, err := manifest.ParseMavenWithResolver(&fakeDepsDevClient{}, "fixtures/maven/interpolation.xml")
-
+	resolutionClient := clienttest.NewMockResolutionClient(t, "fixtures/universe/basic-universe.yaml")
+	packages, err := manifest.ParseMavenWithResolver(resolutionClient, "fixtures/maven/interpolation.xml")
 	if err != nil {
 		t.Errorf("Got unexpected error: %v", err)
 	}
@@ -275,8 +202,8 @@ func TestParseMavenWithResolver_Interpolation(t *testing.T) {
 func TestParseMavenWithResolver_WithScope(t *testing.T) {
 	t.Parallel()
 
-	packages, err := manifest.ParseMavenWithResolver(nil, "fixtures/maven/with-scope.xml")
-
+	resolutionClient := clienttest.NewMockResolutionClient(t, "fixtures/universe/basic-universe.yaml")
+	packages, err := manifest.ParseMavenWithResolver(resolutionClient, "fixtures/maven/with-scope.xml")
 	if err != nil {
 		t.Errorf("Got unexpected error: %v", err)
 	}
@@ -287,7 +214,50 @@ func TestParseMavenWithResolver_WithScope(t *testing.T) {
 			Version:   "4.12",
 			Ecosystem: lockfile.MavenEcosystem,
 			CompareAs: lockfile.MavenEcosystem,
-			DepGroups: []string{"test"},
+			DepGroups: []string{"runtime"},
+		},
+	})
+}
+
+func TestParseMavenWithResolver_Transitive(t *testing.T) {
+	t.Parallel()
+
+	resolutionClient := clienttest.NewMockResolutionClient(t, "fixtures/universe/basic-universe.yaml")
+	packages, err := manifest.ParseMavenWithResolver(resolutionClient, "fixtures/maven/transitive.xml")
+	if err != nil {
+		t.Errorf("Got unexpected error: %v", err)
+	}
+
+	expectPackages(t, packages, []lockfile.PackageDetails{
+		{
+			Name:      "org.direct:alice",
+			Version:   "1.0.0",
+			Ecosystem: lockfile.MavenEcosystem,
+			CompareAs: lockfile.MavenEcosystem,
+		},
+		{
+			Name:      "org.direct:bob",
+			Version:   "2.0.0",
+			Ecosystem: lockfile.MavenEcosystem,
+			CompareAs: lockfile.MavenEcosystem,
+		},
+		{
+			Name:      "org.transitive:chuck",
+			Version:   "1.1.1",
+			Ecosystem: lockfile.MavenEcosystem,
+			CompareAs: lockfile.MavenEcosystem,
+		},
+		{
+			Name:      "org.transitive:dave",
+			Version:   "2.2.2",
+			Ecosystem: lockfile.MavenEcosystem,
+			CompareAs: lockfile.MavenEcosystem,
+		},
+		{
+			Name:      "org.transitive:eve",
+			Version:   "3.3.3",
+			Ecosystem: lockfile.MavenEcosystem,
+			CompareAs: lockfile.MavenEcosystem,
 		},
 	})
 }

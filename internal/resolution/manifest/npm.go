@@ -15,6 +15,17 @@ import (
 	"github.com/tidwall/sjson"
 )
 
+func npmRequirementKey(requirement resolve.RequirementVersion) RequirementKey {
+	// Npm requirements are the uniquely identified by the key in the dependencies fields (which ends up being the path in node_modules)
+	// Declaring a dependency in multiple places (dependencies, devDependencies, optionalDependencies) only installs it once at one version.
+	// Aliases & non-registry dependencies are keyed on their 'KnownAs' attribute.
+	knownAs, _ := requirement.Type.GetAttr(dep.KnownAs)
+	return RequirementKey{
+		PackageKey:        requirement.PackageKey,
+		EcosystemSpecific: knownAs,
+	}
+}
+
 type NpmManifestIO struct{}
 
 type PackageJSON struct {
@@ -121,7 +132,7 @@ func (rw NpmManifestIO) Read(f lockfile.DepFile) (Manifest, error) {
 		} else {
 			manif.Requirements = append(manif.Requirements, req)
 		}
-		manif.Groups[req.PackageKey] = []string{"optional"}
+		manif.Groups[npmRequirementKey(req)] = []string{"optional"}
 	}
 
 	for pkg, ver := range packagejson.DevDependencies {
@@ -142,7 +153,7 @@ func (rw NpmManifestIO) Read(f lockfile.DepFile) (Manifest, error) {
 		} else {
 			manif.Requirements = append(manif.Requirements, req)
 		}
-		manif.Groups[req.PackageKey] = []string{"dev"}
+		manif.Groups[npmRequirementKey(req)] = []string{"dev"}
 	}
 
 	resolve.SortDependencies(manif.Requirements)
@@ -168,10 +179,11 @@ func (rw NpmManifestIO) Read(f lockfile.DepFile) (Manifest, error) {
 		for j, req := range m.Requirements {
 			if isWorkspace(req) {
 				manif.LocalManifests[i].Requirements[j].Name = req.Name + ":workspace"
-				if g, ok := m.Groups[req.PackageKey]; ok {
-					newPK := manif.LocalManifests[i].Requirements[j].PackageKey
-					manif.LocalManifests[i].Groups[newPK] = g
-					delete(manif.LocalManifests[i].Groups, req.PackageKey)
+				reqKey := npmRequirementKey(req)
+				if g, ok := m.Groups[reqKey]; ok {
+					newKey := npmRequirementKey(manif.LocalManifests[i].Requirements[j])
+					manif.LocalManifests[i].Groups[newKey] = g
+					delete(manif.LocalManifests[i].Groups, reqKey)
 				}
 			}
 		}

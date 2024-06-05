@@ -221,22 +221,21 @@ func TestResolve(t *testing.T) {
 					VersionType: resolve.Concrete,
 				},
 			}
-			m.Groups = make(map[resolve.PackageKey][]string)
+			m.Groups = make(map[manifest.RequirementKey][]string)
 			m.Requirements = make([]resolve.RequirementVersion, len(tt.requirements))
 			for i, req := range tt.requirements {
-				pk := resolve.PackageKey{
-					Name:   req.name,
-					System: tt.system,
-				}
 				m.Requirements[i] = resolve.RequirementVersion{
 					VersionKey: resolve.VersionKey{
-						PackageKey:  pk,
+						PackageKey: resolve.PackageKey{
+							Name:   req.name,
+							System: tt.system,
+						},
 						Version:     req.version,
 						VersionType: resolve.Requirement,
 					},
 					Type: req.typ,
 				}
-				m.Groups[pk] = req.groups
+				m.Groups[manifest.MakeRequirementKey(m.Requirements[i])] = req.groups
 			}
 
 			res, err := resolution.Resolve(context.Background(), cl, m)
