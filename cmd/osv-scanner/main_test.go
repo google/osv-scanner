@@ -790,3 +790,33 @@ func TestRun_InsertDefaultCommand(t *testing.T) {
 		testutility.NewSnapshot().MatchText(t, normalizeStdStream(t, stderr))
 	}
 }
+
+func TestRun_MavenTransitive(t *testing.T) {
+	t.Parallel()
+	tests := []cliTestCase{
+		{
+			name: "scans transitive dependencies for pom.xml by default",
+			args: []string{"", "./fixtures/maven-transitive/pom.xml"},
+			exit: 1,
+		},
+		{
+			name: "scans transitive dependencies by specifying pom.xml",
+			args: []string{"", "-L", "pom.xml:./fixtures/maven-transitive/abc.xml"},
+			exit: 1,
+		},
+		{
+			// Direct dependencies do not have any vulnerability.
+			name: "does not scan transitive dependencies for pom.xml with offline mode",
+			args: []string{"", "--experimental-offline", "./fixtures/maven-transitive/pom.xml"},
+			exit: 0,
+		},
+	}
+
+	for _, tt := range tests {
+		tt := tt
+		t.Run(tt.name, func(t *testing.T) {
+			t.Parallel()
+			testCli(t, tt)
+		})
+	}
+}
