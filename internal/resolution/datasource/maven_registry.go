@@ -22,7 +22,7 @@ func NewMavenRegistryAPIClient(registry string) *MavenRegistryAPIClient {
 	return &MavenRegistryAPIClient{registry: registry}
 }
 
-var ErrAPIFailed = errors.New("API query failed")
+var errAPIFailed = errors.New("API query failed")
 
 func (m *MavenRegistryAPIClient) GetProject(ctx context.Context, groupID, artifactID, version string) (maven.Project, error) {
 	u, err := url.JoinPath(m.registry, strings.ReplaceAll(groupID, ".", "/"), artifactID, version, fmt.Sprintf("%s-%s.pom", artifactID, version))
@@ -37,12 +37,12 @@ func (m *MavenRegistryAPIClient) GetProject(ctx context.Context, groupID, artifa
 
 	resp, err := http.DefaultClient.Do(req)
 	if err != nil {
-		return maven.Project{}, fmt.Errorf("%w: Maven registry query failed: %w", ErrAPIFailed, err)
+		return maven.Project{}, fmt.Errorf("%w: Maven registry query failed: %w", errAPIFailed, err)
 	}
 	defer resp.Body.Close()
 
 	if resp.StatusCode != http.StatusOK {
-		return maven.Project{}, fmt.Errorf("%w: Maven registry query status: %s", ErrAPIFailed, resp.Status)
+		return maven.Project{}, fmt.Errorf("%w: Maven registry query status: %s", errAPIFailed, resp.Status)
 	}
 
 	var proj maven.Project
