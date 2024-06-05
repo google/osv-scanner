@@ -4,6 +4,7 @@ import (
 	"errors"
 	"fmt"
 	"io"
+	"os"
 	"path"
 	"sort"
 
@@ -91,7 +92,7 @@ func extractArtifactDeps(path string, img *Image) (lockfile.Lockfile, error) {
 
 // A ImageFile represents a file that exists in an image
 type ImageFile struct {
-	io.ReadCloser
+	*os.File
 
 	layer fileMap
 	path  string
@@ -119,9 +120,9 @@ func OpenLayerFile(path string, layer fileMap) (ImageFile, error) {
 	}
 
 	return ImageFile{
-		ReadCloser: readCloser,
-		path:       path,
-		layer:      layer,
+		File:  readCloser,
+		path:  path,
+		layer: layer,
 	}, nil
 }
 
