@@ -215,7 +215,7 @@ func (m MavenManifestIO) mergeParents(ctx context.Context, result *maven.Project
 			}
 		} else {
 			// Once we fetch a parent pom.xml from upstream, we should not allow
-			// paring parent pom.xml locally anymore.
+			// parsing parent pom.xml locally anymore.
 			allowLocal = false
 
 			var err error
