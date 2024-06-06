@@ -639,6 +639,19 @@ func filterResults(r reporter.Reporter, results *models.VulnerabilityResults, co
 
 // Filters package-grouped vulnerabilities according to config, preserving ordering. Returns filtered package vulnerabilities.
 func filterPackageVulns(r reporter.Reporter, pkgVulns models.PackageVulns, configToUse config.Config) models.PackageVulns {
+	if ignore, ignoreLine := configToUse.ShouldIgnorePackageVersion(pkgVulns.Package.Name, pkgVulns.Package.Version, pkgVulns.Package.Ecosystem); ignore {
+		pkgString := fmt.Sprintf("%s/%s/%s", pkgVulns.Package.Ecosystem, pkgVulns.Package.Name, pkgVulns.Package.Version)
+		switch len(pkgVulns.Vulnerabilities) {
+		case 1:
+			r.Infof("1 vulnerability for the package %s has been filtered out because: %s\n", pkgString, ignoreLine.Reason)
+		default:
+			r.Infof("%d vulnerabilities for the package %s have been filtered out because: %s\n", len(pkgVulns.Vulnerabilities), pkgString, ignoreLine.Reason)
+		}
+		pkgVulns.Groups = nil
+		pkgVulns.Vulnerabilities = nil
+
+		return pkgVulns
+	}
 	ignoredVulns := map[string]struct{}{}
 	// Iterate over groups first to remove all aliases of ignored vulnerabilities.
 	var newGroups []models.GroupInfo
@@ -846,7 +859,7 @@ func DoScan(actions ScannerActions, r reporter.Reporter) (models.VulnerabilityRe
 			return models.VulnerabilityResults{}, err
 		}
 	}
-	results := buildVulnerabilityResults(r, filteredScannedPackages, vulnsResp, licensesResp, actions)
+	results := buildVulnerabilityResults(r, filteredScannedPackages, vulnsResp, licensesResp, actions, &configManager)
 
 	filtered := filterResults(r, &results, &configManager, actions.ShowAllPackages)
 	if filtered > 0 {
