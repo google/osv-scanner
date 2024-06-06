@@ -1589,6 +1589,7 @@ Scanned <rootdir>/fixtures/maven-transitive/abc.xml file as a pom.xml and found 
 | https://osv.dev/GHSA-gvpg-vgmx-xg6w |      | Maven     | com.nimbusds:nimbus-jose-jwt                | 4.41.1           | fixtures/maven-transitive/abc.xml |
 | https://osv.dev/GHSA-w33c-445m-f8w7 | 5.9  | Maven     | com.squareup.okio:okio                      | 1.6.0            | fixtures/maven-transitive/abc.xml |
 | https://osv.dev/GHSA-6phf-73q6-gh87 | 7.3  | Maven     | commons-beanutils:commons-beanutils         | 1.9.3            | fixtures/maven-transitive/abc.xml |
+| https://osv.dev/GHSA-p66x-2cv9-qq3v |      | Maven     | commons-beanutils:commons-beanutils         | 1.9.3            | fixtures/maven-transitive/abc.xml |
 | https://osv.dev/GHSA-gwrp-pvrq-jmwv | 4.8  | Maven     | commons-io:commons-io                       | 2.5              | fixtures/maven-transitive/abc.xml |
 | https://osv.dev/GHSA-cgp8-4m63-fhh5 | 6.5  | Maven     | commons-net:commons-net                     | 3.6              | fixtures/maven-transitive/abc.xml |
 | https://osv.dev/GHSA-2qrg-x229-3v8q | 9.8  | Maven     | log4j:log4j                                 | 1.2.17           | fixtures/maven-transitive/abc.xml |
@@ -1602,7 +1603,6 @@ Scanned <rootdir>/fixtures/maven-transitive/abc.xml file as a pom.xml and found 
 | https://osv.dev/GHSA-4g9r-vxhx-9pgx | 8.1  | Maven     | org.apache.commons:commons-compress         | 1.4.1            | fixtures/maven-transitive/abc.xml |
 | https://osv.dev/GHSA-7hfm-57qf-j43q | 7.5  | Maven     | org.apache.commons:commons-compress         | 1.4.1            | fixtures/maven-transitive/abc.xml |
 | https://osv.dev/GHSA-crv7-7245-f45f | 7.5  | Maven     | org.apache.commons:commons-compress         | 1.4.1            | fixtures/maven-transitive/abc.xml |
-| https://osv.dev/GHSA-hrmr-f5m6-m9pq | 5.5  | Maven     | org.apache.commons:commons-compress         | 1.4.1            | fixtures/maven-transitive/abc.xml |
 | https://osv.dev/GHSA-mc84-pj99-q6hh | 7.5  | Maven     | org.apache.commons:commons-compress         | 1.4.1            | fixtures/maven-transitive/abc.xml |
 | https://osv.dev/GHSA-xqfj-vm6h-2x34 | 7.5  | Maven     | org.apache.commons:commons-compress         | 1.4.1            | fixtures/maven-transitive/abc.xml |
 | https://osv.dev/GHSA-9w38-p64v-xpmv | 6.5  | Maven     | org.apache.commons:commons-configuration2   | 2.1.1            | fixtures/maven-transitive/abc.xml |
@@ -1711,6 +1711,7 @@ Scanned <rootdir>/fixtures/maven-transitive/pom.xml file and found 85 packages
 | https://osv.dev/GHSA-gvpg-vgmx-xg6w |      | Maven     | com.nimbusds:nimbus-jose-jwt                | 4.41.1           | fixtures/maven-transitive/pom.xml |
 | https://osv.dev/GHSA-w33c-445m-f8w7 | 5.9  | Maven     | com.squareup.okio:okio                      | 1.6.0            | fixtures/maven-transitive/pom.xml |
 | https://osv.dev/GHSA-6phf-73q6-gh87 | 7.3  | Maven     | commons-beanutils:commons-beanutils         | 1.9.3            | fixtures/maven-transitive/pom.xml |
+| https://osv.dev/GHSA-p66x-2cv9-qq3v |      | Maven     | commons-beanutils:commons-beanutils         | 1.9.3            | fixtures/maven-transitive/pom.xml |
 | https://osv.dev/GHSA-gwrp-pvrq-jmwv | 4.8  | Maven     | commons-io:commons-io                       | 2.5              | fixtures/maven-transitive/pom.xml |
 | https://osv.dev/GHSA-cgp8-4m63-fhh5 | 6.5  | Maven     | commons-net:commons-net                     | 3.6              | fixtures/maven-transitive/pom.xml |
 | https://osv.dev/GHSA-2qrg-x229-3v8q | 9.8  | Maven     | log4j:log4j                                 | 1.2.17           | fixtures/maven-transitive/pom.xml |
@@ -1724,7 +1725,6 @@ Scanned <rootdir>/fixtures/maven-transitive/pom.xml file and found 85 packages
 | https://osv.dev/GHSA-4g9r-vxhx-9pgx | 8.1  | Maven     | org.apache.commons:commons-compress         | 1.4.1            | fixtures/maven-transitive/pom.xml |
 | https://osv.dev/GHSA-7hfm-57qf-j43q | 7.5  | Maven     | org.apache.commons:commons-compress         | 1.4.1            | fixtures/maven-transitive/pom.xml |
 | https://osv.dev/GHSA-crv7-7245-f45f | 7.5  | Maven     | org.apache.commons:commons-compress         | 1.4.1            | fixtures/maven-transitive/pom.xml |
-| https://osv.dev/GHSA-hrmr-f5m6-m9pq | 5.5  | Maven     | org.apache.commons:commons-compress         | 1.4.1            | fixtures/maven-transitive/pom.xml |
 | https://osv.dev/GHSA-mc84-pj99-q6hh | 7.5  | Maven     | org.apache.commons:commons-compress         | 1.4.1            | fixtures/maven-transitive/pom.xml |
 | https://osv.dev/GHSA-xqfj-vm6h-2x34 | 7.5  | Maven     | org.apache.commons:commons-compress         | 1.4.1            | fixtures/maven-transitive/pom.xml |
 | https://osv.dev/GHSA-9w38-p64v-xpmv | 6.5  | Maven     | org.apache.commons:commons-configuration2   | 2.1.1            | fixtures/maven-transitive/pom.xml |

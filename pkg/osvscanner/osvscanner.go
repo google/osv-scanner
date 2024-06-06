@@ -106,7 +106,7 @@ const (
 //   - Any lockfiles with scanLockfile
 //   - Any SBOM files with scanSBOMFile
 //   - Any git repositories with scanGit
-func scanDir(r reporter.Reporter, dir string, skipGit bool, recursive bool, useGitIgnore bool, compareOffline bool) ([]scannedPackage, error) {
+func scanDir(r reporter.Reporter, dir string, skipGit bool, recursive bool, useGitIgnore bool, compareOffline, compareLocally bool) ([]scannedPackage, error) {
 	var ignoreMatcher *gitIgnoreMatcher
 	if useGitIgnore {
 		var err error
@@ -163,7 +163,7 @@ func scanDir(r reporter.Reporter, dir string, skipGit bool, recursive bool, useG
 
 		if !info.IsDir() {
 			if extractor, _ := lockfile.FindExtractor(path, ""); extractor != nil {
-				pkgs, err := scanLockfile(r, path, "", compareOffline)
+				pkgs, err := scanLockfile(r, path, "", !compareOffline && !compareLocally)
 				if err != nil {
 					r.Errorf("Attempted to scan lockfile but failed: %s\n", path)
 				}
@@ -344,7 +344,7 @@ func scanImage(r reporter.Reporter, path string) ([]scannedPackage, error) {
 
 // scanLockfile will load, identify, and parse the lockfile path passed in, and add the dependencies specified
 // within to `query`
-func scanLockfile(r reporter.Reporter, path string, parseAs string, compareOffline bool) ([]scannedPackage, error) {
+func scanLockfile(r reporter.Reporter, path string, parseAs string, allowResolver bool) ([]scannedPackage, error) {
 	var err error
 	var parsedLockfile lockfile.Lockfile
 
@@ -362,7 +362,7 @@ func scanLockfile(r reporter.Reporter, path string, parseAs string, compareOffli
 		case "osv-scanner":
 			parsedLockfile, err = lockfile.FromOSVScannerResults(path)
 		default:
-			if !compareOffline && (parseAs == "pom.xml" || filepath.Base(path) == "pom.xml") {
+			if allowResolver && (parseAs == "pom.xml" || filepath.Base(path) == "pom.xml") {
 				parsedLockfile, err = extractMavenDeps(f)
 			} else {
 				parsedLockfile, err = lockfile.ExtractDeps(f, parseAs)
@@ -824,7 +824,7 @@ func DoScan(actions ScannerActions, r reporter.Reporter) (models.VulnerabilityRe
 			r.Errorf("Failed to resolved path with error %s\n", err)
 			return models.VulnerabilityResults{}, err
 		}
-		pkgs, err := scanLockfile(r, lockfilePath, parseAs, actions.CompareOffline)
+		pkgs, err := scanLockfile(r, lockfilePath, parseAs, !actions.CompareLocally && !actions.CompareOffline)
 		if err != nil {
 			return models.VulnerabilityResults{}, err
 		}
@@ -849,7 +849,7 @@ func DoScan(actions ScannerActions, r reporter.Reporter) (models.VulnerabilityRe
 
 	for _, dir := range actions.DirectoryPaths {
 		r.Infof("Scanning dir %s\n", dir)
-		pkgs, err := scanDir(r, dir, actions.SkipGit, actions.Recursive, !actions.NoIgnore, actions.CompareOffline)
+		pkgs, err := scanDir(r, dir, actions.SkipGit, actions.Recursive, !actions.NoIgnore, actions.CompareOffline, actions.CompareLocally)
 		if err != nil {
 			return models.VulnerabilityResults{}, err
 		}

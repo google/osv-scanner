@@ -807,7 +807,7 @@ func TestRun_MavenTransitive(t *testing.T) {
 		{
 			// Direct dependencies do not have any vulnerability.
 			name: "does not scan transitive dependencies for pom.xml with offline mode",
-			args: []string{"", "--experimental-offline", "./fixtures/maven-transitive/pom.xml"},
+			args: []string{"", "--experimental-local-db", "./fixtures/maven-transitive/pom.xml"},
 			exit: 0,
 		},
 	}
