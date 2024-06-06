@@ -106,7 +106,7 @@ const (
 //   - Any lockfiles with scanLockfile
 //   - Any SBOM files with scanSBOMFile
 //   - Any git repositories with scanGit
-func scanDir(r reporter.Reporter, dir string, skipGit bool, recursive bool, useGitIgnore bool, compareOffline, compareLocally bool) ([]scannedPackage, error) {
+func scanDir(r reporter.Reporter, dir string, skipGit bool, recursive bool, useGitIgnore bool, compareLocally bool) ([]scannedPackage, error) {
 	var ignoreMatcher *gitIgnoreMatcher
 	if useGitIgnore {
 		var err error
@@ -163,7 +163,7 @@ func scanDir(r reporter.Reporter, dir string, skipGit bool, recursive bool, useG
 
 		if !info.IsDir() {
 			if extractor, _ := lockfile.FindExtractor(path, ""); extractor != nil {
-				pkgs, err := scanLockfile(r, path, "", !compareOffline && !compareLocally)
+				pkgs, err := scanLockfile(r, path, "", !compareLocally)
 				if err != nil {
 					r.Errorf("Attempted to scan lockfile but failed: %s\n", path)
 				}
@@ -176,7 +176,7 @@ func scanDir(r reporter.Reporter, dir string, skipGit bool, recursive bool, useG
 			scannedPackages = append(scannedPackages, pkgs...)
 		}
 
-		if info.IsDir() && !compareOffline {
+		if info.IsDir() && !compareLocally {
 			if _, ok := vendoredLibNames[strings.ToLower(filepath.Base(path))]; ok {
 				pkgs, err := scanDirWithVendoredLibs(r, path)
 				if err != nil {
@@ -824,7 +824,7 @@ func DoScan(actions ScannerActions, r reporter.Reporter) (models.VulnerabilityRe
 			r.Errorf("Failed to resolved path with error %s\n", err)
 			return models.VulnerabilityResults{}, err
 		}
-		pkgs, err := scanLockfile(r, lockfilePath, parseAs, !actions.CompareLocally && !actions.CompareOffline)
+		pkgs, err := scanLockfile(r, lockfilePath, parseAs, !actions.CompareLocally)
 		if err != nil {
 			return models.VulnerabilityResults{}, err
 		}
@@ -849,7 +849,7 @@ func DoScan(actions ScannerActions, r reporter.Reporter) (models.VulnerabilityRe
 
 	for _, dir := range actions.DirectoryPaths {
 		r.Infof("Scanning dir %s\n", dir)
-		pkgs, err := scanDir(r, dir, actions.SkipGit, actions.Recursive, !actions.NoIgnore, actions.CompareOffline, actions.CompareLocally)
+		pkgs, err := scanDir(r, dir, actions.SkipGit, actions.Recursive, !actions.NoIgnore, actions.CompareLocally)
 		if err != nil {
 			return models.VulnerabilityResults{}, err
 		}
