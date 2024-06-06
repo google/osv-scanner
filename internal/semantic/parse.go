@@ -28,6 +28,8 @@ func Parse(str string, ecosystem models.Ecosystem) (Version, error) {
 		return parseSemverVersion(str), nil
 	case "Debian":
 		return parseDebianVersion(str), nil
+	case "Alpine":
+		return parseAlpineVersion(str), nil
 	case "RubyGems":
 		return parseRubyGemsVersion(str), nil
 	case "NuGet":

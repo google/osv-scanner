@@ -12,7 +12,7 @@ import (
 func TestMatchVuln(t *testing.T) {
 	t.Parallel()
 	var (
-		// ID: VULN-001, Dev: false, Severity: 6.6, Depth: 3
+		// ID: VULN-001, Dev: false, Severity: 6.6, Depth: 3, Aliases: CVE-111, OSV-2
 		vuln1 = resolution.ResolutionVuln{
 			Vulnerability: models.Vulnerability{
 				ID: "VULN-001",
@@ -20,6 +20,7 @@ func TestMatchVuln(t *testing.T) {
 					{Type: models.SeverityCVSSV3, Score: "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:L/I:L/A:H"}, // 6.6
 					{Type: models.SeverityCVSSV2, Score: "AV:L/AC:L/Au:S/C:P/I:P/A:C"},                   // 5.7
 				},
+				Aliases: []string{"CVE-111", "OSV-2"},
 			},
 			DevOnly: false,
 			ProblemChains: []resolution.DependencyChain{{
@@ -173,6 +174,26 @@ func TestMatchVuln(t *testing.T) {
 				ExplicitVulns: []string{"VULN-002"},
 			},
 			want: true,
+		},
+		{
+			name: "accept explicit ID in alias",
+			vuln: vuln1,
+			opt: remediation.RemediationOptions{
+				DevDeps:       true,
+				MaxDepth:      -1,
+				ExplicitVulns: []string{"CVE-111"},
+			},
+			want: true,
+		},
+		{
+			name: "reject excluded ID in alias",
+			vuln: vuln1,
+			opt: remediation.RemediationOptions{
+				DevDeps:     true,
+				MaxDepth:    -1,
+				IgnoreVulns: []string{"OSV-2"},
+			},
+			want: false,
 		},
 	}
 

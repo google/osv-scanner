@@ -1,4 +1,35 @@
+# v1.7.4:
+
+### Features:
+
+- [Feature #943](https://github.com/google/osv-scanner/pull/943) Support scanning gradle/verification-metadata.xml files.
+
+### Misc:
+
+- [Bug #968](https://github.com/google/osv-scanner/issues/968) Hide unimportant Debian vulnerabilities to reduce noise.
+
+# v1.7.3:
+
+### Features:
+
+- [Feature #934](https://github.com/google/osv-scanner/pull/934) add support for PNPM v9 lockfiles.
+
+### Fixes:
+
+- [Bug #938](https://github.com/google/osv-scanner/issues/938) Ensure the sarif output has a stable order.
+- [Bug #922](https://github.com/google/osv-scanner/issues/922) Support filtering on alias IDs in Guided Remediation.
+
+# v1.7.2:
+
+### Fixes:
+
+- [Bug #899](https://github.com/google/osv-scanner/issues/899) Guided Remediation: Parse paths in npmrc auth fields correctly.
+- [Bug #908](https://github.com/google/osv-scanner/issues/908) Fix rust call analysis by explicitly disabling stripping of debug info.
+- [Bug #914](https://github.com/google/osv-scanner/issues/914) Fix regression for go call analysis introduced in 1.7.0.
+
 # v1.7.1:
+
+(There is no Github release for this version)
 
 ### Fixes
 

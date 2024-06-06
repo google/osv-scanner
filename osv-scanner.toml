@@ -1,3 +1,1 @@
-[[IgnoredVulns]]
-id = "GO-2024-2687"
-reason = "We do not have a HTTP endpoint, and queries are made to trusted endpoints."
+

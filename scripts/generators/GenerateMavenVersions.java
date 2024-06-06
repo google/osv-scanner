@@ -32,6 +32,46 @@ import java.util.zip.ZipFile;
  * </code>
  */
 public class GenerateMavenVersions {
+  /**
+   * An array of version comparisons that are known to be unsupported and so
+   * should be commented out in the generated fixture.
+   * <p>
+   * Generally this is because the native implementation has a suspected bug
+   * that causes the comparison to return incorrect results, and so supporting
+   * such comparisons in the detector would in fact be wrong.
+   */
+  private static final String[] UNSUPPORTED_COMPARISONS = {
+    "0.0.0-2021-07-06T00-28-13-573087f7 < 0.0.0-2021-07-06T01-14-42-efe42242",
+    "0.0.0-2021-12-06T00-08-57-89a33731 < 0.0.0-2021-12-06T01-21-56-e3888760",
+    "0.0.0-2022-02-01T00-45-53-0300684a < 0.0.0-2022-02-01T05-45-16-7258ece0",
+    "0.0.0-2022-02-28T00-18-39-7fe0d845 < 0.0.0-2022-02-28T04-15-47-83c97ebe",
+    "0.0.0-2022-04-29T00-08-11-7086a3ec < 0.0.0-2022-04-29T01-20-09-b424f986",
+    "0.0.0-2022-06-14T00-21-33-f21869a7 < 0.0.0-2022-06-14T02-56-29-1db980e0",
+    "0.0.0-2022-08-16T00-14-19-aeae3dc3 < 0.0.0-2022-08-16T10-34-26-7a56f709",
+    "0.0.0-2022-08-22T00-46-32-4652d3db < 0.0.0-2022-08-22T06-46-40-e7409ac5",
+    "0.0.0-2022-10-31T00-42-12-322ba6b9 < 0.0.0-2022-10-31T01-23-06-c6652489",
+    "0.0.0-2022-10-31T07-00-43-71eccd49 < 0.0.0-2022-10-31T07-05-43-97874976",
+    "0.0.0-2022-12-01T00-02-29-fe8d6705 < 0.0.0-2022-12-01T01-56-22-5b442198",
+    "0.0.0-2022-12-18T00-44-34-a222f475 < 0.0.0-2022-12-18T01-45-19-fec81751",
+    "0.0.0-2023-03-20T00-52-15-4b4c0e7 < 0.0.0-2023-03-20T01-49-44-80e3135"
+  };
+
+  public static boolean isUnsupportedComparison(String line) {
+    return Arrays.stream(UNSUPPORTED_COMPARISONS).anyMatch(line::equals);
+  }
+
+  public static String uncomment(String line) {
+    if(line.startsWith("#")) {
+      return line.substring(1);
+    }
+
+    if(line.startsWith("//")) {
+      return line.substring(2);
+    }
+
+    return line;
+  }
+
   public static String downloadMavenDb() throws IOException {
     URL website = new URL("https://osv-vulnerabilities.storage.googleapis.com/Maven/all.zip");
     String file = "./maven-db.zip";
@@ -53,6 +93,10 @@ public class GenerateMavenVersions {
 
     osvs.forEach(osv -> osv.getJSONArray("affected").forEach(aff -> {
       JSONObject affected = (JSONObject) aff;
+
+      if(affected.getJSONObject("package").getString("ecosystem").equals("Maven")) {
+        return;
+      }
 
       String pkgName = affected.getJSONObject("package").getString("name");
 
@@ -133,12 +177,20 @@ public class GenerateMavenVersions {
     throw new RuntimeException("unsupported comparison operator " + op);
   }
 
-  public static void compareVersions(List<String> lines, String select) {
-    lines.forEach(line -> {
+  public static boolean compareVersions(List<String> lines, String select) {
+    boolean didAnyFail = false;
+
+    for(String line : lines) {
       line = line.trim();
 
       if(line.isEmpty() || line.startsWith("#") || line.startsWith("//")) {
-        return;
+        String maybeUnsupported = uncomment(line).trim();
+
+        if(isUnsupportedComparison(maybeUnsupported)) {
+          System.out.printf("\033[96mS\033[0m: \033[93m%s\033[0m\n", maybeUnsupported);
+        }
+
+        continue;
       }
 
       String[] parts = line.split(" ");
@@ -148,22 +200,28 @@ public class GenerateMavenVersions {
 
       boolean r = compareVers(v1, op, v2);
 
+      if(!r) {
+        didAnyFail = true;
+      }
+
       if(select.equals("failures") && r) {
-        return;
+        continue;
       }
 
       if(select.equals("successes") && !r) {
-        return;
+        continue;
       }
 
       String color = r ? "\033[92m" : "\033[91m";
       String rs = r ? "T" : "F";
 
       System.out.printf("%s%s\033[0m: \033[93m%s\033[0m\n", color, rs, line);
-    });
+    }
+
+    return didAnyFail;
   }
 
-  public static void compareVersionsInFile(String filepath, String select) throws IOException {
+  public static boolean compareVersionsInFile(String filepath, String select) throws IOException {
     List<String> lines = new ArrayList<>();
 
     try(BufferedReader br = new BufferedReader(new FileReader(filepath))) {
@@ -175,7 +233,7 @@ public class GenerateMavenVersions {
       }
     }
 
-    compareVersions(lines, select);
+    return compareVersions(lines, select);
   }
 
   public static List<String> generateVersionCompares(List<String> versions) {
@@ -184,7 +242,13 @@ public class GenerateMavenVersions {
       String previousVersion = versions.get(i - 1);
       String op = compareVers(currentVersion, "=", previousVersion) ? "=" : "<";
 
-      return String.format("%s %s %s", previousVersion, op, currentVersion);
+      String comparison = String.format("%s %s %s", previousVersion, op, currentVersion);
+
+      if(isUnsupportedComparison(comparison)) {
+        comparison = "# " + comparison;
+      }
+
+      return comparison;
     }).collect(Collectors.toList());
   }
 
@@ -198,12 +262,30 @@ public class GenerateMavenVersions {
              .collect(Collectors.toList());
   }
 
+  public static String getSelectFilter() {
+    // set this to either "failures" or "successes" to only have those comparison results
+    // printed; setting it to anything else will have all comparison results printed
+    String value = System.getenv("VERSION_GENERATOR_PRINT");
+
+    if(value == null) {
+      return "failures";
+    }
+
+    return value;
+  }
+
   public static void main(String[] args) throws IOException {
-    String outfile = "maven-versions-generated.txt";
+    String outfile = "internal/semantic/fixtures/maven-versions-generated.txt";
     Map<String, List<String>> packages = fetchPackageVersions();
 
     writeToFile(outfile, generatePackageCompares(packages));
 
-    compareVersionsInFile(outfile, "failures");
+    String show = getSelectFilter();
+
+    boolean didAnyFail = compareVersionsInFile(outfile, show);
+
+    if(didAnyFail) {
+      System.exit(1);
+    }
   }
 }

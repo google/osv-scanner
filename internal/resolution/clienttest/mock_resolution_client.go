@@ -15,7 +15,7 @@ import (
 	"gopkg.in/yaml.v3"
 )
 
-type resolutionUniverse struct {
+type ResolutionUniverse struct {
 	System string                 `yaml:"system"`
 	Schema string                 `yaml:"schema"`
 	Vulns  []models.Vulnerability `yaml:"vulns"`
@@ -56,7 +56,7 @@ func NewMockResolutionClient(t *testing.T, universeYAML string) client.Resolutio
 	defer f.Close()
 	dec := yaml.NewDecoder(f)
 
-	var universe resolutionUniverse
+	var universe ResolutionUniverse
 	if err := dec.Decode(&universe); err != nil {
 		t.Fatalf("failed decoding mock universe: %v", err)
 	}

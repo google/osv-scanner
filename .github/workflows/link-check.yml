@@ -14,8 +14,8 @@ jobs:
       contents: read # to fetch code (actions/checkout)
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
-      - uses: gaurav-nelson/github-action-markdown-link-check@25b2c436c653f0d4500d3c2df86e5c14e71e44e1
+      - uses: actions/checkout@a5ac7e51b41094c92402da3b24376905380afc29 # v4.1.6
+      - uses: gaurav-nelson/github-action-markdown-link-check@7d83e59a57f3c201c76eed3d33dff64ec4452d27
         with:
           use-quiet-mode: "yes"
 # Documentation available here: https://github.com/marketplace/actions/markdown-link-check

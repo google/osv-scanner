@@ -14,9 +14,8 @@ func TestGetProject(t *testing.T) {
 
 	srv := testutility.NewMockHTTPServer(t)
 	client := &MavenRegistryAPIClient{
-		Registry: srv.URL,
+		registry: srv.URL,
 	}
-
 	srv.SetResponse(t, "org/example/x.y.z/1.0.0/x.y.z-1.0.0.pom", []byte(`
 	<project>
 	  <groupId>org.example</groupId>
@@ -24,6 +23,7 @@ func TestGetProject(t *testing.T) {
 	  <version>1.0.0</version>
 	</project>
 	`))
+
 	got, err := client.GetProject(context.Background(), "org.example", "x.y.z", "1.0.0")
 	if err != nil {
 		t.Fatalf("failed to get Maven project %s:%s verion %s: %v", "org.example", "x.y.z", "1.0.0", err)

@@ -1487,6 +1487,112 @@
   "results": [
     {
       "source": {
+        "path": "fixtures/filter/some/configs/a/",
+        "type": "lockfile"
+      },
+      "packages": [
+        {
+          "package": {
+            "name": "chromium",
+            "version": "73.0.3683.75-1",
+            "ecosystem": "Debian:10"
+          },
+          "vulnerabilities": [
+            {
+              "modified": "2024-05-03T03:16:29Z",
+              "published": "2024-04-17T08:15:10Z",
+              "id": "CVE-2024-3847",
+              "details": "Insufficient policy enforcement in WebUI in Google Chrome prior to 124.0.6367.60 allowed a remote attacker to bypass content security policy via a crafted HTML page. (Chromium security severity: Low)",
+              "affected": [
+                {
+                  "package": {
+                    "ecosystem": "Debian:10",
+                    "name": "chromium"
+                  },
+                  "ranges": [
+                    {
+                      "type": "ECOSYSTEM",
+                      "events": [
+                        {
+                          "introduced": "0"
+                        }
+                      ]
+                    }
+                  ],
+                  "ecosystem_specific": {
+                    "urgency": "low"
+                  }
+                },
+                {
+                  "package": {
+                    "ecosystem": "Debian:11",
+                    "name": "chromium"
+                  },
+                  "ranges": [
+                    {
+                      "type": "ECOSYSTEM",
+                      "events": [
+                        {
+                          "introduced": "0"
+                        }
+                      ]
+                    }
+                  ],
+                  "ecosystem_specific": {
+                    "urgency": "low"
+                  }
+                }
+              ],
+              "references": [
+                {
+                  "type": "ARTICLE",
+                  "url": "https://chromereleases.googleblog.com/2024/04/stable-channel-update-for-desktop_16.html"
+                },
+                {
+                  "type": "WEB",
+                  "url": "https://issues.chromium.org/issues/328690293"
+                },
+                {
+                  "type": "WEB",
+                  "url": "https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/CWIVXXSVO5VB3NAZVFJ7CWVBN6W2735T/"
+                },
+                {
+                  "type": "WEB",
+                  "url": "https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/IDLUD644WEWGOFKMZWC2K7Z4CQOKQYR7/"
+                },
+                {
+                  "type": "WEB",
+                  "url": "https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/M4PCXKCOVBUUU6GOSN46DCPI4HMER3PJ/"
+                },
+                {
+                  "type": "WEB",
+                  "url": "https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/PCWPUBGTBNT4EW32YNZMRIPB3Y4R6XL6/"
+                },
+                {
+                  "type": "WEB",
+                  "url": "https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/UOC3HLIZCGMIJLJ6LME5UWUUIFLXEGRN/"
+                },
+                {
+                  "type": "WEB",
+                  "url": "https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/WEP5NJUWMDRLDQUKU4LFDUHF5PCYAPIO/"
+                }
+              ]
+            }
+          ],
+          "groups": [
+            {
+              "ids": [
+                "CVE-2024-3847"
+              ],
+              "aliases": null,
+              "max_severity": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source": {
         "path": "fixtures/filter/some/configs/b/",
         "type": "lockfile"
       },
@@ -1530,6 +1636,9 @@
                   ],
                   "database_specific": {
                     "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2023/02/GHSA-vvpx-j8f3-3w6h/GHSA-vvpx-j8f3-3w6h.json"
+                  },
+                  "ecosystem_specific": {
+                    "urgency": "unimportant"
                   }
                 }
               ],
@@ -1618,7 +1727,8 @@
                       {
                         "path": "net/http"
                       }
-                    ]
+                    ],
+                    "urgency": "low"
                   }
                 },
                 {

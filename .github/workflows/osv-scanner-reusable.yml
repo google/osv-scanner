@@ -54,11 +54,11 @@ jobs:
       security-events: write # for uploading SARIF files
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
+      - uses: actions/checkout@a5ac7e51b41094c92402da3b24376905380afc29 # v4.1.6
         with:
           persist-credentials: false
       - name: "Download custom artifact if specified"
-        uses: actions/download-artifact@c850b930e6ba138125429b7e5c93fc707a7f8427 # v4.1.4
+        uses: actions/download-artifact@65a9edc5881444af0b9093a5e628f2fe47ea3b2e # v4.1.7
         if: "${{ inputs.download-artifact != '' }}"
         with:
           name: "${{ inputs.download-artifact }}"
@@ -83,7 +83,7 @@ jobs:
       # format to the repository Actions tab.
       - name: "Upload artifact"
         if: "!cancelled()"
-        uses: actions/upload-artifact@5d5d22a31266ced268874388b861e4b58bb5c2f3 # v4.3.1
+        uses: actions/upload-artifact@65462800fd760344b1a7b4382951275a0abb4808 # v4.3.3
         with:
           name: SARIF file
           path: ${{ inputs.results-file-name }}
@@ -91,6 +91,6 @@ jobs:
       # Upload the results to GitHub's code scanning dashboard.
       - name: "Upload to code-scanning"
         if: "${{ !cancelled() && inputs.upload-sarif == true }}"
-        uses: github/codeql-action/upload-sarif@4355270be187e1b672a7a1c7c7bae5afdc1ab94a # v3.24.10
+        uses: github/codeql-action/upload-sarif@2e230e8fe0ad3a14a340ad0815ddb96d599d2aff # v3.25.8
         with:
           sarif_file: ${{ inputs.results-file-name }}

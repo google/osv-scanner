@@ -67,7 +67,7 @@ func MakeVersionRequestsWithContext(ctx context.Context, queries []*depsdevpb.Ge
 		dialOpts = append(dialOpts, grpc.WithUserAgent(osv.RequestUserAgent))
 	}
 
-	conn, err := grpc.Dial(DepsdevAPI, dialOpts...)
+	conn, err := grpc.NewClient(DepsdevAPI, dialOpts...)
 	if err != nil {
 		return nil, fmt.Errorf("dialing deps.dev gRPC API: %w", err)
 	}

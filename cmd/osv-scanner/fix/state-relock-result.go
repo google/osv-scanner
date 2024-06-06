@@ -384,7 +384,7 @@ func (st *stateRelockResult) View(m model) string {
 			if st.patchCompatible(i) {
 				textSt = lipgloss.NewStyle()
 			} else {
-				textSt = tui.DisabledTextStyle.Copy()
+				textSt = tui.DisabledTextStyle
 			}
 			text = textSt.Width(st.viewWidth - lipgloss.Width(checkBox)).Render(text)
 			patchStrs[i] = lipgloss.JoinHorizontal(lipgloss.Top, checkBox, text)

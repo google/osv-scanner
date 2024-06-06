@@ -6,6 +6,8 @@ import (
 	"path"
 	"path/filepath"
 	"strings"
+
+	"golang.org/x/exp/maps"
 )
 
 type NpmLockDependency struct {
@@ -47,30 +49,6 @@ type NpmLockfile struct {
 
 const NpmEcosystem Ecosystem = "npm"
 
-func pkgDetailsMapToSlice(m map[string]PackageDetails) []PackageDetails {
-	details := make([]PackageDetails, 0, len(m))
-
-	for _, detail := range m {
-		details = append(details, detail)
-	}
-
-	return details
-}
-
-func mergePkgDetailsMap(m1 map[string]PackageDetails, m2 map[string]PackageDetails) map[string]PackageDetails {
-	details := map[string]PackageDetails{}
-
-	for name, detail := range m1 {
-		details[name] = detail
-	}
-
-	for name, detail := range m2 {
-		details[name] = detail
-	}
-
-	return details
-}
-
 func (dep NpmLockDependency) depGroups() []string {
 	if dep.Dev && dep.Optional {
 		return []string{"dev", "optional"}
@@ -90,7 +68,7 @@ func parseNpmLockDependencies(dependencies map[string]NpmLockDependency) map[str
 
 	for name, detail := range dependencies {
 		if detail.Dependencies != nil {
-			details = mergePkgDetailsMap(details, parseNpmLockDependencies(detail.Dependencies))
+			maps.Copy(details, parseNpmLockDependencies(detail.Dependencies))
 		}
 
 		version := detail.Version
@@ -217,7 +195,7 @@ func (e NpmLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 		return []PackageDetails{}, fmt.Errorf("could not extract from %s: %w", f.Path(), err)
 	}
 
-	return pkgDetailsMapToSlice(parseNpmLock(*parsedLockfile)), nil
+	return maps.Values(parseNpmLock(*parsedLockfile)), nil
 }
 
 var _ Extractor = NpmLockExtractor{}

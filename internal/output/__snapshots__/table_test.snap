@@ -1,0 +1,831 @@
+
+[TestPrintTableResults_LongTerminalWidth_WithLicenseViolations/multiple_sources_with_a_mixed_count_of_packages,_no_license_violations - 1]
+
+---
+
+[TestPrintTableResults_LongTerminalWidth_WithLicenseViolations/multiple_sources_with_a_mixed_count_of_packages,_some_license_violations - 1]
+╭───────────────────┬───────────┬─────────┬─────────┬────────────────────────────╮
+│ LICENSE VIOLATION │ ECOSYSTEM │ PACKAGE │ VERSION │ SOURCE                     │
+├───────────────────┼───────────┼─────────┼─────────┼────────────────────────────┤
+│ MIT               │ npm       │ mine1   │ 1.2.3   │ path/to/my/first/lockfile  │
+│ Apache-2.0        │ npm       │ mine2   │ 3.2.5   │ path/to/my/second/lockfile │
+│ MIT               │ npm       │ mine1   │ 1.2.3   │ path/to/my/third/lockfile  │
+╰───────────────────┴───────────┴─────────┴─────────┴────────────────────────────╯
+
+---
+
+[TestPrintTableResults_LongTerminalWidth_WithLicenseViolations/multiple_sources_with_a_mixed_count_of_packages,_some_license_violations#01 - 1]
+
+---
+
+[TestPrintTableResults_LongTerminalWidth_WithLicenseViolations/multiple_sources_with_a_mixed_count_of_packages_across_ecosystems,_some_license_violations - 1]
+╭───────────────────┬───────────┬─────────┬─────────┬────────────────────────────╮
+│ LICENSE VIOLATION │ ECOSYSTEM │ PACKAGE │ VERSION │ SOURCE                     │
+├───────────────────┼───────────┼─────────┼─────────┼────────────────────────────┤
+│ MIT               │ Packagist │ mine1   │ 1.2.3   │ path/to/my/first/lockfile  │
+│ Apache-2.0        │ npm       │ mine2   │ 3.2.5   │ path/to/my/second/lockfile │
+│ MIT               │ Packagist │ mine1   │ 1.2.3   │ path/to/my/third/lockfile  │
+╰───────────────────┴───────────┴─────────┴─────────┴────────────────────────────╯
+
+---
+
+[TestPrintTableResults_LongTerminalWidth_WithLicenseViolations/multiple_sources_with_a_mixed_count_of_packages_and_groups,_some_license_violations - 1]
+╭───────────────────┬───────────┬─────────┬─────────┬────────────────────────────╮
+│ LICENSE VIOLATION │ ECOSYSTEM │ PACKAGE │ VERSION │ SOURCE                     │
+├───────────────────┼───────────┼─────────┼─────────┼────────────────────────────┤
+│ MIT               │ npm       │ mine1   │ 1.2.3   │ path/to/my/first/lockfile  │
+│ Apache-2.0        │ npm       │ mine2   │ 3.2.5   │ path/to/my/second/lockfile │
+│ MIT               │ npm       │ mine1   │ 1.2.3   │ path/to/my/third/lockfile  │
+╰───────────────────┴───────────┴─────────┴─────────┴────────────────────────────╯
+
+---
+
+[TestPrintTableResults_LongTerminalWidth_WithLicenseViolations/multiple_sources_with_no_packages - 1]
+
+---
+
+[TestPrintTableResults_LongTerminalWidth_WithLicenseViolations/no_sources - 1]
+
+---
+
+[TestPrintTableResults_LongTerminalWidth_WithLicenseViolations/one_source_with_no_packages - 1]
+
+---
+
+[TestPrintTableResults_LongTerminalWidth_WithLicenseViolations/one_source_with_one_package,_no_license_violations - 1]
+
+---
+
+[TestPrintTableResults_LongTerminalWidth_WithLicenseViolations/one_source_with_one_package,_no_licenses - 1]
+
+---
+
+[TestPrintTableResults_LongTerminalWidth_WithLicenseViolations/one_source_with_one_package_and_an_unknown_license - 1]
+
+---
+
+[TestPrintTableResults_LongTerminalWidth_WithLicenseViolations/one_source_with_one_package_and_multiple_license_violations - 1]
+╭───────────────────┬───────────┬─────────┬─────────┬───────────────────────────╮
+│ LICENSE VIOLATION │ ECOSYSTEM │ PACKAGE │ VERSION │ SOURCE                    │
+├───────────────────┼───────────┼─────────┼─────────┼───────────────────────────┤
+│ MIT, Apache-2.0   │ npm       │ mine1   │ 1.2.3   │ path/to/my/first/lockfile │
+╰───────────────────┴───────────┴─────────┴─────────┴───────────────────────────╯
+
+---
+
+[TestPrintTableResults_LongTerminalWidth_WithLicenseViolations/one_source_with_one_package_and_one_license_violation - 1]
+╭───────────────────┬───────────┬─────────┬─────────┬───────────────────────────╮
+│ LICENSE VIOLATION │ ECOSYSTEM │ PACKAGE │ VERSION │ SOURCE                    │
+├───────────────────┼───────────┼─────────┼─────────┼───────────────────────────┤
+│ MIT               │ npm       │ mine1   │ 1.2.3   │ path/to/my/first/lockfile │
+╰───────────────────┴───────────┴─────────┴─────────┴───────────────────────────╯
+
+---
+
+[TestPrintTableResults_LongTerminalWidth_WithLicenseViolations/one_source_with_one_package_and_one_license_violation_(dev) - 1]
+╭───────────────────┬───────────┬─────────┬─────────┬───────────────────────────╮
+│ LICENSE VIOLATION │ ECOSYSTEM │ PACKAGE │ VERSION │ SOURCE                    │
+├───────────────────┼───────────┼─────────┼─────────┼───────────────────────────┤
+│ MIT               │ npm       │ mine1   │ 1.2.3   │ path/to/my/first/lockfile │
+╰───────────────────┴───────────┴─────────┴─────────┴───────────────────────────╯
+
+---
+
+[TestPrintTableResults_LongTerminalWidth_WithLicenseViolations/two_sources_with_packages,_one_license_violation - 1]
+╭───────────────────┬───────────┬─────────┬─────────┬───────────────────────────╮
+│ LICENSE VIOLATION │ ECOSYSTEM │ PACKAGE │ VERSION │ SOURCE                    │
+├───────────────────┼───────────┼─────────┼─────────┼───────────────────────────┤
+│ MIT               │ npm       │ mine1   │ 1.2.3   │ path/to/my/first/lockfile │
+╰───────────────────┴───────────┴─────────┴─────────┴───────────────────────────╯
+
+---
+
+[TestPrintTableResults_LongTerminalWidth_WithMixedIssues/multiple_sources_with_a_mixed_count_of_packages,_some_vulnerabilities_and_license_violations - 1]
+╭───────────────────────┬──────┬───────────┬─────────┬─────────┬────────────────────────────╮
+│ OSV URL               │ CVSS │ ECOSYSTEM │ PACKAGE │ VERSION │ SOURCE                     │
+├───────────────────────┼──────┼───────────┼─────────┼─────────┼────────────────────────────┤
+│ https://osv.dev/OSV-1 │      │ npm       │ mine1   │ 1.2.3   │ path/to/my/first/lockfile  │
+│ https://osv.dev/OSV-2 │      │ npm       │ mine2   │ 3.2.5   │ path/to/my/second/lockfile │
+│ https://osv.dev/OSV-1 │      │ npm       │ mine1   │ 1.2.3   │ path/to/my/third/lockfile  │
+╰───────────────────────┴──────┴───────────┴─────────┴─────────┴────────────────────────────╯
+╭───────────────────┬───────────┬─────────┬─────────┬───────────────────────────╮
+│ LICENSE VIOLATION │ ECOSYSTEM │ PACKAGE │ VERSION │ SOURCE                    │
+├───────────────────┼───────────┼─────────┼─────────┼───────────────────────────┤
+│ MIT               │ npm       │ mine1   │ 1.2.3   │ path/to/my/first/lockfile │
+│ MIT               │ npm       │ mine1   │ 1.3.5   │ path/to/my/third/lockfile │
+│ Apache-2.0        │ npm       │ mine1   │ 1.2.3   │ path/to/my/third/lockfile │
+╰───────────────────┴───────────┴─────────┴─────────┴───────────────────────────╯
+
+---
+
+[TestPrintTableResults_LongTerminalWidth_WithMixedIssues/one_source_with_one_package,_one_vulnerability,_and_one_license_violation - 1]
+╭───────────────────────┬──────┬───────────┬─────────┬─────────┬───────────────────────────╮
+│ OSV URL               │ CVSS │ ECOSYSTEM │ PACKAGE │ VERSION │ SOURCE                    │
+├───────────────────────┼──────┼───────────┼─────────┼─────────┼───────────────────────────┤
+│ https://osv.dev/OSV-1 │      │ npm       │ mine1   │ 1.2.3   │ path/to/my/first/lockfile │
+╰───────────────────────┴──────┴───────────┴─────────┴─────────┴───────────────────────────╯
+╭───────────────────┬───────────┬─────────┬─────────┬───────────────────────────╮
+│ LICENSE VIOLATION │ ECOSYSTEM │ PACKAGE │ VERSION │ SOURCE                    │
+├───────────────────┼───────────┼─────────┼─────────┼───────────────────────────┤
+│ MIT               │ npm       │ mine1   │ 1.2.3   │ path/to/my/first/lockfile │
+╰───────────────────┴───────────┴─────────┴─────────┴───────────────────────────╯
+
+---
+
+[TestPrintTableResults_LongTerminalWidth_WithMixedIssues/two_sources_with_packages,_one_vulnerability,_one_license_violation - 1]
+╭───────────────────────┬──────┬───────────┬─────────┬─────────┬───────────────────────────╮
+│ OSV URL               │ CVSS │ ECOSYSTEM │ PACKAGE │ VERSION │ SOURCE                    │
+├───────────────────────┼──────┼───────────┼─────────┼─────────┼───────────────────────────┤
+│ https://osv.dev/OSV-1 │      │ npm       │ mine1   │ 1.2.3   │ path/to/my/first/lockfile │
+╰───────────────────────┴──────┴───────────┴─────────┴─────────┴───────────────────────────╯
+╭───────────────────┬───────────┬─────────┬─────────┬────────────────────────────╮
+│ LICENSE VIOLATION │ ECOSYSTEM │ PACKAGE │ VERSION │ SOURCE                     │
+├───────────────────┼───────────┼─────────┼─────────┼────────────────────────────┤
+│ MIT               │ npm       │ mine2   │ 5.9.0   │ path/to/my/second/lockfile │
+╰───────────────────┴───────────┴─────────┴─────────┴────────────────────────────╯
+
+---
+
+[TestPrintTableResults_LongTerminalWidth_WithVulnerabilities/multiple_sources_with_a_mixed_count_of_grouped_packages,_and_multiple_vulnerabilities - 1]
+╭───────────────────────┬──────┬───────────┬─────────────┬─────────┬────────────────────────────╮
+│ OSV URL               │ CVSS │ ECOSYSTEM │ PACKAGE     │ VERSION │ SOURCE                     │
+├───────────────────────┼──────┼───────────┼─────────────┼─────────┼────────────────────────────┤
+│ https://osv.dev/OSV-1 │      │ npm       │ mine1 (dev) │ 1.2.3   │ path/to/my/first/lockfile  │
+│ https://osv.dev/OSV-5 │      │ npm       │ mine1 (dev) │ 1.2.3   │ path/to/my/first/lockfile  │
+│ https://osv.dev/OSV-1 │      │ npm       │ mine1       │ 1.2.2   │ path/to/my/first/lockfile  │
+│ https://osv.dev/OSV-2 │      │ npm       │ mine2 (dev) │ 3.2.5   │ path/to/my/second/lockfile │
+│ https://osv.dev/OSV-3 │      │ npm       │ mine3       │ 0.4.1   │ path/to/my/second/lockfile │
+│ https://osv.dev/OSV-5 │      │ npm       │ mine3       │ 0.4.1   │ path/to/my/second/lockfile │
+╰───────────────────────┴──────┴───────────┴─────────────┴─────────┴────────────────────────────╯
+
+---
+
+[TestPrintTableResults_LongTerminalWidth_WithVulnerabilities/multiple_sources_with_a_mixed_count_of_packages,_and_multiple_vulnerabilities - 1]
+╭───────────────────────┬──────┬───────────┬─────────┬─────────┬────────────────────────────╮
+│ OSV URL               │ CVSS │ ECOSYSTEM │ PACKAGE │ VERSION │ SOURCE                     │
+├───────────────────────┼──────┼───────────┼─────────┼─────────┼────────────────────────────┤
+│ https://osv.dev/OSV-1 │      │ npm       │ mine1   │ 1.2.3   │ path/to/my/first/lockfile  │
+│ https://osv.dev/OSV-5 │      │ npm       │ mine1   │ 1.2.3   │ path/to/my/first/lockfile  │
+│ https://osv.dev/OSV-1 │      │ npm       │ mine1   │ 1.2.2   │ path/to/my/first/lockfile  │
+│ https://osv.dev/OSV-2 │      │ npm       │ mine2   │ 3.2.5   │ path/to/my/second/lockfile │
+│ https://osv.dev/OSV-3 │      │ npm       │ mine3   │ 0.4.1   │ path/to/my/second/lockfile │
+│ https://osv.dev/OSV-5 │      │ npm       │ mine3   │ 0.4.1   │ path/to/my/second/lockfile │
+╰───────────────────────┴──────┴───────────┴─────────┴─────────┴────────────────────────────╯
+
+---
+
+[TestPrintTableResults_LongTerminalWidth_WithVulnerabilities/multiple_sources_with_a_mixed_count_of_packages,_no_vulnerabilities - 1]
+
+---
+
+[TestPrintTableResults_LongTerminalWidth_WithVulnerabilities/multiple_sources_with_a_mixed_count_of_packages,_some_vulnerabilities - 1]
+╭───────────────────────┬──────┬───────────┬─────────┬─────────┬────────────────────────────╮
+│ OSV URL               │ CVSS │ ECOSYSTEM │ PACKAGE │ VERSION │ SOURCE                     │
+├───────────────────────┼──────┼───────────┼─────────┼─────────┼────────────────────────────┤
+│ https://osv.dev/OSV-1 │      │ npm       │ mine1   │ 1.2.3   │ path/to/my/first/lockfile  │
+│ https://osv.dev/OSV-2 │      │ npm       │ mine2   │ 3.2.5   │ path/to/my/second/lockfile │
+│ https://osv.dev/OSV-1 │      │ npm       │ mine1   │ 1.2.3   │ path/to/my/third/lockfile  │
+╰───────────────────────┴──────┴───────────┴─────────┴─────────┴────────────────────────────╯
+
+---
+
+[TestPrintTableResults_LongTerminalWidth_WithVulnerabilities/multiple_sources_with_a_mixed_count_of_packages_across_ecosystems,_and_multiple_vulnerabilities - 1]
+╭───────────────────────┬──────┬───────────┬─────────┬─────────┬────────────────────────────╮
+│ OSV URL               │ CVSS │ ECOSYSTEM │ PACKAGE │ VERSION │ SOURCE                     │
+├───────────────────────┼──────┼───────────┼─────────┼─────────┼────────────────────────────┤
+│ https://osv.dev/OSV-1 │      │ Packagist │ mine1   │ 1.2.3   │ path/to/my/first/lockfile  │
+│ https://osv.dev/OSV-5 │      │ Packagist │ mine1   │ 1.2.3   │ path/to/my/first/lockfile  │
+│ https://osv.dev/OSV-1 │      │ npm       │ mine1   │ 1.2.2   │ path/to/my/first/lockfile  │
+│ https://osv.dev/OSV-2 │      │ NuGet     │ mine2   │ 3.2.5   │ path/to/my/second/lockfile │
+│ https://osv.dev/OSV-3 │      │ Packagist │ mine3   │ 0.4.1   │ path/to/my/second/lockfile │
+│ https://osv.dev/OSV-5 │      │ Packagist │ mine3   │ 0.4.1   │ path/to/my/second/lockfile │
+╰───────────────────────┴──────┴───────────┴─────────┴─────────┴────────────────────────────╯
+
+---
+
+[TestPrintTableResults_LongTerminalWidth_WithVulnerabilities/multiple_sources_with_no_packages - 1]
+
+---
+
+[TestPrintTableResults_LongTerminalWidth_WithVulnerabilities/no_sources - 1]
+
+---
+
+[TestPrintTableResults_LongTerminalWidth_WithVulnerabilities/one_source_with_no_packages - 1]
+
+---
+
+[TestPrintTableResults_LongTerminalWidth_WithVulnerabilities/one_source_with_one_package,_no_vulnerabilities - 1]
+
+---
+
+[TestPrintTableResults_LongTerminalWidth_WithVulnerabilities/one_source_with_one_package_and_one_vulnerability - 1]
+╭───────────────────────┬──────┬───────────┬─────────┬─────────┬───────────────────────────╮
+│ OSV URL               │ CVSS │ ECOSYSTEM │ PACKAGE │ VERSION │ SOURCE                    │
+├───────────────────────┼──────┼───────────┼─────────┼─────────┼───────────────────────────┤
+│ https://osv.dev/OSV-1 │      │ npm       │ mine1   │ 1.2.3   │ path/to/my/first/lockfile │
+╰───────────────────────┴──────┴───────────┴─────────┴─────────┴───────────────────────────╯
+
+---
+
+[TestPrintTableResults_LongTerminalWidth_WithVulnerabilities/one_source_with_one_package_and_one_vulnerability_(dev) - 1]
+╭───────────────────────┬──────┬───────────┬─────────────┬─────────┬───────────────────────────╮
+│ OSV URL               │ CVSS │ ECOSYSTEM │ PACKAGE     │ VERSION │ SOURCE                    │
+├───────────────────────┼──────┼───────────┼─────────────┼─────────┼───────────────────────────┤
+│ https://osv.dev/OSV-1 │      │ npm       │ mine1 (dev) │ 1.2.3   │ path/to/my/first/lockfile │
+╰───────────────────────┴──────┴───────────┴─────────────┴─────────┴───────────────────────────╯
+
+---
+
+[TestPrintTableResults_LongTerminalWidth_WithVulnerabilities/one_source_with_one_package_and_two_aliases_of_a_single_vulnerability - 1]
+╭──────────────────────────┬──────┬───────────┬─────────┬─────────┬───────────────────────────╮
+│ OSV URL                  │ CVSS │ ECOSYSTEM │ PACKAGE │ VERSION │ SOURCE                    │
+├──────────────────────────┼──────┼───────────┼─────────┼─────────┼───────────────────────────┤
+│ https://osv.dev/OSV-1    │      │ npm       │ mine1   │ 1.2.3   │ path/to/my/first/lockfile │
+│ https://osv.dev/GHSA-123 │      │           │         │         │                           │
+╰──────────────────────────┴──────┴───────────┴─────────┴─────────┴───────────────────────────╯
+
+---
+
+[TestPrintTableResults_LongTerminalWidth_WithVulnerabilities/one_source_with_vulnerabilities,_some_missing_content - 1]
+╭───────────────────────┬──────┬───────────┬─────────┬───────────┬───────────────────────────╮
+│ OSV URL               │ CVSS │ ECOSYSTEM │ PACKAGE │ VERSION   │ SOURCE                    │
+├───────────────────────┼──────┼───────────┼─────────┼───────────┼───────────────────────────┤
+│ https://osv.dev/OSV-1 │      │ npm       │ mine1   │ 1.2.3     │ path/to/my/first/lockfile │
+│ https://osv.dev/OSV-2 │      │ npm       │ mine3   │ 0.10.2-rc │ path/to/my/first/lockfile │
+╰───────────────────────┴──────┴───────────┴─────────┴───────────┴───────────────────────────╯
+
+---
+
+[TestPrintTableResults_LongTerminalWidth_WithVulnerabilities/two_sources_with_packages,_one_vulnerability - 1]
+╭───────────────────────┬──────┬───────────┬─────────┬─────────┬───────────────────────────╮
+│ OSV URL               │ CVSS │ ECOSYSTEM │ PACKAGE │ VERSION │ SOURCE                    │
+├───────────────────────┼──────┼───────────┼─────────┼─────────┼───────────────────────────┤
+│ https://osv.dev/OSV-1 │      │ npm       │ mine1   │ 1.2.3   │ path/to/my/first/lockfile │
+╰───────────────────────┴──────┴───────────┴─────────┴─────────┴───────────────────────────╯
+
+---
+
+[TestPrintTableResults_LongTerminalWidth_WithVulnerabilities/two_sources_with_the_same_vulnerable_package - 1]
+╭───────────────────────┬──────┬───────────┬─────────────┬─────────┬────────────────────────────╮
+│ OSV URL               │ CVSS │ ECOSYSTEM │ PACKAGE     │ VERSION │ SOURCE                     │
+├───────────────────────┼──────┼───────────┼─────────────┼─────────┼────────────────────────────┤
+│ https://osv.dev/OSV-1 │      │ npm       │ mine1       │ 1.2.3   │ path/to/my/first/lockfile  │
+│ https://osv.dev/OSV-1 │      │ npm       │ mine1 (dev) │ 1.2.3   │ path/to/my/second/lockfile │
+╰───────────────────────┴──────┴───────────┴─────────────┴─────────┴────────────────────────────╯
+
+---
+
+[TestPrintTableResults_NoTerminalWidth_WithLicenseViolations/multiple_sources_with_a_mixed_count_of_packages,_no_license_violations - 1]
+
+---
+
+[TestPrintTableResults_NoTerminalWidth_WithLicenseViolations/multiple_sources_with_a_mixed_count_of_packages,_some_license_violations - 1]
++-------------------+-----------+---------+---------+----------------------------+
+| LICENSE VIOLATION | ECOSYSTEM | PACKAGE | VERSION | SOURCE                     |
++-------------------+-----------+---------+---------+----------------------------+
+| MIT               | npm       | mine1   | 1.2.3   | path/to/my/first/lockfile  |
+| Apache-2.0        | npm       | mine2   | 3.2.5   | path/to/my/second/lockfile |
+| MIT               | npm       | mine1   | 1.2.3   | path/to/my/third/lockfile  |
++-------------------+-----------+---------+---------+----------------------------+
+
+---
+
+[TestPrintTableResults_NoTerminalWidth_WithLicenseViolations/multiple_sources_with_a_mixed_count_of_packages,_some_license_violations#01 - 1]
+
+---
+
+[TestPrintTableResults_NoTerminalWidth_WithLicenseViolations/multiple_sources_with_a_mixed_count_of_packages_across_ecosystems,_some_license_violations - 1]
++-------------------+-----------+---------+---------+----------------------------+
+| LICENSE VIOLATION | ECOSYSTEM | PACKAGE | VERSION | SOURCE                     |
++-------------------+-----------+---------+---------+----------------------------+
+| MIT               | Packagist | mine1   | 1.2.3   | path/to/my/first/lockfile  |
+| Apache-2.0        | npm       | mine2   | 3.2.5   | path/to/my/second/lockfile |
+| MIT               | Packagist | mine1   | 1.2.3   | path/to/my/third/lockfile  |
++-------------------+-----------+---------+---------+----------------------------+
+
+---
+
+[TestPrintTableResults_NoTerminalWidth_WithLicenseViolations/multiple_sources_with_a_mixed_count_of_packages_and_groups,_some_license_violations - 1]
++-------------------+-----------+---------+---------+----------------------------+
+| LICENSE VIOLATION | ECOSYSTEM | PACKAGE | VERSION | SOURCE                     |
++-------------------+-----------+---------+---------+----------------------------+
+| MIT               | npm       | mine1   | 1.2.3   | path/to/my/first/lockfile  |
+| Apache-2.0        | npm       | mine2   | 3.2.5   | path/to/my/second/lockfile |
+| MIT               | npm       | mine1   | 1.2.3   | path/to/my/third/lockfile  |
++-------------------+-----------+---------+---------+----------------------------+
+
+---
+
+[TestPrintTableResults_NoTerminalWidth_WithLicenseViolations/multiple_sources_with_no_packages - 1]
+
+---
+
+[TestPrintTableResults_NoTerminalWidth_WithLicenseViolations/no_sources - 1]
+
+---
+
+[TestPrintTableResults_NoTerminalWidth_WithLicenseViolations/one_source_with_no_packages - 1]
+
+---
+
+[TestPrintTableResults_NoTerminalWidth_WithLicenseViolations/one_source_with_one_package,_no_license_violations - 1]
+
+---
+
+[TestPrintTableResults_NoTerminalWidth_WithLicenseViolations/one_source_with_one_package,_no_licenses - 1]
+
+---
+
+[TestPrintTableResults_NoTerminalWidth_WithLicenseViolations/one_source_with_one_package_and_an_unknown_license - 1]
+
+---
+
+[TestPrintTableResults_NoTerminalWidth_WithLicenseViolations/one_source_with_one_package_and_multiple_license_violations - 1]
++-------------------+-----------+---------+---------+---------------------------+
+| LICENSE VIOLATION | ECOSYSTEM | PACKAGE | VERSION | SOURCE                    |
++-------------------+-----------+---------+---------+---------------------------+
+| MIT, Apache-2.0   | npm       | mine1   | 1.2.3   | path/to/my/first/lockfile |
++-------------------+-----------+---------+---------+---------------------------+
+
+---
+
+[TestPrintTableResults_NoTerminalWidth_WithLicenseViolations/one_source_with_one_package_and_one_license_violation - 1]
++-------------------+-----------+---------+---------+---------------------------+
+| LICENSE VIOLATION | ECOSYSTEM | PACKAGE | VERSION | SOURCE                    |
++-------------------+-----------+---------+---------+---------------------------+
+| MIT               | npm       | mine1   | 1.2.3   | path/to/my/first/lockfile |
++-------------------+-----------+---------+---------+---------------------------+
+
+---
+
+[TestPrintTableResults_NoTerminalWidth_WithLicenseViolations/one_source_with_one_package_and_one_license_violation_(dev) - 1]
++-------------------+-----------+---------+---------+---------------------------+
+| LICENSE VIOLATION | ECOSYSTEM | PACKAGE | VERSION | SOURCE                    |
++-------------------+-----------+---------+---------+---------------------------+
+| MIT               | npm       | mine1   | 1.2.3   | path/to/my/first/lockfile |
++-------------------+-----------+---------+---------+---------------------------+
+
+---
+
+[TestPrintTableResults_NoTerminalWidth_WithLicenseViolations/two_sources_with_packages,_one_license_violation - 1]
++-------------------+-----------+---------+---------+---------------------------+
+| LICENSE VIOLATION | ECOSYSTEM | PACKAGE | VERSION | SOURCE                    |
++-------------------+-----------+---------+---------+---------------------------+
+| MIT               | npm       | mine1   | 1.2.3   | path/to/my/first/lockfile |
++-------------------+-----------+---------+---------+---------------------------+
+
+---
+
+[TestPrintTableResults_NoTerminalWidth_WithMixedIssues/multiple_sources_with_a_mixed_count_of_packages,_some_vulnerabilities_and_license_violations - 1]
++-----------------------+------+-----------+---------+---------+----------------------------+
+| OSV URL               | CVSS | ECOSYSTEM | PACKAGE | VERSION | SOURCE                     |
++-----------------------+------+-----------+---------+---------+----------------------------+
+| https://osv.dev/OSV-1 |      | npm       | mine1   | 1.2.3   | path/to/my/first/lockfile  |
+| https://osv.dev/OSV-2 |      | npm       | mine2   | 3.2.5   | path/to/my/second/lockfile |
+| https://osv.dev/OSV-1 |      | npm       | mine1   | 1.2.3   | path/to/my/third/lockfile  |
++-----------------------+------+-----------+---------+---------+----------------------------+
++-------------------+-----------+---------+---------+---------------------------+
+| LICENSE VIOLATION | ECOSYSTEM | PACKAGE | VERSION | SOURCE                    |
++-------------------+-----------+---------+---------+---------------------------+
+| MIT               | npm       | mine1   | 1.2.3   | path/to/my/first/lockfile |
+| MIT               | npm       | mine1   | 1.3.5   | path/to/my/third/lockfile |
+| Apache-2.0        | npm       | mine1   | 1.2.3   | path/to/my/third/lockfile |
++-------------------+-----------+---------+---------+---------------------------+
+
+---
+
+[TestPrintTableResults_NoTerminalWidth_WithMixedIssues/one_source_with_one_package,_one_vulnerability,_and_one_license_violation - 1]
++-----------------------+------+-----------+---------+---------+---------------------------+
+| OSV URL               | CVSS | ECOSYSTEM | PACKAGE | VERSION | SOURCE                    |
++-----------------------+------+-----------+---------+---------+---------------------------+
+| https://osv.dev/OSV-1 |      | npm       | mine1   | 1.2.3   | path/to/my/first/lockfile |
++-----------------------+------+-----------+---------+---------+---------------------------+
++-------------------+-----------+---------+---------+---------------------------+
+| LICENSE VIOLATION | ECOSYSTEM | PACKAGE | VERSION | SOURCE                    |
++-------------------+-----------+---------+---------+---------------------------+
+| MIT               | npm       | mine1   | 1.2.3   | path/to/my/first/lockfile |
++-------------------+-----------+---------+---------+---------------------------+
+
+---
+
+[TestPrintTableResults_NoTerminalWidth_WithMixedIssues/two_sources_with_packages,_one_vulnerability,_one_license_violation - 1]
++-----------------------+------+-----------+---------+---------+---------------------------+
+| OSV URL               | CVSS | ECOSYSTEM | PACKAGE | VERSION | SOURCE                    |
++-----------------------+------+-----------+---------+---------+---------------------------+
+| https://osv.dev/OSV-1 |      | npm       | mine1   | 1.2.3   | path/to/my/first/lockfile |
++-----------------------+------+-----------+---------+---------+---------------------------+
++-------------------+-----------+---------+---------+----------------------------+
+| LICENSE VIOLATION | ECOSYSTEM | PACKAGE | VERSION | SOURCE                     |
++-------------------+-----------+---------+---------+----------------------------+
+| MIT               | npm       | mine2   | 5.9.0   | path/to/my/second/lockfile |
++-------------------+-----------+---------+---------+----------------------------+
+
+---
+
+[TestPrintTableResults_NoTerminalWidth_WithVulnerabilities/multiple_sources_with_a_mixed_count_of_grouped_packages,_and_multiple_vulnerabilities - 1]
++-----------------------+------+-----------+-------------+---------+----------------------------+
+| OSV URL               | CVSS | ECOSYSTEM | PACKAGE     | VERSION | SOURCE                     |
++-----------------------+------+-----------+-------------+---------+----------------------------+
+| https://osv.dev/OSV-1 |      | npm       | mine1 (dev) | 1.2.3   | path/to/my/first/lockfile  |
+| https://osv.dev/OSV-5 |      | npm       | mine1 (dev) | 1.2.3   | path/to/my/first/lockfile  |
+| https://osv.dev/OSV-1 |      | npm       | mine1       | 1.2.2   | path/to/my/first/lockfile  |
+| https://osv.dev/OSV-2 |      | npm       | mine2 (dev) | 3.2.5   | path/to/my/second/lockfile |
+| https://osv.dev/OSV-3 |      | npm       | mine3       | 0.4.1   | path/to/my/second/lockfile |
+| https://osv.dev/OSV-5 |      | npm       | mine3       | 0.4.1   | path/to/my/second/lockfile |
++-----------------------+------+-----------+-------------+---------+----------------------------+
+
+---
+
+[TestPrintTableResults_NoTerminalWidth_WithVulnerabilities/multiple_sources_with_a_mixed_count_of_packages,_and_multiple_vulnerabilities - 1]
++-----------------------+------+-----------+---------+---------+----------------------------+
+| OSV URL               | CVSS | ECOSYSTEM | PACKAGE | VERSION | SOURCE                     |
++-----------------------+------+-----------+---------+---------+----------------------------+
+| https://osv.dev/OSV-1 |      | npm       | mine1   | 1.2.3   | path/to/my/first/lockfile  |
+| https://osv.dev/OSV-5 |      | npm       | mine1   | 1.2.3   | path/to/my/first/lockfile  |
+| https://osv.dev/OSV-1 |      | npm       | mine1   | 1.2.2   | path/to/my/first/lockfile  |
+| https://osv.dev/OSV-2 |      | npm       | mine2   | 3.2.5   | path/to/my/second/lockfile |
+| https://osv.dev/OSV-3 |      | npm       | mine3   | 0.4.1   | path/to/my/second/lockfile |
+| https://osv.dev/OSV-5 |      | npm       | mine3   | 0.4.1   | path/to/my/second/lockfile |
++-----------------------+------+-----------+---------+---------+----------------------------+
+
+---
+
+[TestPrintTableResults_NoTerminalWidth_WithVulnerabilities/multiple_sources_with_a_mixed_count_of_packages,_no_vulnerabilities - 1]
+
+---
+
+[TestPrintTableResults_NoTerminalWidth_WithVulnerabilities/multiple_sources_with_a_mixed_count_of_packages,_some_vulnerabilities - 1]
++-----------------------+------+-----------+---------+---------+----------------------------+
+| OSV URL               | CVSS | ECOSYSTEM | PACKAGE | VERSION | SOURCE                     |
++-----------------------+------+-----------+---------+---------+----------------------------+
+| https://osv.dev/OSV-1 |      | npm       | mine1   | 1.2.3   | path/to/my/first/lockfile  |
+| https://osv.dev/OSV-2 |      | npm       | mine2   | 3.2.5   | path/to/my/second/lockfile |
+| https://osv.dev/OSV-1 |      | npm       | mine1   | 1.2.3   | path/to/my/third/lockfile  |
++-----------------------+------+-----------+---------+---------+----------------------------+
+
+---
+
+[TestPrintTableResults_NoTerminalWidth_WithVulnerabilities/multiple_sources_with_a_mixed_count_of_packages_across_ecosystems,_and_multiple_vulnerabilities - 1]
++-----------------------+------+-----------+---------+---------+----------------------------+
+| OSV URL               | CVSS | ECOSYSTEM | PACKAGE | VERSION | SOURCE                     |
++-----------------------+------+-----------+---------+---------+----------------------------+
+| https://osv.dev/OSV-1 |      | Packagist | mine1   | 1.2.3   | path/to/my/first/lockfile  |
+| https://osv.dev/OSV-5 |      | Packagist | mine1   | 1.2.3   | path/to/my/first/lockfile  |
+| https://osv.dev/OSV-1 |      | npm       | mine1   | 1.2.2   | path/to/my/first/lockfile  |
+| https://osv.dev/OSV-2 |      | NuGet     | mine2   | 3.2.5   | path/to/my/second/lockfile |
+| https://osv.dev/OSV-3 |      | Packagist | mine3   | 0.4.1   | path/to/my/second/lockfile |
+| https://osv.dev/OSV-5 |      | Packagist | mine3   | 0.4.1   | path/to/my/second/lockfile |
++-----------------------+------+-----------+---------+---------+----------------------------+
+
+---
+
+[TestPrintTableResults_NoTerminalWidth_WithVulnerabilities/multiple_sources_with_no_packages - 1]
+
+---
+
+[TestPrintTableResults_NoTerminalWidth_WithVulnerabilities/no_sources - 1]
+
+---
+
+[TestPrintTableResults_NoTerminalWidth_WithVulnerabilities/one_source_with_no_packages - 1]
+
+---
+
+[TestPrintTableResults_NoTerminalWidth_WithVulnerabilities/one_source_with_one_package,_no_vulnerabilities - 1]
+
+---
+
+[TestPrintTableResults_NoTerminalWidth_WithVulnerabilities/one_source_with_one_package_and_one_vulnerability - 1]
++-----------------------+------+-----------+---------+---------+---------------------------+
+| OSV URL               | CVSS | ECOSYSTEM | PACKAGE | VERSION | SOURCE                    |
++-----------------------+------+-----------+---------+---------+---------------------------+
+| https://osv.dev/OSV-1 |      | npm       | mine1   | 1.2.3   | path/to/my/first/lockfile |
++-----------------------+------+-----------+---------+---------+---------------------------+
+
+---
+
+[TestPrintTableResults_NoTerminalWidth_WithVulnerabilities/one_source_with_one_package_and_one_vulnerability_(dev) - 1]
++-----------------------+------+-----------+-------------+---------+---------------------------+
+| OSV URL               | CVSS | ECOSYSTEM | PACKAGE     | VERSION | SOURCE                    |
++-----------------------+------+-----------+-------------+---------+---------------------------+
+| https://osv.dev/OSV-1 |      | npm       | mine1 (dev) | 1.2.3   | path/to/my/first/lockfile |
++-----------------------+------+-----------+-------------+---------+---------------------------+
+
+---
+
+[TestPrintTableResults_NoTerminalWidth_WithVulnerabilities/one_source_with_one_package_and_two_aliases_of_a_single_vulnerability - 1]
++--------------------------+------+-----------+---------+---------+---------------------------+
+| OSV URL                  | CVSS | ECOSYSTEM | PACKAGE | VERSION | SOURCE                    |
++--------------------------+------+-----------+---------+---------+---------------------------+
+| https://osv.dev/OSV-1    |      | npm       | mine1   | 1.2.3   | path/to/my/first/lockfile |
+| https://osv.dev/GHSA-123 |      |           |         |         |                           |
++--------------------------+------+-----------+---------+---------+---------------------------+
+
+---
+
+[TestPrintTableResults_NoTerminalWidth_WithVulnerabilities/one_source_with_vulnerabilities,_some_missing_content - 1]
++-----------------------+------+-----------+---------+-----------+---------------------------+
+| OSV URL               | CVSS | ECOSYSTEM | PACKAGE | VERSION   | SOURCE                    |
++-----------------------+------+-----------+---------+-----------+---------------------------+
+| https://osv.dev/OSV-1 |      | npm       | mine1   | 1.2.3     | path/to/my/first/lockfile |
+| https://osv.dev/OSV-2 |      | npm       | mine3   | 0.10.2-rc | path/to/my/first/lockfile |
++-----------------------+------+-----------+---------+-----------+---------------------------+
+
+---
+
+[TestPrintTableResults_NoTerminalWidth_WithVulnerabilities/two_sources_with_packages,_one_vulnerability - 1]
++-----------------------+------+-----------+---------+---------+---------------------------+
+| OSV URL               | CVSS | ECOSYSTEM | PACKAGE | VERSION | SOURCE                    |
++-----------------------+------+-----------+---------+---------+---------------------------+
+| https://osv.dev/OSV-1 |      | npm       | mine1   | 1.2.3   | path/to/my/first/lockfile |
++-----------------------+------+-----------+---------+---------+---------------------------+
+
+---
+
+[TestPrintTableResults_NoTerminalWidth_WithVulnerabilities/two_sources_with_the_same_vulnerable_package - 1]
++-----------------------+------+-----------+-------------+---------+----------------------------+
+| OSV URL               | CVSS | ECOSYSTEM | PACKAGE     | VERSION | SOURCE                     |
++-----------------------+------+-----------+-------------+---------+----------------------------+
+| https://osv.dev/OSV-1 |      | npm       | mine1       | 1.2.3   | path/to/my/first/lockfile  |
+| https://osv.dev/OSV-1 |      | npm       | mine1 (dev) | 1.2.3   | path/to/my/second/lockfile |
++-----------------------+------+-----------+-------------+---------+----------------------------+
+
+---
+
+[TestPrintTableResults_StandardTerminalWidth_WithLicenseViolations/multiple_sources_with_a_mixed_count_of_packages,_no_license_violations - 1]
+
+---
+
+[TestPrintTableResults_StandardTerminalWidth_WithLicenseViolations/multiple_sources_with_a_mixed_count_of_packages,_some_license_violations - 1]
+╭───────────────────┬───────────┬─────────┬─────────┬───────────────────────── ≈
+│ LICENSE VIOLATION │ ECOSYSTEM │ PACKAGE │ VERSION │ SOURCE                   ≈
+├───────────────────┼───────────┼─────────┼─────────┼───────────────────────── ≈
+│ MIT               │ npm       │ mine1   │ 1.2.3   │ path/to/my/first/lockfil ≈
+│ Apache-2.0        │ npm       │ mine2   │ 3.2.5   │ path/to/my/second/lockfi ≈
+│ MIT               │ npm       │ mine1   │ 1.2.3   │ path/to/my/third/lockfil ≈
+╰───────────────────┴───────────┴─────────┴─────────┴───────────────────────── ≈
+
+---
+
+[TestPrintTableResults_StandardTerminalWidth_WithLicenseViolations/multiple_sources_with_a_mixed_count_of_packages,_some_license_violations#01 - 1]
+
+---
+
+[TestPrintTableResults_StandardTerminalWidth_WithLicenseViolations/multiple_sources_with_a_mixed_count_of_packages_across_ecosystems,_some_license_violations - 1]
+╭───────────────────┬───────────┬─────────┬─────────┬───────────────────────── ≈
+│ LICENSE VIOLATION │ ECOSYSTEM │ PACKAGE │ VERSION │ SOURCE                   ≈
+├───────────────────┼───────────┼─────────┼─────────┼───────────────────────── ≈
+│ MIT               │ Packagist │ mine1   │ 1.2.3   │ path/to/my/first/lockfil ≈
+│ Apache-2.0        │ npm       │ mine2   │ 3.2.5   │ path/to/my/second/lockfi ≈
+│ MIT               │ Packagist │ mine1   │ 1.2.3   │ path/to/my/third/lockfil ≈
+╰───────────────────┴───────────┴─────────┴─────────┴───────────────────────── ≈
+
+---
+
+[TestPrintTableResults_StandardTerminalWidth_WithLicenseViolations/multiple_sources_with_a_mixed_count_of_packages_and_groups,_some_license_violations - 1]
+╭───────────────────┬───────────┬─────────┬─────────┬───────────────────────── ≈
+│ LICENSE VIOLATION │ ECOSYSTEM │ PACKAGE │ VERSION │ SOURCE                   ≈
+├───────────────────┼───────────┼─────────┼─────────┼───────────────────────── ≈
+│ MIT               │ npm       │ mine1   │ 1.2.3   │ path/to/my/first/lockfil ≈
+│ Apache-2.0        │ npm       │ mine2   │ 3.2.5   │ path/to/my/second/lockfi ≈
+│ MIT               │ npm       │ mine1   │ 1.2.3   │ path/to/my/third/lockfil ≈
+╰───────────────────┴───────────┴─────────┴─────────┴───────────────────────── ≈
+
+---
+
+[TestPrintTableResults_StandardTerminalWidth_WithLicenseViolations/multiple_sources_with_no_packages - 1]
+
+---
+
+[TestPrintTableResults_StandardTerminalWidth_WithLicenseViolations/no_sources - 1]
+
+---
+
+[TestPrintTableResults_StandardTerminalWidth_WithLicenseViolations/one_source_with_no_packages - 1]
+
+---
+
+[TestPrintTableResults_StandardTerminalWidth_WithLicenseViolations/one_source_with_one_package,_no_license_violations - 1]
+
+---
+
+[TestPrintTableResults_StandardTerminalWidth_WithLicenseViolations/one_source_with_one_package,_no_licenses - 1]
+
+---
+
+[TestPrintTableResults_StandardTerminalWidth_WithLicenseViolations/one_source_with_one_package_and_an_unknown_license - 1]
+
+---
+
+[TestPrintTableResults_StandardTerminalWidth_WithLicenseViolations/one_source_with_one_package_and_multiple_license_violations - 1]
+╭───────────────────┬───────────┬─────────┬─────────┬───────────────────────── ≈
+│ LICENSE VIOLATION │ ECOSYSTEM │ PACKAGE │ VERSION │ SOURCE                   ≈
+├───────────────────┼───────────┼─────────┼─────────┼───────────────────────── ≈
+│ MIT, Apache-2.0   │ npm       │ mine1   │ 1.2.3   │ path/to/my/first/lockfil ≈
+╰───────────────────┴───────────┴─────────┴─────────┴───────────────────────── ≈
+
+---
+
+[TestPrintTableResults_StandardTerminalWidth_WithLicenseViolations/one_source_with_one_package_and_one_license_violation - 1]
+╭───────────────────┬───────────┬─────────┬─────────┬───────────────────────── ≈
+│ LICENSE VIOLATION │ ECOSYSTEM │ PACKAGE │ VERSION │ SOURCE                   ≈
+├───────────────────┼───────────┼─────────┼─────────┼───────────────────────── ≈
+│ MIT               │ npm       │ mine1   │ 1.2.3   │ path/to/my/first/lockfil ≈
+╰───────────────────┴───────────┴─────────┴─────────┴───────────────────────── ≈
+
+---
+
+[TestPrintTableResults_StandardTerminalWidth_WithLicenseViolations/one_source_with_one_package_and_one_license_violation_(dev) - 1]
+╭───────────────────┬───────────┬─────────┬─────────┬───────────────────────── ≈
+│ LICENSE VIOLATION │ ECOSYSTEM │ PACKAGE │ VERSION │ SOURCE                   ≈
+├───────────────────┼───────────┼─────────┼─────────┼───────────────────────── ≈
+│ MIT               │ npm       │ mine1   │ 1.2.3   │ path/to/my/first/lockfil ≈
+╰───────────────────┴───────────┴─────────┴─────────┴───────────────────────── ≈
+
+---
+
+[TestPrintTableResults_StandardTerminalWidth_WithLicenseViolations/two_sources_with_packages,_one_license_violation - 1]
+╭───────────────────┬───────────┬─────────┬─────────┬───────────────────────── ≈
+│ LICENSE VIOLATION │ ECOSYSTEM │ PACKAGE │ VERSION │ SOURCE                   ≈
+├───────────────────┼───────────┼─────────┼─────────┼───────────────────────── ≈
+│ MIT               │ npm       │ mine1   │ 1.2.3   │ path/to/my/first/lockfil ≈
+╰───────────────────┴───────────┴─────────┴─────────┴───────────────────────── ≈
+
+---
+
+[TestPrintTableResults_StandardTerminalWidth_WithMixedIssues/multiple_sources_with_a_mixed_count_of_packages,_some_vulnerabilities_and_license_violations - 1]
+╭───────────────────────┬──────┬───────────┬─────────┬─────────┬────────────── ≈
+│ OSV URL               │ CVSS │ ECOSYSTEM │ PACKAGE │ VERSION │ SOURCE        ≈
+├───────────────────────┼──────┼───────────┼─────────┼─────────┼────────────── ≈
+│ https://osv.dev/OSV-1 │      │ npm       │ mine1   │ 1.2.3   │ path/to/my/fi ≈
+│ https://osv.dev/OSV-2 │      │ npm       │ mine2   │ 3.2.5   │ path/to/my/se ≈
+│ https://osv.dev/OSV-1 │      │ npm       │ mine1   │ 1.2.3   │ path/to/my/th ≈
+╰───────────────────────┴──────┴───────────┴─────────┴─────────┴────────────── ≈
+╭───────────────────┬───────────┬─────────┬─────────┬───────────────────────── ≈
+│ LICENSE VIOLATION │ ECOSYSTEM │ PACKAGE │ VERSION │ SOURCE                   ≈
+├───────────────────┼───────────┼─────────┼─────────┼───────────────────────── ≈
+│ MIT               │ npm       │ mine1   │ 1.2.3   │ path/to/my/first/lockfil ≈
+│ MIT               │ npm       │ mine1   │ 1.3.5   │ path/to/my/third/lockfil ≈
+│ Apache-2.0        │ npm       │ mine1   │ 1.2.3   │ path/to/my/third/lockfil ≈
+╰───────────────────┴───────────┴─────────┴─────────┴───────────────────────── ≈
+
+---
+
+[TestPrintTableResults_StandardTerminalWidth_WithMixedIssues/one_source_with_one_package,_one_vulnerability,_and_one_license_violation - 1]
+╭───────────────────────┬──────┬───────────┬─────────┬─────────┬────────────── ≈
+│ OSV URL               │ CVSS │ ECOSYSTEM │ PACKAGE │ VERSION │ SOURCE        ≈
+├───────────────────────┼──────┼───────────┼─────────┼─────────┼────────────── ≈
+│ https://osv.dev/OSV-1 │      │ npm       │ mine1   │ 1.2.3   │ path/to/my/fi ≈
+╰───────────────────────┴──────┴───────────┴─────────┴─────────┴────────────── ≈
+╭───────────────────┬───────────┬─────────┬─────────┬───────────────────────── ≈
+│ LICENSE VIOLATION │ ECOSYSTEM │ PACKAGE │ VERSION │ SOURCE                   ≈
+├───────────────────┼───────────┼─────────┼─────────┼───────────────────────── ≈
+│ MIT               │ npm       │ mine1   │ 1.2.3   │ path/to/my/first/lockfil ≈
+╰───────────────────┴───────────┴─────────┴─────────┴───────────────────────── ≈
+
+---
+
+[TestPrintTableResults_StandardTerminalWidth_WithMixedIssues/two_sources_with_packages,_one_vulnerability,_one_license_violation - 1]
+╭───────────────────────┬──────┬───────────┬─────────┬─────────┬────────────── ≈
+│ OSV URL               │ CVSS │ ECOSYSTEM │ PACKAGE │ VERSION │ SOURCE        ≈
+├───────────────────────┼──────┼───────────┼─────────┼─────────┼────────────── ≈
+│ https://osv.dev/OSV-1 │      │ npm       │ mine1   │ 1.2.3   │ path/to/my/fi ≈
+╰───────────────────────┴──────┴───────────┴─────────┴─────────┴────────────── ≈
+╭───────────────────┬───────────┬─────────┬─────────┬───────────────────────── ≈
+│ LICENSE VIOLATION │ ECOSYSTEM │ PACKAGE │ VERSION │ SOURCE                   ≈
+├───────────────────┼───────────┼─────────┼─────────┼───────────────────────── ≈
+│ MIT               │ npm       │ mine2   │ 5.9.0   │ path/to/my/second/lockfi ≈
+╰───────────────────┴───────────┴─────────┴─────────┴───────────────────────── ≈
+
+---
+
+[TestPrintTableResults_StandardTerminalWidth_WithVulnerabilities/multiple_sources_with_a_mixed_count_of_grouped_packages,_and_multiple_vulnerabilities - 1]
+╭───────────────────────┬──────┬───────────┬─────────────┬─────────┬────────── ≈
+│ OSV URL               │ CVSS │ ECOSYSTEM │ PACKAGE     │ VERSION │ SOURCE    ≈
+├───────────────────────┼──────┼───────────┼─────────────┼─────────┼────────── ≈
+│ https://osv.dev/OSV-1 │      │ npm       │ mine1 (dev) │ 1.2.3   │ path/to/m ≈
+│ https://osv.dev/OSV-5 │      │ npm       │ mine1 (dev) │ 1.2.3   │ path/to/m ≈
+│ https://osv.dev/OSV-1 │      │ npm       │ mine1       │ 1.2.2   │ path/to/m ≈
+│ https://osv.dev/OSV-2 │      │ npm       │ mine2 (dev) │ 3.2.5   │ path/to/m ≈
+│ https://osv.dev/OSV-3 │      │ npm       │ mine3       │ 0.4.1   │ path/to/m ≈
+│ https://osv.dev/OSV-5 │      │ npm       │ mine3       │ 0.4.1   │ path/to/m ≈
+╰───────────────────────┴──────┴───────────┴─────────────┴─────────┴────────── ≈
+
+---
+
+[TestPrintTableResults_StandardTerminalWidth_WithVulnerabilities/multiple_sources_with_a_mixed_count_of_packages,_and_multiple_vulnerabilities - 1]
+╭───────────────────────┬──────┬───────────┬─────────┬─────────┬────────────── ≈
+│ OSV URL               │ CVSS │ ECOSYSTEM │ PACKAGE │ VERSION │ SOURCE        ≈
+├───────────────────────┼──────┼───────────┼─────────┼─────────┼────────────── ≈
+│ https://osv.dev/OSV-1 │      │ npm       │ mine1   │ 1.2.3   │ path/to/my/fi ≈
+│ https://osv.dev/OSV-5 │      │ npm       │ mine1   │ 1.2.3   │ path/to/my/fi ≈
+│ https://osv.dev/OSV-1 │      │ npm       │ mine1   │ 1.2.2   │ path/to/my/fi ≈
+│ https://osv.dev/OSV-2 │      │ npm       │ mine2   │ 3.2.5   │ path/to/my/se ≈
+│ https://osv.dev/OSV-3 │      │ npm       │ mine3   │ 0.4.1   │ path/to/my/se ≈
+│ https://osv.dev/OSV-5 │      │ npm       │ mine3   │ 0.4.1   │ path/to/my/se ≈
+╰───────────────────────┴──────┴───────────┴─────────┴─────────┴────────────── ≈
+
+---
+
+[TestPrintTableResults_StandardTerminalWidth_WithVulnerabilities/multiple_sources_with_a_mixed_count_of_packages,_no_vulnerabilities - 1]
+
+---
+
+[TestPrintTableResults_StandardTerminalWidth_WithVulnerabilities/multiple_sources_with_a_mixed_count_of_packages,_some_vulnerabilities - 1]
+╭───────────────────────┬──────┬───────────┬─────────┬─────────┬────────────── ≈
+│ OSV URL               │ CVSS │ ECOSYSTEM │ PACKAGE │ VERSION │ SOURCE        ≈
+├───────────────────────┼──────┼───────────┼─────────┼─────────┼────────────── ≈
+│ https://osv.dev/OSV-1 │      │ npm       │ mine1   │ 1.2.3   │ path/to/my/fi ≈
+│ https://osv.dev/OSV-2 │      │ npm       │ mine2   │ 3.2.5   │ path/to/my/se ≈
+│ https://osv.dev/OSV-1 │      │ npm       │ mine1   │ 1.2.3   │ path/to/my/th ≈
+╰───────────────────────┴──────┴───────────┴─────────┴─────────┴────────────── ≈
+
+---
+
+[TestPrintTableResults_StandardTerminalWidth_WithVulnerabilities/multiple_sources_with_a_mixed_count_of_packages_across_ecosystems,_and_multiple_vulnerabilities - 1]
+╭───────────────────────┬──────┬───────────┬─────────┬─────────┬────────────── ≈
+│ OSV URL               │ CVSS │ ECOSYSTEM │ PACKAGE │ VERSION │ SOURCE        ≈
+├───────────────────────┼──────┼───────────┼─────────┼─────────┼────────────── ≈
+│ https://osv.dev/OSV-1 │      │ Packagist │ mine1   │ 1.2.3   │ path/to/my/fi ≈
+│ https://osv.dev/OSV-5 │      │ Packagist │ mine1   │ 1.2.3   │ path/to/my/fi ≈
+│ https://osv.dev/OSV-1 │      │ npm       │ mine1   │ 1.2.2   │ path/to/my/fi ≈
+│ https://osv.dev/OSV-2 │      │ NuGet     │ mine2   │ 3.2.5   │ path/to/my/se ≈
+│ https://osv.dev/OSV-3 │      │ Packagist │ mine3   │ 0.4.1   │ path/to/my/se ≈
+│ https://osv.dev/OSV-5 │      │ Packagist │ mine3   │ 0.4.1   │ path/to/my/se ≈
+╰───────────────────────┴──────┴───────────┴─────────┴─────────┴────────────── ≈
+
+---
+
+[TestPrintTableResults_StandardTerminalWidth_WithVulnerabilities/multiple_sources_with_no_packages - 1]
+
+---
+
+[TestPrintTableResults_StandardTerminalWidth_WithVulnerabilities/no_sources - 1]
+
+---
+
+[TestPrintTableResults_StandardTerminalWidth_WithVulnerabilities/one_source_with_no_packages - 1]
+
+---
+
+[TestPrintTableResults_StandardTerminalWidth_WithVulnerabilities/one_source_with_one_package,_no_vulnerabilities - 1]
+
+---
+
+[TestPrintTableResults_StandardTerminalWidth_WithVulnerabilities/one_source_with_one_package_and_one_vulnerability - 1]
+╭───────────────────────┬──────┬───────────┬─────────┬─────────┬────────────── ≈
+│ OSV URL               │ CVSS │ ECOSYSTEM │ PACKAGE │ VERSION │ SOURCE        ≈
+├───────────────────────┼──────┼───────────┼─────────┼─────────┼────────────── ≈
+│ https://osv.dev/OSV-1 │      │ npm       │ mine1   │ 1.2.3   │ path/to/my/fi ≈
+╰───────────────────────┴──────┴───────────┴─────────┴─────────┴────────────── ≈
+
+---
+
+[TestPrintTableResults_StandardTerminalWidth_WithVulnerabilities/one_source_with_one_package_and_one_vulnerability_(dev) - 1]
+╭───────────────────────┬──────┬───────────┬─────────────┬─────────┬────────── ≈
+│ OSV URL               │ CVSS │ ECOSYSTEM │ PACKAGE     │ VERSION │ SOURCE    ≈
+├───────────────────────┼──────┼───────────┼─────────────┼─────────┼────────── ≈
+│ https://osv.dev/OSV-1 │      │ npm       │ mine1 (dev) │ 1.2.3   │ path/to/m ≈
+╰───────────────────────┴──────┴───────────┴─────────────┴─────────┴────────── ≈
+
+---
+
+[TestPrintTableResults_StandardTerminalWidth_WithVulnerabilities/one_source_with_one_package_and_two_aliases_of_a_single_vulnerability - 1]
+╭──────────────────────────┬──────┬───────────┬─────────┬─────────┬─────────── ≈
+│ OSV URL                  │ CVSS │ ECOSYSTEM │ PACKAGE │ VERSION │ SOURCE     ≈
+├──────────────────────────┼──────┼───────────┼─────────┼─────────┼─────────── ≈
+│ https://osv.dev/OSV-1    │      │ npm       │ mine1   │ 1.2.3   │ path/to/my ≈
+│ https://osv.dev/GHSA-123 │      │           │         │         │            ≈
+╰──────────────────────────┴──────┴───────────┴─────────┴─────────┴─────────── ≈
+
+---
+
+[TestPrintTableResults_StandardTerminalWidth_WithVulnerabilities/one_source_with_vulnerabilities,_some_missing_content - 1]
+╭───────────────────────┬──────┬───────────┬─────────┬───────────┬──────────── ≈
+│ OSV URL               │ CVSS │ ECOSYSTEM │ PACKAGE │ VERSION   │ SOURCE      ≈
+├───────────────────────┼──────┼───────────┼─────────┼───────────┼──────────── ≈
+│ https://osv.dev/OSV-1 │      │ npm       │ mine1   │ 1.2.3     │ path/to/my/ ≈
+│ https://osv.dev/OSV-2 │      │ npm       │ mine3   │ 0.10.2-rc │ path/to/my/ ≈
+╰───────────────────────┴──────┴───────────┴─────────┴───────────┴──────────── ≈
+
+---
+
+[TestPrintTableResults_StandardTerminalWidth_WithVulnerabilities/two_sources_with_packages,_one_vulnerability - 1]
+╭───────────────────────┬──────┬───────────┬─────────┬─────────┬────────────── ≈
+│ OSV URL               │ CVSS │ ECOSYSTEM │ PACKAGE │ VERSION │ SOURCE        ≈
+├───────────────────────┼──────┼───────────┼─────────┼─────────┼────────────── ≈
+│ https://osv.dev/OSV-1 │      │ npm       │ mine1   │ 1.2.3   │ path/to/my/fi ≈
+╰───────────────────────┴──────┴───────────┴─────────┴─────────┴────────────── ≈
+
+---
+
+[TestPrintTableResults_StandardTerminalWidth_WithVulnerabilities/two_sources_with_the_same_vulnerable_package - 1]
+╭───────────────────────┬──────┬───────────┬─────────────┬─────────┬────────── ≈
+│ OSV URL               │ CVSS │ ECOSYSTEM │ PACKAGE     │ VERSION │ SOURCE    ≈
+├───────────────────────┼──────┼───────────┼─────────────┼─────────┼────────── ≈
+│ https://osv.dev/OSV-1 │      │ npm       │ mine1       │ 1.2.3   │ path/to/m ≈
+│ https://osv.dev/OSV-1 │      │ npm       │ mine1 (dev) │ 1.2.3   │ path/to/m ≈
+╰───────────────────────┴──────┴───────────┴─────────────┴─────────┴────────── ≈
+
+---
