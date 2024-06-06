@@ -8,7 +8,7 @@ id = "GO-2022-1059"
 # ignoreUntil = 2022-11-09 # Optional exception expiry date
 # reason = "" # Optional reason
 
-[[PackageVersions]]
+[[PackageOverrides]]
 name = "lib"
 version = "1.0.0"
 ecosystem = "Go"
@@ -16,7 +16,7 @@ ignore = true
 # effectiveUntil = 2022-11-09 # Optional exception expiry date
 reason = "abc"
  
-[[PackageVersions]]
+[[PackageOverrides]]
 name = "my-pkg"
 version = "1.0.0"
 ecosystem = "Go"

@@ -23,10 +23,10 @@ type ConfigManager struct {
 }
 
 type Config struct {
-	IgnoredVulns      []IgnoreEntry         `toml:"IgnoredVulns"`
-	PackageVersions   []PackageVersionEntry `toml:"PackageVersions"`
-	LoadPath          string                `toml:"LoadPath"`
-	GoVersionOverride string                `toml:"GoVersionOverride"`
+	IgnoredVulns      []IgnoreEntry          `toml:"IgnoredVulns"`
+	PackageOverrides  []PackageOverrideEntry `toml:"PackageOverrides"`
+	LoadPath          string                 `toml:"LoadPath"`
+	GoVersionOverride string                 `toml:"GoVersionOverride"`
 }
 
 type IgnoreEntry struct {
@@ -35,7 +35,7 @@ type IgnoreEntry struct {
 	Reason      string    `toml:"reason"`
 }
 
-type PackageVersionEntry struct {
+type PackageOverrideEntry struct {
 	Name string `toml:"name"`
 	// If the version is empty, the entry applies to all versions.
 	Version        string    `toml:"version"`
@@ -60,8 +60,8 @@ func (c *Config) ShouldIgnore(vulnID string) (bool, IgnoreEntry) {
 	return shouldIgnoreTimestamp(ignoredLine.IgnoreUntil), ignoredLine
 }
 
-func (c *Config) filterPackageVersionEntries(name string, version string, ecosystem string, condition func(PackageVersionEntry) bool) (bool, PackageVersionEntry) {
-	index := slices.IndexFunc(c.PackageVersions, func(e PackageVersionEntry) bool {
+func (c *Config) filterPackageVersionEntries(name string, version string, ecosystem string, condition func(PackageOverrideEntry) bool) (bool, PackageOverrideEntry) {
+	index := slices.IndexFunc(c.PackageOverrides, func(e PackageOverrideEntry) bool {
 		if ecosystem != e.Ecosystem || name != e.Name {
 			return false
 		}
@@ -69,21 +69,21 @@ func (c *Config) filterPackageVersionEntries(name string, version string, ecosys
 		return (version == e.Version || e.Version == "") && condition(e)
 	})
 	if index == -1 {
-		return false, PackageVersionEntry{}
+		return false, PackageOverrideEntry{}
 	}
-	ignoredLine := c.PackageVersions[index]
+	ignoredLine := c.PackageOverrides[index]
 
 	return shouldIgnoreTimestamp(ignoredLine.EffectiveUntil), ignoredLine
 }
 
-func (c *Config) ShouldIgnorePackageVersion(name, version, ecosystem string) (bool, PackageVersionEntry) {
-	return c.filterPackageVersionEntries(name, version, ecosystem, func(e PackageVersionEntry) bool {
+func (c *Config) ShouldIgnorePackageVersion(name, version, ecosystem string) (bool, PackageOverrideEntry) {
+	return c.filterPackageVersionEntries(name, version, ecosystem, func(e PackageOverrideEntry) bool {
 		return e.Ignore
 	})
 }
 
-func (c *Config) ShouldOverridePackageVersionLicense(name, version, ecosystem string) (bool, PackageVersionEntry) {
-	return c.filterPackageVersionEntries(name, version, ecosystem, func(e PackageVersionEntry) bool {
+func (c *Config) ShouldOverridePackageVersionLicense(name, version, ecosystem string) (bool, PackageOverrideEntry) {
+	return c.filterPackageVersionEntries(name, version, ecosystem, func(e PackageOverrideEntry) bool {
 		return len(e.License.Override) > 0
 	})
 }

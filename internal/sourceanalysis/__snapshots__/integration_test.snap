@@ -1,3 +1,4 @@
+
 [Test_runGovulncheck - 1]
 {
   "GO-2021-0053": [
@@ -124,7 +125,7 @@
           "position": {
             "filename": "\u003cAny value\u003e",
             "offset": -1,
-            "line": 839,
+            "line": 840,
             "column": 21
           }
         },
@@ -137,7 +138,7 @@
           "position": {
             "filename": "\u003cAny value\u003e",
             "offset": -1,
-            "line": 1038,
+            "line": 1039,
             "column": 24
           }
         },
@@ -149,7 +150,7 @@
           "position": {
             "filename": "\u003cAny value\u003e",
             "offset": -1,
-            "line": 430,
+            "line": 429,
             "column": 21
           }
         },
@@ -161,7 +162,7 @@
           "position": {
             "filename": "\u003cAny value\u003e",
             "offset": -1,
-            "line": 389,
+            "line": 388,
             "column": 19
           }
         },
@@ -174,7 +175,7 @@
           "position": {
             "filename": "\u003cAny value\u003e",
             "offset": -1,
-            "line": 1002,
+            "line": 1003,
             "column": 19
           }
         },
@@ -187,7 +188,7 @@
           "position": {
             "filename": "\u003cAny value\u003e",
             "offset": -1,
-            "line": 1670,
+            "line": 1675,
             "column": 17
           }
         },
@@ -200,7 +201,7 @@
           "position": {
             "filename": "\u003cAny value\u003e",
             "offset": -1,
-            "line": 2015,
+            "line": 2045,
             "column": 18
           }
         },
@@ -213,7 +214,7 @@
           "position": {
             "filename": "\u003cAny value\u003e",
             "offset": -1,
-            "line": 3086,
+            "line": 3285,
             "column": 3
           }
         },
@@ -226,7 +227,7 @@
           "position": {
             "filename": "\u003cAny value\u003e",
             "offset": -1,
-            "line": 2985,
+            "line": 3184,
             "column": 18
           }
         },
@@ -238,7 +239,7 @@
           "position": {
             "filename": "\u003cAny value\u003e",
             "offset": -1,
-            "line": 3239,
+            "line": 3438,
             "column": 30
           }
         },

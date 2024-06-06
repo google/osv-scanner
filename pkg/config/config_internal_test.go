@@ -27,7 +27,7 @@ func TestTryLoadConfig(t *testing.T) {
 				ID: "GO-2022-1059",
 			},
 		},
-		PackageVersions: []PackageVersionEntry{
+		PackageOverrides: []PackageOverrideEntry{
 			{
 				Name:      "lib",
 				Version:   "1.0.0",
@@ -88,7 +88,7 @@ func TestTryLoadConfig(t *testing.T) {
 		if !cmp.Equal(config.IgnoredVulns, testData.config.IgnoredVulns) {
 			t.Errorf("Configs not equal: %+v != %+v", config, testData.config)
 		}
-		if !cmp.Equal(config.PackageVersions, testData.config.PackageVersions) {
+		if !cmp.Equal(config.PackageOverrides, testData.config.PackageOverrides) {
 			t.Errorf("Configs not equal: %+v != %+v", config, testData.config)
 		}
 		if testData.configHasErr {
@@ -227,12 +227,12 @@ func TestConfig_ShouldIgnorePackageVersion(t *testing.T) {
 		config    Config
 		args      args
 		wantOk    bool
-		wantEntry PackageVersionEntry
+		wantEntry PackageOverrideEntry
 	}{
 		{
 			name: "Version-level entry exists",
 			config: Config{
-				PackageVersions: []PackageVersionEntry{
+				PackageOverrides: []PackageOverrideEntry{
 					{
 						Name:           "lib1",
 						Version:        "1.0.0",
@@ -249,7 +249,7 @@ func TestConfig_ShouldIgnorePackageVersion(t *testing.T) {
 				ecosystem: "Go",
 			},
 			wantOk: true,
-			wantEntry: PackageVersionEntry{
+			wantEntry: PackageOverrideEntry{
 				Name:           "lib1",
 				Version:        "1.0.0",
 				Ecosystem:      "Go",
@@ -261,7 +261,7 @@ func TestConfig_ShouldIgnorePackageVersion(t *testing.T) {
 		{
 			name: "Package-level entry exists",
 			config: Config{
-				PackageVersions: []PackageVersionEntry{
+				PackageOverrides: []PackageOverrideEntry{
 					{
 						Name:           "lib1",
 						Ecosystem:      "Go",
@@ -277,7 +277,7 @@ func TestConfig_ShouldIgnorePackageVersion(t *testing.T) {
 				ecosystem: "Go",
 			},
 			wantOk: true,
-			wantEntry: PackageVersionEntry{
+			wantEntry: PackageOverrideEntry{
 				Name:           "lib1",
 				Ecosystem:      "Go",
 				Ignore:         true,
@@ -288,7 +288,7 @@ func TestConfig_ShouldIgnorePackageVersion(t *testing.T) {
 		{
 			name: "Entry doesn't exist",
 			config: Config{
-				PackageVersions: []PackageVersionEntry{
+				PackageOverrides: []PackageOverrideEntry{
 					{
 						Name:           "lib1",
 						Version:        "2.0.0",
@@ -313,7 +313,7 @@ func TestConfig_ShouldIgnorePackageVersion(t *testing.T) {
 				ecosystem: "Go",
 			},
 			wantOk:    false,
-			wantEntry: PackageVersionEntry{},
+			wantEntry: PackageOverrideEntry{},
 		},
 	}
 
@@ -346,12 +346,12 @@ func TestConfig_ShouldOverridePackageVersionLicense(t *testing.T) {
 		config    Config
 		args      args
 		wantOk    bool
-		wantEntry PackageVersionEntry
+		wantEntry PackageOverrideEntry
 	}{
 		{
 			name: "Exact version entry exists",
 			config: Config{
-				PackageVersions: []PackageVersionEntry{
+				PackageOverrides: []PackageOverrideEntry{
 					{
 						Name:      "lib1",
 						Version:   "1.0.0",
@@ -369,7 +369,7 @@ func TestConfig_ShouldOverridePackageVersionLicense(t *testing.T) {
 				ecosystem: "Go",
 			},
 			wantOk: true,
-			wantEntry: PackageVersionEntry{
+			wantEntry: PackageOverrideEntry{
 				Name:      "lib1",
 				Version:   "1.0.0",
 				Ecosystem: "Go",
@@ -382,7 +382,7 @@ func TestConfig_ShouldOverridePackageVersionLicense(t *testing.T) {
 		{
 			name: "Version entry doesn't exist",
 			config: Config{
-				PackageVersions: []PackageVersionEntry{
+				PackageOverrides: []PackageOverrideEntry{
 					{
 						Name:      "lib1",
 						Version:   "1.0.0",
@@ -400,12 +400,12 @@ func TestConfig_ShouldOverridePackageVersionLicense(t *testing.T) {
 				ecosystem: "Go",
 			},
 			wantOk:    false,
-			wantEntry: PackageVersionEntry{},
+			wantEntry: PackageOverrideEntry{},
 		},
 		{
 			name: "Name matches",
 			config: Config{
-				PackageVersions: []PackageVersionEntry{
+				PackageOverrides: []PackageOverrideEntry{
 					{
 						Name:      "lib1",
 						Ecosystem: "Go",
@@ -422,7 +422,7 @@ func TestConfig_ShouldOverridePackageVersionLicense(t *testing.T) {
 				ecosystem: "Go",
 			},
 			wantOk: true,
-			wantEntry: PackageVersionEntry{
+			wantEntry: PackageOverrideEntry{
 				Name:      "lib1",
 				Ecosystem: "Go",
 				License: License{
