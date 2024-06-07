@@ -1,19 +1,19 @@
 package purl
 
 import (
-	"log"
+	"fmt"
 	"strings"
 
 	"github.com/google/osv-scanner/pkg/models"
 )
 
-func ExtractPURLFromComposer(packageInfo models.PackageInfo) (namespace string, name string, ok bool) {
+func FromComposer(packageInfo models.PackageInfo) (namespace string, name string, err error) {
 	nameParts := strings.Split(packageInfo.Name, "/")
 	if len(nameParts) != 2 {
-		log.Printf("invalid packagist package_name=%s", packageInfo.Name)
+		err = fmt.Errorf("invalid packagist package_name (%s)", packageInfo.Name)
+
 		return
 	}
-	ok = true
 	namespace = nameParts[0]
 	name = nameParts[1]
 

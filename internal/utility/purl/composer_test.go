@@ -24,9 +24,9 @@ func TestComposerExtraction_shouldExtractPackages(t *testing.T) {
 		expectedName:      "yaml",
 	}
 
-	namespace, name, ok := purl.ExtractPURLFromComposer(testCase.packageInfo)
+	namespace, name, err := purl.FromComposer(testCase.packageInfo)
 
-	if !ok {
+	if err != nil {
 		t.Errorf("Extraction didn't succeed, package has been wrongfully filtered")
 	}
 	if namespace != testCase.expectedNamespace {
@@ -67,9 +67,9 @@ func TestComposerExtraction_shouldFilterPackages(t *testing.T) {
 		testCase := test
 		t.Run(testCase.name, func(t *testing.T) {
 			t.Parallel()
-			_, _, ok := purl.ExtractPURLFromComposer(testCase.packageInfo)
+			_, _, err := purl.FromComposer(testCase.packageInfo)
 
-			if ok {
+			if err == nil {
 				t.Errorf("Package %v should have been filtered\n", testCase.packageInfo)
 			}
 		})

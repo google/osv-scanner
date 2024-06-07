@@ -1,11 +1,12 @@
 package purl
 
 import (
+	"fmt"
 	"github.com/google/osv-scanner/pkg/models"
 	"github.com/package-url/packageurl-go"
 )
 
-type ParameterExtractor func(packageInfo models.PackageInfo) (namespace string, name string, ok bool)
+type ParameterExtractor func(packageInfo models.PackageInfo) (namespace string, name string, err error)
 
 var EcosystemToPURLMapper = map[models.Ecosystem]string{
 	models.EcosystemMaven:       packageurl.TypeMaven,
@@ -23,12 +24,12 @@ var EcosystemToPURLMapper = map[models.Ecosystem]string{
 }
 
 var ecosystemPURLExtractor = map[models.Ecosystem]ParameterExtractor{
-	models.EcosystemMaven:     ExtractPURLFromMaven,
-	models.EcosystemGo:        ExtractPURLFromGolang,
-	models.EcosystemPackagist: ExtractPURLFromComposer,
+	models.EcosystemMaven:     FromMaven,
+	models.EcosystemGo:        FromGo,
+	models.EcosystemPackagist: FromComposer,
 }
 
-func From(packageInfo models.PackageInfo) *packageurl.PackageURL {
+func From(packageInfo models.PackageInfo) (*packageurl.PackageURL, error) {
 	var namespace string
 	var name string
 	version := packageInfo.Version
@@ -37,18 +38,18 @@ func From(packageInfo models.PackageInfo) *packageurl.PackageURL {
 	parameterExtractor, extractorExists := ecosystemPURLExtractor[ecosystem]
 
 	if !typeExists {
-		return nil
+		return nil, fmt.Errorf("unable to determine purl type of %s@%s (%s)", packageInfo.Name, packageInfo.Version, packageInfo.Ecosystem)
 	}
 
 	if extractorExists {
-		var ok bool
-		namespace, name, ok = parameterExtractor(packageInfo)
-		if !ok {
-			return nil
+		var err error
+		namespace, name, err = parameterExtractor(packageInfo)
+		if err != nil {
+			return nil, err
 		}
 	} else {
 		name = packageInfo.Name
 	}
 
-	return packageurl.NewPackageURL(purlType, namespace, name, version, nil, "")
+	return packageurl.NewPackageURL(purlType, namespace, name, version, nil, ""), nil
 }

@@ -6,13 +6,15 @@ import (
 	"slices"
 )
 
-func GroupByPURL(packageSources []models.PackageSource) map[string]models.PackageVulns {
+func GroupByPURL(packageSources []models.PackageSource) (map[string]models.PackageVulns, []error) {
 	uniquePackages := make(map[string]models.PackageVulns)
+	errors := make([]error, 0)
 
 	for _, packageSource := range packageSources {
 		for _, pkg := range packageSource.Packages {
-			packageURL := purl.From(pkg.Package)
-			if packageURL == nil {
+			packageURL, err := purl.From(pkg.Package)
+			if err != nil {
+				errors = append(errors, err)
 				continue
 			}
 			packageVulns, packageExists := uniquePackages[packageURL.ToString()]
@@ -41,5 +43,5 @@ func GroupByPURL(packageSources []models.PackageSource) map[string]models.Packag
 		}
 	}
 
-	return uniquePackages
+	return uniquePackages, errors
 }

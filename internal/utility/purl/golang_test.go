@@ -54,9 +54,9 @@ func TestGolangExtraction_shouldExtractPackages(t *testing.T) {
 		testCase := test
 		t.Run(testCase.name, func(t *testing.T) {
 			t.Parallel()
-			namespace, name, ok := purl.ExtractPURLFromGolang(testCase.packageInfo)
+			namespace, name, err := purl.FromGo(testCase.packageInfo)
 
-			if !ok {
+			if err != nil {
 				t.Errorf("Extraction didn't succeed, package has been wrongfully filtered")
 			}
 			if namespace != testCase.expectedNamespace {
@@ -90,9 +90,9 @@ func TestGolangExtraction_shouldFilterPackages(t *testing.T) {
 		testCase := test
 		t.Run(testCase.name, func(t *testing.T) {
 			t.Parallel()
-			_, _, ok := purl.ExtractPURLFromGolang(testCase.packageInfo)
+			_, _, err := purl.FromGo(testCase.packageInfo)
 
-			if ok {
+			if err == nil {
 				t.Errorf("Package %v should have been filtered\n", testCase.packageInfo)
 			}
 		})
