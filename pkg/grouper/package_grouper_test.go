@@ -139,6 +139,6 @@ func TestGroupPackageByPURL_ShouldUnifyPackages(t *testing.T) {
 		},
 	}
 
-	assert.Len(t, errors, 0)
+	assert.Empty(t, errors)
 	assert.Equal(t, expected, result)
 }

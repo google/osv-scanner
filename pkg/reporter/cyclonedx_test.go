@@ -2,10 +2,11 @@ package reporter_test
 
 import (
 	"bytes"
-	"github.com/google/osv-scanner/pkg/reporter"
-	"github.com/google/osv-scanner/pkg/reporter/sbom"
 	"io"
 	"testing"
+
+	"github.com/google/osv-scanner/pkg/reporter"
+	"github.com/google/osv-scanner/pkg/reporter/sbom"
 )
 
 func TestCycloneDXReporter_Errorf(t *testing.T) {
@@ -32,7 +33,6 @@ func TestCycloneDXReporter_Errorf(t *testing.T) {
 			t.Error("HasErrored() should have returned true")
 		}
 	}
-
 }
 
 func TestCycloneDXReporter_Warnf(t *testing.T) {

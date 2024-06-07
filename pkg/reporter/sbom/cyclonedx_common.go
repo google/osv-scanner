@@ -1,9 +1,10 @@
 package sbom
 
 import (
+	"time"
+
 	"github.com/CycloneDX/cyclonedx-go"
 	"github.com/google/osv-scanner/pkg/models"
-	"time"
 )
 
 func buildCycloneDXBom(uniquePackages map[string]models.PackageVulns) *cyclonedx.BOM {
@@ -77,6 +78,7 @@ func formatDateIfExists(date time.Time) string {
 	if date.IsZero() {
 		return ""
 	}
+
 	return date.Format(time.RFC3339)
 }
 
@@ -86,9 +88,10 @@ func buildCredits(vulnerability models.Vulnerability) *cyclonedx.Credits {
 	for index, credit := range vulnerability.Credits {
 		organizations[index] = cyclonedx.OrganizationalEntity{
 			Name: credit.Name,
-			URL:  &credit.Contact,
+			URL:  &vulnerability.Credits[index].Contact,
 		}
 	}
+
 	return &cyclonedx.Credits{
 		Organizations: &organizations,
 	}
@@ -102,6 +105,7 @@ func buildAffectedPackages(vulnerability models.Vulnerability) *[]cyclonedx.Affe
 			Ref: affected.Package.Purl,
 		}
 	}
+
 	return &affectedPackages
 }
 

@@ -1,8 +1,9 @@
 package purl_test
 
 import (
-	"github.com/google/osv-scanner/internal/utility/purl"
 	"testing"
+
+	"github.com/google/osv-scanner/internal/utility/purl"
 
 	"github.com/google/osv-scanner/pkg/models"
 )

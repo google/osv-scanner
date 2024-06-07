@@ -2,8 +2,9 @@ package reporter
 
 import (
 	"fmt"
-	"github.com/google/osv-scanner/pkg/grouper"
 	"io"
+
+	"github.com/google/osv-scanner/pkg/grouper"
 
 	"github.com/CycloneDX/cyclonedx-go"
 	"github.com/google/osv-scanner/pkg/models"

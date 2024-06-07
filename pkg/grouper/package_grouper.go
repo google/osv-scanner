@@ -1,9 +1,10 @@
 package grouper
 
 import (
+	"slices"
+
 	"github.com/google/osv-scanner/internal/utility/purl"
 	"github.com/google/osv-scanner/pkg/models"
-	"slices"
 )
 
 func GroupByPURL(packageSources []models.PackageSource) (map[string]models.PackageVulns, []error) {
