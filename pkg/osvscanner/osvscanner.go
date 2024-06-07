@@ -19,6 +19,7 @@ import (
 	"github.com/google/osv-scanner/internal/manifest"
 	"github.com/google/osv-scanner/internal/output"
 	"github.com/google/osv-scanner/internal/resolution/client"
+	"github.com/google/osv-scanner/internal/resolution/datasource"
 	"github.com/google/osv-scanner/internal/sbom"
 	"github.com/google/osv-scanner/internal/semantic"
 	"github.com/google/osv-scanner/internal/version"
@@ -163,7 +164,7 @@ func scanDir(r reporter.Reporter, dir string, skipGit bool, recursive bool, useG
 
 		if !info.IsDir() {
 			if extractor, _ := lockfile.FindExtractor(path, ""); extractor != nil {
-				pkgs, err := scanLockfile(r, path, "", !compareLocally)
+				pkgs, err := scanLockfile(r, path, "", compareLocally)
 				if err != nil {
 					r.Errorf("Attempted to scan lockfile but failed: %s\n", path)
 				}
@@ -344,7 +345,7 @@ func scanImage(r reporter.Reporter, path string) ([]scannedPackage, error) {
 
 // scanLockfile will load, identify, and parse the lockfile path passed in, and add the dependencies specified
 // within to `query`
-func scanLockfile(r reporter.Reporter, path string, parseAs string, allowResolver bool) ([]scannedPackage, error) {
+func scanLockfile(r reporter.Reporter, path string, parseAs string, compareLocally bool) ([]scannedPackage, error) {
 	var err error
 	var parsedLockfile lockfile.Lockfile
 
@@ -362,7 +363,7 @@ func scanLockfile(r reporter.Reporter, path string, parseAs string, allowResolve
 		case "osv-scanner":
 			parsedLockfile, err = lockfile.FromOSVScannerResults(path)
 		default:
-			if allowResolver && (parseAs == "pom.xml" || filepath.Base(path) == "pom.xml") {
+			if !compareLocally && (parseAs == "pom.xml" || filepath.Base(path) == "pom.xml") {
 				parsedLockfile, err = extractMavenDeps(f)
 			} else {
 				parsedLockfile, err = lockfile.ExtractDeps(f, parseAs)
@@ -412,12 +413,15 @@ func extractMavenDeps(f lockfile.DepFile) (lockfile.Lockfile, error) {
 		return lockfile.Lockfile{}, err
 	}
 	extractor := manifest.MavenResolverExtractor{
-		DependencyClient: depClient,
+		DependencyClient:       depClient,
+		MavenRegistryAPIClient: *datasource.NewMavenRegistryAPIClient(datasource.MavenCentral),
 	}
 	packages, err := extractor.Extract(f)
 	if err != nil {
 		err = fmt.Errorf("failed extracting %s: %w", f.Path(), err)
 	}
+
+	// Sort packages for testing convenience.
 	sort.Slice(packages, func(i, j int) bool {
 		if packages[i].Name == packages[j].Name {
 			return packages[i].Version < packages[j].Version
@@ -837,7 +841,7 @@ func DoScan(actions ScannerActions, r reporter.Reporter) (models.VulnerabilityRe
 			r.Errorf("Failed to resolved path with error %s\n", err)
 			return models.VulnerabilityResults{}, err
 		}
-		pkgs, err := scanLockfile(r, lockfilePath, parseAs, !actions.CompareLocally)
+		pkgs, err := scanLockfile(r, lockfilePath, parseAs, actions.CompareLocally)
 		if err != nil {
 			return models.VulnerabilityResults{}, err
 		}
