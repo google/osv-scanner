@@ -77,8 +77,8 @@ func NewInPlaceInfo(res remediation.InPlaceResult) *inPlaceInfo {
 	}
 
 	st := table.DefaultStyles()
-	st.Header.Bold(false).BorderStyle(lipgloss.NormalBorder()).BorderBottom(true)
-	st.Selected.Foreground(ColorPrimary)
+	st.Header = st.Header.Bold(false).BorderStyle(lipgloss.NormalBorder()).BorderBottom(true)
+	st.Selected = st.Selected.Foreground(ColorPrimary)
 
 	info.Model = table.New(
 		table.WithColumns(cols),

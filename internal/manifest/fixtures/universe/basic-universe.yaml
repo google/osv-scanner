@@ -7,8 +7,16 @@ schema: |
     4.1.42.Final
   junit:junit
     4.12
+  org.alice:alice
+    1.0.0
   org.apache.maven:maven-artifact
     1.0.0
+  org.bob:bob
+    2.0.0
+  org.chuck:chuck
+    3.0.0
+  org.dave:dave
+    4.0.0
   org.direct:alice
     1.0.0
       org.transitive:chuck@1.1.1
@@ -16,6 +24,10 @@ schema: |
   org.direct:bob
     2.0.0
       org.transitive:eve@3.3.3
+  org.eve:eve
+    5.0.0
+  org.frank:frank
+    6.0.0
   org.mine:my.package
     2.3.4
   org.mine:mypackage

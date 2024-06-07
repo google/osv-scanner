@@ -32,7 +32,7 @@ func (ms *MavenSuggester) Suggest(ctx context.Context, client resolve.Client, mf
 		if slices.Contains(opts.NoUpdates, req.Name) {
 			continue
 		}
-		if opts.IgnoreDev && lockfile.MavenEcosystem.IsDevGroup(mf.Groups[req.PackageKey]) {
+		if opts.IgnoreDev && lockfile.MavenEcosystem.IsDevGroup(mf.Groups[manifest.MakeRequirementKey(req)]) {
 			// Skip the update if the dependency is of development group
 			// and updates on development dependencies are not desired
 			continue

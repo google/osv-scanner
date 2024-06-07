@@ -94,7 +94,7 @@ func (v *vulnList) preambleHeight() int {
 func (v *vulnList) Resize(w, h int) {
 	v.SetWidth(w)
 	v.SetHeight(h - v.preambleHeight())
-	v.Styles.TitleBar.Width(w)
+	v.Styles.TitleBar = v.Styles.TitleBar.Width(w)
 	if v.currVulnInfo != nil {
 		v.currVulnInfo.Resize(w, h)
 	}
@@ -176,7 +176,7 @@ func (d vulnListItemDelegate) Render(w io.Writer, m list.Model, index int, listI
 	idStyle := lipgloss.NewStyle().Width(d.idWidth).Align(lipgloss.Left)
 	if index == m.Index() {
 		cursor = SelectedTextStyle.Render(">")
-		idStyle.Inherit(SelectedTextStyle)
+		idStyle = idStyle.Inherit(SelectedTextStyle)
 	}
 	id := idStyle.Render(vuln.Vulnerability.ID)
 	severity := RenderSeverityShort(vuln.Vulnerability.Severity)
