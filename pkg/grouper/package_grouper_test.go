@@ -1,7 +1,6 @@
 package grouper_test
 
 import (
-	"github.com/google/osv-scanner/pkg/reporter"
 	"testing"
 
 	"github.com/google/osv-scanner/pkg/grouper"
@@ -111,7 +110,7 @@ func TestGroupPackageByPURL_ShouldUnifyPackages(t *testing.T) {
 		},
 	}
 
-	result := grouper.GroupByPURL(&reporter.VoidReporter{}, input)
+	result, errors := grouper.GroupByPURL(input)
 
 	expected := map[string]models.PackageVulns{
 		"pkg:maven/foo.bar/the-first-package@1.0.0": {
@@ -139,5 +138,7 @@ func TestGroupPackageByPURL_ShouldUnifyPackages(t *testing.T) {
 			},
 		},
 	}
+
+	assert.Len(t, errors, 0)
 	assert.Equal(t, expected, result)
 }
