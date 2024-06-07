@@ -7,6 +7,11 @@ import (
 	"github.com/google/osv-scanner/pkg/models"
 )
 
+// GroupByPURL takes a list of packages, and group them in a map using their PURL
+// as key It is a way to have only one instance of each package, even if some has
+// been detected multiple times. If the function fails to create a PURL from a
+// package, it generates an error, continue to group the other packages and
+// reports both grouped packages and all generated errors.
 func GroupByPURL(packageSources []models.PackageSource) (map[string]models.PackageVulns, []error) {
 	uniquePackages := make(map[string]models.PackageVulns)
 	errors := make([]error, 0)
