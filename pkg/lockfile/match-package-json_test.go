@@ -11,7 +11,7 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-var matcher = lockfile.PackageJSONMatcher{}
+var packageJSONMatcher = lockfile.PackageJSONMatcher{}
 
 func TestPackageJSONMatcher_GetSourceFile_FileDoesNotExist(t *testing.T) {
 	t.Parallel()
@@ -21,7 +21,7 @@ func TestPackageJSONMatcher_GetSourceFile_FileDoesNotExist(t *testing.T) {
 		t.Errorf("Got unexpected error: %v", err)
 	}
 
-	sourceFile, err := matcher.GetSourceFile(lockFile)
+	sourceFile, err := packageJSONMatcher.GetSourceFile(lockFile)
 	expectErrIs(t, err, fs.ErrNotExist)
 	assert.Equal(t, "", sourceFile.Path())
 }
@@ -41,7 +41,7 @@ func TestPackageJSONMatcher_GetSourceFile(t *testing.T) {
 		t.Errorf("Got unexpected error: %v", err)
 	}
 
-	sourceFile, err := matcher.GetSourceFile(lockFile)
+	sourceFile, err := packageJSONMatcher.GetSourceFile(lockFile)
 	if err != nil {
 		t.Errorf("Got unexpected error: %v", err)
 	}
@@ -63,7 +63,7 @@ func TestPackageJSONMatcher_Match_OnePackage(t *testing.T) {
 			TargetVersions: []string{"^4.0.0"},
 		},
 	}
-	err = matcher.Match(sourceFile, packages)
+	err = packageJSONMatcher.Match(sourceFile, packages)
 	if err != nil {
 		t.Errorf("Got unexpected error: %v", err)
 	}
@@ -121,7 +121,7 @@ func TestPackageJSONMatcher_Match_TransitiveDependencies(t *testing.T) {
 			TargetVersions: []string{"~0.3.15"},
 		},
 	}
-	err = matcher.Match(sourceFile, packages)
+	err = packageJSONMatcher.Match(sourceFile, packages)
 	if err != nil {
 		t.Errorf("Got unexpected error: %v", err)
 	}

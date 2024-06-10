@@ -1,8 +1,15 @@
 package lockfile_test
 
 import (
+	"bytes"
+	"errors"
+	"io"
 	"io/fs"
+	"os"
+	"path/filepath"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 
 	"github.com/google/osv-scanner/pkg/lockfile"
 )
@@ -131,6 +138,54 @@ func TestParseGradleVerificationMetadata_OnePackage(t *testing.T) {
 			CompareAs: lockfile.MavenEcosystem,
 		},
 	})
+}
+
+//nolint:paralleltest
+func TestParseGradleVerificationMetadata_OnePackage_MatcherFailed(t *testing.T) {
+	dir, err := os.Getwd()
+	if err != nil {
+		t.Errorf("Got unexpected error: %v", err)
+	}
+
+	stderr := os.Stderr
+	r, w, err := os.Pipe()
+	if err != nil {
+		t.Errorf("Got unexpected error: %v", err)
+	}
+	os.Stderr = w
+
+	// Mock buildGradleMatcher to fail
+	matcherError := errors.New("buildGradleMatcher failed")
+	lockfile.GradleVerificationExtractor.Matcher = FailingMatcher{Error: matcherError}
+
+	path := filepath.FromSlash(filepath.Join(dir, "fixtures/gradle-verification-metadata/one-package.xml"))
+	packages, err := lockfile.ParseGradleVerificationMetadata(path)
+	if err != nil {
+		t.Errorf("Got unexpected error: %v", err)
+	}
+
+	// Capture stderr
+	_ = w.Close()
+	os.Stderr = stderr
+	var buffer bytes.Buffer
+	_, err = io.Copy(&buffer, r)
+	if err != nil {
+		t.Errorf("failed to copy stderr output: %v", err)
+	}
+	_ = r.Close()
+
+	assert.Contains(t, buffer.String(), matcherError.Error())
+	expectPackagesWithoutLocations(t, packages, []lockfile.PackageDetails{
+		{
+			Name:      "org.apache.pdfbox:pdfbox",
+			Version:   "2.0.17",
+			Ecosystem: lockfile.MavenEcosystem,
+			CompareAs: lockfile.MavenEcosystem,
+		},
+	})
+
+	// Reset buildGradleMatcher mock
+	MockAllMatchers()
 }
 
 func TestParseGradleVerificationMetadata_TwoPackages(t *testing.T) {

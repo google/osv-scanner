@@ -4,7 +4,7 @@ import (
 	"github.com/google/osv-scanner/internal/cachedregexp"
 )
 
-var wordRe = cachedregexp.MustCompile(`[^\s(\n|\r|\r\n)]+`)
+var wordRe = cachedregexp.MustCompile(`[^\s\r\n]+`)
 
 func GetFirstNonEmptyCharacterIndexInLine(line string) int {
 	firstWord := wordRe.FindStringIndex(line)

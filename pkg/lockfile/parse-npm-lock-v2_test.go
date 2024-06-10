@@ -96,8 +96,8 @@ func TestParseNpmLock_v2_OnePackage_MatcherFailed(t *testing.T) {
 	}
 	os.Stderr = w
 
-	// Mock matcher to fail
-	matcherError := errors.New("matcher failed")
+	// Mock packageJSONMatcher to fail
+	matcherError := errors.New("packageJSONMatcher failed")
 	lockfile.NpmExtractor.Matcher = FailingMatcher{Error: matcherError}
 
 	path := filepath.FromSlash(filepath.Join(dir, "fixtures/npm/one-package.v2.json"))
@@ -127,7 +127,7 @@ func TestParseNpmLock_v2_OnePackage_MatcherFailed(t *testing.T) {
 		},
 	})
 
-	// Reset matcher mock
+	// Reset packageJSONMatcher mock
 	MockAllMatchers()
 }
 

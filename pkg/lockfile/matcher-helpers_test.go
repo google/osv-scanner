@@ -13,10 +13,13 @@ func TestMain(m *testing.M) {
 }
 
 func MockAllMatchers() {
-	// TODO: Mock extractors with matcher to use SuccessfulMatcher by default in all tests
+	// package.json
 	lockfile.YarnExtractor.Matcher = SuccessfulMatcher{}
 	lockfile.PnpmExtractor.Matcher = SuccessfulMatcher{}
 	lockfile.NpmExtractor.Matcher = SuccessfulMatcher{}
+	// build.gradle
+	lockfile.GradleExtractor.Matcher = SuccessfulMatcher{}
+	lockfile.GradleVerificationExtractor.Matcher = SuccessfulMatcher{}
 }
 
 type SuccessfulMatcher struct{}

@@ -14,7 +14,9 @@ type GradleVerificationMetadataFile struct {
 	} `xml:"components>component"`
 }
 
-type GradleVerificationMetadataExtractor struct{}
+type GradleVerificationMetadataExtractor struct {
+	WithMatcher
+}
 
 func (e GradleVerificationMetadataExtractor) ShouldExtract(path string) bool {
 	return filepath.Base(filepath.Dir(path)) == "gradle" && filepath.Base(path) == "verification-metadata.xml"
@@ -43,13 +45,15 @@ func (e GradleVerificationMetadataExtractor) Extract(f DepFile) ([]PackageDetail
 	return pkgs, nil
 }
 
-var _ Extractor = GradleVerificationMetadataExtractor{}
+var GradleVerificationExtractor = GradleVerificationMetadataExtractor{
+	WithMatcher{Matcher: BuildGradleMatcher{}},
+}
 
 //nolint:gochecknoinits
 func init() {
-	registerExtractor("gradle/verification-metadata.xml", GradleVerificationMetadataExtractor{})
+	registerExtractor("gradle/verification-metadata.xml", GradleVerificationExtractor)
 }
 
 func ParseGradleVerificationMetadata(pathToLockfile string) ([]PackageDetails, error) {
-	return extractFromFile(pathToLockfile, GradleVerificationMetadataExtractor{})
+	return extractFromFile(pathToLockfile, GradleVerificationExtractor)
 }

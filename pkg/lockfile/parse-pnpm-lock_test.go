@@ -146,8 +146,8 @@ func TestParsePnpmLock_OnePackage_MatcherFailed(t *testing.T) {
 	}
 	os.Stderr = w
 
-	// Mock matcher to fail
-	matcherError := errors.New("matcher failed")
+	// Mock packageJSONMatcher to fail
+	matcherError := errors.New("packageJSONMatcher failed")
 	lockfile.PnpmExtractor.Matcher = FailingMatcher{Error: matcherError}
 
 	path := filepath.FromSlash(filepath.Join(dir, "fixtures/pnpm/one-package.yaml"))
@@ -177,7 +177,7 @@ func TestParsePnpmLock_OnePackage_MatcherFailed(t *testing.T) {
 		},
 	})
 
-	// Reset matcher mock
+	// Reset packageJSONMatcher mock
 	MockAllMatchers()
 }
 
