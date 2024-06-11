@@ -3,14 +3,17 @@ package remediation
 import (
 	"cmp"
 	"context"
+	"errors"
 	"fmt"
 	"slices"
 	"strings"
 
 	"deps.dev/util/resolve"
+	"deps.dev/util/resolve/dep"
 	"deps.dev/util/semver"
 	"github.com/google/osv-scanner/internal/resolution"
 	"github.com/google/osv-scanner/internal/resolution/client"
+	"github.com/google/osv-scanner/internal/resolution/manifest"
 	"github.com/google/osv-scanner/internal/resolution/util"
 	"github.com/google/osv-scanner/internal/utility/vulns"
 )
@@ -18,32 +21,23 @@ import (
 // TODO: need to make a ManifestPatch with ecosystem-specific fields
 type OverridePatch struct {
 	resolve.PackageKey
-	OrigVersion   string
-	NewVersion    string
-	ResolvedVulns []resolution.ResolutionVuln
+	OrigVersion string
+	NewVersion  string
 }
 
 func (p OverridePatch) String() string {
-	vulns := make([]string, len(p.ResolvedVulns))
-	for i, v := range p.ResolvedVulns {
-		vulns[i] = v.Vulnerability.ID
-	}
-
-	return fmt.Sprintf("%s@%s -> %s %v", p.Name, p.OrigVersion, p.NewVersion, vulns)
+	return fmt.Sprintf("%s@%s -> %s", p.Name, p.OrigVersion, p.NewVersion)
 }
 
-type OverrideUnfixable struct {
-	resolve.VersionKey
-	resolution.ResolutionVuln
-}
-
-func (u OverrideUnfixable) String() string {
-	return fmt.Sprintf("%s@%s [%s]", u.Name, u.Version, u.Vulnerability.ID)
+type OverrideResultPatch struct {
+	Patches       []OverridePatch
+	FixedIDs      []string
+	IntroducedIDs []string
 }
 
 type OverrideResult struct {
-	Patches   []OverridePatch
-	Unfixable []OverrideUnfixable
+	Patches      []OverrideResultPatch
+	UnfixableIDs [][]string
 }
 
 func (r OverrideResult) String() string {
@@ -54,7 +48,7 @@ func (r OverrideResult) String() string {
 	}
 
 	fmt.Fprintln(s, "UNFIXABLE:")
-	for _, unf := range r.Unfixable {
+	for _, unf := range r.UnfixableIDs {
 		fmt.Fprintln(s, unf)
 	}
 
@@ -62,126 +56,302 @@ func (r OverrideResult) String() string {
 }
 
 func ComputeOverridePatches(ctx context.Context, cl client.ResolutionClient, result *resolution.ResolutionResult, opts RemediationOptions) (OverrideResult, error) {
+	// TODO: this is very similar to ComputeRelaxPatches - can the common parts be factored out?
 	// Filter the original result just in case it hasn't been already
 	result.FilterVulns(opts.MatchVuln)
 
-	// Find the vulns affecting each version key to count vulns as the scan action does.
-	// TODO: Make ResolutionResult do this kind of thing.
-	vkVulns := make(map[resolve.VersionKey][]*resolution.ResolutionVuln)
-	for i, v := range result.Vulns {
-		seenVks := make(map[resolve.VersionKey]struct{})
-		for _, c := range v.ProblemChains {
-			vk, _ := c.End()
-			if _, seen := seenVks[vk]; !seen {
-				vkVulns[vk] = append(vkVulns[vk], &result.Vulns[i])
-				seenVks[vk] = struct{}{}
-			}
+	// Do the resolutions concurrently
+	type overrideResult struct {
+		vulnIDs []string
+		result  *resolution.ResolutionResult
+		patches []OverridePatch
+		err     error
+	}
+	ch := make(chan overrideResult)
+	doOverride := func(vulnIDs []string) {
+		res, patches, err := overridePatchVulns(ctx, cl, result, vulnIDs, opts)
+		if err == nil {
+			res.FilterVulns(opts.MatchVuln)
 		}
-		for _, c := range v.NonProblemChains {
-			vk, _ := c.End()
-			if _, seen := seenVks[vk]; !seen {
-				vkVulns[vk] = append(vkVulns[vk], &result.Vulns[i])
-				seenVks[vk] = struct{}{}
-			}
+		ch <- overrideResult{
+			vulnIDs: vulnIDs,
+			result:  res,
+			patches: patches,
+			err:     err,
 		}
 	}
 
-	// Build the results
-	var res OverrideResult
-	for vk, vulnerabilities := range vkVulns {
-		// Consider vulns affecting packages we don't want to change unfixable
-		if slices.Contains(opts.AvoidPkgs, vk.Name) {
-			for _, v := range vulnerabilities {
-				res.Unfixable = append(res.Unfixable, OverrideUnfixable{VersionKey: vk, ResolutionVuln: *v})
-			}
+	toProcess := 0
+	for _, v := range result.Vulns {
+		// TODO: limit the number of goroutines
+		go doOverride([]string{v.Vulnerability.ID})
+		toProcess++
+	}
 
+	var finalResult OverrideResult
+	for toProcess > 0 {
+		res := <-ch
+		toProcess--
+		if errors.Is(res.err, errOverrideImpossible) {
+			finalResult.UnfixableIDs = append(finalResult.UnfixableIDs, res.vulnIDs)
 			continue
 		}
 
-		sys := vk.Semver()
-		// Get & sort all the valid versions of this package
-		// TODO: (Maven) skip unlisted versions and versions on other registries
-		versions, err := cl.Versions(ctx, vk.PackageKey)
-		if err != nil {
-			return res, err
+		if res.err != nil {
+			// TODO: stop goroutines
+			return OverrideResult{}, res.err
 		}
-		slices.SortFunc(versions, func(a, b resolve.Version) int { return sys.Compare(a.Version, b.Version) })
-		vkIdx := slices.IndexFunc(versions, func(v resolve.Version) bool { return v.Version == vk.Version })
 
-		// Find each (unique) minimal greater versions that fix each vulnerability first,
-		// then determine which vulnerabilities each found version fixes.
-		// Do this in two steps so a patch will include the vulnerabilities that were fixed in earlier versions.
+		// TODO: just use ResolutionDiff directly
+		changes := result.CalculateDiff(res.result)
+		patch := OverrideResultPatch{
+			Patches:       res.patches,
+			FixedIDs:      make([]string, len(changes.RemovedVulns)),
+			IntroducedIDs: make([]string, len(changes.AddedVulns)),
+		}
 
-		// Find the minimal greater versions that fix each vulnerability
-		patchVersions := make(map[string]struct{})
-		for _, v := range vulnerabilities {
-			found := false
-			for _, ver := range versions[vkIdx+1:] {
+		for i, v := range changes.RemovedVulns {
+			patch.FixedIDs[i] = v.Vulnerability.ID
+		}
+
+		var newlyAdded []string
+
+		for i, v := range changes.AddedVulns {
+			id := v.Vulnerability.ID
+			patch.IntroducedIDs[i] = id
+			if !slices.Contains(res.vulnIDs, id) {
+				newlyAdded = append(newlyAdded, id)
+			}
+		}
+		finalResult.Patches = append(finalResult.Patches, patch)
+
+		if len(newlyAdded) > 0 {
+			go doOverride(append(res.vulnIDs, newlyAdded...)) // No need to clone res.vulnIDs here
+			toProcess++
+		}
+	}
+
+	for _, p := range finalResult.Patches {
+		slices.Sort(p.FixedIDs)
+		slices.Sort(p.IntroducedIDs)
+	}
+	cmpFn := func(a, b OverrideResultPatch) int {
+		// 1. (fixed - introduced) / (changes) [desc]
+		aRatio := (len(a.FixedIDs) - len(a.IntroducedIDs)) * (len(b.Patches))
+		bRatio := (len(b.FixedIDs) - len(b.IntroducedIDs)) * (len(a.Patches))
+		if c := cmp.Compare(aRatio, bRatio); c != 0 {
+			return -c
+		}
+
+		// 2. number of fixed vulns [desc]
+		if c := cmp.Compare(len(a.FixedIDs), len(b.FixedIDs)); c != 0 {
+			return -c
+		}
+
+		// 3. number of changed deps [asc]
+		if c := cmp.Compare(len(a.Patches), len(b.Patches)); c != 0 {
+			return c
+		}
+
+		// 4. changed names [asc]
+		for i, aDep := range a.Patches {
+			bDep := b.Patches[i]
+			if c := aDep.PackageKey.Compare(bDep.PackageKey); c != 0 {
+				return c
+			}
+		}
+
+		// 5. dependency bump amount [asc]
+		for i, aDep := range a.Patches {
+			bDep := b.Patches[i]
+			sv := aDep.PackageKey.Semver()
+			if c := sv.Compare(aDep.NewVersion, bDep.NewVersion); c != 0 {
+				return c
+			}
+		}
+
+		return 0
+	}
+
+	slices.SortFunc(finalResult.Patches, cmpFn)
+	finalResult.Patches = slices.CompactFunc(finalResult.Patches, func(a, b OverrideResultPatch) bool { return cmpFn(a, b) == 0 })
+
+	for i := range finalResult.UnfixableIDs {
+		slices.Sort(finalResult.UnfixableIDs[i])
+	}
+	slices.SortFunc(finalResult.UnfixableIDs, slices.Compare)
+	finalResult.UnfixableIDs = slices.CompactFunc(finalResult.UnfixableIDs, func(b, a []string) bool { return slices.Compare(a, b) == 0 })
+
+	return finalResult, nil
+}
+
+var errOverrideImpossible = errors.New("cannot fix vulns by overrides")
+
+func overridePatchVulns(ctx context.Context, cl client.ResolutionClient, result *resolution.ResolutionResult, vulnIDs []string, opts RemediationOptions) (*resolution.ResolutionResult, []OverridePatch, error) {
+	// Try to fix as many vulns in vulnIDs as possible.
+	// returns errOverrideImpossible if there are no patches that can be made to fix any of the vulnIDs
+	var effectivePatches []OverridePatch
+	for {
+		// Find the relevant vulns affecting each version key.
+		vkVulns := make(map[resolve.VersionKey][]*resolution.ResolutionVuln)
+		for i, v := range result.Vulns {
+			if !slices.Contains(vulnIDs, v.Vulnerability.ID) {
+				continue
+			}
+			seenVks := make(map[resolve.VersionKey]struct{})
+			for _, c := range v.ProblemChains {
+				vk, _ := c.End()
+				if _, seen := seenVks[vk]; !seen {
+					vkVulns[vk] = append(vkVulns[vk], &result.Vulns[i])
+					seenVks[vk] = struct{}{}
+				}
+			}
+			for _, c := range v.NonProblemChains {
+				vk, _ := c.End()
+				if _, seen := seenVks[vk]; !seen {
+					vkVulns[vk] = append(vkVulns[vk], &result.Vulns[i])
+					seenVks[vk] = struct{}{}
+				}
+			}
+		}
+
+		if len(vkVulns) == 0 {
+			// All vulns have been fixed.
+			break
+		}
+
+		newPatches := make([]OverridePatch, 0, len(vkVulns))
+
+		for vk, vulnerabilities := range vkVulns {
+			// Consider vulns affecting packages we don't want to change unfixable
+			if slices.Contains(opts.AvoidPkgs, vk.Name) {
+				continue
+			}
+
+			sys := vk.Semver()
+			// Get & sort all the valid versions of this package
+			// TODO: (Maven) skip unlisted versions and versions on other registries
+			versions, err := cl.Versions(ctx, vk.PackageKey)
+			if err != nil {
+				return nil, nil, err
+			}
+			cmpFunc := func(a, b resolve.Version) int { return sys.Compare(a.Version, b.Version) }
+			slices.SortFunc(versions, cmpFunc)
+			startIdx, vkFound := slices.BinarySearchFunc(versions, resolve.Version{VersionKey: vk}, cmpFunc)
+			if vkFound {
+				startIdx++
+			}
+
+			bestVK := vk
+			bestCount := len(vulnerabilities) // remaining vulns
+
+			// Find the minimal greater version that fixes as many vulnerabilities as possible.
+			for _, ver := range versions[startIdx:] {
 				if !opts.AllowMajor {
 					if _, diff, _ := sys.Difference(vk.Version, ver.Version); diff == semver.DiffMajor {
-						// Disallowed major upgrade -  stop the loop, consider this unfixable.
 						break
 					}
 				}
 
-				if !vulns.IsAffected(v.Vulnerability, util.VKToPackageDetails(ver.VersionKey)) {
-					patchVersions[ver.Version] = struct{}{}
-					found = true
+				count := 0 // remaining vulns
+				for _, rv := range vulnerabilities {
+					if vulns.IsAffected(rv.Vulnerability, util.VKToPackageDetails(ver.VersionKey)) {
+						count += 1
+					}
+				}
 
-					break
+				if count < bestCount {
+					bestCount = count
+					bestVK = ver.VersionKey
+
+					if bestCount == 0 { // stop if there are 0 vulns remaining
+						break
+					}
 				}
 			}
-			if !found {
-				res.Unfixable = append(res.Unfixable, OverrideUnfixable{VersionKey: vk, ResolutionVuln: *v})
+			if bestCount < len(vulnerabilities) {
+				newPatches = append(newPatches, OverridePatch{
+					PackageKey:  vk.PackageKey,
+					OrigVersion: vk.Version,
+					NewVersion:  bestVK.Version,
+				})
 			}
 		}
 
-		// Find the fixed vulns for each found version
-		// TODO: Introduced vulns? Re-resolve to check for new dependencies?
-		for ver := range patchVersions {
-			patch := OverridePatch{
-				PackageKey:  vk.PackageKey,
-				OrigVersion: vk.Version,
-				NewVersion:  ver,
-			}
+		if len(newPatches) == 0 {
+			break
+		}
 
-			for _, v := range vulnerabilities {
-				if !vulns.IsAffected(v.Vulnerability, util.VKToPackageDetails(resolve.VersionKey{PackageKey: vk.PackageKey, Version: ver})) {
-					patch.ResolvedVulns = append(patch.ResolvedVulns, *v)
-				}
-			}
+		// Patch and re-resolve manifest
+		newManif, err := patchManifest(newPatches, result.Manifest)
+		if err != nil {
+			return nil, nil, err
+		}
 
-			res.Patches = append(res.Patches, patch)
+		result, err = resolution.Resolve(ctx, cl, newManif)
+		if err != nil {
+			return nil, nil, err
+		}
+
+		result.FilterVulns(opts.MatchVuln)
+
+		// If the patch applies to a package that was already patched before, update the effective patch.
+		for _, p := range newPatches {
+			idx := slices.IndexFunc(effectivePatches, func(op OverridePatch) bool { return op.PackageKey == p.PackageKey && op.NewVersion == p.OrigVersion })
+			if idx == -1 {
+				effectivePatches = append(effectivePatches, p)
+			} else {
+				effectivePatches[idx].NewVersion = p.NewVersion
+			}
 		}
 	}
 
-	// Sort patches for priority/consistency
-	slices.SortFunc(res.Patches, func(a, b OverridePatch) int {
-		// Number of vulns fixed descending
-		if c := cmp.Compare(len(a.ResolvedVulns), len(b.ResolvedVulns)); c != 0 {
-			return -c
-		}
-		// Package name ascending
-		if c := cmp.Compare(a.PackageKey.Name, b.PackageKey.Name); c != 0 {
-			return c
-		}
-		// Original version ascending
-		if c := cmp.Compare(a.OrigVersion, b.OrigVersion); c != 0 {
-			return c
-		}
-		// New version descending
-		return -cmp.Compare(a.NewVersion, b.NewVersion)
-	})
-	slices.SortFunc(res.Unfixable, func(a, b OverrideUnfixable) int {
-		if c := a.PackageKey.Compare(b.PackageKey); c != 0 {
-			return c
-		}
-		if c := a.Semver().Compare(a.Version, b.Version); c != 0 {
-			return c
-		}
+	if len(effectivePatches) == 0 {
+		return nil, nil, errOverrideImpossible
+	}
 
-		return cmp.Compare(a.Vulnerability.ID, b.Vulnerability.ID)
-	})
+	return result, effectivePatches, nil
+}
 
-	return res, nil
+func patchManifest(patches []OverridePatch, m manifest.Manifest) (manifest.Manifest, error) {
+	if m.System() != resolve.Maven {
+		return manifest.Manifest{}, errors.New("unsupported ecosystem")
+	}
+
+	// TODO: may need special handling for the artifact's type and classifier
+
+	patched := m.Clone()
+
+	for _, p := range patches {
+		found := false
+		i := 0
+		for _, r := range patched.Requirements {
+			if r.PackageKey != p.PackageKey {
+				patched.Requirements[i] = r
+				i++
+
+				continue
+			}
+			if origin, hasOrigin := r.Type.GetAttr(dep.MavenDependencyOrigin); !hasOrigin || origin == "management" {
+				found = true
+				r.Version = p.NewVersion
+				patched.Requirements[i] = r
+				i++
+			}
+		}
+		patched.Requirements = patched.Requirements[:i]
+		if !found {
+			newReq := resolve.RequirementVersion{
+				VersionKey: resolve.VersionKey{
+					PackageKey:  p.PackageKey,
+					Version:     p.NewVersion,
+					VersionType: resolve.Requirement,
+				},
+			}
+			newReq.Type.AddAttr(dep.MavenDependencyOrigin, "management")
+			patched.Requirements = append(patched.Requirements, newReq)
+		}
+	}
+
+	return patched, nil
 }
