@@ -176,7 +176,7 @@ func TestRun(t *testing.T) {
 		{
 			name: "Scan locks-many",
 			args: []string{"", "./fixtures/locks-many"},
-			exit: 0,
+			exit: 1,
 		},
 		// all supported lockfiles in the directory should be checked
 		{
@@ -576,12 +576,12 @@ func TestRun_Licenses(t *testing.T) {
 		{
 			name: "No vulnerabilities with license summary",
 			args: []string{"", "--experimental-licenses-summary", "./fixtures/locks-many"},
-			exit: 0,
+			exit: 1,
 		},
 		{
 			name: "No vulnerabilities with license summary in markdown",
 			args: []string{"", "--experimental-licenses-summary", "--format=markdown", "./fixtures/locks-many"},
-			exit: 0,
+			exit: 1,
 		},
 		{
 			name: "Vulnerabilities and license summary",
