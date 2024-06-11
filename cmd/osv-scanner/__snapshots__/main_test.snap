@@ -1354,6 +1354,24 @@ No issues found
 
 ---
 
+[TestRun_LocalDatabases/#12 - 1]
+
+---
+
+[TestRun_LocalDatabases/#12 - 2]
+database is only downloaded under offline mode
+
+---
+
+[TestRun_LocalDatabases/#12 - 3]
+
+---
+
+[TestRun_LocalDatabases/#12 - 4]
+database is only downloaded under offline mode
+
+---
+
 [TestRun_LockfileWithExplicitParseAs/#00 - 1]
 
 ---

@@ -27,8 +27,8 @@ type ZipDB struct {
 	Name string
 	// the url that the zip archive was downloaded from
 	ArchiveURL string
-	// whether this database should make any network requests
-	Offline bool
+	// whether downloading the database is allowed
+	AllowDownload bool
 	// the path to the zip archive on disk
 	StoredAt string
 	// the vulnerabilities that are loaded into this database
@@ -78,7 +78,7 @@ func fetchLocalArchiveCRC32CHash(data []byte) uint32 {
 func (db *ZipDB) fetchZip() ([]byte, error) {
 	cache, err := os.ReadFile(db.StoredAt)
 
-	if db.Offline {
+	if !db.AllowDownload {
 		if err != nil {
 			return nil, ErrOfflineDatabaseNotFound
 		}
@@ -202,12 +202,12 @@ func (db *ZipDB) load() error {
 	return nil
 }
 
-func NewZippedDB(dbBasePath, name, url string, offline bool) (*ZipDB, error) {
+func NewZippedDB(dbBasePath, name, url string, allowDownload bool) (*ZipDB, error) {
 	db := &ZipDB{
-		Name:       name,
-		ArchiveURL: url,
-		Offline:    offline,
-		StoredAt:   path.Join(dbBasePath, name, "all.zip"),
+		Name:          name,
+		ArchiveURL:    url,
+		AllowDownload: allowDownload,
+		StoredAt:      path.Join(dbBasePath, name, "all.zip"),
 	}
 	if err := db.load(); err != nil {
 		return nil, fmt.Errorf("unable to fetch OSV database: %w", err)
