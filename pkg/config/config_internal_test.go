@@ -27,6 +27,25 @@ func TestTryLoadConfig(t *testing.T) {
 				ID: "GO-2022-1059",
 			},
 		},
+		PackageOverrides: []PackageOverrideEntry{
+			{
+				Name:      "lib",
+				Version:   "1.0.0",
+				Ecosystem: "Go",
+				Ignore:    true,
+				Reason:    "abc",
+			},
+			{
+				Name:      "my-pkg",
+				Version:   "1.0.0",
+				Ecosystem: "Go",
+				Reason:    "abc",
+				Ignore:    true,
+				License: License{
+					Override: []string{"MIT", "0BSD"},
+				},
+			},
+		},
 	}
 	testPaths := []testStruct{
 		{
@@ -67,6 +86,9 @@ func TestTryLoadConfig(t *testing.T) {
 		}
 		config, configErr := tryLoadConfig(configPath)
 		if !cmp.Equal(config.IgnoredVulns, testData.config.IgnoredVulns) {
+			t.Errorf("Configs not equal: %+v != %+v", config, testData.config)
+		}
+		if !cmp.Equal(config.PackageOverrides, testData.config.PackageOverrides) {
 			t.Errorf("Configs not equal: %+v != %+v", config, testData.config)
 		}
 		if testData.configHasErr {
@@ -187,6 +209,241 @@ func TestConfig_ShouldIgnore(t *testing.T) {
 			}
 			if !reflect.DeepEqual(gotEntry, tt.wantEntry) {
 				t.Errorf("ShouldIgnore() gotEntry = %v, wantEntry %v", gotEntry, tt.wantEntry)
+			}
+		})
+	}
+}
+
+func TestConfig_ShouldIgnorePackageVersion(t *testing.T) {
+	t.Parallel()
+
+	type args struct {
+		name      string
+		version   string
+		ecosystem string
+	}
+	tests := []struct {
+		name      string
+		config    Config
+		args      args
+		wantOk    bool
+		wantEntry PackageOverrideEntry
+	}{
+		{
+			name: "Version-level entry exists",
+			config: Config{
+				PackageOverrides: []PackageOverrideEntry{
+					{
+						Name:           "lib1",
+						Version:        "1.0.0",
+						Ecosystem:      "Go",
+						Ignore:         true,
+						EffectiveUntil: time.Time{},
+						Reason:         "abc",
+					},
+				},
+			},
+			args: args{
+				name:      "lib1",
+				version:   "1.0.0",
+				ecosystem: "Go",
+			},
+			wantOk: true,
+			wantEntry: PackageOverrideEntry{
+				Name:           "lib1",
+				Version:        "1.0.0",
+				Ecosystem:      "Go",
+				Ignore:         true,
+				EffectiveUntil: time.Time{},
+				Reason:         "abc",
+			},
+		},
+		{
+			name: "Package-level entry exists",
+			config: Config{
+				PackageOverrides: []PackageOverrideEntry{
+					{
+						Name:           "lib1",
+						Ecosystem:      "Go",
+						Ignore:         true,
+						EffectiveUntil: time.Time{},
+						Reason:         "abc",
+					},
+				},
+			},
+			args: args{
+				name:      "lib1",
+				version:   "1.0.0",
+				ecosystem: "Go",
+			},
+			wantOk: true,
+			wantEntry: PackageOverrideEntry{
+				Name:           "lib1",
+				Ecosystem:      "Go",
+				Ignore:         true,
+				EffectiveUntil: time.Time{},
+				Reason:         "abc",
+			},
+		},
+		{
+			name: "Entry doesn't exist",
+			config: Config{
+				PackageOverrides: []PackageOverrideEntry{
+					{
+						Name:           "lib1",
+						Version:        "2.0.0",
+						Ecosystem:      "Go",
+						Ignore:         false,
+						EffectiveUntil: time.Time{},
+						Reason:         "abc",
+					},
+					{
+						Name:           "lib2",
+						Version:        "2.0.0",
+						Ignore:         true,
+						Ecosystem:      "Go",
+						EffectiveUntil: time.Time{},
+						Reason:         "abc",
+					},
+				},
+			},
+			args: args{
+				name:      "lib1",
+				version:   "2.0.0",
+				ecosystem: "Go",
+			},
+			wantOk:    false,
+			wantEntry: PackageOverrideEntry{},
+		},
+	}
+
+	for _, tt := range tests {
+		tt := tt
+		t.Run(tt.name, func(t *testing.T) {
+			t.Parallel()
+
+			gotOk, gotEntry := tt.config.ShouldIgnorePackageVersion(tt.args.name, tt.args.version, tt.args.ecosystem)
+			if gotOk != tt.wantOk {
+				t.Errorf("ShouldIgnorePackageVersion() gotOk = %v, wantOk %v", gotOk, tt.wantOk)
+			}
+			if !reflect.DeepEqual(gotEntry, tt.wantEntry) {
+				t.Errorf("ShouldIgnorePackageVersion() gotEntry = %v, wantEntry %v", gotEntry, tt.wantEntry)
+			}
+		})
+	}
+}
+
+func TestConfig_ShouldOverridePackageVersionLicense(t *testing.T) {
+	t.Parallel()
+
+	type args struct {
+		name      string
+		version   string
+		ecosystem string
+	}
+	tests := []struct {
+		name      string
+		config    Config
+		args      args
+		wantOk    bool
+		wantEntry PackageOverrideEntry
+	}{
+		{
+			name: "Exact version entry exists",
+			config: Config{
+				PackageOverrides: []PackageOverrideEntry{
+					{
+						Name:      "lib1",
+						Version:   "1.0.0",
+						Ecosystem: "Go",
+						License: License{
+							Override: []string{"mit"},
+						},
+						Reason: "abc",
+					},
+				},
+			},
+			args: args{
+				name:      "lib1",
+				version:   "1.0.0",
+				ecosystem: "Go",
+			},
+			wantOk: true,
+			wantEntry: PackageOverrideEntry{
+				Name:      "lib1",
+				Version:   "1.0.0",
+				Ecosystem: "Go",
+				License: License{
+					Override: []string{"mit"},
+				},
+				Reason: "abc",
+			},
+		},
+		{
+			name: "Version entry doesn't exist",
+			config: Config{
+				PackageOverrides: []PackageOverrideEntry{
+					{
+						Name:      "lib1",
+						Version:   "1.0.0",
+						Ecosystem: "Go",
+						License: License{
+							Override: []string{"mit"},
+						},
+						Reason: "abc",
+					},
+				},
+			},
+			args: args{
+				name:      "lib1",
+				version:   "1.0.1",
+				ecosystem: "Go",
+			},
+			wantOk:    false,
+			wantEntry: PackageOverrideEntry{},
+		},
+		{
+			name: "Name matches",
+			config: Config{
+				PackageOverrides: []PackageOverrideEntry{
+					{
+						Name:      "lib1",
+						Ecosystem: "Go",
+						License: License{
+							Override: []string{"mit"},
+						},
+						Reason: "abc",
+					},
+				},
+			},
+			args: args{
+				name:      "lib1",
+				version:   "1.0.1",
+				ecosystem: "Go",
+			},
+			wantOk: true,
+			wantEntry: PackageOverrideEntry{
+				Name:      "lib1",
+				Ecosystem: "Go",
+				License: License{
+					Override: []string{"mit"},
+				},
+				Reason: "abc",
+			},
+		},
+	}
+
+	for _, tt := range tests {
+		tt := tt
+		t.Run(tt.name, func(t *testing.T) {
+			t.Parallel()
+
+			gotOk, gotEntry := tt.config.ShouldOverridePackageVersionLicense(tt.args.name, tt.args.version, tt.args.ecosystem)
+			if gotOk != tt.wantOk {
+				t.Errorf("ShouldOverridePackageVersionLicense() gotOk = %v, wantOk %v", gotOk, tt.wantOk)
+			}
+			if !reflect.DeepEqual(gotEntry, tt.wantEntry) {
+				t.Errorf("ShouldOverridePackageVersionLicense() gotEntry = %v, wantEntry %v", gotEntry, tt.wantEntry)
 			}
 		})
 	}

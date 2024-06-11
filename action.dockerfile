@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-FROM golang:1.21-alpine3.19@sha256:1c2e4747a1b15fe65c8317bca9bd91611b29fe7c8b65009b9edbee7653e62614
+FROM golang:1.21.11-alpine3.19@sha256:599a9bb95e8b9bb61522609b850c90977ceadbe5e973fa51e814e5c4fa9d5667
 
 RUN mkdir /src
 WORKDIR /src

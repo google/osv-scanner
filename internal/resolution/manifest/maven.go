@@ -150,7 +150,7 @@ func (m MavenManifestIO) Read(df lockfile.DepFile) (Manifest, error) {
 	addAllRequirements(project, "")
 
 	// Merging parents data by parsing local parent pom.xml or fetching from upstream.
-	if err := m.MergeParents(ctx, &project, project.Parent, 1, df.Path(), addAllRequirements, OriginParent); err != nil {
+	if err := m.mergeParents(ctx, &project, project.Parent, 1, df.Path(), true, addAllRequirements, OriginParent); err != nil {
 		return Manifest{}, fmt.Errorf("failed to merge parents: %w", err)
 	}
 	// Interpolate to resolve properties.
@@ -160,12 +160,12 @@ func (m MavenManifestIO) Read(df lockfile.DepFile) (Manifest, error) {
 
 	// Process the dependencies:
 	//  - dedupe dependencies and dependency management
-	//  - import dependency management (not yet transitively)
+	//  - import dependency management
 	//  - fill in missing dependency version requirement
 	project.ProcessDependencies(func(groupID, artifactID, version maven.String) (maven.DependencyManagement, error) {
 		root := maven.Parent{ProjectKey: maven.ProjectKey{GroupID: groupID, ArtifactID: artifactID, Version: version}}
 		var result maven.Project
-		if err := m.MergeParents(ctx, &result, root, 0, df.Path(), addAllRequirements, OriginImport); err != nil {
+		if err := m.mergeParents(ctx, &result, root, 0, "", false, addAllRequirements, OriginImport); err != nil {
 			return maven.DependencyManagement{}, err
 		}
 		// Interpolate to resolve properties.
@@ -259,7 +259,7 @@ func (m MavenManifestIO) Read(df lockfile.DepFile) (Manifest, error) {
 // set a limit on the number of parents.
 const MaxParent = 100
 
-func (m MavenManifestIO) MergeParents(ctx context.Context, result *maven.Project, current maven.Parent, start int, path string, addRequirements func(maven.Project, string), prefix string) error {
+func (m MavenManifestIO) mergeParents(ctx context.Context, result *maven.Project, current maven.Parent, start int, path string, allowLocal bool, addRequirements func(maven.Project, string), prefix string) error {
 	currentPath := path
 	visited := make(map[maven.ProjectKey]bool, MaxParent)
 	for n := start; n < MaxParent; n++ {
@@ -273,7 +273,7 @@ func (m MavenManifestIO) MergeParents(ctx context.Context, result *maven.Project
 		visited[current.ProjectKey] = true
 
 		var proj maven.Project
-		if current.RelativePath != "" {
+		if allowLocal && current.RelativePath != "" {
 			currentPath = filepath.Join(filepath.Dir(currentPath), string(current.RelativePath))
 			if filepath.Base(currentPath) != "pom.xml" {
 				// If the base is not pom.xml, this path is a directory but not a file.
@@ -287,6 +287,10 @@ func (m MavenManifestIO) MergeParents(ctx context.Context, result *maven.Project
 				return fmt.Errorf("failed to unmarshal project: %w", err)
 			}
 		} else {
+			// Once we fetch a parent pom.xml from upstream, we should not allow
+			// parsing parent pom.xml locally anymore.
+			allowLocal = false
+
 			var err error
 			proj, err = m.MavenRegistryAPIClient.GetProject(ctx, string(current.GroupID), string(current.ArtifactID), string(current.Version))
 			if err != nil {

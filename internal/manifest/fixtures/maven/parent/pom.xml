@@ -1,0 +1,19 @@
+<project>
+  <groupId>com.mycompany.app</groupId>
+  <artifactId>my-app</artifactId>
+  <version>1.0</version>
+
+  <parent>
+    <groupId>org.upstream</groupId>
+    <artifactId>parent-pom</artifactId>
+    <version>1.0</version>
+  </parent>
+
+  <dependencies>
+    <dependency>
+      <groupId>org.dave</groupId>
+      <artifactId>dave</artifactId>
+      <version>4.0.0</version>
+    </dependency>
+  </dependencies>
+</project>
