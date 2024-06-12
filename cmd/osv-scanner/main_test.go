@@ -552,7 +552,7 @@ func TestRun_LocalDatabases(t *testing.T) {
 		{
 			name: "",
 			args: []string{"", "--experimental-download-database", "./fixtures/locks-many"},
-			exit: 1,
+			exit: 127,
 		},
 	}
 
