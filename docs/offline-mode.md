@@ -64,7 +64,7 @@ osv-scanner --experimental-offline ./path/to/your/dir
 The download database flag `--experimental-download-database` causes OSV-Scanner to download or update your local database and then scan your project against it. This option only works when you also set the offline flag.
 
 ```bash
-osv-scanner --experimental-offline --experimental-local-db ./path/to/your/dir
+osv-scanner --experimental-offline --experimental-download-database ./path/to/your/dir
 ```
 
 ## Manual database download
