@@ -182,38 +182,6 @@
         <property name="syft:location:0:path">/bin/busybox</property>
       </properties>
     </component>
-    <component bom-ref="pkg:apk/alpine/busybox@1.36.1-r27?arch=x86_64&amp;upstream=busybox&amp;distro=alpine-3.17.2&amp;package-id=623d53216342d45e" type="library">
-      <publisher>Sören Tempel &lt;soeren+alpine@soeren-tempel.net&gt;</publisher>
-      <name>busybox</name>
-      <version>1.36.1-r27</version>
-      <description>Size optimized toolbox of many common UNIX utilities</description>
-      <licenses>
-        <license>
-          <id>GPL-2.0-only</id>
-        </license>
-      </licenses>
-      <cpe>cpe:2.3:a:busybox:busybox:1.36.1-r27:*:*:*:*:*:*:*</cpe>
-      <purl>pkg:apk/alpine/busybox@1.36.1-r27?arch=x86_64&amp;upstream=busybox&amp;distro=alpine-3.17.2</purl>
-      <externalReferences>
-        <reference type="distribution">
-          <url>https://busybox.net/</url>
-        </reference>
-      </externalReferences>
-      <properties>
-        <property name="syft:package:foundBy">apkdb-cataloger</property>
-        <property name="syft:package:metadataType">ApkMetadata</property>
-        <property name="syft:package:type">apk</property>
-        <property name="syft:location:0:layerID">sha256:7cd52847ad775a5ddc4b58326cf884beee34544296402c6292ed76474c686d39</property>
-        <property name="syft:location:0:path">/lib/apk/db/installed</property>
-        <property name="syft:metadata:gitCommitOfApkPort">1dbf7a793afae640ea643a055b6dd4f430ac116b</property>
-        <property name="syft:metadata:installedSize">962560</property>
-        <property name="syft:metadata:originPackage">busybox</property>
-        <property name="syft:metadata:provides:0">cmd:busybox=1.36.1-r27</property>
-        <property name="syft:metadata:pullChecksum">Q1NN3sp0yr99btRysqty3nQUrWHaY=</property>
-        <property name="syft:metadata:pullDependencies:0">so:libc.musl-x86_64.so.1</property>
-        <property name="syft:metadata:size">509600</property>
-      </properties>
-    </component>
     <component bom-ref="pkg:apk/alpine/busybox-binsh@1.36.1-r27?arch=x86_64&amp;upstream=busybox&amp;distro=alpine-3.17.2&amp;package-id=256fc96b4a8c4da8" type="library">
       <publisher>Sören Tempel &lt;soeren+alpine@soeren-tempel.net&gt;</publisher>
       <name>busybox-binsh</name>
