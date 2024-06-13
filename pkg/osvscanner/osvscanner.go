@@ -48,7 +48,7 @@ type ScannerActions struct {
 
 type ExperimentalScannerActions struct {
 	CompareOffline        bool
-	DownloadDatabase      bool
+	DownloadDatabases     bool
 	ShowAllPackages       bool
 	ScanLicensesSummary   bool
 	ScanLicensesAllowlist []string
@@ -760,8 +760,8 @@ func DoScan(actions ScannerActions, r reporter.Reporter) (models.VulnerabilityRe
 		}
 	}
 
-	if !actions.CompareOffline && actions.DownloadDatabase {
-		return models.VulnerabilityResults{}, errors.New("database is only downloaded under offline mode")
+	if !actions.CompareOffline && actions.DownloadDatabases {
+		return models.VulnerabilityResults{}, errors.New("databases can only be downloaded when running in offline mode")
 	}
 
 	configManager := config.ConfigManager{
@@ -847,7 +847,7 @@ func DoScan(actions ScannerActions, r reporter.Reporter) (models.VulnerabilityRe
 
 	overrideGoVersion(r, filteredScannedPackages, &configManager)
 
-	vulnsResp, err := makeRequest(r, filteredScannedPackages, actions.CompareOffline, actions.DownloadDatabase, actions.LocalDBPath)
+	vulnsResp, err := makeRequest(r, filteredScannedPackages, actions.CompareOffline, actions.DownloadDatabases, actions.LocalDBPath)
 	if err != nil {
 		return models.VulnerabilityResults{}, err
 	}
@@ -951,7 +951,7 @@ func makeRequest(
 	r reporter.Reporter,
 	packages []scannedPackage,
 	compareOffline bool,
-	downloadDB bool,
+	downloadDBs bool,
 	localDBPath string) (*osv.HydratedBatchedResponse, error) {
 	// Make OSV queries from the packages.
 	var query osv.BatchedQuery
@@ -975,7 +975,8 @@ func makeRequest(
 	}
 
 	if compareOffline {
-		hydratedResp, err := local.MakeRequest(r, query, downloadDB, localDBPath)
+		// Downloading databases requires network access.
+		hydratedResp, err := local.MakeRequest(r, query, !downloadDBs, localDBPath)
 		if err != nil {
 			return &osv.HydratedBatchedResponse{}, fmt.Errorf("local comparison failed %w", err)
 		}

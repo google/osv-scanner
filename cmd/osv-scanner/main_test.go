@@ -480,78 +480,78 @@ func TestRun_LocalDatabases(t *testing.T) {
 		// one specific supported lockfile
 		{
 			name: "",
-			args: []string{"", "--experimental-offline", "--experimental-download-database", "./fixtures/locks-many/composer.lock"},
+			args: []string{"", "--experimental-offline", "--experimental-offline-download-databases", "./fixtures/locks-many/composer.lock"},
 			exit: 0,
 		},
 		// one specific supported sbom with vulns
 		{
 			name: "",
-			args: []string{"", "--experimental-offline", "--experimental-download-database", "--config=./fixtures/osv-scanner-empty-config.toml", "./fixtures/sbom-insecure/postgres-stretch.cdx.xml"},
+			args: []string{"", "--experimental-offline", "--experimental-offline-download-databases", "--config=./fixtures/osv-scanner-empty-config.toml", "./fixtures/sbom-insecure/postgres-stretch.cdx.xml"},
 			exit: 1,
 		},
 		// one specific unsupported lockfile
 		{
 			name: "",
-			args: []string{"", "--experimental-offline", "--experimental-download-database", "./fixtures/locks-many/not-a-lockfile.toml"},
+			args: []string{"", "--experimental-offline", "--experimental-offline-download-databases", "./fixtures/locks-many/not-a-lockfile.toml"},
 			exit: 128,
 		},
 		// all supported lockfiles in the directory should be checked
 		{
 			name: "",
-			args: []string{"", "--experimental-offline", "--experimental-download-database", "./fixtures/locks-many"},
+			args: []string{"", "--experimental-offline", "--experimental-offline-download-databases", "./fixtures/locks-many"},
 			exit: 0,
 		},
 		// all supported lockfiles in the directory should be checked
 		{
 			name: "",
-			args: []string{"", "--experimental-offline", "--experimental-download-database", "./fixtures/locks-many-with-invalid"},
+			args: []string{"", "--experimental-offline", "--experimental-offline-download-databases", "./fixtures/locks-many-with-invalid"},
 			exit: 127,
 		},
 		// only the files in the given directories are checked by default (no recursion)
 		{
 			name: "",
-			args: []string{"", "--experimental-offline", "--experimental-download-database", "./fixtures/locks-one-with-nested"},
+			args: []string{"", "--experimental-offline", "--experimental-offline-download-databases", "./fixtures/locks-one-with-nested"},
 			exit: 0,
 		},
 		// nested directories are checked when `--recursive` is passed
 		{
 			name: "",
-			args: []string{"", "--experimental-offline", "--experimental-download-database", "--recursive", "./fixtures/locks-one-with-nested"},
+			args: []string{"", "--experimental-offline", "--experimental-offline-download-databases", "--recursive", "./fixtures/locks-one-with-nested"},
 			exit: 0,
 		},
 		// .gitignored files
 		{
 			name: "",
-			args: []string{"", "--experimental-offline", "--experimental-download-database", "--recursive", "./fixtures/locks-gitignore"},
+			args: []string{"", "--experimental-offline", "--experimental-offline-download-databases", "--recursive", "./fixtures/locks-gitignore"},
 			exit: 0,
 		},
 		// ignoring .gitignore
 		{
 			name: "",
-			args: []string{"", "--experimental-offline", "--experimental-download-database", "--recursive", "--no-ignore", "./fixtures/locks-gitignore"},
+			args: []string{"", "--experimental-offline", "--experimental-offline-download-databases", "--recursive", "--no-ignore", "./fixtures/locks-gitignore"},
 			exit: 0,
 		},
 		// output with json
 		{
 			name: "",
-			args: []string{"", "--experimental-offline", "--experimental-download-database", "--json", "./fixtures/locks-many/composer.lock"},
+			args: []string{"", "--experimental-offline", "--experimental-offline-download-databases", "--json", "./fixtures/locks-many/composer.lock"},
 			exit: 0,
 		},
 		{
 			name: "",
-			args: []string{"", "--experimental-offline", "--experimental-download-database", "--format", "json", "./fixtures/locks-many/composer.lock"},
+			args: []string{"", "--experimental-offline", "--experimental-offline-download-databases", "--format", "json", "./fixtures/locks-many/composer.lock"},
 			exit: 0,
 		},
 		// output format: markdown table
 		{
 			name: "",
-			args: []string{"", "--experimental-offline", "--experimental-download-database", "--format", "markdown", "./fixtures/locks-many/composer.lock"},
+			args: []string{"", "--experimental-offline", "--experimental-offline-download-databases", "--format", "markdown", "./fixtures/locks-many/composer.lock"},
 			exit: 0,
 		},
 		// database should be downloaded only when offline is set
 		{
 			name: "",
-			args: []string{"", "--experimental-download-database", "./fixtures/locks-many"},
+			args: []string{"", "--experimental-offline-download-databases", "./fixtures/locks-many"},
 			exit: 127,
 		},
 	}

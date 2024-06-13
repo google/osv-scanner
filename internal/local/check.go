@@ -15,8 +15,8 @@ import (
 const zippedDBRemoteHost = "https://osv-vulnerabilities.storage.googleapis.com"
 const envKeyLocalDBCacheDirectory = "OSV_SCANNER_LOCAL_DB_CACHE_DIRECTORY"
 
-func loadDB(dbBasePath string, ecosystem lockfile.Ecosystem, allowDownload bool) (*ZipDB, error) {
-	return NewZippedDB(dbBasePath, string(ecosystem), fmt.Sprintf("%s/%s/all.zip", zippedDBRemoteHost, ecosystem), allowDownload)
+func loadDB(dbBasePath string, ecosystem lockfile.Ecosystem, offline bool) (*ZipDB, error) {
+	return NewZippedDB(dbBasePath, string(ecosystem), fmt.Sprintf("%s/%s/all.zip", zippedDBRemoteHost, ecosystem), offline)
 }
 
 func toPackageDetails(query *osv.Query) (lockfile.PackageDetails, error) {
@@ -88,7 +88,7 @@ func setupLocalDBDirectory(localDBPath string) (string, error) {
 	return "", err
 }
 
-func MakeRequest(r reporter.Reporter, query osv.BatchedQuery, allowDownload bool, localDBPath string) (*osv.HydratedBatchedResponse, error) {
+func MakeRequest(r reporter.Reporter, query osv.BatchedQuery, offline bool, localDBPath string) (*osv.HydratedBatchedResponse, error) {
 	results := make([]osv.Response, 0, len(query.Queries))
 	dbs := make(map[lockfile.Ecosystem]*ZipDB)
 
@@ -103,7 +103,7 @@ func MakeRequest(r reporter.Reporter, query osv.BatchedQuery, allowDownload bool
 			return db, nil
 		}
 
-		db, err := loadDB(dbBasePath, ecosystem, allowDownload)
+		db, err := loadDB(dbBasePath, ecosystem, offline)
 
 		if err != nil {
 			return nil, err
