@@ -5,8 +5,38 @@ import (
 	"slices"
 
 	"github.com/google/osv-scanner/internal/resolution"
+	"github.com/google/osv-scanner/internal/resolution/lockfile"
+	"github.com/google/osv-scanner/internal/resolution/manifest"
 	"github.com/google/osv-scanner/internal/utility/severity"
 )
+
+// TODO: Supported strategies should be part of the manifest/lockfile io directly
+func SupportsRelax(m manifest.ManifestIO) bool {
+	switch m.(type) {
+	case manifest.NpmManifestIO:
+		return true
+	default:
+		return false
+	}
+}
+
+func SupportsOverride(m manifest.ManifestIO) bool {
+	switch m.(type) {
+	case manifest.MavenManifestIO:
+		return true
+	default:
+		return false
+	}
+}
+
+func SupportsInPlace(l lockfile.LockfileIO) bool {
+	switch l.(type) {
+	case lockfile.NpmLockfileIO:
+		return true
+	default:
+		return false
+	}
+}
 
 type RemediationOptions struct {
 	IgnoreVulns   []string // Vulnerability IDs to ignore

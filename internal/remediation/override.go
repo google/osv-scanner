@@ -1,12 +1,9 @@
 package remediation
 
 import (
-	"cmp"
 	"context"
 	"errors"
-	"fmt"
 	"slices"
-	"strings"
 
 	"deps.dev/util/resolve"
 	"deps.dev/util/resolve/dep"
@@ -18,44 +15,13 @@ import (
 	"github.com/google/osv-scanner/internal/utility/vulns"
 )
 
-// TODO: need to make a ManifestPatch with ecosystem-specific fields
-type OverridePatch struct {
+type overridePatch struct {
 	resolve.PackageKey
 	OrigVersion string
 	NewVersion  string
 }
 
-func (p OverridePatch) String() string {
-	return fmt.Sprintf("%s@%s -> %s", p.Name, p.OrigVersion, p.NewVersion)
-}
-
-type OverrideResultPatch struct {
-	Patches       []OverridePatch
-	FixedIDs      []string
-	IntroducedIDs []string
-}
-
-type OverrideResult struct {
-	Patches      []OverrideResultPatch
-	UnfixableIDs [][]string
-}
-
-func (r OverrideResult) String() string {
-	s := &strings.Builder{}
-	fmt.Fprintln(s, "PATCHES:")
-	for _, p := range r.Patches {
-		fmt.Fprintln(s, p)
-	}
-
-	fmt.Fprintln(s, "UNFIXABLE:")
-	for _, unf := range r.UnfixableIDs {
-		fmt.Fprintln(s, unf)
-	}
-
-	return s.String()
-}
-
-func ComputeOverridePatches(ctx context.Context, cl client.ResolutionClient, result *resolution.ResolutionResult, opts RemediationOptions) (OverrideResult, error) {
+func ComputeOverridePatches(ctx context.Context, cl client.ResolutionClient, result *resolution.ResolutionResult, opts RemediationOptions) ([]resolution.ResolutionDiff, error) {
 	// TODO: this is very similar to ComputeRelaxPatches - can the common parts be factored out?
 	// Filter the original result just in case it hasn't been already
 	result.FilterVulns(opts.MatchVuln)
@@ -64,7 +30,7 @@ func ComputeOverridePatches(ctx context.Context, cl client.ResolutionClient, res
 	type overrideResult struct {
 		vulnIDs []string
 		result  *resolution.ResolutionResult
-		patches []OverridePatch
+		patches []overridePatch
 		err     error
 	}
 	ch := make(chan overrideResult)
@@ -88,42 +54,45 @@ func ComputeOverridePatches(ctx context.Context, cl client.ResolutionClient, res
 		toProcess++
 	}
 
-	var finalResult OverrideResult
+	var allResults []resolution.ResolutionDiff
 	for toProcess > 0 {
 		res := <-ch
 		toProcess--
 		if errors.Is(res.err, errOverrideImpossible) {
-			finalResult.UnfixableIDs = append(finalResult.UnfixableIDs, res.vulnIDs)
 			continue
 		}
 
 		if res.err != nil {
 			// TODO: stop goroutines
-			return OverrideResult{}, res.err
+			return nil, res.err
 		}
 
-		// TODO: just use ResolutionDiff directly
-		changes := result.CalculateDiff(res.result)
-		patch := OverrideResultPatch{
-			Patches:       res.patches,
-			FixedIDs:      make([]string, len(changes.RemovedVulns)),
-			IntroducedIDs: make([]string, len(changes.AddedVulns)),
-		}
+		diff := result.CalculateDiff(res.result)
 
-		for i, v := range changes.RemovedVulns {
-			patch.FixedIDs[i] = v.Vulnerability.ID
-		}
-
-		var newlyAdded []string
-
-		for i, v := range changes.AddedVulns {
-			id := v.Vulnerability.ID
-			patch.IntroducedIDs[i] = id
-			if !slices.Contains(res.vulnIDs, id) {
-				newlyAdded = append(newlyAdded, id)
+		// CalculateDiff does not compute override manifest patches correctly, manually fill it out.
+		// TODO: CalculateDiff maybe should not be reconstructing patches.
+		// Refactor CalculateDiff, Relaxer, Override to make patches in a more sane way.
+		diff.Deps = make([]manifest.DependencyPatch, len(res.patches))
+		for i, p := range res.patches {
+			diff.Deps[i] = manifest.DependencyPatch{
+				Pkg:          p.PackageKey,
+				Type:         dep.Type{},
+				OrigRequire:  "", // Using empty original to signal this is an override patch
+				OrigResolved: p.OrigVersion,
+				NewRequire:   p.NewVersion,
+				NewResolved:  p.NewVersion,
 			}
 		}
-		finalResult.Patches = append(finalResult.Patches, patch)
+
+		allResults = append(allResults, diff)
+
+		// If there are any new vulns, try override them as well
+		var newlyAdded []string
+		for _, v := range diff.AddedVulns {
+			if !slices.Contains(res.vulnIDs, v.Vulnerability.ID) {
+				newlyAdded = append(newlyAdded, v.Vulnerability.ID)
+			}
+		}
 
 		if len(newlyAdded) > 0 {
 			go doOverride(append(res.vulnIDs, newlyAdded...)) // No need to clone res.vulnIDs here
@@ -131,66 +100,19 @@ func ComputeOverridePatches(ctx context.Context, cl client.ResolutionClient, res
 		}
 	}
 
-	for _, p := range finalResult.Patches {
-		slices.Sort(p.FixedIDs)
-		slices.Sort(p.IntroducedIDs)
-	}
-	cmpFn := func(a, b OverrideResultPatch) int {
-		// 1. (fixed - introduced) / (changes) [desc]
-		aRatio := (len(a.FixedIDs) - len(a.IntroducedIDs)) * (len(b.Patches))
-		bRatio := (len(b.FixedIDs) - len(b.IntroducedIDs)) * (len(a.Patches))
-		if c := cmp.Compare(aRatio, bRatio); c != 0 {
-			return -c
-		}
+	// Sort and remove duplicate patches
+	slices.SortFunc(allResults, func(a, b resolution.ResolutionDiff) int { return a.Compare(b) })
+	allResults = slices.CompactFunc(allResults, func(a, b resolution.ResolutionDiff) bool { return a.Compare(b) == 0 })
 
-		// 2. number of fixed vulns [desc]
-		if c := cmp.Compare(len(a.FixedIDs), len(b.FixedIDs)); c != 0 {
-			return -c
-		}
-
-		// 3. number of changed deps [asc]
-		if c := cmp.Compare(len(a.Patches), len(b.Patches)); c != 0 {
-			return c
-		}
-
-		// 4. changed names [asc]
-		for i, aDep := range a.Patches {
-			bDep := b.Patches[i]
-			if c := aDep.PackageKey.Compare(bDep.PackageKey); c != 0 {
-				return c
-			}
-		}
-
-		// 5. dependency bump amount [asc]
-		for i, aDep := range a.Patches {
-			bDep := b.Patches[i]
-			sv := aDep.PackageKey.Semver()
-			if c := sv.Compare(aDep.NewVersion, bDep.NewVersion); c != 0 {
-				return c
-			}
-		}
-
-		return 0
-	}
-
-	slices.SortFunc(finalResult.Patches, cmpFn)
-	finalResult.Patches = slices.CompactFunc(finalResult.Patches, func(a, b OverrideResultPatch) bool { return cmpFn(a, b) == 0 })
-
-	for i := range finalResult.UnfixableIDs {
-		slices.Sort(finalResult.UnfixableIDs[i])
-	}
-	slices.SortFunc(finalResult.UnfixableIDs, slices.Compare)
-	finalResult.UnfixableIDs = slices.CompactFunc(finalResult.UnfixableIDs, func(b, a []string) bool { return slices.Compare(a, b) == 0 })
-
-	return finalResult, nil
+	return allResults, nil
 }
 
 var errOverrideImpossible = errors.New("cannot fix vulns by overrides")
 
-func overridePatchVulns(ctx context.Context, cl client.ResolutionClient, result *resolution.ResolutionResult, vulnIDs []string, opts RemediationOptions) (*resolution.ResolutionResult, []OverridePatch, error) {
+func overridePatchVulns(ctx context.Context, cl client.ResolutionClient, result *resolution.ResolutionResult, vulnIDs []string, opts RemediationOptions) (*resolution.ResolutionResult, []overridePatch, error) {
 	// Try to fix as many vulns in vulnIDs as possible.
-	// returns errOverrideImpossible if there are no patches that can be made to fix any of the vulnIDs
-	var effectivePatches []OverridePatch
+	// returns errOverrideImpossible if 0 vulns are patchable.
+	var effectivePatches []overridePatch
 	for {
 		// Find the relevant vulns affecting each version key.
 		vkVulns := make(map[resolve.VersionKey][]*resolution.ResolutionVuln)
@@ -220,7 +142,7 @@ func overridePatchVulns(ctx context.Context, cl client.ResolutionClient, result 
 			break
 		}
 
-		newPatches := make([]OverridePatch, 0, len(vkVulns))
+		newPatches := make([]overridePatch, 0, len(vkVulns))
 
 		for vk, vulnerabilities := range vkVulns {
 			// Consider vulns affecting packages we don't want to change unfixable
@@ -270,7 +192,7 @@ func overridePatchVulns(ctx context.Context, cl client.ResolutionClient, result 
 				}
 			}
 			if bestCount < len(vulnerabilities) {
-				newPatches = append(newPatches, OverridePatch{
+				newPatches = append(newPatches, overridePatch{
 					PackageKey:  vk.PackageKey,
 					OrigVersion: vk.Version,
 					NewVersion:  bestVK.Version,
@@ -297,7 +219,7 @@ func overridePatchVulns(ctx context.Context, cl client.ResolutionClient, result 
 
 		// If the patch applies to a package that was already patched before, update the effective patch.
 		for _, p := range newPatches {
-			idx := slices.IndexFunc(effectivePatches, func(op OverridePatch) bool { return op.PackageKey == p.PackageKey && op.NewVersion == p.OrigVersion })
+			idx := slices.IndexFunc(effectivePatches, func(op overridePatch) bool { return op.PackageKey == p.PackageKey && op.NewVersion == p.OrigVersion })
 			if idx == -1 {
 				effectivePatches = append(effectivePatches, p)
 			} else {
@@ -313,7 +235,7 @@ func overridePatchVulns(ctx context.Context, cl client.ResolutionClient, result 
 	return result, effectivePatches, nil
 }
 
-func patchManifest(patches []OverridePatch, m manifest.Manifest) (manifest.Manifest, error) {
+func patchManifest(patches []overridePatch, m manifest.Manifest) (manifest.Manifest, error) {
 	if m.System() != resolve.Maven {
 		return manifest.Manifest{}, errors.New("unsupported ecosystem")
 	}
