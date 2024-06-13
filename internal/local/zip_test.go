@@ -207,7 +207,7 @@ func TestNewZippedDB_UnsupportedProtocol(t *testing.T) {
 
 	testDir := testutility.CreateTestDir(t)
 
-	_, err := local.NewZippedDB(testDir, "my-db", "file://hello-world", true)
+	_, err := local.NewZippedDB(testDir, "my-db", "file://hello-world", false)
 
 	if err == nil {
 		t.Errorf("expected an error but did not get one")
