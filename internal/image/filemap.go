@@ -29,7 +29,7 @@ type fileMap struct {
 	// TODO: Use hashset to speed up path lookups
 }
 
-func (filemap fileMap) OpenFile(path string) (fs.File, error) {
+func (filemap fileMap) OpenFile(path string) (*os.File, error) {
 	node, ok := filemap.fileNodeTrie.Get(path).(fileNode)
 	if !ok {
 		return nil, fs.ErrNotExist
