@@ -51,8 +51,8 @@ type ScannerActions struct {
 }
 
 type ExperimentalScannerActions struct {
-	CompareLocally        bool
 	CompareOffline        bool
+	DownloadDatabases     bool
 	ShowAllPackages       bool
 	ScanLicensesSummary   bool
 	ScanLicensesAllowlist []string
@@ -791,15 +791,15 @@ func DoScan(actions ScannerActions, r reporter.Reporter) (models.VulnerabilityRe
 	}
 
 	if actions.CompareOffline {
-		actions.CompareLocally = true
-	}
-
-	if actions.CompareLocally {
 		actions.SkipGit = true
 
 		if len(actions.ScanLicensesAllowlist) > 0 || actions.ScanLicensesSummary {
 			return models.VulnerabilityResults{}, errors.New("cannot retrieve licenses locally")
 		}
+	}
+
+	if !actions.CompareOffline && actions.DownloadDatabases {
+		return models.VulnerabilityResults{}, errors.New("databases can only be downloaded when running in offline mode")
 	}
 
 	configManager := config.ConfigManager{
@@ -885,7 +885,7 @@ func DoScan(actions ScannerActions, r reporter.Reporter) (models.VulnerabilityRe
 
 	overrideGoVersion(r, filteredScannedPackages, &configManager)
 
-	vulnsResp, err := makeRequest(r, filteredScannedPackages, actions.CompareLocally, actions.CompareOffline, actions.LocalDBPath)
+	vulnsResp, err := makeRequest(r, filteredScannedPackages, actions.CompareOffline, actions.DownloadDatabases, actions.LocalDBPath)
 	if err != nil {
 		return models.VulnerabilityResults{}, err
 	}
@@ -988,8 +988,8 @@ func patchPackageForRequest(pkg scannedPackage) scannedPackage {
 func makeRequest(
 	r reporter.Reporter,
 	packages []scannedPackage,
-	compareLocally bool,
 	compareOffline bool,
+	downloadDBs bool,
 	localDBPath string) (*osv.HydratedBatchedResponse, error) {
 	// Make OSV queries from the packages.
 	var query osv.BatchedQuery
@@ -1012,8 +1012,9 @@ func makeRequest(
 		}
 	}
 
-	if compareLocally {
-		hydratedResp, err := local.MakeRequest(r, query, compareOffline, localDBPath)
+	if compareOffline {
+		// Downloading databases requires network access.
+		hydratedResp, err := local.MakeRequest(r, query, !downloadDBs, localDBPath)
 		if err != nil {
 			return &osv.HydratedBatchedResponse{}, fmt.Errorf("local comparison failed %w", err)
 		}

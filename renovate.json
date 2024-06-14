@@ -27,7 +27,7 @@
     }
   ],
   "constraints": {
-    "go": "1.21"
+    "go": "1.21.11"
   },
   "ignorePaths": ["**/fixtures/**", "**/fixtures-go/**"],
   "ignoreDeps": ["golang.org/x/vuln"]
