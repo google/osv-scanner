@@ -22,19 +22,19 @@ nav_order: 2
 
 A wide range of lockfiles are supported by utilizing this [lockfile package](https://github.com/google/osv-scanner/tree/main/pkg/lockfile).
 
-| Language   | Compatible Lockfile(s)                                                                                                                                     |
-| :--------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| C/C++      | `conan.lock`<br>[C/C++ commit scanning](#cc-scanning)                                                                                                      |
-| Dart       | `pubspec.lock`                                                                                                                                             |
-| Elixir     | `mix.lock`                                                                                                                                                 |
-| Go         | `go.mod`                                                                                                                                                   |
-| Java       | `buildscript-gradle.lockfile`<br>`gradle.lockfile`<br>`gradle/verification-metadata.xml`<br>`pom.xml`[\*](#transitive-dependency-scanning)                 |
-| Javascript | `package-lock.json`<br>`pnpm-lock.yaml`<br>`yarn.lock`                                                                                                     |
-| PHP        | `composer.lock`                                                                                                                                            |
-| Python     | `Pipfile.lock`<br>`poetry.lock`<br>`requirements.txt`[\*](https://github.com/google/osv-scanner/issues/34)<br>`pdm.lock`                                   |
-| R          | `renv.lock`                                                                                                                                                |
-| Ruby       | `Gemfile.lock`                                                                                                                                             |
-| Rust       | `Cargo.lock`                                                                                                                                               |
+| Language   | Compatible Lockfile(s)                                                                                                                     |
+| :--------- | :----------------------------------------------------------------------------------------------------------------------------------------- |
+| C/C++      | `conan.lock`<br>[C/C++ commit scanning](#cc-scanning)                                                                                      |
+| Dart       | `pubspec.lock`                                                                                                                             |
+| Elixir     | `mix.lock`                                                                                                                                 |
+| Go         | `go.mod`                                                                                                                                   |
+| Java       | `buildscript-gradle.lockfile`<br>`gradle.lockfile`<br>`gradle/verification-metadata.xml`<br>`pom.xml`[\*](#transitive-dependency-scanning) |
+| Javascript | `package-lock.json`<br>`pnpm-lock.yaml`<br>`yarn.lock`                                                                                     |
+| PHP        | `composer.lock`                                                                                                                            |
+| Python     | `Pipfile.lock`<br>`poetry.lock`<br>`requirements.txt`[\*](https://github.com/google/osv-scanner/issues/34)<br>`pdm.lock`                   |
+| R          | `renv.lock`                                                                                                                                |
+| Ruby       | `Gemfile.lock`                                                                                                                             |
+| Rust       | `Cargo.lock`                                                                                                                               |
 
 ## Alpine Package Keeper and Debian Package Manager
 
