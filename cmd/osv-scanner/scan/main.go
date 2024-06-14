@@ -106,7 +106,7 @@ func Command(stdout, stderr io.Writer, r *reporter.Reporter) *cli.Command {
 				Usage: "checks for vulnerabilities using local databases that are already cached",
 			},
 			&cli.BoolFlag{
-				Name:  "experimental-offline-download-databases",
+				Name:  "experimental-download-offline-databases",
 				Usage: "downloads vulnerability databases for offline comparison",
 			},
 			&cli.StringFlag{
@@ -211,7 +211,7 @@ func action(context *cli.Context, stdout, stderr io.Writer) (reporter.Reporter, 
 		CallAnalysisStates:   callAnalysisStates,
 		ExperimentalScannerActions: osvscanner.ExperimentalScannerActions{
 			LocalDBPath:       context.String("experimental-local-db-path"),
-			DownloadDatabases: context.Bool("experimental-offline-download-databases"),
+			DownloadDatabases: context.Bool("experimental-download-offline-databases"),
 			CompareOffline:    context.Bool("experimental-offline"),
 			// License summary mode causes all
 			// packages to appear in the json as

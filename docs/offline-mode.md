@@ -49,7 +49,7 @@ If the `OSV_SCANNER_LOCAL_DB_CACHE_DIRECTORY` environment variable is _not_ set,
 1. The location returned by [`os.UserCacheDir`](https://pkg.go.dev/os#UserCacheDir)
 2. The location returned by [`os.TempDir`](https://pkg.go.dev/os#TempDir)
 
-The database can be [downloaded manually](./experimental.md#manual-database-download) or by using the [`--experimental-offline-download-databases` flag](./experimental.md#download-databases-option).
+The database can be [downloaded manually](./experimental.md#manual-database-download) or by using the [`--experimental-download-offline-databases` flag](./experimental.md#download-databases-option).
 
 ## Offline option
 
@@ -59,17 +59,17 @@ The offline database flag `--experimental-offline` causes OSV-Scanner to scan yo
 osv-scanner --experimental-offline ./path/to/your/dir
 ```
 
-## Download databases option
+## Download offline databases option
 
-The download databases flag `--experimental-offline-download-databases` causes OSV-Scanner to download or update your local database and then scan your project against it. This option only works when you also set the offline flag.
+The download offline databases flag `--experimental-download-offline-databases` causes OSV-Scanner to download or update your local database and then scan your project against it. This option only works when you also set the offline flag.
 
 ```bash
-osv-scanner --experimental-offline --experimental-offline-download-databases ./path/to/your/dir
+osv-scanner --experimental-offline --experimental-download-offline-databases ./path/to/your/dir
 ```
 
 ## Manual database download
 
-Instead of using the `--experimental-offline-download-databases` flag to download the database, it is possible to manually download the database.
+Instead of using the `--experimental-download-offline-databases` flag to download the database, it is possible to manually download the database.
 
 A downloadable copy of the OSV database is stored in a GCS bucket maintained by OSV:
 [`gs://osv-vulnerabilities`](https://osv-vulnerabilities.storage.googleapis.com)
