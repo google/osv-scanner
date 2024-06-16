@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-FROM golang:1.21.11-alpine3.19@sha256:599a9bb95e8b9bb61522609b850c90977ceadbe5e973fa51e814e5c4fa9d5667 AS builder
+FROM golang:1.21.11-alpine3.19@sha256:252633c5352df9d6855ce9fe87564e5d1a6c6d0e4879c015e3f0090253c2433f AS builder
 
 WORKDIR /src
 COPY ./go.mod ./go.sum ./
