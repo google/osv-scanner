@@ -38,6 +38,7 @@ type Extractor interface {
 
 // A LocalFile represents a file that exists on the local filesystem.
 type LocalFile struct {
+	// TODO(rexpan): This should be *os.File, as that would allow us to access other underlying functions that definitely will exist
 	io.ReadCloser
 
 	path string

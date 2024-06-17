@@ -480,73 +480,79 @@ func TestRun_LocalDatabases(t *testing.T) {
 		// one specific supported lockfile
 		{
 			name: "",
-			args: []string{"", "--experimental-local-db", "./fixtures/locks-many/composer.lock"},
+			args: []string{"", "--experimental-offline", "--experimental-download-offline-databases", "./fixtures/locks-many/composer.lock"},
 			exit: 0,
 		},
 		// one specific supported sbom with vulns
 		{
 			name: "",
-			args: []string{"", "--experimental-local-db", "--config=./fixtures/osv-scanner-empty-config.toml", "./fixtures/sbom-insecure/postgres-stretch.cdx.xml"},
+			args: []string{"", "--experimental-offline", "--experimental-download-offline-databases", "--config=./fixtures/osv-scanner-empty-config.toml", "./fixtures/sbom-insecure/postgres-stretch.cdx.xml"},
 			exit: 1,
 		},
 		// one specific unsupported lockfile
 		{
 			name: "",
-			args: []string{"", "--experimental-local-db", "./fixtures/locks-many/not-a-lockfile.toml"},
+			args: []string{"", "--experimental-offline", "--experimental-download-offline-databases", "./fixtures/locks-many/not-a-lockfile.toml"},
 			exit: 128,
 		},
 		// all supported lockfiles in the directory should be checked
 		{
 			name: "",
-			args: []string{"", "--experimental-local-db", "./fixtures/locks-many"},
+			args: []string{"", "--experimental-offline", "--experimental-download-offline-databases", "./fixtures/locks-many"},
 			exit: 0,
 		},
 		// all supported lockfiles in the directory should be checked
 		{
 			name: "",
-			args: []string{"", "--experimental-local-db", "./fixtures/locks-many-with-invalid"},
+			args: []string{"", "--experimental-offline", "--experimental-download-offline-databases", "./fixtures/locks-many-with-invalid"},
 			exit: 127,
 		},
 		// only the files in the given directories are checked by default (no recursion)
 		{
 			name: "",
-			args: []string{"", "--experimental-local-db", "./fixtures/locks-one-with-nested"},
+			args: []string{"", "--experimental-offline", "--experimental-download-offline-databases", "./fixtures/locks-one-with-nested"},
 			exit: 0,
 		},
 		// nested directories are checked when `--recursive` is passed
 		{
 			name: "",
-			args: []string{"", "--experimental-local-db", "--recursive", "./fixtures/locks-one-with-nested"},
+			args: []string{"", "--experimental-offline", "--experimental-download-offline-databases", "--recursive", "./fixtures/locks-one-with-nested"},
 			exit: 0,
 		},
 		// .gitignored files
 		{
 			name: "",
-			args: []string{"", "--experimental-local-db", "--recursive", "./fixtures/locks-gitignore"},
+			args: []string{"", "--experimental-offline", "--experimental-download-offline-databases", "--recursive", "./fixtures/locks-gitignore"},
 			exit: 0,
 		},
 		// ignoring .gitignore
 		{
 			name: "",
-			args: []string{"", "--experimental-local-db", "--recursive", "--no-ignore", "./fixtures/locks-gitignore"},
+			args: []string{"", "--experimental-offline", "--experimental-download-offline-databases", "--recursive", "--no-ignore", "./fixtures/locks-gitignore"},
 			exit: 0,
 		},
 		// output with json
 		{
 			name: "",
-			args: []string{"", "--experimental-local-db", "--json", "./fixtures/locks-many/composer.lock"},
+			args: []string{"", "--experimental-offline", "--experimental-download-offline-databases", "--json", "./fixtures/locks-many/composer.lock"},
 			exit: 0,
 		},
 		{
 			name: "",
-			args: []string{"", "--experimental-local-db", "--format", "json", "./fixtures/locks-many/composer.lock"},
+			args: []string{"", "--experimental-offline", "--experimental-download-offline-databases", "--format", "json", "./fixtures/locks-many/composer.lock"},
 			exit: 0,
 		},
 		// output format: markdown table
 		{
 			name: "",
-			args: []string{"", "--experimental-local-db", "--format", "markdown", "./fixtures/locks-many/composer.lock"},
+			args: []string{"", "--experimental-offline", "--experimental-download-offline-databases", "--format", "markdown", "./fixtures/locks-many/composer.lock"},
 			exit: 0,
+		},
+		// database should be downloaded only when offline is set
+		{
+			name: "",
+			args: []string{"", "--experimental-download-offline-databases", "./fixtures/locks-many"},
+			exit: 127,
 		},
 	}
 
@@ -648,7 +654,7 @@ func TestRun_OCIImage(t *testing.T) {
 		{
 			name: "scanning node_modules using npm with no packages",
 			args: []string{"", "--experimental-oci-image", "../../internal/image/fixtures/test-node_modules-npm-empty.tar"},
-			exit: 0,
+			exit: 1,
 		},
 		{
 			name: "scanning node_modules using npm with some packages",
@@ -658,22 +664,22 @@ func TestRun_OCIImage(t *testing.T) {
 		{
 			name: "scanning node_modules using yarn with no packages",
 			args: []string{"", "--experimental-oci-image", "../../internal/image/fixtures/test-node_modules-yarn-empty.tar"},
-			exit: 0,
+			exit: 1,
 		},
 		{
 			name: "scanning node_modules using yarn with some packages",
 			args: []string{"", "--experimental-oci-image", "../../internal/image/fixtures/test-node_modules-yarn-full.tar"},
-			exit: 0,
+			exit: 1,
 		},
 		{
 			name: "scanning node_modules using pnpm with no packages",
 			args: []string{"", "--experimental-oci-image", "../../internal/image/fixtures/test-node_modules-pnpm-empty.tar"},
-			exit: 0,
+			exit: 1,
 		},
 		{
 			name: "scanning node_modules using pnpm with some packages",
 			args: []string{"", "--experimental-oci-image", "../../internal/image/fixtures/test-node_modules-pnpm-full.tar"},
-			exit: 0,
+			exit: 1,
 		},
 	}
 	for _, tt := range tests {
