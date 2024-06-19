@@ -68,7 +68,7 @@ func ScanImage(r reporter.Reporter, imagePath string) (ScanResults, error) {
 				log.Panicf("did not expect to fail getting file node we just scanned: %v", err)
 			}
 			// Get the layer index this file belongs to (the last layer it was changed on)
-			layerIdx := img.layerIdToIndex[lastFileNode.layer.id]
+			layerIdx := img.layerIDToIndex[lastFileNode.layer.id]
 			for {
 				// Scan the lockfile again every time it was changed
 				if layerIdx == 0 {
@@ -79,22 +79,24 @@ func ScanImage(r reporter.Reporter, imagePath string) (ScanResults, error) {
 				// Look at the layer before the current layer
 				oldFileNode, err := img.layers[layerIdx-1].GetFileNode(file.FilePath)
 				if err != nil {
-					if err == fs.ErrNotExist { // Did not exist in the layer before, all remaining packages must be from the current layer
+					if errors.Is(fs.ErrNotExist, err) { // Did not exist in the layer before, all remaining packages must be from the current layer
 						for key, val := range sourceLayerIdx {
 							if val == 0 {
 								sourceLayerIdx[key] = layerIdx
 							}
 						}
+
 						break
 					}
 					log.Panicf("did not expect a different error [%v] when getting file node", err)
 				}
 
 				// Set the layerIdx to the new file node layer
-				layerIdx = img.layerIdToIndex[oldFileNode.layer.id]
+				layerIdx = img.layerIDToIndex[oldFileNode.layer.id]
 
 				oldDeps, err := extractArtifactDeps(file.FilePath, oldFileNode.layer)
 				if err != nil {
+					log.Panicf("unimplemented! failed to parse an older version of file in image: %s@%s: %v", file.FilePath, oldFileNode.layer.id, err)
 					// TODO: What to do here?
 				}
 
@@ -108,7 +110,7 @@ func ScanImage(r reporter.Reporter, imagePath string) (ScanResults, error) {
 			}
 
 			for i, pkg := range file.Packages {
-				file.Packages[i].OriginLayerId = img.layers[sourceLayerIdx[makePdKey(pkg)]].id
+				file.Packages[i].OriginLayerID = img.layers[sourceLayerIdx[makePdKey(pkg)]].id
 			}
 		}
 

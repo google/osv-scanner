@@ -173,5 +173,5 @@ type PackageInfo struct {
 	Version       string `json:"version"`
 	Ecosystem     string `json:"ecosystem"`
 	Commit        string `json:"commit,omitempty"`
-	OriginLayerId string `json:"originLayerId,omitempty"`
+	OriginLayerID string `json:"originLayerId,omitempty"`
 }

@@ -34,7 +34,7 @@ type Image struct {
 	layers         []imgLayer
 	innerImage     *v1.Image
 	extractDir     string
-	layerIdToIndex map[string]int
+	layerIDToIndex map[string]int
 }
 
 func (img *Image) LastLayer() *imgLayer {
@@ -65,7 +65,7 @@ func loadImage(imagePath string) (*Image, error) {
 		extractDir:     tempPath,
 		innerImage:     &image,
 		layers:         make([]imgLayer, len(layers)),
-		layerIdToIndex: make(map[string]int),
+		layerIDToIndex: make(map[string]int),
 	}
 
 	// Initiate the layers first
@@ -81,7 +81,7 @@ func loadImage(imagePath string) (*Image, error) {
 			rootImage:    &outputImage,
 		}
 
-		outputImage.layerIdToIndex[hash.Hex] = i
+		outputImage.layerIDToIndex[hash.Hex] = i
 	}
 
 	// Reverse loop through the layers to start from the latest layer first

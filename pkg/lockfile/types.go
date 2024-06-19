@@ -7,7 +7,7 @@ type PackageDetails struct {
 	Ecosystem     Ecosystem `json:"ecosystem,omitempty"`
 	CompareAs     Ecosystem `json:"compareAs,omitempty"`
 	DepGroups     []string  `json:"-"`
-	OriginLayerId string    `json:"-"`
+	OriginLayerID string    `json:"-"`
 }
 
 type Ecosystem string

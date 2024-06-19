@@ -121,6 +121,7 @@ func OpenLayerFile(path string, layer *imgLayer) (ImageFile, error) {
 	if err != nil {
 		return ImageFile{}, err
 	}
+
 	return ImageFile{
 		File:  file,
 		path:  path,

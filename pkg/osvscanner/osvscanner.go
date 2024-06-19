@@ -328,7 +328,7 @@ func scanImage(r reporter.Reporter, path string) ([]scannedPackage, error) {
 				Commit:        pkgDetail.Commit,
 				Ecosystem:     pkgDetail.Ecosystem,
 				DepGroups:     pkgDetail.DepGroups,
-				OriginLayerId: pkgDetail.OriginLayerId,
+				OriginLayerID: pkgDetail.OriginLayerID,
 				Source: models.SourceInfo{
 					Path: path + ":" + l.FilePath,
 					Type: "docker",
@@ -744,7 +744,7 @@ type scannedPackage struct {
 	Commit        string
 	Version       string
 	Source        models.SourceInfo
-	OriginLayerId string
+	OriginLayerID string
 	DepGroups     []string
 }
 
