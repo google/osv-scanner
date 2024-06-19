@@ -1,4 +1,1155 @@
 
+[TestComputeOverridePatches/maven-zeppelin-server - 1]
+[
+  {
+    "Patch": {
+      "Deps": [
+        {
+          "Pkg": {
+            "System": 6,
+            "Name": "io.atomix:atomix"
+          },
+          "Type": {},
+          "OrigRequire": "",
+          "NewRequire": "3.1.6",
+          "OrigResolved": "3.0.0-rc5",
+          "NewResolved": "3.1.6"
+        }
+      ],
+      "EcosystemSpecific": null
+    },
+    "RemovedVulns": [
+      {
+        "ID": "GHSA-2fqw-684c-pvp7",
+        "AffectedNodes": [
+          124
+        ]
+      },
+      {
+        "ID": "GHSA-4jhc-wjr3-pwh2",
+        "AffectedNodes": [
+          124
+        ]
+      },
+      {
+        "ID": "GHSA-6vvh-5794-vpmj",
+        "AffectedNodes": [
+          124
+        ]
+      },
+      {
+        "ID": "GHSA-7fr2-94h7-ccg2",
+        "AffectedNodes": [
+          124
+        ]
+      },
+      {
+        "ID": "GHSA-g7p8-r2ch-4rmf",
+        "AffectedNodes": [
+          124
+        ]
+      },
+      {
+        "ID": "GHSA-m4h3-7mc2-v295",
+        "AffectedNodes": [
+          124
+        ]
+      },
+      {
+        "ID": "GHSA-mf27-wg66-m8f5",
+        "AffectedNodes": [
+          124
+        ]
+      }
+    ],
+    "AddedVulns": []
+  },
+  {
+    "Patch": {
+      "Deps": [
+        {
+          "Pkg": {
+            "System": 6,
+            "Name": "org.apache.pdfbox:pdfbox"
+          },
+          "Type": {},
+          "OrigRequire": "",
+          "NewRequire": "2.0.24",
+          "OrigResolved": "2.0.16",
+          "NewResolved": "2.0.24"
+        }
+      ],
+      "EcosystemSpecific": null
+    },
+    "RemovedVulns": [
+      {
+        "ID": "GHSA-2h3j-m7gr-25xj",
+        "AffectedNodes": [
+          290
+        ]
+      },
+      {
+        "ID": "GHSA-6vqp-h455-42mr",
+        "AffectedNodes": [
+          290
+        ]
+      },
+      {
+        "ID": "GHSA-7grw-6pjh-jpc9",
+        "AffectedNodes": [
+          290
+        ]
+      },
+      {
+        "ID": "GHSA-fg3j-q579-v8x4",
+        "AffectedNodes": [
+          290
+        ]
+      }
+    ],
+    "AddedVulns": []
+  },
+  {
+    "Patch": {
+      "Deps": [
+        {
+          "Pkg": {
+            "System": 6,
+            "Name": "xerces:xercesImpl"
+          },
+          "Type": {},
+          "OrigRequire": "",
+          "NewRequire": "2.12.2",
+          "OrigResolved": "2.11.0",
+          "NewResolved": "2.12.2"
+        }
+      ],
+      "EcosystemSpecific": null
+    },
+    "RemovedVulns": [
+      {
+        "ID": "GHSA-7j4h-8wpf-rqfh",
+        "AffectedNodes": [
+          255
+        ]
+      },
+      {
+        "ID": "GHSA-h65f-jvqw-m9fj",
+        "AffectedNodes": [
+          255
+        ]
+      },
+      {
+        "ID": "GHSA-vmqm-g3vh-847m",
+        "AffectedNodes": [
+          255
+        ]
+      },
+      {
+        "ID": "GHSA-w4jq-qh47-hvjq",
+        "AffectedNodes": [
+          255
+        ]
+      }
+    ],
+    "AddedVulns": []
+  },
+  {
+    "Patch": {
+      "Deps": [
+        {
+          "Pkg": {
+            "System": 6,
+            "Name": "com.google.guava:guava"
+          },
+          "Type": {},
+          "OrigRequire": "",
+          "NewRequire": "32.0.0-android",
+          "OrigResolved": "22.0",
+          "NewResolved": "32.0.0-android"
+        }
+      ],
+      "EcosystemSpecific": null
+    },
+    "RemovedVulns": [
+      {
+        "ID": "GHSA-5mg8-w23w-74h3",
+        "AffectedNodes": [
+          263
+        ]
+      },
+      {
+        "ID": "GHSA-7g45-4rm6-3mm3",
+        "AffectedNodes": [
+          263
+        ]
+      },
+      {
+        "ID": "GHSA-mvr2-9pj6-7w5j",
+        "AffectedNodes": [
+          263
+        ]
+      }
+    ],
+    "AddedVulns": []
+  },
+  {
+    "Patch": {
+      "Deps": [
+        {
+          "Pkg": {
+            "System": 6,
+            "Name": "xerces:xercesImpl"
+          },
+          "Type": {},
+          "OrigRequire": "",
+          "NewRequire": "2.12.1",
+          "OrigResolved": "2.11.0",
+          "NewResolved": "2.12.1"
+        }
+      ],
+      "EcosystemSpecific": null
+    },
+    "RemovedVulns": [
+      {
+        "ID": "GHSA-7j4h-8wpf-rqfh",
+        "AffectedNodes": [
+          255
+        ]
+      },
+      {
+        "ID": "GHSA-vmqm-g3vh-847m",
+        "AffectedNodes": [
+          255
+        ]
+      },
+      {
+        "ID": "GHSA-w4jq-qh47-hvjq",
+        "AffectedNodes": [
+          255
+        ]
+      }
+    ],
+    "AddedVulns": []
+  },
+  {
+    "Patch": {
+      "Deps": [
+        {
+          "Pkg": {
+            "System": 6,
+            "Name": "com.fasterxml.jackson.core:jackson-databind"
+          },
+          "Type": {},
+          "OrigRequire": "",
+          "NewRequire": "2.12.7.1",
+          "OrigResolved": "2.12.6.1",
+          "NewResolved": "2.12.7.1"
+        }
+      ],
+      "EcosystemSpecific": null
+    },
+    "RemovedVulns": [
+      {
+        "ID": "GHSA-jjjh-jjxp-wpff",
+        "AffectedNodes": [
+          16
+        ]
+      },
+      {
+        "ID": "GHSA-rgv9-q543-rqg4",
+        "AffectedNodes": [
+          16
+        ]
+      }
+    ],
+    "AddedVulns": []
+  },
+  {
+    "Patch": {
+      "Deps": [
+        {
+          "Pkg": {
+            "System": 6,
+            "Name": "io.netty:netty-handler"
+          },
+          "Type": {},
+          "OrigRequire": "",
+          "NewRequire": "4.1.94.Final",
+          "OrigResolved": "4.1.27.Final",
+          "NewResolved": "4.1.94.Final"
+        }
+      ],
+      "EcosystemSpecific": null
+    },
+    "RemovedVulns": [
+      {
+        "ID": "GHSA-6mjq-h674-j845",
+        "AffectedNodes": [
+          260
+        ]
+      },
+      {
+        "ID": "GHSA-mm9x-g8pc-w292",
+        "AffectedNodes": [
+          260
+        ]
+      }
+    ],
+    "AddedVulns": []
+  },
+  {
+    "Patch": {
+      "Deps": [
+        {
+          "Pkg": {
+            "System": 6,
+            "Name": "org.apache.commons:commons-compress"
+          },
+          "Type": {},
+          "OrigRequire": "",
+          "NewRequire": "1.26.0",
+          "OrigResolved": "1.21",
+          "NewResolved": "1.26.0"
+        }
+      ],
+      "EcosystemSpecific": null
+    },
+    "RemovedVulns": [
+      {
+        "ID": "GHSA-4265-ccf5-phj5",
+        "AffectedNodes": [
+          61
+        ]
+      },
+      {
+        "ID": "GHSA-4g9r-vxhx-9pgx",
+        "AffectedNodes": [
+          61
+        ]
+      }
+    ],
+    "AddedVulns": []
+  },
+  {
+    "Patch": {
+      "Deps": [
+        {
+          "Pkg": {
+            "System": 6,
+            "Name": "org.apache.commons:commons-configuration2"
+          },
+          "Type": {},
+          "OrigRequire": "",
+          "NewRequire": "2.10.1",
+          "OrigResolved": "2.8.0",
+          "NewResolved": "2.10.1"
+        }
+      ],
+      "EcosystemSpecific": null
+    },
+    "RemovedVulns": [
+      {
+        "ID": "GHSA-9w38-p64v-xpmv",
+        "AffectedNodes": [
+          128
+        ]
+      },
+      {
+        "ID": "GHSA-xjp4-hw94-mvp5",
+        "AffectedNodes": [
+          128
+        ]
+      }
+    ],
+    "AddedVulns": []
+  },
+  {
+    "Patch": {
+      "Deps": [
+        {
+          "Pkg": {
+            "System": 6,
+            "Name": "org.apache.mina:mina-core"
+          },
+          "Type": {},
+          "OrigRequire": "",
+          "NewRequire": "2.0.22",
+          "OrigResolved": "2.0.7",
+          "NewResolved": "2.0.22"
+        }
+      ],
+      "EcosystemSpecific": null
+    },
+    "RemovedVulns": [
+      {
+        "ID": "GHSA-5h29-qq92-wj7f",
+        "AffectedNodes": [
+          170
+        ]
+      },
+      {
+        "ID": "GHSA-6mcm-j9cj-3vc3",
+        "AffectedNodes": [
+          170
+        ]
+      }
+    ],
+    "AddedVulns": []
+  },
+  {
+    "Patch": {
+      "Deps": [
+        {
+          "Pkg": {
+            "System": 6,
+            "Name": "org.apache.pdfbox:pdfbox"
+          },
+          "Type": {},
+          "OrigRequire": "",
+          "NewRequire": "2.0.23",
+          "OrigResolved": "2.0.16",
+          "NewResolved": "2.0.23"
+        }
+      ],
+      "EcosystemSpecific": null
+    },
+    "RemovedVulns": [
+      {
+        "ID": "GHSA-2h3j-m7gr-25xj",
+        "AffectedNodes": [
+          290
+        ]
+      },
+      {
+        "ID": "GHSA-6vqp-h455-42mr",
+        "AffectedNodes": [
+          290
+        ]
+      }
+    ],
+    "AddedVulns": []
+  },
+  {
+    "Patch": {
+      "Deps": [
+        {
+          "Pkg": {
+            "System": 6,
+            "Name": "org.apache.shiro:shiro-web"
+          },
+          "Type": {},
+          "OrigRequire": "",
+          "NewRequire": "1.13.0",
+          "OrigResolved": "1.10.0",
+          "NewResolved": "1.13.0"
+        }
+      ],
+      "EcosystemSpecific": null
+    },
+    "RemovedVulns": [
+      {
+        "ID": "GHSA-hhw5-c326-822h",
+        "AffectedNodes": [
+          22
+        ]
+      },
+      {
+        "ID": "GHSA-pmhc-2g4f-85cg",
+        "AffectedNodes": [
+          22
+        ]
+      }
+    ],
+    "AddedVulns": []
+  },
+  {
+    "Patch": {
+      "Deps": [
+        {
+          "Pkg": {
+            "System": 6,
+            "Name": "org.eclipse.jgit:org.eclipse.jgit"
+          },
+          "Type": {},
+          "OrigRequire": "",
+          "NewRequire": "5.13.3.202401111512-r",
+          "OrigResolved": "4.5.4.201711221230-r",
+          "NewResolved": "5.13.3.202401111512-r"
+        }
+      ],
+      "EcosystemSpecific": null
+    },
+    "RemovedVulns": [
+      {
+        "ID": "GHSA-3p86-9955-h393",
+        "AffectedNodes": [
+          58
+        ]
+      },
+      {
+        "ID": "GHSA-q446-82vq-w674",
+        "AffectedNodes": [
+          152
+        ]
+      }
+    ],
+    "AddedVulns": []
+  },
+  {
+    "Patch": {
+      "Deps": [
+        {
+          "Pkg": {
+            "System": 6,
+            "Name": "xerces:xercesImpl"
+          },
+          "Type": {},
+          "OrigRequire": "",
+          "NewRequire": "2.12.0",
+          "OrigResolved": "2.11.0",
+          "NewResolved": "2.12.0"
+        }
+      ],
+      "EcosystemSpecific": null
+    },
+    "RemovedVulns": [
+      {
+        "ID": "GHSA-7j4h-8wpf-rqfh",
+        "AffectedNodes": [
+          255
+        ]
+      },
+      {
+        "ID": "GHSA-vmqm-g3vh-847m",
+        "AffectedNodes": [
+          255
+        ]
+      }
+    ],
+    "AddedVulns": []
+  },
+  {
+    "Patch": {
+      "Deps": [
+        {
+          "Pkg": {
+            "System": 6,
+            "Name": "commons-net:commons-net"
+          },
+          "Type": {},
+          "OrigRequire": "",
+          "NewRequire": "3.9.0",
+          "OrigResolved": "3.6",
+          "NewResolved": "3.9.0"
+        },
+        {
+          "Pkg": {
+            "System": 6,
+            "Name": "net.sourceforge.htmlunit:htmlunit"
+          },
+          "Type": {},
+          "OrigRequire": "",
+          "NewRequire": "2.37.0",
+          "OrigResolved": "2.18",
+          "NewResolved": "2.37.0"
+        },
+        {
+          "Pkg": {
+            "System": 6,
+            "Name": "net.sourceforge.htmlunit:neko-htmlunit"
+          },
+          "Type": {},
+          "OrigRequire": "",
+          "NewRequire": "2.61.0",
+          "OrigResolved": "2.37.0",
+          "NewResolved": "2.61.0"
+        }
+      ],
+      "EcosystemSpecific": null
+    },
+    "RemovedVulns": [
+      {
+        "ID": "GHSA-5mh9-r3rr-9597",
+        "AffectedNodes": [
+          176
+        ]
+      },
+      {
+        "ID": "GHSA-7j4h-8wpf-rqfh",
+        "AffectedNodes": [
+          255
+        ]
+      },
+      {
+        "ID": "GHSA-h65f-jvqw-m9fj",
+        "AffectedNodes": [
+          255
+        ]
+      },
+      {
+        "ID": "GHSA-vmqm-g3vh-847m",
+        "AffectedNodes": [
+          255
+        ]
+      },
+      {
+        "ID": "GHSA-w4jq-qh47-hvjq",
+        "AffectedNodes": [
+          255
+        ]
+      }
+    ],
+    "AddedVulns": []
+  },
+  {
+    "Patch": {
+      "Deps": [
+        {
+          "Pkg": {
+            "System": 6,
+            "Name": "net.sourceforge.htmlunit:htmlunit"
+          },
+          "Type": {},
+          "OrigRequire": "",
+          "NewRequire": "2.37.0",
+          "OrigResolved": "2.18",
+          "NewResolved": "2.37.0"
+        }
+      ],
+      "EcosystemSpecific": null
+    },
+    "RemovedVulns": [
+      {
+        "ID": "GHSA-5mh9-r3rr-9597",
+        "AffectedNodes": [
+          176
+        ]
+      },
+      {
+        "ID": "GHSA-7j4h-8wpf-rqfh",
+        "AffectedNodes": [
+          255
+        ]
+      },
+      {
+        "ID": "GHSA-vmqm-g3vh-847m",
+        "AffectedNodes": [
+          255
+        ]
+      }
+    ],
+    "AddedVulns": [
+      {
+        "ID": "GHSA-6jmm-mp6w-4rrg",
+        "AffectedNodes": [
+          255
+        ]
+      },
+      {
+        "ID": "GHSA-cgp8-4m63-fhh5",
+        "AffectedNodes": [
+          257
+        ]
+      }
+    ]
+  },
+  {
+    "Patch": {
+      "Deps": [
+        {
+          "Pkg": {
+            "System": 6,
+            "Name": "com.google.guava:guava"
+          },
+          "Type": {},
+          "OrigRequire": "",
+          "NewRequire": "24.1.1-android",
+          "OrigResolved": "22.0",
+          "NewResolved": "24.1.1-android"
+        }
+      ],
+      "EcosystemSpecific": null
+    },
+    "RemovedVulns": [
+      {
+        "ID": "GHSA-mvr2-9pj6-7w5j",
+        "AffectedNodes": [
+          263
+        ]
+      }
+    ],
+    "AddedVulns": []
+  },
+  {
+    "Patch": {
+      "Deps": [
+        {
+          "Pkg": {
+            "System": 6,
+            "Name": "com.jcraft:jsch"
+          },
+          "Type": {},
+          "OrigRequire": "",
+          "NewRequire": "0.1.54",
+          "OrigResolved": "0.1.53",
+          "NewResolved": "0.1.54"
+        }
+      ],
+      "EcosystemSpecific": null
+    },
+    "RemovedVulns": [
+      {
+        "ID": "GHSA-q446-82vq-w674",
+        "AffectedNodes": [
+          152
+        ]
+      }
+    ],
+    "AddedVulns": []
+  },
+  {
+    "Patch": {
+      "Deps": [
+        {
+          "Pkg": {
+            "System": 6,
+            "Name": "com.nimbusds:nimbus-jose-jwt"
+          },
+          "Type": {},
+          "OrigRequire": "",
+          "NewRequire": "9.37.2",
+          "OrigResolved": "9.13",
+          "NewResolved": "9.37.2"
+        }
+      ],
+      "EcosystemSpecific": null
+    },
+    "RemovedVulns": [
+      {
+        "ID": "GHSA-gvpg-vgmx-xg6w",
+        "AffectedNodes": [
+          29
+        ]
+      }
+    ],
+    "AddedVulns": []
+  },
+  {
+    "Patch": {
+      "Deps": [
+        {
+          "Pkg": {
+            "System": 6,
+            "Name": "io.netty:netty"
+          },
+          "Type": {},
+          "OrigRequire": "",
+          "NewRequire": "3.9.8.Final",
+          "OrigResolved": "3.5.2.Final",
+          "NewResolved": "3.9.8.Final"
+        }
+      ],
+      "EcosystemSpecific": null
+    },
+    "RemovedVulns": [
+      {
+        "ID": "GHSA-xfv3-rrfm-f2rv",
+        "AffectedNodes": [
+          178
+        ]
+      }
+    ],
+    "AddedVulns": []
+  },
+  {
+    "Patch": {
+      "Deps": [
+        {
+          "Pkg": {
+            "System": 6,
+            "Name": "io.netty:netty-handler"
+          },
+          "Type": {},
+          "OrigRequire": "",
+          "NewRequire": "4.1.46.Final",
+          "OrigResolved": "4.1.27.Final",
+          "NewResolved": "4.1.46.Final"
+        }
+      ],
+      "EcosystemSpecific": null
+    },
+    "RemovedVulns": [
+      {
+        "ID": "GHSA-mm9x-g8pc-w292",
+        "AffectedNodes": [
+          260
+        ]
+      }
+    ],
+    "AddedVulns": []
+  },
+  {
+    "Patch": {
+      "Deps": [
+        {
+          "Pkg": {
+            "System": 6,
+            "Name": "org.apache.directory.api:api-ldap-model"
+          },
+          "Type": {},
+          "OrigRequire": "",
+          "NewRequire": "1.0.0-M31",
+          "OrigResolved": "1.0.0-M20",
+          "NewResolved": "1.0.0-M31"
+        }
+      ],
+      "EcosystemSpecific": null
+    },
+    "RemovedVulns": [
+      {
+        "ID": "GHSA-cx3q-cv6w-mx4h",
+        "AffectedNodes": [
+          107
+        ]
+      }
+    ],
+    "AddedVulns": []
+  },
+  {
+    "Patch": {
+      "Deps": [
+        {
+          "Pkg": {
+            "System": 6,
+            "Name": "org.apache.mina:mina-core"
+          },
+          "Type": {},
+          "OrigRequire": "",
+          "NewRequire": "2.0.21",
+          "OrigResolved": "2.0.7",
+          "NewResolved": "2.0.21"
+        }
+      ],
+      "EcosystemSpecific": null
+    },
+    "RemovedVulns": [
+      {
+        "ID": "GHSA-5h29-qq92-wj7f",
+        "AffectedNodes": [
+          170
+        ]
+      }
+    ],
+    "AddedVulns": []
+  },
+  {
+    "Patch": {
+      "Deps": [
+        {
+          "Pkg": {
+            "System": 6,
+            "Name": "org.apache.shiro:shiro-core"
+          },
+          "Type": {},
+          "OrigRequire": "",
+          "NewRequire": "1.13.0",
+          "OrigResolved": "1.10.0",
+          "NewResolved": "1.13.0"
+        }
+      ],
+      "EcosystemSpecific": null
+    },
+    "RemovedVulns": [
+      {
+        "ID": "GHSA-jc7h-c423-mpjc",
+        "AffectedNodes": [
+          20
+        ]
+      }
+    ],
+    "AddedVulns": []
+  },
+  {
+    "Patch": {
+      "Deps": [
+        {
+          "Pkg": {
+            "System": 6,
+            "Name": "org.apache.shiro:shiro-web"
+          },
+          "Type": {},
+          "OrigRequire": "",
+          "NewRequire": "1.12.0",
+          "OrigResolved": "1.10.0",
+          "NewResolved": "1.12.0"
+        }
+      ],
+      "EcosystemSpecific": null
+    },
+    "RemovedVulns": [
+      {
+        "ID": "GHSA-pmhc-2g4f-85cg",
+        "AffectedNodes": [
+          22
+        ]
+      }
+    ],
+    "AddedVulns": []
+  },
+  {
+    "Patch": {
+      "Deps": [
+        {
+          "Pkg": {
+            "System": 6,
+            "Name": "org.glassfish.jersey.core:jersey-common"
+          },
+          "Type": {},
+          "OrigRequire": "",
+          "NewRequire": "2.34",
+          "OrigResolved": "2.30",
+          "NewResolved": "2.34"
+        }
+      ],
+      "EcosystemSpecific": null
+    },
+    "RemovedVulns": [
+      {
+        "ID": "GHSA-c43q-5hpj-4crv",
+        "AffectedNodes": [
+          70
+        ]
+      }
+    ],
+    "AddedVulns": []
+  },
+  {
+    "Patch": {
+      "Deps": [
+        {
+          "Pkg": {
+            "System": 6,
+            "Name": "xalan:xalan"
+          },
+          "Type": {},
+          "OrigRequire": "",
+          "NewRequire": "2.7.3",
+          "OrigResolved": "2.7.2",
+          "NewResolved": "2.7.3"
+        }
+      ],
+      "EcosystemSpecific": null
+    },
+    "RemovedVulns": [
+      {
+        "ID": "GHSA-9339-86wc-4qgf",
+        "AffectedNodes": [
+          252
+        ]
+      }
+    ],
+    "AddedVulns": []
+  },
+  {
+    "Patch": {
+      "Deps": [
+        {
+          "Pkg": {
+            "System": 6,
+            "Name": "org.apache.thrift:libthrift"
+          },
+          "Type": {},
+          "OrigRequire": "",
+          "NewRequire": "0.14.0",
+          "OrigResolved": "0.13.0",
+          "NewResolved": "0.14.0"
+        },
+        {
+          "Pkg": {
+            "System": 6,
+            "Name": "org.apache.tomcat.embed:tomcat-embed-core"
+          },
+          "Type": {},
+          "OrigRequire": "",
+          "NewRequire": "8.5.99",
+          "OrigResolved": "8.5.46",
+          "NewResolved": "8.5.99"
+        }
+      ],
+      "EcosystemSpecific": null
+    },
+    "RemovedVulns": [
+      {
+        "ID": "GHSA-g2fg-mr77-6vrm",
+        "AffectedNodes": [
+          127
+        ]
+      }
+    ],
+    "AddedVulns": []
+  },
+  {
+    "Patch": {
+      "Deps": [
+        {
+          "Pkg": {
+            "System": 6,
+            "Name": "io.netty:netty-codec"
+          },
+          "Type": {},
+          "OrigRequire": "",
+          "NewRequire": "4.1.68.Final",
+          "OrigResolved": "4.1.27.Final",
+          "NewResolved": "4.1.68.Final"
+        }
+      ],
+      "EcosystemSpecific": null
+    },
+    "RemovedVulns": [],
+    "AddedVulns": []
+  },
+  {
+    "Patch": {
+      "Deps": [
+        {
+          "Pkg": {
+            "System": 6,
+            "Name": "io.netty:netty-handler"
+          },
+          "Type": {},
+          "OrigRequire": "",
+          "NewRequire": "4.1.45.Final",
+          "OrigResolved": "4.1.27.Final",
+          "NewResolved": "4.1.45.Final"
+        }
+      ],
+      "EcosystemSpecific": null
+    },
+    "RemovedVulns": [],
+    "AddedVulns": []
+  },
+  {
+    "Patch": {
+      "Deps": [
+        {
+          "Pkg": {
+            "System": 6,
+            "Name": "org.apache.thrift:libthrift"
+          },
+          "Type": {},
+          "OrigRequire": "",
+          "NewRequire": "0.14.0",
+          "OrigResolved": "0.13.0",
+          "NewResolved": "0.14.0"
+        }
+      ],
+      "EcosystemSpecific": null
+    },
+    "RemovedVulns": [
+      {
+        "ID": "GHSA-g2fg-mr77-6vrm",
+        "AffectedNodes": [
+          127
+        ]
+      }
+    ],
+    "AddedVulns": [
+      {
+        "ID": "GHSA-2rvv-w9r2-rg7m",
+        "AffectedNodes": [
+          182
+        ]
+      },
+      {
+        "ID": "GHSA-7w75-32cg-r6g2",
+        "AffectedNodes": [
+          182
+        ]
+      },
+      {
+        "ID": "GHSA-9xcj-c8cr-8c3c",
+        "AffectedNodes": [
+          182
+        ]
+      },
+      {
+        "ID": "GHSA-c9hw-wf7x-jp9j",
+        "AffectedNodes": [
+          182
+        ]
+      },
+      {
+        "ID": "GHSA-f4qf-m5gf-8jm8",
+        "AffectedNodes": [
+          182
+        ]
+      },
+      {
+        "ID": "GHSA-fccv-jmmp-qg76",
+        "AffectedNodes": [
+          182
+        ]
+      },
+      {
+        "ID": "GHSA-g8pj-r55q-5c2v",
+        "AffectedNodes": [
+          182
+        ]
+      },
+      {
+        "ID": "GHSA-hh3j-x4mc-g48r",
+        "AffectedNodes": [
+          182
+        ]
+      },
+      {
+        "ID": "GHSA-j39c-c8hj-x4j3",
+        "AffectedNodes": [
+          182
+        ]
+      },
+      {
+        "ID": "GHSA-jgwr-3qm3-26f3",
+        "AffectedNodes": [
+          182
+        ]
+      },
+      {
+        "ID": "GHSA-p22x-g9px-3945",
+        "AffectedNodes": [
+          182
+        ]
+      },
+      {
+        "ID": "GHSA-q3mw-pvr8-9ggc",
+        "AffectedNodes": [
+          182
+        ]
+      },
+      {
+        "ID": "GHSA-qppj-fm5r-hxr3",
+        "AffectedNodes": [
+          182
+        ]
+      },
+      {
+        "ID": "GHSA-qxf4-chvg-4r8r",
+        "AffectedNodes": [
+          182
+        ]
+      },
+      {
+        "ID": "GHSA-r6j3-px5g-cq3x",
+        "AffectedNodes": [
+          182
+        ]
+      }
+    ]
+  }
+]
+---
+
 [TestComputeRelaxPatches/npm-santatracker - 1]
 [
   {

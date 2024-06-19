@@ -189,17 +189,20 @@ func (m MavenManifestIO) Read(df lockfile.DepFile) (Manifest, error) {
 	var otherRequirements []resolve.RequirementVersion
 	groups := make(map[RequirementKey][]string)
 	addRequirements := func(deps []maven.Dependency) {
-		for _, dep := range deps {
-			origin := requirementOrigins[dep.Key()]
-			reqVer := makeRequirementVersion(dep, origin)
+		for _, dp := range deps {
+			origin := requirementOrigins[dp.Key()]
+			reqVer := makeRequirementVersion(dp, origin)
 			if strings.HasPrefix(origin, OriginParent+"@") || strings.HasPrefix(origin, OriginImport) {
 				otherRequirements = append(otherRequirements, reqVer)
-			} else {
-				requirements = append(requirements, reqVer)
 			}
-			if dep.Scope != "" {
+			origin, ok := reqVer.Type.GetAttr(dep.MavenDependencyOrigin)
+			if ok && strings.HasSuffix(origin, "@management") {
+				reqVer.Type.AddAttr(dep.MavenDependencyOrigin, "management")
+			}
+			requirements = append(requirements, reqVer)
+			if dp.Scope != "" {
 				reqKey := mavenRequirementKey(reqVer)
-				groups[reqKey] = append(groups[reqKey], string(dep.Scope))
+				groups[reqKey] = append(groups[reqKey], string(dp.Scope))
 			}
 		}
 	}

@@ -232,6 +232,13 @@ func overridePatchVulns(ctx context.Context, cl client.ResolutionClient, result 
 		return nil, nil, errOverrideImpossible
 	}
 
+	slices.SortFunc(effectivePatches, func(a, b overridePatch) int {
+		if c := a.PackageKey.Compare(b.PackageKey); c != 0 {
+			return c
+		}
+		return a.Semver().Compare(a.OrigVersion, b.OrigVersion)
+	})
+
 	return result, effectivePatches, nil
 }
 
