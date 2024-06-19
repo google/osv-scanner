@@ -30,59 +30,72 @@ type ScanResults struct {
 }
 
 type Image struct {
-	flattenedLayers []fileMap
-	innerImage      *v1.Image
-	extractDir      string
+	// Final layer is the last element in the slice
+	layers         []imgLayer
+	innerImage     *v1.Image
+	extractDir     string
+	layerIdToIndex map[string]int
 }
 
-func (img *Image) LastLayer() fileMap {
-	return img.flattenedLayers[len(img.flattenedLayers)-1]
+func (img *Image) LastLayer() imgLayer {
+	return img.layers[len(img.layers)-1]
 }
 
 func (img *Image) Cleanup() error {
 	return os.RemoveAll(img.extractDir)
 }
 
-func loadImage(imagePath string) (Image, error) {
+func loadImage(imagePath string) (*Image, error) {
 	image, err := tarball.ImageFromPath(imagePath, nil)
 	if err != nil {
-		return Image{}, err
+		return nil, err
 	}
 
 	tempPath, err := os.MkdirTemp("", "osv-scanner-image-scanning-*")
 	if err != nil {
-		return Image{}, err
+		return nil, err
 	}
 
 	layers, err := image.Layers()
 	if err != nil {
-		return Image{}, err
+		return nil, err
 	}
 
 	outputImage := Image{
-		extractDir:      tempPath,
-		innerImage:      &image,
-		flattenedLayers: make([]fileMap, len(layers)),
+		extractDir:     tempPath,
+		innerImage:     &image,
+		layers:         make([]imgLayer, len(layers)),
+		layerIdToIndex: make(map[string]int),
+	}
+
+	// Initiate the layers first
+	for i := 0; i < len(layers); i++ {
+		hash, err := layers[i].DiffID()
+		if err != nil {
+			return nil, err
+		}
+
+		outputImage.layers[i] = imgLayer{
+			fileNodeTrie: trie.NewPathTrie(),
+			id:           hash.Hex,
+			rootImage:    &outputImage,
+		}
+
+		outputImage.layerIdToIndex[hash.Hex] = i
 	}
 
 	// Reverse loop through the layers to start from the latest layer first
 	// this allows us to skip all files already seen
 	for i := len(layers) - 1; i >= 0; i-- {
-		hash, err := layers[i].DiffID()
-		hashStr := strings.TrimPrefix(hash.String(), "sha256:")
-		if err != nil {
-			return Image{}, err
-		}
-
-		dirPath := filepath.Join(tempPath, hashStr)
+		dirPath := filepath.Join(tempPath, outputImage.layers[i].id)
 		err = os.Mkdir(dirPath, dirPermission)
 		if err != nil {
-			return Image{}, err
+			return nil, err
 		}
 
 		layerReader, err := layers[i].Uncompressed()
 		if err != nil {
-			return Image{}, err
+			return nil, err
 		}
 		defer layerReader.Close()
 		tarReader := tar.NewReader(layerReader)
@@ -93,7 +106,7 @@ func loadImage(imagePath string) (Image, error) {
 				break
 			}
 			if err != nil {
-				return Image{}, fmt.Errorf("reading tar: %w", err)
+				return nil, fmt.Errorf("reading tar: %w", err)
 			}
 			// Some tools prepend everything with "./", so if we don't Clean the
 			// name, we may have duplicate entries, which angers tar-split.
@@ -138,7 +151,7 @@ func loadImage(imagePath string) (Image, error) {
 			case tar.TypeDir:
 				if _, err := os.Stat(absoluteDiskPath); err != nil {
 					if err := os.MkdirAll(absoluteDiskPath, dirPermission); err != nil {
-						return Image{}, err
+						return nil, err
 					}
 				}
 				fileType = Dir
@@ -148,16 +161,16 @@ func loadImage(imagePath string) (Image, error) {
 				// Actual permission bits are stored in FileNode
 				f, err := os.OpenFile(absoluteDiskPath, os.O_CREATE|os.O_RDWR, filePermission)
 				if err != nil {
-					return Image{}, err
+					return nil, err
 				}
 				numBytes, err := io.Copy(f, io.LimitReader(tarReader, fileReadLimit))
 				if numBytes >= fileReadLimit || errors.Is(err, io.EOF) {
 					f.Close()
-					return Image{}, errors.New("file exceeds read limit (potential decompression bomb attack)")
+					return nil, errors.New("file exceeds read limit (potential decompression bomb attack)")
 				}
 				if err != nil {
 					f.Close()
-					return Image{}, fmt.Errorf("unable to copy file: %w", err)
+					return nil, fmt.Errorf("unable to copy file: %w", err)
 				}
 				fileType = RegularFile
 				f.Close()
@@ -168,10 +181,7 @@ func loadImage(imagePath string) (Image, error) {
 			// We ignore any files that's already in each flattenedLayer, as they would
 			// have been overwritten.
 			for ii := i; ii < len(layers); ii++ {
-				currentMap := &outputImage.flattenedLayers[ii]
-				if currentMap.fileNodeTrie == nil {
-					currentMap.fileNodeTrie = trie.NewPathTrie()
-				}
+				currentMap := &outputImage.layers[ii]
 
 				if item := currentMap.fileNodeTrie.Get(virtualPath); item != nil {
 					// File already exists in a later layer
@@ -184,21 +194,23 @@ func loadImage(imagePath string) (Image, error) {
 				}
 
 				currentMap.fileNodeTrie.Put(virtualPath, fileNode{
-					virtualPath:      virtualPath,
-					absoluteDiskPath: absoluteDiskPath,
-					fileType:         fileType,
-					isWhiteout:       tombstone,
-					permission:       fs.FileMode(header.Mode),
+					rootImage: &outputImage,
+					// Select the original layer of the file
+					layer:       &outputImage.layers[i],
+					virtualPath: virtualPath,
+					fileType:    fileType,
+					isWhiteout:  tombstone,
+					permission:  fs.FileMode(header.Mode),
 				})
 			}
 		}
 		// TODO: Cleanup temporary dir as there will be leftovers on errors
 	}
 
-	return outputImage, nil
+	return &outputImage, nil
 }
 
-func inWhiteoutDir(fileMap fileMap, filePath string) bool {
+func inWhiteoutDir(fileMap imgLayer, filePath string) bool {
 	for {
 		if filePath == "" {
 			break

@@ -3,6 +3,7 @@ package image
 import (
 	"io/fs"
 	"os"
+	"path/filepath"
 
 	"github.com/dghubble/trie"
 )
@@ -16,30 +17,42 @@ const (
 
 // fileNode represents a file on a specific layer, mapping the contents to an extracted file on disk
 type fileNode struct {
-	fileType         fileType
-	isWhiteout       bool
-	absoluteDiskPath string
-	virtualPath      string
-	permission       fs.FileMode
+	// TODO: Determine the performance implications of having a pointer to base image in every fileNode
+	rootImage   *Image
+	fileType    fileType
+	isWhiteout  bool
+	layer       *imgLayer
+	virtualPath string
+	permission  fs.FileMode
 }
 
-// fileMap represents all the files on a layer
-type fileMap struct {
+func (f *fileNode) Open() (*os.File, error) {
+	return os.Open(f.absoluteDiskPath())
+}
+
+func (f *fileNode) absoluteDiskPath() string {
+	return filepath.Join(f.rootImage.extractDir, f.layer.id, f.virtualPath)
+}
+
+// imgLayer represents all the files on a layer
+type imgLayer struct {
 	fileNodeTrie *trie.PathTrie
-	// TODO: Use hashset to speed up path lookups
+	id           string
+	rootImage    *Image
+	// TODO: Use hashmap to speed up path lookups
 }
 
-func (filemap fileMap) OpenFile(path string) (*os.File, error) {
+func (filemap imgLayer) GetFileNode(path string) (fileNode, error) {
 	node, ok := filemap.fileNodeTrie.Get(path).(fileNode)
 	if !ok {
-		return nil, fs.ErrNotExist
+		return fileNode{}, fs.ErrNotExist
 	}
 
-	return os.Open(node.absoluteDiskPath)
+	return node, nil
 }
 
 // AllFiles return all files that exist on the layer the FileMap is representing
-func (filemap fileMap) AllFiles() []fileNode {
+func (filemap imgLayer) AllFiles() []fileNode {
 	allFiles := []fileNode{}
 	// No need to check error since we are not returning any errors
 	_ = filemap.fileNodeTrie.Walk(func(key string, value interface{}) error {

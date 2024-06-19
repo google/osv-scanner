@@ -36,7 +36,7 @@ func findArtifactExtractor(path string) []extractorPair {
 	return extractors
 }
 
-func extractArtifactDeps(path string, img *Image) (lockfile.Lockfile, error) {
+func extractArtifactDeps(path string, layer imgLayer) (lockfile.Lockfile, error) {
 	foundExtractors := findArtifactExtractor(path)
 	if len(foundExtractors) == 0 {
 		return lockfile.Lockfile{}, fmt.Errorf("%w for %s", lockfile.ErrExtractorNotFound, path)
@@ -46,7 +46,7 @@ func extractArtifactDeps(path string, img *Image) (lockfile.Lockfile, error) {
 	var extractedAs string
 	for _, extPair := range foundExtractors {
 		// File has to be reopened per extractor as each extractor moves the read cursor
-		f, err := OpenLayerFile(path, img.LastLayer())
+		f, err := OpenLayerFile(path, layer)
 		if err != nil {
 			return lockfile.Lockfile{}, fmt.Errorf("attempted to open file but failed: %w", err)
 		}
@@ -64,7 +64,7 @@ func extractArtifactDeps(path string, img *Image) (lockfile.Lockfile, error) {
 
 		extractedAs = extPair.name
 		packages = newPackages
-		// TODO(rexpan): Determine if this it's acceptable to have multiple extractors
+		// TODO(rexpan): Determine if it's acceptable to have multiple extractors
 		// extract from the same file successfully
 		break
 	}
@@ -93,7 +93,7 @@ func extractArtifactDeps(path string, img *Image) (lockfile.Lockfile, error) {
 type ImageFile struct {
 	*os.File
 
-	layer fileMap
+	layer imgLayer
 	path  string
 }
 
@@ -111,15 +111,18 @@ func (f ImageFile) Path() string {
 	return f.path
 }
 
-func OpenLayerFile(path string, layer fileMap) (ImageFile, error) {
-	readCloser, err := layer.OpenFile(path)
-
+func OpenLayerFile(path string, layer imgLayer) (ImageFile, error) {
+	fileNode, err := layer.GetFileNode(path)
 	if err != nil {
 		return ImageFile{}, err
 	}
 
+	file, err := fileNode.Open()
+	if err != nil {
+		return ImageFile{}, err
+	}
 	return ImageFile{
-		File:  readCloser,
+		File:  file,
 		path:  path,
 		layer: layer,
 	}, nil
