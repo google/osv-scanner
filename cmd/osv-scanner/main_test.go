@@ -1277,7 +1277,7 @@ func TestRun_OCIImage(t *testing.T) {
 		{
 			name: "scanning node_modules using npm with no packages",
 			args: []string{"", "--experimental-oci-image", "../../internal/image/fixtures/test-node_modules-npm-empty.tar"},
-			exit: 0,
+			exit: 1,
 		},
 		{
 			name: "scanning node_modules using npm with some packages",
@@ -1287,22 +1287,22 @@ func TestRun_OCIImage(t *testing.T) {
 		{
 			name: "scanning node_modules using yarn with no packages",
 			args: []string{"", "--experimental-oci-image", "../../internal/image/fixtures/test-node_modules-yarn-empty.tar"},
-			exit: 0,
+			exit: 1,
 		},
 		{
 			name: "scanning node_modules using yarn with some packages",
 			args: []string{"", "--experimental-oci-image", "../../internal/image/fixtures/test-node_modules-yarn-full.tar"},
-			exit: 0,
+			exit: 1,
 		},
 		{
 			name: "scanning node_modules using pnpm with no packages",
 			args: []string{"", "--experimental-oci-image", "../../internal/image/fixtures/test-node_modules-pnpm-empty.tar"},
-			exit: 0,
+			exit: 1,
 		},
 		{
 			name: "scanning node_modules using pnpm with some packages",
 			args: []string{"", "--experimental-oci-image", "../../internal/image/fixtures/test-node_modules-pnpm-full.tar"},
-			exit: 0,
+			exit: 1,
 		},
 	}
 	for _, tt := range tests {
