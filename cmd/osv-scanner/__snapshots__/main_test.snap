@@ -1526,119 +1526,15 @@ No issues found
 ---
 
 [TestRun_MavenTransitive/scans_transitive_dependencies_by_specifying_pom.xml - 1]
-Scanned <rootdir>/fixtures/maven-transitive/abc.xml file as a pom.xml and found 85 packages
-+-------------------------------------+------+-----------+---------------------------------------------+------------------+-----------------------------------+
-| OSV URL                             | CVSS | ECOSYSTEM | PACKAGE                                     | VERSION          | SOURCE                            |
-+-------------------------------------+------+-----------+---------------------------------------------+------------------+-----------------------------------+
-| https://osv.dev/GHSA-27xj-rqx5-2255 | 8.1  | Maven     | com.fasterxml.jackson.core:jackson-databind | 2.9.5            | fixtures/maven-transitive/abc.xml |
-| https://osv.dev/GHSA-288c-cq4h-88gq | 7.5  | Maven     | com.fasterxml.jackson.core:jackson-databind | 2.9.5            | fixtures/maven-transitive/abc.xml |
-| https://osv.dev/GHSA-4gq5-ch57-c2mg | 9.8  | Maven     | com.fasterxml.jackson.core:jackson-databind | 2.9.5            | fixtures/maven-transitive/abc.xml |
-| https://osv.dev/GHSA-4w82-r329-3q67 | 9.8  | Maven     | com.fasterxml.jackson.core:jackson-databind | 2.9.5            | fixtures/maven-transitive/abc.xml |
-| https://osv.dev/GHSA-57j2-w4cx-62h2 | 7.5  | Maven     | com.fasterxml.jackson.core:jackson-databind | 2.9.5            | fixtures/maven-transitive/abc.xml |
-| https://osv.dev/GHSA-58pp-9c76-5625 | 8.8  | Maven     | com.fasterxml.jackson.core:jackson-databind | 2.9.5            | fixtures/maven-transitive/abc.xml |
-| https://osv.dev/GHSA-5949-rw7g-wx7w | 8.1  | Maven     | com.fasterxml.jackson.core:jackson-databind | 2.9.5            | fixtures/maven-transitive/abc.xml |
-| https://osv.dev/GHSA-5p34-5m6p-p58g | 9.8  | Maven     | com.fasterxml.jackson.core:jackson-databind | 2.9.5            | fixtures/maven-transitive/abc.xml |
-| https://osv.dev/GHSA-5r5r-6hpj-8gg9 | 8.1  | Maven     | com.fasterxml.jackson.core:jackson-databind | 2.9.5            | fixtures/maven-transitive/abc.xml |
-| https://osv.dev/GHSA-5ww9-j83m-q7qx | 7.5  | Maven     | com.fasterxml.jackson.core:jackson-databind | 2.9.5            | fixtures/maven-transitive/abc.xml |
-| https://osv.dev/GHSA-645p-88qh-w398 | 9.8  | Maven     | com.fasterxml.jackson.core:jackson-databind | 2.9.5            | fixtures/maven-transitive/abc.xml |
-| https://osv.dev/GHSA-6fpp-rgj9-8rwc | 9.8  | Maven     | com.fasterxml.jackson.core:jackson-databind | 2.9.5            | fixtures/maven-transitive/abc.xml |
-| https://osv.dev/GHSA-6wqp-v4v6-c87c | 7.5  | Maven     | com.fasterxml.jackson.core:jackson-databind | 2.9.5            | fixtures/maven-transitive/abc.xml |
-| https://osv.dev/GHSA-758m-v56v-grj4 | 8.8  | Maven     | com.fasterxml.jackson.core:jackson-databind | 2.9.5            | fixtures/maven-transitive/abc.xml |
-| https://osv.dev/GHSA-85cw-hj65-qqv9 | 9.8  | Maven     | com.fasterxml.jackson.core:jackson-databind | 2.9.5            | fixtures/maven-transitive/abc.xml |
-| https://osv.dev/GHSA-89qr-369f-5m5x | 8.1  | Maven     | com.fasterxml.jackson.core:jackson-databind | 2.9.5            | fixtures/maven-transitive/abc.xml |
-| https://osv.dev/GHSA-8c4j-34r4-xr8g | 8.1  | Maven     | com.fasterxml.jackson.core:jackson-databind | 2.9.5            | fixtures/maven-transitive/abc.xml |
-| https://osv.dev/GHSA-8w26-6f25-cm9x | 8.1  | Maven     | com.fasterxml.jackson.core:jackson-databind | 2.9.5            | fixtures/maven-transitive/abc.xml |
-| https://osv.dev/GHSA-95cm-88f5-f2c7 | 8.8  | Maven     | com.fasterxml.jackson.core:jackson-databind | 2.9.5            | fixtures/maven-transitive/abc.xml |
-| https://osv.dev/GHSA-9gph-22xh-8x98 | 8.1  | Maven     | com.fasterxml.jackson.core:jackson-databind | 2.9.5            | fixtures/maven-transitive/abc.xml |
-| https://osv.dev/GHSA-9m6f-7xcq-8vf8 | 8.1  | Maven     | com.fasterxml.jackson.core:jackson-databind | 2.9.5            | fixtures/maven-transitive/abc.xml |
-| https://osv.dev/GHSA-9mxf-g3x6-wv74 | 10.0 | Maven     | com.fasterxml.jackson.core:jackson-databind | 2.9.5            | fixtures/maven-transitive/abc.xml |
-| https://osv.dev/GHSA-9vvp-fxw6-jcxr | 8.8  | Maven     | com.fasterxml.jackson.core:jackson-databind | 2.9.5            | fixtures/maven-transitive/abc.xml |
-| https://osv.dev/GHSA-c265-37vj-cwcc | 8.1  | Maven     | com.fasterxml.jackson.core:jackson-databind | 2.9.5            | fixtures/maven-transitive/abc.xml |
-| https://osv.dev/GHSA-c2q3-4qrh-fm48 | 8.1  | Maven     | com.fasterxml.jackson.core:jackson-databind | 2.9.5            | fixtures/maven-transitive/abc.xml |
-| https://osv.dev/GHSA-c8hm-7hpq-7jhg | 9.8  | Maven     | com.fasterxml.jackson.core:jackson-databind | 2.9.5            | fixtures/maven-transitive/abc.xml |
-| https://osv.dev/GHSA-cf6r-3wgc-h863 | 7.5  | Maven     | com.fasterxml.jackson.core:jackson-databind | 2.9.5            | fixtures/maven-transitive/abc.xml |
-| https://osv.dev/GHSA-cjjf-94ff-43w7 | 7.5  | Maven     | com.fasterxml.jackson.core:jackson-databind | 2.9.5            | fixtures/maven-transitive/abc.xml |
-| https://osv.dev/GHSA-cmfg-87vq-g5g4 | 5.9  | Maven     | com.fasterxml.jackson.core:jackson-databind | 2.9.5            | fixtures/maven-transitive/abc.xml |
-| https://osv.dev/GHSA-cvm9-fjm9-3572 | 8.1  | Maven     | com.fasterxml.jackson.core:jackson-databind | 2.9.5            | fixtures/maven-transitive/abc.xml |
-| https://osv.dev/GHSA-f3j5-rmmp-3fc5 | 9.8  | Maven     | com.fasterxml.jackson.core:jackson-databind | 2.9.5            | fixtures/maven-transitive/abc.xml |
-| https://osv.dev/GHSA-f9hv-mg5h-xcw9 | 9.8  | Maven     | com.fasterxml.jackson.core:jackson-databind | 2.9.5            | fixtures/maven-transitive/abc.xml |
-| https://osv.dev/GHSA-f9xh-2qgp-cq57 | 8.1  | Maven     | com.fasterxml.jackson.core:jackson-databind | 2.9.5            | fixtures/maven-transitive/abc.xml |
-| https://osv.dev/GHSA-fmmc-742q-jg75 | 9.8  | Maven     | com.fasterxml.jackson.core:jackson-databind | 2.9.5            | fixtures/maven-transitive/abc.xml |
-| https://osv.dev/GHSA-fqwf-pjwf-7vqv | 8.8  | Maven     | com.fasterxml.jackson.core:jackson-databind | 2.9.5            | fixtures/maven-transitive/abc.xml |
-| https://osv.dev/GHSA-gjmw-vf9h-g25v | 9.8  | Maven     | com.fasterxml.jackson.core:jackson-databind | 2.9.5            | fixtures/maven-transitive/abc.xml |
-| https://osv.dev/GHSA-gwp4-hfv6-p7hw | 7.5  | Maven     | com.fasterxml.jackson.core:jackson-databind | 2.9.5            | fixtures/maven-transitive/abc.xml |
-| https://osv.dev/GHSA-gww7-p5w4-wrfv | 9.8  | Maven     | com.fasterxml.jackson.core:jackson-databind | 2.9.5            | fixtures/maven-transitive/abc.xml |
-| https://osv.dev/GHSA-h3cw-g4mq-c5x2 | 8.1  | Maven     | com.fasterxml.jackson.core:jackson-databind | 2.9.5            | fixtures/maven-transitive/abc.xml |
-| https://osv.dev/GHSA-h4rc-386g-6m85 | 8.1  | Maven     | com.fasterxml.jackson.core:jackson-databind | 2.9.5            | fixtures/maven-transitive/abc.xml |
-| https://osv.dev/GHSA-h822-r4r5-v8jg | 9.8  | Maven     | com.fasterxml.jackson.core:jackson-databind | 2.9.5            | fixtures/maven-transitive/abc.xml |
-| https://osv.dev/GHSA-j823-4qch-3rgm | 8.1  | Maven     | com.fasterxml.jackson.core:jackson-databind | 2.9.5            | fixtures/maven-transitive/abc.xml |
-| https://osv.dev/GHSA-jjjh-jjxp-wpff | 7.5  | Maven     | com.fasterxml.jackson.core:jackson-databind | 2.9.5            | fixtures/maven-transitive/abc.xml |
-| https://osv.dev/GHSA-m6x4-97wx-4q27 | 8.1  | Maven     | com.fasterxml.jackson.core:jackson-databind | 2.9.5            | fixtures/maven-transitive/abc.xml |
-| https://osv.dev/GHSA-mc6h-4qgp-37qh | 8.1  | Maven     | com.fasterxml.jackson.core:jackson-databind | 2.9.5            | fixtures/maven-transitive/abc.xml |
-| https://osv.dev/GHSA-mph4-vhrx-mv67 | 5.9  | Maven     | com.fasterxml.jackson.core:jackson-databind | 2.9.5            | fixtures/maven-transitive/abc.xml |
-| https://osv.dev/GHSA-mx7p-6679-8g3q | 9.8  | Maven     | com.fasterxml.jackson.core:jackson-databind | 2.9.5            | fixtures/maven-transitive/abc.xml |
-| https://osv.dev/GHSA-mx9v-gmh4-mgqw | 9.8  | Maven     | com.fasterxml.jackson.core:jackson-databind | 2.9.5            | fixtures/maven-transitive/abc.xml |
-| https://osv.dev/GHSA-p43x-xfjf-5jhr | 9.8  | Maven     | com.fasterxml.jackson.core:jackson-databind | 2.9.5            | fixtures/maven-transitive/abc.xml |
-| https://osv.dev/GHSA-q93h-jc49-78gg | 9.8  | Maven     | com.fasterxml.jackson.core:jackson-databind | 2.9.5            | fixtures/maven-transitive/abc.xml |
-| https://osv.dev/GHSA-qjw2-hr98-qgfh | 8.1  | Maven     | com.fasterxml.jackson.core:jackson-databind | 2.9.5            | fixtures/maven-transitive/abc.xml |
-| https://osv.dev/GHSA-qmqc-x3r4-6v39 |      | Maven     | com.fasterxml.jackson.core:jackson-databind | 2.9.5            | fixtures/maven-transitive/abc.xml |
-| https://osv.dev/GHSA-qr7j-h6gg-jmgc | 9.8  | Maven     | com.fasterxml.jackson.core:jackson-databind | 2.9.5            | fixtures/maven-transitive/abc.xml |
-| https://osv.dev/GHSA-r3gr-cxrf-hg25 | 8.1  | Maven     | com.fasterxml.jackson.core:jackson-databind | 2.9.5            | fixtures/maven-transitive/abc.xml |
-| https://osv.dev/GHSA-r695-7vr9-jgc2 | 8.1  | Maven     | com.fasterxml.jackson.core:jackson-databind | 2.9.5            | fixtures/maven-transitive/abc.xml |
-| https://osv.dev/GHSA-rf6r-2c4q-2vwg | 8.8  | Maven     | com.fasterxml.jackson.core:jackson-databind | 2.9.5            | fixtures/maven-transitive/abc.xml |
-| https://osv.dev/GHSA-rgv9-q543-rqg4 | 7.5  | Maven     | com.fasterxml.jackson.core:jackson-databind | 2.9.5            | fixtures/maven-transitive/abc.xml |
-| https://osv.dev/GHSA-rpr3-cw39-3pxh | 8.1  | Maven     | com.fasterxml.jackson.core:jackson-databind | 2.9.5            | fixtures/maven-transitive/abc.xml |
-| https://osv.dev/GHSA-v3xw-c963-f5hc | 8.8  | Maven     | com.fasterxml.jackson.core:jackson-databind | 2.9.5            | fixtures/maven-transitive/abc.xml |
-| https://osv.dev/GHSA-v585-23hc-c647 | 8.1  | Maven     | com.fasterxml.jackson.core:jackson-databind | 2.9.5            | fixtures/maven-transitive/abc.xml |
-| https://osv.dev/GHSA-vfqx-33qm-g869 | 8.1  | Maven     | com.fasterxml.jackson.core:jackson-databind | 2.9.5            | fixtures/maven-transitive/abc.xml |
-| https://osv.dev/GHSA-wh8g-3j2c-rqj5 | 8.1  | Maven     | com.fasterxml.jackson.core:jackson-databind | 2.9.5            | fixtures/maven-transitive/abc.xml |
-| https://osv.dev/GHSA-x2w5-5m2g-7h5m | 9.8  | Maven     | com.fasterxml.jackson.core:jackson-databind | 2.9.5            | fixtures/maven-transitive/abc.xml |
-| https://osv.dev/GHSA-3f7h-mf4q-vrm4 | 6.5  | Maven     | com.fasterxml.woodstox:woodstox-core        | 5.0.3            | fixtures/maven-transitive/abc.xml |
-| https://osv.dev/GHSA-4jrv-ppp4-jm57 | 7.7  | Maven     | com.google.code.gson:gson                   | 2.2.4            | fixtures/maven-transitive/abc.xml |
-| https://osv.dev/GHSA-5mg8-w23w-74h3 | 3.3  | Maven     | com.google.guava:guava                      | 11.0.2           | fixtures/maven-transitive/abc.xml |
-| https://osv.dev/GHSA-7g45-4rm6-3mm3 | 5.5  | Maven     | com.google.guava:guava                      | 11.0.2           | fixtures/maven-transitive/abc.xml |
-| https://osv.dev/GHSA-mvr2-9pj6-7w5j | 5.9  | Maven     | com.google.guava:guava                      | 11.0.2           | fixtures/maven-transitive/abc.xml |
-| https://osv.dev/GHSA-4gg5-vx3j-xwc7 | 7.5  | Maven     | com.google.protobuf:protobuf-java           | 2.5.0            | fixtures/maven-transitive/abc.xml |
-| https://osv.dev/GHSA-77rm-9x9h-xj3g | 7.5  | Maven     | com.google.protobuf:protobuf-java           | 2.5.0            | fixtures/maven-transitive/abc.xml |
-| https://osv.dev/GHSA-g5ww-5jh7-63cx | 7.5  | Maven     | com.google.protobuf:protobuf-java           | 2.5.0            | fixtures/maven-transitive/abc.xml |
-| https://osv.dev/GHSA-h4h5-3hr4-j3g2 | 5.7  | Maven     | com.google.protobuf:protobuf-java           | 2.5.0            | fixtures/maven-transitive/abc.xml |
-| https://osv.dev/GHSA-wrvw-hg22-4m67 | 7.5  | Maven     | com.google.protobuf:protobuf-java           | 2.5.0            | fixtures/maven-transitive/abc.xml |
-| https://osv.dev/GHSA-f6vf-pq8c-69m4 | 9.8  | Maven     | com.nimbusds:nimbus-jose-jwt                | 4.41.1           | fixtures/maven-transitive/abc.xml |
-| https://osv.dev/GHSA-gvpg-vgmx-xg6w |      | Maven     | com.nimbusds:nimbus-jose-jwt                | 4.41.1           | fixtures/maven-transitive/abc.xml |
-| https://osv.dev/GHSA-w33c-445m-f8w7 | 5.9  | Maven     | com.squareup.okio:okio                      | 1.6.0            | fixtures/maven-transitive/abc.xml |
-| https://osv.dev/GHSA-6phf-73q6-gh87 | 7.3  | Maven     | commons-beanutils:commons-beanutils         | 1.9.3            | fixtures/maven-transitive/abc.xml |
-| https://osv.dev/GHSA-p66x-2cv9-qq3v |      | Maven     | commons-beanutils:commons-beanutils         | 1.9.3            | fixtures/maven-transitive/abc.xml |
-| https://osv.dev/GHSA-gwrp-pvrq-jmwv | 4.8  | Maven     | commons-io:commons-io                       | 2.5              | fixtures/maven-transitive/abc.xml |
-| https://osv.dev/GHSA-cgp8-4m63-fhh5 | 6.5  | Maven     | commons-net:commons-net                     | 3.6              | fixtures/maven-transitive/abc.xml |
-| https://osv.dev/GHSA-2qrg-x229-3v8q | 9.8  | Maven     | log4j:log4j                                 | 1.2.17           | fixtures/maven-transitive/abc.xml |
-| https://osv.dev/GHSA-65fg-84f6-3jq3 | 9.8  | Maven     | log4j:log4j                                 | 1.2.17           | fixtures/maven-transitive/abc.xml |
-| https://osv.dev/GHSA-f7vh-qwp3-x37m | 9.8  | Maven     | log4j:log4j                                 | 1.2.17           | fixtures/maven-transitive/abc.xml |
-| https://osv.dev/GHSA-fp5r-v3w9-4333 | 7.5  | Maven     | log4j:log4j                                 | 1.2.17           | fixtures/maven-transitive/abc.xml |
-| https://osv.dev/GHSA-w9p3-5cr8-m3jj | 8.8  | Maven     | log4j:log4j                                 | 1.2.17           | fixtures/maven-transitive/abc.xml |
-| https://osv.dev/GHSA-493p-pfq6-5258 | 7.5  | Maven     | net.minidev:json-smart                      | 2.3              | fixtures/maven-transitive/abc.xml |
-| https://osv.dev/GHSA-v528-7hrm-frqp | 5.9  | Maven     | net.minidev:json-smart                      | 2.3              | fixtures/maven-transitive/abc.xml |
-| https://osv.dev/GHSA-rhrv-645h-fjfh | 7.5  | Maven     | org.apache.avro:avro                        | 1.7.7            | fixtures/maven-transitive/abc.xml |
-| https://osv.dev/GHSA-4g9r-vxhx-9pgx | 8.1  | Maven     | org.apache.commons:commons-compress         | 1.4.1            | fixtures/maven-transitive/abc.xml |
-| https://osv.dev/GHSA-7hfm-57qf-j43q | 7.5  | Maven     | org.apache.commons:commons-compress         | 1.4.1            | fixtures/maven-transitive/abc.xml |
-| https://osv.dev/GHSA-crv7-7245-f45f | 7.5  | Maven     | org.apache.commons:commons-compress         | 1.4.1            | fixtures/maven-transitive/abc.xml |
-| https://osv.dev/GHSA-mc84-pj99-q6hh | 7.5  | Maven     | org.apache.commons:commons-compress         | 1.4.1            | fixtures/maven-transitive/abc.xml |
-| https://osv.dev/GHSA-xqfj-vm6h-2x34 | 7.5  | Maven     | org.apache.commons:commons-compress         | 1.4.1            | fixtures/maven-transitive/abc.xml |
-| https://osv.dev/GHSA-9w38-p64v-xpmv | 6.5  | Maven     | org.apache.commons:commons-configuration2   | 2.1.1            | fixtures/maven-transitive/abc.xml |
-| https://osv.dev/GHSA-xjp4-hw94-mvp5 | 6.5  | Maven     | org.apache.commons:commons-configuration2   | 2.1.1            | fixtures/maven-transitive/abc.xml |
-| https://osv.dev/GHSA-8wm5-8h9c-47pc | 9.8  | Maven     | org.apache.hadoop:hadoop-common             | 3.2.0            | fixtures/maven-transitive/abc.xml |
-| https://osv.dev/GHSA-f8vc-wfc8-hxqh | 8.8  | Maven     | org.apache.hadoop:hadoop-common             | 3.2.0            | fixtures/maven-transitive/abc.xml |
-| https://osv.dev/GHSA-gx2c-fvhc-ph4j | 9.8  | Maven     | org.apache.hadoop:hadoop-common             | 3.2.0            | fixtures/maven-transitive/abc.xml |
-| https://osv.dev/GHSA-rmpj-7c96-mrg8 | 9.8  | Maven     | org.apache.hadoop:hadoop-common             | 3.2.0            | fixtures/maven-transitive/abc.xml |
-| https://osv.dev/GHSA-7r82-7xv7-xcpj | 5.3  | Maven     | org.apache.httpcomponents:httpclient        | 4.5.2            | fixtures/maven-transitive/abc.xml |
-| https://osv.dev/GHSA-c27h-mcmw-48hv | 9.8  | Maven     | org.codehaus.jackson:jackson-mapper-asl     | 1.9.13           | fixtures/maven-transitive/abc.xml |
-| https://osv.dev/GHSA-r6j9-8759-g62w | 7.5  | Maven     | org.codehaus.jackson:jackson-mapper-asl     | 1.9.13           | fixtures/maven-transitive/abc.xml |
-| https://osv.dev/GHSA-g3wg-6mcf-8jj6 | 7.0  | Maven     | org.eclipse.jetty:jetty-webapp              | 9.3.24.v20180605 | fixtures/maven-transitive/abc.xml |
-| https://osv.dev/GHSA-58qw-p7qm-5rvh | 3.9  | Maven     | org.eclipse.jetty:jetty-xml                 | 9.3.24.v20180605 | fixtures/maven-transitive/abc.xml |
-| https://osv.dev/GHSA-55g7-9cwv-5qfv | 7.5  | Maven     | org.xerial.snappy:snappy-java               | 1.0.5            | fixtures/maven-transitive/abc.xml |
-| https://osv.dev/GHSA-fjpj-2g6w-x25r | 5.9  | Maven     | org.xerial.snappy:snappy-java               | 1.0.5            | fixtures/maven-transitive/abc.xml |
-| https://osv.dev/GHSA-pqr6-cmr2-h8hf | 5.9  | Maven     | org.xerial.snappy:snappy-java               | 1.0.5            | fixtures/maven-transitive/abc.xml |
-| https://osv.dev/GHSA-qcwq-55hx-v3vh | 7.5  | Maven     | org.xerial.snappy:snappy-java               | 1.0.5            | fixtures/maven-transitive/abc.xml |
-+-------------------------------------+------+-----------+---------------------------------------------+------------------+-----------------------------------+
+Scanned <rootdir>/fixtures/maven-transitive/abc.xml file as a pom.xml and found 3 packages
++-------------------------------------+------+-----------+-------------------------------------+---------+-----------------------------------+
+| OSV URL                             | CVSS | ECOSYSTEM | PACKAGE                             | VERSION | SOURCE                            |
++-------------------------------------+------+-----------+-------------------------------------+---------+-----------------------------------+
+| https://osv.dev/GHSA-7rjr-3q55-vv33 | 9.0  | Maven     | org.apache.logging.log4j:log4j-core | 2.14.1  | fixtures/maven-transitive/abc.xml |
+| https://osv.dev/GHSA-8489-44mv-ggj8 | 6.6  | Maven     | org.apache.logging.log4j:log4j-core | 2.14.1  | fixtures/maven-transitive/abc.xml |
+| https://osv.dev/GHSA-jfh8-c2jp-5v3q | 10.0 | Maven     | org.apache.logging.log4j:log4j-core | 2.14.1  | fixtures/maven-transitive/abc.xml |
+| https://osv.dev/GHSA-p6xc-xr62-6r2g | 8.6  | Maven     | org.apache.logging.log4j:log4j-core | 2.14.1  | fixtures/maven-transitive/abc.xml |
++-------------------------------------+------+-----------+-------------------------------------+---------+-----------------------------------+
 
 ---
 
@@ -1648,119 +1544,15 @@ Scanned <rootdir>/fixtures/maven-transitive/abc.xml file as a pom.xml and found 
 
 [TestRun_MavenTransitive/scans_transitive_dependencies_for_pom.xml_by_default - 1]
 Scanning dir ./fixtures/maven-transitive/pom.xml
-Scanned <rootdir>/fixtures/maven-transitive/pom.xml file and found 85 packages
-+-------------------------------------+------+-----------+---------------------------------------------+------------------+-----------------------------------+
-| OSV URL                             | CVSS | ECOSYSTEM | PACKAGE                                     | VERSION          | SOURCE                            |
-+-------------------------------------+------+-----------+---------------------------------------------+------------------+-----------------------------------+
-| https://osv.dev/GHSA-27xj-rqx5-2255 | 8.1  | Maven     | com.fasterxml.jackson.core:jackson-databind | 2.9.5            | fixtures/maven-transitive/pom.xml |
-| https://osv.dev/GHSA-288c-cq4h-88gq | 7.5  | Maven     | com.fasterxml.jackson.core:jackson-databind | 2.9.5            | fixtures/maven-transitive/pom.xml |
-| https://osv.dev/GHSA-4gq5-ch57-c2mg | 9.8  | Maven     | com.fasterxml.jackson.core:jackson-databind | 2.9.5            | fixtures/maven-transitive/pom.xml |
-| https://osv.dev/GHSA-4w82-r329-3q67 | 9.8  | Maven     | com.fasterxml.jackson.core:jackson-databind | 2.9.5            | fixtures/maven-transitive/pom.xml |
-| https://osv.dev/GHSA-57j2-w4cx-62h2 | 7.5  | Maven     | com.fasterxml.jackson.core:jackson-databind | 2.9.5            | fixtures/maven-transitive/pom.xml |
-| https://osv.dev/GHSA-58pp-9c76-5625 | 8.8  | Maven     | com.fasterxml.jackson.core:jackson-databind | 2.9.5            | fixtures/maven-transitive/pom.xml |
-| https://osv.dev/GHSA-5949-rw7g-wx7w | 8.1  | Maven     | com.fasterxml.jackson.core:jackson-databind | 2.9.5            | fixtures/maven-transitive/pom.xml |
-| https://osv.dev/GHSA-5p34-5m6p-p58g | 9.8  | Maven     | com.fasterxml.jackson.core:jackson-databind | 2.9.5            | fixtures/maven-transitive/pom.xml |
-| https://osv.dev/GHSA-5r5r-6hpj-8gg9 | 8.1  | Maven     | com.fasterxml.jackson.core:jackson-databind | 2.9.5            | fixtures/maven-transitive/pom.xml |
-| https://osv.dev/GHSA-5ww9-j83m-q7qx | 7.5  | Maven     | com.fasterxml.jackson.core:jackson-databind | 2.9.5            | fixtures/maven-transitive/pom.xml |
-| https://osv.dev/GHSA-645p-88qh-w398 | 9.8  | Maven     | com.fasterxml.jackson.core:jackson-databind | 2.9.5            | fixtures/maven-transitive/pom.xml |
-| https://osv.dev/GHSA-6fpp-rgj9-8rwc | 9.8  | Maven     | com.fasterxml.jackson.core:jackson-databind | 2.9.5            | fixtures/maven-transitive/pom.xml |
-| https://osv.dev/GHSA-6wqp-v4v6-c87c | 7.5  | Maven     | com.fasterxml.jackson.core:jackson-databind | 2.9.5            | fixtures/maven-transitive/pom.xml |
-| https://osv.dev/GHSA-758m-v56v-grj4 | 8.8  | Maven     | com.fasterxml.jackson.core:jackson-databind | 2.9.5            | fixtures/maven-transitive/pom.xml |
-| https://osv.dev/GHSA-85cw-hj65-qqv9 | 9.8  | Maven     | com.fasterxml.jackson.core:jackson-databind | 2.9.5            | fixtures/maven-transitive/pom.xml |
-| https://osv.dev/GHSA-89qr-369f-5m5x | 8.1  | Maven     | com.fasterxml.jackson.core:jackson-databind | 2.9.5            | fixtures/maven-transitive/pom.xml |
-| https://osv.dev/GHSA-8c4j-34r4-xr8g | 8.1  | Maven     | com.fasterxml.jackson.core:jackson-databind | 2.9.5            | fixtures/maven-transitive/pom.xml |
-| https://osv.dev/GHSA-8w26-6f25-cm9x | 8.1  | Maven     | com.fasterxml.jackson.core:jackson-databind | 2.9.5            | fixtures/maven-transitive/pom.xml |
-| https://osv.dev/GHSA-95cm-88f5-f2c7 | 8.8  | Maven     | com.fasterxml.jackson.core:jackson-databind | 2.9.5            | fixtures/maven-transitive/pom.xml |
-| https://osv.dev/GHSA-9gph-22xh-8x98 | 8.1  | Maven     | com.fasterxml.jackson.core:jackson-databind | 2.9.5            | fixtures/maven-transitive/pom.xml |
-| https://osv.dev/GHSA-9m6f-7xcq-8vf8 | 8.1  | Maven     | com.fasterxml.jackson.core:jackson-databind | 2.9.5            | fixtures/maven-transitive/pom.xml |
-| https://osv.dev/GHSA-9mxf-g3x6-wv74 | 10.0 | Maven     | com.fasterxml.jackson.core:jackson-databind | 2.9.5            | fixtures/maven-transitive/pom.xml |
-| https://osv.dev/GHSA-9vvp-fxw6-jcxr | 8.8  | Maven     | com.fasterxml.jackson.core:jackson-databind | 2.9.5            | fixtures/maven-transitive/pom.xml |
-| https://osv.dev/GHSA-c265-37vj-cwcc | 8.1  | Maven     | com.fasterxml.jackson.core:jackson-databind | 2.9.5            | fixtures/maven-transitive/pom.xml |
-| https://osv.dev/GHSA-c2q3-4qrh-fm48 | 8.1  | Maven     | com.fasterxml.jackson.core:jackson-databind | 2.9.5            | fixtures/maven-transitive/pom.xml |
-| https://osv.dev/GHSA-c8hm-7hpq-7jhg | 9.8  | Maven     | com.fasterxml.jackson.core:jackson-databind | 2.9.5            | fixtures/maven-transitive/pom.xml |
-| https://osv.dev/GHSA-cf6r-3wgc-h863 | 7.5  | Maven     | com.fasterxml.jackson.core:jackson-databind | 2.9.5            | fixtures/maven-transitive/pom.xml |
-| https://osv.dev/GHSA-cjjf-94ff-43w7 | 7.5  | Maven     | com.fasterxml.jackson.core:jackson-databind | 2.9.5            | fixtures/maven-transitive/pom.xml |
-| https://osv.dev/GHSA-cmfg-87vq-g5g4 | 5.9  | Maven     | com.fasterxml.jackson.core:jackson-databind | 2.9.5            | fixtures/maven-transitive/pom.xml |
-| https://osv.dev/GHSA-cvm9-fjm9-3572 | 8.1  | Maven     | com.fasterxml.jackson.core:jackson-databind | 2.9.5            | fixtures/maven-transitive/pom.xml |
-| https://osv.dev/GHSA-f3j5-rmmp-3fc5 | 9.8  | Maven     | com.fasterxml.jackson.core:jackson-databind | 2.9.5            | fixtures/maven-transitive/pom.xml |
-| https://osv.dev/GHSA-f9hv-mg5h-xcw9 | 9.8  | Maven     | com.fasterxml.jackson.core:jackson-databind | 2.9.5            | fixtures/maven-transitive/pom.xml |
-| https://osv.dev/GHSA-f9xh-2qgp-cq57 | 8.1  | Maven     | com.fasterxml.jackson.core:jackson-databind | 2.9.5            | fixtures/maven-transitive/pom.xml |
-| https://osv.dev/GHSA-fmmc-742q-jg75 | 9.8  | Maven     | com.fasterxml.jackson.core:jackson-databind | 2.9.5            | fixtures/maven-transitive/pom.xml |
-| https://osv.dev/GHSA-fqwf-pjwf-7vqv | 8.8  | Maven     | com.fasterxml.jackson.core:jackson-databind | 2.9.5            | fixtures/maven-transitive/pom.xml |
-| https://osv.dev/GHSA-gjmw-vf9h-g25v | 9.8  | Maven     | com.fasterxml.jackson.core:jackson-databind | 2.9.5            | fixtures/maven-transitive/pom.xml |
-| https://osv.dev/GHSA-gwp4-hfv6-p7hw | 7.5  | Maven     | com.fasterxml.jackson.core:jackson-databind | 2.9.5            | fixtures/maven-transitive/pom.xml |
-| https://osv.dev/GHSA-gww7-p5w4-wrfv | 9.8  | Maven     | com.fasterxml.jackson.core:jackson-databind | 2.9.5            | fixtures/maven-transitive/pom.xml |
-| https://osv.dev/GHSA-h3cw-g4mq-c5x2 | 8.1  | Maven     | com.fasterxml.jackson.core:jackson-databind | 2.9.5            | fixtures/maven-transitive/pom.xml |
-| https://osv.dev/GHSA-h4rc-386g-6m85 | 8.1  | Maven     | com.fasterxml.jackson.core:jackson-databind | 2.9.5            | fixtures/maven-transitive/pom.xml |
-| https://osv.dev/GHSA-h822-r4r5-v8jg | 9.8  | Maven     | com.fasterxml.jackson.core:jackson-databind | 2.9.5            | fixtures/maven-transitive/pom.xml |
-| https://osv.dev/GHSA-j823-4qch-3rgm | 8.1  | Maven     | com.fasterxml.jackson.core:jackson-databind | 2.9.5            | fixtures/maven-transitive/pom.xml |
-| https://osv.dev/GHSA-jjjh-jjxp-wpff | 7.5  | Maven     | com.fasterxml.jackson.core:jackson-databind | 2.9.5            | fixtures/maven-transitive/pom.xml |
-| https://osv.dev/GHSA-m6x4-97wx-4q27 | 8.1  | Maven     | com.fasterxml.jackson.core:jackson-databind | 2.9.5            | fixtures/maven-transitive/pom.xml |
-| https://osv.dev/GHSA-mc6h-4qgp-37qh | 8.1  | Maven     | com.fasterxml.jackson.core:jackson-databind | 2.9.5            | fixtures/maven-transitive/pom.xml |
-| https://osv.dev/GHSA-mph4-vhrx-mv67 | 5.9  | Maven     | com.fasterxml.jackson.core:jackson-databind | 2.9.5            | fixtures/maven-transitive/pom.xml |
-| https://osv.dev/GHSA-mx7p-6679-8g3q | 9.8  | Maven     | com.fasterxml.jackson.core:jackson-databind | 2.9.5            | fixtures/maven-transitive/pom.xml |
-| https://osv.dev/GHSA-mx9v-gmh4-mgqw | 9.8  | Maven     | com.fasterxml.jackson.core:jackson-databind | 2.9.5            | fixtures/maven-transitive/pom.xml |
-| https://osv.dev/GHSA-p43x-xfjf-5jhr | 9.8  | Maven     | com.fasterxml.jackson.core:jackson-databind | 2.9.5            | fixtures/maven-transitive/pom.xml |
-| https://osv.dev/GHSA-q93h-jc49-78gg | 9.8  | Maven     | com.fasterxml.jackson.core:jackson-databind | 2.9.5            | fixtures/maven-transitive/pom.xml |
-| https://osv.dev/GHSA-qjw2-hr98-qgfh | 8.1  | Maven     | com.fasterxml.jackson.core:jackson-databind | 2.9.5            | fixtures/maven-transitive/pom.xml |
-| https://osv.dev/GHSA-qmqc-x3r4-6v39 |      | Maven     | com.fasterxml.jackson.core:jackson-databind | 2.9.5            | fixtures/maven-transitive/pom.xml |
-| https://osv.dev/GHSA-qr7j-h6gg-jmgc | 9.8  | Maven     | com.fasterxml.jackson.core:jackson-databind | 2.9.5            | fixtures/maven-transitive/pom.xml |
-| https://osv.dev/GHSA-r3gr-cxrf-hg25 | 8.1  | Maven     | com.fasterxml.jackson.core:jackson-databind | 2.9.5            | fixtures/maven-transitive/pom.xml |
-| https://osv.dev/GHSA-r695-7vr9-jgc2 | 8.1  | Maven     | com.fasterxml.jackson.core:jackson-databind | 2.9.5            | fixtures/maven-transitive/pom.xml |
-| https://osv.dev/GHSA-rf6r-2c4q-2vwg | 8.8  | Maven     | com.fasterxml.jackson.core:jackson-databind | 2.9.5            | fixtures/maven-transitive/pom.xml |
-| https://osv.dev/GHSA-rgv9-q543-rqg4 | 7.5  | Maven     | com.fasterxml.jackson.core:jackson-databind | 2.9.5            | fixtures/maven-transitive/pom.xml |
-| https://osv.dev/GHSA-rpr3-cw39-3pxh | 8.1  | Maven     | com.fasterxml.jackson.core:jackson-databind | 2.9.5            | fixtures/maven-transitive/pom.xml |
-| https://osv.dev/GHSA-v3xw-c963-f5hc | 8.8  | Maven     | com.fasterxml.jackson.core:jackson-databind | 2.9.5            | fixtures/maven-transitive/pom.xml |
-| https://osv.dev/GHSA-v585-23hc-c647 | 8.1  | Maven     | com.fasterxml.jackson.core:jackson-databind | 2.9.5            | fixtures/maven-transitive/pom.xml |
-| https://osv.dev/GHSA-vfqx-33qm-g869 | 8.1  | Maven     | com.fasterxml.jackson.core:jackson-databind | 2.9.5            | fixtures/maven-transitive/pom.xml |
-| https://osv.dev/GHSA-wh8g-3j2c-rqj5 | 8.1  | Maven     | com.fasterxml.jackson.core:jackson-databind | 2.9.5            | fixtures/maven-transitive/pom.xml |
-| https://osv.dev/GHSA-x2w5-5m2g-7h5m | 9.8  | Maven     | com.fasterxml.jackson.core:jackson-databind | 2.9.5            | fixtures/maven-transitive/pom.xml |
-| https://osv.dev/GHSA-3f7h-mf4q-vrm4 | 6.5  | Maven     | com.fasterxml.woodstox:woodstox-core        | 5.0.3            | fixtures/maven-transitive/pom.xml |
-| https://osv.dev/GHSA-4jrv-ppp4-jm57 | 7.7  | Maven     | com.google.code.gson:gson                   | 2.2.4            | fixtures/maven-transitive/pom.xml |
-| https://osv.dev/GHSA-5mg8-w23w-74h3 | 3.3  | Maven     | com.google.guava:guava                      | 11.0.2           | fixtures/maven-transitive/pom.xml |
-| https://osv.dev/GHSA-7g45-4rm6-3mm3 | 5.5  | Maven     | com.google.guava:guava                      | 11.0.2           | fixtures/maven-transitive/pom.xml |
-| https://osv.dev/GHSA-mvr2-9pj6-7w5j | 5.9  | Maven     | com.google.guava:guava                      | 11.0.2           | fixtures/maven-transitive/pom.xml |
-| https://osv.dev/GHSA-4gg5-vx3j-xwc7 | 7.5  | Maven     | com.google.protobuf:protobuf-java           | 2.5.0            | fixtures/maven-transitive/pom.xml |
-| https://osv.dev/GHSA-77rm-9x9h-xj3g | 7.5  | Maven     | com.google.protobuf:protobuf-java           | 2.5.0            | fixtures/maven-transitive/pom.xml |
-| https://osv.dev/GHSA-g5ww-5jh7-63cx | 7.5  | Maven     | com.google.protobuf:protobuf-java           | 2.5.0            | fixtures/maven-transitive/pom.xml |
-| https://osv.dev/GHSA-h4h5-3hr4-j3g2 | 5.7  | Maven     | com.google.protobuf:protobuf-java           | 2.5.0            | fixtures/maven-transitive/pom.xml |
-| https://osv.dev/GHSA-wrvw-hg22-4m67 | 7.5  | Maven     | com.google.protobuf:protobuf-java           | 2.5.0            | fixtures/maven-transitive/pom.xml |
-| https://osv.dev/GHSA-f6vf-pq8c-69m4 | 9.8  | Maven     | com.nimbusds:nimbus-jose-jwt                | 4.41.1           | fixtures/maven-transitive/pom.xml |
-| https://osv.dev/GHSA-gvpg-vgmx-xg6w |      | Maven     | com.nimbusds:nimbus-jose-jwt                | 4.41.1           | fixtures/maven-transitive/pom.xml |
-| https://osv.dev/GHSA-w33c-445m-f8w7 | 5.9  | Maven     | com.squareup.okio:okio                      | 1.6.0            | fixtures/maven-transitive/pom.xml |
-| https://osv.dev/GHSA-6phf-73q6-gh87 | 7.3  | Maven     | commons-beanutils:commons-beanutils         | 1.9.3            | fixtures/maven-transitive/pom.xml |
-| https://osv.dev/GHSA-p66x-2cv9-qq3v |      | Maven     | commons-beanutils:commons-beanutils         | 1.9.3            | fixtures/maven-transitive/pom.xml |
-| https://osv.dev/GHSA-gwrp-pvrq-jmwv | 4.8  | Maven     | commons-io:commons-io                       | 2.5              | fixtures/maven-transitive/pom.xml |
-| https://osv.dev/GHSA-cgp8-4m63-fhh5 | 6.5  | Maven     | commons-net:commons-net                     | 3.6              | fixtures/maven-transitive/pom.xml |
-| https://osv.dev/GHSA-2qrg-x229-3v8q | 9.8  | Maven     | log4j:log4j                                 | 1.2.17           | fixtures/maven-transitive/pom.xml |
-| https://osv.dev/GHSA-65fg-84f6-3jq3 | 9.8  | Maven     | log4j:log4j                                 | 1.2.17           | fixtures/maven-transitive/pom.xml |
-| https://osv.dev/GHSA-f7vh-qwp3-x37m | 9.8  | Maven     | log4j:log4j                                 | 1.2.17           | fixtures/maven-transitive/pom.xml |
-| https://osv.dev/GHSA-fp5r-v3w9-4333 | 7.5  | Maven     | log4j:log4j                                 | 1.2.17           | fixtures/maven-transitive/pom.xml |
-| https://osv.dev/GHSA-w9p3-5cr8-m3jj | 8.8  | Maven     | log4j:log4j                                 | 1.2.17           | fixtures/maven-transitive/pom.xml |
-| https://osv.dev/GHSA-493p-pfq6-5258 | 7.5  | Maven     | net.minidev:json-smart                      | 2.3              | fixtures/maven-transitive/pom.xml |
-| https://osv.dev/GHSA-v528-7hrm-frqp | 5.9  | Maven     | net.minidev:json-smart                      | 2.3              | fixtures/maven-transitive/pom.xml |
-| https://osv.dev/GHSA-rhrv-645h-fjfh | 7.5  | Maven     | org.apache.avro:avro                        | 1.7.7            | fixtures/maven-transitive/pom.xml |
-| https://osv.dev/GHSA-4g9r-vxhx-9pgx | 8.1  | Maven     | org.apache.commons:commons-compress         | 1.4.1            | fixtures/maven-transitive/pom.xml |
-| https://osv.dev/GHSA-7hfm-57qf-j43q | 7.5  | Maven     | org.apache.commons:commons-compress         | 1.4.1            | fixtures/maven-transitive/pom.xml |
-| https://osv.dev/GHSA-crv7-7245-f45f | 7.5  | Maven     | org.apache.commons:commons-compress         | 1.4.1            | fixtures/maven-transitive/pom.xml |
-| https://osv.dev/GHSA-mc84-pj99-q6hh | 7.5  | Maven     | org.apache.commons:commons-compress         | 1.4.1            | fixtures/maven-transitive/pom.xml |
-| https://osv.dev/GHSA-xqfj-vm6h-2x34 | 7.5  | Maven     | org.apache.commons:commons-compress         | 1.4.1            | fixtures/maven-transitive/pom.xml |
-| https://osv.dev/GHSA-9w38-p64v-xpmv | 6.5  | Maven     | org.apache.commons:commons-configuration2   | 2.1.1            | fixtures/maven-transitive/pom.xml |
-| https://osv.dev/GHSA-xjp4-hw94-mvp5 | 6.5  | Maven     | org.apache.commons:commons-configuration2   | 2.1.1            | fixtures/maven-transitive/pom.xml |
-| https://osv.dev/GHSA-8wm5-8h9c-47pc | 9.8  | Maven     | org.apache.hadoop:hadoop-common             | 3.2.0            | fixtures/maven-transitive/pom.xml |
-| https://osv.dev/GHSA-f8vc-wfc8-hxqh | 8.8  | Maven     | org.apache.hadoop:hadoop-common             | 3.2.0            | fixtures/maven-transitive/pom.xml |
-| https://osv.dev/GHSA-gx2c-fvhc-ph4j | 9.8  | Maven     | org.apache.hadoop:hadoop-common             | 3.2.0            | fixtures/maven-transitive/pom.xml |
-| https://osv.dev/GHSA-rmpj-7c96-mrg8 | 9.8  | Maven     | org.apache.hadoop:hadoop-common             | 3.2.0            | fixtures/maven-transitive/pom.xml |
-| https://osv.dev/GHSA-7r82-7xv7-xcpj | 5.3  | Maven     | org.apache.httpcomponents:httpclient        | 4.5.2            | fixtures/maven-transitive/pom.xml |
-| https://osv.dev/GHSA-c27h-mcmw-48hv | 9.8  | Maven     | org.codehaus.jackson:jackson-mapper-asl     | 1.9.13           | fixtures/maven-transitive/pom.xml |
-| https://osv.dev/GHSA-r6j9-8759-g62w | 7.5  | Maven     | org.codehaus.jackson:jackson-mapper-asl     | 1.9.13           | fixtures/maven-transitive/pom.xml |
-| https://osv.dev/GHSA-g3wg-6mcf-8jj6 | 7.0  | Maven     | org.eclipse.jetty:jetty-webapp              | 9.3.24.v20180605 | fixtures/maven-transitive/pom.xml |
-| https://osv.dev/GHSA-58qw-p7qm-5rvh | 3.9  | Maven     | org.eclipse.jetty:jetty-xml                 | 9.3.24.v20180605 | fixtures/maven-transitive/pom.xml |
-| https://osv.dev/GHSA-55g7-9cwv-5qfv | 7.5  | Maven     | org.xerial.snappy:snappy-java               | 1.0.5            | fixtures/maven-transitive/pom.xml |
-| https://osv.dev/GHSA-fjpj-2g6w-x25r | 5.9  | Maven     | org.xerial.snappy:snappy-java               | 1.0.5            | fixtures/maven-transitive/pom.xml |
-| https://osv.dev/GHSA-pqr6-cmr2-h8hf | 5.9  | Maven     | org.xerial.snappy:snappy-java               | 1.0.5            | fixtures/maven-transitive/pom.xml |
-| https://osv.dev/GHSA-qcwq-55hx-v3vh | 7.5  | Maven     | org.xerial.snappy:snappy-java               | 1.0.5            | fixtures/maven-transitive/pom.xml |
-+-------------------------------------+------+-----------+---------------------------------------------+------------------+-----------------------------------+
+Scanned <rootdir>/fixtures/maven-transitive/pom.xml file and found 3 packages
++-------------------------------------+------+-----------+-------------------------------------+---------+-----------------------------------+
+| OSV URL                             | CVSS | ECOSYSTEM | PACKAGE                             | VERSION | SOURCE                            |
++-------------------------------------+------+-----------+-------------------------------------+---------+-----------------------------------+
+| https://osv.dev/GHSA-7rjr-3q55-vv33 | 9.0  | Maven     | org.apache.logging.log4j:log4j-core | 2.14.1  | fixtures/maven-transitive/pom.xml |
+| https://osv.dev/GHSA-8489-44mv-ggj8 | 6.6  | Maven     | org.apache.logging.log4j:log4j-core | 2.14.1  | fixtures/maven-transitive/pom.xml |
+| https://osv.dev/GHSA-jfh8-c2jp-5v3q | 10.0 | Maven     | org.apache.logging.log4j:log4j-core | 2.14.1  | fixtures/maven-transitive/pom.xml |
+| https://osv.dev/GHSA-p6xc-xr62-6r2g | 8.6  | Maven     | org.apache.logging.log4j:log4j-core | 2.14.1  | fixtures/maven-transitive/pom.xml |
++-------------------------------------+------+-----------+-------------------------------------+---------+-----------------------------------+
 
 ---
 
