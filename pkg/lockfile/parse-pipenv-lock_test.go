@@ -1,12 +1,15 @@
 package lockfile_test
 
 import (
+	"bytes"
+	"errors"
+	"io"
 	"io/fs"
 	"os"
 	"path/filepath"
 	"testing"
 
-	"github.com/google/osv-scanner/pkg/models"
+	"github.com/stretchr/testify/assert"
 
 	"github.com/google/osv-scanner/pkg/lockfile"
 )
@@ -77,7 +80,7 @@ func TestParsePipenvLock_InvalidJson(t *testing.T) {
 
 	packages, err := lockfile.ParsePipenvLock("fixtures/pipenv/not-json.txt")
 
-	expectErrContaining(t, err, "could not decode json from")
+	expectErrContaining(t, err, "could not extract from")
 	expectPackages(t, packages, []lockfile.PackageDetails{})
 }
 
@@ -112,23 +115,56 @@ func TestParsePipenvLock_OnePackage(t *testing.T) {
 			Version:   "2.1.1",
 			Ecosystem: lockfile.PipenvEcosystem,
 			CompareAs: lockfile.PipenvEcosystem,
-			BlockLocation: models.FilePosition{
-				Line:     models.Position{Start: 19, End: 64},
-				Column:   models.Position{Start: 9, End: 10},
-				Filename: path,
-			},
-			NameLocation: &models.FilePosition{
-				Line:     models.Position{Start: 19, End: 19},
-				Column:   models.Position{Start: 10, End: 20},
-				Filename: path,
-			},
-			VersionLocation: &models.FilePosition{
-				Line:     models.Position{Start: 63, End: 63},
-				Column:   models.Position{Start: 25, End: 32},
-				Filename: path,
-			},
 		},
 	})
+}
+
+//nolint:paralleltest
+func TestParsePipenvLock_OnePackage_MatcherFailed(t *testing.T) {
+	dir, err := os.Getwd()
+	if err != nil {
+		t.Errorf("Got unexpected error: %v", err)
+	}
+
+	stderr := os.Stderr
+	r, w, err := os.Pipe()
+	if err != nil {
+		t.Errorf("Got unexpected error: %v", err)
+	}
+	os.Stderr = w
+
+	// Mock pipfileMatcher to fail
+	matcherError := errors.New("pipfileMatcher failed")
+	lockfile.PipenvExtractor.Matcher = FailingMatcher{Error: matcherError}
+
+	path := filepath.FromSlash(filepath.Join(dir, "fixtures/pipenv/one-package.json"))
+	packages, err := lockfile.ParsePipenvLock(path)
+	if err != nil {
+		t.Errorf("Got unexpected error: %v", err)
+	}
+
+	// Capture stderr
+	_ = w.Close()
+	os.Stderr = stderr
+	var buffer bytes.Buffer
+	_, err = io.Copy(&buffer, r)
+	if err != nil {
+		t.Errorf("failed to copy stderr output: %v", err)
+	}
+	_ = r.Close()
+
+	assert.Contains(t, buffer.String(), matcherError.Error())
+	expectPackages(t, packages, []lockfile.PackageDetails{
+		{
+			Name:      "markupsafe",
+			Version:   "2.1.1",
+			Ecosystem: lockfile.PipenvEcosystem,
+			CompareAs: lockfile.PipenvEcosystem,
+		},
+	})
+
+	// Reset pipfileMatcher mock
+	MockAllMatchers()
 }
 
 func TestParsePipenvLock_OnePackageDev(t *testing.T) {
@@ -150,21 +186,6 @@ func TestParsePipenvLock_OnePackageDev(t *testing.T) {
 			Version:   "2.1.1",
 			Ecosystem: lockfile.PipenvEcosystem,
 			CompareAs: lockfile.PipenvEcosystem,
-			BlockLocation: models.FilePosition{
-				Line:     models.Position{Start: 20, End: 65},
-				Column:   models.Position{Start: 9, End: 10},
-				Filename: path,
-			},
-			NameLocation: &models.FilePosition{
-				Line:     models.Position{Start: 20, End: 20},
-				Column:   models.Position{Start: 10, End: 20},
-				Filename: path,
-			},
-			VersionLocation: &models.FilePosition{
-				Line:     models.Position{Start: 64, End: 64},
-				Column:   models.Position{Start: 25, End: 32},
-				Filename: path,
-			},
 			DepGroups: []string{"dev"},
 		},
 	})
@@ -189,42 +210,12 @@ func TestParsePipenvLock_TwoPackages(t *testing.T) {
 			Version:   "2.1.2",
 			Ecosystem: lockfile.PipenvEcosystem,
 			CompareAs: lockfile.PipenvEcosystem,
-			BlockLocation: models.FilePosition{
-				Line:     models.Position{Start: 19, End: 26},
-				Column:   models.Position{Start: 7, End: 8},
-				Filename: path,
-			},
-			NameLocation: &models.FilePosition{
-				Line:     models.Position{Start: 19, End: 19},
-				Column:   models.Position{Start: 8, End: 20},
-				Filename: path,
-			},
-			VersionLocation: &models.FilePosition{
-				Line:     models.Position{Start: 25, End: 25},
-				Column:   models.Position{Start: 23, End: 30},
-				Filename: path,
-			},
 		},
 		{
 			Name:      "markupsafe",
 			Version:   "2.1.1",
 			Ecosystem: lockfile.PipenvEcosystem,
 			CompareAs: lockfile.PipenvEcosystem,
-			BlockLocation: models.FilePosition{
-				Line:     models.Position{Start: 29, End: 74},
-				Column:   models.Position{Start: 7, End: 8},
-				Filename: path,
-			},
-			NameLocation: &models.FilePosition{
-				Line:     models.Position{Start: 29, End: 29},
-				Column:   models.Position{Start: 8, End: 18},
-				Filename: path,
-			},
-			VersionLocation: &models.FilePosition{
-				Line:     models.Position{Start: 73, End: 73},
-				Column:   models.Position{Start: 23, End: 30},
-				Filename: path,
-			},
 			DepGroups: []string{"dev"},
 		},
 	})
@@ -249,42 +240,12 @@ func TestParsePipenvLock_TwoPackagesAlt(t *testing.T) {
 			Version:   "2.1.2",
 			Ecosystem: lockfile.PipenvEcosystem,
 			CompareAs: lockfile.PipenvEcosystem,
-			BlockLocation: models.FilePosition{
-				Line:     models.Position{Start: 19, End: 26},
-				Column:   models.Position{Start: 7, End: 8},
-				Filename: path,
-			},
-			NameLocation: &models.FilePosition{
-				Line:     models.Position{Start: 19, End: 19},
-				Column:   models.Position{Start: 8, End: 20},
-				Filename: path,
-			},
-			VersionLocation: &models.FilePosition{
-				Line:     models.Position{Start: 25, End: 25},
-				Column:   models.Position{Start: 23, End: 30},
-				Filename: path,
-			},
 		},
 		{
 			Name:      "markupsafe",
 			Version:   "2.1.1",
 			Ecosystem: lockfile.PipenvEcosystem,
 			CompareAs: lockfile.PipenvEcosystem,
-			BlockLocation: models.FilePosition{
-				Line:     models.Position{Start: 27, End: 72},
-				Column:   models.Position{Start: 7, End: 8},
-				Filename: path,
-			},
-			NameLocation: &models.FilePosition{
-				Line:     models.Position{Start: 27, End: 27},
-				Column:   models.Position{Start: 8, End: 18},
-				Filename: path,
-			},
-			VersionLocation: &models.FilePosition{
-				Line:     models.Position{Start: 71, End: 71},
-				Column:   models.Position{Start: 23, End: 30},
-				Filename: path,
-			},
 		},
 	})
 }
@@ -308,63 +269,18 @@ func TestParsePipenvLock_MultiplePackages(t *testing.T) {
 			Version:   "2.1.2",
 			Ecosystem: lockfile.PipenvEcosystem,
 			CompareAs: lockfile.PipenvEcosystem,
-			BlockLocation: models.FilePosition{
-				Line:     models.Position{Start: 19, End: 26},
-				Column:   models.Position{Start: 7, End: 8},
-				Filename: path,
-			},
-			NameLocation: &models.FilePosition{
-				Line:     models.Position{Start: 19, End: 19},
-				Column:   models.Position{Start: 8, End: 20},
-				Filename: path,
-			},
-			VersionLocation: &models.FilePosition{
-				Line:     models.Position{Start: 25, End: 25},
-				Column:   models.Position{Start: 23, End: 30},
-				Filename: path,
-			},
 		},
 		{
 			Name:      "pluggy",
 			Version:   "1.0.1",
 			Ecosystem: lockfile.PipenvEcosystem,
 			CompareAs: lockfile.PipenvEcosystem,
-			BlockLocation: models.FilePosition{
-				Line:     models.Position{Start: 27, End: 31},
-				Column:   models.Position{Start: 7, End: 8},
-				Filename: path,
-			},
-			NameLocation: &models.FilePosition{
-				Line:     models.Position{Start: 27, End: 27},
-				Column:   models.Position{Start: 8, End: 14},
-				Filename: path,
-			},
-			VersionLocation: &models.FilePosition{
-				Line:     models.Position{Start: 30, End: 30},
-				Column:   models.Position{Start: 23, End: 30},
-				Filename: path,
-			},
 		},
 		{
 			Name:      "pluggy",
 			Version:   "1.0.0",
 			Ecosystem: lockfile.PipenvEcosystem,
 			CompareAs: lockfile.PipenvEcosystem,
-			BlockLocation: models.FilePosition{
-				Line:     models.Position{Start: 88, End: 95},
-				Column:   models.Position{Start: 7, End: 8},
-				Filename: path,
-			},
-			NameLocation: &models.FilePosition{
-				Line:     models.Position{Start: 88, End: 88},
-				Column:   models.Position{Start: 8, End: 14},
-				Filename: path,
-			},
-			VersionLocation: &models.FilePosition{
-				Line:     models.Position{Start: 94, End: 94},
-				Column:   models.Position{Start: 23, End: 30},
-				Filename: path,
-			},
 			DepGroups: []string{"dev"},
 		},
 		{
@@ -372,21 +288,6 @@ func TestParsePipenvLock_MultiplePackages(t *testing.T) {
 			Version:   "2.1.1",
 			Ecosystem: lockfile.PipenvEcosystem,
 			CompareAs: lockfile.PipenvEcosystem,
-			BlockLocation: models.FilePosition{
-				Line:     models.Position{Start: 32, End: 77},
-				Column:   models.Position{Start: 7, End: 8},
-				Filename: path,
-			},
-			NameLocation: &models.FilePosition{
-				Line:     models.Position{Start: 32, End: 32},
-				Column:   models.Position{Start: 8, End: 18},
-				Filename: path,
-			},
-			VersionLocation: &models.FilePosition{
-				Line:     models.Position{Start: 76, End: 76},
-				Column:   models.Position{Start: 23, End: 30},
-				Filename: path,
-			},
 		},
 	})
 }

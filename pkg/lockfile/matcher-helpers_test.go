@@ -20,6 +20,8 @@ func MockAllMatchers() {
 	// build.gradle
 	lockfile.GradleExtractor.Matcher = SuccessfulMatcher{}
 	lockfile.GradleVerificationExtractor.Matcher = SuccessfulMatcher{}
+	// Pipenv
+	lockfile.PipenvExtractor.Matcher = SuccessfulMatcher{}
 }
 
 type SuccessfulMatcher struct{}
