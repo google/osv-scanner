@@ -1,15 +1,10 @@
 package lockfile
 
 import (
-	"bufio"
 	"fmt"
 	"path/filepath"
-	"strings"
-
-	"github.com/google/osv-scanner/internal/utility/fileposition"
 
 	"github.com/BurntSushi/toml"
-	"github.com/google/osv-scanner/pkg/models"
 )
 
 type PoetryLockPackageSource struct {
@@ -22,7 +17,6 @@ type PoetryLockPackage struct {
 	Version  string                  `toml:"version"`
 	Optional bool                    `toml:"optional"`
 	Source   PoetryLockPackageSource `toml:"source"`
-	models.FilePosition
 }
 
 type PoetryLockFile struct {
@@ -32,7 +26,9 @@ type PoetryLockFile struct {
 
 const PoetryEcosystem = PipEcosystem
 
-type PoetryLockExtractor struct{}
+type PoetryLockExtractor struct {
+	WithMatcher
+}
 
 func (e PoetryLockExtractor) ShouldExtract(path string) bool {
 	return filepath.Base(path) == "poetry.lock"
@@ -41,55 +37,22 @@ func (e PoetryLockExtractor) ShouldExtract(path string) bool {
 func (e PoetryLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 	var parsedLockfile *PoetryLockFile
 
-	content, err := OpenLocalDepFile(f.Path())
+	_, err := toml.NewDecoder(f).Decode(&parsedLockfile)
+
 	if err != nil {
 		return []PackageDetails{}, fmt.Errorf("could not extract from %s: %w", f.Path(), err)
 	}
 
-	var lines []string
-	scanner := bufio.NewScanner(content)
-	for scanner.Scan() {
-		lines = append(lines, scanner.Text())
-	}
-	decoder := toml.NewDecoder(strings.NewReader(strings.Join(lines, "\n")))
-
-	if _, err := decoder.Decode(&parsedLockfile); err != nil {
-		return []PackageDetails{}, fmt.Errorf("could not decode toml from %s: %w", f.Path(), err)
-	}
-
-	fileposition.InTOML("[[package]]", "[metadata]", parsedLockfile.Packages, lines)
 	packages := make([]PackageDetails, 0, len(parsedLockfile.Packages))
 
 	for _, lockPackage := range parsedLockfile.Packages {
-		block := lines[lockPackage.Line.Start-1 : lockPackage.Line.End]
-
-		blockLocation := models.FilePosition{
-			Line:     lockPackage.Line,
-			Column:   lockPackage.Column,
-			Filename: f.Path(),
-		}
-
-		nameLocation := fileposition.ExtractDelimitedStringPositionInBlock(block, lockPackage.Name, lockPackage.Line.Start, "name = \"", "\"")
-		if nameLocation != nil {
-			nameLocation.Filename = f.Path()
-		}
-
-		versionLocation := fileposition.ExtractDelimitedStringPositionInBlock(block, lockPackage.Version, lockPackage.Line.Start, "version = \"", "\"")
-		if versionLocation != nil {
-			versionLocation.Filename = f.Path()
-		}
-
 		pkgDetails := PackageDetails{
-			Name:            lockPackage.Name,
-			Version:         lockPackage.Version,
-			Commit:          lockPackage.Source.Commit,
-			BlockLocation:   blockLocation,
-			NameLocation:    nameLocation,
-			VersionLocation: versionLocation,
-			Ecosystem:       PoetryEcosystem,
-			CompareAs:       PoetryEcosystem,
+			Name:      lockPackage.Name,
+			Version:   lockPackage.Version,
+			Commit:    lockPackage.Source.Commit,
+			Ecosystem: PoetryEcosystem,
+			CompareAs: PoetryEcosystem,
 		}
-
 		if lockPackage.Optional {
 			pkgDetails.DepGroups = append(pkgDetails.DepGroups, "optional")
 		}
@@ -99,13 +62,15 @@ func (e PoetryLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 	return packages, nil
 }
 
-var _ Extractor = PoetryLockExtractor{}
+var PoetryExtractor = PoetryLockExtractor{
+	WithMatcher{Matcher: PyprojectTOMLMatcher{}},
+}
 
 //nolint:gochecknoinits
 func init() {
-	registerExtractor("poetry.lock", PoetryLockExtractor{})
+	registerExtractor("poetry.lock", PoetryExtractor)
 }
 
 func ParsePoetryLock(pathToLockfile string) ([]PackageDetails, error) {
-	return extractFromFile(pathToLockfile, PoetryLockExtractor{})
+	return extractFromFile(pathToLockfile, PoetryExtractor)
 }

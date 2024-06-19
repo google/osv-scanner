@@ -20,8 +20,10 @@ func MockAllMatchers() {
 	// build.gradle
 	lockfile.GradleExtractor.Matcher = SuccessfulMatcher{}
 	lockfile.GradleVerificationExtractor.Matcher = SuccessfulMatcher{}
-	// Pipenv
+	// Pipfile (pipenv)
 	lockfile.PipenvExtractor.Matcher = SuccessfulMatcher{}
+	// pyproject.toml (poetry)
+	lockfile.PoetryExtractor.Matcher = SuccessfulMatcher{}
 }
 
 type SuccessfulMatcher struct{}
