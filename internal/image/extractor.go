@@ -36,7 +36,7 @@ func findArtifactExtractor(path string) []extractorPair {
 	return extractors
 }
 
-func extractArtifactDeps(path string, layer imgLayer) (lockfile.Lockfile, error) {
+func extractArtifactDeps(path string, layer *imgLayer) (lockfile.Lockfile, error) {
 	foundExtractors := findArtifactExtractor(path)
 	if len(foundExtractors) == 0 {
 		return lockfile.Lockfile{}, fmt.Errorf("%w for %s", lockfile.ErrExtractorNotFound, path)
@@ -93,7 +93,7 @@ func extractArtifactDeps(path string, layer imgLayer) (lockfile.Lockfile, error)
 type ImageFile struct {
 	*os.File
 
-	layer imgLayer
+	layer *imgLayer
 	path  string
 }
 
@@ -111,7 +111,7 @@ func (f ImageFile) Path() string {
 	return f.path
 }
 
-func OpenLayerFile(path string, layer imgLayer) (ImageFile, error) {
+func OpenLayerFile(path string, layer *imgLayer) (ImageFile, error) {
 	fileNode, err := layer.GetFileNode(path)
 	if err != nil {
 		return ImageFile{}, err

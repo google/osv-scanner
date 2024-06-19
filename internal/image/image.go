@@ -37,8 +37,8 @@ type Image struct {
 	layerIdToIndex map[string]int
 }
 
-func (img *Image) LastLayer() imgLayer {
-	return img.layers[len(img.layers)-1]
+func (img *Image) LastLayer() *imgLayer {
+	return &img.layers[len(img.layers)-1]
 }
 
 func (img *Image) Cleanup() error {

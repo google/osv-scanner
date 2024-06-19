@@ -93,7 +93,7 @@ func ScanImage(r reporter.Reporter, imagePath string) (ScanResults, error) {
 				// Set the layerIdx to the new file node layer
 				layerIdx = img.layerIdToIndex[oldFileNode.layer.id]
 
-				oldDeps, err := extractArtifactDeps(file.FilePath, *oldFileNode.layer)
+				oldDeps, err := extractArtifactDeps(file.FilePath, oldFileNode.layer)
 				if err != nil {
 					// TODO: What to do here?
 				}
