@@ -187,45 +187,12 @@ func TestMavenRead(t *testing.T) {
 				VersionKey: resolve.VersionKey{
 					PackageKey: resolve.PackageKey{
 						System: resolve.Maven,
-						Name:   "org.profile:abc",
-					},
-					VersionType: resolve.Requirement,
-					Version:     "1.2.3",
-				},
-				Type: depProfileOne,
-			},
-			{
-				VersionKey: resolve.VersionKey{
-					PackageKey: resolve.PackageKey{
-						System: resolve.Maven,
-						Name:   "org.profile:def",
-					},
-					VersionType: resolve.Requirement,
-					Version:     "${def.version}",
-				},
-				Type: depProfileOne,
-			},
-			{
-				VersionKey: resolve.VersionKey{
-					PackageKey: resolve.PackageKey{
-						System: resolve.Maven,
 						Name:   "org.import:xyz",
 					},
 					VersionType: resolve.Requirement,
 					Version:     "6.6.6",
 				},
-				Type: depProfileTwoMgmt,
-			},
-			{
-				VersionKey: resolve.VersionKey{
-					PackageKey: resolve.PackageKey{
-						System: resolve.Maven,
-						Name:   "org.dep:plugin-dep",
-					},
-					VersionType: resolve.Requirement,
-					Version:     "2.3.3",
-				},
-				Type: depPlugin,
+				Type: depMgmt,
 			},
 		},
 		Groups: map[manifest.RequirementKey][]string{
@@ -233,108 +200,15 @@ func TestMavenRead(t *testing.T) {
 			mavenReqKey(t, "org.import:xyz", "pom", ""): {"import"},
 		},
 		EcosystemSpecific: manifest.MavenManifestSpecific{
-			Properties: []manifest.PropertyWithOrigin{
-				{Property: maven.Property{Name: "bbb.artifact", Value: "bbb"}},
-				{Property: maven.Property{Name: "bbb.version", Value: "2.2.2"}},
-				{Property: maven.Property{Name: "aaa.version", Value: "1.1.1"}},
-
-				{Property: maven.Property{Name: "project.build.sourceEncoding", Value: "UTF-8"}},
-				{Property: maven.Property{Name: "maven.compiler.source", Value: "1.7"}},
-				{Property: maven.Property{Name: "maven.compiler.target", Value: "1.7"}},
-				{Property: maven.Property{Name: "junit.version", Value: "4.12"}},
-				{Property: maven.Property{Name: "def.version", Value: "2.3.4"}, Origin: "profile@profile-one"},
-			},
-			RequirementsWithProperties: []resolve.RequirementVersion{
-				{
-					VersionKey: resolve.VersionKey{
-						PackageKey: resolve.PackageKey{
-							System: resolve.Maven,
-							Name:   "junit:junit",
-						},
-						VersionType: resolve.Requirement,
-						Version:     "${junit.version}",
-					},
-					// Type: dep.NewType(dep.Test), test scope is ignored to make resolution work.
-				},
-				{
-					VersionKey: resolve.VersionKey{
-						PackageKey: resolve.PackageKey{
-							System: resolve.Maven,
-							Name:   "org.profile:def",
-						},
-						VersionType: resolve.Requirement,
-						Version:     "${def.version}",
-					},
-					Type: depProfileOne,
-				},
-				{
-					VersionKey: resolve.VersionKey{
-						PackageKey: resolve.PackageKey{
-							System: resolve.Maven,
-							Name:   "org.example:aaa",
-						},
-						VersionType: resolve.Requirement,
-						Version:     "${aaa.version}",
-					},
-					Type: depParentMgmt,
-				},
-				{
-					VersionKey: resolve.VersionKey{
-						PackageKey: resolve.PackageKey{
-							System: resolve.Maven,
-							Name:   "org.example:${bbb.artifact}",
-						},
-						VersionType: resolve.Requirement,
-						Version:     "${bbb.version}",
-					},
-					Type: depParentUpstreamMgmt,
-				},
-				{
-					VersionKey: resolve.VersionKey{
-						PackageKey: resolve.PackageKey{
-							System: resolve.Maven,
-							Name:   "org.example:ccc",
-						},
-						VersionType: resolve.Requirement,
-						Version:     "${ccc.version}",
-					},
-					Type: depImport,
-				},
-			},
-			RequirementsFromOtherPOMs: []resolve.RequirementVersion{
-				{
-					VersionKey: resolve.VersionKey{
-						PackageKey: resolve.PackageKey{
-							System: resolve.Maven,
-							Name:   "org.example:aaa",
-						},
-						VersionType: resolve.Requirement,
-						Version:     "1.1.1",
-					},
-					Type: depParentMgmt,
-				},
-				{
-					VersionKey: resolve.VersionKey{
-						PackageKey: resolve.PackageKey{
-							System: resolve.Maven,
-							Name:   "org.example:bbb",
-						},
-						VersionType: resolve.Requirement,
-						Version:     "2.2.2",
-					},
-					Type: depParentUpstreamMgmt,
-				},
-				{
-					VersionKey: resolve.VersionKey{
-						PackageKey: resolve.PackageKey{
-							System: resolve.Maven,
-							Name:   "org.example:ccc",
-						},
-						VersionType: resolve.Requirement,
-						Version:     "3.3.3",
-					},
-					Type: depImport,
-				},
+			Properties: []maven.Property{
+				{Name: "bbb.artifact", Value: "bbb"},
+				{Name: "bbb.version", Value: "2.2.2"},
+				{Name: "aaa.version", Value: "1.1.1"},
+				{Name: "project.build.sourceEncoding", Value: "UTF-8"},
+				{Name: "maven.compiler.source", Value: "1.7"},
+				{Name: "maven.compiler.target", Value: "1.7"},
+				{Name: "junit.version", Value: "4.12"},
+				{Name: "def.version", Value: "2.3.4"},
 			},
 		},
 	}
