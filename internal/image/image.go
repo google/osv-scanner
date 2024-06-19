@@ -42,6 +42,9 @@ func (img *Image) LastLayer() *imgLayer {
 }
 
 func (img *Image) Cleanup() error {
+	if img == nil {
+		return errors.New("image is nil")
+	}
 	return os.RemoveAll(img.extractDir)
 }
 
@@ -51,12 +54,13 @@ func loadImage(imagePath string) (*Image, error) {
 		return nil, err
 	}
 
-	tempPath, err := os.MkdirTemp("", "osv-scanner-image-scanning-*")
+	layers, err := image.Layers()
 	if err != nil {
+		// Return the temporary path so that folder can be cleaned up
 		return nil, err
 	}
 
-	layers, err := image.Layers()
+	tempPath, err := os.MkdirTemp("", "osv-scanner-image-scanning-*")
 	if err != nil {
 		return nil, err
 	}
@@ -72,7 +76,7 @@ func loadImage(imagePath string) (*Image, error) {
 	for i := 0; i < len(layers); i++ {
 		hash, err := layers[i].DiffID()
 		if err != nil {
-			return nil, err
+			return &outputImage, err
 		}
 
 		outputImage.layers[i] = imgLayer{
@@ -90,12 +94,12 @@ func loadImage(imagePath string) (*Image, error) {
 		dirPath := filepath.Join(tempPath, outputImage.layers[i].id)
 		err = os.Mkdir(dirPath, dirPermission)
 		if err != nil {
-			return nil, err
+			return &outputImage, err
 		}
 
 		layerReader, err := layers[i].Uncompressed()
 		if err != nil {
-			return nil, err
+			return &outputImage, err
 		}
 		defer layerReader.Close()
 		tarReader := tar.NewReader(layerReader)
@@ -106,7 +110,7 @@ func loadImage(imagePath string) (*Image, error) {
 				break
 			}
 			if err != nil {
-				return nil, fmt.Errorf("reading tar: %w", err)
+				return &outputImage, fmt.Errorf("reading tar: %w", err)
 			}
 			// Some tools prepend everything with "./", so if we don't Clean the
 			// name, we may have duplicate entries, which angers tar-split.
@@ -151,7 +155,7 @@ func loadImage(imagePath string) (*Image, error) {
 			case tar.TypeDir:
 				if _, err := os.Stat(absoluteDiskPath); err != nil {
 					if err := os.MkdirAll(absoluteDiskPath, dirPermission); err != nil {
-						return nil, err
+						return &outputImage, err
 					}
 				}
 				fileType = Dir
@@ -161,16 +165,16 @@ func loadImage(imagePath string) (*Image, error) {
 				// Actual permission bits are stored in FileNode
 				f, err := os.OpenFile(absoluteDiskPath, os.O_CREATE|os.O_RDWR, filePermission)
 				if err != nil {
-					return nil, err
+					return &outputImage, err
 				}
 				numBytes, err := io.Copy(f, io.LimitReader(tarReader, fileReadLimit))
 				if numBytes >= fileReadLimit || errors.Is(err, io.EOF) {
 					f.Close()
-					return nil, errors.New("file exceeds read limit (potential decompression bomb attack)")
+					return &outputImage, errors.New("file exceeds read limit (potential decompression bomb attack)")
 				}
 				if err != nil {
 					f.Close()
-					return nil, fmt.Errorf("unable to copy file: %w", err)
+					return &outputImage, fmt.Errorf("unable to copy file: %w", err)
 				}
 				fileType = RegularFile
 				f.Close()
@@ -204,7 +208,6 @@ func loadImage(imagePath string) (*Image, error) {
 				})
 			}
 		}
-		// TODO: Cleanup temporary dir as there will be leftovers on errors
 	}
 
 	return &outputImage, nil
