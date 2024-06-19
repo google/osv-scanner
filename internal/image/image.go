@@ -45,6 +45,7 @@ func (img *Image) Cleanup() error {
 	if img == nil {
 		return errors.New("image is nil")
 	}
+
 	return os.RemoveAll(img.extractDir)
 }
 
