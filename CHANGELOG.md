@@ -9,18 +9,23 @@
   The `osv-scanner.toml` configuration file can now filter specific packages with new `[[PackageOverrides]]` sections:
   ```toml
   [[PackageOverrides]]
+  # The package name, version, and ecosystem to match against
   name = "lib"
+  # If version is not set or empty, it will match every version
   version = "1.0.0"
   ecosystem = "Go"
+  # Ignore this package entirely, including license scanning
   ignore = true
+  # Override the license of the package
+  # This is not used if ignore = true
+  license.override = ["MIT", "0BSD"]
   # effectiveUntil = 2022-11-09 # Optional exception expiry date
   reason = "abc"
-  license.override = ["MIT"]
   ```
 
 ### Minor Updates
 
-- [Feature #1039](https://github.com/google/osv-scanner/pull/1039) Renamed the `--experimental-local-db` flag to `--experimental-download-offline-databases`.
+- [Feature #1039](https://github.com/google/osv-scanner/pull/1039) The `--experimental-local-db` flag has been removed and replaced with a new flag `--experimental-download-offline-databases` which better reflects what the flag does.
 
 ### Fixes:
 
