@@ -1,13 +1,13 @@
 package purl_test
 
 import (
+	"reflect"
 	"testing"
 
 	"github.com/google/osv-scanner/internal/utility/purl"
 
 	"github.com/google/osv-scanner/pkg/lockfile"
 	"github.com/google/osv-scanner/pkg/models"
-	"github.com/stretchr/testify/assert"
 )
 
 func TestGroupPackageByPURL_ShouldUnifyPackages(t *testing.T) {
@@ -140,6 +140,20 @@ func TestGroupPackageByPURL_ShouldUnifyPackages(t *testing.T) {
 		},
 	}
 
-	assert.Empty(t, errors)
-	assert.Equal(t, expected, result)
+	if len(errors) > 0 {
+		t.Errorf("Unexpected errors: %v", errors)
+	}
+	if len(result) != len(expected) {
+		t.Errorf("Expected %d packages, got %d", len(expected), len(result))
+	}
+	for expectedPURL, expectedInfo := range expected {
+		info, exists := result[expectedPURL]
+
+		if !exists {
+			t.Errorf("Expected package %s to be in the results", expectedPURL)
+		}
+		if !reflect.DeepEqual(info, expectedInfo) {
+			t.Errorf("Expected package %s to be %v, got %v", expectedPURL, expectedInfo, info)
+		}
+	}
 }
