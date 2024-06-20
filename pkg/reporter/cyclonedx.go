@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"io"
 
-	"github.com/google/osv-scanner/pkg/grouper"
+	"github.com/google/osv-scanner/internal/utility/purl"
 
 	"github.com/CycloneDX/cyclonedx-go"
 	"github.com/google/osv-scanner/pkg/models"
@@ -58,7 +58,7 @@ func (r *CycloneDXReporter) Verbosef(format string, a ...any) {
 
 func (r *CycloneDXReporter) PrintResult(vulnerabilityResults *models.VulnerabilityResults) error {
 	bomCreator := sbom.SpecVersionToBomCreator[r.version]
-	resultsByPurl, errors := grouper.GroupByPURL(vulnerabilityResults.Results)
+	resultsByPurl, errors := purl.Group(vulnerabilityResults.Results)
 
 	for _, err := range errors {
 		r.Warnf("Failed to parse package URL: %v", err)
