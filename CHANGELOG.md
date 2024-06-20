@@ -19,7 +19,8 @@
   ```
 
 ### Minor Updates
-- [Feature #1039](https://github.com/google/osv-scanner/pull/1039) Renamed the `--experimental-local-db` flag to `--experimental-download-offline-databases`. 
+
+- [Feature #1039](https://github.com/google/osv-scanner/pull/1039) Renamed the `--experimental-local-db` flag to `--experimental-download-offline-databases`.
 
 ### Fixes:
 
