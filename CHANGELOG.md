@@ -25,7 +25,8 @@
 
 ### Minor Updates
 
-- [Feature #1039](https://github.com/google/osv-scanner/pull/1039) The `--experimental-local-db` flag has been removed and replaced with a new flag `--experimental-download-offline-databases` which better reflects what the flag does.
+- [Feature #1039](https://github.com/google/osv-scanner/pull/1039) The `--experimental-local-db` flag has been removed and replaced with a new flag `--experimental-download-offline-databases` which better reflects what the flag does.  
+  To replicate the behavior of the original `--experimental-local-db` flag, replace it with both `--experimental-offline --experimental-download-offline-databases` flags. This will run osv-scanner in offline mode, but download the latest version of the vulnerability databases before scanning.
 
 ### Fixes:
 
