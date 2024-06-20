@@ -281,7 +281,7 @@ func TestRun(t *testing.T) {
 		},
 		{
 			name: "PURL SBOM case sensitivity (local)",
-			args: []string{"", "--experimental-local-db", "--format", "table", "./fixtures/sbom-insecure/alpine.cdx.xml"},
+			args: []string{"", "--experimental-offline", "--experimental-download-offline-databases", "--format", "table", "./fixtures/sbom-insecure/alpine.cdx.xml"},
 			exit: 1,
 		},
 		// Go project with an overridden go version
