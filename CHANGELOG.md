@@ -1,3 +1,30 @@
+# v1.8.0:
+
+### Features:
+
+- [Feature #35](https://github.com/google/osv-scanner/issues/35)
+  OSV-Scanner now scans transitive dependencies in Maven `pom.xml` files!
+  See [our documentation](https://google.github.io/osv-scanner/supported-languages-and-lockfiles/#transitive-dependency-scanning) for more information.
+- [Feature #944](https://github.com/google/osv-scanner/pull/944)
+  The `osv-scanner.toml` configuration file can now filter specific packages with new `[[PackageOverrides]]` sections:
+  ```toml
+  [[PackageOverrides]]
+  name = "lib"
+  version = "1.0.0"
+  ecosystem = "Go"
+  ignore = true
+  # effectiveUntil = 2022-11-09 # Optional exception expiry date
+  reason = "abc"
+  license.override = ["MIT"]
+  ```
+
+### Minor Updates
+- [Feature #1039](https://github.com/google/osv-scanner/pull/1039) Renamed the `--experimental-local-db` flag to `--experimental-download-offline-databases`. 
+
+### Fixes:
+
+- [Bug #1000](https://github.com/google/osv-scanner/pull/1000) Standard dependencies now correctly override `dependencyManagement` dependencies when scanning `pom.xml` files in offline mode.
+
 # v1.7.4:
 
 ### Features:
