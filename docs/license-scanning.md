@@ -58,3 +58,9 @@ Your command would be in this form:
 ```bash
 osv-scanner --experimental-licenses="BSD-3-Clause,Apache-2.0,MIT" path/to/directory
 ```
+
+## Override License
+
+Sometimes, the license either cannot be retrieved, or does not apply to your specific use. In those cases, you can override the license of a specific package by setting it in the config file.
+
+See the [configuration docs](./configuration.md) for how to do this.

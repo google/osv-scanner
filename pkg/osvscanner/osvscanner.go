@@ -10,12 +10,16 @@ import (
 	"os/exec"
 	"path"
 	"path/filepath"
+	"sort"
 	"strings"
 
 	"github.com/google/osv-scanner/internal/customgitignore"
 	"github.com/google/osv-scanner/internal/image"
 	"github.com/google/osv-scanner/internal/local"
+	"github.com/google/osv-scanner/internal/manifest"
 	"github.com/google/osv-scanner/internal/output"
+	"github.com/google/osv-scanner/internal/resolution/client"
+	"github.com/google/osv-scanner/internal/resolution/datasource"
 	"github.com/google/osv-scanner/internal/sbom"
 	"github.com/google/osv-scanner/internal/semantic"
 	"github.com/google/osv-scanner/internal/version"
@@ -160,7 +164,7 @@ func scanDir(r reporter.Reporter, dir string, skipGit bool, recursive bool, useG
 
 		if !info.IsDir() {
 			if extractor, _ := lockfile.FindExtractor(path, ""); extractor != nil {
-				pkgs, err := scanLockfile(r, path, "")
+				pkgs, err := scanLockfile(r, path, "", compareOffline)
 				if err != nil {
 					r.Errorf("Attempted to scan lockfile but failed: %s\n", path)
 				}
@@ -342,7 +346,7 @@ func scanImage(r reporter.Reporter, path string) ([]scannedPackage, error) {
 
 // scanLockfile will load, identify, and parse the lockfile path passed in, and add the dependencies specified
 // within to `query`
-func scanLockfile(r reporter.Reporter, path string, parseAs string) ([]scannedPackage, error) {
+func scanLockfile(r reporter.Reporter, path string, parseAs string, compareOffline bool) ([]scannedPackage, error) {
 	var err error
 	var parsedLockfile lockfile.Lockfile
 
@@ -360,7 +364,11 @@ func scanLockfile(r reporter.Reporter, path string, parseAs string) ([]scannedPa
 		case "osv-scanner":
 			parsedLockfile, err = lockfile.FromOSVScannerResults(path)
 		default:
-			parsedLockfile, err = lockfile.ExtractDeps(f, parseAs)
+			if !compareOffline && (parseAs == "pom.xml" || filepath.Base(path) == "pom.xml") {
+				parsedLockfile, err = extractMavenDeps(f)
+			} else {
+				parsedLockfile, err = lockfile.ExtractDeps(f, parseAs)
+			}
 		}
 	}
 
@@ -398,6 +406,36 @@ func scanLockfile(r reporter.Reporter, path string, parseAs string) ([]scannedPa
 	}
 
 	return packages, nil
+}
+
+func extractMavenDeps(f lockfile.DepFile) (lockfile.Lockfile, error) {
+	depClient, err := client.NewDepsDevClient(depsdev.DepsdevAPI)
+	if err != nil {
+		return lockfile.Lockfile{}, err
+	}
+	extractor := manifest.MavenResolverExtractor{
+		DependencyClient:       depClient,
+		MavenRegistryAPIClient: *datasource.NewMavenRegistryAPIClient(datasource.MavenCentral),
+	}
+	packages, err := extractor.Extract(f)
+	if err != nil {
+		err = fmt.Errorf("failed extracting %s: %w", f.Path(), err)
+	}
+
+	// Sort packages for testing convenience.
+	sort.Slice(packages, func(i, j int) bool {
+		if packages[i].Name == packages[j].Name {
+			return packages[i].Version < packages[j].Version
+		}
+
+		return packages[i].Name < packages[j].Name
+	})
+
+	return lockfile.Lockfile{
+		FilePath: f.Path(),
+		ParsedAs: "pom.xml",
+		Packages: packages,
+	}, err
 }
 
 // scanSBOMFile will load, identify, and parse the SBOM path passed in, and add the dependencies specified
@@ -805,7 +843,7 @@ func DoScan(actions ScannerActions, r reporter.Reporter) (models.VulnerabilityRe
 			r.Errorf("Failed to resolved path with error %s\n", err)
 			return models.VulnerabilityResults{}, err
 		}
-		pkgs, err := scanLockfile(r, lockfilePath, parseAs)
+		pkgs, err := scanLockfile(r, lockfilePath, parseAs, actions.CompareOffline)
 		if err != nil {
 			return models.VulnerabilityResults{}, err
 		}

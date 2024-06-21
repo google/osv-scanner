@@ -3,10 +3,10 @@ module github.com/google/osv-scanner
 go 1.21.11
 
 require (
-	deps.dev/api/v3 v3.0.0-20240611045547-af20eef0f1eb
-	deps.dev/util/maven v0.0.0-20240611045547-af20eef0f1eb
-	deps.dev/util/resolve v0.0.0-20240611045547-af20eef0f1eb
-	deps.dev/util/semver v0.0.0-20240611045547-af20eef0f1eb
+	deps.dev/api/v3 v3.0.0-20240617015216-b147e04533eb
+	deps.dev/util/maven v0.0.0-20240617015216-b147e04533eb
+	deps.dev/util/resolve v0.0.0-20240617015216-b147e04533eb
+	deps.dev/util/semver v0.0.0-20240617015216-b147e04533eb
 	github.com/BurntSushi/toml v1.4.0
 	github.com/CycloneDX/cyclonedx-go v0.9.0
 	github.com/charmbracelet/bubbles v0.18.0
@@ -18,7 +18,7 @@ require (
 	github.com/go-git/go-billy/v5 v5.5.0
 	github.com/go-git/go-git/v5 v5.12.0
 	github.com/google/go-cmp v0.6.0
-	github.com/google/go-containerregistry v0.19.1
+	github.com/google/go-containerregistry v0.19.2
 	github.com/ianlancetaylor/demangle v0.0.0-20240312041847-bd984b5ce465
 	github.com/jedib0t/go-pretty/v6 v6.5.9
 	github.com/muesli/reflow v0.3.0
@@ -30,13 +30,13 @@ require (
 	github.com/tidwall/pretty v1.2.1
 	github.com/tidwall/sjson v1.2.5
 	github.com/urfave/cli/v2 v2.27.2
-	golang.org/x/exp v0.0.0-20240604190554-fc45aab8b7f8
+	golang.org/x/exp v0.0.0-20240613232115-7f521ea00fb8
 	golang.org/x/mod v0.18.0
 	golang.org/x/sync v0.7.0
 	golang.org/x/term v0.21.0
 	golang.org/x/vuln v1.0.4
 	google.golang.org/grpc v1.64.0
-	google.golang.org/protobuf v1.34.1
+	google.golang.org/protobuf v1.34.2
 	gopkg.in/ini.v1 v1.67.0
 	gopkg.in/yaml.v3 v3.0.1
 )

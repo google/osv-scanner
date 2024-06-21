@@ -9,7 +9,7 @@ No package sources found, --help for usage information.
 ---
 
 [TestRun/#01 - 1]
-osv-scanner version: 1.7.4
+osv-scanner version: 1.8.0
 commit: n/a
 built at: n/a
 
@@ -102,7 +102,7 @@ Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
           "informationUri": "https://github.com/google/osv-scanner",
           "name": "osv-scanner",
           "rules": [],
-          "version": "1.7.4"
+          "version": "1.8.0"
         }
       },
       "results": []
@@ -174,7 +174,7 @@ Loaded filter from: <rootdir>/fixtures/go-project/osv-scanner.toml
               }
             }
           ],
-          "version": "1.7.4"
+          "version": "1.8.0"
         }
       },
       "artifacts": [
@@ -523,7 +523,7 @@ Scanned <rootdir>/fixtures/locks-insecure/osv-scanner-flutter-deps.json file as 
               }
             }
           ],
-          "version": "1.7.4"
+          "version": "1.8.0"
         }
       },
       "artifacts": [
@@ -1510,6 +1510,53 @@ No issues found
 ---
 
 [TestRun_LockfileWithExplicitParseAs/one_lockfile_with_local_path - 2]
+
+---
+
+[TestRun_MavenTransitive/does_not_scan_transitive_dependencies_for_pom.xml_with_offline_mode - 1]
+Scanning dir ./fixtures/maven-transitive/pom.xml
+Scanned <rootdir>/fixtures/maven-transitive/pom.xml file and found 1 package
+Loaded Maven local db from <tempdir>/osv-scanner/Maven/all.zip
+No issues found
+
+---
+
+[TestRun_MavenTransitive/does_not_scan_transitive_dependencies_for_pom.xml_with_offline_mode - 2]
+
+---
+
+[TestRun_MavenTransitive/scans_transitive_dependencies_by_specifying_pom.xml - 1]
+Scanned <rootdir>/fixtures/maven-transitive/abc.xml file as a pom.xml and found 3 packages
++-------------------------------------+------+-----------+-------------------------------------+---------+-----------------------------------+
+| OSV URL                             | CVSS | ECOSYSTEM | PACKAGE                             | VERSION | SOURCE                            |
++-------------------------------------+------+-----------+-------------------------------------+---------+-----------------------------------+
+| https://osv.dev/GHSA-7rjr-3q55-vv33 | 9.0  | Maven     | org.apache.logging.log4j:log4j-core | 2.14.1  | fixtures/maven-transitive/abc.xml |
+| https://osv.dev/GHSA-8489-44mv-ggj8 | 6.6  | Maven     | org.apache.logging.log4j:log4j-core | 2.14.1  | fixtures/maven-transitive/abc.xml |
+| https://osv.dev/GHSA-jfh8-c2jp-5v3q | 10.0 | Maven     | org.apache.logging.log4j:log4j-core | 2.14.1  | fixtures/maven-transitive/abc.xml |
+| https://osv.dev/GHSA-p6xc-xr62-6r2g | 8.6  | Maven     | org.apache.logging.log4j:log4j-core | 2.14.1  | fixtures/maven-transitive/abc.xml |
++-------------------------------------+------+-----------+-------------------------------------+---------+-----------------------------------+
+
+---
+
+[TestRun_MavenTransitive/scans_transitive_dependencies_by_specifying_pom.xml - 2]
+
+---
+
+[TestRun_MavenTransitive/scans_transitive_dependencies_for_pom.xml_by_default - 1]
+Scanning dir ./fixtures/maven-transitive/pom.xml
+Scanned <rootdir>/fixtures/maven-transitive/pom.xml file and found 3 packages
++-------------------------------------+------+-----------+-------------------------------------+---------+-----------------------------------+
+| OSV URL                             | CVSS | ECOSYSTEM | PACKAGE                             | VERSION | SOURCE                            |
++-------------------------------------+------+-----------+-------------------------------------+---------+-----------------------------------+
+| https://osv.dev/GHSA-7rjr-3q55-vv33 | 9.0  | Maven     | org.apache.logging.log4j:log4j-core | 2.14.1  | fixtures/maven-transitive/pom.xml |
+| https://osv.dev/GHSA-8489-44mv-ggj8 | 6.6  | Maven     | org.apache.logging.log4j:log4j-core | 2.14.1  | fixtures/maven-transitive/pom.xml |
+| https://osv.dev/GHSA-jfh8-c2jp-5v3q | 10.0 | Maven     | org.apache.logging.log4j:log4j-core | 2.14.1  | fixtures/maven-transitive/pom.xml |
+| https://osv.dev/GHSA-p6xc-xr62-6r2g | 8.6  | Maven     | org.apache.logging.log4j:log4j-core | 2.14.1  | fixtures/maven-transitive/pom.xml |
++-------------------------------------+------+-----------+-------------------------------------+---------+-----------------------------------+
+
+---
+
+[TestRun_MavenTransitive/scans_transitive_dependencies_for_pom.xml_by_default - 2]
 
 ---
 
