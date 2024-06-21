@@ -94,11 +94,11 @@ func (m *model) setTermSize(w, h int) {
 	// resize the views to the calculated dimensions
 	m.mainViewWidth = viewWidth
 	m.mainViewHeight = viewHeight
-	m.mainViewStyle.Width(paddedWidth).Height(paddedHeight)
+	m.mainViewStyle = m.mainViewStyle.Width(paddedWidth).Height(paddedHeight)
 
 	m.infoViewWidth = viewWidth
 	m.infoViewHeight = viewHeight
-	m.infoViewStyle.Width(paddedWidth).Height(paddedHeight)
+	m.infoViewStyle = m.infoViewStyle.Width(paddedWidth).Height(paddedHeight)
 
 	m.st.Resize(m.mainViewWidth, m.mainViewHeight)
 	m.st.ResizeInfo(m.infoViewWidth, m.infoViewHeight)
@@ -106,11 +106,11 @@ func (m *model) setTermSize(w, h int) {
 
 func (m *model) getBorderStyles() (lipgloss.Style, lipgloss.Style) {
 	if m.st.IsInfoFocused() {
-		m.infoViewStyle.UnsetBorderForeground()
-		m.mainViewStyle.BorderForeground(tui.ColorDisabled)
+		m.infoViewStyle = m.infoViewStyle.UnsetBorderForeground()
+		m.mainViewStyle = m.mainViewStyle.BorderForeground(tui.ColorDisabled)
 	} else {
-		m.infoViewStyle.BorderForeground(tui.ColorDisabled)
-		m.mainViewStyle.UnsetBorderForeground()
+		m.infoViewStyle = m.infoViewStyle.BorderForeground(tui.ColorDisabled)
+		m.mainViewStyle = m.mainViewStyle.UnsetBorderForeground()
 	}
 
 	return m.mainViewStyle, m.infoViewStyle

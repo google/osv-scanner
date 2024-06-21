@@ -13,6 +13,7 @@ import (
 
 	"deps.dev/util/maven"
 	"deps.dev/util/resolve"
+	"deps.dev/util/resolve/dep"
 	"github.com/google/osv-scanner/internal/resolution/datasource"
 	"github.com/google/osv-scanner/pkg/lockfile"
 )
@@ -24,6 +25,20 @@ const (
 	OriginPlugin     = "plugin"
 	OriginProfile    = "profile"
 )
+
+func mavenRequirementKey(requirement resolve.RequirementVersion) RequirementKey {
+	// Maven dependencies must have unique groupId:artifactId:type:classifier.
+	artifactType, _ := requirement.Type.GetAttr(dep.MavenArtifactType)
+	classifier, _ := requirement.Type.GetAttr(dep.MavenClassifier)
+
+	return RequirementKey{
+		PackageKey: requirement.PackageKey,
+		EcosystemSpecific: struct{ ArtifactType, Classifier string }{
+			ArtifactType: artifactType,
+			Classifier:   classifier,
+		},
+	}
+}
 
 type MavenManifestIO struct {
 	datasource.MavenRegistryAPIClient
@@ -76,6 +91,58 @@ func (m MavenManifestIO) Read(df lockfile.DepFile) (Manifest, error) {
 		}
 	}
 
+	interpolate := func(project *maven.Project) error {
+		// Interpolating can change a dependency's key if it contained properties.
+		// If it is changed we need to update the requirementOrigins map with the new key.
+		allKeys := func() []maven.DependencyKey {
+			// Get all the dependencyKeys of the project.
+			// This order shouldn't change after calling Interpolate.
+			var keys []maven.DependencyKey
+			for _, dep := range project.Dependencies {
+				keys = append(keys, dep.Key())
+			}
+			for _, dep := range project.DependencyManagement.Dependencies {
+				keys = append(keys, dep.Key())
+			}
+			for _, profile := range project.Profiles {
+				for _, dep := range profile.Dependencies {
+					keys = append(keys, dep.Key())
+				}
+				for _, dep := range profile.DependencyManagement.Dependencies {
+					keys = append(keys, dep.Key())
+				}
+			}
+			for _, plugin := range project.Build.PluginManagement.Plugins {
+				for _, dep := range plugin.Dependencies {
+					keys = append(keys, dep.Key())
+				}
+			}
+
+			return keys
+		}
+
+		prevKeys := allKeys()
+		if err := project.Interpolate(); err != nil {
+			return err
+		}
+
+		newKeys := allKeys()
+		if len(prevKeys) != len(newKeys) {
+			// The length can change if properties fail to resolve, which should be rare.
+			// It's difficult to determine which dependencies were removed in these cases, so just error.
+			return errors.New("number of dependencies changed after interpolation")
+		}
+
+		for i, prevKey := range prevKeys {
+			newKey := newKeys[i]
+			if newKey != prevKey {
+				requirementOrigins[newKey] = requirementOrigins[prevKey]
+			}
+		}
+
+		return nil
+	}
+
 	var project maven.Project
 	if err := xml.NewDecoder(df).Decode(&project); err != nil {
 		return Manifest{}, fmt.Errorf("failed to unmarshal project: %w", err)
@@ -83,18 +150,26 @@ func (m MavenManifestIO) Read(df lockfile.DepFile) (Manifest, error) {
 	addAllRequirements(project, "")
 
 	// Merging parents data by parsing local parent pom.xml or fetching from upstream.
-	if err := m.MergeParents(ctx, &project, project.Parent, 1, df.Path(), addAllRequirements, OriginParent); err != nil {
+	if err := m.mergeParents(ctx, &project, project.Parent, 1, df.Path(), true, addAllRequirements, OriginParent); err != nil {
+		return Manifest{}, fmt.Errorf("failed to merge parents: %w", err)
+	}
+	// Interpolate to resolve properties.
+	if err := interpolate(&project); err != nil {
 		return Manifest{}, fmt.Errorf("failed to merge parents: %w", err)
 	}
 
 	// Process the dependencies:
 	//  - dedupe dependencies and dependency management
-	//  - import dependency management (not yet transitively)
+	//  - import dependency management
 	//  - fill in missing dependency version requirement
 	project.ProcessDependencies(func(groupID, artifactID, version maven.String) (maven.DependencyManagement, error) {
 		root := maven.Parent{ProjectKey: maven.ProjectKey{GroupID: groupID, ArtifactID: artifactID, Version: version}}
 		var result maven.Project
-		if err := m.MergeParents(ctx, &result, root, 0, df.Path(), addAllRequirements, OriginImport); err != nil {
+		if err := m.mergeParents(ctx, &result, root, 0, "", false, addAllRequirements, OriginImport); err != nil {
+			return maven.DependencyManagement{}, err
+		}
+		// Interpolate to resolve properties.
+		if err := interpolate(&result); err != nil {
 			return maven.DependencyManagement{}, err
 		}
 
@@ -112,21 +187,19 @@ func (m MavenManifestIO) Read(df lockfile.DepFile) (Manifest, error) {
 
 	var requirements []resolve.RequirementVersion
 	var otherRequirements []resolve.RequirementVersion
-	groups := make(map[resolve.PackageKey][]string)
+	groups := make(map[RequirementKey][]string)
 	addRequirements := func(deps []maven.Dependency) {
 		for _, dep := range deps {
 			origin := requirementOrigins[dep.Key()]
+			reqVer := makeRequirementVersion(dep, origin)
 			if strings.HasPrefix(origin, OriginParent+"@") || strings.HasPrefix(origin, OriginImport) {
-				otherRequirements = append(otherRequirements, makeRequirementVersion(dep, origin))
+				otherRequirements = append(otherRequirements, reqVer)
 			} else {
-				requirements = append(requirements, makeRequirementVersion(dep, origin))
+				requirements = append(requirements, reqVer)
 			}
 			if dep.Scope != "" {
-				pk := resolve.PackageKey{
-					System: resolve.Maven,
-					Name:   dep.Name(),
-				}
-				groups[pk] = append(groups[pk], string(dep.Scope))
+				reqKey := mavenRequirementKey(reqVer)
+				groups[reqKey] = append(groups[reqKey], string(dep.Scope))
 			}
 		}
 	}
@@ -186,7 +259,7 @@ func (m MavenManifestIO) Read(df lockfile.DepFile) (Manifest, error) {
 // set a limit on the number of parents.
 const MaxParent = 100
 
-func (m MavenManifestIO) MergeParents(ctx context.Context, result *maven.Project, current maven.Parent, start int, path string, addRequirements func(maven.Project, string), prefix string) error {
+func (m MavenManifestIO) mergeParents(ctx context.Context, result *maven.Project, current maven.Parent, start int, path string, allowLocal bool, addRequirements func(maven.Project, string), prefix string) error {
 	currentPath := path
 	visited := make(map[maven.ProjectKey]bool, MaxParent)
 	for n := start; n < MaxParent; n++ {
@@ -200,7 +273,7 @@ func (m MavenManifestIO) MergeParents(ctx context.Context, result *maven.Project
 		visited[current.ProjectKey] = true
 
 		var proj maven.Project
-		if current.RelativePath != "" {
+		if allowLocal && current.RelativePath != "" {
 			currentPath = filepath.Join(filepath.Dir(currentPath), string(current.RelativePath))
 			if filepath.Base(currentPath) != "pom.xml" {
 				// If the base is not pom.xml, this path is a directory but not a file.
@@ -214,6 +287,10 @@ func (m MavenManifestIO) MergeParents(ctx context.Context, result *maven.Project
 				return fmt.Errorf("failed to unmarshal project: %w", err)
 			}
 		} else {
+			// Once we fetch a parent pom.xml from upstream, we should not allow
+			// parsing parent pom.xml locally anymore.
+			allowLocal = false
+
 			var err error
 			proj, err = m.MavenRegistryAPIClient.GetProject(ctx, string(current.GroupID), string(current.ArtifactID), string(current.Version))
 			if err != nil {
@@ -228,8 +305,8 @@ func (m MavenManifestIO) MergeParents(ctx context.Context, result *maven.Project
 		result.MergeParent(proj)
 		current = proj.Parent
 	}
-	// Interpolate the project to resolve the properties.
-	return result.Interpolate()
+
+	return nil
 }
 
 // For dependencies in profiles and plugins, we use origin to indicate where they are from.
@@ -238,6 +315,12 @@ func (m MavenManifestIO) MergeParents(ctx context.Context, result *maven.Project
 //   - identifier to locate the profile/plugin which is profile ID or plugin name
 //   - (optional) suffix indicates if this is a dependency management
 func makeRequirementVersion(dep maven.Dependency, origin string) resolve.RequirementVersion {
+	// Treat test & optional dependencies as regular dependencies to force the resolver to resolve them.
+	if dep.Scope == "test" {
+		dep.Scope = ""
+	}
+	dep.Optional = ""
+
 	return resolve.RequirementVersion{
 		VersionKey: resolve.VersionKey{
 			PackageKey: resolve.PackageKey{
