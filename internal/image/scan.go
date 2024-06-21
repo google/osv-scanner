@@ -28,7 +28,6 @@ func ScanImage(r reporter.Reporter, imagePath string) (ScanResults, error) {
 		if file.fileType != RegularFile {
 			continue
 		}
-
 		parsedLockfile, err := extractArtifactDeps(file.virtualPath, img.LastLayer())
 		if err != nil {
 			if !errors.Is(err, lockfile.ErrExtractorNotFound) {
@@ -68,7 +67,7 @@ func ScanImage(r reporter.Reporter, imagePath string) (ScanResults, error) {
 				log.Panicf("did not expect to fail getting file node we just scanned: %v", err)
 			}
 			// Get the layer index this file belongs to (the last layer it was changed on)
-			layerIdx := img.layerIDToIndex[lastFileNode.layer.id]
+			layerIdx := img.layerIDToIndex[lastFileNode.originLayer.id]
 			for {
 				// Scan the lockfile again every time it was changed
 				if layerIdx == 0 {
@@ -92,11 +91,11 @@ func ScanImage(r reporter.Reporter, imagePath string) (ScanResults, error) {
 				}
 
 				// Set the layerIdx to the new file node layer
-				layerIdx = img.layerIDToIndex[oldFileNode.layer.id]
+				layerIdx = img.layerIDToIndex[oldFileNode.originLayer.id]
 
-				oldDeps, err := extractArtifactDeps(file.FilePath, oldFileNode.layer)
+				oldDeps, err := extractArtifactDeps(file.FilePath, oldFileNode.originLayer)
 				if err != nil {
-					log.Panicf("unimplemented! failed to parse an older version of file in image: %s@%s: %v", file.FilePath, oldFileNode.layer.id, err)
+					log.Panicf("unimplemented! failed to parse an older version of file in image: %s@%s: %v", file.FilePath, oldFileNode.originLayer.id, err)
 					// TODO: What to do here?
 				}
 

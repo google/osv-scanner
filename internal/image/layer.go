@@ -21,7 +21,7 @@ type fileNode struct {
 	rootImage   *Image
 	fileType    fileType
 	isWhiteout  bool
-	layer       *imgLayer
+	originLayer *imgLayer
 	virtualPath string
 	permission  fs.FileMode
 }
@@ -31,7 +31,7 @@ func (f *fileNode) Open() (*os.File, error) {
 }
 
 func (f *fileNode) absoluteDiskPath() string {
-	return filepath.Join(f.rootImage.extractDir, f.layer.id, f.virtualPath)
+	return filepath.Join(f.rootImage.extractDir, f.originLayer.id, f.virtualPath)
 }
 
 // imgLayer represents all the files on a layer
@@ -58,6 +58,10 @@ func (filemap imgLayer) AllFiles() []fileNode {
 	_ = filemap.fileNodeTrie.Walk(func(key string, value interface{}) error {
 		node := value.(fileNode)
 		if node.fileType != RegularFile { // Only add regular files
+			return nil
+		}
+
+		if node.isWhiteout { // Don't add whiteout files as they have been deleted
 			return nil
 		}
 

@@ -201,7 +201,7 @@ func loadImage(imagePath string) (*Image, error) {
 				currentMap.fileNodeTrie.Put(virtualPath, fileNode{
 					rootImage: &outputImage,
 					// Select the original layer of the file
-					layer:       &outputImage.layers[i],
+					originLayer: &outputImage.layers[i],
 					virtualPath: virtualPath,
 					fileType:    fileType,
 					isWhiteout:  tombstone,
