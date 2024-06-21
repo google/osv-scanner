@@ -13,12 +13,12 @@ const (
 	CycloneDXVersion15
 )
 
-var SpecVersionToBomCreator = map[CycloneDXVersion]BomCreator{
+var SpecVersionToBomCreator = map[CycloneDXVersion]CycloneDXBomCreator{
 	CycloneDXVersion14: ToCycloneDX14Bom,
 	CycloneDXVersion15: ToCycloneDX15Bom,
 }
 
-type BomCreator func(packageSources map[string]models.PackageVulns) *cyclonedx.BOM
+type CycloneDXBomCreator func(packageSources map[string]models.PackageVulns) *cyclonedx.BOM
 
 const (
 	cycloneDx14Schema = "http://cyclonedx.org/schema/bom-1.4.schema.json"
