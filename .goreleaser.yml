@@ -1,3 +1,5 @@
+version: 2
+
 before:
   hooks:
     - go mod tidy
@@ -144,4 +146,4 @@ checksum:
 release:
   draft: true
 changelog:
-  skip: false
+  disable: false
