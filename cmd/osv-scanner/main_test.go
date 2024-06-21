@@ -3,10 +3,10 @@ package main
 
 import (
 	"bytes"
+	"errors"
 	"os"
 	"path/filepath"
 	"reflect"
-	"runtime"
 	"strings"
 	"testing"
 
@@ -86,6 +86,7 @@ func normalizeErrors(t *testing.T, str string) string {
 
 	str = strings.ReplaceAll(str, "The filename, directory name, or volume label syntax is incorrect.", "no such file or directory")
 	str = strings.ReplaceAll(str, "The system cannot find the path specified.", "no such file or directory")
+	str = strings.ReplaceAll(str, "The system cannot find the file specified.", "no such file or directory")
 
 	return str
 }
@@ -109,21 +110,28 @@ func normalizeStdStream(t *testing.T, std *bytes.Buffer) string {
 	return str
 }
 
-func testCli(t *testing.T, tc cliTestCase) {
+func runCli(t *testing.T, tc cliTestCase) (string, string) {
 	t.Helper()
 
 	stdout := &bytes.Buffer{}
 	stderr := &bytes.Buffer{}
 
 	ec := run(tc.args, stdout, stderr)
-	// ec := run(tc.args, os.Stdout, os.Stderr)
 
 	if ec != tc.exit {
 		t.Errorf("cli exited with code %d, not %d", ec, tc.exit)
 	}
 
-	testutility.NewSnapshot().MatchText(t, normalizeStdStream(t, stdout))
-	testutility.NewSnapshot().MatchText(t, normalizeStdStream(t, stderr))
+	return normalizeStdStream(t, stdout), normalizeStdStream(t, stderr)
+}
+
+func testCli(t *testing.T, tc cliTestCase) {
+	t.Helper()
+
+	stdout, stderr := runCli(t, tc)
+
+	testutility.NewSnapshot().MatchText(t, stdout)
+	testutility.NewSnapshot().MatchText(t, stderr)
 }
 
 func TestRun(t *testing.T) {
@@ -265,6 +273,38 @@ func TestRun(t *testing.T) {
 			name: "verbosity level = info",
 			args: []string{"", "--verbosity", "info", "--format", "table", "./fixtures/locks-many/composer.lock"},
 			exit: 0,
+		},
+		// Go project with an overridden go version
+		{
+			name: "Go project with an overridden go version",
+			args: []string{"", "./fixtures/go-project"},
+			exit: 0,
+		},
+	}
+	for _, tt := range tests {
+		tt := tt
+		t.Run(tt.name, func(t *testing.T) {
+			t.Parallel()
+
+			testCli(t, tt)
+		})
+	}
+}
+
+func TestRunCallAnalysis(t *testing.T) {
+	t.Parallel()
+
+	// Switch to acceptance test if this takes too long, or when we add rust tests
+	// testutility.SkipIfNotAcceptanceTesting(t, "Takes a while to run")
+
+	tests := []cliTestCase{
+		{
+			name: "Run with govulncheck",
+			args: []string{"",
+				"--call-analysis=go",
+				"--config=./fixtures/osv-scanner-empty-config.toml",
+				"./fixtures/call-analysis-go-project"},
+			exit: 1,
 		},
 	}
 	for _, tt := range tests {
@@ -440,73 +480,79 @@ func TestRun_LocalDatabases(t *testing.T) {
 		// one specific supported lockfile
 		{
 			name: "",
-			args: []string{"", "--experimental-local-db", "./fixtures/locks-many/composer.lock"},
+			args: []string{"", "--experimental-offline", "--experimental-download-offline-databases", "./fixtures/locks-many/composer.lock"},
 			exit: 0,
 		},
 		// one specific supported sbom with vulns
 		{
 			name: "",
-			args: []string{"", "--experimental-local-db", "--config=./fixtures/osv-scanner-empty-config.toml", "./fixtures/sbom-insecure/postgres-stretch.cdx.xml"},
+			args: []string{"", "--experimental-offline", "--experimental-download-offline-databases", "--config=./fixtures/osv-scanner-empty-config.toml", "./fixtures/sbom-insecure/postgres-stretch.cdx.xml"},
 			exit: 1,
 		},
 		// one specific unsupported lockfile
 		{
 			name: "",
-			args: []string{"", "--experimental-local-db", "./fixtures/locks-many/not-a-lockfile.toml"},
+			args: []string{"", "--experimental-offline", "--experimental-download-offline-databases", "./fixtures/locks-many/not-a-lockfile.toml"},
 			exit: 128,
 		},
 		// all supported lockfiles in the directory should be checked
 		{
 			name: "",
-			args: []string{"", "--experimental-local-db", "./fixtures/locks-many"},
+			args: []string{"", "--experimental-offline", "--experimental-download-offline-databases", "./fixtures/locks-many"},
 			exit: 0,
 		},
 		// all supported lockfiles in the directory should be checked
 		{
 			name: "",
-			args: []string{"", "--experimental-local-db", "./fixtures/locks-many-with-invalid"},
+			args: []string{"", "--experimental-offline", "--experimental-download-offline-databases", "./fixtures/locks-many-with-invalid"},
 			exit: 127,
 		},
 		// only the files in the given directories are checked by default (no recursion)
 		{
 			name: "",
-			args: []string{"", "--experimental-local-db", "./fixtures/locks-one-with-nested"},
+			args: []string{"", "--experimental-offline", "--experimental-download-offline-databases", "./fixtures/locks-one-with-nested"},
 			exit: 0,
 		},
 		// nested directories are checked when `--recursive` is passed
 		{
 			name: "",
-			args: []string{"", "--experimental-local-db", "--recursive", "./fixtures/locks-one-with-nested"},
+			args: []string{"", "--experimental-offline", "--experimental-download-offline-databases", "--recursive", "./fixtures/locks-one-with-nested"},
 			exit: 0,
 		},
 		// .gitignored files
 		{
 			name: "",
-			args: []string{"", "--experimental-local-db", "--recursive", "./fixtures/locks-gitignore"},
+			args: []string{"", "--experimental-offline", "--experimental-download-offline-databases", "--recursive", "./fixtures/locks-gitignore"},
 			exit: 0,
 		},
 		// ignoring .gitignore
 		{
 			name: "",
-			args: []string{"", "--experimental-local-db", "--recursive", "--no-ignore", "./fixtures/locks-gitignore"},
+			args: []string{"", "--experimental-offline", "--experimental-download-offline-databases", "--recursive", "--no-ignore", "./fixtures/locks-gitignore"},
 			exit: 0,
 		},
 		// output with json
 		{
 			name: "",
-			args: []string{"", "--experimental-local-db", "--json", "./fixtures/locks-many/composer.lock"},
+			args: []string{"", "--experimental-offline", "--experimental-download-offline-databases", "--json", "./fixtures/locks-many/composer.lock"},
 			exit: 0,
 		},
 		{
 			name: "",
-			args: []string{"", "--experimental-local-db", "--format", "json", "./fixtures/locks-many/composer.lock"},
+			args: []string{"", "--experimental-offline", "--experimental-download-offline-databases", "--format", "json", "./fixtures/locks-many/composer.lock"},
 			exit: 0,
 		},
 		// output format: markdown table
 		{
 			name: "",
-			args: []string{"", "--experimental-local-db", "--format", "markdown", "./fixtures/locks-many/composer.lock"},
+			args: []string{"", "--experimental-offline", "--experimental-download-offline-databases", "--format", "markdown", "./fixtures/locks-many/composer.lock"},
 			exit: 0,
+		},
+		// database should be downloaded only when offline is set
+		{
+			name: "",
+			args: []string{"", "--experimental-download-offline-databases", "./fixtures/locks-many"},
+			exit: 127,
 		},
 	}
 
@@ -592,27 +638,63 @@ func TestRun_Licenses(t *testing.T) {
 func TestRun_OCIImage(t *testing.T) {
 	t.Parallel()
 
-	if //goland:noinspection GoBoolExpressions
-	runtime.GOOS == "windows" {
-		return
-	}
+	testutility.SkipIfNotAcceptanceTesting(t, "Not consistent on MacOS/Windows")
 
 	tests := []cliTestCase{
-		{
-			name: "Alpine 3.10 image tar",
-			args: []string{"", "--experimental-oci-image", "./fixtures/oci-image/alpine-tester.tar"},
-			exit: 1,
-		},
 		{
 			name: "Invalid path",
 			args: []string{"", "--experimental-oci-image", "./fixtures/oci-image/no-file-here.tar"},
 			exit: 127,
+		},
+		{
+			name: "Alpine 3.10 image tar with 3.18 version file",
+			args: []string{"", "--experimental-oci-image", "../../internal/image/fixtures/test-alpine.tar"},
+			exit: 1,
+		},
+		{
+			name: "scanning node_modules using npm with no packages",
+			args: []string{"", "--experimental-oci-image", "../../internal/image/fixtures/test-node_modules-npm-empty.tar"},
+			exit: 1,
+		},
+		{
+			name: "scanning node_modules using npm with some packages",
+			args: []string{"", "--experimental-oci-image", "../../internal/image/fixtures/test-node_modules-npm-full.tar"},
+			exit: 1,
+		},
+		{
+			name: "scanning node_modules using yarn with no packages",
+			args: []string{"", "--experimental-oci-image", "../../internal/image/fixtures/test-node_modules-yarn-empty.tar"},
+			exit: 1,
+		},
+		{
+			name: "scanning node_modules using yarn with some packages",
+			args: []string{"", "--experimental-oci-image", "../../internal/image/fixtures/test-node_modules-yarn-full.tar"},
+			exit: 1,
+		},
+		{
+			name: "scanning node_modules using pnpm with no packages",
+			args: []string{"", "--experimental-oci-image", "../../internal/image/fixtures/test-node_modules-pnpm-empty.tar"},
+			exit: 1,
+		},
+		{
+			name: "scanning node_modules using pnpm with some packages",
+			args: []string{"", "--experimental-oci-image", "../../internal/image/fixtures/test-node_modules-pnpm-full.tar"},
+			exit: 1,
 		},
 	}
 	for _, tt := range tests {
 		tt := tt
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
+
+			// point out that we need the images to be built and saved separately
+			for _, arg := range tt.args {
+				if strings.HasPrefix(arg, "../../internal/image/fixtures/") && strings.HasSuffix(arg, ".tar") {
+					if _, err := os.Stat(arg); errors.Is(err, os.ErrNotExist) {
+						t.Fatalf("%s does not exist - have you run scripts/build_test_images.sh?", arg)
+					}
+				}
+			}
 
 			testCli(t, tt)
 		})
@@ -712,5 +794,35 @@ func TestRun_InsertDefaultCommand(t *testing.T) {
 		}
 		testutility.NewSnapshot().MatchText(t, normalizeStdStream(t, stdout))
 		testutility.NewSnapshot().MatchText(t, normalizeStdStream(t, stderr))
+	}
+}
+
+func TestRun_MavenTransitive(t *testing.T) {
+	t.Parallel()
+	tests := []cliTestCase{
+		{
+			name: "scans transitive dependencies for pom.xml by default",
+			args: []string{"", "./fixtures/maven-transitive/pom.xml"},
+			exit: 1,
+		},
+		{
+			name: "scans transitive dependencies by specifying pom.xml",
+			args: []string{"", "-L", "pom.xml:./fixtures/maven-transitive/abc.xml"},
+			exit: 1,
+		},
+		{
+			// Direct dependencies do not have any vulnerability.
+			name: "does not scan transitive dependencies for pom.xml with offline mode",
+			args: []string{"", "--experimental-offline", "--experimental-download-offline-databases", "./fixtures/maven-transitive/pom.xml"},
+			exit: 0,
+		},
+	}
+
+	for _, tt := range tests {
+		tt := tt
+		t.Run(tt.name, func(t *testing.T) {
+			t.Parallel()
+			testCli(t, tt)
+		})
 	}
 }

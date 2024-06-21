@@ -100,6 +100,7 @@ func TestParse_FindsExpectedParsers(t *testing.T) {
 		"conan.lock",
 		"Gemfile.lock",
 		"go.mod",
+		"gradle/verification-metadata.xml",
 		"gradle.lockfile",
 		"mix.lock",
 		"Pipfile.lock",

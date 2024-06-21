@@ -68,7 +68,7 @@ func fetchRemoteArchiveCRC32CHash(url string) (uint32, error) {
 		}
 	}
 
-	return 0, fmt.Errorf("could not find crc32c= checksum")
+	return 0, errors.New("could not find crc32c= checksum")
 }
 
 func fetchLocalArchiveCRC32CHash(data []byte) uint32 {

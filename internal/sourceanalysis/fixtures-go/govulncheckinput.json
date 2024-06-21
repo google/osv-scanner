@@ -1,48 +1,324 @@
 {
-   "GO-2021-0053": [
-      {
-         "osv": "GO-2021-0053",
-         "fixed_version": "v1.3.2",
-         "trace": [
-            {
-               "module": "github.com/gogo/protobuf",
-               "version": "v1.3.1",
-               "package": "github.com/gogo/protobuf/plugin/unmarshal"
-            }
-         ]
-      }
-   ],
-   "GO-2023-1558": [
-      {
-         "osv": "GO-2023-1558",
-         "fixed_version": "v1.1.0",
-         "trace": [
-            {
-               "module": "github.com/ipfs/go-bitfield",
-               "version": "v1.0.0",
-               "package": "github.com/ipfs/go-bitfield",
-               "function": "NewBitfield",
-               "receiver": "",
-               "position": {
-                  "filename": "",
-                  "offset": 0,
-                  "line": 0,
-                  "column": 0
-               }
-            },
-            {
-               "module": "github.com/ossf-tests/osv-e2e",
-               "package": "github.com/ossf-tests/osv-e2e",
-               "function": "main",
-               "receiver": "",
-               "position": {
-                  "filename": "/path/to/osv-scanner/internal/govulncheckshim/fixtures/test-project/main.go",
-                  "offset": 234,
-                  "line": 13,
-                  "column": 22
-               }
-            }
-         ]
-      }
-   ]
+  "GHSA-c3h9-896r-86jm": [
+    {
+      "osv": "GHSA-c3h9-896r-86jm",
+      "trace": [
+        {
+          "module": "github.com/gogo/protobuf",
+          "version": "v1.3.1",
+          "package": "github.com/gogo/protobuf/proto",
+          "function": "RegisterEnum",
+          "position": {
+            "filename": "<rootdir>/go/pkg/mod/github.com/gogo/protobuf@v1.3.1/proto/properties.go",
+            "offset": 14200,
+            "line": 518,
+            "column": 6
+          }
+        },
+        {
+          "module": "github.com/gogo/protobuf",
+          "version": "v1.3.1",
+          "package": "github.com/gogo/protobuf/protoc-gen-gogo/descriptor",
+          "function": "init#1",
+          "position": {
+            "filename": "<rootdir>/go/pkg/mod/github.com/gogo/protobuf@v1.3.1/protoc-gen-gogo/descriptor/descriptor.pb.go",
+            "offset": 98891,
+            "line": 2668,
+            "column": 20
+          }
+        },
+        {
+          "module": "github.com/gogo/protobuf",
+          "version": "v1.3.1",
+          "package": "github.com/gogo/protobuf/protoc-gen-gogo/descriptor",
+          "function": "init",
+          "position": {
+            "filename": "<rootdir>/go/pkg/mod/github.com/gogo/protobuf@v1.3.1/protoc-gen-gogo/descriptor/descriptor.go",
+            "offset": 1932,
+            "line": 37,
+            "column": 1
+          }
+        },
+        {
+          "module": "github.com/gogo/protobuf",
+          "version": "v1.3.1",
+          "package": "github.com/gogo/protobuf/plugin/unmarshal",
+          "function": "init",
+          "position": {
+            "filename": "<rootdir>/go/pkg/mod/github.com/gogo/protobuf@v1.3.1/plugin/unmarshal/unmarshal.go",
+            "offset": 5007,
+            "line": 184,
+            "column": 2
+          }
+        },
+        {
+          "module": "github.com/ossf-tests/osv-e2e",
+          "package": "github.com/ossf-tests/osv-e2e",
+          "function": "init",
+          "position": {
+            "filename": "<rootdir>/Documents/Project/osv-scanner/internal/sourceanalysis/integration/fixtures-go/test-project/main.go",
+            "offset": 44,
+            "line": 7,
+            "column": 2
+          }
+        }
+      ]
+    }
+  ],
+  "GO-2021-0053": [
+    {
+      "osv": "GO-2021-0053",
+      "fixed_version": "v1.3.2",
+      "trace": [
+        {
+          "module": "github.com/gogo/protobuf",
+          "version": "v1.3.1"
+        }
+      ]
+    },
+    {
+      "osv": "GO-2021-0053",
+      "fixed_version": "v1.3.2",
+      "trace": [
+        {
+          "module": "github.com/gogo/protobuf",
+          "version": "v1.3.1",
+          "package": "github.com/gogo/protobuf/plugin/unmarshal"
+        }
+      ]
+    }
+  ],
+  "GO-2023-1558": [
+    {
+      "osv": "GO-2023-1558",
+      "fixed_version": "v1.1.0",
+      "trace": [
+        {
+          "module": "github.com/ipfs/go-bitfield",
+          "version": "v1.0.0"
+        }
+      ]
+    },
+    {
+      "osv": "GO-2023-1558",
+      "fixed_version": "v1.1.0",
+      "trace": [
+        {
+          "module": "github.com/ipfs/go-bitfield",
+          "version": "v1.0.0",
+          "package": "github.com/ipfs/go-bitfield"
+        }
+      ]
+    },
+    {
+      "osv": "GO-2023-1558",
+      "fixed_version": "v1.1.0",
+      "trace": [
+        {
+          "module": "github.com/ipfs/go-bitfield",
+          "version": "v1.0.0",
+          "package": "github.com/ipfs/go-bitfield",
+          "function": "NewBitfield",
+          "position": {
+            "filename": "\u003cAny value\u003e",
+            "offset": -1,
+            "line": 12,
+            "column": 6
+          }
+        },
+        {
+          "module": "github.com/ossf-tests/osv-e2e",
+          "package": "github.com/ossf-tests/osv-e2e",
+          "function": "main",
+          "position": {
+            "filename": "\u003cAny value\u003e",
+            "offset": -1,
+            "line": 16,
+            "column": 22
+          }
+        }
+      ]
+    }
+  ],
+  "GO-2023-2382": [
+    {
+      "osv": "GO-2023-2382",
+      "fixed_version": "v1.20.12",
+      "trace": [
+        {
+          "module": "stdlib",
+          "version": "v1.19.0",
+          "package": "net/http/internal"
+        }
+      ]
+    },
+    {
+      "osv": "GO-2023-2382",
+      "fixed_version": "v1.20.12",
+      "trace": [
+        {
+          "module": "stdlib",
+          "version": "v1.19.0",
+          "package": "net/http/internal"
+        }
+      ]
+    },
+    {
+      "osv": "GO-2023-2382",
+      "fixed_version": "v1.20.12",
+      "trace": [
+        {
+          "module": "stdlib",
+          "version": "v1.19.0",
+          "package": "net/http/internal",
+          "function": "Read",
+          "receiver": "*chunkedReader",
+          "position": {
+            "filename": "\u003cAny value\u003e",
+            "offset": -1,
+            "line": 97,
+            "column": 26
+          }
+        },
+        {
+          "module": "stdlib",
+          "version": "v1.19.0",
+          "package": "net/http",
+          "function": "readLocked",
+          "receiver": "*body",
+          "position": {
+            "filename": "\u003cAny value\u003e",
+            "offset": -1,
+            "line": 839,
+            "column": 21
+          }
+        },
+        {
+          "module": "stdlib",
+          "version": "v1.19.0",
+          "package": "net/http",
+          "function": "Read",
+          "receiver": "bodyLocked",
+          "position": {
+            "filename": "\u003cAny value\u003e",
+            "offset": -1,
+            "line": 1038,
+            "column": 24
+          }
+        },
+        {
+          "module": "stdlib",
+          "version": "v1.19.0",
+          "package": "io",
+          "function": "copyBuffer",
+          "position": {
+            "filename": "\u003cAny value\u003e",
+            "offset": -1,
+            "line": 430,
+            "column": 21
+          }
+        },
+        {
+          "module": "stdlib",
+          "version": "v1.19.0",
+          "package": "io",
+          "function": "Copy",
+          "position": {
+            "filename": "\u003cAny value\u003e",
+            "offset": -1,
+            "line": 389,
+            "column": 19
+          }
+        },
+        {
+          "module": "stdlib",
+          "version": "v1.19.0",
+          "package": "net/http",
+          "function": "Close",
+          "receiver": "*body",
+          "position": {
+            "filename": "\u003cAny value\u003e",
+            "offset": -1,
+            "line": 1002,
+            "column": 19
+          }
+        },
+        {
+          "module": "stdlib",
+          "version": "v1.19.0",
+          "package": "net/http",
+          "function": "finishRequest",
+          "receiver": "*response",
+          "position": {
+            "filename": "\u003cAny value\u003e",
+            "offset": -1,
+            "line": 1670,
+            "column": 17
+          }
+        },
+        {
+          "module": "stdlib",
+          "version": "v1.19.0",
+          "package": "net/http",
+          "function": "serve",
+          "receiver": "*conn",
+          "position": {
+            "filename": "\u003cAny value\u003e",
+            "offset": -1,
+            "line": 2015,
+            "column": 18
+          }
+        },
+        {
+          "module": "stdlib",
+          "version": "v1.19.0",
+          "package": "net/http",
+          "function": "Serve",
+          "receiver": "*Server",
+          "position": {
+            "filename": "\u003cAny value\u003e",
+            "offset": -1,
+            "line": 3086,
+            "column": 3
+          }
+        },
+        {
+          "module": "stdlib",
+          "version": "v1.19.0",
+          "package": "net/http",
+          "function": "ListenAndServe",
+          "receiver": "*Server",
+          "position": {
+            "filename": "\u003cAny value\u003e",
+            "offset": -1,
+            "line": 2985,
+            "column": 18
+          }
+        },
+        {
+          "module": "stdlib",
+          "version": "v1.19.0",
+          "package": "net/http",
+          "function": "ListenAndServe",
+          "position": {
+            "filename": "\u003cAny value\u003e",
+            "offset": -1,
+            "line": 3239,
+            "column": 30
+          }
+        },
+        {
+          "module": "github.com/ossf-tests/osv-e2e",
+          "package": "github.com/ossf-tests/osv-e2e",
+          "function": "main",
+          "position": {
+            "filename": "\u003cAny value\u003e",
+            "offset": -1,
+            "line": 19,
+            "column": 28
+          }
+        }
+      ]
+    }
+  ]
 }

@@ -28,6 +28,27 @@ func depTypeWithOrigin(origin string) dep.Type {
 	return result
 }
 
+func mavenReqKey(t *testing.T, name, artifactType, classifier string) manifest.RequirementKey {
+	t.Helper()
+	var typ dep.Type
+	if artifactType != "" {
+		typ.AddAttr(dep.MavenArtifactType, artifactType)
+	}
+	if classifier != "" {
+		typ.AddAttr(dep.MavenClassifier, classifier)
+	}
+
+	return manifest.MakeRequirementKey(resolve.RequirementVersion{
+		VersionKey: resolve.VersionKey{
+			PackageKey: resolve.PackageKey{
+				Name:   name,
+				System: resolve.Maven,
+			},
+		},
+		Type: typ,
+	})
+}
+
 func TestSuggest(t *testing.T) {
 	t.Parallel()
 	ctx := context.Background()
@@ -98,7 +119,7 @@ func TestSuggest(t *testing.T) {
 					VersionType: resolve.Requirement,
 					Version:     "4.12",
 				},
-				Type: dep.NewType(dep.Test),
+				// Type: dep.NewType(dep.Test), test scope is ignored to make resolution work.
 			},
 			{
 				VersionKey: resolve.VersionKey{
@@ -223,9 +244,9 @@ func TestSuggest(t *testing.T) {
 				Type: depPlugin,
 			},
 		},
-		Groups: map[resolve.PackageKey][]string{
-			{System: resolve.Maven, Name: "junit:junit"}:    {"test"},
-			{System: resolve.Maven, Name: "org.import:xyz"}: {"import"},
+		Groups: map[manifest.RequirementKey][]string{
+			mavenReqKey(t, "junit:junit", "", ""):    {"test"},
+			mavenReqKey(t, "org.import:xyz", "", ""): {"import"},
 		},
 		EcosystemSpecific: manifest.MavenManifestSpecific{
 			Properties: []manifest.PropertyWithOrigin{

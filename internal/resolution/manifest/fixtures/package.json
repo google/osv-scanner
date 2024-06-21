@@ -1,0 +1,27 @@
+{
+  "name": "npm-manifest",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cliui": "npm:@isaacs/cliui@^8.0.2",
+    "jquery": "latest",
+    "lodash": "4.17.17",
+    "string-width": "^5.1.2",
+    "string-width-aliased": "npm:string-width@^4.2.3"
+  },
+  "devDependencies": {
+    "eslint": "^8.57.0"
+  },
+  "optionalDependencies": {
+    "glob": "^10.3.10"
+  },
+  "peerDependencies": {
+    "@babel/core": "^7.24.0"
+  }
+}

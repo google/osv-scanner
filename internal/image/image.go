@@ -21,6 +21,8 @@ const whiteoutPrefix = ".wh."
 
 // 2 GB
 const fileReadLimit = 2 * 1 << (10 * 3)
+const dirPermission = 0700
+const filePermission = 0600
 
 type ScanResults struct {
 	Lockfiles []lockfile.Lockfile
@@ -33,8 +35,8 @@ type Image struct {
 	extractDir      string
 }
 
-func (img *Image) LastLayer() *fileMap {
-	return &img.flattenedLayers[len(img.flattenedLayers)-1]
+func (img *Image) LastLayer() fileMap {
+	return img.flattenedLayers[len(img.flattenedLayers)-1]
 }
 
 func (img *Image) Cleanup() error {
@@ -73,7 +75,7 @@ func loadImage(imagePath string) (Image, error) {
 		}
 
 		dirPath := filepath.Join(tempPath, hashStr)
-		err = os.Mkdir(dirPath, 0755)
+		err = os.Mkdir(dirPath, dirPermission)
 		if err != nil {
 			return Image{}, err
 		}
@@ -101,6 +103,7 @@ func loadImage(imagePath string) (Image, error) {
 			if strings.HasPrefix(cleanedFilePath, "../") {
 				// TODO: Could this occur with a normal image?
 				// e.g. maybe a bad symbolic link?
+				// and should we warn the user that some files are ignored
 				continue
 			}
 			// force PAX format to remove Name/Linkname length limit of 100 characters
@@ -134,7 +137,7 @@ func loadImage(imagePath string) (Image, error) {
 			switch header.Typeflag {
 			case tar.TypeDir:
 				if _, err := os.Stat(absoluteDiskPath); err != nil {
-					if err := os.MkdirAll(absoluteDiskPath, 0700); err != nil {
+					if err := os.MkdirAll(absoluteDiskPath, dirPermission); err != nil {
 						return Image{}, err
 					}
 				}
@@ -143,14 +146,14 @@ func loadImage(imagePath string) (Image, error) {
 			default: // Assume if it's not a directory, it's a normal file
 				// Write all files as read/writable by the current user, inaccessible by anyone else
 				// Actual permission bits are stored in FileNode
-				f, err := os.OpenFile(absoluteDiskPath, os.O_CREATE|os.O_RDWR, 0600)
+				f, err := os.OpenFile(absoluteDiskPath, os.O_CREATE|os.O_RDWR, filePermission)
 				if err != nil {
 					return Image{}, err
 				}
 				numBytes, err := io.Copy(f, io.LimitReader(tarReader, fileReadLimit))
 				if numBytes >= fileReadLimit || errors.Is(err, io.EOF) {
 					f.Close()
-					return Image{}, fmt.Errorf("file exceeds read limit (potential decompression bomb attack)")
+					return Image{}, errors.New("file exceeds read limit (potential decompression bomb attack)")
 				}
 				if err != nil {
 					f.Close()
@@ -160,7 +163,10 @@ func loadImage(imagePath string) (Image, error) {
 				f.Close()
 			}
 
-			// Loop back up through the layers and add files
+			// Each outer loop, we add a layer to each relevant output flattenedLayers slice
+			// Because we are looping backwards in the outer loop (latest layer first)
+			// We ignore any files that's already in each flattenedLayer, as they would
+			// have been overwritten.
 			for ii := i; ii < len(layers); ii++ {
 				currentMap := &outputImage.flattenedLayers[ii]
 				if currentMap.fileNodeTrie == nil {

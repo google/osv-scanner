@@ -13,7 +13,7 @@ import (
 
 var fixturesDir = "integration/fixtures-go"
 
-func Test_RunGoVulnCheck(t *testing.T) {
+func Test_runGovulncheck(t *testing.T) {
 	t.Parallel()
 	entries, err := os.ReadDir(fixturesDir)
 	if err != nil {

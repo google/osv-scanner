@@ -14,9 +14,9 @@
 
 name: OSV-Scanner PR scanning reusable
 
-permissions:
-  contents: read
-  security-events: write
+# Restrict jobs in this workflow to have no permissions by default; permissions
+# should be granted per job as needed using a dedicated `permissions` block
+permissions: {}
 
 on:
   workflow_call:
@@ -44,9 +44,12 @@ on:
 
 jobs:
   scan-pr:
+    permissions:
+      contents: read # to fetch code (actions/checkout)
+      security-events: write # for uploading SARIF files
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
+      - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
         with:
           fetch-depth: 0
           # Do persist credentials, as we need it for the git checkout later
@@ -83,21 +86,21 @@ jobs:
       # format to the repository Actions tab.
       - name: "Upload artifact"
         if: "!cancelled()"
-        uses: actions/upload-artifact@5d5d22a31266ced268874388b861e4b58bb5c2f3 # v4.3.1
+        uses: actions/upload-artifact@65462800fd760344b1a7b4382951275a0abb4808 # v4.3.3
         with:
           name: SARIF file
           path: ${{ inputs.results-file-name }}
           retention-days: 5
       - name: "Upload old scan json results"
         if: "!cancelled()"
-        uses: actions/upload-artifact@5d5d22a31266ced268874388b861e4b58bb5c2f3 # v4.3.1
+        uses: actions/upload-artifact@65462800fd760344b1a7b4382951275a0abb4808 # v4.3.3
         with:
           name: old-json-results
           path: old-results.json
           retention-days: 5
       - name: "Upload new scan json results"
         if: "!cancelled()"
-        uses: actions/upload-artifact@5d5d22a31266ced268874388b861e4b58bb5c2f3 # v4.3.1
+        uses: actions/upload-artifact@65462800fd760344b1a7b4382951275a0abb4808 # v4.3.3
         with:
           name: new-json-results
           path: new-results.json
@@ -105,6 +108,6 @@ jobs:
       # Upload the results to GitHub's code scanning dashboard.
       - name: "Upload to code-scanning"
         if: ${{ !cancelled() && inputs.upload-sarif == true }}
-        uses: github/codeql-action/upload-sarif@8a470fddafa5cbb6266ee11b37ef4d8aae19c571 # v3.24.6
+        uses: github/codeql-action/upload-sarif@23acc5c183826b7a8a97bce3cecc52db901f8251 # v3.25.10
         with:
           sarif_file: ${{ inputs.results-file-name }}

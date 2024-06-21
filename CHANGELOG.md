@@ -1,3 +1,82 @@
+# v1.8.0/v1.8.1:
+
+### Features:
+
+- [Feature #35](https://github.com/google/osv-scanner/issues/35)
+  OSV-Scanner now scans transitive dependencies in Maven `pom.xml` files!
+  See [our documentation](https://google.github.io/osv-scanner/supported-languages-and-lockfiles/#transitive-dependency-scanning) for more information.
+- [Feature #944](https://github.com/google/osv-scanner/pull/944)
+  The `osv-scanner.toml` configuration file can now filter specific packages with new `[[PackageOverrides]]` sections:
+  ```toml
+  [[PackageOverrides]]
+  # The package name, version, and ecosystem to match against
+  name = "lib"
+  # If version is not set or empty, it will match every version
+  version = "1.0.0"
+  ecosystem = "Go"
+  # Ignore this package entirely, including license scanning
+  ignore = true
+  # Override the license of the package
+  # This is not used if ignore = true
+  license.override = ["MIT", "0BSD"]
+  # effectiveUntil = 2022-11-09 # Optional exception expiry date
+  reason = "abc"
+  ```
+
+### Minor Updates
+
+- [Feature #1039](https://github.com/google/osv-scanner/pull/1039) The `--experimental-local-db` flag has been removed and replaced with a new flag `--experimental-download-offline-databases` which better reflects what the flag does.  
+  To replicate the behavior of the original `--experimental-local-db` flag, replace it with both `--experimental-offline --experimental-download-offline-databases` flags. This will run osv-scanner in offline mode, but download the latest version of the vulnerability databases before scanning.
+
+### Fixes:
+
+- [Bug #1000](https://github.com/google/osv-scanner/pull/1000) Standard dependencies now correctly override `dependencyManagement` dependencies when scanning `pom.xml` files in offline mode.
+
+# v1.7.4:
+
+### Features:
+
+- [Feature #943](https://github.com/google/osv-scanner/pull/943) Support scanning gradle/verification-metadata.xml files.
+
+### Misc:
+
+- [Bug #968](https://github.com/google/osv-scanner/issues/968) Hide unimportant Debian vulnerabilities to reduce noise.
+
+# v1.7.3:
+
+### Features:
+
+- [Feature #934](https://github.com/google/osv-scanner/pull/934) add support for PNPM v9 lockfiles.
+
+### Fixes:
+
+- [Bug #938](https://github.com/google/osv-scanner/issues/938) Ensure the sarif output has a stable order.
+- [Bug #922](https://github.com/google/osv-scanner/issues/922) Support filtering on alias IDs in Guided Remediation.
+
+# v1.7.2:
+
+### Fixes:
+
+- [Bug #899](https://github.com/google/osv-scanner/issues/899) Guided Remediation: Parse paths in npmrc auth fields correctly.
+- [Bug #908](https://github.com/google/osv-scanner/issues/908) Fix rust call analysis by explicitly disabling stripping of debug info.
+- [Bug #914](https://github.com/google/osv-scanner/issues/914) Fix regression for go call analysis introduced in 1.7.0.
+
+# v1.7.1:
+
+(There is no Github release for this version)
+
+### Fixes
+
+- [Bug #856](https://github.com/google/osv-scanner/issues/856)
+  Add retry logic to make calls to OSV.dev API more resilient. This combined with changes in OSV.dev's API should result in much less timeout errors.
+
+### API Features
+
+- [Feature #781](https://github.com/google/osv-scanner/pull/781)
+  add `MakeVersionRequestsWithContext()`
+- [Feature #857](https://github.com/google/osv-scanner/pull/857)
+  API and networking related errors now has their own error and exit code (Exit Code 129)
+
 # v1.7.0:
 
 ### Features
@@ -7,7 +86,7 @@
   See our [docs](https://google.github.io/osv-scanner/experimental/guided-remediation/) for detailed usage instructions.
 
 - [Feature #805](https://github.com/google/osv-scanner/pull/805)
-  Include CVSS MaxSevirity in JSON output.
+  Include CVSS MaxSeverity in JSON output.
 
 ### Fixes
 

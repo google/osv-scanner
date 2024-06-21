@@ -1,0 +1,69 @@
+system: npm
+schema: |
+  dependency
+    0.0.1
+    1.0.0 
+      bad@^1.0.0
+    2.0.0
+      bad@^2.0.0
+    3.0.0
+      bad@*
+  bad
+    1.0.0
+    1.1.1
+    2.0.0
+    2.2.2
+  bad2
+    1.0.0
+  existing
+    1.0.0
+      bad@^1.0.0
+      bad2@^1.0.0
+      dependency@^0.0.1
+
+vulns:
+  - id: OSV-000-000
+    affected:
+      - package:
+          ecosystem: npm
+          name: bad
+        ranges:
+        - type: SEMVER
+          events:
+            - introduced: '0'
+            - fixed: '2.0.0'
+  - id: OSV-000-001
+    affected:
+      - package:
+          ecosystem: npm
+          name: bad
+        ranges:
+        - type: SEMVER
+          events:
+            - introduced: '0'
+      - package:
+          ecosystem: npm
+          name: bad2
+        ranges:
+        - type: SEMVER
+          events:
+            - introduced: '0'
+  - id: OSV-000-002
+    affected:
+      - package:
+          ecosystem: npm
+          name: dependency
+        ranges:
+        - type: SEMVER
+          events:
+            - introduced: '0'
+            - fixed: '1.0.0'
+  - id: OSV-000-003
+    affected:
+      - package:
+          ecosystem: npm
+          name: existing
+        ranges:
+        - type: SEMVER
+          events:
+            - introduced: '0'

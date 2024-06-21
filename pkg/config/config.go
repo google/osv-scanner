@@ -23,8 +23,10 @@ type ConfigManager struct {
 }
 
 type Config struct {
-	IgnoredVulns []IgnoreEntry `toml:"IgnoredVulns"`
-	LoadPath     string        `toml:"LoadPath"`
+	IgnoredVulns      []IgnoreEntry          `toml:"IgnoredVulns"`
+	PackageOverrides  []PackageOverrideEntry `toml:"PackageOverrides"`
+	LoadPath          string                 `toml:"LoadPath"`
+	GoVersionOverride string                 `toml:"GoVersionOverride"`
 }
 
 type IgnoreEntry struct {
@@ -33,19 +35,67 @@ type IgnoreEntry struct {
 	Reason      string    `toml:"reason"`
 }
 
+type PackageOverrideEntry struct {
+	Name string `toml:"name"`
+	// If the version is empty, the entry applies to all versions.
+	Version        string    `toml:"version"`
+	Ecosystem      string    `toml:"ecosystem"`
+	Ignore         bool      `toml:"ignore"`
+	License        License   `toml:"license"`
+	EffectiveUntil time.Time `toml:"effectiveUntil"`
+	Reason         string    `toml:"reason"`
+}
+
+type License struct {
+	Override []string `toml:"override"`
+}
+
 func (c *Config) ShouldIgnore(vulnID string) (bool, IgnoreEntry) {
-	index := slices.IndexFunc(c.IgnoredVulns, func(elem IgnoreEntry) bool { return elem.ID == vulnID })
+	index := slices.IndexFunc(c.IgnoredVulns, func(e IgnoreEntry) bool { return e.ID == vulnID })
 	if index == -1 {
 		return false, IgnoreEntry{}
 	}
 	ignoredLine := c.IgnoredVulns[index]
-	if ignoredLine.IgnoreUntil.IsZero() {
+
+	return shouldIgnoreTimestamp(ignoredLine.IgnoreUntil), ignoredLine
+}
+
+func (c *Config) filterPackageVersionEntries(name string, version string, ecosystem string, condition func(PackageOverrideEntry) bool) (bool, PackageOverrideEntry) {
+	index := slices.IndexFunc(c.PackageOverrides, func(e PackageOverrideEntry) bool {
+		if ecosystem != e.Ecosystem || name != e.Name {
+			return false
+		}
+
+		return (version == e.Version || e.Version == "") && condition(e)
+	})
+	if index == -1 {
+		return false, PackageOverrideEntry{}
+	}
+	ignoredLine := c.PackageOverrides[index]
+
+	return shouldIgnoreTimestamp(ignoredLine.EffectiveUntil), ignoredLine
+}
+
+func (c *Config) ShouldIgnorePackageVersion(name, version, ecosystem string) (bool, PackageOverrideEntry) {
+	return c.filterPackageVersionEntries(name, version, ecosystem, func(e PackageOverrideEntry) bool {
+		return e.Ignore
+	})
+}
+
+func (c *Config) ShouldOverridePackageVersionLicense(name, version, ecosystem string) (bool, PackageOverrideEntry) {
+	return c.filterPackageVersionEntries(name, version, ecosystem, func(e PackageOverrideEntry) bool {
+		return len(e.License.Override) > 0
+	})
+}
+
+func shouldIgnoreTimestamp(ignoreUntil time.Time) bool {
+	if ignoreUntil.IsZero() {
 		// If IgnoreUntil is not set, should ignore.
-		return true, ignoredLine
+		return true
 	}
 	// Should ignore if IgnoreUntil is still after current time
 	// Takes timezone offsets into account if it is specified. otherwise it's using local time
-	return ignoredLine.IgnoreUntil.After(time.Now()), ignoredLine
+	return ignoreUntil.After(time.Now())
 }
 
 // Sets the override config by reading the config file at configPath.

@@ -9,7 +9,7 @@ import (
 	"slices"
 	"strings"
 
-	pb "deps.dev/api/v3alpha"
+	pb "deps.dev/api/v3"
 	"deps.dev/util/resolve"
 	"deps.dev/util/resolve/dep"
 	"deps.dev/util/semver"
@@ -47,7 +47,7 @@ func NewNpmRegistryClient(workdir string) (*NpmRegistryClient, error) {
 		dialOpts = append(dialOpts, grpc.WithUserAgent(osv.RequestUserAgent))
 	}
 
-	conn, err := grpc.Dial(depsdev.DepsdevAPI, dialOpts...)
+	conn, err := grpc.NewClient(depsdev.DepsdevAPI, dialOpts...)
 	if err != nil {
 		return nil, fmt.Errorf("dialling %q: %w", depsdev.DepsdevAPI, err)
 	}

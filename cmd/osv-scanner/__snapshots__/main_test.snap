@@ -9,7 +9,7 @@ No package sources found, --help for usage information.
 ---
 
 [TestRun/#01 - 1]
-osv-scanner version: 1.7.0
+osv-scanner version: 1.8.1
 commit: n/a
 built at: n/a
 
@@ -102,7 +102,7 @@ Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
           "informationUri": "https://github.com/google/osv-scanner",
           "name": "osv-scanner",
           "rules": [],
-          "version": "1.7.0"
+          "version": "1.8.1"
         }
       },
       "results": []
@@ -115,6 +115,31 @@ Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
 [TestRun/Empty_sarif_output - 2]
 Scanning dir ./fixtures/locks-many/composer.lock
 Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
+
+---
+
+[TestRun/Go_project_with_an_overridden_go_version - 1]
+Scanning dir ./fixtures/go-project
+Scanned <rootdir>/fixtures/go-project/go.mod file and found 1 package
+Loaded filter from: <rootdir>/fixtures/go-project/osv-scanner.toml
++------------------------------+------+-----------+---------+---------+----------------------------+
+| OSV URL                      | CVSS | ECOSYSTEM | PACKAGE | VERSION | SOURCE                     |
++------------------------------+------+-----------+---------+---------+----------------------------+
+| Uncalled vulnerabilities     |      |           |         |         |                            |
++------------------------------+------+-----------+---------+---------+----------------------------+
+| https://osv.dev/GO-2024-2598 |      | Go        | stdlib  | 1.21.7  | fixtures/go-project/go.mod |
+| https://osv.dev/GO-2024-2599 |      | Go        | stdlib  | 1.21.7  | fixtures/go-project/go.mod |
+| https://osv.dev/GO-2024-2600 |      | Go        | stdlib  | 1.21.7  | fixtures/go-project/go.mod |
+| https://osv.dev/GO-2024-2609 |      | Go        | stdlib  | 1.21.7  | fixtures/go-project/go.mod |
+| https://osv.dev/GO-2024-2610 |      | Go        | stdlib  | 1.21.7  | fixtures/go-project/go.mod |
+| https://osv.dev/GO-2024-2687 |      | Go        | stdlib  | 1.21.7  | fixtures/go-project/go.mod |
+| https://osv.dev/GO-2024-2887 |      | Go        | stdlib  | 1.21.7  | fixtures/go-project/go.mod |
+| https://osv.dev/GO-2024-2888 |      | Go        | stdlib  | 1.21.7  | fixtures/go-project/go.mod |
++------------------------------+------+-----------+---------+---------+----------------------------+
+
+---
+
+[TestRun/Go_project_with_an_overridden_go_version - 2]
 
 ---
 
@@ -149,7 +174,7 @@ Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
               }
             }
           ],
-          "version": "1.7.0"
+          "version": "1.8.1"
         }
       },
       "artifacts": [
@@ -194,14 +219,13 @@ Scanned <rootdir>/fixtures/locks-many/package-lock.json file and found 1 package
 [TestRun/Scan_locks-many - 1]
 Scanning dir ./fixtures/locks-many
 Scanned <rootdir>/fixtures/locks-many/Gemfile.lock file and found 1 package
-Scanned <rootdir>/fixtures/locks-many/alpine.cdx.xml as CycloneDX SBOM and found 15 packages
+Scanned <rootdir>/fixtures/locks-many/alpine.cdx.xml as CycloneDX SBOM and found 14 packages
 Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
 Scanned <rootdir>/fixtures/locks-many/package-lock.json file and found 1 package
 Scanned <rootdir>/fixtures/locks-many/yarn.lock file and found 1 package
 Loaded filter from: <rootdir>/fixtures/locks-many/osv-scanner.toml
-CVE-2022-48174 has been filtered out because: Test manifest file (alpine.cdx.xml)
 GHSA-whgm-jr23-g3j9 and 1 alias have been filtered out because: Test manifest file
-Filtered 2 vulnerabilities from output
+Filtered 1 vulnerability from output
 No issues found
 
 ---
@@ -224,13 +248,13 @@ Attempted to scan lockfile but failed: <rootdir>/fixtures/locks-many-with-invali
 
 [TestRun/folder_of_supported_sbom_with_vulns - 1]
 Scanning dir ./fixtures/sbom-insecure/
-Scanned <rootdir>/fixtures/sbom-insecure/alpine.cdx.xml as CycloneDX SBOM and found 15 packages
+Scanned <rootdir>/fixtures/sbom-insecure/alpine.cdx.xml as CycloneDX SBOM and found 14 packages
 Scanned <rootdir>/fixtures/sbom-insecure/postgres-stretch.cdx.xml as CycloneDX SBOM and found 136 packages
 +-------------------------------------+------+-----------+--------------------------------+------------------------------------+-------------------------------------------------+
 | OSV URL                             | CVSS | ECOSYSTEM | PACKAGE                        | VERSION                            | SOURCE                                          |
 +-------------------------------------+------+-----------+--------------------------------+------------------------------------+-------------------------------------------------+
-| https://osv.dev/CVE-2022-48174      | 9.8  | Alpine    | busybox                        | 1.35.0-r29                         | fixtures/sbom-insecure/alpine.cdx.xml           |
-| https://osv.dev/CVE-2022-37434      | 9.8  | Alpine    | zlib                           | 1.2.10-r2                          | fixtures/sbom-insecure/alpine.cdx.xml           |
+| https://osv.dev/CVE-2018-25032      | 7.5  | Alpine    | zlib                           | 1.2.10-r0                          | fixtures/sbom-insecure/alpine.cdx.xml           |
+| https://osv.dev/CVE-2022-37434      | 9.8  | Alpine    | zlib                           | 1.2.10-r0                          | fixtures/sbom-insecure/alpine.cdx.xml           |
 | https://osv.dev/DLA-3022-1          |      | Debian    | dpkg                           | 1.18.25                            | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/GHSA-v95c-p5hm-xq8f | 6.0  | Go        | github.com/opencontainers/runc | v1.0.1                             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/GO-2022-0274        |      |           |                                |                                    |                                                 |
@@ -347,13 +371,13 @@ No issues found
 ---
 
 [TestRun/one_specific_supported_sbom_with_vulns - 1]
-Scanned <rootdir>/fixtures/sbom-insecure/alpine.cdx.xml as CycloneDX SBOM and found 15 packages
-+--------------------------------+------+-----------+---------+------------+---------------------------------------+
-| OSV URL                        | CVSS | ECOSYSTEM | PACKAGE | VERSION    | SOURCE                                |
-+--------------------------------+------+-----------+---------+------------+---------------------------------------+
-| https://osv.dev/CVE-2022-48174 | 9.8  | Alpine    | busybox | 1.35.0-r29 | fixtures/sbom-insecure/alpine.cdx.xml |
-| https://osv.dev/CVE-2022-37434 | 9.8  | Alpine    | zlib    | 1.2.10-r2  | fixtures/sbom-insecure/alpine.cdx.xml |
-+--------------------------------+------+-----------+---------+------------+---------------------------------------+
+Scanned <rootdir>/fixtures/sbom-insecure/alpine.cdx.xml as CycloneDX SBOM and found 14 packages
++--------------------------------+------+-----------+---------+-----------+---------------------------------------+
+| OSV URL                        | CVSS | ECOSYSTEM | PACKAGE | VERSION   | SOURCE                                |
++--------------------------------+------+-----------+---------+-----------+---------------------------------------+
+| https://osv.dev/CVE-2018-25032 | 7.5  | Alpine    | zlib    | 1.2.10-r0 | fixtures/sbom-insecure/alpine.cdx.xml |
+| https://osv.dev/CVE-2022-37434 | 9.8  | Alpine    | zlib    | 1.2.10-r0 | fixtures/sbom-insecure/alpine.cdx.xml |
++--------------------------------+------+-----------+---------+-----------+---------------------------------------+
 
 ---
 
@@ -392,36 +416,45 @@ No issues found
 
 ---
 
-[TestRun_Fix/fix_non-interactive_in-place_package-lock.json - 1]
-Scanning <tempdir>/package-lock.json...
-Found 7 vulnerabilities matching the filter
-Can fix 2/7 matching vulnerabilities by changing 2 dependencies
-UPGRADED-PACKAGE: concat-stream,1.5.0,1.6.1
-UPGRADED-PACKAGE: hosted-git-info,2.1.4,2.8.9
-REMAINING-VULNS: 5
-UNFIXABLE-VULNS: 5
-Rewriting <tempdir>/package-lock.json...
+[TestRunCallAnalysis/Run_with_govulncheck - 1]
+Scanning dir ./fixtures/call-analysis-go-project
+Scanned <rootdir>/fixtures/call-analysis-go-project/go.mod file and found 4 packages
++-------------------------------------+------+-----------+-----------------------------+---------+------------------------------------------+
+| OSV URL                             | CVSS | ECOSYSTEM | PACKAGE                     | VERSION | SOURCE                                   |
++-------------------------------------+------+-----------+-----------------------------+---------+------------------------------------------+
+| https://osv.dev/GHSA-2h6c-j3gf-xp9r | 5.9  | Go        | github.com/ipfs/go-bitfield | 1.0.0   | fixtures/call-analysis-go-project/go.mod |
+| https://osv.dev/GO-2023-1558        |      |           |                             |         |                                          |
+| https://osv.dev/GO-2023-2375        |      | Go        | stdlib                      | 1.19    | fixtures/call-analysis-go-project/go.mod |
+| https://osv.dev/GO-2023-2102        |      | Go        | stdlib                      | 1.19    | fixtures/call-analysis-go-project/go.mod |
+| https://osv.dev/GO-2023-2185        |      | Go        | stdlib                      | 1.19    | fixtures/call-analysis-go-project/go.mod |
+| https://osv.dev/GO-2023-2382        |      | Go        | stdlib                      | 1.19    | fixtures/call-analysis-go-project/go.mod |
+| https://osv.dev/GO-2024-2598        |      | Go        | stdlib                      | 1.19    | fixtures/call-analysis-go-project/go.mod |
+| https://osv.dev/GO-2024-2599        |      | Go        | stdlib                      | 1.19    | fixtures/call-analysis-go-project/go.mod |
+| https://osv.dev/GO-2024-2687        |      | Go        | stdlib                      | 1.19    | fixtures/call-analysis-go-project/go.mod |
+| https://osv.dev/GO-2024-2887        |      | Go        | stdlib                      | 1.19    | fixtures/call-analysis-go-project/go.mod |
++-------------------------------------+------+-----------+-----------------------------+---------+------------------------------------------+
+| Uncalled vulnerabilities            |      |           |                             |         |                                          |
++-------------------------------------+------+-----------+-----------------------------+---------+------------------------------------------+
+| https://osv.dev/GHSA-c3h9-896r-86jm | 8.6  | Go        | github.com/gogo/protobuf    | 1.3.1   | fixtures/call-analysis-go-project/go.mod |
+| https://osv.dev/GO-2021-0053        |      |           |                             |         |                                          |
+| https://osv.dev/GHSA-qgc7-mgm3-q253 | 5.5  | Go        | golang.org/x/image          | 0.4.0   | fixtures/call-analysis-go-project/go.mod |
+| https://osv.dev/GO-2023-1572        |      |           |                             |         |                                          |
+| https://osv.dev/GHSA-j3p8-6mrq-6g7h | 6.5  | Go        | golang.org/x/image          | 0.4.0   | fixtures/call-analysis-go-project/go.mod |
+| https://osv.dev/GO-2023-1990        |      |           |                             |         |                                          |
+| https://osv.dev/GHSA-x92r-3vfx-4cv3 | 6.5  | Go        | golang.org/x/image          | 0.4.0   | fixtures/call-analysis-go-project/go.mod |
+| https://osv.dev/GO-2023-1989        |      |           |                             |         |                                          |
+| https://osv.dev/GO-2023-2041        |      | Go        | stdlib                      | 1.19    | fixtures/call-analysis-go-project/go.mod |
+| https://osv.dev/GO-2023-2043        |      | Go        | stdlib                      | 1.19    | fixtures/call-analysis-go-project/go.mod |
+| https://osv.dev/GO-2023-2186        |      | Go        | stdlib                      | 1.19    | fixtures/call-analysis-go-project/go.mod |
+| https://osv.dev/GO-2024-2600        |      | Go        | stdlib                      | 1.19    | fixtures/call-analysis-go-project/go.mod |
+| https://osv.dev/GO-2024-2609        |      | Go        | stdlib                      | 1.19    | fixtures/call-analysis-go-project/go.mod |
+| https://osv.dev/GO-2024-2610        |      | Go        | stdlib                      | 1.19    | fixtures/call-analysis-go-project/go.mod |
+| https://osv.dev/GO-2024-2888        |      | Go        | stdlib                      | 1.19    | fixtures/call-analysis-go-project/go.mod |
++-------------------------------------+------+-----------+-----------------------------+---------+------------------------------------------+
 
 ---
 
-[TestRun_Fix/fix_non-interactive_in-place_package-lock.json - 2]
-Warning: `fix` exists as both a subcommand of OSV-Scanner and as a file on the filesystem. `fix` is assumed to be a subcommand here. If you intended for `fix` to be an argument to `fix`, you must specify `fix fix` in your command line.
-
----
-
-[TestRun_Fix/fix_non-interactive_relock_package.json - 1]
-Resolving <tempdir>/package.json...
-Found 5 vulnerabilities matching the filter
-Can fix 3/5 matching vulnerabilities by changing 1 dependencies
-UPGRADED-PACKAGE: npm-registry-client,6.2.0,^7.5.0
-REMAINING-VULNS: 2
-UNFIXABLE-VULNS: 2
-Rewriting <tempdir>/package.json...
-
----
-
-[TestRun_Fix/fix_non-interactive_relock_package.json - 2]
-Warning: `fix` exists as both a subcommand of OSV-Scanner and as a file on the filesystem. `fix` is assumed to be a subcommand here. If you intended for `fix` to be an argument to `fix`, you must specify `fix fix` in your command line.
+[TestRunCallAnalysis/Run_with_govulncheck - 2]
 
 ---
 
@@ -490,7 +523,7 @@ Scanned <rootdir>/fixtures/locks-insecure/osv-scanner-flutter-deps.json file as 
               }
             }
           ],
-          "version": "1.7.0"
+          "version": "1.8.1"
         }
       },
       "artifacts": [
@@ -663,12 +696,6 @@ Scanned <rootdir>/fixtures/locks-licenses/package-lock.json file and found 3 pac
 
 ---
 
-[TestRun_Licenses/Licenses_in_summary_mode_json - 2]
-Scanning dir ./fixtures/locks-licenses/package-lock.json
-Scanned <rootdir>/fixtures/locks-licenses/package-lock.json file and found 3 packages
-
----
-
 [TestRun_Licenses/No_license_violations_and_show-all-packages_in_json - 1]
 {
   "results": [
@@ -733,20 +760,19 @@ Scanned <rootdir>/fixtures/locks-licenses/package-lock.json file and found 3 pac
 [TestRun_Licenses/No_vulnerabilities_with_license_summary - 1]
 Scanning dir ./fixtures/locks-many
 Scanned <rootdir>/fixtures/locks-many/Gemfile.lock file and found 1 package
-Scanned <rootdir>/fixtures/locks-many/alpine.cdx.xml as CycloneDX SBOM and found 15 packages
+Scanned <rootdir>/fixtures/locks-many/alpine.cdx.xml as CycloneDX SBOM and found 14 packages
 Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
 Scanned <rootdir>/fixtures/locks-many/package-lock.json file and found 1 package
 Scanned <rootdir>/fixtures/locks-many/yarn.lock file and found 1 package
 Loaded filter from: <rootdir>/fixtures/locks-many/osv-scanner.toml
-CVE-2022-48174 has been filtered out because: Test manifest file (alpine.cdx.xml)
 GHSA-whgm-jr23-g3j9 and 1 alias have been filtered out because: Test manifest file
-Filtered 2 vulnerabilities from output
+Filtered 1 vulnerability from output
 +------------+-------------------------+
 | LICENSE    | NO. OF PACKAGE VERSIONS |
 +------------+-------------------------+
 | Apache-2.0 |                       1 |
 | MIT        |                       1 |
-| UNKNOWN    |                      17 |
+| UNKNOWN    |                      16 |
 +------------+-------------------------+
 
 ---
@@ -758,19 +784,18 @@ Filtered 2 vulnerabilities from output
 [TestRun_Licenses/No_vulnerabilities_with_license_summary_in_markdown - 1]
 Scanning dir ./fixtures/locks-many
 Scanned <rootdir>/fixtures/locks-many/Gemfile.lock file and found 1 package
-Scanned <rootdir>/fixtures/locks-many/alpine.cdx.xml as CycloneDX SBOM and found 15 packages
+Scanned <rootdir>/fixtures/locks-many/alpine.cdx.xml as CycloneDX SBOM and found 14 packages
 Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
 Scanned <rootdir>/fixtures/locks-many/package-lock.json file and found 1 package
 Scanned <rootdir>/fixtures/locks-many/yarn.lock file and found 1 package
 Loaded filter from: <rootdir>/fixtures/locks-many/osv-scanner.toml
-CVE-2022-48174 has been filtered out because: Test manifest file (alpine.cdx.xml)
 GHSA-whgm-jr23-g3j9 and 1 alias have been filtered out because: Test manifest file
-Filtered 2 vulnerabilities from output
+Filtered 1 vulnerability from output
 | License | No. of package versions |
 | --- | ---:|
 | Apache-2.0 | 1 |
 | MIT | 1 |
-| UNKNOWN | 17 |
+| UNKNOWN | 16 |
 
 ---
 
@@ -1034,7 +1059,7 @@ No package sources found, --help for usage information.
 [TestRun_LocalDatabases/#03 - 1]
 Scanning dir ./fixtures/locks-many
 Scanned <rootdir>/fixtures/locks-many/Gemfile.lock file and found 1 package
-Scanned <rootdir>/fixtures/locks-many/alpine.cdx.xml as CycloneDX SBOM and found 15 packages
+Scanned <rootdir>/fixtures/locks-many/alpine.cdx.xml as CycloneDX SBOM and found 14 packages
 Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
 Scanned <rootdir>/fixtures/locks-many/package-lock.json file and found 1 package
 Scanned <rootdir>/fixtures/locks-many/yarn.lock file and found 1 package
@@ -1056,7 +1081,7 @@ No issues found
 [TestRun_LocalDatabases/#03 - 3]
 Scanning dir ./fixtures/locks-many
 Scanned <rootdir>/fixtures/locks-many/Gemfile.lock file and found 1 package
-Scanned <rootdir>/fixtures/locks-many/alpine.cdx.xml as CycloneDX SBOM and found 15 packages
+Scanned <rootdir>/fixtures/locks-many/alpine.cdx.xml as CycloneDX SBOM and found 14 packages
 Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
 Scanned <rootdir>/fixtures/locks-many/package-lock.json file and found 1 package
 Scanned <rootdir>/fixtures/locks-many/yarn.lock file and found 1 package
@@ -1258,19 +1283,6 @@ Loaded Packagist local db from <tempdir>/osv-scanner/Packagist/all.zip
 
 ---
 
-[TestRun_LocalDatabases/#09 - 3]
-{
-  "results": [],
-  "experimental_config": {
-    "licenses": {
-      "summary": false,
-      "allowlist": null
-    }
-  }
-}
-
----
-
 [TestRun_LocalDatabases/#09 - 4]
 Scanning dir ./fixtures/locks-many/composer.lock
 Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
@@ -1342,6 +1354,24 @@ No issues found
 
 ---
 
+[TestRun_LocalDatabases/#12 - 1]
+
+---
+
+[TestRun_LocalDatabases/#12 - 2]
+databases can only be downloaded when running in offline mode
+
+---
+
+[TestRun_LocalDatabases/#12 - 3]
+
+---
+
+[TestRun_LocalDatabases/#12 - 4]
+databases can only be downloaded when running in offline mode
+
+---
+
 [TestRun_LockfileWithExplicitParseAs/#00 - 1]
 
 ---
@@ -1351,23 +1381,6 @@ could not determine extractor, requested my-file
 
 ---
 
-[TestRun_LockfileWithExplicitParseAs/#00 - 2]
-could not determine extractor, requested my-file
-
----
-
-[TestRun_LockfileWithExplicitParseAs/#01 - 1]
-Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
-No issues found
-
----
-
-[TestRun_LockfileWithExplicitParseAs/#01 - 1]
-Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
-No issues found
-
----
-
 [TestRun_LockfileWithExplicitParseAs/#01 - 1]
 Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
 No issues found
@@ -1375,22 +1388,6 @@ No issues found
 ---
 
 [TestRun_LockfileWithExplicitParseAs/#01 - 2]
-
----
-
-[TestRun_LockfileWithExplicitParseAs/#01 - 2]
-
----
-
-[TestRun_LockfileWithExplicitParseAs/#01 - 2]
-
----
-
-[TestRun_LockfileWithExplicitParseAs/#02 - 1]
-
----
-
-[TestRun_LockfileWithExplicitParseAs/#02 - 1]
 
 ---
 
@@ -1403,35 +1400,7 @@ open <rootdir>/path/to/my:file: no such file or directory
 
 ---
 
-[TestRun_LockfileWithExplicitParseAs/#02 - 2]
-open <rootdir>/path/to/my:file: no such file or directory
-
----
-
-[TestRun_LockfileWithExplicitParseAs/#02 - 2]
-open <rootdir>/path/to/my:file: no such file or directory
-
----
-
 [TestRun_LockfileWithExplicitParseAs/#03 - 1]
-
----
-
-[TestRun_LockfileWithExplicitParseAs/#03 - 1]
-
----
-
-[TestRun_LockfileWithExplicitParseAs/#03 - 1]
-
----
-
-[TestRun_LockfileWithExplicitParseAs/#03 - 2]
-open <rootdir>/path/to/my:project/package-lock.json: no such file or directory
-
----
-
-[TestRun_LockfileWithExplicitParseAs/#03 - 2]
-open <rootdir>/path/to/my:project/package-lock.json: no such file or directory
 
 ---
 
@@ -1450,23 +1419,6 @@ Scanned <rootdir>/fixtures/locks-insecure/composer.lock file and found 1 package
 | https://osv.dev/GHSA-9f46-5r25-5wfm | 9.8  | Packagist | league/flysystem | 1.0.8   | fixtures/locks-insecure/composer.lock        |
 | https://osv.dev/GHSA-whgm-jr23-g3j9 | 7.5  | npm       | ansi-html        | 0.0.1   | fixtures/locks-insecure/my-package-lock.json |
 +-------------------------------------+------+-----------+------------------+---------+----------------------------------------------+
-
----
-
-[TestRun_LockfileWithExplicitParseAs/#04 - 1]
-Scanned <rootdir>/fixtures/locks-insecure/my-package-lock.json file as a package-lock.json and found 1 package
-Scanning dir ./fixtures/locks-insecure
-Scanned <rootdir>/fixtures/locks-insecure/composer.lock file and found 1 package
-+-------------------------------------+------+-----------+------------------+---------+----------------------------------------------+
-| OSV URL                             | CVSS | ECOSYSTEM | PACKAGE          | VERSION | SOURCE                                       |
-+-------------------------------------+------+-----------+------------------+---------+----------------------------------------------+
-| https://osv.dev/GHSA-9f46-5r25-5wfm | 9.8  | Packagist | league/flysystem | 1.0.8   | fixtures/locks-insecure/composer.lock        |
-| https://osv.dev/GHSA-whgm-jr23-g3j9 | 7.5  | npm       | ansi-html        | 0.0.1   | fixtures/locks-insecure/my-package-lock.json |
-+-------------------------------------+------+-----------+------------------+---------+----------------------------------------------+
-
----
-
-[TestRun_LockfileWithExplicitParseAs/#04 - 2]
 
 ---
 
@@ -1489,25 +1441,6 @@ Scanned <rootdir>/fixtures/locks-insecure/composer.lock file and found 1 package
 
 ---
 
-[TestRun_LockfileWithExplicitParseAs/#05 - 1]
-Scanned <rootdir>/fixtures/locks-insecure/my-package-lock.json file as a package-lock.json and found 1 package
-Scanned <rootdir>/fixtures/locks-insecure/my-yarn.lock file as a yarn.lock and found 1 package
-Scanning dir ./fixtures/locks-insecure
-Scanned <rootdir>/fixtures/locks-insecure/composer.lock file and found 1 package
-+-------------------------------------+------+-----------+------------------+---------+----------------------------------------------+
-| OSV URL                             | CVSS | ECOSYSTEM | PACKAGE          | VERSION | SOURCE                                       |
-+-------------------------------------+------+-----------+------------------+---------+----------------------------------------------+
-| https://osv.dev/GHSA-9f46-5r25-5wfm | 9.8  | Packagist | league/flysystem | 1.0.8   | fixtures/locks-insecure/composer.lock        |
-| https://osv.dev/GHSA-whgm-jr23-g3j9 | 7.5  | npm       | ansi-html        | 0.0.1   | fixtures/locks-insecure/my-package-lock.json |
-| https://osv.dev/GHSA-whgm-jr23-g3j9 | 7.5  | npm       | ansi-html        | 0.0.1   | fixtures/locks-insecure/my-yarn.lock         |
-+-------------------------------------+------+-----------+------------------+---------+----------------------------------------------+
-
----
-
-[TestRun_LockfileWithExplicitParseAs/#05 - 2]
-
----
-
 [TestRun_LockfileWithExplicitParseAs/#05 - 2]
 
 ---
@@ -1527,49 +1460,7 @@ Scanned <rootdir>/fixtures/locks-insecure/composer.lock file and found 1 package
 
 ---
 
-[TestRun_LockfileWithExplicitParseAs/#06 - 1]
-Scanned <rootdir>/fixtures/locks-insecure/my-yarn.lock file as a yarn.lock and found 1 package
-Scanned <rootdir>/fixtures/locks-insecure/my-package-lock.json file as a package-lock.json and found 1 package
-Scanning dir ./fixtures/locks-insecure
-Scanned <rootdir>/fixtures/locks-insecure/composer.lock file and found 1 package
-+-------------------------------------+------+-----------+------------------+---------+----------------------------------------------+
-| OSV URL                             | CVSS | ECOSYSTEM | PACKAGE          | VERSION | SOURCE                                       |
-+-------------------------------------+------+-----------+------------------+---------+----------------------------------------------+
-| https://osv.dev/GHSA-9f46-5r25-5wfm | 9.8  | Packagist | league/flysystem | 1.0.8   | fixtures/locks-insecure/composer.lock        |
-| https://osv.dev/GHSA-whgm-jr23-g3j9 | 7.5  | npm       | ansi-html        | 0.0.1   | fixtures/locks-insecure/my-package-lock.json |
-| https://osv.dev/GHSA-whgm-jr23-g3j9 | 7.5  | npm       | ansi-html        | 0.0.1   | fixtures/locks-insecure/my-yarn.lock         |
-+-------------------------------------+------+-----------+------------------+---------+----------------------------------------------+
-
----
-
-[TestRun_LockfileWithExplicitParseAs/#06 - 1]
-Scanned <rootdir>/fixtures/locks-insecure/my-yarn.lock file as a yarn.lock and found 1 package
-Scanned <rootdir>/fixtures/locks-insecure/my-package-lock.json file as a package-lock.json and found 1 package
-Scanning dir ./fixtures/locks-insecure
-Scanned <rootdir>/fixtures/locks-insecure/composer.lock file and found 1 package
-+-------------------------------------+------+-----------+------------------+---------+----------------------------------------------+
-| OSV URL                             | CVSS | ECOSYSTEM | PACKAGE          | VERSION | SOURCE                                       |
-+-------------------------------------+------+-----------+------------------+---------+----------------------------------------------+
-| https://osv.dev/GHSA-9f46-5r25-5wfm | 9.8  | Packagist | league/flysystem | 1.0.8   | fixtures/locks-insecure/composer.lock        |
-| https://osv.dev/GHSA-whgm-jr23-g3j9 | 7.5  | npm       | ansi-html        | 0.0.1   | fixtures/locks-insecure/my-package-lock.json |
-| https://osv.dev/GHSA-whgm-jr23-g3j9 | 7.5  | npm       | ansi-html        | 0.0.1   | fixtures/locks-insecure/my-yarn.lock         |
-+-------------------------------------+------+-----------+------------------+---------+----------------------------------------------+
-
----
-
 [TestRun_LockfileWithExplicitParseAs/#06 - 2]
-
----
-
-[TestRun_LockfileWithExplicitParseAs/#06 - 2]
-
----
-
-[TestRun_LockfileWithExplicitParseAs/#06 - 2]
-
----
-
-[TestRun_LockfileWithExplicitParseAs/#07 - 1]
 
 ---
 
@@ -1582,21 +1473,7 @@ Scanned <rootdir>/fixtures/locks-insecure/composer.lock file and found 1 package
 
 ---
 
-[TestRun_LockfileWithExplicitParseAs/#07 - 2]
-(extracting as Cargo.lock) could not extract from <rootdir>/fixtures/locks-insecure/my-package-lock.json: toml: line 1: expected '.' or '=', but got '{' instead
-
----
-
 [TestRun_LockfileWithExplicitParseAs/#08 - 1]
-
----
-
-[TestRun_LockfileWithExplicitParseAs/#08 - 1]
-
----
-
-[TestRun_LockfileWithExplicitParseAs/#08 - 2]
-(extracting as package-lock.json) could not extract from <rootdir>/fixtures/locks-many/yarn.lock: invalid character '#' looking for beginning of value
 
 ---
 
@@ -1611,26 +1488,6 @@ No issues found
 
 ---
 
-[TestRun_LockfileWithExplicitParseAs/#09 - 1]
-Scanned <rootdir>/fixtures/locks-many/installed file as a apk-installed and found 1 package
-No issues found
-
----
-
-[TestRun_LockfileWithExplicitParseAs/#09 - 1]
-Scanned <rootdir>/fixtures/locks-many/installed file as a apk-installed and found 1 package
-No issues found
-
----
-
-[TestRun_LockfileWithExplicitParseAs/#09 - 2]
-
----
-
-[TestRun_LockfileWithExplicitParseAs/#09 - 2]
-
----
-
 [TestRun_LockfileWithExplicitParseAs/#09 - 2]
 
 ---
@@ -1638,26 +1495,6 @@ No issues found
 [TestRun_LockfileWithExplicitParseAs/#10 - 1]
 Scanned <rootdir>/fixtures/locks-many/status file as a dpkg-status and found 1 package
 No issues found
-
----
-
-[TestRun_LockfileWithExplicitParseAs/#10 - 1]
-Scanned <rootdir>/fixtures/locks-many/status file as a dpkg-status and found 1 package
-No issues found
-
----
-
-[TestRun_LockfileWithExplicitParseAs/#10 - 1]
-Scanned <rootdir>/fixtures/locks-many/status file as a dpkg-status and found 1 package
-No issues found
-
----
-
-[TestRun_LockfileWithExplicitParseAs/#10 - 2]
-
----
-
-[TestRun_LockfileWithExplicitParseAs/#10 - 2]
 
 ---
 
@@ -1672,44 +1509,69 @@ No issues found
 
 ---
 
-[TestRun_LockfileWithExplicitParseAs/one_lockfile_with_local_path - 1]
-Scanned <rootdir>/fixtures/locks-many/replace-local.mod file as a go.mod and found 1 package
-Filtered 1 local package/s from the scan.
+[TestRun_LockfileWithExplicitParseAs/one_lockfile_with_local_path - 2]
+
+---
+
+[TestRun_MavenTransitive/does_not_scan_transitive_dependencies_for_pom.xml_with_offline_mode - 1]
+Scanning dir ./fixtures/maven-transitive/pom.xml
+Scanned <rootdir>/fixtures/maven-transitive/pom.xml file and found 1 package
+Loaded Maven local db from <tempdir>/osv-scanner/Maven/all.zip
 No issues found
 
 ---
 
-[TestRun_LockfileWithExplicitParseAs/one_lockfile_with_local_path - 1]
-Scanned <rootdir>/fixtures/locks-many/replace-local.mod file as a go.mod and found 1 package
-Filtered 1 local package/s from the scan.
-No issues found
+[TestRun_MavenTransitive/does_not_scan_transitive_dependencies_for_pom.xml_with_offline_mode - 2]
 
 ---
 
-[TestRun_LockfileWithExplicitParseAs/one_lockfile_with_local_path - 2]
+[TestRun_MavenTransitive/scans_transitive_dependencies_by_specifying_pom.xml - 1]
+Scanned <rootdir>/fixtures/maven-transitive/abc.xml file as a pom.xml and found 3 packages
++-------------------------------------+------+-----------+-------------------------------------+---------+-----------------------------------+
+| OSV URL                             | CVSS | ECOSYSTEM | PACKAGE                             | VERSION | SOURCE                            |
++-------------------------------------+------+-----------+-------------------------------------+---------+-----------------------------------+
+| https://osv.dev/GHSA-7rjr-3q55-vv33 | 9.0  | Maven     | org.apache.logging.log4j:log4j-core | 2.14.1  | fixtures/maven-transitive/abc.xml |
+| https://osv.dev/GHSA-8489-44mv-ggj8 | 6.6  | Maven     | org.apache.logging.log4j:log4j-core | 2.14.1  | fixtures/maven-transitive/abc.xml |
+| https://osv.dev/GHSA-jfh8-c2jp-5v3q | 10.0 | Maven     | org.apache.logging.log4j:log4j-core | 2.14.1  | fixtures/maven-transitive/abc.xml |
+| https://osv.dev/GHSA-p6xc-xr62-6r2g | 8.6  | Maven     | org.apache.logging.log4j:log4j-core | 2.14.1  | fixtures/maven-transitive/abc.xml |
++-------------------------------------+------+-----------+-------------------------------------+---------+-----------------------------------+
 
 ---
 
-[TestRun_LockfileWithExplicitParseAs/one_lockfile_with_local_path - 2]
+[TestRun_MavenTransitive/scans_transitive_dependencies_by_specifying_pom.xml - 2]
 
 ---
 
-[TestRun_LockfileWithExplicitParseAs/one_lockfile_with_local_path - 2]
+[TestRun_MavenTransitive/scans_transitive_dependencies_for_pom.xml_by_default - 1]
+Scanning dir ./fixtures/maven-transitive/pom.xml
+Scanned <rootdir>/fixtures/maven-transitive/pom.xml file and found 3 packages
++-------------------------------------+------+-----------+-------------------------------------+---------+-----------------------------------+
+| OSV URL                             | CVSS | ECOSYSTEM | PACKAGE                             | VERSION | SOURCE                            |
++-------------------------------------+------+-----------+-------------------------------------+---------+-----------------------------------+
+| https://osv.dev/GHSA-7rjr-3q55-vv33 | 9.0  | Maven     | org.apache.logging.log4j:log4j-core | 2.14.1  | fixtures/maven-transitive/pom.xml |
+| https://osv.dev/GHSA-8489-44mv-ggj8 | 6.6  | Maven     | org.apache.logging.log4j:log4j-core | 2.14.1  | fixtures/maven-transitive/pom.xml |
+| https://osv.dev/GHSA-jfh8-c2jp-5v3q | 10.0 | Maven     | org.apache.logging.log4j:log4j-core | 2.14.1  | fixtures/maven-transitive/pom.xml |
+| https://osv.dev/GHSA-p6xc-xr62-6r2g | 8.6  | Maven     | org.apache.logging.log4j:log4j-core | 2.14.1  | fixtures/maven-transitive/pom.xml |
++-------------------------------------+------+-----------+-------------------------------------+---------+-----------------------------------+
 
 ---
 
-[TestRun_OCIImage/Alpine_3.10_image_tar - 1]
-Scanning image ./fixtures/oci-image/alpine-tester.tar
-+--------------------------------+------+-----------+---------+-----------+--------------------------------------------------------------+
-| OSV URL                        | CVSS | ECOSYSTEM | PACKAGE | VERSION   | SOURCE                                                       |
-+--------------------------------+------+-----------+---------+-----------+--------------------------------------------------------------+
-| https://osv.dev/CVE-2018-25032 | 7.5  | Alpine    | zlib    | 1.2.11-r1 | ./fixtures/oci-image/alpine-tester.tar:/lib/apk/db/installed |
-| https://osv.dev/CVE-2022-37434 | 9.8  | Alpine    | zlib    | 1.2.11-r1 | ./fixtures/oci-image/alpine-tester.tar:/lib/apk/db/installed |
-+--------------------------------+------+-----------+---------+-----------+--------------------------------------------------------------+
+[TestRun_MavenTransitive/scans_transitive_dependencies_for_pom.xml_by_default - 2]
 
 ---
 
-[TestRun_OCIImage/Alpine_3.10_image_tar - 2]
+[TestRun_OCIImage/Alpine_3.10_image_tar_with_3.18_version_file - 1]
+Scanning image ../../internal/image/fixtures/test-alpine.tar
++--------------------------------+------+--------------+---------+-----------+---------------------------------------------------------------------+
+| OSV URL                        | CVSS | ECOSYSTEM    | PACKAGE | VERSION   | SOURCE                                                              |
++--------------------------------+------+--------------+---------+-----------+---------------------------------------------------------------------+
+| https://osv.dev/CVE-2018-25032 | 7.5  | Alpine:v3.18 | zlib    | 1.2.11-r1 | ../../internal/image/fixtures/test-alpine.tar:/lib/apk/db/installed |
+| https://osv.dev/CVE-2022-37434 | 9.8  | Alpine:v3.18 | zlib    | 1.2.11-r1 | ../../internal/image/fixtures/test-alpine.tar:/lib/apk/db/installed |
++--------------------------------+------+--------------+---------+-----------+---------------------------------------------------------------------+
+
+---
+
+[TestRun_OCIImage/Alpine_3.10_image_tar_with_3.18_version_file - 2]
 
 ---
 
@@ -1720,6 +1582,105 @@ Scanning image ./fixtures/oci-image/no-file-here.tar
 
 [TestRun_OCIImage/Invalid_path - 2]
 failed to load image ./fixtures/oci-image/no-file-here.tar: open ./fixtures/oci-image/no-file-here.tar: no such file or directory
+
+---
+
+[TestRun_OCIImage/scanning_node_modules_using_npm_with_no_packages - 1]
+Scanning image ../../internal/image/fixtures/test-node_modules-npm-empty.tar
++--------------------------------+------+--------------+---------+------------+-------------------------------------------------------------------------------------+
+| OSV URL                        | CVSS | ECOSYSTEM    | PACKAGE | VERSION    | SOURCE                                                                              |
++--------------------------------+------+--------------+---------+------------+-------------------------------------------------------------------------------------+
+| https://osv.dev/CVE-2023-42363 | 5.5  | Alpine:v3.19 | busybox | 1.36.1-r15 | ../../internal/image/fixtures/test-node_modules-npm-empty.tar:/lib/apk/db/installed |
+| https://osv.dev/CVE-2023-42364 | 5.5  | Alpine:v3.19 | busybox | 1.36.1-r15 | ../../internal/image/fixtures/test-node_modules-npm-empty.tar:/lib/apk/db/installed |
+| https://osv.dev/CVE-2023-42365 | 5.5  | Alpine:v3.19 | busybox | 1.36.1-r15 | ../../internal/image/fixtures/test-node_modules-npm-empty.tar:/lib/apk/db/installed |
++--------------------------------+------+--------------+---------+------------+-------------------------------------------------------------------------------------+
+
+---
+
+[TestRun_OCIImage/scanning_node_modules_using_npm_with_no_packages - 2]
+
+---
+
+[TestRun_OCIImage/scanning_node_modules_using_npm_with_some_packages - 1]
+Scanning image ../../internal/image/fixtures/test-node_modules-npm-full.tar
++-------------------------------------+------+--------------+----------+------------+-------------------------------------------------------------------------------------------------------+
+| OSV URL                             | CVSS | ECOSYSTEM    | PACKAGE  | VERSION    | SOURCE                                                                                                |
++-------------------------------------+------+--------------+----------+------------+-------------------------------------------------------------------------------------------------------+
+| https://osv.dev/CVE-2023-42363      | 5.5  | Alpine:v3.19 | busybox  | 1.36.1-r15 | ../../internal/image/fixtures/test-node_modules-npm-full.tar:/lib/apk/db/installed                    |
+| https://osv.dev/CVE-2023-42364      | 5.5  | Alpine:v3.19 | busybox  | 1.36.1-r15 | ../../internal/image/fixtures/test-node_modules-npm-full.tar:/lib/apk/db/installed                    |
+| https://osv.dev/CVE-2023-42365      | 5.5  | Alpine:v3.19 | busybox  | 1.36.1-r15 | ../../internal/image/fixtures/test-node_modules-npm-full.tar:/lib/apk/db/installed                    |
+| https://osv.dev/GHSA-38f5-ghc2-fcmv | 9.8  | npm          | cryo     | 0.0.6      | ../../internal/image/fixtures/test-node_modules-npm-full.tar:/usr/app/node_modules/.package-lock.json |
+| https://osv.dev/GHSA-vh95-rmgr-6w4m | 5.6  | npm          | minimist | 0.0.8      | ../../internal/image/fixtures/test-node_modules-npm-full.tar:/usr/app/node_modules/.package-lock.json |
+| https://osv.dev/GHSA-xvch-5gv4-984h | 9.8  | npm          | minimist | 0.0.8      | ../../internal/image/fixtures/test-node_modules-npm-full.tar:/usr/app/node_modules/.package-lock.json |
++-------------------------------------+------+--------------+----------+------------+-------------------------------------------------------------------------------------------------------+
+
+---
+
+[TestRun_OCIImage/scanning_node_modules_using_npm_with_some_packages - 2]
+
+---
+
+[TestRun_OCIImage/scanning_node_modules_using_pnpm_with_no_packages - 1]
+Scanning image ../../internal/image/fixtures/test-node_modules-pnpm-empty.tar
++--------------------------------+------+--------------+---------+------------+--------------------------------------------------------------------------------------+
+| OSV URL                        | CVSS | ECOSYSTEM    | PACKAGE | VERSION    | SOURCE                                                                               |
++--------------------------------+------+--------------+---------+------------+--------------------------------------------------------------------------------------+
+| https://osv.dev/CVE-2023-42363 | 5.5  | Alpine:v3.19 | busybox | 1.36.1-r15 | ../../internal/image/fixtures/test-node_modules-pnpm-empty.tar:/lib/apk/db/installed |
+| https://osv.dev/CVE-2023-42364 | 5.5  | Alpine:v3.19 | busybox | 1.36.1-r15 | ../../internal/image/fixtures/test-node_modules-pnpm-empty.tar:/lib/apk/db/installed |
+| https://osv.dev/CVE-2023-42365 | 5.5  | Alpine:v3.19 | busybox | 1.36.1-r15 | ../../internal/image/fixtures/test-node_modules-pnpm-empty.tar:/lib/apk/db/installed |
++--------------------------------+------+--------------+---------+------------+--------------------------------------------------------------------------------------+
+
+---
+
+[TestRun_OCIImage/scanning_node_modules_using_pnpm_with_no_packages - 2]
+
+---
+
+[TestRun_OCIImage/scanning_node_modules_using_pnpm_with_some_packages - 1]
+Scanning image ../../internal/image/fixtures/test-node_modules-pnpm-full.tar
++--------------------------------+------+--------------+---------+------------+-------------------------------------------------------------------------------------+
+| OSV URL                        | CVSS | ECOSYSTEM    | PACKAGE | VERSION    | SOURCE                                                                              |
++--------------------------------+------+--------------+---------+------------+-------------------------------------------------------------------------------------+
+| https://osv.dev/CVE-2023-42363 | 5.5  | Alpine:v3.19 | busybox | 1.36.1-r15 | ../../internal/image/fixtures/test-node_modules-pnpm-full.tar:/lib/apk/db/installed |
+| https://osv.dev/CVE-2023-42364 | 5.5  | Alpine:v3.19 | busybox | 1.36.1-r15 | ../../internal/image/fixtures/test-node_modules-pnpm-full.tar:/lib/apk/db/installed |
+| https://osv.dev/CVE-2023-42365 | 5.5  | Alpine:v3.19 | busybox | 1.36.1-r15 | ../../internal/image/fixtures/test-node_modules-pnpm-full.tar:/lib/apk/db/installed |
++--------------------------------+------+--------------+---------+------------+-------------------------------------------------------------------------------------+
+
+---
+
+[TestRun_OCIImage/scanning_node_modules_using_pnpm_with_some_packages - 2]
+
+---
+
+[TestRun_OCIImage/scanning_node_modules_using_yarn_with_no_packages - 1]
+Scanning image ../../internal/image/fixtures/test-node_modules-yarn-empty.tar
++--------------------------------+------+--------------+---------+------------+--------------------------------------------------------------------------------------+
+| OSV URL                        | CVSS | ECOSYSTEM    | PACKAGE | VERSION    | SOURCE                                                                               |
++--------------------------------+------+--------------+---------+------------+--------------------------------------------------------------------------------------+
+| https://osv.dev/CVE-2023-42363 | 5.5  | Alpine:v3.19 | busybox | 1.36.1-r15 | ../../internal/image/fixtures/test-node_modules-yarn-empty.tar:/lib/apk/db/installed |
+| https://osv.dev/CVE-2023-42364 | 5.5  | Alpine:v3.19 | busybox | 1.36.1-r15 | ../../internal/image/fixtures/test-node_modules-yarn-empty.tar:/lib/apk/db/installed |
+| https://osv.dev/CVE-2023-42365 | 5.5  | Alpine:v3.19 | busybox | 1.36.1-r15 | ../../internal/image/fixtures/test-node_modules-yarn-empty.tar:/lib/apk/db/installed |
++--------------------------------+------+--------------+---------+------------+--------------------------------------------------------------------------------------+
+
+---
+
+[TestRun_OCIImage/scanning_node_modules_using_yarn_with_no_packages - 2]
+
+---
+
+[TestRun_OCIImage/scanning_node_modules_using_yarn_with_some_packages - 1]
+Scanning image ../../internal/image/fixtures/test-node_modules-yarn-full.tar
++--------------------------------+------+--------------+---------+------------+-------------------------------------------------------------------------------------+
+| OSV URL                        | CVSS | ECOSYSTEM    | PACKAGE | VERSION    | SOURCE                                                                              |
++--------------------------------+------+--------------+---------+------------+-------------------------------------------------------------------------------------+
+| https://osv.dev/CVE-2023-42363 | 5.5  | Alpine:v3.19 | busybox | 1.36.1-r15 | ../../internal/image/fixtures/test-node_modules-yarn-full.tar:/lib/apk/db/installed |
+| https://osv.dev/CVE-2023-42364 | 5.5  | Alpine:v3.19 | busybox | 1.36.1-r15 | ../../internal/image/fixtures/test-node_modules-yarn-full.tar:/lib/apk/db/installed |
+| https://osv.dev/CVE-2023-42365 | 5.5  | Alpine:v3.19 | busybox | 1.36.1-r15 | ../../internal/image/fixtures/test-node_modules-yarn-full.tar:/lib/apk/db/installed |
++--------------------------------+------+--------------+---------+------------+-------------------------------------------------------------------------------------+
+
+---
+
+[TestRun_OCIImage/scanning_node_modules_using_yarn_with_some_packages - 2]
 
 ---
 

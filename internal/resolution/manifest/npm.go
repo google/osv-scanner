@@ -15,6 +15,17 @@ import (
 	"github.com/tidwall/sjson"
 )
 
+func npmRequirementKey(requirement resolve.RequirementVersion) RequirementKey {
+	// Npm requirements are the uniquely identified by the key in the dependencies fields (which ends up being the path in node_modules)
+	// Declaring a dependency in multiple places (dependencies, devDependencies, optionalDependencies) only installs it once at one version.
+	// Aliases & non-registry dependencies are keyed on their 'KnownAs' attribute.
+	knownAs, _ := requirement.Type.GetAttr(dep.KnownAs)
+	return RequirementKey{
+		PackageKey:        requirement.PackageKey,
+		EcosystemSpecific: knownAs,
+	}
+}
+
 type NpmManifestIO struct{}
 
 type PackageJSON struct {
@@ -22,13 +33,13 @@ type PackageJSON struct {
 	Version string `json:"version"`
 	// TODO: yarn allows workspaces to be a object OR a list:
 	// https://classic.yarnpkg.com/blog/2018/02/15/nohoist/
-	Workspaces      []string          `json:"workspaces"`
-	Dependencies    map[string]string `json:"dependencies"`
-	DevDependencies map[string]string `json:"devDependencies"`
+	Workspaces           []string          `json:"workspaces"`
+	Dependencies         map[string]string `json:"dependencies"`
+	DevDependencies      map[string]string `json:"devDependencies"`
+	OptionalDependencies map[string]string `json:"optionalDependencies"`
 
 	// These fields are currently only used when parsing package-lock.json
-	OptionalDependencies map[string]string `json:"optionalDependencies"`
-	PeerDependencies     map[string]string `json:"peerDependencies"`
+	PeerDependencies map[string]string `json:"peerDependencies"`
 	// BundleDependencies   []string          `json:"bundleDependencies"`
 }
 
@@ -79,50 +90,76 @@ func (rw NpmManifestIO) Read(f lockfile.DepFile) (Manifest, error) {
 		}
 		manif.LocalManifests = append(manif.LocalManifests, m)
 		workspaceNames[m.Root.Name] = struct{}{}
-		// TODO: Workspaces can potentially have name collisions with real packages
-		// The OverrideClient will always pick the local manifest, even in indirect dependencies.
-		// These workspace names probably need some unique identifier assigned to them...
-		// (what does npm actually do in this situation?)
+	}
+
+	isWorkspace := func(req resolve.RequirementVersion) bool {
+		if req.Type.HasAttr(dep.KnownAs) {
+			// "alias": "npm:pkg@*" seems to always take the real 'pkg',
+			// even if there's a workspace with the same name.
+			return false
+		}
+		_, ok := workspaceNames[req.Name]
+
+		return ok
 	}
 
 	workspaceReqVers := make(map[resolve.PackageKey]resolve.RequirementVersion)
 
+	// empirically, the dev version takes precedence over optional, which takes precedence over regular, if they conflict.
 	for pkg, ver := range packagejson.Dependencies {
-		dep := rw.makeNPMReqVer(pkg, ver)
-		if _, ok := workspaceNames[pkg]; ok {
+		req := rw.makeNPMReqVer(pkg, ver)
+		if isWorkspace(req) {
 			// workspaces seem to always be evaluated separately
-			workspaceReqVers[dep.PackageKey] = dep
+			workspaceReqVers[req.PackageKey] = req
 			continue
 		}
-		manif.Requirements = append(manif.Requirements, dep)
+		manif.Requirements = append(manif.Requirements, req)
+	}
+
+	for pkg, ver := range packagejson.OptionalDependencies {
+		req := rw.makeNPMReqVer(pkg, ver)
+		req.Type.AddAttr(dep.Opt, "")
+		if isWorkspace(req) {
+			// workspaces seem to always be evaluated separately
+			workspaceReqVers[req.PackageKey] = req
+			continue
+		}
+		idx := slices.IndexFunc(manif.Requirements, func(imp resolve.RequirementVersion) bool {
+			return imp.PackageKey == req.PackageKey
+		})
+		if idx != -1 {
+			manif.Requirements[idx] = req
+		} else {
+			manif.Requirements = append(manif.Requirements, req)
+		}
+		manif.Groups[npmRequirementKey(req)] = []string{"optional"}
 	}
 
 	for pkg, ver := range packagejson.DevDependencies {
-		dep := rw.makeNPMReqVer(pkg, ver)
-		if _, ok := workspaceNames[pkg]; ok {
+		req := rw.makeNPMReqVer(pkg, ver)
+		if isWorkspace(req) {
 			// workspaces seem to always be evaluated separately
-			workspaceReqVers[dep.PackageKey] = dep
+			workspaceReqVers[req.PackageKey] = req
 			continue
 		}
-		if idx := slices.IndexFunc(manif.Requirements, func(imp resolve.RequirementVersion) bool {
-			return imp.PackageKey == dep.PackageKey
-		}); idx != -1 {
+		idx := slices.IndexFunc(manif.Requirements, func(imp resolve.RequirementVersion) bool {
+			return imp.PackageKey == req.PackageKey
+		})
+		if idx != -1 {
 			// In newer versions of npm, having a package in both the `dependencies` and `devDependencies`
 			// makes it treated as ONLY a devDependency (using the devDependency version)
 			// npm v6 and below seems to do the opposite and there's no easy way of seeing the npm version :/
-			manif.Requirements[idx] = dep
+			manif.Requirements[idx] = req
 		} else {
-			manif.Requirements = append(manif.Requirements, dep)
+			manif.Requirements = append(manif.Requirements, req)
 		}
-		manif.Groups[dep.PackageKey] = []string{"dev"}
+		manif.Groups[npmRequirementKey(req)] = []string{"dev"}
 	}
 
-	slices.SortFunc(manif.Requirements, func(a, b resolve.RequirementVersion) int {
-		return a.VersionKey.Compare(b.VersionKey)
-	})
+	resolve.SortDependencies(manif.Requirements)
 
 	// resolve workspaces after regular requirements
-	for _, m := range manif.LocalManifests {
+	for i, m := range manif.LocalManifests {
 		imp, ok := workspaceReqVers[m.Root.PackageKey]
 		if !ok { // The workspace isn't directly used by the root package, add it as a 'requirement' anyway so it's resolved
 			imp = resolve.RequirementVersion{
@@ -134,7 +171,22 @@ func (rw NpmManifestIO) Read(f lockfile.DepFile) (Manifest, error) {
 				},
 			}
 		}
+		// Add an extra identifier to the workspace package names so name collisions don't overwrite indirect dependencies
+		imp.Name += ":workspace"
+		manif.LocalManifests[i].Root.Name = imp.Name
 		manif.Requirements = append(manif.Requirements, imp)
+		// replace the workspace's sibling requirements
+		for j, req := range m.Requirements {
+			if isWorkspace(req) {
+				manif.LocalManifests[i].Requirements[j].Name = req.Name + ":workspace"
+				reqKey := npmRequirementKey(req)
+				if g, ok := m.Groups[reqKey]; ok {
+					newKey := npmRequirementKey(manif.LocalManifests[i].Requirements[j])
+					manif.LocalManifests[i].Groups[newKey] = g
+					delete(manif.LocalManifests[i].Groups, reqKey)
+				}
+			}
+		}
 	}
 
 	return manif, nil
@@ -200,15 +252,31 @@ func (NpmManifestIO) Write(r lockfile.DepFile, w io.Writer, patch ManifestPatch)
 			newVer = fmt.Sprintf("npm:%s@%s", name, newVer)
 			name = knownAs
 		}
-		// Don't currently know whether a package is a dependency or devDependency, check both.
+		// Don't know what kind of dependency this is, so check them all.
+		// Check them in dev -> optional -> prod because that's the order npm seems to use when they conflict.
 		// Check devDependency first because npm>=7 uses only the devDependency if it exists in both.
+		alreadyMatched := false
 		depStr := "devDependencies." + name
-		matchedDev := false
 		if res := gjson.Get(manif, depStr); res.Exists() {
 			if res.Str != origVer {
-				panic("Original dependency does not match package.json")
+				panic("original dependency version does not match what is in package.json")
 			}
-			matchedDev = true
+			alreadyMatched = true
+			manif, err = sjson.Set(manif, depStr, newVer)
+			if err != nil {
+				return err
+			}
+		}
+
+		depStr = "optionalDependencies." + name
+		if res := gjson.Get(manif, depStr); res.Exists() {
+			if res.Str != origVer {
+				if alreadyMatched {
+					continue
+				}
+				panic("original dependency version does not match what is in package.json")
+			}
+			alreadyMatched = true
 			manif, err = sjson.Set(manif, depStr, newVer)
 			if err != nil {
 				return err
@@ -218,12 +286,10 @@ func (NpmManifestIO) Write(r lockfile.DepFile, w io.Writer, patch ManifestPatch)
 		depStr = "dependencies." + name
 		if res := gjson.Get(manif, depStr); res.Exists() {
 			if res.Str != origVer {
-				if matchedDev {
-					// devDependency was fine, but not the non-dev dependency had a different original version.
-					// Ignore the problem - npm>=7 doesn't use the non-dev version anyway.
+				if alreadyMatched {
 					continue
 				}
-				panic("Original dependency does not match package.json")
+				panic("original dependency version does not match what is in package.json")
 			}
 			manif, err = sjson.Set(manif, depStr, newVer)
 			if err != nil {

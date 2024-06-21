@@ -3,7 +3,8 @@ package image
 import (
 	"errors"
 	"fmt"
-	"io"
+	"os"
+	"path"
 	"sort"
 
 	"github.com/google/osv-scanner/pkg/lockfile"
@@ -12,38 +13,64 @@ import (
 // artifactExtractors contains only extractors for artifacts that are important in
 // the final layer of a container image
 var artifactExtractors map[string]lockfile.Extractor = map[string]lockfile.Extractor{
+	"node_modules":  lockfile.NodeModulesExtractor{},
 	"apk-installed": lockfile.ApkInstalledExtractor{},
 	"dpkg":          lockfile.DpkgStatusExtractor{},
+	"go-binary":     lockfile.GoBinaryExtractor{},
 }
 
-func findArtifactExtractor(path string) (lockfile.Extractor, string) {
+type extractorPair struct {
+	extractor lockfile.Extractor
+	name      string
+}
+
+func findArtifactExtractor(path string) []extractorPair {
+	// Use ShouldExtract to collect and return a slice of artifactExtractors
+	var extractors []extractorPair
 	for name, extractor := range artifactExtractors {
 		if extractor.ShouldExtract(path) {
-			return extractor, name
+			extractors = append(extractors, extractorPair{extractor, name})
 		}
 	}
 
-	return nil, ""
+	return extractors
 }
 
 func extractArtifactDeps(path string, img *Image) (lockfile.Lockfile, error) {
-	extractor, extractedAs := findArtifactExtractor(path)
-
-	if extractor == nil {
+	foundExtractors := findArtifactExtractor(path)
+	if len(foundExtractors) == 0 {
 		return lockfile.Lockfile{}, fmt.Errorf("%w for %s", lockfile.ErrExtractorNotFound, path)
 	}
 
-	f, err := OpenImageFile(path, img)
-	if err != nil {
-		return lockfile.Lockfile{}, fmt.Errorf("attempted to open file but failed: %w", err)
+	packages := []lockfile.PackageDetails{}
+	var extractedAs string
+	for _, extPair := range foundExtractors {
+		// File has to be reopened per extractor as each extractor moves the read cursor
+		f, err := OpenLayerFile(path, img.LastLayer())
+		if err != nil {
+			return lockfile.Lockfile{}, fmt.Errorf("attempted to open file but failed: %w", err)
+		}
+
+		newPackages, err := extPair.extractor.Extract(f)
+		f.Close()
+
+		if err != nil {
+			if errors.Is(lockfile.ErrIncompatibleFileFormat, err) {
+				continue
+			}
+
+			return lockfile.Lockfile{}, fmt.Errorf("(extracting as %s) %w", extPair.name, err)
+		}
+
+		extractedAs = extPair.name
+		packages = newPackages
+		// TODO(rexpan): Determine if this it's acceptable to have multiple extractors
+		// extract from the same file successfully
+		break
 	}
 
-	defer f.Close()
-
-	packages, err := extractor.Extract(f)
-	if err != nil && extractedAs != "" {
-		err = fmt.Errorf("(extracting as %s) %w", extractedAs, err)
-		return lockfile.Lockfile{}, fmt.Errorf("failed to close file: %w", err)
+	if extractedAs == "" {
+		return lockfile.Lockfile{}, fmt.Errorf("%w for %s", lockfile.ErrExtractorNotFound, path)
 	}
 
 	// Sort to have deterministic output, and to match behavior of lockfile.extractDeps
@@ -56,38 +83,45 @@ func extractArtifactDeps(path string, img *Image) (lockfile.Lockfile, error) {
 	})
 
 	return lockfile.Lockfile{
-		FilePath: f.Path(),
+		FilePath: path,
 		ParsedAs: extractedAs,
 		Packages: packages,
-	}, err
+	}, nil
 }
 
 // A ImageFile represents a file that exists in an image
 type ImageFile struct {
-	io.ReadCloser
+	*os.File
 
-	path string
+	layer fileMap
+	path  string
 }
 
-func (f ImageFile) Open(path string) (lockfile.NestedDepFile, error) {
-	// TODO: Implement this after interface change has been performed.
-	return nil, errors.New("not implemented")
+func (f ImageFile) Open(openPath string) (lockfile.NestedDepFile, error) {
+	// use path instead of filepath, because container is always in Unix paths (for now)
+	if path.IsAbs(openPath) {
+		return OpenLayerFile(openPath, f.layer)
+	} else {
+		absPath := path.Join(f.path, openPath)
+		return OpenLayerFile(absPath, f.layer)
+	}
 }
 
 func (f ImageFile) Path() string {
 	return f.path
 }
 
-func OpenImageFile(path string, img *Image) (ImageFile, error) {
-	readCloser, err := img.LastLayer().OpenFile(path)
+func OpenLayerFile(path string, layer fileMap) (ImageFile, error) {
+	readCloser, err := layer.OpenFile(path)
 
 	if err != nil {
 		return ImageFile{}, err
 	}
 
 	return ImageFile{
-		ReadCloser: readCloser,
-		path:       path,
+		File:  readCloser,
+		path:  path,
+		layer: layer,
 	}, nil
 }
 

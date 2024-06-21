@@ -182,50 +182,18 @@
         <property name="syft:location:0:path">/bin/busybox</property>
       </properties>
     </component>
-    <component bom-ref="pkg:apk/alpine/busybox@1.35.0-r29?arch=x86_64&amp;upstream=busybox&amp;distro=alpine-3.17.2&amp;package-id=623d53216342d45e" type="library">
-      <publisher>Sören Tempel &lt;soeren+alpine@soeren-tempel.net&gt;</publisher>
-      <name>busybox</name>
-      <version>1.35.0-r29</version>
-      <description>Size optimized toolbox of many common UNIX utilities</description>
-      <licenses>
-        <license>
-          <id>GPL-2.0-only</id>
-        </license>
-      </licenses>
-      <cpe>cpe:2.3:a:busybox:busybox:1.35.0-r29:*:*:*:*:*:*:*</cpe>
-      <purl>pkg:apk/alpine/busybox@1.35.0-r29?arch=x86_64&amp;upstream=busybox&amp;distro=alpine-3.17.2</purl>
-      <externalReferences>
-        <reference type="distribution">
-          <url>https://busybox.net/</url>
-        </reference>
-      </externalReferences>
-      <properties>
-        <property name="syft:package:foundBy">apkdb-cataloger</property>
-        <property name="syft:package:metadataType">ApkMetadata</property>
-        <property name="syft:package:type">apk</property>
-        <property name="syft:location:0:layerID">sha256:7cd52847ad775a5ddc4b58326cf884beee34544296402c6292ed76474c686d39</property>
-        <property name="syft:location:0:path">/lib/apk/db/installed</property>
-        <property name="syft:metadata:gitCommitOfApkPort">1dbf7a793afae640ea643a055b6dd4f430ac116b</property>
-        <property name="syft:metadata:installedSize">962560</property>
-        <property name="syft:metadata:originPackage">busybox</property>
-        <property name="syft:metadata:provides:0">cmd:busybox=1.35.0-r29</property>
-        <property name="syft:metadata:pullChecksum">Q1NN3sp0yr99btRysqty3nQUrWHaY=</property>
-        <property name="syft:metadata:pullDependencies:0">so:libc.musl-x86_64.so.1</property>
-        <property name="syft:metadata:size">509600</property>
-      </properties>
-    </component>
-    <component bom-ref="pkg:apk/alpine/busybox-binsh@1.35.0-r29?arch=x86_64&amp;upstream=busybox&amp;distro=alpine-3.17.2&amp;package-id=256fc96b4a8c4da8" type="library">
+    <component bom-ref="pkg:apk/alpine/busybox-binsh@1.36.1-r27?arch=x86_64&amp;upstream=busybox&amp;distro=alpine-3.17.2&amp;package-id=256fc96b4a8c4da8" type="library">
       <publisher>Sören Tempel &lt;soeren+alpine@soeren-tempel.net&gt;</publisher>
       <name>busybox-binsh</name>
-      <version>1.35.0-r29</version>
+      <version>1.36.1-r27</version>
       <description>busybox ash /bin/sh</description>
       <licenses>
         <license>
           <id>GPL-2.0-only</id>
         </license>
       </licenses>
-      <cpe>cpe:2.3:a:busybox-binsh:busybox-binsh:1.35.0-r29:*:*:*:*:*:*:*</cpe>
-      <purl>pkg:apk/alpine/busybox-binsh@1.35.0-r29?arch=x86_64&amp;upstream=busybox&amp;distro=alpine-3.17.2</purl>
+      <cpe>cpe:2.3:a:busybox-binsh:busybox-binsh:1.36.1-r27:*:*:*:*:*:*:*</cpe>
+      <purl>pkg:apk/alpine/busybox-binsh@1.36.1-r27?arch=x86_64&amp;upstream=busybox&amp;distro=alpine-3.17.2</purl>
       <externalReferences>
         <reference type="distribution">
           <url>https://busybox.net/</url>
@@ -235,20 +203,20 @@
         <property name="syft:package:foundBy">apkdb-cataloger</property>
         <property name="syft:package:metadataType">ApkMetadata</property>
         <property name="syft:package:type">apk</property>
-        <property name="syft:cpe23">cpe:2.3:a:busybox-binsh:busybox_binsh:1.35.0-r29:*:*:*:*:*:*:*</property>
-        <property name="syft:cpe23">cpe:2.3:a:busybox_binsh:busybox-binsh:1.35.0-r29:*:*:*:*:*:*:*</property>
-        <property name="syft:cpe23">cpe:2.3:a:busybox_binsh:busybox_binsh:1.35.0-r29:*:*:*:*:*:*:*</property>
-        <property name="syft:cpe23">cpe:2.3:a:busybox:busybox-binsh:1.35.0-r29:*:*:*:*:*:*:*</property>
-        <property name="syft:cpe23">cpe:2.3:a:busybox:busybox_binsh:1.35.0-r29:*:*:*:*:*:*:*</property>
+        <property name="syft:cpe23">cpe:2.3:a:busybox-binsh:busybox_binsh:1.36.1-r27:*:*:*:*:*:*:*</property>
+        <property name="syft:cpe23">cpe:2.3:a:busybox_binsh:busybox-binsh:1.36.1-r27:*:*:*:*:*:*:*</property>
+        <property name="syft:cpe23">cpe:2.3:a:busybox_binsh:busybox_binsh:1.36.1-r27:*:*:*:*:*:*:*</property>
+        <property name="syft:cpe23">cpe:2.3:a:busybox:busybox-binsh:1.36.1-r27:*:*:*:*:*:*:*</property>
+        <property name="syft:cpe23">cpe:2.3:a:busybox:busybox_binsh:1.36.1-r27:*:*:*:*:*:*:*</property>
         <property name="syft:location:0:layerID">sha256:7cd52847ad775a5ddc4b58326cf884beee34544296402c6292ed76474c686d39</property>
         <property name="syft:location:0:path">/lib/apk/db/installed</property>
         <property name="syft:metadata:gitCommitOfApkPort">1dbf7a793afae640ea643a055b6dd4f430ac116b</property>
         <property name="syft:metadata:installedSize">8192</property>
         <property name="syft:metadata:originPackage">busybox</property>
         <property name="syft:metadata:provides:0">/bin/sh</property>
-        <property name="syft:metadata:provides:1">cmd:sh=1.35.0-r29</property>
+        <property name="syft:metadata:provides:1">cmd:sh=1.36.1-r27</property>
         <property name="syft:metadata:pullChecksum">Q1miWwyhWKXVEiRYLhmArV1TKMs6A=</property>
-        <property name="syft:metadata:pullDependencies:0">busybox=1.35.0-r29</property>
+        <property name="syft:metadata:pullDependencies:0">busybox=1.36.1-r27</property>
         <property name="syft:metadata:size">1547</property>
       </properties>
     </component>
@@ -510,18 +478,18 @@
         <property name="syft:metadata:size">37687</property>
       </properties>
     </component>
-    <component bom-ref="pkg:apk/alpine/ssl_client@1.35.0-r29?arch=x86_64&amp;upstream=busybox&amp;distro=alpine-3.17.2&amp;package-id=b15247aafcd4a647" type="library">
+    <component bom-ref="pkg:apk/alpine/ssl_client@1.36.1-r27?arch=x86_64&amp;upstream=busybox&amp;distro=alpine-3.17.2&amp;package-id=b15247aafcd4a647" type="library">
       <publisher>Sören Tempel &lt;soeren+alpine@soeren-tempel.net&gt;</publisher>
       <name>ssl_client</name>
-      <version>1.35.0-r29</version>
+      <version>1.36.1-r27</version>
       <description>EXternal ssl_client for busybox wget</description>
       <licenses>
         <license>
           <id>GPL-2.0-only</id>
         </license>
       </licenses>
-      <cpe>cpe:2.3:a:ssl-client:ssl-client:1.35.0-r29:*:*:*:*:*:*:*</cpe>
-      <purl>pkg:apk/alpine/ssl_client@1.35.0-r29?arch=x86_64&amp;upstream=busybox&amp;distro=alpine-3.17.2</purl>
+      <cpe>cpe:2.3:a:ssl-client:ssl-client:1.36.1-r27:*:*:*:*:*:*:*</cpe>
+      <purl>pkg:apk/alpine/ssl_client@1.36.1-r27?arch=x86_64&amp;upstream=busybox&amp;distro=alpine-3.17.2</purl>
       <externalReferences>
         <reference type="distribution">
           <url>https://busybox.net/</url>
@@ -531,17 +499,17 @@
         <property name="syft:package:foundBy">apkdb-cataloger</property>
         <property name="syft:package:metadataType">ApkMetadata</property>
         <property name="syft:package:type">apk</property>
-        <property name="syft:cpe23">cpe:2.3:a:ssl-client:ssl_client:1.35.0-r29:*:*:*:*:*:*:*</property>
-        <property name="syft:cpe23">cpe:2.3:a:ssl_client:ssl-client:1.35.0-r29:*:*:*:*:*:*:*</property>
-        <property name="syft:cpe23">cpe:2.3:a:ssl_client:ssl_client:1.35.0-r29:*:*:*:*:*:*:*</property>
-        <property name="syft:cpe23">cpe:2.3:a:ssl:ssl-client:1.35.0-r29:*:*:*:*:*:*:*</property>
-        <property name="syft:cpe23">cpe:2.3:a:ssl:ssl_client:1.35.0-r29:*:*:*:*:*:*:*</property>
+        <property name="syft:cpe23">cpe:2.3:a:ssl-client:ssl_client:1.36.1-r27:*:*:*:*:*:*:*</property>
+        <property name="syft:cpe23">cpe:2.3:a:ssl_client:ssl-client:1.36.1-r27:*:*:*:*:*:*:*</property>
+        <property name="syft:cpe23">cpe:2.3:a:ssl_client:ssl_client:1.36.1-r27:*:*:*:*:*:*:*</property>
+        <property name="syft:cpe23">cpe:2.3:a:ssl:ssl-client:1.36.1-r27:*:*:*:*:*:*:*</property>
+        <property name="syft:cpe23">cpe:2.3:a:ssl:ssl_client:1.36.1-r27:*:*:*:*:*:*:*</property>
         <property name="syft:location:0:layerID">sha256:7cd52847ad775a5ddc4b58326cf884beee34544296402c6292ed76474c686d39</property>
         <property name="syft:location:0:path">/lib/apk/db/installed</property>
         <property name="syft:metadata:gitCommitOfApkPort">1dbf7a793afae640ea643a055b6dd4f430ac116b</property>
         <property name="syft:metadata:installedSize">28672</property>
         <property name="syft:metadata:originPackage">busybox</property>
-        <property name="syft:metadata:provides:0">cmd:ssl_client=1.35.0-r29</property>
+        <property name="syft:metadata:provides:0">cmd:ssl_client=1.36.1-r27</property>
         <property name="syft:metadata:pullChecksum">Q1QuqZjeP6XG85I29tOiCWofL8Cj0=</property>
         <property name="syft:metadata:pullDependencies:0">so:libc.musl-x86_64.so.1</property>
         <property name="syft:metadata:pullDependencies:1">so:libcrypto.so.3</property>

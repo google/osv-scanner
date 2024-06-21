@@ -3,8 +3,6 @@ package output
 import (
 	"fmt"
 	"io"
-	"log"
-	"os"
 	"path/filepath"
 	"strings"
 
@@ -23,7 +21,7 @@ func createSourceRemediationTable(source models.PackageSource, groupFixedVersion
 
 			vulnIDs := []string{}
 			for _, id := range group.IDs {
-				vulnIDs = append(vulnIDs, fmt.Sprintf("https://osv.dev/%s", id))
+				vulnIDs = append(vulnIDs, "https://osv.dev/"+id)
 			}
 			remediationTable.AppendRow(table.Row{
 				pv.Package.Name,
@@ -43,10 +41,7 @@ func PrintGHAnnotationReport(vulnResult *models.VulnerabilityResults, outputWrit
 
 	// TODO: Also support last affected
 	groupFixedVersions := GroupFixedVersions(flattened)
-	workingDir, err := os.Getwd()
-	if err != nil {
-		log.Panicf("can't get working dir: %v", err)
-	}
+	workingDir := mustGetWorkingDirectory()
 
 	for _, source := range vulnResult.Results {
 		// TODO: Support docker images

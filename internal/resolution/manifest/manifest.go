@@ -15,17 +15,17 @@ import (
 )
 
 type Manifest struct {
-	FilePath          string                          // Path to the manifest file on disk
-	Root              resolve.Version                 // Version representing this package
-	Requirements      []resolve.RequirementVersion    // All direct requirements, including dev
-	Groups            map[resolve.PackageKey][]string // Dependency groups that the imports belong to
-	LocalManifests    []Manifest                      // manifests of local packages
-	EcosystemSpecific any                             // Any ecosystem-specific information needed
+	FilePath          string                       // Path to the manifest file on disk
+	Root              resolve.Version              // Version representing this package
+	Requirements      []resolve.RequirementVersion // All direct requirements, including dev
+	Groups            map[RequirementKey][]string  // Dependency groups that the imports belong to
+	LocalManifests    []Manifest                   // manifests of local packages
+	EcosystemSpecific any                          // Any ecosystem-specific information needed
 }
 
 func newManifest() Manifest {
 	return Manifest{
-		Groups: make(map[resolve.PackageKey][]string),
+		Groups: make(map[RequirementKey][]string),
 	}
 }
 
@@ -93,9 +93,31 @@ func Overwrite(rw ManifestIO, filename string, p ManifestPatch) error {
 func GetManifestIO(pathToManifest string) (ManifestIO, error) {
 	base := filepath.Base(pathToManifest)
 	switch {
+	case base == "pom.xml":
+		return NewMavenManifestIO(), nil
 	case base == "package.json":
 		return NpmManifestIO{}, nil
 	default:
 		return nil, fmt.Errorf("unsupported manifest type: %s", base)
+	}
+}
+
+// A RequirementKey is a comparable type that uniquely identifies a package dependency in a manifest.
+// It does not include the version specification.
+type RequirementKey struct {
+	resolve.PackageKey
+	EcosystemSpecific any
+}
+
+func MakeRequirementKey(requirement resolve.RequirementVersion) RequirementKey {
+	switch requirement.System {
+	case resolve.NPM:
+		return npmRequirementKey(requirement)
+	case resolve.Maven:
+		return mavenRequirementKey(requirement)
+	case resolve.UnknownSystem:
+		fallthrough
+	default:
+		return RequirementKey{PackageKey: requirement.PackageKey}
 	}
 }

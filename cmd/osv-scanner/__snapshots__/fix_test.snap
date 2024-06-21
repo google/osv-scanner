@@ -1,5 +1,22 @@
 
 [TestRun_Fix/fix_non-interactive_in-place_package-lock.json - 1]
+Scanning <tempdir>/package-lock.json...
+Found 7 vulnerabilities matching the filter
+Can fix 2/7 matching vulnerabilities by changing 2 dependencies
+UPGRADED-PACKAGE: concat-stream,1.5.0,1.6.1
+UPGRADED-PACKAGE: hosted-git-info,2.1.4,2.8.9
+REMAINING-VULNS: 5
+UNFIXABLE-VULNS: 5
+Rewriting <tempdir>/package-lock.json...
+
+---
+
+[TestRun_Fix/fix_non-interactive_in-place_package-lock.json - 2]
+Warning: `fix` exists as both a subcommand of OSV-Scanner and as a file on the filesystem. `fix` is assumed to be a subcommand here. If you intended for `fix` to be an argument to `fix`, you must specify `fix fix` in your command line.
+
+---
+
+[TestRun_Fix/fix_non-interactive_in-place_package-lock.json - 3]
 {
   "name": "osv-fix",
   "version": "1.0.0",
@@ -148,7 +165,9 @@
       "version": "1.6.1",
       "resolved": "https://registry.npmjs.org/concat-stream/-/concat-stream-1.6.1.tgz",
       "integrity": "sha512-gslSSJx03QKa59cIKqeJO9HQ/WZMotvYJCuaUULrLpjj8oG40kV2Z+gz82pVxlTkOADi4PJxQPPfhl1ELYrrXw==",
-      "engines": ["node >= 0.8"],
+      "engines": [
+        "node >= 0.8"
+      ],
       "dependencies": {
         "inherits": "^2.0.3",
         "typedarray": "^0.0.6",
@@ -1724,6 +1743,22 @@
 ---
 
 [TestRun_Fix/fix_non-interactive_relock_package.json - 1]
+Resolving <tempdir>/package.json...
+Found 5 vulnerabilities matching the filter
+Can fix 3/5 matching vulnerabilities by changing 1 dependencies
+UPGRADED-PACKAGE: npm-registry-client,6.2.0,^7.5.0
+REMAINING-VULNS: 2
+UNFIXABLE-VULNS: 2
+Rewriting <tempdir>/package.json...
+
+---
+
+[TestRun_Fix/fix_non-interactive_relock_package.json - 2]
+Warning: `fix` exists as both a subcommand of OSV-Scanner and as a file on the filesystem. `fix` is assumed to be a subcommand here. If you intended for `fix` to be an argument to `fix`, you must specify `fix fix` in your command line.
+
+---
+
+[TestRun_Fix/fix_non-interactive_relock_package.json - 3]
 {
   "name": "osv-fix",
   "version": "1.0.0",

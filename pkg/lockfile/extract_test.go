@@ -2,7 +2,6 @@ package lockfile_test
 
 import (
 	"errors"
-	"fmt"
 	"io"
 	"strings"
 	"testing"
@@ -17,7 +16,7 @@ type TestDepFile struct {
 }
 
 func (f TestDepFile) Open(_ string) (lockfile.NestedDepFile, error) {
-	return TestDepFile{}, fmt.Errorf("file opening is not supported")
+	return TestDepFile{}, errors.New("file opening is not supported")
 }
 
 func (f TestDepFile) Path() string { return f.path }
@@ -34,24 +33,25 @@ func TestFindExtractor(t *testing.T) {
 	t.Parallel()
 
 	lockfiles := map[string]string{
-		"buildscript-gradle.lockfile": "gradle.lockfile",
-		"Cargo.lock":                  "Cargo.lock",
-		"composer.lock":               "composer.lock",
-		"Gemfile.lock":                "Gemfile.lock",
-		"go.mod":                      "go.mod",
-		"gradle.lockfile":             "gradle.lockfile",
-		"mix.lock":                    "mix.lock",
-		"pdm.lock":                    "pdm.lock",
-		"Pipfile.lock":                "Pipfile.lock",
-		"package-lock.json":           "package-lock.json",
-		"packages.lock.json":          "packages.lock.json",
-		"pnpm-lock.yaml":              "pnpm-lock.yaml",
-		"poetry.lock":                 "poetry.lock",
-		"pom.xml":                     "pom.xml",
-		"pubspec.lock":                "pubspec.lock",
-		"renv.lock":                   "renv.lock",
-		"requirements.txt":            "requirements.txt",
-		"yarn.lock":                   "yarn.lock",
+		"buildscript-gradle.lockfile":      "gradle.lockfile",
+		"Cargo.lock":                       "Cargo.lock",
+		"composer.lock":                    "composer.lock",
+		"Gemfile.lock":                     "Gemfile.lock",
+		"go.mod":                           "go.mod",
+		"gradle/verification-metadata.xml": "gradle/verification-metadata.xml",
+		"gradle.lockfile":                  "gradle.lockfile",
+		"mix.lock":                         "mix.lock",
+		"pdm.lock":                         "pdm.lock",
+		"Pipfile.lock":                     "Pipfile.lock",
+		"package-lock.json":                "package-lock.json",
+		"packages.lock.json":               "packages.lock.json",
+		"pnpm-lock.yaml":                   "pnpm-lock.yaml",
+		"poetry.lock":                      "poetry.lock",
+		"pom.xml":                          "pom.xml",
+		"pubspec.lock":                     "pubspec.lock",
+		"renv.lock":                        "renv.lock",
+		"requirements.txt":                 "requirements.txt",
+		"yarn.lock":                        "yarn.lock",
 	}
 
 	for file, extractAs := range lockfiles {
@@ -92,6 +92,7 @@ func TestExtractDeps_FindsExpectedExtractor(t *testing.T) {
 		"Gemfile.lock",
 		"go.mod",
 		"gradle.lockfile",
+		"gradle/verification-metadata.xml",
 		"mix.lock",
 		"pdm.lock",
 		"Pipfile.lock",

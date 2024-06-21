@@ -29,7 +29,7 @@ type fileMap struct {
 	// TODO: Use hashset to speed up path lookups
 }
 
-func (filemap *fileMap) OpenFile(path string) (fs.File, error) {
+func (filemap fileMap) OpenFile(path string) (*os.File, error) {
 	node, ok := filemap.fileNodeTrie.Get(path).(fileNode)
 	if !ok {
 		return nil, fs.ErrNotExist
@@ -39,7 +39,7 @@ func (filemap *fileMap) OpenFile(path string) (fs.File, error) {
 }
 
 // AllFiles return all files that exist on the layer the FileMap is representing
-func (filemap *fileMap) AllFiles() []fileNode {
+func (filemap fileMap) AllFiles() []fileNode {
 	allFiles := []fileNode{}
 	// No need to check error since we are not returning any errors
 	_ = filemap.fileNodeTrie.Walk(func(key string, value interface{}) error {

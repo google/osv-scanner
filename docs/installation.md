@@ -45,6 +45,22 @@ Alpine Linux users can install osv-scanner from the official repo:
 apk add osv-scanner
 ```
 
+### FreeBSD
+
+FreeBSD users can install osv-scanner from the official repo:
+
+```bash
+pkg install osv-scanner
+```
+
+### NetBSD
+
+NetBSD users can install osv-scanner from the official repo:
+
+```bash
+pkg_add osv-scanner
+```
+
 ### OpenBSD
 
 OpenBSD users can install osv-scanner from the official repo:
@@ -61,7 +77,7 @@ Alternatively, you can install this from source by running:
 go install github.com/google/osv-scanner/cmd/osv-scanner@v1
 ```
 
-This requires Go 1.21.4+ to be installed.
+This requires Go 1.21.11+ to be installed.
 
 ## Build from source
 

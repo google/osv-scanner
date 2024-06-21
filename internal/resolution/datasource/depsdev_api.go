@@ -7,7 +7,7 @@ import (
 	"sync"
 	"time"
 
-	pb "deps.dev/api/v3alpha"
+	pb "deps.dev/api/v3"
 	"github.com/google/osv-scanner/pkg/osv"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials"
@@ -64,7 +64,7 @@ func NewDepsDevAPIClient(addr string) (*DepsDevAPIClient, error) {
 		dialOpts = append(dialOpts, grpc.WithUserAgent(osv.RequestUserAgent))
 	}
 
-	conn, err := grpc.Dial(addr, dialOpts...)
+	conn, err := grpc.NewClient(addr, dialOpts...)
 	if err != nil {
 		return nil, fmt.Errorf("dialling %q: %w", addr, err)
 	}

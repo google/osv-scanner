@@ -28,6 +28,7 @@ func loadNpmrc(workdir string) (npmrcConfig, error) {
 
 	// project npmrc is always in ./.npmrc
 	projectFile, _ := filepath.Abs(filepath.Join(workdir, ".npmrc"))
+	// TODO: Pass in environment variables so we can sandbox tests
 	builtinFile := builtinNpmrc()
 	envVarOpts, _ := envVarNpmrc()
 
@@ -68,6 +69,7 @@ func loadNpmrc(workdir string) (npmrcConfig, error) {
 	switch {
 	case fullNpmrc.Section("").HasKey("globalconfig"):
 		globalFile = os.ExpandEnv(fullNpmrc.Section("").Key("globalconfig").String())
+	// TODO: Windows
 	case fullNpmrc.Section("").HasKey("prefix"):
 		prefix := os.ExpandEnv(fullNpmrc.Section("").Key("prefix").String())
 		globalFile, _ = filepath.Abs(filepath.Join(prefix, "etc", "npmrc"))
@@ -134,9 +136,10 @@ type npmRegistryAuthInfo struct {
 	auth      string
 	username  string
 	password  string
+	// TODO: certfile, keyfile
 }
 
-func (authInfo npmRegistryAuthInfo) addAuth(header http.Header) {
+func (authInfo npmRegistryAuthInfo) AddToHeader(header http.Header) {
 	switch {
 	case authInfo.authToken != "":
 		header.Set("Authorization", "Bearer "+authInfo.authToken)
@@ -148,7 +151,8 @@ func (authInfo npmRegistryAuthInfo) addAuth(header http.Header) {
 		authBytes := []byte(authInfo.username + ":")
 		b, err := base64.StdEncoding.DecodeString(authInfo.password)
 		if err != nil {
-			// TODO: npm seems to actually be quite lenient with invalid encodings
+			// TODO: mimic the behaviour of node's Buffer.from(s, 'base64').toString()
+			// e.g. ignore invalid characters, stop parsing after first '=', just never throw an error
 			panic(fmt.Sprintf("Unable to decode registry password: %v", err))
 		}
 		authBytes = append(authBytes, b...)
@@ -157,36 +161,77 @@ func (authInfo npmRegistryAuthInfo) addAuth(header http.Header) {
 	}
 }
 
-type npmRegistryInfo struct {
-	URL      string
-	authInfo *npmRegistryAuthInfo
+// Implementation of npm registry auth matching, adapted from npm-registry-fetch
+// https://github.com/npm/npm-registry-fetch/blob/237d33b45396caa00add61e0549cf09fbf9deb4f/lib/auth.js
+type NpmRegistryAuthOpts map[string]string
+
+var npmAuthFields = [...]string{":_authToken", ":_auth", ":username", ":_password"} // reference of the relevant config key suffixes
+
+func (opts NpmRegistryAuthOpts) getRegAuth(regKey string) (npmRegistryAuthInfo, bool) {
+	if token, ok := opts[regKey+":_authToken"]; ok {
+		return npmRegistryAuthInfo{authToken: token}, true
+	}
+	if auth, ok := opts[regKey+":_auth"]; ok {
+		return npmRegistryAuthInfo{auth: auth}, true
+	}
+	if user, ok := opts[regKey+":username"]; ok {
+		if pass, ok := opts[regKey+":_password"]; ok {
+			return npmRegistryAuthInfo{username: user, password: pass}, true
+		}
+	}
+	// TODO: certfile / keyfile
+
+	return npmRegistryAuthInfo{}, false
 }
 
-// create the http request to the registry api
-// urlComponents should be (package) or (package, version)
-func (info npmRegistryInfo) buildRequest(ctx context.Context, urlComponents ...string) (*http.Request, error) {
-	for i := range urlComponents {
-		urlComponents[i] = url.PathEscape(urlComponents[i])
-	}
-	reqURL, err := url.JoinPath(info.URL, urlComponents...)
+func (opts NpmRegistryAuthOpts) GetAuth(uri string) npmRegistryAuthInfo {
+	parsed, err := url.Parse(uri)
 	if err != nil {
-		return nil, err
+		return npmRegistryAuthInfo{}
+	}
+	regKey := "//" + parsed.Host + parsed.EscapedPath()
+	for regKey != "//" {
+		if authInfo, ok := opts.getRegAuth(regKey); ok {
+			return authInfo
+		}
+
+		// can be either //host/some/path/:_auth or //host/some/path:_auth
+		// walk up by removing EITHER what's after the slash OR the slash itself
+		var found bool
+		if regKey, found = strings.CutSuffix(regKey, "/"); !found {
+			regKey = regKey[:strings.LastIndex(regKey, "/")+1]
+		}
 	}
 
-	req, err := http.NewRequestWithContext(ctx, http.MethodGet, reqURL, nil)
-	if err != nil {
-		return nil, err
-	}
-	info.authInfo.addAuth(req.Header)
-
-	return req, nil
+	return npmRegistryAuthInfo{}
 }
 
-type npmRegistries map[string]npmRegistryInfo
+// urlPathEscapeLower is url.PathEscape but with lowercase letters in hex codes (matching npm's behaviour)
+// e.g. "@reg/pkg" -> "@reg%2fpkg"
+func urlPathEscapeLower(s string) string {
+	escaped := url.PathEscape(s)
+	re := cachedregexp.MustCompile(`%[0-9A-F]{2}`)
 
-// create the http request to the corresponding npm registry api
+	return re.ReplaceAllStringFunc(escaped, strings.ToLower)
+}
+
+type NpmRegistryConfig struct {
+	ScopeURLs map[string]string   // map of @scope to registry URL
+	RegOpts   NpmRegistryAuthOpts // the full key-value pairs of relevant npmrc config options.
+}
+
+func LoadNpmRegistryConfig(workdir string) (NpmRegistryConfig, error) {
+	npmrc, err := loadNpmrc(workdir)
+	if err != nil {
+		return NpmRegistryConfig{}, err
+	}
+
+	return parseNpmRegistryInfo(npmrc), nil
+}
+
+// BuildRequest creates the http request to the corresponding npm registry api
 // urlComponents should be (package) or (package, version)
-func (r npmRegistries) buildRequest(ctx context.Context, urlComponents ...string) (*http.Request, error) {
+func (r NpmRegistryConfig) BuildRequest(ctx context.Context, urlComponents ...string) (*http.Request, error) {
 	if len(urlComponents) == 0 {
 		return nil, errors.New("no package specified in npm request")
 	}
@@ -196,81 +241,56 @@ func (r npmRegistries) buildRequest(ctx context.Context, urlComponents ...string
 	if strings.HasPrefix(pkg, "@") {
 		scope, _, _ = strings.Cut(pkg, "/")
 	}
-	info, ok := r[scope]
+	baseURL, ok := r.ScopeURLs[scope]
 	if !ok {
 		// no specific rules for this scope, use the default scope
-		info = r[""]
+		baseURL = r.ScopeURLs[""]
 	}
 
-	return info.buildRequest(ctx, urlComponents...)
+	for i := range urlComponents {
+		urlComponents[i] = urlPathEscapeLower(urlComponents[i])
+	}
+	reqURL, err := url.JoinPath(baseURL, urlComponents...)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequestWithContext(ctx, http.MethodGet, reqURL, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	r.RegOpts.GetAuth(reqURL).AddToHeader(req.Header)
+
+	return req, nil
 }
 
-func parseRegistryInfo(npmrc npmrcConfig) npmRegistries {
-	infos := make(npmRegistries)                   // map of @scope to info
-	auths := make(map[string]*npmRegistryAuthInfo) // map of host url to auth
-
-	getOrCreateAuth := func(host string) *npmRegistryAuthInfo {
-		host, _ = strings.CutSuffix(host, "/")
-		if authInfo, ok := auths[host]; ok {
-			return authInfo
-		}
-		auths[host] = &npmRegistryAuthInfo{}
-
-		return auths[host]
+func parseNpmRegistryInfo(npmrc npmrcConfig) NpmRegistryConfig {
+	config := NpmRegistryConfig{
+		ScopeURLs: map[string]string{"": "https://registry.npmjs.org/"}, // set the default registry
+		RegOpts:   make(NpmRegistryAuthOpts),
 	}
-
-	makeRegistryInfo := func(fullURL string) npmRegistryInfo {
-		u, err := url.Parse(fullURL)
-		if err != nil {
-			panic(fmt.Sprintf("Error parsing url %s: %v", fullURL, err))
-		}
-
-		return npmRegistryInfo{
-			URL:      fullURL,
-			authInfo: getOrCreateAuth(u.Host),
-		}
-	}
-
-	// set the default registry
-	infos[""] = makeRegistryInfo("https://registry.npmjs.org")
-	// Regexes for matching the scope/host in npmrc keys
-	var (
-		urlRegex       = cachedregexp.MustCompile(`^(@.*):registry$`)
-		authTokenRegex = cachedregexp.MustCompile(`^//(.*):_authToken$`)
-		authRegex      = cachedregexp.MustCompile(`^//(.*):_auth$`)
-		usernameRegex  = cachedregexp.MustCompile(`^//(.*):username$`)
-		passwordRegex  = cachedregexp.MustCompile(`^//(.*):_password$`)
-	)
 
 	for _, k := range npmrc.Keys() {
 		name := k.Name()
 		value := os.ExpandEnv(k.String())
 		// TODO: npm config replaces only ${VAR}, not $VAR
 		// and if VAR is unset, it will leave the string as "${VAR}"
-		switch {
-		case name == "registry":
-			infos[""] = makeRegistryInfo(value)
-		case urlRegex.MatchString(name):
-			scope := urlRegex.FindStringSubmatch(name)[1]
-			infos[scope] = makeRegistryInfo(value)
-		case authTokenRegex.MatchString(name):
-			u := authTokenRegex.FindStringSubmatch(name)[1]
-			info := getOrCreateAuth(u)
-			info.authToken = value
-		case authRegex.MatchString(name):
-			u := authRegex.FindStringSubmatch(name)[1]
-			info := getOrCreateAuth(u)
-			info.auth = value
-		case usernameRegex.MatchString(name):
-			u := usernameRegex.FindStringSubmatch(name)[1]
-			info := getOrCreateAuth(u)
-			info.username = value
-		case passwordRegex.MatchString(name):
-			u := passwordRegex.FindStringSubmatch(name)[1]
-			info := getOrCreateAuth(u)
-			info.password = value
+
+		if name == "registry" {
+			config.ScopeURLs[""] = value
+			continue
+		}
+		if scope, ok := strings.CutSuffix(name, ":registry"); ok {
+			config.ScopeURLs[scope] = value
+			continue
+		}
+		for _, f := range npmAuthFields {
+			if strings.HasSuffix(name, f) {
+				config.RegOpts[name] = value
+			}
 		}
 	}
 
-	return infos
+	return config
 }

@@ -65,12 +65,26 @@ func startsWithNumber(str string) bool {
 
 // extractPnpmPackageNameAndVersion parses a dependency path, attempting to
 // extract the name and version of the package it represents
-func extractPnpmPackageNameAndVersion(dependencyPath string) (string, string) {
+func extractPnpmPackageNameAndVersion(dependencyPath string, lockfileVersion float64) (string, string) {
 	// file dependencies must always have a name property to be installed,
 	// and their dependency path never has the version encoded, so we can
 	// skip trying to extract either from their dependency path
 	if strings.HasPrefix(dependencyPath, "file:") {
 		return "", ""
+	}
+
+	// v9.0 specifies the dependencies as <package>@<version> rather than as a path
+	if lockfileVersion == 9.0 {
+		dependencyPath = strings.Trim(dependencyPath, "'")
+		dependencyPath, isScoped := strings.CutPrefix(dependencyPath, "@")
+
+		name, version, _ := strings.Cut(dependencyPath, "@")
+
+		if isScoped {
+			name = "@" + name
+		}
+
+		return name, version
 	}
 
 	parts := strings.Split(dependencyPath, "/")
@@ -124,7 +138,7 @@ func parsePnpmLock(lockfile PnpmLockfile) []PackageDetails {
 	packages := make([]PackageDetails, 0, len(lockfile.Packages))
 
 	for s, pkg := range lockfile.Packages {
-		name, version := extractPnpmPackageNameAndVersion(s)
+		name, version := extractPnpmPackageNameAndVersion(s, lockfile.Version)
 
 		// "name" is only present if it's not in the dependency path and takes
 		// priority over whatever name we think we've extracted (if any)

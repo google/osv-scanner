@@ -48,7 +48,7 @@ func Command(stdout, stderr io.Writer, r *reporter.Reporter) *cli.Command {
 			&cli.StringFlag{
 				Name:    "format",
 				Aliases: []string{"f"},
-				Usage:   fmt.Sprintf("sets the output format; value can be: %s", strings.Join(reporter.Format(), ", ")),
+				Usage:   "sets the output format; value can be: " + strings.Join(reporter.Format(), ", "),
 				Value:   "table",
 				Action: func(context *cli.Context, s string) error {
 					if slices.Contains(reporter.Format(), s) {
@@ -98,16 +98,16 @@ func Command(stdout, stderr io.Writer, r *reporter.Reporter) *cli.Command {
 			},
 			&cli.StringFlag{
 				Name:  "verbosity",
-				Usage: fmt.Sprintf("specify the level of information that should be provided during runtime; value can be: %s", strings.Join(reporter.VerbosityLevels(), ", ")),
+				Usage: "specify the level of information that should be provided during runtime; value can be: " + strings.Join(reporter.VerbosityLevels(), ", "),
 				Value: "info",
-			},
-			&cli.BoolFlag{
-				Name:  "experimental-local-db",
-				Usage: "checks for vulnerabilities using local databases",
 			},
 			&cli.BoolFlag{
 				Name:  "experimental-offline",
 				Usage: "checks for vulnerabilities using local databases that are already cached",
+			},
+			&cli.BoolFlag{
+				Name:  "experimental-download-offline-databases",
+				Usage: "downloads vulnerability databases for offline comparison",
 			},
 			&cli.StringFlag{
 				Name:   "experimental-local-db-path",
@@ -128,7 +128,7 @@ func Command(stdout, stderr io.Writer, r *reporter.Reporter) *cli.Command {
 			},
 			&cli.StringFlag{
 				Name:      "experimental-oci-image",
-				Usage:     "scan an exported OCI compatible container image .tar file",
+				Usage:     "scan an exported *docker* container image archive (exported using `docker save` command) file",
 				TakesFile: true,
 				Hidden:    true,
 			},
@@ -169,13 +169,13 @@ func action(context *cli.Context, stdout, stderr io.Writer) (reporter.Reporter, 
 	}
 
 	if context.Bool("experimental-licenses-summary") && context.IsSet("experimental-licenses") {
-		return nil, fmt.Errorf("--experimental-licenses-summary and --experimental-licenses flags cannot be set")
+		return nil, errors.New("--experimental-licenses-summary and --experimental-licenses flags cannot be set")
 	}
 	allowlist := context.StringSlice("experimental-licenses")
 	if context.IsSet("experimental-licenses") {
 		if len(allowlist) == 0 ||
 			(len(allowlist) == 1 && allowlist[0] == "") {
-			return nil, fmt.Errorf("--experimental-licenses requires at least one value")
+			return nil, errors.New("--experimental-licenses requires at least one value")
 		}
 		if unrecognized := spdx.Unrecognized(allowlist); len(unrecognized) > 0 {
 			return nil, fmt.Errorf("--experimental-licenses requires comma-separated spdx licenses. The following license(s) are not recognized as spdx: %s", strings.Join(unrecognized, ","))
@@ -210,9 +210,9 @@ func action(context *cli.Context, stdout, stderr io.Writer) (reporter.Reporter, 
 		DirectoryPaths:       context.Args().Slice(),
 		CallAnalysisStates:   callAnalysisStates,
 		ExperimentalScannerActions: osvscanner.ExperimentalScannerActions{
-			LocalDBPath:    context.String("experimental-local-db-path"),
-			CompareLocally: context.Bool("experimental-local-db"),
-			CompareOffline: context.Bool("experimental-offline"),
+			LocalDBPath:       context.String("experimental-local-db-path"),
+			DownloadDatabases: context.Bool("experimental-download-offline-databases"),
+			CompareOffline:    context.Bool("experimental-offline"),
 			// License summary mode causes all
 			// packages to appear in the json as
 			// every package has a license - even

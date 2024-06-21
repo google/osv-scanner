@@ -9,7 +9,7 @@ import (
 	"github.com/google/osv-scanner/pkg/models"
 	"github.com/google/osv-scanner/pkg/osv"
 
-	depsdevpb "deps.dev/api/v3alpha"
+	depsdevpb "deps.dev/api/v3"
 	"golang.org/x/sync/errgroup"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/codes"
@@ -46,12 +46,16 @@ func VersionQuery(system depsdevpb.System, name string, version string) *depsdev
 	}
 }
 
-// MakeVersionRequests calls the deps.dev GetVersion gRPC API endpoint for each
+// MakeVersionRequests wraps MakeVersionRequestsWithContext using context.Background.
+func MakeVersionRequests(queries []*depsdevpb.GetVersionRequest) ([][]models.License, error) {
+	return MakeVersionRequestsWithContext(context.Background(), queries)
+}
+
+// MakeVersionRequestsWithContext calls the deps.dev GetVersion gRPC API endpoint for each
 // query. It makes these requests concurrently, sharing the single HTTP/2
 // connection. The order in which the requests are specified should correspond
 // to the order of licenses returned by this function.
-func MakeVersionRequests(queries []*depsdevpb.GetVersionRequest) ([][]models.License, error) {
-	ctx := context.TODO()
+func MakeVersionRequestsWithContext(ctx context.Context, queries []*depsdevpb.GetVersionRequest) ([][]models.License, error) {
 	certPool, err := x509.SystemCertPool()
 	if err != nil {
 		return nil, fmt.Errorf("getting system cert pool: %w", err)
@@ -63,14 +67,14 @@ func MakeVersionRequests(queries []*depsdevpb.GetVersionRequest) ([][]models.Lic
 		dialOpts = append(dialOpts, grpc.WithUserAgent(osv.RequestUserAgent))
 	}
 
-	conn, err := grpc.Dial(DepsdevAPI, dialOpts...)
+	conn, err := grpc.NewClient(DepsdevAPI, dialOpts...)
 	if err != nil {
 		return nil, fmt.Errorf("dialing deps.dev gRPC API: %w", err)
 	}
 	client := depsdevpb.NewInsightsClient(conn)
 
 	licenses := make([][]models.License, len(queries))
-	var g errgroup.Group
+	g, ctx := errgroup.WithContext(ctx)
 	for i := range queries {
 		if queries[i] == nil {
 			// This may be a private package.

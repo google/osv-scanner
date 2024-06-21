@@ -3,6 +3,7 @@ package lockfile_test
 import (
 	"errors"
 	"fmt"
+	"os"
 	"reflect"
 	"strings"
 	"testing"
@@ -42,7 +43,13 @@ func packageToString(pkg lockfile.PackageDetails) string {
 		commit = "<no commit>"
 	}
 
-	return fmt.Sprintf("%s@%s (%s, %s)", pkg.Name, pkg.Version, pkg.Ecosystem, commit)
+	groups := strings.Join(pkg.DepGroups, ", ")
+
+	if groups == "" {
+		groups = "<no groups>"
+	}
+
+	return fmt.Sprintf("%s@%s (%s, %s, %s)", pkg.Name, pkg.Version, pkg.Ecosystem, commit, groups)
 }
 
 func hasPackage(t *testing.T, packages []lockfile.PackageDetails, pkg lockfile.PackageDetails) bool {
@@ -110,4 +117,32 @@ func expectPackages(t *testing.T, actualPackages []lockfile.PackageDetails, expe
 			t.Errorf("Did not find %s", packageToString(unexpectedPackage))
 		}
 	}
+}
+
+func createTestDir(t *testing.T) (string, func()) {
+	t.Helper()
+
+	p, err := os.MkdirTemp("", "osv-scanner-test-*")
+	if err != nil {
+		t.Fatalf("could not create test directory: %v", err)
+	}
+
+	return p, func() {
+		_ = os.RemoveAll(p)
+	}
+}
+
+func copyFile(t *testing.T, from, to string) string {
+	t.Helper()
+
+	b, err := os.ReadFile(from)
+	if err != nil {
+		t.Fatalf("could not read test file: %v", err)
+	}
+
+	if err := os.WriteFile(to, b, 0600); err != nil {
+		t.Fatalf("could not copy test file: %v", err)
+	}
+
+	return to
 }

@@ -86,3 +86,69 @@ func TestPrintSARIFReport(t *testing.T) {
 		})
 	}
 }
+
+func TestPrintSARIFReport_WithVulnerabilities(t *testing.T) {
+	t.Parallel()
+
+	testOutputWithVulnerabilities(t, func(t *testing.T, args outputTestCaseArgs) {
+		t.Helper()
+
+		outputWriter := &bytes.Buffer{}
+		err := output.PrintSARIFReport(args.vulnResult, outputWriter)
+
+		if err != nil {
+			t.Errorf("Error writing SARIF output: %s", err)
+		}
+
+		testutility.NewSnapshot().WithWindowsReplacements(
+			map[string]string{
+				"path\\\\to\\\\my\\\\first/osv-scanner.toml":  "path/to/my/first/osv-scanner.toml",
+				"path\\\\to\\\\my\\\\second/osv-scanner.toml": "path/to/my/second/osv-scanner.toml",
+				"path\\\\to\\\\my\\\\third/osv-scanner.toml":  "path/to/my/third/osv-scanner.toml",
+			}).MatchText(t, outputWriter.String())
+	})
+}
+
+func TestPrintSARIFReport_WithLicenseViolations(t *testing.T) {
+	t.Parallel()
+
+	testOutputWithLicenseViolations(t, func(t *testing.T, args outputTestCaseArgs) {
+		t.Helper()
+
+		outputWriter := &bytes.Buffer{}
+		err := output.PrintSARIFReport(args.vulnResult, outputWriter)
+
+		if err != nil {
+			t.Errorf("Error writing SARIF output: %s", err)
+		}
+
+		testutility.NewSnapshot().WithWindowsReplacements(
+			map[string]string{
+				"path\\\\to\\\\my\\\\first/osv-scanner.toml":  "path/to/my/first/osv-scanner.toml",
+				"path\\\\to\\\\my\\\\second/osv-scanner.toml": "path/to/my/second/osv-scanner.toml",
+				"path\\\\to\\\\my\\\\third/osv-scanner.toml":  "path/to/my/third/osv-scanner.toml",
+			}).MatchText(t, outputWriter.String())
+	})
+}
+
+func TestPrintSARIFReport_WithMixedIssues(t *testing.T) {
+	t.Parallel()
+
+	testOutputWithMixedIssues(t, func(t *testing.T, args outputTestCaseArgs) {
+		t.Helper()
+
+		outputWriter := &bytes.Buffer{}
+		err := output.PrintSARIFReport(args.vulnResult, outputWriter)
+
+		if err != nil {
+			t.Errorf("Error writing SARIF output: %s", err)
+		}
+
+		testutility.NewSnapshot().WithWindowsReplacements(
+			map[string]string{
+				"path\\\\to\\\\my\\\\first/osv-scanner.toml":  "path/to/my/first/osv-scanner.toml",
+				"path\\\\to\\\\my\\\\second/osv-scanner.toml": "path/to/my/second/osv-scanner.toml",
+				"path\\\\to\\\\my\\\\third/osv-scanner.toml":  "path/to/my/third/osv-scanner.toml",
+			}).MatchText(t, outputWriter.String())
+	})
+}

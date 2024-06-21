@@ -22,7 +22,7 @@ Experimental
 {:toc}
 </details>
 
-Guided remediation (`osv-scanner fix`) aims to help developers with fixing with the high number of known vulnerabilities in dependencies typically reported by vulnerability scanners by providing a small number of actionable steps.
+Guided remediation (`osv-scanner fix`) aims to help developers with fixing the high number of known vulnerabilities in dependencies typically reported by vulnerability scanners by providing a small number of actionable steps.
 
 This tool provides several options to users for how to prioritise and remediate their vulnerabilities, with easy to understand information on how we arrived at these options and how to compare them. This includes features such as:
 

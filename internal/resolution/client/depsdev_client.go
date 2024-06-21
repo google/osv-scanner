@@ -5,7 +5,7 @@ import (
 	"encoding/gob"
 	"os"
 
-	pb "deps.dev/api/v3alpha"
+	pb "deps.dev/api/v3"
 	"deps.dev/util/resolve"
 	"github.com/google/osv-scanner/internal/resolution/datasource"
 )

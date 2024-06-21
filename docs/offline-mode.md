@@ -49,7 +49,7 @@ If the `OSV_SCANNER_LOCAL_DB_CACHE_DIRECTORY` environment variable is _not_ set,
 1. The location returned by [`os.UserCacheDir`](https://pkg.go.dev/os#UserCacheDir)
 2. The location returned by [`os.TempDir`](https://pkg.go.dev/os#TempDir)
 
-The database can be [downloaded manually](./experimental.md#manual-database-download) or by using the [`--experimental-local-db` flag](./experimental.md#local-database-option).
+The database can be [downloaded manually](./experimental.md#manual-database-download) or by using the [`--experimental-download-offline-databases` flag](./experimental.md#download-databases-option).
 
 ## Offline option
 
@@ -59,17 +59,17 @@ The offline database flag `--experimental-offline` causes OSV-Scanner to scan yo
 osv-scanner --experimental-offline ./path/to/your/dir
 ```
 
-## Local database option
+## Download offline databases option
 
-The local database flag `--experimental-local-db` causes OSV-Scanner to download or update your local database and then scan your project against it.
+The download offline databases flag `--experimental-download-offline-databases` allows OSV-Scanner to download or update your local database when running in offline mode, to make it easier to get started. This option only works when you also set the offline flag.
 
 ```bash
-osv-scanner --experimental-local-db ./path/to/your/dir
+osv-scanner --experimental-offline --experimental-download-offline-databases ./path/to/your/dir
 ```
 
 ## Manual database download
 
-Instead of using the `--experimental-local-db` flag to download the database, it is possible to manually download the database.
+Instead of using the `--experimental-download-offline-databases` flag to download the database, it is possible to manually download the database.
 
 A downloadable copy of the OSV database is stored in a GCS bucket maintained by OSV:
 [`gs://osv-vulnerabilities`](https://osv-vulnerabilities.storage.googleapis.com)
@@ -83,7 +83,7 @@ E.g. for PyPI vulnerabilities:
 gsutil cp gs://osv-vulnerabilities/PyPI/all.zip .
 ```
 
-You can also download over HTTP via https://osv-vulnerabilities.storage.googleapis.com/<ECOSYSTEM>/all.zip .
+You can also download over HTTP via `https://osv-vulnerabilities.storage.googleapis.com/<ECOSYSTEM>/all.zip`.
 
 A list of all current ecosystems is available at
 [`gs://osv-vulnerabilities/ecosystems.txt`](https://osv-vulnerabilities.storage.googleapis.com/ecosystems.txt).

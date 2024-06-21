@@ -1,0 +1,74 @@
+{
+  "name": "@fake-registry/a",
+  "versions": {
+    "1.2.3": {
+      "name": "@fake-registry/a",
+      "version": "1.2.3",
+      "description": "package a",
+      "main": "index.js",
+      "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+      },
+      "author": {
+        "name": "a author"
+      },
+      "license": "ISC",
+      "optionalDependencies": {
+        "@fake-registry/b": "^1.0.0",
+        "@fake-registry/e": "^1.0.0"
+      },
+      "dependencies": {
+        "@fake-registry/b": "^1.0.0",
+        "@fake-registry/e": "^1.0.0"
+      },
+      "_id": "@fake-registry/a@1.2.3",
+      "_nodeVersion": "10.24.1",
+      "_npmVersion": "7.24.2",
+      "dist": {
+        "integrity": "sha512-vIimlnWl8mXXUvJkdeF2KsTIz/3AN3T6Xn7mz0e9w4a0OmVPGJG7M0jL63GkvNYJrvFHLcapfsNksZ/QNKRGhg==",
+        "shasum": "f74ccf91104999d9240c9ea019c6c7872a0429fb",
+        "tarball": "http://localhost:4873/@fake-registry%2fa/-/a-1.2.3.tgz"
+      },
+      "contributors": []
+    },
+    "2.3.4": {
+      "name": "@fake-registry/a",
+      "version": "2.3.4",
+      "description": "package a@2",
+      "main": "index.js",
+      "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+      },
+      "author": {
+        "name": "a@2 author"
+      },
+      "license": "MIT",
+      "dependencies": {
+        "@fake-registry/b": "^2.0.0"
+      },
+      "_id": "@fake-registry/a@2.3.4",
+      "_nodeVersion": "10.24.1",
+      "_npmVersion": "7.24.2",
+      "dist": {
+        "integrity": "sha512-Q1N2Ke+K6e4Vr20qHsjCPMzin4zKNxoo1qkN0MngiZKjNt7UfChaPi7zCtQtrWgH21j9WWR3/J0roepjJJp0iQ==",
+        "shasum": "cdc054c44494751f50508032d557ab7b7fc78703",
+        "tarball": "http://localhost:4873/@fake-registry%2fa/-/a-2.3.4.tgz"
+      },
+      "contributors": []
+    }
+  },
+  "time": {
+    "modified": "2024-03-11T03:25:10.926Z",
+    "created": "2024-03-11T03:25:06.832Z",
+    "1.2.3": "2024-03-11T03:25:06.832Z",
+    "2.3.4": "2024-03-11T03:25:10.926Z"
+  },
+  "users": {},
+  "dist-tags": {
+    "latest": "2.3.4"
+  },
+  "_rev": "6-92a4e77dfe57d1a3",
+  "_id": "@fake-registry/a",
+  "readme": "ERROR: No README data found!",
+  "_attachments": {}
+}

@@ -133,11 +133,35 @@ func (e DpkgStatusExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 		packages = append(packages, pkg)
 	}
 
+	debianReleaseVersion := getReleaseVersion(packages)
+	if debianReleaseVersion != "" {
+		for i := range packages {
+			packages[i].Ecosystem = Ecosystem(string(packages[i].Ecosystem) + ":" + debianReleaseVersion)
+		}
+	}
+
 	if err := scanner.Err(); err != nil {
 		return packages, fmt.Errorf("error while scanning %s: %w", f.Path(), err)
 	}
 
 	return packages, nil
+}
+
+func getReleaseVersion(packages []PackageDetails) string {
+	for _, pkg := range packages {
+		if pkg.Name != "base-files" {
+			continue
+		}
+
+		// We only care about the major version
+		// Example base-files version: 12.4+deb12u5
+		versionWithMinor, _, _ := strings.Cut(pkg.Version, "+")
+		majorVersion, _, _ := strings.Cut(versionWithMinor, ".")
+
+		return majorVersion
+	}
+
+	return ""
 }
 
 var _ Extractor = DpkgStatusExtractor{}
