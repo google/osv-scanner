@@ -77,16 +77,18 @@ func ScanImage(r reporter.Reporter, imagePath string) (ScanResults, error) {
 				}
 				// Look at the layer before the current layer
 				oldFileNode, err := img.layers[layerIdx-1].GetFileNode(file.FilePath)
-				if err != nil {
-					if errors.Is(fs.ErrNotExist, err) { // Did not exist in the layer before, all remaining packages must be from the current layer
-						for key, val := range sourceLayerIdx {
-							if val == 0 {
-								sourceLayerIdx[key] = layerIdx
-							}
-						}
 
-						break
+				if errors.Is(fs.ErrNotExist, err) || (err == nil && oldFileNode.isWhiteout) {
+					// Did not exist in the layer before, all remaining packages must be from the current layer
+					for key, val := range sourceLayerIdx {
+						if val == 0 {
+							sourceLayerIdx[key] = layerIdx
+						}
 					}
+					break
+				}
+
+				if err != nil {
 					log.Panicf("did not expect a different error [%v] when getting file node", err)
 				}
 
