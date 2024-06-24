@@ -1,0 +1,10 @@
+{
+  "name": "resolutions",
+  "resolutions": {
+    "fast-xml-parser@npm:4.2.4": "4.2.5"
+  },
+  "dependencies": {
+    "fast-xml-parser": "^4.2.5",
+    "@aws-sdk/core": "^3.535.0"
+  }
+}

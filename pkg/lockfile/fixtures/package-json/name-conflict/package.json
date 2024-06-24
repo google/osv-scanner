@@ -1,0 +1,7 @@
+{
+  "name": "name-conflict",
+  "dependencies": {
+    "aws-sdk-client-mock": "^2.1.1",
+    "aws-sdk-client-mock-jest": "^2.1.1"
+  }
+}

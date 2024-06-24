@@ -1,0 +1,395 @@
+
+[TestPackageJSONMatcher_Match_NameConflict - 1]
+[
+  {
+    "name": "aws-sdk-client-mock",
+    "version": "",
+    "targetVersions": [
+      "^2.1.1"
+    ],
+    "blockLocation": {
+      "line": {
+        "start": 4,
+        "end": 4
+      },
+      "column": {
+        "start": 5,
+        "end": 36
+      },
+      "file_name": "<rootdir>/fixtures/package-json/name-conflict/package.json"
+    },
+    "versionLocation": {
+      "line": {
+        "start": 4,
+        "end": 4
+      },
+      "column": {
+        "start": 29,
+        "end": 35
+      },
+      "file_name": "<rootdir>/fixtures/package-json/name-conflict/package.json"
+    },
+    "nameLocation": {
+      "line": {
+        "start": 4,
+        "end": 4
+      },
+      "column": {
+        "start": 6,
+        "end": 25
+      },
+      "file_name": "<rootdir>/fixtures/package-json/name-conflict/package.json"
+    }
+  },
+  {
+    "name": "aws-sdk-client-mock-jest",
+    "version": "",
+    "targetVersions": [
+      "^2.1.1"
+    ],
+    "blockLocation": {
+      "line": {
+        "start": 5,
+        "end": 5
+      },
+      "column": {
+        "start": 5,
+        "end": 41
+      },
+      "file_name": "<rootdir>/fixtures/package-json/name-conflict/package.json"
+    },
+    "versionLocation": {
+      "line": {
+        "start": 5,
+        "end": 5
+      },
+      "column": {
+        "start": 34,
+        "end": 40
+      },
+      "file_name": "<rootdir>/fixtures/package-json/name-conflict/package.json"
+    },
+    "nameLocation": {
+      "line": {
+        "start": 5,
+        "end": 5
+      },
+      "column": {
+        "start": 6,
+        "end": 30
+      },
+      "file_name": "<rootdir>/fixtures/package-json/name-conflict/package.json"
+    }
+  }
+]
+---
+
+[TestPackageJSONMatcher_Match_OnePackage - 1]
+[
+  {
+    "name": "lodash",
+    "version": "",
+    "targetVersions": [
+      "^4.0.0"
+    ],
+    "blockLocation": {
+      "line": {
+        "start": 4,
+        "end": 4
+      },
+      "column": {
+        "start": 5,
+        "end": 23
+      },
+      "file_name": "<rootdir>/fixtures/package-json/one-package/package.json"
+    },
+    "versionLocation": {
+      "line": {
+        "start": 4,
+        "end": 4
+      },
+      "column": {
+        "start": 16,
+        "end": 22
+      },
+      "file_name": "<rootdir>/fixtures/package-json/one-package/package.json"
+    },
+    "nameLocation": {
+      "line": {
+        "start": 4,
+        "end": 4
+      },
+      "column": {
+        "start": 6,
+        "end": 12
+      },
+      "file_name": "<rootdir>/fixtures/package-json/one-package/package.json"
+    }
+  }
+]
+---
+
+[TestPackageJSONMatcher_Match_Resolutions - 1]
+[
+  {
+    "name": "fast-xml-parser",
+    "version": "4.2.5",
+    "targetVersions": [
+      "4.2.5"
+    ],
+    "blockLocation": {
+      "line": {
+        "start": 4,
+        "end": 4
+      },
+      "column": {
+        "start": 5,
+        "end": 41
+      },
+      "file_name": "<rootdir>/fixtures/package-json/resolutions/package.json"
+    },
+    "versionLocation": {
+      "line": {
+        "start": 4,
+        "end": 4
+      },
+      "column": {
+        "start": 35,
+        "end": 40
+      },
+      "file_name": "<rootdir>/fixtures/package-json/resolutions/package.json"
+    },
+    "nameLocation": {
+      "line": {
+        "start": 4,
+        "end": 4
+      },
+      "column": {
+        "start": 6,
+        "end": 31
+      },
+      "file_name": "<rootdir>/fixtures/package-json/resolutions/package.json"
+    }
+  },
+  {
+    "name": "fast-xml-parser",
+    "version": "4.4.0",
+    "targetVersions": [
+      "^4.2.5"
+    ],
+    "blockLocation": {
+      "line": {
+        "start": 7,
+        "end": 7
+      },
+      "column": {
+        "start": 5,
+        "end": 32
+      },
+      "file_name": "<rootdir>/fixtures/package-json/resolutions/package.json"
+    },
+    "versionLocation": {
+      "line": {
+        "start": 7,
+        "end": 7
+      },
+      "column": {
+        "start": 25,
+        "end": 31
+      },
+      "file_name": "<rootdir>/fixtures/package-json/resolutions/package.json"
+    },
+    "nameLocation": {
+      "line": {
+        "start": 7,
+        "end": 7
+      },
+      "column": {
+        "start": 6,
+        "end": 21
+      },
+      "file_name": "<rootdir>/fixtures/package-json/resolutions/package.json"
+    }
+  },
+  {
+    "name": "@aws-sdk/core",
+    "version": "3.535.0",
+    "targetVersions": [
+      "^3.535.0"
+    ],
+    "blockLocation": {
+      "line": {
+        "start": 8,
+        "end": 8
+      },
+      "column": {
+        "start": 5,
+        "end": 32
+      },
+      "file_name": "<rootdir>/fixtures/package-json/resolutions/package.json"
+    },
+    "versionLocation": {
+      "line": {
+        "start": 8,
+        "end": 8
+      },
+      "column": {
+        "start": 23,
+        "end": 31
+      },
+      "file_name": "<rootdir>/fixtures/package-json/resolutions/package.json"
+    },
+    "nameLocation": {
+      "line": {
+        "start": 8,
+        "end": 8
+      },
+      "column": {
+        "start": 6,
+        "end": 19
+      },
+      "file_name": "<rootdir>/fixtures/package-json/resolutions/package.json"
+    }
+  }
+]
+---
+
+[TestPackageJSONMatcher_Match_TransitiveDependencies - 1]
+[
+  {
+    "name": "commander",
+    "version": "",
+    "targetVersions": [
+      "~2.0.0"
+    ],
+    "blockLocation": {
+      "line": {
+        "start": 0,
+        "end": 0
+      },
+      "column": {
+        "start": 0,
+        "end": 0
+      },
+      "file_name": ""
+    }
+  },
+  {
+    "name": "debug",
+    "version": "",
+    "targetVersions": [
+      "^0.7",
+      "~0.7.2"
+    ],
+    "blockLocation": {
+      "line": {
+        "start": 5,
+        "end": 5
+      },
+      "column": {
+        "start": 5,
+        "end": 20
+      },
+      "file_name": "<rootdir>/fixtures/package-json/transitive/package.json"
+    },
+    "versionLocation": {
+      "line": {
+        "start": 5,
+        "end": 5
+      },
+      "column": {
+        "start": 15,
+        "end": 19
+      },
+      "file_name": "<rootdir>/fixtures/package-json/transitive/package.json"
+    },
+    "nameLocation": {
+      "line": {
+        "start": 5,
+        "end": 5
+      },
+      "column": {
+        "start": 6,
+        "end": 11
+      },
+      "file_name": "<rootdir>/fixtures/package-json/transitive/package.json"
+    }
+  },
+  {
+    "name": "jear",
+    "version": "",
+    "targetVersions": [
+      "^0.1.4"
+    ],
+    "blockLocation": {
+      "line": {
+        "start": 4,
+        "end": 4
+      },
+      "column": {
+        "start": 5,
+        "end": 21
+      },
+      "file_name": "<rootdir>/fixtures/package-json/transitive/package.json"
+    },
+    "versionLocation": {
+      "line": {
+        "start": 4,
+        "end": 4
+      },
+      "column": {
+        "start": 14,
+        "end": 20
+      },
+      "file_name": "<rootdir>/fixtures/package-json/transitive/package.json"
+    },
+    "nameLocation": {
+      "line": {
+        "start": 4,
+        "end": 4
+      },
+      "column": {
+        "start": 6,
+        "end": 10
+      },
+      "file_name": "<rootdir>/fixtures/package-json/transitive/package.json"
+    }
+  },
+  {
+    "name": "shelljs",
+    "version": "",
+    "targetVersions": [
+      "~0.1.4"
+    ],
+    "blockLocation": {
+      "line": {
+        "start": 0,
+        "end": 0
+      },
+      "column": {
+        "start": 0,
+        "end": 0
+      },
+      "file_name": ""
+    }
+  },
+  {
+    "name": "velocityjs",
+    "version": "",
+    "targetVersions": [
+      "~0.3.15"
+    ],
+    "blockLocation": {
+      "line": {
+        "start": 0,
+        "end": 0
+      },
+      "column": {
+        "start": 0,
+        "end": 0
+      },
+      "file_name": ""
+    }
+  }
+]
+---

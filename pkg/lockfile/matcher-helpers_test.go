@@ -1,16 +1,8 @@
 package lockfile_test
 
 import (
-	"os"
-	"testing"
-
 	"github.com/google/osv-scanner/pkg/lockfile"
 )
-
-func TestMain(m *testing.M) {
-	MockAllMatchers()
-	os.Exit(m.Run())
-}
 
 func MockAllMatchers() {
 	// package.json
