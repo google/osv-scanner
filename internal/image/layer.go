@@ -27,6 +27,9 @@ type fileNode struct {
 }
 
 func (f *fileNode) Open() (*os.File, error) {
+	if f.isWhiteout {
+		return nil, fs.ErrNotExist
+	}
 	return os.Open(f.absoluteDiskPath())
 }
 
