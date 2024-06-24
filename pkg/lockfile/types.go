@@ -1,13 +1,14 @@
 package lockfile
 
+// TODO(v2): These fields do not need JSON tags I believe
 type PackageDetails struct {
 	Name          string    `json:"name"`
 	Version       string    `json:"version"`
 	Commit        string    `json:"commit,omitempty"`
 	Ecosystem     Ecosystem `json:"ecosystem,omitempty"`
 	CompareAs     Ecosystem `json:"compareAs,omitempty"`
-	DepGroups     []string  `json:"-"`
-	OriginLayerID string    `json:"-"`
+	DepGroups     []string  `json:"depGroups,omitempty"`
+	OriginLayerID string    `json:"originLayerId,omitempty"`
 }
 
 type Ecosystem string
