@@ -132,17 +132,17 @@ func MakePkgRequest(pkgDetails lockfile.PackageDetails) *Query {
 			},
 			Commit: pkgDetails.Commit,
 		}
-	} else {
-		return &Query{
-			Version: pkgDetails.Version,
-			Package: Package{
-				Name:      pkgDetails.Name,
-				Ecosystem: string(pkgDetails.Ecosystem),
-			},
-			Metadata: models.Metadata{
-				DepGroups: pkgDetails.DepGroups,
-			},
-		}
+	}
+
+	return &Query{
+		Version: pkgDetails.Version,
+		Package: Package{
+			Name:      pkgDetails.Name,
+			Ecosystem: string(pkgDetails.Ecosystem),
+		},
+		Metadata: models.Metadata{
+			DepGroups: pkgDetails.DepGroups,
+		},
 	}
 }
 

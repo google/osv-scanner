@@ -44,7 +44,7 @@ func idSort(a, b string, prefixOrd func(string) int) int {
 		return -1
 	} else if prefixAOrd < prefixBOrd {
 		return 1
-	} else {
-		return strings.Compare(a, b)
 	}
+
+	return strings.Compare(a, b)
 }

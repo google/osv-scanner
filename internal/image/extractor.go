@@ -101,10 +101,11 @@ func (f ImageFile) Open(openPath string) (lockfile.NestedDepFile, error) {
 	// use path instead of filepath, because container is always in Unix paths (for now)
 	if path.IsAbs(openPath) {
 		return OpenLayerFile(openPath, f.layer)
-	} else {
-		absPath := path.Join(f.path, openPath)
-		return OpenLayerFile(absPath, f.layer)
 	}
+
+	absPath := path.Join(f.path, openPath)
+
+	return OpenLayerFile(absPath, f.layer)
 }
 
 func (f ImageFile) Path() string {

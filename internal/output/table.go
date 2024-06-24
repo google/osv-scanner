@@ -168,9 +168,9 @@ func licenseTableBuilder(outputTable table.Writer, vulnResult *models.Vulnerabil
 		return licenseSummaryTableBuilder(outputTable, vulnResult)
 	} else if len(licenseConfig.Allowlist) > 0 {
 		return licenseViolationsTableBuilder(outputTable, vulnResult)
-	} else {
-		return outputTable
 	}
+
+	return outputTable
 }
 
 func licenseSummaryTableBuilder(outputTable table.Writer, vulnResult *models.VulnerabilityResults) table.Writer {

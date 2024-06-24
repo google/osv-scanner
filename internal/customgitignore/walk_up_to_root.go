@@ -171,16 +171,16 @@ func readIgnoreFilesFromParents(fs billy.Filesystem, pathRel string, pathGitRoot
 	if pathAbs == pathGitRoot {
 		// Don't recurse any further
 		return ps, nil
-	} else {
-		// continue recursing up tree
-		newPs, err = readIgnoreFilesFromParents(fs, pathRel, pathGitRoot)
-		if err != nil {
-			return ps, err
-		}
-		ps = append(ps, newPs...)
-
-		return ps, nil
 	}
+
+	// continue recursing up tree
+	newPs, err = readIgnoreFilesFromParents(fs, pathRel, pathGitRoot)
+	if err != nil {
+		return ps, err
+	}
+	ps = append(ps, newPs...)
+
+	return ps, nil
 }
 
 // returns the path of the root of this repo (ie with the .git dir in it)
