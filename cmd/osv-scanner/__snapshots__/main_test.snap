@@ -1035,7 +1035,8 @@ Scanned <rootdir>/fixtures/sbom-insecure/postgres-stretch.cdx.xml as CycloneDX S
 Loaded Debian local db from <tempdir>/osv-scanner/Debian/all.zip
 Loaded Go local db from <tempdir>/osv-scanner/Go/all.zip
 Loaded OSS-Fuzz local db from <tempdir>/osv-scanner/OSS-Fuzz/all.zip
-1 unimportant vulnerabilities have been filtered out.1 unimportant vulnerabilities have been filtered out.1 unimportant vulnerabilities have been filtered out.1 unimportant vulnerabilities have been filtered out.1 unimportant vulnerabilities have been filtered out.2 unimportant vulnerabilities have been filtered out.3 unimportant vulnerabilities have been filtered out.4 unimportant vulnerabilities have been filtered out.1 unimportant vulnerabilities have been filtered out.Filtered 15 vulnerabilities from output
+15 unimportant vulnerabilities have been filtered out.
+Filtered 15 vulnerabilities from output
 +-------------------------------------+------+-----------+--------------------------------+------------------------------------+-------------------------------------------------+
 | OSV URL                             | CVSS | ECOSYSTEM | PACKAGE                        | VERSION                            | SOURCE                                          |
 +-------------------------------------+------+-----------+--------------------------------+------------------------------------+-------------------------------------------------+
@@ -1127,7 +1128,8 @@ Scanned <rootdir>/fixtures/sbom-insecure/postgres-stretch.cdx.xml as CycloneDX S
 Loaded Debian local db from <tempdir>/osv-scanner/Debian/all.zip
 Loaded Go local db from <tempdir>/osv-scanner/Go/all.zip
 Loaded OSS-Fuzz local db from <tempdir>/osv-scanner/OSS-Fuzz/all.zip
-1 unimportant vulnerabilities have been filtered out.1 unimportant vulnerabilities have been filtered out.1 unimportant vulnerabilities have been filtered out.1 unimportant vulnerabilities have been filtered out.1 unimportant vulnerabilities have been filtered out.2 unimportant vulnerabilities have been filtered out.3 unimportant vulnerabilities have been filtered out.4 unimportant vulnerabilities have been filtered out.1 unimportant vulnerabilities have been filtered out.Filtered 15 vulnerabilities from output
+15 unimportant vulnerabilities have been filtered out.
+Filtered 15 vulnerabilities from output
 +-------------------------------------+------+-----------+--------------------------------+------------------------------------+-------------------------------------------------+
 | OSV URL                             | CVSS | ECOSYSTEM | PACKAGE                        | VERSION                            | SOURCE                                          |
 +-------------------------------------+------+-----------+--------------------------------+------------------------------------+-------------------------------------------------+

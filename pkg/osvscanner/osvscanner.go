@@ -653,12 +653,13 @@ func scanDebianDocker(r reporter.Reporter, dockerImageName string) ([]scannedPac
 // Filters results according to config, preserving order. Returns total number of vulnerabilities removed.
 func filterResults(r reporter.Reporter, results *models.VulnerabilityResults, configManager *config.ConfigManager, allPackages bool) int {
 	removedCount := 0
+	unimportantCount := 0
 	newResults := []models.PackageSource{} // Want 0 vulnerabilities to show in JSON as an empty list, not null.
 	for _, pkgSrc := range results.Results {
 		configToUse := configManager.Get(r, pkgSrc.Source.Path)
 		var newPackages []models.PackageVulns
 		for _, pkgVulns := range pkgSrc.Packages {
-			newVulns := filterPackageVulns(r, pkgVulns, configToUse)
+			newVulns := filterPackageVulns(r, pkgVulns, configToUse, &unimportantCount)
 			removedCount += len(pkgVulns.Vulnerabilities) - len(newVulns.Vulnerabilities)
 			if allPackages || len(newVulns.Vulnerabilities) > 0 || len(pkgVulns.LicenseViolations) > 0 {
 				newPackages = append(newPackages, newVulns)
@@ -672,11 +673,15 @@ func filterResults(r reporter.Reporter, results *models.VulnerabilityResults, co
 	}
 	results.Results = newResults
 
+	if unimportantCount > 0 {
+		r.Infof("%d unimportant vulnerabilities have been filtered out.\n", unimportantCount)
+	}
+
 	return removedCount
 }
 
 // Filters package-grouped vulnerabilities according to config, preserving ordering. Returns filtered package vulnerabilities.
-func filterPackageVulns(r reporter.Reporter, pkgVulns models.PackageVulns, configToUse config.Config) models.PackageVulns {
+func filterPackageVulns(r reporter.Reporter, pkgVulns models.PackageVulns, configToUse config.Config, unimportantCount *int) models.PackageVulns {
 	if ignore, ignoreLine := configToUse.ShouldIgnorePackageVersion(pkgVulns.Package.Name, pkgVulns.Package.Version, pkgVulns.Package.Ecosystem); ignore {
 		pkgString := fmt.Sprintf("%s/%s/%s", pkgVulns.Package.Ecosystem, pkgVulns.Package.Name, pkgVulns.Package.Version)
 		switch len(pkgVulns.Vulnerabilities) {
@@ -721,11 +726,10 @@ func filterPackageVulns(r reporter.Reporter, pkgVulns models.PackageVulns, confi
 
 	var newVulns []models.Vulnerability
 	if len(newGroups) > 0 { // If there are no groups left then there would be no vulnerabilities.
-		unimportantCount := 0
 		for _, vuln := range pkgVulns.Vulnerabilities {
 			if isUnimportant(pkgVulns.Package.Ecosystem, vuln.Affected) {
-				unimportantCount++
-				r.Verbosef("%s has been filtered out due to its unimportance.", vuln.ID)
+				*unimportantCount++
+				r.Verbosef("%s has been filtered out due to its unimportance.\n", vuln.ID)
 
 				continue
 			}
@@ -733,10 +737,6 @@ func filterPackageVulns(r reporter.Reporter, pkgVulns models.PackageVulns, confi
 			if _, filtered := ignoredVulns[vuln.ID]; !filtered {
 				newVulns = append(newVulns, vuln)
 			}
-		}
-
-		if unimportantCount > 0 {
-			r.Infof("%d unimportant vulnerabilities have been filtered out.", unimportantCount)
 		}
 	}
 
