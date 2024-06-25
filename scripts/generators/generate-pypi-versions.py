@@ -41,7 +41,7 @@ def extract_packages_with_versions(osvs):
 
   for osv in osvs:
     for affected in osv['affected']:
-      if affected['package']['ecosystem'] != 'PyPI':
+      if 'package' not in affected or affected['package']['ecosystem'] != 'PyPI':
         continue
 
       package = affected['package']['name']

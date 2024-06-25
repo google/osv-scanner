@@ -79,7 +79,7 @@ function fetchPackageVersions(): array
 
   foreach ($osvs as $osv) {
     foreach ($osv['affected'] as $affected) {
-      if ($affected['package']['ecosystem'] !== 'Packagist') {
+      if (!isset($affected['package']) || $affected['package']['ecosystem'] !== 'Packagist') {
         continue;
       }
 
