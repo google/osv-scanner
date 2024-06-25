@@ -88,6 +88,7 @@ func ScanImage(r reporter.Reporter, imagePath string) (ScanResults, error) {
 						sourceLayerIdx[key] = layerIdx
 					}
 				}
+
 				break
 			}
 
