@@ -13,7 +13,7 @@ import (
 
 func TestScanImage(t *testing.T) {
 	t.Parallel()
-	testutility.SkipIfNotAcceptanceTesting(t, "Not consistent on MacOS/Windows")
+	// testutility.SkipIfNotAcceptanceTesting(t, "Not consistent on MacOS/Windows")
 
 	type args struct {
 		imagePath string
@@ -66,11 +66,17 @@ func TestScanImage(t *testing.T) {
 			want:    testutility.NewSnapshot(),
 			wantErr: false,
 		},
+		{
+			name:    "scanning go binaries that's been overwritten for package tracing",
+			args:    args{imagePath: "fixtures/test-package-tracing.tar"},
+			want:    testutility.NewSnapshot(),
+			wantErr: false,
+		},
 	}
 	for _, tt := range tests {
 		tt := tt
 		t.Run(tt.name, func(t *testing.T) {
-			t.Parallel()
+			// t.Parallel()
 
 			// point out that we need the images to be built and saved separately
 			if _, err := os.Stat(tt.args.imagePath); errors.Is(err, os.ErrNotExist) {

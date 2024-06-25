@@ -21,13 +21,18 @@ func TestGoBinaryExtractor_ShouldExtract(t *testing.T) {
 		},
 		{
 			name: "",
-			path: "binary.json",
+			path: "path/to/dir/",
 			want: false,
 		},
 		{
 			name: "",
+			path: "binary.json",
+			want: true,
+		},
+		{
+			name: "",
 			path: "path/to/my/binary.json",
-			want: false,
+			want: true,
 		},
 		{
 			name: "",
@@ -47,12 +52,12 @@ func TestGoBinaryExtractor_ShouldExtract(t *testing.T) {
 		{
 			name: "",
 			path: "path/to/my/.hidden-binary",
-			want: false,
+			want: true,
 		},
 		{
 			name: "",
 			path: "path/to/my/binary.exe.1",
-			want: false,
+			want: true,
 		},
 	}
 	for _, tt := range tests {

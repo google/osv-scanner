@@ -11,103 +11,2743 @@
           "version": "3.1.2-r0",
           "commit": "770d8ce7c6c556d952884ad436dd82b17ceb1a9a",
           "ecosystem": "Alpine:v3.18",
-          "compareAs": "Alpine"
+          "compareAs": "Alpine",
+          "originLayerId": "9fb3aa2f8b8023a4bebbf92aa567caf88e38e969ada9f0ac12643b2847391635"
         },
         {
           "name": "alpine-keys",
           "version": "2.1-r2",
           "commit": "bdc861e495d33e961b7b9884324bea64a16d2b91",
           "ecosystem": "Alpine:v3.18",
-          "compareAs": "Alpine"
+          "compareAs": "Alpine",
+          "originLayerId": "9fb3aa2f8b8023a4bebbf92aa567caf88e38e969ada9f0ac12643b2847391635"
         },
         {
           "name": "apk-tools",
           "version": "2.10.6-r0",
           "commit": "ee458ccae264321745e9622c759baf110130eb2f",
           "ecosystem": "Alpine:v3.18",
-          "compareAs": "Alpine"
+          "compareAs": "Alpine",
+          "originLayerId": "9fb3aa2f8b8023a4bebbf92aa567caf88e38e969ada9f0ac12643b2847391635"
         },
         {
           "name": "busybox",
           "version": "1.30.1-r5",
           "commit": "26527b0535f65a4ac0ae7f3c9afb2294885b21cc",
           "ecosystem": "Alpine:v3.18",
-          "compareAs": "Alpine"
+          "compareAs": "Alpine",
+          "originLayerId": "9fb3aa2f8b8023a4bebbf92aa567caf88e38e969ada9f0ac12643b2847391635"
         },
         {
           "name": "ca-certificates-cacert",
           "version": "20191127-r2",
           "commit": "9677580919b73ca6eff94d3d31b9a846b4e40612",
           "ecosystem": "Alpine:v3.18",
-          "compareAs": "Alpine"
+          "compareAs": "Alpine",
+          "originLayerId": "9fb3aa2f8b8023a4bebbf92aa567caf88e38e969ada9f0ac12643b2847391635"
         },
         {
           "name": "libc-utils",
           "version": "0.7.1-r0",
           "commit": "cdca45021830765ad71e58af7ed31f42d1d3d644",
           "ecosystem": "Alpine:v3.18",
-          "compareAs": "Alpine"
+          "compareAs": "Alpine",
+          "originLayerId": "9fb3aa2f8b8023a4bebbf92aa567caf88e38e969ada9f0ac12643b2847391635"
         },
         {
           "name": "libcrypto1.1",
           "version": "1.1.1k-r0",
           "commit": "b5417b32170f2c945de1735ea728199291ff97b6",
           "ecosystem": "Alpine:v3.18",
-          "compareAs": "Alpine"
+          "compareAs": "Alpine",
+          "originLayerId": "9fb3aa2f8b8023a4bebbf92aa567caf88e38e969ada9f0ac12643b2847391635"
         },
         {
           "name": "libssl1.1",
           "version": "1.1.1k-r0",
           "commit": "b5417b32170f2c945de1735ea728199291ff97b6",
           "ecosystem": "Alpine:v3.18",
-          "compareAs": "Alpine"
+          "compareAs": "Alpine",
+          "originLayerId": "9fb3aa2f8b8023a4bebbf92aa567caf88e38e969ada9f0ac12643b2847391635"
         },
         {
           "name": "libtls-standalone",
           "version": "2.9.1-r0",
           "commit": "981bf8f8fb3cbbc210ee4f2a2fb5b55d0132e02a",
           "ecosystem": "Alpine:v3.18",
-          "compareAs": "Alpine"
+          "compareAs": "Alpine",
+          "originLayerId": "9fb3aa2f8b8023a4bebbf92aa567caf88e38e969ada9f0ac12643b2847391635"
         },
         {
           "name": "musl",
           "version": "1.1.22-r4",
           "commit": "5c22bb085e8e49c9cb402315efad998f7f992dff",
           "ecosystem": "Alpine:v3.18",
-          "compareAs": "Alpine"
+          "compareAs": "Alpine",
+          "originLayerId": "9fb3aa2f8b8023a4bebbf92aa567caf88e38e969ada9f0ac12643b2847391635"
         },
         {
           "name": "musl-utils",
           "version": "1.1.22-r4",
           "commit": "5c22bb085e8e49c9cb402315efad998f7f992dff",
           "ecosystem": "Alpine:v3.18",
-          "compareAs": "Alpine"
+          "compareAs": "Alpine",
+          "originLayerId": "9fb3aa2f8b8023a4bebbf92aa567caf88e38e969ada9f0ac12643b2847391635"
         },
         {
           "name": "scanelf",
           "version": "1.2.3-r0",
           "commit": "7768569c07c52f01b11e62e523cd6ddcb4690889",
           "ecosystem": "Alpine:v3.18",
-          "compareAs": "Alpine"
+          "compareAs": "Alpine",
+          "originLayerId": "9fb3aa2f8b8023a4bebbf92aa567caf88e38e969ada9f0ac12643b2847391635"
         },
         {
           "name": "ssl_client",
           "version": "1.30.1-r5",
           "commit": "26527b0535f65a4ac0ae7f3c9afb2294885b21cc",
           "ecosystem": "Alpine:v3.18",
-          "compareAs": "Alpine"
+          "compareAs": "Alpine",
+          "originLayerId": "9fb3aa2f8b8023a4bebbf92aa567caf88e38e969ada9f0ac12643b2847391635"
         },
         {
           "name": "zlib",
           "version": "1.2.11-r1",
           "commit": "d2bfb22c8e8f67ad7d8d02704f35ec4d2a19f9b9",
           "ecosystem": "Alpine:v3.18",
-          "compareAs": "Alpine"
+          "compareAs": "Alpine",
+          "originLayerId": "9fb3aa2f8b8023a4bebbf92aa567caf88e38e969ada9f0ac12643b2847391635"
         }
       ]
     }
   ],
   "ImagePath": "fixtures/test-alpine.tar"
+}
+---
+
+[TestScanImage/scanning_go_binaries_that's_been_overwritten_for_package_tracing - 1]
+{
+  "Lockfiles": [
+    {
+      "filePath": "/go/bin/more-vuln-overwrite-less-vuln",
+      "parsedAs": "go-binary",
+      "packages": [
+        {
+          "name": "dario.cat/mergo",
+          "version": "1.0.0",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "15bcf82536aaea7caf93194baa11c170576d3e76d420a18b539dd632c2898e59"
+        },
+        {
+          "name": "deps.dev/api/v3alpha",
+          "version": "0.0.0-20231114023923-e40c4d5c34e5",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "15bcf82536aaea7caf93194baa11c170576d3e76d420a18b539dd632c2898e59"
+        },
+        {
+          "name": "github.com/BurntSushi/toml",
+          "version": "1.3.2",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "15bcf82536aaea7caf93194baa11c170576d3e76d420a18b539dd632c2898e59"
+        },
+        {
+          "name": "github.com/CycloneDX/cyclonedx-go",
+          "version": "0.7.2",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "15bcf82536aaea7caf93194baa11c170576d3e76d420a18b539dd632c2898e59"
+        },
+        {
+          "name": "github.com/ProtonMail/go-crypto",
+          "version": "0.0.0-20230923063757-afb1ddc0824c",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "15bcf82536aaea7caf93194baa11c170576d3e76d420a18b539dd632c2898e59"
+        },
+        {
+          "name": "github.com/anchore/go-struct-converter",
+          "version": "0.0.0-20230627203149-c72ef8859ca9",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "15bcf82536aaea7caf93194baa11c170576d3e76d420a18b539dd632c2898e59"
+        },
+        {
+          "name": "github.com/cloudflare/circl",
+          "version": "1.3.3",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "15bcf82536aaea7caf93194baa11c170576d3e76d420a18b539dd632c2898e59"
+        },
+        {
+          "name": "github.com/cpuguy83/go-md2man/v2",
+          "version": "2.0.2",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "15bcf82536aaea7caf93194baa11c170576d3e76d420a18b539dd632c2898e59"
+        },
+        {
+          "name": "github.com/cyphar/filepath-securejoin",
+          "version": "0.2.4",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "15bcf82536aaea7caf93194baa11c170576d3e76d420a18b539dd632c2898e59"
+        },
+        {
+          "name": "github.com/emirpasic/gods",
+          "version": "1.18.1",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "15bcf82536aaea7caf93194baa11c170576d3e76d420a18b539dd632c2898e59"
+        },
+        {
+          "name": "github.com/go-git/gcfg",
+          "version": "1.5.1-0.20230307220236-3a3c6141e376",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "15bcf82536aaea7caf93194baa11c170576d3e76d420a18b539dd632c2898e59"
+        },
+        {
+          "name": "github.com/go-git/go-billy/v5",
+          "version": "5.5.0",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "15bcf82536aaea7caf93194baa11c170576d3e76d420a18b539dd632c2898e59"
+        },
+        {
+          "name": "github.com/go-git/go-git/v5",
+          "version": "5.10.1",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "15bcf82536aaea7caf93194baa11c170576d3e76d420a18b539dd632c2898e59"
+        },
+        {
+          "name": "github.com/golang/groupcache",
+          "version": "0.0.0-20210331224755-41bb18bfe9da",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "15bcf82536aaea7caf93194baa11c170576d3e76d420a18b539dd632c2898e59"
+        },
+        {
+          "name": "github.com/golang/protobuf",
+          "version": "1.5.3",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "15bcf82536aaea7caf93194baa11c170576d3e76d420a18b539dd632c2898e59"
+        },
+        {
+          "name": "github.com/ianlancetaylor/demangle",
+          "version": "0.0.0-20231023195312-e2daf7ba7156",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "15bcf82536aaea7caf93194baa11c170576d3e76d420a18b539dd632c2898e59"
+        },
+        {
+          "name": "github.com/jbenet/go-context",
+          "version": "0.0.0-20150711004518-d14ea06fba99",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "15bcf82536aaea7caf93194baa11c170576d3e76d420a18b539dd632c2898e59"
+        },
+        {
+          "name": "github.com/jedib0t/go-pretty/v6",
+          "version": "6.4.9",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "15bcf82536aaea7caf93194baa11c170576d3e76d420a18b539dd632c2898e59"
+        },
+        {
+          "name": "github.com/kevinburke/ssh_config",
+          "version": "1.2.0",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "15bcf82536aaea7caf93194baa11c170576d3e76d420a18b539dd632c2898e59"
+        },
+        {
+          "name": "github.com/mattn/go-runewidth",
+          "version": "0.0.15",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "15bcf82536aaea7caf93194baa11c170576d3e76d420a18b539dd632c2898e59"
+        },
+        {
+          "name": "github.com/owenrumney/go-sarif/v2",
+          "version": "2.3.0",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "15bcf82536aaea7caf93194baa11c170576d3e76d420a18b539dd632c2898e59"
+        },
+        {
+          "name": "github.com/package-url/packageurl-go",
+          "version": "0.1.2",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "15bcf82536aaea7caf93194baa11c170576d3e76d420a18b539dd632c2898e59"
+        },
+        {
+          "name": "github.com/pandatix/go-cvss",
+          "version": "0.6.2",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "15bcf82536aaea7caf93194baa11c170576d3e76d420a18b539dd632c2898e59"
+        },
+        {
+          "name": "github.com/pjbgf/sha1cd",
+          "version": "0.3.0",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "15bcf82536aaea7caf93194baa11c170576d3e76d420a18b539dd632c2898e59"
+        },
+        {
+          "name": "github.com/rivo/uniseg",
+          "version": "0.4.4",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "15bcf82536aaea7caf93194baa11c170576d3e76d420a18b539dd632c2898e59"
+        },
+        {
+          "name": "github.com/russross/blackfriday/v2",
+          "version": "2.1.0",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "15bcf82536aaea7caf93194baa11c170576d3e76d420a18b539dd632c2898e59"
+        },
+        {
+          "name": "github.com/sergi/go-diff",
+          "version": "1.3.1",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "15bcf82536aaea7caf93194baa11c170576d3e76d420a18b539dd632c2898e59"
+        },
+        {
+          "name": "github.com/skeema/knownhosts",
+          "version": "1.2.1",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "15bcf82536aaea7caf93194baa11c170576d3e76d420a18b539dd632c2898e59"
+        },
+        {
+          "name": "github.com/spdx/gordf",
+          "version": "0.0.0-20221230105357-b735bd5aac89",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "15bcf82536aaea7caf93194baa11c170576d3e76d420a18b539dd632c2898e59"
+        },
+        {
+          "name": "github.com/spdx/tools-golang",
+          "version": "0.5.3",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "15bcf82536aaea7caf93194baa11c170576d3e76d420a18b539dd632c2898e59"
+        },
+        {
+          "name": "github.com/urfave/cli/v2",
+          "version": "2.26.0",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "15bcf82536aaea7caf93194baa11c170576d3e76d420a18b539dd632c2898e59"
+        },
+        {
+          "name": "github.com/xanzy/ssh-agent",
+          "version": "0.3.3",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "15bcf82536aaea7caf93194baa11c170576d3e76d420a18b539dd632c2898e59"
+        },
+        {
+          "name": "github.com/xrash/smetrics",
+          "version": "0.0.0-20201216005158-039620a65673",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "15bcf82536aaea7caf93194baa11c170576d3e76d420a18b539dd632c2898e59"
+        },
+        {
+          "name": "golang.org/x/crypto",
+          "version": "0.16.0",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "15bcf82536aaea7caf93194baa11c170576d3e76d420a18b539dd632c2898e59"
+        },
+        {
+          "name": "golang.org/x/exp",
+          "version": "0.0.0-20231110203233-9a3e6036ecaa",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "15bcf82536aaea7caf93194baa11c170576d3e76d420a18b539dd632c2898e59"
+        },
+        {
+          "name": "golang.org/x/mod",
+          "version": "0.14.0",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "15bcf82536aaea7caf93194baa11c170576d3e76d420a18b539dd632c2898e59"
+        },
+        {
+          "name": "golang.org/x/net",
+          "version": "0.19.0",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "15bcf82536aaea7caf93194baa11c170576d3e76d420a18b539dd632c2898e59"
+        },
+        {
+          "name": "golang.org/x/sync",
+          "version": "0.5.0",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "15bcf82536aaea7caf93194baa11c170576d3e76d420a18b539dd632c2898e59"
+        },
+        {
+          "name": "golang.org/x/sys",
+          "version": "0.15.0",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "15bcf82536aaea7caf93194baa11c170576d3e76d420a18b539dd632c2898e59"
+        },
+        {
+          "name": "golang.org/x/term",
+          "version": "0.15.0",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "15bcf82536aaea7caf93194baa11c170576d3e76d420a18b539dd632c2898e59"
+        },
+        {
+          "name": "golang.org/x/text",
+          "version": "0.14.0",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "15bcf82536aaea7caf93194baa11c170576d3e76d420a18b539dd632c2898e59"
+        },
+        {
+          "name": "golang.org/x/tools",
+          "version": "0.15.0",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "15bcf82536aaea7caf93194baa11c170576d3e76d420a18b539dd632c2898e59"
+        },
+        {
+          "name": "golang.org/x/vuln",
+          "version": "1.0.1",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "15bcf82536aaea7caf93194baa11c170576d3e76d420a18b539dd632c2898e59"
+        },
+        {
+          "name": "google.golang.org/genproto/googleapis/rpc",
+          "version": "0.0.0-20230822172742-b8732ec3820d",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "15bcf82536aaea7caf93194baa11c170576d3e76d420a18b539dd632c2898e59"
+        },
+        {
+          "name": "google.golang.org/grpc",
+          "version": "1.59.0",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "15bcf82536aaea7caf93194baa11c170576d3e76d420a18b539dd632c2898e59"
+        },
+        {
+          "name": "google.golang.org/protobuf",
+          "version": "1.31.0",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "15bcf82536aaea7caf93194baa11c170576d3e76d420a18b539dd632c2898e59"
+        },
+        {
+          "name": "gopkg.in/warnings.v0",
+          "version": "0.1.2",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "15bcf82536aaea7caf93194baa11c170576d3e76d420a18b539dd632c2898e59"
+        },
+        {
+          "name": "gopkg.in/yaml.v3",
+          "version": "3.0.1",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "15bcf82536aaea7caf93194baa11c170576d3e76d420a18b539dd632c2898e59"
+        },
+        {
+          "name": "stdlib",
+          "version": "1.22.4",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "15bcf82536aaea7caf93194baa11c170576d3e76d420a18b539dd632c2898e59"
+        }
+      ]
+    },
+    {
+      "filePath": "/go/bin/osv-scanner-1.3.0",
+      "parsedAs": "go-binary",
+      "packages": [
+        {
+          "name": "github.com/BurntSushi/toml",
+          "version": "1.2.1",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "a376007381bdc6b77a2bbee790cc238befa0c01a4cb262b357a091a9c3b5443e"
+        },
+        {
+          "name": "github.com/CycloneDX/cyclonedx-go",
+          "version": "0.7.0",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "a376007381bdc6b77a2bbee790cc238befa0c01a4cb262b357a091a9c3b5443e"
+        },
+        {
+          "name": "github.com/ProtonMail/go-crypto",
+          "version": "0.0.0-20230217124315-7d5c6f04bbb8",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "a376007381bdc6b77a2bbee790cc238befa0c01a4cb262b357a091a9c3b5443e"
+        },
+        {
+          "name": "github.com/cloudflare/circl",
+          "version": "1.1.0",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "a376007381bdc6b77a2bbee790cc238befa0c01a4cb262b357a091a9c3b5443e"
+        },
+        {
+          "name": "github.com/cpuguy83/go-md2man/v2",
+          "version": "2.0.2",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "a376007381bdc6b77a2bbee790cc238befa0c01a4cb262b357a091a9c3b5443e"
+        },
+        {
+          "name": "github.com/emirpasic/gods",
+          "version": "1.18.1",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "a376007381bdc6b77a2bbee790cc238befa0c01a4cb262b357a091a9c3b5443e"
+        },
+        {
+          "name": "github.com/go-git/gcfg",
+          "version": "1.5.0",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "a376007381bdc6b77a2bbee790cc238befa0c01a4cb262b357a091a9c3b5443e"
+        },
+        {
+          "name": "github.com/go-git/go-billy/v5",
+          "version": "5.4.1",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "a376007381bdc6b77a2bbee790cc238befa0c01a4cb262b357a091a9c3b5443e"
+        },
+        {
+          "name": "github.com/go-git/go-git/v5",
+          "version": "5.6.1",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "a376007381bdc6b77a2bbee790cc238befa0c01a4cb262b357a091a9c3b5443e"
+        },
+        {
+          "name": "github.com/imdario/mergo",
+          "version": "0.3.13",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "a376007381bdc6b77a2bbee790cc238befa0c01a4cb262b357a091a9c3b5443e"
+        },
+        {
+          "name": "github.com/jbenet/go-context",
+          "version": "0.0.0-20150711004518-d14ea06fba99",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "a376007381bdc6b77a2bbee790cc238befa0c01a4cb262b357a091a9c3b5443e"
+        },
+        {
+          "name": "github.com/jedib0t/go-pretty/v6",
+          "version": "6.4.6",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "a376007381bdc6b77a2bbee790cc238befa0c01a4cb262b357a091a9c3b5443e"
+        },
+        {
+          "name": "github.com/kevinburke/ssh_config",
+          "version": "1.2.0",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "a376007381bdc6b77a2bbee790cc238befa0c01a4cb262b357a091a9c3b5443e"
+        },
+        {
+          "name": "github.com/mattn/go-runewidth",
+          "version": "0.0.13",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "a376007381bdc6b77a2bbee790cc238befa0c01a4cb262b357a091a9c3b5443e"
+        },
+        {
+          "name": "github.com/package-url/packageurl-go",
+          "version": "0.1.0",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "a376007381bdc6b77a2bbee790cc238befa0c01a4cb262b357a091a9c3b5443e"
+        },
+        {
+          "name": "github.com/pjbgf/sha1cd",
+          "version": "0.3.0",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "a376007381bdc6b77a2bbee790cc238befa0c01a4cb262b357a091a9c3b5443e"
+        },
+        {
+          "name": "github.com/rivo/uniseg",
+          "version": "0.2.0",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "a376007381bdc6b77a2bbee790cc238befa0c01a4cb262b357a091a9c3b5443e"
+        },
+        {
+          "name": "github.com/russross/blackfriday/v2",
+          "version": "2.1.0",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "a376007381bdc6b77a2bbee790cc238befa0c01a4cb262b357a091a9c3b5443e"
+        },
+        {
+          "name": "github.com/sergi/go-diff",
+          "version": "1.1.0",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "a376007381bdc6b77a2bbee790cc238befa0c01a4cb262b357a091a9c3b5443e"
+        },
+        {
+          "name": "github.com/skeema/knownhosts",
+          "version": "1.1.0",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "a376007381bdc6b77a2bbee790cc238befa0c01a4cb262b357a091a9c3b5443e"
+        },
+        {
+          "name": "github.com/spdx/gordf",
+          "version": "0.0.0-20221230105357-b735bd5aac89",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "a376007381bdc6b77a2bbee790cc238befa0c01a4cb262b357a091a9c3b5443e"
+        },
+        {
+          "name": "github.com/spdx/tools-golang",
+          "version": "0.4.0",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "a376007381bdc6b77a2bbee790cc238befa0c01a4cb262b357a091a9c3b5443e"
+        },
+        {
+          "name": "github.com/urfave/cli/v2",
+          "version": "2.25.1",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "a376007381bdc6b77a2bbee790cc238befa0c01a4cb262b357a091a9c3b5443e"
+        },
+        {
+          "name": "github.com/xanzy/ssh-agent",
+          "version": "0.3.3",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "a376007381bdc6b77a2bbee790cc238befa0c01a4cb262b357a091a9c3b5443e"
+        },
+        {
+          "name": "github.com/xrash/smetrics",
+          "version": "0.0.0-20201216005158-039620a65673",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "a376007381bdc6b77a2bbee790cc238befa0c01a4cb262b357a091a9c3b5443e"
+        },
+        {
+          "name": "golang.org/x/crypto",
+          "version": "0.6.0",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "a376007381bdc6b77a2bbee790cc238befa0c01a4cb262b357a091a9c3b5443e"
+        },
+        {
+          "name": "golang.org/x/exp",
+          "version": "0.0.0-20230321023759-10a507213a29",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "a376007381bdc6b77a2bbee790cc238befa0c01a4cb262b357a091a9c3b5443e"
+        },
+        {
+          "name": "golang.org/x/mod",
+          "version": "0.9.0",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "a376007381bdc6b77a2bbee790cc238befa0c01a4cb262b357a091a9c3b5443e"
+        },
+        {
+          "name": "golang.org/x/net",
+          "version": "0.8.0",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "a376007381bdc6b77a2bbee790cc238befa0c01a4cb262b357a091a9c3b5443e"
+        },
+        {
+          "name": "golang.org/x/sync",
+          "version": "0.1.0",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "a376007381bdc6b77a2bbee790cc238befa0c01a4cb262b357a091a9c3b5443e"
+        },
+        {
+          "name": "golang.org/x/sys",
+          "version": "0.6.0",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "a376007381bdc6b77a2bbee790cc238befa0c01a4cb262b357a091a9c3b5443e"
+        },
+        {
+          "name": "golang.org/x/term",
+          "version": "0.6.0",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "a376007381bdc6b77a2bbee790cc238befa0c01a4cb262b357a091a9c3b5443e"
+        },
+        {
+          "name": "golang.org/x/tools",
+          "version": "0.7.0",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "a376007381bdc6b77a2bbee790cc238befa0c01a4cb262b357a091a9c3b5443e"
+        },
+        {
+          "name": "golang.org/x/vuln",
+          "version": "0.0.0-20230303230808-d3042fecc4e3",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "a376007381bdc6b77a2bbee790cc238befa0c01a4cb262b357a091a9c3b5443e"
+        },
+        {
+          "name": "gopkg.in/warnings.v0",
+          "version": "0.1.2",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "a376007381bdc6b77a2bbee790cc238befa0c01a4cb262b357a091a9c3b5443e"
+        },
+        {
+          "name": "gopkg.in/yaml.v3",
+          "version": "3.0.1",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "a376007381bdc6b77a2bbee790cc238befa0c01a4cb262b357a091a9c3b5443e"
+        },
+        {
+          "name": "stdlib",
+          "version": "1.22.4",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "a376007381bdc6b77a2bbee790cc238befa0c01a4cb262b357a091a9c3b5443e"
+        }
+      ]
+    },
+    {
+      "filePath": "/go/bin/osv-scanner-1.3.0-moved",
+      "parsedAs": "go-binary",
+      "packages": [
+        {
+          "name": "github.com/BurntSushi/toml",
+          "version": "1.2.1",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "f7d7dd7fb96f14d21d2cbefb33e306b2a1f3ab6bad91304076f67ff8caa81b3e"
+        },
+        {
+          "name": "github.com/CycloneDX/cyclonedx-go",
+          "version": "0.7.0",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "f7d7dd7fb96f14d21d2cbefb33e306b2a1f3ab6bad91304076f67ff8caa81b3e"
+        },
+        {
+          "name": "github.com/ProtonMail/go-crypto",
+          "version": "0.0.0-20230217124315-7d5c6f04bbb8",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "f7d7dd7fb96f14d21d2cbefb33e306b2a1f3ab6bad91304076f67ff8caa81b3e"
+        },
+        {
+          "name": "github.com/cloudflare/circl",
+          "version": "1.1.0",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "f7d7dd7fb96f14d21d2cbefb33e306b2a1f3ab6bad91304076f67ff8caa81b3e"
+        },
+        {
+          "name": "github.com/cpuguy83/go-md2man/v2",
+          "version": "2.0.2",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "f7d7dd7fb96f14d21d2cbefb33e306b2a1f3ab6bad91304076f67ff8caa81b3e"
+        },
+        {
+          "name": "github.com/emirpasic/gods",
+          "version": "1.18.1",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "f7d7dd7fb96f14d21d2cbefb33e306b2a1f3ab6bad91304076f67ff8caa81b3e"
+        },
+        {
+          "name": "github.com/go-git/gcfg",
+          "version": "1.5.0",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "f7d7dd7fb96f14d21d2cbefb33e306b2a1f3ab6bad91304076f67ff8caa81b3e"
+        },
+        {
+          "name": "github.com/go-git/go-billy/v5",
+          "version": "5.4.1",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "f7d7dd7fb96f14d21d2cbefb33e306b2a1f3ab6bad91304076f67ff8caa81b3e"
+        },
+        {
+          "name": "github.com/go-git/go-git/v5",
+          "version": "5.6.1",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "f7d7dd7fb96f14d21d2cbefb33e306b2a1f3ab6bad91304076f67ff8caa81b3e"
+        },
+        {
+          "name": "github.com/imdario/mergo",
+          "version": "0.3.13",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "f7d7dd7fb96f14d21d2cbefb33e306b2a1f3ab6bad91304076f67ff8caa81b3e"
+        },
+        {
+          "name": "github.com/jbenet/go-context",
+          "version": "0.0.0-20150711004518-d14ea06fba99",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "f7d7dd7fb96f14d21d2cbefb33e306b2a1f3ab6bad91304076f67ff8caa81b3e"
+        },
+        {
+          "name": "github.com/jedib0t/go-pretty/v6",
+          "version": "6.4.6",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "f7d7dd7fb96f14d21d2cbefb33e306b2a1f3ab6bad91304076f67ff8caa81b3e"
+        },
+        {
+          "name": "github.com/kevinburke/ssh_config",
+          "version": "1.2.0",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "f7d7dd7fb96f14d21d2cbefb33e306b2a1f3ab6bad91304076f67ff8caa81b3e"
+        },
+        {
+          "name": "github.com/mattn/go-runewidth",
+          "version": "0.0.13",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "f7d7dd7fb96f14d21d2cbefb33e306b2a1f3ab6bad91304076f67ff8caa81b3e"
+        },
+        {
+          "name": "github.com/package-url/packageurl-go",
+          "version": "0.1.0",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "f7d7dd7fb96f14d21d2cbefb33e306b2a1f3ab6bad91304076f67ff8caa81b3e"
+        },
+        {
+          "name": "github.com/pjbgf/sha1cd",
+          "version": "0.3.0",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "f7d7dd7fb96f14d21d2cbefb33e306b2a1f3ab6bad91304076f67ff8caa81b3e"
+        },
+        {
+          "name": "github.com/rivo/uniseg",
+          "version": "0.2.0",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "f7d7dd7fb96f14d21d2cbefb33e306b2a1f3ab6bad91304076f67ff8caa81b3e"
+        },
+        {
+          "name": "github.com/russross/blackfriday/v2",
+          "version": "2.1.0",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "f7d7dd7fb96f14d21d2cbefb33e306b2a1f3ab6bad91304076f67ff8caa81b3e"
+        },
+        {
+          "name": "github.com/sergi/go-diff",
+          "version": "1.1.0",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "f7d7dd7fb96f14d21d2cbefb33e306b2a1f3ab6bad91304076f67ff8caa81b3e"
+        },
+        {
+          "name": "github.com/skeema/knownhosts",
+          "version": "1.1.0",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "f7d7dd7fb96f14d21d2cbefb33e306b2a1f3ab6bad91304076f67ff8caa81b3e"
+        },
+        {
+          "name": "github.com/spdx/gordf",
+          "version": "0.0.0-20221230105357-b735bd5aac89",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "f7d7dd7fb96f14d21d2cbefb33e306b2a1f3ab6bad91304076f67ff8caa81b3e"
+        },
+        {
+          "name": "github.com/spdx/tools-golang",
+          "version": "0.4.0",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "f7d7dd7fb96f14d21d2cbefb33e306b2a1f3ab6bad91304076f67ff8caa81b3e"
+        },
+        {
+          "name": "github.com/urfave/cli/v2",
+          "version": "2.25.1",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "f7d7dd7fb96f14d21d2cbefb33e306b2a1f3ab6bad91304076f67ff8caa81b3e"
+        },
+        {
+          "name": "github.com/xanzy/ssh-agent",
+          "version": "0.3.3",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "f7d7dd7fb96f14d21d2cbefb33e306b2a1f3ab6bad91304076f67ff8caa81b3e"
+        },
+        {
+          "name": "github.com/xrash/smetrics",
+          "version": "0.0.0-20201216005158-039620a65673",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "f7d7dd7fb96f14d21d2cbefb33e306b2a1f3ab6bad91304076f67ff8caa81b3e"
+        },
+        {
+          "name": "golang.org/x/crypto",
+          "version": "0.6.0",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "f7d7dd7fb96f14d21d2cbefb33e306b2a1f3ab6bad91304076f67ff8caa81b3e"
+        },
+        {
+          "name": "golang.org/x/exp",
+          "version": "0.0.0-20230321023759-10a507213a29",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "f7d7dd7fb96f14d21d2cbefb33e306b2a1f3ab6bad91304076f67ff8caa81b3e"
+        },
+        {
+          "name": "golang.org/x/mod",
+          "version": "0.9.0",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "f7d7dd7fb96f14d21d2cbefb33e306b2a1f3ab6bad91304076f67ff8caa81b3e"
+        },
+        {
+          "name": "golang.org/x/net",
+          "version": "0.8.0",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "f7d7dd7fb96f14d21d2cbefb33e306b2a1f3ab6bad91304076f67ff8caa81b3e"
+        },
+        {
+          "name": "golang.org/x/sync",
+          "version": "0.1.0",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "f7d7dd7fb96f14d21d2cbefb33e306b2a1f3ab6bad91304076f67ff8caa81b3e"
+        },
+        {
+          "name": "golang.org/x/sys",
+          "version": "0.6.0",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "f7d7dd7fb96f14d21d2cbefb33e306b2a1f3ab6bad91304076f67ff8caa81b3e"
+        },
+        {
+          "name": "golang.org/x/term",
+          "version": "0.6.0",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "f7d7dd7fb96f14d21d2cbefb33e306b2a1f3ab6bad91304076f67ff8caa81b3e"
+        },
+        {
+          "name": "golang.org/x/tools",
+          "version": "0.7.0",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "f7d7dd7fb96f14d21d2cbefb33e306b2a1f3ab6bad91304076f67ff8caa81b3e"
+        },
+        {
+          "name": "golang.org/x/vuln",
+          "version": "0.0.0-20230303230808-d3042fecc4e3",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "f7d7dd7fb96f14d21d2cbefb33e306b2a1f3ab6bad91304076f67ff8caa81b3e"
+        },
+        {
+          "name": "gopkg.in/warnings.v0",
+          "version": "0.1.2",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "f7d7dd7fb96f14d21d2cbefb33e306b2a1f3ab6bad91304076f67ff8caa81b3e"
+        },
+        {
+          "name": "gopkg.in/yaml.v3",
+          "version": "3.0.1",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "f7d7dd7fb96f14d21d2cbefb33e306b2a1f3ab6bad91304076f67ff8caa81b3e"
+        },
+        {
+          "name": "stdlib",
+          "version": "1.22.4",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "f7d7dd7fb96f14d21d2cbefb33e306b2a1f3ab6bad91304076f67ff8caa81b3e"
+        }
+      ]
+    },
+    {
+      "filePath": "/go/bin/osv-scanner-1.5.0",
+      "parsedAs": "go-binary",
+      "packages": [
+        {
+          "name": "dario.cat/mergo",
+          "version": "1.0.0",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "3fa63c02f0caa1addd68058f920d7fd3fab4bf25e78fa9066951bdc336525289"
+        },
+        {
+          "name": "deps.dev/api/v3alpha",
+          "version": "0.0.0-20231114023923-e40c4d5c34e5",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "3fa63c02f0caa1addd68058f920d7fd3fab4bf25e78fa9066951bdc336525289"
+        },
+        {
+          "name": "github.com/BurntSushi/toml",
+          "version": "1.3.2",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "3fa63c02f0caa1addd68058f920d7fd3fab4bf25e78fa9066951bdc336525289"
+        },
+        {
+          "name": "github.com/CycloneDX/cyclonedx-go",
+          "version": "0.7.2",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "3fa63c02f0caa1addd68058f920d7fd3fab4bf25e78fa9066951bdc336525289"
+        },
+        {
+          "name": "github.com/ProtonMail/go-crypto",
+          "version": "0.0.0-20230923063757-afb1ddc0824c",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "3fa63c02f0caa1addd68058f920d7fd3fab4bf25e78fa9066951bdc336525289"
+        },
+        {
+          "name": "github.com/anchore/go-struct-converter",
+          "version": "0.0.0-20230627203149-c72ef8859ca9",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "3fa63c02f0caa1addd68058f920d7fd3fab4bf25e78fa9066951bdc336525289"
+        },
+        {
+          "name": "github.com/cloudflare/circl",
+          "version": "1.3.3",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "3fa63c02f0caa1addd68058f920d7fd3fab4bf25e78fa9066951bdc336525289"
+        },
+        {
+          "name": "github.com/cpuguy83/go-md2man/v2",
+          "version": "2.0.2",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "3fa63c02f0caa1addd68058f920d7fd3fab4bf25e78fa9066951bdc336525289"
+        },
+        {
+          "name": "github.com/cyphar/filepath-securejoin",
+          "version": "0.2.4",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "3fa63c02f0caa1addd68058f920d7fd3fab4bf25e78fa9066951bdc336525289"
+        },
+        {
+          "name": "github.com/emirpasic/gods",
+          "version": "1.18.1",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "3fa63c02f0caa1addd68058f920d7fd3fab4bf25e78fa9066951bdc336525289"
+        },
+        {
+          "name": "github.com/go-git/gcfg",
+          "version": "1.5.1-0.20230307220236-3a3c6141e376",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "3fa63c02f0caa1addd68058f920d7fd3fab4bf25e78fa9066951bdc336525289"
+        },
+        {
+          "name": "github.com/go-git/go-billy/v5",
+          "version": "5.5.0",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "3fa63c02f0caa1addd68058f920d7fd3fab4bf25e78fa9066951bdc336525289"
+        },
+        {
+          "name": "github.com/go-git/go-git/v5",
+          "version": "5.10.1",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "3fa63c02f0caa1addd68058f920d7fd3fab4bf25e78fa9066951bdc336525289"
+        },
+        {
+          "name": "github.com/golang/groupcache",
+          "version": "0.0.0-20210331224755-41bb18bfe9da",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "3fa63c02f0caa1addd68058f920d7fd3fab4bf25e78fa9066951bdc336525289"
+        },
+        {
+          "name": "github.com/golang/protobuf",
+          "version": "1.5.3",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "3fa63c02f0caa1addd68058f920d7fd3fab4bf25e78fa9066951bdc336525289"
+        },
+        {
+          "name": "github.com/ianlancetaylor/demangle",
+          "version": "0.0.0-20231023195312-e2daf7ba7156",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "3fa63c02f0caa1addd68058f920d7fd3fab4bf25e78fa9066951bdc336525289"
+        },
+        {
+          "name": "github.com/jbenet/go-context",
+          "version": "0.0.0-20150711004518-d14ea06fba99",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "3fa63c02f0caa1addd68058f920d7fd3fab4bf25e78fa9066951bdc336525289"
+        },
+        {
+          "name": "github.com/jedib0t/go-pretty/v6",
+          "version": "6.4.9",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "3fa63c02f0caa1addd68058f920d7fd3fab4bf25e78fa9066951bdc336525289"
+        },
+        {
+          "name": "github.com/kevinburke/ssh_config",
+          "version": "1.2.0",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "3fa63c02f0caa1addd68058f920d7fd3fab4bf25e78fa9066951bdc336525289"
+        },
+        {
+          "name": "github.com/mattn/go-runewidth",
+          "version": "0.0.15",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "3fa63c02f0caa1addd68058f920d7fd3fab4bf25e78fa9066951bdc336525289"
+        },
+        {
+          "name": "github.com/owenrumney/go-sarif/v2",
+          "version": "2.3.0",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "3fa63c02f0caa1addd68058f920d7fd3fab4bf25e78fa9066951bdc336525289"
+        },
+        {
+          "name": "github.com/package-url/packageurl-go",
+          "version": "0.1.2",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "3fa63c02f0caa1addd68058f920d7fd3fab4bf25e78fa9066951bdc336525289"
+        },
+        {
+          "name": "github.com/pandatix/go-cvss",
+          "version": "0.6.2",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "3fa63c02f0caa1addd68058f920d7fd3fab4bf25e78fa9066951bdc336525289"
+        },
+        {
+          "name": "github.com/pjbgf/sha1cd",
+          "version": "0.3.0",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "3fa63c02f0caa1addd68058f920d7fd3fab4bf25e78fa9066951bdc336525289"
+        },
+        {
+          "name": "github.com/rivo/uniseg",
+          "version": "0.4.4",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "3fa63c02f0caa1addd68058f920d7fd3fab4bf25e78fa9066951bdc336525289"
+        },
+        {
+          "name": "github.com/russross/blackfriday/v2",
+          "version": "2.1.0",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "3fa63c02f0caa1addd68058f920d7fd3fab4bf25e78fa9066951bdc336525289"
+        },
+        {
+          "name": "github.com/sergi/go-diff",
+          "version": "1.3.1",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "3fa63c02f0caa1addd68058f920d7fd3fab4bf25e78fa9066951bdc336525289"
+        },
+        {
+          "name": "github.com/skeema/knownhosts",
+          "version": "1.2.1",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "3fa63c02f0caa1addd68058f920d7fd3fab4bf25e78fa9066951bdc336525289"
+        },
+        {
+          "name": "github.com/spdx/gordf",
+          "version": "0.0.0-20221230105357-b735bd5aac89",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "3fa63c02f0caa1addd68058f920d7fd3fab4bf25e78fa9066951bdc336525289"
+        },
+        {
+          "name": "github.com/spdx/tools-golang",
+          "version": "0.5.3",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "3fa63c02f0caa1addd68058f920d7fd3fab4bf25e78fa9066951bdc336525289"
+        },
+        {
+          "name": "github.com/urfave/cli/v2",
+          "version": "2.26.0",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "3fa63c02f0caa1addd68058f920d7fd3fab4bf25e78fa9066951bdc336525289"
+        },
+        {
+          "name": "github.com/xanzy/ssh-agent",
+          "version": "0.3.3",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "3fa63c02f0caa1addd68058f920d7fd3fab4bf25e78fa9066951bdc336525289"
+        },
+        {
+          "name": "github.com/xrash/smetrics",
+          "version": "0.0.0-20201216005158-039620a65673",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "3fa63c02f0caa1addd68058f920d7fd3fab4bf25e78fa9066951bdc336525289"
+        },
+        {
+          "name": "golang.org/x/crypto",
+          "version": "0.16.0",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "3fa63c02f0caa1addd68058f920d7fd3fab4bf25e78fa9066951bdc336525289"
+        },
+        {
+          "name": "golang.org/x/exp",
+          "version": "0.0.0-20231110203233-9a3e6036ecaa",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "3fa63c02f0caa1addd68058f920d7fd3fab4bf25e78fa9066951bdc336525289"
+        },
+        {
+          "name": "golang.org/x/mod",
+          "version": "0.14.0",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "3fa63c02f0caa1addd68058f920d7fd3fab4bf25e78fa9066951bdc336525289"
+        },
+        {
+          "name": "golang.org/x/net",
+          "version": "0.19.0",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "3fa63c02f0caa1addd68058f920d7fd3fab4bf25e78fa9066951bdc336525289"
+        },
+        {
+          "name": "golang.org/x/sync",
+          "version": "0.5.0",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "3fa63c02f0caa1addd68058f920d7fd3fab4bf25e78fa9066951bdc336525289"
+        },
+        {
+          "name": "golang.org/x/sys",
+          "version": "0.15.0",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "3fa63c02f0caa1addd68058f920d7fd3fab4bf25e78fa9066951bdc336525289"
+        },
+        {
+          "name": "golang.org/x/term",
+          "version": "0.15.0",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "3fa63c02f0caa1addd68058f920d7fd3fab4bf25e78fa9066951bdc336525289"
+        },
+        {
+          "name": "golang.org/x/text",
+          "version": "0.14.0",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "3fa63c02f0caa1addd68058f920d7fd3fab4bf25e78fa9066951bdc336525289"
+        },
+        {
+          "name": "golang.org/x/tools",
+          "version": "0.15.0",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "3fa63c02f0caa1addd68058f920d7fd3fab4bf25e78fa9066951bdc336525289"
+        },
+        {
+          "name": "golang.org/x/vuln",
+          "version": "1.0.1",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "3fa63c02f0caa1addd68058f920d7fd3fab4bf25e78fa9066951bdc336525289"
+        },
+        {
+          "name": "google.golang.org/genproto/googleapis/rpc",
+          "version": "0.0.0-20230822172742-b8732ec3820d",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "3fa63c02f0caa1addd68058f920d7fd3fab4bf25e78fa9066951bdc336525289"
+        },
+        {
+          "name": "google.golang.org/grpc",
+          "version": "1.59.0",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "3fa63c02f0caa1addd68058f920d7fd3fab4bf25e78fa9066951bdc336525289"
+        },
+        {
+          "name": "google.golang.org/protobuf",
+          "version": "1.31.0",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "3fa63c02f0caa1addd68058f920d7fd3fab4bf25e78fa9066951bdc336525289"
+        },
+        {
+          "name": "gopkg.in/warnings.v0",
+          "version": "0.1.2",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "3fa63c02f0caa1addd68058f920d7fd3fab4bf25e78fa9066951bdc336525289"
+        },
+        {
+          "name": "gopkg.in/yaml.v3",
+          "version": "3.0.1",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "3fa63c02f0caa1addd68058f920d7fd3fab4bf25e78fa9066951bdc336525289"
+        },
+        {
+          "name": "stdlib",
+          "version": "1.22.4",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "3fa63c02f0caa1addd68058f920d7fd3fab4bf25e78fa9066951bdc336525289"
+        }
+      ]
+    },
+    {
+      "filePath": "/go/bin/osv-scanner-1.8.1",
+      "parsedAs": "go-binary",
+      "packages": [
+        {
+          "name": "dario.cat/mergo",
+          "version": "1.0.0",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "3fa63c02f0caa1addd68058f920d7fd3fab4bf25e78fa9066951bdc336525289"
+        },
+        {
+          "name": "deps.dev/api/v3",
+          "version": "3.0.0-20240617015216-b147e04533eb",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "3fa63c02f0caa1addd68058f920d7fd3fab4bf25e78fa9066951bdc336525289"
+        },
+        {
+          "name": "deps.dev/util/maven",
+          "version": "0.0.0-20240617015216-b147e04533eb",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "3fa63c02f0caa1addd68058f920d7fd3fab4bf25e78fa9066951bdc336525289"
+        },
+        {
+          "name": "deps.dev/util/resolve",
+          "version": "0.0.0-20240617015216-b147e04533eb",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "3fa63c02f0caa1addd68058f920d7fd3fab4bf25e78fa9066951bdc336525289"
+        },
+        {
+          "name": "deps.dev/util/semver",
+          "version": "0.0.0-20240617015216-b147e04533eb",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "3fa63c02f0caa1addd68058f920d7fd3fab4bf25e78fa9066951bdc336525289"
+        },
+        {
+          "name": "github.com/BurntSushi/toml",
+          "version": "1.4.0",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "3fa63c02f0caa1addd68058f920d7fd3fab4bf25e78fa9066951bdc336525289"
+        },
+        {
+          "name": "github.com/CycloneDX/cyclonedx-go",
+          "version": "0.9.0",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "3fa63c02f0caa1addd68058f920d7fd3fab4bf25e78fa9066951bdc336525289"
+        },
+        {
+          "name": "github.com/ProtonMail/go-crypto",
+          "version": "1.0.0",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "3fa63c02f0caa1addd68058f920d7fd3fab4bf25e78fa9066951bdc336525289"
+        },
+        {
+          "name": "github.com/alecthomas/chroma/v2",
+          "version": "2.8.0",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "3fa63c02f0caa1addd68058f920d7fd3fab4bf25e78fa9066951bdc336525289"
+        },
+        {
+          "name": "github.com/anchore/go-struct-converter",
+          "version": "0.0.0-20230627203149-c72ef8859ca9",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "3fa63c02f0caa1addd68058f920d7fd3fab4bf25e78fa9066951bdc336525289"
+        },
+        {
+          "name": "github.com/atotto/clipboard",
+          "version": "0.1.4",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "3fa63c02f0caa1addd68058f920d7fd3fab4bf25e78fa9066951bdc336525289"
+        },
+        {
+          "name": "github.com/aymanbagabas/go-osc52/v2",
+          "version": "2.0.1",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "3fa63c02f0caa1addd68058f920d7fd3fab4bf25e78fa9066951bdc336525289"
+        },
+        {
+          "name": "github.com/aymerick/douceur",
+          "version": "0.2.0",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "3fa63c02f0caa1addd68058f920d7fd3fab4bf25e78fa9066951bdc336525289"
+        },
+        {
+          "name": "github.com/charmbracelet/bubbles",
+          "version": "0.18.0",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "3fa63c02f0caa1addd68058f920d7fd3fab4bf25e78fa9066951bdc336525289"
+        },
+        {
+          "name": "github.com/charmbracelet/bubbletea",
+          "version": "0.26.4",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "3fa63c02f0caa1addd68058f920d7fd3fab4bf25e78fa9066951bdc336525289"
+        },
+        {
+          "name": "github.com/charmbracelet/glamour",
+          "version": "0.7.0",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "3fa63c02f0caa1addd68058f920d7fd3fab4bf25e78fa9066951bdc336525289"
+        },
+        {
+          "name": "github.com/charmbracelet/lipgloss",
+          "version": "0.11.0",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "3fa63c02f0caa1addd68058f920d7fd3fab4bf25e78fa9066951bdc336525289"
+        },
+        {
+          "name": "github.com/charmbracelet/x/ansi",
+          "version": "0.1.2",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "3fa63c02f0caa1addd68058f920d7fd3fab4bf25e78fa9066951bdc336525289"
+        },
+        {
+          "name": "github.com/charmbracelet/x/input",
+          "version": "0.1.0",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "3fa63c02f0caa1addd68058f920d7fd3fab4bf25e78fa9066951bdc336525289"
+        },
+        {
+          "name": "github.com/charmbracelet/x/term",
+          "version": "0.1.1",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "3fa63c02f0caa1addd68058f920d7fd3fab4bf25e78fa9066951bdc336525289"
+        },
+        {
+          "name": "github.com/cloudflare/circl",
+          "version": "1.3.7",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "3fa63c02f0caa1addd68058f920d7fd3fab4bf25e78fa9066951bdc336525289"
+        },
+        {
+          "name": "github.com/containerd/stargz-snapshotter/estargz",
+          "version": "0.15.1",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "3fa63c02f0caa1addd68058f920d7fd3fab4bf25e78fa9066951bdc336525289"
+        },
+        {
+          "name": "github.com/cpuguy83/go-md2man/v2",
+          "version": "2.0.4",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "3fa63c02f0caa1addd68058f920d7fd3fab4bf25e78fa9066951bdc336525289"
+        },
+        {
+          "name": "github.com/cyphar/filepath-securejoin",
+          "version": "0.2.4",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "3fa63c02f0caa1addd68058f920d7fd3fab4bf25e78fa9066951bdc336525289"
+        },
+        {
+          "name": "github.com/dghubble/trie",
+          "version": "0.1.0",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "3fa63c02f0caa1addd68058f920d7fd3fab4bf25e78fa9066951bdc336525289"
+        },
+        {
+          "name": "github.com/dlclark/regexp2",
+          "version": "1.11.0",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "3fa63c02f0caa1addd68058f920d7fd3fab4bf25e78fa9066951bdc336525289"
+        },
+        {
+          "name": "github.com/emirpasic/gods",
+          "version": "1.18.1",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "3fa63c02f0caa1addd68058f920d7fd3fab4bf25e78fa9066951bdc336525289"
+        },
+        {
+          "name": "github.com/erikgeiser/coninput",
+          "version": "0.0.0-20211004153227-1c3628e74d0f",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "3fa63c02f0caa1addd68058f920d7fd3fab4bf25e78fa9066951bdc336525289"
+        },
+        {
+          "name": "github.com/go-git/gcfg",
+          "version": "1.5.1-0.20230307220236-3a3c6141e376",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "3fa63c02f0caa1addd68058f920d7fd3fab4bf25e78fa9066951bdc336525289"
+        },
+        {
+          "name": "github.com/go-git/go-billy/v5",
+          "version": "5.5.0",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "3fa63c02f0caa1addd68058f920d7fd3fab4bf25e78fa9066951bdc336525289"
+        },
+        {
+          "name": "github.com/go-git/go-git/v5",
+          "version": "5.12.0",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "3fa63c02f0caa1addd68058f920d7fd3fab4bf25e78fa9066951bdc336525289"
+        },
+        {
+          "name": "github.com/golang/groupcache",
+          "version": "0.0.0-20210331224755-41bb18bfe9da",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "3fa63c02f0caa1addd68058f920d7fd3fab4bf25e78fa9066951bdc336525289"
+        },
+        {
+          "name": "github.com/google/go-containerregistry",
+          "version": "0.19.2",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "3fa63c02f0caa1addd68058f920d7fd3fab4bf25e78fa9066951bdc336525289"
+        },
+        {
+          "name": "github.com/gorilla/css",
+          "version": "1.0.1",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "3fa63c02f0caa1addd68058f920d7fd3fab4bf25e78fa9066951bdc336525289"
+        },
+        {
+          "name": "github.com/ianlancetaylor/demangle",
+          "version": "0.0.0-20240312041847-bd984b5ce465",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "3fa63c02f0caa1addd68058f920d7fd3fab4bf25e78fa9066951bdc336525289"
+        },
+        {
+          "name": "github.com/jbenet/go-context",
+          "version": "0.0.0-20150711004518-d14ea06fba99",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "3fa63c02f0caa1addd68058f920d7fd3fab4bf25e78fa9066951bdc336525289"
+        },
+        {
+          "name": "github.com/jedib0t/go-pretty/v6",
+          "version": "6.5.9",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "3fa63c02f0caa1addd68058f920d7fd3fab4bf25e78fa9066951bdc336525289"
+        },
+        {
+          "name": "github.com/kevinburke/ssh_config",
+          "version": "1.2.0",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "3fa63c02f0caa1addd68058f920d7fd3fab4bf25e78fa9066951bdc336525289"
+        },
+        {
+          "name": "github.com/klauspost/compress",
+          "version": "1.17.7",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "3fa63c02f0caa1addd68058f920d7fd3fab4bf25e78fa9066951bdc336525289"
+        },
+        {
+          "name": "github.com/lucasb-eyer/go-colorful",
+          "version": "1.2.0",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "3fa63c02f0caa1addd68058f920d7fd3fab4bf25e78fa9066951bdc336525289"
+        },
+        {
+          "name": "github.com/mattn/go-isatty",
+          "version": "0.0.20",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "3fa63c02f0caa1addd68058f920d7fd3fab4bf25e78fa9066951bdc336525289"
+        },
+        {
+          "name": "github.com/mattn/go-runewidth",
+          "version": "0.0.15",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "3fa63c02f0caa1addd68058f920d7fd3fab4bf25e78fa9066951bdc336525289"
+        },
+        {
+          "name": "github.com/microcosm-cc/bluemonday",
+          "version": "1.0.26",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "3fa63c02f0caa1addd68058f920d7fd3fab4bf25e78fa9066951bdc336525289"
+        },
+        {
+          "name": "github.com/muesli/ansi",
+          "version": "0.0.0-20230316100256-276c6243b2f6",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "3fa63c02f0caa1addd68058f920d7fd3fab4bf25e78fa9066951bdc336525289"
+        },
+        {
+          "name": "github.com/muesli/cancelreader",
+          "version": "0.2.2",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "3fa63c02f0caa1addd68058f920d7fd3fab4bf25e78fa9066951bdc336525289"
+        },
+        {
+          "name": "github.com/muesli/reflow",
+          "version": "0.3.0",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "3fa63c02f0caa1addd68058f920d7fd3fab4bf25e78fa9066951bdc336525289"
+        },
+        {
+          "name": "github.com/muesli/termenv",
+          "version": "0.15.2",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "3fa63c02f0caa1addd68058f920d7fd3fab4bf25e78fa9066951bdc336525289"
+        },
+        {
+          "name": "github.com/olekukonko/tablewriter",
+          "version": "0.0.5",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "3fa63c02f0caa1addd68058f920d7fd3fab4bf25e78fa9066951bdc336525289"
+        },
+        {
+          "name": "github.com/opencontainers/go-digest",
+          "version": "1.0.0",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "3fa63c02f0caa1addd68058f920d7fd3fab4bf25e78fa9066951bdc336525289"
+        },
+        {
+          "name": "github.com/opencontainers/image-spec",
+          "version": "1.1.0-rc3",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "3fa63c02f0caa1addd68058f920d7fd3fab4bf25e78fa9066951bdc336525289"
+        },
+        {
+          "name": "github.com/owenrumney/go-sarif/v2",
+          "version": "2.3.1",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "3fa63c02f0caa1addd68058f920d7fd3fab4bf25e78fa9066951bdc336525289"
+        },
+        {
+          "name": "github.com/package-url/packageurl-go",
+          "version": "0.1.3",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "3fa63c02f0caa1addd68058f920d7fd3fab4bf25e78fa9066951bdc336525289"
+        },
+        {
+          "name": "github.com/pandatix/go-cvss",
+          "version": "0.6.2",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "3fa63c02f0caa1addd68058f920d7fd3fab4bf25e78fa9066951bdc336525289"
+        },
+        {
+          "name": "github.com/pjbgf/sha1cd",
+          "version": "0.3.0",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "3fa63c02f0caa1addd68058f920d7fd3fab4bf25e78fa9066951bdc336525289"
+        },
+        {
+          "name": "github.com/rivo/uniseg",
+          "version": "0.4.7",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "3fa63c02f0caa1addd68058f920d7fd3fab4bf25e78fa9066951bdc336525289"
+        },
+        {
+          "name": "github.com/russross/blackfriday/v2",
+          "version": "2.1.0",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "3fa63c02f0caa1addd68058f920d7fd3fab4bf25e78fa9066951bdc336525289"
+        },
+        {
+          "name": "github.com/sahilm/fuzzy",
+          "version": "0.1.1",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "3fa63c02f0caa1addd68058f920d7fd3fab4bf25e78fa9066951bdc336525289"
+        },
+        {
+          "name": "github.com/sergi/go-diff",
+          "version": "1.3.2-0.20230802210424-5b0b94c5c0d3",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "3fa63c02f0caa1addd68058f920d7fd3fab4bf25e78fa9066951bdc336525289"
+        },
+        {
+          "name": "github.com/skeema/knownhosts",
+          "version": "1.2.2",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "3fa63c02f0caa1addd68058f920d7fd3fab4bf25e78fa9066951bdc336525289"
+        },
+        {
+          "name": "github.com/spdx/gordf",
+          "version": "0.0.0-20221230105357-b735bd5aac89",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "3fa63c02f0caa1addd68058f920d7fd3fab4bf25e78fa9066951bdc336525289"
+        },
+        {
+          "name": "github.com/spdx/tools-golang",
+          "version": "0.5.4",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "3fa63c02f0caa1addd68058f920d7fd3fab4bf25e78fa9066951bdc336525289"
+        },
+        {
+          "name": "github.com/tidwall/gjson",
+          "version": "1.17.1",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "3fa63c02f0caa1addd68058f920d7fd3fab4bf25e78fa9066951bdc336525289"
+        },
+        {
+          "name": "github.com/tidwall/match",
+          "version": "1.1.1",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "3fa63c02f0caa1addd68058f920d7fd3fab4bf25e78fa9066951bdc336525289"
+        },
+        {
+          "name": "github.com/tidwall/pretty",
+          "version": "1.2.1",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "3fa63c02f0caa1addd68058f920d7fd3fab4bf25e78fa9066951bdc336525289"
+        },
+        {
+          "name": "github.com/tidwall/sjson",
+          "version": "1.2.5",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "3fa63c02f0caa1addd68058f920d7fd3fab4bf25e78fa9066951bdc336525289"
+        },
+        {
+          "name": "github.com/urfave/cli/v2",
+          "version": "2.27.2",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "3fa63c02f0caa1addd68058f920d7fd3fab4bf25e78fa9066951bdc336525289"
+        },
+        {
+          "name": "github.com/vbatts/tar-split",
+          "version": "0.11.5",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "3fa63c02f0caa1addd68058f920d7fd3fab4bf25e78fa9066951bdc336525289"
+        },
+        {
+          "name": "github.com/xanzy/ssh-agent",
+          "version": "0.3.3",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "3fa63c02f0caa1addd68058f920d7fd3fab4bf25e78fa9066951bdc336525289"
+        },
+        {
+          "name": "github.com/xo/terminfo",
+          "version": "0.0.0-20220910002029-abceb7e1c41e",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "3fa63c02f0caa1addd68058f920d7fd3fab4bf25e78fa9066951bdc336525289"
+        },
+        {
+          "name": "github.com/xrash/smetrics",
+          "version": "0.0.0-20240312152122-5f08fbb34913",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "3fa63c02f0caa1addd68058f920d7fd3fab4bf25e78fa9066951bdc336525289"
+        },
+        {
+          "name": "github.com/yuin/goldmark",
+          "version": "1.7.0",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "3fa63c02f0caa1addd68058f920d7fd3fab4bf25e78fa9066951bdc336525289"
+        },
+        {
+          "name": "github.com/yuin/goldmark-emoji",
+          "version": "1.0.2",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "3fa63c02f0caa1addd68058f920d7fd3fab4bf25e78fa9066951bdc336525289"
+        },
+        {
+          "name": "golang.org/x/crypto",
+          "version": "0.24.0",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "3fa63c02f0caa1addd68058f920d7fd3fab4bf25e78fa9066951bdc336525289"
+        },
+        {
+          "name": "golang.org/x/exp",
+          "version": "0.0.0-20240613232115-7f521ea00fb8",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "3fa63c02f0caa1addd68058f920d7fd3fab4bf25e78fa9066951bdc336525289"
+        },
+        {
+          "name": "golang.org/x/mod",
+          "version": "0.18.0",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "3fa63c02f0caa1addd68058f920d7fd3fab4bf25e78fa9066951bdc336525289"
+        },
+        {
+          "name": "golang.org/x/net",
+          "version": "0.26.0",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "3fa63c02f0caa1addd68058f920d7fd3fab4bf25e78fa9066951bdc336525289"
+        },
+        {
+          "name": "golang.org/x/sync",
+          "version": "0.7.0",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "3fa63c02f0caa1addd68058f920d7fd3fab4bf25e78fa9066951bdc336525289"
+        },
+        {
+          "name": "golang.org/x/sys",
+          "version": "0.21.0",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "3fa63c02f0caa1addd68058f920d7fd3fab4bf25e78fa9066951bdc336525289"
+        },
+        {
+          "name": "golang.org/x/term",
+          "version": "0.21.0",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "3fa63c02f0caa1addd68058f920d7fd3fab4bf25e78fa9066951bdc336525289"
+        },
+        {
+          "name": "golang.org/x/text",
+          "version": "0.16.0",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "3fa63c02f0caa1addd68058f920d7fd3fab4bf25e78fa9066951bdc336525289"
+        },
+        {
+          "name": "golang.org/x/tools",
+          "version": "0.22.0",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "3fa63c02f0caa1addd68058f920d7fd3fab4bf25e78fa9066951bdc336525289"
+        },
+        {
+          "name": "golang.org/x/vuln",
+          "version": "1.0.4",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "3fa63c02f0caa1addd68058f920d7fd3fab4bf25e78fa9066951bdc336525289"
+        },
+        {
+          "name": "google.golang.org/genproto/googleapis/api",
+          "version": "0.0.0-20240318140521-94a12d6c2237",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "3fa63c02f0caa1addd68058f920d7fd3fab4bf25e78fa9066951bdc336525289"
+        },
+        {
+          "name": "google.golang.org/genproto/googleapis/rpc",
+          "version": "0.0.0-20240318140521-94a12d6c2237",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "3fa63c02f0caa1addd68058f920d7fd3fab4bf25e78fa9066951bdc336525289"
+        },
+        {
+          "name": "google.golang.org/grpc",
+          "version": "1.64.0",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "3fa63c02f0caa1addd68058f920d7fd3fab4bf25e78fa9066951bdc336525289"
+        },
+        {
+          "name": "google.golang.org/protobuf",
+          "version": "1.34.2",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "3fa63c02f0caa1addd68058f920d7fd3fab4bf25e78fa9066951bdc336525289"
+        },
+        {
+          "name": "gopkg.in/ini.v1",
+          "version": "1.67.0",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "3fa63c02f0caa1addd68058f920d7fd3fab4bf25e78fa9066951bdc336525289"
+        },
+        {
+          "name": "gopkg.in/warnings.v0",
+          "version": "0.1.2",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "3fa63c02f0caa1addd68058f920d7fd3fab4bf25e78fa9066951bdc336525289"
+        },
+        {
+          "name": "gopkg.in/yaml.v3",
+          "version": "3.0.1",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "3fa63c02f0caa1addd68058f920d7fd3fab4bf25e78fa9066951bdc336525289"
+        },
+        {
+          "name": "stdlib",
+          "version": "1.22.4",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "3fa63c02f0caa1addd68058f920d7fd3fab4bf25e78fa9066951bdc336525289"
+        }
+      ]
+    },
+    {
+      "filePath": "/go/bin/osv-scanner-vulnerable",
+      "parsedAs": "go-binary",
+      "packages": [
+        {
+          "name": "dario.cat/mergo",
+          "version": "1.0.0",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "0247f30bcbbda88888ce3bacec4f240f823cfb17983815884dd5cce4a6175f17"
+        },
+        {
+          "name": "deps.dev/api/v3",
+          "version": "3.0.0-20240617015216-b147e04533eb",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "0247f30bcbbda88888ce3bacec4f240f823cfb17983815884dd5cce4a6175f17"
+        },
+        {
+          "name": "deps.dev/util/maven",
+          "version": "0.0.0-20240617015216-b147e04533eb",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "0247f30bcbbda88888ce3bacec4f240f823cfb17983815884dd5cce4a6175f17"
+        },
+        {
+          "name": "deps.dev/util/resolve",
+          "version": "0.0.0-20240617015216-b147e04533eb",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "0247f30bcbbda88888ce3bacec4f240f823cfb17983815884dd5cce4a6175f17"
+        },
+        {
+          "name": "deps.dev/util/semver",
+          "version": "0.0.0-20240617015216-b147e04533eb",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "0247f30bcbbda88888ce3bacec4f240f823cfb17983815884dd5cce4a6175f17"
+        },
+        {
+          "name": "github.com/BurntSushi/toml",
+          "version": "1.4.0",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "0247f30bcbbda88888ce3bacec4f240f823cfb17983815884dd5cce4a6175f17"
+        },
+        {
+          "name": "github.com/CycloneDX/cyclonedx-go",
+          "version": "0.9.0",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "0247f30bcbbda88888ce3bacec4f240f823cfb17983815884dd5cce4a6175f17"
+        },
+        {
+          "name": "github.com/ProtonMail/go-crypto",
+          "version": "1.0.0",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "0247f30bcbbda88888ce3bacec4f240f823cfb17983815884dd5cce4a6175f17"
+        },
+        {
+          "name": "github.com/alecthomas/chroma/v2",
+          "version": "2.8.0",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "0247f30bcbbda88888ce3bacec4f240f823cfb17983815884dd5cce4a6175f17"
+        },
+        {
+          "name": "github.com/anchore/go-struct-converter",
+          "version": "0.0.0-20230627203149-c72ef8859ca9",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "0247f30bcbbda88888ce3bacec4f240f823cfb17983815884dd5cce4a6175f17"
+        },
+        {
+          "name": "github.com/atotto/clipboard",
+          "version": "0.1.4",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "0247f30bcbbda88888ce3bacec4f240f823cfb17983815884dd5cce4a6175f17"
+        },
+        {
+          "name": "github.com/aymanbagabas/go-osc52/v2",
+          "version": "2.0.1",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "0247f30bcbbda88888ce3bacec4f240f823cfb17983815884dd5cce4a6175f17"
+        },
+        {
+          "name": "github.com/aymerick/douceur",
+          "version": "0.2.0",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "0247f30bcbbda88888ce3bacec4f240f823cfb17983815884dd5cce4a6175f17"
+        },
+        {
+          "name": "github.com/charmbracelet/bubbles",
+          "version": "0.18.0",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "0247f30bcbbda88888ce3bacec4f240f823cfb17983815884dd5cce4a6175f17"
+        },
+        {
+          "name": "github.com/charmbracelet/bubbletea",
+          "version": "0.26.4",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "0247f30bcbbda88888ce3bacec4f240f823cfb17983815884dd5cce4a6175f17"
+        },
+        {
+          "name": "github.com/charmbracelet/glamour",
+          "version": "0.7.0",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "0247f30bcbbda88888ce3bacec4f240f823cfb17983815884dd5cce4a6175f17"
+        },
+        {
+          "name": "github.com/charmbracelet/lipgloss",
+          "version": "0.11.0",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "0247f30bcbbda88888ce3bacec4f240f823cfb17983815884dd5cce4a6175f17"
+        },
+        {
+          "name": "github.com/charmbracelet/x/ansi",
+          "version": "0.1.2",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "0247f30bcbbda88888ce3bacec4f240f823cfb17983815884dd5cce4a6175f17"
+        },
+        {
+          "name": "github.com/charmbracelet/x/input",
+          "version": "0.1.0",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "0247f30bcbbda88888ce3bacec4f240f823cfb17983815884dd5cce4a6175f17"
+        },
+        {
+          "name": "github.com/charmbracelet/x/term",
+          "version": "0.1.1",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "0247f30bcbbda88888ce3bacec4f240f823cfb17983815884dd5cce4a6175f17"
+        },
+        {
+          "name": "github.com/cloudflare/circl",
+          "version": "1.3.7",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "0247f30bcbbda88888ce3bacec4f240f823cfb17983815884dd5cce4a6175f17"
+        },
+        {
+          "name": "github.com/containerd/stargz-snapshotter/estargz",
+          "version": "0.15.1",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "0247f30bcbbda88888ce3bacec4f240f823cfb17983815884dd5cce4a6175f17"
+        },
+        {
+          "name": "github.com/cpuguy83/go-md2man/v2",
+          "version": "2.0.4",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "0247f30bcbbda88888ce3bacec4f240f823cfb17983815884dd5cce4a6175f17"
+        },
+        {
+          "name": "github.com/cyphar/filepath-securejoin",
+          "version": "0.2.4",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "0247f30bcbbda88888ce3bacec4f240f823cfb17983815884dd5cce4a6175f17"
+        },
+        {
+          "name": "github.com/dghubble/trie",
+          "version": "0.1.0",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "0247f30bcbbda88888ce3bacec4f240f823cfb17983815884dd5cce4a6175f17"
+        },
+        {
+          "name": "github.com/dlclark/regexp2",
+          "version": "1.11.0",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "0247f30bcbbda88888ce3bacec4f240f823cfb17983815884dd5cce4a6175f17"
+        },
+        {
+          "name": "github.com/emirpasic/gods",
+          "version": "1.18.1",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "0247f30bcbbda88888ce3bacec4f240f823cfb17983815884dd5cce4a6175f17"
+        },
+        {
+          "name": "github.com/erikgeiser/coninput",
+          "version": "0.0.0-20211004153227-1c3628e74d0f",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "0247f30bcbbda88888ce3bacec4f240f823cfb17983815884dd5cce4a6175f17"
+        },
+        {
+          "name": "github.com/go-git/gcfg",
+          "version": "1.5.1-0.20230307220236-3a3c6141e376",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "0247f30bcbbda88888ce3bacec4f240f823cfb17983815884dd5cce4a6175f17"
+        },
+        {
+          "name": "github.com/go-git/go-billy/v5",
+          "version": "5.5.0",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "0247f30bcbbda88888ce3bacec4f240f823cfb17983815884dd5cce4a6175f17"
+        },
+        {
+          "name": "github.com/go-git/go-git/v5",
+          "version": "5.12.0",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "0247f30bcbbda88888ce3bacec4f240f823cfb17983815884dd5cce4a6175f17"
+        },
+        {
+          "name": "github.com/golang/groupcache",
+          "version": "0.0.0-20210331224755-41bb18bfe9da",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "0247f30bcbbda88888ce3bacec4f240f823cfb17983815884dd5cce4a6175f17"
+        },
+        {
+          "name": "github.com/google/go-containerregistry",
+          "version": "0.19.2",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "0247f30bcbbda88888ce3bacec4f240f823cfb17983815884dd5cce4a6175f17"
+        },
+        {
+          "name": "github.com/gorilla/css",
+          "version": "1.0.1",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "0247f30bcbbda88888ce3bacec4f240f823cfb17983815884dd5cce4a6175f17"
+        },
+        {
+          "name": "github.com/ianlancetaylor/demangle",
+          "version": "0.0.0-20240312041847-bd984b5ce465",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "0247f30bcbbda88888ce3bacec4f240f823cfb17983815884dd5cce4a6175f17"
+        },
+        {
+          "name": "github.com/jbenet/go-context",
+          "version": "0.0.0-20150711004518-d14ea06fba99",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "0247f30bcbbda88888ce3bacec4f240f823cfb17983815884dd5cce4a6175f17"
+        },
+        {
+          "name": "github.com/jedib0t/go-pretty/v6",
+          "version": "6.5.9",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "0247f30bcbbda88888ce3bacec4f240f823cfb17983815884dd5cce4a6175f17"
+        },
+        {
+          "name": "github.com/kevinburke/ssh_config",
+          "version": "1.2.0",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "0247f30bcbbda88888ce3bacec4f240f823cfb17983815884dd5cce4a6175f17"
+        },
+        {
+          "name": "github.com/klauspost/compress",
+          "version": "1.17.7",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "0247f30bcbbda88888ce3bacec4f240f823cfb17983815884dd5cce4a6175f17"
+        },
+        {
+          "name": "github.com/lucasb-eyer/go-colorful",
+          "version": "1.2.0",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "0247f30bcbbda88888ce3bacec4f240f823cfb17983815884dd5cce4a6175f17"
+        },
+        {
+          "name": "github.com/mattn/go-isatty",
+          "version": "0.0.20",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "0247f30bcbbda88888ce3bacec4f240f823cfb17983815884dd5cce4a6175f17"
+        },
+        {
+          "name": "github.com/mattn/go-runewidth",
+          "version": "0.0.15",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "0247f30bcbbda88888ce3bacec4f240f823cfb17983815884dd5cce4a6175f17"
+        },
+        {
+          "name": "github.com/microcosm-cc/bluemonday",
+          "version": "1.0.26",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "0247f30bcbbda88888ce3bacec4f240f823cfb17983815884dd5cce4a6175f17"
+        },
+        {
+          "name": "github.com/muesli/ansi",
+          "version": "0.0.0-20230316100256-276c6243b2f6",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "0247f30bcbbda88888ce3bacec4f240f823cfb17983815884dd5cce4a6175f17"
+        },
+        {
+          "name": "github.com/muesli/cancelreader",
+          "version": "0.2.2",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "0247f30bcbbda88888ce3bacec4f240f823cfb17983815884dd5cce4a6175f17"
+        },
+        {
+          "name": "github.com/muesli/reflow",
+          "version": "0.3.0",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "0247f30bcbbda88888ce3bacec4f240f823cfb17983815884dd5cce4a6175f17"
+        },
+        {
+          "name": "github.com/muesli/termenv",
+          "version": "0.15.2",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "0247f30bcbbda88888ce3bacec4f240f823cfb17983815884dd5cce4a6175f17"
+        },
+        {
+          "name": "github.com/olekukonko/tablewriter",
+          "version": "0.0.5",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "0247f30bcbbda88888ce3bacec4f240f823cfb17983815884dd5cce4a6175f17"
+        },
+        {
+          "name": "github.com/opencontainers/go-digest",
+          "version": "1.0.0",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "0247f30bcbbda88888ce3bacec4f240f823cfb17983815884dd5cce4a6175f17"
+        },
+        {
+          "name": "github.com/opencontainers/image-spec",
+          "version": "1.1.0-rc3",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "0247f30bcbbda88888ce3bacec4f240f823cfb17983815884dd5cce4a6175f17"
+        },
+        {
+          "name": "github.com/owenrumney/go-sarif/v2",
+          "version": "2.3.1",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "0247f30bcbbda88888ce3bacec4f240f823cfb17983815884dd5cce4a6175f17"
+        },
+        {
+          "name": "github.com/package-url/packageurl-go",
+          "version": "0.1.3",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "0247f30bcbbda88888ce3bacec4f240f823cfb17983815884dd5cce4a6175f17"
+        },
+        {
+          "name": "github.com/pandatix/go-cvss",
+          "version": "0.6.2",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "0247f30bcbbda88888ce3bacec4f240f823cfb17983815884dd5cce4a6175f17"
+        },
+        {
+          "name": "github.com/pjbgf/sha1cd",
+          "version": "0.3.0",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "0247f30bcbbda88888ce3bacec4f240f823cfb17983815884dd5cce4a6175f17"
+        },
+        {
+          "name": "github.com/rivo/uniseg",
+          "version": "0.4.7",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "0247f30bcbbda88888ce3bacec4f240f823cfb17983815884dd5cce4a6175f17"
+        },
+        {
+          "name": "github.com/russross/blackfriday/v2",
+          "version": "2.1.0",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "0247f30bcbbda88888ce3bacec4f240f823cfb17983815884dd5cce4a6175f17"
+        },
+        {
+          "name": "github.com/sahilm/fuzzy",
+          "version": "0.1.1",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "0247f30bcbbda88888ce3bacec4f240f823cfb17983815884dd5cce4a6175f17"
+        },
+        {
+          "name": "github.com/sergi/go-diff",
+          "version": "1.3.2-0.20230802210424-5b0b94c5c0d3",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "0247f30bcbbda88888ce3bacec4f240f823cfb17983815884dd5cce4a6175f17"
+        },
+        {
+          "name": "github.com/skeema/knownhosts",
+          "version": "1.2.2",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "0247f30bcbbda88888ce3bacec4f240f823cfb17983815884dd5cce4a6175f17"
+        },
+        {
+          "name": "github.com/spdx/gordf",
+          "version": "0.0.0-20221230105357-b735bd5aac89",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "0247f30bcbbda88888ce3bacec4f240f823cfb17983815884dd5cce4a6175f17"
+        },
+        {
+          "name": "github.com/spdx/tools-golang",
+          "version": "0.5.4",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "0247f30bcbbda88888ce3bacec4f240f823cfb17983815884dd5cce4a6175f17"
+        },
+        {
+          "name": "github.com/tidwall/gjson",
+          "version": "1.17.1",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "0247f30bcbbda88888ce3bacec4f240f823cfb17983815884dd5cce4a6175f17"
+        },
+        {
+          "name": "github.com/tidwall/match",
+          "version": "1.1.1",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "0247f30bcbbda88888ce3bacec4f240f823cfb17983815884dd5cce4a6175f17"
+        },
+        {
+          "name": "github.com/tidwall/pretty",
+          "version": "1.2.1",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "0247f30bcbbda88888ce3bacec4f240f823cfb17983815884dd5cce4a6175f17"
+        },
+        {
+          "name": "github.com/tidwall/sjson",
+          "version": "1.2.5",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "0247f30bcbbda88888ce3bacec4f240f823cfb17983815884dd5cce4a6175f17"
+        },
+        {
+          "name": "github.com/urfave/cli/v2",
+          "version": "2.27.2",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "0247f30bcbbda88888ce3bacec4f240f823cfb17983815884dd5cce4a6175f17"
+        },
+        {
+          "name": "github.com/vbatts/tar-split",
+          "version": "0.11.5",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "0247f30bcbbda88888ce3bacec4f240f823cfb17983815884dd5cce4a6175f17"
+        },
+        {
+          "name": "github.com/xanzy/ssh-agent",
+          "version": "0.3.3",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "0247f30bcbbda88888ce3bacec4f240f823cfb17983815884dd5cce4a6175f17"
+        },
+        {
+          "name": "github.com/xo/terminfo",
+          "version": "0.0.0-20220910002029-abceb7e1c41e",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "0247f30bcbbda88888ce3bacec4f240f823cfb17983815884dd5cce4a6175f17"
+        },
+        {
+          "name": "github.com/xrash/smetrics",
+          "version": "0.0.0-20240312152122-5f08fbb34913",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "0247f30bcbbda88888ce3bacec4f240f823cfb17983815884dd5cce4a6175f17"
+        },
+        {
+          "name": "github.com/yuin/goldmark",
+          "version": "1.7.0",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "0247f30bcbbda88888ce3bacec4f240f823cfb17983815884dd5cce4a6175f17"
+        },
+        {
+          "name": "github.com/yuin/goldmark-emoji",
+          "version": "1.0.2",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "0247f30bcbbda88888ce3bacec4f240f823cfb17983815884dd5cce4a6175f17"
+        },
+        {
+          "name": "golang.org/x/crypto",
+          "version": "0.24.0",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "0247f30bcbbda88888ce3bacec4f240f823cfb17983815884dd5cce4a6175f17"
+        },
+        {
+          "name": "golang.org/x/exp",
+          "version": "0.0.0-20240613232115-7f521ea00fb8",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "0247f30bcbbda88888ce3bacec4f240f823cfb17983815884dd5cce4a6175f17"
+        },
+        {
+          "name": "golang.org/x/mod",
+          "version": "0.18.0",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "0247f30bcbbda88888ce3bacec4f240f823cfb17983815884dd5cce4a6175f17"
+        },
+        {
+          "name": "golang.org/x/net",
+          "version": "0.26.0",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "0247f30bcbbda88888ce3bacec4f240f823cfb17983815884dd5cce4a6175f17"
+        },
+        {
+          "name": "golang.org/x/sync",
+          "version": "0.7.0",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "0247f30bcbbda88888ce3bacec4f240f823cfb17983815884dd5cce4a6175f17"
+        },
+        {
+          "name": "golang.org/x/sys",
+          "version": "0.21.0",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "0247f30bcbbda88888ce3bacec4f240f823cfb17983815884dd5cce4a6175f17"
+        },
+        {
+          "name": "golang.org/x/term",
+          "version": "0.21.0",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "0247f30bcbbda88888ce3bacec4f240f823cfb17983815884dd5cce4a6175f17"
+        },
+        {
+          "name": "golang.org/x/text",
+          "version": "0.16.0",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "0247f30bcbbda88888ce3bacec4f240f823cfb17983815884dd5cce4a6175f17"
+        },
+        {
+          "name": "golang.org/x/tools",
+          "version": "0.22.0",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "0247f30bcbbda88888ce3bacec4f240f823cfb17983815884dd5cce4a6175f17"
+        },
+        {
+          "name": "golang.org/x/vuln",
+          "version": "1.0.4",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "0247f30bcbbda88888ce3bacec4f240f823cfb17983815884dd5cce4a6175f17"
+        },
+        {
+          "name": "google.golang.org/genproto/googleapis/api",
+          "version": "0.0.0-20240318140521-94a12d6c2237",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "0247f30bcbbda88888ce3bacec4f240f823cfb17983815884dd5cce4a6175f17"
+        },
+        {
+          "name": "google.golang.org/genproto/googleapis/rpc",
+          "version": "0.0.0-20240318140521-94a12d6c2237",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "0247f30bcbbda88888ce3bacec4f240f823cfb17983815884dd5cce4a6175f17"
+        },
+        {
+          "name": "google.golang.org/grpc",
+          "version": "1.64.0",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "0247f30bcbbda88888ce3bacec4f240f823cfb17983815884dd5cce4a6175f17"
+        },
+        {
+          "name": "google.golang.org/protobuf",
+          "version": "1.34.2",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "0247f30bcbbda88888ce3bacec4f240f823cfb17983815884dd5cce4a6175f17"
+        },
+        {
+          "name": "gopkg.in/ini.v1",
+          "version": "1.67.0",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "0247f30bcbbda88888ce3bacec4f240f823cfb17983815884dd5cce4a6175f17"
+        },
+        {
+          "name": "gopkg.in/warnings.v0",
+          "version": "0.1.2",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "0247f30bcbbda88888ce3bacec4f240f823cfb17983815884dd5cce4a6175f17"
+        },
+        {
+          "name": "gopkg.in/yaml.v3",
+          "version": "3.0.1",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "0247f30bcbbda88888ce3bacec4f240f823cfb17983815884dd5cce4a6175f17"
+        },
+        {
+          "name": "stdlib",
+          "version": "1.22.4",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "originLayerId": "0247f30bcbbda88888ce3bacec4f240f823cfb17983815884dd5cce4a6175f17"
+        }
+      ]
+    },
+    {
+      "filePath": "/lib/apk/db/installed",
+      "parsedAs": "apk-installed",
+      "packages": [
+        {
+          "name": "alpine-baselayout",
+          "version": "3.6.5-r0",
+          "commit": "66187892e05b03a41d08e9acabd19b7576a1c875",
+          "ecosystem": "Alpine:v3.20",
+          "compareAs": "Alpine",
+          "originLayerId": "94e5f06ff8e3d4441dc3cd8b090ff38dc911bfa8ebdb0dc28395bc98f82f983f"
+        },
+        {
+          "name": "alpine-baselayout-data",
+          "version": "3.6.5-r0",
+          "commit": "66187892e05b03a41d08e9acabd19b7576a1c875",
+          "ecosystem": "Alpine:v3.20",
+          "compareAs": "Alpine",
+          "originLayerId": "94e5f06ff8e3d4441dc3cd8b090ff38dc911bfa8ebdb0dc28395bc98f82f983f"
+        },
+        {
+          "name": "alpine-keys",
+          "version": "2.4-r1",
+          "commit": "aab68f8c9ab434a46710de8e12fb3206e2930a59",
+          "ecosystem": "Alpine:v3.20",
+          "compareAs": "Alpine",
+          "originLayerId": "94e5f06ff8e3d4441dc3cd8b090ff38dc911bfa8ebdb0dc28395bc98f82f983f"
+        },
+        {
+          "name": "apk-tools",
+          "version": "2.14.4-r0",
+          "commit": "d435c805af8af4171438da3ec3429c094aac4c6e",
+          "ecosystem": "Alpine:v3.20",
+          "compareAs": "Alpine",
+          "originLayerId": "94e5f06ff8e3d4441dc3cd8b090ff38dc911bfa8ebdb0dc28395bc98f82f983f"
+        },
+        {
+          "name": "busybox",
+          "version": "1.36.1-r29",
+          "commit": "1747c01fb96905f101c25609011589d28e01cbb8",
+          "ecosystem": "Alpine:v3.20",
+          "compareAs": "Alpine",
+          "originLayerId": "94e5f06ff8e3d4441dc3cd8b090ff38dc911bfa8ebdb0dc28395bc98f82f983f"
+        },
+        {
+          "name": "busybox-binsh",
+          "version": "1.36.1-r29",
+          "commit": "1747c01fb96905f101c25609011589d28e01cbb8",
+          "ecosystem": "Alpine:v3.20",
+          "compareAs": "Alpine",
+          "originLayerId": "94e5f06ff8e3d4441dc3cd8b090ff38dc911bfa8ebdb0dc28395bc98f82f983f"
+        },
+        {
+          "name": "ca-certificates-bundle",
+          "version": "20240226-r0",
+          "commit": "56fb003da0adcea3b59373ef6a633d0c5bfef3ac",
+          "ecosystem": "Alpine:v3.20",
+          "compareAs": "Alpine",
+          "originLayerId": "94e5f06ff8e3d4441dc3cd8b090ff38dc911bfa8ebdb0dc28395bc98f82f983f"
+        },
+        {
+          "name": "libcrypto3",
+          "version": "3.3.1-r0",
+          "commit": "15cc530882e1e6f3dc8a77200ee8bd01cb98f53c",
+          "ecosystem": "Alpine:v3.20",
+          "compareAs": "Alpine",
+          "originLayerId": "94e5f06ff8e3d4441dc3cd8b090ff38dc911bfa8ebdb0dc28395bc98f82f983f"
+        },
+        {
+          "name": "libssl3",
+          "version": "3.3.1-r0",
+          "commit": "15cc530882e1e6f3dc8a77200ee8bd01cb98f53c",
+          "ecosystem": "Alpine:v3.20",
+          "compareAs": "Alpine",
+          "originLayerId": "94e5f06ff8e3d4441dc3cd8b090ff38dc911bfa8ebdb0dc28395bc98f82f983f"
+        },
+        {
+          "name": "musl",
+          "version": "1.2.5-r0",
+          "commit": "4fe5bdbe47b100daa6380f81c4c8ea3f99b61362",
+          "ecosystem": "Alpine:v3.20",
+          "compareAs": "Alpine",
+          "originLayerId": "94e5f06ff8e3d4441dc3cd8b090ff38dc911bfa8ebdb0dc28395bc98f82f983f"
+        },
+        {
+          "name": "musl-utils",
+          "version": "1.2.5-r0",
+          "commit": "4fe5bdbe47b100daa6380f81c4c8ea3f99b61362",
+          "ecosystem": "Alpine:v3.20",
+          "compareAs": "Alpine",
+          "originLayerId": "94e5f06ff8e3d4441dc3cd8b090ff38dc911bfa8ebdb0dc28395bc98f82f983f"
+        },
+        {
+          "name": "scanelf",
+          "version": "1.3.7-r2",
+          "commit": "e65a4f2d0470e70d862ef2b5c412ecf2cb9ad0a6",
+          "ecosystem": "Alpine:v3.20",
+          "compareAs": "Alpine",
+          "originLayerId": "94e5f06ff8e3d4441dc3cd8b090ff38dc911bfa8ebdb0dc28395bc98f82f983f"
+        },
+        {
+          "name": "ssl_client",
+          "version": "1.36.1-r29",
+          "commit": "1747c01fb96905f101c25609011589d28e01cbb8",
+          "ecosystem": "Alpine:v3.20",
+          "compareAs": "Alpine",
+          "originLayerId": "94e5f06ff8e3d4441dc3cd8b090ff38dc911bfa8ebdb0dc28395bc98f82f983f"
+        },
+        {
+          "name": "zlib",
+          "version": "1.3.1-r1",
+          "commit": "fad2d175bd85eb4c5566765375392a7394dfbcf2",
+          "ecosystem": "Alpine:v3.20",
+          "compareAs": "Alpine",
+          "originLayerId": "94e5f06ff8e3d4441dc3cd8b090ff38dc911bfa8ebdb0dc28395bc98f82f983f"
+        }
+      ]
+    }
+  ],
+  "ImagePath": "fixtures/test-package-tracing.tar"
 }
 ---
 
@@ -123,119 +2763,136 @@
           "version": "3.4.3-r2",
           "commit": "7749273fed55f6e1df7c9ee6a127f18099f98a94",
           "ecosystem": "Alpine:v3.19",
-          "compareAs": "Alpine"
+          "compareAs": "Alpine",
+          "originLayerId": "076bedb6e6e105e652dcb482c5192ba621e065e0f2a60e7a495a0bd0827f425b"
         },
         {
           "name": "alpine-baselayout-data",
           "version": "3.4.3-r2",
           "commit": "7749273fed55f6e1df7c9ee6a127f18099f98a94",
           "ecosystem": "Alpine:v3.19",
-          "compareAs": "Alpine"
+          "compareAs": "Alpine",
+          "originLayerId": "076bedb6e6e105e652dcb482c5192ba621e065e0f2a60e7a495a0bd0827f425b"
         },
         {
           "name": "alpine-keys",
           "version": "2.4-r1",
           "commit": "aab68f8c9ab434a46710de8e12fb3206e2930a59",
           "ecosystem": "Alpine:v3.19",
-          "compareAs": "Alpine"
+          "compareAs": "Alpine",
+          "originLayerId": "076bedb6e6e105e652dcb482c5192ba621e065e0f2a60e7a495a0bd0827f425b"
         },
         {
           "name": "apk-tools",
           "version": "2.14.0-r5",
           "commit": "33283848034c9885d984c8e8697c645c57324938",
           "ecosystem": "Alpine:v3.19",
-          "compareAs": "Alpine"
+          "compareAs": "Alpine",
+          "originLayerId": "076bedb6e6e105e652dcb482c5192ba621e065e0f2a60e7a495a0bd0827f425b"
         },
         {
           "name": "busybox",
           "version": "1.36.1-r15",
           "commit": "d1b6f274f29076967826e0ecf6ebcaa5d360272f",
           "ecosystem": "Alpine:v3.19",
-          "compareAs": "Alpine"
+          "compareAs": "Alpine",
+          "originLayerId": "076bedb6e6e105e652dcb482c5192ba621e065e0f2a60e7a495a0bd0827f425b"
         },
         {
           "name": "busybox-binsh",
           "version": "1.36.1-r15",
           "commit": "d1b6f274f29076967826e0ecf6ebcaa5d360272f",
           "ecosystem": "Alpine:v3.19",
-          "compareAs": "Alpine"
+          "compareAs": "Alpine",
+          "originLayerId": "076bedb6e6e105e652dcb482c5192ba621e065e0f2a60e7a495a0bd0827f425b"
         },
         {
           "name": "ca-certificates-bundle",
           "version": "20230506-r0",
           "commit": "59534a02716a92a10d177a118c34066162eff4a6",
           "ecosystem": "Alpine:v3.19",
-          "compareAs": "Alpine"
+          "compareAs": "Alpine",
+          "originLayerId": "076bedb6e6e105e652dcb482c5192ba621e065e0f2a60e7a495a0bd0827f425b"
         },
         {
           "name": "libc-utils",
           "version": "0.7.2-r5",
           "commit": "988f183cc9d6699930c3e18ccf4a9e36010afb56",
           "ecosystem": "Alpine:v3.19",
-          "compareAs": "Alpine"
+          "compareAs": "Alpine",
+          "originLayerId": "076bedb6e6e105e652dcb482c5192ba621e065e0f2a60e7a495a0bd0827f425b"
         },
         {
           "name": "libcrypto3",
           "version": "3.1.4-r5",
           "commit": "b784a22cad0c452586b438cb7a597d846fc09ff4",
           "ecosystem": "Alpine:v3.19",
-          "compareAs": "Alpine"
+          "compareAs": "Alpine",
+          "originLayerId": "076bedb6e6e105e652dcb482c5192ba621e065e0f2a60e7a495a0bd0827f425b"
         },
         {
           "name": "libgcc",
           "version": "13.2.1_git20231014-r0",
           "commit": "090e168783a86e5c2ba31fc65921b9715bac62ff",
           "ecosystem": "Alpine:v3.19",
-          "compareAs": "Alpine"
+          "compareAs": "Alpine",
+          "originLayerId": "076bedb6e6e105e652dcb482c5192ba621e065e0f2a60e7a495a0bd0827f425b"
         },
         {
           "name": "libssl3",
           "version": "3.1.4-r5",
           "commit": "b784a22cad0c452586b438cb7a597d846fc09ff4",
           "ecosystem": "Alpine:v3.19",
-          "compareAs": "Alpine"
+          "compareAs": "Alpine",
+          "originLayerId": "076bedb6e6e105e652dcb482c5192ba621e065e0f2a60e7a495a0bd0827f425b"
         },
         {
           "name": "libstdc++",
           "version": "13.2.1_git20231014-r0",
           "commit": "090e168783a86e5c2ba31fc65921b9715bac62ff",
           "ecosystem": "Alpine:v3.19",
-          "compareAs": "Alpine"
+          "compareAs": "Alpine",
+          "originLayerId": "076bedb6e6e105e652dcb482c5192ba621e065e0f2a60e7a495a0bd0827f425b"
         },
         {
           "name": "musl",
           "version": "1.2.4_git20230717-r4",
           "commit": "ca7f2ab5e88794e4e654b40776f8a92256f50639",
           "ecosystem": "Alpine:v3.19",
-          "compareAs": "Alpine"
+          "compareAs": "Alpine",
+          "originLayerId": "076bedb6e6e105e652dcb482c5192ba621e065e0f2a60e7a495a0bd0827f425b"
         },
         {
           "name": "musl-utils",
           "version": "1.2.4_git20230717-r4",
           "commit": "ca7f2ab5e88794e4e654b40776f8a92256f50639",
           "ecosystem": "Alpine:v3.19",
-          "compareAs": "Alpine"
+          "compareAs": "Alpine",
+          "originLayerId": "076bedb6e6e105e652dcb482c5192ba621e065e0f2a60e7a495a0bd0827f425b"
         },
         {
           "name": "scanelf",
           "version": "1.3.7-r2",
           "commit": "e65a4f2d0470e70d862ef2b5c412ecf2cb9ad0a6",
           "ecosystem": "Alpine:v3.19",
-          "compareAs": "Alpine"
+          "compareAs": "Alpine",
+          "originLayerId": "076bedb6e6e105e652dcb482c5192ba621e065e0f2a60e7a495a0bd0827f425b"
         },
         {
           "name": "ssl_client",
           "version": "1.36.1-r15",
           "commit": "d1b6f274f29076967826e0ecf6ebcaa5d360272f",
           "ecosystem": "Alpine:v3.19",
-          "compareAs": "Alpine"
+          "compareAs": "Alpine",
+          "originLayerId": "076bedb6e6e105e652dcb482c5192ba621e065e0f2a60e7a495a0bd0827f425b"
         },
         {
           "name": "zlib",
           "version": "1.3.1-r0",
           "commit": "9406f6fc5fca057d990eb0d260d75839eeb34d83",
           "ecosystem": "Alpine:v3.19",
-          "compareAs": "Alpine"
+          "compareAs": "Alpine",
+          "originLayerId": "076bedb6e6e105e652dcb482c5192ba621e065e0f2a60e7a495a0bd0827f425b"
         }
       ]
     }
@@ -397,19 +3054,22 @@
           "name": "cryo",
           "version": "0.0.6",
           "ecosystem": "npm",
-          "compareAs": "npm"
+          "compareAs": "npm",
+          "originLayerId": "458456e8cddc5b3d9afb36c6248d267ff24c47d4e0c118b1d811173cb8a62301"
         },
         {
           "name": "minimist",
           "version": "0.0.8",
           "ecosystem": "npm",
-          "compareAs": "npm"
+          "compareAs": "npm",
+          "originLayerId": "458456e8cddc5b3d9afb36c6248d267ff24c47d4e0c118b1d811173cb8a62301"
         },
         {
           "name": "mkdirp",
           "version": "0.5.0",
           "ecosystem": "npm",
-          "compareAs": "npm"
+          "compareAs": "npm",
+          "originLayerId": "458456e8cddc5b3d9afb36c6248d267ff24c47d4e0c118b1d811173cb8a62301"
         }
       ]
     }
@@ -430,119 +3090,136 @@
           "version": "3.4.3-r2",
           "commit": "7749273fed55f6e1df7c9ee6a127f18099f98a94",
           "ecosystem": "Alpine:v3.19",
-          "compareAs": "Alpine"
+          "compareAs": "Alpine",
+          "originLayerId": "076bedb6e6e105e652dcb482c5192ba621e065e0f2a60e7a495a0bd0827f425b"
         },
         {
           "name": "alpine-baselayout-data",
           "version": "3.4.3-r2",
           "commit": "7749273fed55f6e1df7c9ee6a127f18099f98a94",
           "ecosystem": "Alpine:v3.19",
-          "compareAs": "Alpine"
+          "compareAs": "Alpine",
+          "originLayerId": "076bedb6e6e105e652dcb482c5192ba621e065e0f2a60e7a495a0bd0827f425b"
         },
         {
           "name": "alpine-keys",
           "version": "2.4-r1",
           "commit": "aab68f8c9ab434a46710de8e12fb3206e2930a59",
           "ecosystem": "Alpine:v3.19",
-          "compareAs": "Alpine"
+          "compareAs": "Alpine",
+          "originLayerId": "076bedb6e6e105e652dcb482c5192ba621e065e0f2a60e7a495a0bd0827f425b"
         },
         {
           "name": "apk-tools",
           "version": "2.14.0-r5",
           "commit": "33283848034c9885d984c8e8697c645c57324938",
           "ecosystem": "Alpine:v3.19",
-          "compareAs": "Alpine"
+          "compareAs": "Alpine",
+          "originLayerId": "076bedb6e6e105e652dcb482c5192ba621e065e0f2a60e7a495a0bd0827f425b"
         },
         {
           "name": "busybox",
           "version": "1.36.1-r15",
           "commit": "d1b6f274f29076967826e0ecf6ebcaa5d360272f",
           "ecosystem": "Alpine:v3.19",
-          "compareAs": "Alpine"
+          "compareAs": "Alpine",
+          "originLayerId": "076bedb6e6e105e652dcb482c5192ba621e065e0f2a60e7a495a0bd0827f425b"
         },
         {
           "name": "busybox-binsh",
           "version": "1.36.1-r15",
           "commit": "d1b6f274f29076967826e0ecf6ebcaa5d360272f",
           "ecosystem": "Alpine:v3.19",
-          "compareAs": "Alpine"
+          "compareAs": "Alpine",
+          "originLayerId": "076bedb6e6e105e652dcb482c5192ba621e065e0f2a60e7a495a0bd0827f425b"
         },
         {
           "name": "ca-certificates-bundle",
           "version": "20230506-r0",
           "commit": "59534a02716a92a10d177a118c34066162eff4a6",
           "ecosystem": "Alpine:v3.19",
-          "compareAs": "Alpine"
+          "compareAs": "Alpine",
+          "originLayerId": "076bedb6e6e105e652dcb482c5192ba621e065e0f2a60e7a495a0bd0827f425b"
         },
         {
           "name": "libc-utils",
           "version": "0.7.2-r5",
           "commit": "988f183cc9d6699930c3e18ccf4a9e36010afb56",
           "ecosystem": "Alpine:v3.19",
-          "compareAs": "Alpine"
+          "compareAs": "Alpine",
+          "originLayerId": "076bedb6e6e105e652dcb482c5192ba621e065e0f2a60e7a495a0bd0827f425b"
         },
         {
           "name": "libcrypto3",
           "version": "3.1.4-r5",
           "commit": "b784a22cad0c452586b438cb7a597d846fc09ff4",
           "ecosystem": "Alpine:v3.19",
-          "compareAs": "Alpine"
+          "compareAs": "Alpine",
+          "originLayerId": "076bedb6e6e105e652dcb482c5192ba621e065e0f2a60e7a495a0bd0827f425b"
         },
         {
           "name": "libgcc",
           "version": "13.2.1_git20231014-r0",
           "commit": "090e168783a86e5c2ba31fc65921b9715bac62ff",
           "ecosystem": "Alpine:v3.19",
-          "compareAs": "Alpine"
+          "compareAs": "Alpine",
+          "originLayerId": "076bedb6e6e105e652dcb482c5192ba621e065e0f2a60e7a495a0bd0827f425b"
         },
         {
           "name": "libssl3",
           "version": "3.1.4-r5",
           "commit": "b784a22cad0c452586b438cb7a597d846fc09ff4",
           "ecosystem": "Alpine:v3.19",
-          "compareAs": "Alpine"
+          "compareAs": "Alpine",
+          "originLayerId": "076bedb6e6e105e652dcb482c5192ba621e065e0f2a60e7a495a0bd0827f425b"
         },
         {
           "name": "libstdc++",
           "version": "13.2.1_git20231014-r0",
           "commit": "090e168783a86e5c2ba31fc65921b9715bac62ff",
           "ecosystem": "Alpine:v3.19",
-          "compareAs": "Alpine"
+          "compareAs": "Alpine",
+          "originLayerId": "076bedb6e6e105e652dcb482c5192ba621e065e0f2a60e7a495a0bd0827f425b"
         },
         {
           "name": "musl",
           "version": "1.2.4_git20230717-r4",
           "commit": "ca7f2ab5e88794e4e654b40776f8a92256f50639",
           "ecosystem": "Alpine:v3.19",
-          "compareAs": "Alpine"
+          "compareAs": "Alpine",
+          "originLayerId": "076bedb6e6e105e652dcb482c5192ba621e065e0f2a60e7a495a0bd0827f425b"
         },
         {
           "name": "musl-utils",
           "version": "1.2.4_git20230717-r4",
           "commit": "ca7f2ab5e88794e4e654b40776f8a92256f50639",
           "ecosystem": "Alpine:v3.19",
-          "compareAs": "Alpine"
+          "compareAs": "Alpine",
+          "originLayerId": "076bedb6e6e105e652dcb482c5192ba621e065e0f2a60e7a495a0bd0827f425b"
         },
         {
           "name": "scanelf",
           "version": "1.3.7-r2",
           "commit": "e65a4f2d0470e70d862ef2b5c412ecf2cb9ad0a6",
           "ecosystem": "Alpine:v3.19",
-          "compareAs": "Alpine"
+          "compareAs": "Alpine",
+          "originLayerId": "076bedb6e6e105e652dcb482c5192ba621e065e0f2a60e7a495a0bd0827f425b"
         },
         {
           "name": "ssl_client",
           "version": "1.36.1-r15",
           "commit": "d1b6f274f29076967826e0ecf6ebcaa5d360272f",
           "ecosystem": "Alpine:v3.19",
-          "compareAs": "Alpine"
+          "compareAs": "Alpine",
+          "originLayerId": "076bedb6e6e105e652dcb482c5192ba621e065e0f2a60e7a495a0bd0827f425b"
         },
         {
           "name": "zlib",
           "version": "1.3.1-r0",
           "commit": "9406f6fc5fca057d990eb0d260d75839eeb34d83",
           "ecosystem": "Alpine:v3.19",
-          "compareAs": "Alpine"
+          "compareAs": "Alpine",
+          "originLayerId": "076bedb6e6e105e652dcb482c5192ba621e065e0f2a60e7a495a0bd0827f425b"
         }
       ]
     }
@@ -563,119 +3240,136 @@
           "version": "3.4.3-r2",
           "commit": "7749273fed55f6e1df7c9ee6a127f18099f98a94",
           "ecosystem": "Alpine:v3.19",
-          "compareAs": "Alpine"
+          "compareAs": "Alpine",
+          "originLayerId": "076bedb6e6e105e652dcb482c5192ba621e065e0f2a60e7a495a0bd0827f425b"
         },
         {
           "name": "alpine-baselayout-data",
           "version": "3.4.3-r2",
           "commit": "7749273fed55f6e1df7c9ee6a127f18099f98a94",
           "ecosystem": "Alpine:v3.19",
-          "compareAs": "Alpine"
+          "compareAs": "Alpine",
+          "originLayerId": "076bedb6e6e105e652dcb482c5192ba621e065e0f2a60e7a495a0bd0827f425b"
         },
         {
           "name": "alpine-keys",
           "version": "2.4-r1",
           "commit": "aab68f8c9ab434a46710de8e12fb3206e2930a59",
           "ecosystem": "Alpine:v3.19",
-          "compareAs": "Alpine"
+          "compareAs": "Alpine",
+          "originLayerId": "076bedb6e6e105e652dcb482c5192ba621e065e0f2a60e7a495a0bd0827f425b"
         },
         {
           "name": "apk-tools",
           "version": "2.14.0-r5",
           "commit": "33283848034c9885d984c8e8697c645c57324938",
           "ecosystem": "Alpine:v3.19",
-          "compareAs": "Alpine"
+          "compareAs": "Alpine",
+          "originLayerId": "076bedb6e6e105e652dcb482c5192ba621e065e0f2a60e7a495a0bd0827f425b"
         },
         {
           "name": "busybox",
           "version": "1.36.1-r15",
           "commit": "d1b6f274f29076967826e0ecf6ebcaa5d360272f",
           "ecosystem": "Alpine:v3.19",
-          "compareAs": "Alpine"
+          "compareAs": "Alpine",
+          "originLayerId": "076bedb6e6e105e652dcb482c5192ba621e065e0f2a60e7a495a0bd0827f425b"
         },
         {
           "name": "busybox-binsh",
           "version": "1.36.1-r15",
           "commit": "d1b6f274f29076967826e0ecf6ebcaa5d360272f",
           "ecosystem": "Alpine:v3.19",
-          "compareAs": "Alpine"
+          "compareAs": "Alpine",
+          "originLayerId": "076bedb6e6e105e652dcb482c5192ba621e065e0f2a60e7a495a0bd0827f425b"
         },
         {
           "name": "ca-certificates-bundle",
           "version": "20230506-r0",
           "commit": "59534a02716a92a10d177a118c34066162eff4a6",
           "ecosystem": "Alpine:v3.19",
-          "compareAs": "Alpine"
+          "compareAs": "Alpine",
+          "originLayerId": "076bedb6e6e105e652dcb482c5192ba621e065e0f2a60e7a495a0bd0827f425b"
         },
         {
           "name": "libc-utils",
           "version": "0.7.2-r5",
           "commit": "988f183cc9d6699930c3e18ccf4a9e36010afb56",
           "ecosystem": "Alpine:v3.19",
-          "compareAs": "Alpine"
+          "compareAs": "Alpine",
+          "originLayerId": "076bedb6e6e105e652dcb482c5192ba621e065e0f2a60e7a495a0bd0827f425b"
         },
         {
           "name": "libcrypto3",
           "version": "3.1.4-r5",
           "commit": "b784a22cad0c452586b438cb7a597d846fc09ff4",
           "ecosystem": "Alpine:v3.19",
-          "compareAs": "Alpine"
+          "compareAs": "Alpine",
+          "originLayerId": "076bedb6e6e105e652dcb482c5192ba621e065e0f2a60e7a495a0bd0827f425b"
         },
         {
           "name": "libgcc",
           "version": "13.2.1_git20231014-r0",
           "commit": "090e168783a86e5c2ba31fc65921b9715bac62ff",
           "ecosystem": "Alpine:v3.19",
-          "compareAs": "Alpine"
+          "compareAs": "Alpine",
+          "originLayerId": "076bedb6e6e105e652dcb482c5192ba621e065e0f2a60e7a495a0bd0827f425b"
         },
         {
           "name": "libssl3",
           "version": "3.1.4-r5",
           "commit": "b784a22cad0c452586b438cb7a597d846fc09ff4",
           "ecosystem": "Alpine:v3.19",
-          "compareAs": "Alpine"
+          "compareAs": "Alpine",
+          "originLayerId": "076bedb6e6e105e652dcb482c5192ba621e065e0f2a60e7a495a0bd0827f425b"
         },
         {
           "name": "libstdc++",
           "version": "13.2.1_git20231014-r0",
           "commit": "090e168783a86e5c2ba31fc65921b9715bac62ff",
           "ecosystem": "Alpine:v3.19",
-          "compareAs": "Alpine"
+          "compareAs": "Alpine",
+          "originLayerId": "076bedb6e6e105e652dcb482c5192ba621e065e0f2a60e7a495a0bd0827f425b"
         },
         {
           "name": "musl",
           "version": "1.2.4_git20230717-r4",
           "commit": "ca7f2ab5e88794e4e654b40776f8a92256f50639",
           "ecosystem": "Alpine:v3.19",
-          "compareAs": "Alpine"
+          "compareAs": "Alpine",
+          "originLayerId": "076bedb6e6e105e652dcb482c5192ba621e065e0f2a60e7a495a0bd0827f425b"
         },
         {
           "name": "musl-utils",
           "version": "1.2.4_git20230717-r4",
           "commit": "ca7f2ab5e88794e4e654b40776f8a92256f50639",
           "ecosystem": "Alpine:v3.19",
-          "compareAs": "Alpine"
+          "compareAs": "Alpine",
+          "originLayerId": "076bedb6e6e105e652dcb482c5192ba621e065e0f2a60e7a495a0bd0827f425b"
         },
         {
           "name": "scanelf",
           "version": "1.3.7-r2",
           "commit": "e65a4f2d0470e70d862ef2b5c412ecf2cb9ad0a6",
           "ecosystem": "Alpine:v3.19",
-          "compareAs": "Alpine"
+          "compareAs": "Alpine",
+          "originLayerId": "076bedb6e6e105e652dcb482c5192ba621e065e0f2a60e7a495a0bd0827f425b"
         },
         {
           "name": "ssl_client",
           "version": "1.36.1-r15",
           "commit": "d1b6f274f29076967826e0ecf6ebcaa5d360272f",
           "ecosystem": "Alpine:v3.19",
-          "compareAs": "Alpine"
+          "compareAs": "Alpine",
+          "originLayerId": "076bedb6e6e105e652dcb482c5192ba621e065e0f2a60e7a495a0bd0827f425b"
         },
         {
           "name": "zlib",
           "version": "1.3.1-r0",
           "commit": "9406f6fc5fca057d990eb0d260d75839eeb34d83",
           "ecosystem": "Alpine:v3.19",
-          "compareAs": "Alpine"
+          "compareAs": "Alpine",
+          "originLayerId": "076bedb6e6e105e652dcb482c5192ba621e065e0f2a60e7a495a0bd0827f425b"
         }
       ]
     }
@@ -696,119 +3390,136 @@
           "version": "3.4.3-r2",
           "commit": "7749273fed55f6e1df7c9ee6a127f18099f98a94",
           "ecosystem": "Alpine:v3.19",
-          "compareAs": "Alpine"
+          "compareAs": "Alpine",
+          "originLayerId": "076bedb6e6e105e652dcb482c5192ba621e065e0f2a60e7a495a0bd0827f425b"
         },
         {
           "name": "alpine-baselayout-data",
           "version": "3.4.3-r2",
           "commit": "7749273fed55f6e1df7c9ee6a127f18099f98a94",
           "ecosystem": "Alpine:v3.19",
-          "compareAs": "Alpine"
+          "compareAs": "Alpine",
+          "originLayerId": "076bedb6e6e105e652dcb482c5192ba621e065e0f2a60e7a495a0bd0827f425b"
         },
         {
           "name": "alpine-keys",
           "version": "2.4-r1",
           "commit": "aab68f8c9ab434a46710de8e12fb3206e2930a59",
           "ecosystem": "Alpine:v3.19",
-          "compareAs": "Alpine"
+          "compareAs": "Alpine",
+          "originLayerId": "076bedb6e6e105e652dcb482c5192ba621e065e0f2a60e7a495a0bd0827f425b"
         },
         {
           "name": "apk-tools",
           "version": "2.14.0-r5",
           "commit": "33283848034c9885d984c8e8697c645c57324938",
           "ecosystem": "Alpine:v3.19",
-          "compareAs": "Alpine"
+          "compareAs": "Alpine",
+          "originLayerId": "076bedb6e6e105e652dcb482c5192ba621e065e0f2a60e7a495a0bd0827f425b"
         },
         {
           "name": "busybox",
           "version": "1.36.1-r15",
           "commit": "d1b6f274f29076967826e0ecf6ebcaa5d360272f",
           "ecosystem": "Alpine:v3.19",
-          "compareAs": "Alpine"
+          "compareAs": "Alpine",
+          "originLayerId": "076bedb6e6e105e652dcb482c5192ba621e065e0f2a60e7a495a0bd0827f425b"
         },
         {
           "name": "busybox-binsh",
           "version": "1.36.1-r15",
           "commit": "d1b6f274f29076967826e0ecf6ebcaa5d360272f",
           "ecosystem": "Alpine:v3.19",
-          "compareAs": "Alpine"
+          "compareAs": "Alpine",
+          "originLayerId": "076bedb6e6e105e652dcb482c5192ba621e065e0f2a60e7a495a0bd0827f425b"
         },
         {
           "name": "ca-certificates-bundle",
           "version": "20230506-r0",
           "commit": "59534a02716a92a10d177a118c34066162eff4a6",
           "ecosystem": "Alpine:v3.19",
-          "compareAs": "Alpine"
+          "compareAs": "Alpine",
+          "originLayerId": "076bedb6e6e105e652dcb482c5192ba621e065e0f2a60e7a495a0bd0827f425b"
         },
         {
           "name": "libc-utils",
           "version": "0.7.2-r5",
           "commit": "988f183cc9d6699930c3e18ccf4a9e36010afb56",
           "ecosystem": "Alpine:v3.19",
-          "compareAs": "Alpine"
+          "compareAs": "Alpine",
+          "originLayerId": "076bedb6e6e105e652dcb482c5192ba621e065e0f2a60e7a495a0bd0827f425b"
         },
         {
           "name": "libcrypto3",
           "version": "3.1.4-r5",
           "commit": "b784a22cad0c452586b438cb7a597d846fc09ff4",
           "ecosystem": "Alpine:v3.19",
-          "compareAs": "Alpine"
+          "compareAs": "Alpine",
+          "originLayerId": "076bedb6e6e105e652dcb482c5192ba621e065e0f2a60e7a495a0bd0827f425b"
         },
         {
           "name": "libgcc",
           "version": "13.2.1_git20231014-r0",
           "commit": "090e168783a86e5c2ba31fc65921b9715bac62ff",
           "ecosystem": "Alpine:v3.19",
-          "compareAs": "Alpine"
+          "compareAs": "Alpine",
+          "originLayerId": "076bedb6e6e105e652dcb482c5192ba621e065e0f2a60e7a495a0bd0827f425b"
         },
         {
           "name": "libssl3",
           "version": "3.1.4-r5",
           "commit": "b784a22cad0c452586b438cb7a597d846fc09ff4",
           "ecosystem": "Alpine:v3.19",
-          "compareAs": "Alpine"
+          "compareAs": "Alpine",
+          "originLayerId": "076bedb6e6e105e652dcb482c5192ba621e065e0f2a60e7a495a0bd0827f425b"
         },
         {
           "name": "libstdc++",
           "version": "13.2.1_git20231014-r0",
           "commit": "090e168783a86e5c2ba31fc65921b9715bac62ff",
           "ecosystem": "Alpine:v3.19",
-          "compareAs": "Alpine"
+          "compareAs": "Alpine",
+          "originLayerId": "076bedb6e6e105e652dcb482c5192ba621e065e0f2a60e7a495a0bd0827f425b"
         },
         {
           "name": "musl",
           "version": "1.2.4_git20230717-r4",
           "commit": "ca7f2ab5e88794e4e654b40776f8a92256f50639",
           "ecosystem": "Alpine:v3.19",
-          "compareAs": "Alpine"
+          "compareAs": "Alpine",
+          "originLayerId": "076bedb6e6e105e652dcb482c5192ba621e065e0f2a60e7a495a0bd0827f425b"
         },
         {
           "name": "musl-utils",
           "version": "1.2.4_git20230717-r4",
           "commit": "ca7f2ab5e88794e4e654b40776f8a92256f50639",
           "ecosystem": "Alpine:v3.19",
-          "compareAs": "Alpine"
+          "compareAs": "Alpine",
+          "originLayerId": "076bedb6e6e105e652dcb482c5192ba621e065e0f2a60e7a495a0bd0827f425b"
         },
         {
           "name": "scanelf",
           "version": "1.3.7-r2",
           "commit": "e65a4f2d0470e70d862ef2b5c412ecf2cb9ad0a6",
           "ecosystem": "Alpine:v3.19",
-          "compareAs": "Alpine"
+          "compareAs": "Alpine",
+          "originLayerId": "076bedb6e6e105e652dcb482c5192ba621e065e0f2a60e7a495a0bd0827f425b"
         },
         {
           "name": "ssl_client",
           "version": "1.36.1-r15",
           "commit": "d1b6f274f29076967826e0ecf6ebcaa5d360272f",
           "ecosystem": "Alpine:v3.19",
-          "compareAs": "Alpine"
+          "compareAs": "Alpine",
+          "originLayerId": "076bedb6e6e105e652dcb482c5192ba621e065e0f2a60e7a495a0bd0827f425b"
         },
         {
           "name": "zlib",
           "version": "1.3.1-r0",
           "commit": "9406f6fc5fca057d990eb0d260d75839eeb34d83",
           "ecosystem": "Alpine:v3.19",
-          "compareAs": "Alpine"
+          "compareAs": "Alpine",
+          "originLayerId": "076bedb6e6e105e652dcb482c5192ba621e065e0f2a60e7a495a0bd0827f425b"
         }
       ]
     }
@@ -829,119 +3540,136 @@
           "version": "3.4.3-r2",
           "commit": "7749273fed55f6e1df7c9ee6a127f18099f98a94",
           "ecosystem": "Alpine:v3.19",
-          "compareAs": "Alpine"
+          "compareAs": "Alpine",
+          "originLayerId": "076bedb6e6e105e652dcb482c5192ba621e065e0f2a60e7a495a0bd0827f425b"
         },
         {
           "name": "alpine-baselayout-data",
           "version": "3.4.3-r2",
           "commit": "7749273fed55f6e1df7c9ee6a127f18099f98a94",
           "ecosystem": "Alpine:v3.19",
-          "compareAs": "Alpine"
+          "compareAs": "Alpine",
+          "originLayerId": "076bedb6e6e105e652dcb482c5192ba621e065e0f2a60e7a495a0bd0827f425b"
         },
         {
           "name": "alpine-keys",
           "version": "2.4-r1",
           "commit": "aab68f8c9ab434a46710de8e12fb3206e2930a59",
           "ecosystem": "Alpine:v3.19",
-          "compareAs": "Alpine"
+          "compareAs": "Alpine",
+          "originLayerId": "076bedb6e6e105e652dcb482c5192ba621e065e0f2a60e7a495a0bd0827f425b"
         },
         {
           "name": "apk-tools",
           "version": "2.14.0-r5",
           "commit": "33283848034c9885d984c8e8697c645c57324938",
           "ecosystem": "Alpine:v3.19",
-          "compareAs": "Alpine"
+          "compareAs": "Alpine",
+          "originLayerId": "076bedb6e6e105e652dcb482c5192ba621e065e0f2a60e7a495a0bd0827f425b"
         },
         {
           "name": "busybox",
           "version": "1.36.1-r15",
           "commit": "d1b6f274f29076967826e0ecf6ebcaa5d360272f",
           "ecosystem": "Alpine:v3.19",
-          "compareAs": "Alpine"
+          "compareAs": "Alpine",
+          "originLayerId": "076bedb6e6e105e652dcb482c5192ba621e065e0f2a60e7a495a0bd0827f425b"
         },
         {
           "name": "busybox-binsh",
           "version": "1.36.1-r15",
           "commit": "d1b6f274f29076967826e0ecf6ebcaa5d360272f",
           "ecosystem": "Alpine:v3.19",
-          "compareAs": "Alpine"
+          "compareAs": "Alpine",
+          "originLayerId": "076bedb6e6e105e652dcb482c5192ba621e065e0f2a60e7a495a0bd0827f425b"
         },
         {
           "name": "ca-certificates-bundle",
           "version": "20230506-r0",
           "commit": "59534a02716a92a10d177a118c34066162eff4a6",
           "ecosystem": "Alpine:v3.19",
-          "compareAs": "Alpine"
+          "compareAs": "Alpine",
+          "originLayerId": "076bedb6e6e105e652dcb482c5192ba621e065e0f2a60e7a495a0bd0827f425b"
         },
         {
           "name": "libc-utils",
           "version": "0.7.2-r5",
           "commit": "988f183cc9d6699930c3e18ccf4a9e36010afb56",
           "ecosystem": "Alpine:v3.19",
-          "compareAs": "Alpine"
+          "compareAs": "Alpine",
+          "originLayerId": "076bedb6e6e105e652dcb482c5192ba621e065e0f2a60e7a495a0bd0827f425b"
         },
         {
           "name": "libcrypto3",
           "version": "3.1.4-r5",
           "commit": "b784a22cad0c452586b438cb7a597d846fc09ff4",
           "ecosystem": "Alpine:v3.19",
-          "compareAs": "Alpine"
+          "compareAs": "Alpine",
+          "originLayerId": "076bedb6e6e105e652dcb482c5192ba621e065e0f2a60e7a495a0bd0827f425b"
         },
         {
           "name": "libgcc",
           "version": "13.2.1_git20231014-r0",
           "commit": "090e168783a86e5c2ba31fc65921b9715bac62ff",
           "ecosystem": "Alpine:v3.19",
-          "compareAs": "Alpine"
+          "compareAs": "Alpine",
+          "originLayerId": "076bedb6e6e105e652dcb482c5192ba621e065e0f2a60e7a495a0bd0827f425b"
         },
         {
           "name": "libssl3",
           "version": "3.1.4-r5",
           "commit": "b784a22cad0c452586b438cb7a597d846fc09ff4",
           "ecosystem": "Alpine:v3.19",
-          "compareAs": "Alpine"
+          "compareAs": "Alpine",
+          "originLayerId": "076bedb6e6e105e652dcb482c5192ba621e065e0f2a60e7a495a0bd0827f425b"
         },
         {
           "name": "libstdc++",
           "version": "13.2.1_git20231014-r0",
           "commit": "090e168783a86e5c2ba31fc65921b9715bac62ff",
           "ecosystem": "Alpine:v3.19",
-          "compareAs": "Alpine"
+          "compareAs": "Alpine",
+          "originLayerId": "076bedb6e6e105e652dcb482c5192ba621e065e0f2a60e7a495a0bd0827f425b"
         },
         {
           "name": "musl",
           "version": "1.2.4_git20230717-r4",
           "commit": "ca7f2ab5e88794e4e654b40776f8a92256f50639",
           "ecosystem": "Alpine:v3.19",
-          "compareAs": "Alpine"
+          "compareAs": "Alpine",
+          "originLayerId": "076bedb6e6e105e652dcb482c5192ba621e065e0f2a60e7a495a0bd0827f425b"
         },
         {
           "name": "musl-utils",
           "version": "1.2.4_git20230717-r4",
           "commit": "ca7f2ab5e88794e4e654b40776f8a92256f50639",
           "ecosystem": "Alpine:v3.19",
-          "compareAs": "Alpine"
+          "compareAs": "Alpine",
+          "originLayerId": "076bedb6e6e105e652dcb482c5192ba621e065e0f2a60e7a495a0bd0827f425b"
         },
         {
           "name": "scanelf",
           "version": "1.3.7-r2",
           "commit": "e65a4f2d0470e70d862ef2b5c412ecf2cb9ad0a6",
           "ecosystem": "Alpine:v3.19",
-          "compareAs": "Alpine"
+          "compareAs": "Alpine",
+          "originLayerId": "076bedb6e6e105e652dcb482c5192ba621e065e0f2a60e7a495a0bd0827f425b"
         },
         {
           "name": "ssl_client",
           "version": "1.36.1-r15",
           "commit": "d1b6f274f29076967826e0ecf6ebcaa5d360272f",
           "ecosystem": "Alpine:v3.19",
-          "compareAs": "Alpine"
+          "compareAs": "Alpine",
+          "originLayerId": "076bedb6e6e105e652dcb482c5192ba621e065e0f2a60e7a495a0bd0827f425b"
         },
         {
           "name": "zlib",
           "version": "1.3.1-r0",
           "commit": "9406f6fc5fca057d990eb0d260d75839eeb34d83",
           "ecosystem": "Alpine:v3.19",
-          "compareAs": "Alpine"
+          "compareAs": "Alpine",
+          "originLayerId": "076bedb6e6e105e652dcb482c5192ba621e065e0f2a60e7a495a0bd0827f425b"
         }
       ]
     }

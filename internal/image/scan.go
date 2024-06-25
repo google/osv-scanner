@@ -37,85 +37,85 @@ func ScanImage(r reporter.Reporter, imagePath string) (ScanResults, error) {
 			continue
 		}
 
-		// Trace package origins
-		for _, file := range scannedLockfiles.Lockfiles {
-			// Defined locally as this is the only place this is used.
-			type PDKey struct {
-				Name      string
-				Version   string
-				Commit    string
-				Ecosystem lockfile.Ecosystem
-			}
+		scannedLockfiles.Lockfiles = append(scannedLockfiles.Lockfiles, parsedLockfile)
+	}
 
-			makePdKey := func(pd lockfile.PackageDetails) PDKey {
-				return PDKey{
-					Name:      pd.Name,
-					Version:   pd.Version,
-					Commit:    pd.Commit,
-					Ecosystem: pd.Ecosystem,
-				}
-			}
+	// Trace package origins
+	for _, file := range scannedLockfiles.Lockfiles {
+		// Defined locally as this is the only place this is used.
+		type PDKey struct {
+			Name      string
+			Version   string
+			Commit    string
+			Ecosystem lockfile.Ecosystem
+		}
 
-			sourceLayerIdx := map[PDKey]int{}
-			for _, pkg := range file.Packages {
-				sourceLayerIdx[makePdKey(pkg)] = 0
-			}
-
-			// First get the latest file node
-			lastFileNode, err := img.layers[len(img.layers)-1].GetFileNode(file.FilePath)
-			if err != nil {
-				log.Panicf("did not expect to fail getting file node we just scanned: %v", err)
-			}
-			// Get the layer index this file belongs to (the last layer it was changed on)
-			layerIdx := img.layerIDToIndex[lastFileNode.originLayer.id]
-			for {
-				// Scan the lockfile again every time it was changed
-				if layerIdx == 0 {
-					// This layer is the base layer, this is the originating layer for all remaining packages
-					// Since the default value in sourceLayerIdx is 0, no changes need to be made here
-					break
-				}
-				// Look at the layer before the current layer
-				oldFileNode, err := img.layers[layerIdx-1].GetFileNode(file.FilePath)
-
-				if errors.Is(fs.ErrNotExist, err) || (err == nil && oldFileNode.isWhiteout) {
-					// Did not exist in the layer before, all remaining packages must be from the current layer
-					for key, val := range sourceLayerIdx {
-						if val == 0 {
-							sourceLayerIdx[key] = layerIdx
-						}
-					}
-					break
-				}
-
-				if err != nil {
-					log.Panicf("did not expect a different error [%v] when getting file node", err)
-				}
-
-				// Set the layerIdx to the new file node layer
-				layerIdx = img.layerIDToIndex[oldFileNode.originLayer.id]
-
-				oldDeps, err := extractArtifactDeps(file.FilePath, oldFileNode.originLayer)
-				if err != nil {
-					log.Panicf("unimplemented! failed to parse an older version of file in image: %s@%s: %v", file.FilePath, oldFileNode.originLayer.id, err)
-					// TODO: What to do here?
-				}
-
-				for _, pkg := range oldDeps.Packages {
-					key := makePdKey(pkg)
-					if val, ok := sourceLayerIdx[key]; ok && val == 0 {
-						sourceLayerIdx[key] = layerIdx
-					}
-				}
-				// TODO: Add check here to shortcut if all packages have been accounted for
-			}
-
-			for i, pkg := range file.Packages {
-				file.Packages[i].OriginLayerID = img.layers[sourceLayerIdx[makePdKey(pkg)]].id
+		makePdKey := func(pd lockfile.PackageDetails) PDKey {
+			return PDKey{
+				Name:      pd.Name,
+				Version:   pd.Version,
+				Commit:    pd.Commit,
+				Ecosystem: pd.Ecosystem,
 			}
 		}
 
-		scannedLockfiles.Lockfiles = append(scannedLockfiles.Lockfiles, parsedLockfile)
+		sourceLayerIdx := map[PDKey]int{}
+		for _, pkg := range file.Packages {
+			sourceLayerIdx[makePdKey(pkg)] = 0
+		}
+
+		// First get the latest file node
+		lastFileNode, err := img.layers[len(img.layers)-1].GetFileNode(file.FilePath)
+		if err != nil {
+			log.Panicf("did not expect to fail getting file node we just scanned: %v", err)
+		}
+		// Get the layer index this file belongs to (the last layer it was changed on)
+		layerIdx := img.layerIDToIndex[lastFileNode.originLayer.id]
+		for {
+			// Scan the lockfile again every time it was changed
+			if layerIdx == 0 {
+				// This layer is the base layer, this is the originating layer for all remaining packages
+				// Since the default value in sourceLayerIdx is 0, no changes need to be made here
+				break
+			}
+			// Look at the layer before the current layer
+			oldFileNode, err := img.layers[layerIdx-1].GetFileNode(file.FilePath)
+
+			if errors.Is(fs.ErrNotExist, err) || (err == nil && oldFileNode.isWhiteout) {
+				// Did not exist in the layer before, all remaining packages must be from the current layer
+				for key, val := range sourceLayerIdx {
+					if val == 0 {
+						sourceLayerIdx[key] = layerIdx
+					}
+				}
+				break
+			}
+
+			if err != nil {
+				log.Panicf("did not expect a different error [%v] when getting file node", err)
+			}
+
+			// Set the layerIdx to the new file node layer
+			layerIdx = img.layerIDToIndex[oldFileNode.originLayer.id]
+
+			oldDeps, err := extractArtifactDeps(file.FilePath, oldFileNode.originLayer)
+			if err != nil {
+				log.Panicf("unimplemented! failed to parse an older version of file in image: %s@%s: %v", file.FilePath, oldFileNode.originLayer.id, err)
+				// TODO: What to do here?
+			}
+
+			for _, pkg := range oldDeps.Packages {
+				key := makePdKey(pkg)
+				if val, ok := sourceLayerIdx[key]; ok && val == 0 {
+					sourceLayerIdx[key] = layerIdx
+				}
+			}
+			// TODO: Add check here to shortcut if all packages have been accounted for
+		}
+
+		for i, pkg := range file.Packages {
+			file.Packages[i].OriginLayerID = img.layers[sourceLayerIdx[makePdKey(pkg)]].id
+		}
 	}
 
 	err = img.Cleanup()
