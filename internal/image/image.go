@@ -37,6 +37,10 @@ type Image struct {
 	layerIDToIndex map[string]int
 }
 
+func (img *Image) LayerIDToIdx(id string) int {
+	return img.layerIDToIndex[id]
+}
+
 func (img *Image) LastLayer() *imgLayer {
 	return &img.layers[len(img.layers)-1]
 }
@@ -49,7 +53,7 @@ func (img *Image) Cleanup() error {
 	return os.RemoveAll(img.extractDir)
 }
 
-func loadImage(imagePath string) (*Image, error) {
+func LoadImage(imagePath string) (*Image, error) {
 	image, err := tarball.ImageFromPath(imagePath, nil)
 	if err != nil {
 		return nil, err

@@ -12,7 +12,7 @@ import (
 
 // ScanImage scans an exported docker image .tar file
 func ScanImage(r reporter.Reporter, imagePath string) (ScanResults, error) {
-	img, err := loadImage(imagePath)
+	img, err := LoadImage(imagePath)
 	if err != nil {
 		// Ignore errors on cleanup since the folder might not have been created anyway.
 		_ = img.Cleanup()
