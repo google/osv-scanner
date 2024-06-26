@@ -51,9 +51,8 @@ func NewMavenManifestIO() MavenManifestIO {
 }
 
 type MavenManifestSpecific struct {
-	Properties []maven.Property
-	//RequirementsWithProperties []resolve.RequirementVersion
-	//RequirementsFromOtherPOMs  []resolve.RequirementVersion // Requirements that we cannot modify directly
+	Properties  []maven.Property
+	BaseProject maven.Project
 }
 
 // TODO: handle profiles (activation and interpolation)
@@ -64,6 +63,7 @@ func (m MavenManifestIO) Read(df lockfile.DepFile) (Manifest, error) {
 	if err := xml.NewDecoder(df).Decode(&project); err != nil {
 		return Manifest{}, fmt.Errorf("failed to unmarshal project: %w", err)
 	}
+	baseProject := project
 
 	// Merging parents data by parsing local parent pom.xml or fetching from upstream.
 	if err := m.mergeParents(ctx, &project, project.Parent, 1, df.Path(), true); err != nil {
@@ -137,7 +137,8 @@ func (m MavenManifestIO) Read(df lockfile.DepFile) (Manifest, error) {
 		Requirements: requirements,
 		Groups:       groups,
 		EcosystemSpecific: MavenManifestSpecific{
-			Properties: properties,
+			Properties:  properties,
+			BaseProject: baseProject,
 		},
 	}, nil
 }

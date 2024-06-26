@@ -187,17 +187,52 @@ func TestMavenRead(t *testing.T) {
 				VersionKey: resolve.VersionKey{
 					PackageKey: resolve.PackageKey{
 						System: resolve.Maven,
-						Name:   "org.import:xyz",
+						Name:   "org.example:aaa",
 					},
 					VersionType: resolve.Requirement,
-					Version:     "6.6.6",
+					Version:     "1.1.1",
 				},
 				Type: depMgmt,
 			},
+			{
+				VersionKey: resolve.VersionKey{
+					PackageKey: resolve.PackageKey{
+						System: resolve.Maven,
+						Name:   "org.example:bbb",
+					},
+					VersionType: resolve.Requirement,
+					Version:     "2.2.2",
+				},
+				Type: depMgmt,
+			},
+			{
+				VersionKey: resolve.VersionKey{
+					PackageKey: resolve.PackageKey{
+						System: resolve.Maven,
+						Name:   "org.example:ccc",
+					},
+					VersionType: resolve.Requirement,
+					Version:     "3.3.3",
+				},
+				Type: depMgmt,
+			},
+			/*
+				{
+					VersionKey: resolve.VersionKey{
+						PackageKey: resolve.PackageKey{
+							System: resolve.Maven,
+							Name:   "org.import:xyz",
+						},
+						VersionType: resolve.Requirement,
+						Version:     "6.6.6",
+					},
+					Type: depMgmt,
+				},
+			*/
 		},
 		Groups: map[manifest.RequirementKey][]string{
-			mavenReqKey(t, "junit:junit", "", ""):       {"test"},
-			mavenReqKey(t, "org.import:xyz", "pom", ""): {"import"},
+			mavenReqKey(t, "junit:junit", "", ""): {"test"},
+			//	mavenReqKey(t, "org.import:xyz", "pom", ""): {"import"},
 		},
 		EcosystemSpecific: manifest.MavenManifestSpecific{
 			Properties: []maven.Property{
@@ -208,7 +243,114 @@ func TestMavenRead(t *testing.T) {
 				{Name: "maven.compiler.source", Value: "1.7"},
 				{Name: "maven.compiler.target", Value: "1.7"},
 				{Name: "junit.version", Value: "4.12"},
-				{Name: "def.version", Value: "2.3.4"},
+				//{Name: "def.version", Value: "2.3.4"},
+			},
+			BaseProject: maven.Project{
+				Name: "my-app",
+				URL:  "http://www.example.com",
+				ProjectKey: maven.ProjectKey{
+					GroupID:    "com.mycompany.app",
+					ArtifactID: "my-app",
+					Version:    "1.0",
+				},
+				Parent: maven.Parent{
+					ProjectKey: maven.ProjectKey{
+						GroupID:    "org.parent",
+						ArtifactID: "parent-pom",
+						Version:    "1.1.1",
+					},
+					RelativePath: "./parent/pom.xml",
+				},
+				Properties: maven.Properties{
+					Properties: []maven.Property{
+						{Name: "project.build.sourceEncoding", Value: "UTF-8"},
+						{Name: "maven.compiler.source", Value: "1.7"},
+						{Name: "maven.compiler.target", Value: "1.7"},
+						{Name: "junit.version", Value: "4.12"},
+					},
+				},
+				Dependencies: []maven.Dependency{
+					{
+						GroupID:    "junit",
+						ArtifactID: "junit",
+						Version:    "${junit.version}",
+						Scope:      "test",
+					},
+					{
+						GroupID:    "org.example",
+						ArtifactID: "abc",
+						Version:    "1.0.1",
+					},
+				},
+				DependencyManagement: maven.DependencyManagement{
+					Dependencies: []maven.Dependency{
+						{
+							GroupID:    "org.example",
+							ArtifactID: "xyz",
+							Version:    "2.0.0",
+						},
+						{
+							GroupID:    "org.import",
+							ArtifactID: "import",
+							Version:    "1.0.0",
+							Type:       "pom",
+							Scope:      "import",
+						},
+					},
+				},
+				Profiles: []maven.Profile{
+					{
+						ID: "profile-one",
+						Properties: maven.Properties{
+							Properties: []maven.Property{
+								{Name: "def.version", Value: "2.3.4"},
+							},
+						},
+						Dependencies: []maven.Dependency{{
+							GroupID:    "org.profile",
+							ArtifactID: "abc",
+							Version:    "1.2.3",
+						}, {
+							GroupID:    "org.profile",
+							ArtifactID: "def",
+							Version:    "${def.version}",
+						}},
+					},
+					{
+						ID: "profile-two",
+						DependencyManagement: maven.DependencyManagement{
+							Dependencies: []maven.Dependency{
+								{
+									GroupID:    "org.import",
+									ArtifactID: "xyz",
+									Version:    "6.6.6",
+									Scope:      "import",
+									Type:       "pom",
+								},
+							},
+						},
+					},
+				},
+				Build: maven.Build{
+					PluginManagement: maven.PluginManagement{
+						Plugins: []maven.Plugin{
+							{
+								ProjectKey: maven.ProjectKey{
+									GroupID:    "org.plugin",
+									ArtifactID: "plugin",
+									Version:    "1.0.0",
+								},
+								Dependencies: []maven.Dependency{
+									{
+										GroupID:    "org.dep",
+										ArtifactID: "plugin-dep",
+										Version:    "2.3.3",
+									},
+								},
+							},
+						},
+					},
+				},
 			},
 		},
 	}

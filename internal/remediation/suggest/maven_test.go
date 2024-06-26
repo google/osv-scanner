@@ -119,7 +119,8 @@ func TestSuggest(t *testing.T) {
 					VersionType: resolve.Requirement,
 					Version:     "4.12",
 				},
-				// Type: dep.NewType(dep.Test), test scope is ignored to make resolution work.
+				// test scope is ignored to make resolution work.
+				Type: dep.NewType(dep.Test),
 			},
 			{
 				VersionKey: resolve.VersionKey{
@@ -249,57 +250,140 @@ func TestSuggest(t *testing.T) {
 			mavenReqKey(t, "org.import:xyz", "", ""): {"import"},
 		},
 		EcosystemSpecific: manifest.MavenManifestSpecific{
-			Properties: []manifest.PropertyWithOrigin{
-				{Property: maven.Property{Name: "project.build.sourceEncoding", Value: "UTF-8"}},
-				{Property: maven.Property{Name: "maven.compiler.source", Value: "1.7"}},
-				{Property: maven.Property{Name: "maven.compiler.target", Value: "1.7"}},
-				{Property: maven.Property{Name: "property.version", Value: "1.0.0"}},
-				{Property: maven.Property{Name: "no.update.minor", Value: "9"}},
+			Properties: []maven.Property{
+				{Name: "project.build.sourceEncoding", Value: "UTF-8"},
+				{Name: "maven.compiler.source", Value: "1.7"},
+				{Name: "maven.compiler.target", Value: "1.7"},
+				{Name: "property.version", Value: "1.0.0"},
+				{Name: "no.update.minor", Value: "9"},
 			},
-			RequirementsWithProperties: []resolve.RequirementVersion{
-				{
-					// The universal property should be updated.
-					VersionKey: resolve.VersionKey{
-						PackageKey: resolve.PackageKey{
-							System: resolve.Maven,
-							Name:   "org.example:property",
-						},
-						VersionType: resolve.Requirement,
-						Version:     "${property.version}",
+			BaseProject: maven.Project{
+				ProjectKey: maven.ProjectKey{
+					GroupID:    "com.mycompany.app",
+					ArtifactID: "my-app",
+					Version:    "1.0",
+				},
+				Parent: maven.Parent{
+					ProjectKey: maven.ProjectKey{
+						GroupID:    "com.mycompany.app",
+						ArtifactID: "parent-pom",
+						Version:    "1.0.0",
+					},
+				//	RelativePath: "./parent/pom.xml",
+				},
+				Properties: maven.Properties{
+					Properties: []maven.Property{
+						{Name: "project.build.sourceEncoding", Value: "UTF-8"},
+						{Name: "maven.compiler.source", Value: "1.7"},
+						{Name: "maven.compiler.target", Value: "1.7"},
+						{Name: "junit.version", Value: "4.12"},
 					},
 				},
-				{
-					// Property cannot be updated, so update the dependency directly.
-					VersionKey: resolve.VersionKey{
-						PackageKey: resolve.PackageKey{
-							System: resolve.Maven,
-							Name:   "org.example:property-no-update",
-						},
-						VersionType: resolve.Requirement,
-						Version:     "1.${no.update.minor}",
+				Dependencies: []maven.Dependency{
+					{
+						GroupID:    "junit",
+						ArtifactID: "junit",
+						Version:    "${junit.version}",
+						Scope:      "test",
+					},
+					{
+						GroupID:    "org.example",
+						ArtifactID: "abc",
+						Version:    "1.0.1",
+					},
+					{
+						GroupID:    "org.example",
+						ArtifactID: "no-updates",
+						Version:    "9.9.9",
+					},
+					{
+						GroupID:    "org.example",
+						ArtifactID: "property",
+						Version:    "${property.version}",
+					},
+					{
+						GroupID:    "org.example",
+						ArtifactID: "same-property",
+						Version:    "${property.version}",
+					},
+					{
+						GroupID:    "org.example",
+						ArtifactID: "another-property",
+						Version:    "${property.version}",
+					},
+					{
+						GroupID:    "org.example",
+						ArtifactID: "property-no-update",
+						Version:    "1.${no.update.minor}",
 					},
 				},
-				{
-					// The propety is updated to the same value.
-					VersionKey: resolve.VersionKey{
-						PackageKey: resolve.PackageKey{
-							System: resolve.Maven,
-							Name:   "org.example:same-property",
+				DependencyManagement: maven.DependencyManagement{
+					Dependencies: []maven.Dependency{
+						{
+							GroupID:    "org.example",
+							ArtifactID: "xyz",
+							Version:    "2.0.0",
 						},
-						VersionType: resolve.Requirement,
-						Version:     "${property.version}",
+						{
+							GroupID:    "org.import",
+							ArtifactID: "import",
+							Version:    "1.0.0",
+							Type:       "pom",
+							Scope:      "import",
+						},
 					},
 				},
-				{
-					// Property needs to be updated to a different value,
-					// so update dependency directly.
-					VersionKey: resolve.VersionKey{
-						PackageKey: resolve.PackageKey{
-							System: resolve.Maven,
-							Name:   "org.example:another-property",
+				Profiles: []maven.Profile{
+					{
+						ID: "profile-one",
+						Properties: maven.Properties{
+							Properties: []maven.Property{
+								{Name: "def.version", Value: "2.3.4"},
+							},
 						},
-						VersionType: resolve.Requirement,
-						Version:     "${property.version}",
+						Dependencies: []maven.Dependency{{
+							GroupID:    "org.profile",
+							ArtifactID: "abc",
+							Version:    "1.2.3",
+						}, {
+							GroupID:    "org.profile",
+							ArtifactID: "def",
+							Version:    "${def.version}",
+						}},
+					},
+					{
+						ID: "profile-two",
+						DependencyManagement: maven.DependencyManagement{
+							Dependencies: []maven.Dependency{
+								{
+									GroupID:    "org.import",
+									ArtifactID: "xyz",
+									Version:    "6.6.6",
+									Scope:      "import",
+									Type:       "pom",
+								},
+							},
+						},
+					},
+				},
+				Build: maven.Build{
+					PluginManagement: maven.PluginManagement{
+						Plugins: []maven.Plugin{
+							{
+								ProjectKey: maven.ProjectKey{
+									GroupID:    "org.plugin",
+									ArtifactID: "plugin",
+									Version:    "1.0.0",
+								},
+								Dependencies: []maven.Dependency{
+									{
+										GroupID:    "org.dep",
+										ArtifactID: "plugin-dep",
+										Version:    "2.3.3",
+									},
+								},
+							},
+						},
 					},
 				},
 			},

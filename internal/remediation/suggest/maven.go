@@ -7,8 +7,8 @@ import (
 	"log"
 	"strings"
 
+	"deps.dev/util/maven"
 	"deps.dev/util/resolve"
-	"deps.dev/util/resolve/dep"
 	"deps.dev/util/semver"
 	"github.com/google/osv-scanner/internal/resolution/manifest"
 	"github.com/google/osv-scanner/pkg/lockfile"
@@ -53,14 +53,14 @@ func (ms *MavenSuggester) Suggest(ctx context.Context, client resolve.Client, mf
 			NewRequire: latest.Version,
 		}
 
-		origReq := originalRequirement(req, specific.RequirementsWithProperties)
-		if !requirementHasProperty(origReq) {
+		origReq := originalRequirement(req, specific.BaseProject)
+		if !origReq.ContainsProperty() {
 			// The original requirement does not contain a property placeholder.
 			changedDeps = append(changedDeps, patch)
 			continue
 		}
 
-		patches, ok := generatePropertyPatches(origReq, latest.Version)
+		patches, ok := generatePropertyPatches(string(origReq), latest.Version)
 		if !ok {
 			// Not able to update properties to update the requirement.
 			// Update the dependency directly instead.
@@ -68,15 +68,15 @@ func (ms *MavenSuggester) Suggest(ctx context.Context, client resolve.Client, mf
 			continue
 		}
 
-		depOrigin, _ := req.Type.GetAttr(dep.MavenDependencyOrigin)
-		if strings.HasPrefix(depOrigin, manifest.OriginProfile) {
-			// Dependency management is not indicated in property origin.
-			depOrigin, _ = strings.CutSuffix(depOrigin, "@"+manifest.OriginManagement)
-		} else {
-			// Properties are defined either universally or in a profile. For property
-			// origin not starting with 'profile', this is an universal property.
-			depOrigin = ""
-		}
+		//depOrigin, _ := req.Type.GetAttr(dep.MavenDependencyOrigin)
+		//if strings.HasPrefix(depOrigin, manifest.OriginProfile) {
+		// Dependency management is not indicated in property origin.
+		//	depOrigin, _ = strings.CutSuffix(depOrigin, "@"+manifest.OriginManagement)
+		//} else {
+		// Properties are defined either universally or in a profile. For property
+		// origin not starting with 'profile', this is an universal property.
+		//	depOrigin = ""
+		//}
 
 		for name, value := range patches {
 			// A dependency in a profile may contain properties from this profile or
@@ -84,11 +84,11 @@ func (ms *MavenSuggester) Suggest(ctx context.Context, client resolve.Client, mf
 			// properties. If a property is defined both universally and in the profile,
 			// we use the profile's origin.
 			propertyOrigin := ""
-			for _, p := range specific.Properties {
-				if p.Name == name && p.Origin != "" && p.Origin == depOrigin {
-					propertyOrigin = depOrigin
-				}
-			}
+			//for _, p := range specific.Properties {
+			//	if p.Name == name && p.Origin != "" && p.Origin == depOrigin {
+			//		propertyOrigin = depOrigin
+			//	}
+			//}
 			if _, ok := propertyPatches[propertyOrigin]; !ok {
 				propertyPatches[propertyOrigin] = make(map[string]string)
 			}
@@ -174,22 +174,28 @@ func suggestMavenVersion(ctx context.Context, client resolve.Client, req resolve
 
 // originalRequirement returns the orignal requirement of a requirement version.
 // If the version is not found in imports, an empty string is returned.
-func originalRequirement(version resolve.RequirementVersion, imports []resolve.RequirementVersion) string {
-	for _, i := range imports {
-		if version.Name == i.Name && version.Type.Equal(i.Type) {
-			return i.Version
+func originalRequirement(version resolve.RequirementVersion, baseProject maven.Project) maven.String {
+	IDs := strings.Split(version.Name, ":")
+	if len(IDs) != 2 {
+		return ""
+	}
+
+	dependency, origin, _ := resolve.MavenDepTypeToDependency(version.Type)
+	dependency.GroupID = maven.String(IDs[0])
+	dependency.ArtifactID = maven.String(IDs[1])
+
+	deps := baseProject.Dependencies
+	if origin == manifest.OriginManagement {
+		deps = baseProject.DependencyManagement.Dependencies
+	}
+
+	for _, d := range deps {
+		if dependency.Key() == d.Key() {
+			return d.Version
 		}
 	}
 
 	return ""
-}
-
-// TODO: use the method in Maven manifest package
-// requirementHasProperty returns whether an original requirement contains property
-// placeholder ${name} or not.
-func requirementHasProperty(origReq string) bool {
-	i := strings.Index(origReq, "${")
-	return i >= 0 && strings.Contains(origReq[i+2:], "}")
 }
 
 // generatePropertyPatches returns whether we are able to assign values to
