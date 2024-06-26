@@ -34,13 +34,13 @@ func TestComputeOverridePatches(t *testing.T) {
 		tt := tt
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
-			res, cl := parseRelaxFixture(t, tt.universePath, tt.manifestPath)
+			res, cl := parseRemediationFixture(t, tt.universePath, tt.manifestPath)
 			res.FilterVulns(tt.opts.MatchVuln)
 			p, err := remediation.ComputeOverridePatches(context.Background(), cl, res, tt.opts)
 			if err != nil {
 				t.Fatalf("Failed to compute override patches: %v", err)
 			}
-			checkRelaxResults(t, p)
+			checkRemediationResults(t, p)
 		})
 	}
 }

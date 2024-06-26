@@ -22,47 +22,54 @@
       {
         "ID": "GHSA-2fqw-684c-pvp7",
         "AffectedNodes": [
-          124
+          121
         ]
       },
       {
         "ID": "GHSA-4jhc-wjr3-pwh2",
         "AffectedNodes": [
-          124
+          121
         ]
       },
       {
         "ID": "GHSA-6vvh-5794-vpmj",
         "AffectedNodes": [
-          124
+          121
         ]
       },
       {
         "ID": "GHSA-7fr2-94h7-ccg2",
         "AffectedNodes": [
-          124
+          121
         ]
       },
       {
         "ID": "GHSA-g7p8-r2ch-4rmf",
         "AffectedNodes": [
-          124
+          121
         ]
       },
       {
         "ID": "GHSA-m4h3-7mc2-v295",
         "AffectedNodes": [
-          124
+          121
         ]
       },
       {
         "ID": "GHSA-mf27-wg66-m8f5",
         "AffectedNodes": [
-          124
+          121
         ]
       }
     ],
-    "AddedVulns": []
+    "AddedVulns": [
+      {
+        "ID": "GHSA-v2xm-76pq-phcf",
+        "AffectedNodes": [
+          264
+        ]
+      }
+    ]
   },
   {
     "Patch": {
@@ -85,25 +92,25 @@
       {
         "ID": "GHSA-2h3j-m7gr-25xj",
         "AffectedNodes": [
-          290
+          287
         ]
       },
       {
         "ID": "GHSA-6vqp-h455-42mr",
         "AffectedNodes": [
-          290
+          287
         ]
       },
       {
         "ID": "GHSA-7grw-6pjh-jpc9",
         "AffectedNodes": [
-          290
+          287
         ]
       },
       {
         "ID": "GHSA-fg3j-q579-v8x4",
         "AffectedNodes": [
-          290
+          287
         ]
       }
     ],
@@ -130,25 +137,99 @@
       {
         "ID": "GHSA-7j4h-8wpf-rqfh",
         "AffectedNodes": [
-          255
+          252
         ]
       },
       {
         "ID": "GHSA-h65f-jvqw-m9fj",
         "AffectedNodes": [
-          255
+          252
         ]
       },
       {
         "ID": "GHSA-vmqm-g3vh-847m",
         "AffectedNodes": [
-          255
+          252
         ]
       },
       {
         "ID": "GHSA-w4jq-qh47-hvjq",
         "AffectedNodes": [
-          255
+          252
+        ]
+      }
+    ],
+    "AddedVulns": []
+  },
+  {
+    "Patch": {
+      "Deps": [
+        {
+          "Pkg": {
+            "System": 6,
+            "Name": "io.atomix:atomix"
+          },
+          "Type": {},
+          "OrigRequire": "",
+          "NewRequire": "3.1.6",
+          "OrigResolved": "3.0.0-rc5",
+          "NewResolved": "3.1.6"
+        },
+        {
+          "Pkg": {
+            "System": 6,
+            "Name": "io.github.classgraph:classgraph"
+          },
+          "Type": {},
+          "OrigRequire": "",
+          "NewRequire": "4.8.112",
+          "OrigResolved": "4.2.3",
+          "NewResolved": "4.8.112"
+        }
+      ],
+      "EcosystemSpecific": null
+    },
+    "RemovedVulns": [
+      {
+        "ID": "GHSA-2fqw-684c-pvp7",
+        "AffectedNodes": [
+          121
+        ]
+      },
+      {
+        "ID": "GHSA-4jhc-wjr3-pwh2",
+        "AffectedNodes": [
+          121
+        ]
+      },
+      {
+        "ID": "GHSA-6vvh-5794-vpmj",
+        "AffectedNodes": [
+          121
+        ]
+      },
+      {
+        "ID": "GHSA-7fr2-94h7-ccg2",
+        "AffectedNodes": [
+          121
+        ]
+      },
+      {
+        "ID": "GHSA-g7p8-r2ch-4rmf",
+        "AffectedNodes": [
+          121
+        ]
+      },
+      {
+        "ID": "GHSA-m4h3-7mc2-v295",
+        "AffectedNodes": [
+          121
+        ]
+      },
+      {
+        "ID": "GHSA-mf27-wg66-m8f5",
+        "AffectedNodes": [
+          121
         ]
       }
     ],
@@ -175,19 +256,19 @@
       {
         "ID": "GHSA-5mg8-w23w-74h3",
         "AffectedNodes": [
-          263
+          260
         ]
       },
       {
         "ID": "GHSA-7g45-4rm6-3mm3",
         "AffectedNodes": [
-          263
+          260
         ]
       },
       {
         "ID": "GHSA-mvr2-9pj6-7w5j",
         "AffectedNodes": [
-          263
+          260
         ]
       }
     ],
@@ -214,19 +295,19 @@
       {
         "ID": "GHSA-7j4h-8wpf-rqfh",
         "AffectedNodes": [
-          255
+          252
         ]
       },
       {
         "ID": "GHSA-vmqm-g3vh-847m",
         "AffectedNodes": [
-          255
+          252
         ]
       },
       {
         "ID": "GHSA-w4jq-qh47-hvjq",
         "AffectedNodes": [
-          255
+          252
         ]
       }
     ],
@@ -253,13 +334,13 @@
       {
         "ID": "GHSA-jjjh-jjxp-wpff",
         "AffectedNodes": [
-          16
+          15
         ]
       },
       {
         "ID": "GHSA-rgv9-q543-rqg4",
         "AffectedNodes": [
-          16
+          15
         ]
       }
     ],
@@ -286,13 +367,13 @@
       {
         "ID": "GHSA-6mjq-h674-j845",
         "AffectedNodes": [
-          260
+          257
         ]
       },
       {
         "ID": "GHSA-mm9x-g8pc-w292",
         "AffectedNodes": [
-          260
+          257
         ]
       }
     ],
@@ -319,13 +400,13 @@
       {
         "ID": "GHSA-4265-ccf5-phj5",
         "AffectedNodes": [
-          61
+          58
         ]
       },
       {
         "ID": "GHSA-4g9r-vxhx-9pgx",
         "AffectedNodes": [
-          61
+          58
         ]
       }
     ],
@@ -352,13 +433,13 @@
       {
         "ID": "GHSA-9w38-p64v-xpmv",
         "AffectedNodes": [
-          128
+          125
         ]
       },
       {
         "ID": "GHSA-xjp4-hw94-mvp5",
         "AffectedNodes": [
-          128
+          125
         ]
       }
     ],
@@ -385,13 +466,13 @@
       {
         "ID": "GHSA-5h29-qq92-wj7f",
         "AffectedNodes": [
-          170
+          167
         ]
       },
       {
         "ID": "GHSA-6mcm-j9cj-3vc3",
         "AffectedNodes": [
-          170
+          167
         ]
       }
     ],
@@ -418,13 +499,13 @@
       {
         "ID": "GHSA-2h3j-m7gr-25xj",
         "AffectedNodes": [
-          290
+          287
         ]
       },
       {
         "ID": "GHSA-6vqp-h455-42mr",
         "AffectedNodes": [
-          290
+          287
         ]
       }
     ],
@@ -451,13 +532,13 @@
       {
         "ID": "GHSA-hhw5-c326-822h",
         "AffectedNodes": [
-          22
+          21
         ]
       },
       {
         "ID": "GHSA-pmhc-2g4f-85cg",
         "AffectedNodes": [
-          22
+          21
         ]
       }
     ],
@@ -484,13 +565,13 @@
       {
         "ID": "GHSA-3p86-9955-h393",
         "AffectedNodes": [
-          58
+          55
         ]
       },
       {
         "ID": "GHSA-q446-82vq-w674",
         "AffectedNodes": [
-          152
+          149
         ]
       }
     ],
@@ -517,13 +598,13 @@
       {
         "ID": "GHSA-7j4h-8wpf-rqfh",
         "AffectedNodes": [
-          255
+          252
         ]
       },
       {
         "ID": "GHSA-vmqm-g3vh-847m",
         "AffectedNodes": [
-          255
+          252
         ]
       }
     ],
@@ -572,31 +653,31 @@
       {
         "ID": "GHSA-5mh9-r3rr-9597",
         "AffectedNodes": [
-          176
+          173
         ]
       },
       {
         "ID": "GHSA-7j4h-8wpf-rqfh",
         "AffectedNodes": [
-          255
+          252
         ]
       },
       {
         "ID": "GHSA-h65f-jvqw-m9fj",
         "AffectedNodes": [
-          255
+          252
         ]
       },
       {
         "ID": "GHSA-vmqm-g3vh-847m",
         "AffectedNodes": [
-          255
+          252
         ]
       },
       {
         "ID": "GHSA-w4jq-qh47-hvjq",
         "AffectedNodes": [
-          255
+          252
         ]
       }
     ],
@@ -623,19 +704,19 @@
       {
         "ID": "GHSA-5mh9-r3rr-9597",
         "AffectedNodes": [
-          176
+          173
         ]
       },
       {
         "ID": "GHSA-7j4h-8wpf-rqfh",
         "AffectedNodes": [
-          255
+          252
         ]
       },
       {
         "ID": "GHSA-vmqm-g3vh-847m",
         "AffectedNodes": [
-          255
+          252
         ]
       }
     ],
@@ -643,13 +724,13 @@
       {
         "ID": "GHSA-6jmm-mp6w-4rrg",
         "AffectedNodes": [
-          255
+          252
         ]
       },
       {
         "ID": "GHSA-cgp8-4m63-fhh5",
         "AffectedNodes": [
-          257
+          254
         ]
       }
     ]
@@ -675,7 +756,7 @@
       {
         "ID": "GHSA-mvr2-9pj6-7w5j",
         "AffectedNodes": [
-          263
+          260
         ]
       }
     ],
@@ -702,7 +783,7 @@
       {
         "ID": "GHSA-q446-82vq-w674",
         "AffectedNodes": [
-          152
+          149
         ]
       }
     ],
@@ -729,7 +810,7 @@
       {
         "ID": "GHSA-gvpg-vgmx-xg6w",
         "AffectedNodes": [
-          29
+          28
         ]
       }
     ],
@@ -756,7 +837,7 @@
       {
         "ID": "GHSA-xfv3-rrfm-f2rv",
         "AffectedNodes": [
-          178
+          175
         ]
       }
     ],
@@ -783,7 +864,7 @@
       {
         "ID": "GHSA-mm9x-g8pc-w292",
         "AffectedNodes": [
-          260
+          257
         ]
       }
     ],
@@ -810,7 +891,7 @@
       {
         "ID": "GHSA-cx3q-cv6w-mx4h",
         "AffectedNodes": [
-          107
+          104
         ]
       }
     ],
@@ -837,7 +918,7 @@
       {
         "ID": "GHSA-5h29-qq92-wj7f",
         "AffectedNodes": [
-          170
+          167
         ]
       }
     ],
@@ -864,7 +945,7 @@
       {
         "ID": "GHSA-jc7h-c423-mpjc",
         "AffectedNodes": [
-          20
+          19
         ]
       }
     ],
@@ -891,7 +972,7 @@
       {
         "ID": "GHSA-pmhc-2g4f-85cg",
         "AffectedNodes": [
-          22
+          21
         ]
       }
     ],
@@ -918,7 +999,7 @@
       {
         "ID": "GHSA-c43q-5hpj-4crv",
         "AffectedNodes": [
-          70
+          67
         ]
       }
     ],
@@ -945,7 +1026,7 @@
       {
         "ID": "GHSA-9339-86wc-4qgf",
         "AffectedNodes": [
-          252
+          249
         ]
       }
     ],
@@ -983,7 +1064,7 @@
       {
         "ID": "GHSA-g2fg-mr77-6vrm",
         "AffectedNodes": [
-          127
+          124
         ]
       }
     ],
@@ -1050,7 +1131,7 @@
       {
         "ID": "GHSA-g2fg-mr77-6vrm",
         "AffectedNodes": [
-          127
+          124
         ]
       }
     ],
@@ -1058,91 +1139,91 @@
       {
         "ID": "GHSA-2rvv-w9r2-rg7m",
         "AffectedNodes": [
-          182
+          179
         ]
       },
       {
         "ID": "GHSA-7w75-32cg-r6g2",
         "AffectedNodes": [
-          182
+          179
         ]
       },
       {
         "ID": "GHSA-9xcj-c8cr-8c3c",
         "AffectedNodes": [
-          182
+          179
         ]
       },
       {
         "ID": "GHSA-c9hw-wf7x-jp9j",
         "AffectedNodes": [
-          182
+          179
         ]
       },
       {
         "ID": "GHSA-f4qf-m5gf-8jm8",
         "AffectedNodes": [
-          182
+          179
         ]
       },
       {
         "ID": "GHSA-fccv-jmmp-qg76",
         "AffectedNodes": [
-          182
+          179
         ]
       },
       {
         "ID": "GHSA-g8pj-r55q-5c2v",
         "AffectedNodes": [
-          182
+          179
         ]
       },
       {
         "ID": "GHSA-hh3j-x4mc-g48r",
         "AffectedNodes": [
-          182
+          179
         ]
       },
       {
         "ID": "GHSA-j39c-c8hj-x4j3",
         "AffectedNodes": [
-          182
+          179
         ]
       },
       {
         "ID": "GHSA-jgwr-3qm3-26f3",
         "AffectedNodes": [
-          182
+          179
         ]
       },
       {
         "ID": "GHSA-p22x-g9px-3945",
         "AffectedNodes": [
-          182
+          179
         ]
       },
       {
         "ID": "GHSA-q3mw-pvr8-9ggc",
         "AffectedNodes": [
-          182
+          179
         ]
       },
       {
         "ID": "GHSA-qppj-fm5r-hxr3",
         "AffectedNodes": [
-          182
+          179
         ]
       },
       {
         "ID": "GHSA-qxf4-chvg-4r8r",
         "AffectedNodes": [
-          182
+          179
         ]
       },
       {
         "ID": "GHSA-r6j3-px5g-cq3x",
         "AffectedNodes": [
-          182
+          179
         ]
       }
     ]

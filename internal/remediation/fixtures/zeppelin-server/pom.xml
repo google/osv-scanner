@@ -47,24 +47,10 @@
     <selenium.java.version>2.48.2</selenium.java.version>
     <xml.apis.version>1.4.01</xml.apis.version>
     <hamcrest.version>2.2</hamcrest.version>
-
-    <!--default profiles-->
-    <zeppelin.daemon.package.base>
-      ../bin
-    </zeppelin.daemon.package.base>
-    <hadoop.version>${hadoop3.2.version}</hadoop.version>
-    <hadoop-client-api.artifact>hadoop-client-api</hadoop-client-api.artifact>
-    <hadoop-client-runtime.artifact>hadoop-client-runtime</hadoop-client-runtime.artifact>
   </properties>
 
   <dependencies>
-    <!--default profile-->
-    <dependency>
-      <groupId>org.apache.hadoop</groupId>
-      <artifactId>${hadoop-client-runtime.artifact}</artifactId>
-      <version>${hadoop.version}</version>
-      <scope>${hadoop.deps.scope}</scope>
-    </dependency>
+
     <dependency>
       <groupId>${project.groupId}</groupId>
       <artifactId>zeppelin-zengine</artifactId>
@@ -464,9 +450,9 @@
       </plugin>
     </plugins>
   </build>
-
+  <!-- Commenting-out the profiles since they aren't correctly handled at the moment
   <profiles>
-    <!-- <profile>
+    <profile>
       <id>using-source-tree</id>
       <activation>
         <activeByDefault>true</activeByDefault>
@@ -476,7 +462,7 @@
 	        ../bin
         </zeppelin.daemon.package.base>
       </properties>
-    </profile> -->
+    </profile>
 
     <profile>
       <id>using-packaged-distr</id>
@@ -506,7 +492,7 @@
       </dependencies>
 
     </profile>
-    <!-- <profile>
+    <profile>
       <id>hadoop3</id>
       <activation>
         <activeByDefault>true</activeByDefault>
@@ -526,8 +512,9 @@
         </dependency>
       </dependencies>
 
-    </profile> -->
+    </profile>
 
   </profiles>
+  -->
 
 </project>

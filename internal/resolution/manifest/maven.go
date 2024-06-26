@@ -196,7 +196,7 @@ func (m MavenManifestIO) Read(df lockfile.DepFile) (Manifest, error) {
 				otherRequirements = append(otherRequirements, reqVer)
 			}
 			origin, ok := reqVer.Type.GetAttr(dep.MavenDependencyOrigin)
-			if ok && strings.HasSuffix(origin, "@management") {
+			if ok && (strings.HasPrefix(origin, "parent@") && strings.HasSuffix(origin, "@management")) {
 				reqVer.Type.AddAttr(dep.MavenDependencyOrigin, "management")
 			}
 			requirements = append(requirements, reqVer)

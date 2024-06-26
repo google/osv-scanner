@@ -187,6 +187,39 @@ func TestMavenRead(t *testing.T) {
 				VersionKey: resolve.VersionKey{
 					PackageKey: resolve.PackageKey{
 						System: resolve.Maven,
+						Name:   "org.example:aaa",
+					},
+					VersionType: resolve.Requirement,
+					Version:     "1.1.1",
+				},
+				Type: depMgmt,
+			},
+			{
+				VersionKey: resolve.VersionKey{
+					PackageKey: resolve.PackageKey{
+						System: resolve.Maven,
+						Name:   "org.example:bbb",
+					},
+					VersionType: resolve.Requirement,
+					Version:     "2.2.2",
+				},
+				Type: depMgmt,
+			},
+			{
+				VersionKey: resolve.VersionKey{
+					PackageKey: resolve.PackageKey{
+						System: resolve.Maven,
+						Name:   "org.example:ccc",
+					},
+					VersionType: resolve.Requirement,
+					Version:     "3.3.3",
+				},
+				Type: depImport,
+			},
+			{
+				VersionKey: resolve.VersionKey{
+					PackageKey: resolve.PackageKey{
+						System: resolve.Maven,
 						Name:   "org.profile:abc",
 					},
 					VersionType: resolve.Requirement,
@@ -311,7 +344,7 @@ func TestMavenRead(t *testing.T) {
 						VersionType: resolve.Requirement,
 						Version:     "1.1.1",
 					},
-					Type: depParentMgmt,
+					Type: depMgmt, //depParentMgmt,
 				},
 				{
 					VersionKey: resolve.VersionKey{
@@ -322,7 +355,7 @@ func TestMavenRead(t *testing.T) {
 						VersionType: resolve.Requirement,
 						Version:     "2.2.2",
 					},
-					Type: depParentUpstreamMgmt,
+					Type: depMgmt, //depParentUpstreamMgmt,
 				},
 				{
 					VersionKey: resolve.VersionKey{
