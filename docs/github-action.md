@@ -124,7 +124,7 @@ permissions:
 
 jobs:
   osv-scan:
-    uses: google/osv-scanner/.github/workflows/osv-scanner-reusable.yml
+    uses: "google/osv-scanner-action/.github/workflows/osv-scanner-reusable.yml@v1.7.1"
     with:
       # Only scan the top level go.mod file without recursively scanning directories since
       # this is pipeline is about releasing the go module and binary
