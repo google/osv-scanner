@@ -57,6 +57,7 @@ func Test_runGovulncheck(t *testing.T) {
 	for _, traceItem := range res["GO-2023-2382"][2].Trace {
 		traceItem.Position.Filename = "<Any value>"
 		traceItem.Position.Offset = -1
+		traceItem.Position.Line = -1 // This number differs between go versions
 	}
 
 	testutility.NewSnapshot().MatchJSON(t, res)

@@ -1,3 +1,37 @@
+# v1.8.0/v1.8.1:
+
+### Features:
+
+- [Feature #35](https://github.com/google/osv-scanner/issues/35)
+  OSV-Scanner now scans transitive dependencies in Maven `pom.xml` files!
+  See [our documentation](https://google.github.io/osv-scanner/supported-languages-and-lockfiles/#transitive-dependency-scanning) for more information.
+- [Feature #944](https://github.com/google/osv-scanner/pull/944)
+  The `osv-scanner.toml` configuration file can now filter specific packages with new `[[PackageOverrides]]` sections:
+  ```toml
+  [[PackageOverrides]]
+  # The package name, version, and ecosystem to match against
+  name = "lib"
+  # If version is not set or empty, it will match every version
+  version = "1.0.0"
+  ecosystem = "Go"
+  # Ignore this package entirely, including license scanning
+  ignore = true
+  # Override the license of the package
+  # This is not used if ignore = true
+  license.override = ["MIT", "0BSD"]
+  # effectiveUntil = 2022-11-09 # Optional exception expiry date
+  reason = "abc"
+  ```
+
+### Minor Updates
+
+- [Feature #1039](https://github.com/google/osv-scanner/pull/1039) The `--experimental-local-db` flag has been removed and replaced with a new flag `--experimental-download-offline-databases` which better reflects what the flag does.  
+  To replicate the behavior of the original `--experimental-local-db` flag, replace it with both `--experimental-offline --experimental-download-offline-databases` flags. This will run osv-scanner in offline mode, but download the latest version of the vulnerability databases before scanning.
+
+### Fixes:
+
+- [Bug #1000](https://github.com/google/osv-scanner/pull/1000) Standard dependencies now correctly override `dependencyManagement` dependencies when scanning `pom.xml` files in offline mode.
+
 # v1.7.4:
 
 ### Features:

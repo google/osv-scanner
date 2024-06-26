@@ -103,9 +103,9 @@ func (c *CycloneDX) GetPackages(r io.ReadSeeker, callback func(Identifier) error
 		if err == nil {
 			if bom.BOMFormat == "CycloneDX" || strings.HasPrefix(bom.XMLNS, "http://cyclonedx.org/schema/bom") {
 				return c.enumeratePackages(&bom, callback)
-			} else {
-				err = errors.New("invalid BOMFormat")
 			}
+
+			err = errors.New("invalid BOMFormat")
 		}
 
 		errs = append(errs, fmt.Errorf("failed trying %s: %w", formatType.name, err))
