@@ -28,7 +28,7 @@ func (ms *MavenSuggester) Suggest(ctx context.Context, client resolve.Client, mf
 
 	var changedDeps []manifest.DependencyPatch
 	propertyPatches := manifest.MavenPropertyPatches{}
-	for _, req := range mf.Requirements {
+	for _, req := range append(mf.Requirements, specific.RequirementsForUpdates...) {
 		if slices.Contains(opts.NoUpdates, req.Name) {
 			continue
 		}
@@ -47,13 +47,19 @@ func (ms *MavenSuggester) Suggest(ctx context.Context, client resolve.Client, mf
 			continue
 		}
 
+		origReq, origin := originalRequirement(req, specific.BaseProject)
+		if origReq == "" {
+			// Cannot find the original requirement indicates the requirement not in base project
+			continue
+		}
+
+		dep, _, _ := resolve.MavenDepTypeToDependency(req.Type)
 		patch := manifest.DependencyPatch{
 			Pkg:        req.PackageKey,
-			Type:       req.Type,
+			Type:       resolve.MavenDepType(dep, origin),
 			NewRequire: latest.Version,
 		}
 
-		origReq := originalRequirement(req, specific.BaseProject)
 		if !origReq.ContainsProperty() {
 			// The original requirement does not contain a property placeholder.
 			changedDeps = append(changedDeps, patch)
@@ -69,15 +75,15 @@ func (ms *MavenSuggester) Suggest(ctx context.Context, client resolve.Client, mf
 		}
 
 		for name, value := range patches {
-			propertyOrigin := ""
-			if _, ok := propertyPatches[propertyOrigin]; !ok {
-				propertyPatches[propertyOrigin] = make(map[string]string)
+			propOrigin := propertyOrigin(name, specific.BaseProject)
+			if _, ok := propertyPatches[propOrigin]; !ok {
+				propertyPatches[propOrigin] = make(map[string]string)
 			}
 			// This property has been set to update to a value. If both values are the
 			// same, we do nothing; otherwise, instead of updating the property, we
 			// should update the dependency directly.
-			if preset, ok := propertyPatches[propertyOrigin][name]; !ok {
-				propertyPatches[propertyOrigin][name] = value
+			if preset, ok := propertyPatches[propOrigin][name]; !ok {
+				propertyPatches[propOrigin][name] = value
 			} else if preset != value {
 				changedDeps = append(changedDeps, patch)
 			}
@@ -153,29 +159,72 @@ func suggestMavenVersion(ctx context.Context, client resolve.Client, req resolve
 	return req, nil
 }
 
-// originalRequirement returns the orignal requirement of a requirement version.
-// If the version is not found in imports, an empty string is returned.
-func originalRequirement(version resolve.RequirementVersion, baseProject maven.Project) maven.String {
+// originalRequirement returns the original requirement of a requirement version and its origin.
+// If the version is not found, empty strings are returned.
+func originalRequirement(version resolve.RequirementVersion, project maven.Project) (maven.String, string) {
 	IDs := strings.Split(version.Name, ":")
 	if len(IDs) != 2 {
-		return ""
+		return "", ""
 	}
 
 	dependency, origin, _ := resolve.MavenDepTypeToDependency(version.Type)
 	dependency.GroupID = maven.String(IDs[0])
 	dependency.ArtifactID = maven.String(IDs[1])
 
-	deps := baseProject.Dependencies
-	if origin == manifest.OriginManagement {
-		deps = baseProject.DependencyManagement.Dependencies
-	}
-
-	for _, d := range deps {
-		if dependency.Key() == d.Key() {
-			return d.Version
+	// check parent
+	if strings.Contains(origin, manifest.OriginManagement) {
+		for _, d := range project.DependencyManagement.Dependencies {
+			if dependency.Key() == d.Key() {
+				return d.Version, manifest.OriginManagement
+			}
+		}
+		for _, prof := range project.Profiles {
+			for _, d := range prof.DependencyManagement.Dependencies {
+				if dependency.Key() == d.Key() {
+					return d.Version, manifest.MavenOrigin(manifest.OriginProfile, string(prof.ID), manifest.OriginManagement)
+				}
+			}
+		}
+	} else {
+		for _, d := range project.Dependencies {
+			if dependency.Key() == d.Key() {
+				return d.Version, ""
+			}
+		}
+		for _, prof := range project.Profiles {
+			for _, d := range prof.Dependencies {
+				if dependency.Key() == d.Key() {
+					return d.Version, manifest.MavenOrigin(manifest.OriginProfile, string(prof.ID))
+				}
+			}
+		}
+		for _, plugin := range project.Build.PluginManagement.Plugins {
+			for _, d := range plugin.Dependencies {
+				if dependency.Key() == d.Key() {
+					return d.Version, manifest.MavenOrigin(manifest.OriginPlugin, plugin.ProjectKey.Name())
+				}
+			}
 		}
 	}
 
+	return "", ""
+}
+
+// propertyOrigin returns the origin of a property.
+// If the property is not found, an empty string is returned.
+func propertyOrigin(name string, project maven.Project) string {
+	for _, prop := range project.Properties.Properties {
+		if prop.Name == name {
+			return ""
+		}
+	}
+	for _, prof := range project.Profiles {
+		for _, prop := range prof.Properties.Properties {
+			if prop.Name == name {
+				return manifest.MavenOrigin(manifest.OriginProfile, string(prof.ID))
+			}
+		}
+	}
 	return ""
 }
 

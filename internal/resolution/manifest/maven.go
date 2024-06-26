@@ -16,7 +16,6 @@ import (
 	"deps.dev/util/resolve/dep"
 	"github.com/google/osv-scanner/internal/resolution/datasource"
 	"github.com/google/osv-scanner/pkg/lockfile"
-	"golang.org/x/exp/slices"
 )
 
 const (
@@ -51,8 +50,8 @@ func NewMavenManifestIO() MavenManifestIO {
 }
 
 type MavenManifestSpecific struct {
-	Properties  []maven.Property
-	BaseProject maven.Project
+	BaseProject            maven.Project
+	RequirementsForUpdates []resolve.RequirementVersion // Requirements that we only need for updates
 }
 
 // TODO: handle profiles (activation and interpolation)
@@ -74,6 +73,39 @@ func (m MavenManifestIO) Read(df lockfile.DepFile) (Manifest, error) {
 		return Manifest{}, fmt.Errorf("failed to merge parents: %w", err)
 	}
 
+	var reqsForUpdates []resolve.RequirementVersion
+	if project.Parent.GroupID != "" && project.Parent.ArtifactID != "" {
+		reqsForUpdates = append(reqsForUpdates, resolve.RequirementVersion{
+			VersionKey: resolve.VersionKey{
+				PackageKey: resolve.PackageKey{
+					System: resolve.Maven,
+					Name:   project.Parent.ProjectKey.Name(),
+				},
+				// Parent version is a concrete version, but we model parent as dependency here.
+				VersionType: resolve.Requirement,
+				Version:     string(project.Parent.Version),
+			},
+			Type: resolve.MavenDepType(maven.Dependency{}, OriginParent),
+		})
+	}
+	// For dependency management imports, the importer will be replaced by the importees,
+	// so add them to requirements first.
+	for _, dep := range project.DependencyManagement.Dependencies {
+		if dep.Scope == "import" && dep.Type == "pom" {
+			reqsForUpdates = append(reqsForUpdates, resolve.RequirementVersion{
+				VersionKey: resolve.VersionKey{
+					PackageKey: resolve.PackageKey{
+						System: resolve.Maven,
+						Name:   dep.Name(),
+					},
+					VersionType: resolve.Requirement,
+					Version:     string(dep.Version),
+				},
+				Type: resolve.MavenDepType(maven.Dependency{}, OriginManagement),
+			})
+		}
+	}
+
 	// Process the dependencies:
 	//  - dedupe dependencies and dependency management
 	//  - import dependency management
@@ -91,36 +123,30 @@ func (m MavenManifestIO) Read(df lockfile.DepFile) (Manifest, error) {
 
 		return result.DependencyManagement, nil
 	})
-	properties := slices.Clone(project.Properties.Properties)
 
 	var requirements []resolve.RequirementVersion
 	groups := make(map[RequirementKey][]string)
-	addRequirements := func(deps []maven.Dependency, origin string) {
+	addRequirements := func(reqs *[]resolve.RequirementVersion, deps []maven.Dependency, origin string) {
 		for _, dep := range deps {
 			reqVer := makeRequirementVersion(dep, origin)
-			requirements = append(requirements, reqVer)
+			*reqs = append(*reqs, reqVer)
 			if dep.Scope != "" {
 				reqKey := mavenRequirementKey(reqVer)
 				groups[reqKey] = append(groups[reqKey], string(dep.Scope))
 			}
 		}
 	}
-	if project.Parent.GroupID != "" && project.Parent.ArtifactID != "" {
-		requirements = append(requirements, resolve.RequirementVersion{
-			VersionKey: resolve.VersionKey{
-				PackageKey: resolve.PackageKey{
-					System: resolve.Maven,
-					Name:   project.Parent.ProjectKey.Name(),
-				},
-				// Parent version is a concrete version, but we model parent as dependency here.
-				VersionType: resolve.Requirement,
-				Version:     string(project.Parent.Version),
-			},
-			Type: resolve.MavenDepType(maven.Dependency{}, OriginParent),
-		})
+	addRequirements(&requirements, project.Dependencies, "")
+	addRequirements(&requirements, project.DependencyManagement.Dependencies, OriginManagement)
+
+	// Requirements may not appear in the dependency graph but needs to be updated.
+	for _, profile := range project.Profiles {
+		addRequirements(&reqsForUpdates, profile.Dependencies, "")
+		addRequirements(&reqsForUpdates, profile.DependencyManagement.Dependencies, OriginManagement)
 	}
-	addRequirements(project.Dependencies, "")
-	addRequirements(project.DependencyManagement.Dependencies, OriginManagement)
+	for _, plugin := range project.Build.PluginManagement.Plugins {
+		addRequirements(&reqsForUpdates, plugin.Dependencies, "")
+	}
 
 	return Manifest{
 		FilePath: df.Path(),
@@ -137,8 +163,8 @@ func (m MavenManifestIO) Read(df lockfile.DepFile) (Manifest, error) {
 		Requirements: requirements,
 		Groups:       groups,
 		EcosystemSpecific: MavenManifestSpecific{
-			Properties:  properties,
-			BaseProject: baseProject,
+			BaseProject:            baseProject,
+			RequirementsForUpdates: reqsForUpdates,
 		},
 	}, nil
 }
@@ -219,7 +245,7 @@ func makeRequirementVersion(dep maven.Dependency, origin string) resolve.Require
 	}
 }
 
-func mavenOrigin(list ...string) string {
+func MavenOrigin(list ...string) string {
 	result := ""
 	for _, str := range list {
 		if result != "" && str != "" {
@@ -367,7 +393,7 @@ func updateProject(enc *xml.Encoder, raw, prefix, id string, patches map[string]
 				if err := dec.DecodeElement(&rawProperties, &tt); err != nil {
 					return err
 				}
-				if err := updateString(enc, "<properties>"+rawProperties.InnerXML+"</properties>", properties[mavenOrigin(prefix, id)]); err != nil {
+				if err := updateString(enc, "<properties>"+rawProperties.InnerXML+"</properties>", properties[MavenOrigin(prefix, id)]); err != nil {
 					return fmt.Errorf("updating properties: %w", err)
 				}
 
@@ -417,7 +443,7 @@ func updateProject(enc *xml.Encoder, raw, prefix, id string, patches map[string]
 				if err := dec.DecodeElement(&rawDepMgmt, &tt); err != nil {
 					return err
 				}
-				if err := updateDependency(enc, "<dependencyManagement>"+rawDepMgmt.InnerXML+"</dependencyManagement>", patches[mavenOrigin(prefix, id, OriginManagement)]); err != nil {
+				if err := updateDependency(enc, "<dependencyManagement>"+rawDepMgmt.InnerXML+"</dependencyManagement>", patches[MavenOrigin(prefix, id, OriginManagement)]); err != nil {
 					return fmt.Errorf("updating dependency management: %w", err)
 				}
 
@@ -431,7 +457,7 @@ func updateProject(enc *xml.Encoder, raw, prefix, id string, patches map[string]
 				if err := dec.DecodeElement(&rawDeps, &tt); err != nil {
 					return err
 				}
-				if err := updateDependency(enc, "<dependencies>"+rawDeps.InnerXML+"</dependencies>", patches[mavenOrigin(prefix, id)]); err != nil {
+				if err := updateDependency(enc, "<dependencies>"+rawDeps.InnerXML+"</dependencies>", patches[MavenOrigin(prefix, id)]); err != nil {
 					return fmt.Errorf("updating dependencies: %w", err)
 				}
 

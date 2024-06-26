@@ -11,6 +11,7 @@ import (
 	"deps.dev/util/maven"
 	"deps.dev/util/resolve"
 	"deps.dev/util/resolve/dep"
+	"fmt"
 	"github.com/google/osv-scanner/internal/resolution/datasource"
 	"github.com/google/osv-scanner/internal/resolution/manifest"
 	"github.com/google/osv-scanner/internal/testutility"
@@ -18,14 +19,11 @@ import (
 )
 
 var (
-	depImport             = depTypeWithOrigin("import@org.import:import@management")
-	depMgmt               = depTypeWithOrigin("management")
-	depParent             = depTypeWithOrigin("parent")
-	depParentMgmt         = depTypeWithOrigin("parent@org.parent:parent-pom@management")
-	depParentUpstreamMgmt = depTypeWithOrigin("parent@org.upstream:parent-pom@management")
-	depPlugin             = depTypeWithOrigin("plugin@org.plugin:plugin")
-	depProfileOne         = depTypeWithOrigin("profile@profile-one")
-	depProfileTwoMgmt     = depTypeWithOrigin("profile@profile-two@management")
+	depMgmt           = depTypeWithOrigin("management")
+	depParent         = depTypeWithOrigin("parent")
+	depPlugin         = depTypeWithOrigin("plugin@org.plugin:plugin")
+	depProfileOne     = depTypeWithOrigin("profile@profile-one")
+	depProfileTwoMgmt = depTypeWithOrigin("profile@profile-two@management")
 )
 
 func depTypeWithOrigin(origin string) dep.Type {
@@ -125,8 +123,9 @@ func TestMavenRead(t *testing.T) {
 	}
 	got.FilePath = ""
 
-	depProfileTwoMgmt.AddAttr(dep.MavenArtifactType, "pom")
-	depProfileTwoMgmt.AddAttr(dep.Scope, "import")
+	depType := depMgmt.Clone()
+	depType.AddAttr(dep.MavenArtifactType, "pom")
+	depType.AddAttr(dep.Scope, "import")
 
 	want := manifest.Manifest{
 		Root: resolve.Version{
@@ -140,17 +139,6 @@ func TestMavenRead(t *testing.T) {
 			},
 		},
 		Requirements: []resolve.RequirementVersion{
-			{
-				VersionKey: resolve.VersionKey{
-					PackageKey: resolve.PackageKey{
-						System: resolve.Maven,
-						Name:   "org.parent:parent-pom",
-					},
-					VersionType: resolve.Requirement,
-					Version:     "1.1.1",
-				},
-				Type: depParent,
-			},
 			{
 				VersionKey: resolve.VersionKey{
 					PackageKey: resolve.PackageKey{
@@ -216,35 +204,12 @@ func TestMavenRead(t *testing.T) {
 				},
 				Type: depMgmt,
 			},
-			/*
-				{
-					VersionKey: resolve.VersionKey{
-						PackageKey: resolve.PackageKey{
-							System: resolve.Maven,
-							Name:   "org.import:xyz",
-						},
-						VersionType: resolve.Requirement,
-						Version:     "6.6.6",
-					},
-					Type: depMgmt,
-				},
-			*/
 		},
 		Groups: map[manifest.RequirementKey][]string{
-			mavenReqKey(t, "junit:junit", "", ""): {"test"},
-			//	mavenReqKey(t, "org.import:xyz", "pom", ""): {"import"},
+			mavenReqKey(t, "junit:junit", "", ""):       {"test"},
+			mavenReqKey(t, "org.import:xyz", "pom", ""): {"import"},
 		},
 		EcosystemSpecific: manifest.MavenManifestSpecific{
-			Properties: []maven.Property{
-				{Name: "bbb.artifact", Value: "bbb"},
-				{Name: "bbb.version", Value: "2.2.2"},
-				{Name: "aaa.version", Value: "1.1.1"},
-				{Name: "project.build.sourceEncoding", Value: "UTF-8"},
-				{Name: "maven.compiler.source", Value: "1.7"},
-				{Name: "maven.compiler.target", Value: "1.7"},
-				{Name: "junit.version", Value: "4.12"},
-				//{Name: "def.version", Value: "2.3.4"},
-			},
 			BaseProject: maven.Project{
 				Name: "my-app",
 				URL:  "http://www.example.com",
@@ -352,8 +317,74 @@ func TestMavenRead(t *testing.T) {
 					},
 				},
 			},
+			RequirementsForUpdates: []resolve.RequirementVersion{
+				{
+					VersionKey: resolve.VersionKey{
+						PackageKey: resolve.PackageKey{
+							System: resolve.Maven,
+							Name:   "org.parent:parent-pom",
+						},
+						VersionType: resolve.Requirement,
+						Version:     "1.1.1",
+					},
+					Type: depParent,
+				},
+				{
+					VersionKey: resolve.VersionKey{
+						PackageKey: resolve.PackageKey{
+							System: resolve.Maven,
+							Name:   "org.import:import",
+						},
+						VersionType: resolve.Requirement,
+						Version:     "1.0.0",
+					},
+					Type: depMgmt,
+				},
+				{
+					VersionKey: resolve.VersionKey{
+						PackageKey: resolve.PackageKey{
+							System: resolve.Maven,
+							Name:   "org.profile:abc",
+						},
+						VersionType: resolve.Requirement,
+						Version:     "1.2.3",
+					},
+				},
+				{
+					VersionKey: resolve.VersionKey{
+						PackageKey: resolve.PackageKey{
+							System: resolve.Maven,
+							Name:   "org.profile:def",
+						},
+						VersionType: resolve.Requirement,
+						Version:     "${def.version}",
+					},
+				},
+				{
+					VersionKey: resolve.VersionKey{
+						PackageKey: resolve.PackageKey{
+							System: resolve.Maven,
+							Name:   "org.import:xyz",
+						},
+						VersionType: resolve.Requirement,
+						Version:     "6.6.6",
+					},
+					Type: depType,
+				},
+				{
+					VersionKey: resolve.VersionKey{
+						PackageKey: resolve.PackageKey{
+							System: resolve.Maven,
+							Name:   "org.dep:plugin-dep",
+						},
+						VersionType: resolve.Requirement,
+						Version:     "2.3.3",
+					},
+				},
+			},
 		},
 	}
+	fmt.Println(len(got.Requirements))
 	if !reflect.DeepEqual(got, want) {
 		t.Errorf("Maven manifest mismatch:\ngot %v\nwant %v\n", got, want)
 	}
