@@ -21,6 +21,9 @@ type overridePatch struct {
 	NewVersion  string
 }
 
+// ComputeOverridePatches attempts to resolve each vulnerability found in result independently, returning the list of unique possible patches.
+// Vulnerabilities are resolved by directly overriding versions of vulnerable packages to non-vulnerable versions.
+// If a patch introduces new vulnerabilities, additional overrides are attempted for the new vulnerabilities.
 func ComputeOverridePatches(ctx context.Context, cl client.ResolutionClient, result *resolution.ResolutionResult, opts RemediationOptions) ([]resolution.ResolutionDiff, error) {
 	// TODO: this is very similar to ComputeRelaxPatches - can the common parts be factored out?
 	// Filter the original result just in case it hasn't been already
@@ -109,9 +112,9 @@ func ComputeOverridePatches(ctx context.Context, cl client.ResolutionClient, res
 
 var errOverrideImpossible = errors.New("cannot fix vulns by overrides")
 
+// overridePatchVulns tries to fix as many vulns in vulnIDs as possible by overriding dependency versions.
+// returns errOverrideImpossible if 0 vulns are patchable, otherwise returns the most possible patches.
 func overridePatchVulns(ctx context.Context, cl client.ResolutionClient, result *resolution.ResolutionResult, vulnIDs []string, opts RemediationOptions) (*resolution.ResolutionResult, []overridePatch, error) {
-	// Try to fix as many vulns in vulnIDs as possible.
-	// returns errOverrideImpossible if 0 vulns are patchable.
 	var effectivePatches []overridePatch
 	for {
 		// Find the relevant vulns affecting each version key.
@@ -120,19 +123,22 @@ func overridePatchVulns(ctx context.Context, cl client.ResolutionClient, result 
 			if !slices.Contains(vulnIDs, v.Vulnerability.ID) {
 				continue
 			}
-			seenVks := make(map[resolve.VersionKey]struct{})
+			// Keep track of VersionKeys we've seen for this vuln to avoid duplicates.
+			// Usually, there will only be one VersionKey per vuln, but some vulns affect multiple packages.
+			seenVKs := make(map[resolve.VersionKey]struct{})
+			// Use the DependencyChains to find all the affected nodes.
 			for _, c := range v.ProblemChains {
 				vk, _ := c.End()
-				if _, seen := seenVks[vk]; !seen {
+				if _, seen := seenVKs[vk]; !seen {
 					vkVulns[vk] = append(vkVulns[vk], &result.Vulns[i])
-					seenVks[vk] = struct{}{}
+					seenVKs[vk] = struct{}{}
 				}
 			}
 			for _, c := range v.NonProblemChains {
 				vk, _ := c.End()
-				if _, seen := seenVks[vk]; !seen {
+				if _, seen := seenVKs[vk]; !seen {
 					vkVulns[vk] = append(vkVulns[vk], &result.Vulns[i])
-					seenVks[vk] = struct{}{}
+					seenVKs[vk] = struct{}{}
 				}
 			}
 		}
@@ -144,54 +150,48 @@ func overridePatchVulns(ctx context.Context, cl client.ResolutionClient, result 
 
 		newPatches := make([]overridePatch, 0, len(vkVulns))
 
+		// For each VersionKey, try fix as many of the vulns affecting it as possible.
 		for vk, vulnerabilities := range vkVulns {
 			// Consider vulns affecting packages we don't want to change unfixable
 			if slices.Contains(opts.AvoidPkgs, vk.Name) {
 				continue
 			}
 
-			sys := vk.Semver()
-			// Get & sort all the valid versions of this package
-			// TODO: (Maven) skip unlisted versions and versions on other registries
-			versions, err := cl.Versions(ctx, vk.PackageKey)
+			bestVK := vk
+			bestCount := len(vulnerabilities) // remaining vulns
+			versions, err := getVersionsGreater(ctx, cl, vk)
 			if err != nil {
 				return nil, nil, err
 			}
-			cmpFunc := func(a, b resolve.Version) int { return sys.Compare(a.Version, b.Version) }
-			slices.SortFunc(versions, cmpFunc)
-			startIdx, vkFound := slices.BinarySearchFunc(versions, resolve.Version{VersionKey: vk}, cmpFunc)
-			if vkFound {
-				startIdx++
-			}
-
-			bestVK := vk
-			bestCount := len(vulnerabilities) // remaining vulns
 
 			// Find the minimal greater version that fixes as many vulnerabilities as possible.
-			for _, ver := range versions[startIdx:] {
+			for _, ver := range versions {
 				if !opts.AllowMajor {
-					if _, diff, _ := sys.Difference(vk.Version, ver.Version); diff == semver.DiffMajor {
+					// Major version updates are not allowed - break if we've encountered a major update.
+					if _, diff, _ := vk.System.Semver().Difference(vk.Version, ver.Version); diff == semver.DiffMajor {
 						break
 					}
 				}
 
+				// Count the remaining known vulns that affect this version.
 				count := 0 // remaining vulns
 				for _, rv := range vulnerabilities {
 					if vulns.IsAffected(rv.Vulnerability, util.VKToPackageDetails(ver.VersionKey)) {
-						count += 1
+						count++
 					}
 				}
-
 				if count < bestCount {
+					// Found a new candidate.
 					bestCount = count
 					bestVK = ver.VersionKey
-
 					if bestCount == 0 { // stop if there are 0 vulns remaining
 						break
 					}
 				}
 			}
+
 			if bestCount < len(vulnerabilities) {
+				// Found a version that fixes some vulns.
 				newPatches = append(newPatches, overridePatch{
 					PackageKey:  vk.PackageKey,
 					OrigVersion: vk.Version,
@@ -232,6 +232,7 @@ func overridePatchVulns(ctx context.Context, cl client.ResolutionClient, result 
 		return nil, nil, errOverrideImpossible
 	}
 
+	// Sort the patches for deterministic output.
 	slices.SortFunc(effectivePatches, func(a, b overridePatch) int {
 		if c := a.PackageKey.Compare(b.PackageKey); c != 0 {
 			return c
@@ -243,6 +244,28 @@ func overridePatchVulns(ctx context.Context, cl client.ResolutionClient, result 
 	return result, effectivePatches, nil
 }
 
+// getVersionsGreater gets the known versions of a package that are greater than the given version, sorted in ascending order.
+func getVersionsGreater(ctx context.Context, cl client.DependencyClient, vk resolve.VersionKey) ([]resolve.Version, error) {
+	sys := vk.Semver()
+	// Get & sort all the valid versions of this package
+	// TODO: (Maven) skip unlisted versions and versions on other registries
+	versions, err := cl.Versions(ctx, vk.PackageKey)
+	if err != nil {
+		return nil, err
+	}
+
+	cmpFunc := func(a, b resolve.Version) int { return sys.Compare(a.Version, b.Version) }
+	slices.SortFunc(versions, cmpFunc)
+	// Find the index of the next higher version
+	offset, vkFound := slices.BinarySearchFunc(versions, resolve.Version{VersionKey: vk}, cmpFunc)
+	if vkFound { // if the given version somehow doesn't exist, offset will already be at the next higher version
+		offset++
+	}
+
+	return versions[offset:], nil
+}
+
+// patchManifest applies the overridePatches to the manifest in-memory. Returns a copy of the manifest that has been patched.
 func patchManifest(patches []overridePatch, m manifest.Manifest) (manifest.Manifest, error) {
 	if m.System() != resolve.Maven {
 		return manifest.Manifest{}, errors.New("unsupported ecosystem")
