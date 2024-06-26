@@ -344,7 +344,7 @@ func TestMavenRead(t *testing.T) {
 						VersionType: resolve.Requirement,
 						Version:     "1.1.1",
 					},
-					Type: depMgmt, //depParentMgmt,
+					Type: depMgmt, // depParentMgmt,
 				},
 				{
 					VersionKey: resolve.VersionKey{
@@ -355,7 +355,7 @@ func TestMavenRead(t *testing.T) {
 						VersionType: resolve.Requirement,
 						Version:     "2.2.2",
 					},
-					Type: depMgmt, //depParentUpstreamMgmt,
+					Type: depMgmt, // depParentUpstreamMgmt,
 				},
 				{
 					VersionKey: resolve.VersionKey{

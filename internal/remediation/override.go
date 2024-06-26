@@ -236,6 +236,7 @@ func overridePatchVulns(ctx context.Context, cl client.ResolutionClient, result 
 		if c := a.PackageKey.Compare(b.PackageKey); c != 0 {
 			return c
 		}
+
 		return a.Semver().Compare(a.OrigVersion, b.OrigVersion)
 	})
 
