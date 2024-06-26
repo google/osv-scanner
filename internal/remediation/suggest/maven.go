@@ -68,27 +68,8 @@ func (ms *MavenSuggester) Suggest(ctx context.Context, client resolve.Client, mf
 			continue
 		}
 
-		//depOrigin, _ := req.Type.GetAttr(dep.MavenDependencyOrigin)
-		//if strings.HasPrefix(depOrigin, manifest.OriginProfile) {
-		// Dependency management is not indicated in property origin.
-		//	depOrigin, _ = strings.CutSuffix(depOrigin, "@"+manifest.OriginManagement)
-		//} else {
-		// Properties are defined either universally or in a profile. For property
-		// origin not starting with 'profile', this is an universal property.
-		//	depOrigin = ""
-		//}
-
 		for name, value := range patches {
-			// A dependency in a profile may contain properties from this profile or
-			// properties universally defined. We need to figure out the origin of these
-			// properties. If a property is defined both universally and in the profile,
-			// we use the profile's origin.
 			propertyOrigin := ""
-			//for _, p := range specific.Properties {
-			//	if p.Name == name && p.Origin != "" && p.Origin == depOrigin {
-			//		propertyOrigin = depOrigin
-			//	}
-			//}
 			if _, ok := propertyPatches[propertyOrigin]; !ok {
 				propertyPatches[propertyOrigin] = make(map[string]string)
 			}
