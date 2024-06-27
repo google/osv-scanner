@@ -288,13 +288,12 @@ func HydrateWithClient(resp *BatchedResponse, client *http.Client) (*HydratedBat
 
 			go func(id string, batchIdx int, resultIdx int) {
 				vuln, err := GetWithClient(id, client)
+				rateLimiter.Release(1)
 				if err != nil {
 					errChan <- err
 				} else {
 					hydrated.Results[batchIdx].Vulns[resultIdx] = *vuln
 				}
-
-				rateLimiter.Release(1)
 			}(vuln.ID, batchIdx, resultIdx)
 		}
 	}
