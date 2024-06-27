@@ -287,7 +287,7 @@ func HydrateWithClient(resp *BatchedResponse, client *http.Client) (*HydratedBat
 				// exit early if another hydration request has already failed
 				// results are thrown away later, so avoid needless work
 				if ctx.Err() != nil {
-					return nil
+					return nil //nolint:nilerr // this value doesn't matter to errgroup.Wait()
 				}
 				vuln, err := GetWithClient(id, client)
 				if err != nil {
