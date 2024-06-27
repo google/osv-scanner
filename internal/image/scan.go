@@ -59,11 +59,6 @@ func ScanImage(r reporter.Reporter, imagePath string) (ScanResults, error) {
 			}
 		}
 
-		sourceLayerIdx := map[PDKey]int{}
-		for _, pkg := range file.Packages {
-			sourceLayerIdx[makePdKey(pkg)] = 0
-		}
-
 		// First get the latest file node
 		lastFileNode, err := img.layers[len(img.layers)-1].GetFileNode(file.FilePath)
 		if err != nil {
@@ -71,24 +66,31 @@ func ScanImage(r reporter.Reporter, imagePath string) (ScanResults, error) {
 		}
 		// Get the layer index this file belongs to (the last layer it was changed on)
 		layerIdx := img.layerIDToIndex[lastFileNode.originLayer.id]
+		prevLayerIdx := layerIdx
+
+		sourceLayerIdx := map[PDKey]int{}
+		for _, pkg := range file.Packages {
+			// Start with originating from the latest layer
+			// Then push back as we iterate through layers
+			sourceLayerIdx[makePdKey(pkg)] = layerIdx
+		}
+
 		for {
 			// Scan the lockfile again every time it was changed
 			if layerIdx == 0 {
-				// This layer is the base layer, this is the originating layer for all remaining packages
-				// Since the default value in sourceLayerIdx is 0, no changes need to be made here
+				// This layer is the base layer, we cannot go further back
+				// All entries in sourceLayerIdx would have been set in the previous loop, or just above the loop
+				// So we can immediately exit here
 				break
 			}
+
 			// Look at the layer before the current layer
 			oldFileNode, err := img.layers[layerIdx-1].GetFileNode(file.FilePath)
-
 			if errors.Is(fs.ErrNotExist, err) || (err == nil && oldFileNode.isWhiteout) {
-				// Did not exist in the layer before, all remaining packages must be from the current layer
-				for key, val := range sourceLayerIdx {
-					if val == 0 {
-						sourceLayerIdx[key] = layerIdx
-					}
-				}
+				// Did not exist in the layer before
 
+				// All entries in sourceLayerIdx would have been set in the previous loop, or just above the loop
+				// So we can immediately exit here
 				break
 			}
 
@@ -96,6 +98,7 @@ func ScanImage(r reporter.Reporter, imagePath string) (ScanResults, error) {
 				log.Panicf("did not expect a different error [%v] when getting file node", err)
 			}
 
+			prevLayerIdx = layerIdx
 			// Set the layerIdx to the new file node layer
 			layerIdx = img.layerIDToIndex[oldFileNode.originLayer.id]
 
@@ -107,7 +110,7 @@ func ScanImage(r reporter.Reporter, imagePath string) (ScanResults, error) {
 
 			for _, pkg := range oldDeps.Packages {
 				key := makePdKey(pkg)
-				if val, ok := sourceLayerIdx[key]; ok && val == 0 {
+				if val, ok := sourceLayerIdx[key]; ok && val == prevLayerIdx {
 					sourceLayerIdx[key] = layerIdx
 				}
 			}

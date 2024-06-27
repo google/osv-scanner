@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"io"
 	"io/fs"
+	"log"
 	"os"
 	"path"
 	"path/filepath"
@@ -39,6 +40,23 @@ type Image struct {
 
 func (img *Image) LayerIDToIdx(id string) int {
 	return img.layerIDToIndex[id]
+}
+
+func (img *Image) LayerIDToCommand(id string) string {
+	file, err := (*img.innerImage).ConfigFile()
+	if err != nil {
+		log.Panicln("Failed to get inner image config file")
+	}
+	idxCount := img.layerIDToIndex[id]
+	var i int
+	for i = 0; idxCount >= 0; i++ {
+		if file.History[i].EmptyLayer {
+			continue
+		}
+		idxCount -= 1
+	}
+	// -1 from i because when idxCount becomes -1 it still increments i by 1
+	return file.History[i-1].CreatedBy
 }
 
 func (img *Image) LastLayer() *imgLayer {
@@ -106,7 +124,7 @@ func LoadImage(imagePath string) (*Image, error) {
 		if err != nil {
 			return &outputImage, err
 		}
-		defer layerReader.Close()
+
 		tarReader := tar.NewReader(layerReader)
 
 		for {
@@ -213,6 +231,9 @@ func LoadImage(imagePath string) (*Image, error) {
 				})
 			}
 		}
+
+		// We don't want to defer because then no layers will be closed until entire image is read
+		layerReader.Close()
 	}
 
 	return &outputImage, nil
