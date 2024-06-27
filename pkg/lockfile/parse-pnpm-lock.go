@@ -115,6 +115,12 @@ func extractPnpmPackageNameAndVersion(dependencyPath string, lockfileVersion str
 
 	parts = parts[1:]
 
+	if len(parts) == 0 {
+		// Seems path is not complete (or at least the version is not in the path)
+		// TODO : Investigate when it can happen, this is to stabilize the situation
+		return "", ""
+	}
+
 	if strings.HasPrefix(parts[0], "@") {
 		name = strings.Join(parts[:2], "/")
 		parts = parts[2:]
