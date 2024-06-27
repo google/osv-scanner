@@ -442,6 +442,8 @@ Scanned <rootdir>/fixtures/call-analysis-go-project/go.mod file and found 4 pack
 | https://osv.dev/GO-2023-1990        |      |           |                             |         |                                          |
 | https://osv.dev/GHSA-x92r-3vfx-4cv3 | 6.5  | Go        | golang.org/x/image          | 0.4.0   | fixtures/call-analysis-go-project/go.mod |
 | https://osv.dev/GO-2023-1989        |      |           |                             |         |                                          |
+| https://osv.dev/GHSA-9phm-fm57-rhg8 |      | Go        | golang.org/x/image          | 0.4.0   | fixtures/call-analysis-go-project/go.mod |
+| https://osv.dev/GO-2024-2937        |      |           |                             |         |                                          |
 | https://osv.dev/GO-2023-2041        |      | Go        | stdlib                      | 1.19    | fixtures/call-analysis-go-project/go.mod |
 | https://osv.dev/GO-2023-2043        |      | Go        | stdlib                      | 1.19    | fixtures/call-analysis-go-project/go.mod |
 | https://osv.dev/GO-2023-2186        |      | Go        | stdlib                      | 1.19    | fixtures/call-analysis-go-project/go.mod |
