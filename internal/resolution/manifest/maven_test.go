@@ -11,7 +11,6 @@ import (
 	"deps.dev/util/maven"
 	"deps.dev/util/resolve"
 	"deps.dev/util/resolve/dep"
-	"fmt"
 	"github.com/google/osv-scanner/internal/resolution/datasource"
 	"github.com/google/osv-scanner/internal/resolution/manifest"
 	"github.com/google/osv-scanner/internal/testutility"
@@ -384,7 +383,6 @@ func TestMavenRead(t *testing.T) {
 			},
 		},
 	}
-	fmt.Println(len(got.Requirements))
 	if !reflect.DeepEqual(got, want) {
 		t.Errorf("Maven manifest mismatch:\ngot %v\nwant %v\n", got, want)
 	}

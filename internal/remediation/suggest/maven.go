@@ -28,7 +28,7 @@ func (ms *MavenSuggester) Suggest(ctx context.Context, client resolve.Client, mf
 
 	var changedDeps []manifest.DependencyPatch
 	propertyPatches := manifest.MavenPropertyPatches{}
-	for _, req := range append(mf.Requirements, specific.RequirementsForUpdates...) {
+	for _, req := range append(specific.RequirementsForUpdates, mf.Requirements...) {
 		if slices.Contains(opts.NoUpdates, req.Name) {
 			continue
 		}
@@ -47,17 +47,31 @@ func (ms *MavenSuggester) Suggest(ctx context.Context, client resolve.Client, mf
 			continue
 		}
 
-		origReq, origin := originalRequirement(req, specific.BaseProject)
+		patch := manifest.DependencyPatch{
+			Pkg:        req.PackageKey,
+			Type:       req.Type,
+			NewRequire: latest.Version,
+		}
+		origReq, origin := originalRequirement(patch, specific.BaseProject)
 		if origReq == "" {
 			// Cannot find the original requirement indicates the requirement not in base project
 			continue
 		}
 
-		dep, _, _ := resolve.MavenDepTypeToDependency(req.Type)
-		patch := manifest.DependencyPatch{
-			Pkg:        req.PackageKey,
-			Type:       resolve.MavenDepType(dep, origin),
-			NewRequire: latest.Version,
+		dep, _, _ := resolve.MavenDepTypeToDependency(patch.Type)
+		patch.Type = resolve.MavenDepType(dep, origin)
+
+		hasPatch := func(patches []manifest.DependencyPatch, patch manifest.DependencyPatch) bool {
+			for _, p := range patches {
+				if p.Pkg == patch.Pkg && p.Type.Equal(patch.Type) && p.NewRequire == patch.NewRequire {
+					return true
+				}
+			}
+			return false
+		}
+		if hasPatch(changedDeps, patch) {
+			// This update patch already exists so no need to update again.
+			continue
 		}
 
 		if !origReq.ContainsProperty() {
@@ -66,7 +80,7 @@ func (ms *MavenSuggester) Suggest(ctx context.Context, client resolve.Client, mf
 			continue
 		}
 
-		patches, ok := generatePropertyPatches(string(origReq), latest.Version)
+		patches, ok := generatePropertyPatches(string(origReq), patch.NewRequire)
 		if !ok {
 			// Not able to update properties to update the requirement.
 			// Update the dependency directly instead.
@@ -161,48 +175,57 @@ func suggestMavenVersion(ctx context.Context, client resolve.Client, req resolve
 
 // originalRequirement returns the original requirement of a requirement version and its origin.
 // If the version is not found, empty strings are returned.
-func originalRequirement(version resolve.RequirementVersion, project maven.Project) (maven.String, string) {
-	IDs := strings.Split(version.Name, ":")
+// TODO: DependencyPatch or other data structure?
+func originalRequirement(patch manifest.DependencyPatch, project maven.Project) (maven.String, string) {
+	IDs := strings.Split(patch.Pkg.Name, ":")
 	if len(IDs) != 2 {
 		return "", ""
 	}
 
-	dependency, origin, _ := resolve.MavenDepTypeToDependency(version.Type)
+	dependency, origin, _ := resolve.MavenDepTypeToDependency(patch.Type)
 	dependency.GroupID = maven.String(IDs[0])
 	dependency.ArtifactID = maven.String(IDs[1])
 
-	// check parent
-	if strings.Contains(origin, manifest.OriginManagement) {
+	if origin == "" {
+
+	} else if origin == manifest.OriginParent {
+		if dependency.Name() == project.Parent.Name() {
+			return project.Parent.Version, origin
+		}
+	} else if origin == manifest.OriginManagement {
 		for _, d := range project.DependencyManagement.Dependencies {
 			if dependency.Key() == d.Key() {
 				return d.Version, manifest.OriginManagement
 			}
 		}
-		for _, prof := range project.Profiles {
-			for _, d := range prof.DependencyManagement.Dependencies {
-				if dependency.Key() == d.Key() {
-					return d.Version, manifest.MavenOrigin(manifest.OriginProfile, string(prof.ID), manifest.OriginManagement)
-				}
-			}
+	}
+
+	for _, d := range project.Dependencies {
+		if dependency.Key() == d.Key() {
+			return d.Version, ""
 		}
-	} else {
-		for _, d := range project.Dependencies {
+	}
+	for _, d := range project.DependencyManagement.Dependencies {
+		if dependency.Key() == d.Key() {
+			return d.Version, manifest.OriginManagement
+		}
+	}
+	for _, prof := range project.Profiles {
+		for _, d := range prof.Dependencies {
 			if dependency.Key() == d.Key() {
-				return d.Version, ""
+				return d.Version, manifest.MavenOrigin(manifest.OriginProfile, string(prof.ID))
 			}
 		}
-		for _, prof := range project.Profiles {
-			for _, d := range prof.Dependencies {
-				if dependency.Key() == d.Key() {
-					return d.Version, manifest.MavenOrigin(manifest.OriginProfile, string(prof.ID))
-				}
+		for _, d := range prof.DependencyManagement.Dependencies {
+			if dependency.Key() == d.Key() {
+				return d.Version, manifest.MavenOrigin(manifest.OriginProfile, string(prof.ID), manifest.OriginManagement)
 			}
 		}
-		for _, plugin := range project.Build.PluginManagement.Plugins {
-			for _, d := range plugin.Dependencies {
-				if dependency.Key() == d.Key() {
-					return d.Version, manifest.MavenOrigin(manifest.OriginPlugin, plugin.ProjectKey.Name())
-				}
+	}
+	for _, plugin := range project.Build.PluginManagement.Plugins {
+		for _, d := range plugin.Dependencies {
+			if dependency.Key() == d.Key() {
+				return d.Version, manifest.MavenOrigin(manifest.OriginPlugin, plugin.ProjectKey.Name())
 			}
 		}
 	}
