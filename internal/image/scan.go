@@ -40,6 +40,18 @@ func ScanImage(r reporter.Reporter, imagePath string) (ScanResults, error) {
 		scannedLockfiles.Lockfiles = append(scannedLockfiles.Lockfiles, parsedLockfile)
 	}
 
+	traceOrigin(img, &scannedLockfiles)
+
+	err = img.Cleanup()
+	if err != nil {
+		err = fmt.Errorf("failed to cleanup: %w", img.Cleanup())
+	}
+
+	return scannedLockfiles, err
+}
+
+// traceOrigin fills out the originLayerID for each package in ScanResults
+func traceOrigin(img *Image, scannedLockfiles *ScanResults) {
 	// Trace package origins
 	for _, file := range scannedLockfiles.Lockfiles {
 		// Defined locally as this is the only place this is used.
@@ -104,28 +116,24 @@ func ScanImage(r reporter.Reporter, imagePath string) (ScanResults, error) {
 
 			oldDeps, err := extractArtifactDeps(file.FilePath, oldFileNode.originLayer)
 			if err != nil {
-				log.Panicf("unimplemented! failed to parse an older version of file in image: %s@%s: %v", file.FilePath, oldFileNode.originLayer.id, err)
-				// TODO: What to do here?
+				// Failed to parse an older version of file in image
+				// Behave as if the file does not exist
+				break
+				// log.Panicf("unimplemented! failed to parse an older version of file in image: %s@%s: %v", file.FilePath, oldFileNode.originLayer.id, err)
 			}
 
+			// For each package in the old version, check if it existed in the newer layer, if so, the origin must be this layer or earlier.
 			for _, pkg := range oldDeps.Packages {
 				key := makePdKey(pkg)
 				if val, ok := sourceLayerIdx[key]; ok && val == prevLayerIdx {
 					sourceLayerIdx[key] = layerIdx
 				}
 			}
-			// TODO: Add check here to shortcut if all packages have been accounted for
 		}
 
+		// Finally save the package IDs back into the ScanResults
 		for i, pkg := range file.Packages {
 			file.Packages[i].OriginLayerID = img.layers[sourceLayerIdx[makePdKey(pkg)]].id
 		}
 	}
-
-	err = img.Cleanup()
-	if err != nil {
-		err = fmt.Errorf("failed to cleanup: %w", img.Cleanup())
-	}
-
-	return scannedLockfiles, err
 }
