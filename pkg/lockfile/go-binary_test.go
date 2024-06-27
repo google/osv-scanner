@@ -3,6 +3,7 @@ package lockfile_test
 import (
 	"testing"
 
+	"github.com/google/osv-scanner/internal/testutility"
 	"github.com/google/osv-scanner/pkg/lockfile"
 )
 
@@ -21,7 +22,7 @@ func TestGoBinaryExtractor_ShouldExtract(t *testing.T) {
 		},
 		{
 			name: "",
-			path: "path/to/dir/",
+			path: testutility.ValueIfOnWindows("path\\to\\dir\\", "path/to/dir/"),
 			want: false,
 		},
 		{
