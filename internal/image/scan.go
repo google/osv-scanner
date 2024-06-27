@@ -78,7 +78,7 @@ func traceOrigin(img *Image, scannedLockfiles *ScanResults) {
 		}
 		// Get the layer index this file belongs to (the last layer it was changed on)
 		layerIdx := img.layerIDToIndex[lastFileNode.originLayer.id]
-		prevLayerIdx := layerIdx
+		var prevLayerIdx int
 
 		sourceLayerIdx := map[PDKey]int{}
 		for _, pkg := range file.Packages {

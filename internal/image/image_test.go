@@ -2,7 +2,6 @@ package image_test
 
 import (
 	"errors"
-	"fmt"
 	"os"
 	"sort"
 	"testing"
@@ -99,7 +98,7 @@ func TestScanImage(t *testing.T) {
 			// This also makes it easier to reason about
 			for _, file := range got.Lockfiles {
 				for i := range file.Packages {
-					file.Packages[i].OriginLayerID = fmt.Sprint(img.LayerIDToCommand(file.Packages[i].OriginLayerID))
+					file.Packages[i].OriginLayerID = img.LayerIDToCommand(file.Packages[i].OriginLayerID)
 				}
 			}
 
