@@ -42,6 +42,8 @@ func (img *Image) LayerIDToIdx(id string) int {
 	return img.layerIDToIndex[id]
 }
 
+// LayerIDToCommand takes in a layer id and returns the history CreatedBy field
+// of the corresponding layer
 func (img *Image) LayerIDToCommand(id string) string {
 	file, err := (*img.innerImage).ConfigFile()
 	if err != nil {
@@ -49,6 +51,7 @@ func (img *Image) LayerIDToCommand(id string) string {
 	}
 	idxCount := img.layerIDToIndex[id]
 	var i int
+	// Match history to layer IDX by skipping empty layer history entries
 	for i = 0; idxCount >= 0; i++ {
 		if file.History[i].EmptyLayer {
 			continue
@@ -79,7 +82,6 @@ func LoadImage(imagePath string) (*Image, error) {
 
 	layers, err := image.Layers()
 	if err != nil {
-		// Return the temporary path so that folder can be cleaned up
 		return nil, err
 	}
 
@@ -96,9 +98,10 @@ func LoadImage(imagePath string) (*Image, error) {
 	}
 
 	// Initiate the layers first
-	for i := 0; i < len(layers); i++ {
+	for i := range layers {
 		hash, err := layers[i].DiffID()
 		if err != nil {
+			// Return the partial image so that the temporary path folder can be cleaned up
 			return &outputImage, err
 		}
 
@@ -232,6 +235,7 @@ func LoadImage(imagePath string) (*Image, error) {
 			}
 		}
 
+		// Manually close at the end of the for loop
 		// We don't want to defer because then no layers will be closed until entire image is read
 		layerReader.Close()
 	}
