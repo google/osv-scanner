@@ -438,7 +438,6 @@ func TestParseNpmLock_v1_SamePackageDifferentGroups(t *testing.T) {
 			Version:   "1.0.0",
 			Ecosystem: lockfile.NpmEcosystem,
 			CompareAs: lockfile.NpmEcosystem,
-			DepGroups: nil,
 		},
 		{
 			Name:      "ajv",
