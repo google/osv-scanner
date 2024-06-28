@@ -55,7 +55,7 @@ func run(args []string, stdout, stderr io.Writer) int {
 		}
 		switch {
 		case errors.Is(err, osvscanner.VulnerabilitiesFoundErr):
-			return 1
+			return 0
 		case errors.Is(err, osvscanner.NoPackagesFoundErr):
 			r.Errorf("No package sources found, --help for usage information.\n")
 			return 0

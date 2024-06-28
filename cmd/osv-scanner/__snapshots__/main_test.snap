@@ -1,5 +1,6 @@
 
 [TestRun/#00 - 1]
+No issues found
 
 ---
 
@@ -21,6 +22,7 @@ built at: n/a
 
 [TestRun/#02 - 1]
 Scanning dir ./fixtures/locks-many/not-a-lockfile.toml
+No issues found
 
 ---
 
@@ -1677,6 +1679,7 @@ Loaded OSS-Fuzz local db from <tempdir>/osv-scanner/OSS-Fuzz/all.zip
 
 [TestRun_LocalDatabases/#02 - 1]
 Scanning dir ./fixtures/locks-many/not-a-lockfile.toml
+No issues found
 
 ---
 
@@ -1687,6 +1690,7 @@ No package sources found, --help for usage information.
 
 [TestRun_LocalDatabases/#02 - 3]
 Scanning dir ./fixtures/locks-many/not-a-lockfile.toml
+No issues found
 
 ---
 
@@ -2293,5 +2297,19 @@ No issues found
 
 [TestRun_SubCommands/with_scan_subcommand - 2]
 Warning: `scan` exists as both a subcommand of OSV-Scanner and as a file on the filesystem. `scan` is assumed to be a subcommand here. If you intended for `scan` to be an argument to `scan`, you must specify `scan scan` in your command line.
+
+---
+
+[TestRun_WithEmptyCycloneDX15 - 1]
+{"$schema":"http://cyclonedx.org/schema/bom-1.5.schema.json","bomFormat":"CycloneDX","specVersion":"1.5","version":1,"components":[]}
+
+---
+
+[TestRun_WithEmptyCycloneDX15 - 2]
+Scanning dir ./fixtures/locks-empty
+Scanned <rootdir>/fixtures/locks-empty/Gemfile.lock file and found 0 packages
+Scanned <rootdir>/fixtures/locks-empty/composer.lock file and found 0 packages
+Scanned <rootdir>/fixtures/locks-empty/yarn.lock file and found 0 packages
+No package sources found, --help for usage information.
 
 ---
