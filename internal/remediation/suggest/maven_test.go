@@ -197,21 +197,29 @@ func TestSuggest(t *testing.T) {
 		},
 		EcosystemSpecific: manifest.MavenManifestSpecific{
 			Properties: []manifest.PropertyWithOrigin{
-				{Property: maven.Property{Name: "project.build.sourceEncoding", Value: "UTF-8"}},
-				{Property: maven.Property{Name: "maven.compiler.source", Value: "1.7"}},
-				{Property: maven.Property{Name: "maven.compiler.target", Value: "1.7"}},
-				{Property: maven.Property{Name: "junit.version", Value: "4.12"}},
+				{Property: maven.Property{Name: "property.version", Value: "1.0.0"}},
+				{Property: maven.Property{Name: "no.update.minor", Value: "9"}},
 				{Property: maven.Property{Name: "def.version", Value: "2.3.4"}, Origin: "profile@profile-one"},
 			},
 			OriginalRequirements: map[string]map[maven.DependencyKey]maven.String{
+				"parent": {
+					{GroupID: "com.mycompany.app", ArtifactID: "parent-pom"}: "1.0.0",
+				},
 				"": {
-					{GroupID: "junit", ArtifactID: "junit", Type: "jar"}:     "${junit.version}",
-					{GroupID: "org.example", ArtifactID: "abc", Type: "jar"}: "1.0.1",
-					{GroupID: "org.profile", ArtifactID: "abc", Type: "jar"}: "1.2.3",
+					{GroupID: "junit", ArtifactID: "junit", Type: "jar"}:                    "${junit.version}",
+					{GroupID: "org.example", ArtifactID: "abc", Type: "jar"}:                "1.0.1",
+					{GroupID: "org.example", ArtifactID: "no-updates", Type: "jar"}:         "9.9.9",
+					{GroupID: "org.example", ArtifactID: "property", Type: "jar"}:           "${property.version}",
+					{GroupID: "org.example", ArtifactID: "property-no-update", Type: "jar"}: "1.${no.update.minor}",
+					{GroupID: "org.example", ArtifactID: "same-property", Type: "jar"}:      "${property.version}",
+					{GroupID: "org.example", ArtifactID: "another-property", Type: "jar"}:   "${property.version}",
+
+					{GroupID: "org.", ArtifactID: "abc", Type: "jar"}:        "1.2.3",
 					{GroupID: "org.profile", ArtifactID: "def", Type: "jar"}: "${def.version}",
 				},
 				"management": {
-					{GroupID: "org.example", ArtifactID: "xyz", Type: "jar"}:   "2.0.0",
+					{GroupID: "org.example", ArtifactID: "xyz", Type: "jar"}: "2.0.0",
+
 					{GroupID: "org.import", ArtifactID: "import", Type: "pom"}: "1.0.0",
 					{GroupID: "org.import", ArtifactID: "xyz", Type: "pom"}:    "6.6.6",
 				},
