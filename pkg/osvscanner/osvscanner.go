@@ -696,6 +696,16 @@ func filterPackageVulns(r reporter.Reporter, pkgVulns models.PackageVulns, confi
 		return pkgVulns
 	}
 	ignoredVulns := map[string]struct{}{}
+
+	// Ignores all unimportant vulnerabilities.
+	for _, vuln := range pkgVulns.Vulnerabilities {
+		if isUnimportant(pkgVulns.Package.Ecosystem, vuln.Affected) {
+			// Track the count of all unimportant vulnerabilities, including duplicate vulnerabilities from different packages.
+			*unimportantCount++
+			ignoredVulns[vuln.ID] = struct{}{}
+		}
+	}
+
 	// Iterate over groups first to remove all aliases of ignored vulnerabilities.
 	var newGroups []models.GroupInfo
 	for _, group := range pkgVulns.Groups {
@@ -718,6 +728,11 @@ func filterPackageVulns(r reporter.Reporter, pkgVulns models.PackageVulns, confi
 
 				break
 			}
+
+			if _, unimportant := ignoredVulns[id]; unimportant {
+				r.Verbosef("%s has been filtered out due to its unimportance.\n", id)
+				ignore = true
+			}
 		}
 		if !ignore {
 			newGroups = append(newGroups, group)
@@ -727,13 +742,6 @@ func filterPackageVulns(r reporter.Reporter, pkgVulns models.PackageVulns, confi
 	var newVulns []models.Vulnerability
 	if len(newGroups) > 0 { // If there are no groups left then there would be no vulnerabilities.
 		for _, vuln := range pkgVulns.Vulnerabilities {
-			if isUnimportant(pkgVulns.Package.Ecosystem, vuln.Affected) {
-				*unimportantCount++
-				r.Verbosef("%s has been filtered out due to its unimportance.\n", vuln.ID)
-
-				continue
-			}
-
 			if _, filtered := ignoredVulns[vuln.ID]; !filtered {
 				newVulns = append(newVulns, vuln)
 			}
