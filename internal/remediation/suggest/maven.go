@@ -52,14 +52,14 @@ func (ms *MavenSuggester) Suggest(ctx context.Context, client resolve.Client, mf
 			Type:       req.Type,
 			NewRequire: latest.Version,
 		}
-		origReq, origin := originalRequirement(patch, specific.BaseProject)
+		origReq, depOrigin := originalRequirement(patch, specific.OriginalRequirements)
 		if origReq == "" {
 			// Cannot find the original requirement indicates the requirement not in base project
 			continue
 		}
 
 		dep, _, _ := resolve.MavenDepTypeToDependency(patch.Type)
-		patch.Type = resolve.MavenDepType(dep, origin)
+		patch.Type = resolve.MavenDepType(dep, depOrigin)
 
 		hasPatch := func(patches []manifest.DependencyPatch, patch manifest.DependencyPatch) bool {
 			for _, p := range patches {
@@ -88,16 +88,34 @@ func (ms *MavenSuggester) Suggest(ctx context.Context, client resolve.Client, mf
 			continue
 		}
 
+		if strings.HasPrefix(depOrigin, manifest.OriginProfile) {
+			// Dependency management is not indicated in property origin.
+			depOrigin, _ = strings.CutSuffix(depOrigin, "@"+manifest.OriginManagement)
+		} else {
+			// Properties are defined either universally or in a profile. For property
+			// origin not starting with 'profile', this is an universal property.
+			depOrigin = ""
+		}
+
 		for name, value := range patches {
-			propOrigin := propertyOrigin(name, specific.BaseProject)
-			if _, ok := propertyPatches[propOrigin]; !ok {
-				propertyPatches[propOrigin] = make(map[string]string)
+			// A dependency in a profile may contain properties from this profile or
+			// properties universally defined. We need to figure out the origin of these
+			// properties. If a property is defined both universally and in the profile,
+			// we use the profile's origin.
+			propertyOrigin := ""
+			for _, p := range specific.Properties {
+				if p.Name == name && p.Origin != "" && p.Origin == depOrigin {
+					propertyOrigin = depOrigin
+				}
+			}
+			if _, ok := propertyPatches[propertyOrigin]; !ok {
+				propertyPatches[propertyOrigin] = make(map[string]string)
 			}
 			// This property has been set to update to a value. If both values are the
 			// same, we do nothing; otherwise, instead of updating the property, we
 			// should update the dependency directly.
-			if preset, ok := propertyPatches[propOrigin][name]; !ok {
-				propertyPatches[propOrigin][name] = value
+			if preset, ok := propertyPatches[propertyOrigin][name]; !ok {
+				propertyPatches[propertyOrigin][name] = value
 			} else if preset != value {
 				changedDeps = append(changedDeps, patch)
 			}
@@ -175,8 +193,7 @@ func suggestMavenVersion(ctx context.Context, client resolve.Client, req resolve
 
 // originalRequirement returns the original requirement of a requirement version and its origin.
 // If the version is not found, empty strings are returned.
-// TODO: DependencyPatch or other data structure?
-func originalRequirement(patch manifest.DependencyPatch, project maven.Project) (maven.String, string) {
+func originalRequirement(patch manifest.DependencyPatch, origReqs map[string]map[maven.DependencyKey]maven.String) (maven.String, string) {
 	IDs := strings.Split(patch.Pkg.Name, ":")
 	if len(IDs) != 2 {
 		return "", ""
@@ -186,69 +203,11 @@ func originalRequirement(patch manifest.DependencyPatch, project maven.Project) 
 	dependency.GroupID = maven.String(IDs[0])
 	dependency.ArtifactID = maven.String(IDs[1])
 
-	if origin == "" {
-
-	} else if origin == manifest.OriginParent {
-		if dependency.Name() == project.Parent.Name() {
-			return project.Parent.Version, origin
-		}
-	} else if origin == manifest.OriginManagement {
-		for _, d := range project.DependencyManagement.Dependencies {
-			if dependency.Key() == d.Key() {
-				return d.Version, manifest.OriginManagement
-			}
-		}
+	v, ok := origReqs[origin][dependency.Key()]
+	if ok {
+		return v, origin
 	}
-
-	for _, d := range project.Dependencies {
-		if dependency.Key() == d.Key() {
-			return d.Version, ""
-		}
-	}
-	for _, d := range project.DependencyManagement.Dependencies {
-		if dependency.Key() == d.Key() {
-			return d.Version, manifest.OriginManagement
-		}
-	}
-	for _, prof := range project.Profiles {
-		for _, d := range prof.Dependencies {
-			if dependency.Key() == d.Key() {
-				return d.Version, manifest.MavenOrigin(manifest.OriginProfile, string(prof.ID))
-			}
-		}
-		for _, d := range prof.DependencyManagement.Dependencies {
-			if dependency.Key() == d.Key() {
-				return d.Version, manifest.MavenOrigin(manifest.OriginProfile, string(prof.ID), manifest.OriginManagement)
-			}
-		}
-	}
-	for _, plugin := range project.Build.PluginManagement.Plugins {
-		for _, d := range plugin.Dependencies {
-			if dependency.Key() == d.Key() {
-				return d.Version, manifest.MavenOrigin(manifest.OriginPlugin, plugin.ProjectKey.Name())
-			}
-		}
-	}
-
 	return "", ""
-}
-
-// propertyOrigin returns the origin of a property.
-// If the property is not found, an empty string is returned.
-func propertyOrigin(name string, project maven.Project) string {
-	for _, prop := range project.Properties.Properties {
-		if prop.Name == name {
-			return ""
-		}
-	}
-	for _, prof := range project.Profiles {
-		for _, prop := range prof.Properties.Properties {
-			if prop.Name == name {
-				return manifest.MavenOrigin(manifest.OriginProfile, string(prof.ID))
-			}
-		}
-	}
-	return ""
 }
 
 // generatePropertyPatches returns whether we are able to assign values to

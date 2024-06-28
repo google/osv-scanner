@@ -50,8 +50,14 @@ func NewMavenManifestIO() MavenManifestIO {
 }
 
 type MavenManifestSpecific struct {
-	BaseProject            maven.Project
-	RequirementsForUpdates []resolve.RequirementVersion // Requirements that we only need for updates
+	Properties             []PropertyWithOrigin
+	OriginalRequirements   map[string]map[maven.DependencyKey]maven.String // origin -> DependencyKey -> version
+	RequirementsForUpdates []resolve.RequirementVersion                    // Requirements that we only need for updates
+}
+
+type PropertyWithOrigin struct {
+	maven.Property
+	Origin string // Origin indicates where the property comes from
 }
 
 // TODO: handle profiles (activation and interpolation)
@@ -62,16 +68,8 @@ func (m MavenManifestIO) Read(df lockfile.DepFile) (Manifest, error) {
 	if err := xml.NewDecoder(df).Decode(&project); err != nil {
 		return Manifest{}, fmt.Errorf("failed to unmarshal project: %w", err)
 	}
-	baseProject := project
-
-	// Merging parents data by parsing local parent pom.xml or fetching from upstream.
-	if err := m.mergeParents(ctx, &project, project.Parent, 1, df.Path(), true); err != nil {
-		return Manifest{}, fmt.Errorf("failed to merge parents: %w", err)
-	}
-	// Interpolate to resolve properties.
-	if err := project.Interpolate(); err != nil {
-		return Manifest{}, fmt.Errorf("failed to merge parents: %w", err)
-	}
+	properties := buildPropertiesWithOrigins(project)
+	origRequirements := buildOriginalRequirements(project)
 
 	var reqsForUpdates []resolve.RequirementVersion
 	if project.Parent.GroupID != "" && project.Parent.ArtifactID != "" {
@@ -88,21 +86,21 @@ func (m MavenManifestIO) Read(df lockfile.DepFile) (Manifest, error) {
 			Type: resolve.MavenDepType(maven.Dependency{}, OriginParent),
 		})
 	}
+
+	// Merging parents data by parsing local parent pom.xml or fetching from upstream.
+	if err := m.mergeParents(ctx, &project, project.Parent, 1, df.Path(), true); err != nil {
+		return Manifest{}, fmt.Errorf("failed to merge parents: %w", err)
+	}
+	// Interpolate to resolve properties.
+	if err := project.Interpolate(); err != nil {
+		return Manifest{}, fmt.Errorf("failed to merge parents: %w", err)
+	}
+
 	// For dependency management imports, the importer will be replaced by the importees,
 	// so add them to requirements first.
 	for _, dep := range project.DependencyManagement.Dependencies {
 		if dep.Scope == "import" && dep.Type == "pom" {
-			reqsForUpdates = append(reqsForUpdates, resolve.RequirementVersion{
-				VersionKey: resolve.VersionKey{
-					PackageKey: resolve.PackageKey{
-						System: resolve.Maven,
-						Name:   dep.Name(),
-					},
-					VersionType: resolve.Requirement,
-					Version:     string(dep.Version),
-				},
-				Type: resolve.MavenDepType(maven.Dependency{}, OriginManagement),
-			})
+			reqsForUpdates = append(reqsForUpdates, makeRequirementVersion(dep, OriginManagement))
 		}
 	}
 
@@ -163,10 +161,62 @@ func (m MavenManifestIO) Read(df lockfile.DepFile) (Manifest, error) {
 		Requirements: requirements,
 		Groups:       groups,
 		EcosystemSpecific: MavenManifestSpecific{
-			BaseProject:            baseProject,
+			Properties:             properties,
+			OriginalRequirements:   origRequirements,
 			RequirementsForUpdates: reqsForUpdates,
 		},
 	}, nil
+}
+
+func buildPropertiesWithOrigins(project maven.Project) []PropertyWithOrigin {
+	count := len(project.Properties.Properties)
+	for _, prof := range project.Profiles {
+		count += len(prof.Properties.Properties)
+	}
+	properties := make([]PropertyWithOrigin, 0, count)
+	for _, prop := range project.Properties.Properties {
+		properties = append(properties, PropertyWithOrigin{Property: prop})
+	}
+	for _, profile := range project.Profiles {
+		for _, prop := range profile.Properties.Properties {
+			properties = append(properties, PropertyWithOrigin{
+				Property: prop,
+				Origin:   mavenOrigin(OriginProfile, string(profile.ID)),
+			})
+		}
+	}
+	return properties
+}
+
+func buildOriginalRequirements(project maven.Project) map[string]map[maven.DependencyKey]maven.String {
+	requirements := make(map[string]map[maven.DependencyKey]maven.String)
+	add := func(deps []maven.Dependency, o string) {
+		if _, ok := requirements[o]; !ok && len(deps) > 0 {
+			requirements[o] = make(map[maven.DependencyKey]maven.String)
+		}
+		for _, d := range deps {
+			if _, ok := requirements[o][d.Key()]; !ok {
+				requirements[o][d.Key()] = d.Version
+			}
+		}
+	}
+	if project.Parent.GroupID != "" && project.Parent.ArtifactID != "" {
+		requirements[OriginParent] = make(map[maven.DependencyKey]maven.String)
+		requirements[OriginParent][maven.DependencyKey{GroupID: project.Parent.GroupID, ArtifactID: project.Parent.ArtifactID}] = project.Parent.Version
+	}
+	add(project.Dependencies, "")
+	add(project.DependencyManagement.Dependencies, OriginManagement)
+	for _, plugin := range project.Build.PluginManagement.Plugins {
+		add(plugin.Dependencies, mavenOrigin(OriginPlugin, plugin.ProjectKey.Name()))
+	}
+	for _, prof := range project.Profiles {
+		add(prof.Dependencies, mavenOrigin(OriginProfile, string(prof.ID)))
+		add(prof.DependencyManagement.Dependencies, mavenOrigin(OriginProfile, string(prof.ID), OriginManagement))
+		// For activated profiles, their dependencies may appear in the requirements without origin set.
+		add(prof.Dependencies, "")
+		add(prof.DependencyManagement.Dependencies, OriginManagement)
+	}
+	return requirements
 }
 
 // To avoid indefinite loop when fetching parents,
@@ -245,7 +295,7 @@ func makeRequirementVersion(dep maven.Dependency, origin string) resolve.Require
 	}
 }
 
-func MavenOrigin(list ...string) string {
+func mavenOrigin(list ...string) string {
 	result := ""
 	for _, str := range list {
 		if result != "" && str != "" {
@@ -393,7 +443,7 @@ func updateProject(enc *xml.Encoder, raw, prefix, id string, patches map[string]
 				if err := dec.DecodeElement(&rawProperties, &tt); err != nil {
 					return err
 				}
-				if err := updateString(enc, "<properties>"+rawProperties.InnerXML+"</properties>", properties[MavenOrigin(prefix, id)]); err != nil {
+				if err := updateString(enc, "<properties>"+rawProperties.InnerXML+"</properties>", properties[mavenOrigin(prefix, id)]); err != nil {
 					return fmt.Errorf("updating properties: %w", err)
 				}
 
@@ -443,7 +493,7 @@ func updateProject(enc *xml.Encoder, raw, prefix, id string, patches map[string]
 				if err := dec.DecodeElement(&rawDepMgmt, &tt); err != nil {
 					return err
 				}
-				if err := updateDependency(enc, "<dependencyManagement>"+rawDepMgmt.InnerXML+"</dependencyManagement>", patches[MavenOrigin(prefix, id, OriginManagement)]); err != nil {
+				if err := updateDependency(enc, "<dependencyManagement>"+rawDepMgmt.InnerXML+"</dependencyManagement>", patches[mavenOrigin(prefix, id, OriginManagement)]); err != nil {
 					return fmt.Errorf("updating dependency management: %w", err)
 				}
 
@@ -457,7 +507,7 @@ func updateProject(enc *xml.Encoder, raw, prefix, id string, patches map[string]
 				if err := dec.DecodeElement(&rawDeps, &tt); err != nil {
 					return err
 				}
-				if err := updateDependency(enc, "<dependencies>"+rawDeps.InnerXML+"</dependencies>", patches[MavenOrigin(prefix, id)]); err != nil {
+				if err := updateDependency(enc, "<dependencies>"+rawDeps.InnerXML+"</dependencies>", patches[mavenOrigin(prefix, id)]); err != nil {
 					return fmt.Errorf("updating dependencies: %w", err)
 				}
 
