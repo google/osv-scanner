@@ -28,7 +28,7 @@ func (ms *MavenSuggester) Suggest(ctx context.Context, client resolve.Client, mf
 
 	var changedDeps []manifest.DependencyPatch
 	propertyPatches := manifest.MavenPropertyPatches{}
-	for _, req := range append(specific.RequirementsForUpdates, mf.Requirements...) {
+	for _, req := range append(mf.Requirements, specific.RequirementsForUpdates...) {
 		if slices.Contains(opts.NoUpdates, req.Name) {
 			continue
 		}
@@ -60,19 +60,6 @@ func (ms *MavenSuggester) Suggest(ctx context.Context, client resolve.Client, mf
 
 		dep, _, _ := resolve.MavenDepTypeToDependency(patch.Type)
 		patch.Type = resolve.MavenDepType(dep, depOrigin)
-
-		hasPatch := func(patches []manifest.DependencyPatch, patch manifest.DependencyPatch) bool {
-			for _, p := range patches {
-				if p.Pkg == patch.Pkg && p.Type.Equal(patch.Type) && p.NewRequire == patch.NewRequire {
-					return true
-				}
-			}
-			return false
-		}
-		if hasPatch(changedDeps, patch) {
-			// This update patch already exists so no need to update again.
-			continue
-		}
 
 		if !origReq.ContainsProperty() {
 			// The original requirement does not contain a property placeholder.
@@ -193,19 +180,20 @@ func suggestMavenVersion(ctx context.Context, client resolve.Client, req resolve
 
 // originalRequirement returns the original requirement of a requirement version and its origin.
 // If the version is not found, empty strings are returned.
-func originalRequirement(patch manifest.DependencyPatch, origReqs map[string]map[maven.DependencyKey]maven.String) (maven.String, string) {
+func originalRequirement(patch manifest.DependencyPatch, origReqs []manifest.DependencyWithOrigin) (maven.String, string) {
 	IDs := strings.Split(patch.Pkg.Name, ":")
 	if len(IDs) != 2 {
 		return "", ""
 	}
 
-	dependency, origin, _ := resolve.MavenDepTypeToDependency(patch.Type)
+	dependency, _, _ := resolve.MavenDepTypeToDependency(patch.Type)
 	dependency.GroupID = maven.String(IDs[0])
 	dependency.ArtifactID = maven.String(IDs[1])
 
-	v, ok := origReqs[origin][dependency.Key()]
-	if ok {
-		return v, origin
+	for _, d := range origReqs {
+		if d.Key() == dependency.Key() {
+			return d.Version, d.Origin
+		}
 	}
 	return "", ""
 }

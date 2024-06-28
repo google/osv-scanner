@@ -51,12 +51,17 @@ func NewMavenManifestIO() MavenManifestIO {
 
 type MavenManifestSpecific struct {
 	Properties             []PropertyWithOrigin
-	OriginalRequirements   map[string]map[maven.DependencyKey]maven.String // origin -> DependencyKey -> version
-	RequirementsForUpdates []resolve.RequirementVersion                    // Requirements that we only need for updates
+	OriginalRequirements   []DependencyWithOrigin
+	RequirementsForUpdates []resolve.RequirementVersion // Requirements that we only need for updates
 }
 
 type PropertyWithOrigin struct {
 	maven.Property
+	Origin string // Origin indicates where the property comes from
+}
+
+type DependencyWithOrigin struct {
+	maven.Dependency
 	Origin string // Origin indicates where the property comes from
 }
 
@@ -188,35 +193,50 @@ func buildPropertiesWithOrigins(project maven.Project) []PropertyWithOrigin {
 	return properties
 }
 
-func buildOriginalRequirements(project maven.Project) map[string]map[maven.DependencyKey]maven.String {
-	requirements := make(map[string]map[maven.DependencyKey]maven.String)
-	add := func(deps []maven.Dependency, o string) {
-		if _, ok := requirements[o]; !ok && len(deps) > 0 {
-			requirements[o] = make(map[maven.DependencyKey]maven.String)
-		}
-		for _, d := range deps {
-			if _, ok := requirements[o][d.Key()]; !ok {
-				requirements[o][d.Key()] = d.Version
-			}
-		}
-	}
+func buildOriginalRequirements(project maven.Project) []DependencyWithOrigin {
+	var dependencies []DependencyWithOrigin
 	if project.Parent.GroupID != "" && project.Parent.ArtifactID != "" {
-		requirements[OriginParent] = make(map[maven.DependencyKey]maven.String)
-		requirements[OriginParent][maven.DependencyKey{GroupID: project.Parent.GroupID, ArtifactID: project.Parent.ArtifactID}] = project.Parent.Version
+		dependencies = append(dependencies, DependencyWithOrigin{
+			Dependency: maven.Dependency{
+				GroupID:    project.Parent.GroupID,
+				ArtifactID: project.Parent.ArtifactID,
+				Version:    project.Parent.Version,
+			},
+			Origin: OriginParent,
+		})
 	}
-	add(project.Dependencies, "")
-	add(project.DependencyManagement.Dependencies, OriginManagement)
-	for _, plugin := range project.Build.PluginManagement.Plugins {
-		add(plugin.Dependencies, mavenOrigin(OriginPlugin, plugin.ProjectKey.Name()))
+	for _, d := range project.Dependencies {
+		dependencies = append(dependencies, DependencyWithOrigin{Dependency: d})
+	}
+	for _, d := range project.DependencyManagement.Dependencies {
+		dependencies = append(dependencies, DependencyWithOrigin{
+			Dependency: d,
+			Origin:     OriginManagement,
+		})
 	}
 	for _, prof := range project.Profiles {
-		add(prof.Dependencies, mavenOrigin(OriginProfile, string(prof.ID)))
-		add(prof.DependencyManagement.Dependencies, mavenOrigin(OriginProfile, string(prof.ID), OriginManagement))
-		// For activated profiles, their dependencies may appear in the requirements without origin set.
-		add(prof.Dependencies, "")
-		add(prof.DependencyManagement.Dependencies, OriginManagement)
+		for _, d := range prof.Dependencies {
+			dependencies = append(dependencies, DependencyWithOrigin{
+				Dependency: d,
+				Origin:     mavenOrigin(OriginProfile, string(prof.ID)),
+			})
+		}
+		for _, d := range prof.DependencyManagement.Dependencies {
+			dependencies = append(dependencies, DependencyWithOrigin{
+				Dependency: d,
+				Origin:     mavenOrigin(OriginProfile, string(prof.ID), OriginManagement),
+			})
+		}
 	}
-	return requirements
+	for _, plugin := range project.Build.PluginManagement.Plugins {
+		for _, d := range plugin.Dependencies {
+			dependencies = append(dependencies, DependencyWithOrigin{
+				Dependency: d,
+				Origin:     mavenOrigin(OriginPlugin, plugin.ProjectKey.Name()),
+			})
+		}
+	}
+	return dependencies
 }
 
 // To avoid indefinite loop when fetching parents,

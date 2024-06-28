@@ -201,37 +201,51 @@ func TestSuggest(t *testing.T) {
 				{Property: maven.Property{Name: "no.update.minor", Value: "9"}},
 				{Property: maven.Property{Name: "def.version", Value: "2.3.4"}, Origin: "profile@profile-one"},
 			},
-			OriginalRequirements: map[string]map[maven.DependencyKey]maven.String{
-				"parent": {
-					{GroupID: "com.mycompany.app", ArtifactID: "parent-pom"}: "1.0.0",
+			OriginalRequirements: []manifest.DependencyWithOrigin{
+				{
+					Dependency: maven.Dependency{GroupID: "com.mycompany.app", ArtifactID: "parent-pom", Version: "1.0.0"},
+					Origin:     manifest.OriginParent,
 				},
-				"": {
-					{GroupID: "junit", ArtifactID: "junit", Type: "jar"}:                    "${junit.version}",
-					{GroupID: "org.example", ArtifactID: "abc", Type: "jar"}:                "1.0.1",
-					{GroupID: "org.example", ArtifactID: "no-updates", Type: "jar"}:         "9.9.9",
-					{GroupID: "org.example", ArtifactID: "property", Type: "jar"}:           "${property.version}",
-					{GroupID: "org.example", ArtifactID: "property-no-update", Type: "jar"}: "1.${no.update.minor}",
-					{GroupID: "org.example", ArtifactID: "same-property", Type: "jar"}:      "${property.version}",
-					{GroupID: "org.example", ArtifactID: "another-property", Type: "jar"}:   "${property.version}",
-
-					{GroupID: "org.", ArtifactID: "abc", Type: "jar"}:        "1.2.3",
-					{GroupID: "org.profile", ArtifactID: "def", Type: "jar"}: "${def.version}",
+				{
+					Dependency: maven.Dependency{GroupID: "junit", ArtifactID: "junit", Version: "${junit.version}", Scope: "test"},
 				},
-				"management": {
-					{GroupID: "org.example", ArtifactID: "xyz", Type: "jar"}: "2.0.0",
-
-					{GroupID: "org.import", ArtifactID: "import", Type: "pom"}: "1.0.0",
-					{GroupID: "org.import", ArtifactID: "xyz", Type: "pom"}:    "6.6.6",
+				{
+					Dependency: maven.Dependency{GroupID: "org.example", ArtifactID: "abc", Version: "1.0.1"},
 				},
-				"profile@profile-one": {
-					{GroupID: "org.profile", ArtifactID: "abc", Type: "jar"}: "1.2.3",
-					{GroupID: "org.profile", ArtifactID: "def", Type: "jar"}: "${def.version}",
+				{
+					Dependency: maven.Dependency{GroupID: "org.example", ArtifactID: "no-updates", Version: "9.9.9"},
 				},
-				"profile@profile-two@management": {
-					{GroupID: "org.import", ArtifactID: "xyz", Type: "pom"}: "6.6.6",
+				{
+					Dependency: maven.Dependency{GroupID: "org.example", ArtifactID: "property", Version: "${property.version}"},
 				},
-				"plugin@org.plugin:plugin": {
-					{GroupID: "org.dep", ArtifactID: "plugin-dep", Type: "jar"}: "2.3.3",
+				{
+					Dependency: maven.Dependency{GroupID: "org.example", ArtifactID: "property-no-update", Version: "1.${no.update.minor}"},
+				},
+				{
+					Dependency: maven.Dependency{GroupID: "org.example", ArtifactID: "same-property", Version: "${property.version}"},
+				},
+				{
+					Dependency: maven.Dependency{GroupID: "org.example", ArtifactID: "another-property", Version: "${property.version}"},
+				},
+				{
+					Dependency: maven.Dependency{GroupID: "org.example", ArtifactID: "xyz", Version: "2.0.0"},
+					Origin:     manifest.OriginManagement,
+				},
+				{
+					Dependency: maven.Dependency{GroupID: "org.profile", ArtifactID: "abc", Version: "1.2.3"},
+					Origin:     "profile@profile-one",
+				},
+				{
+					Dependency: maven.Dependency{GroupID: "org.profile", ArtifactID: "def", Version: "${def.version}"},
+					Origin:     "profile@profile-one",
+				},
+				{
+					Dependency: maven.Dependency{GroupID: "org.import", ArtifactID: "xyz", Version: "6.6.6", Scope: "import", Type: "pom"},
+					Origin:     "profile@profile-two@management",
+				},
+				{
+					Dependency: maven.Dependency{GroupID: "org.dep", ArtifactID: "plugin-dep", Version: "2.3.3"},
+					Origin:     "plugin@org.plugin:plugin",
 				},
 			},
 			RequirementsForUpdates: []resolve.RequirementVersion{

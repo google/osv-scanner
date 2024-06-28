@@ -216,30 +216,40 @@ func TestMavenRead(t *testing.T) {
 				{Property: maven.Property{Name: "junit.version", Value: "4.12"}},
 				{Property: maven.Property{Name: "def.version", Value: "2.3.4"}, Origin: "profile@profile-one"},
 			},
-			OriginalRequirements: map[string]map[maven.DependencyKey]maven.String{
-				"parent": {
-					{GroupID: "org.parent", ArtifactID: "parent-pom"}: "1.1.1",
+			OriginalRequirements: []manifest.DependencyWithOrigin{
+				{
+					Dependency: maven.Dependency{GroupID: "org.parent", ArtifactID: "parent-pom", Version: "1.1.1"},
+					Origin:     manifest.OriginParent,
 				},
-				"": {
-					{GroupID: "junit", ArtifactID: "junit", Type: "jar"}:     "${junit.version}",
-					{GroupID: "org.example", ArtifactID: "abc", Type: "jar"}: "1.0.1",
-					{GroupID: "org.profile", ArtifactID: "abc", Type: "jar"}: "1.2.3",
-					{GroupID: "org.profile", ArtifactID: "def", Type: "jar"}: "${def.version}",
+				{
+					Dependency: maven.Dependency{GroupID: "junit", ArtifactID: "junit", Version: "${junit.version}", Scope: "test"},
 				},
-				"management": {
-					{GroupID: "org.example", ArtifactID: "xyz", Type: "jar"}:   "2.0.0",
-					{GroupID: "org.import", ArtifactID: "import", Type: "pom"}: "1.0.0",
-					{GroupID: "org.import", ArtifactID: "xyz", Type: "pom"}:    "6.6.6",
+				{
+					Dependency: maven.Dependency{GroupID: "org.example", ArtifactID: "abc", Version: "1.0.1"},
 				},
-				"profile@profile-one": {
-					{GroupID: "org.profile", ArtifactID: "abc", Type: "jar"}: "1.2.3",
-					{GroupID: "org.profile", ArtifactID: "def", Type: "jar"}: "${def.version}",
+				{
+					Dependency: maven.Dependency{GroupID: "org.example", ArtifactID: "xyz", Version: "2.0.0"},
+					Origin:     manifest.OriginManagement,
 				},
-				"profile@profile-two@management": {
-					{GroupID: "org.import", ArtifactID: "xyz", Type: "pom"}: "6.6.6",
+				{
+					Dependency: maven.Dependency{GroupID: "org.import", ArtifactID: "import", Version: "1.0.0", Scope: "import", Type: "pom"},
+					Origin:     manifest.OriginManagement,
 				},
-				"plugin@org.plugin:plugin": {
-					{GroupID: "org.dep", ArtifactID: "plugin-dep", Type: "jar"}: "2.3.3",
+				{
+					Dependency: maven.Dependency{GroupID: "org.profile", ArtifactID: "abc", Version: "1.2.3"},
+					Origin:     "profile@profile-one",
+				},
+				{
+					Dependency: maven.Dependency{GroupID: "org.profile", ArtifactID: "def", Version: "${def.version}"},
+					Origin:     "profile@profile-one",
+				},
+				{
+					Dependency: maven.Dependency{GroupID: "org.import", ArtifactID: "xyz", Version: "6.6.6", Scope: "import", Type: "pom"},
+					Origin:     "profile@profile-two@management",
+				},
+				{
+					Dependency: maven.Dependency{GroupID: "org.dep", ArtifactID: "plugin-dep", Version: "2.3.3"},
+					Origin:     "plugin@org.plugin:plugin",
 				},
 			},
 			RequirementsForUpdates: []resolve.RequirementVersion{
