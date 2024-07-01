@@ -19,22 +19,6 @@ func convertToBigInt(str string) (*big.Int, bool) {
 	return i, ok
 }
 
-func minInt(x, y int) int {
-	if x > y {
-		return y
-	}
-
-	return x
-}
-
-func maxInt(x, y int) int {
-	if x < y {
-		return y
-	}
-
-	return x
-}
-
 func fetch(slice []string, i int, def string) string {
 	if len(slice) <= i {
 		return def
