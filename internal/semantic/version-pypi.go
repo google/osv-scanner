@@ -282,11 +282,11 @@ func (pv PyPIVersion) compareDev(pw PyPIVersion) int {
 
 // Compares the local segment of each version
 func (pv PyPIVersion) compareLocal(pw PyPIVersion) int {
-	min := minInt(len(pv.local), len(pw.local))
+	minVersionLength := min(len(pv.local), len(pw.local))
 
 	var compare int
 
-	for i := 0; i < min; i++ {
+	for i := 0; i < minVersionLength; i++ {
 		ai, aIsNumber := convertToBigInt(pv.local[i])
 		bi, bIsNumber := convertToBigInt(pw.local[i])
 

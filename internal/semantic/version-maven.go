@@ -137,12 +137,12 @@ func newMavenNullVersionToken(token mavenVersionToken) mavenVersionToken {
 }
 
 func (mv MavenVersion) lessThan(mw MavenVersion) bool {
-	max := maxInt(len(mv.tokens), len(mw.tokens))
+	numberOfTokens := max(len(mv.tokens), len(mw.tokens))
 
 	var left mavenVersionToken
 	var right mavenVersionToken
 
-	for i := 0; i < max; i++ {
+	for i := 0; i < numberOfTokens; i++ {
 		// the shorter one padded with enough "null" values with matching prefix to
 		// have the same length as the longer one. Padded "null" values depend on
 		// the prefix of the other version: 0 for '.', "" for '-'
