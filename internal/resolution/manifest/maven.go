@@ -30,6 +30,7 @@ func mavenRequirementKey(requirement resolve.RequirementVersion) RequirementKey 
 	// Maven dependencies must have unique groupId:artifactId:type:classifier.
 	artifactType, _ := requirement.Type.GetAttr(dep.MavenArtifactType)
 	classifier, _ := requirement.Type.GetAttr(dep.MavenClassifier)
+
 	return RequirementKey{
 		PackageKey: requirement.PackageKey,
 		EcosystemSpecific: struct{ ArtifactType, Classifier string }{
@@ -190,11 +191,12 @@ func buildPropertiesWithOrigins(project maven.Project) []PropertyWithOrigin {
 			})
 		}
 	}
+
 	return properties
 }
 
 func buildOriginalRequirements(project maven.Project) []DependencyWithOrigin {
-	var dependencies []DependencyWithOrigin
+	var dependencies []DependencyWithOrigin //nolint:prealloc
 	if project.Parent.GroupID != "" && project.Parent.ArtifactID != "" {
 		dependencies = append(dependencies, DependencyWithOrigin{
 			Dependency: maven.Dependency{
@@ -236,6 +238,7 @@ func buildOriginalRequirements(project maven.Project) []DependencyWithOrigin {
 			})
 		}
 	}
+
 	return dependencies
 }
 

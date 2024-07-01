@@ -195,6 +195,7 @@ func originalRequirement(patch manifest.DependencyPatch, origReqs []manifest.Dep
 			return d.Version, d.Origin
 		}
 	}
+
 	return "", ""
 }
 
