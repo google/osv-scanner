@@ -6,6 +6,7 @@ import (
 
 	"github.com/google/osv-scanner/internal/output"
 	"github.com/google/osv-scanner/pkg/models"
+	"github.com/jedib0t/go-pretty/v6/text"
 )
 
 type VerticalReporter struct {
@@ -60,6 +61,10 @@ func (r *VerticalReporter) PrintResult(vulnResult *models.VulnerabilityResults) 
 	if len(vulnResult.Results) == 0 && !r.hasErrored {
 		fmt.Fprintf(r.stdout, "No issues found\n")
 		return nil
+	}
+
+	if r.terminalWidth <= 0 {
+		text.DisableColors()
 	}
 
 	output.PrintVerticalResults(vulnResult, r.stdout)
