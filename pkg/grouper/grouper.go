@@ -9,14 +9,6 @@ import (
 	"github.com/google/osv-scanner/pkg/models"
 )
 
-func min(a, b int) int {
-	if a < b {
-		return a
-	}
-
-	return b
-}
-
 func hasAliasIntersection(v1, v2 IDAliases) bool {
 	// Check if any aliases intersect.
 	for _, alias := range v1.Aliases {
