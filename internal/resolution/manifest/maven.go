@@ -96,7 +96,7 @@ func (m MavenManifestIO) Read(df lockfile.DepFile) (Manifest, error) {
 	if err := m.mergeParents(ctx, &project, project.Parent, 1, df.Path(), true); err != nil {
 		return Manifest{}, fmt.Errorf("failed to merge parents: %w", err)
 	}
-	
+
 	// For dependency management imports, the dependencies that imports
 	// dependencies from other projects will be replaced by the imported
 	// dependencies, so add them to requirements first.
