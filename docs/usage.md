@@ -94,6 +94,9 @@ Requires `docker` to be installed and the tool to have permission calling it.
 
 This currently does not scan the filesystem of the Docker container, and has various other limitations. Follow [this issue](https://github.com/google/osv-scanner/issues/64) for updates on container scanning!
 
+{: .warning }
+Only run this on a trusted container image, as it runs the container image to retrieve the package versions.
+
 ### Example
 
 ```bash
