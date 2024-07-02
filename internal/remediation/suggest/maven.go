@@ -52,22 +52,20 @@ func (ms *MavenSuggester) Suggest(ctx context.Context, client resolve.Client, mf
 			Type:       req.Type,
 			NewRequire: latest.Version,
 		}
-		origReq, depOrigin := originalRequirement(patch, specific.OriginalRequirements)
-		if origReq == "" {
-			// Cannot find the original requirement indicates the requirement not in base project
+		origDep := originalDependency(patch, specific.OriginalRequirements)
+		if origDep.Name() == "" {
+			// An empty name indicates the dependency is not found, so the original dependency is not in the base project.
 			continue
 		}
 
-		dep, _, _ := resolve.MavenDepTypeToDependency(patch.Type)
-		patch.Type = resolve.MavenDepType(dep, depOrigin)
-
-		if !origReq.ContainsProperty() {
+		patch.Type = resolve.MavenDepType(origDep.Dependency, origDep.Origin)
+		if !origDep.Version.ContainsProperty() {
 			// The original requirement does not contain a property placeholder.
 			changedDeps = append(changedDeps, patch)
 			continue
 		}
 
-		patches, ok := generatePropertyPatches(string(origReq), patch.NewRequire)
+		patches, ok := generatePropertyPatches(string(origDep.Version), patch.NewRequire)
 		if !ok {
 			// Not able to update properties to update the requirement.
 			// Update the dependency directly instead.
@@ -75,6 +73,7 @@ func (ms *MavenSuggester) Suggest(ctx context.Context, client resolve.Client, mf
 			continue
 		}
 
+		depOrigin := origDep.Origin
 		if strings.HasPrefix(depOrigin, manifest.OriginProfile) {
 			// Dependency management is not indicated in property origin.
 			depOrigin, _ = strings.CutSuffix(depOrigin, "@"+manifest.OriginManagement)
@@ -178,25 +177,25 @@ func suggestMavenVersion(ctx context.Context, client resolve.Client, req resolve
 	return req, nil
 }
 
-// originalRequirement returns the original requirement of a requirement version and its origin.
-// If the version is not found, empty strings are returned.
-func originalRequirement(patch manifest.DependencyPatch, origReqs []manifest.DependencyWithOrigin) (maven.String, string) {
+// originalDependency returns the original dependency of a dependency patch.
+// If the dependency is not found, an empty dependency is returned.
+func originalDependency(patch manifest.DependencyPatch, origDeps []manifest.DependencyWithOrigin) manifest.DependencyWithOrigin {
 	IDs := strings.Split(patch.Pkg.Name, ":")
 	if len(IDs) != 2 {
-		return "", ""
+		return manifest.DependencyWithOrigin{}
 	}
 
 	dependency, _, _ := resolve.MavenDepTypeToDependency(patch.Type)
 	dependency.GroupID = maven.String(IDs[0])
 	dependency.ArtifactID = maven.String(IDs[1])
 
-	for _, d := range origReqs {
+	for _, d := range origDeps {
 		if d.Key() == dependency.Key() {
-			return d.Version, d.Origin
+			return d
 		}
 	}
 
-	return "", ""
+	return manifest.DependencyWithOrigin{}
 }
 
 // generatePropertyPatches returns whether we are able to assign values to
