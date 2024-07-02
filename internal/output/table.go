@@ -3,7 +3,6 @@ package output
 import (
 	"fmt"
 	"io"
-	"math"
 	"path/filepath"
 	"sort"
 	"strings"
@@ -152,7 +151,7 @@ func MaxSeverity(group models.GroupInfo, pkg models.PackageVulns) string {
 			}
 		}
 		score, _, _ := severity.CalculateOverallScore(severities)
-		maxSeverity = math.Max(maxSeverity, score)
+		maxSeverity = max(maxSeverity, score)
 	}
 
 	if maxSeverity < 0 {
