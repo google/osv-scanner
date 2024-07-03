@@ -19,7 +19,6 @@ import (
 )
 
 const (
-	OriginImport     = "import"
 	OriginManagement = "management"
 	OriginParent     = "parent"
 	OriginPlugin     = "plugin"
@@ -51,9 +50,9 @@ func NewMavenManifestIO() MavenManifestIO {
 }
 
 type MavenManifestSpecific struct {
-	Properties                 []PropertyWithOrigin
-	RequirementsWithProperties []resolve.RequirementVersion
-	RequirementsFromOtherPOMs  []resolve.RequirementVersion // Requirements that we cannot modify directly
+	Properties             []PropertyWithOrigin         // Properties from the base project only
+	OriginalRequirements   []DependencyWithOrigin       // Dependencies from the base project only
+	RequirementsForUpdates []resolve.RequirementVersion // Requirements that we only need for updates
 }
 
 type PropertyWithOrigin struct {
@@ -61,153 +60,25 @@ type PropertyWithOrigin struct {
 	Origin string // Origin indicates where the property comes from
 }
 
+type DependencyWithOrigin struct {
+	maven.Dependency
+	Origin string // Origin indicates where the dependency comes from
+}
+
 // TODO: handle profiles (activation and interpolation)
 func (m MavenManifestIO) Read(df lockfile.DepFile) (Manifest, error) {
 	ctx := context.Background()
-
-	var reqsWithProps []resolve.RequirementVersion
-	requirementOrigins := make(map[maven.DependencyKey]string)
-	addRequirementOrigins := func(deps []maven.Dependency, origin string) {
-		for _, dep := range deps {
-			key := dep.Key()
-			if _, ok := requirementOrigins[key]; !ok {
-				requirementOrigins[key] = origin
-			}
-			if dep.Version.ContainsProperty() {
-				// We only need the original import if the version contains any property.
-				reqsWithProps = append(reqsWithProps, makeRequirementVersion(dep, origin))
-			}
-		}
-	}
-	addAllRequirements := func(project maven.Project, origin string) {
-		addRequirementOrigins(project.Dependencies, origin)
-		addRequirementOrigins(project.DependencyManagement.Dependencies, mavenOrigin(origin, OriginManagement))
-		for _, profile := range project.Profiles {
-			addRequirementOrigins(profile.Dependencies, mavenOrigin(origin, OriginProfile, string(profile.ID)))
-			addRequirementOrigins(profile.DependencyManagement.Dependencies, mavenOrigin(origin, OriginProfile, string(profile.ID), OriginManagement))
-		}
-		for _, plugin := range project.Build.PluginManagement.Plugins {
-			addRequirementOrigins(plugin.Dependencies, mavenOrigin(origin, OriginPlugin, plugin.ProjectKey.Name()))
-		}
-	}
-
-	interpolate := func(project *maven.Project) error {
-		// Interpolating can change a dependency's key if it contained properties.
-		// If it is changed we need to update the requirementOrigins map with the new key.
-		allKeys := func() []maven.DependencyKey {
-			// Get all the dependencyKeys of the project.
-			// This order shouldn't change after calling Interpolate.
-			var keys []maven.DependencyKey
-			for _, dep := range project.Dependencies {
-				keys = append(keys, dep.Key())
-			}
-			for _, dep := range project.DependencyManagement.Dependencies {
-				keys = append(keys, dep.Key())
-			}
-			for _, profile := range project.Profiles {
-				for _, dep := range profile.Dependencies {
-					keys = append(keys, dep.Key())
-				}
-				for _, dep := range profile.DependencyManagement.Dependencies {
-					keys = append(keys, dep.Key())
-				}
-			}
-			for _, plugin := range project.Build.PluginManagement.Plugins {
-				for _, dep := range plugin.Dependencies {
-					keys = append(keys, dep.Key())
-				}
-			}
-
-			return keys
-		}
-
-		prevKeys := allKeys()
-		if err := project.Interpolate(); err != nil {
-			return err
-		}
-
-		newKeys := allKeys()
-		if len(prevKeys) != len(newKeys) {
-			// The length can change if properties fail to resolve, which should be rare.
-			// It's difficult to determine which dependencies were removed in these cases, so just error.
-			return errors.New("number of dependencies changed after interpolation")
-		}
-
-		for i, prevKey := range prevKeys {
-			newKey := newKeys[i]
-			if newKey != prevKey {
-				requirementOrigins[newKey] = requirementOrigins[prevKey]
-			}
-		}
-
-		return nil
-	}
 
 	var project maven.Project
 	if err := xml.NewDecoder(df).Decode(&project); err != nil {
 		return Manifest{}, fmt.Errorf("failed to unmarshal project: %w", err)
 	}
-	addAllRequirements(project, "")
+	properties := buildPropertiesWithOrigins(project)
+	origRequirements := buildOriginalRequirements(project)
 
-	// Merging parents data by parsing local parent pom.xml or fetching from upstream.
-	if err := m.mergeParents(ctx, &project, project.Parent, 1, df.Path(), true, addAllRequirements, OriginParent); err != nil {
-		return Manifest{}, fmt.Errorf("failed to merge parents: %w", err)
-	}
-	// Interpolate to resolve properties.
-	if err := interpolate(&project); err != nil {
-		return Manifest{}, fmt.Errorf("failed to merge parents: %w", err)
-	}
-
-	// Process the dependencies:
-	//  - dedupe dependencies and dependency management
-	//  - import dependency management
-	//  - fill in missing dependency version requirement
-	project.ProcessDependencies(func(groupID, artifactID, version maven.String) (maven.DependencyManagement, error) {
-		root := maven.Parent{ProjectKey: maven.ProjectKey{GroupID: groupID, ArtifactID: artifactID, Version: version}}
-		var result maven.Project
-		if err := m.mergeParents(ctx, &result, root, 0, "", false, addAllRequirements, OriginImport); err != nil {
-			return maven.DependencyManagement{}, err
-		}
-		// Interpolate to resolve properties.
-		if err := interpolate(&result); err != nil {
-			return maven.DependencyManagement{}, err
-		}
-
-		return result.DependencyManagement, nil
-	})
-
-	count := len(project.Properties.Properties)
-	for _, prof := range project.Profiles {
-		count += len(prof.Properties.Properties)
-	}
-	properties := make([]PropertyWithOrigin, 0, count)
-	for _, prop := range project.Properties.Properties {
-		properties = append(properties, PropertyWithOrigin{Property: prop})
-	}
-
-	var requirements []resolve.RequirementVersion
-	var otherRequirements []resolve.RequirementVersion
-	groups := make(map[RequirementKey][]string)
-	addRequirements := func(deps []maven.Dependency) {
-		for _, dp := range deps {
-			origin := requirementOrigins[dp.Key()]
-			reqVer := makeRequirementVersion(dp, origin)
-			if strings.HasPrefix(origin, OriginParent+"@") || strings.HasPrefix(origin, OriginImport) {
-				otherRequirements = append(otherRequirements, reqVer)
-			}
-			origin, ok := reqVer.Type.GetAttr(dep.MavenDependencyOrigin)
-			if ok && (strings.HasPrefix(origin, "parent@") && strings.HasSuffix(origin, "@management")) {
-				reqVer.Type.AddAttr(dep.MavenDependencyOrigin, "management")
-			}
-			requirements = append(requirements, reqVer)
-			if dp.Scope != "" {
-				reqKey := mavenRequirementKey(reqVer)
-				groups[reqKey] = append(groups[reqKey], string(dp.Scope))
-			}
-		}
-	}
+	var reqsForUpdates []resolve.RequirementVersion
 	if project.Parent.GroupID != "" && project.Parent.ArtifactID != "" {
-		requirements = append(requirements, resolve.RequirementVersion{
+		reqsForUpdates = append(reqsForUpdates, resolve.RequirementVersion{
 			VersionKey: resolve.VersionKey{
 				PackageKey: resolve.PackageKey{
 					System: resolve.Maven,
@@ -220,20 +91,49 @@ func (m MavenManifestIO) Read(df lockfile.DepFile) (Manifest, error) {
 			Type: resolve.MavenDepType(maven.Dependency{}, OriginParent),
 		})
 	}
-	addRequirements(project.Dependencies)
-	addRequirements(project.DependencyManagement.Dependencies)
-	for _, profile := range project.Profiles {
-		addRequirements(profile.Dependencies)
-		addRequirements(profile.DependencyManagement.Dependencies)
-		for _, prop := range profile.Properties.Properties {
-			properties = append(properties, PropertyWithOrigin{
-				Property: prop,
-				Origin:   mavenOrigin(OriginProfile, string(profile.ID)),
-			})
+
+	// Merging parents data by parsing local parent pom.xml or fetching from upstream.
+	if err := m.mergeParents(ctx, &project, project.Parent, 1, df.Path(), true); err != nil {
+		return Manifest{}, fmt.Errorf("failed to merge parents: %w", err)
+	}
+
+	// For dependency management imports, the dependencies that imports
+	// dependencies from other projects will be replaced by the imported
+	// dependencies, so add them to requirements first.
+	for _, dep := range project.DependencyManagement.Dependencies {
+		if dep.Scope == "import" && dep.Type == "pom" {
+			reqsForUpdates = append(reqsForUpdates, makeRequirementVersion(dep, OriginManagement))
 		}
 	}
+
+	// Process the dependencies:
+	//  - dedupe dependencies and dependency management
+	//  - import dependency management
+	//  - fill in missing dependency version requirement
+	project.ProcessDependencies(func(groupID, artifactID, version maven.String) (maven.DependencyManagement, error) {
+		root := maven.Parent{ProjectKey: maven.ProjectKey{GroupID: groupID, ArtifactID: artifactID, Version: version}}
+		var result maven.Project
+		// To get dependency management from another project, we need the
+		// project with parents merged, so we call mergeParents by passing
+		// an empty project.
+		if err := m.mergeParents(ctx, &result, root, 0, "", false); err != nil {
+			return maven.DependencyManagement{}, err
+		}
+
+		return result.DependencyManagement, nil
+	})
+
+	groups := make(map[RequirementKey][]string)
+	requirements := addRequirements([]resolve.RequirementVersion{}, groups, project.Dependencies, "")
+	requirements = addRequirements(requirements, groups, project.DependencyManagement.Dependencies, OriginManagement)
+
+	// Requirements may not appear in the dependency graph but needs to be updated.
+	for _, profile := range project.Profiles {
+		reqsForUpdates = addRequirements(reqsForUpdates, groups, profile.Dependencies, "")
+		reqsForUpdates = addRequirements(reqsForUpdates, groups, profile.DependencyManagement.Dependencies, OriginManagement)
+	}
 	for _, plugin := range project.Build.PluginManagement.Plugins {
-		addRequirements(plugin.Dependencies)
+		reqsForUpdates = addRequirements(reqsForUpdates, groups, plugin.Dependencies, "")
 	}
 
 	return Manifest{
@@ -251,18 +151,99 @@ func (m MavenManifestIO) Read(df lockfile.DepFile) (Manifest, error) {
 		Requirements: requirements,
 		Groups:       groups,
 		EcosystemSpecific: MavenManifestSpecific{
-			Properties:                 properties,
-			RequirementsWithProperties: reqsWithProps,
-			RequirementsFromOtherPOMs:  otherRequirements,
+			Properties:             properties,
+			OriginalRequirements:   origRequirements,
+			RequirementsForUpdates: reqsForUpdates,
 		},
 	}, nil
+}
+
+func addRequirements(reqs []resolve.RequirementVersion, groups map[RequirementKey][]string, deps []maven.Dependency, origin string) []resolve.RequirementVersion {
+	for _, d := range deps {
+		reqVer := makeRequirementVersion(d, origin)
+		reqs = append(reqs, reqVer)
+		if d.Scope != "" {
+			reqKey := mavenRequirementKey(reqVer)
+			groups[reqKey] = append(groups[reqKey], string(d.Scope))
+		}
+	}
+
+	return reqs
+}
+
+func buildPropertiesWithOrigins(project maven.Project) []PropertyWithOrigin {
+	count := len(project.Properties.Properties)
+	for _, prof := range project.Profiles {
+		count += len(prof.Properties.Properties)
+	}
+	properties := make([]PropertyWithOrigin, 0, count)
+	for _, prop := range project.Properties.Properties {
+		properties = append(properties, PropertyWithOrigin{Property: prop})
+	}
+	for _, profile := range project.Profiles {
+		for _, prop := range profile.Properties.Properties {
+			properties = append(properties, PropertyWithOrigin{
+				Property: prop,
+				Origin:   mavenOrigin(OriginProfile, string(profile.ID)),
+			})
+		}
+	}
+
+	return properties
+}
+
+func buildOriginalRequirements(project maven.Project) []DependencyWithOrigin {
+	var dependencies []DependencyWithOrigin //nolint:prealloc
+	if project.Parent.GroupID != "" && project.Parent.ArtifactID != "" {
+		dependencies = append(dependencies, DependencyWithOrigin{
+			Dependency: maven.Dependency{
+				GroupID:    project.Parent.GroupID,
+				ArtifactID: project.Parent.ArtifactID,
+				Version:    project.Parent.Version,
+			},
+			Origin: OriginParent,
+		})
+	}
+	for _, d := range project.Dependencies {
+		dependencies = append(dependencies, DependencyWithOrigin{Dependency: d})
+	}
+	for _, d := range project.DependencyManagement.Dependencies {
+		dependencies = append(dependencies, DependencyWithOrigin{
+			Dependency: d,
+			Origin:     OriginManagement,
+		})
+	}
+	for _, prof := range project.Profiles {
+		for _, d := range prof.Dependencies {
+			dependencies = append(dependencies, DependencyWithOrigin{
+				Dependency: d,
+				Origin:     mavenOrigin(OriginProfile, string(prof.ID)),
+			})
+		}
+		for _, d := range prof.DependencyManagement.Dependencies {
+			dependencies = append(dependencies, DependencyWithOrigin{
+				Dependency: d,
+				Origin:     mavenOrigin(OriginProfile, string(prof.ID), OriginManagement),
+			})
+		}
+	}
+	for _, plugin := range project.Build.PluginManagement.Plugins {
+		for _, d := range plugin.Dependencies {
+			dependencies = append(dependencies, DependencyWithOrigin{
+				Dependency: d,
+				Origin:     mavenOrigin(OriginPlugin, plugin.ProjectKey.Name()),
+			})
+		}
+	}
+
+	return dependencies
 }
 
 // To avoid indefinite loop when fetching parents,
 // set a limit on the number of parents.
 const MaxParent = 100
 
-func (m MavenManifestIO) mergeParents(ctx context.Context, result *maven.Project, current maven.Parent, start int, path string, allowLocal bool, addRequirements func(maven.Project, string), prefix string) error {
+func (m MavenManifestIO) mergeParents(ctx context.Context, result *maven.Project, current maven.Parent, start int, path string, allowLocal bool) error {
 	currentPath := path
 	visited := make(map[maven.ProjectKey]bool, MaxParent)
 	for n := start; n < MaxParent; n++ {
@@ -274,7 +255,6 @@ func (m MavenManifestIO) mergeParents(ctx context.Context, result *maven.Project
 			return errors.New("a cycle of parents is detected")
 		}
 		visited[current.ProjectKey] = true
-
 		var proj maven.Project
 		if allowLocal && current.RelativePath != "" {
 			currentPath = filepath.Join(filepath.Dir(currentPath), string(current.RelativePath))
@@ -293,7 +273,6 @@ func (m MavenManifestIO) mergeParents(ctx context.Context, result *maven.Project
 			// Once we fetch a parent pom.xml from upstream, we should not allow
 			// parsing parent pom.xml locally anymore.
 			allowLocal = false
-
 			var err error
 			proj, err = m.MavenRegistryAPIClient.GetProject(ctx, string(current.GroupID), string(current.ArtifactID), string(current.Version))
 			if err != nil {
@@ -304,12 +283,11 @@ func (m MavenManifestIO) mergeParents(ctx context.Context, result *maven.Project
 				return fmt.Errorf("invalid packaging for parent project %s", proj.Packaging)
 			}
 		}
-		addRequirements(proj, mavenOrigin(prefix, current.ProjectKey.Name()))
 		result.MergeParent(proj)
 		current = proj.Parent
 	}
 
-	return nil
+	return result.Interpolate()
 }
 
 // For dependencies in profiles and plugins, we use origin to indicate where they are from.

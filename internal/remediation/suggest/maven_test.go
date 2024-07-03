@@ -85,6 +85,9 @@ func TestSuggest(t *testing.T) {
 		t.Fatalf("failed to get Maven suggester: %v", err)
 	}
 
+	depProfileTwoMgmt.AddAttr(dep.MavenArtifactType, "pom")
+	depProfileTwoMgmt.AddAttr(dep.Scope, "import")
+
 	mf := manifest.Manifest{
 		FilePath: filepath.Join("fixtures", "pom.xml"),
 		Root: resolve.Version{
@@ -99,17 +102,6 @@ func TestSuggest(t *testing.T) {
 		},
 		Requirements: []resolve.RequirementVersion{
 			{
-				VersionKey: resolve.VersionKey{
-					PackageKey: resolve.PackageKey{
-						System: resolve.Maven,
-						Name:   "com.mycompany.app:parent-pom",
-					},
-					VersionType: resolve.Requirement,
-					Version:     "1.0.0",
-				},
-				Type: depParent,
-			},
-			{
 				// Test dependencies are not updated.
 				VersionKey: resolve.VersionKey{
 					PackageKey: resolve.PackageKey{
@@ -119,7 +111,7 @@ func TestSuggest(t *testing.T) {
 					VersionType: resolve.Requirement,
 					Version:     "4.12",
 				},
-				// Type: dep.NewType(dep.Test), test scope is ignored to make resolution work.
+				Type: dep.NewType(dep.Test),
 			},
 			{
 				VersionKey: resolve.VersionKey{
@@ -198,51 +190,6 @@ func TestSuggest(t *testing.T) {
 				},
 				Type: depMgmt,
 			},
-			{
-				VersionKey: resolve.VersionKey{
-					PackageKey: resolve.PackageKey{
-						System: resolve.Maven,
-						Name:   "org.profile:abc",
-					},
-					VersionType: resolve.Requirement,
-					Version:     "1.2.3",
-				},
-				Type: depProfileOne,
-			},
-			{
-				VersionKey: resolve.VersionKey{
-					PackageKey: resolve.PackageKey{
-						System: resolve.Maven,
-						Name:   "org.profile:def",
-					},
-					VersionType: resolve.Requirement,
-					Version:     "2.3.4",
-				},
-				Type: depProfileOne,
-			},
-			{
-				// A package is specified to ignore major updates.
-				VersionKey: resolve.VersionKey{
-					PackageKey: resolve.PackageKey{
-						System: resolve.Maven,
-						Name:   "org.import:xyz",
-					},
-					VersionType: resolve.Requirement,
-					Version:     "6.6.6",
-				},
-				Type: depProfileTwoMgmt,
-			},
-			{
-				VersionKey: resolve.VersionKey{
-					PackageKey: resolve.PackageKey{
-						System: resolve.Maven,
-						Name:   "org.dep:plugin-dep",
-					},
-					VersionType: resolve.Requirement,
-					Version:     "2.3.3",
-				},
-				Type: depPlugin,
-			},
 		},
 		Groups: map[manifest.RequirementKey][]string{
 			mavenReqKey(t, "junit:junit", "", ""):    {"test"},
@@ -250,57 +197,113 @@ func TestSuggest(t *testing.T) {
 		},
 		EcosystemSpecific: manifest.MavenManifestSpecific{
 			Properties: []manifest.PropertyWithOrigin{
-				{Property: maven.Property{Name: "project.build.sourceEncoding", Value: "UTF-8"}},
-				{Property: maven.Property{Name: "maven.compiler.source", Value: "1.7"}},
-				{Property: maven.Property{Name: "maven.compiler.target", Value: "1.7"}},
 				{Property: maven.Property{Name: "property.version", Value: "1.0.0"}},
 				{Property: maven.Property{Name: "no.update.minor", Value: "9"}},
+				{Property: maven.Property{Name: "def.version", Value: "2.3.4"}, Origin: "profile@profile-one"},
 			},
-			RequirementsWithProperties: []resolve.RequirementVersion{
+			OriginalRequirements: []manifest.DependencyWithOrigin{
 				{
-					// The universal property should be updated.
-					VersionKey: resolve.VersionKey{
-						PackageKey: resolve.PackageKey{
-							System: resolve.Maven,
-							Name:   "org.example:property",
-						},
-						VersionType: resolve.Requirement,
-						Version:     "${property.version}",
-					},
+					Dependency: maven.Dependency{GroupID: "com.mycompany.app", ArtifactID: "parent-pom", Version: "1.0.0"},
+					Origin:     manifest.OriginParent,
 				},
 				{
-					// Property cannot be updated, so update the dependency directly.
-					VersionKey: resolve.VersionKey{
-						PackageKey: resolve.PackageKey{
-							System: resolve.Maven,
-							Name:   "org.example:property-no-update",
-						},
-						VersionType: resolve.Requirement,
-						Version:     "1.${no.update.minor}",
-					},
+					Dependency: maven.Dependency{GroupID: "junit", ArtifactID: "junit", Version: "${junit.version}", Scope: "test"},
 				},
 				{
-					// The propety is updated to the same value.
-					VersionKey: resolve.VersionKey{
-						PackageKey: resolve.PackageKey{
-							System: resolve.Maven,
-							Name:   "org.example:same-property",
-						},
-						VersionType: resolve.Requirement,
-						Version:     "${property.version}",
-					},
+					Dependency: maven.Dependency{GroupID: "org.example", ArtifactID: "abc", Version: "1.0.1"},
 				},
 				{
-					// Property needs to be updated to a different value,
-					// so update dependency directly.
+					Dependency: maven.Dependency{GroupID: "org.example", ArtifactID: "no-updates", Version: "9.9.9"},
+				},
+				{
+					Dependency: maven.Dependency{GroupID: "org.example", ArtifactID: "property", Version: "${property.version}"},
+				},
+				{
+					Dependency: maven.Dependency{GroupID: "org.example", ArtifactID: "property-no-update", Version: "1.${no.update.minor}"},
+				},
+				{
+					Dependency: maven.Dependency{GroupID: "org.example", ArtifactID: "same-property", Version: "${property.version}"},
+				},
+				{
+					Dependency: maven.Dependency{GroupID: "org.example", ArtifactID: "another-property", Version: "${property.version}"},
+				},
+				{
+					Dependency: maven.Dependency{GroupID: "org.example", ArtifactID: "xyz", Version: "2.0.0"},
+					Origin:     manifest.OriginManagement,
+				},
+				{
+					Dependency: maven.Dependency{GroupID: "org.profile", ArtifactID: "abc", Version: "1.2.3"},
+					Origin:     "profile@profile-one",
+				},
+				{
+					Dependency: maven.Dependency{GroupID: "org.profile", ArtifactID: "def", Version: "${def.version}"},
+					Origin:     "profile@profile-one",
+				},
+				{
+					Dependency: maven.Dependency{GroupID: "org.import", ArtifactID: "xyz", Version: "6.6.6", Scope: "import", Type: "pom"},
+					Origin:     "profile@profile-two@management",
+				},
+				{
+					Dependency: maven.Dependency{GroupID: "org.dep", ArtifactID: "plugin-dep", Version: "2.3.3"},
+					Origin:     "plugin@org.plugin:plugin",
+				},
+			},
+			RequirementsForUpdates: []resolve.RequirementVersion{
+				{
 					VersionKey: resolve.VersionKey{
 						PackageKey: resolve.PackageKey{
 							System: resolve.Maven,
-							Name:   "org.example:another-property",
+							Name:   "com.mycompany.app:parent-pom",
 						},
 						VersionType: resolve.Requirement,
-						Version:     "${property.version}",
+						Version:     "1.0.0",
 					},
+					Type: depParent,
+				},
+				{
+					VersionKey: resolve.VersionKey{
+						PackageKey: resolve.PackageKey{
+							System: resolve.Maven,
+							Name:   "org.profile:abc",
+						},
+						VersionType: resolve.Requirement,
+						Version:     "1.2.3",
+					},
+					Type: depProfileOne,
+				},
+				{
+					VersionKey: resolve.VersionKey{
+						PackageKey: resolve.PackageKey{
+							System: resolve.Maven,
+							Name:   "org.profile:def",
+						},
+						VersionType: resolve.Requirement,
+						Version:     "2.3.4",
+					},
+					Type: depProfileOne,
+				},
+				{
+					// A package is specified to ignore major updates.
+					VersionKey: resolve.VersionKey{
+						PackageKey: resolve.PackageKey{
+							System: resolve.Maven,
+							Name:   "org.import:xyz",
+						},
+						VersionType: resolve.Requirement,
+						Version:     "6.6.6",
+					},
+					Type: depProfileTwoMgmt,
+				},
+				{
+					VersionKey: resolve.VersionKey{
+						PackageKey: resolve.PackageKey{
+							System: resolve.Maven,
+							Name:   "org.dep:plugin-dep",
+						},
+						VersionType: resolve.Requirement,
+						Version:     "2.3.3",
+					},
+					Type: depPlugin,
 				},
 			},
 		},
@@ -370,18 +373,13 @@ func TestSuggest(t *testing.T) {
 				Type:       depProfileOne,
 				NewRequire: "1.2.4",
 			},
-			{
-				Pkg: resolve.PackageKey{
-					System: resolve.Maven,
-					Name:   "org.profile:def",
-				},
-				Type:       depProfileOne,
-				NewRequire: "2.3.5",
-			},
 		},
 		EcosystemSpecific: manifest.MavenPropertyPatches{
 			"": {
 				"property.version": "1.0.1",
+			},
+			"profile@profile-one": {
+				"def.version": "2.3.5",
 			},
 		},
 	}

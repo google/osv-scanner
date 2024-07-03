@@ -25,7 +25,7 @@ require (
 	github.com/owenrumney/go-sarif/v2 v2.3.1
 	github.com/package-url/packageurl-go v0.1.3
 	github.com/pandatix/go-cvss v0.6.2
-	github.com/spdx/tools-golang v0.5.4
+	github.com/spdx/tools-golang v0.5.5
 	github.com/tidwall/gjson v1.17.1
 	github.com/tidwall/pretty v1.2.1
 	github.com/tidwall/sjson v1.2.5
