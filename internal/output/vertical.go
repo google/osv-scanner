@@ -13,7 +13,7 @@ import (
 func PrintVerticalResults(vulnResult *models.VulnerabilityResults, outputWriter io.Writer) {
 	for i, result := range vulnResult.Results {
 		printVerticalHeader(result, outputWriter)
-		printVerticalVulnerabilities(result, outputWriter)
+		printVerticalVulnerabilities(result, outputWriter, true)
 
 		if len(vulnResult.ExperimentalAnalysisConfig.Licenses.Allowlist) > 0 {
 			printVerticalLicenseViolations(result, outputWriter)
@@ -35,7 +35,27 @@ func printVerticalHeader(result models.PackageSource, out io.Writer) {
 	)
 }
 
-func printVerticalVulnerabilities(result models.PackageSource, out io.Writer) {
+func collectVulns(pkg models.PackageVulns, called bool) []models.Vulnerability {
+	vulns := make([]models.Vulnerability, 0)
+
+	for _, group := range pkg.Groups {
+		if group.IsCalled() != called {
+			continue
+		}
+
+		for _, ids := range group.IDs {
+			for _, v := range pkg.Vulnerabilities {
+				if v.ID == ids {
+					vulns = append(vulns, v)
+				}
+			}
+		}
+	}
+
+	return vulns
+}
+
+func printVerticalVulnerabilities(result models.PackageSource, out io.Writer, called bool) {
 	count := countVulnerabilities(result)
 
 	if count == 0 {
@@ -51,7 +71,9 @@ func printVerticalVulnerabilities(result models.PackageSource, out io.Writer) {
 	fmt.Fprintln(out)
 
 	for _, pkg := range result.Packages {
-		if len(pkg.Vulnerabilities) == 0 {
+		vulns := collectVulns(pkg, called)
+
+		if len(vulns) == 0 {
 			continue
 		}
 
@@ -61,7 +83,7 @@ func printVerticalVulnerabilities(result models.PackageSource, out io.Writer) {
 			text.FgRed.Sprintf("is affected by the following vulnerabilities:"),
 		)
 
-		for _, vulnerability := range pkg.Vulnerabilities {
+		for _, vulnerability := range vulns {
 			fmt.Fprintf(out,
 				"    %s %s\n",
 				text.FgCyan.Sprintf("%s:", vulnerability.ID),
@@ -126,7 +148,11 @@ func countVulnerabilities(result models.PackageSource) int {
 	count := 0
 
 	for _, pkg := range result.Packages {
-		count += len(pkg.Vulnerabilities)
+		for _, g := range pkg.Groups {
+			if g.IsCalled() {
+				count += len(g.IDs)
+			}
+		}
 	}
 
 	return count

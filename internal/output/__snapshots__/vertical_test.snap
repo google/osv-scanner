@@ -204,11 +204,7 @@ path/to/my/second/lockfile: found 1 package with issues
 
 [TestPrintVerticalResults_WithMixedIssues/multiple_sources_with_a_mixed_count_of_packages,_some_called_vulnerabilities_and_license_violations - 1]
 path/to/my/first/lockfile: found 1 package with issues
-
-  mine1@1.2.3 is affected by the following vulnerabilities:
-    OSV-1: Something scary! (https://osv.dev/OSV-1)
-
-  1 known vulnerability found in path/to/my/first/lockfile
+  no known vulnerabilities found
 
   license violations found:
     mine1@1.2.3 (MIT)
@@ -224,11 +220,7 @@ path/to/my/second/lockfile: found 2 packages with issues
   no license violations found
 
 path/to/my/third/lockfile: found 2 packages with issues
-
-  mine1@1.2.3 is affected by the following vulnerabilities:
-    OSV-1: Something scary! (https://osv.dev/OSV-1)
-
-  1 known vulnerability found in path/to/my/third/lockfile
+  no known vulnerabilities found
 
   license violations found:
     mine1@1.3.5 (MIT)
@@ -291,11 +283,7 @@ path/to/my/first/lockfile: found 1 package with issues
 
 [TestPrintVerticalResults_WithMixedIssues/one_source_with_one_package,_one_uncalled_vulnerability,_and_one_license_violation - 1]
 path/to/my/first/lockfile: found 1 package with issues
-
-  mine1@1.2.3 is affected by the following vulnerabilities:
-    OSV-1: Something scary! (https://osv.dev/OSV-1)
-
-  1 known vulnerability found in path/to/my/first/lockfile
+  no known vulnerabilities found
 
   license violations found:
     mine1@1.2.3 (MIT)
@@ -447,12 +435,11 @@ path/to/my/second/lockfile: found 2 packages with issues
 path/to/my/first/lockfile: found 2 packages with issues
 
   author1/mine1@1.2.3 is affected by the following vulnerabilities:
-    OSV-1: Something scary! (https://osv.dev/OSV-1)
     OSV-5: Something scarier! (https://osv.dev/OSV-5)
   mine1@1.2.2 is affected by the following vulnerabilities:
     OSV-1: Something scary! (https://osv.dev/OSV-1)
 
-  3 known vulnerabilities found in path/to/my/first/lockfile
+  2 known vulnerabilities found in path/to/my/first/lockfile
 
 path/to/my/second/lockfile: found 2 packages with issues
 
@@ -499,9 +486,8 @@ path/to/my/first/lockfile: found 1 package with issues
 
   mine1@1.2.3 is affected by the following vulnerabilities:
     OSV-1: Something scary! (https://osv.dev/OSV-1)
-    GHSA-123: Something scarier! (https://osv.dev/GHSA-123)
 
-  2 known vulnerabilities found in path/to/my/first/lockfile
+  1 known vulnerability found in path/to/my/first/lockfile
 
 ---
 
@@ -517,11 +503,7 @@ path/to/my/first/lockfile: found 1 package with issues
 
 [TestPrintVerticalResults_WithVulnerabilities/one_source_with_one_package_and_one_uncalled_vulnerability - 1]
 path/to/my/first/lockfile: found 1 package with issues
-
-  mine1@1.2.3 is affected by the following vulnerabilities:
-    OSV-1: Something scary! (https://osv.dev/OSV-1)
-
-  1 known vulnerability found in path/to/my/first/lockfile
+  no known vulnerabilities found
 
 ---
 
@@ -547,12 +529,7 @@ path/to/my/first/lockfile: found 1 package with issues
 
 [TestPrintVerticalResults_WithVulnerabilities/one_source_with_one_package_and_two_aliases_of_a_single_uncalled_vulnerability - 1]
 path/to/my/first/lockfile: found 1 package with issues
-
-  mine1@1.2.3 is affected by the following vulnerabilities:
-    OSV-1: Something scary! (https://osv.dev/OSV-1)
-    GHSA-123: Something scary! (https://osv.dev/GHSA-123)
-
-  2 known vulnerabilities found in path/to/my/first/lockfile
+  no known vulnerabilities found
 
 ---
 
