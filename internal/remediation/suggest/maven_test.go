@@ -7,7 +7,6 @@ import (
 	"sort"
 	"testing"
 
-	"deps.dev/util/maven"
 	"deps.dev/util/resolve"
 	"deps.dev/util/resolve/dep"
 	"github.com/google/osv-scanner/internal/resolution/manifest"
@@ -196,58 +195,6 @@ func TestSuggest(t *testing.T) {
 			mavenReqKey(t, "org.import:xyz", "", ""): {"import"},
 		},
 		EcosystemSpecific: manifest.MavenManifestSpecific{
-			Properties: []manifest.PropertyWithOrigin{
-				{Property: maven.Property{Name: "property.version", Value: "1.0.0"}},
-				{Property: maven.Property{Name: "no.update.minor", Value: "9"}},
-				{Property: maven.Property{Name: "def.version", Value: "2.3.4"}, Origin: "profile@profile-one"},
-			},
-			OriginalRequirements: []manifest.DependencyWithOrigin{
-				{
-					Dependency: maven.Dependency{GroupID: "com.mycompany.app", ArtifactID: "parent-pom", Version: "1.0.0"},
-					Origin:     manifest.OriginParent,
-				},
-				{
-					Dependency: maven.Dependency{GroupID: "junit", ArtifactID: "junit", Version: "${junit.version}", Scope: "test"},
-				},
-				{
-					Dependency: maven.Dependency{GroupID: "org.example", ArtifactID: "abc", Version: "1.0.1"},
-				},
-				{
-					Dependency: maven.Dependency{GroupID: "org.example", ArtifactID: "no-updates", Version: "9.9.9"},
-				},
-				{
-					Dependency: maven.Dependency{GroupID: "org.example", ArtifactID: "property", Version: "${property.version}"},
-				},
-				{
-					Dependency: maven.Dependency{GroupID: "org.example", ArtifactID: "property-no-update", Version: "1.${no.update.minor}"},
-				},
-				{
-					Dependency: maven.Dependency{GroupID: "org.example", ArtifactID: "same-property", Version: "${property.version}"},
-				},
-				{
-					Dependency: maven.Dependency{GroupID: "org.example", ArtifactID: "another-property", Version: "${property.version}"},
-				},
-				{
-					Dependency: maven.Dependency{GroupID: "org.example", ArtifactID: "xyz", Version: "2.0.0"},
-					Origin:     manifest.OriginManagement,
-				},
-				{
-					Dependency: maven.Dependency{GroupID: "org.profile", ArtifactID: "abc", Version: "1.2.3"},
-					Origin:     "profile@profile-one",
-				},
-				{
-					Dependency: maven.Dependency{GroupID: "org.profile", ArtifactID: "def", Version: "${def.version}"},
-					Origin:     "profile@profile-one",
-				},
-				{
-					Dependency: maven.Dependency{GroupID: "org.import", ArtifactID: "xyz", Version: "6.6.6", Scope: "import", Type: "pom"},
-					Origin:     "profile@profile-two@management",
-				},
-				{
-					Dependency: maven.Dependency{GroupID: "org.dep", ArtifactID: "plugin-dep", Version: "2.3.3"},
-					Origin:     "plugin@org.plugin:plugin",
-				},
-			},
 			RequirementsForUpdates: []resolve.RequirementVersion{
 				{
 					VersionKey: resolve.VersionKey{
@@ -345,9 +292,23 @@ func TestSuggest(t *testing.T) {
 			{
 				Pkg: resolve.PackageKey{
 					System: resolve.Maven,
+					Name:   "org.example:property",
+				},
+				NewRequire: "1.0.1",
+			},
+			{
+				Pkg: resolve.PackageKey{
+					System: resolve.Maven,
 					Name:   "org.example:property-no-update",
 				},
 				NewRequire: "2.0.0",
+			},
+			{
+				Pkg: resolve.PackageKey{
+					System: resolve.Maven,
+					Name:   "org.example:same-property",
+				},
+				NewRequire: "1.0.1",
 			},
 			{
 				Pkg: resolve.PackageKey{
@@ -373,13 +334,73 @@ func TestSuggest(t *testing.T) {
 				Type:       depProfileOne,
 				NewRequire: "1.2.4",
 			},
-		},
-		EcosystemSpecific: manifest.MavenPropertyPatches{
-			"": {
-				"property.version": "1.0.1",
+			{
+				Pkg: resolve.PackageKey{
+					System: resolve.Maven,
+					Name:   "org.profile:def",
+				},
+				Type:       depProfileOne,
+				NewRequire: "2.3.5",
 			},
-			"profile@profile-one": {
-				"def.version": "2.3.5",
+		},
+		EcosystemSpecific: manifest.MavenManifestSpecific{
+			// Copied from Manifest.EcosystemSpecific
+			RequirementsForUpdates: []resolve.RequirementVersion{
+				{
+					VersionKey: resolve.VersionKey{
+						PackageKey: resolve.PackageKey{
+							System: resolve.Maven,
+							Name:   "com.mycompany.app:parent-pom",
+						},
+						VersionType: resolve.Requirement,
+						Version:     "1.0.0",
+					},
+					Type: depParent,
+				},
+				{
+					VersionKey: resolve.VersionKey{
+						PackageKey: resolve.PackageKey{
+							System: resolve.Maven,
+							Name:   "org.profile:abc",
+						},
+						VersionType: resolve.Requirement,
+						Version:     "1.2.3",
+					},
+					Type: depProfileOne,
+				},
+				{
+					VersionKey: resolve.VersionKey{
+						PackageKey: resolve.PackageKey{
+							System: resolve.Maven,
+							Name:   "org.profile:def",
+						},
+						VersionType: resolve.Requirement,
+						Version:     "2.3.4",
+					},
+					Type: depProfileOne,
+				},
+				{
+					VersionKey: resolve.VersionKey{
+						PackageKey: resolve.PackageKey{
+							System: resolve.Maven,
+							Name:   "org.import:xyz",
+						},
+						VersionType: resolve.Requirement,
+						Version:     "6.6.6",
+					},
+					Type: depProfileTwoMgmt,
+				},
+				{
+					VersionKey: resolve.VersionKey{
+						PackageKey: resolve.PackageKey{
+							System: resolve.Maven,
+							Name:   "org.dep:plugin-dep",
+						},
+						VersionType: resolve.Requirement,
+						Version:     "2.3.3",
+					},
+					Type: depPlugin,
+				},
 			},
 		},
 	}
@@ -446,30 +467,6 @@ func TestSuggestVersion(t *testing.T) {
 		}
 		if !reflect.DeepEqual(got, want) {
 			t.Errorf("suggestMavenVersion(%v, %t): got %s want %s", vk, test.noMajorUpdates, got, want)
-		}
-	}
-}
-
-func TestGeneratePropertyPatches(t *testing.T) {
-	t.Parallel()
-	tests := []struct {
-		s1       string
-		s2       string
-		possible bool
-		patches  map[string]string
-	}{
-		{"${version}", "1.2.3", true, map[string]string{"version": "1.2.3"}},
-		{"${major}.2.3", "1.2.3", true, map[string]string{"major": "1"}},
-		{"1.${minor}.3", "1.2.3", true, map[string]string{"minor": "2"}},
-		{"1.2.${patch}", "1.2.3", true, map[string]string{"patch": "3"}},
-		{"${major}.${minor}.${patch}", "1.2.3", true, map[string]string{"major": "1", "minor": "2", "patch": "3"}},
-		{"${major}.2.3", "2.0.0", false, map[string]string{}},
-		{"1.${minor}.3", "2.0.0", false, map[string]string{}},
-	}
-	for _, test := range tests {
-		patches, ok := generatePropertyPatches(test.s1, test.s2)
-		if ok != test.possible || !reflect.DeepEqual(patches, test.patches) {
-			t.Errorf("generatePropertyPatches(%s, %s): got %v %v, want %v %v", test.s1, test.s2, patches, ok, test.patches, test.possible)
 		}
 	}
 }

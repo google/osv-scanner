@@ -5,9 +5,7 @@ import (
 	"errors"
 	"fmt"
 	"log"
-	"strings"
 
-	"deps.dev/util/maven"
 	"deps.dev/util/resolve"
 	"deps.dev/util/semver"
 	"github.com/google/osv-scanner/internal/resolution/manifest"
@@ -26,8 +24,7 @@ func (ms *MavenSuggester) Suggest(ctx context.Context, client resolve.Client, mf
 		return manifest.ManifestPatch{}, errors.New("invalid MavenManifestSpecific data")
 	}
 
-	var changedDeps []manifest.DependencyPatch
-	propertyPatches := manifest.MavenPropertyPatches{}
+	var changedDeps []manifest.DependencyPatch //nolint:prealloc
 	for _, req := range append(mf.Requirements, specific.RequirementsForUpdates...) {
 		if slices.Contains(opts.NoUpdates, req.Name) {
 			continue
@@ -47,70 +44,16 @@ func (ms *MavenSuggester) Suggest(ctx context.Context, client resolve.Client, mf
 			continue
 		}
 
-		patch := manifest.DependencyPatch{
+		changedDeps = append(changedDeps, manifest.DependencyPatch{
 			Pkg:        req.PackageKey,
 			Type:       req.Type,
 			NewRequire: latest.Version,
-		}
-		origDep := originalDependency(patch, specific.OriginalRequirements)
-		if origDep.Name() == "" {
-			// An empty name indicates the dependency is not found, so the original dependency is not in the base project.
-			continue
-		}
-
-		patch.Type = resolve.MavenDepType(origDep.Dependency, origDep.Origin)
-		if !origDep.Version.ContainsProperty() {
-			// The original requirement does not contain a property placeholder.
-			changedDeps = append(changedDeps, patch)
-			continue
-		}
-
-		patches, ok := generatePropertyPatches(string(origDep.Version), patch.NewRequire)
-		if !ok {
-			// Not able to update properties to update the requirement.
-			// Update the dependency directly instead.
-			changedDeps = append(changedDeps, patch)
-			continue
-		}
-
-		depOrigin := origDep.Origin
-		if strings.HasPrefix(depOrigin, manifest.OriginProfile) {
-			// Dependency management is not indicated in property origin.
-			depOrigin, _ = strings.CutSuffix(depOrigin, "@"+manifest.OriginManagement)
-		} else {
-			// Properties are defined either universally or in a profile. For property
-			// origin not starting with 'profile', this is an universal property.
-			depOrigin = ""
-		}
-
-		for name, value := range patches {
-			// A dependency in a profile may contain properties from this profile or
-			// properties universally defined. We need to figure out the origin of these
-			// properties. If a property is defined both universally and in the profile,
-			// we use the profile's origin.
-			propertyOrigin := ""
-			for _, p := range specific.Properties {
-				if p.Name == name && p.Origin != "" && p.Origin == depOrigin {
-					propertyOrigin = depOrigin
-				}
-			}
-			if _, ok := propertyPatches[propertyOrigin]; !ok {
-				propertyPatches[propertyOrigin] = make(map[string]string)
-			}
-			// This property has been set to update to a value. If both values are the
-			// same, we do nothing; otherwise, instead of updating the property, we
-			// should update the dependency directly.
-			if preset, ok := propertyPatches[propertyOrigin][name]; !ok {
-				propertyPatches[propertyOrigin][name] = value
-			} else if preset != value {
-				changedDeps = append(changedDeps, patch)
-			}
-		}
+		})
 	}
 
 	return manifest.ManifestPatch{
 		Deps:              changedDeps,
-		EcosystemSpecific: propertyPatches,
+		EcosystemSpecific: specific,
 	}, nil
 }
 
@@ -175,61 +118,4 @@ func suggestMavenVersion(ctx context.Context, client resolve.Client, req resolve
 	}
 
 	return req, nil
-}
-
-// originalDependency returns the original dependency of a dependency patch.
-// If the dependency is not found, an empty dependency is returned.
-func originalDependency(patch manifest.DependencyPatch, origDeps []manifest.DependencyWithOrigin) manifest.DependencyWithOrigin {
-	IDs := strings.Split(patch.Pkg.Name, ":")
-	if len(IDs) != 2 {
-		return manifest.DependencyWithOrigin{}
-	}
-
-	dependency, _, _ := resolve.MavenDepTypeToDependency(patch.Type)
-	dependency.GroupID = maven.String(IDs[0])
-	dependency.ArtifactID = maven.String(IDs[1])
-
-	for _, d := range origDeps {
-		if d.Key() == dependency.Key() {
-			return d
-		}
-	}
-
-	return manifest.DependencyWithOrigin{}
-}
-
-// generatePropertyPatches returns whether we are able to assign values to
-// placeholder keys to convert s1 to s2, as well as the generated patches.
-// s1 contains property placeholders like '${name}' and s2 is the target string.
-func generatePropertyPatches(s1, s2 string) (map[string]string, bool) {
-	patches := make(map[string]string)
-	ok := generatePropertyPatchesAux(s1, s2, patches)
-
-	return patches, ok
-}
-
-// generatePropertyPatchesAux generates property patches and store them in patches.
-// TODO: property may refer to another property ${${name}.version}
-func generatePropertyPatchesAux(s1, s2 string, patches map[string]string) bool {
-	start := strings.Index(s1, "${")
-	if s1[:start] != s2[:start] {
-		// Cannot update property to match the prefix
-		return false
-	}
-	end := strings.Index(s1, "}")
-	next := strings.Index(s1[end+1:], "${")
-	if next < 0 {
-		// There are no more placeholders.
-		remainder := s1[end+1:]
-		if remainder == s2[len(s2)-len(remainder):] {
-			patches[s1[start+2:end]] = s2[start : len(s2)-len(remainder)]
-			return true
-		}
-	} else if match := strings.Index(s2[start:], s1[end+1:end+1+next]); match > 0 {
-		// Try to match the substring between two property placeholders.
-		patches[s1[start+2:end]] = s2[start : start+match]
-		return generatePropertyPatchesAux(s1[end+1:], s2[start+match:], patches)
-	}
-
-	return false
 }
