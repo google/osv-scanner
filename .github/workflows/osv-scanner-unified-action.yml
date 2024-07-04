@@ -20,7 +20,7 @@ on:
   merge_group:
     branches: ["main"]
   schedule:
-    - cron: "12 12 * * 1"
+  - cron: "12 12 * * 1"
   push:
     branches: ["main"]
 
@@ -34,7 +34,8 @@ jobs:
       contents: read # to fetch code (actions/checkout)
       security-events: write # for uploading SARIF files
     if: ${{ github.event_name == 'push' || github.event_name == 'schedule' }}
-    uses: "google/osv-scanner-action/.github/workflows/osv-scanner-reusable.yml@staging"
+    # If you want to copy this config, highly suggest pinning this version to a release rather than tracking the main branch
+    uses: "google/osv-scanner-action/.github/workflows/osv-scanner-reusable.yml@main"
     with:
       # Just scan the root directory and docs, since everything else is fixtures
       scan-args: |-
@@ -46,7 +47,8 @@ jobs:
       contents: read # to fetch code (actions/checkout)
       security-events: write # for uploading SARIF files
     if: ${{ github.event_name == 'pull_request' || github.event_name == 'merge_group' }}
-    uses: "google/osv-scanner-action/.github/workflows/osv-scanner-reusable-pr.yml@staging"
+    # If you want to copy this config, highly suggest pinning this version to a release rather than tracking the main branch
+    uses: "google/osv-scanner-action/.github/workflows/osv-scanner-reusable-pr.yml@main"
     with:
       # Just scan the root directory and docs, since everything else is fixtures
       scan-args: |-
