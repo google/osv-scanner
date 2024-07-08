@@ -1,6 +1,8 @@
 package sbom
 
 import (
+	"slices"
+	"strings"
 	"time"
 
 	"github.com/CycloneDX/cyclonedx-go"
@@ -27,6 +29,10 @@ func buildCycloneDXBom(uniquePackages map[string]models.PackageVulns) *cyclonedx
 
 		components = append(components, component)
 	}
+
+	slices.SortFunc(components, func(a, b cyclonedx.Component) int {
+		return strings.Compare(a.PackageURL, b.PackageURL)
+	})
 
 	for _, vulnerability := range vulnerabilities {
 		bomVulnerabilities = append(bomVulnerabilities, vulnerability)
