@@ -94,7 +94,7 @@ Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
 [TestRun/Empty_sarif_output - 1]
 {
   "version": "2.1.0",
-  "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/master/Schemata/sarif-schema-2.1.0.json",
+  "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/main/sarif-2.1/schema/sarif-schema-2.1.0.json",
   "runs": [
     {
       "tool": {
@@ -188,7 +188,7 @@ Filtered 1 vulnerability from output
 [TestRun/Sarif_with_vulns - 1]
 {
   "version": "2.1.0",
-  "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/master/Schemata/sarif-schema-2.1.0.json",
+  "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/main/sarif-2.1/schema/sarif-schema-2.1.0.json",
   "runs": [
     {
       "tool": {
@@ -522,7 +522,7 @@ Scanned <rootdir>/fixtures/locks-insecure/osv-scanner-flutter-deps.json file as 
 [TestRun_GithubActions/scanning_osv-scanner_custom_format_output_json - 1]
 {
   "version": "2.1.0",
-  "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/master/Schemata/sarif-schema-2.1.0.json",
+  "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/main/sarif-2.1/schema/sarif-schema-2.1.0.json",
   "runs": [
     {
       "tool": {
