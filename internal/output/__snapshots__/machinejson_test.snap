@@ -297,7 +297,7 @@
       "packages": [
         {
           "package": {
-            "name": "mine1",
+            "name": "author1/mine1",
             "version": "1.2.3",
             "ecosystem": "Packagist"
           },
@@ -359,7 +359,7 @@
         },
         {
           "package": {
-            "name": "mine1",
+            "name": "author1/mine1",
             "version": "1.2.3",
             "ecosystem": "Packagist"
           },
@@ -1741,7 +1741,7 @@
       "packages": [
         {
           "package": {
-            "name": "mine1",
+            "name": "author1/mine1",
             "version": "1.2.3",
             "ecosystem": "Packagist"
           },
@@ -1857,7 +1857,7 @@
         },
         {
           "package": {
-            "name": "mine3",
+            "name": "author3/mine3",
             "version": "0.4.1",
             "ecosystem": "Packagist"
           },
