@@ -13,7 +13,7 @@
 [TestPrintSARIFReport/#00 - 1]
 {
   "version": "2.1.0",
-  "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/master/Schemata/sarif-schema-2.1.0.json",
+  "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/main/sarif-2.1/schema/sarif-schema-2.1.0.json",
   "runs": [
     {
       "tool": {
@@ -141,7 +141,7 @@
 [TestPrintSARIFReport_WithLicenseViolations/multiple_sources_with_a_mixed_count_of_packages,_no_license_violations - 1]
 {
   "version": "2.1.0",
-  "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/master/Schemata/sarif-schema-2.1.0.json",
+  "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/main/sarif-2.1/schema/sarif-schema-2.1.0.json",
   "runs": [
     {
       "tool": {
@@ -162,7 +162,7 @@
 [TestPrintSARIFReport_WithLicenseViolations/multiple_sources_with_a_mixed_count_of_packages,_some_license_violations - 1]
 {
   "version": "2.1.0",
-  "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/master/Schemata/sarif-schema-2.1.0.json",
+  "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/main/sarif-2.1/schema/sarif-schema-2.1.0.json",
   "runs": [
     {
       "tool": {
@@ -183,7 +183,7 @@
 [TestPrintSARIFReport_WithLicenseViolations/multiple_sources_with_a_mixed_count_of_packages,_some_license_violations#01 - 1]
 {
   "version": "2.1.0",
-  "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/master/Schemata/sarif-schema-2.1.0.json",
+  "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/main/sarif-2.1/schema/sarif-schema-2.1.0.json",
   "runs": [
     {
       "tool": {
@@ -204,7 +204,7 @@
 [TestPrintSARIFReport_WithLicenseViolations/multiple_sources_with_a_mixed_count_of_packages_across_ecosystems,_some_license_violations - 1]
 {
   "version": "2.1.0",
-  "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/master/Schemata/sarif-schema-2.1.0.json",
+  "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/main/sarif-2.1/schema/sarif-schema-2.1.0.json",
   "runs": [
     {
       "tool": {
@@ -225,7 +225,7 @@
 [TestPrintSARIFReport_WithLicenseViolations/multiple_sources_with_a_mixed_count_of_packages_and_groups,_some_license_violations - 1]
 {
   "version": "2.1.0",
-  "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/master/Schemata/sarif-schema-2.1.0.json",
+  "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/main/sarif-2.1/schema/sarif-schema-2.1.0.json",
   "runs": [
     {
       "tool": {
@@ -246,7 +246,7 @@
 [TestPrintSARIFReport_WithLicenseViolations/multiple_sources_with_no_packages - 1]
 {
   "version": "2.1.0",
-  "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/master/Schemata/sarif-schema-2.1.0.json",
+  "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/main/sarif-2.1/schema/sarif-schema-2.1.0.json",
   "runs": [
     {
       "tool": {
@@ -267,7 +267,7 @@
 [TestPrintSARIFReport_WithLicenseViolations/no_sources - 1]
 {
   "version": "2.1.0",
-  "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/master/Schemata/sarif-schema-2.1.0.json",
+  "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/main/sarif-2.1/schema/sarif-schema-2.1.0.json",
   "runs": [
     {
       "tool": {
@@ -288,7 +288,7 @@
 [TestPrintSARIFReport_WithLicenseViolations/one_source_with_no_packages - 1]
 {
   "version": "2.1.0",
-  "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/master/Schemata/sarif-schema-2.1.0.json",
+  "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/main/sarif-2.1/schema/sarif-schema-2.1.0.json",
   "runs": [
     {
       "tool": {
@@ -309,7 +309,7 @@
 [TestPrintSARIFReport_WithLicenseViolations/one_source_with_one_package,_no_license_violations - 1]
 {
   "version": "2.1.0",
-  "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/master/Schemata/sarif-schema-2.1.0.json",
+  "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/main/sarif-2.1/schema/sarif-schema-2.1.0.json",
   "runs": [
     {
       "tool": {
@@ -330,7 +330,7 @@
 [TestPrintSARIFReport_WithLicenseViolations/one_source_with_one_package,_no_licenses - 1]
 {
   "version": "2.1.0",
-  "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/master/Schemata/sarif-schema-2.1.0.json",
+  "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/main/sarif-2.1/schema/sarif-schema-2.1.0.json",
   "runs": [
     {
       "tool": {
@@ -351,7 +351,7 @@
 [TestPrintSARIFReport_WithLicenseViolations/one_source_with_one_package_and_an_unknown_license - 1]
 {
   "version": "2.1.0",
-  "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/master/Schemata/sarif-schema-2.1.0.json",
+  "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/main/sarif-2.1/schema/sarif-schema-2.1.0.json",
   "runs": [
     {
       "tool": {
@@ -372,7 +372,7 @@
 [TestPrintSARIFReport_WithLicenseViolations/one_source_with_one_package_and_multiple_license_violations - 1]
 {
   "version": "2.1.0",
-  "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/master/Schemata/sarif-schema-2.1.0.json",
+  "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/main/sarif-2.1/schema/sarif-schema-2.1.0.json",
   "runs": [
     {
       "tool": {
@@ -393,7 +393,7 @@
 [TestPrintSARIFReport_WithLicenseViolations/one_source_with_one_package_and_one_license_violation - 1]
 {
   "version": "2.1.0",
-  "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/master/Schemata/sarif-schema-2.1.0.json",
+  "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/main/sarif-2.1/schema/sarif-schema-2.1.0.json",
   "runs": [
     {
       "tool": {
@@ -414,7 +414,7 @@
 [TestPrintSARIFReport_WithLicenseViolations/one_source_with_one_package_and_one_license_violation_(dev) - 1]
 {
   "version": "2.1.0",
-  "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/master/Schemata/sarif-schema-2.1.0.json",
+  "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/main/sarif-2.1/schema/sarif-schema-2.1.0.json",
   "runs": [
     {
       "tool": {
@@ -435,7 +435,7 @@
 [TestPrintSARIFReport_WithLicenseViolations/two_sources_with_packages,_one_license_violation - 1]
 {
   "version": "2.1.0",
-  "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/master/Schemata/sarif-schema-2.1.0.json",
+  "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/main/sarif-2.1/schema/sarif-schema-2.1.0.json",
   "runs": [
     {
       "tool": {
@@ -456,7 +456,7 @@
 [TestPrintSARIFReport_WithMixedIssues/multiple_sources_with_a_mixed_count_of_packages,_some_vulnerabilities_and_license_violations - 1]
 {
   "version": "2.1.0",
-  "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/master/Schemata/sarif-schema-2.1.0.json",
+  "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/main/sarif-2.1/schema/sarif-schema-2.1.0.json",
   "runs": [
     {
       "tool": {
@@ -586,7 +586,7 @@
 [TestPrintSARIFReport_WithMixedIssues/one_source_with_one_package,_one_vulnerability,_and_one_license_violation - 1]
 {
   "version": "2.1.0",
-  "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/master/Schemata/sarif-schema-2.1.0.json",
+  "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/main/sarif-2.1/schema/sarif-schema-2.1.0.json",
   "runs": [
     {
       "tool": {
@@ -652,7 +652,7 @@
 [TestPrintSARIFReport_WithMixedIssues/two_sources_with_packages,_one_vulnerability,_one_license_violation - 1]
 {
   "version": "2.1.0",
-  "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/master/Schemata/sarif-schema-2.1.0.json",
+  "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/main/sarif-2.1/schema/sarif-schema-2.1.0.json",
   "runs": [
     {
       "tool": {
@@ -718,7 +718,7 @@
 [TestPrintSARIFReport_WithVulnerabilities/multiple_sources_with_a_mixed_count_of_grouped_packages,_and_multiple_vulnerabilities - 1]
 {
   "version": "2.1.0",
-  "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/master/Schemata/sarif-schema-2.1.0.json",
+  "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/main/sarif-2.1/schema/sarif-schema-2.1.0.json",
   "runs": [
     {
       "tool": {
@@ -929,7 +929,7 @@
 [TestPrintSARIFReport_WithVulnerabilities/multiple_sources_with_a_mixed_count_of_packages,_and_multiple_vulnerabilities - 1]
 {
   "version": "2.1.0",
-  "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/master/Schemata/sarif-schema-2.1.0.json",
+  "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/main/sarif-2.1/schema/sarif-schema-2.1.0.json",
   "runs": [
     {
       "tool": {
@@ -1140,7 +1140,7 @@
 [TestPrintSARIFReport_WithVulnerabilities/multiple_sources_with_a_mixed_count_of_packages,_no_vulnerabilities - 1]
 {
   "version": "2.1.0",
-  "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/master/Schemata/sarif-schema-2.1.0.json",
+  "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/main/sarif-2.1/schema/sarif-schema-2.1.0.json",
   "runs": [
     {
       "tool": {
@@ -1161,7 +1161,7 @@
 [TestPrintSARIFReport_WithVulnerabilities/multiple_sources_with_a_mixed_count_of_packages,_some_vulnerabilities - 1]
 {
   "version": "2.1.0",
-  "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/master/Schemata/sarif-schema-2.1.0.json",
+  "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/main/sarif-2.1/schema/sarif-schema-2.1.0.json",
   "runs": [
     {
       "tool": {
@@ -1291,7 +1291,7 @@
 [TestPrintSARIFReport_WithVulnerabilities/multiple_sources_with_a_mixed_count_of_packages_across_ecosystems,_and_multiple_vulnerabilities - 1]
 {
   "version": "2.1.0",
-  "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/master/Schemata/sarif-schema-2.1.0.json",
+  "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/main/sarif-2.1/schema/sarif-schema-2.1.0.json",
   "runs": [
     {
       "tool": {
@@ -1502,7 +1502,7 @@
 [TestPrintSARIFReport_WithVulnerabilities/multiple_sources_with_no_packages - 1]
 {
   "version": "2.1.0",
-  "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/master/Schemata/sarif-schema-2.1.0.json",
+  "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/main/sarif-2.1/schema/sarif-schema-2.1.0.json",
   "runs": [
     {
       "tool": {
@@ -1523,7 +1523,7 @@
 [TestPrintSARIFReport_WithVulnerabilities/no_sources - 1]
 {
   "version": "2.1.0",
-  "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/master/Schemata/sarif-schema-2.1.0.json",
+  "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/main/sarif-2.1/schema/sarif-schema-2.1.0.json",
   "runs": [
     {
       "tool": {
@@ -1544,7 +1544,7 @@
 [TestPrintSARIFReport_WithVulnerabilities/one_source_with_no_packages - 1]
 {
   "version": "2.1.0",
-  "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/master/Schemata/sarif-schema-2.1.0.json",
+  "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/main/sarif-2.1/schema/sarif-schema-2.1.0.json",
   "runs": [
     {
       "tool": {
@@ -1565,7 +1565,7 @@
 [TestPrintSARIFReport_WithVulnerabilities/one_source_with_one_package,_no_vulnerabilities - 1]
 {
   "version": "2.1.0",
-  "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/master/Schemata/sarif-schema-2.1.0.json",
+  "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/main/sarif-2.1/schema/sarif-schema-2.1.0.json",
   "runs": [
     {
       "tool": {
@@ -1586,7 +1586,7 @@
 [TestPrintSARIFReport_WithVulnerabilities/one_source_with_one_package_and_one_vulnerability - 1]
 {
   "version": "2.1.0",
-  "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/master/Schemata/sarif-schema-2.1.0.json",
+  "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/main/sarif-2.1/schema/sarif-schema-2.1.0.json",
   "runs": [
     {
       "tool": {
@@ -1652,7 +1652,7 @@
 [TestPrintSARIFReport_WithVulnerabilities/one_source_with_one_package_and_one_vulnerability_(dev) - 1]
 {
   "version": "2.1.0",
-  "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/master/Schemata/sarif-schema-2.1.0.json",
+  "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/main/sarif-2.1/schema/sarif-schema-2.1.0.json",
   "runs": [
     {
       "tool": {
@@ -1718,7 +1718,7 @@
 [TestPrintSARIFReport_WithVulnerabilities/one_source_with_one_package_and_two_aliases_of_a_single_vulnerability - 1]
 {
   "version": "2.1.0",
-  "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/master/Schemata/sarif-schema-2.1.0.json",
+  "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/main/sarif-2.1/schema/sarif-schema-2.1.0.json",
   "runs": [
     {
       "tool": {
@@ -1802,7 +1802,7 @@
 [TestPrintSARIFReport_WithVulnerabilities/one_source_with_vulnerabilities,_some_missing_content - 1]
 {
   "version": "2.1.0",
-  "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/master/Schemata/sarif-schema-2.1.0.json",
+  "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/main/sarif-2.1/schema/sarif-schema-2.1.0.json",
   "runs": [
     {
       "tool": {
@@ -1903,7 +1903,7 @@
 [TestPrintSARIFReport_WithVulnerabilities/two_sources_with_packages,_one_vulnerability - 1]
 {
   "version": "2.1.0",
-  "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/master/Schemata/sarif-schema-2.1.0.json",
+  "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/main/sarif-2.1/schema/sarif-schema-2.1.0.json",
   "runs": [
     {
       "tool": {
@@ -1969,7 +1969,7 @@
 [TestPrintSARIFReport_WithVulnerabilities/two_sources_with_the_same_vulnerable_package - 1]
 {
   "version": "2.1.0",
-  "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/master/Schemata/sarif-schema-2.1.0.json",
+  "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/main/sarif-2.1/schema/sarif-schema-2.1.0.json",
   "runs": [
     {
       "tool": {
