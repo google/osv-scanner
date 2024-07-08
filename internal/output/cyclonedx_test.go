@@ -16,7 +16,11 @@ func TestPrintCycloneDX14Results_WithVulnerabilities(t *testing.T) {
 		t.Helper()
 
 		outputWriter := &bytes.Buffer{}
-		output.PrintCycloneDXResults(args.vulnResult, models.CycloneDXVersion14, outputWriter)
+		err := output.PrintCycloneDXResults(args.vulnResult, models.CycloneDXVersion14, outputWriter)
+
+		if err != nil {
+			t.Errorf("%v", err)
+		}
 
 		testutility.NewSnapshot().MatchText(t, outputWriter.String())
 	})
@@ -29,7 +33,11 @@ func TestPrintCycloneDX14Results_WithLicenseViolations(t *testing.T) {
 		t.Helper()
 
 		outputWriter := &bytes.Buffer{}
-		output.PrintCycloneDXResults(args.vulnResult, models.CycloneDXVersion14, outputWriter)
+		err := output.PrintCycloneDXResults(args.vulnResult, models.CycloneDXVersion14, outputWriter)
+
+		if err != nil {
+			t.Errorf("%v", err)
+		}
 
 		testutility.NewSnapshot().MatchText(t, outputWriter.String())
 	})
@@ -42,7 +50,11 @@ func TestPrintCycloneDX14Results_WithMixedIssues(t *testing.T) {
 		t.Helper()
 
 		outputWriter := &bytes.Buffer{}
-		output.PrintCycloneDXResults(args.vulnResult, models.CycloneDXVersion14, outputWriter)
+		err := output.PrintCycloneDXResults(args.vulnResult, models.CycloneDXVersion14, outputWriter)
+
+		if err != nil {
+			t.Errorf("%v", err)
+		}
 
 		testutility.NewSnapshot().MatchText(t, outputWriter.String())
 	})
@@ -55,7 +67,11 @@ func TestPrintCycloneDX15Results_WithVulnerabilities(t *testing.T) {
 		t.Helper()
 
 		outputWriter := &bytes.Buffer{}
-		output.PrintCycloneDXResults(args.vulnResult, models.CycloneDXVersion15, outputWriter)
+		err := output.PrintCycloneDXResults(args.vulnResult, models.CycloneDXVersion15, outputWriter)
+
+		if err != nil {
+			t.Errorf("%v", err)
+		}
 
 		testutility.NewSnapshot().MatchText(t, outputWriter.String())
 	})
@@ -68,7 +84,11 @@ func TestPrintCycloneDX15Results_WithLicenseViolations(t *testing.T) {
 		t.Helper()
 
 		outputWriter := &bytes.Buffer{}
-		output.PrintCycloneDXResults(args.vulnResult, models.CycloneDXVersion15, outputWriter)
+		err := output.PrintCycloneDXResults(args.vulnResult, models.CycloneDXVersion15, outputWriter)
+
+		if err != nil {
+			t.Errorf("%v", err)
+		}
 
 		testutility.NewSnapshot().MatchText(t, outputWriter.String())
 	})
@@ -81,7 +101,11 @@ func TestPrintCycloneDX15Results_WithMixedIssues(t *testing.T) {
 		t.Helper()
 
 		outputWriter := &bytes.Buffer{}
-		output.PrintCycloneDXResults(args.vulnResult, models.CycloneDXVersion15, outputWriter)
+		err := output.PrintCycloneDXResults(args.vulnResult, models.CycloneDXVersion15, outputWriter)
+
+		if err != nil {
+			t.Errorf("%v", err)
+		}
 
 		testutility.NewSnapshot().MatchText(t, outputWriter.String())
 	})

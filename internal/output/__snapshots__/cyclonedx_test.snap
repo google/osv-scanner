@@ -219,6 +219,20 @@
   "version": 1,
   "components": [
     {
+      "bom-ref": "pkg:composer/author1/mine1@1.2.3",
+      "type": "library",
+      "name": "author1/mine1",
+      "version": "1.2.3",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "purl": "pkg:composer/author1/mine1@1.2.3"
+    },
+    {
       "bom-ref": "pkg:npm/mine2@3.2.5",
       "type": "library",
       "name": "mine2",
@@ -639,21 +653,6 @@
   ],
   "vulnerabilities": [
     {
-      "id": "OSV-2",
-      "references": [],
-      "ratings": [
-        {
-          "vector": "1"
-        }
-      ],
-      "description": "Something less scary!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
-    },
-    {
       "id": "OSV-1",
       "references": [],
       "ratings": [
@@ -662,6 +661,21 @@
         }
       ],
       "description": "Something scary!",
+      "advisories": [],
+      "credits": {
+        "organizations": []
+      },
+      "affects": []
+    },
+    {
+      "id": "OSV-2",
+      "references": [],
+      "ratings": [
+        {
+          "vector": "1"
+        }
+      ],
+      "description": "Something less scary!",
       "advisories": [],
       "credits": {
         "organizations": []
@@ -830,21 +844,6 @@
       "affects": []
     },
     {
-      "id": "OSV-5",
-      "references": [],
-      "ratings": [
-        {
-          "vector": "1"
-        }
-      ],
-      "description": "Something scarier!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
-    },
-    {
       "id": "OSV-2",
       "references": [],
       "ratings": [
@@ -868,6 +867,21 @@
         }
       ],
       "description": "Something mildly scary!",
+      "advisories": [],
+      "credits": {
+        "organizations": []
+      },
+      "affects": []
+    },
+    {
+      "id": "OSV-5",
+      "references": [],
+      "ratings": [
+        {
+          "vector": "1"
+        }
+      ],
+      "description": "Something scarier!",
       "advisories": [],
       "credits": {
         "organizations": []
@@ -921,21 +935,6 @@
   ],
   "vulnerabilities": [
     {
-      "id": "OSV-5",
-      "references": [],
-      "ratings": [
-        {
-          "vector": "1"
-        }
-      ],
-      "description": "Something scarier!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
-    },
-    {
       "id": "OSV-1",
       "references": [],
       "ratings": [
@@ -974,6 +973,21 @@
         }
       ],
       "description": "Something mildly scary!",
+      "advisories": [],
+      "credits": {
+        "organizations": []
+      },
+      "affects": []
+    },
+    {
+      "id": "OSV-5",
+      "references": [],
+      "ratings": [
+        {
+          "vector": "1"
+        }
+      ],
+      "description": "Something scarier!",
       "advisories": [],
       "credits": {
         "organizations": []
@@ -1114,6 +1128,22 @@
   "version": 1,
   "components": [
     {
+      "bom-ref": "pkg:composer/author1/mine1@1.2.3",
+      "type": "library",
+      "name": "author1/mine1",
+      "version": "1.2.3",
+      "licenses": [],
+      "purl": "pkg:composer/author1/mine1@1.2.3"
+    },
+    {
+      "bom-ref": "pkg:composer/author3/mine3@0.4.1",
+      "type": "library",
+      "name": "author3/mine3",
+      "version": "0.4.1",
+      "licenses": [],
+      "purl": "pkg:composer/author3/mine3@0.4.1"
+    },
+    {
       "bom-ref": "pkg:npm/mine1@1.2.2",
       "type": "library",
       "name": "mine1",
@@ -1132,6 +1162,21 @@
   ],
   "vulnerabilities": [
     {
+      "id": "OSV-1",
+      "references": [],
+      "ratings": [
+        {
+          "vector": "1"
+        }
+      ],
+      "description": "Something scary!",
+      "advisories": [],
+      "credits": {
+        "organizations": []
+      },
+      "affects": []
+    },
+    {
       "id": "OSV-2",
       "references": [],
       "ratings": [
@@ -1147,14 +1192,29 @@
       "affects": []
     },
     {
-      "id": "OSV-1",
+      "id": "OSV-3",
       "references": [],
       "ratings": [
         {
           "vector": "1"
         }
       ],
-      "description": "Something scary!",
+      "description": "Something mildly scary!",
+      "advisories": [],
+      "credits": {
+        "organizations": []
+      },
+      "affects": []
+    },
+    {
+      "id": "OSV-5",
+      "references": [],
+      "ratings": [
+        {
+          "vector": "1"
+        }
+      ],
+      "description": "Something scarier!",
       "advisories": [],
       "credits": {
         "organizations": []
@@ -1315,8 +1375,13 @@
   ],
   "vulnerabilities": [
     {
-      "id": "OSV-1",
-      "references": [],
+      "id": "GHSA-123",
+      "references": [
+        {
+          "id": "OSV-1",
+          "source": {}
+        }
+      ],
       "ratings": [
         {
           "vector": "1"
@@ -1330,13 +1395,8 @@
       "affects": []
     },
     {
-      "id": "GHSA-123",
-      "references": [
-        {
-          "id": "OSV-1",
-          "source": {}
-        }
-      ],
+      "id": "OSV-1",
+      "references": [],
       "ratings": [
         {
           "vector": "1"
@@ -1706,6 +1766,20 @@
   "specVersion": "1.5",
   "version": 1,
   "components": [
+    {
+      "bom-ref": "pkg:composer/author1/mine1@1.2.3",
+      "type": "library",
+      "name": "author1/mine1",
+      "version": "1.2.3",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "purl": "pkg:composer/author1/mine1@1.2.3"
+    },
     {
       "bom-ref": "pkg:npm/mine2@3.2.5",
       "type": "library",
@@ -2303,14 +2377,14 @@
   ],
   "vulnerabilities": [
     {
-      "id": "OSV-5",
+      "id": "OSV-1",
       "references": [],
       "ratings": [
         {
           "vector": "1"
         }
       ],
-      "description": "Something scarier!",
+      "description": "Something scary!",
       "advisories": [],
       "credits": {
         "organizations": []
@@ -2348,14 +2422,14 @@
       "affects": []
     },
     {
-      "id": "OSV-1",
+      "id": "OSV-5",
       "references": [],
       "ratings": [
         {
           "vector": "1"
         }
       ],
-      "description": "Something scary!",
+      "description": "Something scarier!",
       "advisories": [],
       "credits": {
         "organizations": []
@@ -2424,21 +2498,6 @@
       "affects": []
     },
     {
-      "id": "OSV-5",
-      "references": [],
-      "ratings": [
-        {
-          "vector": "1"
-        }
-      ],
-      "description": "Something scarier!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
-    },
-    {
       "id": "OSV-2",
       "references": [],
       "ratings": [
@@ -2462,6 +2521,21 @@
         }
       ],
       "description": "Something mildly scary!",
+      "advisories": [],
+      "credits": {
+        "organizations": []
+      },
+      "affects": []
+    },
+    {
+      "id": "OSV-5",
+      "references": [],
+      "ratings": [
+        {
+          "vector": "1"
+        }
+      ],
+      "description": "Something scarier!",
       "advisories": [],
       "credits": {
         "organizations": []
@@ -2560,21 +2634,6 @@
   ],
   "vulnerabilities": [
     {
-      "id": "OSV-2",
-      "references": [],
-      "ratings": [
-        {
-          "vector": "1"
-        }
-      ],
-      "description": "Something less scary!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
-    },
-    {
       "id": "OSV-1",
       "references": [],
       "ratings": [
@@ -2583,6 +2642,21 @@
         }
       ],
       "description": "Something scary!",
+      "advisories": [],
+      "credits": {
+        "organizations": []
+      },
+      "affects": []
+    },
+    {
+      "id": "OSV-2",
+      "references": [],
+      "ratings": [
+        {
+          "vector": "1"
+        }
+      ],
+      "description": "Something less scary!",
       "advisories": [],
       "credits": {
         "organizations": []
@@ -2602,6 +2676,22 @@
   "version": 1,
   "components": [
     {
+      "bom-ref": "pkg:composer/author1/mine1@1.2.3",
+      "type": "library",
+      "name": "author1/mine1",
+      "version": "1.2.3",
+      "licenses": [],
+      "purl": "pkg:composer/author1/mine1@1.2.3"
+    },
+    {
+      "bom-ref": "pkg:composer/author3/mine3@0.4.1",
+      "type": "library",
+      "name": "author3/mine3",
+      "version": "0.4.1",
+      "licenses": [],
+      "purl": "pkg:composer/author3/mine3@0.4.1"
+    },
+    {
       "bom-ref": "pkg:npm/mine1@1.2.2",
       "type": "library",
       "name": "mine1",
@@ -2620,6 +2710,21 @@
   ],
   "vulnerabilities": [
     {
+      "id": "OSV-1",
+      "references": [],
+      "ratings": [
+        {
+          "vector": "1"
+        }
+      ],
+      "description": "Something scary!",
+      "advisories": [],
+      "credits": {
+        "organizations": []
+      },
+      "affects": []
+    },
+    {
       "id": "OSV-2",
       "references": [],
       "ratings": [
@@ -2635,14 +2740,29 @@
       "affects": []
     },
     {
-      "id": "OSV-1",
+      "id": "OSV-3",
       "references": [],
       "ratings": [
         {
           "vector": "1"
         }
       ],
-      "description": "Something scary!",
+      "description": "Something mildly scary!",
+      "advisories": [],
+      "credits": {
+        "organizations": []
+      },
+      "affects": []
+    },
+    {
+      "id": "OSV-5",
+      "references": [],
+      "ratings": [
+        {
+          "vector": "1"
+        }
+      ],
+      "description": "Something scarier!",
       "advisories": [],
       "credits": {
         "organizations": []
@@ -2803,8 +2923,13 @@
   ],
   "vulnerabilities": [
     {
-      "id": "OSV-1",
-      "references": [],
+      "id": "GHSA-123",
+      "references": [
+        {
+          "id": "OSV-1",
+          "source": {}
+        }
+      ],
       "ratings": [
         {
           "vector": "1"
@@ -2818,13 +2943,8 @@
       "affects": []
     },
     {
-      "id": "GHSA-123",
-      "references": [
-        {
-          "id": "OSV-1",
-          "source": {}
-        }
-      ],
+      "id": "OSV-1",
+      "references": [],
       "ratings": [
         {
           "vector": "1"

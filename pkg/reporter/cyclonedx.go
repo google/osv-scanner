@@ -62,5 +62,6 @@ func (r *CycloneDXReporter) PrintResult(vulnerabilityResults *models.Vulnerabili
 			r.Warnf("Failed to parse package URL: %v", err)
 		}
 	}
+
 	return nil
 }

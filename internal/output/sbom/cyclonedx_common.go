@@ -38,6 +38,10 @@ func buildCycloneDXBom(uniquePackages map[string]models.PackageVulns) *cyclonedx
 		bomVulnerabilities = append(bomVulnerabilities, vulnerability)
 	}
 
+	slices.SortFunc(bomVulnerabilities, func(a, b cyclonedx.Vulnerability) int {
+		return strings.Compare(a.ID, b.ID)
+	})
+
 	bom.Components = &components
 	bom.Vulnerabilities = &bomVulnerabilities
 
