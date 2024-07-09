@@ -10,7 +10,7 @@ import (
 	"github.com/google/osv-scanner/pkg/models"
 )
 
-// PrintJSONResults writes results to the provided writer in JSON format
+// PrintCycloneDXResults writes results to the provided writer in CycloneDX format
 func PrintCycloneDXResults(vulnResult *models.VulnerabilityResults, cycloneDXVersion models.CycloneDXVersion, outputWriter io.Writer) error {
 	bomCreator := sbom.SpecVersionToBomCreator[cycloneDXVersion]
 	resultsByPurl, errs := purl.Group(vulnResult.Results)
