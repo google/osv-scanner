@@ -571,7 +571,7 @@ func write(buf *bytes.Buffer, w io.Writer, depPatches MavenDependencyPatches, pr
 
 				// Then we update the project by passing the innerXML and name spaces are not passed.
 				updated := make(map[string]bool) // origin -> updated
-				if err := writeProject(w, enc, rawProj.InnerXML, "", "", depPatches, propertyPatches, updated); err != nil {
+				if err := updateProject(w, enc, rawProj.InnerXML, "", "", depPatches, propertyPatches, updated); err != nil {
 					return fmt.Errorf("updating project: %w", err)
 				}
 
@@ -610,7 +610,7 @@ func write(buf *bytes.Buffer, w io.Writer, depPatches MavenDependencyPatches, pr
 	return nil
 }
 
-func writeProject(w io.Writer, enc *xml.Encoder, raw, prefix, id string, patches MavenDependencyPatches, properties MavenPropertyPatches, updated map[string]bool) error {
+func updateProject(w io.Writer, enc *xml.Encoder, raw, prefix, id string, patches MavenDependencyPatches, properties MavenPropertyPatches, updated map[string]bool) error {
 	dec := xml.NewDecoder(bytes.NewReader([]byte(raw)))
 	for {
 		token, err := dec.Token()
@@ -643,7 +643,7 @@ func writeProject(w io.Writer, enc *xml.Encoder, raw, prefix, id string, patches
 						req = k.NewRequire
 					}
 				}
-				if err := writeString(enc, "<parent>"+rawParent.InnerXML+"</parent>", map[string]string{"version": req}); err != nil {
+				if err := updateString(enc, "<parent>"+rawParent.InnerXML+"</parent>", map[string]string{"version": req}); err != nil {
 					return fmt.Errorf("updating parent: %w", err)
 				}
 
@@ -656,7 +656,7 @@ func writeProject(w io.Writer, enc *xml.Encoder, raw, prefix, id string, patches
 				if err := dec.DecodeElement(&rawProperties, &tt); err != nil {
 					return err
 				}
-				if err := writeString(enc, "<properties>"+rawProperties.InnerXML+"</properties>", properties[mavenOrigin(prefix, id)]); err != nil {
+				if err := updateString(enc, "<properties>"+rawProperties.InnerXML+"</properties>", properties[mavenOrigin(prefix, id)]); err != nil {
 					return fmt.Errorf("updating properties: %w", err)
 				}
 
@@ -674,7 +674,7 @@ func writeProject(w io.Writer, enc *xml.Encoder, raw, prefix, id string, patches
 				if err := dec.DecodeElement(&rawProfile, &tt); err != nil {
 					return err
 				}
-				if err := writeProject(w, enc, "<profile>"+rawProfile.InnerXML+"</profile>", OriginProfile, string(rawProfile.ID), patches, properties, updated); err != nil {
+				if err := updateProject(w, enc, "<profile>"+rawProfile.InnerXML+"</profile>", OriginProfile, string(rawProfile.ID), patches, properties, updated); err != nil {
 					return fmt.Errorf("updating profile: %w", err)
 				}
 
@@ -692,7 +692,7 @@ func writeProject(w io.Writer, enc *xml.Encoder, raw, prefix, id string, patches
 				if err := dec.DecodeElement(&rawPlugin, &tt); err != nil {
 					return err
 				}
-				if err := writeProject(w, enc, "<plugin>"+rawPlugin.InnerXML+"</plugin>", OriginPlugin, rawPlugin.ProjectKey.Name(), patches, properties, updated); err != nil {
+				if err := updateProject(w, enc, "<plugin>"+rawPlugin.InnerXML+"</plugin>", OriginPlugin, rawPlugin.ProjectKey.Name(), patches, properties, updated); err != nil {
 					return fmt.Errorf("updating profile: %w", err)
 				}
 
@@ -709,7 +709,7 @@ func writeProject(w io.Writer, enc *xml.Encoder, raw, prefix, id string, patches
 				o := mavenOrigin(prefix, id, OriginManagement)
 				updated[o] = true
 				dmPatches := patches[o]
-				if err := writeDependency(w, enc, "<dependencyManagement>"+rawDepMgmt.InnerXML+"</dependencyManagement>", dmPatches); err != nil {
+				if err := updateDependency(w, enc, "<dependencyManagement>"+rawDepMgmt.InnerXML+"</dependencyManagement>", dmPatches); err != nil {
 					return fmt.Errorf("updating dependency management: %w", err)
 				}
 
@@ -726,7 +726,7 @@ func writeProject(w io.Writer, enc *xml.Encoder, raw, prefix, id string, patches
 				o := mavenOrigin(prefix, id)
 				updated[o] = true
 				depPatches := patches[o]
-				if err := writeDependency(w, enc, "<dependencies>"+rawDeps.InnerXML+"</dependencies>", depPatches); err != nil {
+				if err := updateDependency(w, enc, "<dependencies>"+rawDeps.InnerXML+"</dependencies>", depPatches); err != nil {
 					return fmt.Errorf("updating dependencies: %w", err)
 				}
 
@@ -768,7 +768,7 @@ func makeDependency(patch MavenPatch) dependency {
 	return d
 }
 
-func writeDependency(w io.Writer, enc *xml.Encoder, raw string, patches map[MavenPatch]bool) error {
+func updateDependency(w io.Writer, enc *xml.Encoder, raw string, patches map[MavenPatch]bool) error {
 	dec := xml.NewDecoder(bytes.NewReader([]byte(raw)))
 	for {
 		token, err := dec.Token()
@@ -828,7 +828,7 @@ func writeDependency(w io.Writer, enc *xml.Encoder, raw string, patches map[Mave
 				}
 				// xml.EncodeElement writes all empty elements and may not follow the existing format.
 				// Passing the innerXML can help to keep the original format.
-				if err := writeString(enc, "<dependency>"+rawDep.InnerXML+"</dependency>", map[string]string{"version": req}); err != nil {
+				if err := updateString(enc, "<dependency>"+rawDep.InnerXML+"</dependency>", map[string]string{"version": req}); err != nil {
 					return fmt.Errorf("updating dependency: %w", err)
 				}
 
@@ -844,7 +844,7 @@ func writeDependency(w io.Writer, enc *xml.Encoder, raw string, patches map[Mave
 	return enc.Flush()
 }
 
-func writeString(enc *xml.Encoder, raw string, values map[string]string) error {
+func updateString(enc *xml.Encoder, raw string, values map[string]string) error {
 	dec := xml.NewDecoder(bytes.NewReader([]byte(raw)))
 	for {
 		token, err := dec.Token()
