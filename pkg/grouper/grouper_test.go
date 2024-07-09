@@ -3,8 +3,9 @@ package grouper_test
 import (
 	"testing"
 
-	"github.com/google/go-cmp/cmp"
 	"github.com/google/osv-scanner/pkg/grouper"
+
+	"github.com/google/go-cmp/cmp"
 	"github.com/google/osv-scanner/pkg/models"
 )
 

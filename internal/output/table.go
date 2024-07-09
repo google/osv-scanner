@@ -48,15 +48,15 @@ func newTable(outputWriter io.Writer, terminalWidth int) table.Writer {
 	outputTable := table.NewWriter()
 	outputTable.SetOutputMirror(outputWriter)
 
-	outputTable.Style().Options.DoNotColorBordersAndSeparators = true
-	outputTable.Style().Color.Row = text.Colors{text.Reset, text.BgHiBlack}
-	outputTable.Style().Color.RowAlternate = text.Colors{text.Reset, text.BgBlack}
-
 	// use fancy characters if we're outputting to a terminal
 	if terminalWidth > 0 {
 		outputTable.SetStyle(table.StyleRounded)
 		outputTable.SetAllowedRowLength(terminalWidth)
 	}
+
+	outputTable.Style().Options.DoNotColorBordersAndSeparators = true
+	outputTable.Style().Color.Row = text.Colors{text.Reset, text.BgHiBlack}
+	outputTable.Style().Color.RowAlternate = text.Colors{text.Reset, text.BgBlack}
 
 	return outputTable
 }
