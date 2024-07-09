@@ -49,7 +49,7 @@ jobs:
       - run: python3 scripts/generators/generate-debian-versions.py
       - run: git status
       - run: stat debian-db.zip
-      - uses: actions/upload-artifact@65462800fd760344b1a7b4382951275a0abb4808 # v4.3.3
+      - uses: actions/upload-artifact@0b2256b8c012f0828dc542b3febcab082c67f72b # v4.3.4
         with:
           name: generated-debian-versions
           path: internal/semantic/fixtures/debian-versions-generated.txt
@@ -73,7 +73,7 @@ jobs:
           extensions: zip
       - run: php scripts/generators/generate-packagist-versions.php
       - run: git status
-      - uses: actions/upload-artifact@65462800fd760344b1a7b4382951275a0abb4808 # v4.3.3
+      - uses: actions/upload-artifact@0b2256b8c012f0828dc542b3febcab082c67f72b # v4.3.4
         with:
           name: generated-packagist-versions
           path: internal/semantic/fixtures/packagist-versions-generated.txt
@@ -93,7 +93,7 @@ jobs:
         run: pip install packaging==21.3
       - run: python3 scripts/generators/generate-pypi-versions.py
       - run: git status
-      - uses: actions/upload-artifact@65462800fd760344b1a7b4382951275a0abb4808 # v4.3.3
+      - uses: actions/upload-artifact@0b2256b8c012f0828dc542b3febcab082c67f72b # v4.3.4
         with:
           name: generated-pypi-versions
           path: internal/semantic/fixtures/pypi-versions-generated.txt
@@ -106,14 +106,14 @@ jobs:
       - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
         with:
           persist-credentials: false
-      - uses: ruby/setup-ruby@1d0e911f615a112e322369596f10ee0b95b010ae # v1.183.0
+      - uses: ruby/setup-ruby@3a77c29278ae80936b4cb030fefc7d21c96c786f # v1.185.0
         with:
           ruby-version: "3.1"
       - name: setup dependencies
         run: gem install rubyzip
       - run: ruby scripts/generators/generate-rubygems-versions.rb
       - run: git status
-      - uses: actions/upload-artifact@65462800fd760344b1a7b4382951275a0abb4808 # v4.3.3
+      - uses: actions/upload-artifact@0b2256b8c012f0828dc542b3febcab082c67f72b # v4.3.4
         with:
           name: generated-rubygems-versions
           path: internal/semantic/fixtures/rubygems-versions-generated.txt
@@ -139,7 +139,7 @@ jobs:
             -o scripts/generators/lib/maven-artifact-3.8.5.jar
       - run: java -cp 'scripts/generators/lib/*' scripts/generators/GenerateMavenVersions.java
       - run: git status
-      - uses: actions/upload-artifact@65462800fd760344b1a7b4382951275a0abb4808 # v4.3.3
+      - uses: actions/upload-artifact@0b2256b8c012f0828dc542b3febcab082c67f72b # v4.3.4
         with:
           name: generated-maven-versions
           path: internal/semantic/fixtures/maven-versions-generated.txt
@@ -157,7 +157,7 @@ jobs:
           r-version: "3.5.3"
       - run: Rscript scripts/generators/generate-cran-versions.R
       - run: git status
-      - uses: actions/upload-artifact@65462800fd760344b1a7b4382951275a0abb4808 # v4.3.3
+      - uses: actions/upload-artifact@0b2256b8c012f0828dc542b3febcab082c67f72b # v4.3.4
         with:
           name: generated-cran-versions
           path: internal/semantic/fixtures/cran-versions-generated.txt
@@ -183,7 +183,7 @@ jobs:
           go-version-file: .go-version
           cache: true
 
-      - uses: actions/download-artifact@65a9edc5881444af0b9093a5e628f2fe47ea3b2e # v4.1.7
+      - uses: actions/download-artifact@fa0a91b85d4f404e444e00e005971372dc801d16 # v4.1.8
         with:
           pattern: generated-*-versions
           path: internal/semantic/fixtures/
