@@ -23,12 +23,13 @@ linters:
     - godox            # to-do comments are fine (g-rath)
     - godot            # comments are fine without full stops (g-rath)
     - gomnd            # not every number is magic (g-rath)
+    - mnd              # not every number is magic (g-rath)
     - wsl              # disagree with, for now (g-rath)
     - ireturn          # disagree with, sort of (g-rath)
     - gochecknoglobals # disagree with, for non changing variables (another-rex)
     - wrapcheck        # too difficult, will re-add later (another-rex)
     - testpackage      # will re-add later (another-rex)
-    - goerr113         # will re-add later (another-rex)
+    - err113           # will re-add later (another-rex)
     - nonamedreturns   # disagree with, for now (another-rex)
     - goconst          # not everything should be a constant
   presets:
@@ -81,7 +82,6 @@ issues:
         - dupl
     - path: _test\.go
       linters:
-        - goerr113
         - dupl
     - path: main.go
       linters:
