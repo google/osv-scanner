@@ -879,7 +879,7 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 							Packages: []models.PackageVulns{
 								{
 									Package: models.PackageInfo{
-										Name:      "mine1",
+										Name:      "author1/mine1",
 										Version:   "1.2.3",
 										Ecosystem: "Packagist",
 									},
@@ -948,7 +948,7 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 								},
 								{
 									Package: models.PackageInfo{
-										Name:      "mine3",
+										Name:      "author3/mine3",
 										Version:   "0.4.1",
 										Ecosystem: "Packagist",
 									},
