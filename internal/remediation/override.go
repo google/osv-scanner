@@ -271,7 +271,8 @@ func patchManifest(patches []overridePatch, m manifest.Manifest) (manifest.Manif
 		return manifest.Manifest{}, errors.New("unsupported ecosystem")
 	}
 
-	// TODO: may need special handling for the artifact's type and classifier
+	// TODO: The overridePatch does not have an artifact's type or classifier, which is part of what uniquely identifies them.
+	// This needs to be part of the comparison & added to dependency management for it to override packages that specify them.
 
 	patched := m.Clone()
 
@@ -285,7 +286,8 @@ func patchManifest(patches []overridePatch, m manifest.Manifest) (manifest.Manif
 
 				continue
 			}
-			if origin, hasOrigin := r.Type.GetAttr(dep.MavenDependencyOrigin); !hasOrigin || origin == "management" {
+			origin, hasOrigin := r.Type.GetAttr(dep.MavenDependencyOrigin)
+			if !hasOrigin || origin == manifest.OriginManagement {
 				found = true
 				r.Version = p.NewVersion
 				patched.Requirements[i] = r
@@ -301,7 +303,7 @@ func patchManifest(patches []overridePatch, m manifest.Manifest) (manifest.Manif
 					VersionType: resolve.Requirement,
 				},
 			}
-			newReq.Type.AddAttr(dep.MavenDependencyOrigin, "management")
+			newReq.Type.AddAttr(dep.MavenDependencyOrigin, manifest.OriginManagement)
 			patched.Requirements = append(patched.Requirements, newReq)
 		}
 	}

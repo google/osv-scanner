@@ -217,7 +217,7 @@ func makeUniverse(cl *client.DepsDevClient) (clienttest.ResolutionUniverse, erro
 				continue
 			}
 			for _, r := range reqs {
-				// don't bother writing dev dependencies
+				// Don't bother writing Dev or Test dependencies.
 				if r.Type.HasAttr(dep.Dev) || r.Type.HasAttr(dep.Test) {
 					continue
 				}
