@@ -6,16 +6,9 @@ import (
 	"github.com/CycloneDX/cyclonedx-go"
 )
 
-type CycloneDXVersion int
-
-const (
-	CycloneDXVersion14 CycloneDXVersion = iota
-	CycloneDXVersion15
-)
-
-var SpecVersionToBomCreator = map[CycloneDXVersion]CycloneDXBomCreator{
-	CycloneDXVersion14: ToCycloneDX14Bom,
-	CycloneDXVersion15: ToCycloneDX15Bom,
+var SpecVersionToBomCreator = map[models.CycloneDXVersion]CycloneDXBomCreator{
+	models.CycloneDXVersion14: ToCycloneDX14Bom,
+	models.CycloneDXVersion15: ToCycloneDX15Bom,
 }
 
 type CycloneDXBomCreator func(packageSources map[string]models.PackageVulns) *cyclonedx.BOM
