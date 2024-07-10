@@ -74,6 +74,3 @@ issues:
     - path: _test\.go
       linters:
         - dupl
-    - path: main.go
-      linters:
-        - gochecknoglobals
