@@ -75,15 +75,15 @@ func printVerticalVulnerabilitiesForPackages(result models.PackageSource, out io
 			continue
 		}
 
-		state := "is"
-		if !printingCalled {
-			state = "may be"
+		state := "uncalled"
+		if printingCalled {
+			state = "known"
 		}
 
 		fmt.Fprintf(out,
 			"  %s %s\n",
 			text.FgYellow.Sprintf("%s@%s", pkg.Package.Name, pkg.Package.Version),
-			text.FgRed.Sprintf("%s affected by the following vulnerabilities:", state),
+			text.FgRed.Sprintf("has the following %s vulnerabilities:", state),
 		)
 
 		for _, vulnerability := range vulns {
