@@ -25,7 +25,7 @@ func Command(stdout, stderr io.Writer, r *reporter.Reporter) *cli.Command {
 			&cli.StringSliceFlag{
 				Name:      "docker",
 				Aliases:   []string{"D"},
-				Usage:     "scan docker image with this name",
+				Usage:     "scan docker image with this name. Warning: Only run this on a trusted container image, as it runs the container image to retrieve the package versions",
 				TakesFile: false,
 			},
 			&cli.StringSliceFlag{

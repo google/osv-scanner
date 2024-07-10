@@ -43,7 +43,9 @@ func parseNuGetLock(lockfile NuGetLockfile) ([]PackageDetails, error) {
 	// its dependencies, there might be different or duplicate dependencies
 	// between frameworks
 	for _, dependencies := range lockfile.Dependencies {
-		maps.Copy(details, parseNuGetLockDependencies(dependencies))
+		for name, detail := range parseNuGetLockDependencies(dependencies) {
+			details[name] = detail
+		}
 	}
 
 	return maps.Values(details), nil
