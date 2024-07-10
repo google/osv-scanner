@@ -35,6 +35,18 @@ func printVerticalHeader(result models.PackageSource, out io.Writer) {
 	)
 }
 
+func printVerticalVulnerabilitiesCountSummary(count int, state string, sourcePath string, out io.Writer) {
+	fmt.Fprintf(out, "\n  %s\n",
+		text.FgRed.Sprintf(
+			"%d %s %s found in %s",
+			count,
+			state,
+			Form(count, "vulnerability", "vulnerabilities"),
+			sourcePath,
+		),
+	)
+}
+
 func collectVulns(pkg models.PackageVulns, called bool) []models.Vulnerability {
 	vulns := make([]models.Vulnerability, 0)
 
@@ -101,30 +113,14 @@ func printVerticalVulnerabilities(result models.PackageSource, out io.Writer) {
 		fmt.Fprintln(out)
 
 		printVerticalVulnerabilitiesForPackages(result, out, true)
-
-		fmt.Fprintf(out, "\n  %s\n",
-			text.FgRed.Sprintf(
-				"%d known %s found in %s",
-				countCalled,
-				Form(countCalled, "vulnerability", "vulnerabilities"),
-				result.Source.Path,
-			),
-		)
+		printVerticalVulnerabilitiesCountSummary(countCalled, "known", result.Source.Path, out)
 	}
 
 	if countUncalled > 0 {
 		fmt.Fprintln(out)
 
 		printVerticalVulnerabilitiesForPackages(result, out, false)
-
-		fmt.Fprintf(out, "\n  %s\n",
-			text.FgRed.Sprintf(
-				"%d uncalled %s found in %s",
-				countUncalled,
-				Form(countUncalled, "vulnerability", "vulnerabilities"),
-				result.Source.Path,
-			),
-		)
+		printVerticalVulnerabilitiesCountSummary(countUncalled, "uncalled", result.Source.Path, out)
 	}
 }
 
