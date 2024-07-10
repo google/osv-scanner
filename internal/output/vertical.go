@@ -13,7 +13,7 @@ import (
 func PrintVerticalResults(vulnResult *models.VulnerabilityResults, outputWriter io.Writer) {
 	for i, result := range vulnResult.Results {
 		printVerticalHeader(result, outputWriter)
-		printVerticalVulnerabilities(result, outputWriter, true)
+		printVerticalVulnerabilities(result, outputWriter)
 
 		if len(vulnResult.ExperimentalAnalysisConfig.Licenses.Allowlist) > 0 {
 			printVerticalLicenseViolations(result, outputWriter)
@@ -43,9 +43,9 @@ func collectVulns(pkg models.PackageVulns, called bool) []models.Vulnerability {
 			continue
 		}
 
-		for _, ids := range group.IDs {
+		for _, id := range group.IDs {
 			for _, v := range pkg.Vulnerabilities {
-				if v.ID == ids {
+				if v.ID == id {
 					vulns = append(vulns, v)
 				}
 			}
@@ -55,32 +55,23 @@ func collectVulns(pkg models.PackageVulns, called bool) []models.Vulnerability {
 	return vulns
 }
 
-func printVerticalVulnerabilities(result models.PackageSource, out io.Writer, called bool) {
-	count := countVulnerabilities(result)
-
-	if count == 0 {
-		fmt.Fprintf(
-			out,
-			"  %s\n",
-			text.FgGreen.Sprintf("no known vulnerabilities found"),
-		)
-
-		return
-	}
-
-	fmt.Fprintln(out)
-
+func printVerticalVulnerabilitiesForPackages(result models.PackageSource, out io.Writer, printingCalled bool) {
 	for _, pkg := range result.Packages {
-		vulns := collectVulns(pkg, called)
+		vulns := collectVulns(pkg, printingCalled)
 
 		if len(vulns) == 0 {
 			continue
 		}
 
+		state := "is"
+		if !printingCalled {
+			state = "may be"
+		}
+
 		fmt.Fprintf(out,
 			"  %s %s\n",
 			text.FgYellow.Sprintf("%s@%s", pkg.Package.Name, pkg.Package.Version),
-			text.FgRed.Sprintf("is affected by the following vulnerabilities:"),
+			text.FgRed.Sprintf("%s affected by the following vulnerabilities:", state),
 		)
 
 		for _, vulnerability := range vulns {
@@ -91,15 +82,50 @@ func printVerticalVulnerabilities(result models.PackageSource, out io.Writer, ca
 			)
 		}
 	}
+}
 
-	fmt.Fprintf(out, "\n  %s\n",
-		text.FgRed.Sprintf(
-			"%d known %s found in %s",
-			count,
-			Form(count, "vulnerability", "vulnerabilities"),
-			result.Source.Path,
-		),
-	)
+func printVerticalVulnerabilities(result models.PackageSource, out io.Writer) {
+	countCalled, countUncalled := countVulnerabilities(result)
+
+	if countCalled == 0 && countUncalled == 0 {
+		fmt.Fprintf(
+			out,
+			"  %s\n",
+			text.FgGreen.Sprintf("no known vulnerabilities found"),
+		)
+
+		return
+	}
+
+	if countCalled > 0 {
+		fmt.Fprintln(out)
+
+		printVerticalVulnerabilitiesForPackages(result, out, true)
+
+		fmt.Fprintf(out, "\n  %s\n",
+			text.FgRed.Sprintf(
+				"%d known %s found in %s",
+				countCalled,
+				Form(countCalled, "vulnerability", "vulnerabilities"),
+				result.Source.Path,
+			),
+		)
+	}
+
+	if countUncalled > 0 {
+		fmt.Fprintln(out)
+
+		printVerticalVulnerabilitiesForPackages(result, out, false)
+
+		fmt.Fprintf(out, "\n  %s\n",
+			text.FgRed.Sprintf(
+				"%d uncalled %s found in %s",
+				countUncalled,
+				Form(countUncalled, "vulnerability", "vulnerabilities"),
+				result.Source.Path,
+			),
+		)
+	}
 }
 
 func printVerticalLicenseViolations(result models.PackageSource, out io.Writer) {
@@ -144,18 +170,24 @@ func printVerticalLicenseViolations(result models.PackageSource, out io.Writer) 
 	)
 }
 
-func countVulnerabilities(result models.PackageSource) int {
-	count := 0
-
+func countVulnerabilities(result models.PackageSource) (called int, uncalled int) {
 	for _, pkg := range result.Packages {
-		for _, g := range pkg.Groups {
-			if g.IsCalled() {
-				count += len(g.IDs)
+		for _, group := range pkg.Groups {
+			for _, id := range group.IDs {
+				for _, v := range pkg.Vulnerabilities {
+					if v.ID == id {
+						if group.IsCalled() {
+							called++
+						} else {
+							uncalled++
+						}
+					}
+				}
 			}
 		}
 	}
 
-	return count
+	return
 }
 
 func countLicenseViolations(result models.PackageSource) int {
