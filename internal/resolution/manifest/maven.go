@@ -9,6 +9,7 @@ import (
 	"io"
 	"os"
 	"path/filepath"
+	"sort"
 	"strings"
 
 	"deps.dev/util/maven"
@@ -582,6 +583,25 @@ func write(buf *bytes.Buffer, w io.Writer, depPatches MavenDependencyPatches, pr
 					for p := range dmPatches {
 						dm.Dependencies = append(dm.Dependencies, makeDependency(p))
 					}
+					// Sort dependency management for consistency in testing.
+					sort.Slice(dm.Dependencies, func(i, j int) bool {
+						di := dm.Dependencies[i]
+						dj := dm.Dependencies[j]
+						if di.GroupID != dj.GroupID {
+							return di.GroupID < dj.GroupID
+						}
+						if di.ArtifactID != dj.ArtifactID {
+							return di.ArtifactID < dj.ArtifactID
+						}
+						if di.Type != dj.Type {
+							return di.Type < dj.Type
+						}
+						if di.Classifier != dj.Classifier {
+							return di.Classifier < dj.Classifier
+						}
+
+						return di.Version < dj.Version
+					})
 					if err := enc.Encode(dm); err != nil {
 						return err
 					}
