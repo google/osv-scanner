@@ -25,7 +25,7 @@ func Command(stdout, stderr io.Writer, r *reporter.Reporter) *cli.Command {
 			&cli.StringSliceFlag{
 				Name:      "docker",
 				Aliases:   []string{"D"},
-				Usage:     "scan docker image with this name",
+				Usage:     "scan docker image with this name. Warning: Only run this on a trusted container image, as it runs the container image to retrieve the package versions",
 				TakesFile: false,
 			},
 			&cli.StringSliceFlag{
@@ -130,7 +130,6 @@ func Command(stdout, stderr io.Writer, r *reporter.Reporter) *cli.Command {
 				Name:      "experimental-oci-image",
 				Usage:     "scan an exported *docker* container image archive (exported using `docker save` command) file",
 				TakesFile: true,
-				Hidden:    true,
 			},
 		},
 		ArgsUsage: "[directory1 directory2...]",
