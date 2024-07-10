@@ -163,6 +163,26 @@ func TestMavenRead(t *testing.T) {
 				VersionKey: resolve.VersionKey{
 					PackageKey: resolve.PackageKey{
 						System: resolve.Maven,
+						Name:   "org.profile:abc",
+					},
+					VersionType: resolve.Requirement,
+					Version:     "1.2.3",
+				},
+			},
+			{
+				VersionKey: resolve.VersionKey{
+					PackageKey: resolve.PackageKey{
+						System: resolve.Maven,
+						Name:   "org.profile:def",
+					},
+					VersionType: resolve.Requirement,
+					Version:     "2.3.4",
+				},
+			},
+			{
+				VersionKey: resolve.VersionKey{
+					PackageKey: resolve.PackageKey{
+						System: resolve.Maven,
 						Name:   "org.example:xyz",
 					},
 					VersionType: resolve.Requirement,

@@ -65,7 +65,6 @@ type DependencyWithOrigin struct {
 	Origin string // Origin indicates where the dependency comes from
 }
 
-// TODO: handle profiles (activation and interpolation)
 func (m MavenManifestIO) Read(df lockfile.DepFile) (Manifest, error) {
 	ctx := context.Background()
 
@@ -90,6 +89,10 @@ func (m MavenManifestIO) Read(df lockfile.DepFile) (Manifest, error) {
 			},
 			Type: resolve.MavenDepType(maven.Dependency{}, OriginParent),
 		})
+	}
+	// Empty JDK and ActivationOS indicates merging the default profiles.
+	if err := project.MergeProfiles("", maven.ActivationOS{}); err != nil {
+		return Manifest{}, fmt.Errorf("failed to merge profiles: %w", err)
 	}
 
 	// Merging parents data by parsing local parent pom.xml or fetching from upstream.
@@ -282,6 +285,10 @@ func (m MavenManifestIO) mergeParents(ctx context.Context, result *maven.Project
 				// A parent project should only be of "pom" packaging type.
 				return fmt.Errorf("invalid packaging for parent project %s", proj.Packaging)
 			}
+		}
+		// Empty JDK and ActivationOS indicates merging the default profiles.
+		if err := result.MergeProfiles("", maven.ActivationOS{}); err != nil {
+			return err
 		}
 		result.MergeParent(proj)
 		current = proj.Parent
