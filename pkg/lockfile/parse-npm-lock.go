@@ -102,7 +102,10 @@ func parseNpmLockDependencies(dependencies map[string]NpmLockDependency) map[str
 
 	for name, detail := range dependencies {
 		if detail.Dependencies != nil {
-			maps.Copy(details, parseNpmLockDependencies(detail.Dependencies))
+			nestedDeps := parseNpmLockDependencies(detail.Dependencies)
+			for k, v := range nestedDeps {
+				details.add(k, v)
+			}
 		}
 
 		version := detail.Version
