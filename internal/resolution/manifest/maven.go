@@ -90,6 +90,7 @@ func (m MavenManifestIO) Read(df lockfile.DepFile) (Manifest, error) {
 			Type: resolve.MavenDepType(maven.Dependency{}, OriginParent),
 		})
 	}
+
 	// Empty JDK and ActivationOS indicates merging the default profiles.
 	if err := project.MergeProfiles("", maven.ActivationOS{}); err != nil {
 		return Manifest{}, fmt.Errorf("failed to merge profiles: %w", err)
