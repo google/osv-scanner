@@ -103,7 +103,7 @@ func expectPackages(t *testing.T, actualPackages []lockfile.PackageDetails, expe
 		)
 	}
 
-missingActualPackages := findMissingPackages(t, actualPackages, expectedPackages)
+	missingActualPackages := findMissingPackages(t, actualPackages, expectedPackages)
 	missingExpectedPackages := findMissingPackages(t, expectedPackages, actualPackages)
 
 	if len(missingActualPackages) != 0 {
