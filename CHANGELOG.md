@@ -1,3 +1,17 @@
+# v1.8.2:
+
+### Features:
+
+- [Feature #1014](https://github.com/google/osv-scanner/pull/1014) Adding CycloneDX 1.4 and 1.5 output format. Thanks @marcwieserdev!
+
+### Fixes:
+
+- [Bug #769](https://github.com/google/osv-scanner/issues/769) Fixed missing vulnerabilities for debian purls for `--experimental-local-db`.
+- [Bug #1055](https://github.com/google/osv-scanner/issues/1055) Ensure that `package` exists in `affected` property.
+- [Bug #1072](https://github.com/google/osv-scanner/issues/1072) Filter out unimportant vulnerabilities from vuln group.
+- [Bug #1077](https://github.com/google/osv-scanner/issues/1077) Fix rate osv-scanner deadlock.
+- [Bug #924](https://github.com/google/osv-scanner/issues/924) Ensure that npm dependencies retain their "production" grouping.
+
 # v1.8.0/v1.8.1:
 
 ### Features:
@@ -25,7 +39,7 @@
 
 ### Minor Updates
 
-- [Feature #1039](https://github.com/google/osv-scanner/pull/1039) The `--experimental-local-db` flag has been removed and replaced with a new flag `--experimental-download-offline-databases` which better reflects what the flag does.  
+- [Feature #1039](https://github.com/google/osv-scanner/pull/1039) The `--experimental-local-db` flag has been removed and replaced with a new flag `--experimental-download-offline-databases` which better reflects what the flag does.
   To replicate the behavior of the original `--experimental-local-db` flag, replace it with both `--experimental-offline --experimental-download-offline-databases` flags. This will run osv-scanner in offline mode, but download the latest version of the vulnerability databases before scanning.
 
 ### Fixes:

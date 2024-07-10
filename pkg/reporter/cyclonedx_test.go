@@ -5,18 +5,18 @@ import (
 	"io"
 	"testing"
 
+	"github.com/google/osv-scanner/pkg/models"
 	"github.com/google/osv-scanner/pkg/reporter"
-	"github.com/google/osv-scanner/pkg/reporter/sbom"
 )
 
 func TestCycloneDXReporter_Errorf(t *testing.T) {
 	t.Parallel()
 
 	tests := []struct {
-		version sbom.CycloneDXVersion
+		version models.CycloneDXVersion
 	}{
-		{version: sbom.CycloneDXVersion14},
-		{version: sbom.CycloneDXVersion15},
+		{version: models.CycloneDXVersion14},
+		{version: models.CycloneDXVersion15},
 	}
 
 	text := "hello world!"
@@ -42,12 +42,12 @@ func TestCycloneDXReporter_Warnf(t *testing.T) {
 	tests := []struct {
 		lvl              reporter.VerbosityLevel
 		expectedPrintout string
-		version          sbom.CycloneDXVersion
+		version          models.CycloneDXVersion
 	}{
-		{lvl: reporter.WarnLevel, expectedPrintout: text, version: sbom.CycloneDXVersion14},
-		{lvl: reporter.WarnLevel, expectedPrintout: text, version: sbom.CycloneDXVersion15},
-		{lvl: reporter.ErrorLevel, expectedPrintout: "", version: sbom.CycloneDXVersion14},
-		{lvl: reporter.ErrorLevel, expectedPrintout: "", version: sbom.CycloneDXVersion15},
+		{lvl: reporter.WarnLevel, expectedPrintout: text, version: models.CycloneDXVersion14},
+		{lvl: reporter.WarnLevel, expectedPrintout: text, version: models.CycloneDXVersion15},
+		{lvl: reporter.ErrorLevel, expectedPrintout: "", version: models.CycloneDXVersion14},
+		{lvl: reporter.ErrorLevel, expectedPrintout: "", version: models.CycloneDXVersion15},
 	}
 
 	for _, test := range tests {
@@ -69,12 +69,12 @@ func TestCycloneDXReporter_Infof(t *testing.T) {
 	tests := []struct {
 		lvl              reporter.VerbosityLevel
 		expectedPrintout string
-		version          sbom.CycloneDXVersion
+		version          models.CycloneDXVersion
 	}{
-		{lvl: reporter.InfoLevel, expectedPrintout: text, version: sbom.CycloneDXVersion14},
-		{lvl: reporter.InfoLevel, expectedPrintout: text, version: sbom.CycloneDXVersion15},
-		{lvl: reporter.WarnLevel, expectedPrintout: "", version: sbom.CycloneDXVersion14},
-		{lvl: reporter.WarnLevel, expectedPrintout: "", version: sbom.CycloneDXVersion15},
+		{lvl: reporter.InfoLevel, expectedPrintout: text, version: models.CycloneDXVersion14},
+		{lvl: reporter.InfoLevel, expectedPrintout: text, version: models.CycloneDXVersion15},
+		{lvl: reporter.WarnLevel, expectedPrintout: "", version: models.CycloneDXVersion14},
+		{lvl: reporter.WarnLevel, expectedPrintout: "", version: models.CycloneDXVersion15},
 	}
 
 	for _, test := range tests {
@@ -93,27 +93,27 @@ func TestCycloneDXReporter_Verbosef(t *testing.T) {
 	t.Parallel()
 	text := "hello world!"
 	tests := []struct {
-		version          sbom.CycloneDXVersion
+		version          models.CycloneDXVersion
 		lvl              reporter.VerbosityLevel
 		expectedPrintout string
 	}{
 		{
-			version:          sbom.CycloneDXVersion14,
+			version:          models.CycloneDXVersion14,
 			lvl:              reporter.VerboseLevel,
 			expectedPrintout: text,
 		},
 		{
-			version:          sbom.CycloneDXVersion15,
+			version:          models.CycloneDXVersion15,
 			lvl:              reporter.VerboseLevel,
 			expectedPrintout: text,
 		},
 		{
-			version:          sbom.CycloneDXVersion14,
+			version:          models.CycloneDXVersion14,
 			lvl:              reporter.InfoLevel,
 			expectedPrintout: "",
 		},
 		{
-			version:          sbom.CycloneDXVersion15,
+			version:          models.CycloneDXVersion15,
 			lvl:              reporter.InfoLevel,
 			expectedPrintout: "",
 		},
