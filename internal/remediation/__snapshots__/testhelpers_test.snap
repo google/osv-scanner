@@ -22,43 +22,43 @@
       {
         "ID": "GHSA-2fqw-684c-pvp7",
         "AffectedNodes": [
-          121
+          123
         ]
       },
       {
         "ID": "GHSA-4jhc-wjr3-pwh2",
         "AffectedNodes": [
-          121
+          123
         ]
       },
       {
         "ID": "GHSA-6vvh-5794-vpmj",
         "AffectedNodes": [
-          121
+          123
         ]
       },
       {
         "ID": "GHSA-7fr2-94h7-ccg2",
         "AffectedNodes": [
-          121
+          123
         ]
       },
       {
         "ID": "GHSA-g7p8-r2ch-4rmf",
         "AffectedNodes": [
-          121
+          123
         ]
       },
       {
         "ID": "GHSA-m4h3-7mc2-v295",
         "AffectedNodes": [
-          121
+          123
         ]
       },
       {
         "ID": "GHSA-mf27-wg66-m8f5",
         "AffectedNodes": [
-          121
+          123
         ]
       }
     ],
@@ -193,43 +193,43 @@
       {
         "ID": "GHSA-2fqw-684c-pvp7",
         "AffectedNodes": [
-          121
+          123
         ]
       },
       {
         "ID": "GHSA-4jhc-wjr3-pwh2",
         "AffectedNodes": [
-          121
+          123
         ]
       },
       {
         "ID": "GHSA-6vvh-5794-vpmj",
         "AffectedNodes": [
-          121
+          123
         ]
       },
       {
         "ID": "GHSA-7fr2-94h7-ccg2",
         "AffectedNodes": [
-          121
+          123
         ]
       },
       {
         "ID": "GHSA-g7p8-r2ch-4rmf",
         "AffectedNodes": [
-          121
+          123
         ]
       },
       {
         "ID": "GHSA-m4h3-7mc2-v295",
         "AffectedNodes": [
-          121
+          123
         ]
       },
       {
         "ID": "GHSA-mf27-wg66-m8f5",
         "AffectedNodes": [
-          121
+          123
         ]
       }
     ],
@@ -400,13 +400,13 @@
       {
         "ID": "GHSA-4265-ccf5-phj5",
         "AffectedNodes": [
-          58
+          59
         ]
       },
       {
         "ID": "GHSA-4g9r-vxhx-9pgx",
         "AffectedNodes": [
-          58
+          59
         ]
       }
     ],
@@ -433,13 +433,13 @@
       {
         "ID": "GHSA-9w38-p64v-xpmv",
         "AffectedNodes": [
-          125
+          127
         ]
       },
       {
         "ID": "GHSA-xjp4-hw94-mvp5",
         "AffectedNodes": [
-          125
+          127
         ]
       }
     ],
@@ -565,13 +565,13 @@
       {
         "ID": "GHSA-3p86-9955-h393",
         "AffectedNodes": [
-          55
+          56
         ]
       },
       {
         "ID": "GHSA-q446-82vq-w674",
         "AffectedNodes": [
-          149
+          151
         ]
       }
     ],
@@ -783,7 +783,7 @@
       {
         "ID": "GHSA-q446-82vq-w674",
         "AffectedNodes": [
-          149
+          151
         ]
       }
     ],
@@ -999,7 +999,7 @@
       {
         "ID": "GHSA-c43q-5hpj-4crv",
         "AffectedNodes": [
-          67
+          68
         ]
       }
     ],
@@ -1064,7 +1064,7 @@
       {
         "ID": "GHSA-g2fg-mr77-6vrm",
         "AffectedNodes": [
-          124
+          126
         ]
       }
     ],
@@ -1131,7 +1131,7 @@
       {
         "ID": "GHSA-g2fg-mr77-6vrm",
         "AffectedNodes": [
-          124
+          126
         ]
       }
     ],
