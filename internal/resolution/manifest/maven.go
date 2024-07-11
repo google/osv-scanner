@@ -2,6 +2,7 @@ package manifest
 
 import (
 	"bytes"
+	"cmp"
 	"context"
 	"encoding/xml"
 	"errors"
@@ -9,7 +10,7 @@ import (
 	"io"
 	"os"
 	"path/filepath"
-	"sort"
+	"slices"
 	"strings"
 
 	"deps.dev/util/maven"
@@ -561,21 +562,9 @@ func makeDependency(patch MavenPatch) dependency {
 	return d
 }
 
-func compareDependency(d1, d2 dependency) bool {
-	if d1.GroupID != d2.GroupID {
-		return d1.GroupID < d2.GroupID
-	}
-	if d1.ArtifactID != d2.ArtifactID {
-		return d1.ArtifactID < d2.ArtifactID
-	}
-	if d1.Type != d2.Type {
-		return d1.Type < d2.Type
-	}
-	if d1.Classifier != d2.Classifier {
-		return d1.Classifier < d2.Classifier
-	}
-
-	return d1.Version < d2.Version
+func compareDependency(d1, d2 dependency) int {
+	return cmp.Or(cmp.Compare(d1.GroupID, d2.GroupID), cmp.Compare(d1.ArtifactID, d2.ArtifactID),
+		cmp.Compare(d1.Type, d2.Type), cmp.Compare(d1.Classifier, d2.Classifier), cmp.Compare(d1.Version, d2.Version))
 }
 
 func write(buf *bytes.Buffer, w io.Writer, depPatches MavenDependencyPatches, propertyPatches MavenPropertyPatches) error {
@@ -628,9 +617,7 @@ func write(buf *bytes.Buffer, w io.Writer, depPatches MavenDependencyPatches, pr
 						dm.Dependencies = append(dm.Dependencies, makeDependency(p))
 					}
 					// Sort dependency management for consistency in testing.
-					sort.Slice(dm.Dependencies, func(i, j int) bool {
-						return compareDependency(dm.Dependencies[i], dm.Dependencies[j])
-					})
+					slices.SortFunc(dm.Dependencies, compareDependency)
 					if err := enc.Encode(dm); err != nil {
 						return err
 					}
@@ -823,9 +810,7 @@ func updateDependency(w io.Writer, enc *xml.Encoder, raw string, patches map[Mav
 					continue
 				}
 				// Sort dependencies for consistency in testing.
-				sort.Slice(deps, func(i, j int) bool {
-					return compareDependency(deps[i], deps[j])
-				})
+				slices.SortFunc(deps, compareDependency)
 
 				enc.Indent("    ", "  ")
 				// Write a new line to keep the format.
