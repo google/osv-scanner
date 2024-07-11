@@ -78,6 +78,9 @@ OSV-Scanner uses [deps.dev’s resolver library](https://pkg.go.dev/deps.dev/uti
 
 After the dependency resolution, the OSV database is queried for the vulnerabilities associated with these dependencies as usual.
 
+{: .note }
+Test dependencies are not supported yet in the computed dependency graph for Maven pom.xml.
+
 ## Custom Lockfiles
 
 If you have a custom lockfile that we do not support or prefer to do your own custom parsing, you can extract the custom lockfile information and create a custom intermediate file containing dependency information so that osv-scanner can still check for vulnerabilities.
