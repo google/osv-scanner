@@ -561,7 +561,7 @@ func makeDependency(patch MavenPatch) dependency {
 	return d
 }
 
-func compare(d1, d2 dependency) bool {
+func compareDependency(d1, d2 dependency) bool {
 	if d1.GroupID != d2.GroupID {
 		return d1.GroupID < d2.GroupID
 	}
@@ -629,7 +629,7 @@ func write(buf *bytes.Buffer, w io.Writer, depPatches MavenDependencyPatches, pr
 					}
 					// Sort dependency management for consistency in testing.
 					sort.Slice(dm.Dependencies, func(i, j int) bool {
-						return compare(dm.Dependencies[i], dm.Dependencies[j])
+						return compareDependency(dm.Dependencies[i], dm.Dependencies[j])
 					})
 					if err := enc.Encode(dm); err != nil {
 						return err
@@ -824,10 +824,11 @@ func updateDependency(w io.Writer, enc *xml.Encoder, raw string, patches map[Mav
 				}
 				// Sort dependencies for consistency in testing.
 				sort.Slice(deps, func(i, j int) bool {
-					return compare(deps[i], deps[j])
+					return compareDependency(deps[i], deps[j])
 				})
 
 				enc.Indent("    ", "  ")
+				// Write a new line to keep the format.
 				if _, err := w.Write([]byte("\n")); err != nil {
 					return err
 				}
