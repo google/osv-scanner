@@ -571,8 +571,20 @@ func makeDependency(patch MavenPatch) dependency {
 }
 
 func compareDependency(d1, d2 dependency) int {
-	return cmp.Or(cmp.Compare(d1.GroupID, d2.GroupID), cmp.Compare(d1.ArtifactID, d2.ArtifactID),
-		cmp.Compare(d1.Type, d2.Type), cmp.Compare(d1.Classifier, d2.Classifier), cmp.Compare(d1.Version, d2.Version))
+	if i := cmp.Compare(d1.GroupID, d2.GroupID); i != 0 {
+		return i
+	}
+	if i := cmp.Compare(d1.ArtifactID, d2.ArtifactID); i != 0 {
+		return i
+	}
+	if i := cmp.Compare(d1.Type, d2.Type); i != 0 {
+		return i
+	}
+	if i := cmp.Compare(d1.Classifier, d2.Classifier); i != 0 {
+		return i
+	}
+
+	return cmp.Compare(d1.Version, d2.Version)
 }
 
 func write(buf *bytes.Buffer, w io.Writer, depPatches MavenDependencyPatches, propertyPatches MavenPropertyPatches) error {
