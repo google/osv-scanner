@@ -134,11 +134,11 @@ func traceOrigin(img *Image, scannedLockfiles *ScanResults) {
 
 		// Finally save the package IDs back into the ScanResults
 		for i, pkg := range file.Packages {
-			layerId := img.layers[sourceLayerIdx[makePdKey(pkg)]].id
+			layerID := img.layers[sourceLayerIdx[makePdKey(pkg)]].id
 			file.Packages[i].ImageOrigin = &models.ImageOriginDetails{
-				LayerID:       layerId,
-				OriginCommand: img.LayerIDToCommand(layerId),
-				InBaseImage:   img.layerIDToIndex[layerId] <= img.baseImageIndex,
+				LayerID:       layerID,
+				OriginCommand: img.LayerIDToCommand(layerID),
+				InBaseImage:   img.layerIDToIndex[layerID] <= img.baseImageIndex,
 			}
 		}
 	}

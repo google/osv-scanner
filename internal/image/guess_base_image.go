@@ -75,5 +75,6 @@ func guessBaseImageIndex(histories []v1.History) int {
 		}
 		nonEmptyIndex += 1
 	}
+
 	return nonEmptyIndex
 }
