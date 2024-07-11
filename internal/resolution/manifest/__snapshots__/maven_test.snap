@@ -158,14 +158,16 @@
 
   <dependencyManagement>
     <dependencies>
-      <groupId>org.management</groupId>
-      <artifactId>abc</artifactId>
-      <version>1.2.3</version>
-    </dependencies>
-    <dependencies>
-      <groupId>org.management</groupId>
-      <artifactId>xyz</artifactId>
-      <version>2.3.4</version>
+      <dependency>
+        <groupId>org.management</groupId>
+        <artifactId>abc</artifactId>
+        <version>1.2.3</version>
+      </dependency>
+      <dependency>
+        <groupId>org.management</groupId>
+        <artifactId>xyz</artifactId>
+        <version>2.3.4</version>
+      </dependency>
     </dependencies>
   </dependencyManagement>
 
