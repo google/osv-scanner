@@ -60,6 +60,9 @@
   <profiles>
     <profile>
       <id>profile-one</id>
+      <activation>
+        <activeByDefault>true</activeByDefault>
+      </activation>
       <properties>
         <def.version>2.3.4</def.version>
       </properties>
