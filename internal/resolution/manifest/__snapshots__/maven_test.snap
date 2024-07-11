@@ -72,6 +72,9 @@
   <profiles>
     <profile>
       <id>profile-one</id>
+      <activation>
+        <activeByDefault>true</activeByDefault>
+      </activation>
       <properties>
         <def.version>2.3.5</def.version>
       </properties>
