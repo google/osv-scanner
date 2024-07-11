@@ -763,7 +763,7 @@ func updateProject(w io.Writer, enc *xml.Encoder, raw, prefix, id string, patche
 
 // Only for writing dependencies that are not from the base project.
 type dependencyManagement struct {
-	Dependencies []dependency `xml:"dependencies,omitempty"`
+	Dependencies []dependency `xml:"dependencies>dependency,omitempty"`
 }
 
 type dependency struct {
