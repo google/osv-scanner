@@ -89,6 +89,12 @@ func TestScanImage(t *testing.T) {
 				return
 			}
 
+			for _, lockfile := range got.Lockfiles {
+				for _, pkg := range lockfile.Packages {
+					pkg.ImageOrigin.LayerID = "<Any value>"
+				}
+			}
+
 			sort.Slice(got.Lockfiles, func(i, j int) bool {
 				return got.Lockfiles[i].FilePath < got.Lockfiles[j].FilePath
 			})
