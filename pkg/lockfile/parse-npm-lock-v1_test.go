@@ -415,3 +415,35 @@ func TestParseNpmLock_v1_OptionalPackage(t *testing.T) {
 		},
 	})
 }
+
+func TestParseNpmLock_v1_SamePackageDifferentGroups(t *testing.T) {
+	t.Parallel()
+
+	packages, err := lockfile.ParseNpmLock("fixtures/npm/same-package-different-groups.v1.json")
+
+	if err != nil {
+		t.Errorf("Got unexpected error: %v", err)
+	}
+
+	expectPackages(t, packages, []lockfile.PackageDetails{
+		{
+			Name:      "eslint",
+			Version:   "1.2.3",
+			Ecosystem: lockfile.NpmEcosystem,
+			CompareAs: lockfile.NpmEcosystem,
+			DepGroups: []string{"dev"},
+		},
+		{
+			Name:      "table",
+			Version:   "1.0.0",
+			Ecosystem: lockfile.NpmEcosystem,
+			CompareAs: lockfile.NpmEcosystem,
+		},
+		{
+			Name:      "ajv",
+			Version:   "5.5.2",
+			Ecosystem: lockfile.NpmEcosystem,
+			CompareAs: lockfile.NpmEcosystem,
+		},
+	})
+}
