@@ -35,6 +35,8 @@ type Image struct {
 	layers         []imgLayer
 	innerImage     *v1.Image
 	extractDir     string
+	baseImageIndex int
+	configFile     *v1.ConfigFile
 	layerIDToIndex map[string]int
 }
 
@@ -90,11 +92,18 @@ func LoadImage(imagePath string) (*Image, error) {
 		return nil, err
 	}
 
+	configFile, err := image.ConfigFile()
+	if err != nil {
+		log.Panicln("Failed to get inner image config file")
+	}
+
 	outputImage := Image{
 		extractDir:     tempPath,
 		innerImage:     &image,
 		layers:         make([]imgLayer, len(layers)),
 		layerIDToIndex: make(map[string]int),
+		configFile:     configFile,
+		baseImageIndex: guessBaseImageIndex(configFile.History),
 	}
 
 	// Initiate the layers first

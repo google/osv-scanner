@@ -7,6 +7,7 @@ import (
 	"log"
 
 	"github.com/google/osv-scanner/pkg/lockfile"
+	"github.com/google/osv-scanner/pkg/models"
 	"github.com/google/osv-scanner/pkg/reporter"
 )
 
@@ -133,7 +134,12 @@ func traceOrigin(img *Image, scannedLockfiles *ScanResults) {
 
 		// Finally save the package IDs back into the ScanResults
 		for i, pkg := range file.Packages {
-			file.Packages[i].OriginLayerID = img.layers[sourceLayerIdx[makePdKey(pkg)]].id
+			layerId := img.layers[sourceLayerIdx[makePdKey(pkg)]].id
+			file.Packages[i].ImageOrigin = &models.ImageOriginDetails{
+				LayerID:       layerId,
+				OriginCommand: img.LayerIDToCommand(layerId),
+				InBaseImage:   img.layerIDToIndex[layerId] <= img.baseImageIndex,
+			}
 		}
 	}
 }

@@ -89,19 +89,6 @@ func TestScanImage(t *testing.T) {
 				return
 			}
 
-			img, err := image.LoadImage(tt.args.imagePath)
-			if (err != nil) != tt.wantErr {
-				t.Fatalf("reloading the image failed")
-			}
-
-			// Convert id (which changes between builds) to stable index
-			// This also makes it easier to reason about
-			for _, file := range got.Lockfiles {
-				for i := range file.Packages {
-					file.Packages[i].OriginLayerID = img.LayerIDToCommand(file.Packages[i].OriginLayerID)
-				}
-			}
-
 			sort.Slice(got.Lockfiles, func(i, j int) bool {
 				return got.Lockfiles[i].FilePath < got.Lockfiles[j].FilePath
 			})

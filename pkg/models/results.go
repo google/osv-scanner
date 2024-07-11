@@ -169,9 +169,9 @@ type AnalysisInfo struct {
 
 // Specific package information
 type PackageInfo struct {
-	Name          string `json:"name"`
-	Version       string `json:"version"`
-	Ecosystem     string `json:"ecosystem"`
-	Commit        string `json:"commit,omitempty"`
-	OriginLayerID string `json:"originLayerId,omitempty"`
+	Name        string              `json:"name"`
+	Version     string              `json:"version"`
+	Ecosystem   string              `json:"ecosystem"`
+	Commit      string              `json:"commit,omitempty"`
+	ImageOrigin *ImageOriginDetails `json:"imageOrigin,omitempty"`
 }
