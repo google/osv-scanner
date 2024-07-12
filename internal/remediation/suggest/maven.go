@@ -45,9 +45,10 @@ func (ms *MavenSuggester) Suggest(ctx context.Context, client resolve.Client, mf
 		}
 
 		changedDeps = append(changedDeps, manifest.DependencyPatch{
-			Pkg:        req.PackageKey,
-			Type:       req.Type,
-			NewRequire: latest.Version,
+			Pkg:         req.PackageKey,
+			Type:        req.Type,
+			OrigRequire: req.Version,
+			NewRequire:  latest.Version,
 		})
 	}
 

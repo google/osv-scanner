@@ -403,12 +403,16 @@ func buildPatches(patches []DependencyPatch, specific MavenManifestSpecific) (Ma
 	propertyPatches := MavenPropertyPatches{}
 	for _, patch := range patches {
 		origDep := originalDependency(patch, specific.OriginalRequirements)
-		if origDep.Name() == "" {
+		if origDep.Name() == ":" {
 			// An empty name indicates the dependency is not found, so the original dependency is not in the base project.
-			// TODO: enable for guided remeidation
-			// if err := depPatches.addPatch(patch, false); err != nil {
-			//	return MavenDependencyPatches{}, MavenPropertyPatches{}, err
-			// }
+			// If the patch is from suggest (origRequire is set), we ignore this patch.
+			// If the patch if from override (origRequire is empty), we add this patch.
+			if patch.OrigRequire == "" {
+				if err := depPatches.addPatch(patch, false); err != nil {
+					return MavenDependencyPatches{}, MavenPropertyPatches{}, err
+				}
+			}
+
 			continue
 		}
 

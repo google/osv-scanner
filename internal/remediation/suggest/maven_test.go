@@ -272,75 +272,85 @@ func TestSuggest(t *testing.T) {
 					System: resolve.Maven,
 					Name:   "org.dep:plugin-dep",
 				},
-				Type:       depPlugin,
-				NewRequire: "2.3.4",
+				Type:        depPlugin,
+				OrigRequire: "2.3.3",
+				NewRequire:  "2.3.4",
 			},
 			{
 				Pkg: resolve.PackageKey{
 					System: resolve.Maven,
 					Name:   "org.example:abc",
 				},
-				NewRequire: "1.0.2",
+				OrigRequire: "1.0.1",
+				NewRequire:  "1.0.2",
 			},
 			{
 				Pkg: resolve.PackageKey{
 					System: resolve.Maven,
 					Name:   "org.example:another-property",
 				},
-				NewRequire: "1.1.0",
+				OrigRequire: "1.0.0",
+				NewRequire:  "1.1.0",
 			},
 			{
 				Pkg: resolve.PackageKey{
 					System: resolve.Maven,
 					Name:   "org.example:property",
 				},
-				NewRequire: "1.0.1",
+				OrigRequire: "1.0.0",
+				NewRequire:  "1.0.1",
 			},
 			{
 				Pkg: resolve.PackageKey{
 					System: resolve.Maven,
 					Name:   "org.example:property-no-update",
 				},
-				NewRequire: "2.0.0",
+				OrigRequire: "1.9",
+				NewRequire:  "2.0.0",
 			},
 			{
 				Pkg: resolve.PackageKey{
 					System: resolve.Maven,
 					Name:   "org.example:same-property",
 				},
-				NewRequire: "1.0.1",
+				OrigRequire: "1.0.0",
+				NewRequire:  "1.0.1",
 			},
 			{
 				Pkg: resolve.PackageKey{
 					System: resolve.Maven,
 					Name:   "org.example:xyz",
 				},
-				Type:       depMgmt,
-				NewRequire: "2.0.1",
+				Type:        depMgmt,
+				OrigRequire: "2.0.0",
+				NewRequire:  "2.0.1",
 			},
 			{
 				Pkg: resolve.PackageKey{
 					System: resolve.Maven,
 					Name:   "org.import:xyz",
 				},
-				Type:       depProfileTwoMgmt,
-				NewRequire: "6.7.0",
+				Type:        depProfileTwoMgmt,
+				OrigRequire: "6.6.6",
+				NewRequire:  "6.7.0",
 			},
 			{
 				Pkg: resolve.PackageKey{
 					System: resolve.Maven,
 					Name:   "org.profile:abc",
 				},
-				Type:       depProfileOne,
-				NewRequire: "1.2.4",
+				Type:        depProfileOne,
+				OrigRequire: "1.2.3",
+				NewRequire:  "1.2.4",
 			},
 			{
 				Pkg: resolve.PackageKey{
 					System: resolve.Maven,
 					Name:   "org.profile:def",
 				},
-				Type:       depProfileOne,
-				NewRequire: "2.3.5",
+				Type:        depProfileOne,
+				OrigRequire: "2.3.4",
+				NewRequire:  "2.3.5",
 			},
 		},
 		EcosystemSpecific: manifest.MavenManifestSpecific{
