@@ -2,6 +2,7 @@ package manifest
 
 import (
 	"bytes"
+	"cmp"
 	"context"
 	"encoding/xml"
 	"errors"
@@ -9,7 +10,7 @@ import (
 	"io"
 	"os"
 	"path/filepath"
-	"sort"
+	"slices"
 	"strings"
 
 	"deps.dev/util/maven"
@@ -542,6 +543,50 @@ func projectStartElement(raw string) string {
 	return raw[start : start+end+1]
 }
 
+// Only for writing dependencies that are not from the base project.
+type dependencyManagement struct {
+	Dependencies []dependency `xml:"dependencies>dependency,omitempty"`
+}
+
+type dependency struct {
+	GroupID    string `xml:"groupId,omitempty"`
+	ArtifactID string `xml:"artifactId,omitempty"`
+	Version    string `xml:"version,omitempty"`
+	Type       string `xml:"type,omitempty"`
+	Classifier string `xml:"classifier,omitempty"`
+}
+
+func makeDependency(patch MavenPatch) dependency {
+	d := dependency{
+		GroupID:    string(patch.GroupID),
+		ArtifactID: string(patch.ArtifactID),
+		Version:    patch.NewRequire,
+		Classifier: string(patch.Classifier),
+	}
+	if patch.Type != "" && patch.Type != "jar" {
+		d.Type = string(patch.Type)
+	}
+
+	return d
+}
+
+func compareDependency(d1, d2 dependency) int {
+	if i := cmp.Compare(d1.GroupID, d2.GroupID); i != 0 {
+		return i
+	}
+	if i := cmp.Compare(d1.ArtifactID, d2.ArtifactID); i != 0 {
+		return i
+	}
+	if i := cmp.Compare(d1.Type, d2.Type); i != 0 {
+		return i
+	}
+	if i := cmp.Compare(d1.Classifier, d2.Classifier); i != 0 {
+		return i
+	}
+
+	return cmp.Compare(d1.Version, d2.Version)
+}
+
 func write(buf *bytes.Buffer, w io.Writer, depPatches MavenDependencyPatches, propertyPatches MavenPropertyPatches) error {
 	dec := xml.NewDecoder(bytes.NewReader(buf.Bytes()))
 	enc := xml.NewEncoder(w)
@@ -592,24 +637,7 @@ func write(buf *bytes.Buffer, w io.Writer, depPatches MavenDependencyPatches, pr
 						dm.Dependencies = append(dm.Dependencies, makeDependency(p))
 					}
 					// Sort dependency management for consistency in testing.
-					sort.Slice(dm.Dependencies, func(i, j int) bool {
-						di := dm.Dependencies[i]
-						dj := dm.Dependencies[j]
-						if di.GroupID != dj.GroupID {
-							return di.GroupID < dj.GroupID
-						}
-						if di.ArtifactID != dj.ArtifactID {
-							return di.ArtifactID < dj.ArtifactID
-						}
-						if di.Type != dj.Type {
-							return di.Type < dj.Type
-						}
-						if di.Classifier != dj.Classifier {
-							return di.Classifier < dj.Classifier
-						}
-
-						return di.Version < dj.Version
-					})
+					slices.SortFunc(dm.Dependencies, compareDependency)
 					if err := enc.Encode(dm); err != nil {
 						return err
 					}
@@ -769,33 +797,6 @@ func updateProject(w io.Writer, enc *xml.Encoder, raw, prefix, id string, patche
 	return enc.Flush()
 }
 
-// Only for writing dependencies that are not from the base project.
-type dependencyManagement struct {
-	Dependencies []dependency `xml:"dependencies>dependency,omitempty"`
-}
-
-type dependency struct {
-	GroupID    string `xml:"groupId,omitempty"`
-	ArtifactID string `xml:"artifactId,omitempty"`
-	Version    string `xml:"version,omitempty"`
-	Type       string `xml:"type,omitempty"`
-	Classifier string `xml:"classifier,omitempty"`
-}
-
-func makeDependency(patch MavenPatch) dependency {
-	d := dependency{
-		GroupID:    string(patch.GroupID),
-		ArtifactID: string(patch.ArtifactID),
-		Version:    patch.NewRequire,
-		Classifier: string(patch.Classifier),
-	}
-	if patch.Type != "" && patch.Type != "jar" {
-		d.Type = string(patch.Type)
-	}
-
-	return d
-}
-
 func updateDependency(w io.Writer, enc *xml.Encoder, raw string, patches map[MavenPatch]bool) error {
 	dec := xml.NewDecoder(bytes.NewReader([]byte(raw)))
 	for {
@@ -816,20 +817,28 @@ func updateDependency(w io.Writer, enc *xml.Encoder, raw string, patches map[Mav
 				if err := enc.Flush(); err != nil {
 					return err
 				}
+
 				// Write patches that are not in the base project.
-				newLine := false
-				enc.Indent("    ", "  ")
+				var deps []dependency
 				for p, ok := range patches {
-					if ok {
-						continue
+					if !ok {
+						deps = append(deps, makeDependency(p))
 					}
-					if !newLine {
-						if _, err := w.Write([]byte("\n")); err != nil {
-							return err
-						}
-						newLine = true
-					}
-					if err := enc.Encode(makeDependency(p)); err != nil {
+				}
+				if len(deps) == 0 {
+					// No dependencies to add
+					continue
+				}
+				// Sort dependencies for consistency in testing.
+				slices.SortFunc(deps, compareDependency)
+
+				enc.Indent("    ", "  ")
+				// Write a new line to keep the format.
+				if _, err := w.Write([]byte("\n")); err != nil {
+					return err
+				}
+				for _, d := range deps {
+					if err := enc.Encode(d); err != nil {
 						return err
 					}
 				}
@@ -851,7 +860,6 @@ func updateDependency(w io.Writer, enc *xml.Encoder, raw string, patches map[Mav
 					// A Maven dependency key consists of Type and Classifier together with GroupID and ArtifactID.
 					if patch.DependencyKey == rawDep.Key() {
 						req = patch.NewRequire
-						patches[patch] = true
 					}
 				}
 				// xml.EncodeElement writes all empty elements and may not follow the existing format.
