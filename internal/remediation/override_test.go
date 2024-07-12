@@ -7,7 +7,7 @@ import (
 	"github.com/google/osv-scanner/internal/remediation"
 )
 
-func TestComputeRelaxPatches(t *testing.T) {
+func TestComputeOverridePatches(t *testing.T) {
 	t.Parallel()
 
 	basicOpts := remediation.RemediationOptions{
@@ -23,9 +23,9 @@ func TestComputeRelaxPatches(t *testing.T) {
 		opts         remediation.RemediationOptions
 	}{
 		{
-			name:         "npm-santatracker",
-			universePath: "./fixtures/santatracker/universe.yaml",
-			manifestPath: "./fixtures/santatracker/package.json",
+			name:         "maven-zeppelin-server",
+			universePath: "./fixtures/zeppelin-server/universe.yaml",
+			manifestPath: "./fixtures/zeppelin-server/pom.xml",
 			opts:         basicOpts,
 		},
 	}
@@ -36,9 +36,9 @@ func TestComputeRelaxPatches(t *testing.T) {
 			t.Parallel()
 			res, cl := parseRemediationFixture(t, tt.universePath, tt.manifestPath)
 			res.FilterVulns(tt.opts.MatchVuln)
-			p, err := remediation.ComputeRelaxPatches(context.Background(), cl, res, tt.opts)
+			p, err := remediation.ComputeOverridePatches(context.Background(), cl, res, tt.opts)
 			if err != nil {
-				t.Fatalf("Failed to compute relaxation patches: %v", err)
+				t.Fatalf("Failed to compute override patches: %v", err)
 			}
 			checkRemediationResults(t, p)
 		})
