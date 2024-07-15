@@ -606,6 +606,23 @@ func TestBuildPatches(t *testing.T) {
 			Type:       depParent,
 			NewRequire: "1.2.0",
 		},
+		{
+			Pkg: resolve.PackageKey{
+				System: resolve.Maven,
+				Name:   "org.example:suggest",
+			},
+			Type:        depMgmt,
+			OrigRequire: "1.0.0",
+			NewRequire:  "2.0.0",
+		},
+		{
+			Pkg: resolve.PackageKey{
+				System: resolve.Maven,
+				Name:   "org.example:override",
+			},
+			Type:       depMgmt,
+			NewRequire: "2.0.0",
+		},
 	}
 	specific := MavenManifestSpecific{
 		Properties: []PropertyWithOrigin{
@@ -697,6 +714,14 @@ func TestBuildPatches(t *testing.T) {
 				},
 				NewRequire: "2.0.1",
 			}: true,
+			{
+				DependencyKey: maven.DependencyKey{
+					GroupID:    "org.example",
+					ArtifactID: "override",
+					Type:       "jar",
+				},
+				NewRequire: "2.0.0",
+			}: false,
 		},
 		"profile@profile-one": map[MavenPatch]bool{
 			{
