@@ -66,8 +66,8 @@ func ComputeOverridePatches(ctx context.Context, cl client.ResolutionClient, res
 		}
 
 		if res.err != nil {
-			// TODO: stop goroutines
-			return nil, res.err
+			// Resolution errors aren't uncommon - just skip if we encounter one.
+			continue
 		}
 
 		diff := result.CalculateDiff(res.result)

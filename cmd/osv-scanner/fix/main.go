@@ -76,8 +76,7 @@ func Command(stdout, stderr io.Writer, r *reporter.Reporter) *cli.Command {
 			&cli.StringFlag{
 				Category: autoModeCategory,
 				Name:     "strategy",
-				Usage:    "remediation approach to use; value can be: in-place, relock",
-				Value:    "relock",
+				Usage:    "remediation approach to use; value can be: in-place, relock, override",
 				Action: func(ctx *cli.Context, s string) error {
 					if !ctx.Bool("non-interactive") {
 						// This flag isn't used in interactive mode
@@ -91,6 +90,10 @@ func Command(stdout, stderr io.Writer, r *reporter.Reporter) *cli.Command {
 					case "relock":
 						if !ctx.IsSet("manifest") {
 							return errors.New("relock strategy requires manifest file")
+						}
+					case "override":
+						if !ctx.IsSet("manifest") {
+							return errors.New("override strategy requires manifest file")
 						}
 					default:
 						return fmt.Errorf("unsupported strategy \"%s\" - must be one of: in-place, relock", s)
@@ -157,11 +160,6 @@ func Command(stdout, stderr io.Writer, r *reporter.Reporter) *cli.Command {
 }
 
 func action(ctx *cli.Context, stdout, stderr io.Writer) (reporter.Reporter, error) {
-	// The Action on strategy isn't run when using the default values. Check if the manifest is set.
-	if ctx.Bool("non-interactive") && ctx.String("strategy") == "relock" && !ctx.IsSet("manifest") {
-		return nil, errors.New("relock strategy requires manifest file")
-	}
-
 	if !ctx.IsSet("manifest") && !ctx.IsSet("lockfile") {
 		return nil, errors.New("manifest or lockfile is required")
 	}
@@ -232,11 +230,29 @@ func action(ctx *cli.Context, stdout, stderr io.Writer) (reporter.Reporter, erro
 	r := reporter.NewTableReporter(stdout, stderr, reporter.InfoLevel, false, 0)
 	maxUpgrades := ctx.Int("apply-top")
 
-	switch ctx.String("strategy") {
+	strategy := ctx.String("strategy")
+
+	if !ctx.IsSet("strategy") {
+		// Choose a default strategy based on the manifest/lockfile provided.
+		switch {
+		case remediation.SupportsRelax(opts.ManifestRW):
+			strategy = "relock"
+		case remediation.SupportsOverride(opts.ManifestRW):
+			strategy = "override"
+		case remediation.SupportsInPlace(opts.LockfileRW):
+			strategy = "in-place"
+		default:
+			return nil, errors.New("no supported remediation strategies for manifest/lockfile")
+		}
+	}
+
+	switch strategy {
 	case "relock":
 		return r, autoRelock(ctx.Context, r, opts, maxUpgrades)
 	case "in-place":
 		return r, autoInPlace(ctx.Context, r, opts, maxUpgrades)
+	case "override":
+		return r, autoOverride(ctx.Context, r, opts, maxUpgrades)
 	default:
 		// The strategy flag should already be validated by this point.
 		panic(fmt.Sprintf("non-interactive mode attempted to run with unhandled strategy: \"%s\"", ctx.String("strategy")))
