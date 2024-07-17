@@ -1,0 +1,23 @@
+name: 'Close stale issues and PRs'
+on:
+  schedule:
+    - cron: '0 18 * * *'
+
+jobs:
+  stale:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/stale@v9
+        with:
+          days-before-stale: 60
+          days-before-close: 7
+          stale-issue-label: stale
+          stale-pr-label: stale
+          remove-stale-when-updated: true
+          exempt-issue-labels: 'good first issue'
+          exempt-all-assignees: true
+          ignore-updates: false
+          stale-issue-message: 'This issue has not had any activity for 60 days and will be automatically closed in a week'
+          stale-pr-message: 'This pull request has not had any activity for 60 days and will be automatically closed in a week'
+          close-issue-message: 'Automatically closing stale issue'
+          close-pr-message: 'Automatically closing stale pull request'
