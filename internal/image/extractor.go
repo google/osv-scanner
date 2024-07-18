@@ -113,7 +113,7 @@ func (f ImageFile) Path() string {
 }
 
 func OpenLayerFile(path string, layer *imgLayer) (ImageFile, error) {
-	fileNode, err := layer.GetFileNode(path)
+	fileNode, err := layer.getFileNode(path)
 	if err != nil {
 		return ImageFile{}, err
 	}

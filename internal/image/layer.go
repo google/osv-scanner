@@ -40,13 +40,14 @@ func (f *fileNode) absoluteDiskPath() string {
 
 // imgLayer represents all the files on a layer
 type imgLayer struct {
-	fileNodeTrie *trie.PathTrie
+	// id is the sha256 digest of the layer
 	id           string
+	fileNodeTrie *trie.PathTrie
 	rootImage    *Image
 	// TODO: Use hashmap to speed up path lookups
 }
 
-func (filemap imgLayer) GetFileNode(path string) (fileNode, error) {
+func (filemap imgLayer) getFileNode(path string) (fileNode, error) {
 	node, ok := filemap.fileNodeTrie.Get(path).(fileNode)
 	if !ok {
 		return fileNode{}, fs.ErrNotExist

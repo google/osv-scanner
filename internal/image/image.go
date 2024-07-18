@@ -25,6 +25,8 @@ const fileReadLimit = 2 * 1 << (10 * 3)
 const dirPermission = 0700
 const filePermission = 0600
 
+var ErrNoHistoryAvailable = errors.New("no history available")
+
 type ScanResults struct {
 	Lockfiles []lockfile.Lockfile
 	ImagePath string
@@ -40,28 +42,28 @@ type Image struct {
 	layerIDToIndex map[string]int
 }
 
-func (img *Image) LayerIDToIdx(id string) int {
-	return img.layerIDToIndex[id]
-}
-
-// LayerIDToCommand takes in a layer id and returns the history CreatedBy field
+// layerIDToCommand takes in a layer id (see imgLayer.id) and returns the history CreatedBy field
 // of the corresponding layer
-func (img *Image) LayerIDToCommand(id string) string {
-	file, err := (*img.innerImage).ConfigFile()
-	if err != nil {
-		log.Panicln("Failed to get inner image config file")
+func (img *Image) layerIDToCommand(id string) (string, error) {
+	if img.configFile == nil {
+		return "", ErrNoHistoryAvailable
 	}
+
 	idxCount := img.layerIDToIndex[id]
 	var i int
 	// Match history to layer IDX by skipping empty layer history entries
 	for i = 0; idxCount >= 0; i++ {
-		if file.History[i].EmptyLayer {
+		if i >= len(img.configFile.History) {
+			return "", ErrNoHistoryAvailable
+		}
+
+		if img.configFile.History[i].EmptyLayer {
 			continue
 		}
 		idxCount -= 1
 	}
 	// -1 from i because when idxCount becomes -1 it still increments i by 1
-	return file.History[i-1].CreatedBy
+	return img.configFile.History[i-1].CreatedBy, nil
 }
 
 func (img *Image) LastLayer() *imgLayer {

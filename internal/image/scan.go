@@ -63,7 +63,7 @@ func traceOrigin(img *Image, scannedLockfiles *ScanResults) {
 			Ecosystem lockfile.Ecosystem
 		}
 
-		makePdKey := func(pd lockfile.PackageDetails) PDKey {
+		makePDKey := func(pd lockfile.PackageDetails) PDKey {
 			return PDKey{
 				Name:      pd.Name,
 				Version:   pd.Version,
@@ -73,7 +73,7 @@ func traceOrigin(img *Image, scannedLockfiles *ScanResults) {
 		}
 
 		// First get the latest file node
-		lastFileNode, err := img.layers[len(img.layers)-1].GetFileNode(file.FilePath)
+		lastFileNode, err := img.layers[len(img.layers)-1].getFileNode(file.FilePath)
 		if err != nil {
 			log.Panicf("did not expect to fail getting file node we just scanned: %v", err)
 		}
@@ -85,7 +85,7 @@ func traceOrigin(img *Image, scannedLockfiles *ScanResults) {
 		for _, pkg := range file.Packages {
 			// Start with originating from the latest layer
 			// Then push back as we iterate through layers
-			sourceLayerIdx[makePdKey(pkg)] = layerIdx
+			sourceLayerIdx[makePDKey(pkg)] = layerIdx
 		}
 
 		for {
@@ -98,7 +98,7 @@ func traceOrigin(img *Image, scannedLockfiles *ScanResults) {
 			}
 
 			// Look at the layer before the current layer
-			oldFileNode, err := img.layers[layerIdx-1].GetFileNode(file.FilePath)
+			oldFileNode, err := img.layers[layerIdx-1].getFileNode(file.FilePath)
 			if errors.Is(fs.ErrNotExist, err) || (err == nil && oldFileNode.isWhiteout) {
 				// Did not exist in the layer before
 
@@ -125,7 +125,7 @@ func traceOrigin(img *Image, scannedLockfiles *ScanResults) {
 
 			// For each package in the old version, check if it existed in the newer layer, if so, the origin must be this layer or earlier.
 			for _, pkg := range oldDeps.Packages {
-				key := makePdKey(pkg)
+				key := makePDKey(pkg)
 				if val, ok := sourceLayerIdx[key]; ok && val == prevLayerIdx {
 					sourceLayerIdx[key] = layerIdx
 				}
@@ -134,10 +134,12 @@ func traceOrigin(img *Image, scannedLockfiles *ScanResults) {
 
 		// Finally save the package IDs back into the ScanResults
 		for i, pkg := range file.Packages {
-			layerID := img.layers[sourceLayerIdx[makePdKey(pkg)]].id
+			layerID := img.layers[sourceLayerIdx[makePDKey(pkg)]].id
+			// Ignore error as we can't do much about it
+			originCommand, _ := img.layerIDToCommand(layerID)
 			file.Packages[i].ImageOrigin = &models.ImageOriginDetails{
 				LayerID:       layerID,
-				OriginCommand: img.LayerIDToCommand(layerID),
+				OriginCommand: originCommand,
 				InBaseImage:   img.layerIDToIndex[layerID] <= img.baseImageIndex,
 			}
 		}
