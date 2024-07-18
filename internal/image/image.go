@@ -6,7 +6,6 @@ import (
 	"fmt"
 	"io"
 	"io/fs"
-	"log"
 	"os"
 	"path"
 	"path/filepath"
@@ -45,10 +44,6 @@ type Image struct {
 // layerIDToCommand takes in a layer id (see imgLayer.id) and returns the history CreatedBy field
 // of the corresponding layer
 func (img *Image) layerIDToCommand(id string) (string, error) {
-	if img.configFile == nil {
-		return "", ErrNoHistoryAvailable
-	}
-
 	idxCount := img.layerIDToIndex[id]
 	var i int
 	// Match history to layer IDX by skipping empty layer history entries
@@ -89,14 +84,14 @@ func LoadImage(imagePath string) (*Image, error) {
 		return nil, err
 	}
 
+	configFile, err := image.ConfigFile()
+	if err != nil {
+		return nil, fmt.Errorf("failed to load config file: %w", err)
+	}
+
 	tempPath, err := os.MkdirTemp("", "osv-scanner-image-scanning-*")
 	if err != nil {
 		return nil, err
-	}
-
-	configFile, err := image.ConfigFile()
-	if err != nil {
-		log.Panicln("Failed to get inner image config file")
 	}
 
 	outputImage := Image{
