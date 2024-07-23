@@ -1,60 +1,97 @@
 package lockfile
 
 import (
+	"context"
 	"fmt"
+	"io/fs"
 	"path/filepath"
 
 	"github.com/BurntSushi/toml"
+	"github.com/package-url/packageurl-go"
 )
 
-type CargoLockPackage struct {
+type cargoLockPackage struct {
 	Name    string `toml:"name"`
 	Version string `toml:"version"`
 }
 
-type CargoLockFile struct {
+type cargoLockFile struct {
 	Version  int                `toml:"version"`
-	Packages []CargoLockPackage `toml:"package"`
+	Packages []cargoLockPackage `toml:"package"`
 }
 
 const CargoEcosystem Ecosystem = "crates.io"
 
 type CargoLockExtractor struct{}
 
-func (e CargoLockExtractor) ShouldExtract(path string) bool {
+// Name of the extractor
+func (e CargoLockExtractor) Name() string { return "rust/cargolock" }
+
+// Version of the extractor
+func (e CargoLockExtractor) Version() int { return 0 }
+
+func (e CargoLockExtractor) FileRequired(path string, fileInfo fs.FileInfo) bool {
+	// TODO: File size check?
 	return filepath.Base(path) == "Cargo.lock"
 }
 
-func (e CargoLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
-	var parsedLockfile *CargoLockFile
+func (e CargoLockExtractor) Requirements() Requirements {
+	return Requirements{}
+}
 
-	_, err := toml.NewDecoder(f).Decode(&parsedLockfile)
+func (e CargoLockExtractor) Extract(ctx context.Context, input *ScanInput) ([]*Inventory, error) {
+	var parsedLockfile *cargoLockFile
+
+	_, err := toml.NewDecoder(input.Reader).Decode(&parsedLockfile)
 
 	if err != nil {
-		return []PackageDetails{}, fmt.Errorf("could not extract from %s: %w", f.Path(), err)
+		return []*Inventory{}, fmt.Errorf("could not extract from %s: %w", input.Path, err)
 	}
 
-	packages := make([]PackageDetails, 0, len(parsedLockfile.Packages))
+	packages := make([]*Inventory, 0, len(parsedLockfile.Packages))
 
 	for _, lockPackage := range parsedLockfile.Packages {
-		packages = append(packages, PackageDetails{
+		packages = append(packages, &Inventory{
 			Name:      lockPackage.Name,
 			Version:   lockPackage.Version,
-			Ecosystem: CargoEcosystem,
-			CompareAs: CargoEcosystem,
+			Locations: []string{input.Path},
 		})
 	}
 
 	return packages, nil
 }
 
+// ToPURL converts an inventory created by this extractor into a PURL.
+func (e CargoLockExtractor) ToPURL(i *Inventory) (*packageurl.PackageURL, error) {
+	return &packageurl.PackageURL{
+		Type:    packageurl.TypeCargo,
+		Name:    i.Name,
+		Version: i.Version,
+	}, nil
+}
+
+// ToCPEs is not applicable as this extractor does not infer CPEs from the Inventory.
+func (e CargoLockExtractor) ToCPEs(i *Inventory) ([]string, error) { return []string{}, nil }
+
+func (e CargoLockExtractor) Ecosystem(i *Inventory) (string, error) {
+	switch i.Extractor.(type) {
+	case CargoLockExtractor:
+		return string(CargoEcosystem), nil
+	default:
+		return "", ErrWrongExtractor
+	}
+	// if (i.Extractor.(type) == CargoLockExtractor) {
+	// 	return
+	// }
+}
+
 var _ Extractor = CargoLockExtractor{}
 
-//nolint:gochecknoinits
-func init() {
-	registerExtractor("Cargo.lock", CargoLockExtractor{})
-}
+// //nolint:gochecknoinits
+// func init() {
+// 	registerExtractor("Cargo.lock", CargoLockExtractor{})
+// }
 
-func ParseCargoLock(pathToLockfile string) ([]PackageDetails, error) {
-	return extractFromFile(pathToLockfile, CargoLockExtractor{})
-}
+// func ParseCargoLock(pathToLockfile string) ([]PackageDetails, error) {
+// 	return extractFromFile(pathToLockfile, CargoLockExtractor{})
+// }
