@@ -22,7 +22,7 @@ const GoEcosystem Ecosystem = "Go"
 type GoLockExtractor struct{}
 
 // Name of the extractor
-func (e GoLockExtractor) Name() string { return "rust/cargolock" }
+func (e GoLockExtractor) Name() string { return "go/gomod" }
 
 // Version of the extractor
 func (e GoLockExtractor) Version() int { return 0 }

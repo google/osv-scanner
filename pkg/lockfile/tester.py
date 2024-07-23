@@ -24,8 +24,7 @@ def genInventory(path, valueList: list) -> str:
 def outputValue(path, funcName, inventory: list):
     name = re.sub(r'(?<!^)(?=[A-Z])', ' ', funcName).lower()
 
-    template = '''
-		{{
+    template = '''{{
 			name: "{name}",
 			inputConfig: ScanInputMockConfig{{
 				path: "{path}",
