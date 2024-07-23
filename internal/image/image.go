@@ -214,18 +214,24 @@ func LoadImage(imagePath string) (*Image, error) {
 
 			// Each outer loop, we add a layer to each relevant output flattenedLayers slice
 			// Because we are looping backwards in the outer loop (latest layer first)
-			// We ignore any files that's already in each flattenedLayer, as they would
+			// we ignore any files that's already in each flattenedLayer, as they would
 			// have been overwritten.
+			//
+			// This loop will add the file to all future layers if it doesn't already exist
+			// (i.e. hasn't been overwritten)
 			for ii := i; ii < len(layers); ii++ {
 				currentMap := &outputImage.layers[ii]
 
 				if item := currentMap.fileNodeTrie.Get(virtualPath); item != nil {
-					// File already exists in a later layer
+					// A newer version of the file already exists on a later map.
+					// Since we do not want to overwrite a later layer with information
+					// written in an earlier layer, skip this file.
 					continue
 				}
 
 				// check for a whited out parent directory
 				if inWhiteoutDir(*currentMap, virtualPath) {
+					// The entire directory has been deleted, so no need to save this file
 					continue
 				}
 
