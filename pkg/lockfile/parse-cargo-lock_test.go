@@ -102,7 +102,7 @@ func TestExtractCargoLock(t *testing.T) {
 				path: "fixtures/cargo/one-package.lock",
 			},
 			wantInventory: []*lockfile.Inventory{
-				&lockfile.Inventory{
+				{
 					Name:      "addr2line",
 					Version:   "0.15.2",
 					Locations: []string{"fixtures/cargo/one-package.lock"},
@@ -115,12 +115,12 @@ func TestExtractCargoLock(t *testing.T) {
 				path: "fixtures/cargo/two-packages.lock",
 			},
 			wantInventory: []*lockfile.Inventory{
-				&lockfile.Inventory{
+				{
 					Name:      "addr2line",
 					Version:   "0.15.2",
 					Locations: []string{"fixtures/cargo/two-packages.lock"},
 				},
-				&lockfile.Inventory{
+				{
 					Name:      "syn",
 					Version:   "1.0.73",
 					Locations: []string{"fixtures/cargo/two-packages.lock"},
@@ -133,12 +133,12 @@ func TestExtractCargoLock(t *testing.T) {
 				path: "fixtures/cargo/two-packages-with-local.lock",
 			},
 			wantInventory: []*lockfile.Inventory{
-				&lockfile.Inventory{
+				{
 					Name:      "addr2line",
 					Version:   "0.15.2",
 					Locations: []string{"fixtures/cargo/two-packages-with-local.lock"},
 				},
-				&lockfile.Inventory{
+				{
 					Name:      "local-rust-pkg",
 					Version:   "0.1.0",
 					Locations: []string{"fixtures/cargo/two-packages-with-local.lock"},
@@ -146,15 +146,15 @@ func TestExtractCargoLock(t *testing.T) {
 			},
 		},
 		{
-			name: "two packages with local",
+			name: "package with build string",
 			inputConfig: ScanInputMockConfig{
 				path: "fixtures/cargo/package-with-build-string.lock",
 			},
 			wantInventory: []*lockfile.Inventory{
-				&lockfile.Inventory{
+				{
 					Name:      "wasi",
 					Version:   "0.10.2+wasi-snapshot-preview1",
-					Locations: []string{},
+					Locations: []string{"fixtures/cargo/package-with-build-string.lock"},
 				},
 			},
 		},
@@ -171,9 +171,11 @@ func TestExtractCargoLock(t *testing.T) {
 			if tt.wantErrIs != nil {
 				expectErrIs(t, err, tt.wantErrIs)
 			}
-			if tt.wantErrContaining == "" {
+			if tt.wantErrContaining != "" {
 				expectErrContaining(t, err, tt.wantErrContaining)
 			}
+			FillExtractorField(got, e)
+			FillExtractorField(tt.wantInventory, e)
 			expectPackages(t, got, tt.wantInventory)
 			if t.Failed() {
 				t.Errorf("failed running [%d]: %s", i, tt.name)

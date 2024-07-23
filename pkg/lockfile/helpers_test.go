@@ -11,7 +11,6 @@ import (
 	"testing"
 	"time"
 
-	"github.com/google/osv-scanner/internal/output"
 	"github.com/google/osv-scanner/pkg/lockfile"
 )
 
@@ -53,7 +52,9 @@ func packageToString(pkg *lockfile.Inventory) string {
 		}
 	}
 
-	return fmt.Sprintf("%s@%s (%s, %s, %s)", pkg.Name, pkg.Version, ecosystemOrEmpty(pkg), commit, groups)
+	locations := strings.Join(pkg.Locations, ", ")
+
+	return fmt.Sprintf("%s@%s (%s, %s, %s) @ [%s]", pkg.Name, pkg.Version, ecosystemOrEmpty(pkg), commit, groups, locations)
 }
 
 func hasPackage(t *testing.T, packages []*lockfile.Inventory, pkg *lockfile.Inventory) bool {
@@ -73,7 +74,7 @@ func expectPackage(t *testing.T, packages []*lockfile.Inventory, pkg *lockfile.I
 
 	if !hasPackage(t, packages, pkg) {
 		t.Errorf(
-			"Expected packages to include %s@%s (%s, %s), but it did not",
+			"Expected packages to include %s@%s (%s), but it did not",
 			pkg.Name,
 			pkg.Version,
 			ecosystemOrEmpty(pkg),
@@ -101,7 +102,7 @@ func expectPackages(t *testing.T, actualInventories []*lockfile.Inventory, expec
 		t.Errorf(
 			"Expected to get %d %s, but got %d",
 			len(expectedInventories),
-			output.Form(len(expectedInventories), "package", "packages"),
+			Form(len(expectedInventories), "package", "packages"),
 			len(actualInventories),
 		)
 	}
@@ -117,7 +118,7 @@ func expectPackages(t *testing.T, actualInventories []*lockfile.Inventory, expec
 
 	if len(missingExpectedPackages) != 0 {
 		for _, unexpectedPackage := range missingExpectedPackages {
-			t.Errorf("Did not find %s", packageToString(unexpectedPackage))
+			t.Errorf("Did not find   %s", packageToString(unexpectedPackage))
 		}
 	}
 }
@@ -225,7 +226,7 @@ func GenerateFileInfoMock(t *testing.T, config ScanInputMockConfig) fs.FileInfo 
 		fileInfo, err := os.Stat(config.path)
 		// It is intended that sometimes the config points to a path that does not exist
 		// fileInfo will be nil in those cases
-		if err != nil {
+		if err != nil && !errors.Is(err, os.ErrNotExist) {
 			t.Fatalf("Can't stat test fixture '%s' because '%s'", config.path, err)
 		}
 		return fileInfo
@@ -253,4 +254,19 @@ func GenerateScanInputMock(t *testing.T, config ScanInputMockConfig) ScanInputWr
 			Info:     info,
 		},
 	}
+}
+
+func FillExtractorField(pkgs []*lockfile.Inventory, extractor lockfile.Extractor) {
+	for i := range pkgs {
+		pkgs[i].Extractor = extractor
+	}
+}
+
+// Form returns the singular or plural form that should be used based on the given count
+func Form(count int, singular, plural string) string {
+	if count == 1 {
+		return singular
+	}
+
+	return plural
 }
