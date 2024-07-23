@@ -80,18 +80,6 @@ func (e CargoLockExtractor) Ecosystem(i *Inventory) (string, error) {
 	default:
 		return "", ErrWrongExtractor
 	}
-	// if (i.Extractor.(type) == CargoLockExtractor) {
-	// 	return
-	// }
 }
 
 var _ Extractor = CargoLockExtractor{}
-
-// //nolint:gochecknoinits
-// func init() {
-// 	registerExtractor("Cargo.lock", CargoLockExtractor{})
-// }
-
-// func ParseCargoLock(pathToLockfile string) ([]PackageDetails, error) {
-// 	return extractFromFile(pathToLockfile, CargoLockExtractor{})
-// }
