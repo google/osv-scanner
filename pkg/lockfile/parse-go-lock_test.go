@@ -83,18 +83,12 @@ func TestExtractGoLock(t *testing.T) {
 		wantErrContaining string
 	}{
 		{
-			name: "file does not exist",
-			inputConfig: ScanInputMockConfig{
-				path: "fixtures/go/does-not-exist",
-			},
-			wantInventory: []*lockfile.Inventory{},
-		},
-		{
 			name: "invalid",
 			inputConfig: ScanInputMockConfig{
 				path: "fixtures/go/not-go-mod.txt",
 			},
-			wantInventory: []*lockfile.Inventory{},
+			wantInventory:     []*lockfile.Inventory{},
+			wantErrContaining: "could not extract from",
 		},
 		{
 			name: "no packages",
@@ -282,7 +276,7 @@ func TestExtractGoLock(t *testing.T) {
 		i := i
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
-			e := lockfile.CargoLockExtractor{}
+			e := lockfile.GoLockExtractor{}
 			wrapper := GenerateScanInputMock(t, tt.inputConfig)
 			got, err := e.Extract(context.Background(), &wrapper.ScanInput)
 			wrapper.Close()
@@ -293,10 +287,15 @@ func TestExtractGoLock(t *testing.T) {
 				expectErrContaining(t, err, tt.wantErrContaining)
 			}
 
-			FillExtractorField(got, e)
-			FillExtractorField(tt.wantInventory, e)
+			if tt.wantErrContaining == "" && tt.wantErrIs == nil && err != nil {
+				t.Errorf("Got error when expecting none: '%s'", err)
+			} else {
+				FillExtractorField(got, e)
+				FillExtractorField(tt.wantInventory, e)
 
-			expectPackages(t, got, tt.wantInventory)
+				expectPackages(t, got, tt.wantInventory)
+			}
+
 			if t.Failed() {
 				t.Errorf("failed running [%d]: %s", i, tt.name)
 			}
