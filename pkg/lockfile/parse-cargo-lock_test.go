@@ -1,7 +1,6 @@
 package lockfile_test
 
 import (
-	"context"
 	"testing"
 
 	"github.com/google/osv-scanner/pkg/lockfile"
@@ -75,13 +74,7 @@ func TestCargoLockExtractor_ShouldExtract(t *testing.T) {
 func TestExtractCargoLock(t *testing.T) {
 	t.Parallel()
 
-	tests := []struct {
-		name              string
-		inputConfig       ScanInputMockConfig
-		wantInventory     []*lockfile.Inventory
-		wantErrIs         error
-		wantErrContaining string
-	}{
+	tests := []testTableEntry{
 		{
 			name: "Invalid toml",
 			inputConfig: ScanInputMockConfig{
@@ -165,21 +158,7 @@ func TestExtractCargoLock(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
 			e := lockfile.CargoLockExtractor{}
-			wrapper := GenerateScanInputMock(t, tt.inputConfig)
-			got, err := e.Extract(context.Background(), &wrapper.ScanInput)
-			wrapper.Close()
-			if tt.wantErrIs != nil {
-				expectErrIs(t, err, tt.wantErrIs)
-			}
-			if tt.wantErrContaining != "" {
-				expectErrContaining(t, err, tt.wantErrContaining)
-			}
-			FillExtractorField(got, e)
-			FillExtractorField(tt.wantInventory, e)
-			expectPackages(t, got, tt.wantInventory)
-			if t.Failed() {
-				t.Errorf("failed running [%d]: %s", i, tt.name)
-			}
+			_, _ = extractionTester(t, e, tt, i)
 		})
 	}
 }

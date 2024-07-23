@@ -1,6 +1,7 @@
 package lockfile_test
 
 import (
+	"context"
 	"errors"
 	"fmt"
 	"io/fs"
@@ -269,4 +270,38 @@ func Form(count int, singular, plural string) string {
 	}
 
 	return plural
+}
+
+type testTableEntry struct {
+	name              string
+	inputConfig       ScanInputMockConfig
+	wantInventory     []*lockfile.Inventory
+	wantErrIs         error
+	wantErrContaining string
+}
+
+// extractionTester tests common properties of a extractor, and returns the raw values from running extract
+func extractionTester(t *testing.T, extractor lockfile.Extractor, tt testTableEntry, i int) ([]*lockfile.Inventory, error) {
+	t.Helper()
+
+	wrapper := GenerateScanInputMock(t, tt.inputConfig)
+	got, err := extractor.Extract(context.Background(), &wrapper.ScanInput)
+	wrapper.Close()
+	if tt.wantErrIs != nil {
+		expectErrIs(t, err, tt.wantErrIs)
+	}
+	if tt.wantErrContaining != "" {
+		expectErrContaining(t, err, tt.wantErrContaining)
+	}
+
+	if tt.wantErrContaining == "" && tt.wantErrIs == nil && err != nil {
+		t.Errorf("Got error when expecting none: '%s'", err)
+	} else {
+		FillExtractorField(got, extractor)
+		FillExtractorField(tt.wantInventory, extractor)
+
+		expectPackages(t, got, tt.wantInventory)
+	}
+
+	return got, err
 }
