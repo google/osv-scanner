@@ -308,10 +308,10 @@ func autoOverride(ctx context.Context, r reporter.Reporter, opts osvFixOptions, 
 	// TODO: Print the FIXED-VULN-IDS, REMAINING-VULN-IDS, UNFIXABLE-VULN-IDS
 	// TODO: Consider potentially introduced vulnerabilities
 
-	r.Infof("(TODO) Rewriting %s...\n", opts.Manifest)
-	// if err := manifest.Overwrite(opts.ManifestRW, opts.Manifest, manifest.ManifestPatch{Manifest: &manif, Deps: depPatches}); err != nil {
-	// 	return err
-	// }
+	r.Infof("Rewriting %s...\n", opts.Manifest)
+	if err := manifest.Overwrite(opts.ManifestRW, opts.Manifest, manifest.ManifestPatch{Manifest: &manif, Deps: depPatches}); err != nil {
+		return err
+	}
 
 	return nil
 }
