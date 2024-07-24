@@ -2,10 +2,7 @@ package lockfile
 
 import (
 	"bufio"
-	"fmt"
 	"net/url"
-	"os"
-	"path/filepath"
 	"strings"
 
 	"github.com/google/osv-scanner/internal/cachedregexp"
@@ -156,63 +153,63 @@ func tryExtractCommit(resolution string) string {
 	return ""
 }
 
-func parseYarnPackageGroup(group []string) PackageDetails {
-	name := extractYarnPackageName(group[0])
-	version := determineYarnPackageVersion(group)
-	resolution := determineYarnPackageResolution(group)
+// func parseYarnPackageGroup(group []string) PackageDetails {
+// 	name := extractYarnPackageName(group[0])
+// 	version := determineYarnPackageVersion(group)
+// 	resolution := determineYarnPackageResolution(group)
 
-	if version == "" {
-		_, _ = fmt.Fprintf(
-			os.Stderr,
-			"Failed to determine version of %s while parsing a yarn.lock - please report this!\n",
-			name,
-		)
-	}
+// 	if version == "" {
+// 		_, _ = fmt.Fprintf(
+// 			os.Stderr,
+// 			"Failed to determine version of %s while parsing a yarn.lock - please report this!\n",
+// 			name,
+// 		)
+// 	}
 
-	return PackageDetails{
-		Name:      name,
-		Version:   version,
-		Ecosystem: YarnEcosystem,
-		CompareAs: YarnEcosystem,
-		Commit:    tryExtractCommit(resolution),
-	}
-}
+// 	return PackageDetails{
+// 		Name:      name,
+// 		Version:   version,
+// 		Ecosystem: YarnEcosystem,
+// 		CompareAs: YarnEcosystem,
+// 		Commit:    tryExtractCommit(resolution),
+// 	}
+// }
 
-type YarnLockExtractor struct{}
+// type YarnLockExtractor struct{}
 
-func (e YarnLockExtractor) ShouldExtract(path string) bool {
-	return filepath.Base(path) == "yarn.lock"
-}
+// func (e YarnLockExtractor) ShouldExtract(path string) bool {
+// 	return filepath.Base(path) == "yarn.lock"
+// }
 
-func (e YarnLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
-	scanner := bufio.NewScanner(f)
+// func (e YarnLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
+// 	scanner := bufio.NewScanner(f)
 
-	packageGroups := groupYarnPackageLines(scanner)
+// 	packageGroups := groupYarnPackageLines(scanner)
 
-	if err := scanner.Err(); err != nil {
-		return []PackageDetails{}, fmt.Errorf("error while scanning %s: %w", f.Path(), err)
-	}
+// 	if err := scanner.Err(); err != nil {
+// 		return []PackageDetails{}, fmt.Errorf("error while scanning %s: %w", f.Path(), err)
+// 	}
 
-	packages := make([]PackageDetails, 0, len(packageGroups))
+// 	packages := make([]PackageDetails, 0, len(packageGroups))
 
-	for _, group := range packageGroups {
-		if group[0] == "__metadata:" {
-			continue
-		}
+// 	for _, group := range packageGroups {
+// 		if group[0] == "__metadata:" {
+// 			continue
+// 		}
 
-		packages = append(packages, parseYarnPackageGroup(group))
-	}
+// 		packages = append(packages, parseYarnPackageGroup(group))
+// 	}
 
-	return packages, nil
-}
+// 	return packages, nil
+// }
 
-var _ Extractor = YarnLockExtractor{}
+// var _ Extractor = YarnLockExtractor{}
 
-//nolint:gochecknoinits
-func init() {
-	registerExtractor("yarn.lock", YarnLockExtractor{})
-}
+// //nolint:gochecknoinits
+// func init() {
+// 	registerExtractor("yarn.lock", YarnLockExtractor{})
+// }
 
-func ParseYarnLock(pathToLockfile string) ([]PackageDetails, error) {
-	return extractFromFile(pathToLockfile, YarnLockExtractor{})
-}
+// func ParseYarnLock(pathToLockfile string) ([]PackageDetails, error) {
+// 	return extractFromFile(pathToLockfile, YarnLockExtractor{})
+// }
