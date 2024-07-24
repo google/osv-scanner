@@ -2,10 +2,16 @@ package lockfile
 
 import (
 	"bufio"
+	"context"
+	"fmt"
+	"io/fs"
 	"net/url"
+	"os"
+	"path/filepath"
 	"strings"
 
 	"github.com/google/osv-scanner/internal/cachedregexp"
+	"github.com/package-url/packageurl-go"
 )
 
 const YarnEcosystem = NpmEcosystem
@@ -153,63 +159,86 @@ func tryExtractCommit(resolution string) string {
 	return ""
 }
 
-// func parseYarnPackageGroup(group []string) PackageDetails {
-// 	name := extractYarnPackageName(group[0])
-// 	version := determineYarnPackageVersion(group)
-// 	resolution := determineYarnPackageResolution(group)
+func parseYarnPackageGroup(group []string) *Inventory {
+	name := extractYarnPackageName(group[0])
+	version := determineYarnPackageVersion(group)
+	resolution := determineYarnPackageResolution(group)
 
-// 	if version == "" {
-// 		_, _ = fmt.Fprintf(
-// 			os.Stderr,
-// 			"Failed to determine version of %s while parsing a yarn.lock - please report this!\n",
-// 			name,
-// 		)
-// 	}
+	if version == "" {
+		_, _ = fmt.Fprintf(
+			os.Stderr,
+			"Failed to determine version of %s while parsing a yarn.lock - please report this!\n",
+			name,
+		)
+	}
 
-// 	return PackageDetails{
-// 		Name:      name,
-// 		Version:   version,
-// 		Ecosystem: YarnEcosystem,
-// 		CompareAs: YarnEcosystem,
-// 		Commit:    tryExtractCommit(resolution),
-// 	}
-// }
+	return &Inventory{
+		Name:    name,
+		Version: version,
+		SourceCode: &SourceCodeIdentifier{
+			Commit: tryExtractCommit(resolution),
+		},
+	}
+}
 
-// type YarnLockExtractor struct{}
+type YarnLockExtractor struct{}
 
-// func (e YarnLockExtractor) ShouldExtract(path string) bool {
-// 	return filepath.Base(path) == "yarn.lock"
-// }
+// Name of the extractor
+func (e YarnLockExtractor) Name() string { return "javascript/yarnlock" }
 
-// func (e YarnLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
-// 	scanner := bufio.NewScanner(f)
+// Version of the extractor
+func (e YarnLockExtractor) Version() int { return 0 }
 
-// 	packageGroups := groupYarnPackageLines(scanner)
+func (e YarnLockExtractor) Requirements() Requirements {
+	return Requirements{}
+}
 
-// 	if err := scanner.Err(); err != nil {
-// 		return []PackageDetails{}, fmt.Errorf("error while scanning %s: %w", f.Path(), err)
-// 	}
+func (e YarnLockExtractor) FileRequired(path string, fileInfo fs.FileInfo) bool {
+	return filepath.Base(path) == "yarn.lock"
+}
 
-// 	packages := make([]PackageDetails, 0, len(packageGroups))
+func (e YarnLockExtractor) Extract(ctx context.Context, input *ScanInput) ([]*Inventory, error) {
+	scanner := bufio.NewScanner(input.Reader)
 
-// 	for _, group := range packageGroups {
-// 		if group[0] == "__metadata:" {
-// 			continue
-// 		}
+	packageGroups := groupYarnPackageLines(scanner)
 
-// 		packages = append(packages, parseYarnPackageGroup(group))
-// 	}
+	if err := scanner.Err(); err != nil {
+		return []*Inventory{}, fmt.Errorf("error while scanning %s: %w", input.Path, err)
+	}
 
-// 	return packages, nil
-// }
+	packages := make([]*Inventory, 0, len(packageGroups))
 
-// var _ Extractor = YarnLockExtractor{}
+	for _, group := range packageGroups {
+		if group[0] == "__metadata:" {
+			continue
+		}
+		inv := parseYarnPackageGroup(group)
+		inv.Locations = []string{input.Path}
+		packages = append(packages, inv)
+	}
 
-// //nolint:gochecknoinits
-// func init() {
-// 	registerExtractor("yarn.lock", YarnLockExtractor{})
-// }
+	return packages, nil
+}
 
-// func ParseYarnLock(pathToLockfile string) ([]PackageDetails, error) {
-// 	return extractFromFile(pathToLockfile, YarnLockExtractor{})
-// }
+// ToPURL converts an inventory created by this extractor into a PURL.
+func (e YarnLockExtractor) ToPURL(i *Inventory) (*packageurl.PackageURL, error) {
+	return &packageurl.PackageURL{
+		Type:    packageurl.TypeGolang,
+		Name:    i.Name,
+		Version: i.Version,
+	}, nil
+}
+
+// ToCPEs is not applicable as this extractor does not infer CPEs from the Inventory.
+func (e YarnLockExtractor) ToCPEs(i *Inventory) ([]string, error) { return []string{}, nil }
+
+func (e YarnLockExtractor) Ecosystem(i *Inventory) (string, error) {
+	switch i.Extractor.(type) {
+	case YarnLockExtractor:
+		return string(GoEcosystem), nil
+	default:
+		return "", ErrWrongExtractor
+	}
+}
+
+var _ Extractor = YarnLockExtractor{}

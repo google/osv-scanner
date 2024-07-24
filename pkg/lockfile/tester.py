@@ -7,9 +7,9 @@ import sys
 import re
 from dataclasses import dataclass
 
-expectCommit = False
-expectDepGroups = True
-startKey = "ParseRequirementsTxt"
+expectCommit = True
+expectDepGroups = False
+startKey = "ParseYarnLock"
 
 
 @dataclass
