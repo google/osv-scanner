@@ -183,3 +183,29 @@ func TestParseComposerLock_TwoPackagesAlt(t *testing.T) {
 		},
 	})
 }
+
+func TestParseComposerLock_NumberForVersion(t *testing.T) {
+	t.Parallel()
+
+	packages, err := lockfile.ParseComposerLock("fixtures/composer/with-number-version.json")
+
+	if err != nil {
+		t.Errorf("Got unexpected error: %v", err)
+	}
+
+	expectPackages(t, packages, []lockfile.PackageDetails{
+		{
+			Name:      "composer/installers",
+			Version:   "v2.3.0",
+			Commit:    "12fb2dfe5e16183de69e784a7b84046c43d97e8e",
+			Ecosystem: lockfile.ComposerEcosystem,
+			CompareAs: lockfile.ComposerEcosystem,
+		},
+		{
+			Name:      "wpackagist-plugin/block-bad-queries",
+			Version:   "20190220",
+			Ecosystem: lockfile.ComposerEcosystem,
+			CompareAs: lockfile.ComposerEcosystem,
+		},
+	})
+}
