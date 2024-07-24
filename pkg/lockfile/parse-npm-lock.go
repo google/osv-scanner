@@ -268,7 +268,7 @@ func (e NpmLockExtractor) Extract(ctx context.Context, input *ScanInput) ([]*Inv
 // ToPURL converts an inventory created by this extractor into a PURL.
 func (e NpmLockExtractor) ToPURL(i *Inventory) (*packageurl.PackageURL, error) {
 	return &packageurl.PackageURL{
-		Type:    packageurl.TypeCargo,
+		Type:    packageurl.TypeNPM,
 		Name:    i.Name,
 		Version: i.Version,
 	}, nil

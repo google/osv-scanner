@@ -91,7 +91,7 @@ func (e ComposerLockExtractor) Extract(ctx context.Context, input *ScanInput) ([
 // ToPURL converts an inventory created by this extractor into a PURL.
 func (e ComposerLockExtractor) ToPURL(i *Inventory) (*packageurl.PackageURL, error) {
 	return &packageurl.PackageURL{
-		Type:    packageurl.TypeCargo,
+		Type:    packageurl.TypeComposer,
 		Name:    i.Name,
 		Version: i.Version,
 	}, nil

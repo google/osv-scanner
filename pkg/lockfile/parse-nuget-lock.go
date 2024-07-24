@@ -98,7 +98,7 @@ var _ Extractor = NuGetLockExtractor{}
 // ToPURL converts an inventory created by this extractor into a PURL.
 func (e NuGetLockExtractor) ToPURL(i *Inventory) (*packageurl.PackageURL, error) {
 	return &packageurl.PackageURL{
-		Type:    packageurl.TypeCargo,
+		Type:    packageurl.TypeNuget,
 		Name:    i.Name,
 		Version: i.Version,
 	}, nil
