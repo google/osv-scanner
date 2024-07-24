@@ -14,6 +14,33 @@ type ComposerPackage struct {
 	} `json:"dist"`
 }
 
+// UnmarshalJSON for ComposerPackage to handle Version being either a string or number
+func (cp *ComposerPackage) UnmarshalJSON(data []byte) error {
+	type alias ComposerPackage
+	var raw struct {
+		Version any `json:"version"`
+		*alias
+	}
+	raw.alias = (*alias)(cp)
+
+	if err := json.Unmarshal(data, &raw); err != nil {
+		return err
+	}
+
+	// it doesn't seem common, but composer doesn't seem to mind if a version
+	// somehow ends being a number instead of a string in it's lockfile
+	switch v := raw.Version.(type) {
+	case string:
+		cp.Version = v
+	case float64:
+		cp.Version = fmt.Sprintf("%.0f", v)
+	default:
+		return fmt.Errorf("unexpected type for version: %T", raw.Version)
+	}
+
+	return nil
+}
+
 type ComposerLock struct {
 	Packages    []ComposerPackage `json:"packages"`
 	PackagesDev []ComposerPackage `json:"packages-dev"`
