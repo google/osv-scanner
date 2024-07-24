@@ -7,11 +7,11 @@ import (
 	"io/fs"
 	"os"
 	"path/filepath"
-	"reflect"
 	"strings"
 	"testing"
 	"time"
 
+	"github.com/google/go-cmp/cmp"
 	"github.com/google/osv-scanner/pkg/lockfile"
 )
 
@@ -42,14 +42,14 @@ func expectErrIs(t *testing.T, err error, expected error) {
 func packageToString(pkg *lockfile.Inventory) string {
 	source := pkg.SourceCode
 	commit := "<no commit>"
-	if source != nil {
+	if source != nil && source.Commit != "" {
 		commit = source.Commit
 	}
 
 	groups := "<no groups>"
 	if dg, ok := pkg.Metadata.(lockfile.DepGroups); ok {
 		if depGroups := dg.DepGroups(); len(depGroups) != 0 {
-			groups = strings.Join(dg.DepGroups(), ", ")
+			groups = strings.Join(dg.DepGroups(), "/")
 		}
 	}
 
@@ -62,7 +62,9 @@ func hasPackage(t *testing.T, packages []*lockfile.Inventory, pkg *lockfile.Inve
 	t.Helper()
 
 	for _, details := range packages {
-		if reflect.DeepEqual(details, pkg) {
+		// _test := cmp.Diff(details, pkg)
+		// println(_test)
+		if cmp.Equal(details, pkg) {
 			return true
 		}
 	}

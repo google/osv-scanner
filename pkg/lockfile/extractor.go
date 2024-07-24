@@ -122,11 +122,11 @@ func (i Inventory) Ecosystem() (string, error) {
 
 // DepGroupMetadata is a metadata struct that only supports DepGroups
 type DepGroupMetadata struct {
-	depGroups []string
+	DepGroupVals []string
 }
 
 var _ DepGroups = &DepGroupMetadata{}
 
 func (dgm *DepGroupMetadata) DepGroups() []string {
-	return dgm.depGroups
+	return dgm.DepGroupVals
 }
