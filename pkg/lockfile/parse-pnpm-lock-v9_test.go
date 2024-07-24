@@ -11,14 +11,14 @@ func TestPnpmLockExtractor_Extract_v9(t *testing.T) {
 
 	tests := []testTableEntry{
 		{
-			name: "v9_ no packages",
+			name: "no packages",
 			inputConfig: ScanInputMockConfig{
 				path: "fixtures/pnpm/no-packages.v9.yaml",
 			},
 			wantInventory: []*lockfile.Inventory{},
 		},
 		{
-			name: "v9_ one package",
+			name: "one package",
 			inputConfig: ScanInputMockConfig{
 				path: "fixtures/pnpm/one-package.v9.yaml",
 			},
@@ -35,7 +35,7 @@ func TestPnpmLockExtractor_Extract_v9(t *testing.T) {
 			},
 		},
 		{
-			name: "v9_ one package dev",
+			name: "one package dev",
 			inputConfig: ScanInputMockConfig{
 				path: "fixtures/pnpm/one-package-dev.v9.yaml",
 			},
@@ -52,7 +52,7 @@ func TestPnpmLockExtractor_Extract_v9(t *testing.T) {
 			},
 		},
 		{
-			name: "v9_ scoped packages",
+			name: "scoped packages",
 			inputConfig: ScanInputMockConfig{
 				path: "fixtures/pnpm/scoped-packages.v9.yaml",
 			},
@@ -69,7 +69,7 @@ func TestPnpmLockExtractor_Extract_v9(t *testing.T) {
 			},
 		},
 		{
-			name: "v9_ peer dependencies",
+			name: "peer dependencies",
 			inputConfig: ScanInputMockConfig{
 				path: "fixtures/pnpm/peer-dependencies.v9.yaml",
 			},
@@ -95,7 +95,7 @@ func TestPnpmLockExtractor_Extract_v9(t *testing.T) {
 			},
 		},
 		{
-			name: "v9_ peer dependencies advanced",
+			name: "peer dependencies advanced",
 			inputConfig: ScanInputMockConfig{
 				path: "fixtures/pnpm/peer-dependencies-advanced.v9.yaml",
 			},
@@ -220,7 +220,7 @@ func TestPnpmLockExtractor_Extract_v9(t *testing.T) {
 			},
 		},
 		{
-			name: "v9_ multiple versions",
+			name: "multiple versions",
 			inputConfig: ScanInputMockConfig{
 				path: "fixtures/pnpm/multiple-versions.v9.yaml",
 			},
@@ -255,7 +255,7 @@ func TestPnpmLockExtractor_Extract_v9(t *testing.T) {
 			},
 		},
 		{
-			name: "v9_ commits",
+			name: "commits",
 			inputConfig: ScanInputMockConfig{
 				path: "fixtures/pnpm/commits.v9.yaml",
 			},
@@ -285,7 +285,7 @@ func TestPnpmLockExtractor_Extract_v9(t *testing.T) {
 			},
 		},
 		{
-			name: "v9_ mixed groups",
+			name: "mixed groups",
 			inputConfig: ScanInputMockConfig{
 				path: "fixtures/pnpm/mixed-groups.v9.yaml",
 			},

@@ -126,8 +126,8 @@ type DepGroupMetadata struct {
 	DepGroupVals []string
 }
 
-var _ DepGroups = &DepGroupMetadata{}
+var _ DepGroups = DepGroupMetadata{}
 
-func (dgm *DepGroupMetadata) DepGroups() []string {
+func (dgm DepGroupMetadata) DepGroups() []string {
 	return dgm.DepGroupVals
 }

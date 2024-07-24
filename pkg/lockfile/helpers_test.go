@@ -252,7 +252,7 @@ func GenerateScanInputMock(t *testing.T, config ScanInputMockConfig) ScanInputWr
 	return ScanInputWrapper{
 		fileHandle: f,
 		ScanInput: lockfile.ScanInput{
-			FS:       os.DirFS("/").(lockfile.FS),
+			FS:       os.DirFS(".").(lockfile.FS),
 			Path:     config.path,
 			ScanRoot: config.path,
 			Reader:   f,
