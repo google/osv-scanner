@@ -193,7 +193,7 @@ func parsePnpmLock(lockfile PnpmLockfile) []*Inventory {
 type PnpmLockExtractor struct{}
 
 // Name of the extractor
-func (e PnpmLockExtractor) Name() string { return "go/gomod" }
+func (e PnpmLockExtractor) Name() string { return "javascript/pnpmlock" }
 
 // Version of the extractor
 func (e PnpmLockExtractor) Version() int { return 0 }
