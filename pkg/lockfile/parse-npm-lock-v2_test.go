@@ -11,23 +11,21 @@ func TestExtractNpmV2Lock(t *testing.T) {
 
 	tests := []testTableEntry{
 		{
-			name: "v2_ invalid json",
+			name: "invalid json",
 			inputConfig: ScanInputMockConfig{
 				path: "fixtures/npm/not-json.txt",
 			},
-			wantInventory: []*lockfile.Inventory{},
+			wantErrContaining: "could not extract from",
 		},
-
 		{
-			name: "v2_ no packages",
+			name: "no packages",
 			inputConfig: ScanInputMockConfig{
 				path: "fixtures/npm/empty.v2.json",
 			},
 			wantInventory: []*lockfile.Inventory{},
 		},
-
 		{
-			name: "v2_ one package",
+			name: "one package",
 			inputConfig: ScanInputMockConfig{
 				path: "fixtures/npm/one-package.v2.json",
 			},
@@ -45,9 +43,8 @@ func TestExtractNpmV2Lock(t *testing.T) {
 				},
 			},
 		},
-
 		{
-			name: "v2_ one package dev",
+			name: "one package dev",
 			inputConfig: ScanInputMockConfig{
 				path: "fixtures/npm/one-package-dev.v2.json",
 			},
@@ -65,9 +62,8 @@ func TestExtractNpmV2Lock(t *testing.T) {
 				},
 			},
 		},
-
 		{
-			name: "v2_ two packages",
+			name: "two packages",
 			inputConfig: ScanInputMockConfig{
 				path: "fixtures/npm/two-packages.v2.json",
 			},
@@ -96,9 +92,8 @@ func TestExtractNpmV2Lock(t *testing.T) {
 				},
 			},
 		},
-
 		{
-			name: "v2_ scoped packages",
+			name: "scoped packages",
 			inputConfig: ScanInputMockConfig{
 				path: "fixtures/npm/scoped-packages.v2.json",
 			},
@@ -127,9 +122,8 @@ func TestExtractNpmV2Lock(t *testing.T) {
 				},
 			},
 		},
-
 		{
-			name: "v2_ nested dependencies",
+			name: "nested dependencies",
 			inputConfig: ScanInputMockConfig{
 				path: "fixtures/npm/nested-dependencies.v2.json",
 			},
@@ -191,9 +185,8 @@ func TestExtractNpmV2Lock(t *testing.T) {
 				},
 			},
 		},
-
 		{
-			name: "v2_ nested dependencies dup",
+			name: "nested dependencies dup",
 			inputConfig: ScanInputMockConfig{
 				path: "fixtures/npm/nested-dependencies-dup.v2.json",
 			},
@@ -222,9 +215,8 @@ func TestExtractNpmV2Lock(t *testing.T) {
 				},
 			},
 		},
-
 		{
-			name: "v2_ commits",
+			name: "commits",
 			inputConfig: ScanInputMockConfig{
 				path: "fixtures/npm/commits.v2.json",
 			},
@@ -385,9 +377,8 @@ func TestExtractNpmV2Lock(t *testing.T) {
 				},
 			},
 		},
-
 		{
-			name: "v2_ files",
+			name: "files",
 			inputConfig: ScanInputMockConfig{
 				path: "fixtures/npm/files.v2.json",
 			},
@@ -427,9 +418,8 @@ func TestExtractNpmV2Lock(t *testing.T) {
 				},
 			},
 		},
-
 		{
-			name: "v2_ alias",
+			name: "alias",
 			inputConfig: ScanInputMockConfig{
 				path: "fixtures/npm/alias.v2.json",
 			},
@@ -469,9 +459,8 @@ func TestExtractNpmV2Lock(t *testing.T) {
 				},
 			},
 		},
-
 		{
-			name: "v2_ optional package",
+			name: "optional package",
 			inputConfig: ScanInputMockConfig{
 				path: "fixtures/npm/optional-package.v2.json",
 			},
@@ -500,9 +489,8 @@ func TestExtractNpmV2Lock(t *testing.T) {
 				},
 			},
 		},
-
 		{
-			name: "v2_ same package different groups",
+			name: "same package different groups",
 			inputConfig: ScanInputMockConfig{
 				path: "fixtures/npm/same-package-different-groups.v2.json",
 			},
