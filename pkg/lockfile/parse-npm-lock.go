@@ -251,7 +251,12 @@ func (e NpmLockExtractor) Extract(ctx context.Context, input *ScanInput) ([]*Inv
 		return []*Inventory{}, fmt.Errorf("could not extract from %s: %w", input.Path, err)
 	}
 
-	return maps.Values(parseNpmLock(*parsedLockfile)), nil
+	inventory := maps.Values(parseNpmLock(*parsedLockfile))
+	for i := range inventory {
+		inventory[i].Locations = []string{input.Path}
+	}
+
+	return inventory, nil
 }
 
 // ToPURL converts an inventory created by this extractor into a PURL.

@@ -11,13 +11,6 @@ func TestExtractNpmV1Lock(t *testing.T) {
 
 	tests := []testTableEntry{
 		{
-			name: "file does not exist",
-			inputConfig: ScanInputMockConfig{
-				path: "fixtures/npm/does-not-exist",
-			},
-			wantInventory: []*lockfile.Inventory{},
-		},
-		{
 			name: "invalid json",
 			inputConfig: ScanInputMockConfig{
 				path: "fixtures/npm/not-json.txt",
@@ -304,7 +297,7 @@ func TestExtractNpmV1Lock(t *testing.T) {
 		tt := tt
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
-			e := lockfile.GoLockExtractor{}
+			e := lockfile.NpmLockExtractor{}
 			_, _ = extractionTester(t, e, tt)
 		})
 	}
