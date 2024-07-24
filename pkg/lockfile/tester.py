@@ -9,7 +9,7 @@ from dataclasses import dataclass
 
 expectCommit = True
 expectDepGroups = True
-
+startKey = "ParseComposerLock"
 
 @dataclass
 class InventoryItem:
@@ -59,7 +59,6 @@ def outputValue(path, funcName, inventory: list[InventoryItem]):
                         inv=genInventory(path, inventory)))
 
 
-startKey = "ParseNpmLock"
 
 beginFunc = False
 beginExpectPackages = False
