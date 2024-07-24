@@ -23,7 +23,8 @@ class InventoryItem:
 def genInventory(path, valueList: list[InventoryItem]) -> str:
     buildStr = ""
     for i in valueList:
-        current = f"""{{
+        current = f"""
+        {{
             Name:      "{i.name}",
             Version:   "{i.version}",
             Locations: []string{{"{path}"}},
@@ -50,8 +51,7 @@ def outputValue(path, funcName, inventory: list[InventoryItem]):
 			wantInventory: []*lockfile.Inventory{{
             {inv}
 			}},
-		}},
-    '''
+		}},'''
 
     print(
         template.format(name=name,
