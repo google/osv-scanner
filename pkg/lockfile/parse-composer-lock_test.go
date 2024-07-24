@@ -79,7 +79,7 @@ func TestParseComposerLock(t *testing.T) {
 			inputConfig: ScanInputMockConfig{
 				path: "fixtures/composer/not-json.txt",
 			},
-			wantInventory: []*lockfile.Inventory{},
+			wantErrContaining: "could not extract from",
 		},
 		{
 			name: "no packages",

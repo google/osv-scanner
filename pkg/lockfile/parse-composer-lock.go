@@ -59,8 +59,9 @@ func (e ComposerLockExtractor) Extract(ctx context.Context, input *ScanInput) ([
 
 	for _, composerPackage := range parsedLockfile.Packages {
 		packages = append(packages, &Inventory{
-			Name:    composerPackage.Name,
-			Version: composerPackage.Version,
+			Name:      composerPackage.Name,
+			Version:   composerPackage.Version,
+			Locations: []string{input.Path},
 			SourceCode: &SourceCodeIdentifier{
 				Commit: composerPackage.Dist.Reference,
 			},
@@ -72,8 +73,9 @@ func (e ComposerLockExtractor) Extract(ctx context.Context, input *ScanInput) ([
 
 	for _, composerPackage := range parsedLockfile.PackagesDev {
 		packages = append(packages, &Inventory{
-			Name:    composerPackage.Name,
-			Version: composerPackage.Version,
+			Name:      composerPackage.Name,
+			Version:   composerPackage.Version,
+			Locations: []string{input.Path},
 			SourceCode: &SourceCodeIdentifier{
 				Commit: composerPackage.Dist.Reference,
 			},
