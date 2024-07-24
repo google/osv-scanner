@@ -18,6 +18,7 @@ import (
 // - Updated tests to test Inventory output
 // - Updated interfaces to follow the new interface
 // - Copied the interface into this file. This is temporary until the move into osv-scalibr, which will contain both
+// - All ToPURL functions need to be looked at to see they are suitable
 //
 // ---
 

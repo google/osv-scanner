@@ -102,9 +102,10 @@ func (e GoLockExtractor) Extract(ctx context.Context, input *ScanInput) ([]*Inve
 // ToPURL converts an inventory created by this extractor into a PURL.
 func (e GoLockExtractor) ToPURL(i *Inventory) (*packageurl.PackageURL, error) {
 	return &packageurl.PackageURL{
-		Type:    packageurl.TypeCargo,
+		Type:    packageurl.TypeGolang,
 		Name:    i.Name,
 		Version: i.Version,
+		
 	}, nil
 }
 
