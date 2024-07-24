@@ -10,38 +10,50 @@ func TestNpmLockExtractor_ShouldExtract(t *testing.T) {
 	t.Parallel()
 
 	tests := []struct {
-		name string
-		path string
-		want bool
+		name        string
+		inputConfig ScanInputMockConfig
+		want        bool
 	}{
 		{
 			name: "",
-			path: "",
+			inputConfig: ScanInputMockConfig{
+				path: "",
+			},
 			want: false,
 		},
 		{
 			name: "",
-			path: "package-lock.json",
+			inputConfig: ScanInputMockConfig{
+				path: "package-lock.json",
+			},
 			want: true,
 		},
 		{
 			name: "",
-			path: "path/to/my/package-lock.json",
+			inputConfig: ScanInputMockConfig{
+				path: "path/to/my/package-lock.json",
+			},
 			want: true,
 		},
 		{
 			name: "",
-			path: "path/to/my/package-lock.json/file",
+			inputConfig: ScanInputMockConfig{
+				path: "path/to/my/package-lock.json/file",
+			},
 			want: false,
 		},
 		{
 			name: "",
-			path: "path/to/my/package-lock.json.file",
+			inputConfig: ScanInputMockConfig{
+				path: "path/to/my/package-lock.json.file",
+			},
 			want: false,
 		},
 		{
 			name: "",
-			path: "path.to.my.package-lock.json",
+			inputConfig: ScanInputMockConfig{
+				path: "path.to.my.package-lock.json",
+			},
 			want: false,
 		},
 	}
@@ -50,9 +62,9 @@ func TestNpmLockExtractor_ShouldExtract(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
 			e := lockfile.NpmLockExtractor{}
-			got := e.ShouldExtract(tt.path)
+			got := e.FileRequired(tt.inputConfig.path, GenerateFileInfoMock(t, tt.inputConfig))
 			if got != tt.want {
-				t.Errorf("Extract() got = %v, want %v", got, tt.want)
+				t.Errorf("FileRequired(%s, FileInfo) got = %v, want %v", tt.inputConfig.path, got, tt.want)
 			}
 		})
 	}

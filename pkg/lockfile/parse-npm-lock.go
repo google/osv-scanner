@@ -1,12 +1,15 @@
 package lockfile
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
+	"io/fs"
 	"path"
 	"path/filepath"
 	"strings"
 
+	"github.com/package-url/packageurl-go"
 	"golang.org/x/exp/maps"
 	"golang.org/x/exp/slices"
 )
@@ -50,7 +53,7 @@ type NpmLockfile struct {
 
 const NpmEcosystem Ecosystem = "npm"
 
-type npmPackageDetailsMap map[string]PackageDetails
+type npmInventoryMap map[string]*Inventory
 
 // mergeNpmDepsGroups handles merging the dependency groups of packages within the
 // NPM ecosystem, since they can appear multiple times in the same dependency tree
@@ -58,26 +61,28 @@ type npmPackageDetailsMap map[string]PackageDetails
 // the merge happens almost as you'd expect, except that if either given packages
 // belong to no groups, then that is the result since it indicates the package
 // is implicitly a production dependency.
-func mergeNpmDepsGroups(a, b PackageDetails) []string {
+func mergeNpmDepsGroups(a, b *Inventory) []string {
+	aDepGroups := a.Metadata.(DepGroups).DepGroups()
+	bDepGroups := b.Metadata.(DepGroups).DepGroups()
 	// if either group includes no groups, then the package is in the "production" group
-	if len(a.DepGroups) == 0 || len(b.DepGroups) == 0 {
+	if len(aDepGroups) == 0 || len(bDepGroups) == 0 {
 		return nil
 	}
 
-	combined := make([]string, 0, len(a.DepGroups)+len(b.DepGroups))
-	combined = append(combined, a.DepGroups...)
-	combined = append(combined, b.DepGroups...)
+	combined := make([]string, 0, len(aDepGroups)+len(bDepGroups))
+	combined = append(combined, aDepGroups...)
+	combined = append(combined, bDepGroups...)
 
 	slices.Sort(combined)
 
 	return slices.Compact(combined)
 }
 
-func (pdm npmPackageDetailsMap) add(key string, details PackageDetails) {
+func (pdm npmInventoryMap) add(key string, details *Inventory) {
 	existing, ok := pdm[key]
 
 	if ok {
-		details.DepGroups = mergeNpmDepsGroups(existing, details)
+		details.Metadata.(*DepGroupMetadata).depGroups = mergeNpmDepsGroups(existing, details)
 	}
 
 	pdm[key] = details
@@ -97,8 +102,8 @@ func (dep NpmLockDependency) depGroups() []string {
 	return nil
 }
 
-func parseNpmLockDependencies(dependencies map[string]NpmLockDependency) map[string]PackageDetails {
-	details := npmPackageDetailsMap{}
+func parseNpmLockDependencies(dependencies map[string]NpmLockDependency) map[string]*Inventory {
+	details := npmInventoryMap{}
 
 	for name, detail := range dependencies {
 		if detail.Dependencies != nil {
@@ -135,13 +140,15 @@ func parseNpmLockDependencies(dependencies map[string]NpmLockDependency) map[str
 			}
 		}
 
-		details.add(name+"@"+version, PackageDetails{
-			Name:      name,
-			Version:   finalVersion,
-			Ecosystem: NpmEcosystem,
-			CompareAs: NpmEcosystem,
-			Commit:    commit,
-			DepGroups: detail.depGroups(),
+		details.add(name+"@"+version, &Inventory{
+			Name:    name,
+			Version: finalVersion,
+			SourceCode: &SourceCodeIdentifier{
+				Commit: commit,
+			},
+			Metadata: &DepGroupMetadata{
+				depGroups: detail.depGroups(),
+			},
 		})
 	}
 
@@ -173,8 +180,8 @@ func (pkg NpmLockPackage) depGroups() []string {
 	return nil
 }
 
-func parseNpmLockPackages(packages map[string]NpmLockPackage) map[string]PackageDetails {
-	details := npmPackageDetailsMap{}
+func parseNpmLockPackages(packages map[string]NpmLockPackage) map[string]*Inventory {
+	details := npmInventoryMap{}
 
 	for namePath, detail := range packages {
 		if namePath == "" {
@@ -187,7 +194,7 @@ func parseNpmLockPackages(packages map[string]NpmLockPackage) map[string]Package
 		}
 
 		finalVersion := detail.Version
-
+		// TODO: This should try to extract the source repository as well
 		commit := tryExtractCommit(detail.Resolved)
 
 		// if there is a commit, we want to deduplicate based on that rather than
@@ -196,20 +203,22 @@ func parseNpmLockPackages(packages map[string]NpmLockPackage) map[string]Package
 			finalVersion = commit
 		}
 
-		details.add(finalName+"@"+finalVersion, PackageDetails{
-			Name:      finalName,
-			Version:   detail.Version,
-			Ecosystem: NpmEcosystem,
-			CompareAs: NpmEcosystem,
-			Commit:    commit,
-			DepGroups: detail.depGroups(),
+		details.add(finalName+"@"+finalVersion, &Inventory{
+			Name:    finalName,
+			Version: detail.Version,
+			SourceCode: &SourceCodeIdentifier{
+				Commit: commit,
+			},
+			Metadata: &DepGroupMetadata{
+				depGroups: detail.depGroups(),
+			},
 		})
 	}
 
 	return details
 }
 
-func parseNpmLock(lockfile NpmLockfile) map[string]PackageDetails {
+func parseNpmLock(lockfile NpmLockfile) map[string]*Inventory {
 	if lockfile.Packages != nil {
 		return parseNpmLockPackages(lockfile.Packages)
 	}
@@ -219,29 +228,51 @@ func parseNpmLock(lockfile NpmLockfile) map[string]PackageDetails {
 
 type NpmLockExtractor struct{}
 
-func (e NpmLockExtractor) ShouldExtract(path string) bool {
+// Name of the extractor
+func (e NpmLockExtractor) Name() string { return "javascript/packagelockjson" }
+
+// Version of the extractor
+func (e NpmLockExtractor) Version() int { return 0 }
+
+func (e NpmLockExtractor) Requirements() Requirements {
+	return Requirements{}
+}
+
+func (e NpmLockExtractor) FileRequired(path string, fileInfo fs.FileInfo) bool {
 	return filepath.Base(path) == "package-lock.json"
 }
 
-func (e NpmLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
+func (e NpmLockExtractor) Extract(ctx context.Context, input *ScanInput) ([]*Inventory, error) {
 	var parsedLockfile *NpmLockfile
 
-	err := json.NewDecoder(f).Decode(&parsedLockfile)
+	err := json.NewDecoder(input.Reader).Decode(&parsedLockfile)
 
 	if err != nil {
-		return []PackageDetails{}, fmt.Errorf("could not extract from %s: %w", f.Path(), err)
+		return []*Inventory{}, fmt.Errorf("could not extract from %s: %w", input.Path, err)
 	}
 
 	return maps.Values(parseNpmLock(*parsedLockfile)), nil
 }
 
+// ToPURL converts an inventory created by this extractor into a PURL.
+func (e NpmLockExtractor) ToPURL(i *Inventory) (*packageurl.PackageURL, error) {
+	return &packageurl.PackageURL{
+		Type:    packageurl.TypeCargo,
+		Name:    i.Name,
+		Version: i.Version,
+	}, nil
+}
+
+// ToCPEs is not applicable as this extractor does not infer CPEs from the Inventory.
+func (e NpmLockExtractor) ToCPEs(i *Inventory) ([]string, error) { return []string{}, nil }
+
+func (e NpmLockExtractor) Ecosystem(i *Inventory) (string, error) {
+	switch i.Extractor.(type) {
+	case NpmLockExtractor:
+		return string(NpmEcosystem), nil
+	default:
+		return "", ErrWrongExtractor
+	}
+}
+
 var _ Extractor = NpmLockExtractor{}
-
-//nolint:gochecknoinits
-func init() {
-	registerExtractor("package-lock.json", NpmLockExtractor{})
-}
-
-func ParseNpmLock(pathToLockfile string) ([]PackageDetails, error) {
-	return extractFromFile(pathToLockfile, NpmLockExtractor{})
-}

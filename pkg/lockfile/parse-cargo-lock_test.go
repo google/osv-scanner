@@ -57,15 +57,15 @@ func TestCargoLockExtractor_ShouldExtract(t *testing.T) {
 			want: false,
 		},
 	}
-	for i, tt := range tests {
+
+	for _, tt := range tests {
 		tt := tt
-		i := i
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
 			e := lockfile.CargoLockExtractor{}
 			got := e.FileRequired(tt.inputConfig.path, GenerateFileInfoMock(t, tt.inputConfig))
 			if got != tt.want {
-				t.Errorf("[#%02d] FileRequired(%s, FileInfo) got = %v, want %v", i, tt.inputConfig.path, got, tt.want)
+				t.Errorf("FileRequired(%s, FileInfo) got = %v, want %v", tt.inputConfig.path, got, tt.want)
 			}
 		})
 	}
@@ -152,13 +152,12 @@ func TestExtractCargoLock(t *testing.T) {
 			},
 		},
 	}
-	for i, tt := range tests {
+	for _, tt := range tests {
 		tt := tt
-		i := i
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
 			e := lockfile.CargoLockExtractor{}
-			_, _ = extractionTester(t, e, tt, i)
+			_, _ = extractionTester(t, e, tt)
 		})
 	}
 }

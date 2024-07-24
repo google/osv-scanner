@@ -99,6 +99,7 @@ func determineYarnPackageResolution(group []string) string {
 	return ""
 }
 
+// TODO: Extract source repo as well
 func tryExtractCommit(resolution string) string {
 	// language=GoRegExp
 	matchers := []string{

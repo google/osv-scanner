@@ -41,7 +41,7 @@ def outputValue(path, funcName, inventory: list):
                         inv=genInventory(path, inventory)))
 
 
-startKey = "ParseGoLock"
+startKey = "ParseNpmLock"
 
 beginFunc = False
 beginExpectPackages = False

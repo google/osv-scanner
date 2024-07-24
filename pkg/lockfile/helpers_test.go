@@ -281,7 +281,7 @@ type testTableEntry struct {
 }
 
 // extractionTester tests common properties of a extractor, and returns the raw values from running extract
-func extractionTester(t *testing.T, extractor lockfile.Extractor, tt testTableEntry, i int) ([]*lockfile.Inventory, error) {
+func extractionTester(t *testing.T, extractor lockfile.Extractor, tt testTableEntry) ([]*lockfile.Inventory, error) {
 	t.Helper()
 
 	wrapper := GenerateScanInputMock(t, tt.inputConfig)
