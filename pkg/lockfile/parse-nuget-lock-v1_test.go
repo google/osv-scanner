@@ -34,12 +34,6 @@ func TestNuGetLockExtractor_Extract(t *testing.T) {
 					Name:      "Test.Core",
 					Version:   "6.0.5",
 					Locations: []string{"fixtures/nuget/one-framework-one-package.v1.json"},
-					SourceCode: &lockfile.SourceCodeIdentifier{
-						Commit: "",
-					},
-					Metadata: lockfile.DepGroupMetadata{
-						DepGroupVals: []string{},
-					},
 				},
 			},
 		},
@@ -53,23 +47,11 @@ func TestNuGetLockExtractor_Extract(t *testing.T) {
 					Name:      "Test.Core",
 					Version:   "6.0.5",
 					Locations: []string{"fixtures/nuget/one-framework-two-packages.v1.json"},
-					SourceCode: &lockfile.SourceCodeIdentifier{
-						Commit: "",
-					},
-					Metadata: lockfile.DepGroupMetadata{
-						DepGroupVals: []string{},
-					},
 				},
 				{
 					Name:      "Test.System",
 					Version:   "0.13.0-beta4",
 					Locations: []string{"fixtures/nuget/one-framework-two-packages.v1.json"},
-					SourceCode: &lockfile.SourceCodeIdentifier{
-						Commit: "",
-					},
-					Metadata: lockfile.DepGroupMetadata{
-						DepGroupVals: []string{},
-					},
 				},
 			},
 		},
@@ -83,34 +65,16 @@ func TestNuGetLockExtractor_Extract(t *testing.T) {
 					Name:      "Test.Core",
 					Version:   "6.0.5",
 					Locations: []string{"fixtures/nuget/two-frameworks-mixed-packages.v1.json"},
-					SourceCode: &lockfile.SourceCodeIdentifier{
-						Commit: "",
-					},
-					Metadata: lockfile.DepGroupMetadata{
-						DepGroupVals: []string{},
-					},
 				},
 				{
 					Name:      "Test.System",
 					Version:   "0.13.0-beta4",
 					Locations: []string{"fixtures/nuget/two-frameworks-mixed-packages.v1.json"},
-					SourceCode: &lockfile.SourceCodeIdentifier{
-						Commit: "",
-					},
-					Metadata: lockfile.DepGroupMetadata{
-						DepGroupVals: []string{},
-					},
 				},
 				{
 					Name:      "Test.System",
 					Version:   "2.15.0",
 					Locations: []string{"fixtures/nuget/two-frameworks-mixed-packages.v1.json"},
-					SourceCode: &lockfile.SourceCodeIdentifier{
-						Commit: "",
-					},
-					Metadata: lockfile.DepGroupMetadata{
-						DepGroupVals: []string{},
-					},
 				},
 			},
 		},
@@ -124,23 +88,11 @@ func TestNuGetLockExtractor_Extract(t *testing.T) {
 					Name:      "Test.Core",
 					Version:   "6.0.5",
 					Locations: []string{"fixtures/nuget/two-frameworks-different-packages.v1.json"},
-					SourceCode: &lockfile.SourceCodeIdentifier{
-						Commit: "",
-					},
-					Metadata: lockfile.DepGroupMetadata{
-						DepGroupVals: []string{},
-					},
 				},
 				{
 					Name:      "Test.System",
 					Version:   "0.13.0-beta4",
 					Locations: []string{"fixtures/nuget/two-frameworks-different-packages.v1.json"},
-					SourceCode: &lockfile.SourceCodeIdentifier{
-						Commit: "",
-					},
-					Metadata: lockfile.DepGroupMetadata{
-						DepGroupVals: []string{},
-					},
 				},
 			},
 		},
@@ -154,12 +106,6 @@ func TestNuGetLockExtractor_Extract(t *testing.T) {
 					Name:      "Test.Core",
 					Version:   "6.0.5",
 					Locations: []string{"fixtures/nuget/two-frameworks-duplicate-packages.v1.json"},
-					SourceCode: &lockfile.SourceCodeIdentifier{
-						Commit: "",
-					},
-					Metadata: lockfile.DepGroupMetadata{
-						DepGroupVals: []string{},
-					},
 				},
 			},
 		},

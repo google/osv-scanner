@@ -20,6 +20,7 @@ func expectErrContaining(t *testing.T, err error, str string) {
 
 	if err == nil {
 		t.Errorf("Expected to get error, but did not")
+		return
 	}
 
 	if !strings.Contains(err.Error(), str) {
@@ -32,6 +33,7 @@ func expectErrIs(t *testing.T, err error, expected error) {
 
 	if err == nil {
 		t.Errorf("Expected to get error, but did not")
+		return
 	}
 
 	if !errors.Is(err, expected) {

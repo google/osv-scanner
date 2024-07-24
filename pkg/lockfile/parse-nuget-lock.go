@@ -29,8 +29,8 @@ func parseNuGetLockDependencies(dependencies map[string]NuGetLockPackage) map[st
 
 	for name, dependency := range dependencies {
 		details[name+"@"+dependency.Resolved] = &Inventory{
-			Name:      name,
-			Version:   dependency.Resolved,
+			Name:    name,
+			Version: dependency.Resolved,
 		}
 	}
 
@@ -65,7 +65,7 @@ func (e NuGetLockExtractor) Requirements() Requirements {
 }
 
 func (e NuGetLockExtractor) FileRequired(path string, fileInfo fs.FileInfo) bool {
-	return filepath.Base(path) == "package.lock.json"
+	return filepath.Base(path) == "packages.lock.json"
 }
 
 func (e NuGetLockExtractor) Extract(ctx context.Context, input *ScanInput) ([]*Inventory, error) {
@@ -81,7 +81,16 @@ func (e NuGetLockExtractor) Extract(ctx context.Context, input *ScanInput) ([]*I
 		return []*Inventory{}, fmt.Errorf("could not extract: unsupported lock file version %d", parsedLockfile.Version)
 	}
 
-	return parseNuGetLock(*parsedLockfile)
+	out, err := parseNuGetLock(*parsedLockfile)
+	if err != nil {
+		return []*Inventory{}, err
+	}
+
+	for i := range out {
+		out[i].Locations = []string{input.Path}
+	}
+
+	return out, nil
 }
 
 var _ Extractor = NuGetLockExtractor{}

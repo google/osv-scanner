@@ -88,7 +88,7 @@ func TestParseNuGetLock_InvalidVersion(t *testing.T) {
 		tt := tt
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
-			e := lockfile.NpmLockExtractor{}
+			e := lockfile.NuGetLockExtractor{}
 			_, _ = extractionTester(t, e, tt)
 		})
 	}
