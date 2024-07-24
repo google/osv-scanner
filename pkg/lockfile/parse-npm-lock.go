@@ -53,7 +53,7 @@ type NpmLockfile struct {
 
 const NpmEcosystem Ecosystem = "npm"
 
-type npmInventoryMap map[string]*Inventory
+type npmPackageDetailsMap map[string]PackageDetails
 
 // mergeNpmDepsGroups handles merging the dependency groups of packages within the
 // NPM ecosystem, since they can appear multiple times in the same dependency tree
@@ -61,28 +61,26 @@ type npmInventoryMap map[string]*Inventory
 // the merge happens almost as you'd expect, except that if either given packages
 // belong to no groups, then that is the result since it indicates the package
 // is implicitly a production dependency.
-func mergeNpmDepsGroups(a, b *Inventory) []string {
-	aDepGroups := a.Metadata.(DepGroups).DepGroups()
-	bDepGroups := b.Metadata.(DepGroups).DepGroups()
+func mergeNpmDepsGroups(a, b PackageDetails) []string {
 	// if either group includes no groups, then the package is in the "production" group
-	if len(aDepGroups) == 0 || len(bDepGroups) == 0 {
+	if len(a.DepGroups) == 0 || len(b.DepGroups) == 0 {
 		return nil
 	}
 
-	combined := make([]string, 0, len(aDepGroups)+len(bDepGroups))
-	combined = append(combined, aDepGroups...)
-	combined = append(combined, bDepGroups...)
+	combined := make([]string, 0, len(a.DepGroups)+len(b.DepGroups))
+	combined = append(combined, a.DepGroups...)
+	combined = append(combined, b.DepGroups...)
 
 	slices.Sort(combined)
 
 	return slices.Compact(combined)
 }
 
-func (pdm npmInventoryMap) add(key string, details *Inventory) {
+func (pdm npmPackageDetailsMap) add(key string, details PackageDetails) {
 	existing, ok := pdm[key]
 
 	if ok {
-		details.Metadata.(*DepGroupMetadata).depGroups = mergeNpmDepsGroups(existing, details)
+		details.DepGroups = mergeNpmDepsGroups(existing, details)
 	}
 
 	pdm[key] = details
@@ -102,8 +100,8 @@ func (dep NpmLockDependency) depGroups() []string {
 	return nil
 }
 
-func parseNpmLockDependencies(dependencies map[string]NpmLockDependency) map[string]*Inventory {
-	details := npmInventoryMap{}
+func parseNpmLockDependencies(dependencies map[string]NpmLockDependency) map[string]PackageDetails {
+	details := npmPackageDetailsMap{}
 
 	for name, detail := range dependencies {
 		if detail.Dependencies != nil {
@@ -140,15 +138,11 @@ func parseNpmLockDependencies(dependencies map[string]NpmLockDependency) map[str
 			}
 		}
 
-		details.add(name+"@"+version, &Inventory{
-			Name:    name,
-			Version: finalVersion,
-			SourceCode: &SourceCodeIdentifier{
-				Commit: commit,
-			},
-			Metadata: &DepGroupMetadata{
-				depGroups: detail.depGroups(),
-			},
+		details.add(name+"@"+version, PackageDetails{
+			Name:      name,
+			Version:   finalVersion,
+			Commit:    commit,
+			DepGroups: detail.depGroups(),
 		})
 	}
 
@@ -180,8 +174,8 @@ func (pkg NpmLockPackage) depGroups() []string {
 	return nil
 }
 
-func parseNpmLockPackages(packages map[string]NpmLockPackage) map[string]*Inventory {
-	details := npmInventoryMap{}
+func parseNpmLockPackages(packages map[string]NpmLockPackage) map[string]PackageDetails {
+	details := npmPackageDetailsMap{}
 
 	for namePath, detail := range packages {
 		if namePath == "" {
@@ -194,7 +188,7 @@ func parseNpmLockPackages(packages map[string]NpmLockPackage) map[string]*Invent
 		}
 
 		finalVersion := detail.Version
-		// TODO: This should try to extract the source repository as well
+
 		commit := tryExtractCommit(detail.Resolved)
 
 		// if there is a commit, we want to deduplicate based on that rather than
@@ -203,22 +197,18 @@ func parseNpmLockPackages(packages map[string]NpmLockPackage) map[string]*Invent
 			finalVersion = commit
 		}
 
-		details.add(finalName+"@"+finalVersion, &Inventory{
-			Name:    finalName,
-			Version: detail.Version,
-			SourceCode: &SourceCodeIdentifier{
-				Commit: commit,
-			},
-			Metadata: &DepGroupMetadata{
-				depGroups: detail.depGroups(),
-			},
+		details.add(finalName+"@"+finalVersion, PackageDetails{
+			Name:      finalName,
+			Version:   detail.Version,
+			Commit:    commit,
+			DepGroups: detail.depGroups(),
 		})
 	}
 
 	return details
 }
 
-func parseNpmLock(lockfile NpmLockfile) map[string]*Inventory {
+func parseNpmLock(lockfile NpmLockfile) map[string]PackageDetails {
 	if lockfile.Packages != nil {
 		return parseNpmLockPackages(lockfile.Packages)
 	}
@@ -251,12 +241,24 @@ func (e NpmLockExtractor) Extract(ctx context.Context, input *ScanInput) ([]*Inv
 		return []*Inventory{}, fmt.Errorf("could not extract from %s: %w", input.Path, err)
 	}
 
-	inventory := maps.Values(parseNpmLock(*parsedLockfile))
-	for i := range inventory {
-		inventory[i].Locations = []string{input.Path}
+	packages := maps.Values(parseNpmLock(*parsedLockfile))
+	inventories := make([]*Inventory, len(packages))
+
+	for i, pkg := range packages {
+		inventories[i] = &Inventory{
+			Name: pkg.Name,
+			SourceCode: &SourceCodeIdentifier{
+				Commit: pkg.Commit,
+			},
+			Version: pkg.Version,
+			Metadata: DepGroupMetadata{
+				depGroups: pkg.DepGroups,
+			},
+			Locations: []string{input.Path},
+		}
 	}
 
-	return inventory, nil
+	return inventories, nil
 }
 
 // ToPURL converts an inventory created by this extractor into a PURL.
