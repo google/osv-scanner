@@ -6,7 +6,7 @@ import (
 	"github.com/google/osv-scanner/pkg/lockfile"
 )
 
-func TestExtractNpmV1Lock(t *testing.T) {
+func TestNPMLockExtractor_Extract_V1(t *testing.T) {
 	t.Parallel()
 
 	tests := []testTableEntry{

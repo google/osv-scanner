@@ -6,7 +6,7 @@ import (
 	"github.com/google/osv-scanner/pkg/lockfile"
 )
 
-func TestGoLockExtractor_ShouldExtract(t *testing.T) {
+func TestGoLockExtractor_FileRequired(t *testing.T) {
 	t.Parallel()
 
 	tests := []struct {
@@ -70,7 +70,7 @@ func TestGoLockExtractor_ShouldExtract(t *testing.T) {
 	}
 }
 
-func TestExtractGoLock(t *testing.T) {
+func TestGoLockExtractor_Extract(t *testing.T) {
 	t.Parallel()
 
 	tests := []testTableEntry{

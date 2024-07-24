@@ -70,7 +70,7 @@ func TestComposerLockExtractor_FileRequired(t *testing.T) {
 	}
 }
 
-func TestParseComposerLock(t *testing.T) {
+func TestComposerLockExtractor_Extract(t *testing.T) {
 	t.Parallel()
 
 	tests := []testTableEntry{

@@ -71,7 +71,7 @@ func TestCargoLockExtractor_FileRequired(t *testing.T) {
 	}
 }
 
-func TestExtractCargoLock(t *testing.T) {
+func TestCargoLockExtractor_Extract(t *testing.T) {
 	t.Parallel()
 
 	tests := []testTableEntry{

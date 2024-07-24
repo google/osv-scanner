@@ -9,7 +9,8 @@ from dataclasses import dataclass
 
 expectCommit = True
 expectDepGroups = True
-startKey = "ParseComposerLock"
+startKey = "ParseNuGetLock"
+
 
 @dataclass
 class InventoryItem:
@@ -48,8 +49,7 @@ def outputValue(path, funcName, inventory: list[InventoryItem]):
 			inputConfig: ScanInputMockConfig{{
 				path: "{path}",
 			}},
-			wantInventory: []*lockfile.Inventory{{
-            {inv}
+			wantInventory: []*lockfile.Inventory{{{inv}
 			}},
 		}},'''
 
@@ -57,7 +57,6 @@ def outputValue(path, funcName, inventory: list[InventoryItem]):
         template.format(name=name,
                         path=path,
                         inv=genInventory(path, inventory)))
-
 
 
 beginFunc = False

@@ -1,157 +1,176 @@
 package lockfile_test
 
 import (
-	"io/fs"
 	"testing"
 
 	"github.com/google/osv-scanner/pkg/lockfile"
 )
 
-func TestParseNuGetLock_v1_FileDoesNotExist(t *testing.T) {
+func TestNuGetLockExtractor_Extract(t *testing.T) {
 	t.Parallel()
 
-	packages, err := lockfile.ParseNuGetLock("fixtures/nuget/does-not-exist")
-
-	expectErrIs(t, err, fs.ErrNotExist)
-	expectPackages(t, packages, []lockfile.PackageDetails{})
-}
-
-func TestParseNuGetLock_v1_InvalidJson(t *testing.T) {
-	t.Parallel()
-
-	packages, err := lockfile.ParseNuGetLock("fixtures/nuget/not-json.txt")
-
-	expectErrContaining(t, err, "could not extract from")
-	expectPackages(t, packages, []lockfile.PackageDetails{})
-}
-
-func TestParseNuGetLock_v1_NoPackages(t *testing.T) {
-	t.Parallel()
-
-	packages, err := lockfile.ParseNuGetLock("fixtures/nuget/empty.v1.json")
-
-	if err != nil {
-		t.Errorf("Got unexpected error: %v", err)
+	tests := []testTableEntry{
+		{
+			name: "invalid json",
+			inputConfig: ScanInputMockConfig{
+				path: "fixtures/nuget/not-json.txt",
+			},
+			wantErrContaining: "could not extract from",
+		},
+		{
+			name: "no packages",
+			inputConfig: ScanInputMockConfig{
+				path: "fixtures/nuget/empty.v1.json",
+			},
+			wantInventory: []*lockfile.Inventory{},
+		},
+		{
+			name: "one framework_ one package",
+			inputConfig: ScanInputMockConfig{
+				path: "fixtures/nuget/one-framework-one-package.v1.json",
+			},
+			wantInventory: []*lockfile.Inventory{
+				{
+					Name:      "Test.Core",
+					Version:   "6.0.5",
+					Locations: []string{"fixtures/nuget/one-framework-one-package.v1.json"},
+					SourceCode: &lockfile.SourceCodeIdentifier{
+						Commit: "",
+					},
+					Metadata: lockfile.DepGroupMetadata{
+						DepGroupVals: []string{},
+					},
+				},
+			},
+		},
+		{
+			name: "one framework_ two packages",
+			inputConfig: ScanInputMockConfig{
+				path: "fixtures/nuget/one-framework-two-packages.v1.json",
+			},
+			wantInventory: []*lockfile.Inventory{
+				{
+					Name:      "Test.Core",
+					Version:   "6.0.5",
+					Locations: []string{"fixtures/nuget/one-framework-two-packages.v1.json"},
+					SourceCode: &lockfile.SourceCodeIdentifier{
+						Commit: "",
+					},
+					Metadata: lockfile.DepGroupMetadata{
+						DepGroupVals: []string{},
+					},
+				},
+				{
+					Name:      "Test.System",
+					Version:   "0.13.0-beta4",
+					Locations: []string{"fixtures/nuget/one-framework-two-packages.v1.json"},
+					SourceCode: &lockfile.SourceCodeIdentifier{
+						Commit: "",
+					},
+					Metadata: lockfile.DepGroupMetadata{
+						DepGroupVals: []string{},
+					},
+				},
+			},
+		},
+		{
+			name: "two frameworks_ mixed packages",
+			inputConfig: ScanInputMockConfig{
+				path: "fixtures/nuget/two-frameworks-mixed-packages.v1.json",
+			},
+			wantInventory: []*lockfile.Inventory{
+				{
+					Name:      "Test.Core",
+					Version:   "6.0.5",
+					Locations: []string{"fixtures/nuget/two-frameworks-mixed-packages.v1.json"},
+					SourceCode: &lockfile.SourceCodeIdentifier{
+						Commit: "",
+					},
+					Metadata: lockfile.DepGroupMetadata{
+						DepGroupVals: []string{},
+					},
+				},
+				{
+					Name:      "Test.System",
+					Version:   "0.13.0-beta4",
+					Locations: []string{"fixtures/nuget/two-frameworks-mixed-packages.v1.json"},
+					SourceCode: &lockfile.SourceCodeIdentifier{
+						Commit: "",
+					},
+					Metadata: lockfile.DepGroupMetadata{
+						DepGroupVals: []string{},
+					},
+				},
+				{
+					Name:      "Test.System",
+					Version:   "2.15.0",
+					Locations: []string{"fixtures/nuget/two-frameworks-mixed-packages.v1.json"},
+					SourceCode: &lockfile.SourceCodeIdentifier{
+						Commit: "",
+					},
+					Metadata: lockfile.DepGroupMetadata{
+						DepGroupVals: []string{},
+					},
+				},
+			},
+		},
+		{
+			name: "two frameworks_ different packages",
+			inputConfig: ScanInputMockConfig{
+				path: "fixtures/nuget/two-frameworks-different-packages.v1.json",
+			},
+			wantInventory: []*lockfile.Inventory{
+				{
+					Name:      "Test.Core",
+					Version:   "6.0.5",
+					Locations: []string{"fixtures/nuget/two-frameworks-different-packages.v1.json"},
+					SourceCode: &lockfile.SourceCodeIdentifier{
+						Commit: "",
+					},
+					Metadata: lockfile.DepGroupMetadata{
+						DepGroupVals: []string{},
+					},
+				},
+				{
+					Name:      "Test.System",
+					Version:   "0.13.0-beta4",
+					Locations: []string{"fixtures/nuget/two-frameworks-different-packages.v1.json"},
+					SourceCode: &lockfile.SourceCodeIdentifier{
+						Commit: "",
+					},
+					Metadata: lockfile.DepGroupMetadata{
+						DepGroupVals: []string{},
+					},
+				},
+			},
+		},
+		{
+			name: "two frameworks_ duplicate packages",
+			inputConfig: ScanInputMockConfig{
+				path: "fixtures/nuget/two-frameworks-duplicate-packages.v1.json",
+			},
+			wantInventory: []*lockfile.Inventory{
+				{
+					Name:      "Test.Core",
+					Version:   "6.0.5",
+					Locations: []string{"fixtures/nuget/two-frameworks-duplicate-packages.v1.json"},
+					SourceCode: &lockfile.SourceCodeIdentifier{
+						Commit: "",
+					},
+					Metadata: lockfile.DepGroupMetadata{
+						DepGroupVals: []string{},
+					},
+				},
+			},
+		},
 	}
 
-	expectPackages(t, packages, []lockfile.PackageDetails{})
-}
-
-func TestParseNuGetLock_v1_OneFramework_OnePackage(t *testing.T) {
-	t.Parallel()
-
-	packages, err := lockfile.ParseNuGetLock("fixtures/nuget/one-framework-one-package.v1.json")
-
-	if err != nil {
-		t.Errorf("Got unexpected error: %v", err)
+	for _, tt := range tests {
+		tt := tt
+		t.Run(tt.name, func(t *testing.T) {
+			t.Parallel()
+			e := lockfile.NuGetLockExtractor{}
+			_, _ = extractionTester(t, e, tt)
+		})
 	}
-
-	expectPackages(t, packages, []lockfile.PackageDetails{
-		{
-			Name:      "Test.Core",
-			Version:   "6.0.5",
-			Ecosystem: lockfile.NuGetEcosystem,
-			CompareAs: lockfile.NuGetEcosystem,
-		},
-	})
-}
-
-func TestParseNuGetLock_v1_OneFramework_TwoPackages(t *testing.T) {
-	t.Parallel()
-
-	packages, err := lockfile.ParseNuGetLock("fixtures/nuget/one-framework-two-packages.v1.json")
-
-	if err != nil {
-		t.Errorf("Got unexpected error: %v", err)
-	}
-
-	expectPackages(t, packages, []lockfile.PackageDetails{
-		{
-			Name:      "Test.Core",
-			Version:   "6.0.5",
-			Ecosystem: lockfile.NuGetEcosystem,
-			CompareAs: lockfile.NuGetEcosystem,
-		},
-		{
-			Name:      "Test.System",
-			Version:   "0.13.0-beta4",
-			Ecosystem: lockfile.NuGetEcosystem,
-			CompareAs: lockfile.NuGetEcosystem,
-		},
-	})
-}
-
-func TestParseNuGetLock_v1_TwoFrameworks_MixedPackages(t *testing.T) {
-	t.Parallel()
-
-	packages, err := lockfile.ParseNuGetLock("fixtures/nuget/two-frameworks-mixed-packages.v1.json")
-
-	if err != nil {
-		t.Errorf("Got unexpected error: %v", err)
-	}
-
-	expectPackages(t, packages, []lockfile.PackageDetails{
-		{
-			Name:      "Test.Core",
-			Version:   "6.0.5",
-			Ecosystem: lockfile.NuGetEcosystem,
-			CompareAs: lockfile.NuGetEcosystem,
-		},
-		{
-			Name:      "Test.System",
-			Version:   "0.13.0-beta4",
-			Ecosystem: lockfile.NuGetEcosystem,
-			CompareAs: lockfile.NuGetEcosystem,
-		},
-		{
-			Name:      "Test.System",
-			Version:   "2.15.0",
-			Ecosystem: lockfile.NuGetEcosystem,
-			CompareAs: lockfile.NuGetEcosystem,
-		},
-	})
-}
-
-func TestParseNuGetLock_v1_TwoFrameworks_DifferentPackages(t *testing.T) {
-	t.Parallel()
-
-	packages, err := lockfile.ParseNuGetLock("fixtures/nuget/two-frameworks-different-packages.v1.json")
-
-	if err != nil {
-		t.Errorf("Got unexpected error: %v", err)
-	}
-
-	expectPackages(t, packages, []lockfile.PackageDetails{
-		{
-			Name:      "Test.Core",
-			Version:   "6.0.5",
-			Ecosystem: lockfile.NuGetEcosystem,
-			CompareAs: lockfile.NuGetEcosystem,
-		},
-		{
-			Name:      "Test.System",
-			Version:   "0.13.0-beta4",
-			Ecosystem: lockfile.NuGetEcosystem,
-			CompareAs: lockfile.NuGetEcosystem,
-		},
-	})
-}
-
-func TestParseNuGetLock_v1_TwoFrameworks_DuplicatePackages(t *testing.T) {
-	t.Parallel()
-
-	packages, err := lockfile.ParseNuGetLock("fixtures/nuget/two-frameworks-duplicate-packages.v1.json")
-
-	if err != nil {
-		t.Errorf("Got unexpected error: %v", err)
-	}
-
-	expectPackages(t, packages, []lockfile.PackageDetails{
-		{
-			Name:      "Test.Core",
-			Version:   "6.0.5",
-			Ecosystem: lockfile.NuGetEcosystem,
-			CompareAs: lockfile.NuGetEcosystem,
-		},
-	})
 }
