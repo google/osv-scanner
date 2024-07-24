@@ -245,6 +245,10 @@ func (e NpmLockExtractor) Extract(ctx context.Context, input *ScanInput) ([]*Inv
 	inventories := make([]*Inventory, len(packages))
 
 	for i, pkg := range packages {
+		if pkg.DepGroups == nil {
+			pkg.DepGroups = []string{}
+		}
+
 		inventories[i] = &Inventory{
 			Name: pkg.Name,
 			SourceCode: &SourceCodeIdentifier{
@@ -252,7 +256,7 @@ func (e NpmLockExtractor) Extract(ctx context.Context, input *ScanInput) ([]*Inv
 			},
 			Version: pkg.Version,
 			Metadata: DepGroupMetadata{
-				depGroups: pkg.DepGroups,
+				DepGroupVals: pkg.DepGroups,
 			},
 			Locations: []string{input.Path},
 		}

@@ -5,23 +5,41 @@ Helper script, remember to remove later!!
 
 import sys
 import re
+from dataclasses import dataclass
+
+expectCommit = True
+expectDepGroups = True
 
 
-def genInventory(path, valueList: list) -> str:
+@dataclass
+class InventoryItem:
+    """Class for keeping track of an item in inventory."""
+    name: str
+    version: str
+    commit: str = ""
+    depGroups: list[str] = None
+
+
+def genInventory(path, valueList: list[InventoryItem]) -> str:
     buildStr = ""
     for i in valueList:
-        current = f"""
-        {{
-					Name:      "{i[0]}",
-					Version:   "{i[1]}",
-					Locations: []string{{"{path}"}},
-				}},
+        current = f"""{{
+            Name:      "{i.name}",
+            Version:   "{i.version}",
+            Locations: []string{{"{path}"}},
 """
+        if expectCommit:
+            current += f'SourceCode: &lockfile.SourceCodeIdentifier{{\nCommit: "{i.commit}",\n}},\n'
+
+        if expectDepGroups:
+            current += f"Metadata: lockfile.DepGroupMetadata{{\nDepGroupVals: []string{{{', '.join(i.depGroups or [])}}},\n}},\n"
+
+        current += '},'
         buildStr += current
     return buildStr
 
 
-def outputValue(path, funcName, inventory: list):
+def outputValue(path, funcName, inventory: list[InventoryItem]):
     name = re.sub(r'(?<!^)(?=[A-Z])', ' ', funcName).lower()
 
     template = '''{{
@@ -48,7 +66,7 @@ beginExpectPackages = False
 currentFuncName = ""
 currentPath = ""
 
-currentPkgs = []
+currentPkgs: list[InventoryItem] = []
 
 allLines = sys.stdin.readlines()
 
@@ -73,12 +91,22 @@ for line in allLines:
     if beginExpectPackages:
         nameMatch = re.match('.*Name:\s+"(.*)",', line)
         if nameMatch:
-            currentPkgs.append([nameMatch.group(1), ""])
+            currentPkgs.append(InventoryItem(nameMatch.group(1), ""))
             continue
 
         versionMatch = re.match('.*Version:\s+"(.*)",', line)
         if versionMatch:
-            currentPkgs[-1][1] = versionMatch.group(1)
+            currentPkgs[-1].version = versionMatch.group(1)
+            continue
+
+        commitMatch = re.match('.*Commit:\s+"(.*)",', line)
+        if commitMatch:
+            currentPkgs[-1].commit = commitMatch.group(1)
+            continue
+
+        depGroupsMatch = re.match('.*DepGroups:\s+\\[\\]string{(.*?)},', line)
+        if depGroupsMatch:
+            currentPkgs[-1].depGroups = depGroupsMatch.group(1).split(",")
             continue
 
     if line.rstrip() == "}":
