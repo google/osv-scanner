@@ -209,3 +209,12 @@ func TestParseComposerLock_NumberForVersion(t *testing.T) {
 		},
 	})
 }
+
+func TestParseComposerLock_ObjectForVersion(t *testing.T) {
+	t.Parallel()
+
+	packages, err := lockfile.ParseComposerLock("fixtures/composer/with-bad-version.json")
+
+	expectErrContaining(t, err, "unexpected type for version")
+	expectPackages(t, packages, []lockfile.PackageDetails{})
+}
