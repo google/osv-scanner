@@ -7,9 +7,9 @@ import sys
 import re
 from dataclasses import dataclass
 
-expectCommit = False
+expectCommit = True
 expectDepGroups = False
-startKey = "ParseGradleVerificationMetadata"
+startKey = "ParseGemfileLock"
 
 
 @dataclass
