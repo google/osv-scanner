@@ -14,6 +14,7 @@ import (
 	mavenresolve "deps.dev/util/resolve/maven"
 	"github.com/google/osv-scanner/internal/resolution/client"
 	"github.com/google/osv-scanner/internal/resolution/datasource"
+	"github.com/google/osv-scanner/internal/resolution/manifest"
 	"github.com/google/osv-scanner/internal/resolution/util"
 	"github.com/google/osv-scanner/pkg/lockfile"
 	"golang.org/x/exp/maps"
@@ -66,7 +67,7 @@ func (e MavenResolverExtractor) Extract(f lockfile.DepFile) ([]lockfile.PackageD
 			VersionType: resolve.Concrete,
 			Version:     string(project.Version),
 		}}
-	reqs := make([]resolve.RequirementVersion, len(project.Dependencies))
+	reqs := make([]resolve.RequirementVersion, len(project.Dependencies)+len(project.DependencyManagement.Dependencies))
 	for i, d := range project.Dependencies {
 		reqs[i] = resolve.RequirementVersion{
 			VersionKey: resolve.VersionKey{
@@ -78,6 +79,19 @@ func (e MavenResolverExtractor) Extract(f lockfile.DepFile) ([]lockfile.PackageD
 				Version:     string(d.Version),
 			},
 			Type: resolve.MavenDepType(d, ""),
+		}
+	}
+	for i, d := range project.DependencyManagement.Dependencies {
+		reqs[len(project.Dependencies)+i] = resolve.RequirementVersion{
+			VersionKey: resolve.VersionKey{
+				PackageKey: resolve.PackageKey{
+					System: resolve.Maven,
+					Name:   d.Name(),
+				},
+				VersionType: resolve.Requirement,
+				Version:     string(d.Version),
+			},
+			Type: resolve.MavenDepType(d, manifest.OriginManagement),
 		}
 	}
 	overrideClient.AddVersion(root, reqs)
