@@ -9,7 +9,7 @@ from dataclasses import dataclass
 
 expectCommit = True
 expectDepGroups = True
-startKey = "ParsePubspecLock"
+startKey = "ParseMixLock"
 
 
 @dataclass
