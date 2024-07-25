@@ -7,9 +7,9 @@ import sys
 import re
 from dataclasses import dataclass
 
-expectCommit = True
-expectDepGroups = True
-startKey = "ParseMixLock"
+expectCommit = False
+expectDepGroups = False
+startKey = "ParseGradleLock"
 
 
 @dataclass
