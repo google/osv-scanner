@@ -8,8 +8,8 @@ import re
 from dataclasses import dataclass
 
 expectCommit = True
-expectDepGroups = False
-startKey = "ParseApkInstalled"
+expectDepGroups = True
+startKey = "ParsePoetryLock"
 
 
 @dataclass

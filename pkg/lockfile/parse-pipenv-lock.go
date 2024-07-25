@@ -91,7 +91,7 @@ func addPkgDetails(details map[string]*Inventory, packages map[string]PipenvPack
 // ToPURL converts an inventory created by this extractor into a PURL.
 func (e PipenvLockExtractor) ToPURL(i *Inventory) (*packageurl.PackageURL, error) {
 	return &packageurl.PackageURL{
-		Type:    packageurl.TypeGolang,
+		Type:    packageurl.TypePyPi,
 		Name:    i.Name,
 		Version: i.Version,
 	}, nil
@@ -103,7 +103,7 @@ func (e PipenvLockExtractor) ToCPEs(i *Inventory) ([]string, error) { return []s
 func (e PipenvLockExtractor) Ecosystem(i *Inventory) (string, error) {
 	switch i.Extractor.(type) {
 	case PipenvLockExtractor:
-		return string(GoEcosystem), nil
+		return string(PipenvEcosystem), nil
 	default:
 		return "", ErrWrongExtractor
 	}
