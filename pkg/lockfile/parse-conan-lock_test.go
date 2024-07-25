@@ -6,7 +6,7 @@ import (
 	"github.com/google/osv-scanner/pkg/lockfile"
 )
 
-func TestConanLockExtractor_ShouldExtract(t *testing.T) {
+func TestConanLockExtractor_FileRequired(t *testing.T) {
 	t.Parallel()
 
 	tests := []struct {
@@ -17,42 +17,35 @@ func TestConanLockExtractor_ShouldExtract(t *testing.T) {
 		{
 			name: "",
 			inputConfig: ScanInputMockConfig{
-				path: "",
-			},
-			want: false,
-		},
-		{
-			name: "",
-			inputConfig: ScanInputMockConfig{
-				path: "",
+				path: "conan.lock",
 			},
 			want: true,
 		},
 		{
 			name: "",
 			inputConfig: ScanInputMockConfig{
-				path: "",
+				path: "path/to/my/conan.lock",
 			},
 			want: true,
 		},
 		{
 			name: "",
 			inputConfig: ScanInputMockConfig{
-				path: "",
+				path: "path/to/my/conan.lock/file",
 			},
 			want: false,
 		},
 		{
 			name: "",
 			inputConfig: ScanInputMockConfig{
-				path: "",
+				path: "path/to/my/conan.lock.file",
 			},
 			want: false,
 		},
 		{
 			name: "",
 			inputConfig: ScanInputMockConfig{
-				path: "",
+				path: "path.to.my.conan.lock",
 			},
 			want: false,
 		},

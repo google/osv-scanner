@@ -16,8 +16,6 @@ const (
 	gradleLockFileEmptyPrefix   = "empty="
 )
 
-const MavenEcosystem Ecosystem = "Maven"
-
 func isGradleLockFileDepLine(line string) bool {
 	ret := strings.HasPrefix(line, gradleLockFileCommentPrefix) ||
 		strings.HasPrefix(line, gradleLockFileEmptyPrefix)

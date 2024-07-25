@@ -9,7 +9,7 @@ from dataclasses import dataclass
 
 expectCommit = False
 expectDepGroups = True
-startKey = "ParseConanLock"
+startKey = "ParseMavenLock"
 
 
 @dataclass

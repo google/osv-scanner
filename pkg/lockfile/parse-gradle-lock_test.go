@@ -6,7 +6,7 @@ import (
 	"github.com/google/osv-scanner/pkg/lockfile"
 )
 
-func TestGradleLockExtractor_ShouldExtract(t *testing.T) {
+func TestGradleLockExtractor_FileRequired(t *testing.T) {
 	t.Parallel()
 
 	tests := []struct {

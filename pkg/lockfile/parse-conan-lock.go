@@ -181,7 +181,7 @@ func parseConanLock(lockfile ConanLockFile) []*Inventory {
 type ConanLockExtractor struct{}
 
 // Name of the extractor
-func (e ConanLockExtractor) Name() string { return "go/gomod" }
+func (e ConanLockExtractor) Name() string { return "cpp/conanlock" }
 
 // Version of the extractor
 func (e ConanLockExtractor) Version() int { return 0 }
@@ -202,7 +202,13 @@ func (e ConanLockExtractor) Extract(ctx context.Context, input *ScanInput) ([]*I
 		return []*Inventory{}, fmt.Errorf("could not extract from %s: %w", input.Path, err)
 	}
 
-	return parseConanLock(*parsedLockfile), nil
+	inv := parseConanLock(*parsedLockfile)
+
+	for i := range inv {
+		inv[i].Locations = []string{input.Path}
+	}
+
+	return inv, nil
 }
 
 // ToPURL converts an inventory created by this extractor into a PURL.

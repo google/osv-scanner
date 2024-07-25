@@ -6,7 +6,7 @@ import (
 	"github.com/google/osv-scanner/pkg/lockfile"
 )
 
-func TestMixLockExtractor_ShouldExtract(t *testing.T) {
+func TestMixLockExtractor_FileRequired(t *testing.T) {
 	t.Parallel()
 
 	tests := []struct {

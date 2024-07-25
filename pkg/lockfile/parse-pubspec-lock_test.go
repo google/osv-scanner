@@ -6,7 +6,7 @@ import (
 	"github.com/google/osv-scanner/pkg/lockfile"
 )
 
-func TestPubspecLockExtractor_ShouldExtract(t *testing.T) {
+func TestPubspecLockExtractor_FileRequired(t *testing.T) {
 	t.Parallel()
 
 	tests := []struct {
