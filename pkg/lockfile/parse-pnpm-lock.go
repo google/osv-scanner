@@ -243,7 +243,7 @@ func (e PnpmLockExtractor) ToCPEs(i *Inventory) ([]string, error) { return []str
 func (e PnpmLockExtractor) Ecosystem(i *Inventory) (string, error) {
 	switch i.Extractor.(type) {
 	case PnpmLockExtractor:
-		return string(NpmEcosystem), nil
+		return string(PnpmEcosystem), nil
 	default:
 		return "", ErrWrongExtractor
 	}

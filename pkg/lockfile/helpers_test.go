@@ -207,7 +207,10 @@ func (i FakeFileInfo) Sys() any {
 // -----
 
 type ScanInputMockConfig struct {
-	path         string
+	path string
+	// fakeScanRoot allows you to set a custom scanRoot, can be relative or absolute,
+	// and will be translated to an absolute path
+	fakeScanRoot string
 	fakeFileInfo *FakeFileInfo
 }
 
@@ -240,7 +243,18 @@ func GenerateFileInfoMock(t *testing.T, config ScanInputMockConfig) fs.FileInfo 
 
 // GenerateScanInputMock will try to open the file locally, and fail if the file doesn't exist
 func GenerateScanInputMock(t *testing.T, config ScanInputMockConfig) ScanInputWrapper {
-	f, err := os.Open(config.path)
+	var scanRoot string
+	if filepath.IsAbs(config.fakeScanRoot) {
+		scanRoot = config.fakeScanRoot
+	} else {
+		workingDir, err := os.Getwd()
+		if err != nil {
+			t.Fatalf("Can't get working directory because '%s'", workingDir)
+		}
+		scanRoot = filepath.Join(workingDir, config.fakeScanRoot)
+	}
+
+	f, err := os.Open(filepath.Join(scanRoot, config.path))
 	if err != nil {
 		t.Fatalf("Can't open test fixture '%s' because '%s'", config.path, err)
 	}
@@ -252,16 +266,16 @@ func GenerateScanInputMock(t *testing.T, config ScanInputMockConfig) ScanInputWr
 	return ScanInputWrapper{
 		fileHandle: f,
 		ScanInput: lockfile.ScanInput{
-			FS:       os.DirFS(".").(lockfile.FS),
-			Path:     config.path,
-			ScanRoot: config.path,
+			FS:       os.DirFS(scanRoot).(lockfile.FS),
+			Path:     filepath.Join(config.path),
+			ScanRoot: scanRoot,
 			Reader:   f,
 			Info:     info,
 		},
 	}
 }
 
-func FillExtractorField(pkgs []*lockfile.Inventory, extractor lockfile.Extractor) {
+func fillExtractorField(pkgs []*lockfile.Inventory, extractor lockfile.Extractor) {
 	for i := range pkgs {
 		pkgs[i].Extractor = extractor
 	}
@@ -301,8 +315,8 @@ func extractionTester(t *testing.T, extractor lockfile.Extractor, tt testTableEn
 	if tt.wantErrContaining == "" && tt.wantErrIs == nil && err != nil {
 		t.Errorf("Got error when expecting none: '%s'", err)
 	} else {
-		FillExtractorField(got, extractor)
-		FillExtractorField(tt.wantInventory, extractor)
+		fillExtractorField(got, extractor)
+		fillExtractorField(tt.wantInventory, extractor)
 
 		expectPackages(t, got, tt.wantInventory)
 	}

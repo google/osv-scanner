@@ -223,7 +223,7 @@ func (e YarnLockExtractor) Extract(ctx context.Context, input *ScanInput) ([]*In
 // ToPURL converts an inventory created by this extractor into a PURL.
 func (e YarnLockExtractor) ToPURL(i *Inventory) (*packageurl.PackageURL, error) {
 	return &packageurl.PackageURL{
-		Type:    packageurl.TypeGolang,
+		Type:    packageurl.TypeNPM,
 		Name:    i.Name,
 		Version: i.Version,
 	}, nil
@@ -235,7 +235,7 @@ func (e YarnLockExtractor) ToCPEs(i *Inventory) ([]string, error) { return []str
 func (e YarnLockExtractor) Ecosystem(i *Inventory) (string, error) {
 	switch i.Extractor.(type) {
 	case YarnLockExtractor:
-		return string(GoEcosystem), nil
+		return string(YarnEcosystem), nil
 	default:
 		return "", ErrWrongExtractor
 	}

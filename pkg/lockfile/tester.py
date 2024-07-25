@@ -9,7 +9,7 @@ from dataclasses import dataclass
 
 expectCommit = True
 expectDepGroups = False
-startKey = "ParseYarnLock"
+startKey = "ParseApkInstalled"
 
 
 @dataclass

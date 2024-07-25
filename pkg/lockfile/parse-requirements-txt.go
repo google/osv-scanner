@@ -156,7 +156,7 @@ func (e RequirementsTxtExtractor) ToCPEs(i *Inventory) ([]string, error) { retur
 func (e RequirementsTxtExtractor) Ecosystem(i *Inventory) (string, error) {
 	switch i.Extractor.(type) {
 	case RequirementsTxtExtractor:
-		return string(GoEcosystem), nil
+		return string(PipEcosystem), nil
 	default:
 		return "", ErrWrongExtractor
 	}
