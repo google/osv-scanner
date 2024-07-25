@@ -7,9 +7,9 @@ import sys
 import re
 from dataclasses import dataclass
 
-expectCommit = True
-expectDepGroups = False
-startKey = "ParseGemfileLock"
+expectCommit = False
+expectDepGroups = True
+startKey = "ParseConanLock"
 
 
 @dataclass
