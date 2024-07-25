@@ -75,37 +75,15 @@ func ComputeOverridePatches(ctx context.Context, cl client.ResolutionClient, res
 		// CalculateDiff does not compute override manifest patches correctly, manually fill it out.
 		// TODO: CalculateDiff maybe should not be reconstructing patches.
 		// Refactor CalculateDiff, Relaxer, Override to make patches in a more sane way.
-		diff.Deps = make([]manifest.DependencyPatch, 0, len(res.patches))
-		for _, p := range res.patches {
-			// We need to determine if this dependency already exists in the manifest and where in order to set the dep.Type of the patch correctly.
-			// TODO: I don't like having this logic here.
-			var types []dep.Type
-			if specific, ok := result.Manifest.EcosystemSpecific.(manifest.MavenManifestSpecific); ok {
-				for _, req := range specific.OriginalRequirements {
-					if req.Name() == p.PackageKey.Name {
-						types = append(types, resolve.MavenDepType(req.Dependency, req.Origin))
-					}
-				}
-			}
-
-			// If it's not already in the manifest, we want to add it to dependencyManagement.
-			if len(types) == 0 {
-				typ := dep.Type{}
-				if p.System == resolve.Maven {
-					typ.AddAttr(dep.MavenDependencyOrigin, manifest.OriginManagement)
-				}
-				types = []dep.Type{typ}
-			}
-
-			for _, typ := range types {
-				diff.Deps = append(diff.Deps, manifest.DependencyPatch{
-					Pkg:          p.PackageKey,
-					Type:         typ,
-					OrigRequire:  "", // Using empty original to signal this is an override patch
-					OrigResolved: p.OrigVersion,
-					NewRequire:   p.NewVersion,
-					NewResolved:  p.NewVersion,
-				})
+		diff.Deps = make([]manifest.DependencyPatch, len(res.patches))
+		for i, p := range res.patches {
+			diff.Deps[i] = manifest.DependencyPatch{
+				Pkg:          p.PackageKey,
+				Type:         dep.Type{},
+				OrigRequire:  "", // Using empty original to signal this is an override patch
+				OrigResolved: p.OrigVersion,
+				NewRequire:   p.NewVersion,
+				NewResolved:  p.NewVersion,
 			}
 		}
 

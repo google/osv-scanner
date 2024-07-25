@@ -375,6 +375,11 @@ func (m MavenDependencyPatches) addPatch(changedDep DependencyPatch, fromBase bo
 		return fmt.Errorf("MavenDepTypeToDependency: %w", err)
 	}
 
+	// If this dependency did not already exist in the base project, we want to add it to the dependencyManagement section
+	if !fromBase {
+		o = OriginManagement
+	}
+
 	substrings := strings.Split(changedDep.Pkg.Name, ":")
 	if len(substrings) != 2 {
 		return fmt.Errorf("invalid Maven name: %s", changedDep.Pkg.Name)
