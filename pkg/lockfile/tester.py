@@ -9,7 +9,7 @@ from dataclasses import dataclass
 
 expectCommit = False
 expectDepGroups = False
-startKey = "ParseGradleLock"
+startKey = "ParseGradleVerificationMetadata"
 
 
 @dataclass
