@@ -11,10 +11,10 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/dghubble/trie"
 	v1 "github.com/google/go-containerregistry/pkg/v1"
 	"github.com/google/go-containerregistry/pkg/v1/tarball"
-	"github.com/google/osv-scanner/pkg/lockfile"
+	"github.com/google/osv-scanner/internal/image/thirdparty/trie"
+	"github.com/google/osv-scanner/internal/lockfilescalibr"
 )
 
 const whiteoutPrefix = ".wh."
@@ -25,8 +25,8 @@ const dirPermission = 0700
 const filePermission = 0600
 
 type ScanResults struct {
-	Lockfiles []lockfile.Lockfile
-	ImagePath string
+	Inventories []*lockfilescalibr.Inventory
+	ImagePath   string
 }
 
 type Image struct {

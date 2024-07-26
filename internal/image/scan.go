@@ -3,7 +3,10 @@ package image
 import (
 	"errors"
 	"fmt"
+	"slices"
+	"strings"
 
+	"github.com/google/osv-scanner/internal/lockfilescalibr"
 	"github.com/google/osv-scanner/pkg/lockfile"
 	"github.com/google/osv-scanner/pkg/reporter"
 )
@@ -19,7 +22,7 @@ func ScanImage(r reporter.Reporter, imagePath string) (ScanResults, error) {
 
 	allFiles := img.LastLayer().AllFiles()
 
-	scannedLockfiles := ScanResults{
+	scanResults := ScanResults{
 		ImagePath: imagePath,
 	}
 	for _, file := range allFiles {
@@ -27,7 +30,7 @@ func ScanImage(r reporter.Reporter, imagePath string) (ScanResults, error) {
 			continue
 		}
 
-		parsedLockfile, err := extractArtifactDeps(file.virtualPath, &img)
+		extractedInventories, err := extractArtifactDeps(file.virtualPath, &img)
 		if err != nil {
 			if !errors.Is(err, lockfile.ErrExtractorNotFound) {
 				r.Errorf("Attempted to extract lockfile but failed: %s - %v\n", file.virtualPath, err)
@@ -36,13 +39,21 @@ func ScanImage(r reporter.Reporter, imagePath string) (ScanResults, error) {
 			continue
 		}
 
-		scannedLockfiles.Lockfiles = append(scannedLockfiles.Lockfiles, parsedLockfile)
+		scanResults.Inventories = append(scanResults.Inventories, extractedInventories...)
 	}
+
+	// Sort to have deterministic output, and to match behavior of lockfile.extractDeps
+	slices.SortFunc(scanResults.Inventories, func(a, b *lockfilescalibr.Inventory) int {
+		// TODO: Should we consider errors here?
+		aPURL, _ := a.Extractor.ToPURL(a)
+		bPURL, _ := b.Extractor.ToPURL(b)
+		return strings.Compare(aPURL.ToString(), bPURL.ToString())
+	})
 
 	err = img.Cleanup()
 	if err != nil {
 		err = fmt.Errorf("failed to cleanup: %w", img.Cleanup())
 	}
 
-	return scannedLockfiles, err
+	return scanResults, err
 }
