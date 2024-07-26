@@ -111,9 +111,10 @@ func (e ApkInstalledExtractor) Extract(ctx context.Context, input *ScanInput) ([
 // ToPURL converts an inventory created by this extractor into a PURL.
 func (e ApkInstalledExtractor) ToPURL(i *Inventory) (*packageurl.PackageURL, error) {
 	return &packageurl.PackageURL{
-		Type:    packageurl.TypeGolang,
-		Name:    i.Name,
-		Version: i.Version,
+		Type:      packageurl.TypeApk,
+		Name:      i.Name,
+		Version:   i.Version,
+		Namespace: "alpine",
 	}, nil
 }
 
