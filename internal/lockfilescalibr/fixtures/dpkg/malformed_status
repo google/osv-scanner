@@ -1,0 +1,102 @@
+Malformed DPKG
+
+no version:
+
+Package: bash
+Essential: yes
+Status: install ok installed
+Priority: required
+Section: shells
+Installed-Size: 6469
+Maintainer: redacted <redacted@redacted.com>
+Architecture: amd64
+Multi-Arch: foreign
+Replaces: bash-completion (<< 20060301-0), bash-doc (<= 2.05-1)
+Depends: base-files (>= 2.1.12), debianutils (>= 2.15)
+Pre-Depends: libc6 (>= 2.25), libtinfo6 (>= 6)
+Recommends: bash-completion (>= 20060301-0)
+Suggests: bash-doc
+Conflicts: bash-completion (<< 20060301-0)
+Conffiles:
+ /etc/bash.bashrc 89269e1298235f1b12b4c16e4065ad0d
+ /etc/skel/.bash_logout 22bfb8c1dd94b5f3813a2b25da67463f
+ /etc/skel/.bashrc ee35a240758f374832e809ae0ea4883a
+ /etc/skel/.profile f4e81ade7d6f9fb342541152d08e7a97
+Description: GNU Bourne Again SHell
+ Bash is an sh-compatible command language interpreter that executes
+ commands read from the standard input or from a file.  Bash also
+ incorporates useful features from the Korn and C shells (ksh and csh).
+ .
+ Bash is ultimately intended to be a conformant implementation of the
+ IEEE POSIX Shell and Tools specification (IEEE Working Group 1003.2).
+ .
+ The Programmable Completion Code, by Ian Macdonald, is now found in
+ the bash-completion package.
+Homepage: http://tiswww.case.edu/php/chet/bash/bashtop.html
+
+
+
+No package:
+
+
+
+Essential: yes
+Status: install ok installed
+Priority: required
+Section: utils
+Installed-Size: 394
+Maintainer: redacted <redacted@redacted.com>
+Architecture: amd64
+Multi-Arch: foreign
+Source: util-linux (2.36.1-8+deb11u1)
+Version: 1:2.36.1-8+deb11u1
+Pre-Depends: libc6 (>= 2.17), libsystemd0
+Recommends: bsdextrautils
+Description: basic utilities from 4.4BSD-Lite
+ This package contains the bare minimum of BSD utilities needed for a Debian
+ system: logger, renice, script, scriptlive, scriptreplay and wall. The
+ remaining standard BSD utilities are provided by bsdextrautils.
+Homepage: http://www.kernel.org/pub/linux/utils/util-linux/
+
+#Bad status 
+
+Package: libc6
+Status: bad-status
+Priority: optional
+Section: libs
+Installed-Size: 12837
+Maintainer: redacted <redacted@redacted.com>
+Architecture: amd64
+Multi-Arch: same
+Source: glibc
+Version: 2.31-13+deb11u5
+Replaces: libc6-amd64
+Depends: libgcc-s1, libcrypt1
+Recommends: libidn2-0 (>= 2.0.5~), libnss-nis, libnss-nisplus
+Suggests: glibc-doc, debconf | debconf-2.0, libc-l10n, locales
+Breaks: busybox (<< 1.30.1-6), hurd (<< 1:0.9.git20170910-1), ioquake3 (<< 1.36+u20200211.f2c61c1~dfsg-2~), iraf-fitsutil (<< 2018.07.06-4), libgegl-0.4-0 (<< 0.4.18), libtirpc1 (<< 0.2.3), locales (<< 2.31), locales-all (<< 2.31), macs (<< 2.2.7.1-3~), nocache (<< 1.1-1~), nscd (<< 2.31), openarena (<< 0.8.8+dfsg-4~), openssh-server (<< 1:8.1p1-5), r-cran-later (<< 0.7.5+dfsg-2), wcc (<< 0.0.2+dfsg-3)
+Conffiles:
+ /etc/ld.so.conf.d/x86_64-linux-gnu.conf d4e7a7b88a71b5ffd9e2644e71a0cfab
+Description: GNU C Library: Shared libraries
+ Contains the standard libraries that are used by nearly all programs on
+ the system. This package includes shared versions of the standard C library
+ and the standard math library, as well as many others.
+Homepage: https://www.gnu.org/software/libc/libc.html
+
+
+Nothing...
+
+
+Status: install ok installed
+Priority: optional
+Section: libs
+Installed-Size: 12837
+Maintainer: redacted <redacted@redacted.com>
+Architecture: amd64
+Multi-Arch: same
+Replaces: libc6-amd64
+Description: GNU C Library: Shared libraries
+ Contains the standard libraries that are used by nearly all programs on
+ the system. This package includes shared versions of the standard C library
+ and the standard math library, as well as many others.
+Homepage: https://www.gnu.org/software/libc/libc.html

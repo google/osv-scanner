@@ -1,0 +1,5 @@
+# Comment example
+#
+
+org.springframework.security:spring-security-crypto:5.7.3=compileClasspath,productionRuntimeClasspath,runtimeClasspath
+empty=

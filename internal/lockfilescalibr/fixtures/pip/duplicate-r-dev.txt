@@ -1,0 +1,5 @@
+-r ./duplicate-r-base.txt
+-r ./duplicate-r-test.txt
+
+pandas==0.23.4
+requests==1.2.3
