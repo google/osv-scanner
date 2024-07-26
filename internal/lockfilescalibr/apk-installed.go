@@ -6,7 +6,6 @@ import (
 	"fmt"
 	"io"
 	"io/fs"
-	"path/filepath"
 	"strings"
 
 	"github.com/package-url/packageurl-go"
@@ -71,7 +70,7 @@ func (e ApkInstalledExtractor) Requirements() Requirements {
 }
 
 func (e ApkInstalledExtractor) FileRequired(path string, fileInfo fs.FileInfo) bool {
-	return filepath.Base(path) == "lib/apk/db/installed"
+	return path == "lib/apk/db/installed"
 }
 
 func (e ApkInstalledExtractor) Extract(ctx context.Context, input *ScanInput) ([]*Inventory, error) {

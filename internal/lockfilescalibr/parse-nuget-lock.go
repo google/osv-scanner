@@ -37,7 +37,7 @@ func parseNuGetLockDependencies(dependencies map[string]NuGetLockPackage) map[st
 	return details
 }
 
-func parseNuGetLock(lockfile NuGetLockfile) ([]*Inventory, error) {
+func parseNuGetLock(lockfile NuGetLockfile) []*Inventory {
 	details := map[string]*Inventory{}
 
 	// go through the dependencies for each framework, e.g. `net6.0` and parse
@@ -49,7 +49,7 @@ func parseNuGetLock(lockfile NuGetLockfile) ([]*Inventory, error) {
 		}
 	}
 
-	return maps.Values(details), nil
+	return maps.Values(details)
 }
 
 type NuGetLockExtractor struct{}
@@ -81,10 +81,7 @@ func (e NuGetLockExtractor) Extract(ctx context.Context, input *ScanInput) ([]*I
 		return []*Inventory{}, fmt.Errorf("could not extract: unsupported lock file version %d", parsedLockfile.Version)
 	}
 
-	out, err := parseNuGetLock(*parsedLockfile)
-	if err != nil {
-		return []*Inventory{}, err
-	}
+	out := parseNuGetLock(*parsedLockfile)
 
 	for i := range out {
 		out[i].Locations = []string{input.Path}

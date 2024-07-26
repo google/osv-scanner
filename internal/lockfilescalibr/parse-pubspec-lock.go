@@ -115,6 +115,7 @@ func (e PubspecLockExtractor) Extract(ctx context.Context, input *ScanInput) ([]
 				pkgDetails.Metadata = DepGroupMetadata{
 					DepGroupVals: []string{"dev"},
 				}
+
 				break
 			}
 		}

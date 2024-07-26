@@ -1,31 +1,25 @@
 package lockfilescalibr_test
 
-import (
-	"os"
-	"strings"
-	"testing"
-)
+// func numberOfLockfileParsers(t *testing.T) int {
+// 	t.Helper()
 
-func numberOfLockfileParsers(t *testing.T) int {
-	t.Helper()
+// 	directories, err := os.ReadDir(".")
 
-	directories, err := os.ReadDir(".")
+// 	if err != nil {
+// 		t.Fatalf("unable to read current directory: ")
+// 	}
 
-	if err != nil {
-		t.Fatalf("unable to read current directory: ")
-	}
+// 	count := 0
 
-	count := 0
+// 	for _, directory := range directories {
+// 		if strings.HasPrefix(directory.Name(), "parse-") &&
+// 			!strings.HasSuffix(directory.Name(), "_test.go") {
+// 			count++
+// 		}
+// 	}
 
-	for _, directory := range directories {
-		if strings.HasPrefix(directory.Name(), "parse-") &&
-			!strings.HasSuffix(directory.Name(), "_test.go") {
-			count++
-		}
-	}
-
-	return count
-}
+// 	return count
+// }
 
 // func TestKnownEcosystems(t *testing.T) {
 // 	t.Parallel()

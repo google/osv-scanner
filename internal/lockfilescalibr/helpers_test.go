@@ -74,19 +74,6 @@ func hasPackage(t *testing.T, packages []*lockfilescalibr.Inventory, pkg *lockfi
 	return false
 }
 
-func expectPackage(t *testing.T, packages []*lockfilescalibr.Inventory, pkg *lockfilescalibr.Inventory) {
-	t.Helper()
-
-	if !hasPackage(t, packages, pkg) {
-		t.Errorf(
-			"Expected packages to include %s@%s (%s), but it did not",
-			pkg.Name,
-			pkg.Version,
-			ecosystemOrEmpty(pkg),
-		)
-	}
-}
-
 func findMissingPackages(t *testing.T, actualPackages []*lockfilescalibr.Inventory, expectedPackages []*lockfilescalibr.Inventory) []*lockfilescalibr.Inventory {
 	t.Helper()
 	var missingPackages []*lockfilescalibr.Inventory
@@ -128,39 +115,12 @@ func expectPackages(t *testing.T, actualInventories []*lockfilescalibr.Inventory
 	}
 }
 
-func createTestDir(t *testing.T) (string, func()) {
-	t.Helper()
-
-	p, err := os.MkdirTemp("", "osv-scanner-test-*")
-	if err != nil {
-		t.Fatalf("could not create test directory: %v", err)
-	}
-
-	return p, func() {
-		_ = os.RemoveAll(p)
-	}
-}
-
-func copyFile(t *testing.T, from, to string) string {
-	t.Helper()
-
-	b, err := os.ReadFile(from)
-	if err != nil {
-		t.Fatalf("could not read test file: %v", err)
-	}
-
-	if err := os.WriteFile(to, b, 0600); err != nil {
-		t.Fatalf("could not copy test file: %v", err)
-	}
-
-	return to
-}
-
 func ecosystemOrEmpty(pkg *lockfilescalibr.Inventory) string {
 	ecosystem, err := pkg.Ecosystem()
 	if err != nil {
 		ecosystem = ""
 	}
+
 	return ecosystem
 }
 
@@ -226,23 +186,29 @@ func (siw ScanInputWrapper) Close() {
 // Generate FileInfoMock will either use the fake file information if fakeFileInfo is true,
 // otherwise try to run os.Stat on the path passed in and fail if the file does not exist
 func GenerateFileInfoMock(t *testing.T, config ScanInputMockConfig) fs.FileInfo {
+	t.Helper()
+
 	if config.fakeFileInfo != nil {
 		ret := *config.fakeFileInfo
 		ret.FileName = filepath.Base(config.path)
+
 		return ret
-	} else {
-		fileInfo, err := os.Stat(config.path)
-		// It is intended that sometimes the config points to a path that does not exist
-		// fileInfo will be nil in those cases
-		if err != nil && !errors.Is(err, os.ErrNotExist) {
-			t.Fatalf("Can't stat test fixture '%s' because '%s'", config.path, err)
-		}
-		return fileInfo
 	}
+
+	fileInfo, err := os.Stat(config.path)
+	// It is intended that sometimes the config points to a path that does not exist
+	// fileInfo will be nil in those cases
+	if err != nil && !errors.Is(err, os.ErrNotExist) {
+		t.Fatalf("Can't stat test fixture '%s' because '%s'", config.path, err)
+	}
+
+	return fileInfo
 }
 
 // GenerateScanInputMock will try to open the file locally, and fail if the file doesn't exist
 func GenerateScanInputMock(t *testing.T, config ScanInputMockConfig) ScanInputWrapper {
+	t.Helper()
+
 	var scanRoot string
 	if filepath.IsAbs(config.fakeScanRoot) {
 		scanRoot = config.fakeScanRoot
@@ -267,7 +233,7 @@ func GenerateScanInputMock(t *testing.T, config ScanInputMockConfig) ScanInputWr
 		fileHandle: f,
 		ScanInput: lockfilescalibr.ScanInput{
 			FS:       os.DirFS(scanRoot).(lockfilescalibr.FS),
-			Path:     filepath.Join(config.path),
+			Path:     config.path,
 			ScanRoot: scanRoot,
 			Reader:   f,
 			Info:     info,
