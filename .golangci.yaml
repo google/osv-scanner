@@ -74,3 +74,12 @@ issues:
     - path: _test\.go
       linters:
         - dupl
+    - path: thirdparty
+      linters:
+        - nlreturn
+        - thelper
+        - paralleltest
+        - errorlint
+        - errcheck
+        - whitespace
+        - gochecknoinits

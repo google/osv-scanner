@@ -5,6 +5,7 @@ import (
 	"errors"
 	"fmt"
 	"io/fs"
+	"path/filepath"
 
 	"github.com/google/osv-scanner/internal/lockfilescalibr"
 	"github.com/google/osv-scanner/pkg/lockfile"
@@ -38,7 +39,8 @@ func extractArtifactDeps(path string, img *Image) ([]*lockfilescalibr.Inventory,
 		return nil, fmt.Errorf("attempted to get FileInfo but failed: %w", err)
 	}
 
-	foundExtractors := findArtifactExtractor(path, pathFileInfo)
+	scalibrPath, _ := filepath.Rel("/", path)
+	foundExtractors := findArtifactExtractor(scalibrPath, pathFileInfo)
 	if len(foundExtractors) == 0 {
 		return nil, fmt.Errorf("%w for %s", lockfile.ErrExtractorNotFound, path)
 	}
@@ -54,8 +56,8 @@ func extractArtifactDeps(path string, img *Image) ([]*lockfilescalibr.Inventory,
 
 		scanInput := &lockfilescalibr.ScanInput{
 			FS:       img.LastLayer(),
-			Path:     path,
-			ScanRoot: "",
+			Path:     scalibrPath,
+			ScanRoot: "/",
 			Reader:   f,
 			Info:     pathFileInfo,
 		}
@@ -69,6 +71,10 @@ func extractArtifactDeps(path string, img *Image) ([]*lockfilescalibr.Inventory,
 			}
 
 			return nil, fmt.Errorf("(extracting as %s) %w", extractor.Name(), err)
+		}
+
+		for i := range newPackages {
+			newPackages[i].Extractor = extractor
 		}
 
 		extractedAs = extractor.Name()

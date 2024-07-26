@@ -79,7 +79,8 @@ func (filemap fileMap) AllFiles() []fileNode {
 }
 
 func (filemap fileMap) Open(name string) (fs.File, error) {
-	node, ok := filemap.fileNodeTrie.Get(name).(fileNode)
+	// name has to be an absolute path, and FS paths does not being with /
+	node, ok := filemap.fileNodeTrie.Get(filepath.Join("/", name)).(fileNode)
 	if !ok {
 		return nil, fs.ErrNotExist
 	}
@@ -97,6 +98,7 @@ func (filemap fileMap) ReadDir(name string) ([]fs.DirEntry, error) {
 		}
 
 		output = append(output, value.(fileNode))
+
 		return nil
 	})
 

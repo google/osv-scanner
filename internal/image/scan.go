@@ -29,7 +29,6 @@ func ScanImage(r reporter.Reporter, imagePath string) (ScanResults, error) {
 		if file.fileType != RegularFile {
 			continue
 		}
-
 		extractedInventories, err := extractArtifactDeps(file.virtualPath, &img)
 		if err != nil {
 			if !errors.Is(err, lockfile.ErrExtractorNotFound) {
@@ -47,6 +46,7 @@ func ScanImage(r reporter.Reporter, imagePath string) (ScanResults, error) {
 		// TODO: Should we consider errors here?
 		aPURL, _ := a.Extractor.ToPURL(a)
 		bPURL, _ := b.Extractor.ToPURL(b)
+
 		return strings.Compare(aPURL.ToString(), bPURL.ToString())
 	})
 

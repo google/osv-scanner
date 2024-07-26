@@ -446,7 +446,7 @@ func testTrieWalkChildren(t *testing.T, trie Trier) {
 	}
 
 	count := 0
-	trie.WalkChildren("/L1", func(key string, value interface{}) error {
+	_ = trie.WalkChildren("/L1", func(key string, value interface{}) error {
 		idx := slices.Index(expectedPairs, pairs{
 			key:   key,
 			isNil: value == nil,

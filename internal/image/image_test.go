@@ -12,7 +12,7 @@ import (
 
 func TestScanImage(t *testing.T) {
 	t.Parallel()
-	testutility.SkipIfNotAcceptanceTesting(t, "Not consistent on MacOS/Windows")
+	// testutility.SkipIfNotAcceptanceTesting(t, "Not consistent on MacOS/Windows")
 
 	type args struct {
 		imagePath string

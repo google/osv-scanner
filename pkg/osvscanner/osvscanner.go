@@ -16,6 +16,7 @@ import (
 	"github.com/google/osv-scanner/internal/customgitignore"
 	"github.com/google/osv-scanner/internal/image"
 	"github.com/google/osv-scanner/internal/local"
+	"github.com/google/osv-scanner/internal/lockfilescalibr"
 	"github.com/google/osv-scanner/internal/manifest"
 	"github.com/google/osv-scanner/internal/output"
 	"github.com/google/osv-scanner/internal/resolution/client"
@@ -324,20 +325,35 @@ func scanImage(r reporter.Reporter, path string) ([]scannedPackage, error) {
 
 	packages := make([]scannedPackage, 0)
 
-	for _, l := range scanResults.Lockfiles {
-		for _, pkgDetail := range l.Packages {
-			packages = append(packages, scannedPackage{
-				Name:      pkgDetail.Name,
-				Version:   pkgDetail.Version,
-				Commit:    pkgDetail.Commit,
-				Ecosystem: pkgDetail.Ecosystem,
-				DepGroups: pkgDetail.DepGroups,
-				Source: models.SourceInfo{
-					Path: path + ":" + l.FilePath,
-					Type: "docker",
-				},
-			})
+	for _, inv := range scanResults.Inventories {
+		var commit string
+		if inv.SourceCode != nil {
+			commit = inv.SourceCode.Commit
 		}
+
+		var depGroups []string
+		if dg, ok := inv.Metadata.(lockfilescalibr.DepGroups); ok {
+			depGroups = dg.DepGroups()
+		}
+
+		ecosystem, err := inv.Ecosystem()
+		if err != nil {
+			r.Errorf("ecosystem failed to be retrieved from inventory, this is likely a bug: %s", err)
+		}
+
+		packages = append(packages, scannedPackage{
+			Name:      inv.Name,
+			Version:   inv.Version,
+			Commit:    commit,
+			Ecosystem: lockfile.Ecosystem(ecosystem),
+			DepGroups: depGroups,
+			Source: models.SourceInfo{
+				// Prepend the image path with / as osv-scalibr does not prepend absolute paths with /
+				// TODO: Sometimes there is more than one location, how to present this?
+				Path: path + ":/" + inv.Locations[0],
+				Type: "docker",
+			},
+		})
 	}
 
 	return packages, nil
