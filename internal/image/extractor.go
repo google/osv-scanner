@@ -23,7 +23,7 @@ func findArtifactExtractor(path string, fileInfo fs.FileInfo) []lockfilescalibr.
 	// Use ShouldExtract to collect and return a slice of artifactExtractors
 	var extractors []lockfilescalibr.Extractor
 	for _, extractor := range artifactExtractors {
-		if extractor.FileRequired(path, nil) {
+		if extractor.FileRequired(path, fileInfo) {
 			extractors = append(extractors, extractor)
 		}
 	}
