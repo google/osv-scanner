@@ -1,0 +1,22 @@
+Breaks: busybox (<< 1.30.1-6), hurd (<< 1:0.9.git20170910-1), ioquake3 (<< 1.36+u20200211.f2c61c1~dfsg-2~), iraf-fitsutil (<< 2018.07.06-4), libgegl-0.4-0 (<< 0.4.18), libtirpc1 (<< 0.2.3), locales (<< 2.31), locales-all (<< 2.31), macs (<< 2.2.7.1-3~), nocache (<< 1.1-1~), nscd (<< 2.31), openarena (<< 0.8.8+dfsg-4~), openssh-server (<< 1:8.1p1-5), r-cran-later (<< 0.7.5+dfsg-2), wcc (<< 0.0.2+dfsg-3)
+Status: install ok installed
+Architecture: amd64
+Suggests: glibc-doc, debconf | debconf-2.0, libc-l10n, locales
+ Contains the standard libraries that are used by nearly all programs on
+Depends: libgcc-s1, libcrypt1
+Version: 2.31-13+deb11u5
+Description: GNU C Library: Shared libraries
+Replaces: libc6-amd64
+Installed-Size: 12837
+Section: libs
+Multi-Arch: same
+Maintainer: redacted <redacted@redacted.com>
+Homepage: https://www.gnu.org/software/libc/libc.html
+ /etc/ld.so.conf.d/x86_64-linux-gnu.conf d4e7a7b88a71b5ffd9e2644e71a0cfab
+Conffiles:
+Source: glibc
+ and the standard math library, as well as many others.
+Recommends: libidn2-0 (>= 2.0.5~), libnss-nis, libnss-nisplus
+ the system. This package includes shared versions of the standard C library
+Priority: optional
+Package: libc6
