@@ -70,7 +70,7 @@ func TestNuGetLockExtractor_FileRequired(t *testing.T) {
 	}
 }
 
-func TestParseNuGetLock_InvalidVersion(t *testing.T) {
+func TestNuGetLockExtractor_Extract_invalidVersion(t *testing.T) {
 	t.Parallel()
 
 	tests := []testTableEntry{
