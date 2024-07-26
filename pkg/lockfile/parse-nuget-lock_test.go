@@ -6,54 +6,42 @@ import (
 	"github.com/google/osv-scanner/pkg/lockfile"
 )
 
-func TestNuGetLockExtractor_FileRequired(t *testing.T) {
+func TestNuGetLockExtractor_ShouldExtract(t *testing.T) {
 	t.Parallel()
 
 	tests := []struct {
-		name        string
-		inputConfig ScanInputMockConfig
-		want        bool
+		name string
+		path string
+		want bool
 	}{
 		{
 			name: "",
-			inputConfig: ScanInputMockConfig{
-				path: "",
-			},
+			path: "",
 			want: false,
 		},
 		{
 			name: "",
-			inputConfig: ScanInputMockConfig{
-				path: "packages.lock.json",
-			},
+			path: "packages.lock.json",
 			want: true,
 		},
 		{
 			name: "",
-			inputConfig: ScanInputMockConfig{
-				path: "path/to/my/packages.lock.json",
-			},
+			path: "path/to/my/packages.lock.json",
 			want: true,
 		},
 		{
 			name: "",
-			inputConfig: ScanInputMockConfig{
-				path: "path/to/my/packages.lock.json/file",
-			},
+			path: "path/to/my/packages.lock.json/file",
 			want: false,
 		},
 		{
 			name: "",
-			inputConfig: ScanInputMockConfig{
-				path: "path/to/my/packages.lock.json.file",
-			},
+			path: "path/to/my/packages.lock.json.file",
 			want: false,
 		},
 		{
 			name: "",
-			inputConfig: ScanInputMockConfig{
-				path: "path.to.my.packages.lock.json",
-			},
+			path: "path.to.my.packages.lock.json",
 			want: false,
 		},
 	}
@@ -62,9 +50,9 @@ func TestNuGetLockExtractor_FileRequired(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
 			e := lockfile.NuGetLockExtractor{}
-			got := e.FileRequired(tt.inputConfig.path, GenerateFileInfoMock(t, tt.inputConfig))
+			got := e.ShouldExtract(tt.path)
 			if got != tt.want {
-				t.Errorf("FileRequired(%s, FileInfo) got = %v, want %v", tt.inputConfig.path, got, tt.want)
+				t.Errorf("Extract() got = %v, want %v", got, tt.want)
 			}
 		})
 	}
@@ -73,23 +61,8 @@ func TestNuGetLockExtractor_FileRequired(t *testing.T) {
 func TestParseNuGetLock_InvalidVersion(t *testing.T) {
 	t.Parallel()
 
-	tests := []testTableEntry{
-		{
-			name: "invalid version",
-			inputConfig: ScanInputMockConfig{
-				path: "fixtures/nuget/empty.v0.json",
-			},
-			wantErrContaining: "unsupported lock file version 0",
-			wantInventory:     []*lockfile.Inventory{},
-		},
-	}
+	packages, err := lockfile.ParseNuGetLock("fixtures/nuget/empty.v0.json")
 
-	for _, tt := range tests {
-		tt := tt
-		t.Run(tt.name, func(t *testing.T) {
-			t.Parallel()
-			e := lockfile.NuGetLockExtractor{}
-			_, _ = extractionTester(t, e, tt)
-		})
-	}
+	expectErrContaining(t, err, "unsupported lock file version 0")
+	expectPackages(t, packages, []lockfile.PackageDetails{})
 }

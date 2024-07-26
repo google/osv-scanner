@@ -1,15 +1,12 @@
 package lockfile
 
 import (
-	"context"
 	"errors"
 	"fmt"
 	"io"
-	"io/fs"
 	"path/filepath"
 	"strings"
 
-	"github.com/package-url/packageurl-go"
 	"gopkg.in/yaml.v3"
 )
 
@@ -70,51 +67,34 @@ const PubEcosystem Ecosystem = "Pub"
 
 type PubspecLockExtractor struct{}
 
-// Name of the extractor
-func (e PubspecLockExtractor) Name() string { return "flutter/pubspec" }
-
-// Version of the extractor
-func (e PubspecLockExtractor) Version() int { return 0 }
-
-func (e PubspecLockExtractor) Requirements() Requirements {
-	return Requirements{}
-}
-
-func (e PubspecLockExtractor) FileRequired(path string, fileInfo fs.FileInfo) bool {
+func (e PubspecLockExtractor) ShouldExtract(path string) bool {
 	return filepath.Base(path) == "pubspec.lock"
 }
 
-func (e PubspecLockExtractor) Extract(ctx context.Context, input *ScanInput) ([]*Inventory, error) {
+func (e PubspecLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 	var parsedLockfile *PubspecLockfile
 
-	err := yaml.NewDecoder(input.Reader).Decode(&parsedLockfile)
+	err := yaml.NewDecoder(f).Decode(&parsedLockfile)
 
 	if err != nil && !errors.Is(err, io.EOF) {
-		return []*Inventory{}, fmt.Errorf("could not extract from %s: %w", input.Path, err)
+		return []PackageDetails{}, fmt.Errorf("could not extract from %s: %w", f.Path(), err)
 	}
 	if parsedLockfile == nil {
-		return []*Inventory{}, nil
+		return []PackageDetails{}, nil
 	}
 
-	packages := make([]*Inventory, 0, len(parsedLockfile.Packages))
+	packages := make([]PackageDetails, 0, len(parsedLockfile.Packages))
 
 	for name, pkg := range parsedLockfile.Packages {
-		pkgDetails := &Inventory{
+		pkgDetails := PackageDetails{
 			Name:      name,
 			Version:   pkg.Version,
-			Locations: []string{input.Path},
-			SourceCode: &SourceCodeIdentifier{
-				Commit: pkg.Description.Ref,
-			},
-			Metadata: DepGroupMetadata{
-				DepGroupVals: []string{},
-			},
+			Commit:    pkg.Description.Ref,
+			Ecosystem: PubEcosystem,
 		}
 		for _, str := range strings.Split(pkg.Dependency, " ") {
 			if str == "dev" {
-				pkgDetails.Metadata = DepGroupMetadata{
-					DepGroupVals: []string{"dev"},
-				}
+				pkgDetails.DepGroups = append(pkgDetails.DepGroups, "dev")
 				break
 			}
 		}
@@ -124,25 +104,13 @@ func (e PubspecLockExtractor) Extract(ctx context.Context, input *ScanInput) ([]
 	return packages, nil
 }
 
-// ToPURL converts an inventory created by this extractor into a PURL.
-func (e PubspecLockExtractor) ToPURL(i *Inventory) (*packageurl.PackageURL, error) {
-	return &packageurl.PackageURL{
-		Type:    packageurl.TypePub,
-		Name:    i.Name,
-		Version: i.Version,
-	}, nil
-}
-
-// ToCPEs is not applicable as this extractor does not infer CPEs from the Inventory.
-func (e PubspecLockExtractor) ToCPEs(i *Inventory) ([]string, error) { return []string{}, nil }
-
-func (e PubspecLockExtractor) Ecosystem(i *Inventory) (string, error) {
-	switch i.Extractor.(type) {
-	case PubspecLockExtractor:
-		return string(PubEcosystem), nil
-	default:
-		return "", ErrWrongExtractor
-	}
-}
-
 var _ Extractor = PubspecLockExtractor{}
+
+//nolint:gochecknoinits
+func init() {
+	registerExtractor("pubspec.lock", PubspecLockExtractor{})
+}
+
+func ParsePubspecLock(pathToLockfile string) ([]PackageDetails, error) {
+	return extractFromFile(pathToLockfile, PubspecLockExtractor{})
+}

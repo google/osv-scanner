@@ -2,14 +2,10 @@ package lockfile
 
 import (
 	"bufio"
-	"context"
 	"fmt"
 	"io"
-	"io/fs"
-	"path/filepath"
+	"sort"
 	"strings"
-
-	"github.com/package-url/packageurl-go"
 )
 
 const AlpineEcosystem Ecosystem = "Alpine"
@@ -38,9 +34,10 @@ func groupApkPackageLines(scanner *bufio.Scanner) [][]string {
 	return groups
 }
 
-func parseApkPackageGroup(group []string) *Inventory {
-	var pkg = &Inventory{
-		SourceCode: &SourceCodeIdentifier{},
+func parseApkPackageGroup(group []string) PackageDetails {
+	var pkg = PackageDetails{
+		Ecosystem: AlpineEcosystem,
+		CompareAs: AlpineEcosystem,
 	}
 
 	// File SPECS: https://wiki.alpinelinux.org/wiki/Apk_spec
@@ -51,35 +48,29 @@ func parseApkPackageGroup(group []string) *Inventory {
 		case strings.HasPrefix(line, "V:"):
 			pkg.Version = strings.TrimPrefix(line, "V:")
 		case strings.HasPrefix(line, "c:"):
-			pkg.SourceCode.Commit = strings.TrimPrefix(line, "c:")
+			pkg.Commit = strings.TrimPrefix(line, "c:")
 		}
 	}
 
 	return pkg
 }
 
+func ParseApkInstalled(pathToLockfile string) ([]PackageDetails, error) {
+	return extractFromFile(pathToLockfile, ApkInstalledExtractor{})
+}
+
 type ApkInstalledExtractor struct{}
 
-// Name of the extractor
-func (e ApkInstalledExtractor) Name() string { return "alpine/apk-installed" }
-
-// Version of the extractor
-func (e ApkInstalledExtractor) Version() int { return 0 }
-
-func (e ApkInstalledExtractor) Requirements() Requirements {
-	return Requirements{}
+func (e ApkInstalledExtractor) ShouldExtract(path string) bool {
+	return path == "/lib/apk/db/installed"
 }
 
-func (e ApkInstalledExtractor) FileRequired(path string, fileInfo fs.FileInfo) bool {
-	return filepath.Base(path) == "lib/apk/db/installed"
-}
-
-func (e ApkInstalledExtractor) Extract(ctx context.Context, input *ScanInput) ([]*Inventory, error) {
-	scanner := bufio.NewScanner(input.Reader)
+func (e ApkInstalledExtractor) Extract(f DepFile) ([]PackageDetails, error) {
+	scanner := bufio.NewScanner(f)
 
 	packageGroups := groupApkPackageLines(scanner)
 
-	inventories := make([]*Inventory, 0, len(packageGroups))
+	packages := make([]PackageDetails, 0, len(packageGroups))
 
 	for _, group := range packageGroups {
 		pkg := parseApkPackageGroup(group)
@@ -88,55 +79,27 @@ func (e ApkInstalledExtractor) Extract(ctx context.Context, input *ScanInput) ([
 			continue
 		}
 
-		pkg.Locations = []string{input.Path}
-		inventories = append(inventories, pkg)
+		packages = append(packages, pkg)
 	}
 
-	alpineVersion, alpineVerErr := alpineReleaseExtractor(input.FS)
+	alpineVersion, alpineVerErr := alpineReleaseExtractor(f)
 	if alpineVerErr == nil { // TODO: Log error? We might not be on a alpine system
-		for i := range inventories {
-			inventories[i].Metadata = DistroVersionMetadata{
-				DistroVersionStr: alpineVersion,
-			}
+		for i := range packages {
+			packages[i].Ecosystem = Ecosystem(string(packages[i].Ecosystem) + ":" + alpineVersion)
 		}
 	}
 
 	if err := scanner.Err(); err != nil {
-		return inventories, fmt.Errorf("error while scanning %s: %w", input.Path, err)
+		return packages, fmt.Errorf("error while scanning %s: %w", f.Path(), err)
 	}
 
-	return inventories, nil
-}
-
-// ToPURL converts an inventory created by this extractor into a PURL.
-func (e ApkInstalledExtractor) ToPURL(i *Inventory) (*packageurl.PackageURL, error) {
-	return &packageurl.PackageURL{
-		Type:    packageurl.TypeGolang,
-		Name:    i.Name,
-		Version: i.Version,
-	}, nil
-}
-
-// ToCPEs is not applicable as this extractor does not infer CPEs from the Inventory.
-func (e ApkInstalledExtractor) ToCPEs(i *Inventory) ([]string, error) { return []string{}, nil }
-
-func (e ApkInstalledExtractor) Ecosystem(i *Inventory) (string, error) {
-	switch i.Extractor.(type) {
-	case ApkInstalledExtractor:
-		if i.Metadata != nil {
-			return string(AlpineEcosystem) + ":" + i.Metadata.(DistroVersionMetadata).DistroVersionStr, nil
-		} else {
-			return string(AlpineEcosystem), nil
-		}
-	default:
-		return "", ErrWrongExtractor
-	}
+	return packages, nil
 }
 
 // alpineReleaseExtractor extracts the release version for an alpine distro
 // will return "" if no release version can be found, or if distro is not alpine
-func alpineReleaseExtractor(opener FS) (string, error) {
-	alpineReleaseFile, err := opener.Open("etc/alpine-release")
+func alpineReleaseExtractor(opener DepFile) (string, error) {
+	alpineReleaseFile, err := opener.Open("/etc/alpine-release")
 	if err != nil {
 		return "", err
 	}
@@ -160,3 +123,23 @@ func alpineReleaseExtractor(opener FS) (string, error) {
 }
 
 var _ Extractor = ApkInstalledExtractor{}
+
+// FromApkInstalled attempts to parse the given file as an "apk-installed" lockfile
+// used by the Alpine Package Keeper (apk) to record installed packages.
+func FromApkInstalled(pathToInstalled string) (Lockfile, error) {
+	packages, err := ParseApkInstalled(pathToInstalled)
+
+	sort.Slice(packages, func(i, j int) bool {
+		if packages[i].Name == packages[j].Name {
+			return packages[i].Version < packages[j].Version
+		}
+
+		return packages[i].Name < packages[j].Name
+	})
+
+	return Lockfile{
+		FilePath: pathToInstalled,
+		ParsedAs: "apk-installed",
+		Packages: packages,
+	}, err
+}

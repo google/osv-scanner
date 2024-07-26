@@ -1,13 +1,9 @@
 package lockfile
 
 import (
-	"context"
 	"encoding/json"
 	"fmt"
-	"io/fs"
 	"path/filepath"
-
-	"github.com/package-url/packageurl-go"
 )
 
 type RenvPackage struct {
@@ -24,30 +20,20 @@ const CRANEcosystem Ecosystem = "CRAN"
 
 type RenvLockExtractor struct{}
 
-// Name of the extractor
-func (e RenvLockExtractor) Name() string { return "r/renvlock" }
-
-// Version of the extractor
-func (e RenvLockExtractor) Version() int { return 0 }
-
-func (e RenvLockExtractor) Requirements() Requirements {
-	return Requirements{}
-}
-
-func (e RenvLockExtractor) FileRequired(path string, fileInfo fs.FileInfo) bool {
+func (e RenvLockExtractor) ShouldExtract(path string) bool {
 	return filepath.Base(path) == "renv.lock"
 }
 
-func (e RenvLockExtractor) Extract(ctx context.Context, input *ScanInput) ([]*Inventory, error) {
+func (e RenvLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 	var parsedLockfile *RenvLockfile
 
-	err := json.NewDecoder(input.Reader).Decode(&parsedLockfile)
+	err := json.NewDecoder(f).Decode(&parsedLockfile)
 
 	if err != nil {
-		return []*Inventory{}, fmt.Errorf("could not extract from %s: %w", input.Path, err)
+		return []PackageDetails{}, fmt.Errorf("could not extract from %s: %w", f.Path(), err)
 	}
 
-	packages := make([]*Inventory, 0, len(parsedLockfile.Packages))
+	packages := make([]PackageDetails, 0, len(parsedLockfile.Packages))
 
 	for _, pkg := range parsedLockfile.Packages {
 		// currently we only support CRAN
@@ -55,35 +41,24 @@ func (e RenvLockExtractor) Extract(ctx context.Context, input *ScanInput) ([]*In
 			continue
 		}
 
-		packages = append(packages, &Inventory{
+		packages = append(packages, PackageDetails{
 			Name:      pkg.Package,
 			Version:   pkg.Version,
-			Locations: []string{input.Path},
+			Ecosystem: CRANEcosystem,
+			CompareAs: CRANEcosystem,
 		})
 	}
 
 	return packages, nil
 }
 
-// ToPURL converts an inventory created by this extractor into a PURL.
-func (e RenvLockExtractor) ToPURL(i *Inventory) (*packageurl.PackageURL, error) {
-	return &packageurl.PackageURL{
-		Type:    packageurl.TypeCran,
-		Name:    i.Name,
-		Version: i.Version,
-	}, nil
-}
-
-// ToCPEs is not applicable as this extractor does not infer CPEs from the Inventory.
-func (e RenvLockExtractor) ToCPEs(i *Inventory) ([]string, error) { return []string{}, nil }
-
-func (e RenvLockExtractor) Ecosystem(i *Inventory) (string, error) {
-	switch i.Extractor.(type) {
-	case RenvLockExtractor:
-		return string(CRANEcosystem), nil
-	default:
-		return "", ErrWrongExtractor
-	}
-}
-
 var _ Extractor = RenvLockExtractor{}
+
+//nolint:gochecknoinits
+func init() {
+	registerExtractor("renv.lock", RenvLockExtractor{})
+}
+
+func ParseRenvLock(pathToLockfile string) ([]PackageDetails, error) {
+	return extractFromFile(pathToLockfile, RenvLockExtractor{})
+}

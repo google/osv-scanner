@@ -1,13 +1,10 @@
 package lockfile
 
 import (
-	"context"
 	"fmt"
-	"io/fs"
 	"path/filepath"
 
 	"github.com/BurntSushi/toml"
-	"github.com/package-url/packageurl-go"
 )
 
 type PoetryLockPackageSource struct {
@@ -31,48 +28,31 @@ const PoetryEcosystem = PipEcosystem
 
 type PoetryLockExtractor struct{}
 
-// Name of the extractor
-func (e PoetryLockExtractor) Name() string { return "python/poetry" }
-
-// Version of the extractor
-func (e PoetryLockExtractor) Version() int { return 0 }
-
-func (e PoetryLockExtractor) Requirements() Requirements {
-	return Requirements{}
-}
-
-func (e PoetryLockExtractor) FileRequired(path string, fileInfo fs.FileInfo) bool {
+func (e PoetryLockExtractor) ShouldExtract(path string) bool {
 	return filepath.Base(path) == "poetry.lock"
 }
 
-func (e PoetryLockExtractor) Extract(ctx context.Context, input *ScanInput) ([]*Inventory, error) {
+func (e PoetryLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 	var parsedLockfile *PoetryLockFile
 
-	_, err := toml.NewDecoder(input.Reader).Decode(&parsedLockfile)
+	_, err := toml.NewDecoder(f).Decode(&parsedLockfile)
 
 	if err != nil {
-		return []*Inventory{}, fmt.Errorf("could not extract from %s: %w", input.Path, err)
+		return []PackageDetails{}, fmt.Errorf("could not extract from %s: %w", f.Path(), err)
 	}
 
-	packages := make([]*Inventory, 0, len(parsedLockfile.Packages))
+	packages := make([]PackageDetails, 0, len(parsedLockfile.Packages))
 
 	for _, lockPackage := range parsedLockfile.Packages {
-		pkgDetails := &Inventory{
+		pkgDetails := PackageDetails{
 			Name:      lockPackage.Name,
 			Version:   lockPackage.Version,
-			Locations: []string{input.Path},
-			SourceCode: &SourceCodeIdentifier{
-				Commit: lockPackage.Source.Commit,
-			},
+			Commit:    lockPackage.Source.Commit,
+			Ecosystem: PoetryEcosystem,
+			CompareAs: PoetryEcosystem,
 		}
 		if lockPackage.Optional {
-			pkgDetails.Metadata = DepGroupMetadata{
-				DepGroupVals: []string{"optional"},
-			}
-		} else {
-			pkgDetails.Metadata = DepGroupMetadata{
-				DepGroupVals: []string{},
-			}
+			pkgDetails.DepGroups = append(pkgDetails.DepGroups, "optional")
 		}
 		packages = append(packages, pkgDetails)
 	}
@@ -80,25 +60,13 @@ func (e PoetryLockExtractor) Extract(ctx context.Context, input *ScanInput) ([]*
 	return packages, nil
 }
 
-// ToPURL converts an inventory created by this extractor into a PURL.
-func (e PoetryLockExtractor) ToPURL(i *Inventory) (*packageurl.PackageURL, error) {
-	return &packageurl.PackageURL{
-		Type:    packageurl.TypePyPi,
-		Name:    i.Name,
-		Version: i.Version,
-	}, nil
-}
-
-// ToCPEs is not applicable as this extractor does not infer CPEs from the Inventory.
-func (e PoetryLockExtractor) ToCPEs(i *Inventory) ([]string, error) { return []string{}, nil }
-
-func (e PoetryLockExtractor) Ecosystem(i *Inventory) (string, error) {
-	switch i.Extractor.(type) {
-	case PoetryLockExtractor:
-		return string(PoetryEcosystem), nil
-	default:
-		return "", ErrWrongExtractor
-	}
-}
-
 var _ Extractor = PoetryLockExtractor{}
+
+//nolint:gochecknoinits
+func init() {
+	registerExtractor("poetry.lock", PoetryLockExtractor{})
+}
+
+func ParsePoetryLock(pathToLockfile string) ([]PackageDetails, error) {
+	return extractFromFile(pathToLockfile, PoetryLockExtractor{})
+}

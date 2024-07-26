@@ -2,15 +2,12 @@ package lockfile
 
 import (
 	"bufio"
-	"context"
 	"fmt"
-	"io/fs"
 	"log"
 	"path/filepath"
 	"strings"
 
 	"github.com/google/osv-scanner/internal/cachedregexp"
-	"github.com/package-url/packageurl-go"
 )
 
 const BundlerEcosystem Ecosystem = "RubyGems"
@@ -41,25 +38,21 @@ func isSourceSection(line string) bool {
 
 type gemfileLockfileParser struct {
 	state          parserState
-	dependencies   []*Inventory
+	dependencies   []PackageDetails
 	bundlerVersion string
 	rubyVersion    string
 
 	// holds the commit of the gem that is currently being parsed, if found
 	currentGemCommit string
-
-	// holds the path of the file being parsed
-	location string
 }
 
 func (parser *gemfileLockfileParser) addDependency(name string, version string) {
-	parser.dependencies = append(parser.dependencies, &Inventory{
-		Name:    name,
-		Version: version,
-		SourceCode: &SourceCodeIdentifier{
-			Commit: parser.currentGemCommit,
-		},
-		Locations: []string{parser.location},
+	parser.dependencies = append(parser.dependencies, PackageDetails{
+		Name:      name,
+		Version:   version,
+		Ecosystem: BundlerEcosystem,
+		CompareAs: BundlerEcosystem,
+		Commit:    parser.currentGemCommit,
 	})
 }
 
@@ -168,56 +161,33 @@ func (parser *gemfileLockfileParser) parse(line string) {
 
 type GemfileLockExtractor struct{}
 
-// Name of the extractor
-func (e GemfileLockExtractor) Name() string { return "go/gomod" }
-
-// Version of the extractor
-func (e GemfileLockExtractor) Version() int { return 0 }
-
-func (e GemfileLockExtractor) Requirements() Requirements {
-	return Requirements{}
-}
-
-func (e GemfileLockExtractor) FileRequired(path string, fileInfo fs.FileInfo) bool {
+func (e GemfileLockExtractor) ShouldExtract(path string) bool {
 	return filepath.Base(path) == "Gemfile.lock"
 }
 
-func (e GemfileLockExtractor) Extract(ctx context.Context, input *ScanInput) ([]*Inventory, error) {
+func (e GemfileLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 	var parser gemfileLockfileParser
-	parser.location = input.Path
 
-	scanner := bufio.NewScanner(input.Reader)
+	scanner := bufio.NewScanner(f)
 
 	for scanner.Scan() {
 		parser.parse(scanner.Text())
 	}
 
 	if err := scanner.Err(); err != nil {
-		return []*Inventory{}, fmt.Errorf("error while scanning %s: %w", input.Path, err)
+		return []PackageDetails{}, fmt.Errorf("error while scanning %s: %w", f.Path(), err)
 	}
 
 	return parser.dependencies, nil
 }
 
-// ToPURL converts an inventory created by this extractor into a PURL.
-func (e GemfileLockExtractor) ToPURL(i *Inventory) (*packageurl.PackageURL, error) {
-	return &packageurl.PackageURL{
-		Type:    packageurl.TypeGem,
-		Name:    i.Name,
-		Version: i.Version,
-	}, nil
-}
-
-// ToCPEs is not applicable as this extractor does not infer CPEs from the Inventory.
-func (e GemfileLockExtractor) ToCPEs(i *Inventory) ([]string, error) { return []string{}, nil }
-
-func (e GemfileLockExtractor) Ecosystem(i *Inventory) (string, error) {
-	switch i.Extractor.(type) {
-	case GemfileLockExtractor:
-		return string(BundlerEcosystem), nil
-	default:
-		return "", ErrWrongExtractor
-	}
-}
-
 var _ Extractor = GemfileLockExtractor{}
+
+//nolint:gochecknoinits
+func init() {
+	registerExtractor("Gemfile.lock", GemfileLockExtractor{})
+}
+
+func ParseGemfileLock(pathToLockfile string) ([]PackageDetails, error) {
+	return extractFromFile(pathToLockfile, GemfileLockExtractor{})
+}

@@ -1,59 +1,48 @@
 package lockfile_test
 
 import (
+	"io/fs"
 	"testing"
 
 	"github.com/google/osv-scanner/pkg/lockfile"
 )
 
-func TestPipenvLockExtractor_FileRequired(t *testing.T) {
+func TestPipenvLockExtractor_ShouldExtract(t *testing.T) {
 	t.Parallel()
 
 	tests := []struct {
-		name        string
-		inputConfig ScanInputMockConfig
-		want        bool
+		name string
+		path string
+		want bool
 	}{
 		{
 			name: "",
-			inputConfig: ScanInputMockConfig{
-				path: "",
-			},
+			path: "",
 			want: false,
 		},
 		{
 			name: "",
-			inputConfig: ScanInputMockConfig{
-				path: "Pipfile.lock",
-			},
+			path: "Pipfile.lock",
 			want: true,
 		},
 		{
 			name: "",
-			inputConfig: ScanInputMockConfig{
-				path: "path/to/my/Pipfile.lock",
-			},
+			path: "path/to/my/Pipfile.lock",
 			want: true,
 		},
 		{
 			name: "",
-			inputConfig: ScanInputMockConfig{
-				path: "path/to/my/Pipfile.lock/file",
-			},
+			path: "path/to/my/Pipfile.lock/file",
 			want: false,
 		},
 		{
 			name: "",
-			inputConfig: ScanInputMockConfig{
-				path: "path/to/my/Pipfile.lock.file",
-			},
+			path: "path/to/my/Pipfile.lock.file",
 			want: false,
 		},
 		{
 			name: "",
-			inputConfig: ScanInputMockConfig{
-				path: "path.to.my.Pipfile.lock",
-			},
+			path: "path.to.my.Pipfile.lock",
 			want: false,
 		},
 	}
@@ -62,167 +51,180 @@ func TestPipenvLockExtractor_FileRequired(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
 			e := lockfile.PipenvLockExtractor{}
-			got := e.FileRequired(tt.inputConfig.path, GenerateFileInfoMock(t, tt.inputConfig))
+			got := e.ShouldExtract(tt.path)
 			if got != tt.want {
-				t.Errorf("FileRequired(%s, FileInfo) got = %v, want %v", tt.inputConfig.path, got, tt.want)
+				t.Errorf("Extract() got = %v, want %v", got, tt.want)
 			}
 		})
 	}
 }
 
-func TestPipenvLockExtractor_Extract(t *testing.T) {
+func TestParsePipenvLock_FileDoesNotExist(t *testing.T) {
 	t.Parallel()
 
-	tests := []testTableEntry{
-		{
-			name: "invalid json",
-			inputConfig: ScanInputMockConfig{
-				path: "fixtures/pipenv/not-json.txt",
-			},
-			wantErrContaining: "could not extract from",
-		},
-		{
-			name: "no packages",
-			inputConfig: ScanInputMockConfig{
-				path: "fixtures/pipenv/empty.json",
-			},
-			wantInventory: []*lockfile.Inventory{},
-		},
-		{
-			name: "one package",
-			inputConfig: ScanInputMockConfig{
-				path: "fixtures/pipenv/one-package.json",
-			},
-			wantInventory: []*lockfile.Inventory{
-				{
-					Name:      "markupsafe",
-					Version:   "2.1.1",
-					Locations: []string{"fixtures/pipenv/one-package.json"},
-					Metadata: lockfile.DepGroupMetadata{
-						DepGroupVals: []string{},
-					},
-				},
-			},
-		},
-		{
-			name: "one package dev",
-			inputConfig: ScanInputMockConfig{
-				path: "fixtures/pipenv/one-package-dev.json",
-			},
-			wantInventory: []*lockfile.Inventory{
-				{
-					Name:      "markupsafe",
-					Version:   "2.1.1",
-					Locations: []string{"fixtures/pipenv/one-package-dev.json"},
-					Metadata: lockfile.DepGroupMetadata{
-						DepGroupVals: []string{"dev"},
-					},
-				},
-			},
-		},
-		{
-			name: "two packages",
-			inputConfig: ScanInputMockConfig{
-				path: "fixtures/pipenv/two-packages.json",
-			},
-			wantInventory: []*lockfile.Inventory{
-				{
-					Name:      "itsdangerous",
-					Version:   "2.1.2",
-					Locations: []string{"fixtures/pipenv/two-packages.json"},
-					Metadata: lockfile.DepGroupMetadata{
-						DepGroupVals: []string{},
-					},
-				},
-				{
-					Name:      "markupsafe",
-					Version:   "2.1.1",
-					Locations: []string{"fixtures/pipenv/two-packages.json"},
-					Metadata: lockfile.DepGroupMetadata{
-						DepGroupVals: []string{"dev"},
-					},
-				},
-			},
-		},
-		{
-			name: "two packages alt",
-			inputConfig: ScanInputMockConfig{
-				path: "fixtures/pipenv/two-packages-alt.json",
-			},
-			wantInventory: []*lockfile.Inventory{
-				{
-					Name:      "itsdangerous",
-					Version:   "2.1.2",
-					Locations: []string{"fixtures/pipenv/two-packages-alt.json"},
-					Metadata: lockfile.DepGroupMetadata{
-						DepGroupVals: []string{},
-					},
-				},
-				{
-					Name:      "markupsafe",
-					Version:   "2.1.1",
-					Locations: []string{"fixtures/pipenv/two-packages-alt.json"},
-					Metadata: lockfile.DepGroupMetadata{
-						DepGroupVals: []string{},
-					},
-				},
-			},
-		},
-		{
-			name: "multiple packages",
-			inputConfig: ScanInputMockConfig{
-				path: "fixtures/pipenv/multiple-packages.json",
-			},
-			wantInventory: []*lockfile.Inventory{
-				{
-					Name:      "itsdangerous",
-					Version:   "2.1.2",
-					Locations: []string{"fixtures/pipenv/multiple-packages.json"},
-					Metadata: lockfile.DepGroupMetadata{
-						DepGroupVals: []string{},
-					},
-				},
-				{
-					Name:      "pluggy",
-					Version:   "1.0.1",
-					Locations: []string{"fixtures/pipenv/multiple-packages.json"},
-					Metadata: lockfile.DepGroupMetadata{
-						DepGroupVals: []string{},
-					},
-				},
-				{
-					Name:      "pluggy",
-					Version:   "1.0.0",
-					Locations: []string{"fixtures/pipenv/multiple-packages.json"},
-					Metadata: lockfile.DepGroupMetadata{
-						DepGroupVals: []string{"dev"},
-					},
-				},
-				{
-					Name:      "markupsafe",
-					Version:   "2.1.1",
-					Locations: []string{"fixtures/pipenv/multiple-packages.json"},
-					Metadata: lockfile.DepGroupMetadata{
-						DepGroupVals: []string{},
-					},
-				},
-			},
-		},
-		{
-			name: "package without version",
-			inputConfig: ScanInputMockConfig{
-				path: "fixtures/pipenv/no-version.json",
-			},
-			wantInventory: []*lockfile.Inventory{},
-		},
+	packages, err := lockfile.ParsePipenvLock("fixtures/pipenv/does-not-exist")
+
+	expectErrIs(t, err, fs.ErrNotExist)
+	expectPackages(t, packages, []lockfile.PackageDetails{})
+}
+
+func TestParsePipenvLock_InvalidJson(t *testing.T) {
+	t.Parallel()
+
+	packages, err := lockfile.ParsePipenvLock("fixtures/pipenv/not-json.txt")
+
+	expectErrContaining(t, err, "could not extract from")
+	expectPackages(t, packages, []lockfile.PackageDetails{})
+}
+
+func TestParsePipenvLock_NoPackages(t *testing.T) {
+	t.Parallel()
+
+	packages, err := lockfile.ParsePipenvLock("fixtures/pipenv/empty.json")
+
+	if err != nil {
+		t.Errorf("Got unexpected error: %v", err)
 	}
 
-	for _, tt := range tests {
-		tt := tt
-		t.Run(tt.name, func(t *testing.T) {
-			t.Parallel()
-			e := lockfile.PipenvLockExtractor{}
-			_, _ = extractionTester(t, e, tt)
-		})
+	expectPackages(t, packages, []lockfile.PackageDetails{})
+}
+
+func TestParsePipenvLock_OnePackage(t *testing.T) {
+	t.Parallel()
+
+	packages, err := lockfile.ParsePipenvLock("fixtures/pipenv/one-package.json")
+
+	if err != nil {
+		t.Errorf("Got unexpected error: %v", err)
 	}
+
+	expectPackages(t, packages, []lockfile.PackageDetails{
+		{
+			Name:      "markupsafe",
+			Version:   "2.1.1",
+			Ecosystem: lockfile.PipenvEcosystem,
+			CompareAs: lockfile.PipenvEcosystem,
+		},
+	})
+}
+
+func TestParsePipenvLock_OnePackageDev(t *testing.T) {
+	t.Parallel()
+
+	packages, err := lockfile.ParsePipenvLock("fixtures/pipenv/one-package-dev.json")
+
+	if err != nil {
+		t.Errorf("Got unexpected error: %v", err)
+	}
+
+	expectPackages(t, packages, []lockfile.PackageDetails{
+		{
+			Name:      "markupsafe",
+			Version:   "2.1.1",
+			Ecosystem: lockfile.PipenvEcosystem,
+			CompareAs: lockfile.PipenvEcosystem,
+			DepGroups: []string{"dev"},
+		},
+	})
+}
+
+func TestParsePipenvLock_TwoPackages(t *testing.T) {
+	t.Parallel()
+
+	packages, err := lockfile.ParsePipenvLock("fixtures/pipenv/two-packages.json")
+
+	if err != nil {
+		t.Errorf("Got unexpected error: %v", err)
+	}
+
+	expectPackages(t, packages, []lockfile.PackageDetails{
+		{
+			Name:      "itsdangerous",
+			Version:   "2.1.2",
+			Ecosystem: lockfile.PipenvEcosystem,
+			CompareAs: lockfile.PipenvEcosystem,
+		},
+		{
+			Name:      "markupsafe",
+			Version:   "2.1.1",
+			Ecosystem: lockfile.PipenvEcosystem,
+			CompareAs: lockfile.PipenvEcosystem,
+			DepGroups: []string{"dev"},
+		},
+	})
+}
+
+func TestParsePipenvLock_TwoPackagesAlt(t *testing.T) {
+	t.Parallel()
+
+	packages, err := lockfile.ParsePipenvLock("fixtures/pipenv/two-packages-alt.json")
+
+	if err != nil {
+		t.Errorf("Got unexpected error: %v", err)
+	}
+
+	expectPackages(t, packages, []lockfile.PackageDetails{
+		{
+			Name:      "itsdangerous",
+			Version:   "2.1.2",
+			Ecosystem: lockfile.PipenvEcosystem,
+			CompareAs: lockfile.PipenvEcosystem,
+		},
+		{
+			Name:      "markupsafe",
+			Version:   "2.1.1",
+			Ecosystem: lockfile.PipenvEcosystem,
+			CompareAs: lockfile.PipenvEcosystem,
+		},
+	})
+}
+
+func TestParsePipenvLock_MultiplePackages(t *testing.T) {
+	t.Parallel()
+
+	packages, err := lockfile.ParsePipenvLock("fixtures/pipenv/multiple-packages.json")
+
+	if err != nil {
+		t.Errorf("Got unexpected error: %v", err)
+	}
+
+	expectPackages(t, packages, []lockfile.PackageDetails{
+		{
+			Name:      "itsdangerous",
+			Version:   "2.1.2",
+			Ecosystem: lockfile.PipenvEcosystem,
+			CompareAs: lockfile.PipenvEcosystem,
+		},
+		{
+			Name:      "pluggy",
+			Version:   "1.0.1",
+			Ecosystem: lockfile.PipenvEcosystem,
+			CompareAs: lockfile.PipenvEcosystem,
+		},
+		{
+			Name:      "pluggy",
+			Version:   "1.0.0",
+			Ecosystem: lockfile.PipenvEcosystem,
+			CompareAs: lockfile.PipenvEcosystem,
+			DepGroups: []string{"dev"},
+		},
+		{
+			Name:      "markupsafe",
+			Version:   "2.1.1",
+			Ecosystem: lockfile.PipenvEcosystem,
+			CompareAs: lockfile.PipenvEcosystem,
+		},
+	})
+}
+
+func TestParsePipenvLock_PackageWithoutVersion(t *testing.T) {
+	t.Parallel()
+
+	packages, err := lockfile.ParsePipenvLock("fixtures/pipenv/no-version.json")
+
+	if err != nil {
+		t.Errorf("Got unexpected error: %v", err)
+	}
+
+	expectPackages(t, packages, []lockfile.PackageDetails{})
 }

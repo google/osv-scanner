@@ -1,13 +1,9 @@
 package lockfile
 
 import (
-	"context"
 	"encoding/xml"
 	"fmt"
-	"io/fs"
 	"path/filepath"
-
-	"github.com/package-url/packageurl-go"
 )
 
 type GradleVerificationMetadataFile struct {
@@ -20,63 +16,40 @@ type GradleVerificationMetadataFile struct {
 
 type GradleVerificationMetadataExtractor struct{}
 
-// Name of the extractor
-func (e GradleVerificationMetadataExtractor) Name() string { return "go/gomod" }
-
-// Version of the extractor
-func (e GradleVerificationMetadataExtractor) Version() int { return 0 }
-
-func (e GradleVerificationMetadataExtractor) Requirements() Requirements {
-	return Requirements{}
-}
-
-func (e GradleVerificationMetadataExtractor) FileRequired(path string, fileInfo fs.FileInfo) bool {
+func (e GradleVerificationMetadataExtractor) ShouldExtract(path string) bool {
 	return filepath.Base(filepath.Dir(path)) == "gradle" && filepath.Base(path) == "verification-metadata.xml"
 }
 
-func (e GradleVerificationMetadataExtractor) Extract(ctx context.Context, input *ScanInput) ([]*Inventory, error) {
+func (e GradleVerificationMetadataExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 	var parsedLockfile *GradleVerificationMetadataFile
 
-	err := xml.NewDecoder(input.Reader).Decode(&parsedLockfile)
+	err := xml.NewDecoder(f).Decode(&parsedLockfile)
 
 	if err != nil {
-		return []*Inventory{}, fmt.Errorf("could not extract from %s: %w", input.Path, err)
+		return []PackageDetails{}, fmt.Errorf("could not extract from %s: %w", f.Path(), err)
 	}
 
-	pkgs := make([]*Inventory, 0, len(parsedLockfile.Components))
+	pkgs := make([]PackageDetails, 0, len(parsedLockfile.Components))
 
 	for _, component := range parsedLockfile.Components {
-		pkgs = append(pkgs, &Inventory{
+		pkgs = append(pkgs, PackageDetails{
 			Name:      component.Group + ":" + component.Name,
 			Version:   component.Version,
-			Locations: []string{input.Path},
+			Ecosystem: MavenEcosystem,
+			CompareAs: MavenEcosystem,
 		})
 	}
 
 	return pkgs, nil
 }
 
-// ToPURL converts an inventory created by this extractor into a PURL.
-func (e GradleVerificationMetadataExtractor) ToPURL(i *Inventory) (*packageurl.PackageURL, error) {
-	return &packageurl.PackageURL{
-		Type:    packageurl.TypeMaven,
-		Name:    i.Name,
-		Version: i.Version,
-	}, nil
-}
-
-// ToCPEs is not applicable as this extractor does not infer CPEs from the Inventory.
-func (e GradleVerificationMetadataExtractor) ToCPEs(i *Inventory) ([]string, error) {
-	return []string{}, nil
-}
-
-func (e GradleVerificationMetadataExtractor) Ecosystem(i *Inventory) (string, error) {
-	switch i.Extractor.(type) {
-	case GradleVerificationMetadataExtractor:
-		return string(MavenEcosystem), nil
-	default:
-		return "", ErrWrongExtractor
-	}
-}
-
 var _ Extractor = GradleVerificationMetadataExtractor{}
+
+//nolint:gochecknoinits
+func init() {
+	registerExtractor("gradle/verification-metadata.xml", GradleVerificationMetadataExtractor{})
+}
+
+func ParseGradleVerificationMetadata(pathToLockfile string) ([]PackageDetails, error) {
+	return extractFromFile(pathToLockfile, GradleVerificationMetadataExtractor{})
+}

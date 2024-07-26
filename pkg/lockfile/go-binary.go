@@ -2,29 +2,15 @@ package lockfile
 
 import (
 	"bytes"
-	"context"
 	"debug/buildinfo"
 	"io"
-	"io/fs"
 	"path/filepath"
 	"strings"
-
-	"github.com/package-url/packageurl-go"
 )
 
 type GoBinaryExtractor struct{}
 
-// Name of the extractor
-func (e GoBinaryExtractor) Name() string { return "go/gobinary" }
-
-// Version of the extractor
-func (e GoBinaryExtractor) Version() int { return 0 }
-
-func (e GoBinaryExtractor) Requirements() Requirements {
-	return Requirements{}
-}
-
-func (e GoBinaryExtractor) FileRequired(path string, fileInfo fs.FileInfo) bool {
+func (e GoBinaryExtractor) ShouldExtract(path string) bool {
 	if path == "" {
 		return false
 	}
@@ -33,68 +19,58 @@ func (e GoBinaryExtractor) FileRequired(path string, fileInfo fs.FileInfo) bool 
 		return false
 	}
 
-	// If executable bit is not set for any owner/group/everyone, then it probably isn't a binary
-	return fileInfo.Mode()&0111 != 0
+	if filepath.Ext(path) != ".exe" && filepath.Ext(path) != "" {
+		// Assume if a file has an extension (that's not exe), it is not a go binary
+		// This also filters out hidden files on Unix
+		// This is a heuristic to improve performance and can result in false negatives
+		// TODO(another-rex): When we have access to the full FS interface, we can open and check
+		// magic bytes to be more accurate
+		return false
+	}
+
+	// Any other path can be a go binary
+	return true
 }
 
-func (e GoBinaryExtractor) Extract(ctx context.Context, input *ScanInput) ([]*Inventory, error) {
+func (e GoBinaryExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 	var readerAt io.ReaderAt
-	if fileWithReaderAt, ok := input.Reader.(io.ReaderAt); ok {
+	if fileWithReaderAt, ok := f.(io.ReaderAt); ok {
 		readerAt = fileWithReaderAt
 	} else {
 		buf := bytes.NewBuffer([]byte{})
-		_, err := io.Copy(buf, input.Reader)
+		_, err := io.Copy(buf, f)
 		if err != nil {
-			return []*Inventory{}, err
+			return []PackageDetails{}, err
 		}
 		readerAt = bytes.NewReader(buf.Bytes())
 	}
 
 	info, err := buildinfo.Read(readerAt)
 	if err != nil {
-		return []*Inventory{}, ErrIncompatibleFileFormat
+		return []PackageDetails{}, ErrIncompatibleFileFormat
 	}
 
-	pkgs := make([]*Inventory, 0, len(info.Deps)+1)
-	pkgs = append(pkgs, &Inventory{
+	pkgs := make([]PackageDetails, 0, len(info.Deps)+1)
+	pkgs = append(pkgs, PackageDetails{
 		Name:      "stdlib",
 		Version:   strings.TrimPrefix(info.GoVersion, "go"),
-		Locations: []string{input.Path},
+		Ecosystem: GoEcosystem,
+		CompareAs: GoEcosystem,
 	})
 
 	for _, dep := range info.Deps {
 		if dep.Replace != nil { // Use the replaced dep if it has been replaced
 			dep = dep.Replace
 		}
-		pkgs = append(pkgs, &Inventory{
+		pkgs = append(pkgs, PackageDetails{
 			Name:      dep.Path,
 			Version:   strings.TrimPrefix(dep.Version, "v"),
-			Locations: []string{input.Path},
+			Ecosystem: GoEcosystem,
+			CompareAs: GoEcosystem,
 		})
 	}
 
 	return pkgs, nil
-}
-
-// ToPURL converts an inventory created by this extractor into a PURL.
-func (e GoBinaryExtractor) ToPURL(i *Inventory) (*packageurl.PackageURL, error) {
-	return &packageurl.PackageURL{
-		Type:    packageurl.TypeGolang,
-		Name:    i.Name,
-		Version: i.Version,
-	}, nil
-}
-
-// ToCPEs is not applicable as this extractor does not infer CPEs from the Inventory.
-func (e GoBinaryExtractor) ToCPEs(i *Inventory) ([]string, error) { return []string{}, nil }
-
-func (e GoBinaryExtractor) Ecosystem(i *Inventory) (string, error) {
-	switch i.Extractor.(type) {
-	case GoBinaryExtractor:
-		return string(GoEcosystem), nil
-	default:
-		return "", ErrWrongExtractor
-	}
 }
 
 var _ Extractor = GoBinaryExtractor{}

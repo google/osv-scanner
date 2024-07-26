@@ -6,54 +6,42 @@ import (
 	"github.com/google/osv-scanner/pkg/lockfile"
 )
 
-func TestYarnLockExtractor_FileRequired(t *testing.T) {
+func TestYarnLockExtractor_ShouldExtract(t *testing.T) {
 	t.Parallel()
 
 	tests := []struct {
-		name        string
-		inputConfig ScanInputMockConfig
-		want        bool
+		name string
+		path string
+		want bool
 	}{
 		{
 			name: "",
-			inputConfig: ScanInputMockConfig{
-				path: "",
-			},
+			path: "",
 			want: false,
 		},
 		{
 			name: "",
-			inputConfig: ScanInputMockConfig{
-				path: "yarn.lock",
-			},
+			path: "yarn.lock",
 			want: true,
 		},
 		{
 			name: "",
-			inputConfig: ScanInputMockConfig{
-				path: "path/to/my/yarn.lock",
-			},
+			path: "path/to/my/yarn.lock",
 			want: true,
 		},
 		{
 			name: "",
-			inputConfig: ScanInputMockConfig{
-				path: "path/to/my/yarn.lock/file",
-			},
+			path: "path/to/my/yarn.lock/file",
 			want: false,
 		},
 		{
 			name: "",
-			inputConfig: ScanInputMockConfig{
-				path: "path/to/my/yarn.lock.file",
-			},
+			path: "path/to/my/yarn.lock.file",
 			want: false,
 		},
 		{
 			name: "",
-			inputConfig: ScanInputMockConfig{
-				path: "path.to.my.yarn.lock",
-			},
+			path: "path.to.my.yarn.lock",
 			want: false,
 		},
 	}
@@ -62,9 +50,9 @@ func TestYarnLockExtractor_FileRequired(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
 			e := lockfile.YarnLockExtractor{}
-			got := e.FileRequired(tt.inputConfig.path, GenerateFileInfoMock(t, tt.inputConfig))
+			got := e.ShouldExtract(tt.path)
 			if got != tt.want {
-				t.Errorf("FileRequired(%s, FileInfo) got = %v, want %v", tt.inputConfig.path, got, tt.want)
+				t.Errorf("Extract() got = %v, want %v", got, tt.want)
 			}
 		})
 	}

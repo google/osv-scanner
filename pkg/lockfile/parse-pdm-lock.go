@@ -1,13 +1,10 @@
 package lockfile
 
 import (
-	"context"
 	"fmt"
-	"io/fs"
 	"path/filepath"
 
 	"github.com/BurntSushi/toml"
-	"github.com/package-url/packageurl-go"
 )
 
 type PdmLockPackage struct {
@@ -26,59 +23,42 @@ const PdmEcosystem = PipEcosystem
 
 type PdmLockExtractor struct{}
 
-// Name of the extractor
-func (e PdmLockExtractor) Name() string { return "python/pdm" }
-
-// Version of the extractor
-func (e PdmLockExtractor) Version() int { return 0 }
-
-func (e PdmLockExtractor) Requirements() Requirements {
-	return Requirements{}
-}
-
-func (e PdmLockExtractor) FileRequired(path string, fileInfo fs.FileInfo) bool {
+func (p PdmLockExtractor) ShouldExtract(path string) bool {
 	return filepath.Base(path) == "pdm.lock"
 }
 
-func (e PdmLockExtractor) Extract(ctx context.Context, input *ScanInput) ([]*Inventory, error) {
+func (p PdmLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 	var parsedLockFile *PdmLockFile
 
-	_, err := toml.NewDecoder(input.Reader).Decode(&parsedLockFile)
+	_, err := toml.NewDecoder(f).Decode(&parsedLockFile)
 	if err != nil {
-		return []*Inventory{}, fmt.Errorf("could not extract from %s: %w", input.Path, err)
+		return []PackageDetails{}, fmt.Errorf("could not extract from %s: %w", f.Path(), err)
 	}
-	packages := make([]*Inventory, 0, len(parsedLockFile.Packages))
+	packages := make([]PackageDetails, 0, len(parsedLockFile.Packages))
 
 	for _, pkg := range parsedLockFile.Packages {
-		details := &Inventory{
+		details := PackageDetails{
 			Name:      pkg.Name,
 			Version:   pkg.Version,
-			Locations: []string{input.Path},
+			Ecosystem: PdmEcosystem,
+			CompareAs: PdmEcosystem,
 		}
-
-		depGroups := []string{}
 
 		var optional = true
 		for _, gr := range pkg.Groups {
 			if gr == "dev" {
-				depGroups = append(depGroups, "dev")
+				details.DepGroups = append(details.DepGroups, "dev")
 				optional = false
 			} else if gr == "default" {
 				optional = false
 			}
 		}
 		if optional {
-			depGroups = append(depGroups, "optional")
-		}
-
-		details.Metadata = DepGroupMetadata{
-			DepGroupVals: depGroups,
+			details.DepGroups = append(details.DepGroups, "optional")
 		}
 
 		if pkg.Revision != "" {
-			details.SourceCode = &SourceCodeIdentifier{
-				Commit: pkg.Revision,
-			}
+			details.Commit = pkg.Revision
 		}
 
 		packages = append(packages, details)
@@ -87,25 +67,13 @@ func (e PdmLockExtractor) Extract(ctx context.Context, input *ScanInput) ([]*Inv
 	return packages, nil
 }
 
-// ToPURL converts an inventory created by this extractor into a PURL.
-func (e PdmLockExtractor) ToPURL(i *Inventory) (*packageurl.PackageURL, error) {
-	return &packageurl.PackageURL{
-		Type:    packageurl.TypePyPi,
-		Name:    i.Name,
-		Version: i.Version,
-	}, nil
-}
-
-// ToCPEs is not applicable as this extractor does not infer CPEs from the Inventory.
-func (e PdmLockExtractor) ToCPEs(i *Inventory) ([]string, error) { return []string{}, nil }
-
-func (e PdmLockExtractor) Ecosystem(i *Inventory) (string, error) {
-	switch i.Extractor.(type) {
-	case PdmLockExtractor:
-		return string(PdmEcosystem), nil
-	default:
-		return "", ErrWrongExtractor
-	}
-}
-
 var _ Extractor = PdmLockExtractor{}
+
+//nolint:gochecknoinits
+func init() {
+	registerExtractor("pdm.lock", PdmLockExtractor{})
+}
+
+func ParsePdmLock(pathToLockfile string) ([]PackageDetails, error) {
+	return extractFromFile(pathToLockfile, PdmLockExtractor{})
+}

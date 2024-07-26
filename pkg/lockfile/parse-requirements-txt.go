@@ -2,14 +2,11 @@ package lockfile
 
 import (
 	"bufio"
-	"context"
 	"fmt"
-	"io/fs"
 	"path/filepath"
 	"strings"
 
 	"github.com/google/osv-scanner/internal/cachedregexp"
-	"github.com/package-url/packageurl-go"
 	"golang.org/x/exp/maps"
 )
 
@@ -18,7 +15,7 @@ const PipEcosystem Ecosystem = "PyPI"
 // todo: expand this to support more things, e.g.
 //
 //	https://pip.pypa.io/en/stable/reference/requirements-file-format/#example
-func parseLine(line string) *Inventory {
+func parseLine(line string) PackageDetails {
 	var constraint string
 	name := line
 
@@ -49,12 +46,11 @@ func parseLine(line string) *Inventory {
 		}
 	}
 
-	return &Inventory{
-		Name:    normalizedRequirementName(name),
-		Version: version,
-		Metadata: DepGroupMetadata{
-			DepGroupVals: []string{},
-		},
+	return PackageDetails{
+		Name:      normalizedRequirementName(name),
+		Version:   version,
+		Ecosystem: PipEcosystem,
+		CompareAs: PipEcosystem,
 	}
 }
 
@@ -106,66 +102,18 @@ func isLineContinuation(line string) bool {
 
 type RequirementsTxtExtractor struct{}
 
-// Name of the extractor
-func (e RequirementsTxtExtractor) Name() string { return "python/requirementstxt" }
-
-// Version of the extractor
-func (e RequirementsTxtExtractor) Version() int { return 0 }
-
-func (e RequirementsTxtExtractor) Requirements() Requirements {
-	return Requirements{}
-}
-
-func (e RequirementsTxtExtractor) FileRequired(path string, fileInfo fs.FileInfo) bool {
-	return filepath.Base(path) == "requirements.txt"
-}
-
 func (e RequirementsTxtExtractor) ShouldExtract(path string) bool {
 	return filepath.Base(path) == "requirements.txt"
 }
 
-func (e RequirementsTxtExtractor) Extract(ctx context.Context, input *ScanInput) ([]*Inventory, error) {
-	inventories, err := parseRequirementsTxt(input, map[string]struct{}{})
-
-	if err != nil {
-		return []*Inventory{}, err
-	}
-
-	// TODO: This currently matches the existing behavior
-	// ideally we should add the locations of the -r requirement files as well
-	// to the locations list
-	for i := range inventories {
-		inventories[i].Locations = []string{input.Path}
-	}
-
-	return inventories, nil
+func (e RequirementsTxtExtractor) Extract(f DepFile) ([]PackageDetails, error) {
+	return parseRequirementsTxt(f, map[string]struct{}{})
 }
 
-// ToPURL converts an inventory created by this extractor into a PURL.
-func (e RequirementsTxtExtractor) ToPURL(i *Inventory) (*packageurl.PackageURL, error) {
-	return &packageurl.PackageURL{
-		Type:    packageurl.TypePyPi,
-		Name:    i.Name,
-		Version: i.Version,
-	}, nil
-}
+func parseRequirementsTxt(f DepFile, requiredAlready map[string]struct{}) ([]PackageDetails, error) {
+	packages := map[string]PackageDetails{}
 
-// ToCPEs is not applicable as this extractor does not infer CPEs from the Inventory.
-func (e RequirementsTxtExtractor) ToCPEs(i *Inventory) ([]string, error) { return []string{}, nil }
-
-func (e RequirementsTxtExtractor) Ecosystem(i *Inventory) (string, error) {
-	switch i.Extractor.(type) {
-	case RequirementsTxtExtractor:
-		return string(PipEcosystem), nil
-	default:
-		return "", ErrWrongExtractor
-	}
-}
-
-func parseRequirementsTxt(input *ScanInput, requiredAlready map[string]struct{}) ([]*Inventory, error) {
-	inventories := map[string]*Inventory{}
-
-	group := strings.TrimSuffix(filepath.Base(input.Path), filepath.Ext(input.Path))
+	group := strings.TrimSuffix(filepath.Base(f.Path()), filepath.Ext(f.Path()))
 	hasGroup := func(groups []string) bool {
 		for _, g := range groups {
 			if g == group {
@@ -176,7 +124,7 @@ func parseRequirementsTxt(input *ScanInput, requiredAlready map[string]struct{})
 		return false
 	}
 
-	scanner := bufio.NewScanner(input.Reader)
+	scanner := bufio.NewScanner(f)
 	for scanner.Scan() {
 		line := scanner.Text()
 
@@ -190,12 +138,8 @@ func parseRequirementsTxt(input *ScanInput, requiredAlready map[string]struct{})
 
 		line = removeComments(line)
 		if ar := strings.TrimPrefix(line, "-r "); ar != line {
-			fullReqPath := filepath.Join(filepath.Dir(input.Path), ar)
 			err := func() error {
-				if _, ok := requiredAlready[fullReqPath]; ok {
-					return nil
-				}
-				af, err := input.FS.Open(fullReqPath)
+				af, err := f.Open(ar)
 
 				if err != nil {
 					return fmt.Errorf("failed to include %s: %w", line, err)
@@ -203,35 +147,27 @@ func parseRequirementsTxt(input *ScanInput, requiredAlready map[string]struct{})
 
 				defer af.Close()
 
-				info, err := af.Stat()
-				if err != nil {
-					return fmt.Errorf("failed to include %s: %w", line, err)
+				if _, ok := requiredAlready[af.Path()]; ok {
+					return nil
 				}
 
-				requiredAlready[fullReqPath] = struct{}{}
-				newScanInput := ScanInput{
-					FS:       input.FS,
-					Path:     fullReqPath,
-					ScanRoot: input.ScanRoot,
-					Reader:   af,
-					Info:     info,
-				}
+				requiredAlready[af.Path()] = struct{}{}
 
-				details, err := parseRequirementsTxt(&newScanInput, requiredAlready)
+				details, err := parseRequirementsTxt(af, requiredAlready)
 
 				if err != nil {
 					return fmt.Errorf("failed to include %s: %w", line, err)
 				}
 
 				for _, detail := range details {
-					inventories[detail.Name+"@"+detail.Version] = detail
+					packages[detail.Name+"@"+detail.Version] = detail
 				}
 
 				return nil
 			}()
 
 			if err != nil {
-				return []*Inventory{}, err
+				return []PackageDetails{}, err
 			}
 
 			continue
@@ -241,31 +177,32 @@ func parseRequirementsTxt(input *ScanInput, requiredAlready map[string]struct{})
 			continue
 		}
 
-		inv := parseLine(line)
-
-		key := inv.Name + "@" + inv.Version
-		if _, ok := inventories[key]; !ok {
-			inventories[key] = inv
+		detail := parseLine(line)
+		key := detail.Name + "@" + detail.Version
+		if _, ok := packages[key]; !ok {
+			packages[key] = detail
 		}
-
-		d := inventories[key]
-
-		// Metadata will always be DepGroupMetadata, as that is what we construct at the
-		// start of this file
-		existingGroups := d.Metadata.(DepGroups).DepGroups()
-		if !hasGroup(existingGroups) {
-			d.Metadata = DepGroupMetadata{
-				DepGroupVals: append(existingGroups, group),
-			}
-			inventories[key] = d
+		d := packages[key]
+		if !hasGroup(d.DepGroups) {
+			d.DepGroups = append(d.DepGroups, group)
+			packages[key] = d
 		}
 	}
 
 	if err := scanner.Err(); err != nil {
-		return []*Inventory{}, fmt.Errorf("error while scanning %s: %w", input.Path, err)
+		return []PackageDetails{}, fmt.Errorf("error while scanning %s: %w", f.Path(), err)
 	}
 
-	return maps.Values(inventories), nil
+	return maps.Values(packages), nil
 }
 
 var _ Extractor = RequirementsTxtExtractor{}
+
+//nolint:gochecknoinits
+func init() {
+	registerExtractor("requirements.txt", RequirementsTxtExtractor{})
+}
+
+func ParseRequirementsTxt(pathToLockfile string) ([]PackageDetails, error) {
+	return extractFromFile(pathToLockfile, RequirementsTxtExtractor{})
+}

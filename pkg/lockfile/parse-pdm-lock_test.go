@@ -1,232 +1,215 @@
 package lockfile_test
 
 import (
+	"io/fs"
 	"testing"
 
 	"github.com/google/osv-scanner/pkg/lockfile"
 )
 
-func TestPdmExtractor_FileRequired(t *testing.T) {
+func TestPdmExtractor_ShouldExtract(t *testing.T) {
 	t.Parallel()
 
 	tests := []struct {
-		name        string
-		inputConfig ScanInputMockConfig
-		want        bool
+		name string
+		path string
+		want bool
 	}{
 		{
 			name: "empty",
-			inputConfig: ScanInputMockConfig{
-				path: "",
-			},
+			path: "",
 			want: false,
 		},
 		{
 			name: "plain",
-			inputConfig: ScanInputMockConfig{
-				path: "pdm.lock",
-			},
+			path: "pdm.lock",
 			want: true,
 		},
 		{
 			name: "absolute",
-			inputConfig: ScanInputMockConfig{
-				path: "/path/to/pdm.lock",
-			},
+			path: "/path/to/pdm.lock",
 			want: true,
 		},
 		{
 			name: "relative",
-			inputConfig: ScanInputMockConfig{
-				path: "../../pdm.lock",
-			},
+			path: "../../pdm.lock",
 			want: true,
 		},
 		{
 			name: "in-path",
-			inputConfig: ScanInputMockConfig{
-				path: "/path/with/pdm.lock/in/middle",
-			},
+			path: "/path/with/pdm.lock/in/middle",
 			want: false,
 		},
 		{
 			name: "invalid-suffix",
-			inputConfig: ScanInputMockConfig{
-				path: "pdm.lock.file",
-			},
+			path: "pdm.lock.file",
 			want: false,
 		},
 		{
 			name: "invalid-prefix",
-			inputConfig: ScanInputMockConfig{
-				path: "project.name.pdm.lock",
-			},
+			path: "project.name.pdm.lock",
 			want: false,
 		},
 	}
 
-	for _, tt := range tests {
-		tt := tt
-		t.Run(tt.name, func(t *testing.T) {
+	for _, test := range tests {
+		tst := test
+		t.Run(tst.name, func(t *testing.T) {
 			t.Parallel()
-			e := lockfile.PdmLockExtractor{}
-			got := e.FileRequired(tt.inputConfig.path, GenerateFileInfoMock(t, tt.inputConfig))
-			if got != tt.want {
-				t.Errorf("FileRequired(%s, FileInfo) got = %v, want %v", tt.inputConfig.path, got, tt.want)
+			ext := lockfile.PdmLockExtractor{}
+			should := ext.ShouldExtract(tst.path)
+			if should != tst.want {
+				t.Errorf("ShouldExtract() - got %v, expected %v", should, tst.want)
 			}
 		})
 	}
 }
 
-func TestPdmLockExtractor_Extract(t *testing.T) {
+func expectNilErr(t *testing.T, err error) {
+	t.Helper()
+	if err != nil {
+		t.Errorf("got unexpected error: %v", err)
+	}
+}
+
+func TestParsePdmLock_FileDoesNotExist(t *testing.T) {
 	t.Parallel()
 
-	tests := []testTableEntry{
-		{
-			name: "invalid toml",
-			inputConfig: ScanInputMockConfig{
-				path: "fixtures/pdm/not-toml.txt",
-			},
-			wantErrContaining: "could not extract from",
-		},
-		{
-			name: "no packages",
-			inputConfig: ScanInputMockConfig{
-				path: "fixtures/pdm/empty.toml",
-			},
-			wantInventory: []*lockfile.Inventory{},
-		},
-		{
-			name: "single package",
-			inputConfig: ScanInputMockConfig{
-				path: "fixtures/pdm/single-package.toml",
-			},
-			wantInventory: []*lockfile.Inventory{
-				{
-					Name:      "toml",
-					Version:   "0.10.2",
-					Locations: []string{"fixtures/pdm/single-package.toml"},
-					Metadata: lockfile.DepGroupMetadata{
-						DepGroupVals: []string{},
-					},
-				},
-			},
-		},
-		{
-			name: "two packages",
-			inputConfig: ScanInputMockConfig{
-				path: "fixtures/pdm/two-packages.toml",
-			},
-			wantInventory: []*lockfile.Inventory{
-				{
-					Name:      "toml",
-					Version:   "0.10.2",
-					Locations: []string{"fixtures/pdm/two-packages.toml"},
-					Metadata: lockfile.DepGroupMetadata{
-						DepGroupVals: []string{},
-					},
-				},
-				{
-					Name:      "six",
-					Version:   "1.16.0",
-					Locations: []string{"fixtures/pdm/two-packages.toml"},
-					Metadata: lockfile.DepGroupMetadata{
-						DepGroupVals: []string{},
-					},
-				},
-			},
-		},
-		{
-			name: "package with dev dependencies",
-			inputConfig: ScanInputMockConfig{
-				path: "fixtures/pdm/dev-dependency.toml",
-			},
-			wantInventory: []*lockfile.Inventory{
-				{
-					Name:      "toml",
-					Version:   "0.10.2",
-					Locations: []string{"fixtures/pdm/dev-dependency.toml"},
-					Metadata: lockfile.DepGroupMetadata{
-						DepGroupVals: []string{},
-					},
-				},
-				{
-					Name:      "pyroute2",
-					Version:   "0.7.11",
-					Locations: []string{"fixtures/pdm/dev-dependency.toml"},
-					Metadata: lockfile.DepGroupMetadata{
-						DepGroupVals: []string{"dev"},
-					},
-				},
-				{
-					Name:      "win-inet-pton",
-					Version:   "1.1.0",
-					Locations: []string{"fixtures/pdm/dev-dependency.toml"},
-					Metadata: lockfile.DepGroupMetadata{
-						DepGroupVals: []string{"dev"},
-					},
-				},
-			},
-		},
-		{
-			name: "package with optional dependency",
-			inputConfig: ScanInputMockConfig{
-				path: "fixtures/pdm/optional-dependency.toml",
-			},
-			wantInventory: []*lockfile.Inventory{
-				{
-					Name:      "toml",
-					Version:   "0.10.2",
-					Locations: []string{"fixtures/pdm/optional-dependency.toml"},
-					Metadata: lockfile.DepGroupMetadata{
-						DepGroupVals: []string{},
-					},
-				},
-				{
-					Name:      "pyroute2",
-					Version:   "0.7.11",
-					Locations: []string{"fixtures/pdm/optional-dependency.toml"},
-					Metadata: lockfile.DepGroupMetadata{
-						DepGroupVals: []string{"optional"},
-					},
-				},
-				{
-					Name:      "win-inet-pton",
-					Version:   "1.1.0",
-					Locations: []string{"fixtures/pdm/optional-dependency.toml"},
-					Metadata: lockfile.DepGroupMetadata{
-						DepGroupVals: []string{"optional"},
-					},
-				},
-			},
-		},
-		{
-			name: "package with git dependency",
-			inputConfig: ScanInputMockConfig{
-				path: "fixtures/pdm/git-dependency.toml",
-			},
-			wantInventory: []*lockfile.Inventory{
-				{
-					Name:      "toml",
-					Version:   "0.10.2",
-					Locations: []string{"fixtures/pdm/git-dependency.toml"},
-					Metadata: lockfile.DepGroupMetadata{
-						DepGroupVals: []string{},
-					},
-					SourceCode: &lockfile.SourceCodeIdentifier{
-						Commit: "65bab7582ce14c55cdeec2244c65ea23039c9e6f",
-					},
-				},
-			},
-		},
-	}
+	packages, err := lockfile.ParsePdmLock("fixtures/pdm/does-not-exist")
 
-	for _, tt := range tests {
-		tt := tt
-		t.Run(tt.name, func(t *testing.T) {
-			t.Parallel()
-			e := lockfile.PdmLockExtractor{}
-			_, _ = extractionTester(t, e, tt)
-		})
-	}
+	expectErrIs(t, err, fs.ErrNotExist)
+	expectPackages(t, packages, []lockfile.PackageDetails{})
+}
+
+func TestParsePdmLock_InvalidToml(t *testing.T) {
+	t.Parallel()
+
+	packages, err := lockfile.ParsePdmLock("fixtures/pdm/not-toml.txt")
+
+	expectErrContaining(t, err, "could not extract from")
+	expectPackages(t, packages, []lockfile.PackageDetails{})
+}
+
+func TestParsePdmLock_NoPackages(t *testing.T) {
+	t.Parallel()
+
+	packages, err := lockfile.ParsePdmLock("fixtures/pdm/empty.toml")
+
+	expectNilErr(t, err)
+	expectPackages(t, packages, []lockfile.PackageDetails{})
+}
+
+func TestParsePdmLock_SinglePackage(t *testing.T) {
+	t.Parallel()
+
+	packages, err := lockfile.ParsePdmLock("fixtures/pdm/single-package.toml")
+
+	expectNilErr(t, err)
+	expectPackages(t, packages, []lockfile.PackageDetails{
+		{
+			Name:      "toml",
+			Version:   "0.10.2",
+			Ecosystem: lockfile.PdmEcosystem,
+			CompareAs: lockfile.PdmEcosystem,
+		},
+	})
+}
+
+func TestParsePdmLock_TwoPackages(t *testing.T) {
+	t.Parallel()
+
+	packages, err := lockfile.ParsePdmLock("fixtures/pdm/two-packages.toml")
+
+	expectNilErr(t, err)
+	expectPackages(t, packages, []lockfile.PackageDetails{
+		{
+			Name:      "toml",
+			Version:   "0.10.2",
+			Ecosystem: lockfile.PdmEcosystem,
+			CompareAs: lockfile.PdmEcosystem,
+		},
+		{
+			Name:      "six",
+			Version:   "1.16.0",
+			Ecosystem: lockfile.PdmEcosystem,
+			CompareAs: lockfile.PdmEcosystem,
+		},
+	})
+}
+
+func TestParsePdmLock_PackageWithDevDependencies(t *testing.T) {
+	t.Parallel()
+
+	packages, err := lockfile.ParsePdmLock("fixtures/pdm/dev-dependency.toml")
+
+	expectNilErr(t, err)
+	expectPackages(t, packages, []lockfile.PackageDetails{
+		{
+			Name:      "toml",
+			Version:   "0.10.2",
+			Ecosystem: lockfile.PdmEcosystem,
+			CompareAs: lockfile.PdmEcosystem,
+		},
+		{
+			Name:      "pyroute2",
+			Version:   "0.7.11",
+			Ecosystem: lockfile.PdmEcosystem,
+			CompareAs: lockfile.PdmEcosystem,
+			DepGroups: []string{"dev"},
+		},
+		{
+			Name:      "win-inet-pton",
+			Version:   "1.1.0",
+			Ecosystem: lockfile.PdmEcosystem,
+			CompareAs: lockfile.PdmEcosystem,
+			DepGroups: []string{"dev"},
+		},
+	})
+}
+
+func TestParsePdmLock_PackageWithOptionalDependency(t *testing.T) {
+	t.Parallel()
+
+	packages, err := lockfile.ParsePdmLock("fixtures/pdm/optional-dependency.toml")
+
+	expectNilErr(t, err)
+	expectPackages(t, packages, []lockfile.PackageDetails{
+		{
+			Name:      "toml",
+			Version:   "0.10.2",
+			Ecosystem: lockfile.PdmEcosystem,
+			CompareAs: lockfile.PdmEcosystem,
+		},
+		{
+			Name:      "pyroute2",
+			Version:   "0.7.11",
+			Ecosystem: lockfile.PdmEcosystem,
+			CompareAs: lockfile.PdmEcosystem,
+			DepGroups: []string{"optional"},
+		},
+		{
+			Name:      "win-inet-pton",
+			Version:   "1.1.0",
+			Ecosystem: lockfile.PdmEcosystem,
+			CompareAs: lockfile.PdmEcosystem,
+			DepGroups: []string{"optional"},
+		},
+	})
+}
+
+func TestParsePdmLock_PackageWithGitDependency(t *testing.T) {
+	t.Parallel()
+
+	packages, err := lockfile.ParsePdmLock("fixtures/pdm/git-dependency.toml")
+
+	expectNilErr(t, err)
+	expectPackages(t, packages, []lockfile.PackageDetails{
+		{
+			Name:      "toml",
+			Version:   "0.10.2",
+			Ecosystem: lockfile.PdmEcosystem,
+			CompareAs: lockfile.PdmEcosystem,
+			Commit:    "65bab7582ce14c55cdeec2244c65ea23039c9e6f",
+		},
+	})
 }

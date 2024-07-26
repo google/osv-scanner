@@ -1,17 +1,14 @@
 package lockfile_test
 
 import (
-	"context"
 	"errors"
 	"fmt"
-	"io/fs"
 	"os"
-	"path/filepath"
+	"reflect"
 	"strings"
 	"testing"
-	"time"
 
-	"github.com/google/go-cmp/cmp"
+	"github.com/google/osv-scanner/internal/output"
 	"github.com/google/osv-scanner/pkg/lockfile"
 )
 
@@ -20,7 +17,6 @@ func expectErrContaining(t *testing.T, err error, str string) {
 
 	if err == nil {
 		t.Errorf("Expected to get error, but did not")
-		return
 	}
 
 	if !strings.Contains(err.Error(), str) {
@@ -33,7 +29,6 @@ func expectErrIs(t *testing.T, err error, expected error) {
 
 	if err == nil {
 		t.Errorf("Expected to get error, but did not")
-		return
 	}
 
 	if !errors.Is(err, expected) {
@@ -41,32 +36,27 @@ func expectErrIs(t *testing.T, err error, expected error) {
 	}
 }
 
-func packageToString(pkg *lockfile.Inventory) string {
-	source := pkg.SourceCode
-	commit := "<no commit>"
-	if source != nil && source.Commit != "" {
-		commit = source.Commit
+func packageToString(pkg lockfile.PackageDetails) string {
+	commit := pkg.Commit
+
+	if commit == "" {
+		commit = "<no commit>"
 	}
 
-	groups := "<no groups>"
-	if dg, ok := pkg.Metadata.(lockfile.DepGroups); ok {
-		if depGroups := dg.DepGroups(); len(depGroups) != 0 {
-			groups = strings.Join(dg.DepGroups(), "/")
-		}
+	groups := strings.Join(pkg.DepGroups, ", ")
+
+	if groups == "" {
+		groups = "<no groups>"
 	}
 
-	locations := strings.Join(pkg.Locations, ", ")
-
-	return fmt.Sprintf("%s@%s (%s, %s, %s) @ [%s]", pkg.Name, pkg.Version, ecosystemOrEmpty(pkg), commit, groups, locations)
+	return fmt.Sprintf("%s@%s (%s, %s, %s)", pkg.Name, pkg.Version, pkg.Ecosystem, commit, groups)
 }
 
-func hasPackage(t *testing.T, packages []*lockfile.Inventory, pkg *lockfile.Inventory) bool {
+func hasPackage(t *testing.T, packages []lockfile.PackageDetails, pkg lockfile.PackageDetails) bool {
 	t.Helper()
 
 	for _, details := range packages {
-		// _test := cmp.Diff(details, pkg)
-		// println(_test)
-		if cmp.Equal(details, pkg) {
+		if reflect.DeepEqual(details, pkg) {
 			return true
 		}
 	}
@@ -74,22 +64,23 @@ func hasPackage(t *testing.T, packages []*lockfile.Inventory, pkg *lockfile.Inve
 	return false
 }
 
-func expectPackage(t *testing.T, packages []*lockfile.Inventory, pkg *lockfile.Inventory) {
+func expectPackage(t *testing.T, packages []lockfile.PackageDetails, pkg lockfile.PackageDetails) {
 	t.Helper()
 
 	if !hasPackage(t, packages, pkg) {
 		t.Errorf(
-			"Expected packages to include %s@%s (%s), but it did not",
+			"Expected packages to include %s@%s (%s, %s), but it did not",
 			pkg.Name,
 			pkg.Version,
-			ecosystemOrEmpty(pkg),
+			pkg.Ecosystem,
+			pkg.CompareAs,
 		)
 	}
 }
 
-func findMissingPackages(t *testing.T, actualPackages []*lockfile.Inventory, expectedPackages []*lockfile.Inventory) []*lockfile.Inventory {
+func findMissingPackages(t *testing.T, actualPackages []lockfile.PackageDetails, expectedPackages []lockfile.PackageDetails) []lockfile.PackageDetails {
 	t.Helper()
-	var missingPackages []*lockfile.Inventory
+	var missingPackages []lockfile.PackageDetails
 
 	for _, pkg := range actualPackages {
 		if !hasPackage(t, expectedPackages, pkg) {
@@ -100,20 +91,20 @@ func findMissingPackages(t *testing.T, actualPackages []*lockfile.Inventory, exp
 	return missingPackages
 }
 
-func expectPackages(t *testing.T, actualInventories []*lockfile.Inventory, expectedInventories []*lockfile.Inventory) {
+func expectPackages(t *testing.T, actualPackages []lockfile.PackageDetails, expectedPackages []lockfile.PackageDetails) {
 	t.Helper()
 
-	if len(expectedInventories) != len(actualInventories) {
+	if len(expectedPackages) != len(actualPackages) {
 		t.Errorf(
 			"Expected to get %d %s, but got %d",
-			len(expectedInventories),
-			Form(len(expectedInventories), "package", "packages"),
-			len(actualInventories),
+			len(expectedPackages),
+			output.Form(len(expectedPackages), "package", "packages"),
+			len(actualPackages),
 		)
 	}
 
-	missingActualPackages := findMissingPackages(t, actualInventories, expectedInventories)
-	missingExpectedPackages := findMissingPackages(t, expectedInventories, actualInventories)
+	missingActualPackages := findMissingPackages(t, actualPackages, expectedPackages)
+	missingExpectedPackages := findMissingPackages(t, expectedPackages, actualPackages)
 
 	if len(missingActualPackages) != 0 {
 		for _, unexpectedPackage := range missingActualPackages {
@@ -123,7 +114,7 @@ func expectPackages(t *testing.T, actualInventories []*lockfile.Inventory, expec
 
 	if len(missingExpectedPackages) != 0 {
 		for _, unexpectedPackage := range missingExpectedPackages {
-			t.Errorf("Did not find   %s", packageToString(unexpectedPackage))
+			t.Errorf("Did not find %s", packageToString(unexpectedPackage))
 		}
 	}
 }
@@ -154,172 +145,4 @@ func copyFile(t *testing.T, from, to string) string {
 	}
 
 	return to
-}
-
-func ecosystemOrEmpty(pkg *lockfile.Inventory) string {
-	ecosystem, err := pkg.Ecosystem()
-	if err != nil {
-		ecosystem = ""
-	}
-	return ecosystem
-}
-
-// ---
-
-// FakeFileInfo is a fake implementation of fs.FileInfo.
-type FakeFileInfo struct {
-	FileName    string
-	FileSize    int64
-	FileMode    fs.FileMode
-	FileModTime time.Time
-}
-
-// Name returns the name of the file.
-func (i FakeFileInfo) Name() string {
-	return i.FileName
-}
-
-// Size returns the size of the file.
-func (i FakeFileInfo) Size() int64 {
-	return i.FileSize
-}
-
-// Mode returns the mode of the file.
-func (i FakeFileInfo) Mode() fs.FileMode {
-	return i.FileMode
-}
-
-// ModTime returns the modification time of the file.
-func (i FakeFileInfo) ModTime() time.Time {
-	return i.FileModTime
-}
-
-// IsDir returns true if the file is a directory.
-func (i FakeFileInfo) IsDir() bool {
-	return i.FileMode.IsDir()
-}
-
-// Sys is an implementation of FileInfo.Sys() that returns nothing (nil).
-func (i FakeFileInfo) Sys() any {
-	return nil
-}
-
-// -----
-
-type ScanInputMockConfig struct {
-	path string
-	// fakeScanRoot allows you to set a custom scanRoot, can be relative or absolute,
-	// and will be translated to an absolute path
-	fakeScanRoot string
-	fakeFileInfo *FakeFileInfo
-}
-
-type ScanInputWrapper struct {
-	fileHandle *os.File
-	ScanInput  lockfile.ScanInput
-}
-
-func (siw ScanInputWrapper) Close() {
-	siw.fileHandle.Close()
-}
-
-// Generate FileInfoMock will either use the fake file information if fakeFileInfo is true,
-// otherwise try to run os.Stat on the path passed in and fail if the file does not exist
-func GenerateFileInfoMock(t *testing.T, config ScanInputMockConfig) fs.FileInfo {
-	if config.fakeFileInfo != nil {
-		ret := *config.fakeFileInfo
-		ret.FileName = filepath.Base(config.path)
-		return ret
-	} else {
-		fileInfo, err := os.Stat(config.path)
-		// It is intended that sometimes the config points to a path that does not exist
-		// fileInfo will be nil in those cases
-		if err != nil && !errors.Is(err, os.ErrNotExist) {
-			t.Fatalf("Can't stat test fixture '%s' because '%s'", config.path, err)
-		}
-		return fileInfo
-	}
-}
-
-// GenerateScanInputMock will try to open the file locally, and fail if the file doesn't exist
-func GenerateScanInputMock(t *testing.T, config ScanInputMockConfig) ScanInputWrapper {
-	var scanRoot string
-	if filepath.IsAbs(config.fakeScanRoot) {
-		scanRoot = config.fakeScanRoot
-	} else {
-		workingDir, err := os.Getwd()
-		if err != nil {
-			t.Fatalf("Can't get working directory because '%s'", workingDir)
-		}
-		scanRoot = filepath.Join(workingDir, config.fakeScanRoot)
-	}
-
-	f, err := os.Open(filepath.Join(scanRoot, config.path))
-	if err != nil {
-		t.Fatalf("Can't open test fixture '%s' because '%s'", config.path, err)
-	}
-	info, err := f.Stat()
-	if err != nil {
-		t.Fatalf("Can't stat test fixture '%s' because '%s'", config.path, err)
-	}
-
-	return ScanInputWrapper{
-		fileHandle: f,
-		ScanInput: lockfile.ScanInput{
-			FS:       os.DirFS(scanRoot).(lockfile.FS),
-			Path:     filepath.Join(config.path),
-			ScanRoot: scanRoot,
-			Reader:   f,
-			Info:     info,
-		},
-	}
-}
-
-func fillExtractorField(pkgs []*lockfile.Inventory, extractor lockfile.Extractor) {
-	for i := range pkgs {
-		pkgs[i].Extractor = extractor
-	}
-}
-
-// Form returns the singular or plural form that should be used based on the given count
-func Form(count int, singular, plural string) string {
-	if count == 1 {
-		return singular
-	}
-
-	return plural
-}
-
-type testTableEntry struct {
-	name              string
-	inputConfig       ScanInputMockConfig
-	wantInventory     []*lockfile.Inventory
-	wantErrIs         error
-	wantErrContaining string
-}
-
-// extractionTester tests common properties of a extractor, and returns the raw values from running extract
-func extractionTester(t *testing.T, extractor lockfile.Extractor, tt testTableEntry) ([]*lockfile.Inventory, error) {
-	t.Helper()
-
-	wrapper := GenerateScanInputMock(t, tt.inputConfig)
-	got, err := extractor.Extract(context.Background(), &wrapper.ScanInput)
-	wrapper.Close()
-	if tt.wantErrIs != nil {
-		expectErrIs(t, err, tt.wantErrIs)
-	}
-	if tt.wantErrContaining != "" {
-		expectErrContaining(t, err, tt.wantErrContaining)
-	}
-
-	if tt.wantErrContaining == "" && tt.wantErrIs == nil && err != nil {
-		t.Errorf("Got error when expecting none: '%s'", err)
-	} else {
-		fillExtractorField(got, extractor)
-		fillExtractorField(tt.wantInventory, extractor)
-
-		expectPackages(t, got, tt.wantInventory)
-	}
-
-	return got, err
 }

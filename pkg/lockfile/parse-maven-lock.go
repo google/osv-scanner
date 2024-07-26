@@ -1,16 +1,13 @@
 package lockfile
 
 import (
-	"context"
 	"encoding/xml"
 	"fmt"
-	"io/fs"
 	"os"
 	"path/filepath"
 	"strings"
 
 	"github.com/google/osv-scanner/internal/cachedregexp"
-	"github.com/package-url/packageurl-go"
 	"golang.org/x/exp/maps"
 )
 
@@ -109,46 +106,32 @@ func (p *MavenLockProperties) UnmarshalXML(d *xml.Decoder, start xml.StartElemen
 
 type MavenLockExtractor struct{}
 
-// Name of the extractor
-func (e MavenLockExtractor) Name() string { return "java/pomxml" }
-
-// Version of the extractor
-func (e MavenLockExtractor) Version() int { return 0 }
-
-func (e MavenLockExtractor) Requirements() Requirements {
-	return Requirements{}
-}
-
-func (e MavenLockExtractor) FileRequired(path string, fileInfo fs.FileInfo) bool {
+func (e MavenLockExtractor) ShouldExtract(path string) bool {
 	return filepath.Base(path) == "pom.xml"
 }
 
-func (e MavenLockExtractor) Extract(ctx context.Context, input *ScanInput) ([]*Inventory, error) {
+func (e MavenLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 	var parsedLockfile *MavenLockFile
 
-	err := xml.NewDecoder(input.Reader).Decode(&parsedLockfile)
+	err := xml.NewDecoder(f).Decode(&parsedLockfile)
 
 	if err != nil {
-		return []*Inventory{}, fmt.Errorf("could not extract from %s: %w", input.Path, err)
+		return []PackageDetails{}, fmt.Errorf("could not extract from %s: %w", f.Path(), err)
 	}
 
-	details := map[string]*Inventory{}
+	details := map[string]PackageDetails{}
 
 	for _, lockPackage := range parsedLockfile.ManagedDependencies {
 		finalName := lockPackage.GroupID + ":" + lockPackage.ArtifactID
-		pkgDetails := &Inventory{
+		pkgDetails := PackageDetails{
 			Name:      finalName,
 			Version:   lockPackage.ResolveVersion(*parsedLockfile),
-			Locations: []string{input.Path},
-			Metadata: DepGroupMetadata{
-				DepGroupVals: []string{},
-			},
+			Ecosystem: MavenEcosystem,
+			CompareAs: MavenEcosystem,
 		}
 		if scope := strings.TrimSpace(lockPackage.Scope); scope != "" && scope != "compile" {
 			// Only append non-default scope (compile is the default scope).
-			pkgDetails.Metadata = DepGroupMetadata{
-				DepGroupVals: []string{scope},
-			}
+			pkgDetails.DepGroups = append(pkgDetails.DepGroups, scope)
 		}
 		details[finalName] = pkgDetails
 	}
@@ -157,19 +140,15 @@ func (e MavenLockExtractor) Extract(ctx context.Context, input *ScanInput) ([]*I
 	for _, lockPackage := range parsedLockfile.Dependencies {
 		finalName := lockPackage.GroupID + ":" + lockPackage.ArtifactID
 
-		pkgDetails := &Inventory{
+		pkgDetails := PackageDetails{
 			Name:      finalName,
 			Version:   lockPackage.ResolveVersion(*parsedLockfile),
-			Locations: []string{input.Path},
-			Metadata: DepGroupMetadata{
-				DepGroupVals: []string{},
-			},
+			Ecosystem: MavenEcosystem,
+			CompareAs: MavenEcosystem,
 		}
 		if scope := strings.TrimSpace(lockPackage.Scope); scope != "" && scope != "compile" {
 			// Only append non-default scope (compile is the default scope).
-			pkgDetails.Metadata = DepGroupMetadata{
-				DepGroupVals: []string{scope},
-			}
+			pkgDetails.DepGroups = append(pkgDetails.DepGroups, scope)
 		}
 		details[finalName] = pkgDetails
 	}
@@ -177,25 +156,13 @@ func (e MavenLockExtractor) Extract(ctx context.Context, input *ScanInput) ([]*I
 	return maps.Values(details), nil
 }
 
-// ToPURL converts an inventory created by this extractor into a PURL.
-func (e MavenLockExtractor) ToPURL(i *Inventory) (*packageurl.PackageURL, error) {
-	return &packageurl.PackageURL{
-		Type:    packageurl.TypeMaven,
-		Name:    i.Name,
-		Version: i.Version,
-	}, nil
-}
-
-// ToCPEs is not applicable as this extractor does not infer CPEs from the Inventory.
-func (e MavenLockExtractor) ToCPEs(i *Inventory) ([]string, error) { return []string{}, nil }
-
-func (e MavenLockExtractor) Ecosystem(i *Inventory) (string, error) {
-	switch i.Extractor.(type) {
-	case MavenLockExtractor:
-		return string(MavenEcosystem), nil
-	default:
-		return "", ErrWrongExtractor
-	}
-}
-
 var _ Extractor = MavenLockExtractor{}
+
+//nolint:gochecknoinits
+func init() {
+	registerExtractor("pom.xml", MavenLockExtractor{})
+}
+
+func ParseMavenLock(pathToLockfile string) ([]PackageDetails, error) {
+	return extractFromFile(pathToLockfile, MavenLockExtractor{})
+}

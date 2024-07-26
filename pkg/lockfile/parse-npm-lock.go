@@ -1,15 +1,12 @@
 package lockfile
 
 import (
-	"context"
 	"encoding/json"
 	"fmt"
-	"io/fs"
 	"path"
 	"path/filepath"
 	"strings"
 
-	"github.com/package-url/packageurl-go"
 	"golang.org/x/exp/maps"
 	"golang.org/x/exp/slices"
 )
@@ -141,6 +138,8 @@ func parseNpmLockDependencies(dependencies map[string]NpmLockDependency) map[str
 		details.add(name+"@"+version, PackageDetails{
 			Name:      name,
 			Version:   finalVersion,
+			Ecosystem: NpmEcosystem,
+			CompareAs: NpmEcosystem,
 			Commit:    commit,
 			DepGroups: detail.depGroups(),
 		})
@@ -200,6 +199,8 @@ func parseNpmLockPackages(packages map[string]NpmLockPackage) map[string]Package
 		details.add(finalName+"@"+finalVersion, PackageDetails{
 			Name:      finalName,
 			Version:   detail.Version,
+			Ecosystem: NpmEcosystem,
+			CompareAs: NpmEcosystem,
 			Commit:    commit,
 			DepGroups: detail.depGroups(),
 		})
@@ -218,72 +219,29 @@ func parseNpmLock(lockfile NpmLockfile) map[string]PackageDetails {
 
 type NpmLockExtractor struct{}
 
-// Name of the extractor
-func (e NpmLockExtractor) Name() string { return "javascript/packagelockjson" }
-
-// Version of the extractor
-func (e NpmLockExtractor) Version() int { return 0 }
-
-func (e NpmLockExtractor) Requirements() Requirements {
-	return Requirements{}
-}
-
-func (e NpmLockExtractor) FileRequired(path string, fileInfo fs.FileInfo) bool {
+func (e NpmLockExtractor) ShouldExtract(path string) bool {
 	return filepath.Base(path) == "package-lock.json"
 }
 
-func (e NpmLockExtractor) Extract(ctx context.Context, input *ScanInput) ([]*Inventory, error) {
+func (e NpmLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 	var parsedLockfile *NpmLockfile
 
-	err := json.NewDecoder(input.Reader).Decode(&parsedLockfile)
+	err := json.NewDecoder(f).Decode(&parsedLockfile)
 
 	if err != nil {
-		return []*Inventory{}, fmt.Errorf("could not extract from %s: %w", input.Path, err)
+		return []PackageDetails{}, fmt.Errorf("could not extract from %s: %w", f.Path(), err)
 	}
 
-	packages := maps.Values(parseNpmLock(*parsedLockfile))
-	inventories := make([]*Inventory, len(packages))
-
-	for i, pkg := range packages {
-		if pkg.DepGroups == nil {
-			pkg.DepGroups = []string{}
-		}
-
-		inventories[i] = &Inventory{
-			Name: pkg.Name,
-			SourceCode: &SourceCodeIdentifier{
-				Commit: pkg.Commit,
-			},
-			Version: pkg.Version,
-			Metadata: DepGroupMetadata{
-				DepGroupVals: pkg.DepGroups,
-			},
-			Locations: []string{input.Path},
-		}
-	}
-
-	return inventories, nil
-}
-
-// ToPURL converts an inventory created by this extractor into a PURL.
-func (e NpmLockExtractor) ToPURL(i *Inventory) (*packageurl.PackageURL, error) {
-	return &packageurl.PackageURL{
-		Type:    packageurl.TypeNPM,
-		Name:    i.Name,
-		Version: i.Version,
-	}, nil
-}
-
-// ToCPEs is not applicable as this extractor does not infer CPEs from the Inventory.
-func (e NpmLockExtractor) ToCPEs(i *Inventory) ([]string, error) { return []string{}, nil }
-
-func (e NpmLockExtractor) Ecosystem(i *Inventory) (string, error) {
-	switch i.Extractor.(type) {
-	case NpmLockExtractor:
-		return string(NpmEcosystem), nil
-	default:
-		return "", ErrWrongExtractor
-	}
+	return maps.Values(parseNpmLock(*parsedLockfile)), nil
 }
 
 var _ Extractor = NpmLockExtractor{}
+
+//nolint:gochecknoinits
+func init() {
+	registerExtractor("package-lock.json", NpmLockExtractor{})
+}
+
+func ParseNpmLock(pathToLockfile string) ([]PackageDetails, error) {
+	return extractFromFile(pathToLockfile, NpmLockExtractor{})
+}

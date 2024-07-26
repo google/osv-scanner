@@ -6,54 +6,42 @@ import (
 	"github.com/google/osv-scanner/pkg/lockfile"
 )
 
-func TestNpmLockExtractor_FileRequired(t *testing.T) {
+func TestNpmLockExtractor_ShouldExtract(t *testing.T) {
 	t.Parallel()
 
 	tests := []struct {
-		name        string
-		inputConfig ScanInputMockConfig
-		want        bool
+		name string
+		path string
+		want bool
 	}{
 		{
 			name: "",
-			inputConfig: ScanInputMockConfig{
-				path: "",
-			},
+			path: "",
 			want: false,
 		},
 		{
 			name: "",
-			inputConfig: ScanInputMockConfig{
-				path: "package-lock.json",
-			},
+			path: "package-lock.json",
 			want: true,
 		},
 		{
 			name: "",
-			inputConfig: ScanInputMockConfig{
-				path: "path/to/my/package-lock.json",
-			},
+			path: "path/to/my/package-lock.json",
 			want: true,
 		},
 		{
 			name: "",
-			inputConfig: ScanInputMockConfig{
-				path: "path/to/my/package-lock.json/file",
-			},
+			path: "path/to/my/package-lock.json/file",
 			want: false,
 		},
 		{
 			name: "",
-			inputConfig: ScanInputMockConfig{
-				path: "path/to/my/package-lock.json.file",
-			},
+			path: "path/to/my/package-lock.json.file",
 			want: false,
 		},
 		{
 			name: "",
-			inputConfig: ScanInputMockConfig{
-				path: "path.to.my.package-lock.json",
-			},
+			path: "path.to.my.package-lock.json",
 			want: false,
 		},
 	}
@@ -62,9 +50,9 @@ func TestNpmLockExtractor_FileRequired(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
 			e := lockfile.NpmLockExtractor{}
-			got := e.FileRequired(tt.inputConfig.path, GenerateFileInfoMock(t, tt.inputConfig))
+			got := e.ShouldExtract(tt.path)
 			if got != tt.want {
-				t.Errorf("FileRequired(%s, FileInfo) got = %v, want %v", tt.inputConfig.path, got, tt.want)
+				t.Errorf("Extract() got = %v, want %v", got, tt.want)
 			}
 		})
 	}
