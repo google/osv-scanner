@@ -1,0 +1,10 @@
+##
+## Comments
+##
+
+org.springframework.boot:spring-boot-autoconfigure:2.7.4=compileClasspath,developmentOnly,productionRuntimeClasspath,runtimeClasspath
+org.springframework.boot:spring-boot-configuration-processor:2.7.5=annotationProcessor,compileClasspath
+org.springframework.boot:spring-boot-devtools:2.7.6=developmentOnly,runtimeClasspath
+org.springframework.boot:spring-boot-starter-aop:2.7.7=compileClasspath,productionRuntimeClasspath,runtimeClasspath
+org.springframework.boot:spring-boot-starter-data-jpa:2.7.8=compileClasspath,productionRuntimeClasspath,runtimeClasspath
+empty=
