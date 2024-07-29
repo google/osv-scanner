@@ -18,42 +18,42 @@ func TestComposerLockExtractor_FileRequired(t *testing.T) {
 		{
 			name: "",
 			inputConfig: ScanInputMockConfig{
-				path: "",
+				Path: "",
 			},
 			want: false,
 		},
 		{
 			name: "",
 			inputConfig: ScanInputMockConfig{
-				path: "composer.lock",
+				Path: "composer.lock",
 			},
 			want: true,
 		},
 		{
 			name: "",
 			inputConfig: ScanInputMockConfig{
-				path: "path/to/my/composer.lock",
+				Path: "path/to/my/composer.lock",
 			},
 			want: true,
 		},
 		{
 			name: "",
 			inputConfig: ScanInputMockConfig{
-				path: "path/to/my/composer.lock/file",
+				Path: "path/to/my/composer.lock/file",
 			},
 			want: false,
 		},
 		{
 			name: "",
 			inputConfig: ScanInputMockConfig{
-				path: "path/to/my/composer.lock.file",
+				Path: "path/to/my/composer.lock.file",
 			},
 			want: false,
 		},
 		{
 			name: "",
 			inputConfig: ScanInputMockConfig{
-				path: "path.to.my.composer.lock",
+				Path: "path.to.my.composer.lock",
 			},
 			want: false,
 		},
@@ -63,9 +63,9 @@ func TestComposerLockExtractor_FileRequired(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
 			e := lockfilescalibr.ComposerLockExtractor{}
-			got := e.FileRequired(tt.inputConfig.path, GenerateFileInfoMock(t, tt.inputConfig))
+			got := e.FileRequired(tt.inputConfig.Path, GenerateFileInfoMock(t, tt.inputConfig))
 			if got != tt.want {
-				t.Errorf("FileRequired(%s, FileInfo) got = %v, want %v", tt.inputConfig.path, got, tt.want)
+				t.Errorf("FileRequired(%s, FileInfo) got = %v, want %v", tt.inputConfig.Path, got, tt.want)
 			}
 		})
 	}
@@ -74,27 +74,27 @@ func TestComposerLockExtractor_FileRequired(t *testing.T) {
 func TestComposerLockExtractor_Extract(t *testing.T) {
 	t.Parallel()
 
-	tests := []testTableEntry{
+	tests := []TestTableEntry{
 		{
-			name: "invalid json",
-			inputConfig: ScanInputMockConfig{
-				path: "fixtures/composer/not-json.txt",
+			Name: "invalid json",
+			InputConfig: ScanInputMockConfig{
+				Path: "fixtures/composer/not-json.txt",
 			},
-			wantErrContaining: "could not extract from",
+			WantErrContaining: "could not extract from",
 		},
 		{
-			name: "no packages",
-			inputConfig: ScanInputMockConfig{
-				path: "fixtures/composer/empty.json",
+			Name: "no packages",
+			InputConfig: ScanInputMockConfig{
+				Path: "fixtures/composer/empty.json",
 			},
-			wantInventory: []*extractor.Inventory{},
+			WantInventory: []*extractor.Inventory{},
 		},
 		{
-			name: "one package",
-			inputConfig: ScanInputMockConfig{
-				path: "fixtures/composer/one-package.json",
+			Name: "one package",
+			InputConfig: ScanInputMockConfig{
+				Path: "fixtures/composer/one-package.json",
 			},
-			wantInventory: []*extractor.Inventory{
+			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "sentry/sdk",
 					Version:   "2.0.4",
@@ -109,11 +109,11 @@ func TestComposerLockExtractor_Extract(t *testing.T) {
 			},
 		},
 		{
-			name: "one package dev",
-			inputConfig: ScanInputMockConfig{
-				path: "fixtures/composer/one-package-dev.json",
+			Name: "one package dev",
+			InputConfig: ScanInputMockConfig{
+				Path: "fixtures/composer/one-package-dev.json",
 			},
-			wantInventory: []*extractor.Inventory{
+			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "sentry/sdk",
 					Version:   "2.0.4",
@@ -128,11 +128,11 @@ func TestComposerLockExtractor_Extract(t *testing.T) {
 			},
 		},
 		{
-			name: "two packages",
-			inputConfig: ScanInputMockConfig{
-				path: "fixtures/composer/two-packages.json",
+			Name: "two packages",
+			InputConfig: ScanInputMockConfig{
+				Path: "fixtures/composer/two-packages.json",
 			},
-			wantInventory: []*extractor.Inventory{
+			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "sentry/sdk",
 					Version:   "2.0.4",
@@ -158,11 +158,11 @@ func TestComposerLockExtractor_Extract(t *testing.T) {
 			},
 		},
 		{
-			name: "two packages alt",
-			inputConfig: ScanInputMockConfig{
-				path: "fixtures/composer/two-packages-alt.json",
+			Name: "two packages alt",
+			InputConfig: ScanInputMockConfig{
+				Path: "fixtures/composer/two-packages-alt.json",
 			},
-			wantInventory: []*extractor.Inventory{
+			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "sentry/sdk",
 					Version:   "2.0.4",
@@ -191,10 +191,10 @@ func TestComposerLockExtractor_Extract(t *testing.T) {
 
 	for _, tt := range tests {
 		tt := tt
-		t.Run(tt.name, func(t *testing.T) {
+		t.Run(tt.Name, func(t *testing.T) {
 			t.Parallel()
 			e := lockfilescalibr.ComposerLockExtractor{}
-			_, _ = extractionTester(t, e, tt)
+			_, _ = ExtractionTester(t, e, tt)
 		})
 	}
 }

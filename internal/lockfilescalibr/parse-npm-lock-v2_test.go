@@ -10,27 +10,27 @@ import (
 func TestNPMLockExtractor_Extract_V2(t *testing.T) {
 	t.Parallel()
 
-	tests := []testTableEntry{
+	tests := []TestTableEntry{
 		{
-			name: "invalid json",
-			inputConfig: ScanInputMockConfig{
-				path: "fixtures/npm/not-json.txt",
+			Name: "invalid json",
+			InputConfig: ScanInputMockConfig{
+				Path: "fixtures/npm/not-json.txt",
 			},
-			wantErrContaining: "could not extract from",
+			WantErrContaining: "could not extract from",
 		},
 		{
-			name: "no packages",
-			inputConfig: ScanInputMockConfig{
-				path: "fixtures/npm/empty.v2.json",
+			Name: "no packages",
+			InputConfig: ScanInputMockConfig{
+				Path: "fixtures/npm/empty.v2.json",
 			},
-			wantInventory: []*extractor.Inventory{},
+			WantInventory: []*extractor.Inventory{},
 		},
 		{
-			name: "one package",
-			inputConfig: ScanInputMockConfig{
-				path: "fixtures/npm/one-package.v2.json",
+			Name: "one package",
+			InputConfig: ScanInputMockConfig{
+				Path: "fixtures/npm/one-package.v2.json",
 			},
-			wantInventory: []*extractor.Inventory{
+			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "wrappy",
 					Version:   "1.0.2",
@@ -45,11 +45,11 @@ func TestNPMLockExtractor_Extract_V2(t *testing.T) {
 			},
 		},
 		{
-			name: "one package dev",
-			inputConfig: ScanInputMockConfig{
-				path: "fixtures/npm/one-package-dev.v2.json",
+			Name: "one package dev",
+			InputConfig: ScanInputMockConfig{
+				Path: "fixtures/npm/one-package-dev.v2.json",
 			},
-			wantInventory: []*extractor.Inventory{
+			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "wrappy",
 					Version:   "1.0.2",
@@ -64,11 +64,11 @@ func TestNPMLockExtractor_Extract_V2(t *testing.T) {
 			},
 		},
 		{
-			name: "two packages",
-			inputConfig: ScanInputMockConfig{
-				path: "fixtures/npm/two-packages.v2.json",
+			Name: "two packages",
+			InputConfig: ScanInputMockConfig{
+				Path: "fixtures/npm/two-packages.v2.json",
 			},
-			wantInventory: []*extractor.Inventory{
+			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "wrappy",
 					Version:   "1.0.2",
@@ -94,11 +94,11 @@ func TestNPMLockExtractor_Extract_V2(t *testing.T) {
 			},
 		},
 		{
-			name: "scoped packages",
-			inputConfig: ScanInputMockConfig{
-				path: "fixtures/npm/scoped-packages.v2.json",
+			Name: "scoped packages",
+			InputConfig: ScanInputMockConfig{
+				Path: "fixtures/npm/scoped-packages.v2.json",
 			},
-			wantInventory: []*extractor.Inventory{
+			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "wrappy",
 					Version:   "1.0.2",
@@ -124,11 +124,11 @@ func TestNPMLockExtractor_Extract_V2(t *testing.T) {
 			},
 		},
 		{
-			name: "nested dependencies",
-			inputConfig: ScanInputMockConfig{
-				path: "fixtures/npm/nested-dependencies.v2.json",
+			Name: "nested dependencies",
+			InputConfig: ScanInputMockConfig{
+				Path: "fixtures/npm/nested-dependencies.v2.json",
 			},
-			wantInventory: []*extractor.Inventory{
+			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "postcss",
 					Version:   "6.0.23",
@@ -187,11 +187,11 @@ func TestNPMLockExtractor_Extract_V2(t *testing.T) {
 			},
 		},
 		{
-			name: "nested dependencies dup",
-			inputConfig: ScanInputMockConfig{
-				path: "fixtures/npm/nested-dependencies-dup.v2.json",
+			Name: "nested dependencies dup",
+			InputConfig: ScanInputMockConfig{
+				Path: "fixtures/npm/nested-dependencies-dup.v2.json",
 			},
-			wantInventory: []*extractor.Inventory{
+			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "supports-color",
 					Version:   "6.1.0",
@@ -217,11 +217,11 @@ func TestNPMLockExtractor_Extract_V2(t *testing.T) {
 			},
 		},
 		{
-			name: "commits",
-			inputConfig: ScanInputMockConfig{
-				path: "fixtures/npm/commits.v2.json",
+			Name: "commits",
+			InputConfig: ScanInputMockConfig{
+				Path: "fixtures/npm/commits.v2.json",
 			},
-			wantInventory: []*extractor.Inventory{
+			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "@segment/analytics.js-integration-facebook-pixel",
 					Version:   "2.4.1",
@@ -379,11 +379,11 @@ func TestNPMLockExtractor_Extract_V2(t *testing.T) {
 			},
 		},
 		{
-			name: "files",
-			inputConfig: ScanInputMockConfig{
-				path: "fixtures/npm/files.v2.json",
+			Name: "files",
+			InputConfig: ScanInputMockConfig{
+				Path: "fixtures/npm/files.v2.json",
 			},
-			wantInventory: []*extractor.Inventory{
+			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "etag",
 					Version:   "1.8.0",
@@ -420,11 +420,11 @@ func TestNPMLockExtractor_Extract_V2(t *testing.T) {
 			},
 		},
 		{
-			name: "alias",
-			inputConfig: ScanInputMockConfig{
-				path: "fixtures/npm/alias.v2.json",
+			Name: "alias",
+			InputConfig: ScanInputMockConfig{
+				Path: "fixtures/npm/alias.v2.json",
 			},
-			wantInventory: []*extractor.Inventory{
+			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "@babel/code-frame",
 					Version:   "7.0.0",
@@ -461,11 +461,11 @@ func TestNPMLockExtractor_Extract_V2(t *testing.T) {
 			},
 		},
 		{
-			name: "optional package",
-			inputConfig: ScanInputMockConfig{
-				path: "fixtures/npm/optional-package.v2.json",
+			Name: "optional package",
+			InputConfig: ScanInputMockConfig{
+				Path: "fixtures/npm/optional-package.v2.json",
 			},
-			wantInventory: []*extractor.Inventory{
+			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "wrappy",
 					Version:   "1.0.2",
@@ -491,11 +491,11 @@ func TestNPMLockExtractor_Extract_V2(t *testing.T) {
 			},
 		},
 		{
-			name: "same package different groups",
-			inputConfig: ScanInputMockConfig{
-				path: "fixtures/npm/same-package-different-groups.v2.json",
+			Name: "same package different groups",
+			InputConfig: ScanInputMockConfig{
+				Path: "fixtures/npm/same-package-different-groups.v2.json",
 			},
-			wantInventory: []*extractor.Inventory{
+			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "eslint",
 					Version:   "1.2.3",
@@ -535,10 +535,10 @@ func TestNPMLockExtractor_Extract_V2(t *testing.T) {
 
 	for _, tt := range tests {
 		tt := tt
-		t.Run(tt.name, func(t *testing.T) {
+		t.Run(tt.Name, func(t *testing.T) {
 			t.Parallel()
 			e := lockfilescalibr.NpmLockExtractor{}
-			_, _ = extractionTester(t, e, tt)
+			_, _ = ExtractionTester(t, e, tt)
 		})
 	}
 }

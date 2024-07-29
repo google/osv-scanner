@@ -18,42 +18,42 @@ func TestPubspecLockExtractor_FileRequired(t *testing.T) {
 		{
 			name: "",
 			inputConfig: ScanInputMockConfig{
-				path: "",
+				Path: "",
 			},
 			want: false,
 		},
 		{
 			name: "",
 			inputConfig: ScanInputMockConfig{
-				path: "pubspec.lock",
+				Path: "pubspec.lock",
 			},
 			want: true,
 		},
 		{
 			name: "",
 			inputConfig: ScanInputMockConfig{
-				path: "path/to/my/pubspec.lock",
+				Path: "path/to/my/pubspec.lock",
 			},
 			want: true,
 		},
 		{
 			name: "",
 			inputConfig: ScanInputMockConfig{
-				path: "path/to/my/pubspec.lock/file",
+				Path: "path/to/my/pubspec.lock/file",
 			},
 			want: false,
 		},
 		{
 			name: "",
 			inputConfig: ScanInputMockConfig{
-				path: "path/to/my/pubspec.lock.file",
+				Path: "path/to/my/pubspec.lock.file",
 			},
 			want: false,
 		},
 		{
 			name: "",
 			inputConfig: ScanInputMockConfig{
-				path: "path.to.my.pubspec.lock",
+				Path: "path.to.my.pubspec.lock",
 			},
 			want: false,
 		},
@@ -63,9 +63,9 @@ func TestPubspecLockExtractor_FileRequired(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
 			e := lockfilescalibr.PubspecLockExtractor{}
-			got := e.FileRequired(tt.inputConfig.path, GenerateFileInfoMock(t, tt.inputConfig))
+			got := e.FileRequired(tt.inputConfig.Path, GenerateFileInfoMock(t, tt.inputConfig))
 			if got != tt.want {
-				t.Errorf("FileRequired(%s, FileInfo) got = %v, want %v", tt.inputConfig.path, got, tt.want)
+				t.Errorf("FileRequired(%s, FileInfo) got = %v, want %v", tt.inputConfig.Path, got, tt.want)
 			}
 		})
 	}
@@ -74,34 +74,34 @@ func TestPubspecLockExtractor_FileRequired(t *testing.T) {
 func TestPubspecLockExtractor_Extract(t *testing.T) {
 	t.Parallel()
 
-	tests := []testTableEntry{
+	tests := []TestTableEntry{
 		{
-			name: "invalid yaml",
-			inputConfig: ScanInputMockConfig{
-				path: "fixtures/pub/not-yaml.txt",
+			Name: "invalid yaml",
+			InputConfig: ScanInputMockConfig{
+				Path: "fixtures/pub/not-yaml.txt",
 			},
-			wantErrContaining: "could not extract from",
+			WantErrContaining: "could not extract from",
 		},
 		{
-			name: "empty",
-			inputConfig: ScanInputMockConfig{
-				path: "fixtures/pub/empty.lock",
+			Name: "empty",
+			InputConfig: ScanInputMockConfig{
+				Path: "fixtures/pub/empty.lock",
 			},
-			wantInventory: []*extractor.Inventory{},
+			WantInventory: []*extractor.Inventory{},
 		},
 		{
-			name: "no packages",
-			inputConfig: ScanInputMockConfig{
-				path: "fixtures/pub/no-packages.lock",
+			Name: "no packages",
+			InputConfig: ScanInputMockConfig{
+				Path: "fixtures/pub/no-packages.lock",
 			},
-			wantInventory: []*extractor.Inventory{},
+			WantInventory: []*extractor.Inventory{},
 		},
 		{
-			name: "one package",
-			inputConfig: ScanInputMockConfig{
-				path: "fixtures/pub/one-package.lock",
+			Name: "one package",
+			InputConfig: ScanInputMockConfig{
+				Path: "fixtures/pub/one-package.lock",
 			},
-			wantInventory: []*extractor.Inventory{
+			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "back_button_interceptor",
 					Version:   "6.0.1",
@@ -116,11 +116,11 @@ func TestPubspecLockExtractor_Extract(t *testing.T) {
 			},
 		},
 		{
-			name: "one package dev",
-			inputConfig: ScanInputMockConfig{
-				path: "fixtures/pub/one-package-dev.lock",
+			Name: "one package dev",
+			InputConfig: ScanInputMockConfig{
+				Path: "fixtures/pub/one-package-dev.lock",
 			},
-			wantInventory: []*extractor.Inventory{
+			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "build_runner",
 					Version:   "2.2.1",
@@ -135,11 +135,11 @@ func TestPubspecLockExtractor_Extract(t *testing.T) {
 			},
 		},
 		{
-			name: "two packages",
-			inputConfig: ScanInputMockConfig{
-				path: "fixtures/pub/two-packages.lock",
+			Name: "two packages",
+			InputConfig: ScanInputMockConfig{
+				Path: "fixtures/pub/two-packages.lock",
 			},
-			wantInventory: []*extractor.Inventory{
+			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "shelf",
 					Version:   "1.3.2",
@@ -165,11 +165,11 @@ func TestPubspecLockExtractor_Extract(t *testing.T) {
 			},
 		},
 		{
-			name: "mixed packages",
-			inputConfig: ScanInputMockConfig{
-				path: "fixtures/pub/mixed-packages.lock",
+			Name: "mixed packages",
+			InputConfig: ScanInputMockConfig{
+				Path: "fixtures/pub/mixed-packages.lock",
 			},
-			wantInventory: []*extractor.Inventory{
+			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "back_button_interceptor",
 					Version:   "6.0.1",
@@ -217,11 +217,11 @@ func TestPubspecLockExtractor_Extract(t *testing.T) {
 			},
 		},
 		{
-			name: "package with git source",
-			inputConfig: ScanInputMockConfig{
-				path: "fixtures/pub/source-git.lock",
+			Name: "package with git source",
+			InputConfig: ScanInputMockConfig{
+				Path: "fixtures/pub/source-git.lock",
 			},
-			wantInventory: []*extractor.Inventory{
+			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "flutter_rust_bridge",
 					Version:   "1.32.0",
@@ -280,11 +280,11 @@ func TestPubspecLockExtractor_Extract(t *testing.T) {
 			},
 		},
 		{
-			name: "package with sdk source",
-			inputConfig: ScanInputMockConfig{
-				path: "fixtures/pub/source-sdk.lock",
+			Name: "package with sdk source",
+			InputConfig: ScanInputMockConfig{
+				Path: "fixtures/pub/source-sdk.lock",
 			},
-			wantInventory: []*extractor.Inventory{
+			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "flutter_web_plugins",
 					Version:   "0.0.0",
@@ -299,11 +299,11 @@ func TestPubspecLockExtractor_Extract(t *testing.T) {
 			},
 		},
 		{
-			name: "package with path source",
-			inputConfig: ScanInputMockConfig{
-				path: "fixtures/pub/source-path.lock",
+			Name: "package with path source",
+			InputConfig: ScanInputMockConfig{
+				Path: "fixtures/pub/source-path.lock",
 			},
-			wantInventory: []*extractor.Inventory{
+			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "maa_core",
 					Version:   "0.0.1",
@@ -321,10 +321,10 @@ func TestPubspecLockExtractor_Extract(t *testing.T) {
 
 	for _, tt := range tests {
 		tt := tt
-		t.Run(tt.name, func(t *testing.T) {
+		t.Run(tt.Name, func(t *testing.T) {
 			t.Parallel()
 			e := lockfilescalibr.PubspecLockExtractor{}
-			_, _ = extractionTester(t, e, tt)
+			_, _ = ExtractionTester(t, e, tt)
 		})
 	}
 }

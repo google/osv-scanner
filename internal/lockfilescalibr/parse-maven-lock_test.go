@@ -18,42 +18,42 @@ func TestMavenLockExtractor_FileRequired(t *testing.T) {
 		{
 			name: "",
 			inputConfig: ScanInputMockConfig{
-				path: "",
+				Path: "",
 			},
 			want: false,
 		},
 		{
 			name: "",
 			inputConfig: ScanInputMockConfig{
-				path: "pom.xml",
+				Path: "pom.xml",
 			},
 			want: true,
 		},
 		{
 			name: "",
 			inputConfig: ScanInputMockConfig{
-				path: "path/to/my/pom.xml",
+				Path: "path/to/my/pom.xml",
 			},
 			want: true,
 		},
 		{
 			name: "",
 			inputConfig: ScanInputMockConfig{
-				path: "path/to/my/pom.xml/file",
+				Path: "path/to/my/pom.xml/file",
 			},
 			want: false,
 		},
 		{
 			name: "",
 			inputConfig: ScanInputMockConfig{
-				path: "path/to/my/pom.xml.file",
+				Path: "path/to/my/pom.xml.file",
 			},
 			want: false,
 		},
 		{
 			name: "",
 			inputConfig: ScanInputMockConfig{
-				path: "path.to.my.pom.xml",
+				Path: "path.to.my.pom.xml",
 			},
 			want: false,
 		},
@@ -63,9 +63,9 @@ func TestMavenLockExtractor_FileRequired(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
 			e := lockfilescalibr.MavenLockExtractor{}
-			got := e.FileRequired(tt.inputConfig.path, GenerateFileInfoMock(t, tt.inputConfig))
+			got := e.FileRequired(tt.inputConfig.Path, GenerateFileInfoMock(t, tt.inputConfig))
 			if got != tt.want {
-				t.Errorf("FileRequired(%s, FileInfo) got = %v, want %v", tt.inputConfig.path, got, tt.want)
+				t.Errorf("FileRequired(%s, FileInfo) got = %v, want %v", tt.inputConfig.Path, got, tt.want)
 			}
 		})
 	}
@@ -74,34 +74,34 @@ func TestMavenLockExtractor_FileRequired(t *testing.T) {
 func TestMavenLockExtractor_Extract(t *testing.T) {
 	t.Parallel()
 
-	tests := []testTableEntry{
+	tests := []TestTableEntry{
 		{
-			name: "invalid",
-			inputConfig: ScanInputMockConfig{
-				path: "fixtures/maven/not-pom.txt",
+			Name: "invalid",
+			InputConfig: ScanInputMockConfig{
+				Path: "fixtures/maven/not-pom.txt",
 			},
-			wantErrContaining: "could not extract from",
+			WantErrContaining: "could not extract from",
 		},
 		{
-			name: "invalid syntax",
-			inputConfig: ScanInputMockConfig{
-				path: "fixtures/maven/invalid-syntax.xml",
+			Name: "invalid syntax",
+			InputConfig: ScanInputMockConfig{
+				Path: "fixtures/maven/invalid-syntax.xml",
 			},
-			wantErrContaining: "could not extract from",
+			WantErrContaining: "could not extract from",
 		},
 		{
-			name: "no packages",
-			inputConfig: ScanInputMockConfig{
-				path: "fixtures/maven/empty.xml",
+			Name: "no packages",
+			InputConfig: ScanInputMockConfig{
+				Path: "fixtures/maven/empty.xml",
 			},
-			wantInventory: []*extractor.Inventory{},
+			WantInventory: []*extractor.Inventory{},
 		},
 		{
-			name: "one package",
-			inputConfig: ScanInputMockConfig{
-				path: "fixtures/maven/one-package.xml",
+			Name: "one package",
+			InputConfig: ScanInputMockConfig{
+				Path: "fixtures/maven/one-package.xml",
 			},
-			wantInventory: []*extractor.Inventory{
+			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "org.apache.maven:maven-artifact",
 					Version:   "1.0.0",
@@ -113,11 +113,11 @@ func TestMavenLockExtractor_Extract(t *testing.T) {
 			},
 		},
 		{
-			name: "two packages",
-			inputConfig: ScanInputMockConfig{
-				path: "fixtures/maven/two-packages.xml",
+			Name: "two packages",
+			InputConfig: ScanInputMockConfig{
+				Path: "fixtures/maven/two-packages.xml",
 			},
-			wantInventory: []*extractor.Inventory{
+			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "io.netty:netty-all",
 					Version:   "4.1.42.Final",
@@ -137,11 +137,11 @@ func TestMavenLockExtractor_Extract(t *testing.T) {
 			},
 		},
 		{
-			name: "with dependency management",
-			inputConfig: ScanInputMockConfig{
-				path: "fixtures/maven/with-dependency-management.xml",
+			Name: "with dependency management",
+			InputConfig: ScanInputMockConfig{
+				Path: "fixtures/maven/with-dependency-management.xml",
 			},
-			wantInventory: []*extractor.Inventory{
+			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "io.netty:netty-all",
 					Version:   "4.1.9",
@@ -169,11 +169,11 @@ func TestMavenLockExtractor_Extract(t *testing.T) {
 			},
 		},
 		{
-			name: "interpolation",
-			inputConfig: ScanInputMockConfig{
-				path: "fixtures/maven/interpolation.xml",
+			Name: "interpolation",
+			InputConfig: ScanInputMockConfig{
+				Path: "fixtures/maven/interpolation.xml",
 			},
-			wantInventory: []*extractor.Inventory{
+			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "org.mine:mypackage",
 					Version:   "1.0.0",
@@ -201,11 +201,11 @@ func TestMavenLockExtractor_Extract(t *testing.T) {
 			},
 		},
 		{
-			name: "with scope",
-			inputConfig: ScanInputMockConfig{
-				path: "fixtures/maven/with-scope.xml",
+			Name: "with scope",
+			InputConfig: ScanInputMockConfig{
+				Path: "fixtures/maven/with-scope.xml",
 			},
-			wantInventory: []*extractor.Inventory{
+			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "abc:xyz",
 					Version:   "1.2.3",
@@ -228,10 +228,10 @@ func TestMavenLockExtractor_Extract(t *testing.T) {
 
 	for _, tt := range tests {
 		tt := tt
-		t.Run(tt.name, func(t *testing.T) {
+		t.Run(tt.Name, func(t *testing.T) {
 			t.Parallel()
 			e := lockfilescalibr.MavenLockExtractor{}
-			_, _ = extractionTester(t, e, tt)
+			_, _ = ExtractionTester(t, e, tt)
 		})
 	}
 }

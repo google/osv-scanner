@@ -9,20 +9,20 @@ import (
 
 func TestConanLockExtractor_Extract_v2(t *testing.T) {
 	t.Parallel()
-	tests := []testTableEntry{
+	tests := []TestTableEntry{
 		{
-			name: "no packages",
-			inputConfig: ScanInputMockConfig{
-				path: "fixtures/conan/empty.v2.json",
+			Name: "no packages",
+			InputConfig: ScanInputMockConfig{
+				Path: "fixtures/conan/empty.v2.json",
 			},
-			wantInventory: []*extractor.Inventory{},
+			WantInventory: []*extractor.Inventory{},
 		},
 		{
-			name: "one package",
-			inputConfig: ScanInputMockConfig{
-				path: "fixtures/conan/one-package.v2.json",
+			Name: "one package",
+			InputConfig: ScanInputMockConfig{
+				Path: "fixtures/conan/one-package.v2.json",
 			},
-			wantInventory: []*extractor.Inventory{
+			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "zlib",
 					Version:   "1.2.11",
@@ -34,11 +34,11 @@ func TestConanLockExtractor_Extract_v2(t *testing.T) {
 			},
 		},
 		{
-			name: "no name",
-			inputConfig: ScanInputMockConfig{
-				path: "fixtures/conan/no-name.v2.json",
+			Name: "no name",
+			InputConfig: ScanInputMockConfig{
+				Path: "fixtures/conan/no-name.v2.json",
 			},
-			wantInventory: []*extractor.Inventory{
+			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "zlib",
 					Version:   "1.2.11",
@@ -50,11 +50,11 @@ func TestConanLockExtractor_Extract_v2(t *testing.T) {
 			},
 		},
 		{
-			name: "two packages",
-			inputConfig: ScanInputMockConfig{
-				path: "fixtures/conan/two-packages.v2.json",
+			Name: "two packages",
+			InputConfig: ScanInputMockConfig{
+				Path: "fixtures/conan/two-packages.v2.json",
 			},
-			wantInventory: []*extractor.Inventory{
+			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "zlib",
 					Version:   "1.2.11",
@@ -74,11 +74,11 @@ func TestConanLockExtractor_Extract_v2(t *testing.T) {
 			},
 		},
 		{
-			name: "nested dependencies",
-			inputConfig: ScanInputMockConfig{
-				path: "fixtures/conan/nested-dependencies.v2.json",
+			Name: "nested dependencies",
+			InputConfig: ScanInputMockConfig{
+				Path: "fixtures/conan/nested-dependencies.v2.json",
 			},
-			wantInventory: []*extractor.Inventory{
+			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "zlib",
 					Version:   "1.2.13",
@@ -122,11 +122,11 @@ func TestConanLockExtractor_Extract_v2(t *testing.T) {
 			},
 		},
 		{
-			name: "one package dev",
-			inputConfig: ScanInputMockConfig{
-				path: "fixtures/conan/one-package-dev.v2.json",
+			Name: "one package dev",
+			InputConfig: ScanInputMockConfig{
+				Path: "fixtures/conan/one-package-dev.v2.json",
 			},
-			wantInventory: []*extractor.Inventory{
+			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "ninja",
 					Version:   "1.11.1",
@@ -141,10 +141,10 @@ func TestConanLockExtractor_Extract_v2(t *testing.T) {
 
 	for _, tt := range tests {
 		tt := tt
-		t.Run(tt.name, func(t *testing.T) {
+		t.Run(tt.Name, func(t *testing.T) {
 			t.Parallel()
 			e := lockfilescalibr.ConanLockExtractor{}
-			_, _ = extractionTester(t, e, tt)
+			_, _ = ExtractionTester(t, e, tt)
 		})
 	}
 }

@@ -18,42 +18,42 @@ func TestCargoLockExtractor_FileRequired(t *testing.T) {
 		{
 			name: "Empty path",
 			inputConfig: ScanInputMockConfig{
-				path: "",
+				Path: "",
 			},
 			want: false,
 		},
 		{
 			name: "",
 			inputConfig: ScanInputMockConfig{
-				path: "Cargo.lock",
+				Path: "Cargo.lock",
 			},
 			want: true,
 		},
 		{
 			name: "",
 			inputConfig: ScanInputMockConfig{
-				path: "path/to/my/Cargo.lock",
+				Path: "path/to/my/Cargo.lock",
 			},
 			want: true,
 		},
 		{
 			name: "",
 			inputConfig: ScanInputMockConfig{
-				path: "path/to/my/Cargo.lock/file",
+				Path: "path/to/my/Cargo.lock/file",
 			},
 			want: false,
 		},
 		{
 			name: "",
 			inputConfig: ScanInputMockConfig{
-				path: "path/to/my/Cargo.lock.file",
+				Path: "path/to/my/Cargo.lock.file",
 			},
 			want: false,
 		},
 		{
 			name: "",
 			inputConfig: ScanInputMockConfig{
-				path: "path.to.my.Cargo.lock",
+				Path: "path.to.my.Cargo.lock",
 			},
 			want: false,
 		},
@@ -64,9 +64,9 @@ func TestCargoLockExtractor_FileRequired(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
 			e := lockfilescalibr.CargoLockExtractor{}
-			got := e.FileRequired(tt.inputConfig.path, GenerateFileInfoMock(t, tt.inputConfig))
+			got := e.FileRequired(tt.inputConfig.Path, GenerateFileInfoMock(t, tt.inputConfig))
 			if got != tt.want {
-				t.Errorf("FileRequired(%s, FileInfo) got = %v, want %v", tt.inputConfig.path, got, tt.want)
+				t.Errorf("FileRequired(%s, FileInfo) got = %v, want %v", tt.inputConfig.Path, got, tt.want)
 			}
 		})
 	}
@@ -75,27 +75,27 @@ func TestCargoLockExtractor_FileRequired(t *testing.T) {
 func TestCargoLockExtractor_Extract(t *testing.T) {
 	t.Parallel()
 
-	tests := []testTableEntry{
+	tests := []TestTableEntry{
 		{
-			name: "Invalid toml",
-			inputConfig: ScanInputMockConfig{
-				path: "fixtures/cargo/not-toml.txt",
+			Name: "Invalid toml",
+			InputConfig: ScanInputMockConfig{
+				Path: "fixtures/cargo/not-toml.txt",
 			},
-			wantErrContaining: "could not extract from",
+			WantErrContaining: "could not extract from",
 		},
 		{
-			name: "no packages",
-			inputConfig: ScanInputMockConfig{
-				path: "fixtures/cargo/empty.lock",
+			Name: "no packages",
+			InputConfig: ScanInputMockConfig{
+				Path: "fixtures/cargo/empty.lock",
 			},
-			wantInventory: []*extractor.Inventory{},
+			WantInventory: []*extractor.Inventory{},
 		},
 		{
-			name: "one package",
-			inputConfig: ScanInputMockConfig{
-				path: "fixtures/cargo/one-package.lock",
+			Name: "one package",
+			InputConfig: ScanInputMockConfig{
+				Path: "fixtures/cargo/one-package.lock",
 			},
-			wantInventory: []*extractor.Inventory{
+			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "addr2line",
 					Version:   "0.15.2",
@@ -104,11 +104,11 @@ func TestCargoLockExtractor_Extract(t *testing.T) {
 			},
 		},
 		{
-			name: "two packages",
-			inputConfig: ScanInputMockConfig{
-				path: "fixtures/cargo/two-packages.lock",
+			Name: "two packages",
+			InputConfig: ScanInputMockConfig{
+				Path: "fixtures/cargo/two-packages.lock",
 			},
-			wantInventory: []*extractor.Inventory{
+			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "addr2line",
 					Version:   "0.15.2",
@@ -122,11 +122,11 @@ func TestCargoLockExtractor_Extract(t *testing.T) {
 			},
 		},
 		{
-			name: "two packages with local",
-			inputConfig: ScanInputMockConfig{
-				path: "fixtures/cargo/two-packages-with-local.lock",
+			Name: "two packages with local",
+			InputConfig: ScanInputMockConfig{
+				Path: "fixtures/cargo/two-packages-with-local.lock",
 			},
-			wantInventory: []*extractor.Inventory{
+			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "addr2line",
 					Version:   "0.15.2",
@@ -140,11 +140,11 @@ func TestCargoLockExtractor_Extract(t *testing.T) {
 			},
 		},
 		{
-			name: "package with build string",
-			inputConfig: ScanInputMockConfig{
-				path: "fixtures/cargo/package-with-build-string.lock",
+			Name: "package with build string",
+			InputConfig: ScanInputMockConfig{
+				Path: "fixtures/cargo/package-with-build-string.lock",
 			},
-			wantInventory: []*extractor.Inventory{
+			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "wasi",
 					Version:   "0.10.2+wasi-snapshot-preview1",
@@ -155,10 +155,10 @@ func TestCargoLockExtractor_Extract(t *testing.T) {
 	}
 	for _, tt := range tests {
 		tt := tt
-		t.Run(tt.name, func(t *testing.T) {
+		t.Run(tt.Name, func(t *testing.T) {
 			t.Parallel()
 			e := lockfilescalibr.CargoLockExtractor{}
-			_, _ = extractionTester(t, e, tt)
+			_, _ = ExtractionTester(t, e, tt)
 		})
 	}
 }

@@ -18,49 +18,49 @@ func TestPdmExtractor_FileRequired(t *testing.T) {
 		{
 			name: "empty",
 			inputConfig: ScanInputMockConfig{
-				path: "",
+				Path: "",
 			},
 			want: false,
 		},
 		{
 			name: "plain",
 			inputConfig: ScanInputMockConfig{
-				path: "pdm.lock",
+				Path: "pdm.lock",
 			},
 			want: true,
 		},
 		{
 			name: "absolute",
 			inputConfig: ScanInputMockConfig{
-				path: "/path/to/pdm.lock",
+				Path: "/path/to/pdm.lock",
 			},
 			want: true,
 		},
 		{
 			name: "relative",
 			inputConfig: ScanInputMockConfig{
-				path: "../../pdm.lock",
+				Path: "../../pdm.lock",
 			},
 			want: true,
 		},
 		{
 			name: "in-path",
 			inputConfig: ScanInputMockConfig{
-				path: "/path/with/pdm.lock/in/middle",
+				Path: "/path/with/pdm.lock/in/middle",
 			},
 			want: false,
 		},
 		{
 			name: "invalid-suffix",
 			inputConfig: ScanInputMockConfig{
-				path: "pdm.lock.file",
+				Path: "pdm.lock.file",
 			},
 			want: false,
 		},
 		{
 			name: "invalid-prefix",
 			inputConfig: ScanInputMockConfig{
-				path: "project.name.pdm.lock",
+				Path: "project.name.pdm.lock",
 			},
 			want: false,
 		},
@@ -71,9 +71,9 @@ func TestPdmExtractor_FileRequired(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
 			e := lockfilescalibr.PdmLockExtractor{}
-			got := e.FileRequired(tt.inputConfig.path, GenerateFileInfoMock(t, tt.inputConfig))
+			got := e.FileRequired(tt.inputConfig.Path, GenerateFileInfoMock(t, tt.inputConfig))
 			if got != tt.want {
-				t.Errorf("FileRequired(%s, FileInfo) got = %v, want %v", tt.inputConfig.path, got, tt.want)
+				t.Errorf("FileRequired(%s, FileInfo) got = %v, want %v", tt.inputConfig.Path, got, tt.want)
 			}
 		})
 	}
@@ -82,27 +82,27 @@ func TestPdmExtractor_FileRequired(t *testing.T) {
 func TestPdmLockExtractor_Extract(t *testing.T) {
 	t.Parallel()
 
-	tests := []testTableEntry{
+	tests := []TestTableEntry{
 		{
-			name: "invalid toml",
-			inputConfig: ScanInputMockConfig{
-				path: "fixtures/pdm/not-toml.txt",
+			Name: "invalid toml",
+			InputConfig: ScanInputMockConfig{
+				Path: "fixtures/pdm/not-toml.txt",
 			},
-			wantErrContaining: "could not extract from",
+			WantErrContaining: "could not extract from",
 		},
 		{
-			name: "no packages",
-			inputConfig: ScanInputMockConfig{
-				path: "fixtures/pdm/empty.toml",
+			Name: "no packages",
+			InputConfig: ScanInputMockConfig{
+				Path: "fixtures/pdm/empty.toml",
 			},
-			wantInventory: []*extractor.Inventory{},
+			WantInventory: []*extractor.Inventory{},
 		},
 		{
-			name: "single package",
-			inputConfig: ScanInputMockConfig{
-				path: "fixtures/pdm/single-package.toml",
+			Name: "single package",
+			InputConfig: ScanInputMockConfig{
+				Path: "fixtures/pdm/single-package.toml",
 			},
-			wantInventory: []*extractor.Inventory{
+			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "toml",
 					Version:   "0.10.2",
@@ -114,11 +114,11 @@ func TestPdmLockExtractor_Extract(t *testing.T) {
 			},
 		},
 		{
-			name: "two packages",
-			inputConfig: ScanInputMockConfig{
-				path: "fixtures/pdm/two-packages.toml",
+			Name: "two packages",
+			InputConfig: ScanInputMockConfig{
+				Path: "fixtures/pdm/two-packages.toml",
 			},
-			wantInventory: []*extractor.Inventory{
+			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "toml",
 					Version:   "0.10.2",
@@ -138,11 +138,11 @@ func TestPdmLockExtractor_Extract(t *testing.T) {
 			},
 		},
 		{
-			name: "package with dev dependencies",
-			inputConfig: ScanInputMockConfig{
-				path: "fixtures/pdm/dev-dependency.toml",
+			Name: "package with dev dependencies",
+			InputConfig: ScanInputMockConfig{
+				Path: "fixtures/pdm/dev-dependency.toml",
 			},
-			wantInventory: []*extractor.Inventory{
+			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "toml",
 					Version:   "0.10.2",
@@ -170,11 +170,11 @@ func TestPdmLockExtractor_Extract(t *testing.T) {
 			},
 		},
 		{
-			name: "package with optional dependency",
-			inputConfig: ScanInputMockConfig{
-				path: "fixtures/pdm/optional-dependency.toml",
+			Name: "package with optional dependency",
+			InputConfig: ScanInputMockConfig{
+				Path: "fixtures/pdm/optional-dependency.toml",
 			},
-			wantInventory: []*extractor.Inventory{
+			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "toml",
 					Version:   "0.10.2",
@@ -202,11 +202,11 @@ func TestPdmLockExtractor_Extract(t *testing.T) {
 			},
 		},
 		{
-			name: "package with git dependency",
-			inputConfig: ScanInputMockConfig{
-				path: "fixtures/pdm/git-dependency.toml",
+			Name: "package with git dependency",
+			InputConfig: ScanInputMockConfig{
+				Path: "fixtures/pdm/git-dependency.toml",
 			},
-			wantInventory: []*extractor.Inventory{
+			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "toml",
 					Version:   "0.10.2",
@@ -224,10 +224,10 @@ func TestPdmLockExtractor_Extract(t *testing.T) {
 
 	for _, tt := range tests {
 		tt := tt
-		t.Run(tt.name, func(t *testing.T) {
+		t.Run(tt.Name, func(t *testing.T) {
 			t.Parallel()
 			e := lockfilescalibr.PdmLockExtractor{}
-			_, _ = extractionTester(t, e, tt)
+			_, _ = ExtractionTester(t, e, tt)
 		})
 	}
 }

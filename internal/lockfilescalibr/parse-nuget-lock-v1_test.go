@@ -10,27 +10,27 @@ import (
 func TestNuGetLockExtractor_Extract(t *testing.T) {
 	t.Parallel()
 
-	tests := []testTableEntry{
+	tests := []TestTableEntry{
 		{
-			name: "invalid json",
-			inputConfig: ScanInputMockConfig{
-				path: "fixtures/nuget/not-json.txt",
+			Name: "invalid json",
+			InputConfig: ScanInputMockConfig{
+				Path: "fixtures/nuget/not-json.txt",
 			},
-			wantErrContaining: "could not extract from",
+			WantErrContaining: "could not extract from",
 		},
 		{
-			name: "no packages",
-			inputConfig: ScanInputMockConfig{
-				path: "fixtures/nuget/empty.v1.json",
+			Name: "no packages",
+			InputConfig: ScanInputMockConfig{
+				Path: "fixtures/nuget/empty.v1.json",
 			},
-			wantInventory: []*extractor.Inventory{},
+			WantInventory: []*extractor.Inventory{},
 		},
 		{
-			name: "one framework_ one package",
-			inputConfig: ScanInputMockConfig{
-				path: "fixtures/nuget/one-framework-one-package.v1.json",
+			Name: "one framework_ one package",
+			InputConfig: ScanInputMockConfig{
+				Path: "fixtures/nuget/one-framework-one-package.v1.json",
 			},
-			wantInventory: []*extractor.Inventory{
+			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "Test.Core",
 					Version:   "6.0.5",
@@ -39,11 +39,11 @@ func TestNuGetLockExtractor_Extract(t *testing.T) {
 			},
 		},
 		{
-			name: "one framework_ two packages",
-			inputConfig: ScanInputMockConfig{
-				path: "fixtures/nuget/one-framework-two-packages.v1.json",
+			Name: "one framework_ two packages",
+			InputConfig: ScanInputMockConfig{
+				Path: "fixtures/nuget/one-framework-two-packages.v1.json",
 			},
-			wantInventory: []*extractor.Inventory{
+			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "Test.Core",
 					Version:   "6.0.5",
@@ -57,11 +57,11 @@ func TestNuGetLockExtractor_Extract(t *testing.T) {
 			},
 		},
 		{
-			name: "two frameworks_ mixed packages",
-			inputConfig: ScanInputMockConfig{
-				path: "fixtures/nuget/two-frameworks-mixed-packages.v1.json",
+			Name: "two frameworks_ mixed packages",
+			InputConfig: ScanInputMockConfig{
+				Path: "fixtures/nuget/two-frameworks-mixed-packages.v1.json",
 			},
-			wantInventory: []*extractor.Inventory{
+			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "Test.Core",
 					Version:   "6.0.5",
@@ -80,11 +80,11 @@ func TestNuGetLockExtractor_Extract(t *testing.T) {
 			},
 		},
 		{
-			name: "two frameworks_ different packages",
-			inputConfig: ScanInputMockConfig{
-				path: "fixtures/nuget/two-frameworks-different-packages.v1.json",
+			Name: "two frameworks_ different packages",
+			InputConfig: ScanInputMockConfig{
+				Path: "fixtures/nuget/two-frameworks-different-packages.v1.json",
 			},
-			wantInventory: []*extractor.Inventory{
+			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "Test.Core",
 					Version:   "6.0.5",
@@ -98,11 +98,11 @@ func TestNuGetLockExtractor_Extract(t *testing.T) {
 			},
 		},
 		{
-			name: "two frameworks_ duplicate packages",
-			inputConfig: ScanInputMockConfig{
-				path: "fixtures/nuget/two-frameworks-duplicate-packages.v1.json",
+			Name: "two frameworks_ duplicate packages",
+			InputConfig: ScanInputMockConfig{
+				Path: "fixtures/nuget/two-frameworks-duplicate-packages.v1.json",
 			},
-			wantInventory: []*extractor.Inventory{
+			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "Test.Core",
 					Version:   "6.0.5",
@@ -114,10 +114,10 @@ func TestNuGetLockExtractor_Extract(t *testing.T) {
 
 	for _, tt := range tests {
 		tt := tt
-		t.Run(tt.name, func(t *testing.T) {
+		t.Run(tt.Name, func(t *testing.T) {
 			t.Parallel()
 			e := lockfilescalibr.NuGetLockExtractor{}
-			_, _ = extractionTester(t, e, tt)
+			_, _ = ExtractionTester(t, e, tt)
 		})
 	}
 }

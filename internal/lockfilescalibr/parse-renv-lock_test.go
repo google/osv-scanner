@@ -10,27 +10,27 @@ import (
 func TestRenvLockExtractor_Extract(t *testing.T) {
 	t.Parallel()
 
-	tests := []testTableEntry{
+	tests := []TestTableEntry{
 		{
-			name: "invalid json",
-			inputConfig: ScanInputMockConfig{
-				path: "fixtures/renv/not-json.txt",
+			Name: "invalid json",
+			InputConfig: ScanInputMockConfig{
+				Path: "fixtures/renv/not-json.txt",
 			},
-			wantErrContaining: "could not extract from",
+			WantErrContaining: "could not extract from",
 		},
 		{
-			name: "no packages",
-			inputConfig: ScanInputMockConfig{
-				path: "fixtures/renv/empty.lock",
+			Name: "no packages",
+			InputConfig: ScanInputMockConfig{
+				Path: "fixtures/renv/empty.lock",
 			},
-			wantInventory: []*extractor.Inventory{},
+			WantInventory: []*extractor.Inventory{},
 		},
 		{
-			name: "one package",
-			inputConfig: ScanInputMockConfig{
-				path: "fixtures/renv/one-package.lock",
+			Name: "one package",
+			InputConfig: ScanInputMockConfig{
+				Path: "fixtures/renv/one-package.lock",
 			},
-			wantInventory: []*extractor.Inventory{
+			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "morning",
 					Version:   "0.1.0",
@@ -39,11 +39,11 @@ func TestRenvLockExtractor_Extract(t *testing.T) {
 			},
 		},
 		{
-			name: "two packages",
-			inputConfig: ScanInputMockConfig{
-				path: "fixtures/renv/two-packages.lock",
+			Name: "two packages",
+			InputConfig: ScanInputMockConfig{
+				Path: "fixtures/renv/two-packages.lock",
 			},
-			wantInventory: []*extractor.Inventory{
+			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "markdown",
 					Version:   "1.0",
@@ -57,11 +57,11 @@ func TestRenvLockExtractor_Extract(t *testing.T) {
 			},
 		},
 		{
-			name: "with mixed sources",
-			inputConfig: ScanInputMockConfig{
-				path: "fixtures/renv/with-mixed-sources.lock",
+			Name: "with mixed sources",
+			InputConfig: ScanInputMockConfig{
+				Path: "fixtures/renv/with-mixed-sources.lock",
 			},
-			wantInventory: []*extractor.Inventory{
+			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "markdown",
 					Version:   "1.0",
@@ -70,11 +70,11 @@ func TestRenvLockExtractor_Extract(t *testing.T) {
 			},
 		},
 		{
-			name: "with bioconductor",
-			inputConfig: ScanInputMockConfig{
-				path: "fixtures/renv/with-bioconductor.lock",
+			Name: "with bioconductor",
+			InputConfig: ScanInputMockConfig{
+				Path: "fixtures/renv/with-bioconductor.lock",
 			},
-			wantInventory: []*extractor.Inventory{
+			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "BH",
 					Version:   "1.75.0-0",
@@ -83,20 +83,20 @@ func TestRenvLockExtractor_Extract(t *testing.T) {
 			},
 		},
 		{
-			name: "without repository",
-			inputConfig: ScanInputMockConfig{
-				path: "fixtures/renv/without-repository.lock",
+			Name: "without repository",
+			InputConfig: ScanInputMockConfig{
+				Path: "fixtures/renv/without-repository.lock",
 			},
-			wantInventory: []*extractor.Inventory{},
+			WantInventory: []*extractor.Inventory{},
 		},
 	}
 
 	for _, tt := range tests {
 		tt := tt
-		t.Run(tt.name, func(t *testing.T) {
+		t.Run(tt.Name, func(t *testing.T) {
 			t.Parallel()
 			e := lockfilescalibr.RenvLockExtractor{}
-			_, _ = extractionTester(t, e, tt)
+			_, _ = ExtractionTester(t, e, tt)
 		})
 	}
 }

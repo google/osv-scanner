@@ -60,7 +60,7 @@ func packageToString(pkg *extractor.Inventory) string {
 
 	locations := strings.Join(pkg.Locations, ", ")
 
-	return fmt.Sprintf("%s@%s (%s, %s, %s) @ [%s]", pkg.Name, pkg.Version, ecosystemOrEmpty(pkg), commit, groups, locations)
+	return fmt.Sprintf("%s@%s (%s, %s) @ [%s]", pkg.Name, pkg.Version, commit, groups, locations)
 }
 
 func hasPackage(t *testing.T, packages []*extractor.Inventory, pkg *extractor.Inventory) bool {
@@ -118,14 +118,14 @@ func expectPackages(t *testing.T, actualInventories []*extractor.Inventory, expe
 	}
 }
 
-func ecosystemOrEmpty(pkg *extractor.Inventory) string {
-	ecosystem, err := pkg.Ecosystem()
-	if err != nil {
-		ecosystem = ""
-	}
+// func ecosystemOrEmpty(pkg *extractor.Inventory) string {
+// 	ecosystem, err := pkg.Ecosystem()
+// 	if err != nil {
+// 		ecosystem = ""
+// 	}
 
-	return ecosystem
-}
+// 	return ecosystem
+// }
 
 // ---
 
@@ -170,11 +170,11 @@ func (i FakeFileInfo) Sys() any {
 // -----
 
 type ScanInputMockConfig struct {
-	path string
-	// fakeScanRoot allows you to set a custom scanRoot, can be relative or absolute,
+	Path string
+	// FakeScanRoot allows you to set a custom scanRoot, can be relative or absolute,
 	// and will be translated to an absolute path
-	fakeScanRoot string
-	fakeFileInfo *FakeFileInfo
+	FakeScanRoot string
+	FakeFileInfo *FakeFileInfo
 }
 
 type ScanInputWrapper struct {
@@ -191,18 +191,18 @@ func (siw ScanInputWrapper) Close() {
 func GenerateFileInfoMock(t *testing.T, config ScanInputMockConfig) fs.FileInfo {
 	t.Helper()
 
-	if config.fakeFileInfo != nil {
-		ret := *config.fakeFileInfo
-		ret.FileName = filepath.Base(config.path)
+	if config.FakeFileInfo != nil {
+		ret := *config.FakeFileInfo
+		ret.FileName = filepath.Base(config.Path)
 
 		return ret
 	}
 
-	fileInfo, err := os.Stat(config.path)
+	fileInfo, err := os.Stat(config.Path)
 	// It is intended that sometimes the config points to a path that does not exist
 	// fileInfo will be nil in those cases
 	if err != nil && !errors.Is(err, os.ErrNotExist) {
-		t.Fatalf("Can't stat test fixture '%s' because '%s'", config.path, err)
+		t.Fatalf("Can't stat test fixture '%s' because '%s'", config.Path, err)
 	}
 
 	return fileInfo
@@ -213,30 +213,30 @@ func GenerateScanInputMock(t *testing.T, config ScanInputMockConfig) ScanInputWr
 	t.Helper()
 
 	var scanRoot string
-	if filepath.IsAbs(config.fakeScanRoot) {
-		scanRoot = config.fakeScanRoot
+	if filepath.IsAbs(config.FakeScanRoot) {
+		scanRoot = config.FakeScanRoot
 	} else {
 		workingDir, err := os.Getwd()
 		if err != nil {
 			t.Fatalf("Can't get working directory because '%s'", workingDir)
 		}
-		scanRoot = filepath.Join(workingDir, config.fakeScanRoot)
+		scanRoot = filepath.Join(workingDir, config.FakeScanRoot)
 	}
 
-	f, err := os.Open(filepath.Join(scanRoot, config.path))
+	f, err := os.Open(filepath.Join(scanRoot, config.Path))
 	if err != nil {
-		t.Fatalf("Can't open test fixture '%s' because '%s'", config.path, err)
+		t.Fatalf("Can't open test fixture '%s' because '%s'", config.Path, err)
 	}
 	info, err := f.Stat()
 	if err != nil {
-		t.Fatalf("Can't stat test fixture '%s' because '%s'", config.path, err)
+		t.Fatalf("Can't stat test fixture '%s' because '%s'", config.Path, err)
 	}
 
 	return ScanInputWrapper{
 		fileHandle: f,
 		ScanInput: filesystem.ScanInput{
 			FS:       os.DirFS(scanRoot).(plugin.FS),
-			Path:     config.path,
+			Path:     config.Path,
 			ScanRoot: scanRoot,
 			Reader:   f,
 			Info:     info,
@@ -244,11 +244,11 @@ func GenerateScanInputMock(t *testing.T, config ScanInputMockConfig) ScanInputWr
 	}
 }
 
-func fillExtractorField(pkgs []*extractor.Inventory, extractor filesystem.Extractor) {
-	for i := range pkgs {
-		pkgs[i].Extractor = extractor
-	}
-}
+// func fillExtractorField(pkgs []*extractor.Inventory, extractor filesystem.Extractor) {
+// 	for i := range pkgs {
+// 		pkgs[i].Extractor = extractor
+// 	}
+// }
 
 // Form returns the singular or plural form that should be used based on the given count
 func Form(count int, singular, plural string) string {
@@ -259,35 +259,32 @@ func Form(count int, singular, plural string) string {
 	return plural
 }
 
-type testTableEntry struct {
-	name              string
-	inputConfig       ScanInputMockConfig
-	wantInventory     []*extractor.Inventory
-	wantErrIs         error
-	wantErrContaining string
+type TestTableEntry struct {
+	Name              string
+	InputConfig       ScanInputMockConfig
+	WantInventory     []*extractor.Inventory
+	WantErrIs         error
+	WantErrContaining string
 }
 
-// extractionTester tests common properties of a extractor, and returns the raw values from running extract
-func extractionTester(t *testing.T, extractor filesystem.Extractor, tt testTableEntry) ([]*extractor.Inventory, error) {
+// ExtractionTester tests common properties of a extractor, and returns the raw values from running extract
+func ExtractionTester(t *testing.T, extractor filesystem.Extractor, tt TestTableEntry) ([]*extractor.Inventory, error) {
 	t.Helper()
 
-	wrapper := GenerateScanInputMock(t, tt.inputConfig)
+	wrapper := GenerateScanInputMock(t, tt.InputConfig)
 	got, err := extractor.Extract(context.Background(), &wrapper.ScanInput)
 	wrapper.Close()
-	if tt.wantErrIs != nil {
-		expectErrIs(t, err, tt.wantErrIs)
+	if tt.WantErrIs != nil {
+		expectErrIs(t, err, tt.WantErrIs)
 	}
-	if tt.wantErrContaining != "" {
-		expectErrContaining(t, err, tt.wantErrContaining)
+	if tt.WantErrContaining != "" {
+		expectErrContaining(t, err, tt.WantErrContaining)
 	}
 
-	if tt.wantErrContaining == "" && tt.wantErrIs == nil && err != nil {
+	if tt.WantErrContaining == "" && tt.WantErrIs == nil && err != nil {
 		t.Errorf("Got error when expecting none: '%s'", err)
 	} else {
-		fillExtractorField(got, extractor)
-		fillExtractorField(tt.wantInventory, extractor)
-
-		expectPackages(t, got, tt.wantInventory)
+		expectPackages(t, got, tt.WantInventory)
 	}
 
 	return got, err

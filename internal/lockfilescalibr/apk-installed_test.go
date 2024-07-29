@@ -10,30 +10,30 @@ import (
 func TestApkInstalledExtractor_Extract(t *testing.T) {
 	t.Parallel()
 
-	tests := []testTableEntry{
+	tests := []TestTableEntry{
 		{
-			name: "empty",
-			inputConfig: ScanInputMockConfig{
-				path:         "empty_installed",
-				fakeScanRoot: "fixtures/apk/with-os-release",
+			Name: "empty",
+			InputConfig: ScanInputMockConfig{
+				Path:         "empty_installed",
+				FakeScanRoot: "fixtures/apk/with-os-release",
 			},
-			wantInventory: []*extractor.Inventory{},
+			WantInventory: []*extractor.Inventory{},
 		},
 		{
-			name: "not an installed",
-			inputConfig: ScanInputMockConfig{
-				path:         "not_installed",
-				fakeScanRoot: "fixtures/apk/with-os-release",
+			Name: "not an installed",
+			InputConfig: ScanInputMockConfig{
+				Path:         "not_installed",
+				FakeScanRoot: "fixtures/apk/with-os-release",
 			},
-			wantInventory: []*extractor.Inventory{},
+			WantInventory: []*extractor.Inventory{},
 		},
 		{
-			name: "malformed",
-			inputConfig: ScanInputMockConfig{
-				path:         "malformed_installed",
-				fakeScanRoot: "fixtures/apk/with-os-release",
+			Name: "malformed",
+			InputConfig: ScanInputMockConfig{
+				Path:         "malformed_installed",
+				FakeScanRoot: "fixtures/apk/with-os-release",
 			},
-			wantInventory: []*extractor.Inventory{
+			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "busybox",
 					Version:   "",
@@ -48,12 +48,12 @@ func TestApkInstalledExtractor_Extract(t *testing.T) {
 			},
 		},
 		{
-			name: "single",
-			inputConfig: ScanInputMockConfig{
-				path:         "single_installed",
-				fakeScanRoot: "fixtures/apk/with-os-release",
+			Name: "single",
+			InputConfig: ScanInputMockConfig{
+				Path:         "single_installed",
+				FakeScanRoot: "fixtures/apk/with-os-release",
 			},
-			wantInventory: []*extractor.Inventory{
+			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "apk-tools",
 					Version:   "2.12.10-r1",
@@ -68,12 +68,12 @@ func TestApkInstalledExtractor_Extract(t *testing.T) {
 			},
 		},
 		{
-			name: "shuffled",
-			inputConfig: ScanInputMockConfig{
-				path:         "shuffled_installed",
-				fakeScanRoot: "fixtures/apk/with-os-release",
+			Name: "shuffled",
+			InputConfig: ScanInputMockConfig{
+				Path:         "shuffled_installed",
+				FakeScanRoot: "fixtures/apk/with-os-release",
 			},
-			wantInventory: []*extractor.Inventory{
+			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "apk-tools",
 					Version:   "2.12.10-r1",
@@ -88,12 +88,12 @@ func TestApkInstalledExtractor_Extract(t *testing.T) {
 			},
 		},
 		{
-			name: "multiple",
-			inputConfig: ScanInputMockConfig{
-				path:         "multiple_installed",
-				fakeScanRoot: "fixtures/apk/with-os-release",
+			Name: "multiple",
+			InputConfig: ScanInputMockConfig{
+				Path:         "multiple_installed",
+				FakeScanRoot: "fixtures/apk/with-os-release",
 			},
-			wantInventory: []*extractor.Inventory{
+			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "alpine-baselayout-data",
 					Version:   "3.4.0-r0",
@@ -130,12 +130,12 @@ func TestApkInstalledExtractor_Extract(t *testing.T) {
 			},
 		},
 		{
-			name: "multiple but no os source info",
-			inputConfig: ScanInputMockConfig{
-				path:         "multiple_installed",
-				fakeScanRoot: "fixtures/apk/without-os-release",
+			Name: "multiple but no os source info",
+			InputConfig: ScanInputMockConfig{
+				Path:         "multiple_installed",
+				FakeScanRoot: "fixtures/apk/without-os-release",
 			},
-			wantInventory: []*extractor.Inventory{
+			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "alpine-baselayout-data",
 					Version:   "3.4.0-r0",
@@ -166,10 +166,10 @@ func TestApkInstalledExtractor_Extract(t *testing.T) {
 
 	for _, tt := range tests {
 		tt := tt
-		t.Run(tt.name, func(t *testing.T) {
+		t.Run(tt.Name, func(t *testing.T) {
 			t.Parallel()
 			e := lockfilescalibr.ApkInstalledExtractor{}
-			_, _ = extractionTester(t, e, tt)
+			_, _ = ExtractionTester(t, e, tt)
 		})
 	}
 }

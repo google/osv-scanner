@@ -18,42 +18,42 @@ func TestPoetryLockExtractor_FileRequired(t *testing.T) {
 		{
 			name: "",
 			inputConfig: ScanInputMockConfig{
-				path: "",
+				Path: "",
 			},
 			want: false,
 		},
 		{
 			name: "",
 			inputConfig: ScanInputMockConfig{
-				path: "poetry.lock",
+				Path: "poetry.lock",
 			},
 			want: true,
 		},
 		{
 			name: "",
 			inputConfig: ScanInputMockConfig{
-				path: "path/to/my/poetry.lock",
+				Path: "path/to/my/poetry.lock",
 			},
 			want: true,
 		},
 		{
 			name: "",
 			inputConfig: ScanInputMockConfig{
-				path: "path/to/my/poetry.lock/file",
+				Path: "path/to/my/poetry.lock/file",
 			},
 			want: false,
 		},
 		{
 			name: "",
 			inputConfig: ScanInputMockConfig{
-				path: "path/to/my/poetry.lock.file",
+				Path: "path/to/my/poetry.lock.file",
 			},
 			want: false,
 		},
 		{
 			name: "",
 			inputConfig: ScanInputMockConfig{
-				path: "path.to.my.poetry.lock",
+				Path: "path.to.my.poetry.lock",
 			},
 			want: false,
 		},
@@ -63,9 +63,9 @@ func TestPoetryLockExtractor_FileRequired(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
 			e := lockfilescalibr.PoetryLockExtractor{}
-			got := e.FileRequired(tt.inputConfig.path, GenerateFileInfoMock(t, tt.inputConfig))
+			got := e.FileRequired(tt.inputConfig.Path, GenerateFileInfoMock(t, tt.inputConfig))
 			if got != tt.want {
-				t.Errorf("FileRequired(%s, FileInfo) got = %v, want %v", tt.inputConfig.path, got, tt.want)
+				t.Errorf("FileRequired(%s, FileInfo) got = %v, want %v", tt.inputConfig.Path, got, tt.want)
 			}
 		})
 	}
@@ -73,27 +73,27 @@ func TestPoetryLockExtractor_FileRequired(t *testing.T) {
 
 func TestPoetryLockExtractor_Extract(t *testing.T) {
 	t.Parallel()
-	tests := []testTableEntry{
+	tests := []TestTableEntry{
 		{
-			name: "invalid toml",
-			inputConfig: ScanInputMockConfig{
-				path: "fixtures/poetry/not-toml.txt",
+			Name: "invalid toml",
+			InputConfig: ScanInputMockConfig{
+				Path: "fixtures/poetry/not-toml.txt",
 			},
-			wantErrContaining: "could not extract from",
+			WantErrContaining: "could not extract from",
 		},
 		{
-			name: "no packages",
-			inputConfig: ScanInputMockConfig{
-				path: "fixtures/poetry/empty.lock",
+			Name: "no packages",
+			InputConfig: ScanInputMockConfig{
+				Path: "fixtures/poetry/empty.lock",
 			},
-			wantInventory: []*extractor.Inventory{},
+			WantInventory: []*extractor.Inventory{},
 		},
 		{
-			name: "one package",
-			inputConfig: ScanInputMockConfig{
-				path: "fixtures/poetry/one-package.lock",
+			Name: "one package",
+			InputConfig: ScanInputMockConfig{
+				Path: "fixtures/poetry/one-package.lock",
 			},
-			wantInventory: []*extractor.Inventory{
+			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "numpy",
 					Version:   "1.23.3",
@@ -108,11 +108,11 @@ func TestPoetryLockExtractor_Extract(t *testing.T) {
 			},
 		},
 		{
-			name: "two packages",
-			inputConfig: ScanInputMockConfig{
-				path: "fixtures/poetry/two-packages.lock",
+			Name: "two packages",
+			InputConfig: ScanInputMockConfig{
+				Path: "fixtures/poetry/two-packages.lock",
 			},
-			wantInventory: []*extractor.Inventory{
+			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "proto-plus",
 					Version:   "1.22.0",
@@ -138,11 +138,11 @@ func TestPoetryLockExtractor_Extract(t *testing.T) {
 			},
 		},
 		{
-			name: "package with metadata",
-			inputConfig: ScanInputMockConfig{
-				path: "fixtures/poetry/one-package-with-metadata.lock",
+			Name: "package with metadata",
+			InputConfig: ScanInputMockConfig{
+				Path: "fixtures/poetry/one-package-with-metadata.lock",
 			},
-			wantInventory: []*extractor.Inventory{
+			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "emoji",
 					Version:   "2.0.0",
@@ -157,11 +157,11 @@ func TestPoetryLockExtractor_Extract(t *testing.T) {
 			},
 		},
 		{
-			name: "package with git source",
-			inputConfig: ScanInputMockConfig{
-				path: "fixtures/poetry/source-git.lock",
+			Name: "package with git source",
+			InputConfig: ScanInputMockConfig{
+				Path: "fixtures/poetry/source-git.lock",
 			},
-			wantInventory: []*extractor.Inventory{
+			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "ike",
 					Version:   "0.2.0",
@@ -176,11 +176,11 @@ func TestPoetryLockExtractor_Extract(t *testing.T) {
 			},
 		},
 		{
-			name: "package with legacy source",
-			inputConfig: ScanInputMockConfig{
-				path: "fixtures/poetry/source-legacy.lock",
+			Name: "package with legacy source",
+			InputConfig: ScanInputMockConfig{
+				Path: "fixtures/poetry/source-legacy.lock",
 			},
-			wantInventory: []*extractor.Inventory{
+			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "appdirs",
 					Version:   "1.4.4",
@@ -195,11 +195,11 @@ func TestPoetryLockExtractor_Extract(t *testing.T) {
 			},
 		},
 		{
-			name: "optional package",
-			inputConfig: ScanInputMockConfig{
-				path: "fixtures/poetry/optional-package.lock",
+			Name: "optional package",
+			InputConfig: ScanInputMockConfig{
+				Path: "fixtures/poetry/optional-package.lock",
 			},
-			wantInventory: []*extractor.Inventory{
+			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "numpy",
 					Version:   "1.23.3",
@@ -217,10 +217,10 @@ func TestPoetryLockExtractor_Extract(t *testing.T) {
 
 	for _, tt := range tests {
 		tt := tt
-		t.Run(tt.name, func(t *testing.T) {
+		t.Run(tt.Name, func(t *testing.T) {
 			t.Parallel()
 			e := lockfilescalibr.PoetryLockExtractor{}
-			_, _ = extractionTester(t, e, tt)
+			_, _ = ExtractionTester(t, e, tt)
 		})
 	}
 }

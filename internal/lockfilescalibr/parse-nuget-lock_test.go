@@ -18,42 +18,42 @@ func TestNuGetLockExtractor_FileRequired(t *testing.T) {
 		{
 			name: "",
 			inputConfig: ScanInputMockConfig{
-				path: "",
+				Path: "",
 			},
 			want: false,
 		},
 		{
 			name: "",
 			inputConfig: ScanInputMockConfig{
-				path: "packages.lock.json",
+				Path: "packages.lock.json",
 			},
 			want: true,
 		},
 		{
 			name: "",
 			inputConfig: ScanInputMockConfig{
-				path: "path/to/my/packages.lock.json",
+				Path: "path/to/my/packages.lock.json",
 			},
 			want: true,
 		},
 		{
 			name: "",
 			inputConfig: ScanInputMockConfig{
-				path: "path/to/my/packages.lock.json/file",
+				Path: "path/to/my/packages.lock.json/file",
 			},
 			want: false,
 		},
 		{
 			name: "",
 			inputConfig: ScanInputMockConfig{
-				path: "path/to/my/packages.lock.json.file",
+				Path: "path/to/my/packages.lock.json.file",
 			},
 			want: false,
 		},
 		{
 			name: "",
 			inputConfig: ScanInputMockConfig{
-				path: "path.to.my.packages.lock.json",
+				Path: "path.to.my.packages.lock.json",
 			},
 			want: false,
 		},
@@ -63,9 +63,9 @@ func TestNuGetLockExtractor_FileRequired(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
 			e := lockfilescalibr.NuGetLockExtractor{}
-			got := e.FileRequired(tt.inputConfig.path, GenerateFileInfoMock(t, tt.inputConfig))
+			got := e.FileRequired(tt.inputConfig.Path, GenerateFileInfoMock(t, tt.inputConfig))
 			if got != tt.want {
-				t.Errorf("FileRequired(%s, FileInfo) got = %v, want %v", tt.inputConfig.path, got, tt.want)
+				t.Errorf("FileRequired(%s, FileInfo) got = %v, want %v", tt.inputConfig.Path, got, tt.want)
 			}
 		})
 	}
@@ -74,23 +74,23 @@ func TestNuGetLockExtractor_FileRequired(t *testing.T) {
 func TestNuGetLockExtractor_Extract_invalidVersion(t *testing.T) {
 	t.Parallel()
 
-	tests := []testTableEntry{
+	tests := []TestTableEntry{
 		{
-			name: "invalid version",
-			inputConfig: ScanInputMockConfig{
-				path: "fixtures/nuget/empty.v0.json",
+			Name: "invalid version",
+			InputConfig: ScanInputMockConfig{
+				Path: "fixtures/nuget/empty.v0.json",
 			},
-			wantErrContaining: "unsupported lock file version 0",
-			wantInventory:     []*extractor.Inventory{},
+			WantErrContaining: "unsupported lock file version 0",
+			WantInventory:     []*extractor.Inventory{},
 		},
 	}
 
 	for _, tt := range tests {
 		tt := tt
-		t.Run(tt.name, func(t *testing.T) {
+		t.Run(tt.Name, func(t *testing.T) {
 			t.Parallel()
 			e := lockfilescalibr.NuGetLockExtractor{}
-			_, _ = extractionTester(t, e, tt)
+			_, _ = ExtractionTester(t, e, tt)
 		})
 	}
 }

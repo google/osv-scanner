@@ -18,77 +18,77 @@ func TestGradleVerificationMetadataExtractor_FileRequired(t *testing.T) {
 		{
 			name: "",
 			inputConfig: ScanInputMockConfig{
-				path: "",
+				Path: "",
 			},
 			want: false,
 		},
 		{
 			name: "",
 			inputConfig: ScanInputMockConfig{
-				path: "verification-metadata.xml",
+				Path: "verification-metadata.xml",
 			},
 			want: false,
 		},
 		{
 			name: "",
 			inputConfig: ScanInputMockConfig{
-				path: "gradle/verification-metadata.xml",
+				Path: "gradle/verification-metadata.xml",
 			},
 			want: true,
 		},
 		{
 			name: "",
 			inputConfig: ScanInputMockConfig{
-				path: "path/to/my/verification-metadata.xml",
+				Path: "path/to/my/verification-metadata.xml",
 			},
 			want: false,
 		},
 		{
 			name: "",
 			inputConfig: ScanInputMockConfig{
-				path: "path/to/my/verification-metadata.xml/file",
+				Path: "path/to/my/verification-metadata.xml/file",
 			},
 			want: false,
 		},
 		{
 			name: "",
 			inputConfig: ScanInputMockConfig{
-				path: "path/to/my/verification-metadata.xml.file",
+				Path: "path/to/my/verification-metadata.xml.file",
 			},
 			want: false,
 		},
 		{
 			name: "",
 			inputConfig: ScanInputMockConfig{
-				path: "path.to.my.verification-metadata.xml",
+				Path: "path.to.my.verification-metadata.xml",
 			},
 			want: false,
 		},
 		{
 			name: "",
 			inputConfig: ScanInputMockConfig{
-				path: "path/to/my/gradle/verification-metadata.xml",
+				Path: "path/to/my/gradle/verification-metadata.xml",
 			},
 			want: true,
 		},
 		{
 			name: "",
 			inputConfig: ScanInputMockConfig{
-				path: "path/to/my/gradle/verification-metadata.xml/file",
+				Path: "path/to/my/gradle/verification-metadata.xml/file",
 			},
 			want: false,
 		},
 		{
 			name: "",
 			inputConfig: ScanInputMockConfig{
-				path: "path/to/my/gradle/verification-metadata.xml.file",
+				Path: "path/to/my/gradle/verification-metadata.xml.file",
 			},
 			want: false,
 		},
 		{
 			name: "",
 			inputConfig: ScanInputMockConfig{
-				path: "path.to.my.gradle.verification-metadata.xml",
+				Path: "path.to.my.gradle.verification-metadata.xml",
 			},
 			want: false,
 		},
@@ -98,9 +98,9 @@ func TestGradleVerificationMetadataExtractor_FileRequired(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
 			e := lockfilescalibr.GradleVerificationMetadataExtractor{}
-			got := e.FileRequired(tt.inputConfig.path, GenerateFileInfoMock(t, tt.inputConfig))
+			got := e.FileRequired(tt.inputConfig.Path, GenerateFileInfoMock(t, tt.inputConfig))
 			if got != tt.want {
-				t.Errorf("FileRequired(%s, FileInfo) got = %v, want %v", tt.inputConfig.path, got, tt.want)
+				t.Errorf("FileRequired(%s, FileInfo) got = %v, want %v", tt.inputConfig.Path, got, tt.want)
 			}
 		})
 	}
@@ -108,27 +108,27 @@ func TestGradleVerificationMetadataExtractor_FileRequired(t *testing.T) {
 
 func TestGradleVerificationMetadataExtractor_Extract(t *testing.T) {
 	t.Parallel()
-	tests := []testTableEntry{
+	tests := []TestTableEntry{
 		{
-			name: "invalid xml",
-			inputConfig: ScanInputMockConfig{
-				path: "fixtures/gradle-verification-metadata/not-xml.txt",
+			Name: "invalid xml",
+			InputConfig: ScanInputMockConfig{
+				Path: "fixtures/gradle-verification-metadata/not-xml.txt",
 			},
-			wantErrContaining: "could not extract from",
+			WantErrContaining: "could not extract from",
 		},
 		{
-			name: "no packages",
-			inputConfig: ScanInputMockConfig{
-				path: "fixtures/gradle-verification-metadata/empty.xml",
+			Name: "no packages",
+			InputConfig: ScanInputMockConfig{
+				Path: "fixtures/gradle-verification-metadata/empty.xml",
 			},
-			wantInventory: []*extractor.Inventory{},
+			WantInventory: []*extractor.Inventory{},
 		},
 		{
-			name: "one package",
-			inputConfig: ScanInputMockConfig{
-				path: "fixtures/gradle-verification-metadata/one-package.xml",
+			Name: "one package",
+			InputConfig: ScanInputMockConfig{
+				Path: "fixtures/gradle-verification-metadata/one-package.xml",
 			},
-			wantInventory: []*extractor.Inventory{
+			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "org.apache.pdfbox:pdfbox",
 					Version:   "2.0.17",
@@ -137,11 +137,11 @@ func TestGradleVerificationMetadataExtractor_Extract(t *testing.T) {
 			},
 		},
 		{
-			name: "two packages",
-			inputConfig: ScanInputMockConfig{
-				path: "fixtures/gradle-verification-metadata/two-packages.xml",
+			Name: "two packages",
+			InputConfig: ScanInputMockConfig{
+				Path: "fixtures/gradle-verification-metadata/two-packages.xml",
 			},
-			wantInventory: []*extractor.Inventory{
+			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "org.apache.pdfbox:pdfbox",
 					Version:   "2.0.17",
@@ -155,11 +155,11 @@ func TestGradleVerificationMetadataExtractor_Extract(t *testing.T) {
 			},
 		},
 		{
-			name: "multiple versions",
-			inputConfig: ScanInputMockConfig{
-				path: "fixtures/gradle-verification-metadata/multiple-versions.xml",
+			Name: "multiple versions",
+			InputConfig: ScanInputMockConfig{
+				Path: "fixtures/gradle-verification-metadata/multiple-versions.xml",
 			},
-			wantInventory: []*extractor.Inventory{
+			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "androidx.activity:activity",
 					Version:   "1.2.1",
@@ -253,11 +253,11 @@ func TestGradleVerificationMetadataExtractor_Extract(t *testing.T) {
 			},
 		},
 		{
-			name: "complex",
-			inputConfig: ScanInputMockConfig{
-				path: "fixtures/gradle-verification-metadata/complex.xml",
+			Name: "complex",
+			InputConfig: ScanInputMockConfig{
+				Path: "fixtures/gradle-verification-metadata/complex.xml",
 			},
-			wantInventory: []*extractor.Inventory{
+			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "com.google:google",
 					Version:   "1",
@@ -594,10 +594,10 @@ func TestGradleVerificationMetadataExtractor_Extract(t *testing.T) {
 
 	for _, tt := range tests {
 		tt := tt
-		t.Run(tt.name, func(t *testing.T) {
+		t.Run(tt.Name, func(t *testing.T) {
 			t.Parallel()
 			e := lockfilescalibr.GradleVerificationMetadataExtractor{}
-			_, _ = extractionTester(t, e, tt)
+			_, _ = ExtractionTester(t, e, tt)
 		})
 	}
 }

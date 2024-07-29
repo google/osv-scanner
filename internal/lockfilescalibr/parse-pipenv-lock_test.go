@@ -18,42 +18,42 @@ func TestPipenvLockExtractor_FileRequired(t *testing.T) {
 		{
 			name: "",
 			inputConfig: ScanInputMockConfig{
-				path: "",
+				Path: "",
 			},
 			want: false,
 		},
 		{
 			name: "",
 			inputConfig: ScanInputMockConfig{
-				path: "Pipfile.lock",
+				Path: "Pipfile.lock",
 			},
 			want: true,
 		},
 		{
 			name: "",
 			inputConfig: ScanInputMockConfig{
-				path: "path/to/my/Pipfile.lock",
+				Path: "path/to/my/Pipfile.lock",
 			},
 			want: true,
 		},
 		{
 			name: "",
 			inputConfig: ScanInputMockConfig{
-				path: "path/to/my/Pipfile.lock/file",
+				Path: "path/to/my/Pipfile.lock/file",
 			},
 			want: false,
 		},
 		{
 			name: "",
 			inputConfig: ScanInputMockConfig{
-				path: "path/to/my/Pipfile.lock.file",
+				Path: "path/to/my/Pipfile.lock.file",
 			},
 			want: false,
 		},
 		{
 			name: "",
 			inputConfig: ScanInputMockConfig{
-				path: "path.to.my.Pipfile.lock",
+				Path: "path.to.my.Pipfile.lock",
 			},
 			want: false,
 		},
@@ -63,9 +63,9 @@ func TestPipenvLockExtractor_FileRequired(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
 			e := lockfilescalibr.PipenvLockExtractor{}
-			got := e.FileRequired(tt.inputConfig.path, GenerateFileInfoMock(t, tt.inputConfig))
+			got := e.FileRequired(tt.inputConfig.Path, GenerateFileInfoMock(t, tt.inputConfig))
 			if got != tt.want {
-				t.Errorf("FileRequired(%s, FileInfo) got = %v, want %v", tt.inputConfig.path, got, tt.want)
+				t.Errorf("FileRequired(%s, FileInfo) got = %v, want %v", tt.inputConfig.Path, got, tt.want)
 			}
 		})
 	}
@@ -74,27 +74,27 @@ func TestPipenvLockExtractor_FileRequired(t *testing.T) {
 func TestPipenvLockExtractor_Extract(t *testing.T) {
 	t.Parallel()
 
-	tests := []testTableEntry{
+	tests := []TestTableEntry{
 		{
-			name: "invalid json",
-			inputConfig: ScanInputMockConfig{
-				path: "fixtures/pipenv/not-json.txt",
+			Name: "invalid json",
+			InputConfig: ScanInputMockConfig{
+				Path: "fixtures/pipenv/not-json.txt",
 			},
-			wantErrContaining: "could not extract from",
+			WantErrContaining: "could not extract from",
 		},
 		{
-			name: "no packages",
-			inputConfig: ScanInputMockConfig{
-				path: "fixtures/pipenv/empty.json",
+			Name: "no packages",
+			InputConfig: ScanInputMockConfig{
+				Path: "fixtures/pipenv/empty.json",
 			},
-			wantInventory: []*extractor.Inventory{},
+			WantInventory: []*extractor.Inventory{},
 		},
 		{
-			name: "one package",
-			inputConfig: ScanInputMockConfig{
-				path: "fixtures/pipenv/one-package.json",
+			Name: "one package",
+			InputConfig: ScanInputMockConfig{
+				Path: "fixtures/pipenv/one-package.json",
 			},
-			wantInventory: []*extractor.Inventory{
+			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "markupsafe",
 					Version:   "2.1.1",
@@ -106,11 +106,11 @@ func TestPipenvLockExtractor_Extract(t *testing.T) {
 			},
 		},
 		{
-			name: "one package dev",
-			inputConfig: ScanInputMockConfig{
-				path: "fixtures/pipenv/one-package-dev.json",
+			Name: "one package dev",
+			InputConfig: ScanInputMockConfig{
+				Path: "fixtures/pipenv/one-package-dev.json",
 			},
-			wantInventory: []*extractor.Inventory{
+			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "markupsafe",
 					Version:   "2.1.1",
@@ -122,11 +122,11 @@ func TestPipenvLockExtractor_Extract(t *testing.T) {
 			},
 		},
 		{
-			name: "two packages",
-			inputConfig: ScanInputMockConfig{
-				path: "fixtures/pipenv/two-packages.json",
+			Name: "two packages",
+			InputConfig: ScanInputMockConfig{
+				Path: "fixtures/pipenv/two-packages.json",
 			},
-			wantInventory: []*extractor.Inventory{
+			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "itsdangerous",
 					Version:   "2.1.2",
@@ -146,11 +146,11 @@ func TestPipenvLockExtractor_Extract(t *testing.T) {
 			},
 		},
 		{
-			name: "two packages alt",
-			inputConfig: ScanInputMockConfig{
-				path: "fixtures/pipenv/two-packages-alt.json",
+			Name: "two packages alt",
+			InputConfig: ScanInputMockConfig{
+				Path: "fixtures/pipenv/two-packages-alt.json",
 			},
-			wantInventory: []*extractor.Inventory{
+			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "itsdangerous",
 					Version:   "2.1.2",
@@ -170,11 +170,11 @@ func TestPipenvLockExtractor_Extract(t *testing.T) {
 			},
 		},
 		{
-			name: "multiple packages",
-			inputConfig: ScanInputMockConfig{
-				path: "fixtures/pipenv/multiple-packages.json",
+			Name: "multiple packages",
+			InputConfig: ScanInputMockConfig{
+				Path: "fixtures/pipenv/multiple-packages.json",
 			},
-			wantInventory: []*extractor.Inventory{
+			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "itsdangerous",
 					Version:   "2.1.2",
@@ -210,20 +210,20 @@ func TestPipenvLockExtractor_Extract(t *testing.T) {
 			},
 		},
 		{
-			name: "package without version",
-			inputConfig: ScanInputMockConfig{
-				path: "fixtures/pipenv/no-version.json",
+			Name: "package without version",
+			InputConfig: ScanInputMockConfig{
+				Path: "fixtures/pipenv/no-version.json",
 			},
-			wantInventory: []*extractor.Inventory{},
+			WantInventory: []*extractor.Inventory{},
 		},
 	}
 
 	for _, tt := range tests {
 		tt := tt
-		t.Run(tt.name, func(t *testing.T) {
+		t.Run(tt.Name, func(t *testing.T) {
 			t.Parallel()
 			e := lockfilescalibr.PipenvLockExtractor{}
-			_, _ = extractionTester(t, e, tt)
+			_, _ = ExtractionTester(t, e, tt)
 		})
 	}
 }

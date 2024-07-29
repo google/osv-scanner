@@ -18,42 +18,42 @@ func TestGemfileLockExtractor_FileRequired(t *testing.T) {
 		{
 			name: "",
 			inputConfig: ScanInputMockConfig{
-				path: "",
+				Path: "",
 			},
 			want: false,
 		},
 		{
 			name: "",
 			inputConfig: ScanInputMockConfig{
-				path: "Gemfile.lock",
+				Path: "Gemfile.lock",
 			},
 			want: true,
 		},
 		{
 			name: "",
 			inputConfig: ScanInputMockConfig{
-				path: "path/to/my/Gemfile.lock",
+				Path: "path/to/my/Gemfile.lock",
 			},
 			want: true,
 		},
 		{
 			name: "",
 			inputConfig: ScanInputMockConfig{
-				path: "path/to/my/Gemfile.lock/file",
+				Path: "path/to/my/Gemfile.lock/file",
 			},
 			want: false,
 		},
 		{
 			name: "",
 			inputConfig: ScanInputMockConfig{
-				path: "path/to/my/Gemfile.lock.file",
+				Path: "path/to/my/Gemfile.lock.file",
 			},
 			want: false,
 		},
 		{
 			name: "",
 			inputConfig: ScanInputMockConfig{
-				path: "path.to.my.Gemfile.lock",
+				Path: "path.to.my.Gemfile.lock",
 			},
 			want: false,
 		},
@@ -63,9 +63,9 @@ func TestGemfileLockExtractor_FileRequired(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
 			e := lockfilescalibr.GemfileLockExtractor{}
-			got := e.FileRequired(tt.inputConfig.path, GenerateFileInfoMock(t, tt.inputConfig))
+			got := e.FileRequired(tt.inputConfig.Path, GenerateFileInfoMock(t, tt.inputConfig))
 			if got != tt.want {
-				t.Errorf("FileRequired(%s, FileInfo) got = %v, want %v", tt.inputConfig.path, got, tt.want)
+				t.Errorf("FileRequired(%s, FileInfo) got = %v, want %v", tt.inputConfig.Path, got, tt.want)
 			}
 		})
 	}
@@ -75,34 +75,34 @@ func TestGemfileLockExtractor_Extract(t *testing.T) {
 	t.Parallel()
 
 	// TODO: Add commit check
-	tests := []testTableEntry{
+	tests := []TestTableEntry{
 		{
-			name: "no spec section",
-			inputConfig: ScanInputMockConfig{
-				path: "fixtures/bundler/no-spec-section.lock",
+			Name: "no spec section",
+			InputConfig: ScanInputMockConfig{
+				Path: "fixtures/bundler/no-spec-section.lock",
 			},
-			wantInventory: []*extractor.Inventory{},
+			WantInventory: []*extractor.Inventory{},
 		},
 		{
-			name: "no gem section",
-			inputConfig: ScanInputMockConfig{
-				path: "fixtures/bundler/no-gem-section.lock",
+			Name: "no gem section",
+			InputConfig: ScanInputMockConfig{
+				Path: "fixtures/bundler/no-gem-section.lock",
 			},
-			wantInventory: []*extractor.Inventory{},
+			WantInventory: []*extractor.Inventory{},
 		},
 		{
-			name: "no gems",
-			inputConfig: ScanInputMockConfig{
-				path: "fixtures/bundler/no-gems.lock",
+			Name: "no gems",
+			InputConfig: ScanInputMockConfig{
+				Path: "fixtures/bundler/no-gems.lock",
 			},
-			wantInventory: []*extractor.Inventory{},
+			WantInventory: []*extractor.Inventory{},
 		},
 		{
-			name: "one gem",
-			inputConfig: ScanInputMockConfig{
-				path: "fixtures/bundler/one-gem.lock",
+			Name: "one gem",
+			InputConfig: ScanInputMockConfig{
+				Path: "fixtures/bundler/one-gem.lock",
 			},
-			wantInventory: []*extractor.Inventory{
+			WantInventory: []*extractor.Inventory{
 				{
 					Name:       "ast",
 					Version:    "2.4.2",
@@ -112,11 +112,11 @@ func TestGemfileLockExtractor_Extract(t *testing.T) {
 			},
 		},
 		{
-			name: "some gems",
-			inputConfig: ScanInputMockConfig{
-				path: "fixtures/bundler/some-gems.lock",
+			Name: "some gems",
+			InputConfig: ScanInputMockConfig{
+				Path: "fixtures/bundler/some-gems.lock",
 			},
-			wantInventory: []*extractor.Inventory{
+			WantInventory: []*extractor.Inventory{
 				{
 					Name:       "coderay",
 					Version:    "1.1.3",
@@ -138,11 +138,11 @@ func TestGemfileLockExtractor_Extract(t *testing.T) {
 			},
 		},
 		{
-			name: "multiple gems",
-			inputConfig: ScanInputMockConfig{
-				path: "fixtures/bundler/multiple-gems.lock",
+			Name: "multiple gems",
+			InputConfig: ScanInputMockConfig{
+				Path: "fixtures/bundler/multiple-gems.lock",
 			},
-			wantInventory: []*extractor.Inventory{
+			WantInventory: []*extractor.Inventory{
 				{
 					Name:       "bundler-audit",
 					Version:    "0.9.0.1",
@@ -182,11 +182,11 @@ func TestGemfileLockExtractor_Extract(t *testing.T) {
 			},
 		},
 		{
-			name: "rails",
-			inputConfig: ScanInputMockConfig{
-				path: "fixtures/bundler/rails.lock",
+			Name: "rails",
+			InputConfig: ScanInputMockConfig{
+				Path: "fixtures/bundler/rails.lock",
 			},
-			wantInventory: []*extractor.Inventory{
+			WantInventory: []*extractor.Inventory{
 				{
 					Name:       "actioncable",
 					Version:    "7.0.2.2",
@@ -466,11 +466,11 @@ func TestGemfileLockExtractor_Extract(t *testing.T) {
 			},
 		},
 		{
-			name: "rubocop",
-			inputConfig: ScanInputMockConfig{
-				path: "fixtures/bundler/rubocop.lock",
+			Name: "rubocop",
+			InputConfig: ScanInputMockConfig{
+				Path: "fixtures/bundler/rubocop.lock",
 			},
-			wantInventory: []*extractor.Inventory{
+			WantInventory: []*extractor.Inventory{
 				{
 					Name:       "ast",
 					Version:    "2.4.2",
@@ -534,11 +534,11 @@ func TestGemfileLockExtractor_Extract(t *testing.T) {
 			},
 		},
 		{
-			name: "has local gem",
-			inputConfig: ScanInputMockConfig{
-				path: "fixtures/bundler/has-local-gem.lock",
+			Name: "has local gem",
+			InputConfig: ScanInputMockConfig{
+				Path: "fixtures/bundler/has-local-gem.lock",
 			},
-			wantInventory: []*extractor.Inventory{
+			WantInventory: []*extractor.Inventory{
 				{
 					Name:       "backbone-on-rails",
 					Version:    "1.2.0.0",
@@ -722,11 +722,11 @@ func TestGemfileLockExtractor_Extract(t *testing.T) {
 			},
 		},
 		{
-			name: "has git gem",
-			inputConfig: ScanInputMockConfig{
-				path: "fixtures/bundler/has-git-gem.lock",
+			Name: "has git gem",
+			InputConfig: ScanInputMockConfig{
+				Path: "fixtures/bundler/has-git-gem.lock",
 			},
-			wantInventory: []*extractor.Inventory{
+			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "hanami-controller",
 					Version:   "2.0.0.alpha1",
@@ -767,10 +767,10 @@ func TestGemfileLockExtractor_Extract(t *testing.T) {
 
 	for _, tt := range tests {
 		tt := tt
-		t.Run(tt.name, func(t *testing.T) {
+		t.Run(tt.Name, func(t *testing.T) {
 			t.Parallel()
 			e := lockfilescalibr.GemfileLockExtractor{}
-			_, _ = extractionTester(t, e, tt)
+			_, _ = ExtractionTester(t, e, tt)
 		})
 	}
 }

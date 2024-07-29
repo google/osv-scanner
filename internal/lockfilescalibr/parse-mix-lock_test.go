@@ -18,42 +18,42 @@ func TestMixLockExtractor_FileRequired(t *testing.T) {
 		{
 			name: "",
 			inputConfig: ScanInputMockConfig{
-				path: "",
+				Path: "",
 			},
 			want: false,
 		},
 		{
 			name: "",
 			inputConfig: ScanInputMockConfig{
-				path: "mix.lock",
+				Path: "mix.lock",
 			},
 			want: true,
 		},
 		{
 			name: "",
 			inputConfig: ScanInputMockConfig{
-				path: "path/to/my/mix.lock",
+				Path: "path/to/my/mix.lock",
 			},
 			want: true,
 		},
 		{
 			name: "",
 			inputConfig: ScanInputMockConfig{
-				path: "path/to/my/mix.lock/file",
+				Path: "path/to/my/mix.lock/file",
 			},
 			want: false,
 		},
 		{
 			name: "",
 			inputConfig: ScanInputMockConfig{
-				path: "path/to/my/mix.lock.file",
+				Path: "path/to/my/mix.lock.file",
 			},
 			want: false,
 		},
 		{
 			name: "",
 			inputConfig: ScanInputMockConfig{
-				path: "path.to.my.mix.lock",
+				Path: "path.to.my.mix.lock",
 			},
 			want: false,
 		},
@@ -63,9 +63,9 @@ func TestMixLockExtractor_FileRequired(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
 			e := lockfilescalibr.MixLockExtractor{}
-			got := e.FileRequired(tt.inputConfig.path, GenerateFileInfoMock(t, tt.inputConfig))
+			got := e.FileRequired(tt.inputConfig.Path, GenerateFileInfoMock(t, tt.inputConfig))
 			if got != tt.want {
-				t.Errorf("FileRequired(%s, FileInfo) got = %v, want %v", tt.inputConfig.path, got, tt.want)
+				t.Errorf("FileRequired(%s, FileInfo) got = %v, want %v", tt.inputConfig.Path, got, tt.want)
 			}
 		})
 	}
@@ -74,21 +74,21 @@ func TestMixLockExtractor_FileRequired(t *testing.T) {
 func TestMixLockExtractor_Extract(t *testing.T) {
 	t.Parallel()
 
-	tests := []testTableEntry{
+	tests := []TestTableEntry{
 		// TODO: Add invalid test case here
 		{
-			name: "no packages",
-			inputConfig: ScanInputMockConfig{
-				path: "fixtures/mix/empty.lock",
+			Name: "no packages",
+			InputConfig: ScanInputMockConfig{
+				Path: "fixtures/mix/empty.lock",
 			},
-			wantInventory: []*extractor.Inventory{},
+			WantInventory: []*extractor.Inventory{},
 		},
 		{
-			name: "one package",
-			inputConfig: ScanInputMockConfig{
-				path: "fixtures/mix/one-package.lock",
+			Name: "one package",
+			InputConfig: ScanInputMockConfig{
+				Path: "fixtures/mix/one-package.lock",
 			},
-			wantInventory: []*extractor.Inventory{
+			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "plug",
 					Version:   "1.11.1",
@@ -100,11 +100,11 @@ func TestMixLockExtractor_Extract(t *testing.T) {
 			},
 		},
 		{
-			name: "two packages",
-			inputConfig: ScanInputMockConfig{
-				path: "fixtures/mix/two-packages.lock",
+			Name: "two packages",
+			InputConfig: ScanInputMockConfig{
+				Path: "fixtures/mix/two-packages.lock",
 			},
-			wantInventory: []*extractor.Inventory{
+			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "plug",
 					Version:   "1.11.1",
@@ -124,11 +124,11 @@ func TestMixLockExtractor_Extract(t *testing.T) {
 			},
 		},
 		{
-			name: "many",
-			inputConfig: ScanInputMockConfig{
-				path: "fixtures/mix/many.lock",
+			Name: "many",
+			InputConfig: ScanInputMockConfig{
+				Path: "fixtures/mix/many.lock",
 			},
-			wantInventory: []*extractor.Inventory{
+			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "backoff",
 					Version:   "1.1.6",
@@ -300,11 +300,11 @@ func TestMixLockExtractor_Extract(t *testing.T) {
 			},
 		},
 		{
-			name: "git packages",
-			inputConfig: ScanInputMockConfig{
-				path: "fixtures/mix/git.lock",
+			Name: "git packages",
+			InputConfig: ScanInputMockConfig{
+				Path: "fixtures/mix/git.lock",
 			},
-			wantInventory: []*extractor.Inventory{
+			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "foe",
 					Version:   "",
@@ -335,10 +335,10 @@ func TestMixLockExtractor_Extract(t *testing.T) {
 
 	for _, tt := range tests {
 		tt := tt
-		t.Run(tt.name, func(t *testing.T) {
+		t.Run(tt.Name, func(t *testing.T) {
 			t.Parallel()
 			e := lockfilescalibr.MixLockExtractor{}
-			_, _ = extractionTester(t, e, tt)
+			_, _ = ExtractionTester(t, e, tt)
 		})
 	}
 }

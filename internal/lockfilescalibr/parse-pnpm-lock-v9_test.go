@@ -10,20 +10,20 @@ import (
 func TestPnpmLockExtractor_Extract_v9(t *testing.T) {
 	t.Parallel()
 
-	tests := []testTableEntry{
+	tests := []TestTableEntry{
 		{
-			name: "no packages",
-			inputConfig: ScanInputMockConfig{
-				path: "fixtures/pnpm/no-packages.v9.yaml",
+			Name: "no packages",
+			InputConfig: ScanInputMockConfig{
+				Path: "fixtures/pnpm/no-packages.v9.yaml",
 			},
-			wantInventory: []*extractor.Inventory{},
+			WantInventory: []*extractor.Inventory{},
 		},
 		{
-			name: "one package",
-			inputConfig: ScanInputMockConfig{
-				path: "fixtures/pnpm/one-package.v9.yaml",
+			Name: "one package",
+			InputConfig: ScanInputMockConfig{
+				Path: "fixtures/pnpm/one-package.v9.yaml",
 			},
-			wantInventory: []*extractor.Inventory{
+			WantInventory: []*extractor.Inventory{
 				{
 					Name:       "acorn",
 					Version:    "8.11.3",
@@ -36,11 +36,11 @@ func TestPnpmLockExtractor_Extract_v9(t *testing.T) {
 			},
 		},
 		{
-			name: "one package dev",
-			inputConfig: ScanInputMockConfig{
-				path: "fixtures/pnpm/one-package-dev.v9.yaml",
+			Name: "one package dev",
+			InputConfig: ScanInputMockConfig{
+				Path: "fixtures/pnpm/one-package-dev.v9.yaml",
 			},
-			wantInventory: []*extractor.Inventory{
+			WantInventory: []*extractor.Inventory{
 				{
 					Name:       "acorn",
 					Version:    "8.11.3",
@@ -53,11 +53,11 @@ func TestPnpmLockExtractor_Extract_v9(t *testing.T) {
 			},
 		},
 		{
-			name: "scoped packages",
-			inputConfig: ScanInputMockConfig{
-				path: "fixtures/pnpm/scoped-packages.v9.yaml",
+			Name: "scoped packages",
+			InputConfig: ScanInputMockConfig{
+				Path: "fixtures/pnpm/scoped-packages.v9.yaml",
 			},
-			wantInventory: []*extractor.Inventory{
+			WantInventory: []*extractor.Inventory{
 				{
 					Name:       "@typescript-eslint/types",
 					Version:    "5.62.0",
@@ -70,11 +70,11 @@ func TestPnpmLockExtractor_Extract_v9(t *testing.T) {
 			},
 		},
 		{
-			name: "peer dependencies",
-			inputConfig: ScanInputMockConfig{
-				path: "fixtures/pnpm/peer-dependencies.v9.yaml",
+			Name: "peer dependencies",
+			InputConfig: ScanInputMockConfig{
+				Path: "fixtures/pnpm/peer-dependencies.v9.yaml",
 			},
-			wantInventory: []*extractor.Inventory{
+			WantInventory: []*extractor.Inventory{
 				{
 					Name:       "acorn-jsx",
 					Version:    "5.3.2",
@@ -96,11 +96,11 @@ func TestPnpmLockExtractor_Extract_v9(t *testing.T) {
 			},
 		},
 		{
-			name: "peer dependencies advanced",
-			inputConfig: ScanInputMockConfig{
-				path: "fixtures/pnpm/peer-dependencies-advanced.v9.yaml",
+			Name: "peer dependencies advanced",
+			InputConfig: ScanInputMockConfig{
+				Path: "fixtures/pnpm/peer-dependencies-advanced.v9.yaml",
 			},
-			wantInventory: []*extractor.Inventory{
+			WantInventory: []*extractor.Inventory{
 				{
 					Name:       "@eslint-community/eslint-utils",
 					Version:    "4.4.0",
@@ -221,11 +221,11 @@ func TestPnpmLockExtractor_Extract_v9(t *testing.T) {
 			},
 		},
 		{
-			name: "multiple versions",
-			inputConfig: ScanInputMockConfig{
-				path: "fixtures/pnpm/multiple-versions.v9.yaml",
+			Name: "multiple versions",
+			InputConfig: ScanInputMockConfig{
+				Path: "fixtures/pnpm/multiple-versions.v9.yaml",
 			},
-			wantInventory: []*extractor.Inventory{
+			WantInventory: []*extractor.Inventory{
 				{
 					Name:       "uuid",
 					Version:    "8.0.0",
@@ -256,11 +256,11 @@ func TestPnpmLockExtractor_Extract_v9(t *testing.T) {
 			},
 		},
 		{
-			name: "commits",
-			inputConfig: ScanInputMockConfig{
-				path: "fixtures/pnpm/commits.v9.yaml",
+			Name: "commits",
+			InputConfig: ScanInputMockConfig{
+				Path: "fixtures/pnpm/commits.v9.yaml",
 			},
-			wantInventory: []*extractor.Inventory{
+			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "ansi-regex",
 					Version:   "6.0.1",
@@ -286,11 +286,11 @@ func TestPnpmLockExtractor_Extract_v9(t *testing.T) {
 			},
 		},
 		{
-			name: "mixed groups",
-			inputConfig: ScanInputMockConfig{
-				path: "fixtures/pnpm/mixed-groups.v9.yaml",
+			Name: "mixed groups",
+			InputConfig: ScanInputMockConfig{
+				Path: "fixtures/pnpm/mixed-groups.v9.yaml",
 			},
-			wantInventory: []*extractor.Inventory{
+			WantInventory: []*extractor.Inventory{
 				{
 					Name:       "ansi-regex",
 					Version:    "5.0.1",
@@ -324,10 +324,10 @@ func TestPnpmLockExtractor_Extract_v9(t *testing.T) {
 
 	for _, tt := range tests {
 		tt := tt
-		t.Run(tt.name, func(t *testing.T) {
+		t.Run(tt.Name, func(t *testing.T) {
 			t.Parallel()
 			e := lockfilescalibr.PnpmLockExtractor{}
-			_, _ = extractionTester(t, e, tt)
+			_, _ = ExtractionTester(t, e, tt)
 		})
 	}
 }

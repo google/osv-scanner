@@ -18,8 +18,8 @@ func TestGoBinaryExtractor_FileRequired(t *testing.T) {
 		{
 			name: "full permission file",
 			inputConfig: ScanInputMockConfig{
-				path: "some_path",
-				fakeFileInfo: &FakeFileInfo{
+				Path: "some_path",
+				FakeFileInfo: &FakeFileInfo{
 					FileMode: 0777,
 					FileSize: 100,
 				},
@@ -29,8 +29,8 @@ func TestGoBinaryExtractor_FileRequired(t *testing.T) {
 		{
 			name: "no executable file",
 			inputConfig: ScanInputMockConfig{
-				path: "some_path_not_executable",
-				fakeFileInfo: &FakeFileInfo{
+				Path: "some_path_not_executable",
+				FakeFileInfo: &FakeFileInfo{
 					FileMode: 0666,
 					FileSize: 100,
 				},
@@ -40,8 +40,8 @@ func TestGoBinaryExtractor_FileRequired(t *testing.T) {
 		{
 			name: "only owner executable file",
 			inputConfig: ScanInputMockConfig{
-				path: "some_path_not_executable",
-				fakeFileInfo: &FakeFileInfo{
+				Path: "some_path_not_executable",
+				FakeFileInfo: &FakeFileInfo{
 					FileMode: 0700,
 					FileSize: 100,
 				},
@@ -55,9 +55,9 @@ func TestGoBinaryExtractor_FileRequired(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
 			e := lockfilescalibr.GoBinaryExtractor{}
-			got := e.FileRequired(tt.inputConfig.path, GenerateFileInfoMock(t, tt.inputConfig))
+			got := e.FileRequired(tt.inputConfig.Path, GenerateFileInfoMock(t, tt.inputConfig))
 			if got != tt.want {
-				t.Errorf("FileRequired(%s, FileInfo) got = %v, want %v", tt.inputConfig.path, got, tt.want)
+				t.Errorf("FileRequired(%s, FileInfo) got = %v, want %v", tt.inputConfig.Path, got, tt.want)
 			}
 		})
 	}
@@ -66,13 +66,13 @@ func TestGoBinaryExtractor_FileRequired(t *testing.T) {
 func TestGoBinaryExtractor_Extract(t *testing.T) {
 	t.Parallel()
 
-	tests := []testTableEntry{
+	tests := []TestTableEntry{
 		{
-			name: "no packages",
-			inputConfig: ScanInputMockConfig{
-				path: "fixtures/go/binaries/just-go",
+			Name: "no packages",
+			InputConfig: ScanInputMockConfig{
+				Path: "fixtures/go/binaries/just-go",
 			},
-			wantInventory: []*extractor.Inventory{
+			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "stdlib",
 					Version:   "1.21.10",
@@ -81,11 +81,11 @@ func TestGoBinaryExtractor_Extract(t *testing.T) {
 			},
 		},
 		{
-			name: "one package",
-			inputConfig: ScanInputMockConfig{
-				path: "fixtures/go/binaries/has-one-dep",
+			Name: "one package",
+			InputConfig: ScanInputMockConfig{
+				Path: "fixtures/go/binaries/has-one-dep",
 			},
-			wantInventory: []*extractor.Inventory{
+			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "stdlib",
 					Version:   "1.21.10",
@@ -99,20 +99,20 @@ func TestGoBinaryExtractor_Extract(t *testing.T) {
 			},
 		},
 		{
-			name: "not a go binary",
-			inputConfig: ScanInputMockConfig{
-				path: "fixtures/go/one-package.mod",
+			Name: "not a go binary",
+			InputConfig: ScanInputMockConfig{
+				Path: "fixtures/go/one-package.mod",
 			},
-			wantErrContaining: "file format is incompatible",
+			WantErrContaining: "file format is incompatible",
 		},
 	}
 
 	for _, tt := range tests {
 		tt := tt
-		t.Run(tt.name, func(t *testing.T) {
+		t.Run(tt.Name, func(t *testing.T) {
 			t.Parallel()
 			e := lockfilescalibr.GoBinaryExtractor{}
-			_, _ = extractionTester(t, e, tt)
+			_, _ = ExtractionTester(t, e, tt)
 		})
 	}
 }

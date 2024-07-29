@@ -18,77 +18,77 @@ func TestGradleLockExtractor_FileRequired(t *testing.T) {
 		{
 			name: "",
 			inputConfig: ScanInputMockConfig{
-				path: "",
+				Path: "",
 			},
 			want: false,
 		},
 		{
 			name: "",
 			inputConfig: ScanInputMockConfig{
-				path: "buildscript-gradle.lockfile",
+				Path: "buildscript-gradle.lockfile",
 			},
 			want: true,
 		},
 		{
 			name: "",
 			inputConfig: ScanInputMockConfig{
-				path: "path/to/my/buildscript-gradle.lockfile",
+				Path: "path/to/my/buildscript-gradle.lockfile",
 			},
 			want: true,
 		},
 		{
 			name: "",
 			inputConfig: ScanInputMockConfig{
-				path: "path/to/my/buildscript-gradle.lockfile/file",
+				Path: "path/to/my/buildscript-gradle.lockfile/file",
 			},
 			want: false,
 		},
 		{
 			name: "",
 			inputConfig: ScanInputMockConfig{
-				path: "path/to/my/buildscript-gradle.lockfile.file",
+				Path: "path/to/my/buildscript-gradle.lockfile.file",
 			},
 			want: false,
 		},
 		{
 			name: "",
 			inputConfig: ScanInputMockConfig{
-				path: "path.to.my.buildscript-gradle.lockfile",
+				Path: "path.to.my.buildscript-gradle.lockfile",
 			},
 			want: false,
 		},
 		{
 			name: "",
 			inputConfig: ScanInputMockConfig{
-				path: "gradle.lockfile",
+				Path: "gradle.lockfile",
 			},
 			want: true,
 		},
 		{
 			name: "",
 			inputConfig: ScanInputMockConfig{
-				path: "path/to/my/gradle.lockfile",
+				Path: "path/to/my/gradle.lockfile",
 			},
 			want: true,
 		},
 		{
 			name: "",
 			inputConfig: ScanInputMockConfig{
-				path: "path/to/my/gradle.lockfile/file",
+				Path: "path/to/my/gradle.lockfile/file",
 			},
 			want: false,
 		},
 		{
 			name: "",
 			inputConfig: ScanInputMockConfig{
-				path: "path/to/my/gradle.lockfile.file",
+				Path: "path/to/my/gradle.lockfile.file",
 			},
 			want: false,
 		},
 		{
 			name: "",
 			inputConfig: ScanInputMockConfig{
-				path: "path.to.my.gradle.lockfile",
+				Path: "path.to.my.gradle.lockfile",
 			},
 			want: false,
 		},
@@ -98,9 +98,9 @@ func TestGradleLockExtractor_FileRequired(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
 			e := lockfile.GradleLockExtractor{}
-			got := e.FileRequired(tt.inputConfig.path, GenerateFileInfoMock(t, tt.inputConfig))
+			got := e.FileRequired(tt.inputConfig.Path, GenerateFileInfoMock(t, tt.inputConfig))
 			if got != tt.want {
-				t.Errorf("FileRequired(%s, FileInfo) got = %v, want %v", tt.inputConfig.path, got, tt.want)
+				t.Errorf("FileRequired(%s, FileInfo) got = %v, want %v", tt.inputConfig.Path, got, tt.want)
 			}
 		})
 	}
@@ -108,27 +108,27 @@ func TestGradleLockExtractor_FileRequired(t *testing.T) {
 
 func TestGradleLockExtractor_Extract(t *testing.T) {
 	t.Parallel()
-	tests := []testTableEntry{
+	tests := []TestTableEntry{
 		{
-			name: "only comments",
-			inputConfig: ScanInputMockConfig{
-				path: "fixtures/gradle/only-comments",
+			Name: "only comments",
+			InputConfig: ScanInputMockConfig{
+				Path: "fixtures/gradle/only-comments",
 			},
-			wantInventory: []*extractor.Inventory{},
+			WantInventory: []*extractor.Inventory{},
 		},
 		{
-			name: "empty statement",
-			inputConfig: ScanInputMockConfig{
-				path: "fixtures/gradle/only-empty",
+			Name: "empty statement",
+			InputConfig: ScanInputMockConfig{
+				Path: "fixtures/gradle/only-empty",
 			},
-			wantInventory: []*extractor.Inventory{},
+			WantInventory: []*extractor.Inventory{},
 		},
 		{
-			name: "one package",
-			inputConfig: ScanInputMockConfig{
-				path: "fixtures/gradle/one-pkg",
+			Name: "one package",
+			InputConfig: ScanInputMockConfig{
+				Path: "fixtures/gradle/one-pkg",
 			},
-			wantInventory: []*extractor.Inventory{
+			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "org.springframework.security:spring-security-crypto",
 					Version:   "5.7.3",
@@ -137,11 +137,11 @@ func TestGradleLockExtractor_Extract(t *testing.T) {
 			},
 		},
 		{
-			name: "multiple package",
-			inputConfig: ScanInputMockConfig{
-				path: "fixtures/gradle/5-pkg",
+			Name: "multiple package",
+			InputConfig: ScanInputMockConfig{
+				Path: "fixtures/gradle/5-pkg",
 			},
-			wantInventory: []*extractor.Inventory{
+			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "org.springframework.boot:spring-boot-autoconfigure",
 					Version:   "2.7.4",
@@ -170,11 +170,11 @@ func TestGradleLockExtractor_Extract(t *testing.T) {
 			},
 		},
 		{
-			name: "with invalid lines",
-			inputConfig: ScanInputMockConfig{
-				path: "fixtures/gradle/with-bad-pkg",
+			Name: "with invalid lines",
+			InputConfig: ScanInputMockConfig{
+				Path: "fixtures/gradle/with-bad-pkg",
 			},
-			wantInventory: []*extractor.Inventory{
+			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "org.springframework.boot:spring-boot-autoconfigure",
 					Version:   "2.7.4",
@@ -191,10 +191,10 @@ func TestGradleLockExtractor_Extract(t *testing.T) {
 
 	for _, tt := range tests {
 		tt := tt
-		t.Run(tt.name, func(t *testing.T) {
+		t.Run(tt.Name, func(t *testing.T) {
 			t.Parallel()
 			e := lockfile.GradleLockExtractor{}
-			_, _ = extractionTester(t, e, tt)
+			_, _ = ExtractionTester(t, e, tt)
 		})
 	}
 }

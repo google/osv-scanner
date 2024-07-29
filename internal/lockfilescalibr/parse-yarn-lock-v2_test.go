@@ -10,20 +10,20 @@ import (
 func TestYarnLockExtractor_Extract_v2(t *testing.T) {
 	t.Parallel()
 
-	tests := []testTableEntry{
+	tests := []TestTableEntry{
 		{
-			name: "no packages",
-			inputConfig: ScanInputMockConfig{
-				path: "fixtures/yarn/empty.v2.lock",
+			Name: "no packages",
+			InputConfig: ScanInputMockConfig{
+				Path: "fixtures/yarn/empty.v2.lock",
 			},
-			wantInventory: []*extractor.Inventory{},
+			WantInventory: []*extractor.Inventory{},
 		},
 		{
-			name: "one package",
-			inputConfig: ScanInputMockConfig{
-				path: "fixtures/yarn/one-package.v2.lock",
+			Name: "one package",
+			InputConfig: ScanInputMockConfig{
+				Path: "fixtures/yarn/one-package.v2.lock",
 			},
-			wantInventory: []*extractor.Inventory{
+			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "balanced-match",
 					Version:   "1.0.2",
@@ -35,11 +35,11 @@ func TestYarnLockExtractor_Extract_v2(t *testing.T) {
 			},
 		},
 		{
-			name: "two packages",
-			inputConfig: ScanInputMockConfig{
-				path: "fixtures/yarn/two-packages.v2.lock",
+			Name: "two packages",
+			InputConfig: ScanInputMockConfig{
+				Path: "fixtures/yarn/two-packages.v2.lock",
 			},
-			wantInventory: []*extractor.Inventory{
+			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "compare-func",
 					Version:   "2.0.0",
@@ -59,11 +59,11 @@ func TestYarnLockExtractor_Extract_v2(t *testing.T) {
 			},
 		},
 		{
-			name: "with quotes",
-			inputConfig: ScanInputMockConfig{
-				path: "fixtures/yarn/with-quotes.v2.lock",
+			Name: "with quotes",
+			InputConfig: ScanInputMockConfig{
+				Path: "fixtures/yarn/with-quotes.v2.lock",
 			},
-			wantInventory: []*extractor.Inventory{
+			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "compare-func",
 					Version:   "2.0.0",
@@ -83,11 +83,11 @@ func TestYarnLockExtractor_Extract_v2(t *testing.T) {
 			},
 		},
 		{
-			name: "multiple versions",
-			inputConfig: ScanInputMockConfig{
-				path: "fixtures/yarn/multiple-versions.v2.lock",
+			Name: "multiple versions",
+			InputConfig: ScanInputMockConfig{
+				Path: "fixtures/yarn/multiple-versions.v2.lock",
 			},
-			wantInventory: []*extractor.Inventory{
+			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "debug",
 					Version:   "4.3.3",
@@ -115,11 +115,11 @@ func TestYarnLockExtractor_Extract_v2(t *testing.T) {
 			},
 		},
 		{
-			name: "scoped packages",
-			inputConfig: ScanInputMockConfig{
-				path: "fixtures/yarn/scoped-packages.v2.lock",
+			Name: "scoped packages",
+			InputConfig: ScanInputMockConfig{
+				Path: "fixtures/yarn/scoped-packages.v2.lock",
 			},
-			wantInventory: []*extractor.Inventory{
+			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "@babel/cli",
 					Version:   "7.16.8",
@@ -147,11 +147,11 @@ func TestYarnLockExtractor_Extract_v2(t *testing.T) {
 			},
 		},
 		{
-			name: "with prerelease",
-			inputConfig: ScanInputMockConfig{
-				path: "fixtures/yarn/with-prerelease.v2.lock",
+			Name: "with prerelease",
+			InputConfig: ScanInputMockConfig{
+				Path: "fixtures/yarn/with-prerelease.v2.lock",
 			},
-			wantInventory: []*extractor.Inventory{
+			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "@nicolo-ribaudo/chokidar-2",
 					Version:   "2.1.8-no-fsevents.3",
@@ -179,11 +179,11 @@ func TestYarnLockExtractor_Extract_v2(t *testing.T) {
 			},
 		},
 		{
-			name: "with build string",
-			inputConfig: ScanInputMockConfig{
-				path: "fixtures/yarn/with-build-string.v2.lock",
+			Name: "with build string",
+			InputConfig: ScanInputMockConfig{
+				Path: "fixtures/yarn/with-build-string.v2.lock",
 			},
-			wantInventory: []*extractor.Inventory{
+			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "domino",
 					Version:   "2.1.6+git",
@@ -211,11 +211,11 @@ func TestYarnLockExtractor_Extract_v2(t *testing.T) {
 			},
 		},
 		{
-			name: "commits",
-			inputConfig: ScanInputMockConfig{
-				path: "fixtures/yarn/commits.v2.lock",
+			Name: "commits",
+			InputConfig: ScanInputMockConfig{
+				Path: "fixtures/yarn/commits.v2.lock",
 			},
-			wantInventory: []*extractor.Inventory{
+			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "@my-scope/my-first-package",
 					Version:   "0.0.6",
@@ -275,11 +275,11 @@ func TestYarnLockExtractor_Extract_v2(t *testing.T) {
 			},
 		},
 		{
-			name: "files",
-			inputConfig: ScanInputMockConfig{
-				path: "fixtures/yarn/files.v2.lock",
+			Name: "files",
+			InputConfig: ScanInputMockConfig{
+				Path: "fixtures/yarn/files.v2.lock",
 			},
-			wantInventory: []*extractor.Inventory{
+			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "my-package",
 					Version:   "0.0.2",
@@ -291,11 +291,11 @@ func TestYarnLockExtractor_Extract_v2(t *testing.T) {
 			},
 		},
 		{
-			name: "with aliases",
-			inputConfig: ScanInputMockConfig{
-				path: "fixtures/yarn/with-aliases.v2.lock",
+			Name: "with aliases",
+			InputConfig: ScanInputMockConfig{
+				Path: "fixtures/yarn/with-aliases.v2.lock",
 			},
-			wantInventory: []*extractor.Inventory{
+			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "@babel/helper-validator-identifier",
 					Version:   "7.22.20",
@@ -334,10 +334,10 @@ func TestYarnLockExtractor_Extract_v2(t *testing.T) {
 
 	for _, tt := range tests {
 		tt := tt
-		t.Run(tt.name, func(t *testing.T) {
+		t.Run(tt.Name, func(t *testing.T) {
 			t.Parallel()
 			e := lockfilescalibr.YarnLockExtractor{}
-			_, _ = extractionTester(t, e, tt)
+			_, _ = ExtractionTester(t, e, tt)
 		})
 	}
 }
