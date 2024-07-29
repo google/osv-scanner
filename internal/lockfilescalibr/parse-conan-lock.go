@@ -8,6 +8,7 @@ import (
 	"path/filepath"
 	"strings"
 
+	"github.com/google/osv-scanner/internal/lockfilescalibr/plugin"
 	"github.com/package-url/packageurl-go"
 )
 
@@ -186,8 +187,8 @@ func (e ConanLockExtractor) Name() string { return "cpp/conanlock" }
 // Version of the extractor
 func (e ConanLockExtractor) Version() int { return 0 }
 
-func (e ConanLockExtractor) Requirements() Requirements {
-	return Requirements{}
+func (e ConanLockExtractor) Requirements() *plugin.Requirements {
+	return &plugin.Requirements{}
 }
 
 func (e ConanLockExtractor) FileRequired(path string, fileInfo fs.FileInfo) bool {

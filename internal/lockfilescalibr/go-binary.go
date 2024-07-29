@@ -9,6 +9,7 @@ import (
 	"path/filepath"
 	"strings"
 
+	"github.com/google/osv-scanner/internal/lockfilescalibr/plugin"
 	"github.com/package-url/packageurl-go"
 )
 
@@ -20,8 +21,8 @@ func (e GoBinaryExtractor) Name() string { return "go/gobinary" }
 // Version of the extractor
 func (e GoBinaryExtractor) Version() int { return 0 }
 
-func (e GoBinaryExtractor) Requirements() Requirements {
-	return Requirements{}
+func (e GoBinaryExtractor) Requirements() *plugin.Requirements {
+	return &plugin.Requirements{}
 }
 
 func (e GoBinaryExtractor) FileRequired(path string, fileInfo fs.FileInfo) bool {

@@ -7,6 +7,7 @@ import (
 	"io/fs"
 	"path/filepath"
 
+	"github.com/google/osv-scanner/internal/lockfilescalibr/plugin"
 	"github.com/package-url/packageurl-go"
 )
 
@@ -33,8 +34,8 @@ func (e ComposerLockExtractor) Name() string { return "php/composerlock" }
 // Version of the extractor
 func (e ComposerLockExtractor) Version() int { return 0 }
 
-func (e ComposerLockExtractor) Requirements() Requirements {
-	return Requirements{}
+func (e ComposerLockExtractor) Requirements() *plugin.Requirements {
+	return &plugin.Requirements{}
 }
 
 func (e ComposerLockExtractor) FileRequired(path string, fileInfo fs.FileInfo) bool {

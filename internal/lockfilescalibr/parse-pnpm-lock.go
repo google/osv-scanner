@@ -11,6 +11,7 @@ import (
 	"strings"
 
 	"github.com/google/osv-scanner/internal/cachedregexp"
+	"github.com/google/osv-scanner/internal/lockfilescalibr/plugin"
 	"github.com/package-url/packageurl-go"
 	"gopkg.in/yaml.v3"
 )
@@ -198,8 +199,8 @@ func (e PnpmLockExtractor) Name() string { return "javascript/pnpmlock" }
 // Version of the extractor
 func (e PnpmLockExtractor) Version() int { return 0 }
 
-func (e PnpmLockExtractor) Requirements() Requirements {
-	return Requirements{}
+func (e PnpmLockExtractor) Requirements() *plugin.Requirements {
+	return &plugin.Requirements{}
 }
 
 func (e PnpmLockExtractor) FileRequired(path string, fileInfo fs.FileInfo) bool {

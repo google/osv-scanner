@@ -7,6 +7,7 @@ import (
 	"io/fs"
 	"path/filepath"
 
+	"github.com/google/osv-scanner/internal/lockfilescalibr/plugin"
 	"github.com/package-url/packageurl-go"
 	"golang.org/x/exp/maps"
 )
@@ -30,8 +31,8 @@ func (e PipenvLockExtractor) Name() string { return "python/piplock" }
 // Version of the extractor
 func (e PipenvLockExtractor) Version() int { return 0 }
 
-func (e PipenvLockExtractor) Requirements() Requirements {
-	return Requirements{}
+func (e PipenvLockExtractor) Requirements() *plugin.Requirements {
+	return &plugin.Requirements{}
 }
 
 func (e PipenvLockExtractor) FileRequired(path string, fileInfo fs.FileInfo) bool {

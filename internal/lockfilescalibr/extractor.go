@@ -6,6 +6,7 @@ import (
 	"io"
 	"io/fs"
 
+	"github.com/google/osv-scanner/internal/lockfilescalibr/plugin"
 	"github.com/package-url/packageurl-go"
 )
 
@@ -36,23 +37,10 @@ type Plugin interface {
 	Version() int
 }
 
-// FS is a filesystem interface that allows the opening of files, reading of
-// directories, and performing stat on files.
-//
-// FS implementations may return ErrNotImplemented for `Open`, `ReadDir` and `Stat`.
-// Extractor implementations must decide whether the error is fatal or can be ignored.
-//
-// fs.FS implementations MUST implement io.ReaderAt for opened files to enable random access.
-type FS interface {
-	fs.FS
-	fs.ReadDirFS
-	fs.StatFS
-}
-
 // ScanInput represents a filesystem path to a readable file where inventory can be extracted.
 type ScanInput struct {
 	// FS for file access. This is rooted at /.
-	FS FS
+	FS plugin.FS
 	// Input path, relative to the root directory.
 	Path string
 	// The root directory to start all extractions from.
@@ -61,15 +49,6 @@ type ScanInput struct {
 	// Note that the file is closed by the core library, not the plugin.
 	Reader io.Reader
 	Info   fs.FileInfo
-}
-
-type Requirements struct {
-	// Whether this extractor requires network access.
-	Network bool
-
-	// Whether this extractor requires a real filesystem. If true, extractors
-	// may access the ScanInput file paths directly, bypassing the fs.FS.
-	RealFS bool
 }
 
 type SourceCodeIdentifier struct {
@@ -88,7 +67,7 @@ type Extractor interface {
 
 	// Requirements returns the set of operating requirements that the extractor
 	// requires.
-	Requirements() Requirements
+	Requirements() *plugin.Requirements
 
 	// ToPURL converts an inventory created by this extractor into a PURL.
 	ToPURL(i *Inventory) (*packageurl.PackageURL, error)

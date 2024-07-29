@@ -23,8 +23,8 @@ func (e [-extractname]) Name() string { return "go/gomod" }
 // Version of the extractor
 func (e [-extractname]) Version() int { return 0 }
 
-func (e [-extractname]) Requirements() Requirements {
-	return Requirements{}
+func (e [-extractname]) Requirements() *plugin.Requirements {
+	return &plugin.Requirements{}
 }
 """
 

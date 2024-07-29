@@ -9,6 +9,7 @@ import (
 	"path/filepath"
 	"strings"
 
+	"github.com/google/osv-scanner/internal/lockfilescalibr/plugin"
 	"github.com/package-url/packageurl-go"
 	"gopkg.in/yaml.v3"
 )
@@ -76,8 +77,8 @@ func (e PubspecLockExtractor) Name() string { return "flutter/pubspec" }
 // Version of the extractor
 func (e PubspecLockExtractor) Version() int { return 0 }
 
-func (e PubspecLockExtractor) Requirements() Requirements {
-	return Requirements{}
+func (e PubspecLockExtractor) Requirements() *plugin.Requirements {
+	return &plugin.Requirements{}
 }
 
 func (e PubspecLockExtractor) FileRequired(path string, fileInfo fs.FileInfo) bool {

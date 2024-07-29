@@ -7,6 +7,7 @@ import (
 	"path/filepath"
 
 	"github.com/BurntSushi/toml"
+	"github.com/google/osv-scanner/internal/lockfilescalibr/plugin"
 	"github.com/package-url/packageurl-go"
 )
 
@@ -37,8 +38,8 @@ func (e PoetryLockExtractor) Name() string { return "python/poetry" }
 // Version of the extractor
 func (e PoetryLockExtractor) Version() int { return 0 }
 
-func (e PoetryLockExtractor) Requirements() Requirements {
-	return Requirements{}
+func (e PoetryLockExtractor) Requirements() *plugin.Requirements {
+	return &plugin.Requirements{}
 }
 
 func (e PoetryLockExtractor) FileRequired(path string, fileInfo fs.FileInfo) bool {

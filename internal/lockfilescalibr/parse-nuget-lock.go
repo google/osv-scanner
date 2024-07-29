@@ -7,6 +7,7 @@ import (
 	"io/fs"
 	"path/filepath"
 
+	"github.com/google/osv-scanner/internal/lockfilescalibr/plugin"
 	"github.com/package-url/packageurl-go"
 	"golang.org/x/exp/maps"
 )
@@ -60,8 +61,8 @@ func (e NuGetLockExtractor) Name() string { return "dotnet/nugetpackagelock" }
 // Version of the extractor
 func (e NuGetLockExtractor) Version() int { return 0 }
 
-func (e NuGetLockExtractor) Requirements() Requirements {
-	return Requirements{}
+func (e NuGetLockExtractor) Requirements() *plugin.Requirements {
+	return &plugin.Requirements{}
 }
 
 func (e NuGetLockExtractor) FileRequired(path string, fileInfo fs.FileInfo) bool {

@@ -7,6 +7,7 @@ import (
 	"io/fs"
 	"path/filepath"
 
+	"github.com/google/osv-scanner/internal/lockfilescalibr/plugin"
 	"github.com/package-url/packageurl-go"
 )
 
@@ -30,8 +31,8 @@ func (e RenvLockExtractor) Name() string { return "r/renvlock" }
 // Version of the extractor
 func (e RenvLockExtractor) Version() int { return 0 }
 
-func (e RenvLockExtractor) Requirements() Requirements {
-	return Requirements{}
+func (e RenvLockExtractor) Requirements() *plugin.Requirements {
+	return &plugin.Requirements{}
 }
 
 func (e RenvLockExtractor) FileRequired(path string, fileInfo fs.FileInfo) bool {

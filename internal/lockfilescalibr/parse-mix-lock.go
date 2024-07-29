@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/google/osv-scanner/internal/cachedregexp"
+	"github.com/google/osv-scanner/internal/lockfilescalibr/plugin"
 	"github.com/package-url/packageurl-go"
 )
 
@@ -23,8 +24,8 @@ func (e MixLockExtractor) Name() string { return "erlang/mixlock" }
 // Version of the extractor
 func (e MixLockExtractor) Version() int { return 0 }
 
-func (e MixLockExtractor) Requirements() Requirements {
-	return Requirements{}
+func (e MixLockExtractor) Requirements() *plugin.Requirements {
+	return &plugin.Requirements{}
 }
 
 func (e MixLockExtractor) FileRequired(path string, fileInfo fs.FileInfo) bool {

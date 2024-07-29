@@ -7,6 +7,7 @@ import (
 	"path/filepath"
 
 	"github.com/BurntSushi/toml"
+	"github.com/google/osv-scanner/internal/lockfilescalibr/plugin"
 	"github.com/package-url/packageurl-go"
 )
 
@@ -32,8 +33,8 @@ func (e PdmLockExtractor) Name() string { return "python/pdm" }
 // Version of the extractor
 func (e PdmLockExtractor) Version() int { return 0 }
 
-func (e PdmLockExtractor) Requirements() Requirements {
-	return Requirements{}
+func (e PdmLockExtractor) Requirements() *plugin.Requirements {
+	return &plugin.Requirements{}
 }
 
 func (e PdmLockExtractor) FileRequired(path string, fileInfo fs.FileInfo) bool {

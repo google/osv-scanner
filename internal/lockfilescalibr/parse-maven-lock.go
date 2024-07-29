@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/google/osv-scanner/internal/cachedregexp"
+	"github.com/google/osv-scanner/internal/lockfilescalibr/plugin"
 	"github.com/package-url/packageurl-go"
 	"golang.org/x/exp/maps"
 )
@@ -115,8 +116,8 @@ func (e MavenLockExtractor) Name() string { return "java/pomxml" }
 // Version of the extractor
 func (e MavenLockExtractor) Version() int { return 0 }
 
-func (e MavenLockExtractor) Requirements() Requirements {
-	return Requirements{}
+func (e MavenLockExtractor) Requirements() *plugin.Requirements {
+	return &plugin.Requirements{}
 }
 
 func (e MavenLockExtractor) FileRequired(path string, fileInfo fs.FileInfo) bool {

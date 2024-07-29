@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/google/osv-scanner/internal/cachedregexp"
+	"github.com/google/osv-scanner/internal/lockfilescalibr/plugin"
 	"github.com/package-url/packageurl-go"
 )
 
@@ -174,8 +175,8 @@ func (e GemfileLockExtractor) Name() string { return "go/gomod" }
 // Version of the extractor
 func (e GemfileLockExtractor) Version() int { return 0 }
 
-func (e GemfileLockExtractor) Requirements() Requirements {
-	return Requirements{}
+func (e GemfileLockExtractor) Requirements() *plugin.Requirements {
+	return &plugin.Requirements{}
 }
 
 func (e GemfileLockExtractor) FileRequired(path string, fileInfo fs.FileInfo) bool {

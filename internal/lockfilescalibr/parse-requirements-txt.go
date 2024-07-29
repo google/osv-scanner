@@ -9,6 +9,7 @@ import (
 	"strings"
 
 	"github.com/google/osv-scanner/internal/cachedregexp"
+	"github.com/google/osv-scanner/internal/lockfilescalibr/plugin"
 	"github.com/package-url/packageurl-go"
 	"golang.org/x/exp/maps"
 )
@@ -112,8 +113,8 @@ func (e RequirementsTxtExtractor) Name() string { return "python/requirementstxt
 // Version of the extractor
 func (e RequirementsTxtExtractor) Version() int { return 0 }
 
-func (e RequirementsTxtExtractor) Requirements() Requirements {
-	return Requirements{}
+func (e RequirementsTxtExtractor) Requirements() *plugin.Requirements {
+	return &plugin.Requirements{}
 }
 
 func (e RequirementsTxtExtractor) FileRequired(path string, fileInfo fs.FileInfo) bool {

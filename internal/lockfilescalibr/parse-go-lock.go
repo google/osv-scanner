@@ -8,6 +8,7 @@ import (
 	"path/filepath"
 	"strings"
 
+	"github.com/google/osv-scanner/internal/lockfilescalibr/plugin"
 	"github.com/package-url/packageurl-go"
 	"golang.org/x/exp/maps"
 	"golang.org/x/mod/modfile"
@@ -27,8 +28,8 @@ func (e GoLockExtractor) Name() string { return "go/gomod" }
 // Version of the extractor
 func (e GoLockExtractor) Version() int { return 0 }
 
-func (e GoLockExtractor) Requirements() Requirements {
-	return Requirements{}
+func (e GoLockExtractor) Requirements() *plugin.Requirements {
+	return &plugin.Requirements{}
 }
 
 func (e GoLockExtractor) FileRequired(path string, fileInfo fs.FileInfo) bool {

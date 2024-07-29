@@ -7,6 +7,7 @@ import (
 	"io/fs"
 	"path/filepath"
 
+	"github.com/google/osv-scanner/internal/lockfilescalibr/plugin"
 	"github.com/package-url/packageurl-go"
 )
 
@@ -26,8 +27,8 @@ func (e GradleVerificationMetadataExtractor) Name() string { return "go/gomod" }
 // Version of the extractor
 func (e GradleVerificationMetadataExtractor) Version() int { return 0 }
 
-func (e GradleVerificationMetadataExtractor) Requirements() Requirements {
-	return Requirements{}
+func (e GradleVerificationMetadataExtractor) Requirements() *plugin.Requirements {
+	return &plugin.Requirements{}
 }
 
 func (e GradleVerificationMetadataExtractor) FileRequired(path string, fileInfo fs.FileInfo) bool {

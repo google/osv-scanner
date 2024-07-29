@@ -8,6 +8,7 @@ import (
 	"path/filepath"
 	"strings"
 
+	"github.com/google/osv-scanner/internal/lockfilescalibr/plugin"
 	"github.com/package-url/packageurl-go"
 )
 
@@ -46,8 +47,8 @@ func (e GradleLockExtractor) Name() string { return "java/buildscriptgradlelockf
 // Version of the extractor
 func (e GradleLockExtractor) Version() int { return 0 }
 
-func (e GradleLockExtractor) Requirements() Requirements {
-	return Requirements{}
+func (e GradleLockExtractor) Requirements() *plugin.Requirements {
+	return &plugin.Requirements{}
 }
 
 func (e GradleLockExtractor) FileRequired(path string, fileInfo fs.FileInfo) bool {

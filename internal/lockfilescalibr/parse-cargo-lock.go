@@ -7,6 +7,7 @@ import (
 	"path/filepath"
 
 	"github.com/BurntSushi/toml"
+	"github.com/google/osv-scanner/internal/lockfilescalibr/plugin"
 	"github.com/package-url/packageurl-go"
 )
 
@@ -35,8 +36,8 @@ func (e CargoLockExtractor) FileRequired(path string, fileInfo fs.FileInfo) bool
 	return filepath.Base(path) == "Cargo.lock"
 }
 
-func (e CargoLockExtractor) Requirements() Requirements {
-	return Requirements{}
+func (e CargoLockExtractor) Requirements() *plugin.Requirements {
+	return &plugin.Requirements{}
 }
 
 func (e CargoLockExtractor) Extract(ctx context.Context, input *ScanInput) ([]*Inventory, error) {

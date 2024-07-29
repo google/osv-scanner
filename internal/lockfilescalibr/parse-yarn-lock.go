@@ -11,6 +11,7 @@ import (
 	"strings"
 
 	"github.com/google/osv-scanner/internal/cachedregexp"
+	"github.com/google/osv-scanner/internal/lockfilescalibr/plugin"
 	"github.com/package-url/packageurl-go"
 )
 
@@ -189,8 +190,8 @@ func (e YarnLockExtractor) Name() string { return "javascript/yarnlock" }
 // Version of the extractor
 func (e YarnLockExtractor) Version() int { return 0 }
 
-func (e YarnLockExtractor) Requirements() Requirements {
-	return Requirements{}
+func (e YarnLockExtractor) Requirements() *plugin.Requirements {
+	return &plugin.Requirements{}
 }
 
 func (e YarnLockExtractor) FileRequired(path string, fileInfo fs.FileInfo) bool {

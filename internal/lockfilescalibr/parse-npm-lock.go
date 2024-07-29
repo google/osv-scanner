@@ -9,6 +9,7 @@ import (
 	"path/filepath"
 	"strings"
 
+	"github.com/google/osv-scanner/internal/lockfilescalibr/plugin"
 	"github.com/package-url/packageurl-go"
 	"golang.org/x/exp/maps"
 	"golang.org/x/exp/slices"
@@ -224,8 +225,8 @@ func (e NpmLockExtractor) Name() string { return "javascript/packagelockjson" }
 // Version of the extractor
 func (e NpmLockExtractor) Version() int { return 0 }
 
-func (e NpmLockExtractor) Requirements() Requirements {
-	return Requirements{}
+func (e NpmLockExtractor) Requirements() *plugin.Requirements {
+	return &plugin.Requirements{}
 }
 
 func (e NpmLockExtractor) FileRequired(path string, fileInfo fs.FileInfo) bool {

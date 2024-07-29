@@ -8,6 +8,7 @@ import (
 	"io/fs"
 	"strings"
 
+	"github.com/google/osv-scanner/internal/lockfilescalibr/plugin"
 	"github.com/package-url/packageurl-go"
 )
 
@@ -65,8 +66,8 @@ func (e ApkInstalledExtractor) Name() string { return "alpine/apk-installed" }
 // Version of the extractor
 func (e ApkInstalledExtractor) Version() int { return 0 }
 
-func (e ApkInstalledExtractor) Requirements() Requirements {
-	return Requirements{}
+func (e ApkInstalledExtractor) Requirements() *plugin.Requirements {
+	return &plugin.Requirements{}
 }
 
 func (e ApkInstalledExtractor) FileRequired(path string, fileInfo fs.FileInfo) bool {
@@ -135,7 +136,7 @@ func (e ApkInstalledExtractor) Ecosystem(i *Inventory) (string, error) {
 
 // alpineReleaseExtractor extracts the release version for an alpine distro
 // will return "" if no release version can be found, or if distro is not alpine
-func alpineReleaseExtractor(opener FS) (string, error) {
+func alpineReleaseExtractor(opener plugin.FS) (string, error) {
 	alpineReleaseFile, err := opener.Open("etc/alpine-release")
 	if err != nil {
 		return "", err

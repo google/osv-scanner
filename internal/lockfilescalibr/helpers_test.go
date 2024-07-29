@@ -13,6 +13,7 @@ import (
 
 	"github.com/google/go-cmp/cmp"
 	"github.com/google/osv-scanner/internal/lockfilescalibr"
+	"github.com/google/osv-scanner/internal/lockfilescalibr/plugin"
 )
 
 func expectErrContaining(t *testing.T, err error, str string) {
@@ -232,7 +233,7 @@ func GenerateScanInputMock(t *testing.T, config ScanInputMockConfig) ScanInputWr
 	return ScanInputWrapper{
 		fileHandle: f,
 		ScanInput: lockfilescalibr.ScanInput{
-			FS:       os.DirFS(scanRoot).(lockfilescalibr.FS),
+			FS:       os.DirFS(scanRoot).(plugin.FS),
 			Path:     config.path,
 			ScanRoot: scanRoot,
 			Reader:   f,
