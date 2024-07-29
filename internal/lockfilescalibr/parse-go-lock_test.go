@@ -5,6 +5,7 @@ import (
 
 	"github.com/google/osv-scanner/internal/lockfilescalibr"
 	"github.com/google/osv-scanner/internal/lockfilescalibr/extractor"
+	"github.com/google/osv-scanner/internal/lockfilescalibr/sharedtesthelpers"
 )
 
 func TestGoLockExtractor_FileRequired(t *testing.T) {
@@ -12,47 +13,47 @@ func TestGoLockExtractor_FileRequired(t *testing.T) {
 
 	tests := []struct {
 		name        string
-		inputConfig ScanInputMockConfig
+		inputConfig sharedtesthelpers.ScanInputMockConfig
 		want        bool
 	}{
 		{
 			name: "",
-			inputConfig: ScanInputMockConfig{
+			inputConfig: sharedtesthelpers.ScanInputMockConfig{
 				Path: "",
 			},
 			want: false,
 		},
 		{
 			name: "",
-			inputConfig: ScanInputMockConfig{
+			inputConfig: sharedtesthelpers.ScanInputMockConfig{
 				Path: "go.mod",
 			},
 			want: true,
 		},
 		{
 			name: "",
-			inputConfig: ScanInputMockConfig{
+			inputConfig: sharedtesthelpers.ScanInputMockConfig{
 				Path: "path/to/my/go.mod",
 			},
 			want: true,
 		},
 		{
 			name: "",
-			inputConfig: ScanInputMockConfig{
+			inputConfig: sharedtesthelpers.ScanInputMockConfig{
 				Path: "path/to/my/go.mod/file",
 			},
 			want: false,
 		},
 		{
 			name: "",
-			inputConfig: ScanInputMockConfig{
+			inputConfig: sharedtesthelpers.ScanInputMockConfig{
 				Path: "path/to/my/go.mod.file",
 			},
 			want: false,
 		},
 		{
 			name: "",
-			inputConfig: ScanInputMockConfig{
+			inputConfig: sharedtesthelpers.ScanInputMockConfig{
 				Path: "path.to.my.go.mod",
 			},
 			want: false,
@@ -63,7 +64,7 @@ func TestGoLockExtractor_FileRequired(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
 			e := lockfilescalibr.GoLockExtractor{}
-			got := e.FileRequired(tt.inputConfig.Path, GenerateFileInfoMock(t, tt.inputConfig))
+			got := e.FileRequired(tt.inputConfig.Path, sharedtesthelpers.GenerateFileInfoMock(t, tt.inputConfig))
 			if got != tt.want {
 				t.Errorf("FileRequired(%s, FileInfo) got = %v, want %v", tt.inputConfig.Path, got, tt.want)
 			}
@@ -74,10 +75,10 @@ func TestGoLockExtractor_FileRequired(t *testing.T) {
 func TestGoLockExtractor_Extract(t *testing.T) {
 	t.Parallel()
 
-	tests := []TestTableEntry{
+	tests := []sharedtesthelpers.TestTableEntry{
 		{
 			Name: "invalid",
-			InputConfig: ScanInputMockConfig{
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
 				Path: "fixtures/go/not-go-mod.txt",
 			},
 			WantInventory:     []*extractor.Inventory{},
@@ -85,14 +86,14 @@ func TestGoLockExtractor_Extract(t *testing.T) {
 		},
 		{
 			Name: "no packages",
-			InputConfig: ScanInputMockConfig{
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
 				Path: "fixtures/go/empty.mod",
 			},
 			WantInventory: []*extractor.Inventory{},
 		},
 		{
 			Name: "one package",
-			InputConfig: ScanInputMockConfig{
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
 				Path: "fixtures/go/one-package.mod",
 			},
 			WantInventory: []*extractor.Inventory{
@@ -105,7 +106,7 @@ func TestGoLockExtractor_Extract(t *testing.T) {
 		},
 		{
 			Name: "two packages",
-			InputConfig: ScanInputMockConfig{
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
 				Path: "fixtures/go/two-packages.mod",
 			},
 			WantInventory: []*extractor.Inventory{
@@ -128,7 +129,7 @@ func TestGoLockExtractor_Extract(t *testing.T) {
 		},
 		{
 			Name: "indirect packages",
-			InputConfig: ScanInputMockConfig{
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
 				Path: "fixtures/go/indirect-packages.mod",
 			},
 			WantInventory: []*extractor.Inventory{
@@ -166,7 +167,7 @@ func TestGoLockExtractor_Extract(t *testing.T) {
 		},
 		{
 			Name: "replacements_ one",
-			InputConfig: ScanInputMockConfig{
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
 				Path: "fixtures/go/replace-one.mod",
 			},
 			WantInventory: []*extractor.Inventory{
@@ -179,7 +180,7 @@ func TestGoLockExtractor_Extract(t *testing.T) {
 		},
 		{
 			Name: "replacements_ mixed",
-			InputConfig: ScanInputMockConfig{
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
 				Path: "fixtures/go/replace-mixed.mod",
 			},
 			WantInventory: []*extractor.Inventory{
@@ -197,7 +198,7 @@ func TestGoLockExtractor_Extract(t *testing.T) {
 		},
 		{
 			Name: "replacements_ local",
-			InputConfig: ScanInputMockConfig{
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
 				Path: "fixtures/go/replace-local.mod",
 			},
 			WantInventory: []*extractor.Inventory{
@@ -215,7 +216,7 @@ func TestGoLockExtractor_Extract(t *testing.T) {
 		},
 		{
 			Name: "replacements_ different",
-			InputConfig: ScanInputMockConfig{
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
 				Path: "fixtures/go/replace-different.mod",
 			},
 			WantInventory: []*extractor.Inventory{
@@ -233,7 +234,7 @@ func TestGoLockExtractor_Extract(t *testing.T) {
 		},
 		{
 			Name: "replacements_ not required",
-			InputConfig: ScanInputMockConfig{
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
 				Path: "fixtures/go/replace-not-required.mod",
 			},
 			WantInventory: []*extractor.Inventory{
@@ -251,7 +252,7 @@ func TestGoLockExtractor_Extract(t *testing.T) {
 		},
 		{
 			Name: "replacements_ no version",
-			InputConfig: ScanInputMockConfig{
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
 				Path: "fixtures/go/replace-no-version.mod",
 			},
 			WantInventory: []*extractor.Inventory{
@@ -269,7 +270,7 @@ func TestGoLockExtractor_Extract(t *testing.T) {
 		t.Run(tt.Name, func(t *testing.T) {
 			t.Parallel()
 			e := lockfilescalibr.GoLockExtractor{}
-			_, _ = ExtractionTester(t, e, tt)
+			_, _ = sharedtesthelpers.ExtractionTester(t, e, tt)
 		})
 	}
 }

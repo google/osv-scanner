@@ -5,6 +5,7 @@ import (
 
 	"github.com/google/osv-scanner/internal/lockfilescalibr"
 	"github.com/google/osv-scanner/internal/lockfilescalibr/extractor"
+	"github.com/google/osv-scanner/internal/lockfilescalibr/sharedtesthelpers"
 )
 
 func TestGradleVerificationMetadataExtractor_FileRequired(t *testing.T) {
@@ -12,82 +13,82 @@ func TestGradleVerificationMetadataExtractor_FileRequired(t *testing.T) {
 
 	tests := []struct {
 		name        string
-		inputConfig ScanInputMockConfig
+		inputConfig sharedtesthelpers.ScanInputMockConfig
 		want        bool
 	}{
 		{
 			name: "",
-			inputConfig: ScanInputMockConfig{
+			inputConfig: sharedtesthelpers.ScanInputMockConfig{
 				Path: "",
 			},
 			want: false,
 		},
 		{
 			name: "",
-			inputConfig: ScanInputMockConfig{
+			inputConfig: sharedtesthelpers.ScanInputMockConfig{
 				Path: "verification-metadata.xml",
 			},
 			want: false,
 		},
 		{
 			name: "",
-			inputConfig: ScanInputMockConfig{
+			inputConfig: sharedtesthelpers.ScanInputMockConfig{
 				Path: "gradle/verification-metadata.xml",
 			},
 			want: true,
 		},
 		{
 			name: "",
-			inputConfig: ScanInputMockConfig{
+			inputConfig: sharedtesthelpers.ScanInputMockConfig{
 				Path: "path/to/my/verification-metadata.xml",
 			},
 			want: false,
 		},
 		{
 			name: "",
-			inputConfig: ScanInputMockConfig{
+			inputConfig: sharedtesthelpers.ScanInputMockConfig{
 				Path: "path/to/my/verification-metadata.xml/file",
 			},
 			want: false,
 		},
 		{
 			name: "",
-			inputConfig: ScanInputMockConfig{
+			inputConfig: sharedtesthelpers.ScanInputMockConfig{
 				Path: "path/to/my/verification-metadata.xml.file",
 			},
 			want: false,
 		},
 		{
 			name: "",
-			inputConfig: ScanInputMockConfig{
+			inputConfig: sharedtesthelpers.ScanInputMockConfig{
 				Path: "path.to.my.verification-metadata.xml",
 			},
 			want: false,
 		},
 		{
 			name: "",
-			inputConfig: ScanInputMockConfig{
+			inputConfig: sharedtesthelpers.ScanInputMockConfig{
 				Path: "path/to/my/gradle/verification-metadata.xml",
 			},
 			want: true,
 		},
 		{
 			name: "",
-			inputConfig: ScanInputMockConfig{
+			inputConfig: sharedtesthelpers.ScanInputMockConfig{
 				Path: "path/to/my/gradle/verification-metadata.xml/file",
 			},
 			want: false,
 		},
 		{
 			name: "",
-			inputConfig: ScanInputMockConfig{
+			inputConfig: sharedtesthelpers.ScanInputMockConfig{
 				Path: "path/to/my/gradle/verification-metadata.xml.file",
 			},
 			want: false,
 		},
 		{
 			name: "",
-			inputConfig: ScanInputMockConfig{
+			inputConfig: sharedtesthelpers.ScanInputMockConfig{
 				Path: "path.to.my.gradle.verification-metadata.xml",
 			},
 			want: false,
@@ -98,7 +99,7 @@ func TestGradleVerificationMetadataExtractor_FileRequired(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
 			e := lockfilescalibr.GradleVerificationMetadataExtractor{}
-			got := e.FileRequired(tt.inputConfig.Path, GenerateFileInfoMock(t, tt.inputConfig))
+			got := e.FileRequired(tt.inputConfig.Path, sharedtesthelpers.GenerateFileInfoMock(t, tt.inputConfig))
 			if got != tt.want {
 				t.Errorf("FileRequired(%s, FileInfo) got = %v, want %v", tt.inputConfig.Path, got, tt.want)
 			}
@@ -108,24 +109,24 @@ func TestGradleVerificationMetadataExtractor_FileRequired(t *testing.T) {
 
 func TestGradleVerificationMetadataExtractor_Extract(t *testing.T) {
 	t.Parallel()
-	tests := []TestTableEntry{
+	tests := []sharedtesthelpers.TestTableEntry{
 		{
 			Name: "invalid xml",
-			InputConfig: ScanInputMockConfig{
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
 				Path: "fixtures/gradle-verification-metadata/not-xml.txt",
 			},
 			WantErrContaining: "could not extract from",
 		},
 		{
 			Name: "no packages",
-			InputConfig: ScanInputMockConfig{
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
 				Path: "fixtures/gradle-verification-metadata/empty.xml",
 			},
 			WantInventory: []*extractor.Inventory{},
 		},
 		{
 			Name: "one package",
-			InputConfig: ScanInputMockConfig{
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
 				Path: "fixtures/gradle-verification-metadata/one-package.xml",
 			},
 			WantInventory: []*extractor.Inventory{
@@ -138,7 +139,7 @@ func TestGradleVerificationMetadataExtractor_Extract(t *testing.T) {
 		},
 		{
 			Name: "two packages",
-			InputConfig: ScanInputMockConfig{
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
 				Path: "fixtures/gradle-verification-metadata/two-packages.xml",
 			},
 			WantInventory: []*extractor.Inventory{
@@ -156,7 +157,7 @@ func TestGradleVerificationMetadataExtractor_Extract(t *testing.T) {
 		},
 		{
 			Name: "multiple versions",
-			InputConfig: ScanInputMockConfig{
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
 				Path: "fixtures/gradle-verification-metadata/multiple-versions.xml",
 			},
 			WantInventory: []*extractor.Inventory{
@@ -254,7 +255,7 @@ func TestGradleVerificationMetadataExtractor_Extract(t *testing.T) {
 		},
 		{
 			Name: "complex",
-			InputConfig: ScanInputMockConfig{
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
 				Path: "fixtures/gradle-verification-metadata/complex.xml",
 			},
 			WantInventory: []*extractor.Inventory{
@@ -597,7 +598,7 @@ func TestGradleVerificationMetadataExtractor_Extract(t *testing.T) {
 		t.Run(tt.Name, func(t *testing.T) {
 			t.Parallel()
 			e := lockfilescalibr.GradleVerificationMetadataExtractor{}
-			_, _ = ExtractionTester(t, e, tt)
+			_, _ = sharedtesthelpers.ExtractionTester(t, e, tt)
 		})
 	}
 }

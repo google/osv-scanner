@@ -5,6 +5,7 @@ import (
 
 	"github.com/google/osv-scanner/internal/lockfilescalibr"
 	"github.com/google/osv-scanner/internal/lockfilescalibr/extractor"
+	"github.com/google/osv-scanner/internal/lockfilescalibr/sharedtesthelpers"
 )
 
 func TestComposerLockExtractor_FileRequired(t *testing.T) {
@@ -12,47 +13,47 @@ func TestComposerLockExtractor_FileRequired(t *testing.T) {
 
 	tests := []struct {
 		name        string
-		inputConfig ScanInputMockConfig
+		inputConfig sharedtesthelpers.ScanInputMockConfig
 		want        bool
 	}{
 		{
 			name: "",
-			inputConfig: ScanInputMockConfig{
+			inputConfig: sharedtesthelpers.ScanInputMockConfig{
 				Path: "",
 			},
 			want: false,
 		},
 		{
 			name: "",
-			inputConfig: ScanInputMockConfig{
+			inputConfig: sharedtesthelpers.ScanInputMockConfig{
 				Path: "composer.lock",
 			},
 			want: true,
 		},
 		{
 			name: "",
-			inputConfig: ScanInputMockConfig{
+			inputConfig: sharedtesthelpers.ScanInputMockConfig{
 				Path: "path/to/my/composer.lock",
 			},
 			want: true,
 		},
 		{
 			name: "",
-			inputConfig: ScanInputMockConfig{
+			inputConfig: sharedtesthelpers.ScanInputMockConfig{
 				Path: "path/to/my/composer.lock/file",
 			},
 			want: false,
 		},
 		{
 			name: "",
-			inputConfig: ScanInputMockConfig{
+			inputConfig: sharedtesthelpers.ScanInputMockConfig{
 				Path: "path/to/my/composer.lock.file",
 			},
 			want: false,
 		},
 		{
 			name: "",
-			inputConfig: ScanInputMockConfig{
+			inputConfig: sharedtesthelpers.ScanInputMockConfig{
 				Path: "path.to.my.composer.lock",
 			},
 			want: false,
@@ -63,7 +64,7 @@ func TestComposerLockExtractor_FileRequired(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
 			e := lockfilescalibr.ComposerLockExtractor{}
-			got := e.FileRequired(tt.inputConfig.Path, GenerateFileInfoMock(t, tt.inputConfig))
+			got := e.FileRequired(tt.inputConfig.Path, sharedtesthelpers.GenerateFileInfoMock(t, tt.inputConfig))
 			if got != tt.want {
 				t.Errorf("FileRequired(%s, FileInfo) got = %v, want %v", tt.inputConfig.Path, got, tt.want)
 			}
@@ -74,24 +75,24 @@ func TestComposerLockExtractor_FileRequired(t *testing.T) {
 func TestComposerLockExtractor_Extract(t *testing.T) {
 	t.Parallel()
 
-	tests := []TestTableEntry{
+	tests := []sharedtesthelpers.TestTableEntry{
 		{
 			Name: "invalid json",
-			InputConfig: ScanInputMockConfig{
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
 				Path: "fixtures/composer/not-json.txt",
 			},
 			WantErrContaining: "could not extract from",
 		},
 		{
 			Name: "no packages",
-			InputConfig: ScanInputMockConfig{
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
 				Path: "fixtures/composer/empty.json",
 			},
 			WantInventory: []*extractor.Inventory{},
 		},
 		{
 			Name: "one package",
-			InputConfig: ScanInputMockConfig{
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
 				Path: "fixtures/composer/one-package.json",
 			},
 			WantInventory: []*extractor.Inventory{
@@ -110,7 +111,7 @@ func TestComposerLockExtractor_Extract(t *testing.T) {
 		},
 		{
 			Name: "one package dev",
-			InputConfig: ScanInputMockConfig{
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
 				Path: "fixtures/composer/one-package-dev.json",
 			},
 			WantInventory: []*extractor.Inventory{
@@ -129,7 +130,7 @@ func TestComposerLockExtractor_Extract(t *testing.T) {
 		},
 		{
 			Name: "two packages",
-			InputConfig: ScanInputMockConfig{
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
 				Path: "fixtures/composer/two-packages.json",
 			},
 			WantInventory: []*extractor.Inventory{
@@ -159,7 +160,7 @@ func TestComposerLockExtractor_Extract(t *testing.T) {
 		},
 		{
 			Name: "two packages alt",
-			InputConfig: ScanInputMockConfig{
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
 				Path: "fixtures/composer/two-packages-alt.json",
 			},
 			WantInventory: []*extractor.Inventory{
@@ -194,7 +195,7 @@ func TestComposerLockExtractor_Extract(t *testing.T) {
 		t.Run(tt.Name, func(t *testing.T) {
 			t.Parallel()
 			e := lockfilescalibr.ComposerLockExtractor{}
-			_, _ = ExtractionTester(t, e, tt)
+			_, _ = sharedtesthelpers.ExtractionTester(t, e, tt)
 		})
 	}
 }

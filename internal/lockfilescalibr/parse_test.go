@@ -7,6 +7,7 @@ import (
 	"strings"
 	"testing"
 
+	"github.com/google/osv-scanner/internal/lockfilescalibr/sharedtesthelpers"
 	"github.com/google/osv-scanner/internal/output"
 	"github.com/google/osv-scanner/pkg/lockfile"
 )
@@ -139,7 +140,7 @@ func TestParse_ParserNotFound(t *testing.T) {
 
 	_, err := lockfile.Parse("/path/to/my/", "")
 
-	expectErrIs(t, err, lockfile.ErrParserNotFound)
+	sharedtesthelpers.ExpectErrIs(t, err, lockfile.ErrParserNotFound)
 }
 
 func TestParse_ParserNotFound_WithExplicitParseAs(t *testing.T) {

@@ -5,6 +5,7 @@ import (
 
 	"github.com/google/osv-scanner/internal/lockfilescalibr"
 	"github.com/google/osv-scanner/internal/lockfilescalibr/extractor"
+	"github.com/google/osv-scanner/internal/lockfilescalibr/sharedtesthelpers"
 )
 
 func TestPnpmLockExtractor_FileRequired(t *testing.T) {
@@ -12,47 +13,47 @@ func TestPnpmLockExtractor_FileRequired(t *testing.T) {
 
 	tests := []struct {
 		name        string
-		inputConfig ScanInputMockConfig
+		inputConfig sharedtesthelpers.ScanInputMockConfig
 		want        bool
 	}{
 		{
 			name: "",
-			inputConfig: ScanInputMockConfig{
+			inputConfig: sharedtesthelpers.ScanInputMockConfig{
 				Path: "",
 			},
 			want: false,
 		},
 		{
 			name: "",
-			inputConfig: ScanInputMockConfig{
+			inputConfig: sharedtesthelpers.ScanInputMockConfig{
 				Path: "pnpm-lock.yaml",
 			},
 			want: true,
 		},
 		{
 			name: "",
-			inputConfig: ScanInputMockConfig{
+			inputConfig: sharedtesthelpers.ScanInputMockConfig{
 				Path: "path/to/my/pnpm-lock.yaml",
 			},
 			want: true,
 		},
 		{
 			name: "",
-			inputConfig: ScanInputMockConfig{
+			inputConfig: sharedtesthelpers.ScanInputMockConfig{
 				Path: "path/to/my/pnpm-lock.yaml/file",
 			},
 			want: false,
 		},
 		{
 			name: "",
-			inputConfig: ScanInputMockConfig{
+			inputConfig: sharedtesthelpers.ScanInputMockConfig{
 				Path: "path/to/my/pnpm-lock.yaml.file",
 			},
 			want: false,
 		},
 		{
 			name: "",
-			inputConfig: ScanInputMockConfig{
+			inputConfig: sharedtesthelpers.ScanInputMockConfig{
 				Path: "path.to.my.pnpm-lock.yaml",
 			},
 			want: false,
@@ -63,7 +64,7 @@ func TestPnpmLockExtractor_FileRequired(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
 			e := lockfilescalibr.PnpmLockExtractor{}
-			got := e.FileRequired(tt.inputConfig.Path, GenerateFileInfoMock(t, tt.inputConfig))
+			got := e.FileRequired(tt.inputConfig.Path, sharedtesthelpers.GenerateFileInfoMock(t, tt.inputConfig))
 			if got != tt.want {
 				t.Errorf("FileRequired(%s, FileInfo) got = %v, want %v", tt.inputConfig.Path, got, tt.want)
 			}
@@ -74,31 +75,31 @@ func TestPnpmLockExtractor_FileRequired(t *testing.T) {
 func TestPnpmLockExtractor_Extract(t *testing.T) {
 	t.Parallel()
 
-	tests := []TestTableEntry{
+	tests := []sharedtesthelpers.TestTableEntry{
 		{
 			Name: "invalid yaml",
-			InputConfig: ScanInputMockConfig{
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
 				Path: "fixtures/pnpm/not-yaml.txt",
 			},
 			WantErrContaining: "could not extract from",
 		},
 		{
 			Name: "empty",
-			InputConfig: ScanInputMockConfig{
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
 				Path: "fixtures/pnpm/empty.yaml",
 			},
 			WantInventory: []*extractor.Inventory{},
 		},
 		{
 			Name: "no packages",
-			InputConfig: ScanInputMockConfig{
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
 				Path: "fixtures/pnpm/no-packages.yaml",
 			},
 			WantInventory: []*extractor.Inventory{},
 		},
 		{
 			Name: "one package",
-			InputConfig: ScanInputMockConfig{
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
 				Path: "fixtures/pnpm/one-package.yaml",
 			},
 			WantInventory: []*extractor.Inventory{
@@ -115,7 +116,7 @@ func TestPnpmLockExtractor_Extract(t *testing.T) {
 		},
 		{
 			Name: "one package v6 lockfile",
-			InputConfig: ScanInputMockConfig{
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
 				Path: "fixtures/pnpm/one-package-v6-lockfile.yaml",
 			},
 			WantInventory: []*extractor.Inventory{
@@ -132,7 +133,7 @@ func TestPnpmLockExtractor_Extract(t *testing.T) {
 		},
 		{
 			Name: "one package dev",
-			InputConfig: ScanInputMockConfig{
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
 				Path: "fixtures/pnpm/one-package-dev.yaml",
 			},
 			WantInventory: []*extractor.Inventory{
@@ -149,7 +150,7 @@ func TestPnpmLockExtractor_Extract(t *testing.T) {
 		},
 		{
 			Name: "scoped packages",
-			InputConfig: ScanInputMockConfig{
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
 				Path: "fixtures/pnpm/scoped-packages.yaml",
 			},
 			WantInventory: []*extractor.Inventory{
@@ -166,7 +167,7 @@ func TestPnpmLockExtractor_Extract(t *testing.T) {
 		},
 		{
 			Name: "scoped packages v6 lockfile",
-			InputConfig: ScanInputMockConfig{
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
 				Path: "fixtures/pnpm/scoped-packages-v6-lockfile.yaml",
 			},
 			WantInventory: []*extractor.Inventory{
@@ -183,7 +184,7 @@ func TestPnpmLockExtractor_Extract(t *testing.T) {
 		},
 		{
 			Name: "peer dependencies",
-			InputConfig: ScanInputMockConfig{
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
 				Path: "fixtures/pnpm/peer-dependencies.yaml",
 			},
 			WantInventory: []*extractor.Inventory{
@@ -209,7 +210,7 @@ func TestPnpmLockExtractor_Extract(t *testing.T) {
 		},
 		{
 			Name: "peer dependencies advanced",
-			InputConfig: ScanInputMockConfig{
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
 				Path: "fixtures/pnpm/peer-dependencies-advanced.yaml",
 			},
 			WantInventory: []*extractor.Inventory{
@@ -298,7 +299,7 @@ func TestPnpmLockExtractor_Extract(t *testing.T) {
 		},
 		{
 			Name: "multiple packages",
-			InputConfig: ScanInputMockConfig{
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
 				Path: "fixtures/pnpm/multiple-packages.yaml",
 			},
 			WantInventory: []*extractor.Inventory{
@@ -432,7 +433,7 @@ func TestPnpmLockExtractor_Extract(t *testing.T) {
 		},
 		{
 			Name: "multiple versions",
-			InputConfig: ScanInputMockConfig{
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
 				Path: "fixtures/pnpm/multiple-versions.yaml",
 			},
 			WantInventory: []*extractor.Inventory{
@@ -467,7 +468,7 @@ func TestPnpmLockExtractor_Extract(t *testing.T) {
 		},
 		{
 			Name: "tarball",
-			InputConfig: ScanInputMockConfig{
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
 				Path: "fixtures/pnpm/tarball.yaml",
 			},
 			WantInventory: []*extractor.Inventory{
@@ -484,7 +485,7 @@ func TestPnpmLockExtractor_Extract(t *testing.T) {
 		},
 		{
 			Name: "exotic",
-			InputConfig: ScanInputMockConfig{
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
 				Path: "fixtures/pnpm/exotic.yaml",
 			},
 			WantInventory: []*extractor.Inventory{
@@ -555,7 +556,7 @@ func TestPnpmLockExtractor_Extract(t *testing.T) {
 		},
 		{
 			Name: "commits",
-			InputConfig: ScanInputMockConfig{
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
 				Path: "fixtures/pnpm/commits.yaml",
 			},
 			WantInventory: []*extractor.Inventory{
@@ -618,7 +619,7 @@ func TestPnpmLockExtractor_Extract(t *testing.T) {
 		},
 		{
 			Name: "files",
-			InputConfig: ScanInputMockConfig{
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
 				Path: "fixtures/pnpm/files.yaml",
 			},
 			WantInventory: []*extractor.Inventory{
@@ -676,7 +677,7 @@ func TestPnpmLockExtractor_Extract(t *testing.T) {
 		t.Run(tt.Name, func(t *testing.T) {
 			t.Parallel()
 			e := lockfilescalibr.PnpmLockExtractor{}
-			_, _ = ExtractionTester(t, e, tt)
+			_, _ = sharedtesthelpers.ExtractionTester(t, e, tt)
 		})
 	}
 }

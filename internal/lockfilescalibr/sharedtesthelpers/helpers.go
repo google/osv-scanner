@@ -1,4 +1,4 @@
-package lockfilescalibr_test
+package sharedtesthelpers
 
 import (
 	"context"
@@ -9,16 +9,17 @@ import (
 	"path/filepath"
 	"strings"
 	"testing"
-	"time"
 
 	"github.com/google/go-cmp/cmp"
 	"github.com/google/osv-scanner/internal/lockfilescalibr"
 	"github.com/google/osv-scanner/internal/lockfilescalibr/extractor"
+	"github.com/google/osv-scanner/internal/lockfilescalibr/fakefs"
 	"github.com/google/osv-scanner/internal/lockfilescalibr/filesystem"
 	"github.com/google/osv-scanner/internal/lockfilescalibr/plugin"
 )
 
-func expectErrContaining(t *testing.T, err error, str string) {
+// ExpectErrContaining checks if a error contains a certain string, if not fail the test
+func ExpectErrContaining(t *testing.T, err error, str string) {
 	t.Helper()
 
 	if err == nil {
@@ -31,7 +32,8 @@ func expectErrContaining(t *testing.T, err error, str string) {
 	}
 }
 
-func expectErrIs(t *testing.T, err error, expected error) {
+// ExpectErrIs checks if a error is another error, if not fail the test
+func ExpectErrIs(t *testing.T, err error, expected error) {
 	t.Helper()
 
 	if err == nil {
@@ -127,54 +129,12 @@ func expectPackages(t *testing.T, actualInventories []*extractor.Inventory, expe
 // 	return ecosystem
 // }
 
-// ---
-
-// FakeFileInfo is a fake implementation of fs.FileInfo.
-type FakeFileInfo struct {
-	FileName    string
-	FileSize    int64
-	FileMode    fs.FileMode
-	FileModTime time.Time
-}
-
-// Name returns the name of the file.
-func (i FakeFileInfo) Name() string {
-	return i.FileName
-}
-
-// Size returns the size of the file.
-func (i FakeFileInfo) Size() int64 {
-	return i.FileSize
-}
-
-// Mode returns the mode of the file.
-func (i FakeFileInfo) Mode() fs.FileMode {
-	return i.FileMode
-}
-
-// ModTime returns the modification time of the file.
-func (i FakeFileInfo) ModTime() time.Time {
-	return i.FileModTime
-}
-
-// IsDir returns true if the file is a directory.
-func (i FakeFileInfo) IsDir() bool {
-	return i.FileMode.IsDir()
-}
-
-// Sys is an implementation of FileInfo.Sys() that returns nothing (nil).
-func (i FakeFileInfo) Sys() any {
-	return nil
-}
-
-// -----
-
 type ScanInputMockConfig struct {
 	Path string
 	// FakeScanRoot allows you to set a custom scanRoot, can be relative or absolute,
 	// and will be translated to an absolute path
 	FakeScanRoot string
-	FakeFileInfo *FakeFileInfo
+	FakeFileInfo *fakefs.FakeFileInfo
 }
 
 type ScanInputWrapper struct {
@@ -275,10 +235,10 @@ func ExtractionTester(t *testing.T, extractor filesystem.Extractor, tt TestTable
 	got, err := extractor.Extract(context.Background(), &wrapper.ScanInput)
 	wrapper.Close()
 	if tt.WantErrIs != nil {
-		expectErrIs(t, err, tt.WantErrIs)
+		ExpectErrIs(t, err, tt.WantErrIs)
 	}
 	if tt.WantErrContaining != "" {
-		expectErrContaining(t, err, tt.WantErrContaining)
+		ExpectErrContaining(t, err, tt.WantErrContaining)
 	}
 
 	if tt.WantErrContaining == "" && tt.WantErrIs == nil && err != nil {

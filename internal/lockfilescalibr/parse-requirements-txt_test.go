@@ -6,6 +6,7 @@ import (
 
 	"github.com/google/osv-scanner/internal/lockfilescalibr"
 	"github.com/google/osv-scanner/internal/lockfilescalibr/extractor"
+	"github.com/google/osv-scanner/internal/lockfilescalibr/sharedtesthelpers"
 )
 
 func TestRequirementsTxtExtractor_FileRequired(t *testing.T) {
@@ -13,47 +14,47 @@ func TestRequirementsTxtExtractor_FileRequired(t *testing.T) {
 
 	tests := []struct {
 		name        string
-		inputConfig ScanInputMockConfig
+		inputConfig sharedtesthelpers.ScanInputMockConfig
 		want        bool
 	}{
 		{
 			name: "",
-			inputConfig: ScanInputMockConfig{
+			inputConfig: sharedtesthelpers.ScanInputMockConfig{
 				Path: "",
 			},
 			want: false,
 		},
 		{
 			name: "",
-			inputConfig: ScanInputMockConfig{
+			inputConfig: sharedtesthelpers.ScanInputMockConfig{
 				Path: "requirements.txt",
 			},
 			want: true,
 		},
 		{
 			name: "",
-			inputConfig: ScanInputMockConfig{
+			inputConfig: sharedtesthelpers.ScanInputMockConfig{
 				Path: "path/to/my/requirements.txt",
 			},
 			want: true,
 		},
 		{
 			name: "",
-			inputConfig: ScanInputMockConfig{
+			inputConfig: sharedtesthelpers.ScanInputMockConfig{
 				Path: "path/to/my/requirements.txt/file",
 			},
 			want: false,
 		},
 		{
 			name: "",
-			inputConfig: ScanInputMockConfig{
+			inputConfig: sharedtesthelpers.ScanInputMockConfig{
 				Path: "path/to/my/requirements.txt.file",
 			},
 			want: false,
 		},
 		{
 			name: "",
-			inputConfig: ScanInputMockConfig{
+			inputConfig: sharedtesthelpers.ScanInputMockConfig{
 				Path: "path.to.my.requirements.txt",
 			},
 			want: false,
@@ -64,7 +65,7 @@ func TestRequirementsTxtExtractor_FileRequired(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
 			e := lockfilescalibr.RequirementsTxtExtractor{}
-			got := e.FileRequired(tt.inputConfig.Path, GenerateFileInfoMock(t, tt.inputConfig))
+			got := e.FileRequired(tt.inputConfig.Path, sharedtesthelpers.GenerateFileInfoMock(t, tt.inputConfig))
 			if got != tt.want {
 				t.Errorf("FileRequired(%s, FileInfo) got = %v, want %v", tt.inputConfig.Path, got, tt.want)
 			}
@@ -75,24 +76,24 @@ func TestRequirementsTxtExtractor_FileRequired(t *testing.T) {
 func TestRequirementsTxtExtractor_Extract(t *testing.T) {
 	t.Parallel()
 
-	tests := []TestTableEntry{
+	tests := []sharedtesthelpers.TestTableEntry{
 		{
 			Name: "empty",
-			InputConfig: ScanInputMockConfig{
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
 				Path: "fixtures/pip/empty.txt",
 			},
 			WantInventory: []*extractor.Inventory{},
 		},
 		{
 			Name: "comments only",
-			InputConfig: ScanInputMockConfig{
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
 				Path: "fixtures/pip/only-comments.txt",
 			},
 			WantInventory: []*extractor.Inventory{},
 		},
 		{
 			Name: "one requirement unconstrained",
-			InputConfig: ScanInputMockConfig{
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
 				Path: "fixtures/pip/one-package-unconstrained.txt",
 			},
 			WantInventory: []*extractor.Inventory{
@@ -108,7 +109,7 @@ func TestRequirementsTxtExtractor_Extract(t *testing.T) {
 		},
 		{
 			Name: "one requirement constrained",
-			InputConfig: ScanInputMockConfig{
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
 				Path: "fixtures/pip/one-package-constrained.txt",
 			},
 			WantInventory: []*extractor.Inventory{
@@ -124,7 +125,7 @@ func TestRequirementsTxtExtractor_Extract(t *testing.T) {
 		},
 		{
 			Name: "multiple requirements constrained",
-			InputConfig: ScanInputMockConfig{
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
 				Path: "fixtures/pip/multiple-packages-constrained.txt",
 			},
 			WantInventory: []*extractor.Inventory{
@@ -236,7 +237,7 @@ func TestRequirementsTxtExtractor_Extract(t *testing.T) {
 		},
 		{
 			Name: "multiple requirements mixed",
-			InputConfig: ScanInputMockConfig{
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
 				Path: "fixtures/pip/multiple-packages-mixed.txt",
 			},
 			WantInventory: []*extractor.Inventory{
@@ -308,7 +309,7 @@ func TestRequirementsTxtExtractor_Extract(t *testing.T) {
 		},
 		{
 			Name: "with added support",
-			InputConfig: ScanInputMockConfig{
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
 				Path: "fixtures/pip/with-added-support.txt",
 			},
 			WantInventory: []*extractor.Inventory{
@@ -324,7 +325,7 @@ func TestRequirementsTxtExtractor_Extract(t *testing.T) {
 		},
 		{
 			Name: "non normalized names",
-			InputConfig: ScanInputMockConfig{
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
 				Path: "fixtures/pip/non-normalized-names.txt",
 			},
 			WantInventory: []*extractor.Inventory{
@@ -356,7 +357,7 @@ func TestRequirementsTxtExtractor_Extract(t *testing.T) {
 		},
 		{
 			Name: "with per requirement options",
-			InputConfig: ScanInputMockConfig{
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
 				Path: "fixtures/pip/with-per-requirement-options.txt",
 			},
 			WantInventory: []*extractor.Inventory{
@@ -396,7 +397,7 @@ func TestRequirementsTxtExtractor_Extract(t *testing.T) {
 		},
 		{
 			Name: "line continuation",
-			InputConfig: ScanInputMockConfig{
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
 				Path: "fixtures/pip/line-continuation.txt",
 			},
 			WantInventory: []*extractor.Inventory{
@@ -441,7 +442,7 @@ func TestRequirementsTxtExtractor_Extract(t *testing.T) {
 		t.Run(tt.Name, func(t *testing.T) {
 			t.Parallel()
 			e := lockfilescalibr.RequirementsTxtExtractor{}
-			_, _ = ExtractionTester(t, e, tt)
+			_, _ = sharedtesthelpers.ExtractionTester(t, e, tt)
 		})
 	}
 }
@@ -449,10 +450,10 @@ func TestRequirementsTxtExtractor_Extract(t *testing.T) {
 func TestRequirementsTxtExtractor_Extract_WithRequirements(t *testing.T) {
 	t.Parallel()
 
-	tests := []TestTableEntry{
+	tests := []sharedtesthelpers.TestTableEntry{
 		{
 			Name: "file format example",
-			InputConfig: ScanInputMockConfig{
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
 				Path: "fixtures/pip/file-format-example.txt",
 			},
 			WantInventory: []*extractor.Inventory{
@@ -540,7 +541,7 @@ func TestRequirementsTxtExtractor_Extract_WithRequirements(t *testing.T) {
 		},
 		{
 			Name: "with multiple r options",
-			InputConfig: ScanInputMockConfig{
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
 				Path: "fixtures/pip/with-multiple-r-options.txt",
 			},
 			WantInventory: []*extractor.Inventory{
@@ -628,13 +629,13 @@ func TestRequirementsTxtExtractor_Extract_WithRequirements(t *testing.T) {
 		},
 		{
 			Name: "with bad r option",
-			InputConfig: ScanInputMockConfig{
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
 				Path: "fixtures/pip/with-bad-r-option.txt",
 			},
 			WantErrIs: fs.ErrNotExist},
 		{
 			Name: "duplicate r options",
-			InputConfig: ScanInputMockConfig{
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
 				Path: "fixtures/pip/duplicate-r-dev.txt",
 			},
 			WantInventory: []*extractor.Inventory{
@@ -674,7 +675,7 @@ func TestRequirementsTxtExtractor_Extract_WithRequirements(t *testing.T) {
 		},
 		{
 			Name: "cyclic r self",
-			InputConfig: ScanInputMockConfig{
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
 				Path: "fixtures/pip/cyclic-r-self.txt",
 			},
 			WantInventory: []*extractor.Inventory{
@@ -698,7 +699,7 @@ func TestRequirementsTxtExtractor_Extract_WithRequirements(t *testing.T) {
 		},
 		{
 			Name: "cyclic r complex",
-			InputConfig: ScanInputMockConfig{
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
 				Path: "fixtures/pip/cyclic-r-complex-1.txt",
 			},
 			WantInventory: []*extractor.Inventory{
@@ -735,7 +736,7 @@ func TestRequirementsTxtExtractor_Extract_WithRequirements(t *testing.T) {
 		t.Run(tt.Name, func(t *testing.T) {
 			t.Parallel()
 			e := lockfilescalibr.RequirementsTxtExtractor{}
-			_, _ = ExtractionTester(t, e, tt)
+			_, _ = sharedtesthelpers.ExtractionTester(t, e, tt)
 		})
 	}
 }

@@ -5,29 +5,30 @@ import (
 
 	"github.com/google/osv-scanner/internal/lockfilescalibr"
 	"github.com/google/osv-scanner/internal/lockfilescalibr/extractor"
+	"github.com/google/osv-scanner/internal/lockfilescalibr/sharedtesthelpers"
 )
 
 func TestNPMLockExtractor_Extract_V1(t *testing.T) {
 	t.Parallel()
 
-	tests := []TestTableEntry{
+	tests := []sharedtesthelpers.TestTableEntry{
 		{
 			Name: "invalid json",
-			InputConfig: ScanInputMockConfig{
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
 				Path: "fixtures/npm/not-json.txt",
 			},
 			WantErrContaining: "could not extract from",
 		},
 		{
 			Name: "no packages",
-			InputConfig: ScanInputMockConfig{
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
 				Path: "fixtures/npm/empty.v1.json",
 			},
 			WantInventory: []*extractor.Inventory{},
 		},
 		{
 			Name: "one package",
-			InputConfig: ScanInputMockConfig{
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
 				Path: "fixtures/npm/one-package.v1.json",
 			},
 			WantInventory: []*extractor.Inventory{
@@ -44,7 +45,7 @@ func TestNPMLockExtractor_Extract_V1(t *testing.T) {
 		},
 		{
 			Name: "one package dev",
-			InputConfig: ScanInputMockConfig{
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
 				Path: "fixtures/npm/one-package-dev.v1.json",
 			},
 			WantInventory: []*extractor.Inventory{
@@ -61,7 +62,7 @@ func TestNPMLockExtractor_Extract_V1(t *testing.T) {
 		},
 		{
 			Name: "two packages",
-			InputConfig: ScanInputMockConfig{
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
 				Path: "fixtures/npm/two-packages.v1.json",
 			},
 			WantInventory: []*extractor.Inventory{
@@ -87,7 +88,7 @@ func TestNPMLockExtractor_Extract_V1(t *testing.T) {
 		},
 		{
 			Name: "scoped packages",
-			InputConfig: ScanInputMockConfig{
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
 				Path: "fixtures/npm/scoped-packages.v1.json",
 			},
 			WantInventory: []*extractor.Inventory{
@@ -113,7 +114,7 @@ func TestNPMLockExtractor_Extract_V1(t *testing.T) {
 		},
 		{
 			Name: "nested dependencies",
-			InputConfig: ScanInputMockConfig{
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
 				Path: "fixtures/npm/nested-dependencies.v1.json",
 			},
 			WantInventory: []*extractor.Inventory{
@@ -166,7 +167,7 @@ func TestNPMLockExtractor_Extract_V1(t *testing.T) {
 		},
 		{
 			Name: "nested dependencies dup",
-			InputConfig: ScanInputMockConfig{
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
 				Path: "fixtures/npm/nested-dependencies-dup.v1.json",
 			},
 			WantInventory: []*extractor.Inventory{
@@ -525,7 +526,7 @@ func TestNPMLockExtractor_Extract_V1(t *testing.T) {
 		},
 		{
 			Name: "commits",
-			InputConfig: ScanInputMockConfig{
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
 				Path: "fixtures/npm/commits.v1.json",
 			},
 			WantInventory: []*extractor.Inventory{
@@ -694,7 +695,7 @@ func TestNPMLockExtractor_Extract_V1(t *testing.T) {
 		},
 		{
 			Name: "files",
-			InputConfig: ScanInputMockConfig{
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
 				Path: "fixtures/npm/files.v1.json",
 			},
 			WantInventory: []*extractor.Inventory{
@@ -720,7 +721,7 @@ func TestNPMLockExtractor_Extract_V1(t *testing.T) {
 		},
 		{
 			Name: "alias",
-			InputConfig: ScanInputMockConfig{
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
 				Path: "fixtures/npm/alias.v1.json",
 			},
 			WantInventory: []*extractor.Inventory{
@@ -755,7 +756,7 @@ func TestNPMLockExtractor_Extract_V1(t *testing.T) {
 		},
 		{
 			Name: "optional package",
-			InputConfig: ScanInputMockConfig{
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
 				Path: "fixtures/npm/optional-package.v1.json",
 			},
 			WantInventory: []*extractor.Inventory{
@@ -781,7 +782,7 @@ func TestNPMLockExtractor_Extract_V1(t *testing.T) {
 		},
 		{
 			Name: "same package different groups",
-			InputConfig: ScanInputMockConfig{
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
 				Path: "fixtures/npm/same-package-different-groups.v1.json",
 			},
 			WantInventory: []*extractor.Inventory{
@@ -821,7 +822,7 @@ func TestNPMLockExtractor_Extract_V1(t *testing.T) {
 		t.Run(tt.Name, func(t *testing.T) {
 			t.Parallel()
 			e := lockfilescalibr.NpmLockExtractor{}
-			_, _ = ExtractionTester(t, e, tt)
+			_, _ = sharedtesthelpers.ExtractionTester(t, e, tt)
 		})
 	}
 }

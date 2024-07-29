@@ -5,15 +5,16 @@ import (
 
 	"github.com/google/osv-scanner/internal/lockfilescalibr"
 	"github.com/google/osv-scanner/internal/lockfilescalibr/extractor"
+	"github.com/google/osv-scanner/internal/lockfilescalibr/sharedtesthelpers"
 )
 
 func TestApkInstalledExtractor_Extract(t *testing.T) {
 	t.Parallel()
 
-	tests := []TestTableEntry{
+	tests := []sharedtesthelpers.TestTableEntry{
 		{
 			Name: "empty",
-			InputConfig: ScanInputMockConfig{
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
 				Path:         "empty_installed",
 				FakeScanRoot: "fixtures/apk/with-os-release",
 			},
@@ -21,7 +22,7 @@ func TestApkInstalledExtractor_Extract(t *testing.T) {
 		},
 		{
 			Name: "not an installed",
-			InputConfig: ScanInputMockConfig{
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
 				Path:         "not_installed",
 				FakeScanRoot: "fixtures/apk/with-os-release",
 			},
@@ -29,7 +30,7 @@ func TestApkInstalledExtractor_Extract(t *testing.T) {
 		},
 		{
 			Name: "malformed",
-			InputConfig: ScanInputMockConfig{
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
 				Path:         "malformed_installed",
 				FakeScanRoot: "fixtures/apk/with-os-release",
 			},
@@ -49,7 +50,7 @@ func TestApkInstalledExtractor_Extract(t *testing.T) {
 		},
 		{
 			Name: "single",
-			InputConfig: ScanInputMockConfig{
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
 				Path:         "single_installed",
 				FakeScanRoot: "fixtures/apk/with-os-release",
 			},
@@ -69,7 +70,7 @@ func TestApkInstalledExtractor_Extract(t *testing.T) {
 		},
 		{
 			Name: "shuffled",
-			InputConfig: ScanInputMockConfig{
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
 				Path:         "shuffled_installed",
 				FakeScanRoot: "fixtures/apk/with-os-release",
 			},
@@ -89,7 +90,7 @@ func TestApkInstalledExtractor_Extract(t *testing.T) {
 		},
 		{
 			Name: "multiple",
-			InputConfig: ScanInputMockConfig{
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
 				Path:         "multiple_installed",
 				FakeScanRoot: "fixtures/apk/with-os-release",
 			},
@@ -131,7 +132,7 @@ func TestApkInstalledExtractor_Extract(t *testing.T) {
 		},
 		{
 			Name: "multiple but no os source info",
-			InputConfig: ScanInputMockConfig{
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
 				Path:         "multiple_installed",
 				FakeScanRoot: "fixtures/apk/without-os-release",
 			},
@@ -169,7 +170,7 @@ func TestApkInstalledExtractor_Extract(t *testing.T) {
 		t.Run(tt.Name, func(t *testing.T) {
 			t.Parallel()
 			e := lockfilescalibr.ApkInstalledExtractor{}
-			_, _ = ExtractionTester(t, e, tt)
+			_, _ = sharedtesthelpers.ExtractionTester(t, e, tt)
 		})
 	}
 }

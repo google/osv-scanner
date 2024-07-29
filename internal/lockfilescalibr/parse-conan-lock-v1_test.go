@@ -5,29 +5,30 @@ import (
 
 	"github.com/google/osv-scanner/internal/lockfilescalibr"
 	"github.com/google/osv-scanner/internal/lockfilescalibr/extractor"
+	"github.com/google/osv-scanner/internal/lockfilescalibr/sharedtesthelpers"
 )
 
 func TestConanLockExtractor_Extract_v1(t *testing.T) {
 	t.Parallel()
 
-	tests := []TestTableEntry{
+	tests := []sharedtesthelpers.TestTableEntry{
 		{
 			Name: "invalid json",
-			InputConfig: ScanInputMockConfig{
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
 				Path: "fixtures/conan/not-json.txt",
 			},
 			WantErrContaining: "could not extract from",
 		},
 		{
 			Name: "no packages",
-			InputConfig: ScanInputMockConfig{
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
 				Path: "fixtures/conan/empty.v1.json",
 			},
 			WantInventory: []*extractor.Inventory{},
 		},
 		{
 			Name: "one package",
-			InputConfig: ScanInputMockConfig{
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
 				Path: "fixtures/conan/one-package.v1.json",
 			},
 			WantInventory: []*extractor.Inventory{
@@ -43,7 +44,7 @@ func TestConanLockExtractor_Extract_v1(t *testing.T) {
 		},
 		{
 			Name: "no name",
-			InputConfig: ScanInputMockConfig{
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
 				Path: "fixtures/conan/no-name.v1.json",
 			},
 			WantInventory: []*extractor.Inventory{
@@ -59,7 +60,7 @@ func TestConanLockExtractor_Extract_v1(t *testing.T) {
 		},
 		{
 			Name: "two packages",
-			InputConfig: ScanInputMockConfig{
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
 				Path: "fixtures/conan/two-packages.v1.json",
 			},
 			WantInventory: []*extractor.Inventory{
@@ -83,7 +84,7 @@ func TestConanLockExtractor_Extract_v1(t *testing.T) {
 		},
 		{
 			Name: "nested dependencies",
-			InputConfig: ScanInputMockConfig{
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
 				Path: "fixtures/conan/nested-dependencies.v1.json",
 			},
 			WantInventory: []*extractor.Inventory{
@@ -131,7 +132,7 @@ func TestConanLockExtractor_Extract_v1(t *testing.T) {
 		},
 		{
 			Name: "one package dev",
-			InputConfig: ScanInputMockConfig{
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
 				Path: "fixtures/conan/one-package-dev.v1.json",
 			},
 			WantInventory: []*extractor.Inventory{
@@ -147,7 +148,7 @@ func TestConanLockExtractor_Extract_v1(t *testing.T) {
 		},
 		{
 			Name: "old format00",
-			InputConfig: ScanInputMockConfig{
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
 				Path: "fixtures/conan/old-format-0.0.json",
 			},
 			WantInventory: []*extractor.Inventory{
@@ -163,7 +164,7 @@ func TestConanLockExtractor_Extract_v1(t *testing.T) {
 		},
 		{
 			Name: "old format01",
-			InputConfig: ScanInputMockConfig{
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
 				Path: "fixtures/conan/old-format-0.1.json",
 			},
 			WantInventory: []*extractor.Inventory{
@@ -179,7 +180,7 @@ func TestConanLockExtractor_Extract_v1(t *testing.T) {
 		},
 		{
 			Name: "old format02",
-			InputConfig: ScanInputMockConfig{
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
 				Path: "fixtures/conan/old-format-0.2.json",
 			},
 			WantInventory: []*extractor.Inventory{
@@ -195,7 +196,7 @@ func TestConanLockExtractor_Extract_v1(t *testing.T) {
 		},
 		{
 			Name: "old format03",
-			InputConfig: ScanInputMockConfig{
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
 				Path: "fixtures/conan/old-format-0.3.json",
 			},
 			WantInventory: []*extractor.Inventory{
@@ -216,7 +217,7 @@ func TestConanLockExtractor_Extract_v1(t *testing.T) {
 		t.Run(tt.Name, func(t *testing.T) {
 			t.Parallel()
 			e := lockfilescalibr.ConanLockExtractor{}
-			_, _ = ExtractionTester(t, e, tt)
+			_, _ = sharedtesthelpers.ExtractionTester(t, e, tt)
 		})
 	}
 }

@@ -5,29 +5,30 @@ import (
 
 	"github.com/google/osv-scanner/internal/lockfilescalibr"
 	"github.com/google/osv-scanner/internal/lockfilescalibr/extractor"
+	"github.com/google/osv-scanner/internal/lockfilescalibr/sharedtesthelpers"
 )
 
 func TestRenvLockExtractor_Extract(t *testing.T) {
 	t.Parallel()
 
-	tests := []TestTableEntry{
+	tests := []sharedtesthelpers.TestTableEntry{
 		{
 			Name: "invalid json",
-			InputConfig: ScanInputMockConfig{
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
 				Path: "fixtures/renv/not-json.txt",
 			},
 			WantErrContaining: "could not extract from",
 		},
 		{
 			Name: "no packages",
-			InputConfig: ScanInputMockConfig{
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
 				Path: "fixtures/renv/empty.lock",
 			},
 			WantInventory: []*extractor.Inventory{},
 		},
 		{
 			Name: "one package",
-			InputConfig: ScanInputMockConfig{
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
 				Path: "fixtures/renv/one-package.lock",
 			},
 			WantInventory: []*extractor.Inventory{
@@ -40,7 +41,7 @@ func TestRenvLockExtractor_Extract(t *testing.T) {
 		},
 		{
 			Name: "two packages",
-			InputConfig: ScanInputMockConfig{
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
 				Path: "fixtures/renv/two-packages.lock",
 			},
 			WantInventory: []*extractor.Inventory{
@@ -58,7 +59,7 @@ func TestRenvLockExtractor_Extract(t *testing.T) {
 		},
 		{
 			Name: "with mixed sources",
-			InputConfig: ScanInputMockConfig{
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
 				Path: "fixtures/renv/with-mixed-sources.lock",
 			},
 			WantInventory: []*extractor.Inventory{
@@ -71,7 +72,7 @@ func TestRenvLockExtractor_Extract(t *testing.T) {
 		},
 		{
 			Name: "with bioconductor",
-			InputConfig: ScanInputMockConfig{
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
 				Path: "fixtures/renv/with-bioconductor.lock",
 			},
 			WantInventory: []*extractor.Inventory{
@@ -84,7 +85,7 @@ func TestRenvLockExtractor_Extract(t *testing.T) {
 		},
 		{
 			Name: "without repository",
-			InputConfig: ScanInputMockConfig{
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
 				Path: "fixtures/renv/without-repository.lock",
 			},
 			WantInventory: []*extractor.Inventory{},
@@ -96,7 +97,7 @@ func TestRenvLockExtractor_Extract(t *testing.T) {
 		t.Run(tt.Name, func(t *testing.T) {
 			t.Parallel()
 			e := lockfilescalibr.RenvLockExtractor{}
-			_, _ = ExtractionTester(t, e, tt)
+			_, _ = sharedtesthelpers.ExtractionTester(t, e, tt)
 		})
 	}
 }
