@@ -35,8 +35,8 @@ for line in allLines:
     ecosystemName = mat2.group(1)
 
 
-a = input(f"Check: {structName} -- {extName} -- {ecosystemName}\n")
-if not os.path.isdir(f"fixtures/{a}"):
+fixturesFolderName = input(f"Check: {structName} -- {extName} -- {ecosystemName}\n")
+if not os.path.isdir(f"fixtures/{fixturesFolderName}"):
   print("Not a dir, exiting...")
   exit()
 
@@ -91,11 +91,10 @@ for line in allLinesTest:
 
   if line.strip() == '"github.com/google/osv-scanner/internal/lockfilescalibr/extractor"':
     baseOutputTest += line
-    print("YOYOYOOYO")
     baseOutputTest += f'	"github.com/google/osv-scanner/internal/lockfilescalibr/language/{extName}"\n'
     continue
 
-  line = line.replace("fixtures/cargo/", "testdata/")
+  line = line.replace(f"fixtures/{fixturesFolderName}/", "testdata/")
   line = line.replace("package lockfilescalibr", f'package {pkgName}')
   line = line.replace("Ecosystem = ", "string = ")
   line = line.replace(f"lockfilescalibr.{structName}{{}}", f"{pkgName}.Extractor{{}}")
@@ -112,4 +111,4 @@ testdataPath = Path("language/" + extName + "/testdata")
 testdataPath.mkdir(parents=True, exist_ok=True)
 
 
-shutil.copytree(f"fixtures/{a}", testdataPath, dirs_exist_ok=True)
+shutil.copytree(f"fixtures/{fixturesFolderName}", testdataPath, dirs_exist_ok=True)
