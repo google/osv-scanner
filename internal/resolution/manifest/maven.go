@@ -906,6 +906,7 @@ func writeString(enc *xml.Encoder, raw, tag string, values map[string]string) er
 			if err := enc.EncodeElement(strings.TrimSpace(str), tt); err != nil {
 				return err
 			}
+
 			continue
 		}
 		if err := enc.EncodeToken(token); err != nil {
