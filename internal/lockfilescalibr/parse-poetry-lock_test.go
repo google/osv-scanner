@@ -4,6 +4,7 @@ import (
 	"testing"
 
 	"github.com/google/osv-scanner/internal/lockfilescalibr"
+	"github.com/google/osv-scanner/internal/lockfilescalibr/extractor"
 )
 
 func TestPoetryLockExtractor_FileRequired(t *testing.T) {
@@ -85,19 +86,19 @@ func TestPoetryLockExtractor_Extract(t *testing.T) {
 			inputConfig: ScanInputMockConfig{
 				path: "fixtures/poetry/empty.lock",
 			},
-			wantInventory: []*lockfilescalibr.Inventory{},
+			wantInventory: []*extractor.Inventory{},
 		},
 		{
 			name: "one package",
 			inputConfig: ScanInputMockConfig{
 				path: "fixtures/poetry/one-package.lock",
 			},
-			wantInventory: []*lockfilescalibr.Inventory{
+			wantInventory: []*extractor.Inventory{
 				{
 					Name:      "numpy",
 					Version:   "1.23.3",
 					Locations: []string{"fixtures/poetry/one-package.lock"},
-					SourceCode: &lockfilescalibr.SourceCodeIdentifier{
+					SourceCode: &extractor.SourceCodeIdentifier{
 						Commit: "",
 					},
 					Metadata: lockfilescalibr.DepGroupMetadata{
@@ -111,12 +112,12 @@ func TestPoetryLockExtractor_Extract(t *testing.T) {
 			inputConfig: ScanInputMockConfig{
 				path: "fixtures/poetry/two-packages.lock",
 			},
-			wantInventory: []*lockfilescalibr.Inventory{
+			wantInventory: []*extractor.Inventory{
 				{
 					Name:      "proto-plus",
 					Version:   "1.22.0",
 					Locations: []string{"fixtures/poetry/two-packages.lock"},
-					SourceCode: &lockfilescalibr.SourceCodeIdentifier{
+					SourceCode: &extractor.SourceCodeIdentifier{
 						Commit: "",
 					},
 					Metadata: lockfilescalibr.DepGroupMetadata{
@@ -127,7 +128,7 @@ func TestPoetryLockExtractor_Extract(t *testing.T) {
 					Name:      "protobuf",
 					Version:   "4.21.5",
 					Locations: []string{"fixtures/poetry/two-packages.lock"},
-					SourceCode: &lockfilescalibr.SourceCodeIdentifier{
+					SourceCode: &extractor.SourceCodeIdentifier{
 						Commit: "",
 					},
 					Metadata: lockfilescalibr.DepGroupMetadata{
@@ -141,12 +142,12 @@ func TestPoetryLockExtractor_Extract(t *testing.T) {
 			inputConfig: ScanInputMockConfig{
 				path: "fixtures/poetry/one-package-with-metadata.lock",
 			},
-			wantInventory: []*lockfilescalibr.Inventory{
+			wantInventory: []*extractor.Inventory{
 				{
 					Name:      "emoji",
 					Version:   "2.0.0",
 					Locations: []string{"fixtures/poetry/one-package-with-metadata.lock"},
-					SourceCode: &lockfilescalibr.SourceCodeIdentifier{
+					SourceCode: &extractor.SourceCodeIdentifier{
 						Commit: "",
 					},
 					Metadata: lockfilescalibr.DepGroupMetadata{
@@ -160,12 +161,12 @@ func TestPoetryLockExtractor_Extract(t *testing.T) {
 			inputConfig: ScanInputMockConfig{
 				path: "fixtures/poetry/source-git.lock",
 			},
-			wantInventory: []*lockfilescalibr.Inventory{
+			wantInventory: []*extractor.Inventory{
 				{
 					Name:      "ike",
 					Version:   "0.2.0",
 					Locations: []string{"fixtures/poetry/source-git.lock"},
-					SourceCode: &lockfilescalibr.SourceCodeIdentifier{
+					SourceCode: &extractor.SourceCodeIdentifier{
 						Commit: "cd66602cd29f61a2d2e7fb995fef1e61708c034d",
 					},
 					Metadata: lockfilescalibr.DepGroupMetadata{
@@ -179,12 +180,12 @@ func TestPoetryLockExtractor_Extract(t *testing.T) {
 			inputConfig: ScanInputMockConfig{
 				path: "fixtures/poetry/source-legacy.lock",
 			},
-			wantInventory: []*lockfilescalibr.Inventory{
+			wantInventory: []*extractor.Inventory{
 				{
 					Name:      "appdirs",
 					Version:   "1.4.4",
 					Locations: []string{"fixtures/poetry/source-legacy.lock"},
-					SourceCode: &lockfilescalibr.SourceCodeIdentifier{
+					SourceCode: &extractor.SourceCodeIdentifier{
 						Commit: "",
 					},
 					Metadata: lockfilescalibr.DepGroupMetadata{
@@ -198,12 +199,12 @@ func TestPoetryLockExtractor_Extract(t *testing.T) {
 			inputConfig: ScanInputMockConfig{
 				path: "fixtures/poetry/optional-package.lock",
 			},
-			wantInventory: []*lockfilescalibr.Inventory{
+			wantInventory: []*extractor.Inventory{
 				{
 					Name:      "numpy",
 					Version:   "1.23.3",
 					Locations: []string{"fixtures/poetry/optional-package.lock"},
-					SourceCode: &lockfilescalibr.SourceCodeIdentifier{
+					SourceCode: &extractor.SourceCodeIdentifier{
 						Commit: "",
 					},
 					Metadata: lockfilescalibr.DepGroupMetadata{

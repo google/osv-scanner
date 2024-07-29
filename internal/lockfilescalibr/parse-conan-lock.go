@@ -8,6 +8,8 @@ import (
 	"path/filepath"
 	"strings"
 
+	"github.com/google/osv-scanner/internal/lockfilescalibr/extractor"
+	"github.com/google/osv-scanner/internal/lockfilescalibr/filesystem"
 	"github.com/google/osv-scanner/internal/lockfilescalibr/plugin"
 	"github.com/package-url/packageurl-go"
 )
@@ -103,9 +105,9 @@ func parseConanRenference(ref string) ConanReference {
 	return reference
 }
 
-func parseConanV1Lock(lockfile ConanLockFile) []*Inventory {
+func parseConanV1Lock(lockfile ConanLockFile) []*extractor.Inventory {
 	var reference ConanReference
-	packages := make([]*Inventory, 0, len(lockfile.GraphLock.Nodes))
+	packages := make([]*extractor.Inventory, 0, len(lockfile.GraphLock.Nodes))
 
 	for _, node := range lockfile.GraphLock.Nodes {
 		if node.Path != "" {
@@ -126,7 +128,7 @@ func parseConanV1Lock(lockfile ConanLockFile) []*Inventory {
 		if reference.Name == "" {
 			continue
 		}
-		packages = append(packages, &Inventory{
+		packages = append(packages, &extractor.Inventory{
 			Name:    reference.Name,
 			Version: reference.Version,
 			Metadata: DepGroupMetadata{
@@ -138,7 +140,7 @@ func parseConanV1Lock(lockfile ConanLockFile) []*Inventory {
 	return packages
 }
 
-func parseConanRequires(packages *[]*Inventory, requires []string, group string) {
+func parseConanRequires(packages *[]*extractor.Inventory, requires []string, group string) {
 	for _, ref := range requires {
 		reference := parseConanRenference(ref)
 		// skip entries with no name, they are most likely consumer's conanfiles
@@ -147,7 +149,7 @@ func parseConanRequires(packages *[]*Inventory, requires []string, group string)
 			continue
 		}
 
-		*packages = append(*packages, &Inventory{
+		*packages = append(*packages, &extractor.Inventory{
 			Name:    reference.Name,
 			Version: reference.Version,
 			Metadata: DepGroupMetadata{
@@ -157,9 +159,9 @@ func parseConanRequires(packages *[]*Inventory, requires []string, group string)
 	}
 }
 
-func parseConanV2Lock(lockfile ConanLockFile) []*Inventory {
+func parseConanV2Lock(lockfile ConanLockFile) []*extractor.Inventory {
 	packages := make(
-		[]*Inventory,
+		[]*extractor.Inventory,
 		0,
 		uint64(len(lockfile.Requires))+uint64(len(lockfile.BuildRequires))+uint64(len(lockfile.PythonRequires)),
 	)
@@ -171,7 +173,7 @@ func parseConanV2Lock(lockfile ConanLockFile) []*Inventory {
 	return packages
 }
 
-func parseConanLock(lockfile ConanLockFile) []*Inventory {
+func parseConanLock(lockfile ConanLockFile) []*extractor.Inventory {
 	if lockfile.GraphLock.Nodes != nil {
 		return parseConanV1Lock(lockfile)
 	}
@@ -195,12 +197,12 @@ func (e ConanLockExtractor) FileRequired(path string, fileInfo fs.FileInfo) bool
 	return filepath.Base(path) == "conan.lock"
 }
 
-func (e ConanLockExtractor) Extract(ctx context.Context, input *ScanInput) ([]*Inventory, error) {
+func (e ConanLockExtractor) Extract(ctx context.Context, input *filesystem.ScanInput) ([]*extractor.Inventory, error) {
 	var parsedLockfile *ConanLockFile
 
 	err := json.NewDecoder(input.Reader).Decode(&parsedLockfile)
 	if err != nil {
-		return []*Inventory{}, fmt.Errorf("could not extract from %s: %w", input.Path, err)
+		return []*extractor.Inventory{}, fmt.Errorf("could not extract from %s: %w", input.Path, err)
 	}
 
 	inv := parseConanLock(*parsedLockfile)
@@ -213,7 +215,7 @@ func (e ConanLockExtractor) Extract(ctx context.Context, input *ScanInput) ([]*I
 }
 
 // ToPURL converts an inventory created by this extractor into a PURL.
-func (e ConanLockExtractor) ToPURL(i *Inventory) (*packageurl.PackageURL, error) {
+func (e ConanLockExtractor) ToPURL(i *extractor.Inventory) (*packageurl.PackageURL, error) {
 	return &packageurl.PackageURL{
 		Type:    packageurl.TypeConan,
 		Name:    i.Name,
@@ -222,9 +224,9 @@ func (e ConanLockExtractor) ToPURL(i *Inventory) (*packageurl.PackageURL, error)
 }
 
 // ToCPEs is not applicable as this extractor does not infer CPEs from the Inventory.
-func (e ConanLockExtractor) ToCPEs(i *Inventory) ([]string, error) { return []string{}, nil }
+func (e ConanLockExtractor) ToCPEs(i *extractor.Inventory) ([]string, error) { return []string{}, nil }
 
-func (e ConanLockExtractor) Ecosystem(i *Inventory) (string, error) {
+func (e ConanLockExtractor) Ecosystem(i *extractor.Inventory) (string, error) {
 	switch i.Extractor.(type) {
 	case ConanLockExtractor:
 		return string(ConanEcosystem), nil
@@ -233,4 +235,4 @@ func (e ConanLockExtractor) Ecosystem(i *Inventory) (string, error) {
 	}
 }
 
-var _ Extractor = ConanLockExtractor{}
+var _ filesystem.Extractor = ConanLockExtractor{}

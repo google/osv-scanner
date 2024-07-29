@@ -10,6 +10,8 @@ import (
 	"strings"
 
 	"github.com/google/osv-scanner/internal/cachedregexp"
+	"github.com/google/osv-scanner/internal/lockfilescalibr/extractor"
+	"github.com/google/osv-scanner/internal/lockfilescalibr/filesystem"
 	"github.com/google/osv-scanner/internal/lockfilescalibr/plugin"
 	"github.com/package-url/packageurl-go"
 )
@@ -42,7 +44,7 @@ func isSourceSection(line string) bool {
 
 type gemfileLockfileParser struct {
 	state          parserState
-	dependencies   []*Inventory
+	dependencies   []*extractor.Inventory
 	bundlerVersion string
 	rubyVersion    string
 
@@ -54,10 +56,10 @@ type gemfileLockfileParser struct {
 }
 
 func (parser *gemfileLockfileParser) addDependency(name string, version string) {
-	parser.dependencies = append(parser.dependencies, &Inventory{
+	parser.dependencies = append(parser.dependencies, &extractor.Inventory{
 		Name:    name,
 		Version: version,
-		SourceCode: &SourceCodeIdentifier{
+		SourceCode: &extractor.SourceCodeIdentifier{
 			Commit: parser.currentGemCommit,
 		},
 		Locations: []string{parser.location},
@@ -183,7 +185,7 @@ func (e GemfileLockExtractor) FileRequired(path string, fileInfo fs.FileInfo) bo
 	return filepath.Base(path) == "Gemfile.lock"
 }
 
-func (e GemfileLockExtractor) Extract(ctx context.Context, input *ScanInput) ([]*Inventory, error) {
+func (e GemfileLockExtractor) Extract(ctx context.Context, input *filesystem.ScanInput) ([]*extractor.Inventory, error) {
 	var parser gemfileLockfileParser
 	parser.location = input.Path
 
@@ -194,14 +196,14 @@ func (e GemfileLockExtractor) Extract(ctx context.Context, input *ScanInput) ([]
 	}
 
 	if err := scanner.Err(); err != nil {
-		return []*Inventory{}, fmt.Errorf("error while scanning %s: %w", input.Path, err)
+		return []*extractor.Inventory{}, fmt.Errorf("error while scanning %s: %w", input.Path, err)
 	}
 
 	return parser.dependencies, nil
 }
 
 // ToPURL converts an inventory created by this extractor into a PURL.
-func (e GemfileLockExtractor) ToPURL(i *Inventory) (*packageurl.PackageURL, error) {
+func (e GemfileLockExtractor) ToPURL(i *extractor.Inventory) (*packageurl.PackageURL, error) {
 	return &packageurl.PackageURL{
 		Type:    packageurl.TypeGem,
 		Name:    i.Name,
@@ -210,9 +212,11 @@ func (e GemfileLockExtractor) ToPURL(i *Inventory) (*packageurl.PackageURL, erro
 }
 
 // ToCPEs is not applicable as this extractor does not infer CPEs from the Inventory.
-func (e GemfileLockExtractor) ToCPEs(i *Inventory) ([]string, error) { return []string{}, nil }
+func (e GemfileLockExtractor) ToCPEs(i *extractor.Inventory) ([]string, error) {
+	return []string{}, nil
+}
 
-func (e GemfileLockExtractor) Ecosystem(i *Inventory) (string, error) {
+func (e GemfileLockExtractor) Ecosystem(i *extractor.Inventory) (string, error) {
 	switch i.Extractor.(type) {
 	case GemfileLockExtractor:
 		return string(BundlerEcosystem), nil
@@ -221,4 +225,4 @@ func (e GemfileLockExtractor) Ecosystem(i *Inventory) (string, error) {
 	}
 }
 
-var _ Extractor = GemfileLockExtractor{}
+var _ filesystem.Extractor = GemfileLockExtractor{}

@@ -13,6 +13,8 @@ import (
 
 	"github.com/google/go-cmp/cmp"
 	"github.com/google/osv-scanner/internal/lockfilescalibr"
+	"github.com/google/osv-scanner/internal/lockfilescalibr/extractor"
+	"github.com/google/osv-scanner/internal/lockfilescalibr/filesystem"
 	"github.com/google/osv-scanner/internal/lockfilescalibr/plugin"
 )
 
@@ -42,7 +44,7 @@ func expectErrIs(t *testing.T, err error, expected error) {
 	}
 }
 
-func packageToString(pkg *lockfilescalibr.Inventory) string {
+func packageToString(pkg *extractor.Inventory) string {
 	source := pkg.SourceCode
 	commit := "<no commit>"
 	if source != nil && source.Commit != "" {
@@ -61,7 +63,7 @@ func packageToString(pkg *lockfilescalibr.Inventory) string {
 	return fmt.Sprintf("%s@%s (%s, %s, %s) @ [%s]", pkg.Name, pkg.Version, ecosystemOrEmpty(pkg), commit, groups, locations)
 }
 
-func hasPackage(t *testing.T, packages []*lockfilescalibr.Inventory, pkg *lockfilescalibr.Inventory) bool {
+func hasPackage(t *testing.T, packages []*extractor.Inventory, pkg *extractor.Inventory) bool {
 	t.Helper()
 
 	for _, details := range packages {
@@ -75,9 +77,9 @@ func hasPackage(t *testing.T, packages []*lockfilescalibr.Inventory, pkg *lockfi
 	return false
 }
 
-func findMissingPackages(t *testing.T, actualPackages []*lockfilescalibr.Inventory, expectedPackages []*lockfilescalibr.Inventory) []*lockfilescalibr.Inventory {
+func findMissingPackages(t *testing.T, actualPackages []*extractor.Inventory, expectedPackages []*extractor.Inventory) []*extractor.Inventory {
 	t.Helper()
-	var missingPackages []*lockfilescalibr.Inventory
+	var missingPackages []*extractor.Inventory
 
 	for _, pkg := range actualPackages {
 		if !hasPackage(t, expectedPackages, pkg) {
@@ -88,7 +90,7 @@ func findMissingPackages(t *testing.T, actualPackages []*lockfilescalibr.Invento
 	return missingPackages
 }
 
-func expectPackages(t *testing.T, actualInventories []*lockfilescalibr.Inventory, expectedInventories []*lockfilescalibr.Inventory) {
+func expectPackages(t *testing.T, actualInventories []*extractor.Inventory, expectedInventories []*extractor.Inventory) {
 	t.Helper()
 
 	if len(expectedInventories) != len(actualInventories) {
@@ -116,7 +118,7 @@ func expectPackages(t *testing.T, actualInventories []*lockfilescalibr.Inventory
 	}
 }
 
-func ecosystemOrEmpty(pkg *lockfilescalibr.Inventory) string {
+func ecosystemOrEmpty(pkg *extractor.Inventory) string {
 	ecosystem, err := pkg.Ecosystem()
 	if err != nil {
 		ecosystem = ""
@@ -177,7 +179,7 @@ type ScanInputMockConfig struct {
 
 type ScanInputWrapper struct {
 	fileHandle *os.File
-	ScanInput  lockfilescalibr.ScanInput
+	ScanInput  filesystem.ScanInput
 }
 
 func (siw ScanInputWrapper) Close() {
@@ -232,7 +234,7 @@ func GenerateScanInputMock(t *testing.T, config ScanInputMockConfig) ScanInputWr
 
 	return ScanInputWrapper{
 		fileHandle: f,
-		ScanInput: lockfilescalibr.ScanInput{
+		ScanInput: filesystem.ScanInput{
 			FS:       os.DirFS(scanRoot).(plugin.FS),
 			Path:     config.path,
 			ScanRoot: scanRoot,
@@ -242,7 +244,7 @@ func GenerateScanInputMock(t *testing.T, config ScanInputMockConfig) ScanInputWr
 	}
 }
 
-func fillExtractorField(pkgs []*lockfilescalibr.Inventory, extractor lockfilescalibr.Extractor) {
+func fillExtractorField(pkgs []*extractor.Inventory, extractor filesystem.Extractor) {
 	for i := range pkgs {
 		pkgs[i].Extractor = extractor
 	}
@@ -260,13 +262,13 @@ func Form(count int, singular, plural string) string {
 type testTableEntry struct {
 	name              string
 	inputConfig       ScanInputMockConfig
-	wantInventory     []*lockfilescalibr.Inventory
+	wantInventory     []*extractor.Inventory
 	wantErrIs         error
 	wantErrContaining string
 }
 
 // extractionTester tests common properties of a extractor, and returns the raw values from running extract
-func extractionTester(t *testing.T, extractor lockfilescalibr.Extractor, tt testTableEntry) ([]*lockfilescalibr.Inventory, error) {
+func extractionTester(t *testing.T, extractor filesystem.Extractor, tt testTableEntry) ([]*extractor.Inventory, error) {
 	t.Helper()
 
 	wrapper := GenerateScanInputMock(t, tt.inputConfig)

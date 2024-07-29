@@ -4,6 +4,7 @@ import (
 	"testing"
 
 	"github.com/google/osv-scanner/internal/lockfilescalibr"
+	"github.com/google/osv-scanner/internal/lockfilescalibr/extractor"
 )
 
 func TestGoBinaryExtractor_FileRequired(t *testing.T) {
@@ -71,7 +72,7 @@ func TestGoBinaryExtractor_Extract(t *testing.T) {
 			inputConfig: ScanInputMockConfig{
 				path: "fixtures/go/binaries/just-go",
 			},
-			wantInventory: []*lockfilescalibr.Inventory{
+			wantInventory: []*extractor.Inventory{
 				{
 					Name:      "stdlib",
 					Version:   "1.21.10",
@@ -84,7 +85,7 @@ func TestGoBinaryExtractor_Extract(t *testing.T) {
 			inputConfig: ScanInputMockConfig{
 				path: "fixtures/go/binaries/has-one-dep",
 			},
-			wantInventory: []*lockfilescalibr.Inventory{
+			wantInventory: []*extractor.Inventory{
 				{
 					Name:      "stdlib",
 					Version:   "1.21.10",

@@ -1,13 +1,7 @@
 package lockfilescalibr
 
 import (
-	"context"
 	"errors"
-	"io"
-	"io/fs"
-
-	"github.com/google/osv-scanner/internal/lockfilescalibr/plugin"
-	"github.com/package-url/packageurl-go"
 )
 
 // ---
@@ -27,78 +21,8 @@ import (
 var ErrNotImplemented = errors.New("not implemented")
 var ErrWrongExtractor = errors.New("this extractor did not create this inventory")
 
-type Annotation int
-
-// Plugin is the part of the plugin interface that's shared between extractors and detectors.
-type Plugin interface {
-	// A unique name used to identify this plugin.
-	Name() string
-	// Plugin version, should get bumped whenever major changes are made.
-	Version() int
-}
-
-// ScanInput represents a filesystem path to a readable file where inventory can be extracted.
-type ScanInput struct {
-	// FS for file access. This is rooted at /.
-	FS plugin.FS
-	// Input path, relative to the root directory.
-	Path string
-	// The root directory to start all extractions from.
-	ScanRoot string
-	// A reader for accessing contents of the "main" file.
-	// Note that the file is closed by the core library, not the plugin.
-	Reader io.Reader
-	Info   fs.FileInfo
-}
-
-type SourceCodeIdentifier struct {
-	Repo   string
-	Commit string
-}
-
-type Extractor interface {
-	Plugin
-
-	// PathRequired should return true if the input is
-	// relevant for the extractor. This should be used as a lightweight filtering step.
-	FileRequired(path string, fileInfo fs.FileInfo) bool
-	// Extract extracts inventory data relevant for the extractor from a given input.
-	Extract(ctx context.Context, input *ScanInput) ([]*Inventory, error)
-
-	// Requirements returns the set of operating requirements that the extractor
-	// requires.
-	Requirements() *plugin.Requirements
-
-	// ToPURL converts an inventory created by this extractor into a PURL.
-	ToPURL(i *Inventory) (*packageurl.PackageURL, error)
-	// ToCPEs converts an inventory created by this extractor into CPEs, if supported.
-	ToCPEs(i *Inventory) ([]string, error)
-	// Ecosystem returns the Ecosystem of the given inventory created by this
-	// extractor.
-	Ecosystem(i *Inventory) (string, error)
-}
-
 type DepGroups interface {
 	DepGroups() []string
-}
-
-type Inventory struct {
-	// Source code-level identifier.
-	SourceCode *SourceCodeIdentifier
-	Name       string
-	// The version of this package. The version follows the versioning scheme for specified Ecosystem.
-	Version string
-	// The paths of the files from which the information about the inventory is extracted
-	Locations []string
-	// The Extractor that found this software instance. Set by the core library.
-	Extractor Extractor
-	// The additional data found in the package, specific to the extractor.
-	Metadata    any
-	Annotations []Annotation // See go/scalibr-annotations for details.
-}
-
-func (i Inventory) Ecosystem() (string, error) {
-	return i.Extractor.Ecosystem(&i)
 }
 
 // DepGroupMetadata is a metadata struct that only supports DepGroups

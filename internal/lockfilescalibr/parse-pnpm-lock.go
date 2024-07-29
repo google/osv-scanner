@@ -11,6 +11,8 @@ import (
 	"strings"
 
 	"github.com/google/osv-scanner/internal/cachedregexp"
+	"github.com/google/osv-scanner/internal/lockfilescalibr/extractor"
+	"github.com/google/osv-scanner/internal/lockfilescalibr/filesystem"
 	"github.com/google/osv-scanner/internal/lockfilescalibr/plugin"
 	"github.com/package-url/packageurl-go"
 	"gopkg.in/yaml.v3"
@@ -138,8 +140,8 @@ func parseNameAtVersion(value string) (name string, version string) {
 	return matches[1], matches[2]
 }
 
-func parsePnpmLock(lockfile PnpmLockfile) []*Inventory {
-	packages := make([]*Inventory, 0, len(lockfile.Packages))
+func parsePnpmLock(lockfile PnpmLockfile) []*extractor.Inventory {
+	packages := make([]*extractor.Inventory, 0, len(lockfile.Packages))
 
 	for s, pkg := range lockfile.Packages {
 		name, version := extractPnpmPackageNameAndVersion(s, lockfile.Version)
@@ -176,10 +178,10 @@ func parsePnpmLock(lockfile PnpmLockfile) []*Inventory {
 			depGroups = append(depGroups, "dev")
 		}
 
-		packages = append(packages, &Inventory{
+		packages = append(packages, &extractor.Inventory{
 			Name:    name,
 			Version: version,
-			SourceCode: &SourceCodeIdentifier{
+			SourceCode: &extractor.SourceCodeIdentifier{
 				Commit: commit,
 			},
 			Metadata: DepGroupMetadata{
@@ -207,13 +209,13 @@ func (e PnpmLockExtractor) FileRequired(path string, fileInfo fs.FileInfo) bool 
 	return filepath.Base(path) == "pnpm-lock.yaml"
 }
 
-func (e PnpmLockExtractor) Extract(ctx context.Context, input *ScanInput) ([]*Inventory, error) {
+func (e PnpmLockExtractor) Extract(ctx context.Context, input *filesystem.ScanInput) ([]*extractor.Inventory, error) {
 	var parsedLockfile *PnpmLockfile
 
 	err := yaml.NewDecoder(input.Reader).Decode(&parsedLockfile)
 
 	if err != nil && !errors.Is(err, io.EOF) {
-		return []*Inventory{}, fmt.Errorf("could not extract from %s: %w", input.Path, err)
+		return []*extractor.Inventory{}, fmt.Errorf("could not extract from %s: %w", input.Path, err)
 	}
 
 	// this will happen if the file is empty
@@ -230,7 +232,7 @@ func (e PnpmLockExtractor) Extract(ctx context.Context, input *ScanInput) ([]*In
 }
 
 // ToPURL converts an inventory created by this extractor into a PURL.
-func (e PnpmLockExtractor) ToPURL(i *Inventory) (*packageurl.PackageURL, error) {
+func (e PnpmLockExtractor) ToPURL(i *extractor.Inventory) (*packageurl.PackageURL, error) {
 	return &packageurl.PackageURL{
 		Type:    packageurl.TypeNPM,
 		Name:    i.Name,
@@ -239,9 +241,9 @@ func (e PnpmLockExtractor) ToPURL(i *Inventory) (*packageurl.PackageURL, error) 
 }
 
 // ToCPEs is not applicable as this extractor does not infer CPEs from the Inventory.
-func (e PnpmLockExtractor) ToCPEs(i *Inventory) ([]string, error) { return []string{}, nil }
+func (e PnpmLockExtractor) ToCPEs(i *extractor.Inventory) ([]string, error) { return []string{}, nil }
 
-func (e PnpmLockExtractor) Ecosystem(i *Inventory) (string, error) {
+func (e PnpmLockExtractor) Ecosystem(i *extractor.Inventory) (string, error) {
 	switch i.Extractor.(type) {
 	case PnpmLockExtractor:
 		return string(PnpmEcosystem), nil
@@ -250,4 +252,4 @@ func (e PnpmLockExtractor) Ecosystem(i *Inventory) (string, error) {
 	}
 }
 
-var _ Extractor = PnpmLockExtractor{}
+var _ filesystem.Extractor = PnpmLockExtractor{}

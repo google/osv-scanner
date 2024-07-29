@@ -4,6 +4,7 @@ import (
 	"testing"
 
 	"github.com/google/osv-scanner/internal/lockfilescalibr"
+	"github.com/google/osv-scanner/internal/lockfilescalibr/extractor"
 )
 
 func TestGradleVerificationMetadataExtractor_FileRequired(t *testing.T) {
@@ -120,14 +121,14 @@ func TestGradleVerificationMetadataExtractor_Extract(t *testing.T) {
 			inputConfig: ScanInputMockConfig{
 				path: "fixtures/gradle-verification-metadata/empty.xml",
 			},
-			wantInventory: []*lockfilescalibr.Inventory{},
+			wantInventory: []*extractor.Inventory{},
 		},
 		{
 			name: "one package",
 			inputConfig: ScanInputMockConfig{
 				path: "fixtures/gradle-verification-metadata/one-package.xml",
 			},
-			wantInventory: []*lockfilescalibr.Inventory{
+			wantInventory: []*extractor.Inventory{
 				{
 					Name:      "org.apache.pdfbox:pdfbox",
 					Version:   "2.0.17",
@@ -140,7 +141,7 @@ func TestGradleVerificationMetadataExtractor_Extract(t *testing.T) {
 			inputConfig: ScanInputMockConfig{
 				path: "fixtures/gradle-verification-metadata/two-packages.xml",
 			},
-			wantInventory: []*lockfilescalibr.Inventory{
+			wantInventory: []*extractor.Inventory{
 				{
 					Name:      "org.apache.pdfbox:pdfbox",
 					Version:   "2.0.17",
@@ -158,7 +159,7 @@ func TestGradleVerificationMetadataExtractor_Extract(t *testing.T) {
 			inputConfig: ScanInputMockConfig{
 				path: "fixtures/gradle-verification-metadata/multiple-versions.xml",
 			},
-			wantInventory: []*lockfilescalibr.Inventory{
+			wantInventory: []*extractor.Inventory{
 				{
 					Name:      "androidx.activity:activity",
 					Version:   "1.2.1",
@@ -256,7 +257,7 @@ func TestGradleVerificationMetadataExtractor_Extract(t *testing.T) {
 			inputConfig: ScanInputMockConfig{
 				path: "fixtures/gradle-verification-metadata/complex.xml",
 			},
-			wantInventory: []*lockfilescalibr.Inventory{
+			wantInventory: []*extractor.Inventory{
 				{
 					Name:      "com.google:google",
 					Version:   "1",

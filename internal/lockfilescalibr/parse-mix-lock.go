@@ -10,6 +10,8 @@ import (
 	"strings"
 
 	"github.com/google/osv-scanner/internal/cachedregexp"
+	"github.com/google/osv-scanner/internal/lockfilescalibr/extractor"
+	"github.com/google/osv-scanner/internal/lockfilescalibr/filesystem"
 	"github.com/google/osv-scanner/internal/lockfilescalibr/plugin"
 	"github.com/package-url/packageurl-go"
 )
@@ -32,12 +34,12 @@ func (e MixLockExtractor) FileRequired(path string, fileInfo fs.FileInfo) bool {
 	return filepath.Base(path) == "mix.lock"
 }
 
-func (e MixLockExtractor) Extract(ctx context.Context, input *ScanInput) ([]*Inventory, error) {
+func (e MixLockExtractor) Extract(ctx context.Context, input *filesystem.ScanInput) ([]*extractor.Inventory, error) {
 	re := cachedregexp.MustCompile(`^ +"(\w+)": \{.+,$`)
 
 	scanner := bufio.NewScanner(input.Reader)
 
-	var packages []*Inventory
+	var packages []*extractor.Inventory
 
 	for scanner.Scan() {
 		line := scanner.Text()
@@ -76,25 +78,25 @@ func (e MixLockExtractor) Extract(ctx context.Context, input *ScanInput) ([]*Inv
 			version = ""
 		}
 
-		packages = append(packages, &Inventory{
+		packages = append(packages, &extractor.Inventory{
 			Name:      name,
 			Version:   version,
 			Locations: []string{input.Path},
-			SourceCode: &SourceCodeIdentifier{
+			SourceCode: &extractor.SourceCodeIdentifier{
 				Commit: commit,
 			},
 		})
 	}
 
 	if err := scanner.Err(); err != nil {
-		return []*Inventory{}, fmt.Errorf("error while scanning %s: %w", input.Path, err)
+		return []*extractor.Inventory{}, fmt.Errorf("error while scanning %s: %w", input.Path, err)
 	}
 
 	return packages, nil
 }
 
 // ToPURL converts an inventory created by this extractor into a PURL.
-func (e MixLockExtractor) ToPURL(i *Inventory) (*packageurl.PackageURL, error) {
+func (e MixLockExtractor) ToPURL(i *extractor.Inventory) (*packageurl.PackageURL, error) {
 	return &packageurl.PackageURL{
 		Type:    packageurl.TypeHex,
 		Name:    i.Name,
@@ -103,9 +105,9 @@ func (e MixLockExtractor) ToPURL(i *Inventory) (*packageurl.PackageURL, error) {
 }
 
 // ToCPEs is not applicable as this extractor does not infer CPEs from the Inventory.
-func (e MixLockExtractor) ToCPEs(i *Inventory) ([]string, error) { return []string{}, nil }
+func (e MixLockExtractor) ToCPEs(i *extractor.Inventory) ([]string, error) { return []string{}, nil }
 
-func (e MixLockExtractor) Ecosystem(i *Inventory) (string, error) {
+func (e MixLockExtractor) Ecosystem(i *extractor.Inventory) (string, error) {
 	switch i.Extractor.(type) {
 	case MixLockExtractor:
 		return string(MixEcosystem), nil
@@ -114,4 +116,4 @@ func (e MixLockExtractor) Ecosystem(i *Inventory) (string, error) {
 	}
 }
 
-var _ Extractor = MixLockExtractor{}
+var _ filesystem.Extractor = MixLockExtractor{}

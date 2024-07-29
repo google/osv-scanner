@@ -9,6 +9,8 @@ import (
 	"path/filepath"
 	"strings"
 
+	"github.com/google/osv-scanner/internal/lockfilescalibr/extractor"
+	"github.com/google/osv-scanner/internal/lockfilescalibr/filesystem"
 	"github.com/google/osv-scanner/internal/lockfilescalibr/plugin"
 	"github.com/package-url/packageurl-go"
 )
@@ -38,7 +40,7 @@ func (e GoBinaryExtractor) FileRequired(path string, fileInfo fs.FileInfo) bool 
 	return fileInfo.Mode()&0111 != 0
 }
 
-func (e GoBinaryExtractor) Extract(ctx context.Context, input *ScanInput) ([]*Inventory, error) {
+func (e GoBinaryExtractor) Extract(ctx context.Context, input *filesystem.ScanInput) ([]*extractor.Inventory, error) {
 	var readerAt io.ReaderAt
 	if fileWithReaderAt, ok := input.Reader.(io.ReaderAt); ok {
 		readerAt = fileWithReaderAt
@@ -46,18 +48,18 @@ func (e GoBinaryExtractor) Extract(ctx context.Context, input *ScanInput) ([]*In
 		buf := bytes.NewBuffer([]byte{})
 		_, err := io.Copy(buf, input.Reader)
 		if err != nil {
-			return []*Inventory{}, err
+			return []*extractor.Inventory{}, err
 		}
 		readerAt = bytes.NewReader(buf.Bytes())
 	}
 
 	info, err := buildinfo.Read(readerAt)
 	if err != nil {
-		return []*Inventory{}, ErrIncompatibleFileFormat
+		return []*extractor.Inventory{}, ErrIncompatibleFileFormat
 	}
 
-	pkgs := make([]*Inventory, 0, len(info.Deps)+1)
-	pkgs = append(pkgs, &Inventory{
+	pkgs := make([]*extractor.Inventory, 0, len(info.Deps)+1)
+	pkgs = append(pkgs, &extractor.Inventory{
 		Name:      "stdlib",
 		Version:   strings.TrimPrefix(info.GoVersion, "go"),
 		Locations: []string{input.Path},
@@ -67,7 +69,7 @@ func (e GoBinaryExtractor) Extract(ctx context.Context, input *ScanInput) ([]*In
 		if dep.Replace != nil { // Use the replaced dep if it has been replaced
 			dep = dep.Replace
 		}
-		pkgs = append(pkgs, &Inventory{
+		pkgs = append(pkgs, &extractor.Inventory{
 			Name:      dep.Path,
 			Version:   strings.TrimPrefix(dep.Version, "v"),
 			Locations: []string{input.Path},
@@ -78,7 +80,7 @@ func (e GoBinaryExtractor) Extract(ctx context.Context, input *ScanInput) ([]*In
 }
 
 // ToPURL converts an inventory created by this extractor into a PURL.
-func (e GoBinaryExtractor) ToPURL(i *Inventory) (*packageurl.PackageURL, error) {
+func (e GoBinaryExtractor) ToPURL(i *extractor.Inventory) (*packageurl.PackageURL, error) {
 	return &packageurl.PackageURL{
 		Type:    packageurl.TypeGolang,
 		Name:    i.Name,
@@ -87,9 +89,9 @@ func (e GoBinaryExtractor) ToPURL(i *Inventory) (*packageurl.PackageURL, error) 
 }
 
 // ToCPEs is not applicable as this extractor does not infer CPEs from the Inventory.
-func (e GoBinaryExtractor) ToCPEs(i *Inventory) ([]string, error) { return []string{}, nil }
+func (e GoBinaryExtractor) ToCPEs(i *extractor.Inventory) ([]string, error) { return []string{}, nil }
 
-func (e GoBinaryExtractor) Ecosystem(i *Inventory) (string, error) {
+func (e GoBinaryExtractor) Ecosystem(i *extractor.Inventory) (string, error) {
 	switch i.Extractor.(type) {
 	case GoBinaryExtractor:
 		return string(GoEcosystem), nil
@@ -98,4 +100,4 @@ func (e GoBinaryExtractor) Ecosystem(i *Inventory) (string, error) {
 	}
 }
 
-var _ Extractor = GoBinaryExtractor{}
+var _ filesystem.Extractor = GoBinaryExtractor{}

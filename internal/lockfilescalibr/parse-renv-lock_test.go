@@ -4,6 +4,7 @@ import (
 	"testing"
 
 	"github.com/google/osv-scanner/internal/lockfilescalibr"
+	"github.com/google/osv-scanner/internal/lockfilescalibr/extractor"
 )
 
 func TestRenvLockExtractor_Extract(t *testing.T) {
@@ -22,14 +23,14 @@ func TestRenvLockExtractor_Extract(t *testing.T) {
 			inputConfig: ScanInputMockConfig{
 				path: "fixtures/renv/empty.lock",
 			},
-			wantInventory: []*lockfilescalibr.Inventory{},
+			wantInventory: []*extractor.Inventory{},
 		},
 		{
 			name: "one package",
 			inputConfig: ScanInputMockConfig{
 				path: "fixtures/renv/one-package.lock",
 			},
-			wantInventory: []*lockfilescalibr.Inventory{
+			wantInventory: []*extractor.Inventory{
 				{
 					Name:      "morning",
 					Version:   "0.1.0",
@@ -42,7 +43,7 @@ func TestRenvLockExtractor_Extract(t *testing.T) {
 			inputConfig: ScanInputMockConfig{
 				path: "fixtures/renv/two-packages.lock",
 			},
-			wantInventory: []*lockfilescalibr.Inventory{
+			wantInventory: []*extractor.Inventory{
 				{
 					Name:      "markdown",
 					Version:   "1.0",
@@ -60,7 +61,7 @@ func TestRenvLockExtractor_Extract(t *testing.T) {
 			inputConfig: ScanInputMockConfig{
 				path: "fixtures/renv/with-mixed-sources.lock",
 			},
-			wantInventory: []*lockfilescalibr.Inventory{
+			wantInventory: []*extractor.Inventory{
 				{
 					Name:      "markdown",
 					Version:   "1.0",
@@ -73,7 +74,7 @@ func TestRenvLockExtractor_Extract(t *testing.T) {
 			inputConfig: ScanInputMockConfig{
 				path: "fixtures/renv/with-bioconductor.lock",
 			},
-			wantInventory: []*lockfilescalibr.Inventory{
+			wantInventory: []*extractor.Inventory{
 				{
 					Name:      "BH",
 					Version:   "1.75.0-0",
@@ -86,7 +87,7 @@ func TestRenvLockExtractor_Extract(t *testing.T) {
 			inputConfig: ScanInputMockConfig{
 				path: "fixtures/renv/without-repository.lock",
 			},
-			wantInventory: []*lockfilescalibr.Inventory{},
+			wantInventory: []*extractor.Inventory{},
 		},
 	}
 

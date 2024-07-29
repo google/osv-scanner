@@ -4,6 +4,7 @@ import (
 	"testing"
 
 	"github.com/google/osv-scanner/internal/lockfilescalibr"
+	"github.com/google/osv-scanner/internal/lockfilescalibr/extractor"
 )
 
 func TestComposerLockExtractor_FileRequired(t *testing.T) {
@@ -86,19 +87,19 @@ func TestComposerLockExtractor_Extract(t *testing.T) {
 			inputConfig: ScanInputMockConfig{
 				path: "fixtures/composer/empty.json",
 			},
-			wantInventory: []*lockfilescalibr.Inventory{},
+			wantInventory: []*extractor.Inventory{},
 		},
 		{
 			name: "one package",
 			inputConfig: ScanInputMockConfig{
 				path: "fixtures/composer/one-package.json",
 			},
-			wantInventory: []*lockfilescalibr.Inventory{
+			wantInventory: []*extractor.Inventory{
 				{
 					Name:      "sentry/sdk",
 					Version:   "2.0.4",
 					Locations: []string{"fixtures/composer/one-package.json"},
-					SourceCode: &lockfilescalibr.SourceCodeIdentifier{
+					SourceCode: &extractor.SourceCodeIdentifier{
 						Commit: "4c115873c86ad5bd0ac6d962db70ca53bf8fb874",
 					},
 					Metadata: lockfilescalibr.DepGroupMetadata{
@@ -112,12 +113,12 @@ func TestComposerLockExtractor_Extract(t *testing.T) {
 			inputConfig: ScanInputMockConfig{
 				path: "fixtures/composer/one-package-dev.json",
 			},
-			wantInventory: []*lockfilescalibr.Inventory{
+			wantInventory: []*extractor.Inventory{
 				{
 					Name:      "sentry/sdk",
 					Version:   "2.0.4",
 					Locations: []string{"fixtures/composer/one-package-dev.json"},
-					SourceCode: &lockfilescalibr.SourceCodeIdentifier{
+					SourceCode: &extractor.SourceCodeIdentifier{
 						Commit: "4c115873c86ad5bd0ac6d962db70ca53bf8fb874",
 					},
 					Metadata: lockfilescalibr.DepGroupMetadata{
@@ -131,12 +132,12 @@ func TestComposerLockExtractor_Extract(t *testing.T) {
 			inputConfig: ScanInputMockConfig{
 				path: "fixtures/composer/two-packages.json",
 			},
-			wantInventory: []*lockfilescalibr.Inventory{
+			wantInventory: []*extractor.Inventory{
 				{
 					Name:      "sentry/sdk",
 					Version:   "2.0.4",
 					Locations: []string{"fixtures/composer/two-packages.json"},
-					SourceCode: &lockfilescalibr.SourceCodeIdentifier{
+					SourceCode: &extractor.SourceCodeIdentifier{
 						Commit: "4c115873c86ad5bd0ac6d962db70ca53bf8fb874",
 					},
 					Metadata: lockfilescalibr.DepGroupMetadata{
@@ -147,7 +148,7 @@ func TestComposerLockExtractor_Extract(t *testing.T) {
 					Name:      "theseer/tokenizer",
 					Version:   "1.1.3",
 					Locations: []string{"fixtures/composer/two-packages.json"},
-					SourceCode: &lockfilescalibr.SourceCodeIdentifier{
+					SourceCode: &extractor.SourceCodeIdentifier{
 						Commit: "11336f6f84e16a720dae9d8e6ed5019efa85a0f9",
 					},
 					Metadata: lockfilescalibr.DepGroupMetadata{
@@ -161,12 +162,12 @@ func TestComposerLockExtractor_Extract(t *testing.T) {
 			inputConfig: ScanInputMockConfig{
 				path: "fixtures/composer/two-packages-alt.json",
 			},
-			wantInventory: []*lockfilescalibr.Inventory{
+			wantInventory: []*extractor.Inventory{
 				{
 					Name:      "sentry/sdk",
 					Version:   "2.0.4",
 					Locations: []string{"fixtures/composer/two-packages-alt.json"},
-					SourceCode: &lockfilescalibr.SourceCodeIdentifier{
+					SourceCode: &extractor.SourceCodeIdentifier{
 						Commit: "4c115873c86ad5bd0ac6d962db70ca53bf8fb874",
 					},
 					Metadata: lockfilescalibr.DepGroupMetadata{
@@ -177,7 +178,7 @@ func TestComposerLockExtractor_Extract(t *testing.T) {
 					Name:      "theseer/tokenizer",
 					Version:   "1.1.3",
 					Locations: []string{"fixtures/composer/two-packages-alt.json"},
-					SourceCode: &lockfilescalibr.SourceCodeIdentifier{
+					SourceCode: &extractor.SourceCodeIdentifier{
 						Commit: "11336f6f84e16a720dae9d8e6ed5019efa85a0f9",
 					},
 					Metadata: lockfilescalibr.DepGroupMetadata{

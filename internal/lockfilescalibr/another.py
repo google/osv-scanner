@@ -34,12 +34,12 @@ func (e [-extractname]) FileRequired(path string, fileInfo fs.FileInfo) bool {
 }
 """
 
-replaceLineThree = "func (e [-extractname]) Extract(ctx context.Context, input *ScanInput) ([]*Inventory, error) {"
+replaceLineThree = "func (e [-extractname]) Extract(ctx context.Context, input *filesystem.ScanInput) ([]*extractor.Inventory, error) {"
 
 insertLineFour = """
 
 // ToPURL converts an inventory created by this extractor into a PURL.
-func (e [-extractname]) ToPURL(i *Inventory) (*packageurl.PackageURL, error) {
+func (e [-extractname]) ToPURL(i *extractor.Inventory) (*packageurl.PackageURL, error) {
 	return &packageurl.PackageURL{
 		Type:    packageurl.--,
 		Name:    i.Name,
@@ -49,9 +49,9 @@ func (e [-extractname]) ToPURL(i *Inventory) (*packageurl.PackageURL, error) {
 }
 
 // ToCPEs is not applicable as this extractor does not infer CPEs from the Inventory.
-func (e [-extractname]) ToCPEs(i *Inventory) ([]string, error) { return []string{}, nil }
+func (e [-extractname]) ToCPEs(i *extractor.Inventory) ([]string, error) { return []string{}, nil }
 
-func (e [-extractname]) Ecosystem(i *Inventory) (string, error) {
+func (e [-extractname]) Ecosystem(i *extractor.Inventory) (string, error) {
 	switch i.Extractor.(type) {
 	case [-extractname]:
 		return string(--), nil
@@ -89,7 +89,7 @@ for line in allLines:
         output += replaceLineThree.replace("[-extractname]", extractorName)
         continue
 
-    matchFive = re.match('var _ Extractor = ', line)
+    matchFive = re.match('var _ filesystem.Extractor = ', line)
     if matchFive:
         output += insertLineFour.replace("[-extractname]", extractorName)
         output += line
@@ -98,7 +98,7 @@ for line in allLines:
     if removeNextLines > 0:
         removeNextLines -= 1
     else:
-      output += line.replace("(f)", "(input.Reader)").replace("f.Path()", "input.Path").replace("PackageDetails", "*Inventory")
+      output += line.replace("(f)", "(input.Reader)").replace("f.Path()", "input.Path").replace("PackageDetails", "*extractor.Inventory")
 
 
 f = open(filename, "w")

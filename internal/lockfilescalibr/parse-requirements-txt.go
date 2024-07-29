@@ -9,6 +9,8 @@ import (
 	"strings"
 
 	"github.com/google/osv-scanner/internal/cachedregexp"
+	"github.com/google/osv-scanner/internal/lockfilescalibr/extractor"
+	"github.com/google/osv-scanner/internal/lockfilescalibr/filesystem"
 	"github.com/google/osv-scanner/internal/lockfilescalibr/plugin"
 	"github.com/package-url/packageurl-go"
 	"golang.org/x/exp/maps"
@@ -19,7 +21,7 @@ const PipEcosystem Ecosystem = "PyPI"
 // todo: expand this to support more things, e.g.
 //
 //	https://pip.pypa.io/en/stable/reference/requirements-file-format/#example
-func parseLine(line string) *Inventory {
+func parseLine(line string) *extractor.Inventory {
 	var constraint string
 	name := line
 
@@ -50,7 +52,7 @@ func parseLine(line string) *Inventory {
 		}
 	}
 
-	return &Inventory{
+	return &extractor.Inventory{
 		Name:    normalizedRequirementName(name),
 		Version: version,
 		Metadata: DepGroupMetadata{
@@ -125,11 +127,11 @@ func (e RequirementsTxtExtractor) ShouldExtract(path string) bool {
 	return filepath.Base(path) == "requirements.txt"
 }
 
-func (e RequirementsTxtExtractor) Extract(ctx context.Context, input *ScanInput) ([]*Inventory, error) {
+func (e RequirementsTxtExtractor) Extract(ctx context.Context, input *filesystem.ScanInput) ([]*extractor.Inventory, error) {
 	inventories, err := parseRequirementsTxt(input, map[string]struct{}{})
 
 	if err != nil {
-		return []*Inventory{}, err
+		return []*extractor.Inventory{}, err
 	}
 
 	// TODO: This currently matches the existing behavior
@@ -143,7 +145,7 @@ func (e RequirementsTxtExtractor) Extract(ctx context.Context, input *ScanInput)
 }
 
 // ToPURL converts an inventory created by this extractor into a PURL.
-func (e RequirementsTxtExtractor) ToPURL(i *Inventory) (*packageurl.PackageURL, error) {
+func (e RequirementsTxtExtractor) ToPURL(i *extractor.Inventory) (*packageurl.PackageURL, error) {
 	return &packageurl.PackageURL{
 		Type:    packageurl.TypePyPi,
 		Name:    i.Name,
@@ -152,9 +154,11 @@ func (e RequirementsTxtExtractor) ToPURL(i *Inventory) (*packageurl.PackageURL, 
 }
 
 // ToCPEs is not applicable as this extractor does not infer CPEs from the Inventory.
-func (e RequirementsTxtExtractor) ToCPEs(i *Inventory) ([]string, error) { return []string{}, nil }
+func (e RequirementsTxtExtractor) ToCPEs(i *extractor.Inventory) ([]string, error) {
+	return []string{}, nil
+}
 
-func (e RequirementsTxtExtractor) Ecosystem(i *Inventory) (string, error) {
+func (e RequirementsTxtExtractor) Ecosystem(i *extractor.Inventory) (string, error) {
 	switch i.Extractor.(type) {
 	case RequirementsTxtExtractor:
 		return string(PipEcosystem), nil
@@ -163,8 +167,8 @@ func (e RequirementsTxtExtractor) Ecosystem(i *Inventory) (string, error) {
 	}
 }
 
-func parseRequirementsTxt(input *ScanInput, requiredAlready map[string]struct{}) ([]*Inventory, error) {
-	inventories := map[string]*Inventory{}
+func parseRequirementsTxt(input *filesystem.ScanInput, requiredAlready map[string]struct{}) ([]*extractor.Inventory, error) {
+	inventories := map[string]*extractor.Inventory{}
 
 	group := strings.TrimSuffix(filepath.Base(input.Path), filepath.Ext(input.Path))
 	hasGroup := func(groups []string) bool {
@@ -210,7 +214,7 @@ func parseRequirementsTxt(input *ScanInput, requiredAlready map[string]struct{})
 				}
 
 				requiredAlready[fullReqPath] = struct{}{}
-				newScanInput := ScanInput{
+				newScanInput := filesystem.ScanInput{
 					FS:       input.FS,
 					Path:     fullReqPath,
 					ScanRoot: input.ScanRoot,
@@ -232,7 +236,7 @@ func parseRequirementsTxt(input *ScanInput, requiredAlready map[string]struct{})
 			}()
 
 			if err != nil {
-				return []*Inventory{}, err
+				return []*extractor.Inventory{}, err
 			}
 
 			continue
@@ -263,10 +267,10 @@ func parseRequirementsTxt(input *ScanInput, requiredAlready map[string]struct{})
 	}
 
 	if err := scanner.Err(); err != nil {
-		return []*Inventory{}, fmt.Errorf("error while scanning %s: %w", input.Path, err)
+		return []*extractor.Inventory{}, fmt.Errorf("error while scanning %s: %w", input.Path, err)
 	}
 
 	return maps.Values(inventories), nil
 }
 
-var _ Extractor = RequirementsTxtExtractor{}
+var _ filesystem.Extractor = RequirementsTxtExtractor{}

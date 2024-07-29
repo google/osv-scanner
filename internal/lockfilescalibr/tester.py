@@ -31,7 +31,7 @@ def genInventory(path, valueList: list[InventoryItem]) -> str:
             Locations: []string{{"{path}"}},
 """
         if expectCommit:
-            current += f'SourceCode: &lockfilescalibr.SourceCodeIdentifier{{\nCommit: "{i.commit}",\n}},\n'
+            current += f'SourceCode: &extractor.SourceCodeIdentifier{{\nCommit: "{i.commit}",\n}},\n'
 
         if expectDepGroups:
             current += f"Metadata: lockfilescalibr.DepGroupMetadata{{\nDepGroupVals: []string{{{', '.join(i.depGroups or [])}}},\n}},\n"
@@ -49,7 +49,7 @@ def outputValue(path, funcName, inventory: list[InventoryItem]):
 			inputConfig: ScanInputMockConfig{{
 				path: "{path}",
 			}},
-			wantInventory: []*lockfilescalibr.Inventory{{{inv}
+			wantInventory: []*extractor.Inventory{{{inv}
 			}},
 		}},'''
 

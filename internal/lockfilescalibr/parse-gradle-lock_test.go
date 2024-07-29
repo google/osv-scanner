@@ -4,6 +4,7 @@ import (
 	"testing"
 
 	lockfile "github.com/google/osv-scanner/internal/lockfilescalibr"
+	"github.com/google/osv-scanner/internal/lockfilescalibr/extractor"
 )
 
 func TestGradleLockExtractor_FileRequired(t *testing.T) {
@@ -113,21 +114,21 @@ func TestGradleLockExtractor_Extract(t *testing.T) {
 			inputConfig: ScanInputMockConfig{
 				path: "fixtures/gradle/only-comments",
 			},
-			wantInventory: []*lockfile.Inventory{},
+			wantInventory: []*extractor.Inventory{},
 		},
 		{
 			name: "empty statement",
 			inputConfig: ScanInputMockConfig{
 				path: "fixtures/gradle/only-empty",
 			},
-			wantInventory: []*lockfile.Inventory{},
+			wantInventory: []*extractor.Inventory{},
 		},
 		{
 			name: "one package",
 			inputConfig: ScanInputMockConfig{
 				path: "fixtures/gradle/one-pkg",
 			},
-			wantInventory: []*lockfile.Inventory{
+			wantInventory: []*extractor.Inventory{
 				{
 					Name:      "org.springframework.security:spring-security-crypto",
 					Version:   "5.7.3",
@@ -140,7 +141,7 @@ func TestGradleLockExtractor_Extract(t *testing.T) {
 			inputConfig: ScanInputMockConfig{
 				path: "fixtures/gradle/5-pkg",
 			},
-			wantInventory: []*lockfile.Inventory{
+			wantInventory: []*extractor.Inventory{
 				{
 					Name:      "org.springframework.boot:spring-boot-autoconfigure",
 					Version:   "2.7.4",
@@ -173,7 +174,7 @@ func TestGradleLockExtractor_Extract(t *testing.T) {
 			inputConfig: ScanInputMockConfig{
 				path: "fixtures/gradle/with-bad-pkg",
 			},
-			wantInventory: []*lockfile.Inventory{
+			wantInventory: []*extractor.Inventory{
 				{
 					Name:      "org.springframework.boot:spring-boot-autoconfigure",
 					Version:   "2.7.4",

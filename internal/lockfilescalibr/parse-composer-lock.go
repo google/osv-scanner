@@ -7,6 +7,8 @@ import (
 	"io/fs"
 	"path/filepath"
 
+	"github.com/google/osv-scanner/internal/lockfilescalibr/extractor"
+	"github.com/google/osv-scanner/internal/lockfilescalibr/filesystem"
 	"github.com/google/osv-scanner/internal/lockfilescalibr/plugin"
 	"github.com/package-url/packageurl-go"
 )
@@ -42,28 +44,28 @@ func (e ComposerLockExtractor) FileRequired(path string, fileInfo fs.FileInfo) b
 	return filepath.Base(path) == "composer.lock"
 }
 
-func (e ComposerLockExtractor) Extract(ctx context.Context, input *ScanInput) ([]*Inventory, error) {
+func (e ComposerLockExtractor) Extract(ctx context.Context, input *filesystem.ScanInput) ([]*extractor.Inventory, error) {
 	var parsedLockfile *ComposerLock
 
 	err := json.NewDecoder(input.Reader).Decode(&parsedLockfile)
 
 	if err != nil {
-		return []*Inventory{}, fmt.Errorf("could not extract from %s: %w", input.Path, err)
+		return []*extractor.Inventory{}, fmt.Errorf("could not extract from %s: %w", input.Path, err)
 	}
 
 	packages := make(
-		[]*Inventory,
+		[]*extractor.Inventory,
 		0,
 		// len cannot return negative numbers, but the types can't reflect that
 		uint64(len(parsedLockfile.Packages))+uint64(len(parsedLockfile.PackagesDev)),
 	)
 
 	for _, composerPackage := range parsedLockfile.Packages {
-		packages = append(packages, &Inventory{
+		packages = append(packages, &extractor.Inventory{
 			Name:      composerPackage.Name,
 			Version:   composerPackage.Version,
 			Locations: []string{input.Path},
-			SourceCode: &SourceCodeIdentifier{
+			SourceCode: &extractor.SourceCodeIdentifier{
 				Commit: composerPackage.Dist.Reference,
 			},
 			Metadata: DepGroupMetadata{
@@ -73,11 +75,11 @@ func (e ComposerLockExtractor) Extract(ctx context.Context, input *ScanInput) ([
 	}
 
 	for _, composerPackage := range parsedLockfile.PackagesDev {
-		packages = append(packages, &Inventory{
+		packages = append(packages, &extractor.Inventory{
 			Name:      composerPackage.Name,
 			Version:   composerPackage.Version,
 			Locations: []string{input.Path},
-			SourceCode: &SourceCodeIdentifier{
+			SourceCode: &extractor.SourceCodeIdentifier{
 				Commit: composerPackage.Dist.Reference,
 			},
 			Metadata: DepGroupMetadata{
@@ -90,7 +92,7 @@ func (e ComposerLockExtractor) Extract(ctx context.Context, input *ScanInput) ([
 }
 
 // ToPURL converts an inventory created by this extractor into a PURL.
-func (e ComposerLockExtractor) ToPURL(i *Inventory) (*packageurl.PackageURL, error) {
+func (e ComposerLockExtractor) ToPURL(i *extractor.Inventory) (*packageurl.PackageURL, error) {
 	return &packageurl.PackageURL{
 		Type:    packageurl.TypeComposer,
 		Name:    i.Name,
@@ -99,9 +101,11 @@ func (e ComposerLockExtractor) ToPURL(i *Inventory) (*packageurl.PackageURL, err
 }
 
 // ToCPEs is not applicable as this extractor does not infer CPEs from the Inventory.
-func (e ComposerLockExtractor) ToCPEs(i *Inventory) ([]string, error) { return []string{}, nil }
+func (e ComposerLockExtractor) ToCPEs(i *extractor.Inventory) ([]string, error) {
+	return []string{}, nil
+}
 
-func (e ComposerLockExtractor) Ecosystem(i *Inventory) (string, error) {
+func (e ComposerLockExtractor) Ecosystem(i *extractor.Inventory) (string, error) {
 	switch i.Extractor.(type) {
 	case ComposerLockExtractor:
 		return string(ComposerEcosystem), nil
@@ -110,4 +114,4 @@ func (e ComposerLockExtractor) Ecosystem(i *Inventory) (string, error) {
 	}
 }
 
-var _ Extractor = ComposerLockExtractor{}
+var _ filesystem.Extractor = ComposerLockExtractor{}

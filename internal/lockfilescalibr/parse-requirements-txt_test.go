@@ -5,6 +5,7 @@ import (
 	"testing"
 
 	"github.com/google/osv-scanner/internal/lockfilescalibr"
+	"github.com/google/osv-scanner/internal/lockfilescalibr/extractor"
 )
 
 func TestRequirementsTxtExtractor_FileRequired(t *testing.T) {
@@ -80,21 +81,21 @@ func TestRequirementsTxtExtractor_Extract(t *testing.T) {
 			inputConfig: ScanInputMockConfig{
 				path: "fixtures/pip/empty.txt",
 			},
-			wantInventory: []*lockfilescalibr.Inventory{},
+			wantInventory: []*extractor.Inventory{},
 		},
 		{
 			name: "comments only",
 			inputConfig: ScanInputMockConfig{
 				path: "fixtures/pip/only-comments.txt",
 			},
-			wantInventory: []*lockfilescalibr.Inventory{},
+			wantInventory: []*extractor.Inventory{},
 		},
 		{
 			name: "one requirement unconstrained",
 			inputConfig: ScanInputMockConfig{
 				path: "fixtures/pip/one-package-unconstrained.txt",
 			},
-			wantInventory: []*lockfilescalibr.Inventory{
+			wantInventory: []*extractor.Inventory{
 				{
 					Name:      "flask",
 					Version:   "0.0.0",
@@ -110,7 +111,7 @@ func TestRequirementsTxtExtractor_Extract(t *testing.T) {
 			inputConfig: ScanInputMockConfig{
 				path: "fixtures/pip/one-package-constrained.txt",
 			},
-			wantInventory: []*lockfilescalibr.Inventory{
+			wantInventory: []*extractor.Inventory{
 				{
 					Name:      "django",
 					Version:   "2.2.24",
@@ -126,7 +127,7 @@ func TestRequirementsTxtExtractor_Extract(t *testing.T) {
 			inputConfig: ScanInputMockConfig{
 				path: "fixtures/pip/multiple-packages-constrained.txt",
 			},
-			wantInventory: []*lockfilescalibr.Inventory{
+			wantInventory: []*extractor.Inventory{
 				{
 					Name:      "astroid",
 					Version:   "2.5.1",
@@ -238,7 +239,7 @@ func TestRequirementsTxtExtractor_Extract(t *testing.T) {
 			inputConfig: ScanInputMockConfig{
 				path: "fixtures/pip/multiple-packages-mixed.txt",
 			},
-			wantInventory: []*lockfilescalibr.Inventory{
+			wantInventory: []*extractor.Inventory{
 				{
 					Name:      "flask",
 					Version:   "0.0.0",
@@ -310,7 +311,7 @@ func TestRequirementsTxtExtractor_Extract(t *testing.T) {
 			inputConfig: ScanInputMockConfig{
 				path: "fixtures/pip/with-added-support.txt",
 			},
-			wantInventory: []*lockfilescalibr.Inventory{
+			wantInventory: []*extractor.Inventory{
 				{
 					Name:      "twisted",
 					Version:   "20.3.0",
@@ -326,7 +327,7 @@ func TestRequirementsTxtExtractor_Extract(t *testing.T) {
 			inputConfig: ScanInputMockConfig{
 				path: "fixtures/pip/non-normalized-names.txt",
 			},
-			wantInventory: []*lockfilescalibr.Inventory{
+			wantInventory: []*extractor.Inventory{
 				{
 					Name:      "zope-interface",
 					Version:   "5.4.0",
@@ -358,7 +359,7 @@ func TestRequirementsTxtExtractor_Extract(t *testing.T) {
 			inputConfig: ScanInputMockConfig{
 				path: "fixtures/pip/with-per-requirement-options.txt",
 			},
-			wantInventory: []*lockfilescalibr.Inventory{
+			wantInventory: []*extractor.Inventory{
 				{
 					Name:      "boto3",
 					Version:   "1.26.121",
@@ -398,7 +399,7 @@ func TestRequirementsTxtExtractor_Extract(t *testing.T) {
 			inputConfig: ScanInputMockConfig{
 				path: "fixtures/pip/line-continuation.txt",
 			},
-			wantInventory: []*lockfilescalibr.Inventory{
+			wantInventory: []*extractor.Inventory{
 				{
 					Name:      "foo",
 					Version:   "1.2.3",
@@ -454,7 +455,7 @@ func TestRequirementsTxtExtractor_Extract_WithRequirements(t *testing.T) {
 			inputConfig: ScanInputMockConfig{
 				path: "fixtures/pip/file-format-example.txt",
 			},
-			wantInventory: []*lockfilescalibr.Inventory{
+			wantInventory: []*extractor.Inventory{
 				{
 					Name:      "pytest",
 					Version:   "0.0.0",
@@ -542,7 +543,7 @@ func TestRequirementsTxtExtractor_Extract_WithRequirements(t *testing.T) {
 			inputConfig: ScanInputMockConfig{
 				path: "fixtures/pip/with-multiple-r-options.txt",
 			},
-			wantInventory: []*lockfilescalibr.Inventory{
+			wantInventory: []*extractor.Inventory{
 				{
 					Name:      "flask",
 					Version:   "0.0.0",
@@ -636,7 +637,7 @@ func TestRequirementsTxtExtractor_Extract_WithRequirements(t *testing.T) {
 			inputConfig: ScanInputMockConfig{
 				path: "fixtures/pip/duplicate-r-dev.txt",
 			},
-			wantInventory: []*lockfilescalibr.Inventory{
+			wantInventory: []*extractor.Inventory{
 				{
 					Name:      "django",
 					Version:   "0.1.0",
@@ -676,7 +677,7 @@ func TestRequirementsTxtExtractor_Extract_WithRequirements(t *testing.T) {
 			inputConfig: ScanInputMockConfig{
 				path: "fixtures/pip/cyclic-r-self.txt",
 			},
-			wantInventory: []*lockfilescalibr.Inventory{
+			wantInventory: []*extractor.Inventory{
 				{
 					Name:      "pandas",
 					Version:   "0.23.4",
@@ -700,7 +701,7 @@ func TestRequirementsTxtExtractor_Extract_WithRequirements(t *testing.T) {
 			inputConfig: ScanInputMockConfig{
 				path: "fixtures/pip/cyclic-r-complex-1.txt",
 			},
-			wantInventory: []*lockfilescalibr.Inventory{
+			wantInventory: []*extractor.Inventory{
 				{
 					Name:      "cyclic-r-complex",
 					Version:   "1",

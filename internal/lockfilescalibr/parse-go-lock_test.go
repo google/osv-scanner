@@ -4,6 +4,7 @@ import (
 	"testing"
 
 	"github.com/google/osv-scanner/internal/lockfilescalibr"
+	"github.com/google/osv-scanner/internal/lockfilescalibr/extractor"
 )
 
 func TestGoLockExtractor_FileRequired(t *testing.T) {
@@ -79,7 +80,7 @@ func TestGoLockExtractor_Extract(t *testing.T) {
 			inputConfig: ScanInputMockConfig{
 				path: "fixtures/go/not-go-mod.txt",
 			},
-			wantInventory:     []*lockfilescalibr.Inventory{},
+			wantInventory:     []*extractor.Inventory{},
 			wantErrContaining: "could not extract from",
 		},
 		{
@@ -87,14 +88,14 @@ func TestGoLockExtractor_Extract(t *testing.T) {
 			inputConfig: ScanInputMockConfig{
 				path: "fixtures/go/empty.mod",
 			},
-			wantInventory: []*lockfilescalibr.Inventory{},
+			wantInventory: []*extractor.Inventory{},
 		},
 		{
 			name: "one package",
 			inputConfig: ScanInputMockConfig{
 				path: "fixtures/go/one-package.mod",
 			},
-			wantInventory: []*lockfilescalibr.Inventory{
+			wantInventory: []*extractor.Inventory{
 				{
 					Name:      "github.com/BurntSushi/toml",
 					Version:   "1.0.0",
@@ -107,7 +108,7 @@ func TestGoLockExtractor_Extract(t *testing.T) {
 			inputConfig: ScanInputMockConfig{
 				path: "fixtures/go/two-packages.mod",
 			},
-			wantInventory: []*lockfilescalibr.Inventory{
+			wantInventory: []*extractor.Inventory{
 				{
 					Name:      "github.com/BurntSushi/toml",
 					Version:   "1.0.0",
@@ -130,7 +131,7 @@ func TestGoLockExtractor_Extract(t *testing.T) {
 			inputConfig: ScanInputMockConfig{
 				path: "fixtures/go/indirect-packages.mod",
 			},
-			wantInventory: []*lockfilescalibr.Inventory{
+			wantInventory: []*extractor.Inventory{
 				{
 					Name:      "github.com/BurntSushi/toml",
 					Version:   "1.0.0",
@@ -168,7 +169,7 @@ func TestGoLockExtractor_Extract(t *testing.T) {
 			inputConfig: ScanInputMockConfig{
 				path: "fixtures/go/replace-one.mod",
 			},
-			wantInventory: []*lockfilescalibr.Inventory{
+			wantInventory: []*extractor.Inventory{
 				{
 					Name:      "example.com/fork/net",
 					Version:   "1.4.5",
@@ -181,7 +182,7 @@ func TestGoLockExtractor_Extract(t *testing.T) {
 			inputConfig: ScanInputMockConfig{
 				path: "fixtures/go/replace-mixed.mod",
 			},
-			wantInventory: []*lockfilescalibr.Inventory{
+			wantInventory: []*extractor.Inventory{
 				{
 					Name:      "example.com/fork/net",
 					Version:   "1.4.5",
@@ -199,7 +200,7 @@ func TestGoLockExtractor_Extract(t *testing.T) {
 			inputConfig: ScanInputMockConfig{
 				path: "fixtures/go/replace-local.mod",
 			},
-			wantInventory: []*lockfilescalibr.Inventory{
+			wantInventory: []*extractor.Inventory{
 				{
 					Name:      "./fork/net",
 					Version:   "",
@@ -217,7 +218,7 @@ func TestGoLockExtractor_Extract(t *testing.T) {
 			inputConfig: ScanInputMockConfig{
 				path: "fixtures/go/replace-different.mod",
 			},
-			wantInventory: []*lockfilescalibr.Inventory{
+			wantInventory: []*extractor.Inventory{
 				{
 					Name:      "example.com/fork/foe",
 					Version:   "1.4.5",
@@ -235,7 +236,7 @@ func TestGoLockExtractor_Extract(t *testing.T) {
 			inputConfig: ScanInputMockConfig{
 				path: "fixtures/go/replace-not-required.mod",
 			},
-			wantInventory: []*lockfilescalibr.Inventory{
+			wantInventory: []*extractor.Inventory{
 				{
 					Name:      "golang.org/x/net",
 					Version:   "0.5.6",
@@ -253,7 +254,7 @@ func TestGoLockExtractor_Extract(t *testing.T) {
 			inputConfig: ScanInputMockConfig{
 				path: "fixtures/go/replace-no-version.mod",
 			},
-			wantInventory: []*lockfilescalibr.Inventory{
+			wantInventory: []*extractor.Inventory{
 				{
 					Name:      "example.com/fork/net",
 					Version:   "1.4.5",

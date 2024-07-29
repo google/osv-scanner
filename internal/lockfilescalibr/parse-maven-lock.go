@@ -10,6 +10,8 @@ import (
 	"strings"
 
 	"github.com/google/osv-scanner/internal/cachedregexp"
+	"github.com/google/osv-scanner/internal/lockfilescalibr/extractor"
+	"github.com/google/osv-scanner/internal/lockfilescalibr/filesystem"
 	"github.com/google/osv-scanner/internal/lockfilescalibr/plugin"
 	"github.com/package-url/packageurl-go"
 	"golang.org/x/exp/maps"
@@ -124,20 +126,20 @@ func (e MavenLockExtractor) FileRequired(path string, fileInfo fs.FileInfo) bool
 	return filepath.Base(path) == "pom.xml"
 }
 
-func (e MavenLockExtractor) Extract(ctx context.Context, input *ScanInput) ([]*Inventory, error) {
+func (e MavenLockExtractor) Extract(ctx context.Context, input *filesystem.ScanInput) ([]*extractor.Inventory, error) {
 	var parsedLockfile *MavenLockFile
 
 	err := xml.NewDecoder(input.Reader).Decode(&parsedLockfile)
 
 	if err != nil {
-		return []*Inventory{}, fmt.Errorf("could not extract from %s: %w", input.Path, err)
+		return []*extractor.Inventory{}, fmt.Errorf("could not extract from %s: %w", input.Path, err)
 	}
 
-	details := map[string]*Inventory{}
+	details := map[string]*extractor.Inventory{}
 
 	for _, lockPackage := range parsedLockfile.ManagedDependencies {
 		finalName := lockPackage.GroupID + ":" + lockPackage.ArtifactID
-		pkgDetails := &Inventory{
+		pkgDetails := &extractor.Inventory{
 			Name:      finalName,
 			Version:   lockPackage.ResolveVersion(*parsedLockfile),
 			Locations: []string{input.Path},
@@ -158,7 +160,7 @@ func (e MavenLockExtractor) Extract(ctx context.Context, input *ScanInput) ([]*I
 	for _, lockPackage := range parsedLockfile.Dependencies {
 		finalName := lockPackage.GroupID + ":" + lockPackage.ArtifactID
 
-		pkgDetails := &Inventory{
+		pkgDetails := &extractor.Inventory{
 			Name:      finalName,
 			Version:   lockPackage.ResolveVersion(*parsedLockfile),
 			Locations: []string{input.Path},
@@ -179,7 +181,7 @@ func (e MavenLockExtractor) Extract(ctx context.Context, input *ScanInput) ([]*I
 }
 
 // ToPURL converts an inventory created by this extractor into a PURL.
-func (e MavenLockExtractor) ToPURL(i *Inventory) (*packageurl.PackageURL, error) {
+func (e MavenLockExtractor) ToPURL(i *extractor.Inventory) (*packageurl.PackageURL, error) {
 	return &packageurl.PackageURL{
 		Type:    packageurl.TypeMaven,
 		Name:    i.Name,
@@ -188,9 +190,9 @@ func (e MavenLockExtractor) ToPURL(i *Inventory) (*packageurl.PackageURL, error)
 }
 
 // ToCPEs is not applicable as this extractor does not infer CPEs from the Inventory.
-func (e MavenLockExtractor) ToCPEs(i *Inventory) ([]string, error) { return []string{}, nil }
+func (e MavenLockExtractor) ToCPEs(i *extractor.Inventory) ([]string, error) { return []string{}, nil }
 
-func (e MavenLockExtractor) Ecosystem(i *Inventory) (string, error) {
+func (e MavenLockExtractor) Ecosystem(i *extractor.Inventory) (string, error) {
 	switch i.Extractor.(type) {
 	case MavenLockExtractor:
 		return string(MavenEcosystem), nil
@@ -199,4 +201,4 @@ func (e MavenLockExtractor) Ecosystem(i *Inventory) (string, error) {
 	}
 }
 
-var _ Extractor = MavenLockExtractor{}
+var _ filesystem.Extractor = MavenLockExtractor{}

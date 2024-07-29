@@ -4,6 +4,7 @@ import (
 	"testing"
 
 	"github.com/google/osv-scanner/internal/lockfilescalibr"
+	"github.com/google/osv-scanner/internal/lockfilescalibr/extractor"
 )
 
 func TestNuGetLockExtractor_Extract(t *testing.T) {
@@ -22,14 +23,14 @@ func TestNuGetLockExtractor_Extract(t *testing.T) {
 			inputConfig: ScanInputMockConfig{
 				path: "fixtures/nuget/empty.v1.json",
 			},
-			wantInventory: []*lockfilescalibr.Inventory{},
+			wantInventory: []*extractor.Inventory{},
 		},
 		{
 			name: "one framework_ one package",
 			inputConfig: ScanInputMockConfig{
 				path: "fixtures/nuget/one-framework-one-package.v1.json",
 			},
-			wantInventory: []*lockfilescalibr.Inventory{
+			wantInventory: []*extractor.Inventory{
 				{
 					Name:      "Test.Core",
 					Version:   "6.0.5",
@@ -42,7 +43,7 @@ func TestNuGetLockExtractor_Extract(t *testing.T) {
 			inputConfig: ScanInputMockConfig{
 				path: "fixtures/nuget/one-framework-two-packages.v1.json",
 			},
-			wantInventory: []*lockfilescalibr.Inventory{
+			wantInventory: []*extractor.Inventory{
 				{
 					Name:      "Test.Core",
 					Version:   "6.0.5",
@@ -60,7 +61,7 @@ func TestNuGetLockExtractor_Extract(t *testing.T) {
 			inputConfig: ScanInputMockConfig{
 				path: "fixtures/nuget/two-frameworks-mixed-packages.v1.json",
 			},
-			wantInventory: []*lockfilescalibr.Inventory{
+			wantInventory: []*extractor.Inventory{
 				{
 					Name:      "Test.Core",
 					Version:   "6.0.5",
@@ -83,7 +84,7 @@ func TestNuGetLockExtractor_Extract(t *testing.T) {
 			inputConfig: ScanInputMockConfig{
 				path: "fixtures/nuget/two-frameworks-different-packages.v1.json",
 			},
-			wantInventory: []*lockfilescalibr.Inventory{
+			wantInventory: []*extractor.Inventory{
 				{
 					Name:      "Test.Core",
 					Version:   "6.0.5",
@@ -101,7 +102,7 @@ func TestNuGetLockExtractor_Extract(t *testing.T) {
 			inputConfig: ScanInputMockConfig{
 				path: "fixtures/nuget/two-frameworks-duplicate-packages.v1.json",
 			},
-			wantInventory: []*lockfilescalibr.Inventory{
+			wantInventory: []*extractor.Inventory{
 				{
 					Name:      "Test.Core",
 					Version:   "6.0.5",

@@ -9,6 +9,8 @@ import (
 	"path/filepath"
 	"strings"
 
+	"github.com/google/osv-scanner/internal/lockfilescalibr/extractor"
+	"github.com/google/osv-scanner/internal/lockfilescalibr/filesystem"
 	"github.com/google/osv-scanner/internal/lockfilescalibr/plugin"
 	"github.com/package-url/packageurl-go"
 	"golang.org/x/exp/maps"
@@ -233,26 +235,26 @@ func (e NpmLockExtractor) FileRequired(path string, fileInfo fs.FileInfo) bool {
 	return filepath.Base(path) == "package-lock.json"
 }
 
-func (e NpmLockExtractor) Extract(ctx context.Context, input *ScanInput) ([]*Inventory, error) {
+func (e NpmLockExtractor) Extract(ctx context.Context, input *filesystem.ScanInput) ([]*extractor.Inventory, error) {
 	var parsedLockfile *NpmLockfile
 
 	err := json.NewDecoder(input.Reader).Decode(&parsedLockfile)
 
 	if err != nil {
-		return []*Inventory{}, fmt.Errorf("could not extract from %s: %w", input.Path, err)
+		return []*extractor.Inventory{}, fmt.Errorf("could not extract from %s: %w", input.Path, err)
 	}
 
 	packages := maps.Values(parseNpmLock(*parsedLockfile))
-	inventories := make([]*Inventory, len(packages))
+	inventories := make([]*extractor.Inventory, len(packages))
 
 	for i, pkg := range packages {
 		if pkg.DepGroups == nil {
 			pkg.DepGroups = []string{}
 		}
 
-		inventories[i] = &Inventory{
+		inventories[i] = &extractor.Inventory{
 			Name: pkg.Name,
-			SourceCode: &SourceCodeIdentifier{
+			SourceCode: &extractor.SourceCodeIdentifier{
 				Commit: pkg.Commit,
 			},
 			Version: pkg.Version,
@@ -267,7 +269,7 @@ func (e NpmLockExtractor) Extract(ctx context.Context, input *ScanInput) ([]*Inv
 }
 
 // ToPURL converts an inventory created by this extractor into a PURL.
-func (e NpmLockExtractor) ToPURL(i *Inventory) (*packageurl.PackageURL, error) {
+func (e NpmLockExtractor) ToPURL(i *extractor.Inventory) (*packageurl.PackageURL, error) {
 	return &packageurl.PackageURL{
 		Type:    packageurl.TypeNPM,
 		Name:    i.Name,
@@ -276,9 +278,9 @@ func (e NpmLockExtractor) ToPURL(i *Inventory) (*packageurl.PackageURL, error) {
 }
 
 // ToCPEs is not applicable as this extractor does not infer CPEs from the Inventory.
-func (e NpmLockExtractor) ToCPEs(i *Inventory) ([]string, error) { return []string{}, nil }
+func (e NpmLockExtractor) ToCPEs(i *extractor.Inventory) ([]string, error) { return []string{}, nil }
 
-func (e NpmLockExtractor) Ecosystem(i *Inventory) (string, error) {
+func (e NpmLockExtractor) Ecosystem(i *extractor.Inventory) (string, error) {
 	switch i.Extractor.(type) {
 	case NpmLockExtractor:
 		return string(NpmEcosystem), nil
@@ -287,4 +289,4 @@ func (e NpmLockExtractor) Ecosystem(i *Inventory) (string, error) {
 	}
 }
 
-var _ Extractor = NpmLockExtractor{}
+var _ filesystem.Extractor = NpmLockExtractor{}

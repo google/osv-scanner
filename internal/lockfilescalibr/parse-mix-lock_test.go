@@ -4,6 +4,7 @@ import (
 	"testing"
 
 	"github.com/google/osv-scanner/internal/lockfilescalibr"
+	"github.com/google/osv-scanner/internal/lockfilescalibr/extractor"
 )
 
 func TestMixLockExtractor_FileRequired(t *testing.T) {
@@ -80,19 +81,19 @@ func TestMixLockExtractor_Extract(t *testing.T) {
 			inputConfig: ScanInputMockConfig{
 				path: "fixtures/mix/empty.lock",
 			},
-			wantInventory: []*lockfilescalibr.Inventory{},
+			wantInventory: []*extractor.Inventory{},
 		},
 		{
 			name: "one package",
 			inputConfig: ScanInputMockConfig{
 				path: "fixtures/mix/one-package.lock",
 			},
-			wantInventory: []*lockfilescalibr.Inventory{
+			wantInventory: []*extractor.Inventory{
 				{
 					Name:      "plug",
 					Version:   "1.11.1",
 					Locations: []string{"fixtures/mix/one-package.lock"},
-					SourceCode: &lockfilescalibr.SourceCodeIdentifier{
+					SourceCode: &extractor.SourceCodeIdentifier{
 						Commit: "f2992bac66fdae679453c9e86134a4201f6f43a687d8ff1cd1b2862d53c80259",
 					},
 				},
@@ -103,12 +104,12 @@ func TestMixLockExtractor_Extract(t *testing.T) {
 			inputConfig: ScanInputMockConfig{
 				path: "fixtures/mix/two-packages.lock",
 			},
-			wantInventory: []*lockfilescalibr.Inventory{
+			wantInventory: []*extractor.Inventory{
 				{
 					Name:      "plug",
 					Version:   "1.11.1",
 					Locations: []string{"fixtures/mix/two-packages.lock"},
-					SourceCode: &lockfilescalibr.SourceCodeIdentifier{
+					SourceCode: &extractor.SourceCodeIdentifier{
 						Commit: "f2992bac66fdae679453c9e86134a4201f6f43a687d8ff1cd1b2862d53c80259",
 					},
 				},
@@ -116,7 +117,7 @@ func TestMixLockExtractor_Extract(t *testing.T) {
 					Name:      "plug_crypto",
 					Version:   "1.2.2",
 					Locations: []string{"fixtures/mix/two-packages.lock"},
-					SourceCode: &lockfilescalibr.SourceCodeIdentifier{
+					SourceCode: &extractor.SourceCodeIdentifier{
 						Commit: "05654514ac717ff3a1843204b424477d9e60c143406aa94daf2274fdd280794d",
 					},
 				},
@@ -127,12 +128,12 @@ func TestMixLockExtractor_Extract(t *testing.T) {
 			inputConfig: ScanInputMockConfig{
 				path: "fixtures/mix/many.lock",
 			},
-			wantInventory: []*lockfilescalibr.Inventory{
+			wantInventory: []*extractor.Inventory{
 				{
 					Name:      "backoff",
 					Version:   "1.1.6",
 					Locations: []string{"fixtures/mix/many.lock"},
-					SourceCode: &lockfilescalibr.SourceCodeIdentifier{
+					SourceCode: &extractor.SourceCodeIdentifier{
 						Commit: "83b72ed2108ba1ee8f7d1c22e0b4a00cfe3593a67dbc792799e8cce9f42f796b",
 					},
 				},
@@ -140,7 +141,7 @@ func TestMixLockExtractor_Extract(t *testing.T) {
 					Name:      "decimal",
 					Version:   "2.0.0",
 					Locations: []string{"fixtures/mix/many.lock"},
-					SourceCode: &lockfilescalibr.SourceCodeIdentifier{
+					SourceCode: &extractor.SourceCodeIdentifier{
 						Commit: "a78296e617b0f5dd4c6caf57c714431347912ffb1d0842e998e9792b5642d697",
 					},
 				},
@@ -148,7 +149,7 @@ func TestMixLockExtractor_Extract(t *testing.T) {
 					Name:      "dialyxir",
 					Version:   "1.1.0",
 					Locations: []string{"fixtures/mix/many.lock"},
-					SourceCode: &lockfilescalibr.SourceCodeIdentifier{
+					SourceCode: &extractor.SourceCodeIdentifier{
 						Commit: "c5aab0d6e71e5522e77beff7ba9e08f8e02bad90dfbeffae60eaf0cb47e29488",
 					},
 				},
@@ -156,7 +157,7 @@ func TestMixLockExtractor_Extract(t *testing.T) {
 					Name:      "earmark",
 					Version:   "1.4.3",
 					Locations: []string{"fixtures/mix/many.lock"},
-					SourceCode: &lockfilescalibr.SourceCodeIdentifier{
+					SourceCode: &extractor.SourceCodeIdentifier{
 						Commit: "364ca2e9710f6bff494117dbbd53880d84bebb692dafc3a78eb50aa3183f2bfd",
 					},
 				},
@@ -164,7 +165,7 @@ func TestMixLockExtractor_Extract(t *testing.T) {
 					Name:      "earmark_parser",
 					Version:   "1.4.10",
 					Locations: []string{"fixtures/mix/many.lock"},
-					SourceCode: &lockfilescalibr.SourceCodeIdentifier{
+					SourceCode: &extractor.SourceCodeIdentifier{
 						Commit: "6603d7a603b9c18d3d20db69921527f82ef09990885ed7525003c7fe7dc86c56",
 					},
 				},
@@ -172,7 +173,7 @@ func TestMixLockExtractor_Extract(t *testing.T) {
 					Name:      "ecto",
 					Version:   "3.5.5",
 					Locations: []string{"fixtures/mix/many.lock"},
-					SourceCode: &lockfilescalibr.SourceCodeIdentifier{
+					SourceCode: &extractor.SourceCodeIdentifier{
 						Commit: "48219a991bb86daba6e38a1e64f8cea540cded58950ff38fbc8163e062281a07",
 					},
 				},
@@ -180,7 +181,7 @@ func TestMixLockExtractor_Extract(t *testing.T) {
 					Name:      "erlex",
 					Version:   "0.2.6",
 					Locations: []string{"fixtures/mix/many.lock"},
-					SourceCode: &lockfilescalibr.SourceCodeIdentifier{
+					SourceCode: &extractor.SourceCodeIdentifier{
 						Commit: "c7987d15e899c7a2f34f5420d2a2ea0d659682c06ac607572df55a43753aa12e",
 					},
 				},
@@ -188,7 +189,7 @@ func TestMixLockExtractor_Extract(t *testing.T) {
 					Name:      "ex_doc",
 					Version:   "0.23.0",
 					Locations: []string{"fixtures/mix/many.lock"},
-					SourceCode: &lockfilescalibr.SourceCodeIdentifier{
+					SourceCode: &extractor.SourceCodeIdentifier{
 						Commit: "a069bc9b0bf8efe323ecde8c0d62afc13d308b1fa3d228b65bca5cf8703a529d",
 					},
 				},
@@ -196,7 +197,7 @@ func TestMixLockExtractor_Extract(t *testing.T) {
 					Name:      "makeup",
 					Version:   "1.0.5",
 					Locations: []string{"fixtures/mix/many.lock"},
-					SourceCode: &lockfilescalibr.SourceCodeIdentifier{
+					SourceCode: &extractor.SourceCodeIdentifier{
 						Commit: "d5a830bc42c9800ce07dd97fa94669dfb93d3bf5fcf6ea7a0c67b2e0e4a7f26c",
 					},
 				},
@@ -204,7 +205,7 @@ func TestMixLockExtractor_Extract(t *testing.T) {
 					Name:      "makeup_elixir",
 					Version:   "0.15.0",
 					Locations: []string{"fixtures/mix/many.lock"},
-					SourceCode: &lockfilescalibr.SourceCodeIdentifier{
+					SourceCode: &extractor.SourceCodeIdentifier{
 						Commit: "98312c9f0d3730fde4049985a1105da5155bfe5c11e47bdc7406d88e01e4219b",
 					},
 				},
@@ -212,7 +213,7 @@ func TestMixLockExtractor_Extract(t *testing.T) {
 					Name:      "meck",
 					Version:   "0.9.2",
 					Locations: []string{"fixtures/mix/many.lock"},
-					SourceCode: &lockfilescalibr.SourceCodeIdentifier{
+					SourceCode: &extractor.SourceCodeIdentifier{
 						Commit: "85ccbab053f1db86c7ca240e9fc718170ee5bda03810a6292b5306bf31bae5f5",
 					},
 				},
@@ -220,7 +221,7 @@ func TestMixLockExtractor_Extract(t *testing.T) {
 					Name:      "mime",
 					Version:   "1.5.0",
 					Locations: []string{"fixtures/mix/many.lock"},
-					SourceCode: &lockfilescalibr.SourceCodeIdentifier{
+					SourceCode: &extractor.SourceCodeIdentifier{
 						Commit: "203ef35ef3389aae6d361918bf3f952fa17a09e8e43b5aa592b93eba05d0fb8d",
 					},
 				},
@@ -228,7 +229,7 @@ func TestMixLockExtractor_Extract(t *testing.T) {
 					Name:      "nimble_parsec",
 					Version:   "1.1.0",
 					Locations: []string{"fixtures/mix/many.lock"},
-					SourceCode: &lockfilescalibr.SourceCodeIdentifier{
+					SourceCode: &extractor.SourceCodeIdentifier{
 						Commit: "3a6fca1550363552e54c216debb6a9e95bd8d32348938e13de5eda962c0d7f89",
 					},
 				},
@@ -236,7 +237,7 @@ func TestMixLockExtractor_Extract(t *testing.T) {
 					Name:      "phoenix",
 					Version:   "1.4.17",
 					Locations: []string{"fixtures/mix/many.lock"},
-					SourceCode: &lockfilescalibr.SourceCodeIdentifier{
+					SourceCode: &extractor.SourceCodeIdentifier{
 						Commit: "1b1bd4cff7cfc87c94deaa7d60dd8c22e04368ab95499483c50640ef3bd838d8",
 					},
 				},
@@ -244,7 +245,7 @@ func TestMixLockExtractor_Extract(t *testing.T) {
 					Name:      "phoenix_html",
 					Version:   "2.14.3",
 					Locations: []string{"fixtures/mix/many.lock"},
-					SourceCode: &lockfilescalibr.SourceCodeIdentifier{
+					SourceCode: &extractor.SourceCodeIdentifier{
 						Commit: "51f720d0d543e4e157ff06b65de38e13303d5778a7919bcc696599e5934271b8",
 					},
 				},
@@ -252,7 +253,7 @@ func TestMixLockExtractor_Extract(t *testing.T) {
 					Name:      "phoenix_pubsub",
 					Version:   "1.1.2",
 					Locations: []string{"fixtures/mix/many.lock"},
-					SourceCode: &lockfilescalibr.SourceCodeIdentifier{
+					SourceCode: &extractor.SourceCodeIdentifier{
 						Commit: "496c303bdf1b2e98a9d26e89af5bba3ab487ba3a3735f74bf1f4064d2a845a3e",
 					},
 				},
@@ -260,7 +261,7 @@ func TestMixLockExtractor_Extract(t *testing.T) {
 					Name:      "plug",
 					Version:   "1.11.1",
 					Locations: []string{"fixtures/mix/many.lock"},
-					SourceCode: &lockfilescalibr.SourceCodeIdentifier{
+					SourceCode: &extractor.SourceCodeIdentifier{
 						Commit: "f2992bac66fdae679453c9e86134a4201f6f43a687d8ff1cd1b2862d53c80259",
 					},
 				},
@@ -268,7 +269,7 @@ func TestMixLockExtractor_Extract(t *testing.T) {
 					Name:      "plug_crypto",
 					Version:   "1.2.2",
 					Locations: []string{"fixtures/mix/many.lock"},
-					SourceCode: &lockfilescalibr.SourceCodeIdentifier{
+					SourceCode: &extractor.SourceCodeIdentifier{
 						Commit: "05654514ac717ff3a1843204b424477d9e60c143406aa94daf2274fdd280794d",
 					},
 				},
@@ -276,7 +277,7 @@ func TestMixLockExtractor_Extract(t *testing.T) {
 					Name:      "poolboy",
 					Version:   "1.5.2",
 					Locations: []string{"fixtures/mix/many.lock"},
-					SourceCode: &lockfilescalibr.SourceCodeIdentifier{
+					SourceCode: &extractor.SourceCodeIdentifier{
 						Commit: "392b007a1693a64540cead79830443abf5762f5d30cf50bc95cb2c1aaafa006b",
 					},
 				},
@@ -284,7 +285,7 @@ func TestMixLockExtractor_Extract(t *testing.T) {
 					Name:      "pow",
 					Version:   "1.0.15",
 					Locations: []string{"fixtures/mix/many.lock"},
-					SourceCode: &lockfilescalibr.SourceCodeIdentifier{
+					SourceCode: &extractor.SourceCodeIdentifier{
 						Commit: "9267b5c75df2d59968585c042e2a0ec6217b1959d3afd629817461f0a20e903c",
 					},
 				},
@@ -292,7 +293,7 @@ func TestMixLockExtractor_Extract(t *testing.T) {
 					Name:      "telemetry",
 					Version:   "0.4.2",
 					Locations: []string{"fixtures/mix/many.lock"},
-					SourceCode: &lockfilescalibr.SourceCodeIdentifier{
+					SourceCode: &extractor.SourceCodeIdentifier{
 						Commit: "2808c992455e08d6177322f14d3bdb6b625fbcfd233a73505870d8738a2f4599",
 					},
 				},
@@ -303,12 +304,12 @@ func TestMixLockExtractor_Extract(t *testing.T) {
 			inputConfig: ScanInputMockConfig{
 				path: "fixtures/mix/git.lock",
 			},
-			wantInventory: []*lockfilescalibr.Inventory{
+			wantInventory: []*extractor.Inventory{
 				{
 					Name:      "foe",
 					Version:   "",
 					Locations: []string{"fixtures/mix/git.lock"},
-					SourceCode: &lockfilescalibr.SourceCodeIdentifier{
+					SourceCode: &extractor.SourceCodeIdentifier{
 						Commit: "a9574ab75d6ed01e1288c453ae1d943d7a964595",
 					},
 				},
@@ -316,7 +317,7 @@ func TestMixLockExtractor_Extract(t *testing.T) {
 					Name:      "foo",
 					Version:   "",
 					Locations: []string{"fixtures/mix/git.lock"},
-					SourceCode: &lockfilescalibr.SourceCodeIdentifier{
+					SourceCode: &extractor.SourceCodeIdentifier{
 						Commit: "fc94cce7830fa4dc455024bc2a83720afe244531",
 					},
 				},
@@ -324,7 +325,7 @@ func TestMixLockExtractor_Extract(t *testing.T) {
 					Name:      "bar",
 					Version:   "",
 					Locations: []string{"fixtures/mix/git.lock"},
-					SourceCode: &lockfilescalibr.SourceCodeIdentifier{
+					SourceCode: &extractor.SourceCodeIdentifier{
 						Commit: "bef3ee1d3618017061498b96c75043e8449ef9b5",
 					},
 				},

@@ -8,6 +8,8 @@ import (
 	"io/fs"
 	"strings"
 
+	"github.com/google/osv-scanner/internal/lockfilescalibr/extractor"
+	"github.com/google/osv-scanner/internal/lockfilescalibr/filesystem"
 	"github.com/google/osv-scanner/internal/lockfilescalibr/plugin"
 	"github.com/package-url/packageurl-go"
 )
@@ -38,9 +40,9 @@ func groupApkPackageLines(scanner *bufio.Scanner) [][]string {
 	return groups
 }
 
-func parseApkPackageGroup(group []string) *Inventory {
-	var pkg = &Inventory{
-		SourceCode: &SourceCodeIdentifier{},
+func parseApkPackageGroup(group []string) *extractor.Inventory {
+	var pkg = &extractor.Inventory{
+		SourceCode: &extractor.SourceCodeIdentifier{},
 	}
 
 	// File SPECS: https://wiki.alpinelinux.org/wiki/Apk_spec
@@ -74,12 +76,12 @@ func (e ApkInstalledExtractor) FileRequired(path string, fileInfo fs.FileInfo) b
 	return path == "lib/apk/db/installed"
 }
 
-func (e ApkInstalledExtractor) Extract(ctx context.Context, input *ScanInput) ([]*Inventory, error) {
+func (e ApkInstalledExtractor) Extract(ctx context.Context, input *filesystem.ScanInput) ([]*extractor.Inventory, error) {
 	scanner := bufio.NewScanner(input.Reader)
 
 	packageGroups := groupApkPackageLines(scanner)
 
-	inventories := make([]*Inventory, 0, len(packageGroups))
+	inventories := make([]*extractor.Inventory, 0, len(packageGroups))
 
 	for _, group := range packageGroups {
 		pkg := parseApkPackageGroup(group)
@@ -109,7 +111,7 @@ func (e ApkInstalledExtractor) Extract(ctx context.Context, input *ScanInput) ([
 }
 
 // ToPURL converts an inventory created by this extractor into a PURL.
-func (e ApkInstalledExtractor) ToPURL(i *Inventory) (*packageurl.PackageURL, error) {
+func (e ApkInstalledExtractor) ToPURL(i *extractor.Inventory) (*packageurl.PackageURL, error) {
 	return &packageurl.PackageURL{
 		Type:      packageurl.TypeApk,
 		Name:      i.Name,
@@ -119,9 +121,11 @@ func (e ApkInstalledExtractor) ToPURL(i *Inventory) (*packageurl.PackageURL, err
 }
 
 // ToCPEs is not applicable as this extractor does not infer CPEs from the Inventory.
-func (e ApkInstalledExtractor) ToCPEs(i *Inventory) ([]string, error) { return []string{}, nil }
+func (e ApkInstalledExtractor) ToCPEs(i *extractor.Inventory) ([]string, error) {
+	return []string{}, nil
+}
 
-func (e ApkInstalledExtractor) Ecosystem(i *Inventory) (string, error) {
+func (e ApkInstalledExtractor) Ecosystem(i *extractor.Inventory) (string, error) {
 	switch i.Extractor.(type) {
 	case ApkInstalledExtractor:
 		if i.Metadata != nil {
@@ -160,4 +164,4 @@ func alpineReleaseExtractor(opener plugin.FS) (string, error) {
 	return returnVersion, nil
 }
 
-var _ Extractor = ApkInstalledExtractor{}
+var _ filesystem.Extractor = ApkInstalledExtractor{}

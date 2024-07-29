@@ -11,6 +11,8 @@ import (
 	"strings"
 
 	"github.com/google/osv-scanner/internal/cachedregexp"
+	"github.com/google/osv-scanner/internal/lockfilescalibr/extractor"
+	"github.com/google/osv-scanner/internal/lockfilescalibr/filesystem"
 	"github.com/google/osv-scanner/internal/lockfilescalibr/plugin"
 	"github.com/package-url/packageurl-go"
 )
@@ -160,7 +162,7 @@ func tryExtractCommit(resolution string) string {
 	return ""
 }
 
-func parseYarnPackageGroup(group []string) *Inventory {
+func parseYarnPackageGroup(group []string) *extractor.Inventory {
 	name := extractYarnPackageName(group[0])
 	version := determineYarnPackageVersion(group)
 	resolution := determineYarnPackageResolution(group)
@@ -173,10 +175,10 @@ func parseYarnPackageGroup(group []string) *Inventory {
 		)
 	}
 
-	return &Inventory{
+	return &extractor.Inventory{
 		Name:    name,
 		Version: version,
-		SourceCode: &SourceCodeIdentifier{
+		SourceCode: &extractor.SourceCodeIdentifier{
 			Commit: tryExtractCommit(resolution),
 		},
 	}
@@ -198,16 +200,16 @@ func (e YarnLockExtractor) FileRequired(path string, fileInfo fs.FileInfo) bool 
 	return filepath.Base(path) == "yarn.lock"
 }
 
-func (e YarnLockExtractor) Extract(ctx context.Context, input *ScanInput) ([]*Inventory, error) {
+func (e YarnLockExtractor) Extract(ctx context.Context, input *filesystem.ScanInput) ([]*extractor.Inventory, error) {
 	scanner := bufio.NewScanner(input.Reader)
 
 	packageGroups := groupYarnPackageLines(scanner)
 
 	if err := scanner.Err(); err != nil {
-		return []*Inventory{}, fmt.Errorf("error while scanning %s: %w", input.Path, err)
+		return []*extractor.Inventory{}, fmt.Errorf("error while scanning %s: %w", input.Path, err)
 	}
 
-	packages := make([]*Inventory, 0, len(packageGroups))
+	packages := make([]*extractor.Inventory, 0, len(packageGroups))
 
 	for _, group := range packageGroups {
 		if group[0] == "__metadata:" {
@@ -222,7 +224,7 @@ func (e YarnLockExtractor) Extract(ctx context.Context, input *ScanInput) ([]*In
 }
 
 // ToPURL converts an inventory created by this extractor into a PURL.
-func (e YarnLockExtractor) ToPURL(i *Inventory) (*packageurl.PackageURL, error) {
+func (e YarnLockExtractor) ToPURL(i *extractor.Inventory) (*packageurl.PackageURL, error) {
 	return &packageurl.PackageURL{
 		Type:    packageurl.TypeNPM,
 		Name:    i.Name,
@@ -231,9 +233,9 @@ func (e YarnLockExtractor) ToPURL(i *Inventory) (*packageurl.PackageURL, error) 
 }
 
 // ToCPEs is not applicable as this extractor does not infer CPEs from the Inventory.
-func (e YarnLockExtractor) ToCPEs(i *Inventory) ([]string, error) { return []string{}, nil }
+func (e YarnLockExtractor) ToCPEs(i *extractor.Inventory) ([]string, error) { return []string{}, nil }
 
-func (e YarnLockExtractor) Ecosystem(i *Inventory) (string, error) {
+func (e YarnLockExtractor) Ecosystem(i *extractor.Inventory) (string, error) {
 	switch i.Extractor.(type) {
 	case YarnLockExtractor:
 		return string(YarnEcosystem), nil
@@ -242,4 +244,4 @@ func (e YarnLockExtractor) Ecosystem(i *Inventory) (string, error) {
 	}
 }
 
-var _ Extractor = YarnLockExtractor{}
+var _ filesystem.Extractor = YarnLockExtractor{}

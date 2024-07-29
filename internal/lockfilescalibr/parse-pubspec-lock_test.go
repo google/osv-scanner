@@ -4,6 +4,7 @@ import (
 	"testing"
 
 	"github.com/google/osv-scanner/internal/lockfilescalibr"
+	"github.com/google/osv-scanner/internal/lockfilescalibr/extractor"
 )
 
 func TestPubspecLockExtractor_FileRequired(t *testing.T) {
@@ -86,26 +87,26 @@ func TestPubspecLockExtractor_Extract(t *testing.T) {
 			inputConfig: ScanInputMockConfig{
 				path: "fixtures/pub/empty.lock",
 			},
-			wantInventory: []*lockfilescalibr.Inventory{},
+			wantInventory: []*extractor.Inventory{},
 		},
 		{
 			name: "no packages",
 			inputConfig: ScanInputMockConfig{
 				path: "fixtures/pub/no-packages.lock",
 			},
-			wantInventory: []*lockfilescalibr.Inventory{},
+			wantInventory: []*extractor.Inventory{},
 		},
 		{
 			name: "one package",
 			inputConfig: ScanInputMockConfig{
 				path: "fixtures/pub/one-package.lock",
 			},
-			wantInventory: []*lockfilescalibr.Inventory{
+			wantInventory: []*extractor.Inventory{
 				{
 					Name:      "back_button_interceptor",
 					Version:   "6.0.1",
 					Locations: []string{"fixtures/pub/one-package.lock"},
-					SourceCode: &lockfilescalibr.SourceCodeIdentifier{
+					SourceCode: &extractor.SourceCodeIdentifier{
 						Commit: "",
 					},
 					Metadata: lockfilescalibr.DepGroupMetadata{
@@ -119,12 +120,12 @@ func TestPubspecLockExtractor_Extract(t *testing.T) {
 			inputConfig: ScanInputMockConfig{
 				path: "fixtures/pub/one-package-dev.lock",
 			},
-			wantInventory: []*lockfilescalibr.Inventory{
+			wantInventory: []*extractor.Inventory{
 				{
 					Name:      "build_runner",
 					Version:   "2.2.1",
 					Locations: []string{"fixtures/pub/one-package-dev.lock"},
-					SourceCode: &lockfilescalibr.SourceCodeIdentifier{
+					SourceCode: &extractor.SourceCodeIdentifier{
 						Commit: "",
 					},
 					Metadata: lockfilescalibr.DepGroupMetadata{
@@ -138,12 +139,12 @@ func TestPubspecLockExtractor_Extract(t *testing.T) {
 			inputConfig: ScanInputMockConfig{
 				path: "fixtures/pub/two-packages.lock",
 			},
-			wantInventory: []*lockfilescalibr.Inventory{
+			wantInventory: []*extractor.Inventory{
 				{
 					Name:      "shelf",
 					Version:   "1.3.2",
 					Locations: []string{"fixtures/pub/two-packages.lock"},
-					SourceCode: &lockfilescalibr.SourceCodeIdentifier{
+					SourceCode: &extractor.SourceCodeIdentifier{
 						Commit: "",
 					},
 					Metadata: lockfilescalibr.DepGroupMetadata{
@@ -154,7 +155,7 @@ func TestPubspecLockExtractor_Extract(t *testing.T) {
 					Name:      "shelf_web_socket",
 					Version:   "1.0.2",
 					Locations: []string{"fixtures/pub/two-packages.lock"},
-					SourceCode: &lockfilescalibr.SourceCodeIdentifier{
+					SourceCode: &extractor.SourceCodeIdentifier{
 						Commit: "",
 					},
 					Metadata: lockfilescalibr.DepGroupMetadata{
@@ -168,12 +169,12 @@ func TestPubspecLockExtractor_Extract(t *testing.T) {
 			inputConfig: ScanInputMockConfig{
 				path: "fixtures/pub/mixed-packages.lock",
 			},
-			wantInventory: []*lockfilescalibr.Inventory{
+			wantInventory: []*extractor.Inventory{
 				{
 					Name:      "back_button_interceptor",
 					Version:   "6.0.1",
 					Locations: []string{"fixtures/pub/mixed-packages.lock"},
-					SourceCode: &lockfilescalibr.SourceCodeIdentifier{
+					SourceCode: &extractor.SourceCodeIdentifier{
 						Commit: "",
 					},
 					Metadata: lockfilescalibr.DepGroupMetadata{
@@ -184,7 +185,7 @@ func TestPubspecLockExtractor_Extract(t *testing.T) {
 					Name:      "build_runner",
 					Version:   "2.2.1",
 					Locations: []string{"fixtures/pub/mixed-packages.lock"},
-					SourceCode: &lockfilescalibr.SourceCodeIdentifier{
+					SourceCode: &extractor.SourceCodeIdentifier{
 						Commit: "",
 					},
 					Metadata: lockfilescalibr.DepGroupMetadata{
@@ -195,7 +196,7 @@ func TestPubspecLockExtractor_Extract(t *testing.T) {
 					Name:      "shelf",
 					Version:   "1.3.2",
 					Locations: []string{"fixtures/pub/mixed-packages.lock"},
-					SourceCode: &lockfilescalibr.SourceCodeIdentifier{
+					SourceCode: &extractor.SourceCodeIdentifier{
 						Commit: "",
 					},
 					Metadata: lockfilescalibr.DepGroupMetadata{
@@ -206,7 +207,7 @@ func TestPubspecLockExtractor_Extract(t *testing.T) {
 					Name:      "shelf_web_socket",
 					Version:   "1.0.2",
 					Locations: []string{"fixtures/pub/mixed-packages.lock"},
-					SourceCode: &lockfilescalibr.SourceCodeIdentifier{
+					SourceCode: &extractor.SourceCodeIdentifier{
 						Commit: "",
 					},
 					Metadata: lockfilescalibr.DepGroupMetadata{
@@ -220,12 +221,12 @@ func TestPubspecLockExtractor_Extract(t *testing.T) {
 			inputConfig: ScanInputMockConfig{
 				path: "fixtures/pub/source-git.lock",
 			},
-			wantInventory: []*lockfilescalibr.Inventory{
+			wantInventory: []*extractor.Inventory{
 				{
 					Name:      "flutter_rust_bridge",
 					Version:   "1.32.0",
 					Locations: []string{"fixtures/pub/source-git.lock"},
-					SourceCode: &lockfilescalibr.SourceCodeIdentifier{
+					SourceCode: &extractor.SourceCodeIdentifier{
 						Commit: "e5adce55eea0b74d3680e66a2c5252edf17b07e1",
 					},
 					Metadata: lockfilescalibr.DepGroupMetadata{
@@ -236,7 +237,7 @@ func TestPubspecLockExtractor_Extract(t *testing.T) {
 					Name:      "screen_retriever",
 					Version:   "0.1.2",
 					Locations: []string{"fixtures/pub/source-git.lock"},
-					SourceCode: &lockfilescalibr.SourceCodeIdentifier{
+					SourceCode: &extractor.SourceCodeIdentifier{
 						Commit: "406b9b038b2c1d779f1e7bf609c8c248be247372",
 					},
 					Metadata: lockfilescalibr.DepGroupMetadata{
@@ -247,7 +248,7 @@ func TestPubspecLockExtractor_Extract(t *testing.T) {
 					Name:      "tray_manager",
 					Version:   "0.1.8",
 					Locations: []string{"fixtures/pub/source-git.lock"},
-					SourceCode: &lockfilescalibr.SourceCodeIdentifier{
+					SourceCode: &extractor.SourceCodeIdentifier{
 						Commit: "3aa37c86e47ea748e7b5507cbe59f2c54ebdb23a",
 					},
 					Metadata: lockfilescalibr.DepGroupMetadata{
@@ -258,7 +259,7 @@ func TestPubspecLockExtractor_Extract(t *testing.T) {
 					Name:      "window_manager",
 					Version:   "0.2.7",
 					Locations: []string{"fixtures/pub/source-git.lock"},
-					SourceCode: &lockfilescalibr.SourceCodeIdentifier{
+					SourceCode: &extractor.SourceCodeIdentifier{
 						Commit: "88487257cbafc501599ab4f82ec343b46acec020",
 					},
 					Metadata: lockfilescalibr.DepGroupMetadata{
@@ -269,7 +270,7 @@ func TestPubspecLockExtractor_Extract(t *testing.T) {
 					Name:      "toggle_switch",
 					Version:   "1.4.0",
 					Locations: []string{"fixtures/pub/source-git.lock"},
-					SourceCode: &lockfilescalibr.SourceCodeIdentifier{
+					SourceCode: &extractor.SourceCodeIdentifier{
 						Commit: "",
 					},
 					Metadata: lockfilescalibr.DepGroupMetadata{
@@ -283,12 +284,12 @@ func TestPubspecLockExtractor_Extract(t *testing.T) {
 			inputConfig: ScanInputMockConfig{
 				path: "fixtures/pub/source-sdk.lock",
 			},
-			wantInventory: []*lockfilescalibr.Inventory{
+			wantInventory: []*extractor.Inventory{
 				{
 					Name:      "flutter_web_plugins",
 					Version:   "0.0.0",
 					Locations: []string{"fixtures/pub/source-sdk.lock"},
-					SourceCode: &lockfilescalibr.SourceCodeIdentifier{
+					SourceCode: &extractor.SourceCodeIdentifier{
 						Commit: "",
 					},
 					Metadata: lockfilescalibr.DepGroupMetadata{
@@ -302,12 +303,12 @@ func TestPubspecLockExtractor_Extract(t *testing.T) {
 			inputConfig: ScanInputMockConfig{
 				path: "fixtures/pub/source-path.lock",
 			},
-			wantInventory: []*lockfilescalibr.Inventory{
+			wantInventory: []*extractor.Inventory{
 				{
 					Name:      "maa_core",
 					Version:   "0.0.1",
 					Locations: []string{"fixtures/pub/source-path.lock"},
-					SourceCode: &lockfilescalibr.SourceCodeIdentifier{
+					SourceCode: &extractor.SourceCodeIdentifier{
 						Commit: "",
 					},
 					Metadata: lockfilescalibr.DepGroupMetadata{

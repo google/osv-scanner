@@ -7,6 +7,8 @@ import (
 	"path/filepath"
 
 	"github.com/BurntSushi/toml"
+	"github.com/google/osv-scanner/internal/lockfilescalibr/extractor"
+	"github.com/google/osv-scanner/internal/lockfilescalibr/filesystem"
 	"github.com/google/osv-scanner/internal/lockfilescalibr/plugin"
 	"github.com/package-url/packageurl-go"
 )
@@ -46,23 +48,23 @@ func (e PoetryLockExtractor) FileRequired(path string, fileInfo fs.FileInfo) boo
 	return filepath.Base(path) == "poetry.lock"
 }
 
-func (e PoetryLockExtractor) Extract(ctx context.Context, input *ScanInput) ([]*Inventory, error) {
+func (e PoetryLockExtractor) Extract(ctx context.Context, input *filesystem.ScanInput) ([]*extractor.Inventory, error) {
 	var parsedLockfile *PoetryLockFile
 
 	_, err := toml.NewDecoder(input.Reader).Decode(&parsedLockfile)
 
 	if err != nil {
-		return []*Inventory{}, fmt.Errorf("could not extract from %s: %w", input.Path, err)
+		return []*extractor.Inventory{}, fmt.Errorf("could not extract from %s: %w", input.Path, err)
 	}
 
-	packages := make([]*Inventory, 0, len(parsedLockfile.Packages))
+	packages := make([]*extractor.Inventory, 0, len(parsedLockfile.Packages))
 
 	for _, lockPackage := range parsedLockfile.Packages {
-		pkgDetails := &Inventory{
+		pkgDetails := &extractor.Inventory{
 			Name:      lockPackage.Name,
 			Version:   lockPackage.Version,
 			Locations: []string{input.Path},
-			SourceCode: &SourceCodeIdentifier{
+			SourceCode: &extractor.SourceCodeIdentifier{
 				Commit: lockPackage.Source.Commit,
 			},
 		}
@@ -82,7 +84,7 @@ func (e PoetryLockExtractor) Extract(ctx context.Context, input *ScanInput) ([]*
 }
 
 // ToPURL converts an inventory created by this extractor into a PURL.
-func (e PoetryLockExtractor) ToPURL(i *Inventory) (*packageurl.PackageURL, error) {
+func (e PoetryLockExtractor) ToPURL(i *extractor.Inventory) (*packageurl.PackageURL, error) {
 	return &packageurl.PackageURL{
 		Type:    packageurl.TypePyPi,
 		Name:    i.Name,
@@ -91,9 +93,9 @@ func (e PoetryLockExtractor) ToPURL(i *Inventory) (*packageurl.PackageURL, error
 }
 
 // ToCPEs is not applicable as this extractor does not infer CPEs from the Inventory.
-func (e PoetryLockExtractor) ToCPEs(i *Inventory) ([]string, error) { return []string{}, nil }
+func (e PoetryLockExtractor) ToCPEs(i *extractor.Inventory) ([]string, error) { return []string{}, nil }
 
-func (e PoetryLockExtractor) Ecosystem(i *Inventory) (string, error) {
+func (e PoetryLockExtractor) Ecosystem(i *extractor.Inventory) (string, error) {
 	switch i.Extractor.(type) {
 	case PoetryLockExtractor:
 		return string(PoetryEcosystem), nil
@@ -102,4 +104,4 @@ func (e PoetryLockExtractor) Ecosystem(i *Inventory) (string, error) {
 	}
 }
 
-var _ Extractor = PoetryLockExtractor{}
+var _ filesystem.Extractor = PoetryLockExtractor{}

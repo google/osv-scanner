@@ -7,6 +7,8 @@ import (
 	"io/fs"
 	"path/filepath"
 
+	"github.com/google/osv-scanner/internal/lockfilescalibr/extractor"
+	"github.com/google/osv-scanner/internal/lockfilescalibr/filesystem"
 	"github.com/google/osv-scanner/internal/lockfilescalibr/plugin"
 	"github.com/package-url/packageurl-go"
 	"golang.org/x/exp/maps"
@@ -25,11 +27,11 @@ type NuGetLockfile struct {
 
 const NuGetEcosystem Ecosystem = "NuGet"
 
-func parseNuGetLockDependencies(dependencies map[string]NuGetLockPackage) map[string]*Inventory {
-	details := map[string]*Inventory{}
+func parseNuGetLockDependencies(dependencies map[string]NuGetLockPackage) map[string]*extractor.Inventory {
+	details := map[string]*extractor.Inventory{}
 
 	for name, dependency := range dependencies {
-		details[name+"@"+dependency.Resolved] = &Inventory{
+		details[name+"@"+dependency.Resolved] = &extractor.Inventory{
 			Name:    name,
 			Version: dependency.Resolved,
 		}
@@ -38,8 +40,8 @@ func parseNuGetLockDependencies(dependencies map[string]NuGetLockPackage) map[st
 	return details
 }
 
-func parseNuGetLock(lockfile NuGetLockfile) []*Inventory {
-	details := map[string]*Inventory{}
+func parseNuGetLock(lockfile NuGetLockfile) []*extractor.Inventory {
+	details := map[string]*extractor.Inventory{}
 
 	// go through the dependencies for each framework, e.g. `net6.0` and parse
 	// its dependencies, there might be different or duplicate dependencies
@@ -69,17 +71,17 @@ func (e NuGetLockExtractor) FileRequired(path string, fileInfo fs.FileInfo) bool
 	return filepath.Base(path) == "packages.lock.json"
 }
 
-func (e NuGetLockExtractor) Extract(ctx context.Context, input *ScanInput) ([]*Inventory, error) {
+func (e NuGetLockExtractor) Extract(ctx context.Context, input *filesystem.ScanInput) ([]*extractor.Inventory, error) {
 	var parsedLockfile *NuGetLockfile
 
 	err := json.NewDecoder(input.Reader).Decode(&parsedLockfile)
 
 	if err != nil {
-		return []*Inventory{}, fmt.Errorf("could not extract from %s: %w", input.Path, err)
+		return []*extractor.Inventory{}, fmt.Errorf("could not extract from %s: %w", input.Path, err)
 	}
 
 	if parsedLockfile.Version != 1 && parsedLockfile.Version != 2 {
-		return []*Inventory{}, fmt.Errorf("could not extract: unsupported lock file version %d", parsedLockfile.Version)
+		return []*extractor.Inventory{}, fmt.Errorf("could not extract: unsupported lock file version %d", parsedLockfile.Version)
 	}
 
 	out := parseNuGetLock(*parsedLockfile)
@@ -91,10 +93,10 @@ func (e NuGetLockExtractor) Extract(ctx context.Context, input *ScanInput) ([]*I
 	return out, nil
 }
 
-var _ Extractor = NuGetLockExtractor{}
+var _ filesystem.Extractor = NuGetLockExtractor{}
 
 // ToPURL converts an inventory created by this extractor into a PURL.
-func (e NuGetLockExtractor) ToPURL(i *Inventory) (*packageurl.PackageURL, error) {
+func (e NuGetLockExtractor) ToPURL(i *extractor.Inventory) (*packageurl.PackageURL, error) {
 	return &packageurl.PackageURL{
 		Type:    packageurl.TypeNuget,
 		Name:    i.Name,
@@ -103,9 +105,9 @@ func (e NuGetLockExtractor) ToPURL(i *Inventory) (*packageurl.PackageURL, error)
 }
 
 // ToCPEs is not applicable as this extractor does not infer CPEs from the Inventory.
-func (e NuGetLockExtractor) ToCPEs(i *Inventory) ([]string, error) { return []string{}, nil }
+func (e NuGetLockExtractor) ToCPEs(i *extractor.Inventory) ([]string, error) { return []string{}, nil }
 
-func (e NuGetLockExtractor) Ecosystem(i *Inventory) (string, error) {
+func (e NuGetLockExtractor) Ecosystem(i *extractor.Inventory) (string, error) {
 	switch i.Extractor.(type) {
 	case NuGetLockExtractor:
 		return string(NuGetEcosystem), nil

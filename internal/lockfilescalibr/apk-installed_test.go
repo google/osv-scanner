@@ -4,6 +4,7 @@ import (
 	"testing"
 
 	"github.com/google/osv-scanner/internal/lockfilescalibr"
+	"github.com/google/osv-scanner/internal/lockfilescalibr/extractor"
 )
 
 func TestApkInstalledExtractor_Extract(t *testing.T) {
@@ -16,7 +17,7 @@ func TestApkInstalledExtractor_Extract(t *testing.T) {
 				path:         "empty_installed",
 				fakeScanRoot: "fixtures/apk/with-os-release",
 			},
-			wantInventory: []*lockfilescalibr.Inventory{},
+			wantInventory: []*extractor.Inventory{},
 		},
 		{
 			name: "not an installed",
@@ -24,7 +25,7 @@ func TestApkInstalledExtractor_Extract(t *testing.T) {
 				path:         "not_installed",
 				fakeScanRoot: "fixtures/apk/with-os-release",
 			},
-			wantInventory: []*lockfilescalibr.Inventory{},
+			wantInventory: []*extractor.Inventory{},
 		},
 		{
 			name: "malformed",
@@ -32,12 +33,12 @@ func TestApkInstalledExtractor_Extract(t *testing.T) {
 				path:         "malformed_installed",
 				fakeScanRoot: "fixtures/apk/with-os-release",
 			},
-			wantInventory: []*lockfilescalibr.Inventory{
+			wantInventory: []*extractor.Inventory{
 				{
 					Name:      "busybox",
 					Version:   "",
 					Locations: []string{"malformed_installed"},
-					SourceCode: &lockfilescalibr.SourceCodeIdentifier{
+					SourceCode: &extractor.SourceCodeIdentifier{
 						Commit: "1dbf7a793afae640ea643a055b6dd4f430ac116b",
 					},
 					Metadata: lockfilescalibr.DistroVersionMetadata{
@@ -52,12 +53,12 @@ func TestApkInstalledExtractor_Extract(t *testing.T) {
 				path:         "single_installed",
 				fakeScanRoot: "fixtures/apk/with-os-release",
 			},
-			wantInventory: []*lockfilescalibr.Inventory{
+			wantInventory: []*extractor.Inventory{
 				{
 					Name:      "apk-tools",
 					Version:   "2.12.10-r1",
 					Locations: []string{"single_installed"},
-					SourceCode: &lockfilescalibr.SourceCodeIdentifier{
+					SourceCode: &extractor.SourceCodeIdentifier{
 						Commit: "0188f510baadbae393472103427b9c1875117136",
 					},
 					Metadata: lockfilescalibr.DistroVersionMetadata{
@@ -72,12 +73,12 @@ func TestApkInstalledExtractor_Extract(t *testing.T) {
 				path:         "shuffled_installed",
 				fakeScanRoot: "fixtures/apk/with-os-release",
 			},
-			wantInventory: []*lockfilescalibr.Inventory{
+			wantInventory: []*extractor.Inventory{
 				{
 					Name:      "apk-tools",
 					Version:   "2.12.10-r1",
 					Locations: []string{"shuffled_installed"},
-					SourceCode: &lockfilescalibr.SourceCodeIdentifier{
+					SourceCode: &extractor.SourceCodeIdentifier{
 						Commit: "0188f510baadbae393472103427b9c1875117136",
 					},
 					Metadata: lockfilescalibr.DistroVersionMetadata{
@@ -92,12 +93,12 @@ func TestApkInstalledExtractor_Extract(t *testing.T) {
 				path:         "multiple_installed",
 				fakeScanRoot: "fixtures/apk/with-os-release",
 			},
-			wantInventory: []*lockfilescalibr.Inventory{
+			wantInventory: []*extractor.Inventory{
 				{
 					Name:      "alpine-baselayout-data",
 					Version:   "3.4.0-r0",
 					Locations: []string{"multiple_installed"},
-					SourceCode: &lockfilescalibr.SourceCodeIdentifier{
+					SourceCode: &extractor.SourceCodeIdentifier{
 						Commit: "bd965a7ebf7fd8f07d7a0cc0d7375bf3e4eb9b24",
 					},
 					Metadata: lockfilescalibr.DistroVersionMetadata{
@@ -108,7 +109,7 @@ func TestApkInstalledExtractor_Extract(t *testing.T) {
 					Name:      "musl",
 					Version:   "1.2.3-r4",
 					Locations: []string{"multiple_installed"},
-					SourceCode: &lockfilescalibr.SourceCodeIdentifier{
+					SourceCode: &extractor.SourceCodeIdentifier{
 						Commit: "f93af038c3de7146121c2ea8124ba5ce29b4b058",
 					},
 					Metadata: lockfilescalibr.DistroVersionMetadata{
@@ -119,7 +120,7 @@ func TestApkInstalledExtractor_Extract(t *testing.T) {
 					Name:      "busybox",
 					Version:   "1.35.0-r29",
 					Locations: []string{"multiple_installed"},
-					SourceCode: &lockfilescalibr.SourceCodeIdentifier{
+					SourceCode: &extractor.SourceCodeIdentifier{
 						Commit: "1dbf7a793afae640ea643a055b6dd4f430ac116b",
 					},
 					Metadata: lockfilescalibr.DistroVersionMetadata{
@@ -134,12 +135,12 @@ func TestApkInstalledExtractor_Extract(t *testing.T) {
 				path:         "multiple_installed",
 				fakeScanRoot: "fixtures/apk/without-os-release",
 			},
-			wantInventory: []*lockfilescalibr.Inventory{
+			wantInventory: []*extractor.Inventory{
 				{
 					Name:      "alpine-baselayout-data",
 					Version:   "3.4.0-r0",
 					Locations: []string{"multiple_installed"},
-					SourceCode: &lockfilescalibr.SourceCodeIdentifier{
+					SourceCode: &extractor.SourceCodeIdentifier{
 						Commit: "bd965a7ebf7fd8f07d7a0cc0d7375bf3e4eb9b24",
 					},
 				},
@@ -147,7 +148,7 @@ func TestApkInstalledExtractor_Extract(t *testing.T) {
 					Name:      "musl",
 					Version:   "1.2.3-r4",
 					Locations: []string{"multiple_installed"},
-					SourceCode: &lockfilescalibr.SourceCodeIdentifier{
+					SourceCode: &extractor.SourceCodeIdentifier{
 						Commit: "f93af038c3de7146121c2ea8124ba5ce29b4b058",
 					},
 				},
@@ -155,7 +156,7 @@ func TestApkInstalledExtractor_Extract(t *testing.T) {
 					Name:      "busybox",
 					Version:   "1.35.0-r29",
 					Locations: []string{"multiple_installed"},
-					SourceCode: &lockfilescalibr.SourceCodeIdentifier{
+					SourceCode: &extractor.SourceCodeIdentifier{
 						Commit: "1dbf7a793afae640ea643a055b6dd4f430ac116b",
 					},
 				},

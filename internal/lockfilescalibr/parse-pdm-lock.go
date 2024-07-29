@@ -7,6 +7,8 @@ import (
 	"path/filepath"
 
 	"github.com/BurntSushi/toml"
+	"github.com/google/osv-scanner/internal/lockfilescalibr/extractor"
+	"github.com/google/osv-scanner/internal/lockfilescalibr/filesystem"
 	"github.com/google/osv-scanner/internal/lockfilescalibr/plugin"
 	"github.com/package-url/packageurl-go"
 )
@@ -41,17 +43,17 @@ func (e PdmLockExtractor) FileRequired(path string, fileInfo fs.FileInfo) bool {
 	return filepath.Base(path) == "pdm.lock"
 }
 
-func (e PdmLockExtractor) Extract(ctx context.Context, input *ScanInput) ([]*Inventory, error) {
+func (e PdmLockExtractor) Extract(ctx context.Context, input *filesystem.ScanInput) ([]*extractor.Inventory, error) {
 	var parsedLockFile *PdmLockFile
 
 	_, err := toml.NewDecoder(input.Reader).Decode(&parsedLockFile)
 	if err != nil {
-		return []*Inventory{}, fmt.Errorf("could not extract from %s: %w", input.Path, err)
+		return []*extractor.Inventory{}, fmt.Errorf("could not extract from %s: %w", input.Path, err)
 	}
-	packages := make([]*Inventory, 0, len(parsedLockFile.Packages))
+	packages := make([]*extractor.Inventory, 0, len(parsedLockFile.Packages))
 
 	for _, pkg := range parsedLockFile.Packages {
-		details := &Inventory{
+		details := &extractor.Inventory{
 			Name:      pkg.Name,
 			Version:   pkg.Version,
 			Locations: []string{input.Path},
@@ -77,7 +79,7 @@ func (e PdmLockExtractor) Extract(ctx context.Context, input *ScanInput) ([]*Inv
 		}
 
 		if pkg.Revision != "" {
-			details.SourceCode = &SourceCodeIdentifier{
+			details.SourceCode = &extractor.SourceCodeIdentifier{
 				Commit: pkg.Revision,
 			}
 		}
@@ -89,7 +91,7 @@ func (e PdmLockExtractor) Extract(ctx context.Context, input *ScanInput) ([]*Inv
 }
 
 // ToPURL converts an inventory created by this extractor into a PURL.
-func (e PdmLockExtractor) ToPURL(i *Inventory) (*packageurl.PackageURL, error) {
+func (e PdmLockExtractor) ToPURL(i *extractor.Inventory) (*packageurl.PackageURL, error) {
 	return &packageurl.PackageURL{
 		Type:    packageurl.TypePyPi,
 		Name:    i.Name,
@@ -98,9 +100,9 @@ func (e PdmLockExtractor) ToPURL(i *Inventory) (*packageurl.PackageURL, error) {
 }
 
 // ToCPEs is not applicable as this extractor does not infer CPEs from the Inventory.
-func (e PdmLockExtractor) ToCPEs(i *Inventory) ([]string, error) { return []string{}, nil }
+func (e PdmLockExtractor) ToCPEs(i *extractor.Inventory) ([]string, error) { return []string{}, nil }
 
-func (e PdmLockExtractor) Ecosystem(i *Inventory) (string, error) {
+func (e PdmLockExtractor) Ecosystem(i *extractor.Inventory) (string, error) {
 	switch i.Extractor.(type) {
 	case PdmLockExtractor:
 		return string(PdmEcosystem), nil
@@ -109,4 +111,4 @@ func (e PdmLockExtractor) Ecosystem(i *Inventory) (string, error) {
 	}
 }
 
-var _ Extractor = PdmLockExtractor{}
+var _ filesystem.Extractor = PdmLockExtractor{}

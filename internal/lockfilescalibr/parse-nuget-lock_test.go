@@ -4,6 +4,7 @@ import (
 	"testing"
 
 	"github.com/google/osv-scanner/internal/lockfilescalibr"
+	"github.com/google/osv-scanner/internal/lockfilescalibr/extractor"
 )
 
 func TestNuGetLockExtractor_FileRequired(t *testing.T) {
@@ -80,7 +81,7 @@ func TestNuGetLockExtractor_Extract_invalidVersion(t *testing.T) {
 				path: "fixtures/nuget/empty.v0.json",
 			},
 			wantErrContaining: "unsupported lock file version 0",
-			wantInventory:     []*lockfilescalibr.Inventory{},
+			wantInventory:     []*extractor.Inventory{},
 		},
 	}
 

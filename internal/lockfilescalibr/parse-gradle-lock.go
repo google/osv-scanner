@@ -8,6 +8,8 @@ import (
 	"path/filepath"
 	"strings"
 
+	"github.com/google/osv-scanner/internal/lockfilescalibr/extractor"
+	"github.com/google/osv-scanner/internal/lockfilescalibr/filesystem"
 	"github.com/google/osv-scanner/internal/lockfilescalibr/plugin"
 	"github.com/package-url/packageurl-go"
 )
@@ -24,16 +26,16 @@ func isGradleLockFileDepLine(line string) bool {
 	return !ret
 }
 
-func parseToGradlePackageDetail(line string) (*Inventory, error) {
+func parseToGradlePackageDetail(line string) (*extractor.Inventory, error) {
 	parts := strings.SplitN(line, ":", 3)
 	if len(parts) < 3 {
-		return &Inventory{}, fmt.Errorf("invalid line in gradle lockfile: %s", line)
+		return &extractor.Inventory{}, fmt.Errorf("invalid line in gradle lockfile: %s", line)
 	}
 
 	group, artifact, version := parts[0], parts[1], parts[2]
 	version = strings.SplitN(version, "=", 2)[0]
 
-	return &Inventory{
+	return &extractor.Inventory{
 		Name:    fmt.Sprintf("%s:%s", group, artifact),
 		Version: version,
 	}, nil
@@ -63,8 +65,8 @@ func (e GradleLockExtractor) FileRequired(path string, fileInfo fs.FileInfo) boo
 	return false
 }
 
-func (e GradleLockExtractor) Extract(ctx context.Context, input *ScanInput) ([]*Inventory, error) {
-	pkgs := make([]*Inventory, 0)
+func (e GradleLockExtractor) Extract(ctx context.Context, input *filesystem.ScanInput) ([]*extractor.Inventory, error) {
+	pkgs := make([]*extractor.Inventory, 0)
 	scanner := bufio.NewScanner(input.Reader)
 
 	for scanner.Scan() {
@@ -84,14 +86,14 @@ func (e GradleLockExtractor) Extract(ctx context.Context, input *ScanInput) ([]*
 	}
 
 	if err := scanner.Err(); err != nil {
-		return []*Inventory{}, fmt.Errorf("failed to read: %w", err)
+		return []*extractor.Inventory{}, fmt.Errorf("failed to read: %w", err)
 	}
 
 	return pkgs, nil
 }
 
 // ToPURL converts an inventory created by this extractor into a PURL.
-func (e GradleLockExtractor) ToPURL(i *Inventory) (*packageurl.PackageURL, error) {
+func (e GradleLockExtractor) ToPURL(i *extractor.Inventory) (*packageurl.PackageURL, error) {
 	return &packageurl.PackageURL{
 		Type:    packageurl.TypeMaven,
 		Name:    i.Name,
@@ -100,9 +102,9 @@ func (e GradleLockExtractor) ToPURL(i *Inventory) (*packageurl.PackageURL, error
 }
 
 // ToCPEs is not applicable as this extractor does not infer CPEs from the Inventory.
-func (e GradleLockExtractor) ToCPEs(i *Inventory) ([]string, error) { return []string{}, nil }
+func (e GradleLockExtractor) ToCPEs(i *extractor.Inventory) ([]string, error) { return []string{}, nil }
 
-func (e GradleLockExtractor) Ecosystem(i *Inventory) (string, error) {
+func (e GradleLockExtractor) Ecosystem(i *extractor.Inventory) (string, error) {
 	switch i.Extractor.(type) {
 	case GradleLockExtractor:
 		return string(MavenEcosystem), nil
@@ -111,4 +113,4 @@ func (e GradleLockExtractor) Ecosystem(i *Inventory) (string, error) {
 	}
 }
 
-var _ Extractor = GradleLockExtractor{}
+var _ filesystem.Extractor = GradleLockExtractor{}

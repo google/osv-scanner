@@ -4,6 +4,7 @@ import (
 	"testing"
 
 	"github.com/google/osv-scanner/internal/lockfilescalibr"
+	"github.com/google/osv-scanner/internal/lockfilescalibr/extractor"
 )
 
 func TestConanLockExtractor_Extract_v1(t *testing.T) {
@@ -22,14 +23,14 @@ func TestConanLockExtractor_Extract_v1(t *testing.T) {
 			inputConfig: ScanInputMockConfig{
 				path: "fixtures/conan/empty.v1.json",
 			},
-			wantInventory: []*lockfilescalibr.Inventory{},
+			wantInventory: []*extractor.Inventory{},
 		},
 		{
 			name: "one package",
 			inputConfig: ScanInputMockConfig{
 				path: "fixtures/conan/one-package.v1.json",
 			},
-			wantInventory: []*lockfilescalibr.Inventory{
+			wantInventory: []*extractor.Inventory{
 				{
 					Name:      "zlib",
 					Version:   "1.2.11",
@@ -45,7 +46,7 @@ func TestConanLockExtractor_Extract_v1(t *testing.T) {
 			inputConfig: ScanInputMockConfig{
 				path: "fixtures/conan/no-name.v1.json",
 			},
-			wantInventory: []*lockfilescalibr.Inventory{
+			wantInventory: []*extractor.Inventory{
 				{
 					Name:      "zlib",
 					Version:   "1.2.11",
@@ -61,7 +62,7 @@ func TestConanLockExtractor_Extract_v1(t *testing.T) {
 			inputConfig: ScanInputMockConfig{
 				path: "fixtures/conan/two-packages.v1.json",
 			},
-			wantInventory: []*lockfilescalibr.Inventory{
+			wantInventory: []*extractor.Inventory{
 				{
 					Name:      "zlib",
 					Version:   "1.2.11",
@@ -85,7 +86,7 @@ func TestConanLockExtractor_Extract_v1(t *testing.T) {
 			inputConfig: ScanInputMockConfig{
 				path: "fixtures/conan/nested-dependencies.v1.json",
 			},
-			wantInventory: []*lockfilescalibr.Inventory{
+			wantInventory: []*extractor.Inventory{
 				{
 					Name:      "zlib",
 					Version:   "1.2.13",
@@ -133,7 +134,7 @@ func TestConanLockExtractor_Extract_v1(t *testing.T) {
 			inputConfig: ScanInputMockConfig{
 				path: "fixtures/conan/one-package-dev.v1.json",
 			},
-			wantInventory: []*lockfilescalibr.Inventory{
+			wantInventory: []*extractor.Inventory{
 				{
 					Name:      "ninja",
 					Version:   "1.11.1",
@@ -149,7 +150,7 @@ func TestConanLockExtractor_Extract_v1(t *testing.T) {
 			inputConfig: ScanInputMockConfig{
 				path: "fixtures/conan/old-format-0.0.json",
 			},
-			wantInventory: []*lockfilescalibr.Inventory{
+			wantInventory: []*extractor.Inventory{
 				{
 					Name:      "zlib",
 					Version:   "1.2.11",
@@ -165,7 +166,7 @@ func TestConanLockExtractor_Extract_v1(t *testing.T) {
 			inputConfig: ScanInputMockConfig{
 				path: "fixtures/conan/old-format-0.1.json",
 			},
-			wantInventory: []*lockfilescalibr.Inventory{
+			wantInventory: []*extractor.Inventory{
 				{
 					Name:      "zlib",
 					Version:   "1.2.11",
@@ -181,7 +182,7 @@ func TestConanLockExtractor_Extract_v1(t *testing.T) {
 			inputConfig: ScanInputMockConfig{
 				path: "fixtures/conan/old-format-0.2.json",
 			},
-			wantInventory: []*lockfilescalibr.Inventory{
+			wantInventory: []*extractor.Inventory{
 				{
 					Name:      "zlib",
 					Version:   "1.2.11",
@@ -197,7 +198,7 @@ func TestConanLockExtractor_Extract_v1(t *testing.T) {
 			inputConfig: ScanInputMockConfig{
 				path: "fixtures/conan/old-format-0.3.json",
 			},
-			wantInventory: []*lockfilescalibr.Inventory{
+			wantInventory: []*extractor.Inventory{
 				{
 					Name:      "zlib",
 					Version:   "1.2.11",

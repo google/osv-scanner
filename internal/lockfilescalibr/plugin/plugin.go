@@ -2,6 +2,14 @@ package plugin
 
 import "io/fs"
 
+// Plugin is the part of the plugin interface that's shared between extractors and detectors.
+type Plugin interface {
+	// A unique name used to identify this plugin.
+	Name() string
+	// Plugin version, should get bumped whenever major changes are made.
+	Version() int
+}
+
 // FS is a filesystem interface that allows the opening of files, reading of
 // directories, and performing stat on files.
 //

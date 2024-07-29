@@ -4,6 +4,7 @@ import (
 	"testing"
 
 	"github.com/google/osv-scanner/internal/lockfilescalibr"
+	"github.com/google/osv-scanner/internal/lockfilescalibr/extractor"
 )
 
 func TestPdmExtractor_FileRequired(t *testing.T) {
@@ -94,14 +95,14 @@ func TestPdmLockExtractor_Extract(t *testing.T) {
 			inputConfig: ScanInputMockConfig{
 				path: "fixtures/pdm/empty.toml",
 			},
-			wantInventory: []*lockfilescalibr.Inventory{},
+			wantInventory: []*extractor.Inventory{},
 		},
 		{
 			name: "single package",
 			inputConfig: ScanInputMockConfig{
 				path: "fixtures/pdm/single-package.toml",
 			},
-			wantInventory: []*lockfilescalibr.Inventory{
+			wantInventory: []*extractor.Inventory{
 				{
 					Name:      "toml",
 					Version:   "0.10.2",
@@ -117,7 +118,7 @@ func TestPdmLockExtractor_Extract(t *testing.T) {
 			inputConfig: ScanInputMockConfig{
 				path: "fixtures/pdm/two-packages.toml",
 			},
-			wantInventory: []*lockfilescalibr.Inventory{
+			wantInventory: []*extractor.Inventory{
 				{
 					Name:      "toml",
 					Version:   "0.10.2",
@@ -141,7 +142,7 @@ func TestPdmLockExtractor_Extract(t *testing.T) {
 			inputConfig: ScanInputMockConfig{
 				path: "fixtures/pdm/dev-dependency.toml",
 			},
-			wantInventory: []*lockfilescalibr.Inventory{
+			wantInventory: []*extractor.Inventory{
 				{
 					Name:      "toml",
 					Version:   "0.10.2",
@@ -173,7 +174,7 @@ func TestPdmLockExtractor_Extract(t *testing.T) {
 			inputConfig: ScanInputMockConfig{
 				path: "fixtures/pdm/optional-dependency.toml",
 			},
-			wantInventory: []*lockfilescalibr.Inventory{
+			wantInventory: []*extractor.Inventory{
 				{
 					Name:      "toml",
 					Version:   "0.10.2",
@@ -205,7 +206,7 @@ func TestPdmLockExtractor_Extract(t *testing.T) {
 			inputConfig: ScanInputMockConfig{
 				path: "fixtures/pdm/git-dependency.toml",
 			},
-			wantInventory: []*lockfilescalibr.Inventory{
+			wantInventory: []*extractor.Inventory{
 				{
 					Name:      "toml",
 					Version:   "0.10.2",
@@ -213,7 +214,7 @@ func TestPdmLockExtractor_Extract(t *testing.T) {
 					Metadata: lockfilescalibr.DepGroupMetadata{
 						DepGroupVals: []string{},
 					},
-					SourceCode: &lockfilescalibr.SourceCodeIdentifier{
+					SourceCode: &extractor.SourceCodeIdentifier{
 						Commit: "65bab7582ce14c55cdeec2244c65ea23039c9e6f",
 					},
 				},

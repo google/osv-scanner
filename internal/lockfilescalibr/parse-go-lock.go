@@ -8,6 +8,8 @@ import (
 	"path/filepath"
 	"strings"
 
+	"github.com/google/osv-scanner/internal/lockfilescalibr/extractor"
+	"github.com/google/osv-scanner/internal/lockfilescalibr/filesystem"
 	"github.com/google/osv-scanner/internal/lockfilescalibr/plugin"
 	"github.com/package-url/packageurl-go"
 	"golang.org/x/exp/maps"
@@ -36,7 +38,7 @@ func (e GoLockExtractor) FileRequired(path string, fileInfo fs.FileInfo) bool {
 	return filepath.Base(path) == "go.mod"
 }
 
-func (e GoLockExtractor) Extract(ctx context.Context, input *ScanInput) ([]*Inventory, error) {
+func (e GoLockExtractor) Extract(ctx context.Context, input *filesystem.ScanInput) ([]*extractor.Inventory, error) {
 	var parsedLockfile *modfile.File
 
 	b, err := io.ReadAll(input.Reader)
@@ -46,13 +48,13 @@ func (e GoLockExtractor) Extract(ctx context.Context, input *ScanInput) ([]*Inve
 	}
 
 	if err != nil {
-		return []*Inventory{}, fmt.Errorf("could not extract from %s: %w", input.Path, err)
+		return []*extractor.Inventory{}, fmt.Errorf("could not extract from %s: %w", input.Path, err)
 	}
 
-	packages := map[string]*Inventory{}
+	packages := map[string]*extractor.Inventory{}
 
 	for _, require := range parsedLockfile.Require {
-		packages[require.Mod.Path+"@"+require.Mod.Version] = &Inventory{
+		packages[require.Mod.Path+"@"+require.Mod.Version] = &extractor.Inventory{
 			Name:      require.Mod.Path,
 			Version:   strings.TrimPrefix(require.Mod.Version, "v"),
 			Locations: []string{input.Path},
@@ -81,7 +83,7 @@ func (e GoLockExtractor) Extract(ctx context.Context, input *ScanInput) ([]*Inve
 		}
 
 		for _, replacement := range replacements {
-			packages[replacement] = &Inventory{
+			packages[replacement] = &extractor.Inventory{
 				Name:      replace.New.Path,
 				Version:   strings.TrimPrefix(replace.New.Version, "v"),
 				Locations: []string{input.Path},
@@ -90,7 +92,7 @@ func (e GoLockExtractor) Extract(ctx context.Context, input *ScanInput) ([]*Inve
 	}
 
 	if parsedLockfile.Go != nil && parsedLockfile.Go.Version != "" {
-		packages["stdlib"] = &Inventory{
+		packages["stdlib"] = &extractor.Inventory{
 			Name:      "stdlib",
 			Version:   parsedLockfile.Go.Version,
 			Locations: []string{input.Path},
@@ -101,7 +103,7 @@ func (e GoLockExtractor) Extract(ctx context.Context, input *ScanInput) ([]*Inve
 }
 
 // ToPURL converts an inventory created by this extractor into a PURL.
-func (e GoLockExtractor) ToPURL(i *Inventory) (*packageurl.PackageURL, error) {
+func (e GoLockExtractor) ToPURL(i *extractor.Inventory) (*packageurl.PackageURL, error) {
 	return &packageurl.PackageURL{
 		Type:    packageurl.TypeGolang,
 		Name:    i.Name,
@@ -110,9 +112,9 @@ func (e GoLockExtractor) ToPURL(i *Inventory) (*packageurl.PackageURL, error) {
 }
 
 // ToCPEs is not applicable as this extractor does not infer CPEs from the Inventory.
-func (e GoLockExtractor) ToCPEs(i *Inventory) ([]string, error) { return []string{}, nil }
+func (e GoLockExtractor) ToCPEs(i *extractor.Inventory) ([]string, error) { return []string{}, nil }
 
-func (e GoLockExtractor) Ecosystem(i *Inventory) (string, error) {
+func (e GoLockExtractor) Ecosystem(i *extractor.Inventory) (string, error) {
 	switch i.Extractor.(type) {
 	case GoLockExtractor:
 		return string(GoEcosystem), nil
@@ -121,10 +123,10 @@ func (e GoLockExtractor) Ecosystem(i *Inventory) (string, error) {
 	}
 }
 
-var _ Extractor = GoLockExtractor{}
+var _ filesystem.Extractor = GoLockExtractor{}
 
-func deduplicatePackages(packages map[string]*Inventory) map[string]*Inventory {
-	details := map[string]*Inventory{}
+func deduplicatePackages(packages map[string]*extractor.Inventory) map[string]*extractor.Inventory {
+	details := map[string]*extractor.Inventory{}
 
 	for _, detail := range packages {
 		details[detail.Name+"@"+detail.Version] = detail
