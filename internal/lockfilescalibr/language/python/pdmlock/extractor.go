@@ -1,4 +1,4 @@
-package lockfilescalibr
+package pdmlock
 
 import (
 	"context"
@@ -26,25 +26,25 @@ type PdmLockFile struct {
 	Packages []PdmLockPackage `toml:"package"`
 }
 
-const PdmEcosystem = PipEcosystem
+const PDMEcosystem = "PyPI"
 
-type PdmLockExtractor struct{}
+type Extractor struct{}
 
 // Name of the extractor
-func (e PdmLockExtractor) Name() string { return "python/pdmlock" }
+func (e Extractor) Name() string { return "python/pdmlock" }
 
 // Version of the extractor
-func (e PdmLockExtractor) Version() int { return 0 }
+func (e Extractor) Version() int { return 0 }
 
-func (e PdmLockExtractor) Requirements() *plugin.Requirements {
+func (e Extractor) Requirements() *plugin.Requirements {
 	return &plugin.Requirements{}
 }
 
-func (e PdmLockExtractor) FileRequired(path string, fileInfo fs.FileInfo) bool {
+func (e Extractor) FileRequired(path string, fileInfo fs.FileInfo) bool {
 	return filepath.Base(path) == "pdm.lock"
 }
 
-func (e PdmLockExtractor) Extract(ctx context.Context, input *filesystem.ScanInput) ([]*extractor.Inventory, error) {
+func (e Extractor) Extract(ctx context.Context, input *filesystem.ScanInput) ([]*extractor.Inventory, error) {
 	var parsedLockFile *PdmLockFile
 
 	_, err := toml.NewDecoder(input.Reader).Decode(&parsedLockFile)
@@ -92,7 +92,7 @@ func (e PdmLockExtractor) Extract(ctx context.Context, input *filesystem.ScanInp
 }
 
 // ToPURL converts an inventory created by this extractor into a PURL.
-func (e PdmLockExtractor) ToPURL(i *extractor.Inventory) (*packageurl.PackageURL, error) {
+func (e Extractor) ToPURL(i *extractor.Inventory) (*packageurl.PackageURL, error) {
 	return &packageurl.PackageURL{
 		Type:    packageurl.TypePyPi,
 		Name:    i.Name,
@@ -101,15 +101,10 @@ func (e PdmLockExtractor) ToPURL(i *extractor.Inventory) (*packageurl.PackageURL
 }
 
 // ToCPEs is not applicable as this extractor does not infer CPEs from the Inventory.
-func (e PdmLockExtractor) ToCPEs(i *extractor.Inventory) ([]string, error) { return []string{}, nil }
+func (e Extractor) ToCPEs(i *extractor.Inventory) ([]string, error) { return []string{}, nil }
 
-func (e PdmLockExtractor) Ecosystem(i *extractor.Inventory) (string, error) {
-	switch i.Extractor.(type) {
-	case PdmLockExtractor:
-		return string(PdmEcosystem), nil
-	default:
-		return "", ErrWrongExtractor
-	}
+func (e Extractor) Ecosystem(i *extractor.Inventory) (string, error) {
+	return PDMEcosystem, nil
 }
 
-var _ filesystem.Extractor = PdmLockExtractor{}
+var _ filesystem.Extractor = Extractor{}
