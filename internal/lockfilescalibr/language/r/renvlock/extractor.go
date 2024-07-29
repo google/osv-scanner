@@ -81,7 +81,7 @@ func (e Extractor) ToPURL(i *extractor.Inventory) (*packageurl.PackageURL, error
 func (e Extractor) ToCPEs(i *extractor.Inventory) ([]string, error) { return []string{}, nil }
 
 func (e Extractor) Ecosystem(i *extractor.Inventory) (string, error) {
-return CRANEcosystem, nil
+	return CRANEcosystem, nil
 }
 
 var _ filesystem.Extractor = Extractor{}

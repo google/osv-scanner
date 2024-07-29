@@ -65,7 +65,7 @@ for line in allLines:
 
   if 'Ecosystem(i *extractor.Inventory)' in line:
     baseOutput += line
-    baseOutput += "return " + ecosystemName + ", nil\n"
+    baseOutput += "	return " + ecosystemName + ", nil\n"
     replaceFunction = True
     continue
 

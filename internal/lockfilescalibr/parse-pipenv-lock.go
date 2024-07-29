@@ -24,7 +24,7 @@ type PipenvLock struct {
 	PackagesDev map[string]PipenvPackage `json:"develop"`
 }
 
-const PipenvEcosystem = PipEcosystem
+const PipenvEcosystem = "PyPI"
 
 type PipenvLockExtractor struct{}
 
