@@ -1,4 +1,4 @@
-package lockfilescalibr
+package poetrylock
 
 import (
 	"context"
@@ -33,23 +33,23 @@ type PoetryLockFile struct {
 
 const PoetryEcosystem = "PyPI"
 
-type PoetryLockExtractor struct{}
+type Extractor struct{}
 
 // Name of the extractor
-func (e PoetryLockExtractor) Name() string { return "python/poetrylock" }
+func (e Extractor) Name() string { return "python/poetrylock" }
 
 // Version of the extractor
-func (e PoetryLockExtractor) Version() int { return 0 }
+func (e Extractor) Version() int { return 0 }
 
-func (e PoetryLockExtractor) Requirements() *plugin.Requirements {
+func (e Extractor) Requirements() *plugin.Requirements {
 	return &plugin.Requirements{}
 }
 
-func (e PoetryLockExtractor) FileRequired(path string, fileInfo fs.FileInfo) bool {
+func (e Extractor) FileRequired(path string, fileInfo fs.FileInfo) bool {
 	return filepath.Base(path) == "poetry.lock"
 }
 
-func (e PoetryLockExtractor) Extract(ctx context.Context, input *filesystem.ScanInput) ([]*extractor.Inventory, error) {
+func (e Extractor) Extract(ctx context.Context, input *filesystem.ScanInput) ([]*extractor.Inventory, error) {
 	var parsedLockfile *PoetryLockFile
 
 	_, err := toml.NewDecoder(input.Reader).Decode(&parsedLockfile)
@@ -85,7 +85,7 @@ func (e PoetryLockExtractor) Extract(ctx context.Context, input *filesystem.Scan
 }
 
 // ToPURL converts an inventory created by this extractor into a PURL.
-func (e PoetryLockExtractor) ToPURL(i *extractor.Inventory) (*packageurl.PackageURL, error) {
+func (e Extractor) ToPURL(i *extractor.Inventory) (*packageurl.PackageURL, error) {
 	return &packageurl.PackageURL{
 		Type:    packageurl.TypePyPi,
 		Name:    i.Name,
@@ -94,15 +94,10 @@ func (e PoetryLockExtractor) ToPURL(i *extractor.Inventory) (*packageurl.Package
 }
 
 // ToCPEs is not applicable as this extractor does not infer CPEs from the Inventory.
-func (e PoetryLockExtractor) ToCPEs(i *extractor.Inventory) ([]string, error) { return []string{}, nil }
+func (e Extractor) ToCPEs(i *extractor.Inventory) ([]string, error) { return []string{}, nil }
 
-func (e PoetryLockExtractor) Ecosystem(i *extractor.Inventory) (string, error) {
-	switch i.Extractor.(type) {
-	case PoetryLockExtractor:
-		return string(PoetryEcosystem), nil
-	default:
-		return "", ErrWrongExtractor
-	}
+func (e Extractor) Ecosystem(i *extractor.Inventory) (string, error) {
+	return PoetryEcosystem, nil
 }
 
-var _ filesystem.Extractor = PoetryLockExtractor{}
+var _ filesystem.Extractor = Extractor{}
