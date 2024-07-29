@@ -9,6 +9,7 @@ import (
 
 	"github.com/google/osv-scanner/internal/lockfilescalibr/extractor"
 	"github.com/google/osv-scanner/internal/lockfilescalibr/filesystem"
+	"github.com/google/osv-scanner/internal/lockfilescalibr/othermetadata"
 	"github.com/google/osv-scanner/internal/lockfilescalibr/plugin"
 	"github.com/package-url/packageurl-go"
 	"golang.org/x/exp/maps"
@@ -81,7 +82,7 @@ func addPkgDetails(details map[string]*extractor.Inventory, packages map[string]
 			inv := &extractor.Inventory{
 				Name:    name,
 				Version: version,
-				Metadata: DepGroupMetadata{
+				Metadata: othermetadata.DepGroupMetadata{
 					DepGroupVals: groupSlice,
 				},
 			}

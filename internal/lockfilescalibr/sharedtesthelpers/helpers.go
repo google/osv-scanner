@@ -11,10 +11,10 @@ import (
 	"testing"
 
 	"github.com/google/go-cmp/cmp"
-	"github.com/google/osv-scanner/internal/lockfilescalibr"
 	"github.com/google/osv-scanner/internal/lockfilescalibr/extractor"
 	"github.com/google/osv-scanner/internal/lockfilescalibr/fakefs"
 	"github.com/google/osv-scanner/internal/lockfilescalibr/filesystem"
+	"github.com/google/osv-scanner/internal/lockfilescalibr/othermetadata"
 	"github.com/google/osv-scanner/internal/lockfilescalibr/plugin"
 )
 
@@ -54,7 +54,7 @@ func packageToString(pkg *extractor.Inventory) string {
 	}
 
 	groups := "<no groups>"
-	if dg, ok := pkg.Metadata.(lockfilescalibr.DepGroups); ok {
+	if dg, ok := pkg.Metadata.(othermetadata.DepGroups); ok {
 		if depGroups := dg.DepGroups(); len(depGroups) != 0 {
 			groups = strings.Join(dg.DepGroups(), "/")
 		}

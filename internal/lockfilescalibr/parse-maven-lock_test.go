@@ -5,6 +5,7 @@ import (
 
 	"github.com/google/osv-scanner/internal/lockfilescalibr"
 	"github.com/google/osv-scanner/internal/lockfilescalibr/extractor"
+	"github.com/google/osv-scanner/internal/lockfilescalibr/othermetadata"
 	"github.com/google/osv-scanner/internal/lockfilescalibr/sharedtesthelpers"
 )
 
@@ -107,7 +108,7 @@ func TestMavenLockExtractor_Extract(t *testing.T) {
 					Name:      "org.apache.maven:maven-artifact",
 					Version:   "1.0.0",
 					Locations: []string{"fixtures/maven/one-package.xml"},
-					Metadata: lockfilescalibr.DepGroupMetadata{
+					Metadata: othermetadata.DepGroupMetadata{
 						DepGroupVals: []string{},
 					},
 				},
@@ -123,7 +124,7 @@ func TestMavenLockExtractor_Extract(t *testing.T) {
 					Name:      "io.netty:netty-all",
 					Version:   "4.1.42.Final",
 					Locations: []string{"fixtures/maven/two-packages.xml"},
-					Metadata: lockfilescalibr.DepGroupMetadata{
+					Metadata: othermetadata.DepGroupMetadata{
 						DepGroupVals: []string{},
 					},
 				},
@@ -131,7 +132,7 @@ func TestMavenLockExtractor_Extract(t *testing.T) {
 					Name:      "org.slf4j:slf4j-log4j12",
 					Version:   "1.7.25",
 					Locations: []string{"fixtures/maven/two-packages.xml"},
-					Metadata: lockfilescalibr.DepGroupMetadata{
+					Metadata: othermetadata.DepGroupMetadata{
 						DepGroupVals: []string{},
 					},
 				},
@@ -147,7 +148,7 @@ func TestMavenLockExtractor_Extract(t *testing.T) {
 					Name:      "io.netty:netty-all",
 					Version:   "4.1.9",
 					Locations: []string{"fixtures/maven/with-dependency-management.xml"},
-					Metadata: lockfilescalibr.DepGroupMetadata{
+					Metadata: othermetadata.DepGroupMetadata{
 						DepGroupVals: []string{},
 					},
 				},
@@ -155,7 +156,7 @@ func TestMavenLockExtractor_Extract(t *testing.T) {
 					Name:      "org.slf4j:slf4j-log4j12",
 					Version:   "1.7.25",
 					Locations: []string{"fixtures/maven/with-dependency-management.xml"},
-					Metadata: lockfilescalibr.DepGroupMetadata{
+					Metadata: othermetadata.DepGroupMetadata{
 						DepGroupVals: []string{},
 					},
 				},
@@ -163,7 +164,7 @@ func TestMavenLockExtractor_Extract(t *testing.T) {
 					Name:      "com.google.code.findbugs:jsr305",
 					Version:   "3.0.2",
 					Locations: []string{"fixtures/maven/with-dependency-management.xml"},
-					Metadata: lockfilescalibr.DepGroupMetadata{
+					Metadata: othermetadata.DepGroupMetadata{
 						DepGroupVals: []string{},
 					},
 				},
@@ -179,7 +180,7 @@ func TestMavenLockExtractor_Extract(t *testing.T) {
 					Name:      "org.mine:mypackage",
 					Version:   "1.0.0",
 					Locations: []string{"fixtures/maven/interpolation.xml"},
-					Metadata: lockfilescalibr.DepGroupMetadata{
+					Metadata: othermetadata.DepGroupMetadata{
 						DepGroupVals: []string{},
 					},
 				},
@@ -187,7 +188,7 @@ func TestMavenLockExtractor_Extract(t *testing.T) {
 					Name:      "org.mine:my.package",
 					Version:   "2.3.4",
 					Locations: []string{"fixtures/maven/interpolation.xml"},
-					Metadata: lockfilescalibr.DepGroupMetadata{
+					Metadata: othermetadata.DepGroupMetadata{
 						DepGroupVals: []string{},
 					},
 				},
@@ -195,7 +196,7 @@ func TestMavenLockExtractor_Extract(t *testing.T) {
 					Name:      "org.mine:ranged-package",
 					Version:   "9.4.35.v20201120",
 					Locations: []string{"fixtures/maven/interpolation.xml"},
-					Metadata: lockfilescalibr.DepGroupMetadata{
+					Metadata: othermetadata.DepGroupMetadata{
 						DepGroupVals: []string{},
 					},
 				},
@@ -211,7 +212,7 @@ func TestMavenLockExtractor_Extract(t *testing.T) {
 					Name:      "abc:xyz",
 					Version:   "1.2.3",
 					Locations: []string{"fixtures/maven/with-scope.xml"},
-					Metadata: lockfilescalibr.DepGroupMetadata{
+					Metadata: othermetadata.DepGroupMetadata{
 						DepGroupVals: []string{},
 					},
 				},
@@ -219,7 +220,7 @@ func TestMavenLockExtractor_Extract(t *testing.T) {
 					Name:      "junit:junit",
 					Version:   "4.12",
 					Locations: []string{"fixtures/maven/with-scope.xml"},
-					Metadata: lockfilescalibr.DepGroupMetadata{
+					Metadata: othermetadata.DepGroupMetadata{
 						DepGroupVals: []string{"test"},
 					},
 				},

@@ -13,6 +13,7 @@ import (
 	"github.com/google/osv-scanner/internal/cachedregexp"
 	"github.com/google/osv-scanner/internal/lockfilescalibr/extractor"
 	"github.com/google/osv-scanner/internal/lockfilescalibr/filesystem"
+	"github.com/google/osv-scanner/internal/lockfilescalibr/othermetadata"
 	"github.com/google/osv-scanner/internal/lockfilescalibr/plugin"
 	"github.com/package-url/packageurl-go"
 	"gopkg.in/yaml.v3"
@@ -184,7 +185,7 @@ func parsePnpmLock(lockfile PnpmLockfile) []*extractor.Inventory {
 			SourceCode: &extractor.SourceCodeIdentifier{
 				Commit: commit,
 			},
-			Metadata: DepGroupMetadata{
+			Metadata: othermetadata.DepGroupMetadata{
 				DepGroupVals: depGroups,
 			},
 		})

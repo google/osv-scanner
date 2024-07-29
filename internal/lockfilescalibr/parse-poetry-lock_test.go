@@ -5,6 +5,7 @@ import (
 
 	"github.com/google/osv-scanner/internal/lockfilescalibr"
 	"github.com/google/osv-scanner/internal/lockfilescalibr/extractor"
+	"github.com/google/osv-scanner/internal/lockfilescalibr/othermetadata"
 	"github.com/google/osv-scanner/internal/lockfilescalibr/sharedtesthelpers"
 )
 
@@ -102,7 +103,7 @@ func TestPoetryLockExtractor_Extract(t *testing.T) {
 					SourceCode: &extractor.SourceCodeIdentifier{
 						Commit: "",
 					},
-					Metadata: lockfilescalibr.DepGroupMetadata{
+					Metadata: othermetadata.DepGroupMetadata{
 						DepGroupVals: []string{},
 					},
 				},
@@ -121,7 +122,7 @@ func TestPoetryLockExtractor_Extract(t *testing.T) {
 					SourceCode: &extractor.SourceCodeIdentifier{
 						Commit: "",
 					},
-					Metadata: lockfilescalibr.DepGroupMetadata{
+					Metadata: othermetadata.DepGroupMetadata{
 						DepGroupVals: []string{},
 					},
 				},
@@ -132,7 +133,7 @@ func TestPoetryLockExtractor_Extract(t *testing.T) {
 					SourceCode: &extractor.SourceCodeIdentifier{
 						Commit: "",
 					},
-					Metadata: lockfilescalibr.DepGroupMetadata{
+					Metadata: othermetadata.DepGroupMetadata{
 						DepGroupVals: []string{},
 					},
 				},
@@ -151,7 +152,7 @@ func TestPoetryLockExtractor_Extract(t *testing.T) {
 					SourceCode: &extractor.SourceCodeIdentifier{
 						Commit: "",
 					},
-					Metadata: lockfilescalibr.DepGroupMetadata{
+					Metadata: othermetadata.DepGroupMetadata{
 						DepGroupVals: []string{},
 					},
 				},
@@ -170,7 +171,7 @@ func TestPoetryLockExtractor_Extract(t *testing.T) {
 					SourceCode: &extractor.SourceCodeIdentifier{
 						Commit: "cd66602cd29f61a2d2e7fb995fef1e61708c034d",
 					},
-					Metadata: lockfilescalibr.DepGroupMetadata{
+					Metadata: othermetadata.DepGroupMetadata{
 						DepGroupVals: []string{},
 					},
 				},
@@ -189,7 +190,7 @@ func TestPoetryLockExtractor_Extract(t *testing.T) {
 					SourceCode: &extractor.SourceCodeIdentifier{
 						Commit: "",
 					},
-					Metadata: lockfilescalibr.DepGroupMetadata{
+					Metadata: othermetadata.DepGroupMetadata{
 						DepGroupVals: []string{},
 					},
 				},
@@ -208,7 +209,7 @@ func TestPoetryLockExtractor_Extract(t *testing.T) {
 					SourceCode: &extractor.SourceCodeIdentifier{
 						Commit: "",
 					},
-					Metadata: lockfilescalibr.DepGroupMetadata{
+					Metadata: othermetadata.DepGroupMetadata{
 						DepGroupVals: []string{"optional"},
 					},
 				},

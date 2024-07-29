@@ -5,6 +5,7 @@ import (
 
 	"github.com/google/osv-scanner/internal/lockfilescalibr"
 	"github.com/google/osv-scanner/internal/lockfilescalibr/extractor"
+	"github.com/google/osv-scanner/internal/lockfilescalibr/othermetadata"
 	"github.com/google/osv-scanner/internal/lockfilescalibr/sharedtesthelpers"
 )
 
@@ -30,7 +31,7 @@ func TestPnpmLockExtractor_Extract_v9(t *testing.T) {
 					Version:    "8.11.3",
 					Locations:  []string{"fixtures/pnpm/one-package.v9.yaml"},
 					SourceCode: &extractor.SourceCodeIdentifier{},
-					Metadata: lockfilescalibr.DepGroupMetadata{
+					Metadata: othermetadata.DepGroupMetadata{
 						DepGroupVals: []string{},
 					},
 				},
@@ -47,7 +48,7 @@ func TestPnpmLockExtractor_Extract_v9(t *testing.T) {
 					Version:    "8.11.3",
 					Locations:  []string{"fixtures/pnpm/one-package-dev.v9.yaml"},
 					SourceCode: &extractor.SourceCodeIdentifier{},
-					Metadata: lockfilescalibr.DepGroupMetadata{
+					Metadata: othermetadata.DepGroupMetadata{
 						DepGroupVals: []string{},
 					},
 				},
@@ -64,7 +65,7 @@ func TestPnpmLockExtractor_Extract_v9(t *testing.T) {
 					Version:    "5.62.0",
 					Locations:  []string{"fixtures/pnpm/scoped-packages.v9.yaml"},
 					SourceCode: &extractor.SourceCodeIdentifier{},
-					Metadata: lockfilescalibr.DepGroupMetadata{
+					Metadata: othermetadata.DepGroupMetadata{
 						DepGroupVals: []string{},
 					},
 				},
@@ -81,7 +82,7 @@ func TestPnpmLockExtractor_Extract_v9(t *testing.T) {
 					Version:    "5.3.2",
 					Locations:  []string{"fixtures/pnpm/peer-dependencies.v9.yaml"},
 					SourceCode: &extractor.SourceCodeIdentifier{},
-					Metadata: lockfilescalibr.DepGroupMetadata{
+					Metadata: othermetadata.DepGroupMetadata{
 						DepGroupVals: []string{},
 					},
 				},
@@ -90,7 +91,7 @@ func TestPnpmLockExtractor_Extract_v9(t *testing.T) {
 					Version:    "8.11.3",
 					Locations:  []string{"fixtures/pnpm/peer-dependencies.v9.yaml"},
 					SourceCode: &extractor.SourceCodeIdentifier{},
-					Metadata: lockfilescalibr.DepGroupMetadata{
+					Metadata: othermetadata.DepGroupMetadata{
 						DepGroupVals: []string{},
 					},
 				},
@@ -107,7 +108,7 @@ func TestPnpmLockExtractor_Extract_v9(t *testing.T) {
 					Version:    "4.4.0",
 					Locations:  []string{"fixtures/pnpm/peer-dependencies-advanced.v9.yaml"},
 					SourceCode: &extractor.SourceCodeIdentifier{},
-					Metadata: lockfilescalibr.DepGroupMetadata{
+					Metadata: othermetadata.DepGroupMetadata{
 						DepGroupVals: []string{},
 					},
 				},
@@ -116,7 +117,7 @@ func TestPnpmLockExtractor_Extract_v9(t *testing.T) {
 					Version:    "2.1.4",
 					Locations:  []string{"fixtures/pnpm/peer-dependencies-advanced.v9.yaml"},
 					SourceCode: &extractor.SourceCodeIdentifier{},
-					Metadata: lockfilescalibr.DepGroupMetadata{
+					Metadata: othermetadata.DepGroupMetadata{
 						DepGroupVals: []string{},
 					},
 				},
@@ -125,7 +126,7 @@ func TestPnpmLockExtractor_Extract_v9(t *testing.T) {
 					Version:    "5.62.0",
 					Locations:  []string{"fixtures/pnpm/peer-dependencies-advanced.v9.yaml"},
 					SourceCode: &extractor.SourceCodeIdentifier{},
-					Metadata: lockfilescalibr.DepGroupMetadata{
+					Metadata: othermetadata.DepGroupMetadata{
 						DepGroupVals: []string{},
 					},
 				},
@@ -134,7 +135,7 @@ func TestPnpmLockExtractor_Extract_v9(t *testing.T) {
 					Version:    "5.62.0",
 					Locations:  []string{"fixtures/pnpm/peer-dependencies-advanced.v9.yaml"},
 					SourceCode: &extractor.SourceCodeIdentifier{},
-					Metadata: lockfilescalibr.DepGroupMetadata{
+					Metadata: othermetadata.DepGroupMetadata{
 						DepGroupVals: []string{},
 					},
 				},
@@ -143,7 +144,7 @@ func TestPnpmLockExtractor_Extract_v9(t *testing.T) {
 					Version:    "5.62.0",
 					Locations:  []string{"fixtures/pnpm/peer-dependencies-advanced.v9.yaml"},
 					SourceCode: &extractor.SourceCodeIdentifier{},
-					Metadata: lockfilescalibr.DepGroupMetadata{
+					Metadata: othermetadata.DepGroupMetadata{
 						DepGroupVals: []string{},
 					},
 				},
@@ -152,7 +153,7 @@ func TestPnpmLockExtractor_Extract_v9(t *testing.T) {
 					Version:    "5.62.0",
 					Locations:  []string{"fixtures/pnpm/peer-dependencies-advanced.v9.yaml"},
 					SourceCode: &extractor.SourceCodeIdentifier{},
-					Metadata: lockfilescalibr.DepGroupMetadata{
+					Metadata: othermetadata.DepGroupMetadata{
 						DepGroupVals: []string{},
 					},
 				},
@@ -161,7 +162,7 @@ func TestPnpmLockExtractor_Extract_v9(t *testing.T) {
 					Version:    "5.62.0",
 					Locations:  []string{"fixtures/pnpm/peer-dependencies-advanced.v9.yaml"},
 					SourceCode: &extractor.SourceCodeIdentifier{},
-					Metadata: lockfilescalibr.DepGroupMetadata{
+					Metadata: othermetadata.DepGroupMetadata{
 						DepGroupVals: []string{},
 					},
 				},
@@ -170,7 +171,7 @@ func TestPnpmLockExtractor_Extract_v9(t *testing.T) {
 					Version:    "4.3.4",
 					Locations:  []string{"fixtures/pnpm/peer-dependencies-advanced.v9.yaml"},
 					SourceCode: &extractor.SourceCodeIdentifier{},
-					Metadata: lockfilescalibr.DepGroupMetadata{
+					Metadata: othermetadata.DepGroupMetadata{
 						DepGroupVals: []string{},
 					},
 				},
@@ -179,7 +180,7 @@ func TestPnpmLockExtractor_Extract_v9(t *testing.T) {
 					Version:    "8.57.0",
 					Locations:  []string{"fixtures/pnpm/peer-dependencies-advanced.v9.yaml"},
 					SourceCode: &extractor.SourceCodeIdentifier{},
-					Metadata: lockfilescalibr.DepGroupMetadata{
+					Metadata: othermetadata.DepGroupMetadata{
 						DepGroupVals: []string{},
 					},
 				},
@@ -188,7 +189,7 @@ func TestPnpmLockExtractor_Extract_v9(t *testing.T) {
 					Version:    "4.0.0",
 					Locations:  []string{"fixtures/pnpm/peer-dependencies-advanced.v9.yaml"},
 					SourceCode: &extractor.SourceCodeIdentifier{},
-					Metadata: lockfilescalibr.DepGroupMetadata{
+					Metadata: othermetadata.DepGroupMetadata{
 						DepGroupVals: []string{},
 					},
 				},
@@ -197,7 +198,7 @@ func TestPnpmLockExtractor_Extract_v9(t *testing.T) {
 					Version:    "7.2.0",
 					Locations:  []string{"fixtures/pnpm/peer-dependencies-advanced.v9.yaml"},
 					SourceCode: &extractor.SourceCodeIdentifier{},
-					Metadata: lockfilescalibr.DepGroupMetadata{
+					Metadata: othermetadata.DepGroupMetadata{
 						DepGroupVals: []string{},
 					},
 				},
@@ -206,7 +207,7 @@ func TestPnpmLockExtractor_Extract_v9(t *testing.T) {
 					Version:    "3.21.0",
 					Locations:  []string{"fixtures/pnpm/peer-dependencies-advanced.v9.yaml"},
 					SourceCode: &extractor.SourceCodeIdentifier{},
-					Metadata: lockfilescalibr.DepGroupMetadata{
+					Metadata: othermetadata.DepGroupMetadata{
 						DepGroupVals: []string{},
 					},
 				},
@@ -215,7 +216,7 @@ func TestPnpmLockExtractor_Extract_v9(t *testing.T) {
 					Version:    "4.9.5",
 					Locations:  []string{"fixtures/pnpm/peer-dependencies-advanced.v9.yaml"},
 					SourceCode: &extractor.SourceCodeIdentifier{},
-					Metadata: lockfilescalibr.DepGroupMetadata{
+					Metadata: othermetadata.DepGroupMetadata{
 						DepGroupVals: []string{},
 					},
 				},
@@ -232,7 +233,7 @@ func TestPnpmLockExtractor_Extract_v9(t *testing.T) {
 					Version:    "8.0.0",
 					Locations:  []string{"fixtures/pnpm/multiple-versions.v9.yaml"},
 					SourceCode: &extractor.SourceCodeIdentifier{},
-					Metadata: lockfilescalibr.DepGroupMetadata{
+					Metadata: othermetadata.DepGroupMetadata{
 						DepGroupVals: []string{},
 					},
 				},
@@ -241,7 +242,7 @@ func TestPnpmLockExtractor_Extract_v9(t *testing.T) {
 					Version:    "8.3.2",
 					Locations:  []string{"fixtures/pnpm/multiple-versions.v9.yaml"},
 					SourceCode: &extractor.SourceCodeIdentifier{},
-					Metadata: lockfilescalibr.DepGroupMetadata{
+					Metadata: othermetadata.DepGroupMetadata{
 						DepGroupVals: []string{},
 					},
 				},
@@ -250,7 +251,7 @@ func TestPnpmLockExtractor_Extract_v9(t *testing.T) {
 					Version:    "11.0.1",
 					Locations:  []string{"fixtures/pnpm/multiple-versions.v9.yaml"},
 					SourceCode: &extractor.SourceCodeIdentifier{},
-					Metadata: lockfilescalibr.DepGroupMetadata{
+					Metadata: othermetadata.DepGroupMetadata{
 						DepGroupVals: []string{},
 					},
 				},
@@ -269,7 +270,7 @@ func TestPnpmLockExtractor_Extract_v9(t *testing.T) {
 					SourceCode: &extractor.SourceCodeIdentifier{
 						Commit: "02fa893d619d3da85411acc8fd4e2eea0e95a9d9",
 					},
-					Metadata: lockfilescalibr.DepGroupMetadata{
+					Metadata: othermetadata.DepGroupMetadata{
 						DepGroupVals: []string{},
 					},
 				},
@@ -280,7 +281,7 @@ func TestPnpmLockExtractor_Extract_v9(t *testing.T) {
 					SourceCode: &extractor.SourceCodeIdentifier{
 						Commit: "98e8ff1da1a89f93d1397a24d7413ed15421c139",
 					},
-					Metadata: lockfilescalibr.DepGroupMetadata{
+					Metadata: othermetadata.DepGroupMetadata{
 						DepGroupVals: []string{},
 					},
 				},
@@ -297,7 +298,7 @@ func TestPnpmLockExtractor_Extract_v9(t *testing.T) {
 					Version:    "5.0.1",
 					Locations:  []string{"fixtures/pnpm/mixed-groups.v9.yaml"},
 					SourceCode: &extractor.SourceCodeIdentifier{},
-					Metadata: lockfilescalibr.DepGroupMetadata{
+					Metadata: othermetadata.DepGroupMetadata{
 						DepGroupVals: []string{},
 					},
 				},
@@ -306,7 +307,7 @@ func TestPnpmLockExtractor_Extract_v9(t *testing.T) {
 					Version:    "8.3.2",
 					Locations:  []string{"fixtures/pnpm/mixed-groups.v9.yaml"},
 					SourceCode: &extractor.SourceCodeIdentifier{},
-					Metadata: lockfilescalibr.DepGroupMetadata{
+					Metadata: othermetadata.DepGroupMetadata{
 						DepGroupVals: []string{},
 					},
 				},
@@ -315,7 +316,7 @@ func TestPnpmLockExtractor_Extract_v9(t *testing.T) {
 					Version:    "7.0.0",
 					Locations:  []string{"fixtures/pnpm/mixed-groups.v9.yaml"},
 					SourceCode: &extractor.SourceCodeIdentifier{},
-					Metadata: lockfilescalibr.DepGroupMetadata{
+					Metadata: othermetadata.DepGroupMetadata{
 						DepGroupVals: []string{},
 					},
 				},

@@ -10,6 +10,7 @@ import (
 
 	"github.com/google/osv-scanner/internal/lockfilescalibr/extractor"
 	"github.com/google/osv-scanner/internal/lockfilescalibr/filesystem"
+	"github.com/google/osv-scanner/internal/lockfilescalibr/othermetadata"
 	"github.com/google/osv-scanner/internal/lockfilescalibr/plugin"
 	"github.com/package-url/packageurl-go"
 )
@@ -131,7 +132,7 @@ func parseConanV1Lock(lockfile ConanLockFile) []*extractor.Inventory {
 		packages = append(packages, &extractor.Inventory{
 			Name:    reference.Name,
 			Version: reference.Version,
-			Metadata: DepGroupMetadata{
+			Metadata: othermetadata.DepGroupMetadata{
 				DepGroupVals: []string{},
 			},
 		})
@@ -152,7 +153,7 @@ func parseConanRequires(packages *[]*extractor.Inventory, requires []string, gro
 		*packages = append(*packages, &extractor.Inventory{
 			Name:    reference.Name,
 			Version: reference.Version,
-			Metadata: DepGroupMetadata{
+			Metadata: othermetadata.DepGroupMetadata{
 				DepGroupVals: []string{group},
 			},
 		})

@@ -11,6 +11,7 @@ import (
 
 	"github.com/google/osv-scanner/internal/lockfilescalibr/extractor"
 	"github.com/google/osv-scanner/internal/lockfilescalibr/filesystem"
+	"github.com/google/osv-scanner/internal/lockfilescalibr/othermetadata"
 	"github.com/google/osv-scanner/internal/lockfilescalibr/plugin"
 	"github.com/package-url/packageurl-go"
 	"gopkg.in/yaml.v3"
@@ -109,13 +110,13 @@ func (e PubspecLockExtractor) Extract(ctx context.Context, input *filesystem.Sca
 			SourceCode: &extractor.SourceCodeIdentifier{
 				Commit: pkg.Description.Ref,
 			},
-			Metadata: DepGroupMetadata{
+			Metadata: othermetadata.DepGroupMetadata{
 				DepGroupVals: []string{},
 			},
 		}
 		for _, str := range strings.Split(pkg.Dependency, " ") {
 			if str == "dev" {
-				pkgDetails.Metadata = DepGroupMetadata{
+				pkgDetails.Metadata = othermetadata.DepGroupMetadata{
 					DepGroupVals: []string{"dev"},
 				}
 

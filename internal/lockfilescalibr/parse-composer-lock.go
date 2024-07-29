@@ -9,6 +9,7 @@ import (
 
 	"github.com/google/osv-scanner/internal/lockfilescalibr/extractor"
 	"github.com/google/osv-scanner/internal/lockfilescalibr/filesystem"
+	"github.com/google/osv-scanner/internal/lockfilescalibr/othermetadata"
 	"github.com/google/osv-scanner/internal/lockfilescalibr/plugin"
 	"github.com/package-url/packageurl-go"
 )
@@ -68,7 +69,7 @@ func (e ComposerLockExtractor) Extract(ctx context.Context, input *filesystem.Sc
 			SourceCode: &extractor.SourceCodeIdentifier{
 				Commit: composerPackage.Dist.Reference,
 			},
-			Metadata: DepGroupMetadata{
+			Metadata: othermetadata.DepGroupMetadata{
 				DepGroupVals: []string{},
 			},
 		})
@@ -82,7 +83,7 @@ func (e ComposerLockExtractor) Extract(ctx context.Context, input *filesystem.Sc
 			SourceCode: &extractor.SourceCodeIdentifier{
 				Commit: composerPackage.Dist.Reference,
 			},
-			Metadata: DepGroupMetadata{
+			Metadata: othermetadata.DepGroupMetadata{
 				DepGroupVals: []string{"dev"},
 			},
 		})

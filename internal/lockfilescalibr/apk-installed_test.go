@@ -5,6 +5,7 @@ import (
 
 	"github.com/google/osv-scanner/internal/lockfilescalibr"
 	"github.com/google/osv-scanner/internal/lockfilescalibr/extractor"
+	"github.com/google/osv-scanner/internal/lockfilescalibr/othermetadata"
 	"github.com/google/osv-scanner/internal/lockfilescalibr/sharedtesthelpers"
 )
 
@@ -42,7 +43,7 @@ func TestApkInstalledExtractor_Extract(t *testing.T) {
 					SourceCode: &extractor.SourceCodeIdentifier{
 						Commit: "1dbf7a793afae640ea643a055b6dd4f430ac116b",
 					},
-					Metadata: lockfilescalibr.DistroVersionMetadata{
+					Metadata: othermetadata.DistroVersionMetadata{
 						DistroVersionStr: "v3.20",
 					},
 				},
@@ -62,7 +63,7 @@ func TestApkInstalledExtractor_Extract(t *testing.T) {
 					SourceCode: &extractor.SourceCodeIdentifier{
 						Commit: "0188f510baadbae393472103427b9c1875117136",
 					},
-					Metadata: lockfilescalibr.DistroVersionMetadata{
+					Metadata: othermetadata.DistroVersionMetadata{
 						DistroVersionStr: "v3.20",
 					},
 				},
@@ -82,7 +83,7 @@ func TestApkInstalledExtractor_Extract(t *testing.T) {
 					SourceCode: &extractor.SourceCodeIdentifier{
 						Commit: "0188f510baadbae393472103427b9c1875117136",
 					},
-					Metadata: lockfilescalibr.DistroVersionMetadata{
+					Metadata: othermetadata.DistroVersionMetadata{
 						DistroVersionStr: "v3.20",
 					},
 				},
@@ -102,7 +103,7 @@ func TestApkInstalledExtractor_Extract(t *testing.T) {
 					SourceCode: &extractor.SourceCodeIdentifier{
 						Commit: "bd965a7ebf7fd8f07d7a0cc0d7375bf3e4eb9b24",
 					},
-					Metadata: lockfilescalibr.DistroVersionMetadata{
+					Metadata: othermetadata.DistroVersionMetadata{
 						DistroVersionStr: "v3.20",
 					},
 				},
@@ -113,7 +114,7 @@ func TestApkInstalledExtractor_Extract(t *testing.T) {
 					SourceCode: &extractor.SourceCodeIdentifier{
 						Commit: "f93af038c3de7146121c2ea8124ba5ce29b4b058",
 					},
-					Metadata: lockfilescalibr.DistroVersionMetadata{
+					Metadata: othermetadata.DistroVersionMetadata{
 						DistroVersionStr: "v3.20",
 					},
 				},
@@ -124,7 +125,7 @@ func TestApkInstalledExtractor_Extract(t *testing.T) {
 					SourceCode: &extractor.SourceCodeIdentifier{
 						Commit: "1dbf7a793afae640ea643a055b6dd4f430ac116b",
 					},
-					Metadata: lockfilescalibr.DistroVersionMetadata{
+					Metadata: othermetadata.DistroVersionMetadata{
 						DistroVersionStr: "v3.20",
 					},
 				},

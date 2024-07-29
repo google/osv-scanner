@@ -5,6 +5,7 @@ import (
 
 	"github.com/google/osv-scanner/internal/lockfilescalibr"
 	"github.com/google/osv-scanner/internal/lockfilescalibr/extractor"
+	"github.com/google/osv-scanner/internal/lockfilescalibr/othermetadata"
 	"github.com/google/osv-scanner/internal/lockfilescalibr/sharedtesthelpers"
 )
 
@@ -110,7 +111,7 @@ func TestPubspecLockExtractor_Extract(t *testing.T) {
 					SourceCode: &extractor.SourceCodeIdentifier{
 						Commit: "",
 					},
-					Metadata: lockfilescalibr.DepGroupMetadata{
+					Metadata: othermetadata.DepGroupMetadata{
 						DepGroupVals: []string{},
 					},
 				},
@@ -129,7 +130,7 @@ func TestPubspecLockExtractor_Extract(t *testing.T) {
 					SourceCode: &extractor.SourceCodeIdentifier{
 						Commit: "",
 					},
-					Metadata: lockfilescalibr.DepGroupMetadata{
+					Metadata: othermetadata.DepGroupMetadata{
 						DepGroupVals: []string{"dev"},
 					},
 				},
@@ -148,7 +149,7 @@ func TestPubspecLockExtractor_Extract(t *testing.T) {
 					SourceCode: &extractor.SourceCodeIdentifier{
 						Commit: "",
 					},
-					Metadata: lockfilescalibr.DepGroupMetadata{
+					Metadata: othermetadata.DepGroupMetadata{
 						DepGroupVals: []string{},
 					},
 				},
@@ -159,7 +160,7 @@ func TestPubspecLockExtractor_Extract(t *testing.T) {
 					SourceCode: &extractor.SourceCodeIdentifier{
 						Commit: "",
 					},
-					Metadata: lockfilescalibr.DepGroupMetadata{
+					Metadata: othermetadata.DepGroupMetadata{
 						DepGroupVals: []string{},
 					},
 				},
@@ -178,7 +179,7 @@ func TestPubspecLockExtractor_Extract(t *testing.T) {
 					SourceCode: &extractor.SourceCodeIdentifier{
 						Commit: "",
 					},
-					Metadata: lockfilescalibr.DepGroupMetadata{
+					Metadata: othermetadata.DepGroupMetadata{
 						DepGroupVals: []string{},
 					},
 				},
@@ -189,7 +190,7 @@ func TestPubspecLockExtractor_Extract(t *testing.T) {
 					SourceCode: &extractor.SourceCodeIdentifier{
 						Commit: "",
 					},
-					Metadata: lockfilescalibr.DepGroupMetadata{
+					Metadata: othermetadata.DepGroupMetadata{
 						DepGroupVals: []string{"dev"},
 					},
 				},
@@ -200,7 +201,7 @@ func TestPubspecLockExtractor_Extract(t *testing.T) {
 					SourceCode: &extractor.SourceCodeIdentifier{
 						Commit: "",
 					},
-					Metadata: lockfilescalibr.DepGroupMetadata{
+					Metadata: othermetadata.DepGroupMetadata{
 						DepGroupVals: []string{},
 					},
 				},
@@ -211,7 +212,7 @@ func TestPubspecLockExtractor_Extract(t *testing.T) {
 					SourceCode: &extractor.SourceCodeIdentifier{
 						Commit: "",
 					},
-					Metadata: lockfilescalibr.DepGroupMetadata{
+					Metadata: othermetadata.DepGroupMetadata{
 						DepGroupVals: []string{},
 					},
 				},
@@ -230,7 +231,7 @@ func TestPubspecLockExtractor_Extract(t *testing.T) {
 					SourceCode: &extractor.SourceCodeIdentifier{
 						Commit: "e5adce55eea0b74d3680e66a2c5252edf17b07e1",
 					},
-					Metadata: lockfilescalibr.DepGroupMetadata{
+					Metadata: othermetadata.DepGroupMetadata{
 						DepGroupVals: []string{},
 					},
 				},
@@ -241,7 +242,7 @@ func TestPubspecLockExtractor_Extract(t *testing.T) {
 					SourceCode: &extractor.SourceCodeIdentifier{
 						Commit: "406b9b038b2c1d779f1e7bf609c8c248be247372",
 					},
-					Metadata: lockfilescalibr.DepGroupMetadata{
+					Metadata: othermetadata.DepGroupMetadata{
 						DepGroupVals: []string{},
 					},
 				},
@@ -252,7 +253,7 @@ func TestPubspecLockExtractor_Extract(t *testing.T) {
 					SourceCode: &extractor.SourceCodeIdentifier{
 						Commit: "3aa37c86e47ea748e7b5507cbe59f2c54ebdb23a",
 					},
-					Metadata: lockfilescalibr.DepGroupMetadata{
+					Metadata: othermetadata.DepGroupMetadata{
 						DepGroupVals: []string{},
 					},
 				},
@@ -263,7 +264,7 @@ func TestPubspecLockExtractor_Extract(t *testing.T) {
 					SourceCode: &extractor.SourceCodeIdentifier{
 						Commit: "88487257cbafc501599ab4f82ec343b46acec020",
 					},
-					Metadata: lockfilescalibr.DepGroupMetadata{
+					Metadata: othermetadata.DepGroupMetadata{
 						DepGroupVals: []string{},
 					},
 				},
@@ -274,7 +275,7 @@ func TestPubspecLockExtractor_Extract(t *testing.T) {
 					SourceCode: &extractor.SourceCodeIdentifier{
 						Commit: "",
 					},
-					Metadata: lockfilescalibr.DepGroupMetadata{
+					Metadata: othermetadata.DepGroupMetadata{
 						DepGroupVals: []string{},
 					},
 				},
@@ -293,7 +294,7 @@ func TestPubspecLockExtractor_Extract(t *testing.T) {
 					SourceCode: &extractor.SourceCodeIdentifier{
 						Commit: "",
 					},
-					Metadata: lockfilescalibr.DepGroupMetadata{
+					Metadata: othermetadata.DepGroupMetadata{
 						DepGroupVals: []string{},
 					},
 				},
@@ -312,7 +313,7 @@ func TestPubspecLockExtractor_Extract(t *testing.T) {
 					SourceCode: &extractor.SourceCodeIdentifier{
 						Commit: "",
 					},
-					Metadata: lockfilescalibr.DepGroupMetadata{
+					Metadata: othermetadata.DepGroupMetadata{
 						DepGroupVals: []string{},
 					},
 				},

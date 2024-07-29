@@ -11,6 +11,7 @@ import (
 
 	"github.com/google/osv-scanner/internal/lockfilescalibr/extractor"
 	"github.com/google/osv-scanner/internal/lockfilescalibr/filesystem"
+	"github.com/google/osv-scanner/internal/lockfilescalibr/othermetadata"
 	"github.com/google/osv-scanner/internal/lockfilescalibr/plugin"
 	"github.com/package-url/packageurl-go"
 	"golang.org/x/exp/maps"
@@ -258,7 +259,7 @@ func (e NpmLockExtractor) Extract(ctx context.Context, input *filesystem.ScanInp
 				Commit: pkg.Commit,
 			},
 			Version: pkg.Version,
-			Metadata: DepGroupMetadata{
+			Metadata: othermetadata.DepGroupMetadata{
 				DepGroupVals: pkg.DepGroups,
 			},
 			Locations: []string{input.Path},

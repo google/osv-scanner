@@ -5,6 +5,7 @@ import (
 
 	"github.com/google/osv-scanner/internal/lockfilescalibr"
 	"github.com/google/osv-scanner/internal/lockfilescalibr/extractor"
+	"github.com/google/osv-scanner/internal/lockfilescalibr/othermetadata"
 	"github.com/google/osv-scanner/internal/lockfilescalibr/sharedtesthelpers"
 )
 
@@ -100,7 +101,7 @@ func TestPipenvLockExtractor_Extract(t *testing.T) {
 					Name:      "markupsafe",
 					Version:   "2.1.1",
 					Locations: []string{"fixtures/pipenv/one-package.json"},
-					Metadata: lockfilescalibr.DepGroupMetadata{
+					Metadata: othermetadata.DepGroupMetadata{
 						DepGroupVals: []string{},
 					},
 				},
@@ -116,7 +117,7 @@ func TestPipenvLockExtractor_Extract(t *testing.T) {
 					Name:      "markupsafe",
 					Version:   "2.1.1",
 					Locations: []string{"fixtures/pipenv/one-package-dev.json"},
-					Metadata: lockfilescalibr.DepGroupMetadata{
+					Metadata: othermetadata.DepGroupMetadata{
 						DepGroupVals: []string{"dev"},
 					},
 				},
@@ -132,7 +133,7 @@ func TestPipenvLockExtractor_Extract(t *testing.T) {
 					Name:      "itsdangerous",
 					Version:   "2.1.2",
 					Locations: []string{"fixtures/pipenv/two-packages.json"},
-					Metadata: lockfilescalibr.DepGroupMetadata{
+					Metadata: othermetadata.DepGroupMetadata{
 						DepGroupVals: []string{},
 					},
 				},
@@ -140,7 +141,7 @@ func TestPipenvLockExtractor_Extract(t *testing.T) {
 					Name:      "markupsafe",
 					Version:   "2.1.1",
 					Locations: []string{"fixtures/pipenv/two-packages.json"},
-					Metadata: lockfilescalibr.DepGroupMetadata{
+					Metadata: othermetadata.DepGroupMetadata{
 						DepGroupVals: []string{"dev"},
 					},
 				},
@@ -156,7 +157,7 @@ func TestPipenvLockExtractor_Extract(t *testing.T) {
 					Name:      "itsdangerous",
 					Version:   "2.1.2",
 					Locations: []string{"fixtures/pipenv/two-packages-alt.json"},
-					Metadata: lockfilescalibr.DepGroupMetadata{
+					Metadata: othermetadata.DepGroupMetadata{
 						DepGroupVals: []string{},
 					},
 				},
@@ -164,7 +165,7 @@ func TestPipenvLockExtractor_Extract(t *testing.T) {
 					Name:      "markupsafe",
 					Version:   "2.1.1",
 					Locations: []string{"fixtures/pipenv/two-packages-alt.json"},
-					Metadata: lockfilescalibr.DepGroupMetadata{
+					Metadata: othermetadata.DepGroupMetadata{
 						DepGroupVals: []string{},
 					},
 				},
@@ -180,7 +181,7 @@ func TestPipenvLockExtractor_Extract(t *testing.T) {
 					Name:      "itsdangerous",
 					Version:   "2.1.2",
 					Locations: []string{"fixtures/pipenv/multiple-packages.json"},
-					Metadata: lockfilescalibr.DepGroupMetadata{
+					Metadata: othermetadata.DepGroupMetadata{
 						DepGroupVals: []string{},
 					},
 				},
@@ -188,7 +189,7 @@ func TestPipenvLockExtractor_Extract(t *testing.T) {
 					Name:      "pluggy",
 					Version:   "1.0.1",
 					Locations: []string{"fixtures/pipenv/multiple-packages.json"},
-					Metadata: lockfilescalibr.DepGroupMetadata{
+					Metadata: othermetadata.DepGroupMetadata{
 						DepGroupVals: []string{},
 					},
 				},
@@ -196,7 +197,7 @@ func TestPipenvLockExtractor_Extract(t *testing.T) {
 					Name:      "pluggy",
 					Version:   "1.0.0",
 					Locations: []string{"fixtures/pipenv/multiple-packages.json"},
-					Metadata: lockfilescalibr.DepGroupMetadata{
+					Metadata: othermetadata.DepGroupMetadata{
 						DepGroupVals: []string{"dev"},
 					},
 				},
@@ -204,7 +205,7 @@ func TestPipenvLockExtractor_Extract(t *testing.T) {
 					Name:      "markupsafe",
 					Version:   "2.1.1",
 					Locations: []string{"fixtures/pipenv/multiple-packages.json"},
-					Metadata: lockfilescalibr.DepGroupMetadata{
+					Metadata: othermetadata.DepGroupMetadata{
 						DepGroupVals: []string{},
 					},
 				},

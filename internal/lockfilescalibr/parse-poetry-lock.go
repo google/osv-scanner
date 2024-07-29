@@ -9,6 +9,7 @@ import (
 	"github.com/BurntSushi/toml"
 	"github.com/google/osv-scanner/internal/lockfilescalibr/extractor"
 	"github.com/google/osv-scanner/internal/lockfilescalibr/filesystem"
+	"github.com/google/osv-scanner/internal/lockfilescalibr/othermetadata"
 	"github.com/google/osv-scanner/internal/lockfilescalibr/plugin"
 	"github.com/package-url/packageurl-go"
 )
@@ -69,11 +70,11 @@ func (e PoetryLockExtractor) Extract(ctx context.Context, input *filesystem.Scan
 			},
 		}
 		if lockPackage.Optional {
-			pkgDetails.Metadata = DepGroupMetadata{
+			pkgDetails.Metadata = othermetadata.DepGroupMetadata{
 				DepGroupVals: []string{"optional"},
 			}
 		} else {
-			pkgDetails.Metadata = DepGroupMetadata{
+			pkgDetails.Metadata = othermetadata.DepGroupMetadata{
 				DepGroupVals: []string{},
 			}
 		}

@@ -34,7 +34,7 @@ def genInventory(path, valueList: list[InventoryItem]) -> str:
             current += f'SourceCode: &extractor.SourceCodeIdentifier{{\nCommit: "{i.commit}",\n}},\n'
 
         if expectDepGroups:
-            current += f"Metadata: lockfilescalibr.DepGroupMetadata{{\nDepGroupVals: []string{{{', '.join(i.depGroups or [])}}},\n}},\n"
+            current += f"Metadata: othermetadata.DepGroupMetadata{{\nDepGroupVals: []string{{{', '.join(i.depGroups or [])}}},\n}},\n"
 
         current += '},'
         buildStr += current

@@ -12,6 +12,7 @@ import (
 	"github.com/google/osv-scanner/internal/cachedregexp"
 	"github.com/google/osv-scanner/internal/lockfilescalibr/extractor"
 	"github.com/google/osv-scanner/internal/lockfilescalibr/filesystem"
+	"github.com/google/osv-scanner/internal/lockfilescalibr/othermetadata"
 	"github.com/google/osv-scanner/internal/lockfilescalibr/plugin"
 	"github.com/package-url/packageurl-go"
 	"golang.org/x/exp/maps"
@@ -143,13 +144,13 @@ func (e MavenLockExtractor) Extract(ctx context.Context, input *filesystem.ScanI
 			Name:      finalName,
 			Version:   lockPackage.ResolveVersion(*parsedLockfile),
 			Locations: []string{input.Path},
-			Metadata: DepGroupMetadata{
+			Metadata: othermetadata.DepGroupMetadata{
 				DepGroupVals: []string{},
 			},
 		}
 		if scope := strings.TrimSpace(lockPackage.Scope); scope != "" && scope != "compile" {
 			// Only append non-default scope (compile is the default scope).
-			pkgDetails.Metadata = DepGroupMetadata{
+			pkgDetails.Metadata = othermetadata.DepGroupMetadata{
 				DepGroupVals: []string{scope},
 			}
 		}
@@ -164,13 +165,13 @@ func (e MavenLockExtractor) Extract(ctx context.Context, input *filesystem.ScanI
 			Name:      finalName,
 			Version:   lockPackage.ResolveVersion(*parsedLockfile),
 			Locations: []string{input.Path},
-			Metadata: DepGroupMetadata{
+			Metadata: othermetadata.DepGroupMetadata{
 				DepGroupVals: []string{},
 			},
 		}
 		if scope := strings.TrimSpace(lockPackage.Scope); scope != "" && scope != "compile" {
 			// Only append non-default scope (compile is the default scope).
-			pkgDetails.Metadata = DepGroupMetadata{
+			pkgDetails.Metadata = othermetadata.DepGroupMetadata{
 				DepGroupVals: []string{scope},
 			}
 		}

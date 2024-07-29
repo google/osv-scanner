@@ -6,6 +6,7 @@ import (
 
 	"github.com/google/osv-scanner/internal/lockfilescalibr"
 	"github.com/google/osv-scanner/internal/lockfilescalibr/extractor"
+	"github.com/google/osv-scanner/internal/lockfilescalibr/othermetadata"
 	"github.com/google/osv-scanner/internal/lockfilescalibr/sharedtesthelpers"
 )
 
@@ -101,7 +102,7 @@ func TestRequirementsTxtExtractor_Extract(t *testing.T) {
 					Name:      "flask",
 					Version:   "0.0.0",
 					Locations: []string{"fixtures/pip/one-package-unconstrained.txt"},
-					Metadata: lockfilescalibr.DepGroupMetadata{
+					Metadata: othermetadata.DepGroupMetadata{
 						DepGroupVals: []string{"one-package-unconstrained"},
 					},
 				},
@@ -117,7 +118,7 @@ func TestRequirementsTxtExtractor_Extract(t *testing.T) {
 					Name:      "django",
 					Version:   "2.2.24",
 					Locations: []string{"fixtures/pip/one-package-constrained.txt"},
-					Metadata: lockfilescalibr.DepGroupMetadata{
+					Metadata: othermetadata.DepGroupMetadata{
 						DepGroupVals: []string{"one-package-constrained"},
 					},
 				},
@@ -133,7 +134,7 @@ func TestRequirementsTxtExtractor_Extract(t *testing.T) {
 					Name:      "astroid",
 					Version:   "2.5.1",
 					Locations: []string{"fixtures/pip/multiple-packages-constrained.txt"},
-					Metadata: lockfilescalibr.DepGroupMetadata{
+					Metadata: othermetadata.DepGroupMetadata{
 						DepGroupVals: []string{"multiple-packages-constrained"},
 					},
 				},
@@ -141,7 +142,7 @@ func TestRequirementsTxtExtractor_Extract(t *testing.T) {
 					Name:      "beautifulsoup4",
 					Version:   "4.9.3",
 					Locations: []string{"fixtures/pip/multiple-packages-constrained.txt"},
-					Metadata: lockfilescalibr.DepGroupMetadata{
+					Metadata: othermetadata.DepGroupMetadata{
 						DepGroupVals: []string{"multiple-packages-constrained"},
 					},
 				},
@@ -149,7 +150,7 @@ func TestRequirementsTxtExtractor_Extract(t *testing.T) {
 					Name:      "boto3",
 					Version:   "1.17.19",
 					Locations: []string{"fixtures/pip/multiple-packages-constrained.txt"},
-					Metadata: lockfilescalibr.DepGroupMetadata{
+					Metadata: othermetadata.DepGroupMetadata{
 						DepGroupVals: []string{"multiple-packages-constrained"},
 					},
 				},
@@ -157,7 +158,7 @@ func TestRequirementsTxtExtractor_Extract(t *testing.T) {
 					Name:      "botocore",
 					Version:   "1.20.19",
 					Locations: []string{"fixtures/pip/multiple-packages-constrained.txt"},
-					Metadata: lockfilescalibr.DepGroupMetadata{
+					Metadata: othermetadata.DepGroupMetadata{
 						DepGroupVals: []string{"multiple-packages-constrained"},
 					},
 				},
@@ -165,7 +166,7 @@ func TestRequirementsTxtExtractor_Extract(t *testing.T) {
 					Name:      "certifi",
 					Version:   "2020.12.5",
 					Locations: []string{"fixtures/pip/multiple-packages-constrained.txt"},
-					Metadata: lockfilescalibr.DepGroupMetadata{
+					Metadata: othermetadata.DepGroupMetadata{
 						DepGroupVals: []string{"multiple-packages-constrained"},
 					},
 				},
@@ -173,7 +174,7 @@ func TestRequirementsTxtExtractor_Extract(t *testing.T) {
 					Name:      "chardet",
 					Version:   "4.0.0",
 					Locations: []string{"fixtures/pip/multiple-packages-constrained.txt"},
-					Metadata: lockfilescalibr.DepGroupMetadata{
+					Metadata: othermetadata.DepGroupMetadata{
 						DepGroupVals: []string{"multiple-packages-constrained"},
 					},
 				},
@@ -181,7 +182,7 @@ func TestRequirementsTxtExtractor_Extract(t *testing.T) {
 					Name:      "circus",
 					Version:   "0.17.1",
 					Locations: []string{"fixtures/pip/multiple-packages-constrained.txt"},
-					Metadata: lockfilescalibr.DepGroupMetadata{
+					Metadata: othermetadata.DepGroupMetadata{
 						DepGroupVals: []string{"multiple-packages-constrained"},
 					},
 				},
@@ -189,7 +190,7 @@ func TestRequirementsTxtExtractor_Extract(t *testing.T) {
 					Name:      "click",
 					Version:   "7.1.2",
 					Locations: []string{"fixtures/pip/multiple-packages-constrained.txt"},
-					Metadata: lockfilescalibr.DepGroupMetadata{
+					Metadata: othermetadata.DepGroupMetadata{
 						DepGroupVals: []string{"multiple-packages-constrained"},
 					},
 				},
@@ -197,7 +198,7 @@ func TestRequirementsTxtExtractor_Extract(t *testing.T) {
 					Name:      "django-debug-toolbar",
 					Version:   "3.2.1",
 					Locations: []string{"fixtures/pip/multiple-packages-constrained.txt"},
-					Metadata: lockfilescalibr.DepGroupMetadata{
+					Metadata: othermetadata.DepGroupMetadata{
 						DepGroupVals: []string{"multiple-packages-constrained"},
 					},
 				},
@@ -205,7 +206,7 @@ func TestRequirementsTxtExtractor_Extract(t *testing.T) {
 					Name:      "django-filter",
 					Version:   "2.4.0",
 					Locations: []string{"fixtures/pip/multiple-packages-constrained.txt"},
-					Metadata: lockfilescalibr.DepGroupMetadata{
+					Metadata: othermetadata.DepGroupMetadata{
 						DepGroupVals: []string{"multiple-packages-constrained"},
 					},
 				},
@@ -213,7 +214,7 @@ func TestRequirementsTxtExtractor_Extract(t *testing.T) {
 					Name:      "django-nose",
 					Version:   "1.4.7",
 					Locations: []string{"fixtures/pip/multiple-packages-constrained.txt"},
-					Metadata: lockfilescalibr.DepGroupMetadata{
+					Metadata: othermetadata.DepGroupMetadata{
 						DepGroupVals: []string{"multiple-packages-constrained"},
 					},
 				},
@@ -221,7 +222,7 @@ func TestRequirementsTxtExtractor_Extract(t *testing.T) {
 					Name:      "django-storages",
 					Version:   "1.11.1",
 					Locations: []string{"fixtures/pip/multiple-packages-constrained.txt"},
-					Metadata: lockfilescalibr.DepGroupMetadata{
+					Metadata: othermetadata.DepGroupMetadata{
 						DepGroupVals: []string{"multiple-packages-constrained"},
 					},
 				},
@@ -229,7 +230,7 @@ func TestRequirementsTxtExtractor_Extract(t *testing.T) {
 					Name:      "django",
 					Version:   "2.2.24",
 					Locations: []string{"fixtures/pip/multiple-packages-constrained.txt"},
-					Metadata: lockfilescalibr.DepGroupMetadata{
+					Metadata: othermetadata.DepGroupMetadata{
 						DepGroupVals: []string{"multiple-packages-constrained"},
 					},
 				},
@@ -245,7 +246,7 @@ func TestRequirementsTxtExtractor_Extract(t *testing.T) {
 					Name:      "flask",
 					Version:   "0.0.0",
 					Locations: []string{"fixtures/pip/multiple-packages-mixed.txt"},
-					Metadata: lockfilescalibr.DepGroupMetadata{
+					Metadata: othermetadata.DepGroupMetadata{
 						DepGroupVals: []string{"multiple-packages-mixed"},
 					},
 				},
@@ -253,7 +254,7 @@ func TestRequirementsTxtExtractor_Extract(t *testing.T) {
 					Name:      "flask-cors",
 					Version:   "0.0.0",
 					Locations: []string{"fixtures/pip/multiple-packages-mixed.txt"},
-					Metadata: lockfilescalibr.DepGroupMetadata{
+					Metadata: othermetadata.DepGroupMetadata{
 						DepGroupVals: []string{"multiple-packages-mixed"},
 					},
 				},
@@ -261,7 +262,7 @@ func TestRequirementsTxtExtractor_Extract(t *testing.T) {
 					Name:      "pandas",
 					Version:   "0.23.4",
 					Locations: []string{"fixtures/pip/multiple-packages-mixed.txt"},
-					Metadata: lockfilescalibr.DepGroupMetadata{
+					Metadata: othermetadata.DepGroupMetadata{
 						DepGroupVals: []string{"multiple-packages-mixed"},
 					},
 				},
@@ -269,7 +270,7 @@ func TestRequirementsTxtExtractor_Extract(t *testing.T) {
 					Name:      "numpy",
 					Version:   "1.16.0",
 					Locations: []string{"fixtures/pip/multiple-packages-mixed.txt"},
-					Metadata: lockfilescalibr.DepGroupMetadata{
+					Metadata: othermetadata.DepGroupMetadata{
 						DepGroupVals: []string{"multiple-packages-mixed"},
 					},
 				},
@@ -277,7 +278,7 @@ func TestRequirementsTxtExtractor_Extract(t *testing.T) {
 					Name:      "scikit-learn",
 					Version:   "0.20.1",
 					Locations: []string{"fixtures/pip/multiple-packages-mixed.txt"},
-					Metadata: lockfilescalibr.DepGroupMetadata{
+					Metadata: othermetadata.DepGroupMetadata{
 						DepGroupVals: []string{"multiple-packages-mixed"},
 					},
 				},
@@ -285,7 +286,7 @@ func TestRequirementsTxtExtractor_Extract(t *testing.T) {
 					Name:      "sklearn",
 					Version:   "0.0.0",
 					Locations: []string{"fixtures/pip/multiple-packages-mixed.txt"},
-					Metadata: lockfilescalibr.DepGroupMetadata{
+					Metadata: othermetadata.DepGroupMetadata{
 						DepGroupVals: []string{"multiple-packages-mixed"},
 					},
 				},
@@ -293,7 +294,7 @@ func TestRequirementsTxtExtractor_Extract(t *testing.T) {
 					Name:      "requests",
 					Version:   "0.0.0",
 					Locations: []string{"fixtures/pip/multiple-packages-mixed.txt"},
-					Metadata: lockfilescalibr.DepGroupMetadata{
+					Metadata: othermetadata.DepGroupMetadata{
 						DepGroupVals: []string{"multiple-packages-mixed"},
 					},
 				},
@@ -301,7 +302,7 @@ func TestRequirementsTxtExtractor_Extract(t *testing.T) {
 					Name:      "gevent",
 					Version:   "0.0.0",
 					Locations: []string{"fixtures/pip/multiple-packages-mixed.txt"},
-					Metadata: lockfilescalibr.DepGroupMetadata{
+					Metadata: othermetadata.DepGroupMetadata{
 						DepGroupVals: []string{"multiple-packages-mixed"},
 					},
 				},
@@ -317,7 +318,7 @@ func TestRequirementsTxtExtractor_Extract(t *testing.T) {
 					Name:      "twisted",
 					Version:   "20.3.0",
 					Locations: []string{"fixtures/pip/with-added-support.txt"},
-					Metadata: lockfilescalibr.DepGroupMetadata{
+					Metadata: othermetadata.DepGroupMetadata{
 						DepGroupVals: []string{"with-added-support"},
 					},
 				},
@@ -333,7 +334,7 @@ func TestRequirementsTxtExtractor_Extract(t *testing.T) {
 					Name:      "zope-interface",
 					Version:   "5.4.0",
 					Locations: []string{"fixtures/pip/non-normalized-names.txt"},
-					Metadata: lockfilescalibr.DepGroupMetadata{
+					Metadata: othermetadata.DepGroupMetadata{
 						DepGroupVals: []string{"non-normalized-names"},
 					},
 				},
@@ -341,7 +342,7 @@ func TestRequirementsTxtExtractor_Extract(t *testing.T) {
 					Name:      "pillow",
 					Version:   "1.0.0",
 					Locations: []string{"fixtures/pip/non-normalized-names.txt"},
-					Metadata: lockfilescalibr.DepGroupMetadata{
+					Metadata: othermetadata.DepGroupMetadata{
 						DepGroupVals: []string{"non-normalized-names"},
 					},
 				},
@@ -349,7 +350,7 @@ func TestRequirementsTxtExtractor_Extract(t *testing.T) {
 					Name:      "twisted",
 					Version:   "20.3.0",
 					Locations: []string{"fixtures/pip/non-normalized-names.txt"},
-					Metadata: lockfilescalibr.DepGroupMetadata{
+					Metadata: othermetadata.DepGroupMetadata{
 						DepGroupVals: []string{"non-normalized-names"},
 					},
 				},
@@ -365,7 +366,7 @@ func TestRequirementsTxtExtractor_Extract(t *testing.T) {
 					Name:      "boto3",
 					Version:   "1.26.121",
 					Locations: []string{"fixtures/pip/with-per-requirement-options.txt"},
-					Metadata: lockfilescalibr.DepGroupMetadata{
+					Metadata: othermetadata.DepGroupMetadata{
 						DepGroupVals: []string{"with-per-requirement-options"},
 					},
 				},
@@ -373,7 +374,7 @@ func TestRequirementsTxtExtractor_Extract(t *testing.T) {
 					Name:      "foo",
 					Version:   "1.0.0",
 					Locations: []string{"fixtures/pip/with-per-requirement-options.txt"},
-					Metadata: lockfilescalibr.DepGroupMetadata{
+					Metadata: othermetadata.DepGroupMetadata{
 						DepGroupVals: []string{"with-per-requirement-options"},
 					},
 				},
@@ -381,7 +382,7 @@ func TestRequirementsTxtExtractor_Extract(t *testing.T) {
 					Name:      "fooproject",
 					Version:   "1.2",
 					Locations: []string{"fixtures/pip/with-per-requirement-options.txt"},
-					Metadata: lockfilescalibr.DepGroupMetadata{
+					Metadata: othermetadata.DepGroupMetadata{
 						DepGroupVals: []string{"with-per-requirement-options"},
 					},
 				},
@@ -389,7 +390,7 @@ func TestRequirementsTxtExtractor_Extract(t *testing.T) {
 					Name:      "barproject",
 					Version:   "1.2",
 					Locations: []string{"fixtures/pip/with-per-requirement-options.txt"},
-					Metadata: lockfilescalibr.DepGroupMetadata{
+					Metadata: othermetadata.DepGroupMetadata{
 						DepGroupVals: []string{"with-per-requirement-options"},
 					},
 				},
@@ -405,7 +406,7 @@ func TestRequirementsTxtExtractor_Extract(t *testing.T) {
 					Name:      "foo",
 					Version:   "1.2.3",
 					Locations: []string{"fixtures/pip/line-continuation.txt"},
-					Metadata: lockfilescalibr.DepGroupMetadata{
+					Metadata: othermetadata.DepGroupMetadata{
 						DepGroupVals: []string{"line-continuation"},
 					},
 				},
@@ -413,7 +414,7 @@ func TestRequirementsTxtExtractor_Extract(t *testing.T) {
 					Name:      "bar",
 					Version:   "4.5\\\\",
 					Locations: []string{"fixtures/pip/line-continuation.txt"},
-					Metadata: lockfilescalibr.DepGroupMetadata{
+					Metadata: othermetadata.DepGroupMetadata{
 						DepGroupVals: []string{"line-continuation"},
 					},
 				},
@@ -421,7 +422,7 @@ func TestRequirementsTxtExtractor_Extract(t *testing.T) {
 					Name:      "baz",
 					Version:   "7.8.9",
 					Locations: []string{"fixtures/pip/line-continuation.txt"},
-					Metadata: lockfilescalibr.DepGroupMetadata{
+					Metadata: othermetadata.DepGroupMetadata{
 						DepGroupVals: []string{"line-continuation"},
 					},
 				},
@@ -429,7 +430,7 @@ func TestRequirementsTxtExtractor_Extract(t *testing.T) {
 					Name:      "qux",
 					Version:   "10.11.12",
 					Locations: []string{"fixtures/pip/line-continuation.txt"},
-					Metadata: lockfilescalibr.DepGroupMetadata{
+					Metadata: othermetadata.DepGroupMetadata{
 						DepGroupVals: []string{"line-continuation"},
 					},
 				},
@@ -461,7 +462,7 @@ func TestRequirementsTxtExtractor_Extract_WithRequirements(t *testing.T) {
 					Name:      "pytest",
 					Version:   "0.0.0",
 					Locations: []string{"fixtures/pip/file-format-example.txt"},
-					Metadata: lockfilescalibr.DepGroupMetadata{
+					Metadata: othermetadata.DepGroupMetadata{
 						DepGroupVals: []string{"file-format-example"},
 					},
 				},
@@ -469,7 +470,7 @@ func TestRequirementsTxtExtractor_Extract_WithRequirements(t *testing.T) {
 					Name:      "pytest-cov",
 					Version:   "0.0.0",
 					Locations: []string{"fixtures/pip/file-format-example.txt"},
-					Metadata: lockfilescalibr.DepGroupMetadata{
+					Metadata: othermetadata.DepGroupMetadata{
 						DepGroupVals: []string{"file-format-example"},
 					},
 				},
@@ -477,7 +478,7 @@ func TestRequirementsTxtExtractor_Extract_WithRequirements(t *testing.T) {
 					Name:      "beautifulsoup4",
 					Version:   "0.0.0",
 					Locations: []string{"fixtures/pip/file-format-example.txt"},
-					Metadata: lockfilescalibr.DepGroupMetadata{
+					Metadata: othermetadata.DepGroupMetadata{
 						DepGroupVals: []string{"file-format-example"},
 					},
 				},
@@ -485,7 +486,7 @@ func TestRequirementsTxtExtractor_Extract_WithRequirements(t *testing.T) {
 					Name:      "docopt",
 					Version:   "0.6.1",
 					Locations: []string{"fixtures/pip/file-format-example.txt"},
-					Metadata: lockfilescalibr.DepGroupMetadata{
+					Metadata: othermetadata.DepGroupMetadata{
 						DepGroupVals: []string{"file-format-example"},
 					},
 				},
@@ -493,7 +494,7 @@ func TestRequirementsTxtExtractor_Extract_WithRequirements(t *testing.T) {
 					Name:      "keyring",
 					Version:   "4.1.1",
 					Locations: []string{"fixtures/pip/file-format-example.txt"},
-					Metadata: lockfilescalibr.DepGroupMetadata{
+					Metadata: othermetadata.DepGroupMetadata{
 						DepGroupVals: []string{"file-format-example"},
 					},
 				},
@@ -501,7 +502,7 @@ func TestRequirementsTxtExtractor_Extract_WithRequirements(t *testing.T) {
 					Name:      "coverage",
 					Version:   "0.0.0",
 					Locations: []string{"fixtures/pip/file-format-example.txt"},
-					Metadata: lockfilescalibr.DepGroupMetadata{
+					Metadata: othermetadata.DepGroupMetadata{
 						DepGroupVals: []string{"file-format-example"},
 					},
 				},
@@ -509,7 +510,7 @@ func TestRequirementsTxtExtractor_Extract_WithRequirements(t *testing.T) {
 					Name:      "mopidy-dirble",
 					Version:   "1.1",
 					Locations: []string{"fixtures/pip/file-format-example.txt"},
-					Metadata: lockfilescalibr.DepGroupMetadata{
+					Metadata: othermetadata.DepGroupMetadata{
 						DepGroupVals: []string{"file-format-example"},
 					},
 				},
@@ -517,7 +518,7 @@ func TestRequirementsTxtExtractor_Extract_WithRequirements(t *testing.T) {
 					Name:      "rejected",
 					Version:   "0.0.0",
 					Locations: []string{"fixtures/pip/file-format-example.txt"},
-					Metadata: lockfilescalibr.DepGroupMetadata{
+					Metadata: othermetadata.DepGroupMetadata{
 						DepGroupVals: []string{"file-format-example"},
 					},
 				},
@@ -525,7 +526,7 @@ func TestRequirementsTxtExtractor_Extract_WithRequirements(t *testing.T) {
 					Name:      "green",
 					Version:   "0.0.0",
 					Locations: []string{"fixtures/pip/file-format-example.txt"},
-					Metadata: lockfilescalibr.DepGroupMetadata{
+					Metadata: othermetadata.DepGroupMetadata{
 						DepGroupVals: []string{"file-format-example"},
 					},
 				},
@@ -533,7 +534,7 @@ func TestRequirementsTxtExtractor_Extract_WithRequirements(t *testing.T) {
 					Name:      "django",
 					Version:   "2.2.24",
 					Locations: []string{"fixtures/pip/file-format-example.txt"},
-					Metadata: lockfilescalibr.DepGroupMetadata{
+					Metadata: othermetadata.DepGroupMetadata{
 						DepGroupVals: []string{"other-file"},
 					},
 				},
@@ -549,7 +550,7 @@ func TestRequirementsTxtExtractor_Extract_WithRequirements(t *testing.T) {
 					Name:      "flask",
 					Version:   "0.0.0",
 					Locations: []string{"fixtures/pip/with-multiple-r-options.txt"},
-					Metadata: lockfilescalibr.DepGroupMetadata{
+					Metadata: othermetadata.DepGroupMetadata{
 						DepGroupVals: []string{"multiple-packages-mixed"},
 					},
 				},
@@ -557,7 +558,7 @@ func TestRequirementsTxtExtractor_Extract_WithRequirements(t *testing.T) {
 					Name:      "flask-cors",
 					Version:   "0.0.0",
 					Locations: []string{"fixtures/pip/with-multiple-r-options.txt"},
-					Metadata: lockfilescalibr.DepGroupMetadata{
+					Metadata: othermetadata.DepGroupMetadata{
 						DepGroupVals: []string{"multiple-packages-mixed"},
 					},
 				},
@@ -565,7 +566,7 @@ func TestRequirementsTxtExtractor_Extract_WithRequirements(t *testing.T) {
 					Name:      "pandas",
 					Version:   "0.23.4",
 					Locations: []string{"fixtures/pip/with-multiple-r-options.txt"},
-					Metadata: lockfilescalibr.DepGroupMetadata{
+					Metadata: othermetadata.DepGroupMetadata{
 						DepGroupVals: []string{"multiple-packages-mixed", "with-multiple-r-options"},
 					},
 				},
@@ -573,7 +574,7 @@ func TestRequirementsTxtExtractor_Extract_WithRequirements(t *testing.T) {
 					Name:      "numpy",
 					Version:   "1.16.0",
 					Locations: []string{"fixtures/pip/with-multiple-r-options.txt"},
-					Metadata: lockfilescalibr.DepGroupMetadata{
+					Metadata: othermetadata.DepGroupMetadata{
 						DepGroupVals: []string{"multiple-packages-mixed"},
 					},
 				},
@@ -581,7 +582,7 @@ func TestRequirementsTxtExtractor_Extract_WithRequirements(t *testing.T) {
 					Name:      "scikit-learn",
 					Version:   "0.20.1",
 					Locations: []string{"fixtures/pip/with-multiple-r-options.txt"},
-					Metadata: lockfilescalibr.DepGroupMetadata{
+					Metadata: othermetadata.DepGroupMetadata{
 						DepGroupVals: []string{"multiple-packages-mixed"},
 					},
 				},
@@ -589,7 +590,7 @@ func TestRequirementsTxtExtractor_Extract_WithRequirements(t *testing.T) {
 					Name:      "sklearn",
 					Version:   "0.0.0",
 					Locations: []string{"fixtures/pip/with-multiple-r-options.txt"},
-					Metadata: lockfilescalibr.DepGroupMetadata{
+					Metadata: othermetadata.DepGroupMetadata{
 						DepGroupVals: []string{"multiple-packages-mixed"},
 					},
 				},
@@ -597,7 +598,7 @@ func TestRequirementsTxtExtractor_Extract_WithRequirements(t *testing.T) {
 					Name:      "requests",
 					Version:   "0.0.0",
 					Locations: []string{"fixtures/pip/with-multiple-r-options.txt"},
-					Metadata: lockfilescalibr.DepGroupMetadata{
+					Metadata: othermetadata.DepGroupMetadata{
 						DepGroupVals: []string{"multiple-packages-mixed"},
 					},
 				},
@@ -605,7 +606,7 @@ func TestRequirementsTxtExtractor_Extract_WithRequirements(t *testing.T) {
 					Name:      "gevent",
 					Version:   "0.0.0",
 					Locations: []string{"fixtures/pip/with-multiple-r-options.txt"},
-					Metadata: lockfilescalibr.DepGroupMetadata{
+					Metadata: othermetadata.DepGroupMetadata{
 						DepGroupVals: []string{"multiple-packages-mixed"},
 					},
 				},
@@ -613,7 +614,7 @@ func TestRequirementsTxtExtractor_Extract_WithRequirements(t *testing.T) {
 					Name:      "requests",
 					Version:   "1.2.3",
 					Locations: []string{"fixtures/pip/with-multiple-r-options.txt"},
-					Metadata: lockfilescalibr.DepGroupMetadata{
+					Metadata: othermetadata.DepGroupMetadata{
 						DepGroupVals: []string{"with-multiple-r-options"},
 					},
 				},
@@ -621,7 +622,7 @@ func TestRequirementsTxtExtractor_Extract_WithRequirements(t *testing.T) {
 					Name:      "django",
 					Version:   "2.2.24",
 					Locations: []string{"fixtures/pip/with-multiple-r-options.txt"},
-					Metadata: lockfilescalibr.DepGroupMetadata{
+					Metadata: othermetadata.DepGroupMetadata{
 						DepGroupVals: []string{"one-package-constrained"},
 					},
 				},
@@ -643,7 +644,7 @@ func TestRequirementsTxtExtractor_Extract_WithRequirements(t *testing.T) {
 					Name:      "django",
 					Version:   "0.1.0",
 					Locations: []string{"fixtures/pip/duplicate-r-dev.txt"},
-					Metadata: lockfilescalibr.DepGroupMetadata{
+					Metadata: othermetadata.DepGroupMetadata{
 						DepGroupVals: []string{"duplicate-r-base"},
 					},
 				},
@@ -651,7 +652,7 @@ func TestRequirementsTxtExtractor_Extract_WithRequirements(t *testing.T) {
 					Name:      "pandas",
 					Version:   "0.23.4",
 					Locations: []string{"fixtures/pip/duplicate-r-dev.txt"},
-					Metadata: lockfilescalibr.DepGroupMetadata{
+					Metadata: othermetadata.DepGroupMetadata{
 						DepGroupVals: []string{"duplicate-r-dev"},
 					},
 				},
@@ -659,7 +660,7 @@ func TestRequirementsTxtExtractor_Extract_WithRequirements(t *testing.T) {
 					Name:      "requests",
 					Version:   "1.2.3",
 					Locations: []string{"fixtures/pip/duplicate-r-dev.txt"},
-					Metadata: lockfilescalibr.DepGroupMetadata{
+					Metadata: othermetadata.DepGroupMetadata{
 						DepGroupVals: []string{"duplicate-r-test", "duplicate-r-dev"},
 					},
 				},
@@ -667,7 +668,7 @@ func TestRequirementsTxtExtractor_Extract_WithRequirements(t *testing.T) {
 					Name:      "unittest",
 					Version:   "1.0.0",
 					Locations: []string{"fixtures/pip/duplicate-r-dev.txt"},
-					Metadata: lockfilescalibr.DepGroupMetadata{
+					Metadata: othermetadata.DepGroupMetadata{
 						DepGroupVals: []string{"duplicate-r-test"},
 					},
 				},
@@ -683,7 +684,7 @@ func TestRequirementsTxtExtractor_Extract_WithRequirements(t *testing.T) {
 					Name:      "pandas",
 					Version:   "0.23.4",
 					Locations: []string{"fixtures/pip/cyclic-r-self.txt"},
-					Metadata: lockfilescalibr.DepGroupMetadata{
+					Metadata: othermetadata.DepGroupMetadata{
 						DepGroupVals: []string{"cyclic-r-self"},
 					},
 				},
@@ -691,7 +692,7 @@ func TestRequirementsTxtExtractor_Extract_WithRequirements(t *testing.T) {
 					Name:      "requests",
 					Version:   "1.2.3",
 					Locations: []string{"fixtures/pip/cyclic-r-self.txt"},
-					Metadata: lockfilescalibr.DepGroupMetadata{
+					Metadata: othermetadata.DepGroupMetadata{
 						DepGroupVals: []string{"cyclic-r-self"},
 					},
 				},
@@ -707,7 +708,7 @@ func TestRequirementsTxtExtractor_Extract_WithRequirements(t *testing.T) {
 					Name:      "cyclic-r-complex",
 					Version:   "1",
 					Locations: []string{"fixtures/pip/cyclic-r-complex-1.txt"},
-					Metadata: lockfilescalibr.DepGroupMetadata{
+					Metadata: othermetadata.DepGroupMetadata{
 						DepGroupVals: []string{"cyclic-r-complex-1"},
 					},
 				},
@@ -715,7 +716,7 @@ func TestRequirementsTxtExtractor_Extract_WithRequirements(t *testing.T) {
 					Name:      "cyclic-r-complex",
 					Version:   "2",
 					Locations: []string{"fixtures/pip/cyclic-r-complex-1.txt"},
-					Metadata: lockfilescalibr.DepGroupMetadata{
+					Metadata: othermetadata.DepGroupMetadata{
 						DepGroupVals: []string{"cyclic-r-complex-2"},
 					},
 				},
@@ -723,7 +724,7 @@ func TestRequirementsTxtExtractor_Extract_WithRequirements(t *testing.T) {
 					Name:      "cyclic-r-complex",
 					Version:   "3",
 					Locations: []string{"fixtures/pip/cyclic-r-complex-1.txt"},
-					Metadata: lockfilescalibr.DepGroupMetadata{
+					Metadata: othermetadata.DepGroupMetadata{
 						DepGroupVals: []string{"cyclic-r-complex-3"},
 					},
 				},

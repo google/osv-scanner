@@ -10,6 +10,7 @@ import (
 
 	"github.com/google/osv-scanner/internal/lockfilescalibr/extractor"
 	"github.com/google/osv-scanner/internal/lockfilescalibr/filesystem"
+	"github.com/google/osv-scanner/internal/lockfilescalibr/othermetadata"
 	"github.com/google/osv-scanner/internal/lockfilescalibr/plugin"
 	"github.com/package-url/packageurl-go"
 )
@@ -97,7 +98,7 @@ func (e ApkInstalledExtractor) Extract(ctx context.Context, input *filesystem.Sc
 	alpineVersion, alpineVerErr := alpineReleaseExtractor(input.FS)
 	if alpineVerErr == nil { // TODO: Log error? We might not be on a alpine system
 		for i := range inventories {
-			inventories[i].Metadata = DistroVersionMetadata{
+			inventories[i].Metadata = othermetadata.DistroVersionMetadata{
 				DistroVersionStr: alpineVersion,
 			}
 		}
@@ -129,7 +130,7 @@ func (e ApkInstalledExtractor) Ecosystem(i *extractor.Inventory) (string, error)
 	switch i.Extractor.(type) {
 	case ApkInstalledExtractor:
 		if i.Metadata != nil {
-			return string(AlpineEcosystem) + ":" + i.Metadata.(DistroVersionMetadata).DistroVersionStr, nil
+			return string(AlpineEcosystem) + ":" + i.Metadata.(othermetadata.DistroVersionMetadata).DistroVersionStr, nil
 		} else {
 			return string(AlpineEcosystem), nil
 		}

@@ -5,6 +5,7 @@ import (
 
 	"github.com/google/osv-scanner/internal/lockfilescalibr"
 	"github.com/google/osv-scanner/internal/lockfilescalibr/extractor"
+	"github.com/google/osv-scanner/internal/lockfilescalibr/othermetadata"
 	"github.com/google/osv-scanner/internal/lockfilescalibr/sharedtesthelpers"
 )
 
@@ -108,7 +109,7 @@ func TestPdmLockExtractor_Extract(t *testing.T) {
 					Name:      "toml",
 					Version:   "0.10.2",
 					Locations: []string{"fixtures/pdm/single-package.toml"},
-					Metadata: lockfilescalibr.DepGroupMetadata{
+					Metadata: othermetadata.DepGroupMetadata{
 						DepGroupVals: []string{},
 					},
 				},
@@ -124,7 +125,7 @@ func TestPdmLockExtractor_Extract(t *testing.T) {
 					Name:      "toml",
 					Version:   "0.10.2",
 					Locations: []string{"fixtures/pdm/two-packages.toml"},
-					Metadata: lockfilescalibr.DepGroupMetadata{
+					Metadata: othermetadata.DepGroupMetadata{
 						DepGroupVals: []string{},
 					},
 				},
@@ -132,7 +133,7 @@ func TestPdmLockExtractor_Extract(t *testing.T) {
 					Name:      "six",
 					Version:   "1.16.0",
 					Locations: []string{"fixtures/pdm/two-packages.toml"},
-					Metadata: lockfilescalibr.DepGroupMetadata{
+					Metadata: othermetadata.DepGroupMetadata{
 						DepGroupVals: []string{},
 					},
 				},
@@ -148,7 +149,7 @@ func TestPdmLockExtractor_Extract(t *testing.T) {
 					Name:      "toml",
 					Version:   "0.10.2",
 					Locations: []string{"fixtures/pdm/dev-dependency.toml"},
-					Metadata: lockfilescalibr.DepGroupMetadata{
+					Metadata: othermetadata.DepGroupMetadata{
 						DepGroupVals: []string{},
 					},
 				},
@@ -156,7 +157,7 @@ func TestPdmLockExtractor_Extract(t *testing.T) {
 					Name:      "pyroute2",
 					Version:   "0.7.11",
 					Locations: []string{"fixtures/pdm/dev-dependency.toml"},
-					Metadata: lockfilescalibr.DepGroupMetadata{
+					Metadata: othermetadata.DepGroupMetadata{
 						DepGroupVals: []string{"dev"},
 					},
 				},
@@ -164,7 +165,7 @@ func TestPdmLockExtractor_Extract(t *testing.T) {
 					Name:      "win-inet-pton",
 					Version:   "1.1.0",
 					Locations: []string{"fixtures/pdm/dev-dependency.toml"},
-					Metadata: lockfilescalibr.DepGroupMetadata{
+					Metadata: othermetadata.DepGroupMetadata{
 						DepGroupVals: []string{"dev"},
 					},
 				},
@@ -180,7 +181,7 @@ func TestPdmLockExtractor_Extract(t *testing.T) {
 					Name:      "toml",
 					Version:   "0.10.2",
 					Locations: []string{"fixtures/pdm/optional-dependency.toml"},
-					Metadata: lockfilescalibr.DepGroupMetadata{
+					Metadata: othermetadata.DepGroupMetadata{
 						DepGroupVals: []string{},
 					},
 				},
@@ -188,7 +189,7 @@ func TestPdmLockExtractor_Extract(t *testing.T) {
 					Name:      "pyroute2",
 					Version:   "0.7.11",
 					Locations: []string{"fixtures/pdm/optional-dependency.toml"},
-					Metadata: lockfilescalibr.DepGroupMetadata{
+					Metadata: othermetadata.DepGroupMetadata{
 						DepGroupVals: []string{"optional"},
 					},
 				},
@@ -196,7 +197,7 @@ func TestPdmLockExtractor_Extract(t *testing.T) {
 					Name:      "win-inet-pton",
 					Version:   "1.1.0",
 					Locations: []string{"fixtures/pdm/optional-dependency.toml"},
-					Metadata: lockfilescalibr.DepGroupMetadata{
+					Metadata: othermetadata.DepGroupMetadata{
 						DepGroupVals: []string{"optional"},
 					},
 				},
@@ -212,7 +213,7 @@ func TestPdmLockExtractor_Extract(t *testing.T) {
 					Name:      "toml",
 					Version:   "0.10.2",
 					Locations: []string{"fixtures/pdm/git-dependency.toml"},
-					Metadata: lockfilescalibr.DepGroupMetadata{
+					Metadata: othermetadata.DepGroupMetadata{
 						DepGroupVals: []string{},
 					},
 					SourceCode: &extractor.SourceCodeIdentifier{

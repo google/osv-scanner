@@ -11,6 +11,7 @@ import (
 	"github.com/google/osv-scanner/internal/cachedregexp"
 	"github.com/google/osv-scanner/internal/lockfilescalibr/extractor"
 	"github.com/google/osv-scanner/internal/lockfilescalibr/filesystem"
+	"github.com/google/osv-scanner/internal/lockfilescalibr/othermetadata"
 	"github.com/google/osv-scanner/internal/lockfilescalibr/plugin"
 	"github.com/package-url/packageurl-go"
 	"golang.org/x/exp/maps"
@@ -55,7 +56,7 @@ func parseLine(line string) *extractor.Inventory {
 	return &extractor.Inventory{
 		Name:    normalizedRequirementName(name),
 		Version: version,
-		Metadata: DepGroupMetadata{
+		Metadata: othermetadata.DepGroupMetadata{
 			DepGroupVals: []string{},
 		},
 	}
@@ -255,11 +256,11 @@ func parseRequirementsTxt(input *filesystem.ScanInput, requiredAlready map[strin
 
 		d := inventories[key]
 
-		// Metadata will always be DepGroupMetadata, as that is what we construct at the
+		// Metadata will always be othermetadata.DepGroupMetadata, as that is what we construct at the
 		// start of this file
-		existingGroups := d.Metadata.(DepGroups).DepGroups()
+		existingGroups := d.Metadata.(othermetadata.DepGroups).DepGroups()
 		if !hasGroup(existingGroups) {
-			d.Metadata = DepGroupMetadata{
+			d.Metadata = othermetadata.DepGroupMetadata{
 				DepGroupVals: append(existingGroups, group),
 			}
 			inventories[key] = d
