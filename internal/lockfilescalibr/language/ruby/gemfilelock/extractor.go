@@ -1,4 +1,4 @@
-package lockfilescalibr
+package gemfilelock
 
 import (
 	"bufio"
@@ -16,7 +16,7 @@ import (
 	"github.com/package-url/packageurl-go"
 )
 
-const BundlerEcosystem Ecosystem = "RubyGems"
+const BundlerEcosystem string = "RubyGems"
 
 const lockfileSectionBUNDLED = "BUNDLED WITH"
 const lockfileSectionDEPENDENCIES = "DEPENDENCIES"
@@ -169,23 +169,23 @@ func (parser *gemfileLockfileParser) parse(line string) {
 	}
 }
 
-type GemfileLockExtractor struct{}
+type Extractor struct{}
 
 // Name of the extractor
-func (e GemfileLockExtractor) Name() string { return "ruby/gemfilelock" }
+func (e Extractor) Name() string { return "ruby/gemfilelock" }
 
 // Version of the extractor
-func (e GemfileLockExtractor) Version() int { return 0 }
+func (e Extractor) Version() int { return 0 }
 
-func (e GemfileLockExtractor) Requirements() *plugin.Requirements {
+func (e Extractor) Requirements() *plugin.Requirements {
 	return &plugin.Requirements{}
 }
 
-func (e GemfileLockExtractor) FileRequired(path string, fileInfo fs.FileInfo) bool {
+func (e Extractor) FileRequired(path string, fileInfo fs.FileInfo) bool {
 	return filepath.Base(path) == "Gemfile.lock"
 }
 
-func (e GemfileLockExtractor) Extract(ctx context.Context, input *filesystem.ScanInput) ([]*extractor.Inventory, error) {
+func (e Extractor) Extract(ctx context.Context, input *filesystem.ScanInput) ([]*extractor.Inventory, error) {
 	var parser gemfileLockfileParser
 	parser.location = input.Path
 
@@ -203,7 +203,7 @@ func (e GemfileLockExtractor) Extract(ctx context.Context, input *filesystem.Sca
 }
 
 // ToPURL converts an inventory created by this extractor into a PURL.
-func (e GemfileLockExtractor) ToPURL(i *extractor.Inventory) (*packageurl.PackageURL, error) {
+func (e Extractor) ToPURL(i *extractor.Inventory) (*packageurl.PackageURL, error) {
 	return &packageurl.PackageURL{
 		Type:    packageurl.TypeGem,
 		Name:    i.Name,
@@ -212,17 +212,12 @@ func (e GemfileLockExtractor) ToPURL(i *extractor.Inventory) (*packageurl.Packag
 }
 
 // ToCPEs is not applicable as this extractor does not infer CPEs from the Inventory.
-func (e GemfileLockExtractor) ToCPEs(i *extractor.Inventory) ([]string, error) {
+func (e Extractor) ToCPEs(i *extractor.Inventory) ([]string, error) {
 	return []string{}, nil
 }
 
-func (e GemfileLockExtractor) Ecosystem(i *extractor.Inventory) (string, error) {
-	switch i.Extractor.(type) {
-	case GemfileLockExtractor:
-		return string(BundlerEcosystem), nil
-	default:
-		return "", ErrWrongExtractor
-	}
+func (e Extractor) Ecosystem(i *extractor.Inventory) (string, error) {
+return BundlerEcosystem, nil
 }
 
-var _ filesystem.Extractor = GemfileLockExtractor{}
+var _ filesystem.Extractor = Extractor{}
