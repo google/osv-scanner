@@ -1,0 +1,4 @@
+-r ./cyclic-r-self.txt
+
+requests==1.2.3
+pandas==0.23.4
