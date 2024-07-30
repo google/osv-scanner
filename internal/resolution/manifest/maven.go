@@ -903,6 +903,7 @@ func writeString(enc *xml.Encoder, raw, tag string, values map[string]string) er
 			if value, ok2 := values[tt.Name.Local]; ok2 {
 				str = value
 			}
+			// Trim the white space before encoding the string, otherwise the text is escaped.
 			if err := enc.EncodeElement(strings.TrimSpace(str), tt); err != nil {
 				return err
 			}
