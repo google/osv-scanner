@@ -94,7 +94,7 @@ func (e GoBinaryExtractor) ToCPEs(i *extractor.Inventory) ([]string, error) { re
 func (e GoBinaryExtractor) Ecosystem(i *extractor.Inventory) (string, error) {
 	switch i.Extractor.(type) {
 	case GoBinaryExtractor:
-		return "go", nil
+		return "Go", nil
 	default:
 		return "", ErrWrongExtractor
 	}
