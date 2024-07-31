@@ -14,7 +14,7 @@ import (
 	v1 "github.com/google/go-containerregistry/pkg/v1"
 	"github.com/google/go-containerregistry/pkg/v1/tarball"
 	"github.com/google/osv-scanner/internal/image/thirdparty/trie"
-	"github.com/google/osv-scanner/internal/lockfilescalibr"
+	"github.com/google/osv-scanner/internal/lockfilescalibr/extractor"
 )
 
 const whiteoutPrefix = ".wh."
@@ -25,7 +25,7 @@ const dirPermission = 0700
 const filePermission = 0600
 
 type ScanResults struct {
-	Inventories []*lockfilescalibr.Inventory
+	Inventories []*extractor.Inventory
 	ImagePath   string
 }
 

@@ -7,22 +7,24 @@ import (
 	"io/fs"
 	"path/filepath"
 
-	"github.com/google/osv-scanner/internal/lockfilescalibr"
+	"github.com/google/osv-scanner/internal/lockfilescalibr/extractor"
+	"github.com/google/osv-scanner/internal/lockfilescalibr/filesystem"
+	"github.com/google/osv-scanner/internal/lockfilescalibr/language/alpine/apkinstalled"
 	"github.com/google/osv-scanner/pkg/lockfile"
 )
 
 // artifactExtractors contains only extractors for artifacts that are important in
 // the final layer of a container image
-var artifactExtractors map[string]lockfilescalibr.Extractor = map[string]lockfilescalibr.Extractor{
+var artifactExtractors map[string]filesystem.Extractor = map[string]filesystem.Extractor{
 	// "node_modules":  lockfile.NodeModulesExtractor{},
-	"apk-installed": lockfilescalibr.ApkInstalledExtractor{},
+	"apk-installed": apkinstalled.Extractor{},
 	// "dpkg":          lockfile.DpkgStatusExtractor{},
-	"go-binary": lockfilescalibr.GoBinaryExtractor{},
+	// "go-binary": lockfile.GoBinaryExtractor{},
 }
 
-func findArtifactExtractor(path string, fileInfo fs.FileInfo) []lockfilescalibr.Extractor {
+func findArtifactExtractor(path string, fileInfo fs.FileInfo) []filesystem.Extractor {
 	// Use ShouldExtract to collect and return a slice of artifactExtractors
-	var extractors []lockfilescalibr.Extractor
+	var extractors []filesystem.Extractor
 	for _, extractor := range artifactExtractors {
 		if extractor.FileRequired(path, fileInfo) {
 			extractors = append(extractors, extractor)
@@ -33,7 +35,7 @@ func findArtifactExtractor(path string, fileInfo fs.FileInfo) []lockfilescalibr.
 }
 
 // Note: Output is non deterministic
-func extractArtifactDeps(path string, img *Image) ([]*lockfilescalibr.Inventory, error) {
+func extractArtifactDeps(path string, img *Image) ([]*extractor.Inventory, error) {
 	pathFileInfo, err := img.LastLayer().Stat(path)
 	if err != nil {
 		return nil, fmt.Errorf("attempted to get FileInfo but failed: %w", err)
@@ -45,7 +47,7 @@ func extractArtifactDeps(path string, img *Image) ([]*lockfilescalibr.Inventory,
 		return nil, fmt.Errorf("%w for %s", lockfile.ErrExtractorNotFound, path)
 	}
 
-	inventories := []*lockfilescalibr.Inventory{}
+	inventories := []*extractor.Inventory{}
 	var extractedAs string
 	for _, extractor := range foundExtractors {
 		// File has to be reopened per extractor as each extractor moves the read cursor
@@ -54,7 +56,7 @@ func extractArtifactDeps(path string, img *Image) ([]*lockfilescalibr.Inventory,
 			return nil, fmt.Errorf("attempted to open file but failed: %w", err)
 		}
 
-		scanInput := &lockfilescalibr.ScanInput{
+		scanInput := &filesystem.ScanInput{
 			FS:       img.LastLayer(),
 			Path:     scalibrPath,
 			ScanRoot: "/",

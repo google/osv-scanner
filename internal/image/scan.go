@@ -6,7 +6,7 @@ import (
 	"slices"
 	"strings"
 
-	"github.com/google/osv-scanner/internal/lockfilescalibr"
+	"github.com/google/osv-scanner/internal/lockfilescalibr/extractor"
 	"github.com/google/osv-scanner/pkg/lockfile"
 	"github.com/google/osv-scanner/pkg/reporter"
 )
@@ -42,7 +42,7 @@ func ScanImage(r reporter.Reporter, imagePath string) (ScanResults, error) {
 	}
 
 	// Sort to have deterministic output, and to match behavior of lockfile.extractDeps
-	slices.SortFunc(scanResults.Inventories, func(a, b *lockfilescalibr.Inventory) int {
+	slices.SortFunc(scanResults.Inventories, func(a, b *extractor.Inventory) int {
 		// TODO: Should we consider errors here?
 		aPURL, _ := a.Extractor.ToPURL(a)
 		bPURL, _ := b.Extractor.ToPURL(b)

@@ -6,7 +6,7 @@ import (
 	"path/filepath"
 
 	"github.com/google/osv-scanner/internal/image/thirdparty/trie"
-	"github.com/google/osv-scanner/internal/lockfilescalibr"
+	"github.com/google/osv-scanner/internal/lockfilescalibr/plugin"
 )
 
 type fileType int
@@ -118,4 +118,4 @@ func (filemap fileMap) Stat(name string) (fs.FileInfo, error) {
 	return node.Info()
 }
 
-var _ lockfilescalibr.FS = fileMap{}
+var _ plugin.FS = fileMap{}
