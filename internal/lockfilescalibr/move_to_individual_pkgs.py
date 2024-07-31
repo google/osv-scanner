@@ -7,18 +7,19 @@ import sys
 import re
 import shutil
 import os
+import glob
 from dataclasses import dataclass
 
 filename = sys.argv[1]
-testFilename = Path(filename).stem + "_test.go"
+testFileNames = glob.glob(Path(filename).stem+"*"+"_test.go")
+
+
+# testFilename = Path(filename).stem + "_test.go"
 
 file = open(filename)
 allLines = file.readlines()
 file.close()
 
-file = open(testFilename)
-allLinesTest = file.readlines()
-file.close()
 
 structName = ""
 extName = ""
@@ -41,7 +42,6 @@ if not os.path.isdir(f"fixtures/{fixturesFolderName}"):
   exit()
 
 filePath = "language/" + extName + "/extractor.go"
-filePathTest = "language/" + extName + "/extractor_test.go"
 
 Path(filePath).parent.mkdir(parents=True, exist_ok=True)
 
@@ -77,38 +77,48 @@ f = open(filePath, "w")
 f.write(baseOutput)
 f.close()
 
-baseOutputTest = ""
+def moveTestFile(testPath: str):
+  file = open(testPath)
+  allLinesTest = file.readlines()
+  file.close()
+  outputPathTest =  "language/" + extName + f"/extractor{testPath.removeprefix(Path(filename).stem)}"
+  # print(outputPathTest)
+  baseOutputTest = ""
+  replaceFunction = False
 
-for line in allLinesTest:
-  if replaceFunction:
-    if line.rstrip() == "}":
-      replaceFunction = False
-    else:
+  # filePathTest = "language/" + extName + "/extractor_test.go"
+  for line in allLinesTest:
+    if replaceFunction:
+      if line.rstrip() == "}":
+        replaceFunction = False
+      else:
+        continue
+
+    if line.strip() == '"github.com/google/osv-scanner/internal/lockfilescalibr"':
       continue
 
-  if line.strip() == '"github.com/google/osv-scanner/internal/lockfilescalibr"':
-    continue
+    if line.strip() == '"github.com/google/osv-scanner/internal/lockfilescalibr/extractor"':
+      baseOutputTest += line
+      baseOutputTest += f'	"github.com/google/osv-scanner/internal/lockfilescalibr/language/{extName}"\n'
+      continue
 
-  if line.strip() == '"github.com/google/osv-scanner/internal/lockfilescalibr/extractor"':
+    line = line.replace(f"fixtures/{fixturesFolderName}/", "testdata/")
+    line = line.replace("package lockfilescalibr", f'package {pkgName}')
+    line = line.replace("Ecosystem = ", "string = ")
+    line = line.replace(f"lockfilescalibr.{structName}{{}}", f"{pkgName}.Extractor{{}}")
+    line = line.replace(structName, "Extractor")
+
     baseOutputTest += line
-    baseOutputTest += f'	"github.com/google/osv-scanner/internal/lockfilescalibr/language/{extName}"\n'
-    continue
-
-  line = line.replace(f"fixtures/{fixturesFolderName}/", "testdata/")
-  line = line.replace("package lockfilescalibr", f'package {pkgName}')
-  line = line.replace("Ecosystem = ", "string = ")
-  line = line.replace(f"lockfilescalibr.{structName}{{}}", f"{pkgName}.Extractor{{}}")
-  line = line.replace(structName, "Extractor")
-
-  baseOutputTest += line
 
 
-f = open(filePathTest, "w")
-f.write(baseOutputTest)
-f.close()
+  f = open(outputPathTest, "w")
+  f.write(baseOutputTest)
+  f.close()
+
+for i in testFileNames:
+  moveTestFile(i)
 
 testdataPath = Path("language/" + extName + "/testdata")
+
 testdataPath.mkdir(parents=True, exist_ok=True)
-
-
 shutil.copytree(f"fixtures/{fixturesFolderName}", testdataPath, dirs_exist_ok=True)
