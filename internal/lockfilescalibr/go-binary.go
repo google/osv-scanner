@@ -15,6 +15,8 @@ import (
 	"github.com/package-url/packageurl-go"
 )
 
+const GoEcosystem string = "Go"
+
 type GoBinaryExtractor struct{}
 
 // Name of the extractor
@@ -94,7 +96,7 @@ func (e GoBinaryExtractor) ToCPEs(i *extractor.Inventory) ([]string, error) { re
 func (e GoBinaryExtractor) Ecosystem(i *extractor.Inventory) (string, error) {
 	switch i.Extractor.(type) {
 	case GoBinaryExtractor:
-		return "Go", nil
+		return string(GoEcosystem), nil
 	default:
 		return "", ErrWrongExtractor
 	}

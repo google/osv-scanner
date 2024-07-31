@@ -1,15 +1,15 @@
-package lockfilescalibr_test
+package apkinstalled_test
 
 import (
 	"testing"
 
-	"github.com/google/osv-scanner/internal/lockfilescalibr"
 	"github.com/google/osv-scanner/internal/lockfilescalibr/extractor"
+	"github.com/google/osv-scanner/internal/lockfilescalibr/language/alpine/apkinstalled"
 	"github.com/google/osv-scanner/internal/lockfilescalibr/othermetadata"
 	"github.com/google/osv-scanner/internal/lockfilescalibr/sharedtesthelpers"
 )
 
-func TestApkInstalledExtractor_Extract(t *testing.T) {
+func TestExtractor_Extract(t *testing.T) {
 	t.Parallel()
 
 	tests := []sharedtesthelpers.TestTableEntry{
@@ -17,7 +17,7 @@ func TestApkInstalledExtractor_Extract(t *testing.T) {
 			Name: "empty",
 			InputConfig: sharedtesthelpers.ScanInputMockConfig{
 				Path:         "empty_installed",
-				FakeScanRoot: "fixtures/apk/with-os-release",
+				FakeScanRoot: "testdata/with-os-release",
 			},
 			WantInventory: []*extractor.Inventory{},
 		},
@@ -25,7 +25,7 @@ func TestApkInstalledExtractor_Extract(t *testing.T) {
 			Name: "not an installed",
 			InputConfig: sharedtesthelpers.ScanInputMockConfig{
 				Path:         "not_installed",
-				FakeScanRoot: "fixtures/apk/with-os-release",
+				FakeScanRoot: "testdata/with-os-release",
 			},
 			WantInventory: []*extractor.Inventory{},
 		},
@@ -33,7 +33,7 @@ func TestApkInstalledExtractor_Extract(t *testing.T) {
 			Name: "malformed",
 			InputConfig: sharedtesthelpers.ScanInputMockConfig{
 				Path:         "malformed_installed",
-				FakeScanRoot: "fixtures/apk/with-os-release",
+				FakeScanRoot: "testdata/with-os-release",
 			},
 			WantInventory: []*extractor.Inventory{
 				{
@@ -53,7 +53,7 @@ func TestApkInstalledExtractor_Extract(t *testing.T) {
 			Name: "single",
 			InputConfig: sharedtesthelpers.ScanInputMockConfig{
 				Path:         "single_installed",
-				FakeScanRoot: "fixtures/apk/with-os-release",
+				FakeScanRoot: "testdata/with-os-release",
 			},
 			WantInventory: []*extractor.Inventory{
 				{
@@ -73,7 +73,7 @@ func TestApkInstalledExtractor_Extract(t *testing.T) {
 			Name: "shuffled",
 			InputConfig: sharedtesthelpers.ScanInputMockConfig{
 				Path:         "shuffled_installed",
-				FakeScanRoot: "fixtures/apk/with-os-release",
+				FakeScanRoot: "testdata/with-os-release",
 			},
 			WantInventory: []*extractor.Inventory{
 				{
@@ -93,7 +93,7 @@ func TestApkInstalledExtractor_Extract(t *testing.T) {
 			Name: "multiple",
 			InputConfig: sharedtesthelpers.ScanInputMockConfig{
 				Path:         "multiple_installed",
-				FakeScanRoot: "fixtures/apk/with-os-release",
+				FakeScanRoot: "testdata/with-os-release",
 			},
 			WantInventory: []*extractor.Inventory{
 				{
@@ -135,7 +135,7 @@ func TestApkInstalledExtractor_Extract(t *testing.T) {
 			Name: "multiple but no os source info",
 			InputConfig: sharedtesthelpers.ScanInputMockConfig{
 				Path:         "multiple_installed",
-				FakeScanRoot: "fixtures/apk/without-os-release",
+				FakeScanRoot: "testdata/without-os-release",
 			},
 			WantInventory: []*extractor.Inventory{
 				{
@@ -170,7 +170,7 @@ func TestApkInstalledExtractor_Extract(t *testing.T) {
 		tt := tt
 		t.Run(tt.Name, func(t *testing.T) {
 			t.Parallel()
-			e := lockfilescalibr.ApkInstalledExtractor{}
+			e := apkinstalled.Extractor{}
 			_, _ = sharedtesthelpers.ExtractionTester(t, e, tt)
 		})
 	}

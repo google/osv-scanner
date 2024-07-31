@@ -1,4 +1,4 @@
-package lockfilescalibr
+package apkinstalled
 
 import (
 	"bufio"
@@ -15,7 +15,7 @@ import (
 	"github.com/package-url/packageurl-go"
 )
 
-const AlpineEcosystem Ecosystem = "Alpine"
+const AlpineEcosystem string = "Alpine"
 
 func groupApkPackageLines(scanner *bufio.Scanner) [][]string {
 	var groups [][]string
@@ -61,23 +61,23 @@ func parseApkPackageGroup(group []string) *extractor.Inventory {
 	return pkg
 }
 
-type ApkInstalledExtractor struct{}
+type Extractor struct{}
 
 // Name of the extractor
-func (e ApkInstalledExtractor) Name() string { return "alpine/apk-installed" }
+func (e Extractor) Name() string { return "alpine/apkinstalled" }
 
 // Version of the extractor
-func (e ApkInstalledExtractor) Version() int { return 0 }
+func (e Extractor) Version() int { return 0 }
 
-func (e ApkInstalledExtractor) Requirements() *plugin.Requirements {
+func (e Extractor) Requirements() *plugin.Requirements {
 	return &plugin.Requirements{}
 }
 
-func (e ApkInstalledExtractor) FileRequired(path string, fileInfo fs.FileInfo) bool {
+func (e Extractor) FileRequired(path string, fileInfo fs.FileInfo) bool {
 	return path == "lib/apk/db/installed"
 }
 
-func (e ApkInstalledExtractor) Extract(ctx context.Context, input *filesystem.ScanInput) ([]*extractor.Inventory, error) {
+func (e Extractor) Extract(ctx context.Context, input *filesystem.ScanInput) ([]*extractor.Inventory, error) {
 	scanner := bufio.NewScanner(input.Reader)
 
 	packageGroups := groupApkPackageLines(scanner)
@@ -112,7 +112,7 @@ func (e ApkInstalledExtractor) Extract(ctx context.Context, input *filesystem.Sc
 }
 
 // ToPURL converts an inventory created by this extractor into a PURL.
-func (e ApkInstalledExtractor) ToPURL(i *extractor.Inventory) (*packageurl.PackageURL, error) {
+func (e Extractor) ToPURL(i *extractor.Inventory) (*packageurl.PackageURL, error) {
 	return &packageurl.PackageURL{
 		Type:      packageurl.TypeApk,
 		Name:      i.Name,
@@ -122,21 +122,12 @@ func (e ApkInstalledExtractor) ToPURL(i *extractor.Inventory) (*packageurl.Packa
 }
 
 // ToCPEs is not applicable as this extractor does not infer CPEs from the Inventory.
-func (e ApkInstalledExtractor) ToCPEs(i *extractor.Inventory) ([]string, error) {
+func (e Extractor) ToCPEs(i *extractor.Inventory) ([]string, error) {
 	return []string{}, nil
 }
 
-func (e ApkInstalledExtractor) Ecosystem(i *extractor.Inventory) (string, error) {
-	switch i.Extractor.(type) {
-	case ApkInstalledExtractor:
-		if i.Metadata != nil {
-			return string(AlpineEcosystem) + ":" + i.Metadata.(othermetadata.DistroVersionMetadata).DistroVersionStr, nil
-		} else {
-			return string(AlpineEcosystem), nil
-		}
-	default:
-		return "", ErrWrongExtractor
-	}
+func (e Extractor) Ecosystem(i *extractor.Inventory) (string, error) {
+	return AlpineEcosystem, nil
 }
 
 // alpineReleaseExtractor extracts the release version for an alpine distro
@@ -165,4 +156,4 @@ func alpineReleaseExtractor(opener plugin.FS) (string, error) {
 	return returnVersion, nil
 }
 
-var _ filesystem.Extractor = ApkInstalledExtractor{}
+var _ filesystem.Extractor = Extractor{}
