@@ -7,10 +7,10 @@
 ### Fixes:
 
 - [Bug #1115](https://github.com/google/osv-scanner/issues/1115) Ensure that `semantic` is passed a valid `models.Ecosystem`.
-- [Bug #1140](https://github.com/google/osv-scanner/pull/1140) Add Maven dependency management to override client
-- [Bug #1147](https://github.com/google/osv-scanner/pull/1147) Improve Maven manifest updater
+- [Bug #1140](https://github.com/google/osv-scanner/pull/1140) Add Maven dependency management to override client.
 
 ### Misc:
+
 - [Feature #1091](https://github.com/google/osv-scanner/pull/1091) Improved the runtime of DiffVulnerabilityResults. Thanks @neilnaveen!
 - [Feature #1125](https://github.com/google/osv-scanner/pull/1125) Workflow for stale issue and PR management.
 
