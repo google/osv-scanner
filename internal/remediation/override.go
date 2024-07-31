@@ -3,6 +3,7 @@ package remediation
 import (
 	"context"
 	"errors"
+	"fmt"
 	"slices"
 
 	"deps.dev/util/resolve"
@@ -128,6 +129,13 @@ func overridePatchVulns(ctx context.Context, cl client.ResolutionClient, result 
 			seenVKs := make(map[resolve.VersionKey]struct{})
 			// Use the DependencyChains to find all the affected nodes.
 			for _, c := range v.ProblemChains {
+				// Currently, there is no way to know if a specific classifier or type exists for a given version with deps.dev.
+				// Blindly updating versions can lead to compilation failures if the artifact+version+classifier+type doesn't exist.
+				// We can't reliably attempt remediation in these cases, so don't try.
+				typ := c.Edges[0].Type
+				if typ.HasAttr(dep.MavenClassifier) || typ.HasAttr(dep.MavenArtifactType) {
+					return nil, nil, fmt.Errorf("%w: cannot fix vulns in artifacts with classifier or type", errOverrideImpossible)
+				}
 				vk, _ := c.End()
 				if _, seen := seenVKs[vk]; !seen {
 					vkVulns[vk] = append(vkVulns[vk], &result.Vulns[i])
@@ -135,6 +143,10 @@ func overridePatchVulns(ctx context.Context, cl client.ResolutionClient, result 
 				}
 			}
 			for _, c := range v.NonProblemChains {
+				typ := c.Edges[0].Type
+				if typ.HasAttr(dep.MavenClassifier) || typ.HasAttr(dep.MavenArtifactType) {
+					return nil, nil, fmt.Errorf("%w: cannot fix vulns in artifacts with classifier or type", errOverrideImpossible)
+				}
 				vk, _ := c.End()
 				if _, seen := seenVKs[vk]; !seen {
 					vkVulns[vk] = append(vkVulns[vk], &result.Vulns[i])
