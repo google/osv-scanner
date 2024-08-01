@@ -22,6 +22,10 @@ The above all results in fewer, more actionable vulnerability notifications, whi
 
 Read our [detailed documentation](https://google.github.io/osv-scanner) to learn how to use OSV-Scanner.
 
+## Go toolchain compatibility policy
+
+We aim to keep the osv-scanner library packages compatible with supported versions of Go (last 2 Go releases), while always building osv-scanner binaries with the latest version of Go.
+
 ## Contribute
 
 ### Report Problems

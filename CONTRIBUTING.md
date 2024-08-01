@@ -37,7 +37,7 @@ Please review the documentation [README](docs/README.md) for more information ab
 
 Install:
 
-1. [Go](https://go.dev/) 1.19+, use `go version` to check.
+1. [Go](https://go.dev/) 1.21+, use `go version` to check.
 2. [GoReleaser](https://goreleaser.com/) (Optional, only if you want reproducible builds).
 
 > **Note**
