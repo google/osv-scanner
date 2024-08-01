@@ -26,6 +26,7 @@
     <maven.compiler.source>1.7</maven.compiler.source>
     <maven.compiler.target>1.7</maven.compiler.target>
     <junit.version>4.13.2</junit.version>
+    <zeppelin.daemon.package.base>../bin</zeppelin.daemon.package.base>
   </properties>
 
   <dependencies>
@@ -39,6 +40,10 @@
       <groupId>org.example</groupId>
       <artifactId>abc</artifactId>
       <version>1.0.2</version>
+    </dependency>
+    <dependency>
+      <groupId>org.example</groupId>
+      <artifactId>no-version</artifactId>
     </dependency>
   </dependencies>
 
@@ -58,6 +63,11 @@
         <groupId>org.example</groupId>
         <artifactId>xyz</artifactId>
         <version>2.0.1</version>
+      </dependency>
+      <dependency>
+        <groupId>org.example</groupId>
+        <artifactId>no-version</artifactId>
+        <version>2.0.0</version>
       </dependency>
       <dependency>
         <groupId>org.import</groupId>

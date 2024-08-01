@@ -23,7 +23,7 @@ GEM
     commonmarker (0.23.10)
     concurrent-ruby (1.3.3)
     connection_pool (2.4.1)
-    dnsruby (1.72.1)
+    dnsruby (1.72.2)
       simpleidn (~> 0.2.1)
     drb (2.2.1)
     em-websocket (0.5.3)
@@ -33,8 +33,9 @@ GEM
       ffi (>= 1.15.0)
     eventmachine (1.2.7)
     execjs (2.9.1)
-    faraday (2.9.2)
+    faraday (2.10.0)
       faraday-net_http (>= 2.0, < 3.2)
+      logger
     faraday-net_http (3.1.0)
       net-http
     ffi (1.17.0-x86_64-linux-gnu)
@@ -213,6 +214,7 @@ GEM
     listen (3.9.0)
       rb-fsevent (~> 0.10, >= 0.10.3)
       rb-inotify (~> 0.9, >= 0.9.10)
+    logger (1.6.0)
     mercenary (0.3.6)
     minima (2.5.1)
       jekyll (>= 3.5, < 5.0)
@@ -234,7 +236,7 @@ GEM
     rb-fsevent (0.11.2)
     rb-inotify (0.11.1)
       ffi (~> 1.0)
-    rexml (3.3.1)
+    rexml (3.3.2)
       strscan
     rouge (3.30.0)
     rubyzip (2.3.2)

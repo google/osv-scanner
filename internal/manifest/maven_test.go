@@ -327,6 +327,12 @@ func TestParseMavenWithResolver_Transitive(t *testing.T) {
 			CompareAs: lockfile.MavenEcosystem,
 		},
 		{
+			Name:      "org.direct:chris",
+			Version:   "3.0.0",
+			Ecosystem: lockfile.MavenEcosystem,
+			CompareAs: lockfile.MavenEcosystem,
+		},
+		{
 			Name:      "org.transitive:chuck",
 			Version:   "1.1.1",
 			Ecosystem: lockfile.MavenEcosystem,
@@ -341,6 +347,12 @@ func TestParseMavenWithResolver_Transitive(t *testing.T) {
 		{
 			Name:      "org.transitive:eve",
 			Version:   "3.3.3",
+			Ecosystem: lockfile.MavenEcosystem,
+			CompareAs: lockfile.MavenEcosystem,
+		},
+		{
+			Name:      "org.transitive:frank",
+			Version:   "4.4.4",
 			Ecosystem: lockfile.MavenEcosystem,
 			CompareAs: lockfile.MavenEcosystem,
 		},

@@ -165,6 +165,16 @@ func TestMavenRead(t *testing.T) {
 				VersionKey: resolve.VersionKey{
 					PackageKey: resolve.PackageKey{
 						System: resolve.Maven,
+						Name:   "org.example:no-version",
+					},
+					VersionType: resolve.Requirement,
+					Version:     "2.0.0",
+				},
+			},
+			{
+				VersionKey: resolve.VersionKey{
+					PackageKey: resolve.PackageKey{
+						System: resolve.Maven,
 						Name:   "org.profile:abc",
 					},
 					VersionType: resolve.Requirement,
@@ -186,6 +196,17 @@ func TestMavenRead(t *testing.T) {
 					PackageKey: resolve.PackageKey{
 						System: resolve.Maven,
 						Name:   "org.example:xyz",
+					},
+					VersionType: resolve.Requirement,
+					Version:     "2.0.0",
+				},
+				Type: depMgmt,
+			},
+			{
+				VersionKey: resolve.VersionKey{
+					PackageKey: resolve.PackageKey{
+						System: resolve.Maven,
+						Name:   "org.example:no-version",
 					},
 					VersionType: resolve.Requirement,
 					Version:     "2.0.0",
@@ -236,6 +257,7 @@ func TestMavenRead(t *testing.T) {
 				{Property: maven.Property{Name: "maven.compiler.source", Value: "1.7"}},
 				{Property: maven.Property{Name: "maven.compiler.target", Value: "1.7"}},
 				{Property: maven.Property{Name: "junit.version", Value: "4.12"}},
+				{Property: maven.Property{Name: "zeppelin.daemon.package.base", Value: "\n\t    ../bin\n    "}},
 				{Property: maven.Property{Name: "def.version", Value: "2.3.4"}, Origin: "profile@profile-one"},
 			},
 			OriginalRequirements: []DependencyWithOrigin{
@@ -250,7 +272,14 @@ func TestMavenRead(t *testing.T) {
 					Dependency: maven.Dependency{GroupID: "org.example", ArtifactID: "abc", Version: "1.0.1"},
 				},
 				{
+					Dependency: maven.Dependency{GroupID: "org.example", ArtifactID: "no-version"},
+				},
+				{
 					Dependency: maven.Dependency{GroupID: "org.example", ArtifactID: "xyz", Version: "2.0.0"},
+					Origin:     "management",
+				},
+				{
+					Dependency: maven.Dependency{GroupID: "org.example", ArtifactID: "no-version", Version: "2.0.0"},
 					Origin:     "management",
 				},
 				{
@@ -373,6 +402,14 @@ func TestMavenWrite(t *testing.T) {
 					Type:       "jar",
 				},
 				NewRequire: "1.0.2",
+			}: true,
+			{
+				DependencyKey: maven.DependencyKey{
+					GroupID:    "org.example",
+					ArtifactID: "no-version",
+					Type:       "jar",
+				},
+				NewRequire: "2.0.1",
 			}: true,
 		},
 		"management": map[MavenPatch]bool{
@@ -623,6 +660,14 @@ func TestBuildPatches(t *testing.T) {
 			Type:       depMgmt,
 			NewRequire: "2.0.0",
 		},
+		{
+			Pkg: resolve.PackageKey{
+				System: resolve.Maven,
+				Name:   "org.example:no-version",
+			},
+			Type:       depMgmt,
+			NewRequire: "2.0.1",
+		},
 	}
 	specific := MavenManifestSpecific{
 		Properties: []PropertyWithOrigin{
@@ -645,6 +690,9 @@ func TestBuildPatches(t *testing.T) {
 				Dependency: maven.Dependency{GroupID: "org.example", ArtifactID: "no-updates", Version: "9.9.9"},
 			},
 			{
+				Dependency: maven.Dependency{GroupID: "org.example", ArtifactID: "no-version"},
+			},
+			{
 				Dependency: maven.Dependency{GroupID: "org.example", ArtifactID: "property", Version: "${property.version}"},
 			},
 			{
@@ -655,6 +703,10 @@ func TestBuildPatches(t *testing.T) {
 			},
 			{
 				Dependency: maven.Dependency{GroupID: "org.example", ArtifactID: "another-property", Version: "${property.version}"},
+			},
+			{
+				Dependency: maven.Dependency{GroupID: "org.example", ArtifactID: "no-version", Version: "2.0.0"},
+				Origin:     "management",
 			},
 			{
 				Dependency: maven.Dependency{GroupID: "org.example", ArtifactID: "xyz", Version: "2.0.0"},
@@ -710,6 +762,14 @@ func TestBuildPatches(t *testing.T) {
 				DependencyKey: maven.DependencyKey{
 					GroupID:    "org.example",
 					ArtifactID: "xyz",
+					Type:       "jar",
+				},
+				NewRequire: "2.0.1",
+			}: true,
+			{
+				DependencyKey: maven.DependencyKey{
+					GroupID:    "org.example",
+					ArtifactID: "no-version",
 					Type:       "jar",
 				},
 				NewRequire: "2.0.1",
