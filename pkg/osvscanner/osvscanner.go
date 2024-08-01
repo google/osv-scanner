@@ -2,6 +2,7 @@ package osvscanner
 
 import (
 	"bufio"
+	"context"
 	"crypto/md5" //nolint:gosec
 	"errors"
 	"fmt"
@@ -16,6 +17,9 @@ import (
 	"github.com/google/osv-scanner/internal/customgitignore"
 	"github.com/google/osv-scanner/internal/image"
 	"github.com/google/osv-scanner/internal/local"
+	"github.com/google/osv-scanner/internal/lockfilescalibr/filesystem"
+	"github.com/google/osv-scanner/internal/lockfilescalibr/language/alpine/apkinstalled"
+	"github.com/google/osv-scanner/internal/lockfilescalibr/plugin"
 	"github.com/google/osv-scanner/internal/manifest"
 	"github.com/google/osv-scanner/internal/output"
 	"github.com/google/osv-scanner/internal/resolution/client"
@@ -350,6 +354,23 @@ func scanLockfile(r reporter.Reporter, path string, parseAs string, compareOffli
 	var parsedLockfile lockfile.Lockfile
 
 	f, err := lockfile.OpenLocalDepFile(path)
+	reader, err := os.Open(path)
+	if err != nil {
+		return []scannedPackage{}, err
+	}
+
+	info, err := reader.Stat()
+	if err != nil {
+		return []scannedPackage{}, err
+	}
+
+	si := filesystem.ScanInput{
+		FS:       os.DirFS("/").(plugin.FS),
+		Path:     path,
+		ScanRoot: "/",
+		Reader:   reader,
+		Info:     info,
+	}
 
 	if err == nil {
 		// special case for the APK and DPKG parsers because they have a very generic name while
@@ -357,6 +378,7 @@ func scanLockfile(r reporter.Reporter, path string, parseAs string, compareOffli
 		// used by lockfile.Parse to avoid false-positives when scanning projects
 		switch parseAs {
 		case "apk-installed":
+			apkinstalled.Extractor{}.Extract(context.Background(), &si)
 			parsedLockfile, err = lockfile.FromApkInstalled(path)
 		case "dpkg-status":
 			parsedLockfile, err = lockfile.FromDpkgStatus(path)

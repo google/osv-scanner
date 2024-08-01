@@ -1,9 +1,5 @@
 package lockfilescalibr
 
-import (
-	"errors"
-)
-
 // ---
 // Updated extractors and notes:
 //
@@ -18,5 +14,4 @@ import (
 // - Because scalibr uses a virtual FS to walk over files, all paths are absolute, but will not start with /
 // ---
 
-var ErrNotImplemented = errors.New("not implemented")
-var ErrWrongExtractor = errors.New("this extractor did not create this inventory")
+// func CreateScanInput()
