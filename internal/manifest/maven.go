@@ -7,7 +7,6 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
-	"reflect"
 
 	"deps.dev/util/maven"
 	"deps.dev/util/resolve"
@@ -154,6 +153,7 @@ func (e MavenResolverExtractor) mergeParents(ctx context.Context, result *maven.
 		visited[current.ProjectKey] = true
 
 		var proj maven.Project
+		parentFound := false
 		if parentPath := manifest.MavenParentPOMPath(currentPath, string(current.RelativePath)); allowLocal && parentPath != "" {
 			currentPath = parentPath
 			f, err := os.Open(parentPath)
@@ -163,15 +163,12 @@ func (e MavenResolverExtractor) mergeParents(ctx context.Context, result *maven.
 			if err := xml.NewDecoder(f).Decode(&proj); err != nil {
 				return fmt.Errorf("failed to unmarshal project: %w", err)
 			}
-			if proj.ProjectKey != current.ProjectKey || proj.Packaging != "pom" {
-				// The identifiers or packaging in parent does not match what we want,
-				// mark proj as empty so parent can be fetched from upstream.
-				proj = maven.Project{}
+			if proj.ProjectKey == current.ProjectKey && proj.Packaging == "pom" {
+				// Only mark parent is found when the identifiers and packaging are exptected.
+				parentFound = true
 			}
 		}
-
-		// proj being empty indicates that we are not able to find parent pom.xml locally.
-		if reflect.DeepEqual(proj, maven.Project{}) {
+		if !parentFound {
 			// Once we fetch a parent pom.xml from upstream, we should not
 			// allow parsing parent pom.xml locally anymore.
 			allowLocal = false
