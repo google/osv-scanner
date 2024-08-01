@@ -6,11 +6,7 @@ import (
 	"strings"
 )
 
-func RemoveHostPath(scanPath string, packagePath string, considerScanPathAsRoot bool, pathRelativeToScanDir bool) string {
-	if !(considerScanPathAsRoot || pathRelativeToScanDir) {
-		return packagePath
-	}
-
+func ToRelativePath(scanPath string, packagePath string) string {
 	hostPath, err := filepath.Abs(scanPath)
 	if err != nil {
 		return packagePath
@@ -24,9 +20,7 @@ func RemoveHostPath(scanPath string, packagePath string, considerScanPathAsRoot 
 	}
 
 	path := filepath.ToSlash(strings.TrimPrefix(packagePath, hostPath))
-	if pathRelativeToScanDir {
-		path = strings.TrimPrefix(path, "/")
-	}
+	path = strings.TrimPrefix(path, "/")
 
 	return path
 }

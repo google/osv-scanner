@@ -8,7 +8,6 @@ import (
 // Combined vulnerabilities found for the scanned packages
 type VulnerabilityResults struct {
 	Results                    []PackageSource            `json:"results"`
-	ResultsByPURL              map[string]PackageDetails  `json:"results_by_purl,omitempty"`
 	ExperimentalAnalysisConfig ExperimentalAnalysisConfig `json:"experimental_config"`
 }
 
@@ -98,12 +97,13 @@ type License string
 // Vulnerabilities grouped by package
 // TODO: rename this to be Package as it now includes license information too.
 type PackageVulns struct {
-	Package           PackageInfo     `json:"package"`
-	DepGroups         []string        `json:"dependency_groups,omitempty"`
-	Vulnerabilities   []Vulnerability `json:"vulnerabilities,omitempty"`
-	Groups            []GroupInfo     `json:"groups,omitempty"`
-	Licenses          []License       `json:"licenses,omitempty"`
-	LicenseViolations []License       `json:"license_violations,omitempty"`
+	Package           PackageInfo        `json:"package"`
+	DepGroups         []string           `json:"dependency_groups,omitempty"`
+	Locations         []PackageLocations `json:"locations,omitempty"`
+	Vulnerabilities   []Vulnerability    `json:"vulnerabilities,omitempty"`
+	Groups            []GroupInfo        `json:"groups,omitempty"`
+	Licenses          []License          `json:"licenses,omitempty"`
+	LicenseViolations []License          `json:"license_violations,omitempty"`
 }
 
 type GroupInfo struct {
@@ -171,11 +171,8 @@ type AnalysisInfo struct {
 
 // Specific package information
 type PackageInfo struct {
-	Name            string        `json:"name"`
-	Version         string        `json:"version"`
-	Ecosystem       string        `json:"ecosystem"`
-	Commit          string        `json:"commit,omitempty"`
-	BlockLocation   FilePosition  `json:"blockLocation"`
-	VersionLocation *FilePosition `json:"versionLocation,omitempty"`
-	NameLocation    *FilePosition `json:"nameLocation,omitempty"`
+	Name      string `json:"name"`
+	Version   string `json:"version"`
+	Ecosystem string `json:"ecosystem"`
+	Commit    string `json:"commit,omitempty"`
 }

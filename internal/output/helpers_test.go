@@ -179,6 +179,121 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 			},
 		},
 		{
+			name: "one source with one package and one called vulnerability",
+			args: outputTestCaseArgs{
+				vulnResult: &models.VulnerabilityResults{
+					Results: []models.PackageSource{
+						{
+							Source: models.SourceInfo{Path: "path/to/my/first/lockfile"},
+							Packages: []models.PackageVulns{
+								{
+									Package: models.PackageInfo{
+										Name:      "mine1",
+										Version:   "1.2.3",
+										Ecosystem: "npm",
+									},
+									Groups: []models.GroupInfo{{
+										IDs: []string{"OSV-1"},
+										ExperimentalAnalysis: map[string]models.AnalysisInfo{
+											"OSV-1": {Called: true},
+										},
+									}},
+									Vulnerabilities: models.Vulnerabilities{
+										{
+											ID:       "OSV-1",
+											Summary:  "Something scary!",
+											Severity: []models.Severity{{Type: "high", Score: "1"}},
+										},
+									},
+								},
+							},
+						},
+					},
+				},
+			},
+		},
+		{
+			name: "one source with one package and one uncalled vulnerability",
+			args: outputTestCaseArgs{
+				vulnResult: &models.VulnerabilityResults{
+					Results: []models.PackageSource{
+						{
+							Source: models.SourceInfo{Path: "path/to/my/first/lockfile"},
+							Packages: []models.PackageVulns{
+								{
+									Package: models.PackageInfo{
+										Name:      "mine1",
+										Version:   "1.2.3",
+										Ecosystem: "npm",
+									},
+									Groups: []models.GroupInfo{{
+										IDs: []string{"OSV-1"},
+										ExperimentalAnalysis: map[string]models.AnalysisInfo{
+											"OSV-1": {Called: false},
+										},
+									}},
+									Vulnerabilities: models.Vulnerabilities{
+										{
+											ID:       "OSV-1",
+											Summary:  "Something scary!",
+											Severity: []models.Severity{{Type: "high", Score: "1"}},
+										},
+									},
+								},
+							},
+						},
+					},
+				},
+			},
+		},
+		{
+			name: "one source with one package, one uncalled vulnerability, and one called vulnerability",
+			args: outputTestCaseArgs{
+				vulnResult: &models.VulnerabilityResults{
+					Results: []models.PackageSource{
+						{
+							Source: models.SourceInfo{Path: "path/to/my/first/lockfile"},
+							Packages: []models.PackageVulns{
+								{
+									Package: models.PackageInfo{
+										Name:      "mine1",
+										Version:   "1.2.3",
+										Ecosystem: "npm",
+									},
+									Groups: []models.GroupInfo{
+										{
+											IDs: []string{"OSV-1"},
+											ExperimentalAnalysis: map[string]models.AnalysisInfo{
+												"OSV-1": {Called: true},
+											},
+										},
+										{
+											IDs: []string{"GHSA-123"},
+											ExperimentalAnalysis: map[string]models.AnalysisInfo{
+												"GHSA-123": {Called: false},
+											},
+										},
+									},
+									Vulnerabilities: models.Vulnerabilities{
+										{
+											ID:       "OSV-1",
+											Summary:  "Something scary!",
+											Severity: []models.Severity{{Type: "high", Score: "1"}},
+										},
+										{
+											ID:       "GHSA-123",
+											Summary:  "Something scarier!",
+											Severity: []models.Severity{{Type: "high", Score: "1"}},
+										},
+									},
+								},
+							},
+						},
+					},
+				},
+			},
+		},
+		{
 			name: "one source with one package and one vulnerability (dev)",
 			args: outputTestCaseArgs{
 				vulnResult: &models.VulnerabilityResults{
@@ -275,6 +390,47 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 									Groups: []models.GroupInfo{{
 										IDs:     []string{"OSV-1", "GHSA-123"},
 										Aliases: []string{"OSV-1", "GHSA-123"},
+									}},
+									Vulnerabilities: models.Vulnerabilities{
+										{
+											ID:       "OSV-1",
+											Summary:  "Something scary!",
+											Severity: []models.Severity{{Type: "high", Score: "1"}},
+										},
+										{
+											ID:       "GHSA-123",
+											Summary:  "Something scary!",
+											Aliases:  []string{"OSV-1"},
+											Severity: []models.Severity{{Type: "high", Score: "1"}},
+										},
+									},
+								},
+							},
+						},
+					},
+				},
+			},
+		},
+		{
+			name: "one source with one package and two aliases of a single uncalled vulnerability",
+			args: outputTestCaseArgs{
+				vulnResult: &models.VulnerabilityResults{
+					Results: []models.PackageSource{
+						{
+							Source: models.SourceInfo{Path: "path/to/my/first/lockfile"},
+							Packages: []models.PackageVulns{
+								{
+									Package: models.PackageInfo{
+										Name:      "mine1",
+										Version:   "1.2.3",
+										Ecosystem: "npm",
+									},
+									Groups: []models.GroupInfo{{
+										IDs:     []string{"OSV-1", "GHSA-123"},
+										Aliases: []string{"OSV-1", "GHSA-123"},
+										ExperimentalAnalysis: map[string]models.AnalysisInfo{
+											"OSV-1": {Called: false},
+										},
 									}},
 									Vulnerabilities: models.Vulnerabilities{
 										{
@@ -626,7 +782,7 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 							Packages: []models.PackageVulns{
 								{
 									Package: models.PackageInfo{
-										Name:      "mine1",
+										Name:      "author1/mine1",
 										Version:   "1.2.3",
 										Ecosystem: "Packagist",
 									},
@@ -685,13 +841,125 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 								},
 								{
 									Package: models.PackageInfo{
-										Name:      "mine3",
+										Name:      "author3/mine3",
 										Version:   "0.4.1",
 										Ecosystem: "Packagist",
 									},
 									DepGroups: []string{"build"},
 									Groups: []models.GroupInfo{
 										{IDs: []string{"OSV-3"}},
+										{IDs: []string{"OSV-5"}},
+									},
+									Vulnerabilities: models.Vulnerabilities{
+										{
+											ID:       "OSV-3",
+											Summary:  "Something mildly scary!",
+											Severity: []models.Severity{{Type: "medium", Score: "1"}},
+										},
+										{
+											ID:       "OSV-5",
+											Summary:  "Something scarier!",
+											Severity: []models.Severity{{Type: "extreme", Score: "1"}},
+										},
+									},
+								},
+							},
+						},
+					},
+				},
+			},
+		},
+		{
+			name: "multiple sources with a mixed count of packages across ecosystems, and multiple vulnerabilities, but some uncalled",
+			args: outputTestCaseArgs{
+				vulnResult: &models.VulnerabilityResults{
+					Results: []models.PackageSource{
+						{
+							Source: models.SourceInfo{Path: "path/to/my/first/lockfile"},
+							Packages: []models.PackageVulns{
+								{
+									Package: models.PackageInfo{
+										Name:      "author1/mine1",
+										Version:   "1.2.3",
+										Ecosystem: "Packagist",
+									},
+									Groups: []models.GroupInfo{
+										{
+											IDs: []string{"OSV-1"},
+											ExperimentalAnalysis: map[string]models.AnalysisInfo{
+												"OSV-1": {Called: false},
+											},
+										},
+										{
+											IDs: []string{"OSV-5"},
+											ExperimentalAnalysis: map[string]models.AnalysisInfo{
+												"OSV-5": {Called: true},
+											},
+										},
+									},
+									Vulnerabilities: models.Vulnerabilities{
+										{
+											ID:       "OSV-1",
+											Summary:  "Something scary!",
+											Severity: []models.Severity{{Type: "high", Score: "1"}},
+										},
+										{
+											ID:       "OSV-5",
+											Summary:  "Something scarier!",
+											Severity: []models.Severity{{Type: "extreme", Score: "1"}},
+										},
+									},
+								},
+								{
+									Package: models.PackageInfo{
+										Name:      "mine1",
+										Version:   "1.2.2",
+										Ecosystem: "npm",
+									},
+									Groups: []models.GroupInfo{{IDs: []string{"OSV-1"}}},
+									Vulnerabilities: models.Vulnerabilities{
+										{
+											ID:       "OSV-1",
+											Summary:  "Something scary!",
+											Severity: []models.Severity{{Type: "high", Score: "1"}},
+										},
+									},
+								},
+							},
+						},
+						{
+							Source: models.SourceInfo{Path: "path/to/my/second/lockfile"},
+							Packages: []models.PackageVulns{
+								{
+									Package: models.PackageInfo{
+										Name:      "mine2",
+										Version:   "3.2.5",
+										Ecosystem: "NuGet",
+									},
+									DepGroups: []string{"dev"},
+									Groups:    []models.GroupInfo{{IDs: []string{"OSV-2"}}},
+									Vulnerabilities: models.Vulnerabilities{
+										{
+											ID:       "OSV-2",
+											Summary:  "Something less scary!",
+											Severity: []models.Severity{{Type: "low", Score: "1"}},
+										},
+									},
+								},
+								{
+									Package: models.PackageInfo{
+										Name:      "author3/mine3",
+										Version:   "0.4.1",
+										Ecosystem: "Packagist",
+									},
+									DepGroups: []string{"build"},
+									Groups: []models.GroupInfo{
+										{
+											IDs: []string{"OSV-3"},
+											ExperimentalAnalysis: map[string]models.AnalysisInfo{
+												"OSV-3": {Called: true},
+											},
+										},
 										{IDs: []string{"OSV-5"}},
 									},
 									Vulnerabilities: models.Vulnerabilities{
@@ -1196,7 +1464,7 @@ func testOutputWithLicenseViolations(t *testing.T, run outputTestRunner) {
 							Packages: []models.PackageVulns{
 								{
 									Package: models.PackageInfo{
-										Name:      "mine1",
+										Name:      "author1/mine1",
 										Version:   "1.2.3",
 										Ecosystem: "Packagist",
 									},
@@ -1242,7 +1510,7 @@ func testOutputWithLicenseViolations(t *testing.T, run outputTestRunner) {
 								},
 								{
 									Package: models.PackageInfo{
-										Name:      "mine1",
+										Name:      "author1/mine1",
 										Version:   "1.2.3",
 										Ecosystem: "Packagist",
 									},
@@ -1401,6 +1669,80 @@ func testOutputWithMixedIssues(t *testing.T, run outputTestRunner) {
 			},
 		},
 		{
+			name: "one source with one package, one called vulnerability, and one license violation",
+			args: outputTestCaseArgs{
+				vulnResult: &models.VulnerabilityResults{
+					ExperimentalAnalysisConfig: experimentalAnalysisConfig,
+					Results: []models.PackageSource{
+						{
+							Source: models.SourceInfo{Path: "path/to/my/first/lockfile"},
+							Packages: []models.PackageVulns{
+								{
+									Package: models.PackageInfo{
+										Name:      "mine1",
+										Version:   "1.2.3",
+										Ecosystem: "npm",
+									},
+									Groups: []models.GroupInfo{{
+										IDs: []string{"OSV-1"},
+										ExperimentalAnalysis: map[string]models.AnalysisInfo{
+											"OSV-1": {Called: true},
+										},
+									}},
+									Vulnerabilities: models.Vulnerabilities{
+										{
+											ID:       "OSV-1",
+											Summary:  "Something scary!",
+											Severity: []models.Severity{{Type: "high", Score: "1"}},
+										},
+									},
+									Licenses:          []models.License{"MIT"},
+									LicenseViolations: []models.License{"MIT"},
+								},
+							},
+						},
+					},
+				},
+			},
+		},
+		{
+			name: "one source with one package, one uncalled vulnerability, and one license violation",
+			args: outputTestCaseArgs{
+				vulnResult: &models.VulnerabilityResults{
+					ExperimentalAnalysisConfig: experimentalAnalysisConfig,
+					Results: []models.PackageSource{
+						{
+							Source: models.SourceInfo{Path: "path/to/my/first/lockfile"},
+							Packages: []models.PackageVulns{
+								{
+									Package: models.PackageInfo{
+										Name:      "mine1",
+										Version:   "1.2.3",
+										Ecosystem: "npm",
+									},
+									Groups: []models.GroupInfo{{
+										IDs: []string{"OSV-1"},
+										ExperimentalAnalysis: map[string]models.AnalysisInfo{
+											"OSV-1": {Called: false},
+										},
+									}},
+									Vulnerabilities: models.Vulnerabilities{
+										{
+											ID:       "OSV-1",
+											Summary:  "Something scary!",
+											Severity: []models.Severity{{Type: "high", Score: "1"}},
+										},
+									},
+									Licenses:          []models.License{"MIT"},
+									LicenseViolations: []models.License{"MIT"},
+								},
+							},
+						},
+					},
+				},
+			},
+		},
+		{
 			name: "two sources with packages, one vulnerability, one license violation",
 			args: outputTestCaseArgs{
 				vulnResult: &models.VulnerabilityResults{
@@ -1528,6 +1870,117 @@ func testOutputWithMixedIssues(t *testing.T, run outputTestRunner) {
 										Ecosystem: "npm",
 									},
 									Groups: []models.GroupInfo{{IDs: []string{"OSV-1"}}},
+									Vulnerabilities: models.Vulnerabilities{
+										{
+											ID:       "OSV-1",
+											Summary:  "Something scary!",
+											Severity: []models.Severity{{Type: "high", Score: "1"}},
+										},
+									},
+									Licenses:          []models.License{"Apache-2.0"},
+									LicenseViolations: []models.License{"Apache-2.0"},
+								},
+							},
+						},
+					},
+				},
+			},
+		},
+		{
+			name: "multiple sources with a mixed count of packages, some called vulnerabilities and license violations",
+			args: outputTestCaseArgs{
+				vulnResult: &models.VulnerabilityResults{
+					ExperimentalAnalysisConfig: experimentalAnalysisConfig,
+					Results: []models.PackageSource{
+						{
+							Source: models.SourceInfo{Path: "path/to/my/first/lockfile"},
+							Packages: []models.PackageVulns{
+								{
+									Package: models.PackageInfo{
+										Name:      "mine1",
+										Version:   "1.2.3",
+										Ecosystem: "npm",
+									},
+									Groups: []models.GroupInfo{{
+										IDs: []string{"OSV-1"},
+										ExperimentalAnalysis: map[string]models.AnalysisInfo{
+											"OSV-1": {Called: false},
+										},
+									}},
+									Vulnerabilities: models.Vulnerabilities{
+										{
+											ID:       "OSV-1",
+											Summary:  "Something scary!",
+											Severity: []models.Severity{{Type: "high", Score: "1"}},
+										},
+									},
+									Licenses:          []models.License{"MIT"},
+									LicenseViolations: []models.License{"MIT"},
+								},
+							},
+						},
+						{
+							Source: models.SourceInfo{Path: "path/to/my/second/lockfile"},
+							Packages: []models.PackageVulns{
+								{
+									Package: models.PackageInfo{
+										Name:      "mine2",
+										Version:   "3.2.5",
+										Ecosystem: "npm",
+									},
+									Groups: []models.GroupInfo{{
+										IDs: []string{"OSV-2"},
+										ExperimentalAnalysis: map[string]models.AnalysisInfo{
+											"OSV-2": {Called: true},
+										},
+									}},
+									Vulnerabilities: models.Vulnerabilities{
+										{
+											ID:       "OSV-2",
+											Summary:  "Something less scary!",
+											Severity: []models.Severity{{Type: "low", Score: "1"}},
+										},
+									},
+									Licenses:          []models.License{"ISC"},
+									LicenseViolations: []models.License{},
+								},
+								{
+									Package: models.PackageInfo{
+										Name:      "mine3",
+										Version:   "0.4.1",
+										Ecosystem: "npm",
+									},
+									Vulnerabilities:   models.Vulnerabilities{},
+									Licenses:          []models.License{"ISC"},
+									LicenseViolations: []models.License{},
+								},
+							},
+						},
+						{
+							Source: models.SourceInfo{Path: "path/to/my/third/lockfile"},
+							Packages: []models.PackageVulns{
+								{
+									Package: models.PackageInfo{
+										Name:      "mine1",
+										Version:   "1.3.5",
+										Ecosystem: "npm",
+									},
+									Vulnerabilities:   models.Vulnerabilities{},
+									Licenses:          []models.License{"MIT"},
+									LicenseViolations: []models.License{"MIT"},
+								},
+								{
+									Package: models.PackageInfo{
+										Name:      "mine1",
+										Version:   "1.2.3",
+										Ecosystem: "npm",
+									},
+									Groups: []models.GroupInfo{{
+										IDs: []string{"OSV-1"},
+										ExperimentalAnalysis: map[string]models.AnalysisInfo{
+											"OSV-1": {Called: false},
+										},
+									}},
 									Vulnerabilities: models.Vulnerabilities{
 										{
 											ID:       "OSV-1",

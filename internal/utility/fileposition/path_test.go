@@ -19,34 +19,5 @@ func TestRemoveHostPath(t *testing.T) {
 	scanPath := "."
 	packagePath := filepath.FromSlash(filepath.Join(dir, "path_test.go"))
 
-	testCases := []struct {
-		considerScanPathAsRoot bool
-		pathRelativeToScanDir  bool
-		path                   string
-	}{
-		{
-			considerScanPathAsRoot: false,
-			pathRelativeToScanDir:  false,
-			path:                   packagePath,
-		},
-		{
-			considerScanPathAsRoot: false,
-			pathRelativeToScanDir:  true,
-			path:                   "path_test.go",
-		},
-		{
-			considerScanPathAsRoot: true,
-			pathRelativeToScanDir:  false,
-			path:                   "/path_test.go",
-		},
-		{
-			considerScanPathAsRoot: true,
-			pathRelativeToScanDir:  true,
-			path:                   "path_test.go",
-		},
-	}
-
-	for _, tt := range testCases {
-		assert.Equal(t, tt.path, RemoveHostPath(scanPath, packagePath, tt.considerScanPathAsRoot, tt.pathRelativeToScanDir))
-	}
+	assert.Equal(t, "path_test.go", ToRelativePath(scanPath, packagePath))
 }

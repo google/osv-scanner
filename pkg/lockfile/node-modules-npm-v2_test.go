@@ -236,7 +236,7 @@ func TestNodeModulesExtractor_Extract_npm_v2_NestedDependenciesDup(t *testing.T)
 			Ecosystem: lockfile.NpmEcosystem,
 			CompareAs: lockfile.NpmEcosystem,
 			BlockLocation: models.FilePosition{
-				Line:     models.Position{Start: 10, End: 20},
+				Line:     models.Position{Start: 389, End: 399},
 				Column:   models.Position{Start: 5, End: 6},
 				Filename: filePath,
 			},
@@ -247,7 +247,7 @@ func TestNodeModulesExtractor_Extract_npm_v2_NestedDependenciesDup(t *testing.T)
 			Ecosystem: lockfile.NpmEcosystem,
 			CompareAs: lockfile.NpmEcosystem,
 			BlockLocation: models.FilePosition{
-				Line:     models.Position{Start: 32, End: 39},
+				Line:     models.Position{Start: 84, End: 91},
 				Column:   models.Position{Start: 5, End: 6},
 				Filename: filePath,
 			},

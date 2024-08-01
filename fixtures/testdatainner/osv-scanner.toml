@@ -1,9 +1,25 @@
 [[IgnoredVulns]]
 id = "GO-2022-0968"
-# ignore_until = 2022-11-09
+# ignoreUntil = 2022-11-09
 # reason = "" # Optional reason
 
 [[IgnoredVulns]]
 id = "GO-2022-1059"
-# ignore_until = 2022-11-09 # Optional exception expiry date
+# ignoreUntil = 2022-11-09 # Optional exception expiry date
 # reason = "" # Optional reason
+
+[[PackageOverrides]]
+name = "lib"
+version = "1.0.0"
+ecosystem = "Go"
+ignore = true
+# effectiveUntil = 2022-11-09 # Optional exception expiry date
+reason = "abc"
+ 
+[[PackageOverrides]]
+name = "my-pkg"
+version = "1.0.0"
+ecosystem = "Go"
+ignore = true
+reason = "abc"
+license.override = ["MIT", "0BSD"]

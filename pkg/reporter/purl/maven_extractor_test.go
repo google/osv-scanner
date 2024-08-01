@@ -19,9 +19,6 @@ func TestMavenExtraction_shouldExtractPackages(t *testing.T) {
 			Version:   "1.2.17",
 			Ecosystem: string(models.EcosystemMaven),
 			Commit:    "",
-			BlockLocation: models.FilePosition{
-				Line: models.Position{Start: 0, End: 0},
-			},
 		},
 		expectedNamespace: "log4j",
 		expectedName:      "log4j-core",
@@ -53,9 +50,6 @@ func TestMavenExtraction_shouldFilterPackages(t *testing.T) {
 				Version:   "1.2.17",
 				Ecosystem: string(models.EcosystemMaven),
 				Commit:    "",
-				BlockLocation: models.FilePosition{
-					Line: models.Position{Start: 0, End: 0},
-				},
 			},
 		},
 		{
@@ -65,9 +59,6 @@ func TestMavenExtraction_shouldFilterPackages(t *testing.T) {
 				Version:   "1.2.17",
 				Ecosystem: string(models.EcosystemMaven),
 				Commit:    "",
-				BlockLocation: models.FilePosition{
-					Line: models.Position{Start: 0, End: 0},
-				},
 			},
 		},
 	}

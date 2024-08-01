@@ -22,9 +22,6 @@ func TestGolangExtraction_shouldExtractPackages(t *testing.T) {
 				Version:   "v0.14.0",
 				Ecosystem: string(models.EcosystemGo),
 				Commit:    "",
-				BlockLocation: models.FilePosition{
-					Line: models.Position{Start: 0, End: 0},
-				},
 			},
 			expectedNamespace: "golang.org/x",
 			expectedName:      "mod",
@@ -36,9 +33,6 @@ func TestGolangExtraction_shouldExtractPackages(t *testing.T) {
 				Version:   "v2.26.0",
 				Ecosystem: string(models.EcosystemGo),
 				Commit:    "",
-				BlockLocation: models.FilePosition{
-					Line: models.Position{Start: 0, End: 0},
-				},
 			},
 			expectedNamespace: "github.com/urfave/cli",
 			expectedName:      "v2",
@@ -50,9 +44,6 @@ func TestGolangExtraction_shouldExtractPackages(t *testing.T) {
 				Version:   "v0.24.0",
 				Ecosystem: string(models.EcosystemGo),
 				Commit:    "",
-				BlockLocation: models.FilePosition{
-					Line: models.Position{Start: 0, End: 0},
-				},
 			},
 			expectedNamespace: "",
 			expectedName:      "go.opencensus.io",
@@ -91,9 +82,6 @@ func TestGolangExtraction_shouldFilterPackages(t *testing.T) {
 				Version:   "v2.26.0",
 				Ecosystem: string(models.EcosystemGo),
 				Commit:    "",
-				BlockLocation: models.FilePosition{
-					Line: models.Position{Start: 0, End: 0},
-				},
 			},
 		},
 	}

@@ -190,8 +190,8 @@ func run(args []string, stdout, stderr io.Writer) int {
 		}
 
 		if errors.Is(err, osvscanner.NoPackagesFoundErr) {
-			tableReporter.Warnf("No package sources found, --help for usage information.\n")
-			return 0
+			tableReporter.Errorf("No package sources found, --help for usage information.\n")
+			return 128
 		}
 
 		tableReporter.Errorf("%v\n", err)

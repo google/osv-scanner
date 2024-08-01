@@ -413,8 +413,9 @@ func (e MavenLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 			NameLocation:    artifactPosition,
 			VersionLocation: versionPosition,
 		}
-		if strings.TrimSpace(lockPackage.Scope) != "" {
-			pkgDetails.DepGroups = append(pkgDetails.DepGroups, lockPackage.Scope)
+		if scope := strings.TrimSpace(lockPackage.Scope); scope != "" && scope != "compile" {
+			// Only append non-default scope (compile is the default scope).
+			pkgDetails.DepGroups = append(pkgDetails.DepGroups, scope)
 		}
 		details[finalName] = pkgDetails
 	}
@@ -444,8 +445,9 @@ func (e MavenLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 			pkgDetails.Version = resolvedVersion
 			pkgDetails.VersionLocation = versionPosition
 		}
-		if strings.TrimSpace(lockPackage.Scope) != "" {
-			pkgDetails.DepGroups = append(pkgDetails.DepGroups, lockPackage.Scope)
+		if scope := strings.TrimSpace(lockPackage.Scope); scope != "" && scope != "compile" {
+			// Only append non-default scope (compile is the default scope).
+			pkgDetails.DepGroups = append(pkgDetails.DepGroups, scope)
 		}
 		details[finalName] = pkgDetails
 	}

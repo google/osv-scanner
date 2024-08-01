@@ -8,6 +8,7 @@ import (
 	"slices"
 
 	"deps.dev/util/resolve"
+	"deps.dev/util/resolve/maven"
 	"deps.dev/util/resolve/npm"
 	"github.com/google/osv-scanner/internal/resolution/client"
 	"github.com/google/osv-scanner/internal/resolution/manifest"
@@ -59,6 +60,8 @@ func getResolver(sys resolve.System, cl resolve.Client) (resolve.Resolver, error
 	switch sys { //nolint:exhaustive
 	case resolve.NPM:
 		return npm.NewResolver(cl), nil
+	case resolve.Maven:
+		return maven.NewResolver(cl), nil
 	default:
 		return nil, fmt.Errorf("no resolver for ecosystem %v", sys)
 	}

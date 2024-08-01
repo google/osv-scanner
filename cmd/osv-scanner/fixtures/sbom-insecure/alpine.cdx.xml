@@ -517,18 +517,18 @@
         <property name="syft:metadata:size">4929</property>
       </properties>
     </component>
-    <component bom-ref="pkg:apk/alpine/zlib@1.2.13-r0?arch=x86_64&amp;upstream=zlib&amp;distro=alpine-3.17.2&amp;package-id=94014313cfcd2b71" type="library">
+    <component bom-ref="pkg:apk/alpine/zlib@1.2.10-r0?arch=x86_64&amp;upstream=zlib&amp;distro=alpine-3.17.2&amp;package-id=94014313cfcd2b71" type="library">
       <publisher>Natanael Copa &lt;ncopa@alpinelinux.org&gt;</publisher>
       <name>zlib</name>
-      <version>1.2.13-r0</version>
+      <version>1.2.10-r0</version>
       <description>A compression/decompression Library</description>
       <licenses>
         <license>
           <id>Zlib</id>
         </license>
       </licenses>
-      <cpe>cpe:2.3:a:zlib:zlib:1.2.13-r0:*:*:*:*:*:*:*</cpe>
-      <purl>pkg:apk/alpine/zlib@1.2.10-r2?arch=x86_64&amp;upstream=zlib&amp;distro=alpine-3.17.2</purl>
+      <cpe>cpe:2.3:a:zlib:zlib:1.2.10-r0:*:*:*:*:*:*:*</cpe>
+      <purl>pkg:apk/alpine/zlib@1.2.10-r0?arch=x86_64&amp;upstream=zlib&amp;distro=alpine-3.17.2</purl>
       <externalReferences>
         <reference type="distribution">
           <url>https://zlib.net/</url>

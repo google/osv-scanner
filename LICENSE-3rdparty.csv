@@ -7,6 +7,7 @@ core,deps.dev/util/resolve/dep,Apache-2.0,Copyright (c) 2023 Google
 core,deps.dev/util/resolve/internal/attr,Apache-2.0,Copyright (c) 2023 Google
 core,deps.dev/util/resolve/internal/deptest,Apache-2.0,Copyright (c) 2023 Google
 core,deps.dev/util/resolve/internal/versiontest,Apache-2.0,Copyright (c) 2023 Google
+core,deps.dev/util/resolve/maven,Apache-2.0,Copyright (c) 2023 Google
 core,deps.dev/util/resolve/npm,Apache-2.0,Copyright (c) 2023 Google
 core,deps.dev/util/resolve/schema,Apache-2.0,Copyright (c) 2023 Google
 core,deps.dev/util/resolve/version,Apache-2.0,Copyright (c) 2023 Google
@@ -276,7 +277,6 @@ core,golang.org/x/crypto/blowfish,BSD-3-Clause,Copyright (c) 2009 The Go Authors
 core,golang.org/x/crypto/cast5,BSD-3-Clause,Copyright (c) 2009 The Go Authors. All rights reserved
 core,golang.org/x/crypto/chacha20,BSD-3-Clause,Copyright (c) 2009 The Go Authors. All rights reserved
 core,golang.org/x/crypto/curve25519,BSD-3-Clause,Copyright (c) 2009 The Go Authors. All rights reserved
-core,golang.org/x/crypto/curve25519/internal/field,BSD-3-Clause,Copyright (c) 2009 The Go Authors. All rights reserved
 core,golang.org/x/crypto/hkdf,BSD-3-Clause,Copyright (c) 2009 The Go Authors. All rights reserved
 core,golang.org/x/crypto/internal/alias,BSD-3-Clause,Copyright (c) 2009 The Go Authors. All rights reserved
 core,golang.org/x/crypto/internal/poly1305,BSD-3-Clause,Copyright (c) 2009 The Go Authors. All rights reserved
@@ -285,9 +285,9 @@ core,golang.org/x/crypto/ssh,BSD-3-Clause,Copyright (c) 2009 The Go Authors. All
 core,golang.org/x/crypto/ssh/agent,BSD-3-Clause,Copyright (c) 2009 The Go Authors. All rights reserved
 core,golang.org/x/crypto/ssh/internal/bcrypt_pbkdf,BSD-3-Clause,Copyright (c) 2009 The Go Authors. All rights reserved
 core,golang.org/x/crypto/ssh/knownhosts,BSD-3-Clause,Copyright (c) 2009 The Go Authors. All rights reserved
-core,golang.org/x/exp/constraints,BSD-3-Clause,Copyright (c) 2009 The Go Authors. All rights reserved
-core,golang.org/x/exp/maps,BSD-3-Clause,Copyright (c) 2009 The Go Authors. All rights reserved
-core,golang.org/x/exp/slices,BSD-3-Clause,Copyright (c) 2009 The Go Authors. All rights reserved
+core,golang.org/x/exp/constraints,BSD-3-Clause,Copyright 2009 The Go Authors
+core,golang.org/x/exp/maps,BSD-3-Clause,Copyright 2009 The Go Authors
+core,golang.org/x/exp/slices,BSD-3-Clause,Copyright 2009 The Go Authors
 core,golang.org/x/net/context,BSD-3-Clause,Copyright (c) 2009 The Go Authors. All rights reserved
 core,golang.org/x/net/html,BSD-3-Clause,Copyright (c) 2009 The Go Authors. All rights reserved
 core,golang.org/x/net/html/atom,BSD-3-Clause,Copyright (c) 2009 The Go Authors. All rights reserved
@@ -300,7 +300,6 @@ core,golang.org/x/net/internal/timeseries,BSD-3-Clause,Copyright (c) 2009 The Go
 core,golang.org/x/net/proxy,BSD-3-Clause,Copyright (c) 2009 The Go Authors. All rights reserved
 core,golang.org/x/net/trace,BSD-3-Clause,Copyright (c) 2009 The Go Authors. All rights reserved
 core,golang.org/x/sync/errgroup,BSD-3-Clause,Copyright (c) 2009 The Go Authors. All rights reserved
-core,golang.org/x/sync/semaphore,BSD-3-Clause,Copyright (c) 2009 The Go Authors. All rights reserved
 core,golang.org/x/sys/cpu,BSD-3-Clause,Copyright (c) 2009 The Go Authors. All rights reserved
 core,golang.org/x/sys/execabs,BSD-3-Clause,Copyright (c) 2009 The Go Authors. All rights reserved
 core,golang.org/x/sys/plan9,BSD-3-Clause,Copyright (c) 2009 The Go Authors. All rights reserved
@@ -326,7 +325,6 @@ core,golang.org/x/tools/go/callgraph/vta,BSD-3-Clause,Copyright (c) 2009 The Go 
 core,golang.org/x/tools/go/callgraph/vta/internal/trie,BSD-3-Clause,Copyright (c) 2009 The Go Authors. All rights reserved
 core,golang.org/x/tools/go/gcexportdata,BSD-3-Clause,Copyright (c) 2009 The Go Authors. All rights reserved
 core,golang.org/x/tools/go/internal/cgo,BSD-3-Clause,Copyright (c) 2009 The Go Authors. All rights reserved
-core,golang.org/x/tools/go/internal/packagesdriver,BSD-3-Clause,Copyright (c) 2009 The Go Authors. All rights reserved
 core,golang.org/x/tools/go/loader,BSD-3-Clause,Copyright (c) 2009 The Go Authors. All rights reserved
 core,golang.org/x/tools/go/packages,BSD-3-Clause,Copyright (c) 2009 The Go Authors. All rights reserved
 core,golang.org/x/tools/go/ssa,BSD-3-Clause,Copyright (c) 2009 The Go Authors. All rights reserved
@@ -369,6 +367,7 @@ core,google.golang.org/grpc/backoff,Apache-2.0,Copyright 2014 gRPC authors.
 core,google.golang.org/grpc/balancer,Apache-2.0,Copyright 2014 gRPC authors.
 core,google.golang.org/grpc/balancer/base,Apache-2.0,Copyright 2014 gRPC authors.
 core,google.golang.org/grpc/balancer/grpclb/state,Apache-2.0,Copyright 2014 gRPC authors.
+core,google.golang.org/grpc/balancer/pickfirst,Apache-2.0,Copyright 2014 gRPC authors.
 core,google.golang.org/grpc/balancer/roundrobin,Apache-2.0,Copyright 2014 gRPC authors.
 core,google.golang.org/grpc/binarylog/grpc_binarylog_v1,Apache-2.0,Copyright 2014 gRPC authors.
 core,google.golang.org/grpc/channelz,Apache-2.0,Copyright 2014 gRPC authors.
@@ -389,7 +388,6 @@ core,google.golang.org/grpc/internal/channelz,Apache-2.0,Copyright 2014 gRPC aut
 core,google.golang.org/grpc/internal/credentials,Apache-2.0,Copyright 2014 gRPC authors.
 core,google.golang.org/grpc/internal/envconfig,Apache-2.0,Copyright 2014 gRPC authors.
 core,google.golang.org/grpc/internal/grpclog,Apache-2.0,Copyright 2014 gRPC authors.
-core,google.golang.org/grpc/internal/grpcrand,Apache-2.0,Copyright 2014 gRPC authors.
 core,google.golang.org/grpc/internal/grpcsync,Apache-2.0,Copyright 2014 gRPC authors.
 core,google.golang.org/grpc/internal/grpcutil,Apache-2.0,Copyright 2014 gRPC authors.
 core,google.golang.org/grpc/internal/idle,Apache-2.0,Copyright 2014 gRPC authors.

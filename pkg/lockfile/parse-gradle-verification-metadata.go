@@ -51,7 +51,7 @@ var GradleVerificationExtractor = GradleVerificationMetadataExtractor{
 
 //nolint:gochecknoinits
 func init() {
-	registerExtractor("gradle/verification-metadata.xml", GradleVerificationExtractor)
+	registerExtractor("gradle/verification-metadata.xml", GradleVerificationMetadataExtractor{})
 }
 
 func ParseGradleVerificationMetadata(pathToLockfile string) ([]PackageDetails, error) {

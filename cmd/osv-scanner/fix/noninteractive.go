@@ -2,6 +2,7 @@ package fix
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"os"
 	"slices"
@@ -17,6 +18,10 @@ import (
 )
 
 func autoInPlace(ctx context.Context, r reporter.Reporter, opts osvFixOptions, maxUpgrades int) error {
+	if !remediation.SupportsInPlace(opts.LockfileRW) {
+		return errors.New("in-place strategy is not supported for lockfile")
+	}
+
 	r.Infof("Scanning %s...\n", opts.Lockfile)
 	f, err := lockfile.OpenLocalDepFile(opts.Lockfile)
 	if err != nil {
@@ -92,6 +97,10 @@ func autoChooseInPlacePatches(res remediation.InPlaceResult, maxUpgrades int) ([
 }
 
 func autoRelock(ctx context.Context, r reporter.Reporter, opts osvFixOptions, maxUpgrades int) error {
+	if !remediation.SupportsRelax(opts.ManifestRW) {
+		return errors.New("relock strategy is not supported for manifest")
+	}
+
 	r.Infof("Resolving %s...\n", opts.Manifest)
 	f, err := lockfile.OpenLocalDepFile(opts.Manifest)
 	if err != nil {

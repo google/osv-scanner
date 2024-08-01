@@ -77,6 +77,8 @@ To run tests:
 ./scripts/run_tests.sh
 ```
 
+To get consistent test results, please run with `GOTOOLCHAIN=go<go version in go.mod>`.
+
 By default, tests that require additional dependencies beyond the go toolchain are skipped.
 Enable these tests by setting the env variable `TEST_ACCEPTANCE=true`.
 

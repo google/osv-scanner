@@ -63,7 +63,7 @@ func removeZeros(segs []string) []string {
 		i--
 	}
 
-	return segs[:maxInt(i, 0)]
+	return segs[:max(i, 0)]
 }
 
 func canonicalSegments(segs []string) (canSegs []string) {
@@ -73,11 +73,11 @@ func canonicalSegments(segs []string) (canSegs []string) {
 }
 
 func compareRubyGemsComponents(a, b []string) int {
-	max := maxInt(len(a), len(b))
+	numberOfComponents := max(len(a), len(b))
 
 	var compare int
 
-	for i := 0; i < max; i++ {
+	for i := 0; i < numberOfComponents; i++ {
 		as := fetch(a, i, "0")
 		bs := fetch(b, i, "0")
 

@@ -19,9 +19,6 @@ func TestComposerExtraction_shouldExtractPackages(t *testing.T) {
 			Version:   "7.0.0",
 			Ecosystem: string(models.EcosystemPackagist),
 			Commit:    "",
-			BlockLocation: models.FilePosition{
-				Line: models.Position{Start: 0, End: 0},
-			},
 		},
 		expectedNamespace: "symfony",
 		expectedName:      "yaml",
@@ -53,9 +50,6 @@ func TestComposerExtraction_shouldFilterPackages(t *testing.T) {
 				Version:   "7.0.0",
 				Ecosystem: string(models.EcosystemPackagist),
 				Commit:    "",
-				BlockLocation: models.FilePosition{
-					Line: models.Position{Start: 0, End: 0},
-				},
 			},
 		},
 		{
@@ -65,9 +59,6 @@ func TestComposerExtraction_shouldFilterPackages(t *testing.T) {
 				Version:   "7.0.0",
 				Ecosystem: string(models.EcosystemPackagist),
 				Commit:    "",
-				BlockLocation: models.FilePosition{
-					Line: models.Position{Start: 0, End: 0},
-				},
 			},
 		},
 	}

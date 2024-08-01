@@ -60,9 +60,9 @@ func retrieveKeyFromLine(line string) string {
 	match := keyRegexp.FindStringSubmatch(line)
 	if len(match) == 2 {
 		return match[1]
-	} else {
-		return ""
 	}
+
+	return ""
 }
 
 func openJSONDependency[P models.IFilePosition](key string, line string, dependencies map[string]P, position int, dependency *string) {

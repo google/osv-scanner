@@ -6,14 +6,14 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
-	"log"
 	"math/rand"
 	"net/http"
 	"time"
 
 	"github.com/google/osv-scanner/pkg/lockfile"
 	"github.com/google/osv-scanner/pkg/models"
-	"golang.org/x/sync/semaphore"
+
+	"golang.org/x/sync/errgroup"
 )
 
 const (
@@ -132,17 +132,17 @@ func MakePkgRequest(pkgDetails lockfile.PackageDetails) *Query {
 			},
 			Commit: pkgDetails.Commit,
 		}
-	} else {
-		return &Query{
-			Version: pkgDetails.Version,
-			Package: Package{
-				Name:      pkgDetails.Name,
-				Ecosystem: string(pkgDetails.Ecosystem),
-			},
-			Metadata: models.Metadata{
-				DepGroups: pkgDetails.DepGroups,
-			},
-		}
+	}
+
+	return &Query{
+		Version: pkgDetails.Version,
+		Package: Package{
+			Name:      pkgDetails.Name,
+			Ecosystem: string(pkgDetails.Ecosystem),
+		},
+		Metadata: models.Metadata{
+			DepGroups: pkgDetails.DepGroups,
+		},
 	}
 }
 
@@ -269,7 +269,6 @@ func Hydrate(resp *BatchedResponse) (*HydratedBatchedResponse, error) {
 // Vulnerability details using the provided http client.
 func HydrateWithClient(resp *BatchedResponse, client *http.Client) (*HydratedBatchedResponse, error) {
 	hydrated := HydratedBatchedResponse{}
-	ctx := context.TODO()
 	// Preallocate the array to avoid slice reallocations when inserting later
 	hydrated.Results = make([]Response, len(resp.Results))
 	for idx := range hydrated.Results {
@@ -277,40 +276,31 @@ func HydrateWithClient(resp *BatchedResponse, client *http.Client) (*HydratedBat
 			make([]models.Vulnerability, len(resp.Results[idx].Vulns))
 	}
 
-	errChan := make(chan error)
-	rateLimiter := semaphore.NewWeighted(maxConcurrentRequests)
-
+	g, ctx := errgroup.WithContext(context.TODO())
+	g.SetLimit(maxConcurrentRequests)
 	for batchIdx, response := range resp.Results {
 		for resultIdx, vuln := range response.Vulns {
-			if err := rateLimiter.Acquire(ctx, 1); err != nil {
-				log.Panicf("Failed to acquire semaphore: %v", err)
-			}
-
-			go func(id string, batchIdx int, resultIdx int) {
+			id := vuln.ID
+			batchIdx := batchIdx
+			resultIdx := resultIdx
+			g.Go(func() error {
+				// exit early if another hydration request has already failed
+				// results are thrown away later, so avoid needless work
+				if ctx.Err() != nil {
+					return nil //nolint:nilerr // this value doesn't matter to errgroup.Wait()
+				}
 				vuln, err := GetWithClient(id, client)
 				if err != nil {
-					errChan <- err
-				} else {
-					hydrated.Results[batchIdx].Vulns[resultIdx] = *vuln
+					return err
 				}
+				hydrated.Results[batchIdx].Vulns[resultIdx] = *vuln
 
-				rateLimiter.Release(1)
-			}(vuln.ID, batchIdx, resultIdx)
+				return nil
+			})
 		}
 	}
 
-	// Close error channel when all semaphores are released
-	go func() {
-		if err := rateLimiter.Acquire(ctx, maxConcurrentRequests); err != nil {
-			log.Panicf("Failed to acquire semaphore: %v", err)
-		}
-		// Always close the error channel
-		close(errChan)
-	}()
-
-	// Range will exit when channel is closed.
-	// Channel will be closed when all semaphores are freed.
-	for err := range errChan {
+	if err := g.Wait(); err != nil {
 		return nil, err
 	}
 

@@ -30,18 +30,7 @@
         "Package": {
           "name": "regex",
           "version": "1.5.1",
-          "ecosystem": "crates.io",
-          "blockLocation": {
-            "line": {
-              "start": 0,
-              "end": 0
-            },
-            "column": {
-              "start": 0,
-              "end": 0
-            },
-            "file_name": ""
-          }
+          "ecosystem": "crates.io"
         },
         "Source": {
           "path": "/path/to/sub-rust-project/Cargo.lock",
@@ -246,18 +235,7 @@
         "Package": {
           "name": "github.com/gogo/protobuf",
           "version": "1.3.1",
-          "ecosystem": "Go",
-          "blockLocation": {
-            "line": {
-              "start": 0,
-              "end": 0
-            },
-            "column": {
-              "start": 0,
-              "end": 0
-            },
-            "file_name": ""
-          }
+          "ecosystem": "Go"
         },
         "Source": {
           "path": "/path/to/go.mod",
@@ -337,18 +315,7 @@
         "Package": {
           "name": "regex",
           "version": "1.5.1",
-          "ecosystem": "crates.io",
-          "blockLocation": {
-            "line": {
-              "start": 0,
-              "end": 0
-            },
-            "column": {
-              "start": 0,
-              "end": 0
-            },
-            "file_name": ""
-          }
+          "ecosystem": "crates.io"
         },
         "Source": {
           "path": "/path/to/sub-rust-project/Cargo.lock",

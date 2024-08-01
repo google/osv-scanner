@@ -3,33 +3,38 @@ package reporter
 import (
 	"fmt"
 	"io"
+	"strings"
 
-	"github.com/CycloneDX/cyclonedx-go"
+	"github.com/google/osv-scanner/internal/output"
+
 	"github.com/google/osv-scanner/pkg/models"
-	"github.com/google/osv-scanner/pkg/reporter/sbom"
 )
 
 type CycloneDXReporter struct {
 	hasErrored bool
 	stdout     io.Writer
 	stderr     io.Writer
+	version    models.CycloneDXVersion
 	level      VerbosityLevel
-	version    sbom.CycloneDXVersion
 }
 
-func NewCycloneDXReporter(stdout io.Writer, stderr io.Writer, version sbom.CycloneDXVersion, level VerbosityLevel) *CycloneDXReporter {
+func NewCycloneDXReporter(stdout, stderr io.Writer, version models.CycloneDXVersion, level VerbosityLevel) *CycloneDXReporter {
 	return &CycloneDXReporter{
 		stdout:     stdout,
 		stderr:     stderr,
 		hasErrored: false,
-		level:      level,
 		version:    version,
+		level:      level,
 	}
 }
 
-func (r *CycloneDXReporter) Errorf(msg string, a ...any) {
-	_, _ = fmt.Fprintf(r.stderr, msg, a...)
+func (r *CycloneDXReporter) Errorf(format string, a ...any) {
+	fmt.Fprintf(r.stderr, format, a...)
 	r.hasErrored = true
+}
+
+func (r *CycloneDXReporter) HasErrored() bool {
+	return r.hasErrored
 }
 
 func (r *CycloneDXReporter) Warnf(format string, a ...any) {
@@ -50,14 +55,13 @@ func (r *CycloneDXReporter) Verbosef(format string, a ...any) {
 	}
 }
 
-func (r *CycloneDXReporter) HasErrored() bool {
-	return r.hasErrored
-}
-
 func (r *CycloneDXReporter) PrintResult(vulnerabilityResults *models.VulnerabilityResults) error {
-	bomCreator := sbom.SpecVersionToBomCreator[r.version]
-	bom := bomCreator(r.stderr, vulnerabilityResults.ResultsByPURL)
-	encoder := cyclonedx.NewBOMEncoder(r.stdout, cyclonedx.BOMFileFormatJSON)
+	errs := output.PrintCycloneDXResults(vulnerabilityResults, r.version, r.stdout)
+	if errs != nil {
+		for _, err := range strings.Split(errs.Error(), "\n") {
+			r.Warnf("Failed to parse package URL: %v", err)
+		}
+	}
 
-	return encoder.Encode(bom)
+	return nil
 }

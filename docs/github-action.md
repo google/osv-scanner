@@ -46,6 +46,8 @@ on:
     branches: [main]
 
 permissions:
+  # Required to upload SARIF file to CodeQL. See: https://github.com/github/codeql-action/issues/2117
+  actions: read
   # Require writing security events to upload SARIF file to security tab
   security-events: write
   # Only need to read contents
@@ -53,7 +55,7 @@ permissions:
 
 jobs:
   scan-pr:
-    uses: "google/osv-scanner-action/.github/workflows/osv-scanner-reusable.yml@v1.7.1"
+    uses: "google/osv-scanner-action/.github/workflows/osv-scanner-reusable.yml@v1.8.2"
 ```
 
 ### View results
@@ -87,6 +89,8 @@ on:
     branches: [main]
 
 permissions:
+  # Required to upload SARIF file to CodeQL. See: https://github.com/github/codeql-action/issues/2117
+  actions: read
   # Require writing security events to upload SARIF file to security tab
   security-events: write
   # Only need to read contents
@@ -94,7 +98,7 @@ permissions:
 
 jobs:
   scan-scheduled:
-    uses: "google/osv-scanner-action/.github/workflows/osv-scanner-reusable.yml@v1.7.1"
+    uses: "google/osv-scanner-action/.github/workflows/osv-scanner-reusable.yml@v1.8.2"
 ```
 
 As written, the scanner will run on 12:30 pm UTC every Monday, and also on every push to the main branch. You can change the schedule by following the instructions [here](https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#schedule).
@@ -120,11 +124,16 @@ on:
       - "*" # triggers only if push new tag version, like `0.8.4` or else
 
 permissions:
-  contents: read # to fetch code (actions/checkout)
+  # Required to upload SARIF file to CodeQL. See: https://github.com/github/codeql-action/issues/2117
+  actions: read
+  # Require writing security events to upload SARIF file to security tab
+  security-events: write
+  # to fetch code (actions/checkout)
+  contents: read
 
 jobs:
   osv-scan:
-    uses: google/osv-scanner/.github/workflows/osv-scanner-reusable.yml
+    uses: "google/osv-scanner-action/.github/workflows/osv-scanner-reusable.yml@v1.8.2"
     with:
       # Only scan the top level go.mod file without recursively scanning directories since
       # this is pipeline is about releasing the go module and binary
@@ -177,7 +186,7 @@ Examples
 ```yml
 jobs:
   scan-pr:
-    uses: "google/osv-scanner-action/.github/workflows/osv-scanner-reusable.yml@v1.7.1"
+    uses: "google/osv-scanner-action/.github/workflows/osv-scanner-reusable.yml@v1.8.2"
     with:
       scan-args: |-
         --lockfile=./path/to/lockfile1
@@ -189,7 +198,7 @@ jobs:
 ```yml
 jobs:
   scan-pr:
-    uses: "google/osv-scanner-action/.github/workflows/osv-scanner-reusable.yml@v1.7.1"
+    uses: "google/osv-scanner-action/.github/workflows/osv-scanner-reusable.yml@v1.8.2"
     with:
       scan-args: |-
         --recursive
@@ -216,7 +225,7 @@ jobs:
     name: Vulnerability scanning
     # makes sure the extraction step is completed before running the scanner
     needs: extract-deps
-    uses: "google/osv-scanner-action/.github/workflows/osv-scanner-reusable.yml@v1.7.1"
+    uses: "google/osv-scanner-action/.github/workflows/osv-scanner-reusable.yml@v1.8.2"
     with:
       # Download the artifact uploaded in extract-deps step
       download-artifact: converted-OSV-Scanner-deps
@@ -227,6 +236,7 @@ jobs:
       # Needed to upload the SARIF results to code-scanning dashboard.
       security-events: write
       contents: read
+      actions: read
 ```
 
 </details>

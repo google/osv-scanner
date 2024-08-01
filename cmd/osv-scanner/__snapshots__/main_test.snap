@@ -10,7 +10,7 @@ No package sources found, --help for usage information.
 ---
 
 [TestRun/#01 - 1]
-osv-scanner version: 1.7.3
+osv-scanner version: 1.8.2
 commit: n/a
 built at: n/a
 
@@ -79,7 +79,7 @@ Scanned <rootdir>/fixtures/locks-many/package-lock.json file and found 1 package
 ---
 
 [TestRun/#06 - 2]
-unsupported output format "unknown" - must be one of: table, json, markdown, sarif, gh-annotations, cyclonedx-1-4, cyclonedx-1-5
+unsupported output format "unknown" - must be one of: table, vertical, json, markdown, sarif, gh-annotations, cyclonedx-1-4, cyclonedx-1-5
 
 ---
 
@@ -96,7 +96,7 @@ Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
 [TestRun/Empty_sarif_output - 1]
 {
   "version": "2.1.0",
-  "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/master/Schemata/sarif-schema-2.1.0.json",
+  "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/main/sarif-2.1/schema/sarif-schema-2.1.0.json",
   "runs": [
     {
       "tool": {
@@ -104,7 +104,7 @@ Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
           "informationUri": "https://github.com/google/osv-scanner",
           "name": "osv-scanner",
           "rules": [],
-          "version": "1.7.3"
+          "version": "1.8.2"
         }
       },
       "results": []
@@ -137,6 +137,7 @@ Loaded filter from: <rootdir>/fixtures/go-project/osv-scanner.toml
 | https://osv.dev/GO-2024-2687 |      | Go        | stdlib  | 1.21.7  | fixtures/go-project/go.mod |
 | https://osv.dev/GO-2024-2887 |      | Go        | stdlib  | 1.21.7  | fixtures/go-project/go.mod |
 | https://osv.dev/GO-2024-2888 |      | Go        | stdlib  | 1.21.7  | fixtures/go-project/go.mod |
+| https://osv.dev/GO-2024-2963 |      | Go        | stdlib  | 1.21.7  | fixtures/go-project/go.mod |
 +------------------------------+------+-----------+---------+---------+----------------------------+
 
 ---
@@ -148,7 +149,7 @@ Loaded filter from: <rootdir>/fixtures/go-project/osv-scanner.toml
 [TestRun/Sarif_with_vulns - 1]
 {
   "version": "2.1.0",
-  "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/master/Schemata/sarif-schema-2.1.0.json",
+  "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/main/sarif-2.1/schema/sarif-schema-2.1.0.json",
   "runs": [
     {
       "tool": {
@@ -176,7 +177,7 @@ Loaded filter from: <rootdir>/fixtures/go-project/osv-scanner.toml
               }
             }
           ],
-          "version": "1.7.3"
+          "version": "1.8.2"
         }
       },
       "artifacts": [
@@ -256,7 +257,8 @@ Scanned <rootdir>/fixtures/sbom-insecure/postgres-stretch.cdx.xml as CycloneDX S
 +-------------------------------------+------+-----------+--------------------------------+------------------------------------+-------------------------------------------------+
 | OSV URL                             | CVSS | ECOSYSTEM | PACKAGE                        | VERSION                            | SOURCE                                          |
 +-------------------------------------+------+-----------+--------------------------------+------------------------------------+-------------------------------------------------+
-| https://osv.dev/CVE-2022-37434      | 9.8  | Alpine    | zlib                           | 1.2.10-r2                          | fixtures/sbom-insecure/alpine.cdx.xml           |
+| https://osv.dev/CVE-2018-25032      | 7.5  | Alpine    | zlib                           | 1.2.10-r0                          | fixtures/sbom-insecure/alpine.cdx.xml           |
+| https://osv.dev/CVE-2022-37434      | 9.8  | Alpine    | zlib                           | 1.2.10-r0                          | fixtures/sbom-insecure/alpine.cdx.xml           |
 | https://osv.dev/DLA-3022-1          |      | Debian    | dpkg                           | 1.18.25                            | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/GHSA-v95c-p5hm-xq8f | 6.0  | Go        | github.com/opencontainers/runc | v1.0.1                             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/GO-2022-0274        |      |           |                                |                                    |                                                 |
@@ -265,6 +267,7 @@ Scanned <rootdir>/fixtures/sbom-insecure/postgres-stretch.cdx.xml as CycloneDX S
 | https://osv.dev/GHSA-m8cg-xc2p-r3fc | 2.5  | Go        | github.com/opencontainers/runc | v1.0.1                             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/GHSA-vpvm-3wq2-2wvm | 7.0  | Go        | github.com/opencontainers/runc | v1.0.1                             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/GHSA-xr7r-f8xq-vfvv | 8.6  | Go        | github.com/opencontainers/runc | v1.0.1                             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/GO-2024-2491        |      |           |                                |                                    |                                                 |
 | https://osv.dev/GHSA-p782-xgp4-8hr8 | 5.3  | Go        | golang.org/x/sys               | v0.0.0-20210817142637-7d9622a276b7 | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/GO-2022-0493        |      |           |                                |                                    |                                                 |
 | https://osv.dev/DLA-3012-1          |      | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
@@ -377,7 +380,8 @@ Scanned <rootdir>/fixtures/sbom-insecure/alpine.cdx.xml as CycloneDX SBOM and fo
 +--------------------------------+------+-----------+---------+-----------+---------------------------------------+
 | OSV URL                        | CVSS | ECOSYSTEM | PACKAGE | VERSION   | SOURCE                                |
 +--------------------------------+------+-----------+---------+-----------+---------------------------------------+
-| https://osv.dev/CVE-2022-37434 | 9.8  | Alpine    | zlib    | 1.2.10-r2 | fixtures/sbom-insecure/alpine.cdx.xml |
+| https://osv.dev/CVE-2018-25032 | 7.5  | Alpine    | zlib    | 1.2.10-r0 | fixtures/sbom-insecure/alpine.cdx.xml |
+| https://osv.dev/CVE-2022-37434 | 9.8  | Alpine    | zlib    | 1.2.10-r0 | fixtures/sbom-insecure/alpine.cdx.xml |
 +--------------------------------+------+-----------+---------+-----------+---------------------------------------+
 
 ---
@@ -453,6 +457,7 @@ Scanned <rootdir>/fixtures/call-analysis-go-project/go.mod file and found 4 pack
 | https://osv.dev/GO-2024-2609        |      | Go        | stdlib                      | 1.19    | fixtures/call-analysis-go-project/go.mod |
 | https://osv.dev/GO-2024-2610        |      | Go        | stdlib                      | 1.19    | fixtures/call-analysis-go-project/go.mod |
 | https://osv.dev/GO-2024-2888        |      | Go        | stdlib                      | 1.19    | fixtures/call-analysis-go-project/go.mod |
+| https://osv.dev/GO-2024-2963        |      | Go        | stdlib                      | 1.19    | fixtures/call-analysis-go-project/go.mod |
 +-------------------------------------+------+-----------+-----------------------------+---------+------------------------------------------+
 
 ---
@@ -479,7 +484,7 @@ Scanned <rootdir>/fixtures/locks-insecure/osv-scanner-flutter-deps.json file as 
 [TestRun_GithubActions/scanning_osv-scanner_custom_format_output_json - 1]
 {
   "version": "2.1.0",
-  "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/master/Schemata/sarif-schema-2.1.0.json",
+  "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/main/sarif-2.1/schema/sarif-schema-2.1.0.json",
   "runs": [
     {
       "tool": {
@@ -526,7 +531,7 @@ Scanned <rootdir>/fixtures/locks-insecure/osv-scanner-flutter-deps.json file as 
               }
             }
           ],
-          "version": "1.7.3"
+          "version": "1.8.2"
         }
       },
       "artifacts": [
@@ -654,41 +659,33 @@ Warning: `scan` exists as both a subcommand of OSV-Scanner and as a file on the 
           "package": {
             "name": "babel",
             "version": "6.23.0",
-            "ecosystem": "npm",
-            "blockLocation": {
-              "line": {
-                "start": 3,
-                "end": 3
-              },
-              "column": {
-                "start": 5,
-                "end": 23
-              },
-              "file_name": "<rootdir>/fixtures/locks-licenses/package.json"
-            },
-            "versionLocation": {
-              "line": {
-                "start": 3,
-                "end": 3
-              },
-              "column": {
-                "start": 15,
-                "end": 22
-              },
-              "file_name": "<rootdir>/fixtures/locks-licenses/package.json"
-            },
-            "nameLocation": {
-              "line": {
-                "start": 3,
-                "end": 3
-              },
-              "column": {
-                "start": 6,
-                "end": 11
-              },
-              "file_name": "<rootdir>/fixtures/locks-licenses/package.json"
-            }
+            "ecosystem": "npm"
           },
+          "locations": [
+            {
+              "block": {
+                "file_name": "<rootdir>/fixtures/locks-licenses/package.json",
+                "line_start": 3,
+                "line_end": 3,
+                "column_start": 5,
+                "column_end": 23
+              },
+              "name": {
+                "file_name": "<rootdir>/fixtures/locks-licenses/package.json",
+                "line_start": 3,
+                "line_end": 3,
+                "column_start": 6,
+                "column_end": 11
+              },
+              "version": {
+                "file_name": "<rootdir>/fixtures/locks-licenses/package.json",
+                "line_start": 3,
+                "line_end": 3,
+                "column_start": 15,
+                "column_end": 22
+              }
+            }
+          ],
           "licenses": [
             "MIT"
           ]
@@ -697,41 +694,33 @@ Warning: `scan` exists as both a subcommand of OSV-Scanner and as a file on the 
           "package": {
             "name": "human-signals",
             "version": "5.0.0",
-            "ecosystem": "npm",
-            "blockLocation": {
-              "line": {
-                "start": 4,
-                "end": 4
-              },
-              "column": {
-                "start": 5,
-                "end": 30
-              },
-              "file_name": "<rootdir>/fixtures/locks-licenses/package.json"
-            },
-            "versionLocation": {
-              "line": {
-                "start": 4,
-                "end": 4
-              },
-              "column": {
-                "start": 23,
-                "end": 29
-              },
-              "file_name": "<rootdir>/fixtures/locks-licenses/package.json"
-            },
-            "nameLocation": {
-              "line": {
-                "start": 4,
-                "end": 4
-              },
-              "column": {
-                "start": 6,
-                "end": 19
-              },
-              "file_name": "<rootdir>/fixtures/locks-licenses/package.json"
-            }
+            "ecosystem": "npm"
           },
+          "locations": [
+            {
+              "block": {
+                "file_name": "<rootdir>/fixtures/locks-licenses/package.json",
+                "line_start": 4,
+                "line_end": 4,
+                "column_start": 5,
+                "column_end": 30
+              },
+              "name": {
+                "file_name": "<rootdir>/fixtures/locks-licenses/package.json",
+                "line_start": 4,
+                "line_end": 4,
+                "column_start": 6,
+                "column_end": 19
+              },
+              "version": {
+                "file_name": "<rootdir>/fixtures/locks-licenses/package.json",
+                "line_start": 4,
+                "line_end": 4,
+                "column_start": 23,
+                "column_end": 29
+              }
+            }
+          ],
           "licenses": [
             "Apache-2.0"
           ]
@@ -740,41 +729,33 @@ Warning: `scan` exists as both a subcommand of OSV-Scanner and as a file on the 
           "package": {
             "name": "ms",
             "version": "2.1.3",
-            "ecosystem": "npm",
-            "blockLocation": {
-              "line": {
-                "start": 5,
-                "end": 5
-              },
-              "column": {
-                "start": 5,
-                "end": 19
-              },
-              "file_name": "<rootdir>/fixtures/locks-licenses/package.json"
-            },
-            "versionLocation": {
-              "line": {
-                "start": 5,
-                "end": 5
-              },
-              "column": {
-                "start": 12,
-                "end": 18
-              },
-              "file_name": "<rootdir>/fixtures/locks-licenses/package.json"
-            },
-            "nameLocation": {
-              "line": {
-                "start": 5,
-                "end": 5
-              },
-              "column": {
-                "start": 6,
-                "end": 8
-              },
-              "file_name": "<rootdir>/fixtures/locks-licenses/package.json"
-            }
+            "ecosystem": "npm"
           },
+          "locations": [
+            {
+              "block": {
+                "file_name": "<rootdir>/fixtures/locks-licenses/package.json",
+                "line_start": 5,
+                "line_end": 5,
+                "column_start": 5,
+                "column_end": 19
+              },
+              "name": {
+                "file_name": "<rootdir>/fixtures/locks-licenses/package.json",
+                "line_start": 5,
+                "line_end": 5,
+                "column_start": 6,
+                "column_end": 8
+              },
+              "version": {
+                "file_name": "<rootdir>/fixtures/locks-licenses/package.json",
+                "line_start": 5,
+                "line_end": 5,
+                "column_start": 12,
+                "column_end": 18
+              }
+            }
+          ],
           "licenses": [
             "MIT"
           ]
@@ -782,98 +763,6 @@ Warning: `scan` exists as both a subcommand of OSV-Scanner and as a file on the 
       ]
     }
   ],
-  "results_by_purl": {
-    "pkg:npm/babel@6.23.0": {
-      "Name": "babel",
-      "Version": "6.23.0",
-      "Ecosystem": "npm",
-      "Locations": [
-        {
-          "block": {
-            "file_name": "<rootdir>/fixtures/locks-licenses/package.json",
-            "line_start": 3,
-            "line_end": 3,
-            "column_start": 5,
-            "column_end": 23
-          },
-          "name": {
-            "file_name": "<rootdir>/fixtures/locks-licenses/package.json",
-            "line_start": 3,
-            "line_end": 3,
-            "column_start": 6,
-            "column_end": 11
-          },
-          "version": {
-            "file_name": "<rootdir>/fixtures/locks-licenses/package.json",
-            "line_start": 3,
-            "line_end": 3,
-            "column_start": 15,
-            "column_end": 22
-          }
-        }
-      ]
-    },
-    "pkg:npm/human-signals@5.0.0": {
-      "Name": "human-signals",
-      "Version": "5.0.0",
-      "Ecosystem": "npm",
-      "Locations": [
-        {
-          "block": {
-            "file_name": "<rootdir>/fixtures/locks-licenses/package.json",
-            "line_start": 4,
-            "line_end": 4,
-            "column_start": 5,
-            "column_end": 30
-          },
-          "name": {
-            "file_name": "<rootdir>/fixtures/locks-licenses/package.json",
-            "line_start": 4,
-            "line_end": 4,
-            "column_start": 6,
-            "column_end": 19
-          },
-          "version": {
-            "file_name": "<rootdir>/fixtures/locks-licenses/package.json",
-            "line_start": 4,
-            "line_end": 4,
-            "column_start": 23,
-            "column_end": 29
-          }
-        }
-      ]
-    },
-    "pkg:npm/ms@2.1.3": {
-      "Name": "ms",
-      "Version": "2.1.3",
-      "Ecosystem": "npm",
-      "Locations": [
-        {
-          "block": {
-            "file_name": "<rootdir>/fixtures/locks-licenses/package.json",
-            "line_start": 5,
-            "line_end": 5,
-            "column_start": 5,
-            "column_end": 19
-          },
-          "name": {
-            "file_name": "<rootdir>/fixtures/locks-licenses/package.json",
-            "line_start": 5,
-            "line_end": 5,
-            "column_start": 6,
-            "column_end": 8
-          },
-          "version": {
-            "file_name": "<rootdir>/fixtures/locks-licenses/package.json",
-            "line_start": 5,
-            "line_end": 5,
-            "column_start": 12,
-            "column_end": 18
-          }
-        }
-      ]
-    }
-  },
   "experimental_config": {
     "licenses": {
       "summary": true,
@@ -903,41 +792,33 @@ Scanned <rootdir>/fixtures/locks-licenses/package-lock.json file and found 3 pac
           "package": {
             "name": "babel",
             "version": "6.23.0",
-            "ecosystem": "npm",
-            "blockLocation": {
-              "line": {
-                "start": 3,
-                "end": 3
-              },
-              "column": {
-                "start": 5,
-                "end": 23
-              },
-              "file_name": "<rootdir>/fixtures/locks-licenses/package.json"
-            },
-            "versionLocation": {
-              "line": {
-                "start": 3,
-                "end": 3
-              },
-              "column": {
-                "start": 15,
-                "end": 22
-              },
-              "file_name": "<rootdir>/fixtures/locks-licenses/package.json"
-            },
-            "nameLocation": {
-              "line": {
-                "start": 3,
-                "end": 3
-              },
-              "column": {
-                "start": 6,
-                "end": 11
-              },
-              "file_name": "<rootdir>/fixtures/locks-licenses/package.json"
-            }
+            "ecosystem": "npm"
           },
+          "locations": [
+            {
+              "block": {
+                "file_name": "<rootdir>/fixtures/locks-licenses/package.json",
+                "line_start": 3,
+                "line_end": 3,
+                "column_start": 5,
+                "column_end": 23
+              },
+              "name": {
+                "file_name": "<rootdir>/fixtures/locks-licenses/package.json",
+                "line_start": 3,
+                "line_end": 3,
+                "column_start": 6,
+                "column_end": 11
+              },
+              "version": {
+                "file_name": "<rootdir>/fixtures/locks-licenses/package.json",
+                "line_start": 3,
+                "line_end": 3,
+                "column_start": 15,
+                "column_end": 22
+              }
+            }
+          ],
           "licenses": [
             "MIT"
           ]
@@ -946,41 +827,33 @@ Scanned <rootdir>/fixtures/locks-licenses/package-lock.json file and found 3 pac
           "package": {
             "name": "human-signals",
             "version": "5.0.0",
-            "ecosystem": "npm",
-            "blockLocation": {
-              "line": {
-                "start": 4,
-                "end": 4
-              },
-              "column": {
-                "start": 5,
-                "end": 30
-              },
-              "file_name": "<rootdir>/fixtures/locks-licenses/package.json"
-            },
-            "versionLocation": {
-              "line": {
-                "start": 4,
-                "end": 4
-              },
-              "column": {
-                "start": 23,
-                "end": 29
-              },
-              "file_name": "<rootdir>/fixtures/locks-licenses/package.json"
-            },
-            "nameLocation": {
-              "line": {
-                "start": 4,
-                "end": 4
-              },
-              "column": {
-                "start": 6,
-                "end": 19
-              },
-              "file_name": "<rootdir>/fixtures/locks-licenses/package.json"
-            }
+            "ecosystem": "npm"
           },
+          "locations": [
+            {
+              "block": {
+                "file_name": "<rootdir>/fixtures/locks-licenses/package.json",
+                "line_start": 4,
+                "line_end": 4,
+                "column_start": 5,
+                "column_end": 30
+              },
+              "name": {
+                "file_name": "<rootdir>/fixtures/locks-licenses/package.json",
+                "line_start": 4,
+                "line_end": 4,
+                "column_start": 6,
+                "column_end": 19
+              },
+              "version": {
+                "file_name": "<rootdir>/fixtures/locks-licenses/package.json",
+                "line_start": 4,
+                "line_end": 4,
+                "column_start": 23,
+                "column_end": 29
+              }
+            }
+          ],
           "licenses": [
             "Apache-2.0"
           ]
@@ -989,41 +862,33 @@ Scanned <rootdir>/fixtures/locks-licenses/package-lock.json file and found 3 pac
           "package": {
             "name": "ms",
             "version": "2.1.3",
-            "ecosystem": "npm",
-            "blockLocation": {
-              "line": {
-                "start": 5,
-                "end": 5
-              },
-              "column": {
-                "start": 5,
-                "end": 19
-              },
-              "file_name": "<rootdir>/fixtures/locks-licenses/package.json"
-            },
-            "versionLocation": {
-              "line": {
-                "start": 5,
-                "end": 5
-              },
-              "column": {
-                "start": 12,
-                "end": 18
-              },
-              "file_name": "<rootdir>/fixtures/locks-licenses/package.json"
-            },
-            "nameLocation": {
-              "line": {
-                "start": 5,
-                "end": 5
-              },
-              "column": {
-                "start": 6,
-                "end": 8
-              },
-              "file_name": "<rootdir>/fixtures/locks-licenses/package.json"
-            }
+            "ecosystem": "npm"
           },
+          "locations": [
+            {
+              "block": {
+                "file_name": "<rootdir>/fixtures/locks-licenses/package.json",
+                "line_start": 5,
+                "line_end": 5,
+                "column_start": 5,
+                "column_end": 19
+              },
+              "name": {
+                "file_name": "<rootdir>/fixtures/locks-licenses/package.json",
+                "line_start": 5,
+                "line_end": 5,
+                "column_start": 6,
+                "column_end": 8
+              },
+              "version": {
+                "file_name": "<rootdir>/fixtures/locks-licenses/package.json",
+                "line_start": 5,
+                "line_end": 5,
+                "column_start": 12,
+                "column_end": 18
+              }
+            }
+          ],
           "licenses": [
             "MIT"
           ]
@@ -1031,98 +896,6 @@ Scanned <rootdir>/fixtures/locks-licenses/package-lock.json file and found 3 pac
       ]
     }
   ],
-  "results_by_purl": {
-    "pkg:npm/babel@6.23.0": {
-      "Name": "babel",
-      "Version": "6.23.0",
-      "Ecosystem": "npm",
-      "Locations": [
-        {
-          "block": {
-            "file_name": "<rootdir>/fixtures/locks-licenses/package.json",
-            "line_start": 3,
-            "line_end": 3,
-            "column_start": 5,
-            "column_end": 23
-          },
-          "name": {
-            "file_name": "<rootdir>/fixtures/locks-licenses/package.json",
-            "line_start": 3,
-            "line_end": 3,
-            "column_start": 6,
-            "column_end": 11
-          },
-          "version": {
-            "file_name": "<rootdir>/fixtures/locks-licenses/package.json",
-            "line_start": 3,
-            "line_end": 3,
-            "column_start": 15,
-            "column_end": 22
-          }
-        }
-      ]
-    },
-    "pkg:npm/human-signals@5.0.0": {
-      "Name": "human-signals",
-      "Version": "5.0.0",
-      "Ecosystem": "npm",
-      "Locations": [
-        {
-          "block": {
-            "file_name": "<rootdir>/fixtures/locks-licenses/package.json",
-            "line_start": 4,
-            "line_end": 4,
-            "column_start": 5,
-            "column_end": 30
-          },
-          "name": {
-            "file_name": "<rootdir>/fixtures/locks-licenses/package.json",
-            "line_start": 4,
-            "line_end": 4,
-            "column_start": 6,
-            "column_end": 19
-          },
-          "version": {
-            "file_name": "<rootdir>/fixtures/locks-licenses/package.json",
-            "line_start": 4,
-            "line_end": 4,
-            "column_start": 23,
-            "column_end": 29
-          }
-        }
-      ]
-    },
-    "pkg:npm/ms@2.1.3": {
-      "Name": "ms",
-      "Version": "2.1.3",
-      "Ecosystem": "npm",
-      "Locations": [
-        {
-          "block": {
-            "file_name": "<rootdir>/fixtures/locks-licenses/package.json",
-            "line_start": 5,
-            "line_end": 5,
-            "column_start": 5,
-            "column_end": 19
-          },
-          "name": {
-            "file_name": "<rootdir>/fixtures/locks-licenses/package.json",
-            "line_start": 5,
-            "line_end": 5,
-            "column_start": 6,
-            "column_end": 8
-          },
-          "version": {
-            "file_name": "<rootdir>/fixtures/locks-licenses/package.json",
-            "line_start": 5,
-            "line_end": 5,
-            "column_start": 12,
-            "column_end": 18
-          }
-        }
-      ]
-    }
-  },
   "experimental_config": {
     "licenses": {
       "summary": false,
@@ -1201,41 +974,33 @@ Filtered 1 vulnerability from output
           "package": {
             "name": "babel",
             "version": "6.23.0",
-            "ecosystem": "npm",
-            "blockLocation": {
-              "line": {
-                "start": 3,
-                "end": 3
-              },
-              "column": {
-                "start": 5,
-                "end": 23
-              },
-              "file_name": "<rootdir>/fixtures/locks-licenses/package.json"
-            },
-            "versionLocation": {
-              "line": {
-                "start": 3,
-                "end": 3
-              },
-              "column": {
-                "start": 15,
-                "end": 22
-              },
-              "file_name": "<rootdir>/fixtures/locks-licenses/package.json"
-            },
-            "nameLocation": {
-              "line": {
-                "start": 3,
-                "end": 3
-              },
-              "column": {
-                "start": 6,
-                "end": 11
-              },
-              "file_name": "<rootdir>/fixtures/locks-licenses/package.json"
-            }
+            "ecosystem": "npm"
           },
+          "locations": [
+            {
+              "block": {
+                "file_name": "<rootdir>/fixtures/locks-licenses/package.json",
+                "line_start": 3,
+                "line_end": 3,
+                "column_start": 5,
+                "column_end": 23
+              },
+              "name": {
+                "file_name": "<rootdir>/fixtures/locks-licenses/package.json",
+                "line_start": 3,
+                "line_end": 3,
+                "column_start": 6,
+                "column_end": 11
+              },
+              "version": {
+                "file_name": "<rootdir>/fixtures/locks-licenses/package.json",
+                "line_start": 3,
+                "line_end": 3,
+                "column_start": 15,
+                "column_end": 22
+              }
+            }
+          ],
           "licenses": [
             "MIT"
           ]
@@ -1244,41 +1009,33 @@ Filtered 1 vulnerability from output
           "package": {
             "name": "human-signals",
             "version": "5.0.0",
-            "ecosystem": "npm",
-            "blockLocation": {
-              "line": {
-                "start": 4,
-                "end": 4
-              },
-              "column": {
-                "start": 5,
-                "end": 30
-              },
-              "file_name": "<rootdir>/fixtures/locks-licenses/package.json"
-            },
-            "versionLocation": {
-              "line": {
-                "start": 4,
-                "end": 4
-              },
-              "column": {
-                "start": 23,
-                "end": 29
-              },
-              "file_name": "<rootdir>/fixtures/locks-licenses/package.json"
-            },
-            "nameLocation": {
-              "line": {
-                "start": 4,
-                "end": 4
-              },
-              "column": {
-                "start": 6,
-                "end": 19
-              },
-              "file_name": "<rootdir>/fixtures/locks-licenses/package.json"
-            }
+            "ecosystem": "npm"
           },
+          "locations": [
+            {
+              "block": {
+                "file_name": "<rootdir>/fixtures/locks-licenses/package.json",
+                "line_start": 4,
+                "line_end": 4,
+                "column_start": 5,
+                "column_end": 30
+              },
+              "name": {
+                "file_name": "<rootdir>/fixtures/locks-licenses/package.json",
+                "line_start": 4,
+                "line_end": 4,
+                "column_start": 6,
+                "column_end": 19
+              },
+              "version": {
+                "file_name": "<rootdir>/fixtures/locks-licenses/package.json",
+                "line_start": 4,
+                "line_end": 4,
+                "column_start": 23,
+                "column_end": 29
+              }
+            }
+          ],
           "licenses": [
             "Apache-2.0"
           ],
@@ -1290,41 +1047,33 @@ Filtered 1 vulnerability from output
           "package": {
             "name": "ms",
             "version": "2.1.3",
-            "ecosystem": "npm",
-            "blockLocation": {
-              "line": {
-                "start": 5,
-                "end": 5
-              },
-              "column": {
-                "start": 5,
-                "end": 19
-              },
-              "file_name": "<rootdir>/fixtures/locks-licenses/package.json"
-            },
-            "versionLocation": {
-              "line": {
-                "start": 5,
-                "end": 5
-              },
-              "column": {
-                "start": 12,
-                "end": 18
-              },
-              "file_name": "<rootdir>/fixtures/locks-licenses/package.json"
-            },
-            "nameLocation": {
-              "line": {
-                "start": 5,
-                "end": 5
-              },
-              "column": {
-                "start": 6,
-                "end": 8
-              },
-              "file_name": "<rootdir>/fixtures/locks-licenses/package.json"
-            }
+            "ecosystem": "npm"
           },
+          "locations": [
+            {
+              "block": {
+                "file_name": "<rootdir>/fixtures/locks-licenses/package.json",
+                "line_start": 5,
+                "line_end": 5,
+                "column_start": 5,
+                "column_end": 19
+              },
+              "name": {
+                "file_name": "<rootdir>/fixtures/locks-licenses/package.json",
+                "line_start": 5,
+                "line_end": 5,
+                "column_start": 6,
+                "column_end": 8
+              },
+              "version": {
+                "file_name": "<rootdir>/fixtures/locks-licenses/package.json",
+                "line_start": 5,
+                "line_end": 5,
+                "column_start": 12,
+                "column_end": 18
+              }
+            }
+          ],
           "licenses": [
             "MIT"
           ]
@@ -1332,98 +1081,6 @@ Filtered 1 vulnerability from output
       ]
     }
   ],
-  "results_by_purl": {
-    "pkg:npm/babel@6.23.0": {
-      "Name": "babel",
-      "Version": "6.23.0",
-      "Ecosystem": "npm",
-      "Locations": [
-        {
-          "block": {
-            "file_name": "<rootdir>/fixtures/locks-licenses/package.json",
-            "line_start": 3,
-            "line_end": 3,
-            "column_start": 5,
-            "column_end": 23
-          },
-          "name": {
-            "file_name": "<rootdir>/fixtures/locks-licenses/package.json",
-            "line_start": 3,
-            "line_end": 3,
-            "column_start": 6,
-            "column_end": 11
-          },
-          "version": {
-            "file_name": "<rootdir>/fixtures/locks-licenses/package.json",
-            "line_start": 3,
-            "line_end": 3,
-            "column_start": 15,
-            "column_end": 22
-          }
-        }
-      ]
-    },
-    "pkg:npm/human-signals@5.0.0": {
-      "Name": "human-signals",
-      "Version": "5.0.0",
-      "Ecosystem": "npm",
-      "Locations": [
-        {
-          "block": {
-            "file_name": "<rootdir>/fixtures/locks-licenses/package.json",
-            "line_start": 4,
-            "line_end": 4,
-            "column_start": 5,
-            "column_end": 30
-          },
-          "name": {
-            "file_name": "<rootdir>/fixtures/locks-licenses/package.json",
-            "line_start": 4,
-            "line_end": 4,
-            "column_start": 6,
-            "column_end": 19
-          },
-          "version": {
-            "file_name": "<rootdir>/fixtures/locks-licenses/package.json",
-            "line_start": 4,
-            "line_end": 4,
-            "column_start": 23,
-            "column_end": 29
-          }
-        }
-      ]
-    },
-    "pkg:npm/ms@2.1.3": {
-      "Name": "ms",
-      "Version": "2.1.3",
-      "Ecosystem": "npm",
-      "Locations": [
-        {
-          "block": {
-            "file_name": "<rootdir>/fixtures/locks-licenses/package.json",
-            "line_start": 5,
-            "line_end": 5,
-            "column_start": 5,
-            "column_end": 19
-          },
-          "name": {
-            "file_name": "<rootdir>/fixtures/locks-licenses/package.json",
-            "line_start": 5,
-            "line_end": 5,
-            "column_start": 6,
-            "column_end": 8
-          },
-          "version": {
-            "file_name": "<rootdir>/fixtures/locks-licenses/package.json",
-            "line_start": 5,
-            "line_end": 5,
-            "column_start": 12,
-            "column_end": 18
-          }
-        }
-      ]
-    }
-  },
   "experimental_config": {
     "licenses": {
       "summary": false,
@@ -1455,41 +1112,33 @@ Scanned <rootdir>/fixtures/locks-licenses/package-lock.json file and found 3 pac
           "package": {
             "name": "human-signals",
             "version": "5.0.0",
-            "ecosystem": "npm",
-            "blockLocation": {
-              "line": {
-                "start": 4,
-                "end": 4
-              },
-              "column": {
-                "start": 5,
-                "end": 30
-              },
-              "file_name": "<rootdir>/fixtures/locks-licenses/package.json"
-            },
-            "versionLocation": {
-              "line": {
-                "start": 4,
-                "end": 4
-              },
-              "column": {
-                "start": 23,
-                "end": 29
-              },
-              "file_name": "<rootdir>/fixtures/locks-licenses/package.json"
-            },
-            "nameLocation": {
-              "line": {
-                "start": 4,
-                "end": 4
-              },
-              "column": {
-                "start": 6,
-                "end": 19
-              },
-              "file_name": "<rootdir>/fixtures/locks-licenses/package.json"
-            }
+            "ecosystem": "npm"
           },
+          "locations": [
+            {
+              "block": {
+                "file_name": "<rootdir>/fixtures/locks-licenses/package.json",
+                "line_start": 4,
+                "line_end": 4,
+                "column_start": 5,
+                "column_end": 30
+              },
+              "name": {
+                "file_name": "<rootdir>/fixtures/locks-licenses/package.json",
+                "line_start": 4,
+                "line_end": 4,
+                "column_start": 6,
+                "column_end": 19
+              },
+              "version": {
+                "file_name": "<rootdir>/fixtures/locks-licenses/package.json",
+                "line_start": 4,
+                "line_end": 4,
+                "column_start": 23,
+                "column_end": 29
+              }
+            }
+          ],
           "licenses": [
             "Apache-2.0"
           ],
@@ -1500,38 +1149,6 @@ Scanned <rootdir>/fixtures/locks-licenses/package-lock.json file and found 3 pac
       ]
     }
   ],
-  "results_by_purl": {
-    "pkg:npm/human-signals@5.0.0": {
-      "Name": "human-signals",
-      "Version": "5.0.0",
-      "Ecosystem": "npm",
-      "Locations": [
-        {
-          "block": {
-            "file_name": "<rootdir>/fixtures/locks-licenses/package.json",
-            "line_start": 4,
-            "line_end": 4,
-            "column_start": 5,
-            "column_end": 30
-          },
-          "name": {
-            "file_name": "<rootdir>/fixtures/locks-licenses/package.json",
-            "line_start": 4,
-            "line_end": 4,
-            "column_start": 6,
-            "column_end": 19
-          },
-          "version": {
-            "file_name": "<rootdir>/fixtures/locks-licenses/package.json",
-            "line_start": 4,
-            "line_end": 4,
-            "column_start": 23,
-            "column_end": 29
-          }
-        }
-      ]
-    }
-  },
   "experimental_config": {
     "licenses": {
       "summary": false,
@@ -1635,9 +1252,19 @@ Scanned <rootdir>/fixtures/sbom-insecure/postgres-stretch.cdx.xml as CycloneDX S
 Loaded Debian local db from <tempdir>/osv-scanner/Debian/all.zip
 Loaded Go local db from <tempdir>/osv-scanner/Go/all.zip
 Loaded OSS-Fuzz local db from <tempdir>/osv-scanner/OSS-Fuzz/all.zip
+15 unimportant vulnerabilities have been filtered out.
+Filtered 15 vulnerabilities from output
 +-------------------------------------+------+-----------+--------------------------------+------------------------------------+-------------------------------------------------+
 | OSV URL                             | CVSS | ECOSYSTEM | PACKAGE                        | VERSION                            | SOURCE                                          |
 +-------------------------------------+------+-----------+--------------------------------+------------------------------------+-------------------------------------------------+
+| https://osv.dev/CVE-2011-3374       | 3.7  | Debian    | apt                            | 1.4.11                             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/DSA-4685-1          |      | Debian    | apt                            | 1.4.11                             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/DSA-4808-1          |      | Debian    | apt                            | 1.4.11                             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/CVE-2016-2781       | 6.5  | Debian    | coreutils                      | 8.26-3                             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/DLA-3482-1          |      | Debian    | debian-archive-keyring         | 2017.5+deb9u2                      | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/DLA-3022-1          |      | Debian    | dpkg                           | 1.18.25                            | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/DSA-5147-1          |      | Debian    | dpkg                           | 1.18.25                            | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/DSA-4535-1          |      | Debian    | e2fsprogs                      | 1.43.4-2+deb9u2                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/GHSA-f3fp-gc8g-vw66 | 5.9  | Go        | github.com/opencontainers/runc | v1.0.1                             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/GHSA-g2j6-57v7-gm8c | 6.1  | Go        | github.com/opencontainers/runc | v1.0.1                             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/GHSA-m8cg-xc2p-r3fc | 2.5  | Go        | github.com/opencontainers/runc | v1.0.1                             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
@@ -1645,6 +1272,56 @@ Loaded OSS-Fuzz local db from <tempdir>/osv-scanner/OSS-Fuzz/all.zip
 | https://osv.dev/GHSA-vpvm-3wq2-2wvm | 7.0  | Go        | github.com/opencontainers/runc | v1.0.1                             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/GHSA-xr7r-f8xq-vfvv | 8.6  | Go        | github.com/opencontainers/runc | v1.0.1                             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/GHSA-p782-xgp4-8hr8 | 5.3  | Go        | golang.org/x/sys               | v0.0.0-20210817142637-7d9622a276b7 | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/DSA-5122-1          |      | Debian    | gzip                           | 1.6-5+deb9u1                       | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/DLA-3263-1          |      | Debian    | libtasn1-6                     | 4.10-1.1+deb9u1                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/CVE-2017-18258      | 6.5  | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/CVE-2018-14404      | 7.5  | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/DLA-3012-1          |      | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/DLA-3172-1          |      | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/DLA-3405-1          |      | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/DSA-5142-1          |      | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/DSA-5271-1          |      | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/DSA-5391-1          |      | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/CVE-2018-0732       | 7.5  | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/CVE-2019-1543       | 7.4  | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/CVE-2019-1551       | 5.3  | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/DLA-3008-1          |      | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/DLA-3325-1          |      | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/DLA-3449-1          |      | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/DLA-3530-1          |      | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/DSA-4539-1          |      | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/DSA-4539-3          |      | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/DSA-4661-1          |      | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/DSA-4807-1          |      | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/DSA-4855-1          |      | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/DSA-4875-1          |      | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/DSA-4963-1          |      | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/DSA-5103-1          |      | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/DSA-5139-1          |      | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/DSA-5169-1          |      | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/DSA-5343-1          |      | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/DSA-5417-1          |      | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/DSA-5532-1          |      | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/DLA-3072-1          |      | Debian    | postgresql-11                  | 11.15-1.pgdg90+1                   | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/DLA-3189-1          |      | Debian    | postgresql-11                  | 11.15-1.pgdg90+1                   | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/DLA-3316-1          |      | Debian    | postgresql-11                  | 11.15-1.pgdg90+1                   | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/DLA-3422-1          |      | Debian    | postgresql-11                  | 11.15-1.pgdg90+1                   | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/DLA-3600-1          |      | Debian    | postgresql-11                  | 11.15-1.pgdg90+1                   | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/DLA-3651-1          |      | Debian    | postgresql-11                  | 11.15-1.pgdg90+1                   | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/DLA-3764-1          |      | Debian    | postgresql-11                  | 11.15-1.pgdg90+1                   | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/DSA-5135-1          |      | Debian    | postgresql-11                  | 11.15-1.pgdg90+1                   | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/DLA-3755-1          |      | Debian    | tar                            | 1.29b-1.1+deb9u1                   | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/DLA-3051-1          |      | Debian    | tzdata                         | 2021a-0+deb9u3                     | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/DLA-3134-1          |      | Debian    | tzdata                         | 2021a-0+deb9u3                     | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/DLA-3161-1          |      | Debian    | tzdata                         | 2021a-0+deb9u3                     | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/DLA-3366-1          |      | Debian    | tzdata                         | 2021a-0+deb9u3                     | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/DLA-3412-1          |      | Debian    | tzdata                         | 2021a-0+deb9u3                     | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/DLA-3684-1          |      | Debian    | tzdata                         | 2021a-0+deb9u3                     | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/DLA-3788-1          |      | Debian    | tzdata                         | 2021a-0+deb9u3                     | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/DLA-3782-1          |      | Debian    | util-linux                     | 2.29.2-1+deb9u1                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/DSA-5055-1          |      | Debian    | util-linux                     | 2.29.2-1+deb9u1                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/DSA-5650-1          |      | Debian    | util-linux                     | 2.29.2-1+deb9u1                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/DSA-5123-1          |      | Debian    | xz-utils                       | 5.2.2-1.2+deb9u1                   | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 +-------------------------------------+------+-----------+--------------------------------+------------------------------------+-------------------------------------------------+
 
 ---
@@ -1659,9 +1336,19 @@ Scanned <rootdir>/fixtures/sbom-insecure/postgres-stretch.cdx.xml as CycloneDX S
 Loaded Debian local db from <tempdir>/osv-scanner/Debian/all.zip
 Loaded Go local db from <tempdir>/osv-scanner/Go/all.zip
 Loaded OSS-Fuzz local db from <tempdir>/osv-scanner/OSS-Fuzz/all.zip
+15 unimportant vulnerabilities have been filtered out.
+Filtered 15 vulnerabilities from output
 +-------------------------------------+------+-----------+--------------------------------+------------------------------------+-------------------------------------------------+
 | OSV URL                             | CVSS | ECOSYSTEM | PACKAGE                        | VERSION                            | SOURCE                                          |
 +-------------------------------------+------+-----------+--------------------------------+------------------------------------+-------------------------------------------------+
+| https://osv.dev/CVE-2011-3374       | 3.7  | Debian    | apt                            | 1.4.11                             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/DSA-4685-1          |      | Debian    | apt                            | 1.4.11                             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/DSA-4808-1          |      | Debian    | apt                            | 1.4.11                             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/CVE-2016-2781       | 6.5  | Debian    | coreutils                      | 8.26-3                             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/DLA-3482-1          |      | Debian    | debian-archive-keyring         | 2017.5+deb9u2                      | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/DLA-3022-1          |      | Debian    | dpkg                           | 1.18.25                            | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/DSA-5147-1          |      | Debian    | dpkg                           | 1.18.25                            | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/DSA-4535-1          |      | Debian    | e2fsprogs                      | 1.43.4-2+deb9u2                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/GHSA-f3fp-gc8g-vw66 | 5.9  | Go        | github.com/opencontainers/runc | v1.0.1                             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/GHSA-g2j6-57v7-gm8c | 6.1  | Go        | github.com/opencontainers/runc | v1.0.1                             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/GHSA-m8cg-xc2p-r3fc | 2.5  | Go        | github.com/opencontainers/runc | v1.0.1                             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
@@ -1669,6 +1356,56 @@ Loaded OSS-Fuzz local db from <tempdir>/osv-scanner/OSS-Fuzz/all.zip
 | https://osv.dev/GHSA-vpvm-3wq2-2wvm | 7.0  | Go        | github.com/opencontainers/runc | v1.0.1                             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/GHSA-xr7r-f8xq-vfvv | 8.6  | Go        | github.com/opencontainers/runc | v1.0.1                             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/GHSA-p782-xgp4-8hr8 | 5.3  | Go        | golang.org/x/sys               | v0.0.0-20210817142637-7d9622a276b7 | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/DSA-5122-1          |      | Debian    | gzip                           | 1.6-5+deb9u1                       | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/DLA-3263-1          |      | Debian    | libtasn1-6                     | 4.10-1.1+deb9u1                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/CVE-2017-18258      | 6.5  | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/CVE-2018-14404      | 7.5  | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/DLA-3012-1          |      | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/DLA-3172-1          |      | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/DLA-3405-1          |      | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/DSA-5142-1          |      | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/DSA-5271-1          |      | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/DSA-5391-1          |      | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/CVE-2018-0732       | 7.5  | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/CVE-2019-1543       | 7.4  | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/CVE-2019-1551       | 5.3  | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/DLA-3008-1          |      | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/DLA-3325-1          |      | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/DLA-3449-1          |      | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/DLA-3530-1          |      | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/DSA-4539-1          |      | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/DSA-4539-3          |      | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/DSA-4661-1          |      | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/DSA-4807-1          |      | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/DSA-4855-1          |      | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/DSA-4875-1          |      | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/DSA-4963-1          |      | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/DSA-5103-1          |      | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/DSA-5139-1          |      | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/DSA-5169-1          |      | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/DSA-5343-1          |      | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/DSA-5417-1          |      | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/DSA-5532-1          |      | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/DLA-3072-1          |      | Debian    | postgresql-11                  | 11.15-1.pgdg90+1                   | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/DLA-3189-1          |      | Debian    | postgresql-11                  | 11.15-1.pgdg90+1                   | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/DLA-3316-1          |      | Debian    | postgresql-11                  | 11.15-1.pgdg90+1                   | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/DLA-3422-1          |      | Debian    | postgresql-11                  | 11.15-1.pgdg90+1                   | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/DLA-3600-1          |      | Debian    | postgresql-11                  | 11.15-1.pgdg90+1                   | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/DLA-3651-1          |      | Debian    | postgresql-11                  | 11.15-1.pgdg90+1                   | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/DLA-3764-1          |      | Debian    | postgresql-11                  | 11.15-1.pgdg90+1                   | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/DSA-5135-1          |      | Debian    | postgresql-11                  | 11.15-1.pgdg90+1                   | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/DLA-3755-1          |      | Debian    | tar                            | 1.29b-1.1+deb9u1                   | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/DLA-3051-1          |      | Debian    | tzdata                         | 2021a-0+deb9u3                     | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/DLA-3134-1          |      | Debian    | tzdata                         | 2021a-0+deb9u3                     | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/DLA-3161-1          |      | Debian    | tzdata                         | 2021a-0+deb9u3                     | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/DLA-3366-1          |      | Debian    | tzdata                         | 2021a-0+deb9u3                     | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/DLA-3412-1          |      | Debian    | tzdata                         | 2021a-0+deb9u3                     | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/DLA-3684-1          |      | Debian    | tzdata                         | 2021a-0+deb9u3                     | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/DLA-3788-1          |      | Debian    | tzdata                         | 2021a-0+deb9u3                     | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/DLA-3782-1          |      | Debian    | util-linux                     | 2.29.2-1+deb9u1                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/DSA-5055-1          |      | Debian    | util-linux                     | 2.29.2-1+deb9u1                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/DSA-5650-1          |      | Debian    | util-linux                     | 2.29.2-1+deb9u1                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/DSA-5123-1          |      | Debian    | xz-utils                       | 5.2.2-1.2+deb9u1                   | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 +-------------------------------------+------+-----------+--------------------------------+------------------------------------+-------------------------------------------------+
 
 ---
@@ -1999,6 +1736,24 @@ No issues found
 
 ---
 
+[TestRun_LocalDatabases/#12 - 1]
+
+---
+
+[TestRun_LocalDatabases/#12 - 2]
+databases can only be downloaded when running in offline mode
+
+---
+
+[TestRun_LocalDatabases/#12 - 3]
+
+---
+
+[TestRun_LocalDatabases/#12 - 4]
+databases can only be downloaded when running in offline mode
+
+---
+
 [TestRun_LockfileWithExplicitParseAs/#00 - 1]
 
 ---
@@ -2173,6 +1928,7 @@ Scanning image ../../internal/image/fixtures/test-node_modules-npm-empty.tar
 | https://osv.dev/CVE-2023-42363 | 5.5  | Alpine:v3.19 | busybox | 1.36.1-r15 | ../../internal/image/fixtures/test-node_modules-npm-empty.tar:/lib/apk/db/installed |
 | https://osv.dev/CVE-2023-42364 | 5.5  | Alpine:v3.19 | busybox | 1.36.1-r15 | ../../internal/image/fixtures/test-node_modules-npm-empty.tar:/lib/apk/db/installed |
 | https://osv.dev/CVE-2023-42365 | 5.5  | Alpine:v3.19 | busybox | 1.36.1-r15 | ../../internal/image/fixtures/test-node_modules-npm-empty.tar:/lib/apk/db/installed |
+| https://osv.dev/CVE-2023-42366 | 5.5  | Alpine:v3.19 | busybox | 1.36.1-r15 | ../../internal/image/fixtures/test-node_modules-npm-empty.tar:/lib/apk/db/installed |
 +--------------------------------+------+--------------+---------+------------+-------------------------------------------------------------------------------------+
 
 ---
@@ -2189,6 +1945,7 @@ Scanning image ../../internal/image/fixtures/test-node_modules-npm-full.tar
 | https://osv.dev/CVE-2023-42363      | 5.5  | Alpine:v3.19 | busybox  | 1.36.1-r15 | ../../internal/image/fixtures/test-node_modules-npm-full.tar:/lib/apk/db/installed                    |
 | https://osv.dev/CVE-2023-42364      | 5.5  | Alpine:v3.19 | busybox  | 1.36.1-r15 | ../../internal/image/fixtures/test-node_modules-npm-full.tar:/lib/apk/db/installed                    |
 | https://osv.dev/CVE-2023-42365      | 5.5  | Alpine:v3.19 | busybox  | 1.36.1-r15 | ../../internal/image/fixtures/test-node_modules-npm-full.tar:/lib/apk/db/installed                    |
+| https://osv.dev/CVE-2023-42366      | 5.5  | Alpine:v3.19 | busybox  | 1.36.1-r15 | ../../internal/image/fixtures/test-node_modules-npm-full.tar:/lib/apk/db/installed                    |
 | https://osv.dev/GHSA-38f5-ghc2-fcmv | 9.8  | npm          | cryo     | 0.0.6      | ../../internal/image/fixtures/test-node_modules-npm-full.tar:/usr/app/node_modules/.package-lock.json |
 | https://osv.dev/GHSA-vh95-rmgr-6w4m | 5.6  | npm          | minimist | 0.0.8      | ../../internal/image/fixtures/test-node_modules-npm-full.tar:/usr/app/node_modules/.package-lock.json |
 | https://osv.dev/GHSA-xvch-5gv4-984h | 9.8  | npm          | minimist | 0.0.8      | ../../internal/image/fixtures/test-node_modules-npm-full.tar:/usr/app/node_modules/.package-lock.json |
@@ -2208,6 +1965,7 @@ Scanning image ../../internal/image/fixtures/test-node_modules-pnpm-empty.tar
 | https://osv.dev/CVE-2023-42363 | 5.5  | Alpine:v3.19 | busybox | 1.36.1-r15 | ../../internal/image/fixtures/test-node_modules-pnpm-empty.tar:/lib/apk/db/installed |
 | https://osv.dev/CVE-2023-42364 | 5.5  | Alpine:v3.19 | busybox | 1.36.1-r15 | ../../internal/image/fixtures/test-node_modules-pnpm-empty.tar:/lib/apk/db/installed |
 | https://osv.dev/CVE-2023-42365 | 5.5  | Alpine:v3.19 | busybox | 1.36.1-r15 | ../../internal/image/fixtures/test-node_modules-pnpm-empty.tar:/lib/apk/db/installed |
+| https://osv.dev/CVE-2023-42366 | 5.5  | Alpine:v3.19 | busybox | 1.36.1-r15 | ../../internal/image/fixtures/test-node_modules-pnpm-empty.tar:/lib/apk/db/installed |
 +--------------------------------+------+--------------+---------+------------+--------------------------------------------------------------------------------------+
 
 ---
@@ -2224,6 +1982,7 @@ Scanning image ../../internal/image/fixtures/test-node_modules-pnpm-full.tar
 | https://osv.dev/CVE-2023-42363 | 5.5  | Alpine:v3.19 | busybox | 1.36.1-r15 | ../../internal/image/fixtures/test-node_modules-pnpm-full.tar:/lib/apk/db/installed |
 | https://osv.dev/CVE-2023-42364 | 5.5  | Alpine:v3.19 | busybox | 1.36.1-r15 | ../../internal/image/fixtures/test-node_modules-pnpm-full.tar:/lib/apk/db/installed |
 | https://osv.dev/CVE-2023-42365 | 5.5  | Alpine:v3.19 | busybox | 1.36.1-r15 | ../../internal/image/fixtures/test-node_modules-pnpm-full.tar:/lib/apk/db/installed |
+| https://osv.dev/CVE-2023-42366 | 5.5  | Alpine:v3.19 | busybox | 1.36.1-r15 | ../../internal/image/fixtures/test-node_modules-pnpm-full.tar:/lib/apk/db/installed |
 +--------------------------------+------+--------------+---------+------------+-------------------------------------------------------------------------------------+
 
 ---
@@ -2240,6 +1999,7 @@ Scanning image ../../internal/image/fixtures/test-node_modules-yarn-empty.tar
 | https://osv.dev/CVE-2023-42363 | 5.5  | Alpine:v3.19 | busybox | 1.36.1-r15 | ../../internal/image/fixtures/test-node_modules-yarn-empty.tar:/lib/apk/db/installed |
 | https://osv.dev/CVE-2023-42364 | 5.5  | Alpine:v3.19 | busybox | 1.36.1-r15 | ../../internal/image/fixtures/test-node_modules-yarn-empty.tar:/lib/apk/db/installed |
 | https://osv.dev/CVE-2023-42365 | 5.5  | Alpine:v3.19 | busybox | 1.36.1-r15 | ../../internal/image/fixtures/test-node_modules-yarn-empty.tar:/lib/apk/db/installed |
+| https://osv.dev/CVE-2023-42366 | 5.5  | Alpine:v3.19 | busybox | 1.36.1-r15 | ../../internal/image/fixtures/test-node_modules-yarn-empty.tar:/lib/apk/db/installed |
 +--------------------------------+------+--------------+---------+------------+--------------------------------------------------------------------------------------+
 
 ---
@@ -2256,6 +2016,7 @@ Scanning image ../../internal/image/fixtures/test-node_modules-yarn-full.tar
 | https://osv.dev/CVE-2023-42363 | 5.5  | Alpine:v3.19 | busybox | 1.36.1-r15 | ../../internal/image/fixtures/test-node_modules-yarn-full.tar:/lib/apk/db/installed |
 | https://osv.dev/CVE-2023-42364 | 5.5  | Alpine:v3.19 | busybox | 1.36.1-r15 | ../../internal/image/fixtures/test-node_modules-yarn-full.tar:/lib/apk/db/installed |
 | https://osv.dev/CVE-2023-42365 | 5.5  | Alpine:v3.19 | busybox | 1.36.1-r15 | ../../internal/image/fixtures/test-node_modules-yarn-full.tar:/lib/apk/db/installed |
+| https://osv.dev/CVE-2023-42366 | 5.5  | Alpine:v3.19 | busybox | 1.36.1-r15 | ../../internal/image/fixtures/test-node_modules-yarn-full.tar:/lib/apk/db/installed |
 +--------------------------------+------+--------------+---------+------------+-------------------------------------------------------------------------------------+
 
 ---
@@ -2300,8 +2061,61 @@ Warning: `scan` exists as both a subcommand of OSV-Scanner and as a file on the 
 
 ---
 
+[TestRun_WithCycloneDX15 - 1]
+{
+  "$schema": "http://cyclonedx.org/schema/bom-1.5.schema.json",
+  "bomFormat": "CycloneDX",
+  "specVersion": "1.5",
+  "version": 1,
+  "components": [
+    {
+      "bom-ref": "pkg:maven/com.google.code.findbugs/jsr305@3.0.2",
+      "type": "library",
+      "name": "com.google.code.findbugs:jsr305",
+      "version": "3.0.2",
+      "licenses": [],
+      "purl": "pkg:maven/com.google.code.findbugs/jsr305@3.0.2",
+      "evidence": {
+        "occurrences": [
+          {
+            "location": "{/"block/":{/"file_name/":/"pom.xml/",/"line_start/":25,/"line_end/":28,/"column_start/":5,/"column_end/":18},/"name/":{/"file_name/":/"pom.xml/",/"line_start/":27,/"line_end/":27,/"column_start/":19,/"column_end/":25},/"version/":{/"file_name/":/"pom.xml/",/"line_start/":19,/"line_end/":19,/"column_start/":18,/"column_end/":23}}"
+          }
+        ]
+      }
+    },
+    {
+      "bom-ref": "pkg:nuget/Test.Core@6.0.5",
+      "type": "library",
+      "name": "Test.Core",
+      "version": "6.0.5",
+      "licenses": [],
+      "purl": "pkg:nuget/Test.Core@6.0.5",
+      "evidence": {
+        "occurrences": []
+      }
+    }
+  ],
+  "vulnerabilities": []
+}
+
+---
+
+[TestRun_WithCycloneDX15 - 2]
+Scanning dir ./fixtures/integration-test-locks
+Scanned <rootdir>/fixtures/integration-test-locks/packages.lock.json file and found 1 package
+Scanned <rootdir>/fixtures/integration-test-locks/pom.xml file and found 1 package
+
+---
+
 [TestRun_WithEmptyCycloneDX15 - 1]
-{"$schema":"http://cyclonedx.org/schema/bom-1.5.schema.json","bomFormat":"CycloneDX","specVersion":"1.5","version":1,"components":[]}
+{
+  "$schema": "http://cyclonedx.org/schema/bom-1.5.schema.json",
+  "bomFormat": "CycloneDX",
+  "specVersion": "1.5",
+  "version": 1,
+  "components": [],
+  "vulnerabilities": []
+}
 
 ---
 
@@ -2311,5 +2125,810 @@ Scanned <rootdir>/fixtures/locks-empty/Gemfile.lock file and found 0 packages
 Scanned <rootdir>/fixtures/locks-empty/composer.lock file and found 0 packages
 Scanned <rootdir>/fixtures/locks-empty/yarn.lock file and found 0 packages
 No package sources found, --help for usage information.
+
+---
+
+[TestRun_WithEncodedLockfile/UTF-8 - 1]
+{
+  "$schema": "http://cyclonedx.org/schema/bom-1.5.schema.json",
+  "bomFormat": "CycloneDX",
+  "specVersion": "1.5",
+  "version": 1,
+  "components": [
+    {
+      "bom-ref": "pkg:cargo/addr2line@0.15.2",
+      "type": "library",
+      "name": "addr2line",
+      "version": "0.15.2",
+      "licenses": [],
+      "purl": "pkg:cargo/addr2line@0.15.2",
+      "evidence": {
+        "occurrences": []
+      }
+    },
+    {
+      "bom-ref": "pkg:composer/sentry/sdk@2.0.4",
+      "type": "library",
+      "name": "sentry/sdk",
+      "version": "2.0.4",
+      "licenses": [],
+      "purl": "pkg:composer/sentry/sdk@2.0.4",
+      "evidence": {
+        "occurrences": []
+      }
+    },
+    {
+      "bom-ref": "pkg:conan/zlib@1.2.11",
+      "type": "library",
+      "name": "zlib",
+      "version": "1.2.11",
+      "licenses": [],
+      "purl": "pkg:conan/zlib@1.2.11",
+      "evidence": {
+        "occurrences": []
+      }
+    },
+    {
+      "bom-ref": "pkg:cran/morning@0.1.0",
+      "type": "library",
+      "name": "morning",
+      "version": "0.1.0",
+      "licenses": [],
+      "purl": "pkg:cran/morning@0.1.0",
+      "evidence": {
+        "occurrences": []
+      }
+    },
+    {
+      "bom-ref": "pkg:golang/github.com/BurntSushi/toml@1.0.0",
+      "type": "library",
+      "name": "github.com/BurntSushi/toml",
+      "version": "1.0.0",
+      "licenses": [],
+      "purl": "pkg:golang/github.com/BurntSushi/toml@1.0.0",
+      "evidence": {
+        "occurrences": [
+          {
+            "location": "{/"block/":{/"file_name/":/"go.mod/",/"line_start/":5,/"line_end/":5,/"column_start/":1,/"column_end/":42},/"name/":{/"file_name/":/"go.mod/",/"line_start/":5,/"line_end/":5,/"column_start/":9,/"column_end/":35},/"version/":{/"file_name/":/"go.mod/",/"line_start/":5,/"line_end/":5,/"column_start/":37,/"column_end/":42}}"
+          }
+        ]
+      }
+    },
+    {
+      "bom-ref": "pkg:golang/stdlib@1.21.3",
+      "type": "library",
+      "name": "stdlib",
+      "version": "1.21.3",
+      "licenses": [],
+      "purl": "pkg:golang/stdlib@1.21.3",
+      "evidence": {
+        "occurrences": []
+      }
+    },
+    {
+      "bom-ref": "pkg:hex/plug@1.11.1",
+      "type": "library",
+      "name": "plug",
+      "version": "1.11.1",
+      "licenses": [],
+      "purl": "pkg:hex/plug@1.11.1",
+      "evidence": {
+        "occurrences": []
+      }
+    },
+    {
+      "bom-ref": "pkg:maven/com.google.code.findbugs/jsr305@3.0.2",
+      "type": "library",
+      "name": "com.google.code.findbugs:jsr305",
+      "version": "3.0.2",
+      "licenses": [],
+      "purl": "pkg:maven/com.google.code.findbugs/jsr305@3.0.2",
+      "evidence": {
+        "occurrences": [
+          {
+            "location": "{/"block/":{/"file_name/":/"pom.xml/",/"line_start/":25,/"line_end/":28,/"column_start/":5,/"column_end/":18},/"name/":{/"file_name/":/"pom.xml/",/"line_start/":27,/"line_end/":27,/"column_start/":19,/"column_end/":25},/"version/":{/"file_name/":/"pom.xml/",/"line_start/":19,/"line_end/":19,/"column_start/":18,/"column_end/":23}}"
+          }
+        ]
+      }
+    },
+    {
+      "bom-ref": "pkg:maven/org.springframework.security/spring-security-crypto@5.7.3",
+      "type": "library",
+      "name": "org.springframework.security:spring-security-crypto",
+      "version": "5.7.3",
+      "licenses": [],
+      "purl": "pkg:maven/org.springframework.security/spring-security-crypto@5.7.3",
+      "evidence": {
+        "occurrences": [
+          {
+            "location": "{/"block/":{/"file_name/":/"build.gradle/",/"line_start/":10,/"line_end/":10,/"column_start/":3,/"column_end/":77},/"name/":{/"file_name/":/"build.gradle/",/"line_start/":10,/"line_end/":10,/"column_start/":48,/"column_end/":70},/"version/":{/"file_name/":/"build.gradle/",/"line_start/":10,/"line_end/":10,/"column_start/":71,/"column_end/":76}}"
+          }
+        ]
+      }
+    },
+    {
+      "bom-ref": "pkg:npm/acorn@8.7.0",
+      "type": "library",
+      "name": "acorn",
+      "version": "8.7.0",
+      "licenses": [],
+      "purl": "pkg:npm/acorn@8.7.0",
+      "evidence": {
+        "occurrences": [
+          {
+            "location": "{/"block/":{/"file_name/":/"pnpm/package.json/",/"line_start/":4,/"line_end/":4,/"column_start/":5,/"column_end/":22},/"name/":{/"file_name/":/"pnpm/package.json/",/"line_start/":4,/"line_end/":4,/"column_start/":6,/"column_end/":11},/"version/":{/"file_name/":/"pnpm/package.json/",/"line_start/":4,/"line_end/":4,/"column_start/":15,/"column_end/":21}}"
+          }
+        ]
+      }
+    },
+    {
+      "bom-ref": "pkg:npm/balanced-match@1.0.2",
+      "type": "library",
+      "name": "balanced-match",
+      "version": "1.0.2",
+      "licenses": [],
+      "purl": "pkg:npm/balanced-match@1.0.2",
+      "evidence": {
+        "occurrences": [
+          {
+            "location": "{/"block/":{/"file_name/":/"yarn/package.json/",/"line_start/":4,/"line_end/":4,/"column_start/":5,/"column_end/":31},/"name/":{/"file_name/":/"yarn/package.json/",/"line_start/":4,/"line_end/":4,/"column_start/":6,/"column_end/":20},/"version/":{/"file_name/":/"yarn/package.json/",/"line_start/":4,/"line_end/":4,/"column_start/":24,/"column_end/":30}}"
+          }
+        ]
+      }
+    },
+    {
+      "bom-ref": "pkg:npm/wrappy@1.0.2",
+      "type": "library",
+      "name": "wrappy",
+      "version": "1.0.2",
+      "licenses": [],
+      "purl": "pkg:npm/wrappy@1.0.2",
+      "evidence": {
+        "occurrences": [
+          {
+            "location": "{/"block/":{/"file_name/":/"npm/package.json/",/"line_start/":4,/"line_end/":4,/"column_start/":5,/"column_end/":18},/"name/":{/"file_name/":/"npm/package.json/",/"line_start/":4,/"line_end/":4,/"column_start/":6,/"column_end/":12},/"version/":{/"file_name/":/"npm/package.json/",/"line_start/":4,/"line_end/":4,/"column_start/":16,/"column_end/":17}}"
+          }
+        ]
+      }
+    },
+    {
+      "bom-ref": "pkg:nuget/Test.Core@6.0.5",
+      "type": "library",
+      "name": "Test.Core",
+      "version": "6.0.5",
+      "licenses": [],
+      "purl": "pkg:nuget/Test.Core@6.0.5",
+      "evidence": {
+        "occurrences": []
+      }
+    },
+    {
+      "bom-ref": "pkg:pub/back_button_interceptor@6.0.1",
+      "type": "library",
+      "name": "back_button_interceptor",
+      "version": "6.0.1",
+      "licenses": [],
+      "purl": "pkg:pub/back_button_interceptor@6.0.1",
+      "evidence": {
+        "occurrences": []
+      }
+    },
+    {
+      "bom-ref": "pkg:pypi/django@2.2.24",
+      "type": "library",
+      "name": "django",
+      "version": "2.2.24",
+      "licenses": [],
+      "purl": "pkg:pypi/django@2.2.24",
+      "evidence": {
+        "occurrences": [
+          {
+            "location": "{/"block/":{/"file_name/":/"requirements.txt/",/"line_start/":1,/"line_end/":1,/"column_start/":1,/"column_end/":15},/"name/":{/"file_name/":/"requirements.txt/",/"line_start/":1,/"line_end/":1,/"column_start/":1,/"column_end/":7},/"version/":{/"file_name/":/"requirements.txt/",/"line_start/":1,/"line_end/":1,/"column_start/":9,/"column_end/":15}}"
+          }
+        ]
+      }
+    },
+    {
+      "bom-ref": "pkg:pypi/markupsafe@2.1.1",
+      "type": "library",
+      "name": "markupsafe",
+      "version": "2.1.1",
+      "licenses": [],
+      "purl": "pkg:pypi/markupsafe@2.1.1",
+      "evidence": {
+        "occurrences": [
+          {
+            "location": "{/"block/":{/"file_name/":/"Pipfile/",/"line_start/":7,/"line_end/":7,/"column_start/":1,/"column_end/":25},/"name/":{/"file_name/":/"Pipfile/",/"line_start/":7,/"line_end/":7,/"column_start/":1,/"column_end/":11},/"version/":{/"file_name/":/"Pipfile/",/"line_start/":7,/"line_end/":7,/"column_start/":15,/"column_end/":24}}"
+          }
+        ]
+      }
+    },
+    {
+      "bom-ref": "pkg:pypi/numpy@1.23.3",
+      "type": "library",
+      "name": "numpy",
+      "version": "1.23.3",
+      "licenses": [],
+      "purl": "pkg:pypi/numpy@1.23.3",
+      "evidence": {
+        "occurrences": [
+          {
+            "location": "{/"block/":{/"file_name/":/"pyproject.toml/",/"line_start/":10,/"line_end/":10,/"column_start/":1,/"column_end/":19},/"name/":{/"file_name/":/"pyproject.toml/",/"line_start/":10,/"line_end/":10,/"column_start/":1,/"column_end/":6},/"version/":{/"file_name/":/"pyproject.toml/",/"line_start/":10,/"line_end/":10,/"column_start/":10,/"column_end/":18}}"
+          }
+        ]
+      }
+    }
+  ],
+  "vulnerabilities": []
+}
+
+---
+
+[TestRun_WithEncodedLockfile/UTF-8 - 2]
+Scanning dir ./fixtures/encoding-integration-test-locks/UTF-8
+Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-8/Cargo.lock file and found 1 package
+Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-8/Pipfile.lock file and found 1 package
+Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-8/composer.lock file and found 1 package
+Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-8/conan.lock file and found 1 package
+Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-8/go.mod file and found 2 packages
+Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-8/gradle.lockfile file and found 1 package
+Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-8/mix.lock file and found 1 package
+Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-8/npm/package-lock.json file and found 1 package
+Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-8/packages.lock.json file and found 1 package
+Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-8/pnpm/pnpm-lock.yaml file and found 1 package
+Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-8/poetry.lock file and found 1 package
+Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-8/pom.xml file and found 1 package
+Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-8/pubspec.lock file and found 1 package
+Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-8/renv.lock file and found 1 package
+Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-8/requirements.txt file and found 1 package
+Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-8/yarn/yarn.lock file and found 1 package
+
+---
+
+[TestRun_WithEncodedLockfile/UTF-16 - 1]
+{
+  "$schema": "http://cyclonedx.org/schema/bom-1.5.schema.json",
+  "bomFormat": "CycloneDX",
+  "specVersion": "1.5",
+  "version": 1,
+  "components": [
+    {
+      "bom-ref": "pkg:cargo/addr2line@0.15.2",
+      "type": "library",
+      "name": "addr2line",
+      "version": "0.15.2",
+      "licenses": [],
+      "purl": "pkg:cargo/addr2line@0.15.2",
+      "evidence": {
+        "occurrences": []
+      }
+    },
+    {
+      "bom-ref": "pkg:composer/sentry/sdk@2.0.4",
+      "type": "library",
+      "name": "sentry/sdk",
+      "version": "2.0.4",
+      "licenses": [],
+      "purl": "pkg:composer/sentry/sdk@2.0.4",
+      "evidence": {
+        "occurrences": []
+      }
+    },
+    {
+      "bom-ref": "pkg:conan/zlib@1.2.11",
+      "type": "library",
+      "name": "zlib",
+      "version": "1.2.11",
+      "licenses": [],
+      "purl": "pkg:conan/zlib@1.2.11",
+      "evidence": {
+        "occurrences": []
+      }
+    },
+    {
+      "bom-ref": "pkg:cran/morning@0.1.0",
+      "type": "library",
+      "name": "morning",
+      "version": "0.1.0",
+      "licenses": [],
+      "purl": "pkg:cran/morning@0.1.0",
+      "evidence": {
+        "occurrences": []
+      }
+    },
+    {
+      "bom-ref": "pkg:golang/github.com/BurntSushi/toml@1.0.0",
+      "type": "library",
+      "name": "github.com/BurntSushi/toml",
+      "version": "1.0.0",
+      "licenses": [],
+      "purl": "pkg:golang/github.com/BurntSushi/toml@1.0.0",
+      "evidence": {
+        "occurrences": [
+          {
+            "location": "{/"block/":{/"file_name/":/"go.mod/",/"line_start/":5,/"line_end/":5,/"column_start/":1,/"column_end/":42},/"name/":{/"file_name/":/"go.mod/",/"line_start/":5,/"line_end/":5,/"column_start/":9,/"column_end/":35},/"version/":{/"file_name/":/"go.mod/",/"line_start/":5,/"line_end/":5,/"column_start/":37,/"column_end/":42}}"
+          }
+        ]
+      }
+    },
+    {
+      "bom-ref": "pkg:golang/stdlib@1.21.3",
+      "type": "library",
+      "name": "stdlib",
+      "version": "1.21.3",
+      "licenses": [],
+      "purl": "pkg:golang/stdlib@1.21.3",
+      "evidence": {
+        "occurrences": []
+      }
+    },
+    {
+      "bom-ref": "pkg:hex/plug@1.11.1",
+      "type": "library",
+      "name": "plug",
+      "version": "1.11.1",
+      "licenses": [],
+      "purl": "pkg:hex/plug@1.11.1",
+      "evidence": {
+        "occurrences": []
+      }
+    },
+    {
+      "bom-ref": "pkg:maven/com.google.code.findbugs/jsr305@3.0.2",
+      "type": "library",
+      "name": "com.google.code.findbugs:jsr305",
+      "version": "3.0.2",
+      "licenses": [],
+      "purl": "pkg:maven/com.google.code.findbugs/jsr305@3.0.2",
+      "evidence": {
+        "occurrences": [
+          {
+            "location": "{/"block/":{/"file_name/":/"pom.xml/",/"line_start/":25,/"line_end/":28,/"column_start/":5,/"column_end/":18},/"name/":{/"file_name/":/"pom.xml/",/"line_start/":27,/"line_end/":27,/"column_start/":19,/"column_end/":25},/"version/":{/"file_name/":/"pom.xml/",/"line_start/":19,/"line_end/":19,/"column_start/":18,/"column_end/":23}}"
+          }
+        ]
+      }
+    },
+    {
+      "bom-ref": "pkg:maven/org.springframework.security/spring-security-crypto@5.7.3",
+      "type": "library",
+      "name": "org.springframework.security:spring-security-crypto",
+      "version": "5.7.3",
+      "licenses": [],
+      "purl": "pkg:maven/org.springframework.security/spring-security-crypto@5.7.3",
+      "evidence": {
+        "occurrences": [
+          {
+            "location": "{/"block/":{/"file_name/":/"build.gradle/",/"line_start/":10,/"line_end/":10,/"column_start/":3,/"column_end/":77},/"name/":{/"file_name/":/"build.gradle/",/"line_start/":10,/"line_end/":10,/"column_start/":48,/"column_end/":70},/"version/":{/"file_name/":/"build.gradle/",/"line_start/":10,/"line_end/":10,/"column_start/":71,/"column_end/":76}}"
+          }
+        ]
+      }
+    },
+    {
+      "bom-ref": "pkg:npm/acorn@8.7.0",
+      "type": "library",
+      "name": "acorn",
+      "version": "8.7.0",
+      "licenses": [],
+      "purl": "pkg:npm/acorn@8.7.0",
+      "evidence": {
+        "occurrences": [
+          {
+            "location": "{/"block/":{/"file_name/":/"pnpm/package.json/",/"line_start/":4,/"line_end/":4,/"column_start/":5,/"column_end/":22},/"name/":{/"file_name/":/"pnpm/package.json/",/"line_start/":4,/"line_end/":4,/"column_start/":6,/"column_end/":11},/"version/":{/"file_name/":/"pnpm/package.json/",/"line_start/":4,/"line_end/":4,/"column_start/":15,/"column_end/":21}}"
+          }
+        ]
+      }
+    },
+    {
+      "bom-ref": "pkg:npm/balanced-match@1.0.2",
+      "type": "library",
+      "name": "balanced-match",
+      "version": "1.0.2",
+      "licenses": [],
+      "purl": "pkg:npm/balanced-match@1.0.2",
+      "evidence": {
+        "occurrences": [
+          {
+            "location": "{/"block/":{/"file_name/":/"yarn/package.json/",/"line_start/":4,/"line_end/":4,/"column_start/":5,/"column_end/":31},/"name/":{/"file_name/":/"yarn/package.json/",/"line_start/":4,/"line_end/":4,/"column_start/":6,/"column_end/":20},/"version/":{/"file_name/":/"yarn/package.json/",/"line_start/":4,/"line_end/":4,/"column_start/":24,/"column_end/":30}}"
+          }
+        ]
+      }
+    },
+    {
+      "bom-ref": "pkg:npm/wrappy@1.0.2",
+      "type": "library",
+      "name": "wrappy",
+      "version": "1.0.2",
+      "licenses": [],
+      "purl": "pkg:npm/wrappy@1.0.2",
+      "evidence": {
+        "occurrences": [
+          {
+            "location": "{/"block/":{/"file_name/":/"npm/package.json/",/"line_start/":4,/"line_end/":4,/"column_start/":5,/"column_end/":18},/"name/":{/"file_name/":/"npm/package.json/",/"line_start/":4,/"line_end/":4,/"column_start/":6,/"column_end/":12},/"version/":{/"file_name/":/"npm/package.json/",/"line_start/":4,/"line_end/":4,/"column_start/":16,/"column_end/":17}}"
+          }
+        ]
+      }
+    },
+    {
+      "bom-ref": "pkg:nuget/Test.Core@6.0.5",
+      "type": "library",
+      "name": "Test.Core",
+      "version": "6.0.5",
+      "licenses": [],
+      "purl": "pkg:nuget/Test.Core@6.0.5",
+      "evidence": {
+        "occurrences": []
+      }
+    },
+    {
+      "bom-ref": "pkg:pub/back_button_interceptor@6.0.1",
+      "type": "library",
+      "name": "back_button_interceptor",
+      "version": "6.0.1",
+      "licenses": [],
+      "purl": "pkg:pub/back_button_interceptor@6.0.1",
+      "evidence": {
+        "occurrences": []
+      }
+    },
+    {
+      "bom-ref": "pkg:pypi/django@2.2.24",
+      "type": "library",
+      "name": "django",
+      "version": "2.2.24",
+      "licenses": [],
+      "purl": "pkg:pypi/django@2.2.24",
+      "evidence": {
+        "occurrences": [
+          {
+            "location": "{/"block/":{/"file_name/":/"requirements.txt/",/"line_start/":1,/"line_end/":1,/"column_start/":1,/"column_end/":15},/"name/":{/"file_name/":/"requirements.txt/",/"line_start/":1,/"line_end/":1,/"column_start/":1,/"column_end/":7},/"version/":{/"file_name/":/"requirements.txt/",/"line_start/":1,/"line_end/":1,/"column_start/":9,/"column_end/":15}}"
+          }
+        ]
+      }
+    },
+    {
+      "bom-ref": "pkg:pypi/markupsafe@2.1.1",
+      "type": "library",
+      "name": "markupsafe",
+      "version": "2.1.1",
+      "licenses": [],
+      "purl": "pkg:pypi/markupsafe@2.1.1",
+      "evidence": {
+        "occurrences": [
+          {
+            "location": "{/"block/":{/"file_name/":/"Pipfile/",/"line_start/":7,/"line_end/":7,/"column_start/":1,/"column_end/":25},/"name/":{/"file_name/":/"Pipfile/",/"line_start/":7,/"line_end/":7,/"column_start/":1,/"column_end/":11},/"version/":{/"file_name/":/"Pipfile/",/"line_start/":7,/"line_end/":7,/"column_start/":15,/"column_end/":24}}"
+          }
+        ]
+      }
+    },
+    {
+      "bom-ref": "pkg:pypi/numpy@1.23.3",
+      "type": "library",
+      "name": "numpy",
+      "version": "1.23.3",
+      "licenses": [],
+      "purl": "pkg:pypi/numpy@1.23.3",
+      "evidence": {
+        "occurrences": [
+          {
+            "location": "{/"block/":{/"file_name/":/"pyproject.toml/",/"line_start/":10,/"line_end/":10,/"column_start/":1,/"column_end/":19},/"name/":{/"file_name/":/"pyproject.toml/",/"line_start/":10,/"line_end/":10,/"column_start/":1,/"column_end/":6},/"version/":{/"file_name/":/"pyproject.toml/",/"line_start/":10,/"line_end/":10,/"column_start/":10,/"column_end/":18}}"
+          }
+        ]
+      }
+    }
+  ],
+  "vulnerabilities": []
+}
+
+---
+
+[TestRun_WithEncodedLockfile/UTF-16 - 2]
+Scanning dir ./fixtures/encoding-integration-test-locks/UTF-16
+Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/Cargo.lock file and found 1 package
+Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/Pipfile.lock file and found 1 package
+Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/composer.lock file and found 1 package
+Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/conan.lock file and found 1 package
+Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/go.mod file and found 2 packages
+Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/gradle.lockfile file and found 1 package
+Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/mix.lock file and found 1 package
+Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/npm/package-lock.json file and found 1 package
+Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/packages.lock.json file and found 1 package
+Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/pnpm/pnpm-lock.yaml file and found 1 package
+Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/poetry.lock file and found 1 package
+Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/pom.xml file and found 1 package
+Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/pubspec.lock file and found 1 package
+Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/renv.lock file and found 1 package
+Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/requirements.txt file and found 1 package
+Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/yarn/yarn.lock file and found 1 package
+
+---
+
+[TestRun_WithEncodedLockfile/Windows-1252 - 1]
+{
+  "$schema": "http://cyclonedx.org/schema/bom-1.5.schema.json",
+  "bomFormat": "CycloneDX",
+  "specVersion": "1.5",
+  "version": 1,
+  "components": [
+    {
+      "bom-ref": "pkg:cargo/addr2line@0.15.2",
+      "type": "library",
+      "name": "addr2line",
+      "version": "0.15.2",
+      "licenses": [],
+      "purl": "pkg:cargo/addr2line@0.15.2",
+      "evidence": {
+        "occurrences": []
+      }
+    },
+    {
+      "bom-ref": "pkg:composer/sentry/sdk@2.0.4",
+      "type": "library",
+      "name": "sentry/sdk",
+      "version": "2.0.4",
+      "licenses": [],
+      "purl": "pkg:composer/sentry/sdk@2.0.4",
+      "evidence": {
+        "occurrences": []
+      }
+    },
+    {
+      "bom-ref": "pkg:conan/zlib@1.2.11",
+      "type": "library",
+      "name": "zlib",
+      "version": "1.2.11",
+      "licenses": [],
+      "purl": "pkg:conan/zlib@1.2.11",
+      "evidence": {
+        "occurrences": []
+      }
+    },
+    {
+      "bom-ref": "pkg:cran/morning@0.1.0",
+      "type": "library",
+      "name": "morning",
+      "version": "0.1.0",
+      "licenses": [],
+      "purl": "pkg:cran/morning@0.1.0",
+      "evidence": {
+        "occurrences": []
+      }
+    },
+    {
+      "bom-ref": "pkg:golang/github.com/BurntSushi/toml@1.0.0",
+      "type": "library",
+      "name": "github.com/BurntSushi/toml",
+      "version": "1.0.0",
+      "licenses": [],
+      "purl": "pkg:golang/github.com/BurntSushi/toml@1.0.0",
+      "evidence": {
+        "occurrences": [
+          {
+            "location": "{/"block/":{/"file_name/":/"go.mod/",/"line_start/":5,/"line_end/":5,/"column_start/":1,/"column_end/":42},/"name/":{/"file_name/":/"go.mod/",/"line_start/":5,/"line_end/":5,/"column_start/":9,/"column_end/":35},/"version/":{/"file_name/":/"go.mod/",/"line_start/":5,/"line_end/":5,/"column_start/":37,/"column_end/":42}}"
+          }
+        ]
+      }
+    },
+    {
+      "bom-ref": "pkg:golang/stdlib@1.21.3",
+      "type": "library",
+      "name": "stdlib",
+      "version": "1.21.3",
+      "licenses": [],
+      "purl": "pkg:golang/stdlib@1.21.3",
+      "evidence": {
+        "occurrences": []
+      }
+    },
+    {
+      "bom-ref": "pkg:hex/plug@1.11.1",
+      "type": "library",
+      "name": "plug",
+      "version": "1.11.1",
+      "licenses": [],
+      "purl": "pkg:hex/plug@1.11.1",
+      "evidence": {
+        "occurrences": []
+      }
+    },
+    {
+      "bom-ref": "pkg:maven/com.google.code.findbugs/jsr305@3.0.2",
+      "type": "library",
+      "name": "com.google.code.findbugs:jsr305",
+      "version": "3.0.2",
+      "licenses": [],
+      "purl": "pkg:maven/com.google.code.findbugs/jsr305@3.0.2",
+      "evidence": {
+        "occurrences": [
+          {
+            "location": "{/"block/":{/"file_name/":/"pom.xml/",/"line_start/":25,/"line_end/":28,/"column_start/":5,/"column_end/":18},/"name/":{/"file_name/":/"pom.xml/",/"line_start/":27,/"line_end/":27,/"column_start/":19,/"column_end/":25},/"version/":{/"file_name/":/"pom.xml/",/"line_start/":19,/"line_end/":19,/"column_start/":18,/"column_end/":23}}"
+          }
+        ]
+      }
+    },
+    {
+      "bom-ref": "pkg:maven/org.springframework.security/spring-security-crypto@5.7.3",
+      "type": "library",
+      "name": "org.springframework.security:spring-security-crypto",
+      "version": "5.7.3",
+      "licenses": [],
+      "purl": "pkg:maven/org.springframework.security/spring-security-crypto@5.7.3",
+      "evidence": {
+        "occurrences": [
+          {
+            "location": "{/"block/":{/"file_name/":/"build.gradle/",/"line_start/":10,/"line_end/":10,/"column_start/":3,/"column_end/":77},/"name/":{/"file_name/":/"build.gradle/",/"line_start/":10,/"line_end/":10,/"column_start/":48,/"column_end/":70},/"version/":{/"file_name/":/"build.gradle/",/"line_start/":10,/"line_end/":10,/"column_start/":71,/"column_end/":76}}"
+          }
+        ]
+      }
+    },
+    {
+      "bom-ref": "pkg:npm/acorn@8.7.0",
+      "type": "library",
+      "name": "acorn",
+      "version": "8.7.0",
+      "licenses": [],
+      "purl": "pkg:npm/acorn@8.7.0",
+      "evidence": {
+        "occurrences": [
+          {
+            "location": "{/"block/":{/"file_name/":/"pnpm/package.json/",/"line_start/":4,/"line_end/":4,/"column_start/":5,/"column_end/":22},/"name/":{/"file_name/":/"pnpm/package.json/",/"line_start/":4,/"line_end/":4,/"column_start/":6,/"column_end/":11},/"version/":{/"file_name/":/"pnpm/package.json/",/"line_start/":4,/"line_end/":4,/"column_start/":15,/"column_end/":21}}"
+          }
+        ]
+      }
+    },
+    {
+      "bom-ref": "pkg:npm/balanced-match@1.0.2",
+      "type": "library",
+      "name": "balanced-match",
+      "version": "1.0.2",
+      "licenses": [],
+      "purl": "pkg:npm/balanced-match@1.0.2",
+      "evidence": {
+        "occurrences": [
+          {
+            "location": "{/"block/":{/"file_name/":/"yarn/package.json/",/"line_start/":4,/"line_end/":4,/"column_start/":5,/"column_end/":31},/"name/":{/"file_name/":/"yarn/package.json/",/"line_start/":4,/"line_end/":4,/"column_start/":6,/"column_end/":20},/"version/":{/"file_name/":/"yarn/package.json/",/"line_start/":4,/"line_end/":4,/"column_start/":24,/"column_end/":30}}"
+          }
+        ]
+      }
+    },
+    {
+      "bom-ref": "pkg:npm/wrappy@1.0.2",
+      "type": "library",
+      "name": "wrappy",
+      "version": "1.0.2",
+      "licenses": [],
+      "purl": "pkg:npm/wrappy@1.0.2",
+      "evidence": {
+        "occurrences": [
+          {
+            "location": "{/"block/":{/"file_name/":/"npm/package.json/",/"line_start/":4,/"line_end/":4,/"column_start/":5,/"column_end/":18},/"name/":{/"file_name/":/"npm/package.json/",/"line_start/":4,/"line_end/":4,/"column_start/":6,/"column_end/":12},/"version/":{/"file_name/":/"npm/package.json/",/"line_start/":4,/"line_end/":4,/"column_start/":16,/"column_end/":17}}"
+          }
+        ]
+      }
+    },
+    {
+      "bom-ref": "pkg:nuget/Test.Core@6.0.5",
+      "type": "library",
+      "name": "Test.Core",
+      "version": "6.0.5",
+      "licenses": [],
+      "purl": "pkg:nuget/Test.Core@6.0.5",
+      "evidence": {
+        "occurrences": []
+      }
+    },
+    {
+      "bom-ref": "pkg:pub/back_button_interceptor@6.0.1",
+      "type": "library",
+      "name": "back_button_interceptor",
+      "version": "6.0.1",
+      "licenses": [],
+      "purl": "pkg:pub/back_button_interceptor@6.0.1",
+      "evidence": {
+        "occurrences": []
+      }
+    },
+    {
+      "bom-ref": "pkg:pypi/django@2.2.24",
+      "type": "library",
+      "name": "django",
+      "version": "2.2.24",
+      "licenses": [],
+      "purl": "pkg:pypi/django@2.2.24",
+      "evidence": {
+        "occurrences": [
+          {
+            "location": "{/"block/":{/"file_name/":/"requirements.txt/",/"line_start/":1,/"line_end/":1,/"column_start/":1,/"column_end/":15},/"name/":{/"file_name/":/"requirements.txt/",/"line_start/":1,/"line_end/":1,/"column_start/":1,/"column_end/":7},/"version/":{/"file_name/":/"requirements.txt/",/"line_start/":1,/"line_end/":1,/"column_start/":9,/"column_end/":15}}"
+          }
+        ]
+      }
+    },
+    {
+      "bom-ref": "pkg:pypi/markupsafe@2.1.1",
+      "type": "library",
+      "name": "markupsafe",
+      "version": "2.1.1",
+      "licenses": [],
+      "purl": "pkg:pypi/markupsafe@2.1.1",
+      "evidence": {
+        "occurrences": [
+          {
+            "location": "{/"block/":{/"file_name/":/"Pipfile/",/"line_start/":7,/"line_end/":7,/"column_start/":1,/"column_end/":25},/"name/":{/"file_name/":/"Pipfile/",/"line_start/":7,/"line_end/":7,/"column_start/":1,/"column_end/":11},/"version/":{/"file_name/":/"Pipfile/",/"line_start/":7,/"line_end/":7,/"column_start/":15,/"column_end/":24}}"
+          }
+        ]
+      }
+    },
+    {
+      "bom-ref": "pkg:pypi/numpy@1.23.3",
+      "type": "library",
+      "name": "numpy",
+      "version": "1.23.3",
+      "licenses": [],
+      "purl": "pkg:pypi/numpy@1.23.3",
+      "evidence": {
+        "occurrences": [
+          {
+            "location": "{/"block/":{/"file_name/":/"pyproject.toml/",/"line_start/":10,/"line_end/":10,/"column_start/":1,/"column_end/":19},/"name/":{/"file_name/":/"pyproject.toml/",/"line_start/":10,/"line_end/":10,/"column_start/":1,/"column_end/":6},/"version/":{/"file_name/":/"pyproject.toml/",/"line_start/":10,/"line_end/":10,/"column_start/":10,/"column_end/":18}}"
+          }
+        ]
+      }
+    }
+  ],
+  "vulnerabilities": []
+}
+
+---
+
+[TestRun_WithEncodedLockfile/Windows-1252 - 2]
+Scanning dir ./fixtures/encoding-integration-test-locks/Windows-1252
+Scanned <rootdir>/fixtures/encoding-integration-test-locks/Windows-1252/Cargo.lock file and found 1 package
+Scanned <rootdir>/fixtures/encoding-integration-test-locks/Windows-1252/Pipfile.lock file and found 1 package
+Scanned <rootdir>/fixtures/encoding-integration-test-locks/Windows-1252/composer.lock file and found 1 package
+Scanned <rootdir>/fixtures/encoding-integration-test-locks/Windows-1252/conan.lock file and found 1 package
+Scanned <rootdir>/fixtures/encoding-integration-test-locks/Windows-1252/go.mod file and found 2 packages
+Scanned <rootdir>/fixtures/encoding-integration-test-locks/Windows-1252/gradle.lockfile file and found 1 package
+Scanned <rootdir>/fixtures/encoding-integration-test-locks/Windows-1252/mix.lock file and found 1 package
+Scanned <rootdir>/fixtures/encoding-integration-test-locks/Windows-1252/npm/package-lock.json file and found 1 package
+Scanned <rootdir>/fixtures/encoding-integration-test-locks/Windows-1252/packages.lock.json file and found 1 package
+Scanned <rootdir>/fixtures/encoding-integration-test-locks/Windows-1252/pnpm/pnpm-lock.yaml file and found 1 package
+Scanned <rootdir>/fixtures/encoding-integration-test-locks/Windows-1252/poetry.lock file and found 1 package
+Scanned <rootdir>/fixtures/encoding-integration-test-locks/Windows-1252/pom.xml file and found 1 package
+Scanned <rootdir>/fixtures/encoding-integration-test-locks/Windows-1252/pubspec.lock file and found 1 package
+Scanned <rootdir>/fixtures/encoding-integration-test-locks/Windows-1252/renv.lock file and found 1 package
+Scanned <rootdir>/fixtures/encoding-integration-test-locks/Windows-1252/requirements.txt file and found 1 package
+Scanned <rootdir>/fixtures/encoding-integration-test-locks/Windows-1252/yarn/yarn.lock file and found 1 package
+
+---
+
+[TestRun_WithExplicitParsers - 1]
+{
+  "$schema": "http://cyclonedx.org/schema/bom-1.5.schema.json",
+  "bomFormat": "CycloneDX",
+  "specVersion": "1.5",
+  "version": 1,
+  "components": [
+    {
+      "bom-ref": "pkg:maven/com.google.code.findbugs/jsr305@3.0.2",
+      "type": "library",
+      "name": "com.google.code.findbugs:jsr305",
+      "version": "3.0.2",
+      "licenses": [],
+      "purl": "pkg:maven/com.google.code.findbugs/jsr305@3.0.2",
+      "evidence": {
+        "occurrences": [
+          {
+            "location": "{/"block/":{/"file_name/":/"pom.xml/",/"line_start/":25,/"line_end/":28,/"column_start/":5,/"column_end/":18},/"name/":{/"file_name/":/"pom.xml/",/"line_start/":27,/"line_end/":27,/"column_start/":19,/"column_end/":25},/"version/":{/"file_name/":/"pom.xml/",/"line_start/":19,/"line_end/":19,/"column_start/":18,/"column_end/":23}}"
+          }
+        ]
+      }
+    }
+  ],
+  "vulnerabilities": []
+}
+
+---
+
+[TestRun_WithExplicitParsers - 2]
+Scanning dir ./fixtures/integration-test-locks
+Scanned <rootdir>/fixtures/integration-test-locks/pom.xml file and found 1 package
 
 ---

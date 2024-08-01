@@ -4,10 +4,10 @@ import (
 	"fmt"
 	"io"
 
-	"github.com/google/osv-scanner/pkg/reporter/sbom"
+	"github.com/google/osv-scanner/pkg/models"
 )
 
-var format = []string{"table", "json", "markdown", "sarif", "gh-annotations", "cyclonedx-1-4", "cyclonedx-1-5"}
+var format = []string{"table", "vertical", "json", "markdown", "sarif", "gh-annotations", "cyclonedx-1-4", "cyclonedx-1-5"}
 
 func Format() []string {
 	return format
@@ -19,6 +19,8 @@ func New(format string, stdout, stderr io.Writer, level VerbosityLevel, terminal
 	switch format {
 	case "json":
 		return NewJSONReporter(stdout, stderr, level), nil
+	case "vertical":
+		return NewVerticalReporter(stdout, stderr, level, false, terminalWidth), nil
 	case "table":
 		return NewTableReporter(stdout, stderr, level, false, terminalWidth), nil
 	case "markdown":
@@ -28,9 +30,9 @@ func New(format string, stdout, stderr io.Writer, level VerbosityLevel, terminal
 	case "gh-annotations":
 		return NewGHAnnotationsReporter(stdout, stderr, level), nil
 	case "cyclonedx-1-4":
-		return NewCycloneDXReporter(stdout, stderr, sbom.CycloneDXVersion14, level), nil
+		return NewCycloneDXReporter(stdout, stderr, models.CycloneDXVersion14, level), nil
 	case "cyclonedx-1-5":
-		return NewCycloneDXReporter(stdout, stderr, sbom.CycloneDXVersion15, level), nil
+		return NewCycloneDXReporter(stdout, stderr, models.CycloneDXVersion15, level), nil
 	default:
 		return nil, fmt.Errorf("%v is not a valid format", format)
 	}
