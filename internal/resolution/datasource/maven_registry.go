@@ -52,3 +52,32 @@ func (m *MavenRegistryAPIClient) GetProject(ctx context.Context, groupID, artifa
 
 	return proj, nil
 }
+
+func (m *MavenRegistryAPIClient) GetMetadata(ctx context.Context, groupID, artifactID string) (maven.Metadata, error) {
+	u, err := url.JoinPath(m.registry, strings.ReplaceAll(groupID, ".", "/"), artifactID, "maven-metadata.xml")
+	if err != nil {
+		return maven.Metadata{}, fmt.Errorf("failed to join path: %w", err)
+	}
+
+	req, err := http.NewRequestWithContext(ctx, http.MethodGet, u, nil)
+	if err != nil {
+		return maven.Metadata{}, fmt.Errorf("failed to make new request: %w", err)
+	}
+
+	resp, err := http.DefaultClient.Do(req)
+	if err != nil {
+		return maven.Metadata{}, fmt.Errorf("%w: Maven registry query failed: %w", errAPIFailed, err)
+	}
+	defer resp.Body.Close()
+
+	if resp.StatusCode != http.StatusOK {
+		return maven.Metadata{}, fmt.Errorf("%w: Maven registry query status: %s", errAPIFailed, resp.Status)
+	}
+
+	var metadata maven.Metadata
+	if err := xml.NewDecoder(resp.Body).Decode(&metadata); err != nil {
+		return maven.Metadata{}, fmt.Errorf("failed to decode Maven project: %w", err)
+	}
+
+	return metadata, nil
+}
