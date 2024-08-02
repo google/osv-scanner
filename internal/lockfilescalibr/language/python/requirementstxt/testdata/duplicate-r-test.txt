@@ -1,0 +1,4 @@
+-r ./duplicate-r-base.txt
+
+requests==1.2.3
+unittest==1.0.0

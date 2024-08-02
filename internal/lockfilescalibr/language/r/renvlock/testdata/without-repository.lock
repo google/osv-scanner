@@ -1,0 +1,16 @@
+{
+  "R": {
+    "Version": "2.15.2",
+    "Repositories": []
+  },
+  "Packages": {
+    "morning": {
+      "Package": "morning",
+      "Version": "0.1.0",
+      "Requirements": [
+        "coffee",
+        "toast"
+      ]
+    }
+  }
+}

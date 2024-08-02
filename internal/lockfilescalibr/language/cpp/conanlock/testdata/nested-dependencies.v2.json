@@ -1,0 +1,12 @@
+{
+    "version": "0.5",
+    "requires": [
+        "zlib/1.2.13#13c96f538b52e1600c40b88994de240f%1667396813.733",
+        "libpng/1.6.39#7927e8ce5b2576a6ea497c6ca70e9751%1669038072.946",
+        "freetype/2.12.1#7e1b67634f54f38a979bbad44fd09a2c%1669913185.923",
+        "bzip2/1.0.8#464be69744fa6d48ed01928cfe470008%1666580345.213",
+        "brotli/1.0.9#4bfbb302b87df342ccd6a2b5fdad307a%1661519995.45"
+    ],
+    "build_requires": [],
+    "python_requires": []
+}

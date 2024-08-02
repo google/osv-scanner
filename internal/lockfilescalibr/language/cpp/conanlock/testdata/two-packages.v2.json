@@ -1,0 +1,9 @@
+{
+    "version": "0.5",
+    "requires": [
+        "zlib/1.2.11#ffa77daf83a57094149707928bdce823%1667396813.184",
+        "bzip2/1.0.8#464be69744fa6d48ed01928cfe470008%1666580345.213"
+    ],
+    "build_requires": [],
+    "python_requires": []
+}

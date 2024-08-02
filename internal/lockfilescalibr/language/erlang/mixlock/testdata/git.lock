@@ -1,0 +1,5 @@
+%{
+  "foe": {:git, "https://github.com/my-org/foe.git", "a9574ab75d6ed01e1288c453ae1d943d7a964595", []},
+  "foo": {:git, "https://github.com/my-org/foo.git", "fc94cce7830fa4dc455024bc2a83720afe244531", [branch: "feat/my-improvement"]},
+  "bar": {:git, "https://github.com/my-org/bar", "bef3ee1d3618017061498b96c75043e8449ef9b5", [ref: "bef3ee1d3618017061498b96c75043e8449ef9b5"]},
+}

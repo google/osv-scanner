@@ -1,0 +1,34 @@
+lockfileVersion: 5.4
+
+specifiers:
+  ansi-regex: ^5.0.0
+  is-number: ^7.0.0
+  uuid: ^8.0.0
+
+dependencies:
+  ansi-regex: 5.0.1
+
+optionalDependencies:
+  uuid: 8.3.2
+
+devDependencies:
+  is-number: 7.0.0
+
+packages:
+
+  /ansi-regex/5.0.1:
+    resolution: {integrity: sha512-quJQXlTSUGL2LH9SUXo8VwsY4soanhgo6LNSm84E1LBcE8s3O0wpdiRzyR9z/ZZJMlMWv37qOOb9pdJlMUEKFQ==}
+    engines: {node: '>=8'}
+    dev: false
+
+  /is-number/7.0.0:
+    resolution: {integrity: sha512-41Cifkg6e8TylSpdtTpeLVMqvSBEVzTttHvERD741+pnZ8ANv0004MRL43QKPDlK9cGvNp6NZWZUBlbGXYxxng==}
+    engines: {node: '>=0.12.0'}
+    dev: true
+
+  /uuid/8.3.2:
+    resolution: {integrity: sha512-+NYs2QeMWy+GWFOEm9xnn6HCDp0l7QBD7ml8zLUmJ+93Q5NF0NocErnwkTkXVFNiX3/fpC6afS8Dhb/gz7R7eg==}
+    hasBin: true
+    requiresBuild: true
+    dev: false
+    optional: true

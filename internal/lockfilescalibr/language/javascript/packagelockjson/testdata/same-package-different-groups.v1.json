@@ -1,0 +1,81 @@
+{
+  "requires": true,
+  "lockfileVersion": 1,
+  "dependencies": {
+    "ajv": {
+      "version": "5.5.2",
+      "resolved": "https://registry.npmjs.org/ajv/-/ajv-5.5.2.tgz",
+      "integrity": "sha512-Ajr4IcMXq/2QmMkEmSvxqfLN5zGmJ92gHXAeOXq1OekoH2rfDNsgdDoL2f7QaRCy7G/E6TpxBVdRuNraMztGHw==",
+      "dev": true,
+      "requires": {
+        "co": "^4.6.0",
+        "fast-deep-equal": "^1.0.0",
+        "fast-json-stable-stringify": "^2.0.0",
+        "json-schema-traverse": "^0.3.0"
+      }
+    },
+    "eslint": {
+      "version": "1.2.3",
+      "dev": true,
+      "dependencies": {
+        "ajv": {
+          "version": "5.5.2",
+          "resolved": "https://registry.npmjs.org/ajv/-/ajv-5.5.2.tgz",
+          "integrity": "sha512-Ajr4IcMXq/2QmMkEmSvxqfLN5zGmJ92gHXAeOXq1OekoH2rfDNsgdDoL2f7QaRCy7G/E6TpxBVdRuNraMztGHw==",
+          "dev": true,
+          "requires": {
+            "co": "^4.6.0",
+            "fast-deep-equal": "^1.0.0",
+            "fast-json-stable-stringify": "^2.0.0",
+            "json-schema-traverse": "^0.3.0"
+          },
+          "dependencies": {
+            "ajv": {
+              "version": "5.5.2",
+              "resolved": "https://registry.npmjs.org/ajv/-/ajv-5.5.2.tgz",
+              "integrity": "sha512-Ajr4IcMXq/2QmMkEmSvxqfLN5zGmJ92gHXAeOXq1OekoH2rfDNsgdDoL2f7QaRCy7G/E6TpxBVdRuNraMztGHw==",
+              "optional": true,
+              "requires": {
+                "co": "^4.6.0",
+                "fast-deep-equal": "^1.0.0",
+                "fast-json-stable-stringify": "^2.0.0",
+                "json-schema-traverse": "^0.3.0"
+              }
+            }
+          }
+        }
+      }
+    },
+    "table": {
+      "version": "1.0.0",
+      "dependencies": {
+        "ajv": {
+          "version": "5.5.2",
+          "resolved": "https://registry.npmjs.org/ajv/-/ajv-5.5.2.tgz",
+          "integrity": "sha512-Ajr4IcMXq/2QmMkEmSvxqfLN5zGmJ92gHXAeOXq1OekoH2rfDNsgdDoL2f7QaRCy7G/E6TpxBVdRuNraMztGHw==",
+          "requires": {
+            "co": "^4.6.0",
+            "fast-deep-equal": "^1.0.0",
+            "fast-json-stable-stringify": "^2.0.0",
+            "json-schema-traverse": "^0.3.0"
+          },
+          "dependencies": {
+            "ajv": {
+              "version": "5.5.2",
+              "resolved": "https://registry.npmjs.org/ajv/-/ajv-5.5.2.tgz",
+              "integrity": "sha512-Ajr4IcMXq/2QmMkEmSvxqfLN5zGmJ92gHXAeOXq1OekoH2rfDNsgdDoL2f7QaRCy7G/E6TpxBVdRuNraMztGHw==",
+              "dev": true,
+              "optional": true,
+              "requires": {
+                "co": "^4.6.0",
+                "fast-deep-equal": "^1.0.0",
+                "fast-json-stable-stringify": "^2.0.0",
+                "json-schema-traverse": "^0.3.0"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
