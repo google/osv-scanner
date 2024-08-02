@@ -257,7 +257,7 @@ func TestMavenRead(t *testing.T) {
 				{Property: maven.Property{Name: "maven.compiler.source", Value: "1.7"}},
 				{Property: maven.Property{Name: "maven.compiler.target", Value: "1.7"}},
 				{Property: maven.Property{Name: "junit.version", Value: "4.12"}},
-				{Property: maven.Property{Name: "zeppelin.daemon.package.base", Value: "\n\t    ../bin\n    "}},
+				{Property: maven.Property{Name: "zeppelin.daemon.package.base", Value: "../bin"}},
 				{Property: maven.Property{Name: "def.version", Value: "2.3.4"}, Origin: "profile@profile-one"},
 			},
 			OriginalRequirements: []DependencyWithOrigin{
