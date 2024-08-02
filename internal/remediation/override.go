@@ -132,6 +132,7 @@ func overridePatchVulns(ctx context.Context, cl client.ResolutionClient, result 
 				// Currently, there is no way to know if a specific classifier or type exists for a given version with deps.dev.
 				// Blindly updating versions can lead to compilation failures if the artifact+version+classifier+type doesn't exist.
 				// We can't reliably attempt remediation in these cases, so don't try.
+				// TODO: query Maven registry for existence of classifiers in getVersionsGreater
 				typ := c.Edges[0].Type
 				if typ.HasAttr(dep.MavenClassifier) || typ.HasAttr(dep.MavenArtifactType) {
 					return nil, nil, fmt.Errorf("%w: cannot fix vulns in artifacts with classifier or type", errOverrideImpossible)
