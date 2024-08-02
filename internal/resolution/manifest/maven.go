@@ -263,20 +263,22 @@ func (m MavenManifestIO) mergeParents(ctx context.Context, result *maven.Project
 		}
 		visited[current.ProjectKey] = true
 		var proj maven.Project
-		if allowLocal && current.RelativePath != "" {
-			currentPath = filepath.Join(filepath.Dir(currentPath), string(current.RelativePath))
-			if filepath.Base(currentPath) != "pom.xml" {
-				// If the base is not pom.xml, this path is a directory but not a file.
-				currentPath = filepath.Join(currentPath, "pom.xml")
-			}
-			f, err := os.Open(currentPath)
+		parentFound := false
+		if parentPath := MavenParentPOMPath(currentPath, string(current.RelativePath)); allowLocal && parentPath != "" {
+			currentPath = parentPath
+			f, err := os.Open(parentPath)
 			if err != nil {
-				return fmt.Errorf("failed to open parent file %s: %w", current.RelativePath, err)
+				return fmt.Errorf("failed to open parent file %s: %w", parentPath, err)
 			}
 			if err := xml.NewDecoder(f).Decode(&proj); err != nil {
 				return fmt.Errorf("failed to unmarshal project: %w", err)
 			}
-		} else {
+			if proj.ProjectKey == current.ProjectKey && proj.Packaging == "pom" {
+				// Only mark parent is found when the identifiers and packaging are exptected.
+				parentFound = true
+			}
+		}
+		if !parentFound {
 			// Once we fetch a parent pom.xml from upstream, we should not allow
 			// parsing parent pom.xml locally anymore.
 			allowLocal = false
@@ -289,6 +291,10 @@ func (m MavenManifestIO) mergeParents(ctx context.Context, result *maven.Project
 				// A parent project should only be of "pom" packaging type.
 				return fmt.Errorf("invalid packaging for parent project %s", proj.Packaging)
 			}
+			if proj.ProjectKey != current.ProjectKey {
+				// The identifiers in parent does not match what we want.
+				return fmt.Errorf("parent identifiers mismatch: %v, expect %v", proj.ProjectKey, current.ProjectKey)
+			}
 		}
 		// Empty JDK and ActivationOS indicates merging the default profiles.
 		if err := result.MergeProfiles("", maven.ActivationOS{}); err != nil {
@@ -299,6 +305,28 @@ func (m MavenManifestIO) mergeParents(ctx context.Context, result *maven.Project
 	}
 
 	return result.Interpolate()
+}
+
+// Maven looks for the parent POM first in 'relativePath',
+// then the local repository '../pom.xml',
+// and lastly in the remote repo.
+func MavenParentPOMPath(currentPath, relativePath string) string {
+	if relativePath == "" {
+		relativePath = "../pom.xml"
+	}
+	path := filepath.Join(filepath.Dir(currentPath), relativePath)
+	if info, err := os.Stat(path); err == nil {
+		if !info.IsDir() {
+			return path
+		}
+		// Current path is a directory, so look for pom.xml in the directory.
+		path = filepath.Join(path, "pom.xml")
+		if _, err := os.Stat(path); err == nil {
+			return path
+		}
+	}
+
+	return ""
 }
 
 // For dependencies in profiles and plugins, we use origin to indicate where they are from.
