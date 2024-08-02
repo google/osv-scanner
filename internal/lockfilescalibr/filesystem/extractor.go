@@ -6,13 +6,12 @@ import (
 	"io/fs"
 
 	"github.com/google/osv-scanner/internal/lockfilescalibr/extractor"
-	"github.com/google/osv-scanner/internal/lockfilescalibr/plugin"
 )
 
 // ScanInput represents a filesystem path to a readable file where inventory can be extracted.
 type ScanInput struct {
 	// FS for file access. This is rooted at /.
-	FS plugin.FS
+	FS fs.FS
 	// Input path, relative to the root directory.
 	Path string
 	// The root directory to start all extractions from.

@@ -15,7 +15,6 @@ import (
 	"github.com/google/osv-scanner/internal/lockfilescalibr/fakefs"
 	"github.com/google/osv-scanner/internal/lockfilescalibr/filesystem"
 	"github.com/google/osv-scanner/internal/lockfilescalibr/othermetadata"
-	"github.com/google/osv-scanner/internal/lockfilescalibr/plugin"
 )
 
 // ExpectErrContaining checks if a error contains a certain string, if not fail the test
@@ -195,7 +194,7 @@ func GenerateScanInputMock(t *testing.T, config ScanInputMockConfig) ScanInputWr
 	return ScanInputWrapper{
 		fileHandle: f,
 		ScanInput: filesystem.ScanInput{
-			FS:       os.DirFS(scanRoot).(plugin.FS),
+			FS:       os.DirFS(scanRoot).(fs.FS),
 			Path:     config.Path,
 			ScanRoot: scanRoot,
 			Reader:   f,

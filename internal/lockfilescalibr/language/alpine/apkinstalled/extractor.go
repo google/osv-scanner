@@ -132,7 +132,7 @@ func (e Extractor) Ecosystem(i *extractor.Inventory) (string, error) {
 
 // alpineReleaseExtractor extracts the release version for an alpine distro
 // will return "" if no release version can be found, or if distro is not alpine
-func alpineReleaseExtractor(opener plugin.FS) (string, error) {
+func alpineReleaseExtractor(opener fs.FS) (string, error) {
 	alpineReleaseFile, err := opener.Open("etc/alpine-release")
 	if err != nil {
 		return "", err
