@@ -1,7 +1,9 @@
 <project>
-  <groupId>com.mycompany.app</groupId>
-  <artifactId>my-app</artifactId>
+  <groupId>org.local</groupId>
+  <artifactId>parent-pom</artifactId>
   <version>1.0</version>
+
+  <packaging>pom</packaging>
 
   <parent>
     <groupId>org.upstream</groupId>
