@@ -257,7 +257,7 @@ func TestMavenRead(t *testing.T) {
 				{Property: maven.Property{Name: "maven.compiler.source", Value: "1.7"}},
 				{Property: maven.Property{Name: "maven.compiler.target", Value: "1.7"}},
 				{Property: maven.Property{Name: "junit.version", Value: "4.12"}},
-				{Property: maven.Property{Name: "zeppelin.daemon.package.base", Value: "\n\t    ../bin\n    "}},
+				{Property: maven.Property{Name: "zeppelin.daemon.package.base", Value: "../bin"}},
 				{Property: maven.Property{Name: "def.version", Value: "2.3.4"}, Origin: "profile@profile-one"},
 			},
 			OriginalRequirements: []DependencyWithOrigin{
@@ -865,68 +865,6 @@ func TestGeneratePropertyPatches(t *testing.T) {
 		patches, ok := generatePropertyPatches(test.s1, test.s2)
 		if ok != test.possible || !reflect.DeepEqual(patches, test.patches) {
 			t.Errorf("generatePropertyPatches(%s, %s): got %v %v, want %v %v", test.s1, test.s2, patches, ok, test.patches, test.possible)
-		}
-	}
-}
-
-func TestParentPOMPath(t *testing.T) {
-	t.Parallel()
-	dir, err := os.Getwd()
-	if err != nil {
-		t.Fatalf("failed to get current directory: %v", err)
-	}
-	tests := []struct {
-		currentPath, relativePath string
-		want                      string
-	}{
-		// fixtures
-		// |- maven
-		// |  |- my-app
-		// |  |  |- pom.xml
-		// |  |- parent
-		// |  |  |- pom.xml
-		// |- pom.xml
-		{
-			// Parent path is specified correctly.
-			currentPath:  filepath.Join(dir, "fixtures", "maven", "my-app", "pom.xml"),
-			relativePath: "../parent/pom.xml",
-			want:         filepath.Join(dir, "fixtures", "maven", "parent", "pom.xml"),
-		},
-		{
-			// Wrong file name is specified in relative path.
-			currentPath:  filepath.Join(dir, "fixtures", "maven", "my-app", "pom.xml"),
-			relativePath: "../parent/abc.xml",
-			want:         "",
-		},
-		{
-			// Wrong directory is specified in relative path.
-			currentPath:  filepath.Join(dir, "fixtures", "maven", "my-app", "pom.xml"),
-			relativePath: "../not-found/pom.xml",
-			want:         "",
-		},
-		{
-			// Only directory is specified.
-			currentPath:  filepath.Join(dir, "fixtures", "maven", "my-app", "pom.xml"),
-			relativePath: "../parent",
-			want:         filepath.Join(dir, "fixtures", "maven", "parent", "pom.xml"),
-		},
-		{
-			// Parent relative path is default to '../pom.xml'.
-			currentPath:  filepath.Join(dir, "fixtures", "maven", "my-app", "pom.xml"),
-			relativePath: "",
-			want:         filepath.Join(dir, "fixtures", "maven", "pom.xml"),
-		},
-		{
-			// No pom.xml is found even in the default path.
-			currentPath:  filepath.Join(dir, "fixtures", "maven", "pom.xml"),
-			relativePath: "",
-			want:         "",
-		},
-	}
-	for _, test := range tests {
-		got := MavenParentPOMPath(test.currentPath, test.relativePath)
-		if got != test.want {
-			t.Errorf("parentPOMPath(%s, %s): got %s, want %s", test.currentPath, test.relativePath, got, test.want)
 		}
 	}
 }

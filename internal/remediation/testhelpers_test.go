@@ -74,7 +74,7 @@ func checkRemediationResults(t *testing.T, res []resolution.ResolutionDiff) {
 	}
 
 	type minimalPatch struct {
-		Deps              []manifest.DependencyPatch
+		Deps              []manifest.DependencyPatch // TODO: The dep.Type does not marshal to JSON.
 		EcosystemSpecific any
 	}
 
