@@ -314,7 +314,7 @@ func (m MavenDependencyPatches) addPatch(changedDep DependencyPatch, fromBase bo
 
 	// If this dependency did not already exist in the base project, we want to add it to the dependencyManagement section
 	if !fromBase {
-		o = OriginManagement
+		o = manifest.OriginManagement
 	}
 
 	substrings := strings.Split(changedDep.Pkg.Name, ":")
