@@ -8,23 +8,15 @@ import (
 	"errors"
 	"fmt"
 	"io"
-	"os"
-	"path/filepath"
 	"slices"
 	"strings"
 
 	"deps.dev/util/maven"
 	"deps.dev/util/resolve"
 	"deps.dev/util/resolve/dep"
+	"github.com/google/osv-scanner/internal/manifest"
 	"github.com/google/osv-scanner/internal/resolution/datasource"
 	"github.com/google/osv-scanner/pkg/lockfile"
-)
-
-const (
-	OriginManagement = "management"
-	OriginParent     = "parent"
-	OriginPlugin     = "plugin"
-	OriginProfile    = "profile"
 )
 
 func mavenRequirementKey(requirement resolve.RequirementVersion) RequirementKey {
@@ -89,7 +81,7 @@ func (m MavenManifestIO) Read(df lockfile.DepFile) (Manifest, error) {
 				VersionType: resolve.Requirement,
 				Version:     string(project.Parent.Version),
 			},
-			Type: resolve.MavenDepType(maven.Dependency{Type: "pom"}, OriginParent),
+			Type: resolve.MavenDepType(maven.Dependency{Type: "pom"}, manifest.OriginParent),
 		})
 	}
 
@@ -99,7 +91,7 @@ func (m MavenManifestIO) Read(df lockfile.DepFile) (Manifest, error) {
 	}
 
 	// Merging parents data by parsing local parent pom.xml or fetching from upstream.
-	if err := m.mergeParents(ctx, &project, project.Parent, 1, df.Path(), true); err != nil {
+	if err := manifest.MergeMavenParents(ctx, m.MavenRegistryAPIClient, &project, project.Parent, 1, df.Path(), true); err != nil {
 		return Manifest{}, fmt.Errorf("failed to merge parents: %w", err)
 	}
 
@@ -108,7 +100,7 @@ func (m MavenManifestIO) Read(df lockfile.DepFile) (Manifest, error) {
 	// dependencies, so add them to requirements first.
 	for _, dep := range project.DependencyManagement.Dependencies {
 		if dep.Scope == "import" && dep.Type == "pom" {
-			reqsForUpdates = append(reqsForUpdates, makeRequirementVersion(dep, OriginManagement))
+			reqsForUpdates = append(reqsForUpdates, makeRequirementVersion(dep, manifest.OriginManagement))
 		}
 	}
 
@@ -122,7 +114,7 @@ func (m MavenManifestIO) Read(df lockfile.DepFile) (Manifest, error) {
 		// To get dependency management from another project, we need the
 		// project with parents merged, so we call mergeParents by passing
 		// an empty project.
-		if err := m.mergeParents(ctx, &result, root, 0, "", false); err != nil {
+		if err := manifest.MergeMavenParents(ctx, m.MavenRegistryAPIClient, &result, root, 0, "", false); err != nil {
 			return maven.DependencyManagement{}, err
 		}
 
@@ -131,12 +123,12 @@ func (m MavenManifestIO) Read(df lockfile.DepFile) (Manifest, error) {
 
 	groups := make(map[RequirementKey][]string)
 	requirements := addRequirements([]resolve.RequirementVersion{}, groups, project.Dependencies, "")
-	requirements = addRequirements(requirements, groups, project.DependencyManagement.Dependencies, OriginManagement)
+	requirements = addRequirements(requirements, groups, project.DependencyManagement.Dependencies, manifest.OriginManagement)
 
 	// Requirements may not appear in the dependency graph but needs to be updated.
 	for _, profile := range project.Profiles {
 		reqsForUpdates = addRequirements(reqsForUpdates, groups, profile.Dependencies, "")
-		reqsForUpdates = addRequirements(reqsForUpdates, groups, profile.DependencyManagement.Dependencies, OriginManagement)
+		reqsForUpdates = addRequirements(reqsForUpdates, groups, profile.DependencyManagement.Dependencies, manifest.OriginManagement)
 	}
 	for _, plugin := range project.Build.PluginManagement.Plugins {
 		reqsForUpdates = addRequirements(reqsForUpdates, groups, plugin.Dependencies, "")
@@ -190,7 +182,7 @@ func buildPropertiesWithOrigins(project maven.Project) []PropertyWithOrigin {
 		for _, prop := range profile.Properties.Properties {
 			properties = append(properties, PropertyWithOrigin{
 				Property: prop,
-				Origin:   mavenOrigin(OriginProfile, string(profile.ID)),
+				Origin:   mavenOrigin(manifest.OriginProfile, string(profile.ID)),
 			})
 		}
 	}
@@ -208,7 +200,7 @@ func buildOriginalRequirements(project maven.Project) []DependencyWithOrigin {
 				Version:    project.Parent.Version,
 				Type:       "pom",
 			},
-			Origin: OriginParent,
+			Origin: manifest.OriginParent,
 		})
 	}
 	for _, d := range project.Dependencies {
@@ -217,20 +209,20 @@ func buildOriginalRequirements(project maven.Project) []DependencyWithOrigin {
 	for _, d := range project.DependencyManagement.Dependencies {
 		dependencies = append(dependencies, DependencyWithOrigin{
 			Dependency: d,
-			Origin:     OriginManagement,
+			Origin:     manifest.OriginManagement,
 		})
 	}
 	for _, prof := range project.Profiles {
 		for _, d := range prof.Dependencies {
 			dependencies = append(dependencies, DependencyWithOrigin{
 				Dependency: d,
-				Origin:     mavenOrigin(OriginProfile, string(prof.ID)),
+				Origin:     mavenOrigin(manifest.OriginProfile, string(prof.ID)),
 			})
 		}
 		for _, d := range prof.DependencyManagement.Dependencies {
 			dependencies = append(dependencies, DependencyWithOrigin{
 				Dependency: d,
-				Origin:     mavenOrigin(OriginProfile, string(prof.ID), OriginManagement),
+				Origin:     mavenOrigin(manifest.OriginProfile, string(prof.ID), manifest.OriginManagement),
 			})
 		}
 	}
@@ -238,95 +230,12 @@ func buildOriginalRequirements(project maven.Project) []DependencyWithOrigin {
 		for _, d := range plugin.Dependencies {
 			dependencies = append(dependencies, DependencyWithOrigin{
 				Dependency: d,
-				Origin:     mavenOrigin(OriginPlugin, plugin.ProjectKey.Name()),
+				Origin:     mavenOrigin(manifest.OriginPlugin, plugin.ProjectKey.Name()),
 			})
 		}
 	}
 
 	return dependencies
-}
-
-// To avoid indefinite loop when fetching parents,
-// set a limit on the number of parents.
-const MaxParent = 100
-
-func (m MavenManifestIO) mergeParents(ctx context.Context, result *maven.Project, current maven.Parent, start int, path string, allowLocal bool) error {
-	currentPath := path
-	visited := make(map[maven.ProjectKey]bool, MaxParent)
-	for n := start; n < MaxParent; n++ {
-		if current.GroupID == "" || current.ArtifactID == "" || current.Version == "" {
-			break
-		}
-		if visited[current.ProjectKey] {
-			// A cycle of parents is detected
-			return errors.New("a cycle of parents is detected")
-		}
-		visited[current.ProjectKey] = true
-		var proj maven.Project
-		parentFound := false
-		if parentPath := MavenParentPOMPath(currentPath, string(current.RelativePath)); allowLocal && parentPath != "" {
-			currentPath = parentPath
-			f, err := os.Open(parentPath)
-			if err != nil {
-				return fmt.Errorf("failed to open parent file %s: %w", parentPath, err)
-			}
-			if err := xml.NewDecoder(f).Decode(&proj); err != nil {
-				return fmt.Errorf("failed to unmarshal project: %w", err)
-			}
-			if proj.ProjectKey == current.ProjectKey && proj.Packaging == "pom" {
-				// Only mark parent is found when the identifiers and packaging are exptected.
-				parentFound = true
-			}
-		}
-		if !parentFound {
-			// Once we fetch a parent pom.xml from upstream, we should not allow
-			// parsing parent pom.xml locally anymore.
-			allowLocal = false
-			var err error
-			proj, err = m.MavenRegistryAPIClient.GetProject(ctx, string(current.GroupID), string(current.ArtifactID), string(current.Version))
-			if err != nil {
-				return fmt.Errorf("failed to get Maven project %s:%s:%s: %w", current.GroupID, current.ArtifactID, current.Version, err)
-			}
-			if n > 0 && proj.Packaging != "pom" {
-				// A parent project should only be of "pom" packaging type.
-				return fmt.Errorf("invalid packaging for parent project %s", proj.Packaging)
-			}
-			if proj.ProjectKey != current.ProjectKey {
-				// The identifiers in parent does not match what we want.
-				return fmt.Errorf("parent identifiers mismatch: %v, expect %v", proj.ProjectKey, current.ProjectKey)
-			}
-		}
-		// Empty JDK and ActivationOS indicates merging the default profiles.
-		if err := result.MergeProfiles("", maven.ActivationOS{}); err != nil {
-			return err
-		}
-		result.MergeParent(proj)
-		current = proj.Parent
-	}
-
-	return result.Interpolate()
-}
-
-// Maven looks for the parent POM first in 'relativePath',
-// then the local repository '../pom.xml',
-// and lastly in the remote repo.
-func MavenParentPOMPath(currentPath, relativePath string) string {
-	if relativePath == "" {
-		relativePath = "../pom.xml"
-	}
-	path := filepath.Join(filepath.Dir(currentPath), relativePath)
-	if info, err := os.Stat(path); err == nil {
-		if !info.IsDir() {
-			return path
-		}
-		// Current path is a directory, so look for pom.xml in the directory.
-		path = filepath.Join(path, "pom.xml")
-		if _, err := os.Stat(path); err == nil {
-			return path
-		}
-	}
-
-	return ""
 }
 
 // For dependencies in profiles and plugins, we use origin to indicate where they are from.
@@ -471,9 +380,9 @@ func buildPatches(patches []DependencyPatch, specific MavenManifestSpecific) (Ma
 		}
 
 		depOrigin := origDep.Origin
-		if strings.HasPrefix(depOrigin, OriginProfile) {
+		if strings.HasPrefix(depOrigin, manifest.OriginProfile) {
 			// Dependency management is not indicated in property origin.
-			depOrigin, _ = strings.CutSuffix(depOrigin, "@"+OriginManagement)
+			depOrigin, _ = strings.CutSuffix(depOrigin, "@"+manifest.OriginManagement)
 		} else {
 			// Properties are defined either universally or in a profile. For property
 			// origin not starting with 'profile', this is an universal property.
@@ -668,7 +577,7 @@ func write(buf *bytes.Buffer, w io.Writer, depPatches MavenDependencyPatches, pr
 				}
 
 				// Check whether dependency management is updated, if not, add a new section of dependency management.
-				if dmPatches := depPatches[OriginManagement]; len(dmPatches) > 0 && !updated[OriginManagement] {
+				if dmPatches := depPatches[manifest.OriginManagement]; len(dmPatches) > 0 && !updated[manifest.OriginManagement] {
 					enc.Indent("  ", "  ")
 					var dm dependencyManagement
 					for p := range dmPatches {
@@ -768,7 +677,7 @@ func writeProject(w io.Writer, enc *xml.Encoder, raw, prefix, id string, patches
 				if err := dec.DecodeElement(&rawProfile, &tt); err != nil {
 					return err
 				}
-				if err := writeProject(w, enc, "<profile>"+rawProfile.InnerXML+"</profile>", OriginProfile, string(rawProfile.ID), patches, properties, updated); err != nil {
+				if err := writeProject(w, enc, "<profile>"+rawProfile.InnerXML+"</profile>", manifest.OriginProfile, string(rawProfile.ID), patches, properties, updated); err != nil {
 					return fmt.Errorf("updating profile: %w", err)
 				}
 
@@ -786,7 +695,7 @@ func writeProject(w io.Writer, enc *xml.Encoder, raw, prefix, id string, patches
 				if err := dec.DecodeElement(&rawPlugin, &tt); err != nil {
 					return err
 				}
-				if err := writeProject(w, enc, "<plugin>"+rawPlugin.InnerXML+"</plugin>", OriginPlugin, rawPlugin.ProjectKey.Name(), patches, properties, updated); err != nil {
+				if err := writeProject(w, enc, "<plugin>"+rawPlugin.InnerXML+"</plugin>", manifest.OriginPlugin, rawPlugin.ProjectKey.Name(), patches, properties, updated); err != nil {
 					return fmt.Errorf("updating profile: %w", err)
 				}
 
@@ -800,7 +709,7 @@ func writeProject(w io.Writer, enc *xml.Encoder, raw, prefix, id string, patches
 				if err := dec.DecodeElement(&rawDepMgmt, &tt); err != nil {
 					return err
 				}
-				o := mavenOrigin(prefix, id, OriginManagement)
+				o := mavenOrigin(prefix, id, manifest.OriginManagement)
 				updated[o] = true
 				dmPatches := patches[o]
 				if err := writeDependency(w, enc, "<dependencyManagement>"+rawDepMgmt.InnerXML+"</dependencyManagement>", dmPatches); err != nil {
