@@ -17,7 +17,7 @@ var ecosystemToPURLMapper = map[models.Ecosystem]string{
 	models.EcosystemNPM:         packageurl.TypeNPM,
 	models.EcosystemConanCenter: packageurl.TypeConan,
 	models.EcosystemCratesIO:    packageurl.TypeCargo,
-	models.EcosystemPub:         packageurl.TypePub,
+	models.EcosystemPub:         "pub",
 	models.EcosystemHex:         packageurl.TypeHex,
 	models.EcosystemCRAN:        packageurl.TypeCran,
 }

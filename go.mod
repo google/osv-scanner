@@ -23,7 +23,7 @@ require (
 	github.com/jedib0t/go-pretty/v6 v6.5.9
 	github.com/muesli/reflow v0.3.0
 	github.com/owenrumney/go-sarif/v2 v2.3.3
-	github.com/package-url/packageurl-go v0.1.3
+	github.com/package-url/packageurl-go v0.1.1
 	github.com/pandatix/go-cvss v0.6.2
 	github.com/spdx/tools-golang v0.5.5
 	github.com/stretchr/testify v1.9.0
