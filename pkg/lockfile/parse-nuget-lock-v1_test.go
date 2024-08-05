@@ -1,10 +1,15 @@
 package lockfile_test
 
 import (
+	"bytes"
+	"errors"
+	"io"
 	"io/fs"
+	"os"
 	"testing"
 
 	"github.com/google/osv-scanner/pkg/lockfile"
+	"github.com/stretchr/testify/assert"
 )
 
 func TestParseNuGetLock_v1_FileDoesNotExist(t *testing.T) {
@@ -154,4 +159,47 @@ func TestParseNuGetLock_v1_TwoFrameworks_DuplicatePackages(t *testing.T) {
 			CompareAs: lockfile.NuGetEcosystem,
 		},
 	})
+}
+
+func TestParseNuGetLock_v1_OneFramework_OnePackage_MatchedFailed(t *testing.T) {
+	t.Parallel()
+
+	stderr := os.Stderr
+	r, w, err := os.Pipe()
+	if err != nil {
+		t.Errorf("Got unexpected error: %v", err)
+	}
+	os.Stderr = w
+
+	// Mock NugetCsprojMatcher to fail
+	matcherError := errors.New("NugetCsprojMatcher failed")
+	lockfile.NuGetExtractor.Matcher = FailingMatcher{Error: matcherError}
+
+	packages, err := lockfile.ParseNuGetLock("fixtures/nuget/one-framework-one-package.v1.json")
+	if err != nil {
+		t.Errorf("Got unexpected error: %v", err)
+	}
+
+	// Capture stderr
+	_ = w.Close()
+	os.Stderr = stderr
+	var buffer bytes.Buffer
+	_, err = io.Copy(&buffer, r)
+	if err != nil {
+		t.Errorf("failed to copy stderr output: %v", err)
+	}
+	_ = r.Close()
+
+	assert.Contains(t, buffer.String(), matcherError.Error())
+	expectPackages(t, packages, []lockfile.PackageDetails{
+		{
+			Name:      "Test.Core",
+			Version:   "6.0.5",
+			Ecosystem: lockfile.NuGetEcosystem,
+			CompareAs: lockfile.NuGetEcosystem,
+		},
+	})
+
+	// Reset NugetCsprojMatcher mock
+	MockAllMatchers()
 }

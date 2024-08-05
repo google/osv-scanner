@@ -55,7 +55,9 @@ func parseNuGetLock(lockfile NuGetLockfile) ([]PackageDetails, error) {
 	return maps.Values(details), nil
 }
 
-type NuGetLockExtractor struct{}
+type NuGetLockExtractor struct {
+	WithMatcher
+}
 
 func (e NuGetLockExtractor) ShouldExtract(path string) bool {
 	return filepath.Base(path) == "packages.lock.json"
@@ -77,13 +79,15 @@ func (e NuGetLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 	return parseNuGetLock(*parsedLockfile)
 }
 
-var _ Extractor = NuGetLockExtractor{}
+var NuGetExtractor = NuGetLockExtractor{
+	WithMatcher{Matcher: NugetCsprojMatcher{}},
+}
 
 //nolint:gochecknoinits
 func init() {
-	registerExtractor("packages.lock.json", NuGetLockExtractor{})
+	registerExtractor("packages.lock.json", NuGetExtractor)
 }
 
 func ParseNuGetLock(pathToLockfile string) ([]PackageDetails, error) {
-	return extractFromFile(pathToLockfile, NuGetLockExtractor{})
+	return extractFromFile(pathToLockfile, NuGetExtractor)
 }

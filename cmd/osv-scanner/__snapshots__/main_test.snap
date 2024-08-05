@@ -448,7 +448,7 @@ Scanned <rootdir>/fixtures/call-analysis-go-project/go.mod file and found 4 pack
 | https://osv.dev/GO-2023-1990        |      |           |                             |         |                                          |
 | https://osv.dev/GHSA-x92r-3vfx-4cv3 | 6.5  | Go        | golang.org/x/image          | 0.4.0   | fixtures/call-analysis-go-project/go.mod |
 | https://osv.dev/GO-2023-1989        |      |           |                             |         |                                          |
-| https://osv.dev/GHSA-9phm-fm57-rhg8 |      | Go        | golang.org/x/image          | 0.4.0   | fixtures/call-analysis-go-project/go.mod |
+| https://osv.dev/GHSA-9phm-fm57-rhg8 | 8.7  | Go        | golang.org/x/image          | 0.4.0   | fixtures/call-analysis-go-project/go.mod |
 | https://osv.dev/GO-2024-2937        |      |           |                             |         |                                          |
 | https://osv.dev/GO-2023-2041        |      | Go        | stdlib                      | 1.19    | fixtures/call-analysis-go-project/go.mod |
 | https://osv.dev/GO-2023-2043        |      | Go        | stdlib                      | 1.19    | fixtures/call-analysis-go-project/go.mod |
@@ -2292,6 +2292,36 @@ No package sources found, --help for usage information.
       }
     },
     {
+      "bom-ref": "pkg:nuget/Downloader@3.1.2",
+      "type": "library",
+      "name": "Downloader",
+      "version": "3.1.2",
+      "licenses": [],
+      "purl": "pkg:nuget/Downloader@3.1.2",
+      "evidence": {
+        "occurrences": [
+          {
+            "location": "{/"block/":{/"file_name/":/"nuget/project.csproj/",/"line_start/":11,/"line_end/":11,/"column_start/":3,/"column_end/":58},/"name/":{/"file_name/":/"nuget/project.csproj/",/"line_start/":11,/"line_end/":11,/"column_start/":30,/"column_end/":40},/"version/":{/"file_name/":/"nuget/project.csproj/",/"line_start/":11,/"line_end/":11,/"column_start/":51,/"column_end/":54}}"
+          }
+        ]
+      }
+    },
+    {
+      "bom-ref": "pkg:nuget/MaterialDesignThemes@5.1.0",
+      "type": "library",
+      "name": "MaterialDesignThemes",
+      "version": "5.1.0",
+      "licenses": [],
+      "purl": "pkg:nuget/MaterialDesignThemes@5.1.0",
+      "evidence": {
+        "occurrences": [
+          {
+            "location": "{/"block/":{/"file_name/":/"nuget/project.csproj/",/"line_start/":12,/"line_end/":12,/"column_start/":3,/"column_end/":70},/"name/":{/"file_name/":/"nuget/project.csproj/",/"line_start/":12,/"line_end/":12,/"column_start/":30,/"column_end/":50},/"version/":{/"file_name/":/"nuget/project.csproj/",/"line_start/":12,/"line_end/":12,/"column_start/":61,/"column_end/":66}}"
+          }
+        ]
+      }
+    },
+    {
       "bom-ref": "pkg:nuget/Test.Core@6.0.5",
       "type": "library",
       "name": "Test.Core",
@@ -2299,7 +2329,26 @@ No package sources found, --help for usage information.
       "licenses": [],
       "purl": "pkg:nuget/Test.Core@6.0.5",
       "evidence": {
-        "occurrences": []
+        "occurrences": [
+          {
+            "location": "{/"block/":{/"file_name/":/"project.csproj/",/"line_start/":11,/"line_end/":11,/"column_start/":3,/"column_end/":59},/"name/":{/"file_name/":/"project.csproj/",/"line_start/":11,/"line_end/":11,/"column_start/":30,/"column_end/":39},/"version/":{/"file_name/":/"project.csproj/",/"line_start/":11,/"line_end/":11,/"column_start/":50,/"column_end/":55}}"
+          }
+        ]
+      }
+    },
+    {
+      "bom-ref": "pkg:nuget/Test.Core@6.0.6",
+      "type": "library",
+      "name": "Test.Core",
+      "version": "6.0.6",
+      "licenses": [],
+      "purl": "pkg:nuget/Test.Core@6.0.6",
+      "evidence": {
+        "occurrences": [
+          {
+            "location": "{/"block/":{/"file_name/":/"nuget/project.csproj/",/"line_start/":13,/"line_end/":16,/"column_start/":5,/"column_end/":24},/"name/":{/"file_name/":/"nuget/project.csproj/",/"line_start/":14,/"line_end/":14,/"column_start/":16,/"column_end/":25},/"version/":{/"file_name/":/"nuget/project.csproj/",/"line_start/":15,/"line_end/":15,/"column_start/":16,/"column_end/":21}}"
+          }
+        ]
       }
     },
     {
@@ -2374,6 +2423,7 @@ Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-8/go.mod file and
 Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-8/gradle.lockfile file and found 1 package
 Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-8/mix.lock file and found 1 package
 Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-8/npm/package-lock.json file and found 1 package
+Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-8/nuget/packages.lock.json file and found 3 packages
 Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-8/packages.lock.json file and found 1 package
 Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-8/pnpm/pnpm-lock.yaml file and found 1 package
 Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-8/poetry.lock file and found 1 package
@@ -2549,6 +2599,36 @@ Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-8/yarn/yarn.lock 
       }
     },
     {
+      "bom-ref": "pkg:nuget/Downloader@3.1.2",
+      "type": "library",
+      "name": "Downloader",
+      "version": "3.1.2",
+      "licenses": [],
+      "purl": "pkg:nuget/Downloader@3.1.2",
+      "evidence": {
+        "occurrences": [
+          {
+            "location": "{/"block/":{/"file_name/":/"nuget/project.csproj/",/"line_start/":11,/"line_end/":11,/"column_start/":3,/"column_end/":58},/"name/":{/"file_name/":/"nuget/project.csproj/",/"line_start/":11,/"line_end/":11,/"column_start/":30,/"column_end/":40},/"version/":{/"file_name/":/"nuget/project.csproj/",/"line_start/":11,/"line_end/":11,/"column_start/":51,/"column_end/":54}}"
+          }
+        ]
+      }
+    },
+    {
+      "bom-ref": "pkg:nuget/MaterialDesignThemes@5.1.0",
+      "type": "library",
+      "name": "MaterialDesignThemes",
+      "version": "5.1.0",
+      "licenses": [],
+      "purl": "pkg:nuget/MaterialDesignThemes@5.1.0",
+      "evidence": {
+        "occurrences": [
+          {
+            "location": "{/"block/":{/"file_name/":/"nuget/project.csproj/",/"line_start/":12,/"line_end/":12,/"column_start/":3,/"column_end/":70},/"name/":{/"file_name/":/"nuget/project.csproj/",/"line_start/":12,/"line_end/":12,/"column_start/":30,/"column_end/":50},/"version/":{/"file_name/":/"nuget/project.csproj/",/"line_start/":12,/"line_end/":12,/"column_start/":61,/"column_end/":66}}"
+          }
+        ]
+      }
+    },
+    {
       "bom-ref": "pkg:nuget/Test.Core@6.0.5",
       "type": "library",
       "name": "Test.Core",
@@ -2556,7 +2636,26 @@ Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-8/yarn/yarn.lock 
       "licenses": [],
       "purl": "pkg:nuget/Test.Core@6.0.5",
       "evidence": {
-        "occurrences": []
+        "occurrences": [
+          {
+            "location": "{/"block/":{/"file_name/":/"project.csproj/",/"line_start/":11,/"line_end/":11,/"column_start/":3,/"column_end/":59},/"name/":{/"file_name/":/"project.csproj/",/"line_start/":11,/"line_end/":11,/"column_start/":30,/"column_end/":39},/"version/":{/"file_name/":/"project.csproj/",/"line_start/":11,/"line_end/":11,/"column_start/":50,/"column_end/":55}}"
+          }
+        ]
+      }
+    },
+    {
+      "bom-ref": "pkg:nuget/Test.Core@6.0.6",
+      "type": "library",
+      "name": "Test.Core",
+      "version": "6.0.6",
+      "licenses": [],
+      "purl": "pkg:nuget/Test.Core@6.0.6",
+      "evidence": {
+        "occurrences": [
+          {
+            "location": "{/"block/":{/"file_name/":/"nuget/project.csproj/",/"line_start/":13,/"line_end/":16,/"column_start/":5,/"column_end/":24},/"name/":{/"file_name/":/"nuget/project.csproj/",/"line_start/":14,/"line_end/":14,/"column_start/":16,/"column_end/":25},/"version/":{/"file_name/":/"nuget/project.csproj/",/"line_start/":15,/"line_end/":15,/"column_start/":16,/"column_end/":21}}"
+          }
+        ]
       }
     },
     {
@@ -2631,6 +2730,7 @@ Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/go.mod file an
 Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/gradle.lockfile file and found 1 package
 Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/mix.lock file and found 1 package
 Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/npm/package-lock.json file and found 1 package
+Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/nuget/packages.lock.json file and found 3 packages
 Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/packages.lock.json file and found 1 package
 Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/pnpm/pnpm-lock.yaml file and found 1 package
 Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/poetry.lock file and found 1 package
@@ -2806,6 +2906,36 @@ Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/yarn/yarn.lock
       }
     },
     {
+      "bom-ref": "pkg:nuget/Downloader@3.1.2",
+      "type": "library",
+      "name": "Downloader",
+      "version": "3.1.2",
+      "licenses": [],
+      "purl": "pkg:nuget/Downloader@3.1.2",
+      "evidence": {
+        "occurrences": [
+          {
+            "location": "{/"block/":{/"file_name/":/"nuget/project.csproj/",/"line_start/":11,/"line_end/":11,/"column_start/":3,/"column_end/":58},/"name/":{/"file_name/":/"nuget/project.csproj/",/"line_start/":11,/"line_end/":11,/"column_start/":30,/"column_end/":40},/"version/":{/"file_name/":/"nuget/project.csproj/",/"line_start/":11,/"line_end/":11,/"column_start/":51,/"column_end/":54}}"
+          }
+        ]
+      }
+    },
+    {
+      "bom-ref": "pkg:nuget/MaterialDesignThemes@5.1.0",
+      "type": "library",
+      "name": "MaterialDesignThemes",
+      "version": "5.1.0",
+      "licenses": [],
+      "purl": "pkg:nuget/MaterialDesignThemes@5.1.0",
+      "evidence": {
+        "occurrences": [
+          {
+            "location": "{/"block/":{/"file_name/":/"nuget/project.csproj/",/"line_start/":12,/"line_end/":12,/"column_start/":3,/"column_end/":70},/"name/":{/"file_name/":/"nuget/project.csproj/",/"line_start/":12,/"line_end/":12,/"column_start/":30,/"column_end/":50},/"version/":{/"file_name/":/"nuget/project.csproj/",/"line_start/":12,/"line_end/":12,/"column_start/":61,/"column_end/":66}}"
+          }
+        ]
+      }
+    },
+    {
       "bom-ref": "pkg:nuget/Test.Core@6.0.5",
       "type": "library",
       "name": "Test.Core",
@@ -2813,7 +2943,26 @@ Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/yarn/yarn.lock
       "licenses": [],
       "purl": "pkg:nuget/Test.Core@6.0.5",
       "evidence": {
-        "occurrences": []
+        "occurrences": [
+          {
+            "location": "{/"block/":{/"file_name/":/"project.csproj/",/"line_start/":11,/"line_end/":11,/"column_start/":3,/"column_end/":59},/"name/":{/"file_name/":/"project.csproj/",/"line_start/":11,/"line_end/":11,/"column_start/":30,/"column_end/":39},/"version/":{/"file_name/":/"project.csproj/",/"line_start/":11,/"line_end/":11,/"column_start/":50,/"column_end/":55}}"
+          }
+        ]
+      }
+    },
+    {
+      "bom-ref": "pkg:nuget/Test.Core@6.0.6",
+      "type": "library",
+      "name": "Test.Core",
+      "version": "6.0.6",
+      "licenses": [],
+      "purl": "pkg:nuget/Test.Core@6.0.6",
+      "evidence": {
+        "occurrences": [
+          {
+            "location": "{/"block/":{/"file_name/":/"nuget/project.csproj/",/"line_start/":13,/"line_end/":16,/"column_start/":5,/"column_end/":24},/"name/":{/"file_name/":/"nuget/project.csproj/",/"line_start/":14,/"line_end/":14,/"column_start/":16,/"column_end/":25},/"version/":{/"file_name/":/"nuget/project.csproj/",/"line_start/":15,/"line_end/":15,/"column_start/":16,/"column_end/":21}}"
+          }
+        ]
       }
     },
     {
@@ -2888,6 +3037,7 @@ Scanned <rootdir>/fixtures/encoding-integration-test-locks/Windows-1252/go.mod f
 Scanned <rootdir>/fixtures/encoding-integration-test-locks/Windows-1252/gradle.lockfile file and found 1 package
 Scanned <rootdir>/fixtures/encoding-integration-test-locks/Windows-1252/mix.lock file and found 1 package
 Scanned <rootdir>/fixtures/encoding-integration-test-locks/Windows-1252/npm/package-lock.json file and found 1 package
+Scanned <rootdir>/fixtures/encoding-integration-test-locks/Windows-1252/nuget/packages.lock.json file and found 3 packages
 Scanned <rootdir>/fixtures/encoding-integration-test-locks/Windows-1252/packages.lock.json file and found 1 package
 Scanned <rootdir>/fixtures/encoding-integration-test-locks/Windows-1252/pnpm/pnpm-lock.yaml file and found 1 package
 Scanned <rootdir>/fixtures/encoding-integration-test-locks/Windows-1252/poetry.lock file and found 1 package
