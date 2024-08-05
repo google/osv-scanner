@@ -1,0 +1,13 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    RedCloth (4.2.9)
+
+PLATFORMS
+  arm64-darwin-23
+
+DEPENDENCIES
+  RedCloth (~> 4.2.9)
+
+BUNDLED WITH
+   2.4.21
