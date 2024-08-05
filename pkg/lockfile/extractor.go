@@ -111,7 +111,7 @@ func extractFromFile(pathToLockfile string, extractor Extractor) ([]PackageDetai
 		if matcher := e.GetMatcher(); matcher != nil {
 			matchError := matchWithFile(f, packages, matcher)
 			if matchError != nil {
-				_, _ = fmt.Fprintf(os.Stderr, "there was an error matching the source file: %s", matchError.Error())
+				_, _ = fmt.Fprintf(os.Stderr, "there was an error matching the source file: %s\n", matchError.Error())
 			}
 		}
 	}
