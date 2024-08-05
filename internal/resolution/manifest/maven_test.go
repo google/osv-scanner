@@ -103,7 +103,7 @@ func TestMavenRead(t *testing.T) {
 	if err != nil {
 		t.Fatalf("failed to get current directory: %v", err)
 	}
-	df, err := lockfile.OpenLocalDepFile(filepath.Join(dir, "fixtures", "pom.xml"))
+	df, err := lockfile.OpenLocalDepFile(filepath.Join(dir, "fixtures", "maven", "my-app", "pom.xml"))
 	if err != nil {
 		t.Fatalf("failed to open file: %v", err)
 	}
@@ -257,7 +257,7 @@ func TestMavenRead(t *testing.T) {
 				{Property: maven.Property{Name: "maven.compiler.source", Value: "1.7"}},
 				{Property: maven.Property{Name: "maven.compiler.target", Value: "1.7"}},
 				{Property: maven.Property{Name: "junit.version", Value: "4.12"}},
-				{Property: maven.Property{Name: "zeppelin.daemon.package.base", Value: "\n\t    ../bin\n    "}},
+				{Property: maven.Property{Name: "zeppelin.daemon.package.base", Value: "../bin"}},
 				{Property: maven.Property{Name: "def.version", Value: "2.3.4"}, Origin: "profile@profile-one"},
 			},
 			OriginalRequirements: []DependencyWithOrigin{
@@ -382,7 +382,7 @@ func TestMavenWrite(t *testing.T) {
 	if err != nil {
 		t.Fatalf("failed to get current directory: %v", err)
 	}
-	df, err := lockfile.OpenLocalDepFile(filepath.Join(dir, "fixtures", "pom.xml"))
+	df, err := lockfile.OpenLocalDepFile(filepath.Join(dir, "fixtures", "maven", "my-app", "pom.xml"))
 	if err != nil {
 		t.Fatalf("fail to open file: %v", err)
 	}
@@ -492,7 +492,7 @@ func TestMavenWriteDM(t *testing.T) {
 	if err != nil {
 		t.Fatalf("failed to get current directory: %v", err)
 	}
-	df, err := lockfile.OpenLocalDepFile(filepath.Join(dir, "fixtures", "no-dependency-management.xml"))
+	df, err := lockfile.OpenLocalDepFile(filepath.Join(dir, "fixtures", "maven", "no-dependency-management.xml"))
 	if err != nil {
 		t.Fatalf("fail to open file: %v", err)
 	}

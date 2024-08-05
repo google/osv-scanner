@@ -3,14 +3,16 @@ package remediation
 import (
 	"context"
 	"errors"
+	"fmt"
 	"slices"
 
 	"deps.dev/util/resolve"
 	"deps.dev/util/resolve/dep"
 	"deps.dev/util/semver"
+	"github.com/google/osv-scanner/internal/manifest"
 	"github.com/google/osv-scanner/internal/resolution"
 	"github.com/google/osv-scanner/internal/resolution/client"
-	"github.com/google/osv-scanner/internal/resolution/manifest"
+	resolutionmanifest "github.com/google/osv-scanner/internal/resolution/manifest"
 	"github.com/google/osv-scanner/internal/resolution/util"
 	"github.com/google/osv-scanner/internal/utility/vulns"
 )
@@ -75,9 +77,9 @@ func ComputeOverridePatches(ctx context.Context, cl client.ResolutionClient, res
 		// CalculateDiff does not compute override manifest patches correctly, manually fill it out.
 		// TODO: CalculateDiff maybe should not be reconstructing patches.
 		// Refactor CalculateDiff, Relaxer, Override to make patches in a more sane way.
-		diff.Deps = make([]manifest.DependencyPatch, len(res.patches))
+		diff.Deps = make([]resolutionmanifest.DependencyPatch, len(res.patches))
 		for i, p := range res.patches {
-			diff.Deps[i] = manifest.DependencyPatch{
+			diff.Deps[i] = resolutionmanifest.DependencyPatch{
 				Pkg:          p.PackageKey,
 				Type:         dep.Type{},
 				OrigRequire:  "", // Using empty original to signal this is an override patch
@@ -128,6 +130,14 @@ func overridePatchVulns(ctx context.Context, cl client.ResolutionClient, result 
 			seenVKs := make(map[resolve.VersionKey]struct{})
 			// Use the DependencyChains to find all the affected nodes.
 			for _, c := range v.ProblemChains {
+				// Currently, there is no way to know if a specific classifier or type exists for a given version with deps.dev.
+				// Blindly updating versions can lead to compilation failures if the artifact+version+classifier+type doesn't exist.
+				// We can't reliably attempt remediation in these cases, so don't try.
+				// TODO: query Maven registry for existence of classifiers in getVersionsGreater
+				typ := c.Edges[0].Type
+				if typ.HasAttr(dep.MavenClassifier) || typ.HasAttr(dep.MavenArtifactType) {
+					return nil, nil, fmt.Errorf("%w: cannot fix vulns in artifacts with classifier or type", errOverrideImpossible)
+				}
 				vk, _ := c.End()
 				if _, seen := seenVKs[vk]; !seen {
 					vkVulns[vk] = append(vkVulns[vk], &result.Vulns[i])
@@ -135,6 +145,10 @@ func overridePatchVulns(ctx context.Context, cl client.ResolutionClient, result 
 				}
 			}
 			for _, c := range v.NonProblemChains {
+				typ := c.Edges[0].Type
+				if typ.HasAttr(dep.MavenClassifier) || typ.HasAttr(dep.MavenArtifactType) {
+					return nil, nil, fmt.Errorf("%w: cannot fix vulns in artifacts with classifier or type", errOverrideImpossible)
+				}
 				vk, _ := c.End()
 				if _, seen := seenVKs[vk]; !seen {
 					vkVulns[vk] = append(vkVulns[vk], &result.Vulns[i])
@@ -266,9 +280,9 @@ func getVersionsGreater(ctx context.Context, cl client.DependencyClient, vk reso
 }
 
 // patchManifest applies the overridePatches to the manifest in-memory. Returns a copy of the manifest that has been patched.
-func patchManifest(patches []overridePatch, m manifest.Manifest) (manifest.Manifest, error) {
+func patchManifest(patches []overridePatch, m resolutionmanifest.Manifest) (resolutionmanifest.Manifest, error) {
 	if m.System() != resolve.Maven {
-		return manifest.Manifest{}, errors.New("unsupported ecosystem")
+		return resolutionmanifest.Manifest{}, errors.New("unsupported ecosystem")
 	}
 
 	// TODO: The overridePatch does not have an artifact's type or classifier, which is part of what uniquely identifies them.
