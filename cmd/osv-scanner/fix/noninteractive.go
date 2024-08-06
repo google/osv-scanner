@@ -332,6 +332,10 @@ func autoChooseOverridePatches(diffs []resolution.ResolutionDiff, maxUpgrades in
 			continue
 		}
 		// A patch is also incompatible if any fixed vulnerability has already been fixed by another patch.
+		// This would happen if updating the version of one package has a side effect of also updating or removing one of its vulnerable dependencies.
+		// e.g. We have {foo@1 -> bar@1}, and two possible patches [foo@3, bar@2].
+		// Patching foo@3 makes {foo@3 -> bar@3}, which also fixes the vulnerability in bar.
+		// Applying both patches would force {foo@3 -> bar@2}, which is less desirable.
 		if slices.ContainsFunc(diff.RemovedVulns, func(rv resolution.ResolutionVuln) bool { return fixedVulns[rv.Vulnerability.ID] }) {
 			continue
 		}

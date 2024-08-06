@@ -68,7 +68,9 @@ func ComputeOverridePatches(ctx context.Context, cl client.ResolutionClient, res
 		}
 
 		if res.err != nil {
-			// Resolution errors aren't uncommon - just skip if we encounter one.
+			// Resolution errors seem to happen when a package/version cannot be found, which isn't uncommon.
+			// Just silently skip for now, treating it the same as unfixable.
+			// TODO: Log the error somehow.
 			continue
 		}
 
