@@ -12,8 +12,8 @@ import (
 )
 
 type pkgWithSource struct {
-	Package models.PackageInfo
-	Source  models.SourceInfo
+	Package models.PackageInfo `json:"Package"`
+	Source  models.SourceInfo  `json:"Source"`
 }
 
 // Custom implementation of this unique set map to allow it to serialize to JSON

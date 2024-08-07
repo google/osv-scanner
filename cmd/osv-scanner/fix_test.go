@@ -54,6 +54,12 @@ func TestRun_Fix(t *testing.T) {
 			exit:     0,
 			manifest: "./fix/fixtures/relock-npm/package.json",
 		},
+		{
+			name:     "fix non-interactive override pom.xml",
+			args:     []string{"", "fix", "--non-interactive", "--strategy=override"},
+			exit:     0,
+			manifest: "./fix/fixtures/override-maven/pom.xml",
+		},
 		// TODO: add tests with the cli flags
 	}
 	for _, tt := range tests {

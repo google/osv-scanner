@@ -1742,6 +1742,72 @@ Warning: `fix` exists as both a subcommand of OSV-Scanner and as a file on the f
 
 ---
 
+[TestRun_Fix/fix_non-interactive_override_pom.xml - 1]
+Resolving <tempdir>/pom.xml...
+Found 11 vulnerabilities matching the filter
+Can fix 11/11 matching vulnerabilities by overriding 4 dependencies
+OVERRIDE-PACKAGE: org.apache.httpcomponents:httpclient,4.5.13
+OVERRIDE-PACKAGE: org.codehaus.plexus:plexus-utils,3.0.24
+OVERRIDE-PACKAGE: org.jsoup:jsoup,1.15.3
+OVERRIDE-PACKAGE: commons-io:commons-io,2.7
+REMAINING-VULNS: 0
+UNFIXABLE-VULNS: 0
+Rewriting <tempdir>/pom.xml...
+
+---
+
+[TestRun_Fix/fix_non-interactive_override_pom.xml - 2]
+Warning: `fix` exists as both a subcommand of OSV-Scanner and as a file on the filesystem. `fix` is assumed to be a subcommand here. If you intended for `fix` to be an argument to `fix`, you must specify `fix fix` in your command line.
+
+---
+
+[TestRun_Fix/fix_non-interactive_override_pom.xml - 3]
+<project>
+  <modelVersion>4.0.0</modelVersion>
+ 
+  <groupId>dev.osv</groupId>
+  <artifactId>osv-fix</artifactId>
+  <version>1</version>
+
+  <properties>
+    <httpclient.version>4.5.13</httpclient.version>
+  </properties>
+
+  <dependencyManagement>
+    <dependencies>
+    <dependency>
+      <groupId>commons-io</groupId>
+      <artifactId>commons-io</artifactId>
+      <version>2.7</version>
+    </dependency>
+      <dependency>
+        <groupId>org.jsoup</groupId>
+        <artifactId>jsoup</artifactId>
+        <version>1.15.3</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.httpcomponents</groupId>
+        <artifactId>httpclient</artifactId>
+        <version>${httpclient.version}</version>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+
+  <dependencies>
+    <dependency>
+      <groupId>org.apache.maven.wagon</groupId>
+      <artifactId>wagon-http</artifactId>
+      <version>3.0.0</version>
+    </dependency>
+    <dependency>
+      <groupId>org.codehaus.plexus</groupId>
+      <artifactId>plexus-utils</artifactId>
+      <version>3.0.24</version>
+    </dependency>
+  </dependencies>
+</project>
+---
+
 [TestRun_Fix/fix_non-interactive_relock_package.json - 1]
 Resolving <tempdir>/package.json...
 Found 5 vulnerabilities matching the filter

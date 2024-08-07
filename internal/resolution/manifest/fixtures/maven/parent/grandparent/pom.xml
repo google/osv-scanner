@@ -18,6 +18,7 @@
     <groupId>org.upstream</groupId>
     <artifactId>parent-pom</artifactId>
     <version>1.2.3</version>
+    <relativePath>./mismatch.xml</relativePath>
   </parent>
 
 </project>

@@ -55,7 +55,7 @@ func fetchRemoteArchiveCRC32CHash(url string) (uint32, error) {
 		return 0, fmt.Errorf("db host returned %s", resp.Status)
 	}
 
-	for _, value := range resp.Header.Values("x-goog-hash") {
+	for _, value := range resp.Header.Values("X-Goog-Hash") {
 		if strings.HasPrefix(value, "crc32c=") {
 			value = strings.TrimPrefix(value, "crc32c=")
 			out, err := base64.StdEncoding.DecodeString(value)
