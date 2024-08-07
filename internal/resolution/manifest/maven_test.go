@@ -128,6 +128,9 @@ func TestMavenRead(t *testing.T) {
 
 	depParent.AddAttr(dep.MavenArtifactType, "pom")
 
+	var depExclusions dep.Type
+	depExclusions.AddAttr(dep.MavenExclusions, "org.exclude:exclude")
+
 	want := Manifest{
 		Root: resolve.Version{
 			VersionKey: resolve.VersionKey{
@@ -170,6 +173,17 @@ func TestMavenRead(t *testing.T) {
 					VersionType: resolve.Requirement,
 					Version:     "2.0.0",
 				},
+			},
+			{
+				VersionKey: resolve.VersionKey{
+					PackageKey: resolve.PackageKey{
+						System: resolve.Maven,
+						Name:   "org.example:exclusions",
+					},
+					VersionType: resolve.Requirement,
+					Version:     "1.0.0",
+				},
+				Type: depExclusions,
 			},
 			{
 				VersionKey: resolve.VersionKey{
@@ -273,6 +287,12 @@ func TestMavenRead(t *testing.T) {
 				},
 				{
 					Dependency: maven.Dependency{GroupID: "org.example", ArtifactID: "no-version"},
+				},
+				{
+					Dependency: maven.Dependency{GroupID: "org.example", ArtifactID: "exclusions", Version: "1.0.0",
+						Exclusions: []maven.Exclusion{
+							{GroupID: "org.exclude", ArtifactID: "exclude"},
+						}},
 				},
 				{
 					Dependency: maven.Dependency{GroupID: "org.example", ArtifactID: "xyz", Version: "2.0.0"},
