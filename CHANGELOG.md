@@ -8,6 +8,7 @@
 
 - [Bug #1115](https://github.com/google/osv-scanner/issues/1115) Ensure that `semantic` is passed a valid `models.Ecosystem`.
 - [Bug #1140](https://github.com/google/osv-scanner/pull/1140) Add Maven dependency management to override client.
+- [Bug #1149](https://github.com/google/osv-scanner/pull/1149) Handle Maven parent relative path.
 
 ### Misc:
 
