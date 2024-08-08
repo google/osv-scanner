@@ -828,7 +828,7 @@ func writeDependency(w io.Writer, enc *xml.Encoder, raw string, patches map[Mave
 }
 
 // writeString writes XML string specified by raw with replacements pecified in values.
-// skipTags specifies the tags we skip for writting (usually higer level tags).
+// skipTags specifies the tags we skip for writing (usually higher level tags).
 // White space is trimmed during writing to prevent the text being escaped.
 // TODO: investigate if we can rely on the nesting level to decide trimming or not.
 func writeString(enc *xml.Encoder, raw string, skipTags []string, values map[string]string) error {
