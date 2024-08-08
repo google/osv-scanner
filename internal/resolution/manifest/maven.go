@@ -646,9 +646,7 @@ func writeProject(w io.Writer, enc *xml.Encoder, raw, prefix, id string, patches
 						req = k.NewRequire
 					}
 				}
-				if err := writeString(enc, "<parent>"+rawParent.InnerXML+"</parent>", func(s string) bool {
-					return s != "parent"
-				}, map[string]string{"version": req}); err != nil {
+				if err := writeString(enc, "<parent>"+rawParent.InnerXML+"</parent>", []string{"parent"}, map[string]string{"version": req}); err != nil {
 					return fmt.Errorf("updating parent: %w", err)
 				}
 
@@ -661,9 +659,7 @@ func writeProject(w io.Writer, enc *xml.Encoder, raw, prefix, id string, patches
 				if err := dec.DecodeElement(&rawProperties, &tt); err != nil {
 					return err
 				}
-				if err := writeString(enc, "<properties>"+rawProperties.InnerXML+"</properties>", func(s string) bool {
-					return s != "properties" && s != "property"
-				}, properties[mavenOrigin(prefix, id)]); err != nil {
+				if err := writeString(enc, "<properties>"+rawProperties.InnerXML+"</properties>", []string{"properties", "property"}, properties[mavenOrigin(prefix, id)]); err != nil {
 					return fmt.Errorf("updating properties: %w", err)
 				}
 
@@ -815,9 +811,7 @@ func writeDependency(w io.Writer, enc *xml.Encoder, raw string, patches map[Mave
 				}
 				// xml.EncodeElement writes all empty elements and may not follow the existing format.
 				// Passing the innerXML can help to keep the original format.
-				if err := writeString(enc, "<dependency>"+rawDep.InnerXML+"</dependency>", func(s string) bool {
-					return s != "dependency" && s != "exclusion" && s != "exclusions"
-				}, map[string]string{"version": req}); err != nil {
+				if err := writeString(enc, "<dependency>"+rawDep.InnerXML+"</dependency>", []string{"dependency", "exclusion", "exclusions"}, map[string]string{"version": req}); err != nil {
 					return fmt.Errorf("updating dependency: %w", err)
 				}
 
@@ -833,8 +827,11 @@ func writeDependency(w io.Writer, enc *xml.Encoder, raw string, patches map[Mave
 	return enc.Flush()
 }
 
-// noInnder indicates whether the element of the given XML name only contains string but no more inner element.
-func writeString(enc *xml.Encoder, raw string, noInner func(name string) bool, values map[string]string) error {
+// writeString writes XML string specified by raw with replacements pecified in values.
+// skipTags specifies the tags we skip for writting (usually higer level tags).
+// White space is trimmed during writing to prevent the text being escaped.
+// TODO: investigate if we can rely on the nesting level to decide trimming or not.
+func writeString(enc *xml.Encoder, raw string, skipTags []string, values map[string]string) error {
 	dec := xml.NewDecoder(bytes.NewReader([]byte(raw)))
 	for {
 		token, err := dec.Token()
@@ -844,7 +841,7 @@ func writeString(enc *xml.Encoder, raw string, noInner func(name string) bool, v
 		if err != nil {
 			return err
 		}
-		if tt, ok := token.(xml.StartElement); ok && noInner(tt.Name.Local) {
+		if tt, ok := token.(xml.StartElement); ok && !slices.Contains(skipTags, tt.Name.Local) {
 			var str string
 			if err := dec.DecodeElement(&str, &tt); err != nil {
 				return err
