@@ -169,7 +169,11 @@ func MergeMavenParents(ctx context.Context, mavenClient datasource.MavenRegistry
 			if err := xml.NewDecoder(f).Decode(&proj); err != nil {
 				return fmt.Errorf("failed to unmarshal project: %w", err)
 			}
-			if proj.ArtifactID == current.ArtifactID && proj.Version == current.Version && proj.Packaging == "pom" {
+			if proj.GroupID == "" {
+				// A project may inherit groupId from parent
+				proj.GroupID = current.GroupID
+			}
+			if proj.ProjectKey == current.ProjectKey && proj.Packaging == "pom" {
 				// Only mark parent is found when the identifiers and packaging are exptected.
 				parentFound = true
 			}
@@ -187,6 +191,10 @@ func MergeMavenParents(ctx context.Context, mavenClient datasource.MavenRegistry
 			if n > 0 && proj.Packaging != "pom" {
 				// A parent project should only be of "pom" packaging type.
 				return fmt.Errorf("invalid packaging for parent project %s", proj.Packaging)
+			}
+			if proj.GroupID == "" {
+				// A project may inherit groupId from parent
+				proj.GroupID = current.GroupID
 			}
 			if proj.ProjectKey != current.ProjectKey {
 				// The identifiers in parent does not match what we want.
