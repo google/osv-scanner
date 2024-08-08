@@ -171,7 +171,7 @@ func MergeMavenParents(ctx context.Context, mavenClient datasource.MavenRegistry
 			}
 			if proj.GroupID == "" {
 				// A project may inherit groupId from parent
-				proj.GroupID = current.GroupID
+				proj.GroupID = proj.Parent.GroupID
 			}
 			if proj.ProjectKey == current.ProjectKey && proj.Packaging == "pom" {
 				// Only mark parent is found when the identifiers and packaging are exptected.
@@ -194,7 +194,7 @@ func MergeMavenParents(ctx context.Context, mavenClient datasource.MavenRegistry
 			}
 			if proj.GroupID == "" {
 				// A project may inherit groupId from parent
-				proj.GroupID = current.GroupID
+				proj.GroupID = proj.Parent.GroupID
 			}
 			if proj.ProjectKey != current.ProjectKey {
 				// The identifiers in parent does not match what we want.
