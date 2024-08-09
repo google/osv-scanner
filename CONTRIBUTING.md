@@ -102,6 +102,12 @@ To lint your code, run
 ./scripts/run_lints.sh
 ```
 
+### Making commits
+
+Please follow the [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) specification for commit messages. This helps us to automate processes like changelog generation and ensures a clear and consistent commit history.
+
+Some types: `feat:`, `fix:`, `docs:`, `chore:`, `refactor:`, and others.
+
 ## Contributing documentation
 
 Please follow these steps to successfully contribute documentation.
