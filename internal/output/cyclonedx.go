@@ -17,7 +17,7 @@ func PrintCycloneDXResults(vulnResult *models.VulnerabilityResults, cycloneDXVer
 
 	bom := bomCreator(resultsByPurl)
 	encoder := cyclonedx.NewBOMEncoder(outputWriter, cyclonedx.BOMFileFormatJSON)
-	encoder.SetPretty(true)
+	encoder.SetPretty(false)
 
 	err := encoder.Encode(bom)
 
