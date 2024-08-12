@@ -1,6 +1,6 @@
 name: "Close stale issues and PRs"
 
-permissions: all-read
+permissions: read-all
 
 on:
   schedule:
