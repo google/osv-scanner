@@ -21,7 +21,9 @@ type ComposerLock struct {
 
 const ComposerEcosystem Ecosystem = "Packagist"
 
-type ComposerLockExtractor struct{}
+type ComposerLockExtractor struct {
+	WithMatcher
+}
 
 func (e ComposerLockExtractor) ShouldExtract(path string) bool {
 	return filepath.Base(path) == "composer.lock"
@@ -67,13 +69,15 @@ func (e ComposerLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 	return packages, nil
 }
 
-var _ Extractor = ComposerLockExtractor{}
+var ComposerExtractor = ComposerLockExtractor{
+	WithMatcher{Matcher: ComposerMatcher{}},
+}
 
 //nolint:gochecknoinits
 func init() {
-	registerExtractor("composer.lock", ComposerLockExtractor{})
+	registerExtractor("composer.lock", ComposerExtractor)
 }
 
 func ParseComposerLock(pathToLockfile string) ([]PackageDetails, error) {
-	return extractFromFile(pathToLockfile, ComposerLockExtractor{})
+	return extractFromFile(pathToLockfile, ComposerExtractor)
 }

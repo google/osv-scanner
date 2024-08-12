@@ -20,6 +20,8 @@ func MockAllMatchers() {
 	lockfile.GemfileExtractor.Matcher = SuccessfulMatcher{}
 	// NuGet packages.lock.json
 	lockfile.NuGetExtractor.Matcher = SuccessfulMatcher{}
+	// Composer composer.json
+	lockfile.ComposerExtractor.Matcher = SuccessfulMatcher{}
 }
 
 type SuccessfulMatcher struct{}

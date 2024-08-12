@@ -1,0 +1,65 @@
+
+[TestComposerMatcher_Match_OnePackage - 1]
+[
+  {
+    "name": "brick/math",
+    "version": "0.12.9",
+    "blockLocation": {
+      "line": {
+        "start": 18,
+        "end": 19
+      },
+      "column": {
+        "start": 1,
+        "end": 35
+      },
+      "file_name": "<rootdir>/fixtures/composer/one-package/composer.json"
+    },
+    "versionLocation": {
+      "line": {
+        "start": 19,
+        "end": 19
+      },
+      "column": {
+        "start": 8,
+        "end": 34
+      },
+      "file_name": "<rootdir>/fixtures/composer/one-package/composer.json"
+    },
+    "nameLocation": {
+      "line": {
+        "start": 18,
+        "end": 18
+      },
+      "column": {
+        "start": 6,
+        "end": 16
+      },
+      "file_name": "<rootdir>/fixtures/composer/one-package/composer.json"
+    }
+  }
+]
+---
+
+[TestComposerMatcher_OnePackage_MatcherFailed - 1]
+[
+  {
+    "name": "brick/math",
+    "version": "0.12.1",
+    "commit": "f510c0a40911935b77b86859eb5223d58d660df1",
+    "ecosystem": "Packagist",
+    "compareAs": "Packagist",
+    "blockLocation": {
+      "line": {
+        "start": 0,
+        "end": 0
+      },
+      "column": {
+        "start": 0,
+        "end": 0
+      },
+      "file_name": ""
+    }
+  }
+]
+---

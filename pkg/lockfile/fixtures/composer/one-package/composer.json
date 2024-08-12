@@ -1,0 +1,26 @@
+{
+  "name": "laravel/framework",
+  "description": "The Laravel Framework.",
+  "keywords": ["framework", "laravel"],
+  "license": "MIT",
+  "homepage": "https://laravel.com",
+  "support": {
+    "issues": "https://github.com/laravel/framework/issues",
+    "source": "https://github.com/laravel/framework"
+  },
+  "authors": [
+    {
+      "name": "Taylor Otwell",
+      "email": "taylor@laravel.com"
+    }
+  ],
+  "require": {
+    "brick/math":
+      "^0.9.3|^0.10.2|^0.11|^0.12"
+  },
+  "require-dev": {
+
+  },
+  "minimum-stability": "stable",
+  "prefer-stable": true
+}
