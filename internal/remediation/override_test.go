@@ -28,6 +28,12 @@ func TestComputeOverridePatches(t *testing.T) {
 			manifestPath: "./fixtures/zeppelin-server/pom.xml",
 			opts:         basicOpts,
 		},
+		{
+			name:         "maven-classifier",
+			universePath: "./fixtures/maven-classifier/universe.yaml",
+			manifestPath: "./fixtures/maven-classifier/pom.xml",
+			opts:         basicOpts,
+		},
 	}
 
 	for _, tt := range tests {
