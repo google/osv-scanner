@@ -3,6 +3,7 @@ package output
 import (
 	"errors"
 	"io"
+	"testing"
 
 	"github.com/CycloneDX/cyclonedx-go"
 	"github.com/google/osv-scanner/internal/output/sbom"
@@ -17,7 +18,7 @@ func PrintCycloneDXResults(vulnResult *models.VulnerabilityResults, cycloneDXVer
 
 	bom := bomCreator(resultsByPurl)
 	encoder := cyclonedx.NewBOMEncoder(outputWriter, cyclonedx.BOMFileFormatJSON)
-	encoder.SetPretty(false)
+	encoder.SetPretty(testing.Testing())
 
 	err := encoder.Encode(bom)
 
