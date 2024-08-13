@@ -70,15 +70,6 @@ jobs:
           check-latest: true
       - name: Run lint action
         uses: ./.github/workflows/lint-action
-  pr_title_validate:
-    permissions:
-      pull-requests: read # to access PR title
-    name: Validate PR title
-    runs-on: ubuntu-latest
-    steps:
-      - uses: amannn/action-semantic-pull-request@v5
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   prepare_test_image_fixtures:
     permissions:
       contents: read # to fetch code (actions/checkout)
