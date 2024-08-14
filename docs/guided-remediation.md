@@ -125,7 +125,7 @@ Executing `/usr/bin/npm install --package-lock-only`...
 
 </details>
 
-For Maven `pom.xml` files, you can [add version overrides](#override-dependency-versions-remediation) to your POM's `<dependencyManagement>` section with the following command:
+For Maven `pom.xml` files, you can update direct dependencies and [add version overrides](#override-dependency-versions-remediation) to your POM's `<dependencyManagement>` section with the following command:
 
 ```bash
 osv-scanner fix --non-interactive --strategy=override -M path/to/pom.xml
@@ -229,6 +229,8 @@ If you wish to apply your current relock & relaxation changes, select the "Write
 The `override` strategy is currently only supported in `--non-interactive` mode.
 
 Maven allows for the version specification of direct and indirect dependencies to be overwritten by a POM's `<dependencyManagement>`. This mechanism can be used to force a vulnerable dependency to be updated to a newer, non-vulnerable version. Overriding dependency versions can enable otherwise inaccessible updates, but it also risks breaking the application if the new version is incompatible with other dependencies.
+
+If a direct dependency is vulnerable, the override strategy will update its version in the `<dependencies>` section (if possible). Relevant `<properties>` will be updated if used by an existing version specification.
 
 As with the other strategies, override patches are prioritized by vulnerabilities fixed per updated dependency.
 
