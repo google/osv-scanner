@@ -37,6 +37,8 @@ type MavenManifestIO struct {
 	datasource.MavenRegistryAPIClient
 }
 
+func (MavenManifestIO) System() resolve.System { return resolve.Maven }
+
 func NewMavenManifestIO() MavenManifestIO {
 	return MavenManifestIO{
 		MavenRegistryAPIClient: *datasource.NewMavenRegistryAPIClient(datasource.MavenCentral),
