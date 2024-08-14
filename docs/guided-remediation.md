@@ -32,11 +32,23 @@ This tool provides several options to users for how to prioritise and remediate 
 - Modification of package manifest and lockfiles (e.g. `package.json`/`package-lock.json`) to fix vulnerabilities.
 - Different strategies with different risk/reward ratios (e.g. in-place fixes vs relocking).
 
-{: .highlight }
-Currently, only npm `package.json` manifests and `package-lock.json` lockfiles are supported.
-
 {: .note }
 This feature is experimental and might change or be removed with only a minor version update.
+
+### Supported strategies
+
+We currently support the remediation vulnerabilities in the following files:
+
+| File Format                                     | Supported [Remediation Strategies](#remediation-strategies) |
+| :---------------------------------------------- | :---------------------------------------------------------- |
+| `package-lock.json` lockfile                    | [`in-place`](#in-place-lockfile-remediation)                |
+| `package.json` manifest                         | [`relock`](#relock-and-relax-direct-dependency-remediation) |
+| `pom.xml` manifest <sup>[note](#pom-note)</sup> | [`override`](#override-dependency-versions-remediation)     |
+
+
+{: .note #pom-note}
+The tool only checks dependencies that are actually present in a POM's dependency graph - it will not detect vulnerabilities in `<dependencyManagement>` dependencies if they are not actually used when resolving the POM.
+
 
 ## Basic usage
 
@@ -115,6 +127,22 @@ Executing `/usr/bin/npm install --package-lock-only`...
 
 </details>
 
+For Maven `pom.xml` files, you can [add version overrides](#override-dependency-versions-remediation) to your POM's `<dependencyManagement>` section with the following command:
+```bash
+osv-scanner fix --non-interactive --strategy=override -M path/to/pom.xml
+```
+
+<details markdown="1">
+<summary><b>Sample relock output</b></summary>
+
+{: .highlight }
+The output format might change with minor version updates.
+```
+TODO
+```
+
+</details>
+
 {: .warning }
 The subcommand will modify your manifest and lockfile. Make sure you commit or backup your files before running.
 
@@ -127,7 +155,7 @@ If you wish to remediation only specific vulnerabilities, you may specify OSV ID
 
 The `--non-interactive` mode, in combination with [other flags](#remediation-flags), can be used in scripts to automatically apply and test remediation patches.
 
-Check out our [sample Python script](https://github.com/google/osv-scanner/blob/main/scripts/examples/auto_guided_remediation.py) that uses `osv-scanner fix` to remediate as many vulnerabilities as possible without failing your project's `npm run test`.
+Check out our [sample Python script](https://github.com/google/osv-scanner/blob/main/scripts/examples/auto_guided_remediation.py) that uses `osv-scanner fix` to remediate as many vulnerabilities as possible in an npm project without failing your project's `npm run test`.
 
 ## Interactive mode
 
@@ -156,7 +184,11 @@ The command will launch the Guided Remediation TUI and begin scanning your manif
 
 From the first results screen, you can select which of the two remediation strategies to attempt.
 
-## In-place lockfile remediation
+## Remediation strategies
+
+There are currently three remediation strategies:
+
+### In-place lockfile remediation
 
 'In-place' remediation involves replacing vulnerable versions of packages in your lockfile with non-vulnerable versions, while still respecting the existing constraints for that dependency. This approach is usually less risky, but will often fix less vulnerabilities than the [relock strategy](#relock-and-relax-direct-dependency-remediation).
 
@@ -171,7 +203,7 @@ If you wish to apply the proposed in-place patches, select the "Write" option to
 {: .note }
 Writing these changes will not reinstall your dependencies. You'll need to run `npm ci` (or equivalent) separately.
 
-## Relock and relax direct dependency remediation
+### Relock and relax direct dependency remediation
 
 Relocking recomputes your entire dependency graph based on your manifest file, taking the newest possible versions of all your required packages. Doing so will often allow for constraints on vulnerable packages to be unblocked and thus able to be remediated. However, relocking may cause a large number of changes to your dependency graph, which potentially carries a larger risk of breakages.
 
@@ -191,6 +223,16 @@ If you wish to apply your current relock & relaxation changes, select the "Write
 >
 > The `--relock-cmd` flag can be used to change the executed install command.
 
+### Override dependency versions remediation
+
+{: .note }
+The `override` strategy is currently only supported in `--non-interactive` mode.
+
+Maven allows for the version specification of direct and indirect dependencies to be overwritten by a POM's `<dependencyManagement>`. This mechanism can be used to force a vulnerable dependency to be updated to a newer, non-vulnerable version. Overriding dependency versions can enable otherwise inaccessible updates, but it also risks breaking the application if the new version is incompatible with other dependencies.
+
+As with the other strategies, override patches are prioritized by vulnerabilities fixed per updated dependency.
+
+
 ## Remediation flags
 
 The `fix` subcommand has a number of flags to allow you to control which vulnerabilities and patches may be considered during remediation.
@@ -199,7 +241,7 @@ The `fix` subcommand has a number of flags to allow you to control which vulnera
 
 The following flags may be used when running in non-interactive mode only:
 
-- `--strategy=` [`in-place`](#in-place-lockfile-remediation) OR [`relock`](#relock-and-relax-direct-dependency-remediation): Which remediation strategy to use.
+- `--strategy=` [`in-place`](#in-place-lockfile-remediation) OR [`relock`](#relock-and-relax-direct-dependency-remediation) OR [`override`](#override-dependency-versions-remediation): Which remediation strategy to use.
 - `--apply-top=<value>`: Specifies the maximum number of patches to apply. Patches are chosen in the same order as they would appear in the interactive mode.
 
   For example, `--apply-top=1` will only apply one patch, and `--apply-top=2` would apply the two best compatible patches. This flag is particularly useful when scripting to test the outcome of specific patches. Setting `--apply-top=-1` will apply every possible patch (default behavior).
@@ -267,3 +309,7 @@ Remediation in npm `workspaces` is only partially supported:
   - You can remediate the individual `package.json` files of each workspace, but this will be unaware of any packages or constraints caused by sibling workspaces.
 - The `node_modules/` in workspaces are not deleted when relocking, which may impact the resulting dependency graph when running `npm install`.
 - Each workspace package is considered dependency depth 1 from the root workspace.
+
+### Maven
+lots
+- `--data-source=native` is currently unsupported for Maven resolution.
