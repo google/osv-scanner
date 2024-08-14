@@ -45,10 +45,8 @@ We currently support the remediation vulnerabilities in the following files:
 | `package.json` manifest                         | [`relock`](#relock-and-relax-direct-dependency-remediation) |
 | `pom.xml` manifest <sup>[note](#pom-note)</sup> | [`override`](#override-dependency-versions-remediation)     |
 
-
 {: .note #pom-note}
 The tool only checks dependencies that are actually present in a POM's dependency graph - it will not detect vulnerabilities in `<dependencyManagement>` dependencies if they are not actually used when resolving the POM.
-
 
 ## Basic usage
 
@@ -128,6 +126,7 @@ Executing `/usr/bin/npm install --package-lock-only`...
 </details>
 
 For Maven `pom.xml` files, you can [add version overrides](#override-dependency-versions-remediation) to your POM's `<dependencyManagement>` section with the following command:
+
 ```bash
 osv-scanner fix --non-interactive --strategy=override -M path/to/pom.xml
 ```
@@ -137,6 +136,7 @@ osv-scanner fix --non-interactive --strategy=override -M path/to/pom.xml
 
 {: .highlight }
 The output format might change with minor version updates.
+
 ```
 TODO
 ```
@@ -232,7 +232,6 @@ Maven allows for the version specification of direct and indirect dependencies t
 
 As with the other strategies, override patches are prioritized by vulnerabilities fixed per updated dependency.
 
-
 ## Remediation flags
 
 The `fix` subcommand has a number of flags to allow you to control which vulnerabilities and patches may be considered during remediation.
@@ -311,5 +310,7 @@ Remediation in npm `workspaces` is only partially supported:
 - Each workspace package is considered dependency depth 1 from the root workspace.
 
 ### Maven
+
 lots
+
 - `--data-source=native` is currently unsupported for Maven resolution.
