@@ -39,11 +39,11 @@ This feature is experimental and might change or be removed with only a minor ve
 
 We currently support the remediation vulnerabilities in the following files:
 
-| File Format                                     | Supported [Remediation Strategies](#remediation-strategies) |
-| :---------------------------------------------- | :---------------------------------------------------------- |
-| `package-lock.json` lockfile                    | [`in-place`](#in-place-lockfile-remediation)                |
-| `package.json` manifest                         | [`relock`](#relock-and-relax-direct-dependency-remediation) |
-| `pom.xml` manifest <sup>[note](#pom-note)</sup> | [`override`](#override-dependency-versions-remediation)     |
+| Ecosystem | File Format (Type)                               | Supported [Remediation Strategies](#remediation-strategies) |
+| :-------- | :----------------------------------------------- | :---------------------------------------------------------- |
+| npm       | `package-lock.json` (lockfile)                   | [`in-place`](#in-place-lockfile-remediation)                |
+| npm       | `package.json` (manifest)                        | [`relock`](#relock-and-relax-direct-dependency-remediation) |
+| Maven     | `pom.xml` (manifest)<sup>[note](#pom-note)</sup> | [`override`](#override-dependency-versions-remediation)     |
 
 {: .note #pom-note}
 The tool only checks dependencies that are actually present in a POM's dependency graph - it will not detect vulnerabilities in `<dependencyManagement>` dependencies if they are not actually used when resolving the POM.
@@ -132,13 +132,38 @@ osv-scanner fix --non-interactive --strategy=override -M path/to/pom.xml
 ```
 
 <details markdown="1">
-<summary><b>Sample relock output</b></summary>
+<summary><b>Sample override output</b></summary>
 
 {: .highlight }
 The output format might change with minor version updates.
 
 ```
-TODO
+Resolving path/to/pom.xml...
+Found 56 vulnerabilities matching the filter
+Can fix 39/56 matching vulnerabilities by overriding 20 dependencies
+OVERRIDE-PACKAGE: io.atomix:atomix,3.1.6
+OVERRIDE-PACKAGE: org.apache.pdfbox:pdfbox,2.0.24
+OVERRIDE-PACKAGE: xerces:xercesImpl,2.12.2
+OVERRIDE-PACKAGE: com.google.guava:guava,32.0.0-android
+OVERRIDE-PACKAGE: com.fasterxml.jackson.core:jackson-databind,2.12.7.1
+OVERRIDE-PACKAGE: io.netty:netty-handler,4.1.94.Final
+OVERRIDE-PACKAGE: org.apache.commons:commons-compress,1.26.0
+OVERRIDE-PACKAGE: org.apache.commons:commons-configuration2,2.10.1
+OVERRIDE-PACKAGE: org.apache.mina:mina-core,2.0.22
+OVERRIDE-PACKAGE: org.apache.shiro:shiro-web,1.13.0
+OVERRIDE-PACKAGE: org.eclipse.jgit:org.eclipse.jgit,5.13.3.202401111512-r
+OVERRIDE-PACKAGE: com.nimbusds:nimbus-jose-jwt,9.37.2
+OVERRIDE-PACKAGE: io.netty:netty,3.9.8.Final
+OVERRIDE-PACKAGE: org.apache.directory.api:api-ldap-model,1.0.0-M31
+OVERRIDE-PACKAGE: org.apache.shiro:shiro-core,1.13.0
+OVERRIDE-PACKAGE: org.glassfish.jersey.core:jersey-common,2.34
+OVERRIDE-PACKAGE: xalan:xalan,2.7.3
+OVERRIDE-PACKAGE: org.apache.thrift:libthrift,0.14.0
+OVERRIDE-PACKAGE: org.apache.tomcat.embed:tomcat-embed-core,8.5.99
+OVERRIDE-PACKAGE: io.netty:netty-codec,4.1.68.Final
+REMAINING-VULNS: 17
+UNFIXABLE-VULNS: 16
+Rewriting path/to/pom.xml...
 ```
 
 </details>
@@ -298,7 +323,7 @@ If your project uses mirrored or private registries, you will need to use `--dat
 ### npm
 
 - Non-registry dependencies (local paths, URLs, Git, etc.) are not evaluated.
-- `peerDependencies` are not properly considered during dependency resolution (treated as if using `--legacy-peer-deps`).
+- [#1026](https://github.com/google/osv-scanner/issues/1026) `peerDependencies` are not properly considered during dependency resolution (treated as if using `--legacy-peer-deps`).
 - `overrides` are ignored during dependency resolution.
 
 #### Workspaces
@@ -313,6 +338,6 @@ Remediation in npm `workspaces` is only partially supported:
 
 ### Maven
 
-lots
-
-- `--data-source=native` is currently unsupported for Maven resolution.
+- [#1045](https://github.com/google/osv-scanner/issues/1045) `--data-source=native` is currently unsupported for Maven resolution.
+- [#1169](https://github.com/google/osv-scanner/issues/1169) Only the scanned `pom.xml` is updated, when updating the local parent POM may be preferred.
+- The formatting of the `pom.xml` after writing can sometimes be erroneously changed.
