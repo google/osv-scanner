@@ -560,18 +560,13 @@ func TestParseGoLock_Replacements_Local(t *testing.T) {
 			},
 		},
 		{
-			Name:      "./fork/net",
+			Name:      "golang.org/x/net",
 			Version:   "",
 			Ecosystem: lockfile.GoEcosystem,
 			CompareAs: lockfile.GoEcosystem,
 			BlockLocation: models.FilePosition{
 				Line:     models.Position{Start: 7, End: 7},
 				Column:   models.Position{Start: 5, End: 42},
-				Filename: path,
-			},
-			NameLocation: &models.FilePosition{
-				Line:     models.Position{Start: 7, End: 7},
-				Column:   models.Position{Start: 32, End: 42},
 				Filename: path,
 			},
 		},

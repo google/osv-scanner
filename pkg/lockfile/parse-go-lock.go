@@ -7,6 +7,8 @@ import (
 	"path/filepath"
 	"strings"
 
+	"github.com/google/osv-scanner/internal/cachedregexp"
+
 	"github.com/google/osv-scanner/internal/utility/fileposition"
 	"golang.org/x/exp/maps"
 
@@ -121,6 +123,8 @@ func (e GoLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 		block := lines[start.Line-1 : end.Line]
 		var replacements []string
 
+		isLocalFile := !hasHostnamePrefix(replace.New.Path)
+
 		if replace.Old.Version == "" {
 			// If the left version is omitted, all versions of the module are replaced.
 			for k, pkg := range packages {
@@ -148,6 +152,15 @@ func (e GoLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 			}
 
 			blockLocation, nameLocation, versionLocation := extractLocations(block, start, end, f.Path(), name, version)
+
+			if isLocalFile {
+				// The replacement is a local file path, we keep the original package name and drop everything specific to the replacement
+				name = replace.Old.Path
+				version = ""
+				versionLocation = nil
+				nameLocation = nil
+			}
+
 			packages[replacement] = PackageDetails{
 				Name:            name,
 				Version:         version,
@@ -184,4 +197,10 @@ func init() {
 
 func ParseGoLock(pathToLockfile string) ([]PackageDetails, error) {
 	return extractFromFile(pathToLockfile, GoLockExtractor{})
+}
+
+func hasHostnamePrefix(path string) bool {
+	matcher := cachedregexp.MustCompile("^(\\w+:\\/\\/)?\\w+\\.\\w+.*")
+
+	return matcher.MatchString(path)
 }

@@ -4882,6 +4882,35 @@ No package sources found, --help for usage information.
       }
     },
     {
+      "bom-ref": "pkg:golang/github.com/Private/packages/pkg/util/backoff@1.0.0",
+      "type": "library",
+      "name": "github.com/Private/packages/pkg/util/backoff",
+      "version": "1.0.0",
+      "licenses": [],
+      "purl": "pkg:golang/github.com/Private/packages/pkg/util/backoff@1.0.0",
+      "evidence": {
+        "occurrences": [
+          {
+            "location": "{/"block/":{/"file_name/":/"go.mod/",/"line_start/":10,/"line_end/":10,/"column_start/":1,/"column_end/":101},/"name/":{/"file_name/":/"go.mod/",/"line_start/":10,/"line_end/":10,/"column_start/":50,/"column_end/":94},/"version/":{/"file_name/":/"go.mod/",/"line_start/":10,/"line_end/":10,/"column_start/":96,/"column_end/":101}}"
+          }
+        ]
+      }
+    },
+    {
+      "bom-ref": "pkg:golang/github.com/kubernetes/apimachinery",
+      "type": "library",
+      "name": "github.com/kubernetes/apimachinery",
+      "licenses": [],
+      "purl": "pkg:golang/github.com/kubernetes/apimachinery",
+      "evidence": {
+        "occurrences": [
+          {
+            "location": "{/"block/":{/"file_name/":/"go.mod/",/"line_start/":9,/"line_end/":9,/"column_start/":1,/"column_end/":78}}"
+          }
+        ]
+      }
+    },
+    {
       "bom-ref": "pkg:golang/stdlib@1.21.3",
       "type": "library",
       "name": "stdlib",
@@ -5107,7 +5136,7 @@ Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-8/Gemfile.lock fi
 Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-8/Pipfile.lock file and found 1 package
 Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-8/composer/composer.lock file and found 123 packages
 Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-8/conan.lock file and found 1 package
-Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-8/go.mod file and found 2 packages
+Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-8/go.mod file and found 4 packages
 Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-8/gradle.lockfile file and found 1 package
 Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-8/mix.lock file and found 1 package
 Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-8/npm/package-lock.json file and found 1 package
@@ -5120,6 +5149,7 @@ Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-8/pubspec.lock fi
 Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-8/renv.lock file and found 1 package
 Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-8/requirements.txt file and found 1 package
 Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-8/yarn/yarn.lock file and found 1 package
+Filtered 1 local package/s from the scan.
 
 ---
 
