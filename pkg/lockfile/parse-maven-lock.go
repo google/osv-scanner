@@ -99,7 +99,9 @@ func (mld MavenLockDependency) resolvePropertiesValue(lockfile MavenLockFile, fi
 					// We should locate the property in its source file
 					propOpenTag, propCloseTag = fileposition.QuoteMetaDelimiters(propOpenTag, propCloseTag)
 					position = fileposition.ExtractDelimitedRegexpPositionInBlock(lockfile.Lines[lockProperty.SourceFile], ".*", 1, propOpenTag, propCloseTag)
-					position.Filename = lockProperty.SourceFile
+					if position != nil {
+						position.Filename = lockProperty.SourceFile
+					}
 				}
 			}
 		}
