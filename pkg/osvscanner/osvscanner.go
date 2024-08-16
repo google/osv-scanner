@@ -17,9 +17,9 @@ import (
 	"github.com/google/osv-scanner/internal/customgitignore"
 	"github.com/google/osv-scanner/internal/image"
 	"github.com/google/osv-scanner/internal/local"
-	"github.com/google/osv-scanner/internal/lockfilescalibr/filesystem"
-	"github.com/google/osv-scanner/internal/lockfilescalibr/language/alpine/apkinstalled"
-	"github.com/google/osv-scanner/internal/lockfilescalibr/plugin"
+	"github.com/google/osv-scanner/internal/lockfilescalibr"
+	"github.com/google/osv-scanner/internal/lockfilescalibr/extractor"
+	"github.com/google/osv-scanner/internal/lockfilescalibr/othermetadata"
 	"github.com/google/osv-scanner/internal/manifest"
 	"github.com/google/osv-scanner/internal/output"
 	"github.com/google/osv-scanner/internal/resolution/client"
@@ -355,23 +355,8 @@ func scanLockfile(r reporter.Reporter, path string, parseAs string, compareOffli
 	var parsedLockfile lockfile.Lockfile
 
 	f, err := lockfile.OpenLocalDepFile(path)
-	reader, err := os.Open(path)
-	if err != nil {
-		return []scannedPackage{}, err
-	}
 
-	info, err := reader.Stat()
-	if err != nil {
-		return []scannedPackage{}, err
-	}
-
-	si := filesystem.ScanInput{
-		FS:       os.DirFS("/").(plugin.FS),
-		Path:     path,
-		ScanRoot: "/",
-		Reader:   reader,
-		Info:     info,
-	}
+	var inventories []*extractor.Inventory
 
 	if err == nil {
 		// special case for the APK and DPKG parsers because they have a very generic name while
@@ -379,7 +364,7 @@ func scanLockfile(r reporter.Reporter, path string, parseAs string, compareOffli
 		// used by lockfile.Parse to avoid false-positives when scanning projects
 		switch parseAs {
 		case "apk-installed":
-			apkinstalled.Extractor{}.Extract(context.Background(), &si)
+			// inventories, err := apkinstalled.Extractor{}.Extract(context.Background(), &si)
 			parsedLockfile, err = lockfile.FromApkInstalled(path)
 		case "dpkg-status":
 			parsedLockfile, err = lockfile.FromDpkgStatus(path)
@@ -389,7 +374,7 @@ func scanLockfile(r reporter.Reporter, path string, parseAs string, compareOffli
 			if !compareOffline && (parseAs == "pom.xml" || filepath.Base(path) == "pom.xml") {
 				parsedLockfile, err = extractMavenDeps(f)
 			} else {
-				parsedLockfile, err = lockfile.ExtractDeps(f, parseAs)
+				inventories, err = lockfilescalibr.Extract(context.Background(), path, parseAs)
 			}
 		}
 	}
@@ -404,17 +389,19 @@ func scanLockfile(r reporter.Reporter, path string, parseAs string, compareOffli
 		parsedAsComment = fmt.Sprintf("as a %s ", parseAs)
 	}
 
+	pkgCount := len(parsedLockfile.Packages) + len(inventories)
+
 	r.Infof(
 		"Scanned %s file %sand found %d %s\n",
 		path,
 		parsedAsComment,
-		len(parsedLockfile.Packages),
-		output.Form(len(parsedLockfile.Packages), "package", "packages"),
+		pkgCount,
+		output.Form(pkgCount, "package", "packages"),
 	)
 
-	packages := make([]scannedPackage, len(parsedLockfile.Packages))
-	for i, pkgDetail := range parsedLockfile.Packages {
-		packages[i] = scannedPackage{
+	packages := make([]scannedPackage, 0, pkgCount)
+	for _, pkgDetail := range parsedLockfile.Packages {
+		packages = append(packages, scannedPackage{
 			Name:      pkgDetail.Name,
 			Version:   pkgDetail.Version,
 			Commit:    pkgDetail.Commit,
@@ -424,7 +411,29 @@ func scanLockfile(r reporter.Reporter, path string, parseAs string, compareOffli
 				Path: path,
 				Type: "lockfile",
 			},
+		})
+	}
+
+	for _, inv := range inventories {
+		scannedPackage := scannedPackage{
+			Name:    inv.Name,
+			Version: inv.Version,
+			Source: models.SourceInfo{
+				Path: path,
+				Type: "lockfile",
+			},
 		}
+		if inv.SourceCode != nil {
+			scannedPackage.Commit = inv.SourceCode.Commit
+		}
+		if eco, err := inv.Ecosystem(); err == nil {
+			scannedPackage.Ecosystem = lockfile.Ecosystem(eco)
+		}
+		if dg, ok := inv.Metadata.(othermetadata.DepGroups); ok {
+			scannedPackage.DepGroups = dg.DepGroups()
+		}
+
+		packages = append(packages, scannedPackage)
 	}
 
 	return packages, nil

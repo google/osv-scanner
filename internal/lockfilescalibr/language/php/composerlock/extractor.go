@@ -107,7 +107,7 @@ func (e Extractor) ToCPEs(i *extractor.Inventory) ([]string, error) {
 }
 
 func (e Extractor) Ecosystem(i *extractor.Inventory) (string, error) {
-return ComposerEcosystem, nil
+	return ComposerEcosystem, nil
 }
 
 var _ filesystem.Extractor = Extractor{}

@@ -54,7 +54,7 @@ func (e Extractor) Extract(ctx context.Context, input *filesystem.ScanInput) ([]
 
 	for _, pkg := range parsedLockfile.Packages {
 		// currently we only support CRAN
-		if pkg.Repository != string(CRANEcosystem) {
+		if pkg.Repository != CRANEcosystem {
 			continue
 		}
 

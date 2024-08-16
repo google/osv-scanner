@@ -160,7 +160,7 @@ func (e Extractor) ToCPEs(i *extractor.Inventory) ([]string, error) {
 }
 
 func (e Extractor) Ecosystem(i *extractor.Inventory) (string, error) {
-return PipEcosystem, nil
+	return PipEcosystem, nil
 }
 
 func parseRequirementsTxt(input *filesystem.ScanInput, requiredAlready map[string]struct{}) ([]*extractor.Inventory, error) {
