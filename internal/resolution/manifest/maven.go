@@ -48,8 +48,8 @@ func NewMavenManifestIO() MavenManifestIO {
 
 type MavenManifestSpecific struct {
 	Parent                 maven.Parent
-	Properties             []PropertyWithOrigin         // Properties from base projects
-	OriginalRequirements   []DependencyWithOrigin       // Dependencies from the base project only
+	Properties             []PropertyWithOrigin         // Properties from the base project
+	OriginalRequirements   []DependencyWithOrigin       // Dependencies from the base project
 	RequirementsForUpdates []resolve.RequirementVersion // Requirements that we only need for updates
 }
 
@@ -288,7 +288,8 @@ func (MavenManifestIO) Write(df lockfile.DepFile, w io.Writer, patch ManifestPat
 		return errors.New("invalid MavenManifestSpecific data")
 	}
 
-	// Walk through local parent pom.xml for dependencies and properties.
+	// Walk through local parent pom.xml for original dependencies and properties.
+	// TODO: investigate if this can be done when merging parents in manifest reading
 	currentPath := df.Path()
 	parent := specific.Parent
 	visited := make(map[maven.ProjectKey]bool, manifest.MaxParent)
@@ -313,8 +314,9 @@ func (MavenManifestIO) Write(df lockfile.DepFile, w io.Writer, patch ManifestPat
 			if err := xml.NewDecoder(f).Decode(&proj); err != nil {
 				return fmt.Errorf("failed to unmarshal project: %w", err)
 			}
-			if proj.Packaging != "pom" {
-				// This is not the project, we should fetch from upstream which we don't have write access.
+			if manifest.MavenProjectKey(proj) != parent.ProjectKey || proj.Packaging != "pom" {
+				// This is not the project that we are looking for, we should fetch from upstream
+				// that we don't have write access so we give up here.
 				break
 			}
 			origin := mavenOrigin(manifest.OriginParent, parentPath)
@@ -330,8 +332,10 @@ func (MavenManifestIO) Write(df lockfile.DepFile, w io.Writer, patch ManifestPat
 	}
 	for path, patches := range allPatches {
 		if path == "" {
+			// Base pom.xml is going to be written later.
 			continue
 		}
+		// TODO: investigate how to test parent manifests are updated.
 		depFile, err := lockfile.OpenLocalDepFile(path)
 		if err != nil {
 			return err
@@ -409,6 +413,8 @@ func (m MavenDependencyPatches) addPatch(changedDep DependencyPatch, exist bool)
 // is a map of properties of each origin.
 type MavenPropertyPatches map[string]map[string]string // origin -> tag -> value
 
+// parentPathFromOrigin returns the parent path embedded in origin,
+// as well as the remaining origin string.
 func parentPathFromOrigin(origin string) (string, string) {
 	tokens := strings.Split(origin, "@")
 	if len(tokens) <= 1 {
@@ -508,7 +514,7 @@ func buildPatches(patches []DependencyPatch, specific MavenManifestSpecific) (ma
 	return result, nil
 }
 
-// originalDependency returns the original dependency of a dependency patch by walking through the file system.
+// originalDependency returns the original dependency of a dependency patch.
 // If the dependency is not found in any local pom.xml, an empty dependency is returned.
 func originalDependency(patch DependencyPatch, origDeps []DependencyWithOrigin) DependencyWithOrigin {
 	IDs := strings.Split(patch.Pkg.Name, ":")
