@@ -519,7 +519,7 @@ func TestMavenWrite(t *testing.T) {
 	}
 
 	out := new(bytes.Buffer)
-  if err := write(buf.String(), out, patches); err != nil {
+	if err := write(buf.String(), out, patches); err != nil {
 		t.Fatalf("unable to update Maven pom.xml: %v", err)
 	}
 	testutility.NewSnapshot().WithCRLFReplacement().MatchText(t, out.String())
@@ -587,7 +587,7 @@ func TestMavenWriteDM(t *testing.T) {
 	}
 
 	out := new(bytes.Buffer)
-  if err := write(buf.String(), out, patches); err != nil {
+	if err := write(buf.String(), out, patches); err != nil {
 		t.Fatalf("unable to update Maven pom.xml: %v", err)
 	}
 	testutility.NewSnapshot().WithCRLFReplacement().MatchText(t, out.String())

@@ -347,7 +347,7 @@ func (MavenManifestIO) Write(df lockfile.DepFile, w io.Writer, patch ManifestPat
 		depFile.Close() // Make sure the file is closed before we start writing to it.
 
 		var out bytes.Buffer
-		if err := write(in, &out, patches); err != nil {
+		if err := write(in.String(), &out, patches); err != nil {
 			return err
 		}
 		//nolint:gosec
@@ -361,7 +361,7 @@ func (MavenManifestIO) Write(df lockfile.DepFile, w io.Writer, patch ManifestPat
 		return fmt.Errorf("failed to read from DepFile: %w", err)
 	}
 
-  return write(buf.String(), w, allPatches[""])
+	return write(buf.String(), w, allPatches[""])
 }
 
 type MavenPatches struct {
@@ -629,8 +629,7 @@ func compareDependency(d1, d2 dependency) int {
 	return cmp.Compare(d1.Version, d2.Version)
 }
 
-
-func write(raw string, w io.Writer, depPatches MavenDependencyPatches, propertyPatches MavenPropertyPatches) error {
+func write(raw string, w io.Writer, patches MavenPatches) error {
 	// Replace all tabs with two white space so that they are escaped during encoding.
 	dec := xml.NewDecoder(bytes.NewReader([]byte(strings.ReplaceAll(raw, "\t", "  "))))
 	enc := xml.NewEncoder(w)
