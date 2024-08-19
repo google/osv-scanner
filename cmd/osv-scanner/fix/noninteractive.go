@@ -121,7 +121,7 @@ func autoRelock(ctx context.Context, r reporter.Reporter, opts osvFixOptions, ma
 
 	if errs := res.Errors(); len(errs) > 0 {
 		r.Warnf("WARNING: encountered %d errors during dependency resolution:\n", len(errs))
-		r.Warnf(resolutionErrorString(res, errs))
+		r.Warnf("%s", resolutionErrorString(res, errs))
 	}
 
 	res.FilterVulns(opts.MatchVuln)
@@ -272,7 +272,7 @@ func autoOverride(ctx context.Context, r reporter.Reporter, opts osvFixOptions, 
 
 	if errs := res.Errors(); len(errs) > 0 {
 		r.Warnf("WARNING: encountered %d errors during dependency resolution:\n", len(errs))
-		r.Warnf(resolutionErrorString(res, errs))
+		r.Warnf("%s", resolutionErrorString(res, errs))
 	}
 
 	res.FilterVulns(opts.MatchVuln)
