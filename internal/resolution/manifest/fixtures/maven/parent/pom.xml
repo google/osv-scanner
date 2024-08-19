@@ -25,6 +25,14 @@
     <aaa.version>1.1.1</aaa.version>
   </properties>
 
+  <dependencies>
+    <dependency>
+      <groupId>org.example</groupId>
+      <artifactId>ddd</artifactId>
+      <version>1.2.3</version>
+    </dependency>
+  </dependencies>
+
   <dependencyManagement>
     <dependencies>
       <dependency>

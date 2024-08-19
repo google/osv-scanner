@@ -14,10 +14,16 @@ import (
 	mavenresolve "deps.dev/util/resolve/maven"
 	"github.com/google/osv-scanner/internal/resolution/client"
 	"github.com/google/osv-scanner/internal/resolution/datasource"
-	"github.com/google/osv-scanner/internal/resolution/manifest"
 	"github.com/google/osv-scanner/internal/resolution/util"
 	"github.com/google/osv-scanner/pkg/lockfile"
 	"golang.org/x/exp/maps"
+)
+
+const (
+	OriginManagement = "management"
+	OriginParent     = "parent"
+	OriginPlugin     = "plugin"
+	OriginProfile    = "profile"
 )
 
 type MavenResolverExtractor struct {
@@ -37,7 +43,7 @@ func (e MavenResolverExtractor) Extract(f lockfile.DepFile) ([]lockfile.PackageD
 		return []lockfile.PackageDetails{}, fmt.Errorf("could not extract from %s: %w", f.Path(), err)
 	}
 	// Merging parents data by parsing local parent pom.xml or fetching from upstream.
-	if err := e.mergeParents(ctx, &project, project.Parent, 1, true, f.Path()); err != nil {
+	if err := MergeMavenParents(ctx, e.MavenRegistryAPIClient, &project, project.Parent, 1, f.Path(), true); err != nil {
 		return []lockfile.PackageDetails{}, fmt.Errorf("failed to merge parents: %w", err)
 	}
 	// Process the dependencies:
@@ -47,7 +53,7 @@ func (e MavenResolverExtractor) Extract(f lockfile.DepFile) ([]lockfile.PackageD
 	project.ProcessDependencies(func(groupID, artifactID, version maven.String) (maven.DependencyManagement, error) {
 		root := maven.Parent{ProjectKey: maven.ProjectKey{GroupID: groupID, ArtifactID: artifactID, Version: version}}
 		var result maven.Project
-		if err := e.mergeParents(ctx, &result, root, 0, false, f.Path()); err != nil {
+		if err := MergeMavenParents(ctx, e.MavenRegistryAPIClient, &result, root, 0, f.Path(), false); err != nil {
 			return maven.DependencyManagement{}, err
 		}
 
@@ -91,7 +97,7 @@ func (e MavenResolverExtractor) Extract(f lockfile.DepFile) ([]lockfile.PackageD
 				VersionType: resolve.Requirement,
 				Version:     string(d.Version),
 			},
-			Type: resolve.MavenDepType(d, manifest.OriginManagement),
+			Type: resolve.MavenDepType(d, OriginManagement),
 		}
 	}
 	overrideClient.AddVersion(root, reqs)
@@ -130,7 +136,7 @@ func (e MavenResolverExtractor) Extract(f lockfile.DepFile) ([]lockfile.PackageD
 // MaxParent sets a limit on the number of parents to avoid indefinite loop.
 const MaxParent = 100
 
-// mergeParents parses local accessible parent pom.xml or fetches it from
+// MergeMavenParents parses local accessible parent pom.xml or fetches it from
 // upstream, merges into root project, then interpolate the properties.
 // result holds the merged Maven project.
 // current holds the current parent project to merge.
@@ -139,7 +145,7 @@ const MaxParent = 100
 // allowLocal indicates whether parsing local parent pom.xml is allowed.
 // path holds the path to the current pom.xml, which is used to compute the
 // relative path of parent.
-func (e MavenResolverExtractor) mergeParents(ctx context.Context, result *maven.Project, current maven.Parent, start int, allowLocal bool, path string) error {
+func MergeMavenParents(ctx context.Context, mavenClient datasource.MavenRegistryAPIClient, result *maven.Project, current maven.Parent, start int, path string, allowLocal bool) error {
 	currentPath := path
 	visited := make(map[maven.ProjectKey]bool, MaxParent)
 	for n := start; n < MaxParent; n++ {
@@ -154,7 +160,7 @@ func (e MavenResolverExtractor) mergeParents(ctx context.Context, result *maven.
 
 		var proj maven.Project
 		parentFound := false
-		if parentPath := manifest.MavenParentPOMPath(currentPath, string(current.RelativePath)); allowLocal && parentPath != "" {
+		if parentPath := MavenParentPOMPath(currentPath, string(current.RelativePath)); allowLocal && parentPath != "" {
 			currentPath = parentPath
 			f, err := os.Open(parentPath)
 			if err != nil {
@@ -163,7 +169,7 @@ func (e MavenResolverExtractor) mergeParents(ctx context.Context, result *maven.
 			if err := xml.NewDecoder(f).Decode(&proj); err != nil {
 				return fmt.Errorf("failed to unmarshal project: %w", err)
 			}
-			if proj.ProjectKey == current.ProjectKey && proj.Packaging == "pom" {
+			if MavenProjectKey(proj) == current.ProjectKey && proj.Packaging == "pom" {
 				// Only mark parent is found when the identifiers and packaging are exptected.
 				parentFound = true
 			}
@@ -174,7 +180,7 @@ func (e MavenResolverExtractor) mergeParents(ctx context.Context, result *maven.
 			allowLocal = false
 
 			var err error
-			proj, err = e.MavenRegistryAPIClient.GetProject(ctx, string(current.GroupID), string(current.ArtifactID), string(current.Version))
+			proj, err = mavenClient.GetProject(ctx, string(current.GroupID), string(current.ArtifactID), string(current.Version))
 			if err != nil {
 				return fmt.Errorf("failed to get Maven project %s:%s:%s: %w", current.GroupID, current.ArtifactID, current.Version, err)
 			}
@@ -182,13 +188,13 @@ func (e MavenResolverExtractor) mergeParents(ctx context.Context, result *maven.
 				// A parent project should only be of "pom" packaging type.
 				return fmt.Errorf("invalid packaging for parent project %s", proj.Packaging)
 			}
-			if proj.ProjectKey != current.ProjectKey {
+			if MavenProjectKey(proj) != current.ProjectKey {
 				// The identifiers in parent does not match what we want.
 				return fmt.Errorf("parent identifiers mismatch: %v, expect %v", proj.ProjectKey, current.ProjectKey)
 			}
 		}
 		// Empty JDK and ActivationOS indicates merging the default profiles.
-		if err := result.MergeProfiles("", maven.ActivationOS{}); err != nil {
+		if err := proj.MergeProfiles("", maven.ActivationOS{}); err != nil {
 			return err
 		}
 		result.MergeParent(proj)
@@ -196,6 +202,41 @@ func (e MavenResolverExtractor) mergeParents(ctx context.Context, result *maven.
 	}
 	// Interpolate the project to resolve the properties.
 	return result.Interpolate()
+}
+
+// MavenProjectKey returns a project key with empty groupId/version
+// filled by corresponding fields in parent.
+func MavenProjectKey(proj maven.Project) maven.ProjectKey {
+	if proj.GroupID == "" {
+		proj.GroupID = proj.Parent.GroupID
+	}
+	if proj.Version == "" {
+		proj.Version = proj.Parent.Version
+	}
+
+	return proj.ProjectKey
+}
+
+// Maven looks for the parent POM first in 'relativePath',
+// then the local repository '../pom.xml',
+// and lastly in the remote repo.
+func MavenParentPOMPath(currentPath, relativePath string) string {
+	if relativePath == "" {
+		relativePath = "../pom.xml"
+	}
+	path := filepath.Join(filepath.Dir(currentPath), relativePath)
+	if info, err := os.Stat(path); err == nil {
+		if !info.IsDir() {
+			return path
+		}
+		// Current path is a directory, so look for pom.xml in the directory.
+		path = filepath.Join(path, "pom.xml")
+		if _, err := os.Stat(path); err == nil {
+			return path
+		}
+	}
+
+	return ""
 }
 
 func ParseMavenWithResolver(depClient client.DependencyClient, mavenClient datasource.MavenRegistryAPIClient, pathToLockfile string) ([]lockfile.PackageDetails, error) {

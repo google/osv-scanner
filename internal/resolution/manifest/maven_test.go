@@ -128,6 +128,9 @@ func TestMavenRead(t *testing.T) {
 
 	depParent.AddAttr(dep.MavenArtifactType, "pom")
 
+	var depExclusions dep.Type
+	depExclusions.AddAttr(dep.MavenExclusions, "org.exclude:exclude")
+
 	want := Manifest{
 		Root: resolve.Version{
 			VersionKey: resolve.VersionKey{
@@ -175,6 +178,17 @@ func TestMavenRead(t *testing.T) {
 				VersionKey: resolve.VersionKey{
 					PackageKey: resolve.PackageKey{
 						System: resolve.Maven,
+						Name:   "org.example:exclusions",
+					},
+					VersionType: resolve.Requirement,
+					Version:     "1.0.0",
+				},
+				Type: depExclusions,
+			},
+			{
+				VersionKey: resolve.VersionKey{
+					PackageKey: resolve.PackageKey{
+						System: resolve.Maven,
 						Name:   "org.profile:abc",
 					},
 					VersionType: resolve.Requirement,
@@ -189,6 +203,16 @@ func TestMavenRead(t *testing.T) {
 					},
 					VersionType: resolve.Requirement,
 					Version:     "2.3.4",
+				},
+			},
+			{
+				VersionKey: resolve.VersionKey{
+					PackageKey: resolve.PackageKey{
+						System: resolve.Maven,
+						Name:   "org.example:ddd",
+					},
+					VersionType: resolve.Requirement,
+					Version:     "1.2.3",
 				},
 			},
 			{
@@ -252,12 +276,20 @@ func TestMavenRead(t *testing.T) {
 			mavenReqKey(t, "org.import:xyz", "pom", ""): {"import"},
 		},
 		EcosystemSpecific: MavenManifestSpecific{
+			Parent: maven.Parent{
+				ProjectKey: maven.ProjectKey{
+					GroupID:    "org.parent",
+					ArtifactID: "parent-pom",
+					Version:    "1.1.1",
+				},
+				RelativePath: "../parent/pom.xml",
+			},
 			Properties: []PropertyWithOrigin{
 				{Property: maven.Property{Name: "project.build.sourceEncoding", Value: "UTF-8"}},
 				{Property: maven.Property{Name: "maven.compiler.source", Value: "1.7"}},
 				{Property: maven.Property{Name: "maven.compiler.target", Value: "1.7"}},
 				{Property: maven.Property{Name: "junit.version", Value: "4.12"}},
-				{Property: maven.Property{Name: "zeppelin.daemon.package.base", Value: "\n\t    ../bin\n    "}},
+				{Property: maven.Property{Name: "zeppelin.daemon.package.base", Value: "../bin"}},
 				{Property: maven.Property{Name: "def.version", Value: "2.3.4"}, Origin: "profile@profile-one"},
 			},
 			OriginalRequirements: []DependencyWithOrigin{
@@ -273,6 +305,12 @@ func TestMavenRead(t *testing.T) {
 				},
 				{
 					Dependency: maven.Dependency{GroupID: "org.example", ArtifactID: "no-version"},
+				},
+				{
+					Dependency: maven.Dependency{GroupID: "org.example", ArtifactID: "exclusions", Version: "1.0.0",
+						Exclusions: []maven.Exclusion{
+							{GroupID: "org.exclude", ArtifactID: "exclude"},
+						}},
 				},
 				{
 					Dependency: maven.Dependency{GroupID: "org.example", ArtifactID: "xyz", Version: "2.0.0"},
@@ -393,93 +431,95 @@ func TestMavenWrite(t *testing.T) {
 		t.Fatalf("failed to read from DepFile: %v", err)
 	}
 
-	depPatches := MavenDependencyPatches{
-		"": map[MavenPatch]bool{
-			{
-				DependencyKey: maven.DependencyKey{
-					GroupID:    "org.example",
-					ArtifactID: "abc",
-					Type:       "jar",
-				},
-				NewRequire: "1.0.2",
-			}: true,
-			{
-				DependencyKey: maven.DependencyKey{
-					GroupID:    "org.example",
-					ArtifactID: "no-version",
-					Type:       "jar",
-				},
-				NewRequire: "2.0.1",
-			}: true,
+	patches := MavenPatches{
+		DependencyPatches: MavenDependencyPatches{
+			"": map[MavenPatch]bool{
+				{
+					DependencyKey: maven.DependencyKey{
+						GroupID:    "org.example",
+						ArtifactID: "abc",
+						Type:       "jar",
+					},
+					NewRequire: "1.0.2",
+				}: true,
+				{
+					DependencyKey: maven.DependencyKey{
+						GroupID:    "org.example",
+						ArtifactID: "no-version",
+						Type:       "jar",
+					},
+					NewRequire: "2.0.1",
+				}: true,
+			},
+			"management": map[MavenPatch]bool{
+				{
+					DependencyKey: maven.DependencyKey{
+						GroupID:    "org.example",
+						ArtifactID: "xyz",
+						Type:       "jar",
+					},
+					NewRequire: "2.0.1",
+				}: true,
+				{
+					DependencyKey: maven.DependencyKey{
+						GroupID:    "org.example",
+						ArtifactID: "extra-one",
+						Type:       "jar",
+					},
+					NewRequire: "6.6.6",
+				}: false,
+				{
+					DependencyKey: maven.DependencyKey{
+						GroupID:    "org.example",
+						ArtifactID: "extra-two",
+						Type:       "jar",
+					},
+					NewRequire: "9.9.9",
+				}: false,
+			},
+			"profile@profile-one": map[MavenPatch]bool{
+				{
+					DependencyKey: maven.DependencyKey{
+						GroupID:    "org.profile",
+						ArtifactID: "abc",
+						Type:       "jar",
+					},
+					NewRequire: "1.2.4",
+				}: true,
+			},
+			"profile@profile-two@management": map[MavenPatch]bool{
+				{
+					DependencyKey: maven.DependencyKey{
+						GroupID:    "org.import",
+						ArtifactID: "xyz",
+						Type:       "pom",
+					},
+					NewRequire: "7.0.0",
+				}: true,
+			},
+			"plugin@org.plugin:plugin": map[MavenPatch]bool{
+				{
+					DependencyKey: maven.DependencyKey{
+						GroupID:    "org.dep",
+						ArtifactID: "plugin-dep",
+						Type:       "jar",
+					},
+					NewRequire: "2.3.4",
+				}: true,
+			},
 		},
-		"management": map[MavenPatch]bool{
-			{
-				DependencyKey: maven.DependencyKey{
-					GroupID:    "org.example",
-					ArtifactID: "xyz",
-					Type:       "jar",
-				},
-				NewRequire: "2.0.1",
-			}: true,
-			{
-				DependencyKey: maven.DependencyKey{
-					GroupID:    "org.example",
-					ArtifactID: "extra-one",
-					Type:       "jar",
-				},
-				NewRequire: "6.6.6",
-			}: false,
-			{
-				DependencyKey: maven.DependencyKey{
-					GroupID:    "org.example",
-					ArtifactID: "extra-two",
-					Type:       "jar",
-				},
-				NewRequire: "9.9.9",
-			}: false,
-		},
-		"profile@profile-one": map[MavenPatch]bool{
-			{
-				DependencyKey: maven.DependencyKey{
-					GroupID:    "org.profile",
-					ArtifactID: "abc",
-					Type:       "jar",
-				},
-				NewRequire: "1.2.4",
-			}: true,
-		},
-		"profile@profile-two@management": map[MavenPatch]bool{
-			{
-				DependencyKey: maven.DependencyKey{
-					GroupID:    "org.import",
-					ArtifactID: "xyz",
-					Type:       "pom",
-				},
-				NewRequire: "7.0.0",
-			}: true,
-		},
-		"plugin@org.plugin:plugin": map[MavenPatch]bool{
-			{
-				DependencyKey: maven.DependencyKey{
-					GroupID:    "org.dep",
-					ArtifactID: "plugin-dep",
-					Type:       "jar",
-				},
-				NewRequire: "2.3.4",
-			}: true,
-		},
-	}
-	propertyPatches := MavenPropertyPatches{
-		"": {
-			"junit.version": "4.13.2",
-		},
-		"profile@profile-one": {
-			"def.version": "2.3.5",
+		PropertyPatches: MavenPropertyPatches{
+			"": {
+				"junit.version": "4.13.2",
+			},
+			"profile@profile-one": {
+				"def.version": "2.3.5",
+			},
 		},
 	}
 
 	out := new(bytes.Buffer)
-	if err := write(buf, out, depPatches, propertyPatches); err != nil {
+	if err := write(buf, out, patches); err != nil {
 		t.Fatalf("unable to update Maven pom.xml: %v", err)
 	}
 	testutility.NewSnapshot().WithCRLFReplacement().MatchText(t, out.String())
@@ -503,49 +543,51 @@ func TestMavenWriteDM(t *testing.T) {
 		t.Fatalf("failed to read from DepFile: %v", err)
 	}
 
-	depPatches := MavenDependencyPatches{
-		"": map[MavenPatch]bool{
-			{
-				DependencyKey: maven.DependencyKey{
-					GroupID:    "junit",
-					ArtifactID: "junit",
-					Type:       "jar",
-				},
-				NewRequire: "4.13.2",
-			}: true,
-		},
-		"parent": map[MavenPatch]bool{
-			{
-				DependencyKey: maven.DependencyKey{
-					GroupID:    "org.parent",
-					ArtifactID: "parent-pom",
-					Type:       "jar",
-				},
-				NewRequire: "1.2.0",
-			}: true,
-		},
-		"management": map[MavenPatch]bool{
-			{
-				DependencyKey: maven.DependencyKey{
-					GroupID:    "org.management",
-					ArtifactID: "abc",
-					Type:       "jar",
-				},
-				NewRequire: "1.2.3",
-			}: false,
-			{
-				DependencyKey: maven.DependencyKey{
-					GroupID:    "org.management",
-					ArtifactID: "xyz",
-					Type:       "jar",
-				},
-				NewRequire: "2.3.4",
-			}: false,
+	patches := MavenPatches{
+		DependencyPatches: MavenDependencyPatches{
+			"": map[MavenPatch]bool{
+				{
+					DependencyKey: maven.DependencyKey{
+						GroupID:    "junit",
+						ArtifactID: "junit",
+						Type:       "jar",
+					},
+					NewRequire: "4.13.2",
+				}: true,
+			},
+			"parent": map[MavenPatch]bool{
+				{
+					DependencyKey: maven.DependencyKey{
+						GroupID:    "org.parent",
+						ArtifactID: "parent-pom",
+						Type:       "jar",
+					},
+					NewRequire: "1.2.0",
+				}: true,
+			},
+			"management": map[MavenPatch]bool{
+				{
+					DependencyKey: maven.DependencyKey{
+						GroupID:    "org.management",
+						ArtifactID: "abc",
+						Type:       "jar",
+					},
+					NewRequire: "1.2.3",
+				}: false,
+				{
+					DependencyKey: maven.DependencyKey{
+						GroupID:    "org.management",
+						ArtifactID: "xyz",
+						Type:       "jar",
+					},
+					NewRequire: "2.3.4",
+				}: false,
+			},
 		},
 	}
 
 	out := new(bytes.Buffer)
-	if err := write(buf, out, depPatches, MavenPropertyPatches{}); err != nil {
+	if err := write(buf, out, patches); err != nil {
 		t.Fatalf("unable to update Maven pom.xml: %v", err)
 	}
 	testutility.NewSnapshot().WithCRLFReplacement().MatchText(t, out.String())
@@ -553,6 +595,12 @@ func TestMavenWriteDM(t *testing.T) {
 
 func TestBuildPatches(t *testing.T) {
 	t.Parallel()
+
+	dir, err := os.Getwd()
+	if err != nil {
+		t.Fatalf("failed to get current directory: %v", err)
+	}
+	parentPath := filepath.Join(dir, "fixtures", "maven", "parent", "pom.xml")
 
 	depProfileTwoMgmt.AddAttr(dep.MavenArtifactType, "pom")
 	depProfileTwoMgmt.AddAttr(dep.Scope, "import")
@@ -574,6 +622,20 @@ func TestBuildPatches(t *testing.T) {
 				Name:   "org.example:abc",
 			},
 			NewRequire: "1.0.2",
+		},
+		{
+			Pkg: resolve.PackageKey{
+				System: resolve.Maven,
+				Name:   "org.example:aaa",
+			},
+			NewRequire: "1.2.0",
+		},
+		{
+			Pkg: resolve.PackageKey{
+				System: resolve.Maven,
+				Name:   "org.example:ddd",
+			},
+			NewRequire: "1.3.0",
 		},
 		{
 			Pkg: resolve.PackageKey{
@@ -670,10 +732,19 @@ func TestBuildPatches(t *testing.T) {
 		},
 	}
 	specific := MavenManifestSpecific{
+		Parent: maven.Parent{
+			ProjectKey: maven.ProjectKey{
+				GroupID:    "org.parent",
+				ArtifactID: "parent-pom",
+				Version:    "1.1.1",
+			},
+			RelativePath: "../parent/pom.xml",
+		},
 		Properties: []PropertyWithOrigin{
 			{Property: maven.Property{Name: "property.version", Value: "1.0.0"}},
 			{Property: maven.Property{Name: "no.update.minor", Value: "9"}},
 			{Property: maven.Property{Name: "def.version", Value: "2.3.4"}, Origin: "profile@profile-one"},
+			{Property: maven.Property{Name: "aaa.version", Value: "1.1.1"}, Origin: "parent@" + parentPath},
 		},
 		OriginalRequirements: []DependencyWithOrigin{
 			{
@@ -728,120 +799,148 @@ func TestBuildPatches(t *testing.T) {
 				Dependency: maven.Dependency{GroupID: "org.dep", ArtifactID: "plugin-dep", Version: "2.3.3"},
 				Origin:     "plugin@org.plugin:plugin",
 			},
+			{
+				Dependency: maven.Dependency{GroupID: "org.example", ArtifactID: "ddd", Version: "1.2.3"},
+				Origin:     "parent@" + parentPath,
+			},
+			{
+				Dependency: maven.Dependency{GroupID: "org.example", ArtifactID: "aaa", Version: "${aaa.version}"},
+				Origin:     "parent@" + parentPath + "@management",
+			},
 		},
 	}
-	wantDepPatches := MavenDependencyPatches{
-		"": map[MavenPatch]bool{
-			{
-				DependencyKey: maven.DependencyKey{
-					GroupID:    "org.example",
-					ArtifactID: "abc",
-					Type:       "jar",
-				},
-				NewRequire: "1.0.2",
-			}: true,
-			{
-				DependencyKey: maven.DependencyKey{
-					GroupID:    "org.example",
-					ArtifactID: "another-property",
-					Type:       "jar",
-				},
-				NewRequire: "1.1.0",
-			}: true,
-			{
-				DependencyKey: maven.DependencyKey{
-					GroupID:    "org.example",
-					ArtifactID: "property-no-update",
-					Type:       "jar",
-				},
-				NewRequire: "2.0.0",
-			}: true,
-		},
-		"management": map[MavenPatch]bool{
-			{
-				DependencyKey: maven.DependencyKey{
-					GroupID:    "org.example",
-					ArtifactID: "xyz",
-					Type:       "jar",
-				},
-				NewRequire: "2.0.1",
-			}: true,
-			{
-				DependencyKey: maven.DependencyKey{
-					GroupID:    "org.example",
-					ArtifactID: "no-version",
-					Type:       "jar",
-				},
-				NewRequire: "2.0.1",
-			}: true,
-			{
-				DependencyKey: maven.DependencyKey{
-					GroupID:    "org.example",
-					ArtifactID: "override",
-					Type:       "jar",
-				},
-				NewRequire: "2.0.0",
-			}: false,
-		},
-		"profile@profile-one": map[MavenPatch]bool{
-			{
-				DependencyKey: maven.DependencyKey{
-					GroupID:    "org.profile",
-					ArtifactID: "abc",
-					Type:       "jar",
-				},
-				NewRequire: "1.2.4",
-			}: true,
-		},
-		"profile@profile-two@management": map[MavenPatch]bool{
-			{
-				DependencyKey: maven.DependencyKey{
-					GroupID:    "org.import",
-					ArtifactID: "xyz",
-					Type:       "pom",
-				},
-				NewRequire: "6.7.0",
-			}: true,
-		},
-		"plugin@org.plugin:plugin": map[MavenPatch]bool{
-			{
-				DependencyKey: maven.DependencyKey{
-					GroupID:    "org.dep",
-					ArtifactID: "plugin-dep",
-					Type:       "jar",
-				},
-				NewRequire: "2.3.4",
-			}: true,
-		},
-		"parent": map[MavenPatch]bool{
-			{
-				DependencyKey: maven.DependencyKey{
-					GroupID:    "org.parent",
-					ArtifactID: "parent-pom",
-					Type:       "pom",
-				},
-				NewRequire: "1.2.0",
-			}: true,
-		},
-	}
-	wantPropertyPatches := MavenPropertyPatches{
+	want := map[string]MavenPatches{
 		"": {
-			"property.version": "1.0.1",
+			DependencyPatches: MavenDependencyPatches{
+				"": map[MavenPatch]bool{
+					{
+						DependencyKey: maven.DependencyKey{
+							GroupID:    "org.example",
+							ArtifactID: "abc",
+							Type:       "jar",
+						},
+						NewRequire: "1.0.2",
+					}: true,
+					{
+						DependencyKey: maven.DependencyKey{
+							GroupID:    "org.example",
+							ArtifactID: "another-property",
+							Type:       "jar",
+						},
+						NewRequire: "1.1.0",
+					}: true,
+					{
+						DependencyKey: maven.DependencyKey{
+							GroupID:    "org.example",
+							ArtifactID: "property-no-update",
+							Type:       "jar",
+						},
+						NewRequire: "2.0.0",
+					}: true,
+				},
+				"management": map[MavenPatch]bool{
+					{
+						DependencyKey: maven.DependencyKey{
+							GroupID:    "org.example",
+							ArtifactID: "xyz",
+							Type:       "jar",
+						},
+						NewRequire: "2.0.1",
+					}: true,
+					{
+						DependencyKey: maven.DependencyKey{
+							GroupID:    "org.example",
+							ArtifactID: "no-version",
+							Type:       "jar",
+						},
+						NewRequire: "2.0.1",
+					}: true,
+					{
+						DependencyKey: maven.DependencyKey{
+							GroupID:    "org.example",
+							ArtifactID: "override",
+							Type:       "jar",
+						},
+						NewRequire: "2.0.0",
+					}: false,
+				},
+				"profile@profile-one": map[MavenPatch]bool{
+					{
+						DependencyKey: maven.DependencyKey{
+							GroupID:    "org.profile",
+							ArtifactID: "abc",
+							Type:       "jar",
+						},
+						NewRequire: "1.2.4",
+					}: true,
+				},
+				"profile@profile-two@management": map[MavenPatch]bool{
+					{
+						DependencyKey: maven.DependencyKey{
+							GroupID:    "org.import",
+							ArtifactID: "xyz",
+							Type:       "pom",
+						},
+						NewRequire: "6.7.0",
+					}: true,
+				},
+				"plugin@org.plugin:plugin": map[MavenPatch]bool{
+					{
+						DependencyKey: maven.DependencyKey{
+							GroupID:    "org.dep",
+							ArtifactID: "plugin-dep",
+							Type:       "jar",
+						},
+						NewRequire: "2.3.4",
+					}: true,
+				},
+				"parent": map[MavenPatch]bool{
+					{
+						DependencyKey: maven.DependencyKey{
+							GroupID:    "org.parent",
+							ArtifactID: "parent-pom",
+							Type:       "pom",
+						},
+						NewRequire: "1.2.0",
+					}: true,
+				},
+			},
+			PropertyPatches: MavenPropertyPatches{
+				"": {
+					"property.version": "1.0.1",
+				},
+				"profile@profile-one": {
+					"def.version": "2.3.5",
+				},
+			},
 		},
-		"profile@profile-one": {
-			"def.version": "2.3.5",
+		parentPath: {
+			DependencyPatches: MavenDependencyPatches{
+				"": map[MavenPatch]bool{
+					{
+						DependencyKey: maven.DependencyKey{
+							GroupID:    "org.example",
+							ArtifactID: "ddd",
+							Type:       "jar",
+						},
+						NewRequire: "1.3.0",
+					}: true,
+				},
+			},
+			PropertyPatches: MavenPropertyPatches{
+				"": {
+					"aaa.version": "1.2.0",
+				},
+			},
 		},
 	}
 
-	depPatches, propertyPatches, err := buildPatches(patches, specific)
+	allPatches, err := buildPatches(patches, specific)
 	if err != nil {
 		t.Fatalf("failed to build patches: %v", err)
 	}
-	if diff := cmp.Diff(depPatches, wantDepPatches); diff != "" {
-		t.Errorf("depednecy patches mismatch: %s", diff)
-	}
-	if diff := cmp.Diff(propertyPatches, wantPropertyPatches); diff != "" {
-		t.Errorf("property patches mismatch: %s", diff)
+	if diff := cmp.Diff(allPatches, want); diff != "" {
+		t.Errorf("result patches mismatch: %s", diff)
 	}
 }
 
@@ -865,68 +964,6 @@ func TestGeneratePropertyPatches(t *testing.T) {
 		patches, ok := generatePropertyPatches(test.s1, test.s2)
 		if ok != test.possible || !reflect.DeepEqual(patches, test.patches) {
 			t.Errorf("generatePropertyPatches(%s, %s): got %v %v, want %v %v", test.s1, test.s2, patches, ok, test.patches, test.possible)
-		}
-	}
-}
-
-func TestParentPOMPath(t *testing.T) {
-	t.Parallel()
-	dir, err := os.Getwd()
-	if err != nil {
-		t.Fatalf("failed to get current directory: %v", err)
-	}
-	tests := []struct {
-		currentPath, relativePath string
-		want                      string
-	}{
-		// fixtures
-		// |- maven
-		// |  |- my-app
-		// |  |  |- pom.xml
-		// |  |- parent
-		// |  |  |- pom.xml
-		// |- pom.xml
-		{
-			// Parent path is specified correctly.
-			currentPath:  filepath.Join(dir, "fixtures", "maven", "my-app", "pom.xml"),
-			relativePath: "../parent/pom.xml",
-			want:         filepath.Join(dir, "fixtures", "maven", "parent", "pom.xml"),
-		},
-		{
-			// Wrong file name is specified in relative path.
-			currentPath:  filepath.Join(dir, "fixtures", "maven", "my-app", "pom.xml"),
-			relativePath: "../parent/abc.xml",
-			want:         "",
-		},
-		{
-			// Wrong directory is specified in relative path.
-			currentPath:  filepath.Join(dir, "fixtures", "maven", "my-app", "pom.xml"),
-			relativePath: "../not-found/pom.xml",
-			want:         "",
-		},
-		{
-			// Only directory is specified.
-			currentPath:  filepath.Join(dir, "fixtures", "maven", "my-app", "pom.xml"),
-			relativePath: "../parent",
-			want:         filepath.Join(dir, "fixtures", "maven", "parent", "pom.xml"),
-		},
-		{
-			// Parent relative path is default to '../pom.xml'.
-			currentPath:  filepath.Join(dir, "fixtures", "maven", "my-app", "pom.xml"),
-			relativePath: "",
-			want:         filepath.Join(dir, "fixtures", "maven", "pom.xml"),
-		},
-		{
-			// No pom.xml is found even in the default path.
-			currentPath:  filepath.Join(dir, "fixtures", "maven", "pom.xml"),
-			relativePath: "",
-			want:         "",
-		},
-	}
-	for _, test := range tests {
-		got := MavenParentPOMPath(test.currentPath, test.relativePath)
-		if got != test.want {
-			t.Errorf("parentPOMPath(%s, %s): got %s, want %s", test.currentPath, test.relativePath, got, test.want)
 		}
 	}
 }

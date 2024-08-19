@@ -66,6 +66,12 @@ func TestScanImage(t *testing.T) {
 			want:    testutility.NewSnapshot(),
 			wantErr: false,
 		},
+		{
+			name:    "scanning go binaries that's been overwritten for package tracing",
+			args:    args{imagePath: "fixtures/test-package-tracing.tar"},
+			want:    testutility.NewSnapshot(),
+			wantErr: false,
+		},
 	}
 	for _, tt := range tests {
 		tt := tt
@@ -81,6 +87,12 @@ func TestScanImage(t *testing.T) {
 			if (err != nil) != tt.wantErr {
 				t.Errorf("ScanImage() error = %v, wantErr %v", err, tt.wantErr)
 				return
+			}
+
+			for _, lockfile := range got.Lockfiles {
+				for _, pkg := range lockfile.Packages {
+					pkg.ImageOrigin.LayerID = "<Any value>"
+				}
 			}
 
 			sort.Slice(got.Lockfiles, func(i, j int) bool {

@@ -45,6 +45,17 @@
       <groupId>org.example</groupId>
       <artifactId>no-version</artifactId>
     </dependency>
+    <dependency>
+      <groupId>org.example</groupId>
+      <artifactId>exclusions</artifactId>
+      <version>1.0.0</version>
+      <exclusions>
+        <exclusion>
+          <groupId>org.exclude</groupId>
+          <artifactId>exclude</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
   </dependencies>
 
   <dependencyManagement>
