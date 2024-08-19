@@ -53,7 +53,7 @@ func mavenReqKey(t *testing.T, name, artifactType, classifier string) Requiremen
 	})
 }
 
-func TestMavenRead(t *testing.T) {
+func TestMavenReadWrite(t *testing.T) {
 	t.Parallel()
 
 	srv := testutility.NewMockHTTPServer(t)
@@ -411,6 +411,19 @@ func TestMavenRead(t *testing.T) {
 	if diff := cmp.Diff(got, want); diff != "" {
 		t.Errorf("Maven manifest mismatch: %s", diff)
 	}
+
+	// Re-open the file for writing.
+	df, err = lockfile.OpenLocalDepFile(filepath.Join(dir, "fixtures", "maven", "my-app", "pom.xml"))
+	if err != nil {
+		t.Fatalf("failed to open file: %v", err)
+	}
+	defer df.Close()
+
+	out := new(bytes.Buffer)
+	if err := mavenIO.Write(df, out, ManifestPatch{Manifest: &want}); err != nil {
+		t.Fatalf("failed to write Maven pom.xml: %v", err)
+	}
+	testutility.NewSnapshot().WithCRLFReplacement().MatchText(t, out.String())
 }
 
 func TestMavenWrite(t *testing.T) {
@@ -426,8 +439,8 @@ func TestMavenWrite(t *testing.T) {
 	}
 	defer df.Close()
 
-	buf := new(bytes.Buffer)
-	if _, err := buf.ReadFrom(df); err != nil {
+	in := new(bytes.Buffer)
+	if _, err := in.ReadFrom(df); err != nil {
 		t.Fatalf("failed to read from DepFile: %v", err)
 	}
 
@@ -519,7 +532,7 @@ func TestMavenWrite(t *testing.T) {
 	}
 
 	out := new(bytes.Buffer)
-	if err := write(buf.String(), out, patches); err != nil {
+	if err := write(in.String(), out, patches); err != nil {
 		t.Fatalf("unable to update Maven pom.xml: %v", err)
 	}
 	testutility.NewSnapshot().WithCRLFReplacement().MatchText(t, out.String())
@@ -538,8 +551,8 @@ func TestMavenWriteDM(t *testing.T) {
 	}
 	defer df.Close()
 
-	buf := new(bytes.Buffer)
-	if _, err := buf.ReadFrom(df); err != nil {
+	in := new(bytes.Buffer)
+	if _, err := in.ReadFrom(df); err != nil {
 		t.Fatalf("failed to read from DepFile: %v", err)
 	}
 
@@ -587,7 +600,7 @@ func TestMavenWriteDM(t *testing.T) {
 	}
 
 	out := new(bytes.Buffer)
-	if err := write(buf.String(), out, patches); err != nil {
+	if err := write(in.String(), out, patches); err != nil {
 		t.Fatalf("unable to update Maven pom.xml: %v", err)
 	}
 	testutility.NewSnapshot().WithCRLFReplacement().MatchText(t, out.String())
