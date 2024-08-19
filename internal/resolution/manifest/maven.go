@@ -294,7 +294,7 @@ func (MavenManifestIO) Write(df lockfile.DepFile, w io.Writer, patch ManifestPat
 		return fmt.Errorf("failed to read from DepFile: %w", err)
 	}
 
-	return write(buf, w, depPatches, propertyPatches)
+	return write(buf.String(), w, depPatches, propertyPatches)
 }
 
 type MavenPatch struct {
@@ -536,8 +536,8 @@ func compareDependency(d1, d2 dependency) int {
 	return cmp.Compare(d1.Version, d2.Version)
 }
 
-func write(buf *bytes.Buffer, w io.Writer, depPatches MavenDependencyPatches, propertyPatches MavenPropertyPatches) error {
-	dec := xml.NewDecoder(bytes.NewReader(buf.Bytes()))
+func write(raw string, w io.Writer, depPatches MavenDependencyPatches, propertyPatches MavenPropertyPatches) error {
+	dec := xml.NewDecoder(bytes.NewReader([]byte(strings.ReplaceAll(raw, "\t", "  "))))
 	enc := xml.NewEncoder(w)
 
 	for {
@@ -564,7 +564,7 @@ func write(buf *bytes.Buffer, w io.Writer, depPatches MavenDependencyPatches, pr
 				// Thus this would cause a big diff when we try to encode the start element of project.
 
 				// We first capture the raw start element string and write it.
-				projectStart := projectStartElement(buf.String())
+				projectStart := projectStartElement(raw)
 				if projectStart == "" {
 					return errors.New("unable to get start element of project")
 				}
