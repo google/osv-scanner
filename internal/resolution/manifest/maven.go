@@ -631,6 +631,7 @@ func compareDependency(d1, d2 dependency) int {
 
 
 func write(raw string, w io.Writer, depPatches MavenDependencyPatches, propertyPatches MavenPropertyPatches) error {
+	// Replace all tabs with two white space so that they are escaped during encoding.
 	dec := xml.NewDecoder(bytes.NewReader([]byte(strings.ReplaceAll(raw, "\t", "  "))))
 	enc := xml.NewEncoder(w)
 
