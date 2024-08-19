@@ -30,24 +30,9 @@ func (m *MavenRegistryAPIClient) GetProject(ctx context.Context, groupID, artifa
 		return maven.Project{}, fmt.Errorf("failed to join path: %w", err)
 	}
 
-	req, err := http.NewRequestWithContext(ctx, http.MethodGet, u, nil)
-	if err != nil {
-		return maven.Project{}, fmt.Errorf("failed to make new request: %w", err)
-	}
-
-	resp, err := http.DefaultClient.Do(req)
-	if err != nil {
-		return maven.Project{}, fmt.Errorf("%w: Maven registry query failed: %w", errAPIFailed, err)
-	}
-	defer resp.Body.Close()
-
-	if resp.StatusCode != http.StatusOK {
-		return maven.Project{}, fmt.Errorf("%w: Maven registry query status: %s", errAPIFailed, resp.Status)
-	}
-
 	var proj maven.Project
-	if err := xml.NewDecoder(resp.Body).Decode(&proj); err != nil {
-		return maven.Project{}, fmt.Errorf("failed to decode Maven project: %w", err)
+	if err := get(ctx, u, &proj); err != nil {
+		return maven.Project{}, err
 	}
 
 	return proj, nil
@@ -59,25 +44,29 @@ func (m *MavenRegistryAPIClient) GetMetadata(ctx context.Context, groupID, artif
 		return maven.Metadata{}, fmt.Errorf("failed to join path: %w", err)
 	}
 
-	req, err := http.NewRequestWithContext(ctx, http.MethodGet, u, nil)
+	var metadata maven.Metadata
+	if err := get(ctx, u, &metadata); err != nil {
+		return maven.Metadata{}, err
+	}
+
+	return metadata, nil
+}
+
+func get(ctx context.Context, url string, dst interface{}) error {
+	req, err := http.NewRequestWithContext(ctx, http.MethodGet, url, nil)
 	if err != nil {
-		return maven.Metadata{}, fmt.Errorf("failed to make new request: %w", err)
+		return fmt.Errorf("failed to make new request: %w", err)
 	}
 
 	resp, err := http.DefaultClient.Do(req)
 	if err != nil {
-		return maven.Metadata{}, fmt.Errorf("%w: Maven registry query failed: %w", errAPIFailed, err)
+		return fmt.Errorf("%w: Maven registry query failed: %w", errAPIFailed, err)
 	}
 	defer resp.Body.Close()
 
 	if resp.StatusCode != http.StatusOK {
-		return maven.Metadata{}, fmt.Errorf("%w: Maven registry query status: %s", errAPIFailed, resp.Status)
+		return fmt.Errorf("%w: Maven registry query status: %s", errAPIFailed, resp.Status)
 	}
 
-	var metadata maven.Metadata
-	if err := xml.NewDecoder(resp.Body).Decode(&metadata); err != nil {
-		return maven.Metadata{}, fmt.Errorf("failed to decode Maven project: %w", err)
-	}
-
-	return metadata, nil
+	return xml.NewDecoder(resp.Body).Decode(dst)
 }

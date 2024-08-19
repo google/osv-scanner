@@ -59,6 +59,13 @@ func TestGetMetadata(t *testing.T) {
 	      <version>2.0</version>
 		  <version>3.0</version>
 	    </versions>
+	    <snapshotVersions>
+		  <snapshotVersion>
+		    <extension>pom</extension>
+		    <value>2.0.0-20240711.060746-8</value>
+		    <updated>20240711060746</updated>
+		  </snapshotVersion>
+	    </snapshotVersions>
 	  </versioning>
 	</metadata>
 	`))
@@ -77,6 +84,13 @@ func TestGetMetadata(t *testing.T) {
 				"1.0",
 				"2.0",
 				"3.0",
+			},
+			SnapshotVersions: []maven.SnapshotVersion{
+				{
+					Extension: "pom",
+					Value:     "2.0.0-20240711.060746-8",
+					Updated:   "20240711060746",
+				},
 			},
 		},
 	}
