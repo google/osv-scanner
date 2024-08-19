@@ -24,7 +24,7 @@ func TestCycloneDXReporter_Errorf(t *testing.T) {
 		writer := &bytes.Buffer{}
 		r := reporter.NewCycloneDXReporter(io.Discard, writer, test.version, reporter.ErrorLevel)
 
-		r.Errorf(text)
+		r.Errorf("%s", text)
 
 		if writer.String() != text {
 			t.Error("Error level message should have been printed")
@@ -54,7 +54,7 @@ func TestCycloneDXReporter_Warnf(t *testing.T) {
 		writer := &bytes.Buffer{}
 		r := reporter.NewCycloneDXReporter(io.Discard, writer, test.version, test.lvl)
 
-		r.Warnf(text)
+		r.Warnf("%s", text)
 
 		if writer.String() != test.expectedPrintout {
 			t.Errorf("expected \"%s\", got \"%s\"", test.expectedPrintout, writer.String())
@@ -81,7 +81,7 @@ func TestCycloneDXReporter_Infof(t *testing.T) {
 		writer := &bytes.Buffer{}
 		r := reporter.NewCycloneDXReporter(io.Discard, writer, test.version, test.lvl)
 
-		r.Infof(text)
+		r.Infof("%s", text)
 
 		if writer.String() != test.expectedPrintout {
 			t.Errorf("expected \"%s\", got \"%s\"", test.expectedPrintout, writer.String())
@@ -123,7 +123,7 @@ func TestCycloneDXReporter_Verbosef(t *testing.T) {
 		writer := &bytes.Buffer{}
 		r := reporter.NewCycloneDXReporter(io.Discard, writer, test.version, test.lvl)
 
-		r.Verbosef(text)
+		r.Verbosef("%s", text)
 
 		if writer.String() != test.expectedPrintout {
 			t.Errorf("expected \"%s\", got \"%s\"", test.expectedPrintout, writer.String())

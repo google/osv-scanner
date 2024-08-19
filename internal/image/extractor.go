@@ -55,7 +55,7 @@ func extractArtifactDeps(path string, layer *imgLayer) (lockfile.Lockfile, error
 		f.Close()
 
 		if err != nil {
-			if errors.Is(lockfile.ErrIncompatibleFileFormat, err) {
+			if errors.Is(err, lockfile.ErrIncompatibleFileFormat) {
 				continue
 			}
 
