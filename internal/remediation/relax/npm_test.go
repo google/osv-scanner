@@ -74,16 +74,6 @@ func TestRelaxNpm(t *testing.T) {
 			},
 		},
 		{
-			name:          "disallow-major",
-			versions:      []string{"1.2.3", "1.3.4", "2.3.4", "2.4.5", "3.0.0"},
-			from:          "^1.2.3",
-			upgradeConfig: upgrade.Config{"": upgrade.Minor},
-			want: result{
-				version: "^1.2.3",
-				ok:      false,
-			},
-		},
-		{
 			name:          "avoid-prerelease-patch",
 			versions:      []string{"1.2.3", "1.2.4", "1.2.5-alpha"},
 			from:          "1.2.3",
@@ -131,6 +121,46 @@ func TestRelaxNpm(t *testing.T) {
 			want: result{
 				version: "^2.3.4",
 				ok:      true,
+			},
+		},
+		{
+			name:          "disallow-major",
+			versions:      []string{"1.2.3", "1.3.4", "2.3.4", "2.4.5", "3.0.0"},
+			from:          "^1.2.3",
+			upgradeConfig: upgrade.Config{"": upgrade.Minor},
+			want: result{
+				version: "^1.2.3",
+				ok:      false,
+			},
+		},
+		{
+			name:          "disallow-major-pkg-only",
+			versions:      []string{"1.2.3", "1.3.4", "2.3.4", "2.4.5", "3.0.0"},
+			from:          "^1.2.3",
+			upgradeConfig: upgrade.Config{"disallow-major-pkg-only": upgrade.Minor, "": upgrade.None},
+			want: result{
+				version: "^1.2.3",
+				ok:      false,
+			},
+		},
+		{
+			name:          "disallow-pkg",
+			versions:      []string{"1.2.3", "1.3.4", "2.3.4", "2.4.5", "3.0.0"},
+			from:          "^1.2.3",
+			upgradeConfig: upgrade.Config{"disallow-pkg": upgrade.None},
+			want: result{
+				version: "^1.2.3",
+				ok:      false,
+			},
+		},
+		{
+			name:          "disallow-minor",
+			versions:      []string{"1.2.3", "1.3.4", "2.3.4", "2.4.5", "3.0.0"},
+			from:          "~1.2.3",
+			upgradeConfig: upgrade.Config{"disallow-minor": upgrade.Patch},
+			want: result{
+				version: "~1.2.3",
+				ok:      false,
 			},
 		},
 	}
