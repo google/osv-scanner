@@ -9,11 +9,11 @@ import (
 	"deps.dev/util/resolve"
 	"deps.dev/util/resolve/dep"
 	"deps.dev/util/semver"
-	"github.com/google/osv-scanner/internal/manifest"
 	"github.com/google/osv-scanner/internal/resolution"
 	"github.com/google/osv-scanner/internal/resolution/client"
-	resolutionmanifest "github.com/google/osv-scanner/internal/resolution/manifest"
+	"github.com/google/osv-scanner/internal/resolution/manifest"
 	"github.com/google/osv-scanner/internal/resolution/util"
+	"github.com/google/osv-scanner/internal/utility/maven"
 	"github.com/google/osv-scanner/internal/utility/vulns"
 )
 
@@ -79,9 +79,9 @@ func ComputeOverridePatches(ctx context.Context, cl client.ResolutionClient, res
 		// CalculateDiff does not compute override manifest patches correctly, manually fill it out.
 		// TODO: CalculateDiff maybe should not be reconstructing patches.
 		// Refactor CalculateDiff, Relaxer, Override to make patches in a more sane way.
-		diff.Deps = make([]resolutionmanifest.DependencyPatch, len(res.patches))
+		diff.Deps = make([]manifest.DependencyPatch, len(res.patches))
 		for i, p := range res.patches {
-			diff.Deps[i] = resolutionmanifest.DependencyPatch{
+			diff.Deps[i] = manifest.DependencyPatch{
 				Pkg:          p.PackageKey,
 				Type:         dep.Type{},
 				OrigRequire:  "", // Using empty original to signal this is an override patch
@@ -282,9 +282,9 @@ func getVersionsGreater(ctx context.Context, cl client.DependencyClient, vk reso
 }
 
 // patchManifest applies the overridePatches to the manifest in-memory. Returns a copy of the manifest that has been patched.
-func patchManifest(patches []overridePatch, m resolutionmanifest.Manifest) (resolutionmanifest.Manifest, error) {
+func patchManifest(patches []overridePatch, m manifest.Manifest) (manifest.Manifest, error) {
 	if m.System() != resolve.Maven {
-		return resolutionmanifest.Manifest{}, errors.New("unsupported ecosystem")
+		return manifest.Manifest{}, errors.New("unsupported ecosystem")
 	}
 
 	// TODO: The overridePatch does not have an artifact's type or classifier, which is part of what uniquely identifies them.
@@ -303,7 +303,7 @@ func patchManifest(patches []overridePatch, m resolutionmanifest.Manifest) (reso
 				continue
 			}
 			origin, hasOrigin := r.Type.GetAttr(dep.MavenDependencyOrigin)
-			if !hasOrigin || origin == manifest.OriginManagement {
+			if !hasOrigin || origin == maven.OriginManagement {
 				found = true
 				r.Version = p.NewVersion
 				patched.Requirements[i] = r
@@ -319,7 +319,7 @@ func patchManifest(patches []overridePatch, m resolutionmanifest.Manifest) (reso
 					VersionType: resolve.Requirement,
 				},
 			}
-			newReq.Type.AddAttr(dep.MavenDependencyOrigin, manifest.OriginManagement)
+			newReq.Type.AddAttr(dep.MavenDependencyOrigin, maven.OriginManagement)
 			patched.Requirements = append(patched.Requirements, newReq)
 		}
 	}
