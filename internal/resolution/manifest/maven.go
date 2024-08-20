@@ -370,10 +370,9 @@ func (MavenManifestIO) Write(df lockfile.DepFile, w io.Writer, patch ManifestPat
 	return err
 }
 
-// Unescape replaces escaped tabs and newlines with unescaped characters.
+// Unescape replaces escaped tabs with unescaped characters.
 func unescape(out string) []byte {
 	out = strings.ReplaceAll(out, "&#x9;", "\t")
-	out = strings.ReplaceAll(out, "&#xA;", "\n")
 
 	return []byte(out)
 }
