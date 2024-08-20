@@ -4,6 +4,7 @@ import (
 	"math"
 	"slices"
 
+	"github.com/google/osv-scanner/internal/remediation/upgrade"
 	"github.com/google/osv-scanner/internal/resolution"
 	"github.com/google/osv-scanner/internal/resolution/lockfile"
 	"github.com/google/osv-scanner/internal/resolution/manifest"
@@ -46,8 +47,9 @@ type RemediationOptions struct {
 	MinSeverity float64 // Minimum vulnerability CVSS score to consider
 	MaxDepth    int     // Maximum depth of dependency to consider vulnerabilities for (e.g. 1 for direct only)
 
-	AvoidPkgs  []string // Names of dependencies to avoid upgrading
-	AllowMajor bool     // Whether to allow changes to major versions of direct dependencies
+	UpgradeConfig upgrade.Config // Allowed upgrade levels per package.
+	// AvoidPkgs     []string       // Names of dependencies to avoid upgrading
+	// AllowMajor    bool          // Whether to allow changes to major versions of direct dependencies
 }
 
 func (opts RemediationOptions) MatchVuln(v resolution.ResolutionVuln) bool {
