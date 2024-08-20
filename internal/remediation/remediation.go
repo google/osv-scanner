@@ -48,8 +48,6 @@ type RemediationOptions struct {
 	MaxDepth    int     // Maximum depth of dependency to consider vulnerabilities for (e.g. 1 for direct only)
 
 	UpgradeConfig upgrade.Config // Allowed upgrade levels per package.
-	// AvoidPkgs     []string       // Names of dependencies to avoid upgrading
-	// AllowMajor    bool          // Whether to allow changes to major versions of direct dependencies
 }
 
 func (opts RemediationOptions) MatchVuln(v resolution.ResolutionVuln) bool {
