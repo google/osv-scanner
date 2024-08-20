@@ -169,7 +169,7 @@ func MergeMavenParents(ctx context.Context, mavenClient datasource.MavenRegistry
 			if err := xml.NewDecoder(f).Decode(&proj); err != nil {
 				return fmt.Errorf("failed to unmarshal project: %w", err)
 			}
-			if mavenProjectKey(proj) == current.ProjectKey && proj.Packaging == "pom" {
+			if MavenProjectKey(proj) == current.ProjectKey && proj.Packaging == "pom" {
 				// Only mark parent is found when the identifiers and packaging are exptected.
 				parentFound = true
 			}
@@ -188,13 +188,13 @@ func MergeMavenParents(ctx context.Context, mavenClient datasource.MavenRegistry
 				// A parent project should only be of "pom" packaging type.
 				return fmt.Errorf("invalid packaging for parent project %s", proj.Packaging)
 			}
-			if mavenProjectKey(proj) != current.ProjectKey {
+			if MavenProjectKey(proj) != current.ProjectKey {
 				// The identifiers in parent does not match what we want.
 				return fmt.Errorf("parent identifiers mismatch: %v, expect %v", proj.ProjectKey, current.ProjectKey)
 			}
 		}
 		// Empty JDK and ActivationOS indicates merging the default profiles.
-		if err := result.MergeProfiles("", maven.ActivationOS{}); err != nil {
+		if err := proj.MergeProfiles("", maven.ActivationOS{}); err != nil {
 			return err
 		}
 		result.MergeParent(proj)
@@ -204,9 +204,9 @@ func MergeMavenParents(ctx context.Context, mavenClient datasource.MavenRegistry
 	return result.Interpolate()
 }
 
-// mavenProjectKey returns a project key with empty groupId/version
+// MavenProjectKey returns a project key with empty groupId/version
 // filled by corresponding fields in parent.
-func mavenProjectKey(proj maven.Project) maven.ProjectKey {
+func MavenProjectKey(proj maven.Project) maven.ProjectKey {
 	if proj.GroupID == "" {
 		proj.GroupID = proj.Parent.GroupID
 	}

@@ -99,7 +99,7 @@ func traceOrigin(img *Image, scannedLockfiles *ScanResults) {
 
 			// Look at the layer before the current layer
 			oldFileNode, err := img.layers[layerIdx-1].getFileNode(file.FilePath)
-			if errors.Is(fs.ErrNotExist, err) || (err == nil && oldFileNode.isWhiteout) {
+			if errors.Is(err, fs.ErrNotExist) || (err == nil && oldFileNode.isWhiteout) {
 				// Did not exist in the layer before
 
 				// All entries in sourceLayerIdx would have been set in the previous loop, or just above the loop
