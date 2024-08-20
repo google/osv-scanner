@@ -235,7 +235,9 @@ The following flag may be used to limit the patches allowed for your dependencie
   - `patch` allows for updates `>=1.2.3, <1.3.0`
   - `none` disallows any updates
 
-  If `package-name:` is omitted, `level` is applied to all packages. Default is `--upgrade-config=major`.
+  If `package-name:` is omitted, `level` is applied to all packages. The specific `package-name:level` will take precedence over the general `level` (e.g. specifying both `minor` `pkg:none` will use `none` as the allowed level for `pkg`).
+
+  Default behaviour is `--upgrade-config=major`.
 
   Example usage:
 
