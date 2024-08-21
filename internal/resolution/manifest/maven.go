@@ -308,10 +308,12 @@ func (MavenManifestIO) Write(df lockfile.DepFile, w io.Writer, patch ManifestPat
 			// No more local parent pom.xml exists.
 			break
 		}
+
 		f, err := os.Open(currentPath)
 		if err != nil {
 			return fmt.Errorf("failed to open parent file %s: %w", currentPath, err)
 		}
+
 		var proj maven.Project
 		if err := xml.NewDecoder(f).Decode(&proj); err != nil {
 			return fmt.Errorf("failed to unmarshal project: %w", err)
@@ -321,6 +323,7 @@ func (MavenManifestIO) Write(df lockfile.DepFile, w io.Writer, patch ManifestPat
 			// that we don't have write access so we give up here.
 			break
 		}
+
 		origin := mavenOrigin(manifest.OriginParent, currentPath)
 		specific.OriginalRequirements = append(specific.OriginalRequirements, buildOriginalRequirements(proj, origin)...)
 		specific.Properties = append(specific.Properties, buildPropertiesWithOrigins(proj, origin)...)
