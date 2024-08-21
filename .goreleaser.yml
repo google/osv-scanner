@@ -41,5 +41,3 @@ checksum:
   algorithm: sha256
 release:
   draft: true
-changelog:
-  skip: false
