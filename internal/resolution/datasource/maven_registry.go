@@ -23,18 +23,12 @@ func NewMavenRegistryAPIClient(registry string) *MavenRegistryAPIClient {
 }
 
 var errAPIFailed = errors.New("API query failed")
-var errNotFound = errors.New("not found")
 
 // GetProject fetches a pom.xml specified by groupID, artifactID and version and parses it to maven.Project.
 // For a snapshot version, version level metadata is used to find the extact version value.
 func (m *MavenRegistryAPIClient) GetProject(ctx context.Context, groupID, artifactID, version string) (maven.Project, error) {
-	proj, err := m.getProject(ctx, groupID, artifactID, version, "")
-	if err == nil {
-		return proj, nil
-	}
-	if !(errors.Is(err, errNotFound) && strings.HasSuffix(version, "SNAPSHOT")) {
-		// Error is returned unless this is a snapshot version and the error is not found.
-		return maven.Project{}, err
+	if !strings.HasSuffix(version, "SNAPSHOT") {
+		return m.getProject(ctx, groupID, artifactID, version, "")
 	}
 
 	// Fetch version metadata for snapshot versions.
@@ -116,9 +110,6 @@ func get(ctx context.Context, url string, dst interface{}) error {
 	}
 	defer resp.Body.Close()
 
-	if resp.StatusCode == http.StatusNotFound {
-		return fmt.Errorf("%w: Maven registry query status: %w", errAPIFailed, errNotFound)
-	}
 	if resp.StatusCode != http.StatusOK {
 		return fmt.Errorf("%w: Maven registry query status: %s", errAPIFailed, resp.Status)
 	}
