@@ -152,7 +152,7 @@ func printVerticalLicenseViolations(result models.PackageSource, out io.Writer) 
 		fmt.Fprintf(out,
 			"    %s (%s)\n",
 			text.FgYellow.Sprintf("%s@%s", pkg.Package.Name, pkg.Package.Version),
-			text.FgCyan.Sprintf(strings.Join(violations, ", ")),
+			text.FgCyan.Sprintf("%s", strings.Join(violations, ", ")),
 		)
 	}
 

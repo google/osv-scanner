@@ -523,7 +523,7 @@ func scanSBOMFile(r reporter.Reporter, path string, fromFSScan bool) ([]scannedP
 	if !fromFSScan {
 		r.Infof("Failed to parse SBOM using all supported formats:\n")
 		for _, err := range errs {
-			r.Infof(err.Error() + "\n")
+			r.Infof("%s\n", err.Error())
 		}
 	}
 

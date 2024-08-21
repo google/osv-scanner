@@ -23,6 +23,7 @@ import (
 	"deps.dev/util/resolve"
 	"deps.dev/util/resolve/dep"
 	"github.com/google/osv-scanner/internal/remediation"
+	"github.com/google/osv-scanner/internal/remediation/upgrade"
 	"github.com/google/osv-scanner/internal/resolution"
 	"github.com/google/osv-scanner/internal/resolution/client"
 	"github.com/google/osv-scanner/internal/resolution/clienttest"
@@ -61,9 +62,9 @@ func doRelockRelax(ddCl *client.DepsDevClient, io manifest.ManifestIO, filename 
 		return err
 	}
 	_, err = remediation.ComputeRelaxPatches(context.Background(), cl, res, remediation.RemediationOptions{
-		DevDeps:    true,
-		MaxDepth:   -1,
-		AllowMajor: true,
+		DevDeps:       true,
+		MaxDepth:      -1,
+		UpgradeConfig: upgrade.NewConfig(),
 	})
 
 	return err
@@ -92,9 +93,9 @@ func doOverride(ddCl *client.DepsDevClient, io manifest.ManifestIO, filename str
 		return err
 	}
 	_, err = remediation.ComputeOverridePatches(context.Background(), cl, res, remediation.RemediationOptions{
-		DevDeps:    true,
-		MaxDepth:   -1,
-		AllowMajor: true,
+		DevDeps:       true,
+		MaxDepth:      -1,
+		UpgradeConfig: upgrade.NewConfig(),
 	})
 
 	return err
@@ -130,9 +131,9 @@ func doInPlace(ddCl *client.DepsDevClient, io lockfile.LockfileIO, filename stri
 	_ = group.Wait()
 
 	_, err = remediation.ComputeInPlacePatches(context.Background(), cl, g, remediation.RemediationOptions{
-		DevDeps:    true,
-		MaxDepth:   -1,
-		AllowMajor: true,
+		DevDeps:       true,
+		MaxDepth:      -1,
+		UpgradeConfig: upgrade.NewConfig(),
 	})
 
 	return err

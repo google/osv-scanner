@@ -1,4 +1,4 @@
-# Copyright 2023 Google LLC
+# Copyright 2024 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -12,14 +12,24 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-name: lint
-description: "Runs go lints"
+name: OSV PR format check
 
-runs:
-  using: composite
-  steps:
-    - name: Run golangci-lint
-      uses: golangci/golangci-lint-action@aaa42aa0628b4ae2578232a66b541047968fac86 # v6.1.0
-      with:
-        # Optional: version of golangci-lint to use in form of v1.2 or v1.2.3 or `latest` to use the latest version
-        version: v1.60.1
+on:
+  # `pull_request_target` is only required when editing PRs from forks.
+  pull_request:
+    types:
+      - opened
+      - edited
+      - reopened
+
+permissions:
+  pull-requests: read
+
+jobs:
+  title-check:
+    name: Validate PR title
+    runs-on: ubuntu-latest
+    steps:
+      - uses: amannn/action-semantic-pull-request@v5
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

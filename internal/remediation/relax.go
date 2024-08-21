@@ -7,6 +7,7 @@ import (
 
 	"deps.dev/util/resolve"
 	"github.com/google/osv-scanner/internal/remediation/relax"
+	"github.com/google/osv-scanner/internal/remediation/upgrade"
 	"github.com/google/osv-scanner/internal/resolution"
 	"github.com/google/osv-scanner/internal/resolution/client"
 )
@@ -93,10 +94,10 @@ func tryRelaxRemediate(
 		for _, idx := range toRelax {
 			rv := manif.Requirements[idx]
 			// If we'd need to relax a package we want to avoid changing, we cannot fix the vuln
-			if slices.Contains(opts.AvoidPkgs, rv.Name) {
+			if opts.UpgradeConfig.Get(rv.Name) == upgrade.None {
 				return nil, errRelaxRemediateImpossible
 			}
-			newVer, ok := relaxer.Relax(ctx, cl, rv, opts.AllowMajor)
+			newVer, ok := relaxer.Relax(ctx, cl, rv, opts.UpgradeConfig)
 			if !ok {
 				return nil, errRelaxRemediateImpossible
 			}
