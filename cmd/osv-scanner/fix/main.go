@@ -7,6 +7,7 @@ import (
 	"os"
 	"path/filepath"
 
+	"deps.dev/util/resolve"
 	"github.com/google/osv-scanner/internal/remediation"
 	"github.com/google/osv-scanner/internal/resolution/client"
 	"github.com/google/osv-scanner/internal/resolution/lockfile"
@@ -96,7 +97,7 @@ func Command(stdout, stderr io.Writer, r *reporter.Reporter) *cli.Command {
 							return errors.New("override strategy requires manifest file")
 						}
 					default:
-						return fmt.Errorf("unsupported strategy \"%s\" - must be one of: in-place, relock", s)
+						return fmt.Errorf("unsupported strategy \"%s\" - must be one of: in-place, relock, override", s)
 					}
 
 					return nil
@@ -182,27 +183,15 @@ func action(ctx *cli.Context, stdout, stderr io.Writer) (reporter.Reporter, erro
 		},
 	}
 
-	switch ctx.String("data-source") {
-	case "deps.dev":
-		cl, err := client.NewDepsDevClient(depsdev.DepsdevAPI)
+	system := resolve.UnknownSystem
+
+	if opts.Lockfile != "" {
+		rw, err := lockfile.GetLockfileIO(opts.Lockfile)
 		if err != nil {
 			return nil, err
 		}
-		opts.Client.DependencyClient = cl
-	case "native":
-		// TODO: determine ecosystem & client from manifest/lockfile
-		var workDir string
-		// Prefer to use the manifest's directory if available.
-		if opts.Manifest != "" {
-			workDir = filepath.Dir(opts.Manifest)
-		} else {
-			workDir = filepath.Dir(opts.Lockfile)
-		}
-		cl, err := client.NewNpmRegistryClient(workDir)
-		if err != nil {
-			return nil, err
-		}
-		opts.Client.DependencyClient = cl
+		opts.LockfileRW = rw
+		system = rw.System()
 	}
 
 	if opts.Manifest != "" {
@@ -211,14 +200,41 @@ func action(ctx *cli.Context, stdout, stderr io.Writer) (reporter.Reporter, erro
 			return nil, err
 		}
 		opts.ManifestRW = rw
+		// Prefer the manifest's system over the lockfile's.
+		// TODO: make sure they match
+		system = rw.System()
 	}
 
-	if opts.Lockfile != "" {
-		rw, err := lockfile.GetLockfileIO(opts.Lockfile)
+	switch ctx.String("data-source") {
+	case "deps.dev":
+		cl, err := client.NewDepsDevClient(depsdev.DepsdevAPI)
 		if err != nil {
 			return nil, err
 		}
-		opts.LockfileRW = rw
+		opts.Client.DependencyClient = cl
+	case "native":
+		switch system {
+		case resolve.NPM:
+			var workDir string
+			// Prefer to use the manifest's directory if available.
+			if opts.Manifest != "" {
+				workDir = filepath.Dir(opts.Manifest)
+			} else {
+				workDir = filepath.Dir(opts.Lockfile)
+			}
+			cl, err := client.NewNpmRegistryClient(workDir)
+			if err != nil {
+				return nil, err
+			}
+			opts.Client.DependencyClient = cl
+		case resolve.Maven:
+			// TODO: MavenRegistryClient
+			fallthrough
+		case resolve.UnknownSystem:
+			fallthrough
+		default:
+			return nil, fmt.Errorf("native data-source currently unsupported for %s ecosystem", system.String())
+		}
 	}
 
 	if !ctx.Bool("non-interactive") {
