@@ -23,9 +23,45 @@ func NewMavenRegistryAPIClient(registry string) *MavenRegistryAPIClient {
 }
 
 var errAPIFailed = errors.New("API query failed")
+var errNotFound = errors.New("not found")
 
+// GetProject fetches a pom.xml specified by groupID, artifactID and version and parses it to maven.Project.
+// For a snapshot version, version level metadata is used to find the extact version value.
 func (m *MavenRegistryAPIClient) GetProject(ctx context.Context, groupID, artifactID, version string) (maven.Project, error) {
-	u, err := url.JoinPath(m.registry, strings.ReplaceAll(groupID, ".", "/"), artifactID, version, fmt.Sprintf("%s-%s.pom", artifactID, version))
+	proj, err := m.getProject(ctx, groupID, artifactID, version, "")
+	if err == nil {
+		return proj, nil
+	}
+	if !(errors.Is(err, errNotFound) && strings.HasSuffix(version, "SNAPSHOT")) {
+		// Error is returned unless this is a snapshot version and the error is not found.
+		return maven.Project{}, err
+	}
+
+	// Fetch version metadata for snapshot versions.
+	metadata, err := m.getVersionMetadata(ctx, groupID, artifactID, version)
+	if err != nil {
+		return maven.Project{}, err
+	}
+
+	snapshot := ""
+	for _, sv := range metadata.Versioning.SnapshotVersions {
+		if sv.Extension == "pom" {
+			// We only look for pom.xml for project metadata.
+			snapshot = string(sv.Value)
+			break
+		}
+	}
+
+	return m.getProject(ctx, groupID, artifactID, version, snapshot)
+}
+
+// getProject fetches a pom.xml specified by groupID, artifactID and version and parses it to maven.Project.
+// For snapshot versions, the exact version value is specified by snapshot.
+func (m *MavenRegistryAPIClient) getProject(ctx context.Context, groupID, artifactID, version, snapshot string) (maven.Project, error) {
+	if snapshot == "" {
+		snapshot = version
+	}
+	u, err := url.JoinPath(m.registry, strings.ReplaceAll(groupID, ".", "/"), artifactID, version, fmt.Sprintf("%s-%s.pom", artifactID, snapshot))
 	if err != nil {
 		return maven.Project{}, fmt.Errorf("failed to join path: %w", err)
 	}
@@ -38,7 +74,23 @@ func (m *MavenRegistryAPIClient) GetProject(ctx context.Context, groupID, artifa
 	return proj, nil
 }
 
-func (m *MavenRegistryAPIClient) GetMetadata(ctx context.Context, groupID, artifactID string) (maven.Metadata, error) {
+// getVersionMetadata fetches a version level maven-metadata.xml and parses it to maven.Metadata.
+func (m *MavenRegistryAPIClient) getVersionMetadata(ctx context.Context, groupID, artifactID, version string) (maven.Metadata, error) {
+	u, err := url.JoinPath(m.registry, strings.ReplaceAll(groupID, ".", "/"), artifactID, version, "maven-metadata.xml")
+	if err != nil {
+		return maven.Metadata{}, fmt.Errorf("failed to join path: %w", err)
+	}
+
+	var metadata maven.Metadata
+	if err := get(ctx, u, &metadata); err != nil {
+		return maven.Metadata{}, err
+	}
+
+	return metadata, nil
+}
+
+// GetArtifactMetadata fetches an artifact level maven-metadata.xml and parses it to maven.Metadata.
+func (m *MavenRegistryAPIClient) GetArtifactMetadata(ctx context.Context, groupID, artifactID string) (maven.Metadata, error) {
 	u, err := url.JoinPath(m.registry, strings.ReplaceAll(groupID, ".", "/"), artifactID, "maven-metadata.xml")
 	if err != nil {
 		return maven.Metadata{}, fmt.Errorf("failed to join path: %w", err)
@@ -64,6 +116,9 @@ func get(ctx context.Context, url string, dst interface{}) error {
 	}
 	defer resp.Body.Close()
 
+	if resp.StatusCode == http.StatusNotFound {
+		return fmt.Errorf("%w: Maven registry query status: %w", errAPIFailed, errNotFound)
+	}
 	if resp.StatusCode != http.StatusOK {
 		return fmt.Errorf("%w: Maven registry query status: %s", errAPIFailed, resp.Status)
 	}
