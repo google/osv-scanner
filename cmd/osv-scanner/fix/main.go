@@ -6,8 +6,11 @@ import (
 	"io"
 	"os"
 	"path/filepath"
+	"strings"
 
+	"deps.dev/util/resolve"
 	"github.com/google/osv-scanner/internal/remediation"
+	"github.com/google/osv-scanner/internal/remediation/upgrade"
 	"github.com/google/osv-scanner/internal/resolution/client"
 	"github.com/google/osv-scanner/internal/resolution/lockfile"
 	"github.com/google/osv-scanner/internal/resolution/manifest"
@@ -96,7 +99,7 @@ func Command(stdout, stderr io.Writer, r *reporter.Reporter) *cli.Command {
 							return errors.New("override strategy requires manifest file")
 						}
 					default:
-						return fmt.Errorf("unsupported strategy \"%s\" - must be one of: in-place, relock", s)
+						return fmt.Errorf("unsupported strategy \"%s\" - must be one of: in-place, relock, override", s)
 					}
 
 					return nil
@@ -109,16 +112,23 @@ func Command(stdout, stderr io.Writer, r *reporter.Reporter) *cli.Command {
 				Value:    -1,
 			},
 
+			&cli.StringSliceFlag{
+				Category:    upgradeCategory,
+				Name:        "upgrade-config",
+				Usage:       "the allowed package upgrades, in the format `[package-name:]level`. If package-name is omitted, level is applied to all packages. level must be one of (major, minor, patch, none).",
+				DefaultText: "major",
+			},
 			&cli.BoolFlag{
-				// TODO: allow for finer control e.g. specific packages, major/minor/patch
 				Category: upgradeCategory,
 				Name:     "disallow-major-upgrades",
 				Usage:    "disallow major version changes to dependencies",
+				Hidden:   true,
 			},
 			&cli.StringSliceFlag{
 				Category: upgradeCategory,
 				Name:     "disallow-package-upgrades",
 				Usage:    "list of packages to disallow version changes",
+				Hidden:   true,
 			},
 
 			&cli.IntFlag{
@@ -159,10 +169,66 @@ func Command(stdout, stderr io.Writer, r *reporter.Reporter) *cli.Command {
 	}
 }
 
+func parseUpgradeConfig(ctx *cli.Context, r reporter.Reporter) upgrade.Config {
+	config := upgrade.NewConfig()
+
+	if ctx.IsSet("disallow-major-upgrades") {
+		r.Warnf("WARNING: `--disallow-major-upgrades` flag is deprecated, use `--upgrade-config minor` instead\n")
+		if ctx.Bool("disallow-major-upgrades") {
+			config.SetDefault(upgrade.Minor)
+		} else {
+			config.SetDefault(upgrade.Major)
+		}
+	}
+	if ctx.IsSet("disallow-package-upgrades") {
+		r.Warnf("WARNING: `--disallow-package-upgrades` flag is deprecated, use `--upgrade-config PKG:none` instead\n")
+		for _, pkg := range ctx.StringSlice("disallow-package-upgrades") {
+			config.Set(pkg, upgrade.None)
+		}
+	}
+
+	for _, spec := range ctx.StringSlice("upgrade-config") {
+		idx := strings.LastIndex(spec, ":")
+		if idx == 0 {
+			r.Warnf("WARNING: `--upgrade-config %s` - skipping empty package name\n", spec)
+			continue
+		}
+		pkg := ""
+		levelStr := spec
+		if idx > 0 {
+			pkg = spec[:idx]
+			levelStr = spec[idx+1:]
+		}
+		var level upgrade.Level
+		switch levelStr {
+		case "major":
+			level = upgrade.Major
+		case "minor":
+			level = upgrade.Minor
+		case "patch":
+			level = upgrade.Patch
+		case "none":
+			level = upgrade.None
+		default:
+			r.Warnf("WARNING: `--upgrade-config %s` - invalid level string '%s'\n", spec, levelStr)
+			continue
+		}
+		if config.Set(pkg, level) { // returns true if was previously set
+			r.Warnf("WARNING: `--upgrade-config %s` - config for package specified multiple times\n", spec)
+		}
+	}
+
+	return config
+}
+
 func action(ctx *cli.Context, stdout, stderr io.Writer) (reporter.Reporter, error) {
 	if !ctx.IsSet("manifest") && !ctx.IsSet("lockfile") {
 		return nil, errors.New("manifest or lockfile is required")
 	}
+
+	// TODO: This isn't what the reporter is designed for.
+	// Only using r.Infof()/r.Warnf()/r.Errorf() to print to stdout/stderr.
+	r := reporter.NewTableReporter(stdout, stderr, reporter.InfoLevel, false, 0)
 
 	opts := osvFixOptions{
 		RemediationOptions: remediation.RemediationOptions{
@@ -171,8 +237,7 @@ func action(ctx *cli.Context, stdout, stderr io.Writer) (reporter.Reporter, erro
 			DevDeps:       !ctx.Bool("ignore-dev"),
 			MinSeverity:   ctx.Float64("min-severity"),
 			MaxDepth:      ctx.Int("max-depth"),
-			AvoidPkgs:     ctx.StringSlice("disallow-package-upgrades"),
-			AllowMajor:    !ctx.Bool("disallow-major-upgrades"),
+			UpgradeConfig: parseUpgradeConfig(ctx, r),
 		},
 		Manifest:  ctx.String("manifest"),
 		Lockfile:  ctx.String("lockfile"),
@@ -180,6 +245,28 @@ func action(ctx *cli.Context, stdout, stderr io.Writer) (reporter.Reporter, erro
 		Client: client.ResolutionClient{
 			VulnerabilityClient: client.NewOSVClient(),
 		},
+	}
+
+	system := resolve.UnknownSystem
+
+	if opts.Lockfile != "" {
+		rw, err := lockfile.GetLockfileIO(opts.Lockfile)
+		if err != nil {
+			return nil, err
+		}
+		opts.LockfileRW = rw
+		system = rw.System()
+	}
+
+	if opts.Manifest != "" {
+		rw, err := manifest.GetManifestIO(opts.Manifest)
+		if err != nil {
+			return nil, err
+		}
+		opts.ManifestRW = rw
+		// Prefer the manifest's system over the lockfile's.
+		// TODO: make sure they match
+		system = rw.System()
 	}
 
 	switch ctx.String("data-source") {
@@ -190,44 +277,34 @@ func action(ctx *cli.Context, stdout, stderr io.Writer) (reporter.Reporter, erro
 		}
 		opts.Client.DependencyClient = cl
 	case "native":
-		// TODO: determine ecosystem & client from manifest/lockfile
-		var workDir string
-		// Prefer to use the manifest's directory if available.
-		if opts.Manifest != "" {
-			workDir = filepath.Dir(opts.Manifest)
-		} else {
-			workDir = filepath.Dir(opts.Lockfile)
+		switch system {
+		case resolve.NPM:
+			var workDir string
+			// Prefer to use the manifest's directory if available.
+			if opts.Manifest != "" {
+				workDir = filepath.Dir(opts.Manifest)
+			} else {
+				workDir = filepath.Dir(opts.Lockfile)
+			}
+			cl, err := client.NewNpmRegistryClient(workDir)
+			if err != nil {
+				return nil, err
+			}
+			opts.Client.DependencyClient = cl
+		case resolve.Maven:
+			// TODO: MavenRegistryClient
+			fallthrough
+		case resolve.UnknownSystem:
+			fallthrough
+		default:
+			return nil, fmt.Errorf("native data-source currently unsupported for %s ecosystem", system.String())
 		}
-		cl, err := client.NewNpmRegistryClient(workDir)
-		if err != nil {
-			return nil, err
-		}
-		opts.Client.DependencyClient = cl
-	}
-
-	if opts.Manifest != "" {
-		rw, err := manifest.GetManifestIO(opts.Manifest)
-		if err != nil {
-			return nil, err
-		}
-		opts.ManifestRW = rw
-	}
-
-	if opts.Lockfile != "" {
-		rw, err := lockfile.GetLockfileIO(opts.Lockfile)
-		if err != nil {
-			return nil, err
-		}
-		opts.LockfileRW = rw
 	}
 
 	if !ctx.Bool("non-interactive") {
 		return nil, interactiveMode(ctx.Context, opts)
 	}
 
-	// TODO: This isn't what the reporter is designed for.
-	// Only using r.Infof() and r.Errorf() to print to stdout & stderr respectively.
-	r := reporter.NewTableReporter(stdout, stderr, reporter.InfoLevel, false, 0)
 	maxUpgrades := ctx.Int("apply-top")
 
 	strategy := ctx.String("strategy")

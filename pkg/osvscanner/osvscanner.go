@@ -327,11 +327,12 @@ func scanImage(r reporter.Reporter, path string) ([]scannedPackage, error) {
 	for _, l := range scanResults.Lockfiles {
 		for _, pkgDetail := range l.Packages {
 			packages = append(packages, scannedPackage{
-				Name:      pkgDetail.Name,
-				Version:   pkgDetail.Version,
-				Commit:    pkgDetail.Commit,
-				Ecosystem: pkgDetail.Ecosystem,
-				DepGroups: pkgDetail.DepGroups,
+				Name:        pkgDetail.Name,
+				Version:     pkgDetail.Version,
+				Commit:      pkgDetail.Commit,
+				Ecosystem:   pkgDetail.Ecosystem,
+				DepGroups:   pkgDetail.DepGroups,
+				ImageOrigin: pkgDetail.ImageOrigin,
 				Source: models.SourceInfo{
 					Path: path + ":" + l.FilePath,
 					Type: "docker",
@@ -522,7 +523,7 @@ func scanSBOMFile(r reporter.Reporter, path string, fromFSScan bool) ([]scannedP
 	if !fromFSScan {
 		r.Infof("Failed to parse SBOM using all supported formats:\n")
 		for _, err := range errs {
-			r.Infof(err.Error() + "\n")
+			r.Infof("%s\n", err.Error())
 		}
 	}
 
@@ -783,13 +784,14 @@ func parseLockfilePath(lockfileElem string) (string, string) {
 }
 
 type scannedPackage struct {
-	PURL      string
-	Name      string
-	Ecosystem lockfile.Ecosystem
-	Commit    string
-	Version   string
-	Source    models.SourceInfo
-	DepGroups []string
+	PURL        string
+	Name        string
+	Ecosystem   lockfile.Ecosystem
+	Commit      string
+	Version     string
+	Source      models.SourceInfo
+	ImageOrigin *models.ImageOriginDetails
+	DepGroups   []string
 }
 
 // Perform osv scanner action, with optional reporter to output information

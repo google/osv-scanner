@@ -14,7 +14,7 @@ require (
 	github.com/charmbracelet/glamour v0.7.0
 	github.com/charmbracelet/lipgloss v0.12.1
 	github.com/dghubble/trie v0.1.0
-	github.com/gkampitakis/go-snaps v0.5.6
+	github.com/gkampitakis/go-snaps v0.5.7
 	github.com/go-git/go-billy/v5 v5.5.0
 	github.com/go-git/go-git/v5 v5.12.0
 	github.com/google/go-cmp v0.6.0
@@ -26,13 +26,13 @@ require (
 	github.com/package-url/packageurl-go v0.1.3
 	github.com/pandatix/go-cvss v0.6.2
 	github.com/spdx/tools-golang v0.5.5
-	github.com/tidwall/gjson v1.17.1
+	github.com/tidwall/gjson v1.17.3
 	github.com/tidwall/pretty v1.2.1
 	github.com/tidwall/sjson v1.2.5
 	github.com/urfave/cli/v2 v2.27.3
 	golang.org/x/exp v0.0.0-20240719175910-8a7402abbf56
-	golang.org/x/mod v0.19.0
-	golang.org/x/sync v0.7.0
+	golang.org/x/mod v0.20.0
+	golang.org/x/sync v0.8.0
 	golang.org/x/term v0.22.0
 	golang.org/x/vuln v1.0.4
 	google.golang.org/grpc v1.65.0

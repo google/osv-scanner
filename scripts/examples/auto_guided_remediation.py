@@ -17,9 +17,9 @@ PATCH_STRATEGIES = [
     # This could also include things like:
     # '--min-severity=X'  Minimum severity of vulnerabilities to consider.
     # '--max-depth=Y': Maximum (shortest) dependency depth
-    # '--disallow-major-upgrades={true/false}':  Whether or not major upgrades are done.
+    # '--upgrade-config={major/minor/patch}':  What level of package upgrades are allowed.
     # etc... which can help reduce/increase the scope of changes by prioritizing vulnerabilities according to these filters.
-    # e.g. ['--strategy=relock', '--disallow-major-upgrades=true', '--max-depth=5'],  # Relock the manifest and try direct dependency bumps.
+    # e.g. ['--strategy=relock', '--upgrade-config=minor', '--max-depth=5'],  # Relock the manifest and try direct dependency bumps.
     # See `osv-scanner fix --help`.
 ]
 
@@ -49,8 +49,8 @@ def run_fix(n_patches: int, avoid_pkgs: List[str], strategy: List[str]) -> Tuple
   if n_patches != 0:
     cmd.extend(['--apply-top', str(n_patches)])
 
-  if len(avoid_pkgs) > 0:
-    cmd.extend(['--disallow-package-upgrades', ','.join(avoid_pkgs)])
+  for pkg in avoid_pkgs:
+    cmd.extend(['--upgrade-config', f'{pkg}:none'])
 
   try:
     output = subprocess.check_output(cmd, text=True)
