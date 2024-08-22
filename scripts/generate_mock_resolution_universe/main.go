@@ -69,6 +69,37 @@ func doRelockRelax(ddCl *client.DepsDevClient, io manifest.ManifestIO, filename 
 	return err
 }
 
+func doOverride(ddCl *client.DepsDevClient, io manifest.ManifestIO, filename string) error {
+	cl := client.ResolutionClient{
+		VulnerabilityClient: client.NewOSVClient(),
+		DependencyClient:    ddCl,
+	}
+
+	f, err := lf.OpenLocalDepFile(filename)
+	if err != nil {
+		return err
+	}
+	defer f.Close()
+
+	manif, err := io.Read(f)
+	if err != nil {
+		return err
+	}
+
+	cl.PreFetch(context.Background(), manif.Requirements, manif.FilePath)
+	res, err := resolution.Resolve(context.Background(), cl, manif)
+	if err != nil {
+		return err
+	}
+	_, err = remediation.ComputeOverridePatches(context.Background(), cl, res, remediation.RemediationOptions{
+		DevDeps:    true,
+		MaxDepth:   -1,
+		AllowMajor: true,
+	})
+
+	return err
+}
+
 func doInPlace(ddCl *client.DepsDevClient, io lockfile.LockfileIO, filename string) error {
 	cl := client.ResolutionClient{
 		VulnerabilityClient: client.NewOSVClient(),
@@ -183,34 +214,17 @@ func makeUniverse(cl *client.DepsDevClient) (clienttest.ResolutionUniverse, erro
 				VersionType: resolve.Concrete,
 			})
 			if err != nil {
-				return clienttest.ResolutionUniverse{}, err
+				continue
 			}
 			for _, r := range reqs {
-				// don't bother writing dev dependencies
-				if r.Type.HasAttr(dep.Dev) {
+				// Don't bother writing Dev or Test dependencies.
+				if r.Type.HasAttr(dep.Dev) || r.Type.HasAttr(dep.Test) {
 					continue
 				}
 				str := r.Name + "@" + r.Version
-
-				// The type's String is the same format as what the universe expects.
-				// Manually parse and format the type string.
-				var typeParts []string
-				types := strings.Split(r.Type.String(), "|")
-				for _, t := range types {
-					if t == "reg" { // reg = regular - ignore that type
-						continue
-					}
-					parts := strings.SplitN(t, "=", 2)
-					if len(parts) == 1 {
-						// not a key-value pair, just append the string
-						typeParts = append(typeParts, parts[0])
-					} else {
-						// key-value pair, append the key and remove quotes from value
-						typeParts = append(typeParts, parts[0]+" "+strings.Trim(parts[1], `"`))
-					}
-				}
-				if len(typeParts) > 0 {
-					str = strings.Join(typeParts, " ") + "|" + str
+				typeStr := typeString(r.Type)
+				if typeStr != "" {
+					str = typeStr + "|" + str
 				}
 				fmt.Fprintf(schema, "\t\t%s\n", str)
 			}
@@ -246,6 +260,29 @@ func makeUniverse(cl *client.DepsDevClient) (clienttest.ResolutionUniverse, erro
 	return clienttest.ResolutionUniverse{System: system.String(), Schema: schema.String(), Vulns: vulns}, nil
 }
 
+// These are just the relevant AttrKeys for our supported ecosystems.
+var flagAttrs = [...]dep.AttrKey{dep.Dev, dep.Opt, dep.Test} // Keys without values
+var valueAttrs = [...]dep.AttrKey{dep.Scope, dep.MavenClassifier, dep.MavenArtifactType, dep.MavenDependencyOrigin, dep.MavenExclusions, dep.KnownAs, dep.Selector}
+
+func typeString(t dep.Type) string {
+	// dep.Type.String() is not the same format as what the universe schema wants.
+	// Manually construct the valid string.
+	var parts []string
+	for _, attr := range flagAttrs {
+		if t.HasAttr(attr) {
+			parts = append(parts, attr.String())
+		}
+	}
+
+	for _, attr := range valueAttrs {
+		if value, ok := t.GetAttr(attr); ok {
+			parts = append(parts, attr.String(), strings.ReplaceAll(value, "|", ",")) // Must convert the MavenExclusions separator.
+		}
+	}
+
+	return strings.Join(parts, " ")
+}
+
 func main() {
 	cl, err := client.NewDepsDevClient(depsdev.DepsdevAPI)
 	if err != nil {
@@ -257,24 +294,38 @@ func main() {
 	for _, filename := range os.Args[1:] {
 		filename := filename
 		if io, err := manifest.GetManifestIO(filename); err == nil {
-			group.Go(func() error {
-				err := doRelockRelax(cl, io, filename)
-				if err != nil {
-					return fmt.Errorf("failed to relock/relax %s: %w", filename, err)
-				}
+			if remediation.SupportsRelax(io) {
+				group.Go(func() error {
+					err := doRelockRelax(cl, io, filename)
+					if err != nil {
+						return fmt.Errorf("failed to relock/relax %s: %w", filename, err)
+					}
 
-				return nil
-			})
+					return nil
+				})
+			}
+			if remediation.SupportsOverride(io) {
+				group.Go(func() error {
+					err := doOverride(cl, io, filename)
+					if err != nil {
+						return fmt.Errorf("failed to relock/override %s: %w", filename, err)
+					}
+
+					return nil
+				})
+			}
 		}
 		if io, err := lockfile.GetLockfileIO(filename); err == nil {
-			group.Go(func() error {
-				err := doInPlace(cl, io, filename)
-				if err != nil {
-					return fmt.Errorf("failed to in-place update %s: %w", filename, err)
-				}
+			if remediation.SupportsInPlace(io) {
+				group.Go(func() error {
+					err := doInPlace(cl, io, filename)
+					if err != nil {
+						return fmt.Errorf("failed to in-place update %s: %w", filename, err)
+					}
 
-				return nil
-			})
+					return nil
+				})
+			}
 		}
 	}
 	if err := group.Wait(); err != nil {
@@ -283,7 +334,7 @@ func main() {
 
 	universe, err := makeUniverse(cl)
 	if err != nil {
-		fmt.Fprintln(os.Stderr, err)
+		fmt.Fprintf(os.Stderr, "error making universe: %v\n", err)
 		os.Exit(1)
 	}
 

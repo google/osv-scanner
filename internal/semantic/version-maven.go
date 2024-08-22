@@ -44,7 +44,6 @@ func (vt *mavenVersionToken) equal(wt mavenVersionToken) bool {
 	return vt.prefix == wt.prefix && vt.value == wt.value
 }
 
-//nolint:gochecknoglobals // this is read-only and the nicest implementation
 var keywordOrder = []string{"alpha", "beta", "milestone", "rc", "snapshot", "", "sp"}
 
 func findKeywordOrder(keyword string) int {

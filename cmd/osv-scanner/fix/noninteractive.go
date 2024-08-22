@@ -2,6 +2,7 @@ package fix
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"os"
 	"slices"
@@ -17,6 +18,10 @@ import (
 )
 
 func autoInPlace(ctx context.Context, r reporter.Reporter, opts osvFixOptions, maxUpgrades int) error {
+	if !remediation.SupportsInPlace(opts.LockfileRW) {
+		return errors.New("in-place strategy is not supported for lockfile")
+	}
+
 	r.Infof("Scanning %s...\n", opts.Lockfile)
 	f, err := lockfile.OpenLocalDepFile(opts.Lockfile)
 	if err != nil {
@@ -92,6 +97,10 @@ func autoChooseInPlacePatches(res remediation.InPlaceResult, maxUpgrades int) ([
 }
 
 func autoRelock(ctx context.Context, r reporter.Reporter, opts osvFixOptions, maxUpgrades int) error {
+	if !remediation.SupportsRelax(opts.ManifestRW) {
+		return errors.New("relock strategy is not supported for manifest")
+	}
+
 	r.Infof("Resolving %s...\n", opts.Manifest)
 	f, err := lockfile.OpenLocalDepFile(opts.Manifest)
 	if err != nil {
@@ -236,6 +245,117 @@ func relockUnfixableVulns(diffs []resolution.ResolutionDiff) []*resolution.Resol
 	}
 
 	return unfixable
+}
+
+func autoOverride(ctx context.Context, r reporter.Reporter, opts osvFixOptions, maxUpgrades int) error {
+	if !remediation.SupportsOverride(opts.ManifestRW) {
+		return errors.New("override strategy is not supported for manifest")
+	}
+
+	r.Infof("Resolving %s...\n", opts.Manifest)
+	f, err := lockfile.OpenLocalDepFile(opts.Manifest)
+	if err != nil {
+		return err
+	}
+
+	manif, err := opts.ManifestRW.Read(f)
+	f.Close()
+	if err != nil {
+		return err
+	}
+
+	opts.Client.PreFetch(ctx, manif.Requirements, manif.FilePath)
+	res, err := resolution.Resolve(ctx, opts.Client, manif)
+	if err != nil {
+		return err
+	}
+
+	if errs := res.Errors(); len(errs) > 0 {
+		r.Warnf("WARNING: encountered %d errors during dependency resolution:\n", len(errs))
+		r.Warnf(resolutionErrorString(res, errs))
+	}
+
+	res.FilterVulns(opts.MatchVuln)
+	// TODO: count vulnerabilities per unique version as scan action does
+	totalVulns := len(res.Vulns)
+	r.Infof("Found %d vulnerabilities matching the filter\n", totalVulns)
+
+	allPatches, err := remediation.ComputeOverridePatches(ctx, opts.Client, res, opts.RemediationOptions)
+	if err != nil {
+		return err
+	}
+
+	if err := opts.Client.WriteCache(manif.FilePath); err != nil {
+		r.Warnf("WARNING: failed to write resolution cache: %v\n", err)
+	}
+
+	if len(allPatches) == 0 {
+		r.Infof("No dependency patches are possible\n")
+		r.Infof("REMAINING-VULNS: %d\n", totalVulns)
+		r.Infof("UNFIXABLE-VULNS: %d\n", totalVulns)
+
+		return nil
+	}
+
+	depPatches, nFixed := autoChooseOverridePatches(allPatches, maxUpgrades)
+	nUnfixable := len(relockUnfixableVulns(allPatches))
+	r.Infof("Can fix %d/%d matching vulnerabilities by overriding %d dependencies\n", nFixed, totalVulns, len(depPatches))
+	for _, p := range depPatches {
+		r.Infof("OVERRIDE-PACKAGE: %s,%s\n", p.Pkg.Name, p.NewRequire)
+	}
+	r.Infof("REMAINING-VULNS: %d\n", totalVulns-nFixed)
+	r.Infof("UNFIXABLE-VULNS: %d\n", nUnfixable)
+	// TODO: Print the FIXED-VULN-IDS, REMAINING-VULN-IDS, UNFIXABLE-VULN-IDS
+	// TODO: Consider potentially introduced vulnerabilities
+
+	r.Infof("Rewriting %s...\n", opts.Manifest)
+	if err := manifest.Overwrite(opts.ManifestRW, opts.Manifest, manifest.ManifestPatch{Manifest: &manif, Deps: depPatches}); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func autoChooseOverridePatches(diffs []resolution.ResolutionDiff, maxUpgrades int) ([]manifest.DependencyPatch, int) {
+	if maxUpgrades == 0 {
+		return nil, 0
+	}
+
+	var patches []manifest.DependencyPatch
+	pkgChanged := make(map[resolve.PackageKey]bool) // dependencies we've already applied a patch to
+	fixedVulns := make(map[string]bool)             // vulns that have already been fixed by a patch
+	for _, diff := range diffs {
+		// If this patch is incompatible with existing patches, skip adding it to the patch list.
+
+		// A patch is incompatible if any of its changed packages have already been changed by an existing patch.
+		if slices.ContainsFunc(diff.Deps, func(dp manifest.DependencyPatch) bool { return pkgChanged[dp.Pkg] }) {
+			continue
+		}
+		// A patch is also incompatible if any fixed vulnerability has already been fixed by another patch.
+		// This would happen if updating the version of one package has a side effect of also updating or removing one of its vulnerable dependencies.
+		// e.g. We have {foo@1 -> bar@1}, and two possible patches [foo@3, bar@2].
+		// Patching foo@3 makes {foo@3 -> bar@3}, which also fixes the vulnerability in bar.
+		// Applying both patches would force {foo@3 -> bar@2}, which is less desirable.
+		if slices.ContainsFunc(diff.RemovedVulns, func(rv resolution.ResolutionVuln) bool { return fixedVulns[rv.Vulnerability.ID] }) {
+			continue
+		}
+
+		// Add all individual package patches to the final patch list, and track the vulns this is anticipated to fix.
+		for _, dp := range diff.Deps {
+			patches = append(patches, dp)
+			pkgChanged[dp.Pkg] = true
+		}
+		for _, rv := range diff.RemovedVulns {
+			fixedVulns[rv.Vulnerability.ID] = true
+		}
+
+		maxUpgrades--
+		if maxUpgrades == 0 {
+			break
+		}
+	}
+
+	return patches, len(fixedVulns)
 }
 
 func resolutionErrorString(res *resolution.ResolutionResult, errs []resolution.ResolutionError) string {
