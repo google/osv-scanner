@@ -8,8 +8,8 @@ import (
 
 	"deps.dev/util/resolve"
 	"deps.dev/util/resolve/dep"
-	"deps.dev/util/semver"
 	"github.com/google/osv-scanner/internal/manifest"
+	"github.com/google/osv-scanner/internal/remediation/upgrade"
 	"github.com/google/osv-scanner/internal/resolution"
 	"github.com/google/osv-scanner/internal/resolution/client"
 	resolutionmanifest "github.com/google/osv-scanner/internal/resolution/manifest"
@@ -169,7 +169,7 @@ func overridePatchVulns(ctx context.Context, cl client.ResolutionClient, result 
 		// For each VersionKey, try fix as many of the vulns affecting it as possible.
 		for vk, vulnerabilities := range vkVulns {
 			// Consider vulns affecting packages we don't want to change unfixable
-			if slices.Contains(opts.AvoidPkgs, vk.Name) {
+			if opts.UpgradeConfig.Get(vk.Name) == upgrade.None {
 				continue
 			}
 
@@ -182,11 +182,9 @@ func overridePatchVulns(ctx context.Context, cl client.ResolutionClient, result 
 
 			// Find the minimal greater version that fixes as many vulnerabilities as possible.
 			for _, ver := range versions {
-				if !opts.AllowMajor {
-					// Major version updates are not allowed - break if we've encountered a major update.
-					if _, diff, _ := vk.System.Semver().Difference(vk.Version, ver.Version); diff == semver.DiffMajor {
-						break
-					}
+				// Break if we've encountered a disallowed version update.
+				if _, diff, _ := vk.System.Semver().Difference(vk.Version, ver.Version); !opts.UpgradeConfig.Get(vk.Name).Allows(diff) {
+					break
 				}
 
 				// Count the remaining known vulns that affect this version.

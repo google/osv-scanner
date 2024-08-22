@@ -5,15 +5,16 @@ import (
 	"testing"
 
 	"github.com/google/osv-scanner/internal/remediation"
+	"github.com/google/osv-scanner/internal/remediation/upgrade"
 )
 
 func TestComputeOverridePatches(t *testing.T) {
 	t.Parallel()
 
 	basicOpts := remediation.RemediationOptions{
-		DevDeps:    true,
-		MaxDepth:   -1,
-		AllowMajor: true,
+		DevDeps:       true,
+		MaxDepth:      -1,
+		UpgradeConfig: upgrade.NewConfig(),
 	}
 
 	tests := []struct {

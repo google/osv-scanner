@@ -9,6 +9,7 @@ import (
 	"deps.dev/util/resolve"
 	"deps.dev/util/resolve/dep"
 	"deps.dev/util/semver"
+	"github.com/google/osv-scanner/internal/remediation/upgrade"
 	"github.com/google/osv-scanner/internal/resolution"
 	"github.com/google/osv-scanner/internal/resolution/client"
 	lf "github.com/google/osv-scanner/internal/resolution/lockfile"
@@ -135,17 +136,15 @@ func ComputeInPlacePatches(ctx context.Context, cl client.ResolutionClient, grap
 				continue
 			}
 			// Consider vulns affecting packages we don't want to change unfixable
-			if slices.Contains(opts.AvoidPkgs, vk.Name) {
+			if opts.UpgradeConfig.Get(vk.Name) == upgrade.None {
 				result.Unfixable = append(result.Unfixable, vuln)
 				continue
 			}
 			newVK, err := findFixedVersion(ctx, cl, vk.PackageKey, func(newVK resolve.VersionKey) bool {
-				// Check if this is a disallowed major version bump
-				if !opts.AllowMajor {
-					_, diff, err := vk.Semver().Difference(vk.Version, newVK.Version)
-					if err != nil || diff == semver.DiffMajor {
-						return false
-					}
+				// Check if this is a disallowed version bump
+				_, diff, err := vk.Semver().Difference(vk.Version, newVK.Version)
+				if err != nil || !opts.UpgradeConfig.Get(vk.Name).Allows(diff) {
+					return false
 				}
 				// Check if dependent packages are still satisfied by new version
 				ok, err := vkDependentConstraint[vk].Match(newVK.Version)
