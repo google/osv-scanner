@@ -303,7 +303,7 @@ func (MavenManifestIO) Write(df lockfile.DepFile, w io.Writer, patch ManifestPat
 		}
 		visited[parent.ProjectKey] = true
 
-		currentPath = mavenutil.MavenParentPOMPath(currentPath, string(parent.RelativePath))
+		currentPath = mavenutil.ParentPOMPath(currentPath, string(parent.RelativePath))
 		if currentPath == "" {
 			// No more local parent pom.xml exists.
 			break
@@ -318,13 +318,13 @@ func (MavenManifestIO) Write(df lockfile.DepFile, w io.Writer, patch ManifestPat
 		if err := xml.NewDecoder(f).Decode(&proj); err != nil {
 			return fmt.Errorf("failed to unmarshal project: %w", err)
 		}
-		if manifest.MavenProjectKey(proj) != parent.ProjectKey || proj.Packaging != "pom" {
+		if mavenutil.ProjectKey(proj) != parent.ProjectKey || proj.Packaging != "pom" {
 			// This is not the project that we are looking for, we should fetch from upstream
 			// that we don't have write access so we give up here.
 			break
 		}
 
-		origin := mavenOrigin(manifest.OriginParent, currentPath)
+		origin := mavenOrigin(mavenutil.OriginParent, currentPath)
 		specific.OriginalRequirements = append(specific.OriginalRequirements, buildOriginalRequirements(proj, origin)...)
 		specific.Properties = append(specific.Properties, buildPropertiesWithOrigins(proj, origin)...)
 		parent = proj.Parent
