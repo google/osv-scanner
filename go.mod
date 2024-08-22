@@ -4,7 +4,7 @@ go 1.21.12
 
 require (
 	deps.dev/api/v3 v3.0.0-20240730004939-e80e6658c33b
-	deps.dev/util/maven v0.0.0-20240730004939-e80e6658c33b
+	deps.dev/util/maven v0.0.0-20240807013505-16da96fe8b66
 	deps.dev/util/resolve v0.0.0-20240730004939-e80e6658c33b
 	deps.dev/util/semver v0.0.0-20240730004939-e80e6658c33b
 	github.com/BurntSushi/toml v1.4.0

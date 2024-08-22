@@ -31,7 +31,7 @@ const MaxParent = 100
 // allowLocal indicates whether parsing local parent pom.xml is allowed.
 // path holds the path to the current pom.xml, which is used to compute the
 // relative path of parent.
-func MergeParents(ctx context.Context, mavenClient datasource.MavenRegistryAPIClient, result *maven.Project, current maven.Parent, start int, path string, allowLocal bool) error {
+func MergeParents(ctx context.Context, mavenClient *datasource.MavenRegistryAPIClient, result *maven.Project, current maven.Parent, start int, path string, allowLocal bool) error {
 	currentPath := path
 	visited := make(map[maven.ProjectKey]bool, MaxParent)
 	for n := start; n < MaxParent; n++ {

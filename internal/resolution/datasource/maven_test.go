@@ -13,9 +13,7 @@ func TestGetProject(t *testing.T) {
 	t.Parallel()
 
 	srv := testutility.NewMockHTTPServer(t)
-	client := &MavenRegistryAPIClient{
-		registry: srv.URL,
-	}
+	client := NewMavenRegistryAPIClient(srv.URL)
 	srv.SetResponse(t, "org/example/x.y.z/1.0.0/x.y.z-1.0.0.pom", []byte(`
 	<project>
 	  <groupId>org.example</groupId>

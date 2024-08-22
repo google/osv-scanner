@@ -35,14 +35,14 @@ func mavenRequirementKey(requirement resolve.RequirementVersion) RequirementKey 
 }
 
 type MavenManifestIO struct {
-	datasource.MavenRegistryAPIClient
+	*datasource.MavenRegistryAPIClient
 }
 
 func (MavenManifestIO) System() resolve.System { return resolve.Maven }
 
 func NewMavenManifestIO() MavenManifestIO {
 	return MavenManifestIO{
-		MavenRegistryAPIClient: *datasource.NewMavenRegistryAPIClient(datasource.MavenCentral),
+		MavenRegistryAPIClient: datasource.NewMavenRegistryAPIClient(datasource.MavenCentral),
 	}
 }
 
