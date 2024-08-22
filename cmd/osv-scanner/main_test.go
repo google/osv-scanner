@@ -298,12 +298,12 @@ func TestRun(t *testing.T) {
 		},
 		{
 			name: "PURL SBOM case sensitivity (api)",
-			args: []string{"", "--format", "table", "./fixtures/sbom-insecure/alpine.cdx.xml"},
+			args: []string{"", "--config=./fixtures/osv-scanner-empty-config.toml", "--format", "table", "./fixtures/sbom-insecure/alpine.cdx.xml"},
 			exit: 1,
 		},
 		{
 			name: "PURL SBOM case sensitivity (local)",
-			args: []string{"", "--experimental-offline", "--experimental-download-offline-databases", "--format", "table", "./fixtures/sbom-insecure/alpine.cdx.xml"},
+			args: []string{"", "--config=./fixtures/osv-scanner-empty-config.toml", "--experimental-offline", "--experimental-download-offline-databases", "--format", "table", "./fixtures/sbom-insecure/alpine.cdx.xml"},
 			exit: 1,
 		},
 		// Go project with an overridden go version
