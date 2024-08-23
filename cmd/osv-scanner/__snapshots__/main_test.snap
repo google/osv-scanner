@@ -263,9 +263,13 @@ Scanned <rootdir>/fixtures/sbom-insecure/postgres-stretch.cdx.xml as CycloneDX S
 | https://osv.dev/GHSA-v95c-p5hm-xq8f | 6.0  | Go        | github.com/opencontainers/runc | v1.0.1                             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/GO-2022-0274        |      |           |                                |                                    |                                                 |
 | https://osv.dev/GHSA-f3fp-gc8g-vw66 | 5.9  | Go        | github.com/opencontainers/runc | v1.0.1                             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/GO-2022-0452        |      |           |                                |                                    |                                                 |
 | https://osv.dev/GHSA-g2j6-57v7-gm8c | 6.1  | Go        | github.com/opencontainers/runc | v1.0.1                             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/GO-2023-1683        |      |           |                                |                                    |                                                 |
 | https://osv.dev/GHSA-m8cg-xc2p-r3fc | 2.5  | Go        | github.com/opencontainers/runc | v1.0.1                             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/GO-2023-1682        |      |           |                                |                                    |                                                 |
 | https://osv.dev/GHSA-vpvm-3wq2-2wvm | 7.0  | Go        | github.com/opencontainers/runc | v1.0.1                             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/GO-2023-1627        |      |           |                                |                                    |                                                 |
 | https://osv.dev/GHSA-xr7r-f8xq-vfvv | 8.6  | Go        | github.com/opencontainers/runc | v1.0.1                             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/GO-2024-2491        |      |           |                                |                                    |                                                 |
 | https://osv.dev/GHSA-p782-xgp4-8hr8 | 5.3  | Go        | golang.org/x/sys               | v0.0.0-20210817142637-7d9622a276b7 | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
@@ -2069,6 +2073,21 @@ Warning: `scan` exists as both a subcommand of OSV-Scanner and as a file on the 
   "version": 1,
   "components": [
     {
+      "bom-ref": "pkg:maven/com.foobar/common@1.0-SNAPSHOT",
+      "type": "library",
+      "name": "com.foobar:common",
+      "version": "1.0-SNAPSHOT",
+      "licenses": [],
+      "purl": "pkg:maven/com.foobar/common@1.0-SNAPSHOT",
+      "evidence": {
+        "occurrences": [
+          {
+            "location": "{/"block/":{/"file_name/":/"other-dir/pom.xml/",/"line_start/":20,/"line_end/":24,/"column_start/":5,/"column_end/":18},/"name/":{/"file_name/":/"other-dir/pom.xml/",/"line_start/":22,/"line_end/":22,/"column_start/":19,/"column_end/":25},/"version/":{/"file_name/":/"pom.xml/",/"line_start/":8,/"line_end/":8,/"column_start/":12,/"column_end/":24}}"
+          }
+        ]
+      }
+    },
+    {
       "bom-ref": "pkg:maven/com.google.code.findbugs/jsr305@3.0.2",
       "type": "library",
       "name": "com.google.code.findbugs:jsr305",
@@ -2078,7 +2097,10 @@ Warning: `scan` exists as both a subcommand of OSV-Scanner and as a file on the 
       "evidence": {
         "occurrences": [
           {
-            "location": "{/"block/":{/"file_name/":/"pom.xml/",/"line_start/":25,/"line_end/":28,/"column_start/":5,/"column_end/":18},/"name/":{/"file_name/":/"pom.xml/",/"line_start/":27,/"line_end/":27,/"column_start/":19,/"column_end/":25},/"version/":{/"file_name/":/"pom.xml/",/"line_start/":19,/"line_end/":19,/"column_start/":18,/"column_end/":23}}"
+            "location": "{/"block/":{/"file_name/":/"pom.xml/",/"line_start/":26,/"line_end/":29,/"column_start/":5,/"column_end/":18},/"name/":{/"file_name/":/"pom.xml/",/"line_start/":28,/"line_end/":28,/"column_start/":19,/"column_end/":25},/"version/":{/"file_name/":/"pom.xml/",/"line_start/":20,/"line_end/":20,/"column_start/":18,/"column_end/":23}}"
+          },
+          {
+            "location": "{/"block/":{/"file_name/":/"pom.xml/",/"line_start/":26,/"line_end/":29,/"column_start/":5,/"column_end/":18},/"name/":{/"file_name/":/"pom.xml/",/"line_start/":28,/"line_end/":28,/"column_start/":19,/"column_end/":25},/"version/":{/"file_name/":/"pom.xml/",/"line_start/":20,/"line_end/":20,/"column_start/":18,/"column_end/":23}}"
           }
         ]
       }
@@ -2102,6 +2124,7 @@ Warning: `scan` exists as both a subcommand of OSV-Scanner and as a file on the 
 
 [TestRun_WithCycloneDX15 - 2]
 Scanning dir ./fixtures/integration-test-locks
+Scanned <rootdir>/fixtures/integration-test-locks/other-dir/pom.xml file and found 2 packages
 Scanned <rootdir>/fixtures/integration-test-locks/packages.lock.json file and found 1 package
 Scanned <rootdir>/fixtures/integration-test-locks/pom.xml file and found 1 package
 
@@ -11151,6 +11174,21 @@ Scanned <rootdir>/fixtures/encoding-integration-test-locks/Windows-1252/yarn/yar
   "version": 1,
   "components": [
     {
+      "bom-ref": "pkg:maven/com.foobar/common@1.0-SNAPSHOT",
+      "type": "library",
+      "name": "com.foobar:common",
+      "version": "1.0-SNAPSHOT",
+      "licenses": [],
+      "purl": "pkg:maven/com.foobar/common@1.0-SNAPSHOT",
+      "evidence": {
+        "occurrences": [
+          {
+            "location": "{/"block/":{/"file_name/":/"other-dir/pom.xml/",/"line_start/":20,/"line_end/":24,/"column_start/":5,/"column_end/":18},/"name/":{/"file_name/":/"other-dir/pom.xml/",/"line_start/":22,/"line_end/":22,/"column_start/":19,/"column_end/":25},/"version/":{/"file_name/":/"pom.xml/",/"line_start/":8,/"line_end/":8,/"column_start/":12,/"column_end/":24}}"
+          }
+        ]
+      }
+    },
+    {
       "bom-ref": "pkg:maven/com.google.code.findbugs/jsr305@3.0.2",
       "type": "library",
       "name": "com.google.code.findbugs:jsr305",
@@ -11160,7 +11198,10 @@ Scanned <rootdir>/fixtures/encoding-integration-test-locks/Windows-1252/yarn/yar
       "evidence": {
         "occurrences": [
           {
-            "location": "{/"block/":{/"file_name/":/"pom.xml/",/"line_start/":25,/"line_end/":28,/"column_start/":5,/"column_end/":18},/"name/":{/"file_name/":/"pom.xml/",/"line_start/":27,/"line_end/":27,/"column_start/":19,/"column_end/":25},/"version/":{/"file_name/":/"pom.xml/",/"line_start/":19,/"line_end/":19,/"column_start/":18,/"column_end/":23}}"
+            "location": "{/"block/":{/"file_name/":/"pom.xml/",/"line_start/":26,/"line_end/":29,/"column_start/":5,/"column_end/":18},/"name/":{/"file_name/":/"pom.xml/",/"line_start/":28,/"line_end/":28,/"column_start/":19,/"column_end/":25},/"version/":{/"file_name/":/"pom.xml/",/"line_start/":20,/"line_end/":20,/"column_start/":18,/"column_end/":23}}"
+          },
+          {
+            "location": "{/"block/":{/"file_name/":/"pom.xml/",/"line_start/":26,/"line_end/":29,/"column_start/":5,/"column_end/":18},/"name/":{/"file_name/":/"pom.xml/",/"line_start/":28,/"line_end/":28,/"column_start/":19,/"column_end/":25},/"version/":{/"file_name/":/"pom.xml/",/"line_start/":20,/"line_end/":20,/"column_start/":18,/"column_end/":23}}"
           }
         ]
       }
@@ -11173,6 +11214,7 @@ Scanned <rootdir>/fixtures/encoding-integration-test-locks/Windows-1252/yarn/yar
 
 [TestRun_WithExplicitParsers - 2]
 Scanning dir ./fixtures/integration-test-locks
+Scanned <rootdir>/fixtures/integration-test-locks/other-dir/pom.xml file and found 2 packages
 Scanned <rootdir>/fixtures/integration-test-locks/pom.xml file and found 1 package
 
 ---

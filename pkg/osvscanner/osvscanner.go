@@ -920,11 +920,11 @@ func DoScan(actions ScannerActions, r reporter.Reporter) (models.VulnerabilityRe
 				pkgs[index].BlockLocation.Filename = fileposition.ToRelativePath(dir, pkg.BlockLocation.Filename)
 
 				if pkgs[index].NameLocation != nil {
-					pkgs[index].NameLocation.Filename = fileposition.ToRelativePath(dir, pkg.BlockLocation.Filename)
+					pkgs[index].NameLocation.Filename = fileposition.ToRelativePath(dir, pkg.NameLocation.Filename)
 				}
 
 				if pkgs[index].VersionLocation != nil {
-					pkgs[index].VersionLocation.Filename = fileposition.ToRelativePath(dir, pkg.BlockLocation.Filename)
+					pkgs[index].VersionLocation.Filename = fileposition.ToRelativePath(dir, pkg.VersionLocation.Filename)
 				}
 			}
 		}
