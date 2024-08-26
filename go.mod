@@ -3,23 +3,23 @@ module github.com/google/osv-scanner
 go 1.21.12
 
 require (
-	deps.dev/api/v3 v3.0.0-20240730004939-e80e6658c33b
+	deps.dev/api/v3 v3.0.0-20240807013505-16da96fe8b66
 	deps.dev/util/maven v0.0.0-20240807013505-16da96fe8b66
-	deps.dev/util/resolve v0.0.0-20240730004939-e80e6658c33b
-	deps.dev/util/semver v0.0.0-20240730004939-e80e6658c33b
+	deps.dev/util/resolve v0.0.0-20240807013505-16da96fe8b66
+	deps.dev/util/semver v0.0.0-20240807013505-16da96fe8b66
 	github.com/BurntSushi/toml v1.4.0
 	github.com/CycloneDX/cyclonedx-go v0.9.0
-	github.com/charmbracelet/bubbles v0.18.0
-	github.com/charmbracelet/bubbletea v0.26.6
-	github.com/charmbracelet/glamour v0.7.0
-	github.com/charmbracelet/lipgloss v0.12.1
+	github.com/charmbracelet/bubbles v0.19.0
+	github.com/charmbracelet/bubbletea v0.27.1
+	github.com/charmbracelet/glamour v0.8.0
+	github.com/charmbracelet/lipgloss v0.13.0
 	github.com/dghubble/trie v0.1.0
 	github.com/gkampitakis/go-snaps v0.5.7
 	github.com/go-git/go-billy/v5 v5.5.0
 	github.com/go-git/go-git/v5 v5.12.0
 	github.com/google/go-cmp v0.6.0
-	github.com/google/go-containerregistry v0.20.1
-	github.com/ianlancetaylor/demangle v0.0.0-20240312041847-bd984b5ce465
+	github.com/google/go-containerregistry v0.20.2
+	github.com/ianlancetaylor/demangle v0.0.0-20240805132620-81f5be970eca
 	github.com/jedib0t/go-pretty/v6 v6.5.9
 	github.com/muesli/reflow v0.3.0
 	github.com/owenrumney/go-sarif/v2 v2.3.3
@@ -29,11 +29,11 @@ require (
 	github.com/tidwall/gjson v1.17.3
 	github.com/tidwall/pretty v1.2.1
 	github.com/tidwall/sjson v1.2.5
-	github.com/urfave/cli/v2 v2.27.3
-	golang.org/x/exp v0.0.0-20240719175910-8a7402abbf56
+	github.com/urfave/cli/v2 v2.27.4
+	golang.org/x/exp v0.0.0-20240822175202-778ce7bba035
 	golang.org/x/mod v0.20.0
 	golang.org/x/sync v0.8.0
-	golang.org/x/term v0.22.0
+	golang.org/x/term v0.23.0
 	golang.org/x/vuln v1.0.4
 	google.golang.org/grpc v1.65.0
 	google.golang.org/protobuf v1.34.2
@@ -45,7 +45,7 @@ require (
 	dario.cat/mergo v1.0.0 // indirect
 	github.com/Microsoft/go-winio v0.6.1 // indirect
 	github.com/ProtonMail/go-crypto v1.0.0 // indirect
-	github.com/alecthomas/chroma/v2 v2.8.0 // indirect
+	github.com/alecthomas/chroma/v2 v2.14.0 // indirect
 	github.com/anchore/go-struct-converter v0.0.0-20230627203149-c72ef8859ca9 // indirect
 	github.com/atotto/clipboard v0.1.4 // indirect
 	github.com/aymanbagabas/go-osc52/v2 v2.0.1 // indirect
@@ -59,9 +59,7 @@ require (
 	github.com/cpuguy83/go-md2man/v2 v2.0.4 // indirect
 	github.com/cyphar/filepath-securejoin v0.2.4 // indirect
 	github.com/dlclark/regexp2 v1.11.0 // indirect
-	github.com/docker/cli v25.0.3+incompatible // indirect
 	github.com/docker/distribution v2.8.3+incompatible // indirect
-	github.com/docker/docker v27.1.1+incompatible // indirect
 	github.com/docker/docker-credential-helpers v0.8.1 // indirect
 	github.com/emirpasic/gods v1.18.1 // indirect
 	github.com/erikgeiser/coninput v0.0.0-20211004153227-1c3628e74d0f // indirect
@@ -79,12 +77,11 @@ require (
 	github.com/maruel/natural v1.1.1 // indirect
 	github.com/mattn/go-isatty v0.0.20 // indirect
 	github.com/mattn/go-localereader v0.0.1 // indirect
-	github.com/mattn/go-runewidth v0.0.15 // indirect
-	github.com/microcosm-cc/bluemonday v1.0.26 // indirect
+	github.com/mattn/go-runewidth v0.0.16 // indirect
+	github.com/microcosm-cc/bluemonday v1.0.27 // indirect
 	github.com/muesli/ansi v0.0.0-20230316100256-276c6243b2f6 // indirect
 	github.com/muesli/cancelreader v0.2.2 // indirect
-	github.com/muesli/termenv v0.15.2 // indirect
-	github.com/olekukonko/tablewriter v0.0.5 // indirect
+	github.com/muesli/termenv v0.15.3-0.20240618155329-98d742f6907a // indirect
 	github.com/opencontainers/go-digest v1.0.0 // indirect
 	github.com/opencontainers/image-spec v1.1.0-rc3 // indirect
 	github.com/pjbgf/sha1cd v0.3.0 // indirect
@@ -102,13 +99,13 @@ require (
 	github.com/xeipuuv/gojsonpointer v0.0.0-20190905194746-02993c407bfb // indirect
 	github.com/xo/terminfo v0.0.0-20220910002029-abceb7e1c41e // indirect
 	github.com/xrash/smetrics v0.0.0-20240521201337-686a1a2994c1 // indirect
-	github.com/yuin/goldmark v1.7.0 // indirect
-	github.com/yuin/goldmark-emoji v1.0.2 // indirect
-	golang.org/x/crypto v0.25.0 // indirect
-	golang.org/x/net v0.27.0 // indirect
-	golang.org/x/sys v0.22.0 // indirect
-	golang.org/x/text v0.16.0 // indirect
-	golang.org/x/tools v0.23.0 // indirect
+	github.com/yuin/goldmark v1.7.4 // indirect
+	github.com/yuin/goldmark-emoji v1.0.3 // indirect
+	golang.org/x/crypto v0.26.0 // indirect
+	golang.org/x/net v0.28.0 // indirect
+	golang.org/x/sys v0.24.0 // indirect
+	golang.org/x/text v0.17.0 // indirect
+	golang.org/x/tools v0.24.0 // indirect
 	google.golang.org/genproto/googleapis/api v0.0.0-20240528184218-531527333157 // indirect
 	google.golang.org/genproto/googleapis/rpc v0.0.0-20240528184218-531527333157 // indirect
 	gopkg.in/warnings.v0 v0.1.2 // indirect
