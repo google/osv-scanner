@@ -157,7 +157,6 @@ Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
 [TestRun/Go_project_with_an_overridden_go_version - 1]
 Scanning dir ./fixtures/go-project
 Scanned <rootdir>/fixtures/go-project/go.mod file and found 1 package
-Loaded filter from: <rootdir>/fixtures/go-project/osv-scanner.toml
 +------------------------------+------+-----------+---------+---------+----------------------------+
 | OSV URL                      | CVSS | ECOSYSTEM | PACKAGE | VERSION | SOURCE                     |
 +------------------------------+------+-----------+---------+---------+----------------------------+
