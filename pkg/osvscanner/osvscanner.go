@@ -970,7 +970,7 @@ func filterIgnoredPackages(r reporter.Reporter, packages []scannedPackage, confi
 		if ignore, ignoreLine := configToUse.ShouldIgnorePackageVersion(p.Name, p.Version, string(p.Ecosystem)); ignore {
 			pkgString := fmt.Sprintf("%s/%s/%s", p.Ecosystem, p.Name, p.Version)
 			r.Infof("Package %s has been filtered out because: %s\n", pkgString, ignoreLine.Reason)
-			
+
 			continue
 		}
 		out = append(out, p)
