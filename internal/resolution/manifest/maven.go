@@ -303,27 +303,33 @@ func (MavenManifestIO) Write(df lockfile.DepFile, w io.Writer, patch ManifestPat
 		}
 		visited[parent.ProjectKey] = true
 
-		if parentPath := mavenutil.ParentPOMPath(currentPath, string(parent.RelativePath)); parentPath != "" {
-			currentPath = parentPath
-			f, err := os.Open(parentPath)
-			if err != nil {
-				return fmt.Errorf("failed to open parent file %s: %w", parentPath, err)
-			}
-
-			var proj maven.Project
-			if err := xml.NewDecoder(f).Decode(&proj); err != nil {
-				return fmt.Errorf("failed to unmarshal project: %w", err)
-			}
-			if mavenutil.ProjectKey(proj) != parent.ProjectKey || proj.Packaging != "pom" {
-				// This is not the project that we are looking for, we should fetch from upstream
-				// that we don't have write access so we give up here.
-				break
-			}
-			origin := mavenOrigin(mavenutil.OriginParent, parentPath)
-			specific.OriginalRequirements = append(specific.OriginalRequirements, buildOriginalRequirements(proj, origin)...)
-			specific.Properties = append(specific.Properties, buildPropertiesWithOrigins(proj, origin)...)
-			parent = proj.Parent
+		currentPath = mavenutil.ParentPOMPath(currentPath, string(parent.RelativePath))
+		if currentPath == "" {
+			// No more local parent pom.xml exists.
+			break
 		}
+
+		f, err := os.Open(currentPath)
+		if err != nil {
+			return fmt.Errorf("failed to open parent file %s: %w", currentPath, err)
+		}
+
+		var proj maven.Project
+		err = xml.NewDecoder(f).Decode(&proj)
+		f.Close()
+		if err != nil {
+			return fmt.Errorf("failed to unmarshal project: %w", err)
+		}
+		if mavenutil.ProjectKey(proj) != parent.ProjectKey || proj.Packaging != "pom" {
+			// This is not the project that we are looking for, we should fetch from upstream
+			// that we don't have write access so we give up here.
+			break
+		}
+
+		origin := mavenOrigin(mavenutil.OriginParent, currentPath)
+		specific.OriginalRequirements = append(specific.OriginalRequirements, buildOriginalRequirements(proj, origin)...)
+		specific.Properties = append(specific.Properties, buildPropertiesWithOrigins(proj, origin)...)
+		parent = proj.Parent
 	}
 
 	allPatches, err := buildPatches(patch.Deps, specific)
@@ -372,7 +378,7 @@ func (MavenManifestIO) Write(df lockfile.DepFile, w io.Writer, patch ManifestPat
 
 // Unescape replaces escaped tabs with unescaped characters.
 func unescape(out string) []byte {
-	out = strings.ReplaceAll(out, "&#x9;", "\t")
+	out = strings.ReplaceAll(out, "&#x9;", "	")
 
 	return []byte(out)
 }

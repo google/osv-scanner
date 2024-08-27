@@ -42,7 +42,7 @@ var errAPIFailed = errors.New("API query failed")
 // More about Maven Repository Metadata Model: https://maven.apache.org/ref/3.9.9/maven-repository-metadata/
 // More about Maven Metadata: https://maven.apache.org/repositories/metadata.html
 func (m *MavenRegistryAPIClient) GetProject(ctx context.Context, groupID, artifactID, version string) (maven.Project, error) {
-	if !strings.HasSuffix(version, "SNAPSHOT") {
+	if !strings.HasSuffix(version, "-SNAPSHOT") {
 		return m.getProject(ctx, groupID, artifactID, version, "")
 	}
 
@@ -124,7 +124,7 @@ func (m *MavenRegistryAPIClient) GetArtifactMetadata(ctx context.Context, groupI
 	if err != nil {
 		return maven.Metadata{}, fmt.Errorf("failed to join path: %w", err)
 	}
-
+  
 	m.mu.Lock()
 	metadata, ok := m.metadata[u]
 	m.mu.Unlock()
