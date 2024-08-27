@@ -94,6 +94,8 @@ You can regenerate snapshots by setting `UPDATE_SNAPS=true` when running tests:
 UPDATE_SNAPS=true ./scripts/run_tests.sh
 ```
 
+If adding a lockfile with known vulnerabilities for test data, also add an [`osv-scanner.toml`](https://google.github.io/osv-scanner/configuration/) config file to exclude those vulnerabilities from scans of the repository.
+
 ### Linting
 
 To lint your code, run
