@@ -255,7 +255,7 @@ func TestRun(t *testing.T) {
 		},
 		{
 			name: "cyclonedx 1.4 output",
-			args: []string{"", "--format", "cyclonedx-1-4", "--experimental-all-packages", "./fixtures/locks-insecure"},
+			args: []string{"", "--config=./fixtures/osv-scanner-empty-config.toml", "--format", "cyclonedx-1-4", "--experimental-all-packages", "./fixtures/locks-insecure"},
 			exit: 1,
 		},
 		// output format: cyclonedx 1.5
@@ -266,7 +266,7 @@ func TestRun(t *testing.T) {
 		},
 		{
 			name: "cyclonedx 1.5 output",
-			args: []string{"", "--format", "cyclonedx-1-5", "--experimental-all-packages", "./fixtures/locks-insecure"},
+			args: []string{"", "--config=./fixtures/osv-scanner-empty-config.toml", "--format", "cyclonedx-1-5", "--experimental-all-packages", "./fixtures/locks-insecure"},
 			exit: 1,
 		},
 		// output format: unsupported
@@ -298,18 +298,18 @@ func TestRun(t *testing.T) {
 		},
 		{
 			name: "PURL SBOM case sensitivity (api)",
-			args: []string{"", "--format", "table", "./fixtures/sbom-insecure/alpine.cdx.xml"},
+			args: []string{"", "--config=./fixtures/osv-scanner-empty-config.toml", "--format", "table", "./fixtures/sbom-insecure/alpine.cdx.xml"},
 			exit: 1,
 		},
 		{
 			name: "PURL SBOM case sensitivity (local)",
-			args: []string{"", "--experimental-offline", "--experimental-download-offline-databases", "--format", "table", "./fixtures/sbom-insecure/alpine.cdx.xml"},
+			args: []string{"", "--config=./fixtures/osv-scanner-empty-config.toml", "--experimental-offline", "--experimental-download-offline-databases", "--format", "table", "./fixtures/sbom-insecure/alpine.cdx.xml"},
 			exit: 1,
 		},
 		// Go project with an overridden go version
 		{
 			name: "Go project with an overridden go version",
-			args: []string{"", "./fixtures/go-project"},
+			args: []string{"", "--config=./fixtures/go-project/go-version-config.toml", "./fixtures/go-project"},
 			exit: 0,
 		},
 	}
@@ -399,6 +399,7 @@ func TestRun_LockfileWithExplicitParseAs(t *testing.T) {
 			name: "",
 			args: []string{
 				"",
+				"--config=./fixtures/osv-scanner-empty-config.toml",
 				"-L",
 				"package-lock.json:" + filepath.FromSlash("./fixtures/locks-insecure/my-package-lock.json"),
 				filepath.FromSlash("./fixtures/locks-insecure"),
@@ -410,6 +411,7 @@ func TestRun_LockfileWithExplicitParseAs(t *testing.T) {
 			name: "",
 			args: []string{
 				"",
+				"--config=./fixtures/osv-scanner-empty-config.toml",
 				"-L", "package-lock.json:" + filepath.FromSlash("./fixtures/locks-insecure/my-package-lock.json"),
 				"-L", "yarn.lock:" + filepath.FromSlash("./fixtures/locks-insecure/my-yarn.lock"),
 				filepath.FromSlash("./fixtures/locks-insecure"),
@@ -420,6 +422,7 @@ func TestRun_LockfileWithExplicitParseAs(t *testing.T) {
 			name: "",
 			args: []string{
 				"",
+				"--config=./fixtures/osv-scanner-empty-config.toml",
 				"-L", "yarn.lock:" + filepath.FromSlash("./fixtures/locks-insecure/my-yarn.lock"),
 				"-L", "package-lock.json:" + filepath.FromSlash("./fixtures/locks-insecure/my-package-lock.json"),
 				filepath.FromSlash("./fixtures/locks-insecure"),
@@ -486,12 +489,12 @@ func TestRun_GithubActions(t *testing.T) {
 	tests := []cliTestCase{
 		{
 			name: "scanning osv-scanner custom format",
-			args: []string{"", "-L", "osv-scanner:./fixtures/locks-insecure/osv-scanner-flutter-deps.json"},
+			args: []string{"", "--config=./fixtures/osv-scanner-empty-config.toml", "-L", "osv-scanner:./fixtures/locks-insecure/osv-scanner-flutter-deps.json"},
 			exit: 1,
 		},
 		{
 			name: "scanning osv-scanner custom format output json",
-			args: []string{"", "-L", "osv-scanner:./fixtures/locks-insecure/osv-scanner-flutter-deps.json", "--format=sarif"},
+			args: []string{"", "--config=./fixtures/osv-scanner-empty-config.toml", "-L", "osv-scanner:./fixtures/locks-insecure/osv-scanner-flutter-deps.json", "--format=sarif"},
 			exit: 1,
 		},
 	}
@@ -834,18 +837,18 @@ func TestRun_MavenTransitive(t *testing.T) {
 	tests := []cliTestCase{
 		{
 			name: "scans transitive dependencies for pom.xml by default",
-			args: []string{"", "./fixtures/maven-transitive/pom.xml"},
+			args: []string{"", "--config=./fixtures/osv-scanner-empty-config.toml", "./fixtures/maven-transitive/pom.xml"},
 			exit: 1,
 		},
 		{
 			name: "scans transitive dependencies by specifying pom.xml",
-			args: []string{"", "-L", "pom.xml:./fixtures/maven-transitive/abc.xml"},
+			args: []string{"", "--config=./fixtures/osv-scanner-empty-config.toml", "-L", "pom.xml:./fixtures/maven-transitive/abc.xml"},
 			exit: 1,
 		},
 		{
 			// Direct dependencies do not have any vulnerability.
 			name: "does not scan transitive dependencies for pom.xml with offline mode",
-			args: []string{"", "--experimental-offline", "--experimental-download-offline-databases", "./fixtures/maven-transitive/pom.xml"},
+			args: []string{"", "--config=./fixtures/osv-scanner-empty-config.toml", "--experimental-offline", "--experimental-download-offline-databases", "./fixtures/maven-transitive/pom.xml"},
 			exit: 0,
 		},
 	}

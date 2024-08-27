@@ -1,0 +1,191 @@
+[[PackageOverrides]]
+name = "@babel/traverse"
+ecosystem = "npm"
+ignore = true
+reason = "This is an intentionally vulnerable test project"
+
+[[PackageOverrides]]
+name = "@grpc/grpc-js"
+ecosystem = "npm"
+ignore = true
+reason = "This is an intentionally vulnerable test project"
+
+[[PackageOverrides]]
+name = "acorn"
+ecosystem = "npm"
+ignore = true
+reason = "This is an intentionally vulnerable test project"
+
+[[PackageOverrides]]
+name = "ajv"
+ecosystem = "npm"
+ignore = true
+reason = "This is an intentionally vulnerable test project"
+
+[[PackageOverrides]]
+name = "ansi-regex"
+ecosystem = "npm"
+ignore = true
+reason = "This is an intentionally vulnerable test project"
+
+[[PackageOverrides]]
+name = "braces"
+ecosystem = "npm"
+ignore = true
+reason = "This is an intentionally vulnerable test project"
+
+[[PackageOverrides]]
+name = "browserslist"
+ecosystem = "npm"
+ignore = true
+reason = "This is an intentionally vulnerable test project"
+
+[[PackageOverrides]]
+name = "dat.gui"
+ecosystem = "npm"
+ignore = true
+reason = "This is an intentionally vulnerable test project"
+
+[[PackageOverrides]]
+name = "get-func-name"
+ecosystem = "npm"
+ignore = true
+reason = "This is an intentionally vulnerable test project"
+
+[[PackageOverrides]]
+name = "glob-parent"
+ecosystem = "npm"
+ignore = true
+reason = "This is an intentionally vulnerable test project"
+
+[[PackageOverrides]]
+name = "google-closure-library"
+ecosystem = "npm"
+ignore = true
+reason = "This is an intentionally vulnerable test project"
+
+[[PackageOverrides]]
+name = "html-minifier"
+ecosystem = "npm"
+ignore = true
+reason = "This is an intentionally vulnerable test project"
+
+[[PackageOverrides]]
+name = "json-schema"
+ecosystem = "npm"
+ignore = true
+reason = "This is an intentionally vulnerable test project"
+
+[[PackageOverrides]]
+name = "json5"
+ecosystem = "npm"
+ignore = true
+reason = "This is an intentionally vulnerable test project"
+
+[[PackageOverrides]]
+name = "lodash"
+ecosystem = "npm"
+ignore = true
+reason = "This is an intentionally vulnerable test project"
+
+[[PackageOverrides]]
+name = "minimatch"
+ecosystem = "npm"
+ignore = true
+reason = "This is an intentionally vulnerable test project"
+
+[[PackageOverrides]]
+name = "minimist"
+ecosystem = "npm"
+ignore = true
+reason = "This is an intentionally vulnerable test project"
+
+[[PackageOverrides]]
+name = "node-fetch"
+ecosystem = "npm"
+ignore = true
+reason = "This is an intentionally vulnerable test project"
+
+[[PackageOverrides]]
+name = "node-forge "
+ecosystem = "npm"
+ignore = true
+reason = "This is an intentionally vulnerable test project"
+
+[[PackageOverrides]]
+name = "node-forge"
+ecosystem = "npm"
+ignore = true
+reason = "This is an intentionally vulnerable test project"
+
+[[PackageOverrides]]
+name = "path-parse"
+ecosystem = "npm"
+ignore = true
+reason = "This is an intentionally vulnerable test project"
+
+[[PackageOverrides]]
+name = "pathval"
+ecosystem = "npm"
+ignore = true
+reason = "This is an intentionally vulnerable test project"
+
+[[PackageOverrides]]
+name = "postcss"
+ecosystem = "npm"
+ignore = true
+reason = "This is an intentionally vulnerable test project"
+
+[[PackageOverrides]]
+name = "protobufjs"
+ecosystem = "npm"
+ignore = true
+reason = "This is an intentionally vulnerable test project"
+
+[[PackageOverrides]]
+name = "qs"
+ecosystem = "npm"
+ignore = true
+reason = "This is an intentionally vulnerable test project"
+
+[[PackageOverrides]]
+name = "request"
+ecosystem = "npm"
+ignore = true
+reason = "This is an intentionally vulnerable test project"
+
+[[PackageOverrides]]
+name = "semver"
+ecosystem = "npm"
+ignore = true
+reason = "This is an intentionally vulnerable test project"
+
+[[PackageOverrides]]
+name = "terser"
+ecosystem = "npm"
+ignore = true
+reason = "This is an intentionally vulnerable test project"
+
+[[PackageOverrides]]
+name = "tough-cookie"
+ecosystem = "npm"
+ignore = true
+reason = "This is an intentionally vulnerable test project"
+
+[[PackageOverrides]]
+name = "ws"
+ecosystem = "npm"
+ignore = true
+reason = "This is an intentionally vulnerable test project"
+
+[[PackageOverrides]]
+name = "y18n"
+ecosystem = "npm"
+ignore = true
+reason = "This is an intentionally vulnerable test project"
+
+[[PackageOverrides]]
+name = "yargs-parser"
+ecosystem = "npm"
+ignore = true
+reason = "This is an intentionally vulnerable test project"
