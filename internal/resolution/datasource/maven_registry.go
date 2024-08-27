@@ -39,6 +39,8 @@ var errAPIFailed = errors.New("API query failed")
 
 // GetProject fetches a pom.xml specified by groupID, artifactID and version and parses it to maven.Project.
 // For a snapshot version, version level metadata is used to find the extact version value.
+// More about Maven Repository Metadata Model: https://maven.apache.org/ref/3.9.9/maven-repository-metadata/
+// More about Maven Metadata: https://maven.apache.org/repositories/metadata.html
 func (m *MavenRegistryAPIClient) GetProject(ctx context.Context, groupID, artifactID, version string) (maven.Project, error) {
 	if !strings.HasSuffix(version, "SNAPSHOT") {
 		return m.getProject(ctx, groupID, artifactID, version, "")
