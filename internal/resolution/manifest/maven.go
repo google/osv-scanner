@@ -315,7 +315,9 @@ func (MavenManifestIO) Write(df lockfile.DepFile, w io.Writer, patch ManifestPat
 		}
 
 		var proj maven.Project
-		if err := xml.NewDecoder(f).Decode(&proj); err != nil {
+		err = xml.NewDecoder(f).Decode(&proj)
+		f.Close()
+		if err != nil {
 			return fmt.Errorf("failed to unmarshal project: %w", err)
 		}
 		if mavenutil.ProjectKey(proj) != parent.ProjectKey || proj.Packaging != "pom" {
