@@ -1,23 +1,23 @@
 [[PackageOverrides]]
-name = "github.com/ipfs/go-bitfield"
-ecosystem = "Go"
+name = "commons-io:commons-io"
+ecosystem = "Maven"
 ignore = true
 reason = "This is an intentionally vulnerable test project"
 
 [[PackageOverrides]]
-name = "github.com/gogo/protobuf"
-ecosystem = "Go"
+name = "org.apache.httpcomponents:httpclient"
+ecosystem = "Maven"
 ignore = true
 reason = "This is an intentionally vulnerable test project"
 
 [[PackageOverrides]]
-name = "golang.org/x/image"
-ecosystem = "Go"
+name = "org.codehaus.plexus:plexus-utils"
+ecosystem = "Maven"
 ignore = true
 reason = "This is an intentionally vulnerable test project"
 
 [[PackageOverrides]]
-name = "stdlib"
-ecosystem = "Go"
+name = "org.jsoup:jsoup"
+ecosystem = "Maven"
 ignore = true
 reason = "This is an intentionally vulnerable test project"
