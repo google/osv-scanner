@@ -63,6 +63,8 @@ func (c *MavenRegistryClient) Version(ctx context.Context, vk resolve.VersionKey
 	}
 
 	regs := make([]string, len(proj.Repositories))
+	// Repositories are served as dependency registries.
+	// https://github.com/google/deps.dev/blob/main/util/resolve/api.go#L106
 	for i, repo := range proj.Repositories {
 		regs[i] = "dep:" + string(repo.URL)
 	}
@@ -120,6 +122,7 @@ func (c *MavenRegistryClient) Requirements(ctx context.Context, vk resolve.Versi
 	if err := proj.MergeProfiles("", maven.ActivationOS{}); err != nil {
 		return nil, err
 	}
+	// We need to merge parents for potential dependencies in parents.
 	if err := mavenutil.MergeParents(ctx, c.api, &proj, proj.Parent, 1, "", false); err != nil {
 		return nil, err
 	}
