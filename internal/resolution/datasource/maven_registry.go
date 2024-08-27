@@ -160,7 +160,10 @@ func get(ctx context.Context, url string, dst interface{}) error {
 	}
 
 	d := xml.NewDecoder(resp.Body)
+	// Set charset reader for conversion from non-UTF-8 charset into UTF-8.
 	d.CharsetReader = charset.NewReaderLabel
+	// Set HTML entity map for translation between non-standard entity names
+	// and string replacements.
 	d.Entity = xml.HTMLEntity
 
 	return d.Decode(dst)

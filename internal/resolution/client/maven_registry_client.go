@@ -115,6 +115,7 @@ func (c *MavenRegistryClient) Requirements(ctx context.Context, vk resolve.Versi
 	if err != nil {
 		return nil, err
 	}
+
 	// Only merge default profiles by passing empty JDK and OS information.
 	if err := proj.MergeProfiles("", maven.ActivationOS{}); err != nil {
 		return nil, err
