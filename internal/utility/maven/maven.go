@@ -52,7 +52,9 @@ func MergeParents(ctx context.Context, mavenClient *datasource.MavenRegistryAPIC
 			if err != nil {
 				return fmt.Errorf("failed to open parent file %s: %w", parentPath, err)
 			}
-			if err := xml.NewDecoder(f).Decode(&proj); err != nil {
+			err = xml.NewDecoder(f).Decode(&proj)
+			f.Close()
+			if err != nil {
 				return fmt.Errorf("failed to unmarshal project: %w", err)
 			}
 			if ProjectKey(proj) == current.ProjectKey && proj.Packaging == "pom" {
