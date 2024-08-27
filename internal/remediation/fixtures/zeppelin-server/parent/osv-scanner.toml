@@ -27,3 +27,9 @@ name = "org.apache.thrift:libthrift"
 ecosystem = "Maven"
 ignore = true
 reason = "This is an intentionally vulnerable test project"
+
+[[PackageOverrides]]
+name = "org.apache.commons:commons-text"
+ecosystem = "Maven"
+ignore = true
+reason = "This is an intentionally vulnerable test project"
