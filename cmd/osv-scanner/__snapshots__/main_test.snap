@@ -202,7 +202,6 @@ Scanned <rootdir>/fixtures/sbom-insecure/alpine.cdx.xml as CycloneDX SBOM and fo
 [TestRun/PURL_SBOM_case_sensitivity_(local) - 1]
 Scanning dir ./fixtures/sbom-insecure/alpine.cdx.xml
 Scanned <rootdir>/fixtures/sbom-insecure/alpine.cdx.xml as CycloneDX SBOM and found 14 packages
-Loaded filter from: <rootdir>/fixtures/sbom-insecure/osv-scanner.toml
 Loaded Alpine local db from <tempdir>/osv-scanner/Alpine/all.zip
 +--------------------------------+------+-----------+---------+-----------+---------------------------------------+
 | OSV URL                        | CVSS | ECOSYSTEM | PACKAGE | VERSION   | SOURCE                                |
