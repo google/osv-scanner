@@ -9,6 +9,7 @@ import (
 
 	pb "deps.dev/api/v3"
 	"github.com/google/osv-scanner/pkg/osv"
+	"golang.org/x/sync/singleflight"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials"
 )
@@ -23,6 +24,8 @@ type DepsDevAPIClient struct {
 	packageCache      map[packageKey]*pb.Package
 	versionCache      map[versionKey]*pb.Version
 	requirementsCache map[versionKey]*pb.Requirements
+
+	group *singleflight.Group
 }
 
 // Comparable types to use as map keys for cache.
@@ -75,9 +78,11 @@ func NewDepsDevAPIClient(addr string) (*DepsDevAPIClient, error) {
 		packageCache:      make(map[packageKey]*pb.Package),
 		versionCache:      make(map[versionKey]*pb.Version),
 		requirementsCache: make(map[versionKey]*pb.Requirements),
+		group:             &singleflight.Group{},
 	}, nil
 }
 
+//nolint:dupl
 func (c *DepsDevAPIClient) GetPackage(ctx context.Context, in *pb.GetPackageRequest, opts ...grpc.CallOption) (*pb.Package, error) {
 	key := makePackageKey(in.GetPackageKey())
 	c.mu.Lock()
@@ -86,17 +91,25 @@ func (c *DepsDevAPIClient) GetPackage(ctx context.Context, in *pb.GetPackageRequ
 	if ok {
 		return pkg, nil
 	}
-	// TODO: avoid sending the same request multiple times if called multiple times before the cache is filled
-	pkg, err := c.InsightsClient.GetPackage(ctx, in, opts...)
-	if err == nil {
-		c.mu.Lock()
-		c.packageCache[key] = pkg
-		c.mu.Unlock()
-	}
 
-	return pkg, err
+	groupKey := fmt.Sprintf("GetPackage%v", key)
+	res, err, _ := c.group.Do(groupKey, func() (interface{}, error) {
+		pkg, err := c.InsightsClient.GetPackage(ctx, in, opts...)
+		if err == nil {
+			c.mu.Lock()
+			c.packageCache[key] = pkg
+			c.mu.Unlock()
+		}
+
+		return pkg, err
+	})
+
+	c.group.Forget(groupKey)
+
+	return res.(*pb.Package), err
 }
 
+//nolint:dupl
 func (c *DepsDevAPIClient) GetVersion(ctx context.Context, in *pb.GetVersionRequest, opts ...grpc.CallOption) (*pb.Version, error) {
 	key := makeVersionKey(in.GetVersionKey())
 	c.mu.Lock()
@@ -105,17 +118,25 @@ func (c *DepsDevAPIClient) GetVersion(ctx context.Context, in *pb.GetVersionRequ
 	if ok {
 		return ver, nil
 	}
-	// TODO: avoid sending the same request multiple times if called multiple times before the cache is filled
-	ver, err := c.InsightsClient.GetVersion(ctx, in, opts...)
-	if err == nil {
-		c.mu.Lock()
-		c.versionCache[key] = ver
-		c.mu.Unlock()
-	}
 
-	return ver, err
+	groupKey := fmt.Sprintf("GetVersion%v", key)
+	res, err, _ := c.group.Do(groupKey, func() (interface{}, error) {
+		ver, err := c.InsightsClient.GetVersion(ctx, in, opts...)
+		if err == nil {
+			c.mu.Lock()
+			c.versionCache[key] = ver
+			c.mu.Unlock()
+		}
+
+		return ver, err
+	})
+
+	c.group.Forget(groupKey)
+
+	return res.(*pb.Version), err
 }
 
+//nolint:dupl
 func (c *DepsDevAPIClient) GetRequirements(ctx context.Context, in *pb.GetRequirementsRequest, opts ...grpc.CallOption) (*pb.Requirements, error) {
 	key := makeVersionKey(in.GetVersionKey())
 	c.mu.Lock()
@@ -124,13 +145,20 @@ func (c *DepsDevAPIClient) GetRequirements(ctx context.Context, in *pb.GetRequir
 	if ok {
 		return req, nil
 	}
-	// TODO: avoid sending the same request multiple times if called multiple times before the cache is filled
-	req, err := c.InsightsClient.GetRequirements(ctx, in, opts...)
-	if err == nil {
-		c.mu.Lock()
-		c.requirementsCache[key] = req
-		c.mu.Unlock()
-	}
 
-	return req, err
+	groupKey := fmt.Sprintf("GetRequirement%v", key)
+	res, err, _ := c.group.Do(groupKey, func() (interface{}, error) {
+		req, err := c.InsightsClient.GetRequirements(ctx, in, opts...)
+		if err == nil {
+			c.mu.Lock()
+			c.requirementsCache[key] = req
+			c.mu.Unlock()
+		}
+
+		return req, err
+	})
+
+	c.group.Forget(groupKey)
+
+	return res.(*pb.Requirements), err
 }

@@ -11,6 +11,7 @@ import (
 
 	"github.com/tidwall/gjson"
 	"golang.org/x/exp/maps"
+	"golang.org/x/sync/singleflight"
 )
 
 type NpmRegistryAPIClient struct {
@@ -23,6 +24,8 @@ type NpmRegistryAPIClient struct {
 	mu             sync.Mutex
 	cacheTimestamp *time.Time // If set, this means we loaded from a cache
 	details        map[string]npmRegistryPackageDetails
+
+	group *singleflight.Group
 }
 
 type npmRegistryPackageDetails struct {
@@ -40,6 +43,7 @@ func NewNpmRegistryAPIClient(workdir string) (*NpmRegistryAPIClient, error) {
 	return &NpmRegistryAPIClient{
 		registries: registries,
 		details:    make(map[string]npmRegistryPackageDetails),
+		group:      &singleflight.Group{},
 	}, nil
 }
 
@@ -121,31 +125,37 @@ func (c *NpmRegistryAPIClient) getPackageDetails(ctx context.Context, pkg string
 	}
 
 	// Not cached, make the network request
-	jsonData, err := c.get(ctx, pkg)
-	if err != nil {
-		return npmRegistryPackageDetails{}, err
-	}
-
-	versions := make(map[string]npmRegistryDependencies)
-	for v, data := range jsonData.Get("versions").Map() {
-		versions[v] = npmRegistryDependencies{
-			Dependencies:         jsonToStringMap(data.Get("dependencies")),
-			DevDependencies:      jsonToStringMap(data.Get("devDependencies")),
-			PeerDependencies:     jsonToStringMap(data.Get("peerDependencies")),
-			OptionalDependencies: jsonToStringMap(data.Get("optionalDependencies")),
-			BundleDependencies:   jsonToStringSlice(data.Get("bundleDependencies")),
+	res, err, _ := c.group.Do(pkg, func() (interface{}, error) {
+		jsonData, err := c.get(ctx, pkg)
+		if err != nil {
+			return npmRegistryPackageDetails{}, err
 		}
-	}
-	pkgData = npmRegistryPackageDetails{
-		Versions: versions,
-		Tags:     jsonToStringMap(jsonData.Get("dist-tags")),
-	}
 
-	c.mu.Lock()
-	c.details[pkg] = pkgData
-	c.mu.Unlock()
+		versions := make(map[string]npmRegistryDependencies)
+		for v, data := range jsonData.Get("versions").Map() {
+			versions[v] = npmRegistryDependencies{
+				Dependencies:         jsonToStringMap(data.Get("dependencies")),
+				DevDependencies:      jsonToStringMap(data.Get("devDependencies")),
+				PeerDependencies:     jsonToStringMap(data.Get("peerDependencies")),
+				OptionalDependencies: jsonToStringMap(data.Get("optionalDependencies")),
+				BundleDependencies:   jsonToStringSlice(data.Get("bundleDependencies")),
+			}
+		}
+		pkgData = npmRegistryPackageDetails{
+			Versions: versions,
+			Tags:     jsonToStringMap(jsonData.Get("dist-tags")),
+		}
 
-	return pkgData, nil
+		c.mu.Lock()
+		c.details[pkg] = pkgData
+		c.mu.Unlock()
+
+		return pkgData, nil
+	})
+
+	c.group.Forget(pkg)
+
+	return res.(npmRegistryPackageDetails), err
 }
 
 func jsonToStringSlice(v gjson.Result) []string {
