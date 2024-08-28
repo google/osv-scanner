@@ -6,7 +6,7 @@ import (
 	"deps.dev/util/maven"
 )
 
-type mavenRegistryCahce struct {
+type mavenRegistryCache struct {
 	Timestamp *time.Time
 	Projects  map[string]maven.Project  // url -> project
 	Metadata  map[string]maven.Metadata // url -> metadata
@@ -21,7 +21,7 @@ func (m *MavenRegistryAPIClient) GobEncode() ([]byte, error) {
 		m.cacheTimestamp = &now
 	}
 
-	cache := mavenRegistryCahce{
+	cache := mavenRegistryCache{
 		Timestamp: m.cacheTimestamp,
 		Projects:  m.projects,
 		Metadata:  m.metadata,
@@ -31,7 +31,7 @@ func (m *MavenRegistryAPIClient) GobEncode() ([]byte, error) {
 }
 
 func (m *MavenRegistryAPIClient) GobDecode(b []byte) error {
-	var cache mavenRegistryCahce
+	var cache mavenRegistryCache
 	if err := gobUnmarshal(b, &cache); err != nil {
 		return err
 	}

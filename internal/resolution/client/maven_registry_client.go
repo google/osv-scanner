@@ -25,30 +25,12 @@ import (
 const mavenRegistryCacheExt = ".resolve.maven"
 
 type MavenRegistryClient struct {
-	api      *datasource.MavenRegistryAPIClient
-	insights pb.InsightsClient
+	api *datasource.MavenRegistryAPIClient
 }
 
 func NewMavenRegistryClient(registry string) (*MavenRegistryClient, error) {
-	certPool, err := x509.SystemCertPool()
-	if err != nil {
-		return nil, fmt.Errorf("getting system cert pool: %w", err)
-	}
-	creds := credentials.NewClientTLSFromCert(certPool, "")
-	dialOpts := []grpc.DialOption{grpc.WithTransportCredentials(creds)}
-
-	if osv.RequestUserAgent != "" {
-		dialOpts = append(dialOpts, grpc.WithUserAgent(osv.RequestUserAgent))
-	}
-
-	conn, err := grpc.NewClient(depsdev.DepsdevAPI, dialOpts...)
-	if err != nil {
-		return nil, fmt.Errorf("dialling %q: %w", depsdev.DepsdevAPI, err)
-	}
-
 	return &MavenRegistryClient{
-		api:      datasource.NewMavenRegistryAPIClient(registry),
-		insights: pb.NewInsightsClient(conn),
+		api: datasource.NewMavenRegistryAPIClient(registry),
 	}, nil
 }
 
@@ -76,6 +58,14 @@ func (c *MavenRegistryClient) Version(ctx context.Context, vk resolve.VersionKey
 	return resolve.Version{VersionKey: vk, AttrSet: attr}, nil
 }
 
+// TODO: we should also include versions not listed in the metadata file
+// There exist versions in the repository but not listed in the metada file,
+// for example version 20030203.000550 of package commons-io:commons-io
+// https://repo1.maven.org/maven2/commons-io/commons-io/20030203.000550/.
+// A package may depend on such version if a soft requirement of this version
+// is declared.
+// We need to find out if there are such versions and include them in the
+// returned versions.
 func (c *MavenRegistryClient) Versions(ctx context.Context, pk resolve.PackageKey) ([]resolve.Version, error) {
 	if pk.System != resolve.Maven {
 		return nil, fmt.Errorf("wrong system: %v", pk.System)
@@ -159,24 +149,9 @@ func (c *MavenRegistryClient) MatchingVersions(ctx context.Context, vk resolve.V
 		return nil, fmt.Errorf("wrong system: %v", vk.System)
 	}
 
-	g, a, found := strings.Cut(vk.Name, ":")
-	if !found {
-		return nil, fmt.Errorf("invalid Maven package name %s", vk.Name)
-	}
-	metadata, err := c.api.GetArtifactMetadata(ctx, g, a)
+	versions, err := c.Versions(ctx, vk.PackageKey)
 	if err != nil {
 		return nil, err
-	}
-
-	versions := make([]resolve.Version, len(metadata.Versioning.Versions))
-	for i, v := range metadata.Versioning.Versions {
-		versions[i] = resolve.Version{
-			VersionKey: resolve.VersionKey{
-				PackageKey:  vk.PackageKey,
-				Version:     string(v),
-				VersionType: resolve.Concrete,
-			},
-		}
 	}
 
 	return resolve.MatchRequirement(vk, versions), nil
@@ -203,6 +178,22 @@ func (c *MavenRegistryClient) LoadCache(path string) error {
 }
 
 func (c *MavenRegistryClient) PreFetch(ctx context.Context, imports []resolve.RequirementVersion, manifestPath string) {
+	certPool, err := x509.SystemCertPool()
+	if err != nil {
+		return
+	}
+	creds := credentials.NewClientTLSFromCert(certPool, "")
+	dialOpts := []grpc.DialOption{grpc.WithTransportCredentials(creds)}
+	if osv.RequestUserAgent != "" {
+		dialOpts = append(dialOpts, grpc.WithUserAgent(osv.RequestUserAgent))
+	}
+
+	conn, err := grpc.NewClient(depsdev.DepsdevAPI, dialOpts...)
+	if err != nil {
+		return
+	}
+	insights := pb.NewInsightsClient(conn)
+
 	// It doesn't matter if loading the cache fails
 	_ = c.LoadCache(manifestPath)
 
@@ -215,9 +206,16 @@ func (c *MavenRegistryClient) PreFetch(ctx context.Context, imports []resolve.Re
 		}
 
 		vk := vks[len(vks)-1]
+		for _, v := range vks {
+			// We prefer the exact version for soft requirements.
+			if im.Version == v.Version {
+				vk = v
+				break
+			}
+		}
 
 		// Make a request for the pre-computed dependency tree
-		resp, err := c.insights.GetDependencies(ctx, &pb.GetDependenciesRequest{
+		resp, err := insights.GetDependencies(ctx, &pb.GetDependenciesRequest{
 			VersionKey: &pb.VersionKey{
 				System:  pb.System(vk.System),
 				Name:    vk.Name,
