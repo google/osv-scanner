@@ -649,18 +649,13 @@ func TestConfig_ShouldIgnorePackage(t *testing.T) {
 	}
 }
 
-func TestConfig_ShouldOverridePackageVersionLicense(t *testing.T) {
+func TestConfig_ShouldOverridePackageLicense(t *testing.T) {
 	t.Parallel()
 
-	type args struct {
-		name      string
-		version   string
-		ecosystem string
-	}
 	tests := []struct {
 		name      string
 		config    Config
-		args      args
+		args      models.PackageVulns
 		wantOk    bool
 		wantEntry PackageOverrideEntry
 	}{
@@ -679,10 +674,12 @@ func TestConfig_ShouldOverridePackageVersionLicense(t *testing.T) {
 					},
 				},
 			},
-			args: args{
-				name:      "lib1",
-				version:   "1.0.0",
-				ecosystem: "Go",
+			args: models.PackageVulns{
+				Package: models.PackageInfo{
+					Name:      "lib1",
+					Version:   "1.0.0",
+					Ecosystem: "Go",
+				},
 			},
 			wantOk: true,
 			wantEntry: PackageOverrideEntry{
@@ -710,10 +707,12 @@ func TestConfig_ShouldOverridePackageVersionLicense(t *testing.T) {
 					},
 				},
 			},
-			args: args{
-				name:      "lib1",
-				version:   "1.0.1",
-				ecosystem: "Go",
+			args: models.PackageVulns{
+				Package: models.PackageInfo{
+					Name:      "lib1",
+					Version:   "1.0.1",
+					Ecosystem: "Go",
+				},
 			},
 			wantOk:    false,
 			wantEntry: PackageOverrideEntry{},
@@ -732,10 +731,12 @@ func TestConfig_ShouldOverridePackageVersionLicense(t *testing.T) {
 					},
 				},
 			},
-			args: args{
-				name:      "lib1",
-				version:   "1.0.1",
-				ecosystem: "Go",
+			args: models.PackageVulns{
+				Package: models.PackageInfo{
+					Name:      "lib1",
+					Version:   "1.0.1",
+					Ecosystem: "Go",
+				},
 			},
 			wantOk: true,
 			wantEntry: PackageOverrideEntry{
@@ -754,12 +755,12 @@ func TestConfig_ShouldOverridePackageVersionLicense(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
 
-			gotOk, gotEntry := tt.config.ShouldOverridePackageVersionLicense(tt.args.name, tt.args.version, tt.args.ecosystem)
+			gotOk, gotEntry := tt.config.ShouldOverridePackageLicense(tt.args)
 			if gotOk != tt.wantOk {
-				t.Errorf("ShouldOverridePackageVersionLicense() gotOk = %v, wantOk %v", gotOk, tt.wantOk)
+				t.Errorf("ShouldOverridePackageLicense() gotOk = %v, wantOk %v", gotOk, tt.wantOk)
 			}
 			if !reflect.DeepEqual(gotEntry, tt.wantEntry) {
-				t.Errorf("ShouldOverridePackageVersionLicense() gotEntry = %v, wantEntry %v", gotEntry, tt.wantEntry)
+				t.Errorf("ShouldOverridePackageLicense() gotEntry = %v, wantEntry %v", gotEntry, tt.wantEntry)
 			}
 		})
 	}

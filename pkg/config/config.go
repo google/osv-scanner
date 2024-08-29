@@ -114,6 +114,14 @@ func (c *Config) ShouldIgnorePackageVersion(name, version, ecosystem string) (bo
 	)
 }
 
+// ShouldOverridePackageLicense determines if the given package should have its license changed based on override entries in the config
+func (c *Config) ShouldOverridePackageLicense(pkg models.PackageVulns) (bool, PackageOverrideEntry) {
+	return c.filterPackageVersionEntries(pkg, func(e PackageOverrideEntry) bool {
+		return len(e.License.Override) > 0
+	})
+}
+
+// Deprecated: Use ShouldOverridePackageLicense instead
 func (c *Config) ShouldOverridePackageVersionLicense(name, version, ecosystem string) (bool, PackageOverrideEntry) {
 	return c.filterPackageVersionEntries(
 		models.PackageVulns{
