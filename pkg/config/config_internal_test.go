@@ -7,6 +7,7 @@ import (
 	"time"
 
 	"github.com/google/go-cmp/cmp"
+	"github.com/google/osv-scanner/pkg/models"
 )
 
 type testStruct struct {
@@ -214,18 +215,13 @@ func TestConfig_ShouldIgnore(t *testing.T) {
 	}
 }
 
-func TestConfig_ShouldIgnorePackageVersion(t *testing.T) {
+func TestConfig_ShouldIgnorePackage(t *testing.T) {
 	t.Parallel()
 
-	type args struct {
-		name      string
-		version   string
-		ecosystem string
-	}
 	tests := []struct {
 		name      string
 		config    Config
-		args      args
+		args      models.PackageVulns
 		wantOk    bool
 		wantEntry PackageOverrideEntry
 	}{
@@ -243,10 +239,12 @@ func TestConfig_ShouldIgnorePackageVersion(t *testing.T) {
 					},
 				},
 			},
-			args: args{
-				name:      "lib1",
-				version:   "1.0.0",
-				ecosystem: "Go",
+			args: models.PackageVulns{
+				Package: models.PackageInfo{
+					Name:      "lib1",
+					Version:   "1.0.0",
+					Ecosystem: "Go",
+				},
 			},
 			wantOk: true,
 			wantEntry: PackageOverrideEntry{
@@ -271,10 +269,12 @@ func TestConfig_ShouldIgnorePackageVersion(t *testing.T) {
 					},
 				},
 			},
-			args: args{
-				name:      "lib1",
-				version:   "1.0.0",
-				ecosystem: "Go",
+			args: models.PackageVulns{
+				Package: models.PackageInfo{
+					Name:      "lib1",
+					Version:   "1.0.0",
+					Ecosystem: "Go",
+				},
 			},
 			wantOk: true,
 			wantEntry: PackageOverrideEntry{
@@ -284,6 +284,63 @@ func TestConfig_ShouldIgnorePackageVersion(t *testing.T) {
 				EffectiveUntil: time.Time{},
 				Reason:         "abc",
 			},
+		},
+		{
+			name: "Group-level entry exists and matches",
+			config: Config{
+				PackageOverrides: []PackageOverrideEntry{
+					{
+						Name:           "lib1",
+						Ecosystem:      "Go",
+						Group:          "dev",
+						Ignore:         true,
+						EffectiveUntil: time.Time{},
+						Reason:         "abc",
+					},
+				},
+			},
+			args: models.PackageVulns{
+				Package: models.PackageInfo{
+					Name:      "lib1",
+					Version:   "1.0.0",
+					Ecosystem: "Go",
+				},
+				DepGroups: []string{"dev"},
+			},
+			wantOk: true,
+			wantEntry: PackageOverrideEntry{
+				Name:           "lib1",
+				Ecosystem:      "Go",
+				Group:          "dev",
+				Ignore:         true,
+				EffectiveUntil: time.Time{},
+				Reason:         "abc",
+			},
+		},
+		{
+			name: "Group-level entry exists but does not match",
+			config: Config{
+				PackageOverrides: []PackageOverrideEntry{
+					{
+						Name:           "lib1",
+						Ecosystem:      "Go",
+						Group:          "dev",
+						Ignore:         true,
+						EffectiveUntil: time.Time{},
+						Reason:         "abc",
+					},
+				},
+			},
+			args: models.PackageVulns{
+				Package: models.PackageInfo{
+					Name:      "lib1",
+					Version:   "1.0.0",
+					Ecosystem: "Go",
+				},
+				DepGroups: []string{"prod"},
+			},
+			wantOk: false,
+			wantEntry: PackageOverrideEntry{},
 		},
 		{
 			name: "Entry doesn't exist",
@@ -307,10 +364,12 @@ func TestConfig_ShouldIgnorePackageVersion(t *testing.T) {
 					},
 				},
 			},
-			args: args{
-				name:      "lib1",
-				version:   "2.0.0",
-				ecosystem: "Go",
+			args: models.PackageVulns{
+				Package: models.PackageInfo{
+					Name:      "lib1",
+					Version:   "2.0.0",
+					Ecosystem: "Go",
+				},
 			},
 			wantOk:    false,
 			wantEntry: PackageOverrideEntry{},
@@ -322,12 +381,12 @@ func TestConfig_ShouldIgnorePackageVersion(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
 
-			gotOk, gotEntry := tt.config.ShouldIgnorePackageVersion(tt.args.name, tt.args.version, tt.args.ecosystem)
+			gotOk, gotEntry := tt.config.ShouldIgnorePackageVulns(tt.args)
 			if gotOk != tt.wantOk {
-				t.Errorf("ShouldIgnorePackageVersion() gotOk = %v, wantOk %v", gotOk, tt.wantOk)
+				t.Errorf("ShouldIgnorePackageVulns() gotOk = %v, wantOk %v", gotOk, tt.wantOk)
 			}
 			if !reflect.DeepEqual(gotEntry, tt.wantEntry) {
-				t.Errorf("ShouldIgnorePackageVersion() gotEntry = %v, wantEntry %v", gotEntry, tt.wantEntry)
+				t.Errorf("ShouldIgnorePackageVulns() gotEntry = %v, wantEntry %v", gotEntry, tt.wantEntry)
 			}
 		})
 	}

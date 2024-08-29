@@ -8,6 +8,7 @@ import (
 	"time"
 
 	"github.com/BurntSushi/toml"
+	"github.com/google/osv-scanner/pkg/models"
 	"github.com/google/osv-scanner/pkg/reporter"
 )
 
@@ -40,6 +41,7 @@ type PackageOverrideEntry struct {
 	// If the version is empty, the entry applies to all versions.
 	Version        string    `toml:"version"`
 	Ecosystem      string    `toml:"ecosystem"`
+	Group          string    `toml:"group"`
 	Ignore         bool      `toml:"ignore"`
 	License        License   `toml:"license"`
 	EffectiveUntil time.Time `toml:"effectiveUntil"`
@@ -76,6 +78,13 @@ func (c *Config) filterPackageVersionEntries(name string, version string, ecosys
 	return shouldIgnoreTimestamp(ignoredLine.EffectiveUntil), ignoredLine
 }
 
+func (c *Config) ShouldIgnorePackageVulns(pkg models.PackageVulns) (bool, PackageOverrideEntry) {
+	return c.filterPackageVersionEntries(pkg.Package.Name, pkg.Package.Version, pkg.Package.Ecosystem, func(e PackageOverrideEntry) bool {
+		return e.Ignore && (e.Group == "" || slices.Contains(pkg.DepGroups, e.Group))
+	})
+}
+
+// Deprecated: Use ShouldIgnorePackageVulns instead
 func (c *Config) ShouldIgnorePackageVersion(name, version, ecosystem string) (bool, PackageOverrideEntry) {
 	return c.filterPackageVersionEntries(name, version, ecosystem, func(e PackageOverrideEntry) bool {
 		return e.Ignore
