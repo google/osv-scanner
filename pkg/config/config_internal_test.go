@@ -638,12 +638,12 @@ func TestConfig_ShouldIgnorePackage(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
 
-			gotOk, gotEntry := tt.config.ShouldIgnorePackageVulns(tt.args)
+			gotOk, gotEntry := tt.config.ShouldIgnorePackage(tt.args)
 			if gotOk != tt.wantOk {
-				t.Errorf("ShouldIgnorePackageVulns() gotOk = %v, wantOk %v", gotOk, tt.wantOk)
+				t.Errorf("ShouldIgnorePackage() gotOk = %v, wantOk %v", gotOk, tt.wantOk)
 			}
 			if !reflect.DeepEqual(gotEntry, tt.wantEntry) {
-				t.Errorf("ShouldIgnorePackageVulns() gotEntry = %v, wantEntry %v", gotEntry, tt.wantEntry)
+				t.Errorf("ShouldIgnorePackage() gotEntry = %v, wantEntry %v", gotEntry, tt.wantEntry)
 			}
 		})
 	}

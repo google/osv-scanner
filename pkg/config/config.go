@@ -91,13 +91,14 @@ func (c *Config) filterPackageVersionEntries(pkg models.PackageVulns, condition 
 	return shouldIgnoreTimestamp(ignoredLine.EffectiveUntil), ignoredLine
 }
 
-func (c *Config) ShouldIgnorePackageVulns(pkg models.PackageVulns) (bool, PackageOverrideEntry) {
+// ShouldIgnorePackage determines if the given package should be ignored based on override entries in the config
+func (c *Config) ShouldIgnorePackage(pkg models.PackageVulns) (bool, PackageOverrideEntry) {
 	return c.filterPackageVersionEntries(pkg, func(e PackageOverrideEntry) bool {
 		return e.Ignore
 	})
 }
 
-// Deprecated: Use ShouldIgnorePackageVulns instead
+// Deprecated: Use ShouldIgnorePackage instead
 func (c *Config) ShouldIgnorePackageVersion(name, version, ecosystem string) (bool, PackageOverrideEntry) {
 	return c.filterPackageVersionEntries(
 		models.PackageVulns{
