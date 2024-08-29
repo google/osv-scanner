@@ -100,18 +100,13 @@ func (c *Config) ShouldIgnorePackage(pkg models.PackageVulns) (bool, PackageOver
 
 // Deprecated: Use ShouldIgnorePackage instead
 func (c *Config) ShouldIgnorePackageVersion(name, version, ecosystem string) (bool, PackageOverrideEntry) {
-	return c.filterPackageVersionEntries(
-		models.PackageVulns{
-			Package: models.PackageInfo{
-				Name:      name,
-				Version:   version,
-				Ecosystem: ecosystem,
-			},
+	return c.ShouldIgnorePackage(models.PackageVulns{
+		Package: models.PackageInfo{
+			Name:      name,
+			Version:   version,
+			Ecosystem: ecosystem,
 		},
-		func(e PackageOverrideEntry) bool {
-			return e.Ignore
-		},
-	)
+	})
 }
 
 // ShouldOverridePackageLicense determines if the given package should have its license changed based on override entries in the config
@@ -123,18 +118,13 @@ func (c *Config) ShouldOverridePackageLicense(pkg models.PackageVulns) (bool, Pa
 
 // Deprecated: Use ShouldOverridePackageLicense instead
 func (c *Config) ShouldOverridePackageVersionLicense(name, version, ecosystem string) (bool, PackageOverrideEntry) {
-	return c.filterPackageVersionEntries(
-		models.PackageVulns{
-			Package: models.PackageInfo{
-				Name:      name,
-				Version:   version,
-				Ecosystem: ecosystem,
-			},
+	return c.ShouldOverridePackageLicense(models.PackageVulns{
+		Package: models.PackageInfo{
+			Name:      name,
+			Version:   version,
+			Ecosystem: ecosystem,
 		},
-		func(e PackageOverrideEntry) bool {
-			return len(e.License.Override) > 0
-		},
-	)
+	})
 }
 
 func shouldIgnoreTimestamp(ignoreUntil time.Time) bool {
