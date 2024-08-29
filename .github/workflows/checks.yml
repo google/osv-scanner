@@ -66,7 +66,7 @@ jobs:
       - name: Set up Go
         uses: actions/setup-go@0a12ed9d6a96ab950c8f026ed9f722fe0da7ef32 # v5.0.2
         with:
-          go-version-file: .go-version
+          go-version: stable
           check-latest: true
       - name: Run lint action
         uses: ./.github/workflows/lint-action
@@ -108,7 +108,7 @@ jobs:
       - name: Set up Go
         uses: actions/setup-go@0a12ed9d6a96ab950c8f026ed9f722fe0da7ef32 # v5.0.2
         with:
-          go-version-file: .go-version
+          go-version: stable
           check-latest: true
       - name: Run test action
         uses: ./.github/workflows/test-action
