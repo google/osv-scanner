@@ -226,7 +226,264 @@ func TestConfig_ShouldIgnorePackage(t *testing.T) {
 		wantEntry PackageOverrideEntry
 	}{
 		{
-			name: "Version-level entry exists",
+			name: "Everything-level entry exists",
+			config: Config{
+				PackageOverrides: []PackageOverrideEntry{
+					{
+						Ignore:         true,
+						EffectiveUntil: time.Time{},
+						Reason:         "abc",
+					},
+				},
+			},
+			args: models.PackageVulns{
+				Package: models.PackageInfo{
+					Name:      "lib1",
+					Version:   "1.0.0",
+					Ecosystem: "Go",
+				},
+				DepGroups: []string{"dev"},
+			},
+			wantOk: true,
+			wantEntry: PackageOverrideEntry{
+				Ignore:         true,
+				EffectiveUntil: time.Time{},
+				Reason:         "abc",
+			},
+		},
+		// -------------------------------------------------------------------------
+		{
+			name: "Ecosystem-level entry exists and does match",
+			config: Config{
+				PackageOverrides: []PackageOverrideEntry{
+					{
+						Ecosystem:      "Go",
+						Ignore:         true,
+						EffectiveUntil: time.Time{},
+						Reason:         "abc",
+					},
+				},
+			},
+			args: models.PackageVulns{
+				Package: models.PackageInfo{
+					Name:      "lib1",
+					Version:   "1.0.0",
+					Ecosystem: "Go",
+				},
+				DepGroups: []string{"dev"},
+			},
+			wantOk: true,
+			wantEntry: PackageOverrideEntry{
+				Ecosystem:      "Go",
+				Ignore:         true,
+				EffectiveUntil: time.Time{},
+				Reason:         "abc",
+			},
+		},
+		{
+			name: "Ecosystem-level entry exists and does not match",
+			config: Config{
+				PackageOverrides: []PackageOverrideEntry{
+					{
+						Ecosystem:      "Go",
+						Ignore:         true,
+						EffectiveUntil: time.Time{},
+						Reason:         "abc",
+					},
+				},
+			},
+			args: models.PackageVulns{
+				Package: models.PackageInfo{
+					Name:      "lib2",
+					Version:   "1.0.0",
+					Ecosystem: "npm",
+				},
+				DepGroups: []string{"dev"},
+			},
+			wantOk:    false,
+			wantEntry: PackageOverrideEntry{},
+		},
+		// -------------------------------------------------------------------------
+		{
+			name: "Group-level entry exists and does match",
+			config: Config{
+				PackageOverrides: []PackageOverrideEntry{
+					{
+						Group:          "dev",
+						Ignore:         true,
+						EffectiveUntil: time.Time{},
+						Reason:         "abc",
+					},
+				},
+			},
+			args: models.PackageVulns{
+				Package: models.PackageInfo{
+					Name:      "lib1",
+					Version:   "1.0.0",
+					Ecosystem: "Go",
+				},
+				DepGroups: []string{"dev"},
+			},
+			wantOk: true,
+			wantEntry: PackageOverrideEntry{
+				Group:          "dev",
+				Ignore:         true,
+				EffectiveUntil: time.Time{},
+				Reason:         "abc",
+			},
+		},
+		{
+			name: "Group-level entry exists and does not match",
+			config: Config{
+				PackageOverrides: []PackageOverrideEntry{
+					{
+						Group:          "dev",
+						Ignore:         true,
+						EffectiveUntil: time.Time{},
+						Reason:         "abc",
+					},
+				},
+			},
+			args: models.PackageVulns{
+				Package: models.PackageInfo{
+					Name:      "lib2",
+					Version:   "1.0.0",
+					Ecosystem: "npm",
+				},
+				DepGroups: []string{"optional"},
+			},
+			wantOk:    false,
+			wantEntry: PackageOverrideEntry{},
+		},
+		{
+			name: "Group-level entry exists and does not match when empty",
+			config: Config{
+				PackageOverrides: []PackageOverrideEntry{
+					{
+						Group:          "dev",
+						Ignore:         true,
+						EffectiveUntil: time.Time{},
+						Reason:         "abc",
+					},
+				},
+			},
+			args: models.PackageVulns{
+				Package: models.PackageInfo{
+					Name:      "lib2",
+					Version:   "1.0.0",
+					Ecosystem: "npm",
+				},
+			},
+			wantOk:    false,
+			wantEntry: PackageOverrideEntry{},
+		},
+		// -------------------------------------------------------------------------
+		{
+			name: "Version-level entry exists and does match",
+			config: Config{
+				PackageOverrides: []PackageOverrideEntry{
+					{
+						Version:        "1.0.0",
+						Ignore:         true,
+						EffectiveUntil: time.Time{},
+						Reason:         "abc",
+					},
+				},
+			},
+			args: models.PackageVulns{
+				Package: models.PackageInfo{
+					Name:      "lib1",
+					Version:   "1.0.0",
+					Ecosystem: "Go",
+				},
+				DepGroups: []string{"dev"},
+			},
+			wantOk: true,
+			wantEntry: PackageOverrideEntry{
+				Version:        "1.0.0",
+				Ignore:         true,
+				EffectiveUntil: time.Time{},
+				Reason:         "abc",
+			},
+		},
+		{
+			name: "Version-level entry exists and does not match",
+			config: Config{
+				PackageOverrides: []PackageOverrideEntry{
+					{
+						Version:        "1.0.0",
+						Ignore:         true,
+						EffectiveUntil: time.Time{},
+						Reason:         "abc",
+					},
+				},
+			},
+			args: models.PackageVulns{
+				Package: models.PackageInfo{
+					Name:      "lib1",
+					Version:   "1.0.1",
+					Ecosystem: "Go",
+				},
+				DepGroups: []string{"dev"},
+			},
+			wantOk:    false,
+			wantEntry: PackageOverrideEntry{},
+		},
+		// -------------------------------------------------------------------------
+		{
+			name: "Name-level entry exists and does match",
+			config: Config{
+				PackageOverrides: []PackageOverrideEntry{
+					{
+						Name:           "lib1",
+						Ignore:         true,
+						EffectiveUntil: time.Time{},
+						Reason:         "abc",
+					},
+				},
+			},
+			args: models.PackageVulns{
+				Package: models.PackageInfo{
+					Name:      "lib1",
+					Version:   "1.0.0",
+					Ecosystem: "Go",
+				},
+				DepGroups: []string{"dev"},
+			},
+			wantOk: true,
+			wantEntry: PackageOverrideEntry{
+				Name:           "lib1",
+				Ignore:         true,
+				EffectiveUntil: time.Time{},
+				Reason:         "abc",
+			},
+		},
+		{
+			name: "Name-level entry exists and does not match",
+			config: Config{
+				PackageOverrides: []PackageOverrideEntry{
+					{
+						Name:           "lib1",
+						Ignore:         true,
+						EffectiveUntil: time.Time{},
+						Reason:         "abc",
+					},
+				},
+			},
+			args: models.PackageVulns{
+				Package: models.PackageInfo{
+					Name:      "lib2",
+					Version:   "1.0.0",
+					Ecosystem: "npm",
+				},
+				DepGroups: []string{"dev"},
+			},
+			wantOk:    false,
+			wantEntry: PackageOverrideEntry{},
+		},
+		// -------------------------------------------------------------------------
+		{
+			name: "Name, Version, and Ecosystem entry exists",
 			config: Config{
 				PackageOverrides: []PackageOverrideEntry{
 					{
@@ -257,7 +514,7 @@ func TestConfig_ShouldIgnorePackage(t *testing.T) {
 			},
 		},
 		{
-			name: "Package-level entry exists",
+			name: "Name and Ecosystem entry exists",
 			config: Config{
 				PackageOverrides: []PackageOverrideEntry{
 					{
@@ -286,7 +543,7 @@ func TestConfig_ShouldIgnorePackage(t *testing.T) {
 			},
 		},
 		{
-			name: "Group-level entry exists and matches",
+			name: "Name, Ecosystem, and Group entry exists and matches",
 			config: Config{
 				PackageOverrides: []PackageOverrideEntry{
 					{
@@ -318,7 +575,7 @@ func TestConfig_ShouldIgnorePackage(t *testing.T) {
 			},
 		},
 		{
-			name: "Group-level entry exists but does not match",
+			name: "Name, Ecosystem, and Group entry exists but does not match",
 			config: Config{
 				PackageOverrides: []PackageOverrideEntry{
 					{
@@ -339,7 +596,7 @@ func TestConfig_ShouldIgnorePackage(t *testing.T) {
 				},
 				DepGroups: []string{"prod"},
 			},
-			wantOk: false,
+			wantOk:    false,
 			wantEntry: PackageOverrideEntry{},
 		},
 		{
