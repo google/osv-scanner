@@ -211,11 +211,11 @@ func parseRequirementsTxt(input *filesystem.ScanInput, requiredAlready map[strin
 
 				requiredAlready[fullReqPath] = struct{}{}
 				newScanInput := filesystem.ScanInput{
-					FS:       input.FS,
-					Path:     fullReqPath,
-					ScanRoot: input.ScanRoot,
-					Reader:   af,
-					Info:     info,
+					FS:     input.FS,
+					Path:   fullReqPath,
+					Root:   input.Root,
+					Reader: af,
+					Info:   info,
 				}
 
 				details, err := parseRequirementsTxt(&newScanInput, requiredAlready)

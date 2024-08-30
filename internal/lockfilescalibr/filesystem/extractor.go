@@ -15,7 +15,7 @@ type ScanInput struct {
 	// Input path, relative to the root directory.
 	Path string
 	// The root directory to start all extractions from.
-	ScanRoot string
+	Root string
 	// A reader for accessing contents of the "main" file.
 	// Note that the file is closed by the core library, not the plugin.
 	Reader io.Reader

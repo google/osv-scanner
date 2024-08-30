@@ -194,11 +194,11 @@ func GenerateScanInputMock(t *testing.T, config ScanInputMockConfig) ScanInputWr
 	return ScanInputWrapper{
 		fileHandle: f,
 		ScanInput: filesystem.ScanInput{
-			FS:       os.DirFS(scanRoot).(fs.FS),
-			Path:     config.Path,
-			ScanRoot: scanRoot,
-			Reader:   f,
-			Info:     info,
+			FS:     os.DirFS(scanRoot).(fs.FS),
+			Path:   config.Path,
+			Root:   scanRoot,
+			Reader: f,
+			Info:   info,
 		},
 	}
 }
