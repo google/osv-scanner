@@ -713,8 +713,8 @@ func write(raw string, w io.Writer, patches MavenPatches) error {
 }
 
 // encodeToken encodes a XML token without escaping text.
-// For a CharData token, writew the token directly to avoid escaping.
-// For all other token types, usew xml.EncodeToken().
+// For a CharData token, writes the token directly to avoid escaping.
+// For all other token types, uses xml.EncodeToken().
 // After encoding, flushes all buffered XML.
 func encodeToken(w io.Writer, enc *xml.Encoder, token xml.Token) error {
 	if tt, ok := token.(xml.CharData); ok {
