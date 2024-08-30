@@ -5,6 +5,7 @@ import (
 	"errors"
 	"fmt"
 	"slices"
+	"strings"
 
 	"deps.dev/util/resolve"
 	"deps.dev/util/resolve/dep"
@@ -260,7 +261,6 @@ func overridePatchVulns(ctx context.Context, cl client.ResolutionClient, result 
 
 // getVersionsGreater gets the known versions of a package that are greater than the given version, sorted in ascending order.
 func getVersionsGreater(ctx context.Context, cl client.DependencyClient, vk resolve.VersionKey) ([]resolve.Version, error) {
-	sys := vk.Semver()
 	// Get & sort all the valid versions of this package
 	// TODO: (Maven) skip unlisted versions and versions on other registries
 	versions, err := cl.Versions(ctx, vk.PackageKey)
@@ -268,7 +268,7 @@ func getVersionsGreater(ctx context.Context, cl client.DependencyClient, vk reso
 		return nil, err
 	}
 
-	cmpFunc := func(a, b resolve.Version) int { return sys.Compare(a.Version, b.Version) }
+	cmpFunc := comparisonFunctionWithWorkarounds(vk)
 	slices.SortFunc(versions, cmpFunc)
 	// Find the index of the next higher version
 	offset, vkFound := slices.BinarySearchFunc(versions, resolve.Version{VersionKey: vk}, cmpFunc)
@@ -277,6 +277,38 @@ func getVersionsGreater(ctx context.Context, cl client.DependencyClient, vk reso
 	}
 
 	return versions[offset:], nil
+}
+
+// comparisonFunctionWithWorkarounds returns a version comparison function with special behaviour for specific packages,
+// producing more desirable ordering using non-standard comparison.
+func comparisonFunctionWithWorkarounds(vk resolve.VersionKey) func(resolve.Version, resolve.Version) int {
+	sys := vk.Semver()
+
+	if vk.System == resolve.Maven && vk.Name == "com.google.guava:guava" {
+		// com.google.guava:guava has 'flavors' with versions ending with -jre or -android.
+		// https://github.com/google/guava/wiki/ReleasePolicy#flavors
+		// To preserve the flavor in updates, we make the opposite flavor considered the earliest versions.
+
+		// Old versions have '22.0' and '22.0-android', and even older version don't have any flavors.
+		// Only check for the android flavor, and assume its jre otherwise.
+		wantAndroid := strings.HasSuffix(vk.Version, "-android")
+		return func(a, b resolve.Version) int {
+			aIsAndroid := strings.HasSuffix(a.Version, "-android")
+			bIsAndroid := strings.HasSuffix(b.Version, "-android")
+
+			if aIsAndroid == bIsAndroid {
+				return sys.Compare(a.Version, b.Version)
+			}
+
+			if aIsAndroid == wantAndroid {
+				return 1
+			}
+
+			return -1
+		}
+	}
+
+	return func(a, b resolve.Version) int { return sys.Compare(a.Version, b.Version) }
 }
 
 // patchManifest applies the overridePatches to the manifest in-memory. Returns a copy of the manifest that has been patched.

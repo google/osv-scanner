@@ -1,0 +1,34 @@
+system: Maven
+schema: |
+  com.google.guava:guava
+    20.0
+    21.0
+    22.0
+    22.0-android
+    23.0
+    23.0-android
+    23.1-android
+    23.1-jre
+    24.0-android
+    24.0-jre
+
+vulns:
+  - id: OSV-000-000
+    affected:
+      - package:
+          ecosystem: Maven
+          name: com.google.guava:guava
+        ranges:
+          - type: ECOSYSTEM
+            events:
+              - introduced: '0'
+              - fixed: '24.0-android'
+        versions:
+          - '20.0'
+          - '21.0'
+          - '22.0'
+          - '22.0-android'
+          - '23.0'
+          - '23.0-android'
+          - '23.1-android'
+          - '23.1-jre'
