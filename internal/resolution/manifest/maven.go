@@ -358,7 +358,7 @@ func (MavenManifestIO) Write(df lockfile.DepFile, w io.Writer, patch ManifestPat
 			return err
 		}
 		//nolint:gosec
-		if err := os.WriteFile(path, unescape(out.String()), 0644); err != nil {
+		if err := os.WriteFile(path, out.Bytes(), 0644); err != nil {
 			return err
 		}
 	}
@@ -367,20 +367,8 @@ func (MavenManifestIO) Write(df lockfile.DepFile, w io.Writer, patch ManifestPat
 	if _, err := in.ReadFrom(df); err != nil {
 		return fmt.Errorf("failed to read from DepFile: %w", err)
 	}
-	out := new(bytes.Buffer)
-	if err := write(in.String(), out, allPatches[""]); err != nil {
-		return fmt.Errorf("failed to write pom.xml: %w", err)
-	}
-	_, err = w.Write(unescape(out.String()))
 
-	return err
-}
-
-// Unescape replaces escaped tabs with unescaped characters.
-func unescape(out string) []byte {
-	out = strings.ReplaceAll(out, "&#x9;", "	")
-
-	return []byte(out)
+	return write(in.String(), w, allPatches[""])
 }
 
 type MavenPatches struct {
@@ -716,15 +704,28 @@ func write(raw string, w io.Writer, patches MavenPatches) error {
 				continue
 			}
 		}
-		if err := enc.EncodeToken(token); err != nil {
-			return err
-		}
-		if err := enc.Flush(); err != nil {
+		if err := encodeToken(w, enc, token); err != nil {
 			return err
 		}
 	}
 
 	return nil
+}
+
+// encodeToken encodes a XML token without escaping text.
+// For a CharData token, writew the token directly to avoid escaping.
+// For all other token types, usew xml.EncodeToken().
+// After encoding, flushes all buffered XML.
+func encodeToken(w io.Writer, enc *xml.Encoder, token xml.Token) error {
+	if tt, ok := token.(xml.CharData); ok {
+		_, err := w.Write(tt)
+		return err
+	}
+	if err := enc.EncodeToken(token); err != nil {
+		return err
+	}
+
+	return enc.Flush()
 }
 
 func writeProject(w io.Writer, enc *xml.Encoder, raw, prefix, id string, patches MavenDependencyPatches, properties MavenPropertyPatches, updated map[string]bool) error {
@@ -760,7 +761,7 @@ func writeProject(w io.Writer, enc *xml.Encoder, raw, prefix, id string, patches
 						req = k.NewRequire
 					}
 				}
-				if err := writeString(enc, "<parent>"+rawParent.InnerXML+"</parent>", map[string]string{"version": req}); err != nil {
+				if err := writeString(w, enc, "<parent>"+rawParent.InnerXML+"</parent>", map[string]string{"version": req}); err != nil {
 					return fmt.Errorf("updating parent: %w", err)
 				}
 
@@ -773,7 +774,7 @@ func writeProject(w io.Writer, enc *xml.Encoder, raw, prefix, id string, patches
 				if err := dec.DecodeElement(&rawProperties, &tt); err != nil {
 					return err
 				}
-				if err := writeString(enc, "<properties>"+rawProperties.InnerXML+"</properties>", properties[mavenOrigin(prefix, id)]); err != nil {
+				if err := writeString(w, enc, "<properties>"+rawProperties.InnerXML+"</properties>", properties[mavenOrigin(prefix, id)]); err != nil {
 					return fmt.Errorf("updating properties: %w", err)
 				}
 
@@ -850,12 +851,12 @@ func writeProject(w io.Writer, enc *xml.Encoder, raw, prefix, id string, patches
 				continue
 			}
 		}
-		if err := enc.EncodeToken(token); err != nil {
+		if err := encodeToken(w, enc, token); err != nil {
 			return err
 		}
 	}
 
-	return enc.Flush()
+	return nil
 }
 
 func writeDependency(w io.Writer, enc *xml.Encoder, raw string, patches map[MavenPatch]bool) error {
@@ -872,10 +873,7 @@ func writeDependency(w io.Writer, enc *xml.Encoder, raw string, patches map[Mave
 		if tt, ok := token.(xml.StartElement); ok {
 			if tt.Name.Local == "dependencies" {
 				// We still need to write the start element <dependencies>
-				if err := enc.EncodeToken(token); err != nil {
-					return err
-				}
-				if err := enc.Flush(); err != nil {
+				if err := encodeToken(w, enc, token); err != nil {
 					return err
 				}
 
@@ -893,7 +891,7 @@ func writeDependency(w io.Writer, enc *xml.Encoder, raw string, patches map[Mave
 				// Sort dependencies for consistency in testing.
 				slices.SortFunc(deps, compareDependency)
 
-				enc.Indent("    ", "  ")
+				enc.Indent("      ", "  ")
 				// Write a new line to keep the format.
 				if _, err := w.Write([]byte("\n")); err != nil {
 					return err
@@ -925,7 +923,7 @@ func writeDependency(w io.Writer, enc *xml.Encoder, raw string, patches map[Mave
 				}
 				// xml.EncodeElement writes all empty elements and may not follow the existing format.
 				// Passing the innerXML can help to keep the original format.
-				if err := writeString(enc, "<dependency>"+rawDep.InnerXML+"</dependency>", map[string]string{"version": req}); err != nil {
+				if err := writeString(w, enc, "<dependency>"+rawDep.InnerXML+"</dependency>", map[string]string{"version": req}); err != nil {
 					return fmt.Errorf("updating dependency: %w", err)
 				}
 
@@ -933,16 +931,16 @@ func writeDependency(w io.Writer, enc *xml.Encoder, raw string, patches map[Mave
 			}
 		}
 
-		if err := enc.EncodeToken(token); err != nil {
+		if err := encodeToken(w, enc, token); err != nil {
 			return err
 		}
 	}
 
-	return enc.Flush()
+	return nil
 }
 
 // writeString writes XML string specified by raw with replacements specified in values.
-func writeString(enc *xml.Encoder, raw string, values map[string]string) error {
+func writeString(w io.Writer, enc *xml.Encoder, raw string, values map[string]string) error {
 	dec := xml.NewDecoder(bytes.NewReader([]byte(raw)))
 	for {
 		token, err := dec.Token()
@@ -965,10 +963,10 @@ func writeString(enc *xml.Encoder, raw string, values map[string]string) error {
 				continue
 			}
 		}
-		if err := enc.EncodeToken(token); err != nil {
+		if err := encodeToken(w, enc, token); err != nil {
 			return err
 		}
 	}
 
-	return enc.Flush()
+	return nil
 }
