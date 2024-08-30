@@ -119,8 +119,8 @@ func (e Extractor) Name() string { return "java/pomxml" }
 // Version of the extractor
 func (e Extractor) Version() int { return 0 }
 
-func (e Extractor) Requirements() *plugin.Requirements {
-	return &plugin.Requirements{}
+func (e Extractor) Requirements() *plugin.Capabilities {
+	return &plugin.Capabilities{}
 }
 
 func (e Extractor) FileRequired(path string, fileInfo fs.FileInfo) bool {
@@ -194,7 +194,7 @@ func (e Extractor) ToPURL(i *extractor.Inventory) (*packageurl.PackageURL, error
 func (e Extractor) ToCPEs(i *extractor.Inventory) ([]string, error) { return []string{}, nil }
 
 func (e Extractor) Ecosystem(i *extractor.Inventory) (string, error) {
-return MavenEcosystem, nil
+	return MavenEcosystem, nil
 }
 
 var _ filesystem.Extractor = Extractor{}

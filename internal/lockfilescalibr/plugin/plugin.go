@@ -8,9 +8,9 @@ type Plugin interface {
 	Version() int
 }
 
-// Requirements lists requirements that the plugin has about the environment its running on.
+// Capabilities lists requirements that the plugin has about the environment its running on.
 // Plugins that don't satisfy the scanning environments's requirements can't be enabled.
-type Requirements struct {
+type Capabilities struct {
 	// Whether this extractor requires network access.
 	Network bool
 

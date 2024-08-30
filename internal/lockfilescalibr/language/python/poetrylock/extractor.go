@@ -41,8 +41,8 @@ func (e Extractor) Name() string { return "python/poetrylock" }
 // Version of the extractor
 func (e Extractor) Version() int { return 0 }
 
-func (e Extractor) Requirements() *plugin.Requirements {
-	return &plugin.Requirements{}
+func (e Extractor) Requirements() *plugin.Capabilities {
+	return &plugin.Capabilities{}
 }
 
 func (e Extractor) FileRequired(path string, fileInfo fs.FileInfo) bool {

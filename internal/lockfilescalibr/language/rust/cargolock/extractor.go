@@ -38,8 +38,8 @@ func (e Extractor) FileRequired(path string, fileInfo fs.FileInfo) bool {
 	return filepath.Base(path) == "Cargo.lock"
 }
 
-func (e Extractor) Requirements() *plugin.Requirements {
-	return &plugin.Requirements{}
+func (e Extractor) Requirements() *plugin.Capabilities {
+	return &plugin.Capabilities{}
 }
 
 func (e Extractor) Extract(ctx context.Context, input *filesystem.ScanInput) ([]*extractor.Inventory, error) {

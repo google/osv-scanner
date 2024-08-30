@@ -116,8 +116,8 @@ func (e Extractor) Name() string { return "python/requirementstxt" }
 // Version of the extractor
 func (e Extractor) Version() int { return 0 }
 
-func (e Extractor) Requirements() *plugin.Requirements {
-	return &plugin.Requirements{}
+func (e Extractor) Requirements() *plugin.Capabilities {
+	return &plugin.Capabilities{}
 }
 
 func (e Extractor) FileRequired(path string, fileInfo fs.FileInfo) bool {
@@ -160,7 +160,7 @@ func (e Extractor) ToCPEs(i *extractor.Inventory) ([]string, error) {
 }
 
 func (e Extractor) Ecosystem(i *extractor.Inventory) (string, error) {
-return PipEcosystem, nil
+	return PipEcosystem, nil
 }
 
 func parseRequirementsTxt(input *filesystem.ScanInput, requiredAlready map[string]struct{}) ([]*extractor.Inventory, error) {
