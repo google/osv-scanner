@@ -281,7 +281,7 @@ func getVersionsGreater(ctx context.Context, cl client.DependencyClient, vk reso
 
 // comparisonFunctionWithWorkarounds returns a version comparison function with special behaviour for specific packages,
 // producing more desirable ordering using non-standard comparison.
-// TODO: Move this and make it re-usable for other remediation strategies & osv-scanner upgrade.
+// TODO: Move this and make it re-usable for other remediation strategies & osv-scanner update.
 func comparisonFunctionWithWorkarounds(vk resolve.VersionKey) func(resolve.Version, resolve.Version) int {
 	sys := vk.Semver()
 
