@@ -29,22 +29,54 @@ reason = "No external http servers are written in Go lang."
 
 Ignoring a vulnerability will also ignore vulnerabilities that are considered aliases of that vulnerability.
 
-## Override specific package
+## Override packages
 
-To ignore a specific a package, or manually set its license, enter the package name and ecosystem under the `PackageOverrides` key.
+You can specify overrides for particular packages to have them either ignored entirely or to set their license using the `PackageOverrides` key:
 
 ```toml
 [[PackageOverrides]]
-# The package name, version, and ecosystem to match against
+# One or more fields to match each package against:
 name = "lib"
-# If version is not set or empty, it will match every version
 version = "1.0.0"
 ecosystem = "Go"
-# Ignore this package entirely, including license scanning
+group = "dev"
+
+# Actions to take for matching packages:
+ignore = true # Ignore this package entirely, including license scanning
+license.override = ["MIT", "0BSD"] # Override the license of the package, if it is not ignored
+
+effectiveUntil = 2022-11-09 # Optional exception expiry date, after which the override will no longer apply
+reason = "abc" # Optional reason for the override, to explain why it was added
+```
+
+Each override entry will be checked against every package being scanned, and applied if all the configured fields match. This enables both very broad and very specific overrides based on your needs:
+
+```toml
+# ignore everything
+[[PackageOverrides]]
 ignore = true
-# Override the license of the package
-# This is not used if ignore = true
-license.override = ["MIT", "0BSD"]
-# effectiveUntil = 2022-11-09 # Optional exception expiry date
-reason = "abc"
+
+# ignore everything in a particular group
+[[PackageOverrides]]
+group = "dev"
+ignore = true
+
+# ignore everything in a particular ecosystem
+[[PackageOverrides]]
+ecosystem = "go"
+ignore = true
+
+# ignore all packages named "axios" regardless of ecosystem or group
+[[PackageOverrides]]
+name = "axios"
+ignore = true
+
+# ignore all packages named "axios" in the npm ecosystem that are in the dev group
+[[PackageOverrides]]
+name = "axios"
+ecosystem = "npm"
+group = "dev"
+ignore = true
+
+# ... and so on
 ```
