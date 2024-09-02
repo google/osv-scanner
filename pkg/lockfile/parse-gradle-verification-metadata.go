@@ -4,6 +4,8 @@ import (
 	"encoding/xml"
 	"fmt"
 	"path/filepath"
+
+	"github.com/google/osv-scanner/pkg/models"
 )
 
 type GradleVerificationMetadataFile struct {
@@ -35,10 +37,11 @@ func (e GradleVerificationMetadataExtractor) Extract(f DepFile) ([]PackageDetail
 
 	for _, component := range parsedLockfile.Components {
 		pkgs = append(pkgs, PackageDetails{
-			Name:      component.Group + ":" + component.Name,
-			Version:   component.Version,
-			Ecosystem: MavenEcosystem,
-			CompareAs: MavenEcosystem,
+			Name:           component.Group + ":" + component.Name,
+			Version:        component.Version,
+			PackageManager: models.Gradle,
+			Ecosystem:      MavenEcosystem,
+			CompareAs:      MavenEcosystem,
 		})
 	}
 

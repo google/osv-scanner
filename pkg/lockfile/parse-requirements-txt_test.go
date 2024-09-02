@@ -116,10 +116,11 @@ func TestParseRequirementsTxt_OneRequirementUnconstrained(t *testing.T) {
 
 	expectPackages(t, packages, []lockfile.PackageDetails{
 		{
-			Name:      "flask",
-			Version:   "",
-			Ecosystem: lockfile.PipEcosystem,
-			CompareAs: lockfile.PipEcosystem,
+			Name:           "flask",
+			Version:        "",
+			PackageManager: models.Requirements,
+			Ecosystem:      lockfile.PipEcosystem,
+			CompareAs:      lockfile.PipEcosystem,
 			BlockLocation: models.FilePosition{
 				Line:     models.Position{Start: 1, End: 1},
 				Column:   models.Position{Start: 1, End: 6},
@@ -150,10 +151,11 @@ func TestParseRequirementsTxt_OneRequirementConstrained(t *testing.T) {
 
 	expectPackages(t, packages, []lockfile.PackageDetails{
 		{
-			Name:      "django",
-			Version:   "2.2.24",
-			Ecosystem: lockfile.PipEcosystem,
-			CompareAs: lockfile.PipEcosystem,
+			Name:           "django",
+			Version:        "2.2.24",
+			PackageManager: models.Requirements,
+			Ecosystem:      lockfile.PipEcosystem,
+			CompareAs:      lockfile.PipEcosystem,
 			BlockLocation: models.FilePosition{
 				Line:     models.Position{Start: 1, End: 1},
 				Column:   models.Position{Start: 1, End: 15},
@@ -189,10 +191,11 @@ func TestParseRequirementsTxt_MultipleRequirementsConstrained(t *testing.T) {
 
 	expectPackages(t, packages, []lockfile.PackageDetails{
 		{
-			Name:      "astroid",
-			Version:   "2.5.1",
-			Ecosystem: lockfile.PipEcosystem,
-			CompareAs: lockfile.PipEcosystem,
+			Name:           "astroid",
+			Version:        "2.5.1",
+			PackageManager: models.Requirements,
+			Ecosystem:      lockfile.PipEcosystem,
+			CompareAs:      lockfile.PipEcosystem,
 			BlockLocation: models.FilePosition{
 				Line:     models.Position{Start: 1, End: 1},
 				Column:   models.Position{Start: 1, End: 15},
@@ -211,10 +214,11 @@ func TestParseRequirementsTxt_MultipleRequirementsConstrained(t *testing.T) {
 			DepGroups: []string{"multiple-packages-constrained"},
 		},
 		{
-			Name:      "beautifulsoup4",
-			Version:   "4.9.3",
-			Ecosystem: lockfile.PipEcosystem,
-			CompareAs: lockfile.PipEcosystem,
+			Name:           "beautifulsoup4",
+			Version:        "4.9.3",
+			PackageManager: models.Requirements,
+			Ecosystem:      lockfile.PipEcosystem,
+			CompareAs:      lockfile.PipEcosystem,
 			BlockLocation: models.FilePosition{
 				Line:     models.Position{Start: 3, End: 3},
 				Column:   models.Position{Start: 1, End: 22},
@@ -233,10 +237,11 @@ func TestParseRequirementsTxt_MultipleRequirementsConstrained(t *testing.T) {
 			DepGroups: []string{"multiple-packages-constrained"},
 		},
 		{
-			Name:      "boto3",
-			Version:   "1.17.19",
-			Ecosystem: lockfile.PipEcosystem,
-			CompareAs: lockfile.PipEcosystem,
+			Name:           "boto3",
+			Version:        "1.17.19",
+			PackageManager: models.Requirements,
+			Ecosystem:      lockfile.PipEcosystem,
+			CompareAs:      lockfile.PipEcosystem,
 			BlockLocation: models.FilePosition{
 				Line:     models.Position{Start: 5, End: 5},
 				Column:   models.Position{Start: 1, End: 15},
@@ -255,10 +260,11 @@ func TestParseRequirementsTxt_MultipleRequirementsConstrained(t *testing.T) {
 			DepGroups: []string{"multiple-packages-constrained"},
 		},
 		{
-			Name:      "botocore",
-			Version:   "1.20.19",
-			Ecosystem: lockfile.PipEcosystem,
-			CompareAs: lockfile.PipEcosystem,
+			Name:           "botocore",
+			Version:        "1.20.19",
+			PackageManager: models.Requirements,
+			Ecosystem:      lockfile.PipEcosystem,
+			CompareAs:      lockfile.PipEcosystem,
 			BlockLocation: models.FilePosition{
 				Line:     models.Position{Start: 7, End: 7},
 				Column:   models.Position{Start: 1, End: 18},
@@ -277,10 +283,11 @@ func TestParseRequirementsTxt_MultipleRequirementsConstrained(t *testing.T) {
 			DepGroups: []string{"multiple-packages-constrained"},
 		},
 		{
-			Name:      "certifi",
-			Version:   "2020.12.5",
-			Ecosystem: lockfile.PipEcosystem,
-			CompareAs: lockfile.PipEcosystem,
+			Name:           "certifi",
+			Version:        "2020.12.5",
+			PackageManager: models.Requirements,
+			Ecosystem:      lockfile.PipEcosystem,
+			CompareAs:      lockfile.PipEcosystem,
 			BlockLocation: models.FilePosition{
 				Line:     models.Position{Start: 11, End: 11},
 				Column:   models.Position{Start: 1, End: 19},
@@ -299,10 +306,11 @@ func TestParseRequirementsTxt_MultipleRequirementsConstrained(t *testing.T) {
 			DepGroups: []string{"multiple-packages-constrained"},
 		},
 		{
-			Name:      "chardet",
-			Version:   "4.0.0",
-			Ecosystem: lockfile.PipEcosystem,
-			CompareAs: lockfile.PipEcosystem,
+			Name:           "chardet",
+			Version:        "4.0.0",
+			PackageManager: models.Requirements,
+			Ecosystem:      lockfile.PipEcosystem,
+			CompareAs:      lockfile.PipEcosystem,
 			BlockLocation: models.FilePosition{
 				Line:     models.Position{Start: 13, End: 13},
 				Column:   models.Position{Start: 1, End: 15},
@@ -321,10 +329,11 @@ func TestParseRequirementsTxt_MultipleRequirementsConstrained(t *testing.T) {
 			DepGroups: []string{"multiple-packages-constrained"},
 		},
 		{
-			Name:      "circus",
-			Version:   "0.17.1",
-			Ecosystem: lockfile.PipEcosystem,
-			CompareAs: lockfile.PipEcosystem,
+			Name:           "circus",
+			Version:        "0.17.1",
+			PackageManager: models.Requirements,
+			Ecosystem:      lockfile.PipEcosystem,
+			CompareAs:      lockfile.PipEcosystem,
 			BlockLocation: models.FilePosition{
 				Line:     models.Position{Start: 15, End: 15},
 				Column:   models.Position{Start: 1, End: 15},
@@ -343,10 +352,11 @@ func TestParseRequirementsTxt_MultipleRequirementsConstrained(t *testing.T) {
 			DepGroups: []string{"multiple-packages-constrained"},
 		},
 		{
-			Name:      "click",
-			Version:   "7.1.2",
-			Ecosystem: lockfile.PipEcosystem,
-			CompareAs: lockfile.PipEcosystem,
+			Name:           "click",
+			Version:        "7.1.2",
+			PackageManager: models.Requirements,
+			Ecosystem:      lockfile.PipEcosystem,
+			CompareAs:      lockfile.PipEcosystem,
 			BlockLocation: models.FilePosition{
 				Line:     models.Position{Start: 17, End: 17},
 				Column:   models.Position{Start: 1, End: 13},
@@ -365,10 +375,11 @@ func TestParseRequirementsTxt_MultipleRequirementsConstrained(t *testing.T) {
 			DepGroups: []string{"multiple-packages-constrained"},
 		},
 		{
-			Name:      "django-debug-toolbar",
-			Version:   "3.2.1",
-			Ecosystem: lockfile.PipEcosystem,
-			CompareAs: lockfile.PipEcosystem,
+			Name:           "django-debug-toolbar",
+			Version:        "3.2.1",
+			PackageManager: models.Requirements,
+			Ecosystem:      lockfile.PipEcosystem,
+			CompareAs:      lockfile.PipEcosystem,
 			BlockLocation: models.FilePosition{
 				Line:     models.Position{Start: 19, End: 19},
 				Column:   models.Position{Start: 1, End: 28},
@@ -387,10 +398,11 @@ func TestParseRequirementsTxt_MultipleRequirementsConstrained(t *testing.T) {
 			DepGroups: []string{"multiple-packages-constrained"},
 		},
 		{
-			Name:      "django-filter",
-			Version:   "2.4.0",
-			Ecosystem: lockfile.PipEcosystem,
-			CompareAs: lockfile.PipEcosystem,
+			Name:           "django-filter",
+			Version:        "2.4.0",
+			PackageManager: models.Requirements,
+			Ecosystem:      lockfile.PipEcosystem,
+			CompareAs:      lockfile.PipEcosystem,
 			BlockLocation: models.FilePosition{
 				Line:     models.Position{Start: 21, End: 21},
 				Column:   models.Position{Start: 1, End: 21},
@@ -409,10 +421,11 @@ func TestParseRequirementsTxt_MultipleRequirementsConstrained(t *testing.T) {
 			DepGroups: []string{"multiple-packages-constrained"},
 		},
 		{
-			Name:      "django-nose",
-			Version:   "1.4.7",
-			Ecosystem: lockfile.PipEcosystem,
-			CompareAs: lockfile.PipEcosystem,
+			Name:           "django-nose",
+			Version:        "1.4.7",
+			PackageManager: models.Requirements,
+			Ecosystem:      lockfile.PipEcosystem,
+			CompareAs:      lockfile.PipEcosystem,
 			BlockLocation: models.FilePosition{
 				Line:     models.Position{Start: 23, End: 23},
 				Column:   models.Position{Start: 1, End: 19},
@@ -431,10 +444,11 @@ func TestParseRequirementsTxt_MultipleRequirementsConstrained(t *testing.T) {
 			DepGroups: []string{"multiple-packages-constrained"},
 		},
 		{
-			Name:      "django-storages",
-			Version:   "1.11.1",
-			Ecosystem: lockfile.PipEcosystem,
-			CompareAs: lockfile.PipEcosystem,
+			Name:           "django-storages",
+			Version:        "1.11.1",
+			PackageManager: models.Requirements,
+			Ecosystem:      lockfile.PipEcosystem,
+			CompareAs:      lockfile.PipEcosystem,
 			BlockLocation: models.FilePosition{
 				Line:     models.Position{Start: 25, End: 25},
 				Column:   models.Position{Start: 1, End: 24},
@@ -453,10 +467,11 @@ func TestParseRequirementsTxt_MultipleRequirementsConstrained(t *testing.T) {
 			DepGroups: []string{"multiple-packages-constrained"},
 		},
 		{
-			Name:      "django",
-			Version:   "2.2.24",
-			Ecosystem: lockfile.PipEcosystem,
-			CompareAs: lockfile.PipEcosystem,
+			Name:           "django",
+			Version:        "2.2.24",
+			PackageManager: models.Requirements,
+			Ecosystem:      lockfile.PipEcosystem,
+			CompareAs:      lockfile.PipEcosystem,
 			BlockLocation: models.FilePosition{
 				Line:     models.Position{Start: 27, End: 27},
 				Column:   models.Position{Start: 1, End: 15},
@@ -492,10 +507,11 @@ func TestParseRequirementsTxt_MultipleRequirementsMixed(t *testing.T) {
 
 	expectPackages(t, packages, []lockfile.PackageDetails{
 		{
-			Name:      "flask",
-			Version:   "",
-			Ecosystem: lockfile.PipEcosystem,
-			CompareAs: lockfile.PipEcosystem,
+			Name:           "flask",
+			Version:        "",
+			PackageManager: models.Requirements,
+			Ecosystem:      lockfile.PipEcosystem,
+			CompareAs:      lockfile.PipEcosystem,
 			BlockLocation: models.FilePosition{
 				Line:     models.Position{Start: 1, End: 1},
 				Column:   models.Position{Start: 1, End: 6},
@@ -509,10 +525,11 @@ func TestParseRequirementsTxt_MultipleRequirementsMixed(t *testing.T) {
 			DepGroups: []string{"multiple-packages-mixed"},
 		},
 		{
-			Name:      "flask-cors",
-			Version:   "",
-			Ecosystem: lockfile.PipEcosystem,
-			CompareAs: lockfile.PipEcosystem,
+			Name:           "flask-cors",
+			Version:        "",
+			PackageManager: models.Requirements,
+			Ecosystem:      lockfile.PipEcosystem,
+			CompareAs:      lockfile.PipEcosystem,
 			BlockLocation: models.FilePosition{
 				Line:     models.Position{Start: 2, End: 2},
 				Column:   models.Position{Start: 1, End: 11},
@@ -526,10 +543,11 @@ func TestParseRequirementsTxt_MultipleRequirementsMixed(t *testing.T) {
 			DepGroups: []string{"multiple-packages-mixed"},
 		},
 		{
-			Name:      "pandas",
-			Version:   "0.23.4",
-			Ecosystem: lockfile.PipEcosystem,
-			CompareAs: lockfile.PipEcosystem,
+			Name:           "pandas",
+			Version:        "0.23.4",
+			PackageManager: models.Requirements,
+			Ecosystem:      lockfile.PipEcosystem,
+			CompareAs:      lockfile.PipEcosystem,
 			BlockLocation: models.FilePosition{
 				Line:     models.Position{Start: 3, End: 3},
 				Column:   models.Position{Start: 1, End: 15},
@@ -548,10 +566,11 @@ func TestParseRequirementsTxt_MultipleRequirementsMixed(t *testing.T) {
 			DepGroups: []string{"multiple-packages-mixed"},
 		},
 		{
-			Name:      "numpy",
-			Version:   "1.16.0",
-			Ecosystem: lockfile.PipEcosystem,
-			CompareAs: lockfile.PipEcosystem,
+			Name:           "numpy",
+			Version:        "1.16.0",
+			PackageManager: models.Requirements,
+			Ecosystem:      lockfile.PipEcosystem,
+			CompareAs:      lockfile.PipEcosystem,
 			BlockLocation: models.FilePosition{
 				Line:     models.Position{Start: 4, End: 4},
 				Column:   models.Position{Start: 1, End: 14},
@@ -570,10 +589,11 @@ func TestParseRequirementsTxt_MultipleRequirementsMixed(t *testing.T) {
 			DepGroups: []string{"multiple-packages-mixed"},
 		},
 		{
-			Name:      "scikit-learn",
-			Version:   "0.20.1",
-			Ecosystem: lockfile.PipEcosystem,
-			CompareAs: lockfile.PipEcosystem,
+			Name:           "scikit-learn",
+			Version:        "0.20.1",
+			PackageManager: models.Requirements,
+			Ecosystem:      lockfile.PipEcosystem,
+			CompareAs:      lockfile.PipEcosystem,
 			BlockLocation: models.FilePosition{
 				Line:     models.Position{Start: 5, End: 5},
 				Column:   models.Position{Start: 1, End: 21},
@@ -592,10 +612,11 @@ func TestParseRequirementsTxt_MultipleRequirementsMixed(t *testing.T) {
 			DepGroups: []string{"multiple-packages-mixed"},
 		},
 		{
-			Name:      "sklearn",
-			Version:   "",
-			Ecosystem: lockfile.PipEcosystem,
-			CompareAs: lockfile.PipEcosystem,
+			Name:           "sklearn",
+			Version:        "",
+			PackageManager: models.Requirements,
+			Ecosystem:      lockfile.PipEcosystem,
+			CompareAs:      lockfile.PipEcosystem,
 			BlockLocation: models.FilePosition{
 				Line:     models.Position{Start: 6, End: 6},
 				Column:   models.Position{Start: 1, End: 8},
@@ -609,10 +630,11 @@ func TestParseRequirementsTxt_MultipleRequirementsMixed(t *testing.T) {
 			DepGroups: []string{"multiple-packages-mixed"},
 		},
 		{
-			Name:      "requests",
-			Version:   "",
-			Ecosystem: lockfile.PipEcosystem,
-			CompareAs: lockfile.PipEcosystem,
+			Name:           "requests",
+			Version:        "",
+			PackageManager: models.Requirements,
+			Ecosystem:      lockfile.PipEcosystem,
+			CompareAs:      lockfile.PipEcosystem,
 			BlockLocation: models.FilePosition{
 				Line:     models.Position{Start: 7, End: 7},
 				Column:   models.Position{Start: 1, End: 9},
@@ -626,10 +648,11 @@ func TestParseRequirementsTxt_MultipleRequirementsMixed(t *testing.T) {
 			DepGroups: []string{"multiple-packages-mixed"},
 		},
 		{
-			Name:      "gevent",
-			Version:   "",
-			Ecosystem: lockfile.PipEcosystem,
-			CompareAs: lockfile.PipEcosystem,
+			Name:           "gevent",
+			Version:        "",
+			PackageManager: models.Requirements,
+			Ecosystem:      lockfile.PipEcosystem,
+			CompareAs:      lockfile.PipEcosystem,
 			BlockLocation: models.FilePosition{
 				Line:     models.Position{Start: 8, End: 8},
 				Column:   models.Position{Start: 1, End: 7},
@@ -661,10 +684,11 @@ func TestParseRequirementsTxt_FileFormatExample(t *testing.T) {
 
 	expectPackages(t, packages, []lockfile.PackageDetails{
 		{
-			Name:      "pytest",
-			Version:   "",
-			Ecosystem: lockfile.PipEcosystem,
-			CompareAs: lockfile.PipEcosystem,
+			Name:           "pytest",
+			Version:        "",
+			PackageManager: models.Requirements,
+			Ecosystem:      lockfile.PipEcosystem,
+			CompareAs:      lockfile.PipEcosystem,
 			BlockLocation: models.FilePosition{
 				Line:     models.Position{Start: 3, End: 3},
 				Column:   models.Position{Start: 1, End: 7},
@@ -678,10 +702,11 @@ func TestParseRequirementsTxt_FileFormatExample(t *testing.T) {
 			DepGroups: []string{"file-format-example"},
 		},
 		{
-			Name:      "pytest-cov",
-			Version:   "",
-			Ecosystem: lockfile.PipEcosystem,
-			CompareAs: lockfile.PipEcosystem,
+			Name:           "pytest-cov",
+			Version:        "",
+			PackageManager: models.Requirements,
+			Ecosystem:      lockfile.PipEcosystem,
+			CompareAs:      lockfile.PipEcosystem,
 			BlockLocation: models.FilePosition{
 				Line:     models.Position{Start: 4, End: 4},
 				Column:   models.Position{Start: 1, End: 11},
@@ -695,10 +720,11 @@ func TestParseRequirementsTxt_FileFormatExample(t *testing.T) {
 			DepGroups: []string{"file-format-example"},
 		},
 		{
-			Name:      "beautifulsoup4",
-			Version:   "",
-			Ecosystem: lockfile.PipEcosystem,
-			CompareAs: lockfile.PipEcosystem,
+			Name:           "beautifulsoup4",
+			Version:        "",
+			PackageManager: models.Requirements,
+			Ecosystem:      lockfile.PipEcosystem,
+			CompareAs:      lockfile.PipEcosystem,
 			BlockLocation: models.FilePosition{
 				Line:     models.Position{Start: 5, End: 5},
 				Column:   models.Position{Start: 1, End: 15},
@@ -712,10 +738,11 @@ func TestParseRequirementsTxt_FileFormatExample(t *testing.T) {
 			DepGroups: []string{"file-format-example"},
 		},
 		{
-			Name:      "docopt",
-			Version:   "0.6.1",
-			Ecosystem: lockfile.PipEcosystem,
-			CompareAs: lockfile.PipEcosystem,
+			Name:           "docopt",
+			Version:        "0.6.1",
+			PackageManager: models.Requirements,
+			Ecosystem:      lockfile.PipEcosystem,
+			CompareAs:      lockfile.PipEcosystem,
 			BlockLocation: models.FilePosition{
 				Line:     models.Position{Start: 9, End: 9},
 				Column:   models.Position{Start: 1, End: 70},
@@ -734,10 +761,11 @@ func TestParseRequirementsTxt_FileFormatExample(t *testing.T) {
 			DepGroups: []string{"file-format-example"},
 		},
 		{
-			Name:      "keyring",
-			Version:   "4.1.1",
-			Ecosystem: lockfile.PipEcosystem,
-			CompareAs: lockfile.PipEcosystem,
+			Name:           "keyring",
+			Version:        "4.1.1",
+			PackageManager: models.Requirements,
+			Ecosystem:      lockfile.PipEcosystem,
+			CompareAs:      lockfile.PipEcosystem,
 			BlockLocation: models.FilePosition{
 				Line:     models.Position{Start: 10, End: 10},
 				Column:   models.Position{Start: 1, End: 52},
@@ -756,10 +784,11 @@ func TestParseRequirementsTxt_FileFormatExample(t *testing.T) {
 			DepGroups: []string{"file-format-example"},
 		},
 		{
-			Name:      "coverage",
-			Version:   "",
-			Ecosystem: lockfile.PipEcosystem,
-			CompareAs: lockfile.PipEcosystem,
+			Name:           "coverage",
+			Version:        "",
+			PackageManager: models.Requirements,
+			Ecosystem:      lockfile.PipEcosystem,
+			CompareAs:      lockfile.PipEcosystem,
 			BlockLocation: models.FilePosition{
 				Line:     models.Position{Start: 11, End: 11},
 				Column:   models.Position{Start: 1, End: 77},
@@ -773,10 +802,11 @@ func TestParseRequirementsTxt_FileFormatExample(t *testing.T) {
 			DepGroups: []string{"file-format-example"},
 		},
 		{
-			Name:      "mopidy-dirble",
-			Version:   "1.1",
-			Ecosystem: lockfile.PipEcosystem,
-			CompareAs: lockfile.PipEcosystem,
+			Name:           "mopidy-dirble",
+			Version:        "1.1",
+			PackageManager: models.Requirements,
+			Ecosystem:      lockfile.PipEcosystem,
+			CompareAs:      lockfile.PipEcosystem,
 			BlockLocation: models.FilePosition{
 				Line:     models.Position{Start: 12, End: 12},
 				Column:   models.Position{Start: 1, End: 73},
@@ -795,10 +825,11 @@ func TestParseRequirementsTxt_FileFormatExample(t *testing.T) {
 			DepGroups: []string{"file-format-example"},
 		},
 		{
-			Name:      "rejected",
-			Version:   "",
-			Ecosystem: lockfile.PipEcosystem,
-			CompareAs: lockfile.PipEcosystem,
+			Name:           "rejected",
+			Version:        "",
+			PackageManager: models.Requirements,
+			Ecosystem:      lockfile.PipEcosystem,
+			CompareAs:      lockfile.PipEcosystem,
 			BlockLocation: models.FilePosition{
 				Line:     models.Position{Start: 23, End: 23},
 				Column:   models.Position{Start: 1, End: 9},
@@ -812,10 +843,11 @@ func TestParseRequirementsTxt_FileFormatExample(t *testing.T) {
 			DepGroups: []string{"file-format-example"},
 		},
 		{
-			Name:      "green",
-			Version:   "",
-			Ecosystem: lockfile.PipEcosystem,
-			CompareAs: lockfile.PipEcosystem,
+			Name:           "green",
+			Version:        "",
+			PackageManager: models.Requirements,
+			Ecosystem:      lockfile.PipEcosystem,
+			CompareAs:      lockfile.PipEcosystem,
 			BlockLocation: models.FilePosition{
 				Line:     models.Position{Start: 24, End: 24},
 				Column:   models.Position{Start: 1, End: 6},
@@ -829,10 +861,11 @@ func TestParseRequirementsTxt_FileFormatExample(t *testing.T) {
 			DepGroups: []string{"file-format-example"},
 		},
 		{
-			Name:      "django",
-			Version:   "2.2.24",
-			Ecosystem: lockfile.PipEcosystem,
-			CompareAs: lockfile.PipEcosystem,
+			Name:           "django",
+			Version:        "2.2.24",
+			PackageManager: models.Requirements,
+			Ecosystem:      lockfile.PipEcosystem,
+			CompareAs:      lockfile.PipEcosystem,
 			BlockLocation: models.FilePosition{
 				Line:     models.Position{Start: 1, End: 1},
 				Column:   models.Position{Start: 1, End: 15},
@@ -868,10 +901,11 @@ func TestParseRequirementsTxt_WithAddedSupport(t *testing.T) {
 
 	expectPackages(t, packages, []lockfile.PackageDetails{
 		{
-			Name:      "twisted",
-			Version:   "20.3.0",
-			Ecosystem: lockfile.PipEcosystem,
-			CompareAs: lockfile.PipEcosystem,
+			Name:           "twisted",
+			Version:        "20.3.0",
+			PackageManager: models.Requirements,
+			Ecosystem:      lockfile.PipEcosystem,
+			CompareAs:      lockfile.PipEcosystem,
 			BlockLocation: models.FilePosition{
 				Line:     models.Position{Start: 1, End: 1},
 				Column:   models.Position{Start: 1, End: 23},
@@ -907,10 +941,11 @@ func TestParseRequirementsTxt_NonNormalizedNames(t *testing.T) {
 
 	expectPackages(t, packages, []lockfile.PackageDetails{
 		{
-			Name:      "zope-interface",
-			Version:   "5.4.0",
-			Ecosystem: lockfile.PipEcosystem,
-			CompareAs: lockfile.PipEcosystem,
+			Name:           "zope-interface",
+			Version:        "5.4.0",
+			PackageManager: models.Requirements,
+			Ecosystem:      lockfile.PipEcosystem,
+			CompareAs:      lockfile.PipEcosystem,
 			BlockLocation: models.FilePosition{
 				Line:     models.Position{Start: 1, End: 1},
 				Column:   models.Position{Start: 1, End: 22},
@@ -929,10 +964,11 @@ func TestParseRequirementsTxt_NonNormalizedNames(t *testing.T) {
 			DepGroups: []string{"non-normalized-names"},
 		},
 		{
-			Name:      "pillow",
-			Version:   "1.0.0",
-			Ecosystem: lockfile.PipEcosystem,
-			CompareAs: lockfile.PipEcosystem,
+			Name:           "pillow",
+			Version:        "1.0.0",
+			PackageManager: models.Requirements,
+			Ecosystem:      lockfile.PipEcosystem,
+			CompareAs:      lockfile.PipEcosystem,
 			BlockLocation: models.FilePosition{
 				Line:     models.Position{Start: 6, End: 6},
 				Column:   models.Position{Start: 1, End: 14},
@@ -951,10 +987,11 @@ func TestParseRequirementsTxt_NonNormalizedNames(t *testing.T) {
 			DepGroups: []string{"non-normalized-names"},
 		},
 		{
-			Name:      "twisted",
-			Version:   "20.3.0",
-			Ecosystem: lockfile.PipEcosystem,
-			CompareAs: lockfile.PipEcosystem,
+			Name:           "twisted",
+			Version:        "20.3.0",
+			PackageManager: models.Requirements,
+			Ecosystem:      lockfile.PipEcosystem,
+			CompareAs:      lockfile.PipEcosystem,
 			BlockLocation: models.FilePosition{
 				Line:     models.Position{Start: 8, End: 8},
 				Column:   models.Position{Start: 1, End: 23},
@@ -992,10 +1029,11 @@ func TestParseRequirementsTxt_WithMultipleROptions(t *testing.T) {
 
 	expectPackages(t, packages, []lockfile.PackageDetails{
 		{
-			Name:      "flask",
-			Version:   "",
-			Ecosystem: lockfile.PipEcosystem,
-			CompareAs: lockfile.PipEcosystem,
+			Name:           "flask",
+			Version:        "",
+			PackageManager: models.Requirements,
+			Ecosystem:      lockfile.PipEcosystem,
+			CompareAs:      lockfile.PipEcosystem,
 			BlockLocation: models.FilePosition{
 				Line:     models.Position{Start: 1, End: 1},
 				Column:   models.Position{Start: 1, End: 6},
@@ -1009,10 +1047,11 @@ func TestParseRequirementsTxt_WithMultipleROptions(t *testing.T) {
 			DepGroups: []string{"multiple-packages-mixed"},
 		},
 		{
-			Name:      "flask-cors",
-			Version:   "",
-			Ecosystem: lockfile.PipEcosystem,
-			CompareAs: lockfile.PipEcosystem,
+			Name:           "flask-cors",
+			Version:        "",
+			PackageManager: models.Requirements,
+			Ecosystem:      lockfile.PipEcosystem,
+			CompareAs:      lockfile.PipEcosystem,
 			BlockLocation: models.FilePosition{
 				Line:     models.Position{Start: 2, End: 2},
 				Column:   models.Position{Start: 1, End: 11},
@@ -1026,10 +1065,11 @@ func TestParseRequirementsTxt_WithMultipleROptions(t *testing.T) {
 			DepGroups: []string{"multiple-packages-mixed"},
 		},
 		{
-			Name:      "pandas",
-			Version:   "0.23.4",
-			Ecosystem: lockfile.PipEcosystem,
-			CompareAs: lockfile.PipEcosystem,
+			Name:           "pandas",
+			Version:        "0.23.4",
+			PackageManager: models.Requirements,
+			Ecosystem:      lockfile.PipEcosystem,
+			CompareAs:      lockfile.PipEcosystem,
 			BlockLocation: models.FilePosition{
 				Line:     models.Position{Start: 3, End: 3},
 				Column:   models.Position{Start: 1, End: 15},
@@ -1048,10 +1088,11 @@ func TestParseRequirementsTxt_WithMultipleROptions(t *testing.T) {
 			DepGroups: []string{"multiple-packages-mixed", "with-multiple-r-options"},
 		},
 		{
-			Name:      "numpy",
-			Version:   "1.16.0",
-			Ecosystem: lockfile.PipEcosystem,
-			CompareAs: lockfile.PipEcosystem,
+			Name:           "numpy",
+			Version:        "1.16.0",
+			PackageManager: models.Requirements,
+			Ecosystem:      lockfile.PipEcosystem,
+			CompareAs:      lockfile.PipEcosystem,
 			BlockLocation: models.FilePosition{
 				Line:     models.Position{Start: 4, End: 4},
 				Column:   models.Position{Start: 1, End: 14},
@@ -1070,10 +1111,11 @@ func TestParseRequirementsTxt_WithMultipleROptions(t *testing.T) {
 			DepGroups: []string{"multiple-packages-mixed"},
 		},
 		{
-			Name:      "scikit-learn",
-			Version:   "0.20.1",
-			Ecosystem: lockfile.PipEcosystem,
-			CompareAs: lockfile.PipEcosystem,
+			Name:           "scikit-learn",
+			Version:        "0.20.1",
+			PackageManager: models.Requirements,
+			Ecosystem:      lockfile.PipEcosystem,
+			CompareAs:      lockfile.PipEcosystem,
 			BlockLocation: models.FilePosition{
 				Line:     models.Position{Start: 5, End: 5},
 				Column:   models.Position{Start: 1, End: 21},
@@ -1092,10 +1134,11 @@ func TestParseRequirementsTxt_WithMultipleROptions(t *testing.T) {
 			DepGroups: []string{"multiple-packages-mixed"},
 		},
 		{
-			Name:      "sklearn",
-			Version:   "",
-			Ecosystem: lockfile.PipEcosystem,
-			CompareAs: lockfile.PipEcosystem,
+			Name:           "sklearn",
+			Version:        "",
+			PackageManager: models.Requirements,
+			Ecosystem:      lockfile.PipEcosystem,
+			CompareAs:      lockfile.PipEcosystem,
 			BlockLocation: models.FilePosition{
 				Line:     models.Position{Start: 6, End: 6},
 				Column:   models.Position{Start: 1, End: 8},
@@ -1109,10 +1152,11 @@ func TestParseRequirementsTxt_WithMultipleROptions(t *testing.T) {
 			DepGroups: []string{"multiple-packages-mixed"},
 		},
 		{
-			Name:      "requests",
-			Version:   "",
-			Ecosystem: lockfile.PipEcosystem,
-			CompareAs: lockfile.PipEcosystem,
+			Name:           "requests",
+			Version:        "",
+			PackageManager: models.Requirements,
+			Ecosystem:      lockfile.PipEcosystem,
+			CompareAs:      lockfile.PipEcosystem,
 			BlockLocation: models.FilePosition{
 				Line:     models.Position{Start: 7, End: 7},
 				Column:   models.Position{Start: 1, End: 9},
@@ -1126,10 +1170,11 @@ func TestParseRequirementsTxt_WithMultipleROptions(t *testing.T) {
 			DepGroups: []string{"multiple-packages-mixed"},
 		},
 		{
-			Name:      "gevent",
-			Version:   "",
-			Ecosystem: lockfile.PipEcosystem,
-			CompareAs: lockfile.PipEcosystem,
+			Name:           "gevent",
+			Version:        "",
+			PackageManager: models.Requirements,
+			Ecosystem:      lockfile.PipEcosystem,
+			CompareAs:      lockfile.PipEcosystem,
 			BlockLocation: models.FilePosition{
 				Line:     models.Position{Start: 8, End: 8},
 				Column:   models.Position{Start: 1, End: 7},
@@ -1143,10 +1188,11 @@ func TestParseRequirementsTxt_WithMultipleROptions(t *testing.T) {
 			DepGroups: []string{"multiple-packages-mixed"},
 		},
 		{
-			Name:      "requests",
-			Version:   "1.2.3",
-			Ecosystem: lockfile.PipEcosystem,
-			CompareAs: lockfile.PipEcosystem,
+			Name:           "requests",
+			Version:        "1.2.3",
+			PackageManager: models.Requirements,
+			Ecosystem:      lockfile.PipEcosystem,
+			CompareAs:      lockfile.PipEcosystem,
 			BlockLocation: models.FilePosition{
 				Line:     models.Position{Start: 4, End: 4},
 				Column:   models.Position{Start: 1, End: 16},
@@ -1165,10 +1211,11 @@ func TestParseRequirementsTxt_WithMultipleROptions(t *testing.T) {
 			DepGroups: []string{"with-multiple-r-options"},
 		},
 		{
-			Name:      "django",
-			Version:   "2.2.24",
-			Ecosystem: lockfile.PipEcosystem,
-			CompareAs: lockfile.PipEcosystem,
+			Name:           "django",
+			Version:        "2.2.24",
+			PackageManager: models.Requirements,
+			Ecosystem:      lockfile.PipEcosystem,
+			CompareAs:      lockfile.PipEcosystem,
 			BlockLocation: models.FilePosition{
 				Line:     models.Position{Start: 1, End: 1},
 				Column:   models.Position{Start: 1, End: 15},
@@ -1213,11 +1260,12 @@ func TestParseRequirementsTxt_WithURLROption(t *testing.T) {
 
 	expectPackages(t, packages, []lockfile.PackageDetails{
 		{
-			Name:      "requests",
-			Version:   "1.2.3",
-			Commit:    "",
-			Ecosystem: lockfile.PipEcosystem,
-			CompareAs: lockfile.PipEcosystem,
+			Name:           "requests",
+			Version:        "1.2.3",
+			Commit:         "",
+			PackageManager: models.Requirements,
+			Ecosystem:      lockfile.PipEcosystem,
+			CompareAs:      lockfile.PipEcosystem,
 			BlockLocation: models.FilePosition{
 				Line:     models.Position{Start: 1, End: 1},
 				Column:   models.Position{Start: 1, End: 16},
@@ -1255,10 +1303,11 @@ func TestParseRequirementsTxt_DuplicateROptions(t *testing.T) {
 
 	expectPackages(t, packages, []lockfile.PackageDetails{
 		{
-			Name:      "django",
-			Version:   "0.1.0",
-			Ecosystem: lockfile.PipEcosystem,
-			CompareAs: lockfile.PipEcosystem,
+			Name:           "django",
+			Version:        "0.1.0",
+			PackageManager: models.Requirements,
+			Ecosystem:      lockfile.PipEcosystem,
+			CompareAs:      lockfile.PipEcosystem,
 			BlockLocation: models.FilePosition{
 				Line:     models.Position{Start: 1, End: 1},
 				Column:   models.Position{Start: 1, End: 14},
@@ -1277,10 +1326,11 @@ func TestParseRequirementsTxt_DuplicateROptions(t *testing.T) {
 			DepGroups: []string{"duplicate-r-base"},
 		},
 		{
-			Name:      "pandas",
-			Version:   "0.23.4",
-			Ecosystem: lockfile.PipEcosystem,
-			CompareAs: lockfile.PipEcosystem,
+			Name:           "pandas",
+			Version:        "0.23.4",
+			PackageManager: models.Requirements,
+			Ecosystem:      lockfile.PipEcosystem,
+			CompareAs:      lockfile.PipEcosystem,
 			BlockLocation: models.FilePosition{
 				Line:     models.Position{Start: 4, End: 4},
 				Column:   models.Position{Start: 1, End: 15},
@@ -1299,10 +1349,11 @@ func TestParseRequirementsTxt_DuplicateROptions(t *testing.T) {
 			DepGroups: []string{"duplicate-r-dev"},
 		},
 		{
-			Name:      "requests",
-			Version:   "1.2.3",
-			Ecosystem: lockfile.PipEcosystem,
-			CompareAs: lockfile.PipEcosystem,
+			Name:           "requests",
+			Version:        "1.2.3",
+			PackageManager: models.Requirements,
+			Ecosystem:      lockfile.PipEcosystem,
+			CompareAs:      lockfile.PipEcosystem,
 			BlockLocation: models.FilePosition{
 				Line:     models.Position{Start: 3, End: 3},
 				Column:   models.Position{Start: 1, End: 16},
@@ -1321,10 +1372,11 @@ func TestParseRequirementsTxt_DuplicateROptions(t *testing.T) {
 			DepGroups: []string{"duplicate-r-test", "duplicate-r-dev"},
 		},
 		{
-			Name:      "unittest",
-			Version:   "1.0.0",
-			Ecosystem: lockfile.PipEcosystem,
-			CompareAs: lockfile.PipEcosystem,
+			Name:           "unittest",
+			Version:        "1.0.0",
+			PackageManager: models.Requirements,
+			Ecosystem:      lockfile.PipEcosystem,
+			CompareAs:      lockfile.PipEcosystem,
 			BlockLocation: models.FilePosition{
 				Line:     models.Position{Start: 4, End: 4},
 				Column:   models.Position{Start: 1, End: 16},
@@ -1360,10 +1412,11 @@ func TestParseRequirementsTxt_CyclicRSelf(t *testing.T) {
 
 	expectPackages(t, packages, []lockfile.PackageDetails{
 		{
-			Name:      "pandas",
-			Version:   "0.23.4",
-			Ecosystem: lockfile.PipEcosystem,
-			CompareAs: lockfile.PipEcosystem,
+			Name:           "pandas",
+			Version:        "0.23.4",
+			PackageManager: models.Requirements,
+			Ecosystem:      lockfile.PipEcosystem,
+			CompareAs:      lockfile.PipEcosystem,
 			BlockLocation: models.FilePosition{
 				Line:     models.Position{Start: 4, End: 4},
 				Column:   models.Position{Start: 1, End: 15},
@@ -1382,10 +1435,11 @@ func TestParseRequirementsTxt_CyclicRSelf(t *testing.T) {
 			DepGroups: []string{"cyclic-r-self"},
 		},
 		{
-			Name:      "requests",
-			Version:   "1.2.3",
-			Ecosystem: lockfile.PipEcosystem,
-			CompareAs: lockfile.PipEcosystem,
+			Name:           "requests",
+			Version:        "1.2.3",
+			PackageManager: models.Requirements,
+			Ecosystem:      lockfile.PipEcosystem,
+			CompareAs:      lockfile.PipEcosystem,
 			BlockLocation: models.FilePosition{
 				Line:     models.Position{Start: 3, End: 3},
 				Column:   models.Position{Start: 1, End: 16},
@@ -1423,10 +1477,11 @@ func TestParseRequirementsTxt_CyclicRComplex(t *testing.T) {
 
 	expectPackages(t, packages, []lockfile.PackageDetails{
 		{
-			Name:      "cyclic-r-complex",
-			Version:   "1",
-			Ecosystem: lockfile.PipEcosystem,
-			CompareAs: lockfile.PipEcosystem,
+			Name:           "cyclic-r-complex",
+			Version:        "1",
+			PackageManager: models.Requirements,
+			Ecosystem:      lockfile.PipEcosystem,
+			CompareAs:      lockfile.PipEcosystem,
 			BlockLocation: models.FilePosition{
 				Line:     models.Position{Start: 3, End: 3},
 				Column:   models.Position{Start: 1, End: 20},
@@ -1445,10 +1500,11 @@ func TestParseRequirementsTxt_CyclicRComplex(t *testing.T) {
 			DepGroups: []string{"cyclic-r-complex-1"},
 		},
 		{
-			Name:      "cyclic-r-complex",
-			Version:   "2",
-			Ecosystem: lockfile.PipEcosystem,
-			CompareAs: lockfile.PipEcosystem,
+			Name:           "cyclic-r-complex",
+			Version:        "2",
+			PackageManager: models.Requirements,
+			Ecosystem:      lockfile.PipEcosystem,
+			CompareAs:      lockfile.PipEcosystem,
 			BlockLocation: models.FilePosition{
 				Line:     models.Position{Start: 4, End: 4},
 				Column:   models.Position{Start: 1, End: 20},
@@ -1467,10 +1523,11 @@ func TestParseRequirementsTxt_CyclicRComplex(t *testing.T) {
 			DepGroups: []string{"cyclic-r-complex-2"},
 		},
 		{
-			Name:      "cyclic-r-complex",
-			Version:   "3",
-			Ecosystem: lockfile.PipEcosystem,
-			CompareAs: lockfile.PipEcosystem,
+			Name:           "cyclic-r-complex",
+			Version:        "3",
+			PackageManager: models.Requirements,
+			Ecosystem:      lockfile.PipEcosystem,
+			CompareAs:      lockfile.PipEcosystem,
 			BlockLocation: models.FilePosition{
 				Line:     models.Position{Start: 4, End: 4},
 				Column:   models.Position{Start: 1, End: 20},
@@ -1506,10 +1563,11 @@ func TestParseRequirementsTxt_WithPerRequirementOptions(t *testing.T) {
 
 	expectPackages(t, packages, []lockfile.PackageDetails{
 		{
-			Name:      "boto3",
-			Version:   "1.26.121",
-			Ecosystem: lockfile.PipEcosystem,
-			CompareAs: lockfile.PipEcosystem,
+			Name:           "boto3",
+			Version:        "1.26.121",
+			PackageManager: models.Requirements,
+			Ecosystem:      lockfile.PipEcosystem,
+			CompareAs:      lockfile.PipEcosystem,
 			BlockLocation: models.FilePosition{
 				Line:     models.Position{Start: 1, End: 1},
 				Column:   models.Position{Start: 1, End: 95},
@@ -1528,10 +1586,11 @@ func TestParseRequirementsTxt_WithPerRequirementOptions(t *testing.T) {
 			DepGroups: []string{"with-per-requirement-options"},
 		},
 		{
-			Name:      "foo",
-			Version:   "1.0.0",
-			Ecosystem: lockfile.PipEcosystem,
-			CompareAs: lockfile.PipEcosystem,
+			Name:           "foo",
+			Version:        "1.0.0",
+			PackageManager: models.Requirements,
+			Ecosystem:      lockfile.PipEcosystem,
+			CompareAs:      lockfile.PipEcosystem,
 			BlockLocation: models.FilePosition{
 				Line:     models.Position{Start: 2, End: 2},
 				Column:   models.Position{Start: 1, End: 13},
@@ -1550,10 +1609,11 @@ func TestParseRequirementsTxt_WithPerRequirementOptions(t *testing.T) {
 			DepGroups: []string{"with-per-requirement-options"},
 		},
 		{
-			Name:      "fooproject",
-			Version:   "1.2",
-			Ecosystem: lockfile.PipEcosystem,
-			CompareAs: lockfile.PipEcosystem,
+			Name:           "fooproject",
+			Version:        "1.2",
+			PackageManager: models.Requirements,
+			Ecosystem:      lockfile.PipEcosystem,
+			CompareAs:      lockfile.PipEcosystem,
 			BlockLocation: models.FilePosition{
 				Line:     models.Position{Start: 6, End: 8},
 				Column:   models.Position{Start: 1, End: 81},
@@ -1572,10 +1632,11 @@ func TestParseRequirementsTxt_WithPerRequirementOptions(t *testing.T) {
 			DepGroups: []string{"with-per-requirement-options"},
 		},
 		{
-			Name:      "barproject",
-			Version:   "1.2",
-			Ecosystem: lockfile.PipEcosystem,
-			CompareAs: lockfile.PipEcosystem,
+			Name:           "barproject",
+			Version:        "1.2",
+			PackageManager: models.Requirements,
+			Ecosystem:      lockfile.PipEcosystem,
+			CompareAs:      lockfile.PipEcosystem,
 			BlockLocation: models.FilePosition{
 				Line:     models.Position{Start: 12, End: 12},
 				Column:   models.Position{Start: 1, End: 50},
@@ -1611,10 +1672,11 @@ func TestParseRequirementsTxt_LineContinuation(t *testing.T) {
 
 	expectPackages(t, packages, []lockfile.PackageDetails{
 		{
-			Name:      "foo",
-			Version:   "1.2.3",
-			Ecosystem: lockfile.PipEcosystem,
-			CompareAs: lockfile.PipEcosystem,
+			Name:           "foo",
+			Version:        "1.2.3",
+			PackageManager: models.Requirements,
+			Ecosystem:      lockfile.PipEcosystem,
+			CompareAs:      lockfile.PipEcosystem,
 			BlockLocation: models.FilePosition{
 				Line:     models.Position{Start: 2, End: 6},
 				Column:   models.Position{Start: 1, End: 6},
@@ -1633,10 +1695,11 @@ func TestParseRequirementsTxt_LineContinuation(t *testing.T) {
 			DepGroups: []string{"line-continuation"},
 		},
 		{
-			Name:      "bar",
-			Version:   "4.5\\\\",
-			Ecosystem: lockfile.PipEcosystem,
-			CompareAs: lockfile.PipEcosystem,
+			Name:           "bar",
+			Version:        "4.5\\\\",
+			PackageManager: models.Requirements,
+			Ecosystem:      lockfile.PipEcosystem,
+			CompareAs:      lockfile.PipEcosystem,
 			BlockLocation: models.FilePosition{
 				Line:     models.Position{Start: 9, End: 9},
 				Column:   models.Position{Start: 1, End: 13},
@@ -1655,10 +1718,11 @@ func TestParseRequirementsTxt_LineContinuation(t *testing.T) {
 			DepGroups: []string{"line-continuation"},
 		},
 		{
-			Name:      "baz",
-			Version:   "7.8.9",
-			Ecosystem: lockfile.PipEcosystem,
-			CompareAs: lockfile.PipEcosystem,
+			Name:           "baz",
+			Version:        "7.8.9",
+			PackageManager: models.Requirements,
+			Ecosystem:      lockfile.PipEcosystem,
+			CompareAs:      lockfile.PipEcosystem,
 			BlockLocation: models.FilePosition{
 				Line:     models.Position{Start: 13, End: 14},
 				Column:   models.Position{Start: 1, End: 13},
@@ -1677,10 +1741,11 @@ func TestParseRequirementsTxt_LineContinuation(t *testing.T) {
 			DepGroups: []string{"line-continuation"},
 		},
 		{
-			Name:      "qux",
-			Version:   "10.11.12",
-			Ecosystem: lockfile.PipEcosystem,
-			CompareAs: lockfile.PipEcosystem,
+			Name:           "qux",
+			Version:        "10.11.12",
+			PackageManager: models.Requirements,
+			Ecosystem:      lockfile.PipEcosystem,
+			CompareAs:      lockfile.PipEcosystem,
 			BlockLocation: models.FilePosition{
 				Line:     models.Position{Start: 17, End: 17},
 				Column:   models.Position{Start: 1, End: 17},
@@ -1716,10 +1781,11 @@ func TestParseRequirementsTxt_EnvironmentMarkers(t *testing.T) {
 
 	expectPackages(t, packages, []lockfile.PackageDetails{
 		{
-			Name:      "aa",
-			Version:   "",
-			Ecosystem: lockfile.PipEcosystem,
-			CompareAs: lockfile.PipEcosystem,
+			Name:           "aa",
+			Version:        "",
+			PackageManager: models.Requirements,
+			Ecosystem:      lockfile.PipEcosystem,
+			CompareAs:      lockfile.PipEcosystem,
 			BlockLocation: models.FilePosition{
 				Line:     models.Position{Start: 1, End: 1},
 				Column:   models.Position{Start: 1, End: 26},
@@ -1734,10 +1800,11 @@ func TestParseRequirementsTxt_EnvironmentMarkers(t *testing.T) {
 			DepGroups: []string{"environment-markers"},
 		},
 		{
-			Name:      "name6",
-			Version:   "",
-			Ecosystem: lockfile.PipEcosystem,
-			CompareAs: lockfile.PipEcosystem,
+			Name:           "name6",
+			Version:        "",
+			PackageManager: models.Requirements,
+			Ecosystem:      lockfile.PipEcosystem,
+			CompareAs:      lockfile.PipEcosystem,
 			BlockLocation: models.FilePosition{
 				Line:     models.Position{Start: 2, End: 2},
 				Column:   models.Position{Start: 1, End: 67},
@@ -1752,10 +1819,11 @@ func TestParseRequirementsTxt_EnvironmentMarkers(t *testing.T) {
 			DepGroups: []string{"environment-markers"},
 		},
 		{
-			Name:      "someproject",
-			Version:   "5.4",
-			Ecosystem: lockfile.PipEcosystem,
-			CompareAs: lockfile.PipEcosystem,
+			Name:           "someproject",
+			Version:        "5.4",
+			PackageManager: models.Requirements,
+			Ecosystem:      lockfile.PipEcosystem,
+			CompareAs:      lockfile.PipEcosystem,
 			BlockLocation: models.FilePosition{
 				Line:     models.Position{Start: 3, End: 3},
 				Column:   models.Position{Start: 1, End: 41},
@@ -1792,10 +1860,11 @@ func TestParseRequirementsTxt_GitUrlPackages(t *testing.T) {
 
 	expectPackages(t, packages, []lockfile.PackageDetails{
 		{
-			Name:      "pyroxy",
-			Version:   "",
-			Ecosystem: lockfile.PipEcosystem,
-			CompareAs: lockfile.PipEcosystem,
+			Name:           "pyroxy",
+			Version:        "",
+			PackageManager: models.Requirements,
+			Ecosystem:      lockfile.PipEcosystem,
+			CompareAs:      lockfile.PipEcosystem,
 			BlockLocation: models.FilePosition{
 				Line:     models.Position{Start: 1, End: 1},
 				Column:   models.Position{Start: 1, End: 52},
@@ -1830,10 +1899,11 @@ func TestParseRequirementsTxt_WhlUrlPackages(t *testing.T) {
 	}
 	expectPackages(t, packages, []lockfile.PackageDetails{
 		{
-			Name:      "pandas",
-			Version:   "2.2.1",
-			Ecosystem: lockfile.PipEcosystem,
-			CompareAs: lockfile.PipEcosystem,
+			Name:           "pandas",
+			Version:        "2.2.1",
+			PackageManager: models.Requirements,
+			Ecosystem:      lockfile.PipEcosystem,
+			CompareAs:      lockfile.PipEcosystem,
 			BlockLocation: models.FilePosition{
 				Line:     models.Position{Start: 1, End: 1},
 				Column:   models.Position{Start: 1, End: 161},

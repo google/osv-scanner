@@ -6,6 +6,8 @@ import (
 	"path/filepath"
 	"strings"
 
+	"github.com/google/osv-scanner/pkg/models"
+
 	"golang.org/x/exp/maps"
 )
 
@@ -32,10 +34,11 @@ func parseNuGetLockDependencies(dependencies map[string]NuGetLockPackage) map[st
 			continue
 		}
 		details[name+"@"+dependency.Resolved] = PackageDetails{
-			Name:      name,
-			Version:   dependency.Resolved,
-			Ecosystem: NuGetEcosystem,
-			CompareAs: NuGetEcosystem,
+			Name:           name,
+			Version:        dependency.Resolved,
+			PackageManager: models.NuGet,
+			Ecosystem:      NuGetEcosystem,
+			CompareAs:      NuGetEcosystem,
 		}
 	}
 

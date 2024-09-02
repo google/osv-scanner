@@ -62,8 +62,9 @@ func TestGemfileMatcher_Match_OnePackage(t *testing.T) {
 
 	packages := []lockfile.PackageDetails{
 		{
-			Name:    "RedCloth",
-			Version: "4.2.9",
+			Name:           "RedCloth",
+			Version:        "4.2.9",
+			PackageManager: models.Bundler,
 		},
 	}
 	err = gemfileMatcher.Match(sourceFile, packages)
@@ -73,8 +74,9 @@ func TestGemfileMatcher_Match_OnePackage(t *testing.T) {
 
 	expectPackages(t, packages, []lockfile.PackageDetails{
 		{
-			Name:    "RedCloth",
-			Version: "4.2.9",
+			Name:           "RedCloth",
+			Version:        "4.2.9",
+			PackageManager: models.Bundler,
 			BlockLocation: models.FilePosition{
 				Line:     models.Position{Start: 3, End: 5},
 				Column:   models.Position{Start: 1, End: 24},
@@ -130,10 +132,11 @@ func TestGemfileMatcher_OnePackage_MatcherFailed(t *testing.T) {
 	assert.Contains(t, buffer.String(), matcherError.Error())
 	expectPackagesWithoutLocations(t, packages, []lockfile.PackageDetails{
 		{
-			Name:      "RedCloth",
-			Version:   "4.2.9",
-			Ecosystem: lockfile.BundlerEcosystem,
-			CompareAs: lockfile.BundlerEcosystem,
+			Name:           "RedCloth",
+			Version:        "4.2.9",
+			PackageManager: models.Bundler,
+			Ecosystem:      lockfile.BundlerEcosystem,
+			CompareAs:      lockfile.BundlerEcosystem,
 		},
 	})
 

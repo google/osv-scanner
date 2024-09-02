@@ -9,6 +9,8 @@ import (
 	"path/filepath"
 	"testing"
 
+	"github.com/google/osv-scanner/pkg/models"
+
 	"github.com/stretchr/testify/assert"
 
 	"github.com/google/osv-scanner/pkg/lockfile"
@@ -111,10 +113,11 @@ func TestParsePoetryLock_OnePackage(t *testing.T) {
 
 	expectPackages(t, packages, []lockfile.PackageDetails{
 		{
-			Name:      "numpy",
-			Version:   "1.23.3",
-			Ecosystem: lockfile.PoetryEcosystem,
-			CompareAs: lockfile.PoetryEcosystem,
+			Name:           "numpy",
+			Version:        "1.23.3",
+			PackageManager: models.Poetry,
+			Ecosystem:      lockfile.PoetryEcosystem,
+			CompareAs:      lockfile.PoetryEcosystem,
 		},
 	})
 }
@@ -156,10 +159,11 @@ func TestParsePoetryLock_OnePackage_MatcherFailed(t *testing.T) {
 	assert.Contains(t, buffer.String(), matcherError.Error())
 	expectPackages(t, packages, []lockfile.PackageDetails{
 		{
-			Name:      "numpy",
-			Version:   "1.23.3",
-			Ecosystem: lockfile.PoetryEcosystem,
-			CompareAs: lockfile.PoetryEcosystem,
+			Name:           "numpy",
+			Version:        "1.23.3",
+			PackageManager: models.Poetry,
+			Ecosystem:      lockfile.PoetryEcosystem,
+			CompareAs:      lockfile.PoetryEcosystem,
 		},
 	})
 
@@ -182,16 +186,18 @@ func TestParsePoetryLock_TwoPackages(t *testing.T) {
 
 	expectPackages(t, packages, []lockfile.PackageDetails{
 		{
-			Name:      "proto-plus",
-			Version:   "1.22.0",
-			Ecosystem: lockfile.PoetryEcosystem,
-			CompareAs: lockfile.PoetryEcosystem,
+			Name:           "proto-plus",
+			Version:        "1.22.0",
+			PackageManager: models.Poetry,
+			Ecosystem:      lockfile.PoetryEcosystem,
+			CompareAs:      lockfile.PoetryEcosystem,
 		},
 		{
-			Name:      "protobuf",
-			Version:   "4.21.5",
-			Ecosystem: lockfile.PoetryEcosystem,
-			CompareAs: lockfile.PoetryEcosystem,
+			Name:           "protobuf",
+			Version:        "4.21.5",
+			PackageManager: models.Poetry,
+			Ecosystem:      lockfile.PoetryEcosystem,
+			CompareAs:      lockfile.PoetryEcosystem,
 		},
 	})
 }
@@ -211,10 +217,11 @@ func TestParsePoetryLock_PackageWithMetadata(t *testing.T) {
 
 	expectPackages(t, packages, []lockfile.PackageDetails{
 		{
-			Name:      "emoji",
-			Version:   "2.0.0",
-			Ecosystem: lockfile.PoetryEcosystem,
-			CompareAs: lockfile.PoetryEcosystem,
+			Name:           "emoji",
+			Version:        "2.0.0",
+			PackageManager: models.Poetry,
+			Ecosystem:      lockfile.PoetryEcosystem,
+			CompareAs:      lockfile.PoetryEcosystem,
 		},
 	})
 }
@@ -234,11 +241,12 @@ func TestParsePoetryLock_PackageWithGitSource(t *testing.T) {
 
 	expectPackages(t, packages, []lockfile.PackageDetails{
 		{
-			Name:      "ike",
-			Version:   "0.2.0",
-			Ecosystem: lockfile.PoetryEcosystem,
-			CompareAs: lockfile.PoetryEcosystem,
-			Commit:    "cd66602cd29f61a2d2e7fb995fef1e61708c034d",
+			Name:           "ike",
+			Version:        "0.2.0",
+			PackageManager: models.Poetry,
+			Ecosystem:      lockfile.PoetryEcosystem,
+			CompareAs:      lockfile.PoetryEcosystem,
+			Commit:         "cd66602cd29f61a2d2e7fb995fef1e61708c034d",
 		},
 	})
 }
@@ -258,11 +266,12 @@ func TestParsePoetryLock_PackageWithLegacySource(t *testing.T) {
 
 	expectPackages(t, packages, []lockfile.PackageDetails{
 		{
-			Name:      "appdirs",
-			Version:   "1.4.4",
-			Ecosystem: lockfile.PoetryEcosystem,
-			CompareAs: lockfile.PoetryEcosystem,
-			Commit:    "",
+			Name:           "appdirs",
+			Version:        "1.4.4",
+			PackageManager: models.Poetry,
+			Ecosystem:      lockfile.PoetryEcosystem,
+			CompareAs:      lockfile.PoetryEcosystem,
+			Commit:         "",
 		},
 	})
 }
@@ -282,11 +291,12 @@ func TestParsePoetryLock_OptionalPackage(t *testing.T) {
 
 	expectPackages(t, packages, []lockfile.PackageDetails{
 		{
-			Name:      "numpy",
-			Version:   "1.23.3",
-			Ecosystem: lockfile.PoetryEcosystem,
-			CompareAs: lockfile.PoetryEcosystem,
-			DepGroups: []string{"optional"},
+			Name:           "numpy",
+			Version:        "1.23.3",
+			PackageManager: models.Poetry,
+			Ecosystem:      lockfile.PoetryEcosystem,
+			CompareAs:      lockfile.PoetryEcosystem,
+			DepGroups:      []string{"optional"},
 		},
 	})
 }

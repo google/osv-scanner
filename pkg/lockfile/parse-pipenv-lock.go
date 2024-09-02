@@ -5,6 +5,8 @@ import (
 	"fmt"
 	"path/filepath"
 
+	"github.com/google/osv-scanner/pkg/models"
+
 	"golang.org/x/exp/maps"
 )
 
@@ -54,10 +56,11 @@ func addPkgDetails(details map[string]PackageDetails, packages map[string]Pipenv
 
 		if _, ok := details[name+"@"+version]; !ok {
 			pkgDetails := PackageDetails{
-				Name:      name,
-				Version:   version,
-				Ecosystem: PipenvEcosystem,
-				CompareAs: PipenvEcosystem,
+				Name:           name,
+				Version:        version,
+				PackageManager: models.Pipfile,
+				Ecosystem:      PipenvEcosystem,
+				CompareAs:      PipenvEcosystem,
 			}
 			if group != "" {
 				pkgDetails.DepGroups = append(pkgDetails.DepGroups, group)

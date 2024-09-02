@@ -4,6 +4,8 @@ import (
 	"encoding/json"
 	"fmt"
 	"path/filepath"
+
+	"github.com/google/osv-scanner/pkg/models"
 )
 
 type RenvPackage struct {
@@ -42,10 +44,11 @@ func (e RenvLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 		}
 
 		packages = append(packages, PackageDetails{
-			Name:      pkg.Package,
-			Version:   pkg.Version,
-			Ecosystem: CRANEcosystem,
-			CompareAs: CRANEcosystem,
+			Name:           pkg.Package,
+			Version:        pkg.Version,
+			PackageManager: models.Renv,
+			Ecosystem:      CRANEcosystem,
+			CompareAs:      CRANEcosystem,
 		})
 	}
 

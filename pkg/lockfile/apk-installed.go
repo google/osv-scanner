@@ -6,6 +6,8 @@ import (
 	"io"
 	"sort"
 	"strings"
+
+	"github.com/google/osv-scanner/pkg/models"
 )
 
 const AlpineEcosystem Ecosystem = "Alpine"
@@ -36,8 +38,9 @@ func groupApkPackageLines(scanner *bufio.Scanner) [][]string {
 
 func parseApkPackageGroup(group []string) PackageDetails {
 	var pkg = PackageDetails{
-		Ecosystem: AlpineEcosystem,
-		CompareAs: AlpineEcosystem,
+		Ecosystem:      AlpineEcosystem,
+		CompareAs:      AlpineEcosystem,
+		PackageManager: models.Unknown,
 	}
 
 	// File SPECS: https://wiki.alpinelinux.org/wiki/Apk_spec

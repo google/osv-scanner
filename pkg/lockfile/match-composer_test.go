@@ -9,6 +9,8 @@ import (
 	"path/filepath"
 	"testing"
 
+	"github.com/google/osv-scanner/pkg/models"
+
 	"github.com/google/osv-scanner/internal/testutility"
 
 	"github.com/google/osv-scanner/pkg/lockfile"
@@ -63,8 +65,9 @@ func TestComposerMatcher_Match_OnePackage(t *testing.T) {
 
 	packages := []lockfile.PackageDetails{
 		{
-			Name:    "brick/math",
-			Version: "0.12.9",
+			Name:           "brick/math",
+			Version:        "0.12.9",
+			PackageManager: models.Composer,
 		},
 	}
 	err = composerMatcher.Match(sourceFile, packages)

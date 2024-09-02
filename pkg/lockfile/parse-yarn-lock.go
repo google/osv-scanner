@@ -8,6 +8,8 @@ import (
 	"path/filepath"
 	"strings"
 
+	"github.com/google/osv-scanner/pkg/models"
+
 	"github.com/google/osv-scanner/internal/cachedregexp"
 )
 
@@ -219,6 +221,7 @@ func parseYarnPackage(dependency YarnPackage) PackageDetails {
 		Name:           dependency.Name,
 		Version:        dependency.Version,
 		TargetVersions: dependency.TargetVersions,
+		PackageManager: models.Yarn,
 		Ecosystem:      YarnEcosystem,
 		CompareAs:      YarnEcosystem,
 		Commit:         tryExtractCommit(dependency.Resolution),

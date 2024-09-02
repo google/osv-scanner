@@ -60,13 +60,16 @@ func TestNugetCsprojMatcher_Match_Packages(t *testing.T) {
 
 	packages := []lockfile.PackageDetails{
 		{
-			Name: "Downloader",
+			Name:           "Downloader",
+			PackageManager: models.NuGet,
 		},
 		{
-			Name: "MaterialDesignThemes",
+			Name:           "MaterialDesignThemes",
+			PackageManager: models.NuGet,
 		},
 		{
-			Name: "Test.Core",
+			Name:           "Test.Core",
+			PackageManager: models.NuGet,
 		},
 	}
 	err = nugetCsprojMatcher.Match(sourceFile, packages)
@@ -84,7 +87,8 @@ func TestNugetCsprojMatcher_Match_Packages(t *testing.T) {
 
 	expectPackages(t, packages, []lockfile.PackageDetails{
 		{
-			Name: "Downloader",
+			Name:           "Downloader",
+			PackageManager: models.NuGet,
 			BlockLocation: models.FilePosition{
 				Line:     models.Position{Start: 11, End: 11},
 				Column:   models.Position{Start: 3, End: 58},
@@ -102,7 +106,8 @@ func TestNugetCsprojMatcher_Match_Packages(t *testing.T) {
 			},
 		},
 		{
-			Name: "MaterialDesignThemes",
+			Name:           "MaterialDesignThemes",
+			PackageManager: models.NuGet,
 			BlockLocation: models.FilePosition{
 				Line:     models.Position{Start: 12, End: 12},
 				Column:   models.Position{Start: 3, End: 70},
@@ -120,7 +125,8 @@ func TestNugetCsprojMatcher_Match_Packages(t *testing.T) {
 			},
 		},
 		{
-			Name: "Test.Core",
+			Name:           "Test.Core",
+			PackageManager: models.NuGet,
 			BlockLocation: models.FilePosition{
 				Line:     models.Position{Start: 13, End: 16},
 				Column:   models.Position{Start: 5, End: 24},

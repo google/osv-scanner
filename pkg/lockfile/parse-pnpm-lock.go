@@ -8,6 +8,8 @@ import (
 	"strconv"
 	"strings"
 
+	"github.com/google/osv-scanner/pkg/models"
+
 	"github.com/google/osv-scanner/internal/cachedregexp"
 	"gopkg.in/yaml.v3"
 )
@@ -266,6 +268,7 @@ func parsePnpmLock(lockfile PnpmLockfile) []PackageDetails {
 			Name:           name,
 			Version:        version,
 			TargetVersions: targetVersions,
+			PackageManager: models.Pnpm,
 			Ecosystem:      PnpmEcosystem,
 			CompareAs:      PnpmEcosystem,
 			Commit:         commit,

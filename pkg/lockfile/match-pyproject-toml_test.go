@@ -59,7 +59,8 @@ func TestPyprojectTomlMatcher_Match_OnePackage(t *testing.T) {
 
 	packages := []lockfile.PackageDetails{
 		{
-			Name: "numpy",
+			Name:           "numpy",
+			PackageManager: models.Poetry,
 		},
 	}
 	err = pyprojectTOMLMatcher.Match(sourceFile, packages)
@@ -69,7 +70,8 @@ func TestPyprojectTomlMatcher_Match_OnePackage(t *testing.T) {
 
 	expectPackages(t, packages, []lockfile.PackageDetails{
 		{
-			Name: "numpy",
+			Name:           "numpy",
+			PackageManager: models.Poetry,
 			BlockLocation: models.FilePosition{
 				Line:     models.Position{Start: 10, End: 10},
 				Column:   models.Position{Start: 1, End: 19},
@@ -99,13 +101,16 @@ func TestPyprojectTomlMatcher_Match_TransitiveDependencies(t *testing.T) {
 
 	packages := []lockfile.PackageDetails{
 		{
-			Name: "numpy",
+			Name:           "numpy",
+			PackageManager: models.Poetry,
 		},
 		{
-			Name: "proto-plus",
+			Name:           "proto-plus",
+			PackageManager: models.Poetry,
 		},
 		{
-			Name: "protobuf",
+			Name:           "protobuf",
+			PackageManager: models.Poetry,
 		},
 	}
 	err = pyprojectTOMLMatcher.Match(sourceFile, packages)
@@ -115,7 +120,8 @@ func TestPyprojectTomlMatcher_Match_TransitiveDependencies(t *testing.T) {
 
 	expectPackages(t, packages, []lockfile.PackageDetails{
 		{
-			Name: "numpy",
+			Name:           "numpy",
+			PackageManager: models.Poetry,
 			BlockLocation: models.FilePosition{
 				Line:     models.Position{Start: 10, End: 10},
 				Column:   models.Position{Start: 1, End: 19},
@@ -133,7 +139,8 @@ func TestPyprojectTomlMatcher_Match_TransitiveDependencies(t *testing.T) {
 			},
 		},
 		{
-			Name: "proto-plus",
+			Name:           "proto-plus",
+			PackageManager: models.Poetry,
 			BlockLocation: models.FilePosition{
 				Line:     models.Position{Start: 11, End: 11},
 				Column:   models.Position{Start: 1, End: 18},
@@ -151,7 +158,8 @@ func TestPyprojectTomlMatcher_Match_TransitiveDependencies(t *testing.T) {
 			},
 		},
 		{
-			Name: "protobuf",
+			Name:           "protobuf",
+			PackageManager: models.Poetry,
 		},
 	})
 }

@@ -4,6 +4,8 @@ import (
 	"encoding/json"
 	"fmt"
 	"path/filepath"
+
+	"github.com/google/osv-scanner/pkg/models"
 )
 
 type ComposerPackage struct {
@@ -47,22 +49,24 @@ func (e ComposerLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 
 	for _, composerPackage := range parsedLockfile.Packages {
 		packages = append(packages, PackageDetails{
-			Name:      composerPackage.Name,
-			Version:   composerPackage.Version,
-			Commit:    composerPackage.Dist.Reference,
-			Ecosystem: ComposerEcosystem,
-			CompareAs: ComposerEcosystem,
+			Name:           composerPackage.Name,
+			Version:        composerPackage.Version,
+			Commit:         composerPackage.Dist.Reference,
+			PackageManager: models.Composer,
+			Ecosystem:      ComposerEcosystem,
+			CompareAs:      ComposerEcosystem,
 		})
 	}
 
 	for _, composerPackage := range parsedLockfile.PackagesDev {
 		packages = append(packages, PackageDetails{
-			Name:      composerPackage.Name,
-			Version:   composerPackage.Version,
-			Commit:    composerPackage.Dist.Reference,
-			Ecosystem: ComposerEcosystem,
-			CompareAs: ComposerEcosystem,
-			DepGroups: []string{"dev"},
+			Name:           composerPackage.Name,
+			Version:        composerPackage.Version,
+			Commit:         composerPackage.Dist.Reference,
+			PackageManager: models.Composer,
+			Ecosystem:      ComposerEcosystem,
+			CompareAs:      ComposerEcosystem,
+			DepGroups:      []string{"dev"},
 		})
 	}
 

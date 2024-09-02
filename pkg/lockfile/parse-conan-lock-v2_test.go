@@ -4,6 +4,8 @@ import (
 	"io/fs"
 	"testing"
 
+	"github.com/google/osv-scanner/pkg/models"
+
 	"github.com/google/osv-scanner/pkg/lockfile"
 )
 
@@ -48,11 +50,12 @@ func TestParseConanLock_v2_OnePackage(t *testing.T) {
 
 	expectPackages(t, packages, []lockfile.PackageDetails{
 		{
-			Name:      "zlib",
-			Version:   "1.2.11",
-			Ecosystem: lockfile.ConanEcosystem,
-			CompareAs: lockfile.ConanEcosystem,
-			DepGroups: []string{"requires"},
+			Name:           "zlib",
+			Version:        "1.2.11",
+			PackageManager: models.Conan,
+			Ecosystem:      lockfile.ConanEcosystem,
+			CompareAs:      lockfile.ConanEcosystem,
+			DepGroups:      []string{"requires"},
 		},
 	})
 }
@@ -68,11 +71,12 @@ func TestParseConanLock_v2_NoName(t *testing.T) {
 
 	expectPackages(t, packages, []lockfile.PackageDetails{
 		{
-			Name:      "zlib",
-			Version:   "1.2.11",
-			Ecosystem: lockfile.ConanEcosystem,
-			CompareAs: lockfile.ConanEcosystem,
-			DepGroups: []string{"requires"},
+			Name:           "zlib",
+			Version:        "1.2.11",
+			PackageManager: models.Conan,
+			Ecosystem:      lockfile.ConanEcosystem,
+			CompareAs:      lockfile.ConanEcosystem,
+			DepGroups:      []string{"requires"},
 		},
 	})
 }
@@ -88,18 +92,20 @@ func TestParseConanLock_v2_TwoPackages(t *testing.T) {
 
 	expectPackages(t, packages, []lockfile.PackageDetails{
 		{
-			Name:      "zlib",
-			Version:   "1.2.11",
-			Ecosystem: lockfile.ConanEcosystem,
-			CompareAs: lockfile.ConanEcosystem,
-			DepGroups: []string{"requires"},
+			Name:           "zlib",
+			Version:        "1.2.11",
+			PackageManager: models.Conan,
+			Ecosystem:      lockfile.ConanEcosystem,
+			CompareAs:      lockfile.ConanEcosystem,
+			DepGroups:      []string{"requires"},
 		},
 		{
-			Name:      "bzip2",
-			Version:   "1.0.8",
-			Ecosystem: lockfile.ConanEcosystem,
-			CompareAs: lockfile.ConanEcosystem,
-			DepGroups: []string{"requires"},
+			Name:           "bzip2",
+			Version:        "1.0.8",
+			PackageManager: models.Conan,
+			Ecosystem:      lockfile.ConanEcosystem,
+			CompareAs:      lockfile.ConanEcosystem,
+			DepGroups:      []string{"requires"},
 		},
 	})
 }
@@ -115,39 +121,44 @@ func TestParseConanLock_v2_NestedDependencies(t *testing.T) {
 
 	expectPackages(t, packages, []lockfile.PackageDetails{
 		{
-			Name:      "zlib",
-			Version:   "1.2.13",
-			Ecosystem: lockfile.ConanEcosystem,
-			CompareAs: lockfile.ConanEcosystem,
-			DepGroups: []string{"requires"},
+			Name:           "zlib",
+			Version:        "1.2.13",
+			PackageManager: models.Conan,
+			Ecosystem:      lockfile.ConanEcosystem,
+			CompareAs:      lockfile.ConanEcosystem,
+			DepGroups:      []string{"requires"},
 		},
 		{
-			Name:      "bzip2",
-			Version:   "1.0.8",
-			Ecosystem: lockfile.ConanEcosystem,
-			CompareAs: lockfile.ConanEcosystem,
-			DepGroups: []string{"requires"},
+			Name:           "bzip2",
+			Version:        "1.0.8",
+			PackageManager: models.Conan,
+			Ecosystem:      lockfile.ConanEcosystem,
+			CompareAs:      lockfile.ConanEcosystem,
+			DepGroups:      []string{"requires"},
 		},
 		{
-			Name:      "freetype",
-			Version:   "2.12.1",
-			Ecosystem: lockfile.ConanEcosystem,
-			CompareAs: lockfile.ConanEcosystem,
-			DepGroups: []string{"requires"},
+			Name:           "freetype",
+			Version:        "2.12.1",
+			PackageManager: models.Conan,
+			Ecosystem:      lockfile.ConanEcosystem,
+			CompareAs:      lockfile.ConanEcosystem,
+			DepGroups:      []string{"requires"},
 		},
 		{
-			Name:      "libpng",
-			Version:   "1.6.39",
-			Ecosystem: lockfile.ConanEcosystem,
-			CompareAs: lockfile.ConanEcosystem,
-			DepGroups: []string{"requires"},
+			Name:           "libpng",
+			Version:        "1.6.39",
+			PackageManager: models.Conan,
+			Ecosystem:      lockfile.ConanEcosystem,
+			CompareAs:      lockfile.ConanEcosystem,
+			DepGroups:      []string{"requires"},
 		},
 		{
-			Name:      "brotli",
-			Version:   "1.0.9",
-			Ecosystem: lockfile.ConanEcosystem,
-			CompareAs: lockfile.ConanEcosystem,
-			DepGroups: []string{"requires"},
+			Name:           "brotli",
+			Version:        "1.0.9",
+			PackageManager: models.Conan,
+			Ecosystem:      lockfile.ConanEcosystem,
+			CompareAs:      lockfile.ConanEcosystem,
+			DepGroups:      []string{"requires"},
 		},
 	})
 }
@@ -163,11 +174,12 @@ func TestParseConanLock_v2_OnePackageDev(t *testing.T) {
 
 	expectPackages(t, packages, []lockfile.PackageDetails{
 		{
-			Name:      "ninja",
-			Version:   "1.11.1",
-			Ecosystem: lockfile.ConanEcosystem,
-			CompareAs: lockfile.ConanEcosystem,
-			DepGroups: []string{"build-requires"},
+			Name:           "ninja",
+			Version:        "1.11.1",
+			PackageManager: models.Conan,
+			Ecosystem:      lockfile.ConanEcosystem,
+			CompareAs:      lockfile.ConanEcosystem,
+			DepGroups:      []string{"build-requires"},
 		},
 	})
 }

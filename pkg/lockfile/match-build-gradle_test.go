@@ -128,8 +128,9 @@ func TestBuildGradleMatcher_Match_OnePackage_Groovy(t *testing.T) {
 
 	packages := []lockfile.PackageDetails{
 		{
-			Name:    "org.springframework.security:spring-security-crypto",
-			Version: "5.7.3",
+			Name:           "org.springframework.security:spring-security-crypto",
+			Version:        "5.7.3",
+			PackageManager: models.Gradle,
 		},
 	}
 	err = buildGradleMatcher.Match(sourceFile, packages)
@@ -139,8 +140,9 @@ func TestBuildGradleMatcher_Match_OnePackage_Groovy(t *testing.T) {
 
 	expectPackages(t, packages, []lockfile.PackageDetails{
 		{
-			Name:    "org.springframework.security:spring-security-crypto",
-			Version: "5.7.3",
+			Name:           "org.springframework.security:spring-security-crypto",
+			Version:        "5.7.3",
+			PackageManager: models.Gradle,
 			BlockLocation: models.FilePosition{
 				Line:     models.Position{Start: 10, End: 10},
 				Column:   models.Position{Start: 3, End: 77},
@@ -170,8 +172,9 @@ func TestBuildGradleMatcher_Match_OnePackage_GroovyExtended(t *testing.T) {
 
 	packages := []lockfile.PackageDetails{
 		{
-			Name:    "org.springframework.security:spring-security-crypto",
-			Version: "5.7.3",
+			Name:           "org.springframework.security:spring-security-crypto",
+			Version:        "5.7.3",
+			PackageManager: models.Gradle,
 		},
 	}
 	err = buildGradleMatcher.Match(sourceFile, packages)
@@ -181,8 +184,9 @@ func TestBuildGradleMatcher_Match_OnePackage_GroovyExtended(t *testing.T) {
 
 	expectPackages(t, packages, []lockfile.PackageDetails{
 		{
-			Name:    "org.springframework.security:spring-security-crypto",
-			Version: "5.7.3",
+			Name:           "org.springframework.security:spring-security-crypto",
+			Version:        "5.7.3",
+			PackageManager: models.Gradle,
 			BlockLocation: models.FilePosition{
 				Line:     models.Position{Start: 10, End: 10},
 				Column:   models.Position{Start: 3, End: 105},
@@ -212,8 +216,9 @@ func TestBuildGradleMatcher_Match_OnePackage_Kotlin(t *testing.T) {
 
 	packages := []lockfile.PackageDetails{
 		{
-			Name:    "org.springframework.security:spring-security-crypto",
-			Version: "5.7.3",
+			Name:           "org.springframework.security:spring-security-crypto",
+			Version:        "5.7.3",
+			PackageManager: models.Gradle,
 		},
 	}
 	err = buildGradleMatcher.Match(sourceFile, packages)
@@ -223,8 +228,9 @@ func TestBuildGradleMatcher_Match_OnePackage_Kotlin(t *testing.T) {
 
 	expectPackages(t, packages, []lockfile.PackageDetails{
 		{
-			Name:    "org.springframework.security:spring-security-crypto",
-			Version: "5.7.3",
+			Name:           "org.springframework.security:spring-security-crypto",
+			Version:        "5.7.3",
+			PackageManager: models.Gradle,
 			BlockLocation: models.FilePosition{
 				Line:     models.Position{Start: 10, End: 10},
 				Column:   models.Position{Start: 3, End: 78},
@@ -254,8 +260,9 @@ func TestBuildGradleMatcher_Match_OnePackage_KotlinExtended(t *testing.T) {
 
 	packages := []lockfile.PackageDetails{
 		{
-			Name:    "org.springframework.security:spring-security-crypto",
-			Version: "5.7.3",
+			Name:           "org.springframework.security:spring-security-crypto",
+			Version:        "5.7.3",
+			PackageManager: models.Gradle,
 		},
 	}
 	err = buildGradleMatcher.Match(sourceFile, packages)
@@ -265,8 +272,9 @@ func TestBuildGradleMatcher_Match_OnePackage_KotlinExtended(t *testing.T) {
 
 	expectPackages(t, packages, []lockfile.PackageDetails{
 		{
-			Name:    "org.springframework.security:spring-security-crypto",
-			Version: "5.7.3",
+			Name:           "org.springframework.security:spring-security-crypto",
+			Version:        "5.7.3",
+			PackageManager: models.Gradle,
 			BlockLocation: models.FilePosition{
 				Line:     models.Position{Start: 10, End: 10},
 				Column:   models.Position{Start: 3, End: 109},

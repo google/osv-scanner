@@ -6,6 +6,8 @@ import (
 	"sort"
 	"strings"
 
+	"github.com/google/osv-scanner/pkg/models"
+
 	"github.com/google/osv-scanner/internal/cachedregexp"
 )
 
@@ -49,8 +51,9 @@ func parseSourceField(source string) (string, string) {
 
 func parseDpkgPackageGroup(group []string) PackageDetails {
 	var pkg = PackageDetails{
-		Ecosystem: DebianEcosystem,
-		CompareAs: DebianEcosystem,
+		Ecosystem:      DebianEcosystem,
+		CompareAs:      DebianEcosystem,
+		PackageManager: models.Unknown,
 	}
 
 	sourcePresent := false

@@ -6,6 +6,8 @@ import (
 	"io"
 	"path/filepath"
 	"strings"
+
+	"github.com/google/osv-scanner/pkg/models"
 )
 
 type GoBinaryExtractor struct{}
@@ -52,10 +54,11 @@ func (e GoBinaryExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 
 	pkgs := make([]PackageDetails, 0, len(info.Deps)+1)
 	pkgs = append(pkgs, PackageDetails{
-		Name:      "stdlib",
-		Version:   strings.TrimPrefix(info.GoVersion, "go"),
-		Ecosystem: GoEcosystem,
-		CompareAs: GoEcosystem,
+		Name:           "stdlib",
+		Version:        strings.TrimPrefix(info.GoVersion, "go"),
+		Ecosystem:      GoEcosystem,
+		CompareAs:      GoEcosystem,
+		PackageManager: models.Golang,
 	})
 
 	for _, dep := range info.Deps {
@@ -63,10 +66,11 @@ func (e GoBinaryExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 			dep = dep.Replace
 		}
 		pkgs = append(pkgs, PackageDetails{
-			Name:      dep.Path,
-			Version:   strings.TrimPrefix(dep.Version, "v"),
-			Ecosystem: GoEcosystem,
-			CompareAs: GoEcosystem,
+			Name:           dep.Path,
+			Version:        strings.TrimPrefix(dep.Version, "v"),
+			Ecosystem:      GoEcosystem,
+			CompareAs:      GoEcosystem,
+			PackageManager: models.Golang,
 		})
 	}
 

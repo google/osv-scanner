@@ -13,9 +13,10 @@ var OSVEcosystem = map[resolve.System]models.Ecosystem{
 
 func VKToPackageDetails(vk resolve.VersionKey) lockfile.PackageDetails {
 	return lockfile.PackageDetails{
-		Name:      vk.Name,
-		Version:   vk.Version,
-		Ecosystem: lockfile.Ecosystem(OSVEcosystem[vk.System]),
-		CompareAs: lockfile.Ecosystem(OSVEcosystem[vk.System]),
+		Name:           vk.Name,
+		Version:        vk.Version,
+		PackageManager: models.Unknown,
+		Ecosystem:      lockfile.Ecosystem(OSVEcosystem[vk.System]),
+		CompareAs:      lockfile.Ecosystem(OSVEcosystem[vk.System]),
 	}
 }

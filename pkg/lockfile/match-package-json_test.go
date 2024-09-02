@@ -6,6 +6,8 @@ import (
 	"path/filepath"
 	"testing"
 
+	"github.com/google/osv-scanner/pkg/models"
+
 	"github.com/google/osv-scanner/internal/testutility"
 
 	"github.com/google/osv-scanner/pkg/lockfile"
@@ -61,6 +63,7 @@ func TestPackageJSONMatcher_Match_OnePackage(t *testing.T) {
 	packages := []lockfile.PackageDetails{
 		{
 			Name:           "lodash",
+			PackageManager: models.NPM,
 			TargetVersions: []string{"^4.0.0"},
 		},
 	}
@@ -83,6 +86,7 @@ func TestPackageJSONMatcher_Match_TransitiveDependencies(t *testing.T) {
 	packages := []lockfile.PackageDetails{
 		{
 			Name:           "commander",
+			PackageManager: models.NPM,
 			TargetVersions: []string{"~2.0.0"},
 		},
 		{
@@ -121,6 +125,7 @@ func TestPackageJSONMatcher_Match_NameConflict(t *testing.T) {
 	packages := []lockfile.PackageDetails{
 		{
 			Name:           "aws-sdk-client-mock",
+			PackageManager: models.NPM,
 			TargetVersions: []string{"^2.1.1"},
 		},
 		{
@@ -148,6 +153,7 @@ func TestPackageJSONMatcher_Match_Resolutions(t *testing.T) {
 		{
 			Name:           "fast-xml-parser",
 			Version:        "4.2.5",
+			PackageManager: models.NPM,
 			TargetVersions: []string{"4.2.5"},
 		},
 		{

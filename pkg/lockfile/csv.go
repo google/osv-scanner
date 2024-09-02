@@ -7,6 +7,8 @@ import (
 	"io"
 	"sort"
 	"strings"
+
+	"github.com/google/osv-scanner/pkg/models"
 )
 
 var errCSVRecordNotEnoughFields = errors.New("not enough fields (expected at least four)")
@@ -42,11 +44,12 @@ func fromCSVRecord(lines []string) (PackageDetails, error) {
 	}
 
 	return PackageDetails{
-		Name:      name,
-		Version:   version,
-		Ecosystem: ecosystem,
-		CompareAs: compareAs,
-		Commit:    commit,
+		Name:           name,
+		Version:        version,
+		Ecosystem:      ecosystem,
+		CompareAs:      compareAs,
+		Commit:         commit,
+		PackageManager: models.Unknown,
 	}, nil
 }
 

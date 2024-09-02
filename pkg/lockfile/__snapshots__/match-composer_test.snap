@@ -36,7 +36,8 @@
         "end": 16
       },
       "file_name": "<rootdir>/fixtures/composer/one-package/composer.json"
-    }
+    },
+    "packageManager": "Composer"
   }
 ]
 ---
@@ -59,7 +60,8 @@
         "end": 0
       },
       "file_name": ""
-    }
+    },
+    "packageManager": "Composer"
   }
 ]
 ---

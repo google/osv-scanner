@@ -164,10 +164,11 @@ func parseNpmLockDependencies(dependencies map[string]*NpmLockDependency, path s
 		}
 
 		details.add(name+"@"+version, PackageDetails{
-			Name:      name,
-			Version:   finalVersion,
-			Ecosystem: NpmEcosystem,
-			CompareAs: NpmEcosystem,
+			Name:           name,
+			Version:        finalVersion,
+			PackageManager: models.NPM,
+			Ecosystem:      NpmEcosystem,
+			CompareAs:      NpmEcosystem,
 			BlockLocation: models.FilePosition{
 				Line:     detail.Line,
 				Column:   detail.Column,
@@ -282,6 +283,7 @@ func parseNpmLockPackages(packages map[string]*NpmLockPackage, path string) map[
 				Name:           finalName,
 				Version:        detail.Version,
 				TargetVersions: targetVersions,
+				PackageManager: models.NPM,
 				Ecosystem:      NpmEcosystem,
 				CompareAs:      NpmEcosystem,
 				Commit:         commit,

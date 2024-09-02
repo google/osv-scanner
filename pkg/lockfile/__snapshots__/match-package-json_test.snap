@@ -39,7 +39,8 @@
         "end": 25
       },
       "file_name": "<rootdir>/fixtures/package-json/name-conflict/package.json"
-    }
+    },
+    "packageManager": "NPM"
   },
   {
     "name": "aws-sdk-client-mock-jest",
@@ -124,7 +125,8 @@
         "end": 12
       },
       "file_name": "<rootdir>/fixtures/package-json/one-package/package.json"
-    }
+    },
+    "packageManager": "NPM"
   }
 ]
 ---
@@ -169,7 +171,8 @@
         "end": 31
       },
       "file_name": "<rootdir>/fixtures/package-json/resolutions/package.json"
-    }
+    },
+    "packageManager": "NPM"
   },
   {
     "name": "fast-xml-parser",
@@ -272,7 +275,8 @@
         "end": 0
       },
       "file_name": ""
-    }
+    },
+    "packageManager": "NPM"
   },
   {
     "name": "debug",

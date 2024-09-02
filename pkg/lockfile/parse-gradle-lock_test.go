@@ -9,6 +9,8 @@ import (
 	"path/filepath"
 	"testing"
 
+	"github.com/google/osv-scanner/pkg/models"
+
 	"github.com/stretchr/testify/assert"
 
 	"github.com/google/osv-scanner/pkg/lockfile"
@@ -139,10 +141,11 @@ func TestParseGradleLock_OnePackage(t *testing.T) {
 
 	expectPackagesWithoutLocations(t, packages, []lockfile.PackageDetails{
 		{
-			Name:      "org.springframework.security:spring-security-crypto",
-			Version:   "5.7.3",
-			Ecosystem: lockfile.MavenEcosystem,
-			CompareAs: lockfile.MavenEcosystem,
+			Name:           "org.springframework.security:spring-security-crypto",
+			Version:        "5.7.3",
+			PackageManager: models.Gradle,
+			Ecosystem:      lockfile.MavenEcosystem,
+			CompareAs:      lockfile.MavenEcosystem,
 		},
 	})
 }
@@ -184,10 +187,11 @@ func TestParseGradleLock_OnePackage_MatcherFailed(t *testing.T) {
 	assert.Contains(t, buffer.String(), matcherError.Error())
 	expectPackagesWithoutLocations(t, packages, []lockfile.PackageDetails{
 		{
-			Name:      "org.springframework.security:spring-security-crypto",
-			Version:   "5.7.3",
-			Ecosystem: lockfile.MavenEcosystem,
-			CompareAs: lockfile.MavenEcosystem,
+			Name:           "org.springframework.security:spring-security-crypto",
+			Version:        "5.7.3",
+			PackageManager: models.Gradle,
+			Ecosystem:      lockfile.MavenEcosystem,
+			CompareAs:      lockfile.MavenEcosystem,
 		},
 	})
 
@@ -210,34 +214,39 @@ func TestParseGradleLock_MultiplePackage(t *testing.T) {
 
 	expectPackagesWithoutLocations(t, packages, []lockfile.PackageDetails{
 		{
-			Name:      "org.springframework.boot:spring-boot-autoconfigure",
-			Version:   "2.7.4",
-			Ecosystem: lockfile.MavenEcosystem,
-			CompareAs: lockfile.MavenEcosystem,
+			Name:           "org.springframework.boot:spring-boot-autoconfigure",
+			Version:        "2.7.4",
+			PackageManager: models.Gradle,
+			Ecosystem:      lockfile.MavenEcosystem,
+			CompareAs:      lockfile.MavenEcosystem,
 		},
 		{
-			Name:      "org.springframework.boot:spring-boot-configuration-processor",
-			Version:   "2.7.5",
-			Ecosystem: lockfile.MavenEcosystem,
-			CompareAs: lockfile.MavenEcosystem,
+			Name:           "org.springframework.boot:spring-boot-configuration-processor",
+			Version:        "2.7.5",
+			PackageManager: models.Gradle,
+			Ecosystem:      lockfile.MavenEcosystem,
+			CompareAs:      lockfile.MavenEcosystem,
 		},
 		{
-			Name:      "org.springframework.boot:spring-boot-devtools",
-			Version:   "2.7.6",
-			Ecosystem: lockfile.MavenEcosystem,
-			CompareAs: lockfile.MavenEcosystem,
+			Name:           "org.springframework.boot:spring-boot-devtools",
+			Version:        "2.7.6",
+			PackageManager: models.Gradle,
+			Ecosystem:      lockfile.MavenEcosystem,
+			CompareAs:      lockfile.MavenEcosystem,
 		},
 		{
-			Name:      "org.springframework.boot:spring-boot-starter-aop",
-			Version:   "2.7.7",
-			Ecosystem: lockfile.MavenEcosystem,
-			CompareAs: lockfile.MavenEcosystem,
+			Name:           "org.springframework.boot:spring-boot-starter-aop",
+			Version:        "2.7.7",
+			PackageManager: models.Gradle,
+			Ecosystem:      lockfile.MavenEcosystem,
+			CompareAs:      lockfile.MavenEcosystem,
 		},
 		{
-			Name:      "org.springframework.boot:spring-boot-starter-data-jpa",
-			Version:   "2.7.8",
-			Ecosystem: lockfile.MavenEcosystem,
-			CompareAs: lockfile.MavenEcosystem,
+			Name:           "org.springframework.boot:spring-boot-starter-data-jpa",
+			Version:        "2.7.8",
+			PackageManager: models.Gradle,
+			Ecosystem:      lockfile.MavenEcosystem,
+			CompareAs:      lockfile.MavenEcosystem,
 		},
 	})
 }
@@ -257,16 +266,18 @@ func TestParseGradleLock_WithInvalidLines(t *testing.T) {
 
 	expectPackagesWithoutLocations(t, packages, []lockfile.PackageDetails{
 		{
-			Name:      "org.springframework.boot:spring-boot-autoconfigure",
-			Version:   "2.7.4",
-			Ecosystem: lockfile.MavenEcosystem,
-			CompareAs: lockfile.MavenEcosystem,
+			Name:           "org.springframework.boot:spring-boot-autoconfigure",
+			Version:        "2.7.4",
+			PackageManager: models.Gradle,
+			Ecosystem:      lockfile.MavenEcosystem,
+			CompareAs:      lockfile.MavenEcosystem,
 		},
 		{
-			Name:      "org.springframework.boot:spring-boot-configuration-processor",
-			Version:   "2.7.5",
-			Ecosystem: lockfile.MavenEcosystem,
-			CompareAs: lockfile.MavenEcosystem,
+			Name:           "org.springframework.boot:spring-boot-configuration-processor",
+			Version:        "2.7.5",
+			PackageManager: models.Gradle,
+			Ecosystem:      lockfile.MavenEcosystem,
+			CompareAs:      lockfile.MavenEcosystem,
 		},
 	})
 }

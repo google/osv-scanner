@@ -59,7 +59,8 @@ func TestPipfileMatcher_Match_OnePackage(t *testing.T) {
 
 	packages := []lockfile.PackageDetails{
 		{
-			Name: "markupsafe",
+			Name:           "markupsafe",
+			PackageManager: models.Requirements,
 		},
 	}
 	err = pipfileMatcher.Match(sourceFile, packages)
@@ -69,7 +70,8 @@ func TestPipfileMatcher_Match_OnePackage(t *testing.T) {
 
 	expectPackages(t, packages, []lockfile.PackageDetails{
 		{
-			Name: "markupsafe",
+			Name:           "markupsafe",
+			PackageManager: models.Requirements,
 			BlockLocation: models.FilePosition{
 				Line:     models.Position{Start: 7, End: 7},
 				Column:   models.Position{Start: 1, End: 17},
@@ -99,19 +101,24 @@ func TestPipfileMatcher_Match_TransitiveDependencies(t *testing.T) {
 
 	packages := []lockfile.PackageDetails{
 		{
-			Name: "asgiref",
+			Name:           "asgiref",
+			PackageManager: models.Requirements,
 		},
 		{
-			Name: "django",
+			Name:           "django",
+			PackageManager: models.Requirements,
 		},
 		{
-			Name: "ply",
+			Name:           "ply",
+			PackageManager: models.Requirements,
 		},
 		{
-			Name: "sqlparse",
+			Name:           "sqlparse",
+			PackageManager: models.Requirements,
 		},
 		{
-			Name: "typing-extensions",
+			Name:           "typing-extensions",
+			PackageManager: models.Requirements,
 		},
 	}
 	err = pipfileMatcher.Match(sourceFile, packages)
@@ -121,10 +128,12 @@ func TestPipfileMatcher_Match_TransitiveDependencies(t *testing.T) {
 
 	expectPackages(t, packages, []lockfile.PackageDetails{
 		{
-			Name: "asgiref",
+			Name:           "asgiref",
+			PackageManager: models.Requirements,
 		},
 		{
-			Name: "django",
+			Name:           "django",
+			PackageManager: models.Requirements,
 			BlockLocation: models.FilePosition{
 				Line:     models.Position{Start: 7, End: 7},
 				Column:   models.Position{Start: 1, End: 16},
@@ -142,7 +151,8 @@ func TestPipfileMatcher_Match_TransitiveDependencies(t *testing.T) {
 			},
 		},
 		{
-			Name: "ply",
+			Name:           "ply",
+			PackageManager: models.Requirements,
 			BlockLocation: models.FilePosition{
 				Line:     models.Position{Start: 8, End: 8},
 				Column:   models.Position{Start: 1, End: 13},
@@ -160,10 +170,12 @@ func TestPipfileMatcher_Match_TransitiveDependencies(t *testing.T) {
 			},
 		},
 		{
-			Name: "sqlparse",
+			Name:           "sqlparse",
+			PackageManager: models.Requirements,
 		},
 		{
-			Name: "typing-extensions",
+			Name:           "typing-extensions",
+			PackageManager: models.Requirements,
 		},
 	})
 }

@@ -18,7 +18,8 @@
           }
         }
       ],
-      "purl": "pkg:npm/mine1@1.2.3"
+      "purl": "pkg:npm/mine1@1.2.3",
+      "properties": []
     },
     {
       "bom-ref": "pkg:npm/mine1@1.3.5",
@@ -32,7 +33,8 @@
           }
         }
       ],
-      "purl": "pkg:npm/mine1@1.3.5"
+      "purl": "pkg:npm/mine1@1.3.5",
+      "properties": []
     },
     {
       "bom-ref": "pkg:npm/mine2@3.2.5",
@@ -46,7 +48,8 @@
           }
         }
       ],
-      "purl": "pkg:npm/mine2@3.2.5"
+      "purl": "pkg:npm/mine2@3.2.5",
+      "properties": []
     },
     {
       "bom-ref": "pkg:npm/mine3@0.4.1",
@@ -60,7 +63,8 @@
           }
         }
       ],
-      "purl": "pkg:npm/mine3@0.4.1"
+      "purl": "pkg:npm/mine3@0.4.1",
+      "properties": []
     }
   ],
   "vulnerabilities": []
@@ -87,7 +91,8 @@
           }
         }
       ],
-      "purl": "pkg:npm/mine1@1.2.3"
+      "purl": "pkg:npm/mine1@1.2.3",
+      "properties": []
     },
     {
       "bom-ref": "pkg:npm/mine1@1.3.5",
@@ -101,7 +106,8 @@
           }
         }
       ],
-      "purl": "pkg:npm/mine1@1.3.5"
+      "purl": "pkg:npm/mine1@1.3.5",
+      "properties": []
     },
     {
       "bom-ref": "pkg:npm/mine2@3.2.5",
@@ -115,7 +121,8 @@
           }
         }
       ],
-      "purl": "pkg:npm/mine2@3.2.5"
+      "purl": "pkg:npm/mine2@3.2.5",
+      "properties": []
     },
     {
       "bom-ref": "pkg:npm/mine3@0.4.1",
@@ -129,7 +136,8 @@
           }
         }
       ],
-      "purl": "pkg:npm/mine3@0.4.1"
+      "purl": "pkg:npm/mine3@0.4.1",
+      "properties": []
     }
   ],
   "vulnerabilities": []
@@ -161,7 +169,8 @@
           }
         }
       ],
-      "purl": "pkg:npm/mine1@1.2.3"
+      "purl": "pkg:npm/mine1@1.2.3",
+      "properties": []
     },
     {
       "bom-ref": "pkg:npm/mine1@1.3.5",
@@ -175,7 +184,8 @@
           }
         }
       ],
-      "purl": "pkg:npm/mine1@1.3.5"
+      "purl": "pkg:npm/mine1@1.3.5",
+      "properties": []
     },
     {
       "bom-ref": "pkg:npm/mine2@3.2.5",
@@ -189,7 +199,8 @@
           }
         }
       ],
-      "purl": "pkg:npm/mine2@3.2.5"
+      "purl": "pkg:npm/mine2@3.2.5",
+      "properties": []
     },
     {
       "bom-ref": "pkg:npm/mine3@0.4.1",
@@ -203,7 +214,8 @@
           }
         }
       ],
-      "purl": "pkg:npm/mine3@0.4.1"
+      "purl": "pkg:npm/mine3@0.4.1",
+      "properties": []
     }
   ],
   "vulnerabilities": []
@@ -230,7 +242,8 @@
           }
         }
       ],
-      "purl": "pkg:composer/author1/mine1@1.2.3"
+      "purl": "pkg:composer/author1/mine1@1.2.3",
+      "properties": []
     },
     {
       "bom-ref": "pkg:npm/mine2@3.2.5",
@@ -244,7 +257,8 @@
           }
         }
       ],
-      "purl": "pkg:npm/mine2@3.2.5"
+      "purl": "pkg:npm/mine2@3.2.5",
+      "properties": []
     },
     {
       "bom-ref": "pkg:npm/mine3@0.4.1",
@@ -258,7 +272,8 @@
           }
         }
       ],
-      "purl": "pkg:npm/mine3@0.4.1"
+      "purl": "pkg:npm/mine3@0.4.1",
+      "properties": []
     },
     {
       "bom-ref": "pkg:nuget/mine1@1.3.5",
@@ -272,7 +287,8 @@
           }
         }
       ],
-      "purl": "pkg:nuget/mine1@1.3.5"
+      "purl": "pkg:nuget/mine1@1.3.5",
+      "properties": []
     }
   ],
   "vulnerabilities": []
@@ -299,7 +315,8 @@
           }
         }
       ],
-      "purl": "pkg:npm/mine1@1.2.3"
+      "purl": "pkg:npm/mine1@1.2.3",
+      "properties": []
     },
     {
       "bom-ref": "pkg:npm/mine1@1.3.5",
@@ -313,7 +330,8 @@
           }
         }
       ],
-      "purl": "pkg:npm/mine1@1.3.5"
+      "purl": "pkg:npm/mine1@1.3.5",
+      "properties": []
     },
     {
       "bom-ref": "pkg:npm/mine2@3.2.5",
@@ -327,7 +345,8 @@
           }
         }
       ],
-      "purl": "pkg:npm/mine2@3.2.5"
+      "purl": "pkg:npm/mine2@3.2.5",
+      "properties": []
     },
     {
       "bom-ref": "pkg:npm/mine3@0.4.1",
@@ -341,7 +360,8 @@
           }
         }
       ],
-      "purl": "pkg:npm/mine3@0.4.1"
+      "purl": "pkg:npm/mine3@0.4.1",
+      "properties": []
     }
   ],
   "vulnerabilities": []
@@ -404,7 +424,8 @@
           }
         }
       ],
-      "purl": "pkg:npm/mine1@1.2.3"
+      "purl": "pkg:npm/mine1@1.2.3",
+      "properties": []
     }
   ],
   "vulnerabilities": []
@@ -425,7 +446,8 @@
       "name": "mine1",
       "version": "1.2.3",
       "licenses": [],
-      "purl": "pkg:npm/mine1@1.2.3"
+      "purl": "pkg:npm/mine1@1.2.3",
+      "properties": []
     }
   ],
   "vulnerabilities": []
@@ -452,7 +474,8 @@
           }
         }
       ],
-      "purl": "pkg:npm/mine1@1.2.3"
+      "purl": "pkg:npm/mine1@1.2.3",
+      "properties": []
     }
   ],
   "vulnerabilities": []
@@ -484,7 +507,8 @@
           }
         }
       ],
-      "purl": "pkg:npm/mine1@1.2.3"
+      "purl": "pkg:npm/mine1@1.2.3",
+      "properties": []
     }
   ],
   "vulnerabilities": []
@@ -511,7 +535,8 @@
           }
         }
       ],
-      "purl": "pkg:npm/mine1@1.2.3"
+      "purl": "pkg:npm/mine1@1.2.3",
+      "properties": []
     }
   ],
   "vulnerabilities": []
@@ -538,7 +563,8 @@
           }
         }
       ],
-      "purl": "pkg:npm/mine1@1.2.3"
+      "purl": "pkg:npm/mine1@1.2.3",
+      "properties": []
     }
   ],
   "vulnerabilities": []
@@ -565,7 +591,8 @@
           }
         }
       ],
-      "purl": "pkg:npm/mine1@1.2.3"
+      "purl": "pkg:npm/mine1@1.2.3",
+      "properties": []
     },
     {
       "bom-ref": "pkg:npm/mine2@5.9.0",
@@ -579,7 +606,8 @@
           }
         }
       ],
-      "purl": "pkg:npm/mine2@5.9.0"
+      "purl": "pkg:npm/mine2@5.9.0",
+      "properties": []
     }
   ],
   "vulnerabilities": []
@@ -606,7 +634,8 @@
           }
         }
       ],
-      "purl": "pkg:npm/mine1@1.2.3"
+      "purl": "pkg:npm/mine1@1.2.3",
+      "properties": []
     },
     {
       "bom-ref": "pkg:npm/mine1@1.3.5",
@@ -620,7 +649,8 @@
           }
         }
       ],
-      "purl": "pkg:npm/mine1@1.3.5"
+      "purl": "pkg:npm/mine1@1.3.5",
+      "properties": []
     },
     {
       "bom-ref": "pkg:npm/mine2@3.2.5",
@@ -634,7 +664,8 @@
           }
         }
       ],
-      "purl": "pkg:npm/mine2@3.2.5"
+      "purl": "pkg:npm/mine2@3.2.5",
+      "properties": []
     },
     {
       "bom-ref": "pkg:npm/mine3@0.4.1",
@@ -648,7 +679,8 @@
           }
         }
       ],
-      "purl": "pkg:npm/mine3@0.4.1"
+      "purl": "pkg:npm/mine3@0.4.1",
+      "properties": []
     }
   ],
   "vulnerabilities": [
@@ -706,7 +738,8 @@
           }
         }
       ],
-      "purl": "pkg:npm/mine1@1.2.3"
+      "purl": "pkg:npm/mine1@1.2.3",
+      "properties": []
     },
     {
       "bom-ref": "pkg:npm/mine1@1.3.5",
@@ -720,7 +753,8 @@
           }
         }
       ],
-      "purl": "pkg:npm/mine1@1.3.5"
+      "purl": "pkg:npm/mine1@1.3.5",
+      "properties": []
     },
     {
       "bom-ref": "pkg:npm/mine2@3.2.5",
@@ -734,7 +768,8 @@
           }
         }
       ],
-      "purl": "pkg:npm/mine2@3.2.5"
+      "purl": "pkg:npm/mine2@3.2.5",
+      "properties": []
     },
     {
       "bom-ref": "pkg:npm/mine3@0.4.1",
@@ -748,7 +783,8 @@
           }
         }
       ],
-      "purl": "pkg:npm/mine3@0.4.1"
+      "purl": "pkg:npm/mine3@0.4.1",
+      "properties": []
     }
   ],
   "vulnerabilities": [
@@ -806,7 +842,8 @@
           }
         }
       ],
-      "purl": "pkg:npm/mine1@1.2.3"
+      "purl": "pkg:npm/mine1@1.2.3",
+      "properties": []
     }
   ],
   "vulnerabilities": [
@@ -849,7 +886,8 @@
           }
         }
       ],
-      "purl": "pkg:npm/mine1@1.2.3"
+      "purl": "pkg:npm/mine1@1.2.3",
+      "properties": []
     }
   ],
   "vulnerabilities": [
@@ -892,7 +930,8 @@
           }
         }
       ],
-      "purl": "pkg:npm/mine1@1.2.3"
+      "purl": "pkg:npm/mine1@1.2.3",
+      "properties": []
     }
   ],
   "vulnerabilities": [
@@ -935,7 +974,8 @@
           }
         }
       ],
-      "purl": "pkg:npm/mine1@1.2.3"
+      "purl": "pkg:npm/mine1@1.2.3",
+      "properties": []
     },
     {
       "bom-ref": "pkg:npm/mine2@5.9.0",
@@ -949,7 +989,8 @@
           }
         }
       ],
-      "purl": "pkg:npm/mine2@5.9.0"
+      "purl": "pkg:npm/mine2@5.9.0",
+      "properties": []
     }
   ],
   "vulnerabilities": [
@@ -986,7 +1027,8 @@
       "name": "mine1",
       "version": "1.2.2",
       "licenses": [],
-      "purl": "pkg:npm/mine1@1.2.2"
+      "purl": "pkg:npm/mine1@1.2.2",
+      "properties": []
     },
     {
       "bom-ref": "pkg:npm/mine1@1.2.3",
@@ -994,7 +1036,8 @@
       "name": "mine1",
       "version": "1.2.3",
       "licenses": [],
-      "purl": "pkg:npm/mine1@1.2.3"
+      "purl": "pkg:npm/mine1@1.2.3",
+      "properties": []
     },
     {
       "bom-ref": "pkg:npm/mine2@3.2.5",
@@ -1002,7 +1045,8 @@
       "name": "mine2",
       "version": "3.2.5",
       "licenses": [],
-      "purl": "pkg:npm/mine2@3.2.5"
+      "purl": "pkg:npm/mine2@3.2.5",
+      "properties": []
     },
     {
       "bom-ref": "pkg:npm/mine3@0.4.1",
@@ -1010,7 +1054,8 @@
       "name": "mine3",
       "version": "0.4.1",
       "licenses": [],
-      "purl": "pkg:npm/mine3@0.4.1"
+      "purl": "pkg:npm/mine3@0.4.1",
+      "properties": []
     }
   ],
   "vulnerabilities": [
@@ -1092,7 +1137,8 @@
       "name": "mine1",
       "version": "1.2.2",
       "licenses": [],
-      "purl": "pkg:npm/mine1@1.2.2"
+      "purl": "pkg:npm/mine1@1.2.2",
+      "properties": []
     },
     {
       "bom-ref": "pkg:npm/mine1@1.2.3",
@@ -1100,7 +1146,8 @@
       "name": "mine1",
       "version": "1.2.3",
       "licenses": [],
-      "purl": "pkg:npm/mine1@1.2.3"
+      "purl": "pkg:npm/mine1@1.2.3",
+      "properties": []
     },
     {
       "bom-ref": "pkg:npm/mine2@3.2.5",
@@ -1108,7 +1155,8 @@
       "name": "mine2",
       "version": "3.2.5",
       "licenses": [],
-      "purl": "pkg:npm/mine2@3.2.5"
+      "purl": "pkg:npm/mine2@3.2.5",
+      "properties": []
     },
     {
       "bom-ref": "pkg:npm/mine3@0.4.1",
@@ -1116,7 +1164,8 @@
       "name": "mine3",
       "version": "0.4.1",
       "licenses": [],
-      "purl": "pkg:npm/mine3@0.4.1"
+      "purl": "pkg:npm/mine3@0.4.1",
+      "properties": []
     }
   ],
   "vulnerabilities": [
@@ -1198,7 +1247,8 @@
       "name": "mine1",
       "version": "1.2.3",
       "licenses": [],
-      "purl": "pkg:npm/mine1@1.2.3"
+      "purl": "pkg:npm/mine1@1.2.3",
+      "properties": []
     },
     {
       "bom-ref": "pkg:npm/mine1@1.3.5",
@@ -1206,7 +1256,8 @@
       "name": "mine1",
       "version": "1.3.5",
       "licenses": [],
-      "purl": "pkg:npm/mine1@1.3.5"
+      "purl": "pkg:npm/mine1@1.3.5",
+      "properties": []
     },
     {
       "bom-ref": "pkg:npm/mine2@3.2.5",
@@ -1214,7 +1265,8 @@
       "name": "mine2",
       "version": "3.2.5",
       "licenses": [],
-      "purl": "pkg:npm/mine2@3.2.5"
+      "purl": "pkg:npm/mine2@3.2.5",
+      "properties": []
     },
     {
       "bom-ref": "pkg:npm/mine3@0.4.1",
@@ -1222,7 +1274,8 @@
       "name": "mine3",
       "version": "0.4.1",
       "licenses": [],
-      "purl": "pkg:npm/mine3@0.4.1"
+      "purl": "pkg:npm/mine3@0.4.1",
+      "properties": []
     }
   ],
   "vulnerabilities": []
@@ -1243,7 +1296,8 @@
       "name": "mine1",
       "version": "1.2.3",
       "licenses": [],
-      "purl": "pkg:npm/mine1@1.2.3"
+      "purl": "pkg:npm/mine1@1.2.3",
+      "properties": []
     },
     {
       "bom-ref": "pkg:npm/mine1@1.3.5",
@@ -1251,7 +1305,8 @@
       "name": "mine1",
       "version": "1.3.5",
       "licenses": [],
-      "purl": "pkg:npm/mine1@1.3.5"
+      "purl": "pkg:npm/mine1@1.3.5",
+      "properties": []
     },
     {
       "bom-ref": "pkg:npm/mine2@3.2.5",
@@ -1259,7 +1314,8 @@
       "name": "mine2",
       "version": "3.2.5",
       "licenses": [],
-      "purl": "pkg:npm/mine2@3.2.5"
+      "purl": "pkg:npm/mine2@3.2.5",
+      "properties": []
     },
     {
       "bom-ref": "pkg:npm/mine3@0.4.1",
@@ -1267,7 +1323,8 @@
       "name": "mine3",
       "version": "0.4.1",
       "licenses": [],
-      "purl": "pkg:npm/mine3@0.4.1"
+      "purl": "pkg:npm/mine3@0.4.1",
+      "properties": []
     }
   ],
   "vulnerabilities": [
@@ -1319,7 +1376,8 @@
       "name": "author1/mine1",
       "version": "1.2.3",
       "licenses": [],
-      "purl": "pkg:composer/author1/mine1@1.2.3"
+      "purl": "pkg:composer/author1/mine1@1.2.3",
+      "properties": []
     },
     {
       "bom-ref": "pkg:composer/author3/mine3@0.4.1",
@@ -1327,7 +1385,8 @@
       "name": "author3/mine3",
       "version": "0.4.1",
       "licenses": [],
-      "purl": "pkg:composer/author3/mine3@0.4.1"
+      "purl": "pkg:composer/author3/mine3@0.4.1",
+      "properties": []
     },
     {
       "bom-ref": "pkg:npm/mine1@1.2.2",
@@ -1335,7 +1394,8 @@
       "name": "mine1",
       "version": "1.2.2",
       "licenses": [],
-      "purl": "pkg:npm/mine1@1.2.2"
+      "purl": "pkg:npm/mine1@1.2.2",
+      "properties": []
     },
     {
       "bom-ref": "pkg:nuget/mine2@3.2.5",
@@ -1343,7 +1403,8 @@
       "name": "mine2",
       "version": "3.2.5",
       "licenses": [],
-      "purl": "pkg:nuget/mine2@3.2.5"
+      "purl": "pkg:nuget/mine2@3.2.5",
+      "properties": []
     }
   ],
   "vulnerabilities": [
@@ -1425,7 +1486,8 @@
       "name": "author1/mine1",
       "version": "1.2.3",
       "licenses": [],
-      "purl": "pkg:composer/author1/mine1@1.2.3"
+      "purl": "pkg:composer/author1/mine1@1.2.3",
+      "properties": []
     },
     {
       "bom-ref": "pkg:composer/author3/mine3@0.4.1",
@@ -1433,7 +1495,8 @@
       "name": "author3/mine3",
       "version": "0.4.1",
       "licenses": [],
-      "purl": "pkg:composer/author3/mine3@0.4.1"
+      "purl": "pkg:composer/author3/mine3@0.4.1",
+      "properties": []
     },
     {
       "bom-ref": "pkg:npm/mine1@1.2.2",
@@ -1441,7 +1504,8 @@
       "name": "mine1",
       "version": "1.2.2",
       "licenses": [],
-      "purl": "pkg:npm/mine1@1.2.2"
+      "purl": "pkg:npm/mine1@1.2.2",
+      "properties": []
     },
     {
       "bom-ref": "pkg:nuget/mine2@3.2.5",
@@ -1449,7 +1513,8 @@
       "name": "mine2",
       "version": "3.2.5",
       "licenses": [],
-      "purl": "pkg:nuget/mine2@3.2.5"
+      "purl": "pkg:nuget/mine2@3.2.5",
+      "properties": []
     }
   ],
   "vulnerabilities": [
@@ -1567,7 +1632,8 @@
       "name": "mine1",
       "version": "1.2.3",
       "licenses": [],
-      "purl": "pkg:npm/mine1@1.2.3"
+      "purl": "pkg:npm/mine1@1.2.3",
+      "properties": []
     }
   ],
   "vulnerabilities": []
@@ -1588,7 +1654,8 @@
       "name": "mine1",
       "version": "1.2.3",
       "licenses": [],
-      "purl": "pkg:npm/mine1@1.2.3"
+      "purl": "pkg:npm/mine1@1.2.3",
+      "properties": []
     }
   ],
   "vulnerabilities": [
@@ -1640,7 +1707,8 @@
       "name": "mine1",
       "version": "1.2.3",
       "licenses": [],
-      "purl": "pkg:npm/mine1@1.2.3"
+      "purl": "pkg:npm/mine1@1.2.3",
+      "properties": []
     }
   ],
   "vulnerabilities": [
@@ -1677,7 +1745,8 @@
       "name": "mine1",
       "version": "1.2.3",
       "licenses": [],
-      "purl": "pkg:npm/mine1@1.2.3"
+      "purl": "pkg:npm/mine1@1.2.3",
+      "properties": []
     }
   ],
   "vulnerabilities": [
@@ -1714,7 +1783,8 @@
       "name": "mine1",
       "version": "1.2.3",
       "licenses": [],
-      "purl": "pkg:npm/mine1@1.2.3"
+      "purl": "pkg:npm/mine1@1.2.3",
+      "properties": []
     }
   ],
   "vulnerabilities": [
@@ -1751,7 +1821,8 @@
       "name": "mine1",
       "version": "1.2.3",
       "licenses": [],
-      "purl": "pkg:npm/mine1@1.2.3"
+      "purl": "pkg:npm/mine1@1.2.3",
+      "properties": []
     }
   ],
   "vulnerabilities": [
@@ -1788,7 +1859,8 @@
       "name": "mine1",
       "version": "1.2.3",
       "licenses": [],
-      "purl": "pkg:npm/mine1@1.2.3"
+      "purl": "pkg:npm/mine1@1.2.3",
+      "properties": []
     }
   ],
   "vulnerabilities": [
@@ -1845,7 +1917,8 @@
       "name": "mine1",
       "version": "1.2.3",
       "licenses": [],
-      "purl": "pkg:npm/mine1@1.2.3"
+      "purl": "pkg:npm/mine1@1.2.3",
+      "properties": []
     }
   ],
   "vulnerabilities": [
@@ -1902,7 +1975,8 @@
       "name": "mine1",
       "version": "1.2.3",
       "licenses": [],
-      "purl": "pkg:npm/mine1@1.2.3"
+      "purl": "pkg:npm/mine1@1.2.3",
+      "properties": []
     },
     {
       "bom-ref": "pkg:npm/mine3@0.10.2-rc",
@@ -1910,7 +1984,8 @@
       "name": "mine3",
       "version": "0.10.2-rc",
       "licenses": [],
-      "purl": "pkg:npm/mine3@0.10.2-rc"
+      "purl": "pkg:npm/mine3@0.10.2-rc",
+      "properties": []
     }
   ],
   "vulnerabilities": [
@@ -1953,7 +2028,8 @@
       "name": "mine1",
       "version": "1.2.3",
       "licenses": [],
-      "purl": "pkg:npm/mine1@1.2.3"
+      "purl": "pkg:npm/mine1@1.2.3",
+      "properties": []
     },
     {
       "bom-ref": "pkg:npm/mine2@5.9.0",
@@ -1961,7 +2037,8 @@
       "name": "mine2",
       "version": "5.9.0",
       "licenses": [],
-      "purl": "pkg:npm/mine2@5.9.0"
+      "purl": "pkg:npm/mine2@5.9.0",
+      "properties": []
     }
   ],
   "vulnerabilities": [
@@ -1998,7 +2075,8 @@
       "name": "mine1",
       "version": "1.2.3",
       "licenses": [],
-      "purl": "pkg:npm/mine1@1.2.3"
+      "purl": "pkg:npm/mine1@1.2.3",
+      "properties": []
     }
   ],
   "vulnerabilities": [
@@ -2042,6 +2120,7 @@
         }
       ],
       "purl": "pkg:npm/mine1@1.2.3",
+      "properties": [],
       "evidence": {
         "occurrences": []
       }
@@ -2059,6 +2138,7 @@
         }
       ],
       "purl": "pkg:npm/mine1@1.3.5",
+      "properties": [],
       "evidence": {
         "occurrences": []
       }
@@ -2076,6 +2156,7 @@
         }
       ],
       "purl": "pkg:npm/mine2@3.2.5",
+      "properties": [],
       "evidence": {
         "occurrences": []
       }
@@ -2093,6 +2174,7 @@
         }
       ],
       "purl": "pkg:npm/mine3@0.4.1",
+      "properties": [],
       "evidence": {
         "occurrences": []
       }
@@ -2123,6 +2205,7 @@
         }
       ],
       "purl": "pkg:npm/mine1@1.2.3",
+      "properties": [],
       "evidence": {
         "occurrences": []
       }
@@ -2140,6 +2223,7 @@
         }
       ],
       "purl": "pkg:npm/mine1@1.3.5",
+      "properties": [],
       "evidence": {
         "occurrences": []
       }
@@ -2157,6 +2241,7 @@
         }
       ],
       "purl": "pkg:npm/mine2@3.2.5",
+      "properties": [],
       "evidence": {
         "occurrences": []
       }
@@ -2174,6 +2259,7 @@
         }
       ],
       "purl": "pkg:npm/mine3@0.4.1",
+      "properties": [],
       "evidence": {
         "occurrences": []
       }
@@ -2209,6 +2295,7 @@
         }
       ],
       "purl": "pkg:npm/mine1@1.2.3",
+      "properties": [],
       "evidence": {
         "occurrences": []
       }
@@ -2226,6 +2313,7 @@
         }
       ],
       "purl": "pkg:npm/mine1@1.3.5",
+      "properties": [],
       "evidence": {
         "occurrences": []
       }
@@ -2243,6 +2331,7 @@
         }
       ],
       "purl": "pkg:npm/mine2@3.2.5",
+      "properties": [],
       "evidence": {
         "occurrences": []
       }
@@ -2260,6 +2349,7 @@
         }
       ],
       "purl": "pkg:npm/mine3@0.4.1",
+      "properties": [],
       "evidence": {
         "occurrences": []
       }
@@ -2290,6 +2380,7 @@
         }
       ],
       "purl": "pkg:composer/author1/mine1@1.2.3",
+      "properties": [],
       "evidence": {
         "occurrences": []
       }
@@ -2307,6 +2398,7 @@
         }
       ],
       "purl": "pkg:npm/mine2@3.2.5",
+      "properties": [],
       "evidence": {
         "occurrences": []
       }
@@ -2324,6 +2416,7 @@
         }
       ],
       "purl": "pkg:npm/mine3@0.4.1",
+      "properties": [],
       "evidence": {
         "occurrences": []
       }
@@ -2341,6 +2434,7 @@
         }
       ],
       "purl": "pkg:nuget/mine1@1.3.5",
+      "properties": [],
       "evidence": {
         "occurrences": []
       }
@@ -2371,6 +2465,7 @@
         }
       ],
       "purl": "pkg:npm/mine1@1.2.3",
+      "properties": [],
       "evidence": {
         "occurrences": []
       }
@@ -2388,6 +2483,7 @@
         }
       ],
       "purl": "pkg:npm/mine1@1.3.5",
+      "properties": [],
       "evidence": {
         "occurrences": []
       }
@@ -2405,6 +2501,7 @@
         }
       ],
       "purl": "pkg:npm/mine2@3.2.5",
+      "properties": [],
       "evidence": {
         "occurrences": []
       }
@@ -2422,6 +2519,7 @@
         }
       ],
       "purl": "pkg:npm/mine3@0.4.1",
+      "properties": [],
       "evidence": {
         "occurrences": []
       }
@@ -2488,6 +2586,7 @@
         }
       ],
       "purl": "pkg:npm/mine1@1.2.3",
+      "properties": [],
       "evidence": {
         "occurrences": []
       }
@@ -2512,6 +2611,7 @@
       "version": "1.2.3",
       "licenses": [],
       "purl": "pkg:npm/mine1@1.2.3",
+      "properties": [],
       "evidence": {
         "occurrences": []
       }
@@ -2542,6 +2642,7 @@
         }
       ],
       "purl": "pkg:npm/mine1@1.2.3",
+      "properties": [],
       "evidence": {
         "occurrences": []
       }
@@ -2577,6 +2678,7 @@
         }
       ],
       "purl": "pkg:npm/mine1@1.2.3",
+      "properties": [],
       "evidence": {
         "occurrences": []
       }
@@ -2607,6 +2709,7 @@
         }
       ],
       "purl": "pkg:npm/mine1@1.2.3",
+      "properties": [],
       "evidence": {
         "occurrences": []
       }
@@ -2637,6 +2740,7 @@
         }
       ],
       "purl": "pkg:npm/mine1@1.2.3",
+      "properties": [],
       "evidence": {
         "occurrences": []
       }
@@ -2667,6 +2771,7 @@
         }
       ],
       "purl": "pkg:npm/mine1@1.2.3",
+      "properties": [],
       "evidence": {
         "occurrences": []
       }
@@ -2684,6 +2789,7 @@
         }
       ],
       "purl": "pkg:npm/mine2@5.9.0",
+      "properties": [],
       "evidence": {
         "occurrences": []
       }
@@ -2714,6 +2820,7 @@
         }
       ],
       "purl": "pkg:npm/mine1@1.2.3",
+      "properties": [],
       "evidence": {
         "occurrences": []
       }
@@ -2731,6 +2838,7 @@
         }
       ],
       "purl": "pkg:npm/mine1@1.3.5",
+      "properties": [],
       "evidence": {
         "occurrences": []
       }
@@ -2748,6 +2856,7 @@
         }
       ],
       "purl": "pkg:npm/mine2@3.2.5",
+      "properties": [],
       "evidence": {
         "occurrences": []
       }
@@ -2765,6 +2874,7 @@
         }
       ],
       "purl": "pkg:npm/mine3@0.4.1",
+      "properties": [],
       "evidence": {
         "occurrences": []
       }
@@ -2826,6 +2936,7 @@
         }
       ],
       "purl": "pkg:npm/mine1@1.2.3",
+      "properties": [],
       "evidence": {
         "occurrences": []
       }
@@ -2843,6 +2954,7 @@
         }
       ],
       "purl": "pkg:npm/mine1@1.3.5",
+      "properties": [],
       "evidence": {
         "occurrences": []
       }
@@ -2860,6 +2972,7 @@
         }
       ],
       "purl": "pkg:npm/mine2@3.2.5",
+      "properties": [],
       "evidence": {
         "occurrences": []
       }
@@ -2877,6 +2990,7 @@
         }
       ],
       "purl": "pkg:npm/mine3@0.4.1",
+      "properties": [],
       "evidence": {
         "occurrences": []
       }
@@ -2938,6 +3052,7 @@
         }
       ],
       "purl": "pkg:npm/mine1@1.2.3",
+      "properties": [],
       "evidence": {
         "occurrences": []
       }
@@ -2984,6 +3099,7 @@
         }
       ],
       "purl": "pkg:npm/mine1@1.2.3",
+      "properties": [],
       "evidence": {
         "occurrences": []
       }
@@ -3030,6 +3146,7 @@
         }
       ],
       "purl": "pkg:npm/mine1@1.2.3",
+      "properties": [],
       "evidence": {
         "occurrences": []
       }
@@ -3076,6 +3193,7 @@
         }
       ],
       "purl": "pkg:npm/mine1@1.2.3",
+      "properties": [],
       "evidence": {
         "occurrences": []
       }
@@ -3093,6 +3211,7 @@
         }
       ],
       "purl": "pkg:npm/mine2@5.9.0",
+      "properties": [],
       "evidence": {
         "occurrences": []
       }
@@ -3133,6 +3252,7 @@
       "version": "1.2.2",
       "licenses": [],
       "purl": "pkg:npm/mine1@1.2.2",
+      "properties": [],
       "evidence": {
         "occurrences": []
       }
@@ -3144,6 +3264,7 @@
       "version": "1.2.3",
       "licenses": [],
       "purl": "pkg:npm/mine1@1.2.3",
+      "properties": [],
       "evidence": {
         "occurrences": []
       }
@@ -3155,6 +3276,7 @@
       "version": "3.2.5",
       "licenses": [],
       "purl": "pkg:npm/mine2@3.2.5",
+      "properties": [],
       "evidence": {
         "occurrences": []
       }
@@ -3166,6 +3288,7 @@
       "version": "0.4.1",
       "licenses": [],
       "purl": "pkg:npm/mine3@0.4.1",
+      "properties": [],
       "evidence": {
         "occurrences": []
       }
@@ -3251,6 +3374,7 @@
       "version": "1.2.2",
       "licenses": [],
       "purl": "pkg:npm/mine1@1.2.2",
+      "properties": [],
       "evidence": {
         "occurrences": []
       }
@@ -3262,6 +3386,7 @@
       "version": "1.2.3",
       "licenses": [],
       "purl": "pkg:npm/mine1@1.2.3",
+      "properties": [],
       "evidence": {
         "occurrences": []
       }
@@ -3273,6 +3398,7 @@
       "version": "3.2.5",
       "licenses": [],
       "purl": "pkg:npm/mine2@3.2.5",
+      "properties": [],
       "evidence": {
         "occurrences": []
       }
@@ -3284,6 +3410,7 @@
       "version": "0.4.1",
       "licenses": [],
       "purl": "pkg:npm/mine3@0.4.1",
+      "properties": [],
       "evidence": {
         "occurrences": []
       }
@@ -3369,6 +3496,7 @@
       "version": "1.2.3",
       "licenses": [],
       "purl": "pkg:npm/mine1@1.2.3",
+      "properties": [],
       "evidence": {
         "occurrences": []
       }
@@ -3380,6 +3508,7 @@
       "version": "1.3.5",
       "licenses": [],
       "purl": "pkg:npm/mine1@1.3.5",
+      "properties": [],
       "evidence": {
         "occurrences": []
       }
@@ -3391,6 +3520,7 @@
       "version": "3.2.5",
       "licenses": [],
       "purl": "pkg:npm/mine2@3.2.5",
+      "properties": [],
       "evidence": {
         "occurrences": []
       }
@@ -3402,6 +3532,7 @@
       "version": "0.4.1",
       "licenses": [],
       "purl": "pkg:npm/mine3@0.4.1",
+      "properties": [],
       "evidence": {
         "occurrences": []
       }
@@ -3426,6 +3557,7 @@
       "version": "1.2.3",
       "licenses": [],
       "purl": "pkg:npm/mine1@1.2.3",
+      "properties": [],
       "evidence": {
         "occurrences": []
       }
@@ -3437,6 +3569,7 @@
       "version": "1.3.5",
       "licenses": [],
       "purl": "pkg:npm/mine1@1.3.5",
+      "properties": [],
       "evidence": {
         "occurrences": []
       }
@@ -3448,6 +3581,7 @@
       "version": "3.2.5",
       "licenses": [],
       "purl": "pkg:npm/mine2@3.2.5",
+      "properties": [],
       "evidence": {
         "occurrences": []
       }
@@ -3459,6 +3593,7 @@
       "version": "0.4.1",
       "licenses": [],
       "purl": "pkg:npm/mine3@0.4.1",
+      "properties": [],
       "evidence": {
         "occurrences": []
       }
@@ -3514,6 +3649,7 @@
       "version": "1.2.3",
       "licenses": [],
       "purl": "pkg:composer/author1/mine1@1.2.3",
+      "properties": [],
       "evidence": {
         "occurrences": []
       }
@@ -3525,6 +3661,7 @@
       "version": "0.4.1",
       "licenses": [],
       "purl": "pkg:composer/author3/mine3@0.4.1",
+      "properties": [],
       "evidence": {
         "occurrences": []
       }
@@ -3536,6 +3673,7 @@
       "version": "1.2.2",
       "licenses": [],
       "purl": "pkg:npm/mine1@1.2.2",
+      "properties": [],
       "evidence": {
         "occurrences": []
       }
@@ -3547,6 +3685,7 @@
       "version": "3.2.5",
       "licenses": [],
       "purl": "pkg:nuget/mine2@3.2.5",
+      "properties": [],
       "evidence": {
         "occurrences": []
       }
@@ -3632,6 +3771,7 @@
       "version": "1.2.3",
       "licenses": [],
       "purl": "pkg:composer/author1/mine1@1.2.3",
+      "properties": [],
       "evidence": {
         "occurrences": []
       }
@@ -3643,6 +3783,7 @@
       "version": "0.4.1",
       "licenses": [],
       "purl": "pkg:composer/author3/mine3@0.4.1",
+      "properties": [],
       "evidence": {
         "occurrences": []
       }
@@ -3654,6 +3795,7 @@
       "version": "1.2.2",
       "licenses": [],
       "purl": "pkg:npm/mine1@1.2.2",
+      "properties": [],
       "evidence": {
         "occurrences": []
       }
@@ -3665,6 +3807,7 @@
       "version": "3.2.5",
       "licenses": [],
       "purl": "pkg:nuget/mine2@3.2.5",
+      "properties": [],
       "evidence": {
         "occurrences": []
       }
@@ -3786,6 +3929,7 @@
       "version": "1.2.3",
       "licenses": [],
       "purl": "pkg:npm/mine1@1.2.3",
+      "properties": [],
       "evidence": {
         "occurrences": []
       }
@@ -3810,6 +3954,7 @@
       "version": "1.2.3",
       "licenses": [],
       "purl": "pkg:npm/mine1@1.2.3",
+      "properties": [],
       "evidence": {
         "occurrences": []
       }
@@ -3865,6 +4010,7 @@
       "version": "1.2.3",
       "licenses": [],
       "purl": "pkg:npm/mine1@1.2.3",
+      "properties": [],
       "evidence": {
         "occurrences": []
       }
@@ -3905,6 +4051,7 @@
       "version": "1.2.3",
       "licenses": [],
       "purl": "pkg:npm/mine1@1.2.3",
+      "properties": [],
       "evidence": {
         "occurrences": []
       }
@@ -3945,6 +4092,7 @@
       "version": "1.2.3",
       "licenses": [],
       "purl": "pkg:npm/mine1@1.2.3",
+      "properties": [],
       "evidence": {
         "occurrences": []
       }
@@ -3985,6 +4133,7 @@
       "version": "1.2.3",
       "licenses": [],
       "purl": "pkg:npm/mine1@1.2.3",
+      "properties": [],
       "evidence": {
         "occurrences": []
       }
@@ -4025,6 +4174,7 @@
       "version": "1.2.3",
       "licenses": [],
       "purl": "pkg:npm/mine1@1.2.3",
+      "properties": [],
       "evidence": {
         "occurrences": []
       }
@@ -4085,6 +4235,7 @@
       "version": "1.2.3",
       "licenses": [],
       "purl": "pkg:npm/mine1@1.2.3",
+      "properties": [],
       "evidence": {
         "occurrences": []
       }
@@ -4145,6 +4296,7 @@
       "version": "1.2.3",
       "licenses": [],
       "purl": "pkg:npm/mine1@1.2.3",
+      "properties": [],
       "evidence": {
         "occurrences": []
       }
@@ -4156,6 +4308,7 @@
       "version": "0.10.2-rc",
       "licenses": [],
       "purl": "pkg:npm/mine3@0.10.2-rc",
+      "properties": [],
       "evidence": {
         "occurrences": []
       }
@@ -4202,6 +4355,7 @@
       "version": "1.2.3",
       "licenses": [],
       "purl": "pkg:npm/mine1@1.2.3",
+      "properties": [],
       "evidence": {
         "occurrences": []
       }
@@ -4213,6 +4367,7 @@
       "version": "5.9.0",
       "licenses": [],
       "purl": "pkg:npm/mine2@5.9.0",
+      "properties": [],
       "evidence": {
         "occurrences": []
       }
@@ -4253,6 +4408,7 @@
       "version": "1.2.3",
       "licenses": [],
       "purl": "pkg:npm/mine1@1.2.3",
+      "properties": [],
       "evidence": {
         "occurrences": []
       }

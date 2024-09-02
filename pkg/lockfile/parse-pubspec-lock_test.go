@@ -4,6 +4,8 @@ import (
 	"io/fs"
 	"testing"
 
+	"github.com/google/osv-scanner/pkg/models"
+
 	"github.com/google/osv-scanner/pkg/lockfile"
 )
 
@@ -112,9 +114,10 @@ func TestParsePubspecLock_OnePackage(t *testing.T) {
 
 	expectPackages(t, packages, []lockfile.PackageDetails{
 		{
-			Name:      "back_button_interceptor",
-			Version:   "6.0.1",
-			Ecosystem: lockfile.PubEcosystem,
+			Name:           "back_button_interceptor",
+			Version:        "6.0.1",
+			PackageManager: models.Pub,
+			Ecosystem:      lockfile.PubEcosystem,
 		},
 	})
 }
@@ -130,10 +133,11 @@ func TestParsePubspecLock_OnePackageDev(t *testing.T) {
 
 	expectPackages(t, packages, []lockfile.PackageDetails{
 		{
-			Name:      "build_runner",
-			Version:   "2.2.1",
-			Ecosystem: lockfile.PubEcosystem,
-			DepGroups: []string{"dev"},
+			Name:           "build_runner",
+			Version:        "2.2.1",
+			PackageManager: models.Pub,
+			Ecosystem:      lockfile.PubEcosystem,
+			DepGroups:      []string{"dev"},
 		},
 	})
 }
@@ -149,14 +153,16 @@ func TestParsePubspecLock_TwoPackages(t *testing.T) {
 
 	expectPackages(t, packages, []lockfile.PackageDetails{
 		{
-			Name:      "shelf",
-			Version:   "1.3.2",
-			Ecosystem: lockfile.PubEcosystem,
+			Name:           "shelf",
+			Version:        "1.3.2",
+			PackageManager: models.Pub,
+			Ecosystem:      lockfile.PubEcosystem,
 		},
 		{
-			Name:      "shelf_web_socket",
-			Version:   "1.0.2",
-			Ecosystem: lockfile.PubEcosystem,
+			Name:           "shelf_web_socket",
+			Version:        "1.0.2",
+			PackageManager: models.Pub,
+			Ecosystem:      lockfile.PubEcosystem,
 		},
 	})
 }
@@ -172,25 +178,29 @@ func TestParsePubspecLock_MixedPackages(t *testing.T) {
 
 	expectPackages(t, packages, []lockfile.PackageDetails{
 		{
-			Name:      "back_button_interceptor",
-			Version:   "6.0.1",
-			Ecosystem: lockfile.PubEcosystem,
+			Name:           "back_button_interceptor",
+			Version:        "6.0.1",
+			PackageManager: models.Pub,
+			Ecosystem:      lockfile.PubEcosystem,
 		},
 		{
-			Name:      "build_runner",
-			Version:   "2.2.1",
-			Ecosystem: lockfile.PubEcosystem,
-			DepGroups: []string{"dev"},
+			Name:           "build_runner",
+			Version:        "2.2.1",
+			PackageManager: models.Pub,
+			Ecosystem:      lockfile.PubEcosystem,
+			DepGroups:      []string{"dev"},
 		},
 		{
-			Name:      "shelf",
-			Version:   "1.3.2",
-			Ecosystem: lockfile.PubEcosystem,
+			Name:           "shelf",
+			Version:        "1.3.2",
+			PackageManager: models.Pub,
+			Ecosystem:      lockfile.PubEcosystem,
 		},
 		{
-			Name:      "shelf_web_socket",
-			Version:   "1.0.2",
-			Ecosystem: lockfile.PubEcosystem,
+			Name:           "shelf_web_socket",
+			Version:        "1.0.2",
+			PackageManager: models.Pub,
+			Ecosystem:      lockfile.PubEcosystem,
 		},
 	})
 }
@@ -206,34 +216,39 @@ func TestParsePubspecLock_PackageWithGitSource(t *testing.T) {
 
 	expectPackages(t, packages, []lockfile.PackageDetails{
 		{
-			Name:      "flutter_rust_bridge",
-			Version:   "1.32.0",
-			Ecosystem: lockfile.PubEcosystem,
-			Commit:    "e5adce55eea0b74d3680e66a2c5252edf17b07e1",
+			Name:           "flutter_rust_bridge",
+			Version:        "1.32.0",
+			PackageManager: models.Pub,
+			Ecosystem:      lockfile.PubEcosystem,
+			Commit:         "e5adce55eea0b74d3680e66a2c5252edf17b07e1",
 		},
 		{
-			Name:      "screen_retriever",
-			Version:   "0.1.2",
-			Ecosystem: lockfile.PubEcosystem,
-			Commit:    "406b9b038b2c1d779f1e7bf609c8c248be247372",
+			Name:           "screen_retriever",
+			Version:        "0.1.2",
+			PackageManager: models.Pub,
+			Ecosystem:      lockfile.PubEcosystem,
+			Commit:         "406b9b038b2c1d779f1e7bf609c8c248be247372",
 		},
 		{
-			Name:      "tray_manager",
-			Version:   "0.1.8",
-			Ecosystem: lockfile.PubEcosystem,
-			Commit:    "3aa37c86e47ea748e7b5507cbe59f2c54ebdb23a",
+			Name:           "tray_manager",
+			Version:        "0.1.8",
+			PackageManager: models.Pub,
+			Ecosystem:      lockfile.PubEcosystem,
+			Commit:         "3aa37c86e47ea748e7b5507cbe59f2c54ebdb23a",
 		},
 		{
-			Name:      "window_manager",
-			Version:   "0.2.7",
-			Ecosystem: lockfile.PubEcosystem,
-			Commit:    "88487257cbafc501599ab4f82ec343b46acec020",
+			Name:           "window_manager",
+			Version:        "0.2.7",
+			PackageManager: models.Pub,
+			Ecosystem:      lockfile.PubEcosystem,
+			Commit:         "88487257cbafc501599ab4f82ec343b46acec020",
 		},
 		{
-			Name:      "toggle_switch",
-			Version:   "1.4.0",
-			Ecosystem: lockfile.PubEcosystem,
-			Commit:    "",
+			Name:           "toggle_switch",
+			Version:        "1.4.0",
+			PackageManager: models.Pub,
+			Ecosystem:      lockfile.PubEcosystem,
+			Commit:         "",
 		},
 	})
 }
@@ -249,10 +264,11 @@ func TestParsePubspecLock_PackageWithSdkSource(t *testing.T) {
 
 	expectPackages(t, packages, []lockfile.PackageDetails{
 		{
-			Name:      "flutter_web_plugins",
-			Version:   "0.0.0",
-			Ecosystem: lockfile.PubEcosystem,
-			Commit:    "",
+			Name:           "flutter_web_plugins",
+			Version:        "0.0.0",
+			PackageManager: models.Pub,
+			Ecosystem:      lockfile.PubEcosystem,
+			Commit:         "",
 		},
 	})
 }
@@ -268,10 +284,11 @@ func TestParsePubspecLock_PackageWithPathSource(t *testing.T) {
 
 	expectPackages(t, packages, []lockfile.PackageDetails{
 		{
-			Name:      "maa_core",
-			Version:   "0.0.1",
-			Ecosystem: lockfile.PubEcosystem,
-			Commit:    "",
+			Name:           "maa_core",
+			Version:        "0.0.1",
+			PackageManager: models.Pub,
+			Ecosystem:      lockfile.PubEcosystem,
+			Commit:         "",
 		},
 	})
 }

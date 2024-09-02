@@ -28,10 +28,11 @@ func toPackageDetails(query *osv.Query) (lockfile.PackageDetails, error) {
 		}
 
 		return lockfile.PackageDetails{
-			Name:      pkg.Name,
-			Version:   pkg.Version,
-			Ecosystem: lockfile.Ecosystem(pkg.Ecosystem),
-			CompareAs: lockfile.Ecosystem(pkg.Ecosystem),
+			Name:           pkg.Name,
+			Version:        pkg.Version,
+			Ecosystem:      lockfile.Ecosystem(pkg.Ecosystem),
+			CompareAs:      lockfile.Ecosystem(pkg.Ecosystem),
+			PackageManager: models.Unknown,
 		}, nil
 	}
 

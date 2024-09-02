@@ -4,6 +4,8 @@ import (
 	"fmt"
 	"path/filepath"
 
+	"github.com/google/osv-scanner/pkg/models"
+
 	"github.com/BurntSushi/toml"
 )
 
@@ -47,11 +49,12 @@ func (e PoetryLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 
 	for _, lockPackage := range parsedLockfile.Packages {
 		pkgDetails := PackageDetails{
-			Name:      lockPackage.Name,
-			Version:   lockPackage.Version,
-			Commit:    lockPackage.Source.Commit,
-			Ecosystem: PoetryEcosystem,
-			CompareAs: PoetryEcosystem,
+			Name:           lockPackage.Name,
+			Version:        lockPackage.Version,
+			Commit:         lockPackage.Source.Commit,
+			PackageManager: models.Poetry,
+			Ecosystem:      PoetryEcosystem,
+			CompareAs:      PoetryEcosystem,
 		}
 		if lockPackage.Optional {
 			pkgDetails.DepGroups = append(pkgDetails.DepGroups, "optional")

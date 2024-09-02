@@ -26,6 +26,9 @@ func buildCycloneDXBom(uniquePackages map[string]models.PackageVulns, pkgProcess
 		component.Name = packageDetail.Package.Name
 		component.Version = packageDetail.Package.Version
 
+		properties := buildProperties(packageDetail.Metadata)
+		component.Properties = &properties
+
 		fillLicenses(&component, packageDetail)
 		addVulnerabilities(vulnerabilities, packageDetail)
 
@@ -49,6 +52,22 @@ func buildCycloneDXBom(uniquePackages map[string]models.PackageVulns, pkgProcess
 	bom.Vulnerabilities = &bomVulnerabilities
 
 	return bom
+}
+
+func buildProperties(metadatas models.PackageMetadata) []cyclonedx.Property {
+	properties := make([]cyclonedx.Property, 0)
+
+	for metadataType, value := range metadatas {
+		if len(value) == 0 {
+			continue
+		}
+		properties = append(properties, cyclonedx.Property{
+			Name:  "osv-scanner:" + string(metadataType),
+			Value: value,
+		})
+	}
+
+	return properties
 }
 
 func fillLicenses(component *cyclonedx.Component, packageDetail models.PackageVulns) {

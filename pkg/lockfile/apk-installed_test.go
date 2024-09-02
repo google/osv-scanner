@@ -4,6 +4,8 @@ import (
 	"io/fs"
 	"testing"
 
+	"github.com/google/osv-scanner/pkg/models"
+
 	"github.com/google/osv-scanner/pkg/lockfile"
 )
 
@@ -51,11 +53,12 @@ func TestParseApkInstalled_Malformed(t *testing.T) {
 
 	expectPackages(t, packages, []lockfile.PackageDetails{
 		{
-			Name:      "busybox",
-			Version:   "",
-			Commit:    "1dbf7a793afae640ea643a055b6dd4f430ac116b",
-			Ecosystem: lockfile.AlpineEcosystem,
-			CompareAs: lockfile.AlpineEcosystem,
+			Name:           "busybox",
+			Version:        "",
+			Commit:         "1dbf7a793afae640ea643a055b6dd4f430ac116b",
+			Ecosystem:      lockfile.AlpineEcosystem,
+			CompareAs:      lockfile.AlpineEcosystem,
+			PackageManager: models.Unknown,
 		},
 	})
 }
@@ -71,11 +74,12 @@ func TestParseApkInstalled_Single(t *testing.T) {
 
 	expectPackages(t, packages, []lockfile.PackageDetails{
 		{
-			Name:      "apk-tools",
-			Version:   "2.12.10-r1",
-			Commit:    "0188f510baadbae393472103427b9c1875117136",
-			Ecosystem: lockfile.AlpineEcosystem,
-			CompareAs: lockfile.AlpineEcosystem,
+			Name:           "apk-tools",
+			Version:        "2.12.10-r1",
+			Commit:         "0188f510baadbae393472103427b9c1875117136",
+			Ecosystem:      lockfile.AlpineEcosystem,
+			CompareAs:      lockfile.AlpineEcosystem,
+			PackageManager: models.Unknown,
 		},
 	})
 }
@@ -91,11 +95,12 @@ func TestParseApkInstalled_Shuffled(t *testing.T) {
 
 	expectPackages(t, packages, []lockfile.PackageDetails{
 		{
-			Name:      "apk-tools",
-			Version:   "2.12.10-r1",
-			Commit:    "0188f510baadbae393472103427b9c1875117136",
-			Ecosystem: lockfile.AlpineEcosystem,
-			CompareAs: lockfile.AlpineEcosystem,
+			Name:           "apk-tools",
+			Version:        "2.12.10-r1",
+			Commit:         "0188f510baadbae393472103427b9c1875117136",
+			Ecosystem:      lockfile.AlpineEcosystem,
+			CompareAs:      lockfile.AlpineEcosystem,
+			PackageManager: models.Unknown,
 		},
 	})
 }
@@ -111,25 +116,28 @@ func TestParseApkInstalled_Multiple(t *testing.T) {
 
 	expectPackages(t, packages, []lockfile.PackageDetails{
 		{
-			Name:      "alpine-baselayout-data",
-			Version:   "3.4.0-r0",
-			Commit:    "bd965a7ebf7fd8f07d7a0cc0d7375bf3e4eb9b24",
-			Ecosystem: lockfile.AlpineEcosystem,
-			CompareAs: lockfile.AlpineEcosystem,
+			Name:           "alpine-baselayout-data",
+			Version:        "3.4.0-r0",
+			Commit:         "bd965a7ebf7fd8f07d7a0cc0d7375bf3e4eb9b24",
+			Ecosystem:      lockfile.AlpineEcosystem,
+			CompareAs:      lockfile.AlpineEcosystem,
+			PackageManager: models.Unknown,
 		},
 		{
-			Name:      "musl",
-			Version:   "1.2.3-r4",
-			Commit:    "f93af038c3de7146121c2ea8124ba5ce29b4b058",
-			Ecosystem: lockfile.AlpineEcosystem,
-			CompareAs: lockfile.AlpineEcosystem,
+			Name:           "musl",
+			Version:        "1.2.3-r4",
+			Commit:         "f93af038c3de7146121c2ea8124ba5ce29b4b058",
+			Ecosystem:      lockfile.AlpineEcosystem,
+			CompareAs:      lockfile.AlpineEcosystem,
+			PackageManager: models.Unknown,
 		},
 		{
-			Name:      "busybox",
-			Version:   "1.35.0-r29",
-			Commit:    "1dbf7a793afae640ea643a055b6dd4f430ac116b",
-			Ecosystem: lockfile.AlpineEcosystem,
-			CompareAs: lockfile.AlpineEcosystem,
+			Name:           "busybox",
+			Version:        "1.35.0-r29",
+			Commit:         "1dbf7a793afae640ea643a055b6dd4f430ac116b",
+			Ecosystem:      lockfile.AlpineEcosystem,
+			CompareAs:      lockfile.AlpineEcosystem,
+			PackageManager: models.Unknown,
 		},
 	})
 }

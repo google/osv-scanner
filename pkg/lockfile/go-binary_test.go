@@ -3,6 +3,8 @@ package lockfile_test
 import (
 	"testing"
 
+	"github.com/google/osv-scanner/pkg/models"
+
 	"github.com/google/osv-scanner/pkg/lockfile"
 )
 
@@ -83,10 +85,11 @@ func TestExtractGoBinary_NoPackages(t *testing.T) {
 
 	expectPackages(t, packages, []lockfile.PackageDetails{
 		{
-			Name:      "stdlib",
-			Version:   "1.21.10",
-			Ecosystem: lockfile.GoEcosystem,
-			CompareAs: lockfile.GoEcosystem,
+			Name:           "stdlib",
+			Version:        "1.21.10",
+			Ecosystem:      lockfile.GoEcosystem,
+			CompareAs:      lockfile.GoEcosystem,
+			PackageManager: models.Golang,
 		},
 	})
 }
@@ -106,16 +109,18 @@ func TestExtractGoBinary_OnePackage(t *testing.T) {
 
 	expectPackages(t, packages, []lockfile.PackageDetails{
 		{
-			Name:      "stdlib",
-			Version:   "1.21.10",
-			Ecosystem: lockfile.GoEcosystem,
-			CompareAs: lockfile.GoEcosystem,
+			Name:           "stdlib",
+			Version:        "1.21.10",
+			Ecosystem:      lockfile.GoEcosystem,
+			CompareAs:      lockfile.GoEcosystem,
+			PackageManager: models.Golang,
 		},
 		{
-			Name:      "github.com/BurntSushi/toml",
-			Version:   "1.4.0",
-			Ecosystem: lockfile.GoEcosystem,
-			CompareAs: lockfile.GoEcosystem,
+			Name:           "github.com/BurntSushi/toml",
+			Version:        "1.4.0",
+			Ecosystem:      lockfile.GoEcosystem,
+			CompareAs:      lockfile.GoEcosystem,
+			PackageManager: models.Golang,
 		},
 	})
 }

@@ -4,6 +4,8 @@ import (
 	"io/fs"
 	"testing"
 
+	"github.com/google/osv-scanner/pkg/models"
+
 	"github.com/google/osv-scanner/pkg/lockfile"
 )
 
@@ -48,10 +50,11 @@ func TestParseRenvLock_OnePackage(t *testing.T) {
 
 	expectPackages(t, packages, []lockfile.PackageDetails{
 		{
-			Name:      "morning",
-			Version:   "0.1.0",
-			Ecosystem: lockfile.CRANEcosystem,
-			CompareAs: lockfile.CRANEcosystem,
+			Name:           "morning",
+			Version:        "0.1.0",
+			PackageManager: models.Renv,
+			Ecosystem:      lockfile.CRANEcosystem,
+			CompareAs:      lockfile.CRANEcosystem,
 		},
 	})
 }
@@ -67,16 +70,18 @@ func TestParseRenvLock_TwoPackages(t *testing.T) {
 
 	expectPackages(t, packages, []lockfile.PackageDetails{
 		{
-			Name:      "markdown",
-			Version:   "1.0",
-			Ecosystem: lockfile.CRANEcosystem,
-			CompareAs: lockfile.CRANEcosystem,
+			Name:           "markdown",
+			Version:        "1.0",
+			PackageManager: models.Renv,
+			Ecosystem:      lockfile.CRANEcosystem,
+			CompareAs:      lockfile.CRANEcosystem,
 		},
 		{
-			Name:      "mime",
-			Version:   "0.7",
-			Ecosystem: lockfile.CRANEcosystem,
-			CompareAs: lockfile.CRANEcosystem,
+			Name:           "mime",
+			Version:        "0.7",
+			PackageManager: models.Renv,
+			Ecosystem:      lockfile.CRANEcosystem,
+			CompareAs:      lockfile.CRANEcosystem,
 		},
 	})
 }
@@ -92,10 +97,11 @@ func TestParseRenvLock_WithMixedSources(t *testing.T) {
 
 	expectPackages(t, packages, []lockfile.PackageDetails{
 		{
-			Name:      "markdown",
-			Version:   "1.0",
-			Ecosystem: lockfile.CRANEcosystem,
-			CompareAs: lockfile.CRANEcosystem,
+			Name:           "markdown",
+			Version:        "1.0",
+			PackageManager: models.Renv,
+			Ecosystem:      lockfile.CRANEcosystem,
+			CompareAs:      lockfile.CRANEcosystem,
 		},
 	})
 }
@@ -112,10 +118,11 @@ func TestParseRenvLock_WithBioconductor(t *testing.T) {
 	// currently Bioconductor is not supported
 	expectPackages(t, packages, []lockfile.PackageDetails{
 		{
-			Name:      "BH",
-			Version:   "1.75.0-0",
-			Ecosystem: lockfile.CRANEcosystem,
-			CompareAs: lockfile.CRANEcosystem,
+			Name:           "BH",
+			Version:        "1.75.0-0",
+			PackageManager: models.Renv,
+			Ecosystem:      lockfile.CRANEcosystem,
+			CompareAs:      lockfile.CRANEcosystem,
 		},
 	})
 }

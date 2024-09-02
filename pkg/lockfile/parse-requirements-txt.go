@@ -83,6 +83,7 @@ func parseLine(path string, line string, lineNumber int, lineOffset int, columnS
 		BlockLocation:   blockLocation,
 		NameLocation:    nameLocation,
 		VersionLocation: versionLocation,
+		PackageManager:  models.Requirements,
 		Ecosystem:       PipEcosystem,
 		CompareAs:       PipEcosystem,
 	}

@@ -9,6 +9,8 @@ import (
 	"path/filepath"
 	"testing"
 
+	"github.com/google/osv-scanner/pkg/models"
+
 	"github.com/stretchr/testify/assert"
 
 	"github.com/google/osv-scanner/pkg/lockfile"
@@ -52,6 +54,7 @@ func TestParseYarnLock_v1_OnePackage(t *testing.T) {
 		{
 			Name:           "balanced-match",
 			Version:        "1.0.2",
+			PackageManager: models.Yarn,
 			TargetVersions: []string{"^1.0.0"},
 			Ecosystem:      lockfile.YarnEcosystem,
 			CompareAs:      lockfile.YarnEcosystem,
@@ -98,6 +101,7 @@ func TestParseYarnLock_v1_OnePackage_MatcherFailed(t *testing.T) {
 		{
 			Name:           "balanced-match",
 			Version:        "1.0.2",
+			PackageManager: models.Yarn,
 			TargetVersions: []string{"^1.0.0"},
 			Ecosystem:      lockfile.YarnEcosystem,
 			CompareAs:      lockfile.YarnEcosystem,
@@ -125,6 +129,7 @@ func TestParseYarnLock_v1_TwoPackages(t *testing.T) {
 		{
 			Name:           "concat-stream",
 			Version:        "1.6.2",
+			PackageManager: models.Yarn,
 			TargetVersions: []string{"^1.5.0"},
 			Ecosystem:      lockfile.YarnEcosystem,
 			CompareAs:      lockfile.YarnEcosystem,
@@ -132,6 +137,7 @@ func TestParseYarnLock_v1_TwoPackages(t *testing.T) {
 		{
 			Name:           "concat-map",
 			Version:        "0.0.1",
+			PackageManager: models.Yarn,
 			TargetVersions: []string{"0.0.1"},
 			Ecosystem:      lockfile.YarnEcosystem,
 			CompareAs:      lockfile.YarnEcosystem,
@@ -156,6 +162,7 @@ func TestParseYarnLock_v1_WithQuotes(t *testing.T) {
 		{
 			Name:           "concat-stream",
 			Version:        "1.6.2",
+			PackageManager: models.Yarn,
 			TargetVersions: []string{"^1.5.0"},
 			Ecosystem:      lockfile.YarnEcosystem,
 			CompareAs:      lockfile.YarnEcosystem,
@@ -163,6 +170,7 @@ func TestParseYarnLock_v1_WithQuotes(t *testing.T) {
 		{
 			Name:           "concat-map",
 			Version:        "0.0.1",
+			PackageManager: models.Yarn,
 			TargetVersions: []string{"0.0.1"},
 			Ecosystem:      lockfile.YarnEcosystem,
 			CompareAs:      lockfile.YarnEcosystem,
@@ -187,6 +195,7 @@ func TestParseYarnLock_v1_MultipleVersions(t *testing.T) {
 		{
 			Name:           "define-properties",
 			Version:        "1.1.3",
+			PackageManager: models.Yarn,
 			TargetVersions: []string{"^1.1.3"},
 			Ecosystem:      lockfile.YarnEcosystem,
 			CompareAs:      lockfile.YarnEcosystem,
@@ -194,6 +203,7 @@ func TestParseYarnLock_v1_MultipleVersions(t *testing.T) {
 		{
 			Name:           "define-property",
 			Version:        "0.2.5",
+			PackageManager: models.Yarn,
 			TargetVersions: []string{"^0.2.5"},
 			Ecosystem:      lockfile.YarnEcosystem,
 			CompareAs:      lockfile.YarnEcosystem,
@@ -201,6 +211,7 @@ func TestParseYarnLock_v1_MultipleVersions(t *testing.T) {
 		{
 			Name:           "define-property",
 			Version:        "1.0.0",
+			PackageManager: models.Yarn,
 			TargetVersions: []string{"^1.0.0"},
 			Ecosystem:      lockfile.YarnEcosystem,
 			CompareAs:      lockfile.YarnEcosystem,
@@ -208,6 +219,7 @@ func TestParseYarnLock_v1_MultipleVersions(t *testing.T) {
 		{
 			Name:           "define-property",
 			Version:        "2.0.2",
+			PackageManager: models.Yarn,
 			TargetVersions: []string{"^2.0.2"},
 			Ecosystem:      lockfile.YarnEcosystem,
 			CompareAs:      lockfile.YarnEcosystem,
@@ -232,6 +244,7 @@ func TestParseYarnLock_v1_MultipleConstraints(t *testing.T) {
 		{
 			Name:           "@babel/code-frame",
 			Version:        "7.12.13",
+			PackageManager: models.Yarn,
 			TargetVersions: []string{"^7.0.0", "^7.12.13"},
 			Ecosystem:      lockfile.YarnEcosystem,
 			CompareAs:      lockfile.YarnEcosystem,
@@ -239,6 +252,7 @@ func TestParseYarnLock_v1_MultipleConstraints(t *testing.T) {
 		{
 			Name:           "domelementtype",
 			Version:        "1.3.1",
+			PackageManager: models.Yarn,
 			TargetVersions: []string{"1", "^1.3.1"},
 			Ecosystem:      lockfile.YarnEcosystem,
 			CompareAs:      lockfile.YarnEcosystem,
@@ -263,6 +277,7 @@ func TestParseYarnLock_v1_ScopedPackages(t *testing.T) {
 		{
 			Name:           "@babel/code-frame",
 			Version:        "7.12.11",
+			PackageManager: models.Yarn,
 			TargetVersions: []string{"7.12.11"},
 			Ecosystem:      lockfile.YarnEcosystem,
 			CompareAs:      lockfile.YarnEcosystem,
@@ -270,6 +285,7 @@ func TestParseYarnLock_v1_ScopedPackages(t *testing.T) {
 		{
 			Name:           "@babel/compat-data",
 			Version:        "7.14.0",
+			PackageManager: models.Yarn,
 			TargetVersions: []string{"^7.13.11"},
 			Ecosystem:      lockfile.YarnEcosystem,
 			CompareAs:      lockfile.YarnEcosystem,
@@ -294,6 +310,7 @@ func TestParseYarnLock_v1_WithPrerelease(t *testing.T) {
 		{
 			Name:           "css-tree",
 			Version:        "1.0.0-alpha.37",
+			PackageManager: models.Yarn,
 			TargetVersions: []string{"1.0.0-alpha.37"},
 			Ecosystem:      lockfile.YarnEcosystem,
 			CompareAs:      lockfile.YarnEcosystem,
@@ -301,6 +318,7 @@ func TestParseYarnLock_v1_WithPrerelease(t *testing.T) {
 		{
 			Name:           "gensync",
 			Version:        "1.0.0-beta.2",
+			PackageManager: models.Yarn,
 			TargetVersions: []string{"^1.0.0-beta.2"},
 			Ecosystem:      lockfile.YarnEcosystem,
 			CompareAs:      lockfile.YarnEcosystem,
@@ -308,6 +326,7 @@ func TestParseYarnLock_v1_WithPrerelease(t *testing.T) {
 		{
 			Name:           "node-fetch",
 			Version:        "3.0.0-beta.9",
+			PackageManager: models.Yarn,
 			TargetVersions: []string{"3.0.0-beta.9"},
 			Ecosystem:      lockfile.YarnEcosystem,
 			CompareAs:      lockfile.YarnEcosystem,
@@ -315,6 +334,7 @@ func TestParseYarnLock_v1_WithPrerelease(t *testing.T) {
 		{
 			Name:           "resolve",
 			Version:        "1.20.0",
+			PackageManager: models.Yarn,
 			TargetVersions: []string{"^1.1.7", "^1.10.0", "^1.12.0", "^1.14.2", "^1.20.0"},
 			Ecosystem:      lockfile.YarnEcosystem,
 			CompareAs:      lockfile.YarnEcosystem,
@@ -322,6 +342,7 @@ func TestParseYarnLock_v1_WithPrerelease(t *testing.T) {
 		{
 			Name:           "resolve",
 			Version:        "2.0.0-next.3",
+			PackageManager: models.Yarn,
 			TargetVersions: []string{"^2.0.0-next.3"},
 			Ecosystem:      lockfile.YarnEcosystem,
 			CompareAs:      lockfile.YarnEcosystem,
@@ -346,6 +367,7 @@ func TestParseYarnLock_v1_WithBuildString(t *testing.T) {
 		{
 			Name:           "domino",
 			Version:        "2.1.6+git",
+			PackageManager: models.Yarn,
 			TargetVersions: []string{"https://github.com/angular/domino.git#f2435fe1f9f7c91ade0bd472c4723e5eacd7d19a"},
 			Ecosystem:      lockfile.YarnEcosystem,
 			CompareAs:      lockfile.YarnEcosystem,
@@ -353,6 +375,7 @@ func TestParseYarnLock_v1_WithBuildString(t *testing.T) {
 		{
 			Name:           "tslib",
 			Version:        "2.6.2",
+			PackageManager: models.Yarn,
 			TargetVersions: []string{"^2.3.0"},
 			Ecosystem:      lockfile.YarnEcosystem,
 			CompareAs:      lockfile.YarnEcosystem,
@@ -377,6 +400,7 @@ func TestParseYarnLock_v1_Commits(t *testing.T) {
 		{
 			Name:           "mine1",
 			Version:        "1.0.0-alpha.37",
+			PackageManager: models.Yarn,
 			TargetVersions: []string{"git+ssh://git@github.com:G-Rath/npm-git-repo-2#0a2d2506c1"},
 			Ecosystem:      lockfile.YarnEcosystem,
 			CompareAs:      lockfile.YarnEcosystem,
@@ -385,6 +409,7 @@ func TestParseYarnLock_v1_Commits(t *testing.T) {
 		{
 			Name:           "mine2",
 			Version:        "0.0.1",
+			PackageManager: models.Yarn,
 			TargetVersions: []string{"G-Rath/npm-git-repo-2#0a2d2506c1"},
 			Ecosystem:      lockfile.YarnEcosystem,
 			CompareAs:      lockfile.YarnEcosystem,
@@ -393,14 +418,16 @@ func TestParseYarnLock_v1_Commits(t *testing.T) {
 		{
 			Name:           "mine3",
 			Version:        "1.2.3",
+			PackageManager: models.Yarn,
 			TargetVersions: []string{"G-Rath/npm-git-repo-1"},
 			Ecosystem:      lockfile.YarnEcosystem,
 			CompareAs:      lockfile.YarnEcosystem,
 			Commit:         "094e581aaf927d010e4b61d706ba584551dac502",
 		},
 		{
-			Name:    "mine4",
-			Version: "0.0.2",
+			Name:           "mine4",
+			Version:        "0.0.2",
+			PackageManager: models.Yarn,
 			TargetVersions: []string{
 				"git+ssh://git@github.com:G-Rath/npm-git-repo-2#another-branch",
 				"git+ssh://git@github.com:G-Rath/npm-git-repo-2#aa3bdfcb",
@@ -412,6 +439,7 @@ func TestParseYarnLock_v1_Commits(t *testing.T) {
 		{
 			Name:           "mine4",
 			Version:        "0.0.4",
+			PackageManager: models.Yarn,
 			TargetVersions: []string{"G-Rath/npm-git-repo-2#another-branch"},
 			Ecosystem:      lockfile.YarnEcosystem,
 			CompareAs:      lockfile.YarnEcosystem,
@@ -420,6 +448,7 @@ func TestParseYarnLock_v1_Commits(t *testing.T) {
 		{
 			Name:           "my-package",
 			Version:        "1.8.3",
+			PackageManager: models.Yarn,
 			TargetVersions: []string{"git+https://git@github.com/my-org/my-package.git#v1.8.3"},
 			Ecosystem:      lockfile.YarnEcosystem,
 			CompareAs:      lockfile.YarnEcosystem,
@@ -428,6 +457,7 @@ func TestParseYarnLock_v1_Commits(t *testing.T) {
 		{
 			Name:           "@bower_components/angular-animate",
 			Version:        "1.4.14",
+			PackageManager: models.Yarn,
 			TargetVersions: []string{"git://github.com/angular/bower-angular-animate.git#~1.4.0"},
 			Ecosystem:      lockfile.YarnEcosystem,
 			CompareAs:      lockfile.YarnEcosystem,
@@ -436,6 +466,7 @@ func TestParseYarnLock_v1_Commits(t *testing.T) {
 		{
 			Name:           "@bower_components/alertify",
 			Version:        "0.0.0",
+			PackageManager: models.Yarn,
 			TargetVersions: []string{"fabien-d/alertify.js-shim#^0.3.10"},
 			Ecosystem:      lockfile.YarnEcosystem,
 			CompareAs:      lockfile.YarnEcosystem,
@@ -444,6 +475,7 @@ func TestParseYarnLock_v1_Commits(t *testing.T) {
 		{
 			Name:           "minimist",
 			Version:        "0.0.8",
+			PackageManager: models.Yarn,
 			TargetVersions: []string{"0.0.8", "ssh://github.com/substack/minimist.git#0.0.8"},
 			Ecosystem:      lockfile.YarnEcosystem,
 			CompareAs:      lockfile.YarnEcosystem,
@@ -452,6 +484,7 @@ func TestParseYarnLock_v1_Commits(t *testing.T) {
 		{
 			Name:           "bats-assert",
 			Version:        "2.0.0",
+			PackageManager: models.Yarn,
 			TargetVersions: []string{"https://github.com/bats-core/bats-assert"},
 			Ecosystem:      lockfile.YarnEcosystem,
 			CompareAs:      lockfile.YarnEcosystem,
@@ -460,6 +493,7 @@ func TestParseYarnLock_v1_Commits(t *testing.T) {
 		{
 			Name:           "bats-support",
 			Version:        "0.3.0",
+			PackageManager: models.Yarn,
 			TargetVersions: []string{"https://github.com/bats-core/bats-support"},
 			Ecosystem:      lockfile.YarnEcosystem,
 			CompareAs:      lockfile.YarnEcosystem,
@@ -468,6 +502,7 @@ func TestParseYarnLock_v1_Commits(t *testing.T) {
 		{
 			Name:           "bats",
 			Version:        "1.5.0",
+			PackageManager: models.Yarn,
 			TargetVersions: []string{"https://github.com/bats-core/bats-core#master"},
 			Ecosystem:      lockfile.YarnEcosystem,
 			CompareAs:      lockfile.YarnEcosystem,
@@ -476,6 +511,7 @@ func TestParseYarnLock_v1_Commits(t *testing.T) {
 		{
 			Name:           "vue",
 			Version:        "2.6.12",
+			PackageManager: models.Yarn,
 			TargetVersions: []string{"https://github.com/vuejs/vue.git#v2.6.12"},
 			Ecosystem:      lockfile.YarnEcosystem,
 			CompareAs:      lockfile.YarnEcosystem,
@@ -484,6 +520,7 @@ func TestParseYarnLock_v1_Commits(t *testing.T) {
 		{
 			Name:           "kit",
 			Version:        "1.0.0",
+			PackageManager: models.Yarn,
 			TargetVersions: []string{"git+https://bitbucket.org/kettlelogic/kit.git"},
 			Ecosystem:      lockfile.YarnEcosystem,
 			CompareAs:      lockfile.YarnEcosystem,
@@ -492,6 +529,7 @@ func TestParseYarnLock_v1_Commits(t *testing.T) {
 		{
 			Name:           "casadistance",
 			Version:        "1.0.0",
+			PackageManager: models.Yarn,
 			TargetVersions: []string{"git+ssh://git@bitbucket.org/casasoftag/casadistance.git"},
 			Ecosystem:      lockfile.YarnEcosystem,
 			CompareAs:      lockfile.YarnEcosystem,
@@ -500,6 +538,7 @@ func TestParseYarnLock_v1_Commits(t *testing.T) {
 		{
 			Name:           "babel-preset-php",
 			Version:        "1.1.1",
+			PackageManager: models.Yarn,
 			TargetVersions: []string{"gitlab:kornelski/babel-preset-php#master"},
 			Ecosystem:      lockfile.YarnEcosystem,
 			CompareAs:      lockfile.YarnEcosystem,
@@ -508,6 +547,7 @@ func TestParseYarnLock_v1_Commits(t *testing.T) {
 		{
 			Name:           "is-number",
 			Version:        "2.0.0",
+			PackageManager: models.Yarn,
 			TargetVersions: []string{"github:jonschlinkert/is-number#master"},
 			Ecosystem:      lockfile.YarnEcosystem,
 			CompareAs:      lockfile.YarnEcosystem,
@@ -516,6 +556,7 @@ func TestParseYarnLock_v1_Commits(t *testing.T) {
 		{
 			Name:           "is-number",
 			Version:        "5.0.0",
+			PackageManager: models.Yarn,
 			TargetVersions: []string{"https://dummy-token@github.com/jonschlinkert/is-number.git#master"},
 			Ecosystem:      lockfile.YarnEcosystem,
 			CompareAs:      lockfile.YarnEcosystem,
@@ -541,6 +582,7 @@ func TestParseYarnLock_v1_Files(t *testing.T) {
 		{
 			Name:           "etag",
 			Version:        "1.8.1",
+			PackageManager: models.Yarn,
 			TargetVersions: []string{"^1.0.0"},
 			Ecosystem:      lockfile.YarnEcosystem,
 			CompareAs:      lockfile.YarnEcosystem,
@@ -549,6 +591,7 @@ func TestParseYarnLock_v1_Files(t *testing.T) {
 		{
 			Name:           "filedep",
 			Version:        "1.2.0",
+			PackageManager: models.Yarn,
 			TargetVersions: []string{"../../correct/path/filedep"},
 			Ecosystem:      lockfile.YarnEcosystem,
 			CompareAs:      lockfile.YarnEcosystem,
@@ -557,6 +600,7 @@ func TestParseYarnLock_v1_Files(t *testing.T) {
 		{
 			Name:           "lodash",
 			Version:        "1.3.1",
+			PackageManager: models.Yarn,
 			TargetVersions: []string{"^1.3.1"},
 			Ecosystem:      lockfile.YarnEcosystem,
 			CompareAs:      lockfile.YarnEcosystem,
@@ -565,6 +609,7 @@ func TestParseYarnLock_v1_Files(t *testing.T) {
 		{
 			Name:           "other_package",
 			Version:        "0.0.2",
+			PackageManager: models.Yarn,
 			TargetVersions: []string{"./deps/other_package"},
 			Ecosystem:      lockfile.YarnEcosystem,
 			CompareAs:      lockfile.YarnEcosystem,
@@ -573,6 +618,7 @@ func TestParseYarnLock_v1_Files(t *testing.T) {
 		{
 			Name:           "sprintf-js",
 			Version:        "0.0.0",
+			PackageManager: models.Yarn,
 			TargetVersions: []string{"./mocks/sprintf-js", "~1.0.2"},
 			Ecosystem:      lockfile.YarnEcosystem,
 			CompareAs:      lockfile.YarnEcosystem,
@@ -581,6 +627,7 @@ func TestParseYarnLock_v1_Files(t *testing.T) {
 		{
 			Name:           "etag",
 			Version:        "1.8.0",
+			PackageManager: models.Yarn,
 			TargetVersions: []string{"./deps/etag"},
 			Ecosystem:      lockfile.YarnEcosystem,
 			CompareAs:      lockfile.YarnEcosystem,
@@ -606,6 +653,7 @@ func TestParseYarnLock_v1_WithAliases(t *testing.T) {
 		{
 			Name:           "@babel/helper-validator-identifier",
 			Version:        "7.22.20",
+			PackageManager: models.Yarn,
 			TargetVersions: []string{"^7.0.0"},
 			Ecosystem:      lockfile.YarnEcosystem,
 			CompareAs:      lockfile.YarnEcosystem,
@@ -613,6 +661,7 @@ func TestParseYarnLock_v1_WithAliases(t *testing.T) {
 		{
 			Name:           "ansi-regex",
 			Version:        "6.0.1",
+			PackageManager: models.Yarn,
 			TargetVersions: []string{"^6.0.0"},
 			Ecosystem:      lockfile.YarnEcosystem,
 			CompareAs:      lockfile.YarnEcosystem,
@@ -620,6 +669,7 @@ func TestParseYarnLock_v1_WithAliases(t *testing.T) {
 		{
 			Name:           "ansi-regex",
 			Version:        "5.0.1",
+			PackageManager: models.Yarn,
 			TargetVersions: []string{"^5.0.0"},
 			Ecosystem:      lockfile.YarnEcosystem,
 			CompareAs:      lockfile.YarnEcosystem,

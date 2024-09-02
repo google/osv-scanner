@@ -7,6 +7,8 @@ import (
 	"path/filepath"
 	"strings"
 
+	"github.com/google/osv-scanner/pkg/models"
+
 	"gopkg.in/yaml.v3"
 )
 
@@ -87,10 +89,11 @@ func (e PubspecLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 
 	for name, pkg := range parsedLockfile.Packages {
 		pkgDetails := PackageDetails{
-			Name:      name,
-			Version:   pkg.Version,
-			Commit:    pkg.Description.Ref,
-			Ecosystem: PubEcosystem,
+			Name:           name,
+			Version:        pkg.Version,
+			Commit:         pkg.Description.Ref,
+			PackageManager: models.Pub,
+			Ecosystem:      PubEcosystem,
 		}
 		for _, str := range strings.Split(pkg.Dependency, " ") {
 			if str == "dev" {

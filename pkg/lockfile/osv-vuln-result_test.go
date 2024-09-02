@@ -4,6 +4,8 @@ import (
 	"io/fs"
 	"testing"
 
+	"github.com/google/osv-scanner/pkg/models"
+
 	"github.com/google/osv-scanner/pkg/lockfile"
 )
 
@@ -48,10 +50,11 @@ func TestParseOSVScannerResults_OnePackage(t *testing.T) {
 
 	expectPackages(t, packages, []lockfile.PackageDetails{
 		{
-			Name:      "activesupport",
-			Version:   "7.0.7",
-			Ecosystem: lockfile.BundlerEcosystem,
-			CompareAs: lockfile.BundlerEcosystem,
+			Name:           "activesupport",
+			Version:        "7.0.7",
+			PackageManager: models.Unknown,
+			Ecosystem:      lockfile.BundlerEcosystem,
+			CompareAs:      lockfile.BundlerEcosystem,
 		},
 	})
 }
@@ -67,7 +70,8 @@ func TestParseOSVScannerResults_OnePackageCommit(t *testing.T) {
 
 	expectPackages(t, packages, []lockfile.PackageDetails{
 		{
-			Commit: "9a6bd55c9d0722cb101fe85a3b22d89e4ff4fe52",
+			Commit:         "9a6bd55c9d0722cb101fe85a3b22d89e4ff4fe52",
+			PackageManager: models.Unknown,
 		},
 	})
 }
@@ -83,22 +87,25 @@ func TestParseOSVScannerResults_MultiPackages(t *testing.T) {
 
 	expectPackages(t, packages, []lockfile.PackageDetails{
 		{
-			Name:      "crossbeam-utils",
-			Version:   "0.6.6",
-			Ecosystem: lockfile.CargoEcosystem,
-			CompareAs: lockfile.CargoEcosystem,
+			Name:           "crossbeam-utils",
+			Version:        "0.6.6",
+			PackageManager: models.Unknown,
+			Ecosystem:      lockfile.CargoEcosystem,
+			CompareAs:      lockfile.CargoEcosystem,
 		},
 		{
-			Name:      "memoffset",
-			Version:   "0.5.6",
-			Ecosystem: lockfile.CargoEcosystem,
-			CompareAs: lockfile.CargoEcosystem,
+			Name:           "memoffset",
+			Version:        "0.5.6",
+			PackageManager: models.Unknown,
+			Ecosystem:      lockfile.CargoEcosystem,
+			CompareAs:      lockfile.CargoEcosystem,
 		},
 		{
-			Name:      "smallvec",
-			Version:   "1.6.0",
-			Ecosystem: lockfile.CargoEcosystem,
-			CompareAs: lockfile.CargoEcosystem,
+			Name:           "smallvec",
+			Version:        "1.6.0",
+			PackageManager: models.Unknown,
+			Ecosystem:      lockfile.CargoEcosystem,
+			CompareAs:      lockfile.CargoEcosystem,
 		},
 	})
 }

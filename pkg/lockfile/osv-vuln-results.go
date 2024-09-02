@@ -31,15 +31,17 @@ func (e OSVScannerResultsExtractor) Extract(f DepFile) ([]PackageDetails, error)
 		for _, pkg := range res.Packages {
 			if pkg.Package.Commit != "" { // Prioritize results
 				packages = append(packages, PackageDetails{
-					Commit: pkg.Package.Commit,
-					Name:   pkg.Package.Name,
+					Commit:         pkg.Package.Commit,
+					Name:           pkg.Package.Name,
+					PackageManager: models.Unknown,
 				})
 			} else {
 				packages = append(packages, PackageDetails{
-					Name:      pkg.Package.Name,
-					Ecosystem: Ecosystem(pkg.Package.Ecosystem),
-					Version:   pkg.Package.Version,
-					CompareAs: Ecosystem(pkg.Package.Ecosystem),
+					Name:           pkg.Package.Name,
+					PackageManager: models.Unknown,
+					Ecosystem:      Ecosystem(pkg.Package.Ecosystem),
+					Version:        pkg.Package.Version,
+					CompareAs:      Ecosystem(pkg.Package.Ecosystem),
 				})
 			}
 		}

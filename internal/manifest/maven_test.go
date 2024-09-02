@@ -4,6 +4,8 @@ import (
 	"io/fs"
 	"testing"
 
+	"github.com/google/osv-scanner/pkg/models"
+
 	"github.com/google/osv-scanner/internal/manifest"
 	"github.com/google/osv-scanner/internal/resolution/clienttest"
 	"github.com/google/osv-scanner/internal/resolution/datasource"
@@ -112,10 +114,11 @@ func TestParseMavenWithResolver_OnePackage(t *testing.T) {
 
 	expectPackages(t, packages, []lockfile.PackageDetails{
 		{
-			Name:      "org.apache.maven:maven-artifact",
-			Version:   "1.0.0",
-			Ecosystem: lockfile.MavenEcosystem,
-			CompareAs: lockfile.MavenEcosystem,
+			Name:           "org.apache.maven:maven-artifact",
+			Version:        "1.0.0",
+			Ecosystem:      lockfile.MavenEcosystem,
+			CompareAs:      lockfile.MavenEcosystem,
+			PackageManager: models.Unknown,
 		},
 	})
 }
@@ -131,16 +134,18 @@ func TestParseMavenWithResolver_TwoPackages(t *testing.T) {
 
 	expectPackages(t, packages, []lockfile.PackageDetails{
 		{
-			Name:      "io.netty:netty-all",
-			Version:   "4.1.42.Final",
-			Ecosystem: lockfile.MavenEcosystem,
-			CompareAs: lockfile.MavenEcosystem,
+			Name:           "io.netty:netty-all",
+			Version:        "4.1.42.Final",
+			Ecosystem:      lockfile.MavenEcosystem,
+			CompareAs:      lockfile.MavenEcosystem,
+			PackageManager: models.Unknown,
 		},
 		{
-			Name:      "org.slf4j:slf4j-log4j12",
-			Version:   "1.7.25",
-			Ecosystem: lockfile.MavenEcosystem,
-			CompareAs: lockfile.MavenEcosystem,
+			Name:           "org.slf4j:slf4j-log4j12",
+			Version:        "1.7.25",
+			Ecosystem:      lockfile.MavenEcosystem,
+			CompareAs:      lockfile.MavenEcosystem,
+			PackageManager: models.Unknown,
 		},
 	})
 }
@@ -156,16 +161,18 @@ func TestParseMavenWithResolver_WithDependencyManagement(t *testing.T) {
 
 	expectPackages(t, packages, []lockfile.PackageDetails{
 		{
-			Name:      "io.netty:netty-all",
-			Version:   "4.1.9",
-			Ecosystem: lockfile.MavenEcosystem,
-			CompareAs: lockfile.MavenEcosystem,
+			Name:           "io.netty:netty-all",
+			Version:        "4.1.9",
+			Ecosystem:      lockfile.MavenEcosystem,
+			CompareAs:      lockfile.MavenEcosystem,
+			PackageManager: models.Unknown,
 		},
 		{
-			Name:      "org.slf4j:slf4j-log4j12",
-			Version:   "1.7.25",
-			Ecosystem: lockfile.MavenEcosystem,
-			CompareAs: lockfile.MavenEcosystem,
+			Name:           "org.slf4j:slf4j-log4j12",
+			Version:        "1.7.25",
+			Ecosystem:      lockfile.MavenEcosystem,
+			CompareAs:      lockfile.MavenEcosystem,
+			PackageManager: models.Unknown,
 		},
 	})
 }
@@ -181,22 +188,25 @@ func TestParseMavenWithResolver_Interpolation(t *testing.T) {
 
 	expectPackages(t, packages, []lockfile.PackageDetails{
 		{
-			Name:      "org.mine:mypackage",
-			Version:   "1.0.0",
-			Ecosystem: lockfile.MavenEcosystem,
-			CompareAs: lockfile.MavenEcosystem,
+			Name:           "org.mine:mypackage",
+			Version:        "1.0.0",
+			Ecosystem:      lockfile.MavenEcosystem,
+			CompareAs:      lockfile.MavenEcosystem,
+			PackageManager: models.Unknown,
 		},
 		{
-			Name:      "org.mine:my.package",
-			Version:   "2.3.4",
-			Ecosystem: lockfile.MavenEcosystem,
-			CompareAs: lockfile.MavenEcosystem,
+			Name:           "org.mine:my.package",
+			Version:        "2.3.4",
+			Ecosystem:      lockfile.MavenEcosystem,
+			CompareAs:      lockfile.MavenEcosystem,
+			PackageManager: models.Unknown,
 		},
 		{
-			Name:      "org.mine:ranged-package",
-			Version:   "9.4.37",
-			Ecosystem: lockfile.MavenEcosystem,
-			CompareAs: lockfile.MavenEcosystem,
+			Name:           "org.mine:ranged-package",
+			Version:        "9.4.37",
+			Ecosystem:      lockfile.MavenEcosystem,
+			CompareAs:      lockfile.MavenEcosystem,
+			PackageManager: models.Unknown,
 		},
 	})
 }
@@ -212,11 +222,12 @@ func TestParseMavenWithResolver_WithScope(t *testing.T) {
 
 	expectPackages(t, packages, []lockfile.PackageDetails{
 		{
-			Name:      "junit:junit",
-			Version:   "4.12",
-			Ecosystem: lockfile.MavenEcosystem,
-			CompareAs: lockfile.MavenEcosystem,
-			DepGroups: []string{"runtime"},
+			Name:           "junit:junit",
+			Version:        "4.12",
+			Ecosystem:      lockfile.MavenEcosystem,
+			CompareAs:      lockfile.MavenEcosystem,
+			PackageManager: models.Unknown,
+			DepGroups:      []string{"runtime"},
 		},
 	})
 }
@@ -266,40 +277,46 @@ func TestParseMavenWithResolver_WithParent(t *testing.T) {
 
 	expectPackages(t, packages, []lockfile.PackageDetails{
 		{
-			Name:      "org.alice:alice",
-			Version:   "1.0.0",
-			Ecosystem: lockfile.MavenEcosystem,
-			CompareAs: lockfile.MavenEcosystem,
+			Name:           "org.alice:alice",
+			Version:        "1.0.0",
+			Ecosystem:      lockfile.MavenEcosystem,
+			CompareAs:      lockfile.MavenEcosystem,
+			PackageManager: models.Unknown,
 		},
 		{
-			Name:      "org.bob:bob",
-			Version:   "2.0.0",
-			Ecosystem: lockfile.MavenEcosystem,
-			CompareAs: lockfile.MavenEcosystem,
+			Name:           "org.bob:bob",
+			Version:        "2.0.0",
+			Ecosystem:      lockfile.MavenEcosystem,
+			CompareAs:      lockfile.MavenEcosystem,
+			PackageManager: models.Unknown,
 		},
 		{
-			Name:      "org.chuck:chuck",
-			Version:   "3.0.0",
-			Ecosystem: lockfile.MavenEcosystem,
-			CompareAs: lockfile.MavenEcosystem,
+			Name:           "org.chuck:chuck",
+			Version:        "3.0.0",
+			Ecosystem:      lockfile.MavenEcosystem,
+			CompareAs:      lockfile.MavenEcosystem,
+			PackageManager: models.Unknown,
 		},
 		{
-			Name:      "org.dave:dave",
-			Version:   "4.0.0",
-			Ecosystem: lockfile.MavenEcosystem,
-			CompareAs: lockfile.MavenEcosystem,
+			Name:           "org.dave:dave",
+			Version:        "4.0.0",
+			Ecosystem:      lockfile.MavenEcosystem,
+			CompareAs:      lockfile.MavenEcosystem,
+			PackageManager: models.Unknown,
 		},
 		{
-			Name:      "org.eve:eve",
-			Version:   "5.0.0",
-			Ecosystem: lockfile.MavenEcosystem,
-			CompareAs: lockfile.MavenEcosystem,
+			Name:           "org.eve:eve",
+			Version:        "5.0.0",
+			Ecosystem:      lockfile.MavenEcosystem,
+			CompareAs:      lockfile.MavenEcosystem,
+			PackageManager: models.Unknown,
 		},
 		{
-			Name:      "org.frank:frank",
-			Version:   "6.0.0",
-			Ecosystem: lockfile.MavenEcosystem,
-			CompareAs: lockfile.MavenEcosystem,
+			Name:           "org.frank:frank",
+			Version:        "6.0.0",
+			Ecosystem:      lockfile.MavenEcosystem,
+			CompareAs:      lockfile.MavenEcosystem,
+			PackageManager: models.Unknown,
 		},
 	})
 }
@@ -315,46 +332,53 @@ func TestParseMavenWithResolver_Transitive(t *testing.T) {
 
 	expectPackages(t, packages, []lockfile.PackageDetails{
 		{
-			Name:      "org.direct:alice",
-			Version:   "1.0.0",
-			Ecosystem: lockfile.MavenEcosystem,
-			CompareAs: lockfile.MavenEcosystem,
+			Name:           "org.direct:alice",
+			Version:        "1.0.0",
+			Ecosystem:      lockfile.MavenEcosystem,
+			CompareAs:      lockfile.MavenEcosystem,
+			PackageManager: models.Unknown,
 		},
 		{
-			Name:      "org.direct:bob",
-			Version:   "2.0.0",
-			Ecosystem: lockfile.MavenEcosystem,
-			CompareAs: lockfile.MavenEcosystem,
+			Name:           "org.direct:bob",
+			Version:        "2.0.0",
+			Ecosystem:      lockfile.MavenEcosystem,
+			CompareAs:      lockfile.MavenEcosystem,
+			PackageManager: models.Unknown,
 		},
 		{
-			Name:      "org.direct:chris",
-			Version:   "3.0.0",
-			Ecosystem: lockfile.MavenEcosystem,
-			CompareAs: lockfile.MavenEcosystem,
+			Name:           "org.direct:chris",
+			Version:        "3.0.0",
+			Ecosystem:      lockfile.MavenEcosystem,
+			CompareAs:      lockfile.MavenEcosystem,
+			PackageManager: models.Unknown,
 		},
 		{
-			Name:      "org.transitive:chuck",
-			Version:   "1.1.1",
-			Ecosystem: lockfile.MavenEcosystem,
-			CompareAs: lockfile.MavenEcosystem,
+			Name:           "org.transitive:chuck",
+			Version:        "1.1.1",
+			Ecosystem:      lockfile.MavenEcosystem,
+			CompareAs:      lockfile.MavenEcosystem,
+			PackageManager: models.Unknown,
 		},
 		{
-			Name:      "org.transitive:dave",
-			Version:   "2.2.2",
-			Ecosystem: lockfile.MavenEcosystem,
-			CompareAs: lockfile.MavenEcosystem,
+			Name:           "org.transitive:dave",
+			Version:        "2.2.2",
+			Ecosystem:      lockfile.MavenEcosystem,
+			CompareAs:      lockfile.MavenEcosystem,
+			PackageManager: models.Unknown,
 		},
 		{
-			Name:      "org.transitive:eve",
-			Version:   "3.3.3",
-			Ecosystem: lockfile.MavenEcosystem,
-			CompareAs: lockfile.MavenEcosystem,
+			Name:           "org.transitive:eve",
+			Version:        "3.3.3",
+			Ecosystem:      lockfile.MavenEcosystem,
+			CompareAs:      lockfile.MavenEcosystem,
+			PackageManager: models.Unknown,
 		},
 		{
-			Name:      "org.transitive:frank",
-			Version:   "4.4.4",
-			Ecosystem: lockfile.MavenEcosystem,
-			CompareAs: lockfile.MavenEcosystem,
+			Name:           "org.transitive:frank",
+			Version:        "4.4.4",
+			Ecosystem:      lockfile.MavenEcosystem,
+			CompareAs:      lockfile.MavenEcosystem,
+			PackageManager: models.Unknown,
 		},
 	})
 }

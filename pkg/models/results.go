@@ -104,6 +104,7 @@ type PackageVulns struct {
 	Groups            []GroupInfo        `json:"groups,omitempty"`
 	Licenses          []License          `json:"licenses,omitempty"`
 	LicenseViolations []License          `json:"license_violations,omitempty"`
+	Metadata          PackageMetadata    `json:"metadata,omitempty"`
 }
 
 type GroupInfo struct {
