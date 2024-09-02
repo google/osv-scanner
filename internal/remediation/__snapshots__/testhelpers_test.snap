@@ -1235,6 +1235,38 @@
 ]
 ---
 
+[TestComputeOverridePatches/workaround-commons - 1]
+[
+  {
+    "Patch": {
+      "Deps": [
+        {
+          "Pkg": {
+            "System": 6,
+            "Name": "commons-beanutils:commons-beanutils"
+          },
+          "Type": {},
+          "OrigRequire": "",
+          "NewRequire": "1.9.4",
+          "OrigResolved": "20020520",
+          "NewResolved": "1.9.4"
+        }
+      ],
+      "EcosystemSpecific": null
+    },
+    "RemovedVulns": [
+      {
+        "ID": "GHSA-6phf-73q6-gh87",
+        "AffectedNodes": [
+          1
+        ]
+      }
+    ],
+    "AddedVulns": []
+  }
+]
+---
+
 [TestComputeOverridePatches/workaround-maven-guava-android-to-android - 1]
 [
   {

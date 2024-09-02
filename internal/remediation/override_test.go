@@ -53,6 +53,12 @@ func TestComputeOverridePatches(t *testing.T) {
 			manifestPath: "./fixtures/override-workaround/guava/android-to-android/pom.xml",
 			opts:         basicOpts,
 		},
+		{
+			name:         "workaround-commons",
+			universePath: "./fixtures/override-workaround/universe.yaml",
+			manifestPath: "./fixtures/override-workaround/commons/pom.xml",
+			opts:         basicOpts,
+		},
 	}
 
 	for _, tt := range tests {

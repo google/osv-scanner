@@ -308,6 +308,26 @@ func comparisonFunctionWithWorkarounds(vk resolve.VersionKey) func(resolve.Versi
 		}
 	}
 
+	if vk.System == resolve.Maven && strings.HasPrefix(vk.Name, "commons-") {
+		// Old versions of apache commons- libraries (commons-io:commons-io, commons-math:commons-math, etc.)
+		// used date-based versions (e.g. 20040118.003354), which naturally sort after the more recent semver versions.
+		// We manually force the date versions to come before the others to prevent downgrades.
+		return func(a, b resolve.Version) int {
+			aCal := strings.HasPrefix(a.Version, "200")
+			bCal := strings.HasPrefix(b.Version, "200")
+
+			if aCal == bCal {
+				return sys.Compare(a.Version, b.Version)
+			}
+
+			if aCal {
+				return -1
+			}
+
+			return 1
+		}
+	}
+
 	return func(a, b resolve.Version) int { return sys.Compare(a.Version, b.Version) }
 }
 
