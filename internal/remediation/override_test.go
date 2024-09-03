@@ -35,6 +35,30 @@ func TestComputeOverridePatches(t *testing.T) {
 			manifestPath: "./fixtures/maven-classifier/pom.xml",
 			opts:         basicOpts,
 		},
+		{
+			name:         "workaround-maven-guava-none-to-jre",
+			universePath: "./fixtures/override-workaround/universe.yaml",
+			manifestPath: "./fixtures/override-workaround/guava/none-to-jre/pom.xml",
+			opts:         basicOpts,
+		},
+		{
+			name:         "workaround-maven-guava-jre-to-jre",
+			universePath: "./fixtures/override-workaround/universe.yaml",
+			manifestPath: "./fixtures/override-workaround/guava/jre-to-jre/pom.xml",
+			opts:         basicOpts,
+		},
+		{
+			name:         "workaround-maven-guava-android-to-android",
+			universePath: "./fixtures/override-workaround/universe.yaml",
+			manifestPath: "./fixtures/override-workaround/guava/android-to-android/pom.xml",
+			opts:         basicOpts,
+		},
+		{
+			name:         "workaround-commons",
+			universePath: "./fixtures/override-workaround/universe.yaml",
+			manifestPath: "./fixtures/override-workaround/commons/pom.xml",
+			opts:         basicOpts,
+		},
 	}
 
 	for _, tt := range tests {
