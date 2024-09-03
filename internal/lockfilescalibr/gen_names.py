@@ -12,27 +12,96 @@ from dataclasses import dataclass
 
 files = glob.glob("./**/extractor.go", recursive=True)
 
+oldEntryFileReq = ""
+oldEntryExtract = ""
+oldEntryEcosystem = ""
+oldEntryLang = ""
+
+fileReqTemplate = "// FileRequired returns true if the specified file matches {} lockfile patterns."
+extractTemplate = "// Extract extracts packages from {} files passed through the scan input."
+ecosystemTemplate = "// Ecosystem returns the OSV ecosystem ('{}') of the software extracted by this extractor."
+extorTemplate = "// Extractor extracts {} packages from {} files."
+pkgTemplate = "// Package {} extracts {} files."
+
+output = ""
+
 for file in files:
-  extName = ""
-  extType = ""
-  extFileName = ""
+  preLineComment = False
   text = open(file, "r").readlines()
+  pkgName = ""
   for line in text:
-    if line.startswith('package '):
-      extType = line.strip().removeprefix('package ')
+    if line.startswith('// '):
+      preLineComment = True
+      output += line
       continue
 
-    mat = re.match(r'func \(e ([a-zA-Z]+?)\) Name\(\) string { return "([a-z/]+)" }', line)
+    if preLineComment:
+      output += line
+      preLineComment = False
+      continue
+
+    mat = re.match(r'^package (.*)$', line)
     if mat:
-      extName = mat.group(2)
-      # extType = mat.group(1)
+      pkgName = mat.group(1)
+      newEntryExtract = input(f"{pkgName} Found Extract, writing: \n{pkgTemplate}\nWith '{oldEntryExtract}')\nEnter new: ")
+      if newEntryExtract:
+        oldEntryExtract = newEntryExtract
+      output += pkgTemplate.format(pkgName, oldEntryExtract) + "\n" + line
       continue
 
-    mat2 = re.match(r'.*return filepath.Base\(path\) == "(.+)"$', line)
-    if mat2:
-      extFileName = mat2.group(1)
 
-  print(f'"{extFileName}": "{extName}",')
+    if line.startswith("type Extractor struct"):
+      newEntryLang = input(f"{pkgName} Found Extractor struct, writing: \n{extorTemplate}\nWith '{oldEntryLang}')\nEnter new: ")
+      if newEntryLang:
+        oldEntryLang = newEntryLang
+      newEntryExtract = input(f"Second ({oldEntryExtract}): ")
+      if newEntryExtract:
+        oldEntryExtract = newEntryExtract
+      output += extorTemplate.format(oldEntryLang, oldEntryExtract) + "\n" + line
+      continue
+
+    mat = re.match(r'^(type|const) [A-Z]', line)
+    if mat:
+      ans = input(f"Found: \n{line}Add TODO? (Y/n)")
+      if ans == "n":
+        output += line
+      else:
+        output += "// TODO: Make Private\n" + line
+      continue
+
+    if line.startswith("func (e Extractor) Requirements()"):
+      output += "// Requirements of the extractor\n" + line
+      continue
+
+    if line.startswith("func (e Extractor) FileRequired"):
+      newEntryFileReq = input(f"{pkgName} Found FileReq, writing: \n{fileReqTemplate}\nWith '{oldEntryFileReq}')\nEnter new: ")
+      if newEntryFileReq:
+        oldEntryFileReq = newEntryFileReq
+      output += fileReqTemplate.format(oldEntryFileReq) + "\n" + line
+      continue
+
+    if line.startswith("func (e Extractor) Extract"):
+      newEntryExtract = input(f"{pkgName} Found Extract, writing: \n{extractTemplate}\nWith '{oldEntryExtract}')\nEnter new: ")
+      if newEntryExtract:
+        oldEntryExtract = newEntryExtract
+      output += extractTemplate.format(oldEntryExtract) + "\n" + line
+      continue
+
+    if line.startswith("func (e Extractor) Ecosystem"):
+      newEntryEcosystem = input(f"{pkgName} Found Ecosystem, writing: \n{ecosystemTemplate}\nWith '{oldEntryEcosystem}')\nEnter new: ")
+      if newEntryEcosystem:
+        oldEntryEcosystem = newEntryEcosystem
+      output += ecosystemTemplate.format(oldEntryEcosystem) + "\n" + line
+      continue
+
+
+
+    output += line
+
+  toWrite = open(file, "w")
+  toWrite.write(output)
+  output = ""
+  # print(f'"{extFileName}": "{extName}",')
   # print(extName)
   # print(extType)
   # print(extFileName)
