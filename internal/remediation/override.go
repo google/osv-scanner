@@ -310,10 +310,14 @@ func comparisonFunctionWithWorkarounds(vk resolve.VersionKey) func(resolve.Versi
 	}
 
 	if vk.System == resolve.Maven && strings.HasPrefix(vk.Name, "commons-") {
-		// Old versions of apache commons- libraries (commons-io:commons-io, commons-math:commons-math, etc.)
+		// Old versions of apache commons-* libraries (commons-io:commons-io, commons-math:commons-math, etc.)
 		// used date-based versions (e.g. 20040118.003354), which naturally sort after the more recent semver versions.
 		// We manually force the date versions to come before the others to prevent downgrades.
 		return func(a, b resolve.Version) int {
+			// All date-based versions of these packages seem to be in the years 2002-2005.
+			// It's extremely unlikely we'd see any versions dated before 1999 or after 2010.
+			// It's also unlikely we'd see any major versions of these packages reach up to 200.0.0.
+			// Checking if the version starts with "200" should therefore be sufficient to determine if it's a year.
 			aCal := strings.HasPrefix(a.Version, "200")
 			bCal := strings.HasPrefix(b.Version, "200")
 
