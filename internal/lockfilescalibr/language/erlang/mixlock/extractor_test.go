@@ -66,13 +66,17 @@ func TestExtractor_Extract(t *testing.T) {
 	tests := []sharedtesthelpers.TestTableEntry{
 		// TODO: Add invalid test case here
 		{
-			Name:          "no packages",
-			inputPath:     "testdata/empty.lock",
+			Name: "no packages",
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+				Path: "testdata/empty.lock",
+			},
 			WantInventory: []*extractor.Inventory{},
 		},
 		{
-			Name:      "one package",
-			inputPath: "testdata/one-package.lock",
+			Name: "one package",
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+				Path: "testdata/one-package.lock",
+			},
 			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "plug",
@@ -85,8 +89,10 @@ func TestExtractor_Extract(t *testing.T) {
 			},
 		},
 		{
-			Name:      "two packages",
-			inputPath: "testdata/two-packages.lock",
+			Name: "two packages",
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+				Path: "testdata/two-packages.lock",
+			},
 			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "plug",
@@ -107,8 +113,10 @@ func TestExtractor_Extract(t *testing.T) {
 			},
 		},
 		{
-			Name:      "many",
-			inputPath: "testdata/many.lock",
+			Name: "many",
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+				Path: "testdata/many.lock",
+			},
 			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "backoff",
@@ -281,8 +289,10 @@ func TestExtractor_Extract(t *testing.T) {
 			},
 		},
 		{
-			Name:      "git packages",
-			inputPath: "testdata/git.lock",
+			Name: "git packages",
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+				Path: "testdata/git.lock",
+			},
 			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "foe",

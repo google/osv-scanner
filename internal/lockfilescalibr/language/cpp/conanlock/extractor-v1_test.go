@@ -14,18 +14,24 @@ func TestExtractor_Extract_v1(t *testing.T) {
 
 	tests := []sharedtesthelpers.TestTableEntry{
 		{
-			Name:              "invalid json",
-			inputPath:         "testdata/not-json.txt",
+			Name: "invalid json",
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+				Path: "testdata/not-json.txt",
+			},
 			WantErrContaining: "could not extract from",
 		},
 		{
-			Name:          "no packages",
-			inputPath:     "testdata/empty.v1.json",
+			Name: "no packages",
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+				Path: "testdata/empty.v1.json",
+			},
 			WantInventory: []*extractor.Inventory{},
 		},
 		{
-			Name:      "one package",
-			inputPath: "testdata/one-package.v1.json",
+			Name: "one package",
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+				Path: "testdata/one-package.v1.json",
+			},
 			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "zlib",
@@ -38,8 +44,10 @@ func TestExtractor_Extract_v1(t *testing.T) {
 			},
 		},
 		{
-			Name:      "no name",
-			inputPath: "testdata/no-name.v1.json",
+			Name: "no name",
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+				Path: "testdata/no-name.v1.json",
+			},
 			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "zlib",
@@ -52,8 +60,10 @@ func TestExtractor_Extract_v1(t *testing.T) {
 			},
 		},
 		{
-			Name:      "two packages",
-			inputPath: "testdata/two-packages.v1.json",
+			Name: "two packages",
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+				Path: "testdata/two-packages.v1.json",
+			},
 			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "zlib",
@@ -74,8 +84,10 @@ func TestExtractor_Extract_v1(t *testing.T) {
 			},
 		},
 		{
-			Name:      "nested dependencies",
-			inputPath: "testdata/nested-dependencies.v1.json",
+			Name: "nested dependencies",
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+				Path: "testdata/nested-dependencies.v1.json",
+			},
 			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "zlib",
@@ -120,8 +132,10 @@ func TestExtractor_Extract_v1(t *testing.T) {
 			},
 		},
 		{
-			Name:      "one package dev",
-			inputPath: "testdata/one-package-dev.v1.json",
+			Name: "one package dev",
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+				Path: "testdata/one-package-dev.v1.json",
+			},
 			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "ninja",
@@ -134,8 +148,10 @@ func TestExtractor_Extract_v1(t *testing.T) {
 			},
 		},
 		{
-			Name:      "old format00",
-			inputPath: "testdata/old-format-0.0.json",
+			Name: "old format00",
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+				Path: "testdata/old-format-0.0.json",
+			},
 			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "zlib",
@@ -148,8 +164,10 @@ func TestExtractor_Extract_v1(t *testing.T) {
 			},
 		},
 		{
-			Name:      "old format01",
-			inputPath: "testdata/old-format-0.1.json",
+			Name: "old format01",
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+				Path: "testdata/old-format-0.1.json",
+			},
 			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "zlib",
@@ -162,8 +180,10 @@ func TestExtractor_Extract_v1(t *testing.T) {
 			},
 		},
 		{
-			Name:      "old format02",
-			inputPath: "testdata/old-format-0.2.json",
+			Name: "old format02",
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+				Path: "testdata/old-format-0.2.json",
+			},
 			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "zlib",
@@ -176,8 +196,10 @@ func TestExtractor_Extract_v1(t *testing.T) {
 			},
 		},
 		{
-			Name:      "old format03",
-			inputPath: "testdata/old-format-0.3.json",
+			Name: "old format03",
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+				Path: "testdata/old-format-0.3.json",
+			},
 			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "zlib",

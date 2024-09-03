@@ -65,8 +65,10 @@ func TestExtractor_Extract_invalidVersion(t *testing.T) {
 
 	tests := []sharedtesthelpers.TestTableEntry{
 		{
-			Name:              "invalid version",
-			inputPath:         "testdata/empty.v0.json",
+			Name: "invalid version",
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+				Path: "testdata/empty.v0.json",
+			},
 			WantErrContaining: "unsupported lock file version 0",
 			WantInventory:     []*extractor.Inventory{},
 		},

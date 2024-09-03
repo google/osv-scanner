@@ -89,18 +89,24 @@ func TestExtractor_Extract(t *testing.T) {
 	t.Parallel()
 	tests := []sharedtesthelpers.TestTableEntry{
 		{
-			Name:              "invalid xml",
-			inputPath:         "testdata/not-xml.txt",
+			Name: "invalid xml",
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+				Path: "testdata/not-xml.txt",
+			},
 			WantErrContaining: "could not extract from",
 		},
 		{
-			Name:          "no packages",
-			inputPath:     "testdata/empty.xml",
+			Name: "no packages",
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+				Path: "testdata/empty.xml",
+			},
 			WantInventory: []*extractor.Inventory{},
 		},
 		{
-			Name:      "one package",
-			inputPath: "testdata/one-package.xml",
+			Name: "one package",
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+				Path: "testdata/one-package.xml",
+			},
 			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "org.apache.pdfbox:pdfbox",
@@ -110,8 +116,10 @@ func TestExtractor_Extract(t *testing.T) {
 			},
 		},
 		{
-			Name:      "two packages",
-			inputPath: "testdata/two-packages.xml",
+			Name: "two packages",
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+				Path: "testdata/two-packages.xml",
+			},
 			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "org.apache.pdfbox:pdfbox",
@@ -126,8 +134,10 @@ func TestExtractor_Extract(t *testing.T) {
 			},
 		},
 		{
-			Name:      "multiple versions",
-			inputPath: "testdata/multiple-versions.xml",
+			Name: "multiple versions",
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+				Path: "testdata/multiple-versions.xml",
+			},
 			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "androidx.activity:activity",
@@ -222,8 +232,10 @@ func TestExtractor_Extract(t *testing.T) {
 			},
 		},
 		{
-			Name:      "complex",
-			inputPath: "testdata/complex.xml",
+			Name: "complex",
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+				Path: "testdata/complex.xml",
+			},
 			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "com.google:google",

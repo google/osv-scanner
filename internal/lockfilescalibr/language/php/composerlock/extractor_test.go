@@ -66,18 +66,24 @@ func TestExtractor_Extract(t *testing.T) {
 
 	tests := []sharedtesthelpers.TestTableEntry{
 		{
-			Name:              "invalid json",
-			inputPath:         "testdata/not-json.txt",
+			Name: "invalid json",
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+				Path: "testdata/not-json.txt",
+			},
 			WantErrContaining: "could not extract from",
 		},
 		{
-			Name:          "no packages",
-			inputPath:     "testdata/empty.json",
+			Name: "no packages",
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+				Path: "testdata/empty.json",
+			},
 			WantInventory: []*extractor.Inventory{},
 		},
 		{
-			Name:      "one package",
-			inputPath: "testdata/one-package.json",
+			Name: "one package",
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+				Path: "testdata/one-package.json",
+			},
 			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "sentry/sdk",
@@ -93,8 +99,10 @@ func TestExtractor_Extract(t *testing.T) {
 			},
 		},
 		{
-			Name:      "one package dev",
-			inputPath: "testdata/one-package-dev.json",
+			Name: "one package dev",
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+				Path: "testdata/one-package-dev.json",
+			},
 			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "sentry/sdk",
@@ -110,8 +118,10 @@ func TestExtractor_Extract(t *testing.T) {
 			},
 		},
 		{
-			Name:      "two packages",
-			inputPath: "testdata/two-packages.json",
+			Name: "two packages",
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+				Path: "testdata/two-packages.json",
+			},
 			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "sentry/sdk",
@@ -138,8 +148,10 @@ func TestExtractor_Extract(t *testing.T) {
 			},
 		},
 		{
-			Name:      "two packages alt",
-			inputPath: "testdata/two-packages-alt.json",
+			Name: "two packages alt",
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+				Path: "testdata/two-packages-alt.json",
+			},
 			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "sentry/sdk",

@@ -72,18 +72,24 @@ func TestExtractor_Extract(t *testing.T) {
 
 	tests := []sharedtesthelpers.TestTableEntry{
 		{
-			Name:              "invalid toml",
-			inputPath:         "testdata/not-toml.txt",
+			Name: "invalid toml",
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+				Path: "testdata/not-toml.txt",
+			},
 			WantErrContaining: "could not extract from",
 		},
 		{
-			Name:          "no packages",
-			inputPath:     "testdata/empty.toml",
+			Name: "no packages",
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+				Path: "testdata/empty.toml",
+			},
 			WantInventory: []*extractor.Inventory{},
 		},
 		{
-			Name:      "single package",
-			inputPath: "testdata/single-package.toml",
+			Name: "single package",
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+				Path: "testdata/single-package.toml",
+			},
 			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "toml",
@@ -96,8 +102,10 @@ func TestExtractor_Extract(t *testing.T) {
 			},
 		},
 		{
-			Name:      "two packages",
-			inputPath: "testdata/two-packages.toml",
+			Name: "two packages",
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+				Path: "testdata/two-packages.toml",
+			},
 			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "toml",
@@ -118,8 +126,10 @@ func TestExtractor_Extract(t *testing.T) {
 			},
 		},
 		{
-			Name:      "package with dev dependencies",
-			inputPath: "testdata/dev-dependency.toml",
+			Name: "package with dev dependencies",
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+				Path: "testdata/dev-dependency.toml",
+			},
 			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "toml",
@@ -148,8 +158,10 @@ func TestExtractor_Extract(t *testing.T) {
 			},
 		},
 		{
-			Name:      "package with optional dependency",
-			inputPath: "testdata/optional-dependency.toml",
+			Name: "package with optional dependency",
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+				Path: "testdata/optional-dependency.toml",
+			},
 			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "toml",
@@ -178,8 +190,10 @@ func TestExtractor_Extract(t *testing.T) {
 			},
 		},
 		{
-			Name:      "package with git dependency",
-			inputPath: "testdata/git-dependency.toml",
+			Name: "package with git dependency",
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+				Path: "testdata/git-dependency.toml",
+			},
 			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "toml",

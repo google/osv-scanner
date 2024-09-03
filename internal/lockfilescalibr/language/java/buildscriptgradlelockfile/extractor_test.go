@@ -89,18 +89,24 @@ func TestExtractor_Extract(t *testing.T) {
 	t.Parallel()
 	tests := []sharedtesthelpers.TestTableEntry{
 		{
-			Name:          "only comments",
-			inputPath:     "testdata/only-comments",
+			Name: "only comments",
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+				Path: "testdata/only-comments",
+			},
 			WantInventory: []*extractor.Inventory{},
 		},
 		{
-			Name:          "empty statement",
-			inputPath:     "testdata/only-empty",
+			Name: "empty statement",
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+				Path: "testdata/only-empty",
+			},
 			WantInventory: []*extractor.Inventory{},
 		},
 		{
-			Name:      "one package",
-			inputPath: "testdata/one-pkg",
+			Name: "one package",
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+				Path: "testdata/one-pkg",
+			},
 			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "org.springframework.security:spring-security-crypto",
@@ -110,8 +116,10 @@ func TestExtractor_Extract(t *testing.T) {
 			},
 		},
 		{
-			Name:      "multiple package",
-			inputPath: "testdata/5-pkg",
+			Name: "multiple package",
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+				Path: "testdata/5-pkg",
+			},
 			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "org.springframework.boot:spring-boot-autoconfigure",
@@ -141,8 +149,10 @@ func TestExtractor_Extract(t *testing.T) {
 			},
 		},
 		{
-			Name:      "with invalid lines",
-			inputPath: "testdata/with-bad-pkg",
+			Name: "with invalid lines",
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+				Path: "testdata/with-bad-pkg",
+			},
 			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "org.springframework.boot:spring-boot-autoconfigure",

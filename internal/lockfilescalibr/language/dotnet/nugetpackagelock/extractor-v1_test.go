@@ -13,18 +13,24 @@ func TestExtractor_Extract(t *testing.T) {
 
 	tests := []sharedtesthelpers.TestTableEntry{
 		{
-			Name:              "invalid json",
-			inputPath:         "testdata/not-json.txt",
+			Name: "invalid json",
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+				Path: "testdata/not-json.txt",
+			},
 			WantErrContaining: "could not extract from",
 		},
 		{
-			Name:          "no packages",
-			inputPath:     "testdata/empty.v1.json",
+			Name: "no packages",
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+				Path: "testdata/empty.v1.json",
+			},
 			WantInventory: []*extractor.Inventory{},
 		},
 		{
-			Name:      "one framework_ one package",
-			inputPath: "testdata/one-framework-one-package.v1.json",
+			Name: "one framework_ one package",
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+				Path: "testdata/one-framework-one-package.v1.json",
+			},
 			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "Test.Core",
@@ -34,8 +40,10 @@ func TestExtractor_Extract(t *testing.T) {
 			},
 		},
 		{
-			Name:      "one framework_ two packages",
-			inputPath: "testdata/one-framework-two-packages.v1.json",
+			Name: "one framework_ two packages",
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+				Path: "testdata/one-framework-two-packages.v1.json",
+			},
 			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "Test.Core",
@@ -50,8 +58,10 @@ func TestExtractor_Extract(t *testing.T) {
 			},
 		},
 		{
-			Name:      "two frameworks_ mixed packages",
-			inputPath: "testdata/two-frameworks-mixed-packages.v1.json",
+			Name: "two frameworks_ mixed packages",
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+				Path: "testdata/two-frameworks-mixed-packages.v1.json",
+			},
 			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "Test.Core",
@@ -71,8 +81,10 @@ func TestExtractor_Extract(t *testing.T) {
 			},
 		},
 		{
-			Name:      "two frameworks_ different packages",
-			inputPath: "testdata/two-frameworks-different-packages.v1.json",
+			Name: "two frameworks_ different packages",
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+				Path: "testdata/two-frameworks-different-packages.v1.json",
+			},
 			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "Test.Core",
@@ -87,8 +99,10 @@ func TestExtractor_Extract(t *testing.T) {
 			},
 		},
 		{
-			Name:      "two frameworks_ duplicate packages",
-			inputPath: "testdata/two-frameworks-duplicate-packages.v1.json",
+			Name: "two frameworks_ duplicate packages",
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+				Path: "testdata/two-frameworks-duplicate-packages.v1.json",
+			},
 			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "Test.Core",

@@ -65,18 +65,24 @@ func TestExtractor_Extract(t *testing.T) {
 	t.Parallel()
 	tests := []sharedtesthelpers.TestTableEntry{
 		{
-			Name:              "invalid toml",
-			inputPath:         "testdata/not-toml.txt",
+			Name: "invalid toml",
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+				Path: "testdata/not-toml.txt",
+			},
 			WantErrContaining: "could not extract from",
 		},
 		{
-			Name:          "no packages",
-			inputPath:     "testdata/empty.lock",
+			Name: "no packages",
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+				Path: "testdata/empty.lock",
+			},
 			WantInventory: []*extractor.Inventory{},
 		},
 		{
-			Name:      "one package",
-			inputPath: "testdata/one-package.lock",
+			Name: "one package",
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+				Path: "testdata/one-package.lock",
+			},
 			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "numpy",
@@ -92,8 +98,10 @@ func TestExtractor_Extract(t *testing.T) {
 			},
 		},
 		{
-			Name:      "two packages",
-			inputPath: "testdata/two-packages.lock",
+			Name: "two packages",
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+				Path: "testdata/two-packages.lock",
+			},
 			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "proto-plus",
@@ -120,8 +128,10 @@ func TestExtractor_Extract(t *testing.T) {
 			},
 		},
 		{
-			Name:      "package with metadata",
-			inputPath: "testdata/one-package-with-metadata.lock",
+			Name: "package with metadata",
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+				Path: "testdata/one-package-with-metadata.lock",
+			},
 			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "emoji",
@@ -137,8 +147,10 @@ func TestExtractor_Extract(t *testing.T) {
 			},
 		},
 		{
-			Name:      "package with git source",
-			inputPath: "testdata/source-git.lock",
+			Name: "package with git source",
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+				Path: "testdata/source-git.lock",
+			},
 			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "ike",
@@ -154,8 +166,10 @@ func TestExtractor_Extract(t *testing.T) {
 			},
 		},
 		{
-			Name:      "package with legacy source",
-			inputPath: "testdata/source-legacy.lock",
+			Name: "package with legacy source",
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+				Path: "testdata/source-legacy.lock",
+			},
 			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "appdirs",
@@ -171,8 +185,10 @@ func TestExtractor_Extract(t *testing.T) {
 			},
 		},
 		{
-			Name:      "optional package",
-			inputPath: "testdata/optional-package.lock",
+			Name: "optional package",
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+				Path: "testdata/optional-package.lock",
+			},
 			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "numpy",

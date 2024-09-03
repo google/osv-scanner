@@ -14,18 +14,24 @@ func TestNPMLockExtractor_Extract_V2(t *testing.T) {
 
 	tests := []sharedtesthelpers.TestTableEntry{
 		{
-			Name:              "invalid json",
-			inputPath:         "testdata/not-json.txt",
+			Name: "invalid json",
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+				Path: "testdata/not-json.txt",
+			},
 			WantErrContaining: "could not extract from",
 		},
 		{
-			Name:          "no packages",
-			inputPath:     "testdata/empty.v2.json",
+			Name: "no packages",
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+				Path: "testdata/empty.v2.json",
+			},
 			WantInventory: []*extractor.Inventory{},
 		},
 		{
-			Name:      "one package",
-			inputPath: "testdata/one-package.v2.json",
+			Name: "one package",
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+				Path: "testdata/one-package.v2.json",
+			},
 			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "wrappy",
@@ -41,8 +47,10 @@ func TestNPMLockExtractor_Extract_V2(t *testing.T) {
 			},
 		},
 		{
-			Name:      "one package dev",
-			inputPath: "testdata/one-package-dev.v2.json",
+			Name: "one package dev",
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+				Path: "testdata/one-package-dev.v2.json",
+			},
 			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "wrappy",
@@ -58,8 +66,10 @@ func TestNPMLockExtractor_Extract_V2(t *testing.T) {
 			},
 		},
 		{
-			Name:      "two packages",
-			inputPath: "testdata/two-packages.v2.json",
+			Name: "two packages",
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+				Path: "testdata/two-packages.v2.json",
+			},
 			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "wrappy",
@@ -86,8 +96,10 @@ func TestNPMLockExtractor_Extract_V2(t *testing.T) {
 			},
 		},
 		{
-			Name:      "scoped packages",
-			inputPath: "testdata/scoped-packages.v2.json",
+			Name: "scoped packages",
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+				Path: "testdata/scoped-packages.v2.json",
+			},
 			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "wrappy",
@@ -114,8 +126,10 @@ func TestNPMLockExtractor_Extract_V2(t *testing.T) {
 			},
 		},
 		{
-			Name:      "nested dependencies",
-			inputPath: "testdata/nested-dependencies.v2.json",
+			Name: "nested dependencies",
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+				Path: "testdata/nested-dependencies.v2.json",
+			},
 			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "postcss",
@@ -175,8 +189,10 @@ func TestNPMLockExtractor_Extract_V2(t *testing.T) {
 			},
 		},
 		{
-			Name:      "nested dependencies dup",
-			inputPath: "testdata/nested-dependencies-dup.v2.json",
+			Name: "nested dependencies dup",
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+				Path: "testdata/nested-dependencies-dup.v2.json",
+			},
 			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "supports-color",
@@ -203,8 +219,10 @@ func TestNPMLockExtractor_Extract_V2(t *testing.T) {
 			},
 		},
 		{
-			Name:      "commits",
-			inputPath: "testdata/commits.v2.json",
+			Name: "commits",
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+				Path: "testdata/commits.v2.json",
+			},
 			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "@segment/analytics.js-integration-facebook-pixel",
@@ -363,8 +381,10 @@ func TestNPMLockExtractor_Extract_V2(t *testing.T) {
 			},
 		},
 		{
-			Name:      "files",
-			inputPath: "testdata/files.v2.json",
+			Name: "files",
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+				Path: "testdata/files.v2.json",
+			},
 			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "etag",
@@ -402,8 +422,10 @@ func TestNPMLockExtractor_Extract_V2(t *testing.T) {
 			},
 		},
 		{
-			Name:      "alias",
-			inputPath: "testdata/alias.v2.json",
+			Name: "alias",
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+				Path: "testdata/alias.v2.json",
+			},
 			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "@babel/code-frame",
@@ -441,8 +463,10 @@ func TestNPMLockExtractor_Extract_V2(t *testing.T) {
 			},
 		},
 		{
-			Name:      "optional package",
-			inputPath: "testdata/optional-package.v2.json",
+			Name: "optional package",
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+				Path: "testdata/optional-package.v2.json",
+			},
 			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "wrappy",
@@ -469,8 +493,10 @@ func TestNPMLockExtractor_Extract_V2(t *testing.T) {
 			},
 		},
 		{
-			Name:      "same package different groups",
-			inputPath: "testdata/same-package-different-groups.v2.json",
+			Name: "same package different groups",
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+				Path: "testdata/same-package-different-groups.v2.json",
+			},
 			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "eslint",

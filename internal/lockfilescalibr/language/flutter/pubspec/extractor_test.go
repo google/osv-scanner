@@ -66,23 +66,31 @@ func TestExtractor_Extract(t *testing.T) {
 
 	tests := []sharedtesthelpers.TestTableEntry{
 		{
-			Name:              "invalid yaml",
-			inputPath:         "testdata/not-yaml.txt",
+			Name: "invalid yaml",
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+				Path: "testdata/not-yaml.txt",
+			},
 			WantErrContaining: "could not extract from",
 		},
 		{
-			Name:          "empty",
-			inputPath:     "testdata/empty.lock",
+			Name: "empty",
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+				Path: "testdata/empty.lock",
+			},
 			WantInventory: []*extractor.Inventory{},
 		},
 		{
-			Name:          "no packages",
-			inputPath:     "testdata/no-packages.lock",
+			Name: "no packages",
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+				Path: "testdata/no-packages.lock",
+			},
 			WantInventory: []*extractor.Inventory{},
 		},
 		{
-			Name:      "one package",
-			inputPath: "testdata/one-package.lock",
+			Name: "one package",
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+				Path: "testdata/one-package.lock",
+			},
 			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "back_button_interceptor",
@@ -98,8 +106,10 @@ func TestExtractor_Extract(t *testing.T) {
 			},
 		},
 		{
-			Name:      "one package dev",
-			inputPath: "testdata/one-package-dev.lock",
+			Name: "one package dev",
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+				Path: "testdata/one-package-dev.lock",
+			},
 			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "build_runner",
@@ -115,8 +125,10 @@ func TestExtractor_Extract(t *testing.T) {
 			},
 		},
 		{
-			Name:      "two packages",
-			inputPath: "testdata/two-packages.lock",
+			Name: "two packages",
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+				Path: "testdata/two-packages.lock",
+			},
 			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "shelf",
@@ -143,8 +155,10 @@ func TestExtractor_Extract(t *testing.T) {
 			},
 		},
 		{
-			Name:      "mixed packages",
-			inputPath: "testdata/mixed-packages.lock",
+			Name: "mixed packages",
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+				Path: "testdata/mixed-packages.lock",
+			},
 			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "back_button_interceptor",
@@ -193,8 +207,10 @@ func TestExtractor_Extract(t *testing.T) {
 			},
 		},
 		{
-			Name:      "package with git source",
-			inputPath: "testdata/source-git.lock",
+			Name: "package with git source",
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+				Path: "testdata/source-git.lock",
+			},
 			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "flutter_rust_bridge",
@@ -254,8 +270,10 @@ func TestExtractor_Extract(t *testing.T) {
 			},
 		},
 		{
-			Name:      "package with sdk source",
-			inputPath: "testdata/source-sdk.lock",
+			Name: "package with sdk source",
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+				Path: "testdata/source-sdk.lock",
+			},
 			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "flutter_web_plugins",
@@ -271,8 +289,10 @@ func TestExtractor_Extract(t *testing.T) {
 			},
 		},
 		{
-			Name:      "package with path source",
-			inputPath: "testdata/source-path.lock",
+			Name: "package with path source",
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+				Path: "testdata/source-path.lock",
+			},
 			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "maa_core",

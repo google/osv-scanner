@@ -14,13 +14,17 @@ func TestExtractor_Extract_v9(t *testing.T) {
 
 	tests := []sharedtesthelpers.TestTableEntry{
 		{
-			Name:          "no packages",
-			inputPath:     "testdata/no-packages.v9.yaml",
+			Name: "no packages",
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+				Path: "testdata/no-packages.v9.yaml",
+			},
 			WantInventory: []*extractor.Inventory{},
 		},
 		{
-			Name:      "one package",
-			inputPath: "testdata/one-package.v9.yaml",
+			Name: "one package",
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+				Path: "testdata/one-package.v9.yaml",
+			},
 			WantInventory: []*extractor.Inventory{
 				{
 					Name:       "acorn",
@@ -34,8 +38,10 @@ func TestExtractor_Extract_v9(t *testing.T) {
 			},
 		},
 		{
-			Name:      "one package dev",
-			inputPath: "testdata/one-package-dev.v9.yaml",
+			Name: "one package dev",
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+				Path: "testdata/one-package-dev.v9.yaml",
+			},
 			WantInventory: []*extractor.Inventory{
 				{
 					Name:       "acorn",
@@ -49,8 +55,10 @@ func TestExtractor_Extract_v9(t *testing.T) {
 			},
 		},
 		{
-			Name:      "scoped packages",
-			inputPath: "testdata/scoped-packages.v9.yaml",
+			Name: "scoped packages",
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+				Path: "testdata/scoped-packages.v9.yaml",
+			},
 			WantInventory: []*extractor.Inventory{
 				{
 					Name:       "@typescript-eslint/types",
@@ -64,8 +72,10 @@ func TestExtractor_Extract_v9(t *testing.T) {
 			},
 		},
 		{
-			Name:      "peer dependencies",
-			inputPath: "testdata/peer-dependencies.v9.yaml",
+			Name: "peer dependencies",
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+				Path: "testdata/peer-dependencies.v9.yaml",
+			},
 			WantInventory: []*extractor.Inventory{
 				{
 					Name:       "acorn-jsx",
@@ -88,8 +98,10 @@ func TestExtractor_Extract_v9(t *testing.T) {
 			},
 		},
 		{
-			Name:      "peer dependencies advanced",
-			inputPath: "testdata/peer-dependencies-advanced.v9.yaml",
+			Name: "peer dependencies advanced",
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+				Path: "testdata/peer-dependencies-advanced.v9.yaml",
+			},
 			WantInventory: []*extractor.Inventory{
 				{
 					Name:       "@eslint-community/eslint-utils",
@@ -211,8 +223,10 @@ func TestExtractor_Extract_v9(t *testing.T) {
 			},
 		},
 		{
-			Name:      "multiple versions",
-			inputPath: "testdata/multiple-versions.v9.yaml",
+			Name: "multiple versions",
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+				Path: "testdata/multiple-versions.v9.yaml",
+			},
 			WantInventory: []*extractor.Inventory{
 				{
 					Name:       "uuid",
@@ -244,8 +258,10 @@ func TestExtractor_Extract_v9(t *testing.T) {
 			},
 		},
 		{
-			Name:      "commits",
-			inputPath: "testdata/commits.v9.yaml",
+			Name: "commits",
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+				Path: "testdata/commits.v9.yaml",
+			},
 			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "ansi-regex",
@@ -272,8 +288,10 @@ func TestExtractor_Extract_v9(t *testing.T) {
 			},
 		},
 		{
-			Name:      "mixed groups",
-			inputPath: "testdata/mixed-groups.v9.yaml",
+			Name: "mixed groups",
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+				Path: "testdata/mixed-groups.v9.yaml",
+			},
 			WantInventory: []*extractor.Inventory{
 				{
 					Name:       "ansi-regex",

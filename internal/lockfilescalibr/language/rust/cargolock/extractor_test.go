@@ -66,18 +66,24 @@ func TestExtractor_Extract(t *testing.T) {
 
 	tests := []sharedtesthelpers.TestTableEntry{
 		{
-			Name:              "Invalid toml",
-			inputPath:         "testdata/not-toml.txt",
+			Name: "Invalid toml",
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+				Path: "testdata/not-toml.txt",
+			},
 			WantErrContaining: "could not extract from",
 		},
 		{
-			Name:          "no packages",
-			inputPath:     "testdata/empty.lock",
+			Name: "no packages",
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+				Path: "testdata/empty.lock",
+			},
 			WantInventory: []*extractor.Inventory{},
 		},
 		{
-			Name:      "one package",
-			inputPath: "testdata/one-package.lock",
+			Name: "one package",
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+				Path: "testdata/one-package.lock",
+			},
 			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "addr2line",
@@ -87,8 +93,10 @@ func TestExtractor_Extract(t *testing.T) {
 			},
 		},
 		{
-			Name:      "two packages",
-			inputPath: "testdata/two-packages.lock",
+			Name: "two packages",
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+				Path: "testdata/two-packages.lock",
+			},
 			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "addr2line",
@@ -103,8 +111,10 @@ func TestExtractor_Extract(t *testing.T) {
 			},
 		},
 		{
-			Name:      "two packages with local",
-			inputPath: "testdata/two-packages-with-local.lock",
+			Name: "two packages with local",
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+				Path: "testdata/two-packages-with-local.lock",
+			},
 			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "addr2line",
@@ -119,8 +129,10 @@ func TestExtractor_Extract(t *testing.T) {
 			},
 		},
 		{
-			Name:      "package with build string",
-			inputPath: "testdata/package-with-build-string.lock",
+			Name: "package with build string",
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+				Path: "testdata/package-with-build-string.lock",
+			},
 			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "wasi",

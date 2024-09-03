@@ -66,23 +66,31 @@ func TestExtractor_Extract(t *testing.T) {
 	// TODO: Add commit check
 	tests := []sharedtesthelpers.TestTableEntry{
 		{
-			Name:          "no spec section",
-			inputPath:     "testdata/no-spec-section.lock",
+			Name: "no spec section",
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+				Path: "testdata/no-spec-section.lock",
+			},
 			WantInventory: []*extractor.Inventory{},
 		},
 		{
-			Name:          "no gem section",
-			inputPath:     "testdata/no-gem-section.lock",
+			Name: "no gem section",
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+				Path: "testdata/no-gem-section.lock",
+			},
 			WantInventory: []*extractor.Inventory{},
 		},
 		{
-			Name:          "no gems",
-			inputPath:     "testdata/no-gems.lock",
+			Name: "no gems",
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+				Path: "testdata/no-gems.lock",
+			},
 			WantInventory: []*extractor.Inventory{},
 		},
 		{
-			Name:      "one gem",
-			inputPath: "testdata/one-gem.lock",
+			Name: "one gem",
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+				Path: "testdata/one-gem.lock",
+			},
 			WantInventory: []*extractor.Inventory{
 				{
 					Name:       "ast",
@@ -93,8 +101,10 @@ func TestExtractor_Extract(t *testing.T) {
 			},
 		},
 		{
-			Name:      "some gems",
-			inputPath: "testdata/some-gems.lock",
+			Name: "some gems",
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+				Path: "testdata/some-gems.lock",
+			},
 			WantInventory: []*extractor.Inventory{
 				{
 					Name:       "coderay",
@@ -117,8 +127,10 @@ func TestExtractor_Extract(t *testing.T) {
 			},
 		},
 		{
-			Name:      "multiple gems",
-			inputPath: "testdata/multiple-gems.lock",
+			Name: "multiple gems",
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+				Path: "testdata/multiple-gems.lock",
+			},
 			WantInventory: []*extractor.Inventory{
 				{
 					Name:       "bundler-audit",
@@ -159,8 +171,10 @@ func TestExtractor_Extract(t *testing.T) {
 			},
 		},
 		{
-			Name:      "rails",
-			inputPath: "testdata/rails.lock",
+			Name: "rails",
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+				Path: "testdata/rails.lock",
+			},
 			WantInventory: []*extractor.Inventory{
 				{
 					Name:       "actioncable",
@@ -441,8 +455,10 @@ func TestExtractor_Extract(t *testing.T) {
 			},
 		},
 		{
-			Name:      "rubocop",
-			inputPath: "testdata/rubocop.lock",
+			Name: "rubocop",
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+				Path: "testdata/rubocop.lock",
+			},
 			WantInventory: []*extractor.Inventory{
 				{
 					Name:       "ast",
@@ -507,8 +523,10 @@ func TestExtractor_Extract(t *testing.T) {
 			},
 		},
 		{
-			Name:      "has local gem",
-			inputPath: "testdata/has-local-gem.lock",
+			Name: "has local gem",
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+				Path: "testdata/has-local-gem.lock",
+			},
 			WantInventory: []*extractor.Inventory{
 				{
 					Name:       "backbone-on-rails",
@@ -693,8 +711,10 @@ func TestExtractor_Extract(t *testing.T) {
 			},
 		},
 		{
-			Name:      "has git gem",
-			inputPath: "testdata/has-git-gem.lock",
+			Name: "has git gem",
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+				Path: "testdata/has-git-gem.lock",
+			},
 			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "hanami-controller",

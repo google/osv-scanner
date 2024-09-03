@@ -67,18 +67,24 @@ func TestExtractor_Extract(t *testing.T) {
 
 	tests := []sharedtesthelpers.TestTableEntry{
 		{
-			Name:          "empty",
-			inputPath:     "testdata/empty.txt",
+			Name: "empty",
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+				Path: "testdata/empty.txt",
+			},
 			WantInventory: []*extractor.Inventory{},
 		},
 		{
-			Name:          "comments only",
-			inputPath:     "testdata/only-comments.txt",
+			Name: "comments only",
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+				Path: "testdata/only-comments.txt",
+			},
 			WantInventory: []*extractor.Inventory{},
 		},
 		{
-			Name:      "one requirement unconstrained",
-			inputPath: "testdata/one-package-unconstrained.txt",
+			Name: "one requirement unconstrained",
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+				Path: "testdata/one-package-unconstrained.txt",
+			},
 			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "flask",
@@ -91,8 +97,10 @@ func TestExtractor_Extract(t *testing.T) {
 			},
 		},
 		{
-			Name:      "one requirement constrained",
-			inputPath: "testdata/one-package-constrained.txt",
+			Name: "one requirement constrained",
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+				Path: "testdata/one-package-constrained.txt",
+			},
 			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "django",
@@ -105,8 +113,10 @@ func TestExtractor_Extract(t *testing.T) {
 			},
 		},
 		{
-			Name:      "multiple requirements constrained",
-			inputPath: "testdata/multiple-packages-constrained.txt",
+			Name: "multiple requirements constrained",
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+				Path: "testdata/multiple-packages-constrained.txt",
+			},
 			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "astroid",
@@ -215,8 +225,10 @@ func TestExtractor_Extract(t *testing.T) {
 			},
 		},
 		{
-			Name:      "multiple requirements mixed",
-			inputPath: "testdata/multiple-packages-mixed.txt",
+			Name: "multiple requirements mixed",
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+				Path: "testdata/multiple-packages-mixed.txt",
+			},
 			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "flask",
@@ -285,8 +297,10 @@ func TestExtractor_Extract(t *testing.T) {
 			},
 		},
 		{
-			Name:      "with added support",
-			inputPath: "testdata/with-added-support.txt",
+			Name: "with added support",
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+				Path: "testdata/with-added-support.txt",
+			},
 			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "twisted",
@@ -299,8 +313,10 @@ func TestExtractor_Extract(t *testing.T) {
 			},
 		},
 		{
-			Name:      "non normalized names",
-			inputPath: "testdata/non-normalized-names.txt",
+			Name: "non normalized names",
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+				Path: "testdata/non-normalized-names.txt",
+			},
 			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "zope-interface",
@@ -329,8 +345,10 @@ func TestExtractor_Extract(t *testing.T) {
 			},
 		},
 		{
-			Name:      "with per requirement options",
-			inputPath: "testdata/with-per-requirement-options.txt",
+			Name: "with per requirement options",
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+				Path: "testdata/with-per-requirement-options.txt",
+			},
 			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "boto3",
@@ -367,8 +385,10 @@ func TestExtractor_Extract(t *testing.T) {
 			},
 		},
 		{
-			Name:      "line continuation",
-			inputPath: "testdata/line-continuation.txt",
+			Name: "line continuation",
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+				Path: "testdata/line-continuation.txt",
+			},
 			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "foo",
@@ -421,8 +441,10 @@ func TestExtractor_Extract_WithRequirements(t *testing.T) {
 
 	tests := []sharedtesthelpers.TestTableEntry{
 		{
-			Name:      "file format example",
-			inputPath: "testdata/file-format-example.txt",
+			Name: "file format example",
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+				Path: "testdata/file-format-example.txt",
+			},
 			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "pytest",
@@ -507,8 +529,10 @@ func TestExtractor_Extract_WithRequirements(t *testing.T) {
 			},
 		},
 		{
-			Name:      "with multiple r options",
-			inputPath: "testdata/with-multiple-r-options.txt",
+			Name: "with multiple r options",
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+				Path: "testdata/with-multiple-r-options.txt",
+			},
 			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "flask",
@@ -593,12 +617,16 @@ func TestExtractor_Extract_WithRequirements(t *testing.T) {
 			},
 		},
 		{
-			Name:      "with bad r option",
-			inputPath: "testdata/with-bad-r-option.txt",
+			Name: "with bad r option",
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+				Path: "testdata/with-bad-r-option.txt",
+			},
 			WantErrIs: fs.ErrNotExist},
 		{
-			Name:      "duplicate r options",
-			inputPath: "testdata/duplicate-r-dev.txt",
+			Name: "duplicate r options",
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+				Path: "testdata/duplicate-r-dev.txt",
+			},
 			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "django",
@@ -635,8 +663,10 @@ func TestExtractor_Extract_WithRequirements(t *testing.T) {
 			},
 		},
 		{
-			Name:      "cyclic r self",
-			inputPath: "testdata/cyclic-r-self.txt",
+			Name: "cyclic r self",
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+				Path: "testdata/cyclic-r-self.txt",
+			},
 			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "pandas",
@@ -657,8 +687,10 @@ func TestExtractor_Extract_WithRequirements(t *testing.T) {
 			},
 		},
 		{
-			Name:      "cyclic r complex",
-			inputPath: "testdata/cyclic-r-complex-1.txt",
+			Name: "cyclic r complex",
+			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+				Path: "testdata/cyclic-r-complex-1.txt",
+			},
 			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "cyclic-r-complex",
