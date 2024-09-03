@@ -13,51 +13,39 @@ func TestExtractor_FileRequired(t *testing.T) {
 	t.Parallel()
 
 	tests := []struct {
-		name        string
-		inputConfig sharedtesthelpers.ScanInputMockConfig
-		want        bool
+		name      string
+		inputPath string
+		want      bool
 	}{
 		{
-			name: "",
-			inputConfig: sharedtesthelpers.ScanInputMockConfig{
-				Path: "",
-			},
-			want: false,
+			name:      "",
+			inputPath: "",
+			want:      false,
 		},
 		{
-			name: "",
-			inputConfig: sharedtesthelpers.ScanInputMockConfig{
-				Path: "pom.xml",
-			},
-			want: true,
+			name:      "",
+			inputPath: "pom.xml",
+			want:      true,
 		},
 		{
-			name: "",
-			inputConfig: sharedtesthelpers.ScanInputMockConfig{
-				Path: "path/to/my/pom.xml",
-			},
-			want: true,
+			name:      "",
+			inputPath: "path/to/my/pom.xml",
+			want:      true,
 		},
 		{
-			name: "",
-			inputConfig: sharedtesthelpers.ScanInputMockConfig{
-				Path: "path/to/my/pom.xml/file",
-			},
-			want: false,
+			name:      "",
+			inputPath: "path/to/my/pom.xml/file",
+			want:      false,
 		},
 		{
-			name: "",
-			inputConfig: sharedtesthelpers.ScanInputMockConfig{
-				Path: "path/to/my/pom.xml.file",
-			},
-			want: false,
+			name:      "",
+			inputPath: "path/to/my/pom.xml.file",
+			want:      false,
 		},
 		{
-			name: "",
-			inputConfig: sharedtesthelpers.ScanInputMockConfig{
-				Path: "path.to.my.pom.xml",
-			},
-			want: false,
+			name:      "",
+			inputPath: "path.to.my.pom.xml",
+			want:      false,
 		},
 	}
 	for _, tt := range tests {
@@ -65,9 +53,9 @@ func TestExtractor_FileRequired(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
 			e := pomxml.Extractor{}
-			got := e.FileRequired(tt.inputConfig.Path, sharedtesthelpers.GenerateFileInfoMock(t, tt.inputConfig))
+			got := e.FileRequired(tt.inputPath, sharedtesthelpers.GenerateFileInfoMock(t, tt.inputConfig))
 			if got != tt.want {
-				t.Errorf("FileRequired(%s, FileInfo) got = %v, want %v", tt.inputConfig.Path, got, tt.want)
+				t.Errorf("FileRequired(%s, FileInfo) got = %v, want %v", tt.inputPath, got, tt.want)
 			}
 		})
 	}
@@ -78,31 +66,23 @@ func TestExtractor_Extract(t *testing.T) {
 
 	tests := []sharedtesthelpers.TestTableEntry{
 		{
-			Name: "invalid",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
-				Path: "testdata/not-pom.txt",
-			},
+			Name:              "invalid",
+			inputPath:         "testdata/not-pom.txt",
 			WantErrContaining: "could not extract from",
 		},
 		{
-			Name: "invalid syntax",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
-				Path: "testdata/invalid-syntax.xml",
-			},
+			Name:              "invalid syntax",
+			inputPath:         "testdata/invalid-syntax.xml",
 			WantErrContaining: "could not extract from",
 		},
 		{
-			Name: "no packages",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
-				Path: "testdata/empty.xml",
-			},
+			Name:          "no packages",
+			inputPath:     "testdata/empty.xml",
 			WantInventory: []*extractor.Inventory{},
 		},
 		{
-			Name: "one package",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
-				Path: "testdata/one-package.xml",
-			},
+			Name:      "one package",
+			inputPath: "testdata/one-package.xml",
 			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "org.apache.maven:maven-artifact",
@@ -115,10 +95,8 @@ func TestExtractor_Extract(t *testing.T) {
 			},
 		},
 		{
-			Name: "two packages",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
-				Path: "testdata/two-packages.xml",
-			},
+			Name:      "two packages",
+			inputPath: "testdata/two-packages.xml",
 			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "io.netty:netty-all",
@@ -139,10 +117,8 @@ func TestExtractor_Extract(t *testing.T) {
 			},
 		},
 		{
-			Name: "with dependency management",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
-				Path: "testdata/with-dependency-management.xml",
-			},
+			Name:      "with dependency management",
+			inputPath: "testdata/with-dependency-management.xml",
 			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "io.netty:netty-all",
@@ -171,10 +147,8 @@ func TestExtractor_Extract(t *testing.T) {
 			},
 		},
 		{
-			Name: "interpolation",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
-				Path: "testdata/interpolation.xml",
-			},
+			Name:      "interpolation",
+			inputPath: "testdata/interpolation.xml",
 			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "org.mine:mypackage",
@@ -203,10 +177,8 @@ func TestExtractor_Extract(t *testing.T) {
 			},
 		},
 		{
-			Name: "with scope",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
-				Path: "testdata/with-scope.xml",
-			},
+			Name:      "with scope",
+			inputPath: "testdata/with-scope.xml",
 			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "abc:xyz",

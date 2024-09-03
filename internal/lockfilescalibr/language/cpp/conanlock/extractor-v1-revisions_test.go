@@ -14,17 +14,13 @@ func TestExtractor_Extract_v1_revisions(t *testing.T) {
 
 	tests := []sharedtesthelpers.TestTableEntry{
 		{
-			Name: "no packages",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
-				Path: "testdata/empty.v1.revisions.json",
-			},
+			Name:          "no packages",
+			inputPath:     "testdata/empty.v1.revisions.json",
 			WantInventory: []*extractor.Inventory{},
 		},
 		{
-			Name: "one package",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
-				Path: "testdata/one-package.v1.revisions.json",
-			},
+			Name:      "one package",
+			inputPath: "testdata/one-package.v1.revisions.json",
 			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "zlib",
@@ -37,10 +33,8 @@ func TestExtractor_Extract_v1_revisions(t *testing.T) {
 			},
 		},
 		{
-			Name: "no name",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
-				Path: "testdata/no-name.v1.revisions.json",
-			},
+			Name:      "no name",
+			inputPath: "testdata/no-name.v1.revisions.json",
 			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "zlib",
@@ -53,10 +47,8 @@ func TestExtractor_Extract_v1_revisions(t *testing.T) {
 			},
 		},
 		{
-			Name: "two packages",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
-				Path: "testdata/two-packages.v1.revisions.json",
-			},
+			Name:      "two packages",
+			inputPath: "testdata/two-packages.v1.revisions.json",
 			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "zlib",
@@ -77,10 +69,8 @@ func TestExtractor_Extract_v1_revisions(t *testing.T) {
 			},
 		},
 		{
-			Name: "nested dependencies",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
-				Path: "testdata/nested-dependencies.v1.revisions.json",
-			},
+			Name:      "nested dependencies",
+			inputPath: "testdata/nested-dependencies.v1.revisions.json",
 			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "zlib",
@@ -125,10 +115,8 @@ func TestExtractor_Extract_v1_revisions(t *testing.T) {
 			},
 		},
 		{
-			Name: "one package dev",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
-				Path: "testdata/one-package-dev.v1.revisions.json",
-			},
+			Name:      "one package dev",
+			inputPath: "testdata/one-package-dev.v1.revisions.json",
 			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "ninja",

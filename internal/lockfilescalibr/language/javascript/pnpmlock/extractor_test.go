@@ -13,51 +13,39 @@ func TestExtractor_FileRequired(t *testing.T) {
 	t.Parallel()
 
 	tests := []struct {
-		name        string
-		inputConfig sharedtesthelpers.ScanInputMockConfig
-		want        bool
+		name      string
+		inputPath string
+		want      bool
 	}{
 		{
-			name: "",
-			inputConfig: sharedtesthelpers.ScanInputMockConfig{
-				Path: "",
-			},
-			want: false,
+			name:      "",
+			inputPath: "",
+			want:      false,
 		},
 		{
-			name: "",
-			inputConfig: sharedtesthelpers.ScanInputMockConfig{
-				Path: "pnpm-lock.yaml",
-			},
-			want: true,
+			name:      "",
+			inputPath: "pnpm-lock.yaml",
+			want:      true,
 		},
 		{
-			name: "",
-			inputConfig: sharedtesthelpers.ScanInputMockConfig{
-				Path: "path/to/my/pnpm-lock.yaml",
-			},
-			want: true,
+			name:      "",
+			inputPath: "path/to/my/pnpm-lock.yaml",
+			want:      true,
 		},
 		{
-			name: "",
-			inputConfig: sharedtesthelpers.ScanInputMockConfig{
-				Path: "path/to/my/pnpm-lock.yaml/file",
-			},
-			want: false,
+			name:      "",
+			inputPath: "path/to/my/pnpm-lock.yaml/file",
+			want:      false,
 		},
 		{
-			name: "",
-			inputConfig: sharedtesthelpers.ScanInputMockConfig{
-				Path: "path/to/my/pnpm-lock.yaml.file",
-			},
-			want: false,
+			name:      "",
+			inputPath: "path/to/my/pnpm-lock.yaml.file",
+			want:      false,
 		},
 		{
-			name: "",
-			inputConfig: sharedtesthelpers.ScanInputMockConfig{
-				Path: "path.to.my.pnpm-lock.yaml",
-			},
-			want: false,
+			name:      "",
+			inputPath: "path.to.my.pnpm-lock.yaml",
+			want:      false,
 		},
 	}
 	for _, tt := range tests {
@@ -65,9 +53,9 @@ func TestExtractor_FileRequired(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
 			e := pnpmlock.Extractor{}
-			got := e.FileRequired(tt.inputConfig.Path, sharedtesthelpers.GenerateFileInfoMock(t, tt.inputConfig))
+			got := e.FileRequired(tt.inputPath, sharedtesthelpers.GenerateFileInfoMock(t, tt.inputConfig))
 			if got != tt.want {
-				t.Errorf("FileRequired(%s, FileInfo) got = %v, want %v", tt.inputConfig.Path, got, tt.want)
+				t.Errorf("FileRequired(%s, FileInfo) got = %v, want %v", tt.inputPath, got, tt.want)
 			}
 		})
 	}
@@ -78,31 +66,23 @@ func TestExtractor_Extract(t *testing.T) {
 
 	tests := []sharedtesthelpers.TestTableEntry{
 		{
-			Name: "invalid yaml",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
-				Path: "testdata/not-yaml.txt",
-			},
+			Name:              "invalid yaml",
+			inputPath:         "testdata/not-yaml.txt",
 			WantErrContaining: "could not extract from",
 		},
 		{
-			Name: "empty",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
-				Path: "testdata/empty.yaml",
-			},
+			Name:          "empty",
+			inputPath:     "testdata/empty.yaml",
 			WantInventory: []*extractor.Inventory{},
 		},
 		{
-			Name: "no packages",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
-				Path: "testdata/no-packages.yaml",
-			},
+			Name:          "no packages",
+			inputPath:     "testdata/no-packages.yaml",
 			WantInventory: []*extractor.Inventory{},
 		},
 		{
-			Name: "one package",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
-				Path: "testdata/one-package.yaml",
-			},
+			Name:      "one package",
+			inputPath: "testdata/one-package.yaml",
 			WantInventory: []*extractor.Inventory{
 				{
 					Name:       "acorn",
@@ -116,10 +96,8 @@ func TestExtractor_Extract(t *testing.T) {
 			},
 		},
 		{
-			Name: "one package v6 lockfile",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
-				Path: "testdata/one-package-v6-lockfile.yaml",
-			},
+			Name:      "one package v6 lockfile",
+			inputPath: "testdata/one-package-v6-lockfile.yaml",
 			WantInventory: []*extractor.Inventory{
 				{
 					Name:       "acorn",
@@ -133,10 +111,8 @@ func TestExtractor_Extract(t *testing.T) {
 			},
 		},
 		{
-			Name: "one package dev",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
-				Path: "testdata/one-package-dev.yaml",
-			},
+			Name:      "one package dev",
+			inputPath: "testdata/one-package-dev.yaml",
 			WantInventory: []*extractor.Inventory{
 				{
 					Name:       "acorn",
@@ -150,10 +126,8 @@ func TestExtractor_Extract(t *testing.T) {
 			},
 		},
 		{
-			Name: "scoped packages",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
-				Path: "testdata/scoped-packages.yaml",
-			},
+			Name:      "scoped packages",
+			inputPath: "testdata/scoped-packages.yaml",
 			WantInventory: []*extractor.Inventory{
 				{
 					Name:       "@typescript-eslint/types",
@@ -167,10 +141,8 @@ func TestExtractor_Extract(t *testing.T) {
 			},
 		},
 		{
-			Name: "scoped packages v6 lockfile",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
-				Path: "testdata/scoped-packages-v6-lockfile.yaml",
-			},
+			Name:      "scoped packages v6 lockfile",
+			inputPath: "testdata/scoped-packages-v6-lockfile.yaml",
 			WantInventory: []*extractor.Inventory{
 				{
 					Name:       "@typescript-eslint/types",
@@ -184,10 +156,8 @@ func TestExtractor_Extract(t *testing.T) {
 			},
 		},
 		{
-			Name: "peer dependencies",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
-				Path: "testdata/peer-dependencies.yaml",
-			},
+			Name:      "peer dependencies",
+			inputPath: "testdata/peer-dependencies.yaml",
 			WantInventory: []*extractor.Inventory{
 				{
 					Name:       "acorn-jsx",
@@ -210,10 +180,8 @@ func TestExtractor_Extract(t *testing.T) {
 			},
 		},
 		{
-			Name: "peer dependencies advanced",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
-				Path: "testdata/peer-dependencies-advanced.yaml",
-			},
+			Name:      "peer dependencies advanced",
+			inputPath: "testdata/peer-dependencies-advanced.yaml",
 			WantInventory: []*extractor.Inventory{
 				{
 					Name:       "@typescript-eslint/eslint-plugin",
@@ -299,10 +267,8 @@ func TestExtractor_Extract(t *testing.T) {
 			},
 		},
 		{
-			Name: "multiple packages",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
-				Path: "testdata/multiple-packages.yaml",
-			},
+			Name:      "multiple packages",
+			inputPath: "testdata/multiple-packages.yaml",
 			WantInventory: []*extractor.Inventory{
 				{
 					Name:       "aws-sdk",
@@ -433,10 +399,8 @@ func TestExtractor_Extract(t *testing.T) {
 			},
 		},
 		{
-			Name: "multiple versions",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
-				Path: "testdata/multiple-versions.yaml",
-			},
+			Name:      "multiple versions",
+			inputPath: "testdata/multiple-versions.yaml",
 			WantInventory: []*extractor.Inventory{
 				{
 					Name:       "uuid",
@@ -468,10 +432,8 @@ func TestExtractor_Extract(t *testing.T) {
 			},
 		},
 		{
-			Name: "tarball",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
-				Path: "testdata/tarball.yaml",
-			},
+			Name:      "tarball",
+			inputPath: "testdata/tarball.yaml",
 			WantInventory: []*extractor.Inventory{
 				{
 					Name:       "@my-org/my-package",
@@ -485,10 +447,8 @@ func TestExtractor_Extract(t *testing.T) {
 			},
 		},
 		{
-			Name: "exotic",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
-				Path: "testdata/exotic.yaml",
-			},
+			Name:      "exotic",
+			inputPath: "testdata/exotic.yaml",
 			WantInventory: []*extractor.Inventory{
 				{
 					Name:       "foo",
@@ -556,10 +516,8 @@ func TestExtractor_Extract(t *testing.T) {
 			},
 		},
 		{
-			Name: "commits",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
-				Path: "testdata/commits.yaml",
-			},
+			Name:      "commits",
+			inputPath: "testdata/commits.yaml",
 			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "my-bitbucket-package",
@@ -619,10 +577,8 @@ func TestExtractor_Extract(t *testing.T) {
 			},
 		},
 		{
-			Name: "files",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
-				Path: "testdata/files.yaml",
-			},
+			Name:      "files",
+			inputPath: "testdata/files.yaml",
 			WantInventory: []*extractor.Inventory{
 				{
 					Name:       "my-file-package",

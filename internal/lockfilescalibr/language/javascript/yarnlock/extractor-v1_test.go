@@ -13,17 +13,13 @@ func TestExtractor_Extract_v1(t *testing.T) {
 
 	tests := []sharedtesthelpers.TestTableEntry{
 		{
-			Name: "no packages",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
-				Path: "testdata/empty.v1.lock",
-			},
+			Name:          "no packages",
+			inputPath:     "testdata/empty.v1.lock",
 			WantInventory: []*extractor.Inventory{},
 		},
 		{
-			Name: "one package",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
-				Path: "testdata/one-package.v1.lock",
-			},
+			Name:      "one package",
+			inputPath: "testdata/one-package.v1.lock",
 			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "balanced-match",
@@ -36,10 +32,8 @@ func TestExtractor_Extract_v1(t *testing.T) {
 			},
 		},
 		{
-			Name: "two packages",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
-				Path: "testdata/two-packages.v1.lock",
-			},
+			Name:      "two packages",
+			inputPath: "testdata/two-packages.v1.lock",
 			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "concat-stream",
@@ -60,10 +54,8 @@ func TestExtractor_Extract_v1(t *testing.T) {
 			},
 		},
 		{
-			Name: "with quotes",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
-				Path: "testdata/with-quotes.v1.lock",
-			},
+			Name:      "with quotes",
+			inputPath: "testdata/with-quotes.v1.lock",
 			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "concat-stream",
@@ -84,10 +76,8 @@ func TestExtractor_Extract_v1(t *testing.T) {
 			},
 		},
 		{
-			Name: "multiple versions",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
-				Path: "testdata/multiple-versions.v1.lock",
-			},
+			Name:      "multiple versions",
+			inputPath: "testdata/multiple-versions.v1.lock",
 			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "define-properties",
@@ -124,10 +114,8 @@ func TestExtractor_Extract_v1(t *testing.T) {
 			},
 		},
 		{
-			Name: "multiple constraints",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
-				Path: "testdata/multiple-constraints.v1.lock",
-			},
+			Name:      "multiple constraints",
+			inputPath: "testdata/multiple-constraints.v1.lock",
 			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "@babel/code-frame",
@@ -148,10 +136,8 @@ func TestExtractor_Extract_v1(t *testing.T) {
 			},
 		},
 		{
-			Name: "scoped packages",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
-				Path: "testdata/scoped-packages.v1.lock",
-			},
+			Name:      "scoped packages",
+			inputPath: "testdata/scoped-packages.v1.lock",
 			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "@babel/code-frame",
@@ -172,10 +158,8 @@ func TestExtractor_Extract_v1(t *testing.T) {
 			},
 		},
 		{
-			Name: "with prerelease",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
-				Path: "testdata/with-prerelease.v1.lock",
-			},
+			Name:      "with prerelease",
+			inputPath: "testdata/with-prerelease.v1.lock",
 			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "css-tree",
@@ -220,10 +204,8 @@ func TestExtractor_Extract_v1(t *testing.T) {
 			},
 		},
 		{
-			Name: "with build string",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
-				Path: "testdata/with-build-string.v1.lock",
-			},
+			Name:      "with build string",
+			inputPath: "testdata/with-build-string.v1.lock",
 			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "domino",
@@ -244,10 +226,8 @@ func TestExtractor_Extract_v1(t *testing.T) {
 			},
 		},
 		{
-			Name: "commits",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
-				Path: "testdata/commits.v1.lock",
-			},
+			Name:      "commits",
+			inputPath: "testdata/commits.v1.lock",
 			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "mine1",
@@ -396,10 +376,8 @@ func TestExtractor_Extract_v1(t *testing.T) {
 			},
 		},
 		{
-			Name: "files",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
-				Path: "testdata/files.v1.lock",
-			},
+			Name:      "files",
+			inputPath: "testdata/files.v1.lock",
 			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "etag",
@@ -452,10 +430,8 @@ func TestExtractor_Extract_v1(t *testing.T) {
 			},
 		},
 		{
-			Name: "with aliases",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
-				Path: "testdata/with-aliases.v1.lock",
-			},
+			Name:      "with aliases",
+			inputPath: "testdata/with-aliases.v1.lock",
 			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "@babel/helper-validator-identifier",

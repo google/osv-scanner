@@ -13,51 +13,39 @@ func TestExtractor_FileRequired(t *testing.T) {
 	t.Parallel()
 
 	tests := []struct {
-		name        string
-		inputConfig sharedtesthelpers.ScanInputMockConfig
-		want        bool
+		name      string
+		inputPath string
+		want      bool
 	}{
 		{
-			name: "",
-			inputConfig: sharedtesthelpers.ScanInputMockConfig{
-				Path: "",
-			},
-			want: false,
+			name:      "",
+			inputPath: "",
+			want:      false,
 		},
 		{
-			name: "",
-			inputConfig: sharedtesthelpers.ScanInputMockConfig{
-				Path: "composer.lock",
-			},
-			want: true,
+			name:      "",
+			inputPath: "composer.lock",
+			want:      true,
 		},
 		{
-			name: "",
-			inputConfig: sharedtesthelpers.ScanInputMockConfig{
-				Path: "path/to/my/composer.lock",
-			},
-			want: true,
+			name:      "",
+			inputPath: "path/to/my/composer.lock",
+			want:      true,
 		},
 		{
-			name: "",
-			inputConfig: sharedtesthelpers.ScanInputMockConfig{
-				Path: "path/to/my/composer.lock/file",
-			},
-			want: false,
+			name:      "",
+			inputPath: "path/to/my/composer.lock/file",
+			want:      false,
 		},
 		{
-			name: "",
-			inputConfig: sharedtesthelpers.ScanInputMockConfig{
-				Path: "path/to/my/composer.lock.file",
-			},
-			want: false,
+			name:      "",
+			inputPath: "path/to/my/composer.lock.file",
+			want:      false,
 		},
 		{
-			name: "",
-			inputConfig: sharedtesthelpers.ScanInputMockConfig{
-				Path: "path.to.my.composer.lock",
-			},
-			want: false,
+			name:      "",
+			inputPath: "path.to.my.composer.lock",
+			want:      false,
 		},
 	}
 	for _, tt := range tests {
@@ -65,9 +53,9 @@ func TestExtractor_FileRequired(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
 			e := composerlock.Extractor{}
-			got := e.FileRequired(tt.inputConfig.Path, sharedtesthelpers.GenerateFileInfoMock(t, tt.inputConfig))
+			got := e.FileRequired(tt.inputPath, sharedtesthelpers.GenerateFileInfoMock(t, tt.inputConfig))
 			if got != tt.want {
-				t.Errorf("FileRequired(%s, FileInfo) got = %v, want %v", tt.inputConfig.Path, got, tt.want)
+				t.Errorf("FileRequired(%s, FileInfo) got = %v, want %v", tt.inputPath, got, tt.want)
 			}
 		})
 	}
@@ -78,24 +66,18 @@ func TestExtractor_Extract(t *testing.T) {
 
 	tests := []sharedtesthelpers.TestTableEntry{
 		{
-			Name: "invalid json",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
-				Path: "testdata/not-json.txt",
-			},
+			Name:              "invalid json",
+			inputPath:         "testdata/not-json.txt",
 			WantErrContaining: "could not extract from",
 		},
 		{
-			Name: "no packages",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
-				Path: "testdata/empty.json",
-			},
+			Name:          "no packages",
+			inputPath:     "testdata/empty.json",
 			WantInventory: []*extractor.Inventory{},
 		},
 		{
-			Name: "one package",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
-				Path: "testdata/one-package.json",
-			},
+			Name:      "one package",
+			inputPath: "testdata/one-package.json",
 			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "sentry/sdk",
@@ -111,10 +93,8 @@ func TestExtractor_Extract(t *testing.T) {
 			},
 		},
 		{
-			Name: "one package dev",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
-				Path: "testdata/one-package-dev.json",
-			},
+			Name:      "one package dev",
+			inputPath: "testdata/one-package-dev.json",
 			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "sentry/sdk",
@@ -130,10 +110,8 @@ func TestExtractor_Extract(t *testing.T) {
 			},
 		},
 		{
-			Name: "two packages",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
-				Path: "testdata/two-packages.json",
-			},
+			Name:      "two packages",
+			inputPath: "testdata/two-packages.json",
 			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "sentry/sdk",
@@ -160,10 +138,8 @@ func TestExtractor_Extract(t *testing.T) {
 			},
 		},
 		{
-			Name: "two packages alt",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
-				Path: "testdata/two-packages-alt.json",
-			},
+			Name:      "two packages alt",
+			inputPath: "testdata/two-packages-alt.json",
 			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "sentry/sdk",

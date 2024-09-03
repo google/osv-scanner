@@ -12,86 +12,64 @@ func TestExtractor_FileRequired(t *testing.T) {
 	t.Parallel()
 
 	tests := []struct {
-		name        string
-		inputConfig sharedtesthelpers.ScanInputMockConfig
-		want        bool
+		name      string
+		inputPath string
+		want      bool
 	}{
 		{
-			name: "",
-			inputConfig: sharedtesthelpers.ScanInputMockConfig{
-				Path: "",
-			},
-			want: false,
+			name:      "",
+			inputPath: "",
+			want:      false,
 		},
 		{
-			name: "",
-			inputConfig: sharedtesthelpers.ScanInputMockConfig{
-				Path: "buildscript-gradle.lockfile",
-			},
-			want: true,
+			name:      "",
+			inputPath: "buildscript-gradle.lockfile",
+			want:      true,
 		},
 		{
-			name: "",
-			inputConfig: sharedtesthelpers.ScanInputMockConfig{
-				Path: "path/to/my/buildscript-gradle.lockfile",
-			},
-			want: true,
+			name:      "",
+			inputPath: "path/to/my/buildscript-gradle.lockfile",
+			want:      true,
 		},
 		{
-			name: "",
-			inputConfig: sharedtesthelpers.ScanInputMockConfig{
-				Path: "path/to/my/buildscript-gradle.lockfile/file",
-			},
-			want: false,
+			name:      "",
+			inputPath: "path/to/my/buildscript-gradle.lockfile/file",
+			want:      false,
 		},
 		{
-			name: "",
-			inputConfig: sharedtesthelpers.ScanInputMockConfig{
-				Path: "path/to/my/buildscript-gradle.lockfile.file",
-			},
-			want: false,
+			name:      "",
+			inputPath: "path/to/my/buildscript-gradle.lockfile.file",
+			want:      false,
 		},
 		{
-			name: "",
-			inputConfig: sharedtesthelpers.ScanInputMockConfig{
-				Path: "path.to.my.buildscript-gradle.lockfile",
-			},
-			want: false,
+			name:      "",
+			inputPath: "path.to.my.buildscript-gradle.lockfile",
+			want:      false,
 		},
 		{
-			name: "",
-			inputConfig: sharedtesthelpers.ScanInputMockConfig{
-				Path: "gradle.lockfile",
-			},
-			want: true,
+			name:      "",
+			inputPath: "gradle.lockfile",
+			want:      true,
 		},
 		{
-			name: "",
-			inputConfig: sharedtesthelpers.ScanInputMockConfig{
-				Path: "path/to/my/gradle.lockfile",
-			},
-			want: true,
+			name:      "",
+			inputPath: "path/to/my/gradle.lockfile",
+			want:      true,
 		},
 		{
-			name: "",
-			inputConfig: sharedtesthelpers.ScanInputMockConfig{
-				Path: "path/to/my/gradle.lockfile/file",
-			},
-			want: false,
+			name:      "",
+			inputPath: "path/to/my/gradle.lockfile/file",
+			want:      false,
 		},
 		{
-			name: "",
-			inputConfig: sharedtesthelpers.ScanInputMockConfig{
-				Path: "path/to/my/gradle.lockfile.file",
-			},
-			want: false,
+			name:      "",
+			inputPath: "path/to/my/gradle.lockfile.file",
+			want:      false,
 		},
 		{
-			name: "",
-			inputConfig: sharedtesthelpers.ScanInputMockConfig{
-				Path: "path.to.my.gradle.lockfile",
-			},
-			want: false,
+			name:      "",
+			inputPath: "path.to.my.gradle.lockfile",
+			want:      false,
 		},
 	}
 	for _, tt := range tests {
@@ -99,9 +77,9 @@ func TestExtractor_FileRequired(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
 			e := buildscriptgradlelockfile.Extractor{}
-			got := e.FileRequired(tt.inputConfig.Path, sharedtesthelpers.GenerateFileInfoMock(t, tt.inputConfig))
+			got := e.FileRequired(tt.inputPath, sharedtesthelpers.GenerateFileInfoMock(t, tt.inputConfig))
 			if got != tt.want {
-				t.Errorf("FileRequired(%s, FileInfo) got = %v, want %v", tt.inputConfig.Path, got, tt.want)
+				t.Errorf("FileRequired(%s, FileInfo) got = %v, want %v", tt.inputPath, got, tt.want)
 			}
 		})
 	}
@@ -111,24 +89,18 @@ func TestExtractor_Extract(t *testing.T) {
 	t.Parallel()
 	tests := []sharedtesthelpers.TestTableEntry{
 		{
-			Name: "only comments",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
-				Path: "testdata/only-comments",
-			},
+			Name:          "only comments",
+			inputPath:     "testdata/only-comments",
 			WantInventory: []*extractor.Inventory{},
 		},
 		{
-			Name: "empty statement",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
-				Path: "testdata/only-empty",
-			},
+			Name:          "empty statement",
+			inputPath:     "testdata/only-empty",
 			WantInventory: []*extractor.Inventory{},
 		},
 		{
-			Name: "one package",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
-				Path: "testdata/one-pkg",
-			},
+			Name:      "one package",
+			inputPath: "testdata/one-pkg",
 			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "org.springframework.security:spring-security-crypto",
@@ -138,10 +110,8 @@ func TestExtractor_Extract(t *testing.T) {
 			},
 		},
 		{
-			Name: "multiple package",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
-				Path: "testdata/5-pkg",
-			},
+			Name:      "multiple package",
+			inputPath: "testdata/5-pkg",
 			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "org.springframework.boot:spring-boot-autoconfigure",
@@ -171,10 +141,8 @@ func TestExtractor_Extract(t *testing.T) {
 			},
 		},
 		{
-			Name: "with invalid lines",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
-				Path: "testdata/with-bad-pkg",
-			},
+			Name:      "with invalid lines",
+			inputPath: "testdata/with-bad-pkg",
 			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "org.springframework.boot:spring-boot-autoconfigure",

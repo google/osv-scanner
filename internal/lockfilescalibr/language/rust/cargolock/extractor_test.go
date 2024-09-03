@@ -12,51 +12,39 @@ func TestExtractor_FileRequired(t *testing.T) {
 	t.Parallel()
 
 	tests := []struct {
-		name        string
-		inputConfig sharedtesthelpers.ScanInputMockConfig
-		want        bool
+		name      string
+		inputPath string
+		want      bool
 	}{
 		{
-			name: "Empty path",
-			inputConfig: sharedtesthelpers.ScanInputMockConfig{
-				Path: "",
-			},
-			want: false,
+			name:      "Empty path",
+			inputPath: "",
+			want:      false,
 		},
 		{
-			name: "",
-			inputConfig: sharedtesthelpers.ScanInputMockConfig{
-				Path: "Cargo.lock",
-			},
-			want: true,
+			name:      "",
+			inputPath: "Cargo.lock",
+			want:      true,
 		},
 		{
-			name: "",
-			inputConfig: sharedtesthelpers.ScanInputMockConfig{
-				Path: "path/to/my/Cargo.lock",
-			},
-			want: true,
+			name:      "",
+			inputPath: "path/to/my/Cargo.lock",
+			want:      true,
 		},
 		{
-			name: "",
-			inputConfig: sharedtesthelpers.ScanInputMockConfig{
-				Path: "path/to/my/Cargo.lock/file",
-			},
-			want: false,
+			name:      "",
+			inputPath: "path/to/my/Cargo.lock/file",
+			want:      false,
 		},
 		{
-			name: "",
-			inputConfig: sharedtesthelpers.ScanInputMockConfig{
-				Path: "path/to/my/Cargo.lock.file",
-			},
-			want: false,
+			name:      "",
+			inputPath: "path/to/my/Cargo.lock.file",
+			want:      false,
 		},
 		{
-			name: "",
-			inputConfig: sharedtesthelpers.ScanInputMockConfig{
-				Path: "path.to.my.Cargo.lock",
-			},
-			want: false,
+			name:      "",
+			inputPath: "path.to.my.Cargo.lock",
+			want:      false,
 		},
 	}
 
@@ -65,9 +53,9 @@ func TestExtractor_FileRequired(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
 			e := cargolock.Extractor{}
-			got := e.FileRequired(tt.inputConfig.Path, sharedtesthelpers.GenerateFileInfoMock(t, tt.inputConfig))
+			got := e.FileRequired(tt.inputPath, sharedtesthelpers.GenerateFileInfoMock(t, tt.inputConfig))
 			if got != tt.want {
-				t.Errorf("FileRequired(%s, FileInfo) got = %v, want %v", tt.inputConfig.Path, got, tt.want)
+				t.Errorf("FileRequired(%s, FileInfo) got = %v, want %v", tt.inputPath, got, tt.want)
 			}
 		})
 	}
@@ -78,24 +66,18 @@ func TestExtractor_Extract(t *testing.T) {
 
 	tests := []sharedtesthelpers.TestTableEntry{
 		{
-			Name: "Invalid toml",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
-				Path: "testdata/not-toml.txt",
-			},
+			Name:              "Invalid toml",
+			inputPath:         "testdata/not-toml.txt",
 			WantErrContaining: "could not extract from",
 		},
 		{
-			Name: "no packages",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
-				Path: "testdata/empty.lock",
-			},
+			Name:          "no packages",
+			inputPath:     "testdata/empty.lock",
 			WantInventory: []*extractor.Inventory{},
 		},
 		{
-			Name: "one package",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
-				Path: "testdata/one-package.lock",
-			},
+			Name:      "one package",
+			inputPath: "testdata/one-package.lock",
 			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "addr2line",
@@ -105,10 +87,8 @@ func TestExtractor_Extract(t *testing.T) {
 			},
 		},
 		{
-			Name: "two packages",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
-				Path: "testdata/two-packages.lock",
-			},
+			Name:      "two packages",
+			inputPath: "testdata/two-packages.lock",
 			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "addr2line",
@@ -123,10 +103,8 @@ func TestExtractor_Extract(t *testing.T) {
 			},
 		},
 		{
-			Name: "two packages with local",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
-				Path: "testdata/two-packages-with-local.lock",
-			},
+			Name:      "two packages with local",
+			inputPath: "testdata/two-packages-with-local.lock",
 			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "addr2line",
@@ -141,10 +119,8 @@ func TestExtractor_Extract(t *testing.T) {
 			},
 		},
 		{
-			Name: "package with build string",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
-				Path: "testdata/package-with-build-string.lock",
-			},
+			Name:      "package with build string",
+			inputPath: "testdata/package-with-build-string.lock",
 			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "wasi",

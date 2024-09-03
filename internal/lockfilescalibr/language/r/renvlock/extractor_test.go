@@ -13,24 +13,18 @@ func TestExtractor_Extract(t *testing.T) {
 
 	tests := []sharedtesthelpers.TestTableEntry{
 		{
-			Name: "invalid json",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
-				Path: "testdata/not-json.txt",
-			},
+			Name:              "invalid json",
+			inputPath:         "testdata/not-json.txt",
 			WantErrContaining: "could not extract from",
 		},
 		{
-			Name: "no packages",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
-				Path: "testdata/empty.lock",
-			},
+			Name:          "no packages",
+			inputPath:     "testdata/empty.lock",
 			WantInventory: []*extractor.Inventory{},
 		},
 		{
-			Name: "one package",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
-				Path: "testdata/one-package.lock",
-			},
+			Name:      "one package",
+			inputPath: "testdata/one-package.lock",
 			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "morning",
@@ -40,10 +34,8 @@ func TestExtractor_Extract(t *testing.T) {
 			},
 		},
 		{
-			Name: "two packages",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
-				Path: "testdata/two-packages.lock",
-			},
+			Name:      "two packages",
+			inputPath: "testdata/two-packages.lock",
 			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "markdown",
@@ -58,10 +50,8 @@ func TestExtractor_Extract(t *testing.T) {
 			},
 		},
 		{
-			Name: "with mixed sources",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
-				Path: "testdata/with-mixed-sources.lock",
-			},
+			Name:      "with mixed sources",
+			inputPath: "testdata/with-mixed-sources.lock",
 			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "markdown",
@@ -71,10 +61,8 @@ func TestExtractor_Extract(t *testing.T) {
 			},
 		},
 		{
-			Name: "with bioconductor",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
-				Path: "testdata/with-bioconductor.lock",
-			},
+			Name:      "with bioconductor",
+			inputPath: "testdata/with-bioconductor.lock",
 			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "BH",
@@ -84,10 +72,8 @@ func TestExtractor_Extract(t *testing.T) {
 			},
 		},
 		{
-			Name: "without repository",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
-				Path: "testdata/without-repository.lock",
-			},
+			Name:          "without repository",
+			inputPath:     "testdata/without-repository.lock",
 			WantInventory: []*extractor.Inventory{},
 		},
 	}

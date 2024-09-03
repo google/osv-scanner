@@ -13,17 +13,13 @@ func TestExtractor_Extract_v2(t *testing.T) {
 
 	tests := []sharedtesthelpers.TestTableEntry{
 		{
-			Name: "no packages",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
-				Path: "testdata/empty.v2.lock",
-			},
+			Name:          "no packages",
+			inputPath:     "testdata/empty.v2.lock",
 			WantInventory: []*extractor.Inventory{},
 		},
 		{
-			Name: "one package",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
-				Path: "testdata/one-package.v2.lock",
-			},
+			Name:      "one package",
+			inputPath: "testdata/one-package.v2.lock",
 			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "balanced-match",
@@ -36,10 +32,8 @@ func TestExtractor_Extract_v2(t *testing.T) {
 			},
 		},
 		{
-			Name: "two packages",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
-				Path: "testdata/two-packages.v2.lock",
-			},
+			Name:      "two packages",
+			inputPath: "testdata/two-packages.v2.lock",
 			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "compare-func",
@@ -60,10 +54,8 @@ func TestExtractor_Extract_v2(t *testing.T) {
 			},
 		},
 		{
-			Name: "with quotes",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
-				Path: "testdata/with-quotes.v2.lock",
-			},
+			Name:      "with quotes",
+			inputPath: "testdata/with-quotes.v2.lock",
 			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "compare-func",
@@ -84,10 +76,8 @@ func TestExtractor_Extract_v2(t *testing.T) {
 			},
 		},
 		{
-			Name: "multiple versions",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
-				Path: "testdata/multiple-versions.v2.lock",
-			},
+			Name:      "multiple versions",
+			inputPath: "testdata/multiple-versions.v2.lock",
 			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "debug",
@@ -116,10 +106,8 @@ func TestExtractor_Extract_v2(t *testing.T) {
 			},
 		},
 		{
-			Name: "scoped packages",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
-				Path: "testdata/scoped-packages.v2.lock",
-			},
+			Name:      "scoped packages",
+			inputPath: "testdata/scoped-packages.v2.lock",
 			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "@babel/cli",
@@ -148,10 +136,8 @@ func TestExtractor_Extract_v2(t *testing.T) {
 			},
 		},
 		{
-			Name: "with prerelease",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
-				Path: "testdata/with-prerelease.v2.lock",
-			},
+			Name:      "with prerelease",
+			inputPath: "testdata/with-prerelease.v2.lock",
 			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "@nicolo-ribaudo/chokidar-2",
@@ -180,10 +166,8 @@ func TestExtractor_Extract_v2(t *testing.T) {
 			},
 		},
 		{
-			Name: "with build string",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
-				Path: "testdata/with-build-string.v2.lock",
-			},
+			Name:      "with build string",
+			inputPath: "testdata/with-build-string.v2.lock",
 			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "domino",
@@ -212,10 +196,8 @@ func TestExtractor_Extract_v2(t *testing.T) {
 			},
 		},
 		{
-			Name: "commits",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
-				Path: "testdata/commits.v2.lock",
-			},
+			Name:      "commits",
+			inputPath: "testdata/commits.v2.lock",
 			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "@my-scope/my-first-package",
@@ -276,10 +258,8 @@ func TestExtractor_Extract_v2(t *testing.T) {
 			},
 		},
 		{
-			Name: "files",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
-				Path: "testdata/files.v2.lock",
-			},
+			Name:      "files",
+			inputPath: "testdata/files.v2.lock",
 			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "my-package",
@@ -292,10 +272,8 @@ func TestExtractor_Extract_v2(t *testing.T) {
 			},
 		},
 		{
-			Name: "with aliases",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
-				Path: "testdata/with-aliases.v2.lock",
-			},
+			Name:      "with aliases",
+			inputPath: "testdata/with-aliases.v2.lock",
 			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "@babel/helper-validator-identifier",

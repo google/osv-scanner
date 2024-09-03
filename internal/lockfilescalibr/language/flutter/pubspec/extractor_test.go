@@ -13,51 +13,39 @@ func TestExtractor_FileRequired(t *testing.T) {
 	t.Parallel()
 
 	tests := []struct {
-		name        string
-		inputConfig sharedtesthelpers.ScanInputMockConfig
-		want        bool
+		name      string
+		inputPath string
+		want      bool
 	}{
 		{
-			name: "",
-			inputConfig: sharedtesthelpers.ScanInputMockConfig{
-				Path: "",
-			},
-			want: false,
+			name:      "",
+			inputPath: "",
+			want:      false,
 		},
 		{
-			name: "",
-			inputConfig: sharedtesthelpers.ScanInputMockConfig{
-				Path: "pubspec.lock",
-			},
-			want: true,
+			name:      "",
+			inputPath: "pubspec.lock",
+			want:      true,
 		},
 		{
-			name: "",
-			inputConfig: sharedtesthelpers.ScanInputMockConfig{
-				Path: "path/to/my/pubspec.lock",
-			},
-			want: true,
+			name:      "",
+			inputPath: "path/to/my/pubspec.lock",
+			want:      true,
 		},
 		{
-			name: "",
-			inputConfig: sharedtesthelpers.ScanInputMockConfig{
-				Path: "path/to/my/pubspec.lock/file",
-			},
-			want: false,
+			name:      "",
+			inputPath: "path/to/my/pubspec.lock/file",
+			want:      false,
 		},
 		{
-			name: "",
-			inputConfig: sharedtesthelpers.ScanInputMockConfig{
-				Path: "path/to/my/pubspec.lock.file",
-			},
-			want: false,
+			name:      "",
+			inputPath: "path/to/my/pubspec.lock.file",
+			want:      false,
 		},
 		{
-			name: "",
-			inputConfig: sharedtesthelpers.ScanInputMockConfig{
-				Path: "path.to.my.pubspec.lock",
-			},
-			want: false,
+			name:      "",
+			inputPath: "path.to.my.pubspec.lock",
+			want:      false,
 		},
 	}
 	for _, tt := range tests {
@@ -65,9 +53,9 @@ func TestExtractor_FileRequired(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
 			e := pubspec.Extractor{}
-			got := e.FileRequired(tt.inputConfig.Path, sharedtesthelpers.GenerateFileInfoMock(t, tt.inputConfig))
+			got := e.FileRequired(tt.inputPath, sharedtesthelpers.GenerateFileInfoMock(t, tt.inputConfig))
 			if got != tt.want {
-				t.Errorf("FileRequired(%s, FileInfo) got = %v, want %v", tt.inputConfig.Path, got, tt.want)
+				t.Errorf("FileRequired(%s, FileInfo) got = %v, want %v", tt.inputPath, got, tt.want)
 			}
 		})
 	}
@@ -78,31 +66,23 @@ func TestExtractor_Extract(t *testing.T) {
 
 	tests := []sharedtesthelpers.TestTableEntry{
 		{
-			Name: "invalid yaml",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
-				Path: "testdata/not-yaml.txt",
-			},
+			Name:              "invalid yaml",
+			inputPath:         "testdata/not-yaml.txt",
 			WantErrContaining: "could not extract from",
 		},
 		{
-			Name: "empty",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
-				Path: "testdata/empty.lock",
-			},
+			Name:          "empty",
+			inputPath:     "testdata/empty.lock",
 			WantInventory: []*extractor.Inventory{},
 		},
 		{
-			Name: "no packages",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
-				Path: "testdata/no-packages.lock",
-			},
+			Name:          "no packages",
+			inputPath:     "testdata/no-packages.lock",
 			WantInventory: []*extractor.Inventory{},
 		},
 		{
-			Name: "one package",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
-				Path: "testdata/one-package.lock",
-			},
+			Name:      "one package",
+			inputPath: "testdata/one-package.lock",
 			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "back_button_interceptor",
@@ -118,10 +98,8 @@ func TestExtractor_Extract(t *testing.T) {
 			},
 		},
 		{
-			Name: "one package dev",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
-				Path: "testdata/one-package-dev.lock",
-			},
+			Name:      "one package dev",
+			inputPath: "testdata/one-package-dev.lock",
 			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "build_runner",
@@ -137,10 +115,8 @@ func TestExtractor_Extract(t *testing.T) {
 			},
 		},
 		{
-			Name: "two packages",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
-				Path: "testdata/two-packages.lock",
-			},
+			Name:      "two packages",
+			inputPath: "testdata/two-packages.lock",
 			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "shelf",
@@ -167,10 +143,8 @@ func TestExtractor_Extract(t *testing.T) {
 			},
 		},
 		{
-			Name: "mixed packages",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
-				Path: "testdata/mixed-packages.lock",
-			},
+			Name:      "mixed packages",
+			inputPath: "testdata/mixed-packages.lock",
 			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "back_button_interceptor",
@@ -219,10 +193,8 @@ func TestExtractor_Extract(t *testing.T) {
 			},
 		},
 		{
-			Name: "package with git source",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
-				Path: "testdata/source-git.lock",
-			},
+			Name:      "package with git source",
+			inputPath: "testdata/source-git.lock",
 			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "flutter_rust_bridge",
@@ -282,10 +254,8 @@ func TestExtractor_Extract(t *testing.T) {
 			},
 		},
 		{
-			Name: "package with sdk source",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
-				Path: "testdata/source-sdk.lock",
-			},
+			Name:      "package with sdk source",
+			inputPath: "testdata/source-sdk.lock",
 			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "flutter_web_plugins",
@@ -301,10 +271,8 @@ func TestExtractor_Extract(t *testing.T) {
 			},
 		},
 		{
-			Name: "package with path source",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
-				Path: "testdata/source-path.lock",
-			},
+			Name:      "package with path source",
+			inputPath: "testdata/source-path.lock",
 			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "maa_core",

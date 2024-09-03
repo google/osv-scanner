@@ -12,51 +12,39 @@ func TestExtractor_FileRequired(t *testing.T) {
 	t.Parallel()
 
 	tests := []struct {
-		name        string
-		inputConfig sharedtesthelpers.ScanInputMockConfig
-		want        bool
+		name      string
+		inputPath string
+		want      bool
 	}{
 		{
-			name: "",
-			inputConfig: sharedtesthelpers.ScanInputMockConfig{
-				Path: "",
-			},
-			want: false,
+			name:      "",
+			inputPath: "",
+			want:      false,
 		},
 		{
-			name: "",
-			inputConfig: sharedtesthelpers.ScanInputMockConfig{
-				Path: "go.mod",
-			},
-			want: true,
+			name:      "",
+			inputPath: "go.mod",
+			want:      true,
 		},
 		{
-			name: "",
-			inputConfig: sharedtesthelpers.ScanInputMockConfig{
-				Path: "path/to/my/go.mod",
-			},
-			want: true,
+			name:      "",
+			inputPath: "path/to/my/go.mod",
+			want:      true,
 		},
 		{
-			name: "",
-			inputConfig: sharedtesthelpers.ScanInputMockConfig{
-				Path: "path/to/my/go.mod/file",
-			},
-			want: false,
+			name:      "",
+			inputPath: "path/to/my/go.mod/file",
+			want:      false,
 		},
 		{
-			name: "",
-			inputConfig: sharedtesthelpers.ScanInputMockConfig{
-				Path: "path/to/my/go.mod.file",
-			},
-			want: false,
+			name:      "",
+			inputPath: "path/to/my/go.mod.file",
+			want:      false,
 		},
 		{
-			name: "",
-			inputConfig: sharedtesthelpers.ScanInputMockConfig{
-				Path: "path.to.my.go.mod",
-			},
-			want: false,
+			name:      "",
+			inputPath: "path.to.my.go.mod",
+			want:      false,
 		},
 	}
 	for _, tt := range tests {
@@ -64,9 +52,9 @@ func TestExtractor_FileRequired(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
 			e := gomod.Extractor{}
-			got := e.FileRequired(tt.inputConfig.Path, sharedtesthelpers.GenerateFileInfoMock(t, tt.inputConfig))
+			got := e.FileRequired(tt.inputPath, sharedtesthelpers.GenerateFileInfoMock(t, tt.inputConfig))
 			if got != tt.want {
-				t.Errorf("FileRequired(%s, FileInfo) got = %v, want %v", tt.inputConfig.Path, got, tt.want)
+				t.Errorf("FileRequired(%s, FileInfo) got = %v, want %v", tt.inputPath, got, tt.want)
 			}
 		})
 	}
@@ -77,25 +65,19 @@ func TestExtractor_Extract(t *testing.T) {
 
 	tests := []sharedtesthelpers.TestTableEntry{
 		{
-			Name: "invalid",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
-				Path: "testdata/not-go-mod.txt",
-			},
+			Name:              "invalid",
+			inputPath:         "testdata/not-go-mod.txt",
 			WantInventory:     []*extractor.Inventory{},
 			WantErrContaining: "could not extract from",
 		},
 		{
-			Name: "no packages",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
-				Path: "testdata/empty.mod",
-			},
+			Name:          "no packages",
+			inputPath:     "testdata/empty.mod",
 			WantInventory: []*extractor.Inventory{},
 		},
 		{
-			Name: "one package",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
-				Path: "testdata/one-package.mod",
-			},
+			Name:      "one package",
+			inputPath: "testdata/one-package.mod",
 			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "github.com/BurntSushi/toml",
@@ -105,10 +87,8 @@ func TestExtractor_Extract(t *testing.T) {
 			},
 		},
 		{
-			Name: "two packages",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
-				Path: "testdata/two-packages.mod",
-			},
+			Name:      "two packages",
+			inputPath: "testdata/two-packages.mod",
 			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "github.com/BurntSushi/toml",
@@ -128,10 +108,8 @@ func TestExtractor_Extract(t *testing.T) {
 			},
 		},
 		{
-			Name: "indirect packages",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
-				Path: "testdata/indirect-packages.mod",
-			},
+			Name:      "indirect packages",
+			inputPath: "testdata/indirect-packages.mod",
 			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "github.com/BurntSushi/toml",
@@ -166,10 +144,8 @@ func TestExtractor_Extract(t *testing.T) {
 			},
 		},
 		{
-			Name: "replacements_ one",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
-				Path: "testdata/replace-one.mod",
-			},
+			Name:      "replacements_ one",
+			inputPath: "testdata/replace-one.mod",
 			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "example.com/fork/net",
@@ -179,10 +155,8 @@ func TestExtractor_Extract(t *testing.T) {
 			},
 		},
 		{
-			Name: "replacements_ mixed",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
-				Path: "testdata/replace-mixed.mod",
-			},
+			Name:      "replacements_ mixed",
+			inputPath: "testdata/replace-mixed.mod",
 			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "example.com/fork/net",
@@ -197,10 +171,8 @@ func TestExtractor_Extract(t *testing.T) {
 			},
 		},
 		{
-			Name: "replacements_ local",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
-				Path: "testdata/replace-local.mod",
-			},
+			Name:      "replacements_ local",
+			inputPath: "testdata/replace-local.mod",
 			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "./fork/net",
@@ -215,10 +187,8 @@ func TestExtractor_Extract(t *testing.T) {
 			},
 		},
 		{
-			Name: "replacements_ different",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
-				Path: "testdata/replace-different.mod",
-			},
+			Name:      "replacements_ different",
+			inputPath: "testdata/replace-different.mod",
 			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "example.com/fork/foe",
@@ -233,10 +203,8 @@ func TestExtractor_Extract(t *testing.T) {
 			},
 		},
 		{
-			Name: "replacements_ not required",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
-				Path: "testdata/replace-not-required.mod",
-			},
+			Name:      "replacements_ not required",
+			inputPath: "testdata/replace-not-required.mod",
 			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "golang.org/x/net",
@@ -251,10 +219,8 @@ func TestExtractor_Extract(t *testing.T) {
 			},
 		},
 		{
-			Name: "replacements_ no version",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
-				Path: "testdata/replace-no-version.mod",
-			},
+			Name:      "replacements_ no version",
+			inputPath: "testdata/replace-no-version.mod",
 			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "example.com/fork/net",

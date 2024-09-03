@@ -13,17 +13,13 @@ func TestExtractor_Extract_v2(t *testing.T) {
 	t.Parallel()
 	tests := []sharedtesthelpers.TestTableEntry{
 		{
-			Name: "no packages",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
-				Path: "testdata/empty.v2.json",
-			},
+			Name:          "no packages",
+			inputPath:     "testdata/empty.v2.json",
 			WantInventory: []*extractor.Inventory{},
 		},
 		{
-			Name: "one package",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
-				Path: "testdata/one-package.v2.json",
-			},
+			Name:      "one package",
+			inputPath: "testdata/one-package.v2.json",
 			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "zlib",
@@ -36,10 +32,8 @@ func TestExtractor_Extract_v2(t *testing.T) {
 			},
 		},
 		{
-			Name: "no name",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
-				Path: "testdata/no-name.v2.json",
-			},
+			Name:      "no name",
+			inputPath: "testdata/no-name.v2.json",
 			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "zlib",
@@ -52,10 +46,8 @@ func TestExtractor_Extract_v2(t *testing.T) {
 			},
 		},
 		{
-			Name: "two packages",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
-				Path: "testdata/two-packages.v2.json",
-			},
+			Name:      "two packages",
+			inputPath: "testdata/two-packages.v2.json",
 			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "zlib",
@@ -76,10 +68,8 @@ func TestExtractor_Extract_v2(t *testing.T) {
 			},
 		},
 		{
-			Name: "nested dependencies",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
-				Path: "testdata/nested-dependencies.v2.json",
-			},
+			Name:      "nested dependencies",
+			inputPath: "testdata/nested-dependencies.v2.json",
 			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "zlib",
@@ -124,10 +114,8 @@ func TestExtractor_Extract_v2(t *testing.T) {
 			},
 		},
 		{
-			Name: "one package dev",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
-				Path: "testdata/one-package-dev.v2.json",
-			},
+			Name:      "one package dev",
+			inputPath: "testdata/one-package-dev.v2.json",
 			WantInventory: []*extractor.Inventory{
 				{
 					Name:      "ninja",
