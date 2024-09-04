@@ -717,8 +717,8 @@ func write(raw string, w io.Writer, patches MavenPatches) error {
 // For a CharData token, writes the token directly to avoid escaping.
 // For all other token types, uses xml.EncodeToken().
 // After encoding, flushes all buffered XML.
-func encodeToken(w io.Writer, enc *xml.Encoder, token xml.Token) error {
-	if tt, ok := token.(xml.CharData); ok {
+func encodeToken(w io.Writer, enc *internalxml.Encoder, token xml.Token) error {
+	if tt, ok := token.(internalxml.CharData); ok {
 		_, err := w.Write(tt)
 		return err
 	}
@@ -941,7 +941,7 @@ func writeDependency(w io.Writer, enc *internalxml.Encoder, raw string, patches 
 }
 
 // writeString writes XML string specified by raw with replacements specified in values.
-func writeString(enc *internalxml.Encoder, raw string, values map[string]string) error {
+func writeString(w io.Writer, enc *internalxml.Encoder, raw string, values map[string]string) error {
 	dec := internalxml.NewDecoder(bytes.NewReader([]byte(raw)))
 	for {
 		token, err := dec.Token()
