@@ -8,18 +8,31 @@ import (
 	"net/http"
 	"net/url"
 	"strings"
+	"sync"
+	"time"
 
 	"deps.dev/util/maven"
+	"golang.org/x/net/html/charset"
 )
 
 const MavenCentral = "https://repo.maven.apache.org/maven2"
 
 type MavenRegistryAPIClient struct {
 	registry string // Base URL of the registry that we are making requests
+
+	// Cache fields
+	mu             sync.Mutex
+	cacheTimestamp *time.Time // If set, this means we loaded from a cache
+	projects       map[string]maven.Project
+	metadata       map[string]maven.Metadata
 }
 
 func NewMavenRegistryAPIClient(registry string) *MavenRegistryAPIClient {
-	return &MavenRegistryAPIClient{registry: registry}
+	return &MavenRegistryAPIClient{
+		registry: registry,
+		projects: make(map[string]maven.Project),
+		metadata: make(map[string]maven.Metadata),
+	}
 }
 
 var errAPIFailed = errors.New("API query failed")
@@ -62,10 +75,20 @@ func (m *MavenRegistryAPIClient) getProject(ctx context.Context, groupID, artifa
 		return maven.Project{}, fmt.Errorf("failed to join path: %w", err)
 	}
 
-	var proj maven.Project
+	m.mu.Lock()
+	proj, ok := m.projects[u]
+	m.mu.Unlock()
+	if ok {
+		return proj, nil
+	}
+
 	if err := get(ctx, u, &proj); err != nil {
 		return maven.Project{}, err
 	}
+
+	m.mu.Lock()
+	m.projects[u] = proj
+	m.mu.Unlock()
 
 	return proj, nil
 }
@@ -77,10 +100,20 @@ func (m *MavenRegistryAPIClient) getVersionMetadata(ctx context.Context, groupID
 		return maven.Metadata{}, fmt.Errorf("failed to join path: %w", err)
 	}
 
-	var metadata maven.Metadata
+	m.mu.Lock()
+	metadata, ok := m.metadata[u]
+	m.mu.Unlock()
+	if ok {
+		return metadata, nil
+	}
+
 	if err := get(ctx, u, &metadata); err != nil {
 		return maven.Metadata{}, err
 	}
+
+	m.mu.Lock()
+	m.metadata[u] = metadata
+	m.mu.Unlock()
 
 	return metadata, nil
 }
@@ -92,10 +125,20 @@ func (m *MavenRegistryAPIClient) GetArtifactMetadata(ctx context.Context, groupI
 		return maven.Metadata{}, fmt.Errorf("failed to join path: %w", err)
 	}
 
-	var metadata maven.Metadata
+	m.mu.Lock()
+	metadata, ok := m.metadata[u]
+	m.mu.Unlock()
+	if ok {
+		return metadata, nil
+	}
+
 	if err := get(ctx, u, &metadata); err != nil {
 		return maven.Metadata{}, err
 	}
+
+	m.mu.Lock()
+	m.metadata[u] = metadata
+	m.mu.Unlock()
 
 	return metadata, nil
 }
@@ -116,5 +159,12 @@ func get(ctx context.Context, url string, dst interface{}) error {
 		return fmt.Errorf("%w: Maven registry query status: %s", errAPIFailed, resp.Status)
 	}
 
-	return xml.NewDecoder(resp.Body).Decode(dst)
+	d := xml.NewDecoder(resp.Body)
+	// Set charset reader for conversion from non-UTF-8 charset into UTF-8.
+	d.CharsetReader = charset.NewReaderLabel
+	// Set HTML entity map for translation between non-standard entity names
+	// and string replacements.
+	d.Entity = xml.HTMLEntity
+
+	return d.Decode(dst)
 }

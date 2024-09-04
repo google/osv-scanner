@@ -170,9 +170,9 @@
     <maven.compiler.source>1.7</maven.compiler.source>
     <maven.compiler.target>1.7</maven.compiler.target>
     <junit.version>4.13.2</junit.version>
-&#x9;  <zeppelin.daemon.package.base>
-&#x9;    ../bin
-&#x9;  </zeppelin.daemon.package.base>
+      <zeppelin.daemon.package.base>
+        ../bin
+      </zeppelin.daemon.package.base>
   </properties>
 
   <dependencies>
@@ -206,16 +206,16 @@
 
   <dependencyManagement>
     <dependencies>
-    <dependency>
-      <groupId>org.example</groupId>
-      <artifactId>extra-one</artifactId>
-      <version>6.6.6</version>
-    </dependency>
-    <dependency>
-      <groupId>org.example</groupId>
-      <artifactId>extra-two</artifactId>
-      <version>9.9.9</version>
-    </dependency>
+      <dependency>
+        <groupId>org.example</groupId>
+        <artifactId>extra-one</artifactId>
+        <version>6.6.6</version>
+      </dependency>
+      <dependency>
+        <groupId>org.example</groupId>
+        <artifactId>extra-two</artifactId>
+        <version>9.9.9</version>
+      </dependency>
       <dependency>
         <groupId>org.example</groupId>
         <artifactId>xyz</artifactId>

@@ -110,7 +110,7 @@ func TestMavenReadWrite(t *testing.T) {
 	defer df.Close()
 
 	mavenIO := MavenManifestIO{
-		MavenRegistryAPIClient: *datasource.NewMavenRegistryAPIClient(srv.URL),
+		MavenRegistryAPIClient: datasource.NewMavenRegistryAPIClient(srv.URL),
 	}
 
 	got, err := mavenIO.Read(df)

@@ -31,7 +31,7 @@ const MaxParent = 100
 // allowLocal indicates whether parsing local parent pom.xml is allowed.
 // path holds the path to the current pom.xml, which is used to compute the
 // relative path of parent.
-func MergeParents(ctx context.Context, mavenClient datasource.MavenRegistryAPIClient, result *maven.Project, current maven.Parent, start int, path string, allowLocal bool) error {
+func MergeParents(ctx context.Context, mavenClient *datasource.MavenRegistryAPIClient, result *maven.Project, current maven.Parent, start int, path string, allowLocal bool) error {
 	currentPath := path
 	visited := make(map[maven.ProjectKey]bool, MaxParent)
 	for n := start; n < MaxParent; n++ {
@@ -52,7 +52,9 @@ func MergeParents(ctx context.Context, mavenClient datasource.MavenRegistryAPICl
 			if err != nil {
 				return fmt.Errorf("failed to open parent file %s: %w", parentPath, err)
 			}
-			if err := xml.NewDecoder(f).Decode(&proj); err != nil {
+			err = xml.NewDecoder(f).Decode(&proj)
+			f.Close()
+			if err != nil {
 				return fmt.Errorf("failed to unmarshal project: %w", err)
 			}
 			if ProjectKey(proj) == current.ProjectKey && proj.Packaging == "pom" {
