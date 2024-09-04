@@ -23,8 +23,8 @@ func (m *MavenRegistryAPIClient) GobEncode() ([]byte, error) {
 
 	cache := mavenRegistryCache{
 		Timestamp: m.cacheTimestamp,
-		Projects:  m.projects,
-		Metadata:  m.metadata,
+		Projects:  m.projects.Map,
+		Metadata:  m.metadata.Map,
 	}
 
 	return gobMarshal(&cache)
@@ -45,8 +45,8 @@ func (m *MavenRegistryAPIClient) GobDecode(b []byte) error {
 	defer m.mu.Unlock()
 
 	m.cacheTimestamp = cache.Timestamp
-	m.projects = cache.Projects
-	m.metadata = cache.Metadata
+	m.projects.Map = cache.Projects
+	m.metadata.Map = cache.Metadata
 
 	return nil
 }

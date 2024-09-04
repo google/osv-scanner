@@ -11,7 +11,6 @@ import (
 
 	"github.com/tidwall/gjson"
 	"golang.org/x/exp/maps"
-	"golang.org/x/sync/singleflight"
 )
 
 type NpmRegistryAPIClient struct {
@@ -23,9 +22,7 @@ type NpmRegistryAPIClient struct {
 	// cache fields
 	mu             sync.Mutex
 	cacheTimestamp *time.Time // If set, this means we loaded from a cache
-	details        map[string]npmRegistryPackageDetails
-
-	group *singleflight.Group
+	details        requestCache[string, npmRegistryPackageDetails]
 }
 
 type npmRegistryPackageDetails struct {
@@ -40,11 +37,10 @@ func NewNpmRegistryAPIClient(workdir string) (*NpmRegistryAPIClient, error) {
 		return nil, err
 	}
 
-	return &NpmRegistryAPIClient{
-		registries: registries,
-		details:    make(map[string]npmRegistryPackageDetails),
-		group:      &singleflight.Group{},
-	}, nil
+	c := &NpmRegistryAPIClient{registries: registries}
+	c.details = newRequestCache[string, npmRegistryPackageDetails](&c.mu)
+
+	return c, nil
 }
 
 type npmRegistryVersions struct {
@@ -117,15 +113,7 @@ func (c *NpmRegistryAPIClient) get(ctx context.Context, urlComponents ...string)
 }
 
 func (c *NpmRegistryAPIClient) getPackageDetails(ctx context.Context, pkg string) (npmRegistryPackageDetails, error) {
-	c.mu.Lock()
-	pkgData, ok := c.details[pkg]
-	c.mu.Unlock()
-	if ok {
-		return pkgData, nil
-	}
-
-	// Not cached, make the network request
-	res, err, _ := c.group.Do(pkg, func() (interface{}, error) {
+	return c.details.Get(pkg, func() (npmRegistryPackageDetails, error) {
 		jsonData, err := c.get(ctx, pkg)
 		if err != nil {
 			return npmRegistryPackageDetails{}, err
@@ -141,21 +129,11 @@ func (c *NpmRegistryAPIClient) getPackageDetails(ctx context.Context, pkg string
 				BundleDependencies:   jsonToStringSlice(data.Get("bundleDependencies")),
 			}
 		}
-		pkgData = npmRegistryPackageDetails{
+		return npmRegistryPackageDetails{
 			Versions: versions,
 			Tags:     jsonToStringMap(jsonData.Get("dist-tags")),
-		}
-
-		c.mu.Lock()
-		c.details[pkg] = pkgData
-		c.mu.Unlock()
-
-		return pkgData, nil
+		}, nil
 	})
-
-	c.group.Forget(pkg)
-
-	return res.(npmRegistryPackageDetails), err
 }
 
 func jsonToStringSlice(v gjson.Result) []string {

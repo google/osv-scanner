@@ -54,15 +54,15 @@ func (c *DepsDevAPIClient) GobEncode() ([]byte, error) {
 
 	cache.Timestamp = c.cacheTimestamp
 	var err error
-	cache.PackageCache, err = protoMarshalCache(c.packageCache)
+	cache.PackageCache, err = protoMarshalCache(c.packageCache.Map)
 	if err != nil {
 		return nil, err
 	}
-	cache.VersionCache, err = protoMarshalCache(c.versionCache)
+	cache.VersionCache, err = protoMarshalCache(c.versionCache.Map)
 	if err != nil {
 		return nil, err
 	}
-	cache.RequirementsCache, err = protoMarshalCache(c.requirementsCache)
+	cache.RequirementsCache, err = protoMarshalCache(c.requirementsCache.Map)
 	if err != nil {
 		return nil, err
 	}
@@ -85,13 +85,13 @@ func (c *DepsDevAPIClient) GobDecode(b []byte) error {
 	defer c.mu.Unlock()
 
 	c.cacheTimestamp = cache.Timestamp
-	if err := protoUnmarshalCache(cache.PackageCache, &c.packageCache); err != nil {
+	if err := protoUnmarshalCache(cache.PackageCache, &c.packageCache.Map); err != nil {
 		return err
 	}
-	if err := protoUnmarshalCache(cache.VersionCache, &c.versionCache); err != nil {
+	if err := protoUnmarshalCache(cache.VersionCache, &c.versionCache.Map); err != nil {
 		return err
 	}
-	if err := protoUnmarshalCache(cache.RequirementsCache, &c.requirementsCache); err != nil {
+	if err := protoUnmarshalCache(cache.RequirementsCache, &c.requirementsCache.Map); err != nil {
 		return err
 	}
 

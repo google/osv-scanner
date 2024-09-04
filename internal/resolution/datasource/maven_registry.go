@@ -23,16 +23,16 @@ type MavenRegistryAPIClient struct {
 	// Cache fields
 	mu             sync.Mutex
 	cacheTimestamp *time.Time // If set, this means we loaded from a cache
-	projects       map[string]maven.Project
-	metadata       map[string]maven.Metadata
+	projects       requestCache[string, maven.Project]
+	metadata       requestCache[string, maven.Metadata]
 }
 
 func NewMavenRegistryAPIClient(registry string) *MavenRegistryAPIClient {
-	return &MavenRegistryAPIClient{
-		registry: registry,
-		projects: make(map[string]maven.Project),
-		metadata: make(map[string]maven.Metadata),
-	}
+	c := &MavenRegistryAPIClient{registry: registry}
+	c.projects = newRequestCache[string, maven.Project](&c.mu)
+	c.metadata = newRequestCache[string, maven.Metadata](&c.mu)
+
+	return c
 }
 
 var errAPIFailed = errors.New("API query failed")
@@ -75,22 +75,14 @@ func (m *MavenRegistryAPIClient) getProject(ctx context.Context, groupID, artifa
 		return maven.Project{}, fmt.Errorf("failed to join path: %w", err)
 	}
 
-	m.mu.Lock()
-	proj, ok := m.projects[u]
-	m.mu.Unlock()
-	if ok {
+	return m.projects.Get(u, func() (maven.Project, error) {
+		var proj maven.Project
+		if err := get(ctx, u, &proj); err != nil {
+			return maven.Project{}, err
+		}
+
 		return proj, nil
-	}
-
-	if err := get(ctx, u, &proj); err != nil {
-		return maven.Project{}, err
-	}
-
-	m.mu.Lock()
-	m.projects[u] = proj
-	m.mu.Unlock()
-
-	return proj, nil
+	})
 }
 
 // getVersionMetadata fetches a version level maven-metadata.xml and parses it to maven.Metadata.
@@ -100,22 +92,14 @@ func (m *MavenRegistryAPIClient) getVersionMetadata(ctx context.Context, groupID
 		return maven.Metadata{}, fmt.Errorf("failed to join path: %w", err)
 	}
 
-	m.mu.Lock()
-	metadata, ok := m.metadata[u]
-	m.mu.Unlock()
-	if ok {
+	return m.metadata.Get(u, func() (maven.Metadata, error) {
+		var metadata maven.Metadata
+		if err := get(ctx, u, &metadata); err != nil {
+			return maven.Metadata{}, err
+		}
+
 		return metadata, nil
-	}
-
-	if err := get(ctx, u, &metadata); err != nil {
-		return maven.Metadata{}, err
-	}
-
-	m.mu.Lock()
-	m.metadata[u] = metadata
-	m.mu.Unlock()
-
-	return metadata, nil
+	})
 }
 
 // GetArtifactMetadata fetches an artifact level maven-metadata.xml and parses it to maven.Metadata.
@@ -125,22 +109,14 @@ func (m *MavenRegistryAPIClient) GetArtifactMetadata(ctx context.Context, groupI
 		return maven.Metadata{}, fmt.Errorf("failed to join path: %w", err)
 	}
 
-	m.mu.Lock()
-	metadata, ok := m.metadata[u]
-	m.mu.Unlock()
-	if ok {
+	return m.metadata.Get(u, func() (maven.Metadata, error) {
+		var metadata maven.Metadata
+		if err := get(ctx, u, &metadata); err != nil {
+			return maven.Metadata{}, err
+		}
+
 		return metadata, nil
-	}
-
-	if err := get(ctx, u, &metadata); err != nil {
-		return maven.Metadata{}, err
-	}
-
-	m.mu.Lock()
-	m.metadata[u] = metadata
-	m.mu.Unlock()
-
-	return metadata, nil
+	})
 }
 
 func get(ctx context.Context, url string, dst interface{}) error {

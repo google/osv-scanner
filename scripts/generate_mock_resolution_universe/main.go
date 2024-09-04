@@ -56,7 +56,7 @@ func doRelockRelax(ddCl *client.DepsDevClient, io manifest.ManifestIO, filename 
 		return err
 	}
 
-	cl.PreFetch(context.Background(), manif.Requirements, manif.FilePath)
+	client.PreFetch(cl, context.Background(), manif.Requirements, manif.FilePath)
 	res, err := resolution.Resolve(context.Background(), cl, manif)
 	if err != nil {
 		return err
@@ -87,7 +87,7 @@ func doOverride(ddCl *client.DepsDevClient, io manifest.ManifestIO, filename str
 		return err
 	}
 
-	cl.PreFetch(context.Background(), manif.Requirements, manif.FilePath)
+	client.PreFetch(cl, context.Background(), manif.Requirements, manif.FilePath)
 	res, err := resolution.Resolve(context.Background(), cl, manif)
 	if err != nil {
 		return err

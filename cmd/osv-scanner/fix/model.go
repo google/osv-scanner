@@ -226,7 +226,7 @@ func doInitialRelock(ctx context.Context, opts osvFixOptions) tea.Msg {
 	if err != nil {
 		return doRelockMsg{err: err}
 	}
-	opts.Client.PreFetch(ctx, m.Requirements, m.FilePath)
+	client.PreFetch(opts.Client, ctx, m.Requirements, m.FilePath)
 
 	return doRelock(ctx, opts.Client, m, opts.MatchVuln)
 }

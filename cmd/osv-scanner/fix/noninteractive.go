@@ -12,6 +12,7 @@ import (
 	"deps.dev/util/resolve"
 	"github.com/google/osv-scanner/internal/remediation"
 	"github.com/google/osv-scanner/internal/resolution"
+	"github.com/google/osv-scanner/internal/resolution/client"
 	lf "github.com/google/osv-scanner/internal/resolution/lockfile"
 	"github.com/google/osv-scanner/internal/resolution/manifest"
 	"github.com/google/osv-scanner/pkg/lockfile"
@@ -129,7 +130,7 @@ func autoRelock(ctx context.Context, r reporter.Reporter, opts osvFixOptions, ma
 		return err
 	}
 
-	opts.Client.PreFetch(ctx, manif.Requirements, manif.FilePath)
+	client.PreFetch(opts.Client, ctx, manif.Requirements, manif.FilePath)
 	res, err := resolution.Resolve(ctx, opts.Client, manif)
 	if err != nil {
 		return err
@@ -294,7 +295,7 @@ func autoOverride(ctx context.Context, r reporter.Reporter, opts osvFixOptions, 
 		return err
 	}
 
-	opts.Client.PreFetch(ctx, manif.Requirements, manif.FilePath)
+	client.PreFetch(opts.Client, ctx, manif.Requirements, manif.FilePath)
 	res, err := resolution.Resolve(ctx, opts.Client, manif)
 	if err != nil {
 		return err
