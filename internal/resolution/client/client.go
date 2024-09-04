@@ -30,8 +30,6 @@ type DependencyClient interface {
 	WriteCache(filepath string) error
 	// LoadCache loads a manifest-specific resolution cache.
 	LoadCache(filepath string) error
-	// PreFetch loads cache, then makes and caches likely queries needed for resolving a package with a list of requirements
-	PreFetch(ctx context.Context, requirements []resolve.RequirementVersion, manifestPath string)
 }
 
 // PreFetch loads cache, then makes and caches likely queries needed for resolving a package with a list of requirements
@@ -65,6 +63,14 @@ func PreFetch(c DependencyClient, ctx context.Context, requirements []resolve.Re
 		}
 
 		vk := vks[len(vks)-1]
+
+		// We prefer the exact version for soft requirements.
+		for _, v := range vks {
+			if im.Version == v.Version {
+				vk = v
+				break
+			}
+		}
 
 		// Make a request for the precomputed dependency tree
 		resp, err := insights.GetDependencies(ctx, &pb.GetDependenciesRequest{

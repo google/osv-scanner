@@ -129,6 +129,7 @@ func (c *NpmRegistryAPIClient) getPackageDetails(ctx context.Context, pkg string
 				BundleDependencies:   jsonToStringSlice(data.Get("bundleDependencies")),
 			}
 		}
+
 		return npmRegistryPackageDetails{
 			Versions: versions,
 			Tags:     jsonToStringMap(jsonData.Get("dist-tags")),
