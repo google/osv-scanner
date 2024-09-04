@@ -49,7 +49,7 @@ effectiveUntil = 2022-11-09 # Optional exception expiry date, after which the ov
 reason = "abc" # Optional reason for the override, to explain why it was added
 ```
 
-Each override entry will be checked against every package being scanned, and applied if all the configured fields match. This enables both very broad and very specific overrides based on your needs:
+Overrides are applied if all the configured fields match, enabling you to create very broad or very specific overrides based on your needs:
 
 ```toml
 # ignore everything
