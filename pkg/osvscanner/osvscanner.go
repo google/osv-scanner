@@ -328,11 +328,12 @@ func scanImage(r reporter.Reporter, path string) ([]scannedPackage, error) {
 	for _, l := range scanResults.Lockfiles {
 		for _, pkgDetail := range l.Packages {
 			packages = append(packages, scannedPackage{
-				Name:      pkgDetail.Name,
-				Version:   pkgDetail.Version,
-				Commit:    pkgDetail.Commit,
-				Ecosystem: pkgDetail.Ecosystem,
-				DepGroups: pkgDetail.DepGroups,
+				Name:        pkgDetail.Name,
+				Version:     pkgDetail.Version,
+				Commit:      pkgDetail.Commit,
+				Ecosystem:   pkgDetail.Ecosystem,
+				DepGroups:   pkgDetail.DepGroups,
+				ImageOrigin: pkgDetail.ImageOrigin,
 				Source: models.SourceInfo{
 					Path: path + ":" + l.FilePath,
 					Type: "docker",
@@ -523,7 +524,7 @@ func scanSBOMFile(r reporter.Reporter, path string, fromFSScan bool) ([]scannedP
 	if !fromFSScan {
 		r.Infof("Failed to parse SBOM using all supported formats:\n")
 		for _, err := range errs {
-			r.Infof(err.Error() + "\n")
+			r.Infof("%s\n", err.Error())
 		}
 	}
 
@@ -683,19 +684,6 @@ func filterResults(r reporter.Reporter, results *models.VulnerabilityResults, co
 
 // Filters package-grouped vulnerabilities according to config, preserving ordering. Returns filtered package vulnerabilities.
 func filterPackageVulns(r reporter.Reporter, pkgVulns models.PackageVulns, configToUse config.Config, unimportantCount *int) models.PackageVulns {
-	if ignore, ignoreLine := configToUse.ShouldIgnorePackageVersion(pkgVulns.Package.Name, pkgVulns.Package.Version, pkgVulns.Package.Ecosystem); ignore {
-		pkgString := fmt.Sprintf("%s/%s/%s", pkgVulns.Package.Ecosystem, pkgVulns.Package.Name, pkgVulns.Package.Version)
-		switch len(pkgVulns.Vulnerabilities) {
-		case 1:
-			r.Infof("1 vulnerability for the package %s has been filtered out because: %s\n", pkgString, ignoreLine.Reason)
-		default:
-			r.Infof("%d vulnerabilities for the package %s have been filtered out because: %s\n", len(pkgVulns.Vulnerabilities), pkgString, ignoreLine.Reason)
-		}
-		pkgVulns.Groups = nil
-		pkgVulns.Vulnerabilities = nil
-
-		return pkgVulns
-	}
 	ignoredVulns := map[string]struct{}{}
 
 	// Ignores all unimportant vulnerabilities.
@@ -784,13 +772,14 @@ func parseLockfilePath(lockfileElem string) (string, string) {
 }
 
 type scannedPackage struct {
-	PURL      string
-	Name      string
-	Ecosystem lockfile.Ecosystem
-	Commit    string
-	Version   string
-	Source    models.SourceInfo
-	DepGroups []string
+	PURL        string
+	Name        string
+	Ecosystem   lockfile.Ecosystem
+	Commit      string
+	Version     string
+	Source      models.SourceInfo
+	ImageOrigin *models.ImageOriginDetails
+	DepGroups   []string
 }
 
 // Perform osv scanner action, with optional reporter to output information
@@ -886,10 +875,16 @@ func DoScan(actions ScannerActions, r reporter.Reporter) (models.VulnerabilityRe
 		return models.VulnerabilityResults{}, NoPackagesFoundErr
 	}
 
-	filteredScannedPackages := filterUnscannablePackages(scannedPackages)
+	filteredScannedPackagesWithoutUnscannable := filterUnscannablePackages(scannedPackages)
 
-	if len(filteredScannedPackages) != len(scannedPackages) {
-		r.Infof("Filtered %d local package/s from the scan.\n", len(scannedPackages)-len(filteredScannedPackages))
+	if len(filteredScannedPackagesWithoutUnscannable) != len(scannedPackages) {
+		r.Infof("Filtered %d local package/s from the scan.\n", len(scannedPackages)-len(filteredScannedPackagesWithoutUnscannable))
+	}
+
+	filteredScannedPackages := filterIgnoredPackages(r, filteredScannedPackagesWithoutUnscannable, &configManager)
+
+	if len(filteredScannedPackages) != len(filteredScannedPackagesWithoutUnscannable) {
+		r.Infof("Filtered %d ignored package/s from the scan.\n", len(filteredScannedPackagesWithoutUnscannable)-len(filteredScannedPackages))
 	}
 
 	overrideGoVersion(r, filteredScannedPackages, &configManager)
@@ -960,6 +955,23 @@ func filterUnscannablePackages(packages []scannedPackage) []scannedPackage {
 		case p.Commit != "":
 		case p.PURL != "":
 		default:
+			continue
+		}
+		out = append(out, p)
+	}
+
+	return out
+}
+
+// filterIgnoredPackages removes ignore scanned packages according to config. Returns filtered scanned packages.
+func filterIgnoredPackages(r reporter.Reporter, packages []scannedPackage, configManager *config.ConfigManager) []scannedPackage {
+	out := make([]scannedPackage, 0, len(packages))
+	for _, p := range packages {
+		configToUse := configManager.Get(r, p.Source.Path)
+		if ignore, ignoreLine := configToUse.ShouldIgnorePackageVersion(p.Name, p.Version, string(p.Ecosystem)); ignore {
+			pkgString := fmt.Sprintf("%s/%s/%s", p.Ecosystem, p.Name, p.Version)
+			r.Infof("Package %s has been filtered out because: %s\n", pkgString, ignoreLine.Reason)
+
 			continue
 		}
 		out = append(out, p)

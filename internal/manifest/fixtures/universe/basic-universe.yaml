@@ -24,6 +24,9 @@ schema: |
   org.direct:bob
     2.0.0
       org.transitive:eve@3.3.3
+  org.direct:chris
+    3.0.0
+      org.transitive:frank@3.3.3
   org.eve:eve
     5.0.0
   org.frank:frank
@@ -52,3 +55,6 @@ schema: |
     1.1.1
     2.2.2
     3.3.3
+  org.transitive:frank
+    3.3.3
+    4.4.4

@@ -1,3 +1,34 @@
+# v1.8.4:
+
+### Features:
+
+- [Feature #1177](https://github.com/google/osv-scanner/pull/1177) Adds `--upgrade-config` flag for configuring allowed upgrades on a per-package basis. Also hide & deprecate previous `--disallow-major-upgrades` and `--disallow-package-upgrades` flags.
+
+### Fixes:
+
+- [Bug #1123](https://github.com/google/osv-scanner/issues/1123) Issue when running osv-scanner on project running with golang 1.22 #1123
+
+### Misc:
+
+- [Feature #638](https://github.com/google/osv-scanner/issues/638) Update go policy to use stable go version for builds (updated to go 1.23)
+
+# v1.8.3:
+
+### Features:
+
+- [Feature #889](https://github.com/google/osv-scanner/pull/889) OSV-Scanner now provides "vertical" output format!
+
+### Fixes:
+
+- [Bug #1115](https://github.com/google/osv-scanner/issues/1115) Ensure that `semantic` is passed a valid `models.Ecosystem`.
+- [Bug #1140](https://github.com/google/osv-scanner/pull/1140) Add Maven dependency management to override client.
+- [Bug #1149](https://github.com/google/osv-scanner/pull/1149) Handle Maven parent relative path.
+
+### Misc:
+
+- [Feature #1091](https://github.com/google/osv-scanner/pull/1091) Improved the runtime of DiffVulnerabilityResults. Thanks @neilnaveen!
+- [Feature #1125](https://github.com/google/osv-scanner/pull/1125) Workflow for stale issue and PR management.
+
 # v1.8.2:
 
 ### Features:

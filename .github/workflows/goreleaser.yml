@@ -25,16 +25,15 @@ jobs:
         uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
         with:
           fetch-depth: 0
-          ref: ${{ inputs.commit }}
       - name: Set up Go
         uses: actions/setup-go@0a12ed9d6a96ab950c8f026ed9f722fe0da7ef32 # v5.0.2
         with:
-          go-version-file: .go-version
+          go-version: stable
           check-latest: true
-      - uses: docker/setup-qemu-action@5927c834f5b4fdf503fca6f4c7eccda82949e1ee # v3
-      - uses: docker/setup-buildx-action@4fd812986e6c8c2a69e18311145f9371337f27d4 # v3
+      - uses: docker/setup-qemu-action@49b3bc8e6bdd4a60e6116a5414239cba5943d3cf # v3
+      - uses: docker/setup-buildx-action@988b5a0280414f521da01fcc63a27aeeb4b104db # v3
       - name: ghcr-login
-        uses: docker/login-action@0d4c9c5ea7693da7b068278f7b52bda2a190a446 # v3
+        uses: docker/login-action@9780b0c442fbb1117ed29e0efdff1e18412f7567 # v3
         with:
           registry: ghcr.io
           username: ${{ github.repository_owner }}

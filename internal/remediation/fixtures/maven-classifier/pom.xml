@@ -1,0 +1,18 @@
+<project>
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>dev.osv</groupId>
+  <artifactId>maven-classifier</artifactId>
+  <version>1</version>
+  <dependencies>
+    <dependency>
+      <groupId>com.github.javafaker</groupId>
+      <artifactId>javafaker</artifactId>
+      <version>1.0.2</version>
+      <!-- 
+        This depends on org.yaml:snakeyaml:android:1.23, which has vulnerabilities.
+        Currently, we cannot update artifacts with classifiers, so this should produce no patches
+        even though there are fixed versions for the vulns.
+      -->
+    </dependency>
+  </dependencies>
+</project>

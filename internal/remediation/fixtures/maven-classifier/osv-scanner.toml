@@ -1,0 +1,5 @@
+[[PackageOverrides]]
+name = "org.yaml:snakeyaml"
+ecosystem = "Maven"
+ignore = true
+reason = "This is an intentionally vulnerable test project"

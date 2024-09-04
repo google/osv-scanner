@@ -1,6 +1,6 @@
 # OSV-Scanner
 
-[![OpenSSF Scorecard](https://api.securityscorecards.dev/projects/github.com/google/osv-scanner/badge)](https://api.securityscorecards.dev/projects/github.com/google/osv-scanner)
+[![OpenSSF Scorecard](https://api.securityscorecards.dev/projects/github.com/google/osv-scanner/badge)](https://scorecard.dev/viewer/?uri=github.com/google/osv-scanner)
 [![Go Report Card](https://goreportcard.com/badge/github.com/google/osv-scanner)](https://goreportcard.com/report/github.com/google/osv-scanner)
 [![codecov](https://codecov.io/gh/google/osv-scanner/graph/badge.svg?token=C8IDVX9LP5)](https://codecov.io/gh/google/osv-scanner)
 [![SLSA 3](https://slsa.dev/images/gh-badge-level3.svg)](https://slsa.dev)
@@ -21,6 +21,10 @@ The above all results in fewer, more actionable vulnerability notifications, whi
 ## Documentation
 
 Read our [detailed documentation](https://google.github.io/osv-scanner) to learn how to use OSV-Scanner.
+
+## Go toolchain compatibility policy
+
+We aim to keep the osv-scanner library packages compatible with supported versions of Go (last 2 Go releases), while always building osv-scanner binaries with the latest version of Go.
 
 ## Contribute
 

@@ -37,7 +37,7 @@ Please review the documentation [README](docs/README.md) for more information ab
 
 Install:
 
-1. [Go](https://go.dev/) 1.19+, use `go version` to check.
+1. [Go](https://go.dev/) 1.21+, use `go version` to check.
 2. [GoReleaser](https://goreleaser.com/) (Optional, only if you want reproducible builds).
 
 > **Note**
@@ -94,6 +94,8 @@ You can regenerate snapshots by setting `UPDATE_SNAPS=true` when running tests:
 UPDATE_SNAPS=true ./scripts/run_tests.sh
 ```
 
+If adding a lockfile with known vulnerabilities for test data, also add an [`osv-scanner.toml`](https://google.github.io/osv-scanner/configuration/) config file to exclude those vulnerabilities from scans of the repository.
+
 ### Linting
 
 To lint your code, run
@@ -101,6 +103,12 @@ To lint your code, run
 ```shell
 ./scripts/run_lints.sh
 ```
+
+### Making commits
+
+Please follow the [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) specification for commit messages. This helps us to automate processes like changelog generation and ensures a clear and consistent commit history.
+
+Some types: `feat:`, `fix:`, `docs:`, `chore:`, `refactor:`, and others.
 
 ## Contributing documentation
 

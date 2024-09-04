@@ -15,7 +15,7 @@ func TestTableReporter_Errorf(t *testing.T) {
 	r := reporter.NewTableReporter(io.Discard, writer, reporter.ErrorLevel, false, 0)
 	text := "hello world!"
 
-	r.Errorf(text)
+	r.Errorf("%s", text)
 
 	if writer.String() != text {
 		t.Error("Error level message should have been printed")
@@ -41,7 +41,7 @@ func TestTableReporter_Warnf(t *testing.T) {
 		writer := &bytes.Buffer{}
 		r := reporter.NewTableReporter(writer, io.Discard, test.lvl, false, 0)
 
-		r.Warnf(text)
+		r.Warnf("%s", text)
 
 		if writer.String() != test.expectedPrintout {
 			t.Errorf("expected \"%s\", got \"%s\"", test.expectedPrintout, writer.String())
@@ -65,7 +65,7 @@ func TestTableReporter_Infof(t *testing.T) {
 		writer := &bytes.Buffer{}
 		r := reporter.NewTableReporter(writer, io.Discard, test.lvl, false, 0)
 
-		r.Infof(text)
+		r.Infof("%s", text)
 
 		if writer.String() != test.expectedPrintout {
 			t.Errorf("expected \"%s\", got \"%s\"", test.expectedPrintout, writer.String())
@@ -89,7 +89,7 @@ func TestTableReporter_Verbosef(t *testing.T) {
 		writer := &bytes.Buffer{}
 		r := reporter.NewTableReporter(writer, io.Discard, test.lvl, false, 0)
 
-		r.Verbosef(text)
+		r.Verbosef("%s", text)
 
 		if writer.String() != test.expectedPrintout {
 			t.Errorf("expected \"%s\", got \"%s\"", test.expectedPrintout, writer.String())

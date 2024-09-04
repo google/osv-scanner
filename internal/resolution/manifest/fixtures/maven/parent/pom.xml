@@ -16,7 +16,7 @@
 
   <parent>
     <groupId>org.grandparent</groupId>
-    <artifactId>grandparentparent-pom</artifactId>
+    <artifactId>grandparent-pom</artifactId>
     <version>1.1.1</version>
     <relativePath>./grandparent</relativePath>
   </parent>
@@ -24,6 +24,14 @@
   <properties>
     <aaa.version>1.1.1</aaa.version>
   </properties>
+
+  <dependencies>
+    <dependency>
+      <groupId>org.example</groupId>
+      <artifactId>ddd</artifactId>
+      <version>1.2.3</version>
+    </dependency>
+  </dependencies>
 
   <dependencyManagement>
     <dependencies>

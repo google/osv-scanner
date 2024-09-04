@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-FROM golang:1.22.5-alpine3.19@sha256:0642d4f809abf039440540de1f0e83502401686e3946ed8e7398a1d94648aa6d AS builder
+FROM golang:1.23.0-alpine3.19@sha256:fe8f9c7d418d3ac91787f11c31071c4814b6da5f9aae55bc581a7aacc264c395 AS builder
 
 WORKDIR /src
 COPY ./go.mod ./go.sum ./
@@ -21,7 +21,7 @@ RUN go mod download
 COPY ./ ./
 RUN go build -o osv-scanner ./cmd/osv-scanner/
 
-FROM alpine:3.20@sha256:b89d9c93e9ed3597455c90a0b88a8bbb5cb7188438f70953fede212a0c4394e0
+FROM alpine:3.20@sha256:0a4eaa0eecf5f8c050e5bba433f58c052be7587ee8af3e8b3910ef9ab5fbe9f5
 
 RUN apk --no-cache add ca-certificates git && \
   git config --global --add safe.directory '*'

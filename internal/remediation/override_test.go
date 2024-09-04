@@ -5,15 +5,16 @@ import (
 	"testing"
 
 	"github.com/google/osv-scanner/internal/remediation"
+	"github.com/google/osv-scanner/internal/remediation/upgrade"
 )
 
 func TestComputeOverridePatches(t *testing.T) {
 	t.Parallel()
 
 	basicOpts := remediation.RemediationOptions{
-		DevDeps:    true,
-		MaxDepth:   -1,
-		AllowMajor: true,
+		DevDeps:       true,
+		MaxDepth:      -1,
+		UpgradeConfig: upgrade.NewConfig(),
 	}
 
 	tests := []struct {
@@ -26,6 +27,12 @@ func TestComputeOverridePatches(t *testing.T) {
 			name:         "maven-zeppelin-server",
 			universePath: "./fixtures/zeppelin-server/universe.yaml",
 			manifestPath: "./fixtures/zeppelin-server/pom.xml",
+			opts:         basicOpts,
+		},
+		{
+			name:         "maven-classifier",
+			universePath: "./fixtures/maven-classifier/universe.yaml",
+			manifestPath: "./fixtures/maven-classifier/pom.xml",
 			opts:         basicOpts,
 		},
 	}
