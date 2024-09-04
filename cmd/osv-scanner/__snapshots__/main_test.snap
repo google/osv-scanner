@@ -326,6 +326,53 @@ Attempted to scan lockfile but failed: <rootdir>/fixtures/locks-many-with-invali
 
 ---
 
+[TestRun/config_file_can_be_broad - 1]
+Scanning dir ./fixtures/locks-many
+Scanned <rootdir>/fixtures/locks-many/Gemfile.lock file and found 1 package
+Scanned <rootdir>/fixtures/locks-many/alpine.cdx.xml as CycloneDX SBOM and found 14 packages
+Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
+Scanned <rootdir>/fixtures/locks-many/package-lock.json file and found 1 package
+Scanned <rootdir>/fixtures/locks-many/yarn.lock file and found 1 package
+Scanning dir ./fixtures/locks-insecure
+Scanned <rootdir>/fixtures/locks-insecure/composer.lock file and found 1 package
+Package npm/ansi-html/0.0.1 has been filtered out because: 
+Package npm/balanced-match/1.0.2 has been filtered out because: 
+Filtered 2 ignored package/s from the scan.
+overriding license for package Alpine/alpine-baselayout/3.4.0-r0 with MIT
+overriding license for package Alpine/alpine-baselayout-data/3.4.0-r0 with MIT
+overriding license for package Alpine/alpine-keys/2.4-r1 with MIT
+overriding license for package Alpine/apk-tools/2.12.10-r1 with MIT
+overriding license for package Alpine/busybox-binsh/1.36.1-r27 with MIT
+overriding license for package Alpine/ca-certificates-bundle/20220614-r4 with MIT
+overriding license for package Alpine/libc-utils/0.7.2-r3 with MIT
+overriding license for package Alpine/libcrypto3/3.0.8-r0 with MIT
+overriding license for package Alpine/libssl3/3.0.8-r0 with MIT
+overriding license for package Alpine/musl/1.2.3-r4 with MIT
+overriding license for package Alpine/musl-utils/1.2.3-r4 with MIT
+overriding license for package Alpine/scanelf/1.3.5-r1 with MIT
+overriding license for package Alpine/ssl_client/1.36.1-r27 with MIT
+overriding license for package Alpine/zlib/1.2.13-r0 with MIT
+overriding license for package Packagist/sentry/sdk/2.0.4 with 0BSD
+overriding license for package Packagist/league/flysystem/1.0.8 with 0BSD
++-------------------------------------+------+-----------+------------------+---------+---------------------------------------+
+| OSV URL                             | CVSS | ECOSYSTEM | PACKAGE          | VERSION | SOURCE                                |
++-------------------------------------+------+-----------+------------------+---------+---------------------------------------+
+| https://osv.dev/GHSA-9f46-5r25-5wfm | 9.8  | Packagist | league/flysystem | 1.0.8   | fixtures/locks-insecure/composer.lock |
++-------------------------------------+------+-----------+------------------+---------+---------------------------------------+
++-------------------+-----------+------------------+---------+---------------------------------------+
+| LICENSE VIOLATION | ECOSYSTEM | PACKAGE          | VERSION | SOURCE                                |
++-------------------+-----------+------------------+---------+---------------------------------------+
+| 0BSD              | Packagist | league/flysystem | 1.0.8   | fixtures/locks-insecure/composer.lock |
+| UNKNOWN           | RubyGems  | ast              | 2.4.2   | fixtures/locks-many/Gemfile.lock      |
+| 0BSD              | Packagist | sentry/sdk       | 2.0.4   | fixtures/locks-many/composer.lock     |
++-------------------+-----------+------------------+---------+---------------------------------------+
+
+---
+
+[TestRun/config_file_can_be_broad - 2]
+
+---
+
 [TestRun/cyclonedx_1.4_output - 1]
 {
   "$schema": "http://cyclonedx.org/schema/bom-1.4.schema.json",
