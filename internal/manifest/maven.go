@@ -20,7 +20,7 @@ import (
 
 type MavenResolverExtractor struct {
 	client.DependencyClient
-	datasource.MavenRegistryAPIClient
+	*datasource.MavenRegistryAPIClient
 }
 
 func (e MavenResolverExtractor) ShouldExtract(path string) bool {
@@ -125,12 +125,15 @@ func (e MavenResolverExtractor) Extract(f lockfile.DepFile) ([]lockfile.PackageD
 	return maps.Values(details), nil
 }
 
-func ParseMavenWithResolver(depClient client.DependencyClient, mavenClient datasource.MavenRegistryAPIClient, pathToLockfile string) ([]lockfile.PackageDetails, error) {
+func ParseMavenWithResolver(depClient client.DependencyClient, mavenClient *datasource.MavenRegistryAPIClient, pathToLockfile string) ([]lockfile.PackageDetails, error) {
 	f, err := lockfile.OpenLocalDepFile(pathToLockfile)
 	if err != nil {
 		return []lockfile.PackageDetails{}, err
 	}
 	defer f.Close()
 
-	return MavenResolverExtractor{DependencyClient: depClient, MavenRegistryAPIClient: mavenClient}.Extract(f)
+	return MavenResolverExtractor{
+		DependencyClient:       depClient,
+		MavenRegistryAPIClient: mavenClient,
+	}.Extract(f)
 }

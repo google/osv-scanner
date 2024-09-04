@@ -13,9 +13,7 @@ func TestGetProject(t *testing.T) {
 	t.Parallel()
 
 	srv := testutility.NewMockHTTPServer(t)
-	client := &MavenRegistryAPIClient{
-		registry: srv.URL,
-	}
+	client := NewMavenRegistryAPIClient(srv.URL)
 	srv.SetResponse(t, "org/example/x.y.z/1.0.0/x.y.z-1.0.0.pom", []byte(`
 	<project>
 	  <groupId>org.example</groupId>
@@ -44,9 +42,7 @@ func TestGetProjectSnapshot(t *testing.T) {
 	t.Parallel()
 
 	srv := testutility.NewMockHTTPServer(t)
-	client := &MavenRegistryAPIClient{
-		registry: srv.URL,
-	}
+	client := NewMavenRegistryAPIClient(srv.URL)
 	srv.SetResponse(t, "org/example/x.y.z/3.3.1-SNAPSHOT/maven-metadata.xml", []byte(`
 	<metadata>
 	  <groupId>org.example</groupId>
@@ -100,9 +96,7 @@ func TestGetArtifactMetadata(t *testing.T) {
 	t.Parallel()
 
 	srv := testutility.NewMockHTTPServer(t)
-	client := &MavenRegistryAPIClient{
-		registry: srv.URL,
-	}
+	client := NewMavenRegistryAPIClient(srv.URL)
 	srv.SetResponse(t, "org/example/x.y.z/maven-metadata.xml", []byte(`
 	<metadata>
 	  <groupId>org.example</groupId>
@@ -145,9 +139,7 @@ func TestGetVersionMetadata(t *testing.T) {
 	t.Parallel()
 
 	srv := testutility.NewMockHTTPServer(t)
-	client := &MavenRegistryAPIClient{
-		registry: srv.URL,
-	}
+	client := NewMavenRegistryAPIClient(srv.URL)
 	srv.SetResponse(t, "org/example/x.y.z/3.3.1-SNAPSHOT/maven-metadata.xml", []byte(`
 	<metadata>
 	  <groupId>org.example</groupId>
