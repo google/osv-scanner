@@ -4,6 +4,13 @@
 
 // Package xml implements a simple XML 1.0 parser that
 // understands XML name spaces.
+//
+// Marshalling self-closing tags are not supported in Go.
+// https://github.com/golang/go/issues/21399
+// With the current implementation, self-closing tags are expanded
+// to both StartElement and EndElement.
+// We would like to have our own implementation of decoder so that
+// self-closing tags are read and written with minimum diff.
 package xml
 
 // References:
