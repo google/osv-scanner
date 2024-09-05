@@ -16,6 +16,7 @@ import (
 	"deps.dev/util/resolve"
 	"deps.dev/util/resolve/dep"
 	"github.com/google/osv-scanner/internal/resolution/datasource"
+	internalxml "github.com/google/osv-scanner/internal/thirdparty/xml"
 	mavenutil "github.com/google/osv-scanner/internal/utility/maven"
 	"github.com/google/osv-scanner/pkg/lockfile"
 )
@@ -637,8 +638,8 @@ func compareDependency(d1, d2 dependency) int {
 }
 
 func write(raw string, w io.Writer, patches MavenPatches) error {
-	dec := xml.NewDecoder(bytes.NewReader([]byte(raw)))
-	enc := xml.NewEncoder(w)
+	dec := internalxml.NewDecoder(bytes.NewReader([]byte(raw)))
+	enc := internalxml.NewEncoder(w)
 
 	for {
 		token, err := dec.Token()
@@ -649,7 +650,7 @@ func write(raw string, w io.Writer, patches MavenPatches) error {
 			return fmt.Errorf("getting token: %w", err)
 		}
 
-		if tt, ok := token.(xml.StartElement); ok {
+		if tt, ok := token.(internalxml.StartElement); ok {
 			if tt.Name.Local == "project" {
 				type RawProject struct {
 					InnerXML string `xml:",innerxml"`
@@ -704,7 +705,10 @@ func write(raw string, w io.Writer, patches MavenPatches) error {
 				continue
 			}
 		}
-		if err := encodeToken(w, enc, token); err != nil {
+		if err := enc.EncodeToken(token); err != nil {
+			return err
+		}
+		if err := enc.Flush(); err != nil {
 			return err
 		}
 	}
@@ -712,24 +716,8 @@ func write(raw string, w io.Writer, patches MavenPatches) error {
 	return nil
 }
 
-// encodeToken encodes a XML token without escaping text.
-// For a CharData token, writes the token directly to avoid escaping.
-// For all other token types, uses xml.EncodeToken().
-// After encoding, flushes all buffered XML.
-func encodeToken(w io.Writer, enc *xml.Encoder, token xml.Token) error {
-	if tt, ok := token.(xml.CharData); ok {
-		_, err := w.Write(tt)
-		return err
-	}
-	if err := enc.EncodeToken(token); err != nil {
-		return err
-	}
-
-	return enc.Flush()
-}
-
-func writeProject(w io.Writer, enc *xml.Encoder, raw, prefix, id string, patches MavenDependencyPatches, properties MavenPropertyPatches, updated map[string]bool) error {
-	dec := xml.NewDecoder(bytes.NewReader([]byte(raw)))
+func writeProject(w io.Writer, enc *internalxml.Encoder, raw, prefix, id string, patches MavenDependencyPatches, properties MavenPropertyPatches, updated map[string]bool) error {
+	dec := internalxml.NewDecoder(bytes.NewReader([]byte(raw)))
 	for {
 		token, err := dec.Token()
 		if errors.Is(err, io.EOF) {
@@ -739,7 +727,7 @@ func writeProject(w io.Writer, enc *xml.Encoder, raw, prefix, id string, patches
 			return err
 		}
 
-		if tt, ok := token.(xml.StartElement); ok {
+		if tt, ok := token.(internalxml.StartElement); ok {
 			switch tt.Name.Local {
 			case "parent":
 				updated["parent"] = true
@@ -761,7 +749,7 @@ func writeProject(w io.Writer, enc *xml.Encoder, raw, prefix, id string, patches
 						req = k.NewRequire
 					}
 				}
-				if err := writeString(w, enc, "<parent>"+rawParent.InnerXML+"</parent>", map[string]string{"version": req}); err != nil {
+				if err := writeString(enc, "<parent>"+rawParent.InnerXML+"</parent>", map[string]string{"version": req}); err != nil {
 					return fmt.Errorf("updating parent: %w", err)
 				}
 
@@ -774,7 +762,7 @@ func writeProject(w io.Writer, enc *xml.Encoder, raw, prefix, id string, patches
 				if err := dec.DecodeElement(&rawProperties, &tt); err != nil {
 					return err
 				}
-				if err := writeString(w, enc, "<properties>"+rawProperties.InnerXML+"</properties>", properties[mavenOrigin(prefix, id)]); err != nil {
+				if err := writeString(enc, "<properties>"+rawProperties.InnerXML+"</properties>", properties[mavenOrigin(prefix, id)]); err != nil {
 					return fmt.Errorf("updating properties: %w", err)
 				}
 
@@ -851,16 +839,16 @@ func writeProject(w io.Writer, enc *xml.Encoder, raw, prefix, id string, patches
 				continue
 			}
 		}
-		if err := encodeToken(w, enc, token); err != nil {
+		if err := enc.EncodeToken(token); err != nil {
 			return err
 		}
 	}
 
-	return nil
+	return enc.Flush()
 }
 
-func writeDependency(w io.Writer, enc *xml.Encoder, raw string, patches map[MavenPatch]bool) error {
-	dec := xml.NewDecoder(bytes.NewReader([]byte(raw)))
+func writeDependency(w io.Writer, enc *internalxml.Encoder, raw string, patches map[MavenPatch]bool) error {
+	dec := internalxml.NewDecoder(bytes.NewReader([]byte(raw)))
 	for {
 		token, err := dec.Token()
 		if errors.Is(err, io.EOF) {
@@ -870,10 +858,13 @@ func writeDependency(w io.Writer, enc *xml.Encoder, raw string, patches map[Mave
 			return err
 		}
 
-		if tt, ok := token.(xml.StartElement); ok {
+		if tt, ok := token.(internalxml.StartElement); ok {
 			if tt.Name.Local == "dependencies" {
 				// We still need to write the start element <dependencies>
-				if err := encodeToken(w, enc, token); err != nil {
+				if err := enc.EncodeToken(token); err != nil {
+					return err
+				}
+				if err := enc.Flush(); err != nil {
 					return err
 				}
 
@@ -923,7 +914,7 @@ func writeDependency(w io.Writer, enc *xml.Encoder, raw string, patches map[Mave
 				}
 				// xml.EncodeElement writes all empty elements and may not follow the existing format.
 				// Passing the innerXML can help to keep the original format.
-				if err := writeString(w, enc, "<dependency>"+rawDep.InnerXML+"</dependency>", map[string]string{"version": req}); err != nil {
+				if err := writeString(enc, "<dependency>"+rawDep.InnerXML+"</dependency>", map[string]string{"version": req}); err != nil {
 					return fmt.Errorf("updating dependency: %w", err)
 				}
 
@@ -931,17 +922,17 @@ func writeDependency(w io.Writer, enc *xml.Encoder, raw string, patches map[Mave
 			}
 		}
 
-		if err := encodeToken(w, enc, token); err != nil {
+		if err := enc.EncodeToken(token); err != nil {
 			return err
 		}
 	}
 
-	return nil
+	return enc.Flush()
 }
 
 // writeString writes XML string specified by raw with replacements specified in values.
-func writeString(w io.Writer, enc *xml.Encoder, raw string, values map[string]string) error {
-	dec := xml.NewDecoder(bytes.NewReader([]byte(raw)))
+func writeString(enc *internalxml.Encoder, raw string, values map[string]string) error {
+	dec := internalxml.NewDecoder(bytes.NewReader([]byte(raw)))
 	for {
 		token, err := dec.Token()
 		if errors.Is(err, io.EOF) {
@@ -950,7 +941,7 @@ func writeString(w io.Writer, enc *xml.Encoder, raw string, values map[string]st
 		if err != nil {
 			return err
 		}
-		if tt, ok := token.(xml.StartElement); ok {
+		if tt, ok := token.(internalxml.StartElement); ok {
 			if value, ok2 := values[tt.Name.Local]; ok2 {
 				var str string
 				if err := dec.DecodeElement(&str, &tt); err != nil {
@@ -963,10 +954,10 @@ func writeString(w io.Writer, enc *xml.Encoder, raw string, values map[string]st
 				continue
 			}
 		}
-		if err := encodeToken(w, enc, token); err != nil {
+		if err := enc.EncodeToken(token); err != nil {
 			return err
 		}
 	}
 
-	return nil
+	return enc.Flush()
 }
