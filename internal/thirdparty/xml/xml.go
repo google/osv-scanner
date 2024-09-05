@@ -1916,13 +1916,14 @@ var (
 // EscapeText writes to w the properly escaped XML equivalent
 // of the plain text data s.
 func EscapeText(w io.Writer, s []byte) error {
-	return escapeText(w, s, true)
+	return escapeText(w, s, true, true)
 }
 
 // escapeText writes to w the properly escaped XML equivalent
-// of the plain text data s. If escapeWhitespace is true, whitespace
-// characters will be escaped.
-func escapeText(w io.Writer, s []byte, escapeWhitespace bool) error {
+// of the plain text data s.
+// If escapeNewline is true, newline characters will be escaped.
+// If sescapeTab is true, tab characters will be escaped.
+func escapeText(w io.Writer, s []byte, escapeNewline bool, escapeTab bool) error {
 	var esc []byte
 	last := 0
 	for i := 0; i < len(s); {
@@ -1940,19 +1941,16 @@ func escapeText(w io.Writer, s []byte, escapeWhitespace bool) error {
 		case '>':
 			esc = escGT
 		case '\t':
-			if !escapeWhitespace {
+			if !escapeTab {
 				continue
 			}
 			esc = escTab
 		case '\n':
-			if !escapeWhitespace {
+			if !escapeNewline {
 				continue
 			}
 			esc = escNL
 		case '\r':
-			if !escapeWhitespace {
-				continue
-			}
 			esc = escCR
 		default:
 			if !isInCharacterRange(r) || (r == 0xFFFD && width == 1) {
