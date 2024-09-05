@@ -322,7 +322,7 @@ var _ Marshaler = (*MyMarshalerTest)(nil)
 func (m *MyMarshalerTest) MarshalXML(e *Encoder, start StartElement) error {
 	e.EncodeToken(start)
 	e.EncodeToken(CharData([]byte("hello world")))
-	e.EncodeToken(EndElement{start.Name})
+	e.EncodeToken(EndElement{start.Name, false})
 	return nil
 }
 
@@ -1968,21 +1968,28 @@ var encodeTokenTests = []struct {
 }{{
 	desc: "start element with name space",
 	toks: []Token{
-		StartElement{Name{"space", "local"}, nil},
+		StartElement{Name{"space", "local"}, nil, false},
 	},
 	want: `<local xmlns="space">`,
 }, {
 	desc: "start element with no name",
 	toks: []Token{
-		StartElement{Name{"space", ""}, nil},
+		StartElement{Name{"space", ""}, nil, false},
 	},
 	err: "xml: start tag with no name",
 }, {
 	desc: "end element with no name",
 	toks: []Token{
-		EndElement{Name{"space", ""}},
+		EndElement{Name{"space", ""}, false},
 	},
 	err: "xml: end tag with no name",
+}, {
+	desc: "empty element",
+	toks: []Token{
+		StartElement{Name{"", "foo"}, nil, true},
+		EndElement{Name{"", "foo"}, true},
+	},
+	want: `<foo/>`,
 }, {
 	desc: "char data",
 	toks: []Token{
@@ -2048,22 +2055,22 @@ var encodeTokenTests = []struct {
 }, {
 	desc: "end tag without start tag",
 	toks: []Token{
-		EndElement{Name{"foo", "bar"}},
+		EndElement{Name{"foo", "bar"}, false},
 	},
 	err: "xml: end tag </bar> without start tag",
 }, {
 	desc: "mismatching end tag local name",
 	toks: []Token{
-		StartElement{Name{"", "foo"}, nil},
-		EndElement{Name{"", "bar"}},
+		StartElement{Name{"", "foo"}, nil, false},
+		EndElement{Name{"", "bar"}, false},
 	},
 	err:  "xml: end tag </bar> does not match start tag <foo>",
 	want: `<foo>`,
 }, {
 	desc: "mismatching end tag namespace",
 	toks: []Token{
-		StartElement{Name{"space", "foo"}, nil},
-		EndElement{Name{"another", "foo"}},
+		StartElement{Name{"space", "foo"}, nil, false},
+		EndElement{Name{"another", "foo"}, false},
 	},
 	err:  "xml: end tag </foo> in namespace another does not match start tag <foo> in namespace space",
 	want: `<foo xmlns="space">`,
@@ -2073,7 +2080,7 @@ var encodeTokenTests = []struct {
 		StartElement{Name{"space", "local"}, []Attr{
 			{Name{"xmlns", "x"}, "space"},
 			{Name{"space", "foo"}, "value"},
-		}},
+		}, false},
 	},
 	want: `<local xmlns="space" xmlns:_xmlns="xmlns" _xmlns:x="space" xmlns:space="space" space:foo="value">`,
 }, {
@@ -2083,7 +2090,7 @@ var encodeTokenTests = []struct {
 			{Name{"xmlns", "x"}, "space"},
 			{Name{"space", "foo"}, "value"},
 			{Name{"x", "bar"}, "other"},
-		}},
+		}, false},
 	},
 	want: `<local xmlns="space" xmlns:_xmlns="xmlns" _xmlns:x="space" xmlns:space="space" space:foo="value" xmlns:x="x" x:bar="other">`,
 }, {
@@ -2091,10 +2098,10 @@ var encodeTokenTests = []struct {
 	toks: []Token{
 		StartElement{Name{"", "local"}, []Attr{
 			{Name{"xmlns", "x"}, "space"},
-		}},
+		}, false},
 		StartElement{Name{"space", "foo"}, []Attr{
 			{Name{"space", "x"}, "y"},
-		}},
+		}, false},
 	},
 	want: `<local xmlns:_xmlns="xmlns" _xmlns:x="space"><foo xmlns="space" xmlns:space="space" space:x="y">`,
 }, {
@@ -2102,20 +2109,20 @@ var encodeTokenTests = []struct {
 	toks: []Token{
 		StartElement{Name{"", "foo"}, []Attr{
 			{Name{"xmlns", "x"}, "space1"},
-		}},
+		}, false},
 		StartElement{Name{"", "foo"}, []Attr{
 			{Name{"xmlns", "x"}, "space2"},
-		}},
+		}, false},
 		StartElement{Name{"", "foo"}, []Attr{
 			{Name{"space1", "a"}, "space1 value"},
 			{Name{"space2", "b"}, "space2 value"},
-		}},
-		EndElement{Name{"", "foo"}},
-		EndElement{Name{"", "foo"}},
+		}, false},
+		EndElement{Name{"", "foo"}, false},
+		EndElement{Name{"", "foo"}, false},
 		StartElement{Name{"", "foo"}, []Attr{
 			{Name{"space1", "a"}, "space1 value"},
 			{Name{"space2", "b"}, "space2 value"},
-		}},
+		}, false},
 	},
 	want: `<foo xmlns:_xmlns="xmlns" _xmlns:x="space1"><foo _xmlns:x="space2"><foo xmlns:space1="space1" space1:a="space1 value" xmlns:space2="space2" space2:b="space2 value"></foo></foo><foo xmlns:space1="space1" space1:a="space1 value" xmlns:space2="space2" space2:b="space2 value">`,
 }, {
@@ -2125,7 +2132,7 @@ var encodeTokenTests = []struct {
 			{Name{"xmlns", "a"}, "space"},
 			{Name{"xmlns", "b"}, "space"},
 			{Name{"space", "x"}, "value"},
-		}},
+		}, false},
 	},
 	want: `<foo xmlns="space" xmlns:_xmlns="xmlns" _xmlns:a="space" _xmlns:b="space" xmlns:space="space" space:x="value">`,
 }, {
@@ -2133,11 +2140,11 @@ var encodeTokenTests = []struct {
 	toks: []Token{
 		StartElement{Name{"", "foo"}, []Attr{
 			{Name{"xmlns", "x"}, "space"},
-		}},
+		}, false},
 		StartElement{Name{"space", "foo"}, []Attr{
 			{Name{"xmlns", "y"}, "space"},
 			{Name{"space", "a"}, "value"},
-		}},
+		}, false},
 	},
 	want: `<foo xmlns:_xmlns="xmlns" _xmlns:x="space"><foo xmlns="space" _xmlns:y="space" xmlns:space="space" space:a="value">`,
 }, {
@@ -2145,11 +2152,11 @@ var encodeTokenTests = []struct {
 	toks: []Token{
 		StartElement{Name{"space", "foo"}, []Attr{
 			{Name{"", "xmlns"}, "space"},
-		}},
+		}, false},
 		StartElement{Name{"space", "foo"}, []Attr{
 			{Name{"xmlns", "y"}, "space"},
 			{Name{"space", "a"}, "value"},
-		}},
+		}, false},
 	},
 	want: `<foo xmlns="space" xmlns="space"><foo xmlns="space" xmlns:_xmlns="xmlns" _xmlns:y="space" xmlns:space="space" space:a="value">`,
 }, {
@@ -2157,11 +2164,11 @@ var encodeTokenTests = []struct {
 	toks: []Token{
 		StartElement{Name{"", "foo"}, []Attr{
 			{Name{"xmlns", "x"}, "space"},
-		}},
+		}, false},
 		StartElement{Name{"space", "foo"}, []Attr{
 			{Name{"", "xmlns"}, "space"},
 			{Name{"space", "a"}, "value"},
-		}},
+		}, false},
 	},
 	want: `<foo xmlns:_xmlns="xmlns" _xmlns:x="space"><foo xmlns="space" xmlns="space" xmlns:space="space" space:a="value">`,
 }, {
@@ -2169,10 +2176,10 @@ var encodeTokenTests = []struct {
 	toks: []Token{
 		StartElement{Name{"space", "foo"}, []Attr{
 			{Name{"", "xmlns"}, "space"},
-		}},
+		}, false},
 		StartElement{Name{"space", "foo"}, []Attr{
 			{Name{"", "attr"}, "value"},
-		}},
+		}, false},
 	},
 	want: `<foo xmlns="space" xmlns="space"><foo xmlns="space" attr="value">`,
 }, {
@@ -2180,7 +2187,7 @@ var encodeTokenTests = []struct {
 	toks: []Token{
 		StartElement{Name{"", "foo"}, []Attr{
 			{Name{"foo", "xmlns"}, "space"},
-		}},
+		}, false},
 	},
 	want: `<foo xmlns:foo="foo" foo:xmlns="space">`,
 }, {
@@ -2188,7 +2195,7 @@ var encodeTokenTests = []struct {
 	toks: []Token{
 		StartElement{Name{"space", "foo"}, []Attr{
 			{Name{"xml", "xmlns"}, "space"},
-		}},
+		}, false},
 	},
 	want: `<foo xmlns="space" xmlns:_xml="xml" _xml:xmlns="space">`,
 }, {
@@ -2196,7 +2203,7 @@ var encodeTokenTests = []struct {
 	toks: []Token{
 		StartElement{Name{"space", "foo"}, []Attr{
 			{Name{xmlURL, "xmlns"}, "space"},
-		}},
+		}, false},
 	},
 	want: `<foo xmlns="space" xml:xmlns="space">`,
 }, {
@@ -2204,7 +2211,7 @@ var encodeTokenTests = []struct {
 	toks: []Token{
 		StartElement{Name{"", "foo"}, []Attr{
 			{Name{"xmlns", "foo"}, ""},
-		}},
+		}, false},
 	},
 	want: `<foo xmlns:_xmlns="xmlns" _xmlns:foo="">`,
 }, {
@@ -2212,7 +2219,7 @@ var encodeTokenTests = []struct {
 	toks: []Token{
 		StartElement{Name{"", "foo"}, []Attr{
 			{Name{"", ""}, "value"},
-		}},
+		}, false},
 	},
 	want: `<foo>`,
 }, {
@@ -2220,7 +2227,7 @@ var encodeTokenTests = []struct {
 	toks: []Token{
 		StartElement{Name{"/34", "foo"}, []Attr{
 			{Name{"/34", "x"}, "value"},
-		}},
+		}, false},
 	},
 	want: `<foo xmlns="/34" xmlns:_="/34" _:x="value">`,
 }, {
@@ -2228,12 +2235,12 @@ var encodeTokenTests = []struct {
 	toks: []Token{
 		StartElement{Name{"space", "foo"}, []Attr{
 			{Name{"", "xmlns"}, "space"},
-		}},
+		}, false},
 		StartElement{Name{"", "foo"}, []Attr{
 			{Name{"", "xmlns"}, ""},
 			{Name{"", "x"}, "value"},
 			{Name{"space", "x"}, "value"},
-		}},
+		}, false},
 	},
 	want: `<foo xmlns="space" xmlns="space"><foo xmlns="" x="value" xmlns:space="space" space:x="value">`,
 }, {
@@ -2241,8 +2248,8 @@ var encodeTokenTests = []struct {
 	toks: []Token{
 		StartElement{Name{"space", "foo"}, []Attr{
 			{Name{"", "xmlns"}, "space"},
-		}},
-		StartElement{Name{"", "foo"}, nil},
+		}, false},
+		StartElement{Name{"", "foo"}, nil, false},
 	},
 	want: `<foo xmlns="space" xmlns="space"><foo>`,
 }, {
@@ -2251,7 +2258,7 @@ var encodeTokenTests = []struct {
 		StartElement{Name{"some/space", "foo"}, []Attr{
 			{Name{"", "attr"}, "value"},
 			{Name{"some/space", "other"}, "other value"},
-		}},
+		}, false},
 	},
 	want: `<foo xmlns="some/space" attr="value" xmlns:space="some/space" space:other="other value">`,
 }, {
@@ -2261,10 +2268,10 @@ var encodeTokenTests = []struct {
 			{Name{"", "xmlns"}, "space"},
 			{Name{"xmlns", "bar"}, "space"},
 			{Name{"space", "baz"}, "foo"},
-		}},
-		StartElement{Name{"space", "baz"}, nil},
-		EndElement{Name{"space", "baz"}},
-		EndElement{Name{"space", "foo"}},
+		}, false},
+		StartElement{Name{"space", "baz"}, nil, false},
+		EndElement{Name{"space", "baz"}, false},
+		EndElement{Name{"space", "foo"}, false},
 	},
 	want: `<foo xmlns="space" xmlns="space" xmlns:_xmlns="xmlns" _xmlns:bar="space" xmlns:space="space" space:baz="foo"><baz xmlns="space"></baz></foo>`,
 }, {
@@ -2273,10 +2280,10 @@ var encodeTokenTests = []struct {
 		StartElement{Name{"space", "foo"}, []Attr{
 			{Name{"", "xmlns"}, "space"},
 			{Name{"space", "baz"}, "foo"},
-		}},
-		StartElement{Name{"space", "baz"}, nil},
-		EndElement{Name{"space", "baz"}},
-		EndElement{Name{"space", "foo"}},
+		}, false},
+		StartElement{Name{"space", "baz"}, nil, false},
+		EndElement{Name{"space", "baz"}, false},
+		EndElement{Name{"space", "foo"}, false},
 	},
 	want: `<foo xmlns="space" xmlns="space" xmlns:space="space" space:baz="foo"><baz xmlns="space"></baz></foo>`,
 }, {
@@ -2284,10 +2291,10 @@ var encodeTokenTests = []struct {
 	toks: []Token{
 		StartElement{Name{"", "foo"}, []Attr{
 			{Name{"", "xmlns"}, "space"},
-		}},
+		}, false},
 		StartElement{Name{"space", "bar"}, []Attr{
 			{Name{"space", "attr"}, "value"},
-		}},
+		}, false},
 	},
 	want: `<foo xmlns="space"><bar xmlns="space" xmlns:space="space" space:attr="value">`,
 }, {
@@ -2295,7 +2302,7 @@ var encodeTokenTests = []struct {
 	toks: []Token{
 		StartElement{Name{"", "foo"}, []Attr{
 			{Name{"http://www.w3.org/2001/xmlSchema-instance", "nil"}, "true"},
-		}},
+		}, false},
 	},
 	want: `<foo xmlns:_xmlSchema-instance="http://www.w3.org/2001/xmlSchema-instance" _xmlSchema-instance:nil="true">`,
 }, {
@@ -2303,7 +2310,7 @@ var encodeTokenTests = []struct {
 	toks: []Token{
 		StartElement{Name{"", "foo"}, []Attr{
 			{Name{"http://www.w3.org/2001/XMLSchema-instance", "nil"}, "true"},
-		}},
+		}, false},
 	},
 	want: `<foo xmlns:_XMLSchema-instance="http://www.w3.org/2001/XMLSchema-instance" _XMLSchema-instance:nil="true">`,
 }, {
@@ -2311,7 +2318,7 @@ var encodeTokenTests = []struct {
 	toks: []Token{
 		StartElement{Name{"", "foo"}, []Attr{
 			{Name{"http://www.w3.org/2001/XmLSchema-instance", "nil"}, "true"},
-		}},
+		}, false},
 	},
 	want: `<foo xmlns:_XmLSchema-instance="http://www.w3.org/2001/XmLSchema-instance" _XmLSchema-instance:nil="true">`,
 }}
@@ -2542,15 +2549,15 @@ var closeTests = []struct {
 }{{
 	desc: "unclosed start element",
 	toks: []Token{
-		StartElement{Name{"", "foo"}, nil},
+		StartElement{Name{"", "foo"}, nil, false},
 	},
 	want: `<foo>`,
 	err:  "unclosed tag <foo>",
 }, {
 	desc: "closed element",
 	toks: []Token{
-		StartElement{Name{"", "foo"}, nil},
-		EndElement{Name{"", "foo"}},
+		StartElement{Name{"", "foo"}, nil, false},
+		EndElement{Name{"", "foo"}, false},
 	},
 	want: `<foo></foo>`,
 }, {
