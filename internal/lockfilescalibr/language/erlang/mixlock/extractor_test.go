@@ -70,7 +70,6 @@ func TestExtractor_Extract(t *testing.T) {
 			InputConfig: sharedtesthelpers.ScanInputMockConfig{
 				Path: "testdata/empty.lock",
 			},
-			WantInventory: []*extractor.Inventory{},
 		},
 		{
 			Name: "one package",

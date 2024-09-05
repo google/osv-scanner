@@ -70,21 +70,18 @@ func TestExtractor_Extract(t *testing.T) {
 			InputConfig: sharedtesthelpers.ScanInputMockConfig{
 				Path: "testdata/no-spec-section.lock",
 			},
-			WantInventory: []*extractor.Inventory{},
 		},
 		{
 			Name: "no gem section",
 			InputConfig: sharedtesthelpers.ScanInputMockConfig{
 				Path: "testdata/no-gem-section.lock",
 			},
-			WantInventory: []*extractor.Inventory{},
 		},
 		{
 			Name: "no gems",
 			InputConfig: sharedtesthelpers.ScanInputMockConfig{
 				Path: "testdata/no-gems.lock",
 			},
-			WantInventory: []*extractor.Inventory{},
 		},
 		{
 			Name: "one gem",

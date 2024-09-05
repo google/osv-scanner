@@ -7,8 +7,11 @@ import (
 	"io/fs"
 	"os"
 	"path/filepath"
+	"slices"
 	"strings"
 	"testing"
+
+	ordercmp "cmp"
 
 	"github.com/google/go-cmp/cmp"
 	"github.com/google/osv-scanner/internal/lockfilescalibr/extractor"
@@ -233,18 +236,64 @@ func ExtractionTester(t *testing.T, extractor filesystem.Extractor, tt TestTable
 	wrapper := GenerateScanInputMock(t, tt.InputConfig)
 	got, err := extractor.Extract(context.Background(), &wrapper.ScanInput)
 	wrapper.Close()
-	if tt.WantErrIs != nil {
-		ExpectErrIs(t, err, tt.WantErrIs)
-	}
-	if tt.WantErrContaining != "" {
-		ExpectErrContaining(t, err, tt.WantErrContaining)
+
+	if tt.WantErrContaining == "" && tt.WantErrIs == nil {
+		if err != nil {
+			t.Errorf("Got error when expecting none: '%s'", err)
+			return got, err
+		}
+	} else {
+		if err == nil {
+			t.Errorf("Expected to get error, but did not.")
+			return got, err
+		}
 	}
 
-	if tt.WantErrContaining == "" && tt.WantErrIs == nil && err != nil {
-		t.Errorf("Got error when expecting none: '%s'", err)
-	} else {
-		expectPackages(t, got, tt.WantInventory)
+	if tt.WantErrIs != nil {
+		if !errors.Is(err, tt.WantErrIs) {
+			t.Errorf("Expected to get \"%v\" error but got \"%v\" instead", tt.WantErrIs, err)
+		}
+		return got, err
+	}
+
+	if tt.WantErrContaining != "" {
+		if !strings.Contains(err.Error(), tt.WantErrContaining) {
+			t.Errorf("Expected to get \"%s\" error, but got \"%v\"", tt.WantErrContaining, err)
+		}
+		return got, err
+	}
+
+	SortInventories(got)
+	SortInventories(tt.WantInventory)
+	if !cmp.Equal(got, tt.WantInventory) {
+		t.Errorf("%s.Extract(%s) diff: \n%s", extractor.Name(), tt.InputConfig.Path, cmp.Diff(got, tt.WantInventory))
 	}
 
 	return got, err
+}
+
+// SortInventories sorts the incoming inventories to allow cmp matching
+// This does not sort all available fields (e.g. Metadata)
+func SortInventories(inv []*extractor.Inventory) {
+	slices.SortFunc(inv, func(a, b *extractor.Inventory) int {
+		// TODO: Is there a better way to compare SourceCode?
+		sourceComparison := 0
+		if a.SourceCode != nil && b.SourceCode != nil {
+			sourceComparison = ordercmp.Or(
+				ordercmp.Compare(a.SourceCode.Repo, b.SourceCode.Repo),
+				ordercmp.Compare(a.SourceCode.Commit, b.SourceCode.Commit),
+			)
+		} else if a.SourceCode == nil {
+			sourceComparison = -1
+		} else if b.SourceCode == nil {
+			sourceComparison = 1
+		}
+
+		return ordercmp.Or(
+			ordercmp.Compare(strings.Join(a.Locations, "//"), strings.Join(b.Locations, "//")),
+			ordercmp.Compare(a.Name, b.Name),
+			ordercmp.Compare(a.Version, b.Version),
+			sourceComparison,
+		)
+	})
 }
