@@ -163,7 +163,7 @@ func runGovulncheck(moddir string, vulns []models.Vulnerability, goVersion strin
 	var b bytes.Buffer
 	cmd.Stdout = &b
 	// Disable CGO because govulncheck does not support CGO code, and will always fail.
-	// This still leaves govulncheck govulncheck enabled for non C related calls.
+	// This still leaves govulncheck enabled for non C related calls.
 	cmd.Env = append(os.Environ(), "GOVERSION=go"+goVersion, "CGO_ENABLED=0")
 	if err := cmd.Start(); err != nil {
 		return nil, err
