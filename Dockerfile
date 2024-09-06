@@ -29,6 +29,4 @@ RUN apk --no-cache add ca-certificates git && \
 WORKDIR /root/
 COPY --from=builder /src/osv-scanner .
 
-ENV CGO_ENABLED=0
-
 ENTRYPOINT ["/root/osv-scanner"]
