@@ -24,4 +24,6 @@ RUN git config --global --add safe.directory '*'
 
 COPY osv-scanner ./
 
+ENV CGO_ENABLED=0
+
 ENTRYPOINT ["/osv-scanner"]

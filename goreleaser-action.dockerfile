@@ -29,5 +29,6 @@ COPY ./osv-reporter ./
 COPY ./exit_code_redirect.sh ./
 
 ENV PATH="${PATH}:/root"
+ENV CGO_ENABLED=0
 
 ENTRYPOINT ["bash", "/root/exit_code_redirect.sh"]
