@@ -52,26 +52,26 @@ reason = "abc" # Optional reason for the override, to explain why it was added
 Overrides are applied if all the configured fields match, enabling you to create very broad or very specific overrides based on your needs:
 
 ```toml
-# ignore everything
+# ignore everything in the current directory
 [[PackageOverrides]]
 ignore = true
 
-# ignore everything in a particular group
+# ignore a particular group
 [[PackageOverrides]]
 group = "dev"
 ignore = true
 
-# ignore everything in a particular ecosystem
+# ignore a particular ecosystem
 [[PackageOverrides]]
 ecosystem = "go"
 ignore = true
 
-# ignore all packages named "axios" regardless of ecosystem or group
+# ignore packages named "axios" regardless of ecosystem or group
 [[PackageOverrides]]
 name = "axios"
 ignore = true
 
-# ignore all packages named "axios" in the npm ecosystem that are in the dev group
+# ignore packages named "axios" in the npm ecosystem that are in the dev group
 [[PackageOverrides]]
 name = "axios"
 ecosystem = "npm"
