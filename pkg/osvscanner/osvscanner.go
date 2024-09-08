@@ -967,17 +967,17 @@ func filterIgnoredPackages(r reporter.Reporter, packages []scannedPackage, confi
 	out := make([]scannedPackage, 0, len(packages))
 	for _, p := range packages {
 		configToUse := configManager.Get(r, p.Source.Path)
-		if ignore, ignoreLine := configToUse.ShouldIgnorePackage(
-			models.PackageVulns{
-				Package: models.PackageInfo{
-					Name:      p.Name,
-					Version:   p.Version,
-					Ecosystem: string(p.Ecosystem),
-					Commit:    p.Commit,
-				},
-				DepGroups: p.DepGroups,
+		pkg := models.PackageVulns{
+			Package: models.PackageInfo{
+				Name:      p.Name,
+				Version:   p.Version,
+				Ecosystem: string(p.Ecosystem),
+				Commit:    p.Commit,
 			},
-		); ignore {
+			DepGroups: p.DepGroups,
+		}
+
+		if ignore, ignoreLine := configToUse.ShouldIgnorePackage(pkg); ignore {
 			pkgString := fmt.Sprintf("%s/%s/%s", p.Ecosystem, p.Name, p.Version)
 			r.Infof("Package %s has been filtered out because: %s\n", pkgString, ignoreLine.Reason)
 
