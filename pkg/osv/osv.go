@@ -311,7 +311,7 @@ func makeRetryRequest(action func() (*http.Response, error)) (*http.Response, er
 	var resp *http.Response
 	var err error
 
-	for i := 0; i < maxRetryAttempts; i++ {
+	for i := range maxRetryAttempts {
 		// rand is initialized with a random number (since go1.20), and is also safe to use concurrently
 		// we do not need to use a cryptographically secure random jitter, this is just to spread out the retry requests
 		// #nosec G404
