@@ -61,6 +61,13 @@ func hasPackage(t *testing.T, packages []lockfile.PackageDetails, pkg lockfile.P
 		if ignoreLocations {
 			ignore = []string{"BlockLocation", "NameLocation", "VersionLocation"}
 		}
+
+		if details.Name == pkg.Name {
+			if cmp.Equal(details, pkg, cmpopts.IgnoreFields(lockfile.PackageDetails{}, ignore...)) {
+				return true
+			}
+		}
+
 		if cmp.Equal(details, pkg, cmpopts.IgnoreFields(lockfile.PackageDetails{}, ignore...)) {
 			return true
 		}
