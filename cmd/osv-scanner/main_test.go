@@ -312,6 +312,12 @@ func TestRun(t *testing.T) {
 			args: []string{"", "--config=./fixtures/go-project/go-version-config.toml", "./fixtures/go-project"},
 			exit: 0,
 		},
+		// broad config file that overrides a whole ecosystem
+		{
+			name: "config file can be broad",
+			args: []string{"", "--config=./fixtures/osv-scanner-composite-config.toml", "--experimental-licenses", "MIT", "./fixtures/locks-many", "./fixtures/locks-insecure"},
+			exit: 1,
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
