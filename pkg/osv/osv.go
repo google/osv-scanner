@@ -282,7 +282,6 @@ func HydrateWithClient(resp *BatchedResponse, client *http.Client) (*HydratedBat
 		for resultIdx, vuln := range response.Vulns {
 			id := vuln.ID
 			batchIdx := batchIdx
-			resultIdx := resultIdx
 			g.Go(func() error {
 				// exit early if another hydration request has already failed
 				// results are thrown away later, so avoid needless work

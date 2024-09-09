@@ -314,7 +314,6 @@ func TestRun(t *testing.T) {
 		},
 	}
 	for _, tt := range tests {
-		tt := tt
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
 
@@ -340,7 +339,6 @@ func TestRunCallAnalysis(t *testing.T) {
 		},
 	}
 	for _, tt := range tests {
-		tt := tt
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
 
@@ -473,7 +471,6 @@ func TestRun_LockfileWithExplicitParseAs(t *testing.T) {
 		},
 	}
 	for _, tt := range tests {
-		tt := tt
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
 
@@ -499,7 +496,6 @@ func TestRun_GithubActions(t *testing.T) {
 		},
 	}
 	for _, tt := range tests {
-		tt := tt
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
 
@@ -592,7 +588,6 @@ func TestRun_LocalDatabases(t *testing.T) {
 	}
 
 	for _, tt := range tests {
-		tt := tt
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
 
@@ -661,7 +656,6 @@ func TestRun_Licenses(t *testing.T) {
 		},
 	}
 	for _, tt := range tests {
-		tt := tt
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
 
@@ -718,7 +712,6 @@ func TestRun_OCIImage(t *testing.T) {
 		},
 	}
 	for _, tt := range tests {
-		tt := tt
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
 
@@ -761,7 +754,6 @@ func TestRun_SubCommands(t *testing.T) {
 		// TODO: add tests for other future subcommands
 	}
 	for _, tt := range tests {
-		tt := tt
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
 
@@ -818,7 +810,6 @@ func TestRun_InsertDefaultCommand(t *testing.T) {
 	}
 
 	for _, tt := range tests {
-		tt := tt
 		stdout := &bytes.Buffer{}
 		stderr := &bytes.Buffer{}
 		argsActual := insertDefaultCommand(tt.originalArgs, commands, defaultCommand, stdout, stderr)
@@ -854,7 +845,6 @@ func TestRun_MavenTransitive(t *testing.T) {
 	}
 
 	for _, tt := range tests {
-		tt := tt
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
 			testCli(t, tt)
