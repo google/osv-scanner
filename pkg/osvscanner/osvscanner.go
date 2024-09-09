@@ -415,7 +415,7 @@ func extractMavenDeps(f lockfile.DepFile) (lockfile.Lockfile, error) {
 	}
 	extractor := manifest.MavenResolverExtractor{
 		DependencyClient:       depClient,
-		MavenRegistryAPIClient: *datasource.NewMavenRegistryAPIClient(datasource.MavenCentral),
+		MavenRegistryAPIClient: datasource.NewMavenRegistryAPIClient(datasource.MavenCentral),
 	}
 	packages, err := extractor.Extract(f)
 	if err != nil {

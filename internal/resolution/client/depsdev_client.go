@@ -40,6 +40,13 @@ func (d *DepsDevClient) PreFetch(ctx context.Context, requirements []resolve.Req
 		}
 
 		vk := vks[len(vks)-1]
+		for _, v := range vks {
+			// We prefer the exact version for soft requirements.
+			if im.Version == v.Version {
+				vk = v
+				break
+			}
+		}
 
 		// Make a request for the precomputed dependency tree
 		resp, err := d.c.GetDependencies(ctx, &pb.GetDependenciesRequest{
