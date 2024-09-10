@@ -81,7 +81,6 @@ func MakeVersionRequestsWithContext(ctx context.Context, queries []*depsdevpb.Ge
 			licenses[i] = []models.License{models.License("UNKNOWN")}
 			continue
 		}
-		i := i
 		g.Go(func() error {
 			resp, err := client.GetVersion(ctx, queries[i])
 			if err != nil {
