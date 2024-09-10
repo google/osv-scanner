@@ -11,6 +11,7 @@ import (
 	"deps.dev/util/resolve"
 	"github.com/google/osv-scanner/internal/remediation"
 	"github.com/google/osv-scanner/internal/remediation/upgrade"
+	"github.com/google/osv-scanner/internal/resolution"
 	"github.com/google/osv-scanner/internal/resolution/client"
 	"github.com/google/osv-scanner/internal/resolution/datasource"
 	"github.com/google/osv-scanner/internal/resolution/lockfile"
@@ -160,6 +161,11 @@ func Command(stdout, stderr io.Writer, r *reporter.Reporter) *cli.Command {
 				Name:     "ignore-dev",
 				Usage:    "ignore vulnerabilities affecting only development dependencies",
 			},
+			&cli.BoolFlag{
+				Category: vulnCategory,
+				Name:     "maven-ignore-management",
+				Usage:    "(pom.xml) ignore vulnerabilities in dependencyManagement packages that do not appear in the resolved dependency graph",
+			},
 		},
 		Action: func(ctx *cli.Context) error {
 			var err error
@@ -233,6 +239,9 @@ func action(ctx *cli.Context, stdout, stderr io.Writer) (reporter.Reporter, erro
 
 	opts := osvFixOptions{
 		RemediationOptions: remediation.RemediationOptions{
+			ResolveOpts: resolution.ResolveOpts{
+				MavenManagement: !ctx.Bool("maven-ignore-management"),
+			},
 			IgnoreVulns:   ctx.StringSlice("ignore-vulns"),
 			ExplicitVulns: ctx.StringSlice("vulns"),
 			DevDeps:       !ctx.Bool("ignore-dev"),

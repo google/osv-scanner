@@ -37,7 +37,7 @@ func parseRemediationFixture(t *testing.T, universePath, manifestPath string) (*
 
 	cl := clienttest.NewMockResolutionClient(t, universePath)
 
-	res, err := resolution.Resolve(context.Background(), cl, m)
+	res, err := resolution.Resolve(context.Background(), cl, m, resolution.ResolveOpts{})
 	if err != nil {
 		t.Fatalf("Failed to resolve manifest: %v", err)
 	}

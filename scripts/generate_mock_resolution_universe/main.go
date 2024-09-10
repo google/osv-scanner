@@ -39,6 +39,10 @@ import (
 	"gopkg.in/yaml.v3"
 )
 
+var resolveOpts = resolution.ResolveOpts{
+	MavenManagement: true,
+}
+
 func doRelockRelax(ddCl *client.DepsDevClient, io manifest.ManifestIO, filename string) error {
 	cl := client.ResolutionClient{
 		VulnerabilityClient: client.NewOSVClient(),
@@ -57,7 +61,7 @@ func doRelockRelax(ddCl *client.DepsDevClient, io manifest.ManifestIO, filename 
 	}
 
 	cl.PreFetch(context.Background(), manif.Requirements, manif.FilePath)
-	res, err := resolution.Resolve(context.Background(), cl, manif)
+	res, err := resolution.Resolve(context.Background(), cl, manif, resolveOpts)
 	if err != nil {
 		return err
 	}
@@ -88,7 +92,7 @@ func doOverride(ddCl *client.DepsDevClient, io manifest.ManifestIO, filename str
 	}
 
 	cl.PreFetch(context.Background(), manif.Requirements, manif.FilePath)
-	res, err := resolution.Resolve(context.Background(), cl, manif)
+	res, err := resolution.Resolve(context.Background(), cl, manif, resolveOpts)
 	if err != nil {
 		return err
 	}

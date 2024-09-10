@@ -130,7 +130,7 @@ func autoRelock(ctx context.Context, r reporter.Reporter, opts osvFixOptions, ma
 	}
 
 	opts.Client.PreFetch(ctx, manif.Requirements, manif.FilePath)
-	res, err := resolution.Resolve(ctx, opts.Client, manif)
+	res, err := resolution.Resolve(ctx, opts.Client, manif, opts.ResolveOpts)
 	if err != nil {
 		return err
 	}
@@ -295,7 +295,7 @@ func autoOverride(ctx context.Context, r reporter.Reporter, opts osvFixOptions, 
 	}
 
 	opts.Client.PreFetch(ctx, manif.Requirements, manif.FilePath)
-	res, err := resolution.Resolve(ctx, opts.Client, manif)
+	res, err := resolution.Resolve(ctx, opts.Client, manif, opts.ResolveOpts)
 	if err != nil {
 		return err
 	}
