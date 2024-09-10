@@ -106,7 +106,7 @@ type AlpineVersion struct {
 func (v AlpineVersion) compareComponents(w AlpineVersion) int {
 	numberOfComponents := max(len(v.components), len(w.components))
 
-	for i := 0; i < numberOfComponents; i++ {
+	for i := range numberOfComponents {
 		diff := v.components.Fetch(i).Cmp(w.components.Fetch(i))
 
 		if diff != 0 {
@@ -150,7 +150,7 @@ func (as alpineSuffix) Cmp(bs alpineSuffix) int {
 func (v AlpineVersion) compareSuffixes(w AlpineVersion) int {
 	numberOfSuffixes := max(len(v.suffixes), len(w.suffixes))
 
-	for i := 0; i < numberOfSuffixes; i++ {
+	for i := range numberOfSuffixes {
 		diff := v.fetchSuffix(i).Cmp(w.fetchSuffix(i))
 
 		if diff != 0 {
