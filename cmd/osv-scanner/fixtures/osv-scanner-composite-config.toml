@@ -1,0 +1,11 @@
+[[PackageOverrides]]
+ecosystem = "npm"
+ignore = true
+
+[[PackageOverrides]]
+ecosystem = "Packagist"
+license.override = ["0BSD"]
+
+[[PackageOverrides]]
+ecosystem = "Alpine"
+license.override = ["MIT"]
