@@ -42,6 +42,7 @@
       <groupId>org.example</groupId>
       <artifactId>abc</artifactId>
       <version>1.0.1</version>
+      <optional/>
     </dependency>
     <dependency>
       <groupId>org.example</groupId>
@@ -186,6 +187,7 @@
       <groupId>org.example</groupId>
       <artifactId>abc</artifactId>
       <version>1.0.2</version>
+      <optional/>
     </dependency>
     <dependency>
       <groupId>org.example</groupId>
