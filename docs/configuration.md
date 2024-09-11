@@ -42,8 +42,9 @@ ecosystem = "Go"
 group = "dev"
 
 # Actions to take for matching packages:
-ignore = true # Ignore this package entirely, including license scanning
-license.override = ["MIT", "0BSD"] # Override the license of the package, if it is not ignored
+ignore = true # Ignore this package completely, including license scanning
+license.ignore = true # Ignore the license of the package, if it is not already completely ignored at the top level
+license.override = ["MIT", "0BSD"] # Override the license of the package, if it is not completely ignored at the top level
 
 effectiveUntil = 2022-11-09 # Optional exception expiry date, after which the override will no longer apply
 reason = "abc" # Optional reason for the override, to explain why it was added
