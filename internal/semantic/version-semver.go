@@ -43,7 +43,7 @@ func compareSemverBuildComponents(a, b []string) int {
 
 	var compare int
 
-	for i := 0; i < minComponentLength; i++ {
+	for i := range minComponentLength {
 		ai, aIsNumber := convertToBigInt(a[i])
 		bi, bIsNumber := convertToBigInt(b[i])
 

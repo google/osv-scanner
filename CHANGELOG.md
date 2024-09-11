@@ -1,3 +1,16 @@
+# v1.8.5:
+
+### Features:
+
+- [Feature #1160](https://github.com/google/osv-scanner/pull/1160) Support fetching snapshot versions from a Maven registry.
+- [Feature #1177](https://github.com/google/osv-scanner/pull/1177) Support composite-based package overrides. This allows for ignoring entire manifests when scanning.
+- [Feature #1210](https://github.com/google/osv-scanner/pull/1210) Add FIXED-VULN-IDS to guided remediation non-interactive output.
+
+### Fixes:
+
+- [Bug #1220](https://github.com/google/osv-scanner/issues/1220) Fix govulncheck calls on C code.
+- [Bug #1236](https://github.com/google/osv-scanner/pull/1236) Alpine package scanning now falls back to latest release version if no release version can be found.
+
 # v1.8.4:
 
 ### Features:
