@@ -218,7 +218,7 @@ func tryLoadConfig(configPath string) (Config, error) {
 
 		_, err := toml.NewDecoder(file).Decode(&config)
 		if err != nil {
-			return Config{}, fmt.Errorf("%w: %s", errConfigFileInvalid, err)
+			return Config{}, fmt.Errorf("%w: %w", errConfigFileInvalid, err)
 		}
 		config.LoadPath = configPath
 
