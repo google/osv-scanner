@@ -322,7 +322,7 @@ func TestRun(t *testing.T) {
 		{
 			name: "config file is invalid",
 			args: []string{"", "./fixtures/config-invalid"},
-			exit: 0,
+			exit: 127,
 		},
 	}
 	for _, tt := range tests {

@@ -177,7 +177,7 @@ func (c *ConfigManager) Get(r reporter.Reporter, targetPath string) Config {
 		r.Infof("Loaded filter from: %s\n", config.LoadPath)
 	} else {
 		if !errors.Is(configErr, errConfigFileNotFound) {
-			r.Warnf("Ignored invalid config file at: %s\n", configPath)
+			r.Errorf("Ignored invalid config file at: %s\n", configPath)
 		}
 		// If config doesn't exist, use the default config
 		config = c.DefaultConfig
