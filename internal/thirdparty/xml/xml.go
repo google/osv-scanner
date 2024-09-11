@@ -60,8 +60,9 @@ type Token any
 
 // A StartElement represents an XML start element.
 type StartElement struct {
-	Name Name
-	Attr []Attr
+	Name  Name
+	Attr  []Attr
+	Empty bool
 }
 
 // Copy creates a new copy of StartElement.
@@ -74,12 +75,13 @@ func (e StartElement) Copy() StartElement {
 
 // End returns the corresponding XML end element.
 func (e StartElement) End() EndElement {
-	return EndElement{e.Name}
+	return EndElement{e.Name, e.Empty}
 }
 
 // An EndElement represents an XML end element.
 type EndElement struct {
-	Name Name
+	Name  Name
+	Empty bool
 }
 
 // A CharData represents XML character data (raw text),
@@ -535,7 +537,7 @@ func (d *Decoder) autoClose(t Token) (Token, bool) {
 			// This one should be auto closed if t doesn't close it.
 			et, ok := t.(EndElement)
 			if !ok || !strings.EqualFold(et.Name.Local, d.stk.name.Local) {
-				return EndElement{d.stk.name}, true
+				return EndElement{d.stk.name, et.Empty}, true
 			}
 			break
 		}
@@ -567,7 +569,7 @@ func (d *Decoder) rawToken() (Token, error) {
 		// we returned just the StartElement half.
 		// Return the EndElement half now.
 		d.needClose = false
-		return EndElement{d.toClose}, nil
+		return EndElement{d.toClose, true}, nil
 	}
 
 	b, ok := d.getc()
@@ -606,7 +608,7 @@ func (d *Decoder) rawToken() (Token, error) {
 			d.err = d.syntaxError("invalid characters between </" + name.Local + " and >")
 			return nil, d.err
 		}
-		return EndElement{name}, nil
+		return EndElement{name, false}, nil
 
 	case '?':
 		// <?: Processing instruction.
@@ -854,7 +856,7 @@ func (d *Decoder) rawToken() (Token, error) {
 		d.needClose = true
 		d.toClose = name
 	}
-	return StartElement{name, attr}, nil
+	return StartElement{name, attr, empty}, nil
 }
 
 func (d *Decoder) attrval() []byte {
@@ -1918,9 +1920,9 @@ func EscapeText(w io.Writer, s []byte) error {
 }
 
 // escapeText writes to w the properly escaped XML equivalent
-// of the plain text data s. If escapeNewline is true, newline
+// of the plain text data s. If escapeWhitespace is true, whitespace
 // characters will be escaped.
-func escapeText(w io.Writer, s []byte, escapeNewline bool) error {
+func escapeText(w io.Writer, s []byte, escapeWhitespace bool) error {
 	var esc []byte
 	last := 0
 	for i := 0; i < len(s); {
@@ -1938,13 +1940,19 @@ func escapeText(w io.Writer, s []byte, escapeNewline bool) error {
 		case '>':
 			esc = escGT
 		case '\t':
+			if !escapeWhitespace {
+				continue
+			}
 			esc = escTab
 		case '\n':
-			if !escapeNewline {
+			if !escapeWhitespace {
 				continue
 			}
 			esc = escNL
 		case '\r':
+			if !escapeWhitespace {
+				continue
+			}
 			esc = escCR
 		default:
 			if !isInCharacterRange(r) || (r == 0xFFFD && width == 1) {

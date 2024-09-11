@@ -25,7 +25,7 @@ func (components *Components) Fetch(n int) *big.Int {
 func (components *Components) Cmp(b Components) int {
 	numberOfComponents := max(len(*components), len(b))
 
-	for i := 0; i < numberOfComponents; i++ {
+	for i := range numberOfComponents {
 		diff := components.Fetch(i).Cmp(b.Fetch(i))
 
 		if diff != 0 {

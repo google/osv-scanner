@@ -294,7 +294,7 @@ func (MavenManifestIO) Write(df lockfile.DepFile, w io.Writer, patch ManifestPat
 	currentPath := df.Path()
 	parent := specific.Parent
 	visited := make(map[maven.ProjectKey]bool, mavenutil.MaxParent)
-	for n := 0; n < mavenutil.MaxParent; n++ {
+	for range mavenutil.MaxParent {
 		if parent.GroupID == "" || parent.ArtifactID == "" || parent.Version == "" {
 			break
 		}
