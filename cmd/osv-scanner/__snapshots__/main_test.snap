@@ -373,6 +373,18 @@ overriding license for package Packagist/league/flysystem/1.0.8 with 0BSD
 
 ---
 
+[TestRun/config_file_is_invalid - 1]
+Scanning dir ./fixtures/config-invalid
+Scanned <rootdir>/fixtures/config-invalid/composer.lock file and found 1 package
+Ignored invalid config file at: <rootdir>/fixtures/config-invalid/osv-scanner.toml
+No issues found
+
+---
+
+[TestRun/config_file_is_invalid - 2]
+
+---
+
 [TestRun/cyclonedx_1.4_output - 1]
 {
   "$schema": "http://cyclonedx.org/schema/bom-1.4.schema.json",
