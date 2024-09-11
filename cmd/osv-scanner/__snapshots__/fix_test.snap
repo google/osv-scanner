@@ -5,6 +5,7 @@ Found 7 vulnerabilities matching the filter
 Can fix 2/7 matching vulnerabilities by changing 2 dependencies
 UPGRADED-PACKAGE: concat-stream,1.5.0,1.6.1
 UPGRADED-PACKAGE: hosted-git-info,2.1.4,2.8.9
+FIXED-VULN-IDS: GHSA-43f8-2h32-f4cj,GHSA-g74r-ffvr-5q9f
 REMAINING-VULNS: 5
 UNFIXABLE-VULNS: 5
 Rewriting <tempdir>/package-lock.json...
@@ -1750,6 +1751,7 @@ OVERRIDE-PACKAGE: org.apache.httpcomponents:httpclient,4.5.13
 OVERRIDE-PACKAGE: org.codehaus.plexus:plexus-utils,3.0.24
 OVERRIDE-PACKAGE: org.jsoup:jsoup,1.15.3
 OVERRIDE-PACKAGE: commons-io:commons-io,2.7
+FIXED-VULN-IDS: GHSA-2x83-r56g-cv47,GHSA-7r82-7xv7-xcpj,GHSA-8vhq-qq4p-grq3,GHSA-cfh5-3ghh-wfjx,GHSA-fmj5-wv96-r2ch,GHSA-g6ph-x5wf-g337,GHSA-gp7f-rwcx-9369,GHSA-gw85-4gmf-m7rh,GHSA-gwrp-pvrq-jmwv,GHSA-jcwr-x25h-x5fh,GHSA-m72m-mhq2-9p6c
 REMAINING-VULNS: 0
 UNFIXABLE-VULNS: 0
 Rewriting <tempdir>/pom.xml...
@@ -1775,11 +1777,11 @@ Warning: `fix` exists as both a subcommand of OSV-Scanner and as a file on the f
 
   <dependencyManagement>
     <dependencies>
-    <dependency>
-      <groupId>commons-io</groupId>
-      <artifactId>commons-io</artifactId>
-      <version>2.7</version>
-    </dependency>
+      <dependency>
+        <groupId>commons-io</groupId>
+        <artifactId>commons-io</artifactId>
+        <version>2.7</version>
+      </dependency>
       <dependency>
         <groupId>org.jsoup</groupId>
         <artifactId>jsoup</artifactId>
@@ -1813,6 +1815,7 @@ Resolving <tempdir>/package.json...
 Found 5 vulnerabilities matching the filter
 Can fix 3/5 matching vulnerabilities by changing 1 dependencies
 UPGRADED-PACKAGE: npm-registry-client,6.2.0,^7.5.0
+FIXED-VULN-IDS: GHSA-43f8-2h32-f4cj,GHSA-c2qf-rxjj-qqgw,GHSA-c6rq-rjc2-86v2
 REMAINING-VULNS: 2
 UNFIXABLE-VULNS: 2
 Rewriting <tempdir>/package.json...

@@ -12,6 +12,7 @@ import (
 	"github.com/google/osv-scanner/internal/remediation"
 	"github.com/google/osv-scanner/internal/remediation/upgrade"
 	"github.com/google/osv-scanner/internal/resolution/client"
+	"github.com/google/osv-scanner/internal/resolution/datasource"
 	"github.com/google/osv-scanner/internal/resolution/lockfile"
 	"github.com/google/osv-scanner/internal/resolution/manifest"
 	"github.com/google/osv-scanner/pkg/depsdev"
@@ -292,8 +293,11 @@ func action(ctx *cli.Context, stdout, stderr io.Writer) (reporter.Reporter, erro
 			}
 			opts.Client.DependencyClient = cl
 		case resolve.Maven:
-			// TODO: MavenRegistryClient
-			fallthrough
+			cl, err := client.NewMavenRegistryClient(datasource.MavenCentral)
+			if err != nil {
+				return nil, err
+			}
+			opts.Client.DependencyClient = cl
 		case resolve.UnknownSystem:
 			fallthrough
 		default:
