@@ -1,0 +1,143 @@
+[[PackageOverrides]]
+name = "com.fasterxml.jackson.core:jackson-databind"
+ecosystem = "Maven"
+ignore = true
+reason = "This is an intentionally vulnerable test project"
+
+[[PackageOverrides]]
+name = "com.google.guava:guava"
+ecosystem = "Maven"
+ignore = true
+reason = "This is an intentionally vulnerable test project"
+
+[[PackageOverrides]]
+name = "com.jcraft:jsch"
+ecosystem = "Maven"
+ignore = true
+reason = "This is an intentionally vulnerable test project"
+
+[[PackageOverrides]]
+name = "com.nimbusds:nimbus-jose-jwt"
+ecosystem = "Maven"
+ignore = true
+reason = "This is an intentionally vulnerable test project"
+
+[[PackageOverrides]]
+name = "io.atomix:atomix"
+ecosystem = "Maven"
+ignore = true
+reason = "This is an intentionally vulnerable test project"
+
+[[PackageOverrides]]
+name = "io.netty:netty-codec"
+ecosystem = "Maven"
+ignore = true
+reason = "This is an intentionally vulnerable test project"
+
+[[PackageOverrides]]
+name = "io.netty:netty-handler"
+ecosystem = "Maven"
+ignore = true
+reason = "This is an intentionally vulnerable test project"
+
+[[PackageOverrides]]
+name = "org.apache.commons:commons-compress"
+ecosystem = "Maven"
+ignore = true
+reason = "This is an intentionally vulnerable test project"
+
+[[PackageOverrides]]
+name = "org.apache.commons:commons-configuration2"
+ecosystem = "Maven"
+ignore = true
+reason = "This is an intentionally vulnerable test project"
+
+[[PackageOverrides]]
+name = "org.apache.directory.api:api-ldap-model"
+ecosystem = "Maven"
+ignore = true
+reason = "This is an intentionally vulnerable test project"
+
+[[PackageOverrides]]
+name = "org.apache.mina:mina-core"
+ecosystem = "Maven"
+ignore = true
+reason = "This is an intentionally vulnerable test project"
+
+[[PackageOverrides]]
+name = "org.apache.pdfbox:pdfbox"
+ecosystem = "Maven"
+ignore = true
+reason = "This is an intentionally vulnerable test project"
+
+[[PackageOverrides]]
+name = "org.apache.shiro:shiro-core"
+ecosystem = "Maven"
+ignore = true
+reason = "This is an intentionally vulnerable test project"
+
+[[PackageOverrides]]
+name = "org.apache.shiro:shiro-web"
+ecosystem = "Maven"
+ignore = true
+reason = "This is an intentionally vulnerable test project"
+
+[[PackageOverrides]]
+name = "org.apache.thrift:libthrift"
+ecosystem = "Maven"
+ignore = true
+reason = "This is an intentionally vulnerable test project"
+
+[[PackageOverrides]]
+name = "org.bouncycastle:bcprov-jdk15on"
+ecosystem = "Maven"
+ignore = true
+reason = "This is an intentionally vulnerable test project"
+
+[[PackageOverrides]]
+name = "org.codehaus.jackson:jackson-mapper-asl"
+ecosystem = "Maven"
+ignore = true
+reason = "This is an intentionally vulnerable test project"
+
+[[PackageOverrides]]
+name = "org.eclipse.jgit:org.eclipse.jgit"
+ecosystem = "Maven"
+ignore = true
+reason = "This is an intentionally vulnerable test project"
+
+[[PackageOverrides]]
+name = "org.glassfish.jersey.core:jersey-common"
+ecosystem = "Maven"
+ignore = true
+reason = "This is an intentionally vulnerable test project"
+
+[[PackageOverrides]]
+name = "com.google.code.gson:gson"
+ecosystem = "Maven"
+ignore = true
+reason = "This is an intentionally vulnerable test project"
+
+[[PackageOverrides]]
+name = "commons-collections:commons-collections"
+ecosystem = "Maven"
+ignore = true
+reason = "This is an intentionally vulnerable test project"
+
+[[PackageOverrides]]
+name = "org.apache.httpcomponents:httpclient"
+ecosystem = "Maven"
+ignore = true
+reason = "This is an intentionally vulnerable test project"
+
+[[PackageOverrides]]
+name = "org.eclipse.jetty:jetty-webapp"
+ecosystem = "Maven"
+ignore = true
+reason = "This is an intentionally vulnerable test project"
+
+[[PackageOverrides]]
+name = "org.quartz-scheduler:quartz"
+ecosystem = "Maven"
+ignore = true
+reason = "This is an intentionally vulnerable test project"

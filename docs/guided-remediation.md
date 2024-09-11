@@ -64,10 +64,12 @@ The output format might change with minor version updates.
 
 ```
 Scanning path/to/package-lock.json...
-Found 52 vulnerabilities matching the filter
-Can fix 23/52 matching vulnerabilities by changing 21 dependencies
+Found 55 vulnerabilities matching the filter
+Can fix 25/55 matching vulnerabilities by changing 21 dependencies
 UPGRADED-PACKAGE: lodash,4.17.20,4.17.21
 UPGRADED-PACKAGE: minimist,1.2.0,1.2.8
+UPGRADED-PACKAGE: ws,6.2.1,6.2.3
+UPGRADED-PACKAGE: ws,7.1.2,7.5.10
 UPGRADED-PACKAGE: acorn,5.7.3,5.4.1
 UPGRADED-PACKAGE: acorn,6.0.2,6.4.2
 UPGRADED-PACKAGE: acorn,7.1.0,7.4.1
@@ -84,11 +86,10 @@ UPGRADED-PACKAGE: qs,6.5.2,6.5.3
 UPGRADED-PACKAGE: semver,5.5.1,5.7.2
 UPGRADED-PACKAGE: semver,5.6.0,5.7.2
 UPGRADED-PACKAGE: semver,6.3.0,6.3.1
-UPGRADED-PACKAGE: ws,6.2.1,6.2.2
-UPGRADED-PACKAGE: ws,7.1.2,7.5.9
 UPGRADED-PACKAGE: y18n,4.0.0,4.0.3
-REMAINING-VULNS: 29
-UNFIXABLE-VULNS: 29
+FIXED-VULN-IDS: GHSA-29mw-wpgm-hmr9,GHSA-35jh-r3h4-6jhm,GHSA-3h5v-q93c-6h6q,GHSA-3h5v-q93c-6h6q,GHSA-4q6p-r6v2-jvc5,GHSA-6chw-6frg-f759,GHSA-6chw-6frg-f759,GHSA-6chw-6frg-f759,GHSA-6fc8-4gx4-v693,GHSA-6fc8-4gx4-v693,GHSA-93q8-gq69-wqmw,GHSA-9c47-m6qq-7p4h,GHSA-c2qf-rxjj-qqgw,GHSA-c2qf-rxjj-qqgw,GHSA-c2qf-rxjj-qqgw,GHSA-c4w7-xm78-47vh,GHSA-chwr-hf3w-c984,GHSA-g6ww-v8xp-vmwg,GHSA-hj48-42vr-x3v9,GHSA-hrpp-h998-j3pp,GHSA-r683-j2x4-v87g,GHSA-vh95-rmgr-6w4m,GHSA-ww39-953v-wcq6,GHSA-xvch-5gv4-984h,GHSA-xvch-5gv4-984h
+REMAINING-VULNS: 30
+UNFIXABLE-VULNS: 30
 Rewriting path/to/package-lock.json...
 ```
 
@@ -108,14 +109,15 @@ The output format might change with minor version updates.
 
 ```
 Resolving path/to/package.json...
-Found 11 vulnerabilities matching the filter
-Can fix 8/11 matching vulnerabilities by changing 6 dependencies
+Found 12 vulnerabilities matching the filter
+Can fix 9/12 matching vulnerabilities by changing 6 dependencies
 UPGRADED-PACKAGE: mocha,^5.2.0,^9.2.2
-UPGRADED-PACKAGE: @google-cloud/cloudbuild,^2.6.0,^3.10.0
-UPGRADED-PACKAGE: autoprefixer,^9.3.0,^10.4.17
+UPGRADED-PACKAGE: @google-cloud/cloudbuild,^2.6.0,^4.5.0
+UPGRADED-PACKAGE: autoprefixer,^9.3.0,^10.4.20
 UPGRADED-PACKAGE: google-closure-library,^20190909.0.0,^20200315.0.0
 UPGRADED-PACKAGE: terser,^3.10.11,^4.8.1
 UPGRADED-PACKAGE: yargs,^12.0.2,^13.3.2
+FIXED-VULN-IDS: GHSA-4wf5-vphf-c2xc,GHSA-7fh5-64p2-3v2j,GHSA-7v5v-9h63-cj86,GHSA-f8q6-p94x-37v3,GHSA-h755-8qp9-cq85,GHSA-p9pc-299p-vxgp,GHSA-vh5w-fg69-rc8m,GHSA-vh95-rmgr-6w4m,GHSA-xvch-5gv4-984h
 REMAINING-VULNS: 3
 UNFIXABLE-VULNS: 3
 Rewriting path/to/package.json...

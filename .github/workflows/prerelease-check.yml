@@ -56,7 +56,7 @@ jobs:
       - name: Set up Go
         uses: actions/setup-go@0a12ed9d6a96ab950c8f026ed9f722fe0da7ef32 # v5.0.2
         with:
-          go-version-file: .go-version
+          go-version: stable
           check-latest: true
       - name: Run lint action
         uses: ./.github/workflows/lint-action
@@ -70,7 +70,7 @@ jobs:
         with:
           persist-credentials: false
       - run: scripts/build_test_images.sh
-      - uses: actions/upload-artifact@89ef406dd8d7e03cfd12d9e0a4a378f454709029 # v4.3.5
+      - uses: actions/upload-artifact@834a144ee995460fba8ed112a2fc961b36a5ec5a # v4.3.6
         with:
           name: image-fixtures-${{ github.run_number }}-${{ github.run_attempt }}
           path: internal/image/fixtures/*.tar
@@ -99,7 +99,7 @@ jobs:
       - name: Set up Go
         uses: actions/setup-go@0a12ed9d6a96ab950c8f026ed9f722fe0da7ef32 # v5.0.2
         with:
-          go-version-file: .go-version
+          go-version: stable
           check-latest: true
       - name: Run test action
         uses: ./.github/workflows/test-action
