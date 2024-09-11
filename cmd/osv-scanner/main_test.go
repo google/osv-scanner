@@ -315,7 +315,7 @@ func TestRun(t *testing.T) {
 		// broad config file that overrides a whole ecosystem
 		{
 			name: "config file can be broad",
-			args: []string{"", "--config=./fixtures/osv-scanner-composite-config.toml", "--experimental-licenses", "MIT", "./fixtures/locks-many", "./fixtures/locks-insecure"},
+			args: []string{"", "--config=./fixtures/osv-scanner-composite-config.toml", "--experimental-licenses", "MIT", "./fixtures/locks-many", "./fixtures/locks-insecure", "./fixtures/maven-transitive"},
 			exit: 1,
 		},
 		// invalid config file

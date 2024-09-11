@@ -3,6 +3,11 @@ ecosystem = "npm"
 ignore = true
 
 [[PackageOverrides]]
+ecosystem = "Maven"
+ignore = true
+reason = "it makes the table output really really long"
+
+[[PackageOverrides]]
 ecosystem = "Packagist"
 license.override = ["0BSD"]
 
