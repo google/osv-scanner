@@ -163,8 +163,8 @@ func Command(stdout, stderr io.Writer, r *reporter.Reporter) *cli.Command {
 			},
 			&cli.BoolFlag{
 				Category: vulnCategory,
-				Name:     "maven-ignore-management",
-				Usage:    "(pom.xml) ignore vulnerabilities in dependencyManagement packages that do not appear in the resolved dependency graph",
+				Name:     "maven-fix-management",
+				Usage:    "(pom.xml) also remediate vulnerabilities in dependencyManagement packages that do not appear in the resolved dependency graph",
 			},
 		},
 		Action: func(ctx *cli.Context) error {
@@ -240,7 +240,7 @@ func action(ctx *cli.Context, stdout, stderr io.Writer) (reporter.Reporter, erro
 	opts := osvFixOptions{
 		RemediationOptions: remediation.RemediationOptions{
 			ResolveOpts: resolution.ResolveOpts{
-				MavenManagement: !ctx.Bool("maven-ignore-management"),
+				MavenManagement: ctx.Bool("maven-fix-management"),
 			},
 			IgnoreVulns:   ctx.StringSlice("ignore-vulns"),
 			ExplicitVulns: ctx.StringSlice("vulns"),
