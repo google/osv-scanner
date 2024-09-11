@@ -146,7 +146,7 @@ Can fix 39/56 matching vulnerabilities by overriding 20 dependencies
 OVERRIDE-PACKAGE: io.atomix:atomix,3.1.6
 OVERRIDE-PACKAGE: org.apache.pdfbox:pdfbox,2.0.24
 OVERRIDE-PACKAGE: xerces:xercesImpl,2.12.2
-OVERRIDE-PACKAGE: com.google.guava:guava,32.0.0-android
+OVERRIDE-PACKAGE: com.google.guava:guava,32.0.0-jre
 OVERRIDE-PACKAGE: com.fasterxml.jackson.core:jackson-databind,2.12.7.1
 OVERRIDE-PACKAGE: io.netty:netty-handler,4.1.94.Final
 OVERRIDE-PACKAGE: org.apache.commons:commons-compress,1.26.0
@@ -163,6 +163,7 @@ OVERRIDE-PACKAGE: xalan:xalan,2.7.3
 OVERRIDE-PACKAGE: org.apache.thrift:libthrift,0.14.0
 OVERRIDE-PACKAGE: org.apache.tomcat.embed:tomcat-embed-core,8.5.99
 OVERRIDE-PACKAGE: io.netty:netty-codec,4.1.68.Final
+FIXED-VULN-IDS: GHSA-2fqw-684c-pvp7,GHSA-2h3j-m7gr-25xj,GHSA-3p86-9955-h393,GHSA-4265-ccf5-phj5,GHSA-4g9r-vxhx-9pgx,GHSA-4jhc-wjr3-pwh2,GHSA-5h29-qq92-wj7f,GHSA-5mg8-w23w-74h3,GHSA-6mcm-j9cj-3vc3,GHSA-6mjq-h674-j845,GHSA-6vqp-h455-42mr,GHSA-6vvh-5794-vpmj,GHSA-7fr2-94h7-ccg2,GHSA-7g45-4rm6-3mm3,GHSA-7grw-6pjh-jpc9,GHSA-7j4h-8wpf-rqfh,GHSA-9339-86wc-4qgf,GHSA-9w38-p64v-xpmv,GHSA-c43q-5hpj-4crv,GHSA-cx3q-cv6w-mx4h,GHSA-fg3j-q579-v8x4,GHSA-g2fg-mr77-6vrm,GHSA-g7p8-r2ch-4rmf,GHSA-gvpg-vgmx-xg6w,GHSA-h65f-jvqw-m9fj,GHSA-hhw5-c326-822h,GHSA-jc7h-c423-mpjc,GHSA-jjjh-jjxp-wpff,GHSA-m4h3-7mc2-v295,GHSA-mf27-wg66-m8f5,GHSA-mm9x-g8pc-w292,GHSA-mvr2-9pj6-7w5j,GHSA-pmhc-2g4f-85cg,GHSA-q446-82vq-w674,GHSA-rgv9-q543-rqg4,GHSA-vmqm-g3vh-847m,GHSA-w4jq-qh47-hvjq,GHSA-xfv3-rrfm-f2rv,GHSA-xjp4-hw94-mvp5
 REMAINING-VULNS: 17
 UNFIXABLE-VULNS: 16
 Rewriting path/to/pom.xml...
@@ -356,6 +357,6 @@ Remediation in npm `workspaces` is only partially supported:
 
 ### Maven
 
-- [#1045](https://github.com/google/osv-scanner/issues/1045) `--data-source=native` is currently unsupported for Maven resolution.
-- [#1169](https://github.com/google/osv-scanner/issues/1169) Only the scanned `pom.xml` is updated, when updating the local parent POM may be preferred.
-- The formatting of the `pom.xml` after writing can sometimes be erroneously changed.
+- [#1045](https://github.com/google/osv-scanner/issues/1045) `--data-source=native` only uses the Maven Central Repository (`https://repo1.maven.org/maven2/`). Other repositories are not currently supported.
+- Dependencies that use properties in their `groupId`/`artifactId` may not be updated correctly.
+- Support for profiles is limited.
