@@ -1,7 +1,7 @@
 # v1.8.5:
 
 ### Features:
--
+
 - [Feature #1160](https://github.com/google/osv-scanner/pull/1160) support fetching snapshot versions from a Maven registry
 - [Feature #1177](https://github.com/google/osv-scanner/pull/1177) Support composite-based package overrides
 - [Feature #1210](https://github.com/google/osv-scanner/pull/1210) Add FIXED-VULN-IDS to guided remediation non-interactive output
