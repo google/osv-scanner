@@ -9,13 +9,18 @@ license.override = ["0BSD"]
 
 [[PackageOverrides]]
 ecosystem = "Alpine"
-name = "apk-tools"
-license.ignore = true
-license.override = ["UNKNOWN"] # this takes priority over license.ignore
+name = "musl"
+license.override = ["UNKNOWN"]
 
 [[PackageOverrides]]
 ecosystem = "Alpine"
-name = "musl"
+name = "musl-utils"
+license.ignore = true # this takes priority over license.override
+license.override = ["UNKNOWN"]
+
+[[PackageOverrides]]
+ecosystem = "Alpine"
+name = "apk-tools"
 license.ignore = false
 
 [[PackageOverrides]]
