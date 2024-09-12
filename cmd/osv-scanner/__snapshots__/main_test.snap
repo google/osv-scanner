@@ -384,6 +384,18 @@ Ignored invalid config file at: <rootdir>/fixtures/config-invalid/osv-scanner.to
 
 ---
 
+[TestRun/config_file_is_invalid#01 - 1]
+Scanning dir ./fixtures/config-invalid
+Scanned <rootdir>/fixtures/config-invalid/composer.lock file and found 1 package
+Config file <rootdir>/fixtures/config-invalid/osv-scanner.toml is invalid because: toml: line 1: expected '.' or '=', but got '!' instead
+
+---
+
+[TestRun/config_file_is_invalid#01 - 2]
+Ignored invalid config file at: <rootdir>/fixtures/config-invalid/osv-scanner.toml
+
+---
+
 [TestRun/cyclonedx_1.4_output - 1]
 {
   "$schema": "http://cyclonedx.org/schema/bom-1.4.schema.json",
