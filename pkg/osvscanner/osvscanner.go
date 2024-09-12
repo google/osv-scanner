@@ -707,18 +707,18 @@ func filterPackageVulns(r reporter.Reporter, pkgVulns models.PackageVulns, confi
 
 				reason := ignoreLine.Reason
 
-				if reason != "" {
-					reason = " because: " + reason
+				if reason == "" {
+					reason = "(no reason given)"
 				}
 
 				// NB: This only prints the first reason encountered in all the aliases.
 				switch len(group.Aliases) {
 				case 1:
-					r.Infof("%s has been filtered out%s\n", ignoreLine.ID, reason)
+					r.Infof("%s has been filtered out because: %s\n", ignoreLine.ID, reason)
 				case 2:
-					r.Infof("%s and 1 alias have been filtered out%s\n", ignoreLine.ID, reason)
+					r.Infof("%s and 1 alias have been filtered out because: %s\n", ignoreLine.ID, reason)
 				default:
-					r.Infof("%s and %d aliases have been filtered out%s\n", ignoreLine.ID, len(group.Aliases)-1, reason)
+					r.Infof("%s and %d aliases have been filtered out because: %s\n", ignoreLine.ID, len(group.Aliases)-1, reason)
 				}
 
 				break
@@ -988,10 +988,10 @@ func filterIgnoredPackages(r reporter.Reporter, packages []scannedPackage, confi
 			pkgString := fmt.Sprintf("%s/%s/%s", p.Ecosystem, p.Name, p.Version)
 			reason := ignoreLine.Reason
 
-			if reason != "" {
-				reason = " because: " + reason
+			if reason == "" {
+				reason = "(no reason given)"
 			}
-			r.Infof("Package %s has been filtered out%s\n", pkgString, reason)
+			r.Infof("Package %s has been filtered out because: %s\n", pkgString, reason)
 
 			continue
 		}
