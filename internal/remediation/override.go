@@ -225,7 +225,7 @@ func overridePatchVulns(ctx context.Context, cl client.ResolutionClient, result 
 			return nil, nil, err
 		}
 
-		result, err = resolution.Resolve(ctx, cl, newManif)
+		result, err = resolution.Resolve(ctx, cl, newManif, opts.ResolveOpts)
 		if err != nil {
 			return nil, nil, err
 		}
