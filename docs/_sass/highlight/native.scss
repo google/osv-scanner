@@ -1,0 +1,289 @@
+// Based on https://github.com/dwayne/sass-pygments/blob/master/styles/scss/native.scss
+
+.highlight, pre.highlight {
+    .hll {
+      background-color: #404040;
+    }
+  
+    color: #d0d0d0;
+    background: #202020;
+  
+    .c {
+      color: #999999;
+      font-style: italic;
+    }
+  
+    .err {
+      color: #d0d0d0; // Replacing default #a61717 with default text code for code block
+      background-color: #202020; // Replacing default #e3d2d2 with background for the code block
+    }
+  
+    .esc, .g {
+      color: #d0d0d0;
+    }
+  
+    .k {
+      color: #6ab825;
+      font-weight: bold;
+    }
+  
+    .l, .n, .o, .x, .p {
+      color: #d0d0d0;
+    }
+  
+    .ch, .cm {
+      color: #999999;
+      font-style: italic;
+    }
+  
+    .cp {
+      color: #cd2828;
+      font-weight: bold;
+    }
+  
+    .cpf, .c1 {
+      color: #999999;
+      font-style: italic;
+    }
+  
+    .cs {
+      color: #e50808;
+      font-weight: bold;
+      background-color: #520000;
+    }
+  
+    .gd {
+      color: #d22323;
+    }
+  
+    .ge {
+      color: #d0d0d0;
+      font-style: italic;
+    }
+  
+    .gr {
+      color: #d22323;
+    }
+  
+    .gh {
+      color: #ffffff;
+      font-weight: bold;
+    }
+  
+    .gi {
+      color: #589819;
+    }
+  
+    .go {
+      color: #cccccc;
+    }
+  
+    .gp {
+      color: #aaaaaa;
+    }
+  
+    .gs {
+      color: #d0d0d0;
+      font-weight: bold;
+    }
+  
+    .gu {
+      color: #ffffff;
+      text-decoration: underline;
+    }
+  
+    .gt {
+      color: #d22323;
+    }
+  
+    .kc, .kd, .kn {
+      color: #6ab825;
+      font-weight: bold;
+    }
+  
+    .kp {
+      color: #6ab825;
+    }
+  
+    .kr, .kt {
+      color: #6ab825;
+      font-weight: bold;
+    }
+  
+    .ld {
+      color: #d0d0d0;
+    }
+  
+    .m {
+      color: #3677a9;
+    }
+  
+    .s {
+      color: #ed9d13;
+    }
+  
+    .na {
+      color: #bbbbbb;
+    }
+  
+    .nb {
+      color: #24909d;
+    }
+  
+    .nc {
+      color: #447fcf;
+      text-decoration: underline;
+    }
+  
+    .no {
+      color: #40ffff;
+    }
+  
+    .nd {
+      color: #ffa500;
+    }
+  
+    .ni {
+      color: #d0d0d0;
+    }
+  
+    .ne {
+      color: #bbbbbb;
+    }
+  
+    .nf {
+      color: #447fcf;
+    }
+  
+    .nl {
+      color: #d0d0d0;
+    }
+  
+    .nn {
+      color: #447fcf;
+      text-decoration: underline;
+    }
+  
+    .nx, .py {
+      color: #d0d0d0;
+    }
+  
+    .nt {
+      color: #6ab825;
+      font-weight: bold;
+    }
+  
+    .nv {
+      color: #40ffff;
+    }
+  
+    .ow {
+      color: #6ab825;
+      font-weight: bold;
+    }
+  
+    .w {
+      color: #666666;
+    }
+  
+    .mb, .mf, .mh, .mi, .mo {
+      color: #3677a9;
+    }
+  
+    .sb, .sc, .sd, .s2, .se, .sh, .si {
+      color: #ed9d13;
+    }
+  
+    .sx {
+      color: #ffa500;
+    }
+  
+    .sr, .s1, .ss {
+      color: #ed9d13;
+    }
+  
+    .bp {
+      color: #24909d;
+    }
+  
+    .vc, .vg, .vi {
+      color: #40ffff;
+    }
+  
+    .il {
+      color: #3677a9;
+    }
+  }
+  
+  /* Comment */
+  /* Error */
+  /* Escape */
+  /* Generic */
+  /* Keyword */
+  /* Literal */
+  /* Name */
+  /* Operator */
+  /* Other */
+  /* Punctuation */
+  /* Comment.Hashbang */
+  /* Comment.Multiline */
+  /* Comment.Preproc */
+  /* Comment.PreprocFile */
+  /* Comment.Single */
+  /* Comment.Special */
+  /* Generic.Deleted */
+  /* Generic.Emph */
+  /* Generic.Error */
+  /* Generic.Heading */
+  /* Generic.Inserted */
+  /* Generic.Output */
+  /* Generic.Prompt */
+  /* Generic.Strong */
+  /* Generic.Subheading */
+  /* Generic.Traceback */
+  /* Keyword.Constant */
+  /* Keyword.Declaration */
+  /* Keyword.Namespace */
+  /* Keyword.Pseudo */
+  /* Keyword.Reserved */
+  /* Keyword.Type */
+  /* Literal.Date */
+  /* Literal.Number */
+  /* Literal.String */
+  /* Name.Attribute */
+  /* Name.Builtin */
+  /* Name.Class */
+  /* Name.Constant */
+  /* Name.Decorator */
+  /* Name.Entity */
+  /* Name.Exception */
+  /* Name.Function */
+  /* Name.Label */
+  /* Name.Namespace */
+  /* Name.Other */
+  /* Name.Property */
+  /* Name.Tag */
+  /* Name.Variable */
+  /* Operator.Word */
+  /* Text.Whitespace */
+  /* Literal.Number.Bin */
+  /* Literal.Number.Float */
+  /* Literal.Number.Hex */
+  /* Literal.Number.Integer */
+  /* Literal.Number.Oct */
+  /* Literal.String.Backtick */
+  /* Literal.String.Char */
+  /* Literal.String.Doc */
+  /* Literal.String.Double */
+  /* Literal.String.Escape */
+  /* Literal.String.Heredoc */
+  /* Literal.String.Interpol */
+  /* Literal.String.Other */
+  /* Literal.String.Regex */
+  /* Literal.String.Single */
+  /* Literal.String.Symbol */
+  /* Name.Builtin.Pseudo */
+  /* Name.Variable.Class */
+  /* Name.Variable.Global */
+  /* Name.Variable.Instance */
+  /* Literal.Number.Integer.Long */
