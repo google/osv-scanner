@@ -123,9 +123,10 @@ func resolvePostProcess(ctx context.Context, cl client.ResolutionClient, m manif
 		}
 
 		// Search through OriginalRequirements management dependencies in this pom only (not parents).
+		// TODO: Possibly refactor RequirementsForUpdates for this purpose.
 		for _, req := range manifestSpecific.OriginalRequirements {
 			if req.Origin != mavenutil.OriginManagement {
-				// TODO: also check management in activated profiles
+				// TODO: also check management in activated profiles and dependencies in inactive profiles.
 				continue
 			}
 
