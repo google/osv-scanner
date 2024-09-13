@@ -67,6 +67,7 @@ func (e PackageOverrideEntry) matches(pkg models.PackageVulns) bool {
 
 type License struct {
 	Override []string `toml:"override"`
+	Ignore   bool     `toml:"ignore"`
 }
 
 func (c *Config) ShouldIgnore(vulnID string) (bool, IgnoreEntry) {
@@ -109,10 +110,10 @@ func (c *Config) ShouldIgnorePackageVersion(name, version, ecosystem string) (bo
 	})
 }
 
-// ShouldOverridePackageLicense determines if the given package should have its license changed based on override entries in the config
+// ShouldOverridePackageLicense determines if the given package should have its license ignored or changed based on override entries in the config
 func (c *Config) ShouldOverridePackageLicense(pkg models.PackageVulns) (bool, PackageOverrideEntry) {
 	return c.filterPackageVersionEntries(pkg, func(e PackageOverrideEntry) bool {
-		return len(e.License.Override) > 0
+		return e.License.Ignore || len(e.License.Override) > 0
 	})
 }
 

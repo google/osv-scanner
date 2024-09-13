@@ -776,7 +776,7 @@ func TestConfig_ShouldOverridePackageLicense(t *testing.T) {
 		wantEntry PackageOverrideEntry
 	}{
 		{
-			name: "Exact version entry exists",
+			name: "Exact version entry exists with override",
 			config: Config{
 				PackageOverrides: []PackageOverrideEntry{
 					{
@@ -809,7 +809,40 @@ func TestConfig_ShouldOverridePackageLicense(t *testing.T) {
 			},
 		},
 		{
-			name: "Version entry doesn't exist",
+			name: "Exact version entry exists with ignore",
+			config: Config{
+				PackageOverrides: []PackageOverrideEntry{
+					{
+						Name:      "lib1",
+						Version:   "1.0.0",
+						Ecosystem: "Go",
+						License: License{
+							Ignore: true,
+						},
+						Reason: "abc",
+					},
+				},
+			},
+			args: models.PackageVulns{
+				Package: models.PackageInfo{
+					Name:      "lib1",
+					Version:   "1.0.0",
+					Ecosystem: "Go",
+				},
+			},
+			wantOk: true,
+			wantEntry: PackageOverrideEntry{
+				Name:      "lib1",
+				Version:   "1.0.0",
+				Ecosystem: "Go",
+				License: License{
+					Ignore: true,
+				},
+				Reason: "abc",
+			},
+		},
+		{
+			name: "Version entry doesn't exist with override",
 			config: Config{
 				PackageOverrides: []PackageOverrideEntry{
 					{
@@ -834,7 +867,32 @@ func TestConfig_ShouldOverridePackageLicense(t *testing.T) {
 			wantEntry: PackageOverrideEntry{},
 		},
 		{
-			name: "Name matches",
+			name: "Version entry doesn't exist with ignore",
+			config: Config{
+				PackageOverrides: []PackageOverrideEntry{
+					{
+						Name:      "lib1",
+						Version:   "1.0.0",
+						Ecosystem: "Go",
+						License: License{
+							Ignore: true,
+						},
+						Reason: "abc",
+					},
+				},
+			},
+			args: models.PackageVulns{
+				Package: models.PackageInfo{
+					Name:      "lib1",
+					Version:   "1.0.1",
+					Ecosystem: "Go",
+				},
+			},
+			wantOk:    false,
+			wantEntry: PackageOverrideEntry{},
+		},
+		{
+			name: "Name matches with override",
 			config: Config{
 				PackageOverrides: []PackageOverrideEntry{
 					{
@@ -860,6 +918,37 @@ func TestConfig_ShouldOverridePackageLicense(t *testing.T) {
 				Ecosystem: "Go",
 				License: License{
 					Override: []string{"mit"},
+				},
+				Reason: "abc",
+			},
+		},
+		{
+			name: "Name matches with ignore",
+			config: Config{
+				PackageOverrides: []PackageOverrideEntry{
+					{
+						Name:      "lib1",
+						Ecosystem: "Go",
+						License: License{
+							Ignore: true,
+						},
+						Reason: "abc",
+					},
+				},
+			},
+			args: models.PackageVulns{
+				Package: models.PackageInfo{
+					Name:      "lib1",
+					Version:   "1.0.1",
+					Ecosystem: "Go",
+				},
+			},
+			wantOk: true,
+			wantEntry: PackageOverrideEntry{
+				Name:      "lib1",
+				Ecosystem: "Go",
+				License: License{
+					Ignore: true,
 				},
 				Reason: "abc",
 			},
