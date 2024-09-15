@@ -401,6 +401,16 @@ Ignored invalid config file at: <rootdir>/fixtures/config-invalid/osv-scanner.to
 
 ---
 
+[TestRun/config_files_cannot_have_unknown_keys - 1]
+
+---
+
+[TestRun/config_files_cannot_have_unknown_keys - 2]
+Failed to read config file: unknown keys in config file: RustVersionOverride, PackageOverrides.skip, PackageOverrides.license.skip
+unknown keys in config file: RustVersionOverride, PackageOverrides.skip, PackageOverrides.license.skip
+
+---
+
 [TestRun/cyclonedx_1.4_output - 1]
 {
   "$schema": "http://cyclonedx.org/schema/bom-1.4.schema.json",

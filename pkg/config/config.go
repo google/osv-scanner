@@ -6,6 +6,7 @@ import (
 	"os"
 	"path/filepath"
 	"slices"
+	"strings"
 	"time"
 
 	"github.com/BurntSushi/toml"
@@ -213,8 +214,20 @@ func normalizeConfigLoadPath(target string) (string, error) {
 // returning the Config object if successful or otherwise the error
 func tryLoadConfig(configPath string) (Config, error) {
 	config := Config{}
-	_, err := toml.DecodeFile(configPath, &config)
+	m, err := toml.DecodeFile(configPath, &config)
 	if err == nil {
+		unknownKeys := m.Undecoded()
+
+		if len(unknownKeys) > 0 {
+			keys := make([]string, 0, len(unknownKeys))
+
+			for _, key := range unknownKeys {
+				keys = append(keys, key.String())
+			}
+
+			return Config{}, fmt.Errorf("unknown keys in config file: %s", strings.Join(keys, ", "))
+		}
+
 		config.LoadPath = configPath
 	}
 
