@@ -205,8 +205,8 @@ func normalizeConfigLoadPath(target string) (string, error) {
 	return configPath, nil
 }
 
-// tryLoadConfig tries to load config in `target` (or it's containing directory)
-// `target` will be the key for the entry in configMap
+// tryLoadConfig attempts to parse the config file at the given path as TOML,
+// returning the Config object if successful or otherwise the error
 func tryLoadConfig(configPath string) (Config, error) {
 	config := Config{}
 	_, err := toml.DecodeFile(configPath, &config)
