@@ -142,12 +142,10 @@ func shouldIgnoreTimestamp(ignoreUntil time.Time) bool {
 // Sets the override config by reading the config file at configPath.
 // Will return an error if loading the config file fails
 func (c *ConfigManager) UseOverride(configPath string) error {
-	config := Config{}
-	_, err := toml.DecodeFile(configPath, &config)
-	if err != nil {
-		return err
+	config, configErr := tryLoadConfig(configPath)
+	if configErr != nil {
+		return configErr
 	}
-	config.LoadPath = configPath
 	c.OverrideConfig = &config
 
 	return nil
