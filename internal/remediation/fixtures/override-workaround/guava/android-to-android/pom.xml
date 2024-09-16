@@ -1,0 +1,15 @@
+<project>
+  <modelVersion>4.0.0</modelVersion>
+ 
+  <groupId>dev.osv</groupId>
+  <artifactId>osv-fix</artifactId>
+  <version>1</version>
+
+  <dependencies>
+    <dependency>
+      <groupId>com.google.guava</groupId>
+      <artifactId>guava</artifactId>
+      <version>22.0-android</version>
+    </dependency>
+  </dependencies>
+</project>

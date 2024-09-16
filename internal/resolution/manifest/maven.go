@@ -16,6 +16,7 @@ import (
 	"deps.dev/util/resolve"
 	"deps.dev/util/resolve/dep"
 	"github.com/google/osv-scanner/internal/resolution/datasource"
+	internalxml "github.com/google/osv-scanner/internal/thirdparty/xml"
 	mavenutil "github.com/google/osv-scanner/internal/utility/maven"
 	"github.com/google/osv-scanner/pkg/lockfile"
 )
@@ -35,14 +36,14 @@ func mavenRequirementKey(requirement resolve.RequirementVersion) RequirementKey 
 }
 
 type MavenManifestIO struct {
-	datasource.MavenRegistryAPIClient
+	*datasource.MavenRegistryAPIClient
 }
 
 func (MavenManifestIO) System() resolve.System { return resolve.Maven }
 
 func NewMavenManifestIO() MavenManifestIO {
 	return MavenManifestIO{
-		MavenRegistryAPIClient: *datasource.NewMavenRegistryAPIClient(datasource.MavenCentral),
+		MavenRegistryAPIClient: datasource.NewMavenRegistryAPIClient(datasource.MavenCentral),
 	}
 }
 
@@ -293,7 +294,7 @@ func (MavenManifestIO) Write(df lockfile.DepFile, w io.Writer, patch ManifestPat
 	currentPath := df.Path()
 	parent := specific.Parent
 	visited := make(map[maven.ProjectKey]bool, mavenutil.MaxParent)
-	for n := 0; n < mavenutil.MaxParent; n++ {
+	for range mavenutil.MaxParent {
 		if parent.GroupID == "" || parent.ArtifactID == "" || parent.Version == "" {
 			break
 		}
@@ -358,7 +359,7 @@ func (MavenManifestIO) Write(df lockfile.DepFile, w io.Writer, patch ManifestPat
 			return err
 		}
 		//nolint:gosec
-		if err := os.WriteFile(path, unescape(out.String()), 0644); err != nil {
+		if err := os.WriteFile(path, out.Bytes(), 0644); err != nil {
 			return err
 		}
 	}
@@ -367,20 +368,8 @@ func (MavenManifestIO) Write(df lockfile.DepFile, w io.Writer, patch ManifestPat
 	if _, err := in.ReadFrom(df); err != nil {
 		return fmt.Errorf("failed to read from DepFile: %w", err)
 	}
-	out := new(bytes.Buffer)
-	if err := write(in.String(), out, allPatches[""]); err != nil {
-		return fmt.Errorf("failed to write pom.xml: %w", err)
-	}
-	_, err = w.Write(unescape(out.String()))
 
-	return err
-}
-
-// Unescape replaces escaped tabs with unescaped characters.
-func unescape(out string) []byte {
-	out = strings.ReplaceAll(out, "&#x9;", "	")
-
-	return []byte(out)
+	return write(in.String(), w, allPatches[""])
 }
 
 type MavenPatches struct {
@@ -649,8 +638,8 @@ func compareDependency(d1, d2 dependency) int {
 }
 
 func write(raw string, w io.Writer, patches MavenPatches) error {
-	dec := xml.NewDecoder(bytes.NewReader([]byte(raw)))
-	enc := xml.NewEncoder(w)
+	dec := internalxml.NewDecoder(bytes.NewReader([]byte(raw)))
+	enc := internalxml.NewEncoder(w)
 
 	for {
 		token, err := dec.Token()
@@ -661,7 +650,7 @@ func write(raw string, w io.Writer, patches MavenPatches) error {
 			return fmt.Errorf("getting token: %w", err)
 		}
 
-		if tt, ok := token.(xml.StartElement); ok {
+		if tt, ok := token.(internalxml.StartElement); ok {
 			if tt.Name.Local == "project" {
 				type RawProject struct {
 					InnerXML string `xml:",innerxml"`
@@ -727,8 +716,8 @@ func write(raw string, w io.Writer, patches MavenPatches) error {
 	return nil
 }
 
-func writeProject(w io.Writer, enc *xml.Encoder, raw, prefix, id string, patches MavenDependencyPatches, properties MavenPropertyPatches, updated map[string]bool) error {
-	dec := xml.NewDecoder(bytes.NewReader([]byte(raw)))
+func writeProject(w io.Writer, enc *internalxml.Encoder, raw, prefix, id string, patches MavenDependencyPatches, properties MavenPropertyPatches, updated map[string]bool) error {
+	dec := internalxml.NewDecoder(bytes.NewReader([]byte(raw)))
 	for {
 		token, err := dec.Token()
 		if errors.Is(err, io.EOF) {
@@ -738,7 +727,7 @@ func writeProject(w io.Writer, enc *xml.Encoder, raw, prefix, id string, patches
 			return err
 		}
 
-		if tt, ok := token.(xml.StartElement); ok {
+		if tt, ok := token.(internalxml.StartElement); ok {
 			switch tt.Name.Local {
 			case "parent":
 				updated["parent"] = true
@@ -858,8 +847,8 @@ func writeProject(w io.Writer, enc *xml.Encoder, raw, prefix, id string, patches
 	return enc.Flush()
 }
 
-func writeDependency(w io.Writer, enc *xml.Encoder, raw string, patches map[MavenPatch]bool) error {
-	dec := xml.NewDecoder(bytes.NewReader([]byte(raw)))
+func writeDependency(w io.Writer, enc *internalxml.Encoder, raw string, patches map[MavenPatch]bool) error {
+	dec := internalxml.NewDecoder(bytes.NewReader([]byte(raw)))
 	for {
 		token, err := dec.Token()
 		if errors.Is(err, io.EOF) {
@@ -869,7 +858,7 @@ func writeDependency(w io.Writer, enc *xml.Encoder, raw string, patches map[Mave
 			return err
 		}
 
-		if tt, ok := token.(xml.StartElement); ok {
+		if tt, ok := token.(internalxml.StartElement); ok {
 			if tt.Name.Local == "dependencies" {
 				// We still need to write the start element <dependencies>
 				if err := enc.EncodeToken(token); err != nil {
@@ -893,7 +882,7 @@ func writeDependency(w io.Writer, enc *xml.Encoder, raw string, patches map[Mave
 				// Sort dependencies for consistency in testing.
 				slices.SortFunc(deps, compareDependency)
 
-				enc.Indent("    ", "  ")
+				enc.Indent("      ", "  ")
 				// Write a new line to keep the format.
 				if _, err := w.Write([]byte("\n")); err != nil {
 					return err
@@ -942,8 +931,8 @@ func writeDependency(w io.Writer, enc *xml.Encoder, raw string, patches map[Mave
 }
 
 // writeString writes XML string specified by raw with replacements specified in values.
-func writeString(enc *xml.Encoder, raw string, values map[string]string) error {
-	dec := xml.NewDecoder(bytes.NewReader([]byte(raw)))
+func writeString(enc *internalxml.Encoder, raw string, values map[string]string) error {
+	dec := internalxml.NewDecoder(bytes.NewReader([]byte(raw)))
 	for {
 		token, err := dec.Token()
 		if errors.Is(err, io.EOF) {
@@ -952,7 +941,7 @@ func writeString(enc *xml.Encoder, raw string, values map[string]string) error {
 		if err != nil {
 			return err
 		}
-		if tt, ok := token.(xml.StartElement); ok {
+		if tt, ok := token.(internalxml.StartElement); ok {
 			if value, ok2 := values[tt.Name.Local]; ok2 {
 				var str string
 				if err := dec.DecodeElement(&str, &tt); err != nil {

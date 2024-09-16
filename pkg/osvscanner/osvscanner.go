@@ -415,7 +415,7 @@ func extractMavenDeps(f lockfile.DepFile) (lockfile.Lockfile, error) {
 	}
 	extractor := manifest.MavenResolverExtractor{
 		DependencyClient:       depClient,
-		MavenRegistryAPIClient: *datasource.NewMavenRegistryAPIClient(datasource.MavenCentral),
+		MavenRegistryAPIClient: datasource.NewMavenRegistryAPIClient(datasource.MavenCentral),
 	}
 	packages, err := extractor.Extract(f)
 	if err != nil {
@@ -967,7 +967,17 @@ func filterIgnoredPackages(r reporter.Reporter, packages []scannedPackage, confi
 	out := make([]scannedPackage, 0, len(packages))
 	for _, p := range packages {
 		configToUse := configManager.Get(r, p.Source.Path)
-		if ignore, ignoreLine := configToUse.ShouldIgnorePackageVersion(p.Name, p.Version, string(p.Ecosystem)); ignore {
+		pkg := models.PackageVulns{
+			Package: models.PackageInfo{
+				Name:      p.Name,
+				Version:   p.Version,
+				Ecosystem: string(p.Ecosystem),
+				Commit:    p.Commit,
+			},
+			DepGroups: p.DepGroups,
+		}
+
+		if ignore, ignoreLine := configToUse.ShouldIgnorePackage(pkg); ignore {
 			pkgString := fmt.Sprintf("%s/%s/%s", p.Ecosystem, p.Name, p.Version)
 			r.Infof("Package %s has been filtered out because: %s\n", pkgString, ignoreLine.Reason)
 

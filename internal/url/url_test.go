@@ -17,7 +17,6 @@ func TestURLFromFilePath(t *testing.T) {
 		if tc.filePath == "" {
 			continue
 		}
-		tc := tc
 
 		t.Run(tc.filePath, func(t *testing.T) {
 			t.Parallel()

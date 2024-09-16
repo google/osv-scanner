@@ -286,7 +286,7 @@ func (pv PyPIVersion) compareLocal(pw PyPIVersion) int {
 
 	var compare int
 
-	for i := 0; i < minVersionLength; i++ {
+	for i := range minVersionLength {
 		ai, aIsNumber := convertToBigInt(pv.local[i])
 		bi, bIsNumber := convertToBigInt(pw.local[i])
 
