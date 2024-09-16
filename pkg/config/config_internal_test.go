@@ -49,7 +49,7 @@ func Test_normalizeConfigLoadPath(t *testing.T) {
 			wantErr: false,
 		},
 		{
-			name: "target is directory with trailing slash",
+			name: "target is inner directory with trailing slash",
 			args: args{
 				target: "./fixtures/testdatainner/innerFolder/",
 			},
@@ -57,7 +57,7 @@ func Test_normalizeConfigLoadPath(t *testing.T) {
 			wantErr: false,
 		},
 		{
-			name: "target is directory without trailing slash",
+			name: "target is inner directory without trailing slash",
 			args: args{
 				target: "./fixtures/testdatainner/innerFolder",
 			},
