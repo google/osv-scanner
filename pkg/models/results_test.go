@@ -13,7 +13,7 @@ func TestFlatten(t *testing.T) {
 	vulns := models.VulnerabilityResults{Results: []models.PackageSource{}}
 	expectedFlattened := []models.VulnerabilityFlattened{}
 	flattened := vulns.Flatten()
-	if diff := cmp.Diff(flattened, expectedFlattened); diff != "" {
+	if diff := cmp.Diff(expectedFlattened, flattened); diff != "" {
 		t.Errorf("Flatten() returned unexpected result (-want +got):\n%s", diff)
 	}
 
@@ -48,7 +48,7 @@ func TestFlatten(t *testing.T) {
 		},
 	}
 	flattened = vulns.Flatten()
-	if diff := cmp.Diff(flattened, expectedFlattened); diff != "" {
+	if diff := cmp.Diff(expectedFlattened, flattened); diff != "" {
 		t.Errorf("Flatten() returned unexpected result (-want +got):\n%s", diff)
 	}
 
@@ -73,7 +73,7 @@ func TestFlatten(t *testing.T) {
 		},
 	}
 	flattened = vulns.Flatten()
-	if diff := cmp.Diff(flattened, expectedFlattened); diff != "" {
+	if diff := cmp.Diff(expectedFlattened, flattened); diff != "" {
 		t.Errorf("Flatten() returned unexpected result (-want +got):\n%s", diff)
 	}
 
@@ -116,7 +116,7 @@ func TestFlatten(t *testing.T) {
 		},
 	}
 	flattened = vulns.Flatten()
-	if diff := cmp.Diff(flattened, expectedFlattened); diff != "" {
+	if diff := cmp.Diff(expectedFlattened, flattened); diff != "" {
 		t.Errorf("Flatten() returned unexpected result (-want +got):\n%s", diff)
 	}
 }
