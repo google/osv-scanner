@@ -637,7 +637,7 @@ func TestExtractor_Extract_WithRequirements(t *testing.T) {
 			InputConfig: extracttest.ScanInputMockConfig{
 				Path: "testdata/with-bad-r-option.txt",
 			},
-			WantErrIs: fs.ErrNotExist},
+			WantErr: fs.ErrNotExist},
 		{
 			Name: "duplicate r options",
 			InputConfig: extracttest.ScanInputMockConfig{
