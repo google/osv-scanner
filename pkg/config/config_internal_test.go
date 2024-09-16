@@ -1,7 +1,6 @@
 package config
 
 import (
-	"path/filepath"
 	"reflect"
 	"testing"
 	"time"
@@ -9,12 +8,6 @@ import (
 	"github.com/google/go-cmp/cmp"
 	"github.com/google/osv-scanner/pkg/models"
 )
-
-type testStruct struct {
-	targetPath   string
-	config       Config
-	configHasErr bool
-}
 
 func Test_normalizeConfigLoadPath(t *testing.T) {
 	t.Parallel()
@@ -85,87 +78,69 @@ func Test_normalizeConfigLoadPath(t *testing.T) {
 	}
 }
 
-func TestTryLoadConfig(t *testing.T) {
+func Test_tryLoadConfig(t *testing.T) {
 	t.Parallel()
 
-	expectedConfig := Config{
-		IgnoredVulns: []IgnoreEntry{
-			{
-				ID: "GO-2022-0968",
+	type args struct {
+		configPath string
+	}
+	tests := []struct {
+		name    string
+		args    args
+		want    Config
+		wantErr bool
+	}{
+		{
+			name: "config has some ignored vulnerabilities and package overrides",
+			args: args{
+				configPath: "./fixtures/testdatainner/osv-scanner.toml",
 			},
-			{
-				ID: "GO-2022-1059",
-			},
-		},
-		PackageOverrides: []PackageOverrideEntry{
-			{
-				Name:      "lib",
-				Version:   "1.0.0",
-				Ecosystem: "Go",
-				Ignore:    true,
-				Reason:    "abc",
-			},
-			{
-				Name:      "my-pkg",
-				Version:   "1.0.0",
-				Ecosystem: "Go",
-				Reason:    "abc",
-				Ignore:    true,
-				License: License{
-					Override: []string{"MIT", "0BSD"},
+			want: Config{
+				LoadPath: "./fixtures/testdatainner/osv-scanner.toml",
+				IgnoredVulns: []IgnoreEntry{
+					{
+						ID: "GO-2022-0968",
+					},
+					{
+						ID: "GO-2022-1059",
+					},
+				},
+				PackageOverrides: []PackageOverrideEntry{
+					{
+						Name:      "lib",
+						Version:   "1.0.0",
+						Ecosystem: "Go",
+						Ignore:    true,
+						Reason:    "abc",
+					},
+					{
+						Name:      "my-pkg",
+						Version:   "1.0.0",
+						Ecosystem: "Go",
+						Reason:    "abc",
+						Ignore:    true,
+						License: License{
+							Override: []string{"MIT", "0BSD"},
+						},
+					},
 				},
 			},
+			wantErr: false,
 		},
 	}
-	testPaths := []testStruct{
-		{
-			targetPath:   "./fixtures/testdatainner/innerFolder/test.yaml",
-			config:       Config{},
-			configHasErr: true,
-		},
-		{
-			targetPath:   "./fixtures/testdatainner/innerFolder/",
-			config:       Config{},
-			configHasErr: true,
-		},
-		{ // Test no slash at the end
-			targetPath:   "./fixtures/testdatainner/innerFolder",
-			config:       Config{},
-			configHasErr: true,
-		},
-		{
-			targetPath:   "./fixtures/testdatainner/",
-			config:       expectedConfig,
-			configHasErr: false,
-		},
-		{
-			targetPath:   "./fixtures/testdatainner/some-manifest.yaml",
-			config:       expectedConfig,
-			configHasErr: false,
-		},
-	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			t.Parallel()
 
-	for _, testData := range testPaths {
-		absPath, err := filepath.Abs(testData.targetPath)
-		if err != nil {
-			t.Errorf("%s", err)
-		}
-		configPath, err := normalizeConfigLoadPath(absPath)
-		if err != nil {
-			t.Errorf("%s", err)
-		}
-		config, configErr := tryLoadConfig(configPath)
-		if !cmp.Equal(config.IgnoredVulns, testData.config.IgnoredVulns) {
-			t.Errorf("Configs not equal: %+v != %+v", config, testData.config)
-		}
-		if !cmp.Equal(config.PackageOverrides, testData.config.PackageOverrides) {
-			t.Errorf("Configs not equal: %+v != %+v", config, testData.config)
-		}
-		if testData.configHasErr {
-			if configErr == nil {
-				t.Error("Config error not returned")
+			got, err := tryLoadConfig(tt.args.configPath)
+			if (err != nil) != tt.wantErr {
+				t.Errorf("tryLoadConfig() error = %v, wantErr %v", err, tt.wantErr)
+				return
 			}
-		}
+			if diff := cmp.Diff(tt.want, got); diff != "" {
+				t.Errorf("tryLoadConfig() mismatch (-want +got):\n%s", diff)
+			}
+		})
 	}
 }
 
