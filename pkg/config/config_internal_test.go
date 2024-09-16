@@ -16,6 +16,75 @@ type testStruct struct {
 	configHasErr bool
 }
 
+func Test_normalizeConfigLoadPath(t *testing.T) {
+	t.Parallel()
+
+	type args struct {
+		target string
+	}
+	tests := []struct {
+		name    string
+		args    args
+		want    string
+		wantErr bool
+	}{
+		{
+			name: "target is file in directory with config",
+			args: args{
+				target: "./fixtures/testdatainner/innerFolder/test.yaml",
+			},
+			want:    "fixtures/testdatainner/innerFolder/osv-scanner.toml",
+			wantErr: false,
+		},
+		{
+			name: "target is directory with config, with trailing slash",
+			args: args{
+				target: "./fixtures/testdatainner/innerFolder/",
+			},
+			want:    "fixtures/testdatainner/innerFolder/osv-scanner.toml",
+			wantErr: false,
+		},
+		{
+			name: "target is directory with config, without trailing slash",
+			args: args{
+				target: "./fixtures/testdatainner/innerFolder",
+			},
+			want:    "fixtures/testdatainner/innerFolder/osv-scanner.toml",
+			wantErr: false,
+		},
+		{
+			name: "target is directory with config, with trailing slash",
+			args: args{
+				target: "./fixtures/testdatainner/",
+			},
+			want:    "fixtures/testdatainner/osv-scanner.toml",
+			wantErr: false,
+		},
+		{
+			name: "target is file in directory with config",
+			args: args{
+				target: "./fixtures/testdatainner/some-manifest.yaml",
+			},
+			want:    "fixtures/testdatainner/osv-scanner.toml",
+			wantErr: false,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			t.Parallel()
+
+			got, err := normalizeConfigLoadPath(tt.args.target)
+			if (err != nil) != tt.wantErr {
+				t.Errorf("normalizeConfigLoadPath() error = %v, wantErr %v", err, tt.wantErr)
+				return
+			}
+			if got != tt.want {
+				t.Errorf("normalizeConfigLoadPath() got = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
 func TestTryLoadConfig(t *testing.T) {
 	t.Parallel()
 
