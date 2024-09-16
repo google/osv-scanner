@@ -315,8 +315,14 @@ func TestRun(t *testing.T) {
 		// broad config file that overrides a whole ecosystem
 		{
 			name: "config file can be broad",
-			args: []string{"", "--config=./fixtures/osv-scanner-composite-config.toml", "--experimental-licenses", "MIT", "./fixtures/locks-many", "./fixtures/locks-insecure"},
+			args: []string{"", "--config=./fixtures/osv-scanner-composite-config.toml", "--experimental-licenses", "MIT", "./fixtures/locks-many", "./fixtures/locks-insecure", "./fixtures/maven-transitive"},
 			exit: 1,
+		},
+		// ignored vulnerabilities and packages without a reason should be called out
+		{
+			name: "ignores without reason should be explicitly called out",
+			args: []string{"", "--config=./fixtures/osv-scanner-reasonless-ignores-config.toml", "./fixtures/locks-many/package-lock.json", "./fixtures/locks-many/composer.lock"},
+			exit: 0,
 		},
 		// invalid config file
 		{
