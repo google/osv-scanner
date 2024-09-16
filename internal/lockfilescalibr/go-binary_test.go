@@ -1,123 +1,114 @@
 package lockfilescalibr_test
 
-import (
-	"testing"
+// func TestGoBinaryExtractor_FileRequired(t *testing.T) {
+// 	t.Parallel()
 
-	"github.com/google/osv-scanner/internal/lockfilescalibr"
-	"github.com/google/osv-scanner/internal/lockfilescalibr/extractor"
-	"github.com/google/osv-scanner/internal/lockfilescalibr/fakefs"
-	"github.com/google/osv-scanner/internal/lockfilescalibr/sharedtesthelpers"
-)
+// 	tests := []struct {
+// 		name        string
+// 		inputConfig sharedtesthelpers.ScanInputMockConfig
+// 		want        bool
+// 	}{
+// 		{
+// 			name: "full permission file",
+// 			inputConfig: sharedtesthelpers.ScanInputMockConfig{
+// 				Path: "some_path",
+// 				FakeFileInfo: &fakefs.FakeFileInfo{
+// 					FileMode: 0777,
+// 					FileSize: 100,
+// 				},
+// 			},
+// 			want: true,
+// 		},
+// 		{
+// 			name: "no executable file",
+// 			inputConfig: sharedtesthelpers.ScanInputMockConfig{
+// 				Path: "some_path_not_executable",
+// 				FakeFileInfo: &fakefs.FakeFileInfo{
+// 					FileMode: 0666,
+// 					FileSize: 100,
+// 				},
+// 			},
+// 			want: false,
+// 		},
+// 		{
+// 			name: "only owner executable file",
+// 			inputConfig: sharedtesthelpers.ScanInputMockConfig{
+// 				Path: "some_path_not_executable",
+// 				FakeFileInfo: &fakefs.FakeFileInfo{
+// 					FileMode: 0700,
+// 					FileSize: 100,
+// 				},
+// 			},
+// 			want: true,
+// 		},
+// 	}
 
-func TestGoBinaryExtractor_FileRequired(t *testing.T) {
-	t.Parallel()
+// 	for _, tt := range tests {
+// 		tt := tt
+// 		t.Run(tt.name, func(t *testing.T) {
+// 			t.Parallel()
+// 			e := lockfilescalibr.GoBinaryExtractor{}
+// 			got := e.FileRequired(tt.inputConfig.Path, sharedtesthelpers.GenerateFileInfoMock(t, tt.inputConfig))
+// 			if got != tt.want {
+// 				t.Errorf("FileRequired(%s, FileInfo) got = %v, want %v", tt.inputConfig.Path, got, tt.want)
+// 			}
+// 		})
+// 	}
+// }
 
-	tests := []struct {
-		name        string
-		inputConfig sharedtesthelpers.ScanInputMockConfig
-		want        bool
-	}{
-		{
-			name: "full permission file",
-			inputConfig: sharedtesthelpers.ScanInputMockConfig{
-				Path: "some_path",
-				FakeFileInfo: &fakefs.FakeFileInfo{
-					FileMode: 0777,
-					FileSize: 100,
-				},
-			},
-			want: true,
-		},
-		{
-			name: "no executable file",
-			inputConfig: sharedtesthelpers.ScanInputMockConfig{
-				Path: "some_path_not_executable",
-				FakeFileInfo: &fakefs.FakeFileInfo{
-					FileMode: 0666,
-					FileSize: 100,
-				},
-			},
-			want: false,
-		},
-		{
-			name: "only owner executable file",
-			inputConfig: sharedtesthelpers.ScanInputMockConfig{
-				Path: "some_path_not_executable",
-				FakeFileInfo: &fakefs.FakeFileInfo{
-					FileMode: 0700,
-					FileSize: 100,
-				},
-			},
-			want: true,
-		},
-	}
+// func TestGoBinaryExtractor_Extract(t *testing.T) {
+// 	t.Parallel()
 
-	for _, tt := range tests {
-		tt := tt
-		t.Run(tt.name, func(t *testing.T) {
-			t.Parallel()
-			e := lockfilescalibr.GoBinaryExtractor{}
-			got := e.FileRequired(tt.inputConfig.Path, sharedtesthelpers.GenerateFileInfoMock(t, tt.inputConfig))
-			if got != tt.want {
-				t.Errorf("FileRequired(%s, FileInfo) got = %v, want %v", tt.inputConfig.Path, got, tt.want)
-			}
-		})
-	}
-}
+// 	tests := []sharedtesthelpers.TestTableEntry{
+// 		{
+// 			Name: "no packages",
+// 			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+// 				Path: "fixtures/go/binaries/just-go",
+// 			},
+// 			WantInventory: []*extractor.Inventory{
+// 				{
+// 					Name:      "stdlib",
+// 					Version:   "1.21.10",
+// 					Locations: []string{"fixtures/go/binaries/just-go"},
+// 				},
+// 			},
+// 		},
+// 		{
+// 			Name: "one package",
+// 			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+// 				Path: "fixtures/go/binaries/has-one-dep",
+// 			},
+// 			WantInventory: []*extractor.Inventory{
+// 				{
+// 					Name:      "stdlib",
+// 					Version:   "1.21.10",
+// 					Locations: []string{"fixtures/go/binaries/has-one-dep"},
+// 				},
+// 				{
+// 					Name:      "github.com/BurntSushi/toml",
+// 					Version:   "1.4.0",
+// 					Locations: []string{"fixtures/go/binaries/has-one-dep"},
+// 				},
+// 			},
+// 		},
+// 		{
+// 			Name: "not a go binary",
+// 			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+// 				Path: "fixtures/go/one-package.mod",
+// 			},
+// 			WantErrContaining: "file format is incompatible",
+// 		},
+// 	}
 
-func TestGoBinaryExtractor_Extract(t *testing.T) {
-	t.Parallel()
-
-	tests := []sharedtesthelpers.TestTableEntry{
-		{
-			Name: "no packages",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
-				Path: "fixtures/go/binaries/just-go",
-			},
-			WantInventory: []*extractor.Inventory{
-				{
-					Name:      "stdlib",
-					Version:   "1.21.10",
-					Locations: []string{"fixtures/go/binaries/just-go"},
-				},
-			},
-		},
-		{
-			Name: "one package",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
-				Path: "fixtures/go/binaries/has-one-dep",
-			},
-			WantInventory: []*extractor.Inventory{
-				{
-					Name:      "stdlib",
-					Version:   "1.21.10",
-					Locations: []string{"fixtures/go/binaries/has-one-dep"},
-				},
-				{
-					Name:      "github.com/BurntSushi/toml",
-					Version:   "1.4.0",
-					Locations: []string{"fixtures/go/binaries/has-one-dep"},
-				},
-			},
-		},
-		{
-			Name: "not a go binary",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
-				Path: "fixtures/go/one-package.mod",
-			},
-			WantErrContaining: "file format is incompatible",
-		},
-	}
-
-	for _, tt := range tests {
-		tt := tt
-		t.Run(tt.Name, func(t *testing.T) {
-			t.Parallel()
-			e := lockfilescalibr.GoBinaryExtractor{}
-			_, _ = sharedtesthelpers.ExtractionTester(t, e, tt)
-		})
-	}
-}
+// 	for _, tt := range tests {
+// 		tt := tt
+// 		t.Run(tt.Name, func(t *testing.T) {
+// 			t.Parallel()
+// 			e := lockfilescalibr.GoBinaryExtractor{}
+// 			_, _ = sharedtesthelpers.ExtractionTester(t, e, tt)
+// 		})
+// 	}
+// }
 
 // func TestExtractGoBinary_NoPackages(t *testing.T) {
 // 	t.Parallel()

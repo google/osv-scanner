@@ -73,14 +73,16 @@ func TestExtractor_Extract(t *testing.T) {
 			InputConfig: extracttest.ScanInputMockConfig{
 				Path: "testdata/not-pom.txt",
 			},
-			WantErr: extracttest.ContainsErrStr{Str: "could not extract from"},
+			WantInventory: []*extractor.Inventory{},
+			WantErr:       extracttest.ContainsErrStr{Str: "could not extract from"},
 		},
 		{
 			Name: "invalid syntax",
 			InputConfig: extracttest.ScanInputMockConfig{
 				Path: "testdata/invalid-syntax.xml",
 			},
-			WantErr: extracttest.ContainsErrStr{Str: "could not extract from"},
+			WantInventory: []*extractor.Inventory{},
+			WantErr:       extracttest.ContainsErrStr{Str: "could not extract from"},
 		},
 		{
 			Name: "no packages",

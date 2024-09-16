@@ -72,9 +72,8 @@ func TestExtractor_Extract_invalidVersion(t *testing.T) {
 			InputConfig: extracttest.ScanInputMockConfig{
 				Path: "testdata/empty.v0.json",
 			},
-			WantErr: extracttest.ContainsErrStr{Str: "unsupported lock file version 0"},
-
 			WantInventory: []*extractor.Inventory{},
+			WantErr:       extracttest.ContainsErrStr{Str: "unsupported lock file version 0"},
 		},
 	}
 

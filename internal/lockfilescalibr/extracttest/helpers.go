@@ -90,10 +90,14 @@ func InventoryCmpLess(a, b *extractor.Inventory) bool {
 		bExtr = b.Extractor.Name()
 	}
 
+	aSourceCode := fmt.Sprintf("%v", a.SourceCode)
+	bSourceCode := fmt.Sprintf("%v", b.SourceCode)
+
 	return cmp.Or(
 		cmp.Compare(aLoc, bLoc),
 		cmp.Compare(a.Name, b.Name),
 		cmp.Compare(a.Version, b.Version),
+		cmp.Compare(aSourceCode, bSourceCode),
 		cmp.Compare(aExtr, bExtr),
 	) < 0
 }
