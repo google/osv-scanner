@@ -1,8 +1,11 @@
 package pnpmlock_test
 
 import (
+	"context"
 	"testing"
 
+	"github.com/google/go-cmp/cmp"
+	"github.com/google/go-cmp/cmp/cmpopts"
 	"github.com/google/osv-scanner/internal/lockfilescalibr/extractor"
 	"github.com/google/osv-scanner/internal/lockfilescalibr/extracttest"
 	"github.com/google/osv-scanner/internal/lockfilescalibr/language/javascript/pnpmlock"
@@ -328,8 +331,21 @@ func TestExtractor_Extract_v9(t *testing.T) {
 		tt := tt
 		t.Run(tt.Name, func(t *testing.T) {
 			t.Parallel()
-			e := pnpmlock.Extractor{}
-			_, _ = extracttest.ExtractionTester(t, e, tt)
+			extr := pnpmlock.Extractor{}
+
+			scanInput := extracttest.GenerateScanInputMock(t, tt.InputConfig)
+			defer extracttest.CloseTestScanInput(t, scanInput)
+
+			got, err := extr.Extract(context.Background(), &scanInput)
+
+			if diff := cmp.Diff(tt.WantErr, err, cmpopts.EquateErrors()); diff != "" {
+				t.Errorf("%s.Extract(%q) error diff (-want +got):\n%s", extr.Name(), tt.InputConfig.Path, diff)
+				return
+			}
+
+			if diff := cmp.Diff(tt.WantInventory, got, cmpopts.SortSlices(extracttest.InventoryCmpLess)); diff != "" {
+				t.Errorf("%s.Extract(%q) diff (-want +got):\n%s", extr.Name(), tt.InputConfig.Path, diff)
+			}
 		})
 	}
 }
