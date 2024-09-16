@@ -101,7 +101,7 @@ func Test_scanGit(t *testing.T) {
 		if (err != nil) != tt.wantErr {
 			t.Errorf("scanGit() error = %v, wantErr %v", err, tt.wantErr)
 		}
-		if diff := cmp.Diff(tt.wantPkg, pkg); diff != "" {
+		if !cmp.Equal(tt.wantPkg, pkg) {
 			t.Errorf("scanGit() package = %v, wantPackage %v", pkg, tt.wantPkg)
 		}
 	}
