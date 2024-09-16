@@ -318,6 +318,17 @@ func TestRun(t *testing.T) {
 			args: []string{"", "--config=./fixtures/osv-scanner-composite-config.toml", "--experimental-licenses", "MIT", "./fixtures/locks-many", "./fixtures/locks-insecure"},
 			exit: 1,
 		},
+		// invalid config file
+		{
+			name: "config file is invalid",
+			args: []string{"", "./fixtures/config-invalid"},
+			exit: 127,
+		},
+		{
+			name: "config file is invalid",
+			args: []string{"", "--verbosity", "verbose", "./fixtures/config-invalid"},
+			exit: 127,
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {

@@ -1,6 +1,7 @@
 package config
 
 import (
+	"errors"
 	"fmt"
 	"os"
 	"path/filepath"
@@ -175,6 +176,11 @@ func (c *ConfigManager) Get(r reporter.Reporter, targetPath string) Config {
 	if configErr == nil {
 		r.Infof("Loaded filter from: %s\n", config.LoadPath)
 	} else {
+		// anything other than the config file not existing is most likely due to an invalid config file
+		if !errors.Is(configErr, os.ErrNotExist) {
+			r.Errorf("Ignored invalid config file at: %s\n", configPath)
+			r.Verbosef("Config file %s is invalid because: %v\n", configPath, configErr)
+		}
 		// If config doesn't exist, use the default config
 		config = c.DefaultConfig
 	}
@@ -211,12 +217,12 @@ func tryLoadConfig(configPath string) (Config, error) {
 
 		_, err := toml.NewDecoder(file).Decode(&config)
 		if err != nil {
-			return Config{}, fmt.Errorf("failed to parse config file: %w", err)
+			return Config{}, err
 		}
 		config.LoadPath = configPath
 
 		return config, nil
 	}
 
-	return Config{}, fmt.Errorf("no config file found on this path: %s", configPath)
+	return Config{}, err
 }
