@@ -22,6 +22,14 @@ func Test_normalizeConfigLoadPath(t *testing.T) {
 		wantErr bool
 	}{
 		{
+			name: "target does not exist",
+			args: args{
+				target: "./fixtures/testdatainner/does-not-exist",
+			},
+			want:    "",
+			wantErr: true,
+		},
+		{
 			name: "target is file in directory with config",
 			args: args{
 				target: "./fixtures/testdatainner/innerFolder/test.yaml",
@@ -91,6 +99,14 @@ func Test_tryLoadConfig(t *testing.T) {
 		wantErr bool
 	}{
 		{
+			name: "config does not exist",
+			args: args{
+				configPath: "./fixtures/testdatainner/does-not-exist",
+			},
+			want:    Config{},
+			wantErr: true,
+		},
+		{
 			name: "config has some ignored vulnerabilities and package overrides",
 			args: args{
 				configPath: "./fixtures/testdatainner/osv-scanner.toml",
@@ -124,6 +140,16 @@ func Test_tryLoadConfig(t *testing.T) {
 						},
 					},
 				},
+			},
+			wantErr: false,
+		},
+		{
+			name: "load path cannot be overridden via config",
+			args: args{
+				configPath: "./fixtures/testdatainner/osv-scanner-load-path.toml",
+			},
+			want: Config{
+				LoadPath: "./fixtures/testdatainner/osv-scanner-load-path.toml",
 			},
 			wantErr: false,
 		},
