@@ -31,7 +31,7 @@ type ConfigManager struct {
 type Config struct {
 	IgnoredVulns      []IgnoreEntry          `toml:"IgnoredVulns"`
 	PackageOverrides  []PackageOverrideEntry `toml:"PackageOverrides"`
-	LoadPath          string                 `toml:"LoadPath"`
+	LoadPath          string                 `toml:"-"`
 	GoVersionOverride string                 `toml:"GoVersionOverride"`
 }
 
