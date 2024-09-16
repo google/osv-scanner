@@ -2,12 +2,23 @@ package config
 
 import (
 	"reflect"
+	"strings"
 	"testing"
 	"time"
 
 	"github.com/google/go-cmp/cmp"
 	"github.com/google/osv-scanner/pkg/models"
 )
+
+// Attempts to normalize any file paths in the given `output` so that they can
+// be compared reliably regardless of the file path separator being used.
+//
+// Namely, escaped forward slashes are replaced with backslashes.
+func normalizeFilePaths(t *testing.T, output string) string {
+	t.Helper()
+
+	return strings.ReplaceAll(strings.ReplaceAll(output, "\\\\", "/"), "\\", "/")
+}
 
 func Test_normalizeConfigLoadPath(t *testing.T) {
 	t.Parallel()
@@ -79,6 +90,8 @@ func Test_normalizeConfigLoadPath(t *testing.T) {
 				t.Errorf("normalizeConfigLoadPath() error = %v, wantErr %v", err, tt.wantErr)
 				return
 			}
+
+			got = normalizeFilePaths(t, got)
 			if got != tt.want {
 				t.Errorf("normalizeConfigLoadPath() got = %v, want %v", got, tt.want)
 			}
