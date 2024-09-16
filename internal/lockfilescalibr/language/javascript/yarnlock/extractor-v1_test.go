@@ -4,24 +4,24 @@ import (
 	"testing"
 
 	"github.com/google/osv-scanner/internal/lockfilescalibr/extractor"
+	"github.com/google/osv-scanner/internal/lockfilescalibr/extracttest"
 	"github.com/google/osv-scanner/internal/lockfilescalibr/language/javascript/yarnlock"
-	"github.com/google/osv-scanner/internal/lockfilescalibr/sharedtesthelpers"
 )
 
 func TestExtractor_Extract_v1(t *testing.T) {
 	t.Parallel()
 
-	tests := []sharedtesthelpers.TestTableEntry{
+	tests := []extracttest.TestTableEntry{
 		{
 			Name: "no packages",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+			InputConfig: extracttest.ScanInputMockConfig{
 				Path: "testdata/empty.v1.lock",
 			},
 			WantInventory: []*extractor.Inventory{},
 		},
 		{
 			Name: "one package",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+			InputConfig: extracttest.ScanInputMockConfig{
 				Path: "testdata/one-package.v1.lock",
 			},
 			WantInventory: []*extractor.Inventory{
@@ -37,7 +37,7 @@ func TestExtractor_Extract_v1(t *testing.T) {
 		},
 		{
 			Name: "two packages",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+			InputConfig: extracttest.ScanInputMockConfig{
 				Path: "testdata/two-packages.v1.lock",
 			},
 			WantInventory: []*extractor.Inventory{
@@ -61,7 +61,7 @@ func TestExtractor_Extract_v1(t *testing.T) {
 		},
 		{
 			Name: "with quotes",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+			InputConfig: extracttest.ScanInputMockConfig{
 				Path: "testdata/with-quotes.v1.lock",
 			},
 			WantInventory: []*extractor.Inventory{
@@ -85,7 +85,7 @@ func TestExtractor_Extract_v1(t *testing.T) {
 		},
 		{
 			Name: "multiple versions",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+			InputConfig: extracttest.ScanInputMockConfig{
 				Path: "testdata/multiple-versions.v1.lock",
 			},
 			WantInventory: []*extractor.Inventory{
@@ -125,7 +125,7 @@ func TestExtractor_Extract_v1(t *testing.T) {
 		},
 		{
 			Name: "multiple constraints",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+			InputConfig: extracttest.ScanInputMockConfig{
 				Path: "testdata/multiple-constraints.v1.lock",
 			},
 			WantInventory: []*extractor.Inventory{
@@ -149,7 +149,7 @@ func TestExtractor_Extract_v1(t *testing.T) {
 		},
 		{
 			Name: "scoped packages",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+			InputConfig: extracttest.ScanInputMockConfig{
 				Path: "testdata/scoped-packages.v1.lock",
 			},
 			WantInventory: []*extractor.Inventory{
@@ -173,7 +173,7 @@ func TestExtractor_Extract_v1(t *testing.T) {
 		},
 		{
 			Name: "with prerelease",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+			InputConfig: extracttest.ScanInputMockConfig{
 				Path: "testdata/with-prerelease.v1.lock",
 			},
 			WantInventory: []*extractor.Inventory{
@@ -221,7 +221,7 @@ func TestExtractor_Extract_v1(t *testing.T) {
 		},
 		{
 			Name: "with build string",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+			InputConfig: extracttest.ScanInputMockConfig{
 				Path: "testdata/with-build-string.v1.lock",
 			},
 			WantInventory: []*extractor.Inventory{
@@ -245,7 +245,7 @@ func TestExtractor_Extract_v1(t *testing.T) {
 		},
 		{
 			Name: "commits",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+			InputConfig: extracttest.ScanInputMockConfig{
 				Path: "testdata/commits.v1.lock",
 			},
 			WantInventory: []*extractor.Inventory{
@@ -397,7 +397,7 @@ func TestExtractor_Extract_v1(t *testing.T) {
 		},
 		{
 			Name: "files",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+			InputConfig: extracttest.ScanInputMockConfig{
 				Path: "testdata/files.v1.lock",
 			},
 			WantInventory: []*extractor.Inventory{
@@ -453,7 +453,7 @@ func TestExtractor_Extract_v1(t *testing.T) {
 		},
 		{
 			Name: "with aliases",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+			InputConfig: extracttest.ScanInputMockConfig{
 				Path: "testdata/with-aliases.v1.lock",
 			},
 			WantInventory: []*extractor.Inventory{
@@ -490,7 +490,7 @@ func TestExtractor_Extract_v1(t *testing.T) {
 		t.Run(tt.Name, func(t *testing.T) {
 			t.Parallel()
 			e := yarnlock.Extractor{}
-			_, _ = sharedtesthelpers.ExtractionTester(t, e, tt)
+			_, _ = extracttest.ExtractionTester(t, e, tt)
 		})
 	}
 }

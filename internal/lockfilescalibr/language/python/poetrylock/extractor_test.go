@@ -4,9 +4,9 @@ import (
 	"testing"
 
 	"github.com/google/osv-scanner/internal/lockfilescalibr/extractor"
+	"github.com/google/osv-scanner/internal/lockfilescalibr/extracttest"
 	"github.com/google/osv-scanner/internal/lockfilescalibr/language/python/poetrylock"
 	"github.com/google/osv-scanner/internal/lockfilescalibr/othermetadata"
-	"github.com/google/osv-scanner/internal/lockfilescalibr/sharedtesthelpers"
 )
 
 func TestExtractor_FileRequired(t *testing.T) {
@@ -63,24 +63,24 @@ func TestExtractor_FileRequired(t *testing.T) {
 
 func TestExtractor_Extract(t *testing.T) {
 	t.Parallel()
-	tests := []sharedtesthelpers.TestTableEntry{
+	tests := []extracttest.TestTableEntry{
 		{
 			Name: "invalid toml",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+			InputConfig: extracttest.ScanInputMockConfig{
 				Path: "testdata/not-toml.txt",
 			},
 			WantErrContaining: "could not extract from",
 		},
 		{
 			Name: "no packages",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+			InputConfig: extracttest.ScanInputMockConfig{
 				Path: "testdata/empty.lock",
 			},
 			WantInventory: []*extractor.Inventory{},
 		},
 		{
 			Name: "one package",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+			InputConfig: extracttest.ScanInputMockConfig{
 				Path: "testdata/one-package.lock",
 			},
 			WantInventory: []*extractor.Inventory{
@@ -99,7 +99,7 @@ func TestExtractor_Extract(t *testing.T) {
 		},
 		{
 			Name: "two packages",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+			InputConfig: extracttest.ScanInputMockConfig{
 				Path: "testdata/two-packages.lock",
 			},
 			WantInventory: []*extractor.Inventory{
@@ -129,7 +129,7 @@ func TestExtractor_Extract(t *testing.T) {
 		},
 		{
 			Name: "package with metadata",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+			InputConfig: extracttest.ScanInputMockConfig{
 				Path: "testdata/one-package-with-metadata.lock",
 			},
 			WantInventory: []*extractor.Inventory{
@@ -148,7 +148,7 @@ func TestExtractor_Extract(t *testing.T) {
 		},
 		{
 			Name: "package with git source",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+			InputConfig: extracttest.ScanInputMockConfig{
 				Path: "testdata/source-git.lock",
 			},
 			WantInventory: []*extractor.Inventory{
@@ -167,7 +167,7 @@ func TestExtractor_Extract(t *testing.T) {
 		},
 		{
 			Name: "package with legacy source",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+			InputConfig: extracttest.ScanInputMockConfig{
 				Path: "testdata/source-legacy.lock",
 			},
 			WantInventory: []*extractor.Inventory{
@@ -186,7 +186,7 @@ func TestExtractor_Extract(t *testing.T) {
 		},
 		{
 			Name: "optional package",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+			InputConfig: extracttest.ScanInputMockConfig{
 				Path: "testdata/optional-package.lock",
 			},
 			WantInventory: []*extractor.Inventory{
@@ -210,7 +210,7 @@ func TestExtractor_Extract(t *testing.T) {
 		t.Run(tt.Name, func(t *testing.T) {
 			t.Parallel()
 			e := poetrylock.Extractor{}
-			_, _ = sharedtesthelpers.ExtractionTester(t, e, tt)
+			_, _ = extracttest.ExtractionTester(t, e, tt)
 		})
 	}
 }

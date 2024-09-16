@@ -4,8 +4,8 @@ import (
 	"testing"
 
 	"github.com/google/osv-scanner/internal/lockfilescalibr/extractor"
+	"github.com/google/osv-scanner/internal/lockfilescalibr/extracttest"
 	"github.com/google/osv-scanner/internal/lockfilescalibr/language/dotnet/nugetpackagelock"
-	"github.com/google/osv-scanner/internal/lockfilescalibr/sharedtesthelpers"
 )
 
 func TestExtractor_FileRequired(t *testing.T) {
@@ -63,10 +63,10 @@ func TestExtractor_FileRequired(t *testing.T) {
 func TestExtractor_Extract_invalidVersion(t *testing.T) {
 	t.Parallel()
 
-	tests := []sharedtesthelpers.TestTableEntry{
+	tests := []extracttest.TestTableEntry{
 		{
 			Name: "invalid version",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+			InputConfig: extracttest.ScanInputMockConfig{
 				Path: "testdata/empty.v0.json",
 			},
 			WantErrContaining: "unsupported lock file version 0",
@@ -79,7 +79,7 @@ func TestExtractor_Extract_invalidVersion(t *testing.T) {
 		t.Run(tt.Name, func(t *testing.T) {
 			t.Parallel()
 			e := nugetpackagelock.Extractor{}
-			_, _ = sharedtesthelpers.ExtractionTester(t, e, tt)
+			_, _ = extracttest.ExtractionTester(t, e, tt)
 		})
 	}
 }

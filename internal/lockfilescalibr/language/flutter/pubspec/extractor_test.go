@@ -4,9 +4,9 @@ import (
 	"testing"
 
 	"github.com/google/osv-scanner/internal/lockfilescalibr/extractor"
+	"github.com/google/osv-scanner/internal/lockfilescalibr/extracttest"
 	"github.com/google/osv-scanner/internal/lockfilescalibr/language/flutter/pubspec"
 	"github.com/google/osv-scanner/internal/lockfilescalibr/othermetadata"
-	"github.com/google/osv-scanner/internal/lockfilescalibr/sharedtesthelpers"
 )
 
 func TestExtractor_FileRequired(t *testing.T) {
@@ -64,31 +64,31 @@ func TestExtractor_FileRequired(t *testing.T) {
 func TestExtractor_Extract(t *testing.T) {
 	t.Parallel()
 
-	tests := []sharedtesthelpers.TestTableEntry{
+	tests := []extracttest.TestTableEntry{
 		{
 			Name: "invalid yaml",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+			InputConfig: extracttest.ScanInputMockConfig{
 				Path: "testdata/not-yaml.txt",
 			},
 			WantErrContaining: "could not extract from",
 		},
 		{
 			Name: "empty",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+			InputConfig: extracttest.ScanInputMockConfig{
 				Path: "testdata/empty.lock",
 			},
 			WantInventory: []*extractor.Inventory{},
 		},
 		{
 			Name: "no packages",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+			InputConfig: extracttest.ScanInputMockConfig{
 				Path: "testdata/no-packages.lock",
 			},
 			WantInventory: []*extractor.Inventory{},
 		},
 		{
 			Name: "one package",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+			InputConfig: extracttest.ScanInputMockConfig{
 				Path: "testdata/one-package.lock",
 			},
 			WantInventory: []*extractor.Inventory{
@@ -107,7 +107,7 @@ func TestExtractor_Extract(t *testing.T) {
 		},
 		{
 			Name: "one package dev",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+			InputConfig: extracttest.ScanInputMockConfig{
 				Path: "testdata/one-package-dev.lock",
 			},
 			WantInventory: []*extractor.Inventory{
@@ -126,7 +126,7 @@ func TestExtractor_Extract(t *testing.T) {
 		},
 		{
 			Name: "two packages",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+			InputConfig: extracttest.ScanInputMockConfig{
 				Path: "testdata/two-packages.lock",
 			},
 			WantInventory: []*extractor.Inventory{
@@ -156,7 +156,7 @@ func TestExtractor_Extract(t *testing.T) {
 		},
 		{
 			Name: "mixed packages",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+			InputConfig: extracttest.ScanInputMockConfig{
 				Path: "testdata/mixed-packages.lock",
 			},
 			WantInventory: []*extractor.Inventory{
@@ -208,7 +208,7 @@ func TestExtractor_Extract(t *testing.T) {
 		},
 		{
 			Name: "package with git source",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+			InputConfig: extracttest.ScanInputMockConfig{
 				Path: "testdata/source-git.lock",
 			},
 			WantInventory: []*extractor.Inventory{
@@ -271,7 +271,7 @@ func TestExtractor_Extract(t *testing.T) {
 		},
 		{
 			Name: "package with sdk source",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+			InputConfig: extracttest.ScanInputMockConfig{
 				Path: "testdata/source-sdk.lock",
 			},
 			WantInventory: []*extractor.Inventory{
@@ -290,7 +290,7 @@ func TestExtractor_Extract(t *testing.T) {
 		},
 		{
 			Name: "package with path source",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+			InputConfig: extracttest.ScanInputMockConfig{
 				Path: "testdata/source-path.lock",
 			},
 			WantInventory: []*extractor.Inventory{
@@ -314,7 +314,7 @@ func TestExtractor_Extract(t *testing.T) {
 		t.Run(tt.Name, func(t *testing.T) {
 			t.Parallel()
 			e := pubspec.Extractor{}
-			_, _ = sharedtesthelpers.ExtractionTester(t, e, tt)
+			_, _ = extracttest.ExtractionTester(t, e, tt)
 		})
 	}
 }

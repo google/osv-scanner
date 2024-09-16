@@ -4,8 +4,8 @@ import (
 	"testing"
 
 	"github.com/google/osv-scanner/internal/lockfilescalibr/extractor"
+	"github.com/google/osv-scanner/internal/lockfilescalibr/extracttest"
 	"github.com/google/osv-scanner/internal/lockfilescalibr/language/java/gradleverificationmetadataxml"
-	"github.com/google/osv-scanner/internal/lockfilescalibr/sharedtesthelpers"
 )
 
 func TestExtractor_FileRequired(t *testing.T) {
@@ -87,24 +87,24 @@ func TestExtractor_FileRequired(t *testing.T) {
 
 func TestExtractor_Extract(t *testing.T) {
 	t.Parallel()
-	tests := []sharedtesthelpers.TestTableEntry{
+	tests := []extracttest.TestTableEntry{
 		{
 			Name: "invalid xml",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+			InputConfig: extracttest.ScanInputMockConfig{
 				Path: "testdata/not-xml.txt",
 			},
 			WantErrContaining: "could not extract from",
 		},
 		{
 			Name: "no packages",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+			InputConfig: extracttest.ScanInputMockConfig{
 				Path: "testdata/empty.xml",
 			},
 			WantInventory: []*extractor.Inventory{},
 		},
 		{
 			Name: "one package",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+			InputConfig: extracttest.ScanInputMockConfig{
 				Path: "testdata/one-package.xml",
 			},
 			WantInventory: []*extractor.Inventory{
@@ -117,7 +117,7 @@ func TestExtractor_Extract(t *testing.T) {
 		},
 		{
 			Name: "two packages",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+			InputConfig: extracttest.ScanInputMockConfig{
 				Path: "testdata/two-packages.xml",
 			},
 			WantInventory: []*extractor.Inventory{
@@ -135,7 +135,7 @@ func TestExtractor_Extract(t *testing.T) {
 		},
 		{
 			Name: "multiple versions",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+			InputConfig: extracttest.ScanInputMockConfig{
 				Path: "testdata/multiple-versions.xml",
 			},
 			WantInventory: []*extractor.Inventory{
@@ -233,7 +233,7 @@ func TestExtractor_Extract(t *testing.T) {
 		},
 		{
 			Name: "complex",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+			InputConfig: extracttest.ScanInputMockConfig{
 				Path: "testdata/complex.xml",
 			},
 			WantInventory: []*extractor.Inventory{
@@ -576,7 +576,7 @@ func TestExtractor_Extract(t *testing.T) {
 		t.Run(tt.Name, func(t *testing.T) {
 			t.Parallel()
 			e := gradleverificationmetadataxml.Extractor{}
-			_, _ = sharedtesthelpers.ExtractionTester(t, e, tt)
+			_, _ = extracttest.ExtractionTester(t, e, tt)
 		})
 	}
 }

@@ -4,8 +4,8 @@ import (
 	"testing"
 
 	"github.com/google/osv-scanner/internal/lockfilescalibr/extractor"
+	"github.com/google/osv-scanner/internal/lockfilescalibr/extracttest"
 	"github.com/google/osv-scanner/internal/lockfilescalibr/language/erlang/mixlock"
-	"github.com/google/osv-scanner/internal/lockfilescalibr/sharedtesthelpers"
 )
 
 func TestExtractor_FileRequired(t *testing.T) {
@@ -63,17 +63,17 @@ func TestExtractor_FileRequired(t *testing.T) {
 func TestExtractor_Extract(t *testing.T) {
 	t.Parallel()
 
-	tests := []sharedtesthelpers.TestTableEntry{
+	tests := []extracttest.TestTableEntry{
 		// TODO: Add invalid test case here
 		{
 			Name: "no packages",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+			InputConfig: extracttest.ScanInputMockConfig{
 				Path: "testdata/empty.lock",
 			},
 		},
 		{
 			Name: "one package",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+			InputConfig: extracttest.ScanInputMockConfig{
 				Path: "testdata/one-package.lock",
 			},
 			WantInventory: []*extractor.Inventory{
@@ -89,7 +89,7 @@ func TestExtractor_Extract(t *testing.T) {
 		},
 		{
 			Name: "two packages",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+			InputConfig: extracttest.ScanInputMockConfig{
 				Path: "testdata/two-packages.lock",
 			},
 			WantInventory: []*extractor.Inventory{
@@ -113,7 +113,7 @@ func TestExtractor_Extract(t *testing.T) {
 		},
 		{
 			Name: "many",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+			InputConfig: extracttest.ScanInputMockConfig{
 				Path: "testdata/many.lock",
 			},
 			WantInventory: []*extractor.Inventory{
@@ -289,7 +289,7 @@ func TestExtractor_Extract(t *testing.T) {
 		},
 		{
 			Name: "git packages",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+			InputConfig: extracttest.ScanInputMockConfig{
 				Path: "testdata/git.lock",
 			},
 			WantInventory: []*extractor.Inventory{
@@ -326,7 +326,7 @@ func TestExtractor_Extract(t *testing.T) {
 		t.Run(tt.Name, func(t *testing.T) {
 			t.Parallel()
 			e := mixlock.Extractor{}
-			_, _ = sharedtesthelpers.ExtractionTester(t, e, tt)
+			_, _ = extracttest.ExtractionTester(t, e, tt)
 		})
 	}
 }

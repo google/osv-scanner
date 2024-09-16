@@ -4,32 +4,32 @@ import (
 	"testing"
 
 	"github.com/google/osv-scanner/internal/lockfilescalibr/extractor"
+	"github.com/google/osv-scanner/internal/lockfilescalibr/extracttest"
 	"github.com/google/osv-scanner/internal/lockfilescalibr/language/javascript/packagelockjson"
 	"github.com/google/osv-scanner/internal/lockfilescalibr/othermetadata"
-	"github.com/google/osv-scanner/internal/lockfilescalibr/sharedtesthelpers"
 )
 
 func TestNPMLockExtractor_Extract_V1(t *testing.T) {
 	t.Parallel()
 
-	tests := []sharedtesthelpers.TestTableEntry{
+	tests := []extracttest.TestTableEntry{
 		{
 			Name: "invalid json",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+			InputConfig: extracttest.ScanInputMockConfig{
 				Path: "testdata/not-json.txt",
 			},
 			WantErrContaining: "could not extract from",
 		},
 		{
 			Name: "no packages",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+			InputConfig: extracttest.ScanInputMockConfig{
 				Path: "testdata/empty.v1.json",
 			},
 			WantInventory: []*extractor.Inventory{},
 		},
 		{
 			Name: "one package",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+			InputConfig: extracttest.ScanInputMockConfig{
 				Path: "testdata/one-package.v1.json",
 			},
 			WantInventory: []*extractor.Inventory{
@@ -46,7 +46,7 @@ func TestNPMLockExtractor_Extract_V1(t *testing.T) {
 		},
 		{
 			Name: "one package dev",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+			InputConfig: extracttest.ScanInputMockConfig{
 				Path: "testdata/one-package-dev.v1.json",
 			},
 			WantInventory: []*extractor.Inventory{
@@ -63,7 +63,7 @@ func TestNPMLockExtractor_Extract_V1(t *testing.T) {
 		},
 		{
 			Name: "two packages",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+			InputConfig: extracttest.ScanInputMockConfig{
 				Path: "testdata/two-packages.v1.json",
 			},
 			WantInventory: []*extractor.Inventory{
@@ -89,7 +89,7 @@ func TestNPMLockExtractor_Extract_V1(t *testing.T) {
 		},
 		{
 			Name: "scoped packages",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+			InputConfig: extracttest.ScanInputMockConfig{
 				Path: "testdata/scoped-packages.v1.json",
 			},
 			WantInventory: []*extractor.Inventory{
@@ -115,7 +115,7 @@ func TestNPMLockExtractor_Extract_V1(t *testing.T) {
 		},
 		{
 			Name: "nested dependencies",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+			InputConfig: extracttest.ScanInputMockConfig{
 				Path: "testdata/nested-dependencies.v1.json",
 			},
 			WantInventory: []*extractor.Inventory{
@@ -168,7 +168,7 @@ func TestNPMLockExtractor_Extract_V1(t *testing.T) {
 		},
 		{
 			Name: "nested dependencies dup",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+			InputConfig: extracttest.ScanInputMockConfig{
 				Path: "testdata/nested-dependencies-dup.v1.json",
 			},
 			WantInventory: []*extractor.Inventory{
@@ -527,7 +527,7 @@ func TestNPMLockExtractor_Extract_V1(t *testing.T) {
 		},
 		{
 			Name: "commits",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+			InputConfig: extracttest.ScanInputMockConfig{
 				Path: "testdata/commits.v1.json",
 			},
 			WantInventory: []*extractor.Inventory{
@@ -696,7 +696,7 @@ func TestNPMLockExtractor_Extract_V1(t *testing.T) {
 		},
 		{
 			Name: "files",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+			InputConfig: extracttest.ScanInputMockConfig{
 				Path: "testdata/files.v1.json",
 			},
 			WantInventory: []*extractor.Inventory{
@@ -722,7 +722,7 @@ func TestNPMLockExtractor_Extract_V1(t *testing.T) {
 		},
 		{
 			Name: "alias",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+			InputConfig: extracttest.ScanInputMockConfig{
 				Path: "testdata/alias.v1.json",
 			},
 			WantInventory: []*extractor.Inventory{
@@ -757,7 +757,7 @@ func TestNPMLockExtractor_Extract_V1(t *testing.T) {
 		},
 		{
 			Name: "optional package",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+			InputConfig: extracttest.ScanInputMockConfig{
 				Path: "testdata/optional-package.v1.json",
 			},
 			WantInventory: []*extractor.Inventory{
@@ -783,7 +783,7 @@ func TestNPMLockExtractor_Extract_V1(t *testing.T) {
 		},
 		{
 			Name: "same package different groups",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+			InputConfig: extracttest.ScanInputMockConfig{
 				Path: "testdata/same-package-different-groups.v1.json",
 			},
 			WantInventory: []*extractor.Inventory{
@@ -823,7 +823,7 @@ func TestNPMLockExtractor_Extract_V1(t *testing.T) {
 		t.Run(tt.Name, func(t *testing.T) {
 			t.Parallel()
 			e := packagelockjson.Extractor{}
-			_, _ = sharedtesthelpers.ExtractionTester(t, e, tt)
+			_, _ = extracttest.ExtractionTester(t, e, tt)
 		})
 	}
 }

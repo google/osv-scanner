@@ -5,9 +5,9 @@ import (
 	"testing"
 
 	"github.com/google/osv-scanner/internal/lockfilescalibr/extractor"
+	"github.com/google/osv-scanner/internal/lockfilescalibr/extracttest"
 	"github.com/google/osv-scanner/internal/lockfilescalibr/language/python/requirementstxt"
 	"github.com/google/osv-scanner/internal/lockfilescalibr/othermetadata"
-	"github.com/google/osv-scanner/internal/lockfilescalibr/sharedtesthelpers"
 )
 
 func TestExtractor_FileRequired(t *testing.T) {
@@ -65,24 +65,24 @@ func TestExtractor_FileRequired(t *testing.T) {
 func TestExtractor_Extract(t *testing.T) {
 	t.Parallel()
 
-	tests := []sharedtesthelpers.TestTableEntry{
+	tests := []extracttest.TestTableEntry{
 		{
 			Name: "empty",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+			InputConfig: extracttest.ScanInputMockConfig{
 				Path: "testdata/empty.txt",
 			},
 			WantInventory: []*extractor.Inventory{},
 		},
 		{
 			Name: "comments only",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+			InputConfig: extracttest.ScanInputMockConfig{
 				Path: "testdata/only-comments.txt",
 			},
 			WantInventory: []*extractor.Inventory{},
 		},
 		{
 			Name: "one requirement unconstrained",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+			InputConfig: extracttest.ScanInputMockConfig{
 				Path: "testdata/one-package-unconstrained.txt",
 			},
 			WantInventory: []*extractor.Inventory{
@@ -98,7 +98,7 @@ func TestExtractor_Extract(t *testing.T) {
 		},
 		{
 			Name: "one requirement constrained",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+			InputConfig: extracttest.ScanInputMockConfig{
 				Path: "testdata/one-package-constrained.txt",
 			},
 			WantInventory: []*extractor.Inventory{
@@ -114,7 +114,7 @@ func TestExtractor_Extract(t *testing.T) {
 		},
 		{
 			Name: "multiple requirements constrained",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+			InputConfig: extracttest.ScanInputMockConfig{
 				Path: "testdata/multiple-packages-constrained.txt",
 			},
 			WantInventory: []*extractor.Inventory{
@@ -226,7 +226,7 @@ func TestExtractor_Extract(t *testing.T) {
 		},
 		{
 			Name: "multiple requirements mixed",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+			InputConfig: extracttest.ScanInputMockConfig{
 				Path: "testdata/multiple-packages-mixed.txt",
 			},
 			WantInventory: []*extractor.Inventory{
@@ -298,7 +298,7 @@ func TestExtractor_Extract(t *testing.T) {
 		},
 		{
 			Name: "with added support",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+			InputConfig: extracttest.ScanInputMockConfig{
 				Path: "testdata/with-added-support.txt",
 			},
 			WantInventory: []*extractor.Inventory{
@@ -314,7 +314,7 @@ func TestExtractor_Extract(t *testing.T) {
 		},
 		{
 			Name: "non normalized names",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+			InputConfig: extracttest.ScanInputMockConfig{
 				Path: "testdata/non-normalized-names.txt",
 			},
 			WantInventory: []*extractor.Inventory{
@@ -346,7 +346,7 @@ func TestExtractor_Extract(t *testing.T) {
 		},
 		{
 			Name: "with per requirement options",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+			InputConfig: extracttest.ScanInputMockConfig{
 				Path: "testdata/with-per-requirement-options.txt",
 			},
 			WantInventory: []*extractor.Inventory{
@@ -386,7 +386,7 @@ func TestExtractor_Extract(t *testing.T) {
 		},
 		{
 			Name: "line continuation",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+			InputConfig: extracttest.ScanInputMockConfig{
 				Path: "testdata/line-continuation.txt",
 			},
 			WantInventory: []*extractor.Inventory{
@@ -431,7 +431,7 @@ func TestExtractor_Extract(t *testing.T) {
 		t.Run(tt.Name, func(t *testing.T) {
 			t.Parallel()
 			e := requirementstxt.Extractor{}
-			_, _ = sharedtesthelpers.ExtractionTester(t, e, tt)
+			_, _ = extracttest.ExtractionTester(t, e, tt)
 		})
 	}
 }
@@ -439,10 +439,10 @@ func TestExtractor_Extract(t *testing.T) {
 func TestExtractor_Extract_WithRequirements(t *testing.T) {
 	t.Parallel()
 
-	tests := []sharedtesthelpers.TestTableEntry{
+	tests := []extracttest.TestTableEntry{
 		{
 			Name: "file format example",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+			InputConfig: extracttest.ScanInputMockConfig{
 				Path: "testdata/file-format-example.txt",
 			},
 			WantInventory: []*extractor.Inventory{
@@ -530,7 +530,7 @@ func TestExtractor_Extract_WithRequirements(t *testing.T) {
 		},
 		{
 			Name: "with multiple r options",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+			InputConfig: extracttest.ScanInputMockConfig{
 				Path: "testdata/with-multiple-r-options.txt",
 			},
 			WantInventory: []*extractor.Inventory{
@@ -618,13 +618,13 @@ func TestExtractor_Extract_WithRequirements(t *testing.T) {
 		},
 		{
 			Name: "with bad r option",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+			InputConfig: extracttest.ScanInputMockConfig{
 				Path: "testdata/with-bad-r-option.txt",
 			},
 			WantErrIs: fs.ErrNotExist},
 		{
 			Name: "duplicate r options",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+			InputConfig: extracttest.ScanInputMockConfig{
 				Path: "testdata/duplicate-r-dev.txt",
 			},
 			WantInventory: []*extractor.Inventory{
@@ -664,7 +664,7 @@ func TestExtractor_Extract_WithRequirements(t *testing.T) {
 		},
 		{
 			Name: "cyclic r self",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+			InputConfig: extracttest.ScanInputMockConfig{
 				Path: "testdata/cyclic-r-self.txt",
 			},
 			WantInventory: []*extractor.Inventory{
@@ -688,7 +688,7 @@ func TestExtractor_Extract_WithRequirements(t *testing.T) {
 		},
 		{
 			Name: "cyclic r complex",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+			InputConfig: extracttest.ScanInputMockConfig{
 				Path: "testdata/cyclic-r-complex-1.txt",
 			},
 			WantInventory: []*extractor.Inventory{
@@ -725,7 +725,7 @@ func TestExtractor_Extract_WithRequirements(t *testing.T) {
 		t.Run(tt.Name, func(t *testing.T) {
 			t.Parallel()
 			e := requirementstxt.Extractor{}
-			_, _ = sharedtesthelpers.ExtractionTester(t, e, tt)
+			_, _ = extracttest.ExtractionTester(t, e, tt)
 		})
 	}
 }

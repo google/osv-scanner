@@ -4,25 +4,25 @@ import (
 	"testing"
 
 	"github.com/google/osv-scanner/internal/lockfilescalibr/extractor"
+	"github.com/google/osv-scanner/internal/lockfilescalibr/extracttest"
 	"github.com/google/osv-scanner/internal/lockfilescalibr/language/javascript/pnpmlock"
 	"github.com/google/osv-scanner/internal/lockfilescalibr/othermetadata"
-	"github.com/google/osv-scanner/internal/lockfilescalibr/sharedtesthelpers"
 )
 
 func TestExtractor_Extract_v9(t *testing.T) {
 	t.Parallel()
 
-	tests := []sharedtesthelpers.TestTableEntry{
+	tests := []extracttest.TestTableEntry{
 		{
 			Name: "no packages",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+			InputConfig: extracttest.ScanInputMockConfig{
 				Path: "testdata/no-packages.v9.yaml",
 			},
 			WantInventory: []*extractor.Inventory{},
 		},
 		{
 			Name: "one package",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+			InputConfig: extracttest.ScanInputMockConfig{
 				Path: "testdata/one-package.v9.yaml",
 			},
 			WantInventory: []*extractor.Inventory{
@@ -39,7 +39,7 @@ func TestExtractor_Extract_v9(t *testing.T) {
 		},
 		{
 			Name: "one package dev",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+			InputConfig: extracttest.ScanInputMockConfig{
 				Path: "testdata/one-package-dev.v9.yaml",
 			},
 			WantInventory: []*extractor.Inventory{
@@ -56,7 +56,7 @@ func TestExtractor_Extract_v9(t *testing.T) {
 		},
 		{
 			Name: "scoped packages",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+			InputConfig: extracttest.ScanInputMockConfig{
 				Path: "testdata/scoped-packages.v9.yaml",
 			},
 			WantInventory: []*extractor.Inventory{
@@ -73,7 +73,7 @@ func TestExtractor_Extract_v9(t *testing.T) {
 		},
 		{
 			Name: "peer dependencies",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+			InputConfig: extracttest.ScanInputMockConfig{
 				Path: "testdata/peer-dependencies.v9.yaml",
 			},
 			WantInventory: []*extractor.Inventory{
@@ -99,7 +99,7 @@ func TestExtractor_Extract_v9(t *testing.T) {
 		},
 		{
 			Name: "peer dependencies advanced",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+			InputConfig: extracttest.ScanInputMockConfig{
 				Path: "testdata/peer-dependencies-advanced.v9.yaml",
 			},
 			WantInventory: []*extractor.Inventory{
@@ -224,7 +224,7 @@ func TestExtractor_Extract_v9(t *testing.T) {
 		},
 		{
 			Name: "multiple versions",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+			InputConfig: extracttest.ScanInputMockConfig{
 				Path: "testdata/multiple-versions.v9.yaml",
 			},
 			WantInventory: []*extractor.Inventory{
@@ -259,7 +259,7 @@ func TestExtractor_Extract_v9(t *testing.T) {
 		},
 		{
 			Name: "commits",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+			InputConfig: extracttest.ScanInputMockConfig{
 				Path: "testdata/commits.v9.yaml",
 			},
 			WantInventory: []*extractor.Inventory{
@@ -289,7 +289,7 @@ func TestExtractor_Extract_v9(t *testing.T) {
 		},
 		{
 			Name: "mixed groups",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+			InputConfig: extracttest.ScanInputMockConfig{
 				Path: "testdata/mixed-groups.v9.yaml",
 			},
 			WantInventory: []*extractor.Inventory{
@@ -329,7 +329,7 @@ func TestExtractor_Extract_v9(t *testing.T) {
 		t.Run(tt.Name, func(t *testing.T) {
 			t.Parallel()
 			e := pnpmlock.Extractor{}
-			_, _ = sharedtesthelpers.ExtractionTester(t, e, tt)
+			_, _ = extracttest.ExtractionTester(t, e, tt)
 		})
 	}
 }

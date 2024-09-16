@@ -4,8 +4,8 @@ import (
 	"testing"
 
 	"github.com/google/osv-scanner/internal/lockfilescalibr/extractor"
+	"github.com/google/osv-scanner/internal/lockfilescalibr/extracttest"
 	"github.com/google/osv-scanner/internal/lockfilescalibr/language/ruby/gemfilelock"
-	"github.com/google/osv-scanner/internal/lockfilescalibr/sharedtesthelpers"
 )
 
 func TestExtractor_FileRequired(t *testing.T) {
@@ -64,28 +64,28 @@ func TestExtractor_Extract(t *testing.T) {
 	t.Parallel()
 
 	// TODO: Add commit check
-	tests := []sharedtesthelpers.TestTableEntry{
+	tests := []extracttest.TestTableEntry{
 		{
 			Name: "no spec section",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+			InputConfig: extracttest.ScanInputMockConfig{
 				Path: "testdata/no-spec-section.lock",
 			},
 		},
 		{
 			Name: "no gem section",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+			InputConfig: extracttest.ScanInputMockConfig{
 				Path: "testdata/no-gem-section.lock",
 			},
 		},
 		{
 			Name: "no gems",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+			InputConfig: extracttest.ScanInputMockConfig{
 				Path: "testdata/no-gems.lock",
 			},
 		},
 		{
 			Name: "one gem",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+			InputConfig: extracttest.ScanInputMockConfig{
 				Path: "testdata/one-gem.lock",
 			},
 			WantInventory: []*extractor.Inventory{
@@ -99,7 +99,7 @@ func TestExtractor_Extract(t *testing.T) {
 		},
 		{
 			Name: "some gems",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+			InputConfig: extracttest.ScanInputMockConfig{
 				Path: "testdata/some-gems.lock",
 			},
 			WantInventory: []*extractor.Inventory{
@@ -125,7 +125,7 @@ func TestExtractor_Extract(t *testing.T) {
 		},
 		{
 			Name: "multiple gems",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+			InputConfig: extracttest.ScanInputMockConfig{
 				Path: "testdata/multiple-gems.lock",
 			},
 			WantInventory: []*extractor.Inventory{
@@ -169,7 +169,7 @@ func TestExtractor_Extract(t *testing.T) {
 		},
 		{
 			Name: "rails",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+			InputConfig: extracttest.ScanInputMockConfig{
 				Path: "testdata/rails.lock",
 			},
 			WantInventory: []*extractor.Inventory{
@@ -453,7 +453,7 @@ func TestExtractor_Extract(t *testing.T) {
 		},
 		{
 			Name: "rubocop",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+			InputConfig: extracttest.ScanInputMockConfig{
 				Path: "testdata/rubocop.lock",
 			},
 			WantInventory: []*extractor.Inventory{
@@ -521,7 +521,7 @@ func TestExtractor_Extract(t *testing.T) {
 		},
 		{
 			Name: "has local gem",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+			InputConfig: extracttest.ScanInputMockConfig{
 				Path: "testdata/has-local-gem.lock",
 			},
 			WantInventory: []*extractor.Inventory{
@@ -709,7 +709,7 @@ func TestExtractor_Extract(t *testing.T) {
 		},
 		{
 			Name: "has git gem",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+			InputConfig: extracttest.ScanInputMockConfig{
 				Path: "testdata/has-git-gem.lock",
 			},
 			WantInventory: []*extractor.Inventory{
@@ -756,7 +756,7 @@ func TestExtractor_Extract(t *testing.T) {
 		t.Run(tt.Name, func(t *testing.T) {
 			t.Parallel()
 			e := gemfilelock.Extractor{}
-			_, _ = sharedtesthelpers.ExtractionTester(t, e, tt)
+			_, _ = extracttest.ExtractionTester(t, e, tt)
 		})
 	}
 }

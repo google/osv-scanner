@@ -4,31 +4,31 @@ import (
 	"testing"
 
 	"github.com/google/osv-scanner/internal/lockfilescalibr/extractor"
+	"github.com/google/osv-scanner/internal/lockfilescalibr/extracttest"
 	"github.com/google/osv-scanner/internal/lockfilescalibr/language/r/renvlock"
-	"github.com/google/osv-scanner/internal/lockfilescalibr/sharedtesthelpers"
 )
 
 func TestExtractor_Extract(t *testing.T) {
 	t.Parallel()
 
-	tests := []sharedtesthelpers.TestTableEntry{
+	tests := []extracttest.TestTableEntry{
 		{
 			Name: "invalid json",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+			InputConfig: extracttest.ScanInputMockConfig{
 				Path: "testdata/not-json.txt",
 			},
 			WantErrContaining: "could not extract from",
 		},
 		{
 			Name: "no packages",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+			InputConfig: extracttest.ScanInputMockConfig{
 				Path: "testdata/empty.lock",
 			},
 			WantInventory: []*extractor.Inventory{},
 		},
 		{
 			Name: "one package",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+			InputConfig: extracttest.ScanInputMockConfig{
 				Path: "testdata/one-package.lock",
 			},
 			WantInventory: []*extractor.Inventory{
@@ -41,7 +41,7 @@ func TestExtractor_Extract(t *testing.T) {
 		},
 		{
 			Name: "two packages",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+			InputConfig: extracttest.ScanInputMockConfig{
 				Path: "testdata/two-packages.lock",
 			},
 			WantInventory: []*extractor.Inventory{
@@ -59,7 +59,7 @@ func TestExtractor_Extract(t *testing.T) {
 		},
 		{
 			Name: "with mixed sources",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+			InputConfig: extracttest.ScanInputMockConfig{
 				Path: "testdata/with-mixed-sources.lock",
 			},
 			WantInventory: []*extractor.Inventory{
@@ -72,7 +72,7 @@ func TestExtractor_Extract(t *testing.T) {
 		},
 		{
 			Name: "with bioconductor",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+			InputConfig: extracttest.ScanInputMockConfig{
 				Path: "testdata/with-bioconductor.lock",
 			},
 			WantInventory: []*extractor.Inventory{
@@ -85,7 +85,7 @@ func TestExtractor_Extract(t *testing.T) {
 		},
 		{
 			Name: "without repository",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+			InputConfig: extracttest.ScanInputMockConfig{
 				Path: "testdata/without-repository.lock",
 			},
 			WantInventory: []*extractor.Inventory{},
@@ -97,7 +97,7 @@ func TestExtractor_Extract(t *testing.T) {
 		t.Run(tt.Name, func(t *testing.T) {
 			t.Parallel()
 			e := renvlock.Extractor{}
-			_, _ = sharedtesthelpers.ExtractionTester(t, e, tt)
+			_, _ = extracttest.ExtractionTester(t, e, tt)
 		})
 	}
 }

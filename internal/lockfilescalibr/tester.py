@@ -46,7 +46,7 @@ def outputValue(path, funcName, inventory: list[InventoryItem]):
 
     template = '''{{
 			name: "{name}",
-			inputConfig: sharedtesthelpers.ScanInputMockConfig{{
+			inputConfig: extracttest.ScanInputMockConfig{{
 				path: "{path}",
 			}},
 			wantInventory: []*extractor.Inventory{{{inv}

@@ -4,8 +4,8 @@ import (
 	"testing"
 
 	"github.com/google/osv-scanner/internal/lockfilescalibr/extractor"
+	"github.com/google/osv-scanner/internal/lockfilescalibr/extracttest"
 	"github.com/google/osv-scanner/internal/lockfilescalibr/language/java/buildscriptgradlelockfile"
-	"github.com/google/osv-scanner/internal/lockfilescalibr/sharedtesthelpers"
 )
 
 func TestExtractor_FileRequired(t *testing.T) {
@@ -87,24 +87,24 @@ func TestExtractor_FileRequired(t *testing.T) {
 
 func TestExtractor_Extract(t *testing.T) {
 	t.Parallel()
-	tests := []sharedtesthelpers.TestTableEntry{
+	tests := []extracttest.TestTableEntry{
 		{
 			Name: "only comments",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+			InputConfig: extracttest.ScanInputMockConfig{
 				Path: "testdata/only-comments",
 			},
 			WantInventory: []*extractor.Inventory{},
 		},
 		{
 			Name: "empty statement",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+			InputConfig: extracttest.ScanInputMockConfig{
 				Path: "testdata/only-empty",
 			},
 			WantInventory: []*extractor.Inventory{},
 		},
 		{
 			Name: "one package",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+			InputConfig: extracttest.ScanInputMockConfig{
 				Path: "testdata/one-pkg",
 			},
 			WantInventory: []*extractor.Inventory{
@@ -117,7 +117,7 @@ func TestExtractor_Extract(t *testing.T) {
 		},
 		{
 			Name: "multiple package",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+			InputConfig: extracttest.ScanInputMockConfig{
 				Path: "testdata/5-pkg",
 			},
 			WantInventory: []*extractor.Inventory{
@@ -150,7 +150,7 @@ func TestExtractor_Extract(t *testing.T) {
 		},
 		{
 			Name: "with invalid lines",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+			InputConfig: extracttest.ScanInputMockConfig{
 				Path: "testdata/with-bad-pkg",
 			},
 			WantInventory: []*extractor.Inventory{
@@ -173,7 +173,7 @@ func TestExtractor_Extract(t *testing.T) {
 		t.Run(tt.Name, func(t *testing.T) {
 			t.Parallel()
 			e := buildscriptgradlelockfile.Extractor{}
-			_, _ = sharedtesthelpers.ExtractionTester(t, e, tt)
+			_, _ = extracttest.ExtractionTester(t, e, tt)
 		})
 	}
 }

@@ -4,18 +4,18 @@ import (
 	"testing"
 
 	"github.com/google/osv-scanner/internal/lockfilescalibr/extractor"
+	"github.com/google/osv-scanner/internal/lockfilescalibr/extracttest"
 	"github.com/google/osv-scanner/internal/lockfilescalibr/language/alpine/apkinstalled"
 	"github.com/google/osv-scanner/internal/lockfilescalibr/othermetadata"
-	"github.com/google/osv-scanner/internal/lockfilescalibr/sharedtesthelpers"
 )
 
 func TestExtractor_Extract(t *testing.T) {
 	t.Parallel()
 
-	tests := []sharedtesthelpers.TestTableEntry{
+	tests := []extracttest.TestTableEntry{
 		{
 			Name: "empty",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+			InputConfig: extracttest.ScanInputMockConfig{
 				Path:         "empty_installed",
 				FakeScanRoot: "testdata/with-os-release",
 			},
@@ -23,7 +23,7 @@ func TestExtractor_Extract(t *testing.T) {
 		},
 		{
 			Name: "not an installed",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+			InputConfig: extracttest.ScanInputMockConfig{
 				Path:         "not_installed",
 				FakeScanRoot: "testdata/with-os-release",
 			},
@@ -31,7 +31,7 @@ func TestExtractor_Extract(t *testing.T) {
 		},
 		{
 			Name: "malformed",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+			InputConfig: extracttest.ScanInputMockConfig{
 				Path:         "malformed_installed",
 				FakeScanRoot: "testdata/with-os-release",
 			},
@@ -51,7 +51,7 @@ func TestExtractor_Extract(t *testing.T) {
 		},
 		{
 			Name: "single",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+			InputConfig: extracttest.ScanInputMockConfig{
 				Path:         "single_installed",
 				FakeScanRoot: "testdata/with-os-release",
 			},
@@ -71,7 +71,7 @@ func TestExtractor_Extract(t *testing.T) {
 		},
 		{
 			Name: "shuffled",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+			InputConfig: extracttest.ScanInputMockConfig{
 				Path:         "shuffled_installed",
 				FakeScanRoot: "testdata/with-os-release",
 			},
@@ -91,7 +91,7 @@ func TestExtractor_Extract(t *testing.T) {
 		},
 		{
 			Name: "multiple",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+			InputConfig: extracttest.ScanInputMockConfig{
 				Path:         "multiple_installed",
 				FakeScanRoot: "testdata/with-os-release",
 			},
@@ -133,7 +133,7 @@ func TestExtractor_Extract(t *testing.T) {
 		},
 		{
 			Name: "multiple but no os source info",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+			InputConfig: extracttest.ScanInputMockConfig{
 				Path:         "multiple_installed",
 				FakeScanRoot: "testdata/without-os-release",
 			},
@@ -171,7 +171,7 @@ func TestExtractor_Extract(t *testing.T) {
 		t.Run(tt.Name, func(t *testing.T) {
 			t.Parallel()
 			e := apkinstalled.Extractor{}
-			_, _ = sharedtesthelpers.ExtractionTester(t, e, tt)
+			_, _ = extracttest.ExtractionTester(t, e, tt)
 		})
 	}
 }
