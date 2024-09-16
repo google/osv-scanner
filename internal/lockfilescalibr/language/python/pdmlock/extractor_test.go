@@ -4,9 +4,9 @@ import (
 	"testing"
 
 	"github.com/google/osv-scanner/internal/lockfilescalibr/extractor"
+	"github.com/google/osv-scanner/internal/lockfilescalibr/extracttest"
 	"github.com/google/osv-scanner/internal/lockfilescalibr/language/python/pdmlock"
 	"github.com/google/osv-scanner/internal/lockfilescalibr/othermetadata"
-	"github.com/google/osv-scanner/internal/lockfilescalibr/sharedtesthelpers"
 )
 
 func TestPdmExtractor_FileRequired(t *testing.T) {
@@ -70,24 +70,24 @@ func TestPdmExtractor_FileRequired(t *testing.T) {
 func TestExtractor_Extract(t *testing.T) {
 	t.Parallel()
 
-	tests := []sharedtesthelpers.TestTableEntry{
+	tests := []extracttest.TestTableEntry{
 		{
 			Name: "invalid toml",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+			InputConfig: extracttest.ScanInputMockConfig{
 				Path: "testdata/not-toml.txt",
 			},
 			WantErrContaining: "could not extract from",
 		},
 		{
 			Name: "no packages",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+			InputConfig: extracttest.ScanInputMockConfig{
 				Path: "testdata/empty.toml",
 			},
 			WantInventory: []*extractor.Inventory{},
 		},
 		{
 			Name: "single package",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+			InputConfig: extracttest.ScanInputMockConfig{
 				Path: "testdata/single-package.toml",
 			},
 			WantInventory: []*extractor.Inventory{
@@ -103,7 +103,7 @@ func TestExtractor_Extract(t *testing.T) {
 		},
 		{
 			Name: "two packages",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+			InputConfig: extracttest.ScanInputMockConfig{
 				Path: "testdata/two-packages.toml",
 			},
 			WantInventory: []*extractor.Inventory{
@@ -127,7 +127,7 @@ func TestExtractor_Extract(t *testing.T) {
 		},
 		{
 			Name: "package with dev dependencies",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+			InputConfig: extracttest.ScanInputMockConfig{
 				Path: "testdata/dev-dependency.toml",
 			},
 			WantInventory: []*extractor.Inventory{
@@ -159,7 +159,7 @@ func TestExtractor_Extract(t *testing.T) {
 		},
 		{
 			Name: "package with optional dependency",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+			InputConfig: extracttest.ScanInputMockConfig{
 				Path: "testdata/optional-dependency.toml",
 			},
 			WantInventory: []*extractor.Inventory{
@@ -191,7 +191,7 @@ func TestExtractor_Extract(t *testing.T) {
 		},
 		{
 			Name: "package with git dependency",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+			InputConfig: extracttest.ScanInputMockConfig{
 				Path: "testdata/git-dependency.toml",
 			},
 			WantInventory: []*extractor.Inventory{
@@ -215,7 +215,7 @@ func TestExtractor_Extract(t *testing.T) {
 		t.Run(tt.Name, func(t *testing.T) {
 			t.Parallel()
 			e := pdmlock.Extractor{}
-			_, _ = sharedtesthelpers.ExtractionTester(t, e, tt)
+			_, _ = extracttest.ExtractionTester(t, e, tt)
 		})
 	}
 }

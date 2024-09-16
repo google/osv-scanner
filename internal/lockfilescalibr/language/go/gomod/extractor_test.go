@@ -4,8 +4,8 @@ import (
 	"testing"
 
 	"github.com/google/osv-scanner/internal/lockfilescalibr/extractor"
+	"github.com/google/osv-scanner/internal/lockfilescalibr/extracttest"
 	"github.com/google/osv-scanner/internal/lockfilescalibr/language/go/gomod"
-	"github.com/google/osv-scanner/internal/lockfilescalibr/sharedtesthelpers"
 )
 
 func TestExtractor_FileRequired(t *testing.T) {
@@ -63,10 +63,10 @@ func TestExtractor_FileRequired(t *testing.T) {
 func TestExtractor_Extract(t *testing.T) {
 	t.Parallel()
 
-	tests := []sharedtesthelpers.TestTableEntry{
+	tests := []extracttest.TestTableEntry{
 		{
 			Name: "invalid",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+			InputConfig: extracttest.ScanInputMockConfig{
 				Path: "testdata/not-go-mod.txt",
 			},
 			WantInventory:     []*extractor.Inventory{},
@@ -74,14 +74,14 @@ func TestExtractor_Extract(t *testing.T) {
 		},
 		{
 			Name: "no packages",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+			InputConfig: extracttest.ScanInputMockConfig{
 				Path: "testdata/empty.mod",
 			},
 			WantInventory: []*extractor.Inventory{},
 		},
 		{
 			Name: "one package",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+			InputConfig: extracttest.ScanInputMockConfig{
 				Path: "testdata/one-package.mod",
 			},
 			WantInventory: []*extractor.Inventory{
@@ -94,7 +94,7 @@ func TestExtractor_Extract(t *testing.T) {
 		},
 		{
 			Name: "two packages",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+			InputConfig: extracttest.ScanInputMockConfig{
 				Path: "testdata/two-packages.mod",
 			},
 			WantInventory: []*extractor.Inventory{
@@ -117,7 +117,7 @@ func TestExtractor_Extract(t *testing.T) {
 		},
 		{
 			Name: "indirect packages",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+			InputConfig: extracttest.ScanInputMockConfig{
 				Path: "testdata/indirect-packages.mod",
 			},
 			WantInventory: []*extractor.Inventory{
@@ -155,7 +155,7 @@ func TestExtractor_Extract(t *testing.T) {
 		},
 		{
 			Name: "replacements_ one",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+			InputConfig: extracttest.ScanInputMockConfig{
 				Path: "testdata/replace-one.mod",
 			},
 			WantInventory: []*extractor.Inventory{
@@ -168,7 +168,7 @@ func TestExtractor_Extract(t *testing.T) {
 		},
 		{
 			Name: "replacements_ mixed",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+			InputConfig: extracttest.ScanInputMockConfig{
 				Path: "testdata/replace-mixed.mod",
 			},
 			WantInventory: []*extractor.Inventory{
@@ -186,7 +186,7 @@ func TestExtractor_Extract(t *testing.T) {
 		},
 		{
 			Name: "replacements_ local",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+			InputConfig: extracttest.ScanInputMockConfig{
 				Path: "testdata/replace-local.mod",
 			},
 			WantInventory: []*extractor.Inventory{
@@ -204,7 +204,7 @@ func TestExtractor_Extract(t *testing.T) {
 		},
 		{
 			Name: "replacements_ different",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+			InputConfig: extracttest.ScanInputMockConfig{
 				Path: "testdata/replace-different.mod",
 			},
 			WantInventory: []*extractor.Inventory{
@@ -222,7 +222,7 @@ func TestExtractor_Extract(t *testing.T) {
 		},
 		{
 			Name: "replacements_ not required",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+			InputConfig: extracttest.ScanInputMockConfig{
 				Path: "testdata/replace-not-required.mod",
 			},
 			WantInventory: []*extractor.Inventory{
@@ -240,7 +240,7 @@ func TestExtractor_Extract(t *testing.T) {
 		},
 		{
 			Name: "replacements_ no version",
-			InputConfig: sharedtesthelpers.ScanInputMockConfig{
+			InputConfig: extracttest.ScanInputMockConfig{
 				Path: "testdata/replace-no-version.mod",
 			},
 			WantInventory: []*extractor.Inventory{
@@ -258,7 +258,7 @@ func TestExtractor_Extract(t *testing.T) {
 		t.Run(tt.Name, func(t *testing.T) {
 			t.Parallel()
 			e := gomod.Extractor{}
-			_, _ = sharedtesthelpers.ExtractionTester(t, e, tt)
+			_, _ = extracttest.ExtractionTester(t, e, tt)
 		})
 	}
 }
