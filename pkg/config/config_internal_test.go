@@ -1,8 +1,8 @@
 package config
 
 import (
-	"path/filepath"
 	"reflect"
+	"strings"
 	"testing"
 	"time"
 
@@ -10,93 +10,176 @@ import (
 	"github.com/google/osv-scanner/pkg/models"
 )
 
-type testStruct struct {
-	targetPath   string
-	config       Config
-	configHasErr bool
+// Attempts to normalize any file paths in the given `output` so that they can
+// be compared reliably regardless of the file path separator being used.
+//
+// Namely, escaped forward slashes are replaced with backslashes.
+func normalizeFilePaths(t *testing.T, output string) string {
+	t.Helper()
+
+	return strings.ReplaceAll(strings.ReplaceAll(output, "\\\\", "/"), "\\", "/")
 }
 
-func TestTryLoadConfig(t *testing.T) {
+func Test_normalizeConfigLoadPath(t *testing.T) {
 	t.Parallel()
 
-	expectedConfig := Config{
-		IgnoredVulns: []IgnoreEntry{
-			{
-				ID: "GO-2022-0968",
+	type args struct {
+		target string
+	}
+	tests := []struct {
+		name    string
+		args    args
+		want    string
+		wantErr bool
+	}{
+		{
+			name: "target does not exist",
+			args: args{
+				target: "./fixtures/testdatainner/does-not-exist",
 			},
-			{
-				ID: "GO-2022-1059",
-			},
+			want:    "",
+			wantErr: true,
 		},
-		PackageOverrides: []PackageOverrideEntry{
-			{
-				Name:      "lib",
-				Version:   "1.0.0",
-				Ecosystem: "Go",
-				Ignore:    true,
-				Reason:    "abc",
+		{
+			name: "target is file in directory",
+			args: args{
+				target: "./fixtures/testdatainner/innerFolder/test.yaml",
 			},
-			{
-				Name:      "my-pkg",
-				Version:   "1.0.0",
-				Ecosystem: "Go",
-				Reason:    "abc",
-				Ignore:    true,
-				License: License{
-					Override: []string{"MIT", "0BSD"},
+			want:    "fixtures/testdatainner/innerFolder/osv-scanner.toml",
+			wantErr: false,
+		},
+		{
+			name: "target is inner directory with trailing slash",
+			args: args{
+				target: "./fixtures/testdatainner/innerFolder/",
+			},
+			want:    "fixtures/testdatainner/innerFolder/osv-scanner.toml",
+			wantErr: false,
+		},
+		{
+			name: "target is inner directory without trailing slash",
+			args: args{
+				target: "./fixtures/testdatainner/innerFolder",
+			},
+			want:    "fixtures/testdatainner/innerFolder/osv-scanner.toml",
+			wantErr: false,
+		},
+		{
+			name: "target is directory with trailing slash",
+			args: args{
+				target: "./fixtures/testdatainner/",
+			},
+			want:    "fixtures/testdatainner/osv-scanner.toml",
+			wantErr: false,
+		},
+		{
+			name: "target is file in directory",
+			args: args{
+				target: "./fixtures/testdatainner/some-manifest.yaml",
+			},
+			want:    "fixtures/testdatainner/osv-scanner.toml",
+			wantErr: false,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			t.Parallel()
+
+			got, err := normalizeConfigLoadPath(tt.args.target)
+			if (err != nil) != tt.wantErr {
+				t.Errorf("normalizeConfigLoadPath() error = %v, wantErr %v", err, tt.wantErr)
+				return
+			}
+
+			got = normalizeFilePaths(t, got)
+			if got != tt.want {
+				t.Errorf("normalizeConfigLoadPath() got = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func Test_tryLoadConfig(t *testing.T) {
+	t.Parallel()
+
+	type args struct {
+		configPath string
+	}
+	tests := []struct {
+		name    string
+		args    args
+		want    Config
+		wantErr bool
+	}{
+		{
+			name: "config does not exist",
+			args: args{
+				configPath: "./fixtures/testdatainner/does-not-exist",
+			},
+			want:    Config{},
+			wantErr: true,
+		},
+		{
+			name: "config has some ignored vulnerabilities and package overrides",
+			args: args{
+				configPath: "./fixtures/testdatainner/osv-scanner.toml",
+			},
+			want: Config{
+				LoadPath: "./fixtures/testdatainner/osv-scanner.toml",
+				IgnoredVulns: []IgnoreEntry{
+					{
+						ID: "GO-2022-0968",
+					},
+					{
+						ID: "GO-2022-1059",
+					},
+				},
+				PackageOverrides: []PackageOverrideEntry{
+					{
+						Name:      "lib",
+						Version:   "1.0.0",
+						Ecosystem: "Go",
+						Ignore:    true,
+						Reason:    "abc",
+					},
+					{
+						Name:      "my-pkg",
+						Version:   "1.0.0",
+						Ecosystem: "Go",
+						Reason:    "abc",
+						Ignore:    true,
+						License: License{
+							Override: []string{"MIT", "0BSD"},
+						},
+					},
 				},
 			},
+			wantErr: false,
+		},
+		{
+			name: "load path cannot be overridden via config",
+			args: args{
+				configPath: "./fixtures/testdatainner/osv-scanner-load-path.toml",
+			},
+			want: Config{
+				LoadPath: "./fixtures/testdatainner/osv-scanner-load-path.toml",
+			},
+			wantErr: false,
 		},
 	}
-	testPaths := []testStruct{
-		{
-			targetPath:   "../../fixtures/testdatainner/innerFolder/test.yaml",
-			config:       Config{},
-			configHasErr: true,
-		},
-		{
-			targetPath:   "../../fixtures/testdatainner/innerFolder/",
-			config:       Config{},
-			configHasErr: true,
-		},
-		{ // Test no slash at the end
-			targetPath:   "../../fixtures/testdatainner/innerFolder",
-			config:       Config{},
-			configHasErr: true,
-		},
-		{
-			targetPath:   "../../fixtures/testdatainner/",
-			config:       expectedConfig,
-			configHasErr: false,
-		},
-		{
-			targetPath:   "../../fixtures/testdatainner/some-manifest.yaml",
-			config:       expectedConfig,
-			configHasErr: false,
-		},
-	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			t.Parallel()
 
-	for _, testData := range testPaths {
-		absPath, err := filepath.Abs(testData.targetPath)
-		if err != nil {
-			t.Errorf("%s", err)
-		}
-		configPath, err := normalizeConfigLoadPath(absPath)
-		if err != nil {
-			t.Errorf("%s", err)
-		}
-		config, configErr := tryLoadConfig(configPath)
-		if !cmp.Equal(config.IgnoredVulns, testData.config.IgnoredVulns) {
-			t.Errorf("Configs not equal: %+v != %+v", config, testData.config)
-		}
-		if !cmp.Equal(config.PackageOverrides, testData.config.PackageOverrides) {
-			t.Errorf("Configs not equal: %+v != %+v", config, testData.config)
-		}
-		if testData.configHasErr {
-			if configErr == nil {
-				t.Error("Config error not returned")
+			got, err := tryLoadConfig(tt.args.configPath)
+			if (err != nil) != tt.wantErr {
+				t.Errorf("tryLoadConfig() error = %v, wantErr %v", err, tt.wantErr)
+				return
 			}
-		}
+			if diff := cmp.Diff(tt.want, got); diff != "" {
+				t.Errorf("tryLoadConfig() mismatch (-want +got):\n%s", diff)
+			}
+		})
 	}
 }
 
