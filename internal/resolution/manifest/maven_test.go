@@ -409,7 +409,7 @@ func TestMavenReadWrite(t *testing.T) {
 		},
 	}
 	if diff := cmp.Diff(got, want); diff != "" {
-		t.Errorf("Maven manifest mismatch: %s", diff)
+		t.Errorf("Maven manifest mismatch (-want +got):\n%s", diff)
 	}
 
 	// Re-open the file for writing.
@@ -954,7 +954,7 @@ func TestBuildPatches(t *testing.T) {
 		t.Fatalf("failed to build patches: %v", err)
 	}
 	if diff := cmp.Diff(allPatches, want); diff != "" {
-		t.Errorf("result patches mismatch: %s", diff)
+		t.Errorf("result patches mismatch (-want +got):\n%s", diff)
 	}
 }
 

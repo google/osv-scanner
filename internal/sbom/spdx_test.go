@@ -31,7 +31,7 @@ func runSPDXGetPackages(t *testing.T, bomFile string, want []sbom.Identifier) {
 	}
 
 	if diff := cmp.Diff(want, got); diff != "" {
-		t.Errorf("GetPackages() returned an unexpected result (-want, +got):\n%s", diff)
+		t.Errorf("GetPackages() returned an unexpected result (-want +got):\n%s", diff)
 	}
 }
 
