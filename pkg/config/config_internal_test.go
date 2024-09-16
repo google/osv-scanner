@@ -41,7 +41,7 @@ func Test_normalizeConfigLoadPath(t *testing.T) {
 			wantErr: true,
 		},
 		{
-			name: "target is file in directory with config",
+			name: "target is file in directory",
 			args: args{
 				target: "./fixtures/testdatainner/innerFolder/test.yaml",
 			},
@@ -49,7 +49,7 @@ func Test_normalizeConfigLoadPath(t *testing.T) {
 			wantErr: false,
 		},
 		{
-			name: "target is directory with config, with trailing slash",
+			name: "target is directory with trailing slash",
 			args: args{
 				target: "./fixtures/testdatainner/innerFolder/",
 			},
@@ -57,7 +57,7 @@ func Test_normalizeConfigLoadPath(t *testing.T) {
 			wantErr: false,
 		},
 		{
-			name: "target is directory with config, without trailing slash",
+			name: "target is directory without trailing slash",
 			args: args{
 				target: "./fixtures/testdatainner/innerFolder",
 			},
@@ -65,7 +65,7 @@ func Test_normalizeConfigLoadPath(t *testing.T) {
 			wantErr: false,
 		},
 		{
-			name: "target is directory with config, with trailing slash",
+			name: "target is directory with trailing slash",
 			args: args{
 				target: "./fixtures/testdatainner/",
 			},
@@ -73,7 +73,7 @@ func Test_normalizeConfigLoadPath(t *testing.T) {
 			wantErr: false,
 		},
 		{
-			name: "target is file in directory with config",
+			name: "target is file in directory",
 			args: args{
 				target: "./fixtures/testdatainner/some-manifest.yaml",
 			},
