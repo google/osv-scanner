@@ -215,6 +215,7 @@ func init() {
 	registerExtractor("pnpm-lock.yaml", PnpmLockExtractor{})
 }
 
+// Deprecated: use PnpmLockExtractor.Extract instead
 func ParsePnpmLock(pathToLockfile string) ([]PackageDetails, error) {
 	return extractFromFile(pathToLockfile, PnpmLockExtractor{})
 }

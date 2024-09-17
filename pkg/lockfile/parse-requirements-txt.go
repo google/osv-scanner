@@ -203,6 +203,7 @@ func init() {
 	registerExtractor("requirements.txt", RequirementsTxtExtractor{})
 }
 
+// Deprecated: use RequirementsTxtExtractor.Extract instead
 func ParseRequirementsTxt(pathToLockfile string) ([]PackageDetails, error) {
 	return extractFromFile(pathToLockfile, RequirementsTxtExtractor{})
 }

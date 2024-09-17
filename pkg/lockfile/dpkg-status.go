@@ -101,6 +101,7 @@ func parseDpkgPackageGroup(group []string) PackageDetails {
 	return pkg
 }
 
+// Deprecated: use DpkgStatusExtractor.Extract instead
 func ParseDpkgStatus(pathToLockfile string) ([]PackageDetails, error) {
 	return extractFromFile(pathToLockfile, DpkgStatusExtractor{})
 }
