@@ -77,7 +77,7 @@ func compareRubyGemsComponents(a, b []string) int {
 
 	var compare int
 
-	for i := 0; i < numberOfComponents; i++ {
+	for i := range numberOfComponents {
 		as := fetch(a, i, "0")
 		bs := fetch(b, i, "0")
 

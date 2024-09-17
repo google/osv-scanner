@@ -704,14 +704,21 @@ func filterPackageVulns(r reporter.Reporter, pkgVulns models.PackageVulns, confi
 				for _, id := range group.Aliases {
 					ignoredVulns[id] = struct{}{}
 				}
+
+				reason := ignoreLine.Reason
+
+				if reason == "" {
+					reason = "(no reason given)"
+				}
+
 				// NB: This only prints the first reason encountered in all the aliases.
 				switch len(group.Aliases) {
 				case 1:
-					r.Infof("%s has been filtered out because: %s\n", ignoreLine.ID, ignoreLine.Reason)
+					r.Infof("%s has been filtered out because: %s\n", ignoreLine.ID, reason)
 				case 2:
-					r.Infof("%s and 1 alias have been filtered out because: %s\n", ignoreLine.ID, ignoreLine.Reason)
+					r.Infof("%s and 1 alias have been filtered out because: %s\n", ignoreLine.ID, reason)
 				default:
-					r.Infof("%s and %d aliases have been filtered out because: %s\n", ignoreLine.ID, len(group.Aliases)-1, ignoreLine.Reason)
+					r.Infof("%s and %d aliases have been filtered out because: %s\n", ignoreLine.ID, len(group.Aliases)-1, reason)
 				}
 
 				break
@@ -967,9 +974,24 @@ func filterIgnoredPackages(r reporter.Reporter, packages []scannedPackage, confi
 	out := make([]scannedPackage, 0, len(packages))
 	for _, p := range packages {
 		configToUse := configManager.Get(r, p.Source.Path)
-		if ignore, ignoreLine := configToUse.ShouldIgnorePackageVersion(p.Name, p.Version, string(p.Ecosystem)); ignore {
+		pkg := models.PackageVulns{
+			Package: models.PackageInfo{
+				Name:      p.Name,
+				Version:   p.Version,
+				Ecosystem: string(p.Ecosystem),
+				Commit:    p.Commit,
+			},
+			DepGroups: p.DepGroups,
+		}
+
+		if ignore, ignoreLine := configToUse.ShouldIgnorePackage(pkg); ignore {
 			pkgString := fmt.Sprintf("%s/%s/%s", p.Ecosystem, p.Name, p.Version)
-			r.Infof("Package %s has been filtered out because: %s\n", pkgString, ignoreLine.Reason)
+			reason := ignoreLine.Reason
+
+			if reason == "" {
+				reason = "(no reason given)"
+			}
+			r.Infof("Package %s has been filtered out because: %s\n", pkgString, reason)
 
 			continue
 		}

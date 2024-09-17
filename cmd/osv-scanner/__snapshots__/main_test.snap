@@ -9,7 +9,7 @@ No package sources found, --help for usage information.
 ---
 
 [TestRun/#01 - 1]
-osv-scanner version: 1.8.4
+osv-scanner version: 1.8.5
 commit: n/a
 built at: n/a
 
@@ -141,7 +141,7 @@ Loaded filter from: <rootdir>/fixtures/locks-many/osv-scanner.toml
           "informationUri": "https://github.com/google/osv-scanner",
           "name": "osv-scanner",
           "rules": [],
-          "version": "1.8.4"
+          "version": "1.8.5"
         }
       },
       "results": []
@@ -175,6 +175,9 @@ Scanned <rootdir>/fixtures/go-project/go.mod file and found 1 package
 | https://osv.dev/GO-2024-2887 |      | Go        | stdlib  | 1.21.7  | fixtures/go-project/go.mod |
 | https://osv.dev/GO-2024-2888 |      | Go        | stdlib  | 1.21.7  | fixtures/go-project/go.mod |
 | https://osv.dev/GO-2024-2963 |      | Go        | stdlib  | 1.21.7  | fixtures/go-project/go.mod |
+| https://osv.dev/GO-2024-3105 |      | Go        | stdlib  | 1.21.7  | fixtures/go-project/go.mod |
+| https://osv.dev/GO-2024-3106 |      | Go        | stdlib  | 1.21.7  | fixtures/go-project/go.mod |
+| https://osv.dev/GO-2024-3107 |      | Go        | stdlib  | 1.21.7  | fixtures/go-project/go.mod |
 +------------------------------+------+-----------+---------+---------+----------------------------+
 
 ---
@@ -251,7 +254,7 @@ Loaded Alpine local db from <tempdir>/osv-scanner/Alpine/all.zip
               }
             }
           ],
-          "version": "1.8.4"
+          "version": "1.8.5"
         }
       },
       "artifacts": [
@@ -320,6 +323,81 @@ Scanned <rootdir>/fixtures/locks-many-with-invalid/yarn.lock file and found 1 pa
 
 [TestRun/all_supported_lockfiles_in_the_directory_should_be_checked - 2]
 Attempted to scan lockfile but failed: <rootdir>/fixtures/locks-many-with-invalid/composer.lock
+
+---
+
+[TestRun/config_file_can_be_broad - 1]
+Scanning dir ./fixtures/locks-many
+Scanned <rootdir>/fixtures/locks-many/Gemfile.lock file and found 1 package
+Scanned <rootdir>/fixtures/locks-many/alpine.cdx.xml as CycloneDX SBOM and found 14 packages
+Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
+Scanned <rootdir>/fixtures/locks-many/package-lock.json file and found 1 package
+Scanned <rootdir>/fixtures/locks-many/yarn.lock file and found 1 package
+Scanning dir ./fixtures/locks-insecure
+Scanned <rootdir>/fixtures/locks-insecure/composer.lock file and found 1 package
+Scanning dir ./fixtures/maven-transitive
+Scanned <rootdir>/fixtures/maven-transitive/pom.xml file and found 3 packages
+Package npm/ansi-html/0.0.1 has been filtered out because: (no reason given)
+Package npm/balanced-match/1.0.2 has been filtered out because: (no reason given)
+Package Maven/org.apache.logging.log4j:log4j-api/2.14.1 has been filtered out because: it makes the table output really really long
+Package Maven/org.apache.logging.log4j:log4j-core/2.14.1 has been filtered out because: it makes the table output really really long
+Package Maven/org.apache.logging.log4j:log4j-web/2.14.1 has been filtered out because: it makes the table output really really long
+Filtered 5 ignored package/s from the scan.
+overriding license for package Alpine/alpine-baselayout/3.4.0-r0 with MIT
+overriding license for package Alpine/alpine-baselayout-data/3.4.0-r0 with MIT
+overriding license for package Alpine/alpine-keys/2.4-r1 with MIT
+overriding license for package Alpine/apk-tools/2.12.10-r1 with MIT
+overriding license for package Alpine/busybox-binsh/1.36.1-r27 with MIT
+overriding license for package Alpine/ca-certificates-bundle/20220614-r4 with MIT
+overriding license for package Alpine/libc-utils/0.7.2-r3 with MIT
+overriding license for package Alpine/libcrypto3/3.0.8-r0 with MIT
+overriding license for package Alpine/libssl3/3.0.8-r0 with MIT
+overriding license for package Alpine/musl/1.2.3-r4 with MIT
+overriding license for package Alpine/musl-utils/1.2.3-r4 with MIT
+overriding license for package Alpine/scanelf/1.3.5-r1 with MIT
+overriding license for package Alpine/ssl_client/1.36.1-r27 with MIT
+overriding license for package Alpine/zlib/1.2.13-r0 with MIT
+overriding license for package Packagist/sentry/sdk/2.0.4 with 0BSD
+overriding license for package Packagist/league/flysystem/1.0.8 with 0BSD
++-------------------------------------+------+-----------+------------------+---------+---------------------------------------+
+| OSV URL                             | CVSS | ECOSYSTEM | PACKAGE          | VERSION | SOURCE                                |
++-------------------------------------+------+-----------+------------------+---------+---------------------------------------+
+| https://osv.dev/GHSA-9f46-5r25-5wfm | 9.8  | Packagist | league/flysystem | 1.0.8   | fixtures/locks-insecure/composer.lock |
++-------------------------------------+------+-----------+------------------+---------+---------------------------------------+
++-------------------+-----------+------------------+---------+---------------------------------------+
+| LICENSE VIOLATION | ECOSYSTEM | PACKAGE          | VERSION | SOURCE                                |
++-------------------+-----------+------------------+---------+---------------------------------------+
+| 0BSD              | Packagist | league/flysystem | 1.0.8   | fixtures/locks-insecure/composer.lock |
+| UNKNOWN           | RubyGems  | ast              | 2.4.2   | fixtures/locks-many/Gemfile.lock      |
+| 0BSD              | Packagist | sentry/sdk       | 2.0.4   | fixtures/locks-many/composer.lock     |
++-------------------+-----------+------------------+---------+---------------------------------------+
+
+---
+
+[TestRun/config_file_can_be_broad - 2]
+
+---
+
+[TestRun/config_file_is_invalid - 1]
+Scanning dir ./fixtures/config-invalid
+Scanned <rootdir>/fixtures/config-invalid/composer.lock file and found 1 package
+
+---
+
+[TestRun/config_file_is_invalid - 2]
+Ignored invalid config file at: <rootdir>/fixtures/config-invalid/osv-scanner.toml
+
+---
+
+[TestRun/config_file_is_invalid#01 - 1]
+Scanning dir ./fixtures/config-invalid
+Scanned <rootdir>/fixtures/config-invalid/composer.lock file and found 1 package
+Config file <rootdir>/fixtures/config-invalid/osv-scanner.toml is invalid because: toml: line 1: expected '.' or '=', but got '!' instead
+
+---
+
+[TestRun/config_file_is_invalid#01 - 2]
+Ignored invalid config file at: <rootdir>/fixtures/config-invalid/osv-scanner.toml
 
 ---
 
@@ -472,6 +550,7 @@ Scanned <rootdir>/fixtures/sbom-insecure/postgres-stretch.cdx.xml as CycloneDX S
 | https://osv.dev/GHSA-xr7r-f8xq-vfvv | 8.6  | Go        | github.com/opencontainers/runc | v1.0.1                             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/GO-2024-2491        |      |           |                                |                                    |                                                 |
 | https://osv.dev/GHSA-jfvp-7x6p-h2pv | 4.8  | Go        | github.com/opencontainers/runc | v1.0.1                             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/GO-2024-3110        |      |           |                                |                                    |                                                 |
 | https://osv.dev/GHSA-p782-xgp4-8hr8 | 5.3  | Go        | golang.org/x/sys               | v0.0.0-20210817142637-7d9622a276b7 | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/GO-2022-0493        |      |           |                                |                                    |                                                 |
 | https://osv.dev/DLA-3012-1          |      | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
@@ -493,6 +572,23 @@ Scanned <rootdir>/fixtures/sbom-insecure/postgres-stretch.cdx.xml as CycloneDX S
 Scanning dir ./fixtures/locks-many/package-lock.json
 Scanned <rootdir>/fixtures/locks-many/package-lock.json file and found 1 package
 ::error file=fixtures/locks-many/package-lock.json::fixtures/locks-many/package-lock.json%0A+-----------+-------------------------------------+------+-----------------+---------------+%0A| PACKAGE   | VULNERABILITY ID                    | CVSS | CURRENT VERSION | FIXED VERSION |%0A+-----------+-------------------------------------+------+-----------------+---------------+%0A| ansi-html | https://osv.dev/GHSA-whgm-jr23-g3j9 | 7.5  | 0.0.1           | 0.0.8         |%0A+-----------+-------------------------------------+------+-----------------+---------------+
+---
+
+[TestRun/ignores_without_reason_should_be_explicitly_called_out - 1]
+Scanning dir ./fixtures/locks-many/package-lock.json
+Scanned <rootdir>/fixtures/locks-many/package-lock.json file and found 1 package
+Scanning dir ./fixtures/locks-many/composer.lock
+Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
+Package Packagist/sentry/sdk/2.0.4 has been filtered out because: (no reason given)
+Filtered 1 ignored package/s from the scan.
+GHSA-whgm-jr23-g3j9 and 1 alias have been filtered out because: (no reason given)
+Filtered 1 vulnerability from output
+No issues found
+
+---
+
+[TestRun/ignores_without_reason_should_be_explicitly_called_out - 2]
+
 ---
 
 [TestRun/invalid_--verbosity_value - 1]
@@ -666,6 +762,9 @@ Scanned <rootdir>/fixtures/call-analysis-go-project/go.mod file and found 4 pack
 | https://osv.dev/GO-2024-2610        |      | Go        | stdlib                      | 1.19    | fixtures/call-analysis-go-project/go.mod |
 | https://osv.dev/GO-2024-2888        |      | Go        | stdlib                      | 1.19    | fixtures/call-analysis-go-project/go.mod |
 | https://osv.dev/GO-2024-2963        |      | Go        | stdlib                      | 1.19    | fixtures/call-analysis-go-project/go.mod |
+| https://osv.dev/GO-2024-3105        |      | Go        | stdlib                      | 1.19    | fixtures/call-analysis-go-project/go.mod |
+| https://osv.dev/GO-2024-3106        |      | Go        | stdlib                      | 1.19    | fixtures/call-analysis-go-project/go.mod |
+| https://osv.dev/GO-2024-3107        |      | Go        | stdlib                      | 1.19    | fixtures/call-analysis-go-project/go.mod |
 +-------------------------------------+------+-----------+-----------------------------+---------+------------------------------------------+
 
 ---
@@ -739,7 +838,7 @@ Scanned <rootdir>/fixtures/locks-insecure/osv-scanner-flutter-deps.json file as 
               }
             }
           ],
-          "version": "1.8.4"
+          "version": "1.8.5"
         }
       },
       "artifacts": [
@@ -1019,6 +1118,54 @@ Filtered 1 vulnerability from output
 
 ---
 
+[TestRun_Licenses/Some_packages_with_ignored_licenses - 1]
+Scanning dir ./fixtures/locks-many
+Scanned <rootdir>/fixtures/locks-many/Gemfile.lock file and found 1 package
+Scanned <rootdir>/fixtures/locks-many/alpine.cdx.xml as CycloneDX SBOM and found 14 packages
+Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
+Scanned <rootdir>/fixtures/locks-many/package-lock.json file and found 1 package
+Scanned <rootdir>/fixtures/locks-many/yarn.lock file and found 1 package
+Scanning dir ./fixtures/locks-insecure
+Scanned <rootdir>/fixtures/locks-insecure/composer.lock file and found 1 package
+Package npm/ansi-html/0.0.1 has been filtered out because: (no reason given)
+Package npm/balanced-match/1.0.2 has been filtered out because: (no reason given)
+Filtered 2 ignored package/s from the scan.
+ignoring license for package Alpine/alpine-baselayout/3.4.0-r0
+ignoring license for package Alpine/alpine-baselayout-data/3.4.0-r0
+ignoring license for package Alpine/alpine-keys/2.4-r1
+ignoring license for package Alpine/apk-tools/2.12.10-r1
+ignoring license for package Alpine/busybox-binsh/1.36.1-r27
+ignoring license for package Alpine/ca-certificates-bundle/20220614-r4
+ignoring license for package Alpine/libc-utils/0.7.2-r3
+ignoring license for package Alpine/libcrypto3/3.0.8-r0
+ignoring license for package Alpine/libssl3/3.0.8-r0
+overriding license for package Alpine/musl/1.2.3-r4 with UNKNOWN
+ignoring license for package Alpine/musl-utils/1.2.3-r4
+ignoring license for package Alpine/scanelf/1.3.5-r1
+ignoring license for package Alpine/ssl_client/1.36.1-r27
+ignoring license for package Alpine/zlib/1.2.13-r0
+overriding license for package Packagist/sentry/sdk/2.0.4 with 0BSD
+overriding license for package Packagist/league/flysystem/1.0.8 with 0BSD
++-------------------------------------+------+-----------+------------------+---------+---------------------------------------+
+| OSV URL                             | CVSS | ECOSYSTEM | PACKAGE          | VERSION | SOURCE                                |
++-------------------------------------+------+-----------+------------------+---------+---------------------------------------+
+| https://osv.dev/GHSA-9f46-5r25-5wfm | 9.8  | Packagist | league/flysystem | 1.0.8   | fixtures/locks-insecure/composer.lock |
++-------------------------------------+------+-----------+------------------+---------+---------------------------------------+
++-------------------+-----------+------------------+----------+---------------------------------------+
+| LICENSE VIOLATION | ECOSYSTEM | PACKAGE          | VERSION  | SOURCE                                |
++-------------------+-----------+------------------+----------+---------------------------------------+
+| 0BSD              | Packagist | league/flysystem | 1.0.8    | fixtures/locks-insecure/composer.lock |
+| UNKNOWN           | RubyGems  | ast              | 2.4.2    | fixtures/locks-many/Gemfile.lock      |
+| UNKNOWN           | Alpine    | musl             | 1.2.3-r4 | fixtures/locks-many/alpine.cdx.xml    |
+| 0BSD              | Packagist | sentry/sdk       | 2.0.4    | fixtures/locks-many/composer.lock     |
++-------------------+-----------+------------------+----------+---------------------------------------+
+
+---
+
+[TestRun_Licenses/Some_packages_with_ignored_licenses - 2]
+
+---
+
 [TestRun_Licenses/Some_packages_with_license_violations_and_show-all-packages_in_json - 1]
 {
   "results": [
@@ -1240,6 +1387,7 @@ Filtered 15 vulnerabilities from output
 | https://osv.dev/DLA-3012-1          |      | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DLA-3172-1          |      | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DLA-3405-1          |      | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/DLA-3878-1          |      | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DSA-5142-1          |      | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DSA-5271-1          |      | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DSA-5391-1          |      | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
@@ -1326,6 +1474,7 @@ Filtered 15 vulnerabilities from output
 | https://osv.dev/DLA-3012-1          |      | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DLA-3172-1          |      | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DLA-3405-1          |      | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/DLA-3878-1          |      | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DSA-5142-1          |      | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DSA-5271-1          |      | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DSA-5391-1          |      | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |

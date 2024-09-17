@@ -16,7 +16,7 @@ import (
 	"golang.org/x/exp/maps"
 )
 
-func parseRemediationFixture(t *testing.T, universePath, manifestPath string) (*resolution.ResolutionResult, client.ResolutionClient) {
+func parseRemediationFixture(t *testing.T, universePath, manifestPath string, opts resolution.ResolveOpts) (*resolution.ResolutionResult, client.ResolutionClient) {
 	t.Helper()
 
 	io, err := manifest.GetManifestIO(manifestPath)
@@ -37,7 +37,7 @@ func parseRemediationFixture(t *testing.T, universePath, manifestPath string) (*
 
 	cl := clienttest.NewMockResolutionClient(t, universePath)
 
-	res, err := resolution.Resolve(context.Background(), cl, m)
+	res, err := resolution.Resolve(context.Background(), cl, m, opts)
 	if err != nil {
 		t.Fatalf("Failed to resolve manifest: %v", err)
 	}

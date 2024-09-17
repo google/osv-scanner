@@ -86,21 +86,21 @@ jobs:
       # format to the repository Actions tab.
       - name: "Upload artifact"
         if: "!cancelled()"
-        uses: actions/upload-artifact@834a144ee995460fba8ed112a2fc961b36a5ec5a # v4.3.6
+        uses: actions/upload-artifact@50769540e7f4bd5e21e526ee35c689e35e0d6874 # v4.4.0
         with:
           name: SARIF file
           path: ${{ inputs.results-file-name }}
           retention-days: 5
       - name: "Upload old scan json results"
         if: "!cancelled()"
-        uses: actions/upload-artifact@834a144ee995460fba8ed112a2fc961b36a5ec5a # v4.3.6
+        uses: actions/upload-artifact@50769540e7f4bd5e21e526ee35c689e35e0d6874 # v4.4.0
         with:
           name: old-json-results
           path: old-results.json
           retention-days: 5
       - name: "Upload new scan json results"
         if: "!cancelled()"
-        uses: actions/upload-artifact@834a144ee995460fba8ed112a2fc961b36a5ec5a # v4.3.6
+        uses: actions/upload-artifact@50769540e7f4bd5e21e526ee35c689e35e0d6874 # v4.4.0
         with:
           name: new-json-results
           path: new-results.json
@@ -108,6 +108,6 @@ jobs:
       # Upload the results to GitHub's code scanning dashboard.
       - name: "Upload to code-scanning"
         if: ${{ !cancelled() && inputs.upload-sarif == true }}
-        uses: github/codeql-action/upload-sarif@f0f3afee809481da311ca3a6ff1ff51d81dbeb24 # v3.26.4
+        uses: github/codeql-action/upload-sarif@8214744c546c1e5c8f03dde8fab3a7353211988d # v3.26.7
         with:
           sarif_file: ${{ inputs.results-file-name }}

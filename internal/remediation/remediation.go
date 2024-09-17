@@ -40,6 +40,7 @@ func SupportsInPlace(l lockfile.LockfileIO) bool {
 }
 
 type RemediationOptions struct {
+	resolution.ResolveOpts
 	IgnoreVulns   []string // Vulnerability IDs to ignore
 	ExplicitVulns []string // If set, only consider these vulnerability IDs & ignore all others
 

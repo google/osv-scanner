@@ -201,8 +201,8 @@ type doRelockMsg struct {
 	err error
 }
 
-func doRelock(ctx context.Context, cl client.ResolutionClient, m manif.Manifest, matchFn func(resolution.ResolutionVuln) bool) tea.Msg {
-	res, err := resolution.Resolve(ctx, cl, m)
+func doRelock(ctx context.Context, cl client.ResolutionClient, m manif.Manifest, opts resolution.ResolveOpts, matchFn func(resolution.ResolutionVuln) bool) tea.Msg {
+	res, err := resolution.Resolve(ctx, cl, m, opts)
 	if err != nil {
 		return doRelockMsg{nil, err}
 	}
@@ -228,7 +228,7 @@ func doInitialRelock(ctx context.Context, opts osvFixOptions) tea.Msg {
 	}
 	client.PreFetch(opts.Client, ctx, m.Requirements, m.FilePath)
 
-	return doRelock(ctx, opts.Client, m, opts.MatchVuln)
+	return doRelock(ctx, opts.Client, m, opts.ResolveOpts, opts.MatchVuln)
 }
 
 // tui.ViewModel for showing non-interactive strings

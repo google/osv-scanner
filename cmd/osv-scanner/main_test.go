@@ -312,9 +312,31 @@ func TestRun(t *testing.T) {
 			args: []string{"", "--config=./fixtures/go-project/go-version-config.toml", "./fixtures/go-project"},
 			exit: 0,
 		},
+		// broad config file that overrides a whole ecosystem
+		{
+			name: "config file can be broad",
+			args: []string{"", "--config=./fixtures/osv-scanner-composite-config.toml", "--experimental-licenses", "MIT", "./fixtures/locks-many", "./fixtures/locks-insecure", "./fixtures/maven-transitive"},
+			exit: 1,
+		},
+		// ignored vulnerabilities and packages without a reason should be called out
+		{
+			name: "ignores without reason should be explicitly called out",
+			args: []string{"", "--config=./fixtures/osv-scanner-reasonless-ignores-config.toml", "./fixtures/locks-many/package-lock.json", "./fixtures/locks-many/composer.lock"},
+			exit: 0,
+		},
+		// invalid config file
+		{
+			name: "config file is invalid",
+			args: []string{"", "./fixtures/config-invalid"},
+			exit: 127,
+		},
+		{
+			name: "config file is invalid",
+			args: []string{"", "--verbosity", "verbose", "./fixtures/config-invalid"},
+			exit: 127,
+		},
 	}
 	for _, tt := range tests {
-		tt := tt
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
 
@@ -340,7 +362,6 @@ func TestRunCallAnalysis(t *testing.T) {
 		},
 	}
 	for _, tt := range tests {
-		tt := tt
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
 
@@ -473,7 +494,6 @@ func TestRun_LockfileWithExplicitParseAs(t *testing.T) {
 		},
 	}
 	for _, tt := range tests {
-		tt := tt
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
 
@@ -499,7 +519,6 @@ func TestRun_GithubActions(t *testing.T) {
 		},
 	}
 	for _, tt := range tests {
-		tt := tt
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
 
@@ -592,7 +611,6 @@ func TestRun_LocalDatabases(t *testing.T) {
 	}
 
 	for _, tt := range tests {
-		tt := tt
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
 
@@ -645,6 +663,11 @@ func TestRun_Licenses(t *testing.T) {
 			exit: 1,
 		},
 		{
+			name: "Some packages with ignored licenses",
+			args: []string{"", "--config=./fixtures/osv-scanner-complex-licenses-config.toml", "--experimental-licenses", "MIT", "./fixtures/locks-many", "./fixtures/locks-insecure"},
+			exit: 1,
+		},
+		{
 			name: "Some packages with license violations in json",
 			args: []string{"", "--format=json", "--experimental-licenses", "MIT", "./fixtures/locks-licenses/package-lock.json"},
 			exit: 1,
@@ -661,7 +684,6 @@ func TestRun_Licenses(t *testing.T) {
 		},
 	}
 	for _, tt := range tests {
-		tt := tt
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
 
@@ -718,7 +740,6 @@ func TestRun_OCIImage(t *testing.T) {
 		},
 	}
 	for _, tt := range tests {
-		tt := tt
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
 
@@ -761,7 +782,6 @@ func TestRun_SubCommands(t *testing.T) {
 		// TODO: add tests for other future subcommands
 	}
 	for _, tt := range tests {
-		tt := tt
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
 
@@ -818,7 +838,6 @@ func TestRun_InsertDefaultCommand(t *testing.T) {
 	}
 
 	for _, tt := range tests {
-		tt := tt
 		stdout := &bytes.Buffer{}
 		stderr := &bytes.Buffer{}
 		argsActual := insertDefaultCommand(tt.originalArgs, commands, defaultCommand, stdout, stderr)
@@ -854,7 +873,6 @@ func TestRun_MavenTransitive(t *testing.T) {
 	}
 
 	for _, tt := range tests {
-		tt := tt
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
 			testCli(t, tt)

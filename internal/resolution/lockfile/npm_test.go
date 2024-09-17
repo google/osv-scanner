@@ -62,7 +62,7 @@ r 1.0.0
 	}
 
 	if diff := cmp.Diff(want, got); diff != "" {
-		t.Errorf("npm lockfile mismatch (-want/+got):\n%s", diff)
+		t.Errorf("npm lockfile mismatch (-want +got):\n%s", diff)
 	}
 }
 
@@ -109,7 +109,7 @@ r 1.0.0
 	}
 
 	if diff := cmp.Diff(want, got); diff != "" {
-		t.Errorf("npm lockfile mismatch (-want/+got):\n%s", diff)
+		t.Errorf("npm lockfile mismatch (-want +got):\n%s", diff)
 	}
 }
 

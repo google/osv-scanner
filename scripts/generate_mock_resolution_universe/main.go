@@ -39,6 +39,15 @@ import (
 	"gopkg.in/yaml.v3"
 )
 
+var remediationOpts = remediation.RemediationOptions{
+	ResolveOpts: resolution.ResolveOpts{
+		MavenManagement: true,
+	},
+	DevDeps:       true,
+	MaxDepth:      -1,
+	UpgradeConfig: upgrade.NewConfig(),
+}
+
 func doRelockRelax(ddCl *client.DepsDevClient, io manifest.ManifestIO, filename string) error {
 	cl := client.ResolutionClient{
 		VulnerabilityClient: client.NewOSVClient(),
@@ -57,15 +66,11 @@ func doRelockRelax(ddCl *client.DepsDevClient, io manifest.ManifestIO, filename 
 	}
 
 	client.PreFetch(cl, context.Background(), manif.Requirements, manif.FilePath)
-	res, err := resolution.Resolve(context.Background(), cl, manif)
+	res, err := resolution.Resolve(context.Background(), cl, manif, remediationOpts.ResolveOpts)
 	if err != nil {
 		return err
 	}
-	_, err = remediation.ComputeRelaxPatches(context.Background(), cl, res, remediation.RemediationOptions{
-		DevDeps:       true,
-		MaxDepth:      -1,
-		UpgradeConfig: upgrade.NewConfig(),
-	})
+	_, err = remediation.ComputeRelaxPatches(context.Background(), cl, res, remediationOpts)
 
 	return err
 }
@@ -88,15 +93,11 @@ func doOverride(ddCl *client.DepsDevClient, io manifest.ManifestIO, filename str
 	}
 
 	client.PreFetch(cl, context.Background(), manif.Requirements, manif.FilePath)
-	res, err := resolution.Resolve(context.Background(), cl, manif)
+	res, err := resolution.Resolve(context.Background(), cl, manif, remediationOpts.ResolveOpts)
 	if err != nil {
 		return err
 	}
-	_, err = remediation.ComputeOverridePatches(context.Background(), cl, res, remediation.RemediationOptions{
-		DevDeps:       true,
-		MaxDepth:      -1,
-		UpgradeConfig: upgrade.NewConfig(),
-	})
+	_, err = remediation.ComputeOverridePatches(context.Background(), cl, res, remediationOpts)
 
 	return err
 }
@@ -130,11 +131,7 @@ func doInPlace(ddCl *client.DepsDevClient, io lockfile.LockfileIO, filename stri
 	}
 	_ = group.Wait()
 
-	_, err = remediation.ComputeInPlacePatches(context.Background(), cl, g, remediation.RemediationOptions{
-		DevDeps:       true,
-		MaxDepth:      -1,
-		UpgradeConfig: upgrade.NewConfig(),
-	})
+	_, err = remediation.ComputeInPlacePatches(context.Background(), cl, g, remediationOpts)
 
 	return err
 }
@@ -293,7 +290,6 @@ func main() {
 
 	group := &errgroup.Group{}
 	for _, filename := range os.Args[1:] {
-		filename := filename
 		if io, err := manifest.GetManifestIO(filename); err == nil {
 			if remediation.SupportsRelax(io) {
 				group.Go(func() error {
