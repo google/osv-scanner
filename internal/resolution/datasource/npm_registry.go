@@ -37,10 +37,10 @@ func NewNpmRegistryAPIClient(workdir string) (*NpmRegistryAPIClient, error) {
 		return nil, err
 	}
 
-	c := &NpmRegistryAPIClient{registries: registries}
-	c.details = NewRequestCache[string, npmRegistryPackageDetails]()
-
-	return c, nil
+	return &NpmRegistryAPIClient{
+		registries: registries,
+		details:    NewRequestCache[string, npmRegistryPackageDetails](),
+	}, nil
 }
 
 type npmRegistryVersions struct {

@@ -69,12 +69,12 @@ func NewDepsDevAPIClient(addr string) (*DepsDevAPIClient, error) {
 		return nil, fmt.Errorf("dialling %q: %w", addr, err)
 	}
 
-	cl := &DepsDevAPIClient{InsightsClient: pb.NewInsightsClient(conn)}
-	cl.packageCache = NewRequestCache[packageKey, *pb.Package]()
-	cl.versionCache = NewRequestCache[versionKey, *pb.Version]()
-	cl.requirementsCache = NewRequestCache[versionKey, *pb.Requirements]()
-
-	return cl, nil
+	return &DepsDevAPIClient{
+		InsightsClient:    pb.NewInsightsClient(conn),
+		packageCache:      NewRequestCache[packageKey, *pb.Package](),
+		versionCache:      NewRequestCache[versionKey, *pb.Version](),
+		requirementsCache: NewRequestCache[versionKey, *pb.Requirements](),
+	}, nil
 }
 
 func (c *DepsDevAPIClient) GetPackage(ctx context.Context, in *pb.GetPackageRequest, opts ...grpc.CallOption) (*pb.Package, error) {

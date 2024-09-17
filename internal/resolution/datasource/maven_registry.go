@@ -28,11 +28,11 @@ type MavenRegistryAPIClient struct {
 }
 
 func NewMavenRegistryAPIClient(registry string) *MavenRegistryAPIClient {
-	c := &MavenRegistryAPIClient{registry: registry}
-	c.projects = NewRequestCache[string, maven.Project]()
-	c.metadata = NewRequestCache[string, maven.Metadata]()
-
-	return c
+	return &MavenRegistryAPIClient{
+		registry: registry,
+		projects: NewRequestCache[string, maven.Project](),
+		metadata: NewRequestCache[string, maven.Metadata](),
+	}
 }
 
 var errAPIFailed = errors.New("API query failed")
