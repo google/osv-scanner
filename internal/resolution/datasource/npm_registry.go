@@ -22,7 +22,7 @@ type NpmRegistryAPIClient struct {
 	// cache fields
 	mu             sync.Mutex
 	cacheTimestamp *time.Time // If set, this means we loaded from a cache
-	details        requestCache[string, npmRegistryPackageDetails]
+	details        *RequestCache[string, npmRegistryPackageDetails]
 }
 
 type npmRegistryPackageDetails struct {
@@ -38,7 +38,7 @@ func NewNpmRegistryAPIClient(workdir string) (*NpmRegistryAPIClient, error) {
 	}
 
 	c := &NpmRegistryAPIClient{registries: registries}
-	c.details = newRequestCache[string, npmRegistryPackageDetails](&c.mu)
+	c.details = NewRequestCache[string, npmRegistryPackageDetails]()
 
 	return c, nil
 }

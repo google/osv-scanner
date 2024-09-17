@@ -20,9 +20,9 @@ type DepsDevAPIClient struct {
 	// cache fields
 	mu                sync.Mutex
 	cacheTimestamp    *time.Time
-	packageCache      requestCache[packageKey, *pb.Package]
-	versionCache      requestCache[versionKey, *pb.Version]
-	requirementsCache requestCache[versionKey, *pb.Requirements]
+	packageCache      *RequestCache[packageKey, *pb.Package]
+	versionCache      *RequestCache[versionKey, *pb.Version]
+	requirementsCache *RequestCache[versionKey, *pb.Requirements]
 }
 
 // Comparable types to use as map keys for cache.
@@ -70,9 +70,9 @@ func NewDepsDevAPIClient(addr string) (*DepsDevAPIClient, error) {
 	}
 
 	cl := &DepsDevAPIClient{InsightsClient: pb.NewInsightsClient(conn)}
-	cl.packageCache = newRequestCache[packageKey, *pb.Package](&cl.mu)
-	cl.versionCache = newRequestCache[versionKey, *pb.Version](&cl.mu)
-	cl.requirementsCache = newRequestCache[versionKey, *pb.Requirements](&cl.mu)
+	cl.packageCache = NewRequestCache[packageKey, *pb.Package]()
+	cl.versionCache = NewRequestCache[versionKey, *pb.Version]()
+	cl.requirementsCache = NewRequestCache[versionKey, *pb.Requirements]()
 
 	return cl, nil
 }

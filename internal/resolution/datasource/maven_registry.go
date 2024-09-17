@@ -23,14 +23,14 @@ type MavenRegistryAPIClient struct {
 	// Cache fields
 	mu             sync.Mutex
 	cacheTimestamp *time.Time // If set, this means we loaded from a cache
-	projects       requestCache[string, maven.Project]
-	metadata       requestCache[string, maven.Metadata]
+	projects       *RequestCache[string, maven.Project]
+	metadata       *RequestCache[string, maven.Metadata]
 }
 
 func NewMavenRegistryAPIClient(registry string) *MavenRegistryAPIClient {
 	c := &MavenRegistryAPIClient{registry: registry}
-	c.projects = newRequestCache[string, maven.Project](&c.mu)
-	c.metadata = newRequestCache[string, maven.Metadata](&c.mu)
+	c.projects = NewRequestCache[string, maven.Project]()
+	c.metadata = NewRequestCache[string, maven.Metadata]()
 
 	return c
 }
