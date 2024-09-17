@@ -20,9 +20,8 @@ func TestRequestCache(t *testing.T) {
 
 	var wg sync.WaitGroup
 
-	for i := 0; i < numKeys; i++ {
-		i := i
-		for j := 0; j < numConcurrent; j++ {
+	for i := range numKeys {
+		for range numConcurrent {
 			wg.Add(1)
 			go func() {
 				t.Helper()
@@ -54,6 +53,4 @@ func TestRequestCache(t *testing.T) {
 			t.Errorf("RequestCache GetMap key %d has unexpected value %d", k, v)
 		}
 	}
-
-	t.Errorf("fail")
 }
