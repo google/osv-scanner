@@ -402,6 +402,7 @@ func scanLockfile(r reporter.Reporter, path string, parseAs string, _ bool, enab
 			Commit:         pkgDetail.Commit,
 			Ecosystem:      pkgDetail.Ecosystem,
 			PackageManager: pkgDetail.PackageManager,
+			IsDirect:       pkgDetail.IsDirect,
 			DepGroups:      pkgDetail.DepGroups,
 			Source: models.SourceInfo{
 				Path: path,
@@ -796,6 +797,7 @@ type scannedPackage struct {
 	Name            string
 	Ecosystem       lockfile.Ecosystem
 	PackageManager  models.PackageManager
+	IsDirect        bool
 	Commit          string
 	Version         string
 	Source          models.SourceInfo

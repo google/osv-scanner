@@ -14,6 +14,7 @@ type PackageDetails struct {
 	VersionLocation *models.FilePosition  `json:"versionLocation,omitempty"`
 	NameLocation    *models.FilePosition  `json:"nameLocation,omitempty"`
 	PackageManager  models.PackageManager `json:"packageManager,omitempty"`
+	IsDirect        bool                  `json:"isDirect,omitempty"`
 }
 
 type Ecosystem string

@@ -115,6 +115,7 @@ func (e GoLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 			BlockLocation:   blockLocation,
 			NameLocation:    nameLocation,
 			VersionLocation: versionLocation,
+			IsDirect:        !require.Indirect,
 		}
 	}
 
@@ -171,6 +172,7 @@ func (e GoLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 				BlockLocation:   blockLocation,
 				VersionLocation: versionLocation,
 				NameLocation:    nameLocation,
+				IsDirect:        packages[replacement].IsDirect,
 			}
 		}
 	}
@@ -185,6 +187,7 @@ func (e GoLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 			BlockLocation: models.FilePosition{
 				Filename: f.Path(),
 			},
+			IsDirect: true,
 		}
 	}
 

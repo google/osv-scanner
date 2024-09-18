@@ -128,6 +128,7 @@ func TestParseGoLock_WithPathMajor(t *testing.T) {
 				Column:   models.Position{Start: 9, End: 47},
 				Filename: path,
 			},
+			IsDirect: true,
 		},
 		{
 			Name:           "stdlib",
@@ -140,6 +141,7 @@ func TestParseGoLock_WithPathMajor(t *testing.T) {
 				Column:   models.Position{Start: 0, End: 0},
 				Filename: path,
 			},
+			IsDirect: true,
 		},
 	})
 }
@@ -174,6 +176,7 @@ func TestParseGoLock_WithoutSupportedVersioning(t *testing.T) {
 				Column:   models.Position{Start: 9, End: 44},
 				Filename: path,
 			},
+			IsDirect: true,
 		},
 		{
 			Name:           "stdlib",
@@ -186,6 +189,7 @@ func TestParseGoLock_WithoutSupportedVersioning(t *testing.T) {
 				Column:   models.Position{Start: 0, End: 0},
 				Filename: path,
 			},
+			IsDirect: true,
 		},
 	})
 }
@@ -225,6 +229,7 @@ func TestParseGoLock_OnePackage(t *testing.T) {
 				Column:   models.Position{Start: 2, End: 28},
 				Filename: path,
 			},
+			IsDirect: true,
 		},
 	})
 }
@@ -264,6 +269,7 @@ func TestParseGoLock_TwoPackages(t *testing.T) {
 				Column:   models.Position{Start: 2, End: 28},
 				Filename: path,
 			},
+			IsDirect: true,
 		},
 		{
 			Name:           "gopkg.in/yaml.v2",
@@ -286,6 +292,7 @@ func TestParseGoLock_TwoPackages(t *testing.T) {
 				Column:   models.Position{Start: 2, End: 18},
 				Filename: path,
 			},
+			IsDirect: true,
 		},
 		{
 			Name:           "stdlib",
@@ -298,6 +305,7 @@ func TestParseGoLock_TwoPackages(t *testing.T) {
 				Column:   models.Position{Start: 0, End: 0},
 				Filename: path,
 			},
+			IsDirect: true,
 		},
 	})
 }
@@ -337,6 +345,7 @@ func TestParseGoLock_IndirectPackages(t *testing.T) {
 				Column:   models.Position{Start: 2, End: 28},
 				Filename: path,
 			},
+			IsDirect: true,
 		},
 		{
 			Name:           "gopkg.in/yaml.v2",
@@ -359,6 +368,7 @@ func TestParseGoLock_IndirectPackages(t *testing.T) {
 				Column:   models.Position{Start: 2, End: 18},
 				Filename: path,
 			},
+			IsDirect: true,
 		},
 		{
 			Name:           "github.com/mattn/go-colorable",
@@ -381,6 +391,7 @@ func TestParseGoLock_IndirectPackages(t *testing.T) {
 				Column:   models.Position{Start: 2, End: 31},
 				Filename: path,
 			},
+			IsDirect: false,
 		},
 		{
 			Name:           "github.com/mattn/go-isatty",
@@ -403,6 +414,7 @@ func TestParseGoLock_IndirectPackages(t *testing.T) {
 				Column:   models.Position{Start: 2, End: 28},
 				Filename: path,
 			},
+			IsDirect: false,
 		},
 		{
 			Name:           "golang.org/x/sys",
@@ -425,6 +437,7 @@ func TestParseGoLock_IndirectPackages(t *testing.T) {
 				Column:   models.Position{Start: 2, End: 18},
 				Filename: path,
 			},
+			IsDirect: false,
 		},
 		{
 			Name:           "stdlib",
@@ -437,6 +450,7 @@ func TestParseGoLock_IndirectPackages(t *testing.T) {
 				Column:   models.Position{Start: 0, End: 0},
 				Filename: path,
 			},
+			IsDirect: true,
 		},
 	})
 }
@@ -476,6 +490,7 @@ func TestParseGoLock_Replacements_One(t *testing.T) {
 				Column:   models.Position{Start: 36, End: 56},
 				Filename: path,
 			},
+			IsDirect: true,
 		},
 	})
 }
@@ -515,6 +530,7 @@ func TestParseGoLock_Replacements_Mixed(t *testing.T) {
 				Column:   models.Position{Start: 32, End: 52},
 				Filename: path,
 			},
+			IsDirect: true,
 		},
 		{
 			Name:           "golang.org/x/net",
@@ -537,6 +553,7 @@ func TestParseGoLock_Replacements_Mixed(t *testing.T) {
 				Column:   models.Position{Start: 5, End: 21},
 				Filename: path,
 			},
+			IsDirect: true,
 		},
 	})
 }
@@ -576,6 +593,7 @@ func TestParseGoLock_Replacements_Local(t *testing.T) {
 				Column:   models.Position{Start: 5, End: 31},
 				Filename: path,
 			},
+			IsDirect: true,
 		},
 		{
 			Name:           "golang.org/x/net",
@@ -588,6 +606,7 @@ func TestParseGoLock_Replacements_Local(t *testing.T) {
 				Column:   models.Position{Start: 5, End: 42},
 				Filename: path,
 			},
+			IsDirect: true,
 		},
 	})
 }
@@ -627,6 +646,7 @@ func TestParseGoLock_Replacements_Different(t *testing.T) {
 				Column:   models.Position{Start: 32, End: 52},
 				Filename: path,
 			},
+			IsDirect: true,
 		},
 		{
 			Name:           "example.com/fork/foe",
@@ -649,6 +669,7 @@ func TestParseGoLock_Replacements_Different(t *testing.T) {
 				Column:   models.Position{Start: 32, End: 52},
 				Filename: path,
 			},
+			IsDirect: true,
 		},
 	})
 }
@@ -688,6 +709,7 @@ func TestParseGoLock_Replacements_NotRequired(t *testing.T) {
 				Column:   models.Position{Start: 5, End: 21},
 				Filename: path,
 			},
+			IsDirect: true,
 		},
 		{
 			Name:           "github.com/BurntSushi/toml",
@@ -710,6 +732,7 @@ func TestParseGoLock_Replacements_NotRequired(t *testing.T) {
 				Column:   models.Position{Start: 5, End: 31},
 				Filename: path,
 			},
+			IsDirect: true,
 		},
 	})
 }
@@ -749,6 +772,7 @@ func TestParseGoLock_Replacements_NoVersion(t *testing.T) {
 				Column:   models.Position{Start: 25, End: 45},
 				Filename: path,
 			},
+			IsDirect: true,
 		},
 	})
 }
