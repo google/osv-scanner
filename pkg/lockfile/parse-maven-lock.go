@@ -163,6 +163,7 @@ func init() {
 	registerExtractor("pom.xml", MavenLockExtractor{})
 }
 
+// Deprecated: use MavenLockExtractor.Extract instead
 func ParseMavenLock(pathToLockfile string) ([]PackageDetails, error) {
 	return extractFromFile(pathToLockfile, MavenLockExtractor{})
 }

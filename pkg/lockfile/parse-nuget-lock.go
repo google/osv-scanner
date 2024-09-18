@@ -80,6 +80,7 @@ func init() {
 	registerExtractor("packages.lock.json", NuGetLockExtractor{})
 }
 
+// Deprecated: use NuGetLockExtractor.Extract instead
 func ParseNuGetLock(pathToLockfile string) ([]PackageDetails, error) {
 	return extractFromFile(pathToLockfile, NuGetLockExtractor{})
 }
