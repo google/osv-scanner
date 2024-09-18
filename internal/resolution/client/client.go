@@ -96,6 +96,8 @@ func PreFetch(c DependencyClient, ctx context.Context, requirements []resolve.Re
 				Version:     pbvk.GetVersion(),
 				VersionType: resolve.Concrete,
 			}
+
+			// TODO: We might want to limit the number of goroutines this creates.
 			go c.Requirements(ctx, vk)        //nolint:errcheck
 			go c.Version(ctx, vk)             //nolint:errcheck
 			go c.Versions(ctx, vk.PackageKey) //nolint:errcheck
