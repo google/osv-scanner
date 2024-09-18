@@ -142,12 +142,10 @@ func shouldIgnoreTimestamp(ignoreUntil time.Time) bool {
 // Sets the override config by reading the config file at configPath.
 // Will return an error if loading the config file fails
 func (c *ConfigManager) UseOverride(configPath string) error {
-	config := Config{}
-	_, err := toml.DecodeFile(configPath, &config)
-	if err != nil {
-		return err
+	config, configErr := tryLoadConfig(configPath)
+	if configErr != nil {
+		return configErr
 	}
-	config.LoadPath = configPath
 	c.OverrideConfig = &config
 
 	return nil
@@ -207,22 +205,14 @@ func normalizeConfigLoadPath(target string) (string, error) {
 	return configPath, nil
 }
 
-// tryLoadConfig tries to load config in `target` (or it's containing directory)
-// `target` will be the key for the entry in configMap
+// tryLoadConfig attempts to parse the config file at the given path as TOML,
+// returning the Config object if successful or otherwise the error
 func tryLoadConfig(configPath string) (Config, error) {
-	file, err := os.Open(configPath)
-	var config Config
-	if err == nil { // File exists, and we have permission to read
-		defer file.Close()
-
-		_, err := toml.NewDecoder(file).Decode(&config)
-		if err != nil {
-			return Config{}, err
-		}
+	config := Config{}
+	_, err := toml.DecodeFile(configPath, &config)
+	if err == nil {
 		config.LoadPath = configPath
-
-		return config, nil
 	}
 
-	return Config{}, err
+	return config, err
 }
