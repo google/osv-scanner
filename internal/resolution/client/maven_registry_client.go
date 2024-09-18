@@ -2,24 +2,18 @@ package client
 
 import (
 	"context"
-	"crypto/x509"
 	"encoding/gob"
 	"fmt"
 	"os"
 	"slices"
 	"strings"
 
-	pb "deps.dev/api/v3"
 	"deps.dev/util/maven"
 	"deps.dev/util/resolve"
 	"deps.dev/util/resolve/version"
 	"deps.dev/util/semver"
 	"github.com/google/osv-scanner/internal/resolution/datasource"
 	mavenutil "github.com/google/osv-scanner/internal/utility/maven"
-	"github.com/google/osv-scanner/pkg/depsdev"
-	"github.com/google/osv-scanner/pkg/osv"
-	"google.golang.org/grpc"
-	"google.golang.org/grpc/credentials"
 )
 
 const mavenRegistryCacheExt = ".resolve.maven"
@@ -175,73 +169,4 @@ func (c *MavenRegistryClient) LoadCache(path string) error {
 	defer f.Close()
 
 	return gob.NewDecoder(f).Decode(&c.api)
-}
-
-func (c *MavenRegistryClient) PreFetch(ctx context.Context, imports []resolve.RequirementVersion, manifestPath string) {
-	certPool, err := x509.SystemCertPool()
-	if err != nil {
-		return
-	}
-	creds := credentials.NewClientTLSFromCert(certPool, "")
-	dialOpts := []grpc.DialOption{grpc.WithTransportCredentials(creds)}
-	if osv.RequestUserAgent != "" {
-		dialOpts = append(dialOpts, grpc.WithUserAgent(osv.RequestUserAgent))
-	}
-
-	conn, err := grpc.NewClient(depsdev.DepsdevAPI, dialOpts...)
-	if err != nil {
-		return
-	}
-	insights := pb.NewInsightsClient(conn)
-
-	// It doesn't matter if loading the cache fails
-	_ = c.LoadCache(manifestPath)
-
-	// User the deps.dev client to fetch complete dependency graphs of our direct imports
-	for _, im := range imports {
-		// Get the preferred version of the import requirement
-		vks, err := c.MatchingVersions(ctx, im.VersionKey)
-		if err != nil || len(vks) == 0 {
-			continue
-		}
-
-		vk := vks[len(vks)-1]
-		for _, v := range vks {
-			// We prefer the exact version for soft requirements.
-			if im.Version == v.Version {
-				vk = v
-				break
-			}
-		}
-
-		// Make a request for the pre-computed dependency tree
-		resp, err := insights.GetDependencies(ctx, &pb.GetDependenciesRequest{
-			VersionKey: &pb.VersionKey{
-				System:  pb.System(vk.System),
-				Name:    vk.Name,
-				Version: vk.Version,
-			},
-		})
-		if err != nil {
-			continue
-		}
-
-		// Send off queries to cache the packages in the dependency tree
-		for _, node := range resp.GetNodes() {
-			pbvk := node.GetVersionKey()
-			vk := resolve.VersionKey{
-				PackageKey: resolve.PackageKey{
-					System: resolve.System(pbvk.GetSystem()),
-					Name:   pbvk.GetName(),
-				},
-				Version:     pbvk.GetVersion(),
-				VersionType: resolve.Concrete,
-			}
-			// To cache Metadata.
-			go c.Versions(ctx, vk.PackageKey) //nolint:errcheck
-			// To cache Projects.
-			go c.Requirements(ctx, vk) //nolint:errcheck
-		}
-	}
-	// Don't bother waiting for goroutines to finish
 }
