@@ -3,11 +3,11 @@ package output
 import (
 	"embed"
 	"fmt"
+	"html/template"
 	"io"
 	"math/rand"
 	"strconv"
 	"strings"
-	"text/template"
 	"unicode"
 
 	"github.com/google/osv-scanner/internal/semantic"
@@ -54,7 +54,7 @@ var baseImages = []string{"Debian", "Alpine", "Ubuntu"}
 //go:embed html/*
 var templates embed.FS
 
-var templateDir = "html/*"
+var templateDir = "html/*.html"
 
 // BuildHTMLResults builds HTML results from vulnerability results.
 func BuildHTMLResults(vulnResult *models.VulnerabilityResults) HTMLResult {
