@@ -7,6 +7,7 @@ import (
 	"github.com/google/osv-scanner/pkg/models"
 )
 
+// Deprecated: use OSVScannerResultsExtractor.Extract instead
 func ParseOSVScannerResults(pathToLockfile string) ([]PackageDetails, error) {
 	return extractFromFile(pathToLockfile, OSVScannerResultsExtractor{})
 }

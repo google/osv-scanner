@@ -56,6 +56,7 @@ func parseApkPackageGroup(group []string) PackageDetails {
 	return pkg
 }
 
+// Deprecated: use ApkInstalledExtractor.Extract instead
 func ParseApkInstalled(pathToLockfile string) ([]PackageDetails, error) {
 	return extractFromFile(pathToLockfile, ApkInstalledExtractor{})
 }

@@ -55,6 +55,7 @@ func init() {
 	registerExtractor("Cargo.lock", CargoLockExtractor{})
 }
 
+// Deprecated: use CargoLockExtractor.Extract instead
 func ParseCargoLock(pathToLockfile string) ([]PackageDetails, error) {
 	return extractFromFile(pathToLockfile, CargoLockExtractor{})
 }
