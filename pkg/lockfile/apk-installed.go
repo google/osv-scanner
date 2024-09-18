@@ -9,6 +9,7 @@ import (
 )
 
 const AlpineEcosystem Ecosystem = "Alpine"
+const AlpineFallbackVersion = "v3.20"
 
 func groupApkPackageLines(scanner *bufio.Scanner) [][]string {
 	var groups [][]string
@@ -55,6 +56,7 @@ func parseApkPackageGroup(group []string) PackageDetails {
 	return pkg
 }
 
+// Deprecated: use ApkInstalledExtractor.Extract instead
 func ParseApkInstalled(pathToLockfile string) ([]PackageDetails, error) {
 	return extractFromFile(pathToLockfile, ApkInstalledExtractor{})
 }
@@ -83,10 +85,12 @@ func (e ApkInstalledExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 	}
 
 	alpineVersion, alpineVerErr := alpineReleaseExtractor(f)
-	if alpineVerErr == nil { // TODO: Log error? We might not be on a alpine system
-		for i := range packages {
-			packages[i].Ecosystem = Ecosystem(string(packages[i].Ecosystem) + ":" + alpineVersion)
-		}
+	if alpineVerErr != nil { // TODO: Log error? We might not be on a alpine system
+		// Alpine ecosystems MUST have a version suffix. Fallback to the latest version.
+		alpineVersion = AlpineFallbackVersion
+	}
+	for i := range packages {
+		packages[i].Ecosystem = Ecosystem(string(packages[i].Ecosystem) + ":" + alpineVersion)
 	}
 
 	if err := scanner.Err(); err != nil {

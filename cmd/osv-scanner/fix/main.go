@@ -11,7 +11,9 @@ import (
 	"deps.dev/util/resolve"
 	"github.com/google/osv-scanner/internal/remediation"
 	"github.com/google/osv-scanner/internal/remediation/upgrade"
+	"github.com/google/osv-scanner/internal/resolution"
 	"github.com/google/osv-scanner/internal/resolution/client"
+	"github.com/google/osv-scanner/internal/resolution/datasource"
 	"github.com/google/osv-scanner/internal/resolution/lockfile"
 	"github.com/google/osv-scanner/internal/resolution/manifest"
 	"github.com/google/osv-scanner/pkg/depsdev"
@@ -159,6 +161,11 @@ func Command(stdout, stderr io.Writer, r *reporter.Reporter) *cli.Command {
 				Name:     "ignore-dev",
 				Usage:    "ignore vulnerabilities affecting only development dependencies",
 			},
+			&cli.BoolFlag{
+				Category: vulnCategory,
+				Name:     "maven-fix-management",
+				Usage:    "(pom.xml) also remediate vulnerabilities in dependencyManagement packages that do not appear in the resolved dependency graph",
+			},
 		},
 		Action: func(ctx *cli.Context) error {
 			var err error
@@ -232,6 +239,9 @@ func action(ctx *cli.Context, stdout, stderr io.Writer) (reporter.Reporter, erro
 
 	opts := osvFixOptions{
 		RemediationOptions: remediation.RemediationOptions{
+			ResolveOpts: resolution.ResolveOpts{
+				MavenManagement: ctx.Bool("maven-fix-management"),
+			},
 			IgnoreVulns:   ctx.StringSlice("ignore-vulns"),
 			ExplicitVulns: ctx.StringSlice("vulns"),
 			DevDeps:       !ctx.Bool("ignore-dev"),
@@ -292,8 +302,11 @@ func action(ctx *cli.Context, stdout, stderr io.Writer) (reporter.Reporter, erro
 			}
 			opts.Client.DependencyClient = cl
 		case resolve.Maven:
-			// TODO: MavenRegistryClient
-			fallthrough
+			cl, err := client.NewMavenRegistryClient(datasource.MavenCentral)
+			if err != nil {
+				return nil, err
+			}
+			opts.Client.DependencyClient = cl
 		case resolve.UnknownSystem:
 			fallthrough
 		default:

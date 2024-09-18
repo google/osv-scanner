@@ -85,6 +85,7 @@ func init() {
 	registerExtractor("mix.lock", MixLockExtractor{})
 }
 
+// Deprecated: use MixLockExtractor.Extract instead
 func ParseMixLock(pathToLockfile string) ([]PackageDetails, error) {
 	return extractFromFile(pathToLockfile, MixLockExtractor{})
 }

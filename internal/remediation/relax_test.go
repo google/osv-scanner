@@ -32,10 +32,9 @@ func TestComputeRelaxPatches(t *testing.T) {
 	}
 
 	for _, tt := range tests {
-		tt := tt
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
-			res, cl := parseRemediationFixture(t, tt.universePath, tt.manifestPath)
+			res, cl := parseRemediationFixture(t, tt.universePath, tt.manifestPath, tt.opts.ResolveOpts)
 			res.FilterVulns(tt.opts.MatchVuln)
 			p, err := remediation.ComputeRelaxPatches(context.Background(), cl, res, tt.opts)
 			if err != nil {

@@ -197,6 +197,7 @@ func init() {
 	registerExtractor("conan.lock", ConanLockExtractor{})
 }
 
+// Deprecated: use ConanLockExtractor.Extract instead
 func ParseConanLock(pathToLockfile string) ([]PackageDetails, error) {
 	return extractFromFile(pathToLockfile, ConanLockExtractor{})
 }

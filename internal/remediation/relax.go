@@ -105,7 +105,7 @@ func tryRelaxRemediate(
 		}
 
 		// re-resolve relaxed manifest
-		newRes, err = resolution.Resolve(ctx, cl, manif)
+		newRes, err = resolution.Resolve(ctx, cl, manif, opts.ResolveOpts)
 		if err != nil {
 			return nil, err
 		}
