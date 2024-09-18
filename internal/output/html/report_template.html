@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Vulnerability Scan Report</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+            overflow-y: scroll;
+        }
+
+        a {
+            color: inherit;
+        }
+
+        .container {
+            width: 1000px;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        h2 {
+            margin-top: 10px;
+        }
+
+        h1,
+        h2,
+        h3 {
+            color: #333;
+        }
+
+        .ecosystem {
+            margin-bottom: 20px;
+        }
+
+        .vulnerability {
+            /* border-top: 1px solid #ddd; */
+            /* margin-top: 20px; */
+            padding: 5px;
+            border-radius: 3px;
+        }
+
+        .severity {
+            font-weight: bold;
+        }
+
+        .high {
+            color: #d9534f;
+            /* Red for High severity */
+        }
+
+        .medium {
+            color: #f0ad4e;
+            /* Orange for Medium severity */
+        }
+
+        details summary {
+            cursor: pointer;
+            /* font-weight: bold; */
+        }
+
+        details p {
+            /* margin-top: 2px; */
+            /* color: gray; */
+            margin-left: 10px;
+        }
+
+        header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            position: relative;
+            justify-content: space-evenly;
+        }
+
+        .logo {
+            height: 50px;
+            position: absolute;
+            left: 0;
+        }
+
+        .vuln-table {
+            width: 100%;
+            text-align: center;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            margin-bottom: 40px;
+            margin-top: 10px;
+        }
+
+        .vuln-table td {
+            width: 200px;
+        }
+
+        .vuln-table th {
+            border-bottom: 1px solid #DDD;
+        }
+
+        .vuln-tr {
+            cursor: pointer;
+            line-height: 30px;
+        }
+
+        .vuln-tr td {
+            border-bottom: 1px solid #eee;
+        }
+
+        .vuln-tr:hover {
+            background-color: #eee
+        }
+
+
+        .vuln-id {
+            color: #d9534f;
+        }
+
+        .vuln-details {
+            text-align: left;
+            padding: 0 50px;
+            display: none;
+        }
+
+        .vuln-details {
+            border-bottom: 1px solid #eee;
+        }
+
+        #vuln-filter {
+            margin-top: 20px;
+        }
+
+        .artifact-section {
+            margin-bottom: 30px;
+        }
+
+        .uncalled {
+            margin-bottom: 20px
+        }
+
+        .warning {
+            color: #c5221f
+        }
+
+    </style>
+</head>
+
+<body>
+    <script>
+        function showVulnDetails(detailsId) {
+            var detailsElement = document.getElementById("vuln-details-" + detailsId);
+            var rowElement = document.getElementById("vuln-tr-" + detailsId)
+            if (detailsElement.style.display !== "block") {
+                detailsElement.style.display = "block";
+                rowElement.style.backgroundColor = "#ddd"
+            } else {
+                detailsElement.style.display = "none";
+                rowElement.style.backgroundColor = "#fff"
+            }
+        }
+    </script>
+    <div class="container">
+        <header>
+            <img src="https://google.github.io/osv.dev/assets/logo.png" alt="OSV-Scanner Logo" class="logo">
+            <h1>Vulnerability Scan Report</h1>
+        </header>
+        <h2>Scanning Results</h2>
+        <p>Total {{ .TotalCount }} vulnerabilities found.</p>
+        {{ range .EcosystemResults }}
+        <div class="ecosystem">
+            <h2>{{ .Ecosystem }}</h2>
+            <div class="artifact-section">
+                {{ range .Artifacts }}
+                <h3>Source: {{ .Ecosystem }}: {{ .Source }}</h3>
+                {{ $source := .Source }}
+                <p>Found {{ index .PackageCount 0 }} package(s) with issues, {{ index .VulnCount 0 }} known vulnerabilities found.</p>
+                {{template "table_template.html" .CalledVulns }}
+       
+                {{ if ne (index .PackageCount 1) 0}}
+                <details class="uncalled">
+                    <summary>Show/Hide Uncalled vulnerabilities</summary>
+                    <div id="uncalled-details-{{ $source }}">
+                        <h4>Uncalled vulnerabilities</h4>
+                        <p>Found {{ index .PackageCount 1 }} package(s) with issues, {{ index .VulnCount 1 }} known vulnerabilities found.</p>
+                        {{template "table_template.html" .UncalledVulns }}
+                    </div>
+                </details>
+                
+                {{ end }}
+                {{ end }}
+            </div>
+        </div>
+        {{ end }}
+    </div>
+</body>
+
+</html>

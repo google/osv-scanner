@@ -7,7 +7,7 @@ import (
 	"github.com/google/osv-scanner/pkg/models"
 )
 
-var format = []string{"table", "vertical", "json", "markdown", "sarif", "gh-annotations", "cyclonedx-1-4", "cyclonedx-1-5"}
+var format = []string{"html", "table", "vertical", "json", "markdown", "sarif", "gh-annotations", "cyclonedx-1-4", "cyclonedx-1-5"}
 
 func Format() []string {
 	return format
@@ -17,6 +17,8 @@ func Format() []string {
 // set terminalWidth as 0 to indicate the output is not a terminal
 func New(format string, stdout, stderr io.Writer, level VerbosityLevel, terminalWidth int) (Reporter, error) {
 	switch format {
+	case "html":
+		return NewHTMLReporter(stdout, stderr, level), nil
 	case "json":
 		return NewJSONReporter(stdout, stderr, level), nil
 	case "vertical":
