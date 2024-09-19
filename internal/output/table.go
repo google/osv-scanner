@@ -145,6 +145,7 @@ func tableBuilderInner(vulnResult *models.VulnerabilityResults, calledVulns bool
 
 func MaxSeverity(group models.GroupInfo, pkg models.PackageVulns) string {
 	var maxSeverity float64 = -1
+	var maxRating string = ""
 	for _, vulnID := range group.IDs {
 		var severities []models.Severity
 		for _, vuln := range pkg.Vulnerabilities {
@@ -152,15 +153,18 @@ func MaxSeverity(group models.GroupInfo, pkg models.PackageVulns) string {
 				severities = vuln.Severity
 			}
 		}
-		score, _, _ := severity.CalculateOverallScore(severities)
-		maxSeverity = max(maxSeverity, score)
+		score, rating, _ := severity.CalculateOverallScore(severities)
+		if score > maxSeverity {
+			maxSeverity = score
+			maxRating = rating
+		}
 	}
 
 	if maxSeverity < 0 {
 		return ""
 	}
 
-	return fmt.Sprintf("%.1f", maxSeverity)
+	return fmt.Sprintf("%s (%.1f)", maxRating, maxSeverity)
 }
 
 func licenseTableBuilder(outputTable table.Writer, vulnResult *models.VulnerabilityResults) table.Writer {

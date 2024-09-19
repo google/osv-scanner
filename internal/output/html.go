@@ -6,6 +6,7 @@ import (
 	"html/template"
 	"io"
 	"math/rand"
+	"slices"
 	"strconv"
 	"strings"
 	"unicode"
@@ -23,7 +24,6 @@ type HTMLResult struct {
 type EcosystemResult struct {
 	Ecosystem string
 	Artifacts []ArtifactResult
-	isOS      bool
 }
 
 type ArtifactResult struct {
@@ -93,6 +93,7 @@ func processSource(packageSource models.PackageSource) *ArtifactResult {
 	var calledPackages = make(map[string]bool)
 	var uncalledPackages = make(map[string]bool)
 	var uncalledVulnIds = make(map[string]bool)
+	var groupIds = make(map[string]models.GroupInfo)
 	ecosystemName := ""
 
 	for _, vulnPkg := range packageSource.Packages {
@@ -101,14 +102,13 @@ func processSource(packageSource models.PackageSource) *ArtifactResult {
 		}
 
 		// Process vulnerability groups and IDs to get uncalled information
-		processVulnerabilityGroups(vulnPkg, uncalledVulnIds, calledPackages, uncalledPackages)
-
+		processVulnerabilityGroups(groupIds, vulnPkg, uncalledVulnIds, calledPackages, uncalledPackages)
 		// Process vulnerabilities from one source package
 		allVulns = append(allVulns, processVulnerabilities(vulnPkg)...)
 	}
 
 	// Split vulnerabilities into called and uncalled
-	calledVulns, uncalledVulns := splitVulnerabilities(allVulns, uncalledVulnIds)
+	calledVulns, uncalledVulns := splitVulnerabilities(allVulns, groupIds, uncalledVulnIds)
 
 	return &ArtifactResult{
 		Source:        packageSource.Source.String(),
@@ -122,10 +122,20 @@ func processSource(packageSource models.PackageSource) *ArtifactResult {
 
 // splitVulnerabilities splits the given vulnerabilities into called and uncalled
 // based on the uncalledVulnIds map.
-func splitVulnerabilities(allVulns []HTMLVulnResult, uncalledVulnIds map[string]bool) ([]HTMLVulnResult, []HTMLVulnResult) {
+func splitVulnerabilities(allVulns []HTMLVulnResult, groupIds map[string]models.GroupInfo, uncalledVulnIds map[string]bool) ([]HTMLVulnResult, []HTMLVulnResult) {
 	var calledVulns []HTMLVulnResult
 	var uncalledVulns []HTMLVulnResult
 	for _, vuln := range allVulns {
+		groupInfo, isIndex := groupIds[vuln.Summary.Id]
+		if !isIndex {
+			// We only display one group once
+			continue
+		}
+
+		if len(groupInfo.IDs) > 1 {
+			vuln.Detail["groupIds"] = strings.Join(groupInfo.IDs[1:], ", ")
+			vuln.Summary.Severity = groupInfo.MaxSeverity
+		}
 		if _, isUncalled := uncalledVulnIds[vuln.Summary.Id]; isUncalled {
 			uncalledVulns = append(uncalledVulns, vuln)
 		} else {
@@ -176,12 +186,14 @@ func processVulnerabilities(vulnPkg models.PackageVulns) []HTMLVulnResult {
 
 // processVulnerabilityGroups processes vulnerability groups and IDs,
 // populating the called and uncalled maps.
-func processVulnerabilityGroups(vulnPkg models.PackageVulns, uncalledVulnIds map[string]bool, calledPackages map[string]bool, uncalledPackages map[string]bool) {
+func processVulnerabilityGroups(groupIds map[string]models.GroupInfo, vulnPkg models.PackageVulns, uncalledVulnIds map[string]bool, calledPackages map[string]bool, uncalledPackages map[string]bool) {
 	for _, group := range vulnPkg.Groups {
+		slices.SortFunc(group.IDs, idSortFunc)
+		representId := group.IDs[0]
+		groupIds[representId] = group
+
 		if !group.IsCalled() {
-			for _, id := range group.IDs {
-				uncalledVulnIds[id] = true
-			}
+			uncalledVulnIds[representId] = true
 			uncalledPackages[vulnPkg.Package.Name] = true
 		} else {
 			calledPackages[vulnPkg.Package.Name] = true
