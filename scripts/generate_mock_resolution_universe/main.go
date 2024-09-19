@@ -39,7 +39,7 @@ import (
 	"gopkg.in/yaml.v3"
 )
 
-var remediationOpts = remediation.RemediationOptions{
+var remediationOpts = remediation.Options{
 	ResolveOpts: resolution.ResolveOpts{
 		MavenManagement: true,
 	},
@@ -48,7 +48,7 @@ var remediationOpts = remediation.RemediationOptions{
 	UpgradeConfig: upgrade.NewConfig(),
 }
 
-func doRelockRelax(ddCl *client.DepsDevClient, io manifest.ManifestIO, filename string) error {
+func doRelockRelax(ddCl *client.DepsDevClient, io manifest.IO, filename string) error {
 	cl := client.ResolutionClient{
 		VulnerabilityClient: client.NewOSVClient(),
 		DependencyClient:    ddCl,
@@ -65,7 +65,7 @@ func doRelockRelax(ddCl *client.DepsDevClient, io manifest.ManifestIO, filename 
 		return err
 	}
 
-	client.PreFetch(cl, context.Background(), manif.Requirements, manif.FilePath)
+	client.PreFetch(context.Background(), cl, manif.Requirements, manif.FilePath)
 	res, err := resolution.Resolve(context.Background(), cl, manif, remediationOpts.ResolveOpts)
 	if err != nil {
 		return err
@@ -75,7 +75,7 @@ func doRelockRelax(ddCl *client.DepsDevClient, io manifest.ManifestIO, filename 
 	return err
 }
 
-func doOverride(ddCl *client.DepsDevClient, io manifest.ManifestIO, filename string) error {
+func doOverride(ddCl *client.DepsDevClient, io manifest.IO, filename string) error {
 	cl := client.ResolutionClient{
 		VulnerabilityClient: client.NewOSVClient(),
 		DependencyClient:    ddCl,
@@ -92,7 +92,7 @@ func doOverride(ddCl *client.DepsDevClient, io manifest.ManifestIO, filename str
 		return err
 	}
 
-	client.PreFetch(cl, context.Background(), manif.Requirements, manif.FilePath)
+	client.PreFetch(context.Background(), cl, manif.Requirements, manif.FilePath)
 	res, err := resolution.Resolve(context.Background(), cl, manif, remediationOpts.ResolveOpts)
 	if err != nil {
 		return err
@@ -102,7 +102,7 @@ func doOverride(ddCl *client.DepsDevClient, io manifest.ManifestIO, filename str
 	return err
 }
 
-func doInPlace(ddCl *client.DepsDevClient, io lockfile.LockfileIO, filename string) error {
+func doInPlace(ddCl *client.DepsDevClient, io lockfile.IO, filename string) error {
 	cl := client.ResolutionClient{
 		VulnerabilityClient: client.NewOSVClient(),
 		DependencyClient:    ddCl,

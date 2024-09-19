@@ -222,7 +222,7 @@ func TestNpmWrite(t *testing.T) {
 	}
 	defer df.Close()
 
-	changes := manifest.ManifestPatch{
+	changes := manifest.Patch{
 		Deps: []manifest.DependencyPatch{
 			{
 				Pkg: resolve.PackageKey{

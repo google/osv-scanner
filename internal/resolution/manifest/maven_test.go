@@ -421,7 +421,7 @@ func TestMavenReadWrite(t *testing.T) {
 
 	out := new(bytes.Buffer)
 	// There are no patches since we are only testing tabs are not escaped.
-	if err := mavenIO.Write(df, out, ManifestPatch{Manifest: &want}); err != nil {
+	if err := mavenIO.Write(df, out, Patch{Manifest: &want}); err != nil {
 		t.Fatalf("failed to write Maven pom.xml: %v", err)
 	}
 	testutility.NewSnapshot().WithCRLFReplacement().MatchText(t, out.String())

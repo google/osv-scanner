@@ -17,7 +17,7 @@ type DependencyPatch struct {
 	NewVersion  string
 }
 
-type LockfileIO interface {
+type IO interface {
 	// System returns which ecosystem this LockfileIO is for.
 	System() resolve.System
 	// Read parses a lockfile into a resolved graph
@@ -27,7 +27,7 @@ type LockfileIO interface {
 	Write(original lockfile.DepFile, output io.Writer, patches []DependencyPatch) error
 }
 
-func Overwrite(rw LockfileIO, filename string, patches []DependencyPatch) error {
+func Overwrite(rw IO, filename string, patches []DependencyPatch) error {
 	r, err := lockfile.OpenLocalDepFile(filename)
 	if err != nil {
 		return err
@@ -48,7 +48,7 @@ func Overwrite(rw LockfileIO, filename string, patches []DependencyPatch) error 
 	return nil
 }
 
-func GetLockfileIO(pathToLockfile string) (LockfileIO, error) {
+func GetLockfileIO(pathToLockfile string) (IO, error) {
 	base := filepath.Base(pathToLockfile)
 	switch {
 	case base == "package-lock.json":

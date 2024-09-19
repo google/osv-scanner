@@ -57,7 +57,7 @@ type updateOptions struct {
 	IgnoreDev  bool
 
 	Client     client.ResolutionClient
-	ManifestRW manifest.ManifestIO
+	ManifestRW manifest.IO
 }
 
 func action(ctx *cli.Context, stdout, stderr io.Writer) (reporter.Reporter, error) {

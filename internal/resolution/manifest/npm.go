@@ -235,7 +235,7 @@ func (rw NpmManifestIO) makeNPMReqVer(pkg, ver string) resolve.RequirementVersio
 	}
 }
 
-func (NpmManifestIO) Write(r lockfile.DepFile, w io.Writer, patch ManifestPatch) error {
+func (NpmManifestIO) Write(r lockfile.DepFile, w io.Writer, patch Patch) error {
 	// Read the whole package.json into a string so we can use sjson to write in-place.
 	var buf strings.Builder
 	_, err := io.Copy(&buf, r)

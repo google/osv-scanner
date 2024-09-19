@@ -50,7 +50,7 @@ func checkInPlaceResults(t *testing.T, res remediation.InPlaceResult) {
 		AffectedNodes []resolve.NodeID
 	}
 
-	toMinimalVuln := func(v resolution.ResolutionVuln) minimalVuln {
+	toMinimalVuln := func(v resolution.Vulnerability) minimalVuln {
 		t.Helper()
 		nodes := make(map[resolve.NodeID]struct{})
 		for _, c := range v.ProblemChains {
@@ -63,7 +63,7 @@ func checkInPlaceResults(t *testing.T, res remediation.InPlaceResult) {
 		slices.Sort(sortedNodes)
 
 		return minimalVuln{
-			ID:            v.Vulnerability.ID,
+			ID:            v.OSV.ID,
 			AffectedNodes: sortedNodes,
 		}
 	}
@@ -111,7 +111,7 @@ func checkInPlaceResults(t *testing.T, res remediation.InPlaceResult) {
 func TestComputeInPlacePatches(t *testing.T) {
 	t.Parallel()
 
-	basicOpts := remediation.RemediationOptions{
+	basicOpts := remediation.Options{
 		DevDeps:       true,
 		MaxDepth:      -1,
 		UpgradeConfig: upgrade.NewConfig(),
@@ -121,7 +121,7 @@ func TestComputeInPlacePatches(t *testing.T) {
 		name         string
 		universePath string
 		lockfilePath string
-		opts         remediation.RemediationOptions
+		opts         remediation.Options
 	}{
 		{
 			name:         "npm-santatracker",

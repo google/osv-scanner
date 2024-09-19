@@ -12,7 +12,7 @@ import (
 func TestComputeOverridePatches(t *testing.T) {
 	t.Parallel()
 
-	basicOpts := remediation.RemediationOptions{
+	basicOpts := remediation.Options{
 		DevDeps:       true,
 		MaxDepth:      -1,
 		UpgradeConfig: upgrade.NewConfig(),
@@ -22,7 +22,7 @@ func TestComputeOverridePatches(t *testing.T) {
 		name         string
 		universePath string
 		manifestPath string
-		opts         remediation.RemediationOptions
+		opts         remediation.Options
 	}{
 		{
 			name:         "maven-zeppelin-server",
@@ -40,7 +40,7 @@ func TestComputeOverridePatches(t *testing.T) {
 			name:         "maven-management-only",
 			universePath: "./fixtures/zeppelin-server/universe.yaml",
 			manifestPath: "./fixtures/zeppelin-server/parent/pom.xml",
-			opts: remediation.RemediationOptions{
+			opts: remediation.Options{
 				ResolveOpts: resolution.ResolveOpts{
 					MavenManagement: true,
 				},

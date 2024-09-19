@@ -29,12 +29,12 @@ const (
 )
 
 type osvFixOptions struct {
-	remediation.RemediationOptions
+	remediation.Options
 	Client     client.ResolutionClient
 	Manifest   string
-	ManifestRW manifest.ManifestIO
+	ManifestRW manifest.IO
 	Lockfile   string
-	LockfileRW lockfile.LockfileIO
+	LockfileRW lockfile.IO
 	RelockCmd  string
 }
 
@@ -60,7 +60,7 @@ func Command(stdout, stderr io.Writer, r *reporter.Reporter) *cli.Command {
 				Name:  "data-source",
 				Usage: "source to fetch package information from; value can be: deps.dev, native",
 				Value: "deps.dev",
-				Action: func(ctx *cli.Context, s string) error {
+				Action: func(_ *cli.Context, s string) error {
 					if s != "deps.dev" && s != "native" {
 						return fmt.Errorf("unsupported data-source \"%s\" - must be one of: deps.dev, native", s)
 					}
@@ -238,7 +238,7 @@ func action(ctx *cli.Context, stdout, stderr io.Writer) (reporter.Reporter, erro
 	r := reporter.NewTableReporter(stdout, stderr, reporter.InfoLevel, false, 0)
 
 	opts := osvFixOptions{
-		RemediationOptions: remediation.RemediationOptions{
+		Options: remediation.Options{
 			ResolveOpts: resolution.ResolveOpts{
 				MavenManagement: ctx.Bool("maven-fix-management"),
 			},

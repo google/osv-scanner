@@ -14,7 +14,7 @@ import (
 	"github.com/google/osv-scanner/internal/testutility"
 )
 
-func checkResult(t *testing.T, result *resolution.ResolutionResult) {
+func checkResult(t *testing.T, result *resolution.Result) {
 	t.Helper()
 	snap := testutility.NewSnapshot()
 	snap.MatchText(t, result.Graph.String())
@@ -29,7 +29,7 @@ func checkResult(t *testing.T, result *resolution.ResolutionResult) {
 	minVulns := make([]minimalVuln, len(result.Vulns))
 	for i, v := range result.Vulns {
 		minVulns[i] = minimalVuln{
-			ID:               v.Vulnerability.ID,
+			ID:               v.OSV.ID,
 			DevOnly:          v.DevOnly,
 			ProblemChains:    make([][]resolve.Edge, len(v.ProblemChains)),
 			NonProblemChains: make([][]resolve.Edge, len(v.NonProblemChains)),

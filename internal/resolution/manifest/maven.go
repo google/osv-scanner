@@ -283,7 +283,7 @@ func mavenOrigin(list ...string) string {
 	return result
 }
 
-func (MavenManifestIO) Write(df lockfile.DepFile, w io.Writer, patch ManifestPatch) error {
+func (MavenManifestIO) Write(df lockfile.DepFile, w io.Writer, patch Patch) error {
 	specific, ok := patch.Manifest.EcosystemSpecific.(MavenManifestSpecific)
 	if !ok {
 		return errors.New("invalid MavenManifestSpecific data")
