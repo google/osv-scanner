@@ -21,9 +21,9 @@ import (
 func parseInPlaceFixture(t *testing.T, universePath, lockfilePath string) (*resolve.Graph, client.ResolutionClient) {
 	t.Helper()
 
-	io, err := lockfile.GetLockfileIO(lockfilePath)
+	rw, err := lockfile.GetReadWriter(lockfilePath)
 	if err != nil {
-		t.Fatalf("Failed to get LockfileIO: %v", err)
+		t.Fatalf("Failed to get ReadWriter: %v", err)
 	}
 
 	f, err := lf.OpenLocalDepFile(lockfilePath)
@@ -32,7 +32,7 @@ func parseInPlaceFixture(t *testing.T, universePath, lockfilePath string) (*reso
 	}
 	defer f.Close()
 
-	g, err := io.Read(f)
+	g, err := rw.Read(f)
 	if err != nil {
 		t.Fatalf("Failed to parse lockfile: %v", err)
 	}

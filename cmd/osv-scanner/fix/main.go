@@ -32,9 +32,9 @@ type osvFixOptions struct {
 	remediation.Options
 	Client     client.ResolutionClient
 	Manifest   string
-	ManifestRW manifest.IO
+	ManifestRW manifest.ReadWriter
 	Lockfile   string
-	LockfileRW lockfile.IO
+	LockfileRW lockfile.ReadWriter
 	RelockCmd  string
 }
 
@@ -260,7 +260,7 @@ func action(ctx *cli.Context, stdout, stderr io.Writer) (reporter.Reporter, erro
 	system := resolve.UnknownSystem
 
 	if opts.Lockfile != "" {
-		rw, err := lockfile.GetLockfileIO(opts.Lockfile)
+		rw, err := lockfile.GetReadWriter(opts.Lockfile)
 		if err != nil {
 			return nil, err
 		}
@@ -269,7 +269,7 @@ func action(ctx *cli.Context, stdout, stderr io.Writer) (reporter.Reporter, erro
 	}
 
 	if opts.Manifest != "" {
-		rw, err := manifest.GetManifestIO(opts.Manifest)
+		rw, err := manifest.GetReadWriter(opts.Manifest)
 		if err != nil {
 			return nil, err
 		}

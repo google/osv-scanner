@@ -11,28 +11,28 @@ import (
 	"github.com/google/osv-scanner/internal/utility/severity"
 )
 
-// TODO: Supported strategies should be part of the manifest/lockfile io directly
-func SupportsRelax(m manifest.IO) bool {
+// TODO: Supported strategies should be part of the manifest/lockfile ReadWriter directly
+func SupportsRelax(m manifest.ReadWriter) bool {
 	switch m.(type) {
-	case manifest.NpmManifestIO:
+	case manifest.NpmReadWriter:
 		return true
 	default:
 		return false
 	}
 }
 
-func SupportsOverride(m manifest.IO) bool {
+func SupportsOverride(m manifest.ReadWriter) bool {
 	switch m.(type) {
-	case manifest.MavenManifestIO:
+	case manifest.MavenReadWriter:
 		return true
 	default:
 		return false
 	}
 }
 
-func SupportsInPlace(l lockfile.IO) bool {
+func SupportsInPlace(l lockfile.ReadWriter) bool {
 	switch l.(type) {
-	case lockfile.NpmLockfileIO:
+	case lockfile.NpmReadWriter:
 		return true
 	default:
 		return false

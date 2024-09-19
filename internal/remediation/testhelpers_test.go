@@ -19,9 +19,9 @@ import (
 func parseRemediationFixture(t *testing.T, universePath, manifestPath string, opts resolution.ResolveOpts) (*resolution.Result, client.ResolutionClient) {
 	t.Helper()
 
-	io, err := manifest.GetManifestIO(manifestPath)
+	rw, err := manifest.GetReadWriter(manifestPath)
 	if err != nil {
-		t.Fatalf("Failed to get ManifestIO: %v", err)
+		t.Fatalf("Failed to get ReadWriter: %v", err)
 	}
 
 	f, err := lf.OpenLocalDepFile(manifestPath)
@@ -30,7 +30,7 @@ func parseRemediationFixture(t *testing.T, universePath, manifestPath string, op
 	}
 	defer f.Close()
 
-	m, err := io.Read(f)
+	m, err := rw.Read(f)
 	if err != nil {
 		t.Fatalf("Failed to parse manifest: %v", err)
 	}

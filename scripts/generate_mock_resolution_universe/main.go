@@ -48,7 +48,7 @@ var remediationOpts = remediation.Options{
 	UpgradeConfig: upgrade.NewConfig(),
 }
 
-func doRelockRelax(ddCl *client.DepsDevClient, io manifest.IO, filename string) error {
+func doRelockRelax(ddCl *client.DepsDevClient, rw manifest.ReadWriter, filename string) error {
 	cl := client.ResolutionClient{
 		VulnerabilityClient: client.NewOSVClient(),
 		DependencyClient:    ddCl,
@@ -60,7 +60,7 @@ func doRelockRelax(ddCl *client.DepsDevClient, io manifest.IO, filename string) 
 	}
 	defer f.Close()
 
-	manif, err := io.Read(f)
+	manif, err := rw.Read(f)
 	if err != nil {
 		return err
 	}
@@ -75,7 +75,7 @@ func doRelockRelax(ddCl *client.DepsDevClient, io manifest.IO, filename string) 
 	return err
 }
 
-func doOverride(ddCl *client.DepsDevClient, io manifest.IO, filename string) error {
+func doOverride(ddCl *client.DepsDevClient, rw manifest.ReadWriter, filename string) error {
 	cl := client.ResolutionClient{
 		VulnerabilityClient: client.NewOSVClient(),
 		DependencyClient:    ddCl,
@@ -87,7 +87,7 @@ func doOverride(ddCl *client.DepsDevClient, io manifest.IO, filename string) err
 	}
 	defer f.Close()
 
-	manif, err := io.Read(f)
+	manif, err := rw.Read(f)
 	if err != nil {
 		return err
 	}
@@ -102,7 +102,7 @@ func doOverride(ddCl *client.DepsDevClient, io manifest.IO, filename string) err
 	return err
 }
 
-func doInPlace(ddCl *client.DepsDevClient, io lockfile.IO, filename string) error {
+func doInPlace(ddCl *client.DepsDevClient, rw lockfile.ReadWriter, filename string) error {
 	cl := client.ResolutionClient{
 		VulnerabilityClient: client.NewOSVClient(),
 		DependencyClient:    ddCl,
@@ -114,7 +114,7 @@ func doInPlace(ddCl *client.DepsDevClient, io lockfile.IO, filename string) erro
 	}
 	defer f.Close()
 
-	g, err := io.Read(f)
+	g, err := rw.Read(f)
 	if err != nil {
 		return err
 	}
@@ -290,7 +290,7 @@ func main() {
 
 	group := &errgroup.Group{}
 	for _, filename := range os.Args[1:] {
-		if io, err := manifest.GetManifestIO(filename); err == nil {
+		if io, err := manifest.GetReadWriter(filename); err == nil {
 			if remediation.SupportsRelax(io) {
 				group.Go(func() error {
 					err := doRelockRelax(cl, io, filename)
@@ -312,7 +312,7 @@ func main() {
 				})
 			}
 		}
-		if io, err := lockfile.GetLockfileIO(filename); err == nil {
+		if io, err := lockfile.GetReadWriter(filename); err == nil {
 			if remediation.SupportsInPlace(io) {
 				group.Go(func() error {
 					err := doInPlace(cl, io, filename)

@@ -25,8 +25,8 @@ func TestNpmReadV2(t *testing.T) {
 	}
 	defer df.Close()
 
-	npmIO := lockfile.NpmLockfileIO{}
-	got, err := npmIO.Read(df)
+	npmRW := lockfile.NpmReadWriter{}
+	got, err := npmRW.Read(df)
 	if err != nil {
 		t.Fatalf("failed to read file: %v", err)
 	}
@@ -77,8 +77,8 @@ func TestNpmReadV1(t *testing.T) {
 	}
 	defer df.Close()
 
-	npmIO := lockfile.NpmLockfileIO{}
-	got, err := npmIO.Read(df)
+	npmRW := lockfile.NpmReadWriter{}
+	got, err := npmRW.Read(df)
 	if err != nil {
 		t.Fatalf("failed to read file: %v", err)
 	}
@@ -167,8 +167,8 @@ func TestNpmWrite(t *testing.T) {
 	defer df.Close()
 
 	buf := new(bytes.Buffer)
-	npmIO := lockfile.NpmLockfileIO{}
-	if err := npmIO.Write(df, buf, patches); err != nil {
+	npmRW := lockfile.NpmReadWriter{}
+	if err := npmRW.Write(df, buf, patches); err != nil {
 		t.Fatalf("unable to update npm package-lock.json: %v", err)
 	}
 	testutility.NewSnapshot().WithCRLFReplacement().MatchText(t, buf.String())

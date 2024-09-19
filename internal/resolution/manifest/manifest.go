@@ -59,19 +59,19 @@ type Patch struct {
 	EcosystemSpecific any               // Any ecosystem-specific information
 }
 
-type IO interface {
-	// System returns which ecosystem this ManifestIO is for.
+type ReadWriter interface {
+	// System returns which ecosystem this ReadWriter is for.
 	System() resolve.System
 	// Read parses a manifest file into a Manifest, possibly recursively following references to other local manifest files
 	Read(file lockfile.DepFile) (Manifest, error)
-	// Write applies the ManifestPatch to the manifest, with minimal changes to the file.
+	// Write applies the Patch to the manifest, with minimal changes to the file.
 	// `original` is the original manifest file to read from. The updated manifest is written to `output`.
 	Write(original lockfile.DepFile, output io.Writer, patches Patch) error
 }
 
 // Overwrite applies the ManifestPatch to the manifest at filename.
 // Used so as to not have the same file open for reading and writing at the same time.
-func Overwrite(rw IO, filename string, p Patch) error {
+func Overwrite(rw ReadWriter, filename string, p Patch) error {
 	r, err := lockfile.OpenLocalDepFile(filename)
 	if err != nil {
 		return err
@@ -92,13 +92,13 @@ func Overwrite(rw IO, filename string, p Patch) error {
 	return nil
 }
 
-func GetManifestIO(pathToManifest string) (IO, error) {
+func GetReadWriter(pathToManifest string) (ReadWriter, error) {
 	base := filepath.Base(pathToManifest)
 	switch {
 	case base == "pom.xml":
-		return NewMavenManifestIO(), nil
+		return NewMavenReadWriter(), nil
 	case base == "package.json":
-		return NpmManifestIO{}, nil
+		return NpmReadWriter{}, nil
 	default:
 		return nil, fmt.Errorf("unsupported manifest type: %s", base)
 	}
