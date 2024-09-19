@@ -1,3 +1,4 @@
+// Package pubspec extracts pubspec.lock files.
 package pubspec
 
 import (
@@ -17,16 +18,16 @@ import (
 	"gopkg.in/yaml.v3"
 )
 
-type PubspecLockDescription struct {
+type pubspecLockDescription struct {
 	Name string `yaml:"name"`
 	URL  string `yaml:"url"`
 	Path string `yaml:"path"`
 	Ref  string `yaml:"resolved-ref"`
 }
 
-var _ yaml.Unmarshaler = &PubspecLockDescription{}
+var _ yaml.Unmarshaler = &pubspecLockDescription{}
 
-func (pld *PubspecLockDescription) UnmarshalYAML(value *yaml.Node) error {
+func (pld *pubspecLockDescription) UnmarshalYAML(value *yaml.Node) error {
 	var m struct {
 		Name string `yaml:"name"`
 		URL  string `yaml:"url"`
@@ -58,20 +59,21 @@ func (pld *PubspecLockDescription) UnmarshalYAML(value *yaml.Node) error {
 	return nil
 }
 
-type PubspecLockPackage struct {
+type pubspecLockPackage struct {
 	Source      string                 `yaml:"source"`
-	Description PubspecLockDescription `yaml:"description"`
+	Description pubspecLockDescription `yaml:"description"`
 	Version     string                 `yaml:"version"`
 	Dependency  string                 `yaml:"dependency"`
 }
 
-type PubspecLockfile struct {
-	Packages map[string]PubspecLockPackage `yaml:"packages,omitempty"`
+type pubspecLockfile struct {
+	Packages map[string]pubspecLockPackage `yaml:"packages,omitempty"`
 	Sdks     map[string]string             `yaml:"sdks"`
 }
 
-const PubEcosystem string = "Pub"
+const pubEcosystem string = "Pub"
 
+// Extractor extracts flutter packages from pubspec.lock files.
 type Extractor struct{}
 
 // Name of the extractor
@@ -80,16 +82,19 @@ func (e Extractor) Name() string { return "flutter/pubspec" }
 // Version of the extractor
 func (e Extractor) Version() int { return 0 }
 
+// Requirements of the extractor
 func (e Extractor) Requirements() *plugin.Capabilities {
 	return &plugin.Capabilities{}
 }
 
+// FileRequired returns true if the specified file matches Flutter Pub lockfile patterns.
 func (e Extractor) FileRequired(path string, fileInfo fs.FileInfo) bool {
 	return filepath.Base(path) == "pubspec.lock"
 }
 
+// Extract extracts packages from pubspec.lock files passed through the scan input.
 func (e Extractor) Extract(ctx context.Context, input *filesystem.ScanInput) ([]*extractor.Inventory, error) {
-	var parsedLockfile *PubspecLockfile
+	var parsedLockfile *pubspecLockfile
 
 	err := yaml.NewDecoder(input.Reader).Decode(&parsedLockfile)
 
@@ -143,8 +148,9 @@ func (e Extractor) ToCPEs(i *extractor.Inventory) ([]string, error) {
 	return []string{}, nil
 }
 
+// Ecosystem returns the OSV ecosystem ('Pub') of the software extracted by this extractor.
 func (e Extractor) Ecosystem(i *extractor.Inventory) (string, error) {
-	return PubEcosystem, nil
+	return pubEcosystem, nil
 }
 
 var _ filesystem.Extractor = Extractor{}

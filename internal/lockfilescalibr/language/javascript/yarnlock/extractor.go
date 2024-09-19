@@ -1,3 +1,4 @@
+// Package yarnlock extracts pnpm-lock.yaml files.
 package yarnlock
 
 import (
@@ -17,7 +18,7 @@ import (
 	"github.com/package-url/packageurl-go"
 )
 
-const YarnEcosystem = "npm"
+const yarnEcosystem = "npm"
 
 func shouldSkipYarnLine(line string) bool {
 	return line == "" || strings.HasPrefix(line, "#")
@@ -127,6 +128,7 @@ func parseYarnPackageGroup(group []string) *extractor.Inventory {
 	}
 }
 
+// Extractor extracts npm packages from yarn.lock files.
 type Extractor struct{}
 
 // Name of the extractor
@@ -135,14 +137,17 @@ func (e Extractor) Name() string { return "javascript/yarnlock" }
 // Version of the extractor
 func (e Extractor) Version() int { return 0 }
 
+// Requirements of the extractor
 func (e Extractor) Requirements() *plugin.Capabilities {
 	return &plugin.Capabilities{}
 }
 
+// FileRequired returns true if the specified file matches yarn lockfile patterns.
 func (e Extractor) FileRequired(path string, fileInfo fs.FileInfo) bool {
 	return filepath.Base(path) == "yarn.lock"
 }
 
+// Extract extracts packages from yarn.lock files passed through the scan input.
 func (e Extractor) Extract(ctx context.Context, input *filesystem.ScanInput) ([]*extractor.Inventory, error) {
 	scanner := bufio.NewScanner(input.Reader)
 
@@ -178,8 +183,9 @@ func (e Extractor) ToPURL(i *extractor.Inventory) (*packageurl.PackageURL, error
 // ToCPEs is not applicable as this extractor does not infer CPEs from the Inventory.
 func (e Extractor) ToCPEs(i *extractor.Inventory) ([]string, error) { return []string{}, nil }
 
+// Ecosystem returns the OSV ecosystem ('npm') of the software extracted by this extractor.
 func (e Extractor) Ecosystem(i *extractor.Inventory) (string, error) {
-	return YarnEcosystem, nil
+	return yarnEcosystem, nil
 }
 
 var _ filesystem.Extractor = Extractor{}

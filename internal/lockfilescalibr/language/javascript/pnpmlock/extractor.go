@@ -1,3 +1,4 @@
+// Package pnpmlock extracts pnpm-lock.yaml files.
 package pnpmlock
 
 import (
@@ -19,31 +20,31 @@ import (
 	"gopkg.in/yaml.v3"
 )
 
-type PnpmLockPackageResolution struct {
+type pnpmLockPackageResolution struct {
 	Tarball string `yaml:"tarball"`
 	Commit  string `yaml:"commit"`
 	Repo    string `yaml:"repo"`
 	Type    string `yaml:"type"`
 }
 
-type PnpmLockPackage struct {
-	Resolution PnpmLockPackageResolution `yaml:"resolution"`
+type pnpmLockPackage struct {
+	Resolution pnpmLockPackageResolution `yaml:"resolution"`
 	Name       string                    `yaml:"name"`
 	Version    string                    `yaml:"version"`
 	Dev        bool                      `yaml:"dev"`
 }
 
-type PnpmLockfile struct {
+type pnpmLockfile struct {
 	Version  float64                    `yaml:"lockfileVersion"`
-	Packages map[string]PnpmLockPackage `yaml:"packages,omitempty"`
+	Packages map[string]pnpmLockPackage `yaml:"packages,omitempty"`
 }
 
 type pnpmLockfileV6 struct {
 	Version  string                     `yaml:"lockfileVersion"`
-	Packages map[string]PnpmLockPackage `yaml:"packages,omitempty"`
+	Packages map[string]pnpmLockPackage `yaml:"packages,omitempty"`
 }
 
-func (l *PnpmLockfile) UnmarshalYAML(unmarshal func(interface{}) error) error {
+func (l *pnpmLockfile) UnmarshalYAML(unmarshal func(interface{}) error) error {
 	var lockfileV6 pnpmLockfileV6
 
 	if err := unmarshal(&lockfileV6); err != nil {
@@ -62,7 +63,7 @@ func (l *PnpmLockfile) UnmarshalYAML(unmarshal func(interface{}) error) error {
 	return nil
 }
 
-const PnpmEcosystem = "npm"
+const pnpmEcosystem = "npm"
 
 func startsWithNumber(str string) bool {
 	matcher := cachedregexp.MustCompile(`^\d`)
@@ -141,7 +142,7 @@ func parseNameAtVersion(value string) (name string, version string) {
 	return matches[1], matches[2]
 }
 
-func parsePnpmLock(lockfile PnpmLockfile) []*extractor.Inventory {
+func parsePnpmLock(lockfile pnpmLockfile) []*extractor.Inventory {
 	packages := make([]*extractor.Inventory, 0, len(lockfile.Packages))
 
 	for s, pkg := range lockfile.Packages {
@@ -194,6 +195,7 @@ func parsePnpmLock(lockfile PnpmLockfile) []*extractor.Inventory {
 	return packages
 }
 
+// Extractor extracts npm packages from pnpm-lock.yaml files.
 type Extractor struct{}
 
 // Name of the extractor
@@ -202,16 +204,19 @@ func (e Extractor) Name() string { return "javascript/pnpmlock" }
 // Version of the extractor
 func (e Extractor) Version() int { return 0 }
 
+// Requirements of the extractor
 func (e Extractor) Requirements() *plugin.Capabilities {
 	return &plugin.Capabilities{}
 }
 
+// FileRequired returns true if the specified file matches pnpm-lock.yaml lockfile patterns.
 func (e Extractor) FileRequired(path string, fileInfo fs.FileInfo) bool {
 	return filepath.Base(path) == "pnpm-lock.yaml"
 }
 
+// Extract extracts packages from pnpm-lock.yaml files passed through the scan input.
 func (e Extractor) Extract(ctx context.Context, input *filesystem.ScanInput) ([]*extractor.Inventory, error) {
-	var parsedLockfile *PnpmLockfile
+	var parsedLockfile *pnpmLockfile
 
 	err := yaml.NewDecoder(input.Reader).Decode(&parsedLockfile)
 
@@ -221,7 +226,7 @@ func (e Extractor) Extract(ctx context.Context, input *filesystem.ScanInput) ([]
 
 	// this will happen if the file is empty
 	if parsedLockfile == nil {
-		parsedLockfile = &PnpmLockfile{}
+		parsedLockfile = &pnpmLockfile{}
 	}
 
 	inventories := parsePnpmLock(*parsedLockfile)
@@ -244,8 +249,9 @@ func (e Extractor) ToPURL(i *extractor.Inventory) (*packageurl.PackageURL, error
 // ToCPEs is not applicable as this extractor does not infer CPEs from the Inventory.
 func (e Extractor) ToCPEs(i *extractor.Inventory) ([]string, error) { return []string{}, nil }
 
+// Ecosystem returns the OSV ecosystem ('npm') of the software extracted by this extractor.
 func (e Extractor) Ecosystem(i *extractor.Inventory) (string, error) {
-	return PnpmEcosystem, nil
+	return pnpmEcosystem, nil
 }
 
 var _ filesystem.Extractor = Extractor{}

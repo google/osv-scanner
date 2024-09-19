@@ -1,3 +1,4 @@
+// Package packagelockjson extracts yarn.lock files.
 package packagelockjson
 
 import (
@@ -19,10 +20,10 @@ import (
 	"golang.org/x/exp/slices"
 )
 
-type NpmLockDependency struct {
+type npmLockDependency struct {
 	// For an aliased package, Version is like "npm:[name]@[version]"
 	Version      string                       `json:"version"`
-	Dependencies map[string]NpmLockDependency `json:"dependencies,omitempty"`
+	Dependencies map[string]npmLockDependency `json:"dependencies,omitempty"`
 
 	Dev      bool `json:"dev,omitempty"`
 	Optional bool `json:"optional,omitempty"`
@@ -30,7 +31,7 @@ type NpmLockDependency struct {
 	Requires map[string]string `json:"requires,omitempty"`
 }
 
-type NpmLockPackage struct {
+type npmLockPackage struct {
 	// For an aliased package, Name is the real package name
 	Name     string `json:"name"`
 	Version  string `json:"version"`
@@ -48,24 +49,24 @@ type NpmLockPackage struct {
 	Link bool `json:"link,omitempty"`
 }
 
-type NpmLockfile struct {
+type npmLockfile struct {
 	Version int `json:"lockfileVersion"`
 	// npm v1- lockfiles use "dependencies"
-	Dependencies map[string]NpmLockDependency `json:"dependencies,omitempty"`
+	Dependencies map[string]npmLockDependency `json:"dependencies,omitempty"`
 	// npm v2+ lockfiles use "packages"
-	Packages map[string]NpmLockPackage `json:"packages,omitempty"`
+	Packages map[string]npmLockPackage `json:"packages,omitempty"`
 }
 
-type PackageDetails struct {
+type packageDetails struct {
 	Name      string   `json:"name"`
 	Version   string   `json:"version"`
 	Commit    string   `json:"commit,omitempty"`
 	DepGroups []string `json:"-"`
 }
 
-const NpmEcosystem string = "npm"
+const npmEcosystem string = "npm"
 
-type npmPackageDetailsMap map[string]PackageDetails
+type npmPackageDetailsMap map[string]packageDetails
 
 // mergeNpmDepsGroups handles merging the dependency groups of packages within the
 // NPM ecosystem, since they can appear multiple times in the same dependency tree
@@ -73,7 +74,7 @@ type npmPackageDetailsMap map[string]PackageDetails
 // the merge happens almost as you'd expect, except that if either given packages
 // belong to no groups, then that is the result since it indicates the package
 // is implicitly a production dependency.
-func mergeNpmDepsGroups(a, b PackageDetails) []string {
+func mergeNpmDepsGroups(a, b packageDetails) []string {
 	// if either group includes no groups, then the package is in the "production" group
 	if len(a.DepGroups) == 0 || len(b.DepGroups) == 0 {
 		return nil
@@ -88,7 +89,7 @@ func mergeNpmDepsGroups(a, b PackageDetails) []string {
 	return slices.Compact(combined)
 }
 
-func (pdm npmPackageDetailsMap) add(key string, details PackageDetails) {
+func (pdm npmPackageDetailsMap) add(key string, details packageDetails) {
 	existing, ok := pdm[key]
 
 	if ok {
@@ -98,7 +99,7 @@ func (pdm npmPackageDetailsMap) add(key string, details PackageDetails) {
 	pdm[key] = details
 }
 
-func (dep NpmLockDependency) depGroups() []string {
+func (dep npmLockDependency) depGroups() []string {
 	if dep.Dev && dep.Optional {
 		return []string{"dev", "optional"}
 	}
@@ -112,7 +113,7 @@ func (dep NpmLockDependency) depGroups() []string {
 	return nil
 }
 
-func parseNpmLockDependencies(dependencies map[string]NpmLockDependency) map[string]PackageDetails {
+func parseNpmLockDependencies(dependencies map[string]npmLockDependency) map[string]packageDetails {
 	details := npmPackageDetailsMap{}
 
 	for name, detail := range dependencies {
@@ -150,7 +151,7 @@ func parseNpmLockDependencies(dependencies map[string]NpmLockDependency) map[str
 			}
 		}
 
-		details.add(name+"@"+version, PackageDetails{
+		details.add(name+"@"+version, packageDetails{
 			Name:      name,
 			Version:   finalVersion,
 			Commit:    commit,
@@ -172,7 +173,7 @@ func extractNpmPackageName(name string) string {
 	return pkgName
 }
 
-func (pkg NpmLockPackage) depGroups() []string {
+func (pkg npmLockPackage) depGroups() []string {
 	if pkg.Dev {
 		return []string{"dev"}
 	}
@@ -186,7 +187,7 @@ func (pkg NpmLockPackage) depGroups() []string {
 	return nil
 }
 
-func parseNpmLockPackages(packages map[string]NpmLockPackage) map[string]PackageDetails {
+func parseNpmLockPackages(packages map[string]npmLockPackage) map[string]packageDetails {
 	details := npmPackageDetailsMap{}
 
 	for namePath, detail := range packages {
@@ -209,7 +210,7 @@ func parseNpmLockPackages(packages map[string]NpmLockPackage) map[string]Package
 			finalVersion = commit
 		}
 
-		details.add(finalName+"@"+finalVersion, PackageDetails{
+		details.add(finalName+"@"+finalVersion, packageDetails{
 			Name:      finalName,
 			Version:   detail.Version,
 			Commit:    commit,
@@ -220,7 +221,7 @@ func parseNpmLockPackages(packages map[string]NpmLockPackage) map[string]Package
 	return details
 }
 
-func parseNpmLock(lockfile NpmLockfile) map[string]PackageDetails {
+func parseNpmLock(lockfile npmLockfile) map[string]packageDetails {
 	if lockfile.Packages != nil {
 		return parseNpmLockPackages(lockfile.Packages)
 	}
@@ -228,6 +229,7 @@ func parseNpmLock(lockfile NpmLockfile) map[string]PackageDetails {
 	return parseNpmLockDependencies(lockfile.Dependencies)
 }
 
+// Extractor extracts npm packages from package-lock.json files.
 type Extractor struct{}
 
 // Name of the extractor
@@ -236,16 +238,19 @@ func (e Extractor) Name() string { return "javascript/packagelockjson" }
 // Version of the extractor
 func (e Extractor) Version() int { return 0 }
 
+// Requirements of the extractor
 func (e Extractor) Requirements() *plugin.Capabilities {
 	return &plugin.Capabilities{}
 }
 
+// FileRequired returns true if the specified file matches npm lockfile patterns.
 func (e Extractor) FileRequired(path string, fileInfo fs.FileInfo) bool {
 	return filepath.Base(path) == "package-lock.json"
 }
 
+// Extract extracts packages from package-lock.json files passed through the scan input.
 func (e Extractor) Extract(ctx context.Context, input *filesystem.ScanInput) ([]*extractor.Inventory, error) {
-	var parsedLockfile *NpmLockfile
+	var parsedLockfile *npmLockfile
 
 	err := json.NewDecoder(input.Reader).Decode(&parsedLockfile)
 
@@ -289,8 +294,9 @@ func (e Extractor) ToPURL(i *extractor.Inventory) (*packageurl.PackageURL, error
 // ToCPEs is not applicable as this extractor does not infer CPEs from the Inventory.
 func (e Extractor) ToCPEs(i *extractor.Inventory) ([]string, error) { return []string{}, nil }
 
+// Ecosystem returns the OSV ecosystem ('npm') of the software extracted by this extractor.
 func (e Extractor) Ecosystem(i *extractor.Inventory) (string, error) {
-	return NpmEcosystem, nil
+	return npmEcosystem, nil
 }
 
 var _ filesystem.Extractor = Extractor{}
