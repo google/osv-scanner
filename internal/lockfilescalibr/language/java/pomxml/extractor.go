@@ -1,3 +1,4 @@
+// Package pomxml extracts pom.xml files.
 package pomxml
 
 import (
@@ -18,7 +19,7 @@ import (
 	"golang.org/x/exp/maps"
 )
 
-type MavenLockDependency struct {
+type mavenLockDependency struct {
 	XMLName    xml.Name `xml:"dependency"`
 	GroupID    string   `xml:"groupId"`
 	ArtifactID string   `xml:"artifactId"`
@@ -26,7 +27,7 @@ type MavenLockDependency struct {
 	Scope      string   `xml:"scope"`
 }
 
-func (mld MavenLockDependency) parseResolvedVersion(version string) string {
+func (mld mavenLockDependency) parseResolvedVersion(version string) string {
 	versionRequirementReg := cachedregexp.MustCompile(`[[(]?(.*?)(?:,|[)\]]|$)`)
 
 	results := versionRequirementReg.FindStringSubmatch(version)
@@ -38,7 +39,7 @@ func (mld MavenLockDependency) parseResolvedVersion(version string) string {
 	return results[1]
 }
 
-func (mld MavenLockDependency) resolveVersionValue(lockfile MavenLockFile) string {
+func (mld mavenLockDependency) resolveVersionValue(lockfile mavenLockFile) string {
 	interpolationReg := cachedregexp.MustCompile(`\${(.+)}`)
 
 	results := interpolationReg.FindStringSubmatch(mld.Version)
@@ -62,29 +63,29 @@ func (mld MavenLockDependency) resolveVersionValue(lockfile MavenLockFile) strin
 	return "0"
 }
 
-func (mld MavenLockDependency) ResolveVersion(lockfile MavenLockFile) string {
+func (mld mavenLockDependency) ResolveVersion(lockfile mavenLockFile) string {
 	version := mld.resolveVersionValue(lockfile)
 
 	return mld.parseResolvedVersion(version)
 }
 
-type MavenLockFile struct {
+type mavenLockFile struct {
 	XMLName             xml.Name              `xml:"project"`
 	ModelVersion        string                `xml:"modelVersion"`
 	GroupID             string                `xml:"groupId"`
 	ArtifactID          string                `xml:"artifactId"`
-	Properties          MavenLockProperties   `xml:"properties"`
-	Dependencies        []MavenLockDependency `xml:"dependencies>dependency"`
-	ManagedDependencies []MavenLockDependency `xml:"dependencyManagement>dependencies>dependency"`
+	Properties          mavenLockProperties   `xml:"properties"`
+	Dependencies        []mavenLockDependency `xml:"dependencies>dependency"`
+	ManagedDependencies []mavenLockDependency `xml:"dependencyManagement>dependencies>dependency"`
 }
 
-const MavenEcosystem string = "Maven"
+const mavenEcosystem string = "Maven"
 
-type MavenLockProperties struct {
+type mavenLockProperties struct {
 	m map[string]string
 }
 
-func (p *MavenLockProperties) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error {
+func (p *mavenLockProperties) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error {
 	p.m = map[string]string{}
 
 	for {
@@ -111,6 +112,7 @@ func (p *MavenLockProperties) UnmarshalXML(d *xml.Decoder, start xml.StartElemen
 	}
 }
 
+// Extractor extracts Maven packages from pom.xml files.
 type Extractor struct{}
 
 // Name of the extractor
@@ -119,16 +121,19 @@ func (e Extractor) Name() string { return "java/pomxml" }
 // Version of the extractor
 func (e Extractor) Version() int { return 0 }
 
+// Requirements of the extractor
 func (e Extractor) Requirements() *plugin.Capabilities {
 	return &plugin.Capabilities{}
 }
 
+// FileRequired returns true if the specified file matches Maven POM lockfile patterns.
 func (e Extractor) FileRequired(path string, fileInfo fs.FileInfo) bool {
 	return filepath.Base(path) == "pom.xml"
 }
 
+// Extract extracts packages from pom.xml files passed through the scan input.
 func (e Extractor) Extract(ctx context.Context, input *filesystem.ScanInput) ([]*extractor.Inventory, error) {
-	var parsedLockfile *MavenLockFile
+	var parsedLockfile *mavenLockFile
 
 	err := xml.NewDecoder(input.Reader).Decode(&parsedLockfile)
 
@@ -193,8 +198,9 @@ func (e Extractor) ToPURL(i *extractor.Inventory) (*packageurl.PackageURL, error
 // ToCPEs is not applicable as this extractor does not infer CPEs from the Inventory.
 func (e Extractor) ToCPEs(i *extractor.Inventory) ([]string, error) { return []string{}, nil }
 
+// Ecosystem returns the OSV ecosystem ('Maven') of the software extracted by this extractor.
 func (e Extractor) Ecosystem(i *extractor.Inventory) (string, error) {
-	return MavenEcosystem, nil
+	return mavenEcosystem, nil
 }
 
 var _ filesystem.Extractor = Extractor{}

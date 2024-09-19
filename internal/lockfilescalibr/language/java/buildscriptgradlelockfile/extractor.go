@@ -1,3 +1,4 @@
+// Package buildscriptgradlelockfile extracts pom.xml files.
 package buildscriptgradlelockfile
 
 import (
@@ -19,7 +20,7 @@ const (
 	gradleLockFileEmptyPrefix   = "empty="
 )
 
-const MavenEcosystem string = "Maven"
+const mavenEcosystem string = "Maven"
 
 func isGradleLockFileDepLine(line string) bool {
 	ret := strings.HasPrefix(line, gradleLockFileCommentPrefix) ||
@@ -43,6 +44,7 @@ func parseToGradlePackageDetail(line string) (*extractor.Inventory, error) {
 	}, nil
 }
 
+// Extractor extracts Maven packages from Gradle files.
 type Extractor struct{}
 
 // Name of the extractor
@@ -51,10 +53,12 @@ func (e Extractor) Name() string { return "java/buildscriptgradlelockfile" }
 // Version of the extractor
 func (e Extractor) Version() int { return 0 }
 
+// Requirements of the extractor
 func (e Extractor) Requirements() *plugin.Capabilities {
 	return &plugin.Capabilities{}
 }
 
+// FileRequired returns true if the specified file matches Gradle lockfile patterns.
 func (e Extractor) FileRequired(path string, fileInfo fs.FileInfo) bool {
 	base := filepath.Base(path)
 
@@ -67,6 +71,7 @@ func (e Extractor) FileRequired(path string, fileInfo fs.FileInfo) bool {
 	return false
 }
 
+// Extract extracts packages from Gradle files passed through the scan input.
 func (e Extractor) Extract(ctx context.Context, input *filesystem.ScanInput) ([]*extractor.Inventory, error) {
 	pkgs := make([]*extractor.Inventory, 0)
 	scanner := bufio.NewScanner(input.Reader)
@@ -106,8 +111,9 @@ func (e Extractor) ToPURL(i *extractor.Inventory) (*packageurl.PackageURL, error
 // ToCPEs is not applicable as this extractor does not infer CPEs from the Inventory.
 func (e Extractor) ToCPEs(i *extractor.Inventory) ([]string, error) { return []string{}, nil }
 
+// Ecosystem returns the OSV ecosystem ('Maven') of the software extracted by this extractor.
 func (e Extractor) Ecosystem(i *extractor.Inventory) (string, error) {
-	return MavenEcosystem, nil
+	return mavenEcosystem, nil
 }
 
 var _ filesystem.Extractor = Extractor{}

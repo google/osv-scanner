@@ -1,3 +1,4 @@
+// Package gradleverificationmetadataxml extracts Gradle files.
 package gradleverificationmetadataxml
 
 import (
@@ -13,7 +14,7 @@ import (
 	"github.com/package-url/packageurl-go"
 )
 
-type GradleVerificationMetadataFile struct {
+type gradleVerificationMetadataFile struct {
 	Components []struct {
 		Group   string `xml:"group,attr"`
 		Name    string `xml:"name,attr"`
@@ -21,8 +22,9 @@ type GradleVerificationMetadataFile struct {
 	} `xml:"components>component"`
 }
 
-const MavenEcosystem string = "Maven"
+const mavenEcosystem string = "Maven"
 
+// Extractor extracts Maven packages from Gradle verification metadata files.
 type Extractor struct{}
 
 // Name of the extractor
@@ -31,16 +33,19 @@ func (e Extractor) Name() string { return "java/gradleverificationmetadataxml" }
 // Version of the extractor
 func (e Extractor) Version() int { return 0 }
 
+// Requirements of the extractor
 func (e Extractor) Requirements() *plugin.Capabilities {
 	return &plugin.Capabilities{}
 }
 
+// FileRequired returns true if the specified file matches Gradle verification metadata lockfile patterns.
 func (e Extractor) FileRequired(path string, fileInfo fs.FileInfo) bool {
 	return filepath.Base(filepath.Dir(path)) == "gradle" && filepath.Base(path) == "verification-metadata.xml"
 }
 
+// Extract extracts packages from verification-metadata.xml files passed through the scan input.
 func (e Extractor) Extract(ctx context.Context, input *filesystem.ScanInput) ([]*extractor.Inventory, error) {
-	var parsedLockfile *GradleVerificationMetadataFile
+	var parsedLockfile *gradleVerificationMetadataFile
 
 	err := xml.NewDecoder(input.Reader).Decode(&parsedLockfile)
 
@@ -75,8 +80,9 @@ func (e Extractor) ToCPEs(i *extractor.Inventory) ([]string, error) {
 	return []string{}, nil
 }
 
+// Ecosystem returns the OSV ecosystem ('Maven') of the software extracted by this extractor.
 func (e Extractor) Ecosystem(i *extractor.Inventory) (string, error) {
-	return MavenEcosystem, nil
+	return mavenEcosystem, nil
 }
 
 var _ filesystem.Extractor = Extractor{}
