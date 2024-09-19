@@ -353,66 +353,7 @@ func TestSuggest(t *testing.T) {
 				NewRequire:  "2.3.5",
 			},
 		},
-		EcosystemSpecific: manifest.MavenManifestSpecific{
-			// Copied from Manifest.EcosystemSpecific
-			RequirementsForUpdates: []resolve.RequirementVersion{
-				{
-					VersionKey: resolve.VersionKey{
-						PackageKey: resolve.PackageKey{
-							System: resolve.Maven,
-							Name:   "com.mycompany.app:parent-pom",
-						},
-						VersionType: resolve.Requirement,
-						Version:     "1.0.0",
-					},
-					Type: depParent,
-				},
-				{
-					VersionKey: resolve.VersionKey{
-						PackageKey: resolve.PackageKey{
-							System: resolve.Maven,
-							Name:   "org.profile:abc",
-						},
-						VersionType: resolve.Requirement,
-						Version:     "1.2.3",
-					},
-					Type: depProfileOne,
-				},
-				{
-					VersionKey: resolve.VersionKey{
-						PackageKey: resolve.PackageKey{
-							System: resolve.Maven,
-							Name:   "org.profile:def",
-						},
-						VersionType: resolve.Requirement,
-						Version:     "2.3.4",
-					},
-					Type: depProfileOne,
-				},
-				{
-					VersionKey: resolve.VersionKey{
-						PackageKey: resolve.PackageKey{
-							System: resolve.Maven,
-							Name:   "org.import:xyz",
-						},
-						VersionType: resolve.Requirement,
-						Version:     "6.6.6",
-					},
-					Type: depProfileTwoMgmt,
-				},
-				{
-					VersionKey: resolve.VersionKey{
-						PackageKey: resolve.PackageKey{
-							System: resolve.Maven,
-							Name:   "org.dep:plugin-dep",
-						},
-						VersionType: resolve.Requirement,
-						Version:     "2.3.3",
-					},
-					Type: depPlugin,
-				},
-			},
-		},
+		Manifest: &mf,
 	}
 	sort.Slice(got.Deps, func(i, j int) bool {
 		return got.Deps[i].Pkg.Name < got.Deps[j].Pkg.Name

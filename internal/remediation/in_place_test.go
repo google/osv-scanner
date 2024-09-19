@@ -8,6 +8,7 @@ import (
 
 	"deps.dev/util/resolve"
 	"github.com/google/osv-scanner/internal/remediation"
+	"github.com/google/osv-scanner/internal/remediation/upgrade"
 	"github.com/google/osv-scanner/internal/resolution"
 	"github.com/google/osv-scanner/internal/resolution/client"
 	"github.com/google/osv-scanner/internal/resolution/clienttest"
@@ -111,9 +112,9 @@ func TestComputeInPlacePatches(t *testing.T) {
 	t.Parallel()
 
 	basicOpts := remediation.RemediationOptions{
-		DevDeps:    true,
-		MaxDepth:   -1,
-		AllowMajor: true,
+		DevDeps:       true,
+		MaxDepth:      -1,
+		UpgradeConfig: upgrade.NewConfig(),
 	}
 
 	tests := []struct {
@@ -131,7 +132,6 @@ func TestComputeInPlacePatches(t *testing.T) {
 	}
 
 	for _, tt := range tests {
-		tt := tt
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
 			g, cl := parseInPlaceFixture(t, tt.universePath, tt.lockfilePath)

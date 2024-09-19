@@ -5,6 +5,7 @@ import (
 	"errors"
 
 	"deps.dev/util/resolve"
+	"github.com/google/osv-scanner/internal/remediation/upgrade"
 )
 
 // A RequirementRelaxer provides an ecosystem-specific method for 'relaxing' the
@@ -20,7 +21,7 @@ type RequirementRelaxer interface {
 	// Relax attempts to relax import requirement.
 	// Returns the newly relaxed import and true it was successful.
 	// If unsuccessful, it returns the original import and false.
-	Relax(ctx context.Context, cl resolve.Client, req resolve.RequirementVersion, allowMajor bool) (resolve.RequirementVersion, bool)
+	Relax(ctx context.Context, cl resolve.Client, req resolve.RequirementVersion, config upgrade.Config) (resolve.RequirementVersion, bool)
 }
 
 func GetRelaxer(ecosystem resolve.System) (RequirementRelaxer, error) {

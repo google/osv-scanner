@@ -10,6 +10,7 @@ import (
 	tea "github.com/charmbracelet/bubbletea"
 	"github.com/charmbracelet/glamour"
 	"github.com/charmbracelet/glamour/ansi"
+	"github.com/charmbracelet/glamour/styles"
 	"github.com/charmbracelet/lipgloss"
 	"github.com/google/osv-scanner/internal/resolution"
 	"github.com/muesli/reflow/wordwrap"
@@ -59,9 +60,9 @@ func NewVulnInfo(vuln *resolution.ResolutionVuln) *vulnInfo {
 
 	// remove the padding/margins from the default markdown style
 	if lipgloss.HasDarkBackground() {
-		v.mdStyle = glamour.DarkStyleConfig
+		v.mdStyle = styles.DarkStyleConfig
 	} else {
-		v.mdStyle = glamour.LightStyleConfig
+		v.mdStyle = styles.LightStyleConfig
 	}
 	*v.mdStyle.Document.Margin = 0
 	v.mdStyle.Document.BlockPrefix = ""

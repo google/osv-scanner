@@ -17,6 +17,8 @@ import (
 
 type NpmLockfileIO struct{}
 
+func (NpmLockfileIO) System() resolve.System { return resolve.NPM }
+
 type npmNodeModule struct {
 	NodeID       resolve.NodeID
 	Parent       *npmNodeModule

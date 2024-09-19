@@ -1,4 +1,160 @@
 
+[TestComputeOverridePatches/maven-classifier - 1]
+[]
+---
+
+[TestComputeOverridePatches/maven-management-only - 1]
+[
+  {
+    "Patch": {
+      "Deps": [
+        {
+          "Pkg": {
+            "System": 6,
+            "Name": "org.apache.commons:commons-configuration2"
+          },
+          "Type": {},
+          "OrigRequire": "",
+          "NewRequire": "2.10.1",
+          "OrigResolved": "2.8.0",
+          "NewResolved": "2.10.1"
+        }
+      ],
+      "EcosystemSpecific": null
+    },
+    "RemovedVulns": [
+      {
+        "ID": "GHSA-9w38-p64v-xpmv",
+        "AffectedNodes": [
+          16
+        ]
+      },
+      {
+        "ID": "GHSA-xjp4-hw94-mvp5",
+        "AffectedNodes": [
+          16
+        ]
+      }
+    ],
+    "AddedVulns": []
+  },
+  {
+    "Patch": {
+      "Deps": [
+        {
+          "Pkg": {
+            "System": 6,
+            "Name": "org.apache.shiro:shiro-web"
+          },
+          "Type": {},
+          "OrigRequire": "",
+          "NewRequire": "1.13.0",
+          "OrigResolved": "1.10.0",
+          "NewResolved": "1.13.0"
+        }
+      ],
+      "EcosystemSpecific": null
+    },
+    "RemovedVulns": [
+      {
+        "ID": "GHSA-hhw5-c326-822h",
+        "AffectedNodes": [
+          23
+        ]
+      },
+      {
+        "ID": "GHSA-pmhc-2g4f-85cg",
+        "AffectedNodes": [
+          23
+        ]
+      }
+    ],
+    "AddedVulns": []
+  },
+  {
+    "Patch": {
+      "Deps": [
+        {
+          "Pkg": {
+            "System": 6,
+            "Name": "org.apache.shiro:shiro-core"
+          },
+          "Type": {},
+          "OrigRequire": "",
+          "NewRequire": "1.13.0",
+          "OrigResolved": "1.10.0",
+          "NewResolved": "1.13.0"
+        }
+      ],
+      "EcosystemSpecific": null
+    },
+    "RemovedVulns": [
+      {
+        "ID": "GHSA-jc7h-c423-mpjc",
+        "AffectedNodes": [
+          22
+        ]
+      }
+    ],
+    "AddedVulns": []
+  },
+  {
+    "Patch": {
+      "Deps": [
+        {
+          "Pkg": {
+            "System": 6,
+            "Name": "org.apache.shiro:shiro-web"
+          },
+          "Type": {},
+          "OrigRequire": "",
+          "NewRequire": "1.12.0",
+          "OrigResolved": "1.10.0",
+          "NewResolved": "1.12.0"
+        }
+      ],
+      "EcosystemSpecific": null
+    },
+    "RemovedVulns": [
+      {
+        "ID": "GHSA-pmhc-2g4f-85cg",
+        "AffectedNodes": [
+          23
+        ]
+      }
+    ],
+    "AddedVulns": []
+  },
+  {
+    "Patch": {
+      "Deps": [
+        {
+          "Pkg": {
+            "System": 6,
+            "Name": "org.apache.thrift:libthrift"
+          },
+          "Type": {},
+          "OrigRequire": "",
+          "NewRequire": "0.14.0",
+          "OrigResolved": "0.13.0",
+          "NewResolved": "0.14.0"
+        }
+      ],
+      "EcosystemSpecific": null
+    },
+    "RemovedVulns": [
+      {
+        "ID": "GHSA-g2fg-mr77-6vrm",
+        "AffectedNodes": [
+          6
+        ]
+      }
+    ],
+    "AddedVulns": []
+  }
+]
+---
+
 [TestComputeOverridePatches/maven-zeppelin-server - 1]
 [
   {
@@ -245,9 +401,9 @@
           },
           "Type": {},
           "OrigRequire": "",
-          "NewRequire": "32.0.0-android",
+          "NewRequire": "32.0.0-jre",
           "OrigResolved": "22.0",
-          "NewResolved": "32.0.0-android"
+          "NewResolved": "32.0.0-jre"
         }
       ],
       "EcosystemSpecific": null
@@ -745,9 +901,9 @@
           },
           "Type": {},
           "OrigRequire": "",
-          "NewRequire": "24.1.1-android",
+          "NewRequire": "24.1.1-jre",
           "OrigResolved": "22.0",
-          "NewResolved": "24.1.1-android"
+          "NewResolved": "24.1.1-jre"
         }
       ],
       "EcosystemSpecific": null
@@ -1227,6 +1383,134 @@
         ]
       }
     ]
+  }
+]
+---
+
+[TestComputeOverridePatches/workaround-commons - 1]
+[
+  {
+    "Patch": {
+      "Deps": [
+        {
+          "Pkg": {
+            "System": 6,
+            "Name": "commons-beanutils:commons-beanutils"
+          },
+          "Type": {},
+          "OrigRequire": "",
+          "NewRequire": "1.9.4",
+          "OrigResolved": "20020520",
+          "NewResolved": "1.9.4"
+        }
+      ],
+      "EcosystemSpecific": null
+    },
+    "RemovedVulns": [
+      {
+        "ID": "GHSA-6phf-73q6-gh87",
+        "AffectedNodes": [
+          1
+        ]
+      }
+    ],
+    "AddedVulns": []
+  }
+]
+---
+
+[TestComputeOverridePatches/workaround-maven-guava-android-to-android - 1]
+[
+  {
+    "Patch": {
+      "Deps": [
+        {
+          "Pkg": {
+            "System": 6,
+            "Name": "com.google.guava:guava"
+          },
+          "Type": {},
+          "OrigRequire": "",
+          "NewRequire": "24.0-android",
+          "OrigResolved": "22.0-android",
+          "NewResolved": "24.0-android"
+        }
+      ],
+      "EcosystemSpecific": null
+    },
+    "RemovedVulns": [
+      {
+        "ID": "OSV-000-000",
+        "AffectedNodes": [
+          1
+        ]
+      }
+    ],
+    "AddedVulns": []
+  }
+]
+---
+
+[TestComputeOverridePatches/workaround-maven-guava-jre-to-jre - 1]
+[
+  {
+    "Patch": {
+      "Deps": [
+        {
+          "Pkg": {
+            "System": 6,
+            "Name": "com.google.guava:guava"
+          },
+          "Type": {},
+          "OrigRequire": "",
+          "NewRequire": "24.0-jre",
+          "OrigResolved": "23.1-jre",
+          "NewResolved": "24.0-jre"
+        }
+      ],
+      "EcosystemSpecific": null
+    },
+    "RemovedVulns": [
+      {
+        "ID": "OSV-000-000",
+        "AffectedNodes": [
+          1
+        ]
+      }
+    ],
+    "AddedVulns": []
+  }
+]
+---
+
+[TestComputeOverridePatches/workaround-maven-guava-none-to-jre - 1]
+[
+  {
+    "Patch": {
+      "Deps": [
+        {
+          "Pkg": {
+            "System": 6,
+            "Name": "com.google.guava:guava"
+          },
+          "Type": {},
+          "OrigRequire": "",
+          "NewRequire": "24.0-jre",
+          "OrigResolved": "20.0",
+          "NewResolved": "24.0-jre"
+        }
+      ],
+      "EcosystemSpecific": null
+    },
+    "RemovedVulns": [
+      {
+        "ID": "OSV-000-000",
+        "AffectedNodes": [
+          1
+        ]
+      }
+    ],
+    "AddedVulns": []
   }
 ]
 ---

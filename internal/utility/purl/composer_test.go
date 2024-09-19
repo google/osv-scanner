@@ -8,7 +8,7 @@ import (
 	"github.com/google/osv-scanner/pkg/models"
 )
 
-func TestComposerExtraction_shouldExtractPackages(t *testing.T) {
+func TestComposerExtraction_FileRequiredPackages(t *testing.T) {
 	t.Parallel()
 	testCase := struct {
 		packageInfo       models.PackageInfo

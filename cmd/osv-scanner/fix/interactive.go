@@ -13,6 +13,10 @@ import (
 
 func interactiveMode(ctx context.Context, opts osvFixOptions) error {
 	if !remediation.SupportsRelax(opts.ManifestRW) && !remediation.SupportsInPlace(opts.LockfileRW) {
+		if remediation.SupportsOverride(opts.ManifestRW) {
+			return errors.New("override strategy is not supported in interactive mode, please use --non-interactive")
+		}
+
 		return errors.New("no supported remediation strategies found")
 	}
 

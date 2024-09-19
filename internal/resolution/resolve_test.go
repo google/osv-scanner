@@ -70,6 +70,7 @@ func TestResolve(t *testing.T) {
 		system       resolve.System
 		universe     string
 		requirements []requirement
+		opts         resolution.ResolveOpts
 	}{
 		{
 			name:     "simple", // simple root -> dependency -> vuln
@@ -206,7 +207,6 @@ func TestResolve(t *testing.T) {
 	}
 
 	for _, tt := range tests {
-		tt := tt
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
 			cl := clienttest.NewMockResolutionClient(t, tt.universe)
@@ -238,7 +238,7 @@ func TestResolve(t *testing.T) {
 				m.Groups[manifest.MakeRequirementKey(m.Requirements[i])] = req.groups
 			}
 
-			res, err := resolution.Resolve(context.Background(), cl, m)
+			res, err := resolution.Resolve(context.Background(), cl, m, tt.opts)
 			if err != nil {
 				t.Fatalf("error resolving: %v", err)
 			}

@@ -2,82 +2,21 @@ package lockfilescalibr
 
 import (
 	"errors"
-	"io"
-	"os"
-	"path/filepath"
 )
 
-var ErrOpenNotSupported = errors.New("this file does not support opening files")
+// ---
+// Updated extractors and notes:
+//
+// - Moved to tabular tests
+// - Kept PackageDetails for some packages and added a simple conversion function
+//   to inventory before returning
+// - Updated tests to test Inventory output
+// - Updated interfaces to follow the new interface
+// - Copied the interface into this file. This is temporary until the move into osv-scalibr, which will contain both
+// - All ToPURL functions need to be looked at to see they are suitable
+// - We need to add tests for ToPurl() and Ecosystem() functions
+// - Because scalibr uses a virtual FS to walk over files, all paths are absolute, but will not start with /
+// ---
 
-// DepFile is an abstraction for a file that has been opened for extraction,
-// and that knows how to open other DepFiles relative to itself.
-type DepFile interface {
-	io.Reader
-
-	// Open opens an NestedDepFile based on the path of the
-	// current DepFile if the provided path is relative.
-	//
-	// If the path is an absolute path, then it is opened absolutely.
-	Open(path string) (NestedDepFile, error)
-
-	Path() string
-}
-
-// NestedDepFile is an abstraction for a file that has been opened while extracting another file,
-// and would need to be closed.
-type NestedDepFile interface {
-	io.Closer
-	DepFile
-}
-
-type Extractor interface {
-	// ShouldExtract checks if the Extractor should be used for the given path.
-	ShouldExtract(path string) bool
-	Extract(f DepFile) ([]PackageDetails, error)
-}
-
-// A LocalFile represents a file that exists on the local filesystem.
-type LocalFile struct {
-	// TODO(rexpan): This should be *os.File, as that would allow us to access other underlying functions that definitely will exist
-	io.ReadCloser
-
-	path string
-}
-
-func (f LocalFile) Open(path string) (NestedDepFile, error) {
-	if filepath.IsAbs(path) {
-		return OpenLocalDepFile(path)
-	}
-
-	return OpenLocalDepFile(filepath.Join(filepath.Dir(f.path), path))
-}
-
-func (f LocalFile) Path() string { return f.path }
-
-func OpenLocalDepFile(path string) (NestedDepFile, error) {
-	r, err := os.Open(path)
-
-	if err != nil {
-		return LocalFile{}, err
-	}
-
-	// Very unlikely to have Abs return an error if the file opens correctly
-	path, _ = filepath.Abs(path)
-
-	return LocalFile{r, path}, nil
-}
-
-var _ DepFile = LocalFile{}
-var _ NestedDepFile = LocalFile{}
-
-func extractFromFile(pathToLockfile string, extractor Extractor) ([]PackageDetails, error) {
-	f, err := OpenLocalDepFile(pathToLockfile)
-
-	if err != nil {
-		return []PackageDetails{}, err
-	}
-
-	defer f.Close()
-
-	return extractor.Extract(f)
-}
+var ErrNotImplemented = errors.New("not implemented")
+var ErrWrongExtractor = errors.New("this extractor did not create this inventory")

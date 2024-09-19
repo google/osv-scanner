@@ -28,6 +28,8 @@ func npmRequirementKey(requirement resolve.RequirementVersion) RequirementKey {
 
 type NpmManifestIO struct{}
 
+func (NpmManifestIO) System() resolve.System { return resolve.NPM }
+
 type PackageJSON struct {
 	Name    string `json:"name"`
 	Version string `json:"version"`

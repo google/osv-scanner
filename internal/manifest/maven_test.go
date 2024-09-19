@@ -11,7 +11,7 @@ import (
 	"github.com/google/osv-scanner/pkg/lockfile"
 )
 
-func TestMavenResolverExtractor_ShouldExtract(t *testing.T) {
+func TestMavenResolverExtractor_FileRequired(t *testing.T) {
 	t.Parallel()
 
 	tests := []struct {
@@ -51,7 +51,6 @@ func TestMavenResolverExtractor_ShouldExtract(t *testing.T) {
 		},
 	}
 	for _, tt := range tests {
-		tt := tt
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
 			e := manifest.MavenResolverExtractor{}
@@ -66,7 +65,7 @@ func TestMavenResolverExtractor_ShouldExtract(t *testing.T) {
 func TestParseMavenWithResolver_FileDoesNotExist(t *testing.T) {
 	t.Parallel()
 
-	packages, err := manifest.ParseMavenWithResolver(nil, datasource.MavenRegistryAPIClient{}, "fixtures/maven/does-not-exist")
+	packages, err := manifest.ParseMavenWithResolver(nil, nil, "fixtures/maven/does-not-exist")
 
 	expectErrIs(t, err, fs.ErrNotExist)
 	expectPackages(t, packages, []lockfile.PackageDetails{})
@@ -75,7 +74,7 @@ func TestParseMavenWithResolver_FileDoesNotExist(t *testing.T) {
 func TestParseMavenWithResolver_Invalid(t *testing.T) {
 	t.Parallel()
 
-	packages, err := manifest.ParseMavenWithResolver(nil, datasource.MavenRegistryAPIClient{}, "fixtures/maven/not-pom.txt")
+	packages, err := manifest.ParseMavenWithResolver(nil, nil, "fixtures/maven/not-pom.txt")
 
 	expectErrContaining(t, err, "could not extract from")
 	expectPackages(t, packages, []lockfile.PackageDetails{})
@@ -84,7 +83,7 @@ func TestParseMavenWithResolver_Invalid(t *testing.T) {
 func TestParseMavenWithResolver_InvalidSyntax(t *testing.T) {
 	t.Parallel()
 
-	packages, err := manifest.ParseMavenWithResolver(nil, datasource.MavenRegistryAPIClient{}, "fixtures/maven/invalid-syntax.xml")
+	packages, err := manifest.ParseMavenWithResolver(nil, nil, "fixtures/maven/invalid-syntax.xml")
 
 	expectErrContaining(t, err, "XML syntax error")
 	expectPackages(t, packages, []lockfile.PackageDetails{})
@@ -93,7 +92,7 @@ func TestParseMavenWithResolver_InvalidSyntax(t *testing.T) {
 func TestParseMavenWithResolver_NoPackages(t *testing.T) {
 	t.Parallel()
 
-	packages, err := manifest.ParseMavenWithResolver(nil, datasource.MavenRegistryAPIClient{}, "fixtures/maven/empty.xml")
+	packages, err := manifest.ParseMavenWithResolver(nil, nil, "fixtures/maven/empty.xml")
 	if err != nil {
 		t.Errorf("Got unexpected error: %v", err)
 	}
@@ -105,7 +104,7 @@ func TestParseMavenWithResolver_OnePackage(t *testing.T) {
 	t.Parallel()
 
 	resolutionClient := clienttest.NewMockResolutionClient(t, "fixtures/universe/basic-universe.yaml")
-	packages, err := manifest.ParseMavenWithResolver(resolutionClient, datasource.MavenRegistryAPIClient{}, "fixtures/maven/one-package.xml")
+	packages, err := manifest.ParseMavenWithResolver(resolutionClient, nil, "fixtures/maven/one-package.xml")
 	if err != nil {
 		t.Errorf("Got unexpected error: %v", err)
 	}
@@ -124,7 +123,7 @@ func TestParseMavenWithResolver_TwoPackages(t *testing.T) {
 	t.Parallel()
 
 	resolutionClient := clienttest.NewMockResolutionClient(t, "fixtures/universe/basic-universe.yaml")
-	packages, err := manifest.ParseMavenWithResolver(resolutionClient, datasource.MavenRegistryAPIClient{}, "fixtures/maven/two-packages.xml")
+	packages, err := manifest.ParseMavenWithResolver(resolutionClient, nil, "fixtures/maven/two-packages.xml")
 	if err != nil {
 		t.Errorf("Got unexpected error: %v", err)
 	}
@@ -149,7 +148,7 @@ func TestParseMavenWithResolver_WithDependencyManagement(t *testing.T) {
 	t.Parallel()
 
 	resolutionClient := clienttest.NewMockResolutionClient(t, "fixtures/universe/basic-universe.yaml")
-	packages, err := manifest.ParseMavenWithResolver(resolutionClient, datasource.MavenRegistryAPIClient{}, "fixtures/maven/with-dependency-management.xml")
+	packages, err := manifest.ParseMavenWithResolver(resolutionClient, nil, "fixtures/maven/with-dependency-management.xml")
 	if err != nil {
 		t.Errorf("Got unexpected error: %v", err)
 	}
@@ -174,7 +173,7 @@ func TestParseMavenWithResolver_Interpolation(t *testing.T) {
 	t.Parallel()
 
 	resolutionClient := clienttest.NewMockResolutionClient(t, "fixtures/universe/basic-universe.yaml")
-	packages, err := manifest.ParseMavenWithResolver(resolutionClient, datasource.MavenRegistryAPIClient{}, "fixtures/maven/interpolation.xml")
+	packages, err := manifest.ParseMavenWithResolver(resolutionClient, nil, "fixtures/maven/interpolation.xml")
 	if err != nil {
 		t.Errorf("Got unexpected error: %v", err)
 	}
@@ -205,7 +204,7 @@ func TestParseMavenWithResolver_WithScope(t *testing.T) {
 	t.Parallel()
 
 	resolutionClient := clienttest.NewMockResolutionClient(t, "fixtures/universe/basic-universe.yaml")
-	packages, err := manifest.ParseMavenWithResolver(resolutionClient, datasource.MavenRegistryAPIClient{}, "fixtures/maven/with-scope.xml")
+	packages, err := manifest.ParseMavenWithResolver(resolutionClient, nil, "fixtures/maven/with-scope.xml")
 	if err != nil {
 		t.Errorf("Got unexpected error: %v", err)
 	}
@@ -259,7 +258,7 @@ func TestParseMavenWithResolver_WithParent(t *testing.T) {
 	`))
 
 	resolutionClient := clienttest.NewMockResolutionClient(t, "fixtures/universe/basic-universe.yaml")
-	packages, err := manifest.ParseMavenWithResolver(resolutionClient, *datasource.NewMavenRegistryAPIClient(srv.URL), "fixtures/maven/with-parent.xml")
+	packages, err := manifest.ParseMavenWithResolver(resolutionClient, datasource.NewMavenRegistryAPIClient(srv.URL), "fixtures/maven/with-parent.xml")
 	if err != nil {
 		t.Errorf("Got unexpected error: %v", err)
 	}
@@ -308,7 +307,7 @@ func TestParseMavenWithResolver_Transitive(t *testing.T) {
 	t.Parallel()
 
 	resolutionClient := clienttest.NewMockResolutionClient(t, "fixtures/universe/basic-universe.yaml")
-	packages, err := manifest.ParseMavenWithResolver(resolutionClient, datasource.MavenRegistryAPIClient{}, "fixtures/maven/transitive.xml")
+	packages, err := manifest.ParseMavenWithResolver(resolutionClient, nil, "fixtures/maven/transitive.xml")
 	if err != nil {
 		t.Errorf("Got unexpected error: %v", err)
 	}
@@ -327,6 +326,12 @@ func TestParseMavenWithResolver_Transitive(t *testing.T) {
 			CompareAs: lockfile.MavenEcosystem,
 		},
 		{
+			Name:      "org.direct:chris",
+			Version:   "3.0.0",
+			Ecosystem: lockfile.MavenEcosystem,
+			CompareAs: lockfile.MavenEcosystem,
+		},
+		{
 			Name:      "org.transitive:chuck",
 			Version:   "1.1.1",
 			Ecosystem: lockfile.MavenEcosystem,
@@ -341,6 +346,12 @@ func TestParseMavenWithResolver_Transitive(t *testing.T) {
 		{
 			Name:      "org.transitive:eve",
 			Version:   "3.3.3",
+			Ecosystem: lockfile.MavenEcosystem,
+			CompareAs: lockfile.MavenEcosystem,
+		},
+		{
+			Name:      "org.transitive:frank",
+			Version:   "4.4.4",
 			Ecosystem: lockfile.MavenEcosystem,
 			CompareAs: lockfile.MavenEcosystem,
 		},

@@ -305,7 +305,7 @@ func (st *stateRelockResult) relaxChoice(m model) (model, tea.Cmd) {
 	st.currRes = nil
 
 	return m, func() tea.Msg {
-		return doRelock(m.ctx, m.cl, manifest, m.options.MatchVuln)
+		return doRelock(m.ctx, m.cl, manifest, m.options.ResolveOpts, m.options.MatchVuln)
 	}
 }
 

@@ -3,6 +3,7 @@ package lockfile_test
 import (
 	"testing"
 
+	"github.com/google/osv-scanner/internal/testutility"
 	"github.com/google/osv-scanner/pkg/lockfile"
 )
 
@@ -21,13 +22,18 @@ func TestGoBinaryExtractor_ShouldExtract(t *testing.T) {
 		},
 		{
 			name: "",
-			path: "binary.json",
+			path: testutility.ValueIfOnWindows("path\\to\\dir\\", "path/to/dir/"),
 			want: false,
 		},
 		{
 			name: "",
+			path: "binary.json",
+			want: true,
+		},
+		{
+			name: "",
 			path: "path/to/my/binary.json",
-			want: false,
+			want: true,
 		},
 		{
 			name: "",
@@ -47,16 +53,15 @@ func TestGoBinaryExtractor_ShouldExtract(t *testing.T) {
 		{
 			name: "",
 			path: "path/to/my/.hidden-binary",
-			want: false,
+			want: true,
 		},
 		{
 			name: "",
 			path: "path/to/my/binary.exe.1",
-			want: false,
+			want: true,
 		},
 	}
 	for _, tt := range tests {
-		tt := tt
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
 			e := lockfile.GoBinaryExtractor{}

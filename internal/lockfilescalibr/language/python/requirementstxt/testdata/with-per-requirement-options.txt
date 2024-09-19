@@ -1,0 +1,12 @@
+boto3==1.26.121 --hash=sha256:f87d694c351eba1dfd19b5bef5892a1047e7adb09c57c2c00049de209a8ab55d
+foo == 1.0.0
+
+# from https://pip.pypa.io/en/stable/topics/secure-installs/#hash-checking-mode
+
+FooProject == 1.2 \
+  --hash=sha256:2cf24dba5fb0a30e26e83b2ac5b9e29e1b161e5c1fa7425e73043362938b9824 \
+  --hash=sha256:486ea46224d1bb4fb680f34f7c9ad96a8f24ec88be73ea8e5a6c65260e9cb8a7
+
+# from https://pip.pypa.io/en/stable/reference/requirements-file-format/#influencing-the-build-system
+
+BarProject >= 1.2 --global-option="--no-user-cfg"

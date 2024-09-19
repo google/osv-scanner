@@ -1,0 +1,35 @@
+[[PackageOverrides]]
+name = "org.apache.commons:commons-configuration2"
+ecosystem = "Maven"
+ignore = true
+reason = "This is an intentionally vulnerable test project"
+
+[[PackageOverrides]]
+name = "org.apache.hadoop:hadoop-common"
+ecosystem = "Maven"
+ignore = true
+reason = "This is an intentionally vulnerable test project"
+
+[[PackageOverrides]]
+name = "org.apache.shiro:shiro-core"
+ecosystem = "Maven"
+ignore = true
+reason = "This is an intentionally vulnerable test project"
+
+[[PackageOverrides]]
+name = "org.apache.shiro:shiro-web"
+ecosystem = "Maven"
+ignore = true
+reason = "This is an intentionally vulnerable test project"
+
+[[PackageOverrides]]
+name = "org.apache.thrift:libthrift"
+ecosystem = "Maven"
+ignore = true
+reason = "This is an intentionally vulnerable test project"
+
+[[PackageOverrides]]
+name = "org.apache.commons:commons-text"
+ecosystem = "Maven"
+ignore = true
+reason = "This is an intentionally vulnerable test project"

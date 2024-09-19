@@ -6,11 +6,17 @@ import (
 
 	"deps.dev/util/resolve"
 	"deps.dev/util/semver"
+	"github.com/google/osv-scanner/internal/remediation/upgrade"
 )
 
 type NpmRelaxer struct{}
 
-func (r NpmRelaxer) Relax(ctx context.Context, cl resolve.Client, req resolve.RequirementVersion, allowMajor bool) (resolve.RequirementVersion, bool) {
+func (r NpmRelaxer) Relax(ctx context.Context, cl resolve.Client, req resolve.RequirementVersion, config upgrade.Config) (resolve.RequirementVersion, bool) {
+	configLevel := config.Get(req.Name)
+	if configLevel == upgrade.None {
+		return req, false
+	}
+
 	c, err := semver.NPM.ParseConstraint(req.Version)
 	if err != nil {
 		// The specified version is not a valid semver constraint
@@ -77,10 +83,10 @@ func (r NpmRelaxer) Relax(ctx context.Context, cl resolve.Client, req resolve.Re
 
 	cmpVer := vers[lastIdx]
 	_, diff, _ := semver.NPM.Difference(cmpVer, vers[nextIdx])
+	if !configLevel.Allows(diff) {
+		return req, false
+	}
 	if diff == semver.DiffMajor {
-		if !allowMajor {
-			return req, false
-		}
 		// Want to step only one major version at a time
 		// Instead of looking for a difference larger than major,
 		// we want to look for a major version bump from the first next version
@@ -95,6 +101,12 @@ func (r NpmRelaxer) Relax(ctx context.Context, cl resolve.Client, req resolve.Re
 		if err != nil {
 			continue
 		}
+
+		// If we've exceeded our allowed upgrade level, stop looking.
+		if !configLevel.Allows(d) {
+			break
+		}
+
 		// DiffMajor < DiffMinor < DiffPatch < DiffPrerelease
 		// So if d is less than the original diff, it represents a larger change
 		if d < diff {

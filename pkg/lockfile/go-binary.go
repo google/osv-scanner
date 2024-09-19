@@ -19,14 +19,7 @@ func (e GoBinaryExtractor) ShouldExtract(path string) bool {
 		return false
 	}
 
-	if filepath.Ext(path) != ".exe" && filepath.Ext(path) != "" {
-		// Assume if a file has an extension (that's not exe), it is not a go binary
-		// This also filters out hidden files on Unix
-		// This is a heuristic to improve performance and can result in false negatives
-		// TODO(another-rex): When we have access to the full FS interface, we can open and check
-		// magic bytes to be more accurate
-		return false
-	}
+	// TODO: Filter by executable bit when we have access to full FS
 
 	// Any other path can be a go binary
 	return true

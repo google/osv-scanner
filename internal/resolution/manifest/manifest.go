@@ -60,6 +60,8 @@ type ManifestPatch struct {
 }
 
 type ManifestIO interface {
+	// System returns which ecosystem this ManifestIO is for.
+	System() resolve.System
 	// Read parses a manifest file into a Manifest, possibly recursively following references to other local manifest files
 	Read(file lockfile.DepFile) (Manifest, error)
 	// Write applies the ManifestPatch to the manifest, with minimal changes to the file.

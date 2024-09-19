@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>com.mycompany.app</groupId>
+  <artifactId>my-app</artifactId>
+  <version>1.0</version>
+
+  <name>my-app</name>
+  <!-- FIXME change it to the project's website -->
+  <url>http://www.example.com</url>
+
+  <parent>
+    <groupId>org.parent</groupId>
+    <artifactId>parent-pom</artifactId>
+    <version>1.1.1</version>
+    <relativePath>../parent/pom.xml</relativePath>
+  </parent>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <maven.compiler.source>1.7</maven.compiler.source>
+    <maven.compiler.target>1.7</maven.compiler.target>
+    <junit.version>4.12</junit.version>
+	  <zeppelin.daemon.package.base>
+	    ../bin
+	  </zeppelin.daemon.package.base>
+  </properties>
+
+  <dependencies>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>${junit.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.example</groupId>
+      <artifactId>abc</artifactId>
+      <version>1.0.1</version>
+      <optional/>
+    </dependency>
+    <dependency>
+      <groupId>org.example</groupId>
+      <artifactId>no-version</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.example</groupId>
+      <artifactId>exclusions</artifactId>
+      <version>1.0.0</version>
+      <exclusions>
+        <exclusion>
+          <groupId>org.exclude</groupId>
+          <artifactId>exclude</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+  </dependencies>
+
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>org.example</groupId>
+        <artifactId>xyz</artifactId>
+        <version>2.0.0</version>
+      </dependency>
+      <dependency>
+        <groupId>org.example</groupId>
+        <artifactId>no-version</artifactId>
+        <version>2.0.0</version>
+      </dependency>
+      <dependency>
+        <groupId>org.import</groupId>
+        <artifactId>import</artifactId>
+        <version>1.0.0</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+
+  <profiles>
+    <profile>
+      <id>profile-one</id>
+      <activation>
+        <activeByDefault>true</activeByDefault>
+      </activation>
+      <properties>
+        <def.version>2.3.4</def.version>
+      </properties>
+      <dependencies>
+        <dependency>
+          <groupId>org.profile</groupId>
+          <artifactId>abc</artifactId>
+          <version>1.2.3</version>
+        </dependency>
+        <dependency>
+          <groupId>org.profile</groupId>
+          <artifactId>def</artifactId>
+          <version>${def.version}</version>
+        </dependency>
+      </dependencies>
+    </profile>
+    <profile>
+      <id>profile-two</id>
+      <dependencyManagement>
+        <dependencies>
+          <dependency>
+            <groupId>org.import</groupId>
+            <artifactId>xyz</artifactId>
+            <version>6.6.6</version>
+            <scope>import</scope>
+            <type>pom</type>
+          </dependency>
+        </dependencies>
+      </dependencyManagement>
+    </profile>
+  </profiles>
+
+  <build>
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>org.plugin</groupId>
+          <artifactId>plugin</artifactId>
+          <version>1.0.0</version>
+          <dependencies>
+            <dependency>
+              <groupId>org.dep</groupId>
+              <artifactId>plugin-dep</artifactId>
+              <version>2.3.3</version>
+            </dependency>
+          </dependencies>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+  </build>
+
+</project>

@@ -1,0 +1,25 @@
+{
+    "graph_lock": {
+     "nodes": {
+      "0": {
+       "ref": "test/1.0",
+       "options": "fPIC=True\nshared=False",
+       "build_requires": [
+        "1"
+       ],
+       "path": "conanfile.py",
+       "context": "host"
+      },
+      "1": {
+       "ref": "ninja/1.11.1#a2f0b832705907016f336839f96963f8",
+       "options": "",
+       "package_id": "24647d9fe8ec489125dfbae4b3ebefaf7581674c",
+       "prev": "d894345ae9996c9b97f1cb4150051c25",
+       "context": "host"
+      }
+     },
+     "revisions_enabled": true
+    },
+    "version": "0.4",
+    "profile_host": "[settings]\narch=x86_64\narch_build=x86_64\nbuild_type=Release\ncompiler=gcc\ncompiler.libcxx=libstdc++\ncompiler.version=10\nos=Linux\nos_build=Linux\n[options]\n[build_requires]\n[env]\n"
+   }

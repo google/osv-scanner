@@ -1,0 +1,79 @@
+system: Maven
+schema: |
+  com.google.guava:guava
+    20.0
+    21.0
+    22.0
+    22.0-android
+    23.0
+    23.0-android
+    23.1-android
+    23.1-jre
+    24.0-android
+    24.0-jre
+  commons-beanutils:commons-beanutils
+    1.0
+    1.2
+    1.9.0
+    1.9.3
+    1.9.4
+    20020520
+    20021128.082114
+    20030211.134440
+  commons-httpclient:commons-httpclient
+    2.0.2
+    3.0
+    3.1
+    20020423
+vulns:
+  - id: OSV-000-000
+    affected:
+      - package:
+          ecosystem: Maven
+          name: com.google.guava:guava
+        ranges:
+          - type: ECOSYSTEM
+            events:
+              - introduced: '0'
+              - fixed: '24.0-android'
+        versions:
+          - '20.0'
+          - '21.0'
+          - '22.0'
+          - '22.0-android'
+          - '23.0'
+          - '23.0-android'
+          - '23.1-android'
+          - '23.1-jre'
+  - id: GHSA-6phf-73q6-gh87
+    affected:
+      - package:
+          ecosystem: Maven
+          name: commons-beanutils:commons-beanutils
+        ranges:
+          - type: ECOSYSTEM
+            events:
+              - introduced: '0'
+              - fixed: '1.9.4'
+              - introduced: '20020520' # The real OSV record is missing this event
+        versions:
+          - '1.0'
+          - '1.2'
+          - '1.9.0'
+          - '1.9.3'
+          - '20020520'
+          - '20021128.082114'
+          - '20030211.134440'
+  - id: GHSA-3832-9276-x7gf
+    affected:
+      - package:
+          ecosystem: Maven
+          name: commons-httpclient:commons-httpclient
+        ranges:
+          - type: ECOSYSTEM
+            events:
+              - introduced: '3.0'
+              - fixed: '4.0'
+        versions:
+          - '3.0'
+          - '3.1'

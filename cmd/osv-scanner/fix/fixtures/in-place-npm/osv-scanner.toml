@@ -1,0 +1,35 @@
+[[PackageOverrides]]
+name = "chownr"
+ecosystem = "npm"
+ignore = true
+reason = "This is an intentionally vulnerable test project"
+
+[[PackageOverrides]]
+name = "concat-stream"
+ecosystem = "npm"
+ignore = true
+reason = "This is an intentionally vulnerable test project"
+
+[[PackageOverrides]]
+name = "hosted-git-info"
+ecosystem = "npm"
+ignore = true
+reason = "This is an intentionally vulnerable test project"
+
+[[PackageOverrides]]
+name = "request"
+ecosystem = "npm"
+ignore = true
+reason = "This is an intentionally vulnerable test project"
+
+[[PackageOverrides]]
+name = "semver"
+ecosystem = "npm"
+ignore = true
+reason = "This is an intentionally vulnerable test project"
+
+[[PackageOverrides]]
+name = "tough-cookie"
+ecosystem = "npm"
+ignore = true
+reason = "This is an intentionally vulnerable test project"

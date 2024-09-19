@@ -1,54 +1,64 @@
 [[IgnoredVulns]]
 id = "GO-2022-0274"
 # ignoreUntil = n/a
-reason = "This is a intentionally vulnerable test sbom"
+reason = "This is an intentionally vulnerable test sbom"
 
 [[IgnoredVulns]]
 id = "GO-2022-0493"
 # ignoreUntil = n/a
-reason = "This is a intentionally vulnerable test sbom"
+reason = "This is an intentionally vulnerable test sbom"
 
 [[IgnoredVulns]]
 id = "GHSA-vpvm-3wq2-2wvm"
 # ignoreUntil = n/a
-reason = "This is a intentionally vulnerable test sbom"
+reason = "This is an intentionally vulnerable test sbom"
 
 [[IgnoredVulns]]
 id = "GHSA-m8cg-xc2p-r3fc"
 # ignoreUntil = n/a
-reason = "This is a intentionally vulnerable test sbom"
+reason = "This is an intentionally vulnerable test sbom"
 
 [[IgnoredVulns]]
 id = "GHSA-g2j6-57v7-gm8c"
 # ignoreUntil = n/a
-reason = "This is a intentionally vulnerable test sbom"
+reason = "This is an intentionally vulnerable test sbom"
 
 [[IgnoredVulns]]
 id = "GHSA-f3fp-gc8g-vw66"
 # ignoreUntil = n/a
-reason = "This is a intentionally vulnerable test sbom"
+reason = "This is an intentionally vulnerable test sbom"
 
 [[IgnoredVulns]]
 id = "DLA-3008-1"
 # ignoreUntil = n/a
-reason = "This is a intentionally vulnerable test sbom"
+reason = "This is an intentionally vulnerable test sbom"
 
 [[IgnoredVulns]]
 id = "DLA-3012-1"
 # ignoreUntil = n/a
-reason = "This is a intentionally vulnerable test sbom"
+reason = "This is an intentionally vulnerable test sbom"
 
 [[IgnoredVulns]]
 id = "DLA-3022-1"
 # ignoreUntil = n/a
-reason = "This is a intentionally vulnerable test sbom"
+reason = "This is an intentionally vulnerable test sbom"
 
 [[IgnoredVulns]]
 id = "DLA-3051-1"
 # ignoreUntil = n/a
-reason = "This is a intentionally vulnerable test sbom"
+reason = "This is an intentionally vulnerable test sbom"
 
 [[IgnoredVulns]]
 id = "CVE-2022-37434"
 # ignoreUntil = n/a
-reason = "This is a intentionally vulnerable test sbom"
+reason = "This is an intentionally vulnerable test sbom"
+
+[[IgnoredVulns]]
+id = "CVE-2018-25032"
+# ignoreUntil = n/a
+reason = "This is an intentionally vulnerable test sbom"
+
+[[IgnoredVulns]]
+id = "GHSA-xr7r-f8xq-vfvv"
+# ignoreUntil = n/a
+reason = "This is an intentionally vulnerable test sbom"

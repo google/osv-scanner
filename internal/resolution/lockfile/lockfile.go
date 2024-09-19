@@ -18,6 +18,8 @@ type DependencyPatch struct {
 }
 
 type LockfileIO interface {
+	// System returns which ecosystem this LockfileIO is for.
+	System() resolve.System
 	// Read parses a lockfile into a resolved graph
 	Read(file lockfile.DepFile) (*resolve.Graph, error)
 	// Write applies the DependencyPatches to the lockfile, with minimal changes to the file.

@@ -53,8 +53,8 @@ func (ms *MavenSuggester) Suggest(ctx context.Context, client resolve.Client, mf
 	}
 
 	return manifest.ManifestPatch{
-		Deps:              changedDeps,
-		EcosystemSpecific: specific,
+		Deps:     changedDeps,
+		Manifest: &mf,
 	}, nil
 }
 

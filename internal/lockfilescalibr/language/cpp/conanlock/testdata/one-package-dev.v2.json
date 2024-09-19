@@ -1,0 +1,8 @@
+{
+    "version": "0.5",
+    "requires": [],
+    "build_requires": [
+        "ninja/1.11.1#a2f0b832705907016f336839f96963f8%1667050636.338"
+    ],
+    "python_requires": []
+}

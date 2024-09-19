@@ -26,12 +26,12 @@ func Group(vulns []IDAliases) []models.GroupInfo {
 	groups := make([]int, len(vulns))
 
 	// Initially make every vulnerability its own group.
-	for i := 0; i < len(vulns); i++ {
+	for i := range len(vulns) {
 		groups[i] = i
 	}
 
 	// Do a pair-wise (n^2) comparison and merge all intersecting vulns.
-	for i := 0; i < len(vulns); i++ {
+	for i := range len(vulns) {
 		for j := i + 1; j < len(vulns); j++ {
 			if hasAliasIntersection(vulns[i], vulns[j]) {
 				// Merge the two groups. Use the smaller index as the representative ID.
