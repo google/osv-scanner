@@ -1,6 +1,10 @@
 package grouper
 
-import "github.com/google/osv-scanner/pkg/models"
+import (
+	"strings"
+
+	"github.com/google/osv-scanner/pkg/models"
+)
 
 type IDAliases struct {
 	ID      string
@@ -14,6 +18,13 @@ func ConvertVulnerabilityToIDAliases(c []models.Vulnerability) []IDAliases {
 			ID:      v.ID,
 			Aliases: v.Aliases,
 		}
+
+		// For Debian Security Advisory data,
+		// all related CVEs should be bundled together, as they are part of this DSA.
+		if strings.Split(v.ID, "-")[0] == "DSA" {
+			idAliases.Aliases = append(idAliases.Aliases, v.Related...)
+		}
+
 		output = append(output, idAliases)
 	}
 

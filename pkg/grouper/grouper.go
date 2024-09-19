@@ -3,6 +3,7 @@ package grouper
 import (
 	"slices"
 	"sort"
+	"strings"
 
 	"golang.org/x/exp/maps"
 
@@ -18,6 +19,26 @@ func hasAliasIntersection(v1, v2 IDAliases) bool {
 	}
 	// Check if either IDs are in the others' aliases.
 	return slices.Contains(v1.Aliases, v2.ID) || slices.Contains(v2.Aliases, v1.ID)
+}
+
+func sortIDs(groupIDs []string) []string {
+	var otherIDs []string
+	DSA := ""
+	for _, id := range groupIDs {
+		if strings.Split(id, "-")[0] == "DSA" {
+			// DSA only has CVEs in the same group, not other DSAs.
+			DSA = id
+		} else {
+			otherIDs = append(otherIDs, id)
+		}
+	}
+
+	sort.Strings(otherIDs)
+	if DSA == "" {
+		return otherIDs
+	}
+
+	return append([]string{DSA}, otherIDs...)
 }
 
 // Group groups vulnerabilities by aliases.
@@ -56,7 +77,7 @@ func Group(vulns []IDAliases) []models.GroupInfo {
 	result := make([]models.GroupInfo, 0, len(sortedKeys))
 	for _, key := range sortedKeys {
 		// Sort the strings so they are always in the same order
-		sort.Strings(extractedGroups[key])
+		extractedGroups[key] = sortIDs(extractedGroups[key])
 
 		// Add IDs to aliases
 		extractedAliases[key] = append(extractedAliases[key], extractedGroups[key]...)
