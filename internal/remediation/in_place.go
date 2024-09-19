@@ -254,7 +254,7 @@ func inPlaceVulnsNodes(cl client.VulnerabilityClient, graph *resolve.Graph) (inP
 		}
 	}
 
-	// Construct ResolutionVulns for all vulnerable packages
+	// Construct resolution.Vulnerability for all vulnerable packages
 	// combining nodes with the same package & versions number
 	var nodeIDs []resolve.NodeID
 	for nID, vulns := range nodeVulns {

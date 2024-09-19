@@ -405,7 +405,7 @@ func autoChooseOverridePatches(diffs []resolution.Difference, maxUpgrades int) (
 }
 
 func resolutionErrorString(res *resolution.Result, errs []resolution.NodeError) string {
-	// we pass in the []ResolutionErrors because calling res.Errors() is costly
+	// we pass in the []resolution.NodeError because calling res.Errors() is costly
 	s := strings.Builder{}
 	for _, e := range errs {
 		node := res.Graph.Nodes[e.NodeID]

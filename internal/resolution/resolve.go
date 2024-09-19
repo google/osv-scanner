@@ -228,8 +228,8 @@ func (res *Result) computeVulns(ctx context.Context, cl client.ResolutionClient)
 		}
 	}
 
-	// construct the ResolutionVulns
-	// TODO: This constructs a single ResolutionVuln per vulnerability ID.
+	// construct the resolution.Vulnerability
+	// TODO: This constructs a single resolution.Vulnerability per vulnerability ID.
 	// The scan action treats vulns with the same ID but affecting different versions of a package as distinct.
 	// TODO: Combine aliased IDs
 	for id, vuln := range vulnInfo {
