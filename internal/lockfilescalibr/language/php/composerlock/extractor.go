@@ -1,3 +1,4 @@
+// Package composerlock extracts Cargo.lock files.
 package composerlock
 
 import (
@@ -14,7 +15,7 @@ import (
 	"github.com/package-url/packageurl-go"
 )
 
-type ComposerPackage struct {
+type composerPackage struct {
 	Name    string `json:"name"`
 	Version string `json:"version"`
 	Dist    struct {
@@ -22,13 +23,14 @@ type ComposerPackage struct {
 	} `json:"dist"`
 }
 
-type ComposerLock struct {
-	Packages    []ComposerPackage `json:"packages"`
-	PackagesDev []ComposerPackage `json:"packages-dev"`
+type composerLockfile struct {
+	Packages    []composerPackage `json:"packages"`
+	PackagesDev []composerPackage `json:"packages-dev"`
 }
 
-const ComposerEcosystem string = "Packagist"
+const composerEcosystem string = "Packagist"
 
+// Extractor extracts Packagist packages from composer.lock files.
 type Extractor struct{}
 
 // Name of the extractor
@@ -37,16 +39,19 @@ func (e Extractor) Name() string { return "php/composerlock" }
 // Version of the extractor
 func (e Extractor) Version() int { return 0 }
 
+// Requirements of the extractor
 func (e Extractor) Requirements() *plugin.Capabilities {
 	return &plugin.Capabilities{}
 }
 
+// FileRequired returns true if the specified file matches Composer lockfile patterns.
 func (e Extractor) FileRequired(path string, fileInfo fs.FileInfo) bool {
 	return filepath.Base(path) == "composer.lock"
 }
 
+// Extract extracts packages from composer.lock files passed through the scan input.
 func (e Extractor) Extract(ctx context.Context, input *filesystem.ScanInput) ([]*extractor.Inventory, error) {
-	var parsedLockfile *ComposerLock
+	var parsedLockfile *composerLockfile
 
 	err := json.NewDecoder(input.Reader).Decode(&parsedLockfile)
 
@@ -106,8 +111,9 @@ func (e Extractor) ToCPEs(i *extractor.Inventory) ([]string, error) {
 	return []string{}, nil
 }
 
+// Ecosystem returns the OSV ecosystem ('Packagist') of the software extracted by this extractor.
 func (e Extractor) Ecosystem(i *extractor.Inventory) (string, error) {
-	return ComposerEcosystem, nil
+	return composerEcosystem, nil
 }
 
 var _ filesystem.Extractor = Extractor{}

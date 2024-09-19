@@ -1,3 +1,4 @@
+// Package cargolock extracts Cargo.lock files.
 package cargolock
 
 import (
@@ -23,8 +24,9 @@ type cargoLockFile struct {
 	Packages []cargoLockPackage `toml:"package"`
 }
 
-const CargoEcosystem string = "crates.io"
+const cargoEcosystem string = "crates.io"
 
+// Extractor extracts crates.io packages from Cargo.lock files.
 type Extractor struct{}
 
 // Name of the extractor
@@ -33,15 +35,18 @@ func (e Extractor) Name() string { return "rust/cargolock" }
 // Version of the extractor
 func (e Extractor) Version() int { return 0 }
 
+// FileRequired returns true if the specified file matches Cargo lockfile patterns.
 func (e Extractor) FileRequired(path string, fileInfo fs.FileInfo) bool {
 	// TODO: File size check?
 	return filepath.Base(path) == "Cargo.lock"
 }
 
+// Requirements of the extractor
 func (e Extractor) Requirements() *plugin.Capabilities {
 	return &plugin.Capabilities{}
 }
 
+// Extract extracts packages from Cargo.lock files passed through the scan input.
 func (e Extractor) Extract(ctx context.Context, input *filesystem.ScanInput) ([]*extractor.Inventory, error) {
 	var parsedLockfile *cargoLockFile
 
@@ -76,8 +81,9 @@ func (e Extractor) ToPURL(i *extractor.Inventory) (*packageurl.PackageURL, error
 // ToCPEs is not applicable as this extractor does not infer CPEs from the Inventory.
 func (e Extractor) ToCPEs(i *extractor.Inventory) ([]string, error) { return []string{}, nil }
 
+// Ecosystem returns the OSV ecosystem ('crates.io') of the software extracted by this extractor.
 func (e Extractor) Ecosystem(i *extractor.Inventory) (string, error) {
-	return CargoEcosystem, nil
+	return cargoEcosystem, nil
 }
 
 var _ filesystem.Extractor = Extractor{}
