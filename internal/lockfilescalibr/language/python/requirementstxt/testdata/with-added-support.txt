@@ -1,2 +1,0 @@
-twisted[http2]==20.3.0
-    # via scrapy

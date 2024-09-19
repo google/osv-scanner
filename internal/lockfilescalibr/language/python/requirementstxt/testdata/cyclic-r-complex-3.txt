@@ -1,4 +1,0 @@
--r ./cyclic-r-complex-1.txt
--r ./cyclic-r-complex-2.txt
-
-cyclic-r-complex==3

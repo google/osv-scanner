@@ -1,3 +1,0 @@
-requests==1.2.3
-
--r ./does-not-exist.txt
