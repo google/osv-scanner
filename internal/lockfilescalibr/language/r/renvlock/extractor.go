@@ -1,3 +1,4 @@
+// Package renvlock extracts renv.lock files.
 package renvlock
 
 import (
@@ -13,18 +14,19 @@ import (
 	"github.com/package-url/packageurl-go"
 )
 
-type RenvPackage struct {
+type renvPackage struct {
 	Package    string `json:"Package"`
 	Version    string `json:"Version"`
 	Repository string `json:"Repository"`
 }
 
-type RenvLockfile struct {
-	Packages map[string]RenvPackage `json:"Packages"`
+type renvLockfile struct {
+	Packages map[string]renvPackage `json:"Packages"`
 }
 
-const CRANEcosystem string = "CRAN"
+const cranEcosystem string = "CRAN"
 
+// Extractor extracts CRAN packages from renv.lock files.
 type Extractor struct{}
 
 // Name of the extractor
@@ -33,16 +35,19 @@ func (e Extractor) Name() string { return "r/renvlock" }
 // Version of the extractor
 func (e Extractor) Version() int { return 0 }
 
+// Requirements of the extractor
 func (e Extractor) Requirements() *plugin.Capabilities {
 	return &plugin.Capabilities{}
 }
 
+// FileRequired returns true if the specified file matches renv lockfile patterns.
 func (e Extractor) FileRequired(path string, fileInfo fs.FileInfo) bool {
 	return filepath.Base(path) == "renv.lock"
 }
 
+// Extract extracts packages from renv.lock files passed through the scan input.
 func (e Extractor) Extract(ctx context.Context, input *filesystem.ScanInput) ([]*extractor.Inventory, error) {
-	var parsedLockfile *RenvLockfile
+	var parsedLockfile *renvLockfile
 
 	err := json.NewDecoder(input.Reader).Decode(&parsedLockfile)
 
@@ -54,7 +59,7 @@ func (e Extractor) Extract(ctx context.Context, input *filesystem.ScanInput) ([]
 
 	for _, pkg := range parsedLockfile.Packages {
 		// currently we only support CRAN
-		if pkg.Repository != string(CRANEcosystem) {
+		if pkg.Repository != string(cranEcosystem) {
 			continue
 		}
 
@@ -80,8 +85,9 @@ func (e Extractor) ToPURL(i *extractor.Inventory) (*packageurl.PackageURL, error
 // ToCPEs is not applicable as this extractor does not infer CPEs from the Inventory.
 func (e Extractor) ToCPEs(i *extractor.Inventory) ([]string, error) { return []string{}, nil }
 
+// Ecosystem returns the OSV ecosystem ('CRAN') of the software extracted by this extractor.
 func (e Extractor) Ecosystem(i *extractor.Inventory) (string, error) {
-	return CRANEcosystem, nil
+	return cranEcosystem, nil
 }
 
 var _ filesystem.Extractor = Extractor{}

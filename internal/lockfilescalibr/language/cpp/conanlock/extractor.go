@@ -1,3 +1,4 @@
+// Package conanlock extracts conan.lock files.
 package conanlock
 
 import (
@@ -15,7 +16,7 @@ import (
 	"github.com/package-url/packageurl-go"
 )
 
-type ConanReference struct {
+type conanReference struct {
 	Name            string
 	Version         string
 	Username        string
@@ -26,7 +27,7 @@ type ConanReference struct {
 	TimeStamp       string
 }
 
-type ConanGraphNode struct {
+type conanGraphNode struct {
 	Pref      string `json:"pref"`
 	Ref       string `json:"ref"`
 	Options   string `json:"options"`
@@ -36,14 +37,14 @@ type ConanGraphNode struct {
 	Context   string `json:"context"`
 }
 
-type ConanGraphLock struct {
-	Nodes map[string]ConanGraphNode `json:"nodes"`
+type conanGraphLock struct {
+	Nodes map[string]conanGraphNode `json:"nodes"`
 }
 
-type ConanLockFile struct {
+type conanLockFile struct {
 	Version string `json:"version"`
 	// conan v0.4- lockfiles use "graph_lock", "profile_host" and "profile_build"
-	GraphLock    ConanGraphLock `json:"graph_lock,omitempty"`
+	GraphLock    conanGraphLock `json:"graph_lock,omitempty"`
 	ProfileHost  string         `json:"profile_host,omitempty"`
 	ProfileBuild string         `json:"profile_build,omitempty"`
 	// conan v0.5+ lockfiles use "requires", "build_requires" and "python_requires"
@@ -53,11 +54,11 @@ type ConanLockFile struct {
 }
 
 // TODO this is tentative and subject to change depending on the OSV schema
-const ConanEcosystem string = "ConanCenter"
+const conanEcosystem string = "ConanCenter"
 
-func parseConanRenference(ref string) ConanReference {
+func parseConanRenference(ref string) conanReference {
 	// very flexible format name/version[@username[/channel]][#rrev][:pkgid[#prev]][%timestamp]
-	var reference ConanReference
+	var reference conanReference
 
 	parts := strings.SplitN(ref, "%", 2)
 	if len(parts) == 2 {
@@ -106,8 +107,8 @@ func parseConanRenference(ref string) ConanReference {
 	return reference
 }
 
-func parseConanV1Lock(lockfile ConanLockFile) []*extractor.Inventory {
-	var reference ConanReference
+func parseConanV1Lock(lockfile conanLockFile) []*extractor.Inventory {
+	var reference conanReference
 	packages := make([]*extractor.Inventory, 0, len(lockfile.GraphLock.Nodes))
 
 	for _, node := range lockfile.GraphLock.Nodes {
@@ -160,7 +161,7 @@ func parseConanRequires(packages *[]*extractor.Inventory, requires []string, gro
 	}
 }
 
-func parseConanV2Lock(lockfile ConanLockFile) []*extractor.Inventory {
+func parseConanV2Lock(lockfile conanLockFile) []*extractor.Inventory {
 	packages := make(
 		[]*extractor.Inventory,
 		0,
@@ -174,7 +175,7 @@ func parseConanV2Lock(lockfile ConanLockFile) []*extractor.Inventory {
 	return packages
 }
 
-func parseConanLock(lockfile ConanLockFile) []*extractor.Inventory {
+func parseConanLock(lockfile conanLockFile) []*extractor.Inventory {
 	if lockfile.GraphLock.Nodes != nil {
 		return parseConanV1Lock(lockfile)
 	}
@@ -182,6 +183,7 @@ func parseConanLock(lockfile ConanLockFile) []*extractor.Inventory {
 	return parseConanV2Lock(lockfile)
 }
 
+// Extractor extracts Conan packages from conan.lock files.
 type Extractor struct{}
 
 // Name of the extractor
@@ -190,16 +192,19 @@ func (e Extractor) Name() string { return "cpp/conanlock" }
 // Version of the extractor
 func (e Extractor) Version() int { return 0 }
 
+// Requirements of the extractor
 func (e Extractor) Requirements() *plugin.Capabilities {
 	return &plugin.Capabilities{}
 }
 
+// FileRequired returns true if the specified file matches Conan lockfile patterns.
 func (e Extractor) FileRequired(path string, fileInfo fs.FileInfo) bool {
 	return filepath.Base(path) == "conan.lock"
 }
 
+// Extract extracts packages from conan.lock files passed through the scan input.
 func (e Extractor) Extract(ctx context.Context, input *filesystem.ScanInput) ([]*extractor.Inventory, error) {
-	var parsedLockfile *ConanLockFile
+	var parsedLockfile *conanLockFile
 
 	err := json.NewDecoder(input.Reader).Decode(&parsedLockfile)
 	if err != nil {
@@ -227,8 +232,9 @@ func (e Extractor) ToPURL(i *extractor.Inventory) (*packageurl.PackageURL, error
 // ToCPEs is not applicable as this extractor does not infer CPEs from the Inventory.
 func (e Extractor) ToCPEs(i *extractor.Inventory) ([]string, error) { return []string{}, nil }
 
+// Ecosystem returns the OSV ecosystem ('ConanCenter') of the software extracted by this extractor.
 func (e Extractor) Ecosystem(i *extractor.Inventory) (string, error) {
-	return ConanEcosystem, nil
+	return conanEcosystem, nil
 }
 
 var _ filesystem.Extractor = Extractor{}

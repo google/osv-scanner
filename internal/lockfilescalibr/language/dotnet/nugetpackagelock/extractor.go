@@ -1,3 +1,4 @@
+// Package nugetpackagelock extracts renv.lock files.
 package nugetpackagelock
 
 import (
@@ -14,7 +15,7 @@ import (
 	"golang.org/x/exp/maps"
 )
 
-type NuGetLockPackage struct {
+type nugetLockPackage struct {
 	Resolved string `json:"resolved"`
 }
 
@@ -22,12 +23,12 @@ type NuGetLockPackage struct {
 // https://github.com/NuGet/NuGet.Client/blob/6.5.0.136/src/NuGet.Core/NuGet.ProjectModel/ProjectLockFile/PackagesLockFileFormat.cs
 type NuGetLockfile struct {
 	Version      int                                    `json:"version"`
-	Dependencies map[string]map[string]NuGetLockPackage `json:"dependencies"`
+	Dependencies map[string]map[string]nugetLockPackage `json:"dependencies"`
 }
 
-const NuGetEcosystem string = "NuGet"
+const nugetEcosystem string = "NuGet"
 
-func parseNuGetLockDependencies(dependencies map[string]NuGetLockPackage) map[string]*extractor.Inventory {
+func parseNuGetLockDependencies(dependencies map[string]nugetLockPackage) map[string]*extractor.Inventory {
 	details := map[string]*extractor.Inventory{}
 
 	for name, dependency := range dependencies {
@@ -55,6 +56,7 @@ func parseNuGetLock(lockfile NuGetLockfile) []*extractor.Inventory {
 	return maps.Values(details)
 }
 
+// Extractor extracts NuGet packages from packages.lock.json files.
 type Extractor struct{}
 
 // Name of the extractor
@@ -63,14 +65,17 @@ func (e Extractor) Name() string { return "dotnet/nugetpackagelock" }
 // Version of the extractor
 func (e Extractor) Version() int { return 0 }
 
+// Requirements of the extractor
 func (e Extractor) Requirements() *plugin.Capabilities {
 	return &plugin.Capabilities{}
 }
 
+// FileRequired returns true if the specified file matches NuGet lockfile patterns.
 func (e Extractor) FileRequired(path string, fileInfo fs.FileInfo) bool {
 	return filepath.Base(path) == "packages.lock.json"
 }
 
+// Extract extracts packages from packages.lock.json files passed through the scan input.
 func (e Extractor) Extract(ctx context.Context, input *filesystem.ScanInput) ([]*extractor.Inventory, error) {
 	var parsedLockfile *NuGetLockfile
 
@@ -107,6 +112,7 @@ func (e Extractor) ToPURL(i *extractor.Inventory) (*packageurl.PackageURL, error
 // ToCPEs is not applicable as this extractor does not infer CPEs from the Inventory.
 func (e Extractor) ToCPEs(i *extractor.Inventory) ([]string, error) { return []string{}, nil }
 
+// Ecosystem returns the OSV ecosystem ('NuGet') of the software extracted by this extractor.
 func (e Extractor) Ecosystem(i *extractor.Inventory) (string, error) {
-	return NuGetEcosystem, nil
+	return nugetEcosystem, nil
 }

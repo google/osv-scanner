@@ -1,3 +1,4 @@
+// Package gomod extracts conan.lock files.
 package gomod
 
 import (
@@ -16,7 +17,7 @@ import (
 	"golang.org/x/mod/modfile"
 )
 
-const GoEcosystem string = "Go"
+const goEcosystem string = "Go"
 
 // Extractor extracts go packages from a go.mod file,
 // including the stdlib version by using the top level go version
@@ -30,14 +31,17 @@ func (e Extractor) Name() string { return "go/gomod" }
 // Version of the extractor
 func (e Extractor) Version() int { return 0 }
 
+// Requirements of the extractor
 func (e Extractor) Requirements() *plugin.Capabilities {
 	return &plugin.Capabilities{}
 }
 
+// FileRequired returns true if the specified file matches Go lockfile patterns.
 func (e Extractor) FileRequired(path string, fileInfo fs.FileInfo) bool {
 	return filepath.Base(path) == "go.mod"
 }
 
+// Extract extracts packages from go.mod files passed through the scan input.
 func (e Extractor) Extract(ctx context.Context, input *filesystem.ScanInput) ([]*extractor.Inventory, error) {
 	var parsedLockfile *modfile.File
 
@@ -114,8 +118,9 @@ func (e Extractor) ToPURL(i *extractor.Inventory) (*packageurl.PackageURL, error
 // ToCPEs is not applicable as this extractor does not infer CPEs from the Inventory.
 func (e Extractor) ToCPEs(i *extractor.Inventory) ([]string, error) { return []string{}, nil }
 
+// Ecosystem returns the OSV ecosystem ('Go') of the software extracted by this extractor.
 func (e Extractor) Ecosystem(i *extractor.Inventory) (string, error) {
-	return GoEcosystem, nil
+	return goEcosystem, nil
 }
 
 var _ filesystem.Extractor = Extractor{}

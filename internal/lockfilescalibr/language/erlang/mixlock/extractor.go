@@ -1,3 +1,4 @@
+// Package mixlock extracts mix.lock files.
 package mixlock
 
 import (
@@ -16,8 +17,9 @@ import (
 	"github.com/package-url/packageurl-go"
 )
 
-const MixEcosystem string = "Hex"
+const mixEcosystem string = "Hex"
 
+// Extractor extracts Hex packages from mix.lock files.
 type Extractor struct{}
 
 // Name of the extractor
@@ -26,14 +28,17 @@ func (e Extractor) Name() string { return "erlang/mixlock" }
 // Version of the extractor
 func (e Extractor) Version() int { return 0 }
 
+// Requirements of the extractor
 func (e Extractor) Requirements() *plugin.Capabilities {
 	return &plugin.Capabilities{}
 }
 
+// FileRequired returns true if the specified file matches Mix lockfile patterns.
 func (e Extractor) FileRequired(path string, fileInfo fs.FileInfo) bool {
 	return filepath.Base(path) == "mix.lock"
 }
 
+// Extract extracts packages from mix.lock files passed through the scan input.
 func (e Extractor) Extract(ctx context.Context, input *filesystem.ScanInput) ([]*extractor.Inventory, error) {
 	re := cachedregexp.MustCompile(`^ +"(\w+)": \{.+,$`)
 
@@ -107,8 +112,9 @@ func (e Extractor) ToPURL(i *extractor.Inventory) (*packageurl.PackageURL, error
 // ToCPEs is not applicable as this extractor does not infer CPEs from the Inventory.
 func (e Extractor) ToCPEs(i *extractor.Inventory) ([]string, error) { return []string{}, nil }
 
+// Ecosystem returns the OSV ecosystem ('Hex') of the software extracted by this extractor.
 func (e Extractor) Ecosystem(i *extractor.Inventory) (string, error) {
-	return MixEcosystem, nil
+	return mixEcosystem, nil
 }
 
 var _ filesystem.Extractor = Extractor{}

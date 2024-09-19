@@ -1,3 +1,4 @@
+// Package gemfilelock extracts go.mod files.
 package gemfilelock
 
 import (
@@ -16,7 +17,7 @@ import (
 	"github.com/package-url/packageurl-go"
 )
 
-const BundlerEcosystem string = "RubyGems"
+const bundlerEcosystem string = "RubyGems"
 
 const lockfileSectionBUNDLED = "BUNDLED WITH"
 const lockfileSectionDEPENDENCIES = "DEPENDENCIES"
@@ -169,6 +170,7 @@ func (parser *gemfileLockfileParser) parse(line string) {
 	}
 }
 
+// Extractor extracts RubyGems packages from Gemfile.lock files.
 type Extractor struct{}
 
 // Name of the extractor
@@ -177,14 +179,17 @@ func (e Extractor) Name() string { return "ruby/gemfilelock" }
 // Version of the extractor
 func (e Extractor) Version() int { return 0 }
 
+// Requirements of the extractor
 func (e Extractor) Requirements() *plugin.Capabilities {
 	return &plugin.Capabilities{}
 }
 
+// FileRequired returns true if the specified file matches RubyGems lockfile patterns.
 func (e Extractor) FileRequired(path string, fileInfo fs.FileInfo) bool {
 	return filepath.Base(path) == "Gemfile.lock"
 }
 
+// Extract extracts packages from Gemfile.lock files passed through the scan input.
 func (e Extractor) Extract(ctx context.Context, input *filesystem.ScanInput) ([]*extractor.Inventory, error) {
 	var parser gemfileLockfileParser
 	parser.location = input.Path
@@ -216,8 +221,9 @@ func (e Extractor) ToCPEs(i *extractor.Inventory) ([]string, error) {
 	return []string{}, nil
 }
 
+// Ecosystem returns the OSV ecosystem ('RubyGems') of the software extracted by this extractor.
 func (e Extractor) Ecosystem(i *extractor.Inventory) (string, error) {
-	return BundlerEcosystem, nil
+	return bundlerEcosystem, nil
 }
 
 var _ filesystem.Extractor = Extractor{}
