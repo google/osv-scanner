@@ -39,7 +39,7 @@ import (
 	"gopkg.in/yaml.v3"
 )
 
-var remediationOpts = remediation.RemediationOptions{
+var remediationOpts = remediation.Options{
 	ResolveOpts: resolution.ResolveOpts{
 		MavenManagement: true,
 	},
@@ -48,7 +48,7 @@ var remediationOpts = remediation.RemediationOptions{
 	UpgradeConfig: upgrade.NewConfig(),
 }
 
-func doRelockRelax(ddCl *client.DepsDevClient, io manifest.ManifestIO, filename string) error {
+func doRelockRelax(ddCl *client.DepsDevClient, rw manifest.ReadWriter, filename string) error {
 	cl := client.ResolutionClient{
 		VulnerabilityClient: client.NewOSVClient(),
 		DependencyClient:    ddCl,
@@ -60,12 +60,12 @@ func doRelockRelax(ddCl *client.DepsDevClient, io manifest.ManifestIO, filename 
 	}
 	defer f.Close()
 
-	manif, err := io.Read(f)
+	manif, err := rw.Read(f)
 	if err != nil {
 		return err
 	}
 
-	client.PreFetch(cl, context.Background(), manif.Requirements, manif.FilePath)
+	client.PreFetch(context.Background(), cl, manif.Requirements, manif.FilePath)
 	res, err := resolution.Resolve(context.Background(), cl, manif, remediationOpts.ResolveOpts)
 	if err != nil {
 		return err
@@ -75,7 +75,7 @@ func doRelockRelax(ddCl *client.DepsDevClient, io manifest.ManifestIO, filename 
 	return err
 }
 
-func doOverride(ddCl *client.DepsDevClient, io manifest.ManifestIO, filename string) error {
+func doOverride(ddCl *client.DepsDevClient, rw manifest.ReadWriter, filename string) error {
 	cl := client.ResolutionClient{
 		VulnerabilityClient: client.NewOSVClient(),
 		DependencyClient:    ddCl,
@@ -87,12 +87,12 @@ func doOverride(ddCl *client.DepsDevClient, io manifest.ManifestIO, filename str
 	}
 	defer f.Close()
 
-	manif, err := io.Read(f)
+	manif, err := rw.Read(f)
 	if err != nil {
 		return err
 	}
 
-	client.PreFetch(cl, context.Background(), manif.Requirements, manif.FilePath)
+	client.PreFetch(context.Background(), cl, manif.Requirements, manif.FilePath)
 	res, err := resolution.Resolve(context.Background(), cl, manif, remediationOpts.ResolveOpts)
 	if err != nil {
 		return err
@@ -102,7 +102,7 @@ func doOverride(ddCl *client.DepsDevClient, io manifest.ManifestIO, filename str
 	return err
 }
 
-func doInPlace(ddCl *client.DepsDevClient, io lockfile.LockfileIO, filename string) error {
+func doInPlace(ddCl *client.DepsDevClient, rw lockfile.ReadWriter, filename string) error {
 	cl := client.ResolutionClient{
 		VulnerabilityClient: client.NewOSVClient(),
 		DependencyClient:    ddCl,
@@ -114,7 +114,7 @@ func doInPlace(ddCl *client.DepsDevClient, io lockfile.LockfileIO, filename stri
 	}
 	defer f.Close()
 
-	g, err := io.Read(f)
+	g, err := rw.Read(f)
 	if err != nil {
 		return err
 	}
@@ -290,7 +290,7 @@ func main() {
 
 	group := &errgroup.Group{}
 	for _, filename := range os.Args[1:] {
-		if io, err := manifest.GetManifestIO(filename); err == nil {
+		if io, err := manifest.GetReadWriter(filename); err == nil {
 			if remediation.SupportsRelax(io) {
 				group.Go(func() error {
 					err := doRelockRelax(cl, io, filename)
@@ -312,7 +312,7 @@ func main() {
 				})
 			}
 		}
-		if io, err := lockfile.GetLockfileIO(filename); err == nil {
+		if io, err := lockfile.GetReadWriter(filename); err == nil {
 			if remediation.SupportsInPlace(io) {
 				group.Go(func() error {
 					err := doInPlace(cl, io, filename)

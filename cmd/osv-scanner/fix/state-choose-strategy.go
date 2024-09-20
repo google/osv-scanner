@@ -47,8 +47,8 @@ func (st *stateChooseStrategy) Init(m model) tea.Cmd {
 	// pre-generate the info views for each option
 
 	// make a slice of vuln pointers for the all vulnerabilities list
-	// TODO: be consistent & efficient with how we pass ResolutionVulns around
-	var allVulns []*resolution.ResolutionVuln //nolint:prealloc // it's a bit annoying to count beforehand
+	// TODO: be consistent & efficient with how we pass resolution.Vulnerabilities around
+	var allVulns []*resolution.Vulnerability //nolint:prealloc // it's a bit annoying to count beforehand
 	for _, p := range m.inPlaceResult.Patches {
 		for i := range p.ResolvedVulns {
 			allVulns = append(allVulns, &p.ResolvedVulns[i])
@@ -65,10 +65,10 @@ func (st *stateChooseStrategy) Init(m model) tea.Cmd {
 	if m.options.Manifest != "" {
 		// find the vulns fixed by relocking to show on the relock hover
 		st.canRelock = true
-		var relockFixes []*resolution.ResolutionVuln
+		var relockFixes []*resolution.Vulnerability
 		for _, v := range allVulns {
-			if !slices.ContainsFunc(m.relockBaseRes.Vulns, func(r resolution.ResolutionVuln) bool {
-				return r.Vulnerability.ID == v.Vulnerability.ID
+			if !slices.ContainsFunc(m.relockBaseRes.Vulns, func(r resolution.Vulnerability) bool {
+				return r.OSV.ID == v.OSV.ID
 			}) {
 				relockFixes = append(relockFixes, v)
 			}
@@ -218,7 +218,7 @@ func (st *stateChooseStrategy) parseInput(m model) (tea.Model, tea.Cmd) {
 		}
 
 		// Reset state. TODO: Add a spinner and do this I/O as a command.
-		res, err := remediation.ComputeInPlacePatches(m.ctx, m.cl, m.lockfileGraph, m.options.RemediationOptions)
+		res, err := remediation.ComputeInPlacePatches(m.ctx, m.cl, m.lockfileGraph, m.options.Options)
 		if err != nil {
 			panic(err)
 		}
@@ -329,7 +329,7 @@ func (st *stateChooseStrategy) InfoView() string {
 	return v.View()
 }
 
-func (st *stateChooseStrategy) Resize(w, h int) {}
+func (st *stateChooseStrategy) Resize(_, _ int) {}
 
 func (st *stateChooseStrategy) ResizeInfo(w, h int) {
 	st.vulnList.Resize(w, h)

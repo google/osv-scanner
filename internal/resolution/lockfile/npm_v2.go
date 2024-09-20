@@ -22,7 +22,7 @@ import (
 // Installed packages are in the flat "packages" object, keyed by the install path
 // e.g. "node_modules/foo/node_modules/bar"
 // packages contain most information from their own manifests.
-func (rw NpmLockfileIO) nodesFromPackages(lockJSON lockfile.NpmLockfile) (*resolve.Graph, *npmNodeModule, error) {
+func (rw NpmReadWriter) nodesFromPackages(lockJSON lockfile.NpmLockfile) (*resolve.Graph, *npmNodeModule, error) {
 	var g resolve.Graph
 	// Create graph nodes and reconstruct the node_modules folder structure in memory
 	root, ok := lockJSON.Packages[""]
@@ -132,7 +132,7 @@ func (rw NpmLockfileIO) nodesFromPackages(lockJSON lockfile.NpmLockfile) (*resol
 	return &g, nodeModuleTree, nil
 }
 
-func (rw NpmLockfileIO) makeNodeModuleDeps(pkg lockfile.NpmLockPackage, includeDev bool) *npmNodeModule {
+func (rw NpmReadWriter) makeNodeModuleDeps(pkg lockfile.NpmLockPackage, includeDev bool) *npmNodeModule {
 	nm := npmNodeModule{
 		Children:     make(map[string]*npmNodeModule),
 		Deps:         make(map[string]string),
@@ -155,7 +155,7 @@ func (rw NpmLockfileIO) makeNodeModuleDeps(pkg lockfile.NpmLockPackage, includeD
 	return &nm
 }
 
-func (rw NpmLockfileIO) packageNamesByNodeModuleDepth(packages map[string]lockfile.NpmLockPackage) []string {
+func (rw NpmReadWriter) packageNamesByNodeModuleDepth(packages map[string]lockfile.NpmLockPackage) []string {
 	keys := maps.Keys(packages)
 	slices.SortFunc(keys, func(a, b string) int {
 		aSplit := strings.Split(a, "node_modules/")
@@ -170,7 +170,7 @@ func (rw NpmLockfileIO) packageNamesByNodeModuleDepth(packages map[string]lockfi
 	return keys
 }
 
-func (rw NpmLockfileIO) modifyPackageLockPackages(lockJSON string, patches map[string]map[string]string, api *datasource.NpmRegistryAPIClient) (string, error) {
+func (rw NpmReadWriter) modifyPackageLockPackages(lockJSON string, patches map[string]map[string]string, api *datasource.NpmRegistryAPIClient) (string, error) {
 	packages := gjson.Get(lockJSON, "packages")
 	if !packages.Exists() {
 		return lockJSON, nil
@@ -199,7 +199,7 @@ func (rw NpmLockfileIO) modifyPackageLockPackages(lockJSON string, patches map[s
 	return lockJSON, nil
 }
 
-func (rw NpmLockfileIO) updatePackage(jsonText, jsonPath, packageName, newVersion string, api *datasource.NpmRegistryAPIClient) (string, error) {
+func (rw NpmReadWriter) updatePackage(jsonText, jsonPath, packageName, newVersion string, api *datasource.NpmRegistryAPIClient) (string, error) {
 	npmData, err := api.FullJSON(context.Background(), packageName, newVersion)
 	if err != nil {
 		return "", err

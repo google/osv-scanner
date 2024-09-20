@@ -18,10 +18,10 @@ type MavenSuggester struct{}
 // Suggest returns the ManifestPatch to update Maven dependencies to a newer
 // version based on the options.
 // ManifestPatch also includes the property patches to update.
-func (ms *MavenSuggester) Suggest(ctx context.Context, client resolve.Client, mf manifest.Manifest, opts Options) (manifest.ManifestPatch, error) {
+func (ms *MavenSuggester) Suggest(ctx context.Context, client resolve.Client, mf manifest.Manifest, opts Options) (manifest.Patch, error) {
 	specific, ok := mf.EcosystemSpecific.(manifest.MavenManifestSpecific)
 	if !ok {
-		return manifest.ManifestPatch{}, errors.New("invalid MavenManifestSpecific data")
+		return manifest.Patch{}, errors.New("invalid MavenManifestSpecific data")
 	}
 
 	var changedDeps []manifest.DependencyPatch //nolint:prealloc
@@ -37,7 +37,7 @@ func (ms *MavenSuggester) Suggest(ctx context.Context, client resolve.Client, mf
 
 		latest, err := suggestMavenVersion(ctx, client, req, slices.Contains(opts.AvoidMajor, req.Name))
 		if err != nil {
-			return manifest.ManifestPatch{}, fmt.Errorf("suggesting latest version of %s: %w", req.Version, err)
+			return manifest.Patch{}, fmt.Errorf("suggesting latest version of %s: %w", req.Version, err)
 		}
 		if latest.Version == req.Version {
 			// No need to update
@@ -52,7 +52,7 @@ func (ms *MavenSuggester) Suggest(ctx context.Context, client resolve.Client, mf
 		})
 	}
 
-	return manifest.ManifestPatch{
+	return manifest.Patch{
 		Deps:     changedDeps,
 		Manifest: &mf,
 	}, nil

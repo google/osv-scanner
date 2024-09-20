@@ -46,9 +46,9 @@ func (r NpmRelaxer) Relax(ctx context.Context, cl resolve.Client, req resolve.Re
 	slices.SortFunc(vers, semver.NPM.Compare)
 
 	// Find the versions on either side of the upper boundary of the requirement
-	var lastIdx int      // highest version matching constraint
-	var nextIdx int = -1 // next version outside of range, preferring non-prerelease
-	nextIsPre := true    // if the next version is a prerelease version
+	var lastIdx int   // highest version matching constraint
+	nextIdx := -1     // next version outside of range, preferring non-prerelease
+	nextIsPre := true // if the next version is a prerelease version
 	for lastIdx = len(vers) - 1; lastIdx >= 0; lastIdx-- {
 		v, err := semver.NPM.Parse(vers[lastIdx])
 		if err != nil {

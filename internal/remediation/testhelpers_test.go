@@ -16,12 +16,12 @@ import (
 	"golang.org/x/exp/maps"
 )
 
-func parseRemediationFixture(t *testing.T, universePath, manifestPath string, opts resolution.ResolveOpts) (*resolution.ResolutionResult, client.ResolutionClient) {
+func parseRemediationFixture(t *testing.T, universePath, manifestPath string, opts resolution.ResolveOpts) (*resolution.Result, client.ResolutionClient) {
 	t.Helper()
 
-	io, err := manifest.GetManifestIO(manifestPath)
+	rw, err := manifest.GetReadWriter(manifestPath)
 	if err != nil {
-		t.Fatalf("Failed to get ManifestIO: %v", err)
+		t.Fatalf("Failed to get ReadWriter: %v", err)
 	}
 
 	f, err := lf.OpenLocalDepFile(manifestPath)
@@ -30,7 +30,7 @@ func parseRemediationFixture(t *testing.T, universePath, manifestPath string, op
 	}
 	defer f.Close()
 
-	m, err := io.Read(f)
+	m, err := rw.Read(f)
 	if err != nil {
 		t.Fatalf("Failed to parse manifest: %v", err)
 	}
@@ -45,7 +45,7 @@ func parseRemediationFixture(t *testing.T, universePath, manifestPath string, op
 	return res, cl
 }
 
-func checkRemediationResults(t *testing.T, res []resolution.ResolutionDiff) {
+func checkRemediationResults(t *testing.T, res []resolution.Difference) {
 	// ResolutionDiff is too large when dumped as JSON.
 	// Extract & compare a subset of fields that are relevant for the tests.
 	t.Helper()
@@ -55,7 +55,7 @@ func checkRemediationResults(t *testing.T, res []resolution.ResolutionDiff) {
 		AffectedNodes []resolve.NodeID
 	}
 
-	toMinimalVuln := func(v resolution.ResolutionVuln) minimalVuln {
+	toMinimalVuln := func(v resolution.Vulnerability) minimalVuln {
 		t.Helper()
 		nodes := make(map[resolve.NodeID]struct{})
 		for _, c := range v.ProblemChains {
@@ -68,7 +68,7 @@ func checkRemediationResults(t *testing.T, res []resolution.ResolutionDiff) {
 		slices.Sort(sortedNodes)
 
 		return minimalVuln{
-			ID:            v.Vulnerability.ID,
+			ID:            v.OSV.ID,
 			AffectedNodes: sortedNodes,
 		}
 	}
