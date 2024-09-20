@@ -21,6 +21,7 @@ func ConvertVulnerabilityToIDAliases(c []models.Vulnerability) []IDAliases {
 
 		// For Debian Security Advisory data,
 		// all related CVEs should be bundled together, as they are part of this DSA.
+		// TODO(gongh@): Revisit and provide a universal way to handle all Linux distro advisories.
 		if strings.Split(v.ID, "-")[0] == "DSA" {
 			idAliases.Aliases = append(idAliases.Aliases, v.Related...)
 		}

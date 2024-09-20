@@ -1,4 +1,4 @@
-package output
+package identifiers
 
 import (
 	"slices"
@@ -36,7 +36,7 @@ func Test_idSortFunc(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
 
-			if got := idSortFunc(tt.args.a, tt.args.b); got != tt.want {
+			if got := IDSortFunc(tt.args.a, tt.args.b); got != tt.want {
 				t.Errorf("idSortFunc() = %v, want %v", got, tt.want)
 			}
 		})
@@ -65,12 +65,19 @@ func Test_idSortFuncUsage(t *testing.T) {
 			},
 			want: "RUSTSEC-2012-1234",
 		},
+		{
+			args: []string{
+				"CVE-2012-1234",
+				"DSA-2012-1234",
+			},
+			want: "DSA-2012-1234",
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
 
-			if got := slices.MinFunc(tt.args, idSortFunc); got != tt.want {
+			if got := slices.MinFunc(tt.args, IDSortFunc); got != tt.want {
 				t.Errorf("slices.MinFunc = %v, want %v", got, tt.want)
 			}
 		})
