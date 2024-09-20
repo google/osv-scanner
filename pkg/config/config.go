@@ -15,6 +15,10 @@ import (
 
 const osvScannerConfigName = "osv-scanner.toml"
 
+// Ignore stuttering as that would be a breaking change
+// TODO: V2 rename?
+//
+//nolint:revive
 type ConfigManager struct {
 	// Override to replace all other configs
 	OverrideConfig *Config

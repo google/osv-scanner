@@ -63,18 +63,18 @@ type ExperimentalScannerActions struct {
 
 // NoPackagesFoundErr for when no packages are found during a scan.
 //
-//nolint:errname,stylecheck // Would require version major bump to change
+//nolint:errname,stylecheck,revive // Would require version major bump to change
 var NoPackagesFoundErr = errors.New("no packages found in scan")
 
 // VulnerabilitiesFoundErr includes both vulnerabilities being found or license violations being found,
 // however, will not be raised if only uncalled vulnerabilities are found.
 //
-//nolint:errname,stylecheck // Would require version major bump to change
+//nolint:errname,stylecheck,revive // Would require version major bump to change
 var VulnerabilitiesFoundErr = errors.New("vulnerabilities found")
 
 // Deprecated: This error is no longer returned, check the results to determine if this is the case
 //
-//nolint:errname,stylecheck // Would require version bump to change
+//nolint:errname,stylecheck,revive // Would require version bump to change
 var OnlyUncalledVulnerabilitiesFoundErr = errors.New("only uncalled vulnerabilities found")
 
 // ErrAPIFailed describes errors related to querying API endpoints.
@@ -223,7 +223,7 @@ func queryDetermineVersions(repoDir string) (*osv.DetermineVersionResponse, erro
 	}
 
 	var hashes []osv.DetermineVersionHash
-	if err := filepath.Walk(repoDir, func(p string, info fs.FileInfo, err error) error {
+	if err := filepath.Walk(repoDir, func(p string, info fs.FileInfo, _ error) error {
 		if info.IsDir() {
 			if _, err := os.Stat(filepath.Join(p, ".git")); err == nil {
 				// Found a git repo, stop here as otherwise we may get duplicated
