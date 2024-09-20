@@ -1,0 +1,14 @@
+{{$calledVulns := getAllVulns .PackageResults true}}
+{{$uncalledVulns := getAllVulns .PackageResults false}}
+{{template "vuln_table_template.html" $calledVulns}}
+{{ if ne (index .PackageCount 1) 0}}
+<details class="uncalled">
+  <summary>Show/Hide Uncalled vulnerabilities</summary>
+  <div id="uncalled-details-{{ .Source }}">
+    <h4>Uncalled vulnerabilities</h4>
+    <p>Found {{ index .PackageCount 1 }} package(s) with issues, {{ index .VulnCount 1 }} known vulnerabilities found.
+    </p>
+    {{template "vuln_table_template.html" $uncalledVulns }}
+  </div>
+</details>
+{{ end }}

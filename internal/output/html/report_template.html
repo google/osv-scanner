@@ -24,6 +24,7 @@
             padding: 20px;
             border-radius: 5px;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            min-height: 90vh;
         }
 
         h1 {
@@ -133,6 +134,8 @@
 
         .vuln-details {
             border-bottom: 1px solid #eee;
+            max-height: 400px;
+            overflow: overlay;
         }
 
         #vuln-filter {
@@ -151,6 +154,32 @@
             color: #c5221f
         }
 
+        #vuln-tab {
+            display: none;
+        }
+
+        #tab-switch {
+            text-align: right;
+        }
+
+        .tab-switch-button {
+            padding: 10px 20px;
+            width: auto;
+            border: 2px solid #fff;
+            outline: 0;
+            cursor: pointer;
+            background-color: #eee;
+            font-size: 12pt;
+            font: bold;
+        }
+
+        .tab-switch-button:hover,
+        .tab-switch-button-selected {
+            background-color: #fff;
+            border-top: 2px solid #eee;
+            border-right: 2px solid #eee;
+            border-left: 2px solid #eee;
+        }
     </style>
 </head>
 
@@ -167,6 +196,19 @@
                 rowElement.style.backgroundColor = "#fff"
             }
         }
+
+        function openTab(view) {
+            var selectedTab = document.getElementById(view + "-tab");
+            var selectedButton = document.getElementById(view + "-button");
+            var tabs = document.getElementsByClassName("view-tab");
+            var buttons = document.getElementsByClassName("tab-switch-button");
+            for (var i = 0; i < buttons.length; i++) {
+                tabs[i].style.display = "none";
+                buttons[i].classList.remove('tab-switch-button-selected');
+            }
+            selectedTab.style.display = "block";
+            selectedButton.classList.add('tab-switch-button-selected');
+        }
     </script>
     <div class="container">
         <header>
@@ -175,31 +217,34 @@
         </header>
         <h2>Scanning Results</h2>
         <p>Total {{ .TotalCount }} vulnerabilities found.</p>
-        {{ range .EcosystemResults }}
-        <div class="ecosystem">
-            <h2>{{ .Ecosystem }}</h2>
-            <div class="artifact-section">
-                {{ range .Artifacts }}
-                <h3>Source: {{ .Ecosystem }}: {{ .Source }}</h3>
-                {{ $source := .Source }}
-                <p>Found {{ index .PackageCount 0 }} package(s) with issues, {{ index .VulnCount 0 }} known vulnerabilities found.</p>
-                {{template "table_template.html" .CalledVulns }}
-       
-                {{ if ne (index .PackageCount 1) 0}}
-                <details class="uncalled">
-                    <summary>Show/Hide Uncalled vulnerabilities</summary>
-                    <div id="uncalled-details-{{ $source }}">
-                        <h4>Uncalled vulnerabilities</h4>
-                        <p>Found {{ index .PackageCount 1 }} package(s) with issues, {{ index .VulnCount 1 }} known vulnerabilities found.</p>
-                        {{template "table_template.html" .UncalledVulns }}
-                    </div>
-                </details>
-                
-                {{ end }}
-                {{ end }}
-            </div>
+        <div id="tab-switch">
+            <button id="package-button" class="tab-switch-button tab-switch-button-selected"
+                onclick="openTab('package')">Package View</button>
+            <button id="vuln-button" class="tab-switch-button" onclick="openTab('vuln')">Vulnerability View</button>
         </div>
-        {{ end }}
+
+        <div id="package-tab" class="view-tab">
+            <h3>Vulnerable Package Summary</h3>
+            {{template "package_view_template.html" .EcosystemResults}}
+        </div>
+
+        <div id="vuln-tab" class="view-tab">
+            {{ range .EcosystemResults }}
+            <div class="ecosystem">
+                <h2>{{ .Ecosystem }}</h2>
+                <div class="artifact-section">
+                    {{ range .Artifacts }}
+                    <h3>Source: {{ .Ecosystem }}: {{ .Source }}</h3>
+                    <p>Found {{ index .PackageCount 0 }} package(s) with issues, {{ index .VulnCount 0 }} known
+                        vulnerabilities found.</p>
+
+                    {{template "vuln_view_template.html" .}}
+                    {{ end }}
+                </div>
+            </div>
+            {{ end }}
+        </div>
+
     </div>
 </body>
 

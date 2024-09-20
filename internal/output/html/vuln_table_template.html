@@ -13,7 +13,8 @@
     <td><a href="https://osv.dev/{{ $element.Summary.Id }}">{{ $element.Summary.Id }}</a></td>
     <td>{{ $element.Summary.PackageName }}</td>
     <td>{{ $element.Summary.InstalledVersion }}</td>
-    <td {{ if eq $element.Summary.FixedVersion "No fix available" }} class="warning" {{ end }}>{{ $element.Summary.FixedVersion }}</td>
+    <td {{ if eq $element.Summary.FixedVersion "No fix available" }} class="warning" {{ end }}>{{
+      $element.Summary.FixedVersion }}</td>
     <td>{{ $element.Summary.Severity }}</td>
   </tr>
   <tr>
@@ -21,7 +22,7 @@
       <div id="vuln-details-{{ $element.Summary.Id }}-{{ $rowIndex }}-{{ $randomIndex }}" class="vuln-details">
         {{ range $detailKey, $detailValue := $element.Detail }}
         {{if $detailValue }}
-          <p>{{ format $detailKey }}: {{ $detailValue }}</p>
+        <p>{{ format $detailKey }}: {{ $detailValue }}</p>
         {{end}}
         {{ end }}
       </div>

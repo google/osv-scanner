@@ -1,0 +1,35 @@
+<table class="vuln-table">
+  <tr>
+    <th>Package</th>
+    <th>Ecosystem</th>
+    <th>Installed version</th>
+    <th>Fixed version</th>
+    <th>Vulnerability Count</th>
+  </tr>
+  {{ range $rowIndex, $element := . }}
+  {{ if eq (len $element.CalledVulns) 0 }}
+  {{ continue }}
+  {{ end }}
+
+  {{ $randomIndex := random}}
+  <tr class='vuln-tr' id="vuln-tr-{{ $element.Name}}-{{ $rowIndex }}-{{ $randomIndex }}"
+    onclick="showVulnDetails('{{ $element.Name }}-{{ $rowIndex }}-{{ $randomIndex }}')">
+    <td>{{ $element.Name }}</td>
+    <td>{{ $element.Ecosystem }}</td>
+    <td>{{ $element.InstalledVersion }}</td>
+    <td {{ if eq $element.FixedVersion "No fix available" }} class="warning" {{ end }}>{{ $element.FixedVersion }}</td>
+    <td>{{ len $element.CalledVulns }}</td>
+  </tr>
+  <tr>
+    <td colspan="100%">
+      <div id="vuln-details-{{ $element.Name }}-{{ $rowIndex }}-{{ $randomIndex }}" class="vuln-details">
+        <p>Vulnerability:</p>
+        {{ range $index, $vuln := $element.CalledVulns }}
+        <p><a href="https://osv.dev/{{ $vuln.Summary.Id }}">{{ $vuln.Summary.Id }}</a>
+          {{$vuln.Summary.FixedVersion}}(Fixed Version) {{$vuln.Summary.Severity}} </p>
+        {{ end }}
+      </div>
+    </td>
+  </tr>
+  {{ end }}
+</table>
