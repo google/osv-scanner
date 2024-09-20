@@ -8,7 +8,7 @@ type VoidReporter struct {
 	hasErrored bool
 }
 
-func (r *VoidReporter) Errorf(msg string, a ...any) {
+func (r *VoidReporter) Errorf(_ string, _ ...any) {
 	r.hasErrored = true
 }
 
@@ -16,15 +16,15 @@ func (r *VoidReporter) HasErrored() bool {
 	return r.hasErrored
 }
 
-func (r *VoidReporter) Warnf(msg string, a ...any) {
+func (r *VoidReporter) Warnf(_ string, _ ...any) {
 }
 
-func (r *VoidReporter) Infof(msg string, a ...any) {
+func (r *VoidReporter) Infof(_ string, _ ...any) {
 }
 
-func (r *VoidReporter) Verbosef(msg string, a ...any) {
+func (r *VoidReporter) Verbosef(_ string, _ ...any) {
 }
 
-func (r *VoidReporter) PrintResult(vulnResult *models.VulnerabilityResults) error {
+func (r *VoidReporter) PrintResult(_ *models.VulnerabilityResults) error {
 	return nil
 }
