@@ -68,8 +68,7 @@ func MergeParents(ctx context.Context, mavenClient *datasource.MavenRegistryAPIC
 			allowLocal = false
 
 			var err error
-			proj, err = mavenClient.GetProject(ctx, string(current.GroupID), string(current.ArtifactID), string(current.Version))
-			if err != nil {
+			if proj, err = mavenClient.GetProject(ctx, string(current.GroupID), string(current.ArtifactID), string(current.Version)); err != nil {
 				return fmt.Errorf("failed to get Maven project %s:%s:%s: %w", current.GroupID, current.ArtifactID, current.Version, err)
 			}
 			if n > 0 && proj.Packaging != "pom" {
@@ -84,6 +83,9 @@ func MergeParents(ctx context.Context, mavenClient *datasource.MavenRegistryAPIC
 		// Empty JDK and ActivationOS indicates merging the default profiles.
 		if err := result.MergeProfiles("", maven.ActivationOS{}); err != nil {
 			return err
+		}
+		for _, repo := range proj.Repositories {
+			mavenClient.Add(string(repo.URL))
 		}
 		result.MergeParent(proj)
 		current = proj.Parent

@@ -19,7 +19,7 @@ import (
 func parseRemediationFixture(t *testing.T, universePath, manifestPath string, opts resolution.ResolveOpts) (*resolution.ResolutionResult, client.ResolutionClient) {
 	t.Helper()
 
-	io, err := manifest.GetManifestIO(manifestPath)
+	io, err := manifest.GetManifestIO(manifestPath, "")
 	if err != nil {
 		t.Fatalf("Failed to get ManifestIO: %v", err)
 	}

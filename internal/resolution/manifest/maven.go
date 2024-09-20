@@ -36,15 +36,18 @@ func mavenRequirementKey(requirement resolve.RequirementVersion) RequirementKey 
 }
 
 type MavenManifestIO struct {
-	*datasource.MavenRegistryAPIClient
+	client *datasource.MavenRegistryAPIClient
 }
 
 func (MavenManifestIO) System() resolve.System { return resolve.Maven }
 
-func NewMavenManifestIO() MavenManifestIO {
-	return MavenManifestIO{
-		MavenRegistryAPIClient: datasource.NewMavenRegistryAPIClient(datasource.MavenCentral),
+func NewMavenManifestIO(registry string) (MavenManifestIO, error) {
+	client, err := datasource.NewMavenRegistryAPIClient(registry)
+	if err != nil {
+		return MavenManifestIO{}, err
 	}
+
+	return MavenManifestIO{client: client}, nil
 }
 
 type MavenManifestSpecific struct {
@@ -52,6 +55,7 @@ type MavenManifestSpecific struct {
 	Properties             []PropertyWithOrigin         // Properties from the base project
 	OriginalRequirements   []DependencyWithOrigin       // Dependencies from the base project
 	RequirementsForUpdates []resolve.RequirementVersion // Requirements that we only need for updates
+	Repositories           []maven.Repository
 }
 
 type PropertyWithOrigin struct {
@@ -94,9 +98,12 @@ func (m MavenManifestIO) Read(df lockfile.DepFile) (Manifest, error) {
 	if err := project.MergeProfiles("", maven.ActivationOS{}); err != nil {
 		return Manifest{}, fmt.Errorf("failed to merge profiles: %w", err)
 	}
+	for _, repo := range project.Repositories {
+		m.client.Add(string(repo.URL))
+	}
 
 	// Merging parents data by parsing local parent pom.xml or fetching from upstream.
-	if err := mavenutil.MergeParents(ctx, m.MavenRegistryAPIClient, &project, project.Parent, 1, df.Path(), true); err != nil {
+	if err := mavenutil.MergeParents(ctx, m.client, &project, project.Parent, 1, df.Path(), true); err != nil {
 		return Manifest{}, fmt.Errorf("failed to merge parents: %w", err)
 	}
 
@@ -119,7 +126,7 @@ func (m MavenManifestIO) Read(df lockfile.DepFile) (Manifest, error) {
 		// To get dependency management from another project, we need the
 		// project with parents merged, so we call mergeParents by passing
 		// an empty project.
-		if err := mavenutil.MergeParents(ctx, m.MavenRegistryAPIClient, &result, root, 0, "", false); err != nil {
+		if err := mavenutil.MergeParents(ctx, m.client, &result, root, 0, "", false); err != nil {
 			return maven.DependencyManagement{}, err
 		}
 
@@ -158,6 +165,7 @@ func (m MavenManifestIO) Read(df lockfile.DepFile) (Manifest, error) {
 			Properties:             properties,
 			OriginalRequirements:   origRequirements,
 			RequirementsForUpdates: reqsForUpdates,
+			Repositories:           project.Repositories,
 		},
 	}, nil
 }

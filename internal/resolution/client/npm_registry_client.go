@@ -229,6 +229,8 @@ func isNpmBundle(pk resolve.PackageKey) bool {
 	return strings.Contains(pk.Name, ">")
 }
 
+func (c *NpmRegistryClient) UpdateRegistries(registries []string) {}
+
 func (c *NpmRegistryClient) WriteCache(path string) error {
 	f, err := os.Create(path + npmRegistryCacheExt)
 	if err != nil {

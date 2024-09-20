@@ -30,6 +30,8 @@ type DependencyClient interface {
 	WriteCache(filepath string) error
 	// LoadCache loads a manifest-specific resolution cache.
 	LoadCache(filepath string) error
+	// UpdateRegistries updates the registries to fetch data.
+	UpdateRegistries(registries []string)
 }
 
 // PreFetch loads cache, then makes and caches likely queries needed for resolving a package with a list of requirements

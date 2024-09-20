@@ -295,6 +295,17 @@ func autoOverride(ctx context.Context, r reporter.Reporter, opts osvFixOptions, 
 		return err
 	}
 
+	if opts.ManifestRW.System() == resolve.Maven {
+		// Update Maven registries based on the pom.xml
+		specific, ok := manif.EcosystemSpecific.(manifest.MavenManifestSpecific)
+		if ok {
+			registries := make([]string, len(specific.Repositories))
+			for i, repo := range specific.Repositories {
+				registries[i] = string(repo.URL)
+			}
+			opts.Client.DependencyClient.UpdateRegistries(registries)
+		}
+	}
 	client.PreFetch(opts.Client, ctx, manif.Requirements, manif.FilePath)
 	res, err := resolution.Resolve(ctx, opts.Client, manif, opts.ResolveOpts)
 	if err != nil {

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>com.mycompany.app</groupId>
+  <artifactId>parent</artifactId>
+  <version>1.0.0</version>
+
+  <name>my-app</name>
+
+  <packaging>pom</packaging>
+
+  <dependencies>
+    <dependency>
+      <groupId>com.google.protobuf</groupId>
+      <artifactId>protobuf-java-util</artifactId>
+      <version>4.28.0</version>
+    </dependency>
+  </dependencies>
+
+  <repositories>
+    <repository>
+      <id>google-andriod</id>
+      <url>https://dl.google.com/dl/android/maven2</url>
+    </repository>
+  </repositories>
+
+</project>

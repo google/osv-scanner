@@ -92,11 +92,11 @@ func Overwrite(rw ManifestIO, filename string, p ManifestPatch) error {
 	return nil
 }
 
-func GetManifestIO(pathToManifest string) (ManifestIO, error) {
+func GetManifestIO(pathToManifest, mavenRegistry string) (ManifestIO, error) {
 	base := filepath.Base(pathToManifest)
 	switch {
 	case base == "pom.xml":
-		return NewMavenManifestIO(), nil
+		return NewMavenManifestIO(mavenRegistry)
 	case base == "package.json":
 		return NpmManifestIO{}, nil
 	default:

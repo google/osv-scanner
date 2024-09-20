@@ -13,7 +13,6 @@ import (
 	"github.com/google/osv-scanner/internal/remediation/upgrade"
 	"github.com/google/osv-scanner/internal/resolution"
 	"github.com/google/osv-scanner/internal/resolution/client"
-	"github.com/google/osv-scanner/internal/resolution/datasource"
 	"github.com/google/osv-scanner/internal/resolution/lockfile"
 	"github.com/google/osv-scanner/internal/resolution/manifest"
 	"github.com/google/osv-scanner/pkg/depsdev"
@@ -67,6 +66,10 @@ func Command(stdout, stderr io.Writer, r *reporter.Reporter) *cli.Command {
 
 					return nil
 				},
+			},
+			&cli.StringFlag{
+				Name:  "maven-registry",
+				Usage: "URL of the default Maven registry to fetch metadata",
 			},
 			&cli.StringFlag{
 				Name:  "relock-cmd",
@@ -269,7 +272,7 @@ func action(ctx *cli.Context, stdout, stderr io.Writer) (reporter.Reporter, erro
 	}
 
 	if opts.Manifest != "" {
-		rw, err := manifest.GetManifestIO(opts.Manifest)
+		rw, err := manifest.GetManifestIO(opts.Manifest, ctx.String("maven-registry"))
 		if err != nil {
 			return nil, err
 		}
@@ -302,7 +305,7 @@ func action(ctx *cli.Context, stdout, stderr io.Writer) (reporter.Reporter, erro
 			}
 			opts.Client.DependencyClient = cl
 		case resolve.Maven:
-			cl, err := client.NewMavenRegistryClient(datasource.MavenCentral)
+			cl, err := client.NewMavenRegistryClient(ctx.String("maven-registry"))
 			if err != nil {
 				return nil, err
 			}

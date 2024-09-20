@@ -2277,6 +2277,42 @@ No issues found
 
 ---
 
+[TestRun_MavenTransitive/resolve_transitive_dependencies_with_native_datda_source - 1]
+Scanned <rootdir>/fixtures/maven-transitive/registry.xml file as a pom.xml and found 13 packages
++-------------------------------------+------+-----------+-------------------------------------+---------+----------------------------------------+
+| OSV URL                             | CVSS | ECOSYSTEM | PACKAGE                             | VERSION | SOURCE                                 |
++-------------------------------------+------+-----------+-------------------------------------+---------+----------------------------------------+
+| https://osv.dev/GHSA-735f-pc8j-v9w8 | 8.7  | Maven     | com.google.protobuf:protobuf-java   | 4.28.0  | fixtures/maven-transitive/registry.xml |
+| https://osv.dev/GHSA-7rjr-3q55-vv33 | 9.0  | Maven     | org.apache.logging.log4j:log4j-core | 2.14.1  | fixtures/maven-transitive/registry.xml |
+| https://osv.dev/GHSA-8489-44mv-ggj8 | 6.6  | Maven     | org.apache.logging.log4j:log4j-core | 2.14.1  | fixtures/maven-transitive/registry.xml |
+| https://osv.dev/GHSA-jfh8-c2jp-5v3q | 10.0 | Maven     | org.apache.logging.log4j:log4j-core | 2.14.1  | fixtures/maven-transitive/registry.xml |
+| https://osv.dev/GHSA-p6xc-xr62-6r2g | 8.6  | Maven     | org.apache.logging.log4j:log4j-core | 2.14.1  | fixtures/maven-transitive/registry.xml |
++-------------------------------------+------+-----------+-------------------------------------+---------+----------------------------------------+
+
+---
+
+[TestRun_MavenTransitive/resolve_transitive_dependencies_with_native_datda_source - 2]
+
+---
+
+[TestRun_MavenTransitive/scans_dependencies_from_multiple_registries - 1]
+Scanned <rootdir>/fixtures/maven-transitive/registry.xml file as a pom.xml and found 13 packages
++-------------------------------------+------+-----------+-------------------------------------+---------+----------------------------------------+
+| OSV URL                             | CVSS | ECOSYSTEM | PACKAGE                             | VERSION | SOURCE                                 |
++-------------------------------------+------+-----------+-------------------------------------+---------+----------------------------------------+
+| https://osv.dev/GHSA-735f-pc8j-v9w8 | 8.7  | Maven     | com.google.protobuf:protobuf-java   | 4.28.0  | fixtures/maven-transitive/registry.xml |
+| https://osv.dev/GHSA-7rjr-3q55-vv33 | 9.0  | Maven     | org.apache.logging.log4j:log4j-core | 2.14.1  | fixtures/maven-transitive/registry.xml |
+| https://osv.dev/GHSA-8489-44mv-ggj8 | 6.6  | Maven     | org.apache.logging.log4j:log4j-core | 2.14.1  | fixtures/maven-transitive/registry.xml |
+| https://osv.dev/GHSA-jfh8-c2jp-5v3q | 10.0 | Maven     | org.apache.logging.log4j:log4j-core | 2.14.1  | fixtures/maven-transitive/registry.xml |
+| https://osv.dev/GHSA-p6xc-xr62-6r2g | 8.6  | Maven     | org.apache.logging.log4j:log4j-core | 2.14.1  | fixtures/maven-transitive/registry.xml |
++-------------------------------------+------+-----------+-------------------------------------+---------+----------------------------------------+
+
+---
+
+[TestRun_MavenTransitive/scans_dependencies_from_multiple_registries - 2]
+
+---
+
 [TestRun_MavenTransitive/scans_transitive_dependencies_by_specifying_pom.xml - 1]
 Scanned <rootdir>/fixtures/maven-transitive/abc.xml file as a pom.xml and found 3 packages
 +-------------------------------------+------+-----------+-------------------------------------+---------+-----------------------------------+

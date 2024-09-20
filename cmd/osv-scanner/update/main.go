@@ -78,7 +78,7 @@ func action(ctx *cli.Context, stdout, stderr io.Writer) (reporter.Reporter, erro
 	if err != nil {
 		return nil, err
 	}
-	options.ManifestRW, err = manifest.GetManifestIO(options.Manifest)
+	options.ManifestRW, err = manifest.GetManifestIO(options.Manifest, "")
 	if err != nil {
 		return nil, err
 	}
