@@ -163,9 +163,9 @@ func Test_tryLoadConfig(t *testing.T) {
 				configPath: "./fixtures/testdatainner/osv-scanner-load-path.toml",
 			},
 			want: Config{
-				LoadPath: "./fixtures/testdatainner/osv-scanner-load-path.toml",
+				LoadPath: "",
 			},
-			wantErr: false,
+			wantErr: true,
 		},
 	}
 	for _, tt := range tests {
