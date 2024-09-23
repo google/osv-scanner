@@ -31,8 +31,10 @@ type ConfigManager struct {
 type Config struct {
 	IgnoredVulns      []IgnoreEntry          `toml:"IgnoredVulns"`
 	PackageOverrides  []PackageOverrideEntry `toml:"PackageOverrides"`
-	LoadPath          string                 `toml:"LoadPath"`
 	GoVersionOverride string                 `toml:"GoVersionOverride"`
+	// The path to config file that this config was loaded from,
+	// set by the scanner after having successfully parsed the file
+	LoadPath string `toml:"-"`
 }
 
 type IgnoreEntry struct {
