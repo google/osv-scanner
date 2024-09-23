@@ -335,6 +335,12 @@ func TestRun(t *testing.T) {
 			args: []string{"", "--verbosity", "verbose", "./fixtures/config-invalid"},
 			exit: 127,
 		},
+		// config file with unknown keys
+		{
+			name: "config files cannot have unknown keys",
+			args: []string{"", "--config=./fixtures/osv-scanner-unknown-config.toml", "./fixtures/locks-many"},
+			exit: 127,
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
