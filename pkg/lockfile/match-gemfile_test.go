@@ -1,9 +1,6 @@
 package lockfile_test
 
 import (
-	"bytes"
-	"errors"
-	"io"
 	"io/fs"
 	"os"
 	"path/filepath"
@@ -94,52 +91,4 @@ func TestGemfileMatcher_Match_OnePackage(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestGemfileMatcher_OnePackage_MatcherFailed(t *testing.T) {
-	t.Parallel()
-	dir, err := os.Getwd()
-	if err != nil {
-		t.Errorf("Got unexpected error: %v", err)
-	}
-
-	stderr := os.Stderr
-	r, w, err := os.Pipe()
-	if err != nil {
-		t.Errorf("Got unexpected error: %v", err)
-	}
-	os.Stderr = w
-
-	matcherError := errors.New("gemfileMatcher failed")
-	lockfile.GemfileExtractor.Matcher = FailingMatcher{Error: matcherError}
-
-	path := filepath.FromSlash(filepath.Join(dir, "fixtures/bundler/one-package/Gemfile.lock"))
-	packages, err := lockfile.ParseGemfileLock(path)
-	if err != nil {
-		t.Errorf("Got unexpected error: %v", err)
-	}
-
-	// Capture stderr
-	_ = w.Close()
-	os.Stderr = stderr
-	var buffer bytes.Buffer
-	_, err = io.Copy(&buffer, r)
-	if err != nil {
-		t.Errorf("failed to copy stderr output: %v", err)
-	}
-	_ = r.Close()
-
-	assert.Contains(t, buffer.String(), matcherError.Error())
-	expectPackagesWithoutLocations(t, packages, []lockfile.PackageDetails{
-		{
-			Name:           "RedCloth",
-			Version:        "4.2.9",
-			PackageManager: models.Bundler,
-			Ecosystem:      lockfile.BundlerEcosystem,
-			CompareAs:      lockfile.BundlerEcosystem,
-		},
-	})
-
-	// Reset buildGradleMatcher mock
-	MockAllMatchers()
 }

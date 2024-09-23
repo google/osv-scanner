@@ -67,6 +67,10 @@ func buildProperties(metadatas models.PackageMetadata) []cyclonedx.Property {
 		})
 	}
 
+	slices.SortFunc(properties, func(a, b cyclonedx.Property) int {
+		return strings.Compare(a.Name, b.Name)
+	})
+
 	return properties
 }
 

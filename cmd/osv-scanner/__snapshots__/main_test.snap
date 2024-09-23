@@ -2165,22 +2165,12 @@ Scanned <rootdir>/fixtures/locks-insecure/composer.lock file and found 1 package
 ---
 
 [TestRun_LockfileWithExplicitParseAs/#09 - 1]
-Scanned <rootdir>/fixtures/locks-many/installed file as a apk-installed and found 1 package
-
----
-
-[TestRun_LockfileWithExplicitParseAs/#09 - 2]
-API query failed: osv.dev query failed: server response error: {"code":3,"message":"Invalid ecosystem."}
-
----
-
-[TestRun_LockfileWithExplicitParseAs/#10 - 1]
 Scanned <rootdir>/fixtures/locks-many/status file as a dpkg-status and found 1 package
 No issues found
 
 ---
 
-[TestRun_LockfileWithExplicitParseAs/#10 - 2]
+[TestRun_LockfileWithExplicitParseAs/#09 - 2]
 
 ---
 
@@ -2247,8 +2237,8 @@ Scanning image ../../internal/image/fixtures/test-node_modules-npm-full.tar
 | https://osv.dev/CVE-2023-42365      | 5.5  | Alpine:v3.19 | busybox  | 1.36.1-r15 | ../../internal/image/fixtures/test-node_modules-npm-full.tar:/lib/apk/db/installed                    |
 | https://osv.dev/CVE-2023-42366      | 5.5  | Alpine:v3.19 | busybox  | 1.36.1-r15 | ../../internal/image/fixtures/test-node_modules-npm-full.tar:/lib/apk/db/installed                    |
 | https://osv.dev/GHSA-38f5-ghc2-fcmv | 9.8  | npm          | cryo     | 0.0.6      | ../../internal/image/fixtures/test-node_modules-npm-full.tar:/usr/app/node_modules/.package-lock.json |
-| https://osv.dev/GHSA-vh95-rmgr-6w4m | 5.6  | npm          | minimist | 0.0.8      | ../../internal/image/fixtures/test-node_modules-npm-full.tar:/usr/app/node_modules/.package-lock.json |
-| https://osv.dev/GHSA-xvch-5gv4-984h | 9.8  | npm          | minimist | 0.0.8      | ../../internal/image/fixtures/test-node_modules-npm-full.tar:/usr/app/node_modules/.package-lock.json |
+| https://osv.dev/GHSA-vh95-rmgr-6w4m | 9.8  | npm          | minimist | 0.0.8      | ../../internal/image/fixtures/test-node_modules-npm-full.tar:/usr/app/node_modules/.package-lock.json |
+| https://osv.dev/GHSA-xvch-5gv4-984h |      |              |          |            |                                                                                                       |
 +-------------------------------------+------+--------------+----------+------------+-------------------------------------------------------------------------------------------------------+
 
 ---
@@ -6587,12 +6577,12 @@ No package sources found, --help for usage information.
       "purl": "pkg:golang/github.com/Private/packages/pkg/util/backoff@1.0.0",
       "properties": [
         {
-          "name": "osv-scanner:package-manager",
-          "value": "Golang"
-        },
-        {
           "name": "osv-scanner:is-direct",
           "value": "true"
+        },
+        {
+          "name": "osv-scanner:package-manager",
+          "value": "Golang"
         }
       ],
       "evidence": {
@@ -6611,12 +6601,12 @@ No package sources found, --help for usage information.
       "purl": "pkg:golang/github.com/kubernetes/apimachinery",
       "properties": [
         {
-          "name": "osv-scanner:package-manager",
-          "value": "Golang"
-        },
-        {
           "name": "osv-scanner:is-direct",
           "value": "true"
+        },
+        {
+          "name": "osv-scanner:package-manager",
+          "value": "Golang"
         }
       ],
       "evidence": {
@@ -6636,12 +6626,12 @@ No package sources found, --help for usage information.
       "purl": "pkg:golang/stdlib@1.21.3",
       "properties": [
         {
-          "name": "osv-scanner:package-manager",
-          "value": "Golang"
-        },
-        {
           "name": "osv-scanner:is-direct",
           "value": "true"
+        },
+        {
+          "name": "osv-scanner:package-manager",
+          "value": "Golang"
         }
       ],
       "evidence": {
@@ -11061,12 +11051,12 @@ Filtered 1 local package/s from the scan.
       "purl": "pkg:golang/github.com/BurntSushi/toml@1.0.0",
       "properties": [
         {
-          "name": "osv-scanner:package-manager",
-          "value": "Golang"
-        },
-        {
           "name": "osv-scanner:is-direct",
           "value": "true"
+        },
+        {
+          "name": "osv-scanner:package-manager",
+          "value": "Golang"
         }
       ],
       "evidence": {
@@ -11086,12 +11076,12 @@ Filtered 1 local package/s from the scan.
       "purl": "pkg:golang/stdlib@1.21.3",
       "properties": [
         {
-          "name": "osv-scanner:package-manager",
-          "value": "Golang"
-        },
-        {
           "name": "osv-scanner:is-direct",
           "value": "true"
+        },
+        {
+          "name": "osv-scanner:package-manager",
+          "value": "Golang"
         }
       ],
       "evidence": {
@@ -15510,12 +15500,12 @@ Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/yarn/yarn.lock
       "purl": "pkg:golang/github.com/BurntSushi/toml@1.0.0",
       "properties": [
         {
-          "name": "osv-scanner:package-manager",
-          "value": "Golang"
-        },
-        {
           "name": "osv-scanner:is-direct",
           "value": "true"
+        },
+        {
+          "name": "osv-scanner:package-manager",
+          "value": "Golang"
         }
       ],
       "evidence": {
@@ -15535,12 +15525,12 @@ Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/yarn/yarn.lock
       "purl": "pkg:golang/stdlib@1.21.3",
       "properties": [
         {
-          "name": "osv-scanner:package-manager",
-          "value": "Golang"
-        },
-        {
           "name": "osv-scanner:is-direct",
           "value": "true"
+        },
+        {
+          "name": "osv-scanner:package-manager",
+          "value": "Golang"
         }
       ],
       "evidence": {

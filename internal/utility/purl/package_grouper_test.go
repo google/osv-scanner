@@ -157,3 +157,78 @@ func TestGroupPackageByPURL_ShouldUnifyPackages(t *testing.T) {
 		}
 	}
 }
+
+func TestGroupPackageByPURL_ShouldReportDependencyAsDirect(t *testing.T) {
+	t.Parallel()
+	input := []models.PackageSource{
+		{
+			Source: models.SourceInfo{
+				Path: "/dir/lockfile.xml",
+				Type: "",
+			},
+			Packages: []models.PackageVulns{
+				{
+					Package: models.PackageInfo{
+						Name:      "foo.bar:the-first-package",
+						Version:   "1.0.0",
+						Ecosystem: string(lockfile.MavenEcosystem),
+					},
+					Metadata: map[models.PackageMetadataType]string{
+						models.PackageManagerMetadata: "Maven",
+					},
+				},
+			},
+		},
+		{
+			Source: models.SourceInfo{
+				Path: "/lockfile.xml",
+				Type: "",
+			},
+			Packages: []models.PackageVulns{
+				{
+					Package: models.PackageInfo{
+						Name:      "foo.bar:the-first-package",
+						Version:   "1.0.0",
+						Ecosystem: string(lockfile.MavenEcosystem),
+					},
+					Metadata: map[models.PackageMetadataType]string{
+						models.PackageManagerMetadata:     "Maven",
+						models.IsDirectDependencyMetadata: "true",
+					},
+				},
+			},
+		},
+	}
+
+	result, errors := purl.Group(input)
+
+	expected := map[string]models.PackageVulns{
+		"pkg:maven/foo.bar/the-first-package@1.0.0": {
+			Package: models.PackageInfo{
+				Name:      "foo.bar:the-first-package",
+				Version:   "1.0.0",
+				Ecosystem: string(lockfile.MavenEcosystem),
+			},
+			Metadata: map[models.PackageMetadataType]string{
+				models.PackageManagerMetadata:     "Maven",
+				models.IsDirectDependencyMetadata: "true",
+			},
+		},
+	}
+	if len(errors) > 0 {
+		t.Errorf("Unexpected errors: %v", errors)
+	}
+	if len(result) != len(expected) {
+		t.Errorf("Expected %d packages, got %d", len(expected), len(result))
+	}
+	for expectedPURL, expectedInfo := range expected {
+		info, exists := result[expectedPURL]
+
+		if !exists {
+			t.Errorf("Expected package %s to be in the results", expectedPURL)
+		}
+		if !reflect.DeepEqual(info, expectedInfo) {
+			t.Errorf("Expected package %s to be %v, got %v", expectedPURL, expectedInfo, info)
+		}
+	}
+}
