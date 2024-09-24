@@ -15,15 +15,17 @@
     <td>{{ $element.Summary.InstalledVersion }}</td>
     <td {{ if eq $element.Summary.FixedVersion "No fix available" }} class="warning" {{ end }}>{{
       $element.Summary.FixedVersion }}</td>
-    <td>{{ $element.Summary.Severity }}</td>
+    <td>{{ $element.Summary.SeverityRating }} {{ if ne $element.Summary.SeverityRating "UNKNOWN" }}({{
+      $element.Summary.SeverityScore }}){{ end }}</td>
   </tr>
   <tr>
     <td colspan="100%">
       <div id="vuln-details-{{ $element.Summary.Id }}-{{ $rowIndex }}-{{ $randomIndex }}" class="vuln-details">
-        {{ range $detailKey, $detailValue := $element.Detail }}
-        {{if $detailValue }}
-        <p>{{ format $detailKey }}: {{ $detailValue }}</p>
-        {{end}}
+        {{ range $detailIndex, $info := printImportantDetail $element.Detail}}
+        <p><strong>{{ $info }}</strong></p>
+        {{ end }}
+        {{ range $detailIndex, $info := printVulnDetail $element.Detail}}
+        <p>{{ $info }}</p>
         {{ end }}
       </div>
     </td>

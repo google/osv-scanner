@@ -1,6 +1,7 @@
 package severity
 
 import (
+	"strconv"
 	"strings"
 
 	"github.com/google/osv-scanner/pkg/models"
@@ -70,4 +71,19 @@ func CalculateOverallScore(severities []models.Severity) (float64, string, error
 	}
 
 	return maxScore, maxRating, nil
+}
+
+func CalculateRating(score string) (string, error) {
+	// All CSVs' rating methods are identical.
+	parsedScore, err := strconv.ParseFloat(score, 64)
+	if err != nil {
+		return unknownRating, err
+	}
+
+	rating, err := gocvss30.Rating(parsedScore)
+	if err != nil || rating == "NONE" {
+		rating = unknownRating
+	}
+
+	return rating, err
 }

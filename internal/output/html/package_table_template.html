@@ -18,15 +18,19 @@
     <td>{{ $element.Ecosystem }}</td>
     <td>{{ $element.InstalledVersion }}</td>
     <td {{ if eq $element.FixedVersion "No fix available" }} class="warning" {{ end }}>{{ $element.FixedVersion }}</td>
-    <td>{{ len $element.CalledVulns }}</td>
+    <td>{{ printSeverityCountShort $element.HTMLVulnCount }}</td>
   </tr>
   <tr>
     <td colspan="100%">
       <div id="vuln-details-{{ $element.Name }}-{{ $rowIndex }}-{{ $randomIndex }}" class="vuln-details">
-        <p>Vulnerability:</p>
+        <p>Source: {{ $element.Source }}
+        <p>Vulnerabilities:</p>
         {{ range $index, $vuln := $element.CalledVulns }}
-        <p><a href="https://osv.dev/{{ $vuln.Summary.Id }}">{{ $vuln.Summary.Id }}</a>
-          {{$vuln.Summary.FixedVersion}}(Fixed Version) {{$vuln.Summary.Severity}} </p>
+          {{ if eq $element.FixedVersion "No fix available" }}
+          <p><a href="https://osv.dev/{{ $vuln.Summary.Id }}">{{ $vuln.Summary.Id }}</a> ({{$vuln.Summary.SeverityRating}}) has no fix available</p>
+          {{ else }}
+          <p><a href="https://osv.dev/{{ $vuln.Summary.Id }}">{{ $vuln.Summary.Id }}</a> ({{$vuln.Summary.SeverityRating}}) has a fixed version at {{$vuln.Summary.FixedVersion}}(Fixed Version)</p>
+          {{ end }}
         {{ end }}
       </div>
     </td>

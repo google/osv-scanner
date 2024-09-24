@@ -9,38 +9,40 @@ import (
 	"slices"
 	"strconv"
 	"strings"
-	"unicode"
 
+	"github.com/google/osv-scanner/internal/identifiers"
 	"github.com/google/osv-scanner/internal/semantic"
 	"github.com/google/osv-scanner/internal/utility/severity"
 	"github.com/google/osv-scanner/pkg/models"
 )
 
 type HTMLResult struct {
-	TotalCount       int
+	HTMLVulnCount    HTMLVulnCount
 	EcosystemResults []EcosystemResult
 }
 
 type EcosystemResult struct {
 	Ecosystem string
-	Artifacts []ArtifactResult
+	Sources   []SourceResult
 }
 
-type ArtifactResult struct {
+type SourceResult struct {
 	Source         string
 	Ecosystem      string
 	PackageResults []PackageResult
-	VulnCount      [2]int
-	PackageCount   [2]int
+	PackageCount   [2]int // called and uncalled package count
+	HTMLVulnCount  HTMLVulnCount
 }
 
 type PackageResult struct {
 	Name             string
 	Ecosystem        string
+	Source           string
 	CalledVulns      []HTMLVulnResult
 	UncalledVulns    []HTMLVulnResult
 	InstalledVersion string
 	FixedVersion     string
+	HTMLVulnCount    HTMLVulnCount
 }
 
 type HTMLVulnResult struct {
@@ -53,10 +55,26 @@ type HTMLVulnResultSummary struct {
 	PackageName      string
 	InstalledVersion string
 	FixedVersion     string
-	Severity         string
+	SeverityRating   string
+	SeverityScore    string
+}
+
+type HTMLVulnCount struct {
+	Critical int
+	High     int
+	Medium   int
+	Low      int
+	Unknown  int
+	Called   int
+	Uncalled int
+	Fixed    int
+	UnFixed  int
 }
 
 const UNFIXED = "No fix available"
+
+// HTML templates directory
+const TEMPLATEDIR = "html/*"
 
 // supportedBaseImages lists the supported OS base images for container scanning.
 var baseImages = []string{"Debian", "Alpine", "Ubuntu"}
@@ -64,12 +82,10 @@ var baseImages = []string{"Debian", "Alpine", "Ubuntu"}
 //go:embed html/*
 var templates embed.FS
 
-var templateDir = "html/*.html"
-
 // BuildHTMLResults builds HTML results from vulnerability results.
 func BuildHTMLResults(vulnResult *models.VulnerabilityResults) HTMLResult {
-	var ecosystemMap = make(map[string][]ArtifactResult)
-	totalVuln := 0
+	var ecosystemMap = make(map[string][]SourceResult)
+	var resultCount HTMLVulnCount
 
 	for _, packageSource := range vulnResult.Results {
 		sourceName := packageSource.Source.String()
@@ -78,27 +94,27 @@ func BuildHTMLResults(vulnResult *models.VulnerabilityResults) HTMLResult {
 		}
 
 		// Process vulnerabilities for each source
-		artifactResult := processSource(packageSource)
-		if artifactResult == nil {
+		sourceResult := processSource(packageSource)
+		if sourceResult == nil {
 			continue
 		}
 
-		artifactList, ok := ecosystemMap[artifactResult.Ecosystem]
+		sourceList, ok := ecosystemMap[sourceResult.Ecosystem]
 		if ok {
-			ecosystemMap[artifactResult.Ecosystem] = append(artifactList, *artifactResult)
+			ecosystemMap[sourceResult.Ecosystem] = append(sourceList, *sourceResult)
 		} else {
-			ecosystemMap[artifactResult.Ecosystem] = []ArtifactResult{*artifactResult}
+			ecosystemMap[sourceResult.Ecosystem] = []SourceResult{*sourceResult}
 		}
 
-		totalVuln += artifactResult.VulnCount[0]
+		updateCount(&resultCount, &sourceResult.HTMLVulnCount)
 	}
 
 	// Build the final result
-	return buildHTMLResult(ecosystemMap, totalVuln)
+	return buildHTMLResult(ecosystemMap, resultCount)
 }
 
-// processSource processes a single source (lockfile or artifact) and returns an ArtifactResult.
-func processSource(packageSource models.PackageSource) *ArtifactResult {
+// processSource processes a single source (lockfile or artifact) and returns an SourceResult.
+func processSource(packageSource models.PackageSource) *SourceResult {
 	var allVulns []HTMLVulnResult
 	var calledPackages = make(map[string]bool)
 	var uncalledPackages = make(map[string]bool)
@@ -111,36 +127,29 @@ func processSource(packageSource models.PackageSource) *ArtifactResult {
 			ecosystemName = vulnPkg.Package.Ecosystem
 		}
 
-		// Process vulnerability groups and IDs to get uncalled information
+		// Process vulnerability groups and IDs to get called/uncalled information
 		processVulnerabilityGroups(groupIds, vulnPkg, uncalledVulnIds, calledPackages, uncalledPackages)
 		// Process vulnerabilities from one source package
 		allVulns = append(allVulns, processVulnerabilities(vulnPkg)...)
 	}
 
-	// Split vulnerabilities into called and uncalled
+	// Split vulnerabilities into called and uncalled.
+	// Only add one vulnerability per group
 	packageResults := processPackageResults(allVulns, groupIds, uncalledVulnIds, ecosystemName)
-	vulnCount := processCount(packageResults)
+	var count HTMLVulnCount
+	for index, packageResult := range packageResults {
+		packageResults[index].Ecosystem = ecosystemName
+		packageResults[index].Source = packageSource.Source.Path
+		updateCount(&count, &packageResult.HTMLVulnCount)
+	}
 
-	return &ArtifactResult{
+	return &SourceResult{
 		Source:         packageSource.Source.String(),
 		Ecosystem:      ecosystemName,
 		PackageResults: packageResults,
-		VulnCount:      vulnCount,
 		PackageCount:   [2]int{len(calledPackages), len(uncalledPackages)},
+		HTMLVulnCount:  count,
 	}
-}
-
-func processCount(packageResults []PackageResult) [2]int {
-	var vulnCount [2]int
-	vulnCount[0] = 0
-	vulnCount[1] = 0
-
-	for _, packageResult := range packageResults {
-		vulnCount[0] += len(packageResult.CalledVulns)
-		vulnCount[1] += len(packageResult.UncalledVulns)
-	}
-
-	return vulnCount
 }
 
 // processPackageResults splits the given vulnerabilities into called and uncalled
@@ -150,31 +159,42 @@ func processPackageResults(allVulns []HTMLVulnResult, groupIds map[string]models
 	for _, vuln := range allVulns {
 		groupInfo, isIndex := groupIds[vuln.Summary.Id]
 		if !isIndex {
-			// We only display one group once
+			// We only display one vulnerability from one group
 			continue
 		}
 
+		// Add group IDs info
 		if len(groupInfo.IDs) > 1 {
 			vuln.Detail["groupIds"] = strings.Join(groupInfo.IDs[1:], ", ")
-			vuln.Summary.Severity = groupInfo.MaxSeverity
 		}
 
 		packageName := vuln.Summary.PackageName
 		packageResult, exist := packageResults[packageName]
 		if !exist {
 			packageResult = &PackageResult{
-				Name:      packageName,
-				Ecosystem: ecosystem,
+				Name: packageName,
 			}
 			packageResults[packageName] = packageResult
 		}
 
+		// Get the max severity from groupInfo and increase the count
+		vuln.Summary.SeverityScore = groupInfo.MaxSeverity
+		vuln.Summary.SeverityRating, _ = severity.CalculateRating(vuln.Summary.SeverityScore)
+
 		if _, isUncalled := uncalledVulnIds[vuln.Summary.Id]; isUncalled {
 			packageResult.UncalledVulns = append(packageResult.UncalledVulns, vuln)
+			packageResult.HTMLVulnCount.Uncalled = len(packageResult.UncalledVulns)
 			continue
 		}
 
 		packageResult.CalledVulns = append(packageResult.CalledVulns, vuln)
+		packageResult.HTMLVulnCount.Called = len(packageResult.CalledVulns)
+		addCount(&packageResult.HTMLVulnCount, vuln.Summary.SeverityRating)
+		if vuln.Summary.FixedVersion == UNFIXED {
+			packageResult.HTMLVulnCount.UnFixed += 1
+		} else {
+			packageResult.HTMLVulnCount.Fixed += 1
+		}
 	}
 
 	results := make([]PackageResult, 0, len(packageResults))
@@ -206,12 +226,6 @@ func processVulnerabilities(vulnPkg models.PackageVulns) []HTMLVulnResult {
 			vulnDetails["inBaseImage"] = strconv.FormatBool(vulnPkg.Package.ImageOrigin.InBaseImage)
 		}
 
-		severityValue := "N/A"
-		if len(vuln.Severity) > 0 {
-			score, rating, _ := severity.CalculateOverallScore(vuln.Severity)
-			severityValue = fmt.Sprintf("%s (%.1f)", rating, score)
-		}
-
 		fixedVersion := getFixVersion(vuln.Affected, vulnPkg.Package.Version, vulnPkg.Package.Name, models.Ecosystem(vulnPkg.Package.Ecosystem))
 
 		vulnResults = append(vulnResults, HTMLVulnResult{
@@ -220,7 +234,6 @@ func processVulnerabilities(vulnPkg models.PackageVulns) []HTMLVulnResult {
 				PackageName:      vulnPkg.Package.Name,
 				InstalledVersion: vulnPkg.Package.Version,
 				FixedVersion:     fixedVersion,
-				Severity:         severityValue,
 			},
 			Detail: vulnDetails,
 		})
@@ -233,7 +246,7 @@ func processVulnerabilities(vulnPkg models.PackageVulns) []HTMLVulnResult {
 // populating the called and uncalled maps.
 func processVulnerabilityGroups(groupIds map[string]models.GroupInfo, vulnPkg models.PackageVulns, uncalledVulnIds map[string]bool, calledPackages map[string]bool, uncalledPackages map[string]bool) {
 	for _, group := range vulnPkg.Groups {
-		slices.SortFunc(group.IDs, idSortFunc)
+		slices.SortFunc(group.IDs, identifiers.IDSortFunc)
 		representId := group.IDs[0]
 		groupIds[representId] = group
 
@@ -247,13 +260,13 @@ func processVulnerabilityGroups(groupIds map[string]models.GroupInfo, vulnPkg mo
 }
 
 // buildHTMLResult builds the final HTMLResult object from the ecosystem map and total vulnerability count.
-func buildHTMLResult(ecosystemMap map[string][]ArtifactResult, totalVuln int) HTMLResult {
+func buildHTMLResult(ecosystemMap map[string][]SourceResult, resultCount HTMLVulnCount) HTMLResult {
 	var ecosystemResults []EcosystemResult
 	var osResults []EcosystemResult
-	for ecosystem, artifacts := range ecosystemMap {
+	for ecosystem, sources := range ecosystemMap {
 		ecosystemResult := EcosystemResult{
 			Ecosystem: ecosystem,
-			Artifacts: artifacts,
+			Sources:   sources,
 		}
 
 		if isOSImage(ecosystem) {
@@ -267,7 +280,34 @@ func buildHTMLResult(ecosystemMap map[string][]ArtifactResult, totalVuln int) HT
 
 	return HTMLResult{
 		EcosystemResults: ecosystemResults,
-		TotalCount:       totalVuln,
+		HTMLVulnCount:    resultCount,
+	}
+}
+
+func updateCount(original *HTMLVulnCount, newAdded *HTMLVulnCount) {
+	original.Critical += newAdded.Critical
+	original.High += newAdded.High
+	original.Medium += newAdded.Medium
+	original.Low += newAdded.Low
+	original.Unknown += newAdded.Unknown
+	original.Called += newAdded.Called
+	original.Uncalled += newAdded.Uncalled
+	original.Fixed += newAdded.Fixed
+	original.UnFixed += newAdded.UnFixed
+}
+
+func addCount(resultCount *HTMLVulnCount, typeName string) {
+	switch typeName {
+	case "CRITICAL":
+		resultCount.Critical += 1
+	case "HIGH":
+		resultCount.High += 1
+	case "MEDIUM":
+		resultCount.Medium += 1
+	case "LOW":
+		resultCount.Low += 1
+	case "UNKNOWN":
+		resultCount.Unknown += 1
 	}
 }
 
@@ -279,24 +319,6 @@ func isOSImage(ecosystem string) bool {
 	}
 
 	return false
-}
-
-// formatString formats a camelCase string into a human readable string
-// by adding spaces before uppercase letters.
-func formatString(input string) string {
-	// Add space before uppercase letters
-	var result strings.Builder
-	for i, r := range input {
-		if i == 0 {
-			result.WriteRune(unicode.ToUpper(r))
-			continue
-		}
-		if i > 0 && unicode.IsUpper(r) {
-			result.WriteRune(' ')
-		}
-		result.WriteRune(r)
-	}
-	return result.String()
 }
 
 // generateRandomNumber generates a random integer.
@@ -311,26 +333,21 @@ func generateRandomNumber() int {
 func getFixVersion(allAffected []models.Affected, installedVersion string, installedPackage string, ecosystem models.Ecosystem) string {
 	ecosystemPrefix := models.Ecosystem(strings.Split(string(ecosystem), ":")[0])
 	vp := semantic.MustParse(installedVersion, ecosystemPrefix)
-	minFixVersion := ""
+	minFixVersion := UNFIXED
 	for _, affected := range allAffected {
-		if affected.Package.Name == installedPackage && affected.Package.Ecosystem == ecosystem {
-			for _, affectedRange := range affected.Ranges {
-				for _, affectedEvent := range affectedRange.Events {
-					if affectedEvent.Fixed == "" {
-						continue
-					}
-					if vp.CompareStr(affectedEvent.Fixed) < 0 {
-						if minFixVersion == "" || semantic.MustParse(affectedEvent.Fixed, ecosystemPrefix).CompareStr(minFixVersion) < 0 {
-							minFixVersion = affectedEvent.Fixed
-						}
-					}
+		if affected.Package.Name != installedPackage || affected.Package.Ecosystem != ecosystem {
+			continue
+		}
+		for _, affectedRange := range affected.Ranges {
+			for _, affectedEvent := range affectedRange.Events {
+				if affectedEvent.Fixed == "" || vp.CompareStr(affectedEvent.Fixed) > 0 {
+					continue
+				}
+				if minFixVersion == UNFIXED || semantic.MustParse(affectedEvent.Fixed, ecosystemPrefix).CompareStr(minFixVersion) < 0 {
+					minFixVersion = affectedEvent.Fixed
 				}
 			}
 		}
-	}
-
-	if minFixVersion == "" {
-		return UNFIXED
 	}
 
 	return minFixVersion
@@ -377,13 +394,51 @@ func getAllVulns(packageResults []PackageResult, isCalled bool) []HTMLVulnResult
 func getAllPackageResults(ecosystemResults []EcosystemResult) []PackageResult {
 	var results []PackageResult
 	for _, ecosystemResult := range ecosystemResults {
-		// TODO: Same package might be found in different source, combine them together
-		for _, artifactResult := range ecosystemResult.Artifacts {
-			results = append(results, artifactResult.PackageResults...)
+		for _, sourceResult := range ecosystemResult.Sources {
+			results = append(results, sourceResult.PackageResults...)
 		}
 	}
 
 	return results
+}
+
+func printSeverityCount(count HTMLVulnCount) string {
+	result := fmt.Sprintf("CRITICAL: %d, HIGH: %d, MEDIUM: %d, LOW: %d, UNKNOWN: %d", count.Critical, count.High, count.Medium, count.Low, count.Unknown)
+	return result
+}
+
+func printSeverityCountShort(count HTMLVulnCount) string {
+	return fmt.Sprintf("%d C, %d H, %d M, %d L, %d U", count.Critical, count.High, count.Medium, count.Low, count.Unknown)
+}
+
+func printImportantDetail(vulnDetail map[string]string) []string {
+	var output []string
+	if value, ok := vulnDetail["groupIds"]; ok {
+		output = append(output, fmt.Sprintf("Group IDs: %s", value))
+	}
+
+	if value, ok := vulnDetail["aliases"]; ok {
+		output = append(output, fmt.Sprintf("Aliases: %s", value))
+	}
+
+	return output
+}
+
+func printVulnDetail(vulnDetail map[string]string) []string {
+	var output []string
+	for key, value := range vulnDetail {
+		if key != "groupIds" && key != "aliases" && key != "description" {
+			output = append(output, fmt.Sprintf("%s: %s", key, value))
+
+		}
+	}
+
+	if value, ok := vulnDetail["description"]; ok {
+		output = append(output, fmt.Sprintf("Description: %s", value))
+
+	}
+
+	return output
 }
 
 func PrintHTMLResults(vulnResult *models.VulnerabilityResults, outputWriter io.Writer) error {
@@ -391,12 +446,16 @@ func PrintHTMLResults(vulnResult *models.VulnerabilityResults, outputWriter io.W
 
 	// Parse embedded templates
 	funcMap := template.FuncMap{
-		"format":               formatString,
-		"random":               generateRandomNumber,
-		"getAllVulns":          getAllVulns,
-		"getAllPackageResults": getAllPackageResults,
+		"printVulnDetail":         printVulnDetail,
+		"random":                  generateRandomNumber,
+		"getAllVulns":             getAllVulns,
+		"getAllPackageResults":    getAllPackageResults,
+		"printSeverityCount":      printSeverityCount,
+		"printSeverityCountShort": printSeverityCountShort,
+		"printImportantDetail":    printImportantDetail,
 	}
-	tmpl := template.Must(template.New("").Funcs(funcMap).ParseFS(templates, templateDir))
+
+	tmpl := template.Must(template.New("").Funcs(funcMap).ParseFS(templates, TEMPLATEDIR))
 
 	// Execute template
 	return tmpl.ExecuteTemplate(outputWriter, "report_template.html", htmlResult)

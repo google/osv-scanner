@@ -3,6 +3,7 @@
 
 <head>
     <title>Vulnerability Scan Report</title>
+    <link rel="icon" href="https://google.github.io/osv.dev/assets/icon.png" type="image/x-icon"> 
     <style>
         body {
             font-family: sans-serif;
@@ -216,7 +217,7 @@
             <h1>Vulnerability Scan Report</h1>
         </header>
         <h2>Scanning Results</h2>
-        <p>Total {{ .TotalCount }} vulnerabilities found.</p>
+        <p>Total {{ .HTMLVulnCount.Called }} vulnerabilities found ({{ .HTMLVulnCount.Fixed }} have fix available), {{ printSeverityCount .HTMLVulnCount}}.</p>
         <div id="tab-switch">
             <button id="package-button" class="tab-switch-button tab-switch-button-selected"
                 onclick="openTab('package')">Package View</button>
@@ -232,10 +233,10 @@
             {{ range .EcosystemResults }}
             <div class="ecosystem">
                 <h2>{{ .Ecosystem }}</h2>
-                <div class="artifact-section">
-                    {{ range .Artifacts }}
+                <div class="source-section">
+                    {{ range .Sources }}
                     <h3>Source: {{ .Ecosystem }}: {{ .Source }}</h3>
-                    <p>Found {{ index .PackageCount 0 }} package(s) with issues, {{ index .VulnCount 0 }} known
+                    <p>Found {{ index .PackageCount 0 }} package(s) with issues, {{ .HTMLVulnCount.Called }} known
                         vulnerabilities found.</p>
 
                     {{template "vuln_view_template.html" .}}
