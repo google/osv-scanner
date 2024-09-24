@@ -36,7 +36,7 @@ func findArtifactExtractor(path string) []extractorPair {
 	return extractors
 }
 
-func extractArtifactDeps(path string, layer *imgLayer) (lockfile.Lockfile, error) {
+func extractArtifactDeps(path string, layer *Layer) (lockfile.Lockfile, error) {
 	foundExtractors := findArtifactExtractor(path)
 	if len(foundExtractors) == 0 {
 		return lockfile.Lockfile{}, fmt.Errorf("%w for %s", lockfile.ErrExtractorNotFound, path)
@@ -89,15 +89,15 @@ func extractArtifactDeps(path string, layer *imgLayer) (lockfile.Lockfile, error
 	}, nil
 }
 
-// A ImageFile represents a file that exists in an image
-type ImageFile struct {
+// A File represents a file that exists in an image
+type File struct {
 	*os.File
 
-	layer *imgLayer
+	layer *Layer
 	path  string
 }
 
-func (f ImageFile) Open(openPath string) (lockfile.NestedDepFile, error) {
+func (f File) Open(openPath string) (lockfile.NestedDepFile, error) {
 	// use path instead of filepath, because container is always in Unix paths (for now)
 	if path.IsAbs(openPath) {
 		return OpenLayerFile(openPath, f.layer)
@@ -108,27 +108,27 @@ func (f ImageFile) Open(openPath string) (lockfile.NestedDepFile, error) {
 	return OpenLayerFile(absPath, f.layer)
 }
 
-func (f ImageFile) Path() string {
+func (f File) Path() string {
 	return f.path
 }
 
-func OpenLayerFile(path string, layer *imgLayer) (ImageFile, error) {
+func OpenLayerFile(path string, layer *Layer) (File, error) {
 	fileNode, err := layer.getFileNode(path)
 	if err != nil {
-		return ImageFile{}, err
+		return File{}, err
 	}
 
 	file, err := fileNode.Open()
 	if err != nil {
-		return ImageFile{}, err
+		return File{}, err
 	}
 
-	return ImageFile{
+	return File{
 		File:  file,
 		path:  path,
 		layer: layer,
 	}, nil
 }
 
-var _ lockfile.DepFile = ImageFile{}
-var _ lockfile.NestedDepFile = ImageFile{}
+var _ lockfile.DepFile = File{}
+var _ lockfile.NestedDepFile = File{}

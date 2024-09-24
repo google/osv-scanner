@@ -1,6 +1,7 @@
 package config
 
 import (
+	"fmt"
 	"reflect"
 	"strings"
 	"testing"
@@ -162,9 +163,9 @@ func Test_tryLoadConfig(t *testing.T) {
 				configPath: "./fixtures/testdatainner/osv-scanner-load-path.toml",
 			},
 			want: Config{
-				LoadPath: "./fixtures/testdatainner/osv-scanner-load-path.toml",
+				LoadPath: "",
 			},
-			wantErr: false,
+			wantErr: true,
 		},
 	}
 	for _, tt := range tests {
@@ -180,6 +181,62 @@ func Test_tryLoadConfig(t *testing.T) {
 				t.Errorf("tryLoadConfig() mismatch (-want +got):\n%s", diff)
 			}
 		})
+	}
+}
+
+func TestTryLoadConfig_UnknownKeys(t *testing.T) {
+	t.Parallel()
+
+	tests := []struct {
+		configPath string
+		unknownMsg string
+	}{
+		{
+			configPath: "./fixtures/unknown-key-1.toml",
+			unknownMsg: "IgnoredVulns.ignoreUntilTime",
+		},
+		{
+			configPath: "./fixtures/unknown-key-2.toml",
+			unknownMsg: "IgnoredVulns.ignoreUntiI",
+		},
+		{
+			configPath: "./fixtures/unknown-key-3.toml",
+			unknownMsg: "IgnoredVulns.reasoning",
+		},
+		{
+			configPath: "./fixtures/unknown-key-4.toml",
+			unknownMsg: "PackageOverrides.skip",
+		},
+		{
+			configPath: "./fixtures/unknown-key-5.toml",
+			unknownMsg: "PackageOverrides.license.skip",
+		},
+		{
+			configPath: "./fixtures/unknown-key-6.toml",
+			unknownMsg: "RustVersionOverride",
+		},
+		{
+			configPath: "./fixtures/unknown-key-7.toml",
+			unknownMsg: "RustVersionOverride, PackageOverrides.skip",
+		},
+	}
+
+	for _, testData := range tests {
+		c, err := tryLoadConfig(testData.configPath)
+
+		// we should always be returning an empty config on error
+		if diff := cmp.Diff(Config{}, c); diff != "" {
+			t.Errorf("tryLoadConfig() mismatch (-want +got):\n%s", diff)
+		}
+		if err == nil {
+			t.Fatal("tryLoadConfig() did not return an error")
+		}
+
+		wantMsg := fmt.Sprintf("unknown keys in config file: %v", testData.unknownMsg)
+
+		if err.Error() != wantMsg {
+			t.Errorf("tryLoadConfig() error = '%v', want '%s'", err, wantMsg)
+		}
 	}
 }
 

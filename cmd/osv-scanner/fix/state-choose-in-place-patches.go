@@ -97,7 +97,7 @@ func (st *stateChooseInPlacePatches) Update(m model, msg tea.Msg) (tea.Model, te
 	return m, tea.Batch(cmd, c)
 }
 
-func (st *stateChooseInPlacePatches) View(m model) string {
+func (st *stateChooseInPlacePatches) View(_ model) string {
 	tableStr := lipgloss.PlaceHorizontal(st.viewWidth, lipgloss.Center, st.table.View())
 	return lipgloss.JoinVertical(lipgloss.Left,
 		tableStr,

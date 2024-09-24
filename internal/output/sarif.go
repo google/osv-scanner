@@ -9,6 +9,7 @@ import (
 	"strings"
 	"text/template"
 
+	"github.com/google/osv-scanner/internal/identifiers"
 	"github.com/google/osv-scanner/internal/url"
 	"github.com/google/osv-scanner/internal/utility/results"
 	"github.com/google/osv-scanner/internal/version"
@@ -191,7 +192,7 @@ func createSARIFHelpText(gv *groupedSARIFFinding) string {
 			Details: strings.ReplaceAll(v.Details, "\n", "\n> "),
 		})
 	}
-	slices.SortFunc(vulnDescriptions, func(a, b VulnDescription) int { return idSortFunc(a.ID, b.ID) })
+	slices.SortFunc(vulnDescriptions, func(a, b VulnDescription) int { return identifiers.IDSortFunc(a.ID, b.ID) })
 
 	helpText := strings.Builder{}
 
@@ -250,7 +251,7 @@ func PrintSARIFReport(vulnResult *models.VulnerabilityResults, outputWriter io.W
 		// or use a random long description.
 		var shortDescription, longDescription string
 		ids := slices.Clone(gv.AliasedIDList)
-		slices.SortFunc(ids, idSortFuncForDescription)
+		slices.SortFunc(ids, identifiers.IDSortFuncForDescription)
 
 		for _, id := range ids {
 			v := gv.AliasedVulns[id]

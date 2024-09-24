@@ -14,7 +14,7 @@ func ParseOSVScannerResults(pathToLockfile string) ([]PackageDetails, error) {
 
 type OSVScannerResultsExtractor struct{}
 
-func (e OSVScannerResultsExtractor) ShouldExtract(path string) bool {
+func (e OSVScannerResultsExtractor) ShouldExtract(_ string) bool {
 	// The output will always be a custom json file, so don't return a default should extract
 	return false
 }

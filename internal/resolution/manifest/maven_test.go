@@ -109,11 +109,11 @@ func TestMavenReadWrite(t *testing.T) {
 	}
 	defer df.Close()
 
-	mavenIO := MavenManifestIO{
+	mavenRW := MavenReadWriter{
 		MavenRegistryAPIClient: datasource.NewMavenRegistryAPIClient(srv.URL),
 	}
 
-	got, err := mavenIO.Read(df)
+	got, err := mavenRW.Read(df)
 	if err != nil {
 		t.Fatalf("failed to read file: %v", err)
 	}
@@ -421,7 +421,7 @@ func TestMavenReadWrite(t *testing.T) {
 
 	out := new(bytes.Buffer)
 	// There are no patches since we are only testing tabs are not escaped.
-	if err := mavenIO.Write(df, out, ManifestPatch{Manifest: &want}); err != nil {
+	if err := mavenRW.Write(df, out, Patch{Manifest: &want}); err != nil {
 		t.Fatalf("failed to write Maven pom.xml: %v", err)
 	}
 	testutility.NewSnapshot().WithCRLFReplacement().MatchText(t, out.String())
