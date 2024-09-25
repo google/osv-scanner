@@ -1,250 +1,272 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
-
-<head>
+  <head>
     <title>Vulnerability Scan Report</title>
-    <link rel="icon" href="https://google.github.io/osv.dev/assets/icon.png" type="image/x-icon"> 
+    <link
+      rel="icon"
+      href="https://google.github.io/osv.dev/assets/icon.png"
+      type="image/x-icon"
+    />
     <style>
-        body {
-            font-family: sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f4;
-            color: #333;
-            overflow-y: scroll;
-        }
+      body {
+        font-family: sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f4f4f4;
+        color: #333;
+        overflow-y: scroll;
+      }
 
-        a {
-            color: inherit;
-        }
+      a {
+        color: inherit;
+      }
 
-        .container {
-            width: 1000px;
-            margin: 20px auto;
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 5px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            min-height: 90vh;
-        }
+      .container {
+        width: 1200px;
+        margin: 20px auto;
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        min-height: 90vh;
+      }
 
-        h1 {
-            text-align: center;
-        }
+      h1 {
+        text-align: center;
+      }
 
-        h2 {
-            margin-top: 10px;
-        }
+      h2 {
+        margin-top: 10px;
+      }
 
-        h1,
-        h2,
-        h3 {
-            color: #333;
-        }
+      h1,
+      h2,
+      h3 {
+        color: #333;
+      }
 
-        .ecosystem {
-            margin-bottom: 20px;
-        }
+      .ecosystem {
+        margin-bottom: 20px;
+      }
 
-        .vulnerability {
-            /* border-top: 1px solid #ddd; */
-            /* margin-top: 20px; */
-            padding: 5px;
-            border-radius: 3px;
-        }
+      .vulnerability {
+        /* border-top: 1px solid #ddd; */
+        /* margin-top: 20px; */
+        padding: 5px;
+        border-radius: 3px;
+      }
 
-        .severity {
-            font-weight: bold;
-        }
+      .severity {
+        font-weight: bold;
+      }
 
-        .high {
-            color: #d9534f;
-            /* Red for High severity */
-        }
+      .high {
+        color: #d9534f;
+        /* Red for High severity */
+      }
 
-        .medium {
-            color: #f0ad4e;
-            /* Orange for Medium severity */
-        }
+      .medium {
+        color: #f0ad4e;
+        /* Orange for Medium severity */
+      }
 
-        details summary {
-            cursor: pointer;
-            /* font-weight: bold; */
-        }
+      details summary {
+        cursor: pointer;
+        /* font-weight: bold; */
+      }
 
-        details p {
-            /* margin-top: 2px; */
-            /* color: gray; */
-            margin-left: 10px;
-        }
+      details p {
+        /* margin-top: 2px; */
+        /* color: gray; */
+        margin-left: 10px;
+      }
 
-        header {
-            display: flex;
-            align-items: center;
-            margin-bottom: 20px;
-            position: relative;
-            justify-content: space-evenly;
-        }
+      header {
+        display: flex;
+        align-items: center;
+        margin-bottom: 20px;
+        position: relative;
+        justify-content: space-evenly;
+      }
 
-        .logo {
-            height: 50px;
-            position: absolute;
-            left: 0;
-        }
+      .logo {
+        height: 50px;
+        position: absolute;
+        left: 0;
+      }
 
-        .vuln-table {
-            width: 100%;
-            text-align: center;
-            border-radius: 5px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            margin-bottom: 40px;
-            margin-top: 10px;
-        }
+      .vuln-table {
+        width: 100%;
+        text-align: center;
+        border-radius: 5px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        margin-bottom: 40px;
+        margin-top: 10px;
+      }
 
-        .vuln-table th {
-            border-bottom: 1px solid #DDD;
-        }
+      .vuln-table th {
+        border-bottom: 1px solid #ddd;
+      }
 
-        .vuln-tr {
-            cursor: pointer;
-            line-height: 30px;
-        }
+      .vuln-tr {
+        cursor: pointer;
+        line-height: 30px;
+      }
 
-        .vuln-tr td {
-            border-bottom: 1px solid #eee;
-            word-break: break-word;
-            width: 200px;
-        }
+      .vuln-tr td {
+        border-bottom: 1px solid #eee;
+        word-break: break-word;
+        width: 200px;
+      }
 
-        .vuln-tr:hover {
-            background-color: #eee
-        }
+      .vuln-tr:hover {
+        background-color: #eee;
+      }
 
+      .vuln-id {
+        color: #d9534f;
+      }
 
-        .vuln-id {
-            color: #d9534f;
-        }
+      .vuln-details {
+        text-align: left;
+        padding: 0 50px;
+        display: none;
+      }
 
-        .vuln-details {
-            text-align: left;
-            padding: 0 50px;
-            display: none;
-        }
+      .vuln-details {
+        border-bottom: 1px solid #eee;
+        max-height: 400px;
+        overflow: overlay;
+      }
 
-        .vuln-details {
-            border-bottom: 1px solid #eee;
-            max-height: 400px;
-            overflow: overlay;
-        }
+      #vuln-filter {
+        margin-top: 20px;
+      }
 
-        #vuln-filter {
-            margin-top: 20px;
-        }
+      .artifact-section {
+        margin-bottom: 30px;
+      }
 
-        .artifact-section {
-            margin-bottom: 30px;
-        }
+      .uncalled {
+        margin-bottom: 20px;
+      }
 
-        .uncalled {
-            margin-bottom: 20px
-        }
+      .warning {
+        color: #c5221f;
+      }
 
-        .warning {
-            color: #c5221f
-        }
+      #vuln-tab {
+        display: none;
+      }
 
-        #vuln-tab {
-            display: none;
-        }
+      #tab-switch {
+        text-align: right;
+      }
 
-        #tab-switch {
-            text-align: right;
-        }
+      .tab-switch-button {
+        padding: 10px 20px;
+        width: auto;
+        border: 2px solid #fff;
+        outline: 0;
+        cursor: pointer;
+        background-color: #eee;
+        font-size: 12pt;
+        font: bold;
+      }
 
-        .tab-switch-button {
-            padding: 10px 20px;
-            width: auto;
-            border: 2px solid #fff;
-            outline: 0;
-            cursor: pointer;
-            background-color: #eee;
-            font-size: 12pt;
-            font: bold;
-        }
-
-        .tab-switch-button:hover,
-        .tab-switch-button-selected {
-            background-color: #fff;
-            border-top: 2px solid #eee;
-            border-right: 2px solid #eee;
-            border-left: 2px solid #eee;
-        }
+      .tab-switch-button:hover,
+      .tab-switch-button-selected {
+        background-color: #fff;
+        border-top: 2px solid #eee;
+        border-right: 2px solid #eee;
+        border-left: 2px solid #eee;
+      }
     </style>
-</head>
+  </head>
 
-<body>
+  <body>
     <script>
-        function showVulnDetails(detailsId) {
-            var detailsElement = document.getElementById("vuln-details-" + detailsId);
-            var rowElement = document.getElementById("vuln-tr-" + detailsId)
-            if (detailsElement.style.display !== "block") {
-                detailsElement.style.display = "block";
-                rowElement.style.backgroundColor = "#ddd"
-            } else {
-                detailsElement.style.display = "none";
-                rowElement.style.backgroundColor = "#fff"
-            }
+      function showVulnDetails(detailsId) {
+        var detailsElement = document.getElementById(
+          "vuln-details-" + detailsId
+        );
+        var rowElement = document.getElementById("vuln-tr-" + detailsId);
+        if (detailsElement.style.display !== "block") {
+          detailsElement.style.display = "block";
+          rowElement.style.backgroundColor = "#ddd";
+        } else {
+          detailsElement.style.display = "none";
+          rowElement.style.backgroundColor = "#fff";
         }
+      }
 
-        function openTab(view) {
-            var selectedTab = document.getElementById(view + "-tab");
-            var selectedButton = document.getElementById(view + "-button");
-            var tabs = document.getElementsByClassName("view-tab");
-            var buttons = document.getElementsByClassName("tab-switch-button");
-            for (var i = 0; i < buttons.length; i++) {
-                tabs[i].style.display = "none";
-                buttons[i].classList.remove('tab-switch-button-selected');
-            }
-            selectedTab.style.display = "block";
-            selectedButton.classList.add('tab-switch-button-selected');
+      function openTab(view) {
+        var selectedTab = document.getElementById(view + "-tab");
+        var selectedButton = document.getElementById(view + "-button");
+        var tabs = document.getElementsByClassName("view-tab");
+        var buttons = document.getElementsByClassName("tab-switch-button");
+        for (var i = 0; i < buttons.length; i++) {
+          tabs[i].style.display = "none";
+          buttons[i].classList.remove("tab-switch-button-selected");
         }
+        selectedTab.style.display = "block";
+        selectedButton.classList.add("tab-switch-button-selected");
+      }
     </script>
     <div class="container">
-        <header>
-            <img src="https://google.github.io/osv.dev/assets/logo.png" alt="OSV-Scanner Logo" class="logo">
-            <h1>Vulnerability Scan Report</h1>
-        </header>
-        <h2>Scanning Results</h2>
-        <p>Total {{ .HTMLVulnCount.Called }} vulnerabilities found ({{ .HTMLVulnCount.Fixed }} have fix available), {{ printSeverityCount .HTMLVulnCount}}.</p>
-        <div id="tab-switch">
-            <button id="package-button" class="tab-switch-button tab-switch-button-selected"
-                onclick="openTab('package')">Package View</button>
-            <button id="vuln-button" class="tab-switch-button" onclick="openTab('vuln')">Vulnerability View</button>
+      <header>
+        <img
+          src="https://google.github.io/osv.dev/assets/logo.png"
+          alt="OSV-Scanner Logo"
+          class="logo"
+        />
+        <h1>Vulnerability Scan Report</h1>
+      </header>
+      <h2>Scanning Results</h2>
+      <p>
+        Total {{ .HTMLVulnCount.Called }} vulnerabilities found ({{
+        .HTMLVulnCount.Fixed }} have fix available), {{ printSeverityCount
+        .HTMLVulnCount}}.
+      </p>
+      <div id="tab-switch">
+        <button
+          id="package-button"
+          class="tab-switch-button tab-switch-button-selected"
+          onclick="openTab('package')"
+        >
+          Package View
+        </button>
+        <button
+          id="vuln-button"
+          class="tab-switch-button"
+          onclick="openTab('vuln')"
+        >
+          Vulnerability View
+        </button>
+      </div>
+
+      <div id="package-tab" class="view-tab">
+        <h3>Vulnerable Package Summary</h3>
+        {{template "package_view_template.html" .EcosystemResults}}
+      </div>
+
+      <div id="vuln-tab" class="view-tab">
+        {{ range .EcosystemResults }}
+        <div class="ecosystem">
+          <h2>{{ .Ecosystem }}</h2>
+          <div class="source-section">
+            {{ range .Sources }}
+            <h3>Source: {{ .Ecosystem }}: {{ .Source }}</h3>
+            <p>
+              Found {{ index .PackageCount 0 }} package(s) with issues, {{
+              .HTMLVulnCount.Called }} known vulnerabilities found.
+            </p>
+
+            {{template "vuln_view_template.html" .}} {{ end }}
+          </div>
         </div>
-
-        <div id="package-tab" class="view-tab">
-            <h3>Vulnerable Package Summary</h3>
-            {{template "package_view_template.html" .EcosystemResults}}
-        </div>
-
-        <div id="vuln-tab" class="view-tab">
-            {{ range .EcosystemResults }}
-            <div class="ecosystem">
-                <h2>{{ .Ecosystem }}</h2>
-                <div class="source-section">
-                    {{ range .Sources }}
-                    <h3>Source: {{ .Ecosystem }}: {{ .Source }}</h3>
-                    <p>Found {{ index .PackageCount 0 }} package(s) with issues, {{ .HTMLVulnCount.Called }} known
-                        vulnerabilities found.</p>
-
-                    {{template "vuln_view_template.html" .}}
-                    {{ end }}
-                </div>
-            </div>
-            {{ end }}
-        </div>
-
+        {{ end }}
+      </div>
     </div>
-</body>
-
+  </body>
 </html>
