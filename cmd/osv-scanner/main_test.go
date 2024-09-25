@@ -341,6 +341,12 @@ func TestRun(t *testing.T) {
 			args: []string{"", "--config=./fixtures/osv-scanner-unknown-config.toml", "./fixtures/locks-many"},
 			exit: 127,
 		},
+		// a bunch of requirements.txt files with different names
+		{
+			name: "requirements.txt can have all kinds of names",
+			args: []string{"", "--config=./fixtures/osv-scanner-empty-config.toml", "./fixtures/locks-requirements"},
+			exit: 1,
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
