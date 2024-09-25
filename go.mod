@@ -3,10 +3,10 @@ module github.com/google/osv-scanner
 go 1.22.7
 
 require (
-	deps.dev/api/v3 v3.0.0-20240807013505-16da96fe8b66
-	deps.dev/util/maven v0.0.0-20240807013505-16da96fe8b66
-	deps.dev/util/resolve v0.0.0-20240807013505-16da96fe8b66
-	deps.dev/util/semver v0.0.0-20240807013505-16da96fe8b66
+	deps.dev/api/v3 v3.0.0-20240923041156-0312db85d6d6
+	deps.dev/util/maven v0.0.0-20240923041156-0312db85d6d6
+	deps.dev/util/resolve v0.0.0-20240923041156-0312db85d6d6
+	deps.dev/util/semver v0.0.0-20240923041156-0312db85d6d6
 	github.com/BurntSushi/toml v1.4.0
 	github.com/CycloneDX/cyclonedx-go v0.9.1
 	github.com/charmbracelet/bubbles v0.20.0
@@ -36,7 +36,7 @@ require (
 	golang.org/x/sync v0.8.0
 	golang.org/x/term v0.24.0
 	golang.org/x/vuln v1.0.4
-	google.golang.org/grpc v1.66.2
+	google.golang.org/grpc v1.67.0
 	google.golang.org/protobuf v1.34.2
 	gopkg.in/ini.v1 v1.67.0
 	gopkg.in/yaml.v3 v3.0.1
@@ -103,7 +103,7 @@ require (
 	golang.org/x/sys v0.25.0 // indirect
 	golang.org/x/text v0.18.0 // indirect
 	golang.org/x/tools v0.25.0 // indirect
-	google.golang.org/genproto/googleapis/api v0.0.0-20240604185151-ef581f913117 // indirect
-	google.golang.org/genproto/googleapis/rpc v0.0.0-20240604185151-ef581f913117 // indirect
+	google.golang.org/genproto/googleapis/api v0.0.0-20240814211410-ddb44dafa142 // indirect
+	google.golang.org/genproto/googleapis/rpc v0.0.0-20240814211410-ddb44dafa142 // indirect
 	gopkg.in/warnings.v0 v0.1.2 // indirect
 )
