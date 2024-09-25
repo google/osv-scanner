@@ -11,9 +11,8 @@
   {{ continue }}
   {{ end }}
 
-  {{ $randomIndex := random}}
-  <tr class='vuln-tr' id="vuln-tr-{{ $element.Name}}-{{ $rowIndex }}-{{ $randomIndex }}"
-    onclick="showVulnDetails('{{ $element.Name }}-{{ $rowIndex }}-{{ $randomIndex }}')">
+  <tr class='vuln-tr' id="vuln-tr-{{ $element.Name}}-{{ $rowIndex }}"
+    onclick="showVulnDetails('{{ $element.Name }}-{{ $rowIndex }}')">
     <td>{{ $element.Name }}</td>
     <td>{{ $element.Ecosystem }}</td>
     <td>{{ $element.InstalledVersion }}</td>
@@ -22,14 +21,14 @@
   </tr>
   <tr>
     <td colspan="100%">
-      <div id="vuln-details-{{ $element.Name }}-{{ $rowIndex }}-{{ $randomIndex }}" class="vuln-details">
-        <p>Source: {{ $element.Source }}
+      <div id="vuln-details-{{ $element.Name }}-{{ $rowIndex }}" class="vuln-details">
+        <p><strong>Source: {{ $element.Source }}</strong></p>
         <p>Vulnerabilities:</p>
         {{ range $index, $vuln := $element.CalledVulns }}
-          {{ if eq $element.FixedVersion "No fix available" }}
-          <p><a href="https://osv.dev/{{ $vuln.Summary.Id }}">{{ $vuln.Summary.Id }}</a> ({{$vuln.Summary.SeverityRating}}) has no fix available</p>
+          {{ if eq $vuln.Summary.FixedVersion "No fix available" }}
+          <p><a href="https://osv.dev/{{ $vuln.Summary.ID }}">{{ $vuln.Summary.ID }}</a> ({{$vuln.Summary.SeverityRating}}) has no fix available</p>
           {{ else }}
-          <p><a href="https://osv.dev/{{ $vuln.Summary.Id }}">{{ $vuln.Summary.Id }}</a> ({{$vuln.Summary.SeverityRating}}) has a fixed version at {{$vuln.Summary.FixedVersion}}(Fixed Version)</p>
+          <p><a href="https://osv.dev/{{ $vuln.Summary.ID }}">{{ $vuln.Summary.ID }}</a> ({{$vuln.Summary.SeverityRating}}) has a fixed version at {{$vuln.Summary.FixedVersion}}</p>
           {{ end }}
         {{ end }}
       </div>

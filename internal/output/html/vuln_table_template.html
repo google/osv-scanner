@@ -7,10 +7,10 @@
     <th>Severity</th>
   </tr>
   {{ range $rowIndex, $element := . }}
-  {{ $randomIndex := random}}
-  <tr class='vuln-tr' id="vuln-tr-{{ $element.Summary.Id }}-{{ $rowIndex }}-{{ $randomIndex }}"
-    onclick="showVulnDetails('{{ $element.Summary.Id }}-{{ $rowIndex }}-{{ $randomIndex }}')">
-    <td><a href="https://osv.dev/{{ $element.Summary.Id }}">{{ $element.Summary.Id }}</a></td>
+  {{ $index := uniqueID}}
+  <tr class='vuln-tr' id="vuln-tr-{{ $element.Summary.ID }}-{{ $rowIndex }}-{{ $index }}"
+    onclick="showVulnDetails('{{ $element.Summary.ID }}-{{ $rowIndex }}-{{ $index }}')">
+    <td><a href="https://osv.dev/{{ $element.Summary.ID }}">{{ $element.Summary.ID }}</a></td>
     <td>{{ $element.Summary.PackageName }}</td>
     <td>{{ $element.Summary.InstalledVersion }}</td>
     <td {{ if eq $element.Summary.FixedVersion "No fix available" }} class="warning" {{ end }}>{{
@@ -20,7 +20,7 @@
   </tr>
   <tr>
     <td colspan="100%">
-      <div id="vuln-details-{{ $element.Summary.Id }}-{{ $rowIndex }}-{{ $randomIndex }}" class="vuln-details">
+      <div id="vuln-details-{{ $element.Summary.ID }}-{{ $rowIndex }}-{{ $index }}" class="vuln-details">
         {{ range $detailIndex, $info := printImportantDetail $element.Detail}}
         <p><strong>{{ $info }}</strong></p>
         {{ end }}
