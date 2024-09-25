@@ -2091,6 +2091,96 @@ databases can only be downloaded when running in offline mode
 
 ---
 
+[TestRun_LocalDatabases_AlwaysOffline/#00 - 1]
+Scanning dir ./fixtures/locks-requirements
+Scanned <rootdir>/fixtures/locks-requirements/my-requirements.txt file and found 1 package
+Scanned <rootdir>/fixtures/locks-requirements/requirements-dev.txt file and found 1 package
+Scanned <rootdir>/fixtures/locks-requirements/requirements.prod.txt file and found 1 package
+Scanned <rootdir>/fixtures/locks-requirements/requirements.txt file and found 3 packages
+Scanned <rootdir>/fixtures/locks-requirements/the_requirements_for_test.txt file and found 1 package
+Scanning dir ./fixtures/locks-many
+Scanned <rootdir>/fixtures/locks-many/Gemfile.lock file and found 1 package
+Scanned <rootdir>/fixtures/locks-many/alpine.cdx.xml as CycloneDX SBOM and found 14 packages
+Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
+Scanned <rootdir>/fixtures/locks-many/package-lock.json file and found 1 package
+Scanned <rootdir>/fixtures/locks-many/yarn.lock file and found 1 package
+
+---
+
+[TestRun_LocalDatabases_AlwaysOffline/#00 - 2]
+could not load db for PyPI ecosystem: unable to fetch OSV database: no offline version of the OSV database is available
+could not load db for PyPI ecosystem: unable to fetch OSV database: no offline version of the OSV database is available
+could not load db for PyPI ecosystem: unable to fetch OSV database: no offline version of the OSV database is available
+could not load db for PyPI ecosystem: unable to fetch OSV database: no offline version of the OSV database is available
+could not load db for PyPI ecosystem: unable to fetch OSV database: no offline version of the OSV database is available
+could not load db for PyPI ecosystem: unable to fetch OSV database: no offline version of the OSV database is available
+could not load db for PyPI ecosystem: unable to fetch OSV database: no offline version of the OSV database is available
+could not load db for RubyGems ecosystem: unable to fetch OSV database: no offline version of the OSV database is available
+could not load db for Alpine ecosystem: unable to fetch OSV database: no offline version of the OSV database is available
+could not load db for Alpine ecosystem: unable to fetch OSV database: no offline version of the OSV database is available
+could not load db for Alpine ecosystem: unable to fetch OSV database: no offline version of the OSV database is available
+could not load db for Alpine ecosystem: unable to fetch OSV database: no offline version of the OSV database is available
+could not load db for Alpine ecosystem: unable to fetch OSV database: no offline version of the OSV database is available
+could not load db for Alpine ecosystem: unable to fetch OSV database: no offline version of the OSV database is available
+could not load db for Alpine ecosystem: unable to fetch OSV database: no offline version of the OSV database is available
+could not load db for Alpine ecosystem: unable to fetch OSV database: no offline version of the OSV database is available
+could not load db for Alpine ecosystem: unable to fetch OSV database: no offline version of the OSV database is available
+could not load db for Alpine ecosystem: unable to fetch OSV database: no offline version of the OSV database is available
+could not load db for Alpine ecosystem: unable to fetch OSV database: no offline version of the OSV database is available
+could not load db for Alpine ecosystem: unable to fetch OSV database: no offline version of the OSV database is available
+could not load db for Alpine ecosystem: unable to fetch OSV database: no offline version of the OSV database is available
+could not load db for Alpine ecosystem: unable to fetch OSV database: no offline version of the OSV database is available
+could not load db for Packagist ecosystem: unable to fetch OSV database: no offline version of the OSV database is available
+could not load db for npm ecosystem: unable to fetch OSV database: no offline version of the OSV database is available
+could not load db for npm ecosystem: unable to fetch OSV database: no offline version of the OSV database is available
+
+---
+
+[TestRun_LocalDatabases_AlwaysOffline/#00 - 3]
+Scanning dir ./fixtures/locks-requirements
+Scanned <rootdir>/fixtures/locks-requirements/my-requirements.txt file and found 1 package
+Scanned <rootdir>/fixtures/locks-requirements/requirements-dev.txt file and found 1 package
+Scanned <rootdir>/fixtures/locks-requirements/requirements.prod.txt file and found 1 package
+Scanned <rootdir>/fixtures/locks-requirements/requirements.txt file and found 3 packages
+Scanned <rootdir>/fixtures/locks-requirements/the_requirements_for_test.txt file and found 1 package
+Scanning dir ./fixtures/locks-many
+Scanned <rootdir>/fixtures/locks-many/Gemfile.lock file and found 1 package
+Scanned <rootdir>/fixtures/locks-many/alpine.cdx.xml as CycloneDX SBOM and found 14 packages
+Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
+Scanned <rootdir>/fixtures/locks-many/package-lock.json file and found 1 package
+Scanned <rootdir>/fixtures/locks-many/yarn.lock file and found 1 package
+
+---
+
+[TestRun_LocalDatabases_AlwaysOffline/#00 - 4]
+could not load db for PyPI ecosystem: unable to fetch OSV database: no offline version of the OSV database is available
+could not load db for PyPI ecosystem: unable to fetch OSV database: no offline version of the OSV database is available
+could not load db for PyPI ecosystem: unable to fetch OSV database: no offline version of the OSV database is available
+could not load db for PyPI ecosystem: unable to fetch OSV database: no offline version of the OSV database is available
+could not load db for PyPI ecosystem: unable to fetch OSV database: no offline version of the OSV database is available
+could not load db for PyPI ecosystem: unable to fetch OSV database: no offline version of the OSV database is available
+could not load db for PyPI ecosystem: unable to fetch OSV database: no offline version of the OSV database is available
+could not load db for RubyGems ecosystem: unable to fetch OSV database: no offline version of the OSV database is available
+could not load db for Alpine ecosystem: unable to fetch OSV database: no offline version of the OSV database is available
+could not load db for Alpine ecosystem: unable to fetch OSV database: no offline version of the OSV database is available
+could not load db for Alpine ecosystem: unable to fetch OSV database: no offline version of the OSV database is available
+could not load db for Alpine ecosystem: unable to fetch OSV database: no offline version of the OSV database is available
+could not load db for Alpine ecosystem: unable to fetch OSV database: no offline version of the OSV database is available
+could not load db for Alpine ecosystem: unable to fetch OSV database: no offline version of the OSV database is available
+could not load db for Alpine ecosystem: unable to fetch OSV database: no offline version of the OSV database is available
+could not load db for Alpine ecosystem: unable to fetch OSV database: no offline version of the OSV database is available
+could not load db for Alpine ecosystem: unable to fetch OSV database: no offline version of the OSV database is available
+could not load db for Alpine ecosystem: unable to fetch OSV database: no offline version of the OSV database is available
+could not load db for Alpine ecosystem: unable to fetch OSV database: no offline version of the OSV database is available
+could not load db for Alpine ecosystem: unable to fetch OSV database: no offline version of the OSV database is available
+could not load db for Alpine ecosystem: unable to fetch OSV database: no offline version of the OSV database is available
+could not load db for Alpine ecosystem: unable to fetch OSV database: no offline version of the OSV database is available
+could not load db for Packagist ecosystem: unable to fetch OSV database: no offline version of the OSV database is available
+could not load db for npm ecosystem: unable to fetch OSV database: no offline version of the OSV database is available
+could not load db for npm ecosystem: unable to fetch OSV database: no offline version of the OSV database is available
+
+---
+
 [TestRun_LockfileWithExplicitParseAs/#00 - 1]
 
 ---
