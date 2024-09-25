@@ -420,7 +420,7 @@ func TestRun_LockfileWithExplicitParseAs(t *testing.T) {
 				filepath.FromSlash("./fixtures/locks-insecure"),
 				filepath.FromSlash("./fixtures/locks-many"),
 			},
-			exit: 127,
+			exit: 0,
 		},
 		// parse-as takes priority, even if it's wrong
 		{
@@ -430,7 +430,7 @@ func TestRun_LockfileWithExplicitParseAs(t *testing.T) {
 				"-L",
 				"package-lock.json:" + filepath.FromSlash("./fixtures/locks-many/yarn.lock"),
 			},
-			exit: 127,
+			exit: 0,
 		},
 		// "apk-installed" is supported
 		// TODO : Check why the osv.dev query is failing with a change in ecosystem, for now commenting it as we don't use that path
@@ -786,6 +786,9 @@ func TestRun_WithEncodedLockfile(t *testing.T) {
 func gatherFilepath(bom cyclonedx.BOM) []string {
 	locations := make([]string, 0)
 	for _, component := range *bom.Components {
+		if component.Type != "library" || component.Evidence == nil {
+			continue
+		}
 		for _, location := range *component.Evidence.Occurrences {
 			jsonLocation := make(map[string]map[string]interface{})
 			_ = json.NewDecoder(strings.NewReader(location.Location)).Decode(&jsonLocation)

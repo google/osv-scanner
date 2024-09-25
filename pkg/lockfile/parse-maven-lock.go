@@ -34,6 +34,9 @@ type MavenLockDependency struct {
 type MavenLockParent struct {
 	XMLName      xml.Name `xml:"parent"`
 	RelativePath string   `xml:"relativePath"`
+	GroupID      string   `xml:"groupId"`
+	ArtifactID   string   `xml:"artifactId"`
+	Version      string   `xml:"version"`
 }
 
 type MavenLockDependencyHolder struct {
@@ -78,9 +81,9 @@ func (mld MavenLockDependency) resolvePropertiesValue(lockfile MavenLockFile, fi
 		// If the fieldToResolve is the internal version fieldToResolve, then lets use the one declared
 		if strings.HasPrefix(propName, "project.") {
 			property, ok = projectProperties[propName]
-			// The property is located in the main source file...
+			// The property is located in the main source File...
 			projectPropertySourceFile := lockfile.MainSourceFile
-			// Except if it is the version -> It could be located in some parent file
+			// Except if it is the version -> It could be located in some parent File
 			if strings.HasSuffix(propName, "version") {
 				projectPropertySourceFile = lockfile.ProjectVersionSourceFile
 			}
@@ -96,7 +99,7 @@ func (mld MavenLockDependency) resolvePropertiesValue(lockfile MavenLockFile, fi
 					// Property uses other properties
 					property, position = mld.resolvePropertiesValue(lockfile, property)
 				} else {
-					// We should locate the property in its source file
+					// We should locate the property in its source File
 					propOpenTag, propCloseTag = fileposition.QuoteMetaDelimiters(propOpenTag, propCloseTag)
 					position = fileposition.ExtractDelimitedRegexpPositionInBlock(lockfile.Lines[lockProperty.SourceFile], ".*", 1, propOpenTag, propCloseTag)
 					if position != nil {
@@ -235,7 +238,9 @@ DecodingLoop:
 	return nil
 }
 
-type MavenLockExtractor struct{}
+type MavenLockExtractor struct {
+	ArtifactExtractor
+}
 
 func (e MavenLockExtractor) ShouldExtract(path string) bool {
 	return filepath.Base(path) == "pom.xml"
@@ -246,12 +251,27 @@ func (e MavenLockExtractor) ShouldExtract(path string) bool {
 ** It copies all information originating from the child in it, overriding any common properties/dependencies
 **/
 func (e MavenLockExtractor) mergeLockfiles(childLockfile *MavenLockFile, parentLockfile *MavenLockFile) *MavenLockFile {
-	parentLockfile.Parent = childLockfile.Parent
-	parentLockfile.ArtifactID = childLockfile.ArtifactID
-	parentLockfile.GroupID = childLockfile.GroupID
-	parentLockfile.ModelVersion = childLockfile.ModelVersion
+	// We set the parent back to the definition inherited from the child
+	// As the child have no restriction on putting valid information outside of the relative path, we keep the artifact / group id set by the parent
+	parentLockfile.Parent = MavenLockParent{
+		XMLName:      childLockfile.Parent.XMLName,
+		RelativePath: childLockfile.Parent.RelativePath,
+		GroupID:      parentLockfile.GroupID,
+		ArtifactID:   parentLockfile.ArtifactID,
+		Version:      parentLockfile.Version,
+	}
+	// The following fields are not mandatory, in case they are not defined in the child, the one from the parent should be kept
+	if len(childLockfile.ArtifactID) > 0 {
+		parentLockfile.ArtifactID = childLockfile.ArtifactID
+	}
+	if len(childLockfile.GroupID) > 0 {
+		parentLockfile.GroupID = childLockfile.GroupID
+	}
+	if len(childLockfile.ModelVersion) > 0 {
+		parentLockfile.ModelVersion = childLockfile.ModelVersion
+	}
 
-	// Merge lock file lines
+	// Merge lock File lines
 	maps.Copy(parentLockfile.Lines, childLockfile.Lines)
 
 	// If child lockfile overrides the project version, let's use it instead
@@ -260,7 +280,7 @@ func (e MavenLockExtractor) mergeLockfiles(childLockfile *MavenLockFile, parentL
 		parentLockfile.ProjectVersionSourceFile = childLockfile.ProjectVersionSourceFile
 	}
 
-	// Keep track of the main source file
+	// Keep track of the main source File
 	parentLockfile.MainSourceFile = childLockfile.MainSourceFile
 
 	// Child properties take precedence over parent defined ones
@@ -297,6 +317,20 @@ func (e MavenLockExtractor) enrichProperties(f DepFile, properties map[string]Ma
 	return MavenLockProperties{m: properties}
 }
 
+func (e MavenLockExtractor) resolveParentFilename(parent MavenLockParent, currentPath string) string {
+	// If a parent is defined, use its relative path to find the File, then recurse to decode it properly and enrich its dependencies
+	// If the relativePath is not defined, default to ../pom.xml
+	parentRelativePath := parent.RelativePath
+	if len(parentRelativePath) == 0 {
+		parentRelativePath = "../pom.xml"
+	} else if !strings.HasSuffix(parentRelativePath, ".xml") {
+		// It means we only have a path, we should append the default pom.xml
+		parentRelativePath = path.Join(parentRelativePath, "pom.xml")
+	}
+
+	return filepath.FromSlash(filepath.Join(filepath.Dir(currentPath), parentRelativePath))
+}
+
 func (e MavenLockExtractor) decodeMavenFile(f DepFile, depth int, visitedPath map[string]bool) (*MavenLockFile, error) {
 	var parsedLockfile *MavenLockFile
 
@@ -330,16 +364,7 @@ func (e MavenLockExtractor) decodeMavenFile(f DepFile, depth int, visitedPath ma
 		return parsedLockfile, nil
 	}
 
-	// If a parent is defined, use its relative path to find the file, then recurse to decode it properly and enrich its dependencies
-	// If the relativePath is not defined, default to ../pom.xml
-	parentRelativePath := parsedLockfile.Parent.RelativePath
-	if len(parentRelativePath) == 0 {
-		parentRelativePath = "../pom.xml"
-	} else if !strings.HasSuffix(parentRelativePath, ".xml") {
-		// It means we only have a path, we should append the default pom.xml
-		parentRelativePath = path.Join(parentRelativePath, "pom.xml")
-	}
-	parentPath := filepath.FromSlash(filepath.Join(filepath.Dir(f.Path()), parentRelativePath))
+	parentPath := e.resolveParentFilename(parsedLockfile.Parent, f.Path())
 	if _, err := os.Stat(parentPath); errors.Is(err, os.ErrNotExist) {
 		// If the parent pom does not exist, it still can be in an external repository, but it is unreachable from the parser
 		_, _ = fmt.Fprintf(os.Stderr, "Maven lockfile parser couldn't reach the parent because it is not locally defined\n")
@@ -460,6 +485,38 @@ func (e MavenLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 	}
 
 	return maps.Values(details), nil
+}
+
+func (e MavenLockExtractor) GetArtifact(f DepFile) (*models.ScannedArtifact, error) {
+	visitedPath := make(map[string]bool)
+	visitedPath[f.Path()] = true
+	parsedLockfile, err := e.decodeMavenFile(f, 0, visitedPath)
+	if err != nil {
+		return nil, err
+	}
+
+	artifactName := parsedLockfile.GroupID + ":" + parsedLockfile.ArtifactID
+
+	artifact := models.ScannedArtifact{
+		ArtifactDetail: models.ArtifactDetail{
+			Name:      artifactName,
+			Version:   parsedLockfile.Version,
+			Filename:  f.Path(),
+			Ecosystem: models.EcosystemMaven,
+		},
+	}
+
+	if parsedLockfile.Parent != (MavenLockParent{}) {
+		parentArtifact := parsedLockfile.Parent.GroupID + ":" + parsedLockfile.Parent.ArtifactID
+		artifact.DependsOn = &models.ArtifactDetail{
+			Name:      parentArtifact,
+			Version:   parsedLockfile.Parent.Version,
+			Filename:  e.resolveParentFilename(parsedLockfile.Parent, f.Path()),
+			Ecosystem: models.EcosystemMaven,
+		}
+	}
+
+	return &artifact, nil
 }
 
 var _ Extractor = MavenLockExtractor{}

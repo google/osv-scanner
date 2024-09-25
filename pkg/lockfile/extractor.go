@@ -7,6 +7,8 @@ import (
 	"os"
 	"path/filepath"
 
+	"github.com/google/osv-scanner/pkg/models"
+
 	"golang.org/x/text/encoding"
 	"golang.org/x/text/encoding/unicode"
 	"golang.org/x/text/transform"
@@ -48,6 +50,10 @@ type WithMatcher struct {
 type ExtractorWithMatcher interface {
 	Extractor
 	GetMatcher() Matcher
+}
+
+type ArtifactExtractor interface {
+	GetArtifact(f DepFile) (*models.ScannedArtifact, error)
 }
 
 func (e WithMatcher) GetMatcher() Matcher {

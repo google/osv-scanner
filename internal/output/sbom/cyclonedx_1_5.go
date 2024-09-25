@@ -5,8 +5,8 @@ import (
 	"github.com/google/osv-scanner/pkg/models"
 )
 
-func ToCycloneDX15Bom(uniquePackages map[string]models.PackageVulns) *cyclonedx.BOM {
-	bom := buildCycloneDXBom(uniquePackages, onComponentCreated)
+func ToCycloneDX15Bom(uniquePackages map[string]models.PackageVulns, artifacts []models.ScannedArtifact) *cyclonedx.BOM {
+	bom := buildCycloneDXBom(uniquePackages, artifacts, onComponentCreated)
 	bom.JSONSchema = cycloneDx15Schema
 	bom.SpecVersion = cyclonedx.SpecVersion1_5
 
@@ -14,10 +14,14 @@ func ToCycloneDX15Bom(uniquePackages map[string]models.PackageVulns) *cyclonedx.
 }
 
 func onComponentCreated(component *cyclonedx.Component, details models.PackageVulns) {
-	occurrences := make([]cyclonedx.EvidenceOccurrence, len(details.Locations))
-	component.Evidence = &cyclonedx.Evidence{Occurrences: &occurrences}
+	occurrences := make([]cyclonedx.EvidenceOccurrence, 0)
 
-	for index, packageLocations := range details.Locations {
+	for _, packageLocations := range details.Locations {
+		cleanedLocation := packageLocations.Clean()
+
+		if cleanedLocation == nil {
+			continue
+		}
 		jsonLocation, err := packageLocations.MarshalToJSONString()
 
 		if err != nil {
@@ -26,6 +30,9 @@ func onComponentCreated(component *cyclonedx.Component, details models.PackageVu
 		occurrence := cyclonedx.EvidenceOccurrence{
 			Location: jsonLocation,
 		}
-		(*component.Evidence.Occurrences)[index] = occurrence
+		occurrences = append(occurrences, occurrence)
+	}
+	if len(occurrences) > 0 {
+		component.Evidence = &cyclonedx.Evidence{Occurrences: &occurrences}
 	}
 }

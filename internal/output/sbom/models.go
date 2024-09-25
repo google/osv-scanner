@@ -11,14 +11,17 @@ var SpecVersionToBomCreator = map[models.CycloneDXVersion]CycloneDXBomCreator{
 	models.CycloneDXVersion15: ToCycloneDX15Bom,
 }
 
-type CycloneDXBomCreator func(packageSources map[string]models.PackageVulns) *cyclonedx.BOM
+type CycloneDXBomCreator func(packageSources map[string]models.PackageVulns, artifacts []models.ScannedArtifact) *cyclonedx.BOM
 
 const (
 	cycloneDx14Schema = "http://cyclonedx.org/schema/bom-1.4.schema.json"
 	cycloneDx15Schema = "http://cyclonedx.org/schema/bom-1.5.schema.json"
 )
 
-const libraryComponentType = "library"
+const (
+	libraryComponentType = "library"
+	fileComponentType    = "file"
+)
 
 var SeverityMapper = map[models.SeverityType]cyclonedx.ScoringMethod{
 	models.SeverityCVSSV2: cyclonedx.ScoringMethodCVSSv2,

@@ -7,6 +7,8 @@ import (
 	"sort"
 	"strings"
 
+	"github.com/google/osv-scanner/pkg/models"
+
 	"golang.org/x/exp/maps"
 )
 
@@ -77,9 +79,10 @@ func (ps Packages) Ecosystems() []Ecosystem {
 }
 
 type Lockfile struct {
-	FilePath string   `json:"filePath"`
-	ParsedAs string   `json:"parsedAs"`
-	Packages Packages `json:"packages"`
+	FilePath string                  `json:"filePath"`
+	ParsedAs string                  `json:"parsedAs"`
+	Packages Packages                `json:"packages"`
+	Artifact *models.ScannedArtifact `json:"artifact,omitempty"`
 }
 
 func (l Lockfile) String() string {

@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <project>
+  <groupId>test</groupId>
+  <artifactId>foobar</artifactId>
   <properties>
     <mavenVersion>3.0</mavenVersion>
     <mypackageVersion>1.0.0</mypackageVersion>

@@ -5,6 +5,7 @@
     <my.package.version>2.3.4</my.package.version>
     <version-range>[9.4.35.v20201120,9.5)</version-range>
   </properties>
+  <artifactId>integration-tests</artifactId>
   <version>1.0-SNAPSHOT</version>
 
   <dependencyManagement>

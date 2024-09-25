@@ -10,10 +10,10 @@
     <relativePath>../pom.xml</relativePath>
   </parent>
 
-  <artifactId>logs-backend-kafka-commons-client</artifactId>
+  <artifactId>kafka-commons-client</artifactId>
   <packaging>jar</packaging>
 
-  <name>logs-backend-kafka-commons-client</name>
+  <name>kafka-commons-client</name>
 
   <dependencies>
 
