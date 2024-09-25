@@ -1107,7 +1107,7 @@ func overrideGoVersion(r reporter.Reporter, packages []scannedPackage, configMan
 				packages[i].Version = configToUse.GoVersionOverride
 			}
 
-			break
+			continue
 		}
 	}
 }

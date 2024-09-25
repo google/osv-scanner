@@ -312,6 +312,12 @@ func TestRun(t *testing.T) {
 			args: []string{"", "--config=./fixtures/go-project/go-version-config.toml", "./fixtures/go-project"},
 			exit: 0,
 		},
+		// Go project with an overridden go version, recursive
+		{
+			name: "Go project with an overridden go version, recursive",
+			args: []string{"", "--config=./fixtures/go-project/go-version-config.toml", "-r", "./fixtures/go-project"},
+			exit: 0,
+		},
 		// broad config file that overrides a whole ecosystem
 		{
 			name: "config file can be broad",
