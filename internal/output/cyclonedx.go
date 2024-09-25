@@ -11,16 +11,24 @@ import (
 	"github.com/google/osv-scanner/pkg/models"
 )
 
-// PrintCycloneDXResults writes results to the provided writer in CycloneDX format
-func PrintCycloneDXResults(vulnResult *models.VulnerabilityResults, cycloneDXVersion models.CycloneDXVersion, outputWriter io.Writer) error {
+// This method creates a CycloneDX SBOM and returns it. Error being returned here are from components being filtered during PURL grouping
+func CreateCycloneDXBOM(vulnResult *models.VulnerabilityResults, cycloneDXVersion models.CycloneDXVersion) (*cyclonedx.BOM, error) {
 	bomCreator := sbom.SpecVersionToBomCreator[cycloneDXVersion]
 	resultsByPurl, errs := purl.Group(vulnResult.Results)
 
-	bom := bomCreator(resultsByPurl, vulnResult.Artifacts)
+	return bomCreator(resultsByPurl, vulnResult.Artifacts), errors.Join(errs...)
+}
+
+// PrintCycloneDXResults writes results to the provided writer in CycloneDX format
+func PrintCycloneDXResults(vulnResult *models.VulnerabilityResults, cycloneDXVersion models.CycloneDXVersion, outputWriter io.Writer) error {
+	bom, errs := CreateCycloneDXBOM(vulnResult, cycloneDXVersion)
 	encoder := cyclonedx.NewBOMEncoder(outputWriter, cyclonedx.BOMFileFormatJSON)
 	encoder.SetPretty(testing.Testing())
 
-	err := encoder.EncodeVersion(bom, bom.SpecVersion)
+	if bom == nil {
+		return errs
+	}
+	encodingErr := encoder.EncodeVersion(bom, bom.SpecVersion)
 
-	return errors.Join(err, errors.Join(errs...))
+	return errors.Join(encodingErr, errs)
 }
