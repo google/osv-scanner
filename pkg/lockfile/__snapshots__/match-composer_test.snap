@@ -41,27 +41,3 @@
   }
 ]
 ---
-
-[TestComposerMatcher_OnePackage_MatcherFailed - 1]
-[
-  {
-    "name": "brick/math",
-    "version": "0.12.1",
-    "commit": "f510c0a40911935b77b86859eb5223d58d660df1",
-    "ecosystem": "Packagist",
-    "compareAs": "Packagist",
-    "blockLocation": {
-      "line": {
-        "start": 0,
-        "end": 0
-      },
-      "column": {
-        "start": 0,
-        "end": 0
-      },
-      "file_name": ""
-    },
-    "packageManager": "Composer"
-  }
-]
----

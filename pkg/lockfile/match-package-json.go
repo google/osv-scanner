@@ -30,10 +30,7 @@ func tryGetNameLocation(name string, line string, lineNumber int) *models.FilePo
 }
 
 func tryGetVersionLocation(targetVersion string, version string, line string, lineNumber int) *models.FilePosition {
-	if targetVersion == version {
-		return fileposition.ExtractDelimitedRegexpPositionInBlock([]string{line}, targetVersion, lineNumber, versionPrefix, versionSuffix)
-	}
-	versionRegexp := ".*" + cachedregexp.QuoteMeta(targetVersion) + ".*"
+	versionRegexp := cachedregexp.QuoteMeta(targetVersion)
 
 	return fileposition.ExtractDelimitedRegexpPositionInBlock([]string{line}, versionRegexp, lineNumber, versionPrefix, versionSuffix)
 }
