@@ -1,0 +1,20 @@
+name: On new released published
+
+on:
+  release:
+    types:
+      - published
+  workflow_dispatch:
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Launch workflow
+        run: |
+          curl -X POST \
+          -H "Content-Type: application/json" \
+          -H "DD-API-KEY: ${{ secrets.DD_API_KEY }}" \
+          -H "DD-APPLICATION-KEY: ${{ secrets.DD_APP_KEY }}" \
+          -d {} \
+          "https://api.datadoghq.com/api/v2/workflows/${{ secrets.DD_WORKFLOW_ID }}/instances"
