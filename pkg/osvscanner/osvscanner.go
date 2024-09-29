@@ -506,6 +506,7 @@ func scanSBOMFile(r reporter.Reporter, path string, fromFSScan bool) ([]scannedP
 					len(ignoredPURLs),
 					output.Form(len(ignoredPURLs), "package", "packages"),
 				)
+				slices.Sort(ignoredPURLs)
 				for _, purl := range slices.Compact(ignoredPURLs) {
 					r.Warnf(
 						"Ignored invalid PURL \"%s\"\n",
