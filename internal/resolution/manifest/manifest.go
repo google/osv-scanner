@@ -92,11 +92,11 @@ func Overwrite(rw ReadWriter, filename string, p Patch) error {
 	return nil
 }
 
-func GetReadWriter(pathToManifest string, mavenRegistry string) (ReadWriter, error) {
+func GetReadWriter(pathToManifest string, registry string) (ReadWriter, error) {
 	base := filepath.Base(pathToManifest)
 	switch {
 	case base == "pom.xml":
-		return NewMavenReadWriter(mavenRegistry), nil
+		return NewMavenReadWriter(registry)
 	case base == "package.json":
 		return NpmReadWriter{}, nil
 	default:

@@ -136,7 +136,7 @@ func Command(stdout, stderr io.Writer, r *reporter.Reporter) *cli.Command {
 				Name:  "experimental-resolution-data-source",
 				Usage: "source to fetch package information from; value can be: deps.dev, native",
 				Value: "deps.dev",
-				Action: func(ctx *cli.Context, s string) error {
+				Action: func(_ *cli.Context, s string) error {
 					if s != "deps.dev" && s != "native" {
 						return fmt.Errorf("unsupported data-source \"%s\" - must be one of: deps.dev, native", s)
 					}

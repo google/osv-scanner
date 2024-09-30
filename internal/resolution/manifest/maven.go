@@ -36,17 +36,18 @@ func mavenRequirementKey(requirement resolve.RequirementVersion) RequirementKey 
 }
 
 type MavenReadWriter struct {
-	client *datasource.MavenRegistryAPIClient
+	*datasource.MavenRegistryAPIClient
 }
 
 func (MavenReadWriter) System() resolve.System { return resolve.Maven }
 
-func NewMavenReadWriter(registry string) MavenReadWriter {
-	return MavenReadWriter{
-		MavenRegistryAPIClient: datasource.NewMavenRegistryAPIClient(datasource.MavenCentral),
+func NewMavenReadWriter(registry string) (MavenReadWriter, error) {
+	client, err := datasource.NewMavenRegistryAPIClient(registry)
+	if err != nil {
+		return MavenReadWriter{}, err
 	}
 
-	return MavenManifestIO{client: client}, nil
+	return MavenReadWriter{MavenRegistryAPIClient: client}, nil
 }
 
 type MavenManifestSpecific struct {
@@ -98,11 +99,11 @@ func (m MavenReadWriter) Read(df lockfile.DepFile) (Manifest, error) {
 		return Manifest{}, fmt.Errorf("failed to merge profiles: %w", err)
 	}
 	for _, repo := range project.Repositories {
-		m.client.Add(string(repo.URL))
+		m.MavenRegistryAPIClient.Add(string(repo.URL))
 	}
 
 	// Merging parents data by parsing local parent pom.xml or fetching from upstream.
-	if err := mavenutil.MergeParents(ctx, m.client, &project, project.Parent, 1, df.Path(), true); err != nil {
+	if err := mavenutil.MergeParents(ctx, m.MavenRegistryAPIClient, &project, project.Parent, 1, df.Path(), true); err != nil {
 		return Manifest{}, fmt.Errorf("failed to merge parents: %w", err)
 	}
 
@@ -125,7 +126,7 @@ func (m MavenReadWriter) Read(df lockfile.DepFile) (Manifest, error) {
 		// To get dependency management from another project, we need the
 		// project with parents merged, so we call mergeParents by passing
 		// an empty project.
-		if err := mavenutil.MergeParents(ctx, m.client, &result, root, 0, "", false); err != nil {
+		if err := mavenutil.MergeParents(ctx, m.MavenRegistryAPIClient, &result, root, 0, "", false); err != nil {
 			return maven.DependencyManagement{}, err
 		}
 
