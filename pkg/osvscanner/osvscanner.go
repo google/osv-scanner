@@ -515,6 +515,10 @@ func scanSBOMFile(r reporter.Reporter, path string, fromFSScan bool) ([]scannedP
 				}
 			}
 
+			slices.SortFunc(packages, func(i, j scannedPackage) int {
+				return strings.Compare(i.PURL, j.PURL)
+			})
+
 			return packages, nil
 		}
 
