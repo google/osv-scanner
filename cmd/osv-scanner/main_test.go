@@ -641,6 +641,35 @@ func TestRun_LocalDatabases(t *testing.T) {
 	}
 }
 
+func TestRun_LocalDatabases_AlwaysOffline(t *testing.T) {
+	t.Parallel()
+
+	tests := []cliTestCase{
+		// a bunch of different lockfiles and ecosystem
+		{
+			name: "",
+			args: []string{"", "--config=./fixtures/osv-scanner-empty-config.toml", "--experimental-offline", "./fixtures/locks-requirements", "./fixtures/locks-many"},
+			exit: 127,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			t.Parallel()
+
+			testDir := testutility.CreateTestDir(t)
+			old := tt.args
+			tt.args = []string{"", "--experimental-local-db-path", testDir}
+			tt.args = append(tt.args, old[1:]...)
+
+			// run each test twice since they should provide the same output,
+			// and the second run should be fast as the db is already available
+			testCli(t, tt)
+			testCli(t, tt)
+		})
+	}
+}
+
 func TestRun_Licenses(t *testing.T) {
 	t.Parallel()
 	tests := []cliTestCase{
