@@ -21,7 +21,7 @@ type PatchSuggester interface {
 	// Suggest returns the ManifestPatch required to update the dependencies to
 	// a newer version based on the given options.
 	// ManifestPatch includes ecosystem-specific information.
-	Suggest(ctx context.Context, client resolve.Client, mf manifest.Manifest, opts Options) (manifest.ManifestPatch, error)
+	Suggest(ctx context.Context, client resolve.Client, mf manifest.Manifest, opts Options) (manifest.Patch, error)
 }
 
 func GetSuggester(system resolve.System) (PatchSuggester, error) {

@@ -33,7 +33,7 @@ type ScanResults struct {
 
 type Image struct {
 	// Final layer is the last element in the slice
-	layers         []imgLayer
+	layers         []Layer
 	innerImage     *v1.Image
 	extractDir     string
 	baseImageIndex int
@@ -61,7 +61,7 @@ func (img *Image) layerIDToCommand(id string) (string, error) {
 	return img.configFile.History[i-1].CreatedBy, nil
 }
 
-func (img *Image) LastLayer() *imgLayer {
+func (img *Image) LastLayer() *Layer {
 	return &img.layers[len(img.layers)-1]
 }
 
@@ -97,7 +97,7 @@ func LoadImage(imagePath string) (*Image, error) {
 	outputImage := Image{
 		extractDir:     tempPath,
 		innerImage:     &image,
-		layers:         make([]imgLayer, len(layers)),
+		layers:         make([]Layer, len(layers)),
 		layerIDToIndex: make(map[string]int),
 		configFile:     configFile,
 		baseImageIndex: guessBaseImageIndex(configFile.History),
@@ -111,7 +111,7 @@ func LoadImage(imagePath string) (*Image, error) {
 			return &outputImage, err
 		}
 
-		outputImage.layers[i] = imgLayer{
+		outputImage.layers[i] = Layer{
 			fileNodeTrie: trie.NewPathTrie(),
 			id:           hash.Hex,
 			rootImage:    &outputImage,
@@ -235,7 +235,7 @@ func LoadImage(imagePath string) (*Image, error) {
 					continue
 				}
 
-				currentMap.fileNodeTrie.Put(virtualPath, fileNode{
+				currentMap.fileNodeTrie.Put(virtualPath, FileNode{
 					rootImage: &outputImage,
 					// Select the original layer of the file
 					originLayer: &outputImage.layers[i],
@@ -255,7 +255,7 @@ func LoadImage(imagePath string) (*Image, error) {
 	return &outputImage, nil
 }
 
-func inWhiteoutDir(fileMap imgLayer, filePath string) bool {
+func inWhiteoutDir(fileMap Layer, filePath string) bool {
 	for {
 		if filePath == "" {
 			break
@@ -265,7 +265,7 @@ func inWhiteoutDir(fileMap imgLayer, filePath string) bool {
 			break
 		}
 		val := fileMap.fileNodeTrie.Get(dirname)
-		item, ok := val.(fileNode)
+		item, ok := val.(FileNode)
 		if ok && item.isWhiteout {
 			return true
 		}

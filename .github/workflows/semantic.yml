@@ -106,7 +106,7 @@ jobs:
       - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
         with:
           persist-credentials: false
-      - uses: ruby/setup-ruby@52753b7da854d5c07df37391a986c76ab4615999 # v1.191.0
+      - uses: ruby/setup-ruby@f321cf5a4d1533575411f8752cf25b86478b0442 # v1.193.0
         with:
           ruby-version: "3.1"
       - name: setup dependencies
@@ -126,7 +126,7 @@ jobs:
       - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
         with:
           persist-credentials: false
-      - uses: actions/setup-java@2dfa2011c5b2a0f1489bf9e433881c92c1631f88 # v4.3.0
+      - uses: actions/setup-java@b36c23c0d998641eff861008f374ee103c25ac73 # v4.4.0
         with:
           java-version: 17
           distribution: oracle

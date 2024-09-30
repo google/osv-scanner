@@ -1,0 +1,24 @@
+RustVersionOverride = "1.2.3"
+
+[[PackageOverrides]]
+ecosystem = "npm"
+skip = true
+license.override = ["0BSD"]
+
+[[PackageOverrides]]
+ecosystem = "Packagist"
+license.override = ["0BSD"]
+
+[[PackageOverrides]]
+ecosystem = "Alpine"
+Name = "musl"
+license.override = ["UNKNOWN"]
+
+[[PackageOverrides]]
+ecosystem = "Alpine"
+name = "musl-utils"
+license.skip = true
+
+[[IgnoredVulns]]
+id = "GO-2022-0274"
+ignoreuntil = 2020-01-01

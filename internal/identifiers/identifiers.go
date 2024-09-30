@@ -1,12 +1,15 @@
-package output
+package identifiers
 
 import (
 	"strings"
 )
 
 func prefixOrder(prefix string) int {
-	if prefix == "CVE" {
-		// Highest precedence
+	if prefix == "DSA" {
+		// Special case: For container scanning, DSA contains multiple CVEs and is more accurate.
+		return 3
+	} else if prefix == "CVE" {
+		// Highest precedence for normal cases
 		return 2
 	} else if prefix == "GHSA" {
 		// Lowest precedence
@@ -26,16 +29,6 @@ func prefixOrderForDescription(prefix string) int {
 	return 2
 }
 
-// idSortFunc sorts IDs ascending by CVE < [ECO-SPECIFIC] < GHSA
-func idSortFunc(a, b string) int {
-	return idSort(a, b, prefixOrder)
-}
-
-// idSortFuncForDescription sorts ID ascending by [ECO-SPECIFIC] < GHSA < CVE
-func idSortFuncForDescription(a, b string) int {
-	return idSort(a, b, prefixOrderForDescription)
-}
-
 func idSort(a, b string, prefixOrd func(string) int) int {
 	prefixAOrd := prefixOrd(strings.Split(a, "-")[0])
 	prefixBOrd := prefixOrd(strings.Split(b, "-")[0])
@@ -47,4 +40,14 @@ func idSort(a, b string, prefixOrd func(string) int) int {
 	}
 
 	return strings.Compare(a, b)
+}
+
+// IDSortFunc sorts IDs ascending by CVE < [ECO-SPECIFIC] < GHSA
+func IDSortFunc(a, b string) int {
+	return idSort(a, b, prefixOrder)
+}
+
+// IDSortFuncForDescription sorts ID ascending by [ECO-SPECIFIC] < GHSA < CVE
+func IDSortFuncForDescription(a, b string) int {
+	return idSort(a, b, prefixOrderForDescription)
 }

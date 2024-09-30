@@ -5,6 +5,8 @@ import (
 	"fmt"
 	"os"
 	"path"
+	"slices"
+	"strings"
 
 	"github.com/google/osv-scanner/pkg/lockfile"
 	"github.com/google/osv-scanner/pkg/models"
@@ -116,6 +118,9 @@ func MakeRequest(r reporter.Reporter, query osv.BatchedQuery, offline bool, loca
 		return db, nil
 	}
 
+	// slice to track ecosystems that did not have an offline database available
+	var missingDbs []string
+
 	for _, query := range query.Queries {
 		pkg, err := toPackageDetails(query)
 
@@ -143,14 +148,26 @@ func MakeRequest(r reporter.Reporter, query osv.BatchedQuery, offline bool, loca
 		db, err := loadDBFromCache(pkg.Ecosystem)
 
 		if err != nil {
-			// currently, this will actually only error if the PURL cannot be parses
-			r.Errorf("could not load db for %s ecosystem: %v\n", pkg.Ecosystem, err)
+			if errors.Is(err, ErrOfflineDatabaseNotFound) {
+				missingDbs = append(missingDbs, string(pkg.Ecosystem))
+			} else {
+				// the most likely error at this point is that the PURL could not be parsed
+				r.Errorf("could not load db for %s ecosystem: %v\n", pkg.Ecosystem, err)
+			}
+
 			results = append(results, osv.Response{Vulns: []models.Vulnerability{}})
 
 			continue
 		}
 
 		results = append(results, osv.Response{Vulns: db.VulnerabilitiesAffectingPackage(pkg)})
+	}
+
+	if len(missingDbs) > 0 {
+		missingDbs = slices.Compact(missingDbs)
+		slices.Sort(missingDbs)
+
+		r.Errorf("could not find local databases for ecosystems: %s\n", strings.Join(missingDbs, ", "))
 	}
 
 	return &osv.HydratedBatchedResponse{Results: results}, nil

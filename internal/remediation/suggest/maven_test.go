@@ -265,7 +265,7 @@ func TestSuggest(t *testing.T) {
 		t.Fatalf("failed to suggest ManifestPatch: %v", err)
 	}
 
-	want := manifest.ManifestPatch{
+	want := manifest.Patch{
 		Deps: []manifest.DependencyPatch{
 			{
 				Pkg: resolve.PackageKey{

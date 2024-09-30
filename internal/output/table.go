@@ -114,6 +114,11 @@ func tableBuilderInner(vulnResult *models.VulnerabilityResults, calledVulns bool
 
 				for _, vuln := range group.IDs {
 					links = append(links, OSVBaseVulnerabilityURL+text.Bold.Sprintf("%s", vuln))
+
+					// For container scanning results, if there is a DSA, then skip printing its sub-CVEs.
+					if strings.Split(vuln, "-")[0] == "DSA" {
+						break
+					}
 				}
 
 				outputRow = append(outputRow, strings.Join(links, "\n"))

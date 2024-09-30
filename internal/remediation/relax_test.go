@@ -11,7 +11,7 @@ import (
 func TestComputeRelaxPatches(t *testing.T) {
 	t.Parallel()
 
-	basicOpts := remediation.RemediationOptions{
+	basicOpts := remediation.Options{
 		DevDeps:       true,
 		MaxDepth:      -1,
 		UpgradeConfig: upgrade.NewConfig(),
@@ -21,7 +21,7 @@ func TestComputeRelaxPatches(t *testing.T) {
 		name         string
 		universePath string
 		manifestPath string
-		opts         remediation.RemediationOptions
+		opts         remediation.Options
 	}{
 		{
 			name:         "npm-santatracker",

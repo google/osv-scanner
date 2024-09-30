@@ -6,6 +6,7 @@ import (
 	"os"
 	"path/filepath"
 	"slices"
+	"strings"
 	"time"
 
 	"github.com/BurntSushi/toml"
@@ -15,6 +16,10 @@ import (
 
 const osvScannerConfigName = "osv-scanner.toml"
 
+// Ignore stuttering as that would be a breaking change
+// TODO: V2 rename?
+//
+//nolint:revive
 type ConfigManager struct {
 	// Override to replace all other configs
 	OverrideConfig *Config
@@ -27,8 +32,10 @@ type ConfigManager struct {
 type Config struct {
 	IgnoredVulns      []IgnoreEntry          `toml:"IgnoredVulns"`
 	PackageOverrides  []PackageOverrideEntry `toml:"PackageOverrides"`
-	LoadPath          string                 `toml:"LoadPath"`
 	GoVersionOverride string                 `toml:"GoVersionOverride"`
+	// The path to config file that this config was loaded from,
+	// set by the scanner after having successfully parsed the file
+	LoadPath string `toml:"-"`
 }
 
 type IgnoreEntry struct {
@@ -209,8 +216,20 @@ func normalizeConfigLoadPath(target string) (string, error) {
 // returning the Config object if successful or otherwise the error
 func tryLoadConfig(configPath string) (Config, error) {
 	config := Config{}
-	_, err := toml.DecodeFile(configPath, &config)
+	m, err := toml.DecodeFile(configPath, &config)
 	if err == nil {
+		unknownKeys := m.Undecoded()
+
+		if len(unknownKeys) > 0 {
+			keys := make([]string, 0, len(unknownKeys))
+
+			for _, key := range unknownKeys {
+				keys = append(keys, key.String())
+			}
+
+			return Config{}, fmt.Errorf("unknown keys in config file: %s", strings.Join(keys, ", "))
+		}
+
 		config.LoadPath = configPath
 	}
 

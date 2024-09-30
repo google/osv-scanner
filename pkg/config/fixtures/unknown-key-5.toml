@@ -1,0 +1,3 @@
+[[PackageOverrides]]
+ecosystem = "npm"
+license.skip = false # whoops, should be "license.ignore"

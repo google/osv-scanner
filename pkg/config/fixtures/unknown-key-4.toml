@@ -1,0 +1,4 @@
+[[PackageOverrides]]
+ecosystem = "npm"
+skip = true # whoops, should be "ignore"
+license.override = ["0BSD"]

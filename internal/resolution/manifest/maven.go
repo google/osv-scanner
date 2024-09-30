@@ -35,16 +35,15 @@ func mavenRequirementKey(requirement resolve.RequirementVersion) RequirementKey 
 	}
 }
 
-type MavenManifestIO struct {
+type MavenReadWriter struct {
 	client *datasource.MavenRegistryAPIClient
 }
 
-func (MavenManifestIO) System() resolve.System { return resolve.Maven }
+func (MavenReadWriter) System() resolve.System { return resolve.Maven }
 
-func NewMavenManifestIO(registry string) (MavenManifestIO, error) {
-	client, err := datasource.NewMavenRegistryAPIClient(registry)
-	if err != nil {
-		return MavenManifestIO{}, err
+func NewMavenReadWriter(registry string) MavenReadWriter {
+	return MavenReadWriter{
+		MavenRegistryAPIClient: datasource.NewMavenRegistryAPIClient(datasource.MavenCentral),
 	}
 
 	return MavenManifestIO{client: client}, nil
@@ -68,7 +67,7 @@ type DependencyWithOrigin struct {
 	Origin string // Origin indicates where the dependency comes from
 }
 
-func (m MavenManifestIO) Read(df lockfile.DepFile) (Manifest, error) {
+func (m MavenReadWriter) Read(df lockfile.DepFile) (Manifest, error) {
 	ctx := context.Background()
 
 	var project maven.Project
@@ -291,7 +290,7 @@ func mavenOrigin(list ...string) string {
 	return result
 }
 
-func (MavenManifestIO) Write(df lockfile.DepFile, w io.Writer, patch ManifestPatch) error {
+func (MavenReadWriter) Write(df lockfile.DepFile, w io.Writer, patch Patch) error {
 	specific, ok := patch.Manifest.EcosystemSpecific.(MavenManifestSpecific)
 	if !ok {
 		return errors.New("invalid MavenManifestSpecific data")

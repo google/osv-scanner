@@ -27,7 +27,7 @@ type NpmRegistryAPIClient struct {
 
 type npmRegistryPackageDetails struct {
 	// Only cache the info needed for the DependencyClient
-	Versions map[string]npmRegistryDependencies
+	Versions map[string]NpmRegistryDependencies
 	Tags     map[string]string
 }
 
@@ -43,24 +43,24 @@ func NewNpmRegistryAPIClient(workdir string) (*NpmRegistryAPIClient, error) {
 	}, nil
 }
 
-type npmRegistryVersions struct {
+type NpmRegistryVersions struct {
 	Versions []string
 	Tags     map[string]string
 }
 
-func (c *NpmRegistryAPIClient) Versions(ctx context.Context, pkg string) (npmRegistryVersions, error) {
+func (c *NpmRegistryAPIClient) Versions(ctx context.Context, pkg string) (NpmRegistryVersions, error) {
 	pkgDetails, err := c.getPackageDetails(ctx, pkg)
 	if err != nil {
-		return npmRegistryVersions{}, err
+		return NpmRegistryVersions{}, err
 	}
 
-	return npmRegistryVersions{
+	return NpmRegistryVersions{
 		Versions: maps.Keys(pkgDetails.Versions),
 		Tags:     pkgDetails.Tags,
 	}, nil
 }
 
-type npmRegistryDependencies struct {
+type NpmRegistryDependencies struct {
 	// TODO: These maps should preserve ordering from JSON response
 	Dependencies         map[string]string
 	DevDependencies      map[string]string
@@ -69,17 +69,17 @@ type npmRegistryDependencies struct {
 	BundleDependencies   []string
 }
 
-func (c *NpmRegistryAPIClient) Dependencies(ctx context.Context, pkg, version string) (npmRegistryDependencies, error) {
+func (c *NpmRegistryAPIClient) Dependencies(ctx context.Context, pkg, version string) (NpmRegistryDependencies, error) {
 	pkgDetails, err := c.getPackageDetails(ctx, pkg)
 	if err != nil {
-		return npmRegistryDependencies{}, err
+		return NpmRegistryDependencies{}, err
 	}
 
 	if deps, ok := pkgDetails.Versions[version]; ok {
 		return deps, nil
 	}
 
-	return npmRegistryDependencies{}, fmt.Errorf("no version %s for package %s", version, pkg)
+	return NpmRegistryDependencies{}, fmt.Errorf("no version %s for package %s", version, pkg)
 }
 
 func (c *NpmRegistryAPIClient) FullJSON(ctx context.Context, pkg, version string) (gjson.Result, error) {
@@ -119,9 +119,9 @@ func (c *NpmRegistryAPIClient) getPackageDetails(ctx context.Context, pkg string
 			return npmRegistryPackageDetails{}, err
 		}
 
-		versions := make(map[string]npmRegistryDependencies)
+		versions := make(map[string]NpmRegistryDependencies)
 		for v, data := range jsonData.Get("versions").Map() {
-			versions[v] = npmRegistryDependencies{
+			versions[v] = NpmRegistryDependencies{
 				Dependencies:         jsonToStringMap(data.Get("dependencies")),
 				DevDependencies:      jsonToStringMap(data.Get("devDependencies")),
 				PeerDependencies:     jsonToStringMap(data.Get("peerDependencies")),

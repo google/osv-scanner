@@ -35,7 +35,7 @@ type DependencyClient interface {
 }
 
 // PreFetch loads cache, then makes and caches likely queries needed for resolving a package with a list of requirements
-func PreFetch(c DependencyClient, ctx context.Context, requirements []resolve.RequirementVersion, manifestPath string) {
+func PreFetch(ctx context.Context, c DependencyClient, requirements []resolve.RequirementVersion, manifestPath string) {
 	// It doesn't matter if loading the cache fails
 	_ = c.LoadCache(manifestPath)
 

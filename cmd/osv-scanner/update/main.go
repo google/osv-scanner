@@ -57,7 +57,7 @@ type updateOptions struct {
 	IgnoreDev  bool
 
 	Client     client.ResolutionClient
-	ManifestRW manifest.ManifestIO
+	ManifestRW manifest.ReadWriter
 }
 
 func action(ctx *cli.Context, stdout, stderr io.Writer) (reporter.Reporter, error) {
@@ -78,7 +78,7 @@ func action(ctx *cli.Context, stdout, stderr io.Writer) (reporter.Reporter, erro
 	if err != nil {
 		return nil, err
 	}
-	options.ManifestRW, err = manifest.GetManifestIO(options.Manifest, "")
+	options.ManifestRW, err = manifest.GetReadWriter(options.Manifest, "")
 	if err != nil {
 		return nil, err
 	}
