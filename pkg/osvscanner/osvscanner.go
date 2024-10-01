@@ -10,6 +10,7 @@ import (
 	"os/exec"
 	"path"
 	"path/filepath"
+	"slices"
 	"sort"
 	"strings"
 
@@ -479,11 +480,11 @@ func scanSBOMFile(r reporter.Reporter, path string, fromFSScan bool) ([]scannedP
 		}
 		defer file.Close()
 
-		ignoredCount := 0
+		var ignoredPURLs []string
 		err = provider.GetPackages(file, func(id sbom.Identifier) error {
 			_, err := models.PURLToPackage(id.PURL)
 			if err != nil {
-				ignoredCount++
+				ignoredPURLs = append(ignoredPURLs, id.PURL)
 				//nolint:nilerr
 				return nil
 			}
@@ -517,12 +518,19 @@ func scanSBOMFile(r reporter.Reporter, path string, fromFSScan bool) ([]scannedP
 				len(packages),
 				output.Form(len(packages), "package", "packages"),
 			)
-			if ignoredCount > 0 {
-				r.Infof(
+			if len(ignoredPURLs) > 0 {
+				r.Warnf(
 					"Ignored %d %s with invalid PURLs\n",
-					ignoredCount,
-					output.Form(ignoredCount, "package", "packages"),
+					len(ignoredPURLs),
+					output.Form(len(ignoredPURLs), "package", "packages"),
 				)
+				slices.Sort(ignoredPURLs)
+				for _, purl := range slices.Compact(ignoredPURLs) {
+					r.Warnf(
+						"Ignored invalid PURL \"%s\"\n",
+						purl,
+					)
+				}
 			}
 
 			return packages, nil
@@ -1125,7 +1133,7 @@ func overrideGoVersion(r reporter.Reporter, packages []scannedPackage, configMan
 				packages[i].Version = configToUse.GoVersionOverride
 			}
 
-			break
+			continue
 		}
 	}
 }
