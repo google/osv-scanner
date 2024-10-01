@@ -107,7 +107,9 @@ func (c *MavenRegistryClient) Requirements(ctx context.Context, vk resolve.Versi
 		return nil, err
 	}
 	for _, repo := range proj.Repositories {
-		c.api.Add(string(repo.URL))
+		if err := c.api.AddRegistry(string(repo.URL)); err != nil {
+			return nil, err
+		}
 	}
 	// We need to merge parents for potential dependencies in parents.
 	if err := mavenutil.MergeParents(ctx, c.api, &proj, proj.Parent, 1, "", false); err != nil {
@@ -154,10 +156,14 @@ func (c *MavenRegistryClient) MatchingVersions(ctx context.Context, vk resolve.V
 	return resolve.MatchRequirement(vk, versions), nil
 }
 
-func (c *MavenRegistryClient) UpdateRegistries(registries []string) {
+func (c *MavenRegistryClient) UpdateRegistries(registries []Registry) error {
 	for _, reg := range registries {
-		c.api.Add(reg)
+		if err := c.api.AddRegistry(reg.URL); err != nil {
+			return err
+		}
 	}
+
+	return nil
 }
 
 func (c *MavenRegistryClient) WriteCache(path string) error {

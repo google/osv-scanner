@@ -39,7 +39,9 @@ func (e MavenResolverExtractor) Extract(f lockfile.DepFile) ([]lockfile.PackageD
 		return nil, fmt.Errorf("failed to merge profiles: %w", err)
 	}
 	for _, repo := range project.Repositories {
-		e.MavenRegistryAPIClient.Add(string(repo.URL))
+		if err := e.MavenRegistryAPIClient.AddRegistry(string(repo.URL)); err != nil {
+			return nil, fmt.Errorf("failed to add registry %s: %w", repo.URL, err)
+		}
 	}
 	// Merging parents data by parsing local parent pom.xml or fetching from upstream.
 	if err := mavenutil.MergeParents(ctx, e.MavenRegistryAPIClient, &project, project.Parent, 1, f.Path(), true); err != nil {
@@ -59,7 +61,15 @@ func (e MavenResolverExtractor) Extract(f lockfile.DepFile) ([]lockfile.PackageD
 		return result.DependencyManagement, nil
 	})
 
-	e.DependencyClient.UpdateRegistries(e.MavenRegistryAPIClient.GetRegistries())
+	if registries := e.MavenRegistryAPIClient.GetRegistries(); len(registries) > 0 {
+		cleintRegs := make([]client.Registry, len(registries))
+		for i, reg := range registries {
+			cleintRegs[i] = client.Registry{URL: reg}
+		}
+		if err := e.DependencyClient.UpdateRegistries(cleintRegs); err != nil {
+			return nil, err
+		}
+	}
 	overrideClient := client.NewOverrideClient(e.DependencyClient)
 	resolver := mavenresolve.NewResolver(overrideClient)
 

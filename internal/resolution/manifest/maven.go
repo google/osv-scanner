@@ -99,7 +99,9 @@ func (m MavenReadWriter) Read(df lockfile.DepFile) (Manifest, error) {
 		return Manifest{}, fmt.Errorf("failed to merge profiles: %w", err)
 	}
 	for _, repo := range project.Repositories {
-		m.MavenRegistryAPIClient.Add(string(repo.URL))
+		if err := m.MavenRegistryAPIClient.AddRegistry(string(repo.URL)); err != nil {
+			return Manifest{}, fmt.Errorf("failed to add registry %s: %w", repo.URL, err)
+		}
 	}
 
 	// Merging parents data by parsing local parent pom.xml or fetching from upstream.

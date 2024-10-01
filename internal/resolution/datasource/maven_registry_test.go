@@ -233,7 +233,9 @@ func TestMultipleRegistry(t *testing.T) {
 	`))
 
 	srv := testutility.NewMockHTTPServer(t)
-	client.Add(srv.URL)
+	if err := client.AddRegistry(srv.URL); err != nil {
+		t.Fatalf("failed to add registry %s: %v", srv.URL, err)
+	}
 	srv.SetResponse(t, "org/example/x.y.z/maven-metadata.xml", []byte(`
 	<metadata>
 	  <groupId>org.example</groupId>

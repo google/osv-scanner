@@ -82,10 +82,12 @@ func MergeParents(ctx context.Context, mavenClient *datasource.MavenRegistryAPIC
 		}
 		// Empty JDK and ActivationOS indicates merging the default profiles.
 		if err := result.MergeProfiles("", maven.ActivationOS{}); err != nil {
-			return err
+			return fmt.Errorf("failed to merge profiles: %w", err)
 		}
 		for _, repo := range proj.Repositories {
-			mavenClient.Add(string(repo.URL))
+			if err := mavenClient.AddRegistry(string(repo.URL)); err != nil {
+				return fmt.Errorf("failed to add registry %s: %w", repo.URL, err)
+			}
 		}
 		result.MergeParent(proj)
 		current = proj.Parent
