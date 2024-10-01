@@ -29,7 +29,8 @@
         {{ end }}
         {{ if ne $element.Detail.LayerCommand "" }}
         {{ if ne $element.Detail.LayerCommandTooltip "" }}
-        <p>Layer Command: <abbr title={{ $element.Detail.LayerCommandTooltip }}>{{ $element.Detail.LayerCommand }}</abbr></p>
+        <p>Layer Command: <abbr title={{ $element.Detail.LayerCommandTooltip }}>
+            {{ $element.Detail.LayerCommand}}</abbr></p>
         {{ else }}
         <p>Layer Command: {{ $element.Detail.LayerCommand }}</p>
         {{ end }}

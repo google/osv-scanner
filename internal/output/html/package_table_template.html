@@ -33,9 +33,10 @@
         <p><strong>Source: {{ $element.Source }}</strong></p>
         <p>Vulnerabilities:</p>
         {{ range $index, $vuln := $element.CalledVulns }}
-          {{ if eq $vuln.Summary.FixedVersion "No fix available" }}
-          <p><a href="https://osv.dev/{{ $vuln.Summary.ID }}">{{ $vuln.Summary.ID }}</a> ({{$vuln.Summary.SeverityRating}}) has no fix available</p>
-          {{ else }}
+        {{ if eq $vuln.Summary.FixedVersion "No fix available" }}
+        <p><a href="https://osv.dev/{{ $vuln.Summary.ID }}">{{ $vuln.Summary.ID }}</a>
+          ({{$vuln.Summary.SeverityRating}}) has no fix available</p>
+        {{ else }}
         <p><a href="https://osv.dev/{{ $vuln.Summary.ID }}">{{ $vuln.Summary.ID }}</a>
           ({{$vuln.Summary.SeverityRating}}) has a fixed version at {{$vuln.Summary.FixedVersion}}</p>
         {{ end }}
