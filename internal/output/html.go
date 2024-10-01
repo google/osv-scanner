@@ -5,11 +5,12 @@ import (
 	"fmt"
 	"html/template"
 	"io"
+	"math/rand"
 	"slices"
 	"strconv"
 	"strings"
-	"unicode"
 
+	"github.com/google/osv-scanner/internal/cachedregexp"
 	"github.com/google/osv-scanner/internal/identifiers"
 	"github.com/google/osv-scanner/internal/semantic"
 	"github.com/google/osv-scanner/internal/utility/severity"
@@ -18,23 +19,24 @@ import (
 
 type HTMLResult struct {
 	HTMLVulnCount    HTMLVulnCount
-	EcosystemResults []EcosystemResult
+	EcosystemResults []HTMLEcosystemResult
 }
 
-type EcosystemResult struct {
+type HTMLEcosystemResult struct {
 	Ecosystem string
-	Sources   []SourceResult
+	Sources   []HTMLSourceResult
 }
 
-type SourceResult struct {
-	Source         string
-	Ecosystem      string
-	PackageResults []PackageResult
-	PackageCount   [2]int // called and uncalled package count
-	HTMLVulnCount  HTMLVulnCount
+type HTMLSourceResult struct {
+	Source               string
+	Ecosystem            string
+	PackageResults       []HTMLPackageResult
+	CalledPackageCount   int
+	UncalledPackageCount int
+	HTMLVulnCount        HTMLVulnCount
 }
 
-type PackageResult struct {
+type HTMLPackageResult struct {
 	Name             string
 	Ecosystem        string
 	Source           string
@@ -47,7 +49,7 @@ type PackageResult struct {
 
 type HTMLVulnResult struct {
 	Summary HTMLVulnResultSummary
-	Detail  map[string]string
+	Detail  HTMLVulnResultDetail
 }
 
 type HTMLVulnResultSummary struct {
@@ -57,6 +59,16 @@ type HTMLVulnResultSummary struct {
 	FixedVersion     string
 	SeverityRating   string
 	SeverityScore    string
+}
+
+type HTMLVulnResultDetail struct {
+	GroupIDs            string
+	Aliases             string
+	LayerCommand        string
+	LayerCommandTooltip string
+	LayerID             string
+	InBaseImage         string
+	Description         string
 }
 
 type HTMLVulnCount struct {
@@ -71,10 +83,10 @@ type HTMLVulnCount struct {
 	UnFixed  int
 }
 
-const UNFIXED = "No fix available"
+const UnfixedDescription = "No fix available"
 
 // HTML templates directory
-const TEMPLATEDIR = "html/*"
+const TemplateDir = "html/*"
 
 // supportedBaseImages lists the supported OS base images for container scanning.
 var baseImages = []string{"Debian", "Alpine", "Ubuntu"}
@@ -82,11 +94,9 @@ var baseImages = []string{"Debian", "Alpine", "Ubuntu"}
 //go:embed html/*
 var templates embed.FS
 
-var vulnIndex = 0
-
 // BuildHTMLResults builds HTML results from vulnerability results.
 func BuildHTMLResults(vulnResult *models.VulnerabilityResults) HTMLResult {
-	var ecosystemMap = make(map[string][]SourceResult)
+	var ecosystemMap = make(map[string][]HTMLSourceResult)
 	var resultCount HTMLVulnCount
 
 	for _, packageSource := range vulnResult.Results {
@@ -105,7 +115,7 @@ func BuildHTMLResults(vulnResult *models.VulnerabilityResults) HTMLResult {
 		if ok {
 			ecosystemMap[sourceResult.Ecosystem] = append(sourceList, *sourceResult)
 		} else {
-			ecosystemMap[sourceResult.Ecosystem] = []SourceResult{*sourceResult}
+			ecosystemMap[sourceResult.Ecosystem] = []HTMLSourceResult{*sourceResult}
 		}
 
 		updateCount(&resultCount, &sourceResult.HTMLVulnCount)
@@ -116,7 +126,7 @@ func BuildHTMLResults(vulnResult *models.VulnerabilityResults) HTMLResult {
 }
 
 // processSource processes a single source (lockfile or artifact) and returns an SourceResult.
-func processSource(packageSource models.PackageSource) *SourceResult {
+func processSource(packageSource models.PackageSource) *HTMLSourceResult {
 	var allVulns []HTMLVulnResult
 	var calledPackages = make(map[string]bool)
 	var uncalledPackages = make(map[string]bool)
@@ -145,19 +155,20 @@ func processSource(packageSource models.PackageSource) *SourceResult {
 		updateCount(&count, &packageResult.HTMLVulnCount)
 	}
 
-	return &SourceResult{
-		Source:         packageSource.Source.String(),
-		Ecosystem:      ecosystemName,
-		PackageResults: packageResults,
-		PackageCount:   [2]int{len(calledPackages), len(uncalledPackages)},
-		HTMLVulnCount:  count,
+	return &HTMLSourceResult{
+		Source:               packageSource.Source.String(),
+		Ecosystem:            ecosystemName,
+		PackageResults:       packageResults,
+		CalledPackageCount:   len(calledPackages),
+		UncalledPackageCount: len(uncalledPackages),
+		HTMLVulnCount:        count,
 	}
 }
 
 // processPackageResults splits the given vulnerabilities into called and uncalled
 // based on the uncalledVulnIDs map.
-func processPackageResults(allVulns []HTMLVulnResult, groupIDs map[string]models.GroupInfo, uncalledVulnIDs map[string]bool, ecosystem string) []PackageResult {
-	packageResults := make(map[string]*PackageResult)
+func processPackageResults(allVulns []HTMLVulnResult, groupIDs map[string]models.GroupInfo, uncalledVulnIDs map[string]bool, ecosystem string) []HTMLPackageResult {
+	packageResults := make(map[string]*HTMLPackageResult)
 	for _, vuln := range allVulns {
 		groupInfo, isIndex := groupIDs[vuln.Summary.ID]
 		if !isIndex {
@@ -167,13 +178,13 @@ func processPackageResults(allVulns []HTMLVulnResult, groupIDs map[string]models
 
 		// Add group IDs info
 		if len(groupInfo.IDs) > 1 {
-			vuln.Detail["groupVulns"] = strings.Join(groupInfo.IDs[1:], ", ")
+			vuln.Detail.GroupIDs = strings.Join(groupInfo.IDs[1:], ", ")
 		}
 
 		packageName := vuln.Summary.PackageName
 		packageResult, exist := packageResults[packageName]
 		if !exist {
-			packageResult = &PackageResult{
+			packageResult = &HTMLPackageResult{
 				Name: packageName,
 			}
 			packageResults[packageName] = packageResult
@@ -193,14 +204,14 @@ func processPackageResults(allVulns []HTMLVulnResult, groupIDs map[string]models
 		packageResult.CalledVulns = append(packageResult.CalledVulns, vuln)
 		packageResult.HTMLVulnCount.Called = len(packageResult.CalledVulns)
 		addCount(&packageResult.HTMLVulnCount, vuln.Summary.SeverityRating)
-		if vuln.Summary.FixedVersion == UNFIXED {
+		if vuln.Summary.FixedVersion == UnfixedDescription {
 			packageResult.HTMLVulnCount.UnFixed += 1
 		} else {
 			packageResult.HTMLVulnCount.Fixed += 1
 		}
 	}
 
-	results := make([]PackageResult, 0, len(packageResults))
+	results := make([]HTMLPackageResult, 0, len(packageResults))
 	for _, result := range packageResults {
 		if len(result.CalledVulns) > 0 {
 			result.InstalledVersion = result.CalledVulns[0].Summary.InstalledVersion
@@ -219,14 +230,14 @@ func processVulnerabilities(vulnPkg models.PackageVulns) []HTMLVulnResult {
 	vulnResults := make([]HTMLVulnResult, len(vulnPkg.Vulnerabilities))
 	for i, vuln := range vulnPkg.Vulnerabilities {
 		aliases := strings.Join(vuln.Aliases, ", ")
-		vulnDetails := map[string]string{
-			"aliases":     aliases,
-			"description": vuln.Details,
+		vulnDetails := HTMLVulnResultDetail{
+			Aliases:     aliases,
+			Description: vuln.Details,
 		}
 		if vulnPkg.Package.ImageOrigin != nil {
-			vulnDetails["layerCommand"] = vulnPkg.Package.ImageOrigin.OriginCommand
-			vulnDetails["layerId"] = vulnPkg.Package.ImageOrigin.LayerID
-			vulnDetails["inBaseImage"] = strconv.FormatBool(vulnPkg.Package.ImageOrigin.InBaseImage)
+			vulnDetails.LayerCommand, vulnDetails.LayerCommandTooltip = formatLayerCommand(vulnPkg.Package.ImageOrigin.OriginCommand)
+			vulnDetails.LayerID = vulnPkg.Package.ImageOrigin.LayerID
+			vulnDetails.InBaseImage = strconv.FormatBool(vulnPkg.Package.ImageOrigin.InBaseImage)
 		}
 
 		fixedVersion := getFixVersion(vuln.Affected, vulnPkg.Package.Version, vulnPkg.Package.Name, models.Ecosystem(vulnPkg.Package.Ecosystem))
@@ -263,11 +274,11 @@ func processVulnerabilityGroups(groupIDs map[string]models.GroupInfo, vulnPkg mo
 }
 
 // buildHTMLResult builds the final HTMLResult object from the ecosystem map and total vulnerability count.
-func buildHTMLResult(ecosystemMap map[string][]SourceResult, resultCount HTMLVulnCount) HTMLResult {
-	var ecosystemResults []EcosystemResult
-	var osResults []EcosystemResult
+func buildHTMLResult(ecosystemMap map[string][]HTMLSourceResult, resultCount HTMLVulnCount) HTMLResult {
+	var ecosystemResults []HTMLEcosystemResult
+	var osResults []HTMLEcosystemResult
 	for ecosystem, sources := range ecosystemMap {
-		ecosystemResult := EcosystemResult{
+		ecosystemResult := HTMLEcosystemResult{
 			Ecosystem: ecosystem,
 			Sources:   sources,
 		}
@@ -327,8 +338,7 @@ func isOSImage(ecosystem string) bool {
 // uniqueIndex generates a unique integer.
 // It is used to create unique IDs in HTML templates.
 func uniqueIndex() int {
-	vulnIndex += 1
-	return vulnIndex
+	return rand.Int() //nolint:all
 }
 
 // getFixVersion returns the lowest fixed version for a given package and
@@ -337,7 +347,7 @@ func uniqueIndex() int {
 func getFixVersion(allAffected []models.Affected, installedVersion string, installedPackage string, ecosystem models.Ecosystem) string {
 	ecosystemPrefix := models.Ecosystem(strings.Split(string(ecosystem), ":")[0])
 	vp := semantic.MustParse(installedVersion, ecosystemPrefix)
-	minFixVersion := UNFIXED
+	minFixVersion := UnfixedDescription
 	for _, affected := range allAffected {
 		if affected.Package.Name != installedPackage || affected.Package.Ecosystem != ecosystem {
 			continue
@@ -347,7 +357,7 @@ func getFixVersion(allAffected []models.Affected, installedVersion string, insta
 				if affectedEvent.Fixed == "" || vp.CompareStr(affectedEvent.Fixed) > 0 {
 					continue
 				}
-				if minFixVersion == UNFIXED || semantic.MustParse(affectedEvent.Fixed, ecosystemPrefix).CompareStr(minFixVersion) < 0 {
+				if minFixVersion == UnfixedDescription || semantic.MustParse(affectedEvent.Fixed, ecosystemPrefix).CompareStr(minFixVersion) < 0 {
 					minFixVersion = affectedEvent.Fixed
 				}
 			}
@@ -362,9 +372,9 @@ func getMaxFixedVersion(ecosystem string, allVulns []HTMLVulnResult) string {
 	maxFixVersion := ""
 	var vp semantic.Version
 	for _, vuln := range allVulns {
-		if vuln.Summary.FixedVersion == UNFIXED {
+		if vuln.Summary.FixedVersion == UnfixedDescription {
 			// If one vuln is not yet fixed, the package doesn't have fix version
-			return UNFIXED
+			return UnfixedDescription
 		}
 
 		if maxFixVersion == "" {
@@ -383,7 +393,7 @@ func getMaxFixedVersion(ecosystem string, allVulns []HTMLVulnResult) string {
 	return maxFixVersion
 }
 
-func getAllVulns(packageResults []PackageResult, isCalled bool) []HTMLVulnResult {
+func getAllVulns(packageResults []HTMLPackageResult, isCalled bool) []HTMLVulnResult {
 	var results []HTMLVulnResult
 	for _, packageResult := range packageResults {
 		if isCalled {
@@ -396,8 +406,8 @@ func getAllVulns(packageResults []PackageResult, isCalled bool) []HTMLVulnResult
 	return results
 }
 
-func getAllPackageResults(ecosystemResults []EcosystemResult) []PackageResult {
-	var results []PackageResult
+func getAllPackageResults(ecosystemResults []HTMLEcosystemResult) []HTMLPackageResult {
+	var results []HTMLPackageResult
 	for _, ecosystemResult := range ecosystemResults {
 		for _, sourceResult := range ecosystemResult.Sources {
 			results = append(results, sourceResult.PackageResults...)
@@ -407,25 +417,18 @@ func getAllPackageResults(ecosystemResults []EcosystemResult) []PackageResult {
 	return results
 }
 
-// formatString formats a camelCase string into a human readable string
-// by adding spaces before uppercase letters.
-func formatString(input string) string {
-	// Add space before uppercase letters
-	var result strings.Builder
-	for i, r := range input {
-		if i == 0 {
-			result.WriteRune(unicode.ToUpper(r))
+func formatLayerCommand(command string) (string, string) {
+	re := cachedregexp.MustCompile(`dir:([a-f0-9]+)`)
+	match := re.FindStringSubmatch(command)
 
-			continue
-		}
-		if i > 0 && unicode.IsUpper(r) {
-			result.WriteRune(' ')
-		}
+	if len(match) > 1 {
+		hash := match[1]
+		newCommand := re.ReplaceAllString(command, "dir:UNKNOWN")
 
-		result.WriteRune(r)
+		return newCommand, "File ID: " + hash
 	}
 
-	return result.String()
+	return command, ""
 }
 
 func printSeverityCount(count HTMLVulnCount) string {
@@ -437,49 +440,19 @@ func printSeverityCountShort(count HTMLVulnCount) string {
 	return fmt.Sprintf("%dC | %dH | %dM | %dL | %dU", count.Critical, count.High, count.Medium, count.Low, count.Unknown)
 }
 
-func printImportantDetail(vulnDetail map[string]string) []string {
-	var output []string
-	if value, ok := vulnDetail["groupVulns"]; ok && value != "" {
-		output = append(output, "Group IDs: "+value)
-	}
-
-	if value, ok := vulnDetail["aliases"]; ok && value != "" {
-		output = append(output, "Aliases: "+value)
-	}
-
-	return output
-}
-
-func printVulnDetail(vulnDetail map[string]string) []string {
-	var output []string
-	for key, value := range vulnDetail {
-		if key != "groupVulns" && key != "aliases" && key != "description" {
-			output = append(output, fmt.Sprintf("%s: %s", formatString(key), value))
-		}
-	}
-
-	if value, ok := vulnDetail["description"]; ok && value != "" {
-		output = append(output, "Description: "+value)
-	}
-
-	return output
-}
-
 func PrintHTMLResults(vulnResult *models.VulnerabilityResults, outputWriter io.Writer) error {
 	htmlResult := BuildHTMLResults(vulnResult)
 
 	// Parse embedded templates
 	funcMap := template.FuncMap{
-		"printVulnDetail":         printVulnDetail,
 		"uniqueID":                uniqueIndex,
 		"getAllVulns":             getAllVulns,
 		"getAllPackageResults":    getAllPackageResults,
 		"printSeverityCount":      printSeverityCount,
 		"printSeverityCountShort": printSeverityCountShort,
-		"printImportantDetail":    printImportantDetail,
 	}
 
-	tmpl := template.Must(template.New("").Funcs(funcMap).ParseFS(templates, TEMPLATEDIR))
+	tmpl := template.Must(template.New("").Funcs(funcMap).ParseFS(templates, TemplateDir))
 
 	// Execute template
 	return tmpl.ExecuteTemplate(outputWriter, "report_template.html", htmlResult)

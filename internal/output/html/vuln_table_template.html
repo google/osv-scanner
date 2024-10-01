@@ -21,11 +21,27 @@
   <tr>
     <td colspan="100%">
       <div id="vuln-details-{{ $element.Summary.ID }}-{{ $rowIndex }}-{{ $index }}" class="vuln-details">
-        {{ range $detailIndex, $info := printImportantDetail $element.Detail}}
-        <p><strong>{{ $info }}</strong></p>
+        {{ if ne $element.Detail.GroupIDs "" }}
+        <p><strong>Group IDs: {{ $element.Detail.GroupIDs }}</strong></p>
         {{ end }}
-        {{ range $detailIndex, $info := printVulnDetail $element.Detail}}
-        <p>{{ $info }}</p>
+        {{ if ne $element.Detail.Aliases "" }}
+        <p><strong>Aliases: {{ $element.Detail.Aliases }}</strong></p>
+        {{ end }}
+        {{ if ne $element.Detail.LayerCommand "" }}
+        {{ if ne $element.Detail.LayerCommandTooltip "" }}
+        <p>Layer Command: <abbr title={{ $element.Detail.LayerCommandTooltip }}>{{ $element.Detail.LayerCommand }}</abbr></p>
+        {{ else }}
+        <p>Layer Command: {{ $element.Detail.LayerCommand }}</p>
+        {{ end }}
+        {{ end }}
+        {{ if ne $element.Detail.LayerID "" }}
+        <p>Layer ID: {{ $element.Detail.LayerID }}</p>
+        {{ end }}
+        {{ if ne $element.Detail.InBaseImage "" }}
+        <p>In Base Image: {{ $element.Detail.InBaseImage }}</p>
+        {{ end }}
+        {{ if ne $element.Detail.Description "" }}
+        <p>Description: {{ $element.Detail.Description }}</p>
         {{ end }}
       </div>
     </td>
