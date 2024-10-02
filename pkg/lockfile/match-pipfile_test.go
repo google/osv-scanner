@@ -87,6 +87,7 @@ func TestPipfileMatcher_Match_OnePackage(t *testing.T) {
 				Column:   models.Position{Start: 15, End: 16},
 				Filename: sourceFile.Path(),
 			},
+			IsDirect: true,
 		},
 	})
 }
@@ -149,6 +150,7 @@ func TestPipfileMatcher_Match_TransitiveDependencies(t *testing.T) {
 				Column:   models.Position{Start: 11, End: 15},
 				Filename: sourceFile.Path(),
 			},
+			IsDirect: true,
 		},
 		{
 			Name:           "ply",
@@ -168,6 +170,7 @@ func TestPipfileMatcher_Match_TransitiveDependencies(t *testing.T) {
 				Column:   models.Position{Start: 8, End: 12},
 				Filename: sourceFile.Path(),
 			},
+			IsDirect: true,
 		},
 		{
 			Name:           "sqlparse",

@@ -50,6 +50,8 @@ func (m PipfileMatcher) Match(sourcefile DepFile, packages []PackageDetails) err
 					versionLocation.Filename = sourcefile.Path()
 					packages[key].VersionLocation = versionLocation
 				}
+
+				packages[key].IsDirect = true
 			}
 		}
 	}

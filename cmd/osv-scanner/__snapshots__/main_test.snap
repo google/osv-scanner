@@ -6210,6 +6210,10 @@ No package sources found, --help for usage information.
       "purl": "pkg:pypi/markupsafe@2.1.1",
       "properties": [
         {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:package-manager",
           "value": "Pipfile"
         }
@@ -6229,6 +6233,10 @@ No package sources found, --help for usage information.
       "version": "1.23.3",
       "purl": "pkg:pypi/numpy@1.23.3",
       "properties": [
+        {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
         {
           "name": "osv-scanner:package-manager",
           "value": "Poetry"
@@ -9937,6 +9945,10 @@ Filtered 1 local package/s from the scan.
       "purl": "pkg:pypi/markupsafe@2.1.1",
       "properties": [
         {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:package-manager",
           "value": "Pipfile"
         }
@@ -9956,6 +9968,10 @@ Filtered 1 local package/s from the scan.
       "version": "1.23.3",
       "purl": "pkg:pypi/numpy@1.23.3",
       "properties": [
+        {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
         {
           "name": "osv-scanner:package-manager",
           "value": "Poetry"
@@ -13663,6 +13679,10 @@ Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/yarn/yarn.lock
       "purl": "pkg:pypi/markupsafe@2.1.1",
       "properties": [
         {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:package-manager",
           "value": "Pipfile"
         }
@@ -13682,6 +13702,10 @@ Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/yarn/yarn.lock
       "version": "1.23.3",
       "purl": "pkg:pypi/numpy@1.23.3",
       "properties": [
+        {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
         {
           "name": "osv-scanner:package-manager",
           "value": "Poetry"

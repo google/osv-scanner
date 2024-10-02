@@ -87,6 +87,7 @@ func TestPyprojectTomlMatcher_Match_OnePackage(t *testing.T) {
 				Column:   models.Position{Start: 10, End: 18},
 				Filename: sourceFile.Path(),
 			},
+			IsDirect: true,
 		},
 	})
 }
@@ -137,6 +138,7 @@ func TestPyprojectTomlMatcher_Match_TransitiveDependencies(t *testing.T) {
 				Column:   models.Position{Start: 10, End: 18},
 				Filename: sourceFile.Path(),
 			},
+			IsDirect: true,
 		},
 		{
 			Name:           "proto-plus",
@@ -156,6 +158,7 @@ func TestPyprojectTomlMatcher_Match_TransitiveDependencies(t *testing.T) {
 				Column:   models.Position{Start: 15, End: 17},
 				Filename: sourceFile.Path(),
 			},
+			IsDirect: true,
 		},
 		{
 			Name:           "protobuf",
