@@ -174,3 +174,123 @@ func TestPackageJSONMatcher_Match_Resolutions(t *testing.T) {
 
 	testutility.NewSnapshot().MatchText(t, testutility.NormalizeJSON(t, packages))
 }
+
+func TestPackageJSONMatcher_Match_Target_Version(t *testing.T) {
+	t.Parallel()
+
+	sourceFile, err := lockfile.OpenLocalDepFile("fixtures/package-json/multiple-versions/package.json")
+	if err != nil {
+		t.Errorf("Got unexpected error: %v", err)
+	}
+
+	packages := []lockfile.PackageDetails{
+		{
+			Name:           "foo",
+			Version:        "1.5.3",
+			PackageManager: models.NPM,
+			TargetVersions: []string{"1.0.0 - 2.9999.9999"},
+		},
+		{
+			Name:           "bar",
+			Version:        "1.5.3",
+			PackageManager: models.NPM,
+			TargetVersions: []string{">=1.0.2 <2.1.2"},
+		},
+		{
+			Name:           "baz",
+			Version:        "1.5.3",
+			PackageManager: models.NPM,
+			TargetVersions: []string{">1.0.2 <=2.3.4"},
+		},
+		{
+			Name:           "boo",
+			Version:        "1.5.3",
+			PackageManager: models.NPM,
+			TargetVersions: []string{"1.5.3"},
+		},
+		{
+			Name:           "qux",
+			Version:        "1.5.3",
+			PackageManager: models.NPM,
+			TargetVersions: []string{"<1.0.0 || >=2.3.1 <2.4.5 || >=2.5.2 <3.0.0"},
+		},
+		{
+			Name:           "asd",
+			Version:        "1.5.3",
+			PackageManager: models.NPM,
+			TargetVersions: []string{"http://asdf.com/asdf.tar.gz"},
+		},
+		{
+			Name:           "til",
+			Version:        "1.5.3",
+			PackageManager: models.NPM,
+			TargetVersions: []string{"~1.5"},
+		},
+		{
+			Name:           "elf",
+			Version:        "1.5.3",
+			PackageManager: models.NPM,
+			TargetVersions: []string{"~1.5.3"},
+		},
+		{
+			Name:           "two",
+			Version:        "1.5.3",
+			PackageManager: models.NPM,
+			TargetVersions: []string{"1.x"},
+		},
+		{
+			Name:           "thr",
+			Version:        "1.5.3",
+			PackageManager: models.NPM,
+			TargetVersions: []string{"1.5.x"},
+		},
+		{
+			Name:           "lat",
+			Version:        "1.5.3",
+			PackageManager: models.NPM,
+			TargetVersions: []string{"latest"},
+		},
+		{
+			Name:           "dyl",
+			Version:        "1.5.3",
+			PackageManager: models.NPM,
+			TargetVersions: []string{"file:../dyl"},
+		},
+		{
+			Name:           "kpg",
+			Version:        "1.5.3",
+			PackageManager: models.NPM,
+			TargetVersions: []string{"npm:pkg@1.5.0"},
+		},
+		{
+			Name:           "abc",
+			Version:        "1.5.3",
+			PackageManager: models.NPM,
+			TargetVersions: []string{"1"},
+		},
+		{
+			Name:           "cde",
+			Version:        "1.5.3",
+			PackageManager: models.NPM,
+			TargetVersions: []string{">1.0.2"},
+		},
+		{
+			Name:           "dd",
+			Version:        "0.0.0-use.local",
+			PackageManager: models.NPM,
+			TargetVersions: []string{"javascript/datadog"},
+		},
+		{
+			Name:           "dd2",
+			Version:        "0.0.0-use.local",
+			PackageManager: models.NPM,
+			TargetVersions: []string{"javascript/datadog"},
+		},
+	}
+	err = packageJSONMatcher.Match(sourceFile, packages)
+	if err != nil {
+		t.Errorf("Got unexpected error: %v", err)
+	}
+
+	testutility.NewSnapshot().MatchText(t, testutility.NormalizeJSON(t, packages))
+}

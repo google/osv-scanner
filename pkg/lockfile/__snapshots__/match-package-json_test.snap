@@ -257,6 +257,708 @@
 ]
 ---
 
+[TestPackageJSONMatcher_Match_Target_Version - 1]
+[
+  {
+    "name": "foo",
+    "version": "1.5.3",
+    "targetVersions": [
+      "1.0.0 - 2.9999.9999"
+    ],
+    "blockLocation": {
+      "line": {
+        "start": 3,
+        "end": 3
+      },
+      "column": {
+        "start": 5,
+        "end": 33
+      },
+      "file_name": "<rootdir>/fixtures/package-json/multiple-versions/package.json"
+    },
+    "versionLocation": {
+      "line": {
+        "start": 3,
+        "end": 3
+      },
+      "column": {
+        "start": 13,
+        "end": 32
+      },
+      "file_name": "<rootdir>/fixtures/package-json/multiple-versions/package.json"
+    },
+    "nameLocation": {
+      "line": {
+        "start": 3,
+        "end": 3
+      },
+      "column": {
+        "start": 6,
+        "end": 9
+      },
+      "file_name": "<rootdir>/fixtures/package-json/multiple-versions/package.json"
+    },
+    "packageManager": "NPM"
+  },
+  {
+    "name": "bar",
+    "version": "1.5.3",
+    "targetVersions": [
+      "/u003e=1.0.2 /u003c2.1.2"
+    ],
+    "blockLocation": {
+      "line": {
+        "start": 4,
+        "end": 4
+      },
+      "column": {
+        "start": 5,
+        "end": 28
+      },
+      "file_name": "<rootdir>/fixtures/package-json/multiple-versions/package.json"
+    },
+    "versionLocation": {
+      "line": {
+        "start": 4,
+        "end": 4
+      },
+      "column": {
+        "start": 13,
+        "end": 27
+      },
+      "file_name": "<rootdir>/fixtures/package-json/multiple-versions/package.json"
+    },
+    "nameLocation": {
+      "line": {
+        "start": 4,
+        "end": 4
+      },
+      "column": {
+        "start": 6,
+        "end": 9
+      },
+      "file_name": "<rootdir>/fixtures/package-json/multiple-versions/package.json"
+    },
+    "packageManager": "NPM"
+  },
+  {
+    "name": "baz",
+    "version": "1.5.3",
+    "targetVersions": [
+      "/u003e1.0.2 /u003c=2.3.4"
+    ],
+    "blockLocation": {
+      "line": {
+        "start": 5,
+        "end": 5
+      },
+      "column": {
+        "start": 5,
+        "end": 28
+      },
+      "file_name": "<rootdir>/fixtures/package-json/multiple-versions/package.json"
+    },
+    "versionLocation": {
+      "line": {
+        "start": 5,
+        "end": 5
+      },
+      "column": {
+        "start": 13,
+        "end": 27
+      },
+      "file_name": "<rootdir>/fixtures/package-json/multiple-versions/package.json"
+    },
+    "nameLocation": {
+      "line": {
+        "start": 5,
+        "end": 5
+      },
+      "column": {
+        "start": 6,
+        "end": 9
+      },
+      "file_name": "<rootdir>/fixtures/package-json/multiple-versions/package.json"
+    },
+    "packageManager": "NPM"
+  },
+  {
+    "name": "boo",
+    "version": "1.5.3",
+    "targetVersions": [
+      "1.5.3"
+    ],
+    "blockLocation": {
+      "line": {
+        "start": 15,
+        "end": 15
+      },
+      "column": {
+        "start": 5,
+        "end": 19
+      },
+      "file_name": "<rootdir>/fixtures/package-json/multiple-versions/package.json"
+    },
+    "versionLocation": {
+      "line": {
+        "start": 15,
+        "end": 15
+      },
+      "column": {
+        "start": 13,
+        "end": 18
+      },
+      "file_name": "<rootdir>/fixtures/package-json/multiple-versions/package.json"
+    },
+    "nameLocation": {
+      "line": {
+        "start": 15,
+        "end": 15
+      },
+      "column": {
+        "start": 6,
+        "end": 9
+      },
+      "file_name": "<rootdir>/fixtures/package-json/multiple-versions/package.json"
+    },
+    "packageManager": "NPM"
+  },
+  {
+    "name": "qux",
+    "version": "1.5.3",
+    "targetVersions": [
+      "/u003c1.0.0 || /u003e=2.3.1 /u003c2.4.5 || /u003e=2.5.2 /u003c3.0.0"
+    ],
+    "blockLocation": {
+      "line": {
+        "start": 6,
+        "end": 6
+      },
+      "column": {
+        "start": 5,
+        "end": 56
+      },
+      "file_name": "<rootdir>/fixtures/package-json/multiple-versions/package.json"
+    },
+    "versionLocation": {
+      "line": {
+        "start": 6,
+        "end": 6
+      },
+      "column": {
+        "start": 13,
+        "end": 55
+      },
+      "file_name": "<rootdir>/fixtures/package-json/multiple-versions/package.json"
+    },
+    "nameLocation": {
+      "line": {
+        "start": 6,
+        "end": 6
+      },
+      "column": {
+        "start": 6,
+        "end": 9
+      },
+      "file_name": "<rootdir>/fixtures/package-json/multiple-versions/package.json"
+    },
+    "packageManager": "NPM"
+  },
+  {
+    "name": "asd",
+    "version": "1.5.3",
+    "targetVersions": [
+      "http://asdf.com/asdf.tar.gz"
+    ],
+    "blockLocation": {
+      "line": {
+        "start": 7,
+        "end": 7
+      },
+      "column": {
+        "start": 5,
+        "end": 41
+      },
+      "file_name": "<rootdir>/fixtures/package-json/multiple-versions/package.json"
+    },
+    "versionLocation": {
+      "line": {
+        "start": 7,
+        "end": 7
+      },
+      "column": {
+        "start": 13,
+        "end": 40
+      },
+      "file_name": "<rootdir>/fixtures/package-json/multiple-versions/package.json"
+    },
+    "nameLocation": {
+      "line": {
+        "start": 7,
+        "end": 7
+      },
+      "column": {
+        "start": 6,
+        "end": 9
+      },
+      "file_name": "<rootdir>/fixtures/package-json/multiple-versions/package.json"
+    },
+    "packageManager": "NPM"
+  },
+  {
+    "name": "til",
+    "version": "1.5.3",
+    "targetVersions": [
+      "~1.5"
+    ],
+    "blockLocation": {
+      "line": {
+        "start": 8,
+        "end": 8
+      },
+      "column": {
+        "start": 5,
+        "end": 18
+      },
+      "file_name": "<rootdir>/fixtures/package-json/multiple-versions/package.json"
+    },
+    "versionLocation": {
+      "line": {
+        "start": 8,
+        "end": 8
+      },
+      "column": {
+        "start": 13,
+        "end": 17
+      },
+      "file_name": "<rootdir>/fixtures/package-json/multiple-versions/package.json"
+    },
+    "nameLocation": {
+      "line": {
+        "start": 8,
+        "end": 8
+      },
+      "column": {
+        "start": 6,
+        "end": 9
+      },
+      "file_name": "<rootdir>/fixtures/package-json/multiple-versions/package.json"
+    },
+    "packageManager": "NPM"
+  },
+  {
+    "name": "elf",
+    "version": "1.5.3",
+    "targetVersions": [
+      "~1.5.3"
+    ],
+    "blockLocation": {
+      "line": {
+        "start": 9,
+        "end": 9
+      },
+      "column": {
+        "start": 5,
+        "end": 20
+      },
+      "file_name": "<rootdir>/fixtures/package-json/multiple-versions/package.json"
+    },
+    "versionLocation": {
+      "line": {
+        "start": 9,
+        "end": 9
+      },
+      "column": {
+        "start": 13,
+        "end": 19
+      },
+      "file_name": "<rootdir>/fixtures/package-json/multiple-versions/package.json"
+    },
+    "nameLocation": {
+      "line": {
+        "start": 9,
+        "end": 9
+      },
+      "column": {
+        "start": 6,
+        "end": 9
+      },
+      "file_name": "<rootdir>/fixtures/package-json/multiple-versions/package.json"
+    },
+    "packageManager": "NPM"
+  },
+  {
+    "name": "two",
+    "version": "1.5.3",
+    "targetVersions": [
+      "1.x"
+    ],
+    "blockLocation": {
+      "line": {
+        "start": 10,
+        "end": 10
+      },
+      "column": {
+        "start": 5,
+        "end": 17
+      },
+      "file_name": "<rootdir>/fixtures/package-json/multiple-versions/package.json"
+    },
+    "versionLocation": {
+      "line": {
+        "start": 10,
+        "end": 10
+      },
+      "column": {
+        "start": 13,
+        "end": 16
+      },
+      "file_name": "<rootdir>/fixtures/package-json/multiple-versions/package.json"
+    },
+    "nameLocation": {
+      "line": {
+        "start": 10,
+        "end": 10
+      },
+      "column": {
+        "start": 6,
+        "end": 9
+      },
+      "file_name": "<rootdir>/fixtures/package-json/multiple-versions/package.json"
+    },
+    "packageManager": "NPM"
+  },
+  {
+    "name": "thr",
+    "version": "1.5.3",
+    "targetVersions": [
+      "1.5.x"
+    ],
+    "blockLocation": {
+      "line": {
+        "start": 11,
+        "end": 11
+      },
+      "column": {
+        "start": 5,
+        "end": 19
+      },
+      "file_name": "<rootdir>/fixtures/package-json/multiple-versions/package.json"
+    },
+    "versionLocation": {
+      "line": {
+        "start": 11,
+        "end": 11
+      },
+      "column": {
+        "start": 13,
+        "end": 18
+      },
+      "file_name": "<rootdir>/fixtures/package-json/multiple-versions/package.json"
+    },
+    "nameLocation": {
+      "line": {
+        "start": 11,
+        "end": 11
+      },
+      "column": {
+        "start": 6,
+        "end": 9
+      },
+      "file_name": "<rootdir>/fixtures/package-json/multiple-versions/package.json"
+    },
+    "packageManager": "NPM"
+  },
+  {
+    "name": "lat",
+    "version": "1.5.3",
+    "targetVersions": [
+      "latest"
+    ],
+    "blockLocation": {
+      "line": {
+        "start": 12,
+        "end": 12
+      },
+      "column": {
+        "start": 5,
+        "end": 20
+      },
+      "file_name": "<rootdir>/fixtures/package-json/multiple-versions/package.json"
+    },
+    "versionLocation": {
+      "line": {
+        "start": 12,
+        "end": 12
+      },
+      "column": {
+        "start": 13,
+        "end": 19
+      },
+      "file_name": "<rootdir>/fixtures/package-json/multiple-versions/package.json"
+    },
+    "nameLocation": {
+      "line": {
+        "start": 12,
+        "end": 12
+      },
+      "column": {
+        "start": 6,
+        "end": 9
+      },
+      "file_name": "<rootdir>/fixtures/package-json/multiple-versions/package.json"
+    },
+    "packageManager": "NPM"
+  },
+  {
+    "name": "dyl",
+    "version": "1.5.3",
+    "targetVersions": [
+      "file:../dyl"
+    ],
+    "blockLocation": {
+      "line": {
+        "start": 13,
+        "end": 13
+      },
+      "column": {
+        "start": 5,
+        "end": 25
+      },
+      "file_name": "<rootdir>/fixtures/package-json/multiple-versions/package.json"
+    },
+    "versionLocation": {
+      "line": {
+        "start": 13,
+        "end": 13
+      },
+      "column": {
+        "start": 13,
+        "end": 24
+      },
+      "file_name": "<rootdir>/fixtures/package-json/multiple-versions/package.json"
+    },
+    "nameLocation": {
+      "line": {
+        "start": 13,
+        "end": 13
+      },
+      "column": {
+        "start": 6,
+        "end": 9
+      },
+      "file_name": "<rootdir>/fixtures/package-json/multiple-versions/package.json"
+    },
+    "packageManager": "NPM"
+  },
+  {
+    "name": "kpg",
+    "version": "1.5.3",
+    "targetVersions": [
+      "npm:pkg@1.5.0"
+    ],
+    "blockLocation": {
+      "line": {
+        "start": 14,
+        "end": 14
+      },
+      "column": {
+        "start": 5,
+        "end": 27
+      },
+      "file_name": "<rootdir>/fixtures/package-json/multiple-versions/package.json"
+    },
+    "versionLocation": {
+      "line": {
+        "start": 14,
+        "end": 14
+      },
+      "column": {
+        "start": 13,
+        "end": 26
+      },
+      "file_name": "<rootdir>/fixtures/package-json/multiple-versions/package.json"
+    },
+    "nameLocation": {
+      "line": {
+        "start": 14,
+        "end": 14
+      },
+      "column": {
+        "start": 6,
+        "end": 9
+      },
+      "file_name": "<rootdir>/fixtures/package-json/multiple-versions/package.json"
+    },
+    "packageManager": "NPM"
+  },
+  {
+    "name": "abc",
+    "version": "1.5.3",
+    "targetVersions": [
+      "1"
+    ],
+    "blockLocation": {
+      "line": {
+        "start": 17,
+        "end": 17
+      },
+      "column": {
+        "start": 5,
+        "end": 15
+      },
+      "file_name": "<rootdir>/fixtures/package-json/multiple-versions/package.json"
+    },
+    "versionLocation": {
+      "line": {
+        "start": 17,
+        "end": 17
+      },
+      "column": {
+        "start": 13,
+        "end": 14
+      },
+      "file_name": "<rootdir>/fixtures/package-json/multiple-versions/package.json"
+    },
+    "nameLocation": {
+      "line": {
+        "start": 17,
+        "end": 17
+      },
+      "column": {
+        "start": 6,
+        "end": 9
+      },
+      "file_name": "<rootdir>/fixtures/package-json/multiple-versions/package.json"
+    },
+    "packageManager": "NPM"
+  },
+  {
+    "name": "cde",
+    "version": "1.5.3",
+    "targetVersions": [
+      "/u003e1.0.2"
+    ],
+    "blockLocation": {
+      "line": {
+        "start": 16,
+        "end": 16
+      },
+      "column": {
+        "start": 5,
+        "end": 20
+      },
+      "file_name": "<rootdir>/fixtures/package-json/multiple-versions/package.json"
+    },
+    "versionLocation": {
+      "line": {
+        "start": 16,
+        "end": 16
+      },
+      "column": {
+        "start": 13,
+        "end": 19
+      },
+      "file_name": "<rootdir>/fixtures/package-json/multiple-versions/package.json"
+    },
+    "nameLocation": {
+      "line": {
+        "start": 16,
+        "end": 16
+      },
+      "column": {
+        "start": 6,
+        "end": 9
+      },
+      "file_name": "<rootdir>/fixtures/package-json/multiple-versions/package.json"
+    },
+    "packageManager": "NPM"
+  },
+  {
+    "name": "dd",
+    "version": "0.0.0-use.local",
+    "targetVersions": [
+      "javascript/datadog"
+    ],
+    "blockLocation": {
+      "line": {
+        "start": 18,
+        "end": 18
+      },
+      "column": {
+        "start": 5,
+        "end": 36
+      },
+      "file_name": "<rootdir>/fixtures/package-json/multiple-versions/package.json"
+    },
+    "versionLocation": {
+      "line": {
+        "start": 18,
+        "end": 18
+      },
+      "column": {
+        "start": 12,
+        "end": 35
+      },
+      "file_name": "<rootdir>/fixtures/package-json/multiple-versions/package.json"
+    },
+    "nameLocation": {
+      "line": {
+        "start": 18,
+        "end": 18
+      },
+      "column": {
+        "start": 6,
+        "end": 8
+      },
+      "file_name": "<rootdir>/fixtures/package-json/multiple-versions/package.json"
+    },
+    "packageManager": "NPM"
+  },
+  {
+    "name": "dd2",
+    "version": "0.0.0-use.local",
+    "targetVersions": [
+      "javascript/datadog"
+    ],
+    "blockLocation": {
+      "line": {
+        "start": 19,
+        "end": 19
+      },
+      "column": {
+        "start": 5,
+        "end": 32
+      },
+      "file_name": "<rootdir>/fixtures/package-json/multiple-versions/package.json"
+    },
+    "versionLocation": {
+      "line": {
+        "start": 19,
+        "end": 19
+      },
+      "column": {
+        "start": 13,
+        "end": 31
+      },
+      "file_name": "<rootdir>/fixtures/package-json/multiple-versions/package.json"
+    },
+    "nameLocation": {
+      "line": {
+        "start": 19,
+        "end": 19
+      },
+      "column": {
+        "start": 6,
+        "end": 9
+      },
+      "file_name": "<rootdir>/fixtures/package-json/multiple-versions/package.json"
+    },
+    "packageManager": "NPM"
+  }
+]
+---
+
 [TestPackageJSONMatcher_Match_TransitiveDependencies - 1]
 [
   {

@@ -1,0 +1,21 @@
+{
+  "dependencies": {
+    "foo": "1.0.0 - 2.9999.9999",
+    "bar": ">=1.0.2 <2.1.2",
+    "baz": ">1.0.2 <=2.3.4",
+    "qux": "<1.0.0 || >=2.3.1 <2.4.5 || >=2.5.2 <3.0.0",
+    "asd": "http://asdf.com/asdf.tar.gz",
+    "til": "~1.5",
+    "elf": "~1.5.3",
+    "two": "1.x",
+    "thr": "1.5.x",
+    "lat": "latest",
+    "dyl": "file:../dyl",
+    "kpg": "npm:pkg@1.5.0",
+    "boo": "1.5.3",
+    "cde": ">1.0.2",
+    "abc": "1",
+    "dd": "link:javascript/datadog",
+    "dd2": "javascript/datadog"
+  }
+}

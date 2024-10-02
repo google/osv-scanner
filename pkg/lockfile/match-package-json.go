@@ -13,10 +13,11 @@ import (
 type PackageJSONMatcher struct{}
 
 const (
-	namePrefix    = "\""
-	nameSuffix    = "\"\\s*:"
-	versionPrefix = ":\\s*\""
-	versionSuffix = "\",?"
+	namePrefix       = "\""
+	nameSuffix       = "\"\\s*:"
+	versionPrefix    = ":\\s*\""
+	versionSuffix    = "\",?"
+	optionalPrefixes = "(file:|link:|portal:)?"
 )
 
 func (m PackageJSONMatcher) GetSourceFile(lockfile DepFile) (DepFile, error) {
@@ -29,11 +30,8 @@ func tryGetNameLocation(name string, line string, lineNumber int) *models.FilePo
 	return fileposition.ExtractDelimitedRegexpPositionInBlock([]string{line}, nameRegexp, lineNumber, namePrefix, nameSuffix)
 }
 
-func tryGetVersionLocation(targetVersion string, version string, line string, lineNumber int) *models.FilePosition {
-	if targetVersion == version {
-		return fileposition.ExtractDelimitedRegexpPositionInBlock([]string{line}, targetVersion, lineNumber, versionPrefix, versionSuffix)
-	}
-	versionRegexp := ".*" + cachedregexp.QuoteMeta(targetVersion) + ".*"
+func tryGetVersionLocation(targetVersion string, line string, lineNumber int) *models.FilePosition {
+	versionRegexp := optionalPrefixes + cachedregexp.QuoteMeta(targetVersion)
 
 	return fileposition.ExtractDelimitedRegexpPositionInBlock([]string{line}, versionRegexp, lineNumber, versionPrefix, versionSuffix)
 }
@@ -69,7 +67,7 @@ func (m PackageJSONMatcher) Match(sourcefile DepFile, packages []PackageDetails)
 			if nameLocation != nil {
 				for _, targetVersion := range pkg.TargetVersions {
 					// TODO: what to do if version is not in the same line as the name?
-					versionLocation := tryGetVersionLocation(targetVersion, pkg.Version, line, lineNumber)
+					versionLocation := tryGetVersionLocation(targetVersion, line, lineNumber)
 					if versionLocation != nil {
 						updatePackageLocations(&packages[key], nameLocation, versionLocation, line, lineNumber, sourcefile.Path())
 					}
