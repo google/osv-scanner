@@ -21,7 +21,7 @@ func TestPrintHTMLResults_WithVulnerabilities(t *testing.T) {
 			t.Errorf("Error writing HTML output: %s", err)
 		}
 
-		testutility.NewSnapshot().MatchText(t, outputWriter.String())
+		testutility.NewSnapshot().WithCRLFReplacement().MatchText(t, outputWriter.String())
 	})
 }
 
@@ -38,7 +38,7 @@ func TestPrintHTMLResults_WithLicenseViolations(t *testing.T) {
 			t.Errorf("Error writing HTML output: %s", err)
 		}
 
-		testutility.NewSnapshot().MatchText(t, outputWriter.String())
+		testutility.NewSnapshot().WithCRLFReplacement().MatchText(t, outputWriter.String())
 	})
 }
 
@@ -55,6 +55,6 @@ func TestPrintHTMLResults_WithMixedIssues(t *testing.T) {
 			t.Errorf("Error writing HTML output: %s", err)
 		}
 
-		testutility.NewSnapshot().MatchText(t, outputWriter.String())
+		testutility.NewSnapshot().WithCRLFReplacement().MatchText(t, outputWriter.String())
 	})
 }
