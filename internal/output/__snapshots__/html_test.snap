@@ -4416,8 +4416,8 @@
   </tr>
   
   
-  <tr class='vuln-tr' id="vuln-tr-OSV-1-0-8163926614819801871"
-    onclick="showVulnDetails('OSV-1-0-8163926614819801871')">
+  <tr class='vuln-tr' id="vuln-tr-OSV-1-0-1"
+    onclick="showVulnDetails('OSV-1-0-1')">
     <td><a href="https://osv.dev/OSV-1">OSV-1</a></td>
     <td>mine1</td>
     <td>1.2.3</td>
@@ -4426,7 +4426,7 @@
   </tr>
   <tr>
     <td colspan="100%">
-      <div id="vuln-details-OSV-1-0-8163926614819801871" class="vuln-details">
+      <div id="vuln-details-OSV-1-0-1" class="vuln-details">
         
         
         
@@ -4457,8 +4457,8 @@
   </tr>
   
   
-  <tr class='vuln-tr' id="vuln-tr-OSV-2-0-3246980568708218304"
-    onclick="showVulnDetails('OSV-2-0-3246980568708218304')">
+  <tr class='vuln-tr' id="vuln-tr-OSV-2-0-2"
+    onclick="showVulnDetails('OSV-2-0-2')">
     <td><a href="https://osv.dev/OSV-2">OSV-2</a></td>
     <td>mine2</td>
     <td>3.2.5</td>
@@ -4467,7 +4467,7 @@
   </tr>
   <tr>
     <td colspan="100%">
-      <div id="vuln-details-OSV-2-0-3246980568708218304" class="vuln-details">
+      <div id="vuln-details-OSV-2-0-2" class="vuln-details">
         
         
         
@@ -4512,8 +4512,8 @@
   </tr>
   
   
-  <tr class='vuln-tr' id="vuln-tr-OSV-1-0-1586125327948629515"
-    onclick="showVulnDetails('OSV-1-0-1586125327948629515')">
+  <tr class='vuln-tr' id="vuln-tr-OSV-1-0-3"
+    onclick="showVulnDetails('OSV-1-0-3')">
     <td><a href="https://osv.dev/OSV-1">OSV-1</a></td>
     <td>mine1</td>
     <td>1.2.3</td>
@@ -4522,7 +4522,7 @@
   </tr>
   <tr>
     <td colspan="100%">
-      <div id="vuln-details-OSV-1-0-1586125327948629515" class="vuln-details">
+      <div id="vuln-details-OSV-1-0-3" class="vuln-details">
         
         
         
@@ -4887,8 +4887,8 @@
   </tr>
   
   
-  <tr class='vuln-tr' id="vuln-tr-OSV-1-0-9154717616967167171"
-    onclick="showVulnDetails('OSV-1-0-9154717616967167171')">
+  <tr class='vuln-tr' id="vuln-tr-OSV-1-0-1"
+    onclick="showVulnDetails('OSV-1-0-1')">
     <td><a href="https://osv.dev/OSV-1">OSV-1</a></td>
     <td>mine1</td>
     <td>1.2.3</td>
@@ -4897,7 +4897,7 @@
   </tr>
   <tr>
     <td colspan="100%">
-      <div id="vuln-details-OSV-1-0-9154717616967167171" class="vuln-details">
+      <div id="vuln-details-OSV-1-0-1" class="vuln-details">
         
         
         
@@ -4925,8 +4925,8 @@
   </tr>
   
   
-  <tr class='vuln-tr' id="vuln-tr-OSV-2-0-6648413050106545656"
-    onclick="showVulnDetails('OSV-2-0-6648413050106545656')">
+  <tr class='vuln-tr' id="vuln-tr-OSV-2-0-2"
+    onclick="showVulnDetails('OSV-2-0-2')">
     <td><a href="https://osv.dev/OSV-2">OSV-2</a></td>
     <td>mine2</td>
     <td>3.2.5</td>
@@ -4935,7 +4935,7 @@
   </tr>
   <tr>
     <td colspan="100%">
-      <div id="vuln-details-OSV-2-0-6648413050106545656" class="vuln-details">
+      <div id="vuln-details-OSV-2-0-2" class="vuln-details">
         
         
         
@@ -4963,8 +4963,8 @@
   </tr>
   
   
-  <tr class='vuln-tr' id="vuln-tr-OSV-1-0-4372117613140055663"
-    onclick="showVulnDetails('OSV-1-0-4372117613140055663')">
+  <tr class='vuln-tr' id="vuln-tr-OSV-1-0-3"
+    onclick="showVulnDetails('OSV-1-0-3')">
     <td><a href="https://osv.dev/OSV-1">OSV-1</a></td>
     <td>mine1</td>
     <td>1.2.3</td>
@@ -4973,7 +4973,7 @@
   </tr>
   <tr>
     <td colspan="100%">
-      <div id="vuln-details-OSV-1-0-4372117613140055663" class="vuln-details">
+      <div id="vuln-details-OSV-1-0-3" class="vuln-details">
         
         
         
@@ -5277,8 +5277,8 @@
   </tr>
   
   
-  <tr class='vuln-tr' id="vuln-tr-OSV-1-0-1491046878814478008"
-    onclick="showVulnDetails('OSV-1-0-1491046878814478008')">
+  <tr class='vuln-tr' id="vuln-tr-OSV-1-0-1"
+    onclick="showVulnDetails('OSV-1-0-1')">
     <td><a href="https://osv.dev/OSV-1">OSV-1</a></td>
     <td>mine1</td>
     <td>1.2.3</td>
@@ -5287,7 +5287,7 @@
   </tr>
   <tr>
     <td colspan="100%">
-      <div id="vuln-details-OSV-1-0-1491046878814478008" class="vuln-details">
+      <div id="vuln-details-OSV-1-0-1" class="vuln-details">
         
         
         
@@ -5579,8 +5579,8 @@
   </tr>
   
   
-  <tr class='vuln-tr' id="vuln-tr-OSV-1-0-6953022351612556294"
-    onclick="showVulnDetails('OSV-1-0-6953022351612556294')">
+  <tr class='vuln-tr' id="vuln-tr-OSV-1-0-1"
+    onclick="showVulnDetails('OSV-1-0-1')">
     <td><a href="https://osv.dev/OSV-1">OSV-1</a></td>
     <td>mine1</td>
     <td>1.2.3</td>
@@ -5589,7 +5589,7 @@
   </tr>
   <tr>
     <td colspan="100%">
-      <div id="vuln-details-OSV-1-0-6953022351612556294" class="vuln-details">
+      <div id="vuln-details-OSV-1-0-1" class="vuln-details">
         
         
         
@@ -5896,8 +5896,8 @@
   </tr>
   
   
-  <tr class='vuln-tr' id="vuln-tr-OSV-1-0-7684964067274613457"
-    onclick="showVulnDetails('OSV-1-0-7684964067274613457')">
+  <tr class='vuln-tr' id="vuln-tr-OSV-1-0-1"
+    onclick="showVulnDetails('OSV-1-0-1')">
     <td><a href="https://osv.dev/OSV-1">OSV-1</a></td>
     <td>mine1</td>
     <td>1.2.3</td>
@@ -5906,7 +5906,7 @@
   </tr>
   <tr>
     <td colspan="100%">
-      <div id="vuln-details-OSV-1-0-7684964067274613457" class="vuln-details">
+      <div id="vuln-details-OSV-1-0-1" class="vuln-details">
         
         
         
@@ -6210,8 +6210,8 @@
   </tr>
   
   
-  <tr class='vuln-tr' id="vuln-tr-OSV-1-0-5546585080917775505"
-    onclick="showVulnDetails('OSV-1-0-5546585080917775505')">
+  <tr class='vuln-tr' id="vuln-tr-OSV-1-0-1"
+    onclick="showVulnDetails('OSV-1-0-1')">
     <td><a href="https://osv.dev/OSV-1">OSV-1</a></td>
     <td>mine1</td>
     <td>1.2.3</td>
@@ -6220,7 +6220,7 @@
   </tr>
   <tr>
     <td colspan="100%">
-      <div id="vuln-details-OSV-1-0-5546585080917775505" class="vuln-details">
+      <div id="vuln-details-OSV-1-0-1" class="vuln-details">
         
         
         
@@ -6613,8 +6613,8 @@
   </tr>
   
   
-  <tr class='vuln-tr' id="vuln-tr-OSV-1-0-4033803932963306531"
-    onclick="showVulnDetails('OSV-1-0-4033803932963306531')">
+  <tr class='vuln-tr' id="vuln-tr-OSV-1-0-1"
+    onclick="showVulnDetails('OSV-1-0-1')">
     <td><a href="https://osv.dev/OSV-1">OSV-1</a></td>
     <td>mine1</td>
     <td>1.2.3</td>
@@ -6623,7 +6623,7 @@
   </tr>
   <tr>
     <td colspan="100%">
-      <div id="vuln-details-OSV-1-0-4033803932963306531" class="vuln-details">
+      <div id="vuln-details-OSV-1-0-1" class="vuln-details">
         
         
         
@@ -6635,8 +6635,8 @@
   </tr>
   
   
-  <tr class='vuln-tr' id="vuln-tr-OSV-5-1-7474436812348885587"
-    onclick="showVulnDetails('OSV-5-1-7474436812348885587')">
+  <tr class='vuln-tr' id="vuln-tr-OSV-5-1-2"
+    onclick="showVulnDetails('OSV-5-1-2')">
     <td><a href="https://osv.dev/OSV-5">OSV-5</a></td>
     <td>mine1</td>
     <td>1.2.3</td>
@@ -6645,7 +6645,7 @@
   </tr>
   <tr>
     <td colspan="100%">
-      <div id="vuln-details-OSV-5-1-7474436812348885587" class="vuln-details">
+      <div id="vuln-details-OSV-5-1-2" class="vuln-details">
         
         
         
@@ -6657,8 +6657,8 @@
   </tr>
   
   
-  <tr class='vuln-tr' id="vuln-tr-OSV-1-2-126657264513462979"
-    onclick="showVulnDetails('OSV-1-2-126657264513462979')">
+  <tr class='vuln-tr' id="vuln-tr-OSV-1-2-3"
+    onclick="showVulnDetails('OSV-1-2-3')">
     <td><a href="https://osv.dev/OSV-1">OSV-1</a></td>
     <td>mine1</td>
     <td>1.2.2</td>
@@ -6667,7 +6667,7 @@
   </tr>
   <tr>
     <td colspan="100%">
-      <div id="vuln-details-OSV-1-2-126657264513462979" class="vuln-details">
+      <div id="vuln-details-OSV-1-2-3" class="vuln-details">
         
         
         
@@ -6695,8 +6695,8 @@
   </tr>
   
   
-  <tr class='vuln-tr' id="vuln-tr-OSV-2-0-2465488461740075026"
-    onclick="showVulnDetails('OSV-2-0-2465488461740075026')">
+  <tr class='vuln-tr' id="vuln-tr-OSV-2-0-4"
+    onclick="showVulnDetails('OSV-2-0-4')">
     <td><a href="https://osv.dev/OSV-2">OSV-2</a></td>
     <td>mine2</td>
     <td>3.2.5</td>
@@ -6705,7 +6705,7 @@
   </tr>
   <tr>
     <td colspan="100%">
-      <div id="vuln-details-OSV-2-0-2465488461740075026" class="vuln-details">
+      <div id="vuln-details-OSV-2-0-4" class="vuln-details">
         
         
         
@@ -6717,8 +6717,8 @@
   </tr>
   
   
-  <tr class='vuln-tr' id="vuln-tr-OSV-3-1-7044078945664512859"
-    onclick="showVulnDetails('OSV-3-1-7044078945664512859')">
+  <tr class='vuln-tr' id="vuln-tr-OSV-3-1-5"
+    onclick="showVulnDetails('OSV-3-1-5')">
     <td><a href="https://osv.dev/OSV-3">OSV-3</a></td>
     <td>mine3</td>
     <td>0.4.1</td>
@@ -6727,7 +6727,7 @@
   </tr>
   <tr>
     <td colspan="100%">
-      <div id="vuln-details-OSV-3-1-7044078945664512859" class="vuln-details">
+      <div id="vuln-details-OSV-3-1-5" class="vuln-details">
         
         
         
@@ -6739,8 +6739,8 @@
   </tr>
   
   
-  <tr class='vuln-tr' id="vuln-tr-OSV-5-2-8366049703160848427"
-    onclick="showVulnDetails('OSV-5-2-8366049703160848427')">
+  <tr class='vuln-tr' id="vuln-tr-OSV-5-2-6"
+    onclick="showVulnDetails('OSV-5-2-6')">
     <td><a href="https://osv.dev/OSV-5">OSV-5</a></td>
     <td>mine3</td>
     <td>0.4.1</td>
@@ -6749,7 +6749,7 @@
   </tr>
   <tr>
     <td colspan="100%">
-      <div id="vuln-details-OSV-5-2-8366049703160848427" class="vuln-details">
+      <div id="vuln-details-OSV-5-2-6" class="vuln-details">
         
         
         
@@ -7126,8 +7126,8 @@
   </tr>
   
   
-  <tr class='vuln-tr' id="vuln-tr-OSV-1-0-8718867363030095700"
-    onclick="showVulnDetails('OSV-1-0-8718867363030095700')">
+  <tr class='vuln-tr' id="vuln-tr-OSV-1-0-1"
+    onclick="showVulnDetails('OSV-1-0-1')">
     <td><a href="https://osv.dev/OSV-1">OSV-1</a></td>
     <td>mine1</td>
     <td>1.2.3</td>
@@ -7136,7 +7136,7 @@
   </tr>
   <tr>
     <td colspan="100%">
-      <div id="vuln-details-OSV-1-0-8718867363030095700" class="vuln-details">
+      <div id="vuln-details-OSV-1-0-1" class="vuln-details">
         
         
         
@@ -7148,8 +7148,8 @@
   </tr>
   
   
-  <tr class='vuln-tr' id="vuln-tr-OSV-5-1-4100976274992658311"
-    onclick="showVulnDetails('OSV-5-1-4100976274992658311')">
+  <tr class='vuln-tr' id="vuln-tr-OSV-5-1-2"
+    onclick="showVulnDetails('OSV-5-1-2')">
     <td><a href="https://osv.dev/OSV-5">OSV-5</a></td>
     <td>mine1</td>
     <td>1.2.3</td>
@@ -7158,7 +7158,7 @@
   </tr>
   <tr>
     <td colspan="100%">
-      <div id="vuln-details-OSV-5-1-4100976274992658311" class="vuln-details">
+      <div id="vuln-details-OSV-5-1-2" class="vuln-details">
         
         
         
@@ -7170,8 +7170,8 @@
   </tr>
   
   
-  <tr class='vuln-tr' id="vuln-tr-OSV-1-2-2512252953203032377"
-    onclick="showVulnDetails('OSV-1-2-2512252953203032377')">
+  <tr class='vuln-tr' id="vuln-tr-OSV-1-2-3"
+    onclick="showVulnDetails('OSV-1-2-3')">
     <td><a href="https://osv.dev/OSV-1">OSV-1</a></td>
     <td>mine1</td>
     <td>1.2.2</td>
@@ -7180,7 +7180,7 @@
   </tr>
   <tr>
     <td colspan="100%">
-      <div id="vuln-details-OSV-1-2-2512252953203032377" class="vuln-details">
+      <div id="vuln-details-OSV-1-2-3" class="vuln-details">
         
         
         
@@ -7208,8 +7208,8 @@
   </tr>
   
   
-  <tr class='vuln-tr' id="vuln-tr-OSV-2-0-758557290814925640"
-    onclick="showVulnDetails('OSV-2-0-758557290814925640')">
+  <tr class='vuln-tr' id="vuln-tr-OSV-2-0-4"
+    onclick="showVulnDetails('OSV-2-0-4')">
     <td><a href="https://osv.dev/OSV-2">OSV-2</a></td>
     <td>mine2</td>
     <td>3.2.5</td>
@@ -7218,7 +7218,7 @@
   </tr>
   <tr>
     <td colspan="100%">
-      <div id="vuln-details-OSV-2-0-758557290814925640" class="vuln-details">
+      <div id="vuln-details-OSV-2-0-4" class="vuln-details">
         
         
         
@@ -7230,8 +7230,8 @@
   </tr>
   
   
-  <tr class='vuln-tr' id="vuln-tr-OSV-3-1-4980700356650259906"
-    onclick="showVulnDetails('OSV-3-1-4980700356650259906')">
+  <tr class='vuln-tr' id="vuln-tr-OSV-3-1-5"
+    onclick="showVulnDetails('OSV-3-1-5')">
     <td><a href="https://osv.dev/OSV-3">OSV-3</a></td>
     <td>mine3</td>
     <td>0.4.1</td>
@@ -7240,7 +7240,7 @@
   </tr>
   <tr>
     <td colspan="100%">
-      <div id="vuln-details-OSV-3-1-4980700356650259906" class="vuln-details">
+      <div id="vuln-details-OSV-3-1-5" class="vuln-details">
         
         
         
@@ -7252,8 +7252,8 @@
   </tr>
   
   
-  <tr class='vuln-tr' id="vuln-tr-OSV-5-2-6012626273340416909"
-    onclick="showVulnDetails('OSV-5-2-6012626273340416909')">
+  <tr class='vuln-tr' id="vuln-tr-OSV-5-2-6"
+    onclick="showVulnDetails('OSV-5-2-6')">
     <td><a href="https://osv.dev/OSV-5">OSV-5</a></td>
     <td>mine3</td>
     <td>0.4.1</td>
@@ -7262,7 +7262,7 @@
   </tr>
   <tr>
     <td colspan="100%">
-      <div id="vuln-details-OSV-5-2-6012626273340416909" class="vuln-details">
+      <div id="vuln-details-OSV-5-2-6" class="vuln-details">
         
         
         
@@ -7917,8 +7917,8 @@
   </tr>
   
   
-  <tr class='vuln-tr' id="vuln-tr-OSV-1-0-907774954654758377"
-    onclick="showVulnDetails('OSV-1-0-907774954654758377')">
+  <tr class='vuln-tr' id="vuln-tr-OSV-1-0-1"
+    onclick="showVulnDetails('OSV-1-0-1')">
     <td><a href="https://osv.dev/OSV-1">OSV-1</a></td>
     <td>mine1</td>
     <td>1.2.3</td>
@@ -7927,7 +7927,7 @@
   </tr>
   <tr>
     <td colspan="100%">
-      <div id="vuln-details-OSV-1-0-907774954654758377" class="vuln-details">
+      <div id="vuln-details-OSV-1-0-1" class="vuln-details">
         
         
         
@@ -7955,8 +7955,8 @@
   </tr>
   
   
-  <tr class='vuln-tr' id="vuln-tr-OSV-2-0-539180319526136992"
-    onclick="showVulnDetails('OSV-2-0-539180319526136992')">
+  <tr class='vuln-tr' id="vuln-tr-OSV-2-0-2"
+    onclick="showVulnDetails('OSV-2-0-2')">
     <td><a href="https://osv.dev/OSV-2">OSV-2</a></td>
     <td>mine2</td>
     <td>3.2.5</td>
@@ -7965,7 +7965,7 @@
   </tr>
   <tr>
     <td colspan="100%">
-      <div id="vuln-details-OSV-2-0-539180319526136992" class="vuln-details">
+      <div id="vuln-details-OSV-2-0-2" class="vuln-details">
         
         
         
@@ -7993,8 +7993,8 @@
   </tr>
   
   
-  <tr class='vuln-tr' id="vuln-tr-OSV-1-0-3431690928991475087"
-    onclick="showVulnDetails('OSV-1-0-3431690928991475087')">
+  <tr class='vuln-tr' id="vuln-tr-OSV-1-0-3"
+    onclick="showVulnDetails('OSV-1-0-3')">
     <td><a href="https://osv.dev/OSV-1">OSV-1</a></td>
     <td>mine1</td>
     <td>1.2.3</td>
@@ -8003,7 +8003,7 @@
   </tr>
   <tr>
     <td colspan="100%">
-      <div id="vuln-details-OSV-1-0-3431690928991475087" class="vuln-details">
+      <div id="vuln-details-OSV-1-0-3" class="vuln-details">
         
         
         
@@ -8255,100 +8255,8 @@
   
   
 
-  <tr class='vuln-tr' id="vuln-tr-author1/mine1-0"
-    onclick="showVulnDetails('author1\/mine1-0')">
-    <td>author1/mine1</td>
-    <td>Packagist</td>
-    <td>1.2.3</td>
-    
-    <td class="warning">
-      No fix available (2/2 vulnerable)
-    </td>
-    
-    <td>0C | 0H | 0M | 0L | 2U</td>
-  </tr>
-  <tr>
-    <td colspan="100%">
-      <div id="vuln-details-author1/mine1-0" class="vuln-details">
-        <p><strong>Source: path/to/my/first/lockfile</strong></p>
-        <p>Vulnerabilities:</p>
-        
-        
-        <p><a href="https://osv.dev/OSV-1">OSV-1</a>
-          (UNKNOWN) has no fix available</p>
-        
-        
-        
-        <p><a href="https://osv.dev/OSV-5">OSV-5</a>
-          (UNKNOWN) has no fix available</p>
-        
-        
-      </div>
-    </td>
-  </tr>
-  
-  
-
-  <tr class='vuln-tr' id="vuln-tr-mine1-1"
-    onclick="showVulnDetails('mine1-1')">
-    <td>mine1</td>
-    <td>Packagist</td>
-    <td>1.2.2</td>
-    
-    <td class="warning">
-      No fix available (1/1 vulnerable)
-    </td>
-    
-    <td>0C | 0H | 0M | 0L | 1U</td>
-  </tr>
-  <tr>
-    <td colspan="100%">
-      <div id="vuln-details-mine1-1" class="vuln-details">
-        <p><strong>Source: path/to/my/first/lockfile</strong></p>
-        <p>Vulnerabilities:</p>
-        
-        
-        <p><a href="https://osv.dev/OSV-1">OSV-1</a>
-          (UNKNOWN) has no fix available</p>
-        
-        
-      </div>
-    </td>
-  </tr>
-  
-  
-
-  <tr class='vuln-tr' id="vuln-tr-mine2-2"
-    onclick="showVulnDetails('mine2-2')">
-    <td>mine2</td>
-    <td>NuGet</td>
-    <td>3.2.5</td>
-    
-    <td class="warning">
-      No fix available (1/1 vulnerable)
-    </td>
-    
-    <td>0C | 0H | 0M | 0L | 1U</td>
-  </tr>
-  <tr>
-    <td colspan="100%">
-      <div id="vuln-details-mine2-2" class="vuln-details">
-        <p><strong>Source: path/to/my/second/lockfile</strong></p>
-        <p>Vulnerabilities:</p>
-        
-        
-        <p><a href="https://osv.dev/OSV-2">OSV-2</a>
-          (UNKNOWN) has no fix available</p>
-        
-        
-      </div>
-    </td>
-  </tr>
-  
-  
-
-  <tr class='vuln-tr' id="vuln-tr-author3/mine3-3"
-    onclick="showVulnDetails('author3\/mine3-3')">
+  <tr class='vuln-tr' id="vuln-tr-author3/mine3-0"
+    onclick="showVulnDetails('author3\/mine3-0')">
     <td>author3/mine3</td>
     <td>NuGet</td>
     <td>0.4.1</td>
@@ -8361,7 +8269,7 @@
   </tr>
   <tr>
     <td colspan="100%">
-      <div id="vuln-details-author3/mine3-3" class="vuln-details">
+      <div id="vuln-details-author3/mine3-0" class="vuln-details">
         <p><strong>Source: path/to/my/second/lockfile</strong></p>
         <p>Vulnerabilities:</p>
         
@@ -8379,99 +8287,102 @@
     </td>
   </tr>
   
+  
+
+  <tr class='vuln-tr' id="vuln-tr-mine2-1"
+    onclick="showVulnDetails('mine2-1')">
+    <td>mine2</td>
+    <td>NuGet</td>
+    <td>3.2.5</td>
+    
+    <td class="warning">
+      No fix available (1/1 vulnerable)
+    </td>
+    
+    <td>0C | 0H | 0M | 0L | 1U</td>
+  </tr>
+  <tr>
+    <td colspan="100%">
+      <div id="vuln-details-mine2-1" class="vuln-details">
+        <p><strong>Source: path/to/my/second/lockfile</strong></p>
+        <p>Vulnerabilities:</p>
+        
+        
+        <p><a href="https://osv.dev/OSV-2">OSV-2</a>
+          (UNKNOWN) has no fix available</p>
+        
+        
+      </div>
+    </td>
+  </tr>
+  
+  
+
+  <tr class='vuln-tr' id="vuln-tr-author1/mine1-2"
+    onclick="showVulnDetails('author1\/mine1-2')">
+    <td>author1/mine1</td>
+    <td>Packagist</td>
+    <td>1.2.3</td>
+    
+    <td class="warning">
+      No fix available (2/2 vulnerable)
+    </td>
+    
+    <td>0C | 0H | 0M | 0L | 2U</td>
+  </tr>
+  <tr>
+    <td colspan="100%">
+      <div id="vuln-details-author1/mine1-2" class="vuln-details">
+        <p><strong>Source: path/to/my/first/lockfile</strong></p>
+        <p>Vulnerabilities:</p>
+        
+        
+        <p><a href="https://osv.dev/OSV-1">OSV-1</a>
+          (UNKNOWN) has no fix available</p>
+        
+        
+        
+        <p><a href="https://osv.dev/OSV-5">OSV-5</a>
+          (UNKNOWN) has no fix available</p>
+        
+        
+      </div>
+    </td>
+  </tr>
+  
+  
+
+  <tr class='vuln-tr' id="vuln-tr-mine1-3"
+    onclick="showVulnDetails('mine1-3')">
+    <td>mine1</td>
+    <td>Packagist</td>
+    <td>1.2.2</td>
+    
+    <td class="warning">
+      No fix available (1/1 vulnerable)
+    </td>
+    
+    <td>0C | 0H | 0M | 0L | 1U</td>
+  </tr>
+  <tr>
+    <td colspan="100%">
+      <div id="vuln-details-mine1-3" class="vuln-details">
+        <p><strong>Source: path/to/my/first/lockfile</strong></p>
+        <p>Vulnerabilities:</p>
+        
+        
+        <p><a href="https://osv.dev/OSV-1">OSV-1</a>
+          (UNKNOWN) has no fix available</p>
+        
+        
+      </div>
+    </td>
+  </tr>
+  
 </table>
     </div>
 
     <div id="vuln-tab" class="view-tab">
-      
-      <div class="ecosystem">
-        <h2>Packagist</h2>
-        <div class="source-section">
-          
-          <h3>Source: Packagist: :path/to/my/first/lockfile</h3>
-          <p>
-            Found 2 package(s) with issues, 
-            3 known vulnerabilities found.
-          </p>
-
-            <table class="vuln-table">
-  <tr>
-    <th>ID</th>
-    <th>package</th>
-    <th>Installed version</th>
-    <th>Fixed version</th>
-    <th>Severity</th>
-  </tr>
-  
-  
-  <tr class='vuln-tr' id="vuln-tr-OSV-1-0-670280961028561263"
-    onclick="showVulnDetails('OSV-1-0-670280961028561263')">
-    <td><a href="https://osv.dev/OSV-1">OSV-1</a></td>
-    <td>author1/mine1</td>
-    <td>1.2.3</td>
-    <td  class="warning" >No fix available</td>
-    <td>UNKNOWN </td>
-  </tr>
-  <tr>
-    <td colspan="100%">
-      <div id="vuln-details-OSV-1-0-670280961028561263" class="vuln-details">
-        
-        
-        
-        
-        
-        
-      </div>
-    </td>
-  </tr>
-  
-  
-  <tr class='vuln-tr' id="vuln-tr-OSV-5-1-5238079501427229043"
-    onclick="showVulnDetails('OSV-5-1-5238079501427229043')">
-    <td><a href="https://osv.dev/OSV-5">OSV-5</a></td>
-    <td>author1/mine1</td>
-    <td>1.2.3</td>
-    <td  class="warning" >No fix available</td>
-    <td>UNKNOWN </td>
-  </tr>
-  <tr>
-    <td colspan="100%">
-      <div id="vuln-details-OSV-5-1-5238079501427229043" class="vuln-details">
-        
-        
-        
-        
-        
-        
-      </div>
-    </td>
-  </tr>
-  
-  
-  <tr class='vuln-tr' id="vuln-tr-OSV-1-2-6825686550830015058"
-    onclick="showVulnDetails('OSV-1-2-6825686550830015058')">
-    <td><a href="https://osv.dev/OSV-1">OSV-1</a></td>
-    <td>mine1</td>
-    <td>1.2.2</td>
-    <td  class="warning" >No fix available</td>
-    <td>UNKNOWN </td>
-  </tr>
-  <tr>
-    <td colspan="100%">
-      <div id="vuln-details-OSV-1-2-6825686550830015058" class="vuln-details">
-        
-        
-        
-        
-        
-        
-      </div>
-    </td>
-  </tr>
-  
-</table>  
-        </div>
-      </div>
       
       <div class="ecosystem">
         <h2>NuGet</h2>
@@ -8493,30 +8404,8 @@
   </tr>
   
   
-  <tr class='vuln-tr' id="vuln-tr-OSV-2-0-9057042831852820350"
-    onclick="showVulnDetails('OSV-2-0-9057042831852820350')">
-    <td><a href="https://osv.dev/OSV-2">OSV-2</a></td>
-    <td>mine2</td>
-    <td>3.2.5</td>
-    <td  class="warning" >No fix available</td>
-    <td>UNKNOWN </td>
-  </tr>
-  <tr>
-    <td colspan="100%">
-      <div id="vuln-details-OSV-2-0-9057042831852820350" class="vuln-details">
-        
-        
-        
-        
-        
-        
-      </div>
-    </td>
-  </tr>
-  
-  
-  <tr class='vuln-tr' id="vuln-tr-OSV-3-1-3847504158641773407"
-    onclick="showVulnDetails('OSV-3-1-3847504158641773407')">
+  <tr class='vuln-tr' id="vuln-tr-OSV-3-0-1"
+    onclick="showVulnDetails('OSV-3-0-1')">
     <td><a href="https://osv.dev/OSV-3">OSV-3</a></td>
     <td>author3/mine3</td>
     <td>0.4.1</td>
@@ -8525,7 +8414,7 @@
   </tr>
   <tr>
     <td colspan="100%">
-      <div id="vuln-details-OSV-3-1-3847504158641773407" class="vuln-details">
+      <div id="vuln-details-OSV-3-0-1" class="vuln-details">
         
         
         
@@ -8537,8 +8426,8 @@
   </tr>
   
   
-  <tr class='vuln-tr' id="vuln-tr-OSV-5-2-1541992669630516614"
-    onclick="showVulnDetails('OSV-5-2-1541992669630516614')">
+  <tr class='vuln-tr' id="vuln-tr-OSV-5-1-2"
+    onclick="showVulnDetails('OSV-5-1-2')">
     <td><a href="https://osv.dev/OSV-5">OSV-5</a></td>
     <td>author3/mine3</td>
     <td>0.4.1</td>
@@ -8547,7 +8436,118 @@
   </tr>
   <tr>
     <td colspan="100%">
-      <div id="vuln-details-OSV-5-2-1541992669630516614" class="vuln-details">
+      <div id="vuln-details-OSV-5-1-2" class="vuln-details">
+        
+        
+        
+        
+        
+        
+      </div>
+    </td>
+  </tr>
+  
+  
+  <tr class='vuln-tr' id="vuln-tr-OSV-2-2-3"
+    onclick="showVulnDetails('OSV-2-2-3')">
+    <td><a href="https://osv.dev/OSV-2">OSV-2</a></td>
+    <td>mine2</td>
+    <td>3.2.5</td>
+    <td  class="warning" >No fix available</td>
+    <td>UNKNOWN </td>
+  </tr>
+  <tr>
+    <td colspan="100%">
+      <div id="vuln-details-OSV-2-2-3" class="vuln-details">
+        
+        
+        
+        
+        
+        
+      </div>
+    </td>
+  </tr>
+  
+</table>  
+        </div>
+      </div>
+      
+      <div class="ecosystem">
+        <h2>Packagist</h2>
+        <div class="source-section">
+          
+          <h3>Source: Packagist: :path/to/my/first/lockfile</h3>
+          <p>
+            Found 2 package(s) with issues, 
+            3 known vulnerabilities found.
+          </p>
+
+            <table class="vuln-table">
+  <tr>
+    <th>ID</th>
+    <th>package</th>
+    <th>Installed version</th>
+    <th>Fixed version</th>
+    <th>Severity</th>
+  </tr>
+  
+  
+  <tr class='vuln-tr' id="vuln-tr-OSV-1-0-4"
+    onclick="showVulnDetails('OSV-1-0-4')">
+    <td><a href="https://osv.dev/OSV-1">OSV-1</a></td>
+    <td>author1/mine1</td>
+    <td>1.2.3</td>
+    <td  class="warning" >No fix available</td>
+    <td>UNKNOWN </td>
+  </tr>
+  <tr>
+    <td colspan="100%">
+      <div id="vuln-details-OSV-1-0-4" class="vuln-details">
+        
+        
+        
+        
+        
+        
+      </div>
+    </td>
+  </tr>
+  
+  
+  <tr class='vuln-tr' id="vuln-tr-OSV-5-1-5"
+    onclick="showVulnDetails('OSV-5-1-5')">
+    <td><a href="https://osv.dev/OSV-5">OSV-5</a></td>
+    <td>author1/mine1</td>
+    <td>1.2.3</td>
+    <td  class="warning" >No fix available</td>
+    <td>UNKNOWN </td>
+  </tr>
+  <tr>
+    <td colspan="100%">
+      <div id="vuln-details-OSV-5-1-5" class="vuln-details">
+        
+        
+        
+        
+        
+        
+      </div>
+    </td>
+  </tr>
+  
+  
+  <tr class='vuln-tr' id="vuln-tr-OSV-1-2-6"
+    onclick="showVulnDetails('OSV-1-2-6')">
+    <td><a href="https://osv.dev/OSV-1">OSV-1</a></td>
+    <td>mine1</td>
+    <td>1.2.2</td>
+    <td  class="warning" >No fix available</td>
+    <td>UNKNOWN </td>
+  </tr>
+  <tr>
+    <td colspan="100%">
+      <div id="vuln-details-OSV-1-2-6" class="vuln-details">
         
         
         
@@ -8799,39 +8799,8 @@
   
   
 
-  <tr class='vuln-tr' id="vuln-tr-author1/mine1-0"
-    onclick="showVulnDetails('author1\/mine1-0')">
-    <td>author1/mine1</td>
-    <td>Packagist</td>
-    <td>1.2.3</td>
-    
-    <td class="warning">
-      No fix available (1/1 vulnerable)
-    </td>
-    
-    <td>0C | 0H | 0M | 0L | 1U</td>
-  </tr>
-  <tr>
-    <td colspan="100%">
-      <div id="vuln-details-author1/mine1-0" class="vuln-details">
-        <p><strong>Source: path/to/my/first/lockfile</strong></p>
-        <p>Vulnerabilities:</p>
-        
-        
-        <p><a href="https://osv.dev/OSV-5">OSV-5</a>
-          (UNKNOWN) has no fix available</p>
-        
-        
-      </div>
-    </td>
-  </tr>
-  
-  
-  
-  
-
-  <tr class='vuln-tr' id="vuln-tr-author3/mine3-2"
-    onclick="showVulnDetails('author3\/mine3-2')">
+  <tr class='vuln-tr' id="vuln-tr-author3/mine3-0"
+    onclick="showVulnDetails('author3\/mine3-0')">
     <td>author3/mine3</td>
     <td>NuGet</td>
     <td>0.4.1</td>
@@ -8844,7 +8813,7 @@
   </tr>
   <tr>
     <td colspan="100%">
-      <div id="vuln-details-author3/mine3-2" class="vuln-details">
+      <div id="vuln-details-author3/mine3-0" class="vuln-details">
         <p><strong>Source: path/to/my/second/lockfile</strong></p>
         <p>Vulnerabilities:</p>
         
@@ -8864,8 +8833,8 @@
   
   
 
-  <tr class='vuln-tr' id="vuln-tr-mine2-3"
-    onclick="showVulnDetails('mine2-3')">
+  <tr class='vuln-tr' id="vuln-tr-mine2-1"
+    onclick="showVulnDetails('mine2-1')">
     <td>mine2</td>
     <td>NuGet</td>
     <td>3.2.5</td>
@@ -8878,7 +8847,7 @@
   </tr>
   <tr>
     <td colspan="100%">
-      <div id="vuln-details-mine2-3" class="vuln-details">
+      <div id="vuln-details-mine2-1" class="vuln-details">
         <p><strong>Source: path/to/my/second/lockfile</strong></p>
         <p>Vulnerabilities:</p>
         
@@ -8891,10 +8860,130 @@
     </td>
   </tr>
   
+  
+
+  <tr class='vuln-tr' id="vuln-tr-author1/mine1-2"
+    onclick="showVulnDetails('author1\/mine1-2')">
+    <td>author1/mine1</td>
+    <td>Packagist</td>
+    <td>1.2.3</td>
+    
+    <td class="warning">
+      No fix available (1/1 vulnerable)
+    </td>
+    
+    <td>0C | 0H | 0M | 0L | 1U</td>
+  </tr>
+  <tr>
+    <td colspan="100%">
+      <div id="vuln-details-author1/mine1-2" class="vuln-details">
+        <p><strong>Source: path/to/my/first/lockfile</strong></p>
+        <p>Vulnerabilities:</p>
+        
+        
+        <p><a href="https://osv.dev/OSV-5">OSV-5</a>
+          (UNKNOWN) has no fix available</p>
+        
+        
+      </div>
+    </td>
+  </tr>
+  
+  
+  
 </table>
     </div>
 
     <div id="vuln-tab" class="view-tab">
+      
+      <div class="ecosystem">
+        <h2>NuGet</h2>
+        <div class="source-section">
+          
+          <h3>Source: NuGet: :path/to/my/second/lockfile</h3>
+          <p>
+            Found 2 package(s) with issues, 
+            3 known vulnerabilities found.
+          </p>
+
+            <table class="vuln-table">
+  <tr>
+    <th>ID</th>
+    <th>package</th>
+    <th>Installed version</th>
+    <th>Fixed version</th>
+    <th>Severity</th>
+  </tr>
+  
+  
+  <tr class='vuln-tr' id="vuln-tr-OSV-3-0-1"
+    onclick="showVulnDetails('OSV-3-0-1')">
+    <td><a href="https://osv.dev/OSV-3">OSV-3</a></td>
+    <td>author3/mine3</td>
+    <td>0.4.1</td>
+    <td  class="warning" >No fix available</td>
+    <td>UNKNOWN </td>
+  </tr>
+  <tr>
+    <td colspan="100%">
+      <div id="vuln-details-OSV-3-0-1" class="vuln-details">
+        
+        
+        
+        
+        
+        
+      </div>
+    </td>
+  </tr>
+  
+  
+  <tr class='vuln-tr' id="vuln-tr-OSV-5-1-2"
+    onclick="showVulnDetails('OSV-5-1-2')">
+    <td><a href="https://osv.dev/OSV-5">OSV-5</a></td>
+    <td>author3/mine3</td>
+    <td>0.4.1</td>
+    <td  class="warning" >No fix available</td>
+    <td>UNKNOWN </td>
+  </tr>
+  <tr>
+    <td colspan="100%">
+      <div id="vuln-details-OSV-5-1-2" class="vuln-details">
+        
+        
+        
+        
+        
+        
+      </div>
+    </td>
+  </tr>
+  
+  
+  <tr class='vuln-tr' id="vuln-tr-OSV-2-2-3"
+    onclick="showVulnDetails('OSV-2-2-3')">
+    <td><a href="https://osv.dev/OSV-2">OSV-2</a></td>
+    <td>mine2</td>
+    <td>3.2.5</td>
+    <td  class="warning" >No fix available</td>
+    <td>UNKNOWN </td>
+  </tr>
+  <tr>
+    <td colspan="100%">
+      <div id="vuln-details-OSV-2-2-3" class="vuln-details">
+        
+        
+        
+        
+        
+        
+      </div>
+    </td>
+  </tr>
+  
+</table>  
+        </div>
+      </div>
       
       <div class="ecosystem">
         <h2>Packagist</h2>
@@ -8916,8 +9005,8 @@
   </tr>
   
   
-  <tr class='vuln-tr' id="vuln-tr-OSV-5-0-6014051847026436299"
-    onclick="showVulnDetails('OSV-5-0-6014051847026436299')">
+  <tr class='vuln-tr' id="vuln-tr-OSV-5-0-4"
+    onclick="showVulnDetails('OSV-5-0-4')">
     <td><a href="https://osv.dev/OSV-5">OSV-5</a></td>
     <td>author1/mine1</td>
     <td>1.2.3</td>
@@ -8926,7 +9015,7 @@
   </tr>
   <tr>
     <td colspan="100%">
-      <div id="vuln-details-OSV-5-0-6014051847026436299" class="vuln-details">
+      <div id="vuln-details-OSV-5-0-4" class="vuln-details">
         
         
         
@@ -8955,8 +9044,8 @@
   </tr>
   
   
-  <tr class='vuln-tr' id="vuln-tr-OSV-1-0-2478691379326145636"
-    onclick="showVulnDetails('OSV-1-0-2478691379326145636')">
+  <tr class='vuln-tr' id="vuln-tr-OSV-1-0-5"
+    onclick="showVulnDetails('OSV-1-0-5')">
     <td><a href="https://osv.dev/OSV-1">OSV-1</a></td>
     <td>author1/mine1</td>
     <td>1.2.3</td>
@@ -8965,7 +9054,7 @@
   </tr>
   <tr>
     <td colspan="100%">
-      <div id="vuln-details-OSV-1-0-2478691379326145636" class="vuln-details">
+      <div id="vuln-details-OSV-1-0-5" class="vuln-details">
         
         
         
@@ -8977,8 +9066,8 @@
   </tr>
   
   
-  <tr class='vuln-tr' id="vuln-tr-OSV-1-1-1232784100174205758"
-    onclick="showVulnDetails('OSV-1-1-1232784100174205758')">
+  <tr class='vuln-tr' id="vuln-tr-OSV-1-1-6"
+    onclick="showVulnDetails('OSV-1-1-6')">
     <td><a href="https://osv.dev/OSV-1">OSV-1</a></td>
     <td>mine1</td>
     <td>1.2.2</td>
@@ -8987,7 +9076,7 @@
   </tr>
   <tr>
     <td colspan="100%">
-      <div id="vuln-details-OSV-1-1-1232784100174205758" class="vuln-details">
+      <div id="vuln-details-OSV-1-1-6" class="vuln-details">
         
         
         
@@ -9002,95 +9091,6 @@
   </div>
 </details>
  
-        </div>
-      </div>
-      
-      <div class="ecosystem">
-        <h2>NuGet</h2>
-        <div class="source-section">
-          
-          <h3>Source: NuGet: :path/to/my/second/lockfile</h3>
-          <p>
-            Found 2 package(s) with issues, 
-            3 known vulnerabilities found.
-          </p>
-
-            <table class="vuln-table">
-  <tr>
-    <th>ID</th>
-    <th>package</th>
-    <th>Installed version</th>
-    <th>Fixed version</th>
-    <th>Severity</th>
-  </tr>
-  
-  
-  <tr class='vuln-tr' id="vuln-tr-OSV-3-0-5593547230454411228"
-    onclick="showVulnDetails('OSV-3-0-5593547230454411228')">
-    <td><a href="https://osv.dev/OSV-3">OSV-3</a></td>
-    <td>author3/mine3</td>
-    <td>0.4.1</td>
-    <td  class="warning" >No fix available</td>
-    <td>UNKNOWN </td>
-  </tr>
-  <tr>
-    <td colspan="100%">
-      <div id="vuln-details-OSV-3-0-5593547230454411228" class="vuln-details">
-        
-        
-        
-        
-        
-        
-      </div>
-    </td>
-  </tr>
-  
-  
-  <tr class='vuln-tr' id="vuln-tr-OSV-5-1-144260216686165574"
-    onclick="showVulnDetails('OSV-5-1-144260216686165574')">
-    <td><a href="https://osv.dev/OSV-5">OSV-5</a></td>
-    <td>author3/mine3</td>
-    <td>0.4.1</td>
-    <td  class="warning" >No fix available</td>
-    <td>UNKNOWN </td>
-  </tr>
-  <tr>
-    <td colspan="100%">
-      <div id="vuln-details-OSV-5-1-144260216686165574" class="vuln-details">
-        
-        
-        
-        
-        
-        
-      </div>
-    </td>
-  </tr>
-  
-  
-  <tr class='vuln-tr' id="vuln-tr-OSV-2-2-2731929049744420951"
-    onclick="showVulnDetails('OSV-2-2-2731929049744420951')">
-    <td><a href="https://osv.dev/OSV-2">OSV-2</a></td>
-    <td>mine2</td>
-    <td>3.2.5</td>
-    <td  class="warning" >No fix available</td>
-    <td>UNKNOWN </td>
-  </tr>
-  <tr>
-    <td colspan="100%">
-      <div id="vuln-details-OSV-2-2-2731929049744420951" class="vuln-details">
-        
-        
-        
-        
-        
-        
-      </div>
-    </td>
-  </tr>
-  
-</table>  
         </div>
       </div>
       
@@ -10436,8 +10436,8 @@
   </tr>
   
   
-  <tr class='vuln-tr' id="vuln-tr-OSV-1-0-505615329070442410"
-    onclick="showVulnDetails('OSV-1-0-505615329070442410')">
+  <tr class='vuln-tr' id="vuln-tr-OSV-1-0-1"
+    onclick="showVulnDetails('OSV-1-0-1')">
     <td><a href="https://osv.dev/OSV-1">OSV-1</a></td>
     <td>mine1</td>
     <td>1.2.3</td>
@@ -10446,7 +10446,7 @@
   </tr>
   <tr>
     <td colspan="100%">
-      <div id="vuln-details-OSV-1-0-505615329070442410" class="vuln-details">
+      <div id="vuln-details-OSV-1-0-1" class="vuln-details">
         
         
         
@@ -10475,8 +10475,8 @@
   </tr>
   
   
-  <tr class='vuln-tr' id="vuln-tr-GHSA-123-0-2189154508797022319"
-    onclick="showVulnDetails('GHSA-123-0-2189154508797022319')">
+  <tr class='vuln-tr' id="vuln-tr-GHSA-123-0-2"
+    onclick="showVulnDetails('GHSA-123-0-2')">
     <td><a href="https://osv.dev/GHSA-123">GHSA-123</a></td>
     <td>mine1</td>
     <td>1.2.3</td>
@@ -10485,7 +10485,7 @@
   </tr>
   <tr>
     <td colspan="100%">
-      <div id="vuln-details-GHSA-123-0-2189154508797022319" class="vuln-details">
+      <div id="vuln-details-GHSA-123-0-2" class="vuln-details">
         
         
         
@@ -10792,8 +10792,8 @@
   </tr>
   
   
-  <tr class='vuln-tr' id="vuln-tr-OSV-1-0-6561733687803923880"
-    onclick="showVulnDetails('OSV-1-0-6561733687803923880')">
+  <tr class='vuln-tr' id="vuln-tr-OSV-1-0-1"
+    onclick="showVulnDetails('OSV-1-0-1')">
     <td><a href="https://osv.dev/OSV-1">OSV-1</a></td>
     <td>mine1</td>
     <td>1.2.3</td>
@@ -10802,7 +10802,7 @@
   </tr>
   <tr>
     <td colspan="100%">
-      <div id="vuln-details-OSV-1-0-6561733687803923880" class="vuln-details">
+      <div id="vuln-details-OSV-1-0-1" class="vuln-details">
         
         
         
@@ -11094,8 +11094,8 @@
   </tr>
   
   
-  <tr class='vuln-tr' id="vuln-tr-OSV-1-0-7482394630135621924"
-    onclick="showVulnDetails('OSV-1-0-7482394630135621924')">
+  <tr class='vuln-tr' id="vuln-tr-OSV-1-0-1"
+    onclick="showVulnDetails('OSV-1-0-1')">
     <td><a href="https://osv.dev/OSV-1">OSV-1</a></td>
     <td>mine1</td>
     <td>1.2.3</td>
@@ -11104,7 +11104,7 @@
   </tr>
   <tr>
     <td colspan="100%">
-      <div id="vuln-details-OSV-1-0-7482394630135621924" class="vuln-details">
+      <div id="vuln-details-OSV-1-0-1" class="vuln-details">
         
         
         
@@ -11411,8 +11411,8 @@
   </tr>
   
   
-  <tr class='vuln-tr' id="vuln-tr-OSV-1-0-1140143085208760869"
-    onclick="showVulnDetails('OSV-1-0-1140143085208760869')">
+  <tr class='vuln-tr' id="vuln-tr-OSV-1-0-1"
+    onclick="showVulnDetails('OSV-1-0-1')">
     <td><a href="https://osv.dev/OSV-1">OSV-1</a></td>
     <td>mine1</td>
     <td>1.2.3</td>
@@ -11421,7 +11421,7 @@
   </tr>
   <tr>
     <td colspan="100%">
-      <div id="vuln-details-OSV-1-0-1140143085208760869" class="vuln-details">
+      <div id="vuln-details-OSV-1-0-1" class="vuln-details">
         
         
         
@@ -11725,8 +11725,8 @@
   </tr>
   
   
-  <tr class='vuln-tr' id="vuln-tr-OSV-1-0-922885850985025417"
-    onclick="showVulnDetails('OSV-1-0-922885850985025417')">
+  <tr class='vuln-tr' id="vuln-tr-OSV-1-0-1"
+    onclick="showVulnDetails('OSV-1-0-1')">
     <td><a href="https://osv.dev/OSV-1">OSV-1</a></td>
     <td>mine1</td>
     <td>1.2.3</td>
@@ -11735,7 +11735,7 @@
   </tr>
   <tr>
     <td colspan="100%">
-      <div id="vuln-details-OSV-1-0-922885850985025417" class="vuln-details">
+      <div id="vuln-details-OSV-1-0-1" class="vuln-details">
         
         
         
@@ -12027,8 +12027,8 @@
   </tr>
   
   
-  <tr class='vuln-tr' id="vuln-tr-OSV-1-0-5025706364656205583"
-    onclick="showVulnDetails('OSV-1-0-5025706364656205583')">
+  <tr class='vuln-tr' id="vuln-tr-OSV-1-0-1"
+    onclick="showVulnDetails('OSV-1-0-1')">
     <td><a href="https://osv.dev/OSV-1">OSV-1</a></td>
     <td>mine1</td>
     <td>1.2.3</td>
@@ -12037,7 +12037,7 @@
   </tr>
   <tr>
     <td colspan="100%">
-      <div id="vuln-details-OSV-1-0-5025706364656205583" class="vuln-details">
+      <div id="vuln-details-OSV-1-0-1" class="vuln-details">
         
         <p><strong>Group IDs: GHSA-123</strong></p>
         
@@ -12346,8 +12346,8 @@
   </tr>
   
   
-  <tr class='vuln-tr' id="vuln-tr-OSV-1-0-3068797526270001063"
-    onclick="showVulnDetails('OSV-1-0-3068797526270001063')">
+  <tr class='vuln-tr' id="vuln-tr-OSV-1-0-1"
+    onclick="showVulnDetails('OSV-1-0-1')">
     <td><a href="https://osv.dev/OSV-1">OSV-1</a></td>
     <td>mine1</td>
     <td>1.2.3</td>
@@ -12356,7 +12356,7 @@
   </tr>
   <tr>
     <td colspan="100%">
-      <div id="vuln-details-OSV-1-0-3068797526270001063" class="vuln-details">
+      <div id="vuln-details-OSV-1-0-1" class="vuln-details">
         
         <p><strong>Group IDs: GHSA-123</strong></p>
         
@@ -12691,8 +12691,8 @@
   </tr>
   
   
-  <tr class='vuln-tr' id="vuln-tr-OSV-1-0-3140640923234995053"
-    onclick="showVulnDetails('OSV-1-0-3140640923234995053')">
+  <tr class='vuln-tr' id="vuln-tr-OSV-1-0-1"
+    onclick="showVulnDetails('OSV-1-0-1')">
     <td><a href="https://osv.dev/OSV-1">OSV-1</a></td>
     <td>mine1</td>
     <td>1.2.3</td>
@@ -12701,7 +12701,7 @@
   </tr>
   <tr>
     <td colspan="100%">
-      <div id="vuln-details-OSV-1-0-3140640923234995053" class="vuln-details">
+      <div id="vuln-details-OSV-1-0-1" class="vuln-details">
         
         
         
@@ -12715,8 +12715,8 @@
   </tr>
   
   
-  <tr class='vuln-tr' id="vuln-tr-OSV-2-1-2655467800893026559"
-    onclick="showVulnDetails('OSV-2-1-2655467800893026559')">
+  <tr class='vuln-tr' id="vuln-tr-OSV-2-1-2"
+    onclick="showVulnDetails('OSV-2-1-2')">
     <td><a href="https://osv.dev/OSV-2">OSV-2</a></td>
     <td>mine3</td>
     <td>0.10.2-rc</td>
@@ -12725,7 +12725,7 @@
   </tr>
   <tr>
     <td colspan="100%">
-      <div id="vuln-details-OSV-2-1-2655467800893026559" class="vuln-details">
+      <div id="vuln-details-OSV-2-1-2" class="vuln-details">
         
         
         
@@ -13029,8 +13029,8 @@
   </tr>
   
   
-  <tr class='vuln-tr' id="vuln-tr-OSV-1-0-772202464743564063"
-    onclick="showVulnDetails('OSV-1-0-772202464743564063')">
+  <tr class='vuln-tr' id="vuln-tr-OSV-1-0-1"
+    onclick="showVulnDetails('OSV-1-0-1')">
     <td><a href="https://osv.dev/OSV-1">OSV-1</a></td>
     <td>mine1</td>
     <td>1.2.3</td>
@@ -13039,7 +13039,7 @@
   </tr>
   <tr>
     <td colspan="100%">
-      <div id="vuln-details-OSV-1-0-772202464743564063" class="vuln-details">
+      <div id="vuln-details-OSV-1-0-1" class="vuln-details">
         
         
         
@@ -13388,8 +13388,8 @@
   </tr>
   
   
-  <tr class='vuln-tr' id="vuln-tr-OSV-1-0-7235313404316379817"
-    onclick="showVulnDetails('OSV-1-0-7235313404316379817')">
+  <tr class='vuln-tr' id="vuln-tr-OSV-1-0-1"
+    onclick="showVulnDetails('OSV-1-0-1')">
     <td><a href="https://osv.dev/OSV-1">OSV-1</a></td>
     <td>mine1</td>
     <td>1.2.3</td>
@@ -13398,7 +13398,7 @@
   </tr>
   <tr>
     <td colspan="100%">
-      <div id="vuln-details-OSV-1-0-7235313404316379817" class="vuln-details">
+      <div id="vuln-details-OSV-1-0-1" class="vuln-details">
         
         
         
@@ -13426,8 +13426,8 @@
   </tr>
   
   
-  <tr class='vuln-tr' id="vuln-tr-OSV-1-0-47651786293263623"
-    onclick="showVulnDetails('OSV-1-0-47651786293263623')">
+  <tr class='vuln-tr' id="vuln-tr-OSV-1-0-2"
+    onclick="showVulnDetails('OSV-1-0-2')">
     <td><a href="https://osv.dev/OSV-1">OSV-1</a></td>
     <td>mine1</td>
     <td>1.2.3</td>
@@ -13436,7 +13436,7 @@
   </tr>
   <tr>
     <td colspan="100%">
-      <div id="vuln-details-OSV-1-0-47651786293263623" class="vuln-details">
+      <div id="vuln-details-OSV-1-0-2" class="vuln-details">
         
         
         

@@ -5,8 +5,8 @@ import (
 	"fmt"
 	"html/template"
 	"io"
-	"math/rand"
 	"slices"
+	"sort"
 	"strconv"
 	"strings"
 
@@ -221,6 +221,11 @@ func processPackageResults(allVulns []HTMLVulnResult, groupIDs map[string]models
 		results = append(results, *result)
 	}
 
+	// Sort packageResults to ensure consistent output
+	sort.Slice(results, func(i, j int) bool {
+		return results[i].Name < results[j].Name
+	})
+
 	return results
 }
 
@@ -290,6 +295,11 @@ func buildHTMLResult(ecosystemMap map[string][]HTMLSourceResult, resultCount HTM
 		}
 	}
 
+	// Sort ecosystemResults to ensure consistent output
+	sort.Slice(ecosystemResults, func(i, j int) bool {
+		return ecosystemResults[i].Ecosystem < ecosystemResults[j].Ecosystem
+	})
+
 	ecosystemResults = append(ecosystemResults, osResults...)
 
 	return HTMLResult{
@@ -335,10 +345,15 @@ func isOSImage(ecosystem string) bool {
 	return false
 }
 
-// uniqueIndex generates a unique integer.
-// It is used to create unique IDs in HTML templates.
-func uniqueIndex() int {
-	return rand.Int() //nolint:all
+// uniqueIndex creates a function that generates unique indices for HTML elements.
+// It takes an integer pointer as input and increments the integer's value each time the
+// returned function is called. This ensures that each call to the returned function
+// produces a different index, even when called concurrently from multiple goroutines.
+func uniqueIndex(index *int) func() int {
+	return func() int {
+		*index += 1
+		return *index
+	}
 }
 
 // getFixVersion returns the lowest fixed version for a given package and
@@ -442,10 +457,11 @@ func printSeverityCountShort(count HTMLVulnCount) string {
 
 func PrintHTMLResults(vulnResult *models.VulnerabilityResults, outputWriter io.Writer) error {
 	htmlResult := BuildHTMLResults(vulnResult)
+	vulnIndex := 0
 
 	// Parse embedded templates
 	funcMap := template.FuncMap{
-		"uniqueID":                uniqueIndex,
+		"uniqueID":                uniqueIndex(&vulnIndex),
 		"getAllVulns":             getAllVulns,
 		"getAllPackageResults":    getAllPackageResults,
 		"printSeverityCount":      printSeverityCount,
