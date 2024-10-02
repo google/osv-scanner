@@ -1,11 +1,13 @@
 # v1.8.6
 
 ### Features:
+
 - [Feature #1243](https://github.com/google/osv-scanner/pull/1243) Allow explicitly ignoring the license of a package in config with `license.ignore = true`.
 - [Feature #1249](https://github.com/google/osv-scanner/pull/1249) Error if configuration file has unknown properties.
 - [Feature #1271](https://github.com/google/osv-scanner/pull/1271) Assume `.txt` files with "requirements" in their name are `requirements.txt` files
 
 ### Fixes:
+
 - [Bug #1242](https://github.com/google/osv-scanner/pull/1242) Announce when a config file is invalid and exit with a non-zero code.
 - [Bug #1241](https://github.com/google/osv-scanner/pull/1241) Display `(no reason given)` when there is no reason in the override config.
 - [Bug #1252](https://github.com/google/osv-scanner/pull/1252) Don't allow `LoadPath` to be set via config file.
@@ -14,6 +16,7 @@
 - [Bug #1278](https://github.com/google/osv-scanner/pull/1278) Apply go version override to _all_ instances of the `stdlib`.
 
 ### Misc:
+
 - [#1253](https://github.com/google/osv-scanner/pull/1253) Deprecate `ParseX()` functions in `pkg/lockfile` in favor of their `Extract` equivalents.
 - [#1290](https://github.com/google/osv-scanner/pull/1290) Bump maximum number of concurrent requests to the OSV.dev API.
 
