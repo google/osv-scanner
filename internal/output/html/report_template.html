@@ -19,12 +19,12 @@
       {{ if eq .HTMLVulnCount.Called 0}}
       No vulnerability found.
       {{ else if eq .HTMLVulnCount.Called 1 }}
-      Total {{ .HTMLVulnCount.Called }} vulnerability found 
-      ({{ .HTMLVulnCount.Fixed }} has fix available), 
+      Total {{ .HTMLVulnCount.Called }} vulnerability found
+      ({{ .HTMLVulnCount.Fixed }} has fix available),
       {{ printSeverityCount .HTMLVulnCount }}.
       {{ else }}
-      Total {{ .HTMLVulnCount.Called }} vulnerabilities found 
-      ({{ .HTMLVulnCount.Fixed }} has/have fix available), 
+      Total {{ .HTMLVulnCount.Called }} vulnerabilities found
+      ({{ .HTMLVulnCount.Fixed }} has/have fix available),
       {{ printSeverityCount .HTMLVulnCount }}.
       {{ end }}
     </p>
@@ -50,7 +50,7 @@
           {{ range .Sources }}
           <h3>Source: {{ .Ecosystem }}: {{ .Source }}</h3>
           <p>
-            Found {{ .CalledPackageCount }} package(s) with issues, 
+            Found {{ .CalledPackageCount }} package(s) with issues,
             {{ .HTMLVulnCount.Called }} known vulnerabilities found.
           </p>
 

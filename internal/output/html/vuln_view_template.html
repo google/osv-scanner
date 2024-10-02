@@ -1,13 +1,17 @@
-{{$calledVulns := getAllVulns .PackageResults true}} {{$uncalledVulns :=
-getAllVulns .PackageResults false}} {{template "vuln_table_template.html"
-$calledVulns}} {{ if ne .UncalledPackageCount 0}}
+{{$calledVulns := getAllVulns .PackageResults true}}
+{{$uncalledVulns := getAllVulns .PackageResults false}}
+{{ if ne .CalledPackageCount 0}}
+{{template "vuln_table_template.html" $calledVulns}}
+{{ end }}
+
+{{ if ne .UncalledPackageCount 0}}
 <details class="uncalled">
   <summary>Show/Hide Uncalled vulnerabilities</summary>
   <div id="uncalled-details-{{ .Source }}">
     <h4>Uncalled vulnerabilities</h4>
     <p>
-      Found {{ .UncalledPackageCount }} package(s) with issues, {{
-      .HTMLVulnCount.Uncalled }} known vulnerabilities found.
+      Found {{ .UncalledPackageCount }} package(s) with issues,
+      {{.HTMLVulnCount.Uncalled }} known vulnerabilities found.
     </p>
     {{template "vuln_table_template.html" $uncalledVulns }}
   </div>

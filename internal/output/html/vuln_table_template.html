@@ -15,8 +15,11 @@
     <td>{{ $element.Summary.InstalledVersion }}</td>
     <td {{ if eq $element.Summary.FixedVersion "No fix available" }} class="warning" {{ end }}>{{
       $element.Summary.FixedVersion }}</td>
-    <td>{{ $element.Summary.SeverityRating }} {{ if ne $element.Summary.SeverityRating "UNKNOWN" }}({{
-      $element.Summary.SeverityScore }}){{ end }}</td>
+    <td>{{ $element.Summary.SeverityRating }}
+      {{ if ne $element.Summary.SeverityRating "UNKNOWN" }}
+      ({{$element.Summary.SeverityScore }})
+      {{ end }}
+    </td>
   </tr>
   <tr>
     <td colspan="100%">
