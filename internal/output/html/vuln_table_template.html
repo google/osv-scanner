@@ -24,11 +24,11 @@
   <tr>
     <td colspan="100%">
       <div id="vuln-details-{{ $element.Summary.ID }}-{{ $rowIndex }}-{{ $index }}" class="vuln-details">
-        {{ if ne $element.Detail.GroupIDs "" }}
-        <p><strong>Group IDs: {{ $element.Detail.GroupIDs }}</strong></p>
+        {{ if ne (len $element.Detail.GroupIDs) 0 }}
+        <p><strong>Group IDs: {{ join $element.Detail.GroupIDs ", "}}</strong></p>
         {{ end }}
-        {{ if ne $element.Detail.Aliases "" }}
-        <p><strong>Aliases: {{ $element.Detail.Aliases }}</strong></p>
+        {{ if ne (len $element.Detail.Aliases) 0 }}
+        <p><strong>Aliases: {{ join $element.Detail.Aliases ", "}}</strong></p>
         {{ end }}
         {{ if ne $element.Detail.LayerCommand "" }}
         {{ if ne $element.Detail.LayerCommandTooltip "" }}

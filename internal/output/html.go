@@ -17,16 +17,19 @@ import (
 	"github.com/google/osv-scanner/pkg/models"
 )
 
+// HTMLResult represents the vulnerability scanning results for HTML report.
 type HTMLResult struct {
 	HTMLVulnCount    HTMLVulnCount
 	EcosystemResults []HTMLEcosystemResult
 }
 
+// HTMLEcosystemResult represents the vulnerability scanning results for an ecosystem.
 type HTMLEcosystemResult struct {
 	Ecosystem string
 	Sources   []HTMLSourceResult
 }
 
+// HTMLSourceResult represents the vulnerability scanning results for a source file.
 type HTMLSourceResult struct {
 	Source               string
 	Ecosystem            string
@@ -36,6 +39,7 @@ type HTMLSourceResult struct {
 	HTMLVulnCount        HTMLVulnCount
 }
 
+// HTMLPackageResult represents the vulnerability scanning results for a package.
 type HTMLPackageResult struct {
 	Name             string
 	Ecosystem        string
@@ -47,11 +51,13 @@ type HTMLPackageResult struct {
 	HTMLVulnCount    HTMLVulnCount
 }
 
+// HTMLVulnResult represents a single vulnerability.
 type HTMLVulnResult struct {
 	Summary HTMLVulnResultSummary
 	Detail  HTMLVulnResultDetail
 }
 
+// HTMLVulnResultSummary represents summary information about a vulnerability.
 type HTMLVulnResultSummary struct {
 	ID               string
 	PackageName      string
@@ -61,9 +67,10 @@ type HTMLVulnResultSummary struct {
 	SeverityScore    string
 }
 
+// HTMLVulnResultDetail represents detailed information about a vulnerability.
 type HTMLVulnResultDetail struct {
-	GroupIDs            string
-	Aliases             string
+	GroupIDs            []string
+	Aliases             []string
 	LayerCommand        string
 	LayerCommandTooltip string
 	LayerID             string
@@ -71,6 +78,7 @@ type HTMLVulnResultDetail struct {
 	Description         string
 }
 
+// HTMLVulnCount represents the counts of vulnerabilities by severity and fixed/unfixed status
 type HTMLVulnCount struct {
 	Critical int
 	High     int
@@ -102,6 +110,8 @@ func BuildHTMLResults(vulnResult *models.VulnerabilityResults) HTMLResult {
 
 	for _, packageSource := range vulnResult.Results {
 		sourceName := packageSource.Source.String()
+		// Temporary workaround: This filtering should be handled by the container scanning process.
+		// TODO(gongh@): Revisit this after container scanning supports comprehensive functionality.
 		if strings.Contains(sourceName, "/usr/lib/") {
 			continue
 		}
@@ -180,7 +190,7 @@ func processPackageResults(allVulns []HTMLVulnResult, groupIDs map[string]models
 
 		// Add group IDs info
 		if len(groupInfo.IDs) > 1 {
-			vuln.Detail.GroupIDs = strings.Join(groupInfo.IDs[1:], ", ")
+			vuln.Detail.GroupIDs = groupInfo.IDs[1:]
 		}
 
 		packageName := vuln.Summary.PackageName
@@ -236,7 +246,7 @@ func processPackageResults(allVulns []HTMLVulnResult, groupIDs map[string]models
 func processVulnerabilities(vulnPkg models.PackageVulns) []HTMLVulnResult {
 	vulnResults := make([]HTMLVulnResult, len(vulnPkg.Vulnerabilities))
 	for i, vuln := range vulnPkg.Vulnerabilities {
-		aliases := strings.Join(vuln.Aliases, ", ")
+		aliases := vuln.Aliases
 		vulnDetails := HTMLVulnResultDetail{
 			Aliases:     aliases,
 			Description: vuln.Details,
@@ -485,6 +495,7 @@ func PrintHTMLResults(vulnResult *models.VulnerabilityResults, outputWriter io.W
 		"getAllPackageResults":    getAllPackageResults,
 		"printSeverityCount":      printSeverityCount,
 		"printSeverityCountShort": printSeverityCountShort,
+		"join":                    strings.Join,
 	}
 
 	tmpl := template.Must(template.New("").Funcs(funcMap).ParseFS(templates, TemplateDir))
