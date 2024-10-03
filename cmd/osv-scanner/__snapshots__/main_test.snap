@@ -368,6 +368,7 @@ Attempted to scan lockfile but failed: <rootdir>/fixtures/locks-many-with-invali
 ---
 
 [TestRun/config_file_can_be_broad - 1]
+Scanned <rootdir>/fixtures/locks-insecure/osv-scanner-flutter-deps.json file as a osv-scanner and found 3 packages
 Scanning dir ./fixtures/locks-many
 Scanned <rootdir>/fixtures/locks-many/Gemfile.lock file and found 1 package
 Scanned <rootdir>/fixtures/locks-many/alpine.cdx.xml as CycloneDX SBOM and found 14 packages
@@ -405,13 +406,16 @@ overriding license for package Packagist/league/flysystem/1.0.8 with 0BSD
 +-------------------------------------+------+-----------+------------------+---------+---------------------------------------+
 | https://osv.dev/GHSA-9f46-5r25-5wfm | 9.8  | Packagist | league/flysystem | 1.0.8   | fixtures/locks-insecure/composer.lock |
 +-------------------------------------+------+-----------+------------------+---------+---------------------------------------+
-+-------------------+-----------+------------------+---------+---------------------------------------+
-| LICENSE VIOLATION | ECOSYSTEM | PACKAGE          | VERSION | SOURCE                                |
-+-------------------+-----------+------------------+---------+---------------------------------------+
-| 0BSD              | Packagist | league/flysystem | 1.0.8   | fixtures/locks-insecure/composer.lock |
-| UNKNOWN           | RubyGems  | ast              | 2.4.2   | fixtures/locks-many/Gemfile.lock      |
-| 0BSD              | Packagist | sentry/sdk       | 2.0.4   | fixtures/locks-many/composer.lock     |
-+-------------------+-----------+------------------+---------+---------------------------------------+
++-------------------+-----------+------------------------------------------------+---------+-------------------------------------------------------+
+| LICENSE VIOLATION | ECOSYSTEM | PACKAGE                                        | VERSION | SOURCE                                                |
++-------------------+-----------+------------------------------------------------+---------+-------------------------------------------------------+
+| 0BSD              | Packagist | league/flysystem                               | 1.0.8   | fixtures/locks-insecure/composer.lock                 |
+| UNKNOWN           |           | https://github.com/flutter/buildroot.git       |         | fixtures/locks-insecure/osv-scanner-flutter-deps.json |
+| UNKNOWN           |           | https://github.com/brendan-duncan/archive.git  |         | fixtures/locks-insecure/osv-scanner-flutter-deps.json |
+| UNKNOWN           |           | https://chromium.googlesource.com/chromium/src |         | fixtures/locks-insecure/osv-scanner-flutter-deps.json |
+| UNKNOWN           | RubyGems  | ast                                            | 2.4.2   | fixtures/locks-many/Gemfile.lock                      |
+| 0BSD              | Packagist | sentry/sdk                                     | 2.0.4   | fixtures/locks-many/composer.lock                     |
++-------------------+-----------+------------------------------------------------+---------+-------------------------------------------------------+
 
 ---
 
