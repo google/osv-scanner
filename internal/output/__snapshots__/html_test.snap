@@ -234,7 +234,7 @@
         <h2>npm</h2>
         <div class="source-section">
           
-          <h3>Source: npm: :path/to/my/first/lockfile</h3>
+          <h3>Source: :path/to/my/first/lockfile</h3>
           <p>
             Found 0 package(s) with issues,
             0 known vulnerabilities found.
@@ -245,7 +245,7 @@
 
 
  
-          <h3>Source: npm: :path/to/my/second/lockfile</h3>
+          <h3>Source: :path/to/my/second/lockfile</h3>
           <p>
             Found 0 package(s) with issues,
             0 known vulnerabilities found.
@@ -256,7 +256,7 @@
 
 
  
-          <h3>Source: npm: :path/to/my/third/lockfile</h3>
+          <h3>Source: :path/to/my/third/lockfile</h3>
           <p>
             Found 0 package(s) with issues,
             0 known vulnerabilities found.
@@ -512,7 +512,7 @@
         <h2>npm</h2>
         <div class="source-section">
           
-          <h3>Source: npm: :path/to/my/first/lockfile</h3>
+          <h3>Source: :path/to/my/first/lockfile</h3>
           <p>
             Found 0 package(s) with issues,
             0 known vulnerabilities found.
@@ -523,7 +523,7 @@
 
 
  
-          <h3>Source: npm: :path/to/my/second/lockfile</h3>
+          <h3>Source: :path/to/my/second/lockfile</h3>
           <p>
             Found 0 package(s) with issues,
             0 known vulnerabilities found.
@@ -534,7 +534,7 @@
 
 
  
-          <h3>Source: npm: :path/to/my/third/lockfile</h3>
+          <h3>Source: :path/to/my/third/lockfile</h3>
           <p>
             Found 0 package(s) with issues,
             0 known vulnerabilities found.
@@ -790,7 +790,7 @@
         <h2>npm</h2>
         <div class="source-section">
           
-          <h3>Source: npm: :path/to/my/first/lockfile</h3>
+          <h3>Source: :path/to/my/first/lockfile</h3>
           <p>
             Found 0 package(s) with issues,
             0 known vulnerabilities found.
@@ -801,7 +801,7 @@
 
 
  
-          <h3>Source: npm: :path/to/my/second/lockfile</h3>
+          <h3>Source: :path/to/my/second/lockfile</h3>
           <p>
             Found 0 package(s) with issues,
             0 known vulnerabilities found.
@@ -812,7 +812,7 @@
 
 
  
-          <h3>Source: npm: :path/to/my/third/lockfile</h3>
+          <h3>Source: :path/to/my/third/lockfile</h3>
           <p>
             Found 0 package(s) with issues,
             0 known vulnerabilities found.
@@ -1068,7 +1068,7 @@
         <h2>NuGet</h2>
         <div class="source-section">
           
-          <h3>Source: NuGet: :path/to/my/third/lockfile</h3>
+          <h3>Source: :path/to/my/third/lockfile</h3>
           <p>
             Found 0 package(s) with issues,
             0 known vulnerabilities found.
@@ -1086,7 +1086,7 @@
         <h2>Packagist</h2>
         <div class="source-section">
           
-          <h3>Source: Packagist: :path/to/my/first/lockfile</h3>
+          <h3>Source: :path/to/my/first/lockfile</h3>
           <p>
             Found 0 package(s) with issues,
             0 known vulnerabilities found.
@@ -1104,7 +1104,7 @@
         <h2>npm</h2>
         <div class="source-section">
           
-          <h3>Source: npm: :path/to/my/second/lockfile</h3>
+          <h3>Source: :path/to/my/second/lockfile</h3>
           <p>
             Found 0 package(s) with issues,
             0 known vulnerabilities found.
@@ -1360,7 +1360,7 @@
         <h2>npm</h2>
         <div class="source-section">
           
-          <h3>Source: npm: :path/to/my/first/lockfile</h3>
+          <h3>Source: :path/to/my/first/lockfile</h3>
           <p>
             Found 0 package(s) with issues,
             0 known vulnerabilities found.
@@ -1371,7 +1371,7 @@
 
 
  
-          <h3>Source: npm: :path/to/my/second/lockfile</h3>
+          <h3>Source: :path/to/my/second/lockfile</h3>
           <p>
             Found 0 package(s) with issues,
             0 known vulnerabilities found.
@@ -1382,7 +1382,7 @@
 
 
  
-          <h3>Source: npm: :path/to/my/third/lockfile</h3>
+          <h3>Source: :path/to/my/third/lockfile</h3>
           <p>
             Found 0 package(s) with issues,
             0 known vulnerabilities found.
@@ -1638,7 +1638,7 @@
         <h2></h2>
         <div class="source-section">
           
-          <h3>Source: : :path/to/my/first/lockfile</h3>
+          <h3>Source: :path/to/my/first/lockfile</h3>
           <p>
             Found 0 package(s) with issues,
             0 known vulnerabilities found.
@@ -1649,7 +1649,7 @@
 
 
  
-          <h3>Source: : :path/to/my/second/lockfile</h3>
+          <h3>Source: :path/to/my/second/lockfile</h3>
           <p>
             Found 0 package(s) with issues,
             0 known vulnerabilities found.
@@ -1660,7 +1660,7 @@
 
 
  
-          <h3>Source: : :path/to/my/third/lockfile</h3>
+          <h3>Source: :path/to/my/third/lockfile</h3>
           <p>
             Found 0 package(s) with issues,
             0 known vulnerabilities found.
@@ -2154,7 +2154,7 @@
         <h2></h2>
         <div class="source-section">
           
-          <h3>Source: : :path/to/my/first/lockfile</h3>
+          <h3>Source: :path/to/my/first/lockfile</h3>
           <p>
             Found 0 package(s) with issues,
             0 known vulnerabilities found.
@@ -2410,7 +2410,7 @@
         <h2>npm</h2>
         <div class="source-section">
           
-          <h3>Source: npm: :path/to/my/first/lockfile</h3>
+          <h3>Source: :path/to/my/first/lockfile</h3>
           <p>
             Found 0 package(s) with issues,
             0 known vulnerabilities found.
@@ -2666,7 +2666,7 @@
         <h2>npm</h2>
         <div class="source-section">
           
-          <h3>Source: npm: :path/to/my/first/lockfile</h3>
+          <h3>Source: :path/to/my/first/lockfile</h3>
           <p>
             Found 0 package(s) with issues,
             0 known vulnerabilities found.
@@ -2922,7 +2922,7 @@
         <h2>npm</h2>
         <div class="source-section">
           
-          <h3>Source: npm: :path/to/my/first/lockfile</h3>
+          <h3>Source: :path/to/my/first/lockfile</h3>
           <p>
             Found 0 package(s) with issues,
             0 known vulnerabilities found.
@@ -3178,7 +3178,7 @@
         <h2>npm</h2>
         <div class="source-section">
           
-          <h3>Source: npm: :path/to/my/first/lockfile</h3>
+          <h3>Source: :path/to/my/first/lockfile</h3>
           <p>
             Found 0 package(s) with issues,
             0 known vulnerabilities found.
@@ -3434,7 +3434,7 @@
         <h2>npm</h2>
         <div class="source-section">
           
-          <h3>Source: npm: :path/to/my/first/lockfile</h3>
+          <h3>Source: :path/to/my/first/lockfile</h3>
           <p>
             Found 0 package(s) with issues,
             0 known vulnerabilities found.
@@ -3690,7 +3690,7 @@
         <h2>npm</h2>
         <div class="source-section">
           
-          <h3>Source: npm: :path/to/my/first/lockfile</h3>
+          <h3>Source: :path/to/my/first/lockfile</h3>
           <p>
             Found 0 package(s) with issues,
             0 known vulnerabilities found.
@@ -3946,7 +3946,7 @@
         <h2>npm</h2>
         <div class="source-section">
           
-          <h3>Source: npm: :path/to/my/first/lockfile</h3>
+          <h3>Source: :path/to/my/first/lockfile</h3>
           <p>
             Found 0 package(s) with issues,
             0 known vulnerabilities found.
@@ -3957,7 +3957,7 @@
 
 
  
-          <h3>Source: npm: :path/to/my/second/lockfile</h3>
+          <h3>Source: :path/to/my/second/lockfile</h3>
           <p>
             Found 0 package(s) with issues,
             0 known vulnerabilities found.
@@ -4216,9 +4216,11 @@
     <td>npm</td>
     <td>3.2.5</td>
     
+    
     <td class="warning">
-      No fix available (1/1 vulnerable)
+      No fix available
     </td>
+    
     
     <td>0C | 0H | 0M | 0L | 1U</td>
   </tr>
@@ -4248,7 +4250,7 @@
         <h2>npm</h2>
         <div class="source-section">
           
-          <h3>Source: npm: :path/to/my/first/lockfile</h3>
+          <h3>Source: :path/to/my/first/lockfile</h3>
           <p>
             Found 0 package(s) with issues,
             0 known vulnerabilities found.
@@ -4304,7 +4306,7 @@
   </div>
 </details>
  
-          <h3>Source: npm: :path/to/my/second/lockfile</h3>
+          <h3>Source: :path/to/my/second/lockfile</h3>
           <p>
             Found 1 package(s) with issues,
             1 known vulnerabilities found.
@@ -4350,7 +4352,7 @@
 
 
  
-          <h3>Source: npm: :path/to/my/third/lockfile</h3>
+          <h3>Source: :path/to/my/third/lockfile</h3>
           <p>
             Found 0 package(s) with issues,
             0 known vulnerabilities found.
@@ -4652,9 +4654,11 @@
     <td>npm</td>
     <td>1.2.3</td>
     
+    
     <td class="warning">
-      No fix available (1/1 vulnerable)
+      No fix available
     </td>
+    
     
     <td>0C | 0H | 0M | 0L | 1U</td>
   </tr>
@@ -4681,9 +4685,11 @@
     <td>npm</td>
     <td>3.2.5</td>
     
+    
     <td class="warning">
-      No fix available (1/1 vulnerable)
+      No fix available
     </td>
+    
     
     <td>0C | 0H | 0M | 0L | 1U</td>
   </tr>
@@ -4710,9 +4716,11 @@
     <td>npm</td>
     <td>1.2.3</td>
     
+    
     <td class="warning">
-      No fix available (1/1 vulnerable)
+      No fix available
     </td>
+    
     
     <td>0C | 0H | 0M | 0L | 1U</td>
   </tr>
@@ -4740,7 +4748,7 @@
         <h2>npm</h2>
         <div class="source-section">
           
-          <h3>Source: npm: :path/to/my/first/lockfile</h3>
+          <h3>Source: :path/to/my/first/lockfile</h3>
           <p>
             Found 1 package(s) with issues,
             1 known vulnerabilities found.
@@ -4786,7 +4794,7 @@
 
 
  
-          <h3>Source: npm: :path/to/my/second/lockfile</h3>
+          <h3>Source: :path/to/my/second/lockfile</h3>
           <p>
             Found 1 package(s) with issues,
             1 known vulnerabilities found.
@@ -4832,7 +4840,7 @@
 
 
  
-          <h3>Source: npm: :path/to/my/third/lockfile</h3>
+          <h3>Source: :path/to/my/third/lockfile</h3>
           <p>
             Found 1 package(s) with issues,
             1 known vulnerabilities found.
@@ -5124,9 +5132,11 @@
     <td>npm</td>
     <td>1.2.3</td>
     
+    
     <td class="warning">
-      No fix available (1/1 vulnerable)
+      No fix available
     </td>
+    
     
     <td>0C | 0H | 0M | 0L | 1U</td>
   </tr>
@@ -5154,7 +5164,7 @@
         <h2>npm</h2>
         <div class="source-section">
           
-          <h3>Source: npm: :path/to/my/first/lockfile</h3>
+          <h3>Source: :path/to/my/first/lockfile</h3>
           <p>
             Found 1 package(s) with issues,
             1 known vulnerabilities found.
@@ -5447,7 +5457,7 @@
         <h2>npm</h2>
         <div class="source-section">
           
-          <h3>Source: npm: :path/to/my/first/lockfile</h3>
+          <h3>Source: :path/to/my/first/lockfile</h3>
           <p>
             Found 0 package(s) with issues,
             0 known vulnerabilities found.
@@ -5749,9 +5759,11 @@
     <td>npm</td>
     <td>1.2.3</td>
     
+    
     <td class="warning">
-      No fix available (1/1 vulnerable)
+      No fix available
     </td>
+    
     
     <td>0C | 0H | 0M | 0L | 1U</td>
   </tr>
@@ -5779,7 +5791,7 @@
         <h2>npm</h2>
         <div class="source-section">
           
-          <h3>Source: npm: :path/to/my/first/lockfile</h3>
+          <h3>Source: :path/to/my/first/lockfile</h3>
           <p>
             Found 1 package(s) with issues,
             1 known vulnerabilities found.
@@ -6071,9 +6083,11 @@
     <td>npm</td>
     <td>1.2.3</td>
     
+    
     <td class="warning">
-      No fix available (1/1 vulnerable)
+      No fix available
     </td>
+    
     
     <td>0C | 0H | 0M | 0L | 1U</td>
   </tr>
@@ -6101,7 +6115,7 @@
         <h2>npm</h2>
         <div class="source-section">
           
-          <h3>Source: npm: :path/to/my/first/lockfile</h3>
+          <h3>Source: :path/to/my/first/lockfile</h3>
           <p>
             Found 1 package(s) with issues,
             1 known vulnerabilities found.
@@ -6147,7 +6161,7 @@
 
 
  
-          <h3>Source: npm: :path/to/my/second/lockfile</h3>
+          <h3>Source: :path/to/my/second/lockfile</h3>
           <p>
             Found 0 package(s) with issues,
             0 known vulnerabilities found.
@@ -6404,9 +6418,11 @@
     <td>npm</td>
     <td>1.2.3</td>
     
+    
     <td class="warning">
-      No fix available (3/3 vulnerable)
+      No fix available
     </td>
+    
     
     <td>0C | 0H | 0M | 0L | 3U</td>
   </tr>
@@ -6443,9 +6459,11 @@
     <td>npm</td>
     <td>3.2.5</td>
     
+    
     <td class="warning">
-      No fix available (1/1 vulnerable)
+      No fix available
     </td>
+    
     
     <td>0C | 0H | 0M | 0L | 1U</td>
   </tr>
@@ -6472,9 +6490,11 @@
     <td>npm</td>
     <td>0.4.1</td>
     
+    
     <td class="warning">
-      No fix available (2/2 vulnerable)
+      No fix available
     </td>
+    
     
     <td>0C | 0H | 0M | 0L | 2U</td>
   </tr>
@@ -6507,7 +6527,7 @@
         <h2>npm</h2>
         <div class="source-section">
           
-          <h3>Source: npm: :path/to/my/first/lockfile</h3>
+          <h3>Source: :path/to/my/first/lockfile</h3>
           <p>
             Found 1 package(s) with issues,
             3 known vulnerabilities found.
@@ -6601,7 +6621,7 @@
 
 
  
-          <h3>Source: npm: :path/to/my/second/lockfile</h3>
+          <h3>Source: :path/to/my/second/lockfile</h3>
           <p>
             Found 2 package(s) with issues,
             3 known vulnerabilities found.
@@ -6941,9 +6961,11 @@
     <td>npm</td>
     <td>1.2.3</td>
     
+    
     <td class="warning">
-      No fix available (3/3 vulnerable)
+      No fix available
     </td>
+    
     
     <td>0C | 0H | 0M | 0L | 3U</td>
   </tr>
@@ -6980,9 +7002,11 @@
     <td>npm</td>
     <td>3.2.5</td>
     
+    
     <td class="warning">
-      No fix available (1/1 vulnerable)
+      No fix available
     </td>
+    
     
     <td>0C | 0H | 0M | 0L | 1U</td>
   </tr>
@@ -7009,9 +7033,11 @@
     <td>npm</td>
     <td>0.4.1</td>
     
+    
     <td class="warning">
-      No fix available (2/2 vulnerable)
+      No fix available
     </td>
+    
     
     <td>0C | 0H | 0M | 0L | 2U</td>
   </tr>
@@ -7044,7 +7070,7 @@
         <h2>npm</h2>
         <div class="source-section">
           
-          <h3>Source: npm: :path/to/my/first/lockfile</h3>
+          <h3>Source: :path/to/my/first/lockfile</h3>
           <p>
             Found 1 package(s) with issues,
             3 known vulnerabilities found.
@@ -7138,7 +7164,7 @@
 
 
  
-          <h3>Source: npm: :path/to/my/second/lockfile</h3>
+          <h3>Source: :path/to/my/second/lockfile</h3>
           <p>
             Found 2 package(s) with issues,
             3 known vulnerabilities found.
@@ -7477,7 +7503,7 @@
         <h2>npm</h2>
         <div class="source-section">
           
-          <h3>Source: npm: :path/to/my/first/lockfile</h3>
+          <h3>Source: :path/to/my/first/lockfile</h3>
           <p>
             Found 0 package(s) with issues,
             0 known vulnerabilities found.
@@ -7488,7 +7514,7 @@
 
 
  
-          <h3>Source: npm: :path/to/my/second/lockfile</h3>
+          <h3>Source: :path/to/my/second/lockfile</h3>
           <p>
             Found 0 package(s) with issues,
             0 known vulnerabilities found.
@@ -7499,7 +7525,7 @@
 
 
  
-          <h3>Source: npm: :path/to/my/third/lockfile</h3>
+          <h3>Source: :path/to/my/third/lockfile</h3>
           <p>
             Found 0 package(s) with issues,
             0 known vulnerabilities found.
@@ -7756,9 +7782,11 @@
     <td>npm</td>
     <td>1.2.3</td>
     
+    
     <td class="warning">
-      No fix available (1/1 vulnerable)
+      No fix available
     </td>
+    
     
     <td>0C | 0H | 0M | 0L | 1U</td>
   </tr>
@@ -7785,9 +7813,11 @@
     <td>npm</td>
     <td>3.2.5</td>
     
+    
     <td class="warning">
-      No fix available (1/1 vulnerable)
+      No fix available
     </td>
+    
     
     <td>0C | 0H | 0M | 0L | 1U</td>
   </tr>
@@ -7814,9 +7844,11 @@
     <td>npm</td>
     <td>1.2.3</td>
     
+    
     <td class="warning">
-      No fix available (1/1 vulnerable)
+      No fix available
     </td>
+    
     
     <td>0C | 0H | 0M | 0L | 1U</td>
   </tr>
@@ -7844,7 +7876,7 @@
         <h2>npm</h2>
         <div class="source-section">
           
-          <h3>Source: npm: :path/to/my/first/lockfile</h3>
+          <h3>Source: :path/to/my/first/lockfile</h3>
           <p>
             Found 1 package(s) with issues,
             1 known vulnerabilities found.
@@ -7890,7 +7922,7 @@
 
 
  
-          <h3>Source: npm: :path/to/my/second/lockfile</h3>
+          <h3>Source: :path/to/my/second/lockfile</h3>
           <p>
             Found 1 package(s) with issues,
             1 known vulnerabilities found.
@@ -7936,7 +7968,7 @@
 
 
  
-          <h3>Source: npm: :path/to/my/third/lockfile</h3>
+          <h3>Source: :path/to/my/third/lockfile</h3>
           <p>
             Found 1 package(s) with issues,
             1 known vulnerabilities found.
@@ -8228,9 +8260,11 @@
     <td>NuGet</td>
     <td>0.4.1</td>
     
+    
     <td class="warning">
-      No fix available (2/2 vulnerable)
+      No fix available
     </td>
+    
     
     <td>0C | 0H | 0M | 0L | 2U</td>
   </tr>
@@ -8262,9 +8296,11 @@
     <td>NuGet</td>
     <td>3.2.5</td>
     
+    
     <td class="warning">
-      No fix available (1/1 vulnerable)
+      No fix available
     </td>
+    
     
     <td>0C | 0H | 0M | 0L | 1U</td>
   </tr>
@@ -8291,9 +8327,11 @@
     <td>Packagist</td>
     <td>1.2.3</td>
     
+    
     <td class="warning">
-      No fix available (2/2 vulnerable)
+      No fix available
     </td>
+    
     
     <td>0C | 0H | 0M | 0L | 2U</td>
   </tr>
@@ -8325,9 +8363,11 @@
     <td>Packagist</td>
     <td>1.2.2</td>
     
+    
     <td class="warning">
-      No fix available (1/1 vulnerable)
+      No fix available
     </td>
+    
     
     <td>0C | 0H | 0M | 0L | 1U</td>
   </tr>
@@ -8355,7 +8395,7 @@
         <h2>NuGet</h2>
         <div class="source-section">
           
-          <h3>Source: NuGet: :path/to/my/second/lockfile</h3>
+          <h3>Source: :path/to/my/second/lockfile</h3>
           <p>
             Found 2 package(s) with issues,
             3 known vulnerabilities found.
@@ -8456,7 +8496,7 @@
         <h2>Packagist</h2>
         <div class="source-section">
           
-          <h3>Source: Packagist: :path/to/my/first/lockfile</h3>
+          <h3>Source: :path/to/my/first/lockfile</h3>
           <p>
             Found 2 package(s) with issues,
             3 known vulnerabilities found.
@@ -8796,9 +8836,11 @@
     <td>NuGet</td>
     <td>0.4.1</td>
     
+    
     <td class="warning">
-      No fix available (2/2 vulnerable)
+      No fix available
     </td>
+    
     
     <td>0C | 0H | 0M | 0L | 2U</td>
   </tr>
@@ -8830,9 +8872,11 @@
     <td>NuGet</td>
     <td>3.2.5</td>
     
+    
     <td class="warning">
-      No fix available (1/1 vulnerable)
+      No fix available
     </td>
+    
     
     <td>0C | 0H | 0M | 0L | 1U</td>
   </tr>
@@ -8859,9 +8903,11 @@
     <td>Packagist</td>
     <td>1.2.3</td>
     
+    
     <td class="warning">
-      No fix available (1/1 vulnerable)
+      No fix available
     </td>
+    
     
     <td>0C | 0H | 0M | 0L | 1U</td>
   </tr>
@@ -8891,7 +8937,7 @@
         <h2>NuGet</h2>
         <div class="source-section">
           
-          <h3>Source: NuGet: :path/to/my/second/lockfile</h3>
+          <h3>Source: :path/to/my/second/lockfile</h3>
           <p>
             Found 2 package(s) with issues,
             3 known vulnerabilities found.
@@ -8992,7 +9038,7 @@
         <h2>Packagist</h2>
         <div class="source-section">
           
-          <h3>Source: Packagist: :path/to/my/first/lockfile</h3>
+          <h3>Source: :path/to/my/first/lockfile</h3>
           <p>
             Found 2 package(s) with issues,
             1 known vulnerabilities found.
@@ -9352,7 +9398,7 @@
         <h2></h2>
         <div class="source-section">
           
-          <h3>Source: : :path/to/my/first/lockfile</h3>
+          <h3>Source: :path/to/my/first/lockfile</h3>
           <p>
             Found 0 package(s) with issues,
             0 known vulnerabilities found.
@@ -9363,7 +9409,7 @@
 
 
  
-          <h3>Source: : :path/to/my/second/lockfile</h3>
+          <h3>Source: :path/to/my/second/lockfile</h3>
           <p>
             Found 0 package(s) with issues,
             0 known vulnerabilities found.
@@ -9374,7 +9420,7 @@
 
 
  
-          <h3>Source: : :path/to/my/third/lockfile</h3>
+          <h3>Source: :path/to/my/third/lockfile</h3>
           <p>
             Found 0 package(s) with issues,
             0 known vulnerabilities found.
@@ -9868,7 +9914,7 @@
         <h2></h2>
         <div class="source-section">
           
-          <h3>Source: : :path/to/my/first/lockfile</h3>
+          <h3>Source: :path/to/my/first/lockfile</h3>
           <p>
             Found 0 package(s) with issues,
             0 known vulnerabilities found.
@@ -10124,7 +10170,7 @@
         <h2>npm</h2>
         <div class="source-section">
           
-          <h3>Source: npm: :path/to/my/first/lockfile</h3>
+          <h3>Source: :path/to/my/first/lockfile</h3>
           <p>
             Found 0 package(s) with issues,
             0 known vulnerabilities found.
@@ -10381,9 +10427,11 @@
     <td>npm</td>
     <td>1.2.3</td>
     
+    
     <td class="warning">
-      No fix available (1/1 vulnerable)
+      No fix available
     </td>
+    
     
     <td>0C | 0H | 0M | 0L | 1U</td>
   </tr>
@@ -10411,7 +10459,7 @@
         <h2>npm</h2>
         <div class="source-section">
           
-          <h3>Source: npm: :path/to/my/first/lockfile</h3>
+          <h3>Source: :path/to/my/first/lockfile</h3>
           <p>
             Found 1 package(s) with issues,
             1 known vulnerabilities found.
@@ -10748,9 +10796,11 @@
     <td>npm</td>
     <td>1.2.3</td>
     
+    
     <td class="warning">
-      No fix available (1/1 vulnerable)
+      No fix available
     </td>
+    
     
     <td>0C | 0H | 0M | 0L | 1U</td>
   </tr>
@@ -10778,7 +10828,7 @@
         <h2>npm</h2>
         <div class="source-section">
           
-          <h3>Source: npm: :path/to/my/first/lockfile</h3>
+          <h3>Source: :path/to/my/first/lockfile</h3>
           <p>
             Found 1 package(s) with issues,
             1 known vulnerabilities found.
@@ -11071,7 +11121,7 @@
         <h2>npm</h2>
         <div class="source-section">
           
-          <h3>Source: npm: :path/to/my/first/lockfile</h3>
+          <h3>Source: :path/to/my/first/lockfile</h3>
           <p>
             Found 0 package(s) with issues,
             0 known vulnerabilities found.
@@ -11373,9 +11423,11 @@
     <td>npm</td>
     <td>1.2.3</td>
     
+    
     <td class="warning">
-      No fix available (1/1 vulnerable)
+      No fix available
     </td>
+    
     
     <td>0C | 0H | 0M | 0L | 1U</td>
   </tr>
@@ -11403,7 +11455,7 @@
         <h2>npm</h2>
         <div class="source-section">
           
-          <h3>Source: npm: :path/to/my/first/lockfile</h3>
+          <h3>Source: :path/to/my/first/lockfile</h3>
           <p>
             Found 1 package(s) with issues,
             1 known vulnerabilities found.
@@ -11695,9 +11747,11 @@
     <td>npm</td>
     <td>1.2.3</td>
     
+    
     <td class="warning">
-      No fix available (1/1 vulnerable)
+      No fix available
     </td>
+    
     
     <td>0C | 0H | 0M | 0L | 1U</td>
   </tr>
@@ -11725,7 +11779,7 @@
         <h2>npm</h2>
         <div class="source-section">
           
-          <h3>Source: npm: :path/to/my/first/lockfile</h3>
+          <h3>Source: :path/to/my/first/lockfile</h3>
           <p>
             Found 1 package(s) with issues,
             1 known vulnerabilities found.
@@ -12018,7 +12072,7 @@
         <h2>npm</h2>
         <div class="source-section">
           
-          <h3>Source: npm: :path/to/my/first/lockfile</h3>
+          <h3>Source: :path/to/my/first/lockfile</h3>
           <p>
             Found 0 package(s) with issues,
             0 known vulnerabilities found.
@@ -12322,9 +12376,11 @@
     <td>npm</td>
     <td>1.2.3</td>
     
+    
     <td class="warning">
-      No fix available (1/1 vulnerable)
+      No fix available
     </td>
+    
     
     <td>0C | 0H | 0M | 0L | 1U</td>
   </tr>
@@ -12352,7 +12408,7 @@
         <h2>npm</h2>
         <div class="source-section">
           
-          <h3>Source: npm: :path/to/my/first/lockfile</h3>
+          <h3>Source: :path/to/my/first/lockfile</h3>
           <p>
             Found 1 package(s) with issues,
             1 known vulnerabilities found.
@@ -12646,9 +12702,11 @@
     <td>npm</td>
     <td>1.2.3</td>
     
+    
     <td class="warning">
-      No fix available (1/1 vulnerable)
+      No fix available
     </td>
+    
     
     <td>0C | 0H | 0M | 0L | 1U</td>
   </tr>
@@ -12675,9 +12733,11 @@
     <td>npm</td>
     <td>0.10.2-rc</td>
     
+    
     <td class="warning">
-      No fix available (1/1 vulnerable)
+      No fix available
     </td>
+    
     
     <td>0C | 0H | 0M | 0L | 1U</td>
   </tr>
@@ -12705,7 +12765,7 @@
         <h2>npm</h2>
         <div class="source-section">
           
-          <h3>Source: npm: :path/to/my/first/lockfile</h3>
+          <h3>Source: :path/to/my/first/lockfile</h3>
           <p>
             Found 2 package(s) with issues,
             2 known vulnerabilities found.
@@ -13023,9 +13083,11 @@
     <td>npm</td>
     <td>1.2.3</td>
     
+    
     <td class="warning">
-      No fix available (1/1 vulnerable)
+      No fix available
     </td>
+    
     
     <td>0C | 0H | 0M | 0L | 1U</td>
   </tr>
@@ -13053,7 +13115,7 @@
         <h2>npm</h2>
         <div class="source-section">
           
-          <h3>Source: npm: :path/to/my/first/lockfile</h3>
+          <h3>Source: :path/to/my/first/lockfile</h3>
           <p>
             Found 1 package(s) with issues,
             1 known vulnerabilities found.
@@ -13099,7 +13161,7 @@
 
 
  
-          <h3>Source: npm: :path/to/my/second/lockfile</h3>
+          <h3>Source: :path/to/my/second/lockfile</h3>
           <p>
             Found 0 package(s) with issues,
             0 known vulnerabilities found.
@@ -13356,9 +13418,11 @@
     <td>npm</td>
     <td>1.2.3</td>
     
+    
     <td class="warning">
-      No fix available (1/1 vulnerable)
+      No fix available
     </td>
+    
     
     <td>0C | 0H | 0M | 0L | 1U</td>
   </tr>
@@ -13385,9 +13449,11 @@
     <td>npm</td>
     <td>1.2.3</td>
     
+    
     <td class="warning">
-      No fix available (1/1 vulnerable)
+      No fix available
     </td>
+    
     
     <td>0C | 0H | 0M | 0L | 1U</td>
   </tr>
@@ -13415,7 +13481,7 @@
         <h2>npm</h2>
         <div class="source-section">
           
-          <h3>Source: npm: :path/to/my/first/lockfile</h3>
+          <h3>Source: :path/to/my/first/lockfile</h3>
           <p>
             Found 1 package(s) with issues,
             1 known vulnerabilities found.
@@ -13461,7 +13527,7 @@
 
 
  
-          <h3>Source: npm: :path/to/my/second/lockfile</h3>
+          <h3>Source: :path/to/my/second/lockfile</h3>
           <p>
             Found 1 package(s) with issues,
             1 known vulnerabilities found.

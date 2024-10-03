@@ -17,9 +17,15 @@
     <td>{{ $element.Ecosystem }}</td>
     <td>{{ $element.InstalledVersion }}</td>
     {{ if ne $element.HTMLVulnCount.UnFixed 0 }}
+    {{ if eq $element.HTMLVulnCount.Fixed 0}}
     <td class="warning">
-      {{ $element.FixedVersion }} ({{ $element.HTMLVulnCount.UnFixed }}/{{ $element.HTMLVulnCount.Called }} vulnerable)
+      {{ $element.FixedVersion }}
     </td>
+    {{ else }}
+    <td class="warning">
+      {{ $element.FixedVersion }} (fixes {{ $element.HTMLVulnCount.Fixed }}/{{ $element.HTMLVulnCount.Called }})
+    </td>
+    {{ end }}
     {{ else }}
     <td>
       {{ $element.FixedVersion }}

@@ -48,7 +48,7 @@
         <h2>{{ .Ecosystem }}</h2>
         <div class="source-section">
           {{ range .Sources }}
-          <h3>Source: {{ .Ecosystem }}: {{ .Source }}</h3>
+          <h3>Source: {{ .Source }}</h3>
           <p>
             Found {{ .CalledPackageCount }} package(s) with issues,
             {{ .HTMLVulnCount.Called }} known vulnerabilities found.
