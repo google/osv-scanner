@@ -14,12 +14,13 @@ import (
 	"sort"
 	"strings"
 
+	"github.com/google/osv-scalibr/extractor"
+	scalibrosv "github.com/google/osv-scalibr/extractor/filesystem/osv"
+
 	"github.com/google/osv-scanner/internal/customgitignore"
 	"github.com/google/osv-scanner/internal/image"
 	"github.com/google/osv-scanner/internal/local"
 	"github.com/google/osv-scanner/internal/lockfilescalibr"
-	"github.com/google/osv-scanner/internal/lockfilescalibr/extractor"
-	"github.com/google/osv-scanner/internal/lockfilescalibr/othermetadata"
 	"github.com/google/osv-scanner/internal/manifest"
 	"github.com/google/osv-scanner/internal/output"
 	"github.com/google/osv-scanner/internal/resolution/client"
@@ -429,7 +430,7 @@ func scanLockfile(r reporter.Reporter, path string, parseAs string, compareOffli
 		if eco, err := inv.Ecosystem(); err == nil {
 			scannedPackage.Ecosystem = lockfile.Ecosystem(eco)
 		}
-		if dg, ok := inv.Metadata.(othermetadata.DepGroups); ok {
+		if dg, ok := inv.Metadata.(scalibrosv.DepGroups); ok {
 			scannedPackage.DepGroups = dg.DepGroups()
 		}
 
