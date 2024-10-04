@@ -144,7 +144,7 @@ func TestRun(t *testing.T) {
 			exit: 128,
 		},
 		{
-			name: "",
+			name: "version",
 			args: []string{"", "--version"},
 			exit: 0,
 		},
@@ -172,9 +172,8 @@ func TestRun(t *testing.T) {
 			args: []string{"", "--config=./fixtures/osv-scanner-empty-config.toml", "--sbom", "./fixtures/sbom-insecure/bad-purls.cdx.xml"},
 			exit: 0,
 		},
-		// one specific unsupported lockfile
 		{
-			name: "",
+			name: "one specific unsupported lockfile",
 			args: []string{"", "./fixtures/locks-many/not-a-lockfile.toml"},
 			exit: 128,
 		},
@@ -204,13 +203,13 @@ func TestRun(t *testing.T) {
 		},
 		// .gitignored files
 		{
-			name: "",
+			name: ".gitignored files",
 			args: []string{"", "--recursive", "./fixtures/locks-gitignore"},
 			exit: 0,
 		},
 		// ignoring .gitignore
 		{
-			name: "",
+			name: "ignoring .gitignore",
 			args: []string{"", "--recursive", "--no-ignore", "./fixtures/locks-gitignore"},
 			exit: 0,
 		},
@@ -249,7 +248,7 @@ func TestRun(t *testing.T) {
 		},
 		// output format: markdown table
 		{
-			name: "",
+			name: "output format: markdown table",
 			args: []string{"", "--format", "markdown", "--config", "./fixtures/osv-scanner-empty-config.toml", "./fixtures/locks-many/package-lock.json"},
 			exit: 1,
 		},
@@ -277,7 +276,7 @@ func TestRun(t *testing.T) {
 		},
 		// output format: unsupported
 		{
-			name: "",
+			name: "output format: unsupported",
 			args: []string{"", "--format", "unknown", "./fixtures/locks-many/composer.lock"},
 			exit: 127,
 		},
@@ -635,9 +634,8 @@ func TestRun_LocalDatabases_AlwaysOffline(t *testing.T) {
 	t.Parallel()
 
 	tests := []cliTestCase{
-		// a bunch of different lockfiles and ecosystem
 		{
-			name: "",
+			name: "a bunch of different lockfiles and ecosystem",
 			args: []string{"", "--config=./fixtures/osv-scanner-empty-config.toml", "--experimental-offline", "./fixtures/locks-requirements", "./fixtures/locks-many"},
 			exit: 127,
 		},

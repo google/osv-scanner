@@ -8,28 +8,7 @@ No package sources found, --help for usage information.
 
 ---
 
-[TestRun/#01 - 1]
-osv-scanner version: 1.9.0
-commit: n/a
-built at: n/a
-
----
-
-[TestRun/#01 - 2]
-
----
-
-[TestRun/#02 - 1]
-Scanning dir ./fixtures/locks-many/not-a-lockfile.toml
-
----
-
-[TestRun/#02 - 2]
-No package sources found, --help for usage information.
-
----
-
-[TestRun/#03 - 1]
+[TestRun/.gitignored_files - 1]
 Scanning dir ./fixtures/locks-gitignore
 Scanned <rootdir>/fixtures/locks-gitignore/Gemfile.lock file and found 1 package
 Scanned <rootdir>/fixtures/locks-gitignore/subdir/yarn.lock file and found 1 package
@@ -37,47 +16,7 @@ No issues found
 
 ---
 
-[TestRun/#03 - 2]
-
----
-
-[TestRun/#04 - 1]
-Scanning dir ./fixtures/locks-gitignore
-Scanned <rootdir>/fixtures/locks-gitignore/Gemfile.lock file and found 1 package
-Scanned <rootdir>/fixtures/locks-gitignore/composer.lock file and found 1 package
-Scanned <rootdir>/fixtures/locks-gitignore/ignored/Gemfile.lock file and found 1 package
-Scanned <rootdir>/fixtures/locks-gitignore/ignored/yarn.lock file and found 1 package
-Scanned <rootdir>/fixtures/locks-gitignore/subdir/Gemfile.lock file and found 1 package
-Scanned <rootdir>/fixtures/locks-gitignore/subdir/composer.lock file and found 1 package
-Scanned <rootdir>/fixtures/locks-gitignore/subdir/yarn.lock file and found 1 package
-Scanned <rootdir>/fixtures/locks-gitignore/yarn.lock file and found 1 package
-No issues found
-
----
-
-[TestRun/#04 - 2]
-
----
-
-[TestRun/#05 - 1]
-Scanning dir ./fixtures/locks-many/package-lock.json
-Scanned <rootdir>/fixtures/locks-many/package-lock.json file and found 1 package
-| OSV URL | CVSS | Ecosystem | Package | Version | Source |
-| --- | --- | --- | --- | --- | --- |
-| https://osv.dev/GHSA-whgm-jr23-g3j9 | 7.5 | npm | ansi-html | 0.0.1 | fixtures/locks-many/package-lock.json |
-
----
-
-[TestRun/#05 - 2]
-
----
-
-[TestRun/#06 - 1]
-
----
-
-[TestRun/#06 - 2]
-unsupported output format "unknown" - must be one of: table, vertical, json, markdown, sarif, gh-annotations, cyclonedx-1-4, cyclonedx-1-5
+[TestRun/.gitignored_files - 2]
 
 ---
 
@@ -652,6 +591,24 @@ No issues found
 
 ---
 
+[TestRun/ignoring_.gitignore - 1]
+Scanning dir ./fixtures/locks-gitignore
+Scanned <rootdir>/fixtures/locks-gitignore/Gemfile.lock file and found 1 package
+Scanned <rootdir>/fixtures/locks-gitignore/composer.lock file and found 1 package
+Scanned <rootdir>/fixtures/locks-gitignore/ignored/Gemfile.lock file and found 1 package
+Scanned <rootdir>/fixtures/locks-gitignore/ignored/yarn.lock file and found 1 package
+Scanned <rootdir>/fixtures/locks-gitignore/subdir/Gemfile.lock file and found 1 package
+Scanned <rootdir>/fixtures/locks-gitignore/subdir/composer.lock file and found 1 package
+Scanned <rootdir>/fixtures/locks-gitignore/subdir/yarn.lock file and found 1 package
+Scanned <rootdir>/fixtures/locks-gitignore/yarn.lock file and found 1 package
+No issues found
+
+---
+
+[TestRun/ignoring_.gitignore - 2]
+
+---
+
 [TestRun/invalid_--verbosity_value - 1]
 
 ---
@@ -769,6 +726,16 @@ Scanned <rootdir>/fixtures/sbom-insecure/alpine.cdx.xml as CycloneDX SBOM and fo
 
 ---
 
+[TestRun/one_specific_unsupported_lockfile - 1]
+Scanning dir ./fixtures/locks-many/not-a-lockfile.toml
+
+---
+
+[TestRun/one_specific_unsupported_lockfile - 2]
+No package sources found, --help for usage information.
+
+---
+
 [TestRun/only_the_files_in_the_given_directories_are_checked_by_default_(no_recursion) - 1]
 Scanning dir ./fixtures/locks-one-with-nested
 Scanned <rootdir>/fixtures/locks-one-with-nested/yarn.lock file and found 1 package
@@ -777,6 +744,28 @@ No issues found
 ---
 
 [TestRun/only_the_files_in_the_given_directories_are_checked_by_default_(no_recursion) - 2]
+
+---
+
+[TestRun/output_format:_markdown_table - 1]
+Scanning dir ./fixtures/locks-many/package-lock.json
+Scanned <rootdir>/fixtures/locks-many/package-lock.json file and found 1 package
+| OSV URL | CVSS | Ecosystem | Package | Version | Source |
+| --- | --- | --- | --- | --- | --- |
+| https://osv.dev/GHSA-whgm-jr23-g3j9 | 7.5 | npm | ansi-html | 0.0.1 | fixtures/locks-many/package-lock.json |
+
+---
+
+[TestRun/output_format:_markdown_table - 2]
+
+---
+
+[TestRun/output_format:_unsupported - 1]
+
+---
+
+[TestRun/output_format:_unsupported - 2]
+unsupported output format "unknown" - must be one of: table, vertical, json, markdown, sarif, gh-annotations, cyclonedx-1-4, cyclonedx-1-5
 
 ---
 
@@ -834,6 +823,17 @@ No issues found
 ---
 
 [TestRun/verbosity_level_=_info - 2]
+
+---
+
+[TestRun/version - 1]
+osv-scanner version: 1.9.0
+commit: n/a
+built at: n/a
+
+---
+
+[TestRun/version - 2]
 
 ---
 
@@ -2157,7 +2157,7 @@ Loaded Packagist local db from <tempdir>/osv-scanner/Packagist/all.zip
 
 ---
 
-[TestRun_LocalDatabases_AlwaysOffline/#00 - 1]
+[TestRun_LocalDatabases_AlwaysOffline/a_bunch_of_different_lockfiles_and_ecosystem - 1]
 Scanning dir ./fixtures/locks-requirements
 Scanned <rootdir>/fixtures/locks-requirements/my-requirements.txt file and found 1 package
 Scanned <rootdir>/fixtures/locks-requirements/requirements-dev.txt file and found 1 package
@@ -2173,12 +2173,12 @@ Scanned <rootdir>/fixtures/locks-many/yarn.lock file and found 1 package
 
 ---
 
-[TestRun_LocalDatabases_AlwaysOffline/#00 - 2]
+[TestRun_LocalDatabases_AlwaysOffline/a_bunch_of_different_lockfiles_and_ecosystem - 2]
 could not find local databases for ecosystems: Alpine, Packagist, PyPI, RubyGems, npm
 
 ---
 
-[TestRun_LocalDatabases_AlwaysOffline/#00 - 3]
+[TestRun_LocalDatabases_AlwaysOffline/a_bunch_of_different_lockfiles_and_ecosystem - 3]
 Scanning dir ./fixtures/locks-requirements
 Scanned <rootdir>/fixtures/locks-requirements/my-requirements.txt file and found 1 package
 Scanned <rootdir>/fixtures/locks-requirements/requirements-dev.txt file and found 1 package
@@ -2194,7 +2194,7 @@ Scanned <rootdir>/fixtures/locks-many/yarn.lock file and found 1 package
 
 ---
 
-[TestRun_LocalDatabases_AlwaysOffline/#00 - 4]
+[TestRun_LocalDatabases_AlwaysOffline/a_bunch_of_different_lockfiles_and_ecosystem - 4]
 could not find local databases for ecosystems: Alpine, Packagist, PyPI, RubyGems, npm
 
 ---
