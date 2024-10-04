@@ -12,20 +12,18 @@ import (
 	"path"
 	"path/filepath"
 	"slices"
-	"sort"
 	"strings"
 
 	"github.com/google/osv-scalibr/extractor"
+	"github.com/google/osv-scalibr/extractor/filesystem/os/apk"
+	"github.com/google/osv-scalibr/extractor/filesystem/os/dpkg"
 	scalibrosv "github.com/google/osv-scalibr/extractor/filesystem/osv"
 
 	"github.com/google/osv-scanner/internal/customgitignore"
-	"github.com/google/osv-scanner/internal/image"
 	"github.com/google/osv-scanner/internal/local"
 	"github.com/google/osv-scanner/internal/lockfilescalibr"
-	"github.com/google/osv-scanner/internal/manifest"
+	"github.com/google/osv-scanner/internal/lockfilescalibr/language/osv/osvscannerjson"
 	"github.com/google/osv-scanner/internal/output"
-	"github.com/google/osv-scanner/internal/resolution/client"
-	"github.com/google/osv-scanner/internal/resolution/datasource"
 	"github.com/google/osv-scanner/internal/sbom"
 	"github.com/google/osv-scanner/internal/semantic"
 	"github.com/google/osv-scanner/internal/version"
@@ -169,17 +167,19 @@ func scanDir(r reporter.Reporter, dir string, skipGit bool, recursive bool, useG
 		}
 
 		if !info.IsDir() {
-			if extractor, _ := lockfile.FindExtractor(path, ""); extractor != nil {
-				pkgs, err := scanLockfile(r, path, "", compareOffline)
-				if err != nil {
+			pkgs, err := scanLockfile(r, path, "", compareOffline)
+			if err != nil {
+				// If no extractors found then just continue
+				if !errors.Is(err, lockfilescalibr.ErrNoExtractorsFound) {
 					r.Errorf("Attempted to scan lockfile but failed: %s\n", path)
 				}
-				scannedPackages = append(scannedPackages, pkgs...)
 			}
+			scannedPackages = append(scannedPackages, pkgs...)
+
 			// No need to check for error
 			// If scan fails, it means it isn't a valid SBOM file,
 			// so just move onto the next file
-			pkgs, _ := scanSBOMFile(r, path, true)
+			pkgs, _ = scanSBOMFile(r, path, true)
 			scannedPackages = append(scannedPackages, pkgs...)
 		}
 
@@ -322,63 +322,55 @@ func (m *gitIgnoreMatcher) match(absPath string, isDir bool) (bool, error) {
 	return m.matcher.Match(pathInGitSep, isDir), nil
 }
 
-func scanImage(r reporter.Reporter, path string) ([]scannedPackage, error) {
-	scanResults, err := image.ScanImage(r, path)
-	if err != nil {
-		return []scannedPackage{}, err
-	}
+// func scanImage(r reporter.Reporter, path string) ([]scannedPackage, error) {
+// 	scanResults, err := image.ScanImage(r, path)
+// 	if err != nil {
+// 		return []scannedPackage{}, err
+// 	}
 
-	packages := make([]scannedPackage, 0)
+// 	packages := make([]scannedPackage, 0)
 
-	for _, l := range scanResults.Lockfiles {
-		for _, pkgDetail := range l.Packages {
-			packages = append(packages, scannedPackage{
-				Name:        pkgDetail.Name,
-				Version:     pkgDetail.Version,
-				Commit:      pkgDetail.Commit,
-				Ecosystem:   pkgDetail.Ecosystem,
-				DepGroups:   pkgDetail.DepGroups,
-				ImageOrigin: pkgDetail.ImageOrigin,
-				Source: models.SourceInfo{
-					Path: path + ":" + l.FilePath,
-					Type: "docker",
-				},
-			})
-		}
-	}
+// 	for _, l := range scanResults.Lockfiles {
+// 		for _, pkgDetail := range l.Packages {
+// 			packages = append(packages, scannedPackage{
+// 				Name:        pkgDetail.Name,
+// 				Version:     pkgDetail.Version,
+// 				Commit:      pkgDetail.Commit,
+// 				Ecosystem:   pkgDetail.Ecosystem,
+// 				DepGroups:   pkgDetail.DepGroups,
+// 				ImageOrigin: pkgDetail.ImageOrigin,
+// 				Source: models.SourceInfo{
+// 					Path: path + ":" + l.FilePath,
+// 					Type: "docker",
+// 				},
+// 			})
+// 		}
+// 	}
 
-	return packages, nil
-}
+// 	return packages, nil
+// }
 
 // scanLockfile will load, identify, and parse the lockfile path passed in, and add the dependencies specified
 // within to `query`
 func scanLockfile(r reporter.Reporter, path string, parseAs string, compareOffline bool) ([]scannedPackage, error) {
 	var err error
-	var parsedLockfile lockfile.Lockfile
-
-	f, err := lockfile.OpenLocalDepFile(path)
 
 	var inventories []*extractor.Inventory
 
-	if err == nil {
-		// special case for the APK and DPKG parsers because they have a very generic name while
-		// living at a specific location, so they are not included in the map of parsers
-		// used by lockfile.Parse to avoid false-positives when scanning projects
-		switch parseAs {
-		case "apk-installed":
-			// inventories, err := apkinstalled.Extractor{}.Extract(context.Background(), &si)
-			parsedLockfile, err = lockfile.FromApkInstalled(path)
-		case "dpkg-status":
-			parsedLockfile, err = lockfile.FromDpkgStatus(path)
-		case "osv-scanner":
-			parsedLockfile, err = lockfile.FromOSVScannerResults(path)
-		default:
-			if !compareOffline && (parseAs == "pom.xml" || filepath.Base(path) == "pom.xml") {
-				parsedLockfile, err = extractMavenDeps(f)
-			} else {
-				inventories, err = lockfilescalibr.Extract(context.Background(), path, parseAs)
-			}
-		}
+	// special case for the APK and DPKG parsers because they have a very generic name while
+	// living at a specific location, so they are not included in the map of parsers
+	// used by lockfile.Parse to avoid false-positives when scanning projects
+	switch parseAs {
+	case "apk-installed":
+		// inventories, err := apkinstalled.Extractor{}.Extract(context.Background(), &si)
+		inventories, err = lockfilescalibr.ExtractWithExtractor(context.Background(), path, apk.New(apk.DefaultConfig()))
+	case "dpkg-status":
+		inventories, err = lockfilescalibr.ExtractWithExtractor(context.Background(), path, dpkg.New(dpkg.DefaultConfig()))
+	case "osv-scanner":
+		inventories, err = lockfilescalibr.ExtractWithExtractor(context.Background(), path, osvscannerjson.Extractor{})
+	default:
+		// TODO: Network enabled pom.xml extractor
+		inventories, err = lockfilescalibr.Extract(context.Background(), path, parseAs)
 	}
 
 	if err != nil {
@@ -391,7 +383,7 @@ func scanLockfile(r reporter.Reporter, path string, parseAs string, compareOffli
 		parsedAsComment = fmt.Sprintf("as a %s ", parseAs)
 	}
 
-	pkgCount := len(parsedLockfile.Packages) + len(inventories)
+	pkgCount := len(inventories)
 
 	r.Infof(
 		"Scanned %s file %sand found %d %s\n",
@@ -402,19 +394,6 @@ func scanLockfile(r reporter.Reporter, path string, parseAs string, compareOffli
 	)
 
 	packages := make([]scannedPackage, 0, pkgCount)
-	for _, pkgDetail := range parsedLockfile.Packages {
-		packages = append(packages, scannedPackage{
-			Name:      pkgDetail.Name,
-			Version:   pkgDetail.Version,
-			Commit:    pkgDetail.Commit,
-			Ecosystem: pkgDetail.Ecosystem,
-			DepGroups: pkgDetail.DepGroups,
-			Source: models.SourceInfo{
-				Path: path,
-				Type: "lockfile",
-			},
-		})
-	}
 
 	for _, inv := range inventories {
 		scannedPackage := scannedPackage{
@@ -429,6 +408,13 @@ func scanLockfile(r reporter.Reporter, path string, parseAs string, compareOffli
 			scannedPackage.Commit = inv.SourceCode.Commit
 		}
 		if eco, err := inv.Ecosystem(); err == nil {
+
+			// TODO(rexpan): Refactor these minor patches to individual items
+			// TODO: Ecosystem should be pared with Enum : Suffix
+			if eco == "Alpine" {
+				eco = "Alpine:v3.20"
+			}
+
 			scannedPackage.Ecosystem = lockfile.Ecosystem(eco)
 		}
 		if dg, ok := inv.Metadata.(scalibrosv.DepGroups); ok {
@@ -441,35 +427,41 @@ func scanLockfile(r reporter.Reporter, path string, parseAs string, compareOffli
 	return packages, nil
 }
 
-func extractMavenDeps(f lockfile.DepFile) (lockfile.Lockfile, error) {
-	depClient, err := client.NewDepsDevClient(depsdev.DepsdevAPI)
-	if err != nil {
-		return lockfile.Lockfile{}, err
-	}
-	extractor := manifest.MavenResolverExtractor{
-		DependencyClient:       depClient,
-		MavenRegistryAPIClient: datasource.NewMavenRegistryAPIClient(datasource.MavenCentral),
-	}
-	packages, err := extractor.Extract(f)
-	if err != nil {
-		err = fmt.Errorf("failed extracting %s: %w", f.Path(), err)
-	}
+// func extractMavenDeps(f lockfile.DepFile) ([]*extractor.Inventory, error) {
+// 	depClient, err := client.NewDepsDevClient(depsdev.DepsdevAPI)
+// 	if err != nil {
+// 		return nil, err
+// 	}
+// 	ext := manifest.MavenResolverExtractor{
+// 		DependencyClient:       depClient,
+// 		MavenRegistryAPIClient: datasource.NewMavenRegistryAPIClient(datasource.MavenCentral),
+// 	}
+// 	packages, err := ext.Extract(f)
+// 	if err != nil {
+// 		err = fmt.Errorf("failed extracting %s: %w", f.Path(), err)
+// 		return nil, err
+// 	}
 
-	// Sort packages for testing convenience.
-	sort.Slice(packages, func(i, j int) bool {
-		if packages[i].Name == packages[j].Name {
-			return packages[i].Version < packages[j].Version
-		}
+// 	// Sort packages for testing convenience.
+// 	sort.Slice(packages, func(i, j int) bool {
+// 		if packages[i].Name == packages[j].Name {
+// 			return packages[i].Version < packages[j].Version
+// 		}
 
-		return packages[i].Name < packages[j].Name
-	})
+// 		return packages[i].Name < packages[j].Name
+// 	})
 
-	return lockfile.Lockfile{
-		FilePath: f.Path(),
-		ParsedAs: "pom.xml",
-		Packages: packages,
-	}, err
-}
+// 	inv := make([]*extractor.Inventory, len(packages))
+
+// 	for i, pkg := range packages {
+// 		inv[i] = &extractor.Inventory{
+// 			Name: pkg.Name,
+// 			Version: pkg.Version,
+// 			Locations: f.Path(),
+// 		}
+// 	}
+// 	return inv, err
+// }
 
 // scanSBOMFile will load, identify, and parse the SBOM path passed in, and add the dependencies specified
 // within to `query`
@@ -887,15 +879,15 @@ func DoScan(actions ScannerActions, r reporter.Reporter) (models.VulnerabilityRe
 		}
 	}
 
-	if actions.ExperimentalScannerActions.ScanOCIImage != "" {
-		r.Infof("Scanning image %s\n", actions.ExperimentalScannerActions.ScanOCIImage)
-		pkgs, err := scanImage(r, actions.ExperimentalScannerActions.ScanOCIImage)
-		if err != nil {
-			return models.VulnerabilityResults{}, err
-		}
+	// if actions.ExperimentalScannerActions.ScanOCIImage != "" {
+	// 	r.Infof("Scanning image %s\n", actions.ExperimentalScannerActions.ScanOCIImage)
+	// 	pkgs, err := scanImage(r, actions.ExperimentalScannerActions.ScanOCIImage)
+	// 	if err != nil {
+	// 		return models.VulnerabilityResults{}, err
+	// 	}
 
-		scannedPackages = append(scannedPackages, pkgs...)
-	}
+	// 	scannedPackages = append(scannedPackages, pkgs...)
+	// }
 
 	// TODO: Deprecated
 	for _, container := range actions.DockerContainerNames {

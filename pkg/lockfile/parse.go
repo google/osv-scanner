@@ -1,146 +1,136 @@
 package lockfile
 
-import (
-	"errors"
-	"fmt"
-	"path/filepath"
-	"sort"
-	"strings"
+// func FindParser(pathToLockfile string, parseAs string) (PackageDetailsParser, string) {
+// 	if parseAs == "" {
+// 		parseAs = filepath.Base(pathToLockfile)
+// 	}
 
-	"golang.org/x/exp/maps"
-)
+// 	return parsers[parseAs], parseAs
+// }
 
-func FindParser(pathToLockfile string, parseAs string) (PackageDetailsParser, string) {
-	if parseAs == "" {
-		parseAs = filepath.Base(pathToLockfile)
-	}
+// // this is an optimisation and read-only
+// var parsers = map[string]PackageDetailsParser{
+// 	"buildscript-gradle.lockfile": ParseGradleLock,
+// 	"Cargo.lock":                  ParseCargoLock,
+// 	"composer.lock":               ParseComposerLock,
+// 	"conan.lock":                  ParseConanLock,
+// 	"Gemfile.lock":                ParseGemfileLock,
+// 	"go.mod":                      ParseGoLock,
+// 	"verification-metadata.xml":   ParseGradleVerificationMetadata,
+// 	"gradle.lockfile":             ParseGradleLock,
+// 	"mix.lock":                    ParseMixLock,
+// 	"Pipfile.lock":                ParsePipenvLock,
+// 	"package-lock.json":           ParseNpmLock,
+// 	"packages.lock.json":          ParseNuGetLock,
+// 	"pdm.lock":                    ParsePdmLock,
+// 	"pnpm-lock.yaml":              ParsePnpmLock,
+// 	"poetry.lock":                 ParsePoetryLock,
+// 	"pom.xml":                     ParseMavenLock,
+// 	"pubspec.lock":                ParsePubspecLock,
+// 	"renv.lock":                   ParseRenvLock,
+// 	"requirements.txt":            ParseRequirementsTxt,
+// 	"yarn.lock":                   ParseYarnLock,
+// }
 
-	return parsers[parseAs], parseAs
-}
+// func ListParsers() []string {
+// 	ps := make([]string, 0, len(parsers))
 
-// this is an optimisation and read-only
-var parsers = map[string]PackageDetailsParser{
-	"buildscript-gradle.lockfile": ParseGradleLock,
-	"Cargo.lock":                  ParseCargoLock,
-	"composer.lock":               ParseComposerLock,
-	"conan.lock":                  ParseConanLock,
-	"Gemfile.lock":                ParseGemfileLock,
-	"go.mod":                      ParseGoLock,
-	"verification-metadata.xml":   ParseGradleVerificationMetadata,
-	"gradle.lockfile":             ParseGradleLock,
-	"mix.lock":                    ParseMixLock,
-	"Pipfile.lock":                ParsePipenvLock,
-	"package-lock.json":           ParseNpmLock,
-	"packages.lock.json":          ParseNuGetLock,
-	"pdm.lock":                    ParsePdmLock,
-	"pnpm-lock.yaml":              ParsePnpmLock,
-	"poetry.lock":                 ParsePoetryLock,
-	"pom.xml":                     ParseMavenLock,
-	"pubspec.lock":                ParsePubspecLock,
-	"renv.lock":                   ParseRenvLock,
-	"requirements.txt":            ParseRequirementsTxt,
-	"yarn.lock":                   ParseYarnLock,
-}
+// 	for s := range parsers {
+// 		ps = append(ps, s)
+// 	}
 
-func ListParsers() []string {
-	ps := make([]string, 0, len(parsers))
+// 	sort.Slice(ps, func(i, j int) bool {
+// 		return strings.ToLower(ps[i]) < strings.ToLower(ps[j])
+// 	})
 
-	for s := range parsers {
-		ps = append(ps, s)
-	}
+// 	return ps
+// }
 
-	sort.Slice(ps, func(i, j int) bool {
-		return strings.ToLower(ps[i]) < strings.ToLower(ps[j])
-	})
+// var ErrParserNotFound = errors.New("could not determine parser")
 
-	return ps
-}
+// type Packages []PackageDetails
 
-var ErrParserNotFound = errors.New("could not determine parser")
+// func (ps Packages) Ecosystems() []Ecosystem {
+// 	ecosystems := make(map[Ecosystem]struct{})
 
-type Packages []PackageDetails
+// 	for _, pkg := range ps {
+// 		ecosystems[pkg.Ecosystem] = struct{}{}
+// 	}
 
-func (ps Packages) Ecosystems() []Ecosystem {
-	ecosystems := make(map[Ecosystem]struct{})
+// 	slicedEcosystems := maps.Keys(ecosystems)
 
-	for _, pkg := range ps {
-		ecosystems[pkg.Ecosystem] = struct{}{}
-	}
+// 	sort.Slice(slicedEcosystems, func(i, j int) bool {
+// 		return slicedEcosystems[i] < slicedEcosystems[j]
+// 	})
 
-	slicedEcosystems := maps.Keys(ecosystems)
+// 	return slicedEcosystems
+// }
 
-	sort.Slice(slicedEcosystems, func(i, j int) bool {
-		return slicedEcosystems[i] < slicedEcosystems[j]
-	})
+// type Lockfile struct {
+// 	FilePath string   `json:"filePath"`
+// 	ParsedAs string   `json:"parsedAs"`
+// 	Packages Packages `json:"packages"`
+// }
 
-	return slicedEcosystems
-}
+// func (l Lockfile) String() string {
+// 	lines := make([]string, 0, len(l.Packages))
 
-type Lockfile struct {
-	FilePath string   `json:"filePath"`
-	ParsedAs string   `json:"parsedAs"`
-	Packages Packages `json:"packages"`
-}
+// 	for _, details := range l.Packages {
+// 		ecosystem := details.Ecosystem
 
-func (l Lockfile) String() string {
-	lines := make([]string, 0, len(l.Packages))
+// 		if ecosystem == "" {
+// 			ecosystem = "<unknown>"
+// 		}
 
-	for _, details := range l.Packages {
-		ecosystem := details.Ecosystem
+// 		ln := fmt.Sprintf("  %s: %s", ecosystem, details.Name)
 
-		if ecosystem == "" {
-			ecosystem = "<unknown>"
-		}
+// 		if details.Version != "" {
+// 			ln += "@" + details.Version
+// 		}
 
-		ln := fmt.Sprintf("  %s: %s", ecosystem, details.Name)
+// 		if details.Commit != "" {
+// 			ln += " (" + details.Commit + ")"
+// 		}
 
-		if details.Version != "" {
-			ln += "@" + details.Version
-		}
+// 		lines = append(lines, ln)
+// 	}
 
-		if details.Commit != "" {
-			ln += " (" + details.Commit + ")"
-		}
+// 	return strings.Join(lines, "\n")
+// }
 
-		lines = append(lines, ln)
-	}
+// // Parse attempts to extract a collection of package details from a lockfile,
+// // using one of the native parsers.
+// //
+// // The parser is selected based on the name of the file, which can be overridden
+// // with the "parseAs" parameter.
+// func Parse(pathToLockfile string, parseAs string) (Lockfile, error) {
+// 	parser, parsedAs := FindParser(pathToLockfile, parseAs)
 
-	return strings.Join(lines, "\n")
-}
+// 	if parser == nil {
+// 		if parseAs != "" {
+// 			return Lockfile{}, fmt.Errorf("%w, requested %s", ErrParserNotFound, parseAs)
+// 		}
 
-// Parse attempts to extract a collection of package details from a lockfile,
-// using one of the native parsers.
-//
-// The parser is selected based on the name of the file, which can be overridden
-// with the "parseAs" parameter.
-func Parse(pathToLockfile string, parseAs string) (Lockfile, error) {
-	parser, parsedAs := FindParser(pathToLockfile, parseAs)
+// 		return Lockfile{}, fmt.Errorf("%w for %s", ErrParserNotFound, pathToLockfile)
+// 	}
 
-	if parser == nil {
-		if parseAs != "" {
-			return Lockfile{}, fmt.Errorf("%w, requested %s", ErrParserNotFound, parseAs)
-		}
+// 	packages, err := parser(pathToLockfile)
 
-		return Lockfile{}, fmt.Errorf("%w for %s", ErrParserNotFound, pathToLockfile)
-	}
+// 	if err != nil && parseAs != "" {
+// 		err = fmt.Errorf("(extracting as %s) %w", parsedAs, err)
+// 	}
 
-	packages, err := parser(pathToLockfile)
+// 	sort.Slice(packages, func(i, j int) bool {
+// 		if packages[i].Name == packages[j].Name {
+// 			return packages[i].Version < packages[j].Version
+// 		}
 
-	if err != nil && parseAs != "" {
-		err = fmt.Errorf("(extracting as %s) %w", parsedAs, err)
-	}
+// 		return packages[i].Name < packages[j].Name
+// 	})
 
-	sort.Slice(packages, func(i, j int) bool {
-		if packages[i].Name == packages[j].Name {
-			return packages[i].Version < packages[j].Version
-		}
-
-		return packages[i].Name < packages[j].Name
-	})
-
-	return Lockfile{
-		FilePath: pathToLockfile,
-		ParsedAs: parsedAs,
-		Packages: packages,
-	}, err
-}
+// 	return Lockfile{
+// 		FilePath: pathToLockfile,
+// 		ParsedAs: parsedAs,
+// 		Packages: packages,
+// 	}, err
+// }

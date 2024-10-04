@@ -102,10 +102,32 @@ var lockfileExtractorMapping = map[string]string{
 	"Gemfile.lock": "ruby/gemfilelock",
 }
 
+func ExtractWithExtractor(ctx context.Context, localPath string, ext filesystem.Extractor) ([]*extractor.Inventory, error) {
+	info, err := os.Stat(localPath)
+	if err != nil {
+		return nil, err
+	}
+
+	si, err := createScanInput(localPath, info)
+	if err != nil {
+		return nil, err
+	}
+	inv, err := ext.Extract(ctx, si)
+	if err != nil {
+		return nil, fmt.Errorf("(extracting as %s) %w", ext.Name(), err)
+	}
+
+	for i := range inv {
+		inv[i].Extractor = ext
+	}
+
+	return inv, nil
+}
+
 func Extract(ctx context.Context, localPath string, extractAs string) ([]*extractor.Inventory, error) {
 	info, err := os.Stat(localPath)
 	if err != nil {
-		return []*extractor.Inventory{}, err
+		return nil, err
 	}
 
 	if extractAs != "" {
@@ -113,12 +135,12 @@ func Extract(ctx context.Context, localPath string, extractAs string) ([]*extrac
 			if lockfileExtractorMapping[extractAs] == ext.Name() {
 				si, err := createScanInput(localPath, info)
 				if err != nil {
-					return []*extractor.Inventory{}, err
+					return nil, err
 				}
 
 				inv, err := ext.Extract(ctx, si)
 				if err != nil {
-					return []*extractor.Inventory{}, fmt.Errorf("(extracting as %s) %w", extractAs, err)
+					return nil, fmt.Errorf("(extracting as %s) %w", extractAs, err)
 				}
 
 				for i := range inv {
@@ -129,21 +151,23 @@ func Extract(ctx context.Context, localPath string, extractAs string) ([]*extrac
 			}
 		}
 
-		return []*extractor.Inventory{}, fmt.Errorf("%w, requested %s", ErrExtractorNotFound, extractAs)
+		return nil, fmt.Errorf("%w, requested %s", ErrExtractorNotFound, extractAs)
 	}
 
 	output := []*extractor.Inventory{}
+	extractorFound := false
 
 	for _, ext := range lockfileExtractors {
 		if ext.FileRequired(localPath, info) {
+			extractorFound = true
 			si, err := createScanInput(localPath, info)
 			if err != nil {
-				return []*extractor.Inventory{}, err
+				return nil, err
 			}
 
 			inv, err := ext.Extract(ctx, si)
 			if err != nil {
-				return []*extractor.Inventory{}, fmt.Errorf("(extracting as %s) %w", ext.Name(), err)
+				return nil, fmt.Errorf("(extracting as %s) %w", ext.Name(), err)
 			}
 
 			for i := range inv {
@@ -151,6 +175,10 @@ func Extract(ctx context.Context, localPath string, extractAs string) ([]*extrac
 			}
 			output = append(output, inv...)
 		}
+	}
+
+	if !extractorFound {
+		return nil, ErrNoExtractorsFound
 	}
 
 	sort.Slice(output, func(i, j int) bool {

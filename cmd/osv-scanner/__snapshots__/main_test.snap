@@ -2237,7 +2237,7 @@ No issues found
 ---
 
 [TestRun_LockfileWithExplicitParseAs/empty_works_as_an_escape_(no_fixture_because_it's_not_valid_on_Windows) - 2]
-open <rootdir>/path/to/my:file: no such file or directory
+stat <rootdir>/path/to/my:file: no such file or directory
 
 ---
 
@@ -2246,7 +2246,7 @@ open <rootdir>/path/to/my:file: no such file or directory
 ---
 
 [TestRun_LockfileWithExplicitParseAs/empty_works_as_an_escape_(no_fixture_because_it's_not_valid_on_Windows)#01 - 2]
-open <rootdir>/path/to/my:project/package-lock.json: no such file or directory
+stat <rootdir>/path/to/my:project/package-lock.json: no such file or directory
 
 ---
 
