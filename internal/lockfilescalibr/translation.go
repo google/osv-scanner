@@ -24,6 +24,7 @@ import (
 	"github.com/google/osv-scalibr/extractor/filesystem/language/r/renvlock"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/ruby/gemfilelock"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/rust/cargolock"
+	"github.com/google/osv-scanner/internal/lockfilescalibr/language/javascript/yarnlock"
 
 	scalibrfs "github.com/google/osv-scalibr/fs"
 )
@@ -67,7 +68,7 @@ var lockfileExtractors = []filesystem.Extractor{
 	gradleverificationmetadataxml.Extractor{},
 	packagelockjson.Extractor{},
 	pnpmlock.Extractor{},
-	// yarnlock.Extractor{},
+	yarnlock.Extractor{},
 	composerlock.Extractor{},
 	pipfilelock.Extractor{},
 	pdmlock.Extractor{},
@@ -80,8 +81,8 @@ var lockfileExtractors = []filesystem.Extractor{
 
 var lockfileExtractorMapping = map[string]string{
 	// "pubspec.lock":   "flutter/pubspec",
-	"pnpm-lock.yaml": "javascript/pnpmlock",
-	// "yarn.lock":                   "javascript/yarnlock",
+	"pnpm-lock.yaml":              "javascript/pnpmlock",
+	"yarn.lock":                   "javascript/yarnlock",
 	"package-lock.json":           "javascript/packagelockjson",
 	"pom.xml":                     "java/pomxml",
 	"buildscript-gradle.lockfile": "java/gradlelockfile",
@@ -119,6 +120,7 @@ func Extract(ctx context.Context, localPath string, extractAs string) ([]*extrac
 				if err != nil {
 					return []*extractor.Inventory{}, fmt.Errorf("(extracting as %s) %w", extractAs, err)
 				}
+
 				for i := range inv {
 					inv[i].Extractor = ext
 				}
