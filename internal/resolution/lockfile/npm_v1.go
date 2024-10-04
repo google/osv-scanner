@@ -21,7 +21,7 @@ import (
 // Installed packages stored in recursive "dependencies" object
 // with "requires" field listing direct dependencies, and each possibly having their own "dependencies"
 // No dependency information package-lock.json for the root node, so we must also have the package.json
-func (rw NpmLockfileIO) nodesFromDependencies(lockJSON lockfile.NpmLockfile, manifestFile io.Reader) (*resolve.Graph, *npmNodeModule, error) {
+func (rw NpmReadWriter) nodesFromDependencies(lockJSON lockfile.NpmLockfile, manifestFile io.Reader) (*resolve.Graph, *npmNodeModule, error) {
 	// Need to grab the root requirements from the package.json, since it's not in the lockfile
 	var manifestJSON manifest.PackageJSON
 	if err := json.NewDecoder(manifestFile).Decode(&manifestJSON); err != nil {
@@ -61,7 +61,7 @@ func (rw NpmLockfileIO) nodesFromDependencies(lockJSON lockfile.NpmLockfile, man
 	return &g, nodeModuleTree, err
 }
 
-func (rw NpmLockfileIO) computeDependenciesRecursive(g *resolve.Graph, parent *npmNodeModule, deps map[string]lockfile.NpmLockDependency) error {
+func (rw NpmReadWriter) computeDependenciesRecursive(g *resolve.Graph, parent *npmNodeModule, deps map[string]lockfile.NpmLockDependency) error {
 	for name, d := range deps {
 		actualName, version := manifest.SplitNPMAlias(d.Version)
 		nID := g.AddNode(resolve.VersionKey{
@@ -95,7 +95,7 @@ func (rw NpmLockfileIO) computeDependenciesRecursive(g *resolve.Graph, parent *n
 	return nil
 }
 
-func (rw NpmLockfileIO) modifyPackageLockDependencies(lockJSON string, patches map[string]map[string]string, api *datasource.NpmRegistryAPIClient) (string, error) {
+func (rw NpmReadWriter) modifyPackageLockDependencies(lockJSON string, patches map[string]map[string]string, api *datasource.NpmRegistryAPIClient) (string, error) {
 	if !gjson.Get(lockJSON, "dependencies").Exists() {
 		return lockJSON, nil
 	}
@@ -103,7 +103,7 @@ func (rw NpmLockfileIO) modifyPackageLockDependencies(lockJSON string, patches m
 	return rw.modifyPackageLockDependenciesRecurse(lockJSON, "dependencies", 1, patches, api)
 }
 
-func (rw NpmLockfileIO) modifyPackageLockDependenciesRecurse(lockJSON, path string, depth int, patches map[string]map[string]string, api *datasource.NpmRegistryAPIClient) (string, error) {
+func (rw NpmReadWriter) modifyPackageLockDependenciesRecurse(lockJSON, path string, depth int, patches map[string]map[string]string, api *datasource.NpmRegistryAPIClient) (string, error) {
 	for pkg, data := range gjson.Get(lockJSON, path).Map() {
 		pkgPath := fmt.Sprintf("%s.%s", path, gjson.Escape(pkg))
 		if data.Get("dependencies").Exists() {

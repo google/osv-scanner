@@ -13,8 +13,8 @@ func TestMatchVuln(t *testing.T) {
 	t.Parallel()
 	var (
 		// ID: VULN-001, Dev: false, Severity: 6.6, Depth: 3, Aliases: CVE-111, OSV-2
-		vuln1 = resolution.ResolutionVuln{
-			Vulnerability: models.Vulnerability{
+		vuln1 = resolution.Vulnerability{
+			OSV: models.Vulnerability{
 				ID: "VULN-001",
 				Severity: []models.Severity{
 					{Type: models.SeverityCVSSV3, Score: "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:L/I:L/A:H"}, // 6.6
@@ -28,8 +28,8 @@ func TestMatchVuln(t *testing.T) {
 			}},
 		}
 		// ID: VULN-002, Dev: true, Severity: N/A, Depth: 2
-		vuln2 = resolution.ResolutionVuln{
-			Vulnerability: models.Vulnerability{
+		vuln2 = resolution.Vulnerability{
+			OSV: models.Vulnerability{
 				ID: "VULN-002",
 				// No severity
 			},
@@ -44,14 +44,14 @@ func TestMatchVuln(t *testing.T) {
 	)
 	tests := []struct {
 		name string
-		vuln resolution.ResolutionVuln
-		opt  remediation.RemediationOptions
+		vuln resolution.Vulnerability
+		opt  remediation.Options
 		want bool
 	}{
 		{
 			name: "basic match",
 			vuln: vuln1,
-			opt: remediation.RemediationOptions{
+			opt: remediation.Options{
 				DevDeps:  true,
 				MaxDepth: -1,
 			},
@@ -60,7 +60,7 @@ func TestMatchVuln(t *testing.T) {
 		{
 			name: "accept depth",
 			vuln: vuln2,
-			opt: remediation.RemediationOptions{
+			opt: remediation.Options{
 				DevDeps:  true,
 				MaxDepth: 2,
 			},
@@ -69,7 +69,7 @@ func TestMatchVuln(t *testing.T) {
 		{
 			name: "reject depth",
 			vuln: vuln2,
-			opt: remediation.RemediationOptions{
+			opt: remediation.Options{
 				DevDeps:  true,
 				MaxDepth: 1,
 			},
@@ -78,7 +78,7 @@ func TestMatchVuln(t *testing.T) {
 		{
 			name: "accept severity",
 			vuln: vuln1,
-			opt: remediation.RemediationOptions{
+			opt: remediation.Options{
 				DevDeps:     true,
 				MaxDepth:    -1,
 				MinSeverity: 6.6,
@@ -88,7 +88,7 @@ func TestMatchVuln(t *testing.T) {
 		{
 			name: "reject severity",
 			vuln: vuln1,
-			opt: remediation.RemediationOptions{
+			opt: remediation.Options{
 				DevDeps:     true,
 				MaxDepth:    -1,
 				MinSeverity: 6.7,
@@ -98,7 +98,7 @@ func TestMatchVuln(t *testing.T) {
 		{
 			name: "accept unknown severity",
 			vuln: vuln2,
-			opt: remediation.RemediationOptions{
+			opt: remediation.Options{
 				DevDeps:     true,
 				MaxDepth:    -1,
 				MinSeverity: 10.0,
@@ -108,7 +108,7 @@ func TestMatchVuln(t *testing.T) {
 		{
 			name: "accept non-dev",
 			vuln: vuln1,
-			opt: remediation.RemediationOptions{
+			opt: remediation.Options{
 				DevDeps:  false,
 				MaxDepth: -1,
 			},
@@ -117,7 +117,7 @@ func TestMatchVuln(t *testing.T) {
 		{
 			name: "reject dev",
 			vuln: vuln2,
-			opt: remediation.RemediationOptions{
+			opt: remediation.Options{
 				DevDeps:  false,
 				MaxDepth: -1,
 			},
@@ -126,7 +126,7 @@ func TestMatchVuln(t *testing.T) {
 		{
 			name: "reject ID excluded",
 			vuln: vuln1,
-			opt: remediation.RemediationOptions{
+			opt: remediation.Options{
 				DevDeps:     true,
 				MaxDepth:    -1,
 				IgnoreVulns: []string{"VULN-001"},
@@ -136,7 +136,7 @@ func TestMatchVuln(t *testing.T) {
 		{
 			name: "reject ID not in explicit",
 			vuln: vuln1,
-			opt: remediation.RemediationOptions{
+			opt: remediation.Options{
 				DevDeps:       true,
 				MaxDepth:      -1,
 				ExplicitVulns: []string{"VULN-999"},
@@ -146,7 +146,7 @@ func TestMatchVuln(t *testing.T) {
 		{
 			name: "reject ID in explicit, but not matching other fields",
 			vuln: vuln2,
-			opt: remediation.RemediationOptions{
+			opt: remediation.Options{
 				DevDeps:       false,
 				MaxDepth:      1,
 				ExplicitVulns: []string{"VULN-002"},
@@ -156,7 +156,7 @@ func TestMatchVuln(t *testing.T) {
 		{
 			name: "accept matching multiple 1",
 			vuln: vuln1,
-			opt: remediation.RemediationOptions{
+			opt: remediation.Options{
 				DevDeps:     false,
 				MaxDepth:    3,
 				MinSeverity: 5.0,
@@ -167,7 +167,7 @@ func TestMatchVuln(t *testing.T) {
 		{
 			name: "accept matching multiple 2",
 			vuln: vuln2,
-			opt: remediation.RemediationOptions{
+			opt: remediation.Options{
 				DevDeps:       true,
 				MaxDepth:      2,
 				MinSeverity:   8.8,
@@ -178,7 +178,7 @@ func TestMatchVuln(t *testing.T) {
 		{
 			name: "accept explicit ID in alias",
 			vuln: vuln1,
-			opt: remediation.RemediationOptions{
+			opt: remediation.Options{
 				DevDeps:       true,
 				MaxDepth:      -1,
 				ExplicitVulns: []string{"CVE-111"},
@@ -188,7 +188,7 @@ func TestMatchVuln(t *testing.T) {
 		{
 			name: "reject excluded ID in alias",
 			vuln: vuln1,
-			opt: remediation.RemediationOptions{
+			opt: remediation.Options{
 				DevDeps:     true,
 				MaxDepth:    -1,
 				IgnoreVulns: []string{"OSV-2"},
@@ -198,7 +198,6 @@ func TestMatchVuln(t *testing.T) {
 	}
 
 	for _, tt := range tests {
-		tt := tt
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
 

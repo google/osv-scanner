@@ -1,0 +1,7 @@
+[[IgnoredVulns]]
+id = "MAL-2024-7419"
+reason = "Packages in this test lockfile are not installed"
+
+[[IgnoredVulns]]
+id = "MAL-2024-7420"
+reason = "Packages in this test lockfile are not installed"

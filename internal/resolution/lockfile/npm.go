@@ -15,7 +15,9 @@ import (
 	"github.com/google/osv-scanner/pkg/lockfile"
 )
 
-type NpmLockfileIO struct{}
+type NpmReadWriter struct{}
+
+func (NpmReadWriter) System() resolve.System { return resolve.NPM }
 
 type npmNodeModule struct {
 	NodeID       resolve.NodeID
@@ -31,7 +33,7 @@ func (n npmNodeModule) IsAliased() bool {
 	return len(n.ActualName) > 0
 }
 
-func (rw NpmLockfileIO) Read(file lockfile.DepFile) (*resolve.Graph, error) {
+func (rw NpmReadWriter) Read(file lockfile.DepFile) (*resolve.Graph, error) {
 	dec := json.NewDecoder(file)
 	var lockJSON lockfile.NpmLockfile
 	if err := dec.Decode(&lockJSON); err != nil {
@@ -122,7 +124,7 @@ func (rw NpmLockfileIO) Read(file lockfile.DepFile) (*resolve.Graph, error) {
 	return g, nil
 }
 
-func (rw NpmLockfileIO) findDependencyNode(node *npmNodeModule, depName string) resolve.NodeID {
+func (rw NpmReadWriter) findDependencyNode(node *npmNodeModule, depName string) resolve.NodeID {
 	// Walk up the node_modules to find which node would be used as the requirement
 	for node != nil {
 		if child, ok := node.Children[depName]; ok {
@@ -134,14 +136,14 @@ func (rw NpmLockfileIO) findDependencyNode(node *npmNodeModule, depName string) 
 	return resolve.NodeID(-1)
 }
 
-func (rw NpmLockfileIO) reVersionAliasedDeps(deps map[string]string) {
+func (rw NpmReadWriter) reVersionAliasedDeps(deps map[string]string) {
 	// for the dependency maps, change versions from "npm:pkg@version" to "version"
 	for k, v := range deps {
 		_, deps[k] = manifest.SplitNPMAlias(v)
 	}
 }
 
-func (rw NpmLockfileIO) Write(original lockfile.DepFile, output io.Writer, patches []DependencyPatch) error {
+func (rw NpmReadWriter) Write(original lockfile.DepFile, output io.Writer, patches []DependencyPatch) error {
 	var buf strings.Builder
 	_, err := io.Copy(&buf, original)
 	if err != nil {

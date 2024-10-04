@@ -67,18 +67,18 @@ type ExperimentalScannerActions struct {
 
 // NoPackagesFoundErr for when no packages are found during a scan.
 //
-//nolint:errname,stylecheck // Would require version major bump to change
+//nolint:errname,stylecheck,revive // Would require version major bump to change
 var NoPackagesFoundErr = errors.New("no packages found in scan")
 
 // VulnerabilitiesFoundErr includes both vulnerabilities being found or license violations being found,
 // however, will not be raised if only uncalled vulnerabilities are found.
 //
-//nolint:errname,stylecheck // Would require version major bump to change
+//nolint:errname,stylecheck,revive // Would require version major bump to change
 var VulnerabilitiesFoundErr = errors.New("vulnerabilities found")
 
 // Deprecated: This error is no longer returned, check the results to determine if this is the case
 //
-//nolint:errname,stylecheck // Would require version bump to change
+//nolint:errname,stylecheck,revive // Would require version bump to change
 var OnlyUncalledVulnerabilitiesFoundErr = errors.New("only uncalled vulnerabilities found")
 
 // ErrAPIFailed describes errors related to querying API endpoints.
@@ -227,7 +227,7 @@ func queryDetermineVersions(repoDir string) (*osv.DetermineVersionResponse, erro
 	}
 
 	var hashes []osv.DetermineVersionHash
-	if err := filepath.Walk(repoDir, func(p string, info fs.FileInfo, err error) error {
+	if err := filepath.Walk(repoDir, func(p string, info fs.FileInfo, _ error) error {
 		if info.IsDir() {
 			if _, err := os.Stat(filepath.Join(p, ".git")); err == nil {
 				// Found a git repo, stop here as otherwise we may get duplicated
@@ -446,7 +446,7 @@ func extractMavenDeps(f lockfile.DepFile) (lockfile.Lockfile, error) {
 	}
 	extractor := manifest.MavenResolverExtractor{
 		DependencyClient:       depClient,
-		MavenRegistryAPIClient: *datasource.NewMavenRegistryAPIClient(datasource.MavenCentral),
+		MavenRegistryAPIClient: datasource.NewMavenRegistryAPIClient(datasource.MavenCentral),
 	}
 	packages, err := extractor.Extract(f)
 	if err != nil {
@@ -554,7 +554,7 @@ func scanSBOMFile(r reporter.Reporter, path string, fromFSScan bool) ([]scannedP
 	if !fromFSScan {
 		r.Infof("Failed to parse SBOM using all supported formats:\n")
 		for _, err := range errs {
-			r.Infof(err.Error() + "\n")
+			r.Infof("%s\n", err.Error())
 		}
 	}
 
@@ -714,19 +714,6 @@ func filterResults(r reporter.Reporter, results *models.VulnerabilityResults, co
 
 // Filters package-grouped vulnerabilities according to config, preserving ordering. Returns filtered package vulnerabilities.
 func filterPackageVulns(r reporter.Reporter, pkgVulns models.PackageVulns, configToUse config.Config, unimportantCount *int) models.PackageVulns {
-	if ignore, ignoreLine := configToUse.ShouldIgnorePackageVersion(pkgVulns.Package.Name, pkgVulns.Package.Version, pkgVulns.Package.Ecosystem); ignore {
-		pkgString := fmt.Sprintf("%s/%s/%s", pkgVulns.Package.Ecosystem, pkgVulns.Package.Name, pkgVulns.Package.Version)
-		switch len(pkgVulns.Vulnerabilities) {
-		case 1:
-			r.Infof("1 vulnerability for the package %s has been filtered out because: %s\n", pkgString, ignoreLine.Reason)
-		default:
-			r.Infof("%d vulnerabilities for the package %s have been filtered out because: %s\n", len(pkgVulns.Vulnerabilities), pkgString, ignoreLine.Reason)
-		}
-		pkgVulns.Groups = nil
-		pkgVulns.Vulnerabilities = nil
-
-		return pkgVulns
-	}
 	ignoredVulns := map[string]struct{}{}
 
 	// Ignores all unimportant vulnerabilities.
@@ -748,14 +735,21 @@ func filterPackageVulns(r reporter.Reporter, pkgVulns models.PackageVulns, confi
 				for _, id := range group.Aliases {
 					ignoredVulns[id] = struct{}{}
 				}
+
+				reason := ignoreLine.Reason
+
+				if reason == "" {
+					reason = "(no reason given)"
+				}
+
 				// NB: This only prints the first reason encountered in all the aliases.
 				switch len(group.Aliases) {
 				case 1:
-					r.Infof("%s has been filtered out because: %s\n", ignoreLine.ID, ignoreLine.Reason)
+					r.Infof("%s has been filtered out because: %s\n", ignoreLine.ID, reason)
 				case 2:
-					r.Infof("%s and 1 alias have been filtered out because: %s\n", ignoreLine.ID, ignoreLine.Reason)
+					r.Infof("%s and 1 alias have been filtered out because: %s\n", ignoreLine.ID, reason)
 				default:
-					r.Infof("%s and %d aliases have been filtered out because: %s\n", ignoreLine.ID, len(group.Aliases)-1, ignoreLine.Reason)
+					r.Infof("%s and %d aliases have been filtered out because: %s\n", ignoreLine.ID, len(group.Aliases)-1, reason)
 				}
 
 				break
@@ -918,10 +912,16 @@ func DoScan(actions ScannerActions, r reporter.Reporter) (models.VulnerabilityRe
 		return models.VulnerabilityResults{}, NoPackagesFoundErr
 	}
 
-	filteredScannedPackages := filterUnscannablePackages(scannedPackages)
+	filteredScannedPackagesWithoutUnscannable := filterUnscannablePackages(scannedPackages)
 
-	if len(filteredScannedPackages) != len(scannedPackages) {
-		r.Infof("Filtered %d local package/s from the scan.\n", len(scannedPackages)-len(filteredScannedPackages))
+	if len(filteredScannedPackagesWithoutUnscannable) != len(scannedPackages) {
+		r.Infof("Filtered %d local package/s from the scan.\n", len(scannedPackages)-len(filteredScannedPackagesWithoutUnscannable))
+	}
+
+	filteredScannedPackages := filterIgnoredPackages(r, filteredScannedPackagesWithoutUnscannable, &configManager)
+
+	if len(filteredScannedPackages) != len(filteredScannedPackagesWithoutUnscannable) {
+		r.Infof("Filtered %d ignored package/s from the scan.\n", len(filteredScannedPackagesWithoutUnscannable)-len(filteredScannedPackages))
 	}
 
 	overrideGoVersion(r, filteredScannedPackages, &configManager)
@@ -992,6 +992,38 @@ func filterUnscannablePackages(packages []scannedPackage) []scannedPackage {
 		case p.Commit != "":
 		case p.PURL != "":
 		default:
+			continue
+		}
+		out = append(out, p)
+	}
+
+	return out
+}
+
+// filterIgnoredPackages removes ignore scanned packages according to config. Returns filtered scanned packages.
+func filterIgnoredPackages(r reporter.Reporter, packages []scannedPackage, configManager *config.ConfigManager) []scannedPackage {
+	out := make([]scannedPackage, 0, len(packages))
+	for _, p := range packages {
+		configToUse := configManager.Get(r, p.Source.Path)
+		pkg := models.PackageVulns{
+			Package: models.PackageInfo{
+				Name:      p.Name,
+				Version:   p.Version,
+				Ecosystem: string(p.Ecosystem),
+				Commit:    p.Commit,
+			},
+			DepGroups: p.DepGroups,
+		}
+
+		if ignore, ignoreLine := configToUse.ShouldIgnorePackage(pkg); ignore {
+			pkgString := fmt.Sprintf("%s/%s/%s", p.Ecosystem, p.Name, p.Version)
+			reason := ignoreLine.Reason
+
+			if reason == "" {
+				reason = "(no reason given)"
+			}
+			r.Infof("Package %s has been filtered out because: %s\n", pkgString, reason)
+
 			continue
 		}
 		out = append(out, p)

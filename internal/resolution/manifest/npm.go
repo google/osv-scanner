@@ -26,7 +26,9 @@ func npmRequirementKey(requirement resolve.RequirementVersion) RequirementKey {
 	}
 }
 
-type NpmManifestIO struct{}
+type NpmReadWriter struct{}
+
+func (NpmReadWriter) System() resolve.System { return resolve.NPM }
 
 type PackageJSON struct {
 	Name    string `json:"name"`
@@ -43,7 +45,7 @@ type PackageJSON struct {
 	// BundleDependencies   []string          `json:"bundleDependencies"`
 }
 
-func (rw NpmManifestIO) Read(f lockfile.DepFile) (Manifest, error) {
+func (rw NpmReadWriter) Read(f lockfile.DepFile) (Manifest, error) {
 	dec := json.NewDecoder(f)
 	var packagejson PackageJSON
 	if err := dec.Decode(&packagejson); err != nil {
@@ -192,7 +194,7 @@ func (rw NpmManifestIO) Read(f lockfile.DepFile) (Manifest, error) {
 	return manif, nil
 }
 
-func (rw NpmManifestIO) makeNPMReqVer(pkg, ver string) resolve.RequirementVersion {
+func (rw NpmReadWriter) makeNPMReqVer(pkg, ver string) resolve.RequirementVersion {
 	// TODO: URLs, Git, GitHub, `file:`
 	typ := dep.NewType() // don't use dep.NewType(dep.Dev) for devDeps to force the resolver to resolve them
 	realPkg, realVer := SplitNPMAlias(ver)
@@ -233,7 +235,7 @@ func (rw NpmManifestIO) makeNPMReqVer(pkg, ver string) resolve.RequirementVersio
 	}
 }
 
-func (NpmManifestIO) Write(r lockfile.DepFile, w io.Writer, patch ManifestPatch) error {
+func (NpmReadWriter) Write(r lockfile.DepFile, w io.Writer, patch Patch) error {
 	// Read the whole package.json into a string so we can use sjson to write in-place.
 	var buf strings.Builder
 	_, err := io.Copy(&buf, r)

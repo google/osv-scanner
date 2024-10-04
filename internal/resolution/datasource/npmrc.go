@@ -131,7 +131,7 @@ func builtinNpmrc() string {
 	return npmrc
 }
 
-type npmRegistryAuthInfo struct {
+type NpmRegistryAuthInfo struct {
 	authToken string
 	auth      string
 	username  string
@@ -139,7 +139,7 @@ type npmRegistryAuthInfo struct {
 	// TODO: certfile, keyfile
 }
 
-func (authInfo npmRegistryAuthInfo) AddToHeader(header http.Header) {
+func (authInfo NpmRegistryAuthInfo) AddToHeader(header http.Header) {
 	switch {
 	case authInfo.authToken != "":
 		header.Set("Authorization", "Bearer "+authInfo.authToken)
@@ -167,27 +167,27 @@ type NpmRegistryAuthOpts map[string]string
 
 var npmAuthFields = [...]string{":_authToken", ":_auth", ":username", ":_password"} // reference of the relevant config key suffixes
 
-func (opts NpmRegistryAuthOpts) getRegAuth(regKey string) (npmRegistryAuthInfo, bool) {
+func (opts NpmRegistryAuthOpts) getRegAuth(regKey string) (NpmRegistryAuthInfo, bool) {
 	if token, ok := opts[regKey+":_authToken"]; ok {
-		return npmRegistryAuthInfo{authToken: token}, true
+		return NpmRegistryAuthInfo{authToken: token}, true
 	}
 	if auth, ok := opts[regKey+":_auth"]; ok {
-		return npmRegistryAuthInfo{auth: auth}, true
+		return NpmRegistryAuthInfo{auth: auth}, true
 	}
 	if user, ok := opts[regKey+":username"]; ok {
 		if pass, ok := opts[regKey+":_password"]; ok {
-			return npmRegistryAuthInfo{username: user, password: pass}, true
+			return NpmRegistryAuthInfo{username: user, password: pass}, true
 		}
 	}
 	// TODO: certfile / keyfile
 
-	return npmRegistryAuthInfo{}, false
+	return NpmRegistryAuthInfo{}, false
 }
 
-func (opts NpmRegistryAuthOpts) GetAuth(uri string) npmRegistryAuthInfo {
+func (opts NpmRegistryAuthOpts) GetAuth(uri string) NpmRegistryAuthInfo {
 	parsed, err := url.Parse(uri)
 	if err != nil {
-		return npmRegistryAuthInfo{}
+		return NpmRegistryAuthInfo{}
 	}
 	regKey := "//" + parsed.Host + parsed.EscapedPath()
 	for regKey != "//" {
@@ -203,7 +203,7 @@ func (opts NpmRegistryAuthOpts) GetAuth(uri string) npmRegistryAuthInfo {
 		}
 	}
 
-	return npmRegistryAuthInfo{}
+	return NpmRegistryAuthInfo{}
 }
 
 // urlPathEscapeLower is url.PathEscape but with lowercase letters in hex codes (matching npm's behaviour)

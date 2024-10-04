@@ -1,0 +1,23 @@
+[[PackageOverrides]]
+name = "commons-io:commons-io"
+ecosystem = "Maven"
+ignore = true
+reason = "This is an intentionally vulnerable test project"
+
+[[PackageOverrides]]
+name = "org.apache.httpcomponents:httpclient"
+ecosystem = "Maven"
+ignore = true
+reason = "This is an intentionally vulnerable test project"
+
+[[PackageOverrides]]
+name = "org.codehaus.plexus:plexus-utils"
+ecosystem = "Maven"
+ignore = true
+reason = "This is an intentionally vulnerable test project"
+
+[[PackageOverrides]]
+name = "org.jsoup:jsoup"
+ecosystem = "Maven"
+ignore = true
+reason = "This is an intentionally vulnerable test project"

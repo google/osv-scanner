@@ -3,6 +3,7 @@ package datasource
 import (
 	"time"
 
+	pb "deps.dev/api/v3"
 	"google.golang.org/protobuf/proto"
 )
 
@@ -54,15 +55,15 @@ func (c *DepsDevAPIClient) GobEncode() ([]byte, error) {
 
 	cache.Timestamp = c.cacheTimestamp
 	var err error
-	cache.PackageCache, err = protoMarshalCache(c.packageCache)
+	cache.PackageCache, err = protoMarshalCache(c.packageCache.GetMap())
 	if err != nil {
 		return nil, err
 	}
-	cache.VersionCache, err = protoMarshalCache(c.versionCache)
+	cache.VersionCache, err = protoMarshalCache(c.versionCache.GetMap())
 	if err != nil {
 		return nil, err
 	}
-	cache.RequirementsCache, err = protoMarshalCache(c.requirementsCache)
+	cache.RequirementsCache, err = protoMarshalCache(c.requirementsCache.GetMap())
 	if err != nil {
 		return nil, err
 	}
@@ -85,15 +86,25 @@ func (c *DepsDevAPIClient) GobDecode(b []byte) error {
 	defer c.mu.Unlock()
 
 	c.cacheTimestamp = cache.Timestamp
-	if err := protoUnmarshalCache(cache.PackageCache, &c.packageCache); err != nil {
+
+	var pkgMap map[packageKey]*pb.Package
+	if err := protoUnmarshalCache(cache.PackageCache, &pkgMap); err != nil {
 		return err
 	}
-	if err := protoUnmarshalCache(cache.VersionCache, &c.versionCache); err != nil {
+
+	var verMap map[versionKey]*pb.Version
+	if err := protoUnmarshalCache(cache.VersionCache, &verMap); err != nil {
 		return err
 	}
-	if err := protoUnmarshalCache(cache.RequirementsCache, &c.requirementsCache); err != nil {
+
+	var reqMap map[versionKey]*pb.Requirements
+	if err := protoUnmarshalCache(cache.RequirementsCache, &reqMap); err != nil {
 		return err
 	}
+
+	c.packageCache.SetMap(pkgMap)
+	c.versionCache.SetMap(verMap)
+	c.requirementsCache.SetMap(reqMap)
 
 	return nil
 }

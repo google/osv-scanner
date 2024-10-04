@@ -149,7 +149,7 @@ func TestGroup(t *testing.T) {
 	} {
 		grouped := grouper.Group(tc.vulns)
 		if diff := cmp.Diff(tc.want, grouped); diff != "" {
-			t.Errorf("GroupedVulns() returned an unexpected result (-want, +got):\n%s", diff)
+			t.Errorf("GroupedVulns() returned an unexpected result (-want +got):\n%s", diff)
 		}
 	}
 }

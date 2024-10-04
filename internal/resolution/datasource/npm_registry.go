@@ -22,12 +22,12 @@ type NpmRegistryAPIClient struct {
 	// cache fields
 	mu             sync.Mutex
 	cacheTimestamp *time.Time // If set, this means we loaded from a cache
-	details        map[string]npmRegistryPackageDetails
+	details        *RequestCache[string, npmRegistryPackageDetails]
 }
 
 type npmRegistryPackageDetails struct {
 	// Only cache the info needed for the DependencyClient
-	Versions map[string]npmRegistryDependencies
+	Versions map[string]NpmRegistryDependencies
 	Tags     map[string]string
 }
 
@@ -39,28 +39,28 @@ func NewNpmRegistryAPIClient(workdir string) (*NpmRegistryAPIClient, error) {
 
 	return &NpmRegistryAPIClient{
 		registries: registries,
-		details:    make(map[string]npmRegistryPackageDetails),
+		details:    NewRequestCache[string, npmRegistryPackageDetails](),
 	}, nil
 }
 
-type npmRegistryVersions struct {
+type NpmRegistryVersions struct {
 	Versions []string
 	Tags     map[string]string
 }
 
-func (c *NpmRegistryAPIClient) Versions(ctx context.Context, pkg string) (npmRegistryVersions, error) {
+func (c *NpmRegistryAPIClient) Versions(ctx context.Context, pkg string) (NpmRegistryVersions, error) {
 	pkgDetails, err := c.getPackageDetails(ctx, pkg)
 	if err != nil {
-		return npmRegistryVersions{}, err
+		return NpmRegistryVersions{}, err
 	}
 
-	return npmRegistryVersions{
+	return NpmRegistryVersions{
 		Versions: maps.Keys(pkgDetails.Versions),
 		Tags:     pkgDetails.Tags,
 	}, nil
 }
 
-type npmRegistryDependencies struct {
+type NpmRegistryDependencies struct {
 	// TODO: These maps should preserve ordering from JSON response
 	Dependencies         map[string]string
 	DevDependencies      map[string]string
@@ -69,17 +69,17 @@ type npmRegistryDependencies struct {
 	BundleDependencies   []string
 }
 
-func (c *NpmRegistryAPIClient) Dependencies(ctx context.Context, pkg, version string) (npmRegistryDependencies, error) {
+func (c *NpmRegistryAPIClient) Dependencies(ctx context.Context, pkg, version string) (NpmRegistryDependencies, error) {
 	pkgDetails, err := c.getPackageDetails(ctx, pkg)
 	if err != nil {
-		return npmRegistryDependencies{}, err
+		return NpmRegistryDependencies{}, err
 	}
 
 	if deps, ok := pkgDetails.Versions[version]; ok {
 		return deps, nil
 	}
 
-	return npmRegistryDependencies{}, fmt.Errorf("no version %s for package %s", version, pkg)
+	return NpmRegistryDependencies{}, fmt.Errorf("no version %s for package %s", version, pkg)
 }
 
 func (c *NpmRegistryAPIClient) FullJSON(ctx context.Context, pkg, version string) (gjson.Result, error) {
@@ -113,39 +113,28 @@ func (c *NpmRegistryAPIClient) get(ctx context.Context, urlComponents ...string)
 }
 
 func (c *NpmRegistryAPIClient) getPackageDetails(ctx context.Context, pkg string) (npmRegistryPackageDetails, error) {
-	c.mu.Lock()
-	pkgData, ok := c.details[pkg]
-	c.mu.Unlock()
-	if ok {
-		return pkgData, nil
-	}
-
-	// Not cached, make the network request
-	jsonData, err := c.get(ctx, pkg)
-	if err != nil {
-		return npmRegistryPackageDetails{}, err
-	}
-
-	versions := make(map[string]npmRegistryDependencies)
-	for v, data := range jsonData.Get("versions").Map() {
-		versions[v] = npmRegistryDependencies{
-			Dependencies:         jsonToStringMap(data.Get("dependencies")),
-			DevDependencies:      jsonToStringMap(data.Get("devDependencies")),
-			PeerDependencies:     jsonToStringMap(data.Get("peerDependencies")),
-			OptionalDependencies: jsonToStringMap(data.Get("optionalDependencies")),
-			BundleDependencies:   jsonToStringSlice(data.Get("bundleDependencies")),
+	return c.details.Get(pkg, func() (npmRegistryPackageDetails, error) {
+		jsonData, err := c.get(ctx, pkg)
+		if err != nil {
+			return npmRegistryPackageDetails{}, err
 		}
-	}
-	pkgData = npmRegistryPackageDetails{
-		Versions: versions,
-		Tags:     jsonToStringMap(jsonData.Get("dist-tags")),
-	}
 
-	c.mu.Lock()
-	c.details[pkg] = pkgData
-	c.mu.Unlock()
+		versions := make(map[string]NpmRegistryDependencies)
+		for v, data := range jsonData.Get("versions").Map() {
+			versions[v] = NpmRegistryDependencies{
+				Dependencies:         jsonToStringMap(data.Get("dependencies")),
+				DevDependencies:      jsonToStringMap(data.Get("devDependencies")),
+				PeerDependencies:     jsonToStringMap(data.Get("peerDependencies")),
+				OptionalDependencies: jsonToStringMap(data.Get("optionalDependencies")),
+				BundleDependencies:   jsonToStringSlice(data.Get("bundleDependencies")),
+			}
+		}
 
-	return pkgData, nil
+		return npmRegistryPackageDetails{
+			Versions: versions,
+			Tags:     jsonToStringMap(jsonData.Get("dist-tags")),
+		}, nil
+	})
 }
 
 func jsonToStringSlice(v gjson.Result) []string {

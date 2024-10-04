@@ -1,0 +1,11 @@
+[[PackageOverrides]]
+name = "commons-beanutils:commons-beanutils"
+ecosystem = "Maven"
+ignore = true
+reason = "This is an intentionally vulnerable test project"
+
+[[PackageOverrides]]
+name = "commons-httpclient:commons-httpclient"
+ecosystem = "Maven"
+ignore = true
+reason = "This is an intentionally vulnerable test project"

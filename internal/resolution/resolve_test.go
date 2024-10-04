@@ -14,7 +14,7 @@ import (
 	"github.com/google/osv-scanner/internal/testutility"
 )
 
-func checkResult(t *testing.T, result *resolution.ResolutionResult) {
+func checkResult(t *testing.T, result *resolution.Result) {
 	t.Helper()
 	snap := testutility.NewSnapshot()
 	snap.MatchText(t, result.Graph.String())
@@ -29,7 +29,7 @@ func checkResult(t *testing.T, result *resolution.ResolutionResult) {
 	minVulns := make([]minimalVuln, len(result.Vulns))
 	for i, v := range result.Vulns {
 		minVulns[i] = minimalVuln{
-			ID:               v.Vulnerability.ID,
+			ID:               v.OSV.ID,
 			DevOnly:          v.DevOnly,
 			ProblemChains:    make([][]resolve.Edge, len(v.ProblemChains)),
 			NonProblemChains: make([][]resolve.Edge, len(v.NonProblemChains)),
@@ -70,6 +70,7 @@ func TestResolve(t *testing.T) {
 		system       resolve.System
 		universe     string
 		requirements []requirement
+		opts         resolution.ResolveOpts
 	}{
 		{
 			name:     "simple", // simple root -> dependency -> vuln
@@ -206,7 +207,6 @@ func TestResolve(t *testing.T) {
 	}
 
 	for _, tt := range tests {
-		tt := tt
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
 			cl := clienttest.NewMockResolutionClient(t, tt.universe)
@@ -238,7 +238,7 @@ func TestResolve(t *testing.T) {
 				m.Groups[manifest.MakeRequirementKey(m.Requirements[i])] = req.groups
 			}
 
-			res, err := resolution.Resolve(context.Background(), cl, m)
+			res, err := resolution.Resolve(context.Background(), cl, m, tt.opts)
 			if err != nil {
 				t.Fatalf("error resolving: %v", err)
 			}

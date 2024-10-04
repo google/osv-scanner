@@ -1,18 +1,25 @@
 package config
 
 import (
+	"errors"
 	"fmt"
 	"os"
 	"path/filepath"
 	"slices"
+	"strings"
 	"time"
 
 	"github.com/BurntSushi/toml"
+	"github.com/google/osv-scanner/pkg/models"
 	"github.com/google/osv-scanner/pkg/reporter"
 )
 
 const osvScannerConfigName = "osv-scanner.toml"
 
+// Ignore stuttering as that would be a breaking change
+// TODO: V2 rename?
+//
+//nolint:revive
 type ConfigManager struct {
 	// Override to replace all other configs
 	OverrideConfig *Config
@@ -25,8 +32,10 @@ type ConfigManager struct {
 type Config struct {
 	IgnoredVulns      []IgnoreEntry          `toml:"IgnoredVulns"`
 	PackageOverrides  []PackageOverrideEntry `toml:"PackageOverrides"`
-	LoadPath          string                 `toml:"LoadPath"`
 	GoVersionOverride string                 `toml:"GoVersionOverride"`
+	// The path to config file that this config was loaded from,
+	// set by the scanner after having successfully parsed the file
+	LoadPath string `toml:"-"`
 }
 
 type IgnoreEntry struct {
@@ -40,14 +49,33 @@ type PackageOverrideEntry struct {
 	// If the version is empty, the entry applies to all versions.
 	Version        string    `toml:"version"`
 	Ecosystem      string    `toml:"ecosystem"`
+	Group          string    `toml:"group"`
 	Ignore         bool      `toml:"ignore"`
 	License        License   `toml:"license"`
 	EffectiveUntil time.Time `toml:"effectiveUntil"`
 	Reason         string    `toml:"reason"`
 }
 
+func (e PackageOverrideEntry) matches(pkg models.PackageVulns) bool {
+	if e.Name != "" && e.Name != pkg.Package.Name {
+		return false
+	}
+	if e.Version != "" && e.Version != pkg.Package.Version {
+		return false
+	}
+	if e.Ecosystem != "" && e.Ecosystem != pkg.Package.Ecosystem {
+		return false
+	}
+	if e.Group != "" && !slices.Contains(pkg.DepGroups, e.Group) {
+		return false
+	}
+
+	return true
+}
+
 type License struct {
 	Override []string `toml:"override"`
+	Ignore   bool     `toml:"ignore"`
 }
 
 func (c *Config) ShouldIgnore(vulnID string) (bool, IgnoreEntry) {
@@ -60,13 +88,9 @@ func (c *Config) ShouldIgnore(vulnID string) (bool, IgnoreEntry) {
 	return shouldIgnoreTimestamp(ignoredLine.IgnoreUntil), ignoredLine
 }
 
-func (c *Config) filterPackageVersionEntries(name string, version string, ecosystem string, condition func(PackageOverrideEntry) bool) (bool, PackageOverrideEntry) {
+func (c *Config) filterPackageVersionEntries(pkg models.PackageVulns, condition func(PackageOverrideEntry) bool) (bool, PackageOverrideEntry) {
 	index := slices.IndexFunc(c.PackageOverrides, func(e PackageOverrideEntry) bool {
-		if ecosystem != e.Ecosystem || name != e.Name {
-			return false
-		}
-
-		return (version == e.Version || e.Version == "") && condition(e)
+		return e.matches(pkg) && condition(e)
 	})
 	if index == -1 {
 		return false, PackageOverrideEntry{}
@@ -76,15 +100,39 @@ func (c *Config) filterPackageVersionEntries(name string, version string, ecosys
 	return shouldIgnoreTimestamp(ignoredLine.EffectiveUntil), ignoredLine
 }
 
-func (c *Config) ShouldIgnorePackageVersion(name, version, ecosystem string) (bool, PackageOverrideEntry) {
-	return c.filterPackageVersionEntries(name, version, ecosystem, func(e PackageOverrideEntry) bool {
+// ShouldIgnorePackage determines if the given package should be ignored based on override entries in the config
+func (c *Config) ShouldIgnorePackage(pkg models.PackageVulns) (bool, PackageOverrideEntry) {
+	return c.filterPackageVersionEntries(pkg, func(e PackageOverrideEntry) bool {
 		return e.Ignore
 	})
 }
 
+// Deprecated: Use ShouldIgnorePackage instead
+func (c *Config) ShouldIgnorePackageVersion(name, version, ecosystem string) (bool, PackageOverrideEntry) {
+	return c.ShouldIgnorePackage(models.PackageVulns{
+		Package: models.PackageInfo{
+			Name:      name,
+			Version:   version,
+			Ecosystem: ecosystem,
+		},
+	})
+}
+
+// ShouldOverridePackageLicense determines if the given package should have its license ignored or changed based on override entries in the config
+func (c *Config) ShouldOverridePackageLicense(pkg models.PackageVulns) (bool, PackageOverrideEntry) {
+	return c.filterPackageVersionEntries(pkg, func(e PackageOverrideEntry) bool {
+		return e.License.Ignore || len(e.License.Override) > 0
+	})
+}
+
+// Deprecated: Use ShouldOverridePackageLicense instead
 func (c *Config) ShouldOverridePackageVersionLicense(name, version, ecosystem string) (bool, PackageOverrideEntry) {
-	return c.filterPackageVersionEntries(name, version, ecosystem, func(e PackageOverrideEntry) bool {
-		return len(e.License.Override) > 0
+	return c.ShouldOverridePackageLicense(models.PackageVulns{
+		Package: models.PackageInfo{
+			Name:      name,
+			Version:   version,
+			Ecosystem: ecosystem,
+		},
 	})
 }
 
@@ -101,12 +149,10 @@ func shouldIgnoreTimestamp(ignoreUntil time.Time) bool {
 // Sets the override config by reading the config file at configPath.
 // Will return an error if loading the config file fails
 func (c *ConfigManager) UseOverride(configPath string) error {
-	config := Config{}
-	_, err := toml.DecodeFile(configPath, &config)
-	if err != nil {
-		return err
+	config, configErr := tryLoadConfig(configPath)
+	if configErr != nil {
+		return configErr
 	}
-	config.LoadPath = configPath
 	c.OverrideConfig = &config
 
 	return nil
@@ -135,6 +181,11 @@ func (c *ConfigManager) Get(r reporter.Reporter, targetPath string) Config {
 	if configErr == nil {
 		r.Infof("Loaded filter from: %s\n", config.LoadPath)
 	} else {
+		// anything other than the config file not existing is most likely due to an invalid config file
+		if !errors.Is(configErr, os.ErrNotExist) {
+			r.Errorf("Ignored invalid config file at: %s\n", configPath)
+			r.Verbosef("Config file %s is invalid because: %v\n", configPath, configErr)
+		}
 		// If config doesn't exist, use the default config
 		config = c.DefaultConfig
 	}
@@ -161,22 +212,26 @@ func normalizeConfigLoadPath(target string) (string, error) {
 	return configPath, nil
 }
 
-// tryLoadConfig tries to load config in `target` (or it's containing directory)
-// `target` will be the key for the entry in configMap
+// tryLoadConfig attempts to parse the config file at the given path as TOML,
+// returning the Config object if successful or otherwise the error
 func tryLoadConfig(configPath string) (Config, error) {
-	file, err := os.Open(configPath)
-	var config Config
-	if err == nil { // File exists, and we have permission to read
-		defer file.Close()
+	config := Config{}
+	m, err := toml.DecodeFile(configPath, &config)
+	if err == nil {
+		unknownKeys := m.Undecoded()
 
-		_, err := toml.NewDecoder(file).Decode(&config)
-		if err != nil {
-			return Config{}, fmt.Errorf("failed to parse config file: %w", err)
+		if len(unknownKeys) > 0 {
+			keys := make([]string, 0, len(unknownKeys))
+
+			for _, key := range unknownKeys {
+				keys = append(keys, key.String())
+			}
+
+			return Config{}, fmt.Errorf("unknown keys in config file: %s", strings.Join(keys, ", "))
 		}
-		config.LoadPath = configPath
 
-		return config, nil
+		config.LoadPath = configPath
 	}
 
-	return Config{}, fmt.Errorf("no config file found on this path: %s", configPath)
+	return config, err
 }

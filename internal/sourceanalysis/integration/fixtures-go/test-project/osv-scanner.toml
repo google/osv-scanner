@@ -1,24 +1,23 @@
-[[IgnoredVulns]]
-id = "GO-2021-0053"
-# ignoreUntil = n/a
-reason = "This is a intentionally vulnerable test project"
+[[PackageOverrides]]
+name = "github.com/ipfs/go-bitfield"
+ecosystem = "Go"
+ignore = true
+reason = "This is an intentionally vulnerable test project"
 
-[[IgnoredVulns]]
-id = "GO-2023-1558"
-# ignoreUntil = n/a
-reason = "This is a intentionally vulnerable test project"
+[[PackageOverrides]]
+name = "github.com/gogo/protobuf"
+ecosystem = "Go"
+ignore = true
+reason = "This is an intentionally vulnerable test project"
 
-[[IgnoredVulns]]
-id = "GO-2023-1572"
-# ignoreUntil = n/a
-reason = "This is a intentionally vulnerable test project"
+[[PackageOverrides]]
+name = "golang.org/x/image"
+ecosystem = "Go"
+ignore = true
+reason = "This is an intentionally vulnerable test project"
 
-[[IgnoredVulns]]
-id = "GO-2023-1989"
-# ignoreUntil = n/a
-reason = "This is a intentionally vulnerable test project"
-
-[[IgnoredVulns]]
-id = "GO-2023-1990"
-# ignoreUntil = n/a
-reason = "This is a intentionally vulnerable test project"
+[[PackageOverrides]]
+name = "stdlib"
+ecosystem = "Go"
+ignore = true
+reason = "This is an intentionally vulnerable test project"

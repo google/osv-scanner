@@ -15,18 +15,18 @@ const (
 	Dir
 )
 
-// fileNode represents a file on a specific layer, mapping the contents to an extracted file on disk
-type fileNode struct {
+// FileNode represents a file on a specific layer, mapping the contents to an extracted file on disk
+type FileNode struct {
 	// TODO: Determine the performance implications of having a pointer to base image in every fileNode
 	rootImage   *Image
 	fileType    fileType
 	isWhiteout  bool
-	originLayer *imgLayer
+	originLayer *Layer
 	virtualPath string
 	permission  fs.FileMode
 }
 
-func (f *fileNode) Open() (*os.File, error) {
+func (f *FileNode) Open() (*os.File, error) {
 	if f.isWhiteout {
 		return nil, fs.ErrNotExist
 	}
@@ -34,12 +34,12 @@ func (f *fileNode) Open() (*os.File, error) {
 	return os.Open(f.absoluteDiskPath())
 }
 
-func (f *fileNode) absoluteDiskPath() string {
+func (f *FileNode) absoluteDiskPath() string {
 	return filepath.Join(f.rootImage.extractDir, f.originLayer.id, f.virtualPath)
 }
 
-// imgLayer represents all the files on a layer
-type imgLayer struct {
+// Layer represents all the files on a layer
+type Layer struct {
 	// id is the sha256 digest of the layer
 	id           string
 	fileNodeTrie *trie.PathTrie
@@ -47,21 +47,21 @@ type imgLayer struct {
 	// TODO: Use hashmap to speed up path lookups
 }
 
-func (filemap imgLayer) getFileNode(path string) (fileNode, error) {
-	node, ok := filemap.fileNodeTrie.Get(path).(fileNode)
+func (filemap Layer) getFileNode(path string) (FileNode, error) {
+	node, ok := filemap.fileNodeTrie.Get(path).(FileNode)
 	if !ok {
-		return fileNode{}, fs.ErrNotExist
+		return FileNode{}, fs.ErrNotExist
 	}
 
 	return node, nil
 }
 
 // AllFiles return all files that exist on the layer the FileMap is representing
-func (filemap imgLayer) AllFiles() []fileNode {
-	allFiles := []fileNode{}
+func (filemap Layer) AllFiles() []FileNode {
+	allFiles := []FileNode{}
 	// No need to check error since we are not returning any errors
-	_ = filemap.fileNodeTrie.Walk(func(key string, value interface{}) error {
-		node := value.(fileNode)
+	_ = filemap.fileNodeTrie.Walk(func(_ string, value interface{}) error {
+		node := value.(FileNode)
 		if node.fileType != RegularFile { // Only add regular files
 			return nil
 		}
@@ -70,7 +70,7 @@ func (filemap imgLayer) AllFiles() []fileNode {
 			return nil
 		}
 
-		allFiles = append(allFiles, value.(fileNode))
+		allFiles = append(allFiles, value.(FileNode))
 
 		return nil
 	})

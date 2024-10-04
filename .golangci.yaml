@@ -55,10 +55,56 @@ linters-settings:
     disabled-checks:
       - ifElseChain
   revive:
+    # enable-all-rules: true
     rules:
+      # Overrides ----
+      # This is just here for documentation purposes, as all rules are disabled by default
       - name: increment-decrement
         disabled: true
+      # Defaults ----
+      - name: blank-imports
+        disabled: false
+      - name: context-as-argument
+        disabled: false
+      - name: context-keys-type
+        disabled: false
+      - name: dot-imports
+        disabled: false
+      - name: empty-block
+        disabled: false
+      - name: error-naming
+        disabled: false
+      - name: error-return
+        disabled: false
+      - name: error-strings
+        disabled: false
+      - name: errorf
+        disabled: false
+      - name: exported
+        disabled: false
       - name: indent-error-flow
+        disabled: false
+      - name: package-comments
+        disabled: false
+      - name: range
+        disabled: false
+      - name: receiver-naming
+        disabled: false
+      - name: redefines-builtin-id
+        disabled: false
+      - name: superfluous-else
+        disabled: false
+      - name: time-naming
+        disabled: false
+      - name: unexported-return
+        disabled: false
+      - name: unreachable-code
+        disabled: false
+      - name: unused-parameter
+        disabled: false
+      - name: var-declaration
+        disabled: false
+      - name: var-naming
         disabled: false
   nlreturn:
     # Size of the block (including return statement that is still "OK")
@@ -74,3 +120,5 @@ issues:
     - path: _test\.go
       linters:
         - dupl
+  exclude-dirs:
+    - internal/thirdparty/xml

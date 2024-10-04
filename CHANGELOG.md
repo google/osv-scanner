@@ -1,3 +1,30 @@
+# v1.8.5:
+
+### Features:
+
+- [Feature #1160](https://github.com/google/osv-scanner/pull/1160) Support fetching snapshot versions from a Maven registry.
+- [Feature #1177](https://github.com/google/osv-scanner/pull/1177) Support composite-based package overrides. This allows for ignoring entire manifests when scanning.
+- [Feature #1210](https://github.com/google/osv-scanner/pull/1210) Add FIXED-VULN-IDS to guided remediation non-interactive output.
+
+### Fixes:
+
+- [Bug #1220](https://github.com/google/osv-scanner/issues/1220) Fix govulncheck calls on C code.
+- [Bug #1236](https://github.com/google/osv-scanner/pull/1236) Alpine package scanning now falls back to latest release version if no release version can be found.
+
+# v1.8.4:
+
+### Features:
+
+- [Feature #1177](https://github.com/google/osv-scanner/pull/1177) Adds `--upgrade-config` flag for configuring allowed upgrades on a per-package basis. Also hide & deprecate previous `--disallow-major-upgrades` and `--disallow-package-upgrades` flags.
+
+### Fixes:
+
+- [Bug #1123](https://github.com/google/osv-scanner/issues/1123) Issue when running osv-scanner on project running with golang 1.22 #1123
+
+### Misc:
+
+- [Feature #638](https://github.com/google/osv-scanner/issues/638) Update go policy to use stable go version for builds (updated to go 1.23)
+
 # v1.8.3:
 
 ### Features:

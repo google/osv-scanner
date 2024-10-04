@@ -17,7 +17,9 @@ type DependencyPatch struct {
 	NewVersion  string
 }
 
-type LockfileIO interface {
+type ReadWriter interface {
+	// System returns which ecosystem this ReadWriter is for.
+	System() resolve.System
 	// Read parses a lockfile into a resolved graph
 	Read(file lockfile.DepFile) (*resolve.Graph, error)
 	// Write applies the DependencyPatches to the lockfile, with minimal changes to the file.
@@ -25,7 +27,7 @@ type LockfileIO interface {
 	Write(original lockfile.DepFile, output io.Writer, patches []DependencyPatch) error
 }
 
-func Overwrite(rw LockfileIO, filename string, patches []DependencyPatch) error {
+func Overwrite(rw ReadWriter, filename string, patches []DependencyPatch) error {
 	r, err := lockfile.OpenLocalDepFile(filename)
 	if err != nil {
 		return err
@@ -46,11 +48,11 @@ func Overwrite(rw LockfileIO, filename string, patches []DependencyPatch) error 
 	return nil
 }
 
-func GetLockfileIO(pathToLockfile string) (LockfileIO, error) {
+func GetReadWriter(pathToLockfile string) (ReadWriter, error) {
 	base := filepath.Base(pathToLockfile)
 	switch {
 	case base == "package-lock.json":
-		return NpmLockfileIO{}, nil
+		return NpmReadWriter{}, nil
 	default:
 		return nil, fmt.Errorf("unsupported lockfile type: %s", base)
 	}

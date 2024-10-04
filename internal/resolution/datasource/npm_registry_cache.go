@@ -24,7 +24,7 @@ func (c *NpmRegistryAPIClient) GobEncode() ([]byte, error) {
 
 	cache := npmRegistryCache{
 		Timestamp: c.cacheTimestamp,
-		Details:   c.details,
+		Details:   c.details.GetMap(),
 		ScopeURLs: make(map[string]string),
 	}
 
@@ -60,7 +60,7 @@ func (c *NpmRegistryAPIClient) GobDecode(b []byte) error {
 	})
 
 	c.cacheTimestamp = cache.Timestamp
-	c.details = cache.Details
+	c.details.SetMap(cache.Details)
 
 	return nil
 }

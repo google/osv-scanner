@@ -1,7 +1,6 @@
 package clienttest
 
 import (
-	"context"
 	"os"
 	"strings"
 	"testing"
@@ -43,9 +42,8 @@ type mockDependencyClient struct {
 	*resolve.LocalClient
 }
 
-func (mdc mockDependencyClient) LoadCache(string) error                                         { return nil }
-func (mdc mockDependencyClient) WriteCache(string) error                                        { return nil }
-func (mdc mockDependencyClient) PreFetch(context.Context, []resolve.RequirementVersion, string) {}
+func (mdc mockDependencyClient) LoadCache(string) error  { return nil }
+func (mdc mockDependencyClient) WriteCache(string) error { return nil }
 
 func NewMockResolutionClient(t *testing.T, universeYAML string) client.ResolutionClient {
 	t.Helper()

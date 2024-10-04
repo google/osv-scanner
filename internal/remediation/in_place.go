@@ -9,6 +9,7 @@ import (
 	"deps.dev/util/resolve"
 	"deps.dev/util/resolve/dep"
 	"deps.dev/util/semver"
+	"github.com/google/osv-scanner/internal/remediation/upgrade"
 	"github.com/google/osv-scanner/internal/resolution"
 	"github.com/google/osv-scanner/internal/resolution/client"
 	lf "github.com/google/osv-scanner/internal/resolution/lockfile"
@@ -19,12 +20,12 @@ import (
 
 type InPlacePatch struct {
 	lf.DependencyPatch
-	ResolvedVulns []resolution.ResolutionVuln
+	ResolvedVulns []resolution.Vulnerability
 }
 
 type InPlaceResult struct {
 	Patches   []InPlacePatch
-	Unfixable []resolution.ResolutionVuln
+	Unfixable []resolution.Vulnerability
 }
 
 type VulnCount struct {
@@ -69,7 +70,7 @@ func (r InPlaceResult) VulnCount() VulnCount {
 	for _, p := range r.Patches {
 		vk := resolve.VersionKey{PackageKey: p.Pkg, Version: p.OrigVersion}
 		for _, rv := range p.ResolvedVulns {
-			key := vulnKey{id: rv.Vulnerability.ID, vk: vk}
+			key := vulnKey{id: rv.OSV.ID, vk: vk}
 			d, ok := uniqueVulns[key]
 			if !ok {
 				d.dev = rv.DevOnly
@@ -103,7 +104,7 @@ func (r InPlaceResult) VulnCount() VulnCount {
 
 // ComputeInPlacePatches finds all possible targeting version changes that would fix vulnerabilities in a resolved graph.
 // TODO: Check for introduced vulnerabilities
-func ComputeInPlacePatches(ctx context.Context, cl client.ResolutionClient, graph *resolve.Graph, opts RemediationOptions) (InPlaceResult, error) {
+func ComputeInPlacePatches(ctx context.Context, cl client.ResolutionClient, graph *resolve.Graph, opts Options) (InPlaceResult, error) {
 	res, err := inPlaceVulnsNodes(cl, graph)
 	if err != nil {
 		return InPlaceResult{}, err
@@ -135,17 +136,15 @@ func ComputeInPlacePatches(ctx context.Context, cl client.ResolutionClient, grap
 				continue
 			}
 			// Consider vulns affecting packages we don't want to change unfixable
-			if slices.Contains(opts.AvoidPkgs, vk.Name) {
+			if opts.UpgradeConfig.Get(vk.Name) == upgrade.None {
 				result.Unfixable = append(result.Unfixable, vuln)
 				continue
 			}
 			newVK, err := findFixedVersion(ctx, cl, vk.PackageKey, func(newVK resolve.VersionKey) bool {
-				// Check if this is a disallowed major version bump
-				if !opts.AllowMajor {
-					_, diff, err := vk.Semver().Difference(vk.Version, newVK.Version)
-					if err != nil || diff == semver.DiffMajor {
-						return false
-					}
+				// Check if this is a disallowed version bump
+				_, diff, err := vk.Semver().Difference(vk.Version, newVK.Version)
+				if err != nil || !opts.UpgradeConfig.Get(vk.Name).Allows(diff) {
+					return false
 				}
 				// Check if dependent packages are still satisfied by new version
 				ok, err := vkDependentConstraint[vk].Match(newVK.Version)
@@ -162,7 +161,7 @@ func ComputeInPlacePatches(ctx context.Context, cl client.ResolutionClient, grap
 				}
 
 				// Check if this version is vulnerable
-				return !vulns.IsAffected(vuln.Vulnerability, util.VKToPackageDetails(newVK))
+				return !vulns.IsAffected(vuln.OSV, util.VKToPackageDetails(newVK))
 			})
 
 			if errors.Is(err, errInPlaceImpossible) {
@@ -183,7 +182,7 @@ func ComputeInPlacePatches(ctx context.Context, cl client.ResolutionClient, grap
 			} else {
 				result.Patches = append(result.Patches, InPlacePatch{
 					DependencyPatch: dp,
-					ResolvedVulns:   []resolution.ResolutionVuln{vuln},
+					ResolvedVulns:   []resolution.Vulnerability{vuln},
 				})
 			}
 		}
@@ -232,7 +231,7 @@ func findFixedVersion(ctx context.Context, cl client.DependencyClient, pk resolv
 
 type inPlaceVulnsNodesResult struct {
 	nodeDependencies map[resolve.NodeID][]resolve.VersionKey
-	vkVulns          map[resolve.VersionKey][]resolution.ResolutionVuln
+	vkVulns          map[resolve.VersionKey][]resolution.Vulnerability
 	vkNodes          map[resolve.VersionKey][]resolve.NodeID
 }
 
@@ -244,7 +243,7 @@ func inPlaceVulnsNodes(cl client.VulnerabilityClient, graph *resolve.Graph) (inP
 
 	result := inPlaceVulnsNodesResult{
 		nodeDependencies: make(map[resolve.NodeID][]resolve.VersionKey),
-		vkVulns:          make(map[resolve.VersionKey][]resolution.ResolutionVuln),
+		vkVulns:          make(map[resolve.VersionKey][]resolution.Vulnerability),
 		vkNodes:          make(map[resolve.VersionKey][]resolve.NodeID),
 	}
 
@@ -255,7 +254,7 @@ func inPlaceVulnsNodes(cl client.VulnerabilityClient, graph *resolve.Graph) (inP
 		}
 	}
 
-	// Construct ResolutionVulns for all vulnerable packages
+	// Construct resolution.Vulnerability for all vulnerable packages
 	// combining nodes with the same package & versions number
 	var nodeIDs []resolve.NodeID
 	for nID, vulns := range nodeVulns {
@@ -272,12 +271,12 @@ func inPlaceVulnsNodes(cl client.VulnerabilityClient, graph *resolve.Graph) (inP
 		vk := graph.Nodes[nID].Version
 		result.vkNodes[vk] = append(result.vkNodes[vk], nID)
 		for _, vuln := range nodeVulns[nID] {
-			resVuln := resolution.ResolutionVuln{
-				Vulnerability: vuln,
+			resVuln := resolution.Vulnerability{
+				OSV:           vuln,
 				ProblemChains: slices.Clone(chains),
 				DevOnly:       !slices.ContainsFunc(chains, func(dc resolution.DependencyChain) bool { return !resolution.ChainIsDev(dc, nil) }),
 			}
-			idx := slices.IndexFunc(result.vkVulns[vk], func(rv resolution.ResolutionVuln) bool { return rv.Vulnerability.ID == resVuln.Vulnerability.ID })
+			idx := slices.IndexFunc(result.vkVulns[vk], func(rv resolution.Vulnerability) bool { return rv.OSV.ID == resVuln.OSV.ID })
 			if idx >= 0 {
 				result.vkVulns[vk][idx].ProblemChains = append(result.vkVulns[vk][idx].ProblemChains, resVuln.ProblemChains...)
 				result.vkVulns[vk][idx].DevOnly = result.vkVulns[vk][idx].DevOnly && resVuln.DevOnly

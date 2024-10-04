@@ -5,22 +5,23 @@ import (
 	"testing"
 
 	"github.com/google/osv-scanner/internal/remediation"
+	"github.com/google/osv-scanner/internal/remediation/upgrade"
 )
 
 func TestComputeRelaxPatches(t *testing.T) {
 	t.Parallel()
 
-	basicOpts := remediation.RemediationOptions{
-		DevDeps:    true,
-		MaxDepth:   -1,
-		AllowMajor: true,
+	basicOpts := remediation.Options{
+		DevDeps:       true,
+		MaxDepth:      -1,
+		UpgradeConfig: upgrade.NewConfig(),
 	}
 
 	tests := []struct {
 		name         string
 		universePath string
 		manifestPath string
-		opts         remediation.RemediationOptions
+		opts         remediation.Options
 	}{
 		{
 			name:         "npm-santatracker",
@@ -31,10 +32,9 @@ func TestComputeRelaxPatches(t *testing.T) {
 	}
 
 	for _, tt := range tests {
-		tt := tt
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
-			res, cl := parseRemediationFixture(t, tt.universePath, tt.manifestPath)
+			res, cl := parseRemediationFixture(t, tt.universePath, tt.manifestPath, tt.opts.ResolveOpts)
 			res.FilterVulns(tt.opts.MatchVuln)
 			p, err := remediation.ComputeRelaxPatches(context.Background(), cl, res, tt.opts)
 			if err != nil {
