@@ -11,6 +11,7 @@ import (
 	"os/exec"
 	"path"
 	"path/filepath"
+	"slices"
 	"sort"
 	"strings"
 
@@ -493,11 +494,11 @@ func scanSBOMFile(r reporter.Reporter, path string, fromFSScan bool) ([]scannedP
 		}
 		defer file.Close()
 
-		ignoredCount := 0
+		var ignoredPURLs []string
 		err = provider.GetPackages(file, func(id sbom.Identifier) error {
 			_, err := models.PURLToPackage(id.PURL)
 			if err != nil {
-				ignoredCount++
+				ignoredPURLs = append(ignoredPURLs, id.PURL)
 				//nolint:nilerr
 				return nil
 			}
@@ -531,13 +532,24 @@ func scanSBOMFile(r reporter.Reporter, path string, fromFSScan bool) ([]scannedP
 				len(packages),
 				output.Form(len(packages), "package", "packages"),
 			)
-			if ignoredCount > 0 {
-				r.Infof(
+			if len(ignoredPURLs) > 0 {
+				r.Warnf(
 					"Ignored %d %s with invalid PURLs\n",
-					ignoredCount,
-					output.Form(ignoredCount, "package", "packages"),
+					len(ignoredPURLs),
+					output.Form(len(ignoredPURLs), "package", "packages"),
 				)
+				slices.Sort(ignoredPURLs)
+				for _, purl := range slices.Compact(ignoredPURLs) {
+					r.Warnf(
+						"Ignored invalid PURL \"%s\"\n",
+						purl,
+					)
+				}
 			}
+
+			slices.SortFunc(packages, func(i, j scannedPackage) int {
+				return strings.Compare(i.PURL, j.PURL)
+			})
 
 			return packages, nil
 		}
@@ -642,14 +654,35 @@ func scanDebianDocker(r reporter.Reporter, dockerImageName string) ([]scannedPac
 		r.Errorf("Failed to get stdout: %s\n", err)
 		return nil, err
 	}
+	stderr, err := cmd.StderrPipe()
+
+	if err != nil {
+		r.Errorf("Failed to get stderr: %s\n", err)
+		return nil, err
+	}
+
 	err = cmd.Start()
 	if err != nil {
 		r.Errorf("Failed to start docker image: %s\n", err)
 		return nil, err
 	}
-	// TODO: Do error checking here
-	//nolint:errcheck
-	defer cmd.Wait()
+	defer func() {
+		var stderrlines []string
+
+		scanner := bufio.NewScanner(stderr)
+		for scanner.Scan() {
+			stderrlines = append(stderrlines, scanner.Text())
+		}
+
+		err := cmd.Wait()
+		if err != nil {
+			r.Errorf("Docker command exited with code %d\n", cmd.ProcessState.ExitCode())
+			for _, line := range stderrlines {
+				r.Errorf("> %s\n", line)
+			}
+		}
+	}()
+
 	scanner := bufio.NewScanner(stdout)
 	var packages []scannedPackage
 	for scanner.Scan() {
@@ -1139,7 +1172,7 @@ func overrideGoVersion(r reporter.Reporter, packages []scannedPackage, configMan
 				packages[i].Version = configToUse.GoVersionOverride
 			}
 
-			break
+			continue
 		}
 	}
 }

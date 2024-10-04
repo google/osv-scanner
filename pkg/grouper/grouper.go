@@ -6,6 +6,7 @@ import (
 
 	"golang.org/x/exp/maps"
 
+	"github.com/google/osv-scanner/internal/identifiers"
 	"github.com/google/osv-scanner/pkg/models"
 )
 
@@ -56,7 +57,7 @@ func Group(vulns []IDAliases) []models.GroupInfo {
 	result := make([]models.GroupInfo, 0, len(sortedKeys))
 	for _, key := range sortedKeys {
 		// Sort the strings so they are always in the same order
-		sort.Strings(extractedGroups[key])
+		slices.SortFunc(extractedGroups[key], identifiers.IDSortFunc)
 
 		// Add IDs to aliases
 		extractedAliases[key] = append(extractedAliases[key], extractedGroups[key]...)

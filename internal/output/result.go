@@ -7,6 +7,7 @@ import (
 	"slices"
 	"strings"
 
+	"github.com/google/osv-scanner/internal/identifiers"
 	"github.com/google/osv-scanner/pkg/models"
 	"golang.org/x/exp/maps"
 )
@@ -159,7 +160,7 @@ func mapIDsToGroupedSARIFFinding(vulns *models.VulnerabilityResults) map[string]
 	}
 
 	for _, gs := range results {
-		slices.SortFunc(gs.AliasedIDList, idSortFunc)
+		slices.SortFunc(gs.AliasedIDList, identifiers.IDSortFunc)
 		gs.AliasedIDList = slices.Compact(gs.AliasedIDList)
 		gs.DisplayID = gs.AliasedIDList[0]
 	}

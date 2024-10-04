@@ -166,6 +166,12 @@ func TestRun(t *testing.T) {
 			args: []string{"", "--config=./fixtures/osv-scanner-empty-config.toml", "--sbom", "./fixtures/sbom-insecure/alpine.cdx.xml"},
 			exit: 1,
 		},
+		// one specific supported sbom with vulns and invalid PURLs
+		{
+			name: "one specific supported sbom with invalid PURLs",
+			args: []string{"", "--config=./fixtures/osv-scanner-empty-config.toml", "--sbom", "./fixtures/sbom-insecure/bad-purls.cdx.xml"},
+			exit: 0,
+		},
 		// one specific unsupported lockfile
 		{
 			name: "",
@@ -312,10 +318,16 @@ func TestRun(t *testing.T) {
 			args: []string{"", "--config=./fixtures/go-project/go-version-config.toml", "./fixtures/go-project"},
 			exit: 0,
 		},
+		// Go project with an overridden go version, recursive
+		{
+			name: "Go project with an overridden go version, recursive",
+			args: []string{"", "--config=./fixtures/go-project/go-version-config.toml", "-r", "./fixtures/go-project"},
+			exit: 0,
+		},
 		// broad config file that overrides a whole ecosystem
 		{
 			name: "config file can be broad",
-			args: []string{"", "--config=./fixtures/osv-scanner-composite-config.toml", "--experimental-licenses", "MIT", "./fixtures/locks-many", "./fixtures/locks-insecure", "./fixtures/maven-transitive"},
+			args: []string{"", "--config=./fixtures/osv-scanner-composite-config.toml", "--experimental-licenses", "MIT", "-L", "osv-scanner:./fixtures/locks-insecure/osv-scanner-flutter-deps.json", "./fixtures/locks-many", "./fixtures/locks-insecure", "./fixtures/maven-transitive"},
 			exit: 1,
 		},
 		// ignored vulnerabilities and packages without a reason should be called out
@@ -340,6 +352,12 @@ func TestRun(t *testing.T) {
 			name: "config files cannot have unknown keys",
 			args: []string{"", "--config=./fixtures/osv-scanner-unknown-config.toml", "./fixtures/locks-many"},
 			exit: 127,
+		},
+		// a bunch of requirements.txt files with different names
+		{
+			name: "requirements.txt can have all kinds of names",
+			args: []string{"", "--config=./fixtures/osv-scanner-empty-config.toml", "./fixtures/locks-requirements"},
+			exit: 1,
 		},
 	}
 	for _, tt := range tests {
@@ -626,6 +644,35 @@ func TestRun_LocalDatabases(t *testing.T) {
 				tt.args = []string{"", "--experimental-local-db-path", testDir}
 				tt.args = append(tt.args, old[1:]...)
 			}
+
+			// run each test twice since they should provide the same output,
+			// and the second run should be fast as the db is already available
+			testCli(t, tt)
+			testCli(t, tt)
+		})
+	}
+}
+
+func TestRun_LocalDatabases_AlwaysOffline(t *testing.T) {
+	t.Parallel()
+
+	tests := []cliTestCase{
+		// a bunch of different lockfiles and ecosystem
+		{
+			name: "",
+			args: []string{"", "--config=./fixtures/osv-scanner-empty-config.toml", "--experimental-offline", "./fixtures/locks-requirements", "./fixtures/locks-many"},
+			exit: 127,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			t.Parallel()
+
+			testDir := testutility.CreateTestDir(t)
+			old := tt.args
+			tt.args = []string{"", "--experimental-local-db-path", testDir}
+			tt.args = append(tt.args, old[1:]...)
 
 			// run each test twice since they should provide the same output,
 			// and the second run should be fast as the db is already available

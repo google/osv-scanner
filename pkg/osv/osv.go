@@ -28,7 +28,7 @@ const (
 	// maxQueriesPerRequest splits up querybatch into multiple requests if
 	// number of queries exceed this number
 	maxQueriesPerRequest  = 1000
-	maxConcurrentRequests = 25
+	maxConcurrentRequests = 1000
 	maxRetryAttempts      = 4
 	// jitterMultiplier is multiplied to the retry delay multiplied by rand(0, 1.0)
 	jitterMultiplier = 2
