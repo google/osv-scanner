@@ -2313,7 +2313,7 @@ No issues found
 ---
 
 [TestRun_LockfileWithExplicitParseAs/parse-as_takes_priority,_even_if_it's_wrong - 2]
-(extracting as package-lock.json) could not extract from <rootdir>/fixtures/locks-many/yarn.lock: invalid character '#' looking for beginning of value
+(extracting as package-lock.json) NpmLockExtractor.Extract(): could not extract from <rootdir>/fixtures/locks-many/yarn.lock: invalid character '#' looking for beginning of value
 
 ---
 
