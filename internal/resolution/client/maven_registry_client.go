@@ -106,11 +106,6 @@ func (c *MavenRegistryClient) Requirements(ctx context.Context, vk resolve.Versi
 	if err := proj.MergeProfiles("", maven.ActivationOS{}); err != nil {
 		return nil, err
 	}
-	for _, repo := range proj.Repositories {
-		if err := c.api.AddRegistry(string(repo.URL)); err != nil {
-			return nil, err
-		}
-	}
 	// We need to merge parents for potential dependencies in parents.
 	if err := mavenutil.MergeParents(ctx, c.api, &proj, proj.Parent, 1, "", false); err != nil {
 		return nil, err
