@@ -1745,13 +1745,13 @@ Warning: `fix` exists as both a subcommand of OSV-Scanner and as a file on the f
 
 [TestRun_Fix/fix_non-interactive_override_pom.xml - 1]
 Resolving <tempdir>/pom.xml...
-Found 11 vulnerabilities matching the filter
-Can fix 11/11 matching vulnerabilities by overriding 4 dependencies
+Found 12 vulnerabilities matching the filter
+Can fix 12/12 matching vulnerabilities by overriding 4 dependencies
 OVERRIDE-PACKAGE: org.apache.httpcomponents:httpclient,4.5.13
 OVERRIDE-PACKAGE: org.codehaus.plexus:plexus-utils,3.0.24
+OVERRIDE-PACKAGE: commons-io:commons-io,2.14.0
 OVERRIDE-PACKAGE: org.jsoup:jsoup,1.15.3
-OVERRIDE-PACKAGE: commons-io:commons-io,2.7
-FIXED-VULN-IDS: GHSA-2x83-r56g-cv47,GHSA-7r82-7xv7-xcpj,GHSA-8vhq-qq4p-grq3,GHSA-cfh5-3ghh-wfjx,GHSA-fmj5-wv96-r2ch,GHSA-g6ph-x5wf-g337,GHSA-gp7f-rwcx-9369,GHSA-gw85-4gmf-m7rh,GHSA-gwrp-pvrq-jmwv,GHSA-jcwr-x25h-x5fh,GHSA-m72m-mhq2-9p6c
+FIXED-VULN-IDS: GHSA-2x83-r56g-cv47,GHSA-78wr-2p64-hpwj,GHSA-7r82-7xv7-xcpj,GHSA-8vhq-qq4p-grq3,GHSA-cfh5-3ghh-wfjx,GHSA-fmj5-wv96-r2ch,GHSA-g6ph-x5wf-g337,GHSA-gp7f-rwcx-9369,GHSA-gw85-4gmf-m7rh,GHSA-gwrp-pvrq-jmwv,GHSA-jcwr-x25h-x5fh,GHSA-m72m-mhq2-9p6c
 REMAINING-VULNS: 0
 UNFIXABLE-VULNS: 0
 Rewriting <tempdir>/pom.xml...
@@ -1780,7 +1780,7 @@ Warning: `fix` exists as both a subcommand of OSV-Scanner and as a file on the f
       <dependency>
         <groupId>commons-io</groupId>
         <artifactId>commons-io</artifactId>
-        <version>2.7</version>
+        <version>2.14.0</version>
       </dependency>
       <dependency>
         <groupId>org.jsoup</groupId>
