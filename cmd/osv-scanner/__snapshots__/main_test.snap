@@ -8,28 +8,7 @@ No package sources found, --help for usage information.
 
 ---
 
-[TestRun/#01 - 1]
-osv-scanner version: 1.9.0
-commit: n/a
-built at: n/a
-
----
-
-[TestRun/#01 - 2]
-
----
-
-[TestRun/#02 - 1]
-Scanning dir ./fixtures/locks-many/not-a-lockfile.toml
-
----
-
-[TestRun/#02 - 2]
-No package sources found, --help for usage information.
-
----
-
-[TestRun/#03 - 1]
+[TestRun/.gitignored_files - 1]
 Scanning dir ./fixtures/locks-gitignore
 Scanned <rootdir>/fixtures/locks-gitignore/Gemfile.lock file and found 1 package
 Scanned <rootdir>/fixtures/locks-gitignore/subdir/yarn.lock file and found 1 package
@@ -37,47 +16,7 @@ No issues found
 
 ---
 
-[TestRun/#03 - 2]
-
----
-
-[TestRun/#04 - 1]
-Scanning dir ./fixtures/locks-gitignore
-Scanned <rootdir>/fixtures/locks-gitignore/Gemfile.lock file and found 1 package
-Scanned <rootdir>/fixtures/locks-gitignore/composer.lock file and found 1 package
-Scanned <rootdir>/fixtures/locks-gitignore/ignored/Gemfile.lock file and found 1 package
-Scanned <rootdir>/fixtures/locks-gitignore/ignored/yarn.lock file and found 1 package
-Scanned <rootdir>/fixtures/locks-gitignore/subdir/Gemfile.lock file and found 1 package
-Scanned <rootdir>/fixtures/locks-gitignore/subdir/composer.lock file and found 1 package
-Scanned <rootdir>/fixtures/locks-gitignore/subdir/yarn.lock file and found 1 package
-Scanned <rootdir>/fixtures/locks-gitignore/yarn.lock file and found 1 package
-No issues found
-
----
-
-[TestRun/#04 - 2]
-
----
-
-[TestRun/#05 - 1]
-Scanning dir ./fixtures/locks-many/package-lock.json
-Scanned <rootdir>/fixtures/locks-many/package-lock.json file and found 1 package
-| OSV URL | CVSS | Ecosystem | Package | Version | Source |
-| --- | --- | --- | --- | --- | --- |
-| https://osv.dev/GHSA-whgm-jr23-g3j9 | 7.5 | npm | ansi-html | 0.0.1 | fixtures/locks-many/package-lock.json |
-
----
-
-[TestRun/#05 - 2]
-
----
-
-[TestRun/#06 - 1]
-
----
-
-[TestRun/#06 - 2]
-unsupported output format "unknown" - must be one of: table, vertical, json, markdown, sarif, gh-annotations, cyclonedx-1-4, cyclonedx-1-5
+[TestRun/.gitignored_files - 2]
 
 ---
 
@@ -652,6 +591,24 @@ No issues found
 
 ---
 
+[TestRun/ignoring_.gitignore - 1]
+Scanning dir ./fixtures/locks-gitignore
+Scanned <rootdir>/fixtures/locks-gitignore/Gemfile.lock file and found 1 package
+Scanned <rootdir>/fixtures/locks-gitignore/composer.lock file and found 1 package
+Scanned <rootdir>/fixtures/locks-gitignore/ignored/Gemfile.lock file and found 1 package
+Scanned <rootdir>/fixtures/locks-gitignore/ignored/yarn.lock file and found 1 package
+Scanned <rootdir>/fixtures/locks-gitignore/subdir/Gemfile.lock file and found 1 package
+Scanned <rootdir>/fixtures/locks-gitignore/subdir/composer.lock file and found 1 package
+Scanned <rootdir>/fixtures/locks-gitignore/subdir/yarn.lock file and found 1 package
+Scanned <rootdir>/fixtures/locks-gitignore/yarn.lock file and found 1 package
+No issues found
+
+---
+
+[TestRun/ignoring_.gitignore - 2]
+
+---
+
 [TestRun/invalid_--verbosity_value - 1]
 
 ---
@@ -769,6 +726,16 @@ Scanned <rootdir>/fixtures/sbom-insecure/alpine.cdx.xml as CycloneDX SBOM and fo
 
 ---
 
+[TestRun/one_specific_unsupported_lockfile - 1]
+Scanning dir ./fixtures/locks-many/not-a-lockfile.toml
+
+---
+
+[TestRun/one_specific_unsupported_lockfile - 2]
+No package sources found, --help for usage information.
+
+---
+
 [TestRun/only_the_files_in_the_given_directories_are_checked_by_default_(no_recursion) - 1]
 Scanning dir ./fixtures/locks-one-with-nested
 Scanned <rootdir>/fixtures/locks-one-with-nested/yarn.lock file and found 1 package
@@ -777,6 +744,28 @@ No issues found
 ---
 
 [TestRun/only_the_files_in_the_given_directories_are_checked_by_default_(no_recursion) - 2]
+
+---
+
+[TestRun/output_format:_markdown_table - 1]
+Scanning dir ./fixtures/locks-many/package-lock.json
+Scanned <rootdir>/fixtures/locks-many/package-lock.json file and found 1 package
+| OSV URL | CVSS | Ecosystem | Package | Version | Source |
+| --- | --- | --- | --- | --- | --- |
+| https://osv.dev/GHSA-whgm-jr23-g3j9 | 7.5 | npm | ansi-html | 0.0.1 | fixtures/locks-many/package-lock.json |
+
+---
+
+[TestRun/output_format:_markdown_table - 2]
+
+---
+
+[TestRun/output_format:_unsupported - 1]
+
+---
+
+[TestRun/output_format:_unsupported - 2]
+unsupported output format "unknown" - must be one of: table, vertical, json, markdown, sarif, gh-annotations, cyclonedx-1-4, cyclonedx-1-5
 
 ---
 
@@ -834,6 +823,17 @@ No issues found
 ---
 
 [TestRun/verbosity_level_=_info - 2]
+
+---
+
+[TestRun/version - 1]
+osv-scanner version: 1.9.0
+commit: n/a
+built at: n/a
+
+---
+
+[TestRun/version - 2]
 
 ---
 
@@ -1439,7 +1439,195 @@ Scanned <rootdir>/fixtures/locks-many/package-lock.json file and found 1 package
 
 ---
 
-[TestRun_LocalDatabases/#00 - 1]
+[TestRun_LocalDatabases/.gitignored_files - 1]
+Scanning dir ./fixtures/locks-gitignore
+Scanned <rootdir>/fixtures/locks-gitignore/Gemfile.lock file and found 1 package
+Scanned <rootdir>/fixtures/locks-gitignore/subdir/yarn.lock file and found 1 package
+Loaded RubyGems local db from <tempdir>/osv-scanner/RubyGems/all.zip
+Loaded npm local db from <tempdir>/osv-scanner/npm/all.zip
+No issues found
+
+---
+
+[TestRun_LocalDatabases/.gitignored_files - 2]
+
+---
+
+[TestRun_LocalDatabases/.gitignored_files - 3]
+Scanning dir ./fixtures/locks-gitignore
+Scanned <rootdir>/fixtures/locks-gitignore/Gemfile.lock file and found 1 package
+Scanned <rootdir>/fixtures/locks-gitignore/subdir/yarn.lock file and found 1 package
+Loaded RubyGems local db from <tempdir>/osv-scanner/RubyGems/all.zip
+Loaded npm local db from <tempdir>/osv-scanner/npm/all.zip
+No issues found
+
+---
+
+[TestRun_LocalDatabases/.gitignored_files - 4]
+
+---
+
+[TestRun_LocalDatabases/all_supported_lockfiles_in_the_directory_should_be_checked - 1]
+Scanning dir ./fixtures/locks-many
+Scanned <rootdir>/fixtures/locks-many/Gemfile.lock file and found 1 package
+Scanned <rootdir>/fixtures/locks-many/alpine.cdx.xml as CycloneDX SBOM and found 14 packages
+Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
+Scanned <rootdir>/fixtures/locks-many/package-lock.json file and found 1 package
+Scanned <rootdir>/fixtures/locks-many/yarn.lock file and found 1 package
+Loaded filter from: <rootdir>/fixtures/locks-many/osv-scanner.toml
+Loaded RubyGems local db from <tempdir>/osv-scanner/RubyGems/all.zip
+Loaded Alpine local db from <tempdir>/osv-scanner/Alpine/all.zip
+Loaded Packagist local db from <tempdir>/osv-scanner/Packagist/all.zip
+Loaded npm local db from <tempdir>/osv-scanner/npm/all.zip
+GHSA-whgm-jr23-g3j9 and 1 alias have been filtered out because: Test manifest file
+Filtered 1 vulnerability from output
+No issues found
+
+---
+
+[TestRun_LocalDatabases/all_supported_lockfiles_in_the_directory_should_be_checked - 2]
+
+---
+
+[TestRun_LocalDatabases/all_supported_lockfiles_in_the_directory_should_be_checked - 3]
+Scanning dir ./fixtures/locks-many
+Scanned <rootdir>/fixtures/locks-many/Gemfile.lock file and found 1 package
+Scanned <rootdir>/fixtures/locks-many/alpine.cdx.xml as CycloneDX SBOM and found 14 packages
+Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
+Scanned <rootdir>/fixtures/locks-many/package-lock.json file and found 1 package
+Scanned <rootdir>/fixtures/locks-many/yarn.lock file and found 1 package
+Loaded filter from: <rootdir>/fixtures/locks-many/osv-scanner.toml
+Loaded RubyGems local db from <tempdir>/osv-scanner/RubyGems/all.zip
+Loaded Alpine local db from <tempdir>/osv-scanner/Alpine/all.zip
+Loaded Packagist local db from <tempdir>/osv-scanner/Packagist/all.zip
+Loaded npm local db from <tempdir>/osv-scanner/npm/all.zip
+GHSA-whgm-jr23-g3j9 and 1 alias have been filtered out because: Test manifest file
+Filtered 1 vulnerability from output
+No issues found
+
+---
+
+[TestRun_LocalDatabases/all_supported_lockfiles_in_the_directory_should_be_checked - 4]
+
+---
+
+[TestRun_LocalDatabases/all_supported_lockfiles_in_the_directory_should_be_checked#01 - 1]
+Scanning dir ./fixtures/locks-many-with-invalid
+Scanned <rootdir>/fixtures/locks-many-with-invalid/Gemfile.lock file and found 1 package
+Scanned <rootdir>/fixtures/locks-many-with-invalid/yarn.lock file and found 1 package
+Loaded RubyGems local db from <tempdir>/osv-scanner/RubyGems/all.zip
+Loaded npm local db from <tempdir>/osv-scanner/npm/all.zip
+
+---
+
+[TestRun_LocalDatabases/all_supported_lockfiles_in_the_directory_should_be_checked#01 - 2]
+Attempted to scan lockfile but failed: <rootdir>/fixtures/locks-many-with-invalid/composer.lock
+
+---
+
+[TestRun_LocalDatabases/all_supported_lockfiles_in_the_directory_should_be_checked#01 - 3]
+Scanning dir ./fixtures/locks-many-with-invalid
+Scanned <rootdir>/fixtures/locks-many-with-invalid/Gemfile.lock file and found 1 package
+Scanned <rootdir>/fixtures/locks-many-with-invalid/yarn.lock file and found 1 package
+Loaded RubyGems local db from <tempdir>/osv-scanner/RubyGems/all.zip
+Loaded npm local db from <tempdir>/osv-scanner/npm/all.zip
+
+---
+
+[TestRun_LocalDatabases/all_supported_lockfiles_in_the_directory_should_be_checked#01 - 4]
+Attempted to scan lockfile but failed: <rootdir>/fixtures/locks-many-with-invalid/composer.lock
+
+---
+
+[TestRun_LocalDatabases/database_should_be_downloaded_only_when_offline_is_set - 1]
+
+---
+
+[TestRun_LocalDatabases/database_should_be_downloaded_only_when_offline_is_set - 2]
+databases can only be downloaded when running in offline mode
+
+---
+
+[TestRun_LocalDatabases/database_should_be_downloaded_only_when_offline_is_set - 3]
+
+---
+
+[TestRun_LocalDatabases/database_should_be_downloaded_only_when_offline_is_set - 4]
+databases can only be downloaded when running in offline mode
+
+---
+
+[TestRun_LocalDatabases/ignoring_.gitignore - 1]
+Scanning dir ./fixtures/locks-gitignore
+Scanned <rootdir>/fixtures/locks-gitignore/Gemfile.lock file and found 1 package
+Scanned <rootdir>/fixtures/locks-gitignore/composer.lock file and found 1 package
+Scanned <rootdir>/fixtures/locks-gitignore/ignored/Gemfile.lock file and found 1 package
+Scanned <rootdir>/fixtures/locks-gitignore/ignored/yarn.lock file and found 1 package
+Scanned <rootdir>/fixtures/locks-gitignore/subdir/Gemfile.lock file and found 1 package
+Scanned <rootdir>/fixtures/locks-gitignore/subdir/composer.lock file and found 1 package
+Scanned <rootdir>/fixtures/locks-gitignore/subdir/yarn.lock file and found 1 package
+Scanned <rootdir>/fixtures/locks-gitignore/yarn.lock file and found 1 package
+Loaded RubyGems local db from <tempdir>/osv-scanner/RubyGems/all.zip
+Loaded Packagist local db from <tempdir>/osv-scanner/Packagist/all.zip
+Loaded npm local db from <tempdir>/osv-scanner/npm/all.zip
+No issues found
+
+---
+
+[TestRun_LocalDatabases/ignoring_.gitignore - 2]
+
+---
+
+[TestRun_LocalDatabases/ignoring_.gitignore - 3]
+Scanning dir ./fixtures/locks-gitignore
+Scanned <rootdir>/fixtures/locks-gitignore/Gemfile.lock file and found 1 package
+Scanned <rootdir>/fixtures/locks-gitignore/composer.lock file and found 1 package
+Scanned <rootdir>/fixtures/locks-gitignore/ignored/Gemfile.lock file and found 1 package
+Scanned <rootdir>/fixtures/locks-gitignore/ignored/yarn.lock file and found 1 package
+Scanned <rootdir>/fixtures/locks-gitignore/subdir/Gemfile.lock file and found 1 package
+Scanned <rootdir>/fixtures/locks-gitignore/subdir/composer.lock file and found 1 package
+Scanned <rootdir>/fixtures/locks-gitignore/subdir/yarn.lock file and found 1 package
+Scanned <rootdir>/fixtures/locks-gitignore/yarn.lock file and found 1 package
+Loaded RubyGems local db from <tempdir>/osv-scanner/RubyGems/all.zip
+Loaded Packagist local db from <tempdir>/osv-scanner/Packagist/all.zip
+Loaded npm local db from <tempdir>/osv-scanner/npm/all.zip
+No issues found
+
+---
+
+[TestRun_LocalDatabases/ignoring_.gitignore - 4]
+
+---
+
+[TestRun_LocalDatabases/nested_directories_are_checked_when_`--recursive`_is_passed - 1]
+Scanning dir ./fixtures/locks-one-with-nested
+Scanned <rootdir>/fixtures/locks-one-with-nested/nested/composer.lock file and found 1 package
+Scanned <rootdir>/fixtures/locks-one-with-nested/yarn.lock file and found 1 package
+Loaded Packagist local db from <tempdir>/osv-scanner/Packagist/all.zip
+Loaded npm local db from <tempdir>/osv-scanner/npm/all.zip
+No issues found
+
+---
+
+[TestRun_LocalDatabases/nested_directories_are_checked_when_`--recursive`_is_passed - 2]
+
+---
+
+[TestRun_LocalDatabases/nested_directories_are_checked_when_`--recursive`_is_passed - 3]
+Scanning dir ./fixtures/locks-one-with-nested
+Scanned <rootdir>/fixtures/locks-one-with-nested/nested/composer.lock file and found 1 package
+Scanned <rootdir>/fixtures/locks-one-with-nested/yarn.lock file and found 1 package
+Loaded Packagist local db from <tempdir>/osv-scanner/Packagist/all.zip
+Loaded npm local db from <tempdir>/osv-scanner/npm/all.zip
+No issues found
+
+---
+
+[TestRun_LocalDatabases/nested_directories_are_checked_when_`--recursive`_is_passed - 4]
+
+---
+
+[TestRun_LocalDatabases/one_specific_supported_lockfile - 1]
 Scanning dir ./fixtures/locks-many/composer.lock
 Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
 Loaded filter from: <rootdir>/fixtures/locks-many/osv-scanner.toml
@@ -1448,11 +1636,11 @@ No issues found
 
 ---
 
-[TestRun_LocalDatabases/#00 - 2]
+[TestRun_LocalDatabases/one_specific_supported_lockfile - 2]
 
 ---
 
-[TestRun_LocalDatabases/#00 - 3]
+[TestRun_LocalDatabases/one_specific_supported_lockfile - 3]
 Scanning dir ./fixtures/locks-many/composer.lock
 Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
 Loaded filter from: <rootdir>/fixtures/locks-many/osv-scanner.toml
@@ -1461,11 +1649,11 @@ No issues found
 
 ---
 
-[TestRun_LocalDatabases/#00 - 4]
+[TestRun_LocalDatabases/one_specific_supported_lockfile - 4]
 
 ---
 
-[TestRun_LocalDatabases/#01 - 1]
+[TestRun_LocalDatabases/one_specific_supported_sbom_with_vulns - 1]
 Scanning dir ./fixtures/sbom-insecure/postgres-stretch.cdx.xml
 Scanned <rootdir>/fixtures/sbom-insecure/postgres-stretch.cdx.xml as CycloneDX SBOM and found 136 packages
 Loaded Debian local db from <tempdir>/osv-scanner/Debian/all.zip
@@ -1490,6 +1678,7 @@ Filtered 16 vulnerabilities from output
 | https://osv.dev/DSA-4535-1          | 6.7  | Debian    | e2fsprogs                      | 1.43.4-2+deb9u2                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/CVE-2019-5188       | 6.7  | Debian    | e2fsprogs                      | 1.43.4-2+deb9u2                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/CVE-2022-1304       | 7.8  | Debian    | e2fsprogs                      | 1.43.4-2+deb9u2                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/DLA-3910-1          |      | Debian    | e2fsprogs                      | 1.43.4-2+deb9u2                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DSA-5122-1          | 8.8  | Debian    | gzip                           | 1.6-5+deb9u1                       | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/CVE-2017-0379       | 7.5  | Debian    | libgcrypt20                    | 1.7.6-2+deb9u4                     | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/CVE-2017-7526       | 6.8  | Debian    | libgcrypt20                    | 1.7.6-2+deb9u4                     | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
@@ -1636,11 +1825,11 @@ Filtered 16 vulnerabilities from output
 
 ---
 
-[TestRun_LocalDatabases/#01 - 2]
+[TestRun_LocalDatabases/one_specific_supported_sbom_with_vulns - 2]
 
 ---
 
-[TestRun_LocalDatabases/#01 - 3]
+[TestRun_LocalDatabases/one_specific_supported_sbom_with_vulns - 3]
 Scanning dir ./fixtures/sbom-insecure/postgres-stretch.cdx.xml
 Scanned <rootdir>/fixtures/sbom-insecure/postgres-stretch.cdx.xml as CycloneDX SBOM and found 136 packages
 Loaded Debian local db from <tempdir>/osv-scanner/Debian/all.zip
@@ -1665,6 +1854,7 @@ Filtered 16 vulnerabilities from output
 | https://osv.dev/DSA-4535-1          | 6.7  | Debian    | e2fsprogs                      | 1.43.4-2+deb9u2                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/CVE-2019-5188       | 6.7  | Debian    | e2fsprogs                      | 1.43.4-2+deb9u2                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/CVE-2022-1304       | 7.8  | Debian    | e2fsprogs                      | 1.43.4-2+deb9u2                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/DLA-3910-1          |      | Debian    | e2fsprogs                      | 1.43.4-2+deb9u2                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DSA-5122-1          | 8.8  | Debian    | gzip                           | 1.6-5+deb9u1                       | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/CVE-2017-0379       | 7.5  | Debian    | libgcrypt20                    | 1.7.6-2+deb9u4                     | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/CVE-2017-7526       | 6.8  | Debian    | libgcrypt20                    | 1.7.6-2+deb9u4                     | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
@@ -1811,225 +2001,81 @@ Filtered 16 vulnerabilities from output
 
 ---
 
-[TestRun_LocalDatabases/#01 - 4]
+[TestRun_LocalDatabases/one_specific_supported_sbom_with_vulns - 4]
 
 ---
 
-[TestRun_LocalDatabases/#02 - 1]
+[TestRun_LocalDatabases/one_specific_unsupported_lockfile - 1]
 Scanning dir ./fixtures/locks-many/not-a-lockfile.toml
 
 ---
 
-[TestRun_LocalDatabases/#02 - 2]
+[TestRun_LocalDatabases/one_specific_unsupported_lockfile - 2]
 No package sources found, --help for usage information.
 
 ---
 
-[TestRun_LocalDatabases/#02 - 3]
+[TestRun_LocalDatabases/one_specific_unsupported_lockfile - 3]
 Scanning dir ./fixtures/locks-many/not-a-lockfile.toml
 
 ---
 
-[TestRun_LocalDatabases/#02 - 4]
+[TestRun_LocalDatabases/one_specific_unsupported_lockfile - 4]
 No package sources found, --help for usage information.
 
 ---
 
-[TestRun_LocalDatabases/#03 - 1]
-Scanning dir ./fixtures/locks-many
-Scanned <rootdir>/fixtures/locks-many/Gemfile.lock file and found 1 package
-Scanned <rootdir>/fixtures/locks-many/alpine.cdx.xml as CycloneDX SBOM and found 14 packages
+[TestRun_LocalDatabases/only_the_files_in_the_given_directories_are_checked_by_default_(no_recursion) - 1]
+Scanning dir ./fixtures/locks-one-with-nested
+Scanned <rootdir>/fixtures/locks-one-with-nested/yarn.lock file and found 1 package
+Loaded npm local db from <tempdir>/osv-scanner/npm/all.zip
+No issues found
+
+---
+
+[TestRun_LocalDatabases/only_the_files_in_the_given_directories_are_checked_by_default_(no_recursion) - 2]
+
+---
+
+[TestRun_LocalDatabases/only_the_files_in_the_given_directories_are_checked_by_default_(no_recursion) - 3]
+Scanning dir ./fixtures/locks-one-with-nested
+Scanned <rootdir>/fixtures/locks-one-with-nested/yarn.lock file and found 1 package
+Loaded npm local db from <tempdir>/osv-scanner/npm/all.zip
+No issues found
+
+---
+
+[TestRun_LocalDatabases/only_the_files_in_the_given_directories_are_checked_by_default_(no_recursion) - 4]
+
+---
+
+[TestRun_LocalDatabases/output_format:_markdown_table - 1]
+Scanning dir ./fixtures/locks-many/composer.lock
 Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
-Scanned <rootdir>/fixtures/locks-many/package-lock.json file and found 1 package
-Scanned <rootdir>/fixtures/locks-many/yarn.lock file and found 1 package
 Loaded filter from: <rootdir>/fixtures/locks-many/osv-scanner.toml
-Loaded RubyGems local db from <tempdir>/osv-scanner/RubyGems/all.zip
-Loaded Alpine local db from <tempdir>/osv-scanner/Alpine/all.zip
 Loaded Packagist local db from <tempdir>/osv-scanner/Packagist/all.zip
-Loaded npm local db from <tempdir>/osv-scanner/npm/all.zip
-GHSA-whgm-jr23-g3j9 and 1 alias have been filtered out because: Test manifest file
-Filtered 1 vulnerability from output
 No issues found
 
 ---
 
-[TestRun_LocalDatabases/#03 - 2]
+[TestRun_LocalDatabases/output_format:_markdown_table - 2]
 
 ---
 
-[TestRun_LocalDatabases/#03 - 3]
-Scanning dir ./fixtures/locks-many
-Scanned <rootdir>/fixtures/locks-many/Gemfile.lock file and found 1 package
-Scanned <rootdir>/fixtures/locks-many/alpine.cdx.xml as CycloneDX SBOM and found 14 packages
+[TestRun_LocalDatabases/output_format:_markdown_table - 3]
+Scanning dir ./fixtures/locks-many/composer.lock
 Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
-Scanned <rootdir>/fixtures/locks-many/package-lock.json file and found 1 package
-Scanned <rootdir>/fixtures/locks-many/yarn.lock file and found 1 package
 Loaded filter from: <rootdir>/fixtures/locks-many/osv-scanner.toml
-Loaded RubyGems local db from <tempdir>/osv-scanner/RubyGems/all.zip
-Loaded Alpine local db from <tempdir>/osv-scanner/Alpine/all.zip
 Loaded Packagist local db from <tempdir>/osv-scanner/Packagist/all.zip
-Loaded npm local db from <tempdir>/osv-scanner/npm/all.zip
-GHSA-whgm-jr23-g3j9 and 1 alias have been filtered out because: Test manifest file
-Filtered 1 vulnerability from output
 No issues found
 
 ---
 
-[TestRun_LocalDatabases/#03 - 4]
+[TestRun_LocalDatabases/output_format:_markdown_table - 4]
 
 ---
 
-[TestRun_LocalDatabases/#04 - 1]
-Scanning dir ./fixtures/locks-many-with-invalid
-Scanned <rootdir>/fixtures/locks-many-with-invalid/Gemfile.lock file and found 1 package
-Scanned <rootdir>/fixtures/locks-many-with-invalid/yarn.lock file and found 1 package
-Loaded RubyGems local db from <tempdir>/osv-scanner/RubyGems/all.zip
-Loaded npm local db from <tempdir>/osv-scanner/npm/all.zip
-
----
-
-[TestRun_LocalDatabases/#04 - 2]
-Attempted to scan lockfile but failed: <rootdir>/fixtures/locks-many-with-invalid/composer.lock
-
----
-
-[TestRun_LocalDatabases/#04 - 3]
-Scanning dir ./fixtures/locks-many-with-invalid
-Scanned <rootdir>/fixtures/locks-many-with-invalid/Gemfile.lock file and found 1 package
-Scanned <rootdir>/fixtures/locks-many-with-invalid/yarn.lock file and found 1 package
-Loaded RubyGems local db from <tempdir>/osv-scanner/RubyGems/all.zip
-Loaded npm local db from <tempdir>/osv-scanner/npm/all.zip
-
----
-
-[TestRun_LocalDatabases/#04 - 4]
-Attempted to scan lockfile but failed: <rootdir>/fixtures/locks-many-with-invalid/composer.lock
-
----
-
-[TestRun_LocalDatabases/#05 - 1]
-Scanning dir ./fixtures/locks-one-with-nested
-Scanned <rootdir>/fixtures/locks-one-with-nested/yarn.lock file and found 1 package
-Loaded npm local db from <tempdir>/osv-scanner/npm/all.zip
-No issues found
-
----
-
-[TestRun_LocalDatabases/#05 - 2]
-
----
-
-[TestRun_LocalDatabases/#05 - 3]
-Scanning dir ./fixtures/locks-one-with-nested
-Scanned <rootdir>/fixtures/locks-one-with-nested/yarn.lock file and found 1 package
-Loaded npm local db from <tempdir>/osv-scanner/npm/all.zip
-No issues found
-
----
-
-[TestRun_LocalDatabases/#05 - 4]
-
----
-
-[TestRun_LocalDatabases/#06 - 1]
-Scanning dir ./fixtures/locks-one-with-nested
-Scanned <rootdir>/fixtures/locks-one-with-nested/nested/composer.lock file and found 1 package
-Scanned <rootdir>/fixtures/locks-one-with-nested/yarn.lock file and found 1 package
-Loaded Packagist local db from <tempdir>/osv-scanner/Packagist/all.zip
-Loaded npm local db from <tempdir>/osv-scanner/npm/all.zip
-No issues found
-
----
-
-[TestRun_LocalDatabases/#06 - 2]
-
----
-
-[TestRun_LocalDatabases/#06 - 3]
-Scanning dir ./fixtures/locks-one-with-nested
-Scanned <rootdir>/fixtures/locks-one-with-nested/nested/composer.lock file and found 1 package
-Scanned <rootdir>/fixtures/locks-one-with-nested/yarn.lock file and found 1 package
-Loaded Packagist local db from <tempdir>/osv-scanner/Packagist/all.zip
-Loaded npm local db from <tempdir>/osv-scanner/npm/all.zip
-No issues found
-
----
-
-[TestRun_LocalDatabases/#06 - 4]
-
----
-
-[TestRun_LocalDatabases/#07 - 1]
-Scanning dir ./fixtures/locks-gitignore
-Scanned <rootdir>/fixtures/locks-gitignore/Gemfile.lock file and found 1 package
-Scanned <rootdir>/fixtures/locks-gitignore/subdir/yarn.lock file and found 1 package
-Loaded RubyGems local db from <tempdir>/osv-scanner/RubyGems/all.zip
-Loaded npm local db from <tempdir>/osv-scanner/npm/all.zip
-No issues found
-
----
-
-[TestRun_LocalDatabases/#07 - 2]
-
----
-
-[TestRun_LocalDatabases/#07 - 3]
-Scanning dir ./fixtures/locks-gitignore
-Scanned <rootdir>/fixtures/locks-gitignore/Gemfile.lock file and found 1 package
-Scanned <rootdir>/fixtures/locks-gitignore/subdir/yarn.lock file and found 1 package
-Loaded RubyGems local db from <tempdir>/osv-scanner/RubyGems/all.zip
-Loaded npm local db from <tempdir>/osv-scanner/npm/all.zip
-No issues found
-
----
-
-[TestRun_LocalDatabases/#07 - 4]
-
----
-
-[TestRun_LocalDatabases/#08 - 1]
-Scanning dir ./fixtures/locks-gitignore
-Scanned <rootdir>/fixtures/locks-gitignore/Gemfile.lock file and found 1 package
-Scanned <rootdir>/fixtures/locks-gitignore/composer.lock file and found 1 package
-Scanned <rootdir>/fixtures/locks-gitignore/ignored/Gemfile.lock file and found 1 package
-Scanned <rootdir>/fixtures/locks-gitignore/ignored/yarn.lock file and found 1 package
-Scanned <rootdir>/fixtures/locks-gitignore/subdir/Gemfile.lock file and found 1 package
-Scanned <rootdir>/fixtures/locks-gitignore/subdir/composer.lock file and found 1 package
-Scanned <rootdir>/fixtures/locks-gitignore/subdir/yarn.lock file and found 1 package
-Scanned <rootdir>/fixtures/locks-gitignore/yarn.lock file and found 1 package
-Loaded RubyGems local db from <tempdir>/osv-scanner/RubyGems/all.zip
-Loaded Packagist local db from <tempdir>/osv-scanner/Packagist/all.zip
-Loaded npm local db from <tempdir>/osv-scanner/npm/all.zip
-No issues found
-
----
-
-[TestRun_LocalDatabases/#08 - 2]
-
----
-
-[TestRun_LocalDatabases/#08 - 3]
-Scanning dir ./fixtures/locks-gitignore
-Scanned <rootdir>/fixtures/locks-gitignore/Gemfile.lock file and found 1 package
-Scanned <rootdir>/fixtures/locks-gitignore/composer.lock file and found 1 package
-Scanned <rootdir>/fixtures/locks-gitignore/ignored/Gemfile.lock file and found 1 package
-Scanned <rootdir>/fixtures/locks-gitignore/ignored/yarn.lock file and found 1 package
-Scanned <rootdir>/fixtures/locks-gitignore/subdir/Gemfile.lock file and found 1 package
-Scanned <rootdir>/fixtures/locks-gitignore/subdir/composer.lock file and found 1 package
-Scanned <rootdir>/fixtures/locks-gitignore/subdir/yarn.lock file and found 1 package
-Scanned <rootdir>/fixtures/locks-gitignore/yarn.lock file and found 1 package
-Loaded RubyGems local db from <tempdir>/osv-scanner/RubyGems/all.zip
-Loaded Packagist local db from <tempdir>/osv-scanner/Packagist/all.zip
-Loaded npm local db from <tempdir>/osv-scanner/npm/all.zip
-No issues found
-
----
-
-[TestRun_LocalDatabases/#08 - 4]
-
----
-
-[TestRun_LocalDatabases/#09 - 1]
+[TestRun_LocalDatabases/output_with_json - 1]
 {
   "results": [],
   "experimental_config": {
@@ -2042,7 +2088,7 @@ No issues found
 
 ---
 
-[TestRun_LocalDatabases/#09 - 2]
+[TestRun_LocalDatabases/output_with_json - 2]
 Scanning dir ./fixtures/locks-many/composer.lock
 Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
 Loaded filter from: <rootdir>/fixtures/locks-many/osv-scanner.toml
@@ -2050,7 +2096,7 @@ Loaded Packagist local db from <tempdir>/osv-scanner/Packagist/all.zip
 
 ---
 
-[TestRun_LocalDatabases/#09 - 3]
+[TestRun_LocalDatabases/output_with_json - 3]
 {
   "results": [],
   "experimental_config": {
@@ -2063,7 +2109,7 @@ Loaded Packagist local db from <tempdir>/osv-scanner/Packagist/all.zip
 
 ---
 
-[TestRun_LocalDatabases/#09 - 4]
+[TestRun_LocalDatabases/output_with_json - 4]
 Scanning dir ./fixtures/locks-many/composer.lock
 Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
 Loaded filter from: <rootdir>/fixtures/locks-many/osv-scanner.toml
@@ -2071,7 +2117,7 @@ Loaded Packagist local db from <tempdir>/osv-scanner/Packagist/all.zip
 
 ---
 
-[TestRun_LocalDatabases/#10 - 1]
+[TestRun_LocalDatabases/output_with_json#01 - 1]
 {
   "results": [],
   "experimental_config": {
@@ -2084,7 +2130,7 @@ Loaded Packagist local db from <tempdir>/osv-scanner/Packagist/all.zip
 
 ---
 
-[TestRun_LocalDatabases/#10 - 2]
+[TestRun_LocalDatabases/output_with_json#01 - 2]
 Scanning dir ./fixtures/locks-many/composer.lock
 Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
 Loaded filter from: <rootdir>/fixtures/locks-many/osv-scanner.toml
@@ -2092,7 +2138,7 @@ Loaded Packagist local db from <tempdir>/osv-scanner/Packagist/all.zip
 
 ---
 
-[TestRun_LocalDatabases/#10 - 3]
+[TestRun_LocalDatabases/output_with_json#01 - 3]
 {
   "results": [],
   "experimental_config": {
@@ -2105,7 +2151,7 @@ Loaded Packagist local db from <tempdir>/osv-scanner/Packagist/all.zip
 
 ---
 
-[TestRun_LocalDatabases/#10 - 4]
+[TestRun_LocalDatabases/output_with_json#01 - 4]
 Scanning dir ./fixtures/locks-many/composer.lock
 Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
 Loaded filter from: <rootdir>/fixtures/locks-many/osv-scanner.toml
@@ -2113,51 +2159,7 @@ Loaded Packagist local db from <tempdir>/osv-scanner/Packagist/all.zip
 
 ---
 
-[TestRun_LocalDatabases/#11 - 1]
-Scanning dir ./fixtures/locks-many/composer.lock
-Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
-Loaded filter from: <rootdir>/fixtures/locks-many/osv-scanner.toml
-Loaded Packagist local db from <tempdir>/osv-scanner/Packagist/all.zip
-No issues found
-
----
-
-[TestRun_LocalDatabases/#11 - 2]
-
----
-
-[TestRun_LocalDatabases/#11 - 3]
-Scanning dir ./fixtures/locks-many/composer.lock
-Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
-Loaded filter from: <rootdir>/fixtures/locks-many/osv-scanner.toml
-Loaded Packagist local db from <tempdir>/osv-scanner/Packagist/all.zip
-No issues found
-
----
-
-[TestRun_LocalDatabases/#11 - 4]
-
----
-
-[TestRun_LocalDatabases/#12 - 1]
-
----
-
-[TestRun_LocalDatabases/#12 - 2]
-databases can only be downloaded when running in offline mode
-
----
-
-[TestRun_LocalDatabases/#12 - 3]
-
----
-
-[TestRun_LocalDatabases/#12 - 4]
-databases can only be downloaded when running in offline mode
-
----
-
-[TestRun_LocalDatabases_AlwaysOffline/#00 - 1]
+[TestRun_LocalDatabases_AlwaysOffline/a_bunch_of_different_lockfiles_and_ecosystem - 1]
 Scanning dir ./fixtures/locks-requirements
 Scanned <rootdir>/fixtures/locks-requirements/my-requirements.txt file and found 1 package
 Scanned <rootdir>/fixtures/locks-requirements/requirements-dev.txt file and found 1 package
@@ -2173,12 +2175,12 @@ Scanned <rootdir>/fixtures/locks-many/yarn.lock file and found 1 package
 
 ---
 
-[TestRun_LocalDatabases_AlwaysOffline/#00 - 2]
+[TestRun_LocalDatabases_AlwaysOffline/a_bunch_of_different_lockfiles_and_ecosystem - 2]
 could not find local databases for ecosystems: Alpine, Packagist, PyPI, RubyGems, npm
 
 ---
 
-[TestRun_LocalDatabases_AlwaysOffline/#00 - 3]
+[TestRun_LocalDatabases_AlwaysOffline/a_bunch_of_different_lockfiles_and_ecosystem - 3]
 Scanning dir ./fixtures/locks-requirements
 Scanned <rootdir>/fixtures/locks-requirements/my-requirements.txt file and found 1 package
 Scanned <rootdir>/fixtures/locks-requirements/requirements-dev.txt file and found 1 package
@@ -2194,141 +2196,106 @@ Scanned <rootdir>/fixtures/locks-many/yarn.lock file and found 1 package
 
 ---
 
-[TestRun_LocalDatabases_AlwaysOffline/#00 - 4]
+[TestRun_LocalDatabases_AlwaysOffline/a_bunch_of_different_lockfiles_and_ecosystem - 4]
 could not find local databases for ecosystems: Alpine, Packagist, PyPI, RubyGems, npm
 
 ---
 
-[TestRun_LockfileWithExplicitParseAs/#00 - 1]
-
----
-
-[TestRun_LockfileWithExplicitParseAs/#00 - 2]
-could not determine extractor, requested my-file
-
----
-
-[TestRun_LockfileWithExplicitParseAs/#01 - 1]
-Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
-Loaded filter from: <rootdir>/fixtures/locks-many/osv-scanner.toml
-No issues found
-
----
-
-[TestRun_LockfileWithExplicitParseAs/#01 - 2]
-
----
-
-[TestRun_LockfileWithExplicitParseAs/#02 - 1]
-
----
-
-[TestRun_LockfileWithExplicitParseAs/#02 - 2]
-open <rootdir>/path/to/my:file: no such file or directory
-
----
-
-[TestRun_LockfileWithExplicitParseAs/#03 - 1]
-
----
-
-[TestRun_LockfileWithExplicitParseAs/#03 - 2]
-open <rootdir>/path/to/my:project/package-lock.json: no such file or directory
-
----
-
-[TestRun_LockfileWithExplicitParseAs/#04 - 1]
-Scanned <rootdir>/fixtures/locks-insecure/my-package-lock.json file as a package-lock.json and found 1 package
-Scanning dir ./fixtures/locks-insecure
-Scanned <rootdir>/fixtures/locks-insecure/composer.lock file and found 1 package
-+-------------------------------------+------+-----------+------------------+---------+----------------------------------------------+
-| OSV URL                             | CVSS | ECOSYSTEM | PACKAGE          | VERSION | SOURCE                                       |
-+-------------------------------------+------+-----------+------------------+---------+----------------------------------------------+
-| https://osv.dev/GHSA-9f46-5r25-5wfm | 9.8  | Packagist | league/flysystem | 1.0.8   | fixtures/locks-insecure/composer.lock        |
-| https://osv.dev/GHSA-whgm-jr23-g3j9 | 7.5  | npm       | ansi-html        | 0.0.1   | fixtures/locks-insecure/my-package-lock.json |
-+-------------------------------------+------+-----------+------------------+---------+----------------------------------------------+
-
----
-
-[TestRun_LockfileWithExplicitParseAs/#04 - 2]
-
----
-
-[TestRun_LockfileWithExplicitParseAs/#05 - 1]
-Scanned <rootdir>/fixtures/locks-insecure/my-package-lock.json file as a package-lock.json and found 1 package
-Scanned <rootdir>/fixtures/locks-insecure/my-yarn.lock file as a yarn.lock and found 1 package
-Scanning dir ./fixtures/locks-insecure
-Scanned <rootdir>/fixtures/locks-insecure/composer.lock file and found 1 package
-+-------------------------------------+------+-----------+------------------+---------+----------------------------------------------+
-| OSV URL                             | CVSS | ECOSYSTEM | PACKAGE          | VERSION | SOURCE                                       |
-+-------------------------------------+------+-----------+------------------+---------+----------------------------------------------+
-| https://osv.dev/GHSA-9f46-5r25-5wfm | 9.8  | Packagist | league/flysystem | 1.0.8   | fixtures/locks-insecure/composer.lock        |
-| https://osv.dev/GHSA-whgm-jr23-g3j9 | 7.5  | npm       | ansi-html        | 0.0.1   | fixtures/locks-insecure/my-package-lock.json |
-| https://osv.dev/GHSA-whgm-jr23-g3j9 | 7.5  | npm       | ansi-html        | 0.0.1   | fixtures/locks-insecure/my-yarn.lock         |
-+-------------------------------------+------+-----------+------------------+---------+----------------------------------------------+
-
----
-
-[TestRun_LockfileWithExplicitParseAs/#05 - 2]
-
----
-
-[TestRun_LockfileWithExplicitParseAs/#06 - 1]
-Scanned <rootdir>/fixtures/locks-insecure/my-yarn.lock file as a yarn.lock and found 1 package
-Scanned <rootdir>/fixtures/locks-insecure/my-package-lock.json file as a package-lock.json and found 1 package
-Scanning dir ./fixtures/locks-insecure
-Scanned <rootdir>/fixtures/locks-insecure/composer.lock file and found 1 package
-+-------------------------------------+------+-----------+------------------+---------+----------------------------------------------+
-| OSV URL                             | CVSS | ECOSYSTEM | PACKAGE          | VERSION | SOURCE                                       |
-+-------------------------------------+------+-----------+------------------+---------+----------------------------------------------+
-| https://osv.dev/GHSA-9f46-5r25-5wfm | 9.8  | Packagist | league/flysystem | 1.0.8   | fixtures/locks-insecure/composer.lock        |
-| https://osv.dev/GHSA-whgm-jr23-g3j9 | 7.5  | npm       | ansi-html        | 0.0.1   | fixtures/locks-insecure/my-package-lock.json |
-| https://osv.dev/GHSA-whgm-jr23-g3j9 | 7.5  | npm       | ansi-html        | 0.0.1   | fixtures/locks-insecure/my-yarn.lock         |
-+-------------------------------------+------+-----------+------------------+---------+----------------------------------------------+
-
----
-
-[TestRun_LockfileWithExplicitParseAs/#06 - 2]
-
----
-
-[TestRun_LockfileWithExplicitParseAs/#07 - 1]
-
----
-
-[TestRun_LockfileWithExplicitParseAs/#07 - 2]
-(extracting as Cargo.lock) could not extract from <rootdir>/fixtures/locks-insecure/my-package-lock.json: toml: line 1: expected '.' or '=', but got '{' instead
-
----
-
-[TestRun_LockfileWithExplicitParseAs/#08 - 1]
-
----
-
-[TestRun_LockfileWithExplicitParseAs/#08 - 2]
-(extracting as package-lock.json) could not extract from <rootdir>/fixtures/locks-many/yarn.lock: invalid character '#' looking for beginning of value
-
----
-
-[TestRun_LockfileWithExplicitParseAs/#09 - 1]
+[TestRun_LockfileWithExplicitParseAs/"apk-installed"_is_supported - 1]
 Scanned <rootdir>/fixtures/locks-many/installed file as a apk-installed and found 1 package
 Loaded filter from: <rootdir>/fixtures/locks-many/osv-scanner.toml
 No issues found
 
 ---
 
-[TestRun_LockfileWithExplicitParseAs/#09 - 2]
+[TestRun_LockfileWithExplicitParseAs/"apk-installed"_is_supported - 2]
 
 ---
 
-[TestRun_LockfileWithExplicitParseAs/#10 - 1]
+[TestRun_LockfileWithExplicitParseAs/"dpkg-status"_is_supported - 1]
 Scanned <rootdir>/fixtures/locks-many/status file as a dpkg-status and found 1 package
 Loaded filter from: <rootdir>/fixtures/locks-many/osv-scanner.toml
 No issues found
 
 ---
 
-[TestRun_LockfileWithExplicitParseAs/#10 - 2]
+[TestRun_LockfileWithExplicitParseAs/"dpkg-status"_is_supported - 2]
+
+---
+
+[TestRun_LockfileWithExplicitParseAs/empty_is_default - 1]
+Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
+Loaded filter from: <rootdir>/fixtures/locks-many/osv-scanner.toml
+No issues found
+
+---
+
+[TestRun_LockfileWithExplicitParseAs/empty_is_default - 2]
+
+---
+
+[TestRun_LockfileWithExplicitParseAs/empty_works_as_an_escape_(no_fixture_because_it's_not_valid_on_Windows) - 1]
+
+---
+
+[TestRun_LockfileWithExplicitParseAs/empty_works_as_an_escape_(no_fixture_because_it's_not_valid_on_Windows) - 2]
+open <rootdir>/path/to/my:file: no such file or directory
+
+---
+
+[TestRun_LockfileWithExplicitParseAs/empty_works_as_an_escape_(no_fixture_because_it's_not_valid_on_Windows)#01 - 1]
+
+---
+
+[TestRun_LockfileWithExplicitParseAs/empty_works_as_an_escape_(no_fixture_because_it's_not_valid_on_Windows)#01 - 2]
+open <rootdir>/path/to/my:project/package-lock.json: no such file or directory
+
+---
+
+[TestRun_LockfileWithExplicitParseAs/files_that_error_on_parsing_stop_parsable_files_from_being_checked - 1]
+
+---
+
+[TestRun_LockfileWithExplicitParseAs/files_that_error_on_parsing_stop_parsable_files_from_being_checked - 2]
+(extracting as Cargo.lock) could not extract from <rootdir>/fixtures/locks-insecure/my-package-lock.json: toml: line 1: expected '.' or '=', but got '{' instead
+
+---
+
+[TestRun_LockfileWithExplicitParseAs/multiple,_+_output_order_is_deterministic - 1]
+Scanned <rootdir>/fixtures/locks-insecure/my-package-lock.json file as a package-lock.json and found 1 package
+Scanned <rootdir>/fixtures/locks-insecure/my-yarn.lock file as a yarn.lock and found 1 package
+Scanning dir ./fixtures/locks-insecure
+Scanned <rootdir>/fixtures/locks-insecure/composer.lock file and found 1 package
++-------------------------------------+------+-----------+------------------+---------+----------------------------------------------+
+| OSV URL                             | CVSS | ECOSYSTEM | PACKAGE          | VERSION | SOURCE                                       |
++-------------------------------------+------+-----------+------------------+---------+----------------------------------------------+
+| https://osv.dev/GHSA-9f46-5r25-5wfm | 9.8  | Packagist | league/flysystem | 1.0.8   | fixtures/locks-insecure/composer.lock        |
+| https://osv.dev/GHSA-whgm-jr23-g3j9 | 7.5  | npm       | ansi-html        | 0.0.1   | fixtures/locks-insecure/my-package-lock.json |
+| https://osv.dev/GHSA-whgm-jr23-g3j9 | 7.5  | npm       | ansi-html        | 0.0.1   | fixtures/locks-insecure/my-yarn.lock         |
++-------------------------------------+------+-----------+------------------+---------+----------------------------------------------+
+
+---
+
+[TestRun_LockfileWithExplicitParseAs/multiple,_+_output_order_is_deterministic - 2]
+
+---
+
+[TestRun_LockfileWithExplicitParseAs/multiple,_+_output_order_is_deterministic_2 - 1]
+Scanned <rootdir>/fixtures/locks-insecure/my-yarn.lock file as a yarn.lock and found 1 package
+Scanned <rootdir>/fixtures/locks-insecure/my-package-lock.json file as a package-lock.json and found 1 package
+Scanning dir ./fixtures/locks-insecure
+Scanned <rootdir>/fixtures/locks-insecure/composer.lock file and found 1 package
++-------------------------------------+------+-----------+------------------+---------+----------------------------------------------+
+| OSV URL                             | CVSS | ECOSYSTEM | PACKAGE          | VERSION | SOURCE                                       |
++-------------------------------------+------+-----------+------------------+---------+----------------------------------------------+
+| https://osv.dev/GHSA-9f46-5r25-5wfm | 9.8  | Packagist | league/flysystem | 1.0.8   | fixtures/locks-insecure/composer.lock        |
+| https://osv.dev/GHSA-whgm-jr23-g3j9 | 7.5  | npm       | ansi-html        | 0.0.1   | fixtures/locks-insecure/my-package-lock.json |
+| https://osv.dev/GHSA-whgm-jr23-g3j9 | 7.5  | npm       | ansi-html        | 0.0.1   | fixtures/locks-insecure/my-yarn.lock         |
++-------------------------------------+------+-----------+------------------+---------+----------------------------------------------+
+
+---
+
+[TestRun_LockfileWithExplicitParseAs/multiple,_+_output_order_is_deterministic_2 - 2]
 
 ---
 
@@ -2340,6 +2307,41 @@ No issues found
 ---
 
 [TestRun_LockfileWithExplicitParseAs/one_lockfile_with_local_path - 2]
+
+---
+
+[TestRun_LockfileWithExplicitParseAs/parse-as_takes_priority,_even_if_it's_wrong - 1]
+
+---
+
+[TestRun_LockfileWithExplicitParseAs/parse-as_takes_priority,_even_if_it's_wrong - 2]
+(extracting as package-lock.json) could not extract from <rootdir>/fixtures/locks-many/yarn.lock: invalid character '#' looking for beginning of value
+
+---
+
+[TestRun_LockfileWithExplicitParseAs/unsupported_parse-as - 1]
+
+---
+
+[TestRun_LockfileWithExplicitParseAs/unsupported_parse-as - 2]
+could not determine extractor, requested my-file
+
+---
+
+[TestRun_LockfileWithExplicitParseAs/when_an_explicit_parse-as_is_given,_it's_applied_to_that_file - 1]
+Scanned <rootdir>/fixtures/locks-insecure/my-package-lock.json file as a package-lock.json and found 1 package
+Scanning dir ./fixtures/locks-insecure
+Scanned <rootdir>/fixtures/locks-insecure/composer.lock file and found 1 package
++-------------------------------------+------+-----------+------------------+---------+----------------------------------------------+
+| OSV URL                             | CVSS | ECOSYSTEM | PACKAGE          | VERSION | SOURCE                                       |
++-------------------------------------+------+-----------+------------------+---------+----------------------------------------------+
+| https://osv.dev/GHSA-9f46-5r25-5wfm | 9.8  | Packagist | league/flysystem | 1.0.8   | fixtures/locks-insecure/composer.lock        |
+| https://osv.dev/GHSA-whgm-jr23-g3j9 | 7.5  | npm       | ansi-html        | 0.0.1   | fixtures/locks-insecure/my-package-lock.json |
++-------------------------------------+------+-----------+------------------+---------+----------------------------------------------+
+
+---
+
+[TestRun_LockfileWithExplicitParseAs/when_an_explicit_parse-as_is_given,_it's_applied_to_that_file - 2]
 
 ---
 

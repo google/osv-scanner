@@ -144,7 +144,7 @@ func TestRun(t *testing.T) {
 			exit: 128,
 		},
 		{
-			name: "",
+			name: "version",
 			args: []string{"", "--version"},
 			exit: 0,
 		},
@@ -172,9 +172,8 @@ func TestRun(t *testing.T) {
 			args: []string{"", "--config=./fixtures/osv-scanner-empty-config.toml", "--sbom", "./fixtures/sbom-insecure/bad-purls.cdx.xml"},
 			exit: 0,
 		},
-		// one specific unsupported lockfile
 		{
-			name: "",
+			name: "one specific unsupported lockfile",
 			args: []string{"", "./fixtures/locks-many/not-a-lockfile.toml"},
 			exit: 128,
 		},
@@ -204,13 +203,13 @@ func TestRun(t *testing.T) {
 		},
 		// .gitignored files
 		{
-			name: "",
+			name: ".gitignored files",
 			args: []string{"", "--recursive", "./fixtures/locks-gitignore"},
 			exit: 0,
 		},
 		// ignoring .gitignore
 		{
-			name: "",
+			name: "ignoring .gitignore",
 			args: []string{"", "--recursive", "--no-ignore", "./fixtures/locks-gitignore"},
 			exit: 0,
 		},
@@ -249,7 +248,7 @@ func TestRun(t *testing.T) {
 		},
 		// output format: markdown table
 		{
-			name: "",
+			name: "output format: markdown table",
 			args: []string{"", "--format", "markdown", "--config", "./fixtures/osv-scanner-empty-config.toml", "./fixtures/locks-many/package-lock.json"},
 			exit: 1,
 		},
@@ -277,7 +276,7 @@ func TestRun(t *testing.T) {
 		},
 		// output format: unsupported
 		{
-			name: "",
+			name: "output format: unsupported",
 			args: []string{"", "--format", "unknown", "./fixtures/locks-many/composer.lock"},
 			exit: 127,
 		},
@@ -398,15 +397,13 @@ func TestRun_LockfileWithExplicitParseAs(t *testing.T) {
 	t.Parallel()
 
 	tests := []cliTestCase{
-		// unsupported parse-as
 		{
-			name: "",
+			name: "unsupported parse-as",
 			args: []string{"", "-L", "my-file:./fixtures/locks-many/composer.lock"},
 			exit: 127,
 		},
-		// empty is default
 		{
-			name: "",
+			name: "empty is default",
 			args: []string{
 				"",
 				"-L",
@@ -414,9 +411,8 @@ func TestRun_LockfileWithExplicitParseAs(t *testing.T) {
 			},
 			exit: 0,
 		},
-		// empty works as an escape (no fixture because it's not valid on Windows)
 		{
-			name: "",
+			name: "empty works as an escape (no fixture because it's not valid on Windows)",
 			args: []string{
 				"",
 				"-L",
@@ -425,7 +421,7 @@ func TestRun_LockfileWithExplicitParseAs(t *testing.T) {
 			exit: 127,
 		},
 		{
-			name: "",
+			name: "empty works as an escape (no fixture because it's not valid on Windows)",
 			args: []string{
 				"",
 				"-L",
@@ -433,15 +429,13 @@ func TestRun_LockfileWithExplicitParseAs(t *testing.T) {
 			},
 			exit: 127,
 		},
-		// one lockfile with local path
 		{
 			name: "one lockfile with local path",
 			args: []string{"", "--lockfile=go.mod:./fixtures/locks-many/replace-local.mod"},
 			exit: 0,
 		},
-		// when an explicit parse-as is given, it's applied to that file
 		{
-			name: "",
+			name: "when an explicit parse-as is given, it's applied to that file",
 			args: []string{
 				"",
 				"--config=./fixtures/osv-scanner-empty-config.toml",
@@ -451,9 +445,8 @@ func TestRun_LockfileWithExplicitParseAs(t *testing.T) {
 			},
 			exit: 1,
 		},
-		// multiple, + output order is deterministic
 		{
-			name: "",
+			name: "multiple, + output order is deterministic",
 			args: []string{
 				"",
 				"--config=./fixtures/osv-scanner-empty-config.toml",
@@ -464,7 +457,7 @@ func TestRun_LockfileWithExplicitParseAs(t *testing.T) {
 			exit: 1,
 		},
 		{
-			name: "",
+			name: "multiple, + output order is deterministic 2",
 			args: []string{
 				"",
 				"--config=./fixtures/osv-scanner-empty-config.toml",
@@ -474,9 +467,8 @@ func TestRun_LockfileWithExplicitParseAs(t *testing.T) {
 			},
 			exit: 1,
 		},
-		// files that error on parsing stop parsable files from being checked
 		{
-			name: "",
+			name: "files that error on parsing stop parsable files from being checked",
 			args: []string{
 				"",
 				"-L",
@@ -486,9 +478,8 @@ func TestRun_LockfileWithExplicitParseAs(t *testing.T) {
 			},
 			exit: 127,
 		},
-		// parse-as takes priority, even if it's wrong
 		{
-			name: "",
+			name: "parse-as takes priority, even if it's wrong",
 			args: []string{
 				"",
 				"-L",
@@ -496,9 +487,8 @@ func TestRun_LockfileWithExplicitParseAs(t *testing.T) {
 			},
 			exit: 127,
 		},
-		// "apk-installed" is supported
 		{
-			name: "",
+			name: "\"apk-installed\" is supported",
 			args: []string{
 				"",
 				"-L",
@@ -506,9 +496,8 @@ func TestRun_LockfileWithExplicitParseAs(t *testing.T) {
 			},
 			exit: 0,
 		},
-		// "dpkg-status" is supported
 		{
-			name: "",
+			name: "\"dpkg-status\" is supported",
 			args: []string{
 				"",
 				"-L",
@@ -555,80 +544,68 @@ func TestRun_LocalDatabases(t *testing.T) {
 	t.Parallel()
 
 	tests := []cliTestCase{
-		// one specific supported lockfile
 		{
-			name: "",
+			name: "one specific supported lockfile",
 			args: []string{"", "--experimental-offline", "--experimental-download-offline-databases", "./fixtures/locks-many/composer.lock"},
 			exit: 0,
 		},
-		// one specific supported sbom with vulns
 		{
-			name: "",
+			name: "one specific supported sbom with vulns",
 			args: []string{"", "--experimental-offline", "--experimental-download-offline-databases", "--config=./fixtures/osv-scanner-empty-config.toml", "./fixtures/sbom-insecure/postgres-stretch.cdx.xml"},
 			exit: 1,
 		},
-		// one specific unsupported lockfile
 		{
-			name: "",
+			name: "one specific unsupported lockfile",
 			args: []string{"", "--experimental-offline", "--experimental-download-offline-databases", "./fixtures/locks-many/not-a-lockfile.toml"},
 			exit: 128,
 		},
-		// all supported lockfiles in the directory should be checked
 		{
-			name: "",
+			name: "all supported lockfiles in the directory should be checked",
 			args: []string{"", "--experimental-offline", "--experimental-download-offline-databases", "./fixtures/locks-many"},
 			exit: 0,
 		},
-		// all supported lockfiles in the directory should be checked
 		{
-			name: "",
+			name: "all supported lockfiles in the directory should be checked",
 			args: []string{"", "--experimental-offline", "--experimental-download-offline-databases", "./fixtures/locks-many-with-invalid"},
 			exit: 127,
 		},
-		// only the files in the given directories are checked by default (no recursion)
 		{
-			name: "",
+			name: "only the files in the given directories are checked by default (no recursion)",
 			args: []string{"", "--experimental-offline", "--experimental-download-offline-databases", "./fixtures/locks-one-with-nested"},
 			exit: 0,
 		},
-		// nested directories are checked when `--recursive` is passed
 		{
-			name: "",
+			name: "nested directories are checked when `--recursive` is passed",
 			args: []string{"", "--experimental-offline", "--experimental-download-offline-databases", "--recursive", "./fixtures/locks-one-with-nested"},
 			exit: 0,
 		},
-		// .gitignored files
 		{
-			name: "",
+			name: ".gitignored files",
 			args: []string{"", "--experimental-offline", "--experimental-download-offline-databases", "--recursive", "./fixtures/locks-gitignore"},
 			exit: 0,
 		},
-		// ignoring .gitignore
 		{
-			name: "",
+			name: "ignoring .gitignore",
 			args: []string{"", "--experimental-offline", "--experimental-download-offline-databases", "--recursive", "--no-ignore", "./fixtures/locks-gitignore"},
 			exit: 0,
 		},
-		// output with json
 		{
-			name: "",
+			name: "output with json",
 			args: []string{"", "--experimental-offline", "--experimental-download-offline-databases", "--json", "./fixtures/locks-many/composer.lock"},
 			exit: 0,
 		},
 		{
-			name: "",
+			name: "output with json",
 			args: []string{"", "--experimental-offline", "--experimental-download-offline-databases", "--format", "json", "./fixtures/locks-many/composer.lock"},
 			exit: 0,
 		},
-		// output format: markdown table
 		{
-			name: "",
+			name: "output format: markdown table",
 			args: []string{"", "--experimental-offline", "--experimental-download-offline-databases", "--format", "markdown", "./fixtures/locks-many/composer.lock"},
 			exit: 0,
 		},
-		// database should be downloaded only when offline is set
 		{
-			name: "",
+			name: "database should be downloaded only when offline is set",
 			args: []string{"", "--experimental-download-offline-databases", "./fixtures/locks-many"},
 			exit: 127,
 		},
@@ -657,9 +634,8 @@ func TestRun_LocalDatabases_AlwaysOffline(t *testing.T) {
 	t.Parallel()
 
 	tests := []cliTestCase{
-		// a bunch of different lockfiles and ecosystem
 		{
-			name: "",
+			name: "a bunch of different lockfiles and ecosystem",
 			args: []string{"", "--config=./fixtures/osv-scanner-empty-config.toml", "--experimental-offline", "./fixtures/locks-requirements", "./fixtures/locks-many"},
 			exit: 127,
 		},
