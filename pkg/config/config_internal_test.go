@@ -905,6 +905,100 @@ func TestConfig_ShouldIgnorePackageVersion(t *testing.T) {
 	}
 }
 
+func TestConfig_ShouldIgnorePackageVulnerabilities(t *testing.T) {
+	t.Parallel()
+
+	tests := []struct {
+		name   string
+		config Config
+		args   models.PackageVulns
+		wantOk bool
+	}{
+		{
+			name: "Exact version entry exists with ignore",
+			config: Config{
+				PackageOverrides: []PackageOverrideEntry{
+					{
+						Name:      "lib1",
+						Version:   "1.0.0",
+						Ecosystem: "Go",
+						Vulnerability: Vulnerability{
+							Ignore: true,
+						},
+						Reason: "abc",
+					},
+				},
+			},
+			args: models.PackageVulns{
+				Package: models.PackageInfo{
+					Name:      "lib1",
+					Version:   "1.0.0",
+					Ecosystem: "Go",
+				},
+			},
+			wantOk: true,
+		},
+		{
+			name: "Version entry doesn't exist with ignore",
+			config: Config{
+				PackageOverrides: []PackageOverrideEntry{
+					{
+						Name:      "lib1",
+						Version:   "1.0.0",
+						Ecosystem: "Go",
+						Vulnerability: Vulnerability{
+							Ignore: true,
+						},
+						Reason: "abc",
+					},
+				},
+			},
+			args: models.PackageVulns{
+				Package: models.PackageInfo{
+					Name:      "lib1",
+					Version:   "1.0.1",
+					Ecosystem: "Go",
+				},
+			},
+			wantOk: false,
+		},
+		{
+			name: "Name matches with ignore",
+			config: Config{
+				PackageOverrides: []PackageOverrideEntry{
+					{
+						Name:      "lib1",
+						Ecosystem: "Go",
+						Vulnerability: Vulnerability{
+							Ignore: true,
+						},
+						Reason: "abc",
+					},
+				},
+			},
+			args: models.PackageVulns{
+				Package: models.PackageInfo{
+					Name:      "lib1",
+					Version:   "1.0.1",
+					Ecosystem: "Go",
+				},
+			},
+			wantOk: true,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			t.Parallel()
+
+			gotOk := tt.config.ShouldIgnorePackageVulnerabilities(tt.args)
+			if gotOk != tt.wantOk {
+				t.Errorf("ShouldIgnorePackageVulnerabilities() gotOk = %v, wantOk %v", gotOk, tt.wantOk)
+			}
+		})
+	}
+}
+
 func TestConfig_ShouldOverridePackageLicense(t *testing.T) {
 	t.Parallel()
 

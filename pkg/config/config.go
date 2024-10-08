@@ -47,13 +47,14 @@ type IgnoreEntry struct {
 type PackageOverrideEntry struct {
 	Name string `toml:"name"`
 	// If the version is empty, the entry applies to all versions.
-	Version        string    `toml:"version"`
-	Ecosystem      string    `toml:"ecosystem"`
-	Group          string    `toml:"group"`
-	Ignore         bool      `toml:"ignore"`
-	License        License   `toml:"license"`
-	EffectiveUntil time.Time `toml:"effectiveUntil"`
-	Reason         string    `toml:"reason"`
+	Version        string        `toml:"version"`
+	Ecosystem      string        `toml:"ecosystem"`
+	Group          string        `toml:"group"`
+	Ignore         bool          `toml:"ignore"`
+	Vulnerability  Vulnerability `toml:"vulnerability"`
+	License        License       `toml:"license"`
+	EffectiveUntil time.Time     `toml:"effectiveUntil"`
+	Reason         string        `toml:"reason"`
 }
 
 func (e PackageOverrideEntry) matches(pkg models.PackageVulns) bool {
@@ -71,6 +72,10 @@ func (e PackageOverrideEntry) matches(pkg models.PackageVulns) bool {
 	}
 
 	return true
+}
+
+type Vulnerability struct {
+	Ignore bool `toml:"ignore"`
 }
 
 type License struct {
@@ -116,6 +121,15 @@ func (c *Config) ShouldIgnorePackageVersion(name, version, ecosystem string) (bo
 			Ecosystem: ecosystem,
 		},
 	})
+}
+
+// ShouldIgnorePackageVulnerabilities determines if the given package should have its vulnerabilities ignored based on override entries in the config
+func (c *Config) ShouldIgnorePackageVulnerabilities(pkg models.PackageVulns) bool {
+	overrides, _ := c.filterPackageVersionEntries(pkg, func(e PackageOverrideEntry) bool {
+		return e.Vulnerability.Ignore
+	})
+
+	return overrides
 }
 
 // ShouldOverridePackageLicense determines if the given package should have its license ignored or changed based on override entries in the config
