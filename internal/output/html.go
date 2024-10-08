@@ -110,7 +110,9 @@ func BuildHTMLResults(vulnResult *models.VulnerabilityResults) HTMLResult {
 
 	for _, packageSource := range vulnResult.Results {
 		sourceName := packageSource.Source.String()
-		// Temporary workaround: This filtering should be handled by the container scanning process.
+		// Temporary workaround: it is a heuristic to ignore installed packages
+		// which are already covered by OS-specific vulnerabilities.
+		// This filtering should be handled by the container scanning process.
 		// TODO(gongh@): Revisit this after container scanning supports comprehensive functionality.
 		if strings.Contains(sourceName, "/usr/lib/") {
 			continue
