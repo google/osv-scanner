@@ -1,3 +1,4 @@
+// Deprecated: this is now private and should not be used outside the scanner
 package grouper
 
 import (
@@ -6,11 +7,13 @@ import (
 	"github.com/google/osv-scanner/pkg/models"
 )
 
+// Deprecated: this is now private and should not be used outside the scanner
 type IDAliases struct {
 	ID      string
 	Aliases []string
 }
 
+// Deprecated: this is now private and should not be used outside the scanner
 func ConvertVulnerabilityToIDAliases(c []models.Vulnerability) []IDAliases {
 	output := []IDAliases{}
 	for _, v := range c {
