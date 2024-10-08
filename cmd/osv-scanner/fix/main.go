@@ -166,6 +166,20 @@ func Command(stdout, stderr io.Writer, r *reporter.Reporter) *cli.Command {
 				Name:     "maven-fix-management",
 				Usage:    "(pom.xml) also remediate vulnerabilities in dependencyManagement packages that do not appear in the resolved dependency graph",
 			},
+			// Offline database flags, copied from osv-scanner scan
+			&cli.BoolFlag{
+				Name:  "experimental-offline",
+				Usage: "checks for vulnerabilities using local databases that are already cached",
+			},
+			&cli.BoolFlag{
+				Name:  "experimental-download-offline-databases",
+				Usage: "downloads vulnerability databases for offline comparison",
+			},
+			&cli.StringFlag{
+				Name:   "experimental-local-db-path",
+				Usage:  "sets the path that local databases should be stored",
+				Hidden: true,
+			},
 		},
 		Action: func(ctx *cli.Context) error {
 			var err error
@@ -252,9 +266,14 @@ func action(ctx *cli.Context, stdout, stderr io.Writer) (reporter.Reporter, erro
 		Manifest:  ctx.String("manifest"),
 		Lockfile:  ctx.String("lockfile"),
 		RelockCmd: ctx.String("relock-cmd"),
-		Client: client.ResolutionClient{
-			VulnerabilityClient: client.NewOSVClient(),
-		},
+	}
+
+	if ctx.Bool("experimental-offline") {
+		opts.Client.VulnerabilityClient = client.NewOSVOfflineClient(
+			ctx.Bool("experimental-download-offline-databases"),
+			ctx.String("experimental-local-db-path"))
+	} else {
+		opts.Client.VulnerabilityClient = client.NewOSVClient()
 	}
 
 	system := resolve.UnknownSystem
