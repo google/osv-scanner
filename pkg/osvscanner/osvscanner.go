@@ -520,17 +520,17 @@ func scanSBOMFile(r reporter.Reporter, path string, fromFSScan bool) ([]scannedP
 				}
 			}
 
-			packages2 := make([]scannedPackage, 0, len(packages))
+			sliceOfPackages := make([]scannedPackage, 0, len(packages))
 
 			for _, pkg := range packages {
-				packages2 = append(packages2, pkg)
+				sliceOfPackages = append(sliceOfPackages, pkg)
 			}
 
-			slices.SortFunc(packages2, func(i, j scannedPackage) int {
+			slices.SortFunc(sliceOfPackages, func(i, j scannedPackage) int {
 				return strings.Compare(i.PURL, j.PURL)
 			})
 
-			return packages2, nil
+			return sliceOfPackages, nil
 		}
 
 		var formatErr sbom.InvalidFormatError
