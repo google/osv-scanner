@@ -138,7 +138,6 @@ jobs:
       # Only scan the top level go.mod file without recursively scanning directories since
       # this is pipeline is about releasing the go module and binary
       scan-args: |-
-        --skip-git
         ./
     permissions:
       # Require writing security events to upload SARIF file to security tab
@@ -167,7 +166,6 @@ The GitHub Actions have the following optional inputs:
   Default:
   ```bash
     --recursive # Recursively scan subdirectories
-    --skip-git=true # Skip commit scanning to focus on dependencies
     ./ # Start the scan from the root of the repository
   ```
 - `results-file-name`: This is the name of the final SARIF file uploaded to Github.
@@ -202,7 +200,6 @@ jobs:
     with:
       scan-args: |-
         --recursive
-        --skip-git=true
         ./
 ```
 
