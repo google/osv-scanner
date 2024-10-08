@@ -49,7 +49,7 @@ If the `OSV_SCANNER_LOCAL_DB_CACHE_DIRECTORY` environment variable is _not_ set,
 1. The location returned by [`os.UserCacheDir`](https://pkg.go.dev/os#UserCacheDir)
 2. The location returned by [`os.TempDir`](https://pkg.go.dev/os#TempDir)
 
-The database can be [downloaded manually](#manual-database-download) or by using the [`--experimental-download-offline-databases` flag](#download-databases-option).
+The database can be [downloaded manually](#manual-database-download) or by using the [`--experimental-download-offline-databases` flag](#download-offline-databases-option).
 
 ## Offline option
 
