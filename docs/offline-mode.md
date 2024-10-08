@@ -49,7 +49,7 @@ If the `OSV_SCANNER_LOCAL_DB_CACHE_DIRECTORY` environment variable is _not_ set,
 1. The location returned by [`os.UserCacheDir`](https://pkg.go.dev/os#UserCacheDir)
 2. The location returned by [`os.TempDir`](https://pkg.go.dev/os#TempDir)
 
-The database can be [downloaded manually](./experimental.md#manual-database-download) or by using the [`--experimental-download-offline-databases` flag](./experimental.md#download-databases-option).
+The database can be [downloaded manually](#manual-database-download) or by using the [`--experimental-download-offline-databases` flag](#download-databases-option).
 
 ## Offline option
 
@@ -88,7 +88,7 @@ You can also download over HTTP via `https://osv-vulnerabilities.storage.googlea
 A list of all current ecosystems is available at
 [`gs://osv-vulnerabilities/ecosystems.txt`](https://osv-vulnerabilities.storage.googleapis.com/ecosystems.txt).
 
-Set the location of your manually downloaded database by following the instructions [here](./experimental.md#specify-database-location).
+Set the location of your manually downloaded database by following the instructions [here](#specify-database-location).
 
 ## Limitations
 
