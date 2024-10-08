@@ -182,6 +182,67 @@ func TestParseMavenLock_OnePackageWithMultipleVersionVariable(t *testing.T) {
 	})
 }
 
+func TestParseMavenLock_TwoPackageWithMixedVersionDefinition(t *testing.T) {
+	t.Parallel()
+	dir, err := os.Getwd()
+	if err != nil {
+		t.Errorf("Got unexpected error: %v", err)
+	}
+
+	path := filepath.FromSlash(filepath.Join(dir, "fixtures/maven/two-packages-mixed-version.xml"))
+	packages, err := lockfile.ParseMavenLock(path)
+	if err != nil {
+		t.Errorf("Got unexpected error: %v", err)
+	}
+
+	expectPackages(t, packages, []lockfile.PackageDetails{
+		{
+			Name:           "io.netty:netty-all",
+			Version:        "4.1.42.3.0",
+			PackageManager: models.Maven,
+			Ecosystem:      lockfile.MavenEcosystem,
+			CompareAs:      lockfile.MavenEcosystem,
+			BlockLocation: models.FilePosition{
+				Line:     models.Position{Start: 7, End: 11},
+				Column:   models.Position{Start: 5, End: 18},
+				Filename: path,
+			},
+			NameLocation: &models.FilePosition{
+				Line:     models.Position{Start: 9, End: 9},
+				Column:   models.Position{Start: 19, End: 28},
+				Filename: path,
+			},
+			VersionLocation: &models.FilePosition{
+				Line:     models.Position{Start: 10, End: 10},
+				Column:   models.Position{Start: 16, End: 38},
+				Filename: path,
+			},
+		},
+		{
+			Name:           "org.slf4j:slf4j-log4j12-3.0",
+			Version:        "1.7.25",
+			Ecosystem:      lockfile.MavenEcosystem,
+			CompareAs:      lockfile.MavenEcosystem,
+			PackageManager: models.Maven,
+			BlockLocation: models.FilePosition{
+				Line:     models.Position{Start: 12, End: 16},
+				Column:   models.Position{Start: 5, End: 18},
+				Filename: path,
+			},
+			NameLocation: &models.FilePosition{
+				Line:     models.Position{Start: 14, End: 14},
+				Column:   models.Position{Start: 19, End: 48},
+				Filename: path,
+			},
+			VersionLocation: &models.FilePosition{
+				Line:     models.Position{Start: 15, End: 15},
+				Column:   models.Position{Start: 16, End: 22},
+				Filename: path,
+			},
+		},
+	})
+}
+
 func TestParseMavenLock_TwoPackages(t *testing.T) {
 	t.Parallel()
 	dir, err := os.Getwd()
