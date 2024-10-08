@@ -28,9 +28,9 @@ import (
 //
 // It also returns the path to the root of the git-repo,
 // or "" if this path isn't within a git repo, allowing
-// a caller to know how .gitingore files were parsed.
+// a caller to know how .gitignore files were parsed.
 //
-// The actual parsing is inteded to be similar to how tools
+// The actual parsing is intended to be similar to how tools
 // like rg work, but means that `path` may not necessarily be
 // the root of a git repo, and can produces these parsing
 // behaviours:
