@@ -22,8 +22,11 @@ import (
 	"github.com/google/osv-scanner/internal/customgitignore"
 	"github.com/google/osv-scanner/internal/local"
 	"github.com/google/osv-scanner/internal/lockfilescalibr"
+	"github.com/google/osv-scanner/internal/lockfilescalibr/language/java/pomxmlnet"
 	"github.com/google/osv-scanner/internal/lockfilescalibr/language/osv/osvscannerjson"
 	"github.com/google/osv-scanner/internal/output"
+	"github.com/google/osv-scanner/internal/resolution/client"
+	"github.com/google/osv-scanner/internal/resolution/datasource"
 	"github.com/google/osv-scanner/internal/sbom"
 	"github.com/google/osv-scanner/internal/semantic"
 	"github.com/google/osv-scanner/internal/version"
@@ -369,8 +372,19 @@ func scanLockfile(r reporter.Reporter, path string, parseAs string, compareOffli
 	case "osv-scanner":
 		inventories, err = lockfilescalibr.ExtractWithExtractor(context.Background(), path, osvscannerjson.Extractor{})
 	default:
-		// TODO: Network enabled pom.xml extractor
-		inventories, err = lockfilescalibr.Extract(context.Background(), path, parseAs)
+		if !compareOffline && (parseAs == "pom.xml" || filepath.Base(path) == "pom.xml") {
+			depClient, depErr := client.NewDepsDevClient(depsdev.DepsdevAPI)
+			if depErr != nil {
+				return nil, depErr
+			}
+			ext := pomxmlnet.Extractor{
+				DependencyClient:       depClient,
+				MavenRegistryAPIClient: datasource.NewMavenRegistryAPIClient(datasource.MavenCentral),
+			}
+			inventories, err = lockfilescalibr.ExtractWithExtractor(context.Background(), path, ext)
+		} else {
+			inventories, err = lockfilescalibr.Extract(context.Background(), path, parseAs)
+		}
 	}
 
 	if err != nil {
@@ -427,7 +441,7 @@ func scanLockfile(r reporter.Reporter, path string, parseAs string, compareOffli
 	return packages, nil
 }
 
-// func extractMavenDeps(f lockfile.DepFile) ([]*extractor.Inventory, error) {
+// func extractMavenDeps(context ,f lockfile.DepFile) ([]*extractor.Inventory, error) {
 // 	depClient, err := client.NewDepsDevClient(depsdev.DepsdevAPI)
 // 	if err != nil {
 // 		return nil, err
