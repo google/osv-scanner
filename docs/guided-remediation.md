@@ -32,11 +32,21 @@ This tool provides several options to users for how to prioritise and remediate 
 - Modification of package manifest and lockfiles (e.g. `package.json`/`package-lock.json`) to fix vulnerabilities.
 - Different strategies with different risk/reward ratios (e.g. in-place fixes vs relocking).
 
-{: .highlight }
-Currently, only npm `package.json` manifests and `package-lock.json` lockfiles are supported.
-
 {: .note }
 This feature is experimental and might change or be removed with only a minor version update.
+
+### Supported strategies
+
+We currently support the remediation vulnerabilities in the following files:
+
+| Ecosystem | File Format (Type)                               | Supported [Remediation Strategies](#remediation-strategies) |
+| :-------- | :----------------------------------------------- | :---------------------------------------------------------- |
+| npm       | `package-lock.json` (lockfile)                   | [`in-place`](#in-place-lockfile-remediation)                |
+| npm       | `package.json` (manifest)                        | [`relock`](#relock-and-relax-direct-dependency-remediation) |
+| Maven     | `pom.xml` (manifest)<sup>[note](#pom-note)</sup> | [`override`](#override-dependency-versions-remediation)     |
+
+{: .note #pom-note}
+The tool only checks dependencies that are actually present in a POM's dependency graph - it will not detect vulnerabilities in `<dependencyManagement>` dependencies if they are not actually used when resolving the POM.
 
 ## Basic usage
 
@@ -117,6 +127,50 @@ Executing `/usr/bin/npm install --package-lock-only`...
 
 </details>
 
+For Maven `pom.xml` files, you can update direct dependencies and [add version overrides](#override-dependency-versions-remediation) to your POM's `<dependencyManagement>` section with the following command:
+
+```bash
+osv-scanner fix --non-interactive --strategy=override -M path/to/pom.xml
+```
+
+<details markdown="1">
+<summary><b>Sample override output</b></summary>
+
+{: .highlight }
+The output format might change with minor version updates.
+
+```
+Resolving path/to/pom.xml...
+Found 56 vulnerabilities matching the filter
+Can fix 39/56 matching vulnerabilities by overriding 20 dependencies
+OVERRIDE-PACKAGE: io.atomix:atomix,3.1.6
+OVERRIDE-PACKAGE: org.apache.pdfbox:pdfbox,2.0.24
+OVERRIDE-PACKAGE: xerces:xercesImpl,2.12.2
+OVERRIDE-PACKAGE: com.google.guava:guava,32.0.0-jre
+OVERRIDE-PACKAGE: com.fasterxml.jackson.core:jackson-databind,2.12.7.1
+OVERRIDE-PACKAGE: io.netty:netty-handler,4.1.94.Final
+OVERRIDE-PACKAGE: org.apache.commons:commons-compress,1.26.0
+OVERRIDE-PACKAGE: org.apache.commons:commons-configuration2,2.10.1
+OVERRIDE-PACKAGE: org.apache.mina:mina-core,2.0.22
+OVERRIDE-PACKAGE: org.apache.shiro:shiro-web,1.13.0
+OVERRIDE-PACKAGE: org.eclipse.jgit:org.eclipse.jgit,5.13.3.202401111512-r
+OVERRIDE-PACKAGE: com.nimbusds:nimbus-jose-jwt,9.37.2
+OVERRIDE-PACKAGE: io.netty:netty,3.9.8.Final
+OVERRIDE-PACKAGE: org.apache.directory.api:api-ldap-model,1.0.0-M31
+OVERRIDE-PACKAGE: org.apache.shiro:shiro-core,1.13.0
+OVERRIDE-PACKAGE: org.glassfish.jersey.core:jersey-common,2.34
+OVERRIDE-PACKAGE: xalan:xalan,2.7.3
+OVERRIDE-PACKAGE: org.apache.thrift:libthrift,0.14.0
+OVERRIDE-PACKAGE: org.apache.tomcat.embed:tomcat-embed-core,8.5.99
+OVERRIDE-PACKAGE: io.netty:netty-codec,4.1.68.Final
+FIXED-VULN-IDS: GHSA-2fqw-684c-pvp7,GHSA-2h3j-m7gr-25xj,GHSA-3p86-9955-h393,GHSA-4265-ccf5-phj5,GHSA-4g9r-vxhx-9pgx,GHSA-4jhc-wjr3-pwh2,GHSA-5h29-qq92-wj7f,GHSA-5mg8-w23w-74h3,GHSA-6mcm-j9cj-3vc3,GHSA-6mjq-h674-j845,GHSA-6vqp-h455-42mr,GHSA-6vvh-5794-vpmj,GHSA-7fr2-94h7-ccg2,GHSA-7g45-4rm6-3mm3,GHSA-7grw-6pjh-jpc9,GHSA-7j4h-8wpf-rqfh,GHSA-9339-86wc-4qgf,GHSA-9w38-p64v-xpmv,GHSA-c43q-5hpj-4crv,GHSA-cx3q-cv6w-mx4h,GHSA-fg3j-q579-v8x4,GHSA-g2fg-mr77-6vrm,GHSA-g7p8-r2ch-4rmf,GHSA-gvpg-vgmx-xg6w,GHSA-h65f-jvqw-m9fj,GHSA-hhw5-c326-822h,GHSA-jc7h-c423-mpjc,GHSA-jjjh-jjxp-wpff,GHSA-m4h3-7mc2-v295,GHSA-mf27-wg66-m8f5,GHSA-mm9x-g8pc-w292,GHSA-mvr2-9pj6-7w5j,GHSA-pmhc-2g4f-85cg,GHSA-q446-82vq-w674,GHSA-rgv9-q543-rqg4,GHSA-vmqm-g3vh-847m,GHSA-w4jq-qh47-hvjq,GHSA-xfv3-rrfm-f2rv,GHSA-xjp4-hw94-mvp5
+REMAINING-VULNS: 17
+UNFIXABLE-VULNS: 16
+Rewriting path/to/pom.xml...
+```
+
+</details>
+
 {: .warning }
 The subcommand will modify your manifest and lockfile. Make sure you commit or backup your files before running.
 
@@ -129,7 +183,7 @@ If you wish to remediation only specific vulnerabilities, you may specify OSV ID
 
 The `--non-interactive` mode, in combination with [other flags](#remediation-flags), can be used in scripts to automatically apply and test remediation patches.
 
-Check out our [sample Python script](https://github.com/google/osv-scanner/blob/main/scripts/examples/auto_guided_remediation.py) that uses `osv-scanner fix` to remediate as many vulnerabilities as possible without failing your project's `npm run test`.
+Check out our [sample Python script](https://github.com/google/osv-scanner/blob/main/scripts/examples/auto_guided_remediation.py) that uses `osv-scanner fix` to remediate as many vulnerabilities as possible in an npm project without failing your project's `npm run test`.
 
 ## Interactive mode
 
@@ -158,7 +212,11 @@ The command will launch the Guided Remediation TUI and begin scanning your manif
 
 From the first results screen, you can select which of the two remediation strategies to attempt.
 
-## In-place lockfile remediation
+## Remediation strategies
+
+There are currently three remediation strategies:
+
+### In-place lockfile remediation
 
 'In-place' remediation involves replacing vulnerable versions of packages in your lockfile with non-vulnerable versions, while still respecting the existing constraints for that dependency. This approach is usually less risky, but will often fix less vulnerabilities than the [relock strategy](#relock-and-relax-direct-dependency-remediation).
 
@@ -173,7 +231,7 @@ If you wish to apply the proposed in-place patches, select the "Write" option to
 {: .note }
 Writing these changes will not reinstall your dependencies. You'll need to run `npm ci` (or equivalent) separately.
 
-## Relock and relax direct dependency remediation
+### Relock and relax direct dependency remediation
 
 Relocking recomputes your entire dependency graph based on your manifest file, taking the newest possible versions of all your required packages. Doing so will often allow for constraints on vulnerable packages to be unblocked and thus able to be remediated. However, relocking may cause a large number of changes to your dependency graph, which potentially carries a larger risk of breakages.
 
@@ -193,6 +251,17 @@ If you wish to apply your current relock & relaxation changes, select the "Write
 >
 > The `--relock-cmd` flag can be used to change the executed install command.
 
+### Override dependency versions remediation
+
+{: .note }
+The `override` strategy is currently only supported in `--non-interactive` mode.
+
+Maven allows for the version specification of direct and indirect dependencies to be overwritten by a POM's `<dependencyManagement>`. This mechanism can be used to force a vulnerable dependency to be updated to a newer, non-vulnerable version. Overriding dependency versions can enable otherwise inaccessible updates, but it also risks breaking the application if the new version is incompatible with other dependencies.
+
+If a direct dependency is vulnerable, the override strategy will update its version in the `<dependencies>` section (if possible). Relevant `<properties>` will be updated if used by an existing version specification.
+
+As with the other strategies, override patches are prioritized by vulnerabilities fixed per updated dependency.
+
 ## Remediation flags
 
 The `fix` subcommand has a number of flags to allow you to control which vulnerabilities and patches may be considered during remediation.
@@ -201,7 +270,7 @@ The `fix` subcommand has a number of flags to allow you to control which vulnera
 
 The following flags may be used when running in non-interactive mode only:
 
-- `--strategy=` [`in-place`](#in-place-lockfile-remediation) OR [`relock`](#relock-and-relax-direct-dependency-remediation): Which remediation strategy to use.
+- `--strategy=` [`in-place`](#in-place-lockfile-remediation) OR [`relock`](#relock-and-relax-direct-dependency-remediation) OR [`override`](#override-dependency-versions-remediation): Which remediation strategy to use.
 - `--apply-top=<value>`: Specifies the maximum number of patches to apply. Patches are chosen in the same order as they would appear in the interactive mode.
 
   For example, `--apply-top=1` will only apply one patch, and `--apply-top=2` would apply the two best compatible patches. This flag is particularly useful when scripting to test the outcome of specific patches. Setting `--apply-top=-1` will apply every possible patch (default behavior).
@@ -273,7 +342,7 @@ If your project uses mirrored or private registries, you will need to use `--dat
 ### npm
 
 - Non-registry dependencies (local paths, URLs, Git, etc.) are not evaluated.
-- `peerDependencies` are not properly considered during dependency resolution (treated as if using `--legacy-peer-deps`).
+- [#1026](https://github.com/google/osv-scanner/issues/1026) `peerDependencies` are not properly considered during dependency resolution (treated as if using `--legacy-peer-deps`).
 - `overrides` are ignored during dependency resolution.
 
 #### Workspaces
@@ -285,3 +354,9 @@ Remediation in npm `workspaces` is only partially supported:
   - You can remediate the individual `package.json` files of each workspace, but this will be unaware of any packages or constraints caused by sibling workspaces.
 - The `node_modules/` in workspaces are not deleted when relocking, which may impact the resulting dependency graph when running `npm install`.
 - Each workspace package is considered dependency depth 1 from the root workspace.
+
+### Maven
+
+- [#1045](https://github.com/google/osv-scanner/issues/1045) `--data-source=native` only uses the Maven Central Repository (`https://repo1.maven.org/maven2/`). Other repositories are not currently supported.
+- Dependencies that use properties in their `groupId`/`artifactId` may not be updated correctly.
+- Support for profiles is limited.
