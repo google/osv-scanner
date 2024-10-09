@@ -14,7 +14,9 @@ import (
 	"sort"
 	"strings"
 
+	"github.com/google/osv-scanner/internal/config"
 	"github.com/google/osv-scanner/internal/customgitignore"
+	"github.com/google/osv-scanner/internal/depsdev"
 	"github.com/google/osv-scanner/internal/image"
 	"github.com/google/osv-scanner/internal/local"
 	"github.com/google/osv-scanner/internal/manifest"
@@ -24,8 +26,6 @@ import (
 	"github.com/google/osv-scanner/internal/sbom"
 	"github.com/google/osv-scanner/internal/semantic"
 	"github.com/google/osv-scanner/internal/version"
-	"github.com/google/osv-scanner/pkg/config"
-	"github.com/google/osv-scanner/pkg/depsdev"
 	"github.com/google/osv-scanner/pkg/lockfile"
 	"github.com/google/osv-scanner/pkg/models"
 	"github.com/google/osv-scanner/pkg/osv"

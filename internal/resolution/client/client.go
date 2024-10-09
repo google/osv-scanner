@@ -6,7 +6,7 @@ import (
 
 	pb "deps.dev/api/v3"
 	"deps.dev/util/resolve"
-	"github.com/google/osv-scanner/pkg/depsdev"
+	"github.com/google/osv-scanner/internal/depsdev"
 	"github.com/google/osv-scanner/pkg/models"
 	"github.com/google/osv-scanner/pkg/osv"
 	"google.golang.org/grpc"

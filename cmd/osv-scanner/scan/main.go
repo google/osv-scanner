@@ -8,9 +8,9 @@ import (
 	"slices"
 	"strings"
 
+	"github.com/google/osv-scanner/internal/spdx"
 	"github.com/google/osv-scanner/pkg/osvscanner"
 	"github.com/google/osv-scanner/pkg/reporter"
-	"github.com/google/osv-scanner/pkg/spdx"
 	"golang.org/x/term"
 
 	"github.com/urfave/cli/v2"
