@@ -1,12 +1,12 @@
 package output
 
 import (
+	"cmp"
 	"embed"
 	"fmt"
 	"html/template"
 	"io"
 	"slices"
-	"sort"
 	"strconv"
 	"strings"
 
@@ -124,13 +124,7 @@ func BuildHTMLResults(vulnResult *models.VulnerabilityResults) HTMLResult {
 			continue
 		}
 
-		sourceList, ok := ecosystemMap[sourceResult.Ecosystem]
-		if ok {
-			ecosystemMap[sourceResult.Ecosystem] = append(sourceList, *sourceResult)
-		} else {
-			ecosystemMap[sourceResult.Ecosystem] = []HTMLSourceResult{*sourceResult}
-		}
-
+		ecosystemMap[sourceResult.Ecosystem] = append(ecosystemMap[sourceResult.Ecosystem], *sourceResult)
 		updateCount(&resultCount, &sourceResult.HTMLVulnCount)
 	}
 
@@ -153,7 +147,7 @@ func processSource(packageSource models.PackageSource) *HTMLSourceResult {
 		}
 
 		// Process vulnerability groups and IDs to get called/uncalled information
-		processVulnerabilityGroups(groupIDs, vulnPkg, uncalledVulnIDs, calledPackages, uncalledPackages)
+		processVulnerabilityGroups(vulnPkg, groupIDs, uncalledVulnIDs, calledPackages, uncalledPackages)
 		// Process vulnerabilities from one source package
 		allVulns = append(allVulns, processVulnerabilities(vulnPkg)...)
 	}
@@ -179,8 +173,11 @@ func processSource(packageSource models.PackageSource) *HTMLSourceResult {
 	}
 }
 
-// processPackageResults splits the given vulnerabilities into called and uncalled
-// based on the uncalledVulnIDs map.
+// processPackageResults processes vulnerability results, groups them by groupIDs,
+// and categorizes them into "called" and "uncalled" vulnerabilities.
+//
+// It takes a list of all vulnerabilities, group ID information, a set of
+// uncalled vulnerability IDs, and an ecosystem prefix as input.
 func processPackageResults(allVulns []HTMLVulnResult, groupIDs map[string]models.GroupInfo, uncalledVulnIDs map[string]bool, ecosystemPrefix models.Ecosystem) []HTMLPackageResult {
 	packageResults := make(map[string]*HTMLPackageResult)
 	for _, vuln := range allVulns {
@@ -236,21 +233,24 @@ func processPackageResults(allVulns []HTMLVulnResult, groupIDs map[string]models
 	}
 
 	// Sort packageResults to ensure consistent output
-	sort.Slice(results, func(i, j int) bool {
-		return results[i].Name < results[j].Name
+	slices.SortFunc(results, func(a, b HTMLPackageResult) int {
+		if c := cmp.Compare(a.Name, b.Name); c != 0 {
+			return c
+		}
+
+		return cmp.Compare(a.InstalledVersion, b.InstalledVersion)
 	})
 
 	return results
 }
 
-// processVulnerabilities processes vulnerabilities for a package
-// and returns a slice of HTMLVulnResult.
+// processVulnerabilities converts each vulnerability for a source package
+// to an HTMLVulnResult
 func processVulnerabilities(vulnPkg models.PackageVulns) []HTMLVulnResult {
 	vulnResults := make([]HTMLVulnResult, len(vulnPkg.Vulnerabilities))
 	for i, vuln := range vulnPkg.Vulnerabilities {
-		aliases := vuln.Aliases
 		vulnDetails := HTMLVulnResultDetail{
-			Aliases:     aliases,
+			Aliases:     vuln.Aliases,
 			Description: vuln.Details,
 		}
 		if vulnPkg.Package.ImageOrigin != nil {
@@ -275,14 +275,22 @@ func processVulnerabilities(vulnPkg models.PackageVulns) []HTMLVulnResult {
 	return vulnResults
 }
 
-// processVulnerabilityGroups processes vulnerability groups and IDs,
-// populating the called and uncalled maps.
-func processVulnerabilityGroups(groupIDs map[string]models.GroupInfo, vulnPkg models.PackageVulns, uncalledVulnIDs map[string]bool, calledPackages map[string]bool, uncalledPackages map[string]bool) {
+// processVulnerabilityGroups processes package group information and populates the
+// groupIDs, calledPackages, and uncalledPackages maps.
+//
+// Args:
+//
+//	vulnPkg:          Contains vulnerability information for a single source package.
+//	groupIDs:         Adds sorted group IDs in vulnPkg to this map, keyed by the
+//	                  representative ID of the group.
+//	uncalledVulnIDs:  Records whether a vulnerability group is uncalled.
+//	calledPackages:   Records whether a package has called vulnerability.
+//	uncalledPackages: Records whether a package has uncalled vulnerability.
+func processVulnerabilityGroups(vulnPkg models.PackageVulns, groupIDs map[string]models.GroupInfo, uncalledVulnIDs, calledPackages, uncalledPackages map[string]bool) {
 	for _, group := range vulnPkg.Groups {
 		slices.SortFunc(group.IDs, identifiers.IDSortFunc)
 		representID := group.IDs[0]
 		groupIDs[representID] = group
-
 		if !group.IsCalled() {
 			uncalledVulnIDs[representID] = true
 			uncalledPackages[vulnPkg.Package.Name] = true
@@ -310,8 +318,8 @@ func buildHTMLResult(ecosystemMap map[string][]HTMLSourceResult, resultCount HTM
 	}
 
 	// Sort ecosystemResults to ensure consistent output
-	sort.Slice(ecosystemResults, func(i, j int) bool {
-		return ecosystemResults[i].Ecosystem < ecosystemResults[j].Ecosystem
+	slices.SortFunc(ecosystemResults, func(a, b HTMLEcosystemResult) int {
+		return cmp.Compare(a.Ecosystem, b.Ecosystem)
 	})
 
 	ecosystemResults = append(ecosystemResults, osResults...)
@@ -463,6 +471,8 @@ func getAllPackageResults(ecosystemResults []HTMLEcosystemResult) []HTMLPackageR
 	return results
 }
 
+// formatLayerCommand formats the layer command output for better readability.
+// It replaces the unreadable file ID with "UNKNOWN" and extracting the ID separately.
 func formatLayerCommand(command string) (string, string) {
 	re := cachedregexp.MustCompile(`dir:([a-f0-9]+)`)
 	match := re.FindStringSubmatch(command)
