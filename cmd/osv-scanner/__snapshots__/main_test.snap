@@ -531,6 +531,9 @@ Ignored invalid PURL "pkg:///"
 Ignored invalid PURL "pkg:apk/alpine/@1.36.1-r27?arch=x86_64&upstream=busybox&distro=alpine-3.17.2"
 Ignored invalid PURL "pkg:pypi/"
 Scanned <rootdir>/fixtures/sbom-insecure/postgres-stretch.cdx.xml as CycloneDX SBOM and found 136 packages
+Warning, duplicate PURL found in SBOM: pkg:apk/alpine/libcrypto3@3.0.8-r0?arch=x86_64&upstream=openssl&distro=alpine-3.17.2
+Warning, duplicate PURL found in SBOM: pkg:apk/alpine/zlib@1.2.10-r0?arch=x86_64&upstream=zlib&distro=alpine-3.17.2
+Scanned <rootdir>/fixtures/sbom-insecure/with-duplicates.cdx.xml as CycloneDX SBOM and found 14 packages
 +-------------------------------------+------+-----------+--------------------------------+------------------------------------+-------------------------------------------------+
 | OSV URL                             | CVSS | ECOSYSTEM | PACKAGE                        | VERSION                            | SOURCE                                          |
 +-------------------------------------+------+-----------+--------------------------------+------------------------------------+-------------------------------------------------+
@@ -556,6 +559,8 @@ Scanned <rootdir>/fixtures/sbom-insecure/postgres-stretch.cdx.xml as CycloneDX S
 | https://osv.dev/GHSA-jfvp-7x6p-h2pv |      |           |                                |                                    |                                                 |
 | https://osv.dev/GO-2022-0493        | 5.3  | Go        | golang.org/x/sys               | v0.0.0-20210817142637-7d9622a276b7 | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/GHSA-p782-xgp4-8hr8 |      |           |                                |                                    |                                                 |
+| https://osv.dev/CVE-2018-25032      | 7.5  | Alpine    | zlib                           | 1.2.10-r0                          | fixtures/sbom-insecure/with-duplicates.cdx.xml  |
+| https://osv.dev/CVE-2022-37434      | 9.8  | Alpine    | zlib                           | 1.2.10-r0                          | fixtures/sbom-insecure/with-duplicates.cdx.xml  |
 +-------------------------------------+------+-----------+--------------------------------+------------------------------------+-------------------------------------------------+
 
 ---
@@ -693,6 +698,23 @@ No issues found
 ---
 
 [TestRun/one_specific_supported_lockfile_with_ignore - 2]
+
+---
+
+[TestRun/one_specific_supported_sbom_with_duplicate_PURLs - 1]
+Warning, duplicate PURL found in SBOM: pkg:apk/alpine/libcrypto3@3.0.8-r0?arch=x86_64&upstream=openssl&distro=alpine-3.17.2
+Warning, duplicate PURL found in SBOM: pkg:apk/alpine/zlib@1.2.10-r0?arch=x86_64&upstream=zlib&distro=alpine-3.17.2
+Scanned <rootdir>/fixtures/sbom-insecure/with-duplicates.cdx.xml as CycloneDX SBOM and found 14 packages
++--------------------------------+------+-----------+---------+-----------+------------------------------------------------+
+| OSV URL                        | CVSS | ECOSYSTEM | PACKAGE | VERSION   | SOURCE                                         |
++--------------------------------+------+-----------+---------+-----------+------------------------------------------------+
+| https://osv.dev/CVE-2018-25032 | 7.5  | Alpine    | zlib    | 1.2.10-r0 | fixtures/sbom-insecure/with-duplicates.cdx.xml |
+| https://osv.dev/CVE-2022-37434 | 9.8  | Alpine    | zlib    | 1.2.10-r0 | fixtures/sbom-insecure/with-duplicates.cdx.xml |
++--------------------------------+------+-----------+---------+-----------+------------------------------------------------+
+
+---
+
+[TestRun/one_specific_supported_sbom_with_duplicate_PURLs - 2]
 
 ---
 
