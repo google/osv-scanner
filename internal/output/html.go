@@ -173,11 +173,24 @@ func processSource(packageSource models.PackageSource) *HTMLSourceResult {
 	}
 }
 
-// processPackageResults processes vulnerability results, groups them by groupIDs,
-// and categorizes them into "called" and "uncalled" vulnerabilities.
+// processPackageResults converts vulnerability data for a source
+// (e.g. lockfile, artifact) into a list of HTMLPackageResult objects.
 //
-// It takes a list of all vulnerabilities, group ID information, a set of
-// uncalled vulnerability IDs, and an ecosystem prefix as input.
+// This function processes all vulnerabilities within a single source, organizing them
+// into separate HTMLPackageResult objects for each package within that source.
+//
+// Args:
+//
+//	allVulns:        A slice of HTMLVulnResult, representing all vulnerabilities found.
+//	groupIDs:        A map containing vulnerability group information, keyed by the
+//	                 representative ID of each group.
+//	uncalledVulnIDs: A set of vulnerability IDs that are considered uncalled.
+//	ecosystemPrefix: The ecosystem prefix associated with the package.
+//
+// Returns:
+//
+//	A slice of HTMLPackageResult, one for each package in the source, each containing
+//	detailed information about called and uncalled vulnerabilities within that package.
 func processPackageResults(allVulns []HTMLVulnResult, groupIDs map[string]models.GroupInfo, uncalledVulnIDs map[string]bool, ecosystemPrefix models.Ecosystem) []HTMLPackageResult {
 	packageResults := make(map[string]*HTMLPackageResult)
 	for _, vuln := range allVulns {
