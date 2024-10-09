@@ -62,11 +62,11 @@ func (e MavenResolverExtractor) Extract(f lockfile.DepFile) ([]lockfile.PackageD
 	})
 
 	if registries := e.MavenRegistryAPIClient.GetRegistries(); len(registries) > 0 {
-		cleintRegs := make([]client.Registry, len(registries))
+		clientRegs := make([]client.Registry, len(registries))
 		for i, reg := range registries {
-			cleintRegs[i] = client.Registry{URL: reg}
+			clientRegs[i] = client.Registry{URL: reg}
 		}
-		if err := e.DependencyClient.UpdateRegistries(cleintRegs); err != nil {
+		if err := e.DependencyClient.AddRegistries(clientRegs); err != nil {
 			return nil, err
 		}
 	}

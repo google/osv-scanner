@@ -151,7 +151,7 @@ func (c *MavenRegistryClient) MatchingVersions(ctx context.Context, vk resolve.V
 	return resolve.MatchRequirement(vk, versions), nil
 }
 
-func (c *MavenRegistryClient) UpdateRegistries(registries []Registry) error {
+func (c *MavenRegistryClient) AddRegistries(registries []Registry) error {
 	for _, reg := range registries {
 		if err := c.api.AddRegistry(reg.URL); err != nil {
 			return err

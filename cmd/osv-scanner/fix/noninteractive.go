@@ -303,7 +303,7 @@ func autoOverride(ctx context.Context, r reporter.Reporter, opts osvFixOptions, 
 			for i, repo := range specific.Repositories {
 				registries[i] = client.Registry{URL: string(repo.URL)}
 			}
-			if err := opts.Client.DependencyClient.UpdateRegistries(registries); err != nil {
+			if err := opts.Client.DependencyClient.AddRegistries(registries); err != nil {
 				return err
 			}
 		}

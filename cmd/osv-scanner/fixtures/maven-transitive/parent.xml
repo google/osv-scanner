@@ -22,7 +22,7 @@
 
   <repositories>
     <repository>
-      <id>google-andriod</id>
+      <id>google-android</id>
       <url>https://dl.google.com/dl/android/maven2</url>
     </repository>
   </repositories>

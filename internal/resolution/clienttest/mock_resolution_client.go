@@ -42,9 +42,9 @@ type mockDependencyClient struct {
 	*resolve.LocalClient
 }
 
-func (mdc mockDependencyClient) LoadCache(string) error                     { return nil }
-func (mdc mockDependencyClient) WriteCache(string) error                    { return nil }
-func (mdc mockDependencyClient) UpdateRegistries(_ []client.Registry) error { return nil }
+func (mdc mockDependencyClient) LoadCache(string) error                  { return nil }
+func (mdc mockDependencyClient) WriteCache(string) error                 { return nil }
+func (mdc mockDependencyClient) AddRegistries(_ []client.Registry) error { return nil }
 
 func NewMockResolutionClient(t *testing.T, universeYAML string) client.ResolutionClient {
 	t.Helper()

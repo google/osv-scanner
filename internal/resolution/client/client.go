@@ -30,8 +30,8 @@ type DependencyClient interface {
 	WriteCache(filepath string) error
 	// LoadCache loads a manifest-specific resolution cache.
 	LoadCache(filepath string) error
-	// UpdateRegistries updates the registries to fetch data.
-	UpdateRegistries(registries []Registry) error
+	// AddRegistries adds the specified registries to fetch data.
+	AddRegistries(registries []Registry) error
 }
 
 type Registry struct {

@@ -49,12 +49,14 @@ func NewMavenRegistryAPIClient(registry string) (*MavenRegistryAPIClient, error)
 
 // Add adds the given registry to the list of registries if it has not been added.
 func (m *MavenRegistryAPIClient) AddRegistry(registry string) error {
-	if !slices.Contains(m.registries, registry) {
-		if _, err := url.Parse(registry); err != nil {
-			return err
-		}
-		m.registries = append(m.registries, registry)
+	if slices.Contains(m.registries, registry) {
+		return nil
 	}
+
+	if _, err := url.Parse(registry); err != nil {
+		return err
+	}
+	m.registries = append(m.registries, registry)
 
 	return nil
 }
