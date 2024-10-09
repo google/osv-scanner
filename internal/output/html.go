@@ -247,11 +247,10 @@ func processPackageResults(allVulns []HTMLVulnResult, groupIDs map[string]models
 
 	// Sort packageResults to ensure consistent output
 	slices.SortFunc(results, func(a, b HTMLPackageResult) int {
-		if c := cmp.Compare(a.Name, b.Name); c != 0 {
-			return c
-		}
-
-		return cmp.Compare(a.InstalledVersion, b.InstalledVersion)
+		return cmp.Or(
+			cmp.Compare(a.Name, b.Name),
+			cmp.Compare(a.InstalledVersion, b.InstalledVersion),
+		)
 	})
 
 	return results
