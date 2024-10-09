@@ -64,8 +64,8 @@ func TestPrintSARIFReport(t *testing.T) {
 				map[string]string{
 					"lockfile:D:\\\\path\\\\to\\\\sub-rust-project\\\\Cargo.lock": "lockfile:/path/to/sub-rust-project/Cargo.lock",
 					"lockfile:D:\\\\path\\\\to\\\\go.mod":                         "lockfile:/path/to/go.mod",
-					"D:\\\\path\\\\to\\\\sub-rust-project/osv-scanner.toml":       "/path/to/sub-rust-project/osv-scanner.toml",
-					"D:\\\\path\\\\to/osv-scanner.toml":                           "/path/to/osv-scanner.toml",
+					"D:\\\\path\\\\to\\\\sub-rust-project\\\\osv-scanner.toml":    "/path/to/sub-rust-project/osv-scanner.toml",
+					"D:\\\\path\\\\to\\\\osv-scanner.toml":                        "/path/to/osv-scanner.toml",
 					"file:///D:/path/to":                                          "file:///path/to",
 				},
 			),
@@ -100,9 +100,9 @@ func TestPrintSARIFReport_WithVulnerabilities(t *testing.T) {
 
 		testutility.NewSnapshot().WithWindowsReplacements(
 			map[string]string{
-				"path\\\\to\\\\my\\\\first/osv-scanner.toml":  "path/to/my/first/osv-scanner.toml",
-				"path\\\\to\\\\my\\\\second/osv-scanner.toml": "path/to/my/second/osv-scanner.toml",
-				"path\\\\to\\\\my\\\\third/osv-scanner.toml":  "path/to/my/third/osv-scanner.toml",
+				"path\\\\to\\\\my\\\\first\\\\osv-scanner.toml":  "path/to/my/first/osv-scanner.toml",
+				"path\\\\to\\\\my\\\\second\\\\osv-scanner.toml": "path/to/my/second/osv-scanner.toml",
+				"path\\\\to\\\\my\\\\third\\\\osv-scanner.toml":  "path/to/my/third/osv-scanner.toml",
 			}).MatchText(t, outputWriter.String())
 	})
 }
@@ -122,9 +122,9 @@ func TestPrintSARIFReport_WithLicenseViolations(t *testing.T) {
 
 		testutility.NewSnapshot().WithWindowsReplacements(
 			map[string]string{
-				"path\\\\to\\\\my\\\\first/osv-scanner.toml":  "path/to/my/first/osv-scanner.toml",
-				"path\\\\to\\\\my\\\\second/osv-scanner.toml": "path/to/my/second/osv-scanner.toml",
-				"path\\\\to\\\\my\\\\third/osv-scanner.toml":  "path/to/my/third/osv-scanner.toml",
+				"path\\\\to\\\\my\\\\first\\\\osv-scanner.toml":  "path/to/my/first/osv-scanner.toml",
+				"path\\\\to\\\\my\\\\second\\\\osv-scanner.toml": "path/to/my/second/osv-scanner.toml",
+				"path\\\\to\\\\my\\\\third\\\\osv-scanner.toml":  "path/to/my/third/osv-scanner.toml",
 			}).MatchText(t, outputWriter.String())
 	})
 }
@@ -144,9 +144,9 @@ func TestPrintSARIFReport_WithMixedIssues(t *testing.T) {
 
 		testutility.NewSnapshot().WithWindowsReplacements(
 			map[string]string{
-				"path\\\\to\\\\my\\\\first/osv-scanner.toml":  "path/to/my/first/osv-scanner.toml",
-				"path\\\\to\\\\my\\\\second/osv-scanner.toml": "path/to/my/second/osv-scanner.toml",
-				"path\\\\to\\\\my\\\\third/osv-scanner.toml":  "path/to/my/third/osv-scanner.toml",
+				"path\\\\to\\\\my\\\\first\\\\osv-scanner.toml":  "path/to/my/first/osv-scanner.toml",
+				"path\\\\to\\\\my\\\\second\\\\osv-scanner.toml": "path/to/my/second/osv-scanner.toml",
+				"path\\\\to\\\\my\\\\third\\\\osv-scanner.toml":  "path/to/my/third/osv-scanner.toml",
 			}).MatchText(t, outputWriter.String())
 	})
 }
