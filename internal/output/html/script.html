@@ -1,8 +1,6 @@
 <script>
   function showVulnDetails(detailsId) {
-    var detailsElement = document.getElementById(
-      "vuln-details-" + detailsId
-    );
+    var detailsElement = document.getElementById("vuln-details-" + detailsId);
     var rowElement = document.getElementById("vuln-tr-" + detailsId);
     if (detailsElement.style.display !== "block") {
       detailsElement.style.display = "block";

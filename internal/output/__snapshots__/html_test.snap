@@ -162,14 +162,13 @@
     border-left: 2px solid #eee;
   }
 </style>
+
 </head>
 
 <body>
   <script>
   function showVulnDetails(detailsId) {
-    var detailsElement = document.getElementById(
-      "vuln-details-" + detailsId
-    );
+    var detailsElement = document.getElementById("vuln-details-" + detailsId);
     var rowElement = document.getElementById("vuln-tr-" + detailsId);
     if (detailsElement.style.display !== "block") {
       detailsElement.style.display = "block";
@@ -193,6 +192,7 @@
     selectedButton.classList.add("tab-switch-button-selected");
   }
 </script>
+
   <div class="container">
     <header>
       <img src="https://google.github.io/osv.dev/assets/logo.png" alt="OSV-Scanner Logo" class="logo" />
@@ -226,6 +226,8 @@
   </tr>
   
 </table>
+
+
     </div>
 
     <div id="vuln-tab" class="view-tab">
@@ -244,6 +246,7 @@
 
 
 
+
  
           <h3>Source: :path/to/my/second/lockfile</h3>
           <p>
@@ -252,6 +255,7 @@
           </p>
 
           
+
 
 
 
@@ -266,6 +270,7 @@
 
 
 
+
  
         </div>
       </div>
@@ -275,6 +280,7 @@
 </body>
 
 </html>
+
 ---
 
 [TestPrintHTMLResults_WithLicenseViolations/multiple_sources_with_a_mixed_count_of_packages,_some_license_violations - 1]
@@ -440,14 +446,13 @@
     border-left: 2px solid #eee;
   }
 </style>
+
 </head>
 
 <body>
   <script>
   function showVulnDetails(detailsId) {
-    var detailsElement = document.getElementById(
-      "vuln-details-" + detailsId
-    );
+    var detailsElement = document.getElementById("vuln-details-" + detailsId);
     var rowElement = document.getElementById("vuln-tr-" + detailsId);
     if (detailsElement.style.display !== "block") {
       detailsElement.style.display = "block";
@@ -471,6 +476,7 @@
     selectedButton.classList.add("tab-switch-button-selected");
   }
 </script>
+
   <div class="container">
     <header>
       <img src="https://google.github.io/osv.dev/assets/logo.png" alt="OSV-Scanner Logo" class="logo" />
@@ -504,6 +510,8 @@
   </tr>
   
 </table>
+
+
     </div>
 
     <div id="vuln-tab" class="view-tab">
@@ -522,6 +530,7 @@
 
 
 
+
  
           <h3>Source: :path/to/my/second/lockfile</h3>
           <p>
@@ -530,6 +539,7 @@
           </p>
 
           
+
 
 
 
@@ -544,6 +554,7 @@
 
 
 
+
  
         </div>
       </div>
@@ -553,6 +564,7 @@
 </body>
 
 </html>
+
 ---
 
 [TestPrintHTMLResults_WithLicenseViolations/multiple_sources_with_a_mixed_count_of_packages,_some_license_violations#01 - 1]
@@ -718,14 +730,13 @@
     border-left: 2px solid #eee;
   }
 </style>
+
 </head>
 
 <body>
   <script>
   function showVulnDetails(detailsId) {
-    var detailsElement = document.getElementById(
-      "vuln-details-" + detailsId
-    );
+    var detailsElement = document.getElementById("vuln-details-" + detailsId);
     var rowElement = document.getElementById("vuln-tr-" + detailsId);
     if (detailsElement.style.display !== "block") {
       detailsElement.style.display = "block";
@@ -749,6 +760,7 @@
     selectedButton.classList.add("tab-switch-button-selected");
   }
 </script>
+
   <div class="container">
     <header>
       <img src="https://google.github.io/osv.dev/assets/logo.png" alt="OSV-Scanner Logo" class="logo" />
@@ -782,6 +794,8 @@
   </tr>
   
 </table>
+
+
     </div>
 
     <div id="vuln-tab" class="view-tab">
@@ -800,6 +814,7 @@
 
 
 
+
  
           <h3>Source: :path/to/my/second/lockfile</h3>
           <p>
@@ -808,6 +823,7 @@
           </p>
 
           
+
 
 
 
@@ -822,6 +838,7 @@
 
 
 
+
  
         </div>
       </div>
@@ -831,6 +848,7 @@
 </body>
 
 </html>
+
 ---
 
 [TestPrintHTMLResults_WithLicenseViolations/multiple_sources_with_a_mixed_count_of_packages_across_ecosystems,_some_license_violations - 1]
@@ -996,14 +1014,13 @@
     border-left: 2px solid #eee;
   }
 </style>
+
 </head>
 
 <body>
   <script>
   function showVulnDetails(detailsId) {
-    var detailsElement = document.getElementById(
-      "vuln-details-" + detailsId
-    );
+    var detailsElement = document.getElementById("vuln-details-" + detailsId);
     var rowElement = document.getElementById("vuln-tr-" + detailsId);
     if (detailsElement.style.display !== "block") {
       detailsElement.style.display = "block";
@@ -1027,6 +1044,7 @@
     selectedButton.classList.add("tab-switch-button-selected");
   }
 </script>
+
   <div class="container">
     <header>
       <img src="https://google.github.io/osv.dev/assets/logo.png" alt="OSV-Scanner Logo" class="logo" />
@@ -1060,6 +1078,8 @@
   </tr>
   
 </table>
+
+
     </div>
 
     <div id="vuln-tab" class="view-tab">
@@ -1075,6 +1095,7 @@
           </p>
 
           
+
 
 
 
@@ -1096,6 +1117,7 @@
 
 
 
+
  
         </div>
       </div>
@@ -1114,6 +1136,7 @@
 
 
 
+
  
         </div>
       </div>
@@ -1123,6 +1146,7 @@
 </body>
 
 </html>
+
 ---
 
 [TestPrintHTMLResults_WithLicenseViolations/multiple_sources_with_a_mixed_count_of_packages_and_groups,_some_license_violations - 1]
@@ -1288,14 +1312,13 @@
     border-left: 2px solid #eee;
   }
 </style>
+
 </head>
 
 <body>
   <script>
   function showVulnDetails(detailsId) {
-    var detailsElement = document.getElementById(
-      "vuln-details-" + detailsId
-    );
+    var detailsElement = document.getElementById("vuln-details-" + detailsId);
     var rowElement = document.getElementById("vuln-tr-" + detailsId);
     if (detailsElement.style.display !== "block") {
       detailsElement.style.display = "block";
@@ -1319,6 +1342,7 @@
     selectedButton.classList.add("tab-switch-button-selected");
   }
 </script>
+
   <div class="container">
     <header>
       <img src="https://google.github.io/osv.dev/assets/logo.png" alt="OSV-Scanner Logo" class="logo" />
@@ -1352,6 +1376,8 @@
   </tr>
   
 </table>
+
+
     </div>
 
     <div id="vuln-tab" class="view-tab">
@@ -1370,6 +1396,7 @@
 
 
 
+
  
           <h3>Source: :path/to/my/second/lockfile</h3>
           <p>
@@ -1378,6 +1405,7 @@
           </p>
 
           
+
 
 
 
@@ -1392,6 +1420,7 @@
 
 
 
+
  
         </div>
       </div>
@@ -1401,6 +1430,7 @@
 </body>
 
 </html>
+
 ---
 
 [TestPrintHTMLResults_WithLicenseViolations/multiple_sources_with_no_packages - 1]
@@ -1566,14 +1596,13 @@
     border-left: 2px solid #eee;
   }
 </style>
+
 </head>
 
 <body>
   <script>
   function showVulnDetails(detailsId) {
-    var detailsElement = document.getElementById(
-      "vuln-details-" + detailsId
-    );
+    var detailsElement = document.getElementById("vuln-details-" + detailsId);
     var rowElement = document.getElementById("vuln-tr-" + detailsId);
     if (detailsElement.style.display !== "block") {
       detailsElement.style.display = "block";
@@ -1597,6 +1626,7 @@
     selectedButton.classList.add("tab-switch-button-selected");
   }
 </script>
+
   <div class="container">
     <header>
       <img src="https://google.github.io/osv.dev/assets/logo.png" alt="OSV-Scanner Logo" class="logo" />
@@ -1630,6 +1660,8 @@
   </tr>
   
 </table>
+
+
     </div>
 
     <div id="vuln-tab" class="view-tab">
@@ -1648,6 +1680,7 @@
 
 
 
+
  
           <h3>Source: :path/to/my/second/lockfile</h3>
           <p>
@@ -1656,6 +1689,7 @@
           </p>
 
           
+
 
 
 
@@ -1670,6 +1704,7 @@
 
 
 
+
  
         </div>
       </div>
@@ -1679,6 +1714,7 @@
 </body>
 
 </html>
+
 ---
 
 [TestPrintHTMLResults_WithLicenseViolations/no_sources - 1]
@@ -1844,14 +1880,13 @@
     border-left: 2px solid #eee;
   }
 </style>
+
 </head>
 
 <body>
   <script>
   function showVulnDetails(detailsId) {
-    var detailsElement = document.getElementById(
-      "vuln-details-" + detailsId
-    );
+    var detailsElement = document.getElementById("vuln-details-" + detailsId);
     var rowElement = document.getElementById("vuln-tr-" + detailsId);
     if (detailsElement.style.display !== "block") {
       detailsElement.style.display = "block";
@@ -1875,6 +1910,7 @@
     selectedButton.classList.add("tab-switch-button-selected");
   }
 </script>
+
   <div class="container">
     <header>
       <img src="https://google.github.io/osv.dev/assets/logo.png" alt="OSV-Scanner Logo" class="logo" />
@@ -1908,6 +1944,8 @@
   </tr>
   
 </table>
+
+
     </div>
 
     <div id="vuln-tab" class="view-tab">
@@ -1917,6 +1955,7 @@
 </body>
 
 </html>
+
 ---
 
 [TestPrintHTMLResults_WithLicenseViolations/one_source_with_no_packages - 1]
@@ -2082,14 +2121,13 @@
     border-left: 2px solid #eee;
   }
 </style>
+
 </head>
 
 <body>
   <script>
   function showVulnDetails(detailsId) {
-    var detailsElement = document.getElementById(
-      "vuln-details-" + detailsId
-    );
+    var detailsElement = document.getElementById("vuln-details-" + detailsId);
     var rowElement = document.getElementById("vuln-tr-" + detailsId);
     if (detailsElement.style.display !== "block") {
       detailsElement.style.display = "block";
@@ -2113,6 +2151,7 @@
     selectedButton.classList.add("tab-switch-button-selected");
   }
 </script>
+
   <div class="container">
     <header>
       <img src="https://google.github.io/osv.dev/assets/logo.png" alt="OSV-Scanner Logo" class="logo" />
@@ -2146,6 +2185,8 @@
   </tr>
   
 </table>
+
+
     </div>
 
     <div id="vuln-tab" class="view-tab">
@@ -2164,6 +2205,7 @@
 
 
 
+
  
         </div>
       </div>
@@ -2173,6 +2215,7 @@
 </body>
 
 </html>
+
 ---
 
 [TestPrintHTMLResults_WithLicenseViolations/one_source_with_one_package,_no_license_violations - 1]
@@ -2338,14 +2381,13 @@
     border-left: 2px solid #eee;
   }
 </style>
+
 </head>
 
 <body>
   <script>
   function showVulnDetails(detailsId) {
-    var detailsElement = document.getElementById(
-      "vuln-details-" + detailsId
-    );
+    var detailsElement = document.getElementById("vuln-details-" + detailsId);
     var rowElement = document.getElementById("vuln-tr-" + detailsId);
     if (detailsElement.style.display !== "block") {
       detailsElement.style.display = "block";
@@ -2369,6 +2411,7 @@
     selectedButton.classList.add("tab-switch-button-selected");
   }
 </script>
+
   <div class="container">
     <header>
       <img src="https://google.github.io/osv.dev/assets/logo.png" alt="OSV-Scanner Logo" class="logo" />
@@ -2402,6 +2445,8 @@
   </tr>
   
 </table>
+
+
     </div>
 
     <div id="vuln-tab" class="view-tab">
@@ -2420,6 +2465,7 @@
 
 
 
+
  
         </div>
       </div>
@@ -2429,6 +2475,7 @@
 </body>
 
 </html>
+
 ---
 
 [TestPrintHTMLResults_WithLicenseViolations/one_source_with_one_package,_no_licenses - 1]
@@ -2594,14 +2641,13 @@
     border-left: 2px solid #eee;
   }
 </style>
+
 </head>
 
 <body>
   <script>
   function showVulnDetails(detailsId) {
-    var detailsElement = document.getElementById(
-      "vuln-details-" + detailsId
-    );
+    var detailsElement = document.getElementById("vuln-details-" + detailsId);
     var rowElement = document.getElementById("vuln-tr-" + detailsId);
     if (detailsElement.style.display !== "block") {
       detailsElement.style.display = "block";
@@ -2625,6 +2671,7 @@
     selectedButton.classList.add("tab-switch-button-selected");
   }
 </script>
+
   <div class="container">
     <header>
       <img src="https://google.github.io/osv.dev/assets/logo.png" alt="OSV-Scanner Logo" class="logo" />
@@ -2658,6 +2705,8 @@
   </tr>
   
 </table>
+
+
     </div>
 
     <div id="vuln-tab" class="view-tab">
@@ -2676,6 +2725,7 @@
 
 
 
+
  
         </div>
       </div>
@@ -2685,6 +2735,7 @@
 </body>
 
 </html>
+
 ---
 
 [TestPrintHTMLResults_WithLicenseViolations/one_source_with_one_package_and_an_unknown_license - 1]
@@ -2850,14 +2901,13 @@
     border-left: 2px solid #eee;
   }
 </style>
+
 </head>
 
 <body>
   <script>
   function showVulnDetails(detailsId) {
-    var detailsElement = document.getElementById(
-      "vuln-details-" + detailsId
-    );
+    var detailsElement = document.getElementById("vuln-details-" + detailsId);
     var rowElement = document.getElementById("vuln-tr-" + detailsId);
     if (detailsElement.style.display !== "block") {
       detailsElement.style.display = "block";
@@ -2881,6 +2931,7 @@
     selectedButton.classList.add("tab-switch-button-selected");
   }
 </script>
+
   <div class="container">
     <header>
       <img src="https://google.github.io/osv.dev/assets/logo.png" alt="OSV-Scanner Logo" class="logo" />
@@ -2914,6 +2965,8 @@
   </tr>
   
 </table>
+
+
     </div>
 
     <div id="vuln-tab" class="view-tab">
@@ -2932,6 +2985,7 @@
 
 
 
+
  
         </div>
       </div>
@@ -2941,6 +2995,7 @@
 </body>
 
 </html>
+
 ---
 
 [TestPrintHTMLResults_WithLicenseViolations/one_source_with_one_package_and_multiple_license_violations - 1]
@@ -3106,14 +3161,13 @@
     border-left: 2px solid #eee;
   }
 </style>
+
 </head>
 
 <body>
   <script>
   function showVulnDetails(detailsId) {
-    var detailsElement = document.getElementById(
-      "vuln-details-" + detailsId
-    );
+    var detailsElement = document.getElementById("vuln-details-" + detailsId);
     var rowElement = document.getElementById("vuln-tr-" + detailsId);
     if (detailsElement.style.display !== "block") {
       detailsElement.style.display = "block";
@@ -3137,6 +3191,7 @@
     selectedButton.classList.add("tab-switch-button-selected");
   }
 </script>
+
   <div class="container">
     <header>
       <img src="https://google.github.io/osv.dev/assets/logo.png" alt="OSV-Scanner Logo" class="logo" />
@@ -3170,6 +3225,8 @@
   </tr>
   
 </table>
+
+
     </div>
 
     <div id="vuln-tab" class="view-tab">
@@ -3188,6 +3245,7 @@
 
 
 
+
  
         </div>
       </div>
@@ -3197,6 +3255,7 @@
 </body>
 
 </html>
+
 ---
 
 [TestPrintHTMLResults_WithLicenseViolations/one_source_with_one_package_and_one_license_violation - 1]
@@ -3362,14 +3421,13 @@
     border-left: 2px solid #eee;
   }
 </style>
+
 </head>
 
 <body>
   <script>
   function showVulnDetails(detailsId) {
-    var detailsElement = document.getElementById(
-      "vuln-details-" + detailsId
-    );
+    var detailsElement = document.getElementById("vuln-details-" + detailsId);
     var rowElement = document.getElementById("vuln-tr-" + detailsId);
     if (detailsElement.style.display !== "block") {
       detailsElement.style.display = "block";
@@ -3393,6 +3451,7 @@
     selectedButton.classList.add("tab-switch-button-selected");
   }
 </script>
+
   <div class="container">
     <header>
       <img src="https://google.github.io/osv.dev/assets/logo.png" alt="OSV-Scanner Logo" class="logo" />
@@ -3426,6 +3485,8 @@
   </tr>
   
 </table>
+
+
     </div>
 
     <div id="vuln-tab" class="view-tab">
@@ -3444,6 +3505,7 @@
 
 
 
+
  
         </div>
       </div>
@@ -3453,6 +3515,7 @@
 </body>
 
 </html>
+
 ---
 
 [TestPrintHTMLResults_WithLicenseViolations/one_source_with_one_package_and_one_license_violation_(dev) - 1]
@@ -3618,14 +3681,13 @@
     border-left: 2px solid #eee;
   }
 </style>
+
 </head>
 
 <body>
   <script>
   function showVulnDetails(detailsId) {
-    var detailsElement = document.getElementById(
-      "vuln-details-" + detailsId
-    );
+    var detailsElement = document.getElementById("vuln-details-" + detailsId);
     var rowElement = document.getElementById("vuln-tr-" + detailsId);
     if (detailsElement.style.display !== "block") {
       detailsElement.style.display = "block";
@@ -3649,6 +3711,7 @@
     selectedButton.classList.add("tab-switch-button-selected");
   }
 </script>
+
   <div class="container">
     <header>
       <img src="https://google.github.io/osv.dev/assets/logo.png" alt="OSV-Scanner Logo" class="logo" />
@@ -3682,6 +3745,8 @@
   </tr>
   
 </table>
+
+
     </div>
 
     <div id="vuln-tab" class="view-tab">
@@ -3700,6 +3765,7 @@
 
 
 
+
  
         </div>
       </div>
@@ -3709,6 +3775,7 @@
 </body>
 
 </html>
+
 ---
 
 [TestPrintHTMLResults_WithLicenseViolations/two_sources_with_packages,_one_license_violation - 1]
@@ -3874,14 +3941,13 @@
     border-left: 2px solid #eee;
   }
 </style>
+
 </head>
 
 <body>
   <script>
   function showVulnDetails(detailsId) {
-    var detailsElement = document.getElementById(
-      "vuln-details-" + detailsId
-    );
+    var detailsElement = document.getElementById("vuln-details-" + detailsId);
     var rowElement = document.getElementById("vuln-tr-" + detailsId);
     if (detailsElement.style.display !== "block") {
       detailsElement.style.display = "block";
@@ -3905,6 +3971,7 @@
     selectedButton.classList.add("tab-switch-button-selected");
   }
 </script>
+
   <div class="container">
     <header>
       <img src="https://google.github.io/osv.dev/assets/logo.png" alt="OSV-Scanner Logo" class="logo" />
@@ -3938,6 +4005,8 @@
   </tr>
   
 </table>
+
+
     </div>
 
     <div id="vuln-tab" class="view-tab">
@@ -3956,6 +4025,7 @@
 
 
 
+
  
           <h3>Source: :path/to/my/second/lockfile</h3>
           <p>
@@ -3964,6 +4034,7 @@
           </p>
 
           
+
 
 
 
@@ -3976,6 +4047,7 @@
 </body>
 
 </html>
+
 ---
 
 [TestPrintHTMLResults_WithMixedIssues/multiple_sources_with_a_mixed_count_of_packages,_some_called_vulnerabilities_and_license_violations - 1]
@@ -4141,14 +4213,13 @@
     border-left: 2px solid #eee;
   }
 </style>
+
 </head>
 
 <body>
   <script>
   function showVulnDetails(detailsId) {
-    var detailsElement = document.getElementById(
-      "vuln-details-" + detailsId
-    );
+    var detailsElement = document.getElementById("vuln-details-" + detailsId);
     var rowElement = document.getElementById("vuln-tr-" + detailsId);
     if (detailsElement.style.display !== "block") {
       detailsElement.style.display = "block";
@@ -4172,6 +4243,7 @@
     selectedButton.classList.add("tab-switch-button-selected");
   }
 </script>
+
   <div class="container">
     <header>
       <img src="https://google.github.io/osv.dev/assets/logo.png" alt="OSV-Scanner Logo" class="logo" />
@@ -4242,6 +4314,8 @@
   
   
 </table>
+
+
     </div>
 
     <div id="vuln-tab" class="view-tab">
@@ -4303,8 +4377,10 @@
   </tr>
   
 </table>
+
   </div>
 </details>
+
  
           <h3>Source: :path/to/my/second/lockfile</h3>
           <p>
@@ -4349,6 +4425,8 @@
   </tr>
   
 </table>
+
+
 
 
  
@@ -4405,8 +4483,10 @@
   </tr>
   
 </table>
+
   </div>
 </details>
+
  
         </div>
       </div>
@@ -4416,6 +4496,7 @@
 </body>
 
 </html>
+
 ---
 
 [TestPrintHTMLResults_WithMixedIssues/multiple_sources_with_a_mixed_count_of_packages,_some_vulnerabilities_and_license_violations - 1]
@@ -4581,14 +4662,13 @@
     border-left: 2px solid #eee;
   }
 </style>
+
 </head>
 
 <body>
   <script>
   function showVulnDetails(detailsId) {
-    var detailsElement = document.getElementById(
-      "vuln-details-" + detailsId
-    );
+    var detailsElement = document.getElementById("vuln-details-" + detailsId);
     var rowElement = document.getElementById("vuln-tr-" + detailsId);
     if (detailsElement.style.display !== "block") {
       detailsElement.style.display = "block";
@@ -4612,6 +4692,7 @@
     selectedButton.classList.add("tab-switch-button-selected");
   }
 </script>
+
   <div class="container">
     <header>
       <img src="https://google.github.io/osv.dev/assets/logo.png" alt="OSV-Scanner Logo" class="logo" />
@@ -4740,6 +4821,8 @@
   </tr>
   
 </table>
+
+
     </div>
 
     <div id="vuln-tab" class="view-tab">
@@ -4793,6 +4876,8 @@
 </table>
 
 
+
+
  
           <h3>Source: :path/to/my/second/lockfile</h3>
           <p>
@@ -4837,6 +4922,8 @@
   </tr>
   
 </table>
+
+
 
 
  
@@ -4885,6 +4972,8 @@
 </table>
 
 
+
+
  
         </div>
       </div>
@@ -4894,6 +4983,7 @@
 </body>
 
 </html>
+
 ---
 
 [TestPrintHTMLResults_WithMixedIssues/one_source_with_one_package,_one_called_vulnerability,_and_one_license_violation - 1]
@@ -5059,14 +5149,13 @@
     border-left: 2px solid #eee;
   }
 </style>
+
 </head>
 
 <body>
   <script>
   function showVulnDetails(detailsId) {
-    var detailsElement = document.getElementById(
-      "vuln-details-" + detailsId
-    );
+    var detailsElement = document.getElementById("vuln-details-" + detailsId);
     var rowElement = document.getElementById("vuln-tr-" + detailsId);
     if (detailsElement.style.display !== "block") {
       detailsElement.style.display = "block";
@@ -5090,6 +5179,7 @@
     selectedButton.classList.add("tab-switch-button-selected");
   }
 </script>
+
   <div class="container">
     <header>
       <img src="https://google.github.io/osv.dev/assets/logo.png" alt="OSV-Scanner Logo" class="logo" />
@@ -5156,6 +5246,8 @@
   </tr>
   
 </table>
+
+
     </div>
 
     <div id="vuln-tab" class="view-tab">
@@ -5209,6 +5301,8 @@
 </table>
 
 
+
+
  
         </div>
       </div>
@@ -5218,6 +5312,7 @@
 </body>
 
 </html>
+
 ---
 
 [TestPrintHTMLResults_WithMixedIssues/one_source_with_one_package,_one_uncalled_vulnerability,_and_one_license_violation - 1]
@@ -5383,14 +5478,13 @@
     border-left: 2px solid #eee;
   }
 </style>
+
 </head>
 
 <body>
   <script>
   function showVulnDetails(detailsId) {
-    var detailsElement = document.getElementById(
-      "vuln-details-" + detailsId
-    );
+    var detailsElement = document.getElementById("vuln-details-" + detailsId);
     var rowElement = document.getElementById("vuln-tr-" + detailsId);
     if (detailsElement.style.display !== "block") {
       detailsElement.style.display = "block";
@@ -5414,6 +5508,7 @@
     selectedButton.classList.add("tab-switch-button-selected");
   }
 </script>
+
   <div class="container">
     <header>
       <img src="https://google.github.io/osv.dev/assets/logo.png" alt="OSV-Scanner Logo" class="logo" />
@@ -5449,6 +5544,8 @@
   
   
 </table>
+
+
     </div>
 
     <div id="vuln-tab" class="view-tab">
@@ -5510,8 +5607,10 @@
   </tr>
   
 </table>
+
   </div>
 </details>
+
  
         </div>
       </div>
@@ -5521,6 +5620,7 @@
 </body>
 
 </html>
+
 ---
 
 [TestPrintHTMLResults_WithMixedIssues/one_source_with_one_package,_one_vulnerability,_and_one_license_violation - 1]
@@ -5686,14 +5786,13 @@
     border-left: 2px solid #eee;
   }
 </style>
+
 </head>
 
 <body>
   <script>
   function showVulnDetails(detailsId) {
-    var detailsElement = document.getElementById(
-      "vuln-details-" + detailsId
-    );
+    var detailsElement = document.getElementById("vuln-details-" + detailsId);
     var rowElement = document.getElementById("vuln-tr-" + detailsId);
     if (detailsElement.style.display !== "block") {
       detailsElement.style.display = "block";
@@ -5717,6 +5816,7 @@
     selectedButton.classList.add("tab-switch-button-selected");
   }
 </script>
+
   <div class="container">
     <header>
       <img src="https://google.github.io/osv.dev/assets/logo.png" alt="OSV-Scanner Logo" class="logo" />
@@ -5783,6 +5883,8 @@
   </tr>
   
 </table>
+
+
     </div>
 
     <div id="vuln-tab" class="view-tab">
@@ -5836,6 +5938,8 @@
 </table>
 
 
+
+
  
         </div>
       </div>
@@ -5845,6 +5949,7 @@
 </body>
 
 </html>
+
 ---
 
 [TestPrintHTMLResults_WithMixedIssues/two_sources_with_packages,_one_vulnerability,_one_license_violation - 1]
@@ -6010,14 +6115,13 @@
     border-left: 2px solid #eee;
   }
 </style>
+
 </head>
 
 <body>
   <script>
   function showVulnDetails(detailsId) {
-    var detailsElement = document.getElementById(
-      "vuln-details-" + detailsId
-    );
+    var detailsElement = document.getElementById("vuln-details-" + detailsId);
     var rowElement = document.getElementById("vuln-tr-" + detailsId);
     if (detailsElement.style.display !== "block") {
       detailsElement.style.display = "block";
@@ -6041,6 +6145,7 @@
     selectedButton.classList.add("tab-switch-button-selected");
   }
 </script>
+
   <div class="container">
     <header>
       <img src="https://google.github.io/osv.dev/assets/logo.png" alt="OSV-Scanner Logo" class="logo" />
@@ -6107,6 +6212,8 @@
   </tr>
   
 </table>
+
+
     </div>
 
     <div id="vuln-tab" class="view-tab">
@@ -6160,6 +6267,8 @@
 </table>
 
 
+
+
  
           <h3>Source: :path/to/my/second/lockfile</h3>
           <p>
@@ -6168,6 +6277,7 @@
           </p>
 
           
+
 
 
 
@@ -6180,6 +6290,7 @@
 </body>
 
 </html>
+
 ---
 
 [TestPrintHTMLResults_WithVulnerabilities/multiple_sources_with_a_mixed_count_of_grouped_packages,_and_multiple_vulnerabilities - 1]
@@ -6345,14 +6456,13 @@
     border-left: 2px solid #eee;
   }
 </style>
+
 </head>
 
 <body>
   <script>
   function showVulnDetails(detailsId) {
-    var detailsElement = document.getElementById(
-      "vuln-details-" + detailsId
-    );
+    var detailsElement = document.getElementById("vuln-details-" + detailsId);
     var rowElement = document.getElementById("vuln-tr-" + detailsId);
     if (detailsElement.style.display !== "block") {
       detailsElement.style.display = "block";
@@ -6376,6 +6486,7 @@
     selectedButton.classList.add("tab-switch-button-selected");
   }
 </script>
+
   <div class="container">
     <header>
       <img src="https://google.github.io/osv.dev/assets/logo.png" alt="OSV-Scanner Logo" class="logo" />
@@ -6519,6 +6630,8 @@
   </tr>
   
 </table>
+
+
     </div>
 
     <div id="vuln-tab" class="view-tab">
@@ -6620,6 +6733,8 @@
 </table>
 
 
+
+
  
           <h3>Source: :path/to/my/second/lockfile</h3>
           <p>
@@ -6714,6 +6829,8 @@
 </table>
 
 
+
+
  
         </div>
       </div>
@@ -6723,6 +6840,7 @@
 </body>
 
 </html>
+
 ---
 
 [TestPrintHTMLResults_WithVulnerabilities/multiple_sources_with_a_mixed_count_of_packages,_and_multiple_vulnerabilities - 1]
@@ -6888,14 +7006,13 @@
     border-left: 2px solid #eee;
   }
 </style>
+
 </head>
 
 <body>
   <script>
   function showVulnDetails(detailsId) {
-    var detailsElement = document.getElementById(
-      "vuln-details-" + detailsId
-    );
+    var detailsElement = document.getElementById("vuln-details-" + detailsId);
     var rowElement = document.getElementById("vuln-tr-" + detailsId);
     if (detailsElement.style.display !== "block") {
       detailsElement.style.display = "block";
@@ -6919,6 +7036,7 @@
     selectedButton.classList.add("tab-switch-button-selected");
   }
 </script>
+
   <div class="container">
     <header>
       <img src="https://google.github.io/osv.dev/assets/logo.png" alt="OSV-Scanner Logo" class="logo" />
@@ -7062,6 +7180,8 @@
   </tr>
   
 </table>
+
+
     </div>
 
     <div id="vuln-tab" class="view-tab">
@@ -7163,6 +7283,8 @@
 </table>
 
 
+
+
  
           <h3>Source: :path/to/my/second/lockfile</h3>
           <p>
@@ -7257,6 +7379,8 @@
 </table>
 
 
+
+
  
         </div>
       </div>
@@ -7266,6 +7390,7 @@
 </body>
 
 </html>
+
 ---
 
 [TestPrintHTMLResults_WithVulnerabilities/multiple_sources_with_a_mixed_count_of_packages,_no_vulnerabilities - 1]
@@ -7431,14 +7556,13 @@
     border-left: 2px solid #eee;
   }
 </style>
+
 </head>
 
 <body>
   <script>
   function showVulnDetails(detailsId) {
-    var detailsElement = document.getElementById(
-      "vuln-details-" + detailsId
-    );
+    var detailsElement = document.getElementById("vuln-details-" + detailsId);
     var rowElement = document.getElementById("vuln-tr-" + detailsId);
     if (detailsElement.style.display !== "block") {
       detailsElement.style.display = "block";
@@ -7462,6 +7586,7 @@
     selectedButton.classList.add("tab-switch-button-selected");
   }
 </script>
+
   <div class="container">
     <header>
       <img src="https://google.github.io/osv.dev/assets/logo.png" alt="OSV-Scanner Logo" class="logo" />
@@ -7495,6 +7620,8 @@
   </tr>
   
 </table>
+
+
     </div>
 
     <div id="vuln-tab" class="view-tab">
@@ -7513,6 +7640,7 @@
 
 
 
+
  
           <h3>Source: :path/to/my/second/lockfile</h3>
           <p>
@@ -7521,6 +7649,7 @@
           </p>
 
           
+
 
 
 
@@ -7535,6 +7664,7 @@
 
 
 
+
  
         </div>
       </div>
@@ -7544,6 +7674,7 @@
 </body>
 
 </html>
+
 ---
 
 [TestPrintHTMLResults_WithVulnerabilities/multiple_sources_with_a_mixed_count_of_packages,_some_vulnerabilities - 1]
@@ -7709,14 +7840,13 @@
     border-left: 2px solid #eee;
   }
 </style>
+
 </head>
 
 <body>
   <script>
   function showVulnDetails(detailsId) {
-    var detailsElement = document.getElementById(
-      "vuln-details-" + detailsId
-    );
+    var detailsElement = document.getElementById("vuln-details-" + detailsId);
     var rowElement = document.getElementById("vuln-tr-" + detailsId);
     if (detailsElement.style.display !== "block") {
       detailsElement.style.display = "block";
@@ -7740,6 +7870,7 @@
     selectedButton.classList.add("tab-switch-button-selected");
   }
 </script>
+
   <div class="container">
     <header>
       <img src="https://google.github.io/osv.dev/assets/logo.png" alt="OSV-Scanner Logo" class="logo" />
@@ -7868,6 +7999,8 @@
   </tr>
   
 </table>
+
+
     </div>
 
     <div id="vuln-tab" class="view-tab">
@@ -7921,6 +8054,8 @@
 </table>
 
 
+
+
  
           <h3>Source: :path/to/my/second/lockfile</h3>
           <p>
@@ -7965,6 +8100,8 @@
   </tr>
   
 </table>
+
+
 
 
  
@@ -8013,6 +8150,8 @@
 </table>
 
 
+
+
  
         </div>
       </div>
@@ -8022,6 +8161,7 @@
 </body>
 
 </html>
+
 ---
 
 [TestPrintHTMLResults_WithVulnerabilities/multiple_sources_with_a_mixed_count_of_packages_across_ecosystems,_and_multiple_vulnerabilities - 1]
@@ -8187,14 +8327,13 @@
     border-left: 2px solid #eee;
   }
 </style>
+
 </head>
 
 <body>
   <script>
   function showVulnDetails(detailsId) {
-    var detailsElement = document.getElementById(
-      "vuln-details-" + detailsId
-    );
+    var detailsElement = document.getElementById("vuln-details-" + detailsId);
     var rowElement = document.getElementById("vuln-tr-" + detailsId);
     if (detailsElement.style.display !== "block") {
       detailsElement.style.display = "block";
@@ -8218,6 +8357,7 @@
     selectedButton.classList.add("tab-switch-button-selected");
   }
 </script>
+
   <div class="container">
     <header>
       <img src="https://google.github.io/osv.dev/assets/logo.png" alt="OSV-Scanner Logo" class="logo" />
@@ -8387,6 +8527,8 @@
   </tr>
   
 </table>
+
+
     </div>
 
     <div id="vuln-tab" class="view-tab">
@@ -8486,6 +8628,8 @@
   </tr>
   
 </table>
+
+
 
 
  
@@ -8589,6 +8733,8 @@
 </table>
 
 
+
+
  
         </div>
       </div>
@@ -8598,6 +8744,7 @@
 </body>
 
 </html>
+
 ---
 
 [TestPrintHTMLResults_WithVulnerabilities/multiple_sources_with_a_mixed_count_of_packages_across_ecosystems,_and_multiple_vulnerabilities,_but_some_uncalled - 1]
@@ -8763,14 +8910,13 @@
     border-left: 2px solid #eee;
   }
 </style>
+
 </head>
 
 <body>
   <script>
   function showVulnDetails(detailsId) {
-    var detailsElement = document.getElementById(
-      "vuln-details-" + detailsId
-    );
+    var detailsElement = document.getElementById("vuln-details-" + detailsId);
     var rowElement = document.getElementById("vuln-tr-" + detailsId);
     if (detailsElement.style.display !== "block") {
       detailsElement.style.display = "block";
@@ -8794,6 +8940,7 @@
     selectedButton.classList.add("tab-switch-button-selected");
   }
 </script>
+
   <div class="container">
     <header>
       <img src="https://google.github.io/osv.dev/assets/logo.png" alt="OSV-Scanner Logo" class="logo" />
@@ -8929,6 +9076,8 @@
   
   
 </table>
+
+
     </div>
 
     <div id="vuln-tab" class="view-tab">
@@ -9030,6 +9179,8 @@
 </table>
 
 
+
+
  
         </div>
       </div>
@@ -9081,6 +9232,7 @@
   </tr>
   
 </table>
+
 
 
 
@@ -9150,8 +9302,10 @@
   </tr>
   
 </table>
+
   </div>
 </details>
+
  
         </div>
       </div>
@@ -9161,6 +9315,7 @@
 </body>
 
 </html>
+
 ---
 
 [TestPrintHTMLResults_WithVulnerabilities/multiple_sources_with_no_packages - 1]
@@ -9326,14 +9481,13 @@
     border-left: 2px solid #eee;
   }
 </style>
+
 </head>
 
 <body>
   <script>
   function showVulnDetails(detailsId) {
-    var detailsElement = document.getElementById(
-      "vuln-details-" + detailsId
-    );
+    var detailsElement = document.getElementById("vuln-details-" + detailsId);
     var rowElement = document.getElementById("vuln-tr-" + detailsId);
     if (detailsElement.style.display !== "block") {
       detailsElement.style.display = "block";
@@ -9357,6 +9511,7 @@
     selectedButton.classList.add("tab-switch-button-selected");
   }
 </script>
+
   <div class="container">
     <header>
       <img src="https://google.github.io/osv.dev/assets/logo.png" alt="OSV-Scanner Logo" class="logo" />
@@ -9390,6 +9545,8 @@
   </tr>
   
 </table>
+
+
     </div>
 
     <div id="vuln-tab" class="view-tab">
@@ -9408,6 +9565,7 @@
 
 
 
+
  
           <h3>Source: :path/to/my/second/lockfile</h3>
           <p>
@@ -9416,6 +9574,7 @@
           </p>
 
           
+
 
 
 
@@ -9430,6 +9589,7 @@
 
 
 
+
  
         </div>
       </div>
@@ -9439,6 +9599,7 @@
 </body>
 
 </html>
+
 ---
 
 [TestPrintHTMLResults_WithVulnerabilities/no_sources - 1]
@@ -9604,14 +9765,13 @@
     border-left: 2px solid #eee;
   }
 </style>
+
 </head>
 
 <body>
   <script>
   function showVulnDetails(detailsId) {
-    var detailsElement = document.getElementById(
-      "vuln-details-" + detailsId
-    );
+    var detailsElement = document.getElementById("vuln-details-" + detailsId);
     var rowElement = document.getElementById("vuln-tr-" + detailsId);
     if (detailsElement.style.display !== "block") {
       detailsElement.style.display = "block";
@@ -9635,6 +9795,7 @@
     selectedButton.classList.add("tab-switch-button-selected");
   }
 </script>
+
   <div class="container">
     <header>
       <img src="https://google.github.io/osv.dev/assets/logo.png" alt="OSV-Scanner Logo" class="logo" />
@@ -9668,6 +9829,8 @@
   </tr>
   
 </table>
+
+
     </div>
 
     <div id="vuln-tab" class="view-tab">
@@ -9677,6 +9840,7 @@
 </body>
 
 </html>
+
 ---
 
 [TestPrintHTMLResults_WithVulnerabilities/one_source_with_no_packages - 1]
@@ -9842,14 +10006,13 @@
     border-left: 2px solid #eee;
   }
 </style>
+
 </head>
 
 <body>
   <script>
   function showVulnDetails(detailsId) {
-    var detailsElement = document.getElementById(
-      "vuln-details-" + detailsId
-    );
+    var detailsElement = document.getElementById("vuln-details-" + detailsId);
     var rowElement = document.getElementById("vuln-tr-" + detailsId);
     if (detailsElement.style.display !== "block") {
       detailsElement.style.display = "block";
@@ -9873,6 +10036,7 @@
     selectedButton.classList.add("tab-switch-button-selected");
   }
 </script>
+
   <div class="container">
     <header>
       <img src="https://google.github.io/osv.dev/assets/logo.png" alt="OSV-Scanner Logo" class="logo" />
@@ -9906,6 +10070,8 @@
   </tr>
   
 </table>
+
+
     </div>
 
     <div id="vuln-tab" class="view-tab">
@@ -9924,6 +10090,7 @@
 
 
 
+
  
         </div>
       </div>
@@ -9933,6 +10100,7 @@
 </body>
 
 </html>
+
 ---
 
 [TestPrintHTMLResults_WithVulnerabilities/one_source_with_one_package,_no_vulnerabilities - 1]
@@ -10098,14 +10266,13 @@
     border-left: 2px solid #eee;
   }
 </style>
+
 </head>
 
 <body>
   <script>
   function showVulnDetails(detailsId) {
-    var detailsElement = document.getElementById(
-      "vuln-details-" + detailsId
-    );
+    var detailsElement = document.getElementById("vuln-details-" + detailsId);
     var rowElement = document.getElementById("vuln-tr-" + detailsId);
     if (detailsElement.style.display !== "block") {
       detailsElement.style.display = "block";
@@ -10129,6 +10296,7 @@
     selectedButton.classList.add("tab-switch-button-selected");
   }
 </script>
+
   <div class="container">
     <header>
       <img src="https://google.github.io/osv.dev/assets/logo.png" alt="OSV-Scanner Logo" class="logo" />
@@ -10162,6 +10330,8 @@
   </tr>
   
 </table>
+
+
     </div>
 
     <div id="vuln-tab" class="view-tab">
@@ -10180,6 +10350,7 @@
 
 
 
+
  
         </div>
       </div>
@@ -10189,6 +10360,7 @@
 </body>
 
 </html>
+
 ---
 
 [TestPrintHTMLResults_WithVulnerabilities/one_source_with_one_package,_one_uncalled_vulnerability,_and_one_called_vulnerability - 1]
@@ -10354,14 +10526,13 @@
     border-left: 2px solid #eee;
   }
 </style>
+
 </head>
 
 <body>
   <script>
   function showVulnDetails(detailsId) {
-    var detailsElement = document.getElementById(
-      "vuln-details-" + detailsId
-    );
+    var detailsElement = document.getElementById("vuln-details-" + detailsId);
     var rowElement = document.getElementById("vuln-tr-" + detailsId);
     if (detailsElement.style.display !== "block") {
       detailsElement.style.display = "block";
@@ -10385,6 +10556,7 @@
     selectedButton.classList.add("tab-switch-button-selected");
   }
 </script>
+
   <div class="container">
     <header>
       <img src="https://google.github.io/osv.dev/assets/logo.png" alt="OSV-Scanner Logo" class="logo" />
@@ -10451,6 +10623,8 @@
   </tr>
   
 </table>
+
+
     </div>
 
     <div id="vuln-tab" class="view-tab">
@@ -10505,6 +10679,7 @@
 
 
 
+
 <details class="uncalled">
   <summary>Show/Hide Uncalled vulnerabilities</summary>
   <div id="uncalled-details-:path/to/my/first/lockfile">
@@ -10547,8 +10722,10 @@
   </tr>
   
 </table>
+
   </div>
 </details>
+
  
         </div>
       </div>
@@ -10558,6 +10735,7 @@
 </body>
 
 </html>
+
 ---
 
 [TestPrintHTMLResults_WithVulnerabilities/one_source_with_one_package_and_one_called_vulnerability - 1]
@@ -10723,14 +10901,13 @@
     border-left: 2px solid #eee;
   }
 </style>
+
 </head>
 
 <body>
   <script>
   function showVulnDetails(detailsId) {
-    var detailsElement = document.getElementById(
-      "vuln-details-" + detailsId
-    );
+    var detailsElement = document.getElementById("vuln-details-" + detailsId);
     var rowElement = document.getElementById("vuln-tr-" + detailsId);
     if (detailsElement.style.display !== "block") {
       detailsElement.style.display = "block";
@@ -10754,6 +10931,7 @@
     selectedButton.classList.add("tab-switch-button-selected");
   }
 </script>
+
   <div class="container">
     <header>
       <img src="https://google.github.io/osv.dev/assets/logo.png" alt="OSV-Scanner Logo" class="logo" />
@@ -10820,6 +10998,8 @@
   </tr>
   
 </table>
+
+
     </div>
 
     <div id="vuln-tab" class="view-tab">
@@ -10873,6 +11053,8 @@
 </table>
 
 
+
+
  
         </div>
       </div>
@@ -10882,6 +11064,7 @@
 </body>
 
 </html>
+
 ---
 
 [TestPrintHTMLResults_WithVulnerabilities/one_source_with_one_package_and_one_uncalled_vulnerability - 1]
@@ -11047,14 +11230,13 @@
     border-left: 2px solid #eee;
   }
 </style>
+
 </head>
 
 <body>
   <script>
   function showVulnDetails(detailsId) {
-    var detailsElement = document.getElementById(
-      "vuln-details-" + detailsId
-    );
+    var detailsElement = document.getElementById("vuln-details-" + detailsId);
     var rowElement = document.getElementById("vuln-tr-" + detailsId);
     if (detailsElement.style.display !== "block") {
       detailsElement.style.display = "block";
@@ -11078,6 +11260,7 @@
     selectedButton.classList.add("tab-switch-button-selected");
   }
 </script>
+
   <div class="container">
     <header>
       <img src="https://google.github.io/osv.dev/assets/logo.png" alt="OSV-Scanner Logo" class="logo" />
@@ -11113,6 +11296,8 @@
   
   
 </table>
+
+
     </div>
 
     <div id="vuln-tab" class="view-tab">
@@ -11174,8 +11359,10 @@
   </tr>
   
 </table>
+
   </div>
 </details>
+
  
         </div>
       </div>
@@ -11185,6 +11372,7 @@
 </body>
 
 </html>
+
 ---
 
 [TestPrintHTMLResults_WithVulnerabilities/one_source_with_one_package_and_one_vulnerability - 1]
@@ -11350,14 +11538,13 @@
     border-left: 2px solid #eee;
   }
 </style>
+
 </head>
 
 <body>
   <script>
   function showVulnDetails(detailsId) {
-    var detailsElement = document.getElementById(
-      "vuln-details-" + detailsId
-    );
+    var detailsElement = document.getElementById("vuln-details-" + detailsId);
     var rowElement = document.getElementById("vuln-tr-" + detailsId);
     if (detailsElement.style.display !== "block") {
       detailsElement.style.display = "block";
@@ -11381,6 +11568,7 @@
     selectedButton.classList.add("tab-switch-button-selected");
   }
 </script>
+
   <div class="container">
     <header>
       <img src="https://google.github.io/osv.dev/assets/logo.png" alt="OSV-Scanner Logo" class="logo" />
@@ -11447,6 +11635,8 @@
   </tr>
   
 </table>
+
+
     </div>
 
     <div id="vuln-tab" class="view-tab">
@@ -11500,6 +11690,8 @@
 </table>
 
 
+
+
  
         </div>
       </div>
@@ -11509,6 +11701,7 @@
 </body>
 
 </html>
+
 ---
 
 [TestPrintHTMLResults_WithVulnerabilities/one_source_with_one_package_and_one_vulnerability_(dev) - 1]
@@ -11674,14 +11867,13 @@
     border-left: 2px solid #eee;
   }
 </style>
+
 </head>
 
 <body>
   <script>
   function showVulnDetails(detailsId) {
-    var detailsElement = document.getElementById(
-      "vuln-details-" + detailsId
-    );
+    var detailsElement = document.getElementById("vuln-details-" + detailsId);
     var rowElement = document.getElementById("vuln-tr-" + detailsId);
     if (detailsElement.style.display !== "block") {
       detailsElement.style.display = "block";
@@ -11705,6 +11897,7 @@
     selectedButton.classList.add("tab-switch-button-selected");
   }
 </script>
+
   <div class="container">
     <header>
       <img src="https://google.github.io/osv.dev/assets/logo.png" alt="OSV-Scanner Logo" class="logo" />
@@ -11771,6 +11964,8 @@
   </tr>
   
 </table>
+
+
     </div>
 
     <div id="vuln-tab" class="view-tab">
@@ -11824,6 +12019,8 @@
 </table>
 
 
+
+
  
         </div>
       </div>
@@ -11833,6 +12030,7 @@
 </body>
 
 </html>
+
 ---
 
 [TestPrintHTMLResults_WithVulnerabilities/one_source_with_one_package_and_two_aliases_of_a_single_uncalled_vulnerability - 1]
@@ -11998,14 +12196,13 @@
     border-left: 2px solid #eee;
   }
 </style>
+
 </head>
 
 <body>
   <script>
   function showVulnDetails(detailsId) {
-    var detailsElement = document.getElementById(
-      "vuln-details-" + detailsId
-    );
+    var detailsElement = document.getElementById("vuln-details-" + detailsId);
     var rowElement = document.getElementById("vuln-tr-" + detailsId);
     if (detailsElement.style.display !== "block") {
       detailsElement.style.display = "block";
@@ -12029,6 +12226,7 @@
     selectedButton.classList.add("tab-switch-button-selected");
   }
 </script>
+
   <div class="container">
     <header>
       <img src="https://google.github.io/osv.dev/assets/logo.png" alt="OSV-Scanner Logo" class="logo" />
@@ -12064,6 +12262,8 @@
   
   
 </table>
+
+
     </div>
 
     <div id="vuln-tab" class="view-tab">
@@ -12127,8 +12327,10 @@
   </tr>
   
 </table>
+
   </div>
 </details>
+
  
         </div>
       </div>
@@ -12138,6 +12340,7 @@
 </body>
 
 </html>
+
 ---
 
 [TestPrintHTMLResults_WithVulnerabilities/one_source_with_one_package_and_two_aliases_of_a_single_vulnerability - 1]
@@ -12303,14 +12506,13 @@
     border-left: 2px solid #eee;
   }
 </style>
+
 </head>
 
 <body>
   <script>
   function showVulnDetails(detailsId) {
-    var detailsElement = document.getElementById(
-      "vuln-details-" + detailsId
-    );
+    var detailsElement = document.getElementById("vuln-details-" + detailsId);
     var rowElement = document.getElementById("vuln-tr-" + detailsId);
     if (detailsElement.style.display !== "block") {
       detailsElement.style.display = "block";
@@ -12334,6 +12536,7 @@
     selectedButton.classList.add("tab-switch-button-selected");
   }
 </script>
+
   <div class="container">
     <header>
       <img src="https://google.github.io/osv.dev/assets/logo.png" alt="OSV-Scanner Logo" class="logo" />
@@ -12400,6 +12603,8 @@
   </tr>
   
 </table>
+
+
     </div>
 
     <div id="vuln-tab" class="view-tab">
@@ -12455,6 +12660,8 @@
 </table>
 
 
+
+
  
         </div>
       </div>
@@ -12464,6 +12671,7 @@
 </body>
 
 </html>
+
 ---
 
 [TestPrintHTMLResults_WithVulnerabilities/one_source_with_vulnerabilities,_some_missing_content - 1]
@@ -12629,14 +12837,13 @@
     border-left: 2px solid #eee;
   }
 </style>
+
 </head>
 
 <body>
   <script>
   function showVulnDetails(detailsId) {
-    var detailsElement = document.getElementById(
-      "vuln-details-" + detailsId
-    );
+    var detailsElement = document.getElementById("vuln-details-" + detailsId);
     var rowElement = document.getElementById("vuln-tr-" + detailsId);
     if (detailsElement.style.display !== "block") {
       detailsElement.style.display = "block";
@@ -12660,6 +12867,7 @@
     selectedButton.classList.add("tab-switch-button-selected");
   }
 </script>
+
   <div class="container">
     <header>
       <img src="https://google.github.io/osv.dev/assets/logo.png" alt="OSV-Scanner Logo" class="logo" />
@@ -12757,6 +12965,8 @@
   </tr>
   
 </table>
+
+
     </div>
 
     <div id="vuln-tab" class="view-tab">
@@ -12836,6 +13046,8 @@
 </table>
 
 
+
+
  
         </div>
       </div>
@@ -12845,6 +13057,7 @@
 </body>
 
 </html>
+
 ---
 
 [TestPrintHTMLResults_WithVulnerabilities/two_sources_with_packages,_one_vulnerability - 1]
@@ -13010,14 +13223,13 @@
     border-left: 2px solid #eee;
   }
 </style>
+
 </head>
 
 <body>
   <script>
   function showVulnDetails(detailsId) {
-    var detailsElement = document.getElementById(
-      "vuln-details-" + detailsId
-    );
+    var detailsElement = document.getElementById("vuln-details-" + detailsId);
     var rowElement = document.getElementById("vuln-tr-" + detailsId);
     if (detailsElement.style.display !== "block") {
       detailsElement.style.display = "block";
@@ -13041,6 +13253,7 @@
     selectedButton.classList.add("tab-switch-button-selected");
   }
 </script>
+
   <div class="container">
     <header>
       <img src="https://google.github.io/osv.dev/assets/logo.png" alt="OSV-Scanner Logo" class="logo" />
@@ -13107,6 +13320,8 @@
   </tr>
   
 </table>
+
+
     </div>
 
     <div id="vuln-tab" class="view-tab">
@@ -13160,6 +13375,8 @@
 </table>
 
 
+
+
  
           <h3>Source: :path/to/my/second/lockfile</h3>
           <p>
@@ -13168,6 +13385,7 @@
           </p>
 
           
+
 
 
 
@@ -13180,6 +13398,7 @@
 </body>
 
 </html>
+
 ---
 
 [TestPrintHTMLResults_WithVulnerabilities/two_sources_with_the_same_vulnerable_package - 1]
@@ -13345,14 +13564,13 @@
     border-left: 2px solid #eee;
   }
 </style>
+
 </head>
 
 <body>
   <script>
   function showVulnDetails(detailsId) {
-    var detailsElement = document.getElementById(
-      "vuln-details-" + detailsId
-    );
+    var detailsElement = document.getElementById("vuln-details-" + detailsId);
     var rowElement = document.getElementById("vuln-tr-" + detailsId);
     if (detailsElement.style.display !== "block") {
       detailsElement.style.display = "block";
@@ -13376,6 +13594,7 @@
     selectedButton.classList.add("tab-switch-button-selected");
   }
 </script>
+
   <div class="container">
     <header>
       <img src="https://google.github.io/osv.dev/assets/logo.png" alt="OSV-Scanner Logo" class="logo" />
@@ -13473,6 +13692,8 @@
   </tr>
   
 </table>
+
+
     </div>
 
     <div id="vuln-tab" class="view-tab">
@@ -13526,6 +13747,8 @@
 </table>
 
 
+
+
  
           <h3>Source: :path/to/my/second/lockfile</h3>
           <p>
@@ -13572,6 +13795,8 @@
 </table>
 
 
+
+
  
         </div>
       </div>
@@ -13581,4 +13806,5 @@
 </body>
 
 </html>
+
 ---
