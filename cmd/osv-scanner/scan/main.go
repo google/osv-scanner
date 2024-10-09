@@ -55,6 +55,12 @@ func Command(stdout, stderr io.Writer, r *reporter.Reporter) *cli.Command {
 						return nil
 					}
 
+					// Supporting html output format without showing it in the help command.
+					// TODO(gongh@): add html to reporter.Format()
+					if s == "html" {
+						return nil
+					}
+
 					return fmt.Errorf("unsupported output format \"%s\" - must be one of: %s", s, strings.Join(reporter.Format(), ", "))
 				},
 			},

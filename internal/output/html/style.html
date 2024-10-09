@@ -1,0 +1,156 @@
+<style>
+  body {
+    font-family: sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    color: #333;
+    overflow-y: scroll;
+  }
+
+  a {
+    color: inherit;
+  }
+
+  .container {
+    width: 1400px;
+    margin: 50px auto;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    min-height: 90vh;
+  }
+
+  h1 {
+    text-align: center;
+  }
+
+  h2 {
+    margin-top: 10px;
+  }
+
+  h1,
+  h2,
+  h3 {
+    color: #333;
+  }
+
+  .ecosystem {
+    margin-bottom: 20px;
+  }
+
+  .vulnerability {
+    padding: 5px;
+    border-radius: 3px;
+  }
+
+  details summary {
+    cursor: pointer;
+  }
+
+  details p {
+    margin-left: 10px;
+  }
+
+  header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    position: relative;
+    justify-content: space-evenly;
+  }
+
+  .logo {
+    height: 50px;
+    position: absolute;
+    left: 0;
+  }
+
+  .vuln-table {
+    width: 100%;
+    text-align: center;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin-bottom: 40px;
+    margin-top: 10px;
+  }
+
+  .vuln-table th {
+    border-bottom: 1px solid #ddd;
+  }
+
+  .vuln-tr {
+    cursor: pointer;
+    line-height: 30px;
+  }
+
+  .vuln-tr td {
+    border-bottom: 1px solid #eee;
+    word-break: break-word;
+    width: 200px;
+  }
+
+  .vuln-tr:hover {
+    background-color: #eee;
+  }
+
+  .vuln-id {
+    color: #d9534f;
+  }
+
+  .vuln-details {
+    text-align: left;
+    padding: 0 50px;
+    display: none;
+  }
+
+  .vuln-details {
+    border-bottom: 1px solid #eee;
+    max-height: 400px;
+    overflow: overlay;
+  }
+
+  #vuln-filter {
+    margin-top: 20px;
+  }
+
+  .artifact-section {
+    margin-bottom: 30px;
+  }
+
+  .uncalled {
+    margin-bottom: 20px;
+  }
+
+  .warning {
+    color: #c5221f;
+  }
+
+  #vuln-tab {
+    display: none;
+  }
+
+  #tab-switch {
+    text-align: right;
+  }
+
+  .tab-switch-button {
+    padding: 10px 20px;
+    width: auto;
+    border: 2px solid #fff;
+    outline: 0;
+    cursor: pointer;
+    background-color: #eee;
+    font-size: 12pt;
+    font: bold;
+  }
+
+  .tab-switch-button:hover,
+  .tab-switch-button-selected {
+    background-color: #fff;
+    border-top: 2px solid #eee;
+    border-right: 2px solid #eee;
+    border-left: 2px solid #eee;
+  }
+</style>
