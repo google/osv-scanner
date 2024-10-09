@@ -1,0 +1,26 @@
+<script>
+  function showVulnDetails(detailsId) {
+    var detailsElement = document.getElementById("vuln-details-" + detailsId);
+    var rowElement = document.getElementById("vuln-tr-" + detailsId);
+    if (detailsElement.style.display !== "block") {
+      detailsElement.style.display = "block";
+      rowElement.style.backgroundColor = "#ddd";
+    } else {
+      detailsElement.style.display = "none";
+      rowElement.style.backgroundColor = "#fff";
+    }
+  }
+
+  function openTab(view) {
+    var selectedTab = document.getElementById(view + "-tab");
+    var selectedButton = document.getElementById(view + "-button");
+    var tabs = document.getElementsByClassName("view-tab");
+    var buttons = document.getElementsByClassName("tab-switch-button");
+    for (var i = 0; i < buttons.length; i++) {
+      tabs[i].style.display = "none";
+      buttons[i].classList.remove("tab-switch-button-selected");
+    }
+    selectedTab.style.display = "block";
+    selectedButton.classList.add("tab-switch-button-selected");
+  }
+</script>
