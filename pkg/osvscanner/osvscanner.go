@@ -515,6 +515,10 @@ func scanSBOMFile(r reporter.Reporter, path string, fromFSScan bool) ([]scannedP
 				}
 			}
 
+			slices.SortFunc(packages, func(i, j scannedPackage) int {
+				return strings.Compare(i.PURL, j.PURL)
+			})
+
 			return packages, nil
 		}
 
@@ -618,14 +622,35 @@ func scanDebianDocker(r reporter.Reporter, dockerImageName string) ([]scannedPac
 		r.Errorf("Failed to get stdout: %s\n", err)
 		return nil, err
 	}
+	stderr, err := cmd.StderrPipe()
+
+	if err != nil {
+		r.Errorf("Failed to get stderr: %s\n", err)
+		return nil, err
+	}
+
 	err = cmd.Start()
 	if err != nil {
 		r.Errorf("Failed to start docker image: %s\n", err)
 		return nil, err
 	}
-	// TODO: Do error checking here
-	//nolint:errcheck
-	defer cmd.Wait()
+	defer func() {
+		var stderrlines []string
+
+		scanner := bufio.NewScanner(stderr)
+		for scanner.Scan() {
+			stderrlines = append(stderrlines, scanner.Text())
+		}
+
+		err := cmd.Wait()
+		if err != nil {
+			r.Errorf("Docker command exited with code %d\n", cmd.ProcessState.ExitCode())
+			for _, line := range stderrlines {
+				r.Errorf("> %s\n", line)
+			}
+		}
+	}()
+
 	scanner := bufio.NewScanner(stdout)
 	var packages []scannedPackage
 	for scanner.Scan() {
