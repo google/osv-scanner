@@ -109,9 +109,8 @@ func TestMavenReadWrite(t *testing.T) {
 	}
 	defer df.Close()
 
-	mavenRW := MavenReadWriter{
-		MavenRegistryAPIClient: datasource.NewMavenRegistryAPIClient(srv.URL),
-	}
+	client, _ := datasource.NewMavenRegistryAPIClient(srv.URL)
+	mavenRW := MavenReadWriter{MavenRegistryAPIClient: client}
 
 	got, err := mavenRW.Read(df)
 	if err != nil {

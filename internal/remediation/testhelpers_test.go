@@ -19,7 +19,7 @@ import (
 func parseRemediationFixture(t *testing.T, universePath, manifestPath string, opts resolution.ResolveOpts) (*resolution.Result, client.ResolutionClient) {
 	t.Helper()
 
-	rw, err := manifest.GetReadWriter(manifestPath)
+	rw, err := manifest.GetReadWriter(manifestPath, "")
 	if err != nil {
 		t.Fatalf("Failed to get ReadWriter: %v", err)
 	}

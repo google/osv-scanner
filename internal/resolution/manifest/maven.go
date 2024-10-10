@@ -41,10 +41,13 @@ type MavenReadWriter struct {
 
 func (MavenReadWriter) System() resolve.System { return resolve.Maven }
 
-func NewMavenReadWriter() MavenReadWriter {
-	return MavenReadWriter{
-		MavenRegistryAPIClient: datasource.NewMavenRegistryAPIClient(datasource.MavenCentral),
+func NewMavenReadWriter(registry string) (MavenReadWriter, error) {
+	client, err := datasource.NewMavenRegistryAPIClient(registry)
+	if err != nil {
+		return MavenReadWriter{}, err
 	}
+
+	return MavenReadWriter{MavenRegistryAPIClient: client}, nil
 }
 
 type MavenManifestSpecific struct {
@@ -52,6 +55,7 @@ type MavenManifestSpecific struct {
 	Properties             []PropertyWithOrigin         // Properties from the base project
 	OriginalRequirements   []DependencyWithOrigin       // Dependencies from the base project
 	RequirementsForUpdates []resolve.RequirementVersion // Requirements that we only need for updates
+	Repositories           []maven.Repository
 }
 
 type PropertyWithOrigin struct {
@@ -93,6 +97,11 @@ func (m MavenReadWriter) Read(df lockfile.DepFile) (Manifest, error) {
 	// Empty JDK and ActivationOS indicates merging the default profiles.
 	if err := project.MergeProfiles("", maven.ActivationOS{}); err != nil {
 		return Manifest{}, fmt.Errorf("failed to merge profiles: %w", err)
+	}
+	for _, repo := range project.Repositories {
+		if err := m.MavenRegistryAPIClient.AddRegistry(string(repo.URL)); err != nil {
+			return Manifest{}, fmt.Errorf("failed to add registry %s: %w", repo.URL, err)
+		}
 	}
 
 	// Merging parents data by parsing local parent pom.xml or fetching from upstream.
@@ -158,6 +167,7 @@ func (m MavenReadWriter) Read(df lockfile.DepFile) (Manifest, error) {
 			Properties:             properties,
 			OriginalRequirements:   origRequirements,
 			RequirementsForUpdates: reqsForUpdates,
+			Repositories:           project.Repositories,
 		},
 	}, nil
 }
