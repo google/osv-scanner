@@ -58,6 +58,7 @@ func (res *Result) Errors() []NodeError {
 	return errs
 }
 
+// change
 func getResolver(sys resolve.System, cl resolve.Client) (resolve.Resolver, error) {
 	switch sys { //nolint:exhaustive
 	case resolve.NPM:
