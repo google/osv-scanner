@@ -59,7 +59,7 @@ func (res *Result) Errors() []NodeError {
 }
 
 func getResolver(sys resolve.System, cl resolve.Client) (resolve.Resolver, error) {
-	switch sys {
+	switch sys { //nolint:exhaustive
 	case resolve.NPM:
 		return npm.NewResolver(cl), nil
 	case resolve.Maven:
