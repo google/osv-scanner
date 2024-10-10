@@ -4,27 +4,42 @@ import (
 	"errors"
 	"fmt"
 	"strings"
-	"sync"
 
 	"deps.dev/util/resolve"
 	"github.com/google/osv-scanner/internal/local"
 	"github.com/google/osv-scanner/internal/resolution/util"
 	"github.com/google/osv-scanner/pkg/models"
 	"github.com/google/osv-scanner/pkg/osv"
+	"github.com/google/osv-scanner/pkg/reporter"
 )
 
 type OSVOfflineClient struct {
 	// TODO: OSV-Scanner v2 plans to make vulnerability clients that can be used here.
-	offline     bool
 	localDBPath string
-	mu          sync.Mutex
 }
 
-func NewOSVOfflineClient(downloadDBs bool, localDBPath string) *OSVOfflineClient {
-	return &OSVOfflineClient{
-		offline:     !downloadDBs,
-		localDBPath: localDBPath,
+func NewOSVOfflineClient(r reporter.Reporter, system resolve.System, downloadDBs bool, localDBPath string) (*OSVOfflineClient, error) {
+	if system == resolve.UnknownSystem {
+		return nil, errors.New("osv offline client created with unknown ecosystem")
 	}
+	// Make a dummy request to the local client to log and make sure the database is downloaded without error.
+	q := osv.BatchedQuery{Queries: []*osv.Query{{
+		Package: osv.Package{
+			Name:      "foo",
+			Ecosystem: string(util.OSVEcosystem[system]),
+		},
+		Version: "1.0.0",
+	}}}
+	_, err := local.MakeRequest(r, q, !downloadDBs, localDBPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if r.HasErrored() {
+		return nil, errors.New("error creating osv offline client")
+	}
+
+	return &OSVOfflineClient{localDBPath: localDBPath}, nil
 }
 
 func (c *OSVOfflineClient) FindVulns(g *resolve.Graph) ([]models.Vulnerabilities, error) {
@@ -40,16 +55,12 @@ func (c *OSVOfflineClient) FindVulns(g *resolve.Graph) ([]models.Vulnerabilities
 		}
 	}
 
-	// local.MakeRequest only logs an error if the database cannot be found.
-	// For guided remediation this should be a fatal error, since there's only the one ecosystem.
+	// If local.MakeRequest logs an error, it's probably fatal for guided remediation.
 	// Set up a reporter to capture error logs and return the logs as an error.
 	r := &errorReporter{}
+	// DB should already be downloaded, set offline to true.
+	hydrated, err := local.MakeRequest(r, query, true, c.localDBPath)
 
-	// Not entirely sure if the local database is thread safe.
-	// Chucking it in a mutex just in case.
-	c.mu.Lock()
-	hydrated, err := local.MakeRequest(r, query, c.offline, c.localDBPath)
-	c.mu.Unlock()
 	if err != nil {
 		return nil, err
 	}

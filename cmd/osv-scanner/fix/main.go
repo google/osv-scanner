@@ -268,16 +268,7 @@ func action(ctx *cli.Context, stdout, stderr io.Writer) (reporter.Reporter, erro
 		RelockCmd: ctx.String("relock-cmd"),
 	}
 
-	if ctx.Bool("experimental-offline") {
-		opts.Client.VulnerabilityClient = client.NewOSVOfflineClient(
-			ctx.Bool("experimental-download-offline-databases"),
-			ctx.String("experimental-local-db-path"))
-	} else {
-		opts.Client.VulnerabilityClient = client.NewOSVClient()
-	}
-
 	system := resolve.UnknownSystem
-
 	if opts.Lockfile != "" {
 		rw, err := lockfile.GetReadWriter(opts.Lockfile)
 		if err != nil {
@@ -331,6 +322,20 @@ func action(ctx *cli.Context, stdout, stderr io.Writer) (reporter.Reporter, erro
 		default:
 			return nil, fmt.Errorf("native data-source currently unsupported for %s ecosystem", system.String())
 		}
+	}
+
+	if ctx.Bool("experimental-offline") {
+		var err error
+		opts.Client.VulnerabilityClient, err = client.NewOSVOfflineClient(
+			r,
+			system,
+			ctx.Bool("experimental-download-offline-databases"),
+			ctx.String("experimental-local-db-path"))
+		if err != nil {
+			return nil, err
+		}
+	} else {
+		opts.Client.VulnerabilityClient = client.NewOSVClient()
 	}
 
 	if !ctx.Bool("non-interactive") {
