@@ -123,16 +123,7 @@ func (m MavenReadWriter) Read(df lockfile.DepFile) (Manifest, error) {
 	//  - import dependency management
 	//  - fill in missing dependency version requirement
 	project.ProcessDependencies(func(groupID, artifactID, version maven.String) (maven.DependencyManagement, error) {
-		root := maven.Parent{ProjectKey: maven.ProjectKey{GroupID: groupID, ArtifactID: artifactID, Version: version}}
-		var result maven.Project
-		// To get dependency management from another project, we need the
-		// project with parents merged, so we call mergeParents by passing
-		// an empty project.
-		if err := mavenutil.MergeParents(ctx, m.MavenRegistryAPIClient, &result, root, 0, "", false); err != nil {
-			return maven.DependencyManagement{}, err
-		}
-
-		return result.DependencyManagement, nil
+		return mavenutil.GetDependencyManagement(ctx, m.MavenRegistryAPIClient, groupID, artifactID, version)
 	})
 
 	groups := make(map[RequirementKey][]string)

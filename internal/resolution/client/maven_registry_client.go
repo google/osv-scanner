@@ -111,13 +111,7 @@ func (c *MavenRegistryClient) Requirements(ctx context.Context, vk resolve.Versi
 		return nil, err
 	}
 	proj.ProcessDependencies(func(groupID, artifactID, version maven.String) (maven.DependencyManagement, error) {
-		root := maven.Parent{ProjectKey: maven.ProjectKey{GroupID: groupID, ArtifactID: artifactID, Version: version}}
-		var result maven.Project
-		if err := mavenutil.MergeParents(ctx, c.api, &result, root, 0, "", false); err != nil {
-			return maven.DependencyManagement{}, err
-		}
-
-		return result.DependencyManagement, nil
+		return mavenutil.GetDependencyManagement(ctx, c.api, groupID, artifactID, version)
 	})
 
 	reqs := make([]resolve.RequirementVersion, 0, len(proj.Dependencies))

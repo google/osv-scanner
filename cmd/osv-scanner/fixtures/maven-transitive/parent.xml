@@ -12,11 +12,13 @@
 
   <packaging>pom</packaging>
 
+
   <dependencies>
     <dependency>
-      <groupId>com.google.protobuf</groupId>
-      <artifactId>protobuf-java-util</artifactId>
-      <version>4.28.0</version>
+    <!-- depends on com.google.android.gms:play-services v10.0.0-->
+      <groupId>com.google.android.gms</groupId>
+      <artifactId>play-services</artifactId>
+      <version>10.0.0</version>
     </dependency>
   </dependencies>
 

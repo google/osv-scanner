@@ -52,13 +52,7 @@ func (e MavenResolverExtractor) Extract(f lockfile.DepFile) ([]lockfile.PackageD
 	//  - import dependency management
 	//  - fill in missing dependency version requirement
 	project.ProcessDependencies(func(groupID, artifactID, version maven.String) (maven.DependencyManagement, error) {
-		root := maven.Parent{ProjectKey: maven.ProjectKey{GroupID: groupID, ArtifactID: artifactID, Version: version}}
-		var result maven.Project
-		if err := mavenutil.MergeParents(ctx, e.MavenRegistryAPIClient, &result, root, 0, f.Path(), false); err != nil {
-			return maven.DependencyManagement{}, err
-		}
-
-		return result.DependencyManagement, nil
+		return mavenutil.GetDependencyManagement(ctx, e.MavenRegistryAPIClient, groupID, artifactID, version)
 	})
 
 	if registries := e.MavenRegistryAPIClient.GetRegistries(); len(registries) > 0 {
@@ -112,6 +106,7 @@ func (e MavenResolverExtractor) Extract(f lockfile.DepFile) ([]lockfile.PackageD
 	}
 	overrideClient.AddVersion(root, reqs)
 
+	client.PreFetch(ctx, overrideClient, reqs, f.Path())
 	g, err := resolver.Resolve(ctx, root.VersionKey)
 	if err != nil {
 		return nil, fmt.Errorf("failed resolving %v: %w", root, err)
@@ -119,6 +114,10 @@ func (e MavenResolverExtractor) Extract(f lockfile.DepFile) ([]lockfile.PackageD
 	for i, e := range g.Edges {
 		e.Type = dep.Type{}
 		g.Edges[i] = e
+	}
+
+	if err := overrideClient.WriteCache(f.Path()); err != nil {
+		return nil, fmt.Errorf("failed to write resolution cache: %w", err)
 	}
 
 	details := map[string]lockfile.PackageDetails{}

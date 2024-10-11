@@ -27,7 +27,7 @@ type MavenRegistryAPIClient struct {
 	registries []string // URLs of the registries to fetch projects
 
 	// Cache fields
-	mu             sync.Mutex
+	mu             *sync.Mutex
 	cacheTimestamp *time.Time // If set, this means we loaded from a cache
 	projects       *RequestCache[string, maven.Project]
 	metadata       *RequestCache[string, maven.Metadata]
@@ -42,9 +42,21 @@ func NewMavenRegistryAPIClient(registry string) (*MavenRegistryAPIClient, error)
 
 	return &MavenRegistryAPIClient{
 		defaultRegistry: registry,
+		mu:              &sync.Mutex{},
 		projects:        NewRequestCache[string, maven.Project](),
 		metadata:        NewRequestCache[string, maven.Metadata](),
 	}, nil
+}
+
+// CloneWithoutRegistries copies MavenRegistryAPIClient including its cache but not registries.
+func (m *MavenRegistryAPIClient) CloneWithoutRegistries() *MavenRegistryAPIClient {
+	return &MavenRegistryAPIClient{
+		defaultRegistry: m.defaultRegistry,
+		mu:              m.mu,
+		cacheTimestamp:  m.cacheTimestamp,
+		projects:        m.projects,
+		metadata:        m.metadata,
+	}
 }
 
 // Add adds the given registry to the list of registries if it has not been added.
