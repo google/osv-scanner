@@ -3,10 +3,10 @@ module github.com/google/osv-scanner
 go 1.22.7
 
 require (
-	deps.dev/api/v3 v3.0.0-20240923041156-0312db85d6d6
-	deps.dev/util/maven v0.0.0-20240923041156-0312db85d6d6
-	deps.dev/util/resolve v0.0.0-20240923041156-0312db85d6d6
-	deps.dev/util/semver v0.0.0-20240923041156-0312db85d6d6
+	deps.dev/api/v3 v3.0.0-20241010035105-b3ba03369df1
+	deps.dev/util/maven v0.0.0-20241010035105-b3ba03369df1
+	deps.dev/util/resolve v0.0.0-20241010035105-b3ba03369df1
+	deps.dev/util/semver v0.0.0-20241010035105-b3ba03369df1
 	github.com/BurntSushi/toml v1.4.0
 	github.com/CycloneDX/cyclonedx-go v0.9.1
 	github.com/charmbracelet/bubbles v0.20.0
@@ -103,7 +103,7 @@ require (
 	golang.org/x/sys v0.26.0 // indirect
 	golang.org/x/text v0.19.0 // indirect
 	golang.org/x/tools v0.26.0 // indirect
-	google.golang.org/genproto/googleapis/api v0.0.0-20240814211410-ddb44dafa142 // indirect
-	google.golang.org/genproto/googleapis/rpc v0.0.0-20240814211410-ddb44dafa142 // indirect
+	google.golang.org/genproto/googleapis/api v0.0.0-20241007155032-5fefd90f89a9 // indirect
+	google.golang.org/genproto/googleapis/rpc v0.0.0-20241007155032-5fefd90f89a9 // indirect
 	gopkg.in/warnings.v0 v0.1.2 // indirect
 )
