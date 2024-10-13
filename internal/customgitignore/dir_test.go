@@ -721,7 +721,7 @@ func hasPatternContaining(gips []gitignore.Pattern, test string) bool {
 //
 // ... because the changes in customgitignore adjust the
 // implementation details of the upstream package so that
-// it doesn't read .gitingore files from ignored dirs.
+// it doesn't read .gitignore files from ignored dirs.
 // This means that before _and_ after the change p.Match()
 // will return false.
 func patternContains(gip gitignore.Pattern, test string) bool {

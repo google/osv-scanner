@@ -19,7 +19,7 @@ import (
 const (
 	// QueryEndpoint is the URL for posting queries to OSV.
 	QueryEndpoint = "https://api.osv.dev/v1/querybatch"
-	// GetEndpoint is the URL for getting vulenrabilities from OSV.
+	// GetEndpoint is the URL for getting vulnerabilities from OSV.
 	GetEndpoint = "https://api.osv.dev/v1/vulns"
 	// DetermineVersionEndpoint is the URL for posting determineversion queries to OSV.
 	DetermineVersionEndpoint = "https://api.osv.dev/v1experimental/determineversion"
