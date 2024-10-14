@@ -2391,6 +2391,9 @@ Scanned <rootdir>/fixtures/maven-transitive/registry.xml file as a pom.xml and f
 ---
 
 [TestRun_MavenTransitive/scans_dependencies_from_multiple_registries - 2]
+
+---
+
 [TestRun_MavenTransitive/scans_pom.xml_with_non_UTF-8_encoding - 1]
 Scanned <rootdir>/fixtures/maven-transitive/encoding.xml file as a pom.xml and found 2 packages
 +-------------------------------------+------+-----------+-------------+---------+----------------------------------------+

@@ -49,8 +49,8 @@ func NewMavenRegistryAPIClient(registry string) (*MavenRegistryAPIClient, error)
 	}, nil
 }
 
-// CloneWithoutRegistries copies MavenRegistryAPIClient including its cache but not registries.
-func (m *MavenRegistryAPIClient) CloneWithoutRegistries() *MavenRegistryAPIClient {
+// CopyWithoutRegistries copies MavenRegistryAPIClient including its cache but not registries.
+func (m *MavenRegistryAPIClient) CopyWithoutRegistries() *MavenRegistryAPIClient {
 	return &MavenRegistryAPIClient{
 		defaultRegistry: m.defaultRegistry,
 		mu:              m.mu,
