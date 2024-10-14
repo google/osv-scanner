@@ -894,6 +894,11 @@ func TestRun_MavenTransitive(t *testing.T) {
 			exit: 1,
 		},
 		{
+			name: "scans pom.xml with non UTF-8 encoding",
+			args: []string{"", "--config=./fixtures/osv-scanner-empty-config.toml", "-L", "pom.xml:./fixtures/maven-transitive/encoding.xml"},
+			exit: 1,
+		},
+		{
 			// Direct dependencies do not have any vulnerability.
 			name: "does not scan transitive dependencies for pom.xml with offline mode",
 			args: []string{"", "--config=./fixtures/osv-scanner-empty-config.toml", "--experimental-offline", "--experimental-download-offline-databases", "./fixtures/maven-transitive/pom.xml"},

@@ -2,7 +2,6 @@ package manifest
 
 import (
 	"context"
-	"encoding/xml"
 	"fmt"
 	"path/filepath"
 
@@ -31,7 +30,7 @@ func (e MavenResolverExtractor) Extract(f lockfile.DepFile) ([]lockfile.PackageD
 	ctx := context.Background()
 
 	var project maven.Project
-	if err := xml.NewDecoder(f).Decode(&project); err != nil {
+	if err := datasource.NewMavenDecoder(f).Decode(&project); err != nil {
 		return nil, fmt.Errorf("could not extract from %s: %w", f.Path(), err)
 	}
 	// Empty JDK and ActivationOS indicates merging the default profiles.
