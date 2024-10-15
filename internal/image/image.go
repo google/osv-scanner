@@ -11,10 +11,10 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/dghubble/trie"
 	v1 "github.com/google/go-containerregistry/pkg/v1"
 	"github.com/google/go-containerregistry/pkg/v1/tarball"
-	"github.com/google/osv-scanner/pkg/lockfile"
+	"github.com/google/osv-scanner/internal/image/thirdparty/trie"
+	"github.com/google/osv-scanner/internal/lockfilescalibr/extractor"
 )
 
 const whiteoutPrefix = ".wh."
@@ -27,8 +27,8 @@ const filePermission = 0600
 var ErrNoHistoryAvailable = errors.New("no history available")
 
 type ScanResults struct {
-	Lockfiles []lockfile.Lockfile
-	ImagePath string
+	Inventories []*extractor.Inventory
+	ImagePath   string
 }
 
 type Image struct {

@@ -1,134 +1,94 @@
 package image
 
 import (
+	"context"
 	"errors"
 	"fmt"
-	"os"
-	"path"
-	"sort"
+	"io/fs"
+	"path/filepath"
 
+	"github.com/google/osv-scanner/internal/lockfilescalibr/extractor"
+	"github.com/google/osv-scanner/internal/lockfilescalibr/filesystem"
+	"github.com/google/osv-scanner/internal/lockfilescalibr/language/alpine/apkinstalled"
 	"github.com/google/osv-scanner/pkg/lockfile"
 )
 
 // artifactExtractors contains only extractors for artifacts that are important in
 // the final layer of a container image
-var artifactExtractors map[string]lockfile.Extractor = map[string]lockfile.Extractor{
+var artifactExtractors map[string]filesystem.Extractor = map[string]filesystem.Extractor{
 	// "node_modules":  lockfile.NodeModulesExtractor{},
-	// "apk-installed": lockfile.ApkInstalledExtractor{},
+	"apk-installed": apkinstalled.Extractor{},
 	// "dpkg":          lockfile.DpkgStatusExtractor{},
-	// "go-binary":     lockfile.GoBinaryExtractor{},
+	// "go-binary": lockfile.GoBinaryExtractor{},
 }
 
-type extractorPair struct {
-	extractor lockfile.Extractor
-	name      string
-}
-
-func findArtifactExtractor(path string) []extractorPair {
+func findArtifactExtractor(path string, fileInfo fs.FileInfo) []filesystem.Extractor {
 	// Use ShouldExtract to collect and return a slice of artifactExtractors
-	var extractors []extractorPair
-	for name, extractor := range artifactExtractors {
-		if extractor.ShouldExtract(path) {
-			extractors = append(extractors, extractorPair{extractor, name})
+	var extractors []filesystem.Extractor
+	for _, extractor := range artifactExtractors {
+		if extractor.FileRequired(path, fileInfo) {
+			extractors = append(extractors, extractor)
 		}
 	}
 
 	return extractors
 }
 
-func extractArtifactDeps(path string, layer *Layer) (lockfile.Lockfile, error) {
-	foundExtractors := findArtifactExtractor(path)
-	if len(foundExtractors) == 0 {
-		return lockfile.Lockfile{}, fmt.Errorf("%w for %s", lockfile.ErrExtractorNotFound, path)
+// Note: Output is non deterministic
+func extractArtifactDeps(path string, img *Image) ([]*extractor.Inventory, error) {
+	pathFileInfo, err := img.LastLayer().Stat(path)
+	if err != nil {
+		return nil, fmt.Errorf("attempted to get FileInfo but failed: %w", err)
 	}
 
-	packages := []lockfile.PackageDetails{}
+	scalibrPath, _ := filepath.Rel("/", path)
+	foundExtractors := findArtifactExtractor(scalibrPath, pathFileInfo)
+	if len(foundExtractors) == 0 {
+		return nil, fmt.Errorf("%w for %s", lockfile.ErrExtractorNotFound, path)
+	}
+
+	inventories := []*extractor.Inventory{}
 	var extractedAs string
-	for _, extPair := range foundExtractors {
+	for _, extractor := range foundExtractors {
 		// File has to be reopened per extractor as each extractor moves the read cursor
-		f, err := OpenLayerFile(path, layer)
+		f, err := img.LastLayer().Open(path)
 		if err != nil {
-			return lockfile.Lockfile{}, fmt.Errorf("attempted to open file but failed: %w", err)
+			return nil, fmt.Errorf("attempted to open file but failed: %w", err)
 		}
 
-		newPackages, err := extPair.extractor.Extract(f)
+		scanInput := &filesystem.ScanInput{
+			FS:       img.LastLayer(),
+			Path:     scalibrPath,
+			ScanRoot: "/",
+			Reader:   f,
+			Info:     pathFileInfo,
+		}
+
+		newPackages, err := extractor.Extract(context.Background(), scanInput)
 		f.Close()
 
 		if err != nil {
-			if errors.Is(err, lockfile.ErrIncompatibleFileFormat) {
+			if errors.Is(lockfile.ErrIncompatibleFileFormat, err) {
 				continue
 			}
 
-			return lockfile.Lockfile{}, fmt.Errorf("(extracting as %s) %w", extPair.name, err)
+			return nil, fmt.Errorf("(extracting as %s) %w", extractor.Name(), err)
 		}
 
-		extractedAs = extPair.name
-		packages = newPackages
-		// TODO(rexpan): Determine if it's acceptable to have multiple extractors
+		for i := range newPackages {
+			newPackages[i].Extractor = extractor
+		}
+
+		extractedAs = extractor.Name()
+		inventories = newPackages
+		// TODO(rexpan): Determine if this it's acceptable to have multiple extractors
 		// extract from the same file successfully
 		break
 	}
 
 	if extractedAs == "" {
-		return lockfile.Lockfile{}, fmt.Errorf("%w for %s", lockfile.ErrExtractorNotFound, path)
+		return nil, fmt.Errorf("%w for %s", lockfile.ErrExtractorNotFound, path)
 	}
 
-	// Sort to have deterministic output, and to match behavior of lockfile.extractDeps
-	sort.Slice(packages, func(i, j int) bool {
-		if packages[i].Name == packages[j].Name {
-			return packages[i].Version < packages[j].Version
-		}
-
-		return packages[i].Name < packages[j].Name
-	})
-
-	return lockfile.Lockfile{
-		FilePath: path,
-		ParsedAs: extractedAs,
-		Packages: packages,
-	}, nil
+	return inventories, nil
 }
-
-// A File represents a file that exists in an image
-type File struct {
-	*os.File
-
-	layer *Layer
-	path  string
-}
-
-func (f File) Open(openPath string) (lockfile.NestedDepFile, error) {
-	// use path instead of filepath, because container is always in Unix paths (for now)
-	if path.IsAbs(openPath) {
-		return OpenLayerFile(openPath, f.layer)
-	}
-
-	absPath := path.Join(f.path, openPath)
-
-	return OpenLayerFile(absPath, f.layer)
-}
-
-func (f File) Path() string {
-	return f.path
-}
-
-func OpenLayerFile(path string, layer *Layer) (File, error) {
-	fileNode, err := layer.getFileNode(path)
-	if err != nil {
-		return File{}, err
-	}
-
-	file, err := fileNode.Open()
-	if err != nil {
-		return File{}, err
-	}
-
-	return File{
-		File:  file,
-		path:  path,
-		layer: layer,
-	}, nil
-}
-
-var _ lockfile.DepFile = File{}
-var _ lockfile.NestedDepFile = File{}
