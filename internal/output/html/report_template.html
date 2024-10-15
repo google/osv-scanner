@@ -1,0 +1,65 @@
+<!doctype html>
+<html>
+
+<head>
+  <title>Vulnerability Scan Report</title>
+  <link rel="icon" href="https://google.github.io/osv.dev/assets/icon.png" type="image/x-icon" />
+  {{ template "style.html" }}
+</head>
+
+<body>
+  {{ template "script.html" }}
+  <div class="container">
+    <header>
+      <img src="https://google.github.io/osv.dev/assets/logo.png" alt="OSV-Scanner Logo" class="logo" />
+      <h1>Vulnerability Scan Report</h1>
+    </header>
+    <h2>Scanning Results</h2>
+    <p>
+      {{ if eq .HTMLVulnCount.Called 0}}
+      No vulnerability found.
+      {{ else if eq .HTMLVulnCount.Called 1 }}
+      Total {{ .HTMLVulnCount.Called }} vulnerability found
+      ({{ .HTMLVulnCount.Fixed }} has fix available),
+      {{ printSeverityCount .HTMLVulnCount }}.
+      {{ else }}
+      Total {{ .HTMLVulnCount.Called }} vulnerabilities found
+      ({{ .HTMLVulnCount.Fixed }} has/have fix available),
+      {{ printSeverityCount .HTMLVulnCount }}.
+      {{ end }}
+    </p>
+    <div id="tab-switch">
+      <button id="package-button" class="tab-switch-button tab-switch-button-selected" onclick="openTab('package')">
+        Package View
+      </button>
+      <button id="vuln-button" class="tab-switch-button" onclick="openTab('vuln')">
+        Vulnerability View
+      </button>
+    </div>
+
+    <div id="package-tab" class="view-tab">
+      <h3>Vulnerable Package Summary</h3>
+      {{template "package_view_template.html" .EcosystemResults}}
+    </div>
+
+    <div id="vuln-tab" class="view-tab">
+      {{ range .EcosystemResults }}
+      <div class="ecosystem">
+        <h2>{{ .Ecosystem }}</h2>
+        <div class="source-section">
+          {{ range .Sources }}
+          <h3>Source: {{ .Source }}</h3>
+          <p>
+            Found {{ .CalledPackageCount }} package(s) with issues,
+            {{ .HTMLVulnCount.Called }} known vulnerabilities found.
+          </p>
+
+          {{template "vuln_view_template.html" .}} {{ end }}
+        </div>
+      </div>
+      {{ end }}
+    </div>
+  </div>
+</body>
+
+</html>
