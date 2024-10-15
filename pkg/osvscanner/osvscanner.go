@@ -421,16 +421,15 @@ func scanLockfile(r reporter.Reporter, path string, parseAs string, compareOffli
 		if inv.SourceCode != nil {
 			scannedPackage.Commit = inv.SourceCode.Commit
 		}
-		if eco, err := inv.Ecosystem(); err == nil {
-
-			// TODO(rexpan): Refactor these minor patches to individual items
-			// TODO: Ecosystem should be pared with Enum : Suffix
-			if eco == "Alpine" {
-				eco = "Alpine:v3.20"
-			}
-
-			scannedPackage.Ecosystem = lockfile.Ecosystem(eco)
+		eco := inv.Ecosystem()
+		// TODO(rexpan): Refactor these minor patches to individual items
+		// TODO: Ecosystem should be pared with Enum : Suffix
+		if eco == "Alpine" {
+			eco = "Alpine:v3.20"
 		}
+
+		scannedPackage.Ecosystem = lockfile.Ecosystem(eco)
+
 		if dg, ok := inv.Metadata.(scalibrosv.DepGroups); ok {
 			scannedPackage.DepGroups = dg.DepGroups()
 		}

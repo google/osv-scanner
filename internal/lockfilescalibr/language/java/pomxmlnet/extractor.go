@@ -169,8 +169,8 @@ func (e Extractor) ToPURL(i *extractor.Inventory) (*purl.PackageURL, error) {
 func (e Extractor) ToCPEs(i *extractor.Inventory) ([]string, error) { return []string{}, nil }
 
 // Ecosystem returns the OSV ecosystem ('npm') of the software extracted by this extractor.
-func (e Extractor) Ecosystem(i *extractor.Inventory) (string, error) {
-	return "Maven", nil
+func (e Extractor) Ecosystem(i *extractor.Inventory) string {
+	return "Maven"
 }
 
 var _ filesystem.Extractor = Extractor{}

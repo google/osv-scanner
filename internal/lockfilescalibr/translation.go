@@ -9,6 +9,8 @@ import (
 
 	"github.com/google/osv-scalibr/extractor"
 	"github.com/google/osv-scalibr/extractor/filesystem"
+	"github.com/google/osv-scalibr/extractor/filesystem/language/dart/pubspec"
+	"github.com/google/osv-scalibr/extractor/filesystem/language/dotnet/packageslockjson"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/erlang/mixlock"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/golang/gomod"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/java/gradlelockfile"
@@ -16,6 +18,7 @@ import (
 	"github.com/google/osv-scalibr/extractor/filesystem/language/java/pomxml"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/javascript/packagelockjson"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/javascript/pnpmlock"
+	"github.com/google/osv-scalibr/extractor/filesystem/language/javascript/yarnlock"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/php/composerlock"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/python/pdmlock"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/python/pipfilelock"
@@ -24,7 +27,6 @@ import (
 	"github.com/google/osv-scalibr/extractor/filesystem/language/r/renvlock"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/ruby/gemfilelock"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/rust/cargolock"
-	"github.com/google/osv-scanner/internal/lockfilescalibr/language/javascript/yarnlock"
 
 	scalibrfs "github.com/google/osv-scalibr/fs"
 )
@@ -59,9 +61,9 @@ import (
 
 var lockfileExtractors = []filesystem.Extractor{
 	// conanlock.Extractor{},
-	// nugetpackagelock.Extractor{},
+	packageslockjson.Extractor{},
 	mixlock.Extractor{},
-	// pubspec.Extractor{},
+	pubspec.Extractor{},
 	gomod.Extractor{},
 	pomxml.Extractor{},
 	gradlelockfile.Extractor{},
@@ -80,7 +82,7 @@ var lockfileExtractors = []filesystem.Extractor{
 }
 
 var lockfileExtractorMapping = map[string]string{
-	// "pubspec.lock":   "flutter/pubspec",
+	"pubspec.lock":                "dart/pubspec",
 	"pnpm-lock.yaml":              "javascript/pnpmlock",
 	"yarn.lock":                   "javascript/yarnlock",
 	"package-lock.json":           "javascript/packagelockjson",
@@ -96,7 +98,7 @@ var lockfileExtractorMapping = map[string]string{
 	"composer.lock":               "php/composerlock",
 	"mix.lock":                    "erlang/mixlock",
 	"renv.lock":                   "r/renvlock",
-	// "packages.lock.json":          "dotnet/nugetpackagelock",
+	"packages.lock.json":          "dotnet/packageslockjson",
 	// "conan.lock":                  "cpp/conanlock",
 	"go.mod":       "go/gomod",
 	"Gemfile.lock": "ruby/gemfilelock",

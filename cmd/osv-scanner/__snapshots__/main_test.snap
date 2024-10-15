@@ -320,9 +320,9 @@ Scanning dir ./fixtures/maven-transitive
 Scanned <rootdir>/fixtures/maven-transitive/pom.xml file and found 3 packages
 Package npm/ansi-html/0.0.1 has been filtered out because: (no reason given)
 Package npm/balanced-match/1.0.2 has been filtered out because: (no reason given)
+Package Maven/org.apache.logging.log4j:log4j-web/2.14.1 has been filtered out because: it makes the table output really really long
 Package Maven/org.apache.logging.log4j:log4j-api/2.14.1 has been filtered out because: it makes the table output really really long
 Package Maven/org.apache.logging.log4j:log4j-core/2.14.1 has been filtered out because: it makes the table output really really long
-Package Maven/org.apache.logging.log4j:log4j-web/2.14.1 has been filtered out because: it makes the table output really really long
 Filtered 5 ignored package/s from the scan.
 overriding license for package Alpine/alpine-baselayout-data/3.4.0-r0 with MIT
 overriding license for package Alpine/alpine-baselayout/3.4.0-r0 with MIT
@@ -2316,7 +2316,7 @@ No issues found
 ---
 
 [TestRun_LockfileWithExplicitParseAs/parse-as_takes_priority,_even_if_it's_wrong - 2]
-(extracting as package-lock.json) NpmLockExtractor.Extract(): could not extract from <rootdir>/fixtures/locks-many/yarn.lock: invalid character '#' looking for beginning of value
+(extracting as package-lock.json) could not extract from "<rootdir>/fixtures/locks-many/yarn.lock": invalid character '#' looking for beginning of value
 
 ---
 
