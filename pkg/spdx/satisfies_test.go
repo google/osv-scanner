@@ -44,12 +44,12 @@ func TestSatisfies(t *testing.T) {
 		{
 			license: "GPL-2.0-or-later WITH Bison-exception-2.2",
 			pass: [][]string{
-				{"GPL-2.0-or-later"},
-				{"GPL-2.0-or-later", "Bison-exception-2.2"},
+				{"GPL-2.0-or-later WITH Bison-exception-2.2"},
 			},
 			fail: [][]string{
 				{"Bison-exception-2.2"},
-				{"GPL-2.0-or-later WITH Bison-exception-2.2"},
+				{"GPL-2.0-or-later"},
+				{"GPL-2.0-or-later", "Bison-exception-2.2"},
 				{"GPL-1.0"},
 			},
 		},
@@ -143,9 +143,54 @@ func TestSatisfies(t *testing.T) {
 				{"E"},
 			},
 		},
+		{
+			license: "MIT AND LGPL-2.1-or-later OR BSD-3-Clause",
+			pass: [][]string{
+				{"BSD-3-Clause"},
+				{"MIT", "LGPL-2.1-or-later"},
+				{"MIT", "BSD-3-Clause"},
+				{"LGPL-2.1-or-later", "BSD-3-Clause"},
+				{"MIT", "LGPL-2.1-or-later", "BSD-3-Clause"},
+			},
+			fail: [][]string{
+				{"Apache-2.0"},
+				{"MIT"},
+				{"LGPL-2.1-or-later"},
+			},
+		},
+		{
+			license: "BSD-3-Clause OR MIT AND LGPL-2.1-or-later",
+			pass: [][]string{
+				{"BSD-3-Clause"},
+				{"MIT", "LGPL-2.1-or-later"},
+				{"MIT", "BSD-3-Clause"},
+				{"LGPL-2.1-or-later", "BSD-3-Clause"},
+				{"MIT", "LGPL-2.1-or-later", "BSD-3-Clause"},
+			},
+			fail: [][]string{
+				{"Apache-2.0"},
+				{"MIT"},
+				{"LGPL-2.1-or-later"},
+			},
+		},
 		// parentheses
 		{
 			license: "MIT AND (LGPL-2.1-or-later OR BSD-3-Clause)",
+			pass: [][]string{
+				{"MIT", "LGPL-2.1-or-later"},
+				{"MIT", "BSD-3-Clause"},
+				{"MIT", "LGPL-2.1-or-later", "BSD-3-Clause"},
+			},
+			fail: [][]string{
+				{"Apache-2.0"},
+				{"MIT"},
+				{"LGPL-2.1-or-later"},
+				{"BSD-3-Clause"},
+				{"LGPL-2.1-or-later", "BSD-3-Clause"},
+			},
+		},
+		{
+			license: "(BSD-3-Clause OR LGPL-2.1-or-later) AND MIT",
 			pass: [][]string{
 				{"MIT", "LGPL-2.1-or-later"},
 				{"MIT", "BSD-3-Clause"},
@@ -221,14 +266,53 @@ func TestSatisfies(t *testing.T) {
 				{"E"},
 			},
 		},
+		{
+			license: "A AND B AND C OR D AND E OR F",
+			pass: [][]string{
+				{"A", "B", "C", "D", "E", "F"},
+				{"A", "B", "C", "D", "E"},
+				{"A", "B", "C"},
+				{"D", "E"},
+				{"F"},
+			},
+			fail: [][]string{
+				{"A"},
+				{"B"},
+				{"C"},
+				{"D"},
+				{"E"},
+				{"A", "C"},
+				{"A", "D"},
+				{"A", "E"},
+				{"B", "C"},
+				{"B", "D"},
+				{"B", "E"},
+				{"C", "C"},
+				{"C", "D"},
+				{"C", "E"},
+			},
+		},
+		{
+			license: "A WITH B",
+			pass: [][]string{
+				{"A WITH B"},
+			},
+			fail: [][]string{},
+		},
 	}
 	for _, tt := range tests {
 		for _, variant := range tt.pass {
 			t.Run(namer(t, tt.license, variant, true), func(t *testing.T) {
 				t.Parallel()
 
-				if got := spdx.Satisfies(tt.license, variant); !got {
-					t.Errorf("Satisfies() = %v, want %v", got, true)
+				got, err := spdx.Satisfies(tt.license, variant)
+
+				if err != nil {
+					t.Errorf("Satisfies(\"%s\") = %v, want %v", tt.license, err, nil)
+				}
+
+				if !got {
+					t.Errorf("Satisfies(\"%s\") = %v, want %v", tt.license, got, true)
 				}
 			})
 		}
@@ -237,10 +321,149 @@ func TestSatisfies(t *testing.T) {
 			t.Run(namer(t, tt.license, variant, false), func(t *testing.T) {
 				t.Parallel()
 
-				if got := spdx.Satisfies(tt.license, variant); got {
-					t.Errorf("Satisfies() = %v, want %v", got, false)
+				got, err := spdx.Satisfies(tt.license, variant)
+
+				if err != nil {
+					t.Errorf("Satisfies(\"%s\") = %v, want %v", tt.license, err, nil)
+				}
+
+				if got {
+					t.Errorf("Satisfies(\"%s\") = %v, want %v", tt.license, got, false)
 				}
 			})
 		}
+	}
+}
+
+func TestSatisfies_Invalid(t *testing.T) {
+	t.Parallel()
+
+	tests1 := []struct {
+		license models.License
+		wantErr string
+	}{
+		// {"()", "unexpected closing bracket"},
+		// {"(", "unexpected end of expression"},
+		// {"(A", "missing closing bracket"},
+		// {"A)", "unexpected closing bracket"},
+		// // {")", "missing closing bracket"},
+		// {"(A AND B", "missing closing bracket"},
+		// {"A AND B))", "unexpected closing bracket"},
+		// {"(A AND B))", "unexpected closing bracket"},
+		// {"(A AND B)()", "unexpected closing bracket"},
+		// {"(A AND B)(A AND B)", "unexpected closing bracket"},
+		// {"A AND", "unexpected end of expression"},
+		// {"A OR", "unexpected end of expression"},
+		// // {"A OR OR", "unexpected end of expression"},
+		//
+		// {"A WITH (", "unexpected ( after WITH"},
+		// {"A WITH )", "unexpected ) after WITH"},
+		// {"A WITH OR", "unexpected OR after WITH"},
+		// {"A WITH AND", "unexpected AND after WITH"},
+		// {"A WITH", "missing license expression after WITH"},
+		// {"A WITH ", "missing license expression after WITH"},
+		// {"A WITH ", "unexpected END after WITH"},
+		// {"A WITH ", "unexpected END after WITH"},
+
+		// 	"WITH": {"(", "WITH", "AND", "OR", ")", "END"},
+		{"", ""},
+		//	"AND":  {"WITH", "AND", "OR", ")", "END"},
+		//	"OR":   {"WITH", "AND", "OR", ")", "END"},
+		//	"(":    {"WITH", "AND", "OR", ")", "END"},
+		//	")":    {"(", "EXP", "WITH"},
+		//	"EXP":  {"(", "EXP"},
+		//	"END":  {"(", "EXP", "WITH", "AND", "OR", ")", "END"},
+		// brackets must be paired
+		{"(A AND B", "missing closing bracket"},
+		{"(((A AND B))", "missing closing bracket"},
+		{"(A AND B OR (A AND C)", "missing closing bracket"},
+		// "WITH" must only be followed by a license expression
+		{"A WITH(", "unexpected ( after WITH"},
+		{"A WITH (", "unexpected ( after WITH"},
+		{"A WITH WITH", "unexpected WITH after WITH"},
+		{"A WITH AND", "unexpected AND after WITH"},
+		{"A WITH OR", "unexpected OR after WITH"},
+		{"A WITH)", "unexpected ) after WITH"},
+		{"A WITH )", "unexpected ) after WITH"},
+		{"A WITH", "unexpected END after WITH"},
+		{"A WITH ", "unexpected END after WITH"},
+		// "AND" must only be followed by a license expression or "("
+		{"A AND WITH", "unexpected WITH after AND"},
+		{"A AND AND", "unexpected AND after AND"},
+		{"A AND OR", "unexpected OR after AND"},
+		{"A AND )", "unexpected ) after AND"},
+		{"A AND)", "unexpected ) after AND"},
+		{"A AND", "unexpected END after AND"},
+		{"A AND ", "unexpected END after AND"},
+		// "OR" must only be followed by a license expression or "("
+		{"A OR WITH", "unexpected WITH after OR"},
+		{"A OR AND", "unexpected AND after OR"},
+		{"A OR OR", "unexpected OR after OR"},
+		{"A OR )", "unexpected ) after OR"},
+		{"A OR)", "unexpected ) after OR"},
+		{"A OR", "unexpected END after OR"},
+		{"A OR ", "unexpected END after OR"},
+		// "(" must only be followed by a license expression or "("
+		{"(WITH", "unexpected WITH after ("},
+		{"( WITH", "unexpected WITH after ("},
+		{"(AND", "unexpected AND after ("},
+		{"( AND", "unexpected AND after ("},
+		{"(OR", "unexpected OR after ("},
+		{"( OR", "unexpected OR after ("},
+		{"()", "unexpected ) after ("},
+		{"( )", "unexpected ) after ("},
+		{"(", "unexpected END after ("},
+		{"( ", "unexpected END after ("},
+		// ")" must only be followed by a license expression, ")", "WITH", "AND", or "OR"
+		{"(A)(", "unexpected ( after )"},
+		{"(A) (", "unexpected ( after )"},
+		{"( A ) (", "unexpected ( after )"},
+		{"(A)Apache-2.0", "unexpected EXP after )"},
+		{"(A)MIT", "unexpected EXP after )"},
+		{"(A) MIT", "unexpected EXP after )"},
+		{"( A ) MIT", "unexpected EXP after )"},
+		{"(A)WITH", "unexpected WITH after )"},
+		{"(A) WITH", "unexpected WITH after )"},
+		{"( A ) WITH", "unexpected WITH after )"},
+		// a license expression must only be followed by "WITH", "AND", "OR", or nothing
+		{"MIT (", "unexpected ( after EXP"},
+		{"MIT(", "unexpected ( after EXP"},
+		{"Apache2.0(", "unexpected ( after EXP"},
+		{"MIT Apache2.0", "unexpected EXP after EXP"},
+		// nested errors
+		{"A AND (OR", "unexpected OR after ("},
+		{"A OR (AND", "unexpected AND after ("},
+		{"A OR AND (()", "unexpected AND after OR"},
+		{"A OR (()", "unexpected ) after ("},
+		{"A OR (B AND A OR (OR)", "unexpected OR after ("},
+	}
+	tests2 := []struct {
+		license models.License
+		wantErr string
+	}{
+		{"(A)WITH", "unexpected WITH after )"},
+	}
+	_ = tests1
+	_ = tests2
+	tests := tests1
+	// tests := tests2
+	for _, tt := range tests {
+		t.Run(string(tt.license), func(t *testing.T) {
+			// t.Parallel()
+
+			got, err := spdx.Satisfies(tt.license, []string{})
+
+			if got {
+				t.Errorf("Satisfies(\"%s\") = %v, want %v", tt.license, got, false)
+			}
+
+			if err == nil {
+				t.Fatalf("Satisfies(\"%s\") = %v, want %v", tt.license, err, tt.wantErr)
+			}
+
+			if !strings.Contains(err.Error(), tt.wantErr) {
+				t.Errorf("Satisfies(\"%s\") = %v, want %v", tt.license, err, tt.wantErr)
+			}
+		})
 	}
 }
