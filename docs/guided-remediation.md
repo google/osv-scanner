@@ -262,6 +262,12 @@ If your project uses mirrored or private registries, you will need to use `--dat
 >
 > The native npm cache will store the addresses of private registries used, though not any authentication information.
 
+### Offline Vulnerability Database
+
+The `fix` subcommand supports the `--experimental-offline` and `--experimental-download-offline-databases` flags.
+
+For more information, see [Offline Mode](./offline-mode.md).
+
 ## Known issues
 
 - The subcommand does not use the `osv-scanner.toml` configuration. Use the `--ignore-vulns` flag instead.
