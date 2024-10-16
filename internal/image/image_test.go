@@ -82,6 +82,12 @@ func TestScanImage(t *testing.T) {
 				return
 			}
 
+			for _, lockfile := range got.Lockfiles {
+				for _, pkg := range lockfile.Packages {
+					pkg.ImageOrigin.LayerID = "<Any value>"
+				}
+			}
+
 			tt.want.MatchJSON(t, got)
 		})
 	}
