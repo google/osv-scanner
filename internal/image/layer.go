@@ -112,18 +112,18 @@ type Layer struct {
 }
 
 func (filemap Layer) Open(path string) (fs.File, error) {
-	node, ok := filemap.fileNodeTrie.Get(path).(FileNode)
-	if !ok {
-		return nil, fs.ErrNotExist
+	node, err := filemap.getFileNode(path)
+	if err != nil {
+		return nil, err
 	}
 
 	return node.Open()
 }
 
 func (filemap Layer) Stat(path string) (fs.FileInfo, error) {
-	node, ok := filemap.fileNodeTrie.Get(path).(FileNode)
-	if !ok {
-		return nil, fs.ErrNotExist
+	node, err := filemap.getFileNode(path)
+	if err != nil {
+		return nil, err
 	}
 
 	return node.Stat()
@@ -153,6 +153,10 @@ var _ fs.StatFS = Layer{}
 var _ fs.ReadDirFS = Layer{}
 
 func (filemap Layer) getFileNode(path string) (FileNode, error) {
+	if !filepath.IsAbs(path) {
+		path = filepath.Join("/", path)
+	}
+
 	node, ok := filemap.fileNodeTrie.Get(path).(FileNode)
 	if !ok {
 		return FileNode{}, fs.ErrNotExist

@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"io/fs"
 	"log"
+	"path/filepath"
 	"slices"
 	"strings"
 
@@ -51,10 +52,10 @@ func ScanImage(r reporter.Reporter, imagePath string) (ScanResults, error) {
 
 	lockfiles := map[string]lockfile.Lockfile{}
 	for _, i := range inventories {
-		lf, exists := lockfiles[i.Locations[0]]
+		lf, exists := lockfiles[filepath.Join("/", i.Locations[0])]
 		if !exists {
 			lf = lockfile.Lockfile{
-				FilePath: i.Locations[0],
+				FilePath: filepath.Join("/", i.Locations[0]),
 				ParsedAs: i.Extractor.Name(),
 			}
 		}
@@ -63,7 +64,7 @@ func ScanImage(r reporter.Reporter, imagePath string) (ScanResults, error) {
 			Name:      i.Name,
 			Version:   i.Version,
 			Ecosystem: lockfile.Ecosystem(i.Ecosystem()),
-			CompareAs: lockfile.Ecosystem(i.Ecosystem()),
+			CompareAs: lockfile.Ecosystem(strings.Split(i.Ecosystem(), ":")[0]),
 		}
 		if i.SourceCode != nil {
 			pkg.Commit = i.SourceCode.Commit
@@ -71,14 +72,15 @@ func ScanImage(r reporter.Reporter, imagePath string) (ScanResults, error) {
 
 		lf.Packages = append(lf.Packages, pkg)
 
-		lockfiles[i.Locations[0]] = lf
+		lockfiles[filepath.Join("/", i.Locations[0])] = lf
 	}
 
-	traceOrigin(img, &scanResults)
 	scanResults.Lockfiles = maps.Values(lockfiles)
 	slices.SortFunc(scanResults.Lockfiles, func(a, b lockfile.Lockfile) int {
 		return strings.Compare(a.FilePath, b.FilePath)
 	})
+
+	traceOrigin(img, &scanResults)
 
 	// Sort to have deterministic output, and to match behavior of lockfile.extractDeps
 	// slices.SortFunc(scanResults.Inventories, func(a, b *extractor.Inventory) int {
@@ -103,17 +105,17 @@ func traceOrigin(img *Image, scannedLockfiles *ScanResults) {
 	for _, file := range scannedLockfiles.Lockfiles {
 		// Defined locally as this is the only place this is used.
 		type PDKey struct {
-			Name      string
-			Version   string
-			Commit    string
+			Name    string
+			Version string
+			// Commit    string
 			Ecosystem string
 		}
 
 		makePDKey := func(pd lockfile.PackageDetails) PDKey {
 			return PDKey{
-				Name:      pd.Name,
-				Version:   pd.Version,
-				Commit:    pd.Commit,
+				Name:    pd.Name,
+				Version: pd.Version,
+				// Commit:    pd.Commit,
 				Ecosystem: string(pd.Ecosystem),
 			}
 		}
