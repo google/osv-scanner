@@ -88,6 +88,11 @@ func extractPnpmPackageNameAndVersion(dependencyPath string, lockfileVersion flo
 	}
 
 	parts := strings.Split(dependencyPath, "/")
+
+	if len(parts) == 1 {
+		return "", ""
+	}
+
 	var name string
 
 	parts = parts[1:]
