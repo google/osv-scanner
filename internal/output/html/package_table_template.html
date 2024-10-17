@@ -1,0 +1,54 @@
+<table class="vuln-table">
+  <tr>
+    <th>Package</th>
+    <th>Ecosystem</th>
+    <th>Installed version</th>
+    <th>Fixed version</th>
+    <th>Vulnerability Count</th>
+  </tr>
+  {{ range $rowIndex, $element := . }}
+  {{ if eq (len $element.CalledVulns) 0 }}
+  {{ continue }}
+  {{ end }}
+
+  <tr class='vuln-tr' id="vuln-tr-{{ $element.Name}}-{{ $rowIndex }}"
+    onclick="showVulnDetails('{{ $element.Name }}-{{ $rowIndex }}')">
+    <td>{{ $element.Name }}</td>
+    <td>{{ $element.Ecosystem }}</td>
+    <td>{{ $element.InstalledVersion }}</td>
+    {{ if ne $element.HTMLVulnCount.UnFixed 0 }}
+    {{ if eq $element.HTMLVulnCount.Fixed 0}}
+    <td class="warning">
+      {{ $element.FixedVersion }}
+    </td>
+    {{ else }}
+    <td class="warning">
+      {{ $element.FixedVersion }} (fixes {{ $element.HTMLVulnCount.Fixed }}/{{ $element.HTMLVulnCount.Called }})
+    </td>
+    {{ end }}
+    {{ else }}
+    <td>
+      {{ $element.FixedVersion }}
+    </td>
+    {{ end }}
+    <td>{{ printSeverityCountShort $element.HTMLVulnCount }}</td>
+  </tr>
+  <tr>
+    <td colspan="100%">
+      <div id="vuln-details-{{ $element.Name }}-{{ $rowIndex }}" class="vuln-details">
+        <p><strong>Source: {{ $element.Source }}</strong></p>
+        <p>Vulnerabilities:</p>
+        {{ range $index, $vuln := $element.CalledVulns }}
+        {{ if eq $vuln.Summary.FixedVersion "No fix available" }}
+        <p><a href="https://osv.dev/{{ $vuln.Summary.ID }}">{{ $vuln.Summary.ID }}</a>
+          ({{$vuln.Summary.SeverityRating}}) has no fix available</p>
+        {{ else }}
+        <p><a href="https://osv.dev/{{ $vuln.Summary.ID }}">{{ $vuln.Summary.ID }}</a>
+          ({{$vuln.Summary.SeverityRating}}) has a fixed version at {{$vuln.Summary.FixedVersion}}</p>
+        {{ end }}
+        {{ end }}
+      </div>
+    </td>
+  </tr>
+  {{ end }}
+</table>

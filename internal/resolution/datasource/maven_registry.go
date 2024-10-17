@@ -5,6 +5,7 @@ import (
 	"encoding/xml"
 	"errors"
 	"fmt"
+	"io"
 	"net/http"
 	"net/url"
 	"strings"
@@ -135,12 +136,17 @@ func get(ctx context.Context, url string, dst interface{}) error {
 		return fmt.Errorf("%w: Maven registry query status: %s", errAPIFailed, resp.Status)
 	}
 
-	d := xml.NewDecoder(resp.Body)
+	return NewMavenDecoder(resp.Body).Decode(dst)
+}
+
+// NewMavenDecoder returns an xml decoder with CharsetReader and Entity set.
+func NewMavenDecoder(reader io.Reader) *xml.Decoder {
+	decoder := xml.NewDecoder(reader)
 	// Set charset reader for conversion from non-UTF-8 charset into UTF-8.
-	d.CharsetReader = charset.NewReaderLabel
+	decoder.CharsetReader = charset.NewReaderLabel
 	// Set HTML entity map for translation between non-standard entity names
 	// and string replacements.
-	d.Entity = xml.HTMLEntity
+	decoder.Entity = xml.HTMLEntity
 
-	return d.Decode(dst)
+	return decoder
 }

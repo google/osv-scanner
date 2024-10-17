@@ -2,7 +2,6 @@ package maven
 
 import (
 	"context"
-	"encoding/xml"
 	"errors"
 	"fmt"
 	"os"
@@ -52,7 +51,7 @@ func MergeParents(ctx context.Context, mavenClient *datasource.MavenRegistryAPIC
 			if err != nil {
 				return fmt.Errorf("failed to open parent file %s: %w", parentPath, err)
 			}
-			err = xml.NewDecoder(f).Decode(&proj)
+			err = datasource.NewMavenDecoder(f).Decode(&proj)
 			f.Close()
 			if err != nil {
 				return fmt.Errorf("failed to unmarshal project: %w", err)

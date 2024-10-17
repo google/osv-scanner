@@ -183,7 +183,7 @@ func (d vulnListItemDelegate) Render(w io.Writer, m list.Model, index int, listI
 	severity := RenderSeverityShort(vuln.OSV.Severity)
 	str := fmt.Sprintf("%s %s  %s  ", cursor, id, severity)
 	fmt.Fprint(w, str)
-	fmt.Fprint(w, truncate.StringWithTail(vuln.OSV.Summary, uint(m.Width()-lipgloss.Width(str)), "…"))
+	fmt.Fprint(w, truncate.StringWithTail(vuln.OSV.Summary, uint(m.Width()-lipgloss.Width(str)), "…")) //nolint:gosec
 }
 
 // workaround item delegate wrapper to stop the selected item from being shown as selected
