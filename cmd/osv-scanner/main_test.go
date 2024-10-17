@@ -172,6 +172,13 @@ func TestRun(t *testing.T) {
 			args: []string{"", "--config=./fixtures/osv-scanner-empty-config.toml", "--sbom", "./fixtures/sbom-insecure/bad-purls.cdx.xml"},
 			exit: 0,
 		},
+		// one specific supported sbom with duplicate PURLs
+		{
+			name: "one specific supported sbom with duplicate PURLs",
+			args: []string{"", "--config=./fixtures/osv-scanner-empty-config.toml", "--sbom", "./fixtures/sbom-insecure/with-duplicates.cdx.xml"},
+			exit: 1,
+		},
+		// one specific unsupported lockfile
 		{
 			name: "one specific unsupported lockfile",
 			args: []string{"", "./fixtures/locks-many/not-a-lockfile.toml"},
