@@ -1,6 +1,7 @@
 package image
 
 import (
+	"cmp"
 	"errors"
 	"fmt"
 	"io/fs"
@@ -38,6 +39,16 @@ func ScanImage(r reporter.Reporter, imagePath string) (ScanResults, error) {
 		if file.fileType != RegularFile {
 			continue
 		}
+
+		// TODO: Currently osv-scalibr does not correctly annotate OS packages
+		// causing artifact extractors to double extract elements here.
+		// So let's skip all these directories for now.
+		// See (b/364536788)
+		if strings.HasPrefix(file.virtualPath, "/usr/local/") ||
+			strings.HasPrefix(file.virtualPath, "/opt/") {
+			continue
+		}
+
 		extractedInventories, err := extractArtifactDeps(file.virtualPath, img.LastLayer())
 		if err != nil {
 			if !errors.Is(err, lockfilescalibr.ErrExtractorNotFound) {
@@ -55,6 +66,9 @@ func ScanImage(r reporter.Reporter, imagePath string) (ScanResults, error) {
 	// and to minimize changes in the initial PR.
 	lockfiles := map[string]lockfile.Lockfile{}
 	for _, i := range inventories {
+		if len(i.Annotations) > 1 {
+			log.Printf("%v", i.Annotations)
+		}
 		lf, exists := lockfiles[filepath.Join("/", i.Locations[0])]
 		if !exists {
 			lf = lockfile.Lockfile{
@@ -76,6 +90,15 @@ func ScanImage(r reporter.Reporter, imagePath string) (ScanResults, error) {
 		lf.Packages = append(lf.Packages, pkg)
 
 		lockfiles[filepath.Join("/", i.Locations[0])] = lf
+	}
+
+	for _, l := range lockfiles {
+		slices.SortFunc(l.Packages, func(a, b lockfile.PackageDetails) int {
+			return cmp.Or(
+				strings.Compare(a.Name, b.Name),
+				strings.Compare(a.Version, b.Version),
+			)
+		})
 	}
 
 	scanResults.Lockfiles = maps.Values(lockfiles)

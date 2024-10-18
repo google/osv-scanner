@@ -9,6 +9,7 @@ import (
 
 	"github.com/google/osv-scalibr/extractor"
 	"github.com/google/osv-scalibr/extractor/filesystem"
+	"github.com/google/osv-scalibr/extractor/filesystem/language/javascript/packagejson"
 	"github.com/google/osv-scalibr/extractor/filesystem/os/apk"
 	"github.com/google/osv-scanner/internal/lockfilescalibr"
 	"github.com/google/osv-scanner/pkg/lockfile"
@@ -17,7 +18,7 @@ import (
 // artifactExtractors contains only extractors for artifacts that are important in
 // the final layer of a container image
 var artifactExtractors map[string]filesystem.Extractor = map[string]filesystem.Extractor{
-	// "node_modules":  lockfile.NodeModulesExtractor{},
+	"packagejson":   packagejson.New(packagejson.DefaultConfig()),
 	"apk-installed": apk.New(apk.DefaultConfig()),
 	// "dpkg":          lockfile.DpkgStatusExtractor{},
 	// "go-binary": lockfile.GoBinaryExtractor{},
