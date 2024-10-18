@@ -363,5 +363,4 @@ func TestExtractor_Extract_WithMockServer(t *testing.T) {
 	if diff := cmp.Diff(tt.WantInventory, got, cmpopts.SortSlices(extracttest.InventoryCmpLess)); diff != "" {
 		t.Errorf("%s.Extract(%q) diff (-want +got):\n%s", extr.Name(), tt.InputConfig.Path, diff)
 	}
-
 }

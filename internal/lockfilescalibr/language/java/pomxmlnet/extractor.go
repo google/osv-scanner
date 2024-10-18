@@ -50,7 +50,6 @@ func (e Extractor) FileRequired(path string, _ fs.FileInfo) bool {
 
 // Extract extracts packages from yarn.lock files passed through the scan input.
 func (e Extractor) Extract(ctx context.Context, input *filesystem.ScanInput) ([]*extractor.Inventory, error) {
-
 	var project maven.Project
 	if err := datasource.NewMavenDecoder(input.Reader).Decode(&project); err != nil {
 		return nil, fmt.Errorf("could not extract from %s: %w", input.Path, err)
@@ -158,17 +157,17 @@ func (e Extractor) Extract(ctx context.Context, input *filesystem.ScanInput) ([]
 // ToPURL converts an inventory created by this extractor into a PURL.
 func (e Extractor) ToPURL(i *extractor.Inventory) (*purl.PackageURL, error) {
 	return &purl.PackageURL{
-		Type:    purl.TypeNPM,
+		Type:    purl.TypeMaven,
 		Name:    i.Name,
 		Version: i.Version,
 	}, nil
 }
 
 // ToCPEs is not applicable as this extractor does not infer CPEs from the Inventory.
-func (e Extractor) ToCPEs(i *extractor.Inventory) ([]string, error) { return []string{}, nil }
+func (e Extractor) ToCPEs(_ *extractor.Inventory) ([]string, error) { return []string{}, nil }
 
 // Ecosystem returns the OSV ecosystem ('npm') of the software extracted by this extractor.
-func (e Extractor) Ecosystem(i *extractor.Inventory) string {
+func (e Extractor) Ecosystem(_ *extractor.Inventory) string {
 	return "Maven"
 }
 
