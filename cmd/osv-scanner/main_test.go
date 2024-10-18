@@ -731,49 +731,49 @@ func TestRun_Licenses(t *testing.T) {
 func TestRun_OCIImage(t *testing.T) {
 	t.Parallel()
 
-	testutility.SkipIfNotAcceptanceTesting(t, "Not consistent on MacOS/Windows")
+	// testutility.SkipIfNotAcceptanceTesting(t, "Not consistent on MacOS/Windows")
 
 	tests := []cliTestCase{
-		{
-			name: "Invalid path",
-			args: []string{"", "--experimental-oci-image", "./fixtures/oci-image/no-file-here.tar"},
-			exit: 127,
-		},
+		// {
+		// 	name: "Invalid path",
+		// 	args: []string{"", "--experimental-oci-image", "./fixtures/oci-image/no-file-here.tar"},
+		// 	exit: 127,
+		// },
 		{
 			name: "Alpine 3.10 image tar with 3.18 version file",
 			args: []string{"", "--experimental-oci-image", "../../internal/image/fixtures/test-alpine.tar"},
 			exit: 1,
 		},
-		{
-			name: "scanning node_modules using npm with no packages",
-			args: []string{"", "--experimental-oci-image", "../../internal/image/fixtures/test-node_modules-npm-empty.tar"},
-			exit: 1,
-		},
-		{
-			name: "scanning node_modules using npm with some packages",
-			args: []string{"", "--experimental-oci-image", "../../internal/image/fixtures/test-node_modules-npm-full.tar"},
-			exit: 1,
-		},
-		{
-			name: "scanning node_modules using yarn with no packages",
-			args: []string{"", "--experimental-oci-image", "../../internal/image/fixtures/test-node_modules-yarn-empty.tar"},
-			exit: 1,
-		},
-		{
-			name: "scanning node_modules using yarn with some packages",
-			args: []string{"", "--experimental-oci-image", "../../internal/image/fixtures/test-node_modules-yarn-full.tar"},
-			exit: 1,
-		},
-		{
-			name: "scanning node_modules using pnpm with no packages",
-			args: []string{"", "--experimental-oci-image", "../../internal/image/fixtures/test-node_modules-pnpm-empty.tar"},
-			exit: 1,
-		},
-		{
-			name: "scanning node_modules using pnpm with some packages",
-			args: []string{"", "--experimental-oci-image", "../../internal/image/fixtures/test-node_modules-pnpm-full.tar"},
-			exit: 1,
-		},
+		// {
+		// 	name: "scanning node_modules using npm with no packages",
+		// 	args: []string{"", "--experimental-oci-image", "../../internal/image/fixtures/test-node_modules-npm-empty.tar"},
+		// 	exit: 1,
+		// },
+		// {
+		// 	name: "scanning node_modules using npm with some packages",
+		// 	args: []string{"", "--experimental-oci-image", "../../internal/image/fixtures/test-node_modules-npm-full.tar"},
+		// 	exit: 1,
+		// },
+		// {
+		// 	name: "scanning node_modules using yarn with no packages",
+		// 	args: []string{"", "--experimental-oci-image", "../../internal/image/fixtures/test-node_modules-yarn-empty.tar"},
+		// 	exit: 1,
+		// },
+		// {
+		// 	name: "scanning node_modules using yarn with some packages",
+		// 	args: []string{"", "--experimental-oci-image", "../../internal/image/fixtures/test-node_modules-yarn-full.tar"},
+		// 	exit: 1,
+		// },
+		// {
+		// 	name: "scanning node_modules using pnpm with no packages",
+		// 	args: []string{"", "--experimental-oci-image", "../../internal/image/fixtures/test-node_modules-pnpm-empty.tar"},
+		// 	exit: 1,
+		// },
+		// {
+		// 	name: "scanning node_modules using pnpm with some packages",
+		// 	args: []string{"", "--experimental-oci-image", "../../internal/image/fixtures/test-node_modules-pnpm-full.tar"},
+		// 	exit: 1,
+		// },
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {

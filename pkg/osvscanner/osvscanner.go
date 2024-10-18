@@ -22,6 +22,7 @@ import (
 	"github.com/google/osv-scanner/internal/config"
 	"github.com/google/osv-scanner/internal/customgitignore"
 	"github.com/google/osv-scanner/internal/depsdev"
+	"github.com/google/osv-scanner/internal/image"
 	"github.com/google/osv-scanner/internal/local"
 	"github.com/google/osv-scanner/internal/lockfilescalibr"
 	"github.com/google/osv-scanner/internal/lockfilescalibr/language/java/pomxmlnet"
@@ -325,33 +326,33 @@ func (m *gitIgnoreMatcher) match(absPath string, isDir bool) (bool, error) {
 	return m.matcher.Match(pathInGitSep, isDir), nil
 }
 
-// func scanImage(r reporter.Reporter, path string) ([]scannedPackage, error) {
-// 	scanResults, err := image.ScanImage(r, path)
-// 	if err != nil {
-// 		return []scannedPackage{}, err
-// 	}
+func scanImage(r reporter.Reporter, path string) ([]scannedPackage, error) {
+	scanResults, err := image.ScanImage(r, path)
+	if err != nil {
+		return []scannedPackage{}, err
+	}
 
-// 	packages := make([]scannedPackage, 0)
+	packages := make([]scannedPackage, 0)
 
-// 	for _, l := range scanResults.Lockfiles {
-// 		for _, pkgDetail := range l.Packages {
-// 			packages = append(packages, scannedPackage{
-// 				Name:        pkgDetail.Name,
-// 				Version:     pkgDetail.Version,
-// 				Commit:      pkgDetail.Commit,
-// 				Ecosystem:   pkgDetail.Ecosystem,
-// 				DepGroups:   pkgDetail.DepGroups,
-// 				ImageOrigin: pkgDetail.ImageOrigin,
-// 				Source: models.SourceInfo{
-// 					Path: path + ":" + l.FilePath,
-// 					Type: "docker",
-// 				},
-// 			})
-// 		}
-// 	}
+	for _, l := range scanResults.Lockfiles {
+		for _, pkgDetail := range l.Packages {
+			packages = append(packages, scannedPackage{
+				Name:        pkgDetail.Name,
+				Version:     pkgDetail.Version,
+				Commit:      pkgDetail.Commit,
+				Ecosystem:   pkgDetail.Ecosystem,
+				DepGroups:   pkgDetail.DepGroups,
+				ImageOrigin: pkgDetail.ImageOrigin,
+				Source: models.SourceInfo{
+					Path: path + ":" + l.FilePath,
+					Type: "docker",
+				},
+			})
+		}
+	}
 
-// 	return packages, nil
-// }
+	return packages, nil
+}
 
 // scanLockfile will load, identify, and parse the lockfile path passed in, and add the dependencies specified
 // within to `query`
@@ -903,15 +904,15 @@ func DoScan(actions ScannerActions, r reporter.Reporter) (models.VulnerabilityRe
 		}
 	}
 
-	// if actions.ExperimentalScannerActions.ScanOCIImage != "" {
-	// 	r.Infof("Scanning image %s\n", actions.ExperimentalScannerActions.ScanOCIImage)
-	// 	pkgs, err := scanImage(r, actions.ExperimentalScannerActions.ScanOCIImage)
-	// 	if err != nil {
-	// 		return models.VulnerabilityResults{}, err
-	// 	}
+	if actions.ExperimentalScannerActions.ScanOCIImage != "" {
+		r.Infof("Scanning image %s\n", actions.ExperimentalScannerActions.ScanOCIImage)
+		pkgs, err := scanImage(r, actions.ExperimentalScannerActions.ScanOCIImage)
+		if err != nil {
+			return models.VulnerabilityResults{}, err
+		}
 
-	// 	scannedPackages = append(scannedPackages, pkgs...)
-	// }
+		scannedPackages = append(scannedPackages, pkgs...)
+	}
 
 	// TODO: Deprecated
 	for _, container := range actions.DockerContainerNames {

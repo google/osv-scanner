@@ -46,10 +46,13 @@ func ScanImage(r reporter.Reporter, imagePath string) (ScanResults, error) {
 
 			continue
 		}
-		// scanResults.Lz
 		inventories = append(inventories, extractedInventories...)
 	}
 
+	// TODO: Remove the lockfile.Lockfile conversion
+	// Temporarily convert back to lockfile.Lockfiles to minimize snapshot changes
+	// This is done to verify the scanning behavior have not changed with this refactor
+	// and to minimize changes in the initial PR.
 	lockfiles := map[string]lockfile.Lockfile{}
 	for _, i := range inventories {
 		lf, exists := lockfiles[filepath.Join("/", i.Locations[0])]
@@ -82,6 +85,7 @@ func ScanImage(r reporter.Reporter, imagePath string) (ScanResults, error) {
 
 	traceOrigin(img, &scanResults)
 
+	// TODO: Reenable this sort when removing lockfile.Lockfile
 	// Sort to have deterministic output, and to match behavior of lockfile.extractDeps
 	// slices.SortFunc(scanResults.Inventories, func(a, b *extractor.Inventory) int {
 	// 	// TODO: Should we consider errors here?
