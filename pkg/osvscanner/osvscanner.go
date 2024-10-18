@@ -1066,7 +1066,12 @@ func filterIgnoredPackages(r reporter.Reporter, packages []scannedPackage, confi
 		}
 
 		if ignore, ignoreLine := configToUse.ShouldIgnorePackage(pkg); ignore {
-			pkgString := fmt.Sprintf("%s/%s/%s", p.Ecosystem, p.Name, p.Version)
+			var pkgString string
+			if p.PURL != "" {
+				pkgString = p.PURL
+			} else {
+				pkgString = fmt.Sprintf("%s/%s/%s", p.Ecosystem, p.Name, p.Version)
+			}
 			reason := ignoreLine.Reason
 
 			if reason == "" {
