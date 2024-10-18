@@ -586,3 +586,13 @@ func TestParsePnpmLock_Files(t *testing.T) {
 		},
 	})
 }
+
+func TestParsePnpmLock_Invalid(t *testing.T) {
+	t.Parallel()
+
+	_, err := lockfile.ParsePnpmLock("fixtures/pnpm/invalid.yaml")
+
+	if err != nil {
+		t.Errorf("Got unexpected error: %v", err)
+	}
+}
