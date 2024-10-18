@@ -9,6 +9,7 @@ import (
 	"strings"
 
 	"deps.dev/util/resolve"
+	"github.com/google/osv-scanner/internal/depsdev"
 	"github.com/google/osv-scanner/internal/remediation"
 	"github.com/google/osv-scanner/internal/remediation/upgrade"
 	"github.com/google/osv-scanner/internal/resolution"
@@ -16,7 +17,6 @@ import (
 	"github.com/google/osv-scanner/internal/resolution/datasource"
 	"github.com/google/osv-scanner/internal/resolution/lockfile"
 	"github.com/google/osv-scanner/internal/resolution/manifest"
-	"github.com/google/osv-scanner/pkg/depsdev"
 	"github.com/google/osv-scanner/pkg/reporter"
 	"github.com/urfave/cli/v2"
 	"golang.org/x/term"

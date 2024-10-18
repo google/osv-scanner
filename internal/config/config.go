@@ -1,4 +1,3 @@
-// Deprecated: this is now private and should not be used outside the scanner
 package config
 
 import (
@@ -20,8 +19,6 @@ const osvScannerConfigName = "osv-scanner.toml"
 // Ignore stuttering as that would be a breaking change
 // TODO: V2 rename?
 //
-// Deprecated: this is now private and should not be used outside the scanner
-//
 //nolint:revive
 type ConfigManager struct {
 	// Override to replace all other configs
@@ -32,7 +29,6 @@ type ConfigManager struct {
 	ConfigMap map[string]Config
 }
 
-// Deprecated: this is now private and should not be used outside the scanner
 type Config struct {
 	IgnoredVulns      []IgnoreEntry          `toml:"IgnoredVulns"`
 	PackageOverrides  []PackageOverrideEntry `toml:"PackageOverrides"`
@@ -42,14 +38,12 @@ type Config struct {
 	LoadPath string `toml:"-"`
 }
 
-// Deprecated: this is now private and should not be used outside the scanner
 type IgnoreEntry struct {
 	ID          string    `toml:"id"`
 	IgnoreUntil time.Time `toml:"ignoreUntil"`
 	Reason      string    `toml:"reason"`
 }
 
-// Deprecated: this is now private and should not be used outside the scanner
 type PackageOverrideEntry struct {
 	Name string `toml:"name"`
 	// If the version is empty, the entry applies to all versions.
@@ -80,18 +74,15 @@ func (e PackageOverrideEntry) matches(pkg models.PackageVulns) bool {
 	return true
 }
 
-// Deprecated: this is now private and should not be used outside the scanner
 type Vulnerability struct {
 	Ignore bool `toml:"ignore"`
 }
 
-// Deprecated: this is now private and should not be used outside the scanner
 type License struct {
 	Override []string `toml:"override"`
 	Ignore   bool     `toml:"ignore"`
 }
 
-// Deprecated: this is now private and should not be used outside the scanner
 func (c *Config) ShouldIgnore(vulnID string) (bool, IgnoreEntry) {
 	index := slices.IndexFunc(c.IgnoredVulns, func(e IgnoreEntry) bool { return e.ID == vulnID })
 	if index == -1 {
@@ -115,8 +106,6 @@ func (c *Config) filterPackageVersionEntries(pkg models.PackageVulns, condition 
 }
 
 // ShouldIgnorePackage determines if the given package should be ignored based on override entries in the config
-//
-// Deprecated: this is now private and should not be used outside the scanner
 func (c *Config) ShouldIgnorePackage(pkg models.PackageVulns) (bool, PackageOverrideEntry) {
 	return c.filterPackageVersionEntries(pkg, func(e PackageOverrideEntry) bool {
 		return e.Ignore
@@ -135,8 +124,6 @@ func (c *Config) ShouldIgnorePackageVersion(name, version, ecosystem string) (bo
 }
 
 // ShouldIgnorePackageVulnerabilities determines if the given package should have its vulnerabilities ignored based on override entries in the config
-//
-// Deprecated: this is now private and should not be used outside the scanner
 func (c *Config) ShouldIgnorePackageVulnerabilities(pkg models.PackageVulns) bool {
 	overrides, _ := c.filterPackageVersionEntries(pkg, func(e PackageOverrideEntry) bool {
 		return e.Vulnerability.Ignore
@@ -146,8 +133,6 @@ func (c *Config) ShouldIgnorePackageVulnerabilities(pkg models.PackageVulns) boo
 }
 
 // ShouldOverridePackageLicense determines if the given package should have its license ignored or changed based on override entries in the config
-//
-// Deprecated: this is now private and should not be used outside the scanner
 func (c *Config) ShouldOverridePackageLicense(pkg models.PackageVulns) (bool, PackageOverrideEntry) {
 	return c.filterPackageVersionEntries(pkg, func(e PackageOverrideEntry) bool {
 		return e.License.Ignore || len(e.License.Override) > 0
@@ -177,8 +162,6 @@ func shouldIgnoreTimestamp(ignoreUntil time.Time) bool {
 
 // Sets the override config by reading the config file at configPath.
 // Will return an error if loading the config file fails
-//
-// Deprecated: this is now private and should not be used outside the scanner
 func (c *ConfigManager) UseOverride(configPath string) error {
 	config, configErr := tryLoadConfig(configPath)
 	if configErr != nil {
@@ -190,8 +173,6 @@ func (c *ConfigManager) UseOverride(configPath string) error {
 }
 
 // Attempts to get the config
-//
-// Deprecated: this is now private and should not be used outside the scanner
 func (c *ConfigManager) Get(r reporter.Reporter, targetPath string) Config {
 	if c.OverrideConfig != nil {
 		return *c.OverrideConfig
