@@ -1,4 +1,3 @@
-// Deprecated: this is now private and should not be used outside the scanner
 package grouper
 
 import (
@@ -23,8 +22,6 @@ func hasAliasIntersection(v1, v2 IDAliases) bool {
 }
 
 // Group groups vulnerabilities by aliases.
-//
-// Deprecated: this is now private and should not be used outside the scanner
 func Group(vulns []IDAliases) []models.GroupInfo {
 	// Mapping of `vulns` index to a group ID. A group ID is just another index in the `vulns` slice.
 	groups := make([]int, len(vulns))

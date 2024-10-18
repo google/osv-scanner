@@ -1,4 +1,3 @@
-// Deprecated: this is now private and should not be used outside the scanner
 package depsdev
 
 import (
@@ -20,13 +19,9 @@ import (
 
 // DepsdevAPI is the URL to the deps.dev API. It is documented at
 // docs.deps.dev/api.
-//
-// Deprecated: this is now private and should not be used outside the scanner
 const DepsdevAPI = "api.deps.dev:443"
 
 // System maps from a lockfile system to the depsdev API system.
-//
-// Deprecated: this is now private and should not be used outside the scanner
 var System = map[lockfile.Ecosystem]depsdevpb.System{
 	lockfile.NpmEcosystem:   depsdevpb.System_NPM,
 	lockfile.NuGetEcosystem: depsdevpb.System_NUGET,
@@ -37,8 +32,6 @@ var System = map[lockfile.Ecosystem]depsdevpb.System{
 }
 
 // VersionQuery constructs a GetVersion request from the arguments.
-//
-// Deprecated: this is now private and should not be used outside the scanner
 func VersionQuery(system depsdevpb.System, name string, version string) *depsdevpb.GetVersionRequest {
 	if system == depsdevpb.System_GO {
 		version = "v" + version
@@ -54,8 +47,6 @@ func VersionQuery(system depsdevpb.System, name string, version string) *depsdev
 }
 
 // MakeVersionRequests wraps MakeVersionRequestsWithContext using context.Background.
-//
-// Deprecated: this is now private and should not be used outside the scanner
 func MakeVersionRequests(queries []*depsdevpb.GetVersionRequest) ([][]models.License, error) {
 	return MakeVersionRequestsWithContext(context.Background(), queries)
 }
@@ -64,8 +55,6 @@ func MakeVersionRequests(queries []*depsdevpb.GetVersionRequest) ([][]models.Lic
 // query. It makes these requests concurrently, sharing the single HTTP/2
 // connection. The order in which the requests are specified should correspond
 // to the order of licenses returned by this function.
-//
-// Deprecated: this is now private and should not be used outside the scanner
 func MakeVersionRequestsWithContext(ctx context.Context, queries []*depsdevpb.GetVersionRequest) ([][]models.License, error) {
 	certPool, err := x509.SystemCertPool()
 	if err != nil {
