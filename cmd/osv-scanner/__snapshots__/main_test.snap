@@ -1190,7 +1190,9 @@ overriding license for package npm/ms/2.1.3 with MIT WITH (Bison-exception-2.2 A
 ---
 
 [TestRun_Licenses/Licenses_with_invalid_expression - 2]
-license LGPL-2.1-only OR OR BSD-3-Clause for package npm/human-signals/5.0.0 is invalid: unexpected OR after ORlicense MIT WITH (Bison-exception-2.2 AND somethingelse) for package npm/ms/2.1.3 is invalid: unexpected ( after WITH
+license LGPL-2.1-only OR OR BSD-3-Clause for package npm/human-signals/5.0.0 is invalid: unexpected OR after OR
+license MIT WITH (Bison-exception-2.2 AND somethingelse) for package npm/ms/2.1.3 is invalid: unexpected ( after WITH
+
 ---
 
 [TestRun_Licenses/No_license_violations_and_show-all-packages_in_json - 1]
