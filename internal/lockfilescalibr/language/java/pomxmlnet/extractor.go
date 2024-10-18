@@ -3,7 +3,6 @@ package pomxmlnet
 
 import (
 	"context"
-	"encoding/xml"
 	"fmt"
 	"io/fs"
 	"path/filepath"
@@ -53,7 +52,7 @@ func (e Extractor) FileRequired(path string, _ fs.FileInfo) bool {
 func (e Extractor) Extract(ctx context.Context, input *filesystem.ScanInput) ([]*extractor.Inventory, error) {
 
 	var project maven.Project
-	if err := xml.NewDecoder(input.Reader).Decode(&project); err != nil {
+	if err := datasource.NewMavenDecoder(input.Reader).Decode(&project); err != nil {
 		return nil, fmt.Errorf("could not extract from %s: %w", input.Path, err)
 	}
 	// Merging parents data by parsing local parent pom.xml or fetching from upstream.
