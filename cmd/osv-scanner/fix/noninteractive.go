@@ -295,6 +295,22 @@ func autoOverride(ctx context.Context, r reporter.Reporter, opts osvFixOptions, 
 		return err
 	}
 
+	if opts.ManifestRW.System() == resolve.Maven {
+		// Update Maven registries based on the repositories defined in pom.xml,
+		// as well as the repositories merged from parent pom.xml.
+		// TODO: add registries defined in settings.xml
+		// https://github.com/google/osv-scanner/issues/1269
+		specific, ok := manif.EcosystemSpecific.(manifest.MavenManifestSpecific)
+		if ok {
+			registries := make([]client.Registry, len(specific.Repositories))
+			for i, repo := range specific.Repositories {
+				registries[i] = client.Registry{URL: string(repo.URL)}
+			}
+			if err := opts.Client.DependencyClient.AddRegistries(registries); err != nil {
+				return err
+			}
+		}
+	}
 	client.PreFetch(ctx, opts.Client, manif.Requirements, manif.FilePath)
 	res, err := resolution.Resolve(ctx, opts.Client, manif, opts.ResolveOpts)
 	if err != nil {
