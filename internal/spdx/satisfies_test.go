@@ -4,8 +4,8 @@ import (
 	"strings"
 	"testing"
 
+	"github.com/google/osv-scanner/internal/spdx"
 	"github.com/google/osv-scanner/pkg/models"
-	"github.com/google/osv-scanner/pkg/spdx"
 )
 
 func namer(t *testing.T, license models.License, licenses []string, expected bool) string {
