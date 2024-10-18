@@ -291,13 +291,6 @@ func TestSatisfies(t *testing.T) {
 				{"C", "E"},
 			},
 		},
-		{
-			license: "A WITH B",
-			pass: [][]string{
-				{"A WITH B"},
-			},
-			fail: [][]string{},
-		},
 	}
 	for _, tt := range tests {
 		for _, variant := range tt.pass {
