@@ -42,7 +42,7 @@ type ScannerActions struct {
 	DirectoryPaths       []string
 	GitCommits           []string
 	Recursive            bool
-	SkipGit              bool
+	IncludeGit           bool
 	NoIgnore             bool
 	DockerContainerNames []string
 	ConfigOverridePath   string
@@ -108,7 +108,7 @@ const (
 //   - Any lockfiles with scanLockfile
 //   - Any SBOM files with scanSBOMFile
 //   - Any git repositories with scanGit
-func scanDir(r reporter.Reporter, dir string, skipGit bool, recursive bool, useGitIgnore bool, compareOffline bool) ([]scannedPackage, error) {
+func scanDir(r reporter.Reporter, dir string, includeGit bool, recursive bool, useGitIgnore bool, compareOffline bool) ([]scannedPackage, error) {
 	var ignoreMatcher *gitIgnoreMatcher
 	if useGitIgnore {
 		var err error
@@ -152,7 +152,7 @@ func scanDir(r reporter.Reporter, dir string, skipGit bool, recursive bool, useG
 			}
 		}
 
-		if !skipGit && info.IsDir() && info.Name() == ".git" {
+		if includeGit && info.IsDir() && info.Name() == ".git" {
 			pkgs, err := scanGit(r, filepath.Dir(path)+"/")
 			if err != nil {
 				r.Infof("scan failed for git repository, %s: %v\n", path, err)
@@ -839,7 +839,7 @@ func DoScan(actions ScannerActions, r reporter.Reporter) (models.VulnerabilityRe
 	}
 
 	if actions.CompareOffline {
-		actions.SkipGit = true
+		actions.IncludeGit = false
 
 		if len(actions.ScanLicensesAllowlist) > 0 || actions.ScanLicensesSummary {
 			return models.VulnerabilityResults{}, errors.New("cannot retrieve licenses locally")
@@ -914,7 +914,7 @@ func DoScan(actions ScannerActions, r reporter.Reporter) (models.VulnerabilityRe
 
 	for _, dir := range actions.DirectoryPaths {
 		r.Infof("Scanning dir %s\n", dir)
-		pkgs, err := scanDir(r, dir, actions.SkipGit, actions.Recursive, !actions.NoIgnore, actions.CompareOffline)
+		pkgs, err := scanDir(r, dir, actions.IncludeGit, actions.Recursive, !actions.NoIgnore, actions.CompareOffline)
 		if err != nil {
 			return models.VulnerabilityResults{}, err
 		}
