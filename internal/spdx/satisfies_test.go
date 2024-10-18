@@ -349,7 +349,7 @@ func TestSatisfies_Invalid(t *testing.T) {
 		// "WITH" must only be followed by a license expression
 		{"A WITH(", "unexpected ( after WITH"},
 		{"A WITH (", "unexpected ( after WITH"},
-		{"A WITH WITH", "unexpected WITH after WITH"},
+		{"A WITH WITH", "unexpected WITH after WITH"}, //nolint:dupword
 		{"A WITH AND", "unexpected AND after WITH"},
 		{"A WITH OR", "unexpected OR after WITH"},
 		{"A WITH)", "unexpected ) after WITH"},
@@ -358,7 +358,7 @@ func TestSatisfies_Invalid(t *testing.T) {
 		{"A WITH ", "unexpected END after WITH"},
 		// "AND" must only be followed by a license expression or "("
 		{"A AND WITH", "unexpected WITH after AND"},
-		{"A AND AND", "unexpected AND after AND"},
+		{"A AND AND", "unexpected AND after AND"}, //nolint:dupword
 		{"A AND OR", "unexpected OR after AND"},
 		{"A AND )", "unexpected ) after AND"},
 		{"A AND)", "unexpected ) after AND"},
@@ -367,7 +367,7 @@ func TestSatisfies_Invalid(t *testing.T) {
 		// "OR" must only be followed by a license expression or "("
 		{"A OR WITH", "unexpected WITH after OR"},
 		{"A OR AND", "unexpected AND after OR"},
-		{"A OR OR", "unexpected OR after OR"},
+		{"A OR OR", "unexpected OR after OR"}, //nolint:dupword
 		{"A OR )", "unexpected ) after OR"},
 		{"A OR)", "unexpected ) after OR"},
 		{"A OR", "unexpected END after OR"},
