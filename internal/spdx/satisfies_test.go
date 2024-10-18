@@ -338,41 +338,10 @@ func TestSatisfies(t *testing.T) {
 func TestSatisfies_Invalid(t *testing.T) {
 	t.Parallel()
 
-	tests1 := []struct {
+	tests := []struct {
 		license models.License
 		wantErr string
 	}{
-		// {"()", "unexpected closing bracket"},
-		// {"(", "unexpected end of expression"},
-		// {"(A", "missing closing bracket"},
-		// {"A)", "unexpected closing bracket"},
-		// // {")", "missing closing bracket"},
-		// {"(A AND B", "missing closing bracket"},
-		// {"A AND B))", "unexpected closing bracket"},
-		// {"(A AND B))", "unexpected closing bracket"},
-		// {"(A AND B)()", "unexpected closing bracket"},
-		// {"(A AND B)(A AND B)", "unexpected closing bracket"},
-		// {"A AND", "unexpected end of expression"},
-		// {"A OR", "unexpected end of expression"},
-		// // {"A OR OR", "unexpected end of expression"},
-		//
-		// {"A WITH (", "unexpected ( after WITH"},
-		// {"A WITH )", "unexpected ) after WITH"},
-		// {"A WITH OR", "unexpected OR after WITH"},
-		// {"A WITH AND", "unexpected AND after WITH"},
-		// {"A WITH", "missing license expression after WITH"},
-		// {"A WITH ", "missing license expression after WITH"},
-		// {"A WITH ", "unexpected END after WITH"},
-		// {"A WITH ", "unexpected END after WITH"},
-
-		// 	"WITH": {"(", "WITH", "AND", "OR", ")", "END"},
-		{"", ""},
-		//	"AND":  {"WITH", "AND", "OR", ")", "END"},
-		//	"OR":   {"WITH", "AND", "OR", ")", "END"},
-		//	"(":    {"WITH", "AND", "OR", ")", "END"},
-		//	")":    {"(", "EXP", "WITH"},
-		//	"EXP":  {"(", "EXP"},
-		//	"END":  {"(", "EXP", "WITH", "AND", "OR", ")", "END"},
 		// brackets must be paired
 		{"(A AND B", "missing closing bracket"},
 		{"(((A AND B))", "missing closing bracket"},
@@ -437,19 +406,9 @@ func TestSatisfies_Invalid(t *testing.T) {
 		{"A OR (()", "unexpected ) after ("},
 		{"A OR (B AND A OR (OR)", "unexpected OR after ("},
 	}
-	tests2 := []struct {
-		license models.License
-		wantErr string
-	}{
-		{"(A)WITH", "unexpected WITH after )"},
-	}
-	_ = tests1
-	_ = tests2
-	tests := tests1
-	// tests := tests2
 	for _, tt := range tests {
 		t.Run(string(tt.license), func(t *testing.T) {
-			// t.Parallel()
+			t.Parallel()
 
 			got, err := spdx.Satisfies(tt.license, []string{})
 
