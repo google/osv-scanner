@@ -9,6 +9,7 @@ import (
 )
 
 type node interface {
+	// satisfiedBy checks if the given licenses satisfy the license expression represented by this node
 	satisfiedBy(licenses []string) bool
 }
 
@@ -56,6 +57,7 @@ type tokens struct {
 	tokens []string
 }
 
+// peek returns the next token in the list of tokens, or otherwise an empty string
 func (ts *tokens) peek() string {
 	if len(ts.tokens) == 0 {
 		return ""
@@ -64,17 +66,15 @@ func (ts *tokens) peek() string {
 	return ts.tokens[0]
 }
 
+// next returns the next token in the list of tokens, removing it from the list in the process
 func (ts *tokens) next() string {
-	if len(ts.tokens) == 0 {
-		return ""
-	}
-
 	token := ts.tokens[0]
 	ts.tokens = ts.tokens[1:]
 
 	return token
 }
 
+// allowed represents the tokens that are allowed to come after a particular token
 var allowed = map[string][]string{
 	"WITH": {"EXP"},
 	"AND":  {"EXP", "("},
@@ -85,12 +85,14 @@ var allowed = map[string][]string{
 	"END":  {},
 }
 
+// nextIfValid returns the next token if it is valid, otherwise returns an error
 func (ts *tokens) nextIfValid() (string, error) {
 	next := ts.next()
 
 	return next, ts.isNextValid(next)
 }
 
+// isNextValid checks if the next token is valid to come after the given the current token
 func (ts *tokens) isNextValid(cur string) error {
 	allowedNext := allowed[cur]
 
@@ -120,6 +122,7 @@ func (ts *tokens) isNextValid(cur string) error {
 	return fmt.Errorf("unexpected %s after %s", next, cur)
 }
 
+// tokenise breaks down the given spdx license expression into tokens
 func tokenise(license models.License) tokens {
 	var ts tokens
 	current := ""
@@ -150,6 +153,7 @@ func tokenise(license models.License) tokens {
 	return ts
 }
 
+// parse constructs an ast tree from the given tokens
 func parse(tokens *tokens) (node, error) {
 	return parseOr(tokens)
 }
@@ -209,10 +213,6 @@ func parseAnd(tokens *tokens) (node, error) {
 }
 
 func parseExpression(tokens *tokens) (node, error) {
-	if tokens.peek() == "" {
-		return nil, errors.New("unexpected end of expression")
-	}
-
 	next, err := tokens.nextIfValid()
 	if err != nil {
 		return nil, err
@@ -236,6 +236,7 @@ func parseExpression(tokens *tokens) (node, error) {
 		return expr, nil
 	}
 
+	// currently WITH expressions are just treated as part of the license
 	if tokens.peek() == "WITH" {
 		nex2, err := tokens.nextIfValid()
 		if err != nil {
