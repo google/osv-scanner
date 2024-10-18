@@ -4,7 +4,6 @@ import (
 	"bytes"
 	"cmp"
 	"context"
-	"encoding/xml"
 	"errors"
 	"fmt"
 	"io"
@@ -68,7 +67,7 @@ func (m MavenReadWriter) Read(df lockfile.DepFile) (Manifest, error) {
 	ctx := context.Background()
 
 	var project maven.Project
-	if err := xml.NewDecoder(df).Decode(&project); err != nil {
+	if err := datasource.NewMavenDecoder(df).Decode(&project); err != nil {
 		return Manifest{}, fmt.Errorf("failed to unmarshal project: %w", err)
 	}
 	properties := buildPropertiesWithOrigins(project, "")
@@ -316,7 +315,7 @@ func (MavenReadWriter) Write(df lockfile.DepFile, w io.Writer, patch Patch) erro
 		}
 
 		var proj maven.Project
-		err = xml.NewDecoder(f).Decode(&proj)
+		err = datasource.NewMavenDecoder(f).Decode(&proj)
 		f.Close()
 		if err != nil {
 			return fmt.Errorf("failed to unmarshal project: %w", err)

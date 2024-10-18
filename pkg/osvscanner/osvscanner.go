@@ -443,7 +443,7 @@ func extractMavenDeps(f lockfile.DepFile) (lockfile.Lockfile, error) {
 // within to `query`
 func scanSBOMFile(r reporter.Reporter, path string, fromFSScan bool) ([]scannedPackage, error) {
 	var errs []error
-	var packages []scannedPackage
+	packages := map[string]scannedPackage{}
 	for _, provider := range sbom.Providers {
 		if fromFSScan && !provider.MatchesRecognizedFileNames(path) {
 			// Skip if filename is not usually a sbom file of this format.
@@ -470,13 +470,18 @@ func scanSBOMFile(r reporter.Reporter, path string, fromFSScan bool) ([]scannedP
 				//nolint:nilerr
 				return nil
 			}
-			packages = append(packages, scannedPackage{
+
+			if _, ok := packages[id.PURL]; ok {
+				r.Warnf("Warning, duplicate PURL found in SBOM: %s\n", id.PURL)
+			}
+
+			packages[id.PURL] = scannedPackage{
 				PURL: id.PURL,
 				Source: models.SourceInfo{
 					Path: path,
 					Type: "sbom",
 				},
-			})
+			}
 
 			return nil
 		})
@@ -515,11 +520,17 @@ func scanSBOMFile(r reporter.Reporter, path string, fromFSScan bool) ([]scannedP
 				}
 			}
 
-			slices.SortFunc(packages, func(i, j scannedPackage) int {
+			sliceOfPackages := make([]scannedPackage, 0, len(packages))
+
+			for _, pkg := range packages {
+				sliceOfPackages = append(sliceOfPackages, pkg)
+			}
+
+			slices.SortFunc(sliceOfPackages, func(i, j scannedPackage) int {
 				return strings.Compare(i.PURL, j.PURL)
 			})
 
-			return packages, nil
+			return sliceOfPackages, nil
 		}
 
 		var formatErr sbom.InvalidFormatError
@@ -539,7 +550,7 @@ func scanSBOMFile(r reporter.Reporter, path string, fromFSScan bool) ([]scannedP
 		}
 	}
 
-	return packages, nil
+	return nil, nil
 }
 
 func getCommitSHA(repoDir string) (string, error) {

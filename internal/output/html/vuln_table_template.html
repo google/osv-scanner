@@ -1,0 +1,54 @@
+<table class="vuln-table">
+  <tr>
+    <th>ID</th>
+    <th>package</th>
+    <th>Installed version</th>
+    <th>Fixed version</th>
+    <th>Severity</th>
+  </tr>
+  {{ range $rowIndex, $element := . }}
+  {{ $index := uniqueID}}
+  <tr class='vuln-tr' id="vuln-tr-{{ $element.Summary.ID }}-{{ $rowIndex }}-{{ $index }}"
+    onclick="showVulnDetails('{{ $element.Summary.ID }}-{{ $rowIndex }}-{{ $index }}')">
+    <td><a href="https://osv.dev/{{ $element.Summary.ID }}">{{ $element.Summary.ID }}</a></td>
+    <td>{{ $element.Summary.PackageName }}</td>
+    <td>{{ $element.Summary.InstalledVersion }}</td>
+    <td {{ if eq $element.Summary.FixedVersion "No fix available" }} class="warning" {{ end }}>{{
+      $element.Summary.FixedVersion }}</td>
+    <td>{{ $element.Summary.SeverityRating }}
+      {{ if ne $element.Summary.SeverityRating "UNKNOWN" }}
+      ({{$element.Summary.SeverityScore }})
+      {{ end }}
+    </td>
+  </tr>
+  <tr>
+    <td colspan="100%">
+      <div id="vuln-details-{{ $element.Summary.ID }}-{{ $rowIndex }}-{{ $index }}" class="vuln-details">
+        {{ if ne (len $element.Detail.GroupIDs) 0 }}
+        <p><strong>Group IDs: {{ join $element.Detail.GroupIDs ", "}}</strong></p>
+        {{ end }}
+        {{ if ne (len $element.Detail.Aliases) 0 }}
+        <p><strong>Aliases: {{ join $element.Detail.Aliases ", "}}</strong></p>
+        {{ end }}
+        {{ if ne $element.Detail.LayerCommand "" }}
+        {{ if ne $element.Detail.LayerCommandTooltip "" }}
+        <p>Layer Command: <abbr title={{ $element.Detail.LayerCommandTooltip }}>
+            {{ $element.Detail.LayerCommand}}</abbr></p>
+        {{ else }}
+        <p>Layer Command: {{ $element.Detail.LayerCommand }}</p>
+        {{ end }}
+        {{ end }}
+        {{ if ne $element.Detail.LayerID "" }}
+        <p>Layer ID: {{ $element.Detail.LayerID }}</p>
+        {{ end }}
+        {{ if ne $element.Detail.InBaseImage "" }}
+        <p>In Base Image: {{ $element.Detail.InBaseImage }}</p>
+        {{ end }}
+        {{ if ne $element.Detail.Description "" }}
+        <p>Description: {{ $element.Detail.Description }}</p>
+        {{ end }}
+      </div>
+    </td>
+  </tr>
+  {{ end }}
+</table>

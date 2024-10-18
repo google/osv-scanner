@@ -28,7 +28,7 @@ last_arg="${!total_args}"
 # Remove the last argument from the list
 args=${@:1:$((total_args - 1))}
 
-# () inteprets spaces as spearate entries in an array
+# () interprets spaces as separate entries in an array
 # tr replaces newlines with spaces
 split_args=($(echo "$last_arg" | tr '\n' ' '))
 

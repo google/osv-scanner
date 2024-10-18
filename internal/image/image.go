@@ -242,7 +242,7 @@ func LoadImage(imagePath string) (*Image, error) {
 					virtualPath: virtualPath,
 					fileType:    fileType,
 					isWhiteout:  tombstone,
-					permission:  fs.FileMode(header.Mode),
+					permission:  fs.FileMode(header.Mode), //nolint:gosec
 				})
 			}
 		}
