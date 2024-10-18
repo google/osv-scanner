@@ -21,3 +21,20 @@ func KnownEcosystems() []Ecosystem {
 		// AlpineEcosystem,
 	}
 }
+
+const (
+	NpmEcosystem      Ecosystem = "npm"
+	NuGetEcosystem    Ecosystem = "NuGet"
+	CargoEcosystem    Ecosystem = "crates.io"
+	BundlerEcosystem  Ecosystem = "RubyGems"
+	ComposerEcosystem Ecosystem = "Packagist"
+	GoEcosystem       Ecosystem = "Go"
+	MixEcosystem      Ecosystem = "Hex"
+	MavenEcosystem    Ecosystem = "Maven"
+	PipEcosystem      Ecosystem = "PyPI"
+	PubEcosystem      Ecosystem = "Pub"
+	ConanEcosystem    Ecosystem = "ConanCenter"
+	CRANEcosystem     Ecosystem = "CRAN"
+	AlpineEcosystem   Ecosystem = "Alpine"
+	DebianEcosystem   Ecosystem = "Debian"
+)

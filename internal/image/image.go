@@ -11,9 +11,9 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/dghubble/trie"
 	v1 "github.com/google/go-containerregistry/pkg/v1"
 	"github.com/google/go-containerregistry/pkg/v1/tarball"
+	"github.com/google/osv-scanner/internal/image/thirdparty/trie"
 	"github.com/google/osv-scanner/pkg/lockfile"
 )
 
