@@ -25,6 +25,7 @@ type HelpTemplateData struct {
 	AliasedVulns          []VulnDescription
 	HasFixedVersion       bool
 	FixedVersionTable     string
+	PathSeparator         string
 }
 
 type FixedPkgTableData struct {
@@ -81,7 +82,7 @@ See the format and more options in our documentation here: https://google.github
 Add or append these values to the following config files to ignore this vulnerability:
 
 {{range .AffectedPackagePaths -}}
-""{{.}}/osv-scanner.toml""
+""{{.}}{{$.PathSeparator}}osv-scanner.toml""
 
 """"""
 [[IgnoredVulns]]
@@ -213,6 +214,7 @@ func createSARIFHelpText(gv *groupedSARIFFinding) string {
 		HasFixedVersion:       hasFixedVersion,
 		FixedVersionTable:     createSARIFFixedPkgTable(fixedPkgTableData).RenderMarkdown(),
 		AffectedPackagePaths:  affectedPackagePaths,
+		PathSeparator:         string(filepath.Separator),
 	})
 
 	if err != nil {
