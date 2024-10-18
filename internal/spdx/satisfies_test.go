@@ -24,7 +24,6 @@ func TestSatisfies(t *testing.T) {
 	t.Parallel()
 
 	tests := []struct {
-		name    string
 		license models.License
 		pass    [][]string
 		fail    [][]string
