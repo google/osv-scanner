@@ -172,6 +172,13 @@ func TestRun(t *testing.T) {
 			args: []string{"", "--config=./fixtures/osv-scanner-empty-config.toml", "--sbom", "./fixtures/sbom-insecure/bad-purls.cdx.xml"},
 			exit: 0,
 		},
+		// one specific supported sbom with duplicate PURLs
+		{
+			name: "one specific supported sbom with duplicate PURLs",
+			args: []string{"", "--config=./fixtures/osv-scanner-empty-config.toml", "--sbom", "./fixtures/sbom-insecure/with-duplicates.cdx.xml"},
+			exit: 1,
+		},
+		// one specific unsupported lockfile
 		{
 			name: "one specific unsupported lockfile",
 			args: []string{"", "./fixtures/locks-many/not-a-lockfile.toml"},
@@ -891,6 +898,11 @@ func TestRun_MavenTransitive(t *testing.T) {
 		{
 			name: "scans transitive dependencies by specifying pom.xml",
 			args: []string{"", "--config=./fixtures/osv-scanner-empty-config.toml", "-L", "pom.xml:./fixtures/maven-transitive/abc.xml"},
+			exit: 1,
+		},
+		{
+			name: "scans pom.xml with non UTF-8 encoding",
+			args: []string{"", "--config=./fixtures/osv-scanner-empty-config.toml", "-L", "pom.xml:./fixtures/maven-transitive/encoding.xml"},
 			exit: 1,
 		},
 		{
