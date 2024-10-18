@@ -1,6 +1,7 @@
 package spdx
 
 import (
+	"errors"
 	"fmt"
 	"strings"
 
@@ -209,7 +210,7 @@ func parseAnd(tokens *tokens) (node, error) {
 
 func parseExpression(tokens *tokens) (node, error) {
 	if tokens.peek() == "" {
-		return nil, fmt.Errorf("unexpected end of expression")
+		return nil, errors.New("unexpected end of expression")
 	}
 
 	next, err := tokens.nextIfValid()
@@ -224,7 +225,7 @@ func parseExpression(tokens *tokens) (node, error) {
 		}
 
 		if tokens.peek() != ")" {
-			return nil, fmt.Errorf("missing closing bracket")
+			return nil, errors.New("missing closing bracket")
 		}
 
 		_, err = tokens.nextIfValid()
