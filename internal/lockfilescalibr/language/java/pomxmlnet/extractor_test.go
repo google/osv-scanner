@@ -19,43 +19,36 @@ func TestMavenResolverExtractor_FileRequired(t *testing.T) {
 	t.Parallel()
 
 	tests := []struct {
-		name string
 		path string
 		want bool
 	}{
 		{
-			name: "",
 			path: "",
 			want: false,
 		},
 		{
-			name: "",
 			path: "pom.xml",
 			want: true,
 		},
 		{
-			name: "",
 			path: "path/to/my/pom.xml",
 			want: true,
 		},
 		{
-			name: "",
 			path: "path/to/my/pom.xml/file",
 			want: false,
 		},
 		{
-			name: "",
 			path: "path/to/my/pom.xml.file",
 			want: false,
 		},
 		{
-			name: "",
 			path: "path.to.my.pom.xml",
 			want: false,
 		},
 	}
 	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
+		t.Run(tt.path, func(t *testing.T) {
 			t.Parallel()
 			e := pomxmlnet.Extractor{}
 			got := e.FileRequired(tt.path, nil)
@@ -67,6 +60,8 @@ func TestMavenResolverExtractor_FileRequired(t *testing.T) {
 }
 
 func TestExtractor_Extract(t *testing.T) {
+	t.Parallel()
+
 	tests := []extracttest.TestTableEntry{
 		{
 			Name: "Not a pom file",
@@ -265,7 +260,7 @@ func TestExtractor_Extract_WithMockServer(t *testing.T) {
 	t.Parallel()
 
 	tt := extracttest.TestTableEntry{
-		Name: "with parent",
+		// Name: "with parent",
 		InputConfig: extracttest.ScanInputMockConfig{
 			Path: "testdata/maven/with-parent.xml",
 		},
