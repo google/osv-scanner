@@ -1,0 +1,8 @@
+[core]
+	repositoryformatversion = 0
+	filemode = true
+	bare = false
+	logallrefupdates = true
+[submodule "submodule-test"]
+	url = /Users/rob/tmp/example-git-with-submodule/submodule-test
+	active = true
