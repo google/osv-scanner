@@ -44,8 +44,7 @@ func ScanImage(r reporter.Reporter, imagePath string) (ScanResults, error) {
 		// causing artifact extractors to double extract elements here.
 		// So let's skip all these directories for now.
 		// See (b/364536788)
-		if strings.HasPrefix(file.virtualPath, "/usr/local/") ||
-			strings.HasPrefix(file.virtualPath, "/opt/") {
+		if strings.HasPrefix(file.virtualPath, "/usr/local/") {
 			continue
 		}
 
@@ -203,7 +202,6 @@ func traceOrigin(img *Image, scannedLockfiles *ScanResults) {
 				// Failed to parse an older version of file in image
 				// Behave as if the file does not exist
 				break
-				// log.Panicf("unimplemented! failed to parse an older version of file in image: %s@%s: %v", file.FilePath, oldFileNode.originLayer.id, err)
 			}
 
 			// For each package in the old version, check if it existed in the newer layer, if so, the origin must be this layer or earlier.

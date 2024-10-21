@@ -441,42 +441,6 @@ func scanLockfile(r reporter.Reporter, path string, parseAs string, compareOffli
 	return packages, nil
 }
 
-// func extractMavenDeps(context ,f lockfile.DepFile) ([]*extractor.Inventory, error) {
-// 	depClient, err := client.NewDepsDevClient(depsdev.DepsdevAPI)
-// 	if err != nil {
-// 		return nil, err
-// 	}
-// 	ext := manifest.MavenResolverExtractor{
-// 		DependencyClient:       depClient,
-// 		MavenRegistryAPIClient: datasource.NewMavenRegistryAPIClient(datasource.MavenCentral),
-// 	}
-// 	packages, err := ext.Extract(f)
-// 	if err != nil {
-// 		err = fmt.Errorf("failed extracting %s: %w", f.Path(), err)
-// 		return nil, err
-// 	}
-
-// 	// Sort packages for testing convenience.
-// 	sort.Slice(packages, func(i, j int) bool {
-// 		if packages[i].Name == packages[j].Name {
-// 			return packages[i].Version < packages[j].Version
-// 		}
-
-// 		return packages[i].Name < packages[j].Name
-// 	})
-
-// 	inv := make([]*extractor.Inventory, len(packages))
-
-// 	for i, pkg := range packages {
-// 		inv[i] = &extractor.Inventory{
-// 			Name: pkg.Name,
-// 			Version: pkg.Version,
-// 			Locations: f.Path(),
-// 		}
-// 	}
-// 	return inv, err
-// }
-
 // scanSBOMFile will load, identify, and parse the SBOM path passed in, and add the dependencies specified
 // within to `query`
 func scanSBOMFile(r reporter.Reporter, path string, fromFSScan bool) ([]scannedPackage, error) {
@@ -962,6 +926,11 @@ func DoScan(actions ScannerActions, r reporter.Reporter) (models.VulnerabilityRe
 	if len(scannedPackages) == 0 {
 		return models.VulnerabilityResults{}, NoPackagesFoundErr
 	}
+
+	// Perform sorting here to keep logging output consistent
+	slices.SortFunc(scannedPackages, func(i, j scannedPackage) int {
+		return strings.Compare(i.PURL, j.PURL)
+	})
 
 	filteredScannedPackagesWithoutUnscannable := filterUnscannablePackages(scannedPackages)
 

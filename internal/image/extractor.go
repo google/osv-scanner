@@ -9,19 +9,26 @@ import (
 
 	"github.com/google/osv-scalibr/extractor"
 	"github.com/google/osv-scalibr/extractor/filesystem"
-	"github.com/google/osv-scalibr/extractor/filesystem/language/javascript/packagejson"
+	"github.com/google/osv-scalibr/extractor/filesystem/language/golang/gobinary"
 	"github.com/google/osv-scalibr/extractor/filesystem/os/apk"
+	"github.com/google/osv-scalibr/extractor/filesystem/os/dpkg"
 	"github.com/google/osv-scanner/internal/lockfilescalibr"
+	"github.com/google/osv-scanner/internal/lockfilescalibr/language/javascript/nodemodules"
 	"github.com/google/osv-scanner/pkg/lockfile"
 )
 
 // artifactExtractors contains only extractors for artifacts that are important in
 // the final layer of a container image
-var artifactExtractors map[string]filesystem.Extractor = map[string]filesystem.Extractor{
-	"packagejson":   packagejson.New(packagejson.DefaultConfig()),
-	"apk-installed": apk.New(apk.DefaultConfig()),
-	// "dpkg":          lockfile.DpkgStatusExtractor{},
-	// "go-binary": lockfile.GoBinaryExtractor{},
+var artifactExtractors []filesystem.Extractor = []filesystem.Extractor{
+	// TODO: Using nodemodules extractor to minimize changes of snapshots
+	// After annotations are added, we should switch to using packagejson.
+	// packagejson.New(packagejson.DefaultConfig()),
+	nodemodules.Extractor{},
+
+	apk.New(apk.DefaultConfig()),
+	gobinary.New(gobinary.DefaultConfig()),
+	// TODO: Add tests for debian containers
+	dpkg.New(dpkg.DefaultConfig()),
 }
 
 func findArtifactExtractor(path string, fileInfo fs.FileInfo) []filesystem.Extractor {
