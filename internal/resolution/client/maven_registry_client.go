@@ -5,13 +5,11 @@ import (
 	"encoding/gob"
 	"fmt"
 	"os"
-	"slices"
 	"strings"
 
 	"deps.dev/util/maven"
 	"deps.dev/util/resolve"
 	"deps.dev/util/resolve/version"
-	"deps.dev/util/semver"
 	"github.com/google/osv-scanner/internal/resolution/datasource"
 	mavenutil "github.com/google/osv-scanner/internal/utility/maven"
 )
@@ -23,9 +21,12 @@ type MavenRegistryClient struct {
 }
 
 func NewMavenRegistryClient(registry string) (*MavenRegistryClient, error) {
-	return &MavenRegistryClient{
-		api: datasource.NewMavenRegistryAPIClient(registry),
-	}, nil
+	client, err := datasource.NewMavenRegistryAPIClient(registry)
+	if err != nil {
+		return nil, err
+	}
+
+	return &MavenRegistryClient{api: client}, nil
 }
 
 func (c *MavenRegistryClient) Version(ctx context.Context, vk resolve.VersionKey) (resolve.Version, error) {
@@ -69,13 +70,13 @@ func (c *MavenRegistryClient) Versions(ctx context.Context, pk resolve.PackageKe
 	if !found {
 		return nil, fmt.Errorf("invalid Maven package name %s", pk.Name)
 	}
-	metadata, err := c.api.GetArtifactMetadata(ctx, g, a)
+	versions, err := c.api.GetVersions(ctx, g, a)
 	if err != nil {
 		return nil, err
 	}
 
-	vks := make([]resolve.Version, len(metadata.Versioning.Versions))
-	for i, v := range metadata.Versioning.Versions {
+	vks := make([]resolve.Version, len(versions))
+	for i, v := range versions {
 		vks[i] = resolve.Version{
 			VersionKey: resolve.VersionKey{
 				PackageKey:  pk,
@@ -83,7 +84,6 @@ func (c *MavenRegistryClient) Versions(ctx context.Context, pk resolve.PackageKe
 				VersionType: resolve.Concrete,
 			}}
 	}
-	slices.SortFunc(vks, func(a, b resolve.Version) int { return semver.Maven.Compare(a.Version, b.Version) })
 
 	return vks, nil
 }
@@ -111,13 +111,7 @@ func (c *MavenRegistryClient) Requirements(ctx context.Context, vk resolve.Versi
 		return nil, err
 	}
 	proj.ProcessDependencies(func(groupID, artifactID, version maven.String) (maven.DependencyManagement, error) {
-		root := maven.Parent{ProjectKey: maven.ProjectKey{GroupID: groupID, ArtifactID: artifactID, Version: version}}
-		var result maven.Project
-		if err := mavenutil.MergeParents(ctx, c.api, &result, root, 0, "", false); err != nil {
-			return maven.DependencyManagement{}, err
-		}
-
-		return result.DependencyManagement, nil
+		return mavenutil.GetDependencyManagement(ctx, c.api, groupID, artifactID, version)
 	})
 
 	reqs := make([]resolve.RequirementVersion, 0, len(proj.Dependencies))
@@ -149,6 +143,16 @@ func (c *MavenRegistryClient) MatchingVersions(ctx context.Context, vk resolve.V
 	}
 
 	return resolve.MatchRequirement(vk, versions), nil
+}
+
+func (c *MavenRegistryClient) AddRegistries(registries []Registry) error {
+	for _, reg := range registries {
+		if err := c.api.AddRegistry(reg.URL); err != nil {
+			return err
+		}
+	}
+
+	return nil
 }
 
 func (c *MavenRegistryClient) WriteCache(path string) error {

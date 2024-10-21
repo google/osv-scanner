@@ -290,7 +290,7 @@ func main() {
 
 	group := &errgroup.Group{}
 	for _, filename := range os.Args[1:] {
-		if io, err := manifest.GetReadWriter(filename); err == nil {
+		if io, err := manifest.GetReadWriter(filename, ""); err == nil {
 			if remediation.SupportsRelax(io) {
 				group.Go(func() error {
 					err := doRelockRelax(cl, io, filename)
