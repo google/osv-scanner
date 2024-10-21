@@ -1,0 +1,4 @@
+[[IgnoredVulns]]
+id = "GHSA-jgvc-jfgh-rjvv"
+ignoreUntiI = 2024-08-02 # whoops, should be "ignoreUntil"
+reason = "..."
