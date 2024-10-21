@@ -137,7 +137,7 @@ func GetDependencyManagement(ctx context.Context, client *datasource.MavenRegist
 	// To get dependency management from another project, we need the
 	// project with parents merged, so we call MergeParents by passing
 	// an empty project.
-	if err := MergeParents(ctx, client.CopyWithoutRegistries(), &result, root, 0, "", false); err != nil {
+	if err := MergeParents(ctx, client.WithoutRegistries(), &result, root, 0, "", false); err != nil {
 		return maven.DependencyManagement{}, err
 	}
 

@@ -115,10 +115,6 @@ func (e MavenResolverExtractor) Extract(f lockfile.DepFile) ([]lockfile.PackageD
 		g.Edges[i] = e
 	}
 
-	if err := overrideClient.WriteCache(f.Path()); err != nil {
-		return nil, fmt.Errorf("failed to write resolution cache: %w", err)
-	}
-
 	details := map[string]lockfile.PackageDetails{}
 	for i := 1; i < len(g.Nodes); i++ {
 		// Ignore the first node which is the root.
