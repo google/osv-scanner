@@ -48,7 +48,7 @@ type NpmLockfile struct {
 	Packages map[string]NpmLockPackage `json:"packages,omitempty"`
 }
 
-// const NpmEcosystem Ecosystem = "npm"
+const NpmEcosystem Ecosystem = "npm"
 
 type npmPackageDetailsMap map[string]PackageDetails
 
@@ -123,7 +123,7 @@ func parseNpmLockDependencies(dependencies map[string]NpmLockDependency) map[str
 		if strings.HasPrefix(detail.Version, "file:") {
 			finalVersion = ""
 		} else {
-			// commit = tryExtractCommit(detail.Version)
+			commit = tryExtractCommit(detail.Version)
 
 			// if there is a commit, we want to deduplicate based on that rather than
 			// the version (the versions must match anyway for the commits to match)
@@ -188,20 +188,20 @@ func parseNpmLockPackages(packages map[string]NpmLockPackage) map[string]Package
 
 		finalVersion := detail.Version
 
-		// commit := tryExtractCommit(detail.Resolved)
+		commit := tryExtractCommit(detail.Resolved)
 
 		// if there is a commit, we want to deduplicate based on that rather than
 		// the version (the versions must match anyway for the commits to match)
-		// if commit != "" {
-		// 	finalVersion = commit
-		// }
+		if commit != "" {
+			finalVersion = commit
+		}
 
 		details.add(finalName+"@"+finalVersion, PackageDetails{
 			Name:      finalName,
 			Version:   detail.Version,
 			Ecosystem: NpmEcosystem,
 			CompareAs: NpmEcosystem,
-			// Commit:    commit,
+			Commit:    commit,
 			DepGroups: detail.depGroups(),
 		})
 	}
@@ -236,3 +236,13 @@ func (e NpmLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 }
 
 var _ Extractor = NpmLockExtractor{}
+
+//nolint:gochecknoinits
+func init() {
+	registerExtractor("package-lock.json", NpmLockExtractor{})
+}
+
+// Deprecated: use NpmLockExtractor.Extract instead
+func ParseNpmLock(pathToLockfile string) ([]PackageDetails, error) {
+	return extractFromFile(pathToLockfile, NpmLockExtractor{})
+}

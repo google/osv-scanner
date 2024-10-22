@@ -69,3 +69,15 @@ func OpenLocalDepFile(path string) (NestedDepFile, error) {
 
 var _ DepFile = LocalFile{}
 var _ NestedDepFile = LocalFile{}
+
+func extractFromFile(pathToLockfile string, extractor Extractor) ([]PackageDetails, error) {
+	f, err := OpenLocalDepFile(pathToLockfile)
+
+	if err != nil {
+		return []PackageDetails{}, err
+	}
+
+	defer f.Close()
+
+	return extractor.Extract(f)
+}

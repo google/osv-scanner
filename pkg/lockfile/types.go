@@ -1,11 +1,6 @@
 package lockfile
 
-import (
-	"fmt"
-	"strings"
-
-	"github.com/google/osv-scanner/pkg/models"
-)
+import "github.com/google/osv-scanner/pkg/models"
 
 // TODO(v2): These fields do not need JSON tags I believe
 type PackageDetails struct {
@@ -46,36 +41,4 @@ func (sys Ecosystem) IsDevGroup(groups []string) bool {
 	}
 
 	return false
-}
-
-type Lockfile struct {
-	FilePath string           `json:"filePath"`
-	ParsedAs string           `json:"parsedAs"`
-	Packages []PackageDetails `json:"packages"`
-}
-
-func (l Lockfile) String() string {
-	lines := make([]string, 0, len(l.Packages))
-
-	for _, details := range l.Packages {
-		ecosystem := details.Ecosystem
-
-		if ecosystem == "" {
-			ecosystem = "<unknown>"
-		}
-
-		ln := fmt.Sprintf("  %s: %s", ecosystem, details.Name)
-
-		if details.Version != "" {
-			ln += "@" + details.Version
-		}
-
-		if details.Commit != "" {
-			ln += " (" + details.Commit + ")"
-		}
-
-		lines = append(lines, ln)
-	}
-
-	return strings.Join(lines, "\n")
 }
