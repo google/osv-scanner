@@ -25,6 +25,8 @@ func NewDepsDevClient(addr string) (*DepsDevClient, error) {
 	return &DepsDevClient{APIClient: *resolve.NewAPIClient(c), c: c}, nil
 }
 
+func (d *DepsDevClient) AddRegistries(_ []Registry) error { return nil }
+
 func (d *DepsDevClient) WriteCache(path string) error {
 	f, err := os.Create(path + depsDevCacheExt)
 	if err != nil {
