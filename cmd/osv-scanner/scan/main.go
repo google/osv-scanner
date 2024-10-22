@@ -138,6 +138,22 @@ func Command(stdout, stderr io.Writer, r *reporter.Reporter) *cli.Command {
 				TakesFile: true,
 				Hidden:    true,
 			},
+			&cli.StringFlag{
+				Name:  "experimental-resolution-data-source",
+				Usage: "source to fetch package information from; value can be: deps.dev, native",
+				Value: "deps.dev",
+				Action: func(_ *cli.Context, s string) error {
+					if s != "deps.dev" && s != "native" {
+						return fmt.Errorf("unsupported data-source \"%s\" - must be one of: deps.dev, native", s)
+					}
+
+					return nil
+				},
+			},
+			&cli.StringFlag{
+				Name:  "experimental-maven-registry",
+				Usage: "URL of the default registry to fetch Maven metadata",
+			},
 		},
 		ArgsUsage: "[directory1 directory2...]",
 		Action: func(c *cli.Context) error {
@@ -228,6 +244,10 @@ func action(context *cli.Context, stdout, stderr io.Writer) (reporter.Reporter, 
 			ScanLicensesSummary:   context.Bool("experimental-licenses-summary"),
 			ScanLicensesAllowlist: context.StringSlice("experimental-licenses"),
 			ScanOCIImage:          context.String("experimental-oci-image"),
+			TransitiveScanningActions: osvscanner.TransitiveScanningActions{
+				NativeDataSource: context.String("experimental-resolution-data-source") == "native",
+				MavenRegistry:    context.String("experimental-maven-registry"),
+			},
 		},
 	}, r)
 

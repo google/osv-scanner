@@ -67,6 +67,12 @@ type ExperimentalScannerActions struct {
 	ScanOCIImage          string
 
 	LocalDBPath string
+	TransitiveScanningActions
+}
+
+type TransitiveScanningActions struct {
+	NativeDataSource bool
+	MavenRegistry    string
 }
 
 // NoPackagesFoundErr for when no packages are found during a scan.
@@ -115,7 +121,7 @@ const (
 //   - Any lockfiles with scanLockfile
 //   - Any SBOM files with scanSBOMFile
 //   - Any git repositories with scanGit
-func scanDir(r reporter.Reporter, dir string, skipGit bool, recursive bool, useGitIgnore bool, compareOffline bool) ([]scannedPackage, error) {
+func scanDir(r reporter.Reporter, dir string, skipGit bool, recursive bool, useGitIgnore bool, compareOffline bool, transitiveAct TransitiveScanningActions) ([]scannedPackage, error) {
 	var ignoreMatcher *gitIgnoreMatcher
 	if useGitIgnore {
 		var err error
@@ -356,7 +362,7 @@ func scanImage(r reporter.Reporter, path string) ([]scannedPackage, error) {
 
 // scanLockfile will load, identify, and parse the lockfile path passed in, and add the dependencies specified
 // within to `query`
-func scanLockfile(r reporter.Reporter, path string, parseAs string, compareOffline bool) ([]scannedPackage, error) {
+func scanLockfile(r reporter.Reporter, path string, parseAs string, compareOffline bool, transitiveAct TransitiveScanningActions) ([]scannedPackage, error) {
 	var err error
 
 	var inventories []*extractor.Inventory
@@ -891,7 +897,7 @@ func DoScan(actions ScannerActions, r reporter.Reporter) (models.VulnerabilityRe
 			r.Errorf("Failed to resolved path with error %s\n", err)
 			return models.VulnerabilityResults{}, err
 		}
-		pkgs, err := scanLockfile(r, lockfilePath, parseAs, actions.CompareOffline)
+		pkgs, err := scanLockfile(r, lockfilePath, parseAs, actions.CompareOffline, actions.TransitiveScanningActions)
 		if err != nil {
 			return models.VulnerabilityResults{}, err
 		}
@@ -916,7 +922,7 @@ func DoScan(actions ScannerActions, r reporter.Reporter) (models.VulnerabilityRe
 
 	for _, dir := range actions.DirectoryPaths {
 		r.Infof("Scanning dir %s\n", dir)
-		pkgs, err := scanDir(r, dir, actions.SkipGit, actions.Recursive, !actions.NoIgnore, actions.CompareOffline)
+		pkgs, err := scanDir(r, dir, actions.SkipGit, actions.Recursive, !actions.NoIgnore, actions.CompareOffline, actions.TransitiveScanningActions)
 		if err != nil {
 			return models.VulnerabilityResults{}, err
 		}

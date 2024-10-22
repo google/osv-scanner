@@ -92,7 +92,8 @@ func TestParseMavenWithResolver_InvalidSyntax(t *testing.T) {
 func TestParseMavenWithResolver_NoPackages(t *testing.T) {
 	t.Parallel()
 
-	packages, err := manifest.ParseMavenWithResolver(nil, nil, "fixtures/maven/empty.xml")
+	resolutionClient := clienttest.NewMockResolutionClient(t, "fixtures/universe/basic-universe.yaml")
+	packages, err := manifest.ParseMavenWithResolver(resolutionClient, &datasource.MavenRegistryAPIClient{}, "fixtures/maven/empty.xml")
 	if err != nil {
 		t.Errorf("Got unexpected error: %v", err)
 	}
@@ -104,7 +105,7 @@ func TestParseMavenWithResolver_OnePackage(t *testing.T) {
 	t.Parallel()
 
 	resolutionClient := clienttest.NewMockResolutionClient(t, "fixtures/universe/basic-universe.yaml")
-	packages, err := manifest.ParseMavenWithResolver(resolutionClient, nil, "fixtures/maven/one-package.xml")
+	packages, err := manifest.ParseMavenWithResolver(resolutionClient, &datasource.MavenRegistryAPIClient{}, "fixtures/maven/one-package.xml")
 	if err != nil {
 		t.Errorf("Got unexpected error: %v", err)
 	}
@@ -123,7 +124,7 @@ func TestParseMavenWithResolver_TwoPackages(t *testing.T) {
 	t.Parallel()
 
 	resolutionClient := clienttest.NewMockResolutionClient(t, "fixtures/universe/basic-universe.yaml")
-	packages, err := manifest.ParseMavenWithResolver(resolutionClient, nil, "fixtures/maven/two-packages.xml")
+	packages, err := manifest.ParseMavenWithResolver(resolutionClient, &datasource.MavenRegistryAPIClient{}, "fixtures/maven/two-packages.xml")
 	if err != nil {
 		t.Errorf("Got unexpected error: %v", err)
 	}
@@ -148,7 +149,7 @@ func TestParseMavenWithResolver_WithDependencyManagement(t *testing.T) {
 	t.Parallel()
 
 	resolutionClient := clienttest.NewMockResolutionClient(t, "fixtures/universe/basic-universe.yaml")
-	packages, err := manifest.ParseMavenWithResolver(resolutionClient, nil, "fixtures/maven/with-dependency-management.xml")
+	packages, err := manifest.ParseMavenWithResolver(resolutionClient, &datasource.MavenRegistryAPIClient{}, "fixtures/maven/with-dependency-management.xml")
 	if err != nil {
 		t.Errorf("Got unexpected error: %v", err)
 	}
@@ -173,7 +174,7 @@ func TestParseMavenWithResolver_Interpolation(t *testing.T) {
 	t.Parallel()
 
 	resolutionClient := clienttest.NewMockResolutionClient(t, "fixtures/universe/basic-universe.yaml")
-	packages, err := manifest.ParseMavenWithResolver(resolutionClient, nil, "fixtures/maven/interpolation.xml")
+	packages, err := manifest.ParseMavenWithResolver(resolutionClient, &datasource.MavenRegistryAPIClient{}, "fixtures/maven/interpolation.xml")
 	if err != nil {
 		t.Errorf("Got unexpected error: %v", err)
 	}
@@ -204,7 +205,7 @@ func TestParseMavenWithResolver_WithScope(t *testing.T) {
 	t.Parallel()
 
 	resolutionClient := clienttest.NewMockResolutionClient(t, "fixtures/universe/basic-universe.yaml")
-	packages, err := manifest.ParseMavenWithResolver(resolutionClient, nil, "fixtures/maven/with-scope.xml")
+	packages, err := manifest.ParseMavenWithResolver(resolutionClient, &datasource.MavenRegistryAPIClient{}, "fixtures/maven/with-scope.xml")
 	if err != nil {
 		t.Errorf("Got unexpected error: %v", err)
 	}
@@ -258,7 +259,8 @@ func TestParseMavenWithResolver_WithParent(t *testing.T) {
 	`))
 
 	resolutionClient := clienttest.NewMockResolutionClient(t, "fixtures/universe/basic-universe.yaml")
-	packages, err := manifest.ParseMavenWithResolver(resolutionClient, datasource.NewMavenRegistryAPIClient(srv.URL), "fixtures/maven/with-parent.xml")
+	client, _ := datasource.NewMavenRegistryAPIClient(srv.URL)
+	packages, err := manifest.ParseMavenWithResolver(resolutionClient, client, "fixtures/maven/with-parent.xml")
 	if err != nil {
 		t.Errorf("Got unexpected error: %v", err)
 	}
@@ -307,7 +309,7 @@ func TestParseMavenWithResolver_Transitive(t *testing.T) {
 	t.Parallel()
 
 	resolutionClient := clienttest.NewMockResolutionClient(t, "fixtures/universe/basic-universe.yaml")
-	packages, err := manifest.ParseMavenWithResolver(resolutionClient, nil, "fixtures/maven/transitive.xml")
+	packages, err := manifest.ParseMavenWithResolver(resolutionClient, &datasource.MavenRegistryAPIClient{}, "fixtures/maven/transitive.xml")
 	if err != nil {
 		t.Errorf("Got unexpected error: %v", err)
 	}
