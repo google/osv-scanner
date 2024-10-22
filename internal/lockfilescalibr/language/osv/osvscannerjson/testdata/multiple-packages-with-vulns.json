@@ -1,0 +1,504 @@
+{
+    "results": [
+        {
+            "source": {
+                "path": "/path/to/Cargo.lock",
+                "type": "lockfile"
+            },
+            "packages": [
+                {
+                    "package": {
+                        "name": "crossbeam-utils",
+                        "version": "0.6.6",
+                        "ecosystem": "crates.io"
+                    },
+                    "vulnerabilities": [
+                        {
+                            "modified": "2022-08-11T21:55:33Z",
+                            "published": "2022-02-16T22:36:21Z",
+                            "schema_version": "1.4.0",
+                            "id": "GHSA-qc84-gqf4-9926",
+                            "aliases": [
+                                "CVE-2022-23639"
+                            ],
+                            "summary": "crossbeam-utils Race Condition vulnerability",
+                            "details": "### Impact\n\nThe affected version of this crate incorrectly assumed that the alignment of `{i,u}64` was always the same as `Atomic{I,U}64`. \n\nHowever, the alignment of `{i,u}64` on a 32-bit target can be smaller than `Atomic{I,U}64`.\n\nThis can cause the following problems:\n\n- Unaligned memory accesses\n- Data race\n\nCrates using `fetch_*` methods with `AtomicCell\u003c{i,u}64\u003e` are affected by this issue.\n\n32-bit targets without `Atomic{I,U}64` and 64-bit targets are not affected by this issue.\n32-bit targets with `Atomic{I,U}64` and `{i,u}64` have the same alignment are also not affected by this issue.\n\nThe following is a complete list of the builtin targets that may be affected. (last update: nightly-2022-02-11)\n\n- armv7-apple-ios (tier 3)\n- armv7s-apple-ios (tier 3)\n- i386-apple-ios (tier 3)\n- i586-unknown-linux-gnu\n- i586-unknown-linux-musl\n- i686-apple-darwin (tier 3)\n- i686-linux-android\n- i686-unknown-freebsd\n- i686-unknown-haiku (tier 3)\n- i686-unknown-linux-gnu\n- i686-unknown-linux-musl\n- i686-unknown-netbsd (tier 3)\n- i686-unknown-openbsd (tier 3)\n- i686-wrs-vxworks (tier 3)\n\n([script to get list](https://gist.github.com/taiki-e/3c7891e8c5f5e0cbcb44d7396aabfe10))\n\n### Patches\n\nThis has been fixed in crossbeam-utils 0.8.7.\n\nAffected 0.8.x releases have been yanked.\n\n### References\n\nhttps://github.com/crossbeam-rs/crossbeam/pull/781 \n\n### License\n\nThis advisory is in the public domain.",
+                            "affected": [
+                                {
+                                    "package": {
+                                        "ecosystem": "crates.io",
+                                        "name": "crossbeam-utils",
+                                        "purl": "pkg:cargo/crossbeam-utils"
+                                    },
+                                    "ranges": [
+                                        {
+                                            "type": "SEMVER",
+                                            "events": [
+                                                {
+                                                    "introduced": "0"
+                                                },
+                                                {
+                                                    "fixed": "0.8.7"
+                                                }
+                                            ]
+                                        }
+                                    ],
+                                    "database_specific": {
+                                        "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2022/02/GHSA-qc84-gqf4-9926/GHSA-qc84-gqf4-9926.json"
+                                    }
+                                }
+                            ],
+                            "severity": [
+                                {
+                                    "type": "CVSS_V3",
+                                    "score": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:H"
+                                }
+                            ],
+                            "references": [
+                                {
+                                    "type": "WEB",
+                                    "url": "https://github.com/crossbeam-rs/crossbeam/security/advisories/GHSA-qc84-gqf4-9926"
+                                },
+                                {
+                                    "type": "ADVISORY",
+                                    "url": "https://nvd.nist.gov/vuln/detail/CVE-2022-23639"
+                                },
+                                {
+                                    "type": "WEB",
+                                    "url": "https://github.com/crossbeam-rs/crossbeam/pull/781"
+                                },
+                                {
+                                    "type": "PACKAGE",
+                                    "url": "https://github.com/crossbeam-rs/crossbeam"
+                                },
+                                {
+                                    "type": "WEB",
+                                    "url": "https://github.com/crossbeam-rs/crossbeam/releases/tag/crossbeam-utils-0.8.7"
+                                },
+                                {
+                                    "type": "WEB",
+                                    "url": "https://rustsec.org/advisories/RUSTSEC-2022-0041.html"
+                                }
+                            ],
+                            "database_specific": {
+                                "cwe_ids": [
+                                    "CWE-362"
+                                ],
+                                "github_reviewed": true,
+                                "github_reviewed_at": "2022-02-16T22:36:21Z",
+                                "nvd_published_at": "2022-02-15T19:15:00Z",
+                                "severity": "HIGH"
+                            }
+                        },
+                        {
+                            "modified": "2022-08-04T13:56:30Z",
+                            "published": "2022-02-05T12:00:00Z",
+                            "schema_version": "1.4.0",
+                            "id": "RUSTSEC-2022-0041",
+                            "aliases": [
+                                "GHSA-qc84-gqf4-9926",
+                                "CVE-2022-23639"
+                            ],
+                            "summary": "Unsoundness of AtomicCell\u003c*64\u003e arithmetics on 32-bit targets that support Atomic*64",
+                            "details": "## Impact\n\nAffected versions of this crate incorrectly assumed that the alignment of {i,u}64 was always the same as Atomic{I,U}64.\n\nHowever, the alignment of {i,u}64 on a 32-bit target can be smaller than Atomic{I,U}64.\n\nThis can cause the following problems:\n\n- Unaligned memory accesses\n- Data race\n\nCrates using fetch_* methods with AtomicCell\u003c{i,u}64\u003e are affected by this issue.\n\n32-bit targets without Atomic{I,U}64 and 64-bit targets are not affected by this issue.\n\n32-bit targets with Atomic{I,U}64 and {i,u}64 have the same alignment are also not affected by this issue.\n\nThe following is a complete list of the builtin targets that may be affected. (last update: nightly-2022-02-11)\n\n- armv7-apple-ios (tier 3)\n- armv7s-apple-ios (tier 3)\n- i386-apple-ios (tier 3)\n- i586-unknown-linux-gnu\n- i586-unknown-linux-musl\n- i686-apple-darwin (tier 3)\n- i686-linux-android\n- i686-unknown-freebsd\n- i686-unknown-haiku (tier 3)\n- i686-unknown-linux-gnu\n- i686-unknown-linux-musl\n- i686-unknown-netbsd (tier 3)\n- i686-unknown-openbsd (tier 3)\n- i686-wrs-vxworks (tier 3)\n\n([script to get list](https://gist.github.com/taiki-e/3c7891e8c5f5e0cbcb44d7396aabfe10))\n\n## Patches\n\nThis has been fixed in crossbeam-utils 0.8.7.\n\nAffected 0.8.x releases have been yanked.\n\nThanks to @taiki-e",
+                            "affected": [
+                                {
+                                    "package": {
+                                        "ecosystem": "crates.io",
+                                        "name": "crossbeam-utils",
+                                        "purl": "pkg:cargo/crossbeam-utils"
+                                    },
+                                    "ranges": [
+                                        {
+                                            "type": "SEMVER",
+                                            "events": [
+                                                {
+                                                    "introduced": "0.0.0-0"
+                                                },
+                                                {
+                                                    "fixed": "0.8.7"
+                                                }
+                                            ]
+                                        }
+                                    ],
+                                    "database_specific": {
+                                        "categories": [
+                                            "memory-corruption"
+                                        ],
+                                        "cvss": null,
+                                        "informational": "unsound",
+                                        "source": "https://github.com/rustsec/advisory-db/blob/osv/crates/RUSTSEC-2022-0041.json"
+                                    },
+                                    "ecosystem_specific": {
+                                        "affects": {
+                                            "arch": [],
+                                            "functions": [],
+                                            "os": []
+                                        }
+                                    }
+                                }
+                            ],
+                            "references": [
+                                {
+                                    "type": "PACKAGE",
+                                    "url": "https://crates.io/crates/crossbeam-utils"
+                                },
+                                {
+                                    "type": "ADVISORY",
+                                    "url": "https://rustsec.org/advisories/RUSTSEC-2022-0041.html"
+                                },
+                                {
+                                    "type": "WEB",
+                                    "url": "https://github.com/crossbeam-rs/crossbeam/pull/781"
+                                }
+                            ]
+                        }
+                    ],
+                    "groups": [
+                        {
+                            "ids": [
+                                "GHSA-qc84-gqf4-9926",
+                                "RUSTSEC-2022-0041"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "package": {
+                        "name": "memoffset",
+                        "version": "0.5.6",
+                        "ecosystem": "crates.io"
+                    },
+                    "vulnerabilities": [
+                        {
+                            "modified": "2023-06-21T22:06:29Z",
+                            "published": "2023-06-21T22:06:29Z",
+                            "schema_version": "1.4.0",
+                            "id": "GHSA-wfg4-322g-9vqv",
+                            "summary": "memoffset allows reading uninitialized memory",
+                            "details": "memoffset allows attempt of reading data from address `0` with arbitrary type. This behavior is an undefined behavior because address `0` to `std::mem::size_of\u003cT\u003e` may not have valid bit-pattern with `T`. Old implementation dereferences uninitialized memory obtained from `std::mem::align_of`. Older implementation prior to it allows using uninitialized data obtained from `std::mem::uninitialized` with arbitrary type then compute offset by taking the address of field-projection. This may also result in an undefined behavior for \"father\" that includes (directly or transitively) type that [does not allow to be uninitialized](https://doc.rust-lang.org/nightly/reference/behavior-considered-undefined.html).\n\nThis flaw was corrected by using `std::ptr::addr_of` in \u003chttps://github.com/Gilnaa/memoffset/pull/50\u003e.\n",
+                            "affected": [
+                                {
+                                    "package": {
+                                        "ecosystem": "crates.io",
+                                        "name": "memoffset",
+                                        "purl": "pkg:cargo/memoffset"
+                                    },
+                                    "ranges": [
+                                        {
+                                            "type": "SEMVER",
+                                            "events": [
+                                                {
+                                                    "introduced": "0"
+                                                },
+                                                {
+                                                    "fixed": "0.6.2"
+                                                }
+                                            ]
+                                        }
+                                    ],
+                                    "database_specific": {
+                                        "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2023/06/GHSA-wfg4-322g-9vqv/GHSA-wfg4-322g-9vqv.json"
+                                    }
+                                }
+                            ],
+                            "references": [
+                                {
+                                    "type": "WEB",
+                                    "url": "https://github.com/Gilnaa/memoffset/issues/24"
+                                },
+                                {
+                                    "type": "WEB",
+                                    "url": "https://github.com/Gilnaa/memoffset/pull/50"
+                                },
+                                {
+                                    "type": "PACKAGE",
+                                    "url": "https://github.com/Gilnaa/memoffset"
+                                },
+                                {
+                                    "type": "WEB",
+                                    "url": "https://rustsec.org/advisories/RUSTSEC-2023-0045.html"
+                                }
+                            ],
+                            "database_specific": {
+                                "cwe_ids": [],
+                                "github_reviewed": true,
+                                "github_reviewed_at": "2023-06-21T22:06:29Z",
+                                "nvd_published_at": null,
+                                "severity": "MODERATE"
+                            }
+                        },
+                        {
+                            "modified": "2023-07-08T12:30:19Z",
+                            "published": "2023-06-21T12:00:00Z",
+                            "schema_version": "1.4.0",
+                            "id": "RUSTSEC-2023-0045",
+                            "aliases": [
+                                "GHSA-wfg4-322g-9vqv"
+                            ],
+                            "summary": "memoffset allows reading uninitialized memory",
+                            "details": "memoffset allows attempt of reading data from address `0` with arbitrary type. This behavior is an undefined behavior because address `0` to `std::mem::size_of\u003cT\u003e` may not have valid bit-pattern with `T`. Old implementation dereferences uninitialized memory obtained from `std::mem::align_of`. Older implementation prior to it allows using uninitialized data obtained from `std::mem::uninitialized` with arbitrary type then compute offset by taking the address of field-projection. This may also result in an undefined behavior for \"father\" that includes (directly or transitively) type that [does not allow to be uninitialized](https://doc.rust-lang.org/nightly/reference/behavior-considered-undefined.html).\n\nThis flaw was corrected by using `std::ptr::addr_of` in \u003chttps://github.com/Gilnaa/memoffset/pull/50\u003e.",
+                            "affected": [
+                                {
+                                    "package": {
+                                        "ecosystem": "crates.io",
+                                        "name": "memoffset",
+                                        "purl": "pkg:cargo/memoffset"
+                                    },
+                                    "ranges": [
+                                        {
+                                            "type": "SEMVER",
+                                            "events": [
+                                                {
+                                                    "introduced": "0.0.0-0"
+                                                },
+                                                {
+                                                    "fixed": "0.6.2"
+                                                }
+                                            ]
+                                        }
+                                    ],
+                                    "database_specific": {
+                                        "categories": [
+                                            "memory-corruption"
+                                        ],
+                                        "cvss": null,
+                                        "informational": "unsound",
+                                        "source": "https://github.com/rustsec/advisory-db/blob/osv/crates/RUSTSEC-2023-0045.json"
+                                    },
+                                    "ecosystem_specific": {
+                                        "affects": {
+                                            "arch": [],
+                                            "functions": [
+                                                "memoffset::offset_of"
+                                            ],
+                                            "os": []
+                                        }
+                                    }
+                                }
+                            ],
+                            "references": [
+                                {
+                                    "type": "PACKAGE",
+                                    "url": "https://crates.io/crates/memoffset"
+                                },
+                                {
+                                    "type": "ADVISORY",
+                                    "url": "https://rustsec.org/advisories/RUSTSEC-2023-0045.html"
+                                },
+                                {
+                                    "type": "REPORT",
+                                    "url": "https://github.com/Gilnaa/memoffset/issues/24"
+                                }
+                            ]
+                        }
+                    ],
+                    "groups": [
+                        {
+                            "ids": [
+                                "GHSA-wfg4-322g-9vqv",
+                                "RUSTSEC-2023-0045"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "package": {
+                        "name": "smallvec",
+                        "version": "1.6.0",
+                        "ecosystem": "crates.io"
+                    },
+                    "vulnerabilities": [
+                        {
+                            "modified": "2023-06-13T20:51:42Z",
+                            "published": "2022-05-24T17:40:21Z",
+                            "schema_version": "1.4.0",
+                            "id": "GHSA-43w2-9j62-hq99",
+                            "aliases": [
+                                "CVE-2021-25900"
+                            ],
+                            "summary": "Buffer overflow in SmallVec::insert_many",
+                            "details": "A bug in the SmallVec::insert_many method caused it to allocate a buffer that was smaller than needed. It then wrote past the end of the buffer, causing a buffer overflow and memory corruption on the heap. This bug was only triggered if the iterator passed to insert_many yielded more items than the lower bound returned from its size_hint method.\n\nThe flaw was corrected in smallvec 0.6.14 and 1.6.1, by ensuring that additional space is always reserved for each item inserted. The fix also simplified the implementation of insert_many to use less unsafe code, so it is easier to verify its correctness.",
+                            "affected": [
+                                {
+                                    "package": {
+                                        "ecosystem": "crates.io",
+                                        "name": "smallvec",
+                                        "purl": "pkg:cargo/smallvec"
+                                    },
+                                    "ranges": [
+                                        {
+                                            "type": "SEMVER",
+                                            "events": [
+                                                {
+                                                    "introduced": "0.6.3"
+                                                },
+                                                {
+                                                    "fixed": "0.6.14"
+                                                }
+                                            ]
+                                        }
+                                    ],
+                                    "database_specific": {
+                                        "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2022/05/GHSA-43w2-9j62-hq99/GHSA-43w2-9j62-hq99.json"
+                                    },
+                                    "ecosystem_specific": {
+                                        "affected_functions": [
+                                            "smallvec::SmallVec::insert_many"
+                                        ]
+                                    }
+                                },
+                                {
+                                    "package": {
+                                        "ecosystem": "crates.io",
+                                        "name": "smallvec",
+                                        "purl": "pkg:cargo/smallvec"
+                                    },
+                                    "ranges": [
+                                        {
+                                            "type": "SEMVER",
+                                            "events": [
+                                                {
+                                                    "introduced": "1.0.0"
+                                                },
+                                                {
+                                                    "fixed": "1.6.1"
+                                                }
+                                            ]
+                                        }
+                                    ],
+                                    "database_specific": {
+                                        "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2022/05/GHSA-43w2-9j62-hq99/GHSA-43w2-9j62-hq99.json"
+                                    },
+                                    "ecosystem_specific": {
+                                        "affected_functions": [
+                                            "smallvec::SmallVec::insert_many"
+                                        ]
+                                    }
+                                }
+                            ],
+                            "severity": [
+                                {
+                                    "type": "CVSS_V3",
+                                    "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H"
+                                }
+                            ],
+                            "references": [
+                                {
+                                    "type": "ADVISORY",
+                                    "url": "https://nvd.nist.gov/vuln/detail/CVE-2021-25900"
+                                },
+                                {
+                                    "type": "WEB",
+                                    "url": "https://github.com/servo/rust-smallvec/issues/252"
+                                },
+                                {
+                                    "type": "PACKAGE",
+                                    "url": "https://github.com/servo/rust-smallvec"
+                                },
+                                {
+                                    "type": "WEB",
+                                    "url": "https://rustsec.org/advisories/RUSTSEC-2021-0003.html"
+                                }
+                            ],
+                            "database_specific": {
+                                "cwe_ids": [
+                                    "CWE-787"
+                                ],
+                                "github_reviewed": true,
+                                "github_reviewed_at": "2022-06-17T00:20:48Z",
+                                "nvd_published_at": "2021-01-26T18:16:00Z",
+                                "severity": "CRITICAL"
+                            }
+                        },
+                        {
+                            "modified": "2023-06-13T13:10:24Z",
+                            "published": "2021-01-08T12:00:00Z",
+                            "schema_version": "1.4.0",
+                            "id": "RUSTSEC-2021-0003",
+                            "aliases": [
+                                "CVE-2021-25900",
+                                "GHSA-43w2-9j62-hq99"
+                            ],
+                            "summary": "Buffer overflow in SmallVec::insert_many",
+                            "details": "A bug in the `SmallVec::insert_many` method caused it to allocate a buffer that was smaller than needed.  It then wrote past the end of the buffer, causing a buffer overflow and memory corruption on the heap.\n\nThis bug was only triggered if the iterator passed to `insert_many` yielded more items than the lower bound returned from its `size_hint` method.\n \nThe flaw was corrected in smallvec 0.6.14 and 1.6.1, by ensuring that additional space is always reserved for each item inserted.  The fix also simplified the implementation of `insert_many` to use less unsafe code, so it is easier to verify its correctness.\n\nThank you to Yechan Bae (@Qwaz) and the Rust group at Georgia Tech’s SSLab for finding and reporting this bug.",
+                            "affected": [
+                                {
+                                    "package": {
+                                        "ecosystem": "crates.io",
+                                        "name": "smallvec",
+                                        "purl": "pkg:cargo/smallvec"
+                                    },
+                                    "ranges": [
+                                        {
+                                            "type": "SEMVER",
+                                            "events": [
+                                                {
+                                                    "introduced": "0.6.3"
+                                                },
+                                                {
+                                                    "fixed": "0.6.14"
+                                                },
+                                                {
+                                                    "introduced": "1.0.0"
+                                                },
+                                                {
+                                                    "fixed": "1.6.1"
+                                                }
+                                            ]
+                                        }
+                                    ],
+                                    "database_specific": {
+                                        "categories": [
+                                            "memory-corruption"
+                                        ],
+                                        "cvss": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H",
+                                        "informational": null,
+                                        "source": "https://github.com/rustsec/advisory-db/blob/osv/crates/RUSTSEC-2021-0003.json"
+                                    },
+                                    "ecosystem_specific": {
+                                        "affects": {
+                                            "arch": [],
+                                            "functions": [
+                                                "smallvec::SmallVec::insert_many"
+                                            ],
+                                            "os": []
+                                        }
+                                    }
+                                }
+                            ],
+                            "severity": [
+                                {
+                                    "type": "CVSS_V3",
+                                    "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H"
+                                }
+                            ],
+                            "references": [
+                                {
+                                    "type": "PACKAGE",
+                                    "url": "https://crates.io/crates/smallvec"
+                                },
+                                {
+                                    "type": "ADVISORY",
+                                    "url": "https://rustsec.org/advisories/RUSTSEC-2021-0003.html"
+                                },
+                                {
+                                    "type": "REPORT",
+                                    "url": "https://github.com/servo/rust-smallvec/issues/252"
+                                }
+                            ]
+                        }
+                    ],
+                    "groups": [
+                        {
+                            "ids": [
+                                "GHSA-43w2-9j62-hq99",
+                                "RUSTSEC-2021-0003"
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
