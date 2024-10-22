@@ -11,7 +11,7 @@ import (
 	"github.com/google/osv-scanner/pkg/lockfile"
 )
 
-func TestMavenResolverExtractor_FileRequired(t *testing.T) {
+func TestMavenResolverExtractor_ShouldExtract(t *testing.T) {
 	t.Parallel()
 
 	tests := []struct {

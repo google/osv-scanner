@@ -8,7 +8,7 @@ import (
 	"github.com/google/osv-scanner/pkg/models"
 )
 
-func TestMavenExtraction_FileRequiredPackages(t *testing.T) {
+func TestMavenExtraction_shouldExtractPackages(t *testing.T) {
 	t.Parallel()
 	testCase := struct {
 		packageInfo       models.PackageInfo

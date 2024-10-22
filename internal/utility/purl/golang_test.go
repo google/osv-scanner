@@ -8,7 +8,7 @@ import (
 	"github.com/google/osv-scanner/pkg/models"
 )
 
-func TestGolangExtraction_FileRequiredPackages(t *testing.T) {
+func TestGolangExtraction_shouldExtractPackages(t *testing.T) {
 	t.Parallel()
 	testCases := []struct {
 		name              string
