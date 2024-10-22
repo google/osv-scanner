@@ -5,6 +5,8 @@ import (
 )
 
 func TestLockfileScalibrMappingExists(t *testing.T) {
+	t.Parallel()
+
 	for _, target := range lockfileExtractorMapping {
 		found := false
 		for _, ext := range lockfileExtractors {

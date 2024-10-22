@@ -13,6 +13,8 @@ import (
 )
 
 func TestExtractor_Extract(t *testing.T) {
+	t.Parallel()
+
 	tests := []extracttest.TestTableEntry{
 		{
 			Name: "invalid yaml",

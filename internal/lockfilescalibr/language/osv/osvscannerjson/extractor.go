@@ -59,8 +59,8 @@ func (e Extractor) Extract(_ context.Context, input *filesystem.ScanInput) ([]*e
 					Commit: pkg.Package.Commit,
 				}
 			}
-			packages = append(packages, &inventory)
 
+			packages = append(packages, &inventory)
 		}
 	}
 
@@ -77,7 +77,7 @@ func (e Extractor) ToPURL(i *extractor.Inventory) (*purl.PackageURL, error) {
 }
 
 // ToCPEs is not applicable as this extractor does not infer CPEs from the Inventory.
-func (e Extractor) ToCPEs(i *extractor.Inventory) ([]string, error) { return []string{}, nil }
+func (e Extractor) ToCPEs(_ *extractor.Inventory) ([]string, error) { return []string{}, nil }
 
 // Ecosystem returns the OSV ecosystem ('npm') of the software extracted by this extractor.
 func (e Extractor) Ecosystem(i *extractor.Inventory) string {

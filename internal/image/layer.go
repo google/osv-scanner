@@ -131,7 +131,7 @@ func (filemap Layer) Stat(path string) (fs.FileInfo, error) {
 
 func (filemap Layer) ReadDir(path string) ([]fs.DirEntry, error) {
 	output := []fs.DirEntry{}
-	err := filemap.fileNodeTrie.WalkChildren(path, func(path string, value interface{}) error {
+	err := filemap.fileNodeTrie.WalkChildren(path, func(_ string, value interface{}) error {
 		if value == nil {
 			panic("TODO: Unexpected, corrupted tar?, we should be storing all directories")
 		}

@@ -77,7 +77,7 @@ func extractArtifactDeps(path string, layer *Layer) ([]*extractor.Inventory, err
 		f.Close()
 
 		if err != nil {
-			if errors.Is(lockfile.ErrIncompatibleFileFormat, err) {
+			if errors.Is(err, lockfile.ErrIncompatibleFileFormat) {
 				continue
 			}
 
