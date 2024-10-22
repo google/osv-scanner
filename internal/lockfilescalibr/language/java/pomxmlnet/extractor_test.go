@@ -236,7 +236,8 @@ func TestExtractor_Extract(t *testing.T) {
 
 			resolutionClient := clienttest.NewMockResolutionClient(t, "testdata/universe/basic-universe.yaml")
 			extr := pomxmlnet.Extractor{
-				DependencyClient: resolutionClient,
+				DependencyClient:       resolutionClient,
+				MavenRegistryAPIClient: &datasource.MavenRegistryAPIClient{},
 			}
 
 			scanInput := extracttest.GenerateScanInputMock(t, tt.InputConfig)
@@ -338,10 +339,15 @@ func TestExtractor_Extract_WithMockServer(t *testing.T) {
 	</project>
 	`))
 
+	apiClient, err := datasource.NewMavenRegistryAPIClient(srv.URL)
+	if err != nil {
+		t.Fatalf("%v", err)
+	}
+
 	resolutionClient := clienttest.NewMockResolutionClient(t, "testdata/universe/basic-universe.yaml")
 	extr := pomxmlnet.Extractor{
 		DependencyClient:       resolutionClient,
-		MavenRegistryAPIClient: datasource.NewMavenRegistryAPIClient(srv.URL),
+		MavenRegistryAPIClient: apiClient,
 	}
 
 	scanInput := extracttest.GenerateScanInputMock(t, tt.InputConfig)

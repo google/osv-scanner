@@ -54,6 +54,15 @@ func (e Extractor) Extract(ctx context.Context, input *filesystem.ScanInput) ([]
 	if err := datasource.NewMavenDecoder(input.Reader).Decode(&project); err != nil {
 		return nil, fmt.Errorf("could not extract from %s: %w", input.Path, err)
 	}
+	// Empty JDK and ActivationOS indicates merging the default profiles.
+	if err := project.MergeProfiles("", maven.ActivationOS{}); err != nil {
+		return nil, fmt.Errorf("failed to merge profiles: %w", err)
+	}
+	for _, repo := range project.Repositories {
+		if err := e.MavenRegistryAPIClient.AddRegistry(string(repo.URL)); err != nil {
+			return nil, fmt.Errorf("failed to add registry %s: %w", repo.URL, err)
+		}
+	}
 	// Merging parents data by parsing local parent pom.xml or fetching from upstream.
 	if err := mavenutil.MergeParents(ctx, e.MavenRegistryAPIClient, &project, project.Parent, 1, input.Path, true); err != nil {
 		return nil, fmt.Errorf("failed to merge parents: %w", err)
@@ -63,14 +72,18 @@ func (e Extractor) Extract(ctx context.Context, input *filesystem.ScanInput) ([]
 	//  - import dependency management
 	//  - fill in missing dependency version requirement
 	project.ProcessDependencies(func(groupID, artifactID, version maven.String) (maven.DependencyManagement, error) {
-		root := maven.Parent{ProjectKey: maven.ProjectKey{GroupID: groupID, ArtifactID: artifactID, Version: version}}
-		var result maven.Project
-		if err := mavenutil.MergeParents(ctx, e.MavenRegistryAPIClient, &result, root, 0, input.Path, false); err != nil {
-			return maven.DependencyManagement{}, err
-		}
-
-		return result.DependencyManagement, nil
+		return mavenutil.GetDependencyManagement(ctx, e.MavenRegistryAPIClient, groupID, artifactID, version)
 	})
+
+	if registries := e.MavenRegistryAPIClient.GetRegistries(); len(registries) > 0 {
+		clientRegs := make([]client.Registry, len(registries))
+		for i, reg := range registries {
+			clientRegs[i] = client.Registry{URL: reg}
+		}
+		if err := e.DependencyClient.AddRegistries(clientRegs); err != nil {
+			return nil, err
+		}
+	}
 
 	overrideClient := client.NewOverrideClient(e.DependencyClient)
 	resolver := mavenresolve.NewResolver(overrideClient)
@@ -114,6 +127,7 @@ func (e Extractor) Extract(ctx context.Context, input *filesystem.ScanInput) ([]
 	}
 	overrideClient.AddVersion(root, reqs)
 
+	client.PreFetch(ctx, overrideClient, reqs, input.Path)
 	g, err := resolver.Resolve(ctx, root.VersionKey)
 	if err != nil {
 		return nil, fmt.Errorf("failed resolving %v: %w", root, err)

@@ -320,9 +320,9 @@ Scanning dir ./fixtures/maven-transitive
 Scanned <rootdir>/fixtures/maven-transitive/pom.xml file and found 3 packages
 Package npm/ansi-html/0.0.1 has been filtered out because: (no reason given)
 Package npm/balanced-match/1.0.2 has been filtered out because: (no reason given)
-Package Maven/org.apache.logging.log4j:log4j-web/2.14.1 has been filtered out because: it makes the table output really really long
 Package Maven/org.apache.logging.log4j:log4j-api/2.14.1 has been filtered out because: it makes the table output really really long
 Package Maven/org.apache.logging.log4j:log4j-core/2.14.1 has been filtered out because: it makes the table output really really long
+Package Maven/org.apache.logging.log4j:log4j-web/2.14.1 has been filtered out because: it makes the table output really really long
 Filtered 5 ignored package/s from the scan.
 overriding license for package Alpine/alpine-baselayout-data/3.4.0-r0 with MIT
 overriding license for package Alpine/alpine-baselayout/3.4.0-r0 with MIT
@@ -349,9 +349,9 @@ overriding license for package Packagist/league/flysystem/1.0.8 with 0BSD
 | LICENSE VIOLATION | ECOSYSTEM | PACKAGE                                        | VERSION | SOURCE                                                |
 +-------------------+-----------+------------------------------------------------+---------+-------------------------------------------------------+
 | 0BSD              | Packagist | league/flysystem                               | 1.0.8   | fixtures/locks-insecure/composer.lock                 |
-| UNKNOWN           |           | https://github.com/flutter/buildroot.git       |         | fixtures/locks-insecure/osv-scanner-flutter-deps.json |
-| UNKNOWN           |           | https://github.com/brendan-duncan/archive.git  |         | fixtures/locks-insecure/osv-scanner-flutter-deps.json |
 | UNKNOWN           |           | https://chromium.googlesource.com/chromium/src |         | fixtures/locks-insecure/osv-scanner-flutter-deps.json |
+| UNKNOWN           |           | https://github.com/brendan-duncan/archive.git  |         | fixtures/locks-insecure/osv-scanner-flutter-deps.json |
+| UNKNOWN           |           | https://github.com/flutter/buildroot.git       |         | fixtures/locks-insecure/osv-scanner-flutter-deps.json |
 | UNKNOWN           | RubyGems  | ast                                            | 2.4.2   | fixtures/locks-many/Gemfile.lock                      |
 | 0BSD              | Packagist | sentry/sdk                                     | 2.0.4   | fixtures/locks-many/composer.lock                     |
 +-------------------+-----------+------------------------------------------------+---------+-------------------------------------------------------+

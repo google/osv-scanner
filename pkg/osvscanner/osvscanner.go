@@ -2,6 +2,7 @@ package osvscanner
 
 import (
 	"bufio"
+	"cmp"
 	"context"
 	"crypto/md5" //nolint:gosec
 	"errors"
@@ -177,7 +178,7 @@ func scanDir(r reporter.Reporter, dir string, skipGit bool, recursive bool, useG
 		}
 
 		if !info.IsDir() {
-			pkgs, err := scanLockfile(r, path, "", compareOffline)
+			pkgs, err := scanLockfile(r, path, "", compareOffline, transitiveAct)
 			if err != nil {
 				// If no extractors found then just continue
 				if !errors.Is(err, lockfilescalibr.ErrNoExtractorsFound) {
@@ -380,14 +381,11 @@ func scanLockfile(r reporter.Reporter, path string, parseAs string, compareOffli
 		inventories, err = lockfilescalibr.ExtractWithExtractor(context.Background(), path, osvscannerjson.Extractor{})
 	default:
 		if !compareOffline && (parseAs == "pom.xml" || filepath.Base(path) == "pom.xml") {
-			depClient, depErr := client.NewDepsDevClient(depsdev.DepsdevAPI)
-			if depErr != nil {
-				return nil, depErr
+			ext, extErr := createMavenExtractor(transitiveAct)
+			if extErr != nil {
+				return nil, extErr
 			}
-			ext := pomxmlnet.Extractor{
-				DependencyClient:       depClient,
-				MavenRegistryAPIClient: datasource.NewMavenRegistryAPIClient(datasource.MavenCentral),
-			}
+
 			inventories, err = lockfilescalibr.ExtractWithExtractor(context.Background(), path, ext)
 		} else {
 			inventories, err = lockfilescalibr.Extract(context.Background(), path, parseAs)
@@ -403,6 +401,13 @@ func scanLockfile(r reporter.Reporter, path string, parseAs string, compareOffli
 	if parseAs != "" {
 		parsedAsComment = fmt.Sprintf("as a %s ", parseAs)
 	}
+
+	slices.SortFunc(inventories, func(i, j *extractor.Inventory) int {
+		return cmp.Or(
+			strings.Compare(i.Name, j.Name),
+			strings.Compare(i.Version, j.Version),
+		)
+	})
 
 	pkgCount := len(inventories)
 
@@ -445,6 +450,31 @@ func scanLockfile(r reporter.Reporter, path string, parseAs string, compareOffli
 	}
 
 	return packages, nil
+}
+
+func createMavenExtractor(actions TransitiveScanningActions) (*pomxmlnet.Extractor, error) {
+	var depClient client.DependencyClient
+	var err error
+	if actions.NativeDataSource {
+		depClient, err = client.NewMavenRegistryClient(actions.MavenRegistry)
+	} else {
+		depClient, err = client.NewDepsDevClient(depsdev.DepsdevAPI)
+	}
+	if err != nil {
+		return nil, err
+	}
+
+	mavenClient, err := datasource.NewMavenRegistryAPIClient(actions.MavenRegistry)
+	if err != nil {
+		return nil, err
+	}
+
+	extractor := pomxmlnet.Extractor{
+		DependencyClient:       depClient,
+		MavenRegistryAPIClient: mavenClient,
+	}
+
+	return &extractor, nil
 }
 
 // scanSBOMFile will load, identify, and parse the SBOM path passed in, and add the dependencies specified
@@ -932,11 +962,6 @@ func DoScan(actions ScannerActions, r reporter.Reporter) (models.VulnerabilityRe
 	if len(scannedPackages) == 0 {
 		return models.VulnerabilityResults{}, NoPackagesFoundErr
 	}
-
-	// Perform sorting here to keep logging output consistent
-	slices.SortFunc(scannedPackages, func(i, j scannedPackage) int {
-		return strings.Compare(i.PURL, j.PURL)
-	})
 
 	filteredScannedPackagesWithoutUnscannable := filterUnscannablePackages(scannedPackages)
 
