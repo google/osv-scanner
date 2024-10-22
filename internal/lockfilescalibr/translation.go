@@ -31,34 +31,6 @@ import (
 	scalibrfs "github.com/google/osv-scalibr/fs"
 )
 
-// type PackageDetailsParser = func(pathToLockfile string) ([]PackageDetails, error)
-
-// IsDevGroup returns if any string in groups indicates the development dependency group for the specified ecosystem.
-// func (sys Ecosystem) IsDevGroup(groups []string) bool {
-// 	dev := ""
-// 	switch sys {
-// 	case ComposerEcosystem, NpmEcosystem, PipEcosystem, PubEcosystem:
-// 		// Also PnpmEcosystem(=NpmEcosystem) and PipenvEcosystem(=PipEcosystem).
-// 		dev = "dev"
-// 	case ConanEcosystem:
-// 		dev = "build-requires"
-// 	case MavenEcosystem:
-// 		dev = "test"
-// 	case AlpineEcosystem, BundlerEcosystem, CargoEcosystem, CRANEcosystem,
-// 		DebianEcosystem, GoEcosystem, MixEcosystem, NuGetEcosystem:
-// 		// We are not able to report development dependencies for these ecosystems.
-// 		return false
-// 	}
-
-// 	for _, g := range groups {
-// 		if g == dev {
-// 			return true
-// 		}
-// 	}
-
-// 	return false
-// }
-
 var lockfileExtractors = []filesystem.Extractor{
 	// conanlock.Extractor{},
 	packageslockjson.Extractor{},
@@ -104,6 +76,7 @@ var lockfileExtractorMapping = map[string]string{
 	"Gemfile.lock": "ruby/gemfilelock",
 }
 
+// ExtractWithExtractor attempts to extract the file at the given path with the extractor passed in
 func ExtractWithExtractor(ctx context.Context, localPath string, ext filesystem.Extractor) ([]*extractor.Inventory, error) {
 	info, err := os.Stat(localPath)
 	if err != nil {
@@ -126,6 +99,20 @@ func ExtractWithExtractor(ctx context.Context, localPath string, ext filesystem.
 	return inv, nil
 }
 
+// Extract attempts to extract the file at the given path
+//
+// Args:
+//   - localPath: the path to the lockfile
+//   - extractAs: the name of the lockfile format to extract as (Using OSV-Scanner V1 extractor names)
+//
+// Returns:
+//   - []*extractor.Inventory: the extracted lockfile data
+//   - error: any errors encountered during extraction
+//
+// If extractAs is not specified, then the function will attempt to
+// identify the lockfile format based on the file name.
+//
+// If no extractors are found, then ErrNoExtractorsFound is returned.
 func Extract(ctx context.Context, localPath string, extractAs string) ([]*extractor.Inventory, error) {
 	info, err := os.Stat(localPath)
 	if err != nil {
