@@ -6,7 +6,7 @@ import (
 	"path/filepath"
 	"time"
 
-	"github.com/google/osv-scanner/internal/image/thirdparty/trie"
+	"github.com/google/osv-scanner/internal/image/internal/pathtree"
 )
 
 type fileType int
@@ -106,7 +106,7 @@ func (f *FileNode) absoluteDiskPath() string {
 type Layer struct {
 	// id is the sha256 digest of the layer
 	id           string
-	fileNodeTrie *trie.PathTrie
+	fileNodeTrie *pathtree.Node[FileNode]
 	rootImage    *Image
 	// TODO: Use hashmap to speed up path lookups
 }
@@ -130,19 +130,10 @@ func (filemap Layer) Stat(path string) (fs.FileInfo, error) {
 }
 
 func (filemap Layer) ReadDir(path string) ([]fs.DirEntry, error) {
-	output := []fs.DirEntry{}
-	err := filemap.fileNodeTrie.WalkChildren(path, func(_ string, value interface{}) error {
-		if value == nil {
-			panic("TODO: Unexpected, corrupted tar?, we should be storing all directories")
-		}
-
-		output = append(output, value.(FileNode))
-
-		return nil
-	})
-
-	if err != nil {
-		return []fs.DirEntry{}, err
+	children := filemap.fileNodeTrie.GetChildren(path)
+	output := make([]fs.DirEntry, 0, len(children))
+	for _, node := range children {
+		output = append(output, node)
 	}
 
 	return output, nil
@@ -152,25 +143,24 @@ var _ fs.FS = Layer{}
 var _ fs.StatFS = Layer{}
 var _ fs.ReadDirFS = Layer{}
 
-func (filemap Layer) getFileNode(path string) (FileNode, error) {
+func (filemap Layer) getFileNode(path string) (*FileNode, error) {
 	if !filepath.IsAbs(path) {
 		path = filepath.Join("/", path)
 	}
 
-	node, ok := filemap.fileNodeTrie.Get(path).(FileNode)
-	if !ok {
-		return FileNode{}, fs.ErrNotExist
+	node := filemap.fileNodeTrie.Get(path)
+	if node == nil {
+		return nil, fs.ErrNotExist
 	}
 
 	return node, nil
 }
 
 // AllFiles return all files that exist on the layer the FileMap is representing
-func (filemap Layer) AllFiles() []FileNode {
-	allFiles := []FileNode{}
+func (filemap Layer) AllFiles() []*FileNode {
+	allFiles := []*FileNode{}
 	// No need to check error since we are not returning any errors
-	_ = filemap.fileNodeTrie.Walk(func(_ string, value interface{}) error {
-		node := value.(FileNode)
+	_ = filemap.fileNodeTrie.Walk(func(_ string, node *FileNode) error {
 		if node.fileType != RegularFile { // Only add regular files
 			return nil
 		}
@@ -179,7 +169,7 @@ func (filemap Layer) AllFiles() []FileNode {
 			return nil
 		}
 
-		allFiles = append(allFiles, value.(FileNode))
+		allFiles = append(allFiles, node)
 
 		return nil
 	})
