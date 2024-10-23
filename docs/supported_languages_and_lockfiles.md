@@ -81,6 +81,14 @@ After the dependency resolution, the OSV database is queried for the vulnerabili
 {: .note }
 Test dependencies are not supported yet in the computed dependency graph for Maven pom.xml.
 
+### Data source
+
+By default, we use the [deps.dev API](https://docs.deps.dev/api/v3/) to find version and dependency information of packages during transitive scanning.
+
+If instead you'd like to fetch data from [Maven Central](https://repo.maven.apache.org/maven2/), you can use the `--experimental-resolution-data-source=native` flag.
+
+If your project uses mirrored or private registries, in addition to setting `--experimental-resolution-data-source=native`, you will need to use the `--experimental-maven-registry` flag to specify the registry.
+
 ## Custom Lockfiles
 
 If you have a custom lockfile that we do not support or prefer to do your own custom parsing, you can extract the custom lockfile information and create a custom intermediate file containing dependency information so that osv-scanner can still check for vulnerabilities.
