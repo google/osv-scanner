@@ -87,7 +87,7 @@ By default, we use the [deps.dev API](https://docs.deps.dev/api/v3/) to find ver
 
 If instead you'd like to fetch data from [Maven Central](https://repo.maven.apache.org/maven2/), you can use the `--experimental-resolution-data-source=native` flag.
 
-If your project uses mirrored or private registries, in addition to setting `--experimental-resolution-data-source=native`, you will need to use the `--experimental-maven-registry` flag to specify the registry.
+If your project uses mirrored or private registries, in addition to setting `--experimental-resolution-data-source=native`, you will need to use the `--experimental-maven-registry=<full-registry-url>` flag to specify the registry (e.g. `--experimental-maven-registry=https://repo.maven.apache.org/maven2/`).
 
 ## Custom Lockfiles
 
