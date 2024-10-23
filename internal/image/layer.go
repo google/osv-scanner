@@ -165,6 +165,7 @@ func (filemap Layer) AllFiles() []*FileNode {
 			return nil
 		}
 
+		// TODO: Check if parent is an opaque whiteout
 		if node.isWhiteout { // Don't add whiteout files as they have been deleted
 			return nil
 		}

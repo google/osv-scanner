@@ -235,7 +235,7 @@ func LoadImage(imagePath string) (*Image, error) {
 					continue
 				}
 
-				currentMap.fileNodeTrie.Insert(virtualPath, &FileNode{
+				err := currentMap.fileNodeTrie.Insert(virtualPath, &FileNode{
 					rootImage: &outputImage,
 					// Select the original layer of the file
 					originLayer: &outputImage.layers[i],
@@ -244,6 +244,10 @@ func LoadImage(imagePath string) (*Image, error) {
 					isWhiteout:  tombstone,
 					permission:  fs.FileMode(header.Mode), //nolint:gosec
 				})
+
+				if err != nil {
+					return &outputImage, fmt.Errorf("image tar has repeated files: %w", err)
+				}
 			}
 		}
 
@@ -265,8 +269,8 @@ func inWhiteoutDir(fileMap Layer, filePath string) bool {
 			break
 		}
 
-		val := fileMap.fileNodeTrie.Get(dirname)
-		if val != nil && val.isWhiteout {
+		node := fileMap.fileNodeTrie.Get(dirname)
+		if node != nil && node.isWhiteout {
 			return true
 		}
 		filePath = dirname

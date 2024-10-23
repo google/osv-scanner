@@ -6,7 +6,6 @@ package pathtree
 import (
 	"errors"
 	"fmt"
-	"log/slog"
 	"strings"
 )
 
@@ -32,10 +31,9 @@ func NewNode[V any]() *Node[V] {
 // If a file is inserted without also inserting the parent directory
 // the parent directory entry will have a nil value.
 func (node *Node[V]) Insert(path string, value *V) error {
-	path, found := strings.CutPrefix(path, divider)
-	if !found {
-		slog.Error("Insert path is not an absolute path", "path", path)
-		return fmt.Errorf("insert path %q is not an absolute path", path)
+	path, err := cleanPath(path)
+	if err != nil {
+		return fmt.Errorf("Insert() error: %w", err)
 	}
 
 	cursor := node
@@ -64,14 +62,10 @@ func (node *Node[V]) Insert(path string, value *V) error {
 // Get retrieves the value at the given path.
 // If no node exists at the given path, nil is returned.
 func (node *Node[V]) Get(path string) *V {
-	cutPath, found := strings.CutPrefix(path, divider)
-	if !found {
-		slog.Error("Get path is not an absolute path", "path", path)
-		return nil
-	}
+	path, _ = cleanPath(path)
 
 	cursor := node
-	for _, segment := range strings.Split(cutPath, divider) {
+	for _, segment := range strings.Split(path, divider) {
 		next, ok := cursor.children[segment]
 		if !ok {
 			return nil
@@ -84,11 +78,7 @@ func (node *Node[V]) Get(path string) *V {
 
 // Get retrieves all the direct children of this given path
 func (node *Node[V]) GetChildren(path string) []*V {
-	path, found := strings.CutPrefix(path, divider)
-	if !found {
-		slog.Error("Get path is not an absolute path", "path", path)
-		return nil
-	}
+	path, _ = cleanPath(path)
 
 	cursor := node
 	for _, segment := range strings.Split(path, divider) {
@@ -99,7 +89,7 @@ func (node *Node[V]) GetChildren(path string) []*V {
 		cursor = next
 	}
 
-	var children []*V = make([]*V, 0, len(cursor.children))
+	var children = make([]*V, 0, len(cursor.children))
 	for _, child := range cursor.children {
 		// Some entries could be nil if a file is inserted without inserting the
 		// parent directories.
@@ -109,6 +99,18 @@ func (node *Node[V]) GetChildren(path string) []*V {
 	}
 
 	return children
+}
+
+// cleanPath returns a path for use in the tree
+// additionally an error is returned if path is not formatted as expected
+func cleanPath(inputPath string) (string, error) {
+	path, found := strings.CutPrefix(inputPath, divider)
+	if !found {
+		return "", fmt.Errorf("path %q is not an absolute path", inputPath)
+	}
+	path = strings.TrimSuffix(path, "/")
+
+	return path, nil
 }
 
 // Walk walks through all elements of this tree depths first, calling fn at every node
@@ -121,7 +123,10 @@ func (node *Node[V]) walk(path string, fn func(string, *V) error) error {
 		if err := fn(key, node.value); err != nil {
 			return err
 		}
-		node.walk(path+divider+key, fn)
+		err := node.walk(path+divider+key, fn)
+		if err != nil {
+			return err
+		}
 	}
 
 	return nil
