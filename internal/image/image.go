@@ -11,9 +11,9 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/dghubble/trie"
 	v1 "github.com/google/go-containerregistry/pkg/v1"
 	"github.com/google/go-containerregistry/pkg/v1/tarball"
+	"github.com/google/osv-scanner/internal/image/internal/pathtree"
 	"github.com/google/osv-scanner/pkg/lockfile"
 )
 
@@ -112,7 +112,7 @@ func LoadImage(imagePath string) (*Image, error) {
 		}
 
 		outputImage.layers[i] = Layer{
-			fileNodeTrie: trie.NewPathTrie(),
+			fileNodeTrie: pathtree.NewNode[FileNode](),
 			id:           hash.Hex,
 			rootImage:    &outputImage,
 		}
@@ -235,7 +235,7 @@ func LoadImage(imagePath string) (*Image, error) {
 					continue
 				}
 
-				currentMap.fileNodeTrie.Put(virtualPath, FileNode{
+				currentMap.fileNodeTrie.Insert(virtualPath, &FileNode{
 					rootImage: &outputImage,
 					// Select the original layer of the file
 					originLayer: &outputImage.layers[i],
@@ -264,9 +264,8 @@ func inWhiteoutDir(fileMap Layer, filePath string) bool {
 		if filePath == dirname {
 			break
 		}
-		val := fileMap.fileNodeTrie.Get(dirname)
-		item, ok := val.(FileNode)
-		if ok && item.isWhiteout {
+		node := fileMap.fileNodeTrie.Get(dirname)
+		if node != nil && node.isWhiteout {
 			return true
 		}
 		filePath = dirname
