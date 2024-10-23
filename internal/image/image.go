@@ -235,7 +235,7 @@ func LoadImage(imagePath string) (*Image, error) {
 					continue
 				}
 
-				currentMap.fileNodeTrie.Insert(virtualPath, &FileNode{
+				err := currentMap.fileNodeTrie.Insert(virtualPath, &FileNode{
 					rootImage: &outputImage,
 					// Select the original layer of the file
 					originLayer: &outputImage.layers[i],
@@ -244,6 +244,10 @@ func LoadImage(imagePath string) (*Image, error) {
 					isWhiteout:  tombstone,
 					permission:  fs.FileMode(header.Mode), //nolint:gosec
 				})
+
+				if err != nil {
+					return &outputImage, err
+				}
 			}
 		}
 

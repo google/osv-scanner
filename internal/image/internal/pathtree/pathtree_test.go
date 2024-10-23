@@ -15,12 +15,13 @@ type testVal struct {
 
 func testTree() *pathtree.Node[testVal] {
 	tree := pathtree.NewNode[testVal]()
-	tree.Insert("/a", &testVal{"value1"})
-	tree.Insert("/a/b", &testVal{"value2"})
-	tree.Insert("/a/b/c", &testVal{"value3"})
-	tree.Insert("/a/b/d", &testVal{"value4"})
-	tree.Insert("/a/e", &testVal{"value5"})
-	tree.Insert("/a/e/f", &testVal{"value6"})
+	_ = tree.Insert("/a", &testVal{"value1"})
+	_ = tree.Insert("/a/b", &testVal{"value2"})
+	_ = tree.Insert("/a/b/c", &testVal{"value3"})
+	_ = tree.Insert("/a/b/d", &testVal{"value4"})
+	_ = tree.Insert("/a/e", &testVal{"value5"})
+	_ = tree.Insert("/a/e/f", &testVal{"value6"})
+
 	return tree
 }
 
@@ -43,7 +44,8 @@ func TestNode_Get(t *testing.T) {
 			name: "single node",
 			tree: func() *pathtree.Node[testVal] {
 				tree := pathtree.NewNode[testVal]()
-				tree.Insert("/a", &testVal{"value"})
+				_ = tree.Insert("/a", &testVal{"value"})
+
 				return tree
 			}(),
 			key:  "/a",
@@ -53,7 +55,8 @@ func TestNode_Get(t *testing.T) {
 			name: "non-existent node in single node tree",
 			tree: func() *pathtree.Node[testVal] {
 				tree := pathtree.NewNode[testVal]()
-				tree.Insert("/a", &testVal{"value"})
+				_ = tree.Insert("/a", &testVal{"value"})
+
 				return tree
 			}(),
 			key:  "/b",
@@ -103,7 +106,8 @@ func TestNode_GetChildren(t *testing.T) {
 			name: "single node no children",
 			tree: func() *pathtree.Node[testVal] {
 				tree := pathtree.NewNode[testVal]()
-				tree.Insert("/a", &testVal{"value"})
+				_ = tree.Insert("/a", &testVal{"value"})
+
 				return tree
 			}(),
 			key:  "/a",
@@ -154,7 +158,8 @@ func TestNode_Walk(t *testing.T) {
 			name: "single node",
 			tree: func() *pathtree.Node[testVal] {
 				tree := pathtree.NewNode[testVal]()
-				tree.Insert("/a", &testVal{"value"})
+				_ = tree.Insert("/a", &testVal{"value"})
+
 				return tree
 			}(),
 			want: []string{"value"},
@@ -177,7 +182,7 @@ func TestNode_Walk(t *testing.T) {
 			t.Parallel()
 
 			got := []string{}
-			err := tt.tree.Walk(func(key string, node *testVal) error {
+			err := tt.tree.Walk(func(_ string, node *testVal) error {
 				got = append(got, node.string)
 				return nil
 			})

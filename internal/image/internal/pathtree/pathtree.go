@@ -89,7 +89,7 @@ func (node *Node[V]) GetChildren(path string) []*V {
 		cursor = next
 	}
 
-	var children []*V = make([]*V, 0, len(cursor.children))
+	var children = make([]*V, 0, len(cursor.children))
 	for _, child := range cursor.children {
 		// Some entries could be nil if a file is inserted without inserting the
 		// parent directories.
@@ -123,7 +123,10 @@ func (node *Node[V]) walk(path string, fn func(string, *V) error) error {
 		if err := fn(key, node.value); err != nil {
 			return err
 		}
-		node.walk(path+divider+key, fn)
+		err := node.walk(path+divider+key, fn)
+		if err != nil {
+			return err
+		}
 	}
 
 	return nil
