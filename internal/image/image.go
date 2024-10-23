@@ -246,7 +246,7 @@ func LoadImage(imagePath string) (*Image, error) {
 				})
 
 				if err != nil {
-					return &outputImage, err
+					return &outputImage, fmt.Errorf("image tar has repeated files: %w", err)
 				}
 			}
 		}
