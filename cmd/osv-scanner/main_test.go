@@ -172,6 +172,13 @@ func TestRun(t *testing.T) {
 			args: []string{"", "--config=./fixtures/osv-scanner-empty-config.toml", "--sbom", "./fixtures/sbom-insecure/bad-purls.cdx.xml"},
 			exit: 0,
 		},
+		// one specific supported sbom with duplicate PURLs
+		{
+			name: "one specific supported sbom with duplicate PURLs",
+			args: []string{"", "--config=./fixtures/osv-scanner-empty-config.toml", "--sbom", "./fixtures/sbom-insecure/with-duplicates.cdx.xml"},
+			exit: 1,
+		},
+		// one specific unsupported lockfile
 		{
 			name: "one specific unsupported lockfile",
 			args: []string{"", "./fixtures/locks-many/not-a-lockfile.toml"},
@@ -903,6 +910,16 @@ func TestRun_MavenTransitive(t *testing.T) {
 			name: "does not scan transitive dependencies for pom.xml with offline mode",
 			args: []string{"", "--config=./fixtures/osv-scanner-empty-config.toml", "--experimental-offline", "--experimental-download-offline-databases", "./fixtures/maven-transitive/pom.xml"},
 			exit: 0,
+		},
+		{
+			name: "scans dependencies from multiple registries",
+			args: []string{"", "--config=./fixtures/osv-scanner-empty-config.toml", "-L", "pom.xml:./fixtures/maven-transitive/registry.xml"},
+			exit: 1,
+		},
+		{
+			name: "resolve transitive dependencies with native datda source",
+			args: []string{"", "--config=./fixtures/osv-scanner-empty-config.toml", "--experimental-resolution-data-source=native", "-L", "pom.xml:./fixtures/maven-transitive/registry.xml"},
+			exit: 1,
 		},
 	}
 

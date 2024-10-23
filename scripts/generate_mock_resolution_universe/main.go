@@ -22,6 +22,7 @@ import (
 	pb "deps.dev/api/v3"
 	"deps.dev/util/resolve"
 	"deps.dev/util/resolve/dep"
+	"github.com/google/osv-scanner/internal/depsdev"
 	"github.com/google/osv-scanner/internal/remediation"
 	"github.com/google/osv-scanner/internal/remediation/upgrade"
 	"github.com/google/osv-scanner/internal/resolution"
@@ -30,7 +31,6 @@ import (
 	"github.com/google/osv-scanner/internal/resolution/lockfile"
 	"github.com/google/osv-scanner/internal/resolution/manifest"
 	"github.com/google/osv-scanner/internal/resolution/util"
-	"github.com/google/osv-scanner/pkg/depsdev"
 	lf "github.com/google/osv-scanner/pkg/lockfile"
 	"github.com/google/osv-scanner/pkg/models"
 	"github.com/google/osv-scanner/pkg/osv"
@@ -290,7 +290,7 @@ func main() {
 
 	group := &errgroup.Group{}
 	for _, filename := range os.Args[1:] {
-		if io, err := manifest.GetReadWriter(filename); err == nil {
+		if io, err := manifest.GetReadWriter(filename, ""); err == nil {
 			if remediation.SupportsRelax(io) {
 				group.Go(func() error {
 					err := doRelockRelax(cl, io, filename)

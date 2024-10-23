@@ -14,7 +14,9 @@ import (
 	"sort"
 	"strings"
 
+	"github.com/google/osv-scanner/internal/config"
 	"github.com/google/osv-scanner/internal/customgitignore"
+	"github.com/google/osv-scanner/internal/depsdev"
 	"github.com/google/osv-scanner/internal/image"
 	"github.com/google/osv-scanner/internal/local"
 	"github.com/google/osv-scanner/internal/manifest"
@@ -24,8 +26,6 @@ import (
 	"github.com/google/osv-scanner/internal/sbom"
 	"github.com/google/osv-scanner/internal/semantic"
 	"github.com/google/osv-scanner/internal/version"
-	"github.com/google/osv-scanner/pkg/config"
-	"github.com/google/osv-scanner/pkg/depsdev"
 	"github.com/google/osv-scanner/pkg/lockfile"
 	"github.com/google/osv-scanner/pkg/models"
 	"github.com/google/osv-scanner/pkg/osv"
@@ -60,6 +60,12 @@ type ExperimentalScannerActions struct {
 	ScanOCIImage          string
 
 	LocalDBPath string
+	TransitiveScanningActions
+}
+
+type TransitiveScanningActions struct {
+	NativeDataSource bool
+	MavenRegistry    string
 }
 
 // NoPackagesFoundErr for when no packages are found during a scan.
@@ -108,7 +114,7 @@ const (
 //   - Any lockfiles with scanLockfile
 //   - Any SBOM files with scanSBOMFile
 //   - Any git repositories with scanGit
-func scanDir(r reporter.Reporter, dir string, skipGit bool, recursive bool, useGitIgnore bool, compareOffline bool) ([]scannedPackage, error) {
+func scanDir(r reporter.Reporter, dir string, skipGit bool, recursive bool, useGitIgnore bool, compareOffline bool, transitiveAct TransitiveScanningActions) ([]scannedPackage, error) {
 	var ignoreMatcher *gitIgnoreMatcher
 	if useGitIgnore {
 		var err error
@@ -165,7 +171,7 @@ func scanDir(r reporter.Reporter, dir string, skipGit bool, recursive bool, useG
 
 		if !info.IsDir() {
 			if extractor, _ := lockfile.FindExtractor(path, ""); extractor != nil {
-				pkgs, err := scanLockfile(r, path, "", compareOffline)
+				pkgs, err := scanLockfile(r, path, "", compareOffline, transitiveAct)
 				if err != nil {
 					r.Errorf("Attempted to scan lockfile but failed: %s\n", path)
 				}
@@ -347,7 +353,7 @@ func scanImage(r reporter.Reporter, path string) ([]scannedPackage, error) {
 
 // scanLockfile will load, identify, and parse the lockfile path passed in, and add the dependencies specified
 // within to `query`
-func scanLockfile(r reporter.Reporter, path string, parseAs string, compareOffline bool) ([]scannedPackage, error) {
+func scanLockfile(r reporter.Reporter, path string, parseAs string, compareOffline bool, transitiveAct TransitiveScanningActions) ([]scannedPackage, error) {
 	var err error
 	var parsedLockfile lockfile.Lockfile
 
@@ -366,7 +372,7 @@ func scanLockfile(r reporter.Reporter, path string, parseAs string, compareOffli
 			parsedLockfile, err = lockfile.FromOSVScannerResults(path)
 		default:
 			if !compareOffline && (parseAs == "pom.xml" || filepath.Base(path) == "pom.xml") {
-				parsedLockfile, err = extractMavenDeps(f)
+				parsedLockfile, err = extractMavenDeps(f, transitiveAct)
 			} else {
 				parsedLockfile, err = lockfile.ExtractDeps(f, parseAs)
 			}
@@ -409,14 +415,26 @@ func scanLockfile(r reporter.Reporter, path string, parseAs string, compareOffli
 	return packages, nil
 }
 
-func extractMavenDeps(f lockfile.DepFile) (lockfile.Lockfile, error) {
-	depClient, err := client.NewDepsDevClient(depsdev.DepsdevAPI)
+func extractMavenDeps(f lockfile.DepFile, actions TransitiveScanningActions) (lockfile.Lockfile, error) {
+	var depClient client.DependencyClient
+	var err error
+	if actions.NativeDataSource {
+		depClient, err = client.NewMavenRegistryClient(actions.MavenRegistry)
+	} else {
+		depClient, err = client.NewDepsDevClient(depsdev.DepsdevAPI)
+	}
 	if err != nil {
 		return lockfile.Lockfile{}, err
 	}
+
+	mavenClient, err := datasource.NewMavenRegistryAPIClient(actions.MavenRegistry)
+	if err != nil {
+		return lockfile.Lockfile{}, err
+	}
+
 	extractor := manifest.MavenResolverExtractor{
 		DependencyClient:       depClient,
-		MavenRegistryAPIClient: datasource.NewMavenRegistryAPIClient(datasource.MavenCentral),
+		MavenRegistryAPIClient: mavenClient,
 	}
 	packages, err := extractor.Extract(f)
 	if err != nil {
@@ -443,7 +461,7 @@ func extractMavenDeps(f lockfile.DepFile) (lockfile.Lockfile, error) {
 // within to `query`
 func scanSBOMFile(r reporter.Reporter, path string, fromFSScan bool) ([]scannedPackage, error) {
 	var errs []error
-	var packages []scannedPackage
+	packages := map[string]scannedPackage{}
 	for _, provider := range sbom.Providers {
 		if fromFSScan && !provider.MatchesRecognizedFileNames(path) {
 			// Skip if filename is not usually a sbom file of this format.
@@ -470,13 +488,18 @@ func scanSBOMFile(r reporter.Reporter, path string, fromFSScan bool) ([]scannedP
 				//nolint:nilerr
 				return nil
 			}
-			packages = append(packages, scannedPackage{
+
+			if _, ok := packages[id.PURL]; ok {
+				r.Warnf("Warning, duplicate PURL found in SBOM: %s\n", id.PURL)
+			}
+
+			packages[id.PURL] = scannedPackage{
 				PURL: id.PURL,
 				Source: models.SourceInfo{
 					Path: path,
 					Type: "sbom",
 				},
-			})
+			}
 
 			return nil
 		})
@@ -515,11 +538,17 @@ func scanSBOMFile(r reporter.Reporter, path string, fromFSScan bool) ([]scannedP
 				}
 			}
 
-			slices.SortFunc(packages, func(i, j scannedPackage) int {
+			sliceOfPackages := make([]scannedPackage, 0, len(packages))
+
+			for _, pkg := range packages {
+				sliceOfPackages = append(sliceOfPackages, pkg)
+			}
+
+			slices.SortFunc(sliceOfPackages, func(i, j scannedPackage) int {
 				return strings.Compare(i.PURL, j.PURL)
 			})
 
-			return packages, nil
+			return sliceOfPackages, nil
 		}
 
 		var formatErr sbom.InvalidFormatError
@@ -539,7 +568,7 @@ func scanSBOMFile(r reporter.Reporter, path string, fromFSScan bool) ([]scannedP
 		}
 	}
 
-	return packages, nil
+	return nil, nil
 }
 
 func getCommitSHA(repoDir string) (string, error) {
@@ -878,7 +907,7 @@ func DoScan(actions ScannerActions, r reporter.Reporter) (models.VulnerabilityRe
 			r.Errorf("Failed to resolved path with error %s\n", err)
 			return models.VulnerabilityResults{}, err
 		}
-		pkgs, err := scanLockfile(r, lockfilePath, parseAs, actions.CompareOffline)
+		pkgs, err := scanLockfile(r, lockfilePath, parseAs, actions.CompareOffline, actions.TransitiveScanningActions)
 		if err != nil {
 			return models.VulnerabilityResults{}, err
 		}
@@ -903,7 +932,7 @@ func DoScan(actions ScannerActions, r reporter.Reporter) (models.VulnerabilityRe
 
 	for _, dir := range actions.DirectoryPaths {
 		r.Infof("Scanning dir %s\n", dir)
-		pkgs, err := scanDir(r, dir, actions.SkipGit, actions.Recursive, !actions.NoIgnore, actions.CompareOffline)
+		pkgs, err := scanDir(r, dir, actions.SkipGit, actions.Recursive, !actions.NoIgnore, actions.CompareOffline, actions.TransitiveScanningActions)
 		if err != nil {
 			return models.VulnerabilityResults{}, err
 		}

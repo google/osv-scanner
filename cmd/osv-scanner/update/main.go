@@ -6,10 +6,10 @@ import (
 	"io"
 	"os"
 
+	"github.com/google/osv-scanner/internal/depsdev"
 	"github.com/google/osv-scanner/internal/remediation/suggest"
 	"github.com/google/osv-scanner/internal/resolution/client"
 	"github.com/google/osv-scanner/internal/resolution/manifest"
-	"github.com/google/osv-scanner/pkg/depsdev"
 	"github.com/google/osv-scanner/pkg/lockfile"
 	"github.com/google/osv-scanner/pkg/reporter"
 	"github.com/urfave/cli/v2"
@@ -78,7 +78,7 @@ func action(ctx *cli.Context, stdout, stderr io.Writer) (reporter.Reporter, erro
 	if err != nil {
 		return nil, err
 	}
-	options.ManifestRW, err = manifest.GetReadWriter(options.Manifest)
+	options.ManifestRW, err = manifest.GetReadWriter(options.Manifest, "")
 	if err != nil {
 		return nil, err
 	}

@@ -6,7 +6,7 @@ import (
 
 	pb "deps.dev/api/v3"
 	"deps.dev/util/resolve"
-	"github.com/google/osv-scanner/pkg/depsdev"
+	"github.com/google/osv-scanner/internal/depsdev"
 	"github.com/google/osv-scanner/pkg/models"
 	"github.com/google/osv-scanner/pkg/osv"
 	"google.golang.org/grpc"
@@ -30,6 +30,12 @@ type DependencyClient interface {
 	WriteCache(filepath string) error
 	// LoadCache loads a manifest-specific resolution cache.
 	LoadCache(filepath string) error
+	// AddRegistries adds the specified registries to fetch data.
+	AddRegistries(registries []Registry) error
+}
+
+type Registry struct {
+	URL string
 }
 
 // PreFetch loads cache, then makes and caches likely queries needed for resolving a package with a list of requirements

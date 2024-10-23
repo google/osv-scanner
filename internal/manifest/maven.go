@@ -31,26 +31,38 @@ func (e MavenResolverExtractor) Extract(f lockfile.DepFile) ([]lockfile.PackageD
 
 	var project maven.Project
 	if err := datasource.NewMavenDecoder(f).Decode(&project); err != nil {
-		return []lockfile.PackageDetails{}, fmt.Errorf("could not extract from %s: %w", f.Path(), err)
+		return nil, fmt.Errorf("could not extract from %s: %w", f.Path(), err)
+	}
+	// Empty JDK and ActivationOS indicates merging the default profiles.
+	if err := project.MergeProfiles("", maven.ActivationOS{}); err != nil {
+		return nil, fmt.Errorf("failed to merge profiles: %w", err)
+	}
+	for _, repo := range project.Repositories {
+		if err := e.MavenRegistryAPIClient.AddRegistry(string(repo.URL)); err != nil {
+			return nil, fmt.Errorf("failed to add registry %s: %w", repo.URL, err)
+		}
 	}
 	// Merging parents data by parsing local parent pom.xml or fetching from upstream.
 	if err := mavenutil.MergeParents(ctx, e.MavenRegistryAPIClient, &project, project.Parent, 1, f.Path(), true); err != nil {
-		return []lockfile.PackageDetails{}, fmt.Errorf("failed to merge parents: %w", err)
+		return nil, fmt.Errorf("failed to merge parents: %w", err)
 	}
 	// Process the dependencies:
 	//  - dedupe dependencies and dependency management
 	//  - import dependency management
 	//  - fill in missing dependency version requirement
 	project.ProcessDependencies(func(groupID, artifactID, version maven.String) (maven.DependencyManagement, error) {
-		root := maven.Parent{ProjectKey: maven.ProjectKey{GroupID: groupID, ArtifactID: artifactID, Version: version}}
-		var result maven.Project
-		if err := mavenutil.MergeParents(ctx, e.MavenRegistryAPIClient, &result, root, 0, f.Path(), false); err != nil {
-			return maven.DependencyManagement{}, err
-		}
-
-		return result.DependencyManagement, nil
+		return mavenutil.GetDependencyManagement(ctx, e.MavenRegistryAPIClient, groupID, artifactID, version)
 	})
 
+	if registries := e.MavenRegistryAPIClient.GetRegistries(); len(registries) > 0 {
+		clientRegs := make([]client.Registry, len(registries))
+		for i, reg := range registries {
+			clientRegs[i] = client.Registry{URL: reg}
+		}
+		if err := e.DependencyClient.AddRegistries(clientRegs); err != nil {
+			return nil, err
+		}
+	}
 	overrideClient := client.NewOverrideClient(e.DependencyClient)
 	resolver := mavenresolve.NewResolver(overrideClient)
 
@@ -93,9 +105,10 @@ func (e MavenResolverExtractor) Extract(f lockfile.DepFile) ([]lockfile.PackageD
 	}
 	overrideClient.AddVersion(root, reqs)
 
+	client.PreFetch(ctx, overrideClient, reqs, f.Path())
 	g, err := resolver.Resolve(ctx, root.VersionKey)
 	if err != nil {
-		return []lockfile.PackageDetails{}, fmt.Errorf("failed resolving %v: %w", root, err)
+		return nil, fmt.Errorf("failed resolving %v: %w", root, err)
 	}
 	for i, e := range g.Edges {
 		e.Type = dep.Type{}
@@ -127,7 +140,7 @@ func (e MavenResolverExtractor) Extract(f lockfile.DepFile) ([]lockfile.PackageD
 func ParseMavenWithResolver(depClient client.DependencyClient, mavenClient *datasource.MavenRegistryAPIClient, pathToLockfile string) ([]lockfile.PackageDetails, error) {
 	f, err := lockfile.OpenLocalDepFile(pathToLockfile)
 	if err != nil {
-		return []lockfile.PackageDetails{}, err
+		return nil, err
 	}
 	defer f.Close()
 

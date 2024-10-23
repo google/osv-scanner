@@ -13,8 +13,8 @@ import (
 	"deps.dev/util/resolve"
 	"deps.dev/util/resolve/dep"
 	"deps.dev/util/semver"
+	"github.com/google/osv-scanner/internal/depsdev"
 	"github.com/google/osv-scanner/internal/resolution/datasource"
-	"github.com/google/osv-scanner/pkg/depsdev"
 	"github.com/google/osv-scanner/pkg/osv"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials"
@@ -228,6 +228,8 @@ func isNpmBundle(pk resolve.PackageKey) bool {
 	// '>' is not a valid character for a npm package, so it'll only be found here.
 	return strings.Contains(pk.Name, ">")
 }
+
+func (c *NpmRegistryClient) AddRegistries(_ []Registry) error { return nil }
 
 func (c *NpmRegistryClient) WriteCache(path string) error {
 	f, err := os.Create(path + npmRegistryCacheExt)
