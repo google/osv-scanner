@@ -122,3 +122,4 @@ issues:
         - dupl
   exclude-dirs:
     - internal/thirdparty/xml
+    - internal/image/thirdparty/trie

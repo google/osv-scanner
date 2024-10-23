@@ -349,9 +349,9 @@ overriding license for package Packagist/league/flysystem/1.0.8 with 0BSD
 | LICENSE VIOLATION | ECOSYSTEM | PACKAGE                                        | VERSION | SOURCE                                                |
 +-------------------+-----------+------------------------------------------------+---------+-------------------------------------------------------+
 | 0BSD              | Packagist | league/flysystem                               | 1.0.8   | fixtures/locks-insecure/composer.lock                 |
-| UNKNOWN           |           | https://github.com/flutter/buildroot.git       |         | fixtures/locks-insecure/osv-scanner-flutter-deps.json |
-| UNKNOWN           |           | https://github.com/brendan-duncan/archive.git  |         | fixtures/locks-insecure/osv-scanner-flutter-deps.json |
 | UNKNOWN           |           | https://chromium.googlesource.com/chromium/src |         | fixtures/locks-insecure/osv-scanner-flutter-deps.json |
+| UNKNOWN           |           | https://github.com/brendan-duncan/archive.git  |         | fixtures/locks-insecure/osv-scanner-flutter-deps.json |
+| UNKNOWN           |           | https://github.com/flutter/buildroot.git       |         | fixtures/locks-insecure/osv-scanner-flutter-deps.json |
 | UNKNOWN           | RubyGems  | ast                                            | 2.4.2   | fixtures/locks-many/Gemfile.lock                      |
 | 0BSD              | Packagist | sentry/sdk                                     | 2.0.4   | fixtures/locks-many/composer.lock                     |
 +-------------------+-----------+------------------------------------------------+---------+-------------------------------------------------------+
@@ -2266,7 +2266,7 @@ No issues found
 ---
 
 [TestRun_LockfileWithExplicitParseAs/empty_works_as_an_escape_(no_fixture_because_it's_not_valid_on_Windows) - 2]
-open <rootdir>/path/to/my:file: no such file or directory
+stat <rootdir>/path/to/my:file: no such file or directory
 
 ---
 
@@ -2275,7 +2275,7 @@ open <rootdir>/path/to/my:file: no such file or directory
 ---
 
 [TestRun_LockfileWithExplicitParseAs/empty_works_as_an_escape_(no_fixture_because_it's_not_valid_on_Windows)#01 - 2]
-open <rootdir>/path/to/my:project/package-lock.json: no such file or directory
+stat <rootdir>/path/to/my:project/package-lock.json: no such file or directory
 
 ---
 
@@ -2342,7 +2342,7 @@ No issues found
 ---
 
 [TestRun_LockfileWithExplicitParseAs/parse-as_takes_priority,_even_if_it's_wrong - 2]
-(extracting as package-lock.json) could not extract from <rootdir>/fixtures/locks-many/yarn.lock: invalid character '#' looking for beginning of value
+(extracting as package-lock.json) could not extract from "<rootdir>/fixtures/locks-many/yarn.lock": invalid character '#' looking for beginning of value
 
 ---
 
