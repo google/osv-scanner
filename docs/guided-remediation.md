@@ -249,7 +249,7 @@ The following flag may be used to limit the patches allowed for your dependencie
 
 ### Data source
 
-By default, we use the [deps.dev API](https://docs.deps.dev/api/v3alpha/) to find version and dependency information of packages during remediation.
+By default, we use the [deps.dev API](https://docs.deps.dev/api/) to find version and dependency information of packages during remediation.
 
 If instead you'd like to use your ecosystem's native registry API (e.g. `https://registry.npmjs.org`), you can use the `--data-source=native` flag. `osv-scanner fix` will attempt to use the authentication specified by the native tooling (e.g. `npm config`)
 
