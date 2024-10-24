@@ -72,7 +72,7 @@ Vendored dependencies have been directly copied into the project folder, but do 
 
 ## Transitive dependency scanning
 
-OSV-Scanner supports transitive dependency scanning for Maven pom.xml. This feature is enabled by default when scanning, but it is disabled in the [offline mode](./offline-mode.md).
+OSV-Scanner supports transitive dependency scanning for Maven pom.xml. This feature is enabled by default when scanning, but it can be disabled using the `--experimental-no-resolve` flag. It is also disabled in the [offline mode](./offline-mode.md).
 
 OSV-Scanner uses [deps.dev’s resolver library](https://pkg.go.dev/deps.dev/util/resolve) to compute the dependency graph of a project. This graph includes all of the direct and transitive dependencies. By default, [deps.dev API](https://docs.deps.dev/api/v3/index.html) is queried for package versions and requirements. The support for private registries is [coming soon](https://github.com/google/osv-scanner/issues/1045).
 

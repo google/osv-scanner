@@ -64,6 +64,7 @@ type ExperimentalScannerActions struct {
 }
 
 type TransitiveScanningActions struct {
+	Disabled         bool
 	NativeDataSource bool
 	MavenRegistry    string
 }
@@ -171,7 +172,7 @@ func scanDir(r reporter.Reporter, dir string, skipGit bool, recursive bool, useG
 
 		if !info.IsDir() {
 			if extractor, _ := lockfile.FindExtractor(path, ""); extractor != nil {
-				pkgs, err := scanLockfile(r, path, "", compareOffline, transitiveAct)
+				pkgs, err := scanLockfile(r, path, "", transitiveAct)
 				if err != nil {
 					r.Errorf("Attempted to scan lockfile but failed: %s\n", path)
 				}
@@ -353,7 +354,7 @@ func scanImage(r reporter.Reporter, path string) ([]scannedPackage, error) {
 
 // scanLockfile will load, identify, and parse the lockfile path passed in, and add the dependencies specified
 // within to `query`
-func scanLockfile(r reporter.Reporter, path string, parseAs string, compareOffline bool, transitiveAct TransitiveScanningActions) ([]scannedPackage, error) {
+func scanLockfile(r reporter.Reporter, path string, parseAs string, transitiveAct TransitiveScanningActions) ([]scannedPackage, error) {
 	var err error
 	var parsedLockfile lockfile.Lockfile
 
@@ -371,7 +372,7 @@ func scanLockfile(r reporter.Reporter, path string, parseAs string, compareOffli
 		case "osv-scanner":
 			parsedLockfile, err = lockfile.FromOSVScannerResults(path)
 		default:
-			if !compareOffline && (parseAs == "pom.xml" || filepath.Base(path) == "pom.xml") {
+			if !transitiveAct.Disabled && (parseAs == "pom.xml" || filepath.Base(path) == "pom.xml") {
 				parsedLockfile, err = extractMavenDeps(f, transitiveAct)
 			} else {
 				parsedLockfile, err = lockfile.ExtractDeps(f, parseAs)
@@ -907,7 +908,7 @@ func DoScan(actions ScannerActions, r reporter.Reporter) (models.VulnerabilityRe
 			r.Errorf("Failed to resolved path with error %s\n", err)
 			return models.VulnerabilityResults{}, err
 		}
-		pkgs, err := scanLockfile(r, lockfilePath, parseAs, actions.CompareOffline, actions.TransitiveScanningActions)
+		pkgs, err := scanLockfile(r, lockfilePath, parseAs, actions.TransitiveScanningActions)
 		if err != nil {
 			return models.VulnerabilityResults{}, err
 		}

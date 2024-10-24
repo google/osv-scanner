@@ -264,7 +264,7 @@ If your project uses mirrored or private registries, you will need to use `--dat
 
 ### Offline Vulnerability Database
 
-The `fix` subcommand supports the `--experimental-offline` and `--experimental-download-offline-databases` flags.
+The `fix` subcommand supports the `--experimental-offline-vulnerabilities` and `--experimental-download-offline-databases` flags.
 
 For more information, see [Offline Mode](./offline-mode.md).
 
