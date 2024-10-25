@@ -171,8 +171,9 @@ func Command(stdout, stderr io.Writer, r *reporter.Reporter) *cli.Command {
 			},
 			// Offline database flags, copied from osv-scanner scan
 			&cli.BoolFlag{
-				Name:  "experimental-offline",
-				Usage: "checks for vulnerabilities using local databases that are already cached",
+				Name:    "experimental-offline-vulnerabilities",
+				Aliases: []string{"experimental-offline"},
+				Usage:   "checks for vulnerabilities using local databases that are already cached",
 			},
 			&cli.BoolFlag{
 				Name:  "experimental-download-offline-databases",
@@ -327,7 +328,7 @@ func action(ctx *cli.Context, stdout, stderr io.Writer) (reporter.Reporter, erro
 		}
 	}
 
-	if ctx.Bool("experimental-offline") {
+	if ctx.Bool("experimental-offline-vulnerabilities") {
 		var err error
 		opts.Client.VulnerabilityClient, err = client.NewOSVOfflineClient(
 			r,

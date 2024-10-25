@@ -2372,6 +2372,17 @@ Scanned <rootdir>/fixtures/locks-insecure/composer.lock file and found 1 package
 
 ---
 
+[TestRun_MavenTransitive/does_not_scan_transitive_dependencies_for_pom.xml_with_no-resolve - 1]
+Scanning dir ./fixtures/maven-transitive/pom.xml
+Scanned <rootdir>/fixtures/maven-transitive/pom.xml file and found 1 package
+No issues found
+
+---
+
+[TestRun_MavenTransitive/does_not_scan_transitive_dependencies_for_pom.xml_with_no-resolve - 2]
+
+---
+
 [TestRun_MavenTransitive/does_not_scan_transitive_dependencies_for_pom.xml_with_offline_mode - 1]
 Scanning dir ./fixtures/maven-transitive/pom.xml
 Scanned <rootdir>/fixtures/maven-transitive/pom.xml file and found 1 package
