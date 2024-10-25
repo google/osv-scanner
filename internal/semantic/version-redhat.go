@@ -9,7 +9,6 @@ type RedHatVersion struct {
 	epoch   string
 	version string
 	release string
-	arch    string
 }
 
 func (v RedHatVersion) CompareStr(str string) int {
@@ -130,18 +129,12 @@ func parseRedHatVersion(str string) RedHatVersion {
 	name, epoch, hasName := strings.Cut(bf, "-")
 
 	if !hasName {
-		epoch, name = name, epoch
+		epoch = name
 	}
 
-	middle, arch, _ := strings.Cut(af, ".")
-	version, release, _ := strings.Cut(middle, "-")
+	version, release, _ := strings.Cut(af, "-")
 
-	return RedHatVersion{
-		epoch:   epoch,
-		version: version,
-		release: release,
-		arch:    arch,
-	}
+	return RedHatVersion{epoch, version, release}
 }
 
 // - RPM package names are made up of five parts; the package name, epoch, version, release, and architecture (NEVRA)
