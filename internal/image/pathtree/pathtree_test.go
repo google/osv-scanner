@@ -13,14 +13,26 @@ type testVal struct {
 	string
 }
 
-func testTree() *pathtree.Node[testVal] {
+func assertNoError(t *testing.T, err error) {
+	t.Helper()
+
+	if err != nil {
+		t.Errorf("%v", err)
+	}
+}
+
+func testTree(t *testing.T) *pathtree.Node[testVal] {
+	t.Helper()
+
 	tree := pathtree.NewNode[testVal]()
-	_ = tree.Insert("/a", &testVal{"value1"})
-	_ = tree.Insert("/a/b", &testVal{"value2"})
-	_ = tree.Insert("/a/b/c", &testVal{"value3"})
-	_ = tree.Insert("/a/b/d", &testVal{"value4"})
-	_ = tree.Insert("/a/e", &testVal{"value5"})
-	_ = tree.Insert("/a/e/f", &testVal{"value6"})
+	assertNoError(t, tree.Insert("/a", &testVal{"value1"}))
+	assertNoError(t, tree.Insert("/a/b", &testVal{"value2"}))
+	assertNoError(t, tree.Insert("/a/b/c", &testVal{"value3"}))
+	assertNoError(t, tree.Insert("/a/b/d", &testVal{"value4"}))
+	assertNoError(t, tree.Insert("/a/e", &testVal{"value5"}))
+	assertNoError(t, tree.Insert("/a/e/f", &testVal{"value6"}))
+	assertNoError(t, tree.Insert("/a/b/d/f", &testVal{"value7"}))
+	assertNoError(t, tree.Insert("/a/g", &testVal{"value8"}))
 
 	return tree
 }
@@ -64,13 +76,13 @@ func TestNode_Get(t *testing.T) {
 		},
 		{
 			name: "multiple nodes",
-			tree: testTree(),
+			tree: testTree(t),
 			key:  "/a/b/c",
 			want: &testVal{"value3"},
 		},
 		{
 			name: "non-existent node",
-			tree: testTree(),
+			tree: testTree(t),
 			key:  "/a/b/g",
 			want: nil,
 		},
@@ -115,7 +127,7 @@ func TestNode_GetChildren(t *testing.T) {
 		},
 		{
 			name: "multiple nodes with children",
-			tree: testTree(),
+			tree: testTree(t),
 			key:  "/a/b",
 			want: []*testVal{
 				{"value3"},
@@ -124,7 +136,7 @@ func TestNode_GetChildren(t *testing.T) {
 		},
 		{
 			name: "non-existent node",
-			tree: testTree(),
+			tree: testTree(t),
 			key:  "/a/b/g",
 			want: nil,
 		},
@@ -166,7 +178,7 @@ func TestNode_Walk(t *testing.T) {
 		},
 		{
 			name: "multiple nodes",
-			tree: testTree(),
+			tree: testTree(t),
 			want: []string{
 				"value1",
 				"value2",
@@ -174,6 +186,8 @@ func TestNode_Walk(t *testing.T) {
 				"value4",
 				"value5",
 				"value6",
+				"value7",
+				"value8",
 			},
 		},
 	}

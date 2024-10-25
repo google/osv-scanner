@@ -42,7 +42,7 @@ func (node *Node[V]) Insert(path string, value *V) error {
 		// Create the segment if it doesn't exist
 		if !ok {
 			next = &Node[V]{
-				value:    value,
+				value:    nil,
 				children: make(map[string]*Node[V]),
 			}
 			cursor.children[segment] = next
@@ -51,7 +51,7 @@ func (node *Node[V]) Insert(path string, value *V) error {
 	}
 
 	if cursor.value != nil {
-		return fmt.Errorf("%w: %v", ErrNodeAlreadyExists, path)
+		return fmt.Errorf("%w: %v", ErrNodeAlreadyExists, divider+path)
 	}
 
 	cursor.value = value
