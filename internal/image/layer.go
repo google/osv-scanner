@@ -6,7 +6,7 @@ import (
 	"path/filepath"
 	"time"
 
-	"github.com/google/osv-scanner/internal/image/internal/pathtree"
+	"github.com/google/osv-scanner/internal/image/pathtree"
 )
 
 type fileType int

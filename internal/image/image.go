@@ -13,7 +13,7 @@ import (
 
 	v1 "github.com/google/go-containerregistry/pkg/v1"
 	"github.com/google/go-containerregistry/pkg/v1/tarball"
-	"github.com/google/osv-scanner/internal/image/internal/pathtree"
+	"github.com/google/osv-scanner/internal/image/pathtree"
 	"github.com/google/osv-scanner/pkg/lockfile"
 )
 

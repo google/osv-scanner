@@ -59,6 +59,8 @@ The offline database flag `--experimental-offline` causes OSV-Scanner to scan yo
 osv-scanner --experimental-offline ./path/to/your/dir
 ```
 
+To use offline mode for just the vulnerability database, but allow other features to possibly make network requests (e.g. [transitive dependency scanning](./supported_languages_and_lockfiles.md/#transitive-dependency-scanning)), you can use the `--experimental-offline-vulnerabilities` flag instead.
+
 ## Download offline databases option
 
 The download offline databases flag `--experimental-download-offline-databases` allows OSV-Scanner to download or update your local database when running in offline mode, to make it easier to get started. This option only works when you also set the offline flag.
