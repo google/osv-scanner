@@ -1,4 +1,4 @@
-// Package osvscannerjson extracts osv-scanner's json output.
+// Package osvscannerjson extracts osv-scanner's json output (--format json).
 package osvscannerjson
 
 import (
