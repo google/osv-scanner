@@ -121,11 +121,13 @@ func (v RedHatVersion) CompareStr(str string) int {
 	}
 
 	// If the loop ended (nothing has been returned yet, either both strings are totally the same or they’re the same up to the end of one of them, like with “1.2.3” and “1.2.3b”), then the longest wins - if what’s left of a is longer than what’s left of b, return 1. Vice-versa for if what’s left of b is longer than what’s left of a. And finally, if what’s left of them is the same length, return 0.
-	if len(v.version) > len(w.version) {
+	vl := len(v.version) - vi
+	wl := len(w.version) - wi
+
+	if vl > wl {
 		return +1
 	}
-
-	if len(v.version) < len(w.version) {
+	if vl < wl {
 		return -1
 	}
 
