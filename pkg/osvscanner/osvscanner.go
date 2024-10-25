@@ -179,7 +179,7 @@ func scanDir(r reporter.Reporter, dir string, skipGit bool, recursive bool, useG
 		}
 
 		if !info.IsDir() {
-			pkgs, err := scanLockfile(r, path, "", compareOffline, transitiveAct)
+			pkgs, err := scanLockfile(r, path, "", transitiveAct)
 			if err != nil {
 				// If no extractors found then just continue
 				if !errors.Is(err, lockfilescalibr.ErrNoExtractorsFound) {
@@ -381,7 +381,7 @@ func scanLockfile(r reporter.Reporter, path string, parseAs string, transitiveAc
 	case "osv-scanner":
 		inventories, err = lockfilescalibr.ExtractWithExtractor(context.Background(), path, osvscannerjson.Extractor{})
 	default:
-		if !compareOffline && (parseAs == "pom.xml" || filepath.Base(path) == "pom.xml") {
+		if !transitiveAct.Disabled && (parseAs == "pom.xml" || filepath.Base(path) == "pom.xml") {
 			ext, extErr := createMavenExtractor(transitiveAct)
 			if extErr != nil {
 				return nil, extErr
