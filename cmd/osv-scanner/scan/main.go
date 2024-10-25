@@ -16,6 +16,15 @@ import (
 	"github.com/urfave/cli/v2"
 )
 
+// flags that require network access and values to disable them.
+var offlineFlags = map[string]string{
+	"skip-git":                             "true",
+	"experimental-offline-vulnerabilities": "true",
+	"experimental-no-resolve":              "true",
+	"experimental-licenses-summary":        "false",
+	// "experimental-licenses": "", // StringSliceFlag has to be manually cleared.
+}
+
 func Command(stdout, stderr io.Writer, r *reporter.Reporter) *cli.Command {
 	return &cli.Command{
 		Name:        "scan",
@@ -109,6 +118,24 @@ func Command(stdout, stderr io.Writer, r *reporter.Reporter) *cli.Command {
 			},
 			&cli.BoolFlag{
 				Name:  "experimental-offline",
+				Usage: "run in offline mode, disabling any features requiring network access",
+				Action: func(ctx *cli.Context, b bool) error {
+					if !b {
+						return nil
+					}
+					// Disable the features requiring network access.
+					for flag, value := range offlineFlags {
+						// TODO(michaelkedar): do something if the flag was already explicitly set.
+						if err := ctx.Set(flag, value); err != nil {
+							panic(fmt.Sprintf("failed setting offline flag %s to %s: %v", flag, value, err))
+						}
+					}
+
+					return nil
+				},
+			},
+			&cli.BoolFlag{
+				Name:  "experimental-offline-vulnerabilities",
 				Usage: "checks for vulnerabilities using local databases that are already cached",
 			},
 			&cli.BoolFlag{
@@ -137,6 +164,10 @@ func Command(stdout, stderr io.Writer, r *reporter.Reporter) *cli.Command {
 				Usage:     "scan an exported *docker* container image archive (exported using `docker save` command) file",
 				TakesFile: true,
 				Hidden:    true,
+			},
+			&cli.BoolFlag{
+				Name:  "experimental-no-resolve",
+				Usage: "disable transitive dependency resolution of manifest files",
 			},
 			&cli.StringFlag{
 				Name:  "experimental-resolution-data-source",
@@ -221,6 +252,11 @@ func action(context *cli.Context, stdout, stderr io.Writer) (reporter.Reporter, 
 		callAnalysisStates = createCallAnalysisStates(context.StringSlice("call-analysis"), context.StringSlice("no-call-analysis"))
 	}
 
+	scanLicensesAllowlist := context.StringSlice("experimental-licenses")
+	if context.Bool("experimental-offline") {
+		scanLicensesAllowlist = []string{}
+	}
+
 	vulnResult, err := osvscanner.DoScan(osvscanner.ScannerActions{
 		LockfilePaths:        context.StringSlice("lockfile"),
 		SBOMPaths:            context.StringSlice("sbom"),
@@ -234,7 +270,7 @@ func action(context *cli.Context, stdout, stderr io.Writer) (reporter.Reporter, 
 		ExperimentalScannerActions: osvscanner.ExperimentalScannerActions{
 			LocalDBPath:       context.String("experimental-local-db-path"),
 			DownloadDatabases: context.Bool("experimental-download-offline-databases"),
-			CompareOffline:    context.Bool("experimental-offline"),
+			CompareOffline:    context.Bool("experimental-offline-vulnerabilities"),
 			// License summary mode causes all
 			// packages to appear in the json as
 			// every package has a license - even
@@ -242,9 +278,10 @@ func action(context *cli.Context, stdout, stderr io.Writer) (reporter.Reporter, 
 			ShowAllPackages: context.Bool("experimental-all-packages") ||
 				context.Bool("experimental-licenses-summary"),
 			ScanLicensesSummary:   context.Bool("experimental-licenses-summary"),
-			ScanLicensesAllowlist: context.StringSlice("experimental-licenses"),
+			ScanLicensesAllowlist: scanLicensesAllowlist,
 			ScanOCIImage:          context.String("experimental-oci-image"),
 			TransitiveScanningActions: osvscanner.TransitiveScanningActions{
+				Disabled:         context.Bool("experimental-no-resolve"),
 				NativeDataSource: context.String("experimental-resolution-data-source") == "native",
 				MavenRegistry:    context.String("experimental-maven-registry"),
 			},
