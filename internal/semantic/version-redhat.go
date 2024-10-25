@@ -29,7 +29,21 @@ func (v RedHatVersion) CompareStr(str string) int {
 		b := w.version[wi]
 
 		// 1. Trim anything that’s not [A-Za-z0-9] or tilde (~) from the front of both strings.
-		// ...
+		for {
+			if unicode.IsLetter(rune(a)) || unicode.IsDigit(rune(a)) || a == '~' {
+				break
+			}
+			vi++
+			a = v.version[vi]
+		}
+
+		for {
+			if unicode.IsLetter(rune(b)) || unicode.IsDigit(rune(b)) || b == '~' {
+				break
+			}
+			wi++
+			b = w.version[wi]
+		}
 
 		// 2. If both strings start with a tilde, discard it and move on to the next character.
 		if a == '~' && b == '~' {
