@@ -6,7 +6,7 @@ import (
 
 	"github.com/google/go-cmp/cmp"
 	"github.com/google/go-cmp/cmp/cmpopts"
-	"github.com/google/osv-scanner/internal/image/internal/pathtree"
+	"github.com/google/osv-scanner/internal/image/pathtree"
 )
 
 type testVal struct {
