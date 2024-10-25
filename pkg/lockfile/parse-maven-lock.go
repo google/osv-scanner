@@ -445,6 +445,7 @@ func (e MavenLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 			NameLocation:    artifactPosition,
 			VersionLocation: versionPosition,
 			PackageManager:  models.Maven,
+			IsDirect:        true,
 		}
 		if scope := strings.TrimSpace(lockPackage.Scope); scope != "" && scope != "compile" {
 			// Only append non-default scope (compile is the default scope).

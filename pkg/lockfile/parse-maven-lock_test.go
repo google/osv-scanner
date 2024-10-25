@@ -96,7 +96,6 @@ func TestParseMavenLock_NoPackages(t *testing.T) {
 	t.Parallel()
 
 	packages, err := lockfile.ParseMavenLock(filepath.FromSlash("fixtures/maven/empty.xml"))
-
 	if err != nil {
 		t.Errorf("Got unexpected error: %v", err)
 	}
@@ -139,6 +138,7 @@ func TestParseMavenLock_OnePackage(t *testing.T) {
 				Column:   models.Position{Start: 16, End: 21},
 				Filename: path,
 			},
+			IsDirect: true,
 		},
 	})
 }
@@ -178,6 +178,7 @@ func TestParseMavenLock_OnePackageWithMultipleVersionVariable(t *testing.T) {
 				Column:   models.Position{Start: 16, End: 40},
 				Filename: path,
 			},
+			IsDirect: true,
 		},
 	})
 }
@@ -217,6 +218,7 @@ func TestParseMavenLock_TwoPackageWithMixedVersionDefinition(t *testing.T) {
 				Column:   models.Position{Start: 16, End: 38},
 				Filename: path,
 			},
+			IsDirect: true,
 		},
 		{
 			Name:           "org.slf4j:slf4j-log4j12-3.0",
@@ -239,6 +241,7 @@ func TestParseMavenLock_TwoPackageWithMixedVersionDefinition(t *testing.T) {
 				Column:   models.Position{Start: 16, End: 22},
 				Filename: path,
 			},
+			IsDirect: true,
 		},
 	})
 }
@@ -278,6 +281,7 @@ func TestParseMavenLock_TwoPackages(t *testing.T) {
 				Column:   models.Position{Start: 16, End: 28},
 				Filename: path,
 			},
+			IsDirect: true,
 		},
 		{
 			Name:           "org.slf4j:slf4j-log4j12",
@@ -300,6 +304,7 @@ func TestParseMavenLock_TwoPackages(t *testing.T) {
 				Column:   models.Position{Start: 16, End: 22},
 				Filename: path,
 			},
+			IsDirect: true,
 		},
 	})
 }
@@ -339,6 +344,7 @@ func TestParseMavenLock_WithDependencyManagement(t *testing.T) {
 				Column:   models.Position{Start: 18, End: 30},
 				Filename: path,
 			},
+			IsDirect: true,
 		},
 		{
 			Name:           "org.slf4j:slf4j-log4j12",
@@ -361,6 +367,7 @@ func TestParseMavenLock_WithDependencyManagement(t *testing.T) {
 				Column:   models.Position{Start: 16, End: 22},
 				Filename: path,
 			},
+			IsDirect: true,
 		},
 	})
 }
@@ -400,6 +407,7 @@ func TestParseMavenLock_Interpolation(t *testing.T) {
 				Column:   models.Position{Start: 23, End: 28},
 				Filename: path,
 			},
+			IsDirect: true,
 		},
 		{
 			Name:           "org.mine:my.package",
@@ -422,6 +430,7 @@ func TestParseMavenLock_Interpolation(t *testing.T) {
 				Column:   models.Position{Start: 25, End: 30},
 				Filename: path,
 			},
+			IsDirect: true,
 		},
 		{
 			Name:           "org.mine:ranged-package",
@@ -444,6 +453,7 @@ func TestParseMavenLock_Interpolation(t *testing.T) {
 				Column:   models.Position{Start: 20, End: 42},
 				Filename: path,
 			},
+			IsDirect: true,
 		},
 	})
 }
@@ -484,6 +494,7 @@ func TestMavenLock_WithParent(t *testing.T) {
 				Column:   models.Position{Start: 18, End: 23},
 				Filename: parentPath,
 			},
+			IsDirect: true,
 		},
 		{
 			Name:           "io.netty:netty-all",
@@ -506,6 +517,7 @@ func TestMavenLock_WithParent(t *testing.T) {
 				Column:   models.Position{Start: 18, End: 30},
 				Filename: parentPath,
 			},
+			IsDirect: true,
 		},
 		{
 			Name:           "org.slf4j:slf4j-log4j12",
@@ -528,6 +540,7 @@ func TestMavenLock_WithParent(t *testing.T) {
 				Column:   models.Position{Start: 16, End: 22},
 				Filename: childPath,
 			},
+			IsDirect: true,
 		},
 		{
 			Name:           "org.mine:mypackage",
@@ -550,6 +563,7 @@ func TestMavenLock_WithParent(t *testing.T) {
 				Column:   models.Position{Start: 23, End: 28},
 				Filename: parentPath,
 			},
+			IsDirect: true,
 		},
 		{
 			Name:           "org.mine:my.package",
@@ -572,6 +586,7 @@ func TestMavenLock_WithParent(t *testing.T) {
 				Column:   models.Position{Start: 25, End: 30},
 				Filename: parentPath,
 			},
+			IsDirect: true,
 		},
 		{
 			Name:           "dev.foo:bar",
@@ -594,6 +609,7 @@ func TestMavenLock_WithParent(t *testing.T) {
 				Column:   models.Position{Start: 12, End: 24},
 				Filename: parentPath,
 			},
+			IsDirect: true,
 		},
 	})
 }
@@ -634,6 +650,7 @@ func TestMavenLock_WithParentDirOnly(t *testing.T) {
 				Column:   models.Position{Start: 18, End: 23},
 				Filename: parentPath,
 			},
+			IsDirect: true,
 		},
 		{
 			Name:           "io.netty:netty-all",
@@ -656,6 +673,7 @@ func TestMavenLock_WithParentDirOnly(t *testing.T) {
 				Column:   models.Position{Start: 18, End: 30},
 				Filename: parentPath,
 			},
+			IsDirect: true,
 		},
 		{
 			Name:           "org.slf4j:slf4j-log4j12",
@@ -678,6 +696,7 @@ func TestMavenLock_WithParentDirOnly(t *testing.T) {
 				Column:   models.Position{Start: 16, End: 22},
 				Filename: childPath,
 			},
+			IsDirect: true,
 		},
 		{
 			Name:           "org.mine:mypackage",
@@ -700,6 +719,7 @@ func TestMavenLock_WithParentDirOnly(t *testing.T) {
 				Column:   models.Position{Start: 23, End: 28},
 				Filename: parentPath,
 			},
+			IsDirect: true,
 		},
 		{
 			Name:           "org.mine:my.package",
@@ -722,6 +742,7 @@ func TestMavenLock_WithParentDirOnly(t *testing.T) {
 				Column:   models.Position{Start: 25, End: 30},
 				Filename: parentPath,
 			},
+			IsDirect: true,
 		},
 	})
 }
@@ -762,6 +783,7 @@ func TestMavenLock_WithParentWithoutRelativePath(t *testing.T) {
 				Column:   models.Position{Start: 18, End: 23},
 				Filename: parentPath,
 			},
+			IsDirect: true,
 		},
 		{
 			Name:           "io.netty:netty-all",
@@ -784,6 +806,7 @@ func TestMavenLock_WithParentWithoutRelativePath(t *testing.T) {
 				Column:   models.Position{Start: 18, End: 30},
 				Filename: parentPath,
 			},
+			IsDirect: true,
 		},
 		{
 			Name:           "org.slf4j:slf4j-log4j12",
@@ -806,6 +829,7 @@ func TestMavenLock_WithParentWithoutRelativePath(t *testing.T) {
 				Column:   models.Position{Start: 16, End: 22},
 				Filename: childPath,
 			},
+			IsDirect: true,
 		},
 		{
 			Name:           "org.mine:mypackage",
@@ -828,6 +852,7 @@ func TestMavenLock_WithParentWithoutRelativePath(t *testing.T) {
 				Column:   models.Position{Start: 23, End: 28},
 				Filename: parentPath,
 			},
+			IsDirect: true,
 		},
 		{
 			Name:           "org.mine:my.package",
@@ -850,6 +875,7 @@ func TestMavenLock_WithParentWithoutRelativePath(t *testing.T) {
 				Column:   models.Position{Start: 25, End: 30},
 				Filename: parentPath,
 			},
+			IsDirect: true,
 		},
 	})
 }
@@ -890,6 +916,7 @@ func TestMavenLock_WithParent_Child_Project(t *testing.T) {
 				Column:   models.Position{Start: 12, End: 30},
 				Filename: childPath,
 			},
+			IsDirect: true,
 		},
 	})
 }
@@ -931,6 +958,7 @@ func TestMavenLock_WithMultipleParents(t *testing.T) {
 				Column:   models.Position{Start: 18, End: 23},
 				Filename: rootPath,
 			},
+			IsDirect: true,
 		},
 		{
 			Name:           "io.netty:netty-all",
@@ -953,6 +981,7 @@ func TestMavenLock_WithMultipleParents(t *testing.T) {
 				Column:   models.Position{Start: 18, End: 30},
 				Filename: rootPath,
 			},
+			IsDirect: true,
 		},
 		{
 			Name:           "org.slf4j:slf4j-log4j12",
@@ -975,6 +1004,7 @@ func TestMavenLock_WithMultipleParents(t *testing.T) {
 				Column:   models.Position{Start: 16, End: 22},
 				Filename: parentPath,
 			},
+			IsDirect: true,
 		},
 		{
 			Name:           "org.mine:mypackage",
@@ -997,6 +1027,7 @@ func TestMavenLock_WithMultipleParents(t *testing.T) {
 				Column:   models.Position{Start: 23, End: 28},
 				Filename: rootPath,
 			},
+			IsDirect: true,
 		},
 		{
 			Name:           "org.mine:my.package",
@@ -1019,6 +1050,7 @@ func TestMavenLock_WithMultipleParents(t *testing.T) {
 				Column:   models.Position{Start: 20, End: 42},
 				Filename: rootPath,
 			},
+			IsDirect: true,
 		},
 		{
 			Name:           "dev.foo:bar",
@@ -1041,6 +1073,7 @@ func TestMavenLock_WithMultipleParents(t *testing.T) {
 				Column:   models.Position{Start: 12, End: 24},
 				Filename: rootPath,
 			},
+			IsDirect: true,
 		},
 	})
 }
@@ -1167,6 +1200,7 @@ func TestParseMavenLock_WithScope(t *testing.T) {
 				Column:   models.Position{Start: 16, End: 21},
 				Filename: path,
 			},
+			IsDirect: true,
 		},
 		{
 			Name:           "junit:junit",
@@ -1191,6 +1225,7 @@ func TestParseMavenLock_WithScope(t *testing.T) {
 				Filename: path,
 			},
 			DepGroups: []string{"test"},
+			IsDirect:  true,
 		},
 	})
 }
@@ -1232,6 +1267,7 @@ func TestParseMavenLock_WithUnusedDependencyManagementDependencies(t *testing.T)
 				Filename: path,
 			},
 			DepGroups: nil,
+			IsDirect:  true,
 		},
 	})
 }
@@ -1273,6 +1309,7 @@ func TestParseMavenLock_WithOverriddenDependencyVersions(t *testing.T) {
 				Filename: path,
 			},
 			DepGroups: nil,
+			IsDirect:  true,
 		},
 	})
 }
@@ -1314,6 +1351,7 @@ func TestParseMavenLock_WithProjectVersionProperty(t *testing.T) {
 				Filename: path,
 			},
 			DepGroups: nil,
+			IsDirect:  true,
 		},
 		{
 			Name:           "dev.bar:foo",
@@ -1338,6 +1376,7 @@ func TestParseMavenLock_WithProjectVersionProperty(t *testing.T) {
 				Filename: path,
 			},
 			DepGroups: nil,
+			IsDirect:  true,
 		},
 	})
 }
@@ -1375,6 +1414,7 @@ func TestParseMavenLock_ResolveProperties(t *testing.T) {
 				Filename: path,
 			},
 			DepGroups: nil,
+			IsDirect:  true,
 		},
 		{
 			Name:           "com.google.code.findbugs:jsr305",
@@ -1399,6 +1439,7 @@ func TestParseMavenLock_ResolveProperties(t *testing.T) {
 				Filename: path,
 			},
 			DepGroups: nil,
+			IsDirect:  true,
 		},
 		{
 			Name:           "io.ktor:ktor-server-netty-jvm",
@@ -1423,6 +1464,7 @@ func TestParseMavenLock_ResolveProperties(t *testing.T) {
 				Filename: path,
 			},
 			DepGroups: nil,
+			IsDirect:  true,
 		},
 	})
 }
@@ -1431,7 +1473,6 @@ func TestParseMavenLock_NoVersion(t *testing.T) {
 	t.Parallel()
 	lockfileRelativePath := "fixtures/maven/no-version.xml"
 	packages, err := lockfile.ParseMavenLock(lockfileRelativePath)
-
 	if err != nil {
 		t.Errorf("Got unexpected error: %v", err)
 	}
@@ -1443,6 +1484,7 @@ func TestParseMavenLock_NoVersion(t *testing.T) {
 			PackageManager: models.Maven,
 			Ecosystem:      lockfile.MavenEcosystem,
 			CompareAs:      lockfile.MavenEcosystem,
+			IsDirect:       true,
 		},
 	})
 }

@@ -76,6 +76,7 @@ func TestNodeModulesExtractor_Extract_npm_v2_OnePackageDev(t *testing.T) {
 				Filename: filePath,
 			},
 			DepGroups: []string{"dev"},
+			IsDirect:  true,
 		},
 	})
 }
@@ -140,7 +141,6 @@ func TestNodeModulesExtractor_Extract_npm_v2_ScopedPackages(t *testing.T) {
 				Column:   models.Position{Start: 5, End: 6},
 				Filename: filePath,
 			},
-			IsDirect: true,
 		},
 		{
 			Name:           "@babel/code-frame",
@@ -153,7 +153,6 @@ func TestNodeModulesExtractor_Extract_npm_v2_ScopedPackages(t *testing.T) {
 				Column:   models.Position{Start: 5, End: 6},
 				Filename: filePath,
 			},
-			IsDirect: true,
 		},
 	})
 }
@@ -178,7 +177,6 @@ func TestNodeModulesExtractor_Extract_npm_v2_NestedDependencies(t *testing.T) {
 				Column:   models.Position{Start: 5, End: 6},
 				Filename: filePath,
 			},
-			IsDirect: true,
 		},
 		{
 			Name:           "postcss",
@@ -191,7 +189,6 @@ func TestNodeModulesExtractor_Extract_npm_v2_NestedDependencies(t *testing.T) {
 				Column:   models.Position{Start: 5, End: 6},
 				Filename: filePath,
 			},
-			IsDirect: true,
 		},
 		{
 			Name:           "postcss-calc",
@@ -204,7 +201,6 @@ func TestNodeModulesExtractor_Extract_npm_v2_NestedDependencies(t *testing.T) {
 				Column:   models.Position{Start: 5, End: 6},
 				Filename: filePath,
 			},
-			IsDirect: true,
 		},
 		{
 			Name:           "supports-color",
@@ -217,7 +213,6 @@ func TestNodeModulesExtractor_Extract_npm_v2_NestedDependencies(t *testing.T) {
 				Column:   models.Position{Start: 5, End: 6},
 				Filename: filePath,
 			},
-			IsDirect: true,
 		},
 		{
 			Name:           "supports-color",
@@ -230,7 +225,6 @@ func TestNodeModulesExtractor_Extract_npm_v2_NestedDependencies(t *testing.T) {
 				Column:   models.Position{Start: 5, End: 6},
 				Filename: filePath,
 			},
-			IsDirect: true,
 		},
 	})
 }
@@ -255,7 +249,6 @@ func TestNodeModulesExtractor_Extract_npm_v2_NestedDependenciesDup(t *testing.T)
 				Column:   models.Position{Start: 5, End: 6},
 				Filename: filePath,
 			},
-			IsDirect: true,
 		},
 		{
 			Name:           "supports-color",
@@ -268,7 +261,6 @@ func TestNodeModulesExtractor_Extract_npm_v2_NestedDependenciesDup(t *testing.T)
 				Column:   models.Position{Start: 5, End: 6},
 				Filename: filePath,
 			},
-			IsDirect: true,
 		},
 	})
 }
@@ -309,7 +301,7 @@ func TestNodeModulesExtractor_Extract_npm_v2_Commits(t *testing.T) {
 				Column:   models.Position{Start: 5, End: 6},
 				Filename: filePath,
 			},
-			IsDirect: true,
+			IsDirect: false,
 		},
 		{
 			Name:           "babel-preset-php",
@@ -325,7 +317,7 @@ func TestNodeModulesExtractor_Extract_npm_v2_Commits(t *testing.T) {
 				Filename: filePath,
 			},
 			DepGroups: []string{"dev"},
-			IsDirect:  false,
+			IsDirect:  true,
 		},
 		{
 			Name:           "is-number-1",
@@ -341,7 +333,7 @@ func TestNodeModulesExtractor_Extract_npm_v2_Commits(t *testing.T) {
 				Filename: filePath,
 			},
 			DepGroups: []string{"dev"},
-			IsDirect:  false,
+			IsDirect:  true,
 		},
 		{
 			Name:           "is-number-1",
@@ -372,7 +364,7 @@ func TestNodeModulesExtractor_Extract_npm_v2_Commits(t *testing.T) {
 				Filename: filePath,
 			},
 			DepGroups: []string{"dev"},
-			IsDirect:  false,
+			IsDirect:  true,
 		},
 		{
 			Name:           "is-number-2",
@@ -403,7 +395,7 @@ func TestNodeModulesExtractor_Extract_npm_v2_Commits(t *testing.T) {
 				Filename: filePath,
 			},
 			DepGroups: []string{"dev"},
-			IsDirect:  false,
+			IsDirect:  true,
 		},
 		{
 			Name:           "is-number-3",
@@ -434,7 +426,7 @@ func TestNodeModulesExtractor_Extract_npm_v2_Commits(t *testing.T) {
 				Filename: filePath,
 			},
 			DepGroups: []string{"dev"},
-			IsDirect:  false,
+			IsDirect:  true,
 		},
 		{
 			Name:           "is-number-5",
@@ -450,7 +442,7 @@ func TestNodeModulesExtractor_Extract_npm_v2_Commits(t *testing.T) {
 				Filename: filePath,
 			},
 			DepGroups: []string{"dev"},
-			IsDirect:  false,
+			IsDirect:  true,
 		},
 		{
 			Name:           "postcss-calc",
@@ -464,7 +456,7 @@ func TestNodeModulesExtractor_Extract_npm_v2_Commits(t *testing.T) {
 				Column:   models.Position{Start: 5, End: 6},
 				Filename: filePath,
 			},
-			IsDirect: true,
+			IsDirect: false,
 		},
 		{
 			Name:           "raven-js",
@@ -495,7 +487,7 @@ func TestNodeModulesExtractor_Extract_npm_v2_Commits(t *testing.T) {
 				Filename: filePath,
 			},
 			DepGroups: []string{"dev"},
-			IsDirect:  false,
+			IsDirect:  true,
 		},
 	})
 }
@@ -523,6 +515,7 @@ func TestNodeModulesExtractor_Extract_npm_v2_Files(t *testing.T) {
 				Filename: filePath,
 			},
 			DepGroups: []string{"dev"},
+			IsDirect:  true,
 		},
 		{
 			Name:           "abbrev",
@@ -631,6 +624,7 @@ func TestNodeModulesExtractor_Extract_npm_v2_OptionalPackage(t *testing.T) {
 				Filename: filePath,
 			},
 			DepGroups: []string{"optional"},
+			IsDirect:  true,
 		},
 		{
 			Name:           "supports-color",

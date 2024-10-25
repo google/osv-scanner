@@ -74,6 +74,7 @@ func TestNodeModulesExtractor_Extract_npm_v1_OnePackageDev(t *testing.T) {
 				Filename: filePath,
 			},
 			DepGroups: []string{"dev"},
+			IsDirect:  true,
 		},
 	})
 }
@@ -351,7 +352,7 @@ func TestNodeModulesExtractor_Extract_npm_v1_Commits(t *testing.T) {
 				Filename: filePath,
 			},
 			DepGroups: []string{"dev"},
-			IsDirect:  false,
+			IsDirect:  true,
 		},
 		{
 			Name:           "is-number-1",
@@ -366,7 +367,7 @@ func TestNodeModulesExtractor_Extract_npm_v1_Commits(t *testing.T) {
 				Filename: filePath,
 			},
 			DepGroups: []string{"dev"},
-			IsDirect:  false,
+			IsDirect:  true,
 		},
 		{
 			Name:           "is-number-2",
@@ -409,7 +410,7 @@ func TestNodeModulesExtractor_Extract_npm_v1_Commits(t *testing.T) {
 				Filename: filePath,
 			},
 			DepGroups: []string{"dev"},
-			IsDirect:  false,
+			IsDirect:  true,
 		},
 		{
 			Name:           "is-number-3",
@@ -424,7 +425,7 @@ func TestNodeModulesExtractor_Extract_npm_v1_Commits(t *testing.T) {
 				Filename: filePath,
 			},
 			DepGroups: []string{"dev"},
-			IsDirect:  false,
+			IsDirect:  true,
 		},
 		{
 			Name:           "is-number-4",
@@ -439,7 +440,7 @@ func TestNodeModulesExtractor_Extract_npm_v1_Commits(t *testing.T) {
 				Filename: filePath,
 			},
 			DepGroups: []string{"dev"},
-			IsDirect:  false,
+			IsDirect:  true,
 		},
 		{
 			Name:           "is-number-5",
@@ -454,7 +455,7 @@ func TestNodeModulesExtractor_Extract_npm_v1_Commits(t *testing.T) {
 				Filename: filePath,
 			},
 			DepGroups: []string{"dev"},
-			IsDirect:  false,
+			IsDirect:  true,
 		},
 		{
 			Name:           "is-number-6",
@@ -469,7 +470,7 @@ func TestNodeModulesExtractor_Extract_npm_v1_Commits(t *testing.T) {
 				Filename: filePath,
 			},
 			DepGroups: []string{"dev"},
-			IsDirect:  false,
+			IsDirect:  true,
 		},
 		{
 			Name:           "postcss-calc",
@@ -512,7 +513,7 @@ func TestNodeModulesExtractor_Extract_npm_v1_Commits(t *testing.T) {
 				Filename: filePath,
 			},
 			DepGroups: []string{"dev"},
-			IsDirect:  false,
+			IsDirect:  true,
 		},
 	})
 }
@@ -629,7 +630,7 @@ func TestNodeModulesExtractor_Extract_npm_v1_OptionalPackage(t *testing.T) {
 				Filename: filePath,
 			},
 			DepGroups: []string{"dev", "optional"},
-			IsDirect:  false,
+			IsDirect:  true,
 		},
 		{
 			Name:           "supports-color",
