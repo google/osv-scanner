@@ -37,6 +37,51 @@ func testTree(t *testing.T) *pathtree.Node[testVal] {
 	return tree
 }
 
+func TestNode_Insert_Error(t *testing.T) {
+	t.Parallel()
+
+	tests := []struct {
+		name string
+		tree *pathtree.Node[testVal]
+		key  string
+		val  *testVal
+	}{
+		{
+			name: "duplicate node",
+			tree: func() *pathtree.Node[testVal] {
+				tree := pathtree.NewNode[testVal]()
+				_ = tree.Insert("/a", &testVal{"value1"})
+
+				return tree
+			}(),
+			key: "/a",
+			val: &testVal{"value2"},
+		},
+		{
+			name: "duplicate node in subtree",
+			tree: func() *pathtree.Node[testVal] {
+				tree := pathtree.NewNode[testVal]()
+				_ = tree.Insert("/a", &testVal{"value1"})
+				_ = tree.Insert("/a/b", &testVal{"value2"})
+
+				return tree
+			}(),
+			key: "/a/b",
+			val: &testVal{"value3"},
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			t.Parallel()
+
+			err := tt.tree.Insert(tt.key, tt.val)
+			if err == nil {
+				t.Errorf("Node.Insert() expected error, got nil")
+			}
+		})
+	}
+}
+
 func TestNode_Get(t *testing.T) {
 	t.Parallel()
 
