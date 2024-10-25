@@ -137,6 +137,7 @@ func parseNpmLockDependencies(dependencies map[string]*NpmLockDependency, path s
 
 		version := detail.Version
 		finalVersion := version
+		direct := !detail.Dev
 		commit := ""
 
 		// If the package is aliased, get the name and version
@@ -176,6 +177,7 @@ func parseNpmLockDependencies(dependencies map[string]*NpmLockDependency, path s
 			},
 			Commit:    commit,
 			DepGroups: detail.depGroups(),
+			IsDirect:  direct,
 		})
 	}
 
@@ -278,6 +280,8 @@ func parseNpmLockPackages(packages map[string]*NpmLockPackage, path string) map[
 			targetVersions = []string{targetVersion}
 		}
 
+		direct := !detail.Dev && !detail.Optional && !detail.DevOptional && strings.HasPrefix(namePath, "node_modules/")
+
 		if !detail.Link {
 			details.add(finalName+"@"+finalVersion, PackageDetails{
 				Name:           finalName,
@@ -293,6 +297,7 @@ func parseNpmLockPackages(packages map[string]*NpmLockPackage, path string) map[
 					Filename: path,
 				},
 				DepGroups: detail.depGroups(),
+				IsDirect:  direct,
 			})
 		}
 	}
