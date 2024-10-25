@@ -75,6 +75,7 @@ func (v RedHatVersion) CompareStr(str string) int {
 
 		for _, c := range v.version[vi:] {
 			if !iser(c) {
+				vi--
 				break
 			}
 
@@ -84,6 +85,7 @@ func (v RedHatVersion) CompareStr(str string) int {
 
 		for _, c := range w.version[wi:] {
 			if !iser(c) {
+				wi--
 				break
 			}
 
