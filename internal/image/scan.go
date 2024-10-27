@@ -131,25 +131,31 @@ func traceOrigin(img *Image, scannedLockfiles *ScanResults) {
 	for _, file := range scannedLockfiles.Lockfiles {
 		// Defined locally as this is the only place this is used.
 		type PDKey struct {
-			Name    string
-			Version string
-			// Commit    string
+			Name      string
+			Version   string
+			Commit    string
 			Ecosystem string
 		}
 
+		// TODO: Remove this function after fully migrating to extractor.Inventory
 		makePDKey := func(pd lockfile.PackageDetails) PDKey {
 			return PDKey{
-				Name:    pd.Name,
-				Version: pd.Version,
-				// Commit:    pd.Commit,
+				Name:      pd.Name,
+				Version:   pd.Version,
+				Commit:    pd.Commit,
 				Ecosystem: string(pd.Ecosystem),
 			}
 		}
 
 		makePDKey2 := func(pd *extractor.Inventory) PDKey {
+			var commit string
+			if pd.SourceCode != nil {
+				commit = pd.SourceCode.Commit
+			}
 			return PDKey{
 				Name:      pd.Name,
 				Version:   pd.Version,
+				Commit:    commit,
 				Ecosystem: pd.Ecosystem(),
 			}
 		}
