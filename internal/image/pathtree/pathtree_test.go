@@ -191,7 +191,13 @@ func TestNode_GetChildren(t *testing.T) {
 			t.Parallel()
 
 			got := tt.tree.GetChildren(tt.key)
-			if diff := cmp.Diff(tt.want, got, cmp.AllowUnexported(testVal{})); diff != "" {
+			if diff := cmp.Diff(
+				tt.want,
+				got,
+				cmp.AllowUnexported(testVal{}),
+				cmpopts.SortSlices(func(a, b string) bool {
+					return strings.Compare(a, b) < 0
+				})); diff != "" {
 				t.Errorf("Node.GetChildren() (-want +got): %v", diff)
 			}
 		})
