@@ -65,6 +65,12 @@ func TestScanImage(t *testing.T) {
 			want:    testutility.NewSnapshot(),
 			wantErr: false,
 		},
+		{
+			name:    "scanning go binaries that's been overwritten for package tracing",
+			args:    args{imagePath: "fixtures/test-package-tracing.tar"},
+			want:    testutility.NewSnapshot(),
+			wantErr: false,
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
