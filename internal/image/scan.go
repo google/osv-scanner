@@ -152,6 +152,7 @@ func traceOrigin(img *Image, scannedLockfiles *ScanResults) {
 			if pd.SourceCode != nil {
 				commit = pd.SourceCode.Commit
 			}
+
 			return PDKey{
 				Name:      pd.Name,
 				Version:   pd.Version,
