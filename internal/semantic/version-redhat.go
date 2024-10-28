@@ -11,71 +11,70 @@ type RedHatVersion struct {
 	release string
 }
 
+func shouldBeTrimmed(r rune) bool {
+	return !unicode.IsLetter(r) && !unicode.IsDigit(r) && r != '~'
+}
+
 func (v RedHatVersion) CompareStr(str string) int {
 	w := parseRedHatVersion(str)
-	vi := -1
-	wi := -1
+
+	var vi, wi int
 
 	for {
-		vi++
-		wi++
-
-		// todo: review this position
-		if vi >= len(v.version) || wi >= len(w.version) {
-			break
-		}
-
-		a := v.version[vi]
-		b := w.version[wi]
-
 		// 1. Trim anything that’s not [A-Za-z0-9] or tilde (~) from the front of both strings.
 		for {
-			if unicode.IsLetter(rune(a)) || unicode.IsDigit(rune(a)) || a == '~' {
+			if vi == len(v.version) || !shouldBeTrimmed(rune(v.version[vi])) {
 				break
 			}
 			vi++
-			a = v.version[vi]
 		}
 
 		for {
-			if unicode.IsLetter(rune(b)) || unicode.IsDigit(rune(b)) || b == '~' {
+			if wi == len(w.version) || !shouldBeTrimmed(rune(w.version[wi])) {
 				break
 			}
 			wi++
-			b = w.version[wi]
 		}
 
 		// 2. If both strings start with a tilde, discard it and move on to the next character.
-		if a == '~' && b == '~' {
+		vStartsWithTilde := vi < len(v.version) && v.version[vi] == '~'
+		wStartsWithTilde := wi < len(w.version) && w.version[wi] == '~'
+
+		if vStartsWithTilde && wStartsWithTilde {
+			vi++
+			wi++
+
 			continue
 		}
 
 		// 3. If string `a` starts with a tilde and string `b` does not, return -1 (string `a` is older); and the inverse if string `b` starts with a tilde and string `a` does not.
-		if a == '~' {
+		if vStartsWithTilde {
 			return -1
 		}
-		if b == '~' {
+		if wStartsWithTilde {
 			return +1
 		}
 
 		// 4. End the loop if either string has reached zero length.
-		// ... (see above) ...
+		if vi == len(v.version) || wi == len(w.version) {
+			break
+		}
 
 		// 5. If the first character of `a` is a digit, pop the leading chunk of continuous digits from each string (which may be "" for `b` if only one `a` starts with digits). If `a` begins with a letter, do the same for leading letters.
+		isDigit := unicode.IsDigit(rune(v.version[vi]))
+
 		var iser func(r rune) bool
-		if unicode.IsDigit(rune(a)) {
+		if isDigit {
 			iser = unicode.IsDigit
 		} else {
 			iser = unicode.IsLetter
 		}
 
 		// isDigit := a >= 48 && a <= 57
-		ac := ""
-		bc := ""
+		var ac, bc string
 
 		for _, c := range v.version[vi:] {
 			if !iser(c) {
-				vi--
 				break
 			}
 
@@ -85,7 +84,6 @@ func (v RedHatVersion) CompareStr(str string) int {
 
 		for _, c := range w.version[wi:] {
 			if !iser(c) {
-				wi--
 				break
 			}
 
@@ -95,7 +93,7 @@ func (v RedHatVersion) CompareStr(str string) int {
 
 		// 6. If the segment from `b` had 0 length, return 1 if the segment from `a` was numeric, or -1 if it was alphabetic. The logical result of this is that if `a` begins with numbers and `b` does not, `a` is newer (return 1). If `a` begins with letters and `b` does not, then `a` is older (return -1). If the leading character(s) from `a` and `b` were both numbers or both letters, continue on.
 		if bc == "" {
-			if unicode.IsDigit(rune(a)) {
+			if isDigit {
 				return +1
 			}
 
