@@ -145,7 +145,7 @@ var _ fs.ReadDirFS = Layer{}
 
 func (filemap Layer) getFileNode(path string) (*FileNode, error) {
 	// We expect all paths queried to be absolute paths rooted at the container root
-	// However, scalibr uses paths without a prepending /, because the paths are relative to Root
+	// However, scalibr uses paths without a prepending /, because the paths are relative to Root.
 	// Root will always be '/' for container scanning, so prepend with / if necessary.
 	if !filepath.IsAbs(path) {
 		path = filepath.Join("/", path)
