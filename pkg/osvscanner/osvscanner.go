@@ -374,7 +374,6 @@ func scanLockfile(r reporter.Reporter, path string, parseAs string, transitiveAc
 	// used by lockfile.Parse to avoid false-positives when scanning projects
 	switch parseAs {
 	case "apk-installed":
-		// inventories, err := apkinstalled.Extractor{}.Extract(context.Background(), &si)
 		inventories, err = lockfilescalibr.ExtractWithExtractor(context.Background(), path, apk.New(apk.DefaultConfig()))
 	case "dpkg-status":
 		inventories, err = lockfilescalibr.ExtractWithExtractor(context.Background(), path, dpkg.New(dpkg.DefaultConfig()))

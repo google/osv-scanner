@@ -83,20 +83,7 @@ func ExtractWithExtractor(ctx context.Context, localPath string, ext filesystem.
 		return nil, err
 	}
 
-	si, err := createScanInput(localPath, info)
-	if err != nil {
-		return nil, err
-	}
-	inv, err := ext.Extract(ctx, si)
-	if err != nil {
-		return nil, fmt.Errorf("(extracting as %s) %w", ext.Name(), err)
-	}
-
-	for i := range inv {
-		inv[i].Extractor = ext
-	}
-
-	return inv, nil
+	return extractWithExtractor(ctx, localPath, info, ext)
 }
 
 // Extract attempts to extract the file at the given path
@@ -120,27 +107,7 @@ func Extract(ctx context.Context, localPath string, extractAs string) ([]*extrac
 	}
 
 	if extractAs != "" {
-		for _, ext := range lockfileExtractors {
-			if lockfileExtractorMapping[extractAs] == ext.Name() {
-				si, err := createScanInput(localPath, info)
-				if err != nil {
-					return nil, err
-				}
-
-				inv, err := ext.Extract(ctx, si)
-				if err != nil {
-					return nil, fmt.Errorf("(extracting as %s) %w", extractAs, err)
-				}
-
-				for i := range inv {
-					inv[i].Extractor = ext
-				}
-
-				return inv, nil
-			}
-		}
-
-		return nil, fmt.Errorf("%w, requested %s", ErrExtractorNotFound, extractAs)
+		return extractAsSpecific(ctx, extractAs, localPath, info)
 	}
 
 	output := []*extractor.Inventory{}
@@ -149,19 +116,12 @@ func Extract(ctx context.Context, localPath string, extractAs string) ([]*extrac
 	for _, ext := range lockfileExtractors {
 		if ext.FileRequired(localPath, info) {
 			extractorFound = true
-			si, err := createScanInput(localPath, info)
+
+			inv, err := extractWithExtractor(ctx, localPath, info, ext)
 			if err != nil {
 				return nil, err
 			}
 
-			inv, err := ext.Extract(ctx, si)
-			if err != nil {
-				return nil, fmt.Errorf("(extracting as %s) %w", ext.Name(), err)
-			}
-
-			for i := range inv {
-				inv[i].Extractor = ext
-			}
 			output = append(output, inv...)
 		}
 	}
@@ -179,6 +139,34 @@ func Extract(ctx context.Context, localPath string, extractAs string) ([]*extrac
 	})
 
 	return output, nil
+}
+
+// Use the extractor specified by extractAs string key
+func extractAsSpecific(ctx context.Context, extractAs string, localPath string, info fs.FileInfo) ([]*extractor.Inventory, error) {
+	for _, ext := range lockfileExtractors {
+		if lockfileExtractorMapping[extractAs] == ext.Name() {
+			return extractWithExtractor(ctx, localPath, info, ext)
+		}
+	}
+
+	return nil, fmt.Errorf("%w, requested %s", ErrExtractorNotFound, extractAs)
+}
+
+func extractWithExtractor(ctx context.Context, localPath string, info fs.FileInfo, ext filesystem.Extractor) ([]*extractor.Inventory, error) {
+	si, err := createScanInput(localPath, info)
+	if err != nil {
+		return nil, err
+	}
+
+	inv, err := ext.Extract(ctx, si)
+	if err != nil {
+		return nil, fmt.Errorf("(extracting as %s) %w", ext.Name(), err)
+	}
+
+	for i := range inv {
+		inv[i].Extractor = ext
+	}
+	return inv, nil
 }
 
 func createScanInput(path string, fileInfo fs.FileInfo) (*filesystem.ScanInput, error) {
