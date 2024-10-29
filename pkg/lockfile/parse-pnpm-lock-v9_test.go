@@ -12,7 +12,6 @@ func TestParsePnpmLock_v9_NoPackages(t *testing.T) {
 	t.Parallel()
 
 	packages, err := lockfile.ParsePnpmLock("fixtures/pnpm/no-packages.v9.yaml")
-
 	if err != nil {
 		t.Errorf("Got unexpected error: %v", err)
 	}
@@ -24,7 +23,6 @@ func TestParsePnpmLock_v9_OnePackage(t *testing.T) {
 	t.Parallel()
 
 	packages, err := lockfile.ParsePnpmLock("fixtures/pnpm/one-package.v9.yaml")
-
 	if err != nil {
 		t.Errorf("Got unexpected error: %v", err)
 	}
@@ -37,6 +35,7 @@ func TestParsePnpmLock_v9_OnePackage(t *testing.T) {
 			TargetVersions: []string{"^8.11.3"},
 			Ecosystem:      lockfile.PnpmEcosystem,
 			CompareAs:      lockfile.PnpmEcosystem,
+			IsDirect:       true,
 		},
 	})
 }
@@ -45,7 +44,6 @@ func TestParsePnpmLock_v9_OnePackageDev(t *testing.T) {
 	t.Parallel()
 
 	packages, err := lockfile.ParsePnpmLock("fixtures/pnpm/one-package-dev.v9.yaml")
-
 	if err != nil {
 		t.Errorf("Got unexpected error: %v", err)
 	}
@@ -58,6 +56,7 @@ func TestParsePnpmLock_v9_OnePackageDev(t *testing.T) {
 			TargetVersions: []string{"^8.11.3"},
 			Ecosystem:      lockfile.PnpmEcosystem,
 			CompareAs:      lockfile.PnpmEcosystem,
+			IsDirect:       true,
 		},
 	})
 }
@@ -66,7 +65,6 @@ func TestParsePnpmLock_v9_ScopedPackages(t *testing.T) {
 	t.Parallel()
 
 	packages, err := lockfile.ParsePnpmLock("fixtures/pnpm/scoped-packages.v9.yaml")
-
 	if err != nil {
 		t.Errorf("Got unexpected error: %v", err)
 	}
@@ -79,6 +77,7 @@ func TestParsePnpmLock_v9_ScopedPackages(t *testing.T) {
 			TargetVersions: []string{"^5.0.0"},
 			Ecosystem:      lockfile.PnpmEcosystem,
 			CompareAs:      lockfile.PnpmEcosystem,
+			IsDirect:       true,
 		},
 	})
 }
@@ -87,7 +86,6 @@ func TestParsePnpmLock_v9_PeerDependencies(t *testing.T) {
 	t.Parallel()
 
 	packages, err := lockfile.ParsePnpmLock("fixtures/pnpm/peer-dependencies.v9.yaml")
-
 	if err != nil {
 		t.Errorf("Got unexpected error: %v", err)
 	}
@@ -100,6 +98,7 @@ func TestParsePnpmLock_v9_PeerDependencies(t *testing.T) {
 			TargetVersions: []string{"^5.3.2"},
 			Ecosystem:      lockfile.PnpmEcosystem,
 			CompareAs:      lockfile.PnpmEcosystem,
+			IsDirect:       true,
 		},
 		{
 			Name:           "acorn",
@@ -107,6 +106,7 @@ func TestParsePnpmLock_v9_PeerDependencies(t *testing.T) {
 			PackageManager: models.Pnpm,
 			Ecosystem:      lockfile.PnpmEcosystem,
 			CompareAs:      lockfile.PnpmEcosystem,
+			IsDirect:       false,
 		},
 	})
 }
@@ -115,7 +115,6 @@ func TestParsePnpmLock_v9_PeerDependenciesAdvanced(t *testing.T) {
 	t.Parallel()
 
 	packages, err := lockfile.ParsePnpmLock("fixtures/pnpm/peer-dependencies-advanced.v9.yaml")
-
 	if err != nil {
 		t.Errorf("Got unexpected error: %v", err)
 	}
@@ -127,6 +126,7 @@ func TestParsePnpmLock_v9_PeerDependenciesAdvanced(t *testing.T) {
 			PackageManager: models.Pnpm,
 			Ecosystem:      lockfile.PnpmEcosystem,
 			CompareAs:      lockfile.PnpmEcosystem,
+			IsDirect:       false,
 		},
 		{
 			Name:           "@eslint/eslintrc",
@@ -134,6 +134,7 @@ func TestParsePnpmLock_v9_PeerDependenciesAdvanced(t *testing.T) {
 			PackageManager: models.Pnpm,
 			Ecosystem:      lockfile.PnpmEcosystem,
 			CompareAs:      lockfile.PnpmEcosystem,
+			IsDirect:       false,
 		},
 		{
 			Name:           "@typescript-eslint/eslint-plugin",
@@ -142,6 +143,7 @@ func TestParsePnpmLock_v9_PeerDependenciesAdvanced(t *testing.T) {
 			TargetVersions: []string{"^5.12.0"},
 			Ecosystem:      lockfile.PnpmEcosystem,
 			CompareAs:      lockfile.PnpmEcosystem,
+			IsDirect:       true,
 		},
 		{
 			Name:           "@typescript-eslint/parser",
@@ -150,6 +152,7 @@ func TestParsePnpmLock_v9_PeerDependenciesAdvanced(t *testing.T) {
 			TargetVersions: []string{"^5.12.0"},
 			Ecosystem:      lockfile.PnpmEcosystem,
 			CompareAs:      lockfile.PnpmEcosystem,
+			IsDirect:       true,
 		},
 		{
 			Name:           "@typescript-eslint/type-utils",
@@ -157,6 +160,7 @@ func TestParsePnpmLock_v9_PeerDependenciesAdvanced(t *testing.T) {
 			PackageManager: models.Pnpm,
 			Ecosystem:      lockfile.PnpmEcosystem,
 			CompareAs:      lockfile.PnpmEcosystem,
+			IsDirect:       false,
 		},
 		{
 			Name:           "@typescript-eslint/typescript-estree",
@@ -164,6 +168,7 @@ func TestParsePnpmLock_v9_PeerDependenciesAdvanced(t *testing.T) {
 			PackageManager: models.Pnpm,
 			Ecosystem:      lockfile.PnpmEcosystem,
 			CompareAs:      lockfile.PnpmEcosystem,
+			IsDirect:       false,
 		},
 		{
 			Name:           "@typescript-eslint/utils",
@@ -171,6 +176,7 @@ func TestParsePnpmLock_v9_PeerDependenciesAdvanced(t *testing.T) {
 			PackageManager: models.Pnpm,
 			Ecosystem:      lockfile.PnpmEcosystem,
 			CompareAs:      lockfile.PnpmEcosystem,
+			IsDirect:       false,
 		},
 		{
 			Name:           "debug",
@@ -178,6 +184,7 @@ func TestParsePnpmLock_v9_PeerDependenciesAdvanced(t *testing.T) {
 			PackageManager: models.Pnpm,
 			Ecosystem:      lockfile.PnpmEcosystem,
 			CompareAs:      lockfile.PnpmEcosystem,
+			IsDirect:       false,
 		},
 		{
 			Name:           "eslint",
@@ -186,6 +193,7 @@ func TestParsePnpmLock_v9_PeerDependenciesAdvanced(t *testing.T) {
 			TargetVersions: []string{"^8.0.0"},
 			Ecosystem:      lockfile.PnpmEcosystem,
 			CompareAs:      lockfile.PnpmEcosystem,
+			IsDirect:       true,
 		},
 		{
 			Name:           "has-flag",
@@ -193,6 +201,7 @@ func TestParsePnpmLock_v9_PeerDependenciesAdvanced(t *testing.T) {
 			PackageManager: models.Pnpm,
 			Ecosystem:      lockfile.PnpmEcosystem,
 			CompareAs:      lockfile.PnpmEcosystem,
+			IsDirect:       false,
 		},
 		{
 			Name:           "supports-color",
@@ -200,6 +209,7 @@ func TestParsePnpmLock_v9_PeerDependenciesAdvanced(t *testing.T) {
 			PackageManager: models.Pnpm,
 			Ecosystem:      lockfile.PnpmEcosystem,
 			CompareAs:      lockfile.PnpmEcosystem,
+			IsDirect:       false,
 		},
 		{
 			Name:           "tsutils",
@@ -207,6 +217,7 @@ func TestParsePnpmLock_v9_PeerDependenciesAdvanced(t *testing.T) {
 			PackageManager: models.Pnpm,
 			Ecosystem:      lockfile.PnpmEcosystem,
 			CompareAs:      lockfile.PnpmEcosystem,
+			IsDirect:       false,
 		},
 		{
 			Name:           "typescript",
@@ -215,6 +226,7 @@ func TestParsePnpmLock_v9_PeerDependenciesAdvanced(t *testing.T) {
 			TargetVersions: []string{"^4.0.0"},
 			Ecosystem:      lockfile.PnpmEcosystem,
 			CompareAs:      lockfile.PnpmEcosystem,
+			IsDirect:       true,
 		},
 	})
 }
@@ -223,7 +235,6 @@ func TestParsePnpmLock_v9_MultipleVersions(t *testing.T) {
 	t.Parallel()
 
 	packages, err := lockfile.ParsePnpmLock("fixtures/pnpm/multiple-versions.v9.yaml")
-
 	if err != nil {
 		t.Errorf("Got unexpected error: %v", err)
 	}
@@ -235,6 +246,7 @@ func TestParsePnpmLock_v9_MultipleVersions(t *testing.T) {
 			PackageManager: models.Pnpm,
 			Ecosystem:      lockfile.PnpmEcosystem,
 			CompareAs:      lockfile.PnpmEcosystem,
+			IsDirect:       true,
 		},
 		{
 			Name:           "uuid",
@@ -243,6 +255,7 @@ func TestParsePnpmLock_v9_MultipleVersions(t *testing.T) {
 			TargetVersions: []string{"^8.0.0"},
 			Ecosystem:      lockfile.PnpmEcosystem,
 			CompareAs:      lockfile.PnpmEcosystem,
+			IsDirect:       true,
 		},
 		{
 			Name:           "xmlbuilder",
@@ -250,6 +263,7 @@ func TestParsePnpmLock_v9_MultipleVersions(t *testing.T) {
 			PackageManager: models.Pnpm,
 			Ecosystem:      lockfile.PnpmEcosystem,
 			CompareAs:      lockfile.PnpmEcosystem,
+			IsDirect:       false,
 		},
 	})
 }
@@ -258,7 +272,6 @@ func TestParsePnpmLock_v9_Commits(t *testing.T) {
 	t.Parallel()
 
 	packages, err := lockfile.ParsePnpmLock("fixtures/pnpm/commits.v9.yaml")
-
 	if err != nil {
 		t.Errorf("Got unexpected error: %v", err)
 	}
@@ -272,6 +285,7 @@ func TestParsePnpmLock_v9_Commits(t *testing.T) {
 			Ecosystem:      lockfile.PnpmEcosystem,
 			CompareAs:      lockfile.PnpmEcosystem,
 			Commit:         "02fa893d619d3da85411acc8fd4e2eea0e95a9d9",
+			IsDirect:       true,
 		},
 		{
 			Name:           "is-number",
@@ -281,6 +295,7 @@ func TestParsePnpmLock_v9_Commits(t *testing.T) {
 			Ecosystem:      lockfile.PnpmEcosystem,
 			CompareAs:      lockfile.PnpmEcosystem,
 			Commit:         "98e8ff1da1a89f93d1397a24d7413ed15421c139",
+			IsDirect:       true,
 		},
 	})
 }
@@ -289,7 +304,6 @@ func TestParsePnpmLock_v9_MixedGroups(t *testing.T) {
 	t.Parallel()
 
 	packages, err := lockfile.ParsePnpmLock("fixtures/pnpm/mixed-groups.v9.yaml")
-
 	if err != nil {
 		t.Errorf("Got unexpected error: %v", err)
 	}
@@ -302,6 +316,7 @@ func TestParsePnpmLock_v9_MixedGroups(t *testing.T) {
 			TargetVersions: []string{"^5.0.0"},
 			Ecosystem:      lockfile.PnpmEcosystem,
 			CompareAs:      lockfile.PnpmEcosystem,
+			IsDirect:       true,
 		},
 		{
 			Name:           "uuid",
@@ -310,6 +325,7 @@ func TestParsePnpmLock_v9_MixedGroups(t *testing.T) {
 			TargetVersions: []string{"^8.0.0"},
 			Ecosystem:      lockfile.PnpmEcosystem,
 			CompareAs:      lockfile.PnpmEcosystem,
+			IsDirect:       true,
 		},
 		{
 			Name:           "is-number",
@@ -318,6 +334,7 @@ func TestParsePnpmLock_v9_MixedGroups(t *testing.T) {
 			TargetVersions: []string{"^7.0.0"},
 			Ecosystem:      lockfile.PnpmEcosystem,
 			CompareAs:      lockfile.PnpmEcosystem,
+			IsDirect:       true,
 		},
 	})
 }

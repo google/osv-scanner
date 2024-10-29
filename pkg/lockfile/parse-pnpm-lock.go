@@ -33,9 +33,11 @@ type PnpmLockDependency struct {
 	Version   string `yaml:"version"`
 }
 
-type PnpmLockPackages map[string]PnpmLockPackage
-type PnpmSpecifiers map[string]string
-type PnpmDependencies map[string]PnpmLockDependency
+type (
+	PnpmLockPackages map[string]PnpmLockPackage
+	PnpmSpecifiers   map[string]string
+	PnpmDependencies map[string]PnpmLockDependency
+)
 
 type PnpmImporters struct {
 	Dot struct {
@@ -236,6 +238,7 @@ func parsePnpmLock(lockfile PnpmLockfile) []PackageDetails {
 		var targetVersions []string
 		var targetVersion string
 		var dependencyVersion string
+		var isDirect bool
 
 		// Find target and dependency version
 		if sp, ok := lockfile.Specifiers[name]; ok {
@@ -243,12 +246,14 @@ func parsePnpmLock(lockfile PnpmLockfile) []PackageDetails {
 			targetVersion = sp
 			dependencyVersion = ""
 			if _, v, f := getVersionInfo(name, lockfile.Dependencies, lockfile.OptionalDependencies, lockfile.DevDependencies); f {
+				isDirect = true
 				dependencyVersion = v
 			}
 		} else if sp, v, f := getVersionInfo(name, lockfile.Dependencies, lockfile.Importers.Dot.Dependencies, lockfile.Importers.Dot.OptionalDependencies, lockfile.Importers.Dot.DevDependencies); f {
 			// lockfile version >6.0
 			targetVersion = sp
 			dependencyVersion = v
+			isDirect = true
 		}
 
 		// Sanitize the target/dependency version
@@ -273,6 +278,7 @@ func parsePnpmLock(lockfile PnpmLockfile) []PackageDetails {
 			CompareAs:      PnpmEcosystem,
 			Commit:         commit,
 			DepGroups:      depGroups,
+			IsDirect:       isDirect,
 		})
 	}
 

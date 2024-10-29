@@ -6065,6 +6065,10 @@ No package sources found, --help for usage information.
       "purl": "pkg:npm/acorn@8.7.0",
       "properties": [
         {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:package-manager",
           "value": "Pnpm"
         }
@@ -9808,6 +9812,10 @@ Filtered 1 local package/s from the scan.
       "purl": "pkg:npm/acorn@8.7.0",
       "properties": [
         {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:package-manager",
           "value": "Pnpm"
         }
@@ -13549,6 +13557,10 @@ Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/yarn/yarn.lock
       "version": "8.7.0",
       "purl": "pkg:npm/acorn@8.7.0",
       "properties": [
+        {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
         {
           "name": "osv-scanner:package-manager",
           "value": "Pnpm"

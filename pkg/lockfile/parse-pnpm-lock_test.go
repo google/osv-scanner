@@ -90,7 +90,6 @@ func TestParsePnpmLock_Empty(t *testing.T) {
 	t.Parallel()
 
 	packages, err := lockfile.ParsePnpmLock("fixtures/pnpm/empty.yaml")
-
 	if err != nil {
 		t.Errorf("Got unexpected error: %v", err)
 	}
@@ -102,7 +101,6 @@ func TestParsePnpmLock_NoPackages(t *testing.T) {
 	t.Parallel()
 
 	packages, err := lockfile.ParsePnpmLock("fixtures/pnpm/no-packages.yaml")
-
 	if err != nil {
 		t.Errorf("Got unexpected error: %v", err)
 	}
@@ -131,6 +129,7 @@ func TestParsePnpmLock_OnePackage(t *testing.T) {
 			TargetVersions: []string{"^8.7.0"},
 			Ecosystem:      lockfile.PnpmEcosystem,
 			CompareAs:      lockfile.PnpmEcosystem,
+			IsDirect:       true,
 		},
 	})
 }
@@ -178,6 +177,7 @@ func TestParsePnpmLock_OnePackage_MatcherFailed(t *testing.T) {
 			TargetVersions: []string{"^8.7.0"},
 			Ecosystem:      lockfile.PnpmEcosystem,
 			CompareAs:      lockfile.PnpmEcosystem,
+			IsDirect:       true,
 		},
 	})
 
@@ -206,6 +206,7 @@ func TestParsePnpmLock_OnePackageV6Lockfile(t *testing.T) {
 			TargetVersions: []string{"8.7.0"},
 			Ecosystem:      lockfile.PnpmEcosystem,
 			CompareAs:      lockfile.PnpmEcosystem,
+			IsDirect:       true,
 		},
 	})
 }
@@ -231,6 +232,7 @@ func TestParsePnpmLock_OnePackageDev(t *testing.T) {
 			TargetVersions: []string{"^8.7.0"},
 			Ecosystem:      lockfile.PnpmEcosystem,
 			CompareAs:      lockfile.PnpmEcosystem,
+			IsDirect:       true,
 		},
 	})
 }
@@ -256,6 +258,7 @@ func TestParsePnpmLock_ScopedPackages(t *testing.T) {
 			TargetVersions: []string{"^5.0.0"},
 			Ecosystem:      lockfile.PnpmEcosystem,
 			CompareAs:      lockfile.PnpmEcosystem,
+			IsDirect:       true,
 		},
 	})
 }
@@ -281,6 +284,7 @@ func TestParsePnpmLock_ScopedPackagesV6Lockfile(t *testing.T) {
 			TargetVersions: []string{"^5.0.0"},
 			Ecosystem:      lockfile.PnpmEcosystem,
 			CompareAs:      lockfile.PnpmEcosystem,
+			IsDirect:       true,
 		},
 	})
 }
@@ -306,6 +310,7 @@ func TestParsePnpmLock_PeerDependencies(t *testing.T) {
 			TargetVersions: []string{"^5.3.2"},
 			Ecosystem:      lockfile.PnpmEcosystem,
 			CompareAs:      lockfile.PnpmEcosystem,
+			IsDirect:       true,
 		},
 		{
 			Name:           "acorn",
@@ -314,6 +319,7 @@ func TestParsePnpmLock_PeerDependencies(t *testing.T) {
 			TargetVersions: []string{"^8.7.0"},
 			Ecosystem:      lockfile.PnpmEcosystem,
 			CompareAs:      lockfile.PnpmEcosystem,
+			IsDirect:       true,
 		},
 	})
 }
@@ -339,6 +345,7 @@ func TestParsePnpmLock_PeerDependenciesAdvanced(t *testing.T) {
 			TargetVersions: []string{"^5.12.0"},
 			Ecosystem:      lockfile.PnpmEcosystem,
 			CompareAs:      lockfile.PnpmEcosystem,
+			IsDirect:       true,
 		},
 		{
 			Name:           "@typescript-eslint/parser",
@@ -347,6 +354,7 @@ func TestParsePnpmLock_PeerDependenciesAdvanced(t *testing.T) {
 			TargetVersions: []string{"^5.12.0"},
 			Ecosystem:      lockfile.PnpmEcosystem,
 			CompareAs:      lockfile.PnpmEcosystem,
+			IsDirect:       true,
 		},
 		{
 			Name:           "@typescript-eslint/type-utils",
@@ -354,6 +362,7 @@ func TestParsePnpmLock_PeerDependenciesAdvanced(t *testing.T) {
 			PackageManager: models.Pnpm,
 			Ecosystem:      lockfile.PnpmEcosystem,
 			CompareAs:      lockfile.PnpmEcosystem,
+			IsDirect:       false,
 		},
 		{
 			Name:           "@typescript-eslint/types",
@@ -361,6 +370,7 @@ func TestParsePnpmLock_PeerDependenciesAdvanced(t *testing.T) {
 			PackageManager: models.Pnpm,
 			Ecosystem:      lockfile.PnpmEcosystem,
 			CompareAs:      lockfile.PnpmEcosystem,
+			IsDirect:       false,
 		},
 		{
 			Name:           "@typescript-eslint/typescript-estree",
@@ -368,6 +378,7 @@ func TestParsePnpmLock_PeerDependenciesAdvanced(t *testing.T) {
 			PackageManager: models.Pnpm,
 			Ecosystem:      lockfile.PnpmEcosystem,
 			CompareAs:      lockfile.PnpmEcosystem,
+			IsDirect:       false,
 		},
 		{
 			Name:           "@typescript-eslint/utils",
@@ -375,6 +386,7 @@ func TestParsePnpmLock_PeerDependenciesAdvanced(t *testing.T) {
 			PackageManager: models.Pnpm,
 			Ecosystem:      lockfile.PnpmEcosystem,
 			CompareAs:      lockfile.PnpmEcosystem,
+			IsDirect:       false,
 		},
 		{
 			Name:           "eslint-utils",
@@ -382,6 +394,7 @@ func TestParsePnpmLock_PeerDependenciesAdvanced(t *testing.T) {
 			PackageManager: models.Pnpm,
 			Ecosystem:      lockfile.PnpmEcosystem,
 			CompareAs:      lockfile.PnpmEcosystem,
+			IsDirect:       false,
 		},
 		{
 			Name:           "eslint",
@@ -390,6 +403,7 @@ func TestParsePnpmLock_PeerDependenciesAdvanced(t *testing.T) {
 			TargetVersions: []string{"^8.0.0"},
 			Ecosystem:      lockfile.PnpmEcosystem,
 			CompareAs:      lockfile.PnpmEcosystem,
+			IsDirect:       true,
 		},
 		{
 			Name:           "tsutils",
@@ -397,6 +411,7 @@ func TestParsePnpmLock_PeerDependenciesAdvanced(t *testing.T) {
 			PackageManager: models.Pnpm,
 			Ecosystem:      lockfile.PnpmEcosystem,
 			CompareAs:      lockfile.PnpmEcosystem,
+			IsDirect:       false,
 		},
 	})
 }
@@ -422,6 +437,7 @@ func TestParsePnpmLock_MultiplePackages(t *testing.T) {
 			TargetVersions: []string{"^2.1087.0"},
 			Ecosystem:      lockfile.PnpmEcosystem,
 			CompareAs:      lockfile.PnpmEcosystem,
+			IsDirect:       true,
 		},
 		{
 			Name:           "base64-js",
@@ -429,6 +445,7 @@ func TestParsePnpmLock_MultiplePackages(t *testing.T) {
 			PackageManager: models.Pnpm,
 			Ecosystem:      lockfile.PnpmEcosystem,
 			CompareAs:      lockfile.PnpmEcosystem,
+			IsDirect:       false,
 		},
 		{
 			Name:           "buffer",
@@ -436,6 +453,7 @@ func TestParsePnpmLock_MultiplePackages(t *testing.T) {
 			PackageManager: models.Pnpm,
 			Ecosystem:      lockfile.PnpmEcosystem,
 			CompareAs:      lockfile.PnpmEcosystem,
+			IsDirect:       false,
 		},
 		{
 			Name:           "events",
@@ -443,6 +461,7 @@ func TestParsePnpmLock_MultiplePackages(t *testing.T) {
 			PackageManager: models.Pnpm,
 			Ecosystem:      lockfile.PnpmEcosystem,
 			CompareAs:      lockfile.PnpmEcosystem,
+			IsDirect:       false,
 		},
 		{
 			Name:           "ieee754",
@@ -457,6 +476,7 @@ func TestParsePnpmLock_MultiplePackages(t *testing.T) {
 			PackageManager: models.Pnpm,
 			Ecosystem:      lockfile.PnpmEcosystem,
 			CompareAs:      lockfile.PnpmEcosystem,
+			IsDirect:       false,
 		},
 		{
 			Name:           "jmespath",
@@ -464,6 +484,7 @@ func TestParsePnpmLock_MultiplePackages(t *testing.T) {
 			PackageManager: models.Pnpm,
 			Ecosystem:      lockfile.PnpmEcosystem,
 			CompareAs:      lockfile.PnpmEcosystem,
+			IsDirect:       false,
 		},
 		{
 			Name:           "punycode",
@@ -478,6 +499,7 @@ func TestParsePnpmLock_MultiplePackages(t *testing.T) {
 			PackageManager: models.Pnpm,
 			Ecosystem:      lockfile.PnpmEcosystem,
 			CompareAs:      lockfile.PnpmEcosystem,
+			IsDirect:       false,
 		},
 		{
 			Name:           "sax",
@@ -485,6 +507,7 @@ func TestParsePnpmLock_MultiplePackages(t *testing.T) {
 			PackageManager: models.Pnpm,
 			Ecosystem:      lockfile.PnpmEcosystem,
 			CompareAs:      lockfile.PnpmEcosystem,
+			IsDirect:       false,
 		},
 		{
 			Name:           "url",
@@ -492,6 +515,7 @@ func TestParsePnpmLock_MultiplePackages(t *testing.T) {
 			PackageManager: models.Pnpm,
 			Ecosystem:      lockfile.PnpmEcosystem,
 			CompareAs:      lockfile.PnpmEcosystem,
+			IsDirect:       false,
 		},
 		{
 			Name:           "uuid",
@@ -499,6 +523,7 @@ func TestParsePnpmLock_MultiplePackages(t *testing.T) {
 			PackageManager: models.Pnpm,
 			Ecosystem:      lockfile.PnpmEcosystem,
 			CompareAs:      lockfile.PnpmEcosystem,
+			IsDirect:       false,
 		},
 		{
 			Name:           "xml2js",
@@ -506,6 +531,7 @@ func TestParsePnpmLock_MultiplePackages(t *testing.T) {
 			PackageManager: models.Pnpm,
 			Ecosystem:      lockfile.PnpmEcosystem,
 			CompareAs:      lockfile.PnpmEcosystem,
+			IsDirect:       false,
 		},
 		{
 			Name:           "xmlbuilder",
@@ -513,6 +539,7 @@ func TestParsePnpmLock_MultiplePackages(t *testing.T) {
 			PackageManager: models.Pnpm,
 			Ecosystem:      lockfile.PnpmEcosystem,
 			CompareAs:      lockfile.PnpmEcosystem,
+			IsDirect:       false,
 		},
 	})
 }
@@ -537,6 +564,7 @@ func TestParsePnpmLock_MultipleVersions(t *testing.T) {
 			PackageManager: models.Pnpm,
 			Ecosystem:      lockfile.PnpmEcosystem,
 			CompareAs:      lockfile.PnpmEcosystem,
+			IsDirect:       true,
 		},
 		{
 			Name:           "uuid",
@@ -545,6 +573,7 @@ func TestParsePnpmLock_MultipleVersions(t *testing.T) {
 			TargetVersions: []string{"^8.0.0"},
 			Ecosystem:      lockfile.PnpmEcosystem,
 			CompareAs:      lockfile.PnpmEcosystem,
+			IsDirect:       true,
 		},
 		{
 			Name:           "xmlbuilder",
@@ -552,6 +581,7 @@ func TestParsePnpmLock_MultipleVersions(t *testing.T) {
 			PackageManager: models.Pnpm,
 			Ecosystem:      lockfile.PnpmEcosystem,
 			CompareAs:      lockfile.PnpmEcosystem,
+			IsDirect:       false,
 		},
 	})
 }
@@ -579,6 +609,7 @@ func TestParsePnpmLock_Tarball(t *testing.T) {
 			CompareAs:      lockfile.PnpmEcosystem,
 			Commit:         "",
 			DepGroups:      []string{"dev"},
+			IsDirect:       true,
 		},
 	})
 }
@@ -671,6 +702,7 @@ func TestParsePnpmLock_Commits(t *testing.T) {
 			Ecosystem:      lockfile.PnpmEcosystem,
 			CompareAs:      lockfile.PnpmEcosystem,
 			Commit:         "6104ae42cd32c3d724036d3964678f197b2c9cdb",
+			IsDirect:       true,
 		},
 		{
 			Name:           "@my-scope/my-package",
@@ -680,6 +712,7 @@ func TestParsePnpmLock_Commits(t *testing.T) {
 			Ecosystem:      lockfile.PnpmEcosystem,
 			CompareAs:      lockfile.PnpmEcosystem,
 			Commit:         "267087851ad5fac92a184749c27cd539e2fc862e",
+			IsDirect:       true,
 		},
 		{
 			Name:           "@my-scope/my-other-package",
@@ -688,6 +721,7 @@ func TestParsePnpmLock_Commits(t *testing.T) {
 			Ecosystem:      lockfile.PnpmEcosystem,
 			CompareAs:      lockfile.PnpmEcosystem,
 			Commit:         "fbfc962ab51eb1d754749b68c064460221fbd689",
+			IsDirect:       false,
 		},
 		{
 			Name:           "faker-parser",
@@ -696,6 +730,7 @@ func TestParsePnpmLock_Commits(t *testing.T) {
 			Ecosystem:      lockfile.PnpmEcosystem,
 			CompareAs:      lockfile.PnpmEcosystem,
 			Commit:         "d2dc42a9351d4d89ec48c525e34f612b6d77993f",
+			IsDirect:       false,
 		},
 		{
 			Name:           "mocks",
@@ -705,6 +740,7 @@ func TestParsePnpmLock_Commits(t *testing.T) {
 			Ecosystem:      lockfile.PnpmEcosystem,
 			CompareAs:      lockfile.PnpmEcosystem,
 			Commit:         "590f321b4eb3f692bb211bd74e22947639a6f79d",
+			IsDirect:       true,
 		},
 	})
 }
@@ -731,6 +767,7 @@ func TestParsePnpmLock_Files(t *testing.T) {
 			Ecosystem:      lockfile.NpmEcosystem,
 			CompareAs:      lockfile.NpmEcosystem,
 			Commit:         "",
+			IsDirect:       true,
 		},
 		{
 			Name:           "a-local-package",
@@ -739,6 +776,7 @@ func TestParsePnpmLock_Files(t *testing.T) {
 			Ecosystem:      lockfile.NpmEcosystem,
 			CompareAs:      lockfile.NpmEcosystem,
 			Commit:         "",
+			IsDirect:       false,
 		},
 		{
 			Name:           "a-nested-local-package",
@@ -747,6 +785,7 @@ func TestParsePnpmLock_Files(t *testing.T) {
 			Ecosystem:      lockfile.NpmEcosystem,
 			CompareAs:      lockfile.NpmEcosystem,
 			Commit:         "",
+			IsDirect:       false,
 		},
 		{
 			Name:           "one-up",
@@ -755,6 +794,7 @@ func TestParsePnpmLock_Files(t *testing.T) {
 			Ecosystem:      lockfile.NpmEcosystem,
 			CompareAs:      lockfile.NpmEcosystem,
 			Commit:         "",
+			IsDirect:       false,
 		},
 		{
 			Name:           "one-up-with-peer",
@@ -763,6 +803,7 @@ func TestParsePnpmLock_Files(t *testing.T) {
 			Ecosystem:      lockfile.NpmEcosystem,
 			CompareAs:      lockfile.NpmEcosystem,
 			Commit:         "",
+			IsDirect:       false,
 		},
 	})
 }
