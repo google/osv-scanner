@@ -141,6 +141,14 @@ func (v RedHatVersion) compareVersion(w RedHatVersion) int {
 	return 0
 }
 
+func (v RedHatVersion) compareRelease(w RedHatVersion) int {
+	if v.release == w.release {
+		return 0
+	}
+
+	panic("properly comparing Red Hat versions by release is not yet supported")
+}
+
 func (v RedHatVersion) CompareStr(str string) int {
 	w := parseRedHatVersion(str)
 
@@ -148,6 +156,9 @@ func (v RedHatVersion) CompareStr(str string) int {
 		return diff
 	}
 	if diff := v.compareVersion(w); diff != 0 {
+		return diff
+	}
+	if diff := v.compareRelease(w); diff != 0 {
 		return diff
 	}
 
