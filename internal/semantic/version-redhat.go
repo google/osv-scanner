@@ -107,7 +107,7 @@ func compareRedHatComponents(a, b string) int {
 			if len(ac) > len(bc) {
 				return +1
 			}
-			if len(bc) > len(ac) {
+			if len(ac) < len(bc) {
 				return -1
 			}
 		}
