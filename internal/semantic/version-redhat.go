@@ -12,7 +12,7 @@ type RedHatVersion struct {
 }
 
 func shouldBeTrimmed(r rune) bool {
-	return !unicode.IsLetter(r) && !unicode.IsDigit(r) && r != '~'
+	return !unicode.IsLetter(r) && !unicode.IsDigit(r) && r != '~' && r != '^'
 }
 
 // compareRedHatComponents compares two components of a RedHatVersion in the same
@@ -62,12 +62,39 @@ func compareRedHatComponents(a, b string) int {
 			return +1
 		}
 
-		// 4. End the loop if either string has reached zero length.
+		// 4. If both strings start with a caret, discard it and move on to the next character.
+		vStartsWithCaret := vi < len(a) && a[vi] == '^'
+		wStartsWithCaret := wi < len(b) && b[wi] == '^'
+
+		if vStartsWithCaret && wStartsWithCaret {
+			vi++
+			wi++
+
+			continue
+		}
+
+		// 5. if string `a` starts with a caret and string `b` does not, return -1 (string `a` is older) unless string `b` has reached zero length, in which case return +1 (string `a` is newer); and the inverse if string `b` starts with a caret and string `a` does not.
+		if vStartsWithCaret {
+			if wi == len(b) {
+				return +1
+			}
+
+			return -1
+		}
+		if wStartsWithCaret {
+			if vi == len(a) {
+				return -1
+			}
+
+			return +1
+		}
+
+		// 6. End the loop if either string has reached zero length.
 		if vi == len(a) || wi == len(b) {
 			break
 		}
 
-		// 5. If the first character of `a` is a digit, pop the leading chunk of continuous digits from each string (which may be "" for `b` if only one `a` starts with digits). If `a` begins with a letter, do the same for leading letters.
+		// 7. If the first character of `a` is a digit, pop the leading chunk of continuous digits from each string (which may be "" for `b` if only one `a` starts with digits). If `a` begins with a letter, do the same for leading letters.
 		isDigit := unicode.IsDigit(rune(a[vi]))
 
 		var iser func(r rune) bool
@@ -97,7 +124,7 @@ func compareRedHatComponents(a, b string) int {
 			wi++
 		}
 
-		// 6. If the segment from `b` had 0 length, return 1 if the segment from `a` was numeric, or -1 if it was alphabetic. The logical result of this is that if `a` begins with numbers and `b` does not, `a` is newer (return 1). If `a` begins with letters and `b` does not, then `a` is older (return -1). If the leading character(s) from `a` and `b` were both numbers or both letters, continue on.
+		// 8. If the segment from `b` had 0 length, return 1 if the segment from `a` was numeric, or -1 if it was alphabetic. The logical result of this is that if `a` begins with numbers and `b` does not, `a` is newer (return 1). If `a` begins with letters and `b` does not, then `a` is older (return -1). If the leading character(s) from `a` and `b` were both numbers or both letters, continue on.
 		if bc == "" {
 			if isDigit {
 				return +1
@@ -106,7 +133,7 @@ func compareRedHatComponents(a, b string) int {
 			return -1
 		}
 
-		// 7. If the leading segments were both numeric, discard any leading zeros and whichever one is longer wins. If `a` is longer than `b` (without leading zeroes), return 1, and vice versa. If they’re of the same length, continue on.
+		// 9. If the leading segments were both numeric, discard any leading zeros and whichever one is longer wins. If `a` is longer than `b` (without leading zeroes), return 1, and vice versa. If they’re of the same length, continue on.
 		if isDigit {
 			ac = strings.TrimLeft(ac, "0")
 			bc = strings.TrimLeft(bc, "0")
@@ -119,7 +146,7 @@ func compareRedHatComponents(a, b string) int {
 			}
 		}
 
-		// 8. Compare the leading segments with strcmp() (or <=> in Ruby). If that returns a non-zero value, then return that value. Else continue to the next iteration of the loop.
+		// 10. Compare the leading segments with strcmp() (or <=> in Ruby). If that returns a non-zero value, then return that value. Else continue to the next iteration of the loop.
 		if diff := strings.Compare(ac, bc); diff != 0 {
 			return diff
 		}
