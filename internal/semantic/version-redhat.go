@@ -151,26 +151,16 @@ func (v RedHatVersion) compareEpoch(w RedHatVersion) int {
 	return ve.Cmp(we)
 }
 
-// compareVersion compares the version component of two RedHatVersion structs
-func (v RedHatVersion) compareVersion(w RedHatVersion) int {
-	return compareRedHatComponents(v.version, w.version)
-}
-
-// compareRelease compares the release component of two RedHatVersion structs
-func (v RedHatVersion) compareRelease(w RedHatVersion) int {
-	return compareRedHatComponents(v.release, w.release)
-}
-
 func (v RedHatVersion) CompareStr(str string) int {
 	w := parseRedHatVersion(str)
 
 	if diff := v.compareEpoch(w); diff != 0 {
 		return diff
 	}
-	if diff := v.compareVersion(w); diff != 0 {
+	if diff := compareRedHatComponents(v.version, w.version); diff != 0 {
 		return diff
 	}
-	if diff := v.compareRelease(w); diff != 0 {
+	if diff := compareRedHatComponents(v.release, w.release); diff != 0 {
 		return diff
 	}
 
