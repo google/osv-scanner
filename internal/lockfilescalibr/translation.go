@@ -166,6 +166,7 @@ func extractWithExtractor(ctx context.Context, localPath string, info fs.FileInf
 	for i := range inv {
 		inv[i].Extractor = ext
 	}
+
 	return inv, nil
 }
 
