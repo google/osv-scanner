@@ -145,6 +145,12 @@ func (v RedHatVersion) compareRelease(w RedHatVersion) int {
 	if v.release == w.release {
 		return 0
 	}
+	if v.release == "" && w.release != "" {
+		return -1
+	}
+	if v.release != "" && w.release == "" {
+		return +1
+	}
 
 	var vi, wi int
 
@@ -301,7 +307,11 @@ func parseRedHatVersion(str string) RedHatVersion {
 		epoch = name
 	}
 
-	version, release, _ := strings.Cut(af, "-")
+	version, release, hasRelease := strings.Cut(af, "-")
+
+	if hasRelease {
+		release = "-" + release
+	}
 
 	if epoch == "" {
 		epoch = "0"
