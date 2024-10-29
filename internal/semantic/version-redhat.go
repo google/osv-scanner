@@ -18,6 +18,13 @@ func shouldBeTrimmed(r rune) bool {
 // compareRedHatComponents compares two components of a RedHatVersion in the same
 // manner as rpmvercmp(8) does.
 func compareRedHatComponents(a, b string) int {
+	if a == "" && b != "" {
+		return -1
+	}
+	if a != "" && b == "" {
+		return +1
+	}
+
 	var vi, wi int
 
 	for {
@@ -151,16 +158,6 @@ func (v RedHatVersion) compareVersion(w RedHatVersion) int {
 
 // compareRelease compares the release component of two RedHatVersion structs
 func (v RedHatVersion) compareRelease(w RedHatVersion) int {
-	if v.release == w.release {
-		return 0
-	}
-	if v.release == "" && w.release != "" {
-		return -1
-	}
-	if v.release != "" && w.release == "" {
-		return +1
-	}
-
 	return compareRedHatComponents(v.release, w.release)
 }
 
