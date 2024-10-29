@@ -44,7 +44,12 @@ func ScanImage(r reporter.Reporter, imagePath string) (ScanResults, error) {
 		// causing artifact extractors to double extract elements here.
 		// So let's skip all these directories for now.
 		// See (b/364536788)
-		if strings.HasPrefix(file.virtualPath, "/usr/local/") {
+		//
+		// https://en.wikipedia.org/wiki/Filesystem_Hierarchy_Standard
+		// > Secondary hierarchy for read-only user data; contains the majority of (multi-)user utilities and applications.
+		// > Should be shareable and read-only.
+		//
+		if strings.HasPrefix(file.virtualPath, "/usr/") {
 			continue
 		}
 
