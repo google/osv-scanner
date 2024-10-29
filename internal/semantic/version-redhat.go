@@ -139,22 +139,10 @@ func compareRedHatComponents(a, b string) int {
 	return 0
 }
 
-// compareEpoch compares the epoch component of two RedHatVersion structs
-func (v RedHatVersion) compareEpoch(w RedHatVersion) int {
-	if v.epoch == w.epoch {
-		return 0
-	}
-
-	ve := convertToBigIntOrPanic(v.epoch)
-	we := convertToBigIntOrPanic(w.epoch)
-
-	return ve.Cmp(we)
-}
-
 func (v RedHatVersion) CompareStr(str string) int {
 	w := parseRedHatVersion(str)
 
-	if diff := v.compareEpoch(w); diff != 0 {
+	if diff := compareRedHatComponents(v.epoch, w.epoch); diff != 0 {
 		return diff
 	}
 	if diff := compareRedHatComponents(v.version, w.version); diff != 0 {
