@@ -37,16 +37,16 @@ import (
 )
 
 type ScannerActions struct {
-	LockfilePaths        []string
-	SBOMPaths            []string
-	DirectoryPaths       []string
-	GitCommits           []string
-	Recursive            bool
-	SkipGit              bool
-	NoIgnore             bool
-	DockerContainerNames []string
-	ConfigOverridePath   string
-	CallAnalysisStates   map[string]bool
+	LockfilePaths      []string
+	SBOMPaths          []string
+	DirectoryPaths     []string
+	GitCommits         []string
+	Recursive          bool
+	SkipGit            bool
+	NoIgnore           bool
+	DockerImageName    string
+	ConfigOverridePath string
+	CallAnalysisStates map[string]bool
 
 	ExperimentalScannerActions
 }
@@ -644,16 +644,23 @@ func createCommitQueryPackage(commit string, source string) scannedPackage {
 	}
 }
 
-func scanDebianDocker(r reporter.Reporter, dockerImageName string) ([]scannedPackage, error) {
-	cmd := exec.Command("docker", "run", "--rm", "--entrypoint", "/usr/bin/dpkg-query", dockerImageName, "-f", "${Package}###${Version}\\n", "-W")
-	stdout, err := cmd.StdoutPipe()
+func scanDockerImage(r reporter.Reporter, dockerImageName string) ([]scannedPackage, error) {
+	cmd := exec.Command("docker", "save", dockerImageName)
 
+	tempImageFile, err := os.CreateTemp("", "docker-image-*.tar")
 	if err != nil {
-		r.Errorf("Failed to get stdout: %s\n", err)
+		r.Errorf("Failed to create temporary file: %s\n", err)
 		return nil, err
 	}
-	stderr, err := cmd.StderrPipe()
+	// TODO: Handle close/remove error.
+	defer tempImageFile.Close()
+	defer os.Remove(tempImageFile.Name())
 
+	// Write directly into the temporary image file
+	cmd.Stdout = tempImageFile
+
+	// Get stderr for debugging when docker fails
+	stderr, err := cmd.StderrPipe()
 	if err != nil {
 		r.Errorf("Failed to get stderr: %s\n", err)
 		return nil, err
@@ -661,55 +668,38 @@ func scanDebianDocker(r reporter.Reporter, dockerImageName string) ([]scannedPac
 
 	err = cmd.Start()
 	if err != nil {
-		r.Errorf("Failed to start docker image: %s\n", err)
+		r.Errorf("Failed to run docker command (%q): %s\n", cmd.String(), err)
 		return nil, err
 	}
-	defer func() {
-		var stderrlines []string
 
-		scanner := bufio.NewScanner(stderr)
-		for scanner.Scan() {
-			stderrlines = append(stderrlines, scanner.Text())
-		}
-
-		err := cmd.Wait()
-		if err != nil {
-			r.Errorf("Docker command exited with code %d\n", cmd.ProcessState.ExitCode())
-			for _, line := range stderrlines {
-				r.Errorf("> %s\n", line)
-			}
-		}
-	}()
-
-	scanner := bufio.NewScanner(stdout)
-	var packages []scannedPackage
+	// This has to be captured before cmd.Wait() is called, as cmd.Wait() closes the stderr pipe.
+	var stderrLines []string
+	scanner := bufio.NewScanner(stderr)
 	for scanner.Scan() {
-		text := scanner.Text()
-		text = strings.TrimSpace(text)
-		if len(text) == 0 {
-			continue
-		}
-		splitText := strings.Split(text, "###")
-		if len(splitText) != 2 {
-			r.Errorf("Unexpected output from Debian container: \n\n%s\n", text)
-			return nil, fmt.Errorf("unexpected output from Debian container: \n\n%s", text)
-		}
-		// TODO(rexpan): Get and specify exact debian release version
-		packages = append(packages, scannedPackage{
-			Name:      splitText[0],
-			Version:   splitText[1],
-			Ecosystem: "Debian",
-			Source: models.SourceInfo{
-				Path: dockerImageName,
-				Type: "docker",
-			},
-		})
+		stderrLines = append(stderrLines, scanner.Text())
 	}
-	r.Infof(
-		"Scanned docker image with %d %s\n",
-		len(packages),
-		output.Form(len(packages), "package", "packages"),
-	)
+
+	err = cmd.Wait()
+	if err != nil {
+		r.Errorf("Docker command exited with code (%q): %d\n", cmd.String(), cmd.ProcessState.ExitCode())
+		for _, line := range stderrLines {
+			r.Errorf("> %s\n", line)
+		}
+
+		return nil, err
+	}
+
+	packages, err := scanImage(r, tempImageFile.Name())
+	if err != nil {
+		return nil, err
+	}
+
+	// Modify the image path to be the image name, rather than the temporary file name
+	for i := range packages {
+		pathToModify := &packages[i].Source.Path
+		_, internalPath, _ := strings.Cut(*pathToModify, ":")
+		*pathToModify = dockerImageName + ":" + internalPath
+	}
 
 	return packages, nil
 }
@@ -895,9 +885,11 @@ func DoScan(actions ScannerActions, r reporter.Reporter) (models.VulnerabilityRe
 		scannedPackages = append(scannedPackages, pkgs...)
 	}
 
-	// TODO: Deprecated
-	for _, container := range actions.DockerContainerNames {
-		pkgs, _ := scanDebianDocker(r, container)
+	if actions.DockerImageName != "" {
+		pkgs, err := scanDockerImage(r, actions.DockerImageName)
+		if err != nil {
+			return models.VulnerabilityResults{}, err
+		}
 		scannedPackages = append(scannedPackages, pkgs...)
 	}
 
