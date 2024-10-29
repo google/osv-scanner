@@ -155,7 +155,7 @@ func (v RedHatVersion) CompareStr(str string) int {
 	return 0
 }
 
-// ParseRedHatVersion parses a Red Hat version into a RedHatVersion struct.
+// parseRedHatVersion parses a Red Hat version into a RedHatVersion struct.
 //
 // A Red Hat version contains the following components:
 // - name (of the package), represented as "n"
