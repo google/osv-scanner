@@ -268,7 +268,6 @@ func inWhiteoutDir(fileMap Layer, filePath string) bool {
 		if filePath == dirname {
 			break
 		}
-
 		node := fileMap.fileNodeTrie.Get(dirname)
 		if node != nil && node.isWhiteout {
 			return true
