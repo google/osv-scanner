@@ -110,15 +110,16 @@ func (v RedHatVersion) compareVersion(w RedHatVersion) int {
 		}
 
 		// 7. If the leading segments were both numeric, discard any leading zeros and whichever one is longer wins. If `a` is longer than `b` (without leading zeroes), return 1, and vice versa. If they’re of the same length, continue on.
-		ac = strings.TrimLeft(ac, "0")
-		bc = strings.TrimLeft(bc, "0")
+		if isDigit {
+			ac = strings.TrimLeft(ac, "0")
+			bc = strings.TrimLeft(bc, "0")
 
-		// todo: double check if this length check also applies to alphabetic segments
-		if len(ac) > len(bc) {
-			return +1
-		}
-		if len(bc) > len(ac) {
-			return -1
+			if len(ac) > len(bc) {
+				return +1
+			}
+			if len(bc) > len(ac) {
+				return -1
+			}
 		}
 
 		// 8. Compare the leading segments with strcmp() (or <=> in Ruby). If that returns a non-zero value, then return that value. Else continue to the next iteration of the loop.
@@ -235,15 +236,16 @@ func (v RedHatVersion) compareRelease(w RedHatVersion) int {
 		}
 
 		// 7. If the leading segments were both numeric, discard any leading zeros and whichever one is longer wins. If `a` is longer than `b` (without leading zeroes), return 1, and vice versa. If they’re of the same length, continue on.
-		ac = strings.TrimLeft(ac, "0")
-		bc = strings.TrimLeft(bc, "0")
+		if isDigit {
+			ac = strings.TrimLeft(ac, "0")
+			bc = strings.TrimLeft(bc, "0")
 
-		// todo: double check if this length check also applies to alphabetic segments
-		if len(ac) > len(bc) {
-			return +1
-		}
-		if len(bc) > len(ac) {
-			return -1
+			if len(ac) > len(bc) {
+				return +1
+			}
+			if len(bc) > len(ac) {
+				return -1
+			}
 		}
 
 		// 8. Compare the leading segments with strcmp() (or <=> in Ruby). If that returns a non-zero value, then return that value. Else continue to the next iteration of the loop.
