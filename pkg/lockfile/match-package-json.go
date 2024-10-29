@@ -51,6 +51,7 @@ func updatePackageLocations(pkg *PackageDetails, nameLocation *models.FilePositi
 	// Update version location
 	versionLocation.Filename = sourcefilePath
 	pkg.VersionLocation = versionLocation
+	pkg.IsDirect = true
 }
 
 func (m PackageJSONMatcher) Match(sourcefile DepFile, packages []PackageDetails) error {

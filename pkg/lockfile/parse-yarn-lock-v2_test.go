@@ -29,7 +29,6 @@ func TestParseYarnLock_v2_NoPackages(t *testing.T) {
 	t.Parallel()
 
 	packages, err := lockfile.ParseYarnLock("fixtures/yarn/empty.v2.lock")
-
 	if err != nil {
 		t.Errorf("Got unexpected error: %v", err)
 	}

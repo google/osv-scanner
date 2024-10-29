@@ -73,7 +73,7 @@ func extractYarnPackageNameAndTargetVersions(str string) (string, []string) {
 
 	var name, right string
 	var isScoped bool
-	var targetVersions = make([]string, 0)
+	targetVersions := make([]string, 0)
 
 	for _, part := range parts {
 		part = strings.TrimPrefix(part, " ")
