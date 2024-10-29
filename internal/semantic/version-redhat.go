@@ -70,7 +70,6 @@ func compareRedHatComponents(a, b string) int {
 			iser = unicode.IsLetter
 		}
 
-		// isDigit := a >= 48 && a <= 57
 		var ac, bc string
 
 		for _, c := range a[vi:] {
@@ -133,7 +132,7 @@ func compareRedHatComponents(a, b string) int {
 	return 0
 }
 
-
+// compareEpoch compares the epoch component of two RedHatVersion structs
 func (v RedHatVersion) compareEpoch(w RedHatVersion) int {
 	if v.epoch == w.epoch {
 		return 0
@@ -145,10 +144,12 @@ func (v RedHatVersion) compareEpoch(w RedHatVersion) int {
 	return ve.Cmp(we)
 }
 
+// compareVersion compares the version component of two RedHatVersion structs
 func (v RedHatVersion) compareVersion(w RedHatVersion) int {
 	return compareRedHatComponents(v.version, w.version)
 }
 
+// compareRelease compares the release component of two RedHatVersion structs
 func (v RedHatVersion) compareRelease(w RedHatVersion) int {
 	if v.release == w.release {
 		return 0
@@ -216,11 +217,3 @@ func parseRedHatVersion(str string) RedHatVersion {
 
 	return RedHatVersion{epoch, version, release}
 }
-
-// - RPM package names are made up of five parts; the package name, epoch, version, release, and architecture (NEVRA)
-// - The epoch is not always included; it is assumed to be zero (0) on any packages that lack it explicitly
-// - The format for the whole string is n-e:v-r.a
-//
-// - parsing:
-//   - If there is a : in the string, everything before it is the epoch. If not, the epoch is zero.
-//   - If there is a - in the remaining string, everything before the first - is the version, and everything after it is the release. If there isn’t one, the release is considered null/nill/None/whatever.
