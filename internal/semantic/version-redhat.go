@@ -15,16 +15,18 @@ func shouldBeTrimmed(r rune) bool {
 	return !unicode.IsLetter(r) && !unicode.IsDigit(r) && r != '~'
 }
 
-func (v RedHatVersion) CompareStr(str string) int {
-	w := parseRedHatVersion(str)
-
-	if v.epoch != w.epoch {
-		ve := convertToBigIntOrPanic(v.epoch)
-		we := convertToBigIntOrPanic(w.epoch)
-
-		return ve.Cmp(we)
+func (v RedHatVersion) compareEpoch(w RedHatVersion) int {
+	if v.epoch == w.epoch {
+		return 0
 	}
 
+	ve := convertToBigIntOrPanic(v.epoch)
+	we := convertToBigIntOrPanic(w.epoch)
+
+	return ve.Cmp(we)
+}
+
+func (v RedHatVersion) compareVersion(w RedHatVersion) int {
 	var vi, wi int
 
 	for {
@@ -134,6 +136,19 @@ func (v RedHatVersion) CompareStr(str string) int {
 	}
 	if vl < wl {
 		return -1
+	}
+
+	return 0
+}
+
+func (v RedHatVersion) CompareStr(str string) int {
+	w := parseRedHatVersion(str)
+
+	if diff := v.compareEpoch(w); diff != 0 {
+		return diff
+	}
+	if diff := v.compareVersion(w); diff != 0 {
+		return diff
 	}
 
 	return 0
