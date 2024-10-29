@@ -18,6 +18,13 @@ func shouldBeTrimmed(r rune) bool {
 func (v RedHatVersion) CompareStr(str string) int {
 	w := parseRedHatVersion(str)
 
+	if v.epoch != w.epoch {
+		ve := convertToBigIntOrPanic(v.epoch)
+		we := convertToBigIntOrPanic(w.epoch)
+
+		return ve.Cmp(we)
+	}
+
 	var vi, wi int
 
 	for {
@@ -158,6 +165,10 @@ func parseRedHatVersion(str string) RedHatVersion {
 	}
 
 	version, release, _ := strings.Cut(af, "-")
+
+	if epoch == "" {
+		epoch = "0"
+	}
 
 	return RedHatVersion{epoch, version, release}
 }
