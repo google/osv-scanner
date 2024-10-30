@@ -644,34 +644,21 @@ func createCommitQueryPackage(commit string, source string) scannedPackage {
 	}
 }
 
-func scanDockerImage(r reporter.Reporter, dockerImageName string) ([]scannedPackage, error) {
-	cmd := exec.Command("docker", "save", dockerImageName)
-
-	tempImageFile, err := os.CreateTemp("", "docker-image-*.tar")
-	if err != nil {
-		r.Errorf("Failed to create temporary file: %s\n", err)
-		return nil, err
-	}
-	// TODO: Handle close/remove error.
-	defer tempImageFile.Close()
-	defer os.Remove(tempImageFile.Name())
-
-	// Write directly into the temporary image file
-	cmd.Stdout = tempImageFile
+func runCommandLogError(r reporter.Reporter, name string, args ...string) error {
+	cmd := exec.Command(name, args...)
 
 	// Get stderr for debugging when docker fails
 	stderr, err := cmd.StderrPipe()
 	if err != nil {
 		r.Errorf("Failed to get stderr: %s\n", err)
-		return nil, err
+		return err
 	}
 
 	err = cmd.Start()
 	if err != nil {
 		r.Errorf("Failed to run docker command (%q): %s\n", cmd.String(), err)
-		return nil, err
+		return err
 	}
-
 	// This has to be captured before cmd.Wait() is called, as cmd.Wait() closes the stderr pipe.
 	var stderrLines []string
 	scanner := bufio.NewScanner(stderr)
@@ -681,14 +668,43 @@ func scanDockerImage(r reporter.Reporter, dockerImageName string) ([]scannedPack
 
 	err = cmd.Wait()
 	if err != nil {
-		r.Errorf("Docker command exited with code (%q): %d\n", cmd.String(), cmd.ProcessState.ExitCode())
+		r.Errorf("Docker command exited with code (%q): %d\nSTDERR:\n", cmd.String(), cmd.ProcessState.ExitCode())
 		for _, line := range stderrLines {
 			r.Errorf("> %s\n", line)
 		}
 
+		return fmt.Errorf("failed to run docker command")
+	}
+
+	return nil
+}
+
+func scanDockerImage(r reporter.Reporter, dockerImageName string) ([]scannedPackage, error) {
+	tempImageFile, err := os.CreateTemp("", "docker-image-*.tar")
+	if err != nil {
+		r.Errorf("Failed to create temporary file: %s\n", err)
 		return nil, err
 	}
 
+	err = tempImageFile.Close()
+	if err != nil {
+		return nil, err
+	}
+	defer os.Remove(tempImageFile.Name())
+
+	r.Infof("Pulling docker image (%q)...\n", dockerImageName)
+	err = runCommandLogError(r, "docker", "pull", "-q", dockerImageName)
+	if err != nil {
+		return nil, err
+	}
+
+	r.Infof("Saving docker image (%q) to temporary file...\n", dockerImageName)
+	err = runCommandLogError(r, "docker", "save", "-o", tempImageFile.Name(), dockerImageName)
+	if err != nil {
+		return nil, err
+	}
+
+	r.Infof("Scanning image...\n")
 	packages, err := scanImage(r, tempImageFile.Name())
 	if err != nil {
 		return nil, err

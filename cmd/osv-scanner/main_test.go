@@ -728,6 +728,48 @@ func TestRun_Licenses(t *testing.T) {
 	}
 }
 
+func TestRun_Docker(t *testing.T) {
+	t.Parallel()
+
+	testutility.SkipIfNotAcceptanceTesting(t, "Takes a long time to pull down images")
+
+	tests := []cliTestCase{
+		{
+			name: "Fake alpine image",
+			args: []string{"", "--docker", "alpine:non-existent-tag"},
+			exit: 127,
+		},
+		{
+			name: "Fake image entirely",
+			args: []string{"", "--docker", "this-image-definitely-does-not-exist-abcde"},
+			exit: 127,
+		},
+		// TODO: How to prevent these snapshots from changing constantly
+		{
+			name: "Real empty image",
+			args: []string{"", "--docker", "hello-world"},
+			exit: 128, // No packages found
+		},
+		{
+			name: "Real empty image with tag",
+			args: []string{"", "--docker", "hello-world:linux"},
+			exit: 128, // No package found
+		},
+		{
+			name: "Real Alpine image",
+			args: []string{"", "--docker", "alpine:3.18.9"},
+			exit: 0,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			t.Parallel()
+
+			testCli(t, tt)
+		})
+	}
+}
+
 func TestRun_OCIImage(t *testing.T) {
 	t.Parallel()
 
@@ -923,7 +965,7 @@ func TestRun_MavenTransitive(t *testing.T) {
 			exit: 1,
 		},
 		{
-			name: "resolve transitive dependencies with native datda source",
+			name: "resolve transitive dependencies with native data source",
 			args: []string{"", "--config=./fixtures/osv-scanner-empty-config.toml", "--experimental-resolution-data-source=native", "-L", "pom.xml:./fixtures/maven-transitive/registry.xml"},
 			exit: 1,
 		},
