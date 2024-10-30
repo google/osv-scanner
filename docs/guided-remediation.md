@@ -249,7 +249,7 @@ The following flag may be used to limit the patches allowed for your dependencie
 
 ### Data source
 
-By default, we use the [deps.dev API](https://docs.deps.dev/api/v3alpha/) to find version and dependency information of packages during remediation.
+By default, we use the [deps.dev API](https://docs.deps.dev/api/) to find version and dependency information of packages during remediation.
 
 If instead you'd like to use your ecosystem's native registry API (e.g. `https://registry.npmjs.org`), you can use the `--data-source=native` flag. `osv-scanner fix` will attempt to use the authentication specified by the native tooling (e.g. `npm config`)
 
@@ -264,7 +264,7 @@ If your project uses mirrored or private registries, you will need to use `--dat
 
 ### Offline Vulnerability Database
 
-The `fix` subcommand supports the `--experimental-offline` and `--experimental-download-offline-databases` flags.
+The `fix` subcommand supports the `--experimental-offline-vulnerabilities` and `--experimental-download-offline-databases` flags.
 
 For more information, see [Offline Mode](./offline-mode.md).
 
