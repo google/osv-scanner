@@ -23,7 +23,7 @@ This is the final feature v1 release of osv-scanner, future releases for v1 will
 - [Feature #1295](https://github.com/google/osv-scanner/pull/1295) Support offline database in fix subcommand.
 - [Feature #1342](https://github.com/google/osv-scanner/pull/1342) Add `--experimental-offline-vulnerabilities` and `--experimental-no-resolve` flags.
 - [Feature #1045](https://github.com/google/osv-scanner/pull/1045) Support private registries for Maven.
-- [Feature #1226](https://github.com/google/osv-scanner/pull/1045) Support support `vulnerabilities.ignore` in package overrides.
+- [Feature #1226](https://github.com/google/osv-scanner/pull/1226) Support support `vulnerabilities.ignore` in package overrides.
 
 ### Fixes:
 
@@ -32,7 +32,7 @@ This is the final feature v1 release of osv-scanner, future releases for v1 will
 - [Bug #1325](https://github.com/google/osv-scanner/pull/1325) Set CharsetReader and Entity when reading pom.xml.
 - [Bug #1310](https://github.com/google/osv-scanner/pull/1310) Update spdx license ids.
 - [Bug #1288](https://github.com/google/osv-scanner/pull/1288) Sort sbom packages by PURL.
-- [Bug #1288](https://github.com/google/osv-scanner/pull/1288) Improve handling if `docker` exits with a non-zero code when trying to scan images
+- [Bug #1285](https://github.com/google/osv-scanner/pull/1285) Improve handling if `docker` exits with a non-zero code when trying to scan images
 -
 
 ### API Changes:
