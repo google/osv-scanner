@@ -36,12 +36,13 @@ This is the final feature v1 release of osv-scanner, future releases for v1 will
 -
 
 ### API Changes:
+
 - Deprecate auxillary public packages: As part of the V2 update described above, we have started deprecating some of the auxillary packages
   which are not commonly used to give us more room to make better API designs. These include:
-    - `config`
-    - `depsdev`
-    - `grouper`
-    - `spdx`
+  - `config`
+  - `depsdev`
+  - `grouper`
+  - `spdx`
 
 # v1.9.0
 
