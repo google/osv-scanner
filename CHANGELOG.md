@@ -1,3 +1,48 @@
+OSV-Scanner v2 is coming soon! The next release will start with version `v2.0.0-alpha1`.
+
+Here's a peek at some of the exciting upcoming features:
+
+- Standalone container image scanning support.
+  - Including support for Alpine and Debian images.
+- Refactored internals to use `osv-scalibr` library for better extraction capabilities.
+- HTML output format for clearer vulnerability results.
+- More control over output format and logging.
+- ...and more!
+
+Importantly, the CLI interface of osv-scanner will be maintained with minimal breaking changes.
+Most breaking changes will only be in the API. More details in the upcoming alpha release.
+
+---
+
+This is the final feature v1 release of osv-scanner, future releases for v1 will only contain bug fixes.
+
+# v1.9.1
+
+### Features:
+
+- [Feature #1295](https://github.com/google/osv-scanner/pull/1295) Support offline database in fix subcommand.
+- [Feature #1342](https://github.com/google/osv-scanner/pull/1342) Add `--experimental-offline-vulnerabilities` and `--experimental-no-resolve` flags.
+- [Feature #1045](https://github.com/google/osv-scanner/pull/1045) Support private registries for Maven.
+- [Feature #1226](https://github.com/google/osv-scanner/pull/1045) Support support `vulnerabilities.ignore` in package overrides.
+
+### Fixes:
+
+- [Bug #604](https://github.com/google/osv-scanner/pull/604) Use correct path separator in SARIF output when on Windows.
+- [Bug #330](https://github.com/google/osv-scanner/pull/330) Warn about and ignore duplicate entries in SBOMs.
+- [Bug #1325](https://github.com/google/osv-scanner/pull/1325) Set CharsetReader and Entity when reading pom.xml.
+- [Bug #1310](https://github.com/google/osv-scanner/pull/1310) Update spdx license ids.
+- [Bug #1288](https://github.com/google/osv-scanner/pull/1288) Sort sbom packages by PURL.
+- [Bug #1288](https://github.com/google/osv-scanner/pull/1288) Improve handling if `docker` exits with a non-zero code when trying to scan images
+-
+
+### API Changes:
+- Deprecate auxillary public packages: As part of the V2 update described above, we have started deprecating some of the auxillary packages
+  which are not commonly used to give us more room to make better API designs. These include:
+    - `config`
+    - `depsdev`
+    - `grouper`
+    - `spdx`
+
 # v1.9.0
 
 ### Features:
