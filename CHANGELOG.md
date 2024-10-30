@@ -4,7 +4,7 @@ Here's a peek at some of the exciting upcoming features:
 
 - Standalone container image scanning support.
   - Including support for Alpine and Debian images.
-- Refactored internals to use `osv-scalibr` library for better extraction capabilities.
+- Refactored internals to use [`osv-scalibr`](https://github.com/google/osv-scalibr) library for better extraction capabilities.
 - HTML output format for clearer vulnerability results.
 - More control over output format and logging.
 - ...and more!
@@ -33,7 +33,6 @@ This is the final feature v1 release of osv-scanner, future releases for v1 will
 - [Bug #1310](https://github.com/google/osv-scanner/pull/1310) Update spdx license ids.
 - [Bug #1288](https://github.com/google/osv-scanner/pull/1288) Sort sbom packages by PURL.
 - [Bug #1285](https://github.com/google/osv-scanner/pull/1285) Improve handling if `docker` exits with a non-zero code when trying to scan images
--
 
 ### API Changes:
 
