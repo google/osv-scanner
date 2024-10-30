@@ -712,9 +712,8 @@ func scanDockerImage(r reporter.Reporter, dockerImageName string) ([]scannedPack
 
 	// Modify the image path to be the image name, rather than the temporary file name
 	for i := range packages {
-		pathToModify := &packages[i].Source.Path
-		_, internalPath, _ := strings.Cut(*pathToModify, ":")
-		*pathToModify = dockerImageName + ":" + internalPath
+		_, internalPath, _ := strings.Cut(packages[i].Source.Path, ":")
+		packages[i].Source.Path = dockerImageName + ":" + internalPath
 	}
 
 	return packages, nil
