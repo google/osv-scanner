@@ -926,6 +926,68 @@ Scanned <rootdir>/fixtures/call-analysis-go-project/go.mod file and found 4 pack
 
 ---
 
+[TestRun_Docker/Fake_alpine_image - 1]
+Pulling docker image ("alpine:non-existent-tag")...
+
+---
+
+[TestRun_Docker/Fake_alpine_image - 2]
+Docker command exited with code ("/usr/bin/docker pull -q alpine:non-existent-tag"): 1
+STDERR:
+> Error response from daemon: manifest for alpine:non-existent-tag not found: manifest unknown: manifest unknown
+failed to run docker command
+
+---
+
+[TestRun_Docker/Fake_image_entirely - 1]
+Pulling docker image ("this-image-definitely-does-not-exist-abcde")...
+
+---
+
+[TestRun_Docker/Fake_image_entirely - 2]
+Docker command exited with code ("/usr/bin/docker pull -q this-image-definitely-does-not-exist-abcde"): 1
+STDERR:
+> Error response from daemon: pull access denied for this-image-definitely-does-not-exist-abcde, repository does not exist or may require 'docker login': denied: requested access to the resource is denied
+failed to run docker command
+
+---
+
+[TestRun_Docker/Real_Alpine_image - 1]
+Pulling docker image ("alpine:3.18.9")...
+Saving docker image ("alpine:3.18.9") to temporary file...
+Scanning image...
+No issues found
+
+---
+
+[TestRun_Docker/Real_Alpine_image - 2]
+
+---
+
+[TestRun_Docker/Real_empty_image - 1]
+Pulling docker image ("hello-world")...
+Saving docker image ("hello-world") to temporary file...
+Scanning image...
+
+---
+
+[TestRun_Docker/Real_empty_image - 2]
+No package sources found, --help for usage information.
+
+---
+
+[TestRun_Docker/Real_empty_image_with_tag - 1]
+Pulling docker image ("hello-world:linux")...
+Saving docker image ("hello-world:linux") to temporary file...
+Scanning image...
+
+---
+
+[TestRun_Docker/Real_empty_image_with_tag - 2]
+No package sources found, --help for usage information.
+
+---
+
 [TestRun_GithubActions/scanning_osv-scanner_custom_format - 1]
 Scanned <rootdir>/fixtures/locks-insecure/osv-scanner-flutter-deps.json file as a osv-scanner and found 3 packages
 +--------------------------------+------+-----------+----------------------------+----------------------------+-------------------------------------------------------+
@@ -2520,7 +2582,7 @@ No issues found
 
 ---
 
-[TestRun_MavenTransitive/resolve_transitive_dependencies_with_native_datda_source - 1]
+[TestRun_MavenTransitive/resolve_transitive_dependencies_with_native_data_source - 1]
 Scanned <rootdir>/fixtures/maven-transitive/registry.xml file as a pom.xml and found 59 packages
 +-------------------------------------+------+-----------+-----------------------------------------------+---------+----------------------------------------+
 | OSV URL                             | CVSS | ECOSYSTEM | PACKAGE                                       | VERSION | SOURCE                                 |
@@ -2534,7 +2596,7 @@ Scanned <rootdir>/fixtures/maven-transitive/registry.xml file as a pom.xml and f
 
 ---
 
-[TestRun_MavenTransitive/resolve_transitive_dependencies_with_native_datda_source - 2]
+[TestRun_MavenTransitive/resolve_transitive_dependencies_with_native_data_source - 2]
 
 ---
 
