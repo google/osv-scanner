@@ -1,11 +1,13 @@
 <style>
   body {
-    font-family: sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f4f4f4;
-    color: #333;
+    background: #292929;
+    color: #fff;
     overflow-y: scroll;
+    font-family: "Overpass Mono", monospace;
+    font-size: 12pt;
+    font-weight: 100;
   }
 
   a {
@@ -13,31 +15,33 @@
   }
 
   .container {
-    width: 1400px;
+    max-width: 1400px;
     margin: 50px auto;
-    background-color: #fff;
+    /* background-color: #fff; */
     padding: 20px;
     border-radius: 5px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 5px rgba(255, 255, 255, 0.15);
     min-height: 90vh;
-  }
-
-  h1 {
-    text-align: center;
   }
 
   h2 {
     margin-top: 10px;
+    font-size: 15pt;
+  }
+
+  h3 {
+    font-size: 12pt;
   }
 
   h1,
   h2,
   h3 {
-    color: #333;
+    font-family: "Overpass Mono", monospace;
+    font-weight: normal;
   }
 
   .ecosystem {
-    margin-bottom: 20px;
+    margin-top: 20px;
   }
 
   .vulnerability {
@@ -56,43 +60,57 @@
   header {
     display: flex;
     align-items: center;
-    margin-bottom: 20px;
-    position: relative;
-    justify-content: space-evenly;
+    margin-bottom: 50px;
   }
 
   .logo {
-    height: 50px;
-    position: absolute;
-    left: 0;
+    height: 20px;
+    /* position: absolute; */
+    /* left: 0; */
+  }
+
+  header .vl {
+    border-left: 2px solid #fff;
+    height: 25px;
+    margin-left: 20px;
+    margin-right: 20px;
+
+  }
+
+  header h1 {
+    font-size: 23px;
   }
 
   .vuln-table {
     width: 100%;
-    text-align: center;
+    text-align: left;
     border-radius: 5px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     margin-bottom: 40px;
     margin-top: 10px;
+    color: rgba(255, 255, 255, 0.87);
+    border-spacing: 0;
   }
 
   .vuln-table th {
-    border-bottom: 1px solid #ddd;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+    ;
+    padding: 16px;
   }
 
   .vuln-tr {
-    cursor: pointer;
     line-height: 30px;
   }
 
   .vuln-tr td {
-    border-bottom: 1px solid #eee;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
     word-break: break-word;
     width: 200px;
+    padding: 16px;
   }
 
   .vuln-tr:hover {
-    background-color: #eee;
+    /* background-color: #eee; */
+    background-color: rgba(255, 255, 255, 0.04);
   }
 
   .vuln-id {
@@ -106,7 +124,7 @@
   }
 
   .vuln-details {
-    border-bottom: 1px solid #eee;
+    /* border-bottom: 1px solid #eee; */
     max-height: 400px;
     overflow: overlay;
   }
@@ -129,28 +147,256 @@
 
   #vuln-tab {
     display: none;
+    margin-top: 40px;
   }
 
   #tab-switch {
-    text-align: right;
+    text-align: left;
+    border-bottom: 1px solid #6c6c6c;
+    padding-left: 20px;
+    display: flex;
+    margin-bottom: 50px;
   }
 
   .tab-switch-button {
-    padding: 10px 20px;
-    width: auto;
-    border: 2px solid #fff;
+    width: 200px;
     outline: 0;
     cursor: pointer;
-    background-color: #eee;
-    font-size: 12pt;
-    font: bold;
+    background-color: transparent;
+    text-align: center;
+    /* This is where the magic happens. */
+    margin-right: 10px;
+    margin-right: 20px;
+    display: flex;
   }
 
-  .tab-switch-button:hover,
-  .tab-switch-button-selected {
-    background-color: #fff;
-    border-top: 2px solid #eee;
-    border-right: 2px solid #eee;
-    border-left: 2px solid #eee;
+  .tab-switch-button p {
+    padding: 20px 0;
+    width: 160px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    border-bottom: 2px solid transparent;
+    margin: 0;
+  }
+
+  .tab-switch-button span {
+    cursor: pointer;
+    font-size: 16px;
+    display: none;
+  }
+
+  .tab-switch-button:hover p {
+    border-bottom: 2px solid #eee;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+  }
+
+  .tab-switch-button:hover span {
+    display: block;
+    /* Show the close button on hover */
+  }
+
+  .tab-switch-button-selected p {
+    border-bottom: 2px solid #eee;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+
+  .osv-tab iframe {
+    width: 100%;
+    min-height: 1000px;
+    border: none;
+  }
+
+  #vuln-tab {
+    display: block;
+  }
+
+  .expand-icon {
+    /* display: inline-block; */
+    cursor: pointer;
+  }
+
+  .icon-td {
+    width: 10px !important;
+  }
+
+  /* .remediation {
+      padding: 10px;
+      background-color: rgba(255, 255, 255, 0.15);
+      border-radius: 10px;
+      width: fit-content;
+      margin-bottom: 20px;
+    } */
+
+  #filter-section {
+    display: flex;
+    width: 50%;
+  }
+
+  .filter-container {
+    margin-right: 20px;
+    max-width: 500px;
+  }
+
+  .filter {
+    margin-top: 10px;
+    width: 200px;
+    background-color: transparent;
+    border-radius: 10px;
+    padding: 10px 10px;
+    overflow: hidden;
+    color: #fff;
+  }
+
+  .filter-option-container {
+    /* display: none; */
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    overflow: hidden;
+    position: absolute;
+    background-color: #292929;
+    min-width: 200px;
+    max-width: 1400px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    /* Ensure it's above other elements */
+    display: none;
+  }
+
+  .type-filter-option {
+    border-bottom: 1px dotted #ddd;
+    padding: 15px 20px;
+    white-space: nowrap;
+    overflow: scroll;
+    cursor: pointer;
+  }
+
+  .type-filter-option:hover {
+    background-color: black;
+  }
+
+  select option {
+    display: none;
+  }
+
+  select {
+    cursor: pointer;
+    font-size: 12pt;
+  }
+
+  #summary-section {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  #severity-section {
+    display: flex;
+  }
+
+  .severity-long {
+    text-align: center;
+    min-width: 110px;
+    overflow: hidden;
+    white-space: nowrap;
+    /* height: 30px; */
+    /* padding: 10px 10px; */
+  }
+
+  .severity-long p {
+    font-size: 10pt;
+    padding: 5px 10px;
+    border-radius: 5px;
+    margin-right: 3px;
+  }
+
+  .critical {
+    background-color: #ad0300;
+  }
+
+  .high {
+    background-color: #ffa500;
+  }
+
+  .medium {
+    background-color: #ffd700;
+    color: #292929;
+  }
+
+  .low {
+    background-color: #53aa33;
+    color: #292929;
+  }
+
+  .unknown {
+    background-color: #80868b;
+  }
+
+  .severity-count-summary {
+    display: flex;
+  }
+
+  .severity-short {
+    width: 40px;
+  }
+
+  .severity-short p {
+    border-radius: 1px;
+    text-align: center;
+  }
+
+  /* CSS for the search box */
+  .search-box {
+    display: inline-block;
+    position: relative;
+    width: 100%;
+    border: 1px solid #fff;
+    background-color: transparent;
+    border-radius: 10px;
+    margin-top: 30px;
+  }
+
+  .search-box input[type="text"] {
+    padding: 10px 10px 10px 35px;
+    border: none;
+    background-color: transparent;
+    width: 90%;
+    margin-left: 10px;
+    color: #fff;
+  }
+
+  .search-box input[type="text"]:focus {
+    outline: none;
+  }
+
+  .search-icon {
+    position: absolute;
+    top: 50%;
+    left: 10px;
+    transform: translateY(-50%);
+  }
+
+  .package-detail-title {
+    color: #9AA0A6;
+  }
+
+  .inner-table {
+    width: 100%;
+    border: 0.5px solid rgba(255, 255, 255, 0.12);
+    border-spacing: 0px;
+    border-radius: 5px;
+  }
+
+  .inner-table th {
+    border-bottom: 0.5px solid rgba(255, 255, 255, 0.12);
+  }
+
+  .inner-table td {
+    border-bottom: 0.5px solid rgba(255, 255, 255, 0.12);
+  }
+
+  .expand-icon i.rotated {
+    transform: rotate(90deg);
   }
 </style>

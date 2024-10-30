@@ -1,5 +1,6 @@
 <table class="vuln-table">
   <tr>
+    <th></th>
     <th>Package</th>
     <th>Ecosystem</th>
     <th>Installed version</th>
@@ -11,8 +12,13 @@
   {{ continue }}
   {{ end }}
 
-  <tr class='vuln-tr' id="vuln-tr-{{ $element.Name}}-{{ $rowIndex }}"
-    onclick="showVulnDetails('{{ $element.Name }}-{{ $rowIndex }}')">
+  {{ $index := uniqueID }}
+  <tr class='vuln-tr' id="vuln-tr-{{ $index }}">
+    <td class="icon-td">
+      <div class="expand-icon" onclick="showPackageDetails('{{ $index }}')">
+        <i class="material-icons">play_arrow</i>
+      </div>
+    </td>
     <td>{{ $element.Name }}</td>
     <td>{{ $element.Ecosystem }}</td>
     <td>{{ $element.InstalledVersion }}</td>
@@ -35,8 +41,12 @@
   </tr>
   <tr>
     <td colspan="100%">
-      <div id="vuln-details-{{ $element.Name }}-{{ $rowIndex }}" class="vuln-details">
-        <p><strong>Source: {{ $element.Source }}</strong></p>
+      <div id="vuln-details-{{ $index }}" class="vuln-details">
+        <p><span class="package-detail-title">Layer Command:</span> {{ $element.HTMLPackageDetail.LayerCommand }}</p>
+        <p><span class="package-detail-title">Layer ID:</span> {{ $element.HTMLPackageDetail.LayerID }}</p>
+        <p><span class="package-detail-title">In Base Image:</span> {{ $element.HTMLPackageDetail.InBaseImage }}</p>
+        {{ template "vuln_table_template.html" $element.CalledVulns }}
+        <!-- <p><strong>Source: {{ $element.Source }}</strong></p>
         <p>Vulnerabilities:</p>
         {{ range $index, $vuln := $element.CalledVulns }}
         {{ if eq $vuln.Summary.FixedVersion "No fix available" }}
@@ -46,7 +56,7 @@
         <p><a href="https://osv.dev/{{ $vuln.Summary.ID }}">{{ $vuln.Summary.ID }}</a>
           ({{$vuln.Summary.SeverityRating}}) has a fixed version at {{$vuln.Summary.FixedVersion}}</p>
         {{ end }}
-        {{ end }}
+        {{ end }} -->
       </div>
     </td>
   </tr>

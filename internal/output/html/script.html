@@ -1,26 +1,109 @@
 <script>
-  function showVulnDetails(detailsId) {
+  function showPackageDetails(detailsId) {
     var detailsElement = document.getElementById("vuln-details-" + detailsId);
     var rowElement = document.getElementById("vuln-tr-" + detailsId);
+    const icon = document.querySelector(`#vuln-tr-${detailsId} .material-icons`); // Select the icon within the row
     if (detailsElement.style.display !== "block") {
       detailsElement.style.display = "block";
-      rowElement.style.backgroundColor = "#ddd";
+      // rowElement.style.backgroundColor = "#ddd";
+      icon.style.transform = 'rotate(90deg)'; // Rotate 90 degrees
+      icon.style.transition = 'transform 0.2s ease'; // Add smooth transition
     } else {
       detailsElement.style.display = "none";
-      rowElement.style.backgroundColor = "#fff";
+      // rowElement.style.backgroundColor = "#fff";
+      icon.style.transform = 'rotate(0deg)'; // Rotate back to 0 degrees
+      icon.style.transition = 'transform 0.2s ease'; // Add smooth transition
     }
   }
 
-  function openTab(view) {
-    var selectedTab = document.getElementById(view + "-tab");
-    var selectedButton = document.getElementById(view + "-button");
-    var tabs = document.getElementsByClassName("view-tab");
-    var buttons = document.getElementsByClassName("tab-switch-button");
-    for (var i = 0; i < buttons.length; i++) {
-      tabs[i].style.display = "none";
-      buttons[i].classList.remove("tab-switch-button-selected");
+  function openVulnInNewTab(inputString) {
+    const osvURL = `https://osv.dev/${inputString}`; // Replace with your URL structure
+    // Get the container element where you want to add the iframe.
+    const tabs = document.getElementById("tabs");
+    const tabSwitches = document.getElementById("tab-switch");
+
+    // Check if a div with the given ID already exists.
+    const existingTab = document.getElementById(inputString);
+    if (existingTab) {
+      // If the tab exists, just show it and hide all others.
+      openTab(inputString);
+      return;
     }
-    selectedTab.style.display = "block";
-    selectedButton.classList.add("tab-switch-button-selected");
+
+    // Create the new tab div.
+    const newTab = document.createElement("div");
+    newTab.id = inputString; // Set the ID to the input string
+    newTab.className = 'tab osv-tab'; // Set the class name
+
+    // Create the iframe element.
+    const iframe = document.createElement('iframe');
+    iframe.src = osvURL;
+
+    // Create a new tab button
+    const newTabButton = document.createElement('div');
+    newTabButton.id = inputString + '-button';
+    newTabButton.className = "tab-switch-button";
+    newTabButton.onclick = function () { openTab(inputString); };
+
+    // Add <p> and <span> elements to the button
+    const newTabText = document.createElement('p');
+    newTabText.textContent = inputString;
+    newTabButton.appendChild(newTabText);
+
+    const closeIcon = document.createElement('span');
+    closeIcon.className = "material-icons";
+    closeIcon.textContent = 'close';
+    newTabButton.appendChild(closeIcon);
+
+    // Add the iframe to the new tab div.
+    newTab.appendChild(iframe);
+    // Add the iframe to the container.
+    tabs.appendChild(newTab);
+    tabSwitches.appendChild(newTabButton);
+
+    openTab(newTab.id)
+  }
+
+  function openTab(activeTabId) {
+    const tabs = document.getElementsByClassName('tab');
+    const tabButtons = document.getElementsByClassName('tab-switch-button');
+    for (let i = 0; i < tabs.length; i++) {
+      if (tabs[i].id === activeTabId) {
+        tabs[i].style.display = 'block'; // Show the active tab
+        tabButtons[i].classList.add('tab-switch-button-selected');
+      } else {
+        tabs[i].style.display = 'none'; // Hide other tabs
+        tabButtons[i].classList.remove('tab-switch-button-selected');
+      }
+    }
+  }
+
+  function hideAllFilterOptons() {
+    const containers = document.getElementsByClassName('filter-option-container');
+    for (let i = 0; i < containers.length; i++) {
+      containers[i].style.display = 'none';
+    }
+  }
+
+  function toggleFilter(input) {
+    targetID = input + "-filter-option-container"
+    var optionContainer = document.getElementById(targetID);
+    const containers = document.getElementsByClassName('filter-option-container');
+    for (let i = 0; i < containers.length; i++) {
+      console.log(containers[i].id + ' and ' + targetID)
+      if (containers[i].id === targetID) {
+        console.log('Same container')
+        if (optionContainer.style.display !== "block") {
+          optionContainer.style.display = "block";
+        } else {
+          optionContainer.style.display = "none";
+        }
+      } else {
+        console.log('hide others')
+        containers[i].style.display = 'none';
+      }
+
+    }
+
   }
 </script>

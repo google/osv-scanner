@@ -1,2 +1,8 @@
 {{ $allPackageResults := getAllPackageResults .}}
-{{ template "package_table_template.html" $allPackageResults }}
+{{ range .  }}
+<h2>{{ .Ecosystem }}</h2>
+{{ range .Sources }}
+<h3>Source: {{ .Source }}</h3>
+{{ template "package_table_template.html" .PackageResults }}
+{{ end }}
+{{ end }}

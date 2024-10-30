@@ -1,0 +1,70 @@
+<div id="summary-section">
+    <div id="filter-section">
+        {{ if .IsContainerScanning }}
+        <div class="filter-container">
+            <label for="layer-filter">Layer<br></label>
+            <select id="layer-filter" class="filter" onclick="toggleFilter('layer')">
+                <option value="all">All layers ({{ .HTMLVulnCount.Called }})</option>
+            </select>
+            <div id="layer-filter-option-container" class="filter-option-container">
+                <option value="all" class="type-filter-option">All layers ({{ .HTMLVulnCount.Called }})</option>
+                {{ range .AllLayers }}
+                <option value="{{ .LayerID}}" class="type-filter-option">{{ .Index }} {{ .LayerCommand }} ({{ .Count.Called }})</option>
+                {{ end }}
+            </div>
+        </div>
+        {{ end }}
+
+        <div class="filter-container">
+            <label for="type-filter">Vulnerability type<br></label>
+            <select id="type-filter" class="filter" onclick="toggleFilter('type')">
+                <option value="All types" class="filter-selected">All types ({{ .VulnTypeCount.All }})</option>
+            </select>
+            </select>
+            <div id="type-filter-option-container" class="filter-option-container">
+                <div class="type-filter-option">
+                    <input type="checkbox" checked id="allTypes" value="All types">
+                    <label for="allTypes">All types ({{ .VulnTypeCount.All }})</label>
+                </div>
+                <div class="type-filter-option">
+                    <input type="checkbox" checked id="type1" value="Type 1">
+                    <label for="type1"> Project Vulnerabilities ({{ .VulnTypeCount.Project }})</label>
+                </div>
+                {{ if .IsContainerScanning }}
+                <div class="type-filter-option">
+                    <input type="checkbox" checked id="type2" value="Type 2">
+                    <label for="type2"> Operating system vulnerabilities ({{ .VulnTypeCount.OS }})</label>
+                </div>
+                {{ end }}
+                <div class="type-filter-option">
+                    <input type="checkbox" id="uncalled" value="Type 3">
+                    <label for="type3">Uncalled/Unimportant ({{ .VulnTypeCount.Uncalled }})</label>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div>
+        <label>Overall Severity</label>
+        <div id="severity-section">
+            <div id="critical-long" class="severity-long">
+                <p class="critical">2 Critical</p>
+            </div>
+            <div id="high-long" class="severity-long">
+                <p class="high">1 High</p>
+            </div>
+            <div id="medium-long" class="severity-long">
+                <p class="medium">3 Medium</p>
+            </div>
+            <div id="low-long" class="severity-long">
+                <p class="low">4 Low</p>
+            </div>
+            <div id="unknow-long" class="severity-long">
+                <p class="unknown">2 Unknown</p>
+            </div>
+        </div>
+    </div>
+
+
+</div>
