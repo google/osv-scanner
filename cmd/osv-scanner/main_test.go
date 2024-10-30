@@ -7,6 +7,7 @@ import (
 	"os"
 	"path/filepath"
 	"reflect"
+	"runtime"
 	"strings"
 	"testing"
 
@@ -765,7 +766,10 @@ func TestRun_Docker(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
 
-			testCli(t, tt)
+			// Only test on linux, and mac/windows CI/CD does not come with docker preinstalled
+			if runtime.GOOS == "linux" {
+				testCli(t, tt)
+			}
 		})
 	}
 }
