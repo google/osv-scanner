@@ -43,17 +43,11 @@ func compareRedHatComponents(a, b string) int {
 
 	for {
 		// 1. Trim anything that’s not [A-Za-z0-9], a tilde (~), or a caret (^) from the front of both strings.
-		for {
-			if ai == len(a) || !shouldBeTrimmed(rune(a[ai])) {
-				break
-			}
+		for ai < len(a) && shouldBeTrimmed(rune(a[ai])) {
 			ai++
 		}
 
-		for {
-			if bi == len(b) || !shouldBeTrimmed(rune(b[bi])) {
-				break
-			}
+		for bi < len(b) && shouldBeTrimmed(rune(b[bi])) {
 			bi++
 		}
 
