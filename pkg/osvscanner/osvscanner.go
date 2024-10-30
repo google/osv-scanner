@@ -673,7 +673,7 @@ func runCommandLogError(r reporter.Reporter, name string, args ...string) error 
 			r.Errorf("> %s\n", line)
 		}
 
-		return fmt.Errorf("failed to run docker command")
+		return errors.New("failed to run docker command")
 	}
 
 	return nil

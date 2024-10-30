@@ -57,7 +57,7 @@ func run(args []string, stdout, stderr io.Writer) int {
 	// early without proper error handling.
 	//
 	// This removes the handler entirely so that behavior will not unexpectedly happen.
-	app.ExitErrHandler = func(cCtx *cli.Context, err error) {}
+	app.ExitErrHandler = func(_ *cli.Context, _ error) {}
 
 	args = insertDefaultCommand(args, app.Commands, app.DefaultCommand, stdout, stderr)
 
