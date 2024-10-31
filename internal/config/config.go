@@ -112,17 +112,6 @@ func (c *Config) ShouldIgnorePackage(pkg models.PackageVulns) (bool, PackageOver
 	})
 }
 
-// Deprecated: Use ShouldIgnorePackage instead
-func (c *Config) ShouldIgnorePackageVersion(name, version, ecosystem string) (bool, PackageOverrideEntry) {
-	return c.ShouldIgnorePackage(models.PackageVulns{
-		Package: models.PackageInfo{
-			Name:      name,
-			Version:   version,
-			Ecosystem: ecosystem,
-		},
-	})
-}
-
 // ShouldIgnorePackageVulnerabilities determines if the given package should have its vulnerabilities ignored based on override entries in the config
 func (c *Config) ShouldIgnorePackageVulnerabilities(pkg models.PackageVulns) bool {
 	overrides, _ := c.filterPackageVersionEntries(pkg, func(e PackageOverrideEntry) bool {
@@ -136,17 +125,6 @@ func (c *Config) ShouldIgnorePackageVulnerabilities(pkg models.PackageVulns) boo
 func (c *Config) ShouldOverridePackageLicense(pkg models.PackageVulns) (bool, PackageOverrideEntry) {
 	return c.filterPackageVersionEntries(pkg, func(e PackageOverrideEntry) bool {
 		return e.License.Ignore || len(e.License.Override) > 0
-	})
-}
-
-// Deprecated: Use ShouldOverridePackageLicense instead
-func (c *Config) ShouldOverridePackageVersionLicense(name, version, ecosystem string) (bool, PackageOverrideEntry) {
-	return c.ShouldOverridePackageLicense(models.PackageVulns{
-		Package: models.PackageInfo{
-			Name:      name,
-			Version:   version,
-			Ecosystem: ecosystem,
-		},
 	})
 }
 
