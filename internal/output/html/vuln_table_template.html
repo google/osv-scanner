@@ -1,20 +1,41 @@
-<table class="vuln-table">
+<table class="inner-table">
   <tr>
     <th>Vulnerability ID</th>
     <th>Group IDs</th>
     <th>Fixed version</th>
-    <th>Severity</th>
+    <th class="severity-cell">Severity</th>
+    <th class="open-in-tab-cell"></th>
   </tr>
-  {{ range $rowIndex, $element := . }}
-  <tr class='vuln-tr' onclick="openVulnInNewTab('{{ $element.Summary.ID }}')">
+  {{ range $rowIndex, $element := .CalledVulns }}
+  <tr class='vuln-tr'>
     <td>{{ $element.Summary.ID }}</td>
     <td>{{ join $element.Detail.GroupIDs ", "}}</td>
-    <td {{ if eq $element.Summary.FixedVersion "No fix available" }} class="warning" {{ end }}>{{
-      $element.Summary.FixedVersion }}</td>
-    <td>{{ $element.Summary.SeverityRating }}
-      {{ if ne $element.Summary.SeverityRating "UNKNOWN" }}
-      ({{$element.Summary.SeverityScore }})
-      {{ end }}
+    <td>
+      <p {{ if eq $element.Summary.FixedVersion "No fix available" }} class="fixable-tag no-fix" {{ end }}>{{$element.Summary.FixedVersion }}</p></td>
+    <td class="severity-cell">
+      <div id="{{ toLower $element.Summary.SeverityRating }}-short" class="severity-short">
+        <p class="{{ toLower $element.Summary.SeverityRating }}">{{ $element.Summary.SeverityScore }}</p>
+      </div>
+    </td>
+    <td class="open-in-tab-cell">
+      <p class="open-in-tab-tag" onclick="openVulnInNewTab('{{ $element.Summary.ID }}')">Open in tab</p>
+    </td>
+  </tr>
+  {{ end }}
+
+  {{ range $rowIndex, $element := .UncalledVulns }}
+  <tr class='vuln-tr uncalled-tr'>
+    <td>{{ $element.Summary.ID }}</td>
+    <td>{{ join $element.Detail.GroupIDs ", "}}</td>
+    <td>
+      <p {{ if eq $element.Summary.FixedVersion "No fix available" }} class="fixable-tag no-fix" {{ end }}>{{$element.Summary.FixedVersion }}</p></td>
+    <td class="severity-cell">
+      <div id="{{ toLower $element.Summary.SeverityRating }}-short" class="severity-short">
+        <p class="{{ toLower $element.Summary.SeverityRating }}">{{ $element.Summary.SeverityScore }}</p>
+      </div>
+    </td>
+    <td class="open-in-tab-cell">
+      <p class="open-in-tab-tag" onclick="openVulnInNewTab('{{ $element.Summary.ID }}')">Open in tab</p>
     </td>
   </tr>
   {{ end }}

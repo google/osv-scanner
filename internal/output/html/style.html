@@ -25,12 +25,13 @@
   }
 
   h2 {
-    margin-top: 10px;
+    margin-top: 50px;
     font-size: 15pt;
   }
 
   h3 {
     font-size: 12pt;
+    margin-top: 30px;
   }
 
   h1,
@@ -81,6 +82,10 @@
     font-size: 23px;
   }
 
+  .material-icons {
+    vertical-align: middle;
+  }
+
   .vuln-table {
     width: 100%;
     text-align: left;
@@ -93,7 +98,6 @@
 
   .vuln-table th {
     border-bottom: 1px solid rgba(255, 255, 255, 0.12);
-    ;
     padding: 16px;
   }
 
@@ -109,7 +113,6 @@
   }
 
   .vuln-tr:hover {
-    /* background-color: #eee; */
     background-color: rgba(255, 255, 255, 0.04);
   }
 
@@ -121,28 +124,54 @@
     text-align: left;
     padding: 0 50px;
     display: none;
-  }
-
-  .vuln-details {
-    /* border-bottom: 1px solid #eee; */
-    max-height: 400px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+    max-height: 800px;
     overflow: overlay;
   }
 
-  #vuln-filter {
-    margin-top: 20px;
+  .vuln-tr:hover .open-in-tab-tag {
+    display: inline
   }
 
-  .artifact-section {
-    margin-bottom: 30px;
+  .open-in-tab-tag {
+    display: none;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    padding: 5px 5px;
+    border-radius: 4px;
+    width: fit-content;
   }
 
-  .uncalled {
-    margin-bottom: 20px;
+  .open-in-tab-cell {
+    width: 90px !important;
+    cursor: pointer;
   }
 
-  .warning {
-    color: #c5221f;
+  .severity-cell {
+    width: 60px !important;
+  }
+
+  .fixable-tag {
+    border-radius: 4px;
+    max-width: 250px;
+    width: fit-content;
+    padding: 0 5px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-align: center;
+  }
+
+  .has-fix {
+    background-color: #6A6A6A;
+  }
+
+  .no-fix {
+    background-color: #252525;
+    border: 1px solid #3C4043;
+  }
+
+  .uncalled-tr {
+    display: none;
   }
 
   #vuln-tab {
@@ -222,14 +251,6 @@
     width: 10px !important;
   }
 
-  /* .remediation {
-      padding: 10px;
-      background-color: rgba(255, 255, 255, 0.15);
-      border-radius: 10px;
-      width: fit-content;
-      margin-bottom: 20px;
-    } */
-
   #filter-section {
     display: flex;
     width: 50%;
@@ -242,12 +263,15 @@
 
   .filter {
     margin-top: 10px;
-    width: 200px;
+    width: 250px;
     background-color: transparent;
     border-radius: 10px;
-    padding: 10px 10px;
     overflow: hidden;
     color: #fff;
+    border: 1px solid #ddd;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 10px;
   }
 
   .filter-option-container {
@@ -265,25 +289,30 @@
     display: none;
   }
 
-  .type-filter-option {
+  .filter-option {
     border-bottom: 1px dotted #ddd;
     padding: 15px 20px;
     white-space: nowrap;
-    overflow: scroll;
     cursor: pointer;
   }
 
-  .type-filter-option:hover {
+  #layer-filter-option-container {
+    width: 1400px;
+  }
+
+  .layer-filter-option {
+    display: flex;
+    justify-content: space-between;
+    overflow: hidden;
+  }
+
+  .filter-option:hover {
     background-color: black;
   }
 
-  select option {
-    display: none;
-  }
-
-  select {
-    cursor: pointer;
-    font-size: 12pt;
+  .filter-icon i {
+    position: relative;
+    top: 25%;
   }
 
   #summary-section {
@@ -300,13 +329,11 @@
     min-width: 110px;
     overflow: hidden;
     white-space: nowrap;
-    /* height: 30px; */
-    /* padding: 10px 10px; */
   }
 
   .severity-long p {
     font-size: 10pt;
-    padding: 5px 10px;
+    padding: 5px 5px;
     border-radius: 5px;
     margin-right: 3px;
   }
@@ -364,6 +391,8 @@
     width: 90%;
     margin-left: 10px;
     color: #fff;
+    line-height: 2;
+    font-size: 12pt;
   }
 
   .search-box input[type="text"]:focus {
@@ -399,4 +428,5 @@
   .expand-icon i.rotated {
     transform: rotate(90deg);
   }
+
 </style>

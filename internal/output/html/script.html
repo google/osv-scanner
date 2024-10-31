@@ -2,15 +2,20 @@
   function showPackageDetails(detailsId) {
     var detailsElement = document.getElementById("vuln-details-" + detailsId);
     var rowElement = document.getElementById("vuln-tr-" + detailsId);
+    const rowCells = rowElement.querySelectorAll('td');
     const icon = document.querySelector(`#vuln-tr-${detailsId} .material-icons`); // Select the icon within the row
     if (detailsElement.style.display !== "block") {
       detailsElement.style.display = "block";
-      // rowElement.style.backgroundColor = "#ddd";
+      rowCells.forEach(cell => {
+        cell.style.borderBottom = "1px solid transparent";
+      });
       icon.style.transform = 'rotate(90deg)'; // Rotate 90 degrees
       icon.style.transition = 'transform 0.2s ease'; // Add smooth transition
     } else {
       detailsElement.style.display = "none";
-      // rowElement.style.backgroundColor = "#fff";
+      rowCells.forEach(cell => {
+        cell.style.borderBottom = "1px solid rgba(255, 255, 255, 0.12)";
+      });
       icon.style.transform = 'rotate(0deg)'; // Rotate back to 0 degrees
       icon.style.transition = 'transform 0.2s ease'; // Add smooth transition
     }
@@ -90,9 +95,7 @@
     var optionContainer = document.getElementById(targetID);
     const containers = document.getElementsByClassName('filter-option-container');
     for (let i = 0; i < containers.length; i++) {
-      console.log(containers[i].id + ' and ' + targetID)
       if (containers[i].id === targetID) {
-        console.log('Same container')
         if (optionContainer.style.display !== "block") {
           optionContainer.style.display = "block";
         } else {
@@ -106,4 +109,45 @@
     }
 
   }
+
+
+  document.addEventListener('DOMContentLoaded', function () {
+    // Get the container for the filter options
+    const typeFilterOptions = document.getElementById('type-filter-option-container');
+
+    // Add an event listener to the container to listen for changes in any checkbox
+    typeFilterOptions.addEventListener('change', function () {
+      const changedElement = event.target;
+      const allTypesCheckbox = document.getElementById('all-type-checkbox');
+      const projectCheckbox = document.getElementById('project-type-checkbox'); // Project vulnerabilities
+      const osCheckbox = document.getElementById('os-type-checkbox'); // OS vulnerabilities
+      const uncalledCheckbox = document.getElementById('uncalled-type-checkbox'); // OS vulnerabilities
+
+      const osTypeElements = document.querySelectorAll('.os-type');
+      const projectTypeElements = document.querySelectorAll('.project-type');
+      const uncalledTypeElements = document.querySelectorAll('.uncalled-tr');
+
+      if (allTypesCheckbox != null) {
+        if (changedElement == allTypesCheckbox) {
+          osCheckbox.checked = allTypesCheckbox.checked;
+          projectCheckbox.checked = allTypesCheckbox.checked;
+        }
+        if (osCheckbox.checked === false || projectCheckbox.checked === false) {
+          allTypesCheckbox.checked = false;
+        }
+        osTypeElements.forEach(element => {
+          element.style.display = osCheckbox.checked ? 'block' : 'none';
+        });
+      }
+
+      projectTypeElements.forEach(element => {
+        element.style.display = projectCheckbox.checked ? 'block' : 'none';
+      });
+
+      uncalledTypeElements.forEach(element => {
+        element.style.display = uncalledCheckbox.checked ? 'block' : 'none';
+      });
+    });
+  });
+
 </script>

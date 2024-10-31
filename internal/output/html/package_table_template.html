@@ -2,9 +2,8 @@
   <tr>
     <th></th>
     <th>Package</th>
-    <th>Ecosystem</th>
     <th>Installed version</th>
-    <th>Fixed version</th>
+    <th>Fixed available</th>
     <th>Vulnerability Count</th>
   </tr>
   {{ range $rowIndex, $element := . }}
@@ -20,24 +19,22 @@
       </div>
     </td>
     <td>{{ $element.Name }}</td>
-    <td>{{ $element.Ecosystem }}</td>
     <td>{{ $element.InstalledVersion }}</td>
-    {{ if ne $element.HTMLVulnCount.UnFixed 0 }}
-    {{ if eq $element.HTMLVulnCount.Fixed 0}}
-    <td class="warning">
-      {{ $element.FixedVersion }}
-    </td>
-    {{ else }}
-    <td class="warning">
-      {{ $element.FixedVersion }} (fixes {{ $element.HTMLVulnCount.Fixed }}/{{ $element.HTMLVulnCount.Called }})
-    </td>
-    {{ end }}
-    {{ else }}
     <td>
-      {{ $element.FixedVersion }}
+      {{ if ne $element.HTMLVulnCount.UnFixed 0 }}
+      {{ if eq $element.HTMLVulnCount.Fixed 0}}
+      <p class="fixable-tag no-fix">No fix available</p>
+      {{ else }}
+      <p class="fixable-tag has-fix">Partial fixes available ({{ $element.HTMLVulnCount.Fixed }}/{{
+        $element.HTMLVulnCount.Called }})</p>
+      {{ end }}
+      {{ else }}
+      <p class="fixable-tag has-fix">Fix available</p>
+      {{ end }}
     </td>
-    {{ end }}
-    <td>{{ printSeverityCountShort $element.HTMLVulnCount }}</td>
+    <td>
+      {{ template "severity_summary_template.html" $element.HTMLVulnCount }}
+    </td>
   </tr>
   <tr>
     <td colspan="100%">
@@ -45,18 +42,7 @@
         <p><span class="package-detail-title">Layer Command:</span> {{ $element.HTMLPackageDetail.LayerCommand }}</p>
         <p><span class="package-detail-title">Layer ID:</span> {{ $element.HTMLPackageDetail.LayerID }}</p>
         <p><span class="package-detail-title">In Base Image:</span> {{ $element.HTMLPackageDetail.InBaseImage }}</p>
-        {{ template "vuln_table_template.html" $element.CalledVulns }}
-        <!-- <p><strong>Source: {{ $element.Source }}</strong></p>
-        <p>Vulnerabilities:</p>
-        {{ range $index, $vuln := $element.CalledVulns }}
-        {{ if eq $vuln.Summary.FixedVersion "No fix available" }}
-        <p><a href="https://osv.dev/{{ $vuln.Summary.ID }}">{{ $vuln.Summary.ID }}</a>
-          ({{$vuln.Summary.SeverityRating}}) has no fix available</p>
-        {{ else }}
-        <p><a href="https://osv.dev/{{ $vuln.Summary.ID }}">{{ $vuln.Summary.ID }}</a>
-          ({{$vuln.Summary.SeverityRating}}) has a fixed version at {{$vuln.Summary.FixedVersion}}</p>
-        {{ end }}
-        {{ end }} -->
+        {{ template "vuln_table_template.html" $element }}
       </div>
     </td>
   </tr>

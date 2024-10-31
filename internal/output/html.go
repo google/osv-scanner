@@ -119,6 +119,7 @@ type VulnTypeCount struct {
 
 const UnfixedDescription = "No fix available"
 const VersionUnsupported = "N/A"
+const UnknownRating = "UNKNOWN"
 
 // HTML templates directory
 const TemplateDir = "html/*"
@@ -137,14 +138,14 @@ func BuildHTMLResults(vulnResult *models.VulnerabilityResults) HTMLResult {
 	var resultCount HTMLVulnCount
 
 	for _, packageSource := range vulnResult.Results {
-		// sourceName := packageSource.Source.String()
+		sourceName := packageSource.Source.String()
 		// Temporary workaround: it is a heuristic to ignore installed packages
 		// which are already covered by OS-specific vulnerabilities.
 		// This filtering should be handled by the container scanning process.
 		// TODO(gongh@): Revisit this after container scanning supports comprehensive functionality.
-		// if strings.Contains(sourceName, "/usr/lib/") {
-		// 	continue
-		// }
+		if strings.Contains(sourceName, "/usr/lib/") {
+			continue
+		}
 
 		// Process vulnerabilities for each source
 		sourceResult := processSource(packageSource)
@@ -252,6 +253,9 @@ func processPackageResults(allVulns []HTMLVulnResult, groupIDs map[string]models
 		// Get the max severity from groupInfo and increase the count
 		vuln.Summary.SeverityScore = groupInfo.MaxSeverity
 		vuln.Summary.SeverityRating, _ = severity.CalculateRating(vuln.Summary.SeverityScore)
+		if vuln.Summary.SeverityRating == UnknownRating {
+			vuln.Summary.SeverityScore = "N/A"
+		}
 
 		if _, isUncalled := uncalledVulnIDs[vuln.Summary.ID]; isUncalled {
 			packageResult.UncalledVulns = append(packageResult.UncalledVulns, vuln)
@@ -371,7 +375,10 @@ func buildHTMLResult(ecosystemMap map[string][]HTMLSourceResult, resultCount HTM
 	})
 
 	ecosystemResults = append(ecosystemResults, osResults...)
-	layers := getAllLayers(ecosystemResults)
+	var layers []LayerInfo
+	if isContainerScanning {
+		layers = getAllLayers(ecosystemResults)
+	}
 	vulnTypeCount := getVulnTypeCount(ecosystemResults)
 
 	return HTMLResult{
@@ -430,6 +437,7 @@ func getAllLayers(result []HTMLEcosystemResult) []LayerInfo {
 				} else {
 					resultCount := layerCount[layerID]
 					updateCount(&resultCount, &packageInfo.HTMLVulnCount)
+					layerCount[layerID] = resultCount
 				}
 			}
 		}
@@ -630,6 +638,7 @@ func PrintHTMLResults(vulnResult *models.VulnerabilityResults, outputWriter io.W
 		"printSeverityCount":      printSeverityCount,
 		"printSeverityCountShort": printSeverityCountShort,
 		"join":                    strings.Join,
+		"toLower":                 strings.ToLower,
 	}
 
 	tmpl := template.Must(template.New("").Funcs(funcMap).ParseFS(templates, TemplateDir))
