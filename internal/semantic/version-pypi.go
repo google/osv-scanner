@@ -225,10 +225,6 @@ func (pv PyPIVersion) comparePre(pw PyPIVersion) int {
 		ai := pv.preIndex()
 		bi := pw.preIndex()
 
-		if ai == bi {
-			return pv.pre.number.Cmp(pw.pre.number)
-		}
-
 		if ai > bi {
 			return +1
 		}
@@ -236,7 +232,7 @@ func (pv PyPIVersion) comparePre(pw PyPIVersion) int {
 			return -1
 		}
 
-		return 0
+		return pv.pre.number.Cmp(pw.pre.number)
 	}
 }
 
