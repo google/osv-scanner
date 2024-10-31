@@ -586,3 +586,12 @@ func TestParsePnpmLock_Files(t *testing.T) {
 		},
 	})
 }
+
+func TestParsePnpmLock_InvalidPackagePath(t *testing.T) {
+	t.Parallel()
+
+	packages, err := lockfile.ParsePnpmLock("fixtures/pnpm/invalid-package-path.yaml")
+
+	expectErrContaining(t, err, "invalid package path")
+	expectPackages(t, packages, []lockfile.PackageDetails{})
+}
