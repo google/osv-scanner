@@ -23,8 +23,10 @@ type NuGetLockfile struct {
 	Dependencies map[string]map[string]NuGetLockPackage `json:"dependencies"`
 }
 
-const NuGetEcosystem Ecosystem = "NuGet"
-const projectDependencyType = "Project"
+const (
+	NuGetEcosystem        Ecosystem = "NuGet"
+	projectDependencyType string    = "Project"
+)
 
 func parseNuGetLockDependencies(dependencies map[string]NuGetLockPackage) map[string]PackageDetails {
 	details := map[string]PackageDetails{}
@@ -39,6 +41,7 @@ func parseNuGetLockDependencies(dependencies map[string]NuGetLockPackage) map[st
 			PackageManager: models.NuGet,
 			Ecosystem:      NuGetEcosystem,
 			CompareAs:      NuGetEcosystem,
+			IsDirect:       dependency.Type == "Direct",
 		}
 	}
 
@@ -70,7 +73,6 @@ func (e NuGetLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 	var parsedLockfile *NuGetLockfile
 
 	err := json.NewDecoder(f).Decode(&parsedLockfile)
-
 	if err != nil {
 		return []PackageDetails{}, fmt.Errorf("could not extract from %s: %w", f.Path(), err)
 	}

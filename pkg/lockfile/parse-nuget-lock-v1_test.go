@@ -36,7 +36,6 @@ func TestParseNuGetLock_v1_NoPackages(t *testing.T) {
 	t.Parallel()
 
 	packages, err := lockfile.ParseNuGetLock("fixtures/nuget/empty.v1.json")
-
 	if err != nil {
 		t.Errorf("Got unexpected error: %v", err)
 	}
@@ -48,7 +47,6 @@ func TestParseNuGetLock_v1_OneFramework_OnePackage(t *testing.T) {
 	t.Parallel()
 
 	packages, err := lockfile.ParseNuGetLock("fixtures/nuget/one-framework-one-package.v1.json")
-
 	if err != nil {
 		t.Errorf("Got unexpected error: %v", err)
 	}
@@ -60,6 +58,7 @@ func TestParseNuGetLock_v1_OneFramework_OnePackage(t *testing.T) {
 			PackageManager: models.NuGet,
 			Ecosystem:      lockfile.NuGetEcosystem,
 			CompareAs:      lockfile.NuGetEcosystem,
+			IsDirect:       true,
 		},
 	})
 }
@@ -68,7 +67,6 @@ func TestParseNuGetLock_v1_OneFramework_TwoPackages(t *testing.T) {
 	t.Parallel()
 
 	packages, err := lockfile.ParseNuGetLock("fixtures/nuget/one-framework-two-packages.v1.json")
-
 	if err != nil {
 		t.Errorf("Got unexpected error: %v", err)
 	}
@@ -80,6 +78,7 @@ func TestParseNuGetLock_v1_OneFramework_TwoPackages(t *testing.T) {
 			PackageManager: models.NuGet,
 			Ecosystem:      lockfile.NuGetEcosystem,
 			CompareAs:      lockfile.NuGetEcosystem,
+			IsDirect:       true,
 		},
 		{
 			Name:           "Test.System",
@@ -87,6 +86,7 @@ func TestParseNuGetLock_v1_OneFramework_TwoPackages(t *testing.T) {
 			PackageManager: models.NuGet,
 			Ecosystem:      lockfile.NuGetEcosystem,
 			CompareAs:      lockfile.NuGetEcosystem,
+			IsDirect:       true,
 		},
 	})
 }
@@ -95,7 +95,6 @@ func TestParseNuGetLock_v1_TwoFrameworks_MixedPackages(t *testing.T) {
 	t.Parallel()
 
 	packages, err := lockfile.ParseNuGetLock("fixtures/nuget/two-frameworks-mixed-packages.v1.json")
-
 	if err != nil {
 		t.Errorf("Got unexpected error: %v", err)
 	}
@@ -107,6 +106,7 @@ func TestParseNuGetLock_v1_TwoFrameworks_MixedPackages(t *testing.T) {
 			PackageManager: models.NuGet,
 			Ecosystem:      lockfile.NuGetEcosystem,
 			CompareAs:      lockfile.NuGetEcosystem,
+			IsDirect:       true,
 		},
 		{
 			Name:           "Test.System",
@@ -114,6 +114,7 @@ func TestParseNuGetLock_v1_TwoFrameworks_MixedPackages(t *testing.T) {
 			PackageManager: models.NuGet,
 			Ecosystem:      lockfile.NuGetEcosystem,
 			CompareAs:      lockfile.NuGetEcosystem,
+			IsDirect:       true,
 		},
 		{
 			Name:           "Test.System",
@@ -121,6 +122,7 @@ func TestParseNuGetLock_v1_TwoFrameworks_MixedPackages(t *testing.T) {
 			PackageManager: models.NuGet,
 			Ecosystem:      lockfile.NuGetEcosystem,
 			CompareAs:      lockfile.NuGetEcosystem,
+			IsDirect:       true,
 		},
 	})
 }
@@ -129,7 +131,6 @@ func TestParseNuGetLock_v1_TwoFrameworks_DifferentPackages(t *testing.T) {
 	t.Parallel()
 
 	packages, err := lockfile.ParseNuGetLock("fixtures/nuget/two-frameworks-different-packages.v1.json")
-
 	if err != nil {
 		t.Errorf("Got unexpected error: %v", err)
 	}
@@ -141,6 +142,7 @@ func TestParseNuGetLock_v1_TwoFrameworks_DifferentPackages(t *testing.T) {
 			PackageManager: models.NuGet,
 			Ecosystem:      lockfile.NuGetEcosystem,
 			CompareAs:      lockfile.NuGetEcosystem,
+			IsDirect:       true,
 		},
 		{
 			Name:           "Test.System",
@@ -148,6 +150,7 @@ func TestParseNuGetLock_v1_TwoFrameworks_DifferentPackages(t *testing.T) {
 			PackageManager: models.NuGet,
 			Ecosystem:      lockfile.NuGetEcosystem,
 			CompareAs:      lockfile.NuGetEcosystem,
+			IsDirect:       true,
 		},
 	})
 }
@@ -156,7 +159,6 @@ func TestParseNuGetLock_v1_TwoFrameworks_DuplicatePackages(t *testing.T) {
 	t.Parallel()
 
 	packages, err := lockfile.ParseNuGetLock("fixtures/nuget/two-frameworks-duplicate-packages.v1.json")
-
 	if err != nil {
 		t.Errorf("Got unexpected error: %v", err)
 	}
@@ -168,6 +170,7 @@ func TestParseNuGetLock_v1_TwoFrameworks_DuplicatePackages(t *testing.T) {
 			PackageManager: models.NuGet,
 			Ecosystem:      lockfile.NuGetEcosystem,
 			CompareAs:      lockfile.NuGetEcosystem,
+			IsDirect:       true,
 		},
 	})
 }
@@ -209,6 +212,7 @@ func TestParseNuGetLock_v1_OneFramework_OnePackage_MatchedFailed(t *testing.T) {
 			PackageManager: models.NuGet,
 			Ecosystem:      lockfile.NuGetEcosystem,
 			CompareAs:      lockfile.NuGetEcosystem,
+			IsDirect:       true,
 		},
 	})
 

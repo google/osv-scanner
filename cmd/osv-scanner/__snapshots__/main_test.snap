@@ -2477,6 +2477,10 @@ Warning: `scan` exists as both a subcommand of OSV-Scanner and as a file on the 
       "purl": "pkg:nuget/Test.Core@6.0.5",
       "properties": [
         {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:package-manager",
           "value": "NuGet"
         }
@@ -6141,6 +6145,10 @@ No package sources found, --help for usage information.
       "purl": "pkg:nuget/Downloader@3.1.2",
       "properties": [
         {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:package-manager",
           "value": "NuGet"
         }
@@ -6160,6 +6168,10 @@ No package sources found, --help for usage information.
       "version": "5.1.0",
       "purl": "pkg:nuget/MaterialDesignThemes@5.1.0",
       "properties": [
+        {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
         {
           "name": "osv-scanner:package-manager",
           "value": "NuGet"
@@ -6181,6 +6193,10 @@ No package sources found, --help for usage information.
       "purl": "pkg:nuget/Test.Core@6.0.5",
       "properties": [
         {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:package-manager",
           "value": "NuGet"
         }
@@ -6200,6 +6216,10 @@ No package sources found, --help for usage information.
       "version": "6.0.6",
       "purl": "pkg:nuget/Test.Core@6.0.6",
       "properties": [
+        {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
         {
           "name": "osv-scanner:package-manager",
           "value": "NuGet"
@@ -9892,6 +9912,10 @@ Filtered 1 local package/s from the scan.
       "purl": "pkg:nuget/Downloader@3.1.2",
       "properties": [
         {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:package-manager",
           "value": "NuGet"
         }
@@ -9911,6 +9935,10 @@ Filtered 1 local package/s from the scan.
       "version": "5.1.0",
       "purl": "pkg:nuget/MaterialDesignThemes@5.1.0",
       "properties": [
+        {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
         {
           "name": "osv-scanner:package-manager",
           "value": "NuGet"
@@ -9932,6 +9960,10 @@ Filtered 1 local package/s from the scan.
       "purl": "pkg:nuget/Test.Core@6.0.5",
       "properties": [
         {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:package-manager",
           "value": "NuGet"
         }
@@ -9951,6 +9983,10 @@ Filtered 1 local package/s from the scan.
       "version": "6.0.6",
       "purl": "pkg:nuget/Test.Core@6.0.6",
       "properties": [
+        {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
         {
           "name": "osv-scanner:package-manager",
           "value": "NuGet"
@@ -13642,6 +13678,10 @@ Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/yarn/yarn.lock
       "purl": "pkg:nuget/Downloader@3.1.2",
       "properties": [
         {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:package-manager",
           "value": "NuGet"
         }
@@ -13661,6 +13701,10 @@ Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/yarn/yarn.lock
       "version": "5.1.0",
       "purl": "pkg:nuget/MaterialDesignThemes@5.1.0",
       "properties": [
+        {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
         {
           "name": "osv-scanner:package-manager",
           "value": "NuGet"
@@ -13682,6 +13726,10 @@ Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/yarn/yarn.lock
       "purl": "pkg:nuget/Test.Core@6.0.5",
       "properties": [
         {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:package-manager",
           "value": "NuGet"
         }
@@ -13701,6 +13749,10 @@ Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/yarn/yarn.lock
       "version": "6.0.6",
       "purl": "pkg:nuget/Test.Core@6.0.6",
       "properties": [
+        {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
         {
           "name": "osv-scanner:package-manager",
           "value": "NuGet"
