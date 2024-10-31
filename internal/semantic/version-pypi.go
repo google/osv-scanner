@@ -184,16 +184,6 @@ func (pv PyPIVersion) compareRelease(pw PyPIVersion) int {
 	return pv.release.Cmp(pw.release)
 }
 
-func (pv PyPIVersion) preIndex() int {
-	for i, pre := range []string{"a", "b", "rc"} {
-		if pre == pv.pre.letter {
-			return i
-		}
-	}
-
-	panic("unknown prefix " + pv.pre.letter)
-}
-
 // Checks if this PyPIVersion should apply a sort trick when comparing pre,
 // which ensures that i.e. 1.0.dev0 is before 1.0a0.
 func (pv PyPIVersion) shouldApplyPreTrick() bool {
@@ -222,8 +212,8 @@ func (pv PyPIVersion) comparePre(pw PyPIVersion) int {
 	case pw.pre.number == nil:
 		return -1
 	default:
-		ai := pv.preIndex()
-		bi := pw.preIndex()
+		ai := pv.pre.letter[0]
+		bi := pw.pre.letter[0]
 
 		if ai > bi {
 			return +1
