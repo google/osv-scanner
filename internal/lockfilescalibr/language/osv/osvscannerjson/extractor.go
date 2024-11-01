@@ -68,16 +68,13 @@ func (e Extractor) Extract(_ context.Context, input *filesystem.ScanInput) ([]*e
 }
 
 // ToPURL converts an inventory created by this extractor into a PURL.
-func (e Extractor) ToPURL(i *extractor.Inventory) (*purl.PackageURL, error) {
-	return &purl.PackageURL{
-		Type:    purl.TypeNPM,
-		Name:    i.Name,
-		Version: i.Version,
-	}, nil
+func (e Extractor) ToPURL(i *extractor.Inventory) *purl.PackageURL {
+	// TODO: support purl conversion
+	return nil
 }
 
 // ToCPEs is not applicable as this extractor does not infer CPEs from the Inventory.
-func (e Extractor) ToCPEs(_ *extractor.Inventory) ([]string, error) { return []string{}, nil }
+func (e Extractor) ToCPEs(_ *extractor.Inventory) []string { return []string{} }
 
 // Ecosystem returns the OSV ecosystem ('npm') of the software extracted by this extractor.
 func (e Extractor) Ecosystem(i *extractor.Inventory) string {
