@@ -4529,6 +4529,10 @@ No package sources found, --help for usage information.
       "purl": "pkg:gem/RedCloth@4.2.9",
       "properties": [
         {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:package-manager",
           "value": "Bundler"
         }
@@ -4770,6 +4774,10 @@ No package sources found, --help for usage information.
       "purl": "pkg:gem/chronic@0.10.2",
       "properties": [
         {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:package-manager",
           "value": "Bundler"
         }
@@ -4789,6 +4797,10 @@ No package sources found, --help for usage information.
       "version": "1.0.9",
       "purl": "pkg:gem/coderay@1.0.9",
       "properties": [
+        {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
         {
           "name": "osv-scanner:package-manager",
           "value": "Bundler"
@@ -4927,6 +4939,10 @@ No package sources found, --help for usage information.
       "purl": "pkg:gem/cucumber-rails@1.4.0",
       "properties": [
         {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:package-manager",
           "value": "Bundler"
         }
@@ -4959,6 +4975,10 @@ No package sources found, --help for usage information.
       "version": "0.10.0",
       "purl": "pkg:gem/cucumber-websteps@0.10.0",
       "properties": [
+        {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
         {
           "name": "osv-scanner:package-manager",
           "value": "Bundler"
@@ -5018,6 +5038,10 @@ No package sources found, --help for usage information.
       "version": "2.0.2",
       "purl": "pkg:gem/database_cleaner@2.0.2",
       "properties": [
+        {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
         {
           "name": "osv-scanner:package-manager",
           "value": "Bundler"
@@ -5090,6 +5114,10 @@ No package sources found, --help for usage information.
       "version": "4.9.0",
       "purl": "pkg:gem/factory_girl@4.9.0",
       "properties": [
+        {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
         {
           "name": "osv-scanner:package-manager",
           "value": "Bundler"
@@ -5175,6 +5203,10 @@ No package sources found, --help for usage information.
       "version": "4.6.0",
       "purl": "pkg:gem/jquery-rails@4.6.0",
       "properties": [
+        {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
         {
           "name": "osv-scanner:package-manager",
           "value": "Bundler"
@@ -5443,6 +5475,10 @@ No package sources found, --help for usage information.
       "purl": "pkg:gem/rack-openid@1.4.2",
       "properties": [
         {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:package-manager",
           "value": "Bundler"
         }
@@ -5541,6 +5577,10 @@ No package sources found, --help for usage information.
       "purl": "pkg:gem/rails@7.1.2",
       "properties": [
         {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:package-manager",
           "value": "Bundler"
         }
@@ -5626,6 +5666,10 @@ No package sources found, --help for usage information.
       "purl": "pkg:gem/rspec-activemodel-mocks@1.2.0",
       "properties": [
         {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:package-manager",
           "value": "Bundler"
         }
@@ -5645,6 +5689,10 @@ No package sources found, --help for usage information.
       "version": "1.2.1",
       "purl": "pkg:gem/rspec-collection_matchers@1.2.1",
       "properties": [
+        {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
         {
           "name": "osv-scanner:package-manager",
           "value": "Bundler"
@@ -5718,6 +5766,10 @@ No package sources found, --help for usage information.
       "purl": "pkg:gem/rspec@3.13.0",
       "properties": [
         {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:package-manager",
           "value": "Bundler"
         }
@@ -5738,6 +5790,10 @@ No package sources found, --help for usage information.
       "purl": "pkg:gem/ruby-openid@2.9.2",
       "properties": [
         {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:package-manager",
           "value": "Bundler"
         }
@@ -5757,6 +5813,10 @@ No package sources found, --help for usage information.
       "version": "1.7.3",
       "purl": "pkg:gem/sqlite3@1.7.3",
       "properties": [
+        {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
         {
           "name": "osv-scanner:package-manager",
           "value": "Bundler"
@@ -5881,6 +5941,10 @@ No package sources found, --help for usage information.
       "version": "3.0.12",
       "purl": "pkg:gem/will_paginate@3.0.12",
       "properties": [
+        {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
         {
           "name": "osv-scanner:package-manager",
           "value": "Bundler"
@@ -8343,6 +8407,10 @@ Filtered 1 local package/s from the scan.
       "purl": "pkg:gem/RedCloth@4.2.9",
       "properties": [
         {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:package-manager",
           "value": "Bundler"
         }
@@ -8584,6 +8652,10 @@ Filtered 1 local package/s from the scan.
       "purl": "pkg:gem/chronic@0.10.2",
       "properties": [
         {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:package-manager",
           "value": "Bundler"
         }
@@ -8603,6 +8675,10 @@ Filtered 1 local package/s from the scan.
       "version": "1.0.9",
       "purl": "pkg:gem/coderay@1.0.9",
       "properties": [
+        {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
         {
           "name": "osv-scanner:package-manager",
           "value": "Bundler"
@@ -8741,6 +8817,10 @@ Filtered 1 local package/s from the scan.
       "purl": "pkg:gem/cucumber-rails@1.4.0",
       "properties": [
         {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:package-manager",
           "value": "Bundler"
         }
@@ -8773,6 +8853,10 @@ Filtered 1 local package/s from the scan.
       "version": "0.10.0",
       "purl": "pkg:gem/cucumber-websteps@0.10.0",
       "properties": [
+        {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
         {
           "name": "osv-scanner:package-manager",
           "value": "Bundler"
@@ -8832,6 +8916,10 @@ Filtered 1 local package/s from the scan.
       "version": "2.0.2",
       "purl": "pkg:gem/database_cleaner@2.0.2",
       "properties": [
+        {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
         {
           "name": "osv-scanner:package-manager",
           "value": "Bundler"
@@ -8904,6 +8992,10 @@ Filtered 1 local package/s from the scan.
       "version": "4.9.0",
       "purl": "pkg:gem/factory_girl@4.9.0",
       "properties": [
+        {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
         {
           "name": "osv-scanner:package-manager",
           "value": "Bundler"
@@ -8989,6 +9081,10 @@ Filtered 1 local package/s from the scan.
       "version": "4.6.0",
       "purl": "pkg:gem/jquery-rails@4.6.0",
       "properties": [
+        {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
         {
           "name": "osv-scanner:package-manager",
           "value": "Bundler"
@@ -9257,6 +9353,10 @@ Filtered 1 local package/s from the scan.
       "purl": "pkg:gem/rack-openid@1.4.2",
       "properties": [
         {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:package-manager",
           "value": "Bundler"
         }
@@ -9355,6 +9455,10 @@ Filtered 1 local package/s from the scan.
       "purl": "pkg:gem/rails@7.1.2",
       "properties": [
         {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:package-manager",
           "value": "Bundler"
         }
@@ -9440,6 +9544,10 @@ Filtered 1 local package/s from the scan.
       "purl": "pkg:gem/rspec-activemodel-mocks@1.2.0",
       "properties": [
         {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:package-manager",
           "value": "Bundler"
         }
@@ -9459,6 +9567,10 @@ Filtered 1 local package/s from the scan.
       "version": "1.2.1",
       "purl": "pkg:gem/rspec-collection_matchers@1.2.1",
       "properties": [
+        {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
         {
           "name": "osv-scanner:package-manager",
           "value": "Bundler"
@@ -9532,6 +9644,10 @@ Filtered 1 local package/s from the scan.
       "purl": "pkg:gem/rspec@3.13.0",
       "properties": [
         {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:package-manager",
           "value": "Bundler"
         }
@@ -9552,6 +9668,10 @@ Filtered 1 local package/s from the scan.
       "purl": "pkg:gem/ruby-openid@2.9.2",
       "properties": [
         {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:package-manager",
           "value": "Bundler"
         }
@@ -9571,6 +9691,10 @@ Filtered 1 local package/s from the scan.
       "version": "1.7.3",
       "purl": "pkg:gem/sqlite3@1.7.3",
       "properties": [
+        {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
         {
           "name": "osv-scanner:package-manager",
           "value": "Bundler"
@@ -9695,6 +9819,10 @@ Filtered 1 local package/s from the scan.
       "version": "3.0.12",
       "purl": "pkg:gem/will_paginate@3.0.12",
       "properties": [
+        {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
         {
           "name": "osv-scanner:package-manager",
           "value": "Bundler"
@@ -12109,6 +12237,10 @@ Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/yarn/yarn.lock
       "purl": "pkg:gem/RedCloth@4.2.9",
       "properties": [
         {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:package-manager",
           "value": "Bundler"
         }
@@ -12350,6 +12482,10 @@ Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/yarn/yarn.lock
       "purl": "pkg:gem/chronic@0.10.2",
       "properties": [
         {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:package-manager",
           "value": "Bundler"
         }
@@ -12369,6 +12505,10 @@ Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/yarn/yarn.lock
       "version": "1.0.9",
       "purl": "pkg:gem/coderay@1.0.9",
       "properties": [
+        {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
         {
           "name": "osv-scanner:package-manager",
           "value": "Bundler"
@@ -12507,6 +12647,10 @@ Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/yarn/yarn.lock
       "purl": "pkg:gem/cucumber-rails@1.4.0",
       "properties": [
         {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:package-manager",
           "value": "Bundler"
         }
@@ -12539,6 +12683,10 @@ Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/yarn/yarn.lock
       "version": "0.10.0",
       "purl": "pkg:gem/cucumber-websteps@0.10.0",
       "properties": [
+        {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
         {
           "name": "osv-scanner:package-manager",
           "value": "Bundler"
@@ -12598,6 +12746,10 @@ Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/yarn/yarn.lock
       "version": "2.0.2",
       "purl": "pkg:gem/database_cleaner@2.0.2",
       "properties": [
+        {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
         {
           "name": "osv-scanner:package-manager",
           "value": "Bundler"
@@ -12670,6 +12822,10 @@ Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/yarn/yarn.lock
       "version": "4.9.0",
       "purl": "pkg:gem/factory_girl@4.9.0",
       "properties": [
+        {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
         {
           "name": "osv-scanner:package-manager",
           "value": "Bundler"
@@ -12755,6 +12911,10 @@ Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/yarn/yarn.lock
       "version": "4.6.0",
       "purl": "pkg:gem/jquery-rails@4.6.0",
       "properties": [
+        {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
         {
           "name": "osv-scanner:package-manager",
           "value": "Bundler"
@@ -13023,6 +13183,10 @@ Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/yarn/yarn.lock
       "purl": "pkg:gem/rack-openid@1.4.2",
       "properties": [
         {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:package-manager",
           "value": "Bundler"
         }
@@ -13121,6 +13285,10 @@ Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/yarn/yarn.lock
       "purl": "pkg:gem/rails@7.1.2",
       "properties": [
         {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:package-manager",
           "value": "Bundler"
         }
@@ -13206,6 +13374,10 @@ Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/yarn/yarn.lock
       "purl": "pkg:gem/rspec-activemodel-mocks@1.2.0",
       "properties": [
         {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:package-manager",
           "value": "Bundler"
         }
@@ -13225,6 +13397,10 @@ Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/yarn/yarn.lock
       "version": "1.2.1",
       "purl": "pkg:gem/rspec-collection_matchers@1.2.1",
       "properties": [
+        {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
         {
           "name": "osv-scanner:package-manager",
           "value": "Bundler"
@@ -13298,6 +13474,10 @@ Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/yarn/yarn.lock
       "purl": "pkg:gem/rspec@3.13.0",
       "properties": [
         {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:package-manager",
           "value": "Bundler"
         }
@@ -13318,6 +13498,10 @@ Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/yarn/yarn.lock
       "purl": "pkg:gem/ruby-openid@2.9.2",
       "properties": [
         {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:package-manager",
           "value": "Bundler"
         }
@@ -13337,6 +13521,10 @@ Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/yarn/yarn.lock
       "version": "1.7.3",
       "purl": "pkg:gem/sqlite3@1.7.3",
       "properties": [
+        {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
         {
           "name": "osv-scanner:package-manager",
           "value": "Bundler"
@@ -13461,6 +13649,10 @@ Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/yarn/yarn.lock
       "version": "3.0.12",
       "purl": "pkg:gem/will_paginate@3.0.12",
       "properties": [
+        {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
         {
           "name": "osv-scanner:package-manager",
           "value": "Bundler"

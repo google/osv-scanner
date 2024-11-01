@@ -74,7 +74,6 @@ func TestParseGemfileLock_NoSpecSection(t *testing.T) {
 	t.Parallel()
 
 	packages, err := lockfile.ParseGemfileLock("fixtures/bundler/no-spec-section.lock")
-
 	if err != nil {
 		t.Errorf("Got unexpected error: %v", err)
 	}
@@ -86,7 +85,6 @@ func TestParseGemfileLock_NoGemSection(t *testing.T) {
 	t.Parallel()
 
 	packages, err := lockfile.ParseGemfileLock("fixtures/bundler/no-gem-section.lock")
-
 	if err != nil {
 		t.Errorf("Got unexpected error: %v", err)
 	}
@@ -98,7 +96,6 @@ func TestParseGemfileLock_NoGems(t *testing.T) {
 	t.Parallel()
 
 	packages, err := lockfile.ParseGemfileLock("fixtures/bundler/no-gems.lock")
-
 	if err != nil {
 		t.Errorf("Got unexpected error: %v", err)
 	}
@@ -110,7 +107,6 @@ func TestParseGemfileLock_OneGem(t *testing.T) {
 	t.Parallel()
 
 	packages, err := lockfile.ParseGemfileLock("fixtures/bundler/one-gem.lock")
-
 	if err != nil {
 		t.Errorf("Got unexpected error: %v", err)
 	}
@@ -122,6 +118,7 @@ func TestParseGemfileLock_OneGem(t *testing.T) {
 			PackageManager: models.Bundler,
 			Ecosystem:      lockfile.BundlerEcosystem,
 			CompareAs:      lockfile.BundlerEcosystem,
+			IsDirect:       true,
 		},
 	})
 }
@@ -130,7 +127,6 @@ func TestParseGemfileLock_SomeGems(t *testing.T) {
 	t.Parallel()
 
 	packages, err := lockfile.ParseGemfileLock("fixtures/bundler/some-gems.lock")
-
 	if err != nil {
 		t.Errorf("Got unexpected error: %v", err)
 	}
@@ -156,6 +152,7 @@ func TestParseGemfileLock_SomeGems(t *testing.T) {
 			PackageManager: models.Bundler,
 			Ecosystem:      lockfile.BundlerEcosystem,
 			CompareAs:      lockfile.BundlerEcosystem,
+			IsDirect:       true,
 		},
 	})
 }
@@ -164,7 +161,6 @@ func TestParseGemfileLock_MultipleGems(t *testing.T) {
 	t.Parallel()
 
 	packages, err := lockfile.ParseGemfileLock("fixtures/bundler/multiple-gems.lock")
-
 	if err != nil {
 		t.Errorf("Got unexpected error: %v", err)
 	}
@@ -176,6 +172,7 @@ func TestParseGemfileLock_MultipleGems(t *testing.T) {
 			PackageManager: models.Bundler,
 			Ecosystem:      lockfile.BundlerEcosystem,
 			CompareAs:      lockfile.BundlerEcosystem,
+			IsDirect:       true,
 		},
 		{
 			Name:           "coderay",
@@ -190,6 +187,7 @@ func TestParseGemfileLock_MultipleGems(t *testing.T) {
 			PackageManager: models.Bundler,
 			Ecosystem:      lockfile.BundlerEcosystem,
 			CompareAs:      lockfile.BundlerEcosystem,
+			IsDirect:       true,
 		},
 		{
 			Name:           "method_source",
@@ -204,6 +202,7 @@ func TestParseGemfileLock_MultipleGems(t *testing.T) {
 			PackageManager: models.Bundler,
 			Ecosystem:      lockfile.BundlerEcosystem,
 			CompareAs:      lockfile.BundlerEcosystem,
+			IsDirect:       true,
 		},
 		{
 			Name:           "thor",
@@ -219,7 +218,6 @@ func TestParseGemfileLock_Rails(t *testing.T) {
 	t.Parallel()
 
 	packages, err := lockfile.ParseGemfileLock("fixtures/bundler/rails.lock")
-
 	if err != nil {
 		t.Errorf("Got unexpected error: %v", err)
 	}
@@ -462,6 +460,7 @@ func TestParseGemfileLock_Rails(t *testing.T) {
 			PackageManager: models.Bundler,
 			Ecosystem:      lockfile.BundlerEcosystem,
 			CompareAs:      lockfile.BundlerEcosystem,
+			IsDirect:       true,
 		},
 		{
 			Name:           "rails-dom-testing",
@@ -554,7 +553,6 @@ func TestParseGemfileLock_Rubocop(t *testing.T) {
 	t.Parallel()
 
 	packages, err := lockfile.ParseGemfileLock("fixtures/bundler/rubocop.lock")
-
 	if err != nil {
 		t.Errorf("Got unexpected error: %v", err)
 	}
@@ -608,6 +606,7 @@ func TestParseGemfileLock_Rubocop(t *testing.T) {
 			PackageManager: models.Bundler,
 			Ecosystem:      lockfile.BundlerEcosystem,
 			CompareAs:      lockfile.BundlerEcosystem,
+			IsDirect:       true,
 		},
 		{
 			Name:           "rubocop-ast",
@@ -637,7 +636,6 @@ func TestParseGemfileLock_HasLocalGem(t *testing.T) {
 	t.Parallel()
 
 	packages, err := lockfile.ParseGemfileLock("fixtures/bundler/has-local-gem.lock")
-
 	if err != nil {
 		t.Errorf("Got unexpected error: %v", err)
 	}
@@ -649,6 +647,7 @@ func TestParseGemfileLock_HasLocalGem(t *testing.T) {
 			PackageManager: models.Bundler,
 			Ecosystem:      lockfile.BundlerEcosystem,
 			CompareAs:      lockfile.BundlerEcosystem,
+			IsDirect:       true,
 		},
 		{
 			Name:           "actionpack",
@@ -860,7 +859,6 @@ func TestParseGemfileLock_HasGitGem(t *testing.T) {
 	t.Parallel()
 
 	packages, err := lockfile.ParseGemfileLock("fixtures/bundler/has-git-gem.lock")
-
 	if err != nil {
 		t.Errorf("Got unexpected error: %v", err)
 	}
@@ -881,6 +879,7 @@ func TestParseGemfileLock_HasGitGem(t *testing.T) {
 			Ecosystem:      lockfile.BundlerEcosystem,
 			CompareAs:      lockfile.BundlerEcosystem,
 			Commit:         "5904fc9a70683b8749aa2861257d0c8c01eae4aa",
+			IsDirect:       true,
 		},
 		{
 			Name:           "concurrent-ruby",

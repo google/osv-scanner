@@ -14,29 +14,26 @@ import (
 
 const BundlerEcosystem Ecosystem = "RubyGems"
 
-const lockfileSectionBUNDLED = "BUNDLED WITH"
-const lockfileSectionDEPENDENCIES = "DEPENDENCIES"
-const lockfileSectionPLATFORMS = "PLATFORMS"
-const lockfileSectionRUBY = "RUBY VERSION"
-const lockfileSectionGIT = "GIT"
-const lockfileSectionGEM = "GEM"
-const lockfileSectionPATH = "PATH"
-const lockfileSectionPLUGIN = "PLUGIN SOURCE"
+const (
+	lockfileSectionBUNDLED      = "BUNDLED WITH"
+	lockfileSectionDEPENDENCIES = "DEPENDENCIES"
+	lockfileSectionPLATFORMS    = "PLATFORMS"
+	lockfileSectionRUBY         = "RUBY VERSION"
+	lockfileSectionGIT          = "GIT"
+	lockfileSectionGEM          = "GEM"
+	lockfileSectionPATH         = "PATH"
+	lockfileSectionPLUGIN       = "PLUGIN SOURCE"
+)
 
 type parserState string
 
-const parserStateSource parserState = "source"
-const parserStateDependency parserState = "dependency"
-const parserStatePlatform parserState = "platform"
-const parserStateRuby parserState = "ruby"
-const parserStateBundledWith parserState = "bundled_with"
-
-func isSourceSection(line string) bool {
-	return strings.Contains(line, lockfileSectionGIT) ||
-		strings.Contains(line, lockfileSectionGEM) ||
-		strings.Contains(line, lockfileSectionPATH) ||
-		strings.Contains(line, lockfileSectionPLUGIN)
-}
+const (
+	parserStateSource      parserState = "source"
+	parserStateDependency  parserState = "dependency"
+	parserStatePlatform    parserState = "platform"
+	parserStateRuby        parserState = "ruby"
+	parserStateBundledWith parserState = "bundled_with"
+)
 
 type gemfileLockfileParser struct {
 	state          parserState
@@ -46,17 +43,52 @@ type gemfileLockfileParser struct {
 
 	// holds the commit of the gem that is currently being parsed, if found
 	currentGemCommit string
+
+	// whether or not the parser is in the `DEPENDENCIES` section
+	isInDepSection bool
+}
+
+// This function returns whether or not the given line section is a source section.
+func (parser *gemfileLockfileParser) isSourceSection(line string) bool {
+	if strings.Contains(line, lockfileSectionDEPENDENCIES) {
+		parser.isInDepSection = true
+		return true
+	}
+
+	if strings.Contains(line, lockfileSectionGIT) ||
+		strings.Contains(line, lockfileSectionGEM) ||
+		strings.Contains(line, lockfileSectionPATH) ||
+		strings.Contains(line, lockfileSectionPLUGIN) {
+		parser.isInDepSection = false
+		return true
+	}
+
+	return false
 }
 
 func (parser *gemfileLockfileParser) addDependency(name string, version string) {
-	parser.dependencies = append(parser.dependencies, PackageDetails{
-		Name:           name,
-		Version:        version,
-		PackageManager: models.Bundler,
-		Ecosystem:      BundlerEcosystem,
-		CompareAs:      BundlerEcosystem,
-		Commit:         parser.currentGemCommit,
-	})
+	if !parser.isInDepSection {
+		parser.dependencies = append(parser.dependencies, PackageDetails{
+			Name:           name,
+			Version:        version,
+			PackageManager: models.Bundler,
+			Ecosystem:      BundlerEcosystem,
+			CompareAs:      BundlerEcosystem,
+			Commit:         parser.currentGemCommit,
+		})
+
+		return
+	}
+
+	// find the package that exists already from parsing the `GEM` section
+	// and set it as a direct dep
+
+	for i, dep := range parser.dependencies {
+		if dep.Name == name {
+			parser.dependencies[i].IsDirect = true
+			return
+		}
+	}
 }
 
 func (parser *gemfileLockfileParser) parseSpec(line string) {
@@ -75,7 +107,7 @@ func (parser *gemfileLockfileParser) parseSpec(line string) {
 		log.Fatal("Weird error when parsing spec in Gemfile.lock (unexpectedly had no spaces) - please report this")
 	}
 
-	if len(spaces) == 4 {
+	if len(spaces) == 4 || (len(spaces) == 2 && parser.isInDepSection) {
 		parser.addDependency(results[2], results[3])
 	}
 }
@@ -117,13 +149,13 @@ func isNotIndented(line string) bool {
 
 func (parser *gemfileLockfileParser) parseLineBasedOnState(line string) {
 	switch parser.state {
-	case parserStateDependency:
 	case parserStatePlatform:
 		break
 	case parserStateRuby:
 		parser.rubyVersion = strings.TrimSpace(line)
 	case parserStateBundledWith:
 		parser.bundlerVersion = strings.TrimSpace(line)
+	case parserStateDependency:
 	case parserStateSource:
 		parser.parseSource(line)
 	default:
@@ -132,7 +164,7 @@ func (parser *gemfileLockfileParser) parseLineBasedOnState(line string) {
 }
 
 func (parser *gemfileLockfileParser) parse(line string) {
-	if isSourceSection(line) {
+	if parser.isSourceSection(line) {
 		// clear the stateful package details,
 		// since we're now parsing a new group
 		parser.currentGemCommit = ""
