@@ -83,7 +83,6 @@ func TestParseComposerLock_NoPackages(t *testing.T) {
 	t.Parallel()
 
 	packages, err := lockfile.ParseComposerLock("fixtures/composer/empty.json")
-
 	if err != nil {
 		t.Errorf("Got unexpected error: %v", err)
 	}
@@ -95,7 +94,6 @@ func TestParseComposerLock_OnePackage(t *testing.T) {
 	t.Parallel()
 
 	packages, err := lockfile.ParseComposerLock("fixtures/composer/one-package.json")
-
 	if err != nil {
 		t.Errorf("Got unexpected error: %v", err)
 	}
@@ -116,7 +114,6 @@ func TestParseComposerLock_OnePackageDev(t *testing.T) {
 	t.Parallel()
 
 	packages, err := lockfile.ParseComposerLock("fixtures/composer/one-package-dev.json")
-
 	if err != nil {
 		t.Errorf("Got unexpected error: %v", err)
 	}
@@ -138,7 +135,6 @@ func TestParseComposerLock_TwoPackages(t *testing.T) {
 	t.Parallel()
 
 	packages, err := lockfile.ParseComposerLock("fixtures/composer/two-packages.json")
-
 	if err != nil {
 		t.Errorf("Got unexpected error: %v", err)
 	}
@@ -168,7 +164,6 @@ func TestParseComposerLock_TwoPackagesAlt(t *testing.T) {
 	t.Parallel()
 
 	packages, err := lockfile.ParseComposerLock("fixtures/composer/two-packages-alt.json")
-
 	if err != nil {
 		t.Errorf("Got unexpected error: %v", err)
 	}

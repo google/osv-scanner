@@ -65,6 +65,7 @@ func TestComposerMatcher_Match_OnePackage(t *testing.T) {
 			Name:           "brick/math",
 			Version:        "0.12.9",
 			PackageManager: models.Composer,
+			IsDirect:       true,
 		},
 	}
 	err = composerMatcher.Match(sourceFile, packages)

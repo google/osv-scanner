@@ -2568,6 +2568,10 @@ No package sources found, --help for usage information.
       "purl": "pkg:composer/ably/ably-php@1.1.10",
       "properties": [
         {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
         }
@@ -2601,6 +2605,10 @@ No package sources found, --help for usage information.
       "purl": "pkg:composer/aws/aws-sdk-php@3.317.2",
       "properties": [
         {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
         }
@@ -2620,6 +2628,10 @@ No package sources found, --help for usage information.
       "version": "0.12.1",
       "purl": "pkg:composer/brick/math@0.12.1",
       "properties": [
+        {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
         {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
@@ -2667,6 +2679,10 @@ No package sources found, --help for usage information.
       "purl": "pkg:composer/doctrine/inflector@2.0.10",
       "properties": [
         {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
         }
@@ -2700,6 +2716,10 @@ No package sources found, --help for usage information.
       "purl": "pkg:composer/dragonmantank/cron-expression@v3.3.3",
       "properties": [
         {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
         }
@@ -2719,6 +2739,10 @@ No package sources found, --help for usage information.
       "version": "4.0.2",
       "purl": "pkg:composer/egulias/email-validator@4.0.2",
       "properties": [
+        {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
         {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
@@ -2740,6 +2764,10 @@ No package sources found, --help for usage information.
       "purl": "pkg:composer/fakerphp/faker@v1.23.1",
       "properties": [
         {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
         }
@@ -2759,6 +2787,10 @@ No package sources found, --help for usage information.
       "version": "v1.3.0",
       "purl": "pkg:composer/fruitcake/php-cors@v1.3.0",
       "properties": [
+        {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
         {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
@@ -2792,6 +2824,10 @@ No package sources found, --help for usage information.
       "version": "7.9.2",
       "purl": "pkg:composer/guzzlehttp/guzzle@7.9.2",
       "properties": [
+        {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
         {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
@@ -2838,6 +2874,10 @@ No package sources found, --help for usage information.
       "version": "v1.0.3",
       "purl": "pkg:composer/guzzlehttp/uri-template@v1.0.3",
       "properties": [
+        {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
         {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
@@ -2924,6 +2964,10 @@ No package sources found, --help for usage information.
       "purl": "pkg:composer/laravel/prompts@v0.1.24",
       "properties": [
         {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
         }
@@ -2944,6 +2988,10 @@ No package sources found, --help for usage information.
       "purl": "pkg:composer/laravel/serializable-closure@v1.3.3",
       "properties": [
         {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
         }
@@ -2963,6 +3011,10 @@ No package sources found, --help for usage information.
       "version": "2.5.1",
       "purl": "pkg:composer/league/commonmark@2.5.1",
       "properties": [
+        {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
         {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
@@ -2997,6 +3049,10 @@ No package sources found, --help for usage information.
       "purl": "pkg:composer/league/flysystem-aws-s3-v3@3.28.0",
       "properties": [
         {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
         }
@@ -3030,6 +3086,10 @@ No package sources found, --help for usage information.
       "purl": "pkg:composer/league/flysystem-path-prefixing@3.28.0",
       "properties": [
         {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
         }
@@ -3049,6 +3109,10 @@ No package sources found, --help for usage information.
       "version": "3.28.0",
       "purl": "pkg:composer/league/flysystem-read-only@3.28.0",
       "properties": [
+        {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
         {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
@@ -3096,6 +3160,10 @@ No package sources found, --help for usage information.
       "purl": "pkg:composer/mockery/mockery@1.6.12",
       "properties": [
         {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
         }
@@ -3115,6 +3183,10 @@ No package sources found, --help for usage information.
       "version": "3.7.0",
       "purl": "pkg:composer/monolog/monolog@3.7.0",
       "properties": [
+        {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
         {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
@@ -3161,6 +3233,10 @@ No package sources found, --help for usage information.
       "version": "3.7.0",
       "purl": "pkg:composer/nesbot/carbon@3.7.0",
       "properties": [
+        {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
         {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
@@ -3221,6 +3297,10 @@ No package sources found, --help for usage information.
       "purl": "pkg:composer/nunomaduro/termwind@v2.0.1",
       "properties": [
         {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
         }
@@ -3241,6 +3321,10 @@ No package sources found, --help for usage information.
       "purl": "pkg:composer/nyholm/psr7@1.8.1",
       "properties": [
         {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
         }
@@ -3260,6 +3344,10 @@ No package sources found, --help for usage information.
       "version": "v5.0.5",
       "purl": "pkg:composer/pda/pheanstalk@v5.0.5",
       "properties": [
+        {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
         {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
@@ -3319,6 +3407,10 @@ No package sources found, --help for usage information.
       "version": "1.11.9",
       "purl": "pkg:composer/phpstan/phpstan@1.11.9",
       "properties": [
+        {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
         {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
@@ -3405,6 +3497,10 @@ No package sources found, --help for usage information.
       "purl": "pkg:composer/phpunit/phpunit@11.3.0",
       "properties": [
         {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
         }
@@ -3424,6 +3520,10 @@ No package sources found, --help for usage information.
       "version": "v2.2.2",
       "purl": "pkg:composer/predis/predis@v2.2.2",
       "properties": [
+        {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
         {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
@@ -3470,6 +3570,10 @@ No package sources found, --help for usage information.
       "version": "2.0.2",
       "purl": "pkg:composer/psr/container@2.0.2",
       "properties": [
+        {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
         {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
@@ -3543,6 +3647,10 @@ No package sources found, --help for usage information.
       "purl": "pkg:composer/psr/log@3.0.0",
       "properties": [
         {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
         }
@@ -3562,6 +3670,10 @@ No package sources found, --help for usage information.
       "version": "3.0.0",
       "purl": "pkg:composer/psr/simple-cache@3.0.0",
       "properties": [
+        {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
         {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
@@ -3609,6 +3721,10 @@ No package sources found, --help for usage information.
       "purl": "pkg:composer/ramsey/uuid@4.7.6",
       "properties": [
         {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
         }
@@ -3628,6 +3744,10 @@ No package sources found, --help for usage information.
       "version": "v0.10.1",
       "purl": "pkg:composer/resend/resend-php@v0.10.1",
       "properties": [
+        {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
         {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
@@ -3870,6 +3990,10 @@ No package sources found, --help for usage information.
       "purl": "pkg:composer/symfony/cache@v7.1.3",
       "properties": [
         {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
         }
@@ -3902,6 +4026,10 @@ No package sources found, --help for usage information.
       "version": "v7.1.3",
       "purl": "pkg:composer/symfony/console@v7.1.3",
       "properties": [
+        {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
         {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
@@ -3949,6 +4077,10 @@ No package sources found, --help for usage information.
       "purl": "pkg:composer/symfony/error-handler@v7.1.3",
       "properties": [
         {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
         }
@@ -3995,6 +4127,10 @@ No package sources found, --help for usage information.
       "purl": "pkg:composer/symfony/finder@v7.1.3",
       "properties": [
         {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
         }
@@ -4028,6 +4164,10 @@ No package sources found, --help for usage information.
       "purl": "pkg:composer/symfony/http-client@v7.1.3",
       "properties": [
         {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
         }
@@ -4047,6 +4187,10 @@ No package sources found, --help for usage information.
       "version": "v7.1.3",
       "purl": "pkg:composer/symfony/http-foundation@v7.1.3",
       "properties": [
+        {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
         {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
@@ -4068,6 +4212,10 @@ No package sources found, --help for usage information.
       "purl": "pkg:composer/symfony/http-kernel@v7.1.3",
       "properties": [
         {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
         }
@@ -4088,6 +4236,10 @@ No package sources found, --help for usage information.
       "purl": "pkg:composer/symfony/mailer@v7.1.2",
       "properties": [
         {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
         }
@@ -4107,6 +4259,10 @@ No package sources found, --help for usage information.
       "version": "v7.1.2",
       "purl": "pkg:composer/symfony/mime@v7.1.2",
       "properties": [
+        {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
         {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
@@ -4219,6 +4375,10 @@ No package sources found, --help for usage information.
       "purl": "pkg:composer/symfony/polyfill-php83@v1.30.0",
       "properties": [
         {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
         }
@@ -4252,6 +4412,10 @@ No package sources found, --help for usage information.
       "purl": "pkg:composer/symfony/process@v7.1.3",
       "properties": [
         {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
         }
@@ -4272,6 +4436,10 @@ No package sources found, --help for usage information.
       "purl": "pkg:composer/symfony/psr-http-message-bridge@v7.1.3",
       "properties": [
         {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
         }
@@ -4291,6 +4459,10 @@ No package sources found, --help for usage information.
       "version": "v7.1.3",
       "purl": "pkg:composer/symfony/routing@v7.1.3",
       "properties": [
+        {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
         {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
@@ -4364,6 +4536,10 @@ No package sources found, --help for usage information.
       "purl": "pkg:composer/symfony/uid@v7.1.1",
       "properties": [
         {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
         }
@@ -4383,6 +4559,10 @@ No package sources found, --help for usage information.
       "version": "v7.1.3",
       "purl": "pkg:composer/symfony/var-dumper@v7.1.3",
       "properties": [
+        {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
         {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
@@ -4430,6 +4610,10 @@ No package sources found, --help for usage information.
       "purl": "pkg:composer/tijsverkoyen/css-to-inline-styles@v2.2.7",
       "properties": [
         {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
         }
@@ -4450,6 +4634,10 @@ No package sources found, --help for usage information.
       "purl": "pkg:composer/vlucas/phpdotenv@v5.6.1",
       "properties": [
         {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
         }
@@ -4469,6 +4657,10 @@ No package sources found, --help for usage information.
       "version": "2.0.1",
       "purl": "pkg:composer/voku/portable-ascii@2.0.1",
       "properties": [
+        {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
         {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
@@ -6446,6 +6638,10 @@ Filtered 1 local package/s from the scan.
       "purl": "pkg:composer/ably/ably-php@1.1.10",
       "properties": [
         {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
         }
@@ -6479,6 +6675,10 @@ Filtered 1 local package/s from the scan.
       "purl": "pkg:composer/aws/aws-sdk-php@3.317.2",
       "properties": [
         {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
         }
@@ -6498,6 +6698,10 @@ Filtered 1 local package/s from the scan.
       "version": "0.12.1",
       "purl": "pkg:composer/brick/math@0.12.1",
       "properties": [
+        {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
         {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
@@ -6545,6 +6749,10 @@ Filtered 1 local package/s from the scan.
       "purl": "pkg:composer/doctrine/inflector@2.0.10",
       "properties": [
         {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
         }
@@ -6578,6 +6786,10 @@ Filtered 1 local package/s from the scan.
       "purl": "pkg:composer/dragonmantank/cron-expression@v3.3.3",
       "properties": [
         {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
         }
@@ -6597,6 +6809,10 @@ Filtered 1 local package/s from the scan.
       "version": "4.0.2",
       "purl": "pkg:composer/egulias/email-validator@4.0.2",
       "properties": [
+        {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
         {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
@@ -6618,6 +6834,10 @@ Filtered 1 local package/s from the scan.
       "purl": "pkg:composer/fakerphp/faker@v1.23.1",
       "properties": [
         {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
         }
@@ -6637,6 +6857,10 @@ Filtered 1 local package/s from the scan.
       "version": "v1.3.0",
       "purl": "pkg:composer/fruitcake/php-cors@v1.3.0",
       "properties": [
+        {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
         {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
@@ -6670,6 +6894,10 @@ Filtered 1 local package/s from the scan.
       "version": "7.9.2",
       "purl": "pkg:composer/guzzlehttp/guzzle@7.9.2",
       "properties": [
+        {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
         {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
@@ -6716,6 +6944,10 @@ Filtered 1 local package/s from the scan.
       "version": "v1.0.3",
       "purl": "pkg:composer/guzzlehttp/uri-template@v1.0.3",
       "properties": [
+        {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
         {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
@@ -6802,6 +7034,10 @@ Filtered 1 local package/s from the scan.
       "purl": "pkg:composer/laravel/prompts@v0.1.24",
       "properties": [
         {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
         }
@@ -6822,6 +7058,10 @@ Filtered 1 local package/s from the scan.
       "purl": "pkg:composer/laravel/serializable-closure@v1.3.3",
       "properties": [
         {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
         }
@@ -6841,6 +7081,10 @@ Filtered 1 local package/s from the scan.
       "version": "2.5.1",
       "purl": "pkg:composer/league/commonmark@2.5.1",
       "properties": [
+        {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
         {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
@@ -6875,6 +7119,10 @@ Filtered 1 local package/s from the scan.
       "purl": "pkg:composer/league/flysystem-aws-s3-v3@3.28.0",
       "properties": [
         {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
         }
@@ -6908,6 +7156,10 @@ Filtered 1 local package/s from the scan.
       "purl": "pkg:composer/league/flysystem-path-prefixing@3.28.0",
       "properties": [
         {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
         }
@@ -6927,6 +7179,10 @@ Filtered 1 local package/s from the scan.
       "version": "3.28.0",
       "purl": "pkg:composer/league/flysystem-read-only@3.28.0",
       "properties": [
+        {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
         {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
@@ -6974,6 +7230,10 @@ Filtered 1 local package/s from the scan.
       "purl": "pkg:composer/mockery/mockery@1.6.12",
       "properties": [
         {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
         }
@@ -6993,6 +7253,10 @@ Filtered 1 local package/s from the scan.
       "version": "3.7.0",
       "purl": "pkg:composer/monolog/monolog@3.7.0",
       "properties": [
+        {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
         {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
@@ -7039,6 +7303,10 @@ Filtered 1 local package/s from the scan.
       "version": "3.7.0",
       "purl": "pkg:composer/nesbot/carbon@3.7.0",
       "properties": [
+        {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
         {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
@@ -7099,6 +7367,10 @@ Filtered 1 local package/s from the scan.
       "purl": "pkg:composer/nunomaduro/termwind@v2.0.1",
       "properties": [
         {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
         }
@@ -7119,6 +7391,10 @@ Filtered 1 local package/s from the scan.
       "purl": "pkg:composer/nyholm/psr7@1.8.1",
       "properties": [
         {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
         }
@@ -7138,6 +7414,10 @@ Filtered 1 local package/s from the scan.
       "version": "v5.0.5",
       "purl": "pkg:composer/pda/pheanstalk@v5.0.5",
       "properties": [
+        {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
         {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
@@ -7197,6 +7477,10 @@ Filtered 1 local package/s from the scan.
       "version": "1.11.9",
       "purl": "pkg:composer/phpstan/phpstan@1.11.9",
       "properties": [
+        {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
         {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
@@ -7283,6 +7567,10 @@ Filtered 1 local package/s from the scan.
       "purl": "pkg:composer/phpunit/phpunit@11.3.0",
       "properties": [
         {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
         }
@@ -7302,6 +7590,10 @@ Filtered 1 local package/s from the scan.
       "version": "v2.2.2",
       "purl": "pkg:composer/predis/predis@v2.2.2",
       "properties": [
+        {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
         {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
@@ -7348,6 +7640,10 @@ Filtered 1 local package/s from the scan.
       "version": "2.0.2",
       "purl": "pkg:composer/psr/container@2.0.2",
       "properties": [
+        {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
         {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
@@ -7421,6 +7717,10 @@ Filtered 1 local package/s from the scan.
       "purl": "pkg:composer/psr/log@3.0.0",
       "properties": [
         {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
         }
@@ -7440,6 +7740,10 @@ Filtered 1 local package/s from the scan.
       "version": "3.0.0",
       "purl": "pkg:composer/psr/simple-cache@3.0.0",
       "properties": [
+        {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
         {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
@@ -7487,6 +7791,10 @@ Filtered 1 local package/s from the scan.
       "purl": "pkg:composer/ramsey/uuid@4.7.6",
       "properties": [
         {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
         }
@@ -7506,6 +7814,10 @@ Filtered 1 local package/s from the scan.
       "version": "v0.10.1",
       "purl": "pkg:composer/resend/resend-php@v0.10.1",
       "properties": [
+        {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
         {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
@@ -7748,6 +8060,10 @@ Filtered 1 local package/s from the scan.
       "purl": "pkg:composer/symfony/cache@v7.1.3",
       "properties": [
         {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
         }
@@ -7780,6 +8096,10 @@ Filtered 1 local package/s from the scan.
       "version": "v7.1.3",
       "purl": "pkg:composer/symfony/console@v7.1.3",
       "properties": [
+        {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
         {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
@@ -7827,6 +8147,10 @@ Filtered 1 local package/s from the scan.
       "purl": "pkg:composer/symfony/error-handler@v7.1.3",
       "properties": [
         {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
         }
@@ -7873,6 +8197,10 @@ Filtered 1 local package/s from the scan.
       "purl": "pkg:composer/symfony/finder@v7.1.3",
       "properties": [
         {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
         }
@@ -7906,6 +8234,10 @@ Filtered 1 local package/s from the scan.
       "purl": "pkg:composer/symfony/http-client@v7.1.3",
       "properties": [
         {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
         }
@@ -7925,6 +8257,10 @@ Filtered 1 local package/s from the scan.
       "version": "v7.1.3",
       "purl": "pkg:composer/symfony/http-foundation@v7.1.3",
       "properties": [
+        {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
         {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
@@ -7946,6 +8282,10 @@ Filtered 1 local package/s from the scan.
       "purl": "pkg:composer/symfony/http-kernel@v7.1.3",
       "properties": [
         {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
         }
@@ -7966,6 +8306,10 @@ Filtered 1 local package/s from the scan.
       "purl": "pkg:composer/symfony/mailer@v7.1.2",
       "properties": [
         {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
         }
@@ -7985,6 +8329,10 @@ Filtered 1 local package/s from the scan.
       "version": "v7.1.2",
       "purl": "pkg:composer/symfony/mime@v7.1.2",
       "properties": [
+        {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
         {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
@@ -8097,6 +8445,10 @@ Filtered 1 local package/s from the scan.
       "purl": "pkg:composer/symfony/polyfill-php83@v1.30.0",
       "properties": [
         {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
         }
@@ -8130,6 +8482,10 @@ Filtered 1 local package/s from the scan.
       "purl": "pkg:composer/symfony/process@v7.1.3",
       "properties": [
         {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
         }
@@ -8150,6 +8506,10 @@ Filtered 1 local package/s from the scan.
       "purl": "pkg:composer/symfony/psr-http-message-bridge@v7.1.3",
       "properties": [
         {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
         }
@@ -8169,6 +8529,10 @@ Filtered 1 local package/s from the scan.
       "version": "v7.1.3",
       "purl": "pkg:composer/symfony/routing@v7.1.3",
       "properties": [
+        {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
         {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
@@ -8242,6 +8606,10 @@ Filtered 1 local package/s from the scan.
       "purl": "pkg:composer/symfony/uid@v7.1.1",
       "properties": [
         {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
         }
@@ -8261,6 +8629,10 @@ Filtered 1 local package/s from the scan.
       "version": "v7.1.3",
       "purl": "pkg:composer/symfony/var-dumper@v7.1.3",
       "properties": [
+        {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
         {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
@@ -8308,6 +8680,10 @@ Filtered 1 local package/s from the scan.
       "purl": "pkg:composer/tijsverkoyen/css-to-inline-styles@v2.2.7",
       "properties": [
         {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
         }
@@ -8328,6 +8704,10 @@ Filtered 1 local package/s from the scan.
       "purl": "pkg:composer/vlucas/phpdotenv@v5.6.1",
       "properties": [
         {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
         }
@@ -8347,6 +8727,10 @@ Filtered 1 local package/s from the scan.
       "version": "2.0.1",
       "purl": "pkg:composer/voku/portable-ascii@2.0.1",
       "properties": [
+        {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
         {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
@@ -10276,6 +10660,10 @@ Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/yarn/yarn.lock
       "purl": "pkg:composer/ably/ably-php@1.1.10",
       "properties": [
         {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
         }
@@ -10309,6 +10697,10 @@ Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/yarn/yarn.lock
       "purl": "pkg:composer/aws/aws-sdk-php@3.317.2",
       "properties": [
         {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
         }
@@ -10328,6 +10720,10 @@ Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/yarn/yarn.lock
       "version": "0.12.1",
       "purl": "pkg:composer/brick/math@0.12.1",
       "properties": [
+        {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
         {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
@@ -10375,6 +10771,10 @@ Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/yarn/yarn.lock
       "purl": "pkg:composer/doctrine/inflector@2.0.10",
       "properties": [
         {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
         }
@@ -10408,6 +10808,10 @@ Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/yarn/yarn.lock
       "purl": "pkg:composer/dragonmantank/cron-expression@v3.3.3",
       "properties": [
         {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
         }
@@ -10427,6 +10831,10 @@ Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/yarn/yarn.lock
       "version": "4.0.2",
       "purl": "pkg:composer/egulias/email-validator@4.0.2",
       "properties": [
+        {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
         {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
@@ -10448,6 +10856,10 @@ Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/yarn/yarn.lock
       "purl": "pkg:composer/fakerphp/faker@v1.23.1",
       "properties": [
         {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
         }
@@ -10467,6 +10879,10 @@ Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/yarn/yarn.lock
       "version": "v1.3.0",
       "purl": "pkg:composer/fruitcake/php-cors@v1.3.0",
       "properties": [
+        {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
         {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
@@ -10500,6 +10916,10 @@ Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/yarn/yarn.lock
       "version": "7.9.2",
       "purl": "pkg:composer/guzzlehttp/guzzle@7.9.2",
       "properties": [
+        {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
         {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
@@ -10546,6 +10966,10 @@ Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/yarn/yarn.lock
       "version": "v1.0.3",
       "purl": "pkg:composer/guzzlehttp/uri-template@v1.0.3",
       "properties": [
+        {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
         {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
@@ -10632,6 +11056,10 @@ Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/yarn/yarn.lock
       "purl": "pkg:composer/laravel/prompts@v0.1.24",
       "properties": [
         {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
         }
@@ -10652,6 +11080,10 @@ Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/yarn/yarn.lock
       "purl": "pkg:composer/laravel/serializable-closure@v1.3.3",
       "properties": [
         {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
         }
@@ -10671,6 +11103,10 @@ Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/yarn/yarn.lock
       "version": "2.5.1",
       "purl": "pkg:composer/league/commonmark@2.5.1",
       "properties": [
+        {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
         {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
@@ -10705,6 +11141,10 @@ Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/yarn/yarn.lock
       "purl": "pkg:composer/league/flysystem-aws-s3-v3@3.28.0",
       "properties": [
         {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
         }
@@ -10738,6 +11178,10 @@ Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/yarn/yarn.lock
       "purl": "pkg:composer/league/flysystem-path-prefixing@3.28.0",
       "properties": [
         {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
         }
@@ -10757,6 +11201,10 @@ Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/yarn/yarn.lock
       "version": "3.28.0",
       "purl": "pkg:composer/league/flysystem-read-only@3.28.0",
       "properties": [
+        {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
         {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
@@ -10804,6 +11252,10 @@ Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/yarn/yarn.lock
       "purl": "pkg:composer/mockery/mockery@1.6.12",
       "properties": [
         {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
         }
@@ -10823,6 +11275,10 @@ Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/yarn/yarn.lock
       "version": "3.7.0",
       "purl": "pkg:composer/monolog/monolog@3.7.0",
       "properties": [
+        {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
         {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
@@ -10869,6 +11325,10 @@ Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/yarn/yarn.lock
       "version": "3.7.0",
       "purl": "pkg:composer/nesbot/carbon@3.7.0",
       "properties": [
+        {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
         {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
@@ -10929,6 +11389,10 @@ Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/yarn/yarn.lock
       "purl": "pkg:composer/nunomaduro/termwind@v2.0.1",
       "properties": [
         {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
         }
@@ -10949,6 +11413,10 @@ Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/yarn/yarn.lock
       "purl": "pkg:composer/nyholm/psr7@1.8.1",
       "properties": [
         {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
         }
@@ -10968,6 +11436,10 @@ Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/yarn/yarn.lock
       "version": "v5.0.5",
       "purl": "pkg:composer/pda/pheanstalk@v5.0.5",
       "properties": [
+        {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
         {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
@@ -11027,6 +11499,10 @@ Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/yarn/yarn.lock
       "version": "1.11.9",
       "purl": "pkg:composer/phpstan/phpstan@1.11.9",
       "properties": [
+        {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
         {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
@@ -11113,6 +11589,10 @@ Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/yarn/yarn.lock
       "purl": "pkg:composer/phpunit/phpunit@11.3.0",
       "properties": [
         {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
         }
@@ -11132,6 +11612,10 @@ Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/yarn/yarn.lock
       "version": "v2.2.2",
       "purl": "pkg:composer/predis/predis@v2.2.2",
       "properties": [
+        {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
         {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
@@ -11178,6 +11662,10 @@ Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/yarn/yarn.lock
       "version": "2.0.2",
       "purl": "pkg:composer/psr/container@2.0.2",
       "properties": [
+        {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
         {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
@@ -11251,6 +11739,10 @@ Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/yarn/yarn.lock
       "purl": "pkg:composer/psr/log@3.0.0",
       "properties": [
         {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
         }
@@ -11270,6 +11762,10 @@ Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/yarn/yarn.lock
       "version": "3.0.0",
       "purl": "pkg:composer/psr/simple-cache@3.0.0",
       "properties": [
+        {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
         {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
@@ -11317,6 +11813,10 @@ Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/yarn/yarn.lock
       "purl": "pkg:composer/ramsey/uuid@4.7.6",
       "properties": [
         {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
         }
@@ -11336,6 +11836,10 @@ Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/yarn/yarn.lock
       "version": "v0.10.1",
       "purl": "pkg:composer/resend/resend-php@v0.10.1",
       "properties": [
+        {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
         {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
@@ -11578,6 +12082,10 @@ Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/yarn/yarn.lock
       "purl": "pkg:composer/symfony/cache@v7.1.3",
       "properties": [
         {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
         }
@@ -11610,6 +12118,10 @@ Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/yarn/yarn.lock
       "version": "v7.1.3",
       "purl": "pkg:composer/symfony/console@v7.1.3",
       "properties": [
+        {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
         {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
@@ -11657,6 +12169,10 @@ Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/yarn/yarn.lock
       "purl": "pkg:composer/symfony/error-handler@v7.1.3",
       "properties": [
         {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
         }
@@ -11703,6 +12219,10 @@ Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/yarn/yarn.lock
       "purl": "pkg:composer/symfony/finder@v7.1.3",
       "properties": [
         {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
         }
@@ -11736,6 +12256,10 @@ Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/yarn/yarn.lock
       "purl": "pkg:composer/symfony/http-client@v7.1.3",
       "properties": [
         {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
         }
@@ -11755,6 +12279,10 @@ Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/yarn/yarn.lock
       "version": "v7.1.3",
       "purl": "pkg:composer/symfony/http-foundation@v7.1.3",
       "properties": [
+        {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
         {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
@@ -11776,6 +12304,10 @@ Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/yarn/yarn.lock
       "purl": "pkg:composer/symfony/http-kernel@v7.1.3",
       "properties": [
         {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
         }
@@ -11796,6 +12328,10 @@ Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/yarn/yarn.lock
       "purl": "pkg:composer/symfony/mailer@v7.1.2",
       "properties": [
         {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
         }
@@ -11815,6 +12351,10 @@ Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/yarn/yarn.lock
       "version": "v7.1.2",
       "purl": "pkg:composer/symfony/mime@v7.1.2",
       "properties": [
+        {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
         {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
@@ -11927,6 +12467,10 @@ Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/yarn/yarn.lock
       "purl": "pkg:composer/symfony/polyfill-php83@v1.30.0",
       "properties": [
         {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
         }
@@ -11960,6 +12504,10 @@ Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/yarn/yarn.lock
       "purl": "pkg:composer/symfony/process@v7.1.3",
       "properties": [
         {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
         }
@@ -11980,6 +12528,10 @@ Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/yarn/yarn.lock
       "purl": "pkg:composer/symfony/psr-http-message-bridge@v7.1.3",
       "properties": [
         {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
         }
@@ -11999,6 +12551,10 @@ Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/yarn/yarn.lock
       "version": "v7.1.3",
       "purl": "pkg:composer/symfony/routing@v7.1.3",
       "properties": [
+        {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
         {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
@@ -12072,6 +12628,10 @@ Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/yarn/yarn.lock
       "purl": "pkg:composer/symfony/uid@v7.1.1",
       "properties": [
         {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
         }
@@ -12091,6 +12651,10 @@ Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/yarn/yarn.lock
       "version": "v7.1.3",
       "purl": "pkg:composer/symfony/var-dumper@v7.1.3",
       "properties": [
+        {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
         {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
@@ -12138,6 +12702,10 @@ Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/yarn/yarn.lock
       "purl": "pkg:composer/tijsverkoyen/css-to-inline-styles@v2.2.7",
       "properties": [
         {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
         }
@@ -12158,6 +12726,10 @@ Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/yarn/yarn.lock
       "purl": "pkg:composer/vlucas/phpdotenv@v5.6.1",
       "properties": [
         {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
         }
@@ -12177,6 +12749,10 @@ Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/yarn/yarn.lock
       "version": "2.0.1",
       "purl": "pkg:composer/voku/portable-ascii@2.0.1",
       "properties": [
+        {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
         {
           "name": "osv-scanner:package-manager",
           "value": "Composer"

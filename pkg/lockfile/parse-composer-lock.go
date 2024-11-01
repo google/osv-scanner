@@ -35,7 +35,6 @@ func (e ComposerLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 	var parsedLockfile *ComposerLock
 
 	err := json.NewDecoder(f).Decode(&parsedLockfile)
-
 	if err != nil {
 		return []PackageDetails{}, fmt.Errorf("could not extract from %s: %w", f.Path(), err)
 	}

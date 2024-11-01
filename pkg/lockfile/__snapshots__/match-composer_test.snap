@@ -37,7 +37,8 @@
       },
       "file_name": "<rootdir>/fixtures/composer/one-package/composer.json"
     },
-    "packageManager": "Composer"
+    "packageManager": "Composer",
+    "isDirect": true
   }
 ]
 ---
