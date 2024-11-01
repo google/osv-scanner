@@ -1,9 +1,9 @@
 <script>
   function showPackageDetails(detailsId) {
-    var detailsElement = document.getElementById("vuln-details-" + detailsId);
-    var rowElement = document.getElementById("vuln-tr-" + detailsId);
+    var detailsElement = document.getElementById("table-tr-" + detailsId + "-details");
+    var rowElement = document.getElementById("table-tr-" + detailsId);
     const rowCells = rowElement.querySelectorAll('td');
-    const icon = document.querySelector(`#vuln-tr-${detailsId} .material-icons`); // Select the icon within the row
+    const icon = document.querySelector(`#table-tr-${detailsId} .material-icons`); // Select the icon within the row
     if (detailsElement.style.display !== "block") {
       detailsElement.style.display = "block";
       rowCells.forEach(cell => {
@@ -83,7 +83,7 @@
     }
   }
 
-  function hideAllFilterOptons() {
+  function hideAllFilterOptions() {
     const containers = document.getElementsByClassName('filter-option-container');
     for (let i = 0; i < containers.length; i++) {
       containers[i].style.display = 'none';
@@ -110,43 +110,227 @@
 
   }
 
+  function checkAndHideEmptySections() {
+    const ecosystemContainers = document.querySelectorAll('.ecosystem-container');
+
+    ecosystemContainers.forEach(ecosystemContainer => {
+      const sourceContainers = ecosystemContainer.querySelectorAll('.source-container');
+      let ecosystemHasVisibleSources = false;
+
+      sourceContainers.forEach(sourceContainer => {
+        const packageRows = sourceContainer.querySelectorAll('.package-tr');
+        let sourceHasVisibleRows = false;
+
+        packageRows.forEach(packageRow => {
+          packageDetails = document.getElementById(packageRow.id + '-details');
+          const vulnRows = packageDetails.querySelectorAll('.vuln-tr');
+          let packageHasVisibleRows = false;
+          vulnRows.forEach(vulnRow => {
+            if (window.getComputedStyle(vulnRow).display !== 'none') {
+              packageHasVisibleRows = true;
+              return;
+            }
+          })
+          if (packageRow.style.display !== 'none' && packageHasVisibleRows) {
+            sourceHasVisibleRows = true;
+            packageRow.style.display = 'table-row';
+            return;
+          } else {
+            packageRow.style.display = 'none';
+          }
+        });
+
+        if (!sourceHasVisibleRows) {
+          sourceContainer.style.display = 'none';
+        } else {
+          ecosystemHasVisibleSources = true;
+          return;
+        }
+      });
+
+      if (!ecosystemHasVisibleSources) {
+        ecosystemContainer.style.display = 'none';
+      }
+    });
+  }
+
+  function showVulnParentSections(vulnRowID) {
+    const vulnRow = document.getElementById(vulnRowID);
+    const packageRowDetails = vulnRow.closest('.package-details');
+    // Extract the package row ID from the packageRowDetails ID
+    const packageRowID = packageRowDetails.id.replace('-details', '');
+    const packageRow = document.getElementById(packageRowID);
+    packageRow.style.display = 'table-row';
+    showPackageParentSections(packageRow.id);
+  }
+
+  function showPackageParentSections(packageRowID) {
+    const packageRow = document.getElementById(packageRowID);
+    // Get the source container and ecosystem container for the row
+    const sourceContainer = packageRow.closest('.source-container');
+    const ecosystemContainer = packageRow.closest('.ecosystem-container');
+
+    // Show the source container and ecosystem container
+    sourceContainer.style.display = 'block';
+    ecosystemContainer.style.display = 'block';
+  }
+
+  function applyFilters(selectedTypeFilterValue, selectedLayerFilterValue) {
+    applyTypeFilter(selectedTypeFilterValue);
+    applyLayerFilter(selectedLayerFilterValue);
+  }
+
+  function applyTypeFilter(selectedValue) {
+    selectedAll = selectedValue.has('all');
+    selectedProject = selectedValue.has('project');
+    selectedOS = selectedValue.has('os');
+    selectedUncalled = selectedValue.has('uncalled');
+
+    const ecosystemElements = document.querySelectorAll('.ecosystem-container');
+
+    ecosystemElements.forEach(ecosystemElement => {
+      const vulnElements = ecosystemElement.querySelectorAll('.vuln-tr');
+      vulnElements.forEach(vuln => {
+        if ((ecosystemElement.classList.contains('os-type') && selectedOS) ||
+          (ecosystemElement.classList.contains('project-type') && selectedProject)) {
+          vuln.style.display = 'table-row';
+          if (!selectedUncalled && vuln.classList.contains('uncalled-tr')) {
+            vuln.style.display = 'none';
+          } else {
+            showVulnParentSections(vuln.id);
+          }
+        } else {
+          vuln.style.display = 'none';
+        }
+
+      });
+    });
+
+    checkAndHideEmptySections();
+  }
+
+  function applyLayerFilter(selectedLayerID) {
+    const tableRows = document.querySelectorAll('tr.has-layer-info');
+
+    tableRows.forEach(row => {
+      const rowLayerID = row.getAttribute('data-layer');
+
+      // If the selected layer ID is 'all' or matches the row's layer ID, show the row
+      if (selectedLayerID === 'all' || rowLayerID === selectedLayerID) {
+        row.style.display = 'table-row';
+        showPackageParentSections(row.id);
+      } else {
+        // Otherwise, hide the row
+        row.style.display = 'none';
+      }
+    });
+  }
+
 
   document.addEventListener('DOMContentLoaded', function () {
-    // Get the container for the filter options
+    checkAndHideEmptySections();
+    let selectedTypeFilterValue = new Set('all');
+    let selectedLayer = 'all';
+
+    // Implement filter for vulnerability types
     const typeFilterOptions = document.getElementById('type-filter-option-container');
 
-    // Add an event listener to the container to listen for changes in any checkbox
     typeFilterOptions.addEventListener('change', function () {
       const changedElement = event.target;
       const allTypesCheckbox = document.getElementById('all-type-checkbox');
       const projectCheckbox = document.getElementById('project-type-checkbox'); // Project vulnerabilities
       const osCheckbox = document.getElementById('os-type-checkbox'); // OS vulnerabilities
       const uncalledCheckbox = document.getElementById('uncalled-type-checkbox'); // OS vulnerabilities
-
-      const osTypeElements = document.querySelectorAll('.os-type');
-      const projectTypeElements = document.querySelectorAll('.project-type');
-      const uncalledTypeElements = document.querySelectorAll('.uncalled-tr');
+      selectedTypeFilterValue.clear();
 
       if (allTypesCheckbox != null) {
         if (changedElement == allTypesCheckbox) {
           osCheckbox.checked = allTypesCheckbox.checked;
           projectCheckbox.checked = allTypesCheckbox.checked;
+          selectedTypeFilterValue.add('all');
         }
         if (osCheckbox.checked === false || projectCheckbox.checked === false) {
           allTypesCheckbox.checked = false;
         }
-        osTypeElements.forEach(element => {
-          element.style.display = osCheckbox.checked ? 'block' : 'none';
-        });
+
+        if (osCheckbox.checked) {
+          selectedTypeFilterValue.add('os');
+        }
       }
 
-      projectTypeElements.forEach(element => {
-        element.style.display = projectCheckbox.checked ? 'block' : 'none';
-      });
+      if (projectCheckbox.checked) {
+        selectedTypeFilterValue.add('project');
+      }
 
-      uncalledTypeElements.forEach(element => {
-        element.style.display = uncalledCheckbox.checked ? 'block' : 'none';
+      if (uncalledCheckbox.checked) {
+        selectedTypeFilterValue.add('uncalled');
+      }
+
+      applyTypeFilter(selectedTypeFilterValue);
+
+      selectedDisplay = document.getElementById('type-filter-selected');
+      if (allTypesCheckbox != null && allTypesCheckbox.checked) {
+        const allTypesLabel = document.querySelector(`label[for="${allTypesCheckbox.id}"]`);
+        selectedDisplay.textContent = allTypesLabel.textContent;
+      } else {
+        let typeArray = Array.from(selectedTypeFilterValue);
+        selectedToString = typeArray.join(", ");
+        selectedDisplay.textContent = selectedToString;
+      }
+    });
+
+    // Implement layer filter
+    const layerFilterOptionsContainer = document.getElementById('layer-filter-option-container');
+
+    if (layerFilterOptionsContainer) {
+      layerFilterOptionsContainer.addEventListener('click', (event) => {
+        const clickedOption = event.target.closest('.layer-filter-option');
+        if (clickedOption) {
+          selectedLayerID = clickedOption.getAttribute('value');
+          applyLayerFilter(selectedLayerID);
+
+          selectedDisplay = document.getElementById('layer-filter-selected');
+          layerCommand = clickedOption.querySelector('p:first-child');
+          selectedDisplay.textContent = layerCommand.textContent;
+
+          hideAllFilterOptions();
+          checkAndHideEmptySections();
+        }
       });
+    }
+
+
+    // Hide filter options when clicking other parts
+    const filterSection = document.getElementById('filter-section');
+
+    document.addEventListener('click', (event) => {
+      if (!filterSection.contains(event.target)) {
+        hideAllFilterOptions();
+      }
+    });
+
+    // Search bar
+    const vulnSearchInput = document.getElementById('vuln-search');
+    vulnSearchInput.addEventListener('keyup', (event) => {
+      if (event.key === 'Enter') {
+        const searchTerm = vulnSearchInput.value.trim().toLowerCase();
+
+        const vulnRows = document.querySelectorAll('[data-vuln-id]');
+
+        vulnRows.forEach(row => {
+          const vulnID = row.getAttribute('data-vuln-id').toLowerCase();
+
+          if (searchTerm === "") {
+            applyFilters(selectedTypeFilterValue, selectedLayer);
+          } else if (vulnID.includes(searchTerm)) {
+            row.style.display = 'table-row';
+            showVulnParentSections(row.id);
+          } else {
+            row.style.display = 'none';
+          }
+        });
+        checkAndHideEmptySections();
+      }
     });
   });
 

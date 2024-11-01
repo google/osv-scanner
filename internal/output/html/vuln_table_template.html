@@ -7,7 +7,8 @@
     <th class="open-in-tab-cell"></th>
   </tr>
   {{ range $rowIndex, $element := .CalledVulns }}
-  <tr class='vuln-tr'>
+  {{ $index := uniqueID }}
+  <tr class='table-tr vuln-tr' id="table-tr-{{ $index }}" data-vuln-id="{{ $element.Summary.ID }}">
     <td>{{ $element.Summary.ID }}</td>
     <td>{{ join $element.Detail.GroupIDs ", "}}</td>
     <td>
@@ -24,7 +25,8 @@
   {{ end }}
 
   {{ range $rowIndex, $element := .UncalledVulns }}
-  <tr class='vuln-tr uncalled-tr'>
+  {{ $index := uniqueID }}
+  <tr class='table-tr vuln-tr uncalled-tr' id="table-tr-{{ $index }}" data-vuln-id="{{ $element.Summary.ID }}">
     <td>{{ $element.Summary.ID }}</td>
     <td>{{ join $element.Detail.GroupIDs ", "}}</td>
     <td>

@@ -7,12 +7,10 @@
     <th>Vulnerability Count</th>
   </tr>
   {{ range $rowIndex, $element := . }}
-  {{ if eq (len $element.CalledVulns) 0 }}
-  {{ continue }}
-  {{ end }}
-
   {{ $index := uniqueID }}
-  <tr class='vuln-tr' id="vuln-tr-{{ $index }}">
+  <tr class="table-tr package-tr {{if $element.HTMLPackageDetail }}has-layer-info" 
+  data-layer="{{ $element.HTMLPackageDetail.LayerID }}{{ end }}"
+  id="table-tr-{{ $index }}">
     <td class="icon-td">
       <div class="expand-icon" onclick="showPackageDetails('{{ $index }}')">
         <i class="material-icons">play_arrow</i>
@@ -33,15 +31,19 @@
       {{ end }}
     </td>
     <td>
+      {{ if ne $element.HTMLVulnCount.Called 0 }}
       {{ template "severity_summary_template.html" $element.HTMLVulnCount }}
+      {{ end }}
     </td>
   </tr>
   <tr>
     <td colspan="100%">
-      <div id="vuln-details-{{ $index }}" class="vuln-details">
-        <p><span class="package-detail-title">Layer Command:</span> {{ $element.HTMLPackageDetail.LayerCommand }}</p>
-        <p><span class="package-detail-title">Layer ID:</span> {{ $element.HTMLPackageDetail.LayerID }}</p>
-        <p><span class="package-detail-title">In Base Image:</span> {{ $element.HTMLPackageDetail.InBaseImage }}</p>
+      <div id="table-tr-{{ $index }}-details" class="package-details">
+        {{ if and $element.HTMLPackageDetail (not (eq $element.HTMLPackageDetail.LayerID "")) }}
+          <p><span class="package-detail-title">Layer Command:</span> {{ $element.HTMLPackageDetail.LayerCommand }}</p>
+          <p><span class="package-detail-title">Layer ID:</span> {{ $element.HTMLPackageDetail.LayerID }}</p>
+          <p><span class="package-detail-title">In Base Image:</span> {{ $element.HTMLPackageDetail.InBaseImage }}</p>
+        {{ end }}
         {{ template "vuln_table_template.html" $element }}
       </div>
     </td>

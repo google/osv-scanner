@@ -4,7 +4,7 @@
     <div class="filter-container">
       <label for="layer-filter">Layer<br></label>
       <div id="layer-filter" class="filter" onclick="toggleFilter('layer')">
-        <p value="all">All layers ({{ .HTMLVulnCount.Called }})</p>
+        <p value="all" id="layer-filter-selected" class="filter-selected">All layers ({{ .HTMLVulnCount.Called }})</p>
         <div class="filter-icon">
           <i class="material-icons">keyboard_arrow_down</i>
         </div>
@@ -27,7 +27,7 @@
     <div class="filter-container">
       <label for="type-filter">Vulnerability type<br></label>
       <div id="type-filter" class="filter" onclick="toggleFilter('type')">
-        <p value="All types" class="filter-selected">All types ({{ .VulnTypeCount.All }})</p>
+        <p value="all" id="type-filter-selected" class="filter-selected">All types ({{ .VulnTypeCount.All }})</p>
         <div class="filter-icon">
           <i class="material-icons">keyboard_arrow_down</i>
         </div>

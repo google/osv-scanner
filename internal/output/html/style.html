@@ -101,18 +101,18 @@
     padding: 16px;
   }
 
-  .vuln-tr {
+  .table-tr {
     line-height: 30px;
   }
 
-  .vuln-tr td {
+  .table-tr td {
     border-bottom: 1px solid rgba(255, 255, 255, 0.12);
     word-break: break-word;
     width: 200px;
     padding: 16px;
   }
 
-  .vuln-tr:hover {
+  .table-tr:hover {
     background-color: rgba(255, 255, 255, 0.04);
   }
 
@@ -120,17 +120,18 @@
     color: #d9534f;
   }
 
-  .vuln-details {
+  .package-details {
     text-align: left;
     padding: 0 50px;
     display: none;
-    padding-bottom: 20px;
+    padding-top: 20px;
+    padding-bottom: 30px;
     border-bottom: 1px solid rgba(255, 255, 255, 0.12);
     max-height: 800px;
     overflow: overlay;
   }
 
-  .vuln-tr:hover .open-in-tab-tag {
+  .table-tr:hover .open-in-tab-tag {
     display: inline
   }
 
@@ -172,6 +173,10 @@
 
   .uncalled-tr {
     display: none;
+  }
+
+  .uncalled-tr td {
+    color: #808080;
   }
 
   #vuln-tab {
@@ -272,6 +277,11 @@
     display: flex;
     justify-content: space-between;
     padding: 0 10px;
+  }
+
+  .filter-selected {
+    white-space: nowrap;
+    overflow: hidden;
   }
 
   .filter-option-container {
