@@ -68,7 +68,7 @@ func (e Extractor) Extract(_ context.Context, input *filesystem.ScanInput) ([]*e
 }
 
 // ToPURL converts an inventory created by this extractor into a PURL.
-func (e Extractor) ToPURL(i *extractor.Inventory) *purl.PackageURL {
+func (e Extractor) ToPURL(_ *extractor.Inventory) *purl.PackageURL {
 	// TODO: support purl conversion
 	return nil
 }
