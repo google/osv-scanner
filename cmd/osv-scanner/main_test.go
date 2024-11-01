@@ -518,7 +518,12 @@ func TestRun_LockfileWithExplicitParseAs(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
 
-			testCli(t, tt)
+			stdout, stderr := runCli(t, tt)
+
+			testutility.NewSnapshot().MatchText(t, stdout)
+			testutility.NewSnapshot().WithWindowsReplacements(map[string]string{
+				"CreateFile": "stat",
+			}).MatchText(t, stderr)
 		})
 	}
 }
