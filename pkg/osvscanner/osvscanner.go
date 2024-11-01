@@ -2,6 +2,8 @@ package osvscanner
 
 import (
 	"bufio"
+	"cmp"
+	"context"
 	"crypto/md5" //nolint:gosec
 	"errors"
 	"fmt"
@@ -11,15 +13,21 @@ import (
 	"path"
 	"path/filepath"
 	"slices"
-	"sort"
 	"strings"
+
+	"github.com/google/osv-scalibr/extractor"
+	"github.com/google/osv-scalibr/extractor/filesystem/os/apk"
+	"github.com/google/osv-scalibr/extractor/filesystem/os/dpkg"
+	scalibrosv "github.com/google/osv-scalibr/extractor/filesystem/osv"
 
 	"github.com/google/osv-scanner/internal/config"
 	"github.com/google/osv-scanner/internal/customgitignore"
 	"github.com/google/osv-scanner/internal/depsdev"
 	"github.com/google/osv-scanner/internal/image"
 	"github.com/google/osv-scanner/internal/local"
-	"github.com/google/osv-scanner/internal/manifest"
+	"github.com/google/osv-scanner/internal/lockfilescalibr"
+	"github.com/google/osv-scanner/internal/lockfilescalibr/language/java/pomxmlnet"
+	"github.com/google/osv-scanner/internal/lockfilescalibr/language/osv/osvscannerjson"
 	"github.com/google/osv-scanner/internal/output"
 	"github.com/google/osv-scanner/internal/resolution/client"
 	"github.com/google/osv-scanner/internal/resolution/datasource"
@@ -171,17 +179,19 @@ func scanDir(r reporter.Reporter, dir string, skipGit bool, recursive bool, useG
 		}
 
 		if !info.IsDir() {
-			if extractor, _ := lockfile.FindExtractor(path, ""); extractor != nil {
-				pkgs, err := scanLockfile(r, path, "", transitiveAct)
-				if err != nil {
+			pkgs, err := scanLockfile(r, path, "", transitiveAct)
+			if err != nil {
+				// If no extractors found then just continue
+				if !errors.Is(err, lockfilescalibr.ErrNoExtractorsFound) {
 					r.Errorf("Attempted to scan lockfile but failed: %s\n", path)
 				}
-				scannedPackages = append(scannedPackages, pkgs...)
 			}
+			scannedPackages = append(scannedPackages, pkgs...)
+
 			// No need to check for error
 			// If scan fails, it means it isn't a valid SBOM file,
 			// so just move onto the next file
-			pkgs, _ := scanSBOMFile(r, path, true)
+			pkgs, _ = scanSBOMFile(r, path, true)
 			scannedPackages = append(scannedPackages, pkgs...)
 		}
 
@@ -356,27 +366,29 @@ func scanImage(r reporter.Reporter, path string) ([]scannedPackage, error) {
 // within to `query`
 func scanLockfile(r reporter.Reporter, path string, parseAs string, transitiveAct TransitiveScanningActions) ([]scannedPackage, error) {
 	var err error
-	var parsedLockfile lockfile.Lockfile
 
-	f, err := lockfile.OpenLocalDepFile(path)
+	var inventories []*extractor.Inventory
 
-	if err == nil {
-		// special case for the APK and DPKG parsers because they have a very generic name while
-		// living at a specific location, so they are not included in the map of parsers
-		// used by lockfile.Parse to avoid false-positives when scanning projects
-		switch parseAs {
-		case "apk-installed":
-			parsedLockfile, err = lockfile.FromApkInstalled(path)
-		case "dpkg-status":
-			parsedLockfile, err = lockfile.FromDpkgStatus(path)
-		case "osv-scanner":
-			parsedLockfile, err = lockfile.FromOSVScannerResults(path)
-		default:
-			if !transitiveAct.Disabled && (parseAs == "pom.xml" || filepath.Base(path) == "pom.xml") {
-				parsedLockfile, err = extractMavenDeps(f, transitiveAct)
-			} else {
-				parsedLockfile, err = lockfile.ExtractDeps(f, parseAs)
+	// special case for the APK and DPKG parsers because they have a very generic name while
+	// living at a specific location, so they are not included in the map of parsers
+	// used by lockfile.Parse to avoid false-positives when scanning projects
+	switch parseAs {
+	case "apk-installed":
+		inventories, err = lockfilescalibr.ExtractWithExtractor(context.Background(), path, apk.New(apk.DefaultConfig()))
+	case "dpkg-status":
+		inventories, err = lockfilescalibr.ExtractWithExtractor(context.Background(), path, dpkg.New(dpkg.DefaultConfig()))
+	case "osv-scanner":
+		inventories, err = lockfilescalibr.ExtractWithExtractor(context.Background(), path, osvscannerjson.Extractor{})
+	default:
+		if !transitiveAct.Disabled && (parseAs == "pom.xml" || filepath.Base(path) == "pom.xml") {
+			ext, extErr := createMavenExtractor(transitiveAct)
+			if extErr != nil {
+				return nil, extErr
 			}
+
+			inventories, err = lockfilescalibr.ExtractWithExtractor(context.Background(), path, ext)
+		} else {
+			inventories, err = lockfilescalibr.Extract(context.Background(), path, parseAs)
 		}
 	}
 
@@ -390,33 +402,57 @@ func scanLockfile(r reporter.Reporter, path string, parseAs string, transitiveAc
 		parsedAsComment = fmt.Sprintf("as a %s ", parseAs)
 	}
 
+	slices.SortFunc(inventories, func(i, j *extractor.Inventory) int {
+		return cmp.Or(
+			strings.Compare(i.Name, j.Name),
+			strings.Compare(i.Version, j.Version),
+		)
+	})
+
+	pkgCount := len(inventories)
+
 	r.Infof(
 		"Scanned %s file %sand found %d %s\n",
 		path,
 		parsedAsComment,
-		len(parsedLockfile.Packages),
-		output.Form(len(parsedLockfile.Packages), "package", "packages"),
+		pkgCount,
+		output.Form(pkgCount, "package", "packages"),
 	)
 
-	packages := make([]scannedPackage, len(parsedLockfile.Packages))
-	for i, pkgDetail := range parsedLockfile.Packages {
-		packages[i] = scannedPackage{
-			Name:      pkgDetail.Name,
-			Version:   pkgDetail.Version,
-			Commit:    pkgDetail.Commit,
-			Ecosystem: pkgDetail.Ecosystem,
-			DepGroups: pkgDetail.DepGroups,
+	packages := make([]scannedPackage, 0, pkgCount)
+
+	for _, inv := range inventories {
+		scannedPackage := scannedPackage{
+			Name:    inv.Name,
+			Version: inv.Version,
 			Source: models.SourceInfo{
 				Path: path,
 				Type: "lockfile",
 			},
 		}
+		if inv.SourceCode != nil {
+			scannedPackage.Commit = inv.SourceCode.Commit
+		}
+		eco := inv.Ecosystem()
+		// TODO(rexpan): Refactor these minor patches to individual items
+		// TODO: Ecosystem should be pared with Enum : Suffix
+		if eco == "Alpine" {
+			eco = "Alpine:v3.20"
+		}
+
+		scannedPackage.Ecosystem = lockfile.Ecosystem(eco)
+
+		if dg, ok := inv.Metadata.(scalibrosv.DepGroups); ok {
+			scannedPackage.DepGroups = dg.DepGroups()
+		}
+
+		packages = append(packages, scannedPackage)
 	}
 
 	return packages, nil
 }
 
-func extractMavenDeps(f lockfile.DepFile, actions TransitiveScanningActions) (lockfile.Lockfile, error) {
+func createMavenExtractor(actions TransitiveScanningActions) (*pomxmlnet.Extractor, error) {
 	var depClient client.DependencyClient
 	var err error
 	if actions.NativeDataSource {
@@ -425,37 +461,20 @@ func extractMavenDeps(f lockfile.DepFile, actions TransitiveScanningActions) (lo
 		depClient, err = client.NewDepsDevClient(depsdev.DepsdevAPI)
 	}
 	if err != nil {
-		return lockfile.Lockfile{}, err
+		return nil, err
 	}
 
 	mavenClient, err := datasource.NewMavenRegistryAPIClient(actions.MavenRegistry)
 	if err != nil {
-		return lockfile.Lockfile{}, err
+		return nil, err
 	}
 
-	extractor := manifest.MavenResolverExtractor{
+	extractor := pomxmlnet.Extractor{
 		DependencyClient:       depClient,
 		MavenRegistryAPIClient: mavenClient,
 	}
-	packages, err := extractor.Extract(f)
-	if err != nil {
-		err = fmt.Errorf("failed extracting %s: %w", f.Path(), err)
-	}
 
-	// Sort packages for testing convenience.
-	sort.Slice(packages, func(i, j int) bool {
-		if packages[i].Name == packages[j].Name {
-			return packages[i].Version < packages[j].Version
-		}
-
-		return packages[i].Name < packages[j].Name
-	})
-
-	return lockfile.Lockfile{
-		FilePath: f.Path(),
-		ParsedAs: "pom.xml",
-		Packages: packages,
-	}, err
+	return &extractor, nil
 }
 
 // scanSBOMFile will load, identify, and parse the SBOM path passed in, and add the dependencies specified
@@ -1019,7 +1038,12 @@ func filterIgnoredPackages(r reporter.Reporter, packages []scannedPackage, confi
 		}
 
 		if ignore, ignoreLine := configToUse.ShouldIgnorePackage(pkg); ignore {
-			pkgString := fmt.Sprintf("%s/%s/%s", p.Ecosystem, p.Name, p.Version)
+			var pkgString string
+			if p.PURL != "" {
+				pkgString = p.PURL
+			} else {
+				pkgString = fmt.Sprintf("%s/%s/%s", p.Ecosystem, p.Name, p.Version)
+			}
 			reason := ignoreLine.Reason
 
 			if reason == "" {
