@@ -99,5 +99,15 @@ func extractArtifactDeps(path string, layer *Layer) ([]*extractor.Inventory, err
 		return nil, fmt.Errorf("%w for %s", lockfilescalibr.ErrExtractorNotFound, path)
 	}
 
+	// Perform any one-off translations here
+	for _, inv := range inventories {
+		// Scalibr uses go to indicate go compiler version
+		// We specifically cares about the stdlib version inside the package
+		// so convert the package name from go to stdlib
+		if inv.Ecosystem() == "Go" && inv.Name == "go" {
+			inv.Name = "stdlib"
+		}
+	}
+
 	return inventories, nil
 }

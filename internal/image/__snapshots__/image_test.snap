@@ -200,7 +200,7 @@
           }
         },
         {
-          "name": "go",
+          "name": "stdlib",
           "version": "1.22.4",
           "ecosystem": "Go",
           "compareAs": "Go",
@@ -228,7 +228,7 @@
           }
         },
         {
-          "name": "go",
+          "name": "stdlib",
           "version": "1.22.4",
           "ecosystem": "Go",
           "compareAs": "Go",
@@ -256,7 +256,7 @@
           }
         },
         {
-          "name": "go",
+          "name": "stdlib",
           "version": "1.22.4",
           "ecosystem": "Go",
           "compareAs": "Go",
@@ -284,7 +284,7 @@
           }
         },
         {
-          "name": "go",
+          "name": "stdlib",
           "version": "1.22.4",
           "ecosystem": "Go",
           "compareAs": "Go",
@@ -312,7 +312,7 @@
           }
         },
         {
-          "name": "go",
+          "name": "stdlib",
           "version": "1.22.4",
           "ecosystem": "Go",
           "compareAs": "Go",
@@ -340,7 +340,7 @@
           }
         },
         {
-          "name": "go",
+          "name": "stdlib",
           "version": "1.22.4",
           "ecosystem": "Go",
           "compareAs": "Go",
