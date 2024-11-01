@@ -264,7 +264,7 @@ func inWhiteoutDir(fileMap Layer, filePath string) bool {
 		if filePath == "" {
 			break
 		}
-		dirname := filepath.Dir(filePath)
+		dirname := path.Dir(filePath)
 		if filePath == dirname {
 			break
 		}

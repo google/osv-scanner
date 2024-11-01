@@ -6,7 +6,7 @@ import (
 	"fmt"
 	"io/fs"
 	"log"
-	"path/filepath"
+	"path"
 	"slices"
 	"strings"
 
@@ -73,10 +73,10 @@ func ScanImage(r reporter.Reporter, imagePath string) (ScanResults, error) {
 		if len(i.Annotations) > 1 {
 			log.Printf("%v", i.Annotations)
 		}
-		lf, exists := lockfiles[filepath.Join("/", i.Locations[0])]
+		lf, exists := lockfiles[path.Join("/", i.Locations[0])]
 		if !exists {
 			lf = lockfile.Lockfile{
-				FilePath: filepath.Join("/", i.Locations[0]),
+				FilePath: path.Join("/", i.Locations[0]),
 				ParsedAs: i.Extractor.Name(),
 			}
 		}
@@ -93,7 +93,7 @@ func ScanImage(r reporter.Reporter, imagePath string) (ScanResults, error) {
 
 		lf.Packages = append(lf.Packages, pkg)
 
-		lockfiles[filepath.Join("/", i.Locations[0])] = lf
+		lockfiles[path.Join("/", i.Locations[0])] = lf
 	}
 
 	for _, l := range lockfiles {

@@ -5,7 +5,7 @@ import (
 	"errors"
 	"fmt"
 	"io/fs"
-	"path/filepath"
+	"strings"
 
 	"github.com/google/osv-scalibr/extractor"
 	"github.com/google/osv-scalibr/extractor/filesystem"
@@ -44,23 +44,23 @@ func findArtifactExtractor(path string, fileInfo fs.FileInfo) []filesystem.Extra
 }
 
 // Note: Output is non deterministic
-func extractArtifactDeps(path string, layer *Layer) ([]*extractor.Inventory, error) {
-	pathFileInfo, err := layer.Stat(path)
+func extractArtifactDeps(extractPath string, layer *Layer) ([]*extractor.Inventory, error) {
+	pathFileInfo, err := layer.Stat(extractPath)
 	if err != nil {
 		return nil, fmt.Errorf("attempted to get FileInfo but failed: %w", err)
 	}
 
-	scalibrPath, _ := filepath.Rel("/", path)
+	scalibrPath := strings.TrimPrefix(extractPath, "/")
 	foundExtractors := findArtifactExtractor(scalibrPath, pathFileInfo)
 	if len(foundExtractors) == 0 {
-		return nil, fmt.Errorf("%w for %s", lockfilescalibr.ErrExtractorNotFound, path)
+		return nil, fmt.Errorf("%w for %s", lockfilescalibr.ErrExtractorNotFound, extractPath)
 	}
 
 	inventories := []*extractor.Inventory{}
 	var extractedAs string
 	for _, extractor := range foundExtractors {
 		// File has to be reopened per extractor as each extractor moves the read cursor
-		f, err := layer.Open(path)
+		f, err := layer.Open(extractPath)
 		if err != nil {
 			return nil, fmt.Errorf("attempted to open file but failed: %w", err)
 		}
@@ -96,7 +96,7 @@ func extractArtifactDeps(path string, layer *Layer) ([]*extractor.Inventory, err
 	}
 
 	if extractedAs == "" {
-		return nil, fmt.Errorf("%w for %s", lockfilescalibr.ErrExtractorNotFound, path)
+		return nil, fmt.Errorf("%w for %s", lockfilescalibr.ErrExtractorNotFound, extractPath)
 	}
 
 	// Perform any one-off translations here

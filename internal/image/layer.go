@@ -3,8 +3,12 @@ package image
 import (
 	"io/fs"
 	"os"
-	"path/filepath"
+	"strings"
 	"time"
+
+	// Note that paths accessing the disk must use filepath, but all virtual paths should use path
+	"path"
+	"path/filepath"
 
 	"github.com/google/osv-scanner/internal/image/pathtree"
 )
@@ -34,7 +38,7 @@ func (f FileNode) IsDir() bool {
 }
 
 func (f FileNode) Name() string {
-	return filepath.Base(f.virtualPath)
+	return path.Base(f.virtualPath)
 }
 
 func (f FileNode) Type() fs.FileMode {
@@ -53,7 +57,7 @@ type FileNodeFileInfo struct {
 var _ fs.FileInfo = FileNodeFileInfo{}
 
 func (f FileNodeFileInfo) Name() string {
-	return filepath.Base(f.fileNode.virtualPath)
+	return path.Base(f.fileNode.virtualPath)
 }
 
 func (f FileNodeFileInfo) Size() int64 {
@@ -143,15 +147,15 @@ var _ fs.FS = Layer{}
 var _ fs.StatFS = Layer{}
 var _ fs.ReadDirFS = Layer{}
 
-func (filemap Layer) getFileNode(path string) (*FileNode, error) {
+func (filemap Layer) getFileNode(nodePath string) (*FileNode, error) {
 	// We expect all paths queried to be absolute paths rooted at the container root
 	// However, scalibr uses paths without a prepending /, because the paths are relative to Root.
 	// Root will always be '/' for container scanning, so prepend with / if necessary.
-	if !filepath.IsAbs(path) {
-		path = filepath.Join("/", path)
+	if !strings.HasPrefix(nodePath, "/") {
+		nodePath = path.Join("/", nodePath)
 	}
 
-	node := filemap.fileNodeTrie.Get(path)
+	node := filemap.fileNodeTrie.Get(nodePath)
 	if node == nil {
 		return nil, fs.ErrNotExist
 	}
