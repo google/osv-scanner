@@ -349,9 +349,9 @@ overriding license for package Packagist/league/flysystem/1.0.8 with 0BSD
 | LICENSE VIOLATION | ECOSYSTEM | PACKAGE                                        | VERSION | SOURCE                                                |
 +-------------------+-----------+------------------------------------------------+---------+-------------------------------------------------------+
 | 0BSD              | Packagist | league/flysystem                               | 1.0.8   | fixtures/locks-insecure/composer.lock                 |
-| UNKNOWN           |           | https://github.com/flutter/buildroot.git       |         | fixtures/locks-insecure/osv-scanner-flutter-deps.json |
-| UNKNOWN           |           | https://github.com/brendan-duncan/archive.git  |         | fixtures/locks-insecure/osv-scanner-flutter-deps.json |
 | UNKNOWN           |           | https://chromium.googlesource.com/chromium/src |         | fixtures/locks-insecure/osv-scanner-flutter-deps.json |
+| UNKNOWN           |           | https://github.com/brendan-duncan/archive.git  |         | fixtures/locks-insecure/osv-scanner-flutter-deps.json |
+| UNKNOWN           |           | https://github.com/flutter/buildroot.git       |         | fixtures/locks-insecure/osv-scanner-flutter-deps.json |
 | UNKNOWN           | RubyGems  | ast                                            | 2.4.2   | fixtures/locks-many/Gemfile.lock                      |
 | 0BSD              | Packagist | sentry/sdk                                     | 2.0.4   | fixtures/locks-many/composer.lock                     |
 +-------------------+-----------+------------------------------------------------+---------+-------------------------------------------------------+
@@ -1856,6 +1856,7 @@ Filtered 16 vulnerabilities from output
 | https://osv.dev/DLA-3325-1          |      | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DLA-3449-1          |      | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DLA-3530-1          |      | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/DLA-3942-1          |      | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DSA-4539-3          |      | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/CVE-2017-12837      | 7.5  | Debian    | perl                           | 5.24.1-3+deb9u7                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/CVE-2017-12883      | 9.1  | Debian    | perl                           | 5.24.1-3+deb9u7                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
@@ -2034,6 +2035,7 @@ Filtered 16 vulnerabilities from output
 | https://osv.dev/DLA-3325-1          |      | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DLA-3449-1          |      | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DLA-3530-1          |      | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/DLA-3942-1          |      | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DSA-4539-3          |      | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/CVE-2017-12837      | 7.5  | Debian    | perl                           | 5.24.1-3+deb9u7                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/CVE-2017-12883      | 9.1  | Debian    | perl                           | 5.24.1-3+deb9u7                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
@@ -2328,7 +2330,7 @@ No issues found
 ---
 
 [TestRun_LockfileWithExplicitParseAs/empty_works_as_an_escape_(no_fixture_because_it's_not_valid_on_Windows) - 2]
-open <rootdir>/path/to/my:file: no such file or directory
+stat <rootdir>/path/to/my:file: no such file or directory
 
 ---
 
@@ -2337,7 +2339,7 @@ open <rootdir>/path/to/my:file: no such file or directory
 ---
 
 [TestRun_LockfileWithExplicitParseAs/empty_works_as_an_escape_(no_fixture_because_it's_not_valid_on_Windows)#01 - 2]
-open <rootdir>/path/to/my:project/package-lock.json: no such file or directory
+stat <rootdir>/path/to/my:project/package-lock.json: no such file or directory
 
 ---
 
@@ -2346,7 +2348,7 @@ open <rootdir>/path/to/my:project/package-lock.json: no such file or directory
 ---
 
 [TestRun_LockfileWithExplicitParseAs/files_that_error_on_parsing_stop_parsable_files_from_being_checked - 2]
-(extracting as Cargo.lock) could not extract from <rootdir>/fixtures/locks-insecure/my-package-lock.json: toml: line 1: expected '.' or '=', but got '{' instead
+(extracting as rust/Cargolock) could not extract from <rootdir>/fixtures/locks-insecure/my-package-lock.json: toml: line 1: expected '.' or '=', but got '{' instead
 
 ---
 
@@ -2404,7 +2406,7 @@ No issues found
 ---
 
 [TestRun_LockfileWithExplicitParseAs/parse-as_takes_priority,_even_if_it's_wrong - 2]
-(extracting as package-lock.json) could not extract from <rootdir>/fixtures/locks-many/yarn.lock: invalid character '#' looking for beginning of value
+(extracting as javascript/packagelockjson) could not extract from "<rootdir>/fixtures/locks-many/yarn.lock": invalid character '#' looking for beginning of value
 
 ---
 
@@ -2586,17 +2588,17 @@ Scanning image ../../internal/image/fixtures/test-node_modules-npm-empty.tar
 
 [TestRun_OCIImage/scanning_node_modules_using_npm_with_some_packages - 1]
 Scanning image ../../internal/image/fixtures/test-node_modules-npm-full.tar
-+-------------------------------------+------+--------------+----------+------------+-------------------------------------------------------------------------------------------------------+
-| OSV URL                             | CVSS | ECOSYSTEM    | PACKAGE  | VERSION    | SOURCE                                                                                                |
-+-------------------------------------+------+--------------+----------+------------+-------------------------------------------------------------------------------------------------------+
-| https://osv.dev/CVE-2023-42363      | 5.5  | Alpine:v3.19 | busybox  | 1.36.1-r15 | ../../internal/image/fixtures/test-node_modules-npm-full.tar:/lib/apk/db/installed                    |
-| https://osv.dev/CVE-2023-42364      | 5.5  | Alpine:v3.19 | busybox  | 1.36.1-r15 | ../../internal/image/fixtures/test-node_modules-npm-full.tar:/lib/apk/db/installed                    |
-| https://osv.dev/CVE-2023-42365      | 5.5  | Alpine:v3.19 | busybox  | 1.36.1-r15 | ../../internal/image/fixtures/test-node_modules-npm-full.tar:/lib/apk/db/installed                    |
-| https://osv.dev/CVE-2023-42366      | 5.5  | Alpine:v3.19 | busybox  | 1.36.1-r15 | ../../internal/image/fixtures/test-node_modules-npm-full.tar:/lib/apk/db/installed                    |
-| https://osv.dev/GHSA-38f5-ghc2-fcmv | 9.8  | npm          | cryo     | 0.0.6      | ../../internal/image/fixtures/test-node_modules-npm-full.tar:/usr/app/node_modules/.package-lock.json |
-| https://osv.dev/GHSA-vh95-rmgr-6w4m | 9.8  | npm          | minimist | 0.0.8      | ../../internal/image/fixtures/test-node_modules-npm-full.tar:/usr/app/node_modules/.package-lock.json |
-| https://osv.dev/GHSA-xvch-5gv4-984h |      |              |          |            |                                                                                                       |
-+-------------------------------------+------+--------------+----------+------------+-------------------------------------------------------------------------------------------------------+
++-------------------------------------+------+--------------+----------+------------+--------------------------------------------------------------------------------------------------------+
+| OSV URL                             | CVSS | ECOSYSTEM    | PACKAGE  | VERSION    | SOURCE                                                                                                 |
++-------------------------------------+------+--------------+----------+------------+--------------------------------------------------------------------------------------------------------+
+| https://osv.dev/CVE-2023-42363      | 5.5  | Alpine:v3.19 | busybox  | 1.36.1-r15 | ../../internal/image/fixtures/test-node_modules-npm-full.tar:/lib/apk/db/installed                     |
+| https://osv.dev/CVE-2023-42364      | 5.5  | Alpine:v3.19 | busybox  | 1.36.1-r15 | ../../internal/image/fixtures/test-node_modules-npm-full.tar:/lib/apk/db/installed                     |
+| https://osv.dev/CVE-2023-42365      | 5.5  | Alpine:v3.19 | busybox  | 1.36.1-r15 | ../../internal/image/fixtures/test-node_modules-npm-full.tar:/lib/apk/db/installed                     |
+| https://osv.dev/CVE-2023-42366      | 5.5  | Alpine:v3.19 | busybox  | 1.36.1-r15 | ../../internal/image/fixtures/test-node_modules-npm-full.tar:/lib/apk/db/installed                     |
+| https://osv.dev/GHSA-38f5-ghc2-fcmv | 9.8  | npm          | cryo     | 0.0.6      | ../../internal/image/fixtures/test-node_modules-npm-full.tar:/prod/app/node_modules/.package-lock.json |
+| https://osv.dev/GHSA-vh95-rmgr-6w4m | 9.8  | npm          | minimist | 0.0.8      | ../../internal/image/fixtures/test-node_modules-npm-full.tar:/prod/app/node_modules/.package-lock.json |
+| https://osv.dev/GHSA-xvch-5gv4-984h |      |              |          |            |                                                                                                        |
++-------------------------------------+------+--------------+----------+------------+--------------------------------------------------------------------------------------------------------+
 
 ---
 

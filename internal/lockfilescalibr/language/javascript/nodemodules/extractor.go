@@ -40,12 +40,12 @@ func (e Extractor) Extract(ctx context.Context, input *filesystem.ScanInput) ([]
 }
 
 // ToPURL converts an inventory created by this extractor into a PURL.
-func (e Extractor) ToPURL(i *extractor.Inventory) (*purl.PackageURL, error) {
+func (e Extractor) ToPURL(i *extractor.Inventory) *purl.PackageURL {
 	return e.actualExtractor.ToPURL(i)
 }
 
 // ToCPEs is not applicable as this extractor does not infer CPEs from the Inventory.
-func (e Extractor) ToCPEs(i *extractor.Inventory) ([]string, error) {
+func (e Extractor) ToCPEs(i *extractor.Inventory) []string {
 	return e.actualExtractor.ToCPEs(i)
 }
 
