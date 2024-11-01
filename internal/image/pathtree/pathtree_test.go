@@ -195,8 +195,8 @@ func TestNode_GetChildren(t *testing.T) {
 				tt.want,
 				got,
 				cmp.AllowUnexported(testVal{}),
-				cmpopts.SortSlices(func(a, b string) bool {
-					return strings.Compare(a, b) < 0
+				cmpopts.SortSlices(func(a, b *testVal) bool {
+					return strings.Compare(a.string, b.string) < 0
 				})); diff != "" {
 				t.Errorf("Node.GetChildren() (-want +got): %v", diff)
 			}
