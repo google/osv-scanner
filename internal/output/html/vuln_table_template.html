@@ -1,7 +1,7 @@
 <table class="inner-table">
   <tr>
     <th>Vulnerability ID</th>
-    <th>Group IDs</th>
+    <th>Aliases</th>
     <th>Fixed version</th>
     <th class="severity-cell">Severity</th>
     <th class="open-in-tab-cell"></th>
@@ -9,10 +9,31 @@
   {{ range $rowIndex, $element := .CalledVulns }}
   {{ $index := uniqueID }}
   <tr class='table-tr vuln-tr' id="table-tr-{{ $index }}" data-vuln-id="{{ $element.Summary.ID }}">
-    <td>{{ $element.Summary.ID }}</td>
-    <td>{{ join $element.Detail.GroupIDs ", "}}</td>
     <td>
-      <p {{ if eq $element.Summary.FixedVersion "No fix available" }} class="fixable-tag no-fix" {{ end }}>{{$element.Summary.FixedVersion }}</p></td>
+      {{ if eq (len $element.Detail.GroupIDs) 0 }}
+      {{ $element.Summary.ID }}
+      {{ else }}
+      <div class="tooltip">
+        {{ $element.Summary.ID }}
+        <span class="tooltiptext">Group IDs: {{ join $element.Detail.GroupIDs ", " }}</span>
+      </div>
+      {{ end }}
+    </td>
+    <td>
+      {{ if eq (len $element.Detail.Aliases) 1 }}
+      {{ index $element.Detail.Aliases 0 }}
+      {{ else if gt (len $element.Detail.Aliases) 1}}
+      <div class="tooltip">
+        {{ index $element.Detail.Aliases 0}}...
+        <span class="tooltiptext">{{ join $element.Detail.Aliases ", " }}</span>
+      </div>
+      {{ end }}
+    </td>
+
+    <td>
+      <p {{ if eq $element.Summary.FixedVersion "No fix available" }} class="fixable-tag no-fix" {{ end }}>
+        {{$element.Summary.FixedVersion }}</p>
+    </td>
     <td class="severity-cell">
       <div id="{{ toLower $element.Summary.SeverityRating }}-short" class="severity-short">
         <p class="{{ toLower $element.Summary.SeverityRating }}">{{ $element.Summary.SeverityScore }}</p>
@@ -27,10 +48,31 @@
   {{ range $rowIndex, $element := .UncalledVulns }}
   {{ $index := uniqueID }}
   <tr class='table-tr vuln-tr uncalled-tr' id="table-tr-{{ $index }}" data-vuln-id="{{ $element.Summary.ID }}">
-    <td>{{ $element.Summary.ID }}</td>
-    <td>{{ join $element.Detail.GroupIDs ", "}}</td>
+    <td class="uncalled-text">
+      {{ if eq (len $element.Detail.GroupIDs) 0 }}
+      {{ $element.Summary.ID }}
+      {{ else }}
+      <div class="tooltip">
+        {{ $element.Summary.ID }}
+        <span class="tooltiptext">Group IDs: {{ join $element.Detail.GroupIDs ", " }}</span>
+      </div>
+      {{ end }}
+    </td>
+    <td class="uncalled-text">
+      {{ if eq (len $element.Detail.Aliases) 1 }}
+      {{ index $element.Detail.Aliases 0 }}
+      {{ else if gt (len $element.Detail.Aliases) 1}}
+      <div class="tooltip">
+        {{ index $element.Detail.Aliases 0}}...
+        <span class="tooltiptext">{{ join $element.Detail.Aliases ", " }}</span>
+      </div>
+      {{ end }}
+    </td>
+
     <td>
-      <p {{ if eq $element.Summary.FixedVersion "No fix available" }} class="fixable-tag no-fix" {{ end }}>{{$element.Summary.FixedVersion }}</p></td>
+      <p {{ if eq $element.Summary.FixedVersion "No fix available" }} class="fixable-tag no-fix" {{ else }}
+        class="uncalled-text" {{ end }}>{{$element.Summary.FixedVersion }}</p>
+    </td>
     <td class="severity-cell">
       <div id="{{ toLower $element.Summary.SeverityRating }}-short" class="severity-short">
         <p class="{{ toLower $element.Summary.SeverityRating }}">{{ $element.Summary.SeverityScore }}</p>

@@ -58,6 +58,12 @@
     const closeIcon = document.createElement('span');
     closeIcon.className = "material-icons";
     closeIcon.textContent = 'close';
+    // Add the onclick function to the close icon
+    closeIcon.onclick = function(event) { 
+      event.stopPropagation(); // Prevent the click from opening the tab
+      closeVulnTab(inputString); 
+    };
+
     newTabButton.appendChild(closeIcon);
 
     // Add the iframe to the new tab div.
@@ -67,6 +73,25 @@
     tabSwitches.appendChild(newTabButton);
 
     openTab(newTab.id)
+  }
+
+  function closeVulnTab(inputString) {
+    const tabToRemove = document.getElementById(inputString);
+    const buttonToRemove = document.getElementById(inputString + '-button');
+    const tabs = document.getElementById("tabs");
+    const tabSwitches = document.getElementById("tab-switch");
+
+    if (tabToRemove && buttonToRemove) {
+      const nextTabButton = buttonToRemove.nextElementSibling || buttonToRemove.previousElementSibling;
+
+      tabs.removeChild(tabToRemove);
+      tabSwitches.removeChild(buttonToRemove);
+
+      if (nextTabButton) {
+        const nextTabId = nextTabButton.id.replace('-button', '');
+        openTab(nextTabId);
+      }
+    }
   }
 
   function openTab(activeTabId) {

@@ -175,7 +175,7 @@
     display: none;
   }
 
-  .uncalled-tr td {
+  .uncalled-text {
     color: #808080;
   }
 
@@ -420,6 +420,10 @@
     color: #9AA0A6;
   }
 
+  .layer-command-container {
+    display: flex;
+  }
+
   .inner-table {
     width: 100%;
     border: 0.5px solid rgba(255, 255, 255, 0.12);
@@ -439,4 +443,37 @@
     transform: rotate(90deg);
   }
 
+  .tooltip {
+    position: relative;
+    display: inline-block;
+  }
+
+  .tooltip .tooltiptext {
+    visibility: hidden;
+    width: 120px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 5px;
+    white-space: nowrap;
+    width: fit-content;
+    text-align: left;
+
+    /* Position the tooltip */
+    position: absolute;
+    z-index: 1;
+    top: 100%;
+    left: 50%;
+    margin-left: -60px;
+  }
+
+  .tooltip:hover .tooltiptext {
+    visibility: visible;
+  }
+
+  .inner-table .tooltip .tooltiptext {
+    min-width: 300px;
+    white-space: normal;
+  }
 </style>

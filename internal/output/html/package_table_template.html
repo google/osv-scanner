@@ -8,23 +8,25 @@
   </tr>
   {{ range $rowIndex, $element := . }}
   {{ $index := uniqueID }}
-  <tr class="table-tr package-tr {{if $element.HTMLPackageDetail }}has-layer-info" 
-  data-layer="{{ $element.HTMLPackageDetail.LayerID }}{{ end }}"
-  id="table-tr-{{ $index }}">
+  <tr class="table-tr package-tr {{if $element.HTMLPackageDetail }}has-layer-info"
+    data-layer="{{ $element.HTMLPackageDetail.LayerID }}{{ end }}" id="table-tr-{{ $index }}">
     <td class="icon-td">
       <div class="expand-icon" onclick="showPackageDetails('{{ $index }}')">
         <i class="material-icons">play_arrow</i>
       </div>
     </td>
-    <td>{{ $element.Name }}</td>
-    <td>{{ $element.InstalledVersion }}</td>
+    <td {{ if eq $element.HTMLVulnCount.Called 0 }}class="uncalled-text" {{ end }}>{{ $element.Name }}</td>
+    <td {{ if eq $element.HTMLVulnCount.Called 0 }}class="uncalled-text" {{ end }}>{{ $element.InstalledVersion }}</td>
     <td>
       {{ if ne $element.HTMLVulnCount.UnFixed 0 }}
       {{ if eq $element.HTMLVulnCount.Fixed 0}}
       <p class="fixable-tag no-fix">No fix available</p>
       {{ else }}
-      <p class="fixable-tag has-fix">Partial fixes available ({{ $element.HTMLVulnCount.Fixed }}/{{
-        $element.HTMLVulnCount.Called }})</p>
+      <div class="tooltip">
+        <p class="fixable-tag has-fix">Partial fixes available</p>
+        <span class="tooltiptext">Upgrading the package will fix {{ $element.HTMLVulnCount.Fixed }} out of {{
+          $element.HTMLVulnCount.Called }} vulnerabilities</span>
+      </div>
       {{ end }}
       {{ else }}
       <p class="fixable-tag has-fix">Fix available</p>
@@ -40,12 +42,17 @@
     <td colspan="100%">
       <div id="table-tr-{{ $index }}-details" class="package-details">
         {{ if and $element.HTMLPackageDetail (not (eq $element.HTMLPackageDetail.LayerID "")) }}
-          <p><span class="package-detail-title">Layer Command:</span> {{ $element.HTMLPackageDetail.LayerCommand }}</p>
-          <p><span class="package-detail-title">Layer ID:</span> {{ $element.HTMLPackageDetail.LayerID }}</p>
-          <p><span class="package-detail-title">In Base Image:</span> {{ $element.HTMLPackageDetail.InBaseImage }}</p>
+        <div class="layer-command-container">
+          <span class="package-detail-title">Layer Command:</span>
+          <div class="tooltip">{{ $element.HTMLPackageDetail.LayerCommand }}
+            <span class="tooltiptext">{{ $element.HTMLPackageDetail.LayerCommandTooltip }}</span>
+          </div>
+        </div>
+        <p><span class="package-detail-title">Layer ID:</span> {{ $element.HTMLPackageDetail.LayerID }}</p>
+        <p><span class="package-detail-title">In Base Image:</span> {{ $element.HTMLPackageDetail.InBaseImage }}</p>
         {{ end }}
         {{ template "vuln_table_template.html" $element }}
-      </div>
+
     </td>
   </tr>
   {{ end }}

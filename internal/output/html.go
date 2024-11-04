@@ -83,6 +83,7 @@ type HTMLPackageDetail struct {
 // HTMLVulnResultDetail represents detailed information about a vulnerability.
 type HTMLVulnResultDetail struct {
 	GroupIDs            []string
+	CVE                 string
 	Aliases             []string
 	LayerCommand        string
 	LayerCommandTooltip string
@@ -279,6 +280,9 @@ func processPackageResults(allVulns []HTMLVulnResult, groupIDs map[string]models
 		if len(result.CalledVulns) > 0 {
 			result.InstalledVersion = result.CalledVulns[0].Summary.InstalledVersion
 			result.FixedVersion = getMaxFixedVersion(ecosystemPrefix, result.CalledVulns)
+		} else {
+			result.InstalledVersion = result.UncalledVulns[0].Summary.InstalledVersion
+			result.FixedVersion = getMaxFixedVersion(ecosystemPrefix, result.UncalledVulns)
 		}
 
 		results = append(results, *result)
@@ -300,9 +304,12 @@ func processPackageResults(allVulns []HTMLVulnResult, groupIDs map[string]models
 func processVulnerabilities(vulnPkg models.PackageVulns) []HTMLVulnResult {
 	vulnResults := make([]HTMLVulnResult, len(vulnPkg.Vulnerabilities))
 	for i, vuln := range vulnPkg.Vulnerabilities {
+		// Sort aliases to make sure CVE show at the first
+		slices.SortFunc(vuln.Aliases, identifiers.IDSortFunc)
 		vulnDetails := HTMLVulnResultDetail{
 			Aliases: vuln.Aliases,
 		}
+
 		if vulnPkg.Package.ImageOrigin != nil {
 			isContainerScanning = true
 			vulnDetails.LayerCommand, vulnDetails.LayerCommandTooltip = formatLayerCommand(vulnPkg.Package.ImageOrigin.OriginCommand)
@@ -604,12 +611,13 @@ func getAllPackageResults(ecosystemResults []HTMLEcosystemResult) []HTMLPackageR
 // formatLayerCommand formats the layer command output for better readability.
 // It replaces the unreadable file ID with "UNKNOWN" and extracting the ID separately.
 func formatLayerCommand(command string) (string, string) {
-	re := cachedregexp.MustCompile(`dir:([a-f0-9]+)`)
+	re := cachedregexp.MustCompile(`(dir|file):([a-f0-9]+)`)
 	match := re.FindStringSubmatch(command)
 
-	if len(match) > 1 {
-		hash := match[1]
-		newCommand := re.ReplaceAllString(command, "dir:UNKNOWN")
+	if len(match) > 2 {
+		prefix := match[1] // Capture "dir" or "file"
+		hash := match[2]   // Capture the hash ID
+		newCommand := re.ReplaceAllString(command, fmt.Sprintf("%s:UNKNOWN", prefix))
 
 		return newCommand, "File ID: " + hash
 	}
