@@ -739,7 +739,7 @@ func scanDockerImage(r reporter.Reporter, dockerImageName string) ([]scannedPack
 }
 
 // Filters results according to config, preserving order. Returns total number of vulnerabilities removed.
-func filterResults(r reporter.Reporter, results *models.VulnerabilityResults, configManager *config.ConfigManager, allPackages bool) int {
+func filterResults(r reporter.Reporter, results *models.VulnerabilityResults, configManager *config.Manager, allPackages bool) int {
 	removedCount := 0
 	unimportantCount := 0
 	newResults := []models.PackageSource{} // Want 0 vulnerabilities to show in JSON as an empty list, not null.
@@ -893,7 +893,7 @@ func DoScan(actions ScannerActions, r reporter.Reporter) (models.VulnerabilityRe
 		return models.VulnerabilityResults{}, errors.New("databases can only be downloaded when running in offline mode")
 	}
 
-	configManager := config.ConfigManager{
+	configManager := config.Manager{
 		DefaultConfig: config.Config{},
 		ConfigMap:     make(map[string]config.Config),
 	}
@@ -1059,7 +1059,7 @@ func filterUnscannablePackages(packages []scannedPackage) []scannedPackage {
 }
 
 // filterIgnoredPackages removes ignore scanned packages according to config. Returns filtered scanned packages.
-func filterIgnoredPackages(r reporter.Reporter, packages []scannedPackage, configManager *config.ConfigManager) []scannedPackage {
+func filterIgnoredPackages(r reporter.Reporter, packages []scannedPackage, configManager *config.Manager) []scannedPackage {
 	out := make([]scannedPackage, 0, len(packages))
 	for _, p := range packages {
 		configToUse := configManager.Get(r, p.Source.Path)
@@ -1193,7 +1193,7 @@ func makeLicensesRequests(packages []scannedPackage) ([][]models.License, error)
 }
 
 // Overrides Go version using osv-scanner.toml
-func overrideGoVersion(r reporter.Reporter, packages []scannedPackage, configManager *config.ConfigManager) {
+func overrideGoVersion(r reporter.Reporter, packages []scannedPackage, configManager *config.Manager) {
 	for i, pkg := range packages {
 		if pkg.Name == "stdlib" && pkg.Ecosystem == "Go" {
 			configToUse := configManager.Get(r, pkg.Source.Path)
