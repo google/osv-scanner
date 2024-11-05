@@ -32,7 +32,7 @@ import (
 )
 
 var lockfileExtractors = []filesystem.Extractor{
-	// conanlock.Extractor{},
+	conanlock.Extractor{},
 	packageslockjson.Extractor{},
 	mixlock.Extractor{},
 	pubspec.Extractor{},
@@ -71,7 +71,7 @@ var lockfileExtractorMapping = map[string]string{
 	"mix.lock":                    "erlang/mixlock",
 	"renv.lock":                   "r/renvlock",
 	"packages.lock.json":          "dotnet/packageslockjson",
-	// "conan.lock":                  "cpp/conanlock",
+	"conan.lock":                  "cpp/conanlock",
 	"go.mod":       "go/gomod",
 	"Gemfile.lock": "ruby/gemfilelock",
 }
