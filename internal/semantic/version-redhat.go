@@ -105,17 +105,17 @@ func compareRedHatComponents(a, b string) int {
 		// 7. If the first character of `a` is a digit, pop the leading chunk of continuous digits from each string (which may be "" for `b` if only one `a` starts with digits). If `a` begins with a letter, do the same for leading letters.
 		isDigit := isASCIIDigit(rune(a[ai]))
 
-		var iser func(r rune) bool
+		var isExpectedRunType func(r rune) bool
 		if isDigit {
-			iser = isASCIIDigit
+			isExpectedRunType = isASCIIDigit
 		} else {
-			iser = isASCIILetter
+			isExpectedRunType = isASCIILetter
 		}
 
 		var as, bs string
 
 		for _, c := range a[ai:] {
-			if !iser(c) {
+			if !isExpectedRunType(c) {
 				break
 			}
 
@@ -124,7 +124,7 @@ func compareRedHatComponents(a, b string) int {
 		}
 
 		for _, c := range b[bi:] {
-			if !iser(c) {
+			if !isExpectedRunType(c) {
 				break
 			}
 
