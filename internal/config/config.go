@@ -16,11 +16,7 @@ import (
 
 const osvScannerConfigName = "osv-scanner.toml"
 
-// Ignore stuttering as that would be a breaking change
-// TODO: V2 rename?
-//
-//nolint:revive
-type ConfigManager struct {
+type Manager struct {
 	// Override to replace all other configs
 	OverrideConfig *Config
 	// Config to use if no config file is found alongside manifests
@@ -112,17 +108,6 @@ func (c *Config) ShouldIgnorePackage(pkg models.PackageVulns) (bool, PackageOver
 	})
 }
 
-// Deprecated: Use ShouldIgnorePackage instead
-func (c *Config) ShouldIgnorePackageVersion(name, version, ecosystem string) (bool, PackageOverrideEntry) {
-	return c.ShouldIgnorePackage(models.PackageVulns{
-		Package: models.PackageInfo{
-			Name:      name,
-			Version:   version,
-			Ecosystem: ecosystem,
-		},
-	})
-}
-
 // ShouldIgnorePackageVulnerabilities determines if the given package should have its vulnerabilities ignored based on override entries in the config
 func (c *Config) ShouldIgnorePackageVulnerabilities(pkg models.PackageVulns) bool {
 	overrides, _ := c.filterPackageVersionEntries(pkg, func(e PackageOverrideEntry) bool {
@@ -139,17 +124,6 @@ func (c *Config) ShouldOverridePackageLicense(pkg models.PackageVulns) (bool, Pa
 	})
 }
 
-// Deprecated: Use ShouldOverridePackageLicense instead
-func (c *Config) ShouldOverridePackageVersionLicense(name, version, ecosystem string) (bool, PackageOverrideEntry) {
-	return c.ShouldOverridePackageLicense(models.PackageVulns{
-		Package: models.PackageInfo{
-			Name:      name,
-			Version:   version,
-			Ecosystem: ecosystem,
-		},
-	})
-}
-
 func shouldIgnoreTimestamp(ignoreUntil time.Time) bool {
 	if ignoreUntil.IsZero() {
 		// If IgnoreUntil is not set, should ignore.
@@ -162,7 +136,7 @@ func shouldIgnoreTimestamp(ignoreUntil time.Time) bool {
 
 // Sets the override config by reading the config file at configPath.
 // Will return an error if loading the config file fails
-func (c *ConfigManager) UseOverride(configPath string) error {
+func (c *Manager) UseOverride(configPath string) error {
 	config, configErr := tryLoadConfig(configPath)
 	if configErr != nil {
 		return configErr
@@ -173,7 +147,7 @@ func (c *ConfigManager) UseOverride(configPath string) error {
 }
 
 // Attempts to get the config
-func (c *ConfigManager) Get(r reporter.Reporter, targetPath string) Config {
+func (c *Manager) Get(r reporter.Reporter, targetPath string) Config {
 	if c.OverrideConfig != nil {
 		return *c.OverrideConfig
 	}
