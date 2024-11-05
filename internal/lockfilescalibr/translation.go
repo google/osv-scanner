@@ -9,7 +9,6 @@ import (
 
 	"github.com/google/osv-scalibr/extractor"
 	"github.com/google/osv-scalibr/extractor/filesystem"
-	"github.com/google/osv-scalibr/extractor/filesystem/language/cpp/conanlock"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/dart/pubspec"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/dotnet/packageslockjson"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/erlang/mixlock"
@@ -28,8 +27,6 @@ import (
 	"github.com/google/osv-scalibr/extractor/filesystem/language/r/renvlock"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/ruby/gemfilelock"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/rust/cargolock"
-	"github.com/google/osv-scalibr/extractor/filesystem/sbom/cdx"
-	"github.com/google/osv-scalibr/extractor/filesystem/sbom/spdx"
 
 	scalibrfs "github.com/google/osv-scalibr/fs"
 )
@@ -54,10 +51,6 @@ var lockfileExtractors = []filesystem.Extractor{
 	renvlock.Extractor{},
 	gemfilelock.Extractor{},
 	cargolock.Extractor{},
-
-	// SBOM extractors
-	spdx.Extractor{},
-	cdx.Extractor{},
 }
 
 var lockfileExtractorMapping = map[string]string{
@@ -79,10 +72,8 @@ var lockfileExtractorMapping = map[string]string{
 	"renv.lock":                   "r/renvlock",
 	"packages.lock.json":          "dotnet/packageslockjson",
 	"conan.lock":                  "cpp/conanlock",
-	"go.mod":                      "go/gomod",
-	"Gemfile.lock":                "ruby/gemfilelock",
-	"spdx":                        "sbom/spdx",
-	"cdx":                         "sbom/cdx",
+	"go.mod":       "go/gomod",
+	"Gemfile.lock": "ruby/gemfilelock",
 }
 
 // ExtractWithExtractor attempts to extract the file at the given path with the extractor passed in
