@@ -47,6 +47,14 @@
 1.2_svn1 > 1.2_csv2
 1.2_cvs1 > 1.2_blah
 
+# technically invalid, but "apk version -t" still accepts them
+.1 < 1
+1 > .1
+.2 > .1
+a < b
+c > b
+c = c
+
 # from https://raw.githubusercontent.com/alpinelinux/apk-tools/master/tests/version.data
 2.34 > 0.1.0_alpha
 # todo: this might be invalid?
