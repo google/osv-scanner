@@ -842,7 +842,7 @@ func DoScan(actions ScannerActions, r reporter.Reporter) (models.VulnerabilityRe
 	var scannedPackages []scannedPackage
 
 	if actions.ConfigOverridePath != "" {
-		err := configManager.UseOverride(actions.ConfigOverridePath)
+		err := configManager.UseOverride(r, actions.ConfigOverridePath)
 		if err != nil {
 			r.Errorf("Failed to read config file: %s\n", err)
 			return models.VulnerabilityResults{}, err

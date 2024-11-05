@@ -9,6 +9,7 @@ import (
 
 	"github.com/google/go-cmp/cmp"
 	"github.com/google/osv-scanner/pkg/models"
+	"github.com/google/osv-scanner/pkg/reporter"
 )
 
 // Attempts to normalize any file paths in the given `output` so that they can
@@ -172,7 +173,7 @@ func Test_tryLoadConfig(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
 
-			got, err := tryLoadConfig(tt.args.configPath)
+			got, err := tryLoadConfig(&reporter.VoidReporter{}, tt.args.configPath)
 			if (err != nil) != tt.wantErr {
 				t.Errorf("tryLoadConfig() error = %v, wantErr %v", err, tt.wantErr)
 				return
@@ -222,7 +223,7 @@ func TestTryLoadConfig_UnknownKeys(t *testing.T) {
 	}
 
 	for _, testData := range tests {
-		c, err := tryLoadConfig(testData.configPath)
+		c, err := tryLoadConfig(&reporter.VoidReporter{}, testData.configPath)
 
 		// we should always be returning an empty config on error
 		if diff := cmp.Diff(Config{}, c); diff != "" {
