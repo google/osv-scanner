@@ -1,6 +1,6 @@
 {{ range . }}
 <div class="ecosystem-container{{ if .IsOS }} os-type{{ else }} project-type{{ end }}">
-  <h2 class="ecosystem-heading">{{ .Ecosystem }}</h2> 
+  <h2 class="ecosystem-heading">{{ .Ecosystem }}</h2>
   <div class="ecosystem-sources-container">
     {{ range .Sources }}
     <div class="source-container">

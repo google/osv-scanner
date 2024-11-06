@@ -22,15 +22,12 @@
   }
 
   function openVulnInNewTab(inputString) {
-    const osvURL = `https://osv.dev/${inputString}`; // Replace with your URL structure
-    // Get the container element where you want to add the iframe.
+    const osvURL = `https://osv.dev/${inputString}`;
     const tabs = document.getElementById("tabs");
     const tabSwitches = document.getElementById("tab-switch");
 
-    // Check if a div with the given ID already exists.
     const existingTab = document.getElementById(inputString);
     if (existingTab) {
-      // If the tab exists, just show it and hide all others.
       openTab(inputString);
       return;
     }
@@ -143,7 +140,7 @@
 
   }
 
-  function checkAndHideEmptySections() {
+  function showAndHideParentSections() {
     const ecosystemContainers = document.querySelectorAll('.ecosystem-container');
 
     ecosystemContainers.forEach(ecosystemContainer => {
@@ -193,46 +190,9 @@
     });
   }
 
-  function showVulnParentSections(vulnRowID) {
-    const vulnRow = document.getElementById(vulnRowID);
-    const packageRowDetails = vulnRow.closest('.package-details');
-    // Extract the package row ID from the packageRowDetails ID
-    const packageRowID = packageRowDetails.id.replace('-details', '');
-    const packageRow = document.getElementById(packageRowID);
-    packageRow.style.display = 'table-row';
-    showPackageParentSections(packageRow.id);
-  }
-
-  function showPackageParentSections(packageRowID) {
-    const packageRow = document.getElementById(packageRowID);
-    // Get the source container and ecosystem container for the row
-    const sourceContainer = packageRow.closest('.source-container');
-    const ecosystemContainer = packageRow.closest('.ecosystem-container');
-
-    // Show the source container and ecosystem container
-    sourceContainer.style.display = 'block';
-    ecosystemContainer.style.display = 'block';
-  }
-
-  function hideAllVulns() {
-    console.log('hide all');
-    const vulnRows = document.getElementsByClassName('vuln-tr');
-    console.log('total length: ' + vulnRows.length);
-    for (let i = 0; i < vulnRows.length; i++) {
-      // console.log('disabled it: ' + vulnRows[i].getAttribute('data-vuln-id'));
-      vulnRows[i].style.display = 'none';
-      console.log(vulnRows[i].style.display);
-    }
-
-    checkAndHideEmptySections();
-  }
-
   function showAllVulns() {
-    console.log('show all');
     const vulnRows = document.getElementsByClassName('vuln-tr');
-    console.log('total length: ' + vulnRows.length);
     for (let i = 0; i < vulnRows.length; i++) {
-      // console.log('disabled it: ' + vulnRows[i].getAttribute('data-vuln-id'));
       if (vulnRows[i].classList.contains('uncalled-tr')) {
         vulnRows[i].style.display = 'none';
         continue
@@ -240,14 +200,15 @@
       vulnRows[i].style.display = 'table-row';
     }
 
-    checkAndHideEmptySections();
+    showAndHideParentSections();
   }
 
   function applyFilters(selectedTypeFilterValue, selectedLayerFilterValue) {
+    // Show all vulnerabilities and then hide those that do not match the filter requirements.
     showAllVulns();
     applyTypeFilter(selectedTypeFilterValue);
     applyLayerFilter(selectedLayerFilterValue);
-    checkAndHideEmptySections();
+    showAndHideParentSections();
   }
 
   function applyTypeFilter(selectedValue) {
@@ -266,12 +227,11 @@
       const vulnElements = ecosystemElement.querySelectorAll('.vuln-tr');
       vulnElements.forEach(vuln => {
         if (vuln.classList.contains('uncalled-tr')) {
-            if (selectedUncalled) {
-              vuln.style.display = 'table-row';
-              // showVulnParentSections(vuln.id);
-            } else {
-              vuln.style.display = 'none';
-            }
+          if (selectedUncalled) {
+            vuln.style.display = 'table-row';
+          } else {
+            vuln.style.display = 'none';
+          }
         }
         if ((ecosystemElement.classList.contains('os-type') && !selectedOS) ||
           (ecosystemElement.classList.contains('project-type') && !selectedProject)) {
@@ -288,8 +248,6 @@
     console.log('selected layerID: ' + selectedLayerID);
     tableRows.forEach(row => {
       const rowLayerID = row.getAttribute('data-layer');
-
-
       if (selectedLayerID !== 'all' && rowLayerID !== selectedLayerID) {
         const packageDetails = document.getElementById(row.id + '-details');
         const vulnElements = packageDetails.querySelectorAll('.vuln-tr');
@@ -333,7 +291,7 @@
 
 
   document.addEventListener('DOMContentLoaded', function () {
-    checkAndHideEmptySections();
+    showAndHideParentSections();
     let selectedTypeFilterValue = new Set();
     selectedTypeFilterValue.add('all');
     let selectedLayer = 'all';
@@ -385,9 +343,6 @@
         selectedDisplay.textContent = selectedToString;
       }
 
-      // showAllVulns();
-      // applyLayerFilter()
-      // applyTypeFilter(selectedTypeFilterValue);
       applyFilters(selectedTypeFilterValue, selectedLayer);
     });
 
@@ -405,8 +360,6 @@
           selectedDisplay.textContent = layerCommand.textContent;
 
           hideAllFilterOptions();
-          // checkAndHideEmptySections();
-
           applyFilters(selectedTypeFilterValue, selectedLayer);
         }
       });
@@ -431,8 +384,6 @@
       const vulnRows = document.querySelectorAll('[data-vuln-id]');
 
       if (searchTerm === "") {
-        // console.log('key changed');
-        // applyFilters(selectedTypeFilterValue, selectedLayer);
         showAllVulns();
         return;
       }
@@ -442,12 +393,11 @@
 
         if (vulnID.includes(searchTerm)) {
           row.style.display = 'table-row';
-          // showVulnParentSections(row.id);
         } else {
           row.style.display = 'none';
         }
       });
-      checkAndHideEmptySections();
+      showAndHideParentSections();
     });
   });
 

@@ -3,7 +3,6 @@ package output
 import (
 	"cmp"
 	"embed"
-	"fmt"
 	"html/template"
 	"io"
 	"slices"
@@ -584,19 +583,6 @@ func getMaxFixedVersion(ecosystemPrefix models.Ecosystem, allVulns []HTMLVulnRes
 	return maxFixVersion
 }
 
-func getAllVulns(packageResults []HTMLPackageResult, isCalled bool) []HTMLVulnResult {
-	var results []HTMLVulnResult
-	for _, packageResult := range packageResults {
-		if isCalled {
-			results = append(results, packageResult.CalledVulns...)
-		} else {
-			results = append(results, packageResult.UncalledVulns...)
-		}
-	}
-
-	return results
-}
-
 func getAllPackageResults(ecosystemResults []HTMLEcosystemResult) []HTMLPackageResult {
 	var results []HTMLPackageResult
 	for _, ecosystemResult := range ecosystemResults {
@@ -617,21 +603,12 @@ func formatLayerCommand(command string) (string, string) {
 	if len(match) > 2 {
 		prefix := match[1] // Capture "dir" or "file"
 		hash := match[2]   // Capture the hash ID
-		newCommand := re.ReplaceAllString(command, fmt.Sprintf("%s:UNKNOWN", prefix))
+		newCommand := re.ReplaceAllString(command, prefix+":UNKNOWN")
 
 		return newCommand, "File ID: " + hash
 	}
 
 	return command, ""
-}
-
-func printSeverityCount(count HTMLVulnCount) string {
-	result := fmt.Sprintf("CRITICAL: %d, HIGH: %d, MEDIUM: %d, LOW: %d, UNKNOWN: %d", count.Critical, count.High, count.Medium, count.Low, count.Unknown)
-	return result
-}
-
-func printSeverityCountShort(count HTMLVulnCount) string {
-	return fmt.Sprintf("%dC | %dH | %dM | %dL | %dU", count.Critical, count.High, count.Medium, count.Low, count.Unknown)
 }
 
 func PrintHTMLResults(vulnResult *models.VulnerabilityResults, outputWriter io.Writer) error {
@@ -640,13 +617,10 @@ func PrintHTMLResults(vulnResult *models.VulnerabilityResults, outputWriter io.W
 
 	// Parse embedded templates
 	funcMap := template.FuncMap{
-		"uniqueID":                uniqueIndex(&vulnIndex),
-		"getAllVulns":             getAllVulns,
-		"getAllPackageResults":    getAllPackageResults,
-		"printSeverityCount":      printSeverityCount,
-		"printSeverityCountShort": printSeverityCountShort,
-		"join":                    strings.Join,
-		"toLower":                 strings.ToLower,
+		"uniqueID":             uniqueIndex(&vulnIndex),
+		"getAllPackageResults": getAllPackageResults,
+		"join":                 strings.Join,
+		"toLower":              strings.ToLower,
 	}
 
 	tmpl := template.Must(template.New("").Funcs(funcMap).ParseFS(templates, TemplateDir))
