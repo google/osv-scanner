@@ -1,23 +1,27 @@
 <script>
   function showPackageDetails(detailsId) {
-    var detailsElement = document.getElementById("table-tr-" + detailsId + "-details");
+    var detailsElement = document.getElementById(
+      "table-tr-" + detailsId + "-details"
+    );
     var rowElement = document.getElementById("table-tr-" + detailsId);
-    const rowCells = rowElement.querySelectorAll('td');
-    const icon = document.querySelector(`#table-tr-${detailsId} .material-icons`); // Select the icon within the row
+    const rowCells = rowElement.querySelectorAll("td");
+    const icon = document.querySelector(
+      `#table-tr-${detailsId} .material-icons`
+    ); // Select the icon within the row
     if (detailsElement.style.display !== "block") {
       detailsElement.style.display = "block";
       rowCells.forEach(cell => {
         cell.style.borderBottom = "1px solid transparent";
       });
-      icon.style.transform = 'rotate(90deg)'; // Rotate 90 degrees
-      icon.style.transition = 'transform 0.2s ease'; // Add smooth transition
+      icon.style.transform = "rotate(90deg)"; // Rotate 90 degrees
+      icon.style.transition = "transform 0.2s ease"; // Add smooth transition
     } else {
       detailsElement.style.display = "none";
       rowCells.forEach(cell => {
         cell.style.borderBottom = "1px solid rgba(255, 255, 255, 0.12)";
       });
-      icon.style.transform = 'rotate(0deg)'; // Rotate back to 0 degrees
-      icon.style.transition = 'transform 0.2s ease'; // Add smooth transition
+      icon.style.transform = "rotate(0deg)"; // Rotate back to 0 degrees
+      icon.style.transition = "transform 0.2s ease"; // Add smooth transition
     }
   }
 
@@ -35,34 +39,36 @@
     // Create the new tab div.
     const newTab = document.createElement("div");
     newTab.id = inputString; // Set the ID to the input string
-    newTab.className = 'tab osv-tab'; // Set the class name
+    newTab.className = "tab osv-tab"; // Set the class name
 
     // Create the iframe element.
-    const iframe = document.createElement('iframe');
+    const iframe = document.createElement("iframe");
     iframe.src = osvURL;
 
     // Create a new tab button
-    const newTabButton = document.createElement('div');
-    newTabButton.id = inputString + '-button';
+    const newTabButton = document.createElement("div");
+    newTabButton.id = inputString + "-button";
     newTabButton.className = "tab-switch-button";
-    newTabButton.onclick = function () { openTab(inputString); };
+    newTabButton.onclick = function () {
+      openTab(inputString);
+    };
 
     // Add <p> and <span> elements to the button
-    const newTabTextContainer = document.createElement('div');
-    newTabTextContainer.className = 'tab-button-text-container';
-    const newTabText = document.createElement('p');
+    const newTabTextContainer = document.createElement("div");
+    newTabTextContainer.className = "tab-button-text-container";
+    const newTabText = document.createElement("p");
     newTabText.textContent = inputString;
     newTabTextContainer.appendChild(newTabText);
 
-    const newTabButtonBorder = document.createElement('div');
-    newTabButtonBorder.className = 'tab-switch-button-border';
+    const newTabButtonBorder = document.createElement("div");
+    newTabButtonBorder.className = "tab-switch-button-border";
     newTabTextContainer.appendChild(newTabButtonBorder);
 
     newTabButton.appendChild(newTabTextContainer);
 
-    const closeIcon = document.createElement('span');
+    const closeIcon = document.createElement("span");
     closeIcon.className = "material-icons";
-    closeIcon.textContent = 'close';
+    closeIcon.textContent = "close";
     // Add the onclick function to the close icon
     closeIcon.onclick = function (event) {
       event.stopPropagation(); // Prevent the click from opening the tab
@@ -77,53 +83,59 @@
     tabs.appendChild(newTab);
     tabSwitches.appendChild(newTabButton);
 
-    openTab(newTab.id)
+    openTab(newTab.id);
   }
 
   function closeVulnTab(inputString) {
     const tabToRemove = document.getElementById(inputString);
-    const buttonToRemove = document.getElementById(inputString + '-button');
+    const buttonToRemove = document.getElementById(inputString + "-button");
     const tabs = document.getElementById("tabs");
     const tabSwitches = document.getElementById("tab-switch");
 
     if (tabToRemove && buttonToRemove) {
-      const nextTabButton = buttonToRemove.nextElementSibling || buttonToRemove.previousElementSibling;
+      const nextTabButton =
+        buttonToRemove.nextElementSibling ||
+        buttonToRemove.previousElementSibling;
 
       tabs.removeChild(tabToRemove);
       tabSwitches.removeChild(buttonToRemove);
 
       if (nextTabButton) {
-        const nextTabId = nextTabButton.id.replace('-button', '');
+        const nextTabId = nextTabButton.id.replace("-button", "");
         openTab(nextTabId);
       }
     }
   }
 
   function openTab(activeTabId) {
-    const tabs = document.getElementsByClassName('tab');
-    const tabButtons = document.getElementsByClassName('tab-switch-button');
+    const tabs = document.getElementsByClassName("tab");
+    const tabButtons = document.getElementsByClassName("tab-switch-button");
     for (let i = 0; i < tabs.length; i++) {
       if (tabs[i].id === activeTabId) {
-        tabs[i].style.display = 'block'; // Show the active tab
-        tabButtons[i].classList.add('tab-switch-button-selected');
+        tabs[i].style.display = "block"; // Show the active tab
+        tabButtons[i].classList.add("tab-switch-button-selected");
       } else {
-        tabs[i].style.display = 'none'; // Hide other tabs
-        tabButtons[i].classList.remove('tab-switch-button-selected');
+        tabs[i].style.display = "none"; // Hide other tabs
+        tabButtons[i].classList.remove("tab-switch-button-selected");
       }
     }
   }
 
   function hideAllFilterOptions() {
-    const containers = document.getElementsByClassName('filter-option-container');
+    const containers = document.getElementsByClassName(
+      "filter-option-container"
+    );
     for (let i = 0; i < containers.length; i++) {
-      containers[i].style.display = 'none';
+      containers[i].style.display = "none";
     }
   }
 
   function toggleFilter(input) {
-    targetID = input + "-filter-option-container"
+    targetID = input + "-filter-option-container";
     var optionContainer = document.getElementById(targetID);
-    const containers = document.getElementsByClassName('filter-option-container');
+    const containers = document.getElementsByClassName(
+      "filter-option-container"
+    );
     for (let i = 0; i < containers.length; i++) {
       if (containers[i].id === targetID) {
         if (optionContainer.style.display !== "block") {
@@ -132,72 +144,75 @@
           optionContainer.style.display = "none";
         }
       } else {
-        console.log('hide others')
-        containers[i].style.display = 'none';
+        console.log("hide others");
+        containers[i].style.display = "none";
       }
-
     }
-
   }
 
   function showAndHideParentSections() {
-    const ecosystemContainers = document.querySelectorAll('.ecosystem-container');
+    const ecosystemContainers = document.querySelectorAll(
+      ".ecosystem-container"
+    );
 
     ecosystemContainers.forEach(ecosystemContainer => {
-      const sourceContainers = ecosystemContainer.querySelectorAll('.source-container');
+      const sourceContainers =
+        ecosystemContainer.querySelectorAll(".source-container");
       let ecosystemHasVisibleSources = false;
 
       sourceContainers.forEach(sourceContainer => {
-        const packageRows = sourceContainer.querySelectorAll('.package-tr');
+        const packageRows = sourceContainer.querySelectorAll(".package-tr");
         let sourceHasVisibleRows = false;
 
         packageRows.forEach(packageRow => {
-          packageDetails = document.getElementById(packageRow.id + '-details');
-          const vulnRows = packageDetails.querySelectorAll('.vuln-tr');
+          packageDetails = document.getElementById(packageRow.id + "-details");
+          const vulnRows = packageDetails.querySelectorAll(".vuln-tr");
           let packageHasVisibleRows = false;
           vulnRows.forEach(vulnRow => {
-            if (window.getComputedStyle(vulnRow).display !== 'none') {
+            if (window.getComputedStyle(vulnRow).display !== "none") {
               packageHasVisibleRows = true;
               return;
             }
-          })
+          });
           if (packageHasVisibleRows) {
             sourceHasVisibleRows = true;
-            packageRow.style.display = 'table-row';
+            packageRow.style.display = "table-row";
             return;
           } else {
-            packageRow.style.display = 'none';
-            packageDetails.style.display = 'none';
-            const icon = document.querySelector(`#${packageRow.id} .material-icons`);
-            icon.style.transform = 'rotate(0deg)'; // Rotate back to 0 degrees
+            packageRow.style.display = "none";
+            packageDetails.style.display = "none";
+            const icon = document.querySelector(
+              `#${packageRow.id} .material-icons`
+            );
+            icon.style.transform = "rotate(0deg)"; // Rotate back to 0 degrees
           }
         });
 
         if (!sourceHasVisibleRows) {
-          sourceContainer.style.display = 'none';
+          sourceContainer.style.display = "none";
         } else {
           ecosystemHasVisibleSources = true;
-          sourceContainer.style.display = 'block';
+          sourceContainer.style.display = "block";
           return;
         }
       });
 
       if (!ecosystemHasVisibleSources) {
-        ecosystemContainer.style.display = 'none';
+        ecosystemContainer.style.display = "none";
       } else {
-        ecosystemContainer.style.display = 'block';
+        ecosystemContainer.style.display = "block";
       }
     });
   }
 
   function showAllVulns() {
-    const vulnRows = document.getElementsByClassName('vuln-tr');
+    const vulnRows = document.getElementsByClassName("vuln-tr");
     for (let i = 0; i < vulnRows.length; i++) {
-      if (vulnRows[i].classList.contains('uncalled-tr')) {
-        vulnRows[i].style.display = 'none';
-        continue
+      if (vulnRows[i].classList.contains("uncalled-tr")) {
+        vulnRows[i].style.display = "none";
+        continue;
       }
-      vulnRows[i].style.display = 'table-row';
+      vulnRows[i].style.display = "table-row";
     }
 
     showAndHideParentSections();
@@ -212,100 +227,117 @@
   }
 
   function applyTypeFilter(selectedValue) {
-    selectedAll = selectedValue.has('all');
-    selectedProject = selectedValue.has('project');
-    selectedOS = selectedValue.has('os');
-    selectedUncalled = selectedValue.has('uncalled');
+    selectedAll = selectedValue.has("all");
+    selectedProject = selectedValue.has("project");
+    selectedOS = selectedValue.has("os");
+    selectedUncalled = selectedValue.has("uncalled");
     if (selectedAll) {
       selectedProject = true;
       selectedOS = true;
     }
 
-    const ecosystemElements = document.querySelectorAll('.ecosystem-container');
+    const ecosystemElements = document.querySelectorAll(".ecosystem-container");
 
     ecosystemElements.forEach(ecosystemElement => {
-      const vulnElements = ecosystemElement.querySelectorAll('.vuln-tr');
+      const vulnElements = ecosystemElement.querySelectorAll(".vuln-tr");
       vulnElements.forEach(vuln => {
-        if (vuln.classList.contains('uncalled-tr')) {
+        if (vuln.classList.contains("uncalled-tr")) {
           if (selectedUncalled) {
-            vuln.style.display = 'table-row';
+            vuln.style.display = "table-row";
           } else {
-            vuln.style.display = 'none';
+            vuln.style.display = "none";
           }
         }
-        if ((ecosystemElement.classList.contains('os-type') && !selectedOS) ||
-          (ecosystemElement.classList.contains('project-type') && !selectedProject)) {
-          vuln.style.display = 'none';
+        if (
+          (ecosystemElement.classList.contains("os-type") && !selectedOS) ||
+          (ecosystemElement.classList.contains("project-type") &&
+            !selectedProject)
+        ) {
+          vuln.style.display = "none";
         }
       });
     });
-
-
   }
 
   function applyLayerFilter(selectedLayerID) {
-    const tableRows = document.querySelectorAll('tr.has-layer-info');
-    console.log('selected layerID: ' + selectedLayerID);
+    const tableRows = document.querySelectorAll("tr.has-layer-info");
+    console.log("selected layerID: " + selectedLayerID);
     tableRows.forEach(row => {
-      const rowLayerID = row.getAttribute('data-layer');
-      if (selectedLayerID !== 'all' && rowLayerID !== selectedLayerID) {
-        const packageDetails = document.getElementById(row.id + '-details');
-        const vulnElements = packageDetails.querySelectorAll('.vuln-tr');
+      const rowLayerID = row.getAttribute("data-layer");
+      if (selectedLayerID !== "all" && rowLayerID !== selectedLayerID) {
+        const packageDetails = document.getElementById(row.id + "-details");
+        const vulnElements = packageDetails.querySelectorAll(".vuln-tr");
         vulnElements.forEach(vuln => {
-          console.log('set vuln display to none');
-          vuln.style.display = 'none';
+          console.log("set vuln display to none");
+          vuln.style.display = "none";
         });
       }
     });
   }
 
   function resetFilterText() {
-    const layerSelected = document.getElementById('layer-filter-selected');
-    const allLayerCheckedBox = document.getElementById('all-layer-checkbox');
+    const layerSelected = document.getElementById("layer-filter-selected");
+    const allLayerCheckedBox = document.getElementById("all-layer-checkbox");
     if (layerSelected) {
-      layerSelected.textContent = "All layers (" + allLayerCheckedBox.getAttribute('data-layer-all-count') + ')';
+      layerSelected.textContent =
+        "All layers (" +
+        allLayerCheckedBox.getAttribute("data-layer-all-count") +
+        ")";
     }
 
-    const typeSelected = document.getElementById('type-filter-selected');
-    const allTypeCheckedBox = document.getElementById('all-type-checkbox');
-    const uncalledTypeCheckBox = document.getElementById('uncalled-type-checkbox');
+    const typeSelected = document.getElementById("type-filter-selected");
+    const allTypeCheckedBox = document.getElementById("all-type-checkbox");
+    const uncalledTypeCheckBox = document.getElementById(
+      "uncalled-type-checkbox"
+    );
     if (allTypeCheckedBox) {
-      typeSelected.textContent = "All types (" + allTypeCheckedBox.getAttribute('data-type-all-count') + ')';
+      typeSelected.textContent =
+        "All types (" +
+        allTypeCheckedBox.getAttribute("data-type-all-count") +
+        ")";
       allLayerCheckedBox.checked = true;
       uncalledTypeCheckBox.checked = false;
     } else {
-      const projectTypeCheckedBox = document.getElementById('project-type-checkbox');
+      const projectTypeCheckedBox = document.getElementById(
+        "project-type-checkbox"
+      );
       projectTypeCheckedBox.checked = true;
-      typeSelected.textContent = "All types (" + projectTypeCheckedBox.getAttribute('data-type-project-count') + ')';
+      typeSelected.textContent =
+        "All types (" +
+        projectTypeCheckedBox.getAttribute("data-type-project-count") +
+        ")";
       uncalledTypeCheckBox.checked = false;
     }
   }
 
   function resetSearchText() {
-    const vulnSearchInput = document.getElementById('vuln-search');
-    if (vulnSearchInput.value != '') {
-      vulnSearchInput.value = '';
+    const vulnSearchInput = document.getElementById("vuln-search");
+    if (vulnSearchInput.value != "") {
+      vulnSearchInput.value = "";
       showAllVulns();
     }
   }
 
-
-  document.addEventListener('DOMContentLoaded', function () {
+  document.addEventListener("DOMContentLoaded", function () {
     showAndHideParentSections();
     let selectedTypeFilterValue = new Set();
-    selectedTypeFilterValue.add('all');
-    let selectedLayer = 'all';
+    selectedTypeFilterValue.add("all");
+    let selectedLayer = "all";
 
     // Implement filter for vulnerability types
-    const typeFilterOptions = document.getElementById('type-filter-option-container');
+    const typeFilterOptions = document.getElementById(
+      "type-filter-option-container"
+    );
 
-    typeFilterOptions.addEventListener('change', function () {
+    typeFilterOptions.addEventListener("change", function () {
       resetSearchText();
       const changedElement = event.target;
-      const allTypesCheckbox = document.getElementById('all-type-checkbox');
-      const projectCheckbox = document.getElementById('project-type-checkbox'); // Project vulnerabilities
-      const osCheckbox = document.getElementById('os-type-checkbox'); // OS vulnerabilities
-      const uncalledCheckbox = document.getElementById('uncalled-type-checkbox'); // OS vulnerabilities
+      const allTypesCheckbox = document.getElementById("all-type-checkbox");
+      const projectCheckbox = document.getElementById("project-type-checkbox"); // Project vulnerabilities
+      const osCheckbox = document.getElementById("os-type-checkbox"); // OS vulnerabilities
+      const uncalledCheckbox = document.getElementById(
+        "uncalled-type-checkbox"
+      ); // OS vulnerabilities
       selectedTypeFilterValue.clear();
 
       if (allTypesCheckbox != null) {
@@ -313,7 +345,7 @@
           osCheckbox.checked = allTypesCheckbox.checked;
           projectCheckbox.checked = allTypesCheckbox.checked;
           if (allTypesCheckbox.checked === true) {
-            selectedTypeFilterValue.add('all');
+            selectedTypeFilterValue.add("all");
           }
         }
         if (osCheckbox.checked === false || projectCheckbox.checked === false) {
@@ -321,21 +353,23 @@
         }
 
         if (osCheckbox.checked) {
-          selectedTypeFilterValue.add('os');
+          selectedTypeFilterValue.add("os");
         }
       }
 
       if (projectCheckbox.checked) {
-        selectedTypeFilterValue.add('project');
+        selectedTypeFilterValue.add("project");
       }
 
       if (uncalledCheckbox.checked) {
-        selectedTypeFilterValue.add('uncalled');
+        selectedTypeFilterValue.add("uncalled");
       }
 
-      selectedDisplay = document.getElementById('type-filter-selected');
+      selectedDisplay = document.getElementById("type-filter-selected");
       if (allTypesCheckbox != null && allTypesCheckbox.checked) {
-        const allTypesLabel = document.querySelector(`label[for="${allTypesCheckbox.id}"]`);
+        const allTypesLabel = document.querySelector(
+          `label[for="${allTypesCheckbox.id}"]`
+        );
         selectedDisplay.textContent = allTypesLabel.textContent;
       } else {
         let typeArray = Array.from(selectedTypeFilterValue);
@@ -347,16 +381,18 @@
     });
 
     // Implement layer filter
-    const layerFilterOptionsContainer = document.getElementById('layer-filter-option-container');
+    const layerFilterOptionsContainer = document.getElementById(
+      "layer-filter-option-container"
+    );
 
     if (layerFilterOptionsContainer) {
-      layerFilterOptionsContainer.addEventListener('click', (event) => {
-        const clickedOption = event.target.closest('.layer-filter-option');
+      layerFilterOptionsContainer.addEventListener("click", event => {
+        const clickedOption = event.target.closest(".layer-filter-option");
         if (clickedOption) {
           resetSearchText();
-          selectedLayer = clickedOption.getAttribute('value');
-          selectedDisplay = document.getElementById('layer-filter-selected');
-          layerCommand = clickedOption.querySelector('p:first-child');
+          selectedLayer = clickedOption.getAttribute("value");
+          selectedDisplay = document.getElementById("layer-filter-selected");
+          layerCommand = clickedOption.querySelector("p:first-child");
           selectedDisplay.textContent = layerCommand.textContent;
 
           hideAllFilterOptions();
@@ -365,23 +401,22 @@
       });
     }
 
-
     // Hide filter options when clicking other parts
-    const filterSection = document.getElementById('filter-section');
+    const filterSection = document.getElementById("filter-section");
 
-    document.addEventListener('click', (event) => {
+    document.addEventListener("click", event => {
       if (!filterSection.contains(event.target)) {
         hideAllFilterOptions();
       }
     });
 
     // Search bar
-    const vulnSearchInput = document.getElementById('vuln-search');
-    vulnSearchInput.addEventListener('keyup', (event) => {
+    const vulnSearchInput = document.getElementById("vuln-search");
+    vulnSearchInput.addEventListener("keyup", event => {
       resetFilterText();
       const searchTerm = vulnSearchInput.value.trim().toLowerCase();
 
-      const vulnRows = document.querySelectorAll('[data-vuln-id]');
+      const vulnRows = document.querySelectorAll("[data-vuln-id]");
 
       if (searchTerm === "") {
         showAllVulns();
@@ -389,16 +424,15 @@
       }
 
       vulnRows.forEach(row => {
-        const vulnID = row.getAttribute('data-vuln-id').toLowerCase();
+        const vulnID = row.getAttribute("data-vuln-id").toLowerCase();
 
         if (vulnID.includes(searchTerm)) {
-          row.style.display = 'table-row';
+          row.style.display = "table-row";
         } else {
-          row.style.display = 'none';
+          row.style.display = "none";
         }
       });
       showAndHideParentSections();
     });
   });
-
 </script>
