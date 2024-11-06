@@ -37,14 +37,14 @@ func TestGHAnnotationsReporter_Warnf(t *testing.T) {
 		{lvl: reporter.ErrorLevel, expectedPrintout: ""},
 	}
 
-	for _, test := range tests {
+	for _, tt := range tests {
 		writer := &bytes.Buffer{}
-		r := reporter.NewGHAnnotationsReporter(io.Discard, writer, test.lvl)
+		r := reporter.NewGHAnnotationsReporter(io.Discard, writer, tt.lvl)
 
 		r.Warnf("%s", text)
 
-		if writer.String() != test.expectedPrintout {
-			t.Errorf("expected \"%s\", got \"%s\"", test.expectedPrintout, writer.String())
+		if writer.String() != tt.expectedPrintout {
+			t.Errorf("expected \"%s\", got \"%s\"", tt.expectedPrintout, writer.String())
 		}
 	}
 }
