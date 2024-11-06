@@ -10,7 +10,7 @@
         </div>
       </div>
       <div id="layer-filter-option-container" class="filter-option-container">
-        <div value="all" class="filter-option layer-filter-option">
+        <div value="all" class="filter-option layer-filter-option" id="all-layer-checkbox" data-layer-all-count="{{ .HTMLVulnCount.Called }}">
           <p>All layers</p>
           {{ template "severity_summary_template.html" .HTMLVulnCount }}
         </div>
@@ -35,12 +35,12 @@
       <div id="type-filter-option-container" class="filter-option-container">
         {{ if .IsContainerScanning }}
         <div class="filter-option">
-          <input type="checkbox" checked id="all-type-checkbox">
+          <input type="checkbox" checked id="all-type-checkbox" data-type-all-count="{{ .VulnTypeCount.All }}">
           <label for="all-type-checkbox">All types ({{ .VulnTypeCount.All }})</label>
         </div>
         {{ end }}
         <div class="filter-option">
-          <input type="checkbox" checked id="project-type-checkbox">
+          <input type="checkbox" checked id="project-type-checkbox" data-type-project-count="{{ .VulnTypeCount.Project }}">
           <label for="project-type-checkbox"> Project Vulnerabilities ({{ .VulnTypeCount.Project }})</label>
         </div>
         {{ if .IsContainerScanning }}
@@ -58,9 +58,9 @@
   </div>
 
 
-  <div>
+  <div id="severity-section">
     <label>Overall Severity</label>
-    <div id="severity-section">
+    <div class="flex-box">
       <div id="critical-long" class="severity-long">
         <p class="critical">{{ .HTMLVulnCount.Critical }} Critical</p>
       </div>

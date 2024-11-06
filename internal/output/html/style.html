@@ -193,25 +193,26 @@
   }
 
   .tab-switch-button {
-    width: 200px;
+    width: 180px;
     outline: 0;
     cursor: pointer;
     background-color: transparent;
     text-align: center;
-    /* This is where the magic happens. */
-    margin-right: 10px;
-    margin-right: 20px;
     display: flex;
   }
 
-  .tab-switch-button p {
-    padding: 20px 0;
+  .tab-button-text-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .tab-button-text-container p {
     width: 160px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
     border-bottom: 2px solid transparent;
-    margin: 0;
+    color: #5F6368;
   }
 
   .tab-switch-button span {
@@ -220,21 +221,29 @@
     display: none;
   }
 
-  .tab-switch-button:hover p {
-    border-bottom: 2px solid #eee;
-    border-bottom-left-radius: 5px;
-    border-bottom-right-radius: 5px;
+  .tab-switch-button-border {
+    width: 85%;
+    height: 3px;
+    background-color: transparent;
+    margin: auto;
   }
 
-  .tab-switch-button:hover span {
+  .tab-button-text-container:hover p {
+    color: #fff;
+  }
+
+  .tab-switch-button-selected:hover span {
     display: block;
-    /* Show the close button on hover */
+  }
+
+  .tab-switch-button-selected .tab-switch-button-border {
+    background-color: #eee;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
   }
 
   .tab-switch-button-selected p {
-    border-bottom: 2px solid #eee;
-    border-bottom-left-radius: 0;
-    border-bottom-right-radius: 0;
+    color: #fff;
   }
 
   .osv-tab iframe {
@@ -258,17 +267,18 @@
 
   #filter-section {
     display: flex;
-    width: 50%;
+    width: 60%;
   }
 
   .filter-container {
     margin-right: 20px;
-    max-width: 500px;
+    max-width: 600px;
   }
 
   .filter {
     margin-top: 10px;
-    width: 250px;
+    max-width: 600px;
+    min-width: 250px;
     background-color: transparent;
     border-radius: 10px;
     overflow: hidden;
@@ -276,7 +286,11 @@
     border: 1px solid #ddd;
     display: flex;
     justify-content: space-between;
-    padding: 0 10px;
+    padding: 0 20px;
+  }
+
+  #layer-filter {
+    width: 400px !important;
   }
 
   .filter-selected {
@@ -328,15 +342,16 @@
   #summary-section {
     display: flex;
     justify-content: space-between;
+    width: 100%;
   }
 
   #severity-section {
-    display: flex;
+    overflow: hidden;
   }
 
   .severity-long {
     text-align: center;
-    min-width: 110px;
+    min-width: 100px;
     overflow: hidden;
     white-space: nowrap;
   }
@@ -446,6 +461,9 @@
   .tooltip {
     position: relative;
     display: inline-block;
+    text-decoration:underline;
+    text-decoration-style: dotted;
+    text-underline-offset: 3px;
   }
 
   .tooltip .tooltiptext {
@@ -462,7 +480,7 @@
 
     /* Position the tooltip */
     position: absolute;
-    z-index: 1;
+    z-index: 999;
     top: 100%;
     left: 50%;
     margin-left: -60px;
@@ -476,4 +494,9 @@
     min-width: 300px;
     white-space: normal;
   }
+
+  .flex-box {
+    display: flex;
+  }
+
 </style>

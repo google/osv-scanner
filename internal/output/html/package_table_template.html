@@ -44,9 +44,13 @@
         {{ if and $element.HTMLPackageDetail (not (eq $element.HTMLPackageDetail.LayerID "")) }}
         <div class="layer-command-container">
           <span class="package-detail-title">Layer Command:</span>
+          {{ if ne $element.HTMLPackageDetail.LayerCommandTooltip "" }}
           <div class="tooltip">{{ $element.HTMLPackageDetail.LayerCommand }}
             <span class="tooltiptext">{{ $element.HTMLPackageDetail.LayerCommandTooltip }}</span>
           </div>
+          {{ else }}
+          <div>{{ $element.HTMLPackageDetail.LayerCommand }}</div>
+          {{ end }}
         </div>
         <p><span class="package-detail-title">Layer ID:</span> {{ $element.HTMLPackageDetail.LayerID }}</p>
         <p><span class="package-detail-title">In Base Image:</span> {{ $element.HTMLPackageDetail.InBaseImage }}</p>

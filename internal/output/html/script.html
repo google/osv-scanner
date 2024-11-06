@@ -51,17 +51,25 @@
     newTabButton.onclick = function () { openTab(inputString); };
 
     // Add <p> and <span> elements to the button
+    const newTabTextContainer = document.createElement('div');
+    newTabTextContainer.className = 'tab-button-text-container';
     const newTabText = document.createElement('p');
     newTabText.textContent = inputString;
-    newTabButton.appendChild(newTabText);
+    newTabTextContainer.appendChild(newTabText);
+
+    const newTabButtonBorder = document.createElement('div');
+    newTabButtonBorder.className = 'tab-switch-button-border';
+    newTabTextContainer.appendChild(newTabButtonBorder);
+
+    newTabButton.appendChild(newTabTextContainer);
 
     const closeIcon = document.createElement('span');
     closeIcon.className = "material-icons";
     closeIcon.textContent = 'close';
     // Add the onclick function to the close icon
-    closeIcon.onclick = function(event) { 
+    closeIcon.onclick = function (event) {
       event.stopPropagation(); // Prevent the click from opening the tab
-      closeVulnTab(inputString); 
+      closeVulnTab(inputString);
     };
 
     newTabButton.appendChild(closeIcon);
@@ -156,12 +164,15 @@
               return;
             }
           })
-          if (packageRow.style.display !== 'none' && packageHasVisibleRows) {
+          if (packageHasVisibleRows) {
             sourceHasVisibleRows = true;
             packageRow.style.display = 'table-row';
             return;
           } else {
             packageRow.style.display = 'none';
+            packageDetails.style.display = 'none';
+            const icon = document.querySelector(`#${packageRow.id} .material-icons`);
+            icon.style.transform = 'rotate(0deg)'; // Rotate back to 0 degrees
           }
         });
 
@@ -169,12 +180,15 @@
           sourceContainer.style.display = 'none';
         } else {
           ecosystemHasVisibleSources = true;
+          sourceContainer.style.display = 'block';
           return;
         }
       });
 
       if (!ecosystemHasVisibleSources) {
         ecosystemContainer.style.display = 'none';
+      } else {
+        ecosystemContainer.style.display = 'block';
       }
     });
   }
@@ -200,9 +214,40 @@
     ecosystemContainer.style.display = 'block';
   }
 
+  function hideAllVulns() {
+    console.log('hide all');
+    const vulnRows = document.getElementsByClassName('vuln-tr');
+    console.log('total length: ' + vulnRows.length);
+    for (let i = 0; i < vulnRows.length; i++) {
+      // console.log('disabled it: ' + vulnRows[i].getAttribute('data-vuln-id'));
+      vulnRows[i].style.display = 'none';
+      console.log(vulnRows[i].style.display);
+    }
+
+    checkAndHideEmptySections();
+  }
+
+  function showAllVulns() {
+    console.log('show all');
+    const vulnRows = document.getElementsByClassName('vuln-tr');
+    console.log('total length: ' + vulnRows.length);
+    for (let i = 0; i < vulnRows.length; i++) {
+      // console.log('disabled it: ' + vulnRows[i].getAttribute('data-vuln-id'));
+      if (vulnRows[i].classList.contains('uncalled-tr')) {
+        vulnRows[i].style.display = 'none';
+        continue
+      }
+      vulnRows[i].style.display = 'table-row';
+    }
+
+    checkAndHideEmptySections();
+  }
+
   function applyFilters(selectedTypeFilterValue, selectedLayerFilterValue) {
+    showAllVulns();
     applyTypeFilter(selectedTypeFilterValue);
     applyLayerFilter(selectedLayerFilterValue);
+    checkAndHideEmptySections();
   }
 
   function applyTypeFilter(selectedValue) {
@@ -210,57 +255,94 @@
     selectedProject = selectedValue.has('project');
     selectedOS = selectedValue.has('os');
     selectedUncalled = selectedValue.has('uncalled');
+    if (selectedAll) {
+      selectedProject = true;
+      selectedOS = true;
+    }
 
     const ecosystemElements = document.querySelectorAll('.ecosystem-container');
 
     ecosystemElements.forEach(ecosystemElement => {
       const vulnElements = ecosystemElement.querySelectorAll('.vuln-tr');
       vulnElements.forEach(vuln => {
-        if ((ecosystemElement.classList.contains('os-type') && selectedOS) ||
-          (ecosystemElement.classList.contains('project-type') && selectedProject)) {
-          vuln.style.display = 'table-row';
-          if (!selectedUncalled && vuln.classList.contains('uncalled-tr')) {
-            vuln.style.display = 'none';
-          } else {
-            showVulnParentSections(vuln.id);
-          }
-        } else {
+        if (vuln.classList.contains('uncalled-tr')) {
+            if (selectedUncalled) {
+              vuln.style.display = 'table-row';
+              // showVulnParentSections(vuln.id);
+            } else {
+              vuln.style.display = 'none';
+            }
+        }
+        if ((ecosystemElement.classList.contains('os-type') && !selectedOS) ||
+          (ecosystemElement.classList.contains('project-type') && !selectedProject)) {
           vuln.style.display = 'none';
         }
-
       });
     });
 
-    checkAndHideEmptySections();
+
   }
 
   function applyLayerFilter(selectedLayerID) {
     const tableRows = document.querySelectorAll('tr.has-layer-info');
-
+    console.log('selected layerID: ' + selectedLayerID);
     tableRows.forEach(row => {
       const rowLayerID = row.getAttribute('data-layer');
 
-      // If the selected layer ID is 'all' or matches the row's layer ID, show the row
-      if (selectedLayerID === 'all' || rowLayerID === selectedLayerID) {
-        row.style.display = 'table-row';
-        showPackageParentSections(row.id);
-      } else {
-        // Otherwise, hide the row
-        row.style.display = 'none';
+
+      if (selectedLayerID !== 'all' && rowLayerID !== selectedLayerID) {
+        const packageDetails = document.getElementById(row.id + '-details');
+        const vulnElements = packageDetails.querySelectorAll('.vuln-tr');
+        vulnElements.forEach(vuln => {
+          console.log('set vuln display to none');
+          vuln.style.display = 'none';
+        });
       }
     });
+  }
+
+  function resetFilterText() {
+    const layerSelected = document.getElementById('layer-filter-selected');
+    const allLayerCheckedBox = document.getElementById('all-layer-checkbox');
+    if (layerSelected) {
+      layerSelected.textContent = "All layers (" + allLayerCheckedBox.getAttribute('data-layer-all-count') + ')';
+    }
+
+    const typeSelected = document.getElementById('type-filter-selected');
+    const allTypeCheckedBox = document.getElementById('all-type-checkbox');
+    const uncalledTypeCheckBox = document.getElementById('uncalled-type-checkbox');
+    if (allTypeCheckedBox) {
+      typeSelected.textContent = "All types (" + allTypeCheckedBox.getAttribute('data-type-all-count') + ')';
+      allLayerCheckedBox.checked = true;
+      uncalledTypeCheckBox.checked = false;
+    } else {
+      const projectTypeCheckedBox = document.getElementById('project-type-checkbox');
+      projectTypeCheckedBox.checked = true;
+      typeSelected.textContent = "All types (" + projectTypeCheckedBox.getAttribute('data-type-project-count') + ')';
+      uncalledTypeCheckBox.checked = false;
+    }
+  }
+
+  function resetSearchText() {
+    const vulnSearchInput = document.getElementById('vuln-search');
+    if (vulnSearchInput.value != '') {
+      vulnSearchInput.value = '';
+      showAllVulns();
+    }
   }
 
 
   document.addEventListener('DOMContentLoaded', function () {
     checkAndHideEmptySections();
-    let selectedTypeFilterValue = new Set('all');
+    let selectedTypeFilterValue = new Set();
+    selectedTypeFilterValue.add('all');
     let selectedLayer = 'all';
 
     // Implement filter for vulnerability types
     const typeFilterOptions = document.getElementById('type-filter-option-container');
 
     typeFilterOptions.addEventListener('change', function () {
+      resetSearchText();
       const changedElement = event.target;
       const allTypesCheckbox = document.getElementById('all-type-checkbox');
       const projectCheckbox = document.getElementById('project-type-checkbox'); // Project vulnerabilities
@@ -272,7 +354,9 @@
         if (changedElement == allTypesCheckbox) {
           osCheckbox.checked = allTypesCheckbox.checked;
           projectCheckbox.checked = allTypesCheckbox.checked;
-          selectedTypeFilterValue.add('all');
+          if (allTypesCheckbox.checked === true) {
+            selectedTypeFilterValue.add('all');
+          }
         }
         if (osCheckbox.checked === false || projectCheckbox.checked === false) {
           allTypesCheckbox.checked = false;
@@ -291,8 +375,6 @@
         selectedTypeFilterValue.add('uncalled');
       }
 
-      applyTypeFilter(selectedTypeFilterValue);
-
       selectedDisplay = document.getElementById('type-filter-selected');
       if (allTypesCheckbox != null && allTypesCheckbox.checked) {
         const allTypesLabel = document.querySelector(`label[for="${allTypesCheckbox.id}"]`);
@@ -302,6 +384,11 @@
         selectedToString = typeArray.join(", ");
         selectedDisplay.textContent = selectedToString;
       }
+
+      // showAllVulns();
+      // applyLayerFilter()
+      // applyTypeFilter(selectedTypeFilterValue);
+      applyFilters(selectedTypeFilterValue, selectedLayer);
     });
 
     // Implement layer filter
@@ -311,15 +398,16 @@
       layerFilterOptionsContainer.addEventListener('click', (event) => {
         const clickedOption = event.target.closest('.layer-filter-option');
         if (clickedOption) {
-          selectedLayerID = clickedOption.getAttribute('value');
-          applyLayerFilter(selectedLayerID);
-
+          resetSearchText();
+          selectedLayer = clickedOption.getAttribute('value');
           selectedDisplay = document.getElementById('layer-filter-selected');
           layerCommand = clickedOption.querySelector('p:first-child');
           selectedDisplay.textContent = layerCommand.textContent;
 
           hideAllFilterOptions();
-          checkAndHideEmptySections();
+          // checkAndHideEmptySections();
+
+          applyFilters(selectedTypeFilterValue, selectedLayer);
         }
       });
     }
@@ -337,25 +425,29 @@
     // Search bar
     const vulnSearchInput = document.getElementById('vuln-search');
     vulnSearchInput.addEventListener('keyup', (event) => {
-      if (event.key === 'Enter') {
-        const searchTerm = vulnSearchInput.value.trim().toLowerCase();
+      resetFilterText();
+      const searchTerm = vulnSearchInput.value.trim().toLowerCase();
 
-        const vulnRows = document.querySelectorAll('[data-vuln-id]');
+      const vulnRows = document.querySelectorAll('[data-vuln-id]');
 
-        vulnRows.forEach(row => {
-          const vulnID = row.getAttribute('data-vuln-id').toLowerCase();
-
-          if (searchTerm === "") {
-            applyFilters(selectedTypeFilterValue, selectedLayer);
-          } else if (vulnID.includes(searchTerm)) {
-            row.style.display = 'table-row';
-            showVulnParentSections(row.id);
-          } else {
-            row.style.display = 'none';
-          }
-        });
-        checkAndHideEmptySections();
+      if (searchTerm === "") {
+        // console.log('key changed');
+        // applyFilters(selectedTypeFilterValue, selectedLayer);
+        showAllVulns();
+        return;
       }
+
+      vulnRows.forEach(row => {
+        const vulnID = row.getAttribute('data-vuln-id').toLowerCase();
+
+        if (vulnID.includes(searchTerm)) {
+          row.style.display = 'table-row';
+          // showVulnParentSections(row.id);
+        } else {
+          row.style.display = 'none';
+        }
+      });
+      checkAndHideEmptySections();
     });
   });
 

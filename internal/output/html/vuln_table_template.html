@@ -24,7 +24,7 @@
       {{ index $element.Detail.Aliases 0 }}
       {{ else if gt (len $element.Detail.Aliases) 1}}
       <div class="tooltip">
-        {{ index $element.Detail.Aliases 0}}...
+        {{ index $element.Detail.Aliases 0}}, ...
         <span class="tooltiptext">{{ join $element.Detail.Aliases ", " }}</span>
       </div>
       {{ end }}
