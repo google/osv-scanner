@@ -85,8 +85,8 @@ var allowed = map[string][]string{
 	"END":  {},
 }
 
-// nextIfValid returns the next token if it is valid, otherwise returns an error
-func (ts *tokens) nextIfValid() (string, error) {
+// nextAndIsNextNextValid returns both the next token, and checks if the token after that one is valid
+func (ts *tokens) nextAndIsNextNextValid() (string, error) {
 	next := ts.next()
 
 	return next, ts.isNextValid(next)
@@ -165,7 +165,7 @@ func parseOr(tokens *tokens) (node, error) {
 	}
 
 	for tokens.peek() == "OR" {
-		operator, err := tokens.nextIfValid()
+		operator, err := tokens.nextAndIsNextNextValid()
 		if err != nil {
 			return nil, err
 		}
@@ -192,7 +192,7 @@ func parseAnd(tokens *tokens) (node, error) {
 	}
 
 	for tokens.peek() == "AND" {
-		operator, err := tokens.nextIfValid()
+		operator, err := tokens.nextAndIsNextNextValid()
 		if err != nil {
 			return nil, err
 		}
@@ -213,7 +213,7 @@ func parseAnd(tokens *tokens) (node, error) {
 }
 
 func parseExpression(tokens *tokens) (node, error) {
-	next, err := tokens.nextIfValid()
+	next, err := tokens.nextAndIsNextNextValid()
 	if err != nil {
 		return nil, err
 	}
@@ -228,7 +228,7 @@ func parseExpression(tokens *tokens) (node, error) {
 			return nil, errors.New("missing closing bracket")
 		}
 
-		_, err = tokens.nextIfValid()
+		_, err = tokens.nextAndIsNextNextValid()
 		if err != nil {
 			return nil, err
 		}
@@ -238,7 +238,7 @@ func parseExpression(tokens *tokens) (node, error) {
 
 	// currently WITH expressions are just treated as part of the license
 	if tokens.peek() == "WITH" {
-		nex2, err := tokens.nextIfValid()
+		nex2, err := tokens.nextAndIsNextNextValid()
 		if err != nil {
 			return nil, err
 		}
