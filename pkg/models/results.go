@@ -114,7 +114,7 @@ type GroupInfo struct {
 	MaxSeverity          string                  `json:"max_severity"`
 }
 
-// IsCalled returns true if any analysis performed determines that the vulnerability is being called and is important
+// IsCalled returns true if any analysis performed determines that the vulnerability is being called
 // Also returns true if no analysis is performed
 func (groupInfo *GroupInfo) IsCalled() bool {
 	if len(groupInfo.IDs) == 0 {
