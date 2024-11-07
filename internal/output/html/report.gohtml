@@ -39,7 +39,7 @@
 
     <div id="package-tab" class="view-tab">
       <h3>Vulnerable Package Summary</h3>
-      {{template "package_view_template.html" .EcosystemResults}}
+      {{template "package_view.gohtml" .EcosystemResults}}
     </div>
 
     <div id="vuln-tab" class="view-tab">
@@ -54,7 +54,7 @@
             {{ .HTMLVulnCount.Called }} known vulnerabilities found.
           </p>
 
-          {{template "vuln_view_template.html" .}} {{ end }}
+          {{template "vuln_view.gohtml" .}} {{ end }}
         </div>
       </div>
       {{ end }}

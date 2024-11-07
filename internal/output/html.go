@@ -525,5 +525,5 @@ func PrintHTMLResults(vulnResult *models.VulnerabilityResults, outputWriter io.W
 	tmpl := template.Must(template.New("").Funcs(funcMap).ParseFS(templates, TemplateDir))
 
 	// Execute template
-	return tmpl.ExecuteTemplate(outputWriter, "report_template.html", htmlResult)
+	return tmpl.ExecuteTemplate(outputWriter, "report.gohtml", htmlResult)
 }

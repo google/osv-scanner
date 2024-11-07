@@ -1,7 +1,7 @@
 {{$calledVulns := getAllVulns .PackageResults true}}
 {{$uncalledVulns := getAllVulns .PackageResults false}}
 {{ if ne .CalledPackageCount 0}}
-{{template "vuln_table_template.html" $calledVulns}}
+{{template "vuln_table.gohtml" $calledVulns}}
 {{ end }}
 
 {{ if ne .UncalledPackageCount 0}}
@@ -13,7 +13,7 @@
       Found {{ .UncalledPackageCount }} package(s) with issues,
       {{.HTMLVulnCount.Uncalled }} known vulnerabilities found.
     </p>
-    {{template "vuln_table_template.html" $uncalledVulns }}
+    {{template "vuln_table.gohtml" $uncalledVulns }}
   </div>
 </details>
 {{ end }}
