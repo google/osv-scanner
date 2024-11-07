@@ -18,17 +18,20 @@ type fileType int
 const (
 	RegularFile fileType = iota
 	Dir
+	Symlink
 )
 
 // FileNode represents a file on a specific layer, mapping the contents to an extracted file on disk
 type FileNode struct {
 	// TODO: Determine the performance implications of having a pointer to base image in every fileNode
-	rootImage   *Image
-	fileType    fileType
-	isWhiteout  bool
-	originLayer *Layer
-	virtualPath string
-	permission  fs.FileMode
+	rootImage *Image
+	// TODO: Filetype is redundant if permission is set correctly
+	fileType       fileType
+	isWhiteout     bool
+	originLayer    *Layer
+	virtualPath    string
+	linkTargetPath string
+	permission     fs.FileMode
 }
 
 var _ fs.DirEntry = FileNode{}
@@ -82,6 +85,13 @@ func (f FileNodeFileInfo) Sys() any {
 
 // Stat returns the FileInfo structure describing file.
 func (f *FileNode) Stat() (fs.FileInfo, error) {
+	// TODO: Implement this properly
+	if f.fileType == Symlink {
+		return FileNodeFileInfo{
+			fileNode: f,
+		}, nil
+	}
+
 	baseFileInfo, err := os.Stat(f.absoluteDiskPath())
 	if err != nil {
 		return nil, err
@@ -121,6 +131,10 @@ func (filemap Layer) Open(path string) (fs.File, error) {
 		return nil, err
 	}
 
+	if node.fileType == Symlink {
+		return filemap.Open(node.linkTargetPath)
+	}
+
 	return node.Open()
 }
 
@@ -128,6 +142,10 @@ func (filemap Layer) Stat(path string) (fs.FileInfo, error) {
 	node, err := filemap.getFileNode(path)
 	if err != nil {
 		return nil, err
+	}
+
+	if node.fileType == Symlink {
+		return filemap.Stat(node.linkTargetPath)
 	}
 
 	return node.Stat()
