@@ -131,6 +131,10 @@ func (groupInfo *GroupInfo) IsCalled() bool {
 		if analysis.Called {
 			return true
 		}
+		// TODO(gongh@): For v2, create a separate function `isGroupUnimportant()` to encapsulate this check.
+		if analysis.Unimportant {
+			return false
+		}
 	}
 
 	return false
@@ -164,7 +168,8 @@ func (v *Vulnerability) FixedVersions() map[Package][]string {
 }
 
 type AnalysisInfo struct {
-	Called bool `json:"called"`
+	Called      bool `json:"called"`
+	Unimportant bool `json:"unimportant"`
 }
 
 // Specific package information
