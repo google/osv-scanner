@@ -717,13 +717,12 @@ func scanDebianDocker(r reporter.Reporter, dockerImageName string) ([]scannedPac
 // Filters results according to config, preserving order. Returns total number of vulnerabilities removed.
 func filterResults(r reporter.Reporter, results *models.VulnerabilityResults, configManager *config.Manager, allPackages bool) int {
 	removedCount := 0
-	unimportantCount := 0
 	newResults := []models.PackageSource{} // Want 0 vulnerabilities to show in JSON as an empty list, not null.
 	for _, pkgSrc := range results.Results {
 		configToUse := configManager.Get(r, pkgSrc.Source.Path)
 		var newPackages []models.PackageVulns
 		for _, pkgVulns := range pkgSrc.Packages {
-			newVulns := filterPackageVulns(r, pkgVulns, configToUse, &unimportantCount)
+			newVulns := filterPackageVulns(r, pkgVulns, configToUse)
 			removedCount += len(pkgVulns.Vulnerabilities) - len(newVulns.Vulnerabilities)
 			if allPackages || len(newVulns.Vulnerabilities) > 0 || len(pkgVulns.LicenseViolations) > 0 {
 				newPackages = append(newPackages, newVulns)
@@ -737,25 +736,12 @@ func filterResults(r reporter.Reporter, results *models.VulnerabilityResults, co
 	}
 	results.Results = newResults
 
-	if unimportantCount > 0 {
-		r.Infof("%d unimportant vulnerabilities have been filtered out.\n", unimportantCount)
-	}
-
 	return removedCount
 }
 
 // Filters package-grouped vulnerabilities according to config, preserving ordering. Returns filtered package vulnerabilities.
-func filterPackageVulns(r reporter.Reporter, pkgVulns models.PackageVulns, configToUse config.Config, unimportantCount *int) models.PackageVulns {
+func filterPackageVulns(r reporter.Reporter, pkgVulns models.PackageVulns, configToUse config.Config) models.PackageVulns {
 	ignoredVulns := map[string]struct{}{}
-
-	// Ignores all unimportant vulnerabilities.
-	for _, vuln := range pkgVulns.Vulnerabilities {
-		if isUnimportant(pkgVulns.Package.Ecosystem, vuln.Affected) {
-			// Track the count of all unimportant vulnerabilities, including duplicate vulnerabilities from different packages.
-			*unimportantCount++
-			ignoredVulns[vuln.ID] = struct{}{}
-		}
-	}
 
 	// Iterate over groups first to remove all aliases of ignored vulnerabilities.
 	var newGroups []models.GroupInfo
@@ -786,11 +772,6 @@ func filterPackageVulns(r reporter.Reporter, pkgVulns models.PackageVulns, confi
 
 				break
 			}
-
-			if _, unimportant := ignoredVulns[id]; unimportant {
-				r.Verbosef("%s has been filtered out due to its unimportance.\n", id)
-				ignore = true
-			}
 		}
 		if !ignore {
 			newGroups = append(newGroups, group)
@@ -811,23 +792,6 @@ func filterPackageVulns(r reporter.Reporter, pkgVulns models.PackageVulns, confi
 	pkgVulns.Vulnerabilities = newVulns
 
 	return pkgVulns
-}
-
-// isUnimportant checks if a Debian vulnerability is tagged with an "unimportant" urgency tag
-// Urgency levels are defined here: https://security-team.debian.org/security_tracker.html#severity-levels
-func isUnimportant(ecosystem string, affectedPackages []models.Affected) bool {
-	// Debian ecosystems may be listed with a version number, such as "Debian:10".
-	if !strings.HasPrefix(ecosystem, string(models.EcosystemDebian)) {
-		return false
-	}
-
-	for _, affected := range affectedPackages {
-		if affected.EcosystemSpecific["urgency"] == "unimportant" {
-			return true
-		}
-	}
-
-	return false
 }
 
 func parseLockfilePath(lockfileElem string) (string, string) {
