@@ -3,8 +3,20 @@
     <th></th>
     <th>Package</th>
     <th>Installed version</th>
-    <th>Fixed available</th>
-    <th>Vulnerability Count</th>
+    <th>
+      <div class="tooltip">
+        <p>Fix available</p>
+        <span class="tooltiptext">Fix available indicates whether a patch or update exists to address the
+          vulnerabilities found in the corresponding package.</span>
+      </div>
+    </th>
+    <th>
+      <div class="tooltip">
+        <p>Vulnerability count</p>
+        <span class="tooltiptext">Vulnerability count shows the number of vulnerabilities found in the package, counted
+          by each severity level.</span>
+      </div>
+    </th>
   </tr>
   {{ range $rowIndex, $element := . }}
   {{ $index := uniqueID }}
@@ -43,7 +55,7 @@
       <div id="table-tr-{{ $index }}-details" class="package-details">
         {{ if and $element.HTMLPackageDetail (not (eq $element.HTMLPackageDetail.LayerID "")) }}
         <div class="layer-command-container">
-          <span class="package-detail-title">Layer Command:</span>
+          <span class="package-detail-title">Layer introduced in:</span>
           {{ if ne $element.HTMLPackageDetail.LayerCommandTooltip "" }}
           <div class="tooltip">{{ $element.HTMLPackageDetail.LayerCommand }}
             <span class="tooltiptext">{{ $element.HTMLPackageDetail.LayerCommandTooltip }}</span>
@@ -53,9 +65,10 @@
           {{ end }}
         </div>
         <p><span class="package-detail-title">Layer ID:</span> {{ $element.HTMLPackageDetail.LayerID }}</p>
-        <p><span class="package-detail-title">In Base Image:</span> {{ $element.HTMLPackageDetail.InBaseImage }}</p>
+        <p><span class="package-detail-title">In base image:</span> {{ $element.HTMLPackageDetail.InBaseImage }}</p>
         {{ end }}
         {{ template "vuln_table_template.html" $element }}
+      </div>
 
     </td>
   </tr>

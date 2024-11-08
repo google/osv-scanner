@@ -397,29 +397,22 @@ func buildHTMLResult(ecosystemMap map[string][]HTMLSourceResult, resultCount HTM
 }
 
 func getVulnTypeCount(result []HTMLEcosystemResult) VulnTypeCount {
-	osType := 0
-	projectType := 0
-	uncalled := 0
-	all := 0
+	var vulnCount VulnTypeCount
 
 	for _, ecosystem := range result {
 		for _, source := range ecosystem.Sources {
 			if ecosystem.IsOS {
-				osType += source.HTMLVulnCount.Called
+				vulnCount.OS += source.HTMLVulnCount.Called
 			} else {
-				projectType += source.HTMLVulnCount.Called
+				vulnCount.Project += source.HTMLVulnCount.Called
 			}
-			all += source.HTMLVulnCount.Called
-			uncalled += source.HTMLVulnCount.Uncalled
+			vulnCount.Uncalled += source.HTMLVulnCount.Uncalled
 		}
 	}
 
-	return VulnTypeCount{
-		All:      all,
-		OS:       osType,
-		Project:  projectType,
-		Uncalled: uncalled,
-	}
+	vulnCount.All = vulnCount.OS + vulnCount.Project
+
+	return vulnCount
 }
 
 func getAllLayers(result []HTMLEcosystemResult) []LayerInfo {

@@ -319,6 +319,7 @@
   }
 
   document.addEventListener("DOMContentLoaded", function () {
+    resetFilterText();
     showAndHideParentSections();
     let selectedTypeFilterValue = new Set();
     selectedTypeFilterValue.add("all");
@@ -390,7 +391,7 @@
         const clickedOption = event.target.closest(".layer-filter-option");
         if (clickedOption) {
           resetSearchText();
-          selectedLayer = clickedOption.getAttribute("value");
+          selectedLayer = clickedOption.getAttribute("title");
           selectedDisplay = document.getElementById("layer-filter-selected");
           layerCommand = clickedOption.querySelector("p:first-child");
           selectedDisplay.textContent = layerCommand.textContent;

@@ -8,6 +8,7 @@
     font-family: "Overpass Mono", monospace;
     font-size: 12pt;
     font-weight: 100;
+    min-width: fit-content;
   }
 
   a {
@@ -17,7 +18,6 @@
   .container {
     max-width: 1400px;
     margin: 50px auto;
-    /* background-color: #fff; */
     padding: 20px;
     border-radius: 5px;
     box-shadow: 0 0 5px rgba(255, 255, 255, 0.15);
@@ -83,6 +83,7 @@
 
   .material-icons {
     vertical-align: middle;
+    user-select: none;
   }
 
   .vuln-table {
@@ -127,7 +128,7 @@
     padding-bottom: 30px;
     border-bottom: 1px solid rgba(255, 255, 255, 0.12);
     max-height: 800px;
-    overflow: overlay;
+    overflow: auto;
   }
 
   .table-tr:hover .open-in-tab-tag {
@@ -149,6 +150,7 @@
 
   .severity-cell {
     width: 60px !important;
+    user-select: none;
   }
 
   .fixable-tag {
@@ -159,6 +161,7 @@
     white-space: nowrap;
     overflow: hidden;
     text-align: center;
+    user-select: none;
   }
 
   .has-fix {
@@ -249,6 +252,7 @@
     width: 100%;
     min-height: 1000px;
     border: none;
+    background-color: #fff;
   }
 
   #vuln-tab {
@@ -350,6 +354,7 @@
     min-width: 100px;
     overflow: hidden;
     white-space: nowrap;
+    user-select: none;
   }
 
   .severity-long p {
@@ -387,6 +392,7 @@
 
   .severity-short {
     width: 40px;
+    user-select: none;
   }
 
   .severity-short p {
@@ -489,6 +495,17 @@
   .inner-table .tooltip .tooltiptext {
     min-width: 300px;
     white-space: normal;
+  }
+
+  th .tooltip .tooltiptext {
+    white-space: normal;
+    width: 240px;
+    padding: 10px;
+  }
+
+  .severity-count-summary .tooltip {
+    text-decoration: none;
+
   }
 
   .flex-box {
