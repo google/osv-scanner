@@ -306,7 +306,7 @@ func HydrateWithClient(resp *BatchedResponse, client *http.Client) (*HydratedBat
 	return &hydrated, nil
 }
 
-// makeRetryRequest will return an error on both network errors, and if the response is not 200
+// makeRetryRequest will return an error on both network errors, and if the response is not 2xx
 func makeRetryRequest(action func() (*http.Response, error)) (*http.Response, error) {
 	var resp *http.Response
 	var err error
