@@ -6,7 +6,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
-	"math/rand"
+
 	"net/http"
 	"time"
 
@@ -16,7 +16,7 @@ import (
 	"golang.org/x/sync/errgroup"
 )
 
-const (
+var (
 	// QueryEndpoint is the URL for posting queries to OSV.
 	QueryEndpoint = "https://api.osv.dev/v1/querybatch"
 	// GetEndpoint is the URL for getting vulnerabilities from OSV.
@@ -158,7 +158,7 @@ func chunkBy[T any](items []T, chunkSize int) [][]T {
 
 // checkResponseError checks if the response has an error.
 func checkResponseError(resp *http.Response) error {
-	if resp.StatusCode == http.StatusOK {
+	if resp.StatusCode >= 200 && resp.StatusCode < 300 {
 		return nil
 	}
 
@@ -311,21 +311,30 @@ func makeRetryRequest(action func() (*http.Response, error)) (*http.Response, er
 	var resp *http.Response
 	var err error
 
-	for i := range maxRetryAttempts {
-		// rand is initialized with a random number (since go1.20), and is also safe to use concurrently
-		// we do not need to use a cryptographically secure random jitter, this is just to spread out the retry requests
-		// #nosec G404
-		jitterAmount := (rand.Float64() * float64(jitterMultiplier) * float64(i))
-		time.Sleep(time.Duration(i*i)*time.Second + time.Duration(jitterAmount*1000)*time.Millisecond)
-
+	for i := 0; i < maxRetryAttempts; i++ {
 		resp, err = action()
-		if err == nil {
-			// Check the response for HTTP errors
-			err = checkResponseError(resp)
-			if err == nil {
-				break
-			}
+		if err != nil {
+
+			sleepDuration := time.Duration(i*jitterMultiplier) * time.Second
+			time.Sleep(sleepDuration)
+			continue
 		}
+
+		if resp.StatusCode >= 500 {
+
+			resp.Body.Close()
+			sleepDuration := time.Duration(i*jitterMultiplier) * time.Second
+			time.Sleep(sleepDuration)
+			continue
+		}
+
+		// Success or client error, do not retry
+		break
+	}
+
+	if resp != nil && resp.StatusCode >= 500 {
+		resp.Body.Close()
+		return nil, fmt.Errorf("received %d status code after %d attempts", resp.StatusCode, maxRetryAttempts)
 	}
 
 	return resp, err
