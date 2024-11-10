@@ -6,7 +6,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
-
+	"math/rand"
 	"net/http"
 	"time"
 
@@ -313,31 +313,33 @@ func makeRetryRequest(action func() (*http.Response, error)) (*http.Response, er
 
 	for i := 0; i < maxRetryAttempts; i++ {
 		resp, err = action()
-		if err != nil {
-
-			sleepDuration := time.Duration(i*jitterMultiplier) * time.Second
+		if err != nil || (resp != nil && resp.StatusCode >= 500) {
+			if resp != nil {
+				resp.Body.Close()
+			}
+			err = fmt.Errorf("attempt %d: received status code %d", i+1, getStatusCode(resp))
+			// Apply jittered exponential back-off before retrying.
+			jitter := time.Duration(rand.Float64() * float64(jitterMultiplier) * float64(time.Second))
+			sleepDuration := time.Duration(i*i)*time.Second + jitter
 			time.Sleep(sleepDuration)
+
 			continue
 		}
-
-		if resp.StatusCode >= 500 {
-
-			resp.Body.Close()
-			sleepDuration := time.Duration(i*jitterMultiplier) * time.Second
-			time.Sleep(sleepDuration)
-			continue
-		}
-
-		// Success or client error, do not retry
+		// Success (2xx) or client-side error (4xx), do not retry.
 		break
 	}
 
-	if resp != nil && resp.StatusCode >= 500 {
-		resp.Body.Close()
-		return nil, fmt.Errorf("received %d status code after %d attempts", resp.StatusCode, maxRetryAttempts)
+	return resp, err
+}
+
+// getStatusCode safely retrieves the status code from the response.
+// Returns 0 if resp is nil.
+func getStatusCode(resp *http.Response) int {
+	if resp == nil {
+		return 0
 	}
 
-	return resp, err
+	return resp.StatusCode
 }
 
 func MakeDetermineVersionRequest(name string, hashes []DetermineVersionHash) (*DetermineVersionResponse, error) {
