@@ -10,6 +10,8 @@ import (
 )
 
 func TestMakeRetryRequest(t *testing.T) {
+	t.Parallel() // Enable parallel execution of the main test function
+
 	testCases := []struct {
 		name             string
 		statusCodes      []int
@@ -48,9 +50,11 @@ func TestMakeRetryRequest(t *testing.T) {
 	}
 
 	for _, tc := range testCases {
+		tc := tc // Capture range variable for parallel tests
 		t.Run(tc.name, func(t *testing.T) {
+			t.Parallel() // Enable parallel execution of subtests
 			attempt := 0
-			server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+			server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, _ *http.Request) {
 				if attempt < len(tc.statusCodes) {
 					w.WriteHeader(tc.statusCodes[attempt])
 				} else {
@@ -61,22 +65,23 @@ func TestMakeRetryRequest(t *testing.T) {
 			}))
 			defer server.Close()
 
-			// Override the QueryEndpoint for testing.
-			originalQueryEndpoint := QueryEndpoint
-			QueryEndpoint = server.URL
-			defer func() { QueryEndpoint = originalQueryEndpoint }()
-
 			client := &http.Client{
 				Timeout: 2 * time.Second,
 			}
 
 			resp, err := makeRetryRequest(func() (*http.Response, error) {
-				req, _ := http.NewRequest(http.MethodPost, QueryEndpoint, nil)
+				req, err := http.NewRequest(http.MethodPost, server.URL, nil)
+				if err != nil {
+					return nil, err
+				}
 				req.Header.Set("Content-Type", "application/json")
 				return client.Do(req)
 			})
+			if resp != nil {
+				defer resp.Body.Close()
+			}
 
-			// Assertions using standard library.
+			// Assertions
 			if tc.expectedRespNil && resp != nil {
 				t.Errorf("Expected response to be nil, but got: %v", resp)
 			}
