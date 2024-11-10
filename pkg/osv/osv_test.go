@@ -1,5 +1,3 @@
-// pkg/osv/osv_test.go
-
 package osv
 
 import (
@@ -8,8 +6,6 @@ import (
 	"net/http/httptest"
 	"testing"
 	"time"
-
-	"github.com/stretchr/testify/assert"
 )
 
 func TestRetryOn5xx(t *testing.T) {
@@ -37,7 +33,18 @@ func TestRetryOn5xx(t *testing.T) {
 
 	log.Printf("TestRetryOn5xx: resp = %v, err = %v", resp, err)
 
-	assert.Nil(t, resp, "Expected response to be nil after retries on 5xx errors")
-	assert.Error(t, err, "Expected an error after retries on 5xx errors")
-	assert.Equal(t, maxRetryAttempts, attempt, "Expected number of attempts to equal maxRetryAttempts")
+	// Assertion: resp should be nil
+	if resp != nil {
+		t.Errorf("Expected response to be nil after retries on 5xx errors, but got: %v", resp)
+	}
+
+	// Assertion: err should not be nil
+	if err == nil {
+		t.Errorf("Expected an error after retries on 5xx errors, but got none")
+	}
+
+	// Assertion: number of attempts should equal maxRetryAttempts
+	if attempt != maxRetryAttempts {
+		t.Errorf("Expected number of attempts to equal maxRetryAttempts (%d), but got: %d", maxRetryAttempts, attempt)
+	}
 }
