@@ -156,21 +156,6 @@ func chunkBy[T any](items []T, chunkSize int) [][]T {
 	return append(chunks, items)
 }
 
-// checkResponseError checks if the response has an error.
-func checkResponseError(resp *http.Response) error {
-	if resp.StatusCode >= 200 && resp.StatusCode < 300 {
-		return nil
-	}
-
-	respBuf, err := io.ReadAll(resp.Body)
-	if err != nil {
-		return fmt.Errorf("failed to read error response from server: %w", err)
-	}
-	defer resp.Body.Close()
-
-	return fmt.Errorf("server response error: %s", string(respBuf))
-}
-
 // MakeRequest sends a batched query to osv.dev
 func MakeRequest(request BatchedQuery) (*BatchedResponse, error) {
 	return MakeRequestWithClient(request, http.DefaultClient)
@@ -306,40 +291,54 @@ func HydrateWithClient(resp *BatchedResponse, client *http.Client) (*HydratedBat
 	return &hydrated, nil
 }
 
-// makeRetryRequest will return an error on both network errors, and if the response is not 2xx
+// makeRetryRequest executes HTTP requests with exponential backoff retry logic
 func makeRetryRequest(action func() (*http.Response, error)) (*http.Response, error) {
-	var resp *http.Response
-	var err error
+	const maxRetryAttempts = 4
+	const jitterMultiplier = 2
 
-	for i := 0; i < maxRetryAttempts; i++ {
-		resp, err = action()
-		if err != nil || (resp != nil && resp.StatusCode >= 500) {
-			if resp != nil {
-				resp.Body.Close()
+	var lastErr error
+
+	for i := range maxRetryAttempts {
+		resp, err := action()
+		if err != nil {
+			lastErr = fmt.Errorf("attempt %d: request failed: %w", i+1, err)
+			if i == maxRetryAttempts-1 {
+				break
 			}
-			err = fmt.Errorf("attempt %d: received status code %d", i+1, getStatusCode(resp))
-			// Apply jittered exponential back-off before retrying.
+			backoff := time.Duration(i*i) * time.Second
 			jitter := time.Duration(rand.Float64() * float64(jitterMultiplier) * float64(time.Second))
-			sleepDuration := time.Duration(i*i)*time.Second + jitter
-			time.Sleep(sleepDuration)
-
+			time.Sleep(backoff + jitter)
 			continue
 		}
-		// Success (2xx) or client-side error (4xx), do not retry.
-		break
+
+		// Check response validity
+		if resp.StatusCode >= 200 && resp.StatusCode < 300 {
+			return resp, nil
+		}
+
+		// Read error response
+		body, err := io.ReadAll(resp.Body)
+		resp.Body.Close()
+		if err != nil {
+			lastErr = fmt.Errorf("attempt %d: failed to read response: %w", i+1, err)
+		} else if resp.StatusCode >= 400 && resp.StatusCode < 500 {
+			// Client errors (4xx) - return immediately
+			return nil, fmt.Errorf("client error: status=%d body=%s", resp.StatusCode, body)
+		} else {
+			// Server errors (5xx) - can retry
+			lastErr = fmt.Errorf("server error: status=%d body=%s", resp.StatusCode, body)
+		}
+
+		if i == maxRetryAttempts-1 {
+			break
+		}
+
+		backoff := time.Duration(i*i) * time.Second
+		jitter := time.Duration(rand.Float64() * float64(jitterMultiplier) * float64(time.Second))
+		time.Sleep(backoff + jitter)
 	}
 
-	return resp, err
-}
-
-// getStatusCode safely retrieves the status code from the response.
-// Returns 0 if resp is nil.
-func getStatusCode(resp *http.Response) int {
-	if resp == nil {
-		return 0
-	}
-
-	return resp.StatusCode
+	return nil, fmt.Errorf("max retries exceeded: %w", lastErr)
 }
 
 func MakeDetermineVersionRequest(name string, hashes []DetermineVersionHash) (*DetermineVersionResponse, error) {
