@@ -16,7 +16,7 @@ import (
 	"golang.org/x/sync/errgroup"
 )
 
-var (
+const (
 	// QueryEndpoint is the URL for posting queries to OSV.
 	QueryEndpoint = "https://api.osv.dev/v1/querybatch"
 	// GetEndpoint is the URL for getting vulnerabilities from OSV.
@@ -293,49 +293,37 @@ func HydrateWithClient(resp *BatchedResponse, client *http.Client) (*HydratedBat
 
 // makeRetryRequest executes HTTP requests with exponential backoff retry logic
 func makeRetryRequest(action func() (*http.Response, error)) (*http.Response, error) {
-	const maxRetryAttempts = 4
-	const jitterMultiplier = 2
-
 	var lastErr error
 
 	for i := range maxRetryAttempts {
+		// rand is initialized with a random number (since go1.20), and is also safe to use concurrently
+		// we do not need to use a cryptographically secure random jitter, this is just to spread out the retry requests
+		// #nosec G404
+		jitterAmount := (rand.Float64() * float64(jitterMultiplier) * float64(i))
+		time.Sleep(time.Duration(i*i)*time.Second + time.Duration(jitterAmount*1000)*time.Millisecond)
+
 		resp, err := action()
 		if err != nil {
 			lastErr = fmt.Errorf("attempt %d: request failed: %w", i+1, err)
-			if i == maxRetryAttempts-1 {
-				break
-			}
-			backoff := time.Duration(i*i) * time.Second
-			jitter := time.Duration(rand.Float64() * float64(jitterMultiplier) * float64(time.Second))
-			time.Sleep(backoff + jitter)
 			continue
 		}
 
-		// Check response validity
 		if resp.StatusCode >= 200 && resp.StatusCode < 300 {
 			return resp, nil
 		}
 
-		// Read error response
 		body, err := io.ReadAll(resp.Body)
 		resp.Body.Close()
 		if err != nil {
 			lastErr = fmt.Errorf("attempt %d: failed to read response: %w", i+1, err)
-		} else if resp.StatusCode >= 400 && resp.StatusCode < 500 {
-			// Client errors (4xx) - return immediately
+			continue
+		}
+
+		if resp.StatusCode >= 400 && resp.StatusCode < 500 {
 			return nil, fmt.Errorf("client error: status=%d body=%s", resp.StatusCode, body)
-		} else {
-			// Server errors (5xx) - can retry
-			lastErr = fmt.Errorf("server error: status=%d body=%s", resp.StatusCode, body)
 		}
 
-		if i == maxRetryAttempts-1 {
-			break
-		}
-
-		backoff := time.Duration(i*i) * time.Second
-		jitter := time.Duration(rand.Float64() * float64(jitterMultiplier) * float64(time.Second))
-		time.Sleep(backoff + jitter)
+		lastErr = fmt.Errorf("server error: status=%d body=%s", resp.StatusCode, body)
 	}
 
 	return nil, fmt.Errorf("max retries exceeded: %w", lastErr)
