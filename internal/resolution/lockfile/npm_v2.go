@@ -107,11 +107,25 @@ func (rw NpmReadWriter) nodesFromPackages(lockJSON lockfile.NpmLockfile) (*resol
 		parent := nodeModuleTree
 		if path[0] != "" {
 			// jump to the corresponding workspace if package is in one
-			parent = workspaceModules[strings.TrimSuffix(path[0], "/")]
+			if parent, ok = workspaceModules[strings.TrimSuffix(path[0], "/")]; !ok {
+				// The package exists in a node_modules of a folder that doesn't belong to this project.
+				// npm seems to silently ignore these, so we will too.
+				continue
+			}
 		}
+
+		parentFound := true
 		for _, p := range path[1 : len(path)-1] { // skip root directory
 			p = strings.TrimSuffix(p, "/")
-			parent = parent.Children[p]
+			if parent, parentFound = parent.Children[p]; !parentFound {
+				break
+			}
+		}
+
+		if !parentFound {
+			// The package this supposed to be installed under is not installed.
+			// npm seems to silently ignore these, so we will too.
+			continue
 		}
 
 		name := path[len(path)-1]

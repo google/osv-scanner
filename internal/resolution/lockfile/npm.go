@@ -58,7 +58,7 @@ func (rw NpmReadWriter) Read(file lockfile.DepFile) (*resolve.Graph, error) {
 		return nil, errors.New("no dependencies in package-lock.json")
 	}
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("error when parsing package-lock.json: %w", err)
 	}
 
 	// Traverse the graph (somewhat inefficiently) to add edges between nodes
@@ -87,6 +87,9 @@ func (rw NpmReadWriter) Read(file lockfile.DepFile) (*resolve.Graph, error) {
 		// Add edges to the correct dependency nodes
 		for depName, depVer := range node.Deps {
 			depNode := rw.findDependencyNode(node, depName)
+			if depNode == -1 {
+				return nil, fmt.Errorf("required dependency not found in package-lock file: %s", depName)
+			}
 			var typ dep.Type
 			if node.DevDeps[depName] == depVer {
 				typ = dep.NewType(dep.Dev)
