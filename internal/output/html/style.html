@@ -66,8 +66,6 @@
 
   .logo {
     height: 20px;
-    /* position: absolute; */
-    /* left: 0; */
   }
 
   header .vl {
@@ -139,7 +137,7 @@
     display: none;
     border: 1px solid rgba(255, 255, 255, 0.12);
     padding: 5px 5px;
-    border-radius: 4px;
+    border-radius: 2px;
     width: fit-content;
   }
 
@@ -154,7 +152,7 @@
   }
 
   .fixable-tag {
-    border-radius: 4px;
+    border-radius: 2px;
     max-width: 250px;
     width: fit-content;
     padding: 0 5px;
@@ -165,6 +163,7 @@
   }
 
   .has-fix {
+    white-space: break-spaces;
     background-color: #6a6a6a;
   }
 
@@ -259,7 +258,7 @@
     display: block;
   }
 
-  .expand-icon {
+  .package-tr {
     cursor: pointer;
   }
 
@@ -282,7 +281,7 @@
     max-width: 600px;
     min-width: 250px;
     background-color: transparent;
-    border-radius: 10px;
+    border-radius: 8px;
     overflow: hidden;
     color: #fff;
     border: 1px solid #ddd;
@@ -317,6 +316,11 @@
     border-bottom: 1px dotted #ddd;
     padding: 15px 20px;
     white-space: nowrap;
+    cursor: pointer;
+  }
+
+  .filter-option input,
+  .filter-option label {
     cursor: pointer;
   }
 
@@ -360,7 +364,7 @@
   .severity-long p {
     font-size: 10pt;
     padding: 5px 5px;
-    border-radius: 5px;
+    border-radius: 4px;
     margin-right: 3px;
   }
 
@@ -396,8 +400,17 @@
   }
 
   .severity-short p {
-    border-radius: 1px;
     text-align: center;
+  }
+
+  .severity-short-first p {
+    border-top-left-radius: 2px;
+    border-bottom-left-radius: 2px;
+  }
+
+  .severity-short-last p {
+    border-top-right-radius: 2px;
+    border-bottom-right-radius: 2px;
   }
 
   /* CSS for the search box */
@@ -407,7 +420,7 @@
     width: 100%;
     border: 1px solid #fff;
     background-color: transparent;
-    border-radius: 10px;
+    border-radius: 4px;
     margin-top: 30px;
   }
 

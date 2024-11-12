@@ -2,7 +2,7 @@
   <div id="filter-section">
     {{ if .IsContainerScanning }}
     <div class="filter-container">
-      <label for="layer-filter">Layer<br></label>
+      <span>Layer<br></span>
       <div id="layer-filter" class="filter" onclick="toggleFilter('layer')">
         <p id="layer-filter-selected" class="filter-selected"></p>
         <div class="filter-icon">
@@ -26,9 +26,12 @@
     {{ end }}
 
     <div class="filter-container">
-      <label for="type-filter">Vulnerability type<br></label>
+      <span>Filters<br></span>
       <div id="type-filter" class="filter" onclick="toggleFilter('type')">
-        <p id="type-filter-selected" class="filter-selected"></p>
+        <p class="filter-selected">
+          <span id="type-filter-selected"></span>
+          <span>(<span id="selected-count"></span>/{{ add .HTMLVulnTypeCount.All .HTMLVulnTypeCount.Uncalled }})</span>
+        </p>
         <div class="filter-icon">
           <i class="material-icons">keyboard_arrow_down</i>
         </div>
@@ -36,24 +39,24 @@
       <div id="type-filter-option-container" class="filter-option-container">
         {{ if .IsContainerScanning }}
         <div class="filter-option">
-          <input type="checkbox" checked id="all-type-checkbox" data-type-all-count="{{ .VulnTypeCount.All }}">
-          <label for="all-type-checkbox">All types ({{ .VulnTypeCount.All }})</label>
+          <input type="checkbox" checked id="all-type-checkbox" data-type-all-count="{{ .HTMLVulnTypeCount.All }}">
+          <label for="all-type-checkbox">Default ({{ .HTMLVulnTypeCount.All }})</label>
         </div>
         {{ end }}
         <div class="filter-option">
           <input type="checkbox" checked id="project-type-checkbox"
-            data-type-project-count="{{ .VulnTypeCount.Project }}">
-          <label for="project-type-checkbox"> Project Vulnerabilities ({{ .VulnTypeCount.Project }})</label>
+            data-type-project-count="{{ .HTMLVulnTypeCount.Project }}">
+          <label for="project-type-checkbox"> Project Vulnerabilities ({{ .HTMLVulnTypeCount.Project }})</label>
         </div>
         {{ if .IsContainerScanning }}
         <div class="filter-option">
-          <input type="checkbox" checked id="os-type-checkbox">
-          <label for="os-type-checkbox"> Operating system vulnerabilities ({{ .VulnTypeCount.OS }})</label>
+          <input type="checkbox" checked id="os-type-checkbox" data-type-os-count="{{ .HTMLVulnTypeCount.OS }}">
+          <label for="os-type-checkbox"> Operating system vulnerabilities ({{ .HTMLVulnTypeCount.OS }})</label>
         </div>
         {{ end }}
         <div class="filter-option">
-          <input type="checkbox" id="uncalled-type-checkbox">
-          <label for="uncalled-type-checkbox">Uncalled/Unimportant ({{ .VulnTypeCount.Uncalled }})</label>
+          <input type="checkbox" id="uncalled-type-checkbox" data-type-uncalled-count="{{ .HTMLVulnTypeCount.Uncalled }}">
+          <label for="uncalled-type-checkbox">Uncalled/Unimportant ({{ .HTMLVulnTypeCount.Uncalled }})</label>
         </div>
       </div>
     </div>
@@ -61,7 +64,7 @@
 
 
   <div id="severity-section">
-    <label>Overall Severity</label>
+    <span>Overall Severity</span>
     <div class="flex-box">
       <div id="critical-long" class="severity-long">
         <p class="critical">{{ .HTMLVulnCount.Critical }} Critical</p>

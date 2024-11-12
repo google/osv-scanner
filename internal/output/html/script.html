@@ -144,7 +144,6 @@
           optionContainer.style.display = "none";
         }
       } else {
-        console.log("hide others");
         containers[i].style.display = "none";
       }
     }
@@ -227,6 +226,7 @@
   }
 
   function applyTypeFilter(selectedValue) {
+    updateTypeFilterText(selectedValue);
     selectedAll = selectedValue.has("all");
     selectedProject = selectedValue.has("project");
     selectedOS = selectedValue.has("os");
@@ -261,18 +261,65 @@
 
   function applyLayerFilter(selectedLayerID) {
     const tableRows = document.querySelectorAll("tr.has-layer-info");
-    console.log("selected layerID: " + selectedLayerID);
     tableRows.forEach(row => {
       const rowLayerID = row.getAttribute("data-layer");
       if (selectedLayerID !== "all" && rowLayerID !== selectedLayerID) {
         const packageDetails = document.getElementById(row.id + "-details");
         const vulnElements = packageDetails.querySelectorAll(".vuln-tr");
         vulnElements.forEach(vuln => {
-          console.log("set vuln display to none");
           vuln.style.display = "none";
         });
       }
     });
+  }
+
+  function updateTypeFilterText(selectedValue) {
+    selectedAll = selectedValue.has("all");
+    selectedProject = selectedValue.has("project");
+    selectedOS = selectedValue.has("os");
+    selectedUncalled = selectedValue.has("uncalled");
+    if (selectedAll) {
+      selectedProject = true;
+      selectedOS = true;
+    }
+
+    const typeSelected = document.getElementById("type-filter-selected");
+    const selectedVulnCount = document.getElementById("selected-count");
+
+    const allTypeCheckbox = document.getElementById("all-type-checkbox");
+    const osTypeCheckbox = document.getElementById("os-type-checkbox");
+    const projectTypeCheckbox = document.getElementById(
+      "project-type-checkbox"
+    );
+    const uncalledTypeCheckbox = document.getElementById(
+      "uncalled-type-checkbox"
+    );
+
+    let selectedText = "";
+    let selectedCount = 0;
+
+    if (projectTypeCheckbox && projectTypeCheckbox.checked) {
+      selectedText += (selectedText ? ", " : "") + "Project";
+      const projectTypeVulnCount = projectTypeCheckbox.getAttribute(
+        "data-type-project-count"
+      );
+      selectedCount += parseInt(projectTypeVulnCount, 10);
+    }
+    if (osTypeCheckbox && osTypeCheckbox.checked) {
+      selectedText += (selectedText ? ", " : "") + "OS";
+      const osTypeVulnCount = osTypeCheckbox.getAttribute("data-type-os-count");
+      selectedCount += parseInt(osTypeVulnCount, 10);
+    }
+    if (uncalledTypeCheckbox && uncalledTypeCheckbox.checked) {
+      selectedText += (selectedText ? ", " : "") + "Unimportant";
+      const uncalledTypeVulnCount = uncalledTypeCheckbox.getAttribute(
+        "data-type-uncalled-count"
+      );
+      selectedCount += parseInt(uncalledTypeVulnCount, 10);
+    }
+
+    typeSelected.textContent = selectedText;
+    selectedVulnCount.textContent = selectedCount;
   }
 
   function resetFilterText() {
@@ -286,15 +333,16 @@
     }
 
     const typeSelected = document.getElementById("type-filter-selected");
+    const selectedVulnCount = document.getElementById("selected-count");
     const allTypeCheckedBox = document.getElementById("all-type-checkbox");
     const uncalledTypeCheckBox = document.getElementById(
       "uncalled-type-checkbox"
     );
     if (allTypeCheckedBox) {
-      typeSelected.textContent =
-        "All types (" +
-        allTypeCheckedBox.getAttribute("data-type-all-count") +
-        ")";
+      typeSelected.textContent = "Default";
+      selectedVulnCount.textContent = allTypeCheckedBox.getAttribute(
+        "data-type-all-count"
+      );
       allLayerCheckedBox.checked = true;
       uncalledTypeCheckBox.checked = false;
     } else {
@@ -302,10 +350,10 @@
         "project-type-checkbox"
       );
       projectTypeCheckedBox.checked = true;
-      typeSelected.textContent =
-        "All types (" +
-        projectTypeCheckedBox.getAttribute("data-type-project-count") +
-        ")";
+      typeSelected.textContent = "Default";
+      selectedVulnCount.textContent = projectTypeCheckedBox.getAttribute(
+        "data-type-project-count"
+      );
       uncalledTypeCheckBox.checked = false;
     }
   }
@@ -315,6 +363,26 @@
     if (vulnSearchInput.value != "") {
       vulnSearchInput.value = "";
       showAllVulns();
+    }
+  }
+
+  function resetTypeCheckbox() {
+    const allTypeCheckbox = document.getElementById("all-type-checkbox");
+    const osTypeCheckbox = document.getElementById("os-type-checkbox");
+    const projectTypeCheckbox = document.getElementById(
+      "project-type-checkbox"
+    );
+    const uncalledTypeCheckbox = document.getElementById(
+      "uncalled-type-checkbox"
+    );
+
+    if (allTypeCheckbox) {
+      allTypeCheckbox.checked = true;
+      projectTypeCheckbox.checked = true;
+      if (osTypeCheckbox) {
+        osTypeCheckbox.checked = true;
+      }
+      uncalledTypeCheckbox.checked = false;
     }
   }
 
@@ -366,18 +434,6 @@
         selectedTypeFilterValue.add("uncalled");
       }
 
-      selectedDisplay = document.getElementById("type-filter-selected");
-      if (allTypesCheckbox != null && allTypesCheckbox.checked) {
-        const allTypesLabel = document.querySelector(
-          `label[for="${allTypesCheckbox.id}"]`
-        );
-        selectedDisplay.textContent = allTypesLabel.textContent;
-      } else {
-        let typeArray = Array.from(selectedTypeFilterValue);
-        selectedToString = typeArray.join(", ");
-        selectedDisplay.textContent = selectedToString;
-      }
-
       applyFilters(selectedTypeFilterValue, selectedLayer);
     });
 
@@ -415,6 +471,11 @@
     const vulnSearchInput = document.getElementById("vuln-search");
     vulnSearchInput.addEventListener("keyup", event => {
       resetFilterText();
+      selectedTypeFilterValue.clear();
+      selectedTypeFilterValue.add("all");
+      selectedLayer = "all";
+      resetTypeCheckbox();
+
       const searchTerm = vulnSearchInput.value.trim().toLowerCase();
 
       const vulnRows = document.querySelectorAll("[data-vuln-id]");
