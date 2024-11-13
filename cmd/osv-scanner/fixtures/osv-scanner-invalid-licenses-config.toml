@@ -1,0 +1,11 @@
+[[PackageOverrides]]
+name = "babel"
+license.override = ["MIT AND (LGPL-2.1-or-later OR BSD-3-Clause))"]
+
+[[PackageOverrides]]
+name = "human-signals"
+license.override = ["LGPL-2.1-only OR OR BSD-3-Clause"]
+
+[[PackageOverrides]]
+name = "ms"
+license.override = ["MIT WITH (Bison-exception-2.2 AND somethingelse)"]
