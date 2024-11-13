@@ -973,10 +973,10 @@ func TestGeneratePropertyPatches(t *testing.T) {
 		{"${major}.2.3", "2.0.0", false, map[string]string{}},
 		{"1.${minor}.3", "2.0.0", false, map[string]string{}},
 	}
-	for _, test := range tests {
-		patches, ok := generatePropertyPatches(test.s1, test.s2)
-		if ok != test.possible || !reflect.DeepEqual(patches, test.patches) {
-			t.Errorf("generatePropertyPatches(%s, %s): got %v %v, want %v %v", test.s1, test.s2, patches, ok, test.patches, test.possible)
+	for _, tt := range tests {
+		patches, ok := generatePropertyPatches(tt.s1, tt.s2)
+		if ok != tt.possible || !reflect.DeepEqual(patches, tt.patches) {
+			t.Errorf("generatePropertyPatches(%s, %s): got %v %v, want %v %v", tt.s1, tt.s2, patches, ok, tt.patches, tt.possible)
 		}
 	}
 }
