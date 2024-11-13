@@ -1,53 +1,85 @@
-<table class="vuln-table">
+<table class="inner-table">
   <tr>
-    <th>ID</th>
-    <th>package</th>
-    <th>Installed version</th>
+    <th>Vulnerability ID</th>
+    <th>Aliases</th>
     <th>Fixed version</th>
-    <th>Severity</th>
+    <th class="severity-cell">Severity</th>
+    <th class="open-in-tab-cell"></th>
   </tr>
-  {{ range $rowIndex, $element := . }}
-  {{ $index := uniqueID}}
-  <tr class='vuln-tr' id="vuln-tr-{{ $element.Summary.ID }}-{{ $rowIndex }}-{{ $index }}"
-    onclick="showVulnDetails('{{ $element.Summary.ID }}-{{ $rowIndex }}-{{ $index }}')">
-    <td><a href="https://osv.dev/{{ $element.Summary.ID }}">{{ $element.Summary.ID }}</a></td>
-    <td>{{ $element.Summary.PackageName }}</td>
-    <td>{{ $element.Summary.InstalledVersion }}</td>
-    <td {{ if eq $element.Summary.FixedVersion "No fix available" }} class="warning" {{ end }}>{{
-      $element.Summary.FixedVersion }}</td>
-    <td>{{ $element.Summary.SeverityRating }}
-      {{ if ne $element.Summary.SeverityRating "UNKNOWN" }}
-      ({{$element.Summary.SeverityScore }})
+  {{ range $rowIndex, $element := .CalledVulns }}
+  {{ $index := uniqueID }}
+  <tr class='table-tr vuln-tr' id="table-tr-{{ $index }}" data-vuln-id="{{ $element.Summary.ID }}">
+    <td>
+      {{ if eq (len $element.Detail.GroupIDs) 0 }}
+      {{ $element.Summary.ID }}
+      {{ else }}
+      <div class="tooltip">
+        {{ $element.Summary.ID }}
+        <span class="tooltiptext">Group IDs: {{ join $element.Detail.GroupIDs ", " }}</span>
+      </div>
       {{ end }}
     </td>
-  </tr>
-  <tr>
-    <td colspan="100%">
-      <div id="vuln-details-{{ $element.Summary.ID }}-{{ $rowIndex }}-{{ $index }}" class="vuln-details">
-        {{ if ne (len $element.Detail.GroupIDs) 0 }}
-        <p><strong>Group IDs: {{ join $element.Detail.GroupIDs ", "}}</strong></p>
-        {{ end }}
-        {{ if ne (len $element.Detail.Aliases) 0 }}
-        <p><strong>Aliases: {{ join $element.Detail.Aliases ", "}}</strong></p>
-        {{ end }}
-        {{ if ne $element.Detail.LayerCommand "" }}
-        {{ if ne $element.Detail.LayerCommandTooltip "" }}
-        <p>Layer Command: <abbr title={{ $element.Detail.LayerCommandTooltip }}>
-            {{ $element.Detail.LayerCommand}}</abbr></p>
-        {{ else }}
-        <p>Layer Command: {{ $element.Detail.LayerCommand }}</p>
-        {{ end }}
-        {{ end }}
-        {{ if ne $element.Detail.LayerID "" }}
-        <p>Layer ID: {{ $element.Detail.LayerID }}</p>
-        {{ end }}
-        {{ if ne $element.Detail.InBaseImage "" }}
-        <p>In Base Image: {{ $element.Detail.InBaseImage }}</p>
-        {{ end }}
-        {{ if ne $element.Detail.Description "" }}
-        <p>Description: {{ $element.Detail.Description }}</p>
-        {{ end }}
+    <td>
+      {{ if eq (len $element.Detail.Aliases) 1 }}
+      {{ index $element.Detail.Aliases 0 }}
+      {{ else if gt (len $element.Detail.Aliases) 1}}
+      <div class="tooltip">
+        {{ index $element.Detail.Aliases 0}}, ...
+        <span class="tooltiptext">{{ join $element.Detail.Aliases ", " }}</span>
       </div>
+      {{ end }}
+    </td>
+
+    <td>
+      <p {{ if eq $element.Summary.FixedVersion "No fix available" }} class="fixable-tag no-fix" {{ end }}>
+        {{$element.Summary.FixedVersion }}</p>
+    </td>
+    <td class="severity-cell">
+      <div id="{{ toLower $element.Summary.SeverityRating }}-short" class="severity-short">
+        <p class="{{ toLower $element.Summary.SeverityRating }}">{{ $element.Summary.SeverityScore }}</p>
+      </div>
+    </td>
+    <td class="open-in-tab-cell">
+      <p class="open-in-tab-tag" onclick="openVulnInNewTab('{{ $element.Summary.ID }}')">Open in tab</p>
+    </td>
+  </tr>
+  {{ end }}
+
+  {{ range $rowIndex, $element := .UncalledVulns }}
+  {{ $index := uniqueID }}
+  <tr class='table-tr vuln-tr uncalled-tr' id="table-tr-{{ $index }}" data-vuln-id="{{ $element.Summary.ID }}">
+    <td class="uncalled-text">
+      {{ if eq (len $element.Detail.GroupIDs) 0 }}
+      {{ $element.Summary.ID }}
+      {{ else }}
+      <div class="tooltip">
+        {{ $element.Summary.ID }}
+        <span class="tooltiptext">Group IDs: {{ join $element.Detail.GroupIDs ", " }}</span>
+      </div>
+      {{ end }}
+    </td>
+    <td class="uncalled-text">
+      {{ if eq (len $element.Detail.Aliases) 1 }}
+      {{ index $element.Detail.Aliases 0 }}
+      {{ else if gt (len $element.Detail.Aliases) 1}}
+      <div class="tooltip">
+        {{ index $element.Detail.Aliases 0}}...
+        <span class="tooltiptext">{{ join $element.Detail.Aliases ", " }}</span>
+      </div>
+      {{ end }}
+    </td>
+
+    <td>
+      <p {{ if eq $element.Summary.FixedVersion "No fix available" }} class="fixable-tag no-fix" {{ else }}
+        class="uncalled-text" {{ end }}>{{$element.Summary.FixedVersion }}</p>
+    </td>
+    <td class="severity-cell">
+      <div id="{{ toLower $element.Summary.SeverityRating }}-short" class="severity-short">
+        <p class="{{ toLower $element.Summary.SeverityRating }}">{{ $element.Summary.SeverityScore }}</p>
+      </div>
+    </td>
+    <td class="open-in-tab-cell">
+      <p class="open-in-tab-tag" onclick="openVulnInNewTab('{{ $element.Summary.ID }}')">Open in tab</p>
     </td>
   </tr>
   {{ end }}
