@@ -62,10 +62,10 @@ func TestParentPOMPath(t *testing.T) {
 			want:         "",
 		},
 	}
-	for _, test := range tests {
-		got := maven.ParentPOMPath(test.currentPath, test.relativePath)
-		if got != test.want {
-			t.Errorf("parentPOMPath(%s, %s): got %s, want %s", test.currentPath, test.relativePath, got, test.want)
+	for _, tt := range tests {
+		got := maven.ParentPOMPath(tt.currentPath, tt.relativePath)
+		if got != tt.want {
+			t.Errorf("parentPOMPath(%s, %s): got %s, want %s", tt.currentPath, tt.relativePath, got, tt.want)
 		}
 	}
 }

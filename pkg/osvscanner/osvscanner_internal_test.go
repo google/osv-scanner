@@ -33,7 +33,7 @@ func Test_filterResults(t *testing.T) {
 		{
 			name: "filter_partially",
 			path: "fixtures/filter/some",
-			want: 11,
+			want: 10,
 		},
 	}
 	for _, tt := range tests {

@@ -20,9 +20,9 @@ func TestCycloneDXReporter_Errorf(t *testing.T) {
 	}
 
 	text := "hello world!"
-	for _, test := range tests {
+	for _, tt := range tests {
 		writer := &bytes.Buffer{}
-		r := reporter.NewCycloneDXReporter(io.Discard, writer, test.version, reporter.ErrorLevel)
+		r := reporter.NewCycloneDXReporter(io.Discard, writer, tt.version, reporter.ErrorLevel)
 
 		r.Errorf("%s", text)
 
@@ -50,14 +50,14 @@ func TestCycloneDXReporter_Warnf(t *testing.T) {
 		{lvl: reporter.ErrorLevel, expectedPrintout: "", version: models.CycloneDXVersion15},
 	}
 
-	for _, test := range tests {
+	for _, tt := range tests {
 		writer := &bytes.Buffer{}
-		r := reporter.NewCycloneDXReporter(io.Discard, writer, test.version, test.lvl)
+		r := reporter.NewCycloneDXReporter(io.Discard, writer, tt.version, tt.lvl)
 
 		r.Warnf("%s", text)
 
-		if writer.String() != test.expectedPrintout {
-			t.Errorf("expected \"%s\", got \"%s\"", test.expectedPrintout, writer.String())
+		if writer.String() != tt.expectedPrintout {
+			t.Errorf("expected \"%s\", got \"%s\"", tt.expectedPrintout, writer.String())
 		}
 	}
 }
@@ -77,14 +77,14 @@ func TestCycloneDXReporter_Infof(t *testing.T) {
 		{lvl: reporter.WarnLevel, expectedPrintout: "", version: models.CycloneDXVersion15},
 	}
 
-	for _, test := range tests {
+	for _, tt := range tests {
 		writer := &bytes.Buffer{}
-		r := reporter.NewCycloneDXReporter(io.Discard, writer, test.version, test.lvl)
+		r := reporter.NewCycloneDXReporter(io.Discard, writer, tt.version, tt.lvl)
 
 		r.Infof("%s", text)
 
-		if writer.String() != test.expectedPrintout {
-			t.Errorf("expected \"%s\", got \"%s\"", test.expectedPrintout, writer.String())
+		if writer.String() != tt.expectedPrintout {
+			t.Errorf("expected \"%s\", got \"%s\"", tt.expectedPrintout, writer.String())
 		}
 	}
 }
@@ -119,14 +119,14 @@ func TestCycloneDXReporter_Verbosef(t *testing.T) {
 		},
 	}
 
-	for _, test := range tests {
+	for _, tt := range tests {
 		writer := &bytes.Buffer{}
-		r := reporter.NewCycloneDXReporter(io.Discard, writer, test.version, test.lvl)
+		r := reporter.NewCycloneDXReporter(io.Discard, writer, tt.version, tt.lvl)
 
 		r.Verbosef("%s", text)
 
-		if writer.String() != test.expectedPrintout {
-			t.Errorf("expected \"%s\", got \"%s\"", test.expectedPrintout, writer.String())
+		if writer.String() != tt.expectedPrintout {
+			t.Errorf("expected \"%s\", got \"%s\"", tt.expectedPrintout, writer.String())
 		}
 	}
 }

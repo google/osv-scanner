@@ -234,6 +234,10 @@ func TestVersion_Compare_Ecosystems(t *testing.T) {
 			name: "Alpine",
 			file: "alpine-versions-generated.txt",
 		},
+		{
+			name: "Red Hat",
+			file: "redhat-versions.txt",
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {

@@ -1493,6 +1493,65 @@
       "packages": [
         {
           "package": {
+            "name": "unixodbc",
+            "version": "2.3.11-2",
+            "ecosystem": "Debian:10"
+          },
+          "vulnerabilities": [
+            {
+              "modified": "2024-03-18T12:38:25Z",
+              "published": "2024-03-18T11:15:09Z",
+              "id": "CVE-2024-1013",
+              "details": "An out-of-bounds stack write flaw was found in unixODBC on 64-bit architectures where the caller has 4 bytes and callee writes 8 bytes. This issue may go unnoticed on little-endian architectures, while big-endian architectures can be broken.",
+              "affected": [
+                {
+                  "package": {
+                    "ecosystem": "Debian:10",
+                    "name": "unixodbc"
+                  },
+                  "ranges": [
+                    {
+                      "type": "ECOSYSTEM",
+                      "events": [
+                        {
+                          "introduced": "0"
+                        }
+                      ]
+                    }
+                  ],
+                  "ecosystem_specific": {
+                    "urgency": "unimportant"
+                  }
+                }
+              ],
+              "references": [
+                {
+                  "type": "REPORT",
+                  "url": "https://bugzilla.redhat.com/show_bug.cgi?id=2260823"
+                },
+                {
+                  "type": "WEB",
+                  "url": "https://access.redhat.com/security/cve/CVE-2024-1013"
+                },
+                {
+                  "type": "WEB",
+                  "url": "https://github.com/lurcher/unixODBC/pull/157"
+                }
+              ]
+            }
+          ],
+          "groups": [
+            {
+              "ids": [
+                "CVE-2024-1013"
+              ],
+              "aliases": null,
+              "max_severity": ""
+            }
+          ]
+        },
+        {
+          "package": {
             "name": "chromium",
             "version": "73.0.3683.75-1",
             "ecosystem": "Debian:10"

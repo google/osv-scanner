@@ -48,6 +48,8 @@ func Parse(str string, ecosystem models.Ecosystem) (Version, error) {
 		return parseSemverVersion(str), nil
 	case "PyPI":
 		return parsePyPIVersion(str), nil
+	case "Red Hat":
+		return parseRedHatVersion(str), nil
 	case "RubyGems":
 		return parseRubyGemsVersion(str), nil
 	case "Ubuntu":

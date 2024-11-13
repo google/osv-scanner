@@ -1,53 +1,77 @@
 <table class="vuln-table">
   <tr>
+    <th></th>
     <th>Package</th>
-    <th>Ecosystem</th>
     <th>Installed version</th>
-    <th>Fixed version</th>
-    <th>Vulnerability Count</th>
+    <th>
+      <div class="tooltip">
+        <p>Fix available</p>
+        <span class="tooltiptext">Fix available indicates whether a patch or update exists to address the
+          vulnerabilities found in the corresponding package.</span>
+      </div>
+    </th>
+    <th>
+      <div class="tooltip">
+        <p>Vulnerability count</p>
+        <span class="tooltiptext">Vulnerability count shows the number of vulnerabilities found in the package, counted
+          by each severity level.</span>
+      </div>
+    </th>
   </tr>
   {{ range $rowIndex, $element := . }}
-  {{ if eq (len $element.CalledVulns) 0 }}
-  {{ continue }}
-  {{ end }}
-
-  <tr class='vuln-tr' id="vuln-tr-{{ $element.Name}}-{{ $rowIndex }}"
-    onclick="showVulnDetails('{{ $element.Name }}-{{ $rowIndex }}')">
-    <td>{{ $element.Name }}</td>
-    <td>{{ $element.Ecosystem }}</td>
-    <td>{{ $element.InstalledVersion }}</td>
-    {{ if ne $element.HTMLVulnCount.UnFixed 0 }}
-    {{ if eq $element.HTMLVulnCount.Fixed 0}}
-    <td class="warning">
-      {{ $element.FixedVersion }}
+  {{ $index := uniqueID }}
+  <tr class="table-tr package-tr {{if $element.HTMLPackageLayerDetail }}has-layer-info"
+    data-layer="{{ $element.HTMLPackageLayerDetail.LayerID }}{{ end }}" id="table-tr-{{ $index }}" onclick="showPackageDetails('{{ $index }}')">
+    <td class="icon-td">
+      <div class="expand-icon">
+        <i class="material-icons">play_arrow</i>
+      </div>
     </td>
-    {{ else }}
-    <td class="warning">
-      {{ $element.FixedVersion }} (fixes {{ $element.HTMLVulnCount.Fixed }}/{{ $element.HTMLVulnCount.Called }})
-    </td>
-    {{ end }}
-    {{ else }}
+    <td {{ if eq $element.HTMLVulnCount.Called 0 }}class="uncalled-text" {{ end }}>{{ $element.Name }}</td>
+    <td {{ if eq $element.HTMLVulnCount.Called 0 }}class="uncalled-text" {{ end }}>{{ $element.InstalledVersion }}</td>
     <td>
-      {{ $element.FixedVersion }}
+      {{ if ne $element.HTMLVulnCount.UnFixed 0 }}
+      {{ if eq $element.HTMLVulnCount.Fixed 0}}
+      <p class="fixable-tag no-fix">No fix available</p>
+      {{ else }}
+      <div class="tooltip">
+        <p class="fixable-tag has-fix">Partial fixes available</p>
+        <span class="tooltiptext">Upgrading the package will fix {{ $element.HTMLVulnCount.Fixed }} out of {{
+          $element.HTMLVulnCount.Called }} vulnerabilities</span>
+      </div>
+      {{ end }}
+      {{ else }}
+      <p class="fixable-tag has-fix">Fix available</p>
+      {{ end }}
     </td>
-    {{ end }}
-    <td>{{ printSeverityCountShort $element.HTMLVulnCount }}</td>
+    <td>
+      {{ if ne $element.HTMLVulnCount.Called 0 }}
+      {{ template "severity_summary_template.html" $element.HTMLVulnCount }}
+      {{ else }}
+      <p class="uncalled-text">Uncalled/Unimportant</p>
+      {{ end }}
+    </td>
   </tr>
   <tr>
     <td colspan="100%">
-      <div id="vuln-details-{{ $element.Name }}-{{ $rowIndex }}" class="vuln-details">
-        <p><strong>Source: {{ $element.Source }}</strong></p>
-        <p>Vulnerabilities:</p>
-        {{ range $index, $vuln := $element.CalledVulns }}
-        {{ if eq $vuln.Summary.FixedVersion "No fix available" }}
-        <p><a href="https://osv.dev/{{ $vuln.Summary.ID }}">{{ $vuln.Summary.ID }}</a>
-          ({{$vuln.Summary.SeverityRating}}) has no fix available</p>
-        {{ else }}
-        <p><a href="https://osv.dev/{{ $vuln.Summary.ID }}">{{ $vuln.Summary.ID }}</a>
-          ({{$vuln.Summary.SeverityRating}}) has a fixed version at {{$vuln.Summary.FixedVersion}}</p>
+      <div id="table-tr-{{ $index }}-details" class="package-details">
+        {{ if and $element.HTMLPackageLayerDetail (not (eq $element.HTMLPackageLayerDetail.LayerID "")) }}
+        <div class="layer-command-container">
+          <span class="package-detail-title">Layer introduced in:</span>
+          {{ if ne $element.HTMLPackageLayerDetail.LayerCommandTooltip "" }}
+          <div class="tooltip">{{ $element.HTMLPackageLayerDetail.LayerCommand }}
+            <span class="tooltiptext">{{ $element.HTMLPackageLayerDetail.LayerCommandTooltip }}</span>
+          </div>
+          {{ else }}
+          <div>{{ $element.HTMLPackageLayerDetail.LayerCommand }}</div>
+          {{ end }}
+        </div>
+        <p><span class="package-detail-title">Layer ID:</span> {{ $element.HTMLPackageLayerDetail.LayerID }}</p>
+        <p><span class="package-detail-title">In base image:</span> {{ $element.HTMLPackageLayerDetail.InBaseImage }}</p>
         {{ end }}
-        {{ end }}
+        {{ template "vuln_table_template.html" $element }}
       </div>
+
     </td>
   </tr>
   {{ end }}

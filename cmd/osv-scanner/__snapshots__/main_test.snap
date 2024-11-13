@@ -1188,6 +1188,16 @@ Warning: `scan` exists as both a subcommand of OSV-Scanner and as a file on the 
           "licenses": [
             "MIT"
           ]
+        },
+        {
+          "package": {
+            "name": "type-fest",
+            "version": "4.26.1",
+            "ecosystem": "npm"
+          },
+          "licenses": [
+            "CC0-1.0 OR MIT"
+          ]
         }
       ]
     }
@@ -1204,7 +1214,46 @@ Warning: `scan` exists as both a subcommand of OSV-Scanner and as a file on the 
 
 [TestRun_Licenses/Licenses_in_summary_mode_json - 2]
 Scanning dir ./fixtures/locks-licenses/package-lock.json
-Scanned <rootdir>/fixtures/locks-licenses/package-lock.json file and found 3 packages
+Scanned <rootdir>/fixtures/locks-licenses/package-lock.json file and found 4 packages
+
+---
+
+[TestRun_Licenses/Licenses_with_expressions - 1]
+Scanning dir ./fixtures/locks-licenses/package-lock.json
+Scanned <rootdir>/fixtures/locks-licenses/package-lock.json file and found 4 packages
+overriding license for package npm/babel/6.23.0 with MIT AND (LGPL-2.1-or-later OR BSD-3-Clause)
+overriding license for package npm/human-signals/5.0.0 with LGPL-2.1-only OR MIT OR BSD-3-Clause
+overriding license for package npm/ms/2.1.3 with MIT WITH Bison-exception-2.2
++------------------------------+-----------+---------+---------+-------------------------------------------+
+| LICENSE VIOLATION            | ECOSYSTEM | PACKAGE | VERSION | SOURCE                                    |
++------------------------------+-----------+---------+---------+-------------------------------------------+
+| MIT WITH Bison-exception-2.2 | npm       | ms      | 2.1.3   | fixtures/locks-licenses/package-lock.json |
++------------------------------+-----------+---------+---------+-------------------------------------------+
+
+---
+
+[TestRun_Licenses/Licenses_with_expressions - 2]
+
+---
+
+[TestRun_Licenses/Licenses_with_invalid_expression - 1]
+Scanning dir ./fixtures/locks-licenses/package-lock.json
+Scanned <rootdir>/fixtures/locks-licenses/package-lock.json file and found 4 packages
+overriding license for package npm/babel/6.23.0 with MIT AND (LGPL-2.1-or-later OR BSD-3-Clause))
+overriding license for package npm/human-signals/5.0.0 with LGPL-2.1-only OR OR BSD-3-Clause
+overriding license for package npm/ms/2.1.3 with MIT WITH (Bison-exception-2.2 AND somethingelse)
++--------------------------------------------------+-----------+---------------+---------+-------------------------------------------+
+| LICENSE VIOLATION                                | ECOSYSTEM | PACKAGE       | VERSION | SOURCE                                    |
++--------------------------------------------------+-----------+---------------+---------+-------------------------------------------+
+| LGPL-2.1-only OR OR BSD-3-Clause                 | npm       | human-signals | 5.0.0   | fixtures/locks-licenses/package-lock.json |
+| MIT WITH (Bison-exception-2.2 AND somethingelse) | npm       | ms            | 2.1.3   | fixtures/locks-licenses/package-lock.json |
++--------------------------------------------------+-----------+---------------+---------+-------------------------------------------+
+
+---
+
+[TestRun_Licenses/Licenses_with_invalid_expression - 2]
+license LGPL-2.1-only OR OR BSD-3-Clause for package npm/human-signals/5.0.0 is invalid: unexpected OR after OR
+license MIT WITH (Bison-exception-2.2 AND somethingelse) for package npm/ms/2.1.3 is invalid: unexpected ( after WITH
 
 ---
 
@@ -1246,6 +1295,16 @@ Scanned <rootdir>/fixtures/locks-licenses/package-lock.json file and found 3 pac
           "licenses": [
             "MIT"
           ]
+        },
+        {
+          "package": {
+            "name": "type-fest",
+            "version": "4.26.1",
+            "ecosystem": "npm"
+          },
+          "licenses": [
+            "CC0-1.0 OR MIT"
+          ]
         }
       ]
     }
@@ -1265,7 +1324,7 @@ Scanned <rootdir>/fixtures/locks-licenses/package-lock.json file and found 3 pac
 
 [TestRun_Licenses/No_license_violations_and_show-all-packages_in_json - 2]
 Scanning dir ./fixtures/locks-licenses/package-lock.json
-Scanned <rootdir>/fixtures/locks-licenses/package-lock.json file and found 3 packages
+Scanned <rootdir>/fixtures/locks-licenses/package-lock.json file and found 4 packages
 
 ---
 
@@ -1404,6 +1463,16 @@ overriding license for package Packagist/league/flysystem/1.0.8 with 0BSD
           "licenses": [
             "MIT"
           ]
+        },
+        {
+          "package": {
+            "name": "type-fest",
+            "version": "4.26.1",
+            "ecosystem": "npm"
+          },
+          "licenses": [
+            "CC0-1.0 OR MIT"
+          ]
         }
       ]
     }
@@ -1422,7 +1491,7 @@ overriding license for package Packagist/league/flysystem/1.0.8 with 0BSD
 
 [TestRun_Licenses/Some_packages_with_license_violations_and_show-all-packages_in_json - 2]
 Scanning dir ./fixtures/locks-licenses/package-lock.json
-Scanned <rootdir>/fixtures/locks-licenses/package-lock.json file and found 3 packages
+Scanned <rootdir>/fixtures/locks-licenses/package-lock.json file and found 4 packages
 
 ---
 
@@ -1465,7 +1534,7 @@ Scanned <rootdir>/fixtures/locks-licenses/package-lock.json file and found 3 pac
 
 [TestRun_Licenses/Some_packages_with_license_violations_in_json - 2]
 Scanning dir ./fixtures/locks-licenses/package-lock.json
-Scanned <rootdir>/fixtures/locks-licenses/package-lock.json file and found 3 packages
+Scanned <rootdir>/fixtures/locks-licenses/package-lock.json file and found 4 packages
 
 ---
 
@@ -1744,12 +1813,9 @@ Scanned <rootdir>/fixtures/sbom-insecure/postgres-stretch.cdx.xml as CycloneDX S
 Loaded Debian local db from <tempdir>/osv-scanner/Debian/all.zip
 Loaded OSS-Fuzz local db from <tempdir>/osv-scanner/OSS-Fuzz/all.zip
 Loaded Go local db from <tempdir>/osv-scanner/Go/all.zip
-16 unimportant vulnerabilities have been filtered out.
-Filtered 16 vulnerabilities from output
 +-------------------------------------+------+-----------+--------------------------------+------------------------------------+-------------------------------------------------+
 | OSV URL                             | CVSS | ECOSYSTEM | PACKAGE                        | VERSION                            | SOURCE                                          |
 +-------------------------------------+------+-----------+--------------------------------+------------------------------------+-------------------------------------------------+
-| https://osv.dev/CVE-2011-3374       | 3.7  | Debian    | apt                            | 1.4.11                             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/CVE-2018-0501       | 5.9  | Debian    | apt                            | 1.4.11                             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/CVE-2019-3462       | 8.1  | Debian    | apt                            | 1.4.11                             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DSA-4808-1          | 5.7  | Debian    | apt                            | 1.4.11                             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
@@ -1910,6 +1976,25 @@ Filtered 16 vulnerabilities from output
 | https://osv.dev/GHSA-vpvm-3wq2-2wvm | 7.0  | Go        | github.com/opencontainers/runc | v1.0.1                             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/GHSA-xr7r-f8xq-vfvv | 8.6  | Go        | github.com/opencontainers/runc | v1.0.1                             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/GHSA-p782-xgp4-8hr8 | 5.3  | Go        | golang.org/x/sys               | v0.0.0-20210817142637-7d9622a276b7 | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
++-------------------------------------+------+-----------+--------------------------------+------------------------------------+-------------------------------------------------+
+| Uncalled vulnerabilities            |      |           |                                |                                    |                                                 |
++-------------------------------------+------+-----------+--------------------------------+------------------------------------+-------------------------------------------------+
+| https://osv.dev/CVE-2011-3374       | 3.7  | Debian    | apt                            | 1.4.11                             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/CVE-2019-18276      | 7.8  | Debian    | bash                           | 4.4-5                              | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/CVE-2017-18018      | 4.7  | Debian    | coreutils                      | 8.26-3                             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/CVE-2018-6829       | 7.5  | Debian    | libgcrypt20                    | 1.7.6-2+deb9u4                     | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/CVE-2018-1000654    | 5.5  | Debian    | libtasn1-6                     | 4.10-1.1+deb9u1                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/CVE-2020-24977      | 6.5  | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/CVE-2024-34459      |      | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/CVE-2011-4116       | 7.5  | Debian    | perl                           | 5.24.1-3+deb9u7                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/CVE-2022-48522      | 9.8  | Debian    | perl                           | 5.24.1-3+deb9u7                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/CVE-2023-31486      | 8.1  | Debian    | perl                           | 5.24.1-3+deb9u7                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/CVE-2005-2541       |      | Debian    | tar                            | 1.29b-1.1+deb9u1                   | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/CVE-2019-9923       | 7.5  | Debian    | tar                            | 1.29b-1.1+deb9u1                   | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/CVE-2021-20193      | 3.3  | Debian    | tar                            | 1.29b-1.1+deb9u1                   | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/CVE-2022-48303      | 5.5  | Debian    | tar                            | 1.29b-1.1+deb9u1                   | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/CVE-2018-7738       | 7.8  | Debian    | util-linux                     | 2.29.2-1+deb9u1                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/CVE-2022-0563       | 5.5  | Debian    | util-linux                     | 2.29.2-1+deb9u1                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 +-------------------------------------+------+-----------+--------------------------------+------------------------------------+-------------------------------------------------+
 
 ---
@@ -1924,12 +2009,9 @@ Scanned <rootdir>/fixtures/sbom-insecure/postgres-stretch.cdx.xml as CycloneDX S
 Loaded Debian local db from <tempdir>/osv-scanner/Debian/all.zip
 Loaded OSS-Fuzz local db from <tempdir>/osv-scanner/OSS-Fuzz/all.zip
 Loaded Go local db from <tempdir>/osv-scanner/Go/all.zip
-16 unimportant vulnerabilities have been filtered out.
-Filtered 16 vulnerabilities from output
 +-------------------------------------+------+-----------+--------------------------------+------------------------------------+-------------------------------------------------+
 | OSV URL                             | CVSS | ECOSYSTEM | PACKAGE                        | VERSION                            | SOURCE                                          |
 +-------------------------------------+------+-----------+--------------------------------+------------------------------------+-------------------------------------------------+
-| https://osv.dev/CVE-2011-3374       | 3.7  | Debian    | apt                            | 1.4.11                             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/CVE-2018-0501       | 5.9  | Debian    | apt                            | 1.4.11                             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/CVE-2019-3462       | 8.1  | Debian    | apt                            | 1.4.11                             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DSA-4808-1          | 5.7  | Debian    | apt                            | 1.4.11                             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
@@ -2090,6 +2172,25 @@ Filtered 16 vulnerabilities from output
 | https://osv.dev/GHSA-vpvm-3wq2-2wvm | 7.0  | Go        | github.com/opencontainers/runc | v1.0.1                             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/GHSA-xr7r-f8xq-vfvv | 8.6  | Go        | github.com/opencontainers/runc | v1.0.1                             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/GHSA-p782-xgp4-8hr8 | 5.3  | Go        | golang.org/x/sys               | v0.0.0-20210817142637-7d9622a276b7 | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
++-------------------------------------+------+-----------+--------------------------------+------------------------------------+-------------------------------------------------+
+| Uncalled vulnerabilities            |      |           |                                |                                    |                                                 |
++-------------------------------------+------+-----------+--------------------------------+------------------------------------+-------------------------------------------------+
+| https://osv.dev/CVE-2011-3374       | 3.7  | Debian    | apt                            | 1.4.11                             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/CVE-2019-18276      | 7.8  | Debian    | bash                           | 4.4-5                              | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/CVE-2017-18018      | 4.7  | Debian    | coreutils                      | 8.26-3                             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/CVE-2018-6829       | 7.5  | Debian    | libgcrypt20                    | 1.7.6-2+deb9u4                     | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/CVE-2018-1000654    | 5.5  | Debian    | libtasn1-6                     | 4.10-1.1+deb9u1                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/CVE-2020-24977      | 6.5  | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/CVE-2024-34459      |      | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/CVE-2011-4116       | 7.5  | Debian    | perl                           | 5.24.1-3+deb9u7                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/CVE-2022-48522      | 9.8  | Debian    | perl                           | 5.24.1-3+deb9u7                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/CVE-2023-31486      | 8.1  | Debian    | perl                           | 5.24.1-3+deb9u7                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/CVE-2005-2541       |      | Debian    | tar                            | 1.29b-1.1+deb9u1                   | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/CVE-2019-9923       | 7.5  | Debian    | tar                            | 1.29b-1.1+deb9u1                   | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/CVE-2021-20193      | 3.3  | Debian    | tar                            | 1.29b-1.1+deb9u1                   | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/CVE-2022-48303      | 5.5  | Debian    | tar                            | 1.29b-1.1+deb9u1                   | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/CVE-2018-7738       | 7.8  | Debian    | util-linux                     | 2.29.2-1+deb9u1                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/CVE-2022-0563       | 5.5  | Debian    | util-linux                     | 2.29.2-1+deb9u1                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 +-------------------------------------+------+-----------+--------------------------------+------------------------------------+-------------------------------------------------+
 
 ---
