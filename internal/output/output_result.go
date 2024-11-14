@@ -212,6 +212,7 @@ func processOutputSource(packageSource models.PackageSource) OutputSourceResult 
 		}
 		packageResult := processOutputPackage(vulnPkg)
 		packages = append(packages, packageResult)
+		packageMap[key] = true
 
 		sourceResult.VulnCount = updateVulnCount(sourceResult.VulnCount, packageResult.VulnCount)
 		if len(packageResult.CalledVulns) != 0 {
