@@ -319,6 +319,11 @@ func makeRetryRequest(action func() (*http.Response, error)) (*http.Response, er
 			continue
 		}
 
+		if resp.StatusCode == 429 {
+			lastErr = fmt.Errorf("attempt %d: too many requests: status=%d body=%s", i+1, resp.StatusCode, body)
+			continue
+		}
+
 		if resp.StatusCode >= 400 && resp.StatusCode < 500 {
 			return nil, fmt.Errorf("client error: status=%d body=%s", resp.StatusCode, body)
 		}
