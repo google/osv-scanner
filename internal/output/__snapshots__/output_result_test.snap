@@ -24,6 +24,7 @@
                     "OSV-1"
                   ],
                   "Aliases": null,
+                  "IsFixable": false,
                   "FixedVersion": "No fix available",
                   "SeverityRating": "UNKNOWN",
                   "SeverityScore": "N/A"
@@ -32,21 +33,21 @@
               "UncalledVulns": [],
               "LayerDetail": {
                 "LayerCommand": "",
-                "LayerCommandTooltip": "",
+                "LayerCommandDetailed": "",
                 "LayerID": "",
                 "InBaseImage": false
               },
               "VulnCount": {
+                "CallAnalysisCount": {
+                  "Called": 1,
+                  "Uncalled": 0
+                },
                 "SeverityCount": {
                   "Critical": 0,
                   "High": 0,
                   "Medium": 0,
                   "Low": 0,
                   "Unknown": 1
-                },
-                "CallAnalysisCount": {
-                  "Called": 1,
-                  "Uncalled": 0
                 },
                 "FixableCount": {
                   "Fixed": 0,
@@ -65,6 +66,7 @@
                     "OSV-1"
                   ],
                   "Aliases": null,
+                  "IsFixable": false,
                   "FixedVersion": "No fix available",
                   "SeverityRating": "UNKNOWN",
                   "SeverityScore": "N/A"
@@ -75,6 +77,7 @@
                     "OSV-5"
                   ],
                   "Aliases": null,
+                  "IsFixable": false,
                   "FixedVersion": "No fix available",
                   "SeverityRating": "UNKNOWN",
                   "SeverityScore": "N/A"
@@ -83,21 +86,21 @@
               "UncalledVulns": [],
               "LayerDetail": {
                 "LayerCommand": "",
-                "LayerCommandTooltip": "",
+                "LayerCommandDetailed": "",
                 "LayerID": "",
                 "InBaseImage": false
               },
               "VulnCount": {
+                "CallAnalysisCount": {
+                  "Called": 2,
+                  "Uncalled": 0
+                },
                 "SeverityCount": {
                   "Critical": 0,
                   "High": 0,
                   "Medium": 0,
                   "Low": 0,
                   "Unknown": 2
-                },
-                "CallAnalysisCount": {
-                  "Called": 2,
-                  "Uncalled": 0
                 },
                 "FixableCount": {
                   "Fixed": 0,
@@ -107,16 +110,16 @@
             }
           ],
           "VulnCount": {
+            "CallAnalysisCount": {
+              "Called": 3,
+              "Uncalled": 0
+            },
             "SeverityCount": {
               "Critical": 0,
               "High": 0,
               "Medium": 0,
               "Low": 0,
               "Unknown": 3
-            },
-            "CallAnalysisCount": {
-              "Called": 3,
-              "Uncalled": 0
             },
             "FixableCount": {
               "Fixed": 0,
@@ -143,6 +146,7 @@
                     "OSV-2"
                   ],
                   "Aliases": null,
+                  "IsFixable": false,
                   "FixedVersion": "No fix available",
                   "SeverityRating": "UNKNOWN",
                   "SeverityScore": "N/A"
@@ -151,21 +155,21 @@
               "UncalledVulns": [],
               "LayerDetail": {
                 "LayerCommand": "",
-                "LayerCommandTooltip": "",
+                "LayerCommandDetailed": "",
                 "LayerID": "",
                 "InBaseImage": false
               },
               "VulnCount": {
+                "CallAnalysisCount": {
+                  "Called": 1,
+                  "Uncalled": 0
+                },
                 "SeverityCount": {
                   "Critical": 0,
                   "High": 0,
                   "Medium": 0,
                   "Low": 0,
                   "Unknown": 1
-                },
-                "CallAnalysisCount": {
-                  "Called": 1,
-                  "Uncalled": 0
                 },
                 "FixableCount": {
                   "Fixed": 0,
@@ -184,6 +188,7 @@
                     "OSV-3"
                   ],
                   "Aliases": null,
+                  "IsFixable": false,
                   "FixedVersion": "No fix available",
                   "SeverityRating": "UNKNOWN",
                   "SeverityScore": "N/A"
@@ -194,6 +199,7 @@
                     "OSV-5"
                   ],
                   "Aliases": null,
+                  "IsFixable": false,
                   "FixedVersion": "No fix available",
                   "SeverityRating": "UNKNOWN",
                   "SeverityScore": "N/A"
@@ -202,21 +208,21 @@
               "UncalledVulns": [],
               "LayerDetail": {
                 "LayerCommand": "",
-                "LayerCommandTooltip": "",
+                "LayerCommandDetailed": "",
                 "LayerID": "",
                 "InBaseImage": false
               },
               "VulnCount": {
+                "CallAnalysisCount": {
+                  "Called": 2,
+                  "Uncalled": 0
+                },
                 "SeverityCount": {
                   "Critical": 0,
                   "High": 0,
                   "Medium": 0,
                   "Low": 0,
                   "Unknown": 2
-                },
-                "CallAnalysisCount": {
-                  "Called": 2,
-                  "Uncalled": 0
                 },
                 "FixableCount": {
                   "Fixed": 0,
@@ -226,16 +232,16 @@
             }
           ],
           "VulnCount": {
+            "CallAnalysisCount": {
+              "Called": 3,
+              "Uncalled": 0
+            },
             "SeverityCount": {
               "Critical": 0,
               "High": 0,
               "Medium": 0,
               "Low": 0,
               "Unknown": 3
-            },
-            "CallAnalysisCount": {
-              "Called": 3,
-              "Uncalled": 0
             },
             "FixableCount": {
               "Fixed": 0,
@@ -256,16 +262,16 @@
     "Uncalled": 0
   },
   "VulnCount": {
+    "CallAnalysisCount": {
+      "Called": 6,
+      "Uncalled": 0
+    },
     "SeverityCount": {
       "Critical": 0,
       "High": 0,
       "Medium": 0,
       "Low": 0,
       "Unknown": 6
-    },
-    "CallAnalysisCount": {
-      "Called": 6,
-      "Uncalled": 0
     },
     "FixableCount": {
       "Fixed": 0,
@@ -301,6 +307,7 @@
                     "OSV-1"
                   ],
                   "Aliases": null,
+                  "IsFixable": false,
                   "FixedVersion": "No fix available",
                   "SeverityRating": "UNKNOWN",
                   "SeverityScore": "N/A"
@@ -309,21 +316,21 @@
               "UncalledVulns": [],
               "LayerDetail": {
                 "LayerCommand": "",
-                "LayerCommandTooltip": "",
+                "LayerCommandDetailed": "",
                 "LayerID": "",
                 "InBaseImage": false
               },
               "VulnCount": {
+                "CallAnalysisCount": {
+                  "Called": 1,
+                  "Uncalled": 0
+                },
                 "SeverityCount": {
                   "Critical": 0,
                   "High": 0,
                   "Medium": 0,
                   "Low": 0,
                   "Unknown": 1
-                },
-                "CallAnalysisCount": {
-                  "Called": 1,
-                  "Uncalled": 0
                 },
                 "FixableCount": {
                   "Fixed": 0,
@@ -342,6 +349,7 @@
                     "OSV-1"
                   ],
                   "Aliases": null,
+                  "IsFixable": false,
                   "FixedVersion": "No fix available",
                   "SeverityRating": "UNKNOWN",
                   "SeverityScore": "N/A"
@@ -352,6 +360,7 @@
                     "OSV-5"
                   ],
                   "Aliases": null,
+                  "IsFixable": false,
                   "FixedVersion": "No fix available",
                   "SeverityRating": "UNKNOWN",
                   "SeverityScore": "N/A"
@@ -360,21 +369,21 @@
               "UncalledVulns": [],
               "LayerDetail": {
                 "LayerCommand": "",
-                "LayerCommandTooltip": "",
+                "LayerCommandDetailed": "",
                 "LayerID": "",
                 "InBaseImage": false
               },
               "VulnCount": {
+                "CallAnalysisCount": {
+                  "Called": 2,
+                  "Uncalled": 0
+                },
                 "SeverityCount": {
                   "Critical": 0,
                   "High": 0,
                   "Medium": 0,
                   "Low": 0,
                   "Unknown": 2
-                },
-                "CallAnalysisCount": {
-                  "Called": 2,
-                  "Uncalled": 0
                 },
                 "FixableCount": {
                   "Fixed": 0,
@@ -384,16 +393,16 @@
             }
           ],
           "VulnCount": {
+            "CallAnalysisCount": {
+              "Called": 3,
+              "Uncalled": 0
+            },
             "SeverityCount": {
               "Critical": 0,
               "High": 0,
               "Medium": 0,
               "Low": 0,
               "Unknown": 3
-            },
-            "CallAnalysisCount": {
-              "Called": 3,
-              "Uncalled": 0
             },
             "FixableCount": {
               "Fixed": 0,
@@ -420,6 +429,7 @@
                     "OSV-2"
                   ],
                   "Aliases": null,
+                  "IsFixable": false,
                   "FixedVersion": "No fix available",
                   "SeverityRating": "UNKNOWN",
                   "SeverityScore": "N/A"
@@ -428,21 +438,21 @@
               "UncalledVulns": [],
               "LayerDetail": {
                 "LayerCommand": "",
-                "LayerCommandTooltip": "",
+                "LayerCommandDetailed": "",
                 "LayerID": "",
                 "InBaseImage": false
               },
               "VulnCount": {
+                "CallAnalysisCount": {
+                  "Called": 1,
+                  "Uncalled": 0
+                },
                 "SeverityCount": {
                   "Critical": 0,
                   "High": 0,
                   "Medium": 0,
                   "Low": 0,
                   "Unknown": 1
-                },
-                "CallAnalysisCount": {
-                  "Called": 1,
-                  "Uncalled": 0
                 },
                 "FixableCount": {
                   "Fixed": 0,
@@ -461,6 +471,7 @@
                     "OSV-3"
                   ],
                   "Aliases": null,
+                  "IsFixable": false,
                   "FixedVersion": "No fix available",
                   "SeverityRating": "UNKNOWN",
                   "SeverityScore": "N/A"
@@ -471,6 +482,7 @@
                     "OSV-5"
                   ],
                   "Aliases": null,
+                  "IsFixable": false,
                   "FixedVersion": "No fix available",
                   "SeverityRating": "UNKNOWN",
                   "SeverityScore": "N/A"
@@ -479,21 +491,21 @@
               "UncalledVulns": [],
               "LayerDetail": {
                 "LayerCommand": "",
-                "LayerCommandTooltip": "",
+                "LayerCommandDetailed": "",
                 "LayerID": "",
                 "InBaseImage": false
               },
               "VulnCount": {
+                "CallAnalysisCount": {
+                  "Called": 2,
+                  "Uncalled": 0
+                },
                 "SeverityCount": {
                   "Critical": 0,
                   "High": 0,
                   "Medium": 0,
                   "Low": 0,
                   "Unknown": 2
-                },
-                "CallAnalysisCount": {
-                  "Called": 2,
-                  "Uncalled": 0
                 },
                 "FixableCount": {
                   "Fixed": 0,
@@ -503,16 +515,16 @@
             }
           ],
           "VulnCount": {
+            "CallAnalysisCount": {
+              "Called": 3,
+              "Uncalled": 0
+            },
             "SeverityCount": {
               "Critical": 0,
               "High": 0,
               "Medium": 0,
               "Low": 0,
               "Unknown": 3
-            },
-            "CallAnalysisCount": {
-              "Called": 3,
-              "Uncalled": 0
             },
             "FixableCount": {
               "Fixed": 0,
@@ -533,16 +545,16 @@
     "Uncalled": 0
   },
   "VulnCount": {
+    "CallAnalysisCount": {
+      "Called": 6,
+      "Uncalled": 0
+    },
     "SeverityCount": {
       "Critical": 0,
       "High": 0,
       "Medium": 0,
       "Low": 0,
       "Unknown": 6
-    },
-    "CallAnalysisCount": {
-      "Called": 6,
-      "Uncalled": 0
     },
     "FixableCount": {
       "Fixed": 0,
@@ -575,21 +587,21 @@
               "UncalledVulns": [],
               "LayerDetail": {
                 "LayerCommand": "",
-                "LayerCommandTooltip": "",
+                "LayerCommandDetailed": "",
                 "LayerID": "",
                 "InBaseImage": false
               },
               "VulnCount": {
+                "CallAnalysisCount": {
+                  "Called": 0,
+                  "Uncalled": 0
+                },
                 "SeverityCount": {
                   "Critical": 0,
                   "High": 0,
                   "Medium": 0,
                   "Low": 0,
                   "Unknown": 0
-                },
-                "CallAnalysisCount": {
-                  "Called": 0,
-                  "Uncalled": 0
                 },
                 "FixableCount": {
                   "Fixed": 0,
@@ -599,16 +611,16 @@
             }
           ],
           "VulnCount": {
+            "CallAnalysisCount": {
+              "Called": 0,
+              "Uncalled": 0
+            },
             "SeverityCount": {
               "Critical": 0,
               "High": 0,
               "Medium": 0,
               "Low": 0,
               "Unknown": 0
-            },
-            "CallAnalysisCount": {
-              "Called": 0,
-              "Uncalled": 0
             },
             "FixableCount": {
               "Fixed": 0,
@@ -632,21 +644,21 @@
               "UncalledVulns": [],
               "LayerDetail": {
                 "LayerCommand": "",
-                "LayerCommandTooltip": "",
+                "LayerCommandDetailed": "",
                 "LayerID": "",
                 "InBaseImage": false
               },
               "VulnCount": {
+                "CallAnalysisCount": {
+                  "Called": 0,
+                  "Uncalled": 0
+                },
                 "SeverityCount": {
                   "Critical": 0,
                   "High": 0,
                   "Medium": 0,
                   "Low": 0,
                   "Unknown": 0
-                },
-                "CallAnalysisCount": {
-                  "Called": 0,
-                  "Uncalled": 0
                 },
                 "FixableCount": {
                   "Fixed": 0,
@@ -662,21 +674,21 @@
               "UncalledVulns": [],
               "LayerDetail": {
                 "LayerCommand": "",
-                "LayerCommandTooltip": "",
+                "LayerCommandDetailed": "",
                 "LayerID": "",
                 "InBaseImage": false
               },
               "VulnCount": {
+                "CallAnalysisCount": {
+                  "Called": 0,
+                  "Uncalled": 0
+                },
                 "SeverityCount": {
                   "Critical": 0,
                   "High": 0,
                   "Medium": 0,
                   "Low": 0,
                   "Unknown": 0
-                },
-                "CallAnalysisCount": {
-                  "Called": 0,
-                  "Uncalled": 0
                 },
                 "FixableCount": {
                   "Fixed": 0,
@@ -686,16 +698,16 @@
             }
           ],
           "VulnCount": {
+            "CallAnalysisCount": {
+              "Called": 0,
+              "Uncalled": 0
+            },
             "SeverityCount": {
               "Critical": 0,
               "High": 0,
               "Medium": 0,
               "Low": 0,
               "Unknown": 0
-            },
-            "CallAnalysisCount": {
-              "Called": 0,
-              "Uncalled": 0
             },
             "FixableCount": {
               "Fixed": 0,
@@ -719,21 +731,21 @@
               "UncalledVulns": [],
               "LayerDetail": {
                 "LayerCommand": "",
-                "LayerCommandTooltip": "",
+                "LayerCommandDetailed": "",
                 "LayerID": "",
                 "InBaseImage": false
               },
               "VulnCount": {
+                "CallAnalysisCount": {
+                  "Called": 0,
+                  "Uncalled": 0
+                },
                 "SeverityCount": {
                   "Critical": 0,
                   "High": 0,
                   "Medium": 0,
                   "Low": 0,
                   "Unknown": 0
-                },
-                "CallAnalysisCount": {
-                  "Called": 0,
-                  "Uncalled": 0
                 },
                 "FixableCount": {
                   "Fixed": 0,
@@ -749,21 +761,21 @@
               "UncalledVulns": [],
               "LayerDetail": {
                 "LayerCommand": "",
-                "LayerCommandTooltip": "",
+                "LayerCommandDetailed": "",
                 "LayerID": "",
                 "InBaseImage": false
               },
               "VulnCount": {
+                "CallAnalysisCount": {
+                  "Called": 0,
+                  "Uncalled": 0
+                },
                 "SeverityCount": {
                   "Critical": 0,
                   "High": 0,
                   "Medium": 0,
                   "Low": 0,
                   "Unknown": 0
-                },
-                "CallAnalysisCount": {
-                  "Called": 0,
-                  "Uncalled": 0
                 },
                 "FixableCount": {
                   "Fixed": 0,
@@ -773,16 +785,16 @@
             }
           ],
           "VulnCount": {
+            "CallAnalysisCount": {
+              "Called": 0,
+              "Uncalled": 0
+            },
             "SeverityCount": {
               "Critical": 0,
               "High": 0,
               "Medium": 0,
               "Low": 0,
               "Unknown": 0
-            },
-            "CallAnalysisCount": {
-              "Called": 0,
-              "Uncalled": 0
             },
             "FixableCount": {
               "Fixed": 0,
@@ -803,16 +815,16 @@
     "Uncalled": 0
   },
   "VulnCount": {
+    "CallAnalysisCount": {
+      "Called": 0,
+      "Uncalled": 0
+    },
     "SeverityCount": {
       "Critical": 0,
       "High": 0,
       "Medium": 0,
       "Low": 0,
       "Unknown": 0
-    },
-    "CallAnalysisCount": {
-      "Called": 0,
-      "Uncalled": 0
     },
     "FixableCount": {
       "Fixed": 0,
@@ -848,6 +860,7 @@
                     "OSV-1"
                   ],
                   "Aliases": null,
+                  "IsFixable": false,
                   "FixedVersion": "No fix available",
                   "SeverityRating": "UNKNOWN",
                   "SeverityScore": "N/A"
@@ -856,21 +869,21 @@
               "UncalledVulns": [],
               "LayerDetail": {
                 "LayerCommand": "",
-                "LayerCommandTooltip": "",
+                "LayerCommandDetailed": "",
                 "LayerID": "",
                 "InBaseImage": false
               },
               "VulnCount": {
+                "CallAnalysisCount": {
+                  "Called": 1,
+                  "Uncalled": 0
+                },
                 "SeverityCount": {
                   "Critical": 0,
                   "High": 0,
                   "Medium": 0,
                   "Low": 0,
                   "Unknown": 1
-                },
-                "CallAnalysisCount": {
-                  "Called": 1,
-                  "Uncalled": 0
                 },
                 "FixableCount": {
                   "Fixed": 0,
@@ -880,16 +893,16 @@
             }
           ],
           "VulnCount": {
+            "CallAnalysisCount": {
+              "Called": 1,
+              "Uncalled": 0
+            },
             "SeverityCount": {
               "Critical": 0,
               "High": 0,
               "Medium": 0,
               "Low": 0,
               "Unknown": 1
-            },
-            "CallAnalysisCount": {
-              "Called": 1,
-              "Uncalled": 0
             },
             "FixableCount": {
               "Fixed": 0,
@@ -916,6 +929,7 @@
                     "OSV-2"
                   ],
                   "Aliases": null,
+                  "IsFixable": false,
                   "FixedVersion": "No fix available",
                   "SeverityRating": "UNKNOWN",
                   "SeverityScore": "N/A"
@@ -924,21 +938,21 @@
               "UncalledVulns": [],
               "LayerDetail": {
                 "LayerCommand": "",
-                "LayerCommandTooltip": "",
+                "LayerCommandDetailed": "",
                 "LayerID": "",
                 "InBaseImage": false
               },
               "VulnCount": {
+                "CallAnalysisCount": {
+                  "Called": 1,
+                  "Uncalled": 0
+                },
                 "SeverityCount": {
                   "Critical": 0,
                   "High": 0,
                   "Medium": 0,
                   "Low": 0,
                   "Unknown": 1
-                },
-                "CallAnalysisCount": {
-                  "Called": 1,
-                  "Uncalled": 0
                 },
                 "FixableCount": {
                   "Fixed": 0,
@@ -954,21 +968,21 @@
               "UncalledVulns": [],
               "LayerDetail": {
                 "LayerCommand": "",
-                "LayerCommandTooltip": "",
+                "LayerCommandDetailed": "",
                 "LayerID": "",
                 "InBaseImage": false
               },
               "VulnCount": {
+                "CallAnalysisCount": {
+                  "Called": 0,
+                  "Uncalled": 0
+                },
                 "SeverityCount": {
                   "Critical": 0,
                   "High": 0,
                   "Medium": 0,
                   "Low": 0,
                   "Unknown": 0
-                },
-                "CallAnalysisCount": {
-                  "Called": 0,
-                  "Uncalled": 0
                 },
                 "FixableCount": {
                   "Fixed": 0,
@@ -978,16 +992,16 @@
             }
           ],
           "VulnCount": {
+            "CallAnalysisCount": {
+              "Called": 1,
+              "Uncalled": 0
+            },
             "SeverityCount": {
               "Critical": 0,
               "High": 0,
               "Medium": 0,
               "Low": 0,
               "Unknown": 1
-            },
-            "CallAnalysisCount": {
-              "Called": 1,
-              "Uncalled": 0
             },
             "FixableCount": {
               "Fixed": 0,
@@ -1014,6 +1028,7 @@
                     "OSV-1"
                   ],
                   "Aliases": null,
+                  "IsFixable": false,
                   "FixedVersion": "No fix available",
                   "SeverityRating": "UNKNOWN",
                   "SeverityScore": "N/A"
@@ -1022,21 +1037,21 @@
               "UncalledVulns": [],
               "LayerDetail": {
                 "LayerCommand": "",
-                "LayerCommandTooltip": "",
+                "LayerCommandDetailed": "",
                 "LayerID": "",
                 "InBaseImage": false
               },
               "VulnCount": {
+                "CallAnalysisCount": {
+                  "Called": 1,
+                  "Uncalled": 0
+                },
                 "SeverityCount": {
                   "Critical": 0,
                   "High": 0,
                   "Medium": 0,
                   "Low": 0,
                   "Unknown": 1
-                },
-                "CallAnalysisCount": {
-                  "Called": 1,
-                  "Uncalled": 0
                 },
                 "FixableCount": {
                   "Fixed": 0,
@@ -1052,21 +1067,21 @@
               "UncalledVulns": [],
               "LayerDetail": {
                 "LayerCommand": "",
-                "LayerCommandTooltip": "",
+                "LayerCommandDetailed": "",
                 "LayerID": "",
                 "InBaseImage": false
               },
               "VulnCount": {
+                "CallAnalysisCount": {
+                  "Called": 0,
+                  "Uncalled": 0
+                },
                 "SeverityCount": {
                   "Critical": 0,
                   "High": 0,
                   "Medium": 0,
                   "Low": 0,
                   "Unknown": 0
-                },
-                "CallAnalysisCount": {
-                  "Called": 0,
-                  "Uncalled": 0
                 },
                 "FixableCount": {
                   "Fixed": 0,
@@ -1076,16 +1091,16 @@
             }
           ],
           "VulnCount": {
+            "CallAnalysisCount": {
+              "Called": 1,
+              "Uncalled": 0
+            },
             "SeverityCount": {
               "Critical": 0,
               "High": 0,
               "Medium": 0,
               "Low": 0,
               "Unknown": 1
-            },
-            "CallAnalysisCount": {
-              "Called": 1,
-              "Uncalled": 0
             },
             "FixableCount": {
               "Fixed": 0,
@@ -1106,16 +1121,16 @@
     "Uncalled": 0
   },
   "VulnCount": {
+    "CallAnalysisCount": {
+      "Called": 3,
+      "Uncalled": 0
+    },
     "SeverityCount": {
       "Critical": 0,
       "High": 0,
       "Medium": 0,
       "Low": 0,
       "Unknown": 3
-    },
-    "CallAnalysisCount": {
-      "Called": 3,
-      "Uncalled": 0
     },
     "FixableCount": {
       "Fixed": 0,
@@ -1130,11 +1145,11 @@
 {
   "Ecosystems": [
     {
-      "Name": "NuGet",
+      "Name": "Packagist",
       "Sources": [
         {
           "Name": ":path/to/my/second/lockfile",
-          "Ecosystem": "NuGet",
+          "Ecosystem": "Packagist",
           "PackageTypeCount": {
             "Called": 2,
             "Uncalled": 0
@@ -1151,6 +1166,7 @@
                     "OSV-3"
                   ],
                   "Aliases": null,
+                  "IsFixable": false,
                   "FixedVersion": "No fix available",
                   "SeverityRating": "UNKNOWN",
                   "SeverityScore": "N/A"
@@ -1161,6 +1177,7 @@
                     "OSV-5"
                   ],
                   "Aliases": null,
+                  "IsFixable": false,
                   "FixedVersion": "No fix available",
                   "SeverityRating": "UNKNOWN",
                   "SeverityScore": "N/A"
@@ -1169,21 +1186,21 @@
               "UncalledVulns": [],
               "LayerDetail": {
                 "LayerCommand": "",
-                "LayerCommandTooltip": "",
+                "LayerCommandDetailed": "",
                 "LayerID": "",
                 "InBaseImage": false
               },
               "VulnCount": {
+                "CallAnalysisCount": {
+                  "Called": 2,
+                  "Uncalled": 0
+                },
                 "SeverityCount": {
                   "Critical": 0,
                   "High": 0,
                   "Medium": 0,
                   "Low": 0,
                   "Unknown": 2
-                },
-                "CallAnalysisCount": {
-                  "Called": 2,
-                  "Uncalled": 0
                 },
                 "FixableCount": {
                   "Fixed": 0,
@@ -1202,6 +1219,7 @@
                     "OSV-2"
                   ],
                   "Aliases": null,
+                  "IsFixable": false,
                   "FixedVersion": "No fix available",
                   "SeverityRating": "UNKNOWN",
                   "SeverityScore": "N/A"
@@ -1210,21 +1228,21 @@
               "UncalledVulns": [],
               "LayerDetail": {
                 "LayerCommand": "",
-                "LayerCommandTooltip": "",
+                "LayerCommandDetailed": "",
                 "LayerID": "",
                 "InBaseImage": false
               },
               "VulnCount": {
+                "CallAnalysisCount": {
+                  "Called": 1,
+                  "Uncalled": 0
+                },
                 "SeverityCount": {
                   "Critical": 0,
                   "High": 0,
                   "Medium": 0,
                   "Low": 0,
                   "Unknown": 1
-                },
-                "CallAnalysisCount": {
-                  "Called": 1,
-                  "Uncalled": 0
                 },
                 "FixableCount": {
                   "Fixed": 0,
@@ -1234,16 +1252,16 @@
             }
           ],
           "VulnCount": {
+            "CallAnalysisCount": {
+              "Called": 3,
+              "Uncalled": 0
+            },
             "SeverityCount": {
               "Critical": 0,
               "High": 0,
               "Medium": 0,
               "Low": 0,
               "Unknown": 3
-            },
-            "CallAnalysisCount": {
-              "Called": 3,
-              "Uncalled": 0
             },
             "FixableCount": {
               "Fixed": 0,
@@ -1255,11 +1273,11 @@
       "IsOS": false
     },
     {
-      "Name": "Packagist",
+      "Name": "npm",
       "Sources": [
         {
           "Name": ":path/to/my/first/lockfile",
-          "Ecosystem": "Packagist",
+          "Ecosystem": "npm",
           "PackageTypeCount": {
             "Called": 2,
             "Uncalled": 0
@@ -1276,6 +1294,7 @@
                     "OSV-1"
                   ],
                   "Aliases": null,
+                  "IsFixable": false,
                   "FixedVersion": "No fix available",
                   "SeverityRating": "UNKNOWN",
                   "SeverityScore": "N/A"
@@ -1286,6 +1305,7 @@
                     "OSV-5"
                   ],
                   "Aliases": null,
+                  "IsFixable": false,
                   "FixedVersion": "No fix available",
                   "SeverityRating": "UNKNOWN",
                   "SeverityScore": "N/A"
@@ -1294,21 +1314,21 @@
               "UncalledVulns": [],
               "LayerDetail": {
                 "LayerCommand": "",
-                "LayerCommandTooltip": "",
+                "LayerCommandDetailed": "",
                 "LayerID": "",
                 "InBaseImage": false
               },
               "VulnCount": {
+                "CallAnalysisCount": {
+                  "Called": 2,
+                  "Uncalled": 0
+                },
                 "SeverityCount": {
                   "Critical": 0,
                   "High": 0,
                   "Medium": 0,
                   "Low": 0,
                   "Unknown": 2
-                },
-                "CallAnalysisCount": {
-                  "Called": 2,
-                  "Uncalled": 0
                 },
                 "FixableCount": {
                   "Fixed": 0,
@@ -1327,6 +1347,7 @@
                     "OSV-1"
                   ],
                   "Aliases": null,
+                  "IsFixable": false,
                   "FixedVersion": "No fix available",
                   "SeverityRating": "UNKNOWN",
                   "SeverityScore": "N/A"
@@ -1335,21 +1356,21 @@
               "UncalledVulns": [],
               "LayerDetail": {
                 "LayerCommand": "",
-                "LayerCommandTooltip": "",
+                "LayerCommandDetailed": "",
                 "LayerID": "",
                 "InBaseImage": false
               },
               "VulnCount": {
+                "CallAnalysisCount": {
+                  "Called": 1,
+                  "Uncalled": 0
+                },
                 "SeverityCount": {
                   "Critical": 0,
                   "High": 0,
                   "Medium": 0,
                   "Low": 0,
                   "Unknown": 1
-                },
-                "CallAnalysisCount": {
-                  "Called": 1,
-                  "Uncalled": 0
                 },
                 "FixableCount": {
                   "Fixed": 0,
@@ -1359,16 +1380,16 @@
             }
           ],
           "VulnCount": {
+            "CallAnalysisCount": {
+              "Called": 3,
+              "Uncalled": 0
+            },
             "SeverityCount": {
               "Critical": 0,
               "High": 0,
               "Medium": 0,
               "Low": 0,
               "Unknown": 3
-            },
-            "CallAnalysisCount": {
-              "Called": 3,
-              "Uncalled": 0
             },
             "FixableCount": {
               "Fixed": 0,
@@ -1389,16 +1410,16 @@
     "Uncalled": 0
   },
   "VulnCount": {
+    "CallAnalysisCount": {
+      "Called": 6,
+      "Uncalled": 0
+    },
     "SeverityCount": {
       "Critical": 0,
       "High": 0,
       "Medium": 0,
       "Low": 0,
       "Unknown": 6
-    },
-    "CallAnalysisCount": {
-      "Called": 6,
-      "Uncalled": 0
     },
     "FixableCount": {
       "Fixed": 0,
@@ -1413,11 +1434,11 @@
 {
   "Ecosystems": [
     {
-      "Name": "NuGet",
+      "Name": "Packagist",
       "Sources": [
         {
           "Name": ":path/to/my/second/lockfile",
-          "Ecosystem": "NuGet",
+          "Ecosystem": "Packagist",
           "PackageTypeCount": {
             "Called": 2,
             "Uncalled": 0
@@ -1434,6 +1455,7 @@
                     "OSV-3"
                   ],
                   "Aliases": null,
+                  "IsFixable": false,
                   "FixedVersion": "No fix available",
                   "SeverityRating": "UNKNOWN",
                   "SeverityScore": "N/A"
@@ -1444,6 +1466,7 @@
                     "OSV-5"
                   ],
                   "Aliases": null,
+                  "IsFixable": false,
                   "FixedVersion": "No fix available",
                   "SeverityRating": "UNKNOWN",
                   "SeverityScore": "N/A"
@@ -1452,21 +1475,21 @@
               "UncalledVulns": [],
               "LayerDetail": {
                 "LayerCommand": "",
-                "LayerCommandTooltip": "",
+                "LayerCommandDetailed": "",
                 "LayerID": "",
                 "InBaseImage": false
               },
               "VulnCount": {
+                "CallAnalysisCount": {
+                  "Called": 2,
+                  "Uncalled": 0
+                },
                 "SeverityCount": {
                   "Critical": 0,
                   "High": 0,
                   "Medium": 0,
                   "Low": 0,
                   "Unknown": 2
-                },
-                "CallAnalysisCount": {
-                  "Called": 2,
-                  "Uncalled": 0
                 },
                 "FixableCount": {
                   "Fixed": 0,
@@ -1485,6 +1508,7 @@
                     "OSV-2"
                   ],
                   "Aliases": null,
+                  "IsFixable": false,
                   "FixedVersion": "No fix available",
                   "SeverityRating": "UNKNOWN",
                   "SeverityScore": "N/A"
@@ -1493,21 +1517,21 @@
               "UncalledVulns": [],
               "LayerDetail": {
                 "LayerCommand": "",
-                "LayerCommandTooltip": "",
+                "LayerCommandDetailed": "",
                 "LayerID": "",
                 "InBaseImage": false
               },
               "VulnCount": {
+                "CallAnalysisCount": {
+                  "Called": 1,
+                  "Uncalled": 0
+                },
                 "SeverityCount": {
                   "Critical": 0,
                   "High": 0,
                   "Medium": 0,
                   "Low": 0,
                   "Unknown": 1
-                },
-                "CallAnalysisCount": {
-                  "Called": 1,
-                  "Uncalled": 0
                 },
                 "FixableCount": {
                   "Fixed": 0,
@@ -1517,16 +1541,16 @@
             }
           ],
           "VulnCount": {
+            "CallAnalysisCount": {
+              "Called": 3,
+              "Uncalled": 0
+            },
             "SeverityCount": {
               "Critical": 0,
               "High": 0,
               "Medium": 0,
               "Low": 0,
               "Unknown": 3
-            },
-            "CallAnalysisCount": {
-              "Called": 3,
-              "Uncalled": 0
             },
             "FixableCount": {
               "Fixed": 0,
@@ -1538,11 +1562,11 @@
       "IsOS": false
     },
     {
-      "Name": "Packagist",
+      "Name": "npm",
       "Sources": [
         {
           "Name": ":path/to/my/first/lockfile",
-          "Ecosystem": "Packagist",
+          "Ecosystem": "npm",
           "PackageTypeCount": {
             "Called": 2,
             "Uncalled": 1
@@ -1559,6 +1583,7 @@
                     "OSV-5"
                   ],
                   "Aliases": null,
+                  "IsFixable": false,
                   "FixedVersion": "No fix available",
                   "SeverityRating": "UNKNOWN",
                   "SeverityScore": "N/A"
@@ -1571,6 +1596,7 @@
                     "OSV-1"
                   ],
                   "Aliases": null,
+                  "IsFixable": false,
                   "FixedVersion": "No fix available",
                   "SeverityRating": "UNKNOWN",
                   "SeverityScore": "N/A"
@@ -1578,25 +1604,25 @@
               ],
               "LayerDetail": {
                 "LayerCommand": "",
-                "LayerCommandTooltip": "",
+                "LayerCommandDetailed": "",
                 "LayerID": "",
                 "InBaseImage": false
               },
               "VulnCount": {
+                "CallAnalysisCount": {
+                  "Called": 1,
+                  "Uncalled": 1
+                },
                 "SeverityCount": {
                   "Critical": 0,
                   "High": 0,
                   "Medium": 0,
                   "Low": 0,
-                  "Unknown": 2
-                },
-                "CallAnalysisCount": {
-                  "Called": 1,
-                  "Uncalled": 1
+                  "Unknown": 1
                 },
                 "FixableCount": {
                   "Fixed": 0,
-                  "UnFixed": 2
+                  "UnFixed": 1
                 }
               }
             },
@@ -1611,6 +1637,7 @@
                     "OSV-1"
                   ],
                   "Aliases": null,
+                  "IsFixable": false,
                   "FixedVersion": "No fix available",
                   "SeverityRating": "UNKNOWN",
                   "SeverityScore": "N/A"
@@ -1619,21 +1646,21 @@
               "UncalledVulns": [],
               "LayerDetail": {
                 "LayerCommand": "",
-                "LayerCommandTooltip": "",
+                "LayerCommandDetailed": "",
                 "LayerID": "",
                 "InBaseImage": false
               },
               "VulnCount": {
+                "CallAnalysisCount": {
+                  "Called": 1,
+                  "Uncalled": 0
+                },
                 "SeverityCount": {
                   "Critical": 0,
                   "High": 0,
                   "Medium": 0,
                   "Low": 0,
                   "Unknown": 1
-                },
-                "CallAnalysisCount": {
-                  "Called": 1,
-                  "Uncalled": 0
                 },
                 "FixableCount": {
                   "Fixed": 0,
@@ -1643,20 +1670,20 @@
             }
           ],
           "VulnCount": {
+            "CallAnalysisCount": {
+              "Called": 2,
+              "Uncalled": 1
+            },
             "SeverityCount": {
               "Critical": 0,
               "High": 0,
               "Medium": 0,
               "Low": 0,
-              "Unknown": 3
-            },
-            "CallAnalysisCount": {
-              "Called": 2,
-              "Uncalled": 1
+              "Unknown": 2
             },
             "FixableCount": {
               "Fixed": 0,
-              "UnFixed": 3
+              "UnFixed": 2
             }
           }
         }
@@ -1673,20 +1700,20 @@
     "Uncalled": 1
   },
   "VulnCount": {
+    "CallAnalysisCount": {
+      "Called": 5,
+      "Uncalled": 1
+    },
     "SeverityCount": {
       "Critical": 0,
       "High": 0,
       "Medium": 0,
       "Low": 0,
-      "Unknown": 6
-    },
-    "CallAnalysisCount": {
-      "Called": 5,
-      "Uncalled": 1
+      "Unknown": 5
     },
     "FixableCount": {
       "Fixed": 0,
-      "UnFixed": 6
+      "UnFixed": 5
     }
   }
 }
@@ -1708,16 +1735,16 @@
           },
           "Packages": [],
           "VulnCount": {
+            "CallAnalysisCount": {
+              "Called": 0,
+              "Uncalled": 0
+            },
             "SeverityCount": {
               "Critical": 0,
               "High": 0,
               "Medium": 0,
               "Low": 0,
               "Unknown": 0
-            },
-            "CallAnalysisCount": {
-              "Called": 0,
-              "Uncalled": 0
             },
             "FixableCount": {
               "Fixed": 0,
@@ -1734,16 +1761,16 @@
           },
           "Packages": [],
           "VulnCount": {
+            "CallAnalysisCount": {
+              "Called": 0,
+              "Uncalled": 0
+            },
             "SeverityCount": {
               "Critical": 0,
               "High": 0,
               "Medium": 0,
               "Low": 0,
               "Unknown": 0
-            },
-            "CallAnalysisCount": {
-              "Called": 0,
-              "Uncalled": 0
             },
             "FixableCount": {
               "Fixed": 0,
@@ -1760,16 +1787,16 @@
           },
           "Packages": [],
           "VulnCount": {
+            "CallAnalysisCount": {
+              "Called": 0,
+              "Uncalled": 0
+            },
             "SeverityCount": {
               "Critical": 0,
               "High": 0,
               "Medium": 0,
               "Low": 0,
               "Unknown": 0
-            },
-            "CallAnalysisCount": {
-              "Called": 0,
-              "Uncalled": 0
             },
             "FixableCount": {
               "Fixed": 0,
@@ -1790,16 +1817,16 @@
     "Uncalled": 0
   },
   "VulnCount": {
+    "CallAnalysisCount": {
+      "Called": 0,
+      "Uncalled": 0
+    },
     "SeverityCount": {
       "Critical": 0,
       "High": 0,
       "Medium": 0,
       "Low": 0,
       "Unknown": 0
-    },
-    "CallAnalysisCount": {
-      "Called": 0,
-      "Uncalled": 0
     },
     "FixableCount": {
       "Fixed": 0,
@@ -1822,16 +1849,16 @@
     "Uncalled": 0
   },
   "VulnCount": {
+    "CallAnalysisCount": {
+      "Called": 0,
+      "Uncalled": 0
+    },
     "SeverityCount": {
       "Critical": 0,
       "High": 0,
       "Medium": 0,
       "Low": 0,
       "Unknown": 0
-    },
-    "CallAnalysisCount": {
-      "Called": 0,
-      "Uncalled": 0
     },
     "FixableCount": {
       "Fixed": 0,
@@ -1857,16 +1884,16 @@
           },
           "Packages": [],
           "VulnCount": {
+            "CallAnalysisCount": {
+              "Called": 0,
+              "Uncalled": 0
+            },
             "SeverityCount": {
               "Critical": 0,
               "High": 0,
               "Medium": 0,
               "Low": 0,
               "Unknown": 0
-            },
-            "CallAnalysisCount": {
-              "Called": 0,
-              "Uncalled": 0
             },
             "FixableCount": {
               "Fixed": 0,
@@ -1887,16 +1914,16 @@
     "Uncalled": 0
   },
   "VulnCount": {
+    "CallAnalysisCount": {
+      "Called": 0,
+      "Uncalled": 0
+    },
     "SeverityCount": {
       "Critical": 0,
       "High": 0,
       "Medium": 0,
       "Low": 0,
       "Unknown": 0
-    },
-    "CallAnalysisCount": {
-      "Called": 0,
-      "Uncalled": 0
     },
     "FixableCount": {
       "Fixed": 0,
@@ -1929,21 +1956,21 @@
               "UncalledVulns": [],
               "LayerDetail": {
                 "LayerCommand": "",
-                "LayerCommandTooltip": "",
+                "LayerCommandDetailed": "",
                 "LayerID": "",
                 "InBaseImage": false
               },
               "VulnCount": {
+                "CallAnalysisCount": {
+                  "Called": 0,
+                  "Uncalled": 0
+                },
                 "SeverityCount": {
                   "Critical": 0,
                   "High": 0,
                   "Medium": 0,
                   "Low": 0,
                   "Unknown": 0
-                },
-                "CallAnalysisCount": {
-                  "Called": 0,
-                  "Uncalled": 0
                 },
                 "FixableCount": {
                   "Fixed": 0,
@@ -1953,16 +1980,16 @@
             }
           ],
           "VulnCount": {
+            "CallAnalysisCount": {
+              "Called": 0,
+              "Uncalled": 0
+            },
             "SeverityCount": {
               "Critical": 0,
               "High": 0,
               "Medium": 0,
               "Low": 0,
               "Unknown": 0
-            },
-            "CallAnalysisCount": {
-              "Called": 0,
-              "Uncalled": 0
             },
             "FixableCount": {
               "Fixed": 0,
@@ -1983,16 +2010,16 @@
     "Uncalled": 0
   },
   "VulnCount": {
+    "CallAnalysisCount": {
+      "Called": 0,
+      "Uncalled": 0
+    },
     "SeverityCount": {
       "Critical": 0,
       "High": 0,
       "Medium": 0,
       "Low": 0,
       "Unknown": 0
-    },
-    "CallAnalysisCount": {
-      "Called": 0,
-      "Uncalled": 0
     },
     "FixableCount": {
       "Fixed": 0,
@@ -2028,6 +2055,7 @@
                     "OSV-1"
                   ],
                   "Aliases": null,
+                  "IsFixable": false,
                   "FixedVersion": "No fix available",
                   "SeverityRating": "UNKNOWN",
                   "SeverityScore": "N/A"
@@ -2040,6 +2068,7 @@
                     "GHSA-123"
                   ],
                   "Aliases": null,
+                  "IsFixable": false,
                   "FixedVersion": "No fix available",
                   "SeverityRating": "UNKNOWN",
                   "SeverityScore": "N/A"
@@ -2047,44 +2076,44 @@
               ],
               "LayerDetail": {
                 "LayerCommand": "",
-                "LayerCommandTooltip": "",
+                "LayerCommandDetailed": "",
                 "LayerID": "",
                 "InBaseImage": false
               },
               "VulnCount": {
+                "CallAnalysisCount": {
+                  "Called": 1,
+                  "Uncalled": 1
+                },
                 "SeverityCount": {
                   "Critical": 0,
                   "High": 0,
                   "Medium": 0,
                   "Low": 0,
-                  "Unknown": 2
-                },
-                "CallAnalysisCount": {
-                  "Called": 1,
-                  "Uncalled": 1
+                  "Unknown": 1
                 },
                 "FixableCount": {
                   "Fixed": 0,
-                  "UnFixed": 2
+                  "UnFixed": 1
                 }
               }
             }
           ],
           "VulnCount": {
+            "CallAnalysisCount": {
+              "Called": 1,
+              "Uncalled": 1
+            },
             "SeverityCount": {
               "Critical": 0,
               "High": 0,
               "Medium": 0,
               "Low": 0,
-              "Unknown": 2
-            },
-            "CallAnalysisCount": {
-              "Called": 1,
-              "Uncalled": 1
+              "Unknown": 1
             },
             "FixableCount": {
               "Fixed": 0,
-              "UnFixed": 2
+              "UnFixed": 1
             }
           }
         }
@@ -2101,20 +2130,20 @@
     "Uncalled": 1
   },
   "VulnCount": {
+    "CallAnalysisCount": {
+      "Called": 1,
+      "Uncalled": 1
+    },
     "SeverityCount": {
       "Critical": 0,
       "High": 0,
       "Medium": 0,
       "Low": 0,
-      "Unknown": 2
-    },
-    "CallAnalysisCount": {
-      "Called": 1,
-      "Uncalled": 1
+      "Unknown": 1
     },
     "FixableCount": {
       "Fixed": 0,
-      "UnFixed": 2
+      "UnFixed": 1
     }
   }
 }
@@ -2146,6 +2175,7 @@
                     "OSV-1"
                   ],
                   "Aliases": null,
+                  "IsFixable": false,
                   "FixedVersion": "No fix available",
                   "SeverityRating": "UNKNOWN",
                   "SeverityScore": "N/A"
@@ -2154,21 +2184,21 @@
               "UncalledVulns": [],
               "LayerDetail": {
                 "LayerCommand": "",
-                "LayerCommandTooltip": "",
+                "LayerCommandDetailed": "",
                 "LayerID": "",
                 "InBaseImage": false
               },
               "VulnCount": {
+                "CallAnalysisCount": {
+                  "Called": 1,
+                  "Uncalled": 0
+                },
                 "SeverityCount": {
                   "Critical": 0,
                   "High": 0,
                   "Medium": 0,
                   "Low": 0,
                   "Unknown": 1
-                },
-                "CallAnalysisCount": {
-                  "Called": 1,
-                  "Uncalled": 0
                 },
                 "FixableCount": {
                   "Fixed": 0,
@@ -2178,16 +2208,16 @@
             }
           ],
           "VulnCount": {
+            "CallAnalysisCount": {
+              "Called": 1,
+              "Uncalled": 0
+            },
             "SeverityCount": {
               "Critical": 0,
               "High": 0,
               "Medium": 0,
               "Low": 0,
               "Unknown": 1
-            },
-            "CallAnalysisCount": {
-              "Called": 1,
-              "Uncalled": 0
             },
             "FixableCount": {
               "Fixed": 0,
@@ -2208,16 +2238,16 @@
     "Uncalled": 0
   },
   "VulnCount": {
+    "CallAnalysisCount": {
+      "Called": 1,
+      "Uncalled": 0
+    },
     "SeverityCount": {
       "Critical": 0,
       "High": 0,
       "Medium": 0,
       "Low": 0,
       "Unknown": 1
-    },
-    "CallAnalysisCount": {
-      "Called": 1,
-      "Uncalled": 0
     },
     "FixableCount": {
       "Fixed": 0,
@@ -2254,6 +2284,7 @@
                     "OSV-1"
                   ],
                   "Aliases": null,
+                  "IsFixable": false,
                   "FixedVersion": "No fix available",
                   "SeverityRating": "UNKNOWN",
                   "SeverityScore": "N/A"
@@ -2261,44 +2292,44 @@
               ],
               "LayerDetail": {
                 "LayerCommand": "",
-                "LayerCommandTooltip": "",
+                "LayerCommandDetailed": "",
                 "LayerID": "",
                 "InBaseImage": false
               },
               "VulnCount": {
+                "CallAnalysisCount": {
+                  "Called": 0,
+                  "Uncalled": 1
+                },
                 "SeverityCount": {
                   "Critical": 0,
                   "High": 0,
                   "Medium": 0,
                   "Low": 0,
-                  "Unknown": 1
-                },
-                "CallAnalysisCount": {
-                  "Called": 0,
-                  "Uncalled": 1
+                  "Unknown": 0
                 },
                 "FixableCount": {
                   "Fixed": 0,
-                  "UnFixed": 1
+                  "UnFixed": 0
                 }
               }
             }
           ],
           "VulnCount": {
+            "CallAnalysisCount": {
+              "Called": 0,
+              "Uncalled": 1
+            },
             "SeverityCount": {
               "Critical": 0,
               "High": 0,
               "Medium": 0,
               "Low": 0,
-              "Unknown": 1
-            },
-            "CallAnalysisCount": {
-              "Called": 0,
-              "Uncalled": 1
+              "Unknown": 0
             },
             "FixableCount": {
               "Fixed": 0,
-              "UnFixed": 1
+              "UnFixed": 0
             }
           }
         }
@@ -2315,20 +2346,20 @@
     "Uncalled": 1
   },
   "VulnCount": {
+    "CallAnalysisCount": {
+      "Called": 0,
+      "Uncalled": 1
+    },
     "SeverityCount": {
       "Critical": 0,
       "High": 0,
       "Medium": 0,
       "Low": 0,
-      "Unknown": 1
-    },
-    "CallAnalysisCount": {
-      "Called": 0,
-      "Uncalled": 1
+      "Unknown": 0
     },
     "FixableCount": {
       "Fixed": 0,
-      "UnFixed": 1
+      "UnFixed": 0
     }
   }
 }
@@ -2360,6 +2391,7 @@
                     "OSV-1"
                   ],
                   "Aliases": null,
+                  "IsFixable": false,
                   "FixedVersion": "No fix available",
                   "SeverityRating": "UNKNOWN",
                   "SeverityScore": "N/A"
@@ -2368,21 +2400,21 @@
               "UncalledVulns": [],
               "LayerDetail": {
                 "LayerCommand": "",
-                "LayerCommandTooltip": "",
+                "LayerCommandDetailed": "",
                 "LayerID": "",
                 "InBaseImage": false
               },
               "VulnCount": {
+                "CallAnalysisCount": {
+                  "Called": 1,
+                  "Uncalled": 0
+                },
                 "SeverityCount": {
                   "Critical": 0,
                   "High": 0,
                   "Medium": 0,
                   "Low": 0,
                   "Unknown": 1
-                },
-                "CallAnalysisCount": {
-                  "Called": 1,
-                  "Uncalled": 0
                 },
                 "FixableCount": {
                   "Fixed": 0,
@@ -2392,16 +2424,16 @@
             }
           ],
           "VulnCount": {
+            "CallAnalysisCount": {
+              "Called": 1,
+              "Uncalled": 0
+            },
             "SeverityCount": {
               "Critical": 0,
               "High": 0,
               "Medium": 0,
               "Low": 0,
               "Unknown": 1
-            },
-            "CallAnalysisCount": {
-              "Called": 1,
-              "Uncalled": 0
             },
             "FixableCount": {
               "Fixed": 0,
@@ -2422,16 +2454,16 @@
     "Uncalled": 0
   },
   "VulnCount": {
+    "CallAnalysisCount": {
+      "Called": 1,
+      "Uncalled": 0
+    },
     "SeverityCount": {
       "Critical": 0,
       "High": 0,
       "Medium": 0,
       "Low": 0,
       "Unknown": 1
-    },
-    "CallAnalysisCount": {
-      "Called": 1,
-      "Uncalled": 0
     },
     "FixableCount": {
       "Fixed": 0,
@@ -2467,6 +2499,7 @@
                     "OSV-1"
                   ],
                   "Aliases": null,
+                  "IsFixable": false,
                   "FixedVersion": "No fix available",
                   "SeverityRating": "UNKNOWN",
                   "SeverityScore": "N/A"
@@ -2475,21 +2508,21 @@
               "UncalledVulns": [],
               "LayerDetail": {
                 "LayerCommand": "",
-                "LayerCommandTooltip": "",
+                "LayerCommandDetailed": "",
                 "LayerID": "",
                 "InBaseImage": false
               },
               "VulnCount": {
+                "CallAnalysisCount": {
+                  "Called": 1,
+                  "Uncalled": 0
+                },
                 "SeverityCount": {
                   "Critical": 0,
                   "High": 0,
                   "Medium": 0,
                   "Low": 0,
                   "Unknown": 1
-                },
-                "CallAnalysisCount": {
-                  "Called": 1,
-                  "Uncalled": 0
                 },
                 "FixableCount": {
                   "Fixed": 0,
@@ -2499,16 +2532,16 @@
             }
           ],
           "VulnCount": {
+            "CallAnalysisCount": {
+              "Called": 1,
+              "Uncalled": 0
+            },
             "SeverityCount": {
               "Critical": 0,
               "High": 0,
               "Medium": 0,
               "Low": 0,
               "Unknown": 1
-            },
-            "CallAnalysisCount": {
-              "Called": 1,
-              "Uncalled": 0
             },
             "FixableCount": {
               "Fixed": 0,
@@ -2529,16 +2562,16 @@
     "Uncalled": 0
   },
   "VulnCount": {
+    "CallAnalysisCount": {
+      "Called": 1,
+      "Uncalled": 0
+    },
     "SeverityCount": {
       "Critical": 0,
       "High": 0,
       "Medium": 0,
       "Low": 0,
       "Unknown": 1
-    },
-    "CallAnalysisCount": {
-      "Called": 1,
-      "Uncalled": 0
     },
     "FixableCount": {
       "Fixed": 0,
@@ -2579,6 +2612,7 @@
                     "OSV-1",
                     "GHSA-123"
                   ],
+                  "IsFixable": false,
                   "FixedVersion": "No fix available",
                   "SeverityRating": "UNKNOWN",
                   "SeverityScore": "N/A"
@@ -2586,44 +2620,44 @@
               ],
               "LayerDetail": {
                 "LayerCommand": "",
-                "LayerCommandTooltip": "",
+                "LayerCommandDetailed": "",
                 "LayerID": "",
                 "InBaseImage": false
               },
               "VulnCount": {
+                "CallAnalysisCount": {
+                  "Called": 0,
+                  "Uncalled": 1
+                },
                 "SeverityCount": {
                   "Critical": 0,
                   "High": 0,
                   "Medium": 0,
                   "Low": 0,
-                  "Unknown": 1
-                },
-                "CallAnalysisCount": {
-                  "Called": 0,
-                  "Uncalled": 1
+                  "Unknown": 0
                 },
                 "FixableCount": {
                   "Fixed": 0,
-                  "UnFixed": 1
+                  "UnFixed": 0
                 }
               }
             }
           ],
           "VulnCount": {
+            "CallAnalysisCount": {
+              "Called": 0,
+              "Uncalled": 1
+            },
             "SeverityCount": {
               "Critical": 0,
               "High": 0,
               "Medium": 0,
               "Low": 0,
-              "Unknown": 1
-            },
-            "CallAnalysisCount": {
-              "Called": 0,
-              "Uncalled": 1
+              "Unknown": 0
             },
             "FixableCount": {
               "Fixed": 0,
-              "UnFixed": 1
+              "UnFixed": 0
             }
           }
         }
@@ -2640,20 +2674,20 @@
     "Uncalled": 1
   },
   "VulnCount": {
+    "CallAnalysisCount": {
+      "Called": 0,
+      "Uncalled": 1
+    },
     "SeverityCount": {
       "Critical": 0,
       "High": 0,
       "Medium": 0,
       "Low": 0,
-      "Unknown": 1
-    },
-    "CallAnalysisCount": {
-      "Called": 0,
-      "Uncalled": 1
+      "Unknown": 0
     },
     "FixableCount": {
       "Fixed": 0,
-      "UnFixed": 1
+      "UnFixed": 0
     }
   }
 }
@@ -2689,6 +2723,7 @@
                     "OSV-1",
                     "GHSA-123"
                   ],
+                  "IsFixable": false,
                   "FixedVersion": "No fix available",
                   "SeverityRating": "UNKNOWN",
                   "SeverityScore": "N/A"
@@ -2697,21 +2732,21 @@
               "UncalledVulns": [],
               "LayerDetail": {
                 "LayerCommand": "",
-                "LayerCommandTooltip": "",
+                "LayerCommandDetailed": "",
                 "LayerID": "",
                 "InBaseImage": false
               },
               "VulnCount": {
+                "CallAnalysisCount": {
+                  "Called": 1,
+                  "Uncalled": 0
+                },
                 "SeverityCount": {
                   "Critical": 0,
                   "High": 0,
                   "Medium": 0,
                   "Low": 0,
                   "Unknown": 1
-                },
-                "CallAnalysisCount": {
-                  "Called": 1,
-                  "Uncalled": 0
                 },
                 "FixableCount": {
                   "Fixed": 0,
@@ -2721,16 +2756,16 @@
             }
           ],
           "VulnCount": {
+            "CallAnalysisCount": {
+              "Called": 1,
+              "Uncalled": 0
+            },
             "SeverityCount": {
               "Critical": 0,
               "High": 0,
               "Medium": 0,
               "Low": 0,
               "Unknown": 1
-            },
-            "CallAnalysisCount": {
-              "Called": 1,
-              "Uncalled": 0
             },
             "FixableCount": {
               "Fixed": 0,
@@ -2751,16 +2786,16 @@
     "Uncalled": 0
   },
   "VulnCount": {
+    "CallAnalysisCount": {
+      "Called": 1,
+      "Uncalled": 0
+    },
     "SeverityCount": {
       "Critical": 0,
       "High": 0,
       "Medium": 0,
       "Low": 0,
       "Unknown": 1
-    },
-    "CallAnalysisCount": {
-      "Called": 1,
-      "Uncalled": 0
     },
     "FixableCount": {
       "Fixed": 0,
@@ -2796,6 +2831,7 @@
                     "OSV-1"
                   ],
                   "Aliases": null,
+                  "IsFixable": false,
                   "FixedVersion": "No fix available",
                   "SeverityRating": "UNKNOWN",
                   "SeverityScore": "N/A"
@@ -2804,21 +2840,21 @@
               "UncalledVulns": [],
               "LayerDetail": {
                 "LayerCommand": "",
-                "LayerCommandTooltip": "",
+                "LayerCommandDetailed": "",
                 "LayerID": "",
                 "InBaseImage": false
               },
               "VulnCount": {
+                "CallAnalysisCount": {
+                  "Called": 1,
+                  "Uncalled": 0
+                },
                 "SeverityCount": {
                   "Critical": 0,
                   "High": 0,
                   "Medium": 0,
                   "Low": 0,
                   "Unknown": 1
-                },
-                "CallAnalysisCount": {
-                  "Called": 1,
-                  "Uncalled": 0
                 },
                 "FixableCount": {
                   "Fixed": 0,
@@ -2837,6 +2873,7 @@
                     "OSV-2"
                   ],
                   "Aliases": null,
+                  "IsFixable": false,
                   "FixedVersion": "No fix available",
                   "SeverityRating": "UNKNOWN",
                   "SeverityScore": "N/A"
@@ -2845,21 +2882,21 @@
               "UncalledVulns": [],
               "LayerDetail": {
                 "LayerCommand": "",
-                "LayerCommandTooltip": "",
+                "LayerCommandDetailed": "",
                 "LayerID": "",
                 "InBaseImage": false
               },
               "VulnCount": {
+                "CallAnalysisCount": {
+                  "Called": 1,
+                  "Uncalled": 0
+                },
                 "SeverityCount": {
                   "Critical": 0,
                   "High": 0,
                   "Medium": 0,
                   "Low": 0,
                   "Unknown": 1
-                },
-                "CallAnalysisCount": {
-                  "Called": 1,
-                  "Uncalled": 0
                 },
                 "FixableCount": {
                   "Fixed": 0,
@@ -2869,16 +2906,16 @@
             }
           ],
           "VulnCount": {
+            "CallAnalysisCount": {
+              "Called": 2,
+              "Uncalled": 0
+            },
             "SeverityCount": {
               "Critical": 0,
               "High": 0,
               "Medium": 0,
               "Low": 0,
               "Unknown": 2
-            },
-            "CallAnalysisCount": {
-              "Called": 2,
-              "Uncalled": 0
             },
             "FixableCount": {
               "Fixed": 0,
@@ -2899,16 +2936,16 @@
     "Uncalled": 0
   },
   "VulnCount": {
+    "CallAnalysisCount": {
+      "Called": 2,
+      "Uncalled": 0
+    },
     "SeverityCount": {
       "Critical": 0,
       "High": 0,
       "Medium": 0,
       "Low": 0,
       "Unknown": 2
-    },
-    "CallAnalysisCount": {
-      "Called": 2,
-      "Uncalled": 0
     },
     "FixableCount": {
       "Fixed": 0,
@@ -2944,6 +2981,7 @@
                     "OSV-1"
                   ],
                   "Aliases": null,
+                  "IsFixable": false,
                   "FixedVersion": "No fix available",
                   "SeverityRating": "UNKNOWN",
                   "SeverityScore": "N/A"
@@ -2952,21 +2990,21 @@
               "UncalledVulns": [],
               "LayerDetail": {
                 "LayerCommand": "",
-                "LayerCommandTooltip": "",
+                "LayerCommandDetailed": "",
                 "LayerID": "",
                 "InBaseImage": false
               },
               "VulnCount": {
+                "CallAnalysisCount": {
+                  "Called": 1,
+                  "Uncalled": 0
+                },
                 "SeverityCount": {
                   "Critical": 0,
                   "High": 0,
                   "Medium": 0,
                   "Low": 0,
                   "Unknown": 1
-                },
-                "CallAnalysisCount": {
-                  "Called": 1,
-                  "Uncalled": 0
                 },
                 "FixableCount": {
                   "Fixed": 0,
@@ -2976,16 +3014,16 @@
             }
           ],
           "VulnCount": {
+            "CallAnalysisCount": {
+              "Called": 1,
+              "Uncalled": 0
+            },
             "SeverityCount": {
               "Critical": 0,
               "High": 0,
               "Medium": 0,
               "Low": 0,
               "Unknown": 1
-            },
-            "CallAnalysisCount": {
-              "Called": 1,
-              "Uncalled": 0
             },
             "FixableCount": {
               "Fixed": 0,
@@ -3009,21 +3047,21 @@
               "UncalledVulns": [],
               "LayerDetail": {
                 "LayerCommand": "",
-                "LayerCommandTooltip": "",
+                "LayerCommandDetailed": "",
                 "LayerID": "",
                 "InBaseImage": false
               },
               "VulnCount": {
+                "CallAnalysisCount": {
+                  "Called": 0,
+                  "Uncalled": 0
+                },
                 "SeverityCount": {
                   "Critical": 0,
                   "High": 0,
                   "Medium": 0,
                   "Low": 0,
                   "Unknown": 0
-                },
-                "CallAnalysisCount": {
-                  "Called": 0,
-                  "Uncalled": 0
                 },
                 "FixableCount": {
                   "Fixed": 0,
@@ -3033,16 +3071,16 @@
             }
           ],
           "VulnCount": {
+            "CallAnalysisCount": {
+              "Called": 0,
+              "Uncalled": 0
+            },
             "SeverityCount": {
               "Critical": 0,
               "High": 0,
               "Medium": 0,
               "Low": 0,
               "Unknown": 0
-            },
-            "CallAnalysisCount": {
-              "Called": 0,
-              "Uncalled": 0
             },
             "FixableCount": {
               "Fixed": 0,
@@ -3063,16 +3101,16 @@
     "Uncalled": 0
   },
   "VulnCount": {
+    "CallAnalysisCount": {
+      "Called": 1,
+      "Uncalled": 0
+    },
     "SeverityCount": {
       "Critical": 0,
       "High": 0,
       "Medium": 0,
       "Low": 0,
       "Unknown": 1
-    },
-    "CallAnalysisCount": {
-      "Called": 1,
-      "Uncalled": 0
     },
     "FixableCount": {
       "Fixed": 0,
@@ -3108,6 +3146,7 @@
                     "OSV-1"
                   ],
                   "Aliases": null,
+                  "IsFixable": false,
                   "FixedVersion": "No fix available",
                   "SeverityRating": "UNKNOWN",
                   "SeverityScore": "N/A"
@@ -3116,21 +3155,21 @@
               "UncalledVulns": [],
               "LayerDetail": {
                 "LayerCommand": "",
-                "LayerCommandTooltip": "",
+                "LayerCommandDetailed": "",
                 "LayerID": "",
                 "InBaseImage": false
               },
               "VulnCount": {
+                "CallAnalysisCount": {
+                  "Called": 1,
+                  "Uncalled": 0
+                },
                 "SeverityCount": {
                   "Critical": 0,
                   "High": 0,
                   "Medium": 0,
                   "Low": 0,
                   "Unknown": 1
-                },
-                "CallAnalysisCount": {
-                  "Called": 1,
-                  "Uncalled": 0
                 },
                 "FixableCount": {
                   "Fixed": 0,
@@ -3140,16 +3179,16 @@
             }
           ],
           "VulnCount": {
+            "CallAnalysisCount": {
+              "Called": 1,
+              "Uncalled": 0
+            },
             "SeverityCount": {
               "Critical": 0,
               "High": 0,
               "Medium": 0,
               "Low": 0,
               "Unknown": 1
-            },
-            "CallAnalysisCount": {
-              "Called": 1,
-              "Uncalled": 0
             },
             "FixableCount": {
               "Fixed": 0,
@@ -3176,6 +3215,7 @@
                     "OSV-1"
                   ],
                   "Aliases": null,
+                  "IsFixable": false,
                   "FixedVersion": "No fix available",
                   "SeverityRating": "UNKNOWN",
                   "SeverityScore": "N/A"
@@ -3184,21 +3224,21 @@
               "UncalledVulns": [],
               "LayerDetail": {
                 "LayerCommand": "",
-                "LayerCommandTooltip": "",
+                "LayerCommandDetailed": "",
                 "LayerID": "",
                 "InBaseImage": false
               },
               "VulnCount": {
+                "CallAnalysisCount": {
+                  "Called": 1,
+                  "Uncalled": 0
+                },
                 "SeverityCount": {
                   "Critical": 0,
                   "High": 0,
                   "Medium": 0,
                   "Low": 0,
                   "Unknown": 1
-                },
-                "CallAnalysisCount": {
-                  "Called": 1,
-                  "Uncalled": 0
                 },
                 "FixableCount": {
                   "Fixed": 0,
@@ -3208,16 +3248,16 @@
             }
           ],
           "VulnCount": {
+            "CallAnalysisCount": {
+              "Called": 1,
+              "Uncalled": 0
+            },
             "SeverityCount": {
               "Critical": 0,
               "High": 0,
               "Medium": 0,
               "Low": 0,
               "Unknown": 1
-            },
-            "CallAnalysisCount": {
-              "Called": 1,
-              "Uncalled": 0
             },
             "FixableCount": {
               "Fixed": 0,
@@ -3238,16 +3278,16 @@
     "Uncalled": 0
   },
   "VulnCount": {
+    "CallAnalysisCount": {
+      "Called": 2,
+      "Uncalled": 0
+    },
     "SeverityCount": {
       "Critical": 0,
       "High": 0,
       "Medium": 0,
       "Low": 0,
       "Unknown": 2
-    },
-    "CallAnalysisCount": {
-      "Called": 2,
-      "Uncalled": 0
     },
     "FixableCount": {
       "Fixed": 0,

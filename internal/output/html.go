@@ -116,15 +116,10 @@ type HTMLVulnTypeCount struct {
 	Uncalled int
 }
 
-const UnfixedDescription = "No fix available"
-const VersionUnsupported = "N/A"
 const UnknownRating = "UNKNOWN"
 
 // HTML templates directory
 const TemplateDir = "html/*"
-
-// baseImages is a list of OS images.
-var baseImages = []string{"Debian", "Alpine", "Ubuntu"}
 
 //go:embed html/*
 var templates embed.FS
@@ -253,7 +248,8 @@ func processPackageResults(allVulns []HTMLVulnResult, groupIDs map[string]models
 
 		// Get the max severity from groupInfo and increase the count
 		vuln.Summary.SeverityScore = groupInfo.MaxSeverity
-		vuln.Summary.SeverityRating, _ = severity.CalculateRating(vuln.Summary.SeverityScore)
+		rating, _ := severity.CalculateRating(vuln.Summary.SeverityScore)
+		vuln.Summary.SeverityRating = string(rating)
 		if vuln.Summary.SeverityRating == UnknownRating {
 			vuln.Summary.SeverityScore = "N/A"
 		}
