@@ -44,7 +44,7 @@ r 1.0.0
 		@fake-registry/b@^2.0.0 2.0.0
 			c: @fake-registry/c@^1.0.0 1.1.1
 				# peerDependency becomes optional
-				Opt|$d@^2.0.0
+				Scope peer|$d@^2.0.0
 			d: @fake-registry/d@^2.0.0 2.2.2
 	# workspace
 	w@* 1.0.0
@@ -90,14 +90,14 @@ func TestNpmReadV1(t *testing.T) {
 	want, err := schema.ParseResolve(`
 r 1.0.0
 	@fake-registry/a@^1.2.3 1.2.3
-		Opt|$b@^1.0.0
+		$b@^1.0.0
 	b: @fake-registry/b@^1.0.1 1.0.1
 	Dev KnownAs a-dev|@fake-registry/a@^2.3.4 2.3.4
-		# all indirect dependencies become optional because it's impossible to tell in v1
-		Opt|@fake-registry/b@^2.0.0 2.0.0
-			Opt|@fake-registry/c@^1.0.0 1.1.1
+		# all indirect dependencies become regular because it's impossible to tell type in v1
+		@fake-registry/b@^2.0.0 2.0.0
+			@fake-registry/c@^1.0.0 1.1.1
 				# peerDependencies are not supported in v1
-			Opt|@fake-registry/d@^2.0.0 2.2.2
+			@fake-registry/d@^2.0.0 2.2.2
 	# v1 does not support workspaces
 `, resolve.NPM)
 	if err != nil {

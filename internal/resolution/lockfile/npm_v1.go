@@ -8,12 +8,12 @@ import (
 	"strings"
 
 	"deps.dev/util/resolve"
+	"deps.dev/util/resolve/dep"
 	"github.com/google/osv-scanner/internal/resolution/datasource"
 	"github.com/google/osv-scanner/internal/resolution/manifest"
 	"github.com/google/osv-scanner/pkg/lockfile"
 	"github.com/tidwall/gjson"
 	"github.com/tidwall/sjson"
-	"golang.org/x/exp/maps"
 )
 
 // Old-style (npm < 7 / lockfileVersion 1) dependencies structure
@@ -29,22 +29,27 @@ func (rw NpmReadWriter) nodesFromDependencies(lockJSON lockfile.NpmLockfile, man
 	}
 
 	nodeModuleTree := &npmNodeModule{
-		Children:     make(map[string]*npmNodeModule),
-		Deps:         make(map[string]string),
-		OptionalDeps: make(map[string]string),
+		Children: make(map[string]*npmNodeModule),
+		Deps:     make(map[string]npmDependencyVersionSpec),
 	}
 
-	maps.Copy(nodeModuleTree.Deps, manifestJSON.Dependencies)
-	maps.Copy(nodeModuleTree.Deps, manifestJSON.DevDependencies)
+	// The order we process dependency types here is to match npm's behavior.
+	for name, version := range manifestJSON.PeerDependencies {
+		var typ dep.Type
+		typ.AddAttr(dep.Scope, "peer")
+		// TODO: check peerDependenciesMeta for optional peer dependencies
+		nodeModuleTree.Deps[name] = npmDependencyVersionSpec{Version: version, DepType: typ}
+	}
+	for name, version := range manifestJSON.Dependencies {
+		nodeModuleTree.Deps[name] = npmDependencyVersionSpec{Version: version}
+	}
+	for name, version := range manifestJSON.OptionalDependencies {
+		nodeModuleTree.Deps[name] = npmDependencyVersionSpec{Version: version, DepType: dep.NewType(dep.Opt)}
+	}
+	for name, version := range manifestJSON.DevDependencies {
+		nodeModuleTree.Deps[name] = npmDependencyVersionSpec{Version: version, DepType: dep.NewType(dep.Dev)}
+	}
 	rw.reVersionAliasedDeps(nodeModuleTree.Deps)
-
-	nodeModuleTree.DevDeps = maps.Clone(manifestJSON.DevDependencies)
-	rw.reVersionAliasedDeps(nodeModuleTree.DevDeps)
-
-	maps.Copy(nodeModuleTree.OptionalDeps, manifestJSON.OptionalDependencies)
-	// old npm versions / using the --legacy-peer-deps flag doesn't automatically install peer deps, so treat them as optional
-	maps.Copy(nodeModuleTree.OptionalDeps, manifestJSON.PeerDependencies)
-	rw.reVersionAliasedDeps(nodeModuleTree.OptionalDeps)
 
 	var g resolve.Graph
 	nodeModuleTree.NodeID = g.AddNode(resolve.VersionKey{
@@ -72,18 +77,22 @@ func (rw NpmReadWriter) computeDependenciesRecursive(g *resolve.Graph, parent *n
 			VersionType: resolve.Concrete,
 			Version:     version,
 		})
+		nm := &npmNodeModule{
+			Parent:     parent,
+			NodeID:     nID,
+			Children:   make(map[string]*npmNodeModule),
+			Deps:       make(map[string]npmDependencyVersionSpec),
+			ActualName: actualName,
+		}
+
 		// The requires map includes regular dependencies AND optionalDependencies
 		// but it does not include peerDependencies or devDependencies.
 		// The generated graphs will lack the edges between peers
-		optDeps := maps.Clone(d.Requires)
-		rw.reVersionAliasedDeps(optDeps)
-		nm := &npmNodeModule{
-			Parent:       parent,
-			NodeID:       nID,
-			Children:     make(map[string]*npmNodeModule),
-			OptionalDeps: optDeps,
-			ActualName:   actualName,
+		for name, version := range d.Requires {
+			nm.Deps[name] = npmDependencyVersionSpec{Version: version}
 		}
+		rw.reVersionAliasedDeps(nm.Deps)
+
 		parent.Children[name] = nm
 		if d.Dependencies != nil {
 			if err := rw.computeDependenciesRecursive(g, nm, d.Dependencies); err != nil {

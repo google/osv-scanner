@@ -9,6 +9,7 @@ import (
 	"strings"
 
 	"deps.dev/util/resolve"
+	"deps.dev/util/resolve/dep"
 	"github.com/google/osv-scanner/internal/resolution/datasource"
 	"github.com/google/osv-scanner/pkg/lockfile"
 	"github.com/tidwall/gjson"
@@ -97,7 +98,7 @@ func (rw NpmReadWriter) nodesFromPackages(lockJSON lockfile.NpmLockfile) (*resol
 			g.Nodes[m.NodeID].Version.Name = pkgName
 			// add it as a dependency of the root node, so it's not orphaned
 			if _, ok := nodeModuleTree.Deps[pkgName]; !ok {
-				nodeModuleTree.Deps[pkgName] = "*"
+				nodeModuleTree.Deps[pkgName] = npmDependencyVersionSpec{Version: "*"}
 			}
 
 			continue
@@ -148,23 +149,29 @@ func (rw NpmReadWriter) nodesFromPackages(lockJSON lockfile.NpmLockfile) (*resol
 
 func (rw NpmReadWriter) makeNodeModuleDeps(pkg lockfile.NpmLockPackage, includeDev bool) *npmNodeModule {
 	nm := npmNodeModule{
-		Children:     make(map[string]*npmNodeModule),
-		Deps:         make(map[string]string),
-		OptionalDeps: make(map[string]string),
+		Children: make(map[string]*npmNodeModule),
+		Deps:     make(map[string]npmDependencyVersionSpec),
 	}
 
-	maps.Copy(nm.Deps, pkg.Dependencies)
+	// The order we process dependency types here is to match npm's behavior.
+	for name, version := range pkg.PeerDependencies {
+		var typ dep.Type
+		typ.AddAttr(dep.Scope, "peer")
+		// TODO: check peerDependenciesMeta for optional peer dependencies
+		nm.Deps[name] = npmDependencyVersionSpec{Version: version, DepType: typ}
+	}
+	for name, version := range pkg.Dependencies {
+		nm.Deps[name] = npmDependencyVersionSpec{Version: version}
+	}
+	for name, version := range pkg.OptionalDependencies {
+		nm.Deps[name] = npmDependencyVersionSpec{Version: version, DepType: dep.NewType(dep.Opt)}
+	}
 	if includeDev {
-		maps.Copy(nm.Deps, pkg.DevDependencies)
-		nm.DevDeps = maps.Clone(pkg.DevDependencies)
-		rw.reVersionAliasedDeps(nm.DevDeps)
+		for name, version := range pkg.DevDependencies {
+			nm.Deps[name] = npmDependencyVersionSpec{Version: version, DepType: dep.NewType(dep.Dev)}
+		}
 	}
 	rw.reVersionAliasedDeps(nm.Deps)
-
-	maps.Copy(nm.OptionalDeps, pkg.OptionalDependencies)
-	// old npm versions / using the --legacy-peer-deps flag doesn't automatically install peer deps, so treat them as optional
-	maps.Copy(nm.OptionalDeps, pkg.PeerDependencies)
-	rw.reVersionAliasedDeps(nm.OptionalDeps)
 
 	return &nm
 }
