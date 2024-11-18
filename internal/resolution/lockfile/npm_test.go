@@ -43,7 +43,6 @@ r 1.0.0
 	Dev KnownAs a-dev|@fake-registry/a@^2.3.4 2.3.4
 		@fake-registry/b@^2.0.0 2.0.0
 			c: @fake-registry/c@^1.0.0 1.1.1
-				# peerDependency becomes optional
 				Scope peer|$d@^2.0.0
 			d: @fake-registry/d@^2.0.0 2.2.2
 	# workspace
@@ -99,6 +98,49 @@ r 1.0.0
 				# peerDependencies are not supported in v1
 			@fake-registry/d@^2.0.0 2.2.2
 	# v1 does not support workspaces
+`, resolve.NPM)
+	if err != nil {
+		t.Fatalf("error parsing want graph: %v", err)
+	}
+
+	if err := want.Canon(); err != nil {
+		t.Fatalf("failed canonicalizing want graph: %v", err)
+	}
+
+	if diff := cmp.Diff(want, got); diff != "" {
+		t.Errorf("npm lockfile mismatch (-want +got):\n%s", diff)
+	}
+}
+
+func TestNpmReadTypeOrder(t *testing.T) {
+	t.Parallel()
+
+	// Testing the behavior when a package is included in multiple dependency type fields.
+	// Empirically, devDependencies > optionalDependencies > dependencies > peerDependencies
+
+	// This lockfile was manually constructed.
+	df, err := lf.OpenLocalDepFile("./fixtures/npm_type_order/package-lock.json")
+	if err != nil {
+		t.Fatalf("failed to open file: %v", err)
+	}
+	defer df.Close()
+
+	npmRW := lockfile.NpmReadWriter{}
+	got, err := npmRW.Read(df)
+	if err != nil {
+		t.Fatalf("failed to read file: %v", err)
+	}
+
+	if err := got.Canon(); err != nil {
+		t.Fatalf("failed canonicalizing got graph: %v", err)
+	}
+
+	want, err := schema.ParseResolve(`
+root 1.0.0
+	Dev|a@4.0.0 4.0.0
+	Opt|b@3.0.0 3.0.0
+	c@2.0.0 2.0.0
+	Scope peer|d@1.0.0 1.0.0
 `, resolve.NPM)
 	if err != nil {
 		t.Fatalf("error parsing want graph: %v", err)
