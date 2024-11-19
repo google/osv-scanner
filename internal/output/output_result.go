@@ -112,25 +112,25 @@ type FixableCount struct {
 const UnfixedDescription = "No fix available"
 const VersionUnsupported = "N/A"
 
-// baseImages is a list of OS images.
-var baseImages = []string{"Debian", "Alpine", "Ubuntu"}
+// osEcosystems is a list of OS images.
+var osEcosystems = []string{"Debian", "Alpine", "Ubuntu"}
 
-// PrintOutputResults prints the output to the outputWriter.
+// PrintResults prints the output to the outputWriter.
 // This function is for testing purposes only, to visualize the result format.
-func PrintOutputResults(vulnResult *models.VulnerabilityResults, outputWriter io.Writer) error {
+func PrintResults(vulnResult *models.VulnerabilityResults, outputWriter io.Writer) error {
 	encoder := json.NewEncoder(outputWriter)
 	encoder.SetIndent("", "  ")
-	result := BuildOutputResults(vulnResult)
+	result := BuildResults(vulnResult)
 	//nolint:musttag
 	return encoder.Encode(result)
 }
 
-// BuildOutputResults constructs the output result structure from the vulnerability results.
+// BuildResults constructs the output result structure from the vulnerability results.
 //
 // This function creates a hierarchical representation of the results, starting from the overall
 // summary and drilling down to ecosystems, sources, packages, and vulnerability details.
 // This structured format facilitates generating various output formats (e.g., table, HTML, etc.).
-func BuildOutputResults(vulnResult *models.VulnerabilityResults) Result {
+func BuildResults(vulnResult *models.VulnerabilityResults) Result {
 	var ecosystemMap = make(map[string][]SourceResult)
 	var resultCount VulnCount
 
@@ -144,17 +144,17 @@ func BuildOutputResults(vulnResult *models.VulnerabilityResults) Result {
 		}
 
 		// Process vulnerabilities for each source
-		sourceResult := processOutputSource(packageSource)
+		sourceResult := processSource(packageSource)
 		ecosystemMap[sourceResult.Ecosystem] = append(ecosystemMap[sourceResult.Ecosystem], sourceResult)
 		resultCount.Add(sourceResult.VulnCount)
 	}
 
 	// Build the final result
-	return buildOutputResult(ecosystemMap, resultCount)
+	return buildResult(ecosystemMap, resultCount)
 }
 
-// buildOutputResult builds the final OutputResult object from the ecosystem map and total vulnerability count.
-func buildOutputResult(ecosystemMap map[string][]SourceResult, resultCount VulnCount) Result {
+// buildResult builds the final Result object from the ecosystem map and total vulnerability count.
+func buildResult(ecosystemMap map[string][]SourceResult, resultCount VulnCount) Result {
 	var ecosystemResults []EcosystemResult
 	var osResults []EcosystemResult
 	for ecosystem, sources := range ecosystemMap {
@@ -189,7 +189,7 @@ func buildOutputResult(ecosystemMap map[string][]SourceResult, resultCount VulnC
 	if len(layers) > 0 {
 		isContainerScanning = true
 	}
-	vulnTypeCount := getOutputVulnTypeCount(ecosystemResults)
+	vulnTypeCount := getVulnTypeCount(ecosystemResults)
 
 	return Result{
 		Ecosystems:          ecosystemResults,
@@ -200,8 +200,8 @@ func buildOutputResult(ecosystemMap map[string][]SourceResult, resultCount VulnC
 	}
 }
 
-// processOutputSource processes a single source (lockfile or artifact) and returns an SourceResult.
-func processOutputSource(packageSource models.PackageSource) SourceResult {
+// processSource processes a single source (lockfile or artifact) and returns an SourceResult.
+func processSource(packageSource models.PackageSource) SourceResult {
 	var sourceResult SourceResult
 	packages := make([]PackageResult, 0)
 	packageSet := make(map[string]struct{})
@@ -215,7 +215,7 @@ func processOutputSource(packageSource models.PackageSource) SourceResult {
 			// the Linux distribution package name.
 			continue
 		}
-		packageResult := processOutputPackage(vulnPkg)
+		packageResult := processPackage(vulnPkg)
 		packages = append(packages, packageResult)
 		packageSet[key] = struct{}{}
 
@@ -241,14 +241,14 @@ func processOutputSource(packageSource models.PackageSource) SourceResult {
 	return sourceResult
 }
 
-// processOutputPackage processes vulnerability information for a given package
+// processPackage processes vulnerability information for a given package
 // and generates a structured output result.
 //
 // This function processes the vulnerability groups, updates vulnerability details,
 // and constructs the final output result for the package, including details about
 // called and uncalled vulnerabilities, fixable counts, and layer information (if available).
-func processOutputPackage(vulnPkg models.PackageVulns) PackageResult {
-	calledVulnMap, uncalledVulnMap := processOutputVulnGroups(vulnPkg)
+func processPackage(vulnPkg models.PackageVulns) PackageResult {
+	calledVulnMap, uncalledVulnMap := processVulnGroups(vulnPkg)
 	updateVuln(calledVulnMap, vulnPkg)
 	updateVuln(uncalledVulnMap, vulnPkg)
 
@@ -280,13 +280,13 @@ func processOutputPackage(vulnPkg models.PackageVulns) PackageResult {
 	return packageResult
 }
 
-// processOutputVulnGroups processes vulnerability groups within a package.
+// processVulnGroups processes vulnerability groups within a package.
 //
 // Returns:
 //
 //	calledVulnMap: A map of called vulnerabilities, keyed by their representative ID.
 //	uncalledVulnMap: A map of uncalled vulnerabilities, keyed by their representative ID.
-func processOutputVulnGroups(vulnPkg models.PackageVulns) (map[string]VulnResult, map[string]VulnResult) {
+func processVulnGroups(vulnPkg models.PackageVulns) (map[string]VulnResult, map[string]VulnResult) {
 	calledVulnMap := make(map[string]VulnResult)
 	uncalledVulnMap := make(map[string]VulnResult)
 
@@ -459,7 +459,7 @@ func increaseSeverityCount(severityCount SeverityCount, severityType severity.Ra
 }
 
 func isOSEcosystem(ecosystem string) bool {
-	for _, image := range baseImages {
+	for _, image := range osEcosystems {
 		if strings.HasPrefix(ecosystem, image) {
 			return true
 		}
@@ -506,7 +506,7 @@ func getAllLayerInfo(result []EcosystemResult) []LayerInfo {
 	return layers
 }
 
-func getOutputVulnTypeCount(result []EcosystemResult) VulnTypeCount {
+func getVulnTypeCount(result []EcosystemResult) VulnTypeCount {
 	var vulnCount VulnTypeCount
 
 	for _, ecosystem := range result {

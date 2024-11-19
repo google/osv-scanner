@@ -140,7 +140,7 @@ func BuildHTMLResults(vulnResult *models.VulnerabilityResults) HTMLResult {
 		}
 
 		// Process vulnerabilities for each source
-		sourceResult := processSource(packageSource)
+		sourceResult := processHTMLSource(packageSource)
 		if sourceResult == nil {
 			continue
 		}
@@ -153,8 +153,8 @@ func BuildHTMLResults(vulnResult *models.VulnerabilityResults) HTMLResult {
 	return buildHTMLResult(ecosystemMap, resultCount)
 }
 
-// processSource processes a single source (lockfile or artifact) and returns an SourceResult.
-func processSource(packageSource models.PackageSource) *HTMLSourceResult {
+// processHTMLSource processes a single source (lockfile or artifact) and returns an SourceResult.
+func processHTMLSource(packageSource models.PackageSource) *HTMLSourceResult {
 	var allVulns []HTMLVulnResult
 	var calledPackages = make(map[string]bool)
 	var uncalledPackages = make(map[string]bool)
@@ -383,7 +383,7 @@ func buildHTMLResult(ecosystemMap map[string][]HTMLSourceResult, resultCount HTM
 	if len(layers) > 0 {
 		isContainerScanning = true
 	}
-	vulnTypeCount := getVulnTypeCount(ecosystemResults)
+	vulnTypeCount := getHTMLVulnTypeCount(ecosystemResults)
 
 	return HTMLResult{
 		EcosystemResults:    ecosystemResults,
@@ -394,7 +394,7 @@ func buildHTMLResult(ecosystemMap map[string][]HTMLSourceResult, resultCount HTM
 	}
 }
 
-func getVulnTypeCount(result []HTMLEcosystemResult) HTMLVulnTypeCount {
+func getHTMLVulnTypeCount(result []HTMLEcosystemResult) HTMLVulnTypeCount {
 	var vulnCount HTMLVulnTypeCount
 
 	for _, ecosystem := range result {
@@ -488,7 +488,7 @@ func addCount(resultCount *HTMLVulnCount, typeName string) {
 }
 
 func isOSImage(ecosystem string) bool {
-	for _, image := range baseImages {
+	for _, image := range osEcosystems {
 		if strings.HasPrefix(ecosystem, image) {
 			return true
 		}

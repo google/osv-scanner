@@ -15,7 +15,7 @@ func TestPrintOutputResults_WithVulnerabilities(t *testing.T) {
 		t.Helper()
 
 		outputWriter := &bytes.Buffer{}
-		err := output.PrintOutputResults(args.vulnResult, outputWriter)
+		err := output.PrintResults(args.vulnResult, outputWriter)
 
 		if err != nil {
 			t.Errorf("Error writing output: %s", err)
