@@ -106,7 +106,7 @@ jobs:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
         with:
           persist-credentials: false
-      - uses: ruby/setup-ruby@217c988b8c2bf2bacb2d5c78a7e7b18f8c34daed # v1.200.0
+      - uses: ruby/setup-ruby@a2bbe5b1b236842c1cb7dd11e8e3b51e0a616acc # v1.202.0
         with:
           ruby-version: "3.1"
       - name: setup dependencies
@@ -152,7 +152,7 @@ jobs:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
         with:
           persist-credentials: false
-      - uses: r-lib/actions/setup-r@e6be4b3706e0f39bc7a4cf4496a5f2c4cb840040 # v2.10.1
+      - uses: r-lib/actions/setup-r@e8c60692f29164895fbcdbebf2fde501a1f7e07f # v2.11.0
         with:
           r-version: "3.5.3"
       - run: Rscript scripts/generators/generate-cran-versions.R
