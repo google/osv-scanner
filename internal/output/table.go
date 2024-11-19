@@ -133,7 +133,7 @@ func printContainerScanningResult(result Result, outputWriter io.Writer, termina
 	}
 
 	const promptMessage = "For the most comprehensive scan results, we recommend using the HTML output: " +
-		"`osv-scanner --format html --output results.html`. \n" +
+		"`osv-scanner --format html --output results.html`.\n" +
 		"You can also view the full vulnerability list in your terminal with: " +
 		"`osv-scanner --format vertical`"
 	fmt.Fprintln(outputWriter, promptMessage)
