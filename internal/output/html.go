@@ -116,15 +116,10 @@ type HTMLVulnTypeCount struct {
 	Uncalled int
 }
 
-const UnfixedDescription = "No fix available"
-const VersionUnsupported = "N/A"
 const UnknownRating = "UNKNOWN"
 
 // HTML templates directory
 const TemplateDir = "html/*"
-
-// baseImages is a list of OS images.
-var baseImages = []string{"Debian", "Alpine", "Ubuntu"}
 
 //go:embed html/*
 var templates embed.FS
@@ -145,7 +140,7 @@ func BuildHTMLResults(vulnResult *models.VulnerabilityResults) HTMLResult {
 		}
 
 		// Process vulnerabilities for each source
-		sourceResult := processSource(packageSource)
+		sourceResult := processHTMLSource(packageSource)
 		if sourceResult == nil {
 			continue
 		}
@@ -158,8 +153,8 @@ func BuildHTMLResults(vulnResult *models.VulnerabilityResults) HTMLResult {
 	return buildHTMLResult(ecosystemMap, resultCount)
 }
 
-// processSource processes a single source (lockfile or artifact) and returns an SourceResult.
-func processSource(packageSource models.PackageSource) *HTMLSourceResult {
+// processHTMLSource processes a single source (lockfile or artifact) and returns an SourceResult.
+func processHTMLSource(packageSource models.PackageSource) *HTMLSourceResult {
 	var allVulns []HTMLVulnResult
 	var calledPackages = make(map[string]bool)
 	var uncalledPackages = make(map[string]bool)
@@ -253,7 +248,8 @@ func processPackageResults(allVulns []HTMLVulnResult, groupIDs map[string]models
 
 		// Get the max severity from groupInfo and increase the count
 		vuln.Summary.SeverityScore = groupInfo.MaxSeverity
-		vuln.Summary.SeverityRating, _ = severity.CalculateRating(vuln.Summary.SeverityScore)
+		rating, _ := severity.CalculateRating(vuln.Summary.SeverityScore)
+		vuln.Summary.SeverityRating = string(rating)
 		if vuln.Summary.SeverityRating == UnknownRating {
 			vuln.Summary.SeverityScore = "N/A"
 		}
@@ -387,7 +383,7 @@ func buildHTMLResult(ecosystemMap map[string][]HTMLSourceResult, resultCount HTM
 	if len(layers) > 0 {
 		isContainerScanning = true
 	}
-	vulnTypeCount := getVulnTypeCount(ecosystemResults)
+	vulnTypeCount := getHTMLVulnTypeCount(ecosystemResults)
 
 	return HTMLResult{
 		EcosystemResults:    ecosystemResults,
@@ -398,7 +394,7 @@ func buildHTMLResult(ecosystemMap map[string][]HTMLSourceResult, resultCount HTM
 	}
 }
 
-func getVulnTypeCount(result []HTMLEcosystemResult) HTMLVulnTypeCount {
+func getHTMLVulnTypeCount(result []HTMLEcosystemResult) HTMLVulnTypeCount {
 	var vulnCount HTMLVulnTypeCount
 
 	for _, ecosystem := range result {
@@ -492,7 +488,7 @@ func addCount(resultCount *HTMLVulnCount, typeName string) {
 }
 
 func isOSImage(ecosystem string) bool {
-	for _, image := range baseImages {
+	for _, image := range osEcosystems {
 		if strings.HasPrefix(ecosystem, image) {
 			return true
 		}
