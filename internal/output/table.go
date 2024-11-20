@@ -93,7 +93,7 @@ func tableBuilder(outputTable table.Writer, vulnResult *models.VulnerabilityResu
 func printContainerScanningResult(result Result, outputWriter io.Writer, terminalWidth int) {
 	summary := fmt.Sprintf(
 		"Total %[1]d packages affected by %[2]d vulnerabilities (%[3]d Critical, %[4]d High, %[5]d Medium, %[6]d Low, %[7]d Unknown) from %[8]d ecosystems.\n"+
-			"%[9]d vulnerabilities have fixes available",
+			"%[9]d vulnerabilities have fixes available.",
 		result.PackageTypeCount.Called,
 		result.VulnTypeCount.All,
 		result.VulnCount.SeverityCount.Critical,
@@ -140,7 +140,7 @@ func printContainerScanningResult(result Result, outputWriter io.Writer, termina
 	const promptMessage = "For the most comprehensive scan results, we recommend using the HTML output: " +
 		"`osv-scanner --format html --output results.html`.\n" +
 		"You can also view the full vulnerability list in your terminal with: " +
-		"`osv-scanner --format vertical`"
+		"`osv-scanner --format vertical`."
 	fmt.Fprintln(outputWriter, promptMessage)
 }
 
