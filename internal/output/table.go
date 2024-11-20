@@ -28,11 +28,17 @@ func PrintTableResults(vulnResult *models.VulnerabilityResults, outputWriter io.
 		text.DisableColors()
 	}
 
+	outputResult := BuildResults(vulnResult)
+
 	// Render the vulnerabilities.
-	outputTable := newTable(outputWriter, terminalWidth)
-	outputTable = tableBuilder(outputTable, vulnResult)
-	if outputTable.Length() != 0 {
-		outputTable.Render()
+	if outputResult.IsContainerScanning {
+		printContainerScanningResult(outputResult, outputWriter, terminalWidth)
+	} else {
+		outputTable := newTable(outputWriter, terminalWidth)
+		outputTable = tableBuilder(outputTable, vulnResult)
+		if outputTable.Length() != 0 {
+			outputTable.Render()
+		}
 	}
 
 	// Render the licenses if any.
@@ -82,6 +88,60 @@ func tableBuilder(outputTable table.Writer, vulnResult *models.VulnerabilityResu
 	}
 
 	return outputTable
+}
+
+func printContainerScanningResult(result Result, outputWriter io.Writer, terminalWidth int) {
+	summary := fmt.Sprintf(
+		"Total %[1]d packages affected by %[2]d vulnerabilities (%[3]d Critical, %[4]d High, %[5]d Medium, %[6]d Low, %[7]d Unknown) from %[8]d ecosystems.\n"+
+			"%[9]d vulnerabilities have fixes available.",
+		result.PackageTypeCount.Called,
+		result.VulnTypeCount.All,
+		result.VulnCount.SeverityCount.Critical,
+		result.VulnCount.SeverityCount.High,
+		result.VulnCount.SeverityCount.Medium,
+		result.VulnCount.SeverityCount.Low,
+		result.VulnCount.SeverityCount.Unknown,
+		len(result.Ecosystems),
+		result.VulnCount.FixableCount.Fixed,
+	)
+	fmt.Fprintln(outputWriter, summary)
+	// Add a newline
+	fmt.Fprintln(outputWriter)
+
+	for _, ecosystem := range result.Ecosystems {
+		fmt.Fprintln(outputWriter, ecosystem.Name)
+
+		for _, source := range ecosystem.Sources {
+			outputTable := newTable(outputWriter, terminalWidth)
+			outputTable.SetTitle("Source:" + source.Name)
+			outputTable.AppendHeader(table.Row{"Package", "Installed Version", "Fix available", "Vuln count"})
+			for _, pkg := range source.Packages {
+				outputRow := table.Row{}
+				totalCount := pkg.VulnCount.CallAnalysisCount.Called
+				var fixAvailable string
+				if pkg.FixedVersion == UnfixedDescription {
+					fixAvailable = UnfixedDescription
+				} else {
+					if pkg.VulnCount.FixableCount.UnFixed > 0 {
+						fixAvailable = "Partial fixes Available"
+					} else {
+						fixAvailable = "Fix Available"
+					}
+				}
+				outputRow = append(outputRow, pkg.Name, pkg.InstalledVersion, fixAvailable, totalCount)
+				outputTable.AppendRow(outputRow)
+			}
+			outputTable.Render()
+		}
+	}
+	// Add a newline
+	fmt.Fprintln(outputWriter)
+
+	const promptMessage = "For the most comprehensive scan results, we recommend using the HTML output: " +
+		"`osv-scanner --format html --output results.html`.\n" +
+		"You can also view the full vulnerability list in your terminal with: " +
+		"`osv-scanner --format vertical`."
+	fmt.Fprintln(outputWriter, promptMessage)
 }
 
 type tbInnerResponse struct {

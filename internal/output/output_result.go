@@ -20,6 +20,7 @@ type Result struct {
 	IsContainerScanning bool
 	AllLayers           []LayerInfo
 	VulnTypeCount       VulnTypeCount
+	PackageTypeCount    CallAnalysisCount
 	VulnCount           VulnCount
 }
 
@@ -190,10 +191,12 @@ func buildResult(ecosystemMap map[string][]SourceResult, resultCount VulnCount) 
 		isContainerScanning = true
 	}
 	vulnTypeCount := getVulnTypeCount(ecosystemResults)
+	packageTypeCount := getPackageTypeCount(ecosystemResults)
 
 	return Result{
 		Ecosystems:          ecosystemResults,
 		VulnTypeCount:       vulnTypeCount,
+		PackageTypeCount:    packageTypeCount,
 		VulnCount:           resultCount,
 		IsContainerScanning: isContainerScanning,
 		AllLayers:           layers,
@@ -512,17 +515,30 @@ func getVulnTypeCount(result []EcosystemResult) VulnTypeCount {
 	for _, ecosystem := range result {
 		for _, source := range ecosystem.Sources {
 			if ecosystem.IsOS {
-				vulnCount.OS += source.PackageTypeCount.Called
+				vulnCount.OS += source.VulnCount.CallAnalysisCount.Called
 			} else {
-				vulnCount.Project += source.PackageTypeCount.Called
+				vulnCount.Project += source.VulnCount.CallAnalysisCount.Called
 			}
-			vulnCount.Uncalled += source.PackageTypeCount.Uncalled
+			vulnCount.Uncalled += source.VulnCount.CallAnalysisCount.Uncalled
 		}
 	}
 
 	vulnCount.All = vulnCount.OS + vulnCount.Project
 
 	return vulnCount
+}
+
+func getPackageTypeCount(result []EcosystemResult) CallAnalysisCount {
+	var packageCount CallAnalysisCount
+
+	for _, ecosystem := range result {
+		for _, source := range ecosystem.Sources {
+			packageCount.Called += source.PackageTypeCount.Called
+			packageCount.Uncalled += source.PackageTypeCount.Uncalled
+		}
+	}
+
+	return packageCount
 }
 
 // calculateCount calculates the vulnerability counts based on the provided
