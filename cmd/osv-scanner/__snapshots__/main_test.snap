@@ -2589,7 +2589,9 @@ Scanned <rootdir>/fixtures/maven-transitive/pom.xml file and found 3 packages
 
 [TestRun_OCIImage/Alpine_3.10_image_tar_with_3.18_version_file - 1]
 Scanning image ../../internal/image/fixtures/test-alpine.tar
-Total 1 packages affected by 2 vulnerabilities (1 Critical, 1 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystems, 2 have fixes available
+Total 1 packages affected by 2 vulnerabilities (1 Critical, 1 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystems.
+2 vulnerabilities have fixes available
+
 Alpine:v3.18
 +----------------------------------------------------------+
 | Source:docker:../../internal/image/fixtures/test-alpine. |
@@ -2599,6 +2601,7 @@ Alpine:v3.18
 +---------+-------------------+---------------+------------+
 | zlib    | 1.2.11-r1         | Fix Available |          2 |
 +---------+-------------------+---------------+------------+
+
 For the most comprehensive scan results, we recommend using the HTML output: `osv-scanner --format html --output results.html`.
 You can also view the full vulnerability list in your terminal with: `osv-scanner --format vertical`
 
@@ -2620,7 +2623,9 @@ failed to load image ./fixtures/oci-image/no-file-here.tar: open ./fixtures/oci-
 
 [TestRun_OCIImage/scanning_node_modules_using_npm_with_no_packages - 1]
 Scanning image ../../internal/image/fixtures/test-node_modules-npm-empty.tar
-Total 1 packages affected by 4 vulnerabilities (0 Critical, 0 High, 4 Medium, 0 Low, 0 Unknown) from 1 ecosystems, 4 have fixes available
+Total 1 packages affected by 4 vulnerabilities (0 Critical, 0 High, 4 Medium, 0 Low, 0 Unknown) from 1 ecosystems.
+4 vulnerabilities have fixes available
+
 Alpine:v3.19
 +----------------------------------------------------------+
 | Source:docker:../../internal/image/fixtures/test-node_mo |
@@ -2630,6 +2635,7 @@ Alpine:v3.19
 +---------+-------------------+---------------+------------+
 | busybox | 1.36.1-r15        | Fix Available |          4 |
 +---------+-------------------+---------------+------------+
+
 For the most comprehensive scan results, we recommend using the HTML output: `osv-scanner --format html --output results.html`.
 You can also view the full vulnerability list in your terminal with: `osv-scanner --format vertical`
 
@@ -2641,7 +2647,9 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
 
 [TestRun_OCIImage/scanning_node_modules_using_npm_with_some_packages - 1]
 Scanning image ../../internal/image/fixtures/test-node_modules-npm-full.tar
-Total 3 packages affected by 6 vulnerabilities (2 Critical, 0 High, 4 Medium, 0 Low, 0 Unknown) from 2 ecosystems, 5 have fixes available
+Total 3 packages affected by 6 vulnerabilities (2 Critical, 0 High, 4 Medium, 0 Low, 0 Unknown) from 2 ecosystems.
+5 vulnerabilities have fixes available
+
 npm
 +--------------------------------------------------------------+
 | Source:docker:../../internal/image/fixtures/test-node_module |
@@ -2661,6 +2669,7 @@ Alpine:v3.19
 +---------+-------------------+---------------+------------+
 | busybox | 1.36.1-r15        | Fix Available |          4 |
 +---------+-------------------+---------------+------------+
+
 For the most comprehensive scan results, we recommend using the HTML output: `osv-scanner --format html --output results.html`.
 You can also view the full vulnerability list in your terminal with: `osv-scanner --format vertical`
 
@@ -2672,7 +2681,9 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
 
 [TestRun_OCIImage/scanning_node_modules_using_pnpm_with_no_packages - 1]
 Scanning image ../../internal/image/fixtures/test-node_modules-pnpm-empty.tar
-Total 1 packages affected by 4 vulnerabilities (0 Critical, 0 High, 4 Medium, 0 Low, 0 Unknown) from 1 ecosystems, 4 have fixes available
+Total 1 packages affected by 4 vulnerabilities (0 Critical, 0 High, 4 Medium, 0 Low, 0 Unknown) from 1 ecosystems.
+4 vulnerabilities have fixes available
+
 Alpine:v3.19
 +----------------------------------------------------------+
 | Source:docker:../../internal/image/fixtures/test-node_mo |
@@ -2682,6 +2693,7 @@ Alpine:v3.19
 +---------+-------------------+---------------+------------+
 | busybox | 1.36.1-r15        | Fix Available |          4 |
 +---------+-------------------+---------------+------------+
+
 For the most comprehensive scan results, we recommend using the HTML output: `osv-scanner --format html --output results.html`.
 You can also view the full vulnerability list in your terminal with: `osv-scanner --format vertical`
 
@@ -2693,7 +2705,9 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
 
 [TestRun_OCIImage/scanning_node_modules_using_pnpm_with_some_packages - 1]
 Scanning image ../../internal/image/fixtures/test-node_modules-pnpm-full.tar
-Total 1 packages affected by 4 vulnerabilities (0 Critical, 0 High, 4 Medium, 0 Low, 0 Unknown) from 1 ecosystems, 4 have fixes available
+Total 1 packages affected by 4 vulnerabilities (0 Critical, 0 High, 4 Medium, 0 Low, 0 Unknown) from 1 ecosystems.
+4 vulnerabilities have fixes available
+
 Alpine:v3.19
 +----------------------------------------------------------+
 | Source:docker:../../internal/image/fixtures/test-node_mo |
@@ -2703,6 +2717,7 @@ Alpine:v3.19
 +---------+-------------------+---------------+------------+
 | busybox | 1.36.1-r15        | Fix Available |          4 |
 +---------+-------------------+---------------+------------+
+
 For the most comprehensive scan results, we recommend using the HTML output: `osv-scanner --format html --output results.html`.
 You can also view the full vulnerability list in your terminal with: `osv-scanner --format vertical`
 
@@ -2714,7 +2729,9 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
 
 [TestRun_OCIImage/scanning_node_modules_using_yarn_with_no_packages - 1]
 Scanning image ../../internal/image/fixtures/test-node_modules-yarn-empty.tar
-Total 1 packages affected by 4 vulnerabilities (0 Critical, 0 High, 4 Medium, 0 Low, 0 Unknown) from 1 ecosystems, 4 have fixes available
+Total 1 packages affected by 4 vulnerabilities (0 Critical, 0 High, 4 Medium, 0 Low, 0 Unknown) from 1 ecosystems.
+4 vulnerabilities have fixes available
+
 Alpine:v3.19
 +----------------------------------------------------------+
 | Source:docker:../../internal/image/fixtures/test-node_mo |
@@ -2724,6 +2741,7 @@ Alpine:v3.19
 +---------+-------------------+---------------+------------+
 | busybox | 1.36.1-r15        | Fix Available |          4 |
 +---------+-------------------+---------------+------------+
+
 For the most comprehensive scan results, we recommend using the HTML output: `osv-scanner --format html --output results.html`.
 You can also view the full vulnerability list in your terminal with: `osv-scanner --format vertical`
 
@@ -2735,7 +2753,9 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
 
 [TestRun_OCIImage/scanning_node_modules_using_yarn_with_some_packages - 1]
 Scanning image ../../internal/image/fixtures/test-node_modules-yarn-full.tar
-Total 1 packages affected by 4 vulnerabilities (0 Critical, 0 High, 4 Medium, 0 Low, 0 Unknown) from 1 ecosystems, 4 have fixes available
+Total 1 packages affected by 4 vulnerabilities (0 Critical, 0 High, 4 Medium, 0 Low, 0 Unknown) from 1 ecosystems.
+4 vulnerabilities have fixes available
+
 Alpine:v3.19
 +----------------------------------------------------------+
 | Source:docker:../../internal/image/fixtures/test-node_mo |
@@ -2745,6 +2765,7 @@ Alpine:v3.19
 +---------+-------------------+---------------+------------+
 | busybox | 1.36.1-r15        | Fix Available |          4 |
 +---------+-------------------+---------------+------------+
+
 For the most comprehensive scan results, we recommend using the HTML output: `osv-scanner --format html --output results.html`.
 You can also view the full vulnerability list in your terminal with: `osv-scanner --format vertical`
 
