@@ -136,8 +136,8 @@ func shouldIgnoreTimestamp(ignoreUntil time.Time) bool {
 
 // Sets the override config by reading the config file at configPath.
 // Will return an error if loading the config file fails
-func (c *Manager) UseOverride(configPath string) error {
-	config, configErr := tryLoadConfig(configPath)
+func (c *Manager) UseOverride(r reporter.Reporter, configPath string) error {
+	config, configErr := tryLoadConfig(r, configPath)
 	if configErr != nil {
 		return configErr
 	}
@@ -165,7 +165,7 @@ func (c *Manager) Get(r reporter.Reporter, targetPath string) Config {
 		return config
 	}
 
-	config, configErr := tryLoadConfig(configPath)
+	config, configErr := tryLoadConfig(r, configPath)
 	if configErr == nil {
 		r.Infof("Loaded filter from: %s\n", config.LoadPath)
 	} else {
@@ -202,7 +202,7 @@ func normalizeConfigLoadPath(target string) (string, error) {
 
 // tryLoadConfig attempts to parse the config file at the given path as TOML,
 // returning the Config object if successful or otherwise the error
-func tryLoadConfig(configPath string) (Config, error) {
+func tryLoadConfig(r reporter.Reporter, configPath string) (Config, error) {
 	config := Config{}
 	m, err := toml.DecodeFile(configPath, &config)
 	if err == nil {
@@ -219,7 +219,19 @@ func tryLoadConfig(configPath string) (Config, error) {
 		}
 
 		config.LoadPath = configPath
+		config.warnAboutDuplicates(r)
 	}
 
 	return config, err
+}
+
+func (c *Config) warnAboutDuplicates(r reporter.Reporter) {
+	seen := make(map[string]struct{})
+
+	for _, vuln := range c.IgnoredVulns {
+		if _, ok := seen[vuln.ID]; ok {
+			r.Warnf("warning: %s has multiple ignores for %s - only the first will be used!\n", c.LoadPath, vuln.ID)
+		}
+		seen[vuln.ID] = struct{}{}
+	}
 }
