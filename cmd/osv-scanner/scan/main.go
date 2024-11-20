@@ -5,6 +5,8 @@ import (
 	"fmt"
 	"io"
 	"os"
+	"os/exec"
+	"runtime"
 	"slices"
 	"strings"
 
@@ -294,6 +296,23 @@ func action(context *cli.Context, stdout, stderr io.Writer) (reporter.Reporter, 
 
 	if errPrint := r.PrintResult(&vulnResult); errPrint != nil {
 		return r, fmt.Errorf("failed to write output: %w", errPrint)
+	}
+
+	// Auto-open outputted HTML file for users.
+	if outputPath != "" {
+		if format == "html" {
+			r.Infof("Opening %s...\n", outputPath)
+			switch runtime.GOOS {
+			case "linux":
+				err = exec.Command("xdg-open", outputPath).Start()
+			case "windows":
+				err = exec.Command("start", "", outputPath).Start()
+			case "darwin": // Add macOS support
+				err = exec.Command("open", outputPath).Start()
+			default:
+				r.Infof("Unsupported platform. Please manually open the outputted HTML file: %s", outputPath)
+			}
+		}
 	}
 
 	// This may be nil.
