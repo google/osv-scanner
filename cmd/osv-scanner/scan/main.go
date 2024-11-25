@@ -4,11 +4,13 @@ import (
 	"errors"
 	"fmt"
 	"io"
+	"net/http"
 	"os"
 	"os/exec"
 	"runtime"
 	"slices"
 	"strings"
+	"time"
 
 	"github.com/google/osv-scanner/internal/spdx"
 	"github.com/google/osv-scanner/pkg/osvscanner"
@@ -301,20 +303,51 @@ func action(context *cli.Context, stdout, stderr io.Writer) (reporter.Reporter, 
 	// Auto-open outputted HTML file for users.
 	if outputPath != "" {
 		if format == "html" {
-			r.Infof("Opening %s...\n", outputPath)
-			switch runtime.GOOS {
-			case "linux":
-				err = exec.Command("xdg-open", outputPath).Start()
-			case "windows":
-				err = exec.Command("start", "", outputPath).Start()
-			case "darwin": // Add macOS support
-				err = exec.Command("open", outputPath).Start()
-			default:
-				r.Infof("Unsupported platform. Please manually open the outputted HTML file: %s", outputPath)
-			}
+			openHTML(outputPath, r)
 		}
 	}
 
 	// This may be nil.
 	return r, err
+}
+
+// openHTML opens the outputted HTML file and simultaneously hosts it on localhost:8000 for remote access.
+func openHTML(outputPath string, r reporter.Reporter) {
+	// Open the outputted HTML file in the default browser.
+	r.Infof("Opening %s...\n", outputPath)
+	var err error
+	switch runtime.GOOS {
+	case "linux":
+		err = exec.Command("xdg-open", outputPath).Start()
+	case "windows":
+		err = exec.Command("start", "", outputPath).Start()
+	case "darwin": // macOS
+		err = exec.Command("open", outputPath).Start()
+	default:
+		r.Infof("Unsupported OS.\n")
+	}
+
+	if err != nil {
+		r.Errorf("Failed to open: %s.\n Please manually open the outputted HTML file: %s\n", err, outputPath)
+	}
+
+	// Serve the single HTML file for remote accessing.
+	// The program will keep running to serve the HTML report on localhost
+	// until the user manually terminates it (e.g. using Ctrl+C).
+	// This could be done in a separate goroutine to avoid blocking the main thread,
+	// but since this is basically the last step in generating the HTML output,
+	// it's kept in the main thread for better maintainability and readability.
+	servePort := "8000"
+	localhostURL := fmt.Sprintf("http://localhost:%s/", servePort)
+	r.Infof("Serving HTML report at %s.\nIf you are accessing remotely, use the following SSH command:\n`ssh -L local_port:destination_server_ip:%s ssh_server_hostname`\n", localhostURL, servePort)
+	server := &http.Server{
+		Addr: ":" + servePort,
+		Handler: http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+			http.ServeFile(w, r, outputPath)
+		}),
+		ReadHeaderTimeout: 3 * time.Second,
+	}
+	if err := server.ListenAndServe(); err != nil {
+		r.Errorf("Failed to start server: %v\n", err)
+	}
 }
