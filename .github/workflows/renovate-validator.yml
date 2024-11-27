@@ -4,11 +4,11 @@ on:
   push:
     branches: [main, v2]
     paths:
-      - 'renovate.json'
+      - "renovate.json"
   pull_request:
     branches: [main, v2]
     paths:
-      - 'renovate.json'
+      - "renovate.json"
 
 jobs:
   validate:
