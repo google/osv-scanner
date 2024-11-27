@@ -1,6 +1,5 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "unknown": "unknown",
   "extends": ["config:base"],
   "timezone": "Australia/Sydney",
   "schedule": ["before 6am on monday"],
