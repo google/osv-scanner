@@ -1,0 +1,20 @@
+name: Renovate Config Validator
+
+on:
+  push:
+    branches: [ main, v2 ]
+  pull_request:
+    branches: [ main, v2 ]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Nodes.js
+        uses: actions/setup-node@v4
+
+      - name: Validate Renovate Config
+        run: npx --yes --package renovate -- renovate-config-validator
