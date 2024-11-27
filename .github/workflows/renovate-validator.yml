@@ -2,9 +2,9 @@ name: Renovate Config Validator
 
 on:
   push:
-    branches: [ main, v2 ]
+    branches: [main, v2]
   pull_request:
-    branches: [ main, v2 ]
+    branches: [main, v2]
 
 jobs:
   validate:
