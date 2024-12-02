@@ -201,6 +201,11 @@ func (m *MavenRegistryAPIClient) get(ctx context.Context, url string, dst interf
 		}
 		defer resp.Body.Close()
 
+		if resp.StatusCode != http.StatusOK && resp.StatusCode != http.StatusNotFound {
+			// Only cache responses with Status OK or NotFound
+			return response{}, fmt.Errorf("%w: Maven registry query status: %d", errAPIFailed, resp.StatusCode)
+		}
+
 		if b, err := io.ReadAll(resp.Body); err == nil {
 			return response{StatusCode: resp.StatusCode, Body: b}, nil
 		}
