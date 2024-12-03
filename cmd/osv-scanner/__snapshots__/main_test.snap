@@ -349,9 +349,9 @@ overriding license for package Packagist/league/flysystem/1.0.8 with 0BSD
 | LICENSE VIOLATION | ECOSYSTEM | PACKAGE                                        | VERSION | SOURCE                                                |
 +-------------------+-----------+------------------------------------------------+---------+-------------------------------------------------------+
 | 0BSD              | Packagist | league/flysystem                               | 1.0.8   | fixtures/locks-insecure/composer.lock                 |
-| UNKNOWN           |           | https://github.com/flutter/buildroot.git       |         | fixtures/locks-insecure/osv-scanner-flutter-deps.json |
-| UNKNOWN           |           | https://github.com/brendan-duncan/archive.git  |         | fixtures/locks-insecure/osv-scanner-flutter-deps.json |
 | UNKNOWN           |           | https://chromium.googlesource.com/chromium/src |         | fixtures/locks-insecure/osv-scanner-flutter-deps.json |
+| UNKNOWN           |           | https://github.com/brendan-duncan/archive.git  |         | fixtures/locks-insecure/osv-scanner-flutter-deps.json |
+| UNKNOWN           |           | https://github.com/flutter/buildroot.git       |         | fixtures/locks-insecure/osv-scanner-flutter-deps.json |
 | UNKNOWN           | RubyGems  | ast                                            | 2.4.2   | fixtures/locks-many/Gemfile.lock                      |
 | 0BSD              | Packagist | sentry/sdk                                     | 2.0.4   | fixtures/locks-many/composer.lock                     |
 +-------------------+-----------+------------------------------------------------+---------+-------------------------------------------------------+
@@ -392,6 +392,24 @@ Ignored invalid config file at: <rootdir>/fixtures/config-invalid/osv-scanner.to
 [TestRun/config_files_cannot_have_unknown_keys - 2]
 Failed to read config file: unknown keys in config file: RustVersionOverride, PackageOverrides.skip, PackageOverrides.license.skip
 unknown keys in config file: RustVersionOverride, PackageOverrides.skip, PackageOverrides.license.skip
+
+---
+
+[TestRun/config_files_should_not_have_multiple_ignores_with_the_same_id - 1]
+warning: ./fixtures/osv-scanner-duplicate-config.toml has multiple ignores for GO-2022-0274 - only the first will be used!
+Scanning dir ./fixtures/locks-many
+Scanned <rootdir>/fixtures/locks-many/Gemfile.lock file and found 1 package
+Scanned <rootdir>/fixtures/locks-many/alpine.cdx.xml as CycloneDX SBOM and found 14 packages
+Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
+Scanned <rootdir>/fixtures/locks-many/package-lock.json file and found 1 package
+Scanned <rootdir>/fixtures/locks-many/yarn.lock file and found 1 package
+GHSA-whgm-jr23-g3j9 and 1 alias have been filtered out because: (no reason given)
+Filtered 1 vulnerability from output
+No issues found
+
+---
+
+[TestRun/config_files_should_not_have_multiple_ignores_with_the_same_id - 2]
 
 ---
 
@@ -905,6 +923,68 @@ Scanned <rootdir>/fixtures/call-analysis-go-project/go.mod file and found 4 pack
 ---
 
 [TestRunCallAnalysis/Run_with_govulncheck - 2]
+
+---
+
+[TestRun_Docker/Fake_alpine_image - 1]
+Pulling docker image ("alpine:non-existent-tag")...
+
+---
+
+[TestRun_Docker/Fake_alpine_image - 2]
+Docker command exited with code ("/usr/bin/docker pull -q alpine:non-existent-tag"): 1
+STDERR:
+> Error response from daemon: manifest for alpine:non-existent-tag not found: manifest unknown: manifest unknown
+failed to run docker command
+
+---
+
+[TestRun_Docker/Fake_image_entirely - 1]
+Pulling docker image ("this-image-definitely-does-not-exist-abcde")...
+
+---
+
+[TestRun_Docker/Fake_image_entirely - 2]
+Docker command exited with code ("/usr/bin/docker pull -q this-image-definitely-does-not-exist-abcde"): 1
+STDERR:
+> Error response from daemon: pull access denied for this-image-definitely-does-not-exist-abcde, repository does not exist or may require 'docker login': denied: requested access to the resource is denied
+failed to run docker command
+
+---
+
+[TestRun_Docker/Real_Alpine_image - 1]
+Pulling docker image ("alpine:3.18.9")...
+Saving docker image ("alpine:3.18.9") to temporary file...
+Scanning image...
+No issues found
+
+---
+
+[TestRun_Docker/Real_Alpine_image - 2]
+
+---
+
+[TestRun_Docker/Real_empty_image - 1]
+Pulling docker image ("hello-world")...
+Saving docker image ("hello-world") to temporary file...
+Scanning image...
+
+---
+
+[TestRun_Docker/Real_empty_image - 2]
+No package sources found, --help for usage information.
+
+---
+
+[TestRun_Docker/Real_empty_image_with_tag - 1]
+Pulling docker image ("hello-world:linux")...
+Saving docker image ("hello-world:linux") to temporary file...
+Scanning image...
+
+---
+
+[TestRun_Docker/Real_empty_image_with_tag - 2]
+No package sources found, --help for usage information.
 
 ---
 
@@ -1901,6 +1981,7 @@ Loaded Go local db from <tempdir>/osv-scanner/Go/all.zip
 | https://osv.dev/DLA-3412-1          |      | Debian    | tzdata                         | 2021a-0+deb9u3                     | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DLA-3684-1          |      | Debian    | tzdata                         | 2021a-0+deb9u3                     | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DLA-3788-1          |      | Debian    | tzdata                         | 2021a-0+deb9u3                     | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/DLA-3972-1          |      | Debian    | tzdata                         | 2021a-0+deb9u3                     | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/CVE-2016-2779       | 7.8  | Debian    | util-linux                     | 2.29.2-1+deb9u1                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DSA-5055-1          | 5.5  | Debian    | util-linux                     | 2.29.2-1+deb9u1                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DSA-5650-1          |      | Debian    | util-linux                     | 2.29.2-1+deb9u1                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
@@ -2098,6 +2179,7 @@ Loaded Go local db from <tempdir>/osv-scanner/Go/all.zip
 | https://osv.dev/DLA-3412-1          |      | Debian    | tzdata                         | 2021a-0+deb9u3                     | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DLA-3684-1          |      | Debian    | tzdata                         | 2021a-0+deb9u3                     | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DLA-3788-1          |      | Debian    | tzdata                         | 2021a-0+deb9u3                     | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/DLA-3972-1          |      | Debian    | tzdata                         | 2021a-0+deb9u3                     | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/CVE-2016-2779       | 7.8  | Debian    | util-linux                     | 2.29.2-1+deb9u1                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DSA-5055-1          | 5.5  | Debian    | util-linux                     | 2.29.2-1+deb9u1                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DSA-5650-1          |      | Debian    | util-linux                     | 2.29.2-1+deb9u1                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
@@ -2373,7 +2455,7 @@ No issues found
 ---
 
 [TestRun_LockfileWithExplicitParseAs/empty_works_as_an_escape_(no_fixture_because_it's_not_valid_on_Windows) - 2]
-open <rootdir>/path/to/my:file: no such file or directory
+stat <rootdir>/path/to/my:file: no such file or directory
 
 ---
 
@@ -2382,7 +2464,7 @@ open <rootdir>/path/to/my:file: no such file or directory
 ---
 
 [TestRun_LockfileWithExplicitParseAs/empty_works_as_an_escape_(no_fixture_because_it's_not_valid_on_Windows)#01 - 2]
-open <rootdir>/path/to/my:project/package-lock.json: no such file or directory
+stat <rootdir>/path/to/my:project/package-lock.json: no such file or directory
 
 ---
 
@@ -2391,7 +2473,7 @@ open <rootdir>/path/to/my:project/package-lock.json: no such file or directory
 ---
 
 [TestRun_LockfileWithExplicitParseAs/files_that_error_on_parsing_stop_parsable_files_from_being_checked - 2]
-(extracting as Cargo.lock) could not extract from <rootdir>/fixtures/locks-insecure/my-package-lock.json: toml: line 1: expected '.' or '=', but got '{' instead
+(extracting as rust/Cargolock) could not extract from <rootdir>/fixtures/locks-insecure/my-package-lock.json: toml: line 1: expected '.' or '=', but got '{' instead
 
 ---
 
@@ -2449,7 +2531,7 @@ No issues found
 ---
 
 [TestRun_LockfileWithExplicitParseAs/parse-as_takes_priority,_even_if_it's_wrong - 2]
-(extracting as package-lock.json) could not extract from <rootdir>/fixtures/locks-many/yarn.lock: invalid character '#' looking for beginning of value
+(extracting as javascript/packagelockjson) could not extract from "<rootdir>/fixtures/locks-many/yarn.lock": invalid character '#' looking for beginning of value
 
 ---
 
@@ -2502,7 +2584,7 @@ No issues found
 
 ---
 
-[TestRun_MavenTransitive/resolve_transitive_dependencies_with_native_datda_source - 1]
+[TestRun_MavenTransitive/resolve_transitive_dependencies_with_native_data_source - 1]
 Scanned <rootdir>/fixtures/maven-transitive/registry.xml file as a pom.xml and found 59 packages
 +-------------------------------------+------+-----------+-----------------------------------------------+---------+----------------------------------------+
 | OSV URL                             | CVSS | ECOSYSTEM | PACKAGE                                       | VERSION | SOURCE                                 |
@@ -2516,7 +2598,7 @@ Scanned <rootdir>/fixtures/maven-transitive/registry.xml file as a pom.xml and f
 
 ---
 
-[TestRun_MavenTransitive/resolve_transitive_dependencies_with_native_datda_source - 2]
+[TestRun_MavenTransitive/resolve_transitive_dependencies_with_native_data_source - 2]
 
 ---
 
@@ -2589,12 +2671,21 @@ Scanned <rootdir>/fixtures/maven-transitive/pom.xml file and found 3 packages
 
 [TestRun_OCIImage/Alpine_3.10_image_tar_with_3.18_version_file - 1]
 Scanning image ../../internal/image/fixtures/test-alpine.tar
-+--------------------------------+------+--------------+---------+-----------+---------------------------------------------------------------------+
-| OSV URL                        | CVSS | ECOSYSTEM    | PACKAGE | VERSION   | SOURCE                                                              |
-+--------------------------------+------+--------------+---------+-----------+---------------------------------------------------------------------+
-| https://osv.dev/CVE-2018-25032 | 7.5  | Alpine:v3.18 | zlib    | 1.2.11-r1 | ../../internal/image/fixtures/test-alpine.tar:/lib/apk/db/installed |
-| https://osv.dev/CVE-2022-37434 | 9.8  | Alpine:v3.18 | zlib    | 1.2.11-r1 | ../../internal/image/fixtures/test-alpine.tar:/lib/apk/db/installed |
-+--------------------------------+------+--------------+---------+-----------+---------------------------------------------------------------------+
+Total 1 packages affected by 2 vulnerabilities (1 Critical, 1 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystems.
+2 vulnerabilities have fixes available.
+
+Alpine:v3.18
++----------------------------------------------------------+
+| Source:docker:../../internal/image/fixtures/test-alpine. |
+| tar:/lib/apk/db/installed                                |
++---------+-------------------+---------------+------------+
+| PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT |
++---------+-------------------+---------------+------------+
+| zlib    | 1.2.11-r1         | Fix Available |          2 |
++---------+-------------------+---------------+------------+
+
+For the most comprehensive scan results, we recommend using the HTML output: `osv-scanner --format html --output results.html`.
+You can also view the full vulnerability list in your terminal with: `osv-scanner --format vertical`.
 
 ---
 
@@ -2614,14 +2705,21 @@ failed to load image ./fixtures/oci-image/no-file-here.tar: open ./fixtures/oci-
 
 [TestRun_OCIImage/scanning_node_modules_using_npm_with_no_packages - 1]
 Scanning image ../../internal/image/fixtures/test-node_modules-npm-empty.tar
-+--------------------------------+------+--------------+---------+------------+-------------------------------------------------------------------------------------+
-| OSV URL                        | CVSS | ECOSYSTEM    | PACKAGE | VERSION    | SOURCE                                                                              |
-+--------------------------------+------+--------------+---------+------------+-------------------------------------------------------------------------------------+
-| https://osv.dev/CVE-2023-42363 | 5.5  | Alpine:v3.19 | busybox | 1.36.1-r15 | ../../internal/image/fixtures/test-node_modules-npm-empty.tar:/lib/apk/db/installed |
-| https://osv.dev/CVE-2023-42364 | 5.5  | Alpine:v3.19 | busybox | 1.36.1-r15 | ../../internal/image/fixtures/test-node_modules-npm-empty.tar:/lib/apk/db/installed |
-| https://osv.dev/CVE-2023-42365 | 5.5  | Alpine:v3.19 | busybox | 1.36.1-r15 | ../../internal/image/fixtures/test-node_modules-npm-empty.tar:/lib/apk/db/installed |
-| https://osv.dev/CVE-2023-42366 | 5.5  | Alpine:v3.19 | busybox | 1.36.1-r15 | ../../internal/image/fixtures/test-node_modules-npm-empty.tar:/lib/apk/db/installed |
-+--------------------------------+------+--------------+---------+------------+-------------------------------------------------------------------------------------+
+Total 1 packages affected by 4 vulnerabilities (0 Critical, 0 High, 4 Medium, 0 Low, 0 Unknown) from 1 ecosystems.
+4 vulnerabilities have fixes available.
+
+Alpine:v3.19
++----------------------------------------------------------+
+| Source:docker:../../internal/image/fixtures/test-node_mo |
+| dules-npm-empty.tar:/lib/apk/db/installed                |
++---------+-------------------+---------------+------------+
+| PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT |
++---------+-------------------+---------------+------------+
+| busybox | 1.36.1-r15        | Fix Available |          4 |
++---------+-------------------+---------------+------------+
+
+For the most comprehensive scan results, we recommend using the HTML output: `osv-scanner --format html --output results.html`.
+You can also view the full vulnerability list in your terminal with: `osv-scanner --format vertical`.
 
 ---
 
@@ -2631,17 +2729,31 @@ Scanning image ../../internal/image/fixtures/test-node_modules-npm-empty.tar
 
 [TestRun_OCIImage/scanning_node_modules_using_npm_with_some_packages - 1]
 Scanning image ../../internal/image/fixtures/test-node_modules-npm-full.tar
-+-------------------------------------+------+--------------+----------+------------+-------------------------------------------------------------------------------------------------------+
-| OSV URL                             | CVSS | ECOSYSTEM    | PACKAGE  | VERSION    | SOURCE                                                                                                |
-+-------------------------------------+------+--------------+----------+------------+-------------------------------------------------------------------------------------------------------+
-| https://osv.dev/CVE-2023-42363      | 5.5  | Alpine:v3.19 | busybox  | 1.36.1-r15 | ../../internal/image/fixtures/test-node_modules-npm-full.tar:/lib/apk/db/installed                    |
-| https://osv.dev/CVE-2023-42364      | 5.5  | Alpine:v3.19 | busybox  | 1.36.1-r15 | ../../internal/image/fixtures/test-node_modules-npm-full.tar:/lib/apk/db/installed                    |
-| https://osv.dev/CVE-2023-42365      | 5.5  | Alpine:v3.19 | busybox  | 1.36.1-r15 | ../../internal/image/fixtures/test-node_modules-npm-full.tar:/lib/apk/db/installed                    |
-| https://osv.dev/CVE-2023-42366      | 5.5  | Alpine:v3.19 | busybox  | 1.36.1-r15 | ../../internal/image/fixtures/test-node_modules-npm-full.tar:/lib/apk/db/installed                    |
-| https://osv.dev/GHSA-38f5-ghc2-fcmv | 9.8  | npm          | cryo     | 0.0.6      | ../../internal/image/fixtures/test-node_modules-npm-full.tar:/usr/app/node_modules/.package-lock.json |
-| https://osv.dev/GHSA-vh95-rmgr-6w4m | 9.8  | npm          | minimist | 0.0.8      | ../../internal/image/fixtures/test-node_modules-npm-full.tar:/usr/app/node_modules/.package-lock.json |
-| https://osv.dev/GHSA-xvch-5gv4-984h |      |              |          |            |                                                                                                       |
-+-------------------------------------+------+--------------+----------+------------+-------------------------------------------------------------------------------------------------------+
+Total 3 packages affected by 6 vulnerabilities (2 Critical, 0 High, 4 Medium, 0 Low, 0 Unknown) from 2 ecosystems.
+5 vulnerabilities have fixes available.
+
+npm
++--------------------------------------------------------------+
+| Source:docker:../../internal/image/fixtures/test-node_module |
+| s-npm-full.tar:/prod/app/node_modules/.package-lock.json     |
++----------+-------------------+------------------+------------+
+| PACKAGE  | INSTALLED VERSION | FIX AVAILABLE    | VULN COUNT |
++----------+-------------------+------------------+------------+
+| cryo     | 0.0.6             | No fix available |          1 |
+| minimist | 0.0.8             | Fix Available    |          1 |
++----------+-------------------+------------------+------------+
+Alpine:v3.19
++----------------------------------------------------------+
+| Source:docker:../../internal/image/fixtures/test-node_mo |
+| dules-npm-full.tar:/lib/apk/db/installed                 |
++---------+-------------------+---------------+------------+
+| PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT |
++---------+-------------------+---------------+------------+
+| busybox | 1.36.1-r15        | Fix Available |          4 |
++---------+-------------------+---------------+------------+
+
+For the most comprehensive scan results, we recommend using the HTML output: `osv-scanner --format html --output results.html`.
+You can also view the full vulnerability list in your terminal with: `osv-scanner --format vertical`.
 
 ---
 
@@ -2651,14 +2763,21 @@ Scanning image ../../internal/image/fixtures/test-node_modules-npm-full.tar
 
 [TestRun_OCIImage/scanning_node_modules_using_pnpm_with_no_packages - 1]
 Scanning image ../../internal/image/fixtures/test-node_modules-pnpm-empty.tar
-+--------------------------------+------+--------------+---------+------------+--------------------------------------------------------------------------------------+
-| OSV URL                        | CVSS | ECOSYSTEM    | PACKAGE | VERSION    | SOURCE                                                                               |
-+--------------------------------+------+--------------+---------+------------+--------------------------------------------------------------------------------------+
-| https://osv.dev/CVE-2023-42363 | 5.5  | Alpine:v3.19 | busybox | 1.36.1-r15 | ../../internal/image/fixtures/test-node_modules-pnpm-empty.tar:/lib/apk/db/installed |
-| https://osv.dev/CVE-2023-42364 | 5.5  | Alpine:v3.19 | busybox | 1.36.1-r15 | ../../internal/image/fixtures/test-node_modules-pnpm-empty.tar:/lib/apk/db/installed |
-| https://osv.dev/CVE-2023-42365 | 5.5  | Alpine:v3.19 | busybox | 1.36.1-r15 | ../../internal/image/fixtures/test-node_modules-pnpm-empty.tar:/lib/apk/db/installed |
-| https://osv.dev/CVE-2023-42366 | 5.5  | Alpine:v3.19 | busybox | 1.36.1-r15 | ../../internal/image/fixtures/test-node_modules-pnpm-empty.tar:/lib/apk/db/installed |
-+--------------------------------+------+--------------+---------+------------+--------------------------------------------------------------------------------------+
+Total 1 packages affected by 4 vulnerabilities (0 Critical, 0 High, 4 Medium, 0 Low, 0 Unknown) from 1 ecosystems.
+4 vulnerabilities have fixes available.
+
+Alpine:v3.19
++----------------------------------------------------------+
+| Source:docker:../../internal/image/fixtures/test-node_mo |
+| dules-pnpm-empty.tar:/lib/apk/db/installed               |
++---------+-------------------+---------------+------------+
+| PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT |
++---------+-------------------+---------------+------------+
+| busybox | 1.36.1-r15        | Fix Available |          4 |
++---------+-------------------+---------------+------------+
+
+For the most comprehensive scan results, we recommend using the HTML output: `osv-scanner --format html --output results.html`.
+You can also view the full vulnerability list in your terminal with: `osv-scanner --format vertical`.
 
 ---
 
@@ -2668,14 +2787,21 @@ Scanning image ../../internal/image/fixtures/test-node_modules-pnpm-empty.tar
 
 [TestRun_OCIImage/scanning_node_modules_using_pnpm_with_some_packages - 1]
 Scanning image ../../internal/image/fixtures/test-node_modules-pnpm-full.tar
-+--------------------------------+------+--------------+---------+------------+-------------------------------------------------------------------------------------+
-| OSV URL                        | CVSS | ECOSYSTEM    | PACKAGE | VERSION    | SOURCE                                                                              |
-+--------------------------------+------+--------------+---------+------------+-------------------------------------------------------------------------------------+
-| https://osv.dev/CVE-2023-42363 | 5.5  | Alpine:v3.19 | busybox | 1.36.1-r15 | ../../internal/image/fixtures/test-node_modules-pnpm-full.tar:/lib/apk/db/installed |
-| https://osv.dev/CVE-2023-42364 | 5.5  | Alpine:v3.19 | busybox | 1.36.1-r15 | ../../internal/image/fixtures/test-node_modules-pnpm-full.tar:/lib/apk/db/installed |
-| https://osv.dev/CVE-2023-42365 | 5.5  | Alpine:v3.19 | busybox | 1.36.1-r15 | ../../internal/image/fixtures/test-node_modules-pnpm-full.tar:/lib/apk/db/installed |
-| https://osv.dev/CVE-2023-42366 | 5.5  | Alpine:v3.19 | busybox | 1.36.1-r15 | ../../internal/image/fixtures/test-node_modules-pnpm-full.tar:/lib/apk/db/installed |
-+--------------------------------+------+--------------+---------+------------+-------------------------------------------------------------------------------------+
+Total 1 packages affected by 4 vulnerabilities (0 Critical, 0 High, 4 Medium, 0 Low, 0 Unknown) from 1 ecosystems.
+4 vulnerabilities have fixes available.
+
+Alpine:v3.19
++----------------------------------------------------------+
+| Source:docker:../../internal/image/fixtures/test-node_mo |
+| dules-pnpm-full.tar:/lib/apk/db/installed                |
++---------+-------------------+---------------+------------+
+| PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT |
++---------+-------------------+---------------+------------+
+| busybox | 1.36.1-r15        | Fix Available |          4 |
++---------+-------------------+---------------+------------+
+
+For the most comprehensive scan results, we recommend using the HTML output: `osv-scanner --format html --output results.html`.
+You can also view the full vulnerability list in your terminal with: `osv-scanner --format vertical`.
 
 ---
 
@@ -2685,14 +2811,21 @@ Scanning image ../../internal/image/fixtures/test-node_modules-pnpm-full.tar
 
 [TestRun_OCIImage/scanning_node_modules_using_yarn_with_no_packages - 1]
 Scanning image ../../internal/image/fixtures/test-node_modules-yarn-empty.tar
-+--------------------------------+------+--------------+---------+------------+--------------------------------------------------------------------------------------+
-| OSV URL                        | CVSS | ECOSYSTEM    | PACKAGE | VERSION    | SOURCE                                                                               |
-+--------------------------------+------+--------------+---------+------------+--------------------------------------------------------------------------------------+
-| https://osv.dev/CVE-2023-42363 | 5.5  | Alpine:v3.19 | busybox | 1.36.1-r15 | ../../internal/image/fixtures/test-node_modules-yarn-empty.tar:/lib/apk/db/installed |
-| https://osv.dev/CVE-2023-42364 | 5.5  | Alpine:v3.19 | busybox | 1.36.1-r15 | ../../internal/image/fixtures/test-node_modules-yarn-empty.tar:/lib/apk/db/installed |
-| https://osv.dev/CVE-2023-42365 | 5.5  | Alpine:v3.19 | busybox | 1.36.1-r15 | ../../internal/image/fixtures/test-node_modules-yarn-empty.tar:/lib/apk/db/installed |
-| https://osv.dev/CVE-2023-42366 | 5.5  | Alpine:v3.19 | busybox | 1.36.1-r15 | ../../internal/image/fixtures/test-node_modules-yarn-empty.tar:/lib/apk/db/installed |
-+--------------------------------+------+--------------+---------+------------+--------------------------------------------------------------------------------------+
+Total 1 packages affected by 4 vulnerabilities (0 Critical, 0 High, 4 Medium, 0 Low, 0 Unknown) from 1 ecosystems.
+4 vulnerabilities have fixes available.
+
+Alpine:v3.19
++----------------------------------------------------------+
+| Source:docker:../../internal/image/fixtures/test-node_mo |
+| dules-yarn-empty.tar:/lib/apk/db/installed               |
++---------+-------------------+---------------+------------+
+| PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT |
++---------+-------------------+---------------+------------+
+| busybox | 1.36.1-r15        | Fix Available |          4 |
++---------+-------------------+---------------+------------+
+
+For the most comprehensive scan results, we recommend using the HTML output: `osv-scanner --format html --output results.html`.
+You can also view the full vulnerability list in your terminal with: `osv-scanner --format vertical`.
 
 ---
 
@@ -2702,14 +2835,21 @@ Scanning image ../../internal/image/fixtures/test-node_modules-yarn-empty.tar
 
 [TestRun_OCIImage/scanning_node_modules_using_yarn_with_some_packages - 1]
 Scanning image ../../internal/image/fixtures/test-node_modules-yarn-full.tar
-+--------------------------------+------+--------------+---------+------------+-------------------------------------------------------------------------------------+
-| OSV URL                        | CVSS | ECOSYSTEM    | PACKAGE | VERSION    | SOURCE                                                                              |
-+--------------------------------+------+--------------+---------+------------+-------------------------------------------------------------------------------------+
-| https://osv.dev/CVE-2023-42363 | 5.5  | Alpine:v3.19 | busybox | 1.36.1-r15 | ../../internal/image/fixtures/test-node_modules-yarn-full.tar:/lib/apk/db/installed |
-| https://osv.dev/CVE-2023-42364 | 5.5  | Alpine:v3.19 | busybox | 1.36.1-r15 | ../../internal/image/fixtures/test-node_modules-yarn-full.tar:/lib/apk/db/installed |
-| https://osv.dev/CVE-2023-42365 | 5.5  | Alpine:v3.19 | busybox | 1.36.1-r15 | ../../internal/image/fixtures/test-node_modules-yarn-full.tar:/lib/apk/db/installed |
-| https://osv.dev/CVE-2023-42366 | 5.5  | Alpine:v3.19 | busybox | 1.36.1-r15 | ../../internal/image/fixtures/test-node_modules-yarn-full.tar:/lib/apk/db/installed |
-+--------------------------------+------+--------------+---------+------------+-------------------------------------------------------------------------------------+
+Total 1 packages affected by 4 vulnerabilities (0 Critical, 0 High, 4 Medium, 0 Low, 0 Unknown) from 1 ecosystems.
+4 vulnerabilities have fixes available.
+
+Alpine:v3.19
++----------------------------------------------------------+
+| Source:docker:../../internal/image/fixtures/test-node_mo |
+| dules-yarn-full.tar:/lib/apk/db/installed                |
++---------+-------------------+---------------+------------+
+| PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT |
++---------+-------------------+---------------+------------+
+| busybox | 1.36.1-r15        | Fix Available |          4 |
++---------+-------------------+---------------+------------+
+
+For the most comprehensive scan results, we recommend using the HTML output: `osv-scanner --format html --output results.html`.
+You can also view the full vulnerability list in your terminal with: `osv-scanner --format vertical`.
 
 ---
 

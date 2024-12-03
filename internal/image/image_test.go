@@ -3,7 +3,6 @@ package image_test
 import (
 	"errors"
 	"os"
-	"sort"
 	"testing"
 
 	"github.com/google/osv-scanner/internal/image"
@@ -93,10 +92,6 @@ func TestScanImage(t *testing.T) {
 					pkg.ImageOrigin.LayerID = "<Any value>"
 				}
 			}
-
-			sort.Slice(got.Lockfiles, func(i, j int) bool {
-				return got.Lockfiles[i].FilePath < got.Lockfiles[j].FilePath
-			})
 
 			tt.want.MatchJSON(t, got)
 		})

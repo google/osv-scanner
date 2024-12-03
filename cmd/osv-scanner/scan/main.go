@@ -36,10 +36,10 @@ func Command(stdout, stderr io.Writer, r *reporter.Reporter) *cli.Command {
 		Usage:       "scans various mediums for dependencies and matches it against the OSV database",
 		Description: "scans various mediums for dependencies and matches it against the OSV database",
 		Flags: []cli.Flag{
-			&cli.StringSliceFlag{
+			&cli.StringFlag{
 				Name:      "docker",
 				Aliases:   []string{"D"},
-				Usage:     "scan docker image with this name. Warning: Only run this on a trusted container image, as it runs the container image to retrieve the package versions",
+				Usage:     "scan docker image with this name. This is a convenience function which runs `docker save` before scanning the saved image using --oci-image",
 				TakesFile: false,
 			},
 			&cli.StringSliceFlag{
@@ -281,15 +281,15 @@ func action(context *cli.Context, stdout, stderr io.Writer) (reporter.Reporter, 
 	}
 
 	vulnResult, err := osvscanner.DoScan(osvscanner.ScannerActions{
-		LockfilePaths:        context.StringSlice("lockfile"),
-		SBOMPaths:            context.StringSlice("sbom"),
-		DockerContainerNames: context.StringSlice("docker"),
-		Recursive:            context.Bool("recursive"),
-		SkipGit:              context.Bool("skip-git"),
-		NoIgnore:             context.Bool("no-ignore"),
-		ConfigOverridePath:   context.String("config"),
-		DirectoryPaths:       context.Args().Slice(),
-		CallAnalysisStates:   callAnalysisStates,
+		LockfilePaths:      context.StringSlice("lockfile"),
+		SBOMPaths:          context.StringSlice("sbom"),
+		DockerImageName:    context.String("docker"),
+		Recursive:          context.Bool("recursive"),
+		SkipGit:            context.Bool("skip-git"),
+		NoIgnore:           context.Bool("no-ignore"),
+		ConfigOverridePath: context.String("config"),
+		DirectoryPaths:     context.Args().Slice(),
+		CallAnalysisStates: callAnalysisStates,
 		ExperimentalScannerActions: osvscanner.ExperimentalScannerActions{
 			LocalDBPath:       context.String("experimental-local-db-path"),
 			DownloadDatabases: context.Bool("experimental-download-offline-databases"),
