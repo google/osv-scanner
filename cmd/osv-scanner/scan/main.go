@@ -7,6 +7,7 @@ import (
 	"net/http"
 	"os"
 	"os/exec"
+	"path/filepath"
 	"runtime"
 	"slices"
 	"strings"
@@ -76,6 +77,10 @@ func Command(stdout, stderr io.Writer, r *reporter.Reporter) *cli.Command {
 
 					return fmt.Errorf("unsupported output format \"%s\" - must be one of: %s", s, strings.Join(reporter.Format(), ", "))
 				},
+			},
+			&cli.BoolFlag{
+				Name:  "host",
+				Usage: "output as HTML result and host it locally",
 			},
 			&cli.BoolFlag{
 				Name:  "json",
@@ -208,6 +213,20 @@ func action(context *cli.Context, stdout, stderr io.Writer) (reporter.Reporter, 
 	}
 
 	outputPath := context.String("output")
+	host := context.Bool("host")
+	if host && outputPath == "" {
+		format = "html"
+		// Create a temporary directory
+		tmpDir, err := os.MkdirTemp("", "osv-scanner-result")
+		if err != nil {
+			return nil, fmt.Errorf("failed creating temporary directory: %w\n"+
+				"Please use `--output result.html` to specify the output path", err)
+		}
+
+		// Remove the created temporary directory after
+		defer os.RemoveAll(tmpDir)
+		outputPath = filepath.Join(tmpDir, "index.html")
+	}
 
 	termWidth := 0
 	var err error
@@ -302,8 +321,10 @@ func action(context *cli.Context, stdout, stderr io.Writer) (reporter.Reporter, 
 
 	// Auto-open outputted HTML file for users.
 	if outputPath != "" {
-		if format == "html" {
-			openHTML(outputPath, r)
+		if host {
+			hostHTML(r, outputPath)
+		} else if format == "html" {
+			openHTML(r, outputPath)
 		}
 	}
 
@@ -311,8 +332,8 @@ func action(context *cli.Context, stdout, stderr io.Writer) (reporter.Reporter, 
 	return r, err
 }
 
-// openHTML opens the outputted HTML file and simultaneously hosts it on localhost:8000 for remote access.
-func openHTML(outputPath string, r reporter.Reporter) {
+// openHTML opens the outputted HTML file.
+func openHTML(r reporter.Reporter, outputPath string) {
 	// Open the outputted HTML file in the default browser.
 	r.Infof("Opening %s...\n", outputPath)
 	var err error
@@ -330,13 +351,12 @@ func openHTML(outputPath string, r reporter.Reporter) {
 	if err != nil {
 		r.Errorf("Failed to open: %s.\n Please manually open the outputted HTML file: %s\n", err, outputPath)
 	}
+}
 
-	// Serve the single HTML file for remote accessing.
-	// The program will keep running to serve the HTML report on localhost
-	// until the user manually terminates it (e.g. using Ctrl+C).
-	// This could be done in a separate goroutine to avoid blocking the main thread,
-	// but since this is basically the last step in generating the HTML output,
-	// it's kept in the main thread for better maintainability and readability.
+// Serve the single HTML file for remote accessing.
+// The program will keep running to serve the HTML report on localhost
+// until the user manually terminates it (e.g. using Ctrl+C).
+func hostHTML(r reporter.Reporter, outputPath string) {
 	servePort := "8000"
 	localhostURL := fmt.Sprintf("http://localhost:%s/", servePort)
 	r.Infof("Serving HTML report at %s.\nIf you are accessing remotely, use the following SSH command:\n`ssh -L local_port:destination_server_ip:%s ssh_server_hostname`\n", localhostURL, servePort)
