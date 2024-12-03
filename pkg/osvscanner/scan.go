@@ -3,6 +3,7 @@ package osvscanner
 import (
 	"fmt"
 	"path/filepath"
+	"strings"
 
 	"github.com/google/osv-scalibr/extractor/filesystem"
 	"github.com/google/osv-scanner/internal/imodels"
@@ -93,4 +94,14 @@ func scan(r reporter.Reporter, actions ScannerActions) ([]imodels.ScannedPackage
 	}
 
 	return scannedPackages, nil
+}
+
+func parseLockfilePath(lockfileElem string) (string, string) {
+	if !strings.Contains(lockfileElem, ":") {
+		lockfileElem = ":" + lockfileElem
+	}
+
+	splits := strings.SplitN(lockfileElem, ":", 2)
+
+	return splits[0], splits[1]
 }
