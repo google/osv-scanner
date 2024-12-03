@@ -79,8 +79,8 @@ func Command(stdout, stderr io.Writer, r *reporter.Reporter) *cli.Command {
 				},
 			},
 			&cli.BoolFlag{
-				Name:  "host",
-				Usage: "output as HTML result and host it locally",
+				Name:  "serve",
+				Usage: "output as HTML result and serve it locally",
 			},
 			&cli.BoolFlag{
 				Name:  "json",
@@ -213,8 +213,8 @@ func action(context *cli.Context, stdout, stderr io.Writer) (reporter.Reporter, 
 	}
 
 	outputPath := context.String("output")
-	host := context.Bool("host")
-	if host && outputPath == "" {
+	serve := context.Bool("serve")
+	if serve && outputPath == "" {
 		format = "html"
 		// Create a temporary directory
 		tmpDir, err := os.MkdirTemp("", "osv-scanner-result")
@@ -321,8 +321,8 @@ func action(context *cli.Context, stdout, stderr io.Writer) (reporter.Reporter, 
 
 	// Auto-open outputted HTML file for users.
 	if outputPath != "" {
-		if host {
-			hostHTML(r, outputPath)
+		if serve {
+			serveHTML(r, outputPath)
 		} else if format == "html" {
 			openHTML(r, outputPath)
 		}
@@ -356,7 +356,7 @@ func openHTML(r reporter.Reporter, outputPath string) {
 // Serve the single HTML file for remote accessing.
 // The program will keep running to serve the HTML report on localhost
 // until the user manually terminates it (e.g. using Ctrl+C).
-func hostHTML(r reporter.Reporter, outputPath string) {
+func serveHTML(r reporter.Reporter, outputPath string) {
 	servePort := "8000"
 	localhostURL := fmt.Sprintf("http://localhost:%s/", servePort)
 	r.Infof("Serving HTML report at %s.\nIf you are accessing remotely, use the following SSH command:\n`ssh -L local_port:destination_server_ip:%s ssh_server_hostname`\n", localhostURL, servePort)
