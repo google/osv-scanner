@@ -2522,7 +2522,7 @@ No issues found
 
 ---
 
-[TestRun_MavenTransitive/resolve_transitive_dependencies_with_native_datda_source - 1]
+[TestRun_MavenTransitive/resolve_transitive_dependencies_with_native_data_source - 1]
 Scanned <rootdir>/fixtures/maven-transitive/registry.xml file as a pom.xml and found 59 packages
 +-------------------------------------+------+-----------+-----------------------------------------------+---------+----------------------------------------+
 | OSV URL                             | CVSS | ECOSYSTEM | PACKAGE                                       | VERSION | SOURCE                                 |
@@ -2536,7 +2536,7 @@ Scanned <rootdir>/fixtures/maven-transitive/registry.xml file as a pom.xml and f
 
 ---
 
-[TestRun_MavenTransitive/resolve_transitive_dependencies_with_native_datda_source - 2]
+[TestRun_MavenTransitive/resolve_transitive_dependencies_with_native_data_source - 2]
 
 ---
 

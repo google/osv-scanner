@@ -939,7 +939,7 @@ func TestRun_MavenTransitive(t *testing.T) {
 			exit: 1,
 		},
 		{
-			name: "resolve transitive dependencies with native datda source",
+			name: "resolve transitive dependencies with native data source",
 			args: []string{"", "--config=./fixtures/osv-scanner-empty-config.toml", "--experimental-resolution-data-source=native", "-L", "pom.xml:./fixtures/maven-transitive/registry.xml"},
 			exit: 1,
 		},
