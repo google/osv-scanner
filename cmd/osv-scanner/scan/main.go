@@ -4,9 +4,14 @@ import (
 	"errors"
 	"fmt"
 	"io"
+	"net/http"
 	"os"
+	"os/exec"
+	"path/filepath"
+	"runtime"
 	"slices"
 	"strings"
+	"time"
 
 	"github.com/google/osv-scanner/internal/spdx"
 	"github.com/google/osv-scanner/pkg/osvscanner"
@@ -72,6 +77,10 @@ func Command(stdout, stderr io.Writer, r *reporter.Reporter) *cli.Command {
 
 					return fmt.Errorf("unsupported output format \"%s\" - must be one of: %s", s, strings.Join(reporter.Format(), ", "))
 				},
+			},
+			&cli.BoolFlag{
+				Name:  "serve",
+				Usage: "output as HTML result and serve it locally",
 			},
 			&cli.BoolFlag{
 				Name:  "json",
@@ -204,6 +213,20 @@ func action(context *cli.Context, stdout, stderr io.Writer) (reporter.Reporter, 
 	}
 
 	outputPath := context.String("output")
+	serve := context.Bool("serve")
+	if serve && outputPath == "" {
+		format = "html"
+		// Create a temporary directory
+		tmpDir, err := os.MkdirTemp("", "osv-scanner-result")
+		if err != nil {
+			return nil, fmt.Errorf("failed creating temporary directory: %w\n"+
+				"Please use `--output result.html` to specify the output path", err)
+		}
+
+		// Remove the created temporary directory after
+		defer os.RemoveAll(tmpDir)
+		outputPath = filepath.Join(tmpDir, "index.html")
+	}
 
 	termWidth := 0
 	var err error
@@ -296,6 +319,55 @@ func action(context *cli.Context, stdout, stderr io.Writer) (reporter.Reporter, 
 		return r, fmt.Errorf("failed to write output: %w", errPrint)
 	}
 
+	// Auto-open outputted HTML file for users.
+	if outputPath != "" {
+		if serve {
+			serveHTML(r, outputPath)
+		} else if format == "html" {
+			openHTML(r, outputPath)
+		}
+	}
+
 	// This may be nil.
 	return r, err
+}
+
+// openHTML opens the outputted HTML file.
+func openHTML(r reporter.Reporter, outputPath string) {
+	// Open the outputted HTML file in the default browser.
+	r.Infof("Opening %s...\n", outputPath)
+	var err error
+	switch runtime.GOOS {
+	case "linux":
+		err = exec.Command("xdg-open", outputPath).Start()
+	case "windows":
+		err = exec.Command("start", "", outputPath).Start()
+	case "darwin": // macOS
+		err = exec.Command("open", outputPath).Start()
+	default:
+		r.Infof("Unsupported OS.\n")
+	}
+
+	if err != nil {
+		r.Errorf("Failed to open: %s.\n Please manually open the outputted HTML file: %s\n", err, outputPath)
+	}
+}
+
+// Serve the single HTML file for remote accessing.
+// The program will keep running to serve the HTML report on localhost
+// until the user manually terminates it (e.g. using Ctrl+C).
+func serveHTML(r reporter.Reporter, outputPath string) {
+	servePort := "8000"
+	localhostURL := fmt.Sprintf("http://localhost:%s/", servePort)
+	r.Infof("Serving HTML report at %s.\nIf you are accessing remotely, use the following SSH command:\n`ssh -L local_port:destination_server_ip:%s ssh_server_hostname`\n", localhostURL, servePort)
+	server := &http.Server{
+		Addr: ":" + servePort,
+		Handler: http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+			http.ServeFile(w, r, outputPath)
+		}),
+		ReadHeaderTimeout: 3 * time.Second,
+	}
+	if err := server.ListenAndServe(); err != nil {
+		r.Errorf("Failed to start server: %v\n", err)
+	}
 }
