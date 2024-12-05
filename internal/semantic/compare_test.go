@@ -2,6 +2,8 @@ package semantic_test
 
 import (
 	"bufio"
+	"errors"
+	"io/fs"
 	"os"
 	"strings"
 	"testing"
@@ -234,7 +236,28 @@ func TestVersion_Compare_Ecosystems(t *testing.T) {
 			name: "Alpine",
 			file: "alpine-versions-generated.txt",
 		},
+		{
+			name: "Red Hat",
+			file: "redhat-versions.txt",
+		},
 	}
+
+	// we don't check the generated fixture for Red Hat in due to its size
+	// so we only add it if it exists, so that people can have it locally
+	// without needing to do a dance with git everytime they commit
+	_, err := os.Stat("fixtures/redhat-versions-generated.txt")
+	if err == nil {
+		tests = append(tests, struct {
+			name string
+			file string
+		}{
+			name: "Red Hat",
+			file: "redhat-versions-generated.txt",
+		})
+	} else if !errors.Is(err, fs.ErrNotExist) {
+		t.Fatalf("fixtures/redhat-versions-generated.txt exists but could not be read: %v", err)
+	}
+
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()

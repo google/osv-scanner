@@ -1,62 +1,44 @@
 package models_test
 
 import (
-	"encoding/json"
 	"testing"
 
+	"github.com/google/osv-scanner/internal/testutility"
 	"github.com/google/osv-scanner/pkg/models"
 )
 
 func TestVulnerabilities_MarshalJSON(t *testing.T) {
 	t.Parallel()
 
-	osv := models.Vulnerability{ID: "GHSA-1"}
-	asJSON, err := json.Marshal(osv)
-
-	if err != nil {
-		t.Fatalf("Unable to marshal osv to JSON: %v", err)
-	}
-
 	tests := []struct {
 		name string
 		vs   models.Vulnerabilities
-		want string
 	}{
 		{
-			name: "",
+			name: "nil",
 			vs:   nil,
-			want: "[]",
 		},
 		{
-			name: "",
-			vs:   models.Vulnerabilities(nil),
-			want: "[]",
+			name: "no vulnerabilities",
+			vs:   models.Vulnerabilities{},
 		},
 		{
-			name: "",
-			vs:   models.Vulnerabilities{osv},
-			want: "[" + string(asJSON) + "]",
+			name: "one vulnerability",
+			vs:   models.Vulnerabilities{models.Vulnerability{ID: "GHSA-1"}},
 		},
 		{
-			name: "",
-			vs:   models.Vulnerabilities{osv, osv},
-			want: "[" + string(asJSON) + "," + string(asJSON) + "]",
+			name: "multiple vulnerabilities",
+			vs: models.Vulnerabilities{
+				models.Vulnerability{ID: "GHSA-1"},
+				models.Vulnerability{ID: "GHSA-2"},
+				models.Vulnerability{ID: "GHSA-3"},
+			},
 		},
 	}
-
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
-			got, err := tt.vs.MarshalJSON()
-			if err != nil {
-				t.Errorf("MarshalJSON() error = %v", err)
-
-				return
-			}
-
-			if gotStr := string(got); gotStr != tt.want {
-				t.Errorf("MarshalJSON() got = %v, want %v", gotStr, tt.want)
-			}
+			testutility.NewSnapshot().MatchJSON(t, tt.vs)
 		})
 	}
 }

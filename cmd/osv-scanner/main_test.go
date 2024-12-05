@@ -359,6 +359,12 @@ func TestRun(t *testing.T) {
 			args: []string{"", "--config=./fixtures/osv-scanner-unknown-config.toml", "./fixtures/locks-many"},
 			exit: 127,
 		},
+		// config file with multiple ignores with the same id
+		{
+			name: "config files should not have multiple ignores with the same id",
+			args: []string{"", "--config=./fixtures/osv-scanner-duplicate-config.toml", "./fixtures/locks-many"},
+			exit: 0,
+		},
 		// a bunch of requirements.txt files with different names
 		{
 			name: "requirements.txt can have all kinds of names",
@@ -717,6 +723,16 @@ func TestRun_Licenses(t *testing.T) {
 			name: "Licenses in summary mode json",
 			args: []string{"", "--format=json", "--experimental-licenses-summary", "./fixtures/locks-licenses/package-lock.json"},
 			exit: 0,
+		},
+		{
+			name: "Licenses with expressions",
+			args: []string{"", "--config=./fixtures/osv-scanner-expressive-licenses-config.toml", "--experimental-licenses", "MIT,BSD-3-Clause", "./fixtures/locks-licenses/package-lock.json"},
+			exit: 1,
+		},
+		{
+			name: "Licenses with invalid expression",
+			args: []string{"", "--config=./fixtures/osv-scanner-invalid-licenses-config.toml", "--experimental-licenses", "MIT,BSD-3-Clause", "./fixtures/locks-licenses/package-lock.json"},
+			exit: 1,
 		},
 	}
 	for _, tt := range tests {

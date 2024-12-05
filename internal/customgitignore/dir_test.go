@@ -10,6 +10,7 @@ import (
 	"testing"
 
 	"github.com/google/osv-scanner/internal/customgitignore"
+	"github.com/google/osv-scanner/internal/testutility"
 
 	"github.com/go-git/go-git/v5"
 	"github.com/go-git/go-git/v5/plumbing/format/gitignore"
@@ -643,8 +644,7 @@ func setupPlainDirWithGitignores(t *testing.T) string {
 	t.Helper()
 
 	// A unique tempdir for local funcs to create a git repo inside
-	// TODO: convert `t.TempDir()` to `testutility.CreateTestDir(t)` once PR #832 lands
-	dir := filepath.Join(t.TempDir(), "base_dir")
+	dir := testutility.CreateTestDir(t)
 
 	var allPaths string
 
