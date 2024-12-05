@@ -180,6 +180,7 @@ func LoadImage(imagePath string) (*Image, error) {
 			// filepath.Clean first to convert to OS specific file path
 			// TODO: Escape invalid characters on windows that's valid on linux
 			absoluteDiskPath := filepath.Join(dirPath, filepath.Clean(cleanedFilePath))
+			symlinkTarget := ""
 
 			var fileType fileType
 			// write out the file/dir to disk
@@ -191,8 +192,7 @@ func LoadImage(imagePath string) (*Image, error) {
 					}
 				}
 				fileType = Dir
-
-			default: // Assume if it's not a directory, it's a normal file
+			case tar.TypeReg:
 				// Write all files as read/writable by the current user, inaccessible by anyone else
 				// Actual permission bits are stored in FileNode
 				f, err := os.OpenFile(absoluteDiskPath, os.O_CREATE|os.O_RDWR, filePermission)
@@ -210,6 +210,11 @@ func LoadImage(imagePath string) (*Image, error) {
 				}
 				fileType = RegularFile
 				f.Close()
+			case tar.TypeSymlink:
+				fileType = Symlink
+				symlinkTarget = header.Linkname
+			default: // Assume if it's not a directory or normal file
+				// TODO: Handle these cases
 			}
 
 			// Each outer loop, we add a layer to each relevant output flattenedLayers slice
@@ -238,11 +243,13 @@ func LoadImage(imagePath string) (*Image, error) {
 				err := currentMap.fileNodeTrie.Insert(virtualPath, &FileNode{
 					rootImage: &outputImage,
 					// Select the original layer of the file
-					originLayer: &outputImage.layers[i],
-					virtualPath: virtualPath,
-					fileType:    fileType,
-					isWhiteout:  tombstone,
-					permission:  fs.FileMode(header.Mode), //nolint:gosec
+					originLayer:    &outputImage.layers[i],
+					virtualPath:    virtualPath,
+					fileType:       fileType,
+					linkTargetPath: symlinkTarget,
+					isWhiteout:     tombstone,
+					// TODO: Fix file mode bits to contain the high bits
+					permission: fs.FileMode(header.Mode), //nolint:gosec
 				})
 
 				if err != nil {

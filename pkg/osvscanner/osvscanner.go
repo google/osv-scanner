@@ -1082,6 +1082,13 @@ func patchPackageForRequest(pkg scannedPackage) scannedPackage {
 		}
 	}
 
+	// TODO: This should be done on the osv.dev side
+	// This is needed because Ubuntu ecosystem appends LTS
+	// but the scanner does not have this information.
+	if pkg.Ecosystem == "Ubuntu:20.04" {
+		pkg.Ecosystem = "Ubuntu:20.04:LTS"
+	}
+
 	return pkg
 }
 
