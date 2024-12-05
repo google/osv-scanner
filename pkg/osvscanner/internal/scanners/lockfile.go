@@ -12,13 +12,9 @@ import (
 	"github.com/google/osv-scalibr/extractor/filesystem"
 	"github.com/google/osv-scalibr/extractor/filesystem/os/apk"
 	"github.com/google/osv-scalibr/extractor/filesystem/os/dpkg"
-	scalibrosv "github.com/google/osv-scalibr/extractor/filesystem/osv"
-	"github.com/google/osv-scanner/internal/imodels"
 	"github.com/google/osv-scanner/internal/lockfilescalibr"
 	"github.com/google/osv-scanner/internal/lockfilescalibr/language/osv/osvscannerjson"
 	"github.com/google/osv-scanner/internal/output"
-	"github.com/google/osv-scanner/pkg/lockfile"
-	"github.com/google/osv-scanner/pkg/models"
 	"github.com/google/osv-scanner/pkg/reporter"
 )
 
@@ -26,7 +22,7 @@ import (
 // within to `query`
 //
 // TODO(V2 Models): pomExtractor is temporary until V2 Models
-func ScanLockfile(r reporter.Reporter, path string, parseAs string, pomExtractor filesystem.Extractor) ([]imodels.ScannedPackage, error) {
+func ScanLockfile(r reporter.Reporter, path string, parseAs string, pomExtractor filesystem.Extractor) ([]*extractor.Inventory, error) {
 	var err error
 
 	var inventories []*extractor.Inventory
@@ -76,35 +72,35 @@ func ScanLockfile(r reporter.Reporter, path string, parseAs string, pomExtractor
 		output.Form(pkgCount, "package", "packages"),
 	)
 
-	packages := make([]imodels.ScannedPackage, 0, pkgCount)
+	// packages := make([]imodels.PackageInfo, 0, pkgCount)
 
-	for _, inv := range inventories {
-		scannedPackage := imodels.ScannedPackage{
-			Name:    inv.Name,
-			Version: inv.Version,
-			Source: models.SourceInfo{
-				Path: path,
-				Type: "lockfile",
-			},
-		}
-		if inv.SourceCode != nil {
-			scannedPackage.Commit = inv.SourceCode.Commit
-		}
-		eco := inv.Ecosystem()
-		// TODO(rexpan): Refactor these minor patches to individual items
-		// TODO: Ecosystem should be pared with Enum : Suffix
-		if eco == "Alpine" {
-			eco = "Alpine:v3.20"
-		}
+	// for _, inv := range inventories {
+	// 	// scannedPackage := imodels.ScannedPackage{
+	// 	// 	Name:    inv.Name,
+	// 	// 	Version: inv.Version,
+	// 	// 	Source: models.SourceInfo{
+	// 	// 		Path: path,
+	// 	// 		Type: "lockfile",
+	// 	// 	},
+	// 	// }
+	// 	// if inv.SourceCode != nil {
+	// 	// 	scannedPackage.Commit = inv.SourceCode.Commit
+	// 	// }
+	// 	// eco := inv.Ecosystem()
+	// 	// // TODO(rexpan): Refactor these minor patches to individual items
+	// 	// // TODO: Ecosystem should be pared with Enum : Suffix
+	// 	// if eco == "Alpine" {
+	// 	// 	eco = "Alpine:v3.20"
+	// 	// }
 
-		scannedPackage.Ecosystem = lockfile.Ecosystem(eco)
+	// 	// scannedPackage.Ecosystem = lockfile.Ecosystem(eco)
 
-		if dg, ok := inv.Metadata.(scalibrosv.DepGroups); ok {
-			scannedPackage.DepGroups = dg.DepGroups()
-		}
+	// 	// if dg, ok := inv.Metadata.(scalibrosv.DepGroups); ok {
+	// 	// 	scannedPackage.DepGroups = dg.DepGroups()
+	// 	// }
 
-		packages = append(packages, scannedPackage)
-	}
+	// 	packages = append(packages, imodels.FromInventory(inv))
+	// }
 
-	return packages, nil
+	return inventories, nil
 }

@@ -5,53 +5,48 @@ import (
 
 	"github.com/google/osv-scanner/internal/config"
 	"github.com/google/osv-scanner/internal/imodels"
+	"github.com/google/osv-scanner/internal/imodels/ecosystem"
+	"github.com/google/osv-scanner/internal/imodels/results"
 	"github.com/google/osv-scanner/pkg/models"
 	"github.com/google/osv-scanner/pkg/reporter"
 )
 
 // filterUnscannablePackages removes packages that don't have enough information to be scanned
 // e,g, local packages that specified by path
-func filterUnscannablePackages(packages []imodels.ScannedPackage) []imodels.ScannedPackage {
-	out := make([]imodels.ScannedPackage, 0, len(packages))
-	for _, p := range packages {
+func filterUnscannablePackages(r reporter.Reporter, scanResults *results.ScanResults) {
+	packageResults := make([]imodels.PackageScanResult, 0, len(scanResults.PackageScanResults))
+	for _, psr := range scanResults.PackageScanResults {
+		p := psr.PackageInfo
 		switch {
 		// If none of the cases match, skip this package since it's not scannable
-		case p.Ecosystem != "" && p.Name != "" && p.Version != "":
+		case p.Ecosystem != ecosystem.Parsed{} && p.Name != "" && p.Version != "":
 		case p.Commit != "":
-		case p.PURL != "":
 		default:
 			continue
 		}
-		out = append(out, p)
+		packageResults = append(packageResults, psr)
 	}
 
-	return out
+	if len(packageResults) != len(scanResults.PackageScanResults) {
+		r.Infof("Filtered %d local package/s from the scan.\n", len(scanResults.PackageScanResults)-len(packageResults))
+	}
+
+	scanResults.PackageScanResults = packageResults
 }
 
 // filterIgnoredPackages removes ignore scanned packages according to config. Returns filtered scanned packages.
-func filterIgnoredPackages(r reporter.Reporter, packages []imodels.ScannedPackage, configManager *config.Manager) []imodels.ScannedPackage {
-	out := make([]imodels.ScannedPackage, 0, len(packages))
-	for _, p := range packages {
-		configToUse := configManager.Get(r, p.Source.Path)
-		pkg := models.PackageVulns{
-			Package: models.PackageInfo{
-				Name:      p.Name,
-				Version:   p.Version,
-				Ecosystem: string(p.Ecosystem),
-				Commit:    p.Commit,
-			},
-			DepGroups: p.DepGroups,
-		}
+func filterIgnoredPackages(r reporter.Reporter, scanResults *results.ScanResults) {
+	var configManager *config.Manager = &scanResults.ConfigManager
 
-		if ignore, ignoreLine := configToUse.ShouldIgnorePackage(pkg); ignore {
-			var pkgString string
-			if p.PURL != "" {
-				pkgString = p.PURL
-			} else {
-				pkgString = fmt.Sprintf("%s/%s/%s", p.Ecosystem, p.Name, p.Version)
-			}
+	out := make([]imodels.PackageScanResult, 0, len(scanResults.PackageScanResults))
+	for _, psr := range scanResults.PackageScanResults {
+		p := psr.PackageInfo
+		configToUse := configManager.Get(r, p.Location)
+
+		if ignore, ignoreLine := configToUse.ShouldIgnorePackage(p); ignore {
+			pkgString := fmt.Sprintf("%s/%s/%s", p.Ecosystem, p.Name, p.Version)
+
 			reason := ignoreLine.Reason
-
 			if reason == "" {
 				reason = "(no reason given)"
 			}
@@ -59,10 +54,14 @@ func filterIgnoredPackages(r reporter.Reporter, packages []imodels.ScannedPackag
 
 			continue
 		}
-		out = append(out, p)
+		out = append(out, psr)
 	}
 
-	return out
+	if len(out) != len(scanResults.PackageScanResults) {
+		r.Infof("Filtered %d ignored package/s from the scan.\n", len(scanResults.PackageScanResults)-len(out))
+	}
+
+	scanResults.PackageScanResults = out
 }
 
 // Filters results according to config, preserving order. Returns total number of vulnerabilities removed.

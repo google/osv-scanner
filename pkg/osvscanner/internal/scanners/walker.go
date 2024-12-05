@@ -7,9 +7,9 @@ import (
 	"strings"
 
 	"github.com/go-git/go-git/v5/plumbing/format/gitignore"
+	"github.com/google/osv-scalibr/extractor"
 	"github.com/google/osv-scalibr/extractor/filesystem"
 	"github.com/google/osv-scanner/internal/customgitignore"
-	"github.com/google/osv-scanner/internal/imodels"
 	"github.com/google/osv-scanner/internal/lockfilescalibr"
 	"github.com/google/osv-scanner/pkg/reporter"
 )
@@ -21,7 +21,7 @@ import (
 //   - Any git repositories with scanGit
 //
 // TODO(V2 Models): pomExtractor is temporary until V2 Models
-func ScanDir(r reporter.Reporter, dir string, skipGit bool, recursive bool, useGitIgnore bool, compareOffline bool, pomExtractor filesystem.Extractor) ([]imodels.ScannedPackage, error) {
+func ScanDir(r reporter.Reporter, dir string, skipGit bool, recursive bool, useGitIgnore bool, compareOffline bool, pomExtractor filesystem.Extractor) ([]*extractor.Inventory, error) {
 	var ignoreMatcher *gitIgnoreMatcher
 	if useGitIgnore {
 		var err error
@@ -34,7 +34,7 @@ func ScanDir(r reporter.Reporter, dir string, skipGit bool, recursive bool, useG
 
 	root := true
 
-	var scannedPackages []imodels.ScannedPackage
+	var scannedPackages []*extractor.Inventory
 
 	return scannedPackages, filepath.WalkDir(dir, func(path string, info os.DirEntry, err error) error {
 		if err != nil {
@@ -65,16 +65,16 @@ func ScanDir(r reporter.Reporter, dir string, skipGit bool, recursive bool, useG
 			}
 		}
 
-		if !skipGit && info.IsDir() && info.Name() == ".git" {
-			pkgs, err := ScanGit(r, filepath.Dir(path)+"/")
-			if err != nil {
-				r.Infof("scan failed for git repository, %s: %v\n", path, err)
-				// Not fatal, so don't return and continue scanning other files
-			}
-			scannedPackages = append(scannedPackages, pkgs...)
+		// if !skipGit && info.IsDir() && info.Name() == ".git" {
+		// 	pkgs, err := ScanGit(r, filepath.Dir(path)+"/")
+		// 	if err != nil {
+		// 		r.Infof("scan failed for git repository, %s: %v\n", path, err)
+		// 		// Not fatal, so don't return and continue scanning other files
+		// 	}
+		// 	scannedPackages = append(scannedPackages, pkgs...)
 
-			return filepath.SkipDir
-		}
+		// 	return filepath.SkipDir
+		// }
 
 		if !info.IsDir() {
 			pkgs, err := ScanLockfile(r, path, "", pomExtractor)
@@ -89,19 +89,19 @@ func ScanDir(r reporter.Reporter, dir string, skipGit bool, recursive bool, useG
 			// No need to check for error
 			// If scan fails, it means it isn't a valid SBOM file,
 			// so just move onto the next file
-			pkgs, _ = ScanSBOMFile(r, path, true)
-			scannedPackages = append(scannedPackages, pkgs...)
+			// pkgs, _ = ScanSBOMFile(r, path, true)
+			// scannedPackages = append(scannedPackages, pkgs...)
 		}
 
-		if info.IsDir() && !compareOffline {
-			if _, ok := vendoredLibNames[strings.ToLower(filepath.Base(path))]; ok {
-				pkgs, err := ScanDirWithVendoredLibs(r, path)
-				if err != nil {
-					r.Infof("scan failed for dir containing vendored libs %s: %v\n", path, err)
-				}
-				scannedPackages = append(scannedPackages, pkgs...)
-			}
-		}
+		// if info.IsDir() && !compareOffline {
+		// 	if _, ok := vendoredLibNames[strings.ToLower(filepath.Base(path))]; ok {
+		// 		pkgs, err := ScanDirWithVendoredLibs(r, path)
+		// 		if err != nil {
+		// 			r.Infof("scan failed for dir containing vendored libs %s: %v\n", path, err)
+		// 		}
+		// 		scannedPackages = append(scannedPackages, pkgs...)
+		// 	}
+		// }
 
 		if !root && !recursive && info.IsDir() {
 			return filepath.SkipDir

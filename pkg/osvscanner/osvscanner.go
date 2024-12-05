@@ -8,6 +8,7 @@ import (
 	"github.com/google/osv-scanner/internal/config"
 	"github.com/google/osv-scanner/internal/depsdev"
 	"github.com/google/osv-scanner/internal/imodels"
+	"github.com/google/osv-scanner/internal/imodels/results"
 	"github.com/google/osv-scanner/internal/local"
 	"github.com/google/osv-scanner/internal/lockfilescalibr/language/java/pomxmlnet"
 	"github.com/google/osv-scanner/internal/output"
@@ -15,10 +16,10 @@ import (
 	"github.com/google/osv-scanner/internal/resolution/datasource"
 	"github.com/google/osv-scanner/internal/semantic"
 	"github.com/google/osv-scanner/internal/version"
-	"github.com/google/osv-scanner/pkg/lockfile"
 	"github.com/google/osv-scanner/pkg/models"
 	"github.com/google/osv-scanner/pkg/osv"
 	"github.com/google/osv-scanner/pkg/reporter"
+	"github.com/ossf/osv-schema/bindings/go/osvschema"
 
 	depsdevpb "deps.dev/api/v3"
 )
@@ -123,8 +124,12 @@ func DoScan(actions ScannerActions, r reporter.Reporter) (models.VulnerabilityRe
 		ConfigMap:     make(map[string]config.Config),
 	}
 
+	scanResult := results.ScanResults{
+		ConfigManager: configManager,
+	}
+
 	if actions.ConfigOverridePath != "" {
-		err := configManager.UseOverride(r, actions.ConfigOverridePath)
+		err := scanResult.ConfigManager.UseOverride(r, actions.ConfigOverridePath)
 		if err != nil {
 			r.Errorf("Failed to read config file: %s\n", err)
 			return models.VulnerabilityResults{}, err
@@ -132,38 +137,40 @@ func DoScan(actions ScannerActions, r reporter.Reporter) (models.VulnerabilityRe
 	}
 
 	// Perform each individual scan action specified in actions
-	scannedPackages, err := scan(r, actions)
+	scannedInventories, err := scan(r, actions)
 	if err != nil {
 		return models.VulnerabilityResults{}, err
 	}
 
-	filteredScannedPackagesWithoutUnscannable := filterUnscannablePackages(scannedPackages)
-
-	if len(filteredScannedPackagesWithoutUnscannable) != len(scannedPackages) {
-		r.Infof("Filtered %d local package/s from the scan.\n", len(scannedPackages)-len(filteredScannedPackagesWithoutUnscannable))
+	// TODO: Determine where these mapping code should go
+	scanResult.PackageScanResults = make([]imodels.PackageScanResult, len(scannedInventories))
+	for _, inv := range scannedInventories {
+		scanResult.PackageScanResults = append(scanResult.PackageScanResults,
+			imodels.PackageScanResult{
+				PackageInfo: imodels.FromInventory(inv),
+			},
+		)
 	}
 
-	filteredScannedPackages := filterIgnoredPackages(r, filteredScannedPackagesWithoutUnscannable, &configManager)
+	filterUnscannablePackages(r, &scanResult)
 
-	if len(filteredScannedPackages) != len(filteredScannedPackagesWithoutUnscannable) {
-		r.Infof("Filtered %d ignored package/s from the scan.\n", len(filteredScannedPackagesWithoutUnscannable)-len(filteredScannedPackages))
-	}
+	filterIgnoredPackages(r, &scanResult)
 
-	overrideGoVersion(r, filteredScannedPackages, &configManager)
+	overrideGoVersion(r, &scanResult)
 
-	vulnsResp, err := makeRequest(r, filteredScannedPackages, actions.CompareOffline, actions.DownloadDatabases, actions.LocalDBPath)
+	err = makeRequest(r, scanResult.PackageScanResults, actions.CompareOffline, actions.DownloadDatabases, actions.LocalDBPath)
 	if err != nil {
 		return models.VulnerabilityResults{}, err
 	}
 
-	var licensesResp [][]models.License
 	if len(actions.ScanLicensesAllowlist) > 0 || actions.ScanLicensesSummary {
-		licensesResp, err = makeLicensesRequests(filteredScannedPackages)
+		err = makeLicensesRequests(scanResult.PackageScanResults)
 		if err != nil {
 			return models.VulnerabilityResults{}, err
 		}
 	}
-	results := buildVulnerabilityResults(r, filteredScannedPackages, vulnsResp, licensesResp, actions, &configManager)
+
+	results := buildVulnerabilityResults(r, actions, &scanResult)
 
 	filtered := filterResults(r, &results, &configManager, actions.ShowAllPackages)
 	if filtered > 0 {
@@ -208,7 +215,7 @@ func DoScan(actions ScannerActions, r reporter.Reporter) (models.VulnerabilityRe
 
 // patchPackageForRequest modifies packages before they are sent to osv.dev to
 // account for edge cases.
-func patchPackageForRequest(pkg imodels.ScannedPackage) imodels.ScannedPackage {
+func patchPackageForRequest(pkg imodels.PackageInfo) imodels.PackageInfo {
 	// Assume Go stdlib patch version as the latest version
 	//
 	// This is done because go1.20 and earlier do not support patch
@@ -217,7 +224,7 @@ func patchPackageForRequest(pkg imodels.ScannedPackage) imodels.ScannedPackage {
 	// However, if we assume patch version as .0, this will cause a lot of
 	// false positives. This compromise still allows osv-scanner to pick up
 	// when the user is using a minor version that is out-of-support.
-	if pkg.Name == "stdlib" && pkg.Ecosystem == "Go" {
+	if pkg.Name == "stdlib" && pkg.Ecosystem.Ecosystem == osvschema.EcosystemGo {
 		v := semantic.ParseSemverLikeVersion(pkg.Version, 3)
 		if len(v.Components) == 2 {
 			pkg.Version = fmt.Sprintf(
@@ -232,64 +239,66 @@ func patchPackageForRequest(pkg imodels.ScannedPackage) imodels.ScannedPackage {
 	return pkg
 }
 
+// TODO(V2): This will be replaced by the new client interface
 func makeRequest(
 	r reporter.Reporter,
-	packages []imodels.ScannedPackage,
+	packages []imodels.PackageScanResult,
 	compareOffline bool,
 	downloadDBs bool,
-	localDBPath string) (*osv.HydratedBatchedResponse, error) {
+	localDBPath string) error {
 	// Make OSV queries from the packages.
 	var query osv.BatchedQuery
-	for _, p := range packages {
+	for _, psr := range packages {
+		p := psr.PackageInfo
 		p = patchPackageForRequest(p)
 		switch {
 		// Prefer making package requests where possible.
-		case p.Ecosystem != "" && p.Name != "" && p.Version != "":
-			query.Queries = append(query.Queries, osv.MakePkgRequest(lockfile.PackageDetails{
-				Name:      p.Name,
-				Version:   p.Version,
-				Ecosystem: p.Ecosystem,
-			}))
+		case p.Ecosystem.Ecosystem != "" && p.Name != "" && p.Version != "":
+			query.Queries = append(query.Queries, osv.MakePkgRequest(p))
 		case p.Commit != "":
 			query.Queries = append(query.Queries, osv.MakeCommitRequest(p.Commit))
-		case p.PURL != "":
-			query.Queries = append(query.Queries, osv.MakePURLRequest(p.PURL))
 		default:
-			return nil, fmt.Errorf("package %v does not have a commit, PURL or ecosystem/name/version identifier", p)
+			return fmt.Errorf("package %v does not have a commit, PURL or ecosystem/name/version identifier", p)
 		}
 	}
+	var err error
+	var hydratedResp *osv.HydratedBatchedResponse
 
 	if compareOffline {
 		// Downloading databases requires network access.
-		hydratedResp, err := local.MakeRequest(r, query, !downloadDBs, localDBPath)
+		hydratedResp, err = local.MakeRequest(r, query, !downloadDBs, localDBPath)
 		if err != nil {
-			return &osv.HydratedBatchedResponse{}, fmt.Errorf("local comparison failed %w", err)
+			return fmt.Errorf("local comparison failed %w", err)
+		}
+	} else {
+		if osv.RequestUserAgent == "" {
+			osv.RequestUserAgent = "osv-scanner-api/v" + version.OSVVersion
 		}
 
-		return hydratedResp, nil
+		resp, err := osv.MakeRequest(query)
+		if err != nil {
+			return fmt.Errorf("%w: osv.dev query failed: %w", ErrAPIFailed, err)
+		}
+
+		hydratedResp, err = osv.Hydrate(resp)
+		if err != nil {
+			return fmt.Errorf("%w: failed to hydrate OSV response: %w", ErrAPIFailed, err)
+		}
 	}
 
-	if osv.RequestUserAgent == "" {
-		osv.RequestUserAgent = "osv-scanner-api/v" + version.OSVVersion
+	for i, result := range hydratedResp.Results {
+		packages[i].Vulnerabilities = result.Vulns
 	}
 
-	resp, err := osv.MakeRequest(query)
-	if err != nil {
-		return &osv.HydratedBatchedResponse{}, fmt.Errorf("%w: osv.dev query failed: %w", ErrAPIFailed, err)
-	}
-
-	hydratedResp, err := osv.Hydrate(resp)
-	if err != nil {
-		return &osv.HydratedBatchedResponse{}, fmt.Errorf("%w: failed to hydrate OSV response: %w", ErrAPIFailed, err)
-	}
-
-	return hydratedResp, nil
+	return nil
 }
 
-func makeLicensesRequests(packages []imodels.ScannedPackage) ([][]models.License, error) {
+// TODO(V2): Replace with client
+func makeLicensesRequests(packages []imodels.PackageScanResult) error {
 	queries := make([]*depsdevpb.GetVersionRequest, len(packages))
-	for i, pkg := range packages {
-		system, ok := depsdev.System[pkg.Ecosystem]
+	for i, psr := range packages {
+		pkg := psr.PackageInfo
+		system, ok := depsdev.System[psr.PackageInfo.Ecosystem.Ecosystem]
 		if !ok || pkg.Name == "" || pkg.Version == "" {
 			continue
 		}
@@ -297,19 +306,24 @@ func makeLicensesRequests(packages []imodels.ScannedPackage) ([][]models.License
 	}
 	licenses, err := depsdev.MakeVersionRequests(queries)
 	if err != nil {
-		return nil, fmt.Errorf("%w: deps.dev query failed: %w", ErrAPIFailed, err)
+		return fmt.Errorf("%w: deps.dev query failed: %w", ErrAPIFailed, err)
 	}
 
-	return licenses, nil
+	for i, license := range licenses {
+		packages[i].Licenses = license
+	}
+
+	return nil
 }
 
 // Overrides Go version using osv-scanner.toml
-func overrideGoVersion(r reporter.Reporter, packages []imodels.ScannedPackage, configManager *config.Manager) {
-	for i, pkg := range packages {
-		if pkg.Name == "stdlib" && pkg.Ecosystem == "Go" {
-			configToUse := configManager.Get(r, pkg.Source.Path)
+func overrideGoVersion(r reporter.Reporter, scanResults *results.ScanResults) {
+	for i, psr := range scanResults.PackageScanResults {
+		pkg := psr.PackageInfo
+		if pkg.Name == "stdlib" && pkg.Ecosystem.Ecosystem == osvschema.EcosystemGo {
+			configToUse := scanResults.ConfigManager.Get(r, pkg.Location)
 			if configToUse.GoVersionOverride != "" {
-				packages[i].Version = configToUse.GoVersionOverride
+				scanResults.PackageScanResults[i].PackageInfo.Version = configToUse.GoVersionOverride
 			}
 
 			continue
