@@ -11,6 +11,7 @@ import (
 	"strings"
 
 	"github.com/google/osv-scalibr/extractor"
+	"github.com/google/osv-scalibr/extractor/filesystem/os/dpkg"
 	"github.com/google/osv-scanner/internal/lockfilescalibr"
 	"github.com/google/osv-scanner/pkg/lockfile"
 	"github.com/google/osv-scanner/pkg/models"
@@ -81,9 +82,24 @@ func ScanImage(r reporter.Reporter, imagePath string) (ScanResults, error) {
 			}
 		}
 
+		name := i.Name
+		version := i.Version
+
+		// Debian packages may have a different source name than their package name.
+		// OSV.dev matches vulnerabilities by source name.
+		// Convert the given package information to its source information if it is specified.
+		if metadata, ok := i.Metadata.(*dpkg.Metadata); ok {
+			if metadata.SourceName != "" {
+				name = metadata.SourceName
+			}
+			if metadata.SourceVersion != "" {
+				version = metadata.SourceVersion
+			}
+		}
+
 		pkg := lockfile.PackageDetails{
-			Name:      i.Name,
-			Version:   i.Version,
+			Name:      name,
+			Version:   version,
 			Ecosystem: lockfile.Ecosystem(i.Ecosystem()),
 			CompareAs: lockfile.Ecosystem(strings.Split(i.Ecosystem(), ":")[0]),
 		}
