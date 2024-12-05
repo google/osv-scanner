@@ -214,18 +214,20 @@ func action(context *cli.Context, stdout, stderr io.Writer) (reporter.Reporter, 
 
 	outputPath := context.String("output")
 	serve := context.Bool("serve")
-	if serve && outputPath == "" {
+	if serve {
 		format = "html"
-		// Create a temporary directory
-		tmpDir, err := os.MkdirTemp("", "osv-scanner-result")
-		if err != nil {
-			return nil, fmt.Errorf("failed creating temporary directory: %w\n"+
-				"Please use `--output result.html` to specify the output path", err)
-		}
+		if outputPath == "" {
+			// Create a temporary directory
+			tmpDir, err := os.MkdirTemp("", "osv-scanner-result")
+			if err != nil {
+				return nil, fmt.Errorf("failed creating temporary directory: %w\n"+
+					"Please use `--output result.html` to specify the output path", err)
+			}
 
-		// Remove the created temporary directory after
-		defer os.RemoveAll(tmpDir)
-		outputPath = filepath.Join(tmpDir, "index.html")
+			// Remove the created temporary directory after
+			defer os.RemoveAll(tmpDir)
+			outputPath = filepath.Join(tmpDir, "index.html")
+		}
 	}
 
 	termWidth := 0
