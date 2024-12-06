@@ -13,7 +13,6 @@ linters:
     - lll              # line length is hard (g-rath)
     - godox            # to-do comments are fine (g-rath)
     - godot            # comments are fine without full stops (g-rath)
-    - gomnd            # not every number is magic (g-rath)
     - mnd              # not every number is magic (g-rath)
     - wsl              # disagree with, for now (g-rath)
     - ireturn          # disagree with, sort of (g-rath)
