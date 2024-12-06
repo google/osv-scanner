@@ -131,9 +131,23 @@ func (groupInfo *GroupInfo) IsCalled() bool {
 		if analysis.Called {
 			return true
 		}
-		// TODO(gongh@): For v2, create a separate function `isGroupUnimportant()` to encapsulate this check.
+	}
+
+	return false
+}
+
+func (groupInfo *GroupInfo) IsGroupUnimportant() bool {
+	if len(groupInfo.IDs) == 0 {
+		return false
+	}
+
+	if len(groupInfo.ExperimentalAnalysis) == 0 {
+		return false
+	}
+
+	for _, analysis := range groupInfo.ExperimentalAnalysis {
 		if analysis.Unimportant {
-			return false
+			return true
 		}
 	}
 

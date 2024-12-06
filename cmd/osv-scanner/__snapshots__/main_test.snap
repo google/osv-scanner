@@ -1997,7 +1997,7 @@ Loaded Go local db from <tempdir>/osv-scanner/Go/all.zip
 | https://osv.dev/GHSA-xr7r-f8xq-vfvv | 8.6  | Go        | github.com/opencontainers/runc | v1.0.1                             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/GHSA-p782-xgp4-8hr8 | 5.3  | Go        | golang.org/x/sys               | v0.0.0-20210817142637-7d9622a276b7 | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 +-------------------------------------+------+-----------+--------------------------------+------------------------------------+-------------------------------------------------+
-| Uncalled vulnerabilities            |      |           |                                |                                    |                                                 |
+| Unimportant vulnerabilities         |      |           |                                |                                    |                                                 |
 +-------------------------------------+------+-----------+--------------------------------+------------------------------------+-------------------------------------------------+
 | https://osv.dev/CVE-2011-3374       | 3.7  | Debian    | apt                            | 1.4.11                             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/CVE-2019-18276      | 7.8  | Debian    | bash                           | 4.4-5                              | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
@@ -2195,7 +2195,7 @@ Loaded Go local db from <tempdir>/osv-scanner/Go/all.zip
 | https://osv.dev/GHSA-xr7r-f8xq-vfvv | 8.6  | Go        | github.com/opencontainers/runc | v1.0.1                             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/GHSA-p782-xgp4-8hr8 | 5.3  | Go        | golang.org/x/sys               | v0.0.0-20210817142637-7d9622a276b7 | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 +-------------------------------------+------+-----------+--------------------------------+------------------------------------+-------------------------------------------------+
-| Uncalled vulnerabilities            |      |           |                                |                                    |                                                 |
+| Unimportant vulnerabilities         |      |           |                                |                                    |                                                 |
 +-------------------------------------+------+-----------+--------------------------------+------------------------------------+-------------------------------------------------+
 | https://osv.dev/CVE-2011-3374       | 3.7  | Debian    | apt                            | 1.4.11                             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/CVE-2019-18276      | 7.8  | Debian    | bash                           | 4.4-5                              | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
