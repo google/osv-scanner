@@ -261,7 +261,7 @@
   ],
   "IsContainerScanning": false,
   "AllLayers": [],
-  "VulnTypeCount": {
+  "VulnTypeSummary": {
     "All": 6,
     "OS": 0,
     "Project": 6,
@@ -554,7 +554,7 @@
   ],
   "IsContainerScanning": false,
   "AllLayers": [],
-  "VulnTypeCount": {
+  "VulnTypeSummary": {
     "All": 6,
     "OS": 0,
     "Project": 6,
@@ -828,7 +828,7 @@
   ],
   "IsContainerScanning": false,
   "AllLayers": [],
-  "VulnTypeCount": {
+  "VulnTypeSummary": {
     "All": 0,
     "OS": 0,
     "Project": 0,
@@ -1141,7 +1141,7 @@
   ],
   "IsContainerScanning": false,
   "AllLayers": [],
-  "VulnTypeCount": {
+  "VulnTypeSummary": {
     "All": 3,
     "OS": 0,
     "Project": 3,
@@ -1440,7 +1440,7 @@
   ],
   "IsContainerScanning": false,
   "AllLayers": [],
-  "VulnTypeCount": {
+  "VulnTypeSummary": {
     "All": 6,
     "OS": 0,
     "Project": 6,
@@ -1740,7 +1740,7 @@
   ],
   "IsContainerScanning": false,
   "AllLayers": [],
-  "VulnTypeCount": {
+  "VulnTypeSummary": {
     "All": 5,
     "OS": 0,
     "Project": 5,
@@ -1861,7 +1861,7 @@
   ],
   "IsContainerScanning": false,
   "AllLayers": [],
-  "VulnTypeCount": {
+  "VulnTypeSummary": {
     "All": 0,
     "OS": 0,
     "Project": 0,
@@ -1897,7 +1897,7 @@
   "Ecosystems": null,
   "IsContainerScanning": false,
   "AllLayers": [],
-  "VulnTypeCount": {
+  "VulnTypeSummary": {
     "All": 0,
     "OS": 0,
     "Project": 0,
@@ -1966,7 +1966,7 @@
   ],
   "IsContainerScanning": false,
   "AllLayers": [],
-  "VulnTypeCount": {
+  "VulnTypeSummary": {
     "All": 0,
     "OS": 0,
     "Project": 0,
@@ -2066,7 +2066,7 @@
   ],
   "IsContainerScanning": false,
   "AllLayers": [],
-  "VulnTypeCount": {
+  "VulnTypeSummary": {
     "All": 0,
     "OS": 0,
     "Project": 0,
@@ -2192,7 +2192,7 @@
   ],
   "IsContainerScanning": false,
   "AllLayers": [],
-  "VulnTypeCount": {
+  "VulnTypeSummary": {
     "All": 1,
     "OS": 0,
     "Project": 1,
@@ -2305,7 +2305,7 @@
   ],
   "IsContainerScanning": false,
   "AllLayers": [],
-  "VulnTypeCount": {
+  "VulnTypeSummary": {
     "All": 1,
     "OS": 0,
     "Project": 1,
@@ -2418,7 +2418,7 @@
   ],
   "IsContainerScanning": false,
   "AllLayers": [],
-  "VulnTypeCount": {
+  "VulnTypeSummary": {
     "All": 0,
     "OS": 0,
     "Project": 0,
@@ -2531,7 +2531,7 @@
   ],
   "IsContainerScanning": false,
   "AllLayers": [],
-  "VulnTypeCount": {
+  "VulnTypeSummary": {
     "All": 1,
     "OS": 0,
     "Project": 1,
@@ -2644,7 +2644,7 @@
   ],
   "IsContainerScanning": false,
   "AllLayers": [],
-  "VulnTypeCount": {
+  "VulnTypeSummary": {
     "All": 1,
     "OS": 0,
     "Project": 1,
@@ -2761,7 +2761,7 @@
   ],
   "IsContainerScanning": false,
   "AllLayers": [],
-  "VulnTypeCount": {
+  "VulnTypeSummary": {
     "All": 0,
     "OS": 0,
     "Project": 0,
@@ -2878,7 +2878,7 @@
   ],
   "IsContainerScanning": false,
   "AllLayers": [],
-  "VulnTypeCount": {
+  "VulnTypeSummary": {
     "All": 1,
     "OS": 0,
     "Project": 1,
@@ -3034,7 +3034,7 @@
   ],
   "IsContainerScanning": false,
   "AllLayers": [],
-  "VulnTypeCount": {
+  "VulnTypeSummary": {
     "All": 2,
     "OS": 0,
     "Project": 2,
@@ -3204,7 +3204,7 @@
   ],
   "IsContainerScanning": false,
   "AllLayers": [],
-  "VulnTypeCount": {
+  "VulnTypeSummary": {
     "All": 1,
     "OS": 0,
     "Project": 1,
@@ -3387,7 +3387,7 @@
   ],
   "IsContainerScanning": false,
   "AllLayers": [],
-  "VulnTypeCount": {
+  "VulnTypeSummary": {
     "All": 2,
     "OS": 0,
     "Project": 2,

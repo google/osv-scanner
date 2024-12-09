@@ -20,7 +20,7 @@ type Result struct {
 	// Container scanning related
 	IsContainerScanning bool
 	AllLayers           []LayerInfo
-	VulnTypeCount       VulnTypeCount
+	VulnTypeSummary     VulnTypeSummary
 	PackageTypeCount    AnalysisCount
 	VulnCount           VulnCount
 }
@@ -79,7 +79,16 @@ type LayerInfo struct {
 	Count        VulnCount
 }
 
-// VulnCount represents the counts of vulnerabilities by severity and fixed/unfixed status
+// VulnSummary represents the count of each vulnerability type at the top level
+// of the scanning results.
+type VulnTypeSummary struct {
+	All     int
+	OS      int
+	Project int
+	Hidden  int
+}
+
+// VulnCount represents the counts of vulnerabilities by call analysis, severity and fixed/unfixed status
 type VulnCount struct {
 	AnalysisCount AnalysisCount
 	// Only regular vulnerabilities are included in the severity and fixable counts.
@@ -87,6 +96,7 @@ type VulnCount struct {
 	FixableCount  FixableCount
 }
 
+// SeverityCount represents the counts of vulnerabilities by severity level.
 type SeverityCount struct {
 	Critical int
 	High     int
@@ -95,18 +105,13 @@ type SeverityCount struct {
 	Unknown  int
 }
 
-type VulnTypeCount struct {
-	All     int
-	OS      int
-	Project int
-	Hidden  int
-}
-
+// AnalysisCount represents the counts of vulnerabilities by analysis type (e.g. call analysis)
 type AnalysisCount struct {
 	Regular int
 	Hidden  int
 }
 
+// FixableCount represents the counts of vulnerabilities by fixable status.
 type FixableCount struct {
 	Fixed   int
 	UnFixed int
@@ -200,12 +205,12 @@ func buildResult(ecosystemMap map[string][]SourceResult, resultCount VulnCount) 
 	if len(layers) > 0 {
 		isContainerScanning = true
 	}
-	vulnTypeCount := getVulnTypeCount(ecosystemResults)
+	vulnTypeSummary := getVulnTypeSummary(ecosystemResults)
 	packageTypeCount := getPackageTypeCount(ecosystemResults)
 
 	return Result{
 		Ecosystems:          ecosystemResults,
-		VulnTypeCount:       vulnTypeCount,
+		VulnTypeSummary:     vulnTypeSummary,
 		PackageTypeCount:    packageTypeCount,
 		VulnCount:           resultCount,
 		IsContainerScanning: isContainerScanning,
@@ -555,23 +560,23 @@ func getAllLayerInfo(result []EcosystemResult) []LayerInfo {
 	return layers
 }
 
-func getVulnTypeCount(result []EcosystemResult) VulnTypeCount {
-	var vulnCount VulnTypeCount
+func getVulnTypeSummary(result []EcosystemResult) VulnTypeSummary {
+	var vulnTypeSummary VulnTypeSummary
 
 	for _, ecosystem := range result {
 		for _, source := range ecosystem.Sources {
 			if ecosystem.IsOS {
-				vulnCount.OS += source.VulnCount.AnalysisCount.Regular
+				vulnTypeSummary.OS += source.VulnCount.AnalysisCount.Regular
 			} else {
-				vulnCount.Project += source.VulnCount.AnalysisCount.Regular
+				vulnTypeSummary.Project += source.VulnCount.AnalysisCount.Regular
 			}
-			vulnCount.Hidden += source.VulnCount.AnalysisCount.Hidden
+			vulnTypeSummary.Hidden += source.VulnCount.AnalysisCount.Hidden
 		}
 	}
 
-	vulnCount.All = vulnCount.OS + vulnCount.Project
+	vulnTypeSummary.All = vulnTypeSummary.OS + vulnTypeSummary.Project
 
-	return vulnCount
+	return vulnTypeSummary
 }
 
 func getPackageTypeCount(result []EcosystemResult) AnalysisCount {

@@ -104,7 +104,7 @@ func printContainerScanningResult(result Result, outputWriter io.Writer, termina
 		"Total %[1]d packages affected by %[2]d vulnerabilities (%[3]d Critical, %[4]d High, %[5]d Medium, %[6]d Low, %[7]d Unknown) from %[8]d ecosystems.\n"+
 			"%[9]d vulnerabilities have fixes available.",
 		result.PackageTypeCount.Regular,
-		result.VulnTypeCount.All,
+		result.VulnTypeSummary.All,
 		result.VulnCount.SeverityCount.Critical,
 		result.VulnCount.SeverityCount.High,
 		result.VulnCount.SeverityCount.Medium,
@@ -147,12 +147,12 @@ func printContainerScanningResult(result Result, outputWriter io.Writer, termina
 		}
 	}
 
-	if result.VulnTypeCount.Hidden != 0 {
+	if result.VulnTypeSummary.Hidden != 0 {
 		// Add a newline
 		fmt.Fprintln(outputWriter)
 		fmt.Fprintln(outputWriter, "Filtered Vulnerabilities:")
 		outputTable := newTable(outputWriter, terminalWidth)
-		outputTable.AppendHeader(table.Row{"Package", "ecosystem", "Installed Version", "Filtered vuln count", "Filter Reason"})
+		outputTable.AppendHeader(table.Row{"Package", "Ecosystem", "Installed Version", "Filtered Vuln Count", "Filter Reasons"})
 		for _, ecosystem := range result.Ecosystems {
 			for _, source := range ecosystem.Sources {
 				for _, pkg := range source.Packages {
