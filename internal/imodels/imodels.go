@@ -10,7 +10,6 @@ import (
 	"github.com/google/osv-scanner/internal/imodels/ecosystem"
 	"github.com/google/osv-scanner/internal/lockfilescalibr/vcs/gitrepo"
 	"github.com/google/osv-scanner/pkg/models"
-	"github.com/ossf/osv-schema/bindings/go/osvschema"
 
 	scalibrosv "github.com/google/osv-scalibr/extractor/filesystem/osv"
 )
@@ -45,9 +44,10 @@ var osExtractors = map[string]struct{}{
 // }
 
 type PackageInfo struct {
-	Name       string // Name will be SourceName matching the osv-schema
-	Version    string
-	Ecosystem  ecosystem.Parsed
+	Name      string // Name will be SourceName matching the osv-schema
+	Version   string
+	Ecosystem ecosystem.Parsed
+
 	Location   string // Contains Inventory.Locations[0]
 	SourceType SourceType
 
@@ -87,6 +87,18 @@ func FromInventory(inventory *extractor.Inventory) PackageInfo {
 			pkgInfo.SourceType = SourceTypeOSPackage
 		} else if _, ok := sbomExtractors[extractorName]; ok {
 			pkgInfo.SourceType = SourceTypeSBOM
+
+			// TODO (V2): SBOMs have a special case where we manually convert the PURL here
+			// instead while PURL to ESI conversion is not complete
+			purl := inventory.Extractor.ToPURL(inventory)
+
+			if purl != nil {
+				// Error should never happen here since the PURL is from an already parsed purl
+				pi, _ := models.PURLToPackage(purl.String())
+				pkgInfo.Name = pi.Name
+				pkgInfo.Version = pi.Version
+				pkgInfo.Ecosystem = ecosystem.Parse(pi.Ecosystem)
+			}
 		} else if _, ok := gitExtractors[extractorName]; ok {
 			pkgInfo.SourceType = SourceTypeGit
 		} else {
@@ -94,34 +106,15 @@ func FromInventory(inventory *extractor.Inventory) PackageInfo {
 		}
 	}
 
-	// TODO: Add entry for every ecosystem osvschema supports (Bitnami?)
-	// TODO: Add SourceName into pkgInfo Name
-	switch pkgInfo.Ecosystem.Ecosystem {
-	case osvschema.EcosystemAlpine:
-		metadata := inventory.Metadata.(*apk.Metadata)
+	if metadata, ok := inventory.Metadata.(*apk.Metadata); ok {
 		pkgInfo.OSPackageName = metadata.PackageName
-	case osvschema.EcosystemDebian:
-	case osvschema.EcosystemUbuntu:
-		metadata := inventory.Metadata.(*dpkg.Metadata)
+	} else if metadata, ok := inventory.Metadata.(*dpkg.Metadata); ok {
 		pkgInfo.OSPackageName = metadata.PackageName
-	case osvschema.EcosystemRedHat:
-	case osvschema.EcosystemRockyLinux:
-	case osvschema.EcosystemAlmaLinux:
-		metadata := inventory.Metadata.(*rpm.Metadata)
+		// Debian uses source version on osv.dev
+		pkgInfo.Name = metadata.SourceName
+		pkgInfo.Version = metadata.SourceName
+	} else if metadata, ok := inventory.Metadata.(*rpm.Metadata); ok {
 		pkgInfo.OSPackageName = metadata.PackageName
-	}
-
-	// TODO: Temporary until ecosystem gets updated in scalibr's extractor
-	if inventory.Ecosystem() == "apk" {
-		pkgInfo.Ecosystem = ecosystem.Parse("Alpine")
-	}
-
-	if inventory.Ecosystem() == "deb" {
-		pkgInfo.Ecosystem = ecosystem.Parse("Debian:9")
-	}
-
-	if inventory.Ecosystem() == "golang" {
-		pkgInfo.Ecosystem = ecosystem.Parse("Go")
 	}
 
 	return pkgInfo

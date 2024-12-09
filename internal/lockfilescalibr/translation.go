@@ -53,8 +53,6 @@ func ExtractWithExtractors(ctx context.Context, localPath string, extractors []f
 		return nil, ErrExtractorNotFound
 	}
 
-	slices.SortFunc(result, inventorySort)
-
 	return result, nil
 }
 
@@ -139,23 +137,12 @@ func extractWithExtractor(ctx context.Context, localPath string, info fs.FileInf
 		invs[i].Extractor = ext
 	}
 
-	// "Scanned %s with %s and found %d %s\n",
+	slices.SortFunc(invs, inventorySort)
+	invsCompact := slices.CompactFunc(invs, func(a, b *extractor.Inventory) bool {
+		return inventorySort(a, b) == 0
+	})
 
-	// Filter as we go
-	filteredInvs := []*extractor.Inventory{}
-	for _, inv := range invs {
-		// switch {
-		// // If none of the cases match, skip this package since it's not scannable
-		// case inv.Ecosystem() != "" && inv.Name != "" && inv.Version != "":
-		// case inv.SourceCode != nil && inv.SourceCode.Commit != "":
-		// default:
-		// 	continue
-		// }
-
-		filteredInvs = append(filteredInvs, inv)
-	}
-
-	return filteredInvs, nil
+	return invsCompact, nil
 }
 
 func createScanInput(path string, fileInfo fs.FileInfo) (*filesystem.ScanInput, error) {

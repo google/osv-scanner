@@ -8,6 +8,7 @@ import (
 	"github.com/google/osv-scalibr/extractor"
 	"github.com/google/osv-scalibr/extractor/filesystem"
 	"github.com/google/osv-scanner/internal/lockfilescalibr"
+	"github.com/google/osv-scanner/internal/output"
 	"github.com/google/osv-scanner/pkg/osvscanner/internal/scanners"
 	"github.com/google/osv-scanner/pkg/reporter"
 )
@@ -72,6 +73,16 @@ func scan(r reporter.Reporter, actions ScannerActions) ([]*extractor.Inventory, 
 		if err != nil {
 			r.Infof("Failed to parse SBOM %q with error: %s\n", path, err)
 			return nil, err
+		}
+
+		pkgCount := len(invs)
+		if pkgCount > 0 {
+			r.Infof(
+				"Scanned %s file and found %d %s\n",
+				path,
+				pkgCount,
+				output.Form(pkgCount, "package", "packages"),
+			)
 		}
 
 		scannedInventory = append(scannedInventory, invs...)

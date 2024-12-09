@@ -27,7 +27,7 @@ func filterUnscannablePackages(r reporter.Reporter, scanResults *results.ScanRes
 	}
 
 	if len(packageResults) != len(scanResults.PackageScanResults) {
-		r.Infof("Filtered %d local package/s from the scan.\n", len(scanResults.PackageScanResults)-len(packageResults))
+		r.Infof("Filtered %d local/unscannable package/s from the scan.\n", len(scanResults.PackageScanResults)-len(packageResults))
 	}
 
 	scanResults.PackageScanResults = packageResults
