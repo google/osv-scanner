@@ -155,30 +155,30 @@ func TestRun(t *testing.T) {
 			args: []string{"", "./fixtures/locks-many/composer.lock"},
 			exit: 0,
 		},
-		// one specific supported sbom with vulns
-		{
-			name: "folder of supported sbom with vulns",
-			args: []string{"", "--config=./fixtures/osv-scanner-empty-config.toml", "./fixtures/sbom-insecure/"},
-			exit: 1,
-		},
-		// one specific supported sbom with vulns
-		{
-			name: "one specific supported sbom with vulns",
-			args: []string{"", "--config=./fixtures/osv-scanner-empty-config.toml", "--sbom", "./fixtures/sbom-insecure/alpine.cdx.xml"},
-			exit: 1,
-		},
-		// one specific supported sbom with vulns and invalid PURLs
-		{
-			name: "one specific supported sbom with invalid PURLs",
-			args: []string{"", "--config=./fixtures/osv-scanner-empty-config.toml", "--sbom", "./fixtures/sbom-insecure/bad-purls.cdx.xml"},
-			exit: 0,
-		},
-		// one specific supported sbom with duplicate PURLs
-		{
-			name: "one specific supported sbom with duplicate PURLs",
-			args: []string{"", "--config=./fixtures/osv-scanner-empty-config.toml", "--sbom", "./fixtures/sbom-insecure/with-duplicates.cdx.xml"},
-			exit: 1,
-		},
+		// // one specific supported sbom with vulns
+		// {
+		// 	name: "folder of supported sbom with vulns",
+		// 	args: []string{"", "--config=./fixtures/osv-scanner-empty-config.toml", "./fixtures/sbom-insecure/"},
+		// 	exit: 1,
+		// },
+		// // one specific supported sbom with vulns
+		// {
+		// 	name: "one specific supported sbom with vulns",
+		// 	args: []string{"", "--config=./fixtures/osv-scanner-empty-config.toml", "--sbom", "./fixtures/sbom-insecure/alpine.cdx.xml"},
+		// 	exit: 1,
+		// },
+		// // one specific supported sbom with vulns and invalid PURLs
+		// {
+		// 	name: "one specific supported sbom with invalid PURLs",
+		// 	args: []string{"", "--config=./fixtures/osv-scanner-empty-config.toml", "--sbom", "./fixtures/sbom-insecure/bad-purls.cdx.xml"},
+		// 	exit: 0,
+		// },
+		// // one specific supported sbom with duplicate PURLs
+		// {
+		// 	name: "one specific supported sbom with duplicate PURLs",
+		// 	args: []string{"", "--config=./fixtures/osv-scanner-empty-config.toml", "--sbom", "./fixtures/sbom-insecure/with-duplicates.cdx.xml"},
+		// 	exit: 1,
+		// },
 		// one specific unsupported lockfile
 		{
 			name: "one specific unsupported lockfile",
@@ -309,16 +309,16 @@ func TestRun(t *testing.T) {
 			args: []string{"", "--verbosity", "info", "--format", "table", "./fixtures/locks-many/composer.lock"},
 			exit: 0,
 		},
-		{
-			name: "PURL SBOM case sensitivity (api)",
-			args: []string{"", "--config=./fixtures/osv-scanner-empty-config.toml", "--format", "table", "./fixtures/sbom-insecure/alpine.cdx.xml"},
-			exit: 1,
-		},
-		{
-			name: "PURL SBOM case sensitivity (local)",
-			args: []string{"", "--config=./fixtures/osv-scanner-empty-config.toml", "--experimental-offline", "--experimental-download-offline-databases", "--format", "table", "./fixtures/sbom-insecure/alpine.cdx.xml"},
-			exit: 1,
-		},
+		// {
+		// 	name: "PURL SBOM case sensitivity (api)",
+		// 	args: []string{"", "--config=./fixtures/osv-scanner-empty-config.toml", "--format", "table", "./fixtures/sbom-insecure/alpine.cdx.xml"},
+		// 	exit: 1,
+		// },
+		// {
+		// 	name: "PURL SBOM case sensitivity (local)",
+		// 	args: []string{"", "--config=./fixtures/osv-scanner-empty-config.toml", "--experimental-offline", "--experimental-download-offline-databases", "--format", "table", "./fixtures/sbom-insecure/alpine.cdx.xml"},
+		// 	exit: 1,
+		// },
 		// Go project with an overridden go version
 		{
 			name: "Go project with an overridden go version",

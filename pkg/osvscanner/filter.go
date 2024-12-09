@@ -5,7 +5,6 @@ import (
 
 	"github.com/google/osv-scanner/internal/config"
 	"github.com/google/osv-scanner/internal/imodels"
-	"github.com/google/osv-scanner/internal/imodels/ecosystem"
 	"github.com/google/osv-scanner/internal/imodels/results"
 	"github.com/google/osv-scanner/pkg/models"
 	"github.com/google/osv-scanner/pkg/reporter"
@@ -19,7 +18,7 @@ func filterUnscannablePackages(r reporter.Reporter, scanResults *results.ScanRes
 		p := psr.PackageInfo
 		switch {
 		// If none of the cases match, skip this package since it's not scannable
-		case p.Ecosystem != ecosystem.Parsed{} && p.Name != "" && p.Version != "":
+		case p.Ecosystem.Ecosystem != "" && p.Name != "" && p.Version != "":
 		case p.Commit != "":
 		default:
 			continue
@@ -44,7 +43,7 @@ func filterIgnoredPackages(r reporter.Reporter, scanResults *results.ScanResults
 		configToUse := configManager.Get(r, p.Location)
 
 		if ignore, ignoreLine := configToUse.ShouldIgnorePackage(p); ignore {
-			pkgString := fmt.Sprintf("%s/%s/%s", p.Ecosystem, p.Name, p.Version)
+			pkgString := fmt.Sprintf("%s/%s/%s", p.Ecosystem.String(), p.Name, p.Version)
 
 			reason := ignoreLine.Reason
 			if reason == "" {

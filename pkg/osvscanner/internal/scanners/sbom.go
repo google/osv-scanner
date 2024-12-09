@@ -1,5 +1,39 @@
 package scanners
 
+import (
+	"github.com/google/osv-scalibr/extractor/filesystem"
+	"github.com/google/osv-scalibr/extractor/filesystem/sbom/cdx"
+	"github.com/google/osv-scalibr/extractor/filesystem/sbom/spdx"
+)
+
+var SBOMExtractors = []filesystem.Extractor{
+	spdx.Extractor{},
+	cdx.Extractor{},
+}
+
+// ScanSBOMFile will load, identify, and parse the SBOM path passed in, and add the dependencies specified
+// within to `query`
+// func ScanSBOMFile(r reporter.Reporter, path string) ([]*extractor.Inventory, error) {
+// 	extNameMapping := map[string]string{
+// 		spdx.Extractor{}.Name(): "SPDX",
+// 		cdx.Extractor{}.Name():  "CycloneDX",
+// 	}
+
+// 	invs, err := lockfilescalibr.ExtractWithExtractors(context.Background(), path, sbomExtractors)
+
+// 	if len(invs) > 0 {
+// 		r.Infof(
+// 			"Scanned %s as %s SBOM and found %d %s\n",
+// 			path,
+// 			extNameMapping[invs[0].Extractor.Name()],
+// 			len(invs),
+// 			output.Form(len(invs), "package", "packages"),
+// 		)
+// 	}
+
+// 	return invs, err
+// }
+
 // // ScanSBOMFile will load, identify, and parse the SBOM path passed in, and add the dependencies specified
 // // within to `query`
 // func ScanSBOMFile(r reporter.Reporter, path string, fromFSScan bool) ([]imodels.ScannedPackage, error) {

@@ -1,6 +1,7 @@
 package scanners
 
 import (
+	"context"
 	"errors"
 	"os"
 	"path/filepath"
@@ -9,8 +10,11 @@ import (
 	"github.com/go-git/go-git/v5/plumbing/format/gitignore"
 	"github.com/google/osv-scalibr/extractor"
 	"github.com/google/osv-scalibr/extractor/filesystem"
+	"github.com/google/osv-scalibr/extractor/filesystem/language/java/pomxml"
 	"github.com/google/osv-scanner/internal/customgitignore"
 	"github.com/google/osv-scanner/internal/lockfilescalibr"
+	"github.com/google/osv-scanner/internal/lockfilescalibr/vcs/gitrepo"
+	"github.com/google/osv-scanner/internal/output"
 	"github.com/google/osv-scanner/pkg/reporter"
 )
 
@@ -34,9 +38,23 @@ func ScanDir(r reporter.Reporter, dir string, skipGit bool, recursive bool, useG
 
 	root := true
 
-	var scannedPackages []*extractor.Inventory
+	// Setup scan config
+	relevantExtractors := []filesystem.Extractor{}
+	if !skipGit {
+		relevantExtractors = append(relevantExtractors, gitrepo.Extractor{})
+	}
+	relevantExtractors = append(relevantExtractors, lockfileExtractors...)
+	relevantExtractors = append(relevantExtractors, SBOMExtractors...)
+	if pomExtractor != nil {
+		relevantExtractors = append(relevantExtractors, pomExtractor)
+	} else {
+		// Use the offline pomxml extractor if networking is unavailable
+		relevantExtractors = append(relevantExtractors, pomxml.Extractor{})
+	}
 
-	return scannedPackages, filepath.WalkDir(dir, func(path string, info os.DirEntry, err error) error {
+	var scannedInventories []*extractor.Inventory
+
+	return scannedInventories, filepath.WalkDir(dir, func(path string, info os.DirEntry, err error) error {
 		if err != nil {
 			r.Infof("Failed to walk %s: %v\n", path, err)
 			return err
@@ -65,32 +83,29 @@ func ScanDir(r reporter.Reporter, dir string, skipGit bool, recursive bool, useG
 			}
 		}
 
-		// if !skipGit && info.IsDir() && info.Name() == ".git" {
-		// 	pkgs, err := ScanGit(r, filepath.Dir(path)+"/")
-		// 	if err != nil {
-		// 		r.Infof("scan failed for git repository, %s: %v\n", path, err)
-		// 		// Not fatal, so don't return and continue scanning other files
-		// 	}
-		// 	scannedPackages = append(scannedPackages, pkgs...)
+		// Begin scanning
+		inventories, err := lockfilescalibr.ExtractWithExtractors(context.Background(), path, relevantExtractors, r)
+		if err != nil && !errors.Is(err, lockfilescalibr.ErrExtractorNotFound) {
+			r.Errorf("Error during extraction: %s\n", err)
+		}
 
-		// 	return filepath.SkipDir
-		// }
+		pkgCount := len(inventories)
+		if pkgCount > 0 {
+			r.Infof(
+				"Scanned %s file and found %d %s\n",
+				path,
+				pkgCount,
+				output.Form(pkgCount, "package", "packages"),
+			)
+		}
 
-		if !info.IsDir() {
-			pkgs, err := ScanLockfile(r, path, "", pomExtractor)
-			if err != nil {
-				// If no extractors found then just continue
-				if !errors.Is(err, lockfilescalibr.ErrNoExtractorsFound) {
-					r.Errorf("Attempted to scan lockfile but failed: %s\n", path)
-				}
-			}
-			scannedPackages = append(scannedPackages, pkgs...)
+		scannedInventories = append(scannedInventories, inventories...)
 
-			// No need to check for error
-			// If scan fails, it means it isn't a valid SBOM file,
-			// so just move onto the next file
-			// pkgs, _ = ScanSBOMFile(r, path, true)
-			// scannedPackages = append(scannedPackages, pkgs...)
+		// Optimisation to skip git repository .git dirs
+		if info.IsDir() && info.Name() == ".git" {
+			// TODO: Is this what we want?
+			// Always skip git repository directories
+			return filepath.SkipDir
 		}
 
 		// if info.IsDir() && !compareOffline {

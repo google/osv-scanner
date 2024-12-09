@@ -119,13 +119,11 @@ func DoScan(actions ScannerActions, r reporter.Reporter) (models.VulnerabilityRe
 		return models.VulnerabilityResults{}, errors.New("databases can only be downloaded when running in offline mode")
 	}
 
-	configManager := config.Manager{
-		DefaultConfig: config.Config{},
-		ConfigMap:     make(map[string]config.Config),
-	}
-
 	scanResult := results.ScanResults{
-		ConfigManager: configManager,
+		ConfigManager: config.Manager{
+			DefaultConfig: config.Config{},
+			ConfigMap:     make(map[string]config.Config),
+		},
 	}
 
 	if actions.ConfigOverridePath != "" {
@@ -142,14 +140,22 @@ func DoScan(actions ScannerActions, r reporter.Reporter) (models.VulnerabilityRe
 		return models.VulnerabilityResults{}, err
 	}
 
+	pkgSet := map[string]struct{}{}
 	// TODO: Determine where these mapping code should go
-	scanResult.PackageScanResults = make([]imodels.PackageScanResult, len(scannedInventories))
+	scanResult.PackageScanResults = []imodels.PackageScanResult{}
 	for _, inv := range scannedInventories {
+		inv := imodels.FromInventory(inv)
+		// TODO: Better way to dedup?
+		key := fmt.Sprintf("%s,%s,%s,%s,%s,%s", inv.Name, inv.Version, inv.Commit, inv.Ecosystem.String(), inv.Location, inv.OSPackageName)
+		if _, exists := pkgSet[key]; exists {
+			continue
+		}
 		scanResult.PackageScanResults = append(scanResult.PackageScanResults,
 			imodels.PackageScanResult{
-				PackageInfo: imodels.FromInventory(inv),
+				PackageInfo: inv,
 			},
 		)
+		pkgSet[key] = struct{}{}
 	}
 
 	filterUnscannablePackages(r, &scanResult)
@@ -172,7 +178,7 @@ func DoScan(actions ScannerActions, r reporter.Reporter) (models.VulnerabilityRe
 
 	results := buildVulnerabilityResults(r, actions, &scanResult)
 
-	filtered := filterResults(r, &results, &configManager, actions.ShowAllPackages)
+	filtered := filterResults(r, &results, &scanResult.ConfigManager, actions.ShowAllPackages)
 	if filtered > 0 {
 		r.Infof(
 			"Filtered %d %s from output\n",

@@ -1,11 +1,13 @@
 package osvscanner
 
 import (
+	"context"
 	"path/filepath"
 	"strings"
 
 	"github.com/google/osv-scalibr/extractor"
 	"github.com/google/osv-scalibr/extractor/filesystem"
+	"github.com/google/osv-scanner/internal/lockfilescalibr"
 	"github.com/google/osv-scanner/pkg/osvscanner/internal/scanners"
 	"github.com/google/osv-scanner/pkg/reporter"
 )
@@ -47,27 +49,33 @@ func scan(r reporter.Reporter, actions ScannerActions) ([]*extractor.Inventory, 
 		parseAs, lockfilePath := parseLockfilePath(lockfileElem)
 		lockfilePath, err := filepath.Abs(lockfilePath)
 		if err != nil {
-			r.Errorf("Failed to resolved path with error %s\n", err)
+			r.Errorf("Failed to resolved path with error: %s\n", err)
 			return nil, err
 		}
+
 		invs, err := scanners.ScanLockfile(r, lockfilePath, parseAs, pomExtractor)
 		if err != nil {
 			return nil, err
 		}
+
 		scannedInventory = append(scannedInventory, invs...)
 	}
 
-	// for _, sbomElem := range actions.SBOMPaths {
-	// 	sbomElem, err := filepath.Abs(sbomElem)
-	// 	if err != nil {
-	// 		return nil, fmt.Errorf("failed to resolved path with error %w", err)
-	// 	}
-	// 	pkgs, err := scanners.ScanSBOMFile(r, sbomElem, false)
-	// 	if err != nil {
-	// 		return nil, err
-	// 	}
-	// 	scannedPackages = append(scannedPackages, pkgs...)
-	// }
+	for _, sbomElem := range actions.SBOMPaths {
+		path, err := filepath.Abs(sbomElem)
+		if err != nil {
+			r.Errorf("Failed to resolved path with error: %s\n", err)
+			return nil, err
+		}
+
+		invs, err := lockfilescalibr.ExtractWithExtractors(context.Background(), path, scanners.SBOMExtractors, r)
+		if err != nil {
+			r.Infof("Failed to parse SBOM %q with error: %s\n", path, err)
+			return nil, err
+		}
+
+		scannedInventory = append(scannedInventory, invs...)
+	}
 
 	// for _, commit := range actions.GitCommits {
 	// 	scannedInventory = append(scannedInventory, imodels.ScannedPackage{
