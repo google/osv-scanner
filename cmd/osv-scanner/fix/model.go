@@ -19,6 +19,7 @@ import (
 	"golang.org/x/term"
 )
 
+//nolint:recvcheck
 type model struct {
 	//nolint:containedctx
 	ctx           context.Context         // Context, mostly used in deps.dev functions

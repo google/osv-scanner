@@ -146,7 +146,7 @@ func (groupInfo *GroupInfo) IndexString() string {
 }
 
 // FixedVersions returns a map of fixed versions for each package, or a map of empty slices if no fixed versions are available
-func (v *Vulnerability) FixedVersions() map[Package][]string {
+func (v Vulnerability) FixedVersions() map[Package][]string {
 	output := map[Package][]string{}
 	for _, a := range v.Affected {
 		packageKey := a.Package

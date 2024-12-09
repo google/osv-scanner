@@ -9,3 +9,6 @@
 *.pprof
 .go-version
 node_modules
+
+# we don't want to check in this file as it's very very large
+/internal/semantic/fixtures/redhat-versions-generated.txt
