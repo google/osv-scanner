@@ -110,20 +110,9 @@ func autoChooseInPlacePatches(res remediation.InPlaceResult, maxUpgrades int, ou
 
 	// Add unactionable vulns to output
 	for _, vuln := range res.Unfixable {
-		var c resolution.DependencyChain
-		if len(vuln.ProblemChains) > 0 {
-			c = vuln.ProblemChains[0]
-		} else if len(vuln.NonProblemChains) > 0 {
-			c = vuln.NonProblemChains[0]
-		} else {
-			continue
-		}
-		pkg, _ := c.End()
-		outputResult.Vulnerabilities = append(outputResult.Vulnerabilities, fixVuln{
-			ID:           vuln.OSV.ID,
-			Packages:     []fixAffectedPackage{{Name: pkg.Name, Version: pkg.Version}},
-			Unactionable: true,
-		})
+		fv := makeResultVuln(vuln)
+		fv.Unactionable = true
+		outputResult.Vulnerabilities = append(outputResult.Vulnerabilities, fv)
 	}
 
 	return patches
@@ -157,60 +146,15 @@ func autoRelock(ctx context.Context, r reporter.Reporter, opts osvFixOptions, ma
 		return err
 	}
 
-	for _, err := range res.Errors() {
-		node := res.Graph.Nodes[err.NodeID]
-		outputResult.Errors = append(outputResult.Errors, fixError{
-			Package: fixAffectedPackage{
-				Name:    node.Version.Name,
-				Version: node.Version.Version,
-			},
-			Requirement: fixAffectedPackage{
-				Name:    err.Error.Req.Name,
-				Version: err.Error.Req.Version,
-			},
-			Error: err.Error.Error,
-		})
-	}
-
 	res.FilterVulns(opts.MatchVuln)
 	// TODO: count vulnerabilities per unique version as scan action does
-
-	outputResult.Vulnerabilities = make([]fixVuln, len(res.Vulns))
-	for i, v := range res.Vulns {
-		outputResult.Vulnerabilities[i].ID = v.OSV.ID
-		outputResult.Vulnerabilities[i].Unactionable = true // will be set to false after patches are computed
-
-		affected := make(map[fixAffectedPackage]struct{})
-		for _, c := range append(v.ProblemChains, v.NonProblemChains...) {
-			vk, _ := c.End()
-			affected[fixAffectedPackage{Name: vk.Name, Version: vk.Version}] = struct{}{}
-		}
-		outputResult.Vulnerabilities[i].Packages = maps.Keys(affected)
-		slices.SortFunc(outputResult.Vulnerabilities[i].Packages, func(a, b fixAffectedPackage) int {
-			if c := cmp.Compare(a.Name, b.Name); c != 0 {
-				return c
-			}
-
-			return cmp.Compare(a.Version, b.Version)
-		})
-	}
 
 	allPatches, err := remediation.ComputeRelaxPatches(ctx, opts.Client, res, opts.Options)
 	if err != nil {
 		return err
 	}
 
-	for _, p := range allPatches {
-		for _, v := range p.RemovedVulns {
-			// TODO: inefficient
-			idx := slices.IndexFunc(outputResult.Vulnerabilities, func(vuln fixVuln) bool {
-				return vuln.ID == v.OSV.ID
-			})
-			if idx >= 0 {
-				outputResult.Vulnerabilities[idx].Unactionable = false
-			}
-		}
-	}
+	populateResult(&outputResult, res, allPatches)
 
 	if err := opts.Client.WriteCache(manif.FilePath); err != nil {
 		r.Warnf("WARNING: failed to write resolution cache: %v\n", err)
@@ -302,22 +246,7 @@ func autoChooseRelockPatches(diffs []resolution.Difference, maxUpgrades int, out
 			}
 		}
 		for _, v := range diff.AddedVulns {
-			var vuln fixVuln
-			vuln.ID = v.OSV.ID
-			affected := make(map[fixAffectedPackage]struct{})
-			for _, c := range append(v.ProblemChains, v.NonProblemChains...) {
-				vk, _ := c.End()
-				affected[fixAffectedPackage{Name: vk.Name, Version: vk.Version}] = struct{}{}
-			}
-			vuln.Packages = maps.Keys(affected)
-			slices.SortFunc(vuln.Packages, func(a, b fixAffectedPackage) int {
-				if c := cmp.Compare(a.Name, b.Name); c != 0 {
-					return c
-				}
-
-				return cmp.Compare(a.Version, b.Version)
-			})
-			p.Introduced = append(p.Introduced, vuln)
+			p.Introduced = append(p.Introduced, makeResultVuln(v))
 		}
 		outputResult.Patches = append(outputResult.Patches, p)
 		maxUpgrades--
@@ -392,60 +321,15 @@ func autoOverride(ctx context.Context, r reporter.Reporter, opts osvFixOptions, 
 		return err
 	}
 
-	for _, err := range res.Errors() {
-		node := res.Graph.Nodes[err.NodeID]
-		outputResult.Errors = append(outputResult.Errors, fixError{
-			Package: fixAffectedPackage{
-				Name:    node.Version.Name,
-				Version: node.Version.Version,
-			},
-			Requirement: fixAffectedPackage{
-				Name:    err.Error.Req.Name,
-				Version: err.Error.Req.Version,
-			},
-			Error: err.Error.Error,
-		})
-	}
-
 	res.FilterVulns(opts.MatchVuln)
 	// TODO: count vulnerabilities per unique version as scan action does
-
-	outputResult.Vulnerabilities = make([]fixVuln, len(res.Vulns))
-	for i, v := range res.Vulns {
-		outputResult.Vulnerabilities[i].ID = v.OSV.ID
-		outputResult.Vulnerabilities[i].Unactionable = true // will be set to false after patches are computed
-
-		affected := make(map[fixAffectedPackage]struct{})
-		for _, c := range append(v.ProblemChains, v.NonProblemChains...) {
-			vk, _ := c.End()
-			affected[fixAffectedPackage{Name: vk.Name, Version: vk.Version}] = struct{}{}
-		}
-		outputResult.Vulnerabilities[i].Packages = maps.Keys(affected)
-		slices.SortFunc(outputResult.Vulnerabilities[i].Packages, func(a, b fixAffectedPackage) int {
-			if c := cmp.Compare(a.Name, b.Name); c != 0 {
-				return c
-			}
-
-			return cmp.Compare(a.Version, b.Version)
-		})
-	}
 
 	allPatches, err := remediation.ComputeOverridePatches(ctx, opts.Client, res, opts.Options)
 	if err != nil {
 		return err
 	}
 
-	for _, p := range allPatches {
-		for _, v := range p.RemovedVulns {
-			// TODO: inefficient
-			idx := slices.IndexFunc(outputResult.Vulnerabilities, func(vuln fixVuln) bool {
-				return vuln.ID == v.OSV.ID
-			})
-			if idx >= 0 {
-				outputResult.Vulnerabilities[idx].Unactionable = false
-			}
-		}
-	}
+	populateResult(&outputResult, res, allPatches)
 
 	if err := opts.Client.WriteCache(manif.FilePath); err != nil {
 		r.Warnf("WARNING: failed to write resolution cache: %v\n", err)
@@ -517,22 +401,7 @@ func autoChooseOverridePatches(diffs []resolution.Difference, maxUpgrades int, o
 			}
 		}
 		for _, v := range diff.AddedVulns {
-			var vuln fixVuln
-			vuln.ID = v.OSV.ID
-			affected := make(map[fixAffectedPackage]struct{})
-			for _, c := range append(v.ProblemChains, v.NonProblemChains...) {
-				vk, _ := c.End()
-				affected[fixAffectedPackage{Name: vk.Name, Version: vk.Version}] = struct{}{}
-			}
-			vuln.Packages = maps.Keys(affected)
-			slices.SortFunc(vuln.Packages, func(a, b fixAffectedPackage) int {
-				if c := cmp.Compare(a.Name, b.Name); c != 0 {
-					return c
-				}
-
-				return cmp.Compare(a.Version, b.Version)
-			})
-			p.Introduced = append(p.Introduced, vuln)
+			p.Introduced = append(p.Introduced, makeResultVuln(v))
 		}
 		outputResult.Patches = append(outputResult.Patches, p)
 
@@ -543,4 +412,68 @@ func autoChooseOverridePatches(diffs []resolution.Difference, maxUpgrades int, o
 	}
 
 	return patches
+}
+
+func makeResultVuln(vuln resolution.Vulnerability) fixVuln {
+	fv := fixVuln{
+		ID: vuln.OSV.ID,
+	}
+
+	affected := make(map[fixAffectedPackage]struct{})
+	for _, c := range append(vuln.ProblemChains, vuln.NonProblemChains...) {
+		vk, _ := c.End()
+		affected[fixAffectedPackage{Name: vk.Name, Version: vk.Version}] = struct{}{}
+	}
+	fv.Packages = maps.Keys(affected)
+	slices.SortFunc(fv.Packages, func(a, b fixAffectedPackage) int {
+		if c := cmp.Compare(a.Name, b.Name); c != 0 {
+			return c
+		}
+
+		return cmp.Compare(a.Version, b.Version)
+	})
+
+	return fv
+}
+
+func populateResult(outputResult *fixResult, res *resolution.Result, allPatches []resolution.Difference) {
+	// Resolution errors
+	for _, err := range res.Errors() {
+		node := res.Graph.Nodes[err.NodeID]
+		outputResult.Errors = append(outputResult.Errors, fixError{
+			Package: fixAffectedPackage{
+				Name:    node.Version.Name,
+				Version: node.Version.Version,
+			},
+			Requirement: fixAffectedPackage{
+				Name:    err.Error.Req.Name,
+				Version: err.Error.Req.Version,
+			},
+			Error: err.Error.Error,
+		})
+	}
+
+	// Vulnerabilities
+	vulns := make(map[string]fixVuln, len(res.Vulns))
+	outputResult.Vulnerabilities = make([]fixVuln, len(res.Vulns))
+	for _, v := range res.Vulns {
+		fv := makeResultVuln(v)
+		fv.Unactionable = true
+		vulns[fv.ID] = fv
+	}
+
+	// Determine if vulnerabilities are actionable
+	for _, p := range allPatches {
+		for _, v := range p.RemovedVulns {
+			if fv, ok := vulns[v.OSV.ID]; ok {
+				fv.Unactionable = false
+				vulns[v.OSV.ID] = fv
+			}
+		}
+	}
+
+	outputResult.Vulnerabilities = maps.Values(vulns)
+	slices.SortFunc(outputResult.Vulnerabilities, func(a, b fixVuln) int {
+		return cmp.Compare(a.ID, b.ID)
+	})
 }
