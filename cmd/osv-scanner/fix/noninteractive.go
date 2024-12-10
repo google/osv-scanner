@@ -154,7 +154,7 @@ func autoRelock(ctx context.Context, r reporter.Reporter, opts osvFixOptions, ma
 		return err
 	}
 
-	populateResult(&outputResult, res, allPatches)
+	populateResultVulns(&outputResult, res, allPatches)
 
 	if err := opts.Client.WriteCache(manif.FilePath); err != nil {
 		r.Warnf("WARNING: failed to write resolution cache: %v\n", err)
@@ -236,14 +236,8 @@ func autoChooseRelockPatches(diffs []resolution.Difference, maxUpgrades int, out
 				Transitive:  false,
 			})
 		}
-		for _, v := range diff.RemovedVulns {
-			// TODO: inefficient
-			idx := slices.IndexFunc(outputResult.Vulnerabilities, func(vuln fixVuln) bool {
-				return vuln.ID == v.OSV.ID
-			})
-			if idx >= 0 {
-				p.Fixed = append(p.Fixed, outputResult.Vulnerabilities[idx])
-			}
+		for _, vuln := range diff.RemovedVulns {
+			p.Fixed = append(p.Fixed, makeResultVuln(vuln))
 		}
 		for _, v := range diff.AddedVulns {
 			p.Introduced = append(p.Introduced, makeResultVuln(v))
@@ -329,7 +323,7 @@ func autoOverride(ctx context.Context, r reporter.Reporter, opts osvFixOptions, 
 		return err
 	}
 
-	populateResult(&outputResult, res, allPatches)
+	populateResultVulns(&outputResult, res, allPatches)
 
 	if err := opts.Client.WriteCache(manif.FilePath); err != nil {
 		r.Warnf("WARNING: failed to write resolution cache: %v\n", err)
@@ -390,18 +384,9 @@ func autoChooseOverridePatches(diffs []resolution.Difference, maxUpgrades int, o
 				Transitive:  true, // TODO
 			})
 		}
-		for _, rv := range diff.RemovedVulns {
-			fixedVulns[rv.OSV.ID] = struct{}{}
-			// TODO: inefficient
-			idx := slices.IndexFunc(outputResult.Vulnerabilities, func(vuln fixVuln) bool {
-				return vuln.ID == rv.OSV.ID
-			})
-			if idx >= 0 {
-				p.Fixed = append(p.Fixed, outputResult.Vulnerabilities[idx])
-			}
-		}
-		for _, v := range diff.AddedVulns {
-			p.Introduced = append(p.Introduced, makeResultVuln(v))
+		for _, vuln := range diff.RemovedVulns {
+			fixedVulns[vuln.OSV.ID] = struct{}{}
+			p.Introduced = append(p.Introduced, makeResultVuln(vuln))
 		}
 		outputResult.Patches = append(outputResult.Patches, p)
 
@@ -436,7 +421,7 @@ func makeResultVuln(vuln resolution.Vulnerability) fixVuln {
 	return fv
 }
 
-func populateResult(outputResult *fixResult, res *resolution.Result, allPatches []resolution.Difference) {
+func populateResultVulns(outputResult *fixResult, res *resolution.Result, allPatches []resolution.Difference) {
 	// Resolution errors
 	for _, err := range res.Errors() {
 		node := res.Graph.Nodes[err.NodeID]
