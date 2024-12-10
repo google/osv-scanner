@@ -259,7 +259,7 @@ func TestParseMavenWithResolver_WithParent(t *testing.T) {
 	`))
 
 	resolutionClient := clienttest.NewMockResolutionClient(t, "fixtures/universe/basic-universe.yaml")
-	client, _ := datasource.NewMavenRegistryAPIClient(srv.URL)
+	client, _ := datasource.NewMavenRegistryAPIClient(datasource.MavenRegistry{URL: srv.URL, ReleasesEnabled: true})
 	packages, err := manifest.ParseMavenWithResolver(resolutionClient, client, "fixtures/maven/with-parent.xml")
 	if err != nil {
 		t.Errorf("Got unexpected error: %v", err)

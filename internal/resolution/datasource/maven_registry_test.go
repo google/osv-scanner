@@ -2,6 +2,7 @@ package datasource
 
 import (
 	"context"
+	"net/url"
 	"reflect"
 	"testing"
 
@@ -13,7 +14,7 @@ func TestGetProject(t *testing.T) {
 	t.Parallel()
 
 	srv := testutility.NewMockHTTPServer(t)
-	client, _ := NewMavenRegistryAPIClient(srv.URL)
+	client, _ := NewMavenRegistryAPIClient(MavenRegistry{URL: srv.URL, ReleasesEnabled: true})
 	srv.SetResponse(t, "org/example/x.y.z/1.0.0/x.y.z-1.0.0.pom", []byte(`
 	<project>
 	  <groupId>org.example</groupId>
@@ -42,7 +43,7 @@ func TestGetProjectSnapshot(t *testing.T) {
 	t.Parallel()
 
 	srv := testutility.NewMockHTTPServer(t)
-	client, _ := NewMavenRegistryAPIClient(srv.URL)
+	client, _ := NewMavenRegistryAPIClient(MavenRegistry{URL: srv.URL, SnapshotsEnabled: true})
 	srv.SetResponse(t, "org/example/x.y.z/3.3.1-SNAPSHOT/maven-metadata.xml", []byte(`
 	<metadata>
 	  <groupId>org.example</groupId>
@@ -96,7 +97,7 @@ func TestGetArtifactMetadata(t *testing.T) {
 	t.Parallel()
 
 	srv := testutility.NewMockHTTPServer(t)
-	client, _ := NewMavenRegistryAPIClient(srv.URL)
+	client, _ := NewMavenRegistryAPIClient(MavenRegistry{URL: srv.URL, ReleasesEnabled: true})
 	srv.SetResponse(t, "org/example/x.y.z/maven-metadata.xml", []byte(`
 	<metadata>
 	  <groupId>org.example</groupId>
@@ -113,7 +114,12 @@ func TestGetArtifactMetadata(t *testing.T) {
 	</metadata>
 	`))
 
-	got, err := client.getArtifactMetadata(context.Background(), srv.URL, "org.example", "x.y.z")
+	u, err := url.Parse(srv.URL)
+	if err != nil {
+		t.Fatalf("failed to get parse URL %s: %v", srv.URL, err)
+	}
+
+	got, err := client.getArtifactMetadata(context.Background(), u, "org.example", "x.y.z")
 	if err != nil {
 		t.Fatalf("failed to get artifact metadata for %s:%s: %v", "org.example", "x.y.z", err)
 	}
@@ -139,7 +145,7 @@ func TestGetVersionMetadata(t *testing.T) {
 	t.Parallel()
 
 	srv := testutility.NewMockHTTPServer(t)
-	client, _ := NewMavenRegistryAPIClient(srv.URL)
+	client, _ := NewMavenRegistryAPIClient(MavenRegistry{URL: srv.URL, SnapshotsEnabled: true})
 	srv.SetResponse(t, "org/example/x.y.z/3.3.1-SNAPSHOT/maven-metadata.xml", []byte(`
 	<metadata>
 	  <groupId>org.example</groupId>
@@ -166,7 +172,12 @@ func TestGetVersionMetadata(t *testing.T) {
 	</metadata>
 	`))
 
-	got, err := client.getVersionMetadata(context.Background(), srv.URL, "org.example", "x.y.z", "3.3.1-SNAPSHOT")
+	u, err := url.Parse(srv.URL)
+	if err != nil {
+		t.Fatalf("failed to get parse URL %s: %v", srv.URL, err)
+	}
+
+	got, err := client.getVersionMetadata(context.Background(), u, "org.example", "x.y.z", "3.3.1-SNAPSHOT")
 	if err != nil {
 		t.Fatalf("failed to get metadata for %s:%s verion %s: %v", "org.example", "x.y.z", "3.3.1-SNAPSHOT", err)
 	}
@@ -202,7 +213,7 @@ func TestMultipleRegistry(t *testing.T) {
 	t.Parallel()
 
 	dft := testutility.NewMockHTTPServer(t)
-	client, _ := NewMavenRegistryAPIClient(dft.URL)
+	client, _ := NewMavenRegistryAPIClient(MavenRegistry{URL: dft.URL, ReleasesEnabled: true})
 	dft.SetResponse(t, "org/example/x.y.z/maven-metadata.xml", []byte(`
 	<metadata>
 	  <groupId>org.example</groupId>
@@ -233,7 +244,7 @@ func TestMultipleRegistry(t *testing.T) {
 	`))
 
 	srv := testutility.NewMockHTTPServer(t)
-	if err := client.AddRegistry(srv.URL); err != nil {
+	if err := client.AddRegistry(MavenRegistry{URL: srv.URL, ReleasesEnabled: true}); err != nil {
 		t.Fatalf("failed to add registry %s: %v", srv.URL, err)
 	}
 	srv.SetResponse(t, "org/example/x.y.z/maven-metadata.xml", []byte(`

@@ -35,7 +35,7 @@ type DependencyClient interface {
 }
 
 type Registry struct {
-	URL string
+	EcosystemSpecific any
 }
 
 // PreFetch loads cache, then makes and caches likely queries needed for resolving a package with a list of requirements
