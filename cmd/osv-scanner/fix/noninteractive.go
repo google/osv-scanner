@@ -23,7 +23,7 @@ import (
 
 func autoInPlace(ctx context.Context, r reporter.Reporter, opts osvFixOptions, maxUpgrades int) error {
 	if !remediation.SupportsInPlace(opts.LockfileRW) {
-		return errors.New("in-place strategy is not supported for lockfile")
+		return fmt.Errorf("%s strategy is not supported for lockfile", strategyInPlace)
 	}
 
 	r.Infof("Scanning %s...\n", opts.Lockfile)
@@ -48,55 +48,25 @@ func autoInPlace(ctx context.Context, r reporter.Reporter, opts osvFixOptions, m
 		return err
 	}
 
-	patches, fixed, nRemain := autoChooseInPlacePatches(res, maxUpgrades, &outputResult)
-	nFixed := len(fixed)
-	totalVulns := nFixed + nRemain + len(res.Unfixable)
-	r.Infof(">>>\n")
-	r.Infof("Found %d vulnerabilities matching the filter\n", totalVulns)
-	r.Infof("Can fix %d/%d matching vulnerabilities by changing %d dependencies\n", nFixed, totalVulns, len(patches))
+	patches := autoChooseInPlacePatches(res, maxUpgrades, &outputResult)
 
-	for _, p := range patches {
-		r.Infof("UPGRADED-PACKAGE: %s,%s,%s\n", p.Pkg.Name, p.OrigVersion, p.NewVersion)
-	}
-
-	r.Infof("FIXED-VULN-IDS: ")
-	for i, v := range fixed {
-		if i > 0 {
-			r.Infof(",")
-		}
-		r.Infof("%s", v.OSV.ID)
-	}
-	r.Infof("\n")
-
-	r.Infof("REMAINING-VULNS: %d\n", totalVulns-nFixed)
-	r.Infof("UNFIXABLE-VULNS: %d\n", len(res.Unfixable))
-	// TODO: Print the REMAINING-VULN-IDS, UNFIXABLE-VULN-IDS
-
-	r.Infof("---\n")
 	var sb strings.Builder
 	outputText(&sb, outputResult)
 	r.Infof("%s", sb.String())
-	r.Infof("<<<\n")
 
 	r.Infof("Rewriting %s...\n", opts.Lockfile)
 
 	return lf.Overwrite(opts.LockfileRW, opts.Lockfile, patches)
 }
 
-// returns the top {maxUpgrades} compatible patches, the vulns fixed, and the number of potentially fixable vulns left unfixed
+// returns the top {maxUpgrades} compatible patches, and populates outputResult.
 // if maxUpgrades is < 0, do as many patches as possible
-func autoChooseInPlacePatches(res remediation.InPlaceResult, maxUpgrades int, outputResult *fixResult) ([]lf.DependencyPatch, []resolution.Vulnerability, int) {
+func autoChooseInPlacePatches(res remediation.InPlaceResult, maxUpgrades int, outputResult *fixResult) []lf.DependencyPatch {
 	// Keep track of the VersionKeys we've already patched so we know which patches are incompatible
 	seenVKs := make(map[resolve.VersionKey]bool)
 
-	// Key vulnerabilities by (ID, package name, package version) to be consistent with scan action's counting
-	type vulnKey struct {
-		id string
-		vk resolve.VersionKey
-	}
-	uniqueVulns := make(map[vulnKey]struct{})
+	uniqueVulns := make(map[fixAffectedPackage]struct{})
 	var patches []lf.DependencyPatch
-	var fixed []resolution.Vulnerability
 
 	for _, p := range res.Patches {
 		vk := resolve.VersionKey{
@@ -106,14 +76,14 @@ func autoChooseInPlacePatches(res remediation.InPlaceResult, maxUpgrades int, ou
 
 		// add each of the resolved vulnKeys to the set of unique vulns
 		for _, rv := range p.ResolvedVulns {
-			key := vulnKey{id: rv.OSV.ID, vk: vk}
-			if _, ok := uniqueVulns[key]; ok {
+			p := fixAffectedPackage{Name: vk.Name, Version: vk.Version}
+			if _, ok := uniqueVulns[p]; ok {
 				continue
 			}
-			uniqueVulns[key] = struct{}{}
+			uniqueVulns[p] = struct{}{}
 			outputResult.Vulnerabilities = append(outputResult.Vulnerabilities, fixVuln{
 				ID:           rv.OSV.ID,
-				Packages:     []fixAffectedPackage{{Name: vk.Name, Version: vk.Version}},
+				Packages:     []fixAffectedPackage{p},
 				Unactionable: false,
 			})
 		}
@@ -124,7 +94,6 @@ func autoChooseInPlacePatches(res remediation.InPlaceResult, maxUpgrades int, ou
 			seenVKs[vk] = true
 			patches = append(patches, p.DependencyPatch)
 			maxUpgrades--
-			fixed = append(fixed, p.ResolvedVulns...)
 
 			vulns := make([]fixVuln, len(p.ResolvedVulns))
 			for i, v := range p.ResolvedVulns {
@@ -139,6 +108,7 @@ func autoChooseInPlacePatches(res remediation.InPlaceResult, maxUpgrades int, ou
 		}
 	}
 
+	// Add unactionable vulns to output
 	for _, vuln := range res.Unfixable {
 		var c resolution.DependencyChain
 		if len(vuln.ProblemChains) > 0 {
@@ -156,19 +126,15 @@ func autoChooseInPlacePatches(res remediation.InPlaceResult, maxUpgrades int, ou
 		})
 	}
 
-	// Sort the fixed vulns by ID for consistency.
-	slices.SortFunc(fixed, func(a, b resolution.Vulnerability) int { return cmp.Compare(a.OSV.ID, b.OSV.ID) })
-
-	return patches, fixed, len(uniqueVulns) - len(fixed)
+	return patches
 }
 
 func autoRelock(ctx context.Context, r reporter.Reporter, opts osvFixOptions, maxUpgrades int) error {
 	if !remediation.SupportsRelax(opts.ManifestRW) {
-		return errors.New("relock strategy is not supported for manifest")
+		return fmt.Errorf("%s strategy is not supported for manifest", strategyRelax)
 	}
 
 	r.Infof("Resolving %s...\n", opts.Manifest)
-	r.Infof(">>>\n")
 	var outputResult fixResult
 	outputResult.Path = opts.Manifest
 	outputResult.Ecosystem = util.OSVEcosystem[opts.ManifestRW.System()]
@@ -189,11 +155,6 @@ func autoRelock(ctx context.Context, r reporter.Reporter, opts osvFixOptions, ma
 	res, err := resolution.Resolve(ctx, opts.Client, manif, opts.ResolveOpts)
 	if err != nil {
 		return err
-	}
-
-	if errs := res.Errors(); len(errs) > 0 {
-		r.Warnf("WARNING: encountered %d errors during dependency resolution:\n", len(errs))
-		r.Warnf("%s", resolutionErrorString(res, errs))
 	}
 
 	for _, err := range res.Errors() {
@@ -234,9 +195,6 @@ func autoRelock(ctx context.Context, r reporter.Reporter, opts osvFixOptions, ma
 		})
 	}
 
-	totalVulns := len(res.Vulns)
-	r.Infof("Found %d vulnerabilities matching the filter\n", totalVulns)
-
 	allPatches, err := remediation.ComputeRelaxPatches(ctx, opts.Client, res, opts.Options)
 	if err != nil {
 		return err
@@ -258,40 +216,15 @@ func autoRelock(ctx context.Context, r reporter.Reporter, opts osvFixOptions, ma
 		r.Warnf("WARNING: failed to write resolution cache: %v\n", err)
 	}
 
-	if len(allPatches) == 0 {
-		r.Infof("No dependency patches are possible\n")
-		r.Infof("REMAINING-VULNS: %d\n", totalVulns)
-		r.Infof("UNFIXABLE-VULNS: %d\n", totalVulns)
+	depPatches := autoChooseRelockPatches(allPatches, maxUpgrades, &outputResult)
 
-		return nil
-	}
-
-	depPatches, fixed := autoChooseRelockPatches(allPatches, maxUpgrades, &outputResult)
-	nFixed := len(fixed)
-	nUnfixable := len(relockUnfixableVulns(allPatches))
-	r.Infof("Can fix %d/%d matching vulnerabilities by changing %d dependencies\n", nFixed, totalVulns, len(depPatches))
-	for _, p := range depPatches {
-		r.Infof("UPGRADED-PACKAGE: %s,%s,%s\n", p.Pkg.Name, p.OrigRequire, p.NewRequire)
-	}
-
-	r.Infof("FIXED-VULN-IDS: ")
-	for i, v := range fixed {
-		if i > 0 {
-			r.Infof(",")
-		}
-		r.Infof("%s", v.OSV.ID)
-	}
-	r.Infof("\n")
-
-	r.Infof("REMAINING-VULNS: %d\n", totalVulns-nFixed)
-	r.Infof("UNFIXABLE-VULNS: %d\n", nUnfixable)
-	// TODO: Print the REMAINING-VULN-IDS, UNFIXABLE-VULN-IDS
-	// TODO: Consider potentially introduced vulnerabilities
-	r.Infof("---\n")
 	var sb strings.Builder
 	outputText(&sb, outputResult)
 	r.Infof("%s", sb.String())
-	r.Infof("<<<\n")
+
+	if len(depPatches) == 0 {
+		return nil
+	}
 
 	r.Infof("Rewriting %s...\n", opts.Manifest)
 	if err := manifest.Overwrite(opts.ManifestRW, opts.Manifest, manifest.Patch{Manifest: &manif, Deps: depPatches}); err != nil {
@@ -332,12 +265,11 @@ func autoRelock(ctx context.Context, r reporter.Reporter, opts osvFixOptions, ma
 	return nil
 }
 
-// returns the top {maxUpgrades} compatible patches, and the vulns fixed
+// returns the top {maxUpgrades} compatible patches, and populates outputResult
 // if maxUpgrades is < 0, do as many patches as possible
-func autoChooseRelockPatches(diffs []resolution.Difference, maxUpgrades int, outputResult *fixResult) ([]manifest.DependencyPatch, []resolution.Vulnerability) {
+func autoChooseRelockPatches(diffs []resolution.Difference, maxUpgrades int, outputResult *fixResult) []manifest.DependencyPatch {
 	var patches []manifest.DependencyPatch
 	pkgChanged := make(map[resolve.VersionKey]bool) // dependencies we've already applied a patch to
-	var fixed []resolution.Vulnerability
 
 	for _, diff := range diffs {
 		// If we are not picking any more patches, or this patch is incompatible with existing patches, skip adding it to the patch list.
@@ -350,7 +282,6 @@ func autoChooseRelockPatches(diffs []resolution.Difference, maxUpgrades int, out
 
 		var p fixPatch
 		// Add all individual package patches to the final patch list, and add the vulns this is anticipated to resolve
-		fixed = append(fixed, diff.RemovedVulns...)
 		for _, dp := range diff.Deps {
 			patches = append(patches, dp)
 			pkgChanged[resolve.VersionKey{PackageKey: dp.Pkg, Version: dp.OrigRequire}] = true
@@ -392,10 +323,7 @@ func autoChooseRelockPatches(diffs []resolution.Difference, maxUpgrades int, out
 		maxUpgrades--
 	}
 
-	// Sort the fixed vulns by ID for consistency.
-	slices.SortFunc(fixed, func(a, b resolution.Vulnerability) int { return cmp.Compare(a.OSV.ID, b.OSV.ID) })
-
-	return patches, fixed
+	return patches
 }
 
 func relockUnfixableVulns(diffs []resolution.Difference) []*resolution.Vulnerability {
@@ -427,7 +355,6 @@ func autoOverride(ctx context.Context, r reporter.Reporter, opts osvFixOptions, 
 	}
 
 	r.Infof("Resolving %s...\n", opts.Manifest)
-	r.Infof(">>>\n")
 	var outputResult fixResult
 	outputResult.Path = opts.Manifest
 	outputResult.Ecosystem = util.OSVEcosystem[opts.ManifestRW.System()]
@@ -463,11 +390,6 @@ func autoOverride(ctx context.Context, r reporter.Reporter, opts osvFixOptions, 
 	res, err := resolution.Resolve(ctx, opts.Client, manif, opts.ResolveOpts)
 	if err != nil {
 		return err
-	}
-
-	if errs := res.Errors(); len(errs) > 0 {
-		r.Warnf("WARNING: encountered %d errors during dependency resolution:\n", len(errs))
-		r.Warnf("%s", resolutionErrorString(res, errs))
 	}
 
 	for _, err := range res.Errors() {
@@ -508,9 +430,6 @@ func autoOverride(ctx context.Context, r reporter.Reporter, opts osvFixOptions, 
 		})
 	}
 
-	totalVulns := len(res.Vulns)
-	r.Infof("Found %d vulnerabilities matching the filter\n", totalVulns)
-
 	allPatches, err := remediation.ComputeOverridePatches(ctx, opts.Client, res, opts.Options)
 	if err != nil {
 		return err
@@ -532,40 +451,15 @@ func autoOverride(ctx context.Context, r reporter.Reporter, opts osvFixOptions, 
 		r.Warnf("WARNING: failed to write resolution cache: %v\n", err)
 	}
 
-	if len(allPatches) == 0 {
-		r.Infof("No dependency patches are possible\n")
-		r.Infof("REMAINING-VULNS: %d\n", totalVulns)
-		r.Infof("UNFIXABLE-VULNS: %d\n", totalVulns)
+	depPatches := autoChooseOverridePatches(allPatches, maxUpgrades, &outputResult)
 
-		return nil
-	}
-
-	depPatches, fixed := autoChooseOverridePatches(allPatches, maxUpgrades, &outputResult)
-	nFixed := len(fixed)
-	nUnfixable := len(relockUnfixableVulns(allPatches))
-	r.Infof("Can fix %d/%d matching vulnerabilities by overriding %d dependencies\n", nFixed, totalVulns, len(depPatches))
-	for _, p := range depPatches {
-		r.Infof("OVERRIDE-PACKAGE: %s,%s\n", p.Pkg.Name, p.NewRequire)
-	}
-
-	r.Infof("FIXED-VULN-IDS: ")
-	for i, v := range fixed {
-		if i > 0 {
-			r.Infof(",")
-		}
-		r.Infof("%s", v.OSV.ID)
-	}
-	r.Infof("\n")
-
-	r.Infof("REMAINING-VULNS: %d\n", totalVulns-nFixed)
-	r.Infof("UNFIXABLE-VULNS: %d\n", nUnfixable)
-	// TODO: Print the FIXED-VULN-IDS, REMAINING-VULN-IDS, UNFIXABLE-VULN-IDS
-	// TODO: Consider potentially introduced vulnerabilities
-	r.Infof("---\n")
 	var sb strings.Builder
 	outputText(&sb, outputResult)
 	r.Infof("%s", sb.String())
-	r.Infof("<<<\n")
+
+	if len(depPatches) == 0 {
+		return nil
+	}
 
 	r.Infof("Rewriting %s...\n", opts.Manifest)
 	if err := manifest.Overwrite(opts.ManifestRW, opts.Manifest, manifest.Patch{Manifest: &manif, Deps: depPatches}); err != nil {
@@ -575,14 +469,14 @@ func autoOverride(ctx context.Context, r reporter.Reporter, opts osvFixOptions, 
 	return nil
 }
 
-func autoChooseOverridePatches(diffs []resolution.Difference, maxUpgrades int, outputResult *fixResult) ([]manifest.DependencyPatch, []resolution.Vulnerability) {
+func autoChooseOverridePatches(diffs []resolution.Difference, maxUpgrades int, outputResult *fixResult) []manifest.DependencyPatch {
 	if maxUpgrades == 0 {
-		return nil, nil
+		return nil
 	}
 
 	var patches []manifest.DependencyPatch
-	pkgChanged := make(map[resolve.PackageKey]bool)         // dependencies we've already applied a patch to
-	fixedVulns := make(map[string]resolution.Vulnerability) // vulns that have already been fixed by a patch
+	pkgChanged := make(map[resolve.PackageKey]bool) // dependencies we've already applied a patch to
+	fixedVulns := make(map[string]struct{})         // vulns that have already been fixed by a patch
 	for _, diff := range diffs {
 		// If this patch is incompatible with existing patches, skip adding it to the patch list.
 
@@ -613,7 +507,7 @@ func autoChooseOverridePatches(diffs []resolution.Difference, maxUpgrades int, o
 			})
 		}
 		for _, rv := range diff.RemovedVulns {
-			fixedVulns[rv.OSV.ID] = rv
+			fixedVulns[rv.OSV.ID] = struct{}{}
 			// TODO: inefficient
 			idx := slices.IndexFunc(outputResult.Vulnerabilities, func(vuln fixVuln) bool {
 				return vuln.ID == rv.OSV.ID
@@ -648,29 +542,5 @@ func autoChooseOverridePatches(diffs []resolution.Difference, maxUpgrades int, o
 		}
 	}
 
-	// Sort the fixed vulns by ID for consistency.
-	fixed := maps.Values(fixedVulns)
-	slices.SortFunc(fixed, func(a, b resolution.Vulnerability) int { return cmp.Compare(a.OSV.ID, b.OSV.ID) })
-
-	return patches, fixed
-}
-
-func resolutionErrorString(res *resolution.Result, errs []resolution.NodeError) string {
-	// we pass in the []resolution.NodeError because calling res.Errors() is costly
-	s := strings.Builder{}
-	for _, e := range errs {
-		node := res.Graph.Nodes[e.NodeID]
-		fmt.Fprintf(&s, "Error when resolving %s@%s:\n", node.Version.Name, node.Version.Version)
-		req := e.Error.Req
-		if strings.Contains(req.Version, ":") {
-			// this will be the case with unsupported npm requirements e.g. `file:...`, `git+https://...`
-			// TODO: don't rely on resolution to propagate these errors
-			// No easy access to the `knownAs` field to find which package this corresponds to
-			fmt.Fprintf(&s, "\tSkipped resolving unsupported version specification: %s\n", req.Version)
-		} else {
-			fmt.Fprintf(&s, "\t%v: %s@%s\n", e.Error.Error, req.Name, req.Version)
-		}
-	}
-
-	return s.String()
+	return patches
 }

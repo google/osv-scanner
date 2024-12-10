@@ -2,6 +2,7 @@ package fix
 
 import (
 	"context"
+	"fmt"
 	"os"
 	"strings"
 
@@ -247,7 +248,19 @@ func resolutionErrorView(res *resolution.Result, errs []resolution.NodeError) tu
 	}
 	s := strings.Builder{}
 	s.WriteString("The following errors were encountered during resolution which may impact results:\n")
-	s.WriteString(resolutionErrorString(res, errs))
+	for _, e := range errs {
+		node := res.Graph.Nodes[e.NodeID]
+		fmt.Fprintf(&s, "Error when resolving %s@%s:\n", node.Version.Name, node.Version.Version)
+		req := e.Error.Req
+		if strings.Contains(req.Version, ":") {
+			// this will be the case with unsupported npm requirements e.g. `file:...`, `git+https://...`
+			// TODO: don't rely on resolution to propagate these errors
+			// No easy access to the `knownAs` field to find which package this corresponds to
+			fmt.Fprintf(&s, "\tSkipped resolving unsupported version specification: %s\n", req.Version)
+		} else {
+			fmt.Fprintf(&s, "\t%v: %s@%s\n", e.Error.Error, req.Name, req.Version)
+		}
+	}
 
 	return infoStringView(s.String())
 }
