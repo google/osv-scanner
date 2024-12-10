@@ -31,21 +31,21 @@ type FileNode struct {
 	permission  fs.FileMode
 }
 
-var _ fs.DirEntry = FileNode{}
+var _ fs.DirEntry = &FileNode{}
 
-func (f FileNode) IsDir() bool {
+func (f *FileNode) IsDir() bool {
 	return f.fileType == Dir
 }
 
-func (f FileNode) Name() string {
+func (f *FileNode) Name() string {
 	return path.Base(f.virtualPath)
 }
 
-func (f FileNode) Type() fs.FileMode {
+func (f *FileNode) Type() fs.FileMode {
 	return f.permission
 }
 
-func (f FileNode) Info() (fs.FileInfo, error) {
+func (f *FileNode) Info() (fs.FileInfo, error) {
 	return f.Stat()
 }
 
