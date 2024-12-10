@@ -1,6 +1,7 @@
 package fix
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 	"slices"
@@ -48,7 +49,40 @@ type fixError struct {
 	Error       string             `json:"error"`
 }
 
-func outputText(w io.Writer, res fixResult) {
+// TODO: stop relying on old reporter implementation
+type outputReporter struct {
+	Stdout       io.Writer
+	Stderr       io.Writer
+	OutputResult func(fixResult) error
+	hasErrored   bool
+}
+
+func (r *outputReporter) Errorf(format string, a ...any) {
+	fmt.Fprintf(r.Stderr, format, a...)
+	r.hasErrored = true
+}
+
+func (r *outputReporter) HasErrored() bool {
+	return r.hasErrored
+}
+
+func (r *outputReporter) Warnf(format string, a ...any) {
+	fmt.Fprintf(r.Stdout, format, a...)
+}
+
+func (r *outputReporter) Infof(format string, a ...any) {
+	fmt.Fprintf(r.Stdout, format, a...)
+}
+
+func (r *outputReporter) Verbosef(format string, a ...any) {
+	fmt.Fprintf(r.Stdout, format, a...)
+}
+
+func (r *outputReporter) PrintResult(*models.VulnerabilityResults) error {
+	panic("not implemented")
+}
+
+func outputText(w io.Writer, res fixResult) error {
 	if len(res.Errors) > 0 {
 		fmt.Fprintf(w, "WARNING: encountered %d errors during dependency resolution:\n", len(res.Errors))
 		for _, err := range res.Errors {
@@ -73,7 +107,7 @@ func outputText(w io.Writer, res fixResult) {
 		fmt.Fprintf(w, "REMAINING-VULNS: %d\n", nVulns)
 		fmt.Fprintf(w, "UNFIXABLE-VULNS: %d\n", nVulns)
 
-		return
+		return nil
 	}
 
 	changedDeps := 0
@@ -111,4 +145,13 @@ func outputText(w io.Writer, res fixResult) {
 		}
 	}
 	fmt.Fprintf(w, "UNFIXABLE-VULNS: %d\n", nUnfixable)
+
+	return nil
+}
+
+func outputJSON(w io.Writer, res fixResult) error {
+	encoder := json.NewEncoder(w)
+	encoder.SetIndent("", "  ")
+
+	return encoder.Encode(res)
 }

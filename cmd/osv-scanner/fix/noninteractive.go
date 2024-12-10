@@ -5,9 +5,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
-	"os"
 	"slices"
-	"strings"
 
 	"deps.dev/util/resolve"
 	"deps.dev/util/resolve/dep"
@@ -18,11 +16,10 @@ import (
 	"github.com/google/osv-scanner/internal/resolution/manifest"
 	"github.com/google/osv-scanner/internal/resolution/util"
 	"github.com/google/osv-scanner/pkg/lockfile"
-	"github.com/google/osv-scanner/pkg/reporter"
 	"golang.org/x/exp/maps"
 )
 
-func autoInPlace(ctx context.Context, r reporter.Reporter, opts osvFixOptions, maxUpgrades int) error {
+func autoInPlace(ctx context.Context, r *outputReporter, opts osvFixOptions, maxUpgrades int) error {
 	if !remediation.SupportsInPlace(opts.LockfileRW) {
 		return fmt.Errorf("%s strategy is not supported for lockfile", strategyInPlace)
 	}
@@ -51,9 +48,10 @@ func autoInPlace(ctx context.Context, r reporter.Reporter, opts osvFixOptions, m
 
 	patches := autoChooseInPlacePatches(res, maxUpgrades, &outputResult)
 
-	var sb strings.Builder
-	outputText(&sb, outputResult)
-	r.Infof("%s", sb.String())
+	if err := r.OutputResult(outputResult); err != nil {
+		r.Errorf("failed writing output")
+		return err
+	}
 
 	r.Infof("Rewriting %s...\n", opts.Lockfile)
 
@@ -119,7 +117,7 @@ func autoChooseInPlacePatches(res remediation.InPlaceResult, maxUpgrades int, ou
 	return patches
 }
 
-func autoRelock(ctx context.Context, r reporter.Reporter, opts osvFixOptions, maxUpgrades int) error {
+func autoRelock(ctx context.Context, r *outputReporter, opts osvFixOptions, maxUpgrades int) error {
 	if !remediation.SupportsRelax(opts.ManifestRW) {
 		return fmt.Errorf("%s strategy is not supported for manifest", strategyRelax)
 	}
@@ -163,9 +161,10 @@ func autoRelock(ctx context.Context, r reporter.Reporter, opts osvFixOptions, ma
 
 	depPatches := autoChooseRelockPatches(allPatches, maxUpgrades, &outputResult)
 
-	var sb strings.Builder
-	outputText(&sb, outputResult)
-	r.Infof("%s", sb.String())
+	if err := r.OutputResult(outputResult); err != nil {
+		r.Errorf("failed writing output")
+		return err
+	}
 
 	if len(depPatches) == 0 {
 		return nil
@@ -184,9 +183,9 @@ func autoRelock(ctx context.Context, r reporter.Reporter, opts osvFixOptions, ma
 		if err != nil {
 			return err
 		}
-		// ideally I'd have the reporter's stdout/stderr here...
-		cmd.Stdout = os.Stdout
-		cmd.Stderr = os.Stderr
+
+		cmd.Stdout = r.Stdout
+		cmd.Stderr = r.Stderr
 		r.Infof("Executing `%s`...\n", cmd)
 		err = cmd.Run()
 		if err == nil {
@@ -201,8 +200,8 @@ func autoRelock(ctx context.Context, r reporter.Reporter, opts osvFixOptions, ma
 			return err
 		}
 		cmd.Args = append(cmd.Args, "--legacy-peer-deps")
-		cmd.Stdout = os.Stdout
-		cmd.Stderr = os.Stderr
+		cmd.Stdout = r.Stdout
+		cmd.Stderr = r.Stderr
 
 		return cmd.Run()
 	}
@@ -273,7 +272,7 @@ func relockUnfixableVulns(diffs []resolution.Difference) []*resolution.Vulnerabi
 	return unfixable
 }
 
-func autoOverride(ctx context.Context, r reporter.Reporter, opts osvFixOptions, maxUpgrades int) error {
+func autoOverride(ctx context.Context, r *outputReporter, opts osvFixOptions, maxUpgrades int) error {
 	if !remediation.SupportsOverride(opts.ManifestRW) {
 		return errors.New("override strategy is not supported for manifest")
 	}
@@ -332,9 +331,10 @@ func autoOverride(ctx context.Context, r reporter.Reporter, opts osvFixOptions, 
 
 	depPatches := autoChooseOverridePatches(allPatches, maxUpgrades, &outputResult)
 
-	var sb strings.Builder
-	outputText(&sb, outputResult)
-	r.Infof("%s", sb.String())
+	if err := r.OutputResult(outputResult); err != nil {
+		r.Errorf("failed writing output")
+		return err
+	}
 
 	if len(depPatches) == 0 {
 		return nil

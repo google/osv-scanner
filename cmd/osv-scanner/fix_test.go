@@ -60,7 +60,24 @@ func TestRun_Fix(t *testing.T) {
 			exit:     0,
 			manifest: "./fix/fixtures/override-maven/pom.xml",
 		},
-		// TODO: add tests with the cli flags
+		{
+			name:     "fix non-interactive json in-place package-lock.json",
+			args:     []string{"", "fix", "--non-interactive", "--strategy=in-place", "--format=json"},
+			exit:     0,
+			lockfile: "./fix/fixtures/in-place-npm/package-lock.json",
+		},
+		{
+			name:     "fix non-interactive json relock package.json",
+			args:     []string{"", "fix", "--non-interactive", "--strategy=relock", "--format=json"},
+			exit:     0,
+			manifest: "./fix/fixtures/relock-npm/package.json",
+		},
+		{
+			name:     "fix non-interactive json override pom.xml",
+			args:     []string{"", "fix", "--non-interactive", "--strategy=override", "--format=json"},
+			exit:     0,
+			manifest: "./fix/fixtures/override-maven/pom.xml",
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {

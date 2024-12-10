@@ -274,9 +274,19 @@ func action(ctx *cli.Context, stdout, stderr io.Writer) (reporter.Reporter, erro
 		return nil, errors.New("manifest or lockfile is required")
 	}
 
-	// TODO: This isn't what the reporter is designed for.
-	// Only using r.Infof()/r.Warnf()/r.Errorf() to print to stdout/stderr.
-	r := reporter.NewTableReporter(stdout, stderr, reporter.InfoLevel, false, 0)
+	r := new(outputReporter)
+	switch ctx.String("format") {
+	case "json":
+		r.Stdout = stderr
+		r.Stderr = stderr
+		r.OutputResult = func(fr fixResult) error { return outputJSON(stdout, fr) }
+	case "text":
+		fallthrough
+	default:
+		r.Stdout = stdout
+		r.Stderr = stderr
+		r.OutputResult = func(fr fixResult) error { return outputText(stdout, fr) }
+	}
 
 	opts := osvFixOptions{
 		Options: remediation.Options{
