@@ -449,7 +449,7 @@ func (e MavenLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 		}
 		if scope := strings.TrimSpace(lockPackage.Scope); scope != "" && scope != "compile" {
 			// Only append non-default scope (compile is the default scope).
-			pkgDetails.DepGroups = append(pkgDetails.DepGroups, scope)
+			pkgDetails.DepGroups = append(pkgDetails.DepGroups, strings.ToLower(scope))
 		}
 		details[finalName] = pkgDetails
 	}

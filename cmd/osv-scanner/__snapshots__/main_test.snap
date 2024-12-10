@@ -1438,6 +1438,7 @@ Filtered 16 vulnerabilities from output
 | https://osv.dev/CVE-2024-0727       | 5.5  | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/CVE-2024-2511       |      | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/CVE-2024-4603       |      | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/CVE-2024-4741       |      | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/CVE-2024-5535       |      | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/CVE-2024-6119       |      | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/CVE-2024-9143       |      | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
@@ -1656,6 +1657,7 @@ Filtered 16 vulnerabilities from output
 | https://osv.dev/CVE-2024-0727       | 5.5  | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/CVE-2024-2511       |      | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/CVE-2024-4603       |      | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/CVE-2024-4741       |      | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/CVE-2024-5535       |      | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/CVE-2024-6119       |      | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/CVE-2024-9143       |      | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
@@ -2568,6 +2570,10 @@ No package sources found, --help for usage information.
       "purl": "pkg:composer/ably/ably-php@1.1.10",
       "properties": [
         {
+          "name": "osv-scanner:is-dev",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:is-direct",
           "value": "true"
         },
@@ -2592,6 +2598,10 @@ No package sources found, --help for usage information.
       "purl": "pkg:composer/aws/aws-crt-php@v1.2.6",
       "properties": [
         {
+          "name": "osv-scanner:is-dev",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
         }
@@ -2604,6 +2614,10 @@ No package sources found, --help for usage information.
       "version": "3.317.2",
       "purl": "pkg:composer/aws/aws-sdk-php@3.317.2",
       "properties": [
+        {
+          "name": "osv-scanner:is-dev",
+          "value": "true"
+        },
         {
           "name": "osv-scanner:is-direct",
           "value": "true"
@@ -2764,6 +2778,10 @@ No package sources found, --help for usage information.
       "purl": "pkg:composer/fakerphp/faker@v1.23.1",
       "properties": [
         {
+          "name": "osv-scanner:is-dev",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:is-direct",
           "value": "true"
         },
@@ -2898,6 +2916,10 @@ No package sources found, --help for usage information.
       "version": "v2.0.1",
       "purl": "pkg:composer/hamcrest/hamcrest-php@v2.0.1",
       "properties": [
+        {
+          "name": "osv-scanner:is-dev",
+          "value": "true"
+        },
         {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
@@ -3049,6 +3071,10 @@ No package sources found, --help for usage information.
       "purl": "pkg:composer/league/flysystem-aws-s3-v3@3.28.0",
       "properties": [
         {
+          "name": "osv-scanner:is-dev",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:is-direct",
           "value": "true"
         },
@@ -3073,6 +3099,10 @@ No package sources found, --help for usage information.
       "purl": "pkg:composer/league/flysystem-local@3.28.0",
       "properties": [
         {
+          "name": "osv-scanner:is-dev",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
         }
@@ -3085,6 +3115,10 @@ No package sources found, --help for usage information.
       "version": "3.28.0",
       "purl": "pkg:composer/league/flysystem-path-prefixing@3.28.0",
       "properties": [
+        {
+          "name": "osv-scanner:is-dev",
+          "value": "true"
+        },
         {
           "name": "osv-scanner:is-direct",
           "value": "true"
@@ -3110,6 +3144,10 @@ No package sources found, --help for usage information.
       "purl": "pkg:composer/league/flysystem-read-only@3.28.0",
       "properties": [
         {
+          "name": "osv-scanner:is-dev",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:is-direct",
           "value": "true"
         },
@@ -3134,6 +3172,10 @@ No package sources found, --help for usage information.
       "purl": "pkg:composer/league/flysystem@3.28.0",
       "properties": [
         {
+          "name": "osv-scanner:is-dev",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
         }
@@ -3147,6 +3189,10 @@ No package sources found, --help for usage information.
       "purl": "pkg:composer/league/mime-type-detection@1.15.0",
       "properties": [
         {
+          "name": "osv-scanner:is-dev",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
         }
@@ -3159,6 +3205,10 @@ No package sources found, --help for usage information.
       "version": "1.6.12",
       "purl": "pkg:composer/mockery/mockery@1.6.12",
       "properties": [
+        {
+          "name": "osv-scanner:is-dev",
+          "value": "true"
+        },
         {
           "name": "osv-scanner:is-direct",
           "value": "true"
@@ -3208,6 +3258,10 @@ No package sources found, --help for usage information.
       "purl": "pkg:composer/mtdowling/jmespath.php@2.7.0",
       "properties": [
         {
+          "name": "osv-scanner:is-dev",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
         }
@@ -3220,6 +3274,10 @@ No package sources found, --help for usage information.
       "version": "1.12.0",
       "purl": "pkg:composer/myclabs/deep-copy@1.12.0",
       "properties": [
+        {
+          "name": "osv-scanner:is-dev",
+          "value": "true"
+        },
         {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
@@ -3284,6 +3342,10 @@ No package sources found, --help for usage information.
       "purl": "pkg:composer/nikic/php-parser@v5.1.0",
       "properties": [
         {
+          "name": "osv-scanner:is-dev",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
         }
@@ -3321,6 +3383,10 @@ No package sources found, --help for usage information.
       "purl": "pkg:composer/nyholm/psr7@1.8.1",
       "properties": [
         {
+          "name": "osv-scanner:is-dev",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:is-direct",
           "value": "true"
         },
@@ -3344,6 +3410,10 @@ No package sources found, --help for usage information.
       "version": "v5.0.5",
       "purl": "pkg:composer/pda/pheanstalk@v5.0.5",
       "properties": [
+        {
+          "name": "osv-scanner:is-dev",
+          "value": "true"
+        },
         {
           "name": "osv-scanner:is-direct",
           "value": "true"
@@ -3369,6 +3439,10 @@ No package sources found, --help for usage information.
       "purl": "pkg:composer/phar-io/manifest@2.0.4",
       "properties": [
         {
+          "name": "osv-scanner:is-dev",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
         }
@@ -3381,6 +3455,10 @@ No package sources found, --help for usage information.
       "version": "3.2.1",
       "purl": "pkg:composer/phar-io/version@3.2.1",
       "properties": [
+        {
+          "name": "osv-scanner:is-dev",
+          "value": "true"
+        },
         {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
@@ -3408,6 +3486,10 @@ No package sources found, --help for usage information.
       "purl": "pkg:composer/phpstan/phpstan@1.11.9",
       "properties": [
         {
+          "name": "osv-scanner:is-dev",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:is-direct",
           "value": "true"
         },
@@ -3432,6 +3514,10 @@ No package sources found, --help for usage information.
       "purl": "pkg:composer/phpunit/php-code-coverage@11.0.5",
       "properties": [
         {
+          "name": "osv-scanner:is-dev",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
         }
@@ -3444,6 +3530,10 @@ No package sources found, --help for usage information.
       "version": "5.0.1",
       "purl": "pkg:composer/phpunit/php-file-iterator@5.0.1",
       "properties": [
+        {
+          "name": "osv-scanner:is-dev",
+          "value": "true"
+        },
         {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
@@ -3458,6 +3548,10 @@ No package sources found, --help for usage information.
       "purl": "pkg:composer/phpunit/php-invoker@5.0.1",
       "properties": [
         {
+          "name": "osv-scanner:is-dev",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
         }
@@ -3470,6 +3564,10 @@ No package sources found, --help for usage information.
       "version": "4.0.1",
       "purl": "pkg:composer/phpunit/php-text-template@4.0.1",
       "properties": [
+        {
+          "name": "osv-scanner:is-dev",
+          "value": "true"
+        },
         {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
@@ -3484,6 +3582,10 @@ No package sources found, --help for usage information.
       "purl": "pkg:composer/phpunit/php-timer@7.0.1",
       "properties": [
         {
+          "name": "osv-scanner:is-dev",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
         }
@@ -3496,6 +3598,10 @@ No package sources found, --help for usage information.
       "version": "11.3.0",
       "purl": "pkg:composer/phpunit/phpunit@11.3.0",
       "properties": [
+        {
+          "name": "osv-scanner:is-dev",
+          "value": "true"
+        },
         {
           "name": "osv-scanner:is-direct",
           "value": "true"
@@ -3521,6 +3627,10 @@ No package sources found, --help for usage information.
       "purl": "pkg:composer/predis/predis@v2.2.2",
       "properties": [
         {
+          "name": "osv-scanner:is-dev",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:is-direct",
           "value": "true"
         },
@@ -3544,6 +3654,10 @@ No package sources found, --help for usage information.
       "version": "3.0.0",
       "purl": "pkg:composer/psr/cache@3.0.0",
       "properties": [
+        {
+          "name": "osv-scanner:is-dev",
+          "value": "true"
+        },
         {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
@@ -3745,6 +3859,10 @@ No package sources found, --help for usage information.
       "purl": "pkg:composer/resend/resend-php@v0.10.1",
       "properties": [
         {
+          "name": "osv-scanner:is-dev",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:is-direct",
           "value": "true"
         },
@@ -3769,6 +3887,10 @@ No package sources found, --help for usage information.
       "purl": "pkg:composer/rybakit/msgpack@v0.9.1",
       "properties": [
         {
+          "name": "osv-scanner:is-dev",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
         }
@@ -3781,6 +3903,10 @@ No package sources found, --help for usage information.
       "version": "3.0.2",
       "purl": "pkg:composer/sebastian/cli-parser@3.0.2",
       "properties": [
+        {
+          "name": "osv-scanner:is-dev",
+          "value": "true"
+        },
         {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
@@ -3795,6 +3921,10 @@ No package sources found, --help for usage information.
       "purl": "pkg:composer/sebastian/code-unit-reverse-lookup@4.0.1",
       "properties": [
         {
+          "name": "osv-scanner:is-dev",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
         }
@@ -3807,6 +3937,10 @@ No package sources found, --help for usage information.
       "version": "3.0.1",
       "purl": "pkg:composer/sebastian/code-unit@3.0.1",
       "properties": [
+        {
+          "name": "osv-scanner:is-dev",
+          "value": "true"
+        },
         {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
@@ -3821,6 +3955,10 @@ No package sources found, --help for usage information.
       "purl": "pkg:composer/sebastian/comparator@6.0.1",
       "properties": [
         {
+          "name": "osv-scanner:is-dev",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
         }
@@ -3833,6 +3971,10 @@ No package sources found, --help for usage information.
       "version": "4.0.1",
       "purl": "pkg:composer/sebastian/complexity@4.0.1",
       "properties": [
+        {
+          "name": "osv-scanner:is-dev",
+          "value": "true"
+        },
         {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
@@ -3847,6 +3989,10 @@ No package sources found, --help for usage information.
       "purl": "pkg:composer/sebastian/diff@6.0.2",
       "properties": [
         {
+          "name": "osv-scanner:is-dev",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
         }
@@ -3859,6 +4005,10 @@ No package sources found, --help for usage information.
       "version": "7.2.0",
       "purl": "pkg:composer/sebastian/environment@7.2.0",
       "properties": [
+        {
+          "name": "osv-scanner:is-dev",
+          "value": "true"
+        },
         {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
@@ -3873,6 +4023,10 @@ No package sources found, --help for usage information.
       "purl": "pkg:composer/sebastian/exporter@6.1.3",
       "properties": [
         {
+          "name": "osv-scanner:is-dev",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
         }
@@ -3885,6 +4039,10 @@ No package sources found, --help for usage information.
       "version": "7.0.2",
       "purl": "pkg:composer/sebastian/global-state@7.0.2",
       "properties": [
+        {
+          "name": "osv-scanner:is-dev",
+          "value": "true"
+        },
         {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
@@ -3899,6 +4057,10 @@ No package sources found, --help for usage information.
       "purl": "pkg:composer/sebastian/lines-of-code@3.0.1",
       "properties": [
         {
+          "name": "osv-scanner:is-dev",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
         }
@@ -3911,6 +4073,10 @@ No package sources found, --help for usage information.
       "version": "6.0.1",
       "purl": "pkg:composer/sebastian/object-enumerator@6.0.1",
       "properties": [
+        {
+          "name": "osv-scanner:is-dev",
+          "value": "true"
+        },
         {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
@@ -3925,6 +4091,10 @@ No package sources found, --help for usage information.
       "purl": "pkg:composer/sebastian/object-reflector@4.0.1",
       "properties": [
         {
+          "name": "osv-scanner:is-dev",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
         }
@@ -3937,6 +4107,10 @@ No package sources found, --help for usage information.
       "version": "6.0.2",
       "purl": "pkg:composer/sebastian/recursion-context@6.0.2",
       "properties": [
+        {
+          "name": "osv-scanner:is-dev",
+          "value": "true"
+        },
         {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
@@ -3951,6 +4125,10 @@ No package sources found, --help for usage information.
       "purl": "pkg:composer/sebastian/type@5.0.1",
       "properties": [
         {
+          "name": "osv-scanner:is-dev",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
         }
@@ -3963,6 +4141,10 @@ No package sources found, --help for usage information.
       "version": "5.0.1",
       "purl": "pkg:composer/sebastian/version@5.0.1",
       "properties": [
+        {
+          "name": "osv-scanner:is-dev",
+          "value": "true"
+        },
         {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
@@ -3977,6 +4159,10 @@ No package sources found, --help for usage information.
       "purl": "pkg:composer/symfony/cache-contracts@v3.5.0",
       "properties": [
         {
+          "name": "osv-scanner:is-dev",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
         }
@@ -3989,6 +4175,10 @@ No package sources found, --help for usage information.
       "version": "v7.1.3",
       "purl": "pkg:composer/symfony/cache@v7.1.3",
       "properties": [
+        {
+          "name": "osv-scanner:is-dev",
+          "value": "true"
+        },
         {
           "name": "osv-scanner:is-direct",
           "value": "true"
@@ -4151,6 +4341,10 @@ No package sources found, --help for usage information.
       "purl": "pkg:composer/symfony/http-client-contracts@v3.5.0",
       "properties": [
         {
+          "name": "osv-scanner:is-dev",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
         }
@@ -4163,6 +4357,10 @@ No package sources found, --help for usage information.
       "version": "v7.1.3",
       "purl": "pkg:composer/symfony/http-client@v7.1.3",
       "properties": [
+        {
+          "name": "osv-scanner:is-dev",
+          "value": "true"
+        },
         {
           "name": "osv-scanner:is-direct",
           "value": "true"
@@ -4436,6 +4634,10 @@ No package sources found, --help for usage information.
       "purl": "pkg:composer/symfony/psr-http-message-bridge@v7.1.3",
       "properties": [
         {
+          "name": "osv-scanner:is-dev",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:is-direct",
           "value": "true"
         },
@@ -4584,6 +4786,10 @@ No package sources found, --help for usage information.
       "purl": "pkg:composer/symfony/var-exporter@v7.1.2",
       "properties": [
         {
+          "name": "osv-scanner:is-dev",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
         }
@@ -4596,6 +4802,10 @@ No package sources found, --help for usage information.
       "version": "1.2.3",
       "purl": "pkg:composer/theseer/tokenizer@1.2.3",
       "properties": [
+        {
+          "name": "osv-scanner:is-dev",
+          "value": "true"
+        },
         {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
@@ -6285,6 +6495,10 @@ No package sources found, --help for usage information.
       "purl": "pkg:maven/com.google.code.findbugs/jsr305@3.0.2",
       "properties": [
         {
+          "name": "osv-scanner:is-dev",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:is-direct",
           "value": "true"
         },
@@ -6296,7 +6510,7 @@ No package sources found, --help for usage information.
       "evidence": {
         "occurrences": [
           {
-            "location": "{/"block/":{/"file_name/":/"pom.xml/",/"line_start/":27,/"line_end/":30,/"column_start/":5,/"column_end/":18},/"name/":{/"file_name/":/"pom.xml/",/"line_start/":29,/"line_end/":29,/"column_start/":19,/"column_end/":25},/"version/":{/"file_name/":/"pom.xml/",/"line_start/":21,/"line_end/":21,/"column_start/":18,/"column_end/":23}}"
+            "location": "{/"block/":{/"file_name/":/"pom.xml/",/"line_start/":27,/"line_end/":31,/"column_start/":5,/"column_end/":18},/"name/":{/"file_name/":/"pom.xml/",/"line_start/":29,/"line_end/":29,/"column_start/":19,/"column_end/":25},/"version/":{/"file_name/":/"pom.xml/",/"line_start/":21,/"line_end/":21,/"column_start/":18,/"column_end/":23}}"
           }
         ]
       }
@@ -6365,6 +6579,34 @@ No package sources found, --help for usage information.
         "occurrences": [
           {
             "location": "{/"block/":{/"file_name/":/"yarn/package.json/",/"line_start/":4,/"line_end/":4,/"column_start/":5,/"column_end/":31},/"name/":{/"file_name/":/"yarn/package.json/",/"line_start/":4,/"line_end/":4,/"column_start/":6,/"column_end/":20},/"version/":{/"file_name/":/"yarn/package.json/",/"line_start/":4,/"line_end/":4,/"column_start/":24,/"column_end/":30}}"
+          }
+        ]
+      }
+    },
+    {
+      "bom-ref": "pkg:npm/ms@2.1.3",
+      "type": "library",
+      "name": "ms",
+      "version": "2.1.3",
+      "purl": "pkg:npm/ms@2.1.3",
+      "properties": [
+        {
+          "name": "osv-scanner:is-dev",
+          "value": "true"
+        },
+        {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
+        {
+          "name": "osv-scanner:package-manager",
+          "value": "NPM"
+        }
+      ],
+      "evidence": {
+        "occurrences": [
+          {
+            "location": "{/"block/":{/"file_name/":/"npm/package.json/",/"line_start/":7,/"line_end/":7,/"column_start/":5,/"column_end/":18},/"name/":{/"file_name/":/"npm/package.json/",/"line_start/":7,/"line_end/":7,/"column_start/":6,/"column_end/":8},/"version/":{/"file_name/":/"npm/package.json/",/"line_start/":7,/"line_end/":7,/"column_start/":12,/"column_end/":17}}"
           }
         ]
       }
@@ -6596,7 +6838,7 @@ Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-8/conan.lock file
 Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-8/go.mod file and found 4 packages
 Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-8/gradle.lockfile file and found 1 package
 Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-8/mix.lock file and found 1 package
-Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-8/npm/package-lock.json file and found 1 package
+Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-8/npm/package-lock.json file and found 2 packages
 Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-8/nuget/packages.lock.json file and found 3 packages
 Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-8/packages.lock.json file and found 1 package
 Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-8/pnpm/pnpm-lock.yaml file and found 1 package
@@ -6638,6 +6880,10 @@ Filtered 1 local package/s from the scan.
       "purl": "pkg:composer/ably/ably-php@1.1.10",
       "properties": [
         {
+          "name": "osv-scanner:is-dev",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:is-direct",
           "value": "true"
         },
@@ -6662,6 +6908,10 @@ Filtered 1 local package/s from the scan.
       "purl": "pkg:composer/aws/aws-crt-php@v1.2.6",
       "properties": [
         {
+          "name": "osv-scanner:is-dev",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
         }
@@ -6674,6 +6924,10 @@ Filtered 1 local package/s from the scan.
       "version": "3.317.2",
       "purl": "pkg:composer/aws/aws-sdk-php@3.317.2",
       "properties": [
+        {
+          "name": "osv-scanner:is-dev",
+          "value": "true"
+        },
         {
           "name": "osv-scanner:is-direct",
           "value": "true"
@@ -6834,6 +7088,10 @@ Filtered 1 local package/s from the scan.
       "purl": "pkg:composer/fakerphp/faker@v1.23.1",
       "properties": [
         {
+          "name": "osv-scanner:is-dev",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:is-direct",
           "value": "true"
         },
@@ -6968,6 +7226,10 @@ Filtered 1 local package/s from the scan.
       "version": "v2.0.1",
       "purl": "pkg:composer/hamcrest/hamcrest-php@v2.0.1",
       "properties": [
+        {
+          "name": "osv-scanner:is-dev",
+          "value": "true"
+        },
         {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
@@ -7119,6 +7381,10 @@ Filtered 1 local package/s from the scan.
       "purl": "pkg:composer/league/flysystem-aws-s3-v3@3.28.0",
       "properties": [
         {
+          "name": "osv-scanner:is-dev",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:is-direct",
           "value": "true"
         },
@@ -7143,6 +7409,10 @@ Filtered 1 local package/s from the scan.
       "purl": "pkg:composer/league/flysystem-local@3.28.0",
       "properties": [
         {
+          "name": "osv-scanner:is-dev",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
         }
@@ -7155,6 +7425,10 @@ Filtered 1 local package/s from the scan.
       "version": "3.28.0",
       "purl": "pkg:composer/league/flysystem-path-prefixing@3.28.0",
       "properties": [
+        {
+          "name": "osv-scanner:is-dev",
+          "value": "true"
+        },
         {
           "name": "osv-scanner:is-direct",
           "value": "true"
@@ -7180,6 +7454,10 @@ Filtered 1 local package/s from the scan.
       "purl": "pkg:composer/league/flysystem-read-only@3.28.0",
       "properties": [
         {
+          "name": "osv-scanner:is-dev",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:is-direct",
           "value": "true"
         },
@@ -7204,6 +7482,10 @@ Filtered 1 local package/s from the scan.
       "purl": "pkg:composer/league/flysystem@3.28.0",
       "properties": [
         {
+          "name": "osv-scanner:is-dev",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
         }
@@ -7217,6 +7499,10 @@ Filtered 1 local package/s from the scan.
       "purl": "pkg:composer/league/mime-type-detection@1.15.0",
       "properties": [
         {
+          "name": "osv-scanner:is-dev",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
         }
@@ -7229,6 +7515,10 @@ Filtered 1 local package/s from the scan.
       "version": "1.6.12",
       "purl": "pkg:composer/mockery/mockery@1.6.12",
       "properties": [
+        {
+          "name": "osv-scanner:is-dev",
+          "value": "true"
+        },
         {
           "name": "osv-scanner:is-direct",
           "value": "true"
@@ -7278,6 +7568,10 @@ Filtered 1 local package/s from the scan.
       "purl": "pkg:composer/mtdowling/jmespath.php@2.7.0",
       "properties": [
         {
+          "name": "osv-scanner:is-dev",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
         }
@@ -7290,6 +7584,10 @@ Filtered 1 local package/s from the scan.
       "version": "1.12.0",
       "purl": "pkg:composer/myclabs/deep-copy@1.12.0",
       "properties": [
+        {
+          "name": "osv-scanner:is-dev",
+          "value": "true"
+        },
         {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
@@ -7354,6 +7652,10 @@ Filtered 1 local package/s from the scan.
       "purl": "pkg:composer/nikic/php-parser@v5.1.0",
       "properties": [
         {
+          "name": "osv-scanner:is-dev",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
         }
@@ -7391,6 +7693,10 @@ Filtered 1 local package/s from the scan.
       "purl": "pkg:composer/nyholm/psr7@1.8.1",
       "properties": [
         {
+          "name": "osv-scanner:is-dev",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:is-direct",
           "value": "true"
         },
@@ -7414,6 +7720,10 @@ Filtered 1 local package/s from the scan.
       "version": "v5.0.5",
       "purl": "pkg:composer/pda/pheanstalk@v5.0.5",
       "properties": [
+        {
+          "name": "osv-scanner:is-dev",
+          "value": "true"
+        },
         {
           "name": "osv-scanner:is-direct",
           "value": "true"
@@ -7439,6 +7749,10 @@ Filtered 1 local package/s from the scan.
       "purl": "pkg:composer/phar-io/manifest@2.0.4",
       "properties": [
         {
+          "name": "osv-scanner:is-dev",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
         }
@@ -7451,6 +7765,10 @@ Filtered 1 local package/s from the scan.
       "version": "3.2.1",
       "purl": "pkg:composer/phar-io/version@3.2.1",
       "properties": [
+        {
+          "name": "osv-scanner:is-dev",
+          "value": "true"
+        },
         {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
@@ -7478,6 +7796,10 @@ Filtered 1 local package/s from the scan.
       "purl": "pkg:composer/phpstan/phpstan@1.11.9",
       "properties": [
         {
+          "name": "osv-scanner:is-dev",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:is-direct",
           "value": "true"
         },
@@ -7502,6 +7824,10 @@ Filtered 1 local package/s from the scan.
       "purl": "pkg:composer/phpunit/php-code-coverage@11.0.5",
       "properties": [
         {
+          "name": "osv-scanner:is-dev",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
         }
@@ -7514,6 +7840,10 @@ Filtered 1 local package/s from the scan.
       "version": "5.0.1",
       "purl": "pkg:composer/phpunit/php-file-iterator@5.0.1",
       "properties": [
+        {
+          "name": "osv-scanner:is-dev",
+          "value": "true"
+        },
         {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
@@ -7528,6 +7858,10 @@ Filtered 1 local package/s from the scan.
       "purl": "pkg:composer/phpunit/php-invoker@5.0.1",
       "properties": [
         {
+          "name": "osv-scanner:is-dev",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
         }
@@ -7540,6 +7874,10 @@ Filtered 1 local package/s from the scan.
       "version": "4.0.1",
       "purl": "pkg:composer/phpunit/php-text-template@4.0.1",
       "properties": [
+        {
+          "name": "osv-scanner:is-dev",
+          "value": "true"
+        },
         {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
@@ -7554,6 +7892,10 @@ Filtered 1 local package/s from the scan.
       "purl": "pkg:composer/phpunit/php-timer@7.0.1",
       "properties": [
         {
+          "name": "osv-scanner:is-dev",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
         }
@@ -7566,6 +7908,10 @@ Filtered 1 local package/s from the scan.
       "version": "11.3.0",
       "purl": "pkg:composer/phpunit/phpunit@11.3.0",
       "properties": [
+        {
+          "name": "osv-scanner:is-dev",
+          "value": "true"
+        },
         {
           "name": "osv-scanner:is-direct",
           "value": "true"
@@ -7591,6 +7937,10 @@ Filtered 1 local package/s from the scan.
       "purl": "pkg:composer/predis/predis@v2.2.2",
       "properties": [
         {
+          "name": "osv-scanner:is-dev",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:is-direct",
           "value": "true"
         },
@@ -7614,6 +7964,10 @@ Filtered 1 local package/s from the scan.
       "version": "3.0.0",
       "purl": "pkg:composer/psr/cache@3.0.0",
       "properties": [
+        {
+          "name": "osv-scanner:is-dev",
+          "value": "true"
+        },
         {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
@@ -7815,6 +8169,10 @@ Filtered 1 local package/s from the scan.
       "purl": "pkg:composer/resend/resend-php@v0.10.1",
       "properties": [
         {
+          "name": "osv-scanner:is-dev",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:is-direct",
           "value": "true"
         },
@@ -7839,6 +8197,10 @@ Filtered 1 local package/s from the scan.
       "purl": "pkg:composer/rybakit/msgpack@v0.9.1",
       "properties": [
         {
+          "name": "osv-scanner:is-dev",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
         }
@@ -7851,6 +8213,10 @@ Filtered 1 local package/s from the scan.
       "version": "3.0.2",
       "purl": "pkg:composer/sebastian/cli-parser@3.0.2",
       "properties": [
+        {
+          "name": "osv-scanner:is-dev",
+          "value": "true"
+        },
         {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
@@ -7865,6 +8231,10 @@ Filtered 1 local package/s from the scan.
       "purl": "pkg:composer/sebastian/code-unit-reverse-lookup@4.0.1",
       "properties": [
         {
+          "name": "osv-scanner:is-dev",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
         }
@@ -7877,6 +8247,10 @@ Filtered 1 local package/s from the scan.
       "version": "3.0.1",
       "purl": "pkg:composer/sebastian/code-unit@3.0.1",
       "properties": [
+        {
+          "name": "osv-scanner:is-dev",
+          "value": "true"
+        },
         {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
@@ -7891,6 +8265,10 @@ Filtered 1 local package/s from the scan.
       "purl": "pkg:composer/sebastian/comparator@6.0.1",
       "properties": [
         {
+          "name": "osv-scanner:is-dev",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
         }
@@ -7903,6 +8281,10 @@ Filtered 1 local package/s from the scan.
       "version": "4.0.1",
       "purl": "pkg:composer/sebastian/complexity@4.0.1",
       "properties": [
+        {
+          "name": "osv-scanner:is-dev",
+          "value": "true"
+        },
         {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
@@ -7917,6 +8299,10 @@ Filtered 1 local package/s from the scan.
       "purl": "pkg:composer/sebastian/diff@6.0.2",
       "properties": [
         {
+          "name": "osv-scanner:is-dev",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
         }
@@ -7929,6 +8315,10 @@ Filtered 1 local package/s from the scan.
       "version": "7.2.0",
       "purl": "pkg:composer/sebastian/environment@7.2.0",
       "properties": [
+        {
+          "name": "osv-scanner:is-dev",
+          "value": "true"
+        },
         {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
@@ -7943,6 +8333,10 @@ Filtered 1 local package/s from the scan.
       "purl": "pkg:composer/sebastian/exporter@6.1.3",
       "properties": [
         {
+          "name": "osv-scanner:is-dev",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
         }
@@ -7955,6 +8349,10 @@ Filtered 1 local package/s from the scan.
       "version": "7.0.2",
       "purl": "pkg:composer/sebastian/global-state@7.0.2",
       "properties": [
+        {
+          "name": "osv-scanner:is-dev",
+          "value": "true"
+        },
         {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
@@ -7969,6 +8367,10 @@ Filtered 1 local package/s from the scan.
       "purl": "pkg:composer/sebastian/lines-of-code@3.0.1",
       "properties": [
         {
+          "name": "osv-scanner:is-dev",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
         }
@@ -7981,6 +8383,10 @@ Filtered 1 local package/s from the scan.
       "version": "6.0.1",
       "purl": "pkg:composer/sebastian/object-enumerator@6.0.1",
       "properties": [
+        {
+          "name": "osv-scanner:is-dev",
+          "value": "true"
+        },
         {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
@@ -7995,6 +8401,10 @@ Filtered 1 local package/s from the scan.
       "purl": "pkg:composer/sebastian/object-reflector@4.0.1",
       "properties": [
         {
+          "name": "osv-scanner:is-dev",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
         }
@@ -8007,6 +8417,10 @@ Filtered 1 local package/s from the scan.
       "version": "6.0.2",
       "purl": "pkg:composer/sebastian/recursion-context@6.0.2",
       "properties": [
+        {
+          "name": "osv-scanner:is-dev",
+          "value": "true"
+        },
         {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
@@ -8021,6 +8435,10 @@ Filtered 1 local package/s from the scan.
       "purl": "pkg:composer/sebastian/type@5.0.1",
       "properties": [
         {
+          "name": "osv-scanner:is-dev",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
         }
@@ -8033,6 +8451,10 @@ Filtered 1 local package/s from the scan.
       "version": "5.0.1",
       "purl": "pkg:composer/sebastian/version@5.0.1",
       "properties": [
+        {
+          "name": "osv-scanner:is-dev",
+          "value": "true"
+        },
         {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
@@ -8047,6 +8469,10 @@ Filtered 1 local package/s from the scan.
       "purl": "pkg:composer/symfony/cache-contracts@v3.5.0",
       "properties": [
         {
+          "name": "osv-scanner:is-dev",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
         }
@@ -8059,6 +8485,10 @@ Filtered 1 local package/s from the scan.
       "version": "v7.1.3",
       "purl": "pkg:composer/symfony/cache@v7.1.3",
       "properties": [
+        {
+          "name": "osv-scanner:is-dev",
+          "value": "true"
+        },
         {
           "name": "osv-scanner:is-direct",
           "value": "true"
@@ -8221,6 +8651,10 @@ Filtered 1 local package/s from the scan.
       "purl": "pkg:composer/symfony/http-client-contracts@v3.5.0",
       "properties": [
         {
+          "name": "osv-scanner:is-dev",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
         }
@@ -8233,6 +8667,10 @@ Filtered 1 local package/s from the scan.
       "version": "v7.1.3",
       "purl": "pkg:composer/symfony/http-client@v7.1.3",
       "properties": [
+        {
+          "name": "osv-scanner:is-dev",
+          "value": "true"
+        },
         {
           "name": "osv-scanner:is-direct",
           "value": "true"
@@ -8506,6 +8944,10 @@ Filtered 1 local package/s from the scan.
       "purl": "pkg:composer/symfony/psr-http-message-bridge@v7.1.3",
       "properties": [
         {
+          "name": "osv-scanner:is-dev",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:is-direct",
           "value": "true"
         },
@@ -8654,6 +9096,10 @@ Filtered 1 local package/s from the scan.
       "purl": "pkg:composer/symfony/var-exporter@v7.1.2",
       "properties": [
         {
+          "name": "osv-scanner:is-dev",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
         }
@@ -8666,6 +9112,10 @@ Filtered 1 local package/s from the scan.
       "version": "1.2.3",
       "purl": "pkg:composer/theseer/tokenizer@1.2.3",
       "properties": [
+        {
+          "name": "osv-scanner:is-dev",
+          "value": "true"
+        },
         {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
@@ -10308,6 +10758,10 @@ Filtered 1 local package/s from the scan.
       "purl": "pkg:maven/com.google.code.findbugs/jsr305@3.0.2",
       "properties": [
         {
+          "name": "osv-scanner:is-dev",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:is-direct",
           "value": "true"
         },
@@ -10319,7 +10773,7 @@ Filtered 1 local package/s from the scan.
       "evidence": {
         "occurrences": [
           {
-            "location": "{/"block/":{/"file_name/":/"pom.xml/",/"line_start/":27,/"line_end/":30,/"column_start/":5,/"column_end/":18},/"name/":{/"file_name/":/"pom.xml/",/"line_start/":29,/"line_end/":29,/"column_start/":19,/"column_end/":25},/"version/":{/"file_name/":/"pom.xml/",/"line_start/":21,/"line_end/":21,/"column_start/":18,/"column_end/":23}}"
+            "location": "{/"block/":{/"file_name/":/"pom.xml/",/"line_start/":28,/"line_end/":31,/"column_start/":5,/"column_end/":18},/"name/":{/"file_name/":/"pom.xml/",/"line_start/":30,/"line_end/":30,/"column_start/":19,/"column_end/":25},/"version/":{/"file_name/":/"pom.xml/",/"line_start/":21,/"line_end/":21,/"column_start/":18,/"column_end/":23}}"
           }
         ]
       }
@@ -10388,6 +10842,34 @@ Filtered 1 local package/s from the scan.
         "occurrences": [
           {
             "location": "{/"block/":{/"file_name/":/"yarn/package.json/",/"line_start/":4,/"line_end/":4,/"column_start/":5,/"column_end/":31},/"name/":{/"file_name/":/"yarn/package.json/",/"line_start/":4,/"line_end/":4,/"column_start/":6,/"column_end/":20},/"version/":{/"file_name/":/"yarn/package.json/",/"line_start/":4,/"line_end/":4,/"column_start/":24,/"column_end/":30}}"
+          }
+        ]
+      }
+    },
+    {
+      "bom-ref": "pkg:npm/ms@2.1.3",
+      "type": "library",
+      "name": "ms",
+      "version": "2.1.3",
+      "purl": "pkg:npm/ms@2.1.3",
+      "properties": [
+        {
+          "name": "osv-scanner:is-dev",
+          "value": "true"
+        },
+        {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
+        {
+          "name": "osv-scanner:package-manager",
+          "value": "NPM"
+        }
+      ],
+      "evidence": {
+        "occurrences": [
+          {
+            "location": "{/"block/":{/"file_name/":/"npm/package.json/",/"line_start/":7,/"line_end/":7,/"column_start/":5,/"column_end/":18},/"name/":{/"file_name/":/"npm/package.json/",/"line_start/":7,/"line_end/":7,/"column_start/":6,/"column_end/":8},/"version/":{/"file_name/":/"npm/package.json/",/"line_start/":7,/"line_end/":7,/"column_start/":12,/"column_end/":17}}"
           }
         ]
       }
@@ -10619,7 +11101,7 @@ Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/conan.lock fil
 Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/go.mod file and found 2 packages
 Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/gradle.lockfile file and found 1 package
 Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/mix.lock file and found 1 package
-Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/npm/package-lock.json file and found 1 package
+Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/npm/package-lock.json file and found 2 packages
 Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/nuget/packages.lock.json file and found 3 packages
 Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/packages.lock.json file and found 1 package
 Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/pnpm/pnpm-lock.yaml file and found 1 package
@@ -10660,6 +11142,10 @@ Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/yarn/yarn.lock
       "purl": "pkg:composer/ably/ably-php@1.1.10",
       "properties": [
         {
+          "name": "osv-scanner:is-dev",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:is-direct",
           "value": "true"
         },
@@ -10684,6 +11170,10 @@ Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/yarn/yarn.lock
       "purl": "pkg:composer/aws/aws-crt-php@v1.2.6",
       "properties": [
         {
+          "name": "osv-scanner:is-dev",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
         }
@@ -10696,6 +11186,10 @@ Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/yarn/yarn.lock
       "version": "3.317.2",
       "purl": "pkg:composer/aws/aws-sdk-php@3.317.2",
       "properties": [
+        {
+          "name": "osv-scanner:is-dev",
+          "value": "true"
+        },
         {
           "name": "osv-scanner:is-direct",
           "value": "true"
@@ -10856,6 +11350,10 @@ Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/yarn/yarn.lock
       "purl": "pkg:composer/fakerphp/faker@v1.23.1",
       "properties": [
         {
+          "name": "osv-scanner:is-dev",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:is-direct",
           "value": "true"
         },
@@ -10990,6 +11488,10 @@ Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/yarn/yarn.lock
       "version": "v2.0.1",
       "purl": "pkg:composer/hamcrest/hamcrest-php@v2.0.1",
       "properties": [
+        {
+          "name": "osv-scanner:is-dev",
+          "value": "true"
+        },
         {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
@@ -11141,6 +11643,10 @@ Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/yarn/yarn.lock
       "purl": "pkg:composer/league/flysystem-aws-s3-v3@3.28.0",
       "properties": [
         {
+          "name": "osv-scanner:is-dev",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:is-direct",
           "value": "true"
         },
@@ -11165,6 +11671,10 @@ Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/yarn/yarn.lock
       "purl": "pkg:composer/league/flysystem-local@3.28.0",
       "properties": [
         {
+          "name": "osv-scanner:is-dev",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
         }
@@ -11177,6 +11687,10 @@ Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/yarn/yarn.lock
       "version": "3.28.0",
       "purl": "pkg:composer/league/flysystem-path-prefixing@3.28.0",
       "properties": [
+        {
+          "name": "osv-scanner:is-dev",
+          "value": "true"
+        },
         {
           "name": "osv-scanner:is-direct",
           "value": "true"
@@ -11202,6 +11716,10 @@ Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/yarn/yarn.lock
       "purl": "pkg:composer/league/flysystem-read-only@3.28.0",
       "properties": [
         {
+          "name": "osv-scanner:is-dev",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:is-direct",
           "value": "true"
         },
@@ -11226,6 +11744,10 @@ Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/yarn/yarn.lock
       "purl": "pkg:composer/league/flysystem@3.28.0",
       "properties": [
         {
+          "name": "osv-scanner:is-dev",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
         }
@@ -11239,6 +11761,10 @@ Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/yarn/yarn.lock
       "purl": "pkg:composer/league/mime-type-detection@1.15.0",
       "properties": [
         {
+          "name": "osv-scanner:is-dev",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
         }
@@ -11251,6 +11777,10 @@ Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/yarn/yarn.lock
       "version": "1.6.12",
       "purl": "pkg:composer/mockery/mockery@1.6.12",
       "properties": [
+        {
+          "name": "osv-scanner:is-dev",
+          "value": "true"
+        },
         {
           "name": "osv-scanner:is-direct",
           "value": "true"
@@ -11300,6 +11830,10 @@ Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/yarn/yarn.lock
       "purl": "pkg:composer/mtdowling/jmespath.php@2.7.0",
       "properties": [
         {
+          "name": "osv-scanner:is-dev",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
         }
@@ -11312,6 +11846,10 @@ Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/yarn/yarn.lock
       "version": "1.12.0",
       "purl": "pkg:composer/myclabs/deep-copy@1.12.0",
       "properties": [
+        {
+          "name": "osv-scanner:is-dev",
+          "value": "true"
+        },
         {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
@@ -11376,6 +11914,10 @@ Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/yarn/yarn.lock
       "purl": "pkg:composer/nikic/php-parser@v5.1.0",
       "properties": [
         {
+          "name": "osv-scanner:is-dev",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
         }
@@ -11413,6 +11955,10 @@ Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/yarn/yarn.lock
       "purl": "pkg:composer/nyholm/psr7@1.8.1",
       "properties": [
         {
+          "name": "osv-scanner:is-dev",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:is-direct",
           "value": "true"
         },
@@ -11436,6 +11982,10 @@ Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/yarn/yarn.lock
       "version": "v5.0.5",
       "purl": "pkg:composer/pda/pheanstalk@v5.0.5",
       "properties": [
+        {
+          "name": "osv-scanner:is-dev",
+          "value": "true"
+        },
         {
           "name": "osv-scanner:is-direct",
           "value": "true"
@@ -11461,6 +12011,10 @@ Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/yarn/yarn.lock
       "purl": "pkg:composer/phar-io/manifest@2.0.4",
       "properties": [
         {
+          "name": "osv-scanner:is-dev",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
         }
@@ -11473,6 +12027,10 @@ Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/yarn/yarn.lock
       "version": "3.2.1",
       "purl": "pkg:composer/phar-io/version@3.2.1",
       "properties": [
+        {
+          "name": "osv-scanner:is-dev",
+          "value": "true"
+        },
         {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
@@ -11500,6 +12058,10 @@ Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/yarn/yarn.lock
       "purl": "pkg:composer/phpstan/phpstan@1.11.9",
       "properties": [
         {
+          "name": "osv-scanner:is-dev",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:is-direct",
           "value": "true"
         },
@@ -11524,6 +12086,10 @@ Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/yarn/yarn.lock
       "purl": "pkg:composer/phpunit/php-code-coverage@11.0.5",
       "properties": [
         {
+          "name": "osv-scanner:is-dev",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
         }
@@ -11536,6 +12102,10 @@ Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/yarn/yarn.lock
       "version": "5.0.1",
       "purl": "pkg:composer/phpunit/php-file-iterator@5.0.1",
       "properties": [
+        {
+          "name": "osv-scanner:is-dev",
+          "value": "true"
+        },
         {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
@@ -11550,6 +12120,10 @@ Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/yarn/yarn.lock
       "purl": "pkg:composer/phpunit/php-invoker@5.0.1",
       "properties": [
         {
+          "name": "osv-scanner:is-dev",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
         }
@@ -11562,6 +12136,10 @@ Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/yarn/yarn.lock
       "version": "4.0.1",
       "purl": "pkg:composer/phpunit/php-text-template@4.0.1",
       "properties": [
+        {
+          "name": "osv-scanner:is-dev",
+          "value": "true"
+        },
         {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
@@ -11576,6 +12154,10 @@ Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/yarn/yarn.lock
       "purl": "pkg:composer/phpunit/php-timer@7.0.1",
       "properties": [
         {
+          "name": "osv-scanner:is-dev",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
         }
@@ -11588,6 +12170,10 @@ Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/yarn/yarn.lock
       "version": "11.3.0",
       "purl": "pkg:composer/phpunit/phpunit@11.3.0",
       "properties": [
+        {
+          "name": "osv-scanner:is-dev",
+          "value": "true"
+        },
         {
           "name": "osv-scanner:is-direct",
           "value": "true"
@@ -11613,6 +12199,10 @@ Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/yarn/yarn.lock
       "purl": "pkg:composer/predis/predis@v2.2.2",
       "properties": [
         {
+          "name": "osv-scanner:is-dev",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:is-direct",
           "value": "true"
         },
@@ -11636,6 +12226,10 @@ Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/yarn/yarn.lock
       "version": "3.0.0",
       "purl": "pkg:composer/psr/cache@3.0.0",
       "properties": [
+        {
+          "name": "osv-scanner:is-dev",
+          "value": "true"
+        },
         {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
@@ -11837,6 +12431,10 @@ Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/yarn/yarn.lock
       "purl": "pkg:composer/resend/resend-php@v0.10.1",
       "properties": [
         {
+          "name": "osv-scanner:is-dev",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:is-direct",
           "value": "true"
         },
@@ -11861,6 +12459,10 @@ Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/yarn/yarn.lock
       "purl": "pkg:composer/rybakit/msgpack@v0.9.1",
       "properties": [
         {
+          "name": "osv-scanner:is-dev",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
         }
@@ -11873,6 +12475,10 @@ Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/yarn/yarn.lock
       "version": "3.0.2",
       "purl": "pkg:composer/sebastian/cli-parser@3.0.2",
       "properties": [
+        {
+          "name": "osv-scanner:is-dev",
+          "value": "true"
+        },
         {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
@@ -11887,6 +12493,10 @@ Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/yarn/yarn.lock
       "purl": "pkg:composer/sebastian/code-unit-reverse-lookup@4.0.1",
       "properties": [
         {
+          "name": "osv-scanner:is-dev",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
         }
@@ -11899,6 +12509,10 @@ Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/yarn/yarn.lock
       "version": "3.0.1",
       "purl": "pkg:composer/sebastian/code-unit@3.0.1",
       "properties": [
+        {
+          "name": "osv-scanner:is-dev",
+          "value": "true"
+        },
         {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
@@ -11913,6 +12527,10 @@ Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/yarn/yarn.lock
       "purl": "pkg:composer/sebastian/comparator@6.0.1",
       "properties": [
         {
+          "name": "osv-scanner:is-dev",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
         }
@@ -11925,6 +12543,10 @@ Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/yarn/yarn.lock
       "version": "4.0.1",
       "purl": "pkg:composer/sebastian/complexity@4.0.1",
       "properties": [
+        {
+          "name": "osv-scanner:is-dev",
+          "value": "true"
+        },
         {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
@@ -11939,6 +12561,10 @@ Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/yarn/yarn.lock
       "purl": "pkg:composer/sebastian/diff@6.0.2",
       "properties": [
         {
+          "name": "osv-scanner:is-dev",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
         }
@@ -11951,6 +12577,10 @@ Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/yarn/yarn.lock
       "version": "7.2.0",
       "purl": "pkg:composer/sebastian/environment@7.2.0",
       "properties": [
+        {
+          "name": "osv-scanner:is-dev",
+          "value": "true"
+        },
         {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
@@ -11965,6 +12595,10 @@ Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/yarn/yarn.lock
       "purl": "pkg:composer/sebastian/exporter@6.1.3",
       "properties": [
         {
+          "name": "osv-scanner:is-dev",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
         }
@@ -11977,6 +12611,10 @@ Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/yarn/yarn.lock
       "version": "7.0.2",
       "purl": "pkg:composer/sebastian/global-state@7.0.2",
       "properties": [
+        {
+          "name": "osv-scanner:is-dev",
+          "value": "true"
+        },
         {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
@@ -11991,6 +12629,10 @@ Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/yarn/yarn.lock
       "purl": "pkg:composer/sebastian/lines-of-code@3.0.1",
       "properties": [
         {
+          "name": "osv-scanner:is-dev",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
         }
@@ -12003,6 +12645,10 @@ Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/yarn/yarn.lock
       "version": "6.0.1",
       "purl": "pkg:composer/sebastian/object-enumerator@6.0.1",
       "properties": [
+        {
+          "name": "osv-scanner:is-dev",
+          "value": "true"
+        },
         {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
@@ -12017,6 +12663,10 @@ Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/yarn/yarn.lock
       "purl": "pkg:composer/sebastian/object-reflector@4.0.1",
       "properties": [
         {
+          "name": "osv-scanner:is-dev",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
         }
@@ -12029,6 +12679,10 @@ Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/yarn/yarn.lock
       "version": "6.0.2",
       "purl": "pkg:composer/sebastian/recursion-context@6.0.2",
       "properties": [
+        {
+          "name": "osv-scanner:is-dev",
+          "value": "true"
+        },
         {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
@@ -12043,6 +12697,10 @@ Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/yarn/yarn.lock
       "purl": "pkg:composer/sebastian/type@5.0.1",
       "properties": [
         {
+          "name": "osv-scanner:is-dev",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
         }
@@ -12055,6 +12713,10 @@ Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/yarn/yarn.lock
       "version": "5.0.1",
       "purl": "pkg:composer/sebastian/version@5.0.1",
       "properties": [
+        {
+          "name": "osv-scanner:is-dev",
+          "value": "true"
+        },
         {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
@@ -12069,6 +12731,10 @@ Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/yarn/yarn.lock
       "purl": "pkg:composer/symfony/cache-contracts@v3.5.0",
       "properties": [
         {
+          "name": "osv-scanner:is-dev",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
         }
@@ -12081,6 +12747,10 @@ Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/yarn/yarn.lock
       "version": "v7.1.3",
       "purl": "pkg:composer/symfony/cache@v7.1.3",
       "properties": [
+        {
+          "name": "osv-scanner:is-dev",
+          "value": "true"
+        },
         {
           "name": "osv-scanner:is-direct",
           "value": "true"
@@ -12243,6 +12913,10 @@ Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/yarn/yarn.lock
       "purl": "pkg:composer/symfony/http-client-contracts@v3.5.0",
       "properties": [
         {
+          "name": "osv-scanner:is-dev",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
         }
@@ -12255,6 +12929,10 @@ Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/yarn/yarn.lock
       "version": "v7.1.3",
       "purl": "pkg:composer/symfony/http-client@v7.1.3",
       "properties": [
+        {
+          "name": "osv-scanner:is-dev",
+          "value": "true"
+        },
         {
           "name": "osv-scanner:is-direct",
           "value": "true"
@@ -12528,6 +13206,10 @@ Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/yarn/yarn.lock
       "purl": "pkg:composer/symfony/psr-http-message-bridge@v7.1.3",
       "properties": [
         {
+          "name": "osv-scanner:is-dev",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:is-direct",
           "value": "true"
         },
@@ -12676,6 +13358,10 @@ Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/yarn/yarn.lock
       "purl": "pkg:composer/symfony/var-exporter@v7.1.2",
       "properties": [
         {
+          "name": "osv-scanner:is-dev",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
         }
@@ -12688,6 +13374,10 @@ Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/yarn/yarn.lock
       "version": "1.2.3",
       "purl": "pkg:composer/theseer/tokenizer@1.2.3",
       "properties": [
+        {
+          "name": "osv-scanner:is-dev",
+          "value": "true"
+        },
         {
           "name": "osv-scanner:package-manager",
           "value": "Composer"
@@ -14330,6 +15020,10 @@ Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/yarn/yarn.lock
       "purl": "pkg:maven/com.google.code.findbugs/jsr305@3.0.2",
       "properties": [
         {
+          "name": "osv-scanner:is-dev",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:is-direct",
           "value": "true"
         },
@@ -14341,7 +15035,7 @@ Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/yarn/yarn.lock
       "evidence": {
         "occurrences": [
           {
-            "location": "{/"block/":{/"file_name/":/"pom.xml/",/"line_start/":27,/"line_end/":30,/"column_start/":5,/"column_end/":18},/"name/":{/"file_name/":/"pom.xml/",/"line_start/":29,/"line_end/":29,/"column_start/":19,/"column_end/":25},/"version/":{/"file_name/":/"pom.xml/",/"line_start/":21,/"line_end/":21,/"column_start/":18,/"column_end/":23}}"
+            "location": "{/"block/":{/"file_name/":/"pom.xml/",/"line_start/":28,/"line_end/":31,/"column_start/":5,/"column_end/":18},/"name/":{/"file_name/":/"pom.xml/",/"line_start/":30,/"line_end/":30,/"column_start/":19,/"column_end/":25},/"version/":{/"file_name/":/"pom.xml/",/"line_start/":21,/"line_end/":21,/"column_start/":18,/"column_end/":23}}"
           }
         ]
       }
@@ -14410,6 +15104,34 @@ Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/yarn/yarn.lock
         "occurrences": [
           {
             "location": "{/"block/":{/"file_name/":/"yarn/package.json/",/"line_start/":4,/"line_end/":4,/"column_start/":5,/"column_end/":31},/"name/":{/"file_name/":/"yarn/package.json/",/"line_start/":4,/"line_end/":4,/"column_start/":6,/"column_end/":20},/"version/":{/"file_name/":/"yarn/package.json/",/"line_start/":4,/"line_end/":4,/"column_start/":24,/"column_end/":30}}"
+          }
+        ]
+      }
+    },
+    {
+      "bom-ref": "pkg:npm/ms@2.1.3",
+      "type": "library",
+      "name": "ms",
+      "version": "2.1.3",
+      "purl": "pkg:npm/ms@2.1.3",
+      "properties": [
+        {
+          "name": "osv-scanner:is-dev",
+          "value": "true"
+        },
+        {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
+        {
+          "name": "osv-scanner:package-manager",
+          "value": "NPM"
+        }
+      ],
+      "evidence": {
+        "occurrences": [
+          {
+            "location": "{/"block/":{/"file_name/":/"npm/package.json/",/"line_start/":7,/"line_end/":7,/"column_start/":5,/"column_end/":18},/"name/":{/"file_name/":/"npm/package.json/",/"line_start/":7,/"line_end/":7,/"column_start/":6,/"column_end/":8},/"version/":{/"file_name/":/"npm/package.json/",/"line_start/":7,/"line_end/":7,/"column_start/":12,/"column_end/":17}}"
           }
         ]
       }
@@ -14641,7 +15363,7 @@ Scanned <rootdir>/fixtures/encoding-integration-test-locks/Windows-1252/conan.lo
 Scanned <rootdir>/fixtures/encoding-integration-test-locks/Windows-1252/go.mod file and found 2 packages
 Scanned <rootdir>/fixtures/encoding-integration-test-locks/Windows-1252/gradle.lockfile file and found 1 package
 Scanned <rootdir>/fixtures/encoding-integration-test-locks/Windows-1252/mix.lock file and found 1 package
-Scanned <rootdir>/fixtures/encoding-integration-test-locks/Windows-1252/npm/package-lock.json file and found 1 package
+Scanned <rootdir>/fixtures/encoding-integration-test-locks/Windows-1252/npm/package-lock.json file and found 2 packages
 Scanned <rootdir>/fixtures/encoding-integration-test-locks/Windows-1252/nuget/packages.lock.json file and found 3 packages
 Scanned <rootdir>/fixtures/encoding-integration-test-locks/Windows-1252/packages.lock.json file and found 1 package
 Scanned <rootdir>/fixtures/encoding-integration-test-locks/Windows-1252/pnpm/pnpm-lock.yaml file and found 1 package
