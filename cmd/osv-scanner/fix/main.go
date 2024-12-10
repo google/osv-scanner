@@ -281,13 +281,13 @@ func action(ctx *cli.Context, stdout, stderr io.Writer) (reporter.Reporter, erro
 	case "json":
 		r.Stdout = stderr
 		r.Stderr = stderr
-		r.OutputResult = func(fr fixResult) error { return outputJSON(stdout, fr) }
+		r.OutputResult = func(fo fixOutput) error { return outputJSON(stdout, fo) }
 	case "text":
 		fallthrough
 	default:
 		r.Stdout = stdout
 		r.Stderr = stderr
-		r.OutputResult = func(fr fixResult) error { return outputText(stdout, fr) }
+		r.OutputResult = func(fo fixOutput) error { return outputText(stdout, fo) }
 	}
 
 	opts := osvFixOptions{

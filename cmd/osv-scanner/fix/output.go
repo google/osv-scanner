@@ -10,50 +10,50 @@ import (
 	"github.com/google/osv-scanner/pkg/models"
 )
 
-type fixResult struct {
+type fixOutput struct {
 	Path            string           `json:"path"`
 	Ecosystem       models.Ecosystem `json:"ecosystem"`
 	Strategy        strategy         `json:"strategy"`
-	Vulnerabilities []fixVuln        `json:"vulnerabilities"`
-	Patches         []fixPatch       `json:"patches"`
-	Errors          []fixError       `json:"errors,omitempty"`
+	Vulnerabilities []vulnOutput     `json:"vulnerabilities"`
+	Patches         []patchOutput    `json:"patches"`
+	Errors          []errorOutput    `json:"errors,omitempty"`
 }
 
-type fixVuln struct {
-	ID           string               `json:"id"`
-	Packages     []fixAffectedPackage `json:"packages"`
-	Unactionable bool                 `json:"unactionable,omitempty"`
+type vulnOutput struct {
+	ID           string          `json:"id"`
+	Packages     []packageOutput `json:"packages"`
+	Unactionable bool            `json:"unactionable,omitempty"`
 }
 
-type fixPatch struct {
-	PackageUpdates []fixPackageUpdate `json:"packageUpdates"`
-	Fixed          []fixVuln          `json:"fixed"`
-	Introduced     []fixVuln          `json:"introduced,omitempty"`
+type patchOutput struct {
+	PackageUpdates []updatePackageOutput `json:"packageUpdates"`
+	Fixed          []vulnOutput          `json:"fixed"`
+	Introduced     []vulnOutput          `json:"introduced,omitempty"`
 }
 
-type fixAffectedPackage struct {
+type packageOutput struct {
 	Name    string `json:"name"`
 	Version string `json:"version"`
 }
 
-type fixPackageUpdate struct {
+type updatePackageOutput struct {
 	Name        string `json:"name"`
 	VersionFrom string `json:"versionFrom"`
 	VersionTo   string `json:"versionTo"`
 	Transitive  bool   `json:"transitive"`
 }
 
-type fixError struct {
-	Package     fixAffectedPackage `json:"package"`
-	Requirement fixAffectedPackage `json:"requirement"`
-	Error       string             `json:"error"`
+type errorOutput struct {
+	Package     packageOutput `json:"package"`
+	Requirement packageOutput `json:"requirement"`
+	Error       string        `json:"error"`
 }
 
 // TODO: stop relying on old reporter implementation
 type outputReporter struct {
 	Stdout       io.Writer
 	Stderr       io.Writer
-	OutputResult func(fixResult) error
+	OutputResult func(fixOutput) error
 	hasErrored   bool
 }
 
@@ -82,10 +82,10 @@ func (r *outputReporter) PrintResult(*models.VulnerabilityResults) error {
 	panic("not implemented")
 }
 
-func outputText(w io.Writer, res fixResult) error {
-	if len(res.Errors) > 0 {
-		fmt.Fprintf(w, "WARNING: encountered %d errors during dependency resolution:\n", len(res.Errors))
-		for _, err := range res.Errors {
+func outputText(w io.Writer, out fixOutput) error {
+	if len(out.Errors) > 0 {
+		fmt.Fprintf(w, "WARNING: encountered %d errors during dependency resolution:\n", len(out.Errors))
+		for _, err := range out.Errors {
 			fmt.Fprintf(w, "Error when resolving %s@%s:\n", err.Package.Name, err.Package.Version)
 			if strings.Contains(err.Requirement.Version, ":") {
 				// this will be the case with unsupported npm requirements e.g. `file:...`, `git+https://...`
@@ -98,11 +98,11 @@ func outputText(w io.Writer, res fixResult) error {
 		}
 	}
 
-	nVulns := len(res.Vulnerabilities)
+	nVulns := len(out.Vulnerabilities)
 
 	fmt.Fprintf(w, "Found %d vulnerabilities matching the filter\n", nVulns)
 
-	if len(res.Patches) == 0 {
+	if len(out.Patches) == 0 {
 		fmt.Fprintf(w, "No dependency patches are possible\n")
 		fmt.Fprintf(w, "REMAINING-VULNS: %d\n", nVulns)
 		fmt.Fprintf(w, "UNFIXABLE-VULNS: %d\n", nVulns)
@@ -112,23 +112,23 @@ func outputText(w io.Writer, res fixResult) error {
 
 	changedDeps := 0
 	var fixedVulns []string
-	for _, patch := range res.Patches {
+	for _, patch := range out.Patches {
 		changedDeps += len(patch.PackageUpdates)
 		for _, v := range patch.Fixed {
 			fixedVulns = append(fixedVulns, v.ID)
 		}
 	}
 
-	if res.Strategy == strategyOverride {
+	if out.Strategy == strategyOverride {
 		fmt.Fprintf(w, "Can fix %d/%d matching vulnerabilities by overriding %d dependencies\n", len(fixedVulns), nVulns, changedDeps)
-		for _, patch := range res.Patches {
+		for _, patch := range out.Patches {
 			for _, pkg := range patch.PackageUpdates {
 				fmt.Fprintf(w, "OVERRIDE-PACKAGE: %s,%s\n", pkg.Name, pkg.VersionTo)
 			}
 		}
 	} else {
 		fmt.Fprintf(w, "Can fix %d/%d matching vulnerabilities by changing %d dependencies\n", len(fixedVulns), nVulns, changedDeps)
-		for _, patch := range res.Patches {
+		for _, patch := range out.Patches {
 			for _, pkg := range patch.PackageUpdates {
 				fmt.Fprintf(w, "UPGRADED-PACKAGE: %s,%s,%s\n", pkg.Name, pkg.VersionFrom, pkg.VersionTo)
 			}
@@ -139,7 +139,7 @@ func outputText(w io.Writer, res fixResult) error {
 	fmt.Fprintf(w, "REMAINING-VULNS: %d\n", nVulns-len(fixedVulns))
 
 	nUnfixable := 0
-	for _, v := range res.Vulnerabilities {
+	for _, v := range out.Vulnerabilities {
 		if v.Unactionable {
 			nUnfixable++
 		}
@@ -149,9 +149,9 @@ func outputText(w io.Writer, res fixResult) error {
 	return nil
 }
 
-func outputJSON(w io.Writer, res fixResult) error {
+func outputJSON(w io.Writer, out fixOutput) error {
 	encoder := json.NewEncoder(w)
 	encoder.SetIndent("", "  ")
 
-	return encoder.Encode(res)
+	return encoder.Encode(out)
 }
