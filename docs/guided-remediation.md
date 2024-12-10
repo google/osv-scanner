@@ -88,11 +88,11 @@ Rewriting path/to/package-lock.json...
 Alternatively, to potentially resolve even more vulnerabilities with larger (potentially breaking) changes, you can [regenerate your lockfile and update your direct dependencies](#relock-and-relax-direct-dependency-remediation) with the following command:
 
 ```bash
-osv-scanner fix --non-interactive --strategy=relock -M path/to/package.json -L path/to/package-lock.json
+osv-scanner fix --non-interactive --strategy=relax -M path/to/package.json -L path/to/package-lock.json
 ```
 
 <details markdown="1">
-<summary><b>Sample relock output</b></summary>
+<summary><b>Sample relax output</b></summary>
 
 {: .highlight }
 The output format might change with minor version updates.
@@ -160,7 +160,7 @@ From the first results screen, you can select which of the two remediation strat
 
 ## In-place lockfile remediation
 
-'In-place' remediation involves replacing vulnerable versions of packages in your lockfile with non-vulnerable versions, while still respecting the existing constraints for that dependency. This approach is usually less risky, but will often fix less vulnerabilities than the [relock strategy](#relock-and-relax-direct-dependency-remediation).
+'In-place' remediation involves replacing vulnerable versions of packages in your lockfile with non-vulnerable versions, while still respecting the existing constraints for that dependency. This approach is usually less risky, but will often fix less vulnerabilities than the [relax strategy](#relock-and-relax-direct-dependency-remediation).
 
 Selecting the "Modify lockfile in place" option will bring you to the in-place information page. From here, you can see which vulnerabilities can and cannot be resolved by this strategy. By default, every possible in-place patch will be chosen to be applied. You may instead choose which subset of patches you wish to apply.
 
@@ -201,7 +201,7 @@ The `fix` subcommand has a number of flags to allow you to control which vulnera
 
 The following flags may be used when running in non-interactive mode only:
 
-- `--strategy=` [`in-place`](#in-place-lockfile-remediation) OR [`relock`](#relock-and-relax-direct-dependency-remediation): Which remediation strategy to use.
+- `--strategy=` [`in-place`](#in-place-lockfile-remediation) OR [`relax`](#relock-and-relax-direct-dependency-remediation): Which remediation strategy to use.
 - `--apply-top=<value>`: Specifies the maximum number of patches to apply. Patches are chosen in the same order as they would appear in the interactive mode.
 
   For example, `--apply-top=1` will only apply one patch, and `--apply-top=2` would apply the two best compatible patches. This flag is particularly useful when scripting to test the outcome of specific patches. Setting `--apply-top=-1` will apply every possible patch (default behavior).
@@ -272,9 +272,9 @@ For more information, see [Offline Mode](./offline-mode.md).
 
 - The subcommand does not use the `osv-scanner.toml` configuration. Use the `--ignore-vulns` flag instead.
 - The subcommand does not group aliases of the same vulnerabilities together.
-- Unique vulnerabilities are counted differently with `fix --strategy=relock` versus with `fix --strategy=in-place` and with `scan`. `scan` will count the same OSV ID affecting two different package versions separately, whereas `fix --strategy=relock` will count this as one vulnerability.
+- Unique vulnerabilities are counted differently with `fix --strategy=relax` versus with `fix --strategy=in-place` and with `scan`. `scan` will count the same OSV ID affecting two different package versions separately, whereas `fix --strategy=relax` will count this as one vulnerability.
 
-  e.g. if `OSV-123-456` affects both `foo@1.0.0` and `foo@2.0.0` in your project, `scan` and `fix --strategy=in-place` will treat this as two distinct vulnerabilities, while `fix --strategy=relock` will treat this as only one.
+  e.g. if `OSV-123-456` affects both `foo@1.0.0` and `foo@2.0.0` in your project, `scan` and `fix --strategy=in-place` will treat this as two distinct vulnerabilities, while `fix --strategy=relax` will treat this as only one.
 
 ### npm
 
