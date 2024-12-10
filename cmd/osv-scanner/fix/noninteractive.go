@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"deps.dev/util/resolve"
+	"deps.dev/util/resolve/dep"
 	"github.com/google/osv-scanner/internal/remediation"
 	"github.com/google/osv-scanner/internal/resolution"
 	"github.com/google/osv-scanner/internal/resolution/client"
@@ -377,15 +378,26 @@ func autoChooseOverridePatches(diffs []resolution.Difference, maxUpgrades int, o
 			patches = append(patches, dp)
 			pkgChanged[dp.Pkg] = true
 
-			p.PackageUpdates = append(p.PackageUpdates, fixPackageUpdate{
+			pkgUpdate := fixPackageUpdate{
 				Name:        dp.Pkg.Name,
 				VersionFrom: dp.OrigResolved,
 				VersionTo:   dp.NewRequire,
-				Transitive:  true, // TODO
-			})
+				Transitive:  true,
+			}
+			// Check if this is a direct dependency
+			for _, req := range diff.Original.Manifest.Requirements {
+				if req.PackageKey == dp.Pkg && !req.Type.HasAttr(dep.MavenDependencyOrigin) {
+					pkgUpdate.Transitive = false
+					break
+				}
+			}
+			p.PackageUpdates = append(p.PackageUpdates, pkgUpdate)
 		}
 		for _, vuln := range diff.RemovedVulns {
 			fixedVulns[vuln.OSV.ID] = struct{}{}
+			p.Fixed = append(p.Fixed, makeResultVuln(vuln))
+		}
+		for _, vuln := range diff.AddedVulns {
 			p.Introduced = append(p.Introduced, makeResultVuln(vuln))
 		}
 		outputResult.Patches = append(outputResult.Patches, p)
