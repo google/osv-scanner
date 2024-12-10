@@ -349,9 +349,9 @@ overriding license for package Packagist/league/flysystem/1.0.8 with 0BSD
 | LICENSE VIOLATION | ECOSYSTEM | PACKAGE                                        | VERSION | SOURCE                                                |
 +-------------------+-----------+------------------------------------------------+---------+-------------------------------------------------------+
 | 0BSD              | Packagist | league/flysystem                               | 1.0.8   | fixtures/locks-insecure/composer.lock                 |
-| UNKNOWN           |           | https://github.com/flutter/buildroot.git       |         | fixtures/locks-insecure/osv-scanner-flutter-deps.json |
-| UNKNOWN           |           | https://github.com/brendan-duncan/archive.git  |         | fixtures/locks-insecure/osv-scanner-flutter-deps.json |
 | UNKNOWN           |           | https://chromium.googlesource.com/chromium/src |         | fixtures/locks-insecure/osv-scanner-flutter-deps.json |
+| UNKNOWN           |           | https://github.com/brendan-duncan/archive.git  |         | fixtures/locks-insecure/osv-scanner-flutter-deps.json |
+| UNKNOWN           |           | https://github.com/flutter/buildroot.git       |         | fixtures/locks-insecure/osv-scanner-flutter-deps.json |
 | UNKNOWN           | RubyGems  | ast                                            | 2.4.2   | fixtures/locks-many/Gemfile.lock                      |
 | 0BSD              | Packagist | sentry/sdk                                     | 2.0.4   | fixtures/locks-many/composer.lock                     |
 +-------------------+-----------+------------------------------------------------+---------+-------------------------------------------------------+
@@ -923,6 +923,68 @@ Scanned <rootdir>/fixtures/call-analysis-go-project/go.mod file and found 4 pack
 ---
 
 [TestRunCallAnalysis/Run_with_govulncheck - 2]
+
+---
+
+[TestRun_Docker/Fake_alpine_image - 1]
+Pulling docker image ("alpine:non-existent-tag")...
+
+---
+
+[TestRun_Docker/Fake_alpine_image - 2]
+Docker command exited with code ("/usr/bin/docker pull -q alpine:non-existent-tag"): 1
+STDERR:
+> Error response from daemon: manifest for alpine:non-existent-tag not found: manifest unknown: manifest unknown
+failed to run docker command
+
+---
+
+[TestRun_Docker/Fake_image_entirely - 1]
+Pulling docker image ("this-image-definitely-does-not-exist-abcde")...
+
+---
+
+[TestRun_Docker/Fake_image_entirely - 2]
+Docker command exited with code ("/usr/bin/docker pull -q this-image-definitely-does-not-exist-abcde"): 1
+STDERR:
+> Error response from daemon: pull access denied for this-image-definitely-does-not-exist-abcde, repository does not exist or may require 'docker login': denied: requested access to the resource is denied
+failed to run docker command
+
+---
+
+[TestRun_Docker/Real_Alpine_image - 1]
+Pulling docker image ("alpine:3.18.9")...
+Saving docker image ("alpine:3.18.9") to temporary file...
+Scanning image...
+No issues found
+
+---
+
+[TestRun_Docker/Real_Alpine_image - 2]
+
+---
+
+[TestRun_Docker/Real_empty_image - 1]
+Pulling docker image ("hello-world")...
+Saving docker image ("hello-world") to temporary file...
+Scanning image...
+
+---
+
+[TestRun_Docker/Real_empty_image - 2]
+No package sources found, --help for usage information.
+
+---
+
+[TestRun_Docker/Real_empty_image_with_tag - 1]
+Pulling docker image ("hello-world:linux")...
+Saving docker image ("hello-world:linux") to temporary file...
+Scanning image...
+
+---
+
+[TestRun_Docker/Real_empty_image_with_tag - 2]
+No package sources found, --help for usage information.
 
 ---
 
@@ -2393,7 +2455,7 @@ No issues found
 ---
 
 [TestRun_LockfileWithExplicitParseAs/empty_works_as_an_escape_(no_fixture_because_it's_not_valid_on_Windows) - 2]
-open <rootdir>/path/to/my:file: no such file or directory
+stat <rootdir>/path/to/my:file: no such file or directory
 
 ---
 
@@ -2402,7 +2464,7 @@ open <rootdir>/path/to/my:file: no such file or directory
 ---
 
 [TestRun_LockfileWithExplicitParseAs/empty_works_as_an_escape_(no_fixture_because_it's_not_valid_on_Windows)#01 - 2]
-open <rootdir>/path/to/my:project/package-lock.json: no such file or directory
+stat <rootdir>/path/to/my:project/package-lock.json: no such file or directory
 
 ---
 
@@ -2411,7 +2473,7 @@ open <rootdir>/path/to/my:project/package-lock.json: no such file or directory
 ---
 
 [TestRun_LockfileWithExplicitParseAs/files_that_error_on_parsing_stop_parsable_files_from_being_checked - 2]
-(extracting as Cargo.lock) could not extract from <rootdir>/fixtures/locks-insecure/my-package-lock.json: toml: line 1: expected '.' or '=', but got '{' instead
+(extracting as rust/Cargolock) could not extract from <rootdir>/fixtures/locks-insecure/my-package-lock.json: toml: line 1: expected '.' or '=', but got '{' instead
 
 ---
 
@@ -2469,7 +2531,7 @@ No issues found
 ---
 
 [TestRun_LockfileWithExplicitParseAs/parse-as_takes_priority,_even_if_it's_wrong - 2]
-(extracting as package-lock.json) could not extract from <rootdir>/fixtures/locks-many/yarn.lock: invalid character '#' looking for beginning of value
+(extracting as javascript/packagelockjson) could not extract from "<rootdir>/fixtures/locks-many/yarn.lock": invalid character '#' looking for beginning of value
 
 ---
 
@@ -2673,7 +2735,7 @@ Total 3 packages affected by 6 vulnerabilities (2 Critical, 0 High, 4 Medium, 0 
 npm
 +--------------------------------------------------------------+
 | Source:docker:../../internal/image/fixtures/test-node_module |
-| s-npm-full.tar:/usr/app/node_modules/.package-lock.json      |
+| s-npm-full.tar:/prod/app/node_modules/.package-lock.json     |
 +----------+-------------------+------------------+------------+
 | PACKAGE  | INSTALLED VERSION | FIX AVAILABLE    | VULN COUNT |
 +----------+-------------------+------------------+------------+
