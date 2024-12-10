@@ -77,7 +77,6 @@ func (m *MavenRegistryAPIClient) WithoutRegistries() *MavenRegistryAPIClient {
 	}
 }
 
-
 // AddRegistry adds the given registry to the list of registries if it has not been added.
 func (m *MavenRegistryAPIClient) AddRegistry(registry MavenRegistry) error {
 	for _, reg := range m.registries {
