@@ -59,7 +59,12 @@ func (e Extractor) Extract(ctx context.Context, input *filesystem.ScanInput) ([]
 		return nil, fmt.Errorf("failed to merge profiles: %w", err)
 	}
 	for _, repo := range project.Repositories {
-		if err := e.MavenRegistryAPIClient.AddRegistry(string(repo.URL)); err != nil {
+		if err := e.MavenRegistryAPIClient.AddRegistry(datasource.MavenRegistry{
+			URL:              string(repo.URL),
+			ID:               string(repo.ID),
+			ReleasesEnabled:  repo.Releases.Enabled != "false",
+			SnapshotsEnabled: repo.Snapshots.Enabled != "false",
+		}); err != nil {
 			return nil, fmt.Errorf("failed to add registry %s: %w", repo.URL, err)
 		}
 	}
@@ -78,7 +83,7 @@ func (e Extractor) Extract(ctx context.Context, input *filesystem.ScanInput) ([]
 	if registries := e.MavenRegistryAPIClient.GetRegistries(); len(registries) > 0 {
 		clientRegs := make([]client.Registry, len(registries))
 		for i, reg := range registries {
-			clientRegs[i] = client.Registry{URL: reg}
+			clientRegs[i] = client.Registry{EcosystemSpecific: reg}
 		}
 		if err := e.DependencyClient.AddRegistries(clientRegs); err != nil {
 			return nil, err
