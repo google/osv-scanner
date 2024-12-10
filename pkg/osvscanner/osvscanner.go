@@ -140,22 +140,18 @@ func DoScan(actions ScannerActions, r reporter.Reporter) (models.VulnerabilityRe
 		return models.VulnerabilityResults{}, err
 	}
 
-	pkgSet := map[string]struct{}{}
+	// pkgSet := map[string]struct{}{}
 	// TODO: Determine where these mapping code should go
 	scanResult.PackageScanResults = []imodels.PackageScanResult{}
 	for _, inv := range scannedInventories {
 		inv := imodels.FromInventory(inv)
-		// TODO: Better way to dedup?
-		key := fmt.Sprintf("%s,%s,%s,%s,%s,%s", inv.Name, inv.Version, inv.Commit, inv.Ecosystem.String(), inv.Location, inv.OSPackageName)
-		if _, exists := pkgSet[key]; exists {
-			continue
-		}
+
 		scanResult.PackageScanResults = append(scanResult.PackageScanResults,
 			imodels.PackageScanResult{
 				PackageInfo: inv,
 			},
 		)
-		pkgSet[key] = struct{}{}
+		// pkgSet[key] = struct{}{}
 	}
 
 	filterUnscannablePackages(r, &scanResult)

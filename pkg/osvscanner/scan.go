@@ -88,16 +88,6 @@ func scan(r reporter.Reporter, actions ScannerActions) ([]*extractor.Inventory, 
 		scannedInventory = append(scannedInventory, invs...)
 	}
 
-	// for _, commit := range actions.GitCommits {
-	// 	scannedInventory = append(scannedInventory, imodels.ScannedPackage{
-	// 		Commit: commit,
-	// 		Source: models.SourceInfo{
-	// 			Path: "HASH",
-	// 			Type: "git",
-	// 		},
-	// 	})
-	// }
-
 	for _, dir := range actions.DirectoryPaths {
 		r.Infof("Scanning dir %s\n", dir)
 		pkgs, err := scanners.ScanDir(r, dir, actions.SkipGit, actions.Recursive, !actions.NoIgnore, actions.CompareOffline, pomExtractor)
