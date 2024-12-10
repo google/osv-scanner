@@ -10,10 +10,7 @@ import (
 	"github.com/google/osv-scanner/internal/imodels"
 	"github.com/google/osv-scanner/internal/imodels/results"
 	"github.com/google/osv-scanner/internal/local"
-	"github.com/google/osv-scanner/internal/lockfilescalibr/language/java/pomxmlnet"
 	"github.com/google/osv-scanner/internal/output"
-	"github.com/google/osv-scanner/internal/resolution/client"
-	"github.com/google/osv-scanner/internal/resolution/datasource"
 	"github.com/google/osv-scanner/internal/semantic"
 	"github.com/google/osv-scanner/internal/version"
 	"github.com/google/osv-scanner/pkg/models"
@@ -75,31 +72,6 @@ var OnlyUncalledVulnerabilitiesFoundErr = errors.New("only uncalled vulnerabilit
 
 // ErrAPIFailed describes errors related to querying API endpoints.
 var ErrAPIFailed = errors.New("API query failed")
-
-func createMavenExtractor(actions TransitiveScanningActions) (*pomxmlnet.Extractor, error) {
-	var depClient client.DependencyClient
-	var err error
-	if actions.NativeDataSource {
-		depClient, err = client.NewMavenRegistryClient(actions.MavenRegistry)
-	} else {
-		depClient, err = client.NewDepsDevClient(depsdev.DepsdevAPI)
-	}
-	if err != nil {
-		return nil, err
-	}
-
-	mavenClient, err := datasource.NewMavenRegistryAPIClient(actions.MavenRegistry)
-	if err != nil {
-		return nil, err
-	}
-
-	extractor := pomxmlnet.Extractor{
-		DependencyClient:       depClient,
-		MavenRegistryAPIClient: mavenClient,
-	}
-
-	return &extractor, nil
-}
 
 // Perform osv scanner action, with optional reporter to output information
 func DoScan(actions ScannerActions, r reporter.Reporter) (models.VulnerabilityResults, error) {

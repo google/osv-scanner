@@ -54,7 +54,7 @@ func ScanDir(r reporter.Reporter, dir string, skipGit bool, recursive bool, useG
 
 	var scannedInventories []*extractor.Inventory
 
-	return scannedInventories, filepath.WalkDir(dir, func(path string, info os.DirEntry, err error) error {
+	err := filepath.WalkDir(dir, func(path string, info os.DirEntry, err error) error {
 		if err != nil {
 			r.Infof("Failed to walk %s: %v\n", path, err)
 			return err
@@ -83,7 +83,7 @@ func ScanDir(r reporter.Reporter, dir string, skipGit bool, recursive bool, useG
 			}
 		}
 
-		// Begin scanning
+		// -------- Begin scanning --------
 		inventories, err := lockfilescalibr.ExtractWithExtractors(context.Background(), path, relevantExtractors, r)
 		if err != nil && !errors.Is(err, lockfilescalibr.ErrExtractorNotFound) {
 			r.Errorf("Error during extraction: %s\n", err)
@@ -103,11 +103,11 @@ func ScanDir(r reporter.Reporter, dir string, skipGit bool, recursive bool, useG
 
 		// Optimisation to skip git repository .git dirs
 		if info.IsDir() && info.Name() == ".git" {
-			// TODO: Is this what we want?
 			// Always skip git repository directories
 			return filepath.SkipDir
 		}
 
+		// TODO(V2): Reenable vendored libs scanning
 		// if info.IsDir() && !compareOffline {
 		// 	if _, ok := vendoredLibNames[strings.ToLower(filepath.Base(path))]; ok {
 		// 		pkgs, err := ScanDirWithVendoredLibs(r, path)
@@ -125,6 +125,8 @@ func ScanDir(r reporter.Reporter, dir string, skipGit bool, recursive bool, useG
 
 		return nil
 	})
+
+	return scannedInventories, err
 }
 
 type gitIgnoreMatcher struct {

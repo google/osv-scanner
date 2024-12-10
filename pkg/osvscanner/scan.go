@@ -1,14 +1,14 @@
 package osvscanner
 
 import (
-	"context"
-	"path/filepath"
 	"strings"
 
 	"github.com/google/osv-scalibr/extractor"
 	"github.com/google/osv-scalibr/extractor/filesystem"
-	"github.com/google/osv-scanner/internal/lockfilescalibr"
-	"github.com/google/osv-scanner/internal/output"
+	"github.com/google/osv-scanner/internal/depsdev"
+	"github.com/google/osv-scanner/internal/lockfilescalibr/language/java/pomxmlnet"
+	"github.com/google/osv-scanner/internal/resolution/client"
+	"github.com/google/osv-scanner/internal/resolution/datasource"
 	"github.com/google/osv-scanner/pkg/osvscanner/internal/scanners"
 	"github.com/google/osv-scanner/pkg/reporter"
 )
@@ -28,31 +28,8 @@ func scan(r reporter.Reporter, actions ScannerActions) ([]*extractor.Inventory, 
 		}
 	}
 
-	// if actions.ExperimentalScannerActions.ScanOCIImage != "" {
-	// 	r.Infof("Scanning image %s\n", actions.ExperimentalScannerActions.ScanOCIImage)
-	// 	pkgs, err := scanners.ScanImage(r, actions.ExperimentalScannerActions.ScanOCIImage)
-	// 	if err != nil {
-	// 		return nil, err
-	// 	}
-
-	// 	scannedPackages = append(scannedPackages, pkgs...)
-	// }
-
-	// if actions.DockerImageName != "" {
-	// 	pkgs, err := scanners.ScanDockerImage(r, actions.DockerImageName)
-	// 	if err != nil {
-	// 		return nil, err
-	// 	}
-	// 	scannedPackages = append(scannedPackages, pkgs...)
-	// }
-
 	for _, lockfileElem := range actions.LockfilePaths {
 		parseAs, lockfilePath := parseLockfilePath(lockfileElem)
-		lockfilePath, err := filepath.Abs(lockfilePath)
-		if err != nil {
-			r.Errorf("Failed to resolved path with error: %s\n", err)
-			return nil, err
-		}
 
 		invs, err := scanners.ScanLockfile(r, lockfilePath, parseAs, pomExtractor)
 		if err != nil {
@@ -62,27 +39,10 @@ func scan(r reporter.Reporter, actions ScannerActions) ([]*extractor.Inventory, 
 		scannedInventory = append(scannedInventory, invs...)
 	}
 
-	for _, sbomElem := range actions.SBOMPaths {
-		path, err := filepath.Abs(sbomElem)
+	for _, sbomPath := range actions.SBOMPaths {
+		invs, err := scanners.ScanSBOM(r, sbomPath)
 		if err != nil {
-			r.Errorf("Failed to resolved path with error: %s\n", err)
 			return nil, err
-		}
-
-		invs, err := lockfilescalibr.ExtractWithExtractors(context.Background(), path, scanners.SBOMExtractors, r)
-		if err != nil {
-			r.Infof("Failed to parse SBOM %q with error: %s\n", path, err)
-			return nil, err
-		}
-
-		pkgCount := len(invs)
-		if pkgCount > 0 {
-			r.Infof(
-				"Scanned %s file and found %d %s\n",
-				path,
-				pkgCount,
-				output.Form(pkgCount, "package", "packages"),
-			)
 		}
 
 		scannedInventory = append(scannedInventory, invs...)
@@ -112,4 +72,29 @@ func parseLockfilePath(lockfileElem string) (string, string) {
 	splits := strings.SplitN(lockfileElem, ":", 2)
 
 	return splits[0], splits[1]
+}
+
+func createMavenExtractor(actions TransitiveScanningActions) (*pomxmlnet.Extractor, error) {
+	var depClient client.DependencyClient
+	var err error
+	if actions.NativeDataSource {
+		depClient, err = client.NewMavenRegistryClient(actions.MavenRegistry)
+	} else {
+		depClient, err = client.NewDepsDevClient(depsdev.DepsdevAPI)
+	}
+	if err != nil {
+		return nil, err
+	}
+
+	mavenClient, err := datasource.NewMavenRegistryAPIClient(actions.MavenRegistry)
+	if err != nil {
+		return nil, err
+	}
+
+	extractor := pomxmlnet.Extractor{
+		DependencyClient:       depClient,
+		MavenRegistryAPIClient: mavenClient,
+	}
+
+	return &extractor, nil
 }

@@ -22,6 +22,8 @@ var (
 	}
 )
 
+// TODO(V2): Migrate to extractor + use determineversions client
+
 // func ScanDirWithVendoredLibs(r reporter.Reporter, path string) ([]imodels.ScannedPackage, error) {
 // 	r.Infof("Scanning directory for vendored libs: %s\n", path)
 // 	entries, err := os.ReadDir(path)

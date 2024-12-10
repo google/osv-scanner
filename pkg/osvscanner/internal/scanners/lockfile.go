@@ -83,8 +83,13 @@ var lockfileExtractorMapping = map[string]string{
 // TODO(V2 Models): pomExtractor is temporary until V2 Models
 func ScanLockfile(r reporter.Reporter, path string, parseAs string, pomExtractor filesystem.Extractor) ([]*extractor.Inventory, error) {
 	var err error
-
 	var inventories []*extractor.Inventory
+
+	path, err = filepath.Abs(path)
+	if err != nil {
+		r.Errorf("Failed to resolved path %q with error: %s\n", path, err)
+		return nil, err
+	}
 
 	// special case for the APK and DPKG parsers because they have a very generic name while
 	// living at a specific location, so they are not included in the map of parsers
