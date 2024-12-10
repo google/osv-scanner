@@ -106,25 +106,14 @@ func DoScan(actions ScannerActions, r reporter.Reporter) (models.VulnerabilityRe
 		}
 	}
 
-	// Perform each individual scan action specified in actions
-	scannedInventories, err := scan(r, actions)
+	// ----- Perform Scanning -----
+	// Converts the arguments passed in into PackageScanResult
+	packages, err := scan(r, actions)
 	if err != nil {
 		return models.VulnerabilityResults{}, err
 	}
 
-	// pkgSet := map[string]struct{}{}
-	// TODO: Determine where these mapping code should go
-	scanResult.PackageScanResults = []imodels.PackageScanResult{}
-	for _, inv := range scannedInventories {
-		inv := imodels.FromInventory(inv)
-
-		scanResult.PackageScanResults = append(scanResult.PackageScanResults,
-			imodels.PackageScanResult{
-				PackageInfo: inv,
-			},
-		)
-		// pkgSet[key] = struct{}{}
-	}
+	scanResult.PackageScanResults = packages
 
 	filterUnscannablePackages(r, &scanResult)
 
@@ -157,7 +146,8 @@ func DoScan(actions ScannerActions, r reporter.Reporter) (models.VulnerabilityRe
 
 	if len(results.Results) > 0 {
 		// Determine the correct error to return.
-		// TODO: in the next breaking release of osv-scanner, consider
+
+		// TODO(v2): in the next breaking release of osv-scanner, consider
 		// returning a ScanError instead of an error.
 		var vuln bool
 		onlyUncalledVuln := true

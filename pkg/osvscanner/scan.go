@@ -6,6 +6,7 @@ import (
 	"github.com/google/osv-scalibr/extractor"
 	"github.com/google/osv-scalibr/extractor/filesystem"
 	"github.com/google/osv-scanner/internal/depsdev"
+	"github.com/google/osv-scanner/internal/imodels"
 	"github.com/google/osv-scanner/internal/lockfilescalibr/language/java/pomxmlnet"
 	"github.com/google/osv-scanner/internal/resolution/client"
 	"github.com/google/osv-scanner/internal/resolution/datasource"
@@ -14,9 +15,9 @@ import (
 )
 
 // scan performs all the required scanning actions and returns the results as a slice of inventories.
-func scan(r reporter.Reporter, actions ScannerActions) ([]*extractor.Inventory, error) {
+func scan(r reporter.Reporter, actions ScannerActions) ([]imodels.PackageScanResult, error) {
 	//nolint:prealloc // Not sure how many there will be in advance.
-	var scannedInventory []*extractor.Inventory
+	var scannedInventories []*extractor.Inventory
 
 	// TODO(V2 Models): Temporarily initialize pom here to reduce PR size
 	var pomExtractor filesystem.Extractor
@@ -28,6 +29,7 @@ func scan(r reporter.Reporter, actions ScannerActions) ([]*extractor.Inventory, 
 		}
 	}
 
+	// --- Lockfiles ---
 	for _, lockfileElem := range actions.LockfilePaths {
 		parseAs, lockfilePath := parseLockfilePath(lockfileElem)
 
@@ -36,32 +38,55 @@ func scan(r reporter.Reporter, actions ScannerActions) ([]*extractor.Inventory, 
 			return nil, err
 		}
 
-		scannedInventory = append(scannedInventory, invs...)
+		scannedInventories = append(scannedInventories, invs...)
 	}
 
+	// --- SBOMs ---
 	for _, sbomPath := range actions.SBOMPaths {
 		invs, err := scanners.ScanSBOM(r, sbomPath)
 		if err != nil {
 			return nil, err
 		}
 
-		scannedInventory = append(scannedInventory, invs...)
+		scannedInventories = append(scannedInventories, invs...)
 	}
 
+	// --- Directories ---
 	for _, dir := range actions.DirectoryPaths {
 		r.Infof("Scanning dir %s\n", dir)
 		pkgs, err := scanners.ScanDir(r, dir, actions.SkipGit, actions.Recursive, !actions.NoIgnore, actions.CompareOffline, pomExtractor)
 		if err != nil {
 			return nil, err
 		}
-		scannedInventory = append(scannedInventory, pkgs...)
+		scannedInventories = append(scannedInventories, pkgs...)
 	}
 
-	if len(scannedInventory) == 0 {
+	if len(scannedInventories) == 0 {
 		return nil, NoPackagesFoundErr
 	}
 
-	return scannedInventory, nil
+	// Convert to imodels.PackageScanResult for use in the rest of osv-scanner
+	packages := []imodels.PackageScanResult{}
+	for _, inv := range scannedInventories {
+		pi := imodels.FromInventory(inv)
+
+		packages = append(packages, imodels.PackageScanResult{
+			PackageInfo: pi,
+		})
+	}
+
+	// Add on additional direct dependencies:
+	for _, commit := range actions.GitCommits {
+		pi := imodels.PackageInfo{
+			Commit: commit,
+		}
+
+		packages = append(packages, imodels.PackageScanResult{
+			PackageInfo: pi,
+		})
+	}
+
+	return packages, nil
 }
 
 func parseLockfilePath(lockfileElem string) (string, string) {
