@@ -14,12 +14,14 @@ import (
 	"github.com/google/osv-scanner/pkg/reporter"
 )
 
-// scan performs all the required scanning actions and returns the results as a slice of inventories.
+// scan essentially converts ScannerActions into PackageScanResult by performing the extractions
 func scan(r reporter.Reporter, actions ScannerActions) ([]imodels.PackageScanResult, error) {
 	//nolint:prealloc // Not sure how many there will be in advance.
 	var scannedInventories []*extractor.Inventory
 
 	// TODO(V2 Models): Temporarily initialize pom here to reduce PR size
+	// Eventually, we want to move TransitiveScanningActions into its own models package to avoid
+	// cyclic imports
 	var pomExtractor filesystem.Extractor
 	if !actions.TransitiveScanningActions.Disabled {
 		var err error
@@ -75,7 +77,7 @@ func scan(r reporter.Reporter, actions ScannerActions) ([]imodels.PackageScanRes
 		})
 	}
 
-	// Add on additional direct dependencies:
+	// Add on additional direct dependencies passed straight from ScannerActions:
 	for _, commit := range actions.GitCommits {
 		pi := imodels.PackageInfo{
 			Commit: commit,

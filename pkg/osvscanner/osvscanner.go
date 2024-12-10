@@ -79,6 +79,7 @@ func DoScan(actions ScannerActions, r reporter.Reporter) (models.VulnerabilityRe
 		r = &reporter.VoidReporter{}
 	}
 
+	// TODO(v2): Move the logic of the offline flag moving other flags into here.
 	if actions.CompareOffline {
 		actions.SkipGit = true
 
@@ -107,7 +108,6 @@ func DoScan(actions ScannerActions, r reporter.Reporter) (models.VulnerabilityRe
 	}
 
 	// ----- Perform Scanning -----
-	// Converts the arguments passed in into PackageScanResult
 	packages, err := scan(r, actions)
 	if err != nil {
 		return models.VulnerabilityResults{}, err

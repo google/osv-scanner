@@ -1,26 +1,26 @@
 package scanners
 
-const (
-	// This value may need to be tweaked, or be provided as a configurable flag.
-	determineVersionThreshold = 0.15
-	maxDetermineVersionFiles  = 10000
-)
+// const (
+// 	// This value may need to be tweaked, or be provided as a configurable flag.
+// 	determineVersionThreshold = 0.15
+// 	maxDetermineVersionFiles  = 10000
+// )
 
-var (
-	vendoredLibNames = map[string]struct{}{
-		"3rdparty":    {},
-		"dep":         {},
-		"deps":        {},
-		"thirdparty":  {},
-		"third-party": {},
-		"third_party": {},
-		"libs":        {},
-		"external":    {},
-		"externals":   {},
-		"vendor":      {},
-		"vendored":    {},
-	}
-)
+// var (
+// 	vendoredLibNames = map[string]struct{}{
+// 		"3rdparty":    {},
+// 		"dep":         {},
+// 		"deps":        {},
+// 		"thirdparty":  {},
+// 		"third-party": {},
+// 		"third_party": {},
+// 		"libs":        {},
+// 		"external":    {},
+// 		"externals":   {},
+// 		"vendor":      {},
+// 		"vendored":    {},
+// 	}
+// )
 
 // TODO(V2): Migrate to extractor + use determineversions client
 

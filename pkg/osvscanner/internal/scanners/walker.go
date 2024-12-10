@@ -83,7 +83,7 @@ func ScanDir(r reporter.Reporter, dir string, skipGit bool, recursive bool, useG
 			}
 		}
 
-		// -------- Begin scanning --------
+		// -------- Perform scanning --------
 		inventories, err := lockfilescalibr.ExtractWithExtractors(context.Background(), path, relevantExtractors, r)
 		if err != nil && !errors.Is(err, lockfilescalibr.ErrExtractorNotFound) {
 			r.Errorf("Error during extraction: %s\n", err)
