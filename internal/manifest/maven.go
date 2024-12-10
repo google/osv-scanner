@@ -39,8 +39,8 @@ func (e MavenResolverExtractor) Extract(f lockfile.DepFile) ([]lockfile.PackageD
 	}
 	for _, repo := range project.Repositories {
 		if err := e.MavenRegistryAPIClient.AddRegistry(datasource.MavenRegistry{
-			URL:               string(repo.URL),
-			ID:                string(repo.ID),
+			URL:              string(repo.URL),
+			ID:               string(repo.ID),
 			ReleasesEnabled:  repo.Releases.Enabled != "false",
 			SnapshotsEnabled: repo.Snapshots.Enabled != "false",
 		}); err != nil {

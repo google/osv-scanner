@@ -3,6 +3,7 @@ package client
 import (
 	"context"
 	"encoding/gob"
+	"errors"
 	"fmt"
 	"os"
 	"strings"
@@ -149,7 +150,7 @@ func (c *MavenRegistryClient) AddRegistries(registries []Registry) error {
 	for _, reg := range registries {
 		specific, ok := reg.EcosystemSpecific.(datasource.MavenRegistry)
 		if !ok {
-			return fmt.Errorf("invalid Maven registry information")
+			return errors.New("invalid Maven registry information")
 		}
 		if err := c.api.AddRegistry(specific); err != nil {
 			return err

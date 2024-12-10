@@ -85,8 +85,8 @@ func MergeParents(ctx context.Context, mavenClient *datasource.MavenRegistryAPIC
 		}
 		for _, repo := range proj.Repositories {
 			if err := mavenClient.AddRegistry(datasource.MavenRegistry{
-				URL:               string(repo.URL),
-				ID:                string(repo.ID),
+				URL:              string(repo.URL),
+				ID:               string(repo.ID),
 				ReleasesEnabled:  repo.Releases.Enabled != "false",
 				SnapshotsEnabled: repo.Snapshots.Enabled != "false",
 			}); err != nil {
