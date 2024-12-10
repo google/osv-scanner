@@ -1,6 +1,7 @@
 package datasource
 
 import (
+	"bytes"
 	"context"
 	"encoding/xml"
 	"errors"
@@ -29,8 +30,12 @@ type MavenRegistryAPIClient struct {
 	// Cache fields
 	mu             *sync.Mutex
 	cacheTimestamp *time.Time // If set, this means we loaded from a cache
-	projects       *RequestCache[string, maven.Project]
-	metadata       *RequestCache[string, maven.Metadata]
+	responses      *RequestCache[string, response]
+}
+
+type response struct {
+	StatusCode int
+	Body       []byte
 }
 
 type MavenRegistry struct {
@@ -58,8 +63,7 @@ func NewMavenRegistryAPIClient(registry MavenRegistry) (*MavenRegistryAPIClient,
 		// We assume only downloading releases is allowed on the default registry.
 		defaultRegistry: registry,
 		mu:              &sync.Mutex{},
-		projects:        NewRequestCache[string, maven.Project](),
-		metadata:        NewRequestCache[string, maven.Metadata](),
+		responses:       NewRequestCache[string, response](),
 	}, nil
 }
 
@@ -69,12 +73,12 @@ func (m *MavenRegistryAPIClient) WithoutRegistries() *MavenRegistryAPIClient {
 		defaultRegistry: m.defaultRegistry,
 		mu:              m.mu,
 		cacheTimestamp:  m.cacheTimestamp,
-		projects:        m.projects,
-		metadata:        m.metadata,
+		responses:       m.responses,
 	}
 }
 
-// Add adds the given registry to the list of registries if it has not been added.
+
+// AddRegistry adds the given registry to the list of registries if it has not been added.
 func (m *MavenRegistryAPIClient) AddRegistry(registry MavenRegistry) error {
 	for _, reg := range m.registries {
 		if reg.URL == registry.URL {
@@ -169,61 +173,71 @@ func (m *MavenRegistryAPIClient) getProject(ctx context.Context, registry *url.U
 	}
 	u := registry.JoinPath(strings.ReplaceAll(groupID, ".", "/"), artifactID, version, fmt.Sprintf("%s-%s.pom", artifactID, snapshot)).String()
 
-	return m.projects.Get(u, func() (maven.Project, error) {
-		var proj maven.Project
-		if err := get(ctx, u, &proj); err != nil {
-			return maven.Project{}, err
-		}
+	var project maven.Project
+	if err := m.get(ctx, u, &project); err != nil {
+		return maven.Project{}, err
+	}
 
-		return proj, nil
-	})
+	return project, nil
 }
 
 // getVersionMetadata fetches a version level maven-metadata.xml and parses it to maven.Metadata.
 func (m *MavenRegistryAPIClient) getVersionMetadata(ctx context.Context, registry *url.URL, groupID, artifactID, version string) (maven.Metadata, error) {
 	u := registry.JoinPath(strings.ReplaceAll(groupID, ".", "/"), artifactID, version, "maven-metadata.xml").String()
 
-	return m.metadata.Get(u, func() (maven.Metadata, error) {
-		var metadata maven.Metadata
-		if err := get(ctx, u, &metadata); err != nil {
-			return maven.Metadata{}, err
-		}
+	var metadata maven.Metadata
+	if err := m.get(ctx, u, &metadata); err != nil {
+		return maven.Metadata{}, err
+	}
 
-		return metadata, nil
-	})
+	return metadata, nil
 }
 
 // GetArtifactMetadata fetches an artifact level maven-metadata.xml and parses it to maven.Metadata.
 func (m *MavenRegistryAPIClient) getArtifactMetadata(ctx context.Context, registry *url.URL, groupID, artifactID string) (maven.Metadata, error) {
 	u := registry.JoinPath(strings.ReplaceAll(groupID, ".", "/"), artifactID, "maven-metadata.xml").String()
 
-	return m.metadata.Get(u, func() (maven.Metadata, error) {
-		var metadata maven.Metadata
-		if err := get(ctx, u, &metadata); err != nil {
-			return maven.Metadata{}, err
-		}
+	var metadata maven.Metadata
+	if err := m.get(ctx, u, &metadata); err != nil {
+		return maven.Metadata{}, err
+	}
 
-		return metadata, nil
-	})
+	return metadata, nil
 }
 
-func get(ctx context.Context, url string, dst interface{}) error {
-	req, err := http.NewRequestWithContext(ctx, http.MethodGet, url, nil)
-	if err != nil {
-		return fmt.Errorf("failed to make new request: %w", err)
-	}
+func (m *MavenRegistryAPIClient) get(ctx context.Context, url string, dst interface{}) error {
+	resp, err := m.responses.Get(url, func() (response, error) {
+		req, err := http.NewRequestWithContext(ctx, http.MethodGet, url, nil)
+		if err != nil {
+			return response{}, fmt.Errorf("failed to make new request: %w", err)
+		}
 
-	resp, err := http.DefaultClient.Do(req)
+		resp, err := http.DefaultClient.Do(req)
+		if err != nil {
+			return response{}, fmt.Errorf("%w: Maven registry query failed: %w", errAPIFailed, err)
+		}
+		defer resp.Body.Close()
+
+		if resp.StatusCode != http.StatusOK && resp.StatusCode != http.StatusNotFound {
+			// Only cache responses with Status OK or NotFound
+			return response{}, fmt.Errorf("%w: Maven registry query status: %d", errAPIFailed, resp.StatusCode)
+		}
+
+		if b, err := io.ReadAll(resp.Body); err == nil {
+			return response{StatusCode: resp.StatusCode, Body: b}, nil
+		}
+
+		return response{}, fmt.Errorf("failed to read body: %w", err)
+	})
 	if err != nil {
-		return fmt.Errorf("%w: Maven registry query failed: %w", errAPIFailed, err)
+		return err
 	}
-	defer resp.Body.Close()
 
 	if resp.StatusCode != http.StatusOK {
-		return fmt.Errorf("%w: Maven registry query status: %s", errAPIFailed, resp.Status)
+		return fmt.Errorf("%w: Maven registry query status: %d", errAPIFailed, resp.StatusCode)
 	}
 
-	return NewMavenDecoder(resp.Body).Decode(dst)
+	return NewMavenDecoder(bytes.NewReader(resp.Body)).Decode(dst)
 }
 
 // NewMavenDecoder returns an xml decoder with CharsetReader and Entity set.
