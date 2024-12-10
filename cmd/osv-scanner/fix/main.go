@@ -25,7 +25,7 @@ type strategy string
 
 const (
 	strategyInPlace  strategy = "in-place"
-	strategyRelax    strategy = "relock"
+	strategyRelax    strategy = "relax"
 	strategyOverride strategy = "override"
 )
 
@@ -118,6 +118,8 @@ func Command(stdout, stderr io.Writer, r *reporter.Reporter) *cli.Command {
 						if !ctx.IsSet("lockfile") {
 							return fmt.Errorf("%s strategy requires lockfile", strategyInPlace)
 						}
+					case strategy("relock"): // renamed
+						fallthrough
 					case strategyRelax:
 						if !ctx.IsSet("manifest") {
 							return fmt.Errorf("%s strategy requires manifest file", strategyRelax)
@@ -382,6 +384,9 @@ func action(ctx *cli.Context, stdout, stderr io.Writer) (reporter.Reporter, erro
 	maxUpgrades := ctx.Int("apply-top")
 
 	strategy := strategy(ctx.String("strategy"))
+	if strategy == "relock" { // renamed
+		strategy = strategyRelax
+	}
 
 	if !ctx.IsSet("strategy") {
 		// Choose a default strategy based on the manifest/lockfile provided.

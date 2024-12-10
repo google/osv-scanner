@@ -100,6 +100,7 @@ func autoChooseInPlacePatches(res remediation.InPlaceResult, maxUpgrades int, ou
 				vulns[i].Packages = []fixAffectedPackage{{Name: p.Pkg.Name, Version: p.OrigVersion}}
 				vulns[i].Unactionable = false
 			}
+			sortVulns(vulns)
 			outputResult.Patches = append(outputResult.Patches, fixPatch{
 				PackageUpdates: []fixPackageUpdate{{Name: p.Pkg.Name, VersionFrom: p.OrigVersion, VersionTo: p.NewVersion, Transitive: true}},
 				Fixed:          vulns,
@@ -113,6 +114,7 @@ func autoChooseInPlacePatches(res remediation.InPlaceResult, maxUpgrades int, ou
 		fv.Unactionable = true
 		outputResult.Vulnerabilities = append(outputResult.Vulnerabilities, fv)
 	}
+	sortVulns(outputResult.Vulnerabilities)
 
 	return patches
 }
@@ -239,37 +241,16 @@ func autoChooseRelockPatches(diffs []resolution.Difference, maxUpgrades int, out
 		for _, vuln := range diff.RemovedVulns {
 			p.Fixed = append(p.Fixed, makeResultVuln(vuln))
 		}
+		sortVulns(p.Fixed)
 		for _, v := range diff.AddedVulns {
 			p.Introduced = append(p.Introduced, makeResultVuln(v))
 		}
+		sortVulns(p.Introduced)
 		outputResult.Patches = append(outputResult.Patches, p)
 		maxUpgrades--
 	}
 
 	return patches
-}
-
-func relockUnfixableVulns(diffs []resolution.Difference) []*resolution.Vulnerability {
-	if len(diffs) == 0 {
-		return nil
-	}
-	// find every vuln ID fixed in any patch
-	fixableVulnIDs := make(map[string]struct{})
-	for _, diff := range diffs {
-		for _, v := range diff.RemovedVulns {
-			fixableVulnIDs[v.OSV.ID] = struct{}{}
-		}
-	}
-
-	// select only vulns that aren't fixed in any patch
-	var unfixable []*resolution.Vulnerability
-	for i, v := range diffs[0].Original.Vulns {
-		if _, ok := fixableVulnIDs[v.OSV.ID]; !ok {
-			unfixable = append(unfixable, &diffs[0].Original.Vulns[i])
-		}
-	}
-
-	return unfixable
 }
 
 func autoOverride(ctx context.Context, r *outputReporter, opts osvFixOptions, maxUpgrades int) error {
@@ -397,9 +378,11 @@ func autoChooseOverridePatches(diffs []resolution.Difference, maxUpgrades int, o
 			fixedVulns[vuln.OSV.ID] = struct{}{}
 			p.Fixed = append(p.Fixed, makeResultVuln(vuln))
 		}
+		sortVulns(p.Fixed)
 		for _, vuln := range diff.AddedVulns {
 			p.Introduced = append(p.Introduced, makeResultVuln(vuln))
 		}
+		sortVulns(p.Introduced)
 		outputResult.Patches = append(outputResult.Patches, p)
 
 		maxUpgrades--
@@ -409,6 +392,12 @@ func autoChooseOverridePatches(diffs []resolution.Difference, maxUpgrades int, o
 	}
 
 	return patches
+}
+
+func sortVulns(vulns []fixVuln) {
+	slices.SortFunc(vulns, func(a, b fixVuln) int {
+		return cmp.Compare(a.ID, b.ID)
+	})
 }
 
 func makeResultVuln(vuln resolution.Vulnerability) fixVuln {
@@ -470,7 +459,5 @@ func populateResultVulns(outputResult *fixResult, res *resolution.Result, allPat
 	}
 
 	outputResult.Vulnerabilities = maps.Values(vulns)
-	slices.SortFunc(outputResult.Vulnerabilities, func(a, b fixVuln) int {
-		return cmp.Compare(a.ID, b.ID)
-	})
+	sortVulns(outputResult.Vulnerabilities)
 }

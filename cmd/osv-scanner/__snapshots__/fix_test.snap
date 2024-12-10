@@ -1750,15 +1750,6 @@ Warning: `fix` exists as both a subcommand of OSV-Scanner and as a file on the f
   "strategy": "in-place",
   "vulnerabilities": [
     {
-      "id": "GHSA-g74r-ffvr-5q9f",
-      "packages": [
-        {
-          "name": "concat-stream",
-          "version": "1.5.0"
-        }
-      ]
-    },
-    {
       "id": "GHSA-43f8-2h32-f4cj",
       "packages": [
         {
@@ -1768,21 +1759,11 @@ Warning: `fix` exists as both a subcommand of OSV-Scanner and as a file on the f
       ]
     },
     {
-      "id": "GHSA-p8p7-x288-28g6",
+      "id": "GHSA-43f8-2h32-f4cj",
       "packages": [
         {
-          "name": "request",
-          "version": "2.88.2"
-        }
-      ],
-      "unactionable": true
-    },
-    {
-      "id": "GHSA-c2qf-rxjj-qqgw",
-      "packages": [
-        {
-          "name": "semver",
-          "version": "4.3.6"
+          "name": "hosted-git-info",
+          "version": "1.6.0"
         }
       ],
       "unactionable": true
@@ -1798,11 +1779,11 @@ Warning: `fix` exists as both a subcommand of OSV-Scanner and as a file on the f
       "unactionable": true
     },
     {
-      "id": "GHSA-43f8-2h32-f4cj",
+      "id": "GHSA-c2qf-rxjj-qqgw",
       "packages": [
         {
-          "name": "hosted-git-info",
-          "version": "1.6.0"
+          "name": "semver",
+          "version": "4.3.6"
         }
       ],
       "unactionable": true
@@ -1813,6 +1794,25 @@ Warning: `fix` exists as both a subcommand of OSV-Scanner and as a file on the f
         {
           "name": "chownr",
           "version": "0.0.2"
+        }
+      ],
+      "unactionable": true
+    },
+    {
+      "id": "GHSA-g74r-ffvr-5q9f",
+      "packages": [
+        {
+          "name": "concat-stream",
+          "version": "1.5.0"
+        }
+      ]
+    },
+    {
+      "id": "GHSA-p8p7-x288-28g6",
+      "packages": [
+        {
+          "name": "request",
+          "version": "2.88.2"
         }
       ],
       "unactionable": true
@@ -3735,6 +3735,15 @@ Rewriting <tempdir>/package-lock.json...
           ]
         },
         {
+          "id": "GHSA-7r82-7xv7-xcpj",
+          "packages": [
+            {
+              "name": "org.apache.httpcomponents:httpclient",
+              "version": "4.0"
+            }
+          ]
+        },
+        {
           "id": "GHSA-cfh5-3ghh-wfjx",
           "packages": [
             {
@@ -3745,15 +3754,6 @@ Rewriting <tempdir>/package-lock.json...
         },
         {
           "id": "GHSA-fmj5-wv96-r2ch",
-          "packages": [
-            {
-              "name": "org.apache.httpcomponents:httpclient",
-              "version": "4.0"
-            }
-          ]
-        },
-        {
-          "id": "GHSA-7r82-7xv7-xcpj",
           "packages": [
             {
               "name": "org.apache.httpcomponents:httpclient",
@@ -3852,7 +3852,7 @@ Rewriting <tempdir>/package-lock.json...
       ],
       "fixed": [
         {
-          "id": "GHSA-m72m-mhq2-9p6c",
+          "id": "GHSA-gp7f-rwcx-9369",
           "packages": [
             {
               "name": "org.jsoup:jsoup",
@@ -3861,7 +3861,7 @@ Rewriting <tempdir>/package-lock.json...
           ]
         },
         {
-          "id": "GHSA-gp7f-rwcx-9369",
+          "id": "GHSA-m72m-mhq2-9p6c",
           "packages": [
             {
               "name": "org.jsoup:jsoup",
@@ -3934,7 +3934,7 @@ Rewriting <tempdir>/pom.xml...
 {
   "path": "<tempdir>/package.json",
   "ecosystem": "npm",
-  "strategy": "relock",
+  "strategy": "relax",
   "vulnerabilities": [
     {
       "id": "GHSA-43f8-2h32-f4cj",
@@ -3996,20 +3996,20 @@ Rewriting <tempdir>/pom.xml...
       ],
       "fixed": [
         {
-          "id": "GHSA-c2qf-rxjj-qqgw",
-          "packages": [
-            {
-              "name": "semver",
-              "version": "4.3.6"
-            }
-          ]
-        },
-        {
           "id": "GHSA-43f8-2h32-f4cj",
           "packages": [
             {
               "name": "hosted-git-info",
               "version": "1.6.0"
+            }
+          ]
+        },
+        {
+          "id": "GHSA-c2qf-rxjj-qqgw",
+          "packages": [
+            {
+              "name": "semver",
+              "version": "4.3.6"
             }
           ]
         },
