@@ -266,6 +266,7 @@ jobs:
     needs:
       - build
     strategy:
+      fail-fast: false
       matrix:
         platform: [
           {target_arch: amd64},
