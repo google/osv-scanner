@@ -35,7 +35,7 @@ func filterUnscannablePackages(r reporter.Reporter, scanResults *results.ScanRes
 
 // filterIgnoredPackages removes ignore scanned packages according to config. Returns filtered scanned packages.
 func filterIgnoredPackages(r reporter.Reporter, scanResults *results.ScanResults) {
-	var configManager *config.Manager = &scanResults.ConfigManager
+	configManager := &scanResults.ConfigManager
 
 	out := make([]imodels.PackageScanResult, 0, len(scanResults.PackageScanResults))
 	for _, psr := range scanResults.PackageScanResults {

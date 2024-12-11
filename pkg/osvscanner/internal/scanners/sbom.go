@@ -25,7 +25,7 @@ func ScanSBOM(r reporter.Reporter, path string) ([]*extractor.Inventory, error) 
 		return nil, err
 	}
 
-	invs, err := lockfilescalibr.ExtractWithExtractors(context.Background(), path, SBOMExtractors, r)
+	invs, err := lockfilescalibr.ExtractWithExtractors(context.Background(), path, SBOMExtractors)
 	if err != nil {
 		r.Infof("Failed to parse SBOM %q with error: %s\n", path, err)
 		return nil, err

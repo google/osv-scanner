@@ -15,6 +15,8 @@ import (
 // For example, "Debian:7" would be parsed into Parsed{Ecosystem: constants.EcosystemDebian, Suffix: "7"}
 //
 // [spec]: https://ossf.github.io/osv-schema/
+//
+//nolint:recvcheck
 type Parsed struct {
 	Ecosystem osvschema.Ecosystem
 	Suffix    string

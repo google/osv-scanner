@@ -85,6 +85,7 @@ func (e Extractor) Extract(_ context.Context, input *filesystem.ScanInput) ([]*e
 		return nil, err
 	}
 
+	//nolint:prealloc // Not sure how many there will be in advance.
 	var packages []*extractor.Inventory
 	packages = append(packages, createCommitQueryInventory(commitSHA, input.Path))
 

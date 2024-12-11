@@ -14,7 +14,6 @@ import (
 
 // scan essentially converts ScannerActions into PackageScanResult by performing the extractions
 func scan(r reporter.Reporter, actions ScannerActions) ([]imodels.PackageScanResult, error) {
-	//nolint:prealloc // Not sure how many there will be in advance.
 	var scannedInventories []*extractor.Inventory
 
 	// TODO(V2 Models): Temporarily initialize pom here to reduce PR size
@@ -52,7 +51,7 @@ func scan(r reporter.Reporter, actions ScannerActions) ([]imodels.PackageScanRes
 	// --- Directories ---
 	for _, dir := range actions.DirectoryPaths {
 		r.Infof("Scanning dir %s\n", dir)
-		pkgs, err := scanners.ScanDir(r, dir, actions.SkipGit, actions.Recursive, !actions.NoIgnore, actions.CompareOffline, pomExtractor)
+		pkgs, err := scanners.ScanDir(r, dir, actions.SkipGit, actions.Recursive, !actions.NoIgnore, pomExtractor)
 		if err != nil {
 			return nil, err
 		}

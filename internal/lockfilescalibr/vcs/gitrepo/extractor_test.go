@@ -49,7 +49,12 @@ func TestExtractor_Extract(t *testing.T) {
 				t.Errorf("can't find git-hidden folder")
 			}
 
-			defer os.Rename(path.Join(tt.InputConfig.Path, ".git"), path.Join(tt.InputConfig.Path, "git-hidden"))
+			defer func() {
+				err = os.Rename(path.Join(tt.InputConfig.Path, ".git"), path.Join(tt.InputConfig.Path, "git-hidden"))
+				if err != nil {
+					t.Fatalf("failed to restore .git to original git-hidden: %v", err)
+				}
+			}()
 
 			scanInput := extracttest.GenerateScanInputMock(t, tt.InputConfig)
 			defer extracttest.CloseTestScanInput(t, scanInput)
@@ -66,5 +71,4 @@ func TestExtractor_Extract(t *testing.T) {
 			}
 		})
 	}
-
 }

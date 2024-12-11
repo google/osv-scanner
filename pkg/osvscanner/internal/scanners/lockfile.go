@@ -115,7 +115,7 @@ func ScanLockfile(r reporter.Reporter, scanArg string, pomExtractor filesystem.E
 	case "osv-scanner":
 		inventories, err = lockfilescalibr.ExtractWithExtractor(context.Background(), path, osvscannerjson.Extractor{})
 	case "": // No specific parseAs specified
-		inventories, err = lockfilescalibr.ExtractWithExtractors(context.Background(), path, extractorsToUse, r)
+		inventories, err = lockfilescalibr.ExtractWithExtractors(context.Background(), path, extractorsToUse)
 	default: // A specific parseAs without a special case is selected
 		// Find and extract with the extractor of parseAs
 		if name, ok := lockfileExtractorMapping[parseAs]; ok {

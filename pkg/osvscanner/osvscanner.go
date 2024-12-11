@@ -1,7 +1,6 @@
 package osvscanner
 
 import (
-	//nolint:gosec
 	"errors"
 	"fmt"
 

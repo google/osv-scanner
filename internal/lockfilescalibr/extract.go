@@ -9,7 +9,6 @@ import (
 
 	"github.com/google/osv-scalibr/extractor"
 	"github.com/google/osv-scalibr/extractor/filesystem"
-	"github.com/google/osv-scanner/pkg/reporter"
 
 	scalibrfs "github.com/google/osv-scalibr/fs"
 )
@@ -51,7 +50,7 @@ func ExtractWithExtractor(ctx context.Context, localPath string, ext filesystem.
 //   - error: any errors encountered during extraction
 //
 // If no extractors are found, then ErrExtractorNotFound is returned.
-func ExtractWithExtractors(ctx context.Context, localPath string, extractors []filesystem.Extractor, r reporter.Reporter) ([]*extractor.Inventory, error) {
+func ExtractWithExtractors(ctx context.Context, localPath string, extractors []filesystem.Extractor) ([]*extractor.Inventory, error) {
 	info, err := os.Stat(localPath)
 	if err != nil {
 		return nil, err

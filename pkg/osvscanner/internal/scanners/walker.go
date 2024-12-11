@@ -25,7 +25,7 @@ import (
 //   - Any git repositories with scanGit
 //
 // TODO(V2 Models): pomExtractor is temporary until V2 Models
-func ScanDir(r reporter.Reporter, dir string, skipGit bool, recursive bool, useGitIgnore bool, compareOffline bool, pomExtractor filesystem.Extractor) ([]*extractor.Inventory, error) {
+func ScanDir(r reporter.Reporter, dir string, skipGit bool, recursive bool, useGitIgnore bool, pomExtractor filesystem.Extractor) ([]*extractor.Inventory, error) {
 	var ignoreMatcher *gitIgnoreMatcher
 	if useGitIgnore {
 		var err error
@@ -84,7 +84,7 @@ func ScanDir(r reporter.Reporter, dir string, skipGit bool, recursive bool, useG
 		}
 
 		// -------- Perform scanning --------
-		inventories, err := lockfilescalibr.ExtractWithExtractors(context.Background(), path, relevantExtractors, r)
+		inventories, err := lockfilescalibr.ExtractWithExtractors(context.Background(), path, relevantExtractors)
 		if err != nil && !errors.Is(err, lockfilescalibr.ErrExtractorNotFound) {
 			r.Errorf("Error during extraction: %s\n", err)
 		}
