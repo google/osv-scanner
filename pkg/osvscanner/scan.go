@@ -1,8 +1,6 @@
 package osvscanner
 
 import (
-	"strings"
-
 	"github.com/google/osv-scalibr/extractor"
 	"github.com/google/osv-scalibr/extractor/filesystem"
 	"github.com/google/osv-scanner/internal/depsdev"
@@ -33,9 +31,7 @@ func scan(r reporter.Reporter, actions ScannerActions) ([]imodels.PackageScanRes
 
 	// --- Lockfiles ---
 	for _, lockfileElem := range actions.LockfilePaths {
-		parseAs, lockfilePath := parseLockfilePath(lockfileElem)
-
-		invs, err := scanners.ScanLockfile(r, lockfilePath, parseAs, pomExtractor)
+		invs, err := scanners.ScanLockfile(r, lockfileElem, pomExtractor)
 		if err != nil {
 			return nil, err
 		}
@@ -89,16 +85,6 @@ func scan(r reporter.Reporter, actions ScannerActions) ([]imodels.PackageScanRes
 	}
 
 	return packages, nil
-}
-
-func parseLockfilePath(lockfileElem string) (string, string) {
-	if !strings.Contains(lockfileElem, ":") {
-		lockfileElem = ":" + lockfileElem
-	}
-
-	splits := strings.SplitN(lockfileElem, ":", 2)
-
-	return splits[0], splits[1]
 }
 
 func createMavenExtractor(actions TransitiveScanningActions) (*pomxmlnet.Extractor, error) {

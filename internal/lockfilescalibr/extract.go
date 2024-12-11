@@ -15,6 +15,17 @@ import (
 )
 
 // ExtractWithExtractor attempts to extract the file at the given path with the extractor passed in
+//
+// # Extract attempts to extract the file at the given path
+//
+// Args:
+//   - ctx: the context to use for extraction
+//   - localPath: the path to the lockfile
+//   - ext: the extractor to use
+//
+// Returns:
+//   - []*extractor.Inventory: the extracted lockfile data
+//   - error: any errors encountered during extraction
 func ExtractWithExtractor(ctx context.Context, localPath string, ext filesystem.Extractor) ([]*extractor.Inventory, error) {
 	info, err := os.Stat(localPath)
 	if err != nil {
@@ -28,6 +39,18 @@ func ExtractWithExtractor(ctx context.Context, localPath string, ext filesystem.
 // by choosing the extractor which passes the FileRequired test
 // TODO: Optimise to pass in FileInfo here.
 // TODO: Remove reporter
+//
+// Args:
+// - ctx: the context to use for extraction
+// - localPath: the path to the lockfile
+// - extractors: a slice of extractors to try
+// - r: reporter to output logs to
+//
+// Returns:
+//   - []*extractor.Inventory: the extracted lockfile data
+//   - error: any errors encountered during extraction
+//
+// If no extractors are found, then ErrExtractorNotFound is returned.
 func ExtractWithExtractors(ctx context.Context, localPath string, extractors []filesystem.Extractor, r reporter.Reporter) ([]*extractor.Inventory, error) {
 	info, err := os.Stat(localPath)
 	if err != nil {
@@ -55,72 +78,6 @@ func ExtractWithExtractors(ctx context.Context, localPath string, extractors []f
 
 	return result, nil
 }
-
-// // Extract attempts to extract the file at the given path
-// //
-// // Args:
-// //   - localPath: the path to the lockfile
-// //   - extractAs: the name of the lockfile format to extract as (Using OSV-Scanner V1 extractor names)
-// //
-// // Returns:
-// //   - []*extractor.Inventory: the extracted lockfile data
-// //   - error: any errors encountered during extraction
-// //
-// // If extractAs is not specified, then the function will attempt to
-// // identify the lockfile format based on the file name.
-// //
-// // If no extractors are found, then ErrNoExtractorsFound is returned.
-// func Extract(ctx context.Context, localPath string, extractAs string) ([]*extractor.Inventory, error) {
-// 	info, err := os.Stat(localPath)
-// 	if err != nil {
-// 		return nil, err
-// 	}
-
-// 	if extractAs != "" {
-// 		return extractAsSpecific(ctx, extractAs, localPath, info)
-// 	}
-
-// 	output := []*extractor.Inventory{}
-// 	extractorFound := false
-
-// 	for _, ext := range lockfileExtractors {
-// 		if ext.FileRequired(localPath, info) {
-// 			extractorFound = true
-
-// 			inv, err := extractWithExtractor(ctx, localPath, info, ext)
-// 			if err != nil {
-// 				return nil, err
-// 			}
-
-// 			output = append(output, inv...)
-// 		}
-// 	}
-
-// 	if !extractorFound {
-// 		return nil, ErrNoExtractorsFound
-// 	}
-
-// 	sort.Slice(output, func(i, j int) bool {
-// 		if output[i].Name == output[j].Name {
-// 			return output[i].Version < output[j].Version
-// 		}
-
-// 		return output[i].Name < output[j].Name
-// 	})
-
-// 	return output, nil
-// }
-
-// // Use the extractor specified by extractAs string key
-// func extractAsSpecific(ctx context.Context, extractAs string, localPath string, info fs.FileInfo) ([]*extractor.Inventory, error) {
-// 	for _, ext := range lockfileExtractors {
-// 		if lockfileExtractorMapping[extractAs] == ext.Name() {
-// 			return extractWithExtractor(ctx, localPath, info, ext)
-// 		}
-// 	}
-
-// 	return nil, fmt.Errorf("%w, requested %s", ErrExtractorNotFound, extractAs)
-// }
 
 func extractWithExtractor(ctx context.Context, localPath string, info fs.FileInfo, ext filesystem.Extractor) ([]*extractor.Inventory, error) {
 	si, err := createScanInput(localPath, info)

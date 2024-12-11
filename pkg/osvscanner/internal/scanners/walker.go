@@ -91,6 +91,7 @@ func ScanDir(r reporter.Reporter, dir string, skipGit bool, recursive bool, useG
 
 		pkgCount := len(inventories)
 		if pkgCount > 0 {
+			// TODO(v2): Display the name of the extractor used here
 			r.Infof(
 				"Scanned %s file and found %d %s\n",
 				path,

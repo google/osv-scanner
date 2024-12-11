@@ -229,6 +229,7 @@ func makeRequest(
 	var hydratedResp *osv.HydratedBatchedResponse
 
 	if compareOffline {
+		// TODO(v2): Stop depending on lockfile.PackageDetails and use imodels.PackageInfo
 		// Downloading databases requires network access.
 		hydratedResp, err = local.MakeRequest(r, query, !downloadDBs, localDBPath)
 		if err != nil {

@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"path/filepath"
+	"strings"
 
 	"github.com/google/osv-scalibr/extractor"
 	"github.com/google/osv-scalibr/extractor/filesystem"
@@ -14,6 +15,7 @@ import (
 	"github.com/google/osv-scalibr/extractor/filesystem/language/golang/gomod"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/java/gradlelockfile"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/java/gradleverificationmetadataxml"
+	"github.com/google/osv-scalibr/extractor/filesystem/language/java/pomxml"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/javascript/packagelockjson"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/javascript/pnpmlock"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/javascript/yarnlock"
@@ -55,10 +57,12 @@ var lockfileExtractors = []filesystem.Extractor{
 }
 
 var lockfileExtractorMapping = map[string]string{
-	"pubspec.lock":                "dart/pubspec",
-	"pnpm-lock.yaml":              "javascript/pnpmlock",
-	"yarn.lock":                   "javascript/yarnlock",
-	"package-lock.json":           "javascript/packagelockjson",
+	"pubspec.lock":      "dart/pubspec",
+	"pnpm-lock.yaml":    "javascript/pnpmlock",
+	"yarn.lock":         "javascript/yarnlock",
+	"package-lock.json": "javascript/packagelockjson",
+	// This translation works for both the transitive scanning and non transitive scanning
+	// As both extractors have the same name
 	"pom.xml":                     "java/pomxml",
 	"buildscript-gradle.lockfile": "java/gradlelockfile",
 	"gradle.lockfile":             "java/gradlelockfile",
@@ -81,14 +85,23 @@ var lockfileExtractorMapping = map[string]string{
 // within to `query`
 //
 // TODO(V2 Models): pomExtractor is temporary until V2 Models
-func ScanLockfile(r reporter.Reporter, path string, parseAs string, pomExtractor filesystem.Extractor) ([]*extractor.Inventory, error) {
+func ScanLockfile(r reporter.Reporter, scanArg string, pomExtractor filesystem.Extractor) ([]*extractor.Inventory, error) {
 	var err error
 	var inventories []*extractor.Inventory
+
+	parseAs, path := parseLockfilePath(scanArg)
 
 	path, err = filepath.Abs(path)
 	if err != nil {
 		r.Errorf("Failed to resolved path %q with error: %s\n", path, err)
 		return nil, err
+	}
+	extractorsToUse := lockfileExtractors
+
+	if pomExtractor != nil {
+		extractorsToUse = append(extractorsToUse, pomExtractor)
+	} else {
+		extractorsToUse = append(extractorsToUse, pomxml.Extractor{})
 	}
 
 	// special case for the APK and DPKG parsers because they have a very generic name while
@@ -102,15 +115,11 @@ func ScanLockfile(r reporter.Reporter, path string, parseAs string, pomExtractor
 	case "osv-scanner":
 		inventories, err = lockfilescalibr.ExtractWithExtractor(context.Background(), path, osvscannerjson.Extractor{})
 	case "": // No specific parseAs specified
-		inventories, err = lockfilescalibr.ExtractWithExtractors(context.Background(), path, lockfileExtractors, r)
+		inventories, err = lockfilescalibr.ExtractWithExtractors(context.Background(), path, extractorsToUse, r)
 	default: // A specific parseAs without a special case is selected
-		if pomExtractor != nil && (parseAs == "pom.xml" || filepath.Base(path) == "pom.xml") {
-			inventories, err = lockfilescalibr.ExtractWithExtractor(context.Background(), path, pomExtractor)
-			break
-		}
 		// Find and extract with the extractor of parseAs
 		if name, ok := lockfileExtractorMapping[parseAs]; ok {
-			for _, ext := range lockfileExtractors {
+			for _, ext := range extractorsToUse {
 				if name == ext.Name() {
 					inventories, err = lockfilescalibr.ExtractWithExtractor(context.Background(), path, ext)
 					break
@@ -142,4 +151,14 @@ func ScanLockfile(r reporter.Reporter, path string, parseAs string, pomExtractor
 	)
 
 	return inventories, nil
+}
+
+func parseLockfilePath(scanArg string) (string, string) {
+	if !strings.Contains(scanArg, ":") {
+		scanArg = ":" + scanArg
+	}
+
+	splits := strings.SplitN(scanArg, ":", 2)
+
+	return splits[0], splits[1]
 }

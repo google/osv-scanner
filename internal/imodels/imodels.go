@@ -29,20 +29,6 @@ var osExtractors = map[string]struct{}{
 	rpm.Extractor{}.Name():  {},
 }
 
-//
-
-// // TODO: This will be removed and replaced with the V2 model
-// type ScannedPackage struct {
-// 	PURL        string
-// 	Name        string
-// 	Ecosystem   lockfile.Ecosystem
-// 	Commit      string
-// 	Version     string
-// 	Source      models.SourceInfo
-// 	ImageOrigin *models.ImageOriginDetails
-// 	DepGroups   []string
-// }
-
 type PackageInfo struct {
 	Name      string // Name will be SourceName matching the osv-schema
 	Version   string
@@ -127,7 +113,7 @@ type PackageScanResult struct {
 	Licenses           []models.License
 	ImageOriginLayerID string
 
-	// TODO:
+	// TODO(v2):
 	// SourceAnalysis *SourceAnalysis
 	// Any additional scan enrichment steps
 }
