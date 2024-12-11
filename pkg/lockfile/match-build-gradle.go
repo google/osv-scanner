@@ -48,6 +48,11 @@ func (m BuildGradleMatcher) Match(sourcefile DepFile, packages []PackageDetails)
 			group, artifact, _ := strings.Cut(pkg.Name, ":")
 			// TODO: what to do if, while using extended format, components are split in multiple lines?
 			if strings.Contains(line, group) && strings.Contains(line, artifact) {
+				scope := m.extractScope(line)
+				if len(scope) > 0 {
+					packages[key].DepGroups = append(packages[key].DepGroups, scope)
+				}
+
 				if strings.Contains(line, pkg.Version) {
 					startColumn := fileposition.GetFirstNonEmptyCharacterIndexInLine(line)
 					endColumn := fileposition.GetLastNonEmptyCharacterIndexInLine(line)
@@ -75,6 +80,27 @@ func (m BuildGradleMatcher) Match(sourcefile DepFile, packages []PackageDetails)
 	}
 
 	return nil
+}
+
+/*
+This is based on https://docs.gradle.org/current/userguide/dependency_configurations.html#sub:what-are-dependency-configurations
+We extract a runtimeClasspath scope when we find a runtime only instruction because it will only appear as "testRuntimeClasspath" in the lockfile
+
+This let us make the difference between a testRuntime dependency and a runtime only dependency
+*/
+func (m BuildGradleMatcher) extractScope(line string) string {
+	var instruction string
+	if strings.Contains(line, "(") {
+		instruction = strings.TrimSpace(strings.Split(line, "(")[0])
+	} else {
+		instruction = strings.TrimSpace(strings.Fields(line)[0])
+	}
+
+	if instruction == "runtimeOnly" {
+		return "runtimeClasspath"
+	}
+
+	return ""
 }
 
 var _ Matcher = BuildGradleMatcher{}

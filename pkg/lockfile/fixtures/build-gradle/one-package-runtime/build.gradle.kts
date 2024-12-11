@@ -1,5 +1,5 @@
 plugins {
-  id 'java'
+  `java-library`
 }
 
 repositories {
@@ -7,7 +7,7 @@ repositories {
 }
 
 dependencies {
-  implementation 'org.springframework.security:spring-security-crypto:5.7.3'
+  runtimeOnly("org.springframework.security:spring-security-crypto:5.7.3")
 }
 
 dependencyLocking {

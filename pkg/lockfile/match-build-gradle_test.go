@@ -293,3 +293,49 @@ func TestBuildGradleMatcher_Match_OnePackage_KotlinExtended(t *testing.T) {
 		},
 	})
 }
+
+func TestBuildGradleMatcher_Match_OneRuntimePackage_Kotlin(t *testing.T) {
+	t.Parallel()
+
+	sourceFile, err := lockfile.OpenLocalDepFile("fixtures/build-gradle/one-package-runtime/build.gradle.kts")
+	if err != nil {
+		t.Errorf("Got unexpected error: %v", err)
+	}
+
+	packages := []lockfile.PackageDetails{
+		{
+			Name:           "org.springframework.security:spring-security-crypto",
+			Version:        "5.7.3",
+			PackageManager: models.Gradle,
+			DepGroups:      []string{"testRuntimeClasspath"},
+		},
+	}
+	err = buildGradleMatcher.Match(sourceFile, packages)
+	if err != nil {
+		t.Errorf("Got unexpected error: %v", err)
+	}
+
+	expectPackages(t, packages, []lockfile.PackageDetails{
+		{
+			Name:           "org.springframework.security:spring-security-crypto",
+			Version:        "5.7.3",
+			PackageManager: models.Gradle,
+			DepGroups:      []string{"testRuntimeClasspath", "runtimeClasspath"},
+			BlockLocation: models.FilePosition{
+				Line:     models.Position{Start: 10, End: 10},
+				Column:   models.Position{Start: 3, End: 75},
+				Filename: sourceFile.Path(),
+			},
+			NameLocation: &models.FilePosition{
+				Line:     models.Position{Start: 10, End: 10},
+				Column:   models.Position{Start: 45, End: 67},
+				Filename: sourceFile.Path(),
+			},
+			VersionLocation: &models.FilePosition{
+				Line:     models.Position{Start: 10, End: 10},
+				Column:   models.Position{Start: 68, End: 73},
+				Filename: sourceFile.Path(),
+			},
+		},
+	})
+}

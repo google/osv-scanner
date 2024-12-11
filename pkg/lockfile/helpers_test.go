@@ -50,7 +50,7 @@ func packageToString(pkg lockfile.PackageDetails) string {
 		groups = "<no groups>"
 	}
 
-	return fmt.Sprintf("%s@%s (%s, %s, %s)", pkg.Name, pkg.Version, pkg.Ecosystem, commit, groups)
+	return fmt.Sprintf("%s@%s (%s, %s, %s, %s, %t)", pkg.Name, pkg.Version, pkg.Ecosystem, commit, groups, pkg.PackageManager, pkg.IsDirect)
 }
 
 func hasPackage(t *testing.T, packages []lockfile.PackageDetails, pkg lockfile.PackageDetails, ignoreLocations bool) bool {

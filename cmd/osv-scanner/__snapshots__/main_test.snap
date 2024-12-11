@@ -1499,6 +1499,7 @@ Filtered 16 vulnerabilities from output
 | https://osv.dev/DLA-3412-1          |      | Debian    | tzdata                         | 2021a-0+deb9u3                     | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DLA-3684-1          |      | Debian    | tzdata                         | 2021a-0+deb9u3                     | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DLA-3788-1          |      | Debian    | tzdata                         | 2021a-0+deb9u3                     | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/DLA-3972-1          |      | Debian    | tzdata                         | 2021a-0+deb9u3                     | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/CVE-2016-2779       | 7.8  | Debian    | util-linux                     | 2.29.2-1+deb9u1                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/CVE-2021-3995       | 5.5  | Debian    | util-linux                     | 2.29.2-1+deb9u1                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/CVE-2021-3996       | 5.5  | Debian    | util-linux                     | 2.29.2-1+deb9u1                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
@@ -1718,6 +1719,7 @@ Filtered 16 vulnerabilities from output
 | https://osv.dev/DLA-3412-1          |      | Debian    | tzdata                         | 2021a-0+deb9u3                     | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DLA-3684-1          |      | Debian    | tzdata                         | 2021a-0+deb9u3                     | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DLA-3788-1          |      | Debian    | tzdata                         | 2021a-0+deb9u3                     | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/DLA-3972-1          |      | Debian    | tzdata                         | 2021a-0+deb9u3                     | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/CVE-2016-2779       | 7.8  | Debian    | util-linux                     | 2.29.2-1+deb9u1                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/CVE-2021-3995       | 5.5  | Debian    | util-linux                     | 2.29.2-1+deb9u1                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/CVE-2021-3996       | 5.5  | Debian    | util-linux                     | 2.29.2-1+deb9u1                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
@@ -6516,6 +6518,108 @@ No package sources found, --help for usage information.
       }
     },
     {
+      "bom-ref": "pkg:maven/junit/junit@4.13.1",
+      "type": "library",
+      "name": "junit:junit",
+      "version": "4.13.1",
+      "purl": "pkg:maven/junit/junit@4.13.1",
+      "properties": [
+        {
+          "name": "osv-scanner:is-dev",
+          "value": "true"
+        },
+        {
+          "name": "osv-scanner:package-manager",
+          "value": "Gradle"
+        }
+      ],
+      "evidence": {
+        "occurrences": [
+          {
+            "location": "{/"block/":{/"file_name/":/"gradle-groovy/build.gradle/",/"line_start/":11,/"line_end/":11,/"column_start/":3,/"column_end/":42},/"name/":{/"file_name/":/"gradle-groovy/build.gradle/",/"line_start/":11,/"line_end/":11,/"column_start/":23,/"column_end/":28},/"version/":{/"file_name/":/"gradle-groovy/build.gradle/",/"line_start/":11,/"line_end/":11,/"column_start/":35,/"column_end/":41}}"
+          }
+        ]
+      }
+    },
+    {
+      "bom-ref": "pkg:maven/junit/junit@4.13.2",
+      "type": "library",
+      "name": "junit:junit",
+      "version": "4.13.2",
+      "purl": "pkg:maven/junit/junit@4.13.2",
+      "properties": [
+        {
+          "name": "osv-scanner:is-dev",
+          "value": "true"
+        },
+        {
+          "name": "osv-scanner:package-manager",
+          "value": "Gradle"
+        }
+      ],
+      "evidence": {
+        "occurrences": [
+          {
+            "location": "{/"block/":{/"file_name/":/"gradle-kotlin/build.gradle.kts/",/"line_start/":11,/"line_end/":11,/"column_start/":3,/"column_end/":43},/"name/":{/"file_name/":/"gradle-kotlin/build.gradle.kts/",/"line_start/":11,/"line_end/":11,/"column_start/":23,/"column_end/":28},/"version/":{/"file_name/":/"gradle-kotlin/build.gradle.kts/",/"line_start/":11,/"line_end/":11,/"column_start/":35,/"column_end/":41}}"
+          }
+        ]
+      }
+    },
+    {
+      "bom-ref": "pkg:maven/org.hamcrest/hamcrest-core@1.2",
+      "type": "library",
+      "name": "org.hamcrest:hamcrest-core",
+      "version": "1.2",
+      "purl": "pkg:maven/org.hamcrest/hamcrest-core@1.2",
+      "properties": [
+        {
+          "name": "osv-scanner:is-dev",
+          "value": "true"
+        },
+        {
+          "name": "osv-scanner:package-manager",
+          "value": "Gradle"
+        }
+      ]
+    },
+    {
+      "bom-ref": "pkg:maven/org.hamcrest/hamcrest-core@1.3",
+      "type": "library",
+      "name": "org.hamcrest:hamcrest-core",
+      "version": "1.3",
+      "purl": "pkg:maven/org.hamcrest/hamcrest-core@1.3",
+      "properties": [
+        {
+          "name": "osv-scanner:is-dev",
+          "value": "true"
+        },
+        {
+          "name": "osv-scanner:package-manager",
+          "value": "Gradle"
+        }
+      ]
+    },
+    {
+      "bom-ref": "pkg:maven/org.springframework.security/spring-security-crypto@5.7.2",
+      "type": "library",
+      "name": "org.springframework.security:spring-security-crypto",
+      "version": "5.7.2",
+      "purl": "pkg:maven/org.springframework.security/spring-security-crypto@5.7.2",
+      "properties": [
+        {
+          "name": "osv-scanner:package-manager",
+          "value": "Gradle"
+        }
+      ],
+      "evidence": {
+        "occurrences": [
+          {
+            "location": "{/"block/":{/"file_name/":/"gradle-groovy/build.gradle/",/"line_start/":10,/"line_end/":10,/"column_start/":3,/"column_end/":77},/"name/":{/"file_name/":/"gradle-groovy/build.gradle/",/"line_start/":10,/"line_end/":10,/"column_start/":48,/"column_end/":70},/"version/":{/"file_name/":/"gradle-groovy/build.gradle/",/"line_start/":10,/"line_end/":10,/"column_start/":71,/"column_end/":76}}"
+          }
+        ]
+      }
+    },
+    {
       "bom-ref": "pkg:maven/org.springframework.security/spring-security-crypto@5.7.3",
       "type": "library",
       "name": "org.springframework.security:spring-security-crypto",
@@ -6530,7 +6634,7 @@ No package sources found, --help for usage information.
       "evidence": {
         "occurrences": [
           {
-            "location": "{/"block/":{/"file_name/":/"build.gradle/",/"line_start/":10,/"line_end/":10,/"column_start/":3,/"column_end/":77},/"name/":{/"file_name/":/"build.gradle/",/"line_start/":10,/"line_end/":10,/"column_start/":48,/"column_end/":70},/"version/":{/"file_name/":/"build.gradle/",/"line_start/":10,/"line_end/":10,/"column_start/":71,/"column_end/":76}}"
+            "location": "{/"block/":{/"file_name/":/"gradle-kotlin/build.gradle.kts/",/"line_start/":10,/"line_end/":10,/"column_start/":3,/"column_end/":78},/"name/":{/"file_name/":/"gradle-kotlin/build.gradle.kts/",/"line_start/":10,/"line_end/":10,/"column_start/":48,/"column_end/":70},/"version/":{/"file_name/":/"gradle-kotlin/build.gradle.kts/",/"line_start/":10,/"line_end/":10,/"column_start/":71,/"column_end/":76}}"
           }
         ]
       }
@@ -6836,7 +6940,8 @@ Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-8/Pipfile.lock fi
 Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-8/composer/composer.lock file and found 123 packages
 Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-8/conan.lock file and found 1 package
 Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-8/go.mod file and found 4 packages
-Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-8/gradle.lockfile file and found 1 package
+Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-8/gradle-groovy/gradle.lockfile file and found 3 packages
+Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-8/gradle-kotlin/gradle.lockfile file and found 3 packages
 Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-8/mix.lock file and found 1 package
 Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-8/npm/package-lock.json file and found 2 packages
 Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-8/nuget/packages.lock.json file and found 3 packages
@@ -10779,6 +10884,108 @@ Filtered 1 local package/s from the scan.
       }
     },
     {
+      "bom-ref": "pkg:maven/junit/junit@4.13.1",
+      "type": "library",
+      "name": "junit:junit",
+      "version": "4.13.1",
+      "purl": "pkg:maven/junit/junit@4.13.1",
+      "properties": [
+        {
+          "name": "osv-scanner:is-dev",
+          "value": "true"
+        },
+        {
+          "name": "osv-scanner:package-manager",
+          "value": "Gradle"
+        }
+      ],
+      "evidence": {
+        "occurrences": [
+          {
+            "location": "{/"block/":{/"file_name/":/"gradle-groovy/build.gradle/",/"line_start/":11,/"line_end/":11,/"column_start/":3,/"column_end/":42},/"name/":{/"file_name/":/"gradle-groovy/build.gradle/",/"line_start/":11,/"line_end/":11,/"column_start/":23,/"column_end/":28},/"version/":{/"file_name/":/"gradle-groovy/build.gradle/",/"line_start/":11,/"line_end/":11,/"column_start/":35,/"column_end/":41}}"
+          }
+        ]
+      }
+    },
+    {
+      "bom-ref": "pkg:maven/junit/junit@4.13.2",
+      "type": "library",
+      "name": "junit:junit",
+      "version": "4.13.2",
+      "purl": "pkg:maven/junit/junit@4.13.2",
+      "properties": [
+        {
+          "name": "osv-scanner:is-dev",
+          "value": "true"
+        },
+        {
+          "name": "osv-scanner:package-manager",
+          "value": "Gradle"
+        }
+      ],
+      "evidence": {
+        "occurrences": [
+          {
+            "location": "{/"block/":{/"file_name/":/"gradle-kotlin/build.gradle.kts/",/"line_start/":11,/"line_end/":11,/"column_start/":3,/"column_end/":43},/"name/":{/"file_name/":/"gradle-kotlin/build.gradle.kts/",/"line_start/":11,/"line_end/":11,/"column_start/":23,/"column_end/":28},/"version/":{/"file_name/":/"gradle-kotlin/build.gradle.kts/",/"line_start/":11,/"line_end/":11,/"column_start/":35,/"column_end/":41}}"
+          }
+        ]
+      }
+    },
+    {
+      "bom-ref": "pkg:maven/org.hamcrest/hamcrest-core@1.2",
+      "type": "library",
+      "name": "org.hamcrest:hamcrest-core",
+      "version": "1.2",
+      "purl": "pkg:maven/org.hamcrest/hamcrest-core@1.2",
+      "properties": [
+        {
+          "name": "osv-scanner:is-dev",
+          "value": "true"
+        },
+        {
+          "name": "osv-scanner:package-manager",
+          "value": "Gradle"
+        }
+      ]
+    },
+    {
+      "bom-ref": "pkg:maven/org.hamcrest/hamcrest-core@1.3",
+      "type": "library",
+      "name": "org.hamcrest:hamcrest-core",
+      "version": "1.3",
+      "purl": "pkg:maven/org.hamcrest/hamcrest-core@1.3",
+      "properties": [
+        {
+          "name": "osv-scanner:is-dev",
+          "value": "true"
+        },
+        {
+          "name": "osv-scanner:package-manager",
+          "value": "Gradle"
+        }
+      ]
+    },
+    {
+      "bom-ref": "pkg:maven/org.springframework.security/spring-security-crypto@5.7.2",
+      "type": "library",
+      "name": "org.springframework.security:spring-security-crypto",
+      "version": "5.7.2",
+      "purl": "pkg:maven/org.springframework.security/spring-security-crypto@5.7.2",
+      "properties": [
+        {
+          "name": "osv-scanner:package-manager",
+          "value": "Gradle"
+        }
+      ],
+      "evidence": {
+        "occurrences": [
+          {
+            "location": "{/"block/":{/"file_name/":/"gradle-groovy/build.gradle/",/"line_start/":10,/"line_end/":10,/"column_start/":3,/"column_end/":77},/"name/":{/"file_name/":/"gradle-groovy/build.gradle/",/"line_start/":10,/"line_end/":10,/"column_start/":48,/"column_end/":70},/"version/":{/"file_name/":/"gradle-groovy/build.gradle/",/"line_start/":10,/"line_end/":10,/"column_start/":71,/"column_end/":76}}"
+          }
+        ]
+      }
+    },
+    {
       "bom-ref": "pkg:maven/org.springframework.security/spring-security-crypto@5.7.3",
       "type": "library",
       "name": "org.springframework.security:spring-security-crypto",
@@ -10793,7 +11000,7 @@ Filtered 1 local package/s from the scan.
       "evidence": {
         "occurrences": [
           {
-            "location": "{/"block/":{/"file_name/":/"build.gradle/",/"line_start/":10,/"line_end/":10,/"column_start/":3,/"column_end/":77},/"name/":{/"file_name/":/"build.gradle/",/"line_start/":10,/"line_end/":10,/"column_start/":48,/"column_end/":70},/"version/":{/"file_name/":/"build.gradle/",/"line_start/":10,/"line_end/":10,/"column_start/":71,/"column_end/":76}}"
+            "location": "{/"block/":{/"file_name/":/"gradle-kotlin/build.gradle.kts/",/"line_start/":10,/"line_end/":10,/"column_start/":3,/"column_end/":78},/"name/":{/"file_name/":/"gradle-kotlin/build.gradle.kts/",/"line_start/":10,/"line_end/":10,/"column_start/":48,/"column_end/":70},/"version/":{/"file_name/":/"gradle-kotlin/build.gradle.kts/",/"line_start/":10,/"line_end/":10,/"column_start/":71,/"column_end/":76}}"
           }
         ]
       }
@@ -11099,7 +11306,8 @@ Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/Pipfile.lock f
 Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/composer/composer.lock file and found 123 packages
 Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/conan.lock file and found 1 package
 Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/go.mod file and found 2 packages
-Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/gradle.lockfile file and found 1 package
+Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/gradle-groovy/gradle.lockfile file and found 3 packages
+Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/gradle-kotlin/gradle.lockfile file and found 3 packages
 Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/mix.lock file and found 1 package
 Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/npm/package-lock.json file and found 2 packages
 Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/nuget/packages.lock.json file and found 3 packages
@@ -15041,6 +15249,108 @@ Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/yarn/yarn.lock
       }
     },
     {
+      "bom-ref": "pkg:maven/junit/junit@4.13.1",
+      "type": "library",
+      "name": "junit:junit",
+      "version": "4.13.1",
+      "purl": "pkg:maven/junit/junit@4.13.1",
+      "properties": [
+        {
+          "name": "osv-scanner:is-dev",
+          "value": "true"
+        },
+        {
+          "name": "osv-scanner:package-manager",
+          "value": "Gradle"
+        }
+      ],
+      "evidence": {
+        "occurrences": [
+          {
+            "location": "{/"block/":{/"file_name/":/"gradle-groovy/build.gradle/",/"line_start/":11,/"line_end/":11,/"column_start/":3,/"column_end/":42},/"name/":{/"file_name/":/"gradle-groovy/build.gradle/",/"line_start/":11,/"line_end/":11,/"column_start/":23,/"column_end/":28},/"version/":{/"file_name/":/"gradle-groovy/build.gradle/",/"line_start/":11,/"line_end/":11,/"column_start/":35,/"column_end/":41}}"
+          }
+        ]
+      }
+    },
+    {
+      "bom-ref": "pkg:maven/junit/junit@4.13.2",
+      "type": "library",
+      "name": "junit:junit",
+      "version": "4.13.2",
+      "purl": "pkg:maven/junit/junit@4.13.2",
+      "properties": [
+        {
+          "name": "osv-scanner:is-dev",
+          "value": "true"
+        },
+        {
+          "name": "osv-scanner:package-manager",
+          "value": "Gradle"
+        }
+      ],
+      "evidence": {
+        "occurrences": [
+          {
+            "location": "{/"block/":{/"file_name/":/"gradle-kotlin/build.gradle.kts/",/"line_start/":11,/"line_end/":11,/"column_start/":3,/"column_end/":43},/"name/":{/"file_name/":/"gradle-kotlin/build.gradle.kts/",/"line_start/":11,/"line_end/":11,/"column_start/":23,/"column_end/":28},/"version/":{/"file_name/":/"gradle-kotlin/build.gradle.kts/",/"line_start/":11,/"line_end/":11,/"column_start/":35,/"column_end/":41}}"
+          }
+        ]
+      }
+    },
+    {
+      "bom-ref": "pkg:maven/org.hamcrest/hamcrest-core@1.2",
+      "type": "library",
+      "name": "org.hamcrest:hamcrest-core",
+      "version": "1.2",
+      "purl": "pkg:maven/org.hamcrest/hamcrest-core@1.2",
+      "properties": [
+        {
+          "name": "osv-scanner:is-dev",
+          "value": "true"
+        },
+        {
+          "name": "osv-scanner:package-manager",
+          "value": "Gradle"
+        }
+      ]
+    },
+    {
+      "bom-ref": "pkg:maven/org.hamcrest/hamcrest-core@1.3",
+      "type": "library",
+      "name": "org.hamcrest:hamcrest-core",
+      "version": "1.3",
+      "purl": "pkg:maven/org.hamcrest/hamcrest-core@1.3",
+      "properties": [
+        {
+          "name": "osv-scanner:is-dev",
+          "value": "true"
+        },
+        {
+          "name": "osv-scanner:package-manager",
+          "value": "Gradle"
+        }
+      ]
+    },
+    {
+      "bom-ref": "pkg:maven/org.springframework.security/spring-security-crypto@5.7.2",
+      "type": "library",
+      "name": "org.springframework.security:spring-security-crypto",
+      "version": "5.7.2",
+      "purl": "pkg:maven/org.springframework.security/spring-security-crypto@5.7.2",
+      "properties": [
+        {
+          "name": "osv-scanner:package-manager",
+          "value": "Gradle"
+        }
+      ],
+      "evidence": {
+        "occurrences": [
+          {
+            "location": "{/"block/":{/"file_name/":/"gradle-groovy/build.gradle/",/"line_start/":10,/"line_end/":10,/"column_start/":3,/"column_end/":77},/"name/":{/"file_name/":/"gradle-groovy/build.gradle/",/"line_start/":10,/"line_end/":10,/"column_start/":48,/"column_end/":70},/"version/":{/"file_name/":/"gradle-groovy/build.gradle/",/"line_start/":10,/"line_end/":10,/"column_start/":71,/"column_end/":76}}"
+          }
+        ]
+      }
+    },
+    {
       "bom-ref": "pkg:maven/org.springframework.security/spring-security-crypto@5.7.3",
       "type": "library",
       "name": "org.springframework.security:spring-security-crypto",
@@ -15055,7 +15365,7 @@ Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/yarn/yarn.lock
       "evidence": {
         "occurrences": [
           {
-            "location": "{/"block/":{/"file_name/":/"build.gradle/",/"line_start/":10,/"line_end/":10,/"column_start/":3,/"column_end/":77},/"name/":{/"file_name/":/"build.gradle/",/"line_start/":10,/"line_end/":10,/"column_start/":48,/"column_end/":70},/"version/":{/"file_name/":/"build.gradle/",/"line_start/":10,/"line_end/":10,/"column_start/":71,/"column_end/":76}}"
+            "location": "{/"block/":{/"file_name/":/"gradle-kotlin/build.gradle.kts/",/"line_start/":10,/"line_end/":10,/"column_start/":3,/"column_end/":78},/"name/":{/"file_name/":/"gradle-kotlin/build.gradle.kts/",/"line_start/":10,/"line_end/":10,/"column_start/":48,/"column_end/":70},/"version/":{/"file_name/":/"gradle-kotlin/build.gradle.kts/",/"line_start/":10,/"line_end/":10,/"column_start/":71,/"column_end/":76}}"
           }
         ]
       }
@@ -15361,7 +15671,8 @@ Scanned <rootdir>/fixtures/encoding-integration-test-locks/Windows-1252/Pipfile.
 Scanned <rootdir>/fixtures/encoding-integration-test-locks/Windows-1252/composer/composer.lock file and found 123 packages
 Scanned <rootdir>/fixtures/encoding-integration-test-locks/Windows-1252/conan.lock file and found 1 package
 Scanned <rootdir>/fixtures/encoding-integration-test-locks/Windows-1252/go.mod file and found 2 packages
-Scanned <rootdir>/fixtures/encoding-integration-test-locks/Windows-1252/gradle.lockfile file and found 1 package
+Scanned <rootdir>/fixtures/encoding-integration-test-locks/Windows-1252/gradle-groovy/gradle.lockfile file and found 3 packages
+Scanned <rootdir>/fixtures/encoding-integration-test-locks/Windows-1252/gradle-kotlin/gradle.lockfile file and found 3 packages
 Scanned <rootdir>/fixtures/encoding-integration-test-locks/Windows-1252/mix.lock file and found 1 package
 Scanned <rootdir>/fixtures/encoding-integration-test-locks/Windows-1252/npm/package-lock.json file and found 2 packages
 Scanned <rootdir>/fixtures/encoding-integration-test-locks/Windows-1252/nuget/packages.lock.json file and found 3 packages

@@ -1,6 +1,10 @@
 package lockfile
 
-import "github.com/google/osv-scanner/pkg/models"
+import (
+	"strings"
+
+	"github.com/google/osv-scanner/pkg/models"
+)
 
 type PackageDetails struct {
 	Name            string                `json:"name"`
@@ -31,7 +35,7 @@ func (sys Ecosystem) IsDevGroup(groups []string) bool {
 	case ConanEcosystem:
 		dev = "build-requires"
 	case MavenEcosystem:
-		dev = "test"
+		return sys.isMavenDevGroup(groups)
 	case AlpineEcosystem, BundlerEcosystem, CargoEcosystem, CRANEcosystem,
 		DebianEcosystem, GoEcosystem, MixEcosystem, NuGetEcosystem:
 		// We are not able to report development dependencies for these ecosystems.
@@ -45,6 +49,21 @@ func (sys Ecosystem) IsDevGroup(groups []string) bool {
 	}
 
 	return false
+}
+
+// isMavenDevGroup defines whether the dependency is only present in tests for the maven ecosystem or not (Maven and Gradle).
+func (sys Ecosystem) isMavenDevGroup(groups []string) bool {
+	if len(groups) == 0 {
+		return false
+	}
+
+	for _, g := range groups {
+		if !strings.HasPrefix(g, "test") {
+			return false
+		}
+	}
+
+	return true
 }
 
 func (pkg PackageDetails) IsVersionEmpty() bool {
