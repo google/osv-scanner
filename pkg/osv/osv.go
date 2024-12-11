@@ -239,8 +239,8 @@ func MakeRequestWithClient(request BatchedQuery, client *http.Client) (*BatchedR
 	}
 
 	var totalOsvResp BatchedResponse
-	for _, resutls := range totalOsvRespResults {
-		totalOsvResp.Results = append(totalOsvResp.Results, resutls...)
+	for _, results := range totalOsvRespResults {
+		totalOsvResp.Results = append(totalOsvResp.Results, results...)
 	}
 
 	return &totalOsvResp, nil
