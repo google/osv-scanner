@@ -239,4 +239,53 @@ jobs:
       actions: read
 ```
 
+#### Using download-artifact with matrix
+```yml
+jobs:
+  extract-deps:
+    strategy:
+        fail-fast: false
+        matrix:
+          platform: [
+          {target_arch: amd64},
+          {target_arch: armv7}
+          {target_arch: armhf},
+          {target_arch: aarch64}
+        ]
+    name: Extract Dependencies
+    # ...
+    steps:
+      # ... Steps to extract your dependencies for each matrix run
+      - name: "upload osv-scanner deps" # Upload the deps
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.platform.target_arch }}-converted-OSV-Scanner-deps
+          path: osv-scanner-deps.json
+          retention-days: 2
+  vuln-scan:
+    needs:
+      - build
+    strategy:
+      matrix:
+        platform: [
+          {target_arch: amd64},
+          {target_arch: armv7}
+          {target_arch: armhf},
+          {target_arch: aarch64}
+        ]
+    uses: "extract/osv-scanner/.github/workflows/osv-scanner-reusable.yml@v1.9.1"
+    with:
+      download-artifact: "${{ matrix.platform.target_arch }}-converted-OSV-Scanner-deps"
+      results-file-name: "${{ matrix.platform.target_arch }}.sarif"
+      security-category: "${{ matrix.platform.target_arch }}-OSV-Scanner"
+      scan-args: |-
+        --lockfile=osv-scanner:osv-scanner-deps.json
+        --recursive
+        --skip-git
+        ./
+    permissions:
+      security-events: write
+      contents: read
+      actions: read
+```
 </details>
