@@ -139,10 +139,11 @@ Executing `/usr/bin/npm install --package-lock-only`...
 </details>
 
 #### JSON
+
 Outputs the results as a JSON object to stdout, with all other output being directed to stderr - this makes it safe to redirect the output to a file.
 
 ```bash
-osv-scanner fix --non-interactive --format json --strategy=relax -M path/to/package.json 
+osv-scanner fix --non-interactive --format json --strategy=relax -M path/to/package.json
 ```
 
 <details markdown="1">
@@ -236,6 +237,7 @@ The following flags may be used when running in non-interactive mode only:
 - `--apply-top=<value>`: Specifies the maximum number of patches to apply. Patches are chosen in the same order as they would appear in the interactive mode.
 
   For example, `--apply-top=1` will only apply one patch, and `--apply-top=2` would apply the two best compatible patches. This flag is particularly useful when scripting to test the outcome of specific patches. Setting `--apply-top=-1` will apply every possible patch (default behavior).
+
 - `--format=` `text` OR `json`. The [output format](#output-formats) to use for results.
 
 ### Vulnerability selection
