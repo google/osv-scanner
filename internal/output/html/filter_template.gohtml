@@ -11,14 +11,14 @@
       </div>
       <div id="layer-filter-option-container" class="filter-option-container">
         <div title="all" class="filter-option layer-filter-option" id="all-layer-checkbox"
-          data-layer-all-count="{{ .HTMLVulnCount.Called }}">
-          <p>All layers ({{ .HTMLVulnCount.Called }})</p>
-          {{ template "severity_summary_template.html" .HTMLVulnCount }}
+          data-layer-all-count="{{ .VulnCount.AnalysisCount.Regular }}">
+          <p>All layers ({{ .VulnCount.AnalysisCount.Regular }})</p>
+          {{ template "severity_summary_template.gohtml" .VulnCount.SeverityCount }}
         </div>
         {{ range .AllLayers }}
         <div title="{{ .LayerID}}" class="filter-option layer-filter-option">
           <p>{{ .Index }} {{ .LayerCommand }}</p>
-          {{ template "severity_summary_template.html".Count }}
+          {{ template "severity_summary_template.gohtml".Count.SeverityCount }}
         </div>
         {{ end }}
       </div>
@@ -30,7 +30,7 @@
       <div id="type-filter" class="filter" onclick="toggleFilter('type')">
         <p class="filter-selected">
           <span id="type-filter-selected"></span>
-          <span>(<span id="selected-count"></span>/{{ add .HTMLVulnTypeCount.All .HTMLVulnTypeCount.Uncalled }})</span>
+          <span>(<span id="selected-count"></span>/{{ add .VulnTypeSummary.All .VulnTypeSummary.Hidden }})</span>
         </p>
         <div class="filter-icon">
           <i class="material-icons">keyboard_arrow_down</i>
@@ -39,24 +39,24 @@
       <div id="type-filter-option-container" class="filter-option-container">
         {{ if .IsContainerScanning }}
         <div class="filter-option">
-          <input type="checkbox" checked id="all-type-checkbox" data-type-all-count="{{ .HTMLVulnTypeCount.All }}">
-          <label for="all-type-checkbox">Default ({{ .HTMLVulnTypeCount.All }})</label>
+          <input type="checkbox" checked id="all-type-checkbox" data-type-all-count="{{ .VulnTypeSummary.All }}">
+          <label for="all-type-checkbox">Default ({{ .VulnTypeSummary.All }})</label>
         </div>
         {{ end }}
         <div class="filter-option">
           <input type="checkbox" checked id="project-type-checkbox"
-            data-type-project-count="{{ .HTMLVulnTypeCount.Project }}">
-          <label for="project-type-checkbox"> Project Vulnerabilities ({{ .HTMLVulnTypeCount.Project }})</label>
+            data-type-project-count="{{ .VulnTypeSummary.Project }}">
+          <label for="project-type-checkbox"> Project Vulnerabilities ({{ .VulnTypeSummary.Project }})</label>
         </div>
         {{ if .IsContainerScanning }}
         <div class="filter-option">
-          <input type="checkbox" checked id="os-type-checkbox" data-type-os-count="{{ .HTMLVulnTypeCount.OS }}">
-          <label for="os-type-checkbox"> Operating system vulnerabilities ({{ .HTMLVulnTypeCount.OS }})</label>
+          <input type="checkbox" checked id="os-type-checkbox" data-type-os-count="{{ .VulnTypeSummary.OS }}">
+          <label for="os-type-checkbox"> Operating system vulnerabilities ({{ .VulnTypeSummary.OS }})</label>
         </div>
         {{ end }}
         <div class="filter-option">
-          <input type="checkbox" id="uncalled-type-checkbox" data-type-uncalled-count="{{ .HTMLVulnTypeCount.Uncalled }}">
-          <label for="uncalled-type-checkbox">Uncalled/Unimportant ({{ .HTMLVulnTypeCount.Uncalled }})</label>
+          <input type="checkbox" id="uncalled-type-checkbox" data-type-uncalled-count="{{ .VulnTypeSummary.Hidden }}">
+          <label for="uncalled-type-checkbox">Uncalled/Unimportant ({{ .VulnTypeSummary.Hidden }})</label>
         </div>
       </div>
     </div>
@@ -67,19 +67,19 @@
     <span>Overall Severity</span>
     <div class="flex-box">
       <div id="critical-long" class="severity-long">
-        <p class="critical">{{ .HTMLVulnCount.Critical }} Critical</p>
+        <p class="critical">{{ .VulnCount.SeverityCount.Critical }} Critical</p>
       </div>
       <div id="high-long" class="severity-long">
-        <p class="high">{{ .HTMLVulnCount.High }} High</p>
+        <p class="high">{{ .VulnCount.SeverityCount.High }} High</p>
       </div>
       <div id="medium-long" class="severity-long">
-        <p class="medium">{{ .HTMLVulnCount.Medium }} Medium</p>
+        <p class="medium">{{ .VulnCount.SeverityCount.Medium }} Medium</p>
       </div>
       <div id="low-long" class="severity-long">
-        <p class="low">{{ .HTMLVulnCount.Low }} Low</p>
+        <p class="low">{{ .VulnCount.SeverityCount.Low }} Low</p>
       </div>
       <div id="unknow-long" class="severity-long">
-        <p class="unknown">{{ .HTMLVulnCount.Unknown }} Unknown</p>
+        <p class="unknown">{{ .VulnCount.SeverityCount.Unknown }} Unknown</p>
       </div>
     </div>
   </div>
