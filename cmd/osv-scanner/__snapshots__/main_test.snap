@@ -2432,7 +2432,7 @@ No issues found
 
 [TestRun_LockfileWithExplicitParseAs/"dpkg-status"_is_supported - 1]
 Scanned <rootdir>/fixtures/locks-many/status file as a dpkg-status and found 1 package
-Filtered 1 local/unscannable package/s from the scan.
+Loaded filter from: <rootdir>/fixtures/locks-many/osv-scanner.toml
 No issues found
 
 ---

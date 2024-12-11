@@ -96,9 +96,11 @@ func FromInventory(inventory *extractor.Inventory) PackageInfo {
 		pkgInfo.OSPackageName = metadata.PackageName
 	} else if metadata, ok := inventory.Metadata.(*dpkg.Metadata); ok {
 		pkgInfo.OSPackageName = metadata.PackageName
-		// Debian uses source version on osv.dev
-		pkgInfo.Name = metadata.SourceName
-		pkgInfo.Version = metadata.SourceName
+		// Debian uses source name on osv.dev
+		// (fallback to using the normal name if source name is empty)
+		if metadata.SourceName != "" {
+			pkgInfo.Name = metadata.SourceName
+		}
 	} else if metadata, ok := inventory.Metadata.(*rpm.Metadata); ok {
 		pkgInfo.OSPackageName = metadata.PackageName
 	}
