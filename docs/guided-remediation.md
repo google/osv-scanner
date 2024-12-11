@@ -46,11 +46,37 @@ To fix as many vulnerabilities as possible in your `package-lock.json` file [in-
 osv-scanner fix --non-interactive --strategy=in-place -L path/to/package-lock.json
 ```
 
-<details markdown="1">
-<summary><b>Sample in-place output</b></summary>
+Alternatively, to potentially resolve even more vulnerabilities with larger (potentially breaking) changes, you can [regenerate your lockfile and update your direct dependencies](#relock-and-relax-direct-dependency-remediation) with the following command:
+
+```bash
+osv-scanner fix --non-interactive --strategy=relax -M path/to/package.json -L path/to/package-lock.json
+```
+
+{: .warning }
+The subcommand will modify your manifest and lockfile. Make sure you commit or backup your files before running.
+
+{: .note }
+The subcommand will not reinstall your `node_modules/` - you will need to manually run `npm ci` to install dependencies.
+
+If you wish to remediation only specific vulnerabilities, you may specify OSV IDs using the `--vulns` flag. [See all remediation flags](#remediation-flags).
+
+### Output formats
+
+`--non-interactive` mode outputs to the terminal the actions taken and vulnerabilities remediated. The output format can be controlled with the `--format` flag.
 
 {: .highlight }
-The output format might change with minor version updates.
+The output formats may change with minor version updates.
+
+#### Text (default)
+
+The default format.
+
+```bash
+osv-scanner fix --non-interactive --format text --strategy=in-place -L path/to/package-lock.json
+```
+
+<details markdown="1">
+<summary><b>Sample in-place text output</b></summary>
 
 ```
 Scanning path/to/package-lock.json...
@@ -85,17 +111,12 @@ Rewriting path/to/package-lock.json...
 
 </details>
 
-Alternatively, to potentially resolve even more vulnerabilities with larger (potentially breaking) changes, you can [regenerate your lockfile and update your direct dependencies](#relock-and-relax-direct-dependency-remediation) with the following command:
-
 ```bash
-osv-scanner fix --non-interactive --strategy=relax -M path/to/package.json -L path/to/package-lock.json
+osv-scanner fix --non-interactive --format text --strategy=relax -M path/to/package.json -L path/to/package-lock.json
 ```
 
 <details markdown="1">
-<summary><b>Sample relax output</b></summary>
-
-{: .highlight }
-The output format might change with minor version updates.
+<summary><b>Sample relax JSON output</b></summary>
 
 ```
 Resolving path/to/package.json...
@@ -117,13 +138,23 @@ Executing `/usr/bin/npm install --package-lock-only`...
 
 </details>
 
-{: .warning }
-The subcommand will modify your manifest and lockfile. Make sure you commit or backup your files before running.
+#### JSON
+Outputs the results as a JSON object to stdout, with all other output being directed to stderr - this makes it safe to redirect the output to a file.
 
-{: .note }
-The subcommand will not reinstall your `node_modules/` - you will need to manually run `npm ci` to install dependencies.
+```bash
+osv-scanner fix --non-interactive --format json --strategy=relax -M path/to/package.json 
+```
 
-If you wish to remediation only specific vulnerabilities, you may specify OSV IDs using the `--vulns` flag. [See all remediation flags](#remediation-flags).
+<details markdown="1">
+<summary><b>Sample relax text output</b></summary>
+
+```json
+{
+  "todo": "populate"
+}
+```
+
+</details>
 
 ## Scripted usage
 
@@ -205,6 +236,7 @@ The following flags may be used when running in non-interactive mode only:
 - `--apply-top=<value>`: Specifies the maximum number of patches to apply. Patches are chosen in the same order as they would appear in the interactive mode.
 
   For example, `--apply-top=1` will only apply one patch, and `--apply-top=2` would apply the two best compatible patches. This flag is particularly useful when scripting to test the outcome of specific patches. Setting `--apply-top=-1` will apply every possible patch (default behavior).
+- `--format=` `text` OR `json`. The [output format](#output-formats) to use for results.
 
 ### Vulnerability selection
 
