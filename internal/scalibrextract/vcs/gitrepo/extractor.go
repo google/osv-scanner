@@ -2,7 +2,6 @@ package gitrepo
 
 import (
 	"context"
-	"io/fs"
 	"path"
 	"path/filepath"
 
@@ -67,8 +66,18 @@ func (e Extractor) Requirements() *plugin.Capabilities {
 }
 
 // FileRequired returns true for .package-lock.json files under node_modules
-func (e Extractor) FileRequired(path string, fi fs.FileInfo) bool {
-	return fi.IsDir() && filepath.Base(path) == ".git"
+func (e Extractor) FileRequired(fapi filesystem.FileAPI) bool {
+	if filepath.Base(fapi.Path()) != ".git" {
+		return false
+	}
+
+	// Stat costs performance, so perform it after the name check
+	stat, err := fapi.Stat()
+	if err != nil {
+		return false
+	}
+
+	return stat.IsDir()
 }
 
 // Extract extracts packages from yarn.lock files passed through the scan input.
@@ -104,11 +113,6 @@ func (e Extractor) Extract(_ context.Context, input *filesystem.ScanInput) ([]*e
 
 // ToPURL converts an inventory created by this extractor into a PURL.
 func (e Extractor) ToPURL(_ *extractor.Inventory) *purl.PackageURL {
-	return nil
-}
-
-// ToCPEs is not applicable as this extractor does not infer CPEs from the Inventory.
-func (e Extractor) ToCPEs(_ *extractor.Inventory) []string {
 	return nil
 }
 
