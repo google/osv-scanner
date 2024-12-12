@@ -440,6 +440,77 @@ func TestConfig_ShouldIgnorePackage(t *testing.T) {
 		},
 		// -------------------------------------------------------------------------
 		{
+			name: "Ecosystem-level entry with suffix exists and does match",
+			config: Config{
+				PackageOverrides: []PackageOverrideEntry{
+					{
+						Ecosystem:      "Alpine:3.20",
+						Ignore:         true,
+						EffectiveUntil: time.Time{},
+						Reason:         "abc",
+					},
+				},
+			},
+			args: imodels.PackageInfo{
+				Name:      "bin1",
+				Version:   "1.0.0",
+				Ecosystem: ecosystem.Parse("Alpine:3.20"),
+			},
+			wantOk: true,
+			wantEntry: PackageOverrideEntry{
+				Ecosystem:      "Alpine:3.20",
+				Ignore:         true,
+				EffectiveUntil: time.Time{},
+				Reason:         "abc",
+			},
+		},
+		{
+			name: "Ecosystem-level entry with suffix exists exists and does not match",
+			config: Config{
+				PackageOverrides: []PackageOverrideEntry{
+					{
+						Ecosystem:      "Alpine:3.20",
+						Ignore:         true,
+						EffectiveUntil: time.Time{},
+						Reason:         "abc",
+					},
+				},
+			},
+			args: imodels.PackageInfo{
+				Name:      "bin2",
+				Version:   "1.0.0",
+				Ecosystem: ecosystem.Parse("Alpine:3.19"),
+			},
+			wantOk:    false,
+			wantEntry: PackageOverrideEntry{},
+		},
+		{
+			name: "Ecosystem-level entry without suffix exists and does match",
+			config: Config{
+				PackageOverrides: []PackageOverrideEntry{
+					{
+						Ecosystem:      "Alpine",
+						Ignore:         true,
+						EffectiveUntil: time.Time{},
+						Reason:         "abc",
+					},
+				},
+			},
+			args: imodels.PackageInfo{
+				Name:      "bin1",
+				Version:   "1.0.0",
+				Ecosystem: ecosystem.Parse("Alpine:3.20"),
+			},
+			wantOk: true,
+			wantEntry: PackageOverrideEntry{
+				Ecosystem:      "Alpine",
+				Ignore:         true,
+				EffectiveUntil: time.Time{},
+				Reason:         "abc",
+			},
+		},
+		// -------------------------------------------------------------------------
+		{
 			name: "Group-level entry exists and does match",
 			config: Config{
 				PackageOverrides: []PackageOverrideEntry{
