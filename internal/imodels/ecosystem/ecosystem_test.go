@@ -265,7 +265,7 @@ func TestParse(t *testing.T) {
 		t.Run(tt.string, func(t *testing.T) {
 			t.Parallel()
 
-			if got := ecosystem.Parse(tt.string); !reflect.DeepEqual(got, tt.parsed) {
+			if got := ecosystem.MustParse(tt.string); !reflect.DeepEqual(got, tt.parsed) {
 				t.Errorf("Parse() = %v, want %v", got, tt.parsed)
 			}
 		})

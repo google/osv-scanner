@@ -2,10 +2,26 @@ package ecosystem
 
 import (
 	"encoding/json"
+	"fmt"
 	"strings"
 
 	"github.com/ossf/osv-schema/bindings/go/osvschema"
 )
+
+// ecosystemsWithSuffix documents all the ecosystems that can have a suffix
+var ecosystemsWithSuffix = map[osvschema.Ecosystem]struct{}{
+	osvschema.EcosystemAlpine:     {},
+	osvschema.EcosystemAlmaLinux:  {},
+	osvschema.EcosystemAndroid:    {},
+	osvschema.EcosystemDebian:     {},
+	osvschema.EcosystemMageia:     {},
+	osvschema.EcosystemOpenSUSE:   {},
+	osvschema.EcosystemPhotonOS:   {},
+	osvschema.EcosystemRedHat:     {},
+	osvschema.EcosystemRockyLinux: {},
+	osvschema.EcosystemSUSE:       {},
+	osvschema.EcosystemUbuntu:     {},
+}
 
 // Parsed represents an ecosystem-with-suffix string as defined by the [spec], parsed into
 // a structured format.
@@ -39,7 +55,7 @@ func (p *Parsed) UnmarshalJSON(data []byte) error {
 		return err
 	}
 
-	*p = Parse(str)
+	*p = MustParse(str)
 
 	return nil
 }
@@ -64,9 +80,27 @@ func (p *Parsed) String() string {
 	return str
 }
 
+// MustParse parses a string into a constants.Ecosystem and an optional suffix specified with a ":"
+// Panics if there is an invalid ecosystem
+func MustParse(str string) Parsed {
+	parsed, err := Parse(str)
+	if err != nil {
+		panic("Failed MustParse: " + err.Error())
+	}
+
+	return parsed
+}
+
 // Parse parses a string into a constants.Ecosystem and an optional suffix specified with a ":"
-func Parse(str string) Parsed {
+func Parse(str string) (Parsed, error) {
 	ecosystem, suffix, _ := strings.Cut(str, ":")
 
-	return Parsed{osvschema.Ecosystem(ecosystem), suffix}
+	// Always return the full parsed value even if it might be invalid
+	// Let the caller decide how to handle the error
+	var err error
+	if _, ok := ecosystemsWithSuffix[osvschema.Ecosystem(ecosystem)]; !ok && suffix != "" {
+		err = fmt.Errorf("found ecosystem %q has a suffix %q, but it should not", ecosystem, suffix)
+	}
+
+	return Parsed{osvschema.Ecosystem(ecosystem), suffix}, err
 }

@@ -1,6 +1,8 @@
 package imodels
 
 import (
+	"log"
+
 	"github.com/google/osv-scalibr/extractor"
 	"github.com/google/osv-scalibr/extractor/filesystem/os/apk"
 	"github.com/google/osv-scalibr/extractor/filesystem/os/dpkg"
@@ -53,11 +55,19 @@ func FromInventory(inventory *extractor.Inventory) PackageInfo {
 	pkgInfo := PackageInfo{
 		Name:                inventory.Name,
 		Version:             inventory.Version,
-		Ecosystem:           ecosystem.Parse(inventory.Ecosystem()),
 		Location:            inventory.Locations[0],
 		AdditionalLocations: inventory.Locations[1:],
 		// TODO: SourceType
 	}
+
+	// Ignore this error for now as we can't do too much about an unknown ecosystem
+	eco, err := ecosystem.Parse(inventory.Ecosystem())
+	if err != nil {
+		// TODO(v2): Replace with slog
+		log.Printf("Warning: %s\n", err.Error())
+	}
+
+	pkgInfo.Ecosystem = eco
 
 	if inventory.SourceCode != nil {
 		pkgInfo.Commit = inventory.SourceCode.Commit
@@ -83,7 +93,12 @@ func FromInventory(inventory *extractor.Inventory) PackageInfo {
 				pi, _ := models.PURLToPackage(purl.String())
 				pkgInfo.Name = pi.Name
 				pkgInfo.Version = pi.Version
-				pkgInfo.Ecosystem = ecosystem.Parse(pi.Ecosystem)
+				parsed, err := ecosystem.Parse(pi.Ecosystem)
+				if err != nil {
+					// TODO: Replace with slog
+					log.Printf("Warning, found unexpected ecosystem in purl %q, likely will not return any results for this package.\n", purl.String())
+				}
+				pkgInfo.Ecosystem = parsed
 			}
 		} else if _, ok := gitExtractors[extractorName]; ok {
 			pkgInfo.SourceType = SourceTypeGit
