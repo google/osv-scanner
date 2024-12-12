@@ -8,8 +8,8 @@ import (
 	"github.com/google/osv-scalibr/extractor/filesystem"
 	"github.com/google/osv-scalibr/extractor/filesystem/sbom/cdx"
 	"github.com/google/osv-scalibr/extractor/filesystem/sbom/spdx"
-	"github.com/google/osv-scanner/internal/lockfilescalibr"
 	"github.com/google/osv-scanner/internal/output"
+	"github.com/google/osv-scanner/internal/scalibrextract"
 	"github.com/google/osv-scanner/pkg/reporter"
 )
 
@@ -25,7 +25,7 @@ func ScanSBOM(r reporter.Reporter, path string) ([]*extractor.Inventory, error) 
 		return nil, err
 	}
 
-	invs, err := lockfilescalibr.ExtractWithExtractors(context.Background(), path, SBOMExtractors)
+	invs, err := scalibrextract.ExtractWithExtractors(context.Background(), path, SBOMExtractors)
 	if err != nil {
 		r.Infof("Failed to parse SBOM %q with error: %s\n", path, err)
 		return nil, err

@@ -12,7 +12,7 @@ import (
 
 	"github.com/google/osv-scalibr/extractor"
 	"github.com/google/osv-scalibr/extractor/filesystem/os/dpkg"
-	"github.com/google/osv-scanner/internal/lockfilescalibr"
+	"github.com/google/osv-scanner/internal/scalibrextract"
 	"github.com/google/osv-scanner/pkg/lockfile"
 	"github.com/google/osv-scanner/pkg/models"
 	"github.com/google/osv-scanner/pkg/reporter"
@@ -56,7 +56,7 @@ func ScanImage(r reporter.Reporter, imagePath string) (ScanResults, error) {
 
 		extractedInventories, err := extractArtifactDeps(file.virtualPath, img.LastLayer())
 		if err != nil {
-			if !errors.Is(err, lockfilescalibr.ErrExtractorNotFound) {
+			if !errors.Is(err, scalibrextract.ErrExtractorNotFound) {
 				r.Errorf("Attempted to extract lockfile but failed: %s - %v\n", file.virtualPath, err)
 			}
 

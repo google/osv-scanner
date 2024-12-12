@@ -10,7 +10,7 @@ import (
 	"github.com/google/osv-scalibr/extractor/filesystem/sbom/cdx"
 	"github.com/google/osv-scalibr/extractor/filesystem/sbom/spdx"
 	"github.com/google/osv-scanner/internal/imodels/ecosystem"
-	"github.com/google/osv-scanner/internal/lockfilescalibr/vcs/gitrepo"
+	"github.com/google/osv-scanner/internal/scalibrextract/vcs/gitrepo"
 	"github.com/google/osv-scanner/pkg/models"
 
 	scalibrosv "github.com/google/osv-scalibr/extractor/filesystem/osv"

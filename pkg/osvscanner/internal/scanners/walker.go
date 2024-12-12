@@ -12,9 +12,9 @@ import (
 	"github.com/google/osv-scalibr/extractor/filesystem"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/java/pomxml"
 	"github.com/google/osv-scanner/internal/customgitignore"
-	"github.com/google/osv-scanner/internal/lockfilescalibr"
-	"github.com/google/osv-scanner/internal/lockfilescalibr/vcs/gitrepo"
 	"github.com/google/osv-scanner/internal/output"
+	"github.com/google/osv-scanner/internal/scalibrextract"
+	"github.com/google/osv-scanner/internal/scalibrextract/vcs/gitrepo"
 	"github.com/google/osv-scanner/pkg/reporter"
 )
 
@@ -84,8 +84,8 @@ func ScanDir(r reporter.Reporter, dir string, skipGit bool, recursive bool, useG
 		}
 
 		// -------- Perform scanning --------
-		inventories, err := lockfilescalibr.ExtractWithExtractors(context.Background(), path, relevantExtractors)
-		if err != nil && !errors.Is(err, lockfilescalibr.ErrExtractorNotFound) {
+		inventories, err := scalibrextract.ExtractWithExtractors(context.Background(), path, relevantExtractors)
+		if err != nil && !errors.Is(err, scalibrextract.ErrExtractorNotFound) {
 			r.Errorf("Error during extraction: %s\n", err)
 		}
 

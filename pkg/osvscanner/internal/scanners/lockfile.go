@@ -29,9 +29,9 @@ import (
 	"github.com/google/osv-scalibr/extractor/filesystem/language/rust/cargolock"
 	"github.com/google/osv-scalibr/extractor/filesystem/os/apk"
 	"github.com/google/osv-scalibr/extractor/filesystem/os/dpkg"
-	"github.com/google/osv-scanner/internal/lockfilescalibr"
-	"github.com/google/osv-scanner/internal/lockfilescalibr/language/osv/osvscannerjson"
 	"github.com/google/osv-scanner/internal/output"
+	"github.com/google/osv-scanner/internal/scalibrextract"
+	"github.com/google/osv-scanner/internal/scalibrextract/language/osv/osvscannerjson"
 	"github.com/google/osv-scanner/pkg/reporter"
 )
 
@@ -109,19 +109,19 @@ func ScanLockfile(r reporter.Reporter, scanArg string, pomExtractor filesystem.E
 	// used by lockfile.Parse to avoid false-positives when scanning projects
 	switch parseAs {
 	case "apk-installed":
-		inventories, err = lockfilescalibr.ExtractWithExtractor(context.Background(), path, apk.New(apk.DefaultConfig()))
+		inventories, err = scalibrextract.ExtractWithExtractor(context.Background(), path, apk.New(apk.DefaultConfig()))
 	case "dpkg-status":
-		inventories, err = lockfilescalibr.ExtractWithExtractor(context.Background(), path, dpkg.New(dpkg.DefaultConfig()))
+		inventories, err = scalibrextract.ExtractWithExtractor(context.Background(), path, dpkg.New(dpkg.DefaultConfig()))
 	case "osv-scanner":
-		inventories, err = lockfilescalibr.ExtractWithExtractor(context.Background(), path, osvscannerjson.Extractor{})
+		inventories, err = scalibrextract.ExtractWithExtractor(context.Background(), path, osvscannerjson.Extractor{})
 	case "": // No specific parseAs specified
-		inventories, err = lockfilescalibr.ExtractWithExtractors(context.Background(), path, extractorsToUse)
+		inventories, err = scalibrextract.ExtractWithExtractors(context.Background(), path, extractorsToUse)
 	default: // A specific parseAs without a special case is selected
 		// Find and extract with the extractor of parseAs
 		if name, ok := lockfileExtractorMapping[parseAs]; ok {
 			for _, ext := range extractorsToUse {
 				if name == ext.Name() {
-					inventories, err = lockfilescalibr.ExtractWithExtractor(context.Background(), path, ext)
+					inventories, err = scalibrextract.ExtractWithExtractor(context.Background(), path, ext)
 					break
 				}
 			}

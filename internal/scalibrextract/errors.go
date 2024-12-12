@@ -1,4 +1,4 @@
-package lockfilescalibr
+package scalibrextract
 
 import "errors"
 

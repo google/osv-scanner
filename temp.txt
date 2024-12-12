@@ -1,0 +1,68 @@
+# Changes in this PR:
+
+## Temporary changes:
+I have made several temporary changes to be reversed in follow up PRs to make this current PR more reviewable, the most notable of them are listed below, and these + the rest are all marked with TODO(v2) in the code:
+
+- Disabled image scanning code
+  - This includes commenting out all container scanning tests
+  - This is because we are going to migrate to use the osvscalibr image scanning which has now been merged in
+  - Not done in this PR as that would require updating osv-scalibr, which includes a number of breaking changes
+- Disabled vendor scanning code
+  - Vendor scanning code will be converted to the extractor interface, and use the new clients as part of V2
+  - Not a core part of this refactor, so disabled for now.
+- pomExtractor is initialized at the start and passed via a special argument to avoid cyclic dependencies occurring when piping through the TransitiveScannerActions. This will mostly likely need a more general solution long term
+- Local db actually converts query back into lockfile.PackageDetails, which works fine as part of this refactor, but we will want to completely remove that conversion and use imodels.PackageInfo directly, so we can remove the lockfile package entirely, and follow the new client interface.
+
+## Permanent changes:
+
+These are the changes this refactor actually accomplishes, in no particular order
+
+1. Unify all the intermediate types to use an internal models package (imodels) following the models refactor design doc. This made changes in:
+  <!-- - `imodels/imodels.go`
+  - `config.go` + test -->
+  - `scanresults.go` (Scan results need to be in a separate package, as it imports ScanParameters and configManager, which would cause a cyclic import if it is with the rest of imodels)
+2. Use the new osvschema Ecosystem type, and made a new `ecosystem.Parsed` type, this made changes in:
+  <!-- - `imodels/ecosystem/ecosystem.go`
+  - `license.go` -->
+3. Update lockfilescalibr to perform extraction more like osv-scalibr - Given a list of extractors, go through them and use FileRequired to determine the correct extractor to use for a given path.
+  <!-- - `internal/lockfilescalibr/extract.go` - Renamed from `translation.go` -->
+  1. Translation between osv-scanner names and scalibr names are now done in the new `scanners` package.
+  2. Inventory are sorted and deduped right after extraction from every extractor.
+4. Create "extractors" for existing scanning methods that are not part of the extractor interface
+  1. Created Git extractor, which is where the current git scanning capabilities (HEAD git hash, submodule scanning) has been migrated to.
+5. Removed existing SBOM scanners with Scalibr extractors
+6. Perform sorting
+7. Moved filtering code and scanning code out of `osvscanner.go`
+   1. Filtering has been moved to `filter.go`, and arguments updated to use the new types. Minimal changes has been made to logic.
+   2. Scanning code has been moved to `scan.go`. This code has been significantly changed and should be reviewed.
+8. Created the internal `scanners` package which contains the logic for each type of scanning.
+9. Java transitive dependency extractor has it's name renamed to `java/pomxml`, same as the extractor in scalibr.
+
+### File reference
+
+This lists every file that has changed, and their corresponding feature that it is changed for
+- `pkg/osv/osv.go`: Removed a completely redundant if statement as commit queries are made in another function (proven by having 0 test coverage in that if branch)
+- `internal/config/config.go`: Feature 1.
+- `internal/depsdev/license.go`: Feature 2.
+- `internal/imodels/ecosystem/ecosystem.go`: Feature 2.
+- `internal/imodels/imodels.go`: Feature 1.
+- `internal/imodels/results/scanresults.go`: Feature 1.
+- `internal/lockfilescalibr/errors.go`: Removed redundant error, and converted all of the removed error to ErrExtractorNotFound
+- `internal/lockfilescalibr/invsort.go`: Feature 3b.
+- `internal/lockfilescalibr/translation.go`: Feature 3a, translation.go is renamed to extract.go.
+- `internal/lockfilescalibr/vcs/gitrepo/`: Feature 4a
+- `pkg/osvscanner/filter.go` and `scan.go`: Feature 7
+- `pkg/osvscanner/internal/scanners/lockfile.go`: Feature 8. Used specifically for single lockfile scanning, and contains the logic for the parseAs syntax of osv-scanner, and includes custom extractors that are not enabled for standard directory scanning.
+  - Also contains the list of all (most) lockfile extractors
+- `pkg/osvscanner/internal/scanners/sbom.go`: Feature 8. Used for osv-scanner --sbom flag
+- `pkg/osvscanner/internal/scanners/walker.go`: Similar to how osv-scalibr does walking, builds a list of extractors depending on the args, then walk and pass every file to the list of extractors.
+- `pkg/osvscanner/vulnerability_result.go`: Feature 1.
+- `main_test.snap`:
+  - There are significant changes to the main snapshot, though I tried to minimize any unnecessary changes as possible in this PR, with followup PRs to update/improve wording
+  - SBOM extractors no longer state the name of the extractor (This will be reverted in the future to have  everything log the name of the extractor)
+  - The new SBOM extractor also extracts some local/unscannable packages, so the package number is increased by 1, and then 1 package is filtered out later.
+  - Ordering of some packages have been changed
+  - Error message have been updated to include more details.
+  - Some warning messages are no longer printed to logs, but instead printed directly to stderr. This needs to be examined further in future PRs.
+
+
