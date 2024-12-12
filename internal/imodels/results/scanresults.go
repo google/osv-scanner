@@ -5,6 +5,8 @@ import (
 	"github.com/google/osv-scanner/internal/imodels"
 )
 
+// ScanResults represents the complete results of a scan.
+// This includes information that affect multiple packages.
 type ScanResults struct {
 	PackageScanResults []imodels.PackageScanResult
 

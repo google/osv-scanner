@@ -31,6 +31,9 @@ var osExtractors = map[string]struct{}{
 	rpm.Extractor{}.Name():  {},
 }
 
+// PackageInfo represents a package found during a scan. This is generally
+// converted directly from the extractor.Inventory type, with some restructuring
+// for easier use within osv-scanner itself.
 type PackageInfo struct {
 	Name      string // Name will be SourceName matching the osv-schema
 	Version   string
@@ -51,6 +54,10 @@ type PackageInfo struct {
 	AdditionalLocations []string // Contains Inventory.Locations[1..]
 }
 
+// FromInventory converts an extractor.Inventory into a PackageInfo.
+//
+// For ease of use, this function does not return an error, but will log
+// warnings when encountering unexpected inventory entries
 func FromInventory(inventory *extractor.Inventory) PackageInfo {
 	pkgInfo := PackageInfo{
 		Name:                inventory.Name,
@@ -123,6 +130,8 @@ func FromInventory(inventory *extractor.Inventory) PackageInfo {
 	return pkgInfo
 }
 
+// PackageScanResult represents a package and its associated vulnerabilities and licenses.
+// This struct is used to store the results of a scan at a per package level.
 type PackageScanResult struct {
 	PackageInfo PackageInfo
 	// TODO: Use osvschema.Vulnerability instead
@@ -142,6 +151,8 @@ type ImageMetadata struct {
 	// LayerMetadata []LayerMetadata
 }
 
+// SourceType categorizes packages based on the extractor that extracted
+// the "source", for use in the output.
 type SourceType int
 
 const (
