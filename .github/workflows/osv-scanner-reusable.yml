@@ -46,6 +46,10 @@ on:
         description: "Whether to fail the action on vulnerability found"
         type: boolean
         default: true
+      security-category:
+        description: "Optional add a security category"
+        type: string
+        default: OSV-Scanner
 
 jobs:
   osv-scan:
@@ -85,7 +89,7 @@ jobs:
         if: "!cancelled()"
         uses: actions/upload-artifact@b4b15b8c7c6ac21ea08fcf65892d2ee8f75cf882 # v4.4.3
         with:
-          name: SARIF file
+          name: ${{ inputs.results-file-name }} SARIF file
           path: ${{ inputs.results-file-name }}
           retention-days: 5
       # Upload the results to GitHub's code scanning dashboard.
@@ -94,3 +98,4 @@ jobs:
         uses: github/codeql-action/upload-sarif@ea9e4e37992a54ee68a9622e985e60c8e8f12d9f # v3.27.4
         with:
           sarif_file: ${{ inputs.results-file-name }}
+          category: ${{ inputs.security-category }}
