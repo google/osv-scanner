@@ -465,7 +465,7 @@ func TestConfig_ShouldIgnorePackage(t *testing.T) {
 			},
 		},
 		{
-			name: "Ecosystem-level entry with suffix exists exists and does not match",
+			name: "Ecosystem-level entry with suffix exists and does not match",
 			config: Config{
 				PackageOverrides: []PackageOverrideEntry{
 					{
