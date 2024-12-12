@@ -22,6 +22,10 @@ type Parsed struct {
 	Suffix    string
 }
 
+func (p *Parsed) IsEmpty() bool {
+	return p.Ecosystem == ""
+}
+
 // UnmarshalJSON handles unmarshalls a JSON string into a Parsed struct.
 //
 // This method implements the json.Unmarshaler interface.

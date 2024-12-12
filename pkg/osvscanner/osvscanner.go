@@ -216,7 +216,7 @@ func makeRequest(
 		p = patchPackageForRequest(p)
 		switch {
 		// Prefer making package requests where possible.
-		case p.Ecosystem.Ecosystem != "" && p.Name != "" && p.Version != "":
+		case !p.Ecosystem.IsEmpty() && p.Name != "" && p.Version != "":
 			query.Queries = append(query.Queries, osv.MakePkgRequest(p))
 		case p.Commit != "":
 			query.Queries = append(query.Queries, osv.MakeCommitRequest(p.Commit))

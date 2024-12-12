@@ -8,6 +8,8 @@ import (
 type ScanResults struct {
 	PackageScanResults []imodels.PackageScanResult
 
+	// TODO(v2): Temporarily commented out until ScanParameters is moved
+	// to a shared package to avoid cyclic dependencies
 	// The user parameters for the scan
 	// ScanParameters
 

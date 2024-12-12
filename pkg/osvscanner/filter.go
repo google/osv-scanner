@@ -16,13 +16,15 @@ func filterUnscannablePackages(r reporter.Reporter, scanResults *results.ScanRes
 	packageResults := make([]imodels.PackageScanResult, 0, len(scanResults.PackageScanResults))
 	for _, psr := range scanResults.PackageScanResults {
 		p := psr.PackageInfo
+
 		switch {
 		// If none of the cases match, skip this package since it's not scannable
-		case p.Ecosystem.Ecosystem != "" && p.Name != "" && p.Version != "":
+		case !p.Ecosystem.IsEmpty() && p.Name != "" && p.Version != "":
 		case p.Commit != "":
 		default:
 			continue
 		}
+
 		packageResults = append(packageResults, psr)
 	}
 
