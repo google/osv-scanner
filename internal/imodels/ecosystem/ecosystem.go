@@ -15,6 +15,7 @@ var ecosystemsWithSuffix = map[osvschema.Ecosystem]struct{}{
 	osvschema.EcosystemAndroid:    {},
 	osvschema.EcosystemDebian:     {},
 	osvschema.EcosystemMageia:     {},
+	osvschema.EcosystemMaven:      {},
 	osvschema.EcosystemOpenSUSE:   {},
 	osvschema.EcosystemPhotonOS:   {},
 	osvschema.EcosystemRedHat:     {},

@@ -26,20 +26,6 @@ func buildCases(t *testing.T) []testCase {
 			},
 		},
 		{
-			string: "crates.io: ",
-			parsed: ecosystem.Parsed{
-				Ecosystem: osvschema.EcosystemCratesIO,
-				Suffix:    " ",
-			},
-		},
-		{
-			string: "crates.io::",
-			parsed: ecosystem.Parsed{
-				Ecosystem: osvschema.EcosystemCratesIO,
-				Suffix:    ":",
-			},
-		},
-		{
 			string: "npm",
 			parsed: ecosystem.Parsed{
 				Ecosystem: osvschema.EcosystemNPM,
@@ -47,10 +33,17 @@ func buildCases(t *testing.T) []testCase {
 			},
 		},
 		{
-			string: "npm:abc",
+			string: "Debian: ",
 			parsed: ecosystem.Parsed{
-				Ecosystem: osvschema.EcosystemNPM,
-				Suffix:    "abc",
+				Ecosystem: osvschema.EcosystemDebian,
+				Suffix:    " ",
+			},
+		},
+		{
+			string: "Debian::",
+			parsed: ecosystem.Parsed{
+				Ecosystem: osvschema.EcosystemDebian,
+				Suffix:    ":",
 			},
 		},
 		{
