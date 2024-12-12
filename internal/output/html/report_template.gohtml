@@ -32,7 +32,7 @@
 
     <div id="tabs">
       <div id="summary-tab" class="tab">
-        {{ template "filter_template.html" .}}
+        {{ template "filter_template.gohtml" .}}
 
         <div class="search-box">
           <div class="search-icon">
@@ -42,7 +42,7 @@
         </div>
 
         <div id="vuln-tab" class="view-tab">
-          {{template "package_view_template.html" .EcosystemResults}}
+          {{template "package_view_template.gohtml" .Ecosystems}}
         </div>
       </div>
     </div>
