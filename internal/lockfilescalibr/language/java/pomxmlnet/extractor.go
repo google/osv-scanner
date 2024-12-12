@@ -31,7 +31,7 @@ type Extractor struct {
 }
 
 // Name of the extractor.
-func (e Extractor) Name() string { return "osv/pomxmlnet" }
+func (e Extractor) Name() string { return "java/pomxml" }
 
 // Version of the extractor.
 func (e Extractor) Version() int { return 0 }
