@@ -59,16 +59,17 @@ func ExtractWithExtractors(ctx context.Context, localPath string, extractors []f
 	result := []*extractor.Inventory{}
 	extractorFound := false
 	for _, ext := range extractors {
-		if ext.FileRequired(localPath, info) {
-			extractorFound = true
-
-			invs, err := extractWithExtractor(ctx, localPath, info, ext)
-			if err != nil {
-				return nil, err
-			}
-
-			result = append(result, invs...)
+		if !ext.FileRequired(localPath, info) {
+			continue
 		}
+		extractorFound = true
+
+		invs, err := extractWithExtractor(ctx, localPath, info, ext)
+		if err != nil {
+			return nil, err
+		}
+
+		result = append(result, invs...)
 	}
 
 	if !extractorFound {

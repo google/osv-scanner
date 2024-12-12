@@ -49,6 +49,7 @@ type PackageInfo struct {
 	DepGroups []string
 
 	// For OS packages
+	// This is usually the PackageName, while Name is the SourceName
 	OSPackageName string
 
 	AdditionalLocations []string // Contains Inventory.Locations[1..]

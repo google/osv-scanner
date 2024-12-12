@@ -748,6 +748,8 @@ func TestRun_Licenses(t *testing.T) {
 	}
 }
 
+// TODO(v2): Image scanning is not temporarily disabled
+//
 // func TestRun_Docker(t *testing.T) {
 // 	t.Parallel()
 
