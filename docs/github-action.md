@@ -265,7 +265,7 @@ jobs:
           retention-days: 2
   vuln-scan:
     needs:
-      - build
+      - extract-deps
     strategy:
       fail-fast: false
       matrix:
