@@ -7044,6 +7044,10 @@ No package sources found, --help for usage information.
       "purl": "pkg:pypi/numpy@1.23.3",
       "properties": [
         {
+          "name": "osv-scanner:is-dev",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:is-direct",
           "value": "true"
         },
@@ -7055,7 +7059,7 @@ No package sources found, --help for usage information.
       "evidence": {
         "occurrences": [
           {
-            "location": "{/"block/":{/"file_name/":/"pyproject.toml/",/"line_start/":10,/"line_end/":10,/"column_start/":1,/"column_end/":19},/"name/":{/"file_name/":/"pyproject.toml/",/"line_start/":10,/"line_end/":10,/"column_start/":1,/"column_end/":6},/"version/":{/"file_name/":/"pyproject.toml/",/"line_start/":10,/"line_end/":10,/"column_start/":10,/"column_end/":18}}"
+            "location": "{/"block/":{/"file_name/":/"pyproject.toml/",/"line_start/":12,/"line_end/":12,/"column_start/":1,/"column_end/":19},/"name/":{/"file_name/":/"pyproject.toml/",/"line_start/":12,/"line_end/":12,/"column_start/":1,/"column_end/":6},/"version/":{/"file_name/":/"pyproject.toml/",/"line_start/":12,/"line_end/":12,/"column_start/":10,/"column_end/":18}}"
           }
         ]
       }
@@ -11627,6 +11631,10 @@ Filtered 1 local package/s from the scan.
       "purl": "pkg:pypi/numpy@1.23.3",
       "properties": [
         {
+          "name": "osv-scanner:is-dev",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:is-direct",
           "value": "true"
         },
@@ -11638,7 +11646,7 @@ Filtered 1 local package/s from the scan.
       "evidence": {
         "occurrences": [
           {
-            "location": "{/"block/":{/"file_name/":/"pyproject.toml/",/"line_start/":10,/"line_end/":10,/"column_start/":1,/"column_end/":19},/"name/":{/"file_name/":/"pyproject.toml/",/"line_start/":10,/"line_end/":10,/"column_start/":1,/"column_end/":6},/"version/":{/"file_name/":/"pyproject.toml/",/"line_start/":10,/"line_end/":10,/"column_start/":10,/"column_end/":18}}"
+            "location": "{/"block/":{/"file_name/":/"pyproject.toml/",/"line_start/":12,/"line_end/":12,/"column_start/":1,/"column_end/":19},/"name/":{/"file_name/":/"pyproject.toml/",/"line_start/":12,/"line_end/":12,/"column_start/":1,/"column_end/":6},/"version/":{/"file_name/":/"pyproject.toml/",/"line_start/":12,/"line_end/":12,/"column_start/":10,/"column_end/":18}}"
           }
         ]
       }
@@ -16209,6 +16217,10 @@ Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/yarn/yarn.lock
       "purl": "pkg:pypi/numpy@1.23.3",
       "properties": [
         {
+          "name": "osv-scanner:is-dev",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:is-direct",
           "value": "true"
         },
@@ -16220,7 +16232,7 @@ Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/yarn/yarn.lock
       "evidence": {
         "occurrences": [
           {
-            "location": "{/"block/":{/"file_name/":/"pyproject.toml/",/"line_start/":10,/"line_end/":10,/"column_start/":1,/"column_end/":19},/"name/":{/"file_name/":/"pyproject.toml/",/"line_start/":10,/"line_end/":10,/"column_start/":1,/"column_end/":6},/"version/":{/"file_name/":/"pyproject.toml/",/"line_start/":10,/"line_end/":10,/"column_start/":10,/"column_end/":18}}"
+            "location": "{/"block/":{/"file_name/":/"pyproject.toml/",/"line_start/":12,/"line_end/":12,/"column_start/":1,/"column_end/":19},/"name/":{/"file_name/":/"pyproject.toml/",/"line_start/":12,/"line_end/":12,/"column_start/":1,/"column_end/":6},/"version/":{/"file_name/":/"pyproject.toml/",/"line_start/":12,/"line_end/":12,/"column_start/":10,/"column_end/":18}}"
           }
         ]
       }

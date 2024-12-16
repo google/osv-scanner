@@ -92,6 +92,50 @@ func TestPyprojectTomlMatcher_Match_OnePackage(t *testing.T) {
 	})
 }
 
+func TestPyprojectTomlMatcher_Match_OnePackageDev(t *testing.T) {
+	t.Parallel()
+
+	sourceFile, err := lockfile.OpenLocalDepFile("fixtures/pyproject-toml/one-package-dev/pyproject.toml")
+	if err != nil {
+		t.Errorf("Got unexpected error: %v", err)
+	}
+
+	packages := []lockfile.PackageDetails{
+		{
+			Name:           "numpy",
+			PackageManager: models.Poetry,
+		},
+	}
+	err = pyprojectTOMLMatcher.Match(sourceFile, packages)
+	if err != nil {
+		t.Errorf("Got unexpected error: %v", err)
+	}
+
+	expectPackages(t, packages, []lockfile.PackageDetails{
+		{
+			Name:           "numpy",
+			PackageManager: models.Poetry,
+			BlockLocation: models.FilePosition{
+				Line:     models.Position{Start: 10, End: 10},
+				Column:   models.Position{Start: 1, End: 19},
+				Filename: sourceFile.Path(),
+			},
+			NameLocation: &models.FilePosition{
+				Line:     models.Position{Start: 10, End: 10},
+				Column:   models.Position{Start: 1, End: 6},
+				Filename: sourceFile.Path(),
+			},
+			VersionLocation: &models.FilePosition{
+				Line:     models.Position{Start: 10, End: 10},
+				Column:   models.Position{Start: 10, End: 18},
+				Filename: sourceFile.Path(),
+			},
+			IsDirect:  true,
+			DepGroups: []string{"dev"},
+		},
+	})
+}
+
 func TestPyprojectTomlMatcher_Match_TransitiveDependencies(t *testing.T) {
 	t.Parallel()
 

@@ -30,7 +30,7 @@ func (sys Ecosystem) IsDevGroup(groups []string) bool {
 	dev := ""
 	switch sys {
 	case ComposerEcosystem, NpmEcosystem, PipEcosystem, PubEcosystem:
-		// Also PnpmEcosystem(=NpmEcosystem) and PipenvEcosystem(=PipEcosystem).
+		// Also PnpmEcosystem(=NpmEcosystem) and PipenvEcosystem(=PipEcosystem,=PoetryEcosystem).
 		dev = "dev"
 	case ConanEcosystem:
 		dev = "build-requires"

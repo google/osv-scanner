@@ -5,10 +5,8 @@ description = ""
 authors = ["Author <author@mail.com>"]
 readme = "README.md"
 
-[tool.poetry.dependencies]
+[tool.poetry.group.dev.dependencies]
 python = "^3.10.0"
-
-[tool.poetry.dev-dependencies]
 numpy = "==1.23.3"
 
 [build-system]
