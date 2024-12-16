@@ -4,7 +4,6 @@
 #
 #    pip-compile requirements.in
 #
-
 certifi==2024.8.30
     # via
     #   requests
@@ -16,14 +15,13 @@ idna==3.10
     # via
     #   -r requirements.in
     #   requests
-django==2.2.24
-    # via
-    #   -r requirements.in
-    #   django-debug-toolbar
-    #   django-filter
-    #   django-storages
-    #   easy-thumbnails
 requests==2.32.3
     # via -r requirements.in
 urllib3==2.2.3
     # via requests
+foobarbaz==1.2.3
+    # via this is a user comment
+package123==4.5.6
+    # via
+    #   this is also a user comment
+    #   -r foo.in

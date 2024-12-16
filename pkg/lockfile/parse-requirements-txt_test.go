@@ -81,7 +81,6 @@ func TestParseRequirementsTxt_Empty(t *testing.T) {
 	t.Parallel()
 
 	packages, err := lockfile.ParseRequirementsTxt("fixtures/pip/empty.txt")
-
 	if err != nil {
 		t.Errorf("Got unexpected error: %v", err)
 	}
@@ -93,7 +92,6 @@ func TestParseRequirementsTxt_CommentsOnly(t *testing.T) {
 	t.Parallel()
 
 	packages, err := lockfile.ParseRequirementsTxt("fixtures/pip/only-comments.txt")
-
 	if err != nil {
 		t.Errorf("Got unexpected error: %v", err)
 	}
@@ -132,6 +130,7 @@ func TestParseRequirementsTxt_OneRequirementUnconstrained(t *testing.T) {
 				Filename: path,
 			},
 			DepGroups: []string{"one-package-unconstrained"},
+			IsDirect:  true,
 		},
 	})
 }
@@ -157,21 +156,22 @@ func TestParseRequirementsTxt_OneRequirementConstrained(t *testing.T) {
 			Ecosystem:      lockfile.PipEcosystem,
 			CompareAs:      lockfile.PipEcosystem,
 			BlockLocation: models.FilePosition{
-				Line:     models.Position{Start: 1, End: 1},
+				Line:     models.Position{Start: 8, End: 8},
 				Column:   models.Position{Start: 1, End: 15},
 				Filename: path,
 			},
 			NameLocation: &models.FilePosition{
-				Line:     models.Position{Start: 1, End: 1},
+				Line:     models.Position{Start: 8, End: 8},
 				Column:   models.Position{Start: 1, End: 7},
 				Filename: path,
 			},
 			VersionLocation: &models.FilePosition{
-				Line:     models.Position{Start: 1, End: 1},
+				Line:     models.Position{Start: 8, End: 8},
 				Column:   models.Position{Start: 9, End: 15},
 				Filename: path,
 			},
 			DepGroups: []string{"one-package-constrained"},
+			IsDirect:  true,
 		},
 	})
 }
@@ -197,17 +197,17 @@ func TestParseRequirementsTxt_MultipleRequirementsConstrained(t *testing.T) {
 			Ecosystem:      lockfile.PipEcosystem,
 			CompareAs:      lockfile.PipEcosystem,
 			BlockLocation: models.FilePosition{
-				Line:     models.Position{Start: 1, End: 1},
+				Line:     models.Position{Start: 8, End: 8},
 				Column:   models.Position{Start: 1, End: 15},
 				Filename: path,
 			},
 			NameLocation: &models.FilePosition{
-				Line:     models.Position{Start: 1, End: 1},
+				Line:     models.Position{Start: 8, End: 8},
 				Column:   models.Position{Start: 1, End: 8},
 				Filename: path,
 			},
 			VersionLocation: &models.FilePosition{
-				Line:     models.Position{Start: 1, End: 1},
+				Line:     models.Position{Start: 8, End: 8},
 				Column:   models.Position{Start: 10, End: 15},
 				Filename: path,
 			},
@@ -220,17 +220,17 @@ func TestParseRequirementsTxt_MultipleRequirementsConstrained(t *testing.T) {
 			Ecosystem:      lockfile.PipEcosystem,
 			CompareAs:      lockfile.PipEcosystem,
 			BlockLocation: models.FilePosition{
-				Line:     models.Position{Start: 3, End: 3},
+				Line:     models.Position{Start: 10, End: 10},
 				Column:   models.Position{Start: 1, End: 22},
 				Filename: path,
 			},
 			NameLocation: &models.FilePosition{
-				Line:     models.Position{Start: 3, End: 3},
+				Line:     models.Position{Start: 10, End: 10},
 				Column:   models.Position{Start: 1, End: 15},
 				Filename: path,
 			},
 			VersionLocation: &models.FilePosition{
-				Line:     models.Position{Start: 3, End: 3},
+				Line:     models.Position{Start: 10, End: 10},
 				Column:   models.Position{Start: 17, End: 22},
 				Filename: path,
 			},
@@ -243,21 +243,22 @@ func TestParseRequirementsTxt_MultipleRequirementsConstrained(t *testing.T) {
 			Ecosystem:      lockfile.PipEcosystem,
 			CompareAs:      lockfile.PipEcosystem,
 			BlockLocation: models.FilePosition{
-				Line:     models.Position{Start: 5, End: 5},
+				Line:     models.Position{Start: 12, End: 12},
 				Column:   models.Position{Start: 1, End: 15},
 				Filename: path,
 			},
 			NameLocation: &models.FilePosition{
-				Line:     models.Position{Start: 5, End: 5},
+				Line:     models.Position{Start: 12, End: 12},
 				Column:   models.Position{Start: 1, End: 6},
 				Filename: path,
 			},
 			VersionLocation: &models.FilePosition{
-				Line:     models.Position{Start: 5, End: 5},
+				Line:     models.Position{Start: 12, End: 12},
 				Column:   models.Position{Start: 8, End: 15},
 				Filename: path,
 			},
 			DepGroups: []string{"multiple-packages-constrained"},
+			IsDirect:  true,
 		},
 		{
 			Name:           "botocore",
@@ -266,17 +267,17 @@ func TestParseRequirementsTxt_MultipleRequirementsConstrained(t *testing.T) {
 			Ecosystem:      lockfile.PipEcosystem,
 			CompareAs:      lockfile.PipEcosystem,
 			BlockLocation: models.FilePosition{
-				Line:     models.Position{Start: 7, End: 7},
+				Line:     models.Position{Start: 14, End: 14},
 				Column:   models.Position{Start: 1, End: 18},
 				Filename: path,
 			},
 			NameLocation: &models.FilePosition{
-				Line:     models.Position{Start: 7, End: 7},
+				Line:     models.Position{Start: 14, End: 14},
 				Column:   models.Position{Start: 1, End: 9},
 				Filename: path,
 			},
 			VersionLocation: &models.FilePosition{
-				Line:     models.Position{Start: 7, End: 7},
+				Line:     models.Position{Start: 14, End: 14},
 				Column:   models.Position{Start: 11, End: 18},
 				Filename: path,
 			},
@@ -289,17 +290,17 @@ func TestParseRequirementsTxt_MultipleRequirementsConstrained(t *testing.T) {
 			Ecosystem:      lockfile.PipEcosystem,
 			CompareAs:      lockfile.PipEcosystem,
 			BlockLocation: models.FilePosition{
-				Line:     models.Position{Start: 11, End: 11},
+				Line:     models.Position{Start: 18, End: 18},
 				Column:   models.Position{Start: 1, End: 19},
 				Filename: path,
 			},
 			NameLocation: &models.FilePosition{
-				Line:     models.Position{Start: 11, End: 11},
+				Line:     models.Position{Start: 18, End: 18},
 				Column:   models.Position{Start: 1, End: 8},
 				Filename: path,
 			},
 			VersionLocation: &models.FilePosition{
-				Line:     models.Position{Start: 11, End: 11},
+				Line:     models.Position{Start: 18, End: 18},
 				Column:   models.Position{Start: 10, End: 19},
 				Filename: path,
 			},
@@ -312,17 +313,17 @@ func TestParseRequirementsTxt_MultipleRequirementsConstrained(t *testing.T) {
 			Ecosystem:      lockfile.PipEcosystem,
 			CompareAs:      lockfile.PipEcosystem,
 			BlockLocation: models.FilePosition{
-				Line:     models.Position{Start: 13, End: 13},
+				Line:     models.Position{Start: 20, End: 20},
 				Column:   models.Position{Start: 1, End: 15},
 				Filename: path,
 			},
 			NameLocation: &models.FilePosition{
-				Line:     models.Position{Start: 13, End: 13},
+				Line:     models.Position{Start: 20, End: 20},
 				Column:   models.Position{Start: 1, End: 8},
 				Filename: path,
 			},
 			VersionLocation: &models.FilePosition{
-				Line:     models.Position{Start: 13, End: 13},
+				Line:     models.Position{Start: 20, End: 20},
 				Column:   models.Position{Start: 10, End: 15},
 				Filename: path,
 			},
@@ -335,21 +336,22 @@ func TestParseRequirementsTxt_MultipleRequirementsConstrained(t *testing.T) {
 			Ecosystem:      lockfile.PipEcosystem,
 			CompareAs:      lockfile.PipEcosystem,
 			BlockLocation: models.FilePosition{
-				Line:     models.Position{Start: 15, End: 15},
+				Line:     models.Position{Start: 22, End: 22},
 				Column:   models.Position{Start: 1, End: 15},
 				Filename: path,
 			},
 			NameLocation: &models.FilePosition{
-				Line:     models.Position{Start: 15, End: 15},
+				Line:     models.Position{Start: 22, End: 22},
 				Column:   models.Position{Start: 1, End: 7},
 				Filename: path,
 			},
 			VersionLocation: &models.FilePosition{
-				Line:     models.Position{Start: 15, End: 15},
+				Line:     models.Position{Start: 22, End: 22},
 				Column:   models.Position{Start: 9, End: 15},
 				Filename: path,
 			},
 			DepGroups: []string{"multiple-packages-constrained"},
+			IsDirect:  true,
 		},
 		{
 			Name:           "click",
@@ -358,17 +360,17 @@ func TestParseRequirementsTxt_MultipleRequirementsConstrained(t *testing.T) {
 			Ecosystem:      lockfile.PipEcosystem,
 			CompareAs:      lockfile.PipEcosystem,
 			BlockLocation: models.FilePosition{
-				Line:     models.Position{Start: 17, End: 17},
+				Line:     models.Position{Start: 24, End: 24},
 				Column:   models.Position{Start: 1, End: 13},
 				Filename: path,
 			},
 			NameLocation: &models.FilePosition{
-				Line:     models.Position{Start: 17, End: 17},
+				Line:     models.Position{Start: 24, End: 24},
 				Column:   models.Position{Start: 1, End: 6},
 				Filename: path,
 			},
 			VersionLocation: &models.FilePosition{
-				Line:     models.Position{Start: 17, End: 17},
+				Line:     models.Position{Start: 24, End: 24},
 				Column:   models.Position{Start: 8, End: 13},
 				Filename: path,
 			},
@@ -381,21 +383,22 @@ func TestParseRequirementsTxt_MultipleRequirementsConstrained(t *testing.T) {
 			Ecosystem:      lockfile.PipEcosystem,
 			CompareAs:      lockfile.PipEcosystem,
 			BlockLocation: models.FilePosition{
-				Line:     models.Position{Start: 19, End: 19},
+				Line:     models.Position{Start: 26, End: 26},
 				Column:   models.Position{Start: 1, End: 28},
 				Filename: path,
 			},
 			NameLocation: &models.FilePosition{
-				Line:     models.Position{Start: 19, End: 19},
+				Line:     models.Position{Start: 26, End: 26},
 				Column:   models.Position{Start: 1, End: 21},
 				Filename: path,
 			},
 			VersionLocation: &models.FilePosition{
-				Line:     models.Position{Start: 19, End: 19},
+				Line:     models.Position{Start: 26, End: 26},
 				Column:   models.Position{Start: 23, End: 28},
 				Filename: path,
 			},
 			DepGroups: []string{"multiple-packages-constrained"},
+			IsDirect:  true,
 		},
 		{
 			Name:           "django-filter",
@@ -404,21 +407,22 @@ func TestParseRequirementsTxt_MultipleRequirementsConstrained(t *testing.T) {
 			Ecosystem:      lockfile.PipEcosystem,
 			CompareAs:      lockfile.PipEcosystem,
 			BlockLocation: models.FilePosition{
-				Line:     models.Position{Start: 21, End: 21},
+				Line:     models.Position{Start: 28, End: 28},
 				Column:   models.Position{Start: 1, End: 21},
 				Filename: path,
 			},
 			NameLocation: &models.FilePosition{
-				Line:     models.Position{Start: 21, End: 21},
+				Line:     models.Position{Start: 28, End: 28},
 				Column:   models.Position{Start: 1, End: 14},
 				Filename: path,
 			},
 			VersionLocation: &models.FilePosition{
-				Line:     models.Position{Start: 21, End: 21},
+				Line:     models.Position{Start: 28, End: 28},
 				Column:   models.Position{Start: 16, End: 21},
 				Filename: path,
 			},
 			DepGroups: []string{"multiple-packages-constrained"},
+			IsDirect:  true,
 		},
 		{
 			Name:           "django-nose",
@@ -427,21 +431,22 @@ func TestParseRequirementsTxt_MultipleRequirementsConstrained(t *testing.T) {
 			Ecosystem:      lockfile.PipEcosystem,
 			CompareAs:      lockfile.PipEcosystem,
 			BlockLocation: models.FilePosition{
-				Line:     models.Position{Start: 23, End: 23},
+				Line:     models.Position{Start: 30, End: 30},
 				Column:   models.Position{Start: 1, End: 19},
 				Filename: path,
 			},
 			NameLocation: &models.FilePosition{
-				Line:     models.Position{Start: 23, End: 23},
+				Line:     models.Position{Start: 30, End: 30},
 				Column:   models.Position{Start: 1, End: 12},
 				Filename: path,
 			},
 			VersionLocation: &models.FilePosition{
-				Line:     models.Position{Start: 23, End: 23},
+				Line:     models.Position{Start: 30, End: 30},
 				Column:   models.Position{Start: 14, End: 19},
 				Filename: path,
 			},
 			DepGroups: []string{"multiple-packages-constrained"},
+			IsDirect:  true,
 		},
 		{
 			Name:           "django-storages",
@@ -450,21 +455,22 @@ func TestParseRequirementsTxt_MultipleRequirementsConstrained(t *testing.T) {
 			Ecosystem:      lockfile.PipEcosystem,
 			CompareAs:      lockfile.PipEcosystem,
 			BlockLocation: models.FilePosition{
-				Line:     models.Position{Start: 25, End: 25},
+				Line:     models.Position{Start: 32, End: 32},
 				Column:   models.Position{Start: 1, End: 24},
 				Filename: path,
 			},
 			NameLocation: &models.FilePosition{
-				Line:     models.Position{Start: 25, End: 25},
+				Line:     models.Position{Start: 32, End: 32},
 				Column:   models.Position{Start: 1, End: 16},
 				Filename: path,
 			},
 			VersionLocation: &models.FilePosition{
-				Line:     models.Position{Start: 25, End: 25},
+				Line:     models.Position{Start: 32, End: 32},
 				Column:   models.Position{Start: 18, End: 24},
 				Filename: path,
 			},
 			DepGroups: []string{"multiple-packages-constrained"},
+			IsDirect:  true,
 		},
 		{
 			Name:           "django",
@@ -473,21 +479,22 @@ func TestParseRequirementsTxt_MultipleRequirementsConstrained(t *testing.T) {
 			Ecosystem:      lockfile.PipEcosystem,
 			CompareAs:      lockfile.PipEcosystem,
 			BlockLocation: models.FilePosition{
-				Line:     models.Position{Start: 27, End: 27},
+				Line:     models.Position{Start: 34, End: 34},
 				Column:   models.Position{Start: 1, End: 15},
 				Filename: path,
 			},
 			NameLocation: &models.FilePosition{
-				Line:     models.Position{Start: 27, End: 27},
+				Line:     models.Position{Start: 34, End: 34},
 				Column:   models.Position{Start: 1, End: 7},
 				Filename: path,
 			},
 			VersionLocation: &models.FilePosition{
-				Line:     models.Position{Start: 27, End: 27},
+				Line:     models.Position{Start: 34, End: 34},
 				Column:   models.Position{Start: 9, End: 15},
 				Filename: path,
 			},
 			DepGroups: []string{"multiple-packages-constrained"},
+			IsDirect:  true,
 		},
 	})
 }
@@ -523,6 +530,7 @@ func TestParseRequirementsTxt_MultipleRequirementsMixed(t *testing.T) {
 				Filename: path,
 			},
 			DepGroups: []string{"multiple-packages-mixed"},
+			IsDirect:  true,
 		},
 		{
 			Name:           "flask-cors",
@@ -541,6 +549,7 @@ func TestParseRequirementsTxt_MultipleRequirementsMixed(t *testing.T) {
 				Filename: path,
 			},
 			DepGroups: []string{"multiple-packages-mixed"},
+			IsDirect:  true,
 		},
 		{
 			Name:           "pandas",
@@ -564,6 +573,7 @@ func TestParseRequirementsTxt_MultipleRequirementsMixed(t *testing.T) {
 				Filename: path,
 			},
 			DepGroups: []string{"multiple-packages-mixed"},
+			IsDirect:  true,
 		},
 		{
 			Name:           "numpy",
@@ -587,6 +597,7 @@ func TestParseRequirementsTxt_MultipleRequirementsMixed(t *testing.T) {
 				Filename: path,
 			},
 			DepGroups: []string{"multiple-packages-mixed"},
+			IsDirect:  true,
 		},
 		{
 			Name:           "scikit-learn",
@@ -610,6 +621,7 @@ func TestParseRequirementsTxt_MultipleRequirementsMixed(t *testing.T) {
 				Filename: path,
 			},
 			DepGroups: []string{"multiple-packages-mixed"},
+			IsDirect:  true,
 		},
 		{
 			Name:           "sklearn",
@@ -628,6 +640,7 @@ func TestParseRequirementsTxt_MultipleRequirementsMixed(t *testing.T) {
 				Filename: path,
 			},
 			DepGroups: []string{"multiple-packages-mixed"},
+			IsDirect:  true,
 		},
 		{
 			Name:           "requests",
@@ -646,6 +659,7 @@ func TestParseRequirementsTxt_MultipleRequirementsMixed(t *testing.T) {
 				Filename: path,
 			},
 			DepGroups: []string{"multiple-packages-mixed"},
+			IsDirect:  true,
 		},
 		{
 			Name:           "gevent",
@@ -664,6 +678,7 @@ func TestParseRequirementsTxt_MultipleRequirementsMixed(t *testing.T) {
 				Filename: path,
 			},
 			DepGroups: []string{"multiple-packages-mixed"},
+			IsDirect:  true,
 		},
 	})
 }
@@ -700,6 +715,7 @@ func TestParseRequirementsTxt_FileFormatExample(t *testing.T) {
 				Filename: sourcePath,
 			},
 			DepGroups: []string{"file-format-example"},
+			IsDirect:  true,
 		},
 		{
 			Name:           "pytest-cov",
@@ -718,6 +734,7 @@ func TestParseRequirementsTxt_FileFormatExample(t *testing.T) {
 				Filename: sourcePath,
 			},
 			DepGroups: []string{"file-format-example"},
+			IsDirect:  true,
 		},
 		{
 			Name:           "beautifulsoup4",
@@ -736,6 +753,7 @@ func TestParseRequirementsTxt_FileFormatExample(t *testing.T) {
 				Filename: sourcePath,
 			},
 			DepGroups: []string{"file-format-example"},
+			IsDirect:  true,
 		},
 		{
 			Name:           "docopt",
@@ -759,6 +777,7 @@ func TestParseRequirementsTxt_FileFormatExample(t *testing.T) {
 				Filename: sourcePath,
 			},
 			DepGroups: []string{"file-format-example"},
+			IsDirect:  true,
 		},
 		{
 			Name:           "keyring",
@@ -782,6 +801,7 @@ func TestParseRequirementsTxt_FileFormatExample(t *testing.T) {
 				Filename: sourcePath,
 			},
 			DepGroups: []string{"file-format-example"},
+			IsDirect:  true,
 		},
 		{
 			Name:           "coverage",
@@ -800,6 +820,7 @@ func TestParseRequirementsTxt_FileFormatExample(t *testing.T) {
 				Filename: sourcePath,
 			},
 			DepGroups: []string{"file-format-example"},
+			IsDirect:  true,
 		},
 		{
 			Name:           "mopidy-dirble",
@@ -823,6 +844,7 @@ func TestParseRequirementsTxt_FileFormatExample(t *testing.T) {
 				Filename: sourcePath,
 			},
 			DepGroups: []string{"file-format-example"},
+			IsDirect:  true,
 		},
 		{
 			Name:           "rejected",
@@ -841,6 +863,7 @@ func TestParseRequirementsTxt_FileFormatExample(t *testing.T) {
 				Filename: sourcePath,
 			},
 			DepGroups: []string{"file-format-example"},
+			IsDirect:  true,
 		},
 		{
 			Name:           "green",
@@ -859,6 +882,7 @@ func TestParseRequirementsTxt_FileFormatExample(t *testing.T) {
 				Filename: sourcePath,
 			},
 			DepGroups: []string{"file-format-example"},
+			IsDirect:  true,
 		},
 		{
 			Name:           "django",
@@ -882,6 +906,7 @@ func TestParseRequirementsTxt_FileFormatExample(t *testing.T) {
 				Filename: otherPath,
 			},
 			DepGroups: []string{"other-file"},
+			IsDirect:  true,
 		},
 	})
 }
@@ -907,17 +932,17 @@ func TestParseRequirementsTxt_WithAddedSupport(t *testing.T) {
 			Ecosystem:      lockfile.PipEcosystem,
 			CompareAs:      lockfile.PipEcosystem,
 			BlockLocation: models.FilePosition{
-				Line:     models.Position{Start: 1, End: 1},
+				Line:     models.Position{Start: 8, End: 8},
 				Column:   models.Position{Start: 1, End: 23},
 				Filename: path,
 			},
 			NameLocation: &models.FilePosition{
-				Line:     models.Position{Start: 1, End: 1},
+				Line:     models.Position{Start: 8, End: 8},
 				Column:   models.Position{Start: 1, End: 15},
 				Filename: path,
 			},
 			VersionLocation: &models.FilePosition{
-				Line:     models.Position{Start: 1, End: 1},
+				Line:     models.Position{Start: 8, End: 8},
 				Column:   models.Position{Start: 17, End: 23},
 				Filename: path,
 			},
@@ -947,17 +972,17 @@ func TestParseRequirementsTxt_NonNormalizedNames(t *testing.T) {
 			Ecosystem:      lockfile.PipEcosystem,
 			CompareAs:      lockfile.PipEcosystem,
 			BlockLocation: models.FilePosition{
-				Line:     models.Position{Start: 1, End: 1},
+				Line:     models.Position{Start: 8, End: 8},
 				Column:   models.Position{Start: 1, End: 22},
 				Filename: path,
 			},
 			NameLocation: &models.FilePosition{
-				Line:     models.Position{Start: 1, End: 1},
+				Line:     models.Position{Start: 8, End: 8},
 				Column:   models.Position{Start: 1, End: 15},
 				Filename: path,
 			},
 			VersionLocation: &models.FilePosition{
-				Line:     models.Position{Start: 1, End: 1},
+				Line:     models.Position{Start: 8, End: 8},
 				Column:   models.Position{Start: 17, End: 22},
 				Filename: path,
 			},
@@ -970,21 +995,22 @@ func TestParseRequirementsTxt_NonNormalizedNames(t *testing.T) {
 			Ecosystem:      lockfile.PipEcosystem,
 			CompareAs:      lockfile.PipEcosystem,
 			BlockLocation: models.FilePosition{
-				Line:     models.Position{Start: 6, End: 6},
+				Line:     models.Position{Start: 13, End: 13},
 				Column:   models.Position{Start: 1, End: 14},
 				Filename: path,
 			},
 			NameLocation: &models.FilePosition{
-				Line:     models.Position{Start: 6, End: 6},
+				Line:     models.Position{Start: 13, End: 13},
 				Column:   models.Position{Start: 1, End: 7},
 				Filename: path,
 			},
 			VersionLocation: &models.FilePosition{
-				Line:     models.Position{Start: 6, End: 6},
+				Line:     models.Position{Start: 13, End: 13},
 				Column:   models.Position{Start: 9, End: 14},
 				Filename: path,
 			},
 			DepGroups: []string{"non-normalized-names"},
+			IsDirect:  true,
 		},
 		{
 			Name:           "twisted",
@@ -993,17 +1019,17 @@ func TestParseRequirementsTxt_NonNormalizedNames(t *testing.T) {
 			Ecosystem:      lockfile.PipEcosystem,
 			CompareAs:      lockfile.PipEcosystem,
 			BlockLocation: models.FilePosition{
-				Line:     models.Position{Start: 8, End: 8},
+				Line:     models.Position{Start: 15, End: 15},
 				Column:   models.Position{Start: 1, End: 23},
 				Filename: path,
 			},
 			NameLocation: &models.FilePosition{
-				Line:     models.Position{Start: 8, End: 8},
+				Line:     models.Position{Start: 15, End: 15},
 				Column:   models.Position{Start: 1, End: 15},
 				Filename: path,
 			},
 			VersionLocation: &models.FilePosition{
-				Line:     models.Position{Start: 8, End: 8},
+				Line:     models.Position{Start: 15, End: 15},
 				Column:   models.Position{Start: 17, End: 23},
 				Filename: path,
 			},
@@ -1045,6 +1071,7 @@ func TestParseRequirementsTxt_WithMultipleROptions(t *testing.T) {
 				Filename: multiplePackagesPath,
 			},
 			DepGroups: []string{"multiple-packages-mixed"},
+			IsDirect:  true,
 		},
 		{
 			Name:           "flask-cors",
@@ -1063,6 +1090,7 @@ func TestParseRequirementsTxt_WithMultipleROptions(t *testing.T) {
 				Filename: multiplePackagesPath,
 			},
 			DepGroups: []string{"multiple-packages-mixed"},
+			IsDirect:  true,
 		},
 		{
 			Name:           "pandas",
@@ -1086,6 +1114,7 @@ func TestParseRequirementsTxt_WithMultipleROptions(t *testing.T) {
 				Filename: multiplePackagesPath,
 			},
 			DepGroups: []string{"multiple-packages-mixed", "with-multiple-r-options"},
+			IsDirect:  true,
 		},
 		{
 			Name:           "numpy",
@@ -1109,6 +1138,7 @@ func TestParseRequirementsTxt_WithMultipleROptions(t *testing.T) {
 				Filename: multiplePackagesPath,
 			},
 			DepGroups: []string{"multiple-packages-mixed"},
+			IsDirect:  true,
 		},
 		{
 			Name:           "scikit-learn",
@@ -1132,6 +1162,7 @@ func TestParseRequirementsTxt_WithMultipleROptions(t *testing.T) {
 				Filename: multiplePackagesPath,
 			},
 			DepGroups: []string{"multiple-packages-mixed"},
+			IsDirect:  true,
 		},
 		{
 			Name:           "sklearn",
@@ -1150,6 +1181,7 @@ func TestParseRequirementsTxt_WithMultipleROptions(t *testing.T) {
 				Filename: multiplePackagesPath,
 			},
 			DepGroups: []string{"multiple-packages-mixed"},
+			IsDirect:  true,
 		},
 		{
 			Name:           "requests",
@@ -1168,6 +1200,7 @@ func TestParseRequirementsTxt_WithMultipleROptions(t *testing.T) {
 				Filename: multiplePackagesPath,
 			},
 			DepGroups: []string{"multiple-packages-mixed"},
+			IsDirect:  true,
 		},
 		{
 			Name:           "gevent",
@@ -1186,6 +1219,7 @@ func TestParseRequirementsTxt_WithMultipleROptions(t *testing.T) {
 				Filename: multiplePackagesPath,
 			},
 			DepGroups: []string{"multiple-packages-mixed"},
+			IsDirect:  true,
 		},
 		{
 			Name:           "requests",
@@ -1209,6 +1243,7 @@ func TestParseRequirementsTxt_WithMultipleROptions(t *testing.T) {
 				Filename: sourcePath,
 			},
 			DepGroups: []string{"with-multiple-r-options"},
+			IsDirect:  true,
 		},
 		{
 			Name:           "django",
@@ -1217,21 +1252,22 @@ func TestParseRequirementsTxt_WithMultipleROptions(t *testing.T) {
 			Ecosystem:      lockfile.PipEcosystem,
 			CompareAs:      lockfile.PipEcosystem,
 			BlockLocation: models.FilePosition{
-				Line:     models.Position{Start: 1, End: 1},
+				Line:     models.Position{Start: 8, End: 8},
 				Column:   models.Position{Start: 1, End: 15},
 				Filename: onePackagePath,
 			},
 			NameLocation: &models.FilePosition{
-				Line:     models.Position{Start: 1, End: 1},
+				Line:     models.Position{Start: 8, End: 8},
 				Column:   models.Position{Start: 1, End: 7},
 				Filename: onePackagePath,
 			},
 			VersionLocation: &models.FilePosition{
-				Line:     models.Position{Start: 1, End: 1},
+				Line:     models.Position{Start: 8, End: 8},
 				Column:   models.Position{Start: 9, End: 15},
 				Filename: onePackagePath,
 			},
 			DepGroups: []string{"one-package-constrained"},
+			IsDirect:  true,
 		},
 	})
 }
@@ -1282,6 +1318,7 @@ func TestParseRequirementsTxt_WithURLROption(t *testing.T) {
 				Filename: path,
 			},
 			DepGroups: []string{"with-url-r-option"},
+			IsDirect:  true,
 		},
 	})
 }
@@ -1324,6 +1361,7 @@ func TestParseRequirementsTxt_DuplicateROptions(t *testing.T) {
 				Filename: basePath,
 			},
 			DepGroups: []string{"duplicate-r-base"},
+			IsDirect:  true,
 		},
 		{
 			Name:           "pandas",
@@ -1347,6 +1385,7 @@ func TestParseRequirementsTxt_DuplicateROptions(t *testing.T) {
 				Filename: sourcePath,
 			},
 			DepGroups: []string{"duplicate-r-dev"},
+			IsDirect:  true,
 		},
 		{
 			Name:           "requests",
@@ -1370,6 +1409,7 @@ func TestParseRequirementsTxt_DuplicateROptions(t *testing.T) {
 				Filename: testPath,
 			},
 			DepGroups: []string{"duplicate-r-test", "duplicate-r-dev"},
+			IsDirect:  true,
 		},
 		{
 			Name:           "unittest",
@@ -1393,6 +1433,7 @@ func TestParseRequirementsTxt_DuplicateROptions(t *testing.T) {
 				Filename: testPath,
 			},
 			DepGroups: []string{"duplicate-r-test"},
+			IsDirect:  true,
 		},
 	})
 }
@@ -1433,6 +1474,7 @@ func TestParseRequirementsTxt_CyclicRSelf(t *testing.T) {
 				Filename: path,
 			},
 			DepGroups: []string{"cyclic-r-self"},
+			IsDirect:  true,
 		},
 		{
 			Name:           "requests",
@@ -1456,6 +1498,7 @@ func TestParseRequirementsTxt_CyclicRSelf(t *testing.T) {
 				Filename: path,
 			},
 			DepGroups: []string{"cyclic-r-self"},
+			IsDirect:  true,
 		},
 	})
 }
@@ -1498,6 +1541,7 @@ func TestParseRequirementsTxt_CyclicRComplex(t *testing.T) {
 				Filename: sourcePath,
 			},
 			DepGroups: []string{"cyclic-r-complex-1"},
+			IsDirect:  true,
 		},
 		{
 			Name:           "cyclic-r-complex",
@@ -1521,6 +1565,7 @@ func TestParseRequirementsTxt_CyclicRComplex(t *testing.T) {
 				Filename: cyclic2Path,
 			},
 			DepGroups: []string{"cyclic-r-complex-2"},
+			IsDirect:  true,
 		},
 		{
 			Name:           "cyclic-r-complex",
@@ -1544,6 +1589,7 @@ func TestParseRequirementsTxt_CyclicRComplex(t *testing.T) {
 				Filename: cyclic3Path,
 			},
 			DepGroups: []string{"cyclic-r-complex-3"},
+			IsDirect:  true,
 		},
 	})
 }
@@ -1584,6 +1630,7 @@ func TestParseRequirementsTxt_WithPerRequirementOptions(t *testing.T) {
 				Filename: path,
 			},
 			DepGroups: []string{"with-per-requirement-options"},
+			IsDirect:  true,
 		},
 		{
 			Name:           "foo",
@@ -1607,6 +1654,7 @@ func TestParseRequirementsTxt_WithPerRequirementOptions(t *testing.T) {
 				Filename: path,
 			},
 			DepGroups: []string{"with-per-requirement-options"},
+			IsDirect:  true,
 		},
 		{
 			Name:           "fooproject",
@@ -1630,6 +1678,7 @@ func TestParseRequirementsTxt_WithPerRequirementOptions(t *testing.T) {
 				Filename: path,
 			},
 			DepGroups: []string{"with-per-requirement-options"},
+			IsDirect:  true,
 		},
 		{
 			Name:           "barproject",
@@ -1653,6 +1702,7 @@ func TestParseRequirementsTxt_WithPerRequirementOptions(t *testing.T) {
 				Filename: path,
 			},
 			DepGroups: []string{"with-per-requirement-options"},
+			IsDirect:  true,
 		},
 	})
 }
@@ -1693,6 +1743,7 @@ func TestParseRequirementsTxt_LineContinuation(t *testing.T) {
 				Filename: path,
 			},
 			DepGroups: []string{"line-continuation"},
+			IsDirect:  true,
 		},
 		{
 			Name:           "bar",
@@ -1716,6 +1767,7 @@ func TestParseRequirementsTxt_LineContinuation(t *testing.T) {
 				Filename: path,
 			},
 			DepGroups: []string{"line-continuation"},
+			IsDirect:  true,
 		},
 		{
 			Name:           "baz",
@@ -1739,6 +1791,7 @@ func TestParseRequirementsTxt_LineContinuation(t *testing.T) {
 				Filename: path,
 			},
 			DepGroups: []string{"line-continuation"},
+			IsDirect:  true,
 		},
 		{
 			Name:           "qux",
@@ -1762,6 +1815,7 @@ func TestParseRequirementsTxt_LineContinuation(t *testing.T) {
 				Filename: path,
 			},
 			DepGroups: []string{"line-continuation"},
+			IsDirect:  true,
 		},
 	})
 }
@@ -1798,6 +1852,7 @@ func TestParseRequirementsTxt_EnvironmentMarkers(t *testing.T) {
 			},
 			Commit:    "",
 			DepGroups: []string{"environment-markers"},
+			IsDirect:  true,
 		},
 		{
 			Name:           "name6",
@@ -1817,6 +1872,7 @@ func TestParseRequirementsTxt_EnvironmentMarkers(t *testing.T) {
 			},
 			Commit:    "",
 			DepGroups: []string{"environment-markers"},
+			IsDirect:  true,
 		},
 		{
 			Name:           "someproject",
@@ -1841,6 +1897,7 @@ func TestParseRequirementsTxt_EnvironmentMarkers(t *testing.T) {
 			},
 			Commit:    "",
 			DepGroups: []string{"environment-markers"},
+			IsDirect:  true,
 		},
 	})
 }
@@ -1877,6 +1934,7 @@ func TestParseRequirementsTxt_GitUrlPackages(t *testing.T) {
 			},
 			Commit:    "",
 			DepGroups: []string{"url-packages"},
+			IsDirect:  true,
 		},
 	})
 }
@@ -1921,6 +1979,333 @@ func TestParseRequirementsTxt_WhlUrlPackages(t *testing.T) {
 			},
 			Commit:    "",
 			DepGroups: []string{"whl-url-packages"},
+			IsDirect:  true,
+		},
+	})
+}
+
+func TestParseRequirementsTxt_FromSimpleGeneratedFile(t *testing.T) {
+	t.Parallel()
+	dir, err := os.Getwd()
+	if err != nil {
+		t.Errorf("Got unexpected error: %v", err)
+	}
+
+	path := filepath.FromSlash(filepath.Join(dir, "fixtures/pip/generated-simple.txt"))
+
+	packages, err := lockfile.ParseRequirementsTxt(path)
+	if err != nil {
+		t.Errorf("Got unexpected error: %v", err)
+	}
+
+	// certify, charset-normalizer, idna, requests, urllib3
+	expectPackages(t, packages, []lockfile.PackageDetails{
+		{
+			Name:           "certifi",
+			Version:        "2024.8.30",
+			PackageManager: models.Requirements,
+			Ecosystem:      lockfile.PipEcosystem,
+			CompareAs:      lockfile.PipEcosystem,
+			BlockLocation: models.FilePosition{
+				Line:     models.Position{Start: 7, End: 7},
+				Column:   models.Position{Start: 1, End: 19},
+				Filename: path,
+			},
+			NameLocation: &models.FilePosition{
+				Line:     models.Position{Start: 7, End: 7},
+				Column:   models.Position{Start: 1, End: 8},
+				Filename: path,
+			},
+			VersionLocation: &models.FilePosition{
+				Line:     models.Position{Start: 7, End: 7},
+				Column:   models.Position{Start: 10, End: 19},
+				Filename: path,
+			},
+			DepGroups: []string{"generated-simple"},
+		},
+		{
+			Name:           "charset-normalizer",
+			Version:        "3.4.0",
+			PackageManager: models.Requirements,
+			Ecosystem:      lockfile.PipEcosystem,
+			CompareAs:      lockfile.PipEcosystem,
+			BlockLocation: models.FilePosition{
+				Line:     models.Position{Start: 9, End: 9},
+				Column:   models.Position{Start: 1, End: 26},
+				Filename: path,
+			},
+			NameLocation: &models.FilePosition{
+				Line:     models.Position{Start: 9, End: 9},
+				Column:   models.Position{Start: 1, End: 19},
+				Filename: path,
+			},
+			VersionLocation: &models.FilePosition{
+				Line:     models.Position{Start: 9, End: 9},
+				Column:   models.Position{Start: 21, End: 26},
+				Filename: path,
+			},
+			DepGroups: []string{"generated-simple"},
+		},
+		{
+			Name:           "idna",
+			Version:        "3.10",
+			PackageManager: models.Requirements,
+			Ecosystem:      lockfile.PipEcosystem,
+			CompareAs:      lockfile.PipEcosystem,
+			BlockLocation: models.FilePosition{
+				Line:     models.Position{Start: 11, End: 11},
+				Column:   models.Position{Start: 1, End: 11},
+				Filename: path,
+			},
+			NameLocation: &models.FilePosition{
+				Line:     models.Position{Start: 11, End: 11},
+				Column:   models.Position{Start: 1, End: 5},
+				Filename: path,
+			},
+			VersionLocation: &models.FilePosition{
+				Line:     models.Position{Start: 11, End: 11},
+				Column:   models.Position{Start: 7, End: 11},
+				Filename: path,
+			},
+			DepGroups: []string{"generated-simple"},
+		},
+		{
+			Name:           "requests",
+			Version:        "2.32.3",
+			PackageManager: models.Requirements,
+			Ecosystem:      lockfile.PipEcosystem,
+			CompareAs:      lockfile.PipEcosystem,
+			BlockLocation: models.FilePosition{
+				Line:     models.Position{Start: 13, End: 13},
+				Column:   models.Position{Start: 1, End: 17},
+				Filename: path,
+			},
+			NameLocation: &models.FilePosition{
+				Line:     models.Position{Start: 13, End: 13},
+				Column:   models.Position{Start: 1, End: 9},
+				Filename: path,
+			},
+			VersionLocation: &models.FilePosition{
+				Line:     models.Position{Start: 13, End: 13},
+				Column:   models.Position{Start: 11, End: 17},
+				Filename: path,
+			},
+			DepGroups: []string{"generated-simple"},
+			IsDirect:  true,
+		},
+		{
+			Name:           "urllib3",
+			Version:        "2.2.3",
+			PackageManager: models.Requirements,
+			Ecosystem:      lockfile.PipEcosystem,
+			CompareAs:      lockfile.PipEcosystem,
+			BlockLocation: models.FilePosition{
+				Line:     models.Position{Start: 15, End: 15},
+				Column:   models.Position{Start: 1, End: 15},
+				Filename: path,
+			},
+			NameLocation: &models.FilePosition{
+				Line:     models.Position{Start: 15, End: 15},
+				Column:   models.Position{Start: 1, End: 8},
+				Filename: path,
+			},
+			VersionLocation: &models.FilePosition{
+				Line:     models.Position{Start: 15, End: 15},
+				Column:   models.Position{Start: 10, End: 15},
+				Filename: path,
+			},
+			DepGroups: []string{"generated-simple"},
+		},
+	})
+}
+
+func TestParseRequirementsTxt_FromComplexGeneratedFile(t *testing.T) {
+	t.Parallel()
+	dir, err := os.Getwd()
+	if err != nil {
+		t.Errorf("Got unexpected error: %v", err)
+	}
+
+	path := filepath.FromSlash(filepath.Join(dir, "fixtures/pip/generated-complex.txt"))
+
+	packages, err := lockfile.ParseRequirementsTxt(path)
+	if err != nil {
+		t.Errorf("Got unexpected error: %v", err)
+	}
+
+	expectPackages(t, packages, []lockfile.PackageDetails{
+		// indirect, because comment specifies it's a dependency of requests
+		{
+			Name:           "certifi",
+			Version:        "2024.8.30",
+			PackageManager: models.Requirements,
+			Ecosystem:      lockfile.PipEcosystem,
+			CompareAs:      lockfile.PipEcosystem,
+			BlockLocation: models.FilePosition{
+				Line:     models.Position{Start: 7, End: 7},
+				Column:   models.Position{Start: 1, End: 19},
+				Filename: path,
+			},
+			NameLocation: &models.FilePosition{
+				Line:     models.Position{Start: 7, End: 7},
+				Column:   models.Position{Start: 1, End: 8},
+				Filename: path,
+			},
+			VersionLocation: &models.FilePosition{
+				Line:     models.Position{Start: 7, End: 7},
+				Column:   models.Position{Start: 10, End: 19},
+				Filename: path,
+			},
+			DepGroups: []string{"generated-complex"},
+		},
+		// direct, because the last comment specifies it comes from `requirements.in`
+		{
+			Name:           "charset-normalizer",
+			Version:        "3.4.0",
+			PackageManager: models.Requirements,
+			Ecosystem:      lockfile.PipEcosystem,
+			CompareAs:      lockfile.PipEcosystem,
+			BlockLocation: models.FilePosition{
+				Line:     models.Position{Start: 10, End: 10},
+				Column:   models.Position{Start: 1, End: 26},
+				Filename: path,
+			},
+			NameLocation: &models.FilePosition{
+				Line:     models.Position{Start: 10, End: 10},
+				Column:   models.Position{Start: 1, End: 19},
+				Filename: path,
+			},
+			VersionLocation: &models.FilePosition{
+				Line:     models.Position{Start: 10, End: 10},
+				Column:   models.Position{Start: 21, End: 26},
+				Filename: path,
+			},
+			DepGroups: []string{"generated-complex"},
+			IsDirect:  true,
+		},
+		// direct, because the second comment specifies it comes from `requirements.in`
+		{
+			Name:           "idna",
+			Version:        "3.10",
+			PackageManager: models.Requirements,
+			Ecosystem:      lockfile.PipEcosystem,
+			CompareAs:      lockfile.PipEcosystem,
+			BlockLocation: models.FilePosition{
+				Line:     models.Position{Start: 14, End: 14},
+				Column:   models.Position{Start: 1, End: 11},
+				Filename: path,
+			},
+			NameLocation: &models.FilePosition{
+				Line:     models.Position{Start: 14, End: 14},
+				Column:   models.Position{Start: 1, End: 5},
+				Filename: path,
+			},
+			VersionLocation: &models.FilePosition{
+				Line:     models.Position{Start: 14, End: 14},
+				Column:   models.Position{Start: 7, End: 11},
+				Filename: path,
+			},
+			DepGroups: []string{"generated-complex"},
+			IsDirect:  true,
+		},
+		// direct, because the comment specifies it comes from `requirements.in`
+		{
+			Name:           "requests",
+			Version:        "2.32.3",
+			PackageManager: models.Requirements,
+			Ecosystem:      lockfile.PipEcosystem,
+			CompareAs:      lockfile.PipEcosystem,
+			BlockLocation: models.FilePosition{
+				Line:     models.Position{Start: 18, End: 18},
+				Column:   models.Position{Start: 1, End: 17},
+				Filename: path,
+			},
+			NameLocation: &models.FilePosition{
+				Line:     models.Position{Start: 18, End: 18},
+				Column:   models.Position{Start: 1, End: 9},
+				Filename: path,
+			},
+			VersionLocation: &models.FilePosition{
+				Line:     models.Position{Start: 18, End: 18},
+				Column:   models.Position{Start: 11, End: 17},
+				Filename: path,
+			},
+			DepGroups: []string{"generated-complex"},
+			IsDirect:  true,
+		},
+		// indirect, because comment specifies it's a dependency of requests
+		{
+			Name:           "urllib3",
+			Version:        "2.2.3",
+			PackageManager: models.Requirements,
+			Ecosystem:      lockfile.PipEcosystem,
+			CompareAs:      lockfile.PipEcosystem,
+			BlockLocation: models.FilePosition{
+				Line:     models.Position{Start: 20, End: 20},
+				Column:   models.Position{Start: 1, End: 15},
+				Filename: path,
+			},
+			NameLocation: &models.FilePosition{
+				Line:     models.Position{Start: 20, End: 20},
+				Column:   models.Position{Start: 1, End: 8},
+				Filename: path,
+			},
+			VersionLocation: &models.FilePosition{
+				Line:     models.Position{Start: 20, End: 20},
+				Column:   models.Position{Start: 10, End: 15},
+				Filename: path,
+			},
+			DepGroups: []string{"generated-complex"},
+		},
+		// direct, because the comment is a user comment, not an autogenerated comment
+		{
+			Name:           "foobarbaz",
+			Version:        "1.2.3",
+			PackageManager: models.Requirements,
+			Ecosystem:      lockfile.PipEcosystem,
+			CompareAs:      lockfile.PipEcosystem,
+			BlockLocation: models.FilePosition{
+				Line:     models.Position{Start: 22, End: 22},
+				Column:   models.Position{Start: 1, End: 17},
+				Filename: path,
+			},
+			NameLocation: &models.FilePosition{
+				Line:     models.Position{Start: 22, End: 22},
+				Column:   models.Position{Start: 1, End: 10},
+				Filename: path,
+			},
+			VersionLocation: &models.FilePosition{
+				Line:     models.Position{Start: 22, End: 22},
+				Column:   models.Position{Start: 12, End: 17},
+				Filename: path,
+			},
+			DepGroups: []string{"generated-complex"},
+			IsDirect:  true,
+		},
+		// direct, because the comment specifies it comes from `foo.in`
+		{
+			Name:           "package123",
+			Version:        "4.5.6",
+			PackageManager: models.Requirements,
+			Ecosystem:      lockfile.PipEcosystem,
+			CompareAs:      lockfile.PipEcosystem,
+			BlockLocation: models.FilePosition{
+				Line:     models.Position{Start: 24, End: 24},
+				Column:   models.Position{Start: 1, End: 18},
+				Filename: path,
+			},
+			NameLocation: &models.FilePosition{
+				Line:     models.Position{Start: 24, End: 24},
+				Column:   models.Position{Start: 1, End: 11},
+				Filename: path,
+			},
+			VersionLocation: &models.FilePosition{
+				Line:     models.Position{Start: 24, End: 24},
+				Column:   models.Position{Start: 13, End: 18},
+				Filename: path,
+			},
+			DepGroups: []string{"generated-complex"},
+			IsDirect:  true,
 		},
 	})
 }

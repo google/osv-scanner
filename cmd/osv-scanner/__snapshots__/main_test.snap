@@ -6849,11 +6849,35 @@ No package sources found, --help for usage information.
       ]
     },
     {
-      "bom-ref": "pkg:pypi/django@2.2.24",
+      "bom-ref": "pkg:pypi/beautifulsoup4@4.9.3",
       "type": "library",
-      "name": "django",
-      "version": "2.2.24",
-      "purl": "pkg:pypi/django@2.2.24",
+      "name": "beautifulsoup4",
+      "version": "4.9.3",
+      "purl": "pkg:pypi/beautifulsoup4@4.9.3",
+      "properties": [
+        {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
+        {
+          "name": "osv-scanner:package-manager",
+          "value": "Requirements"
+        }
+      ],
+      "evidence": {
+        "occurrences": [
+          {
+            "location": "{/"block/":{/"file_name/":/"requirements-test.txt/",/"line_start/":1,/"line_end/":1,/"column_start/":1,/"column_end/":22},/"name/":{/"file_name/":/"requirements-test.txt/",/"line_start/":1,/"line_end/":1,/"column_start/":1,/"column_end/":15},/"version/":{/"file_name/":/"requirements-test.txt/",/"line_start/":1,/"line_end/":1,/"column_start/":17,/"column_end/":22}}"
+          }
+        ]
+      }
+    },
+    {
+      "bom-ref": "pkg:pypi/certifi@2024.8.30",
+      "type": "library",
+      "name": "certifi",
+      "version": "2024.8.30",
+      "purl": "pkg:pypi/certifi@2024.8.30",
       "properties": [
         {
           "name": "osv-scanner:package-manager",
@@ -6863,7 +6887,127 @@ No package sources found, --help for usage information.
       "evidence": {
         "occurrences": [
           {
-            "location": "{/"block/":{/"file_name/":/"requirements.txt/",/"line_start/":1,/"line_end/":1,/"column_start/":1,/"column_end/":15},/"name/":{/"file_name/":/"requirements.txt/",/"line_start/":1,/"line_end/":1,/"column_start/":1,/"column_end/":7},/"version/":{/"file_name/":/"requirements.txt/",/"line_start/":1,/"line_end/":1,/"column_start/":9,/"column_end/":15}}"
+            "location": "{/"block/":{/"file_name/":/"requirements.txt/",/"line_start/":8,/"line_end/":8,/"column_start/":1,/"column_end/":19},/"name/":{/"file_name/":/"requirements.txt/",/"line_start/":8,/"line_end/":8,/"column_start/":1,/"column_end/":8},/"version/":{/"file_name/":/"requirements.txt/",/"line_start/":8,/"line_end/":8,/"column_start/":10,/"column_end/":19}}"
+          }
+        ]
+      }
+    },
+    {
+      "bom-ref": "pkg:pypi/charset-normalizer@3.4.0",
+      "type": "library",
+      "name": "charset-normalizer",
+      "version": "3.4.0",
+      "purl": "pkg:pypi/charset-normalizer@3.4.0",
+      "properties": [
+        {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
+        {
+          "name": "osv-scanner:package-manager",
+          "value": "Requirements"
+        }
+      ],
+      "evidence": {
+        "occurrences": [
+          {
+            "location": "{/"block/":{/"file_name/":/"requirements.txt/",/"line_start/":11,/"line_end/":11,/"column_start/":1,/"column_end/":26},/"name/":{/"file_name/":/"requirements.txt/",/"line_start/":11,/"line_end/":11,/"column_start/":1,/"column_end/":19},/"version/":{/"file_name/":/"requirements.txt/",/"line_start/":11,/"line_end/":11,/"column_start/":21,/"column_end/":26}}"
+          }
+        ]
+      }
+    },
+    {
+      "bom-ref": "pkg:pypi/django-debug-toolbar@3.2.2",
+      "type": "library",
+      "name": "django-debug-toolbar",
+      "version": "3.2.2",
+      "purl": "pkg:pypi/django-debug-toolbar@3.2.2",
+      "properties": [
+        {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
+        {
+          "name": "osv-scanner:package-manager",
+          "value": "Requirements"
+        }
+      ],
+      "evidence": {
+        "occurrences": [
+          {
+            "location": "{/"block/":{/"file_name/":/"requirements-test.txt/",/"line_start/":3,/"line_end/":3,/"column_start/":1,/"column_end/":28},/"name/":{/"file_name/":/"requirements-test.txt/",/"line_start/":3,/"line_end/":3,/"column_start/":1,/"column_end/":21},/"version/":{/"file_name/":/"requirements-test.txt/",/"line_start/":3,/"line_end/":3,/"column_start/":23,/"column_end/":28}}"
+          }
+        ]
+      }
+    },
+    {
+      "bom-ref": "pkg:pypi/django-filter@2.4.0",
+      "type": "library",
+      "name": "django-filter",
+      "version": "2.4.0",
+      "purl": "pkg:pypi/django-filter@2.4.0",
+      "properties": [
+        {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
+        {
+          "name": "osv-scanner:package-manager",
+          "value": "Requirements"
+        }
+      ],
+      "evidence": {
+        "occurrences": [
+          {
+            "location": "{/"block/":{/"file_name/":/"requirements-test.txt/",/"line_start/":5,/"line_end/":5,/"column_start/":1,/"column_end/":21},/"name/":{/"file_name/":/"requirements-test.txt/",/"line_start/":5,/"line_end/":5,/"column_start/":1,/"column_end/":14},/"version/":{/"file_name/":/"requirements-test.txt/",/"line_start/":5,/"line_end/":5,/"column_start/":16,/"column_end/":21}}"
+          }
+        ]
+      }
+    },
+    {
+      "bom-ref": "pkg:pypi/django@2.2.24",
+      "type": "library",
+      "name": "django",
+      "version": "2.2.24",
+      "purl": "pkg:pypi/django@2.2.24",
+      "properties": [
+        {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
+        {
+          "name": "osv-scanner:package-manager",
+          "value": "Requirements"
+        }
+      ],
+      "evidence": {
+        "occurrences": [
+          {
+            "location": "{/"block/":{/"file_name/":/"requirements.txt/",/"line_start/":19,/"line_end/":19,/"column_start/":1,/"column_end/":15},/"name/":{/"file_name/":/"requirements.txt/",/"line_start/":19,/"line_end/":19,/"column_start/":1,/"column_end/":7},/"version/":{/"file_name/":/"requirements.txt/",/"line_start/":19,/"line_end/":19,/"column_start/":9,/"column_end/":15}}"
+          }
+        ]
+      }
+    },
+    {
+      "bom-ref": "pkg:pypi/idna@3.10",
+      "type": "library",
+      "name": "idna",
+      "version": "3.10",
+      "purl": "pkg:pypi/idna@3.10",
+      "properties": [
+        {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
+        {
+          "name": "osv-scanner:package-manager",
+          "value": "Requirements"
+        }
+      ],
+      "evidence": {
+        "occurrences": [
+          {
+            "location": "{/"block/":{/"file_name/":/"requirements.txt/",/"line_start/":15,/"line_end/":15,/"column_start/":1,/"column_end/":11},/"name/":{/"file_name/":/"requirements.txt/",/"line_start/":15,/"line_end/":15,/"column_start/":1,/"column_end/":5},/"version/":{/"file_name/":/"requirements.txt/",/"line_start/":15,/"line_end/":15,/"column_start/":7,/"column_end/":11}}"
           }
         ]
       }
@@ -6917,6 +7061,77 @@ No package sources found, --help for usage information.
       }
     },
     {
+      "bom-ref": "pkg:pypi/pandas@2.2.3",
+      "type": "library",
+      "name": "pandas",
+      "version": "2.2.3",
+      "purl": "pkg:pypi/pandas@2.2.3",
+      "properties": [
+        {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
+        {
+          "name": "osv-scanner:package-manager",
+          "value": "Requirements"
+        }
+      ],
+      "evidence": {
+        "occurrences": [
+          {
+            "location": "{/"block/":{/"file_name/":/"other-requirements.txt/",/"line_start/":1,/"line_end/":1,/"column_start/":1,/"column_end/":14},/"name/":{/"file_name/":/"other-requirements.txt/",/"line_start/":1,/"line_end/":1,/"column_start/":1,/"column_end/":7},/"version/":{/"file_name/":/"other-requirements.txt/",/"line_start/":1,/"line_end/":1,/"column_start/":9,/"column_end/":14}}"
+          },
+          {
+            "location": "{/"block/":{/"file_name/":/"other-requirements.txt/",/"line_start/":1,/"line_end/":1,/"column_start/":1,/"column_end/":14},/"name/":{/"file_name/":/"other-requirements.txt/",/"line_start/":1,/"line_end/":1,/"column_start/":1,/"column_end/":7},/"version/":{/"file_name/":/"other-requirements.txt/",/"line_start/":1,/"line_end/":1,/"column_start/":9,/"column_end/":14}}"
+          }
+        ]
+      }
+    },
+    {
+      "bom-ref": "pkg:pypi/requests@2.32.3",
+      "type": "library",
+      "name": "requests",
+      "version": "2.32.3",
+      "purl": "pkg:pypi/requests@2.32.3",
+      "properties": [
+        {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
+        {
+          "name": "osv-scanner:package-manager",
+          "value": "Requirements"
+        }
+      ],
+      "evidence": {
+        "occurrences": [
+          {
+            "location": "{/"block/":{/"file_name/":/"requirements.txt/",/"line_start/":26,/"line_end/":26,/"column_start/":1,/"column_end/":17},/"name/":{/"file_name/":/"requirements.txt/",/"line_start/":26,/"line_end/":26,/"column_start/":1,/"column_end/":9},/"version/":{/"file_name/":/"requirements.txt/",/"line_start/":26,/"line_end/":26,/"column_start/":11,/"column_end/":17}}"
+          }
+        ]
+      }
+    },
+    {
+      "bom-ref": "pkg:pypi/urllib3@2.2.3",
+      "type": "library",
+      "name": "urllib3",
+      "version": "2.2.3",
+      "purl": "pkg:pypi/urllib3@2.2.3",
+      "properties": [
+        {
+          "name": "osv-scanner:package-manager",
+          "value": "Requirements"
+        }
+      ],
+      "evidence": {
+        "occurrences": [
+          {
+            "location": "{/"block/":{/"file_name/":/"requirements.txt/",/"line_start/":28,/"line_end/":28,/"column_start/":1,/"column_end/":15},/"name/":{/"file_name/":/"requirements.txt/",/"line_start/":28,/"line_end/":28,/"column_start/":1,/"column_end/":8},/"version/":{/"file_name/":/"requirements.txt/",/"line_start/":28,/"line_end/":28,/"column_start/":10,/"column_end/":15}}"
+          }
+        ]
+      }
+    },
+    {
       "bom-ref": "pom.xml",
       "type": "file",
       "name": "pom.xml",
@@ -6945,13 +7160,15 @@ Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-8/gradle-kotlin/g
 Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-8/mix.lock file and found 1 package
 Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-8/npm/package-lock.json file and found 2 packages
 Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-8/nuget/packages.lock.json file and found 3 packages
+Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-8/other-requirements.txt file and found 1 package
 Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-8/packages.lock.json file and found 1 package
 Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-8/pnpm/pnpm-lock.yaml file and found 1 package
 Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-8/poetry.lock file and found 1 package
 Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-8/pom.xml file and found 1 package
 Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-8/pubspec.lock file and found 1 package
 Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-8/renv.lock file and found 1 package
-Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-8/requirements.txt file and found 1 package
+Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-8/requirements-test.txt file and found 4 packages
+Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-8/requirements.txt file and found 6 packages
 Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-8/yarn/yarn.lock file and found 1 package
 Filtered 1 local package/s from the scan.
 
@@ -11215,11 +11432,35 @@ Filtered 1 local package/s from the scan.
       ]
     },
     {
-      "bom-ref": "pkg:pypi/django@2.2.24",
+      "bom-ref": "pkg:pypi/beautifulsoup4@4.9.3",
       "type": "library",
-      "name": "django",
-      "version": "2.2.24",
-      "purl": "pkg:pypi/django@2.2.24",
+      "name": "beautifulsoup4",
+      "version": "4.9.3",
+      "purl": "pkg:pypi/beautifulsoup4@4.9.3",
+      "properties": [
+        {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
+        {
+          "name": "osv-scanner:package-manager",
+          "value": "Requirements"
+        }
+      ],
+      "evidence": {
+        "occurrences": [
+          {
+            "location": "{/"block/":{/"file_name/":/"requirements-test.txt/",/"line_start/":1,/"line_end/":1,/"column_start/":1,/"column_end/":22},/"name/":{/"file_name/":/"requirements-test.txt/",/"line_start/":1,/"line_end/":1,/"column_start/":1,/"column_end/":15},/"version/":{/"file_name/":/"requirements-test.txt/",/"line_start/":1,/"line_end/":1,/"column_start/":17,/"column_end/":22}}"
+          }
+        ]
+      }
+    },
+    {
+      "bom-ref": "pkg:pypi/certifi@2024.8.30",
+      "type": "library",
+      "name": "certifi",
+      "version": "2024.8.30",
+      "purl": "pkg:pypi/certifi@2024.8.30",
       "properties": [
         {
           "name": "osv-scanner:package-manager",
@@ -11229,7 +11470,127 @@ Filtered 1 local package/s from the scan.
       "evidence": {
         "occurrences": [
           {
-            "location": "{/"block/":{/"file_name/":/"requirements.txt/",/"line_start/":1,/"line_end/":1,/"column_start/":1,/"column_end/":15},/"name/":{/"file_name/":/"requirements.txt/",/"line_start/":1,/"line_end/":1,/"column_start/":1,/"column_end/":7},/"version/":{/"file_name/":/"requirements.txt/",/"line_start/":1,/"line_end/":1,/"column_start/":9,/"column_end/":15}}"
+            "location": "{/"block/":{/"file_name/":/"requirements.txt/",/"line_start/":8,/"line_end/":8,/"column_start/":1,/"column_end/":19},/"name/":{/"file_name/":/"requirements.txt/",/"line_start/":8,/"line_end/":8,/"column_start/":1,/"column_end/":8},/"version/":{/"file_name/":/"requirements.txt/",/"line_start/":8,/"line_end/":8,/"column_start/":10,/"column_end/":19}}"
+          }
+        ]
+      }
+    },
+    {
+      "bom-ref": "pkg:pypi/charset-normalizer@3.4.0",
+      "type": "library",
+      "name": "charset-normalizer",
+      "version": "3.4.0",
+      "purl": "pkg:pypi/charset-normalizer@3.4.0",
+      "properties": [
+        {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
+        {
+          "name": "osv-scanner:package-manager",
+          "value": "Requirements"
+        }
+      ],
+      "evidence": {
+        "occurrences": [
+          {
+            "location": "{/"block/":{/"file_name/":/"requirements.txt/",/"line_start/":11,/"line_end/":11,/"column_start/":1,/"column_end/":26},/"name/":{/"file_name/":/"requirements.txt/",/"line_start/":11,/"line_end/":11,/"column_start/":1,/"column_end/":19},/"version/":{/"file_name/":/"requirements.txt/",/"line_start/":11,/"line_end/":11,/"column_start/":21,/"column_end/":26}}"
+          }
+        ]
+      }
+    },
+    {
+      "bom-ref": "pkg:pypi/django-debug-toolbar@3.2.2",
+      "type": "library",
+      "name": "django-debug-toolbar",
+      "version": "3.2.2",
+      "purl": "pkg:pypi/django-debug-toolbar@3.2.2",
+      "properties": [
+        {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
+        {
+          "name": "osv-scanner:package-manager",
+          "value": "Requirements"
+        }
+      ],
+      "evidence": {
+        "occurrences": [
+          {
+            "location": "{/"block/":{/"file_name/":/"requirements-test.txt/",/"line_start/":3,/"line_end/":3,/"column_start/":1,/"column_end/":28},/"name/":{/"file_name/":/"requirements-test.txt/",/"line_start/":3,/"line_end/":3,/"column_start/":1,/"column_end/":21},/"version/":{/"file_name/":/"requirements-test.txt/",/"line_start/":3,/"line_end/":3,/"column_start/":23,/"column_end/":28}}"
+          }
+        ]
+      }
+    },
+    {
+      "bom-ref": "pkg:pypi/django-filter@2.4.0",
+      "type": "library",
+      "name": "django-filter",
+      "version": "2.4.0",
+      "purl": "pkg:pypi/django-filter@2.4.0",
+      "properties": [
+        {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
+        {
+          "name": "osv-scanner:package-manager",
+          "value": "Requirements"
+        }
+      ],
+      "evidence": {
+        "occurrences": [
+          {
+            "location": "{/"block/":{/"file_name/":/"requirements-test.txt/",/"line_start/":5,/"line_end/":5,/"column_start/":1,/"column_end/":21},/"name/":{/"file_name/":/"requirements-test.txt/",/"line_start/":5,/"line_end/":5,/"column_start/":1,/"column_end/":14},/"version/":{/"file_name/":/"requirements-test.txt/",/"line_start/":5,/"line_end/":5,/"column_start/":16,/"column_end/":21}}"
+          }
+        ]
+      }
+    },
+    {
+      "bom-ref": "pkg:pypi/django@2.2.24",
+      "type": "library",
+      "name": "django",
+      "version": "2.2.24",
+      "purl": "pkg:pypi/django@2.2.24",
+      "properties": [
+        {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
+        {
+          "name": "osv-scanner:package-manager",
+          "value": "Requirements"
+        }
+      ],
+      "evidence": {
+        "occurrences": [
+          {
+            "location": "{/"block/":{/"file_name/":/"requirements.txt/",/"line_start/":19,/"line_end/":19,/"column_start/":1,/"column_end/":15},/"name/":{/"file_name/":/"requirements.txt/",/"line_start/":19,/"line_end/":19,/"column_start/":1,/"column_end/":7},/"version/":{/"file_name/":/"requirements.txt/",/"line_start/":19,/"line_end/":19,/"column_start/":9,/"column_end/":15}}"
+          }
+        ]
+      }
+    },
+    {
+      "bom-ref": "pkg:pypi/idna@3.10",
+      "type": "library",
+      "name": "idna",
+      "version": "3.10",
+      "purl": "pkg:pypi/idna@3.10",
+      "properties": [
+        {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
+        {
+          "name": "osv-scanner:package-manager",
+          "value": "Requirements"
+        }
+      ],
+      "evidence": {
+        "occurrences": [
+          {
+            "location": "{/"block/":{/"file_name/":/"requirements.txt/",/"line_start/":15,/"line_end/":15,/"column_start/":1,/"column_end/":11},/"name/":{/"file_name/":/"requirements.txt/",/"line_start/":15,/"line_end/":15,/"column_start/":1,/"column_end/":5},/"version/":{/"file_name/":/"requirements.txt/",/"line_start/":15,/"line_end/":15,/"column_start/":7,/"column_end/":11}}"
           }
         ]
       }
@@ -11283,6 +11644,77 @@ Filtered 1 local package/s from the scan.
       }
     },
     {
+      "bom-ref": "pkg:pypi/pandas@2.2.3",
+      "type": "library",
+      "name": "pandas",
+      "version": "2.2.3",
+      "purl": "pkg:pypi/pandas@2.2.3",
+      "properties": [
+        {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
+        {
+          "name": "osv-scanner:package-manager",
+          "value": "Requirements"
+        }
+      ],
+      "evidence": {
+        "occurrences": [
+          {
+            "location": "{/"block/":{/"file_name/":/"other-requirements.txt/",/"line_start/":1,/"line_end/":1,/"column_start/":1,/"column_end/":14},/"name/":{/"file_name/":/"other-requirements.txt/",/"line_start/":1,/"line_end/":1,/"column_start/":1,/"column_end/":7},/"version/":{/"file_name/":/"other-requirements.txt/",/"line_start/":1,/"line_end/":1,/"column_start/":9,/"column_end/":14}}"
+          },
+          {
+            "location": "{/"block/":{/"file_name/":/"other-requirements.txt/",/"line_start/":1,/"line_end/":1,/"column_start/":1,/"column_end/":14},/"name/":{/"file_name/":/"other-requirements.txt/",/"line_start/":1,/"line_end/":1,/"column_start/":1,/"column_end/":7},/"version/":{/"file_name/":/"other-requirements.txt/",/"line_start/":1,/"line_end/":1,/"column_start/":9,/"column_end/":14}}"
+          }
+        ]
+      }
+    },
+    {
+      "bom-ref": "pkg:pypi/requests@2.32.3",
+      "type": "library",
+      "name": "requests",
+      "version": "2.32.3",
+      "purl": "pkg:pypi/requests@2.32.3",
+      "properties": [
+        {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
+        {
+          "name": "osv-scanner:package-manager",
+          "value": "Requirements"
+        }
+      ],
+      "evidence": {
+        "occurrences": [
+          {
+            "location": "{/"block/":{/"file_name/":/"requirements.txt/",/"line_start/":26,/"line_end/":26,/"column_start/":1,/"column_end/":17},/"name/":{/"file_name/":/"requirements.txt/",/"line_start/":26,/"line_end/":26,/"column_start/":1,/"column_end/":9},/"version/":{/"file_name/":/"requirements.txt/",/"line_start/":26,/"line_end/":26,/"column_start/":11,/"column_end/":17}}"
+          }
+        ]
+      }
+    },
+    {
+      "bom-ref": "pkg:pypi/urllib3@2.2.3",
+      "type": "library",
+      "name": "urllib3",
+      "version": "2.2.3",
+      "purl": "pkg:pypi/urllib3@2.2.3",
+      "properties": [
+        {
+          "name": "osv-scanner:package-manager",
+          "value": "Requirements"
+        }
+      ],
+      "evidence": {
+        "occurrences": [
+          {
+            "location": "{/"block/":{/"file_name/":/"requirements.txt/",/"line_start/":28,/"line_end/":28,/"column_start/":1,/"column_end/":15},/"name/":{/"file_name/":/"requirements.txt/",/"line_start/":28,/"line_end/":28,/"column_start/":1,/"column_end/":8},/"version/":{/"file_name/":/"requirements.txt/",/"line_start/":28,/"line_end/":28,/"column_start/":10,/"column_end/":15}}"
+          }
+        ]
+      }
+    },
+    {
       "bom-ref": "pom.xml",
       "type": "file",
       "name": "pom.xml",
@@ -11311,13 +11743,15 @@ Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/gradle-kotlin/
 Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/mix.lock file and found 1 package
 Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/npm/package-lock.json file and found 2 packages
 Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/nuget/packages.lock.json file and found 3 packages
+Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/other-requirements.txt file and found 1 package
 Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/packages.lock.json file and found 1 package
 Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/pnpm/pnpm-lock.yaml file and found 1 package
 Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/poetry.lock file and found 1 package
 Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/pom.xml file and found 1 package
 Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/pubspec.lock file and found 1 package
 Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/renv.lock file and found 1 package
-Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/requirements.txt file and found 1 package
+Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/requirements-test.txt file and found 4 packages
+Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/requirements.txt file and found 6 packages
 Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/yarn/yarn.lock file and found 1 package
 
 ---
@@ -15580,11 +16014,35 @@ Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/yarn/yarn.lock
       ]
     },
     {
-      "bom-ref": "pkg:pypi/django@2.2.24",
+      "bom-ref": "pkg:pypi/beautifulsoup4@4.9.3",
       "type": "library",
-      "name": "django",
-      "version": "2.2.24",
-      "purl": "pkg:pypi/django@2.2.24",
+      "name": "beautifulsoup4",
+      "version": "4.9.3",
+      "purl": "pkg:pypi/beautifulsoup4@4.9.3",
+      "properties": [
+        {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
+        {
+          "name": "osv-scanner:package-manager",
+          "value": "Requirements"
+        }
+      ],
+      "evidence": {
+        "occurrences": [
+          {
+            "location": "{/"block/":{/"file_name/":/"requirements-test.txt/",/"line_start/":1,/"line_end/":1,/"column_start/":1,/"column_end/":22},/"name/":{/"file_name/":/"requirements-test.txt/",/"line_start/":1,/"line_end/":1,/"column_start/":1,/"column_end/":15},/"version/":{/"file_name/":/"requirements-test.txt/",/"line_start/":1,/"line_end/":1,/"column_start/":17,/"column_end/":22}}"
+          }
+        ]
+      }
+    },
+    {
+      "bom-ref": "pkg:pypi/certifi@2024.8.30",
+      "type": "library",
+      "name": "certifi",
+      "version": "2024.8.30",
+      "purl": "pkg:pypi/certifi@2024.8.30",
       "properties": [
         {
           "name": "osv-scanner:package-manager",
@@ -15594,7 +16052,127 @@ Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/yarn/yarn.lock
       "evidence": {
         "occurrences": [
           {
-            "location": "{/"block/":{/"file_name/":/"requirements.txt/",/"line_start/":1,/"line_end/":1,/"column_start/":1,/"column_end/":15},/"name/":{/"file_name/":/"requirements.txt/",/"line_start/":1,/"line_end/":1,/"column_start/":1,/"column_end/":7},/"version/":{/"file_name/":/"requirements.txt/",/"line_start/":1,/"line_end/":1,/"column_start/":9,/"column_end/":15}}"
+            "location": "{/"block/":{/"file_name/":/"requirements.txt/",/"line_start/":8,/"line_end/":8,/"column_start/":1,/"column_end/":19},/"name/":{/"file_name/":/"requirements.txt/",/"line_start/":8,/"line_end/":8,/"column_start/":1,/"column_end/":8},/"version/":{/"file_name/":/"requirements.txt/",/"line_start/":8,/"line_end/":8,/"column_start/":10,/"column_end/":19}}"
+          }
+        ]
+      }
+    },
+    {
+      "bom-ref": "pkg:pypi/charset-normalizer@3.4.0",
+      "type": "library",
+      "name": "charset-normalizer",
+      "version": "3.4.0",
+      "purl": "pkg:pypi/charset-normalizer@3.4.0",
+      "properties": [
+        {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
+        {
+          "name": "osv-scanner:package-manager",
+          "value": "Requirements"
+        }
+      ],
+      "evidence": {
+        "occurrences": [
+          {
+            "location": "{/"block/":{/"file_name/":/"requirements.txt/",/"line_start/":11,/"line_end/":11,/"column_start/":1,/"column_end/":26},/"name/":{/"file_name/":/"requirements.txt/",/"line_start/":11,/"line_end/":11,/"column_start/":1,/"column_end/":19},/"version/":{/"file_name/":/"requirements.txt/",/"line_start/":11,/"line_end/":11,/"column_start/":21,/"column_end/":26}}"
+          }
+        ]
+      }
+    },
+    {
+      "bom-ref": "pkg:pypi/django-debug-toolbar@3.2.2",
+      "type": "library",
+      "name": "django-debug-toolbar",
+      "version": "3.2.2",
+      "purl": "pkg:pypi/django-debug-toolbar@3.2.2",
+      "properties": [
+        {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
+        {
+          "name": "osv-scanner:package-manager",
+          "value": "Requirements"
+        }
+      ],
+      "evidence": {
+        "occurrences": [
+          {
+            "location": "{/"block/":{/"file_name/":/"requirements-test.txt/",/"line_start/":3,/"line_end/":3,/"column_start/":1,/"column_end/":28},/"name/":{/"file_name/":/"requirements-test.txt/",/"line_start/":3,/"line_end/":3,/"column_start/":1,/"column_end/":21},/"version/":{/"file_name/":/"requirements-test.txt/",/"line_start/":3,/"line_end/":3,/"column_start/":23,/"column_end/":28}}"
+          }
+        ]
+      }
+    },
+    {
+      "bom-ref": "pkg:pypi/django-filter@2.4.0",
+      "type": "library",
+      "name": "django-filter",
+      "version": "2.4.0",
+      "purl": "pkg:pypi/django-filter@2.4.0",
+      "properties": [
+        {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
+        {
+          "name": "osv-scanner:package-manager",
+          "value": "Requirements"
+        }
+      ],
+      "evidence": {
+        "occurrences": [
+          {
+            "location": "{/"block/":{/"file_name/":/"requirements-test.txt/",/"line_start/":5,/"line_end/":5,/"column_start/":1,/"column_end/":21},/"name/":{/"file_name/":/"requirements-test.txt/",/"line_start/":5,/"line_end/":5,/"column_start/":1,/"column_end/":14},/"version/":{/"file_name/":/"requirements-test.txt/",/"line_start/":5,/"line_end/":5,/"column_start/":16,/"column_end/":21}}"
+          }
+        ]
+      }
+    },
+    {
+      "bom-ref": "pkg:pypi/django@2.2.24",
+      "type": "library",
+      "name": "django",
+      "version": "2.2.24",
+      "purl": "pkg:pypi/django@2.2.24",
+      "properties": [
+        {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
+        {
+          "name": "osv-scanner:package-manager",
+          "value": "Requirements"
+        }
+      ],
+      "evidence": {
+        "occurrences": [
+          {
+            "location": "{/"block/":{/"file_name/":/"requirements.txt/",/"line_start/":19,/"line_end/":19,/"column_start/":1,/"column_end/":15},/"name/":{/"file_name/":/"requirements.txt/",/"line_start/":19,/"line_end/":19,/"column_start/":1,/"column_end/":7},/"version/":{/"file_name/":/"requirements.txt/",/"line_start/":19,/"line_end/":19,/"column_start/":9,/"column_end/":15}}"
+          }
+        ]
+      }
+    },
+    {
+      "bom-ref": "pkg:pypi/idna@3.10",
+      "type": "library",
+      "name": "idna",
+      "version": "3.10",
+      "purl": "pkg:pypi/idna@3.10",
+      "properties": [
+        {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
+        {
+          "name": "osv-scanner:package-manager",
+          "value": "Requirements"
+        }
+      ],
+      "evidence": {
+        "occurrences": [
+          {
+            "location": "{/"block/":{/"file_name/":/"requirements.txt/",/"line_start/":15,/"line_end/":15,/"column_start/":1,/"column_end/":11},/"name/":{/"file_name/":/"requirements.txt/",/"line_start/":15,/"line_end/":15,/"column_start/":1,/"column_end/":5},/"version/":{/"file_name/":/"requirements.txt/",/"line_start/":15,/"line_end/":15,/"column_start/":7,/"column_end/":11}}"
           }
         ]
       }
@@ -15648,6 +16226,77 @@ Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/yarn/yarn.lock
       }
     },
     {
+      "bom-ref": "pkg:pypi/pandas@2.2.3",
+      "type": "library",
+      "name": "pandas",
+      "version": "2.2.3",
+      "purl": "pkg:pypi/pandas@2.2.3",
+      "properties": [
+        {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
+        {
+          "name": "osv-scanner:package-manager",
+          "value": "Requirements"
+        }
+      ],
+      "evidence": {
+        "occurrences": [
+          {
+            "location": "{/"block/":{/"file_name/":/"other-requirements.txt/",/"line_start/":1,/"line_end/":1,/"column_start/":1,/"column_end/":14},/"name/":{/"file_name/":/"other-requirements.txt/",/"line_start/":1,/"line_end/":1,/"column_start/":1,/"column_end/":7},/"version/":{/"file_name/":/"other-requirements.txt/",/"line_start/":1,/"line_end/":1,/"column_start/":9,/"column_end/":14}}"
+          },
+          {
+            "location": "{/"block/":{/"file_name/":/"other-requirements.txt/",/"line_start/":1,/"line_end/":1,/"column_start/":1,/"column_end/":14},/"name/":{/"file_name/":/"other-requirements.txt/",/"line_start/":1,/"line_end/":1,/"column_start/":1,/"column_end/":7},/"version/":{/"file_name/":/"other-requirements.txt/",/"line_start/":1,/"line_end/":1,/"column_start/":9,/"column_end/":14}}"
+          }
+        ]
+      }
+    },
+    {
+      "bom-ref": "pkg:pypi/requests@2.32.3",
+      "type": "library",
+      "name": "requests",
+      "version": "2.32.3",
+      "purl": "pkg:pypi/requests@2.32.3",
+      "properties": [
+        {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
+        {
+          "name": "osv-scanner:package-manager",
+          "value": "Requirements"
+        }
+      ],
+      "evidence": {
+        "occurrences": [
+          {
+            "location": "{/"block/":{/"file_name/":/"requirements.txt/",/"line_start/":26,/"line_end/":26,/"column_start/":1,/"column_end/":17},/"name/":{/"file_name/":/"requirements.txt/",/"line_start/":26,/"line_end/":26,/"column_start/":1,/"column_end/":9},/"version/":{/"file_name/":/"requirements.txt/",/"line_start/":26,/"line_end/":26,/"column_start/":11,/"column_end/":17}}"
+          }
+        ]
+      }
+    },
+    {
+      "bom-ref": "pkg:pypi/urllib3@2.2.3",
+      "type": "library",
+      "name": "urllib3",
+      "version": "2.2.3",
+      "purl": "pkg:pypi/urllib3@2.2.3",
+      "properties": [
+        {
+          "name": "osv-scanner:package-manager",
+          "value": "Requirements"
+        }
+      ],
+      "evidence": {
+        "occurrences": [
+          {
+            "location": "{/"block/":{/"file_name/":/"requirements.txt/",/"line_start/":28,/"line_end/":28,/"column_start/":1,/"column_end/":15},/"name/":{/"file_name/":/"requirements.txt/",/"line_start/":28,/"line_end/":28,/"column_start/":1,/"column_end/":8},/"version/":{/"file_name/":/"requirements.txt/",/"line_start/":28,/"line_end/":28,/"column_start/":10,/"column_end/":15}}"
+          }
+        ]
+      }
+    },
+    {
       "bom-ref": "pom.xml",
       "type": "file",
       "name": "pom.xml",
@@ -15676,13 +16325,15 @@ Scanned <rootdir>/fixtures/encoding-integration-test-locks/Windows-1252/gradle-k
 Scanned <rootdir>/fixtures/encoding-integration-test-locks/Windows-1252/mix.lock file and found 1 package
 Scanned <rootdir>/fixtures/encoding-integration-test-locks/Windows-1252/npm/package-lock.json file and found 2 packages
 Scanned <rootdir>/fixtures/encoding-integration-test-locks/Windows-1252/nuget/packages.lock.json file and found 3 packages
+Scanned <rootdir>/fixtures/encoding-integration-test-locks/Windows-1252/other-requirements.txt file and found 1 package
 Scanned <rootdir>/fixtures/encoding-integration-test-locks/Windows-1252/packages.lock.json file and found 1 package
 Scanned <rootdir>/fixtures/encoding-integration-test-locks/Windows-1252/pnpm/pnpm-lock.yaml file and found 1 package
 Scanned <rootdir>/fixtures/encoding-integration-test-locks/Windows-1252/poetry.lock file and found 1 package
 Scanned <rootdir>/fixtures/encoding-integration-test-locks/Windows-1252/pom.xml file and found 1 package
 Scanned <rootdir>/fixtures/encoding-integration-test-locks/Windows-1252/pubspec.lock file and found 1 package
 Scanned <rootdir>/fixtures/encoding-integration-test-locks/Windows-1252/renv.lock file and found 1 package
-Scanned <rootdir>/fixtures/encoding-integration-test-locks/Windows-1252/requirements.txt file and found 1 package
+Scanned <rootdir>/fixtures/encoding-integration-test-locks/Windows-1252/requirements-test.txt file and found 4 packages
+Scanned <rootdir>/fixtures/encoding-integration-test-locks/Windows-1252/requirements.txt file and found 6 packages
 Scanned <rootdir>/fixtures/encoding-integration-test-locks/Windows-1252/yarn/yarn.lock file and found 1 package
 
 ---

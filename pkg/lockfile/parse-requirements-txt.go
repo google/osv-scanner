@@ -15,6 +15,133 @@ import (
 
 const PipEcosystem Ecosystem = "PyPI"
 
+// CommentType represents the type of dependency comment
+type CommentType int
+
+const (
+	// CommentTypeNone represents a comment that doesn't have any special meaning,
+	// and signifies we're parsing a multiline comment.
+	CommentTypeNone CommentType = iota
+
+	// CommentTypeIndirect represents a comment that signifies a package is an
+	// indirect dependency.
+	CommentTypeIndirect
+
+	// CommentTypeDirect represents a comment that signifies a package is a direct
+	// dependency.
+	CommentTypeDirect
+)
+
+// Comment represents a parsed requirements.txt comment
+type Comment struct {
+	Content string
+	Type    CommentType
+}
+
+// CommentParser handles parsing of requirements.txt comments
+type CommentParser struct {
+	currentComments []*Comment
+	multiline       bool
+}
+
+// ParseComment parses a single comment line and returns the parsed comment
+func (p *CommentParser) ParseComment(line string) *Comment {
+	// Early return if not a comment
+	if !strings.HasPrefix(strings.TrimSpace(line), "#") {
+		return nil
+	}
+
+	// Remove spaces before and after the `#`
+	content := strings.TrimSpace(strings.TrimPrefix(strings.TrimSpace(line), "#"))
+
+	// Handle empty comments
+	if content == "" {
+		return &Comment{Type: CommentTypeDirect}
+	}
+
+	// Continue multiline comments
+	if len(p.currentComments) != 0 {
+		comment := p.continueMultilineComment(content)
+		p.currentComments = append(p.currentComments, comment)
+
+		return comment
+	}
+
+	// Parse new comment
+	return p.parseNewComment(content)
+}
+
+// parseNewComment starts parsing a new comment (or series of comments) and returns the first line's parsed comment
+func (p *CommentParser) parseNewComment(content string) *Comment {
+	// Handle "via" prefix
+	if !strings.HasPrefix(strings.ToLower(content), "via") {
+		return &Comment{Type: CommentTypeDirect, Content: content}
+	}
+
+	content = strings.TrimPrefix(strings.ToLower(content), "via")
+	content = strings.TrimSpace(content)
+
+	// If the comment was just "# via", start multiline parsing
+	if content == "" {
+		p.currentComments = append(p.currentComments, &Comment{Type: CommentTypeNone})
+		p.multiline = true
+
+		return p.currentComments[0]
+	}
+
+	// Else, parse a single-line comment
+	return p.parseCommentContent(content)
+}
+
+// continueMultilineComment continues parsing a multiline comment and returns the parsed comment
+func (p *CommentParser) continueMultilineComment(content string) *Comment {
+	comment := p.parseCommentContent(content)
+	return comment
+}
+
+// parseCommentContent parses the content of a comment and returns the parsed comment
+// This is used for both single-line and multiline comments
+func (p *CommentParser) parseCommentContent(content string) *Comment {
+	// Parse to see if there's a package name only
+	if isValidPackageName(content) {
+		return &Comment{
+			Type:    CommentTypeIndirect,
+			Content: content,
+		}
+	}
+
+	// Parse to see if there's the "-r" prefix, indicating a file reference
+	if strings.HasPrefix(content, "-r ") {
+		return &Comment{
+			Type:    CommentTypeDirect,
+			Content: strings.TrimPrefix(content, "-r "),
+		}
+	}
+
+	// Else, treat as a manually-added comment
+	return &Comment{Type: CommentTypeDirect, Content: content}
+}
+
+// reset resets the parser state
+func (p *CommentParser) reset() {
+	p.currentComments = []*Comment{}
+	p.multiline = false
+}
+
+func (p *CommentParser) IsDirect() bool {
+	for _, comment := range p.currentComments {
+		if comment.Type == CommentTypeDirect {
+			return true
+		}
+	}
+
+	return false
+}
+
+func isValidPackageName(name string) bool {
+	return cachedregexp.MustCompile(`^[a-zA-Z0-9_-]+$`).MatchString(name)
+}
+
 // todo: expand this to support more things, e.g.
 //
 //	https://pip.pypa.io/en/stable/reference/requirements-file-format/#example
@@ -86,6 +213,7 @@ func parseLine(path string, line string, lineNumber int, lineOffset int, columnS
 		PackageManager:  models.Requirements,
 		Ecosystem:       PipEcosystem,
 		CompareAs:       PipEcosystem,
+		IsDirect:        true,
 	}
 }
 
@@ -110,9 +238,15 @@ func normalizedRequirementName(name string) string {
 }
 
 func removeComments(line string) string {
-	var re = cachedregexp.MustCompile(`(^|\s+)#.*$`)
+	re := cachedregexp.MustCompile(`(\s*)#.*$`)
 
 	return strings.TrimSpace(re.ReplaceAllString(line, ""))
+}
+
+func isComment(line string) bool {
+	re := cachedregexp.MustCompile(`^\s*#`)
+
+	return re.MatchString(line)
 }
 
 func isNotRequirementLine(line string) bool {
@@ -130,7 +264,7 @@ func isNotRequirementLine(line string) bool {
 func isLineContinuation(line string) bool {
 	// checks that the line ends with an odd number of back slashes,
 	// meaning the last one isn't escaped
-	var re = cachedregexp.MustCompile(`([^\\]|^)(\\{2})*\\$`)
+	re := cachedregexp.MustCompile(`([^\\]|^)(\\{2})*\\$`)
 
 	return re.MatchString(line)
 }
@@ -177,6 +311,17 @@ func parseRequirementsTxt(f DepFile, requiredAlready map[string]struct{}) ([]Pac
 	scanner := bufio.NewScanner(f)
 	var lineNumber, lineOffset, columnStart, columnEnd int
 
+	// inHeaderComments is only true if we're in a block of comments at the top of the file
+	inHeaderComments := false
+	autoGenerated := false
+
+	// This is used to store the last package details parsed,
+	// so we can update it with information parsed from the comments following it
+	lastPkg := PackageDetails{}
+	lastPkgKey := ""
+
+	commentParser := &CommentParser{}
+
 	for scanner.Scan() {
 		lineNumber += lineOffset + 1
 		lineOffset = 0
@@ -196,6 +341,37 @@ func parseRequirementsTxt(f DepFile, requiredAlready map[string]struct{}) ([]Pac
 			}
 		}
 
+		isCommentLine := isComment(line)
+
+		if isCommentLine && (inHeaderComments || lineNumber == 1) {
+			inHeaderComments = true
+
+			if strings.Contains(line, "autogenerated") {
+				autoGenerated = true
+			}
+		} else {
+			inHeaderComments = false
+		}
+
+		// Attempt to parse the comment if this is a comment line in an autogenerated file
+		if autoGenerated && isCommentLine {
+			comment := commentParser.ParseComment(line)
+
+			// If this was a single-line comment, check if we should set `IsDirect` to false.
+			if !commentParser.multiline && comment.Type == CommentTypeIndirect {
+				lastPkg.IsDirect = false
+				packages[lastPkgKey] = lastPkg
+			}
+		} else {
+			if commentParser.multiline && len(commentParser.currentComments) > 0 {
+				direct := commentParser.IsDirect()
+				lastPkg.IsDirect = direct
+				packages[lastPkgKey] = lastPkg
+			}
+
+			commentParser.reset()
+		}
+
 		line = removeComments(line)
 		if ar := strings.TrimPrefix(line, "-r "); ar != line {
 			if strings.HasPrefix(ar, "http://") || strings.HasPrefix(ar, "https://") {
@@ -204,7 +380,6 @@ func parseRequirementsTxt(f DepFile, requiredAlready map[string]struct{}) ([]Pac
 			}
 			err := func() error {
 				af, err := f.Open(ar)
-
 				if err != nil {
 					return fmt.Errorf("failed to include %s: %w", line, err)
 				}
@@ -218,7 +393,6 @@ func parseRequirementsTxt(f DepFile, requiredAlready map[string]struct{}) ([]Pac
 				requiredAlready[af.Path()] = struct{}{}
 
 				details, err := parseRequirementsTxt(af, requiredAlready)
-
 				if err != nil {
 					return fmt.Errorf("failed to include %s: %w", line, err)
 				}
@@ -229,7 +403,6 @@ func parseRequirementsTxt(f DepFile, requiredAlready map[string]struct{}) ([]Pac
 
 				return nil
 			}()
-
 			if err != nil {
 				return []PackageDetails{}, err
 			}
@@ -253,6 +426,16 @@ func parseRequirementsTxt(f DepFile, requiredAlready map[string]struct{}) ([]Pac
 			d.DepGroups = append(d.DepGroups, group)
 			packages[key] = d
 		}
+
+		lastPkg = d
+		lastPkgKey = key
+	}
+
+	// if we had a multiline comment at the end of the file, we need to update the last package
+	if commentParser.multiline && len(commentParser.currentComments) > 0 {
+		direct := commentParser.IsDirect()
+		lastPkg.IsDirect = direct
+		packages[lastPkgKey] = lastPkg
 	}
 
 	if err := scanner.Err(); err != nil {

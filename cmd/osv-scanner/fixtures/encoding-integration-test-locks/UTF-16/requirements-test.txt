@@ -1,0 +1,7 @@
+beautifulsoup4==4.9.3
+    # via -r requirements.in
+django-debug-toolbar==3.2.2
+    # via django
+django-filter==2.4.0
+
+-r other-requirements.txt
