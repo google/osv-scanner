@@ -121,7 +121,7 @@ func createScanInput(path string, root string, fileInfo fs.FileInfo) (*filesyste
 	}
 
 	// Rel will strip root from the input path.
-	path, err = filepath.Rel(string(filepath.Separator), path)
+	path, err = filepath.Rel(root, path)
 	if err != nil {
 		return nil, err
 	}
