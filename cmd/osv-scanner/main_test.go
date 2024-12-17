@@ -3,9 +3,11 @@ package main
 
 import (
 	"bytes"
+	"errors"
 	"os"
 	"path/filepath"
 	"reflect"
+	"runtime"
 	"strings"
 	"testing"
 
@@ -749,116 +751,118 @@ func TestRun_Licenses(t *testing.T) {
 }
 
 // TODO(v2): Image scanning is not temporarily disabled
-//
-// func TestRun_Docker(t *testing.T) {
-// 	t.Parallel()
 
-// 	testutility.SkipIfNotAcceptanceTesting(t, "Takes a long time to pull down images")
+func TestRun_Docker(t *testing.T) {
+	t.Parallel()
+	t.Skip("Skipping until image scanning is reenabled")
 
-// 	tests := []cliTestCase{
-// 		{
-// 			name: "Fake alpine image",
-// 			args: []string{"", "--docker", "alpine:non-existent-tag"},
-// 			exit: 127,
-// 		},
-// 		{
-// 			name: "Fake image entirely",
-// 			args: []string{"", "--docker", "this-image-definitely-does-not-exist-abcde"},
-// 			exit: 127,
-// 		},
-// 		// TODO: How to prevent these snapshots from changing constantly
-// 		{
-// 			name: "Real empty image",
-// 			args: []string{"", "--docker", "hello-world"},
-// 			exit: 128, // No packages found
-// 		},
-// 		{
-// 			name: "Real empty image with tag",
-// 			args: []string{"", "--docker", "hello-world:linux"},
-// 			exit: 128, // No package found
-// 		},
-// 		{
-// 			name: "Real Alpine image",
-// 			args: []string{"", "--docker", "alpine:3.18.9"},
-// 			exit: 0,
-// 		},
-// 	}
-// 	for _, tt := range tests {
-// 		t.Run(tt.name, func(t *testing.T) {
-// 			t.Parallel()
+	testutility.SkipIfNotAcceptanceTesting(t, "Takes a long time to pull down images")
 
-// 			// Only test on linux, and mac/windows CI/CD does not come with docker preinstalled
-// 			if runtime.GOOS == "linux" {
-// 				testCli(t, tt)
-// 			}
-// 		})
-// 	}
-// }
+	tests := []cliTestCase{
+		{
+			name: "Fake alpine image",
+			args: []string{"", "--docker", "alpine:non-existent-tag"},
+			exit: 127,
+		},
+		{
+			name: "Fake image entirely",
+			args: []string{"", "--docker", "this-image-definitely-does-not-exist-abcde"},
+			exit: 127,
+		},
+		// TODO: How to prevent these snapshots from changing constantly
+		{
+			name: "Real empty image",
+			args: []string{"", "--docker", "hello-world"},
+			exit: 128, // No packages found
+		},
+		{
+			name: "Real empty image with tag",
+			args: []string{"", "--docker", "hello-world:linux"},
+			exit: 128, // No package found
+		},
+		{
+			name: "Real Alpine image",
+			args: []string{"", "--docker", "alpine:3.18.9"},
+			exit: 0,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			t.Parallel()
 
-// func TestRun_OCIImage(t *testing.T) {
-// 	t.Parallel()
+			// Only test on linux, and mac/windows CI/CD does not come with docker preinstalled
+			if runtime.GOOS == "linux" {
+				testCli(t, tt)
+			}
+		})
+	}
+}
 
-// 	testutility.SkipIfNotAcceptanceTesting(t, "Not consistent on MacOS/Windows")
+func TestRun_OCIImage(t *testing.T) {
+	t.Parallel()
+	t.Skip("Skipping until image scanning is reenabled")
 
-// 	tests := []cliTestCase{
-// 		{
-// 			name: "Invalid path",
-// 			args: []string{"", "--experimental-oci-image", "./fixtures/oci-image/no-file-here.tar"},
-// 			exit: 127,
-// 		},
-// 		{
-// 			name: "Alpine 3.10 image tar with 3.18 version file",
-// 			args: []string{"", "--experimental-oci-image", "../../internal/image/fixtures/test-alpine.tar"},
-// 			exit: 1,
-// 		},
-// 		{
-// 			name: "scanning node_modules using npm with no packages",
-// 			args: []string{"", "--experimental-oci-image", "../../internal/image/fixtures/test-node_modules-npm-empty.tar"},
-// 			exit: 1,
-// 		},
-// 		{
-// 			name: "scanning node_modules using npm with some packages",
-// 			args: []string{"", "--experimental-oci-image", "../../internal/image/fixtures/test-node_modules-npm-full.tar"},
-// 			exit: 1,
-// 		},
-// 		{
-// 			name: "scanning node_modules using yarn with no packages",
-// 			args: []string{"", "--experimental-oci-image", "../../internal/image/fixtures/test-node_modules-yarn-empty.tar"},
-// 			exit: 1,
-// 		},
-// 		{
-// 			name: "scanning node_modules using yarn with some packages",
-// 			args: []string{"", "--experimental-oci-image", "../../internal/image/fixtures/test-node_modules-yarn-full.tar"},
-// 			exit: 1,
-// 		},
-// 		{
-// 			name: "scanning node_modules using pnpm with no packages",
-// 			args: []string{"", "--experimental-oci-image", "../../internal/image/fixtures/test-node_modules-pnpm-empty.tar"},
-// 			exit: 1,
-// 		},
-// 		{
-// 			name: "scanning node_modules using pnpm with some packages",
-// 			args: []string{"", "--experimental-oci-image", "../../internal/image/fixtures/test-node_modules-pnpm-full.tar"},
-// 			exit: 1,
-// 		},
-// 	}
-// 	for _, tt := range tests {
-// 		t.Run(tt.name, func(t *testing.T) {
-// 			t.Parallel()
+	testutility.SkipIfNotAcceptanceTesting(t, "Not consistent on MacOS/Windows")
 
-// 			// point out that we need the images to be built and saved separately
-// 			for _, arg := range tt.args {
-// 				if strings.HasPrefix(arg, "../../internal/image/fixtures/") && strings.HasSuffix(arg, ".tar") {
-// 					if _, err := os.Stat(arg); errors.Is(err, os.ErrNotExist) {
-// 						t.Fatalf("%s does not exist - have you run scripts/build_test_images.sh?", arg)
-// 					}
-// 				}
-// 			}
+	tests := []cliTestCase{
+		{
+			name: "Invalid path",
+			args: []string{"", "--experimental-oci-image", "./fixtures/oci-image/no-file-here.tar"},
+			exit: 127,
+		},
+		{
+			name: "Alpine 3.10 image tar with 3.18 version file",
+			args: []string{"", "--experimental-oci-image", "../../internal/image/fixtures/test-alpine.tar"},
+			exit: 1,
+		},
+		{
+			name: "scanning node_modules using npm with no packages",
+			args: []string{"", "--experimental-oci-image", "../../internal/image/fixtures/test-node_modules-npm-empty.tar"},
+			exit: 1,
+		},
+		{
+			name: "scanning node_modules using npm with some packages",
+			args: []string{"", "--experimental-oci-image", "../../internal/image/fixtures/test-node_modules-npm-full.tar"},
+			exit: 1,
+		},
+		{
+			name: "scanning node_modules using yarn with no packages",
+			args: []string{"", "--experimental-oci-image", "../../internal/image/fixtures/test-node_modules-yarn-empty.tar"},
+			exit: 1,
+		},
+		{
+			name: "scanning node_modules using yarn with some packages",
+			args: []string{"", "--experimental-oci-image", "../../internal/image/fixtures/test-node_modules-yarn-full.tar"},
+			exit: 1,
+		},
+		{
+			name: "scanning node_modules using pnpm with no packages",
+			args: []string{"", "--experimental-oci-image", "../../internal/image/fixtures/test-node_modules-pnpm-empty.tar"},
+			exit: 1,
+		},
+		{
+			name: "scanning node_modules using pnpm with some packages",
+			args: []string{"", "--experimental-oci-image", "../../internal/image/fixtures/test-node_modules-pnpm-full.tar"},
+			exit: 1,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			t.Parallel()
 
-// 			testCli(t, tt)
-// 		})
-// 	}
-// }
+			// point out that we need the images to be built and saved separately
+			for _, arg := range tt.args {
+				if strings.HasPrefix(arg, "../../internal/image/fixtures/") && strings.HasSuffix(arg, ".tar") {
+					if _, err := os.Stat(arg); errors.Is(err, os.ErrNotExist) {
+						t.Fatalf("%s does not exist - have you run scripts/build_test_images.sh?", arg)
+					}
+				}
+			}
+
+			testCli(t, tt)
+		})
+	}
+}
 
 // Tests all subcommands here.
 func TestRun_SubCommands(t *testing.T) {
