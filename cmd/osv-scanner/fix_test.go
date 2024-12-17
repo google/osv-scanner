@@ -49,10 +49,10 @@ func TestRun_Fix(t *testing.T) {
 			lockfile: "./fix/fixtures/in-place-npm/package-lock.json",
 		},
 		{
-			name:     "fix non-interactive relock package.json",
-			args:     []string{"", "fix", "--non-interactive", "--strategy=relock"},
+			name:     "fix non-interactive relax package.json",
+			args:     []string{"", "fix", "--non-interactive", "--strategy=relax"},
 			exit:     0,
-			manifest: "./fix/fixtures/relock-npm/package.json",
+			manifest: "./fix/fixtures/relax-npm/package.json",
 		},
 		{
 			name:     "fix non-interactive override pom.xml",
@@ -67,10 +67,10 @@ func TestRun_Fix(t *testing.T) {
 			lockfile: "./fix/fixtures/in-place-npm/package-lock.json",
 		},
 		{
-			name:     "fix non-interactive json relock package.json",
-			args:     []string{"", "fix", "--non-interactive", "--strategy=relock", "--format=json"},
+			name:     "fix non-interactive json relax package.json",
+			args:     []string{"", "fix", "--non-interactive", "--strategy=relax", "--format=json"},
 			exit:     0,
-			manifest: "./fix/fixtures/relock-npm/package.json",
+			manifest: "./fix/fixtures/relax-npm/package.json",
 		},
 		{
 			name:     "fix non-interactive json override pom.xml",

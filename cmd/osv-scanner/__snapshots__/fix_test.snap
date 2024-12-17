@@ -3930,7 +3930,7 @@ Rewriting <tempdir>/pom.xml...
 </project>
 ---
 
-[TestRun_Fix/fix_non-interactive_json_relock_package.json - 1]
+[TestRun_Fix/fix_non-interactive_json_relax_package.json - 1]
 {
   "path": "<tempdir>/package.json",
   "ecosystem": "npm",
@@ -4029,14 +4029,14 @@ Rewriting <tempdir>/pom.xml...
 
 ---
 
-[TestRun_Fix/fix_non-interactive_json_relock_package.json - 2]
+[TestRun_Fix/fix_non-interactive_json_relax_package.json - 2]
 Warning: `fix` exists as both a subcommand of OSV-Scanner and as a file on the filesystem. `fix` is assumed to be a subcommand here. If you intended for `fix` to be an argument to `fix`, you must specify `fix fix` in your command line.
 Resolving <tempdir>/package.json...
 Rewriting <tempdir>/package.json...
 
 ---
 
-[TestRun_Fix/fix_non-interactive_json_relock_package.json - 3]
+[TestRun_Fix/fix_non-interactive_json_relax_package.json - 3]
 {
   "name": "osv-fix",
   "version": "1.0.0",
@@ -4121,7 +4121,7 @@ Warning: `fix` exists as both a subcommand of OSV-Scanner and as a file on the f
 </project>
 ---
 
-[TestRun_Fix/fix_non-interactive_relock_package.json - 1]
+[TestRun_Fix/fix_non-interactive_relax_package.json - 1]
 Resolving <tempdir>/package.json...
 Found 5 vulnerabilities matching the filter
 Can fix 3/5 matching vulnerabilities by changing 1 dependencies
@@ -4133,12 +4133,12 @@ Rewriting <tempdir>/package.json...
 
 ---
 
-[TestRun_Fix/fix_non-interactive_relock_package.json - 2]
+[TestRun_Fix/fix_non-interactive_relax_package.json - 2]
 Warning: `fix` exists as both a subcommand of OSV-Scanner and as a file on the filesystem. `fix` is assumed to be a subcommand here. If you intended for `fix` to be an argument to `fix`, you must specify `fix fix` in your command line.
 
 ---
 
-[TestRun_Fix/fix_non-interactive_relock_package.json - 3]
+[TestRun_Fix/fix_non-interactive_relax_package.json - 3]
 {
   "name": "osv-fix",
   "version": "1.0.0",
