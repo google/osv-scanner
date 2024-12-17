@@ -116,7 +116,7 @@ osv-scanner fix --non-interactive --format text --strategy=relax -M path/to/pack
 ```
 
 <details markdown="1">
-<summary><b>Sample relax JSON output</b></summary>
+<summary><b>Sample relax text output</b></summary>
 
 ```
 Resolving path/to/package.json...
@@ -147,11 +147,97 @@ osv-scanner fix --non-interactive --format json --strategy=relax -M path/to/pack
 ```
 
 <details markdown="1">
-<summary><b>Sample relax text output</b></summary>
+<summary><b>Sample relax JSON output</b></summary>
 
 ```json
 {
-  "todo": "populate"
+  "path": "path/to/package.json",
+  "ecosystem": "npm",
+  "strategy": "relax",
+  "vulnerabilities": [
+    {
+      "id": "GHSA-gcx4-mw62-g8wm",
+      "packages": [
+        {
+          "name": "rollup",
+          "version": "1.32.1"
+        }
+      ],
+      "unactionable": true
+    },
+    {
+      "id": "GHSA-h755-8qp9-cq85",
+      "packages": [
+        {
+          "name": "protobufjs",
+          "version": "6.11.3"
+        }
+      ]
+    },
+    {
+      "id": "GHSA-pfq8-rq6v-vf5m",
+      "packages": [
+        {
+          "name": "html-minifier",
+          "version": "4.0.0"
+        }
+      ],
+      "unactionable": true
+    },
+    {
+      "id": "GHSA-xvch-5gv4-984h",
+      "packages": [
+        {
+          "name": "minimist",
+          "version": "0.0.8"
+        }
+      ]
+    }
+  ],
+  "patches": [
+    {
+      "packageUpdates": [
+        {
+          "name": "@google-cloud/cloudbuild",
+          "versionFrom": "^2.6.0",
+          "versionTo": "^4.7.0",
+          "transitive": false
+        }
+      ],
+      "fixed": [
+        {
+          "id": "GHSA-h755-8qp9-cq85",
+          "packages": [
+            {
+              "name": "protobufjs",
+              "version": "6.11.3"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "packageUpdates": [
+        {
+          "name": "mocha",
+          "versionFrom": "^5.2.0",
+          "versionTo": "^8.4.0",
+          "transitive": false
+        }
+      ],
+      "fixed": [
+        {
+          "id": "GHSA-xvch-5gv4-984h",
+          "packages": [
+            {
+              "name": "minimist",
+              "version": "0.0.8"
+            }
+          ]
+        }
+      ]
+    }
+  ]
 }
 ```
 
