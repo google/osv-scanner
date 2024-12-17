@@ -60,7 +60,7 @@ func (e PackageOverrideEntry) matches(pkg imodels.PackageInfo) bool {
 	if e.Version != "" && e.Version != pkg.Version {
 		return false
 	}
-	// If there is a ecosystem filter, the filter must not match both the:
+	// If there is an ecosystem filter, the filter must not match both the:
 	//  - Full ecosystem + suffix
 	//  - The base ecosystem
 	if e.Ecosystem != "" && (e.Ecosystem != pkg.Ecosystem.String() && e.Ecosystem != string(pkg.Ecosystem.Ecosystem)) {
