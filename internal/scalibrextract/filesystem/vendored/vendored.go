@@ -2,6 +2,8 @@ package vendored
 
 import (
 	"context"
+	//nolint:gosec
+	// md5 used to identify files, not for security purposes
 	"crypto/md5"
 	"errors"
 	"fmt"
