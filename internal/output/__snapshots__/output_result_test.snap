@@ -9,15 +9,15 @@
           "Name": ":path/to/my/first/lockfile",
           "Ecosystem": "npm",
           "PackageTypeCount": {
-            "Called": 2,
-            "Uncalled": 0
+            "Regular": 2,
+            "Hidden": 0
           },
           "Packages": [
             {
               "Name": "mine1",
               "InstalledVersion": "1.2.2",
               "FixedVersion": "No fix available",
-              "CalledVulns": [
+              "RegularVulns": [
                 {
                   "ID": "OSV-1",
                   "GroupIDs": [
@@ -26,11 +26,12 @@
                   "Aliases": null,
                   "IsFixable": false,
                   "FixedVersion": "No fix available",
+                  "VulnAnalysisType": 0,
                   "SeverityRating": "UNKNOWN",
                   "SeverityScore": "N/A"
                 }
               ],
-              "UncalledVulns": [],
+              "HiddenVulns": [],
               "LayerDetail": {
                 "LayerCommand": "",
                 "LayerCommandDetailed": "",
@@ -38,9 +39,9 @@
                 "InBaseImage": false
               },
               "VulnCount": {
-                "CallAnalysisCount": {
-                  "Called": 1,
-                  "Uncalled": 0
+                "AnalysisCount": {
+                  "Regular": 1,
+                  "Hidden": 0
                 },
                 "SeverityCount": {
                   "Critical": 0,
@@ -59,7 +60,7 @@
               "Name": "mine1",
               "InstalledVersion": "1.2.3",
               "FixedVersion": "No fix available",
-              "CalledVulns": [
+              "RegularVulns": [
                 {
                   "ID": "OSV-1",
                   "GroupIDs": [
@@ -68,6 +69,7 @@
                   "Aliases": null,
                   "IsFixable": false,
                   "FixedVersion": "No fix available",
+                  "VulnAnalysisType": 0,
                   "SeverityRating": "UNKNOWN",
                   "SeverityScore": "N/A"
                 },
@@ -79,11 +81,12 @@
                   "Aliases": null,
                   "IsFixable": false,
                   "FixedVersion": "No fix available",
+                  "VulnAnalysisType": 0,
                   "SeverityRating": "UNKNOWN",
                   "SeverityScore": "N/A"
                 }
               ],
-              "UncalledVulns": [],
+              "HiddenVulns": [],
               "LayerDetail": {
                 "LayerCommand": "",
                 "LayerCommandDetailed": "",
@@ -91,9 +94,9 @@
                 "InBaseImage": false
               },
               "VulnCount": {
-                "CallAnalysisCount": {
-                  "Called": 2,
-                  "Uncalled": 0
+                "AnalysisCount": {
+                  "Regular": 2,
+                  "Hidden": 0
                 },
                 "SeverityCount": {
                   "Critical": 0,
@@ -110,9 +113,9 @@
             }
           ],
           "VulnCount": {
-            "CallAnalysisCount": {
-              "Called": 3,
-              "Uncalled": 0
+            "AnalysisCount": {
+              "Regular": 3,
+              "Hidden": 0
             },
             "SeverityCount": {
               "Critical": 0,
@@ -131,15 +134,15 @@
           "Name": ":path/to/my/second/lockfile",
           "Ecosystem": "npm",
           "PackageTypeCount": {
-            "Called": 2,
-            "Uncalled": 0
+            "Regular": 2,
+            "Hidden": 0
           },
           "Packages": [
             {
               "Name": "mine2",
               "InstalledVersion": "3.2.5",
               "FixedVersion": "No fix available",
-              "CalledVulns": [
+              "RegularVulns": [
                 {
                   "ID": "OSV-2",
                   "GroupIDs": [
@@ -148,11 +151,12 @@
                   "Aliases": null,
                   "IsFixable": false,
                   "FixedVersion": "No fix available",
+                  "VulnAnalysisType": 0,
                   "SeverityRating": "UNKNOWN",
                   "SeverityScore": "N/A"
                 }
               ],
-              "UncalledVulns": [],
+              "HiddenVulns": [],
               "LayerDetail": {
                 "LayerCommand": "",
                 "LayerCommandDetailed": "",
@@ -160,9 +164,9 @@
                 "InBaseImage": false
               },
               "VulnCount": {
-                "CallAnalysisCount": {
-                  "Called": 1,
-                  "Uncalled": 0
+                "AnalysisCount": {
+                  "Regular": 1,
+                  "Hidden": 0
                 },
                 "SeverityCount": {
                   "Critical": 0,
@@ -181,7 +185,7 @@
               "Name": "mine3",
               "InstalledVersion": "0.4.1",
               "FixedVersion": "No fix available",
-              "CalledVulns": [
+              "RegularVulns": [
                 {
                   "ID": "OSV-3",
                   "GroupIDs": [
@@ -190,6 +194,7 @@
                   "Aliases": null,
                   "IsFixable": false,
                   "FixedVersion": "No fix available",
+                  "VulnAnalysisType": 0,
                   "SeverityRating": "UNKNOWN",
                   "SeverityScore": "N/A"
                 },
@@ -201,11 +206,12 @@
                   "Aliases": null,
                   "IsFixable": false,
                   "FixedVersion": "No fix available",
+                  "VulnAnalysisType": 0,
                   "SeverityRating": "UNKNOWN",
                   "SeverityScore": "N/A"
                 }
               ],
-              "UncalledVulns": [],
+              "HiddenVulns": [],
               "LayerDetail": {
                 "LayerCommand": "",
                 "LayerCommandDetailed": "",
@@ -213,9 +219,9 @@
                 "InBaseImage": false
               },
               "VulnCount": {
-                "CallAnalysisCount": {
-                  "Called": 2,
-                  "Uncalled": 0
+                "AnalysisCount": {
+                  "Regular": 2,
+                  "Hidden": 0
                 },
                 "SeverityCount": {
                   "Critical": 0,
@@ -232,9 +238,9 @@
             }
           ],
           "VulnCount": {
-            "CallAnalysisCount": {
-              "Called": 3,
-              "Uncalled": 0
+            "AnalysisCount": {
+              "Regular": 3,
+              "Hidden": 0
             },
             "SeverityCount": {
               "Critical": 0,
@@ -255,20 +261,20 @@
   ],
   "IsContainerScanning": false,
   "AllLayers": [],
-  "VulnTypeCount": {
+  "VulnTypeSummary": {
     "All": 6,
     "OS": 0,
     "Project": 6,
-    "Uncalled": 0
+    "Hidden": 0
   },
   "PackageTypeCount": {
-    "Called": 4,
-    "Uncalled": 0
+    "Regular": 4,
+    "Hidden": 0
   },
   "VulnCount": {
-    "CallAnalysisCount": {
-      "Called": 6,
-      "Uncalled": 0
+    "AnalysisCount": {
+      "Regular": 6,
+      "Hidden": 0
     },
     "SeverityCount": {
       "Critical": 0,
@@ -296,15 +302,15 @@
           "Name": ":path/to/my/first/lockfile",
           "Ecosystem": "npm",
           "PackageTypeCount": {
-            "Called": 2,
-            "Uncalled": 0
+            "Regular": 2,
+            "Hidden": 0
           },
           "Packages": [
             {
               "Name": "mine1",
               "InstalledVersion": "1.2.2",
               "FixedVersion": "No fix available",
-              "CalledVulns": [
+              "RegularVulns": [
                 {
                   "ID": "OSV-1",
                   "GroupIDs": [
@@ -313,11 +319,12 @@
                   "Aliases": null,
                   "IsFixable": false,
                   "FixedVersion": "No fix available",
+                  "VulnAnalysisType": 0,
                   "SeverityRating": "UNKNOWN",
                   "SeverityScore": "N/A"
                 }
               ],
-              "UncalledVulns": [],
+              "HiddenVulns": [],
               "LayerDetail": {
                 "LayerCommand": "",
                 "LayerCommandDetailed": "",
@@ -325,9 +332,9 @@
                 "InBaseImage": false
               },
               "VulnCount": {
-                "CallAnalysisCount": {
-                  "Called": 1,
-                  "Uncalled": 0
+                "AnalysisCount": {
+                  "Regular": 1,
+                  "Hidden": 0
                 },
                 "SeverityCount": {
                   "Critical": 0,
@@ -346,7 +353,7 @@
               "Name": "mine1",
               "InstalledVersion": "1.2.3",
               "FixedVersion": "No fix available",
-              "CalledVulns": [
+              "RegularVulns": [
                 {
                   "ID": "OSV-1",
                   "GroupIDs": [
@@ -355,6 +362,7 @@
                   "Aliases": null,
                   "IsFixable": false,
                   "FixedVersion": "No fix available",
+                  "VulnAnalysisType": 0,
                   "SeverityRating": "UNKNOWN",
                   "SeverityScore": "N/A"
                 },
@@ -366,11 +374,12 @@
                   "Aliases": null,
                   "IsFixable": false,
                   "FixedVersion": "No fix available",
+                  "VulnAnalysisType": 0,
                   "SeverityRating": "UNKNOWN",
                   "SeverityScore": "N/A"
                 }
               ],
-              "UncalledVulns": [],
+              "HiddenVulns": [],
               "LayerDetail": {
                 "LayerCommand": "",
                 "LayerCommandDetailed": "",
@@ -378,9 +387,9 @@
                 "InBaseImage": false
               },
               "VulnCount": {
-                "CallAnalysisCount": {
-                  "Called": 2,
-                  "Uncalled": 0
+                "AnalysisCount": {
+                  "Regular": 2,
+                  "Hidden": 0
                 },
                 "SeverityCount": {
                   "Critical": 0,
@@ -397,9 +406,9 @@
             }
           ],
           "VulnCount": {
-            "CallAnalysisCount": {
-              "Called": 3,
-              "Uncalled": 0
+            "AnalysisCount": {
+              "Regular": 3,
+              "Hidden": 0
             },
             "SeverityCount": {
               "Critical": 0,
@@ -418,15 +427,15 @@
           "Name": ":path/to/my/second/lockfile",
           "Ecosystem": "npm",
           "PackageTypeCount": {
-            "Called": 2,
-            "Uncalled": 0
+            "Regular": 2,
+            "Hidden": 0
           },
           "Packages": [
             {
               "Name": "mine2",
               "InstalledVersion": "3.2.5",
               "FixedVersion": "No fix available",
-              "CalledVulns": [
+              "RegularVulns": [
                 {
                   "ID": "OSV-2",
                   "GroupIDs": [
@@ -435,11 +444,12 @@
                   "Aliases": null,
                   "IsFixable": false,
                   "FixedVersion": "No fix available",
+                  "VulnAnalysisType": 0,
                   "SeverityRating": "UNKNOWN",
                   "SeverityScore": "N/A"
                 }
               ],
-              "UncalledVulns": [],
+              "HiddenVulns": [],
               "LayerDetail": {
                 "LayerCommand": "",
                 "LayerCommandDetailed": "",
@@ -447,9 +457,9 @@
                 "InBaseImage": false
               },
               "VulnCount": {
-                "CallAnalysisCount": {
-                  "Called": 1,
-                  "Uncalled": 0
+                "AnalysisCount": {
+                  "Regular": 1,
+                  "Hidden": 0
                 },
                 "SeverityCount": {
                   "Critical": 0,
@@ -468,7 +478,7 @@
               "Name": "mine3",
               "InstalledVersion": "0.4.1",
               "FixedVersion": "No fix available",
-              "CalledVulns": [
+              "RegularVulns": [
                 {
                   "ID": "OSV-3",
                   "GroupIDs": [
@@ -477,6 +487,7 @@
                   "Aliases": null,
                   "IsFixable": false,
                   "FixedVersion": "No fix available",
+                  "VulnAnalysisType": 0,
                   "SeverityRating": "UNKNOWN",
                   "SeverityScore": "N/A"
                 },
@@ -488,11 +499,12 @@
                   "Aliases": null,
                   "IsFixable": false,
                   "FixedVersion": "No fix available",
+                  "VulnAnalysisType": 0,
                   "SeverityRating": "UNKNOWN",
                   "SeverityScore": "N/A"
                 }
               ],
-              "UncalledVulns": [],
+              "HiddenVulns": [],
               "LayerDetail": {
                 "LayerCommand": "",
                 "LayerCommandDetailed": "",
@@ -500,9 +512,9 @@
                 "InBaseImage": false
               },
               "VulnCount": {
-                "CallAnalysisCount": {
-                  "Called": 2,
-                  "Uncalled": 0
+                "AnalysisCount": {
+                  "Regular": 2,
+                  "Hidden": 0
                 },
                 "SeverityCount": {
                   "Critical": 0,
@@ -519,9 +531,9 @@
             }
           ],
           "VulnCount": {
-            "CallAnalysisCount": {
-              "Called": 3,
-              "Uncalled": 0
+            "AnalysisCount": {
+              "Regular": 3,
+              "Hidden": 0
             },
             "SeverityCount": {
               "Critical": 0,
@@ -542,20 +554,20 @@
   ],
   "IsContainerScanning": false,
   "AllLayers": [],
-  "VulnTypeCount": {
+  "VulnTypeSummary": {
     "All": 6,
     "OS": 0,
     "Project": 6,
-    "Uncalled": 0
+    "Hidden": 0
   },
   "PackageTypeCount": {
-    "Called": 4,
-    "Uncalled": 0
+    "Regular": 4,
+    "Hidden": 0
   },
   "VulnCount": {
-    "CallAnalysisCount": {
-      "Called": 6,
-      "Uncalled": 0
+    "AnalysisCount": {
+      "Regular": 6,
+      "Hidden": 0
     },
     "SeverityCount": {
       "Critical": 0,
@@ -583,16 +595,16 @@
           "Name": ":path/to/my/first/lockfile",
           "Ecosystem": "npm",
           "PackageTypeCount": {
-            "Called": 0,
-            "Uncalled": 0
+            "Regular": 0,
+            "Hidden": 0
           },
           "Packages": [
             {
               "Name": "mine1",
               "InstalledVersion": "1.2.3",
               "FixedVersion": "No fix available",
-              "CalledVulns": [],
-              "UncalledVulns": [],
+              "RegularVulns": [],
+              "HiddenVulns": [],
               "LayerDetail": {
                 "LayerCommand": "",
                 "LayerCommandDetailed": "",
@@ -600,9 +612,9 @@
                 "InBaseImage": false
               },
               "VulnCount": {
-                "CallAnalysisCount": {
-                  "Called": 0,
-                  "Uncalled": 0
+                "AnalysisCount": {
+                  "Regular": 0,
+                  "Hidden": 0
                 },
                 "SeverityCount": {
                   "Critical": 0,
@@ -619,9 +631,9 @@
             }
           ],
           "VulnCount": {
-            "CallAnalysisCount": {
-              "Called": 0,
-              "Uncalled": 0
+            "AnalysisCount": {
+              "Regular": 0,
+              "Hidden": 0
             },
             "SeverityCount": {
               "Critical": 0,
@@ -640,16 +652,16 @@
           "Name": ":path/to/my/second/lockfile",
           "Ecosystem": "npm",
           "PackageTypeCount": {
-            "Called": 0,
-            "Uncalled": 0
+            "Regular": 0,
+            "Hidden": 0
           },
           "Packages": [
             {
               "Name": "mine2",
               "InstalledVersion": "3.2.5",
               "FixedVersion": "No fix available",
-              "CalledVulns": [],
-              "UncalledVulns": [],
+              "RegularVulns": [],
+              "HiddenVulns": [],
               "LayerDetail": {
                 "LayerCommand": "",
                 "LayerCommandDetailed": "",
@@ -657,9 +669,9 @@
                 "InBaseImage": false
               },
               "VulnCount": {
-                "CallAnalysisCount": {
-                  "Called": 0,
-                  "Uncalled": 0
+                "AnalysisCount": {
+                  "Regular": 0,
+                  "Hidden": 0
                 },
                 "SeverityCount": {
                   "Critical": 0,
@@ -678,8 +690,8 @@
               "Name": "mine3",
               "InstalledVersion": "0.4.1",
               "FixedVersion": "No fix available",
-              "CalledVulns": [],
-              "UncalledVulns": [],
+              "RegularVulns": [],
+              "HiddenVulns": [],
               "LayerDetail": {
                 "LayerCommand": "",
                 "LayerCommandDetailed": "",
@@ -687,9 +699,9 @@
                 "InBaseImage": false
               },
               "VulnCount": {
-                "CallAnalysisCount": {
-                  "Called": 0,
-                  "Uncalled": 0
+                "AnalysisCount": {
+                  "Regular": 0,
+                  "Hidden": 0
                 },
                 "SeverityCount": {
                   "Critical": 0,
@@ -706,9 +718,9 @@
             }
           ],
           "VulnCount": {
-            "CallAnalysisCount": {
-              "Called": 0,
-              "Uncalled": 0
+            "AnalysisCount": {
+              "Regular": 0,
+              "Hidden": 0
             },
             "SeverityCount": {
               "Critical": 0,
@@ -727,16 +739,16 @@
           "Name": ":path/to/my/third/lockfile",
           "Ecosystem": "npm",
           "PackageTypeCount": {
-            "Called": 0,
-            "Uncalled": 0
+            "Regular": 0,
+            "Hidden": 0
           },
           "Packages": [
             {
               "Name": "mine1",
               "InstalledVersion": "1.2.3",
               "FixedVersion": "No fix available",
-              "CalledVulns": [],
-              "UncalledVulns": [],
+              "RegularVulns": [],
+              "HiddenVulns": [],
               "LayerDetail": {
                 "LayerCommand": "",
                 "LayerCommandDetailed": "",
@@ -744,9 +756,9 @@
                 "InBaseImage": false
               },
               "VulnCount": {
-                "CallAnalysisCount": {
-                  "Called": 0,
-                  "Uncalled": 0
+                "AnalysisCount": {
+                  "Regular": 0,
+                  "Hidden": 0
                 },
                 "SeverityCount": {
                   "Critical": 0,
@@ -765,8 +777,8 @@
               "Name": "mine1",
               "InstalledVersion": "1.3.5",
               "FixedVersion": "No fix available",
-              "CalledVulns": [],
-              "UncalledVulns": [],
+              "RegularVulns": [],
+              "HiddenVulns": [],
               "LayerDetail": {
                 "LayerCommand": "",
                 "LayerCommandDetailed": "",
@@ -774,9 +786,9 @@
                 "InBaseImage": false
               },
               "VulnCount": {
-                "CallAnalysisCount": {
-                  "Called": 0,
-                  "Uncalled": 0
+                "AnalysisCount": {
+                  "Regular": 0,
+                  "Hidden": 0
                 },
                 "SeverityCount": {
                   "Critical": 0,
@@ -793,9 +805,9 @@
             }
           ],
           "VulnCount": {
-            "CallAnalysisCount": {
-              "Called": 0,
-              "Uncalled": 0
+            "AnalysisCount": {
+              "Regular": 0,
+              "Hidden": 0
             },
             "SeverityCount": {
               "Critical": 0,
@@ -816,20 +828,20 @@
   ],
   "IsContainerScanning": false,
   "AllLayers": [],
-  "VulnTypeCount": {
+  "VulnTypeSummary": {
     "All": 0,
     "OS": 0,
     "Project": 0,
-    "Uncalled": 0
+    "Hidden": 0
   },
   "PackageTypeCount": {
-    "Called": 0,
-    "Uncalled": 0
+    "Regular": 0,
+    "Hidden": 0
   },
   "VulnCount": {
-    "CallAnalysisCount": {
-      "Called": 0,
-      "Uncalled": 0
+    "AnalysisCount": {
+      "Regular": 0,
+      "Hidden": 0
     },
     "SeverityCount": {
       "Critical": 0,
@@ -857,15 +869,15 @@
           "Name": ":path/to/my/first/lockfile",
           "Ecosystem": "npm",
           "PackageTypeCount": {
-            "Called": 1,
-            "Uncalled": 0
+            "Regular": 1,
+            "Hidden": 0
           },
           "Packages": [
             {
               "Name": "mine1",
               "InstalledVersion": "1.2.3",
               "FixedVersion": "No fix available",
-              "CalledVulns": [
+              "RegularVulns": [
                 {
                   "ID": "OSV-1",
                   "GroupIDs": [
@@ -874,11 +886,12 @@
                   "Aliases": null,
                   "IsFixable": false,
                   "FixedVersion": "No fix available",
+                  "VulnAnalysisType": 0,
                   "SeverityRating": "UNKNOWN",
                   "SeverityScore": "N/A"
                 }
               ],
-              "UncalledVulns": [],
+              "HiddenVulns": [],
               "LayerDetail": {
                 "LayerCommand": "",
                 "LayerCommandDetailed": "",
@@ -886,9 +899,9 @@
                 "InBaseImage": false
               },
               "VulnCount": {
-                "CallAnalysisCount": {
-                  "Called": 1,
-                  "Uncalled": 0
+                "AnalysisCount": {
+                  "Regular": 1,
+                  "Hidden": 0
                 },
                 "SeverityCount": {
                   "Critical": 0,
@@ -905,9 +918,9 @@
             }
           ],
           "VulnCount": {
-            "CallAnalysisCount": {
-              "Called": 1,
-              "Uncalled": 0
+            "AnalysisCount": {
+              "Regular": 1,
+              "Hidden": 0
             },
             "SeverityCount": {
               "Critical": 0,
@@ -926,15 +939,15 @@
           "Name": ":path/to/my/second/lockfile",
           "Ecosystem": "npm",
           "PackageTypeCount": {
-            "Called": 1,
-            "Uncalled": 0
+            "Regular": 1,
+            "Hidden": 0
           },
           "Packages": [
             {
               "Name": "mine2",
               "InstalledVersion": "3.2.5",
               "FixedVersion": "No fix available",
-              "CalledVulns": [
+              "RegularVulns": [
                 {
                   "ID": "OSV-2",
                   "GroupIDs": [
@@ -943,11 +956,12 @@
                   "Aliases": null,
                   "IsFixable": false,
                   "FixedVersion": "No fix available",
+                  "VulnAnalysisType": 0,
                   "SeverityRating": "UNKNOWN",
                   "SeverityScore": "N/A"
                 }
               ],
-              "UncalledVulns": [],
+              "HiddenVulns": [],
               "LayerDetail": {
                 "LayerCommand": "",
                 "LayerCommandDetailed": "",
@@ -955,9 +969,9 @@
                 "InBaseImage": false
               },
               "VulnCount": {
-                "CallAnalysisCount": {
-                  "Called": 1,
-                  "Uncalled": 0
+                "AnalysisCount": {
+                  "Regular": 1,
+                  "Hidden": 0
                 },
                 "SeverityCount": {
                   "Critical": 0,
@@ -976,8 +990,8 @@
               "Name": "mine3",
               "InstalledVersion": "0.4.1",
               "FixedVersion": "No fix available",
-              "CalledVulns": [],
-              "UncalledVulns": [],
+              "RegularVulns": [],
+              "HiddenVulns": [],
               "LayerDetail": {
                 "LayerCommand": "",
                 "LayerCommandDetailed": "",
@@ -985,9 +999,9 @@
                 "InBaseImage": false
               },
               "VulnCount": {
-                "CallAnalysisCount": {
-                  "Called": 0,
-                  "Uncalled": 0
+                "AnalysisCount": {
+                  "Regular": 0,
+                  "Hidden": 0
                 },
                 "SeverityCount": {
                   "Critical": 0,
@@ -1004,9 +1018,9 @@
             }
           ],
           "VulnCount": {
-            "CallAnalysisCount": {
-              "Called": 1,
-              "Uncalled": 0
+            "AnalysisCount": {
+              "Regular": 1,
+              "Hidden": 0
             },
             "SeverityCount": {
               "Critical": 0,
@@ -1025,15 +1039,15 @@
           "Name": ":path/to/my/third/lockfile",
           "Ecosystem": "npm",
           "PackageTypeCount": {
-            "Called": 1,
-            "Uncalled": 0
+            "Regular": 1,
+            "Hidden": 0
           },
           "Packages": [
             {
               "Name": "mine1",
               "InstalledVersion": "1.2.3",
               "FixedVersion": "No fix available",
-              "CalledVulns": [
+              "RegularVulns": [
                 {
                   "ID": "OSV-1",
                   "GroupIDs": [
@@ -1042,11 +1056,12 @@
                   "Aliases": null,
                   "IsFixable": false,
                   "FixedVersion": "No fix available",
+                  "VulnAnalysisType": 0,
                   "SeverityRating": "UNKNOWN",
                   "SeverityScore": "N/A"
                 }
               ],
-              "UncalledVulns": [],
+              "HiddenVulns": [],
               "LayerDetail": {
                 "LayerCommand": "",
                 "LayerCommandDetailed": "",
@@ -1054,9 +1069,9 @@
                 "InBaseImage": false
               },
               "VulnCount": {
-                "CallAnalysisCount": {
-                  "Called": 1,
-                  "Uncalled": 0
+                "AnalysisCount": {
+                  "Regular": 1,
+                  "Hidden": 0
                 },
                 "SeverityCount": {
                   "Critical": 0,
@@ -1075,8 +1090,8 @@
               "Name": "mine1",
               "InstalledVersion": "1.3.5",
               "FixedVersion": "No fix available",
-              "CalledVulns": [],
-              "UncalledVulns": [],
+              "RegularVulns": [],
+              "HiddenVulns": [],
               "LayerDetail": {
                 "LayerCommand": "",
                 "LayerCommandDetailed": "",
@@ -1084,9 +1099,9 @@
                 "InBaseImage": false
               },
               "VulnCount": {
-                "CallAnalysisCount": {
-                  "Called": 0,
-                  "Uncalled": 0
+                "AnalysisCount": {
+                  "Regular": 0,
+                  "Hidden": 0
                 },
                 "SeverityCount": {
                   "Critical": 0,
@@ -1103,9 +1118,9 @@
             }
           ],
           "VulnCount": {
-            "CallAnalysisCount": {
-              "Called": 1,
-              "Uncalled": 0
+            "AnalysisCount": {
+              "Regular": 1,
+              "Hidden": 0
             },
             "SeverityCount": {
               "Critical": 0,
@@ -1126,20 +1141,20 @@
   ],
   "IsContainerScanning": false,
   "AllLayers": [],
-  "VulnTypeCount": {
+  "VulnTypeSummary": {
     "All": 3,
     "OS": 0,
     "Project": 3,
-    "Uncalled": 0
+    "Hidden": 0
   },
   "PackageTypeCount": {
-    "Called": 3,
-    "Uncalled": 0
+    "Regular": 3,
+    "Hidden": 0
   },
   "VulnCount": {
-    "CallAnalysisCount": {
-      "Called": 3,
-      "Uncalled": 0
+    "AnalysisCount": {
+      "Regular": 3,
+      "Hidden": 0
     },
     "SeverityCount": {
       "Critical": 0,
@@ -1167,15 +1182,15 @@
           "Name": ":path/to/my/second/lockfile",
           "Ecosystem": "Packagist",
           "PackageTypeCount": {
-            "Called": 2,
-            "Uncalled": 0
+            "Regular": 2,
+            "Hidden": 0
           },
           "Packages": [
             {
               "Name": "author3/mine3",
               "InstalledVersion": "0.4.1",
               "FixedVersion": "No fix available",
-              "CalledVulns": [
+              "RegularVulns": [
                 {
                   "ID": "OSV-3",
                   "GroupIDs": [
@@ -1184,6 +1199,7 @@
                   "Aliases": null,
                   "IsFixable": false,
                   "FixedVersion": "No fix available",
+                  "VulnAnalysisType": 0,
                   "SeverityRating": "UNKNOWN",
                   "SeverityScore": "N/A"
                 },
@@ -1195,11 +1211,12 @@
                   "Aliases": null,
                   "IsFixable": false,
                   "FixedVersion": "No fix available",
+                  "VulnAnalysisType": 0,
                   "SeverityRating": "UNKNOWN",
                   "SeverityScore": "N/A"
                 }
               ],
-              "UncalledVulns": [],
+              "HiddenVulns": [],
               "LayerDetail": {
                 "LayerCommand": "",
                 "LayerCommandDetailed": "",
@@ -1207,9 +1224,9 @@
                 "InBaseImage": false
               },
               "VulnCount": {
-                "CallAnalysisCount": {
-                  "Called": 2,
-                  "Uncalled": 0
+                "AnalysisCount": {
+                  "Regular": 2,
+                  "Hidden": 0
                 },
                 "SeverityCount": {
                   "Critical": 0,
@@ -1228,7 +1245,7 @@
               "Name": "mine2",
               "InstalledVersion": "3.2.5",
               "FixedVersion": "No fix available",
-              "CalledVulns": [
+              "RegularVulns": [
                 {
                   "ID": "OSV-2",
                   "GroupIDs": [
@@ -1237,11 +1254,12 @@
                   "Aliases": null,
                   "IsFixable": false,
                   "FixedVersion": "No fix available",
+                  "VulnAnalysisType": 0,
                   "SeverityRating": "UNKNOWN",
                   "SeverityScore": "N/A"
                 }
               ],
-              "UncalledVulns": [],
+              "HiddenVulns": [],
               "LayerDetail": {
                 "LayerCommand": "",
                 "LayerCommandDetailed": "",
@@ -1249,9 +1267,9 @@
                 "InBaseImage": false
               },
               "VulnCount": {
-                "CallAnalysisCount": {
-                  "Called": 1,
-                  "Uncalled": 0
+                "AnalysisCount": {
+                  "Regular": 1,
+                  "Hidden": 0
                 },
                 "SeverityCount": {
                   "Critical": 0,
@@ -1268,9 +1286,9 @@
             }
           ],
           "VulnCount": {
-            "CallAnalysisCount": {
-              "Called": 3,
-              "Uncalled": 0
+            "AnalysisCount": {
+              "Regular": 3,
+              "Hidden": 0
             },
             "SeverityCount": {
               "Critical": 0,
@@ -1295,15 +1313,15 @@
           "Name": ":path/to/my/first/lockfile",
           "Ecosystem": "npm",
           "PackageTypeCount": {
-            "Called": 2,
-            "Uncalled": 0
+            "Regular": 2,
+            "Hidden": 0
           },
           "Packages": [
             {
               "Name": "author1/mine1",
               "InstalledVersion": "1.2.3",
               "FixedVersion": "No fix available",
-              "CalledVulns": [
+              "RegularVulns": [
                 {
                   "ID": "OSV-1",
                   "GroupIDs": [
@@ -1312,6 +1330,7 @@
                   "Aliases": null,
                   "IsFixable": false,
                   "FixedVersion": "No fix available",
+                  "VulnAnalysisType": 0,
                   "SeverityRating": "UNKNOWN",
                   "SeverityScore": "N/A"
                 },
@@ -1323,11 +1342,12 @@
                   "Aliases": null,
                   "IsFixable": false,
                   "FixedVersion": "No fix available",
+                  "VulnAnalysisType": 0,
                   "SeverityRating": "UNKNOWN",
                   "SeverityScore": "N/A"
                 }
               ],
-              "UncalledVulns": [],
+              "HiddenVulns": [],
               "LayerDetail": {
                 "LayerCommand": "",
                 "LayerCommandDetailed": "",
@@ -1335,9 +1355,9 @@
                 "InBaseImage": false
               },
               "VulnCount": {
-                "CallAnalysisCount": {
-                  "Called": 2,
-                  "Uncalled": 0
+                "AnalysisCount": {
+                  "Regular": 2,
+                  "Hidden": 0
                 },
                 "SeverityCount": {
                   "Critical": 0,
@@ -1356,7 +1376,7 @@
               "Name": "mine1",
               "InstalledVersion": "1.2.2",
               "FixedVersion": "No fix available",
-              "CalledVulns": [
+              "RegularVulns": [
                 {
                   "ID": "OSV-1",
                   "GroupIDs": [
@@ -1365,11 +1385,12 @@
                   "Aliases": null,
                   "IsFixable": false,
                   "FixedVersion": "No fix available",
+                  "VulnAnalysisType": 0,
                   "SeverityRating": "UNKNOWN",
                   "SeverityScore": "N/A"
                 }
               ],
-              "UncalledVulns": [],
+              "HiddenVulns": [],
               "LayerDetail": {
                 "LayerCommand": "",
                 "LayerCommandDetailed": "",
@@ -1377,9 +1398,9 @@
                 "InBaseImage": false
               },
               "VulnCount": {
-                "CallAnalysisCount": {
-                  "Called": 1,
-                  "Uncalled": 0
+                "AnalysisCount": {
+                  "Regular": 1,
+                  "Hidden": 0
                 },
                 "SeverityCount": {
                   "Critical": 0,
@@ -1396,9 +1417,9 @@
             }
           ],
           "VulnCount": {
-            "CallAnalysisCount": {
-              "Called": 3,
-              "Uncalled": 0
+            "AnalysisCount": {
+              "Regular": 3,
+              "Hidden": 0
             },
             "SeverityCount": {
               "Critical": 0,
@@ -1419,20 +1440,20 @@
   ],
   "IsContainerScanning": false,
   "AllLayers": [],
-  "VulnTypeCount": {
+  "VulnTypeSummary": {
     "All": 6,
     "OS": 0,
     "Project": 6,
-    "Uncalled": 0
+    "Hidden": 0
   },
   "PackageTypeCount": {
-    "Called": 4,
-    "Uncalled": 0
+    "Regular": 4,
+    "Hidden": 0
   },
   "VulnCount": {
-    "CallAnalysisCount": {
-      "Called": 6,
-      "Uncalled": 0
+    "AnalysisCount": {
+      "Regular": 6,
+      "Hidden": 0
     },
     "SeverityCount": {
       "Critical": 0,
@@ -1460,15 +1481,15 @@
           "Name": ":path/to/my/second/lockfile",
           "Ecosystem": "Packagist",
           "PackageTypeCount": {
-            "Called": 2,
-            "Uncalled": 0
+            "Regular": 2,
+            "Hidden": 0
           },
           "Packages": [
             {
               "Name": "author3/mine3",
               "InstalledVersion": "0.4.1",
               "FixedVersion": "No fix available",
-              "CalledVulns": [
+              "RegularVulns": [
                 {
                   "ID": "OSV-3",
                   "GroupIDs": [
@@ -1477,6 +1498,7 @@
                   "Aliases": null,
                   "IsFixable": false,
                   "FixedVersion": "No fix available",
+                  "VulnAnalysisType": 0,
                   "SeverityRating": "UNKNOWN",
                   "SeverityScore": "N/A"
                 },
@@ -1488,11 +1510,12 @@
                   "Aliases": null,
                   "IsFixable": false,
                   "FixedVersion": "No fix available",
+                  "VulnAnalysisType": 0,
                   "SeverityRating": "UNKNOWN",
                   "SeverityScore": "N/A"
                 }
               ],
-              "UncalledVulns": [],
+              "HiddenVulns": [],
               "LayerDetail": {
                 "LayerCommand": "",
                 "LayerCommandDetailed": "",
@@ -1500,9 +1523,9 @@
                 "InBaseImage": false
               },
               "VulnCount": {
-                "CallAnalysisCount": {
-                  "Called": 2,
-                  "Uncalled": 0
+                "AnalysisCount": {
+                  "Regular": 2,
+                  "Hidden": 0
                 },
                 "SeverityCount": {
                   "Critical": 0,
@@ -1521,7 +1544,7 @@
               "Name": "mine2",
               "InstalledVersion": "3.2.5",
               "FixedVersion": "No fix available",
-              "CalledVulns": [
+              "RegularVulns": [
                 {
                   "ID": "OSV-2",
                   "GroupIDs": [
@@ -1530,11 +1553,12 @@
                   "Aliases": null,
                   "IsFixable": false,
                   "FixedVersion": "No fix available",
+                  "VulnAnalysisType": 0,
                   "SeverityRating": "UNKNOWN",
                   "SeverityScore": "N/A"
                 }
               ],
-              "UncalledVulns": [],
+              "HiddenVulns": [],
               "LayerDetail": {
                 "LayerCommand": "",
                 "LayerCommandDetailed": "",
@@ -1542,9 +1566,9 @@
                 "InBaseImage": false
               },
               "VulnCount": {
-                "CallAnalysisCount": {
-                  "Called": 1,
-                  "Uncalled": 0
+                "AnalysisCount": {
+                  "Regular": 1,
+                  "Hidden": 0
                 },
                 "SeverityCount": {
                   "Critical": 0,
@@ -1561,9 +1585,9 @@
             }
           ],
           "VulnCount": {
-            "CallAnalysisCount": {
-              "Called": 3,
-              "Uncalled": 0
+            "AnalysisCount": {
+              "Regular": 3,
+              "Hidden": 0
             },
             "SeverityCount": {
               "Critical": 0,
@@ -1588,15 +1612,15 @@
           "Name": ":path/to/my/first/lockfile",
           "Ecosystem": "npm",
           "PackageTypeCount": {
-            "Called": 2,
-            "Uncalled": 1
+            "Regular": 2,
+            "Hidden": 1
           },
           "Packages": [
             {
               "Name": "author1/mine1",
               "InstalledVersion": "1.2.3",
               "FixedVersion": "No fix available",
-              "CalledVulns": [
+              "RegularVulns": [
                 {
                   "ID": "OSV-5",
                   "GroupIDs": [
@@ -1605,11 +1629,12 @@
                   "Aliases": null,
                   "IsFixable": false,
                   "FixedVersion": "No fix available",
+                  "VulnAnalysisType": 0,
                   "SeverityRating": "UNKNOWN",
                   "SeverityScore": "N/A"
                 }
               ],
-              "UncalledVulns": [
+              "HiddenVulns": [
                 {
                   "ID": "OSV-1",
                   "GroupIDs": [
@@ -1618,6 +1643,7 @@
                   "Aliases": null,
                   "IsFixable": false,
                   "FixedVersion": "No fix available",
+                  "VulnAnalysisType": 1,
                   "SeverityRating": "UNKNOWN",
                   "SeverityScore": "N/A"
                 }
@@ -1629,9 +1655,9 @@
                 "InBaseImage": false
               },
               "VulnCount": {
-                "CallAnalysisCount": {
-                  "Called": 1,
-                  "Uncalled": 1
+                "AnalysisCount": {
+                  "Regular": 1,
+                  "Hidden": 1
                 },
                 "SeverityCount": {
                   "Critical": 0,
@@ -1650,7 +1676,7 @@
               "Name": "mine1",
               "InstalledVersion": "1.2.2",
               "FixedVersion": "No fix available",
-              "CalledVulns": [
+              "RegularVulns": [
                 {
                   "ID": "OSV-1",
                   "GroupIDs": [
@@ -1659,11 +1685,12 @@
                   "Aliases": null,
                   "IsFixable": false,
                   "FixedVersion": "No fix available",
+                  "VulnAnalysisType": 0,
                   "SeverityRating": "UNKNOWN",
                   "SeverityScore": "N/A"
                 }
               ],
-              "UncalledVulns": [],
+              "HiddenVulns": [],
               "LayerDetail": {
                 "LayerCommand": "",
                 "LayerCommandDetailed": "",
@@ -1671,9 +1698,9 @@
                 "InBaseImage": false
               },
               "VulnCount": {
-                "CallAnalysisCount": {
-                  "Called": 1,
-                  "Uncalled": 0
+                "AnalysisCount": {
+                  "Regular": 1,
+                  "Hidden": 0
                 },
                 "SeverityCount": {
                   "Critical": 0,
@@ -1690,9 +1717,9 @@
             }
           ],
           "VulnCount": {
-            "CallAnalysisCount": {
-              "Called": 2,
-              "Uncalled": 1
+            "AnalysisCount": {
+              "Regular": 2,
+              "Hidden": 1
             },
             "SeverityCount": {
               "Critical": 0,
@@ -1713,20 +1740,20 @@
   ],
   "IsContainerScanning": false,
   "AllLayers": [],
-  "VulnTypeCount": {
+  "VulnTypeSummary": {
     "All": 5,
     "OS": 0,
     "Project": 5,
-    "Uncalled": 1
+    "Hidden": 1
   },
   "PackageTypeCount": {
-    "Called": 4,
-    "Uncalled": 1
+    "Regular": 4,
+    "Hidden": 1
   },
   "VulnCount": {
-    "CallAnalysisCount": {
-      "Called": 5,
-      "Uncalled": 1
+    "AnalysisCount": {
+      "Regular": 5,
+      "Hidden": 1
     },
     "SeverityCount": {
       "Critical": 0,
@@ -1754,14 +1781,14 @@
           "Name": ":path/to/my/first/lockfile",
           "Ecosystem": "",
           "PackageTypeCount": {
-            "Called": 0,
-            "Uncalled": 0
+            "Regular": 0,
+            "Hidden": 0
           },
           "Packages": [],
           "VulnCount": {
-            "CallAnalysisCount": {
-              "Called": 0,
-              "Uncalled": 0
+            "AnalysisCount": {
+              "Regular": 0,
+              "Hidden": 0
             },
             "SeverityCount": {
               "Critical": 0,
@@ -1780,14 +1807,14 @@
           "Name": ":path/to/my/second/lockfile",
           "Ecosystem": "",
           "PackageTypeCount": {
-            "Called": 0,
-            "Uncalled": 0
+            "Regular": 0,
+            "Hidden": 0
           },
           "Packages": [],
           "VulnCount": {
-            "CallAnalysisCount": {
-              "Called": 0,
-              "Uncalled": 0
+            "AnalysisCount": {
+              "Regular": 0,
+              "Hidden": 0
             },
             "SeverityCount": {
               "Critical": 0,
@@ -1806,14 +1833,14 @@
           "Name": ":path/to/my/third/lockfile",
           "Ecosystem": "",
           "PackageTypeCount": {
-            "Called": 0,
-            "Uncalled": 0
+            "Regular": 0,
+            "Hidden": 0
           },
           "Packages": [],
           "VulnCount": {
-            "CallAnalysisCount": {
-              "Called": 0,
-              "Uncalled": 0
+            "AnalysisCount": {
+              "Regular": 0,
+              "Hidden": 0
             },
             "SeverityCount": {
               "Critical": 0,
@@ -1834,20 +1861,20 @@
   ],
   "IsContainerScanning": false,
   "AllLayers": [],
-  "VulnTypeCount": {
+  "VulnTypeSummary": {
     "All": 0,
     "OS": 0,
     "Project": 0,
-    "Uncalled": 0
+    "Hidden": 0
   },
   "PackageTypeCount": {
-    "Called": 0,
-    "Uncalled": 0
+    "Regular": 0,
+    "Hidden": 0
   },
   "VulnCount": {
-    "CallAnalysisCount": {
-      "Called": 0,
-      "Uncalled": 0
+    "AnalysisCount": {
+      "Regular": 0,
+      "Hidden": 0
     },
     "SeverityCount": {
       "Critical": 0,
@@ -1870,20 +1897,20 @@
   "Ecosystems": null,
   "IsContainerScanning": false,
   "AllLayers": [],
-  "VulnTypeCount": {
+  "VulnTypeSummary": {
     "All": 0,
     "OS": 0,
     "Project": 0,
-    "Uncalled": 0
+    "Hidden": 0
   },
   "PackageTypeCount": {
-    "Called": 0,
-    "Uncalled": 0
+    "Regular": 0,
+    "Hidden": 0
   },
   "VulnCount": {
-    "CallAnalysisCount": {
-      "Called": 0,
-      "Uncalled": 0
+    "AnalysisCount": {
+      "Regular": 0,
+      "Hidden": 0
     },
     "SeverityCount": {
       "Critical": 0,
@@ -1911,14 +1938,14 @@
           "Name": ":path/to/my/first/lockfile",
           "Ecosystem": "",
           "PackageTypeCount": {
-            "Called": 0,
-            "Uncalled": 0
+            "Regular": 0,
+            "Hidden": 0
           },
           "Packages": [],
           "VulnCount": {
-            "CallAnalysisCount": {
-              "Called": 0,
-              "Uncalled": 0
+            "AnalysisCount": {
+              "Regular": 0,
+              "Hidden": 0
             },
             "SeverityCount": {
               "Critical": 0,
@@ -1939,20 +1966,20 @@
   ],
   "IsContainerScanning": false,
   "AllLayers": [],
-  "VulnTypeCount": {
+  "VulnTypeSummary": {
     "All": 0,
     "OS": 0,
     "Project": 0,
-    "Uncalled": 0
+    "Hidden": 0
   },
   "PackageTypeCount": {
-    "Called": 0,
-    "Uncalled": 0
+    "Regular": 0,
+    "Hidden": 0
   },
   "VulnCount": {
-    "CallAnalysisCount": {
-      "Called": 0,
-      "Uncalled": 0
+    "AnalysisCount": {
+      "Regular": 0,
+      "Hidden": 0
     },
     "SeverityCount": {
       "Critical": 0,
@@ -1980,16 +2007,16 @@
           "Name": ":path/to/my/first/lockfile",
           "Ecosystem": "npm",
           "PackageTypeCount": {
-            "Called": 0,
-            "Uncalled": 0
+            "Regular": 0,
+            "Hidden": 0
           },
           "Packages": [
             {
               "Name": "mine1",
               "InstalledVersion": "1.2.3",
               "FixedVersion": "No fix available",
-              "CalledVulns": [],
-              "UncalledVulns": [],
+              "RegularVulns": [],
+              "HiddenVulns": [],
               "LayerDetail": {
                 "LayerCommand": "",
                 "LayerCommandDetailed": "",
@@ -1997,9 +2024,9 @@
                 "InBaseImage": false
               },
               "VulnCount": {
-                "CallAnalysisCount": {
-                  "Called": 0,
-                  "Uncalled": 0
+                "AnalysisCount": {
+                  "Regular": 0,
+                  "Hidden": 0
                 },
                 "SeverityCount": {
                   "Critical": 0,
@@ -2016,9 +2043,9 @@
             }
           ],
           "VulnCount": {
-            "CallAnalysisCount": {
-              "Called": 0,
-              "Uncalled": 0
+            "AnalysisCount": {
+              "Regular": 0,
+              "Hidden": 0
             },
             "SeverityCount": {
               "Critical": 0,
@@ -2039,20 +2066,20 @@
   ],
   "IsContainerScanning": false,
   "AllLayers": [],
-  "VulnTypeCount": {
+  "VulnTypeSummary": {
     "All": 0,
     "OS": 0,
     "Project": 0,
-    "Uncalled": 0
+    "Hidden": 0
   },
   "PackageTypeCount": {
-    "Called": 0,
-    "Uncalled": 0
+    "Regular": 0,
+    "Hidden": 0
   },
   "VulnCount": {
-    "CallAnalysisCount": {
-      "Called": 0,
-      "Uncalled": 0
+    "AnalysisCount": {
+      "Regular": 0,
+      "Hidden": 0
     },
     "SeverityCount": {
       "Critical": 0,
@@ -2080,15 +2107,15 @@
           "Name": ":path/to/my/first/lockfile",
           "Ecosystem": "npm",
           "PackageTypeCount": {
-            "Called": 1,
-            "Uncalled": 1
+            "Regular": 1,
+            "Hidden": 1
           },
           "Packages": [
             {
               "Name": "mine1",
               "InstalledVersion": "1.2.3",
               "FixedVersion": "No fix available",
-              "CalledVulns": [
+              "RegularVulns": [
                 {
                   "ID": "OSV-1",
                   "GroupIDs": [
@@ -2097,11 +2124,12 @@
                   "Aliases": null,
                   "IsFixable": false,
                   "FixedVersion": "No fix available",
+                  "VulnAnalysisType": 0,
                   "SeverityRating": "UNKNOWN",
                   "SeverityScore": "N/A"
                 }
               ],
-              "UncalledVulns": [
+              "HiddenVulns": [
                 {
                   "ID": "GHSA-123",
                   "GroupIDs": [
@@ -2110,6 +2138,7 @@
                   "Aliases": null,
                   "IsFixable": false,
                   "FixedVersion": "No fix available",
+                  "VulnAnalysisType": 1,
                   "SeverityRating": "UNKNOWN",
                   "SeverityScore": "N/A"
                 }
@@ -2121,9 +2150,9 @@
                 "InBaseImage": false
               },
               "VulnCount": {
-                "CallAnalysisCount": {
-                  "Called": 1,
-                  "Uncalled": 1
+                "AnalysisCount": {
+                  "Regular": 1,
+                  "Hidden": 1
                 },
                 "SeverityCount": {
                   "Critical": 0,
@@ -2140,9 +2169,9 @@
             }
           ],
           "VulnCount": {
-            "CallAnalysisCount": {
-              "Called": 1,
-              "Uncalled": 1
+            "AnalysisCount": {
+              "Regular": 1,
+              "Hidden": 1
             },
             "SeverityCount": {
               "Critical": 0,
@@ -2163,20 +2192,20 @@
   ],
   "IsContainerScanning": false,
   "AllLayers": [],
-  "VulnTypeCount": {
+  "VulnTypeSummary": {
     "All": 1,
     "OS": 0,
     "Project": 1,
-    "Uncalled": 1
+    "Hidden": 1
   },
   "PackageTypeCount": {
-    "Called": 1,
-    "Uncalled": 1
+    "Regular": 1,
+    "Hidden": 1
   },
   "VulnCount": {
-    "CallAnalysisCount": {
-      "Called": 1,
-      "Uncalled": 1
+    "AnalysisCount": {
+      "Regular": 1,
+      "Hidden": 1
     },
     "SeverityCount": {
       "Critical": 0,
@@ -2204,15 +2233,15 @@
           "Name": ":path/to/my/first/lockfile",
           "Ecosystem": "npm",
           "PackageTypeCount": {
-            "Called": 1,
-            "Uncalled": 0
+            "Regular": 1,
+            "Hidden": 0
           },
           "Packages": [
             {
               "Name": "mine1",
               "InstalledVersion": "1.2.3",
               "FixedVersion": "No fix available",
-              "CalledVulns": [
+              "RegularVulns": [
                 {
                   "ID": "OSV-1",
                   "GroupIDs": [
@@ -2221,11 +2250,12 @@
                   "Aliases": null,
                   "IsFixable": false,
                   "FixedVersion": "No fix available",
+                  "VulnAnalysisType": 0,
                   "SeverityRating": "UNKNOWN",
                   "SeverityScore": "N/A"
                 }
               ],
-              "UncalledVulns": [],
+              "HiddenVulns": [],
               "LayerDetail": {
                 "LayerCommand": "",
                 "LayerCommandDetailed": "",
@@ -2233,9 +2263,9 @@
                 "InBaseImage": false
               },
               "VulnCount": {
-                "CallAnalysisCount": {
-                  "Called": 1,
-                  "Uncalled": 0
+                "AnalysisCount": {
+                  "Regular": 1,
+                  "Hidden": 0
                 },
                 "SeverityCount": {
                   "Critical": 0,
@@ -2252,9 +2282,9 @@
             }
           ],
           "VulnCount": {
-            "CallAnalysisCount": {
-              "Called": 1,
-              "Uncalled": 0
+            "AnalysisCount": {
+              "Regular": 1,
+              "Hidden": 0
             },
             "SeverityCount": {
               "Critical": 0,
@@ -2275,20 +2305,20 @@
   ],
   "IsContainerScanning": false,
   "AllLayers": [],
-  "VulnTypeCount": {
+  "VulnTypeSummary": {
     "All": 1,
     "OS": 0,
     "Project": 1,
-    "Uncalled": 0
+    "Hidden": 0
   },
   "PackageTypeCount": {
-    "Called": 1,
-    "Uncalled": 0
+    "Regular": 1,
+    "Hidden": 0
   },
   "VulnCount": {
-    "CallAnalysisCount": {
-      "Called": 1,
-      "Uncalled": 0
+    "AnalysisCount": {
+      "Regular": 1,
+      "Hidden": 0
     },
     "SeverityCount": {
       "Critical": 0,
@@ -2316,16 +2346,16 @@
           "Name": ":path/to/my/first/lockfile",
           "Ecosystem": "npm",
           "PackageTypeCount": {
-            "Called": 0,
-            "Uncalled": 1
+            "Regular": 0,
+            "Hidden": 1
           },
           "Packages": [
             {
               "Name": "mine1",
               "InstalledVersion": "1.2.3",
               "FixedVersion": "No fix available",
-              "CalledVulns": [],
-              "UncalledVulns": [
+              "RegularVulns": [],
+              "HiddenVulns": [
                 {
                   "ID": "OSV-1",
                   "GroupIDs": [
@@ -2334,6 +2364,7 @@
                   "Aliases": null,
                   "IsFixable": false,
                   "FixedVersion": "No fix available",
+                  "VulnAnalysisType": 1,
                   "SeverityRating": "UNKNOWN",
                   "SeverityScore": "N/A"
                 }
@@ -2345,9 +2376,9 @@
                 "InBaseImage": false
               },
               "VulnCount": {
-                "CallAnalysisCount": {
-                  "Called": 0,
-                  "Uncalled": 1
+                "AnalysisCount": {
+                  "Regular": 0,
+                  "Hidden": 1
                 },
                 "SeverityCount": {
                   "Critical": 0,
@@ -2364,9 +2395,9 @@
             }
           ],
           "VulnCount": {
-            "CallAnalysisCount": {
-              "Called": 0,
-              "Uncalled": 1
+            "AnalysisCount": {
+              "Regular": 0,
+              "Hidden": 1
             },
             "SeverityCount": {
               "Critical": 0,
@@ -2387,20 +2418,20 @@
   ],
   "IsContainerScanning": false,
   "AllLayers": [],
-  "VulnTypeCount": {
+  "VulnTypeSummary": {
     "All": 0,
     "OS": 0,
     "Project": 0,
-    "Uncalled": 1
+    "Hidden": 1
   },
   "PackageTypeCount": {
-    "Called": 0,
-    "Uncalled": 1
+    "Regular": 0,
+    "Hidden": 1
   },
   "VulnCount": {
-    "CallAnalysisCount": {
-      "Called": 0,
-      "Uncalled": 1
+    "AnalysisCount": {
+      "Regular": 0,
+      "Hidden": 1
     },
     "SeverityCount": {
       "Critical": 0,
@@ -2428,15 +2459,15 @@
           "Name": ":path/to/my/first/lockfile",
           "Ecosystem": "npm",
           "PackageTypeCount": {
-            "Called": 1,
-            "Uncalled": 0
+            "Regular": 1,
+            "Hidden": 0
           },
           "Packages": [
             {
               "Name": "mine1",
               "InstalledVersion": "1.2.3",
               "FixedVersion": "No fix available",
-              "CalledVulns": [
+              "RegularVulns": [
                 {
                   "ID": "OSV-1",
                   "GroupIDs": [
@@ -2445,11 +2476,12 @@
                   "Aliases": null,
                   "IsFixable": false,
                   "FixedVersion": "No fix available",
+                  "VulnAnalysisType": 0,
                   "SeverityRating": "UNKNOWN",
                   "SeverityScore": "N/A"
                 }
               ],
-              "UncalledVulns": [],
+              "HiddenVulns": [],
               "LayerDetail": {
                 "LayerCommand": "",
                 "LayerCommandDetailed": "",
@@ -2457,9 +2489,9 @@
                 "InBaseImage": false
               },
               "VulnCount": {
-                "CallAnalysisCount": {
-                  "Called": 1,
-                  "Uncalled": 0
+                "AnalysisCount": {
+                  "Regular": 1,
+                  "Hidden": 0
                 },
                 "SeverityCount": {
                   "Critical": 0,
@@ -2476,9 +2508,9 @@
             }
           ],
           "VulnCount": {
-            "CallAnalysisCount": {
-              "Called": 1,
-              "Uncalled": 0
+            "AnalysisCount": {
+              "Regular": 1,
+              "Hidden": 0
             },
             "SeverityCount": {
               "Critical": 0,
@@ -2499,20 +2531,20 @@
   ],
   "IsContainerScanning": false,
   "AllLayers": [],
-  "VulnTypeCount": {
+  "VulnTypeSummary": {
     "All": 1,
     "OS": 0,
     "Project": 1,
-    "Uncalled": 0
+    "Hidden": 0
   },
   "PackageTypeCount": {
-    "Called": 1,
-    "Uncalled": 0
+    "Regular": 1,
+    "Hidden": 0
   },
   "VulnCount": {
-    "CallAnalysisCount": {
-      "Called": 1,
-      "Uncalled": 0
+    "AnalysisCount": {
+      "Regular": 1,
+      "Hidden": 0
     },
     "SeverityCount": {
       "Critical": 0,
@@ -2540,15 +2572,15 @@
           "Name": ":path/to/my/first/lockfile",
           "Ecosystem": "npm",
           "PackageTypeCount": {
-            "Called": 1,
-            "Uncalled": 0
+            "Regular": 1,
+            "Hidden": 0
           },
           "Packages": [
             {
               "Name": "mine1",
               "InstalledVersion": "1.2.3",
               "FixedVersion": "No fix available",
-              "CalledVulns": [
+              "RegularVulns": [
                 {
                   "ID": "OSV-1",
                   "GroupIDs": [
@@ -2557,11 +2589,12 @@
                   "Aliases": null,
                   "IsFixable": false,
                   "FixedVersion": "No fix available",
+                  "VulnAnalysisType": 0,
                   "SeverityRating": "UNKNOWN",
                   "SeverityScore": "N/A"
                 }
               ],
-              "UncalledVulns": [],
+              "HiddenVulns": [],
               "LayerDetail": {
                 "LayerCommand": "",
                 "LayerCommandDetailed": "",
@@ -2569,9 +2602,9 @@
                 "InBaseImage": false
               },
               "VulnCount": {
-                "CallAnalysisCount": {
-                  "Called": 1,
-                  "Uncalled": 0
+                "AnalysisCount": {
+                  "Regular": 1,
+                  "Hidden": 0
                 },
                 "SeverityCount": {
                   "Critical": 0,
@@ -2588,9 +2621,9 @@
             }
           ],
           "VulnCount": {
-            "CallAnalysisCount": {
-              "Called": 1,
-              "Uncalled": 0
+            "AnalysisCount": {
+              "Regular": 1,
+              "Hidden": 0
             },
             "SeverityCount": {
               "Critical": 0,
@@ -2611,20 +2644,20 @@
   ],
   "IsContainerScanning": false,
   "AllLayers": [],
-  "VulnTypeCount": {
+  "VulnTypeSummary": {
     "All": 1,
     "OS": 0,
     "Project": 1,
-    "Uncalled": 0
+    "Hidden": 0
   },
   "PackageTypeCount": {
-    "Called": 1,
-    "Uncalled": 0
+    "Regular": 1,
+    "Hidden": 0
   },
   "VulnCount": {
-    "CallAnalysisCount": {
-      "Called": 1,
-      "Uncalled": 0
+    "AnalysisCount": {
+      "Regular": 1,
+      "Hidden": 0
     },
     "SeverityCount": {
       "Critical": 0,
@@ -2652,16 +2685,16 @@
           "Name": ":path/to/my/first/lockfile",
           "Ecosystem": "npm",
           "PackageTypeCount": {
-            "Called": 0,
-            "Uncalled": 1
+            "Regular": 0,
+            "Hidden": 1
           },
           "Packages": [
             {
               "Name": "mine1",
               "InstalledVersion": "1.2.3",
               "FixedVersion": "No fix available",
-              "CalledVulns": [],
-              "UncalledVulns": [
+              "RegularVulns": [],
+              "HiddenVulns": [
                 {
                   "ID": "OSV-1",
                   "GroupIDs": [
@@ -2674,6 +2707,7 @@
                   ],
                   "IsFixable": false,
                   "FixedVersion": "No fix available",
+                  "VulnAnalysisType": 1,
                   "SeverityRating": "UNKNOWN",
                   "SeverityScore": "N/A"
                 }
@@ -2685,9 +2719,9 @@
                 "InBaseImage": false
               },
               "VulnCount": {
-                "CallAnalysisCount": {
-                  "Called": 0,
-                  "Uncalled": 1
+                "AnalysisCount": {
+                  "Regular": 0,
+                  "Hidden": 1
                 },
                 "SeverityCount": {
                   "Critical": 0,
@@ -2704,9 +2738,9 @@
             }
           ],
           "VulnCount": {
-            "CallAnalysisCount": {
-              "Called": 0,
-              "Uncalled": 1
+            "AnalysisCount": {
+              "Regular": 0,
+              "Hidden": 1
             },
             "SeverityCount": {
               "Critical": 0,
@@ -2727,20 +2761,20 @@
   ],
   "IsContainerScanning": false,
   "AllLayers": [],
-  "VulnTypeCount": {
+  "VulnTypeSummary": {
     "All": 0,
     "OS": 0,
     "Project": 0,
-    "Uncalled": 1
+    "Hidden": 1
   },
   "PackageTypeCount": {
-    "Called": 0,
-    "Uncalled": 1
+    "Regular": 0,
+    "Hidden": 1
   },
   "VulnCount": {
-    "CallAnalysisCount": {
-      "Called": 0,
-      "Uncalled": 1
+    "AnalysisCount": {
+      "Regular": 0,
+      "Hidden": 1
     },
     "SeverityCount": {
       "Critical": 0,
@@ -2768,15 +2802,15 @@
           "Name": ":path/to/my/first/lockfile",
           "Ecosystem": "npm",
           "PackageTypeCount": {
-            "Called": 1,
-            "Uncalled": 0
+            "Regular": 1,
+            "Hidden": 0
           },
           "Packages": [
             {
               "Name": "mine1",
               "InstalledVersion": "1.2.3",
               "FixedVersion": "No fix available",
-              "CalledVulns": [
+              "RegularVulns": [
                 {
                   "ID": "OSV-1",
                   "GroupIDs": [
@@ -2789,11 +2823,12 @@
                   ],
                   "IsFixable": false,
                   "FixedVersion": "No fix available",
+                  "VulnAnalysisType": 0,
                   "SeverityRating": "UNKNOWN",
                   "SeverityScore": "N/A"
                 }
               ],
-              "UncalledVulns": [],
+              "HiddenVulns": [],
               "LayerDetail": {
                 "LayerCommand": "",
                 "LayerCommandDetailed": "",
@@ -2801,9 +2836,9 @@
                 "InBaseImage": false
               },
               "VulnCount": {
-                "CallAnalysisCount": {
-                  "Called": 1,
-                  "Uncalled": 0
+                "AnalysisCount": {
+                  "Regular": 1,
+                  "Hidden": 0
                 },
                 "SeverityCount": {
                   "Critical": 0,
@@ -2820,9 +2855,9 @@
             }
           ],
           "VulnCount": {
-            "CallAnalysisCount": {
-              "Called": 1,
-              "Uncalled": 0
+            "AnalysisCount": {
+              "Regular": 1,
+              "Hidden": 0
             },
             "SeverityCount": {
               "Critical": 0,
@@ -2843,20 +2878,20 @@
   ],
   "IsContainerScanning": false,
   "AllLayers": [],
-  "VulnTypeCount": {
+  "VulnTypeSummary": {
     "All": 1,
     "OS": 0,
     "Project": 1,
-    "Uncalled": 0
+    "Hidden": 0
   },
   "PackageTypeCount": {
-    "Called": 1,
-    "Uncalled": 0
+    "Regular": 1,
+    "Hidden": 0
   },
   "VulnCount": {
-    "CallAnalysisCount": {
-      "Called": 1,
-      "Uncalled": 0
+    "AnalysisCount": {
+      "Regular": 1,
+      "Hidden": 0
     },
     "SeverityCount": {
       "Critical": 0,
@@ -2884,15 +2919,15 @@
           "Name": ":path/to/my/first/lockfile",
           "Ecosystem": "npm",
           "PackageTypeCount": {
-            "Called": 2,
-            "Uncalled": 0
+            "Regular": 2,
+            "Hidden": 0
           },
           "Packages": [
             {
               "Name": "mine1",
               "InstalledVersion": "1.2.3",
               "FixedVersion": "No fix available",
-              "CalledVulns": [
+              "RegularVulns": [
                 {
                   "ID": "OSV-1",
                   "GroupIDs": [
@@ -2901,11 +2936,12 @@
                   "Aliases": null,
                   "IsFixable": false,
                   "FixedVersion": "No fix available",
+                  "VulnAnalysisType": 0,
                   "SeverityRating": "UNKNOWN",
                   "SeverityScore": "N/A"
                 }
               ],
-              "UncalledVulns": [],
+              "HiddenVulns": [],
               "LayerDetail": {
                 "LayerCommand": "",
                 "LayerCommandDetailed": "",
@@ -2913,9 +2949,9 @@
                 "InBaseImage": false
               },
               "VulnCount": {
-                "CallAnalysisCount": {
-                  "Called": 1,
-                  "Uncalled": 0
+                "AnalysisCount": {
+                  "Regular": 1,
+                  "Hidden": 0
                 },
                 "SeverityCount": {
                   "Critical": 0,
@@ -2934,7 +2970,7 @@
               "Name": "mine3",
               "InstalledVersion": "0.10.2-rc",
               "FixedVersion": "No fix available",
-              "CalledVulns": [
+              "RegularVulns": [
                 {
                   "ID": "OSV-2",
                   "GroupIDs": [
@@ -2943,11 +2979,12 @@
                   "Aliases": null,
                   "IsFixable": false,
                   "FixedVersion": "No fix available",
+                  "VulnAnalysisType": 0,
                   "SeverityRating": "UNKNOWN",
                   "SeverityScore": "N/A"
                 }
               ],
-              "UncalledVulns": [],
+              "HiddenVulns": [],
               "LayerDetail": {
                 "LayerCommand": "",
                 "LayerCommandDetailed": "",
@@ -2955,9 +2992,9 @@
                 "InBaseImage": false
               },
               "VulnCount": {
-                "CallAnalysisCount": {
-                  "Called": 1,
-                  "Uncalled": 0
+                "AnalysisCount": {
+                  "Regular": 1,
+                  "Hidden": 0
                 },
                 "SeverityCount": {
                   "Critical": 0,
@@ -2974,9 +3011,9 @@
             }
           ],
           "VulnCount": {
-            "CallAnalysisCount": {
-              "Called": 2,
-              "Uncalled": 0
+            "AnalysisCount": {
+              "Regular": 2,
+              "Hidden": 0
             },
             "SeverityCount": {
               "Critical": 0,
@@ -2997,20 +3034,20 @@
   ],
   "IsContainerScanning": false,
   "AllLayers": [],
-  "VulnTypeCount": {
+  "VulnTypeSummary": {
     "All": 2,
     "OS": 0,
     "Project": 2,
-    "Uncalled": 0
+    "Hidden": 0
   },
   "PackageTypeCount": {
-    "Called": 2,
-    "Uncalled": 0
+    "Regular": 2,
+    "Hidden": 0
   },
   "VulnCount": {
-    "CallAnalysisCount": {
-      "Called": 2,
-      "Uncalled": 0
+    "AnalysisCount": {
+      "Regular": 2,
+      "Hidden": 0
     },
     "SeverityCount": {
       "Critical": 0,
@@ -3038,15 +3075,15 @@
           "Name": ":path/to/my/first/lockfile",
           "Ecosystem": "npm",
           "PackageTypeCount": {
-            "Called": 1,
-            "Uncalled": 0
+            "Regular": 1,
+            "Hidden": 0
           },
           "Packages": [
             {
               "Name": "mine1",
               "InstalledVersion": "1.2.3",
               "FixedVersion": "No fix available",
-              "CalledVulns": [
+              "RegularVulns": [
                 {
                   "ID": "OSV-1",
                   "GroupIDs": [
@@ -3055,11 +3092,12 @@
                   "Aliases": null,
                   "IsFixable": false,
                   "FixedVersion": "No fix available",
+                  "VulnAnalysisType": 0,
                   "SeverityRating": "UNKNOWN",
                   "SeverityScore": "N/A"
                 }
               ],
-              "UncalledVulns": [],
+              "HiddenVulns": [],
               "LayerDetail": {
                 "LayerCommand": "",
                 "LayerCommandDetailed": "",
@@ -3067,9 +3105,9 @@
                 "InBaseImage": false
               },
               "VulnCount": {
-                "CallAnalysisCount": {
-                  "Called": 1,
-                  "Uncalled": 0
+                "AnalysisCount": {
+                  "Regular": 1,
+                  "Hidden": 0
                 },
                 "SeverityCount": {
                   "Critical": 0,
@@ -3086,9 +3124,9 @@
             }
           ],
           "VulnCount": {
-            "CallAnalysisCount": {
-              "Called": 1,
-              "Uncalled": 0
+            "AnalysisCount": {
+              "Regular": 1,
+              "Hidden": 0
             },
             "SeverityCount": {
               "Critical": 0,
@@ -3107,16 +3145,16 @@
           "Name": ":path/to/my/second/lockfile",
           "Ecosystem": "npm",
           "PackageTypeCount": {
-            "Called": 0,
-            "Uncalled": 0
+            "Regular": 0,
+            "Hidden": 0
           },
           "Packages": [
             {
               "Name": "mine2",
               "InstalledVersion": "5.9.0",
               "FixedVersion": "No fix available",
-              "CalledVulns": [],
-              "UncalledVulns": [],
+              "RegularVulns": [],
+              "HiddenVulns": [],
               "LayerDetail": {
                 "LayerCommand": "",
                 "LayerCommandDetailed": "",
@@ -3124,9 +3162,9 @@
                 "InBaseImage": false
               },
               "VulnCount": {
-                "CallAnalysisCount": {
-                  "Called": 0,
-                  "Uncalled": 0
+                "AnalysisCount": {
+                  "Regular": 0,
+                  "Hidden": 0
                 },
                 "SeverityCount": {
                   "Critical": 0,
@@ -3143,9 +3181,9 @@
             }
           ],
           "VulnCount": {
-            "CallAnalysisCount": {
-              "Called": 0,
-              "Uncalled": 0
+            "AnalysisCount": {
+              "Regular": 0,
+              "Hidden": 0
             },
             "SeverityCount": {
               "Critical": 0,
@@ -3166,20 +3204,20 @@
   ],
   "IsContainerScanning": false,
   "AllLayers": [],
-  "VulnTypeCount": {
+  "VulnTypeSummary": {
     "All": 1,
     "OS": 0,
     "Project": 1,
-    "Uncalled": 0
+    "Hidden": 0
   },
   "PackageTypeCount": {
-    "Called": 1,
-    "Uncalled": 0
+    "Regular": 1,
+    "Hidden": 0
   },
   "VulnCount": {
-    "CallAnalysisCount": {
-      "Called": 1,
-      "Uncalled": 0
+    "AnalysisCount": {
+      "Regular": 1,
+      "Hidden": 0
     },
     "SeverityCount": {
       "Critical": 0,
@@ -3207,15 +3245,15 @@
           "Name": ":path/to/my/first/lockfile",
           "Ecosystem": "npm",
           "PackageTypeCount": {
-            "Called": 1,
-            "Uncalled": 0
+            "Regular": 1,
+            "Hidden": 0
           },
           "Packages": [
             {
               "Name": "mine1",
               "InstalledVersion": "1.2.3",
               "FixedVersion": "No fix available",
-              "CalledVulns": [
+              "RegularVulns": [
                 {
                   "ID": "OSV-1",
                   "GroupIDs": [
@@ -3224,11 +3262,12 @@
                   "Aliases": null,
                   "IsFixable": false,
                   "FixedVersion": "No fix available",
+                  "VulnAnalysisType": 0,
                   "SeverityRating": "UNKNOWN",
                   "SeverityScore": "N/A"
                 }
               ],
-              "UncalledVulns": [],
+              "HiddenVulns": [],
               "LayerDetail": {
                 "LayerCommand": "",
                 "LayerCommandDetailed": "",
@@ -3236,9 +3275,9 @@
                 "InBaseImage": false
               },
               "VulnCount": {
-                "CallAnalysisCount": {
-                  "Called": 1,
-                  "Uncalled": 0
+                "AnalysisCount": {
+                  "Regular": 1,
+                  "Hidden": 0
                 },
                 "SeverityCount": {
                   "Critical": 0,
@@ -3255,9 +3294,9 @@
             }
           ],
           "VulnCount": {
-            "CallAnalysisCount": {
-              "Called": 1,
-              "Uncalled": 0
+            "AnalysisCount": {
+              "Regular": 1,
+              "Hidden": 0
             },
             "SeverityCount": {
               "Critical": 0,
@@ -3276,15 +3315,15 @@
           "Name": ":path/to/my/second/lockfile",
           "Ecosystem": "npm",
           "PackageTypeCount": {
-            "Called": 1,
-            "Uncalled": 0
+            "Regular": 1,
+            "Hidden": 0
           },
           "Packages": [
             {
               "Name": "mine1",
               "InstalledVersion": "1.2.3",
               "FixedVersion": "No fix available",
-              "CalledVulns": [
+              "RegularVulns": [
                 {
                   "ID": "OSV-1",
                   "GroupIDs": [
@@ -3293,11 +3332,12 @@
                   "Aliases": null,
                   "IsFixable": false,
                   "FixedVersion": "No fix available",
+                  "VulnAnalysisType": 0,
                   "SeverityRating": "UNKNOWN",
                   "SeverityScore": "N/A"
                 }
               ],
-              "UncalledVulns": [],
+              "HiddenVulns": [],
               "LayerDetail": {
                 "LayerCommand": "",
                 "LayerCommandDetailed": "",
@@ -3305,9 +3345,9 @@
                 "InBaseImage": false
               },
               "VulnCount": {
-                "CallAnalysisCount": {
-                  "Called": 1,
-                  "Uncalled": 0
+                "AnalysisCount": {
+                  "Regular": 1,
+                  "Hidden": 0
                 },
                 "SeverityCount": {
                   "Critical": 0,
@@ -3324,9 +3364,9 @@
             }
           ],
           "VulnCount": {
-            "CallAnalysisCount": {
-              "Called": 1,
-              "Uncalled": 0
+            "AnalysisCount": {
+              "Regular": 1,
+              "Hidden": 0
             },
             "SeverityCount": {
               "Critical": 0,
@@ -3347,20 +3387,20 @@
   ],
   "IsContainerScanning": false,
   "AllLayers": [],
-  "VulnTypeCount": {
+  "VulnTypeSummary": {
     "All": 2,
     "OS": 0,
     "Project": 2,
-    "Uncalled": 0
+    "Hidden": 0
   },
   "PackageTypeCount": {
-    "Called": 2,
-    "Uncalled": 0
+    "Regular": 2,
+    "Hidden": 0
   },
   "VulnCount": {
-    "CallAnalysisCount": {
-      "Called": 2,
-      "Uncalled": 0
+    "AnalysisCount": {
+      "Regular": 2,
+      "Hidden": 0
     },
     "SeverityCount": {
       "Critical": 0,

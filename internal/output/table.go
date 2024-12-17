@@ -69,22 +69,31 @@ func newTable(outputWriter io.Writer, terminalWidth int) table.Writer {
 
 func tableBuilder(outputTable table.Writer, vulnResult *models.VulnerabilityResults) table.Writer {
 	outputTable.AppendHeader(table.Row{"OSV URL", "CVSS", "Ecosystem", "Package", "Version", "Source"})
-	rows := tableBuilderInner(vulnResult, true)
+	rows := tableBuilderInner(vulnResult, true, false)
 	for _, elem := range rows {
 		outputTable.AppendRow(elem.row, table.RowConfig{AutoMerge: elem.shouldMerge})
 	}
 
-	uncalledRows := tableBuilderInner(vulnResult, false)
-	if len(uncalledRows) == 0 {
-		return outputTable
+	uncalledRows := tableBuilderInner(vulnResult, false, false)
+	if len(uncalledRows) != 0 {
+		outputTable.AppendSeparator()
+		outputTable.AppendRow(table.Row{"Uncalled vulnerabilities"})
+		outputTable.AppendSeparator()
+
+		for _, elem := range uncalledRows {
+			outputTable.AppendRow(elem.row, table.RowConfig{AutoMerge: elem.shouldMerge})
+		}
 	}
 
-	outputTable.AppendSeparator()
-	outputTable.AppendRow(table.Row{"Uncalled vulnerabilities"})
-	outputTable.AppendSeparator()
+	unimportantRows := tableBuilderInner(vulnResult, true, true)
+	if len(unimportantRows) != 0 {
+		outputTable.AppendSeparator()
+		outputTable.AppendRow(table.Row{"Unimportant vulnerabilities"})
+		outputTable.AppendSeparator()
 
-	for _, elem := range uncalledRows {
-		outputTable.AppendRow(elem.row, table.RowConfig{AutoMerge: elem.shouldMerge})
+		for _, elem := range unimportantRows {
+			outputTable.AppendRow(elem.row, table.RowConfig{AutoMerge: elem.shouldMerge})
+		}
 	}
 
 	return outputTable
@@ -94,8 +103,8 @@ func printContainerScanningResult(result Result, outputWriter io.Writer, termina
 	summary := fmt.Sprintf(
 		"Total %[1]d packages affected by %[2]d vulnerabilities (%[3]d Critical, %[4]d High, %[5]d Medium, %[6]d Low, %[7]d Unknown) from %[8]d ecosystems.\n"+
 			"%[9]d vulnerabilities have fixes available.",
-		result.PackageTypeCount.Called,
-		result.VulnTypeCount.All,
+		result.PackageTypeCount.Regular,
+		result.VulnTypeSummary.All,
 		result.VulnCount.SeverityCount.Critical,
 		result.VulnCount.SeverityCount.High,
 		result.VulnCount.SeverityCount.Medium,
@@ -116,8 +125,11 @@ func printContainerScanningResult(result Result, outputWriter io.Writer, termina
 			outputTable.SetTitle("Source:" + source.Name)
 			outputTable.AppendHeader(table.Row{"Package", "Installed Version", "Fix available", "Vuln count"})
 			for _, pkg := range source.Packages {
+				if pkg.VulnCount.AnalysisCount.Regular == 0 {
+					continue
+				}
 				outputRow := table.Row{}
-				totalCount := pkg.VulnCount.CallAnalysisCount.Called
+				totalCount := pkg.VulnCount.AnalysisCount.Regular
 				var fixAvailable string
 				if pkg.FixedVersion == UnfixedDescription {
 					fixAvailable = UnfixedDescription
@@ -134,6 +146,30 @@ func printContainerScanningResult(result Result, outputWriter io.Writer, termina
 			outputTable.Render()
 		}
 	}
+
+	if result.VulnTypeSummary.Hidden != 0 {
+		// Add a newline
+		fmt.Fprintln(outputWriter)
+		fmt.Fprintln(outputWriter, "Filtered Vulnerabilities:")
+		outputTable := newTable(outputWriter, terminalWidth)
+		outputTable.AppendHeader(table.Row{"Package", "Ecosystem", "Installed Version", "Filtered Vuln Count", "Filter Reasons"})
+		for _, ecosystem := range result.Ecosystems {
+			for _, source := range ecosystem.Sources {
+				for _, pkg := range source.Packages {
+					if pkg.VulnCount.AnalysisCount.Hidden == 0 {
+						continue
+					}
+					outputRow := table.Row{}
+					totalCount := pkg.VulnCount.AnalysisCount.Hidden
+					filteredReasons := getFilteredVulnReasons(pkg.HiddenVulns)
+					outputRow = append(outputRow, pkg.Name, ecosystem.Name, pkg.InstalledVersion, totalCount, filteredReasons)
+					outputTable.AppendRow(outputRow)
+				}
+			}
+		}
+		outputTable.Render()
+	}
+
 	// Add a newline
 	fmt.Fprintln(outputWriter)
 
@@ -149,7 +185,7 @@ type tbInnerResponse struct {
 	shouldMerge bool
 }
 
-func tableBuilderInner(vulnResult *models.VulnerabilityResults, calledVulns bool) []tbInnerResponse {
+func tableBuilderInner(vulnResult *models.VulnerabilityResults, calledVulns bool, unimportantVulns bool) []tbInnerResponse {
 	allOutputRows := []tbInnerResponse{}
 	workingDir := mustGetWorkingDirectory()
 
@@ -163,7 +199,7 @@ func tableBuilderInner(vulnResult *models.VulnerabilityResults, calledVulns bool
 
 			// Merge groups into the same row
 			for _, group := range pkg.Groups {
-				if group.IsCalled() != calledVulns {
+				if !(group.IsCalled() == calledVulns && group.IsGroupUnimportant() == unimportantVulns) {
 					continue
 				}
 
