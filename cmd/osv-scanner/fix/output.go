@@ -10,43 +10,55 @@ import (
 	"github.com/google/osv-scanner/pkg/models"
 )
 
+// fixOutput is a description of changes made by guided remediation to a manifest/lockfile.
 type fixOutput struct {
-	Path            string           `json:"path"`
-	Ecosystem       models.Ecosystem `json:"ecosystem"`
-	Strategy        strategy         `json:"strategy"`
-	Vulnerabilities []vulnOutput     `json:"vulnerabilities"`
-	Patches         []patchOutput    `json:"patches"`
-	Errors          []errorOutput    `json:"errors,omitempty"`
+	Path            string           `json:"path"`             // path to the manifest/lockfile.
+	Ecosystem       models.Ecosystem `json:"ecosystem"`        // the OSV ecosystem of the file (npm, Maven)
+	Strategy        strategy         `json:"strategy"`         // the remediation strategy that was used.
+	Vulnerabilities []vulnOutput     `json:"vulnerabilities"`  // vulns detected in the initial manifest/lockfile.
+	Patches         []patchOutput    `json:"patches"`          // list of dependency patches that were applied.
+	Errors          []errorOutput    `json:"errors,omitempty"` // non-fatal errors encountered in initial resolution.
 }
 
+// vulnOutput represents a vulnerability that was found in a project.
 type vulnOutput struct {
-	ID           string          `json:"id"`
-	Packages     []packageOutput `json:"packages"`
-	Unactionable bool            `json:"unactionable,omitempty"`
+	ID           string          `json:"id"`                     // the OSV ID of the vulnerability.
+	Packages     []packageOutput `json:"packages"`               // the list of packages in the dependency graph this vuln affects.
+	Unactionable bool            `json:"unactionable,omitempty"` // true if no fix patch available, or if constraints would prevent one.
 }
 
+// patchOutput represents an isolated patch to one or more dependencies that fixes one or more vulns.
 type patchOutput struct {
-	PackageUpdates []updatePackageOutput `json:"packageUpdates"`
-	Fixed          []vulnOutput          `json:"fixed"`
-	Introduced     []vulnOutput          `json:"introduced,omitempty"`
+	PackageUpdates []updatePackageOutput `json:"packageUpdates"`       // dependencies that were updated.
+	Fixed          []vulnOutput          `json:"fixed"`                // vulns fixed by this patch.
+	Introduced     []vulnOutput          `json:"introduced,omitempty"` // vulns introduced by this patch.
 }
 
+// packageOutput represents a package that was found in a project.
 type packageOutput struct {
-	Name    string `json:"name"`
-	Version string `json:"version"`
+	Name    string `json:"name"`    // name of the dependency.
+	Version string `json:"version"` // version of the dependency in the graph.
 }
 
+// updatePackageOutput represents a package that was updated by a patch.
 type updatePackageOutput struct {
-	Name        string `json:"name"`
-	VersionFrom string `json:"versionFrom"`
-	VersionTo   string `json:"versionTo"`
-	Transitive  bool   `json:"transitive"`
+	Name        string `json:"name"`        // name of dependency being updated.
+	VersionFrom string `json:"versionFrom"` // version of the dependency before the patch.
+	VersionTo   string `json:"versionTo"`   // version of the dependency after the patch.
+	Transitive  bool   `json:"transitive"`  // false if this package is a direct dependency, true if indirect.
 }
 
+// errorOutput represents an error encountered during the initial resolution of the dependency graph.
 type errorOutput struct {
-	Package     packageOutput `json:"package"`
-	Requirement packageOutput `json:"requirement"`
-	Error       string        `json:"error"`
+	Package     packageOutput `json:"package"`     // the package that caused the error.
+	Requirement packageOutput `json:"requirement"` // the requirement of the package that errored.
+	Error       string        `json:"error"`       // the error string.
+	// e.g.
+	// errorOutput{
+	// 	  Package:     affectedPackage{"foo", "1.2.3"},
+	// 	  Requirement: affectedPackage{"bar", ">2.0.0"},
+	//	  Error:       "could not find a version that satisfies requirement >2.0.0 for package bar",
+	// }
 }
 
 // TODO: stop relying on old reporter implementation
