@@ -4,6 +4,7 @@ import (
 	"context"
 	"io/fs"
 	"path/filepath"
+	"runtime"
 	"testing"
 
 	"github.com/google/go-cmp/cmp"
@@ -13,6 +14,7 @@ import (
 	"github.com/google/osv-scalibr/testing/extracttest"
 	"github.com/google/osv-scalibr/testing/fakefs"
 	"github.com/google/osv-scanner/internal/scalibrextract/filesystem/vendored"
+	"github.com/google/osv-scanner/internal/testutility"
 )
 
 func TestExtractor_FileRequired(t *testing.T) {
@@ -93,6 +95,11 @@ func TestExtractor_FileRequired(t *testing.T) {
 
 func TestExtractor_Extract(t *testing.T) {
 	t.Parallel()
+
+	if runtime.GOOS == "windows" {
+		// TODO: Reenable when #657 is resolved.
+		testutility.Skip(t, "Temporarily disabled until #657 is resolved")
+	}
 
 	tests := []extracttest.TestTableEntry{
 		{
