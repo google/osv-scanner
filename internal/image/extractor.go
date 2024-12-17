@@ -12,8 +12,8 @@ import (
 	"github.com/google/osv-scalibr/extractor/filesystem/language/golang/gobinary"
 	"github.com/google/osv-scalibr/extractor/filesystem/os/apk"
 	"github.com/google/osv-scalibr/extractor/filesystem/os/dpkg"
-	"github.com/google/osv-scanner/internal/lockfilescalibr"
-	"github.com/google/osv-scanner/internal/lockfilescalibr/language/javascript/nodemodules"
+	"github.com/google/osv-scanner/internal/scalibrextract"
+	"github.com/google/osv-scanner/internal/scalibrextract/language/javascript/nodemodules"
 	"github.com/google/osv-scanner/pkg/lockfile"
 )
 
@@ -53,7 +53,7 @@ func extractArtifactDeps(extractPath string, layer *Layer) ([]*extractor.Invento
 	scalibrPath := strings.TrimPrefix(extractPath, "/")
 	foundExtractors := findArtifactExtractor(scalibrPath, pathFileInfo)
 	if len(foundExtractors) == 0 {
-		return nil, fmt.Errorf("%w for %s", lockfilescalibr.ErrExtractorNotFound, extractPath)
+		return nil, fmt.Errorf("%w for %s", scalibrextract.ErrExtractorNotFound, extractPath)
 	}
 
 	inventories := []*extractor.Inventory{}
@@ -96,7 +96,7 @@ func extractArtifactDeps(extractPath string, layer *Layer) ([]*extractor.Invento
 	}
 
 	if extractedAs == "" {
-		return nil, fmt.Errorf("%w for %s", lockfilescalibr.ErrExtractorNotFound, extractPath)
+		return nil, fmt.Errorf("%w for %s", scalibrextract.ErrExtractorNotFound, extractPath)
 	}
 
 	// Perform any one-off translations here

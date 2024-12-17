@@ -9,9 +9,9 @@ import (
 	"github.com/google/osv-scalibr/extractor"
 	"github.com/google/osv-scalibr/extractor/filesystem/osv"
 	"github.com/google/osv-scalibr/testing/extracttest"
-	"github.com/google/osv-scanner/internal/lockfilescalibr/language/java/pomxmlnet"
 	"github.com/google/osv-scanner/internal/resolution/clienttest"
 	"github.com/google/osv-scanner/internal/resolution/datasource"
+	"github.com/google/osv-scanner/internal/scalibrextract/language/java/pomxmlnet"
 	"github.com/google/osv-scanner/internal/testutility"
 )
 

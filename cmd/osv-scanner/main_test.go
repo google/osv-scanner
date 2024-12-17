@@ -750,8 +750,11 @@ func TestRun_Licenses(t *testing.T) {
 	}
 }
 
+// TODO(v2): Image scanning is not temporarily disabled
+
 func TestRun_Docker(t *testing.T) {
 	t.Parallel()
+	t.Skip("Skipping until image scanning is reenabled")
 
 	testutility.SkipIfNotAcceptanceTesting(t, "Takes a long time to pull down images")
 
@@ -797,6 +800,7 @@ func TestRun_Docker(t *testing.T) {
 
 func TestRun_OCIImage(t *testing.T) {
 	t.Parallel()
+	t.Skip("Skipping until image scanning is reenabled")
 
 	testutility.SkipIfNotAcceptanceTesting(t, "Not consistent on MacOS/Windows")
 

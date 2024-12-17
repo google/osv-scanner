@@ -10,7 +10,7 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/google/osv-scanner/pkg/lockfile"
+	"github.com/google/osv-scanner/internal/imodels"
 	"github.com/google/osv-scanner/pkg/models"
 
 	"golang.org/x/sync/errgroup"
@@ -123,26 +123,15 @@ func MakePURLRequest(purl string) *Query {
 	}
 }
 
-func MakePkgRequest(pkgDetails lockfile.PackageDetails) *Query {
-	// API has trouble parsing requests with both commit and Package details filled in
-	if pkgDetails.Ecosystem == "" && pkgDetails.Commit != "" {
-		return &Query{
-			Metadata: models.Metadata{
-				RepoURL:   pkgDetails.Name,
-				DepGroups: pkgDetails.DepGroups,
-			},
-			Commit: pkgDetails.Commit,
-		}
-	}
-
+func MakePkgRequest(pkgInfo imodels.PackageInfo) *Query {
 	return &Query{
-		Version: pkgDetails.Version,
+		Version: pkgInfo.Version,
 		Package: Package{
-			Name:      pkgDetails.Name,
-			Ecosystem: string(pkgDetails.Ecosystem),
+			Name:      pkgInfo.Name,
+			Ecosystem: pkgInfo.Ecosystem.String(),
 		},
 		Metadata: models.Metadata{
-			DepGroups: pkgDetails.DepGroups,
+			DepGroups: pkgInfo.DepGroups,
 		},
 	}
 }
