@@ -404,7 +404,7 @@ func action(ctx *cli.Context, stdout, stderr io.Writer) (reporter.Reporter, erro
 
 	switch strategy {
 	case strategyRelax:
-		return r, autoRelock(ctx.Context, r, opts, maxUpgrades)
+		return r, autoRelax(ctx.Context, r, opts, maxUpgrades)
 	case strategyInPlace:
 		return r, autoInPlace(ctx.Context, r, opts, maxUpgrades)
 	case strategyOverride:

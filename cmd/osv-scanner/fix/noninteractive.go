@@ -119,7 +119,7 @@ func autoChooseInPlacePatches(res remediation.InPlaceResult, maxUpgrades int, ou
 	return patches
 }
 
-func autoRelock(ctx context.Context, r *outputReporter, opts osvFixOptions, maxUpgrades int) error {
+func autoRelax(ctx context.Context, r *outputReporter, opts osvFixOptions, maxUpgrades int) error {
 	if !remediation.SupportsRelax(opts.ManifestRW) {
 		return fmt.Errorf("%s strategy is not supported for manifest", strategyRelax)
 	}
@@ -161,7 +161,7 @@ func autoRelock(ctx context.Context, r *outputReporter, opts osvFixOptions, maxU
 		r.Warnf("WARNING: failed to write resolution cache: %v\n", err)
 	}
 
-	depPatches := autoChooseRelockPatches(allPatches, maxUpgrades, &outputResult)
+	depPatches := autoChooseRelaxPatches(allPatches, maxUpgrades, &outputResult)
 
 	if err := r.OutputResult(outputResult); err != nil {
 		r.Errorf("failed writing output")
@@ -213,7 +213,7 @@ func autoRelock(ctx context.Context, r *outputReporter, opts osvFixOptions, maxU
 
 // returns the top {maxUpgrades} compatible patches, and populates outputResult
 // if maxUpgrades is < 0, do as many patches as possible
-func autoChooseRelockPatches(diffs []resolution.Difference, maxUpgrades int, outputResult *fixOutput) []manifest.DependencyPatch {
+func autoChooseRelaxPatches(diffs []resolution.Difference, maxUpgrades int, outputResult *fixOutput) []manifest.DependencyPatch {
 	var patches []manifest.DependencyPatch
 	pkgChanged := make(map[resolve.VersionKey]bool) // dependencies we've already applied a patch to
 
