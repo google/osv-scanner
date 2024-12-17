@@ -5,7 +5,10 @@ import (
 	"fmt"
 	"io/fs"
 	"os"
+	"path/filepath"
+	"runtime"
 	"slices"
+	"strings"
 
 	"github.com/google/osv-scalibr/extractor"
 	"github.com/google/osv-scalibr/extractor/filesystem"
@@ -81,7 +84,9 @@ func ExtractWithExtractors(ctx context.Context, localPath string, extractors []f
 }
 
 func extractWithExtractor(ctx context.Context, localPath string, info fs.FileInfo, ext filesystem.Extractor) ([]*extractor.Inventory, error) {
-	si, err := createScanInput(localPath, info)
+	// Create a scan input centered at the system root directory,
+	// to give access to the full filesystem for each extractor.
+	si, err := createScanInput(localPath, getRootDir(localPath), info)
 	if err != nil {
 		return nil, err
 	}
@@ -92,7 +97,13 @@ func extractWithExtractor(ctx context.Context, localPath string, info fs.FileInf
 	}
 
 	for i := range invs {
+		// Set parent extractor
 		invs[i].Extractor = ext
+
+		// Make Location relative to the scan root (of "/") as we are performing local scanning
+		for i2 := range invs[i].Locations {
+			invs[i].Locations[i2] = filepath.Join("/", invs[i].Locations[i2])
+		}
 	}
 
 	slices.SortFunc(invs, inventorySort)
@@ -103,19 +114,41 @@ func extractWithExtractor(ctx context.Context, localPath string, info fs.FileInf
 	return invsCompact, nil
 }
 
-func createScanInput(path string, fileInfo fs.FileInfo) (*filesystem.ScanInput, error) {
+func createScanInput(path string, root string, fileInfo fs.FileInfo) (*filesystem.ScanInput, error) {
 	reader, err := os.Open(path)
 	if err != nil {
 		return nil, err
 	}
 
+	// Rel will strip root from the input path.
+	path, err = filepath.Rel(string(filepath.Separator), path)
+	if err != nil {
+		return nil, err
+	}
+
 	si := filesystem.ScanInput{
-		FS:     os.DirFS("/").(scalibrfs.FS),
+		FS:     os.DirFS(root).(scalibrfs.FS),
 		Path:   path,
-		Root:   "/",
+		Root:   root,
 		Reader: reader,
 		Info:   fileInfo,
 	}
 
 	return &si, nil
+}
+
+func getRootDir(path string) string {
+	if runtime.GOOS == "windows" {
+		return filepath.VolumeName(path) + "\\"
+	}
+
+	if strings.HasPrefix(path, "/") {
+		return "/"
+	}
+	parts := strings.Split(path, "/")
+	if len(parts) > 0 && parts[0] == "" {
+		return "/"
+	}
+
+	return ""
 }
