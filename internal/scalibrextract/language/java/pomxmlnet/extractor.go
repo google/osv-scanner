@@ -4,7 +4,6 @@ package pomxmlnet
 import (
 	"context"
 	"fmt"
-	"io/fs"
 	"path/filepath"
 
 	"golang.org/x/exp/maps"
@@ -44,8 +43,8 @@ func (e Extractor) Requirements() *plugin.Capabilities {
 }
 
 // FileRequired never returns true, as this is for the osv-scanner json output.
-func (e Extractor) FileRequired(path string, _ fs.FileInfo) bool {
-	return filepath.Base(path) == "pom.xml"
+func (e Extractor) FileRequired(fapi filesystem.FileAPI) bool {
+	return filepath.Base(fapi.Path()) == "pom.xml"
 }
 
 // Extract extracts packages from yarn.lock files passed through the scan input.
@@ -176,9 +175,6 @@ func (e Extractor) ToPURL(i *extractor.Inventory) *purl.PackageURL {
 		Version: i.Version,
 	}
 }
-
-// ToCPEs is not applicable as this extractor does not infer CPEs from the Inventory.
-func (e Extractor) ToCPEs(_ *extractor.Inventory) []string { return []string{} }
 
 // Ecosystem returns the OSV ecosystem ('npm') of the software extracted by this extractor.
 func (e Extractor) Ecosystem(_ *extractor.Inventory) string {

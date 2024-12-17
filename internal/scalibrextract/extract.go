@@ -9,6 +9,7 @@ import (
 
 	"github.com/google/osv-scalibr/extractor"
 	"github.com/google/osv-scalibr/extractor/filesystem"
+	"github.com/google/osv-scalibr/extractor/filesystem/simplefileapi"
 
 	scalibrfs "github.com/google/osv-scalibr/fs"
 )
@@ -59,7 +60,7 @@ func ExtractWithExtractors(ctx context.Context, localPath string, extractors []f
 	result := []*extractor.Inventory{}
 	extractorFound := false
 	for _, ext := range extractors {
-		if !ext.FileRequired(localPath, info) {
+		if !ext.FileRequired(simplefileapi.New(localPath, info)) {
 			continue
 		}
 		extractorFound = true
