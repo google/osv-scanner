@@ -12,6 +12,8 @@ import (
 	"github.com/google/osv-scalibr/purl"
 )
 
+// Extractor extracts git repository hashes including submodule hashes.
+// This extractor will not return an error, and will just return no results if we fail to extract
 type Extractor struct{}
 
 var _ filesystem.Extractor = Extractor{}
@@ -89,18 +91,21 @@ func (e Extractor) Extract(_ context.Context, input *filesystem.ScanInput) ([]*e
 		return nil, err
 	}
 
-	commitSHA, err := getCommitSHA(repo)
-	if err != nil {
-		return nil, err
-	}
-
 	//nolint:prealloc // Not sure how many there will be in advance.
 	var packages []*extractor.Inventory
-	packages = append(packages, createCommitQueryInventory(commitSHA, input.Path))
 
+	commitSHA, err := getCommitSHA(repo)
+
+	// If error is not nil, then ignore this and continue, as it is not fatal.
+	// The error could be because it is a bare repository
+	if err == nil {
+		packages = append(packages, createCommitQueryInventory(commitSHA, input.Path))
+	}
+
+	// If we can't get submodules, just return with what we have.
 	submodules, err := getSubmodules(repo)
 	if err != nil {
-		return nil, err
+		return packages, nil
 	}
 
 	for _, s := range submodules {

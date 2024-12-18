@@ -38,6 +38,20 @@ func TestExtractor_Extract(t *testing.T) {
 				},
 			},
 		},
+		{
+			Name: "Clean git repository with no commits",
+			InputConfig: extracttest.ScanInputMockConfig{
+				Path: "testdata/example-clean",
+			},
+			WantInventory: nil,
+		},
+		{
+			Name: "Bare git repository (via `git init --bare`)",
+			InputConfig: extracttest.ScanInputMockConfig{
+				Path: "testdata/example-bare",
+			},
+			WantInventory: nil,
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.Name, func(t *testing.T) {

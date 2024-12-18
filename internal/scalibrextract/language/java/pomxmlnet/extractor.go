@@ -23,7 +23,8 @@ import (
 	"github.com/google/osv-scanner/internal/resolution/datasource"
 )
 
-// Extractor extracts osv packages from osv-scanner json output.
+// Extractor extracts Maven packages with transitive dependency resolution.
+// TODO: Use the virtual filesystem rather than the real filesystem.
 type Extractor struct {
 	client.DependencyClient
 	*datasource.MavenRegistryAPIClient
