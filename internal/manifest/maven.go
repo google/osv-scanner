@@ -41,8 +41,8 @@ func (e MavenResolverExtractor) Extract(f lockfile.DepFile) ([]lockfile.PackageD
 		if err := e.MavenRegistryAPIClient.AddRegistry(datasource.MavenRegistry{
 			URL:              string(repo.URL),
 			ID:               string(repo.ID),
-			ReleasesEnabled:  repo.Releases.Enabled != "false",
-			SnapshotsEnabled: repo.Snapshots.Enabled != "false",
+			ReleasesEnabled:  repo.Releases.Enabled.Boolean(),
+			SnapshotsEnabled: repo.Snapshots.Enabled.Boolean(),
 		}); err != nil {
 			return nil, fmt.Errorf("failed to add registry %s: %w", repo.URL, err)
 		}

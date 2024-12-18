@@ -308,8 +308,8 @@ func autoOverride(ctx context.Context, r reporter.Reporter, opts osvFixOptions, 
 				registries[i] = client.Registry{EcosystemSpecific: datasource.MavenRegistry{
 					URL:              string(repo.URL),
 					ID:               string(repo.ID),
-					ReleasesEnabled:  repo.Releases.Enabled != "false",
-					SnapshotsEnabled: repo.Snapshots.Enabled != "false",
+					ReleasesEnabled:  repo.Releases.Enabled.Boolean(),
+					SnapshotsEnabled: repo.Snapshots.Enabled.Boolean(),
 				}}
 			}
 			if err := opts.Client.DependencyClient.AddRegistries(registries); err != nil {
