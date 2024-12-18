@@ -316,10 +316,12 @@ func TestRunCallAnalysis(t *testing.T) {
 	tests := []cliTestCase{
 		{
 			name: "Run with govulncheck",
-			args: []string{"",
+			args: []string{
+				"",
 				"--call-analysis=go",
 				"--config=./fixtures/osv-scanner-empty-config.toml",
-				"./fixtures/call-analysis-go-project"},
+				"./fixtures/call-analysis-go-project",
+			},
 			exit: 0,
 		},
 	}
@@ -802,6 +804,7 @@ func gatherFilepath(bom cyclonedx.BOM) []string {
 
 func TestRun_OCIImage(t *testing.T) {
 	t.Parallel()
+	t.Skip("Skipping until image scanning is reenabled")
 
 	testutility.SkipIfNotAcceptanceTesting(t, "Not consistent on MacOS/Windows")
 

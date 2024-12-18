@@ -2517,7 +2517,6 @@ Warning: `scan` exists as both a subcommand of OSV-Scanner and as a file on the 
 
 [TestRun_WithCycloneDX15 - 2]
 Scanning dir ./fixtures/integration-test-locks
-Scanning directory for vendored libs: <rootdir>/fixtures/integration-test-locks/libs
 Scanned <rootdir>/fixtures/integration-test-locks/libs/pom.xml file and found 0 packages
 Scanned <rootdir>/fixtures/integration-test-locks/other-dir/pom.xml file and found 2 packages
 Scanned <rootdir>/fixtures/integration-test-locks/packages.lock.json file and found 1 package
@@ -16457,7 +16456,6 @@ Scanned <rootdir>/fixtures/encoding-integration-test-locks/Windows-1252/yarn/yar
 
 [TestRun_WithExplicitParsers - 2]
 Scanning dir ./fixtures/integration-test-locks
-Scanning directory for vendored libs: <rootdir>/fixtures/integration-test-locks/libs
 Scanned <rootdir>/fixtures/integration-test-locks/libs/pom.xml file and found 0 packages
 Scanned <rootdir>/fixtures/integration-test-locks/other-dir/pom.xml file and found 2 packages
 Scanned <rootdir>/fixtures/integration-test-locks/pom.xml file and found 1 package
