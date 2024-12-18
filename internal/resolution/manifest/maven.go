@@ -103,8 +103,8 @@ func (m MavenReadWriter) Read(df lockfile.DepFile) (Manifest, error) {
 		if err := m.MavenRegistryAPIClient.AddRegistry(datasource.MavenRegistry{
 			URL:              string(repo.URL),
 			ID:               string(repo.ID),
-			ReleasesEnabled:  repo.Releases.Enabled != "false",
-			SnapshotsEnabled: repo.Snapshots.Enabled != "false",
+			ReleasesEnabled:  repo.Releases.Enabled.Boolean(),
+			SnapshotsEnabled: repo.Snapshots.Enabled.Boolean(),
 		}); err != nil {
 			return Manifest{}, fmt.Errorf("failed to add registry %s: %w", repo.URL, err)
 		}

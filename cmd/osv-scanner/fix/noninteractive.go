@@ -305,12 +305,12 @@ func autoOverride(ctx context.Context, r reporter.Reporter, opts osvFixOptions, 
 		if ok {
 			registries := make([]client.Registry, len(specific.Repositories))
 			for i, repo := range specific.Repositories {
-				registries[i] = client.Registry{EcosystemSpecific: datasource.MavenRegistry{
+				registries[i] = datasource.MavenRegistry{
 					URL:              string(repo.URL),
 					ID:               string(repo.ID),
 					ReleasesEnabled:  repo.Releases.Enabled.Boolean(),
 					SnapshotsEnabled: repo.Snapshots.Enabled.Boolean(),
-				}}
+				}
 			}
 			if err := opts.Client.DependencyClient.AddRegistries(registries); err != nil {
 				return err

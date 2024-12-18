@@ -148,7 +148,7 @@ func (c *MavenRegistryClient) MatchingVersions(ctx context.Context, vk resolve.V
 
 func (c *MavenRegistryClient) AddRegistries(registries []Registry) error {
 	for _, reg := range registries {
-		specific, ok := reg.EcosystemSpecific.(datasource.MavenRegistry)
+		specific, ok := reg.(datasource.MavenRegistry)
 		if !ok {
 			return errors.New("invalid Maven registry information")
 		}

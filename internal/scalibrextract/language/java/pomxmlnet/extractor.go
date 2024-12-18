@@ -82,7 +82,7 @@ func (e Extractor) Extract(ctx context.Context, input *filesystem.ScanInput) ([]
 	if registries := e.MavenRegistryAPIClient.GetRegistries(); len(registries) > 0 {
 		clientRegs := make([]client.Registry, len(registries))
 		for i, reg := range registries {
-			clientRegs[i] = client.Registry{EcosystemSpecific: reg}
+			clientRegs[i] = reg
 		}
 		if err := e.DependencyClient.AddRegistries(clientRegs); err != nil {
 			return nil, err
