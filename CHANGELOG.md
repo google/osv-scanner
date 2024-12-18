@@ -1,6 +1,7 @@
 # v1.9.2
 
 ### Fixes:
+
 - [Bug #1453](https://github.com/google/osv-scanner/issues/1453) Call analysis doesn't work for go projects with go version > 1.22.8
 
 # v1.9.1
