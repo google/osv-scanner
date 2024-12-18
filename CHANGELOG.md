@@ -2,7 +2,10 @@
 
 ### Fixes:
 
-- [Bug #1453](https://github.com/google/osv-scanner/issues/1453) Call analysis doesn't work for go projects with go version > 1.22.8
+- [Bug #1327](https://github.com/google/osv-scanner/pull/1327) Parsing crash on malformed pnpm lockfile.
+- [Bug #1377](https://github.com/google/osv-scanner/pull/1377) Warn if a vulnerability is ignored multiple times in the same config.
+- [Bug #1394](https://github.com/google/osv-scanner/pull/1394) Guided remediation: handle extraneous/missing packages in package-lock.json more leniently.
+- [Bug #1453](https://github.com/google/osv-scanner/issues/1453) Go call analysis now works with Go version up to v1.23.4.
 
 # v1.9.1
 
