@@ -80,7 +80,7 @@ Loaded filter from: <rootdir>/fixtures/locks-many/osv-scanner.toml
           "informationUri": "https://github.com/google/osv-scanner",
           "name": "osv-scanner",
           "rules": [],
-          "version": "1.9.1"
+          "version": "1.9.2"
         }
       },
       "results": []
@@ -234,7 +234,7 @@ Loaded Alpine local db from <tempdir>/osv-scanner/Alpine/all.zip
               }
             }
           ],
-          "version": "1.9.1"
+          "version": "1.9.2"
         }
       },
       "artifacts": [
@@ -868,7 +868,7 @@ No issues found
 ---
 
 [TestRun/version - 1]
-osv-scanner version: 1.9.1
+osv-scanner version: 1.9.2
 commit: n/a
 built at: n/a
 
@@ -991,7 +991,7 @@ Scanned <rootdir>/fixtures/locks-insecure/osv-scanner-flutter-deps.json file as 
               }
             }
           ],
-          "version": "1.9.1"
+          "version": "1.9.2"
         }
       },
       "artifacts": [
@@ -2519,24 +2519,6 @@ No issues found
 ---
 
 [TestRun_MavenTransitive/does_not_scan_transitive_dependencies_for_pom.xml_with_offline_mode - 2]
-
----
-
-[TestRun_MavenTransitive/resolve_transitive_dependencies_with_native_datda_source - 1]
-Scanned <rootdir>/fixtures/maven-transitive/registry.xml file as a pom.xml and found 59 packages
-+-------------------------------------+------+-----------+-----------------------------------------------+---------+----------------------------------------+
-| OSV URL                             | CVSS | ECOSYSTEM | PACKAGE                                       | VERSION | SOURCE                                 |
-+-------------------------------------+------+-----------+-----------------------------------------------+---------+----------------------------------------+
-| https://osv.dev/GHSA-cm6r-892j-jv2g | 6.1  | Maven     | com.google.android.gms:play-services-basement | 10.0.0  | fixtures/maven-transitive/registry.xml |
-| https://osv.dev/GHSA-7rjr-3q55-vv33 | 9.0  | Maven     | org.apache.logging.log4j:log4j-core           | 2.14.1  | fixtures/maven-transitive/registry.xml |
-| https://osv.dev/GHSA-8489-44mv-ggj8 | 6.6  | Maven     | org.apache.logging.log4j:log4j-core           | 2.14.1  | fixtures/maven-transitive/registry.xml |
-| https://osv.dev/GHSA-jfh8-c2jp-5v3q | 10.0 | Maven     | org.apache.logging.log4j:log4j-core           | 2.14.1  | fixtures/maven-transitive/registry.xml |
-| https://osv.dev/GHSA-p6xc-xr62-6r2g | 8.6  | Maven     | org.apache.logging.log4j:log4j-core           | 2.14.1  | fixtures/maven-transitive/registry.xml |
-+-------------------------------------+------+-----------+-----------------------------------------------+---------+----------------------------------------+
-
----
-
-[TestRun_MavenTransitive/resolve_transitive_dependencies_with_native_datda_source - 2]
 
 ---
 

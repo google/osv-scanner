@@ -1,3 +1,10 @@
+# v1.9.2
+
+### Fixes:
+- [Bug #1453](https://github.com/google/osv-scanner/issues/1453) Call analysis doesn't work for go projects with go version > 1.22.8
+
+# v1.9.1
+
 OSV-Scanner v2 is coming soon! The next release will start with version `v2.0.0-alpha1`.
 
 Here's a peek at some of the exciting upcoming features:
@@ -15,8 +22,6 @@ Most breaking changes will only be in the API. More details in the upcoming alph
 ---
 
 This is the final feature v1 release of osv-scanner, future releases for v1 will only contain bug fixes.
-
-# v1.9.1
 
 ### Features:
 
