@@ -98,7 +98,7 @@ func createMavenExtractor(actions TransitiveScanningActions) (*pomxmlnet.Extract
 		return nil, err
 	}
 
-	mavenClient, err := datasource.NewMavenRegistryAPIClient(actions.MavenRegistry)
+	mavenClient, err := datasource.NewMavenRegistryAPIClient(datasource.MavenRegistry{URL: actions.MavenRegistry, ReleasesEnabled: true})
 	if err != nil {
 		return nil, err
 	}
