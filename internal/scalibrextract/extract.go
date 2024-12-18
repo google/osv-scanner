@@ -86,7 +86,8 @@ func ExtractWithExtractors(ctx context.Context, localPath string, extractors []f
 func extractWithExtractor(ctx context.Context, localPath string, info fs.FileInfo, ext filesystem.Extractor) ([]*extractor.Inventory, error) {
 	// Create a scan input centered at the system root directory,
 	// to give access to the full filesystem for each extractor.
-	si, err := createScanInput(localPath, getRootDir(localPath), info)
+	rootDir := getRootDir(localPath)
+	si, err := createScanInput(localPath, rootDir, info)
 	if err != nil {
 		return nil, err
 	}
@@ -100,9 +101,9 @@ func extractWithExtractor(ctx context.Context, localPath string, info fs.FileInf
 		// Set parent extractor
 		invs[i].Extractor = ext
 
-		// Make Location relative to the scan root (of "/") as we are performing local scanning
+		// Make Location relative to the scan root as we are performing local scanning
 		for i2 := range invs[i].Locations {
-			invs[i].Locations[i2] = filepath.Join("/", invs[i].Locations[i2])
+			invs[i].Locations[i2] = filepath.Join(rootDir, invs[i].Locations[i2])
 		}
 	}
 
