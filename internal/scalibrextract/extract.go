@@ -146,10 +146,6 @@ func getRootDir(path string) string {
 	if strings.HasPrefix(path, "/") {
 		return "/"
 	}
-	parts := strings.Split(path, "/")
-	if len(parts) > 0 && parts[0] == "" {
-		return "/"
-	}
 
 	return ""
 }
