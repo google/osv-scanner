@@ -195,7 +195,7 @@
           "compareAs": "Go",
           "imageOrigin": {
             "layerID": "\u003cAny value\u003e",
-            "originCommand": "/bin/sh -c cp /go/bin/ptf-1.2.0 /go/bin/more-vuln-overwrite-less-vuln",
+            "originCommand": "RUN /bin/sh -c cp /go/bin/ptf-1.2.0 /go/bin/more-vuln-overwrite-less-vuln # buildkit",
             "inBaseImage": false
           }
         },
@@ -206,7 +206,7 @@
           "compareAs": "Go",
           "imageOrigin": {
             "layerID": "\u003cAny value\u003e",
-            "originCommand": "/bin/sh -c cp /go/bin/ptf-1.4.0 /go/bin/more-vuln-overwrite-less-vuln",
+            "originCommand": "RUN /bin/sh -c cp /go/bin/ptf-1.4.0 /go/bin/more-vuln-overwrite-less-vuln # buildkit",
             "inBaseImage": false
           }
         }
@@ -223,7 +223,7 @@
           "compareAs": "Go",
           "imageOrigin": {
             "layerID": "\u003cAny value\u003e",
-            "originCommand": "/bin/sh -c #(nop) COPY multi:2326ad36619d1c1ef6d56a301027b24632572870e7e7a84ad518edb0d988b059 in /go/bin/ ",
+            "originCommand": "COPY /work/ptf-1.2.0 /work/ptf-1.3.0 /work/ptf-1.4.0 /go/bin/ # buildkit",
             "inBaseImage": true
           }
         },
@@ -234,7 +234,7 @@
           "compareAs": "Go",
           "imageOrigin": {
             "layerID": "\u003cAny value\u003e",
-            "originCommand": "/bin/sh -c #(nop) COPY multi:2326ad36619d1c1ef6d56a301027b24632572870e7e7a84ad518edb0d988b059 in /go/bin/ ",
+            "originCommand": "COPY /work/ptf-1.2.0 /work/ptf-1.3.0 /work/ptf-1.4.0 /go/bin/ # buildkit",
             "inBaseImage": true
           }
         }
@@ -251,7 +251,7 @@
           "compareAs": "Go",
           "imageOrigin": {
             "layerID": "\u003cAny value\u003e",
-            "originCommand": "/bin/sh -c cp /go/bin/ptf-1.3.0-moved /go/bin/ptf-1.3.0",
+            "originCommand": "RUN /bin/sh -c cp /go/bin/ptf-1.3.0-moved /go/bin/ptf-1.3.0 # buildkit",
             "inBaseImage": false
           }
         },
@@ -262,7 +262,7 @@
           "compareAs": "Go",
           "imageOrigin": {
             "layerID": "\u003cAny value\u003e",
-            "originCommand": "/bin/sh -c cp /go/bin/ptf-1.3.0-moved /go/bin/ptf-1.3.0",
+            "originCommand": "RUN /bin/sh -c cp /go/bin/ptf-1.3.0-moved /go/bin/ptf-1.3.0 # buildkit",
             "inBaseImage": false
           }
         }
@@ -279,7 +279,7 @@
           "compareAs": "Go",
           "imageOrigin": {
             "layerID": "\u003cAny value\u003e",
-            "originCommand": "/bin/sh -c mv /go/bin/ptf-1.3.0 /go/bin/ptf-1.3.0-moved",
+            "originCommand": "RUN /bin/sh -c mv /go/bin/ptf-1.3.0 /go/bin/ptf-1.3.0-moved # buildkit",
             "inBaseImage": false
           }
         },
@@ -290,7 +290,7 @@
           "compareAs": "Go",
           "imageOrigin": {
             "layerID": "\u003cAny value\u003e",
-            "originCommand": "/bin/sh -c mv /go/bin/ptf-1.3.0 /go/bin/ptf-1.3.0-moved",
+            "originCommand": "RUN /bin/sh -c mv /go/bin/ptf-1.3.0 /go/bin/ptf-1.3.0-moved # buildkit",
             "inBaseImage": false
           }
         }
@@ -307,7 +307,7 @@
           "compareAs": "Go",
           "imageOrigin": {
             "layerID": "\u003cAny value\u003e",
-            "originCommand": "/bin/sh -c #(nop) COPY multi:2326ad36619d1c1ef6d56a301027b24632572870e7e7a84ad518edb0d988b059 in /go/bin/ ",
+            "originCommand": "COPY /work/ptf-1.2.0 /work/ptf-1.3.0 /work/ptf-1.4.0 /go/bin/ # buildkit",
             "inBaseImage": true
           }
         },
@@ -318,7 +318,7 @@
           "compareAs": "Go",
           "imageOrigin": {
             "layerID": "\u003cAny value\u003e",
-            "originCommand": "/bin/sh -c #(nop) COPY multi:2326ad36619d1c1ef6d56a301027b24632572870e7e7a84ad518edb0d988b059 in /go/bin/ ",
+            "originCommand": "COPY /work/ptf-1.2.0 /work/ptf-1.3.0 /work/ptf-1.4.0 /go/bin/ # buildkit",
             "inBaseImage": true
           }
         }
@@ -335,7 +335,7 @@
           "compareAs": "Go",
           "imageOrigin": {
             "layerID": "\u003cAny value\u003e",
-            "originCommand": "/bin/sh -c cp /go/bin/ptf-1.4.0 /go/bin/ptf-vulnerable",
+            "originCommand": "RUN /bin/sh -c cp /go/bin/ptf-1.4.0 /go/bin/ptf-vulnerable # buildkit",
             "inBaseImage": false
           }
         },
@@ -346,7 +346,7 @@
           "compareAs": "Go",
           "imageOrigin": {
             "layerID": "\u003cAny value\u003e",
-            "originCommand": "/bin/sh -c cp /go/bin/ptf-1.3.0 /go/bin/ptf-vulnerable",
+            "originCommand": "RUN /bin/sh -c cp /go/bin/ptf-1.3.0 /go/bin/ptf-vulnerable # buildkit",
             "inBaseImage": false
           }
         }
@@ -973,7 +973,7 @@
           "compareAs": "npm",
           "imageOrigin": {
             "layerID": "\u003cAny value\u003e",
-            "originCommand": "/bin/sh -c npm i -d cryo@0.0.6",
+            "originCommand": "RUN /bin/sh -c npm i -d cryo@0.0.6 # buildkit",
             "inBaseImage": false
           }
         },
@@ -984,7 +984,7 @@
           "compareAs": "npm",
           "imageOrigin": {
             "layerID": "\u003cAny value\u003e",
-            "originCommand": "/bin/sh -c npm i mkdirp@0.5.0",
+            "originCommand": "RUN /bin/sh -c npm i mkdirp@0.5.0 # buildkit",
             "inBaseImage": false
           }
         },
@@ -995,7 +995,7 @@
           "compareAs": "npm",
           "imageOrigin": {
             "layerID": "\u003cAny value\u003e",
-            "originCommand": "/bin/sh -c npm i mkdirp@0.5.0",
+            "originCommand": "RUN /bin/sh -c npm i mkdirp@0.5.0 # buildkit",
             "inBaseImage": false
           }
         }
