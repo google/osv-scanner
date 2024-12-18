@@ -108,20 +108,6 @@ func PreFetch(ctx context.Context, c DependencyClient, requirements []resolve.Re
 			go c.Version(ctx, vk)             //nolint:errcheck
 			go c.Versions(ctx, vk.PackageKey) //nolint:errcheck
 		}
-
-		for _, edge := range resp.GetEdges() {
-			req := edge.GetRequirement()
-			pbvk := nodes[edge.GetToNode()].GetVersionKey()
-			vk := resolve.VersionKey{
-				PackageKey: resolve.PackageKey{
-					System: resolve.System(pbvk.GetSystem()),
-					Name:   pbvk.GetName(),
-				},
-				Version:     req,
-				VersionType: resolve.Requirement,
-			}
-			go c.MatchingVersions(ctx, vk) //nolint:errcheck
-		}
 	}
 
 	// don't bother waiting for goroutines to finish.
