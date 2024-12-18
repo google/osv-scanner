@@ -21,6 +21,16 @@ import (
 	"golang.org/x/term"
 )
 
+type strategy string
+
+const (
+	strategyInPlace  strategy = "in-place"
+	strategyRelax    strategy = "relax"
+	strategyOverride strategy = "override"
+)
+
+var strategies = []string{string(strategyInPlace), string(strategyRelax), string(strategyOverride)}
+
 const (
 	vulnCategory     = "Vulnerability Selection Options:"
 	upgradeCategory  = "Dependency Upgrade Options:"
@@ -82,29 +92,44 @@ func Command(stdout, stderr io.Writer, r *reporter.Reporter) *cli.Command {
 				Value: !term.IsTerminal(int(os.Stdin.Fd())), // Default to non-interactive if not being run in a terminal
 			},
 			&cli.StringFlag{
+				Name:    "format",
+				Aliases: []string{"f"},
+				Usage:   "sets the non-interactive output format; value can be: text, json",
+				Value:   "text",
+				Action: func(_ *cli.Context, s string) error {
+					if s == "text" || s == "json" {
+						return nil
+					}
+
+					return fmt.Errorf("unsupported output format \"%s\" - must be one of: text, json", s)
+				},
+			},
+			&cli.StringFlag{
 				Category: autoModeCategory,
 				Name:     "strategy",
-				Usage:    "remediation approach to use; value can be: in-place, relock, override",
+				Usage:    "remediation approach to use; value can be: " + strings.Join(strategies, ", "),
 				Action: func(ctx *cli.Context, s string) error {
 					if !ctx.Bool("non-interactive") {
 						// This flag isn't used in interactive mode
 						return nil
 					}
-					switch s {
-					case "in-place":
+					switch strategy(s) {
+					case strategyInPlace:
 						if !ctx.IsSet("lockfile") {
-							return errors.New("in-place strategy requires lockfile")
+							return fmt.Errorf("%s strategy requires lockfile", strategyInPlace)
 						}
-					case "relock":
+					case strategy("relock"): // renamed
+						fallthrough
+					case strategyRelax:
 						if !ctx.IsSet("manifest") {
-							return errors.New("relock strategy requires manifest file")
+							return fmt.Errorf("%s strategy requires manifest file", strategyRelax)
 						}
-					case "override":
+					case strategyOverride:
 						if !ctx.IsSet("manifest") {
-							return errors.New("override strategy requires manifest file")
+							return fmt.Errorf("%s strategy requires manifest file", strategyOverride)
 						}
 					default:
-						return fmt.Errorf("unsupported strategy \"%s\" - must be one of: in-place, relock, override", s)
+						return fmt.Errorf("unsupported strategy \"%s\" - must be one of: %s", s, strings.Join(strategies, ", "))
 					}
 
 					return nil
@@ -251,9 +276,19 @@ func action(ctx *cli.Context, stdout, stderr io.Writer) (reporter.Reporter, erro
 		return nil, errors.New("manifest or lockfile is required")
 	}
 
-	// TODO: This isn't what the reporter is designed for.
-	// Only using r.Infof()/r.Warnf()/r.Errorf() to print to stdout/stderr.
-	r := reporter.NewTableReporter(stdout, stderr, reporter.InfoLevel, false, 0)
+	r := new(outputReporter)
+	switch ctx.String("format") {
+	case "json":
+		r.Stdout = stderr
+		r.Stderr = stderr
+		r.OutputResult = func(fo fixOutput) error { return outputJSON(stdout, fo) }
+	case "text":
+		fallthrough
+	default:
+		r.Stdout = stdout
+		r.Stderr = stderr
+		r.OutputResult = func(fo fixOutput) error { return outputText(stdout, fo) }
+	}
 
 	opts := osvFixOptions{
 		Options: remediation.Options{
@@ -348,28 +383,31 @@ func action(ctx *cli.Context, stdout, stderr io.Writer) (reporter.Reporter, erro
 
 	maxUpgrades := ctx.Int("apply-top")
 
-	strategy := ctx.String("strategy")
+	strategy := strategy(ctx.String("strategy"))
+	if strategy == "relock" { // renamed
+		strategy = strategyRelax
+	}
 
 	if !ctx.IsSet("strategy") {
 		// Choose a default strategy based on the manifest/lockfile provided.
 		switch {
 		case remediation.SupportsRelax(opts.ManifestRW):
-			strategy = "relock"
+			strategy = strategyRelax
 		case remediation.SupportsOverride(opts.ManifestRW):
-			strategy = "override"
+			strategy = strategyOverride
 		case remediation.SupportsInPlace(opts.LockfileRW):
-			strategy = "in-place"
+			strategy = strategyInPlace
 		default:
 			return nil, errors.New("no supported remediation strategies for manifest/lockfile")
 		}
 	}
 
 	switch strategy {
-	case "relock":
-		return r, autoRelock(ctx.Context, r, opts, maxUpgrades)
-	case "in-place":
+	case strategyRelax:
+		return r, autoRelax(ctx.Context, r, opts, maxUpgrades)
+	case strategyInPlace:
 		return r, autoInPlace(ctx.Context, r, opts, maxUpgrades)
-	case "override":
+	case strategyOverride:
 		return r, autoOverride(ctx.Context, r, opts, maxUpgrades)
 	default:
 		// The strategy flag should already be validated by this point.
