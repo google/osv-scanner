@@ -84,6 +84,8 @@ func (e Extractor) FileRequired(fapi filesystem.FileAPI) bool {
 
 // Extract extracts packages from yarn.lock files passed through the scan input.
 func (e Extractor) Extract(_ context.Context, input *filesystem.ScanInput) ([]*extractor.Inventory, error) {
+	// The input path is the .git directory, but git.PlainOpen expects the actual directory containing the .git dir.
+	// So call filepath.Dir to get the parent path
 	// Assume this is fully on a real filesystem
 	// TODO: Make this support virtual filesystems
 	repo, err := git.PlainOpen(path.Join(input.Root, filepath.Dir(input.Path)))
