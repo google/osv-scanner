@@ -69,7 +69,7 @@ func (e Extractor) Extract(ctx context.Context, input *filesystem.ScanInput) ([]
 		}
 	}
 	// Merging parents data by parsing local parent pom.xml or fetching from upstream.
-	if err := mavenutil.MergeParents(ctx, e.MavenRegistryAPIClient, &project, project.Parent, 1, input.Path, true); err != nil {
+	if err := mavenutil.MergeParents(ctx, e.MavenRegistryAPIClient, &project, project.Parent, 1, filepath.Join(input.Root, input.Path), true); err != nil {
 		return nil, fmt.Errorf("failed to merge parents: %w", err)
 	}
 	// Process the dependencies:
@@ -132,7 +132,7 @@ func (e Extractor) Extract(ctx context.Context, input *filesystem.ScanInput) ([]
 	}
 	overrideClient.AddVersion(root, reqs)
 
-	client.PreFetch(ctx, overrideClient, reqs, input.Path)
+	client.PreFetch(ctx, overrideClient, reqs, filepath.Join(input.Root, input.Path))
 	g, err := resolver.Resolve(ctx, root.VersionKey)
 	if err != nil {
 		return nil, fmt.Errorf("failed resolving %v: %w", root, err)

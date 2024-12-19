@@ -46,8 +46,20 @@ func normalizeRootDirectory(t *testing.T, str string) string {
 
 	// file uris with Windows end up with three slashes, so we normalize that too
 	str = strings.ReplaceAll(str, "file:///"+cwd, "file://<rootdir>")
+	str = strings.ReplaceAll(str, cwd, "<rootdir>")
 
-	return strings.ReplaceAll(str, cwd, "<rootdir>")
+	// Replace versions without the root as well
+	var root string
+	if runtime.GOOS == "windows" {
+		root = filepath.VolumeName(cwd) + "\\"
+	}
+
+	if strings.HasPrefix(cwd, "/") {
+		root = "/"
+	}
+	str = strings.ReplaceAll(str, cwd[len(root):], "<rootdir>")
+
+	return str
 }
 
 // normalizeUserCacheDirectory attempts to replace references to the current working
