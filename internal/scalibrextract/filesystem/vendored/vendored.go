@@ -2,6 +2,8 @@ package vendored
 
 import (
 	"context"
+	"slices"
+
 	//nolint:gosec
 	// md5 used to identify files, not for security purposes
 	"crypto/md5"
@@ -33,6 +35,15 @@ var (
 		"externals":   {},
 		"vendor":      {},
 		"vendored":    {},
+	}
+
+	fileExts = []string{
+		".hpp",
+		".h",
+		".hh",
+		".cc",
+		".c",
+		".cpp",
 	}
 )
 
@@ -119,15 +130,6 @@ func (e Extractor) Ecosystem(_ *extractor.Inventory) string {
 }
 
 func queryDetermineVersions(repoDir string, fsys scalibrfs.FS, scanGitDir bool) (*osv.DetermineVersionResponse, error) {
-	fileExts := []string{
-		".hpp",
-		".h",
-		".hh",
-		".cc",
-		".c",
-		".cpp",
-	}
-
 	var hashes []osv.DetermineVersionHash
 
 	err := fs.WalkDir(fsys, repoDir, func(p string, d fs.DirEntry, _ error) error {
@@ -147,21 +149,22 @@ func queryDetermineVersions(repoDir string, fsys scalibrfs.FS, scanGitDir bool) 
 
 			return nil
 		}
-		for _, ext := range fileExts {
-			if filepath.Ext(p) == ext {
-				buf, err := os.ReadFile(p)
-				if err != nil {
-					return err
-				}
-				hash := md5.Sum(buf) //nolint:gosec
-				hashes = append(hashes, osv.DetermineVersionHash{
-					Path: strings.ReplaceAll(p, repoDir, ""),
-					Hash: hash[:],
-				})
-				if len(hashes) > maxDetermineVersionFiles {
-					return errors.New("too many files to hash")
-				}
-			}
+
+		if !slices.Contains(fileExts, filepath.Ext(p)) {
+			return nil
+		}
+
+		buf, err := os.ReadFile(p)
+		if err != nil {
+			return err
+		}
+		hash := md5.Sum(buf) //nolint:gosec
+		hashes = append(hashes, osv.DetermineVersionHash{
+			Path: strings.ReplaceAll(p, repoDir, ""),
+			Hash: hash[:],
+		})
+		if len(hashes) > maxDetermineVersionFiles {
+			return errors.New("too many files to hash")
 		}
 
 		return nil
