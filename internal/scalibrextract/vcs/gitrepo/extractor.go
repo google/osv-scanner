@@ -86,7 +86,7 @@ func (e Extractor) FileRequired(fapi filesystem.FileAPI) bool {
 func (e Extractor) Extract(_ context.Context, input *filesystem.ScanInput) ([]*extractor.Inventory, error) {
 	// Assume this is fully on a real filesystem
 	// TODO: Make this support virtual filesystems
-	repo, err := git.PlainOpen(path.Join(input.Root, input.Path))
+	repo, err := git.PlainOpen(path.Join(input.Root, filepath.Dir(input.Path)))
 	if err != nil {
 		return nil, err
 	}
@@ -97,7 +97,7 @@ func (e Extractor) Extract(_ context.Context, input *filesystem.ScanInput) ([]*e
 	commitSHA, err := getCommitSHA(repo)
 
 	// If error is not nil, then ignore this and continue, as it is not fatal.
-	// The error could be because it is a bare repository
+	// The error could be because there are no commits in the repository
 	if err == nil {
 		packages = append(packages, createCommitQueryInventory(commitSHA, input.Path))
 	}
@@ -105,7 +105,7 @@ func (e Extractor) Extract(_ context.Context, input *filesystem.ScanInput) ([]*e
 	// If we can't get submodules, just return with what we have.
 	submodules, err := getSubmodules(repo)
 	if err != nil {
-		return packages, nil
+		return packages, err
 	}
 
 	for _, s := range submodules {
