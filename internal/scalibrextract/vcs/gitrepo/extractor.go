@@ -67,7 +67,7 @@ func (e Extractor) Requirements() *plugin.Capabilities {
 	return &plugin.Capabilities{}
 }
 
-// FileRequired returns true for .package-lock.json files under node_modules
+// FileRequired returns true for git repositories .git dirs
 func (e Extractor) FileRequired(fapi filesystem.FileAPI) bool {
 	if filepath.Base(fapi.Path()) != ".git" {
 		return false
@@ -82,7 +82,7 @@ func (e Extractor) FileRequired(fapi filesystem.FileAPI) bool {
 	return stat.IsDir()
 }
 
-// Extract extracts packages from yarn.lock files passed through the scan input.
+// Extract extracts git commits from HEAD and from submodules
 func (e Extractor) Extract(_ context.Context, input *filesystem.ScanInput) ([]*extractor.Inventory, error) {
 	// The input path is the .git directory, but git.PlainOpen expects the actual directory containing the .git dir.
 	// So call filepath.Dir to get the parent path
@@ -123,7 +123,7 @@ func (e Extractor) ToPURL(_ *extractor.Inventory) *purl.PackageURL {
 	return nil
 }
 
-// Ecosystem returns the OSV ecosystem ('npm') of the software extracted by this extractor.
+// Ecosystem returns an empty string as all inventories are commit hashes
 func (e Extractor) Ecosystem(_ *extractor.Inventory) string {
 	return ""
 }
