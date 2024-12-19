@@ -428,7 +428,7 @@ func extractMavenDeps(f lockfile.DepFile, actions TransitiveScanningActions) (lo
 		return lockfile.Lockfile{}, err
 	}
 
-	mavenClient, err := datasource.NewMavenRegistryAPIClient(actions.MavenRegistry)
+	mavenClient, err := datasource.NewMavenRegistryAPIClient(datasource.MavenRegistry{URL: actions.MavenRegistry, ReleasesEnabled: true})
 	if err != nil {
 		return lockfile.Lockfile{}, err
 	}
