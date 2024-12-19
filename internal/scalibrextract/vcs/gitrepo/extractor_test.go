@@ -4,6 +4,7 @@ import (
 	"context"
 	"os"
 	"path"
+	"path/filepath"
 	"testing"
 
 	"github.com/google/go-cmp/cmp"
@@ -20,37 +21,44 @@ func TestExtractor_Extract(t *testing.T) {
 		{
 			Name: "Not a git dir",
 			InputConfig: extracttest.ScanInputMockConfig{
-				Path: "testdata/example-not-git",
+				Path: "testdata/example-not-git/.git",
 			},
 			WantErr: extracttest.ContainsErrStr{Str: "repository does not exist"},
 		},
 		{
 			Name: "example git",
 			InputConfig: extracttest.ScanInputMockConfig{
-				Path: "testdata/example-git",
+				Path: "testdata/example-git/.git",
 			},
 			WantInventory: []*extractor.Inventory{
 				{
-					Locations: []string{"testdata/example-git"},
+					Locations: []string{"testdata/example-git/.git"},
 					SourceCode: &extractor.SourceCodeIdentifier{
 						Commit: "862ac4bd2703b622e85f29f55a2fd8cd6caf8182",
 					},
 				},
 			},
 		},
+		{
+			Name: "Clean git repository with no commits",
+			InputConfig: extracttest.ScanInputMockConfig{
+				Path: "testdata/example-clean/.git",
+			},
+			WantInventory: nil,
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.Name, func(t *testing.T) {
 			t.Parallel()
 			extr := gitrepo.Extractor{}
-
-			err := os.Rename(path.Join(tt.InputConfig.Path, "git-hidden"), path.Join(tt.InputConfig.Path, ".git"))
+			parent := filepath.Dir(tt.InputConfig.Path)
+			err := os.Rename(path.Join(parent, "git-hidden"), path.Join(parent, ".git"))
 			if err != nil {
 				t.Errorf("can't find git-hidden folder")
 			}
 
 			defer func() {
-				err = os.Rename(path.Join(tt.InputConfig.Path, ".git"), path.Join(tt.InputConfig.Path, "git-hidden"))
+				err = os.Rename(path.Join(parent, ".git"), path.Join(parent, "git-hidden"))
 				if err != nil {
 					t.Fatalf("failed to restore .git to original git-hidden: %v", err)
 				}

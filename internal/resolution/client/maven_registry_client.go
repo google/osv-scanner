@@ -3,6 +3,7 @@ package client
 import (
 	"context"
 	"encoding/gob"
+	"errors"
 	"fmt"
 	"os"
 	"strings"
@@ -21,7 +22,7 @@ type MavenRegistryClient struct {
 }
 
 func NewMavenRegistryClient(registry string) (*MavenRegistryClient, error) {
-	client, err := datasource.NewMavenRegistryAPIClient(registry)
+	client, err := datasource.NewMavenRegistryAPIClient(datasource.MavenRegistry{URL: registry, ReleasesEnabled: true})
 	if err != nil {
 		return nil, err
 	}
@@ -147,7 +148,11 @@ func (c *MavenRegistryClient) MatchingVersions(ctx context.Context, vk resolve.V
 
 func (c *MavenRegistryClient) AddRegistries(registries []Registry) error {
 	for _, reg := range registries {
-		if err := c.api.AddRegistry(reg.URL); err != nil {
+		specific, ok := reg.(datasource.MavenRegistry)
+		if !ok {
+			return errors.New("invalid Maven registry information")
+		}
+		if err := c.api.AddRegistry(specific); err != nil {
 			return err
 		}
 	}
