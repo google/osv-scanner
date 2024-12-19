@@ -80,7 +80,7 @@ Loaded filter from: <rootdir>/fixtures/locks-many/osv-scanner.toml
           "informationUri": "https://github.com/google/osv-scanner",
           "name": "osv-scanner",
           "rules": [],
-          "version": "1.9.1"
+          "version": "1.9.2"
         }
       },
       "results": []
@@ -234,7 +234,7 @@ Loaded Alpine local db from <tempdir>/osv-scanner/Alpine/all.zip
               }
             }
           ],
-          "version": "1.9.1"
+          "version": "1.9.2"
         }
       },
       "artifacts": [
@@ -868,7 +868,7 @@ No issues found
 ---
 
 [TestRun/version - 1]
-osv-scanner version: 1.9.1
+osv-scanner version: 1.9.2
 commit: n/a
 built at: n/a
 
@@ -991,7 +991,7 @@ Scanned <rootdir>/fixtures/locks-insecure/osv-scanner-flutter-deps.json file as 
               }
             }
           ],
-          "version": "1.9.1"
+          "version": "1.9.2"
         }
       },
       "artifacts": [
@@ -2522,24 +2522,6 @@ No issues found
 
 ---
 
-[TestRun_MavenTransitive/resolve_transitive_dependencies_with_native_datda_source - 1]
-Scanned <rootdir>/fixtures/maven-transitive/registry.xml file as a pom.xml and found 59 packages
-+-------------------------------------+------+-----------+-----------------------------------------------+---------+----------------------------------------+
-| OSV URL                             | CVSS | ECOSYSTEM | PACKAGE                                       | VERSION | SOURCE                                 |
-+-------------------------------------+------+-----------+-----------------------------------------------+---------+----------------------------------------+
-| https://osv.dev/GHSA-cm6r-892j-jv2g | 6.1  | Maven     | com.google.android.gms:play-services-basement | 10.0.0  | fixtures/maven-transitive/registry.xml |
-| https://osv.dev/GHSA-7rjr-3q55-vv33 | 9.0  | Maven     | org.apache.logging.log4j:log4j-core           | 2.14.1  | fixtures/maven-transitive/registry.xml |
-| https://osv.dev/GHSA-8489-44mv-ggj8 | 6.6  | Maven     | org.apache.logging.log4j:log4j-core           | 2.14.1  | fixtures/maven-transitive/registry.xml |
-| https://osv.dev/GHSA-jfh8-c2jp-5v3q | 10.0 | Maven     | org.apache.logging.log4j:log4j-core           | 2.14.1  | fixtures/maven-transitive/registry.xml |
-| https://osv.dev/GHSA-p6xc-xr62-6r2g | 8.6  | Maven     | org.apache.logging.log4j:log4j-core           | 2.14.1  | fixtures/maven-transitive/registry.xml |
-+-------------------------------------+------+-----------+-----------------------------------------------+---------+----------------------------------------+
-
----
-
-[TestRun_MavenTransitive/resolve_transitive_dependencies_with_native_datda_source - 2]
-
----
-
 [TestRun_MavenTransitive/scans_dependencies_from_multiple_registries - 1]
 Scanned <rootdir>/fixtures/maven-transitive/registry.xml file as a pom.xml and found 59 packages
 +-------------------------------------+------+-----------+-----------------------------------------------+---------+----------------------------------------+
@@ -2643,21 +2625,7 @@ failed to load image ./fixtures/oci-image/no-file-here.tar: open ./fixtures/oci-
 
 [TestRun_OCIImage/scanning_node_modules_using_npm_with_no_packages - 1]
 Scanning image ../../internal/image/fixtures/test-node_modules-npm-empty.tar
-Total 1 packages affected by 4 vulnerabilities (0 Critical, 0 High, 4 Medium, 0 Low, 0 Unknown) from 1 ecosystems.
-4 vulnerabilities have fixes available.
-
-Alpine:v3.19
-+----------------------------------------------------------+
-| Source:docker:../../internal/image/fixtures/test-node_mo |
-| dules-npm-empty.tar:/lib/apk/db/installed                |
-+---------+-------------------+---------------+------------+
-| PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT |
-+---------+-------------------+---------------+------------+
-| busybox | 1.36.1-r15        | Fix Available |          4 |
-+---------+-------------------+---------------+------------+
-
-For the most comprehensive scan results, we recommend using the HTML output: `osv-scanner --format html --output results.html`.
-You can also view the full vulnerability list in your terminal with: `osv-scanner --format vertical`.
+No issues found
 
 ---
 
@@ -2667,8 +2635,8 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
 
 [TestRun_OCIImage/scanning_node_modules_using_npm_with_some_packages - 1]
 Scanning image ../../internal/image/fixtures/test-node_modules-npm-full.tar
-Total 3 packages affected by 6 vulnerabilities (2 Critical, 0 High, 4 Medium, 0 Low, 0 Unknown) from 2 ecosystems.
-5 vulnerabilities have fixes available.
+Total 2 packages affected by 2 vulnerabilities (2 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystems.
+1 vulnerabilities have fixes available.
 
 npm
 +--------------------------------------------------------------+
@@ -2680,15 +2648,6 @@ npm
 | cryo     | 0.0.6             | No fix available |          1 |
 | minimist | 0.0.8             | Fix Available    |          1 |
 +----------+-------------------+------------------+------------+
-Alpine:v3.19
-+----------------------------------------------------------+
-| Source:docker:../../internal/image/fixtures/test-node_mo |
-| dules-npm-full.tar:/lib/apk/db/installed                 |
-+---------+-------------------+---------------+------------+
-| PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT |
-+---------+-------------------+---------------+------------+
-| busybox | 1.36.1-r15        | Fix Available |          4 |
-+---------+-------------------+---------------+------------+
 
 For the most comprehensive scan results, we recommend using the HTML output: `osv-scanner --format html --output results.html`.
 You can also view the full vulnerability list in your terminal with: `osv-scanner --format vertical`.
@@ -2701,21 +2660,7 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
 
 [TestRun_OCIImage/scanning_node_modules_using_pnpm_with_no_packages - 1]
 Scanning image ../../internal/image/fixtures/test-node_modules-pnpm-empty.tar
-Total 1 packages affected by 4 vulnerabilities (0 Critical, 0 High, 4 Medium, 0 Low, 0 Unknown) from 1 ecosystems.
-4 vulnerabilities have fixes available.
-
-Alpine:v3.19
-+----------------------------------------------------------+
-| Source:docker:../../internal/image/fixtures/test-node_mo |
-| dules-pnpm-empty.tar:/lib/apk/db/installed               |
-+---------+-------------------+---------------+------------+
-| PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT |
-+---------+-------------------+---------------+------------+
-| busybox | 1.36.1-r15        | Fix Available |          4 |
-+---------+-------------------+---------------+------------+
-
-For the most comprehensive scan results, we recommend using the HTML output: `osv-scanner --format html --output results.html`.
-You can also view the full vulnerability list in your terminal with: `osv-scanner --format vertical`.
+No issues found
 
 ---
 
@@ -2725,21 +2670,7 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
 
 [TestRun_OCIImage/scanning_node_modules_using_pnpm_with_some_packages - 1]
 Scanning image ../../internal/image/fixtures/test-node_modules-pnpm-full.tar
-Total 1 packages affected by 4 vulnerabilities (0 Critical, 0 High, 4 Medium, 0 Low, 0 Unknown) from 1 ecosystems.
-4 vulnerabilities have fixes available.
-
-Alpine:v3.19
-+----------------------------------------------------------+
-| Source:docker:../../internal/image/fixtures/test-node_mo |
-| dules-pnpm-full.tar:/lib/apk/db/installed                |
-+---------+-------------------+---------------+------------+
-| PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT |
-+---------+-------------------+---------------+------------+
-| busybox | 1.36.1-r15        | Fix Available |          4 |
-+---------+-------------------+---------------+------------+
-
-For the most comprehensive scan results, we recommend using the HTML output: `osv-scanner --format html --output results.html`.
-You can also view the full vulnerability list in your terminal with: `osv-scanner --format vertical`.
+No issues found
 
 ---
 
@@ -2749,21 +2680,7 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
 
 [TestRun_OCIImage/scanning_node_modules_using_yarn_with_no_packages - 1]
 Scanning image ../../internal/image/fixtures/test-node_modules-yarn-empty.tar
-Total 1 packages affected by 4 vulnerabilities (0 Critical, 0 High, 4 Medium, 0 Low, 0 Unknown) from 1 ecosystems.
-4 vulnerabilities have fixes available.
-
-Alpine:v3.19
-+----------------------------------------------------------+
-| Source:docker:../../internal/image/fixtures/test-node_mo |
-| dules-yarn-empty.tar:/lib/apk/db/installed               |
-+---------+-------------------+---------------+------------+
-| PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT |
-+---------+-------------------+---------------+------------+
-| busybox | 1.36.1-r15        | Fix Available |          4 |
-+---------+-------------------+---------------+------------+
-
-For the most comprehensive scan results, we recommend using the HTML output: `osv-scanner --format html --output results.html`.
-You can also view the full vulnerability list in your terminal with: `osv-scanner --format vertical`.
+No issues found
 
 ---
 
@@ -2773,21 +2690,7 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
 
 [TestRun_OCIImage/scanning_node_modules_using_yarn_with_some_packages - 1]
 Scanning image ../../internal/image/fixtures/test-node_modules-yarn-full.tar
-Total 1 packages affected by 4 vulnerabilities (0 Critical, 0 High, 4 Medium, 0 Low, 0 Unknown) from 1 ecosystems.
-4 vulnerabilities have fixes available.
-
-Alpine:v3.19
-+----------------------------------------------------------+
-| Source:docker:../../internal/image/fixtures/test-node_mo |
-| dules-yarn-full.tar:/lib/apk/db/installed                |
-+---------+-------------------+---------------+------------+
-| PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT |
-+---------+-------------------+---------------+------------+
-| busybox | 1.36.1-r15        | Fix Available |          4 |
-+---------+-------------------+---------------+------------+
-
-For the most comprehensive scan results, we recommend using the HTML output: `osv-scanner --format html --output results.html`.
-You can also view the full vulnerability list in your terminal with: `osv-scanner --format vertical`.
+No issues found
 
 ---
 

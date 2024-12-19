@@ -540,205 +540,205 @@
       "packages": [
         {
           "name": "alpine-baselayout",
-          "version": "3.4.3-r2",
-          "commit": "7749273fed55f6e1df7c9ee6a127f18099f98a94",
-          "ecosystem": "Alpine:v3.19",
+          "version": "3.6.8-r0",
+          "commit": "82d6c06a6d6e8de20a4db05994da6046f0623af3",
+          "ecosystem": "Alpine:v3.21",
           "compareAs": "Alpine",
           "imageOrigin": {
             "layerID": "\u003cAny value\u003e",
-            "originCommand": "/bin/sh -c #(nop) ADD file:37a76ec18f9887751cd8473744917d08b7431fc4085097bb6a09d81b41775473 in / ",
+            "originCommand": "ADD alpine-minirootfs-3.21.0-x86_64.tar.gz / # buildkit",
             "inBaseImage": true
           }
         },
         {
           "name": "alpine-baselayout-data",
-          "version": "3.4.3-r2",
-          "commit": "7749273fed55f6e1df7c9ee6a127f18099f98a94",
-          "ecosystem": "Alpine:v3.19",
+          "version": "3.6.8-r0",
+          "commit": "82d6c06a6d6e8de20a4db05994da6046f0623af3",
+          "ecosystem": "Alpine:v3.21",
           "compareAs": "Alpine",
           "imageOrigin": {
             "layerID": "\u003cAny value\u003e",
-            "originCommand": "/bin/sh -c #(nop) ADD file:37a76ec18f9887751cd8473744917d08b7431fc4085097bb6a09d81b41775473 in / ",
+            "originCommand": "ADD alpine-minirootfs-3.21.0-x86_64.tar.gz / # buildkit",
             "inBaseImage": true
           }
         },
         {
           "name": "alpine-keys",
-          "version": "2.4-r1",
-          "commit": "aab68f8c9ab434a46710de8e12fb3206e2930a59",
-          "ecosystem": "Alpine:v3.19",
+          "version": "2.5-r0",
+          "commit": "6d473fb38effb2389f567b29fb7eb27039b3a279",
+          "ecosystem": "Alpine:v3.21",
           "compareAs": "Alpine",
           "imageOrigin": {
             "layerID": "\u003cAny value\u003e",
-            "originCommand": "/bin/sh -c #(nop) ADD file:37a76ec18f9887751cd8473744917d08b7431fc4085097bb6a09d81b41775473 in / ",
+            "originCommand": "ADD alpine-minirootfs-3.21.0-x86_64.tar.gz / # buildkit",
+            "inBaseImage": true
+          }
+        },
+        {
+          "name": "alpine-release",
+          "version": "3.21.0-r0",
+          "commit": "59962f87e4603deb5bb4d237927fd7eb84c7c9c9",
+          "ecosystem": "Alpine:v3.21",
+          "compareAs": "Alpine",
+          "imageOrigin": {
+            "layerID": "\u003cAny value\u003e",
+            "originCommand": "ADD alpine-minirootfs-3.21.0-x86_64.tar.gz / # buildkit",
             "inBaseImage": true
           }
         },
         {
           "name": "apk-tools",
-          "version": "2.14.0-r5",
-          "commit": "33283848034c9885d984c8e8697c645c57324938",
-          "ecosystem": "Alpine:v3.19",
+          "version": "2.14.6-r2",
+          "commit": "85fce5ac38cd9990b8910637d750591e3ef55a6c",
+          "ecosystem": "Alpine:v3.21",
           "compareAs": "Alpine",
           "imageOrigin": {
             "layerID": "\u003cAny value\u003e",
-            "originCommand": "/bin/sh -c #(nop) ADD file:37a76ec18f9887751cd8473744917d08b7431fc4085097bb6a09d81b41775473 in / ",
+            "originCommand": "ADD alpine-minirootfs-3.21.0-x86_64.tar.gz / # buildkit",
             "inBaseImage": true
           }
         },
         {
           "name": "busybox",
-          "version": "1.36.1-r15",
-          "commit": "d1b6f274f29076967826e0ecf6ebcaa5d360272f",
-          "ecosystem": "Alpine:v3.19",
+          "version": "1.37.0-r8",
+          "commit": "79fddc2aa9c64c47fb3da6edeae9570b4e9caa7e",
+          "ecosystem": "Alpine:v3.21",
           "compareAs": "Alpine",
           "imageOrigin": {
             "layerID": "\u003cAny value\u003e",
-            "originCommand": "/bin/sh -c #(nop) ADD file:37a76ec18f9887751cd8473744917d08b7431fc4085097bb6a09d81b41775473 in / ",
+            "originCommand": "ADD alpine-minirootfs-3.21.0-x86_64.tar.gz / # buildkit",
             "inBaseImage": true
           }
         },
         {
           "name": "busybox-binsh",
-          "version": "1.36.1-r15",
-          "commit": "d1b6f274f29076967826e0ecf6ebcaa5d360272f",
-          "ecosystem": "Alpine:v3.19",
+          "version": "1.37.0-r8",
+          "commit": "79fddc2aa9c64c47fb3da6edeae9570b4e9caa7e",
+          "ecosystem": "Alpine:v3.21",
           "compareAs": "Alpine",
           "imageOrigin": {
             "layerID": "\u003cAny value\u003e",
-            "originCommand": "/bin/sh -c #(nop) ADD file:37a76ec18f9887751cd8473744917d08b7431fc4085097bb6a09d81b41775473 in / ",
+            "originCommand": "ADD alpine-minirootfs-3.21.0-x86_64.tar.gz / # buildkit",
             "inBaseImage": true
           }
         },
         {
           "name": "ca-certificates-bundle",
-          "version": "20230506-r0",
-          "commit": "59534a02716a92a10d177a118c34066162eff4a6",
-          "ecosystem": "Alpine:v3.19",
+          "version": "20241010-r0",
+          "commit": "537f890454d2213fd05cde5e458dfa9c8ef1977f",
+          "ecosystem": "Alpine:v3.21",
           "compareAs": "Alpine",
           "imageOrigin": {
             "layerID": "\u003cAny value\u003e",
-            "originCommand": "/bin/sh -c #(nop) ADD file:37a76ec18f9887751cd8473744917d08b7431fc4085097bb6a09d81b41775473 in / ",
-            "inBaseImage": true
-          }
-        },
-        {
-          "name": "libc-utils",
-          "version": "0.7.2-r5",
-          "commit": "988f183cc9d6699930c3e18ccf4a9e36010afb56",
-          "ecosystem": "Alpine:v3.19",
-          "compareAs": "Alpine",
-          "imageOrigin": {
-            "layerID": "\u003cAny value\u003e",
-            "originCommand": "/bin/sh -c #(nop) ADD file:37a76ec18f9887751cd8473744917d08b7431fc4085097bb6a09d81b41775473 in / ",
+            "originCommand": "ADD alpine-minirootfs-3.21.0-x86_64.tar.gz / # buildkit",
             "inBaseImage": true
           }
         },
         {
           "name": "libcrypto3",
-          "version": "3.1.4-r5",
-          "commit": "b784a22cad0c452586b438cb7a597d846fc09ff4",
-          "ecosystem": "Alpine:v3.19",
+          "version": "3.3.2-r4",
+          "commit": "e18f4d0c2080542ef5c4fd329a5be584064658aa",
+          "ecosystem": "Alpine:v3.21",
           "compareAs": "Alpine",
           "imageOrigin": {
             "layerID": "\u003cAny value\u003e",
-            "originCommand": "/bin/sh -c #(nop) ADD file:37a76ec18f9887751cd8473744917d08b7431fc4085097bb6a09d81b41775473 in / ",
+            "originCommand": "ADD alpine-minirootfs-3.21.0-x86_64.tar.gz / # buildkit",
             "inBaseImage": true
           }
         },
         {
           "name": "libgcc",
-          "version": "13.2.1_git20231014-r0",
-          "commit": "090e168783a86e5c2ba31fc65921b9715bac62ff",
-          "ecosystem": "Alpine:v3.19",
+          "version": "14.2.0-r4",
+          "commit": "1a03a2a9c9e77f1a07d48b6f6805e72c8c63c03f",
+          "ecosystem": "Alpine:v3.21",
           "compareAs": "Alpine",
           "imageOrigin": {
             "layerID": "\u003cAny value\u003e",
-            "originCommand": "/bin/sh -c addgroup -g 1000 node     \u0026\u0026 adduser -u 1000 -G node -s /bin/sh -D node     \u0026\u0026 apk add --no-cache         libstdc++     \u0026\u0026 apk add --no-cache --virtual .build-deps         curl     \u0026\u0026 ARCH= OPENSSL_ARCH='linux*' \u0026\u0026 alpineArch=\"$(apk --print-arch)\"       \u0026\u0026 case \"${alpineArch##*-}\" in         x86_64) ARCH='x64' CHECKSUM=\"5da733c21c3b51193a4fe9fc5be6cfa9a694d13b8d766eb02dbe4b8996547050\" OPENSSL_ARCH=linux-x86_64;;         x86) OPENSSL_ARCH=linux-elf;;         aarch64) OPENSSL_ARCH=linux-aarch64;;         arm*) OPENSSL_ARCH=linux-armv4;;         ppc64le) OPENSSL_ARCH=linux-ppc64le;;         s390x) OPENSSL_ARCH=linux-s390x;;         *) ;;       esac   \u0026\u0026 if [ -n \"${CHECKSUM}\" ]; then     set -eu;     curl -fsSLO --compressed \"https://unofficial-builds.nodejs.org/download/release/v$NODE_VERSION/node-v$NODE_VERSION-linux-$ARCH-musl.tar.xz\";     echo \"$CHECKSUM  node-v$NODE_VERSION-linux-$ARCH-musl.tar.xz\" | sha256sum -c -       \u0026\u0026 tar -xJf \"node-v$NODE_VERSION-linux-$ARCH-musl.tar.xz\" -C /usr/local --strip-components=1 --no-same-owner       \u0026\u0026 ln -s /usr/local/bin/node /usr/local/bin/nodejs;   else     echo \"Building from source\"     \u0026\u0026 apk add --no-cache --virtual .build-deps-full         binutils-gold         g++         gcc         gnupg         libgcc         linux-headers         make         python3     \u0026\u0026 export GNUPGHOME=\"$(mktemp -d)\"     \u0026\u0026 for key in       4ED778F539E3634C779C87C6D7062848A1AB005C       141F07595B7B3FFE74309A937405533BE57C7D57       74F12602B6F1C4E913FAA37AD3A89613643B6201       DD792F5973C6DE52C432CBDAC77ABFA00DDBF2B7       61FC681DFB92A079F1685E77973F295594EC4689       8FCCA13FEF1D0C2E91008E09770F7A9A5AE15600       C4F0DFFF4E8C1A8236409D08E73BC641CC11F4C8       890C08DB8579162FEE0DF9DB8BEAB4DFCF555EF4       C82FA3AE1CBEDC6BE46B9360C43CEC45C17AB93C       108F52B48DB57BB0CC439B2997B01419BD92F80A       A363A499291CBBC940DD62E41F10027AF002F8B0     ; do       gpg --batch --keyserver hkps://keys.openpgp.org --recv-keys \"$key\" ||       gpg --batch --keyserver keyserver.ubuntu.com --recv-keys \"$key\" ;     done     \u0026\u0026 curl -fsSLO --compressed \"https://nodejs.org/dist/v$NODE_VERSION/node-v$NODE_VERSION.tar.xz\"     \u0026\u0026 curl -fsSLO --compressed \"https://nodejs.org/dist/v$NODE_VERSION/SHASUMS256.txt.asc\"     \u0026\u0026 gpg --batch --decrypt --output SHASUMS256.txt SHASUMS256.txt.asc     \u0026\u0026 gpgconf --kill all     \u0026\u0026 rm -rf \"$GNUPGHOME\"     \u0026\u0026 grep \" node-v$NODE_VERSION.tar.xz\\$\" SHASUMS256.txt | sha256sum -c -     \u0026\u0026 tar -xf \"node-v$NODE_VERSION.tar.xz\"     \u0026\u0026 cd \"node-v$NODE_VERSION\"     \u0026\u0026 ./configure     \u0026\u0026 make -j$(getconf _NPROCESSORS_ONLN) V=     \u0026\u0026 make install     \u0026\u0026 apk del .build-deps-full     \u0026\u0026 cd ..     \u0026\u0026 rm -Rf \"node-v$NODE_VERSION\"     \u0026\u0026 rm \"node-v$NODE_VERSION.tar.xz\" SHASUMS256.txt.asc SHASUMS256.txt;   fi   \u0026\u0026 rm -f \"node-v$NODE_VERSION-linux-$ARCH-musl.tar.xz\"   \u0026\u0026 find /usr/local/include/node/openssl/archs -mindepth 1 -maxdepth 1 ! -name \"$OPENSSL_ARCH\" -exec rm -rf {} \\;   \u0026\u0026 apk del .build-deps   \u0026\u0026 node --version   \u0026\u0026 npm --version",
+            "originCommand": "RUN /bin/sh -c addgroup -g 1000 node     \u0026\u0026 adduser -u 1000 -G node -s /bin/sh -D node     \u0026\u0026 apk add --no-cache         libstdc++     \u0026\u0026 apk add --no-cache --virtual .build-deps         curl     \u0026\u0026 ARCH= OPENSSL_ARCH='linux*' \u0026\u0026 alpineArch=\"$(apk --print-arch)\"       \u0026\u0026 case \"${alpineArch##*-}\" in         x86_64) ARCH='x64' CHECKSUM=\"5ebbebaf673652c1868a05b442e82ed5b3f536aa03231f285e739d35b912dc5d\" OPENSSL_ARCH=linux-x86_64;;         x86) OPENSSL_ARCH=linux-elf;;         aarch64) OPENSSL_ARCH=linux-aarch64;;         arm*) OPENSSL_ARCH=linux-armv4;;         ppc64le) OPENSSL_ARCH=linux-ppc64le;;         s390x) OPENSSL_ARCH=linux-s390x;;         *) ;;       esac   \u0026\u0026 if [ -n \"${CHECKSUM}\" ]; then     set -eu;     curl -fsSLO --compressed \"https://unofficial-builds.nodejs.org/download/release/v$NODE_VERSION/node-v$NODE_VERSION-linux-$ARCH-musl.tar.xz\";     echo \"$CHECKSUM  node-v$NODE_VERSION-linux-$ARCH-musl.tar.xz\" | sha256sum -c -       \u0026\u0026 tar -xJf \"node-v$NODE_VERSION-linux-$ARCH-musl.tar.xz\" -C /usr/local --strip-components=1 --no-same-owner       \u0026\u0026 ln -s /usr/local/bin/node /usr/local/bin/nodejs;   else     echo \"Building from source\"     \u0026\u0026 apk add --no-cache --virtual .build-deps-full         binutils-gold         g++         gcc         gnupg         libgcc         linux-headers         make         python3         py-setuptools     \u0026\u0026 export GNUPGHOME=\"$(mktemp -d)\"     \u0026\u0026 for key in       C0D6248439F1D5604AAFFB4021D900FFDB233756       DD792F5973C6DE52C432CBDAC77ABFA00DDBF2B7       CC68F5A3106FF448322E48ED27F5E38D5B0A215F       8FCCA13FEF1D0C2E91008E09770F7A9A5AE15600       890C08DB8579162FEE0DF9DB8BEAB4DFCF555EF4       C82FA3AE1CBEDC6BE46B9360C43CEC45C17AB93C       108F52B48DB57BB0CC439B2997B01419BD92F80A       A363A499291CBBC940DD62E41F10027AF002F8B0     ; do       gpg --batch --keyserver hkps://keys.openpgp.org --recv-keys \"$key\" ||       gpg --batch --keyserver keyserver.ubuntu.com --recv-keys \"$key\" ;     done     \u0026\u0026 curl -fsSLO --compressed \"https://nodejs.org/dist/v$NODE_VERSION/node-v$NODE_VERSION.tar.xz\"     \u0026\u0026 curl -fsSLO --compressed \"https://nodejs.org/dist/v$NODE_VERSION/SHASUMS256.txt.asc\"     \u0026\u0026 gpg --batch --decrypt --output SHASUMS256.txt SHASUMS256.txt.asc     \u0026\u0026 gpgconf --kill all     \u0026\u0026 rm -rf \"$GNUPGHOME\"     \u0026\u0026 grep \" node-v$NODE_VERSION.tar.xz\\$\" SHASUMS256.txt | sha256sum -c -     \u0026\u0026 tar -xf \"node-v$NODE_VERSION.tar.xz\"     \u0026\u0026 cd \"node-v$NODE_VERSION\"     \u0026\u0026 ./configure     \u0026\u0026 make -j$(getconf _NPROCESSORS_ONLN) V=     \u0026\u0026 make install     \u0026\u0026 apk del .build-deps-full     \u0026\u0026 cd ..     \u0026\u0026 rm -Rf \"node-v$NODE_VERSION\"     \u0026\u0026 rm \"node-v$NODE_VERSION.tar.xz\" SHASUMS256.txt.asc SHASUMS256.txt;   fi   \u0026\u0026 rm -f \"node-v$NODE_VERSION-linux-$ARCH-musl.tar.xz\"   \u0026\u0026 find /usr/local/include/node/openssl/archs -mindepth 1 -maxdepth 1 ! -name \"$OPENSSL_ARCH\" -exec rm -rf {} \\;   \u0026\u0026 apk del .build-deps   \u0026\u0026 node --version   \u0026\u0026 npm --version # buildkit",
             "inBaseImage": true
           }
         },
         {
           "name": "libssl3",
-          "version": "3.1.4-r5",
-          "commit": "b784a22cad0c452586b438cb7a597d846fc09ff4",
-          "ecosystem": "Alpine:v3.19",
+          "version": "3.3.2-r4",
+          "commit": "e18f4d0c2080542ef5c4fd329a5be584064658aa",
+          "ecosystem": "Alpine:v3.21",
           "compareAs": "Alpine",
           "imageOrigin": {
             "layerID": "\u003cAny value\u003e",
-            "originCommand": "/bin/sh -c #(nop) ADD file:37a76ec18f9887751cd8473744917d08b7431fc4085097bb6a09d81b41775473 in / ",
+            "originCommand": "ADD alpine-minirootfs-3.21.0-x86_64.tar.gz / # buildkit",
             "inBaseImage": true
           }
         },
         {
           "name": "libstdc++",
-          "version": "13.2.1_git20231014-r0",
-          "commit": "090e168783a86e5c2ba31fc65921b9715bac62ff",
-          "ecosystem": "Alpine:v3.19",
+          "version": "14.2.0-r4",
+          "commit": "1a03a2a9c9e77f1a07d48b6f6805e72c8c63c03f",
+          "ecosystem": "Alpine:v3.21",
           "compareAs": "Alpine",
           "imageOrigin": {
             "layerID": "\u003cAny value\u003e",
-            "originCommand": "/bin/sh -c addgroup -g 1000 node     \u0026\u0026 adduser -u 1000 -G node -s /bin/sh -D node     \u0026\u0026 apk add --no-cache         libstdc++     \u0026\u0026 apk add --no-cache --virtual .build-deps         curl     \u0026\u0026 ARCH= OPENSSL_ARCH='linux*' \u0026\u0026 alpineArch=\"$(apk --print-arch)\"       \u0026\u0026 case \"${alpineArch##*-}\" in         x86_64) ARCH='x64' CHECKSUM=\"5da733c21c3b51193a4fe9fc5be6cfa9a694d13b8d766eb02dbe4b8996547050\" OPENSSL_ARCH=linux-x86_64;;         x86) OPENSSL_ARCH=linux-elf;;         aarch64) OPENSSL_ARCH=linux-aarch64;;         arm*) OPENSSL_ARCH=linux-armv4;;         ppc64le) OPENSSL_ARCH=linux-ppc64le;;         s390x) OPENSSL_ARCH=linux-s390x;;         *) ;;       esac   \u0026\u0026 if [ -n \"${CHECKSUM}\" ]; then     set -eu;     curl -fsSLO --compressed \"https://unofficial-builds.nodejs.org/download/release/v$NODE_VERSION/node-v$NODE_VERSION-linux-$ARCH-musl.tar.xz\";     echo \"$CHECKSUM  node-v$NODE_VERSION-linux-$ARCH-musl.tar.xz\" | sha256sum -c -       \u0026\u0026 tar -xJf \"node-v$NODE_VERSION-linux-$ARCH-musl.tar.xz\" -C /usr/local --strip-components=1 --no-same-owner       \u0026\u0026 ln -s /usr/local/bin/node /usr/local/bin/nodejs;   else     echo \"Building from source\"     \u0026\u0026 apk add --no-cache --virtual .build-deps-full         binutils-gold         g++         gcc         gnupg         libgcc         linux-headers         make         python3     \u0026\u0026 export GNUPGHOME=\"$(mktemp -d)\"     \u0026\u0026 for key in       4ED778F539E3634C779C87C6D7062848A1AB005C       141F07595B7B3FFE74309A937405533BE57C7D57       74F12602B6F1C4E913FAA37AD3A89613643B6201       DD792F5973C6DE52C432CBDAC77ABFA00DDBF2B7       61FC681DFB92A079F1685E77973F295594EC4689       8FCCA13FEF1D0C2E91008E09770F7A9A5AE15600       C4F0DFFF4E8C1A8236409D08E73BC641CC11F4C8       890C08DB8579162FEE0DF9DB8BEAB4DFCF555EF4       C82FA3AE1CBEDC6BE46B9360C43CEC45C17AB93C       108F52B48DB57BB0CC439B2997B01419BD92F80A       A363A499291CBBC940DD62E41F10027AF002F8B0     ; do       gpg --batch --keyserver hkps://keys.openpgp.org --recv-keys \"$key\" ||       gpg --batch --keyserver keyserver.ubuntu.com --recv-keys \"$key\" ;     done     \u0026\u0026 curl -fsSLO --compressed \"https://nodejs.org/dist/v$NODE_VERSION/node-v$NODE_VERSION.tar.xz\"     \u0026\u0026 curl -fsSLO --compressed \"https://nodejs.org/dist/v$NODE_VERSION/SHASUMS256.txt.asc\"     \u0026\u0026 gpg --batch --decrypt --output SHASUMS256.txt SHASUMS256.txt.asc     \u0026\u0026 gpgconf --kill all     \u0026\u0026 rm -rf \"$GNUPGHOME\"     \u0026\u0026 grep \" node-v$NODE_VERSION.tar.xz\\$\" SHASUMS256.txt | sha256sum -c -     \u0026\u0026 tar -xf \"node-v$NODE_VERSION.tar.xz\"     \u0026\u0026 cd \"node-v$NODE_VERSION\"     \u0026\u0026 ./configure     \u0026\u0026 make -j$(getconf _NPROCESSORS_ONLN) V=     \u0026\u0026 make install     \u0026\u0026 apk del .build-deps-full     \u0026\u0026 cd ..     \u0026\u0026 rm -Rf \"node-v$NODE_VERSION\"     \u0026\u0026 rm \"node-v$NODE_VERSION.tar.xz\" SHASUMS256.txt.asc SHASUMS256.txt;   fi   \u0026\u0026 rm -f \"node-v$NODE_VERSION-linux-$ARCH-musl.tar.xz\"   \u0026\u0026 find /usr/local/include/node/openssl/archs -mindepth 1 -maxdepth 1 ! -name \"$OPENSSL_ARCH\" -exec rm -rf {} \\;   \u0026\u0026 apk del .build-deps   \u0026\u0026 node --version   \u0026\u0026 npm --version",
+            "originCommand": "RUN /bin/sh -c addgroup -g 1000 node     \u0026\u0026 adduser -u 1000 -G node -s /bin/sh -D node     \u0026\u0026 apk add --no-cache         libstdc++     \u0026\u0026 apk add --no-cache --virtual .build-deps         curl     \u0026\u0026 ARCH= OPENSSL_ARCH='linux*' \u0026\u0026 alpineArch=\"$(apk --print-arch)\"       \u0026\u0026 case \"${alpineArch##*-}\" in         x86_64) ARCH='x64' CHECKSUM=\"5ebbebaf673652c1868a05b442e82ed5b3f536aa03231f285e739d35b912dc5d\" OPENSSL_ARCH=linux-x86_64;;         x86) OPENSSL_ARCH=linux-elf;;         aarch64) OPENSSL_ARCH=linux-aarch64;;         arm*) OPENSSL_ARCH=linux-armv4;;         ppc64le) OPENSSL_ARCH=linux-ppc64le;;         s390x) OPENSSL_ARCH=linux-s390x;;         *) ;;       esac   \u0026\u0026 if [ -n \"${CHECKSUM}\" ]; then     set -eu;     curl -fsSLO --compressed \"https://unofficial-builds.nodejs.org/download/release/v$NODE_VERSION/node-v$NODE_VERSION-linux-$ARCH-musl.tar.xz\";     echo \"$CHECKSUM  node-v$NODE_VERSION-linux-$ARCH-musl.tar.xz\" | sha256sum -c -       \u0026\u0026 tar -xJf \"node-v$NODE_VERSION-linux-$ARCH-musl.tar.xz\" -C /usr/local --strip-components=1 --no-same-owner       \u0026\u0026 ln -s /usr/local/bin/node /usr/local/bin/nodejs;   else     echo \"Building from source\"     \u0026\u0026 apk add --no-cache --virtual .build-deps-full         binutils-gold         g++         gcc         gnupg         libgcc         linux-headers         make         python3         py-setuptools     \u0026\u0026 export GNUPGHOME=\"$(mktemp -d)\"     \u0026\u0026 for key in       C0D6248439F1D5604AAFFB4021D900FFDB233756       DD792F5973C6DE52C432CBDAC77ABFA00DDBF2B7       CC68F5A3106FF448322E48ED27F5E38D5B0A215F       8FCCA13FEF1D0C2E91008E09770F7A9A5AE15600       890C08DB8579162FEE0DF9DB8BEAB4DFCF555EF4       C82FA3AE1CBEDC6BE46B9360C43CEC45C17AB93C       108F52B48DB57BB0CC439B2997B01419BD92F80A       A363A499291CBBC940DD62E41F10027AF002F8B0     ; do       gpg --batch --keyserver hkps://keys.openpgp.org --recv-keys \"$key\" ||       gpg --batch --keyserver keyserver.ubuntu.com --recv-keys \"$key\" ;     done     \u0026\u0026 curl -fsSLO --compressed \"https://nodejs.org/dist/v$NODE_VERSION/node-v$NODE_VERSION.tar.xz\"     \u0026\u0026 curl -fsSLO --compressed \"https://nodejs.org/dist/v$NODE_VERSION/SHASUMS256.txt.asc\"     \u0026\u0026 gpg --batch --decrypt --output SHASUMS256.txt SHASUMS256.txt.asc     \u0026\u0026 gpgconf --kill all     \u0026\u0026 rm -rf \"$GNUPGHOME\"     \u0026\u0026 grep \" node-v$NODE_VERSION.tar.xz\\$\" SHASUMS256.txt | sha256sum -c -     \u0026\u0026 tar -xf \"node-v$NODE_VERSION.tar.xz\"     \u0026\u0026 cd \"node-v$NODE_VERSION\"     \u0026\u0026 ./configure     \u0026\u0026 make -j$(getconf _NPROCESSORS_ONLN) V=     \u0026\u0026 make install     \u0026\u0026 apk del .build-deps-full     \u0026\u0026 cd ..     \u0026\u0026 rm -Rf \"node-v$NODE_VERSION\"     \u0026\u0026 rm \"node-v$NODE_VERSION.tar.xz\" SHASUMS256.txt.asc SHASUMS256.txt;   fi   \u0026\u0026 rm -f \"node-v$NODE_VERSION-linux-$ARCH-musl.tar.xz\"   \u0026\u0026 find /usr/local/include/node/openssl/archs -mindepth 1 -maxdepth 1 ! -name \"$OPENSSL_ARCH\" -exec rm -rf {} \\;   \u0026\u0026 apk del .build-deps   \u0026\u0026 node --version   \u0026\u0026 npm --version # buildkit",
             "inBaseImage": true
           }
         },
         {
           "name": "musl",
-          "version": "1.2.4_git20230717-r4",
-          "commit": "ca7f2ab5e88794e4e654b40776f8a92256f50639",
-          "ecosystem": "Alpine:v3.19",
+          "version": "1.2.5-r8",
+          "commit": "c1ab9dfcb36751c3e9097f0f67e01ad12b2e1f5f",
+          "ecosystem": "Alpine:v3.21",
           "compareAs": "Alpine",
           "imageOrigin": {
             "layerID": "\u003cAny value\u003e",
-            "originCommand": "/bin/sh -c #(nop) ADD file:37a76ec18f9887751cd8473744917d08b7431fc4085097bb6a09d81b41775473 in / ",
+            "originCommand": "ADD alpine-minirootfs-3.21.0-x86_64.tar.gz / # buildkit",
             "inBaseImage": true
           }
         },
         {
           "name": "musl-utils",
-          "version": "1.2.4_git20230717-r4",
-          "commit": "ca7f2ab5e88794e4e654b40776f8a92256f50639",
-          "ecosystem": "Alpine:v3.19",
+          "version": "1.2.5-r8",
+          "commit": "c1ab9dfcb36751c3e9097f0f67e01ad12b2e1f5f",
+          "ecosystem": "Alpine:v3.21",
           "compareAs": "Alpine",
           "imageOrigin": {
             "layerID": "\u003cAny value\u003e",
-            "originCommand": "/bin/sh -c #(nop) ADD file:37a76ec18f9887751cd8473744917d08b7431fc4085097bb6a09d81b41775473 in / ",
+            "originCommand": "ADD alpine-minirootfs-3.21.0-x86_64.tar.gz / # buildkit",
             "inBaseImage": true
           }
         },
         {
           "name": "scanelf",
-          "version": "1.3.7-r2",
-          "commit": "e65a4f2d0470e70d862ef2b5c412ecf2cb9ad0a6",
-          "ecosystem": "Alpine:v3.19",
+          "version": "1.3.8-r1",
+          "commit": "398a5aee3025ec8a4d0d761e448dc86ac777fa09",
+          "ecosystem": "Alpine:v3.21",
           "compareAs": "Alpine",
           "imageOrigin": {
             "layerID": "\u003cAny value\u003e",
-            "originCommand": "/bin/sh -c #(nop) ADD file:37a76ec18f9887751cd8473744917d08b7431fc4085097bb6a09d81b41775473 in / ",
+            "originCommand": "ADD alpine-minirootfs-3.21.0-x86_64.tar.gz / # buildkit",
             "inBaseImage": true
           }
         },
         {
           "name": "ssl_client",
-          "version": "1.36.1-r15",
-          "commit": "d1b6f274f29076967826e0ecf6ebcaa5d360272f",
-          "ecosystem": "Alpine:v3.19",
+          "version": "1.37.0-r8",
+          "commit": "79fddc2aa9c64c47fb3da6edeae9570b4e9caa7e",
+          "ecosystem": "Alpine:v3.21",
           "compareAs": "Alpine",
           "imageOrigin": {
             "layerID": "\u003cAny value\u003e",
-            "originCommand": "/bin/sh -c #(nop) ADD file:37a76ec18f9887751cd8473744917d08b7431fc4085097bb6a09d81b41775473 in / ",
+            "originCommand": "ADD alpine-minirootfs-3.21.0-x86_64.tar.gz / # buildkit",
             "inBaseImage": true
           }
         },
         {
           "name": "zlib",
-          "version": "1.3.1-r0",
-          "commit": "9406f6fc5fca057d990eb0d260d75839eeb34d83",
-          "ecosystem": "Alpine:v3.19",
+          "version": "1.3.1-r2",
+          "commit": "4c2722e7ecc1c5e3ba882429044a101497121223",
+          "ecosystem": "Alpine:v3.21",
           "compareAs": "Alpine",
           "imageOrigin": {
             "layerID": "\u003cAny value\u003e",
-            "originCommand": "/bin/sh -c #(nop) ADD file:37a76ec18f9887751cd8473744917d08b7431fc4085097bb6a09d81b41775473 in / ",
+            "originCommand": "ADD alpine-minirootfs-3.21.0-x86_64.tar.gz / # buildkit",
             "inBaseImage": true
           }
         }
@@ -758,205 +758,205 @@
       "packages": [
         {
           "name": "alpine-baselayout",
-          "version": "3.4.3-r2",
-          "commit": "7749273fed55f6e1df7c9ee6a127f18099f98a94",
-          "ecosystem": "Alpine:v3.19",
+          "version": "3.6.8-r0",
+          "commit": "82d6c06a6d6e8de20a4db05994da6046f0623af3",
+          "ecosystem": "Alpine:v3.21",
           "compareAs": "Alpine",
           "imageOrigin": {
             "layerID": "\u003cAny value\u003e",
-            "originCommand": "/bin/sh -c #(nop) ADD file:37a76ec18f9887751cd8473744917d08b7431fc4085097bb6a09d81b41775473 in / ",
+            "originCommand": "ADD alpine-minirootfs-3.21.0-x86_64.tar.gz / # buildkit",
             "inBaseImage": true
           }
         },
         {
           "name": "alpine-baselayout-data",
-          "version": "3.4.3-r2",
-          "commit": "7749273fed55f6e1df7c9ee6a127f18099f98a94",
-          "ecosystem": "Alpine:v3.19",
+          "version": "3.6.8-r0",
+          "commit": "82d6c06a6d6e8de20a4db05994da6046f0623af3",
+          "ecosystem": "Alpine:v3.21",
           "compareAs": "Alpine",
           "imageOrigin": {
             "layerID": "\u003cAny value\u003e",
-            "originCommand": "/bin/sh -c #(nop) ADD file:37a76ec18f9887751cd8473744917d08b7431fc4085097bb6a09d81b41775473 in / ",
+            "originCommand": "ADD alpine-minirootfs-3.21.0-x86_64.tar.gz / # buildkit",
             "inBaseImage": true
           }
         },
         {
           "name": "alpine-keys",
-          "version": "2.4-r1",
-          "commit": "aab68f8c9ab434a46710de8e12fb3206e2930a59",
-          "ecosystem": "Alpine:v3.19",
+          "version": "2.5-r0",
+          "commit": "6d473fb38effb2389f567b29fb7eb27039b3a279",
+          "ecosystem": "Alpine:v3.21",
           "compareAs": "Alpine",
           "imageOrigin": {
             "layerID": "\u003cAny value\u003e",
-            "originCommand": "/bin/sh -c #(nop) ADD file:37a76ec18f9887751cd8473744917d08b7431fc4085097bb6a09d81b41775473 in / ",
+            "originCommand": "ADD alpine-minirootfs-3.21.0-x86_64.tar.gz / # buildkit",
+            "inBaseImage": true
+          }
+        },
+        {
+          "name": "alpine-release",
+          "version": "3.21.0-r0",
+          "commit": "59962f87e4603deb5bb4d237927fd7eb84c7c9c9",
+          "ecosystem": "Alpine:v3.21",
+          "compareAs": "Alpine",
+          "imageOrigin": {
+            "layerID": "\u003cAny value\u003e",
+            "originCommand": "ADD alpine-minirootfs-3.21.0-x86_64.tar.gz / # buildkit",
             "inBaseImage": true
           }
         },
         {
           "name": "apk-tools",
-          "version": "2.14.0-r5",
-          "commit": "33283848034c9885d984c8e8697c645c57324938",
-          "ecosystem": "Alpine:v3.19",
+          "version": "2.14.6-r2",
+          "commit": "85fce5ac38cd9990b8910637d750591e3ef55a6c",
+          "ecosystem": "Alpine:v3.21",
           "compareAs": "Alpine",
           "imageOrigin": {
             "layerID": "\u003cAny value\u003e",
-            "originCommand": "/bin/sh -c #(nop) ADD file:37a76ec18f9887751cd8473744917d08b7431fc4085097bb6a09d81b41775473 in / ",
+            "originCommand": "ADD alpine-minirootfs-3.21.0-x86_64.tar.gz / # buildkit",
             "inBaseImage": true
           }
         },
         {
           "name": "busybox",
-          "version": "1.36.1-r15",
-          "commit": "d1b6f274f29076967826e0ecf6ebcaa5d360272f",
-          "ecosystem": "Alpine:v3.19",
+          "version": "1.37.0-r8",
+          "commit": "79fddc2aa9c64c47fb3da6edeae9570b4e9caa7e",
+          "ecosystem": "Alpine:v3.21",
           "compareAs": "Alpine",
           "imageOrigin": {
             "layerID": "\u003cAny value\u003e",
-            "originCommand": "/bin/sh -c #(nop) ADD file:37a76ec18f9887751cd8473744917d08b7431fc4085097bb6a09d81b41775473 in / ",
+            "originCommand": "ADD alpine-minirootfs-3.21.0-x86_64.tar.gz / # buildkit",
             "inBaseImage": true
           }
         },
         {
           "name": "busybox-binsh",
-          "version": "1.36.1-r15",
-          "commit": "d1b6f274f29076967826e0ecf6ebcaa5d360272f",
-          "ecosystem": "Alpine:v3.19",
+          "version": "1.37.0-r8",
+          "commit": "79fddc2aa9c64c47fb3da6edeae9570b4e9caa7e",
+          "ecosystem": "Alpine:v3.21",
           "compareAs": "Alpine",
           "imageOrigin": {
             "layerID": "\u003cAny value\u003e",
-            "originCommand": "/bin/sh -c #(nop) ADD file:37a76ec18f9887751cd8473744917d08b7431fc4085097bb6a09d81b41775473 in / ",
+            "originCommand": "ADD alpine-minirootfs-3.21.0-x86_64.tar.gz / # buildkit",
             "inBaseImage": true
           }
         },
         {
           "name": "ca-certificates-bundle",
-          "version": "20230506-r0",
-          "commit": "59534a02716a92a10d177a118c34066162eff4a6",
-          "ecosystem": "Alpine:v3.19",
+          "version": "20241010-r0",
+          "commit": "537f890454d2213fd05cde5e458dfa9c8ef1977f",
+          "ecosystem": "Alpine:v3.21",
           "compareAs": "Alpine",
           "imageOrigin": {
             "layerID": "\u003cAny value\u003e",
-            "originCommand": "/bin/sh -c #(nop) ADD file:37a76ec18f9887751cd8473744917d08b7431fc4085097bb6a09d81b41775473 in / ",
-            "inBaseImage": true
-          }
-        },
-        {
-          "name": "libc-utils",
-          "version": "0.7.2-r5",
-          "commit": "988f183cc9d6699930c3e18ccf4a9e36010afb56",
-          "ecosystem": "Alpine:v3.19",
-          "compareAs": "Alpine",
-          "imageOrigin": {
-            "layerID": "\u003cAny value\u003e",
-            "originCommand": "/bin/sh -c #(nop) ADD file:37a76ec18f9887751cd8473744917d08b7431fc4085097bb6a09d81b41775473 in / ",
+            "originCommand": "ADD alpine-minirootfs-3.21.0-x86_64.tar.gz / # buildkit",
             "inBaseImage": true
           }
         },
         {
           "name": "libcrypto3",
-          "version": "3.1.4-r5",
-          "commit": "b784a22cad0c452586b438cb7a597d846fc09ff4",
-          "ecosystem": "Alpine:v3.19",
+          "version": "3.3.2-r4",
+          "commit": "e18f4d0c2080542ef5c4fd329a5be584064658aa",
+          "ecosystem": "Alpine:v3.21",
           "compareAs": "Alpine",
           "imageOrigin": {
             "layerID": "\u003cAny value\u003e",
-            "originCommand": "/bin/sh -c #(nop) ADD file:37a76ec18f9887751cd8473744917d08b7431fc4085097bb6a09d81b41775473 in / ",
+            "originCommand": "ADD alpine-minirootfs-3.21.0-x86_64.tar.gz / # buildkit",
             "inBaseImage": true
           }
         },
         {
           "name": "libgcc",
-          "version": "13.2.1_git20231014-r0",
-          "commit": "090e168783a86e5c2ba31fc65921b9715bac62ff",
-          "ecosystem": "Alpine:v3.19",
+          "version": "14.2.0-r4",
+          "commit": "1a03a2a9c9e77f1a07d48b6f6805e72c8c63c03f",
+          "ecosystem": "Alpine:v3.21",
           "compareAs": "Alpine",
           "imageOrigin": {
             "layerID": "\u003cAny value\u003e",
-            "originCommand": "/bin/sh -c addgroup -g 1000 node     \u0026\u0026 adduser -u 1000 -G node -s /bin/sh -D node     \u0026\u0026 apk add --no-cache         libstdc++     \u0026\u0026 apk add --no-cache --virtual .build-deps         curl     \u0026\u0026 ARCH= OPENSSL_ARCH='linux*' \u0026\u0026 alpineArch=\"$(apk --print-arch)\"       \u0026\u0026 case \"${alpineArch##*-}\" in         x86_64) ARCH='x64' CHECKSUM=\"5da733c21c3b51193a4fe9fc5be6cfa9a694d13b8d766eb02dbe4b8996547050\" OPENSSL_ARCH=linux-x86_64;;         x86) OPENSSL_ARCH=linux-elf;;         aarch64) OPENSSL_ARCH=linux-aarch64;;         arm*) OPENSSL_ARCH=linux-armv4;;         ppc64le) OPENSSL_ARCH=linux-ppc64le;;         s390x) OPENSSL_ARCH=linux-s390x;;         *) ;;       esac   \u0026\u0026 if [ -n \"${CHECKSUM}\" ]; then     set -eu;     curl -fsSLO --compressed \"https://unofficial-builds.nodejs.org/download/release/v$NODE_VERSION/node-v$NODE_VERSION-linux-$ARCH-musl.tar.xz\";     echo \"$CHECKSUM  node-v$NODE_VERSION-linux-$ARCH-musl.tar.xz\" | sha256sum -c -       \u0026\u0026 tar -xJf \"node-v$NODE_VERSION-linux-$ARCH-musl.tar.xz\" -C /usr/local --strip-components=1 --no-same-owner       \u0026\u0026 ln -s /usr/local/bin/node /usr/local/bin/nodejs;   else     echo \"Building from source\"     \u0026\u0026 apk add --no-cache --virtual .build-deps-full         binutils-gold         g++         gcc         gnupg         libgcc         linux-headers         make         python3     \u0026\u0026 export GNUPGHOME=\"$(mktemp -d)\"     \u0026\u0026 for key in       4ED778F539E3634C779C87C6D7062848A1AB005C       141F07595B7B3FFE74309A937405533BE57C7D57       74F12602B6F1C4E913FAA37AD3A89613643B6201       DD792F5973C6DE52C432CBDAC77ABFA00DDBF2B7       61FC681DFB92A079F1685E77973F295594EC4689       8FCCA13FEF1D0C2E91008E09770F7A9A5AE15600       C4F0DFFF4E8C1A8236409D08E73BC641CC11F4C8       890C08DB8579162FEE0DF9DB8BEAB4DFCF555EF4       C82FA3AE1CBEDC6BE46B9360C43CEC45C17AB93C       108F52B48DB57BB0CC439B2997B01419BD92F80A       A363A499291CBBC940DD62E41F10027AF002F8B0     ; do       gpg --batch --keyserver hkps://keys.openpgp.org --recv-keys \"$key\" ||       gpg --batch --keyserver keyserver.ubuntu.com --recv-keys \"$key\" ;     done     \u0026\u0026 curl -fsSLO --compressed \"https://nodejs.org/dist/v$NODE_VERSION/node-v$NODE_VERSION.tar.xz\"     \u0026\u0026 curl -fsSLO --compressed \"https://nodejs.org/dist/v$NODE_VERSION/SHASUMS256.txt.asc\"     \u0026\u0026 gpg --batch --decrypt --output SHASUMS256.txt SHASUMS256.txt.asc     \u0026\u0026 gpgconf --kill all     \u0026\u0026 rm -rf \"$GNUPGHOME\"     \u0026\u0026 grep \" node-v$NODE_VERSION.tar.xz\\$\" SHASUMS256.txt | sha256sum -c -     \u0026\u0026 tar -xf \"node-v$NODE_VERSION.tar.xz\"     \u0026\u0026 cd \"node-v$NODE_VERSION\"     \u0026\u0026 ./configure     \u0026\u0026 make -j$(getconf _NPROCESSORS_ONLN) V=     \u0026\u0026 make install     \u0026\u0026 apk del .build-deps-full     \u0026\u0026 cd ..     \u0026\u0026 rm -Rf \"node-v$NODE_VERSION\"     \u0026\u0026 rm \"node-v$NODE_VERSION.tar.xz\" SHASUMS256.txt.asc SHASUMS256.txt;   fi   \u0026\u0026 rm -f \"node-v$NODE_VERSION-linux-$ARCH-musl.tar.xz\"   \u0026\u0026 find /usr/local/include/node/openssl/archs -mindepth 1 -maxdepth 1 ! -name \"$OPENSSL_ARCH\" -exec rm -rf {} \\;   \u0026\u0026 apk del .build-deps   \u0026\u0026 node --version   \u0026\u0026 npm --version",
+            "originCommand": "RUN /bin/sh -c addgroup -g 1000 node     \u0026\u0026 adduser -u 1000 -G node -s /bin/sh -D node     \u0026\u0026 apk add --no-cache         libstdc++     \u0026\u0026 apk add --no-cache --virtual .build-deps         curl     \u0026\u0026 ARCH= OPENSSL_ARCH='linux*' \u0026\u0026 alpineArch=\"$(apk --print-arch)\"       \u0026\u0026 case \"${alpineArch##*-}\" in         x86_64) ARCH='x64' CHECKSUM=\"5ebbebaf673652c1868a05b442e82ed5b3f536aa03231f285e739d35b912dc5d\" OPENSSL_ARCH=linux-x86_64;;         x86) OPENSSL_ARCH=linux-elf;;         aarch64) OPENSSL_ARCH=linux-aarch64;;         arm*) OPENSSL_ARCH=linux-armv4;;         ppc64le) OPENSSL_ARCH=linux-ppc64le;;         s390x) OPENSSL_ARCH=linux-s390x;;         *) ;;       esac   \u0026\u0026 if [ -n \"${CHECKSUM}\" ]; then     set -eu;     curl -fsSLO --compressed \"https://unofficial-builds.nodejs.org/download/release/v$NODE_VERSION/node-v$NODE_VERSION-linux-$ARCH-musl.tar.xz\";     echo \"$CHECKSUM  node-v$NODE_VERSION-linux-$ARCH-musl.tar.xz\" | sha256sum -c -       \u0026\u0026 tar -xJf \"node-v$NODE_VERSION-linux-$ARCH-musl.tar.xz\" -C /usr/local --strip-components=1 --no-same-owner       \u0026\u0026 ln -s /usr/local/bin/node /usr/local/bin/nodejs;   else     echo \"Building from source\"     \u0026\u0026 apk add --no-cache --virtual .build-deps-full         binutils-gold         g++         gcc         gnupg         libgcc         linux-headers         make         python3         py-setuptools     \u0026\u0026 export GNUPGHOME=\"$(mktemp -d)\"     \u0026\u0026 for key in       C0D6248439F1D5604AAFFB4021D900FFDB233756       DD792F5973C6DE52C432CBDAC77ABFA00DDBF2B7       CC68F5A3106FF448322E48ED27F5E38D5B0A215F       8FCCA13FEF1D0C2E91008E09770F7A9A5AE15600       890C08DB8579162FEE0DF9DB8BEAB4DFCF555EF4       C82FA3AE1CBEDC6BE46B9360C43CEC45C17AB93C       108F52B48DB57BB0CC439B2997B01419BD92F80A       A363A499291CBBC940DD62E41F10027AF002F8B0     ; do       gpg --batch --keyserver hkps://keys.openpgp.org --recv-keys \"$key\" ||       gpg --batch --keyserver keyserver.ubuntu.com --recv-keys \"$key\" ;     done     \u0026\u0026 curl -fsSLO --compressed \"https://nodejs.org/dist/v$NODE_VERSION/node-v$NODE_VERSION.tar.xz\"     \u0026\u0026 curl -fsSLO --compressed \"https://nodejs.org/dist/v$NODE_VERSION/SHASUMS256.txt.asc\"     \u0026\u0026 gpg --batch --decrypt --output SHASUMS256.txt SHASUMS256.txt.asc     \u0026\u0026 gpgconf --kill all     \u0026\u0026 rm -rf \"$GNUPGHOME\"     \u0026\u0026 grep \" node-v$NODE_VERSION.tar.xz\\$\" SHASUMS256.txt | sha256sum -c -     \u0026\u0026 tar -xf \"node-v$NODE_VERSION.tar.xz\"     \u0026\u0026 cd \"node-v$NODE_VERSION\"     \u0026\u0026 ./configure     \u0026\u0026 make -j$(getconf _NPROCESSORS_ONLN) V=     \u0026\u0026 make install     \u0026\u0026 apk del .build-deps-full     \u0026\u0026 cd ..     \u0026\u0026 rm -Rf \"node-v$NODE_VERSION\"     \u0026\u0026 rm \"node-v$NODE_VERSION.tar.xz\" SHASUMS256.txt.asc SHASUMS256.txt;   fi   \u0026\u0026 rm -f \"node-v$NODE_VERSION-linux-$ARCH-musl.tar.xz\"   \u0026\u0026 find /usr/local/include/node/openssl/archs -mindepth 1 -maxdepth 1 ! -name \"$OPENSSL_ARCH\" -exec rm -rf {} \\;   \u0026\u0026 apk del .build-deps   \u0026\u0026 node --version   \u0026\u0026 npm --version # buildkit",
             "inBaseImage": true
           }
         },
         {
           "name": "libssl3",
-          "version": "3.1.4-r5",
-          "commit": "b784a22cad0c452586b438cb7a597d846fc09ff4",
-          "ecosystem": "Alpine:v3.19",
+          "version": "3.3.2-r4",
+          "commit": "e18f4d0c2080542ef5c4fd329a5be584064658aa",
+          "ecosystem": "Alpine:v3.21",
           "compareAs": "Alpine",
           "imageOrigin": {
             "layerID": "\u003cAny value\u003e",
-            "originCommand": "/bin/sh -c #(nop) ADD file:37a76ec18f9887751cd8473744917d08b7431fc4085097bb6a09d81b41775473 in / ",
+            "originCommand": "ADD alpine-minirootfs-3.21.0-x86_64.tar.gz / # buildkit",
             "inBaseImage": true
           }
         },
         {
           "name": "libstdc++",
-          "version": "13.2.1_git20231014-r0",
-          "commit": "090e168783a86e5c2ba31fc65921b9715bac62ff",
-          "ecosystem": "Alpine:v3.19",
+          "version": "14.2.0-r4",
+          "commit": "1a03a2a9c9e77f1a07d48b6f6805e72c8c63c03f",
+          "ecosystem": "Alpine:v3.21",
           "compareAs": "Alpine",
           "imageOrigin": {
             "layerID": "\u003cAny value\u003e",
-            "originCommand": "/bin/sh -c addgroup -g 1000 node     \u0026\u0026 adduser -u 1000 -G node -s /bin/sh -D node     \u0026\u0026 apk add --no-cache         libstdc++     \u0026\u0026 apk add --no-cache --virtual .build-deps         curl     \u0026\u0026 ARCH= OPENSSL_ARCH='linux*' \u0026\u0026 alpineArch=\"$(apk --print-arch)\"       \u0026\u0026 case \"${alpineArch##*-}\" in         x86_64) ARCH='x64' CHECKSUM=\"5da733c21c3b51193a4fe9fc5be6cfa9a694d13b8d766eb02dbe4b8996547050\" OPENSSL_ARCH=linux-x86_64;;         x86) OPENSSL_ARCH=linux-elf;;         aarch64) OPENSSL_ARCH=linux-aarch64;;         arm*) OPENSSL_ARCH=linux-armv4;;         ppc64le) OPENSSL_ARCH=linux-ppc64le;;         s390x) OPENSSL_ARCH=linux-s390x;;         *) ;;       esac   \u0026\u0026 if [ -n \"${CHECKSUM}\" ]; then     set -eu;     curl -fsSLO --compressed \"https://unofficial-builds.nodejs.org/download/release/v$NODE_VERSION/node-v$NODE_VERSION-linux-$ARCH-musl.tar.xz\";     echo \"$CHECKSUM  node-v$NODE_VERSION-linux-$ARCH-musl.tar.xz\" | sha256sum -c -       \u0026\u0026 tar -xJf \"node-v$NODE_VERSION-linux-$ARCH-musl.tar.xz\" -C /usr/local --strip-components=1 --no-same-owner       \u0026\u0026 ln -s /usr/local/bin/node /usr/local/bin/nodejs;   else     echo \"Building from source\"     \u0026\u0026 apk add --no-cache --virtual .build-deps-full         binutils-gold         g++         gcc         gnupg         libgcc         linux-headers         make         python3     \u0026\u0026 export GNUPGHOME=\"$(mktemp -d)\"     \u0026\u0026 for key in       4ED778F539E3634C779C87C6D7062848A1AB005C       141F07595B7B3FFE74309A937405533BE57C7D57       74F12602B6F1C4E913FAA37AD3A89613643B6201       DD792F5973C6DE52C432CBDAC77ABFA00DDBF2B7       61FC681DFB92A079F1685E77973F295594EC4689       8FCCA13FEF1D0C2E91008E09770F7A9A5AE15600       C4F0DFFF4E8C1A8236409D08E73BC641CC11F4C8       890C08DB8579162FEE0DF9DB8BEAB4DFCF555EF4       C82FA3AE1CBEDC6BE46B9360C43CEC45C17AB93C       108F52B48DB57BB0CC439B2997B01419BD92F80A       A363A499291CBBC940DD62E41F10027AF002F8B0     ; do       gpg --batch --keyserver hkps://keys.openpgp.org --recv-keys \"$key\" ||       gpg --batch --keyserver keyserver.ubuntu.com --recv-keys \"$key\" ;     done     \u0026\u0026 curl -fsSLO --compressed \"https://nodejs.org/dist/v$NODE_VERSION/node-v$NODE_VERSION.tar.xz\"     \u0026\u0026 curl -fsSLO --compressed \"https://nodejs.org/dist/v$NODE_VERSION/SHASUMS256.txt.asc\"     \u0026\u0026 gpg --batch --decrypt --output SHASUMS256.txt SHASUMS256.txt.asc     \u0026\u0026 gpgconf --kill all     \u0026\u0026 rm -rf \"$GNUPGHOME\"     \u0026\u0026 grep \" node-v$NODE_VERSION.tar.xz\\$\" SHASUMS256.txt | sha256sum -c -     \u0026\u0026 tar -xf \"node-v$NODE_VERSION.tar.xz\"     \u0026\u0026 cd \"node-v$NODE_VERSION\"     \u0026\u0026 ./configure     \u0026\u0026 make -j$(getconf _NPROCESSORS_ONLN) V=     \u0026\u0026 make install     \u0026\u0026 apk del .build-deps-full     \u0026\u0026 cd ..     \u0026\u0026 rm -Rf \"node-v$NODE_VERSION\"     \u0026\u0026 rm \"node-v$NODE_VERSION.tar.xz\" SHASUMS256.txt.asc SHASUMS256.txt;   fi   \u0026\u0026 rm -f \"node-v$NODE_VERSION-linux-$ARCH-musl.tar.xz\"   \u0026\u0026 find /usr/local/include/node/openssl/archs -mindepth 1 -maxdepth 1 ! -name \"$OPENSSL_ARCH\" -exec rm -rf {} \\;   \u0026\u0026 apk del .build-deps   \u0026\u0026 node --version   \u0026\u0026 npm --version",
+            "originCommand": "RUN /bin/sh -c addgroup -g 1000 node     \u0026\u0026 adduser -u 1000 -G node -s /bin/sh -D node     \u0026\u0026 apk add --no-cache         libstdc++     \u0026\u0026 apk add --no-cache --virtual .build-deps         curl     \u0026\u0026 ARCH= OPENSSL_ARCH='linux*' \u0026\u0026 alpineArch=\"$(apk --print-arch)\"       \u0026\u0026 case \"${alpineArch##*-}\" in         x86_64) ARCH='x64' CHECKSUM=\"5ebbebaf673652c1868a05b442e82ed5b3f536aa03231f285e739d35b912dc5d\" OPENSSL_ARCH=linux-x86_64;;         x86) OPENSSL_ARCH=linux-elf;;         aarch64) OPENSSL_ARCH=linux-aarch64;;         arm*) OPENSSL_ARCH=linux-armv4;;         ppc64le) OPENSSL_ARCH=linux-ppc64le;;         s390x) OPENSSL_ARCH=linux-s390x;;         *) ;;       esac   \u0026\u0026 if [ -n \"${CHECKSUM}\" ]; then     set -eu;     curl -fsSLO --compressed \"https://unofficial-builds.nodejs.org/download/release/v$NODE_VERSION/node-v$NODE_VERSION-linux-$ARCH-musl.tar.xz\";     echo \"$CHECKSUM  node-v$NODE_VERSION-linux-$ARCH-musl.tar.xz\" | sha256sum -c -       \u0026\u0026 tar -xJf \"node-v$NODE_VERSION-linux-$ARCH-musl.tar.xz\" -C /usr/local --strip-components=1 --no-same-owner       \u0026\u0026 ln -s /usr/local/bin/node /usr/local/bin/nodejs;   else     echo \"Building from source\"     \u0026\u0026 apk add --no-cache --virtual .build-deps-full         binutils-gold         g++         gcc         gnupg         libgcc         linux-headers         make         python3         py-setuptools     \u0026\u0026 export GNUPGHOME=\"$(mktemp -d)\"     \u0026\u0026 for key in       C0D6248439F1D5604AAFFB4021D900FFDB233756       DD792F5973C6DE52C432CBDAC77ABFA00DDBF2B7       CC68F5A3106FF448322E48ED27F5E38D5B0A215F       8FCCA13FEF1D0C2E91008E09770F7A9A5AE15600       890C08DB8579162FEE0DF9DB8BEAB4DFCF555EF4       C82FA3AE1CBEDC6BE46B9360C43CEC45C17AB93C       108F52B48DB57BB0CC439B2997B01419BD92F80A       A363A499291CBBC940DD62E41F10027AF002F8B0     ; do       gpg --batch --keyserver hkps://keys.openpgp.org --recv-keys \"$key\" ||       gpg --batch --keyserver keyserver.ubuntu.com --recv-keys \"$key\" ;     done     \u0026\u0026 curl -fsSLO --compressed \"https://nodejs.org/dist/v$NODE_VERSION/node-v$NODE_VERSION.tar.xz\"     \u0026\u0026 curl -fsSLO --compressed \"https://nodejs.org/dist/v$NODE_VERSION/SHASUMS256.txt.asc\"     \u0026\u0026 gpg --batch --decrypt --output SHASUMS256.txt SHASUMS256.txt.asc     \u0026\u0026 gpgconf --kill all     \u0026\u0026 rm -rf \"$GNUPGHOME\"     \u0026\u0026 grep \" node-v$NODE_VERSION.tar.xz\\$\" SHASUMS256.txt | sha256sum -c -     \u0026\u0026 tar -xf \"node-v$NODE_VERSION.tar.xz\"     \u0026\u0026 cd \"node-v$NODE_VERSION\"     \u0026\u0026 ./configure     \u0026\u0026 make -j$(getconf _NPROCESSORS_ONLN) V=     \u0026\u0026 make install     \u0026\u0026 apk del .build-deps-full     \u0026\u0026 cd ..     \u0026\u0026 rm -Rf \"node-v$NODE_VERSION\"     \u0026\u0026 rm \"node-v$NODE_VERSION.tar.xz\" SHASUMS256.txt.asc SHASUMS256.txt;   fi   \u0026\u0026 rm -f \"node-v$NODE_VERSION-linux-$ARCH-musl.tar.xz\"   \u0026\u0026 find /usr/local/include/node/openssl/archs -mindepth 1 -maxdepth 1 ! -name \"$OPENSSL_ARCH\" -exec rm -rf {} \\;   \u0026\u0026 apk del .build-deps   \u0026\u0026 node --version   \u0026\u0026 npm --version # buildkit",
             "inBaseImage": true
           }
         },
         {
           "name": "musl",
-          "version": "1.2.4_git20230717-r4",
-          "commit": "ca7f2ab5e88794e4e654b40776f8a92256f50639",
-          "ecosystem": "Alpine:v3.19",
+          "version": "1.2.5-r8",
+          "commit": "c1ab9dfcb36751c3e9097f0f67e01ad12b2e1f5f",
+          "ecosystem": "Alpine:v3.21",
           "compareAs": "Alpine",
           "imageOrigin": {
             "layerID": "\u003cAny value\u003e",
-            "originCommand": "/bin/sh -c #(nop) ADD file:37a76ec18f9887751cd8473744917d08b7431fc4085097bb6a09d81b41775473 in / ",
+            "originCommand": "ADD alpine-minirootfs-3.21.0-x86_64.tar.gz / # buildkit",
             "inBaseImage": true
           }
         },
         {
           "name": "musl-utils",
-          "version": "1.2.4_git20230717-r4",
-          "commit": "ca7f2ab5e88794e4e654b40776f8a92256f50639",
-          "ecosystem": "Alpine:v3.19",
+          "version": "1.2.5-r8",
+          "commit": "c1ab9dfcb36751c3e9097f0f67e01ad12b2e1f5f",
+          "ecosystem": "Alpine:v3.21",
           "compareAs": "Alpine",
           "imageOrigin": {
             "layerID": "\u003cAny value\u003e",
-            "originCommand": "/bin/sh -c #(nop) ADD file:37a76ec18f9887751cd8473744917d08b7431fc4085097bb6a09d81b41775473 in / ",
+            "originCommand": "ADD alpine-minirootfs-3.21.0-x86_64.tar.gz / # buildkit",
             "inBaseImage": true
           }
         },
         {
           "name": "scanelf",
-          "version": "1.3.7-r2",
-          "commit": "e65a4f2d0470e70d862ef2b5c412ecf2cb9ad0a6",
-          "ecosystem": "Alpine:v3.19",
+          "version": "1.3.8-r1",
+          "commit": "398a5aee3025ec8a4d0d761e448dc86ac777fa09",
+          "ecosystem": "Alpine:v3.21",
           "compareAs": "Alpine",
           "imageOrigin": {
             "layerID": "\u003cAny value\u003e",
-            "originCommand": "/bin/sh -c #(nop) ADD file:37a76ec18f9887751cd8473744917d08b7431fc4085097bb6a09d81b41775473 in / ",
+            "originCommand": "ADD alpine-minirootfs-3.21.0-x86_64.tar.gz / # buildkit",
             "inBaseImage": true
           }
         },
         {
           "name": "ssl_client",
-          "version": "1.36.1-r15",
-          "commit": "d1b6f274f29076967826e0ecf6ebcaa5d360272f",
-          "ecosystem": "Alpine:v3.19",
+          "version": "1.37.0-r8",
+          "commit": "79fddc2aa9c64c47fb3da6edeae9570b4e9caa7e",
+          "ecosystem": "Alpine:v3.21",
           "compareAs": "Alpine",
           "imageOrigin": {
             "layerID": "\u003cAny value\u003e",
-            "originCommand": "/bin/sh -c #(nop) ADD file:37a76ec18f9887751cd8473744917d08b7431fc4085097bb6a09d81b41775473 in / ",
+            "originCommand": "ADD alpine-minirootfs-3.21.0-x86_64.tar.gz / # buildkit",
             "inBaseImage": true
           }
         },
         {
           "name": "zlib",
-          "version": "1.3.1-r0",
-          "commit": "9406f6fc5fca057d990eb0d260d75839eeb34d83",
-          "ecosystem": "Alpine:v3.19",
+          "version": "1.3.1-r2",
+          "commit": "4c2722e7ecc1c5e3ba882429044a101497121223",
+          "ecosystem": "Alpine:v3.21",
           "compareAs": "Alpine",
           "imageOrigin": {
             "layerID": "\u003cAny value\u003e",
-            "originCommand": "/bin/sh -c #(nop) ADD file:37a76ec18f9887751cd8473744917d08b7431fc4085097bb6a09d81b41775473 in / ",
+            "originCommand": "ADD alpine-minirootfs-3.21.0-x86_64.tar.gz / # buildkit",
             "inBaseImage": true
           }
         }
@@ -1015,205 +1015,205 @@
       "packages": [
         {
           "name": "alpine-baselayout",
-          "version": "3.4.3-r2",
-          "commit": "7749273fed55f6e1df7c9ee6a127f18099f98a94",
-          "ecosystem": "Alpine:v3.19",
+          "version": "3.6.8-r0",
+          "commit": "82d6c06a6d6e8de20a4db05994da6046f0623af3",
+          "ecosystem": "Alpine:v3.21",
           "compareAs": "Alpine",
           "imageOrigin": {
             "layerID": "\u003cAny value\u003e",
-            "originCommand": "/bin/sh -c #(nop) ADD file:37a76ec18f9887751cd8473744917d08b7431fc4085097bb6a09d81b41775473 in / ",
+            "originCommand": "ADD alpine-minirootfs-3.21.0-x86_64.tar.gz / # buildkit",
             "inBaseImage": true
           }
         },
         {
           "name": "alpine-baselayout-data",
-          "version": "3.4.3-r2",
-          "commit": "7749273fed55f6e1df7c9ee6a127f18099f98a94",
-          "ecosystem": "Alpine:v3.19",
+          "version": "3.6.8-r0",
+          "commit": "82d6c06a6d6e8de20a4db05994da6046f0623af3",
+          "ecosystem": "Alpine:v3.21",
           "compareAs": "Alpine",
           "imageOrigin": {
             "layerID": "\u003cAny value\u003e",
-            "originCommand": "/bin/sh -c #(nop) ADD file:37a76ec18f9887751cd8473744917d08b7431fc4085097bb6a09d81b41775473 in / ",
+            "originCommand": "ADD alpine-minirootfs-3.21.0-x86_64.tar.gz / # buildkit",
             "inBaseImage": true
           }
         },
         {
           "name": "alpine-keys",
-          "version": "2.4-r1",
-          "commit": "aab68f8c9ab434a46710de8e12fb3206e2930a59",
-          "ecosystem": "Alpine:v3.19",
+          "version": "2.5-r0",
+          "commit": "6d473fb38effb2389f567b29fb7eb27039b3a279",
+          "ecosystem": "Alpine:v3.21",
           "compareAs": "Alpine",
           "imageOrigin": {
             "layerID": "\u003cAny value\u003e",
-            "originCommand": "/bin/sh -c #(nop) ADD file:37a76ec18f9887751cd8473744917d08b7431fc4085097bb6a09d81b41775473 in / ",
+            "originCommand": "ADD alpine-minirootfs-3.21.0-x86_64.tar.gz / # buildkit",
+            "inBaseImage": true
+          }
+        },
+        {
+          "name": "alpine-release",
+          "version": "3.21.0-r0",
+          "commit": "59962f87e4603deb5bb4d237927fd7eb84c7c9c9",
+          "ecosystem": "Alpine:v3.21",
+          "compareAs": "Alpine",
+          "imageOrigin": {
+            "layerID": "\u003cAny value\u003e",
+            "originCommand": "ADD alpine-minirootfs-3.21.0-x86_64.tar.gz / # buildkit",
             "inBaseImage": true
           }
         },
         {
           "name": "apk-tools",
-          "version": "2.14.0-r5",
-          "commit": "33283848034c9885d984c8e8697c645c57324938",
-          "ecosystem": "Alpine:v3.19",
+          "version": "2.14.6-r2",
+          "commit": "85fce5ac38cd9990b8910637d750591e3ef55a6c",
+          "ecosystem": "Alpine:v3.21",
           "compareAs": "Alpine",
           "imageOrigin": {
             "layerID": "\u003cAny value\u003e",
-            "originCommand": "/bin/sh -c #(nop) ADD file:37a76ec18f9887751cd8473744917d08b7431fc4085097bb6a09d81b41775473 in / ",
+            "originCommand": "ADD alpine-minirootfs-3.21.0-x86_64.tar.gz / # buildkit",
             "inBaseImage": true
           }
         },
         {
           "name": "busybox",
-          "version": "1.36.1-r15",
-          "commit": "d1b6f274f29076967826e0ecf6ebcaa5d360272f",
-          "ecosystem": "Alpine:v3.19",
+          "version": "1.37.0-r8",
+          "commit": "79fddc2aa9c64c47fb3da6edeae9570b4e9caa7e",
+          "ecosystem": "Alpine:v3.21",
           "compareAs": "Alpine",
           "imageOrigin": {
             "layerID": "\u003cAny value\u003e",
-            "originCommand": "/bin/sh -c #(nop) ADD file:37a76ec18f9887751cd8473744917d08b7431fc4085097bb6a09d81b41775473 in / ",
+            "originCommand": "ADD alpine-minirootfs-3.21.0-x86_64.tar.gz / # buildkit",
             "inBaseImage": true
           }
         },
         {
           "name": "busybox-binsh",
-          "version": "1.36.1-r15",
-          "commit": "d1b6f274f29076967826e0ecf6ebcaa5d360272f",
-          "ecosystem": "Alpine:v3.19",
+          "version": "1.37.0-r8",
+          "commit": "79fddc2aa9c64c47fb3da6edeae9570b4e9caa7e",
+          "ecosystem": "Alpine:v3.21",
           "compareAs": "Alpine",
           "imageOrigin": {
             "layerID": "\u003cAny value\u003e",
-            "originCommand": "/bin/sh -c #(nop) ADD file:37a76ec18f9887751cd8473744917d08b7431fc4085097bb6a09d81b41775473 in / ",
+            "originCommand": "ADD alpine-minirootfs-3.21.0-x86_64.tar.gz / # buildkit",
             "inBaseImage": true
           }
         },
         {
           "name": "ca-certificates-bundle",
-          "version": "20230506-r0",
-          "commit": "59534a02716a92a10d177a118c34066162eff4a6",
-          "ecosystem": "Alpine:v3.19",
+          "version": "20241010-r0",
+          "commit": "537f890454d2213fd05cde5e458dfa9c8ef1977f",
+          "ecosystem": "Alpine:v3.21",
           "compareAs": "Alpine",
           "imageOrigin": {
             "layerID": "\u003cAny value\u003e",
-            "originCommand": "/bin/sh -c #(nop) ADD file:37a76ec18f9887751cd8473744917d08b7431fc4085097bb6a09d81b41775473 in / ",
-            "inBaseImage": true
-          }
-        },
-        {
-          "name": "libc-utils",
-          "version": "0.7.2-r5",
-          "commit": "988f183cc9d6699930c3e18ccf4a9e36010afb56",
-          "ecosystem": "Alpine:v3.19",
-          "compareAs": "Alpine",
-          "imageOrigin": {
-            "layerID": "\u003cAny value\u003e",
-            "originCommand": "/bin/sh -c #(nop) ADD file:37a76ec18f9887751cd8473744917d08b7431fc4085097bb6a09d81b41775473 in / ",
+            "originCommand": "ADD alpine-minirootfs-3.21.0-x86_64.tar.gz / # buildkit",
             "inBaseImage": true
           }
         },
         {
           "name": "libcrypto3",
-          "version": "3.1.4-r5",
-          "commit": "b784a22cad0c452586b438cb7a597d846fc09ff4",
-          "ecosystem": "Alpine:v3.19",
+          "version": "3.3.2-r4",
+          "commit": "e18f4d0c2080542ef5c4fd329a5be584064658aa",
+          "ecosystem": "Alpine:v3.21",
           "compareAs": "Alpine",
           "imageOrigin": {
             "layerID": "\u003cAny value\u003e",
-            "originCommand": "/bin/sh -c #(nop) ADD file:37a76ec18f9887751cd8473744917d08b7431fc4085097bb6a09d81b41775473 in / ",
+            "originCommand": "ADD alpine-minirootfs-3.21.0-x86_64.tar.gz / # buildkit",
             "inBaseImage": true
           }
         },
         {
           "name": "libgcc",
-          "version": "13.2.1_git20231014-r0",
-          "commit": "090e168783a86e5c2ba31fc65921b9715bac62ff",
-          "ecosystem": "Alpine:v3.19",
+          "version": "14.2.0-r4",
+          "commit": "1a03a2a9c9e77f1a07d48b6f6805e72c8c63c03f",
+          "ecosystem": "Alpine:v3.21",
           "compareAs": "Alpine",
           "imageOrigin": {
             "layerID": "\u003cAny value\u003e",
-            "originCommand": "/bin/sh -c addgroup -g 1000 node     \u0026\u0026 adduser -u 1000 -G node -s /bin/sh -D node     \u0026\u0026 apk add --no-cache         libstdc++     \u0026\u0026 apk add --no-cache --virtual .build-deps         curl     \u0026\u0026 ARCH= OPENSSL_ARCH='linux*' \u0026\u0026 alpineArch=\"$(apk --print-arch)\"       \u0026\u0026 case \"${alpineArch##*-}\" in         x86_64) ARCH='x64' CHECKSUM=\"5da733c21c3b51193a4fe9fc5be6cfa9a694d13b8d766eb02dbe4b8996547050\" OPENSSL_ARCH=linux-x86_64;;         x86) OPENSSL_ARCH=linux-elf;;         aarch64) OPENSSL_ARCH=linux-aarch64;;         arm*) OPENSSL_ARCH=linux-armv4;;         ppc64le) OPENSSL_ARCH=linux-ppc64le;;         s390x) OPENSSL_ARCH=linux-s390x;;         *) ;;       esac   \u0026\u0026 if [ -n \"${CHECKSUM}\" ]; then     set -eu;     curl -fsSLO --compressed \"https://unofficial-builds.nodejs.org/download/release/v$NODE_VERSION/node-v$NODE_VERSION-linux-$ARCH-musl.tar.xz\";     echo \"$CHECKSUM  node-v$NODE_VERSION-linux-$ARCH-musl.tar.xz\" | sha256sum -c -       \u0026\u0026 tar -xJf \"node-v$NODE_VERSION-linux-$ARCH-musl.tar.xz\" -C /usr/local --strip-components=1 --no-same-owner       \u0026\u0026 ln -s /usr/local/bin/node /usr/local/bin/nodejs;   else     echo \"Building from source\"     \u0026\u0026 apk add --no-cache --virtual .build-deps-full         binutils-gold         g++         gcc         gnupg         libgcc         linux-headers         make         python3     \u0026\u0026 export GNUPGHOME=\"$(mktemp -d)\"     \u0026\u0026 for key in       4ED778F539E3634C779C87C6D7062848A1AB005C       141F07595B7B3FFE74309A937405533BE57C7D57       74F12602B6F1C4E913FAA37AD3A89613643B6201       DD792F5973C6DE52C432CBDAC77ABFA00DDBF2B7       61FC681DFB92A079F1685E77973F295594EC4689       8FCCA13FEF1D0C2E91008E09770F7A9A5AE15600       C4F0DFFF4E8C1A8236409D08E73BC641CC11F4C8       890C08DB8579162FEE0DF9DB8BEAB4DFCF555EF4       C82FA3AE1CBEDC6BE46B9360C43CEC45C17AB93C       108F52B48DB57BB0CC439B2997B01419BD92F80A       A363A499291CBBC940DD62E41F10027AF002F8B0     ; do       gpg --batch --keyserver hkps://keys.openpgp.org --recv-keys \"$key\" ||       gpg --batch --keyserver keyserver.ubuntu.com --recv-keys \"$key\" ;     done     \u0026\u0026 curl -fsSLO --compressed \"https://nodejs.org/dist/v$NODE_VERSION/node-v$NODE_VERSION.tar.xz\"     \u0026\u0026 curl -fsSLO --compressed \"https://nodejs.org/dist/v$NODE_VERSION/SHASUMS256.txt.asc\"     \u0026\u0026 gpg --batch --decrypt --output SHASUMS256.txt SHASUMS256.txt.asc     \u0026\u0026 gpgconf --kill all     \u0026\u0026 rm -rf \"$GNUPGHOME\"     \u0026\u0026 grep \" node-v$NODE_VERSION.tar.xz\\$\" SHASUMS256.txt | sha256sum -c -     \u0026\u0026 tar -xf \"node-v$NODE_VERSION.tar.xz\"     \u0026\u0026 cd \"node-v$NODE_VERSION\"     \u0026\u0026 ./configure     \u0026\u0026 make -j$(getconf _NPROCESSORS_ONLN) V=     \u0026\u0026 make install     \u0026\u0026 apk del .build-deps-full     \u0026\u0026 cd ..     \u0026\u0026 rm -Rf \"node-v$NODE_VERSION\"     \u0026\u0026 rm \"node-v$NODE_VERSION.tar.xz\" SHASUMS256.txt.asc SHASUMS256.txt;   fi   \u0026\u0026 rm -f \"node-v$NODE_VERSION-linux-$ARCH-musl.tar.xz\"   \u0026\u0026 find /usr/local/include/node/openssl/archs -mindepth 1 -maxdepth 1 ! -name \"$OPENSSL_ARCH\" -exec rm -rf {} \\;   \u0026\u0026 apk del .build-deps   \u0026\u0026 node --version   \u0026\u0026 npm --version",
+            "originCommand": "RUN /bin/sh -c addgroup -g 1000 node     \u0026\u0026 adduser -u 1000 -G node -s /bin/sh -D node     \u0026\u0026 apk add --no-cache         libstdc++     \u0026\u0026 apk add --no-cache --virtual .build-deps         curl     \u0026\u0026 ARCH= OPENSSL_ARCH='linux*' \u0026\u0026 alpineArch=\"$(apk --print-arch)\"       \u0026\u0026 case \"${alpineArch##*-}\" in         x86_64) ARCH='x64' CHECKSUM=\"5ebbebaf673652c1868a05b442e82ed5b3f536aa03231f285e739d35b912dc5d\" OPENSSL_ARCH=linux-x86_64;;         x86) OPENSSL_ARCH=linux-elf;;         aarch64) OPENSSL_ARCH=linux-aarch64;;         arm*) OPENSSL_ARCH=linux-armv4;;         ppc64le) OPENSSL_ARCH=linux-ppc64le;;         s390x) OPENSSL_ARCH=linux-s390x;;         *) ;;       esac   \u0026\u0026 if [ -n \"${CHECKSUM}\" ]; then     set -eu;     curl -fsSLO --compressed \"https://unofficial-builds.nodejs.org/download/release/v$NODE_VERSION/node-v$NODE_VERSION-linux-$ARCH-musl.tar.xz\";     echo \"$CHECKSUM  node-v$NODE_VERSION-linux-$ARCH-musl.tar.xz\" | sha256sum -c -       \u0026\u0026 tar -xJf \"node-v$NODE_VERSION-linux-$ARCH-musl.tar.xz\" -C /usr/local --strip-components=1 --no-same-owner       \u0026\u0026 ln -s /usr/local/bin/node /usr/local/bin/nodejs;   else     echo \"Building from source\"     \u0026\u0026 apk add --no-cache --virtual .build-deps-full         binutils-gold         g++         gcc         gnupg         libgcc         linux-headers         make         python3         py-setuptools     \u0026\u0026 export GNUPGHOME=\"$(mktemp -d)\"     \u0026\u0026 for key in       C0D6248439F1D5604AAFFB4021D900FFDB233756       DD792F5973C6DE52C432CBDAC77ABFA00DDBF2B7       CC68F5A3106FF448322E48ED27F5E38D5B0A215F       8FCCA13FEF1D0C2E91008E09770F7A9A5AE15600       890C08DB8579162FEE0DF9DB8BEAB4DFCF555EF4       C82FA3AE1CBEDC6BE46B9360C43CEC45C17AB93C       108F52B48DB57BB0CC439B2997B01419BD92F80A       A363A499291CBBC940DD62E41F10027AF002F8B0     ; do       gpg --batch --keyserver hkps://keys.openpgp.org --recv-keys \"$key\" ||       gpg --batch --keyserver keyserver.ubuntu.com --recv-keys \"$key\" ;     done     \u0026\u0026 curl -fsSLO --compressed \"https://nodejs.org/dist/v$NODE_VERSION/node-v$NODE_VERSION.tar.xz\"     \u0026\u0026 curl -fsSLO --compressed \"https://nodejs.org/dist/v$NODE_VERSION/SHASUMS256.txt.asc\"     \u0026\u0026 gpg --batch --decrypt --output SHASUMS256.txt SHASUMS256.txt.asc     \u0026\u0026 gpgconf --kill all     \u0026\u0026 rm -rf \"$GNUPGHOME\"     \u0026\u0026 grep \" node-v$NODE_VERSION.tar.xz\\$\" SHASUMS256.txt | sha256sum -c -     \u0026\u0026 tar -xf \"node-v$NODE_VERSION.tar.xz\"     \u0026\u0026 cd \"node-v$NODE_VERSION\"     \u0026\u0026 ./configure     \u0026\u0026 make -j$(getconf _NPROCESSORS_ONLN) V=     \u0026\u0026 make install     \u0026\u0026 apk del .build-deps-full     \u0026\u0026 cd ..     \u0026\u0026 rm -Rf \"node-v$NODE_VERSION\"     \u0026\u0026 rm \"node-v$NODE_VERSION.tar.xz\" SHASUMS256.txt.asc SHASUMS256.txt;   fi   \u0026\u0026 rm -f \"node-v$NODE_VERSION-linux-$ARCH-musl.tar.xz\"   \u0026\u0026 find /usr/local/include/node/openssl/archs -mindepth 1 -maxdepth 1 ! -name \"$OPENSSL_ARCH\" -exec rm -rf {} \\;   \u0026\u0026 apk del .build-deps   \u0026\u0026 node --version   \u0026\u0026 npm --version # buildkit",
             "inBaseImage": true
           }
         },
         {
           "name": "libssl3",
-          "version": "3.1.4-r5",
-          "commit": "b784a22cad0c452586b438cb7a597d846fc09ff4",
-          "ecosystem": "Alpine:v3.19",
+          "version": "3.3.2-r4",
+          "commit": "e18f4d0c2080542ef5c4fd329a5be584064658aa",
+          "ecosystem": "Alpine:v3.21",
           "compareAs": "Alpine",
           "imageOrigin": {
             "layerID": "\u003cAny value\u003e",
-            "originCommand": "/bin/sh -c #(nop) ADD file:37a76ec18f9887751cd8473744917d08b7431fc4085097bb6a09d81b41775473 in / ",
+            "originCommand": "ADD alpine-minirootfs-3.21.0-x86_64.tar.gz / # buildkit",
             "inBaseImage": true
           }
         },
         {
           "name": "libstdc++",
-          "version": "13.2.1_git20231014-r0",
-          "commit": "090e168783a86e5c2ba31fc65921b9715bac62ff",
-          "ecosystem": "Alpine:v3.19",
+          "version": "14.2.0-r4",
+          "commit": "1a03a2a9c9e77f1a07d48b6f6805e72c8c63c03f",
+          "ecosystem": "Alpine:v3.21",
           "compareAs": "Alpine",
           "imageOrigin": {
             "layerID": "\u003cAny value\u003e",
-            "originCommand": "/bin/sh -c addgroup -g 1000 node     \u0026\u0026 adduser -u 1000 -G node -s /bin/sh -D node     \u0026\u0026 apk add --no-cache         libstdc++     \u0026\u0026 apk add --no-cache --virtual .build-deps         curl     \u0026\u0026 ARCH= OPENSSL_ARCH='linux*' \u0026\u0026 alpineArch=\"$(apk --print-arch)\"       \u0026\u0026 case \"${alpineArch##*-}\" in         x86_64) ARCH='x64' CHECKSUM=\"5da733c21c3b51193a4fe9fc5be6cfa9a694d13b8d766eb02dbe4b8996547050\" OPENSSL_ARCH=linux-x86_64;;         x86) OPENSSL_ARCH=linux-elf;;         aarch64) OPENSSL_ARCH=linux-aarch64;;         arm*) OPENSSL_ARCH=linux-armv4;;         ppc64le) OPENSSL_ARCH=linux-ppc64le;;         s390x) OPENSSL_ARCH=linux-s390x;;         *) ;;       esac   \u0026\u0026 if [ -n \"${CHECKSUM}\" ]; then     set -eu;     curl -fsSLO --compressed \"https://unofficial-builds.nodejs.org/download/release/v$NODE_VERSION/node-v$NODE_VERSION-linux-$ARCH-musl.tar.xz\";     echo \"$CHECKSUM  node-v$NODE_VERSION-linux-$ARCH-musl.tar.xz\" | sha256sum -c -       \u0026\u0026 tar -xJf \"node-v$NODE_VERSION-linux-$ARCH-musl.tar.xz\" -C /usr/local --strip-components=1 --no-same-owner       \u0026\u0026 ln -s /usr/local/bin/node /usr/local/bin/nodejs;   else     echo \"Building from source\"     \u0026\u0026 apk add --no-cache --virtual .build-deps-full         binutils-gold         g++         gcc         gnupg         libgcc         linux-headers         make         python3     \u0026\u0026 export GNUPGHOME=\"$(mktemp -d)\"     \u0026\u0026 for key in       4ED778F539E3634C779C87C6D7062848A1AB005C       141F07595B7B3FFE74309A937405533BE57C7D57       74F12602B6F1C4E913FAA37AD3A89613643B6201       DD792F5973C6DE52C432CBDAC77ABFA00DDBF2B7       61FC681DFB92A079F1685E77973F295594EC4689       8FCCA13FEF1D0C2E91008E09770F7A9A5AE15600       C4F0DFFF4E8C1A8236409D08E73BC641CC11F4C8       890C08DB8579162FEE0DF9DB8BEAB4DFCF555EF4       C82FA3AE1CBEDC6BE46B9360C43CEC45C17AB93C       108F52B48DB57BB0CC439B2997B01419BD92F80A       A363A499291CBBC940DD62E41F10027AF002F8B0     ; do       gpg --batch --keyserver hkps://keys.openpgp.org --recv-keys \"$key\" ||       gpg --batch --keyserver keyserver.ubuntu.com --recv-keys \"$key\" ;     done     \u0026\u0026 curl -fsSLO --compressed \"https://nodejs.org/dist/v$NODE_VERSION/node-v$NODE_VERSION.tar.xz\"     \u0026\u0026 curl -fsSLO --compressed \"https://nodejs.org/dist/v$NODE_VERSION/SHASUMS256.txt.asc\"     \u0026\u0026 gpg --batch --decrypt --output SHASUMS256.txt SHASUMS256.txt.asc     \u0026\u0026 gpgconf --kill all     \u0026\u0026 rm -rf \"$GNUPGHOME\"     \u0026\u0026 grep \" node-v$NODE_VERSION.tar.xz\\$\" SHASUMS256.txt | sha256sum -c -     \u0026\u0026 tar -xf \"node-v$NODE_VERSION.tar.xz\"     \u0026\u0026 cd \"node-v$NODE_VERSION\"     \u0026\u0026 ./configure     \u0026\u0026 make -j$(getconf _NPROCESSORS_ONLN) V=     \u0026\u0026 make install     \u0026\u0026 apk del .build-deps-full     \u0026\u0026 cd ..     \u0026\u0026 rm -Rf \"node-v$NODE_VERSION\"     \u0026\u0026 rm \"node-v$NODE_VERSION.tar.xz\" SHASUMS256.txt.asc SHASUMS256.txt;   fi   \u0026\u0026 rm -f \"node-v$NODE_VERSION-linux-$ARCH-musl.tar.xz\"   \u0026\u0026 find /usr/local/include/node/openssl/archs -mindepth 1 -maxdepth 1 ! -name \"$OPENSSL_ARCH\" -exec rm -rf {} \\;   \u0026\u0026 apk del .build-deps   \u0026\u0026 node --version   \u0026\u0026 npm --version",
+            "originCommand": "RUN /bin/sh -c addgroup -g 1000 node     \u0026\u0026 adduser -u 1000 -G node -s /bin/sh -D node     \u0026\u0026 apk add --no-cache         libstdc++     \u0026\u0026 apk add --no-cache --virtual .build-deps         curl     \u0026\u0026 ARCH= OPENSSL_ARCH='linux*' \u0026\u0026 alpineArch=\"$(apk --print-arch)\"       \u0026\u0026 case \"${alpineArch##*-}\" in         x86_64) ARCH='x64' CHECKSUM=\"5ebbebaf673652c1868a05b442e82ed5b3f536aa03231f285e739d35b912dc5d\" OPENSSL_ARCH=linux-x86_64;;         x86) OPENSSL_ARCH=linux-elf;;         aarch64) OPENSSL_ARCH=linux-aarch64;;         arm*) OPENSSL_ARCH=linux-armv4;;         ppc64le) OPENSSL_ARCH=linux-ppc64le;;         s390x) OPENSSL_ARCH=linux-s390x;;         *) ;;       esac   \u0026\u0026 if [ -n \"${CHECKSUM}\" ]; then     set -eu;     curl -fsSLO --compressed \"https://unofficial-builds.nodejs.org/download/release/v$NODE_VERSION/node-v$NODE_VERSION-linux-$ARCH-musl.tar.xz\";     echo \"$CHECKSUM  node-v$NODE_VERSION-linux-$ARCH-musl.tar.xz\" | sha256sum -c -       \u0026\u0026 tar -xJf \"node-v$NODE_VERSION-linux-$ARCH-musl.tar.xz\" -C /usr/local --strip-components=1 --no-same-owner       \u0026\u0026 ln -s /usr/local/bin/node /usr/local/bin/nodejs;   else     echo \"Building from source\"     \u0026\u0026 apk add --no-cache --virtual .build-deps-full         binutils-gold         g++         gcc         gnupg         libgcc         linux-headers         make         python3         py-setuptools     \u0026\u0026 export GNUPGHOME=\"$(mktemp -d)\"     \u0026\u0026 for key in       C0D6248439F1D5604AAFFB4021D900FFDB233756       DD792F5973C6DE52C432CBDAC77ABFA00DDBF2B7       CC68F5A3106FF448322E48ED27F5E38D5B0A215F       8FCCA13FEF1D0C2E91008E09770F7A9A5AE15600       890C08DB8579162FEE0DF9DB8BEAB4DFCF555EF4       C82FA3AE1CBEDC6BE46B9360C43CEC45C17AB93C       108F52B48DB57BB0CC439B2997B01419BD92F80A       A363A499291CBBC940DD62E41F10027AF002F8B0     ; do       gpg --batch --keyserver hkps://keys.openpgp.org --recv-keys \"$key\" ||       gpg --batch --keyserver keyserver.ubuntu.com --recv-keys \"$key\" ;     done     \u0026\u0026 curl -fsSLO --compressed \"https://nodejs.org/dist/v$NODE_VERSION/node-v$NODE_VERSION.tar.xz\"     \u0026\u0026 curl -fsSLO --compressed \"https://nodejs.org/dist/v$NODE_VERSION/SHASUMS256.txt.asc\"     \u0026\u0026 gpg --batch --decrypt --output SHASUMS256.txt SHASUMS256.txt.asc     \u0026\u0026 gpgconf --kill all     \u0026\u0026 rm -rf \"$GNUPGHOME\"     \u0026\u0026 grep \" node-v$NODE_VERSION.tar.xz\\$\" SHASUMS256.txt | sha256sum -c -     \u0026\u0026 tar -xf \"node-v$NODE_VERSION.tar.xz\"     \u0026\u0026 cd \"node-v$NODE_VERSION\"     \u0026\u0026 ./configure     \u0026\u0026 make -j$(getconf _NPROCESSORS_ONLN) V=     \u0026\u0026 make install     \u0026\u0026 apk del .build-deps-full     \u0026\u0026 cd ..     \u0026\u0026 rm -Rf \"node-v$NODE_VERSION\"     \u0026\u0026 rm \"node-v$NODE_VERSION.tar.xz\" SHASUMS256.txt.asc SHASUMS256.txt;   fi   \u0026\u0026 rm -f \"node-v$NODE_VERSION-linux-$ARCH-musl.tar.xz\"   \u0026\u0026 find /usr/local/include/node/openssl/archs -mindepth 1 -maxdepth 1 ! -name \"$OPENSSL_ARCH\" -exec rm -rf {} \\;   \u0026\u0026 apk del .build-deps   \u0026\u0026 node --version   \u0026\u0026 npm --version # buildkit",
             "inBaseImage": true
           }
         },
         {
           "name": "musl",
-          "version": "1.2.4_git20230717-r4",
-          "commit": "ca7f2ab5e88794e4e654b40776f8a92256f50639",
-          "ecosystem": "Alpine:v3.19",
+          "version": "1.2.5-r8",
+          "commit": "c1ab9dfcb36751c3e9097f0f67e01ad12b2e1f5f",
+          "ecosystem": "Alpine:v3.21",
           "compareAs": "Alpine",
           "imageOrigin": {
             "layerID": "\u003cAny value\u003e",
-            "originCommand": "/bin/sh -c #(nop) ADD file:37a76ec18f9887751cd8473744917d08b7431fc4085097bb6a09d81b41775473 in / ",
+            "originCommand": "ADD alpine-minirootfs-3.21.0-x86_64.tar.gz / # buildkit",
             "inBaseImage": true
           }
         },
         {
           "name": "musl-utils",
-          "version": "1.2.4_git20230717-r4",
-          "commit": "ca7f2ab5e88794e4e654b40776f8a92256f50639",
-          "ecosystem": "Alpine:v3.19",
+          "version": "1.2.5-r8",
+          "commit": "c1ab9dfcb36751c3e9097f0f67e01ad12b2e1f5f",
+          "ecosystem": "Alpine:v3.21",
           "compareAs": "Alpine",
           "imageOrigin": {
             "layerID": "\u003cAny value\u003e",
-            "originCommand": "/bin/sh -c #(nop) ADD file:37a76ec18f9887751cd8473744917d08b7431fc4085097bb6a09d81b41775473 in / ",
+            "originCommand": "ADD alpine-minirootfs-3.21.0-x86_64.tar.gz / # buildkit",
             "inBaseImage": true
           }
         },
         {
           "name": "scanelf",
-          "version": "1.3.7-r2",
-          "commit": "e65a4f2d0470e70d862ef2b5c412ecf2cb9ad0a6",
-          "ecosystem": "Alpine:v3.19",
+          "version": "1.3.8-r1",
+          "commit": "398a5aee3025ec8a4d0d761e448dc86ac777fa09",
+          "ecosystem": "Alpine:v3.21",
           "compareAs": "Alpine",
           "imageOrigin": {
             "layerID": "\u003cAny value\u003e",
-            "originCommand": "/bin/sh -c #(nop) ADD file:37a76ec18f9887751cd8473744917d08b7431fc4085097bb6a09d81b41775473 in / ",
+            "originCommand": "ADD alpine-minirootfs-3.21.0-x86_64.tar.gz / # buildkit",
             "inBaseImage": true
           }
         },
         {
           "name": "ssl_client",
-          "version": "1.36.1-r15",
-          "commit": "d1b6f274f29076967826e0ecf6ebcaa5d360272f",
-          "ecosystem": "Alpine:v3.19",
+          "version": "1.37.0-r8",
+          "commit": "79fddc2aa9c64c47fb3da6edeae9570b4e9caa7e",
+          "ecosystem": "Alpine:v3.21",
           "compareAs": "Alpine",
           "imageOrigin": {
             "layerID": "\u003cAny value\u003e",
-            "originCommand": "/bin/sh -c #(nop) ADD file:37a76ec18f9887751cd8473744917d08b7431fc4085097bb6a09d81b41775473 in / ",
+            "originCommand": "ADD alpine-minirootfs-3.21.0-x86_64.tar.gz / # buildkit",
             "inBaseImage": true
           }
         },
         {
           "name": "zlib",
-          "version": "1.3.1-r0",
-          "commit": "9406f6fc5fca057d990eb0d260d75839eeb34d83",
-          "ecosystem": "Alpine:v3.19",
+          "version": "1.3.1-r2",
+          "commit": "4c2722e7ecc1c5e3ba882429044a101497121223",
+          "ecosystem": "Alpine:v3.21",
           "compareAs": "Alpine",
           "imageOrigin": {
             "layerID": "\u003cAny value\u003e",
-            "originCommand": "/bin/sh -c #(nop) ADD file:37a76ec18f9887751cd8473744917d08b7431fc4085097bb6a09d81b41775473 in / ",
+            "originCommand": "ADD alpine-minirootfs-3.21.0-x86_64.tar.gz / # buildkit",
             "inBaseImage": true
           }
         }
@@ -1233,205 +1233,205 @@
       "packages": [
         {
           "name": "alpine-baselayout",
-          "version": "3.4.3-r2",
-          "commit": "7749273fed55f6e1df7c9ee6a127f18099f98a94",
-          "ecosystem": "Alpine:v3.19",
+          "version": "3.6.8-r0",
+          "commit": "82d6c06a6d6e8de20a4db05994da6046f0623af3",
+          "ecosystem": "Alpine:v3.21",
           "compareAs": "Alpine",
           "imageOrigin": {
             "layerID": "\u003cAny value\u003e",
-            "originCommand": "/bin/sh -c #(nop) ADD file:37a76ec18f9887751cd8473744917d08b7431fc4085097bb6a09d81b41775473 in / ",
+            "originCommand": "ADD alpine-minirootfs-3.21.0-x86_64.tar.gz / # buildkit",
             "inBaseImage": true
           }
         },
         {
           "name": "alpine-baselayout-data",
-          "version": "3.4.3-r2",
-          "commit": "7749273fed55f6e1df7c9ee6a127f18099f98a94",
-          "ecosystem": "Alpine:v3.19",
+          "version": "3.6.8-r0",
+          "commit": "82d6c06a6d6e8de20a4db05994da6046f0623af3",
+          "ecosystem": "Alpine:v3.21",
           "compareAs": "Alpine",
           "imageOrigin": {
             "layerID": "\u003cAny value\u003e",
-            "originCommand": "/bin/sh -c #(nop) ADD file:37a76ec18f9887751cd8473744917d08b7431fc4085097bb6a09d81b41775473 in / ",
+            "originCommand": "ADD alpine-minirootfs-3.21.0-x86_64.tar.gz / # buildkit",
             "inBaseImage": true
           }
         },
         {
           "name": "alpine-keys",
-          "version": "2.4-r1",
-          "commit": "aab68f8c9ab434a46710de8e12fb3206e2930a59",
-          "ecosystem": "Alpine:v3.19",
+          "version": "2.5-r0",
+          "commit": "6d473fb38effb2389f567b29fb7eb27039b3a279",
+          "ecosystem": "Alpine:v3.21",
           "compareAs": "Alpine",
           "imageOrigin": {
             "layerID": "\u003cAny value\u003e",
-            "originCommand": "/bin/sh -c #(nop) ADD file:37a76ec18f9887751cd8473744917d08b7431fc4085097bb6a09d81b41775473 in / ",
+            "originCommand": "ADD alpine-minirootfs-3.21.0-x86_64.tar.gz / # buildkit",
+            "inBaseImage": true
+          }
+        },
+        {
+          "name": "alpine-release",
+          "version": "3.21.0-r0",
+          "commit": "59962f87e4603deb5bb4d237927fd7eb84c7c9c9",
+          "ecosystem": "Alpine:v3.21",
+          "compareAs": "Alpine",
+          "imageOrigin": {
+            "layerID": "\u003cAny value\u003e",
+            "originCommand": "ADD alpine-minirootfs-3.21.0-x86_64.tar.gz / # buildkit",
             "inBaseImage": true
           }
         },
         {
           "name": "apk-tools",
-          "version": "2.14.0-r5",
-          "commit": "33283848034c9885d984c8e8697c645c57324938",
-          "ecosystem": "Alpine:v3.19",
+          "version": "2.14.6-r2",
+          "commit": "85fce5ac38cd9990b8910637d750591e3ef55a6c",
+          "ecosystem": "Alpine:v3.21",
           "compareAs": "Alpine",
           "imageOrigin": {
             "layerID": "\u003cAny value\u003e",
-            "originCommand": "/bin/sh -c #(nop) ADD file:37a76ec18f9887751cd8473744917d08b7431fc4085097bb6a09d81b41775473 in / ",
+            "originCommand": "ADD alpine-minirootfs-3.21.0-x86_64.tar.gz / # buildkit",
             "inBaseImage": true
           }
         },
         {
           "name": "busybox",
-          "version": "1.36.1-r15",
-          "commit": "d1b6f274f29076967826e0ecf6ebcaa5d360272f",
-          "ecosystem": "Alpine:v3.19",
+          "version": "1.37.0-r8",
+          "commit": "79fddc2aa9c64c47fb3da6edeae9570b4e9caa7e",
+          "ecosystem": "Alpine:v3.21",
           "compareAs": "Alpine",
           "imageOrigin": {
             "layerID": "\u003cAny value\u003e",
-            "originCommand": "/bin/sh -c #(nop) ADD file:37a76ec18f9887751cd8473744917d08b7431fc4085097bb6a09d81b41775473 in / ",
+            "originCommand": "ADD alpine-minirootfs-3.21.0-x86_64.tar.gz / # buildkit",
             "inBaseImage": true
           }
         },
         {
           "name": "busybox-binsh",
-          "version": "1.36.1-r15",
-          "commit": "d1b6f274f29076967826e0ecf6ebcaa5d360272f",
-          "ecosystem": "Alpine:v3.19",
+          "version": "1.37.0-r8",
+          "commit": "79fddc2aa9c64c47fb3da6edeae9570b4e9caa7e",
+          "ecosystem": "Alpine:v3.21",
           "compareAs": "Alpine",
           "imageOrigin": {
             "layerID": "\u003cAny value\u003e",
-            "originCommand": "/bin/sh -c #(nop) ADD file:37a76ec18f9887751cd8473744917d08b7431fc4085097bb6a09d81b41775473 in / ",
+            "originCommand": "ADD alpine-minirootfs-3.21.0-x86_64.tar.gz / # buildkit",
             "inBaseImage": true
           }
         },
         {
           "name": "ca-certificates-bundle",
-          "version": "20230506-r0",
-          "commit": "59534a02716a92a10d177a118c34066162eff4a6",
-          "ecosystem": "Alpine:v3.19",
+          "version": "20241010-r0",
+          "commit": "537f890454d2213fd05cde5e458dfa9c8ef1977f",
+          "ecosystem": "Alpine:v3.21",
           "compareAs": "Alpine",
           "imageOrigin": {
             "layerID": "\u003cAny value\u003e",
-            "originCommand": "/bin/sh -c #(nop) ADD file:37a76ec18f9887751cd8473744917d08b7431fc4085097bb6a09d81b41775473 in / ",
-            "inBaseImage": true
-          }
-        },
-        {
-          "name": "libc-utils",
-          "version": "0.7.2-r5",
-          "commit": "988f183cc9d6699930c3e18ccf4a9e36010afb56",
-          "ecosystem": "Alpine:v3.19",
-          "compareAs": "Alpine",
-          "imageOrigin": {
-            "layerID": "\u003cAny value\u003e",
-            "originCommand": "/bin/sh -c #(nop) ADD file:37a76ec18f9887751cd8473744917d08b7431fc4085097bb6a09d81b41775473 in / ",
+            "originCommand": "ADD alpine-minirootfs-3.21.0-x86_64.tar.gz / # buildkit",
             "inBaseImage": true
           }
         },
         {
           "name": "libcrypto3",
-          "version": "3.1.4-r5",
-          "commit": "b784a22cad0c452586b438cb7a597d846fc09ff4",
-          "ecosystem": "Alpine:v3.19",
+          "version": "3.3.2-r4",
+          "commit": "e18f4d0c2080542ef5c4fd329a5be584064658aa",
+          "ecosystem": "Alpine:v3.21",
           "compareAs": "Alpine",
           "imageOrigin": {
             "layerID": "\u003cAny value\u003e",
-            "originCommand": "/bin/sh -c #(nop) ADD file:37a76ec18f9887751cd8473744917d08b7431fc4085097bb6a09d81b41775473 in / ",
+            "originCommand": "ADD alpine-minirootfs-3.21.0-x86_64.tar.gz / # buildkit",
             "inBaseImage": true
           }
         },
         {
           "name": "libgcc",
-          "version": "13.2.1_git20231014-r0",
-          "commit": "090e168783a86e5c2ba31fc65921b9715bac62ff",
-          "ecosystem": "Alpine:v3.19",
+          "version": "14.2.0-r4",
+          "commit": "1a03a2a9c9e77f1a07d48b6f6805e72c8c63c03f",
+          "ecosystem": "Alpine:v3.21",
           "compareAs": "Alpine",
           "imageOrigin": {
             "layerID": "\u003cAny value\u003e",
-            "originCommand": "/bin/sh -c addgroup -g 1000 node     \u0026\u0026 adduser -u 1000 -G node -s /bin/sh -D node     \u0026\u0026 apk add --no-cache         libstdc++     \u0026\u0026 apk add --no-cache --virtual .build-deps         curl     \u0026\u0026 ARCH= OPENSSL_ARCH='linux*' \u0026\u0026 alpineArch=\"$(apk --print-arch)\"       \u0026\u0026 case \"${alpineArch##*-}\" in         x86_64) ARCH='x64' CHECKSUM=\"5da733c21c3b51193a4fe9fc5be6cfa9a694d13b8d766eb02dbe4b8996547050\" OPENSSL_ARCH=linux-x86_64;;         x86) OPENSSL_ARCH=linux-elf;;         aarch64) OPENSSL_ARCH=linux-aarch64;;         arm*) OPENSSL_ARCH=linux-armv4;;         ppc64le) OPENSSL_ARCH=linux-ppc64le;;         s390x) OPENSSL_ARCH=linux-s390x;;         *) ;;       esac   \u0026\u0026 if [ -n \"${CHECKSUM}\" ]; then     set -eu;     curl -fsSLO --compressed \"https://unofficial-builds.nodejs.org/download/release/v$NODE_VERSION/node-v$NODE_VERSION-linux-$ARCH-musl.tar.xz\";     echo \"$CHECKSUM  node-v$NODE_VERSION-linux-$ARCH-musl.tar.xz\" | sha256sum -c -       \u0026\u0026 tar -xJf \"node-v$NODE_VERSION-linux-$ARCH-musl.tar.xz\" -C /usr/local --strip-components=1 --no-same-owner       \u0026\u0026 ln -s /usr/local/bin/node /usr/local/bin/nodejs;   else     echo \"Building from source\"     \u0026\u0026 apk add --no-cache --virtual .build-deps-full         binutils-gold         g++         gcc         gnupg         libgcc         linux-headers         make         python3     \u0026\u0026 export GNUPGHOME=\"$(mktemp -d)\"     \u0026\u0026 for key in       4ED778F539E3634C779C87C6D7062848A1AB005C       141F07595B7B3FFE74309A937405533BE57C7D57       74F12602B6F1C4E913FAA37AD3A89613643B6201       DD792F5973C6DE52C432CBDAC77ABFA00DDBF2B7       61FC681DFB92A079F1685E77973F295594EC4689       8FCCA13FEF1D0C2E91008E09770F7A9A5AE15600       C4F0DFFF4E8C1A8236409D08E73BC641CC11F4C8       890C08DB8579162FEE0DF9DB8BEAB4DFCF555EF4       C82FA3AE1CBEDC6BE46B9360C43CEC45C17AB93C       108F52B48DB57BB0CC439B2997B01419BD92F80A       A363A499291CBBC940DD62E41F10027AF002F8B0     ; do       gpg --batch --keyserver hkps://keys.openpgp.org --recv-keys \"$key\" ||       gpg --batch --keyserver keyserver.ubuntu.com --recv-keys \"$key\" ;     done     \u0026\u0026 curl -fsSLO --compressed \"https://nodejs.org/dist/v$NODE_VERSION/node-v$NODE_VERSION.tar.xz\"     \u0026\u0026 curl -fsSLO --compressed \"https://nodejs.org/dist/v$NODE_VERSION/SHASUMS256.txt.asc\"     \u0026\u0026 gpg --batch --decrypt --output SHASUMS256.txt SHASUMS256.txt.asc     \u0026\u0026 gpgconf --kill all     \u0026\u0026 rm -rf \"$GNUPGHOME\"     \u0026\u0026 grep \" node-v$NODE_VERSION.tar.xz\\$\" SHASUMS256.txt | sha256sum -c -     \u0026\u0026 tar -xf \"node-v$NODE_VERSION.tar.xz\"     \u0026\u0026 cd \"node-v$NODE_VERSION\"     \u0026\u0026 ./configure     \u0026\u0026 make -j$(getconf _NPROCESSORS_ONLN) V=     \u0026\u0026 make install     \u0026\u0026 apk del .build-deps-full     \u0026\u0026 cd ..     \u0026\u0026 rm -Rf \"node-v$NODE_VERSION\"     \u0026\u0026 rm \"node-v$NODE_VERSION.tar.xz\" SHASUMS256.txt.asc SHASUMS256.txt;   fi   \u0026\u0026 rm -f \"node-v$NODE_VERSION-linux-$ARCH-musl.tar.xz\"   \u0026\u0026 find /usr/local/include/node/openssl/archs -mindepth 1 -maxdepth 1 ! -name \"$OPENSSL_ARCH\" -exec rm -rf {} \\;   \u0026\u0026 apk del .build-deps   \u0026\u0026 node --version   \u0026\u0026 npm --version",
+            "originCommand": "RUN /bin/sh -c addgroup -g 1000 node     \u0026\u0026 adduser -u 1000 -G node -s /bin/sh -D node     \u0026\u0026 apk add --no-cache         libstdc++     \u0026\u0026 apk add --no-cache --virtual .build-deps         curl     \u0026\u0026 ARCH= OPENSSL_ARCH='linux*' \u0026\u0026 alpineArch=\"$(apk --print-arch)\"       \u0026\u0026 case \"${alpineArch##*-}\" in         x86_64) ARCH='x64' CHECKSUM=\"5ebbebaf673652c1868a05b442e82ed5b3f536aa03231f285e739d35b912dc5d\" OPENSSL_ARCH=linux-x86_64;;         x86) OPENSSL_ARCH=linux-elf;;         aarch64) OPENSSL_ARCH=linux-aarch64;;         arm*) OPENSSL_ARCH=linux-armv4;;         ppc64le) OPENSSL_ARCH=linux-ppc64le;;         s390x) OPENSSL_ARCH=linux-s390x;;         *) ;;       esac   \u0026\u0026 if [ -n \"${CHECKSUM}\" ]; then     set -eu;     curl -fsSLO --compressed \"https://unofficial-builds.nodejs.org/download/release/v$NODE_VERSION/node-v$NODE_VERSION-linux-$ARCH-musl.tar.xz\";     echo \"$CHECKSUM  node-v$NODE_VERSION-linux-$ARCH-musl.tar.xz\" | sha256sum -c -       \u0026\u0026 tar -xJf \"node-v$NODE_VERSION-linux-$ARCH-musl.tar.xz\" -C /usr/local --strip-components=1 --no-same-owner       \u0026\u0026 ln -s /usr/local/bin/node /usr/local/bin/nodejs;   else     echo \"Building from source\"     \u0026\u0026 apk add --no-cache --virtual .build-deps-full         binutils-gold         g++         gcc         gnupg         libgcc         linux-headers         make         python3         py-setuptools     \u0026\u0026 export GNUPGHOME=\"$(mktemp -d)\"     \u0026\u0026 for key in       C0D6248439F1D5604AAFFB4021D900FFDB233756       DD792F5973C6DE52C432CBDAC77ABFA00DDBF2B7       CC68F5A3106FF448322E48ED27F5E38D5B0A215F       8FCCA13FEF1D0C2E91008E09770F7A9A5AE15600       890C08DB8579162FEE0DF9DB8BEAB4DFCF555EF4       C82FA3AE1CBEDC6BE46B9360C43CEC45C17AB93C       108F52B48DB57BB0CC439B2997B01419BD92F80A       A363A499291CBBC940DD62E41F10027AF002F8B0     ; do       gpg --batch --keyserver hkps://keys.openpgp.org --recv-keys \"$key\" ||       gpg --batch --keyserver keyserver.ubuntu.com --recv-keys \"$key\" ;     done     \u0026\u0026 curl -fsSLO --compressed \"https://nodejs.org/dist/v$NODE_VERSION/node-v$NODE_VERSION.tar.xz\"     \u0026\u0026 curl -fsSLO --compressed \"https://nodejs.org/dist/v$NODE_VERSION/SHASUMS256.txt.asc\"     \u0026\u0026 gpg --batch --decrypt --output SHASUMS256.txt SHASUMS256.txt.asc     \u0026\u0026 gpgconf --kill all     \u0026\u0026 rm -rf \"$GNUPGHOME\"     \u0026\u0026 grep \" node-v$NODE_VERSION.tar.xz\\$\" SHASUMS256.txt | sha256sum -c -     \u0026\u0026 tar -xf \"node-v$NODE_VERSION.tar.xz\"     \u0026\u0026 cd \"node-v$NODE_VERSION\"     \u0026\u0026 ./configure     \u0026\u0026 make -j$(getconf _NPROCESSORS_ONLN) V=     \u0026\u0026 make install     \u0026\u0026 apk del .build-deps-full     \u0026\u0026 cd ..     \u0026\u0026 rm -Rf \"node-v$NODE_VERSION\"     \u0026\u0026 rm \"node-v$NODE_VERSION.tar.xz\" SHASUMS256.txt.asc SHASUMS256.txt;   fi   \u0026\u0026 rm -f \"node-v$NODE_VERSION-linux-$ARCH-musl.tar.xz\"   \u0026\u0026 find /usr/local/include/node/openssl/archs -mindepth 1 -maxdepth 1 ! -name \"$OPENSSL_ARCH\" -exec rm -rf {} \\;   \u0026\u0026 apk del .build-deps   \u0026\u0026 node --version   \u0026\u0026 npm --version # buildkit",
             "inBaseImage": true
           }
         },
         {
           "name": "libssl3",
-          "version": "3.1.4-r5",
-          "commit": "b784a22cad0c452586b438cb7a597d846fc09ff4",
-          "ecosystem": "Alpine:v3.19",
+          "version": "3.3.2-r4",
+          "commit": "e18f4d0c2080542ef5c4fd329a5be584064658aa",
+          "ecosystem": "Alpine:v3.21",
           "compareAs": "Alpine",
           "imageOrigin": {
             "layerID": "\u003cAny value\u003e",
-            "originCommand": "/bin/sh -c #(nop) ADD file:37a76ec18f9887751cd8473744917d08b7431fc4085097bb6a09d81b41775473 in / ",
+            "originCommand": "ADD alpine-minirootfs-3.21.0-x86_64.tar.gz / # buildkit",
             "inBaseImage": true
           }
         },
         {
           "name": "libstdc++",
-          "version": "13.2.1_git20231014-r0",
-          "commit": "090e168783a86e5c2ba31fc65921b9715bac62ff",
-          "ecosystem": "Alpine:v3.19",
+          "version": "14.2.0-r4",
+          "commit": "1a03a2a9c9e77f1a07d48b6f6805e72c8c63c03f",
+          "ecosystem": "Alpine:v3.21",
           "compareAs": "Alpine",
           "imageOrigin": {
             "layerID": "\u003cAny value\u003e",
-            "originCommand": "/bin/sh -c addgroup -g 1000 node     \u0026\u0026 adduser -u 1000 -G node -s /bin/sh -D node     \u0026\u0026 apk add --no-cache         libstdc++     \u0026\u0026 apk add --no-cache --virtual .build-deps         curl     \u0026\u0026 ARCH= OPENSSL_ARCH='linux*' \u0026\u0026 alpineArch=\"$(apk --print-arch)\"       \u0026\u0026 case \"${alpineArch##*-}\" in         x86_64) ARCH='x64' CHECKSUM=\"5da733c21c3b51193a4fe9fc5be6cfa9a694d13b8d766eb02dbe4b8996547050\" OPENSSL_ARCH=linux-x86_64;;         x86) OPENSSL_ARCH=linux-elf;;         aarch64) OPENSSL_ARCH=linux-aarch64;;         arm*) OPENSSL_ARCH=linux-armv4;;         ppc64le) OPENSSL_ARCH=linux-ppc64le;;         s390x) OPENSSL_ARCH=linux-s390x;;         *) ;;       esac   \u0026\u0026 if [ -n \"${CHECKSUM}\" ]; then     set -eu;     curl -fsSLO --compressed \"https://unofficial-builds.nodejs.org/download/release/v$NODE_VERSION/node-v$NODE_VERSION-linux-$ARCH-musl.tar.xz\";     echo \"$CHECKSUM  node-v$NODE_VERSION-linux-$ARCH-musl.tar.xz\" | sha256sum -c -       \u0026\u0026 tar -xJf \"node-v$NODE_VERSION-linux-$ARCH-musl.tar.xz\" -C /usr/local --strip-components=1 --no-same-owner       \u0026\u0026 ln -s /usr/local/bin/node /usr/local/bin/nodejs;   else     echo \"Building from source\"     \u0026\u0026 apk add --no-cache --virtual .build-deps-full         binutils-gold         g++         gcc         gnupg         libgcc         linux-headers         make         python3     \u0026\u0026 export GNUPGHOME=\"$(mktemp -d)\"     \u0026\u0026 for key in       4ED778F539E3634C779C87C6D7062848A1AB005C       141F07595B7B3FFE74309A937405533BE57C7D57       74F12602B6F1C4E913FAA37AD3A89613643B6201       DD792F5973C6DE52C432CBDAC77ABFA00DDBF2B7       61FC681DFB92A079F1685E77973F295594EC4689       8FCCA13FEF1D0C2E91008E09770F7A9A5AE15600       C4F0DFFF4E8C1A8236409D08E73BC641CC11F4C8       890C08DB8579162FEE0DF9DB8BEAB4DFCF555EF4       C82FA3AE1CBEDC6BE46B9360C43CEC45C17AB93C       108F52B48DB57BB0CC439B2997B01419BD92F80A       A363A499291CBBC940DD62E41F10027AF002F8B0     ; do       gpg --batch --keyserver hkps://keys.openpgp.org --recv-keys \"$key\" ||       gpg --batch --keyserver keyserver.ubuntu.com --recv-keys \"$key\" ;     done     \u0026\u0026 curl -fsSLO --compressed \"https://nodejs.org/dist/v$NODE_VERSION/node-v$NODE_VERSION.tar.xz\"     \u0026\u0026 curl -fsSLO --compressed \"https://nodejs.org/dist/v$NODE_VERSION/SHASUMS256.txt.asc\"     \u0026\u0026 gpg --batch --decrypt --output SHASUMS256.txt SHASUMS256.txt.asc     \u0026\u0026 gpgconf --kill all     \u0026\u0026 rm -rf \"$GNUPGHOME\"     \u0026\u0026 grep \" node-v$NODE_VERSION.tar.xz\\$\" SHASUMS256.txt | sha256sum -c -     \u0026\u0026 tar -xf \"node-v$NODE_VERSION.tar.xz\"     \u0026\u0026 cd \"node-v$NODE_VERSION\"     \u0026\u0026 ./configure     \u0026\u0026 make -j$(getconf _NPROCESSORS_ONLN) V=     \u0026\u0026 make install     \u0026\u0026 apk del .build-deps-full     \u0026\u0026 cd ..     \u0026\u0026 rm -Rf \"node-v$NODE_VERSION\"     \u0026\u0026 rm \"node-v$NODE_VERSION.tar.xz\" SHASUMS256.txt.asc SHASUMS256.txt;   fi   \u0026\u0026 rm -f \"node-v$NODE_VERSION-linux-$ARCH-musl.tar.xz\"   \u0026\u0026 find /usr/local/include/node/openssl/archs -mindepth 1 -maxdepth 1 ! -name \"$OPENSSL_ARCH\" -exec rm -rf {} \\;   \u0026\u0026 apk del .build-deps   \u0026\u0026 node --version   \u0026\u0026 npm --version",
+            "originCommand": "RUN /bin/sh -c addgroup -g 1000 node     \u0026\u0026 adduser -u 1000 -G node -s /bin/sh -D node     \u0026\u0026 apk add --no-cache         libstdc++     \u0026\u0026 apk add --no-cache --virtual .build-deps         curl     \u0026\u0026 ARCH= OPENSSL_ARCH='linux*' \u0026\u0026 alpineArch=\"$(apk --print-arch)\"       \u0026\u0026 case \"${alpineArch##*-}\" in         x86_64) ARCH='x64' CHECKSUM=\"5ebbebaf673652c1868a05b442e82ed5b3f536aa03231f285e739d35b912dc5d\" OPENSSL_ARCH=linux-x86_64;;         x86) OPENSSL_ARCH=linux-elf;;         aarch64) OPENSSL_ARCH=linux-aarch64;;         arm*) OPENSSL_ARCH=linux-armv4;;         ppc64le) OPENSSL_ARCH=linux-ppc64le;;         s390x) OPENSSL_ARCH=linux-s390x;;         *) ;;       esac   \u0026\u0026 if [ -n \"${CHECKSUM}\" ]; then     set -eu;     curl -fsSLO --compressed \"https://unofficial-builds.nodejs.org/download/release/v$NODE_VERSION/node-v$NODE_VERSION-linux-$ARCH-musl.tar.xz\";     echo \"$CHECKSUM  node-v$NODE_VERSION-linux-$ARCH-musl.tar.xz\" | sha256sum -c -       \u0026\u0026 tar -xJf \"node-v$NODE_VERSION-linux-$ARCH-musl.tar.xz\" -C /usr/local --strip-components=1 --no-same-owner       \u0026\u0026 ln -s /usr/local/bin/node /usr/local/bin/nodejs;   else     echo \"Building from source\"     \u0026\u0026 apk add --no-cache --virtual .build-deps-full         binutils-gold         g++         gcc         gnupg         libgcc         linux-headers         make         python3         py-setuptools     \u0026\u0026 export GNUPGHOME=\"$(mktemp -d)\"     \u0026\u0026 for key in       C0D6248439F1D5604AAFFB4021D900FFDB233756       DD792F5973C6DE52C432CBDAC77ABFA00DDBF2B7       CC68F5A3106FF448322E48ED27F5E38D5B0A215F       8FCCA13FEF1D0C2E91008E09770F7A9A5AE15600       890C08DB8579162FEE0DF9DB8BEAB4DFCF555EF4       C82FA3AE1CBEDC6BE46B9360C43CEC45C17AB93C       108F52B48DB57BB0CC439B2997B01419BD92F80A       A363A499291CBBC940DD62E41F10027AF002F8B0     ; do       gpg --batch --keyserver hkps://keys.openpgp.org --recv-keys \"$key\" ||       gpg --batch --keyserver keyserver.ubuntu.com --recv-keys \"$key\" ;     done     \u0026\u0026 curl -fsSLO --compressed \"https://nodejs.org/dist/v$NODE_VERSION/node-v$NODE_VERSION.tar.xz\"     \u0026\u0026 curl -fsSLO --compressed \"https://nodejs.org/dist/v$NODE_VERSION/SHASUMS256.txt.asc\"     \u0026\u0026 gpg --batch --decrypt --output SHASUMS256.txt SHASUMS256.txt.asc     \u0026\u0026 gpgconf --kill all     \u0026\u0026 rm -rf \"$GNUPGHOME\"     \u0026\u0026 grep \" node-v$NODE_VERSION.tar.xz\\$\" SHASUMS256.txt | sha256sum -c -     \u0026\u0026 tar -xf \"node-v$NODE_VERSION.tar.xz\"     \u0026\u0026 cd \"node-v$NODE_VERSION\"     \u0026\u0026 ./configure     \u0026\u0026 make -j$(getconf _NPROCESSORS_ONLN) V=     \u0026\u0026 make install     \u0026\u0026 apk del .build-deps-full     \u0026\u0026 cd ..     \u0026\u0026 rm -Rf \"node-v$NODE_VERSION\"     \u0026\u0026 rm \"node-v$NODE_VERSION.tar.xz\" SHASUMS256.txt.asc SHASUMS256.txt;   fi   \u0026\u0026 rm -f \"node-v$NODE_VERSION-linux-$ARCH-musl.tar.xz\"   \u0026\u0026 find /usr/local/include/node/openssl/archs -mindepth 1 -maxdepth 1 ! -name \"$OPENSSL_ARCH\" -exec rm -rf {} \\;   \u0026\u0026 apk del .build-deps   \u0026\u0026 node --version   \u0026\u0026 npm --version # buildkit",
             "inBaseImage": true
           }
         },
         {
           "name": "musl",
-          "version": "1.2.4_git20230717-r4",
-          "commit": "ca7f2ab5e88794e4e654b40776f8a92256f50639",
-          "ecosystem": "Alpine:v3.19",
+          "version": "1.2.5-r8",
+          "commit": "c1ab9dfcb36751c3e9097f0f67e01ad12b2e1f5f",
+          "ecosystem": "Alpine:v3.21",
           "compareAs": "Alpine",
           "imageOrigin": {
             "layerID": "\u003cAny value\u003e",
-            "originCommand": "/bin/sh -c #(nop) ADD file:37a76ec18f9887751cd8473744917d08b7431fc4085097bb6a09d81b41775473 in / ",
+            "originCommand": "ADD alpine-minirootfs-3.21.0-x86_64.tar.gz / # buildkit",
             "inBaseImage": true
           }
         },
         {
           "name": "musl-utils",
-          "version": "1.2.4_git20230717-r4",
-          "commit": "ca7f2ab5e88794e4e654b40776f8a92256f50639",
-          "ecosystem": "Alpine:v3.19",
+          "version": "1.2.5-r8",
+          "commit": "c1ab9dfcb36751c3e9097f0f67e01ad12b2e1f5f",
+          "ecosystem": "Alpine:v3.21",
           "compareAs": "Alpine",
           "imageOrigin": {
             "layerID": "\u003cAny value\u003e",
-            "originCommand": "/bin/sh -c #(nop) ADD file:37a76ec18f9887751cd8473744917d08b7431fc4085097bb6a09d81b41775473 in / ",
+            "originCommand": "ADD alpine-minirootfs-3.21.0-x86_64.tar.gz / # buildkit",
             "inBaseImage": true
           }
         },
         {
           "name": "scanelf",
-          "version": "1.3.7-r2",
-          "commit": "e65a4f2d0470e70d862ef2b5c412ecf2cb9ad0a6",
-          "ecosystem": "Alpine:v3.19",
+          "version": "1.3.8-r1",
+          "commit": "398a5aee3025ec8a4d0d761e448dc86ac777fa09",
+          "ecosystem": "Alpine:v3.21",
           "compareAs": "Alpine",
           "imageOrigin": {
             "layerID": "\u003cAny value\u003e",
-            "originCommand": "/bin/sh -c #(nop) ADD file:37a76ec18f9887751cd8473744917d08b7431fc4085097bb6a09d81b41775473 in / ",
+            "originCommand": "ADD alpine-minirootfs-3.21.0-x86_64.tar.gz / # buildkit",
             "inBaseImage": true
           }
         },
         {
           "name": "ssl_client",
-          "version": "1.36.1-r15",
-          "commit": "d1b6f274f29076967826e0ecf6ebcaa5d360272f",
-          "ecosystem": "Alpine:v3.19",
+          "version": "1.37.0-r8",
+          "commit": "79fddc2aa9c64c47fb3da6edeae9570b4e9caa7e",
+          "ecosystem": "Alpine:v3.21",
           "compareAs": "Alpine",
           "imageOrigin": {
             "layerID": "\u003cAny value\u003e",
-            "originCommand": "/bin/sh -c #(nop) ADD file:37a76ec18f9887751cd8473744917d08b7431fc4085097bb6a09d81b41775473 in / ",
+            "originCommand": "ADD alpine-minirootfs-3.21.0-x86_64.tar.gz / # buildkit",
             "inBaseImage": true
           }
         },
         {
           "name": "zlib",
-          "version": "1.3.1-r0",
-          "commit": "9406f6fc5fca057d990eb0d260d75839eeb34d83",
-          "ecosystem": "Alpine:v3.19",
+          "version": "1.3.1-r2",
+          "commit": "4c2722e7ecc1c5e3ba882429044a101497121223",
+          "ecosystem": "Alpine:v3.21",
           "compareAs": "Alpine",
           "imageOrigin": {
             "layerID": "\u003cAny value\u003e",
-            "originCommand": "/bin/sh -c #(nop) ADD file:37a76ec18f9887751cd8473744917d08b7431fc4085097bb6a09d81b41775473 in / ",
+            "originCommand": "ADD alpine-minirootfs-3.21.0-x86_64.tar.gz / # buildkit",
             "inBaseImage": true
           }
         }
@@ -1451,205 +1451,205 @@
       "packages": [
         {
           "name": "alpine-baselayout",
-          "version": "3.4.3-r2",
-          "commit": "7749273fed55f6e1df7c9ee6a127f18099f98a94",
-          "ecosystem": "Alpine:v3.19",
+          "version": "3.6.8-r0",
+          "commit": "82d6c06a6d6e8de20a4db05994da6046f0623af3",
+          "ecosystem": "Alpine:v3.21",
           "compareAs": "Alpine",
           "imageOrigin": {
             "layerID": "\u003cAny value\u003e",
-            "originCommand": "/bin/sh -c #(nop) ADD file:37a76ec18f9887751cd8473744917d08b7431fc4085097bb6a09d81b41775473 in / ",
+            "originCommand": "ADD alpine-minirootfs-3.21.0-x86_64.tar.gz / # buildkit",
             "inBaseImage": true
           }
         },
         {
           "name": "alpine-baselayout-data",
-          "version": "3.4.3-r2",
-          "commit": "7749273fed55f6e1df7c9ee6a127f18099f98a94",
-          "ecosystem": "Alpine:v3.19",
+          "version": "3.6.8-r0",
+          "commit": "82d6c06a6d6e8de20a4db05994da6046f0623af3",
+          "ecosystem": "Alpine:v3.21",
           "compareAs": "Alpine",
           "imageOrigin": {
             "layerID": "\u003cAny value\u003e",
-            "originCommand": "/bin/sh -c #(nop) ADD file:37a76ec18f9887751cd8473744917d08b7431fc4085097bb6a09d81b41775473 in / ",
+            "originCommand": "ADD alpine-minirootfs-3.21.0-x86_64.tar.gz / # buildkit",
             "inBaseImage": true
           }
         },
         {
           "name": "alpine-keys",
-          "version": "2.4-r1",
-          "commit": "aab68f8c9ab434a46710de8e12fb3206e2930a59",
-          "ecosystem": "Alpine:v3.19",
+          "version": "2.5-r0",
+          "commit": "6d473fb38effb2389f567b29fb7eb27039b3a279",
+          "ecosystem": "Alpine:v3.21",
           "compareAs": "Alpine",
           "imageOrigin": {
             "layerID": "\u003cAny value\u003e",
-            "originCommand": "/bin/sh -c #(nop) ADD file:37a76ec18f9887751cd8473744917d08b7431fc4085097bb6a09d81b41775473 in / ",
+            "originCommand": "ADD alpine-minirootfs-3.21.0-x86_64.tar.gz / # buildkit",
+            "inBaseImage": true
+          }
+        },
+        {
+          "name": "alpine-release",
+          "version": "3.21.0-r0",
+          "commit": "59962f87e4603deb5bb4d237927fd7eb84c7c9c9",
+          "ecosystem": "Alpine:v3.21",
+          "compareAs": "Alpine",
+          "imageOrigin": {
+            "layerID": "\u003cAny value\u003e",
+            "originCommand": "ADD alpine-minirootfs-3.21.0-x86_64.tar.gz / # buildkit",
             "inBaseImage": true
           }
         },
         {
           "name": "apk-tools",
-          "version": "2.14.0-r5",
-          "commit": "33283848034c9885d984c8e8697c645c57324938",
-          "ecosystem": "Alpine:v3.19",
+          "version": "2.14.6-r2",
+          "commit": "85fce5ac38cd9990b8910637d750591e3ef55a6c",
+          "ecosystem": "Alpine:v3.21",
           "compareAs": "Alpine",
           "imageOrigin": {
             "layerID": "\u003cAny value\u003e",
-            "originCommand": "/bin/sh -c #(nop) ADD file:37a76ec18f9887751cd8473744917d08b7431fc4085097bb6a09d81b41775473 in / ",
+            "originCommand": "ADD alpine-minirootfs-3.21.0-x86_64.tar.gz / # buildkit",
             "inBaseImage": true
           }
         },
         {
           "name": "busybox",
-          "version": "1.36.1-r15",
-          "commit": "d1b6f274f29076967826e0ecf6ebcaa5d360272f",
-          "ecosystem": "Alpine:v3.19",
+          "version": "1.37.0-r8",
+          "commit": "79fddc2aa9c64c47fb3da6edeae9570b4e9caa7e",
+          "ecosystem": "Alpine:v3.21",
           "compareAs": "Alpine",
           "imageOrigin": {
             "layerID": "\u003cAny value\u003e",
-            "originCommand": "/bin/sh -c #(nop) ADD file:37a76ec18f9887751cd8473744917d08b7431fc4085097bb6a09d81b41775473 in / ",
+            "originCommand": "ADD alpine-minirootfs-3.21.0-x86_64.tar.gz / # buildkit",
             "inBaseImage": true
           }
         },
         {
           "name": "busybox-binsh",
-          "version": "1.36.1-r15",
-          "commit": "d1b6f274f29076967826e0ecf6ebcaa5d360272f",
-          "ecosystem": "Alpine:v3.19",
+          "version": "1.37.0-r8",
+          "commit": "79fddc2aa9c64c47fb3da6edeae9570b4e9caa7e",
+          "ecosystem": "Alpine:v3.21",
           "compareAs": "Alpine",
           "imageOrigin": {
             "layerID": "\u003cAny value\u003e",
-            "originCommand": "/bin/sh -c #(nop) ADD file:37a76ec18f9887751cd8473744917d08b7431fc4085097bb6a09d81b41775473 in / ",
+            "originCommand": "ADD alpine-minirootfs-3.21.0-x86_64.tar.gz / # buildkit",
             "inBaseImage": true
           }
         },
         {
           "name": "ca-certificates-bundle",
-          "version": "20230506-r0",
-          "commit": "59534a02716a92a10d177a118c34066162eff4a6",
-          "ecosystem": "Alpine:v3.19",
+          "version": "20241010-r0",
+          "commit": "537f890454d2213fd05cde5e458dfa9c8ef1977f",
+          "ecosystem": "Alpine:v3.21",
           "compareAs": "Alpine",
           "imageOrigin": {
             "layerID": "\u003cAny value\u003e",
-            "originCommand": "/bin/sh -c #(nop) ADD file:37a76ec18f9887751cd8473744917d08b7431fc4085097bb6a09d81b41775473 in / ",
-            "inBaseImage": true
-          }
-        },
-        {
-          "name": "libc-utils",
-          "version": "0.7.2-r5",
-          "commit": "988f183cc9d6699930c3e18ccf4a9e36010afb56",
-          "ecosystem": "Alpine:v3.19",
-          "compareAs": "Alpine",
-          "imageOrigin": {
-            "layerID": "\u003cAny value\u003e",
-            "originCommand": "/bin/sh -c #(nop) ADD file:37a76ec18f9887751cd8473744917d08b7431fc4085097bb6a09d81b41775473 in / ",
+            "originCommand": "ADD alpine-minirootfs-3.21.0-x86_64.tar.gz / # buildkit",
             "inBaseImage": true
           }
         },
         {
           "name": "libcrypto3",
-          "version": "3.1.4-r5",
-          "commit": "b784a22cad0c452586b438cb7a597d846fc09ff4",
-          "ecosystem": "Alpine:v3.19",
+          "version": "3.3.2-r4",
+          "commit": "e18f4d0c2080542ef5c4fd329a5be584064658aa",
+          "ecosystem": "Alpine:v3.21",
           "compareAs": "Alpine",
           "imageOrigin": {
             "layerID": "\u003cAny value\u003e",
-            "originCommand": "/bin/sh -c #(nop) ADD file:37a76ec18f9887751cd8473744917d08b7431fc4085097bb6a09d81b41775473 in / ",
+            "originCommand": "ADD alpine-minirootfs-3.21.0-x86_64.tar.gz / # buildkit",
             "inBaseImage": true
           }
         },
         {
           "name": "libgcc",
-          "version": "13.2.1_git20231014-r0",
-          "commit": "090e168783a86e5c2ba31fc65921b9715bac62ff",
-          "ecosystem": "Alpine:v3.19",
+          "version": "14.2.0-r4",
+          "commit": "1a03a2a9c9e77f1a07d48b6f6805e72c8c63c03f",
+          "ecosystem": "Alpine:v3.21",
           "compareAs": "Alpine",
           "imageOrigin": {
             "layerID": "\u003cAny value\u003e",
-            "originCommand": "/bin/sh -c addgroup -g 1000 node     \u0026\u0026 adduser -u 1000 -G node -s /bin/sh -D node     \u0026\u0026 apk add --no-cache         libstdc++     \u0026\u0026 apk add --no-cache --virtual .build-deps         curl     \u0026\u0026 ARCH= OPENSSL_ARCH='linux*' \u0026\u0026 alpineArch=\"$(apk --print-arch)\"       \u0026\u0026 case \"${alpineArch##*-}\" in         x86_64) ARCH='x64' CHECKSUM=\"5da733c21c3b51193a4fe9fc5be6cfa9a694d13b8d766eb02dbe4b8996547050\" OPENSSL_ARCH=linux-x86_64;;         x86) OPENSSL_ARCH=linux-elf;;         aarch64) OPENSSL_ARCH=linux-aarch64;;         arm*) OPENSSL_ARCH=linux-armv4;;         ppc64le) OPENSSL_ARCH=linux-ppc64le;;         s390x) OPENSSL_ARCH=linux-s390x;;         *) ;;       esac   \u0026\u0026 if [ -n \"${CHECKSUM}\" ]; then     set -eu;     curl -fsSLO --compressed \"https://unofficial-builds.nodejs.org/download/release/v$NODE_VERSION/node-v$NODE_VERSION-linux-$ARCH-musl.tar.xz\";     echo \"$CHECKSUM  node-v$NODE_VERSION-linux-$ARCH-musl.tar.xz\" | sha256sum -c -       \u0026\u0026 tar -xJf \"node-v$NODE_VERSION-linux-$ARCH-musl.tar.xz\" -C /usr/local --strip-components=1 --no-same-owner       \u0026\u0026 ln -s /usr/local/bin/node /usr/local/bin/nodejs;   else     echo \"Building from source\"     \u0026\u0026 apk add --no-cache --virtual .build-deps-full         binutils-gold         g++         gcc         gnupg         libgcc         linux-headers         make         python3     \u0026\u0026 export GNUPGHOME=\"$(mktemp -d)\"     \u0026\u0026 for key in       4ED778F539E3634C779C87C6D7062848A1AB005C       141F07595B7B3FFE74309A937405533BE57C7D57       74F12602B6F1C4E913FAA37AD3A89613643B6201       DD792F5973C6DE52C432CBDAC77ABFA00DDBF2B7       61FC681DFB92A079F1685E77973F295594EC4689       8FCCA13FEF1D0C2E91008E09770F7A9A5AE15600       C4F0DFFF4E8C1A8236409D08E73BC641CC11F4C8       890C08DB8579162FEE0DF9DB8BEAB4DFCF555EF4       C82FA3AE1CBEDC6BE46B9360C43CEC45C17AB93C       108F52B48DB57BB0CC439B2997B01419BD92F80A       A363A499291CBBC940DD62E41F10027AF002F8B0     ; do       gpg --batch --keyserver hkps://keys.openpgp.org --recv-keys \"$key\" ||       gpg --batch --keyserver keyserver.ubuntu.com --recv-keys \"$key\" ;     done     \u0026\u0026 curl -fsSLO --compressed \"https://nodejs.org/dist/v$NODE_VERSION/node-v$NODE_VERSION.tar.xz\"     \u0026\u0026 curl -fsSLO --compressed \"https://nodejs.org/dist/v$NODE_VERSION/SHASUMS256.txt.asc\"     \u0026\u0026 gpg --batch --decrypt --output SHASUMS256.txt SHASUMS256.txt.asc     \u0026\u0026 gpgconf --kill all     \u0026\u0026 rm -rf \"$GNUPGHOME\"     \u0026\u0026 grep \" node-v$NODE_VERSION.tar.xz\\$\" SHASUMS256.txt | sha256sum -c -     \u0026\u0026 tar -xf \"node-v$NODE_VERSION.tar.xz\"     \u0026\u0026 cd \"node-v$NODE_VERSION\"     \u0026\u0026 ./configure     \u0026\u0026 make -j$(getconf _NPROCESSORS_ONLN) V=     \u0026\u0026 make install     \u0026\u0026 apk del .build-deps-full     \u0026\u0026 cd ..     \u0026\u0026 rm -Rf \"node-v$NODE_VERSION\"     \u0026\u0026 rm \"node-v$NODE_VERSION.tar.xz\" SHASUMS256.txt.asc SHASUMS256.txt;   fi   \u0026\u0026 rm -f \"node-v$NODE_VERSION-linux-$ARCH-musl.tar.xz\"   \u0026\u0026 find /usr/local/include/node/openssl/archs -mindepth 1 -maxdepth 1 ! -name \"$OPENSSL_ARCH\" -exec rm -rf {} \\;   \u0026\u0026 apk del .build-deps   \u0026\u0026 node --version   \u0026\u0026 npm --version",
+            "originCommand": "RUN /bin/sh -c addgroup -g 1000 node     \u0026\u0026 adduser -u 1000 -G node -s /bin/sh -D node     \u0026\u0026 apk add --no-cache         libstdc++     \u0026\u0026 apk add --no-cache --virtual .build-deps         curl     \u0026\u0026 ARCH= OPENSSL_ARCH='linux*' \u0026\u0026 alpineArch=\"$(apk --print-arch)\"       \u0026\u0026 case \"${alpineArch##*-}\" in         x86_64) ARCH='x64' CHECKSUM=\"5ebbebaf673652c1868a05b442e82ed5b3f536aa03231f285e739d35b912dc5d\" OPENSSL_ARCH=linux-x86_64;;         x86) OPENSSL_ARCH=linux-elf;;         aarch64) OPENSSL_ARCH=linux-aarch64;;         arm*) OPENSSL_ARCH=linux-armv4;;         ppc64le) OPENSSL_ARCH=linux-ppc64le;;         s390x) OPENSSL_ARCH=linux-s390x;;         *) ;;       esac   \u0026\u0026 if [ -n \"${CHECKSUM}\" ]; then     set -eu;     curl -fsSLO --compressed \"https://unofficial-builds.nodejs.org/download/release/v$NODE_VERSION/node-v$NODE_VERSION-linux-$ARCH-musl.tar.xz\";     echo \"$CHECKSUM  node-v$NODE_VERSION-linux-$ARCH-musl.tar.xz\" | sha256sum -c -       \u0026\u0026 tar -xJf \"node-v$NODE_VERSION-linux-$ARCH-musl.tar.xz\" -C /usr/local --strip-components=1 --no-same-owner       \u0026\u0026 ln -s /usr/local/bin/node /usr/local/bin/nodejs;   else     echo \"Building from source\"     \u0026\u0026 apk add --no-cache --virtual .build-deps-full         binutils-gold         g++         gcc         gnupg         libgcc         linux-headers         make         python3         py-setuptools     \u0026\u0026 export GNUPGHOME=\"$(mktemp -d)\"     \u0026\u0026 for key in       C0D6248439F1D5604AAFFB4021D900FFDB233756       DD792F5973C6DE52C432CBDAC77ABFA00DDBF2B7       CC68F5A3106FF448322E48ED27F5E38D5B0A215F       8FCCA13FEF1D0C2E91008E09770F7A9A5AE15600       890C08DB8579162FEE0DF9DB8BEAB4DFCF555EF4       C82FA3AE1CBEDC6BE46B9360C43CEC45C17AB93C       108F52B48DB57BB0CC439B2997B01419BD92F80A       A363A499291CBBC940DD62E41F10027AF002F8B0     ; do       gpg --batch --keyserver hkps://keys.openpgp.org --recv-keys \"$key\" ||       gpg --batch --keyserver keyserver.ubuntu.com --recv-keys \"$key\" ;     done     \u0026\u0026 curl -fsSLO --compressed \"https://nodejs.org/dist/v$NODE_VERSION/node-v$NODE_VERSION.tar.xz\"     \u0026\u0026 curl -fsSLO --compressed \"https://nodejs.org/dist/v$NODE_VERSION/SHASUMS256.txt.asc\"     \u0026\u0026 gpg --batch --decrypt --output SHASUMS256.txt SHASUMS256.txt.asc     \u0026\u0026 gpgconf --kill all     \u0026\u0026 rm -rf \"$GNUPGHOME\"     \u0026\u0026 grep \" node-v$NODE_VERSION.tar.xz\\$\" SHASUMS256.txt | sha256sum -c -     \u0026\u0026 tar -xf \"node-v$NODE_VERSION.tar.xz\"     \u0026\u0026 cd \"node-v$NODE_VERSION\"     \u0026\u0026 ./configure     \u0026\u0026 make -j$(getconf _NPROCESSORS_ONLN) V=     \u0026\u0026 make install     \u0026\u0026 apk del .build-deps-full     \u0026\u0026 cd ..     \u0026\u0026 rm -Rf \"node-v$NODE_VERSION\"     \u0026\u0026 rm \"node-v$NODE_VERSION.tar.xz\" SHASUMS256.txt.asc SHASUMS256.txt;   fi   \u0026\u0026 rm -f \"node-v$NODE_VERSION-linux-$ARCH-musl.tar.xz\"   \u0026\u0026 find /usr/local/include/node/openssl/archs -mindepth 1 -maxdepth 1 ! -name \"$OPENSSL_ARCH\" -exec rm -rf {} \\;   \u0026\u0026 apk del .build-deps   \u0026\u0026 node --version   \u0026\u0026 npm --version # buildkit",
             "inBaseImage": true
           }
         },
         {
           "name": "libssl3",
-          "version": "3.1.4-r5",
-          "commit": "b784a22cad0c452586b438cb7a597d846fc09ff4",
-          "ecosystem": "Alpine:v3.19",
+          "version": "3.3.2-r4",
+          "commit": "e18f4d0c2080542ef5c4fd329a5be584064658aa",
+          "ecosystem": "Alpine:v3.21",
           "compareAs": "Alpine",
           "imageOrigin": {
             "layerID": "\u003cAny value\u003e",
-            "originCommand": "/bin/sh -c #(nop) ADD file:37a76ec18f9887751cd8473744917d08b7431fc4085097bb6a09d81b41775473 in / ",
+            "originCommand": "ADD alpine-minirootfs-3.21.0-x86_64.tar.gz / # buildkit",
             "inBaseImage": true
           }
         },
         {
           "name": "libstdc++",
-          "version": "13.2.1_git20231014-r0",
-          "commit": "090e168783a86e5c2ba31fc65921b9715bac62ff",
-          "ecosystem": "Alpine:v3.19",
+          "version": "14.2.0-r4",
+          "commit": "1a03a2a9c9e77f1a07d48b6f6805e72c8c63c03f",
+          "ecosystem": "Alpine:v3.21",
           "compareAs": "Alpine",
           "imageOrigin": {
             "layerID": "\u003cAny value\u003e",
-            "originCommand": "/bin/sh -c addgroup -g 1000 node     \u0026\u0026 adduser -u 1000 -G node -s /bin/sh -D node     \u0026\u0026 apk add --no-cache         libstdc++     \u0026\u0026 apk add --no-cache --virtual .build-deps         curl     \u0026\u0026 ARCH= OPENSSL_ARCH='linux*' \u0026\u0026 alpineArch=\"$(apk --print-arch)\"       \u0026\u0026 case \"${alpineArch##*-}\" in         x86_64) ARCH='x64' CHECKSUM=\"5da733c21c3b51193a4fe9fc5be6cfa9a694d13b8d766eb02dbe4b8996547050\" OPENSSL_ARCH=linux-x86_64;;         x86) OPENSSL_ARCH=linux-elf;;         aarch64) OPENSSL_ARCH=linux-aarch64;;         arm*) OPENSSL_ARCH=linux-armv4;;         ppc64le) OPENSSL_ARCH=linux-ppc64le;;         s390x) OPENSSL_ARCH=linux-s390x;;         *) ;;       esac   \u0026\u0026 if [ -n \"${CHECKSUM}\" ]; then     set -eu;     curl -fsSLO --compressed \"https://unofficial-builds.nodejs.org/download/release/v$NODE_VERSION/node-v$NODE_VERSION-linux-$ARCH-musl.tar.xz\";     echo \"$CHECKSUM  node-v$NODE_VERSION-linux-$ARCH-musl.tar.xz\" | sha256sum -c -       \u0026\u0026 tar -xJf \"node-v$NODE_VERSION-linux-$ARCH-musl.tar.xz\" -C /usr/local --strip-components=1 --no-same-owner       \u0026\u0026 ln -s /usr/local/bin/node /usr/local/bin/nodejs;   else     echo \"Building from source\"     \u0026\u0026 apk add --no-cache --virtual .build-deps-full         binutils-gold         g++         gcc         gnupg         libgcc         linux-headers         make         python3     \u0026\u0026 export GNUPGHOME=\"$(mktemp -d)\"     \u0026\u0026 for key in       4ED778F539E3634C779C87C6D7062848A1AB005C       141F07595B7B3FFE74309A937405533BE57C7D57       74F12602B6F1C4E913FAA37AD3A89613643B6201       DD792F5973C6DE52C432CBDAC77ABFA00DDBF2B7       61FC681DFB92A079F1685E77973F295594EC4689       8FCCA13FEF1D0C2E91008E09770F7A9A5AE15600       C4F0DFFF4E8C1A8236409D08E73BC641CC11F4C8       890C08DB8579162FEE0DF9DB8BEAB4DFCF555EF4       C82FA3AE1CBEDC6BE46B9360C43CEC45C17AB93C       108F52B48DB57BB0CC439B2997B01419BD92F80A       A363A499291CBBC940DD62E41F10027AF002F8B0     ; do       gpg --batch --keyserver hkps://keys.openpgp.org --recv-keys \"$key\" ||       gpg --batch --keyserver keyserver.ubuntu.com --recv-keys \"$key\" ;     done     \u0026\u0026 curl -fsSLO --compressed \"https://nodejs.org/dist/v$NODE_VERSION/node-v$NODE_VERSION.tar.xz\"     \u0026\u0026 curl -fsSLO --compressed \"https://nodejs.org/dist/v$NODE_VERSION/SHASUMS256.txt.asc\"     \u0026\u0026 gpg --batch --decrypt --output SHASUMS256.txt SHASUMS256.txt.asc     \u0026\u0026 gpgconf --kill all     \u0026\u0026 rm -rf \"$GNUPGHOME\"     \u0026\u0026 grep \" node-v$NODE_VERSION.tar.xz\\$\" SHASUMS256.txt | sha256sum -c -     \u0026\u0026 tar -xf \"node-v$NODE_VERSION.tar.xz\"     \u0026\u0026 cd \"node-v$NODE_VERSION\"     \u0026\u0026 ./configure     \u0026\u0026 make -j$(getconf _NPROCESSORS_ONLN) V=     \u0026\u0026 make install     \u0026\u0026 apk del .build-deps-full     \u0026\u0026 cd ..     \u0026\u0026 rm -Rf \"node-v$NODE_VERSION\"     \u0026\u0026 rm \"node-v$NODE_VERSION.tar.xz\" SHASUMS256.txt.asc SHASUMS256.txt;   fi   \u0026\u0026 rm -f \"node-v$NODE_VERSION-linux-$ARCH-musl.tar.xz\"   \u0026\u0026 find /usr/local/include/node/openssl/archs -mindepth 1 -maxdepth 1 ! -name \"$OPENSSL_ARCH\" -exec rm -rf {} \\;   \u0026\u0026 apk del .build-deps   \u0026\u0026 node --version   \u0026\u0026 npm --version",
+            "originCommand": "RUN /bin/sh -c addgroup -g 1000 node     \u0026\u0026 adduser -u 1000 -G node -s /bin/sh -D node     \u0026\u0026 apk add --no-cache         libstdc++     \u0026\u0026 apk add --no-cache --virtual .build-deps         curl     \u0026\u0026 ARCH= OPENSSL_ARCH='linux*' \u0026\u0026 alpineArch=\"$(apk --print-arch)\"       \u0026\u0026 case \"${alpineArch##*-}\" in         x86_64) ARCH='x64' CHECKSUM=\"5ebbebaf673652c1868a05b442e82ed5b3f536aa03231f285e739d35b912dc5d\" OPENSSL_ARCH=linux-x86_64;;         x86) OPENSSL_ARCH=linux-elf;;         aarch64) OPENSSL_ARCH=linux-aarch64;;         arm*) OPENSSL_ARCH=linux-armv4;;         ppc64le) OPENSSL_ARCH=linux-ppc64le;;         s390x) OPENSSL_ARCH=linux-s390x;;         *) ;;       esac   \u0026\u0026 if [ -n \"${CHECKSUM}\" ]; then     set -eu;     curl -fsSLO --compressed \"https://unofficial-builds.nodejs.org/download/release/v$NODE_VERSION/node-v$NODE_VERSION-linux-$ARCH-musl.tar.xz\";     echo \"$CHECKSUM  node-v$NODE_VERSION-linux-$ARCH-musl.tar.xz\" | sha256sum -c -       \u0026\u0026 tar -xJf \"node-v$NODE_VERSION-linux-$ARCH-musl.tar.xz\" -C /usr/local --strip-components=1 --no-same-owner       \u0026\u0026 ln -s /usr/local/bin/node /usr/local/bin/nodejs;   else     echo \"Building from source\"     \u0026\u0026 apk add --no-cache --virtual .build-deps-full         binutils-gold         g++         gcc         gnupg         libgcc         linux-headers         make         python3         py-setuptools     \u0026\u0026 export GNUPGHOME=\"$(mktemp -d)\"     \u0026\u0026 for key in       C0D6248439F1D5604AAFFB4021D900FFDB233756       DD792F5973C6DE52C432CBDAC77ABFA00DDBF2B7       CC68F5A3106FF448322E48ED27F5E38D5B0A215F       8FCCA13FEF1D0C2E91008E09770F7A9A5AE15600       890C08DB8579162FEE0DF9DB8BEAB4DFCF555EF4       C82FA3AE1CBEDC6BE46B9360C43CEC45C17AB93C       108F52B48DB57BB0CC439B2997B01419BD92F80A       A363A499291CBBC940DD62E41F10027AF002F8B0     ; do       gpg --batch --keyserver hkps://keys.openpgp.org --recv-keys \"$key\" ||       gpg --batch --keyserver keyserver.ubuntu.com --recv-keys \"$key\" ;     done     \u0026\u0026 curl -fsSLO --compressed \"https://nodejs.org/dist/v$NODE_VERSION/node-v$NODE_VERSION.tar.xz\"     \u0026\u0026 curl -fsSLO --compressed \"https://nodejs.org/dist/v$NODE_VERSION/SHASUMS256.txt.asc\"     \u0026\u0026 gpg --batch --decrypt --output SHASUMS256.txt SHASUMS256.txt.asc     \u0026\u0026 gpgconf --kill all     \u0026\u0026 rm -rf \"$GNUPGHOME\"     \u0026\u0026 grep \" node-v$NODE_VERSION.tar.xz\\$\" SHASUMS256.txt | sha256sum -c -     \u0026\u0026 tar -xf \"node-v$NODE_VERSION.tar.xz\"     \u0026\u0026 cd \"node-v$NODE_VERSION\"     \u0026\u0026 ./configure     \u0026\u0026 make -j$(getconf _NPROCESSORS_ONLN) V=     \u0026\u0026 make install     \u0026\u0026 apk del .build-deps-full     \u0026\u0026 cd ..     \u0026\u0026 rm -Rf \"node-v$NODE_VERSION\"     \u0026\u0026 rm \"node-v$NODE_VERSION.tar.xz\" SHASUMS256.txt.asc SHASUMS256.txt;   fi   \u0026\u0026 rm -f \"node-v$NODE_VERSION-linux-$ARCH-musl.tar.xz\"   \u0026\u0026 find /usr/local/include/node/openssl/archs -mindepth 1 -maxdepth 1 ! -name \"$OPENSSL_ARCH\" -exec rm -rf {} \\;   \u0026\u0026 apk del .build-deps   \u0026\u0026 node --version   \u0026\u0026 npm --version # buildkit",
             "inBaseImage": true
           }
         },
         {
           "name": "musl",
-          "version": "1.2.4_git20230717-r4",
-          "commit": "ca7f2ab5e88794e4e654b40776f8a92256f50639",
-          "ecosystem": "Alpine:v3.19",
+          "version": "1.2.5-r8",
+          "commit": "c1ab9dfcb36751c3e9097f0f67e01ad12b2e1f5f",
+          "ecosystem": "Alpine:v3.21",
           "compareAs": "Alpine",
           "imageOrigin": {
             "layerID": "\u003cAny value\u003e",
-            "originCommand": "/bin/sh -c #(nop) ADD file:37a76ec18f9887751cd8473744917d08b7431fc4085097bb6a09d81b41775473 in / ",
+            "originCommand": "ADD alpine-minirootfs-3.21.0-x86_64.tar.gz / # buildkit",
             "inBaseImage": true
           }
         },
         {
           "name": "musl-utils",
-          "version": "1.2.4_git20230717-r4",
-          "commit": "ca7f2ab5e88794e4e654b40776f8a92256f50639",
-          "ecosystem": "Alpine:v3.19",
+          "version": "1.2.5-r8",
+          "commit": "c1ab9dfcb36751c3e9097f0f67e01ad12b2e1f5f",
+          "ecosystem": "Alpine:v3.21",
           "compareAs": "Alpine",
           "imageOrigin": {
             "layerID": "\u003cAny value\u003e",
-            "originCommand": "/bin/sh -c #(nop) ADD file:37a76ec18f9887751cd8473744917d08b7431fc4085097bb6a09d81b41775473 in / ",
+            "originCommand": "ADD alpine-minirootfs-3.21.0-x86_64.tar.gz / # buildkit",
             "inBaseImage": true
           }
         },
         {
           "name": "scanelf",
-          "version": "1.3.7-r2",
-          "commit": "e65a4f2d0470e70d862ef2b5c412ecf2cb9ad0a6",
-          "ecosystem": "Alpine:v3.19",
+          "version": "1.3.8-r1",
+          "commit": "398a5aee3025ec8a4d0d761e448dc86ac777fa09",
+          "ecosystem": "Alpine:v3.21",
           "compareAs": "Alpine",
           "imageOrigin": {
             "layerID": "\u003cAny value\u003e",
-            "originCommand": "/bin/sh -c #(nop) ADD file:37a76ec18f9887751cd8473744917d08b7431fc4085097bb6a09d81b41775473 in / ",
+            "originCommand": "ADD alpine-minirootfs-3.21.0-x86_64.tar.gz / # buildkit",
             "inBaseImage": true
           }
         },
         {
           "name": "ssl_client",
-          "version": "1.36.1-r15",
-          "commit": "d1b6f274f29076967826e0ecf6ebcaa5d360272f",
-          "ecosystem": "Alpine:v3.19",
+          "version": "1.37.0-r8",
+          "commit": "79fddc2aa9c64c47fb3da6edeae9570b4e9caa7e",
+          "ecosystem": "Alpine:v3.21",
           "compareAs": "Alpine",
           "imageOrigin": {
             "layerID": "\u003cAny value\u003e",
-            "originCommand": "/bin/sh -c #(nop) ADD file:37a76ec18f9887751cd8473744917d08b7431fc4085097bb6a09d81b41775473 in / ",
+            "originCommand": "ADD alpine-minirootfs-3.21.0-x86_64.tar.gz / # buildkit",
             "inBaseImage": true
           }
         },
         {
           "name": "zlib",
-          "version": "1.3.1-r0",
-          "commit": "9406f6fc5fca057d990eb0d260d75839eeb34d83",
-          "ecosystem": "Alpine:v3.19",
+          "version": "1.3.1-r2",
+          "commit": "4c2722e7ecc1c5e3ba882429044a101497121223",
+          "ecosystem": "Alpine:v3.21",
           "compareAs": "Alpine",
           "imageOrigin": {
             "layerID": "\u003cAny value\u003e",
-            "originCommand": "/bin/sh -c #(nop) ADD file:37a76ec18f9887751cd8473744917d08b7431fc4085097bb6a09d81b41775473 in / ",
+            "originCommand": "ADD alpine-minirootfs-3.21.0-x86_64.tar.gz / # buildkit",
             "inBaseImage": true
           }
         }
@@ -1669,205 +1669,205 @@
       "packages": [
         {
           "name": "alpine-baselayout",
-          "version": "3.4.3-r2",
-          "commit": "7749273fed55f6e1df7c9ee6a127f18099f98a94",
-          "ecosystem": "Alpine:v3.19",
+          "version": "3.6.8-r0",
+          "commit": "82d6c06a6d6e8de20a4db05994da6046f0623af3",
+          "ecosystem": "Alpine:v3.21",
           "compareAs": "Alpine",
           "imageOrigin": {
             "layerID": "\u003cAny value\u003e",
-            "originCommand": "/bin/sh -c #(nop) ADD file:37a76ec18f9887751cd8473744917d08b7431fc4085097bb6a09d81b41775473 in / ",
+            "originCommand": "ADD alpine-minirootfs-3.21.0-x86_64.tar.gz / # buildkit",
             "inBaseImage": true
           }
         },
         {
           "name": "alpine-baselayout-data",
-          "version": "3.4.3-r2",
-          "commit": "7749273fed55f6e1df7c9ee6a127f18099f98a94",
-          "ecosystem": "Alpine:v3.19",
+          "version": "3.6.8-r0",
+          "commit": "82d6c06a6d6e8de20a4db05994da6046f0623af3",
+          "ecosystem": "Alpine:v3.21",
           "compareAs": "Alpine",
           "imageOrigin": {
             "layerID": "\u003cAny value\u003e",
-            "originCommand": "/bin/sh -c #(nop) ADD file:37a76ec18f9887751cd8473744917d08b7431fc4085097bb6a09d81b41775473 in / ",
+            "originCommand": "ADD alpine-minirootfs-3.21.0-x86_64.tar.gz / # buildkit",
             "inBaseImage": true
           }
         },
         {
           "name": "alpine-keys",
-          "version": "2.4-r1",
-          "commit": "aab68f8c9ab434a46710de8e12fb3206e2930a59",
-          "ecosystem": "Alpine:v3.19",
+          "version": "2.5-r0",
+          "commit": "6d473fb38effb2389f567b29fb7eb27039b3a279",
+          "ecosystem": "Alpine:v3.21",
           "compareAs": "Alpine",
           "imageOrigin": {
             "layerID": "\u003cAny value\u003e",
-            "originCommand": "/bin/sh -c #(nop) ADD file:37a76ec18f9887751cd8473744917d08b7431fc4085097bb6a09d81b41775473 in / ",
+            "originCommand": "ADD alpine-minirootfs-3.21.0-x86_64.tar.gz / # buildkit",
+            "inBaseImage": true
+          }
+        },
+        {
+          "name": "alpine-release",
+          "version": "3.21.0-r0",
+          "commit": "59962f87e4603deb5bb4d237927fd7eb84c7c9c9",
+          "ecosystem": "Alpine:v3.21",
+          "compareAs": "Alpine",
+          "imageOrigin": {
+            "layerID": "\u003cAny value\u003e",
+            "originCommand": "ADD alpine-minirootfs-3.21.0-x86_64.tar.gz / # buildkit",
             "inBaseImage": true
           }
         },
         {
           "name": "apk-tools",
-          "version": "2.14.0-r5",
-          "commit": "33283848034c9885d984c8e8697c645c57324938",
-          "ecosystem": "Alpine:v3.19",
+          "version": "2.14.6-r2",
+          "commit": "85fce5ac38cd9990b8910637d750591e3ef55a6c",
+          "ecosystem": "Alpine:v3.21",
           "compareAs": "Alpine",
           "imageOrigin": {
             "layerID": "\u003cAny value\u003e",
-            "originCommand": "/bin/sh -c #(nop) ADD file:37a76ec18f9887751cd8473744917d08b7431fc4085097bb6a09d81b41775473 in / ",
+            "originCommand": "ADD alpine-minirootfs-3.21.0-x86_64.tar.gz / # buildkit",
             "inBaseImage": true
           }
         },
         {
           "name": "busybox",
-          "version": "1.36.1-r15",
-          "commit": "d1b6f274f29076967826e0ecf6ebcaa5d360272f",
-          "ecosystem": "Alpine:v3.19",
+          "version": "1.37.0-r8",
+          "commit": "79fddc2aa9c64c47fb3da6edeae9570b4e9caa7e",
+          "ecosystem": "Alpine:v3.21",
           "compareAs": "Alpine",
           "imageOrigin": {
             "layerID": "\u003cAny value\u003e",
-            "originCommand": "/bin/sh -c #(nop) ADD file:37a76ec18f9887751cd8473744917d08b7431fc4085097bb6a09d81b41775473 in / ",
+            "originCommand": "ADD alpine-minirootfs-3.21.0-x86_64.tar.gz / # buildkit",
             "inBaseImage": true
           }
         },
         {
           "name": "busybox-binsh",
-          "version": "1.36.1-r15",
-          "commit": "d1b6f274f29076967826e0ecf6ebcaa5d360272f",
-          "ecosystem": "Alpine:v3.19",
+          "version": "1.37.0-r8",
+          "commit": "79fddc2aa9c64c47fb3da6edeae9570b4e9caa7e",
+          "ecosystem": "Alpine:v3.21",
           "compareAs": "Alpine",
           "imageOrigin": {
             "layerID": "\u003cAny value\u003e",
-            "originCommand": "/bin/sh -c #(nop) ADD file:37a76ec18f9887751cd8473744917d08b7431fc4085097bb6a09d81b41775473 in / ",
+            "originCommand": "ADD alpine-minirootfs-3.21.0-x86_64.tar.gz / # buildkit",
             "inBaseImage": true
           }
         },
         {
           "name": "ca-certificates-bundle",
-          "version": "20230506-r0",
-          "commit": "59534a02716a92a10d177a118c34066162eff4a6",
-          "ecosystem": "Alpine:v3.19",
+          "version": "20241010-r0",
+          "commit": "537f890454d2213fd05cde5e458dfa9c8ef1977f",
+          "ecosystem": "Alpine:v3.21",
           "compareAs": "Alpine",
           "imageOrigin": {
             "layerID": "\u003cAny value\u003e",
-            "originCommand": "/bin/sh -c #(nop) ADD file:37a76ec18f9887751cd8473744917d08b7431fc4085097bb6a09d81b41775473 in / ",
-            "inBaseImage": true
-          }
-        },
-        {
-          "name": "libc-utils",
-          "version": "0.7.2-r5",
-          "commit": "988f183cc9d6699930c3e18ccf4a9e36010afb56",
-          "ecosystem": "Alpine:v3.19",
-          "compareAs": "Alpine",
-          "imageOrigin": {
-            "layerID": "\u003cAny value\u003e",
-            "originCommand": "/bin/sh -c #(nop) ADD file:37a76ec18f9887751cd8473744917d08b7431fc4085097bb6a09d81b41775473 in / ",
+            "originCommand": "ADD alpine-minirootfs-3.21.0-x86_64.tar.gz / # buildkit",
             "inBaseImage": true
           }
         },
         {
           "name": "libcrypto3",
-          "version": "3.1.4-r5",
-          "commit": "b784a22cad0c452586b438cb7a597d846fc09ff4",
-          "ecosystem": "Alpine:v3.19",
+          "version": "3.3.2-r4",
+          "commit": "e18f4d0c2080542ef5c4fd329a5be584064658aa",
+          "ecosystem": "Alpine:v3.21",
           "compareAs": "Alpine",
           "imageOrigin": {
             "layerID": "\u003cAny value\u003e",
-            "originCommand": "/bin/sh -c #(nop) ADD file:37a76ec18f9887751cd8473744917d08b7431fc4085097bb6a09d81b41775473 in / ",
+            "originCommand": "ADD alpine-minirootfs-3.21.0-x86_64.tar.gz / # buildkit",
             "inBaseImage": true
           }
         },
         {
           "name": "libgcc",
-          "version": "13.2.1_git20231014-r0",
-          "commit": "090e168783a86e5c2ba31fc65921b9715bac62ff",
-          "ecosystem": "Alpine:v3.19",
+          "version": "14.2.0-r4",
+          "commit": "1a03a2a9c9e77f1a07d48b6f6805e72c8c63c03f",
+          "ecosystem": "Alpine:v3.21",
           "compareAs": "Alpine",
           "imageOrigin": {
             "layerID": "\u003cAny value\u003e",
-            "originCommand": "/bin/sh -c addgroup -g 1000 node     \u0026\u0026 adduser -u 1000 -G node -s /bin/sh -D node     \u0026\u0026 apk add --no-cache         libstdc++     \u0026\u0026 apk add --no-cache --virtual .build-deps         curl     \u0026\u0026 ARCH= OPENSSL_ARCH='linux*' \u0026\u0026 alpineArch=\"$(apk --print-arch)\"       \u0026\u0026 case \"${alpineArch##*-}\" in         x86_64) ARCH='x64' CHECKSUM=\"5da733c21c3b51193a4fe9fc5be6cfa9a694d13b8d766eb02dbe4b8996547050\" OPENSSL_ARCH=linux-x86_64;;         x86) OPENSSL_ARCH=linux-elf;;         aarch64) OPENSSL_ARCH=linux-aarch64;;         arm*) OPENSSL_ARCH=linux-armv4;;         ppc64le) OPENSSL_ARCH=linux-ppc64le;;         s390x) OPENSSL_ARCH=linux-s390x;;         *) ;;       esac   \u0026\u0026 if [ -n \"${CHECKSUM}\" ]; then     set -eu;     curl -fsSLO --compressed \"https://unofficial-builds.nodejs.org/download/release/v$NODE_VERSION/node-v$NODE_VERSION-linux-$ARCH-musl.tar.xz\";     echo \"$CHECKSUM  node-v$NODE_VERSION-linux-$ARCH-musl.tar.xz\" | sha256sum -c -       \u0026\u0026 tar -xJf \"node-v$NODE_VERSION-linux-$ARCH-musl.tar.xz\" -C /usr/local --strip-components=1 --no-same-owner       \u0026\u0026 ln -s /usr/local/bin/node /usr/local/bin/nodejs;   else     echo \"Building from source\"     \u0026\u0026 apk add --no-cache --virtual .build-deps-full         binutils-gold         g++         gcc         gnupg         libgcc         linux-headers         make         python3     \u0026\u0026 export GNUPGHOME=\"$(mktemp -d)\"     \u0026\u0026 for key in       4ED778F539E3634C779C87C6D7062848A1AB005C       141F07595B7B3FFE74309A937405533BE57C7D57       74F12602B6F1C4E913FAA37AD3A89613643B6201       DD792F5973C6DE52C432CBDAC77ABFA00DDBF2B7       61FC681DFB92A079F1685E77973F295594EC4689       8FCCA13FEF1D0C2E91008E09770F7A9A5AE15600       C4F0DFFF4E8C1A8236409D08E73BC641CC11F4C8       890C08DB8579162FEE0DF9DB8BEAB4DFCF555EF4       C82FA3AE1CBEDC6BE46B9360C43CEC45C17AB93C       108F52B48DB57BB0CC439B2997B01419BD92F80A       A363A499291CBBC940DD62E41F10027AF002F8B0     ; do       gpg --batch --keyserver hkps://keys.openpgp.org --recv-keys \"$key\" ||       gpg --batch --keyserver keyserver.ubuntu.com --recv-keys \"$key\" ;     done     \u0026\u0026 curl -fsSLO --compressed \"https://nodejs.org/dist/v$NODE_VERSION/node-v$NODE_VERSION.tar.xz\"     \u0026\u0026 curl -fsSLO --compressed \"https://nodejs.org/dist/v$NODE_VERSION/SHASUMS256.txt.asc\"     \u0026\u0026 gpg --batch --decrypt --output SHASUMS256.txt SHASUMS256.txt.asc     \u0026\u0026 gpgconf --kill all     \u0026\u0026 rm -rf \"$GNUPGHOME\"     \u0026\u0026 grep \" node-v$NODE_VERSION.tar.xz\\$\" SHASUMS256.txt | sha256sum -c -     \u0026\u0026 tar -xf \"node-v$NODE_VERSION.tar.xz\"     \u0026\u0026 cd \"node-v$NODE_VERSION\"     \u0026\u0026 ./configure     \u0026\u0026 make -j$(getconf _NPROCESSORS_ONLN) V=     \u0026\u0026 make install     \u0026\u0026 apk del .build-deps-full     \u0026\u0026 cd ..     \u0026\u0026 rm -Rf \"node-v$NODE_VERSION\"     \u0026\u0026 rm \"node-v$NODE_VERSION.tar.xz\" SHASUMS256.txt.asc SHASUMS256.txt;   fi   \u0026\u0026 rm -f \"node-v$NODE_VERSION-linux-$ARCH-musl.tar.xz\"   \u0026\u0026 find /usr/local/include/node/openssl/archs -mindepth 1 -maxdepth 1 ! -name \"$OPENSSL_ARCH\" -exec rm -rf {} \\;   \u0026\u0026 apk del .build-deps   \u0026\u0026 node --version   \u0026\u0026 npm --version",
+            "originCommand": "RUN /bin/sh -c addgroup -g 1000 node     \u0026\u0026 adduser -u 1000 -G node -s /bin/sh -D node     \u0026\u0026 apk add --no-cache         libstdc++     \u0026\u0026 apk add --no-cache --virtual .build-deps         curl     \u0026\u0026 ARCH= OPENSSL_ARCH='linux*' \u0026\u0026 alpineArch=\"$(apk --print-arch)\"       \u0026\u0026 case \"${alpineArch##*-}\" in         x86_64) ARCH='x64' CHECKSUM=\"5ebbebaf673652c1868a05b442e82ed5b3f536aa03231f285e739d35b912dc5d\" OPENSSL_ARCH=linux-x86_64;;         x86) OPENSSL_ARCH=linux-elf;;         aarch64) OPENSSL_ARCH=linux-aarch64;;         arm*) OPENSSL_ARCH=linux-armv4;;         ppc64le) OPENSSL_ARCH=linux-ppc64le;;         s390x) OPENSSL_ARCH=linux-s390x;;         *) ;;       esac   \u0026\u0026 if [ -n \"${CHECKSUM}\" ]; then     set -eu;     curl -fsSLO --compressed \"https://unofficial-builds.nodejs.org/download/release/v$NODE_VERSION/node-v$NODE_VERSION-linux-$ARCH-musl.tar.xz\";     echo \"$CHECKSUM  node-v$NODE_VERSION-linux-$ARCH-musl.tar.xz\" | sha256sum -c -       \u0026\u0026 tar -xJf \"node-v$NODE_VERSION-linux-$ARCH-musl.tar.xz\" -C /usr/local --strip-components=1 --no-same-owner       \u0026\u0026 ln -s /usr/local/bin/node /usr/local/bin/nodejs;   else     echo \"Building from source\"     \u0026\u0026 apk add --no-cache --virtual .build-deps-full         binutils-gold         g++         gcc         gnupg         libgcc         linux-headers         make         python3         py-setuptools     \u0026\u0026 export GNUPGHOME=\"$(mktemp -d)\"     \u0026\u0026 for key in       C0D6248439F1D5604AAFFB4021D900FFDB233756       DD792F5973C6DE52C432CBDAC77ABFA00DDBF2B7       CC68F5A3106FF448322E48ED27F5E38D5B0A215F       8FCCA13FEF1D0C2E91008E09770F7A9A5AE15600       890C08DB8579162FEE0DF9DB8BEAB4DFCF555EF4       C82FA3AE1CBEDC6BE46B9360C43CEC45C17AB93C       108F52B48DB57BB0CC439B2997B01419BD92F80A       A363A499291CBBC940DD62E41F10027AF002F8B0     ; do       gpg --batch --keyserver hkps://keys.openpgp.org --recv-keys \"$key\" ||       gpg --batch --keyserver keyserver.ubuntu.com --recv-keys \"$key\" ;     done     \u0026\u0026 curl -fsSLO --compressed \"https://nodejs.org/dist/v$NODE_VERSION/node-v$NODE_VERSION.tar.xz\"     \u0026\u0026 curl -fsSLO --compressed \"https://nodejs.org/dist/v$NODE_VERSION/SHASUMS256.txt.asc\"     \u0026\u0026 gpg --batch --decrypt --output SHASUMS256.txt SHASUMS256.txt.asc     \u0026\u0026 gpgconf --kill all     \u0026\u0026 rm -rf \"$GNUPGHOME\"     \u0026\u0026 grep \" node-v$NODE_VERSION.tar.xz\\$\" SHASUMS256.txt | sha256sum -c -     \u0026\u0026 tar -xf \"node-v$NODE_VERSION.tar.xz\"     \u0026\u0026 cd \"node-v$NODE_VERSION\"     \u0026\u0026 ./configure     \u0026\u0026 make -j$(getconf _NPROCESSORS_ONLN) V=     \u0026\u0026 make install     \u0026\u0026 apk del .build-deps-full     \u0026\u0026 cd ..     \u0026\u0026 rm -Rf \"node-v$NODE_VERSION\"     \u0026\u0026 rm \"node-v$NODE_VERSION.tar.xz\" SHASUMS256.txt.asc SHASUMS256.txt;   fi   \u0026\u0026 rm -f \"node-v$NODE_VERSION-linux-$ARCH-musl.tar.xz\"   \u0026\u0026 find /usr/local/include/node/openssl/archs -mindepth 1 -maxdepth 1 ! -name \"$OPENSSL_ARCH\" -exec rm -rf {} \\;   \u0026\u0026 apk del .build-deps   \u0026\u0026 node --version   \u0026\u0026 npm --version # buildkit",
             "inBaseImage": true
           }
         },
         {
           "name": "libssl3",
-          "version": "3.1.4-r5",
-          "commit": "b784a22cad0c452586b438cb7a597d846fc09ff4",
-          "ecosystem": "Alpine:v3.19",
+          "version": "3.3.2-r4",
+          "commit": "e18f4d0c2080542ef5c4fd329a5be584064658aa",
+          "ecosystem": "Alpine:v3.21",
           "compareAs": "Alpine",
           "imageOrigin": {
             "layerID": "\u003cAny value\u003e",
-            "originCommand": "/bin/sh -c #(nop) ADD file:37a76ec18f9887751cd8473744917d08b7431fc4085097bb6a09d81b41775473 in / ",
+            "originCommand": "ADD alpine-minirootfs-3.21.0-x86_64.tar.gz / # buildkit",
             "inBaseImage": true
           }
         },
         {
           "name": "libstdc++",
-          "version": "13.2.1_git20231014-r0",
-          "commit": "090e168783a86e5c2ba31fc65921b9715bac62ff",
-          "ecosystem": "Alpine:v3.19",
+          "version": "14.2.0-r4",
+          "commit": "1a03a2a9c9e77f1a07d48b6f6805e72c8c63c03f",
+          "ecosystem": "Alpine:v3.21",
           "compareAs": "Alpine",
           "imageOrigin": {
             "layerID": "\u003cAny value\u003e",
-            "originCommand": "/bin/sh -c addgroup -g 1000 node     \u0026\u0026 adduser -u 1000 -G node -s /bin/sh -D node     \u0026\u0026 apk add --no-cache         libstdc++     \u0026\u0026 apk add --no-cache --virtual .build-deps         curl     \u0026\u0026 ARCH= OPENSSL_ARCH='linux*' \u0026\u0026 alpineArch=\"$(apk --print-arch)\"       \u0026\u0026 case \"${alpineArch##*-}\" in         x86_64) ARCH='x64' CHECKSUM=\"5da733c21c3b51193a4fe9fc5be6cfa9a694d13b8d766eb02dbe4b8996547050\" OPENSSL_ARCH=linux-x86_64;;         x86) OPENSSL_ARCH=linux-elf;;         aarch64) OPENSSL_ARCH=linux-aarch64;;         arm*) OPENSSL_ARCH=linux-armv4;;         ppc64le) OPENSSL_ARCH=linux-ppc64le;;         s390x) OPENSSL_ARCH=linux-s390x;;         *) ;;       esac   \u0026\u0026 if [ -n \"${CHECKSUM}\" ]; then     set -eu;     curl -fsSLO --compressed \"https://unofficial-builds.nodejs.org/download/release/v$NODE_VERSION/node-v$NODE_VERSION-linux-$ARCH-musl.tar.xz\";     echo \"$CHECKSUM  node-v$NODE_VERSION-linux-$ARCH-musl.tar.xz\" | sha256sum -c -       \u0026\u0026 tar -xJf \"node-v$NODE_VERSION-linux-$ARCH-musl.tar.xz\" -C /usr/local --strip-components=1 --no-same-owner       \u0026\u0026 ln -s /usr/local/bin/node /usr/local/bin/nodejs;   else     echo \"Building from source\"     \u0026\u0026 apk add --no-cache --virtual .build-deps-full         binutils-gold         g++         gcc         gnupg         libgcc         linux-headers         make         python3     \u0026\u0026 export GNUPGHOME=\"$(mktemp -d)\"     \u0026\u0026 for key in       4ED778F539E3634C779C87C6D7062848A1AB005C       141F07595B7B3FFE74309A937405533BE57C7D57       74F12602B6F1C4E913FAA37AD3A89613643B6201       DD792F5973C6DE52C432CBDAC77ABFA00DDBF2B7       61FC681DFB92A079F1685E77973F295594EC4689       8FCCA13FEF1D0C2E91008E09770F7A9A5AE15600       C4F0DFFF4E8C1A8236409D08E73BC641CC11F4C8       890C08DB8579162FEE0DF9DB8BEAB4DFCF555EF4       C82FA3AE1CBEDC6BE46B9360C43CEC45C17AB93C       108F52B48DB57BB0CC439B2997B01419BD92F80A       A363A499291CBBC940DD62E41F10027AF002F8B0     ; do       gpg --batch --keyserver hkps://keys.openpgp.org --recv-keys \"$key\" ||       gpg --batch --keyserver keyserver.ubuntu.com --recv-keys \"$key\" ;     done     \u0026\u0026 curl -fsSLO --compressed \"https://nodejs.org/dist/v$NODE_VERSION/node-v$NODE_VERSION.tar.xz\"     \u0026\u0026 curl -fsSLO --compressed \"https://nodejs.org/dist/v$NODE_VERSION/SHASUMS256.txt.asc\"     \u0026\u0026 gpg --batch --decrypt --output SHASUMS256.txt SHASUMS256.txt.asc     \u0026\u0026 gpgconf --kill all     \u0026\u0026 rm -rf \"$GNUPGHOME\"     \u0026\u0026 grep \" node-v$NODE_VERSION.tar.xz\\$\" SHASUMS256.txt | sha256sum -c -     \u0026\u0026 tar -xf \"node-v$NODE_VERSION.tar.xz\"     \u0026\u0026 cd \"node-v$NODE_VERSION\"     \u0026\u0026 ./configure     \u0026\u0026 make -j$(getconf _NPROCESSORS_ONLN) V=     \u0026\u0026 make install     \u0026\u0026 apk del .build-deps-full     \u0026\u0026 cd ..     \u0026\u0026 rm -Rf \"node-v$NODE_VERSION\"     \u0026\u0026 rm \"node-v$NODE_VERSION.tar.xz\" SHASUMS256.txt.asc SHASUMS256.txt;   fi   \u0026\u0026 rm -f \"node-v$NODE_VERSION-linux-$ARCH-musl.tar.xz\"   \u0026\u0026 find /usr/local/include/node/openssl/archs -mindepth 1 -maxdepth 1 ! -name \"$OPENSSL_ARCH\" -exec rm -rf {} \\;   \u0026\u0026 apk del .build-deps   \u0026\u0026 node --version   \u0026\u0026 npm --version",
+            "originCommand": "RUN /bin/sh -c addgroup -g 1000 node     \u0026\u0026 adduser -u 1000 -G node -s /bin/sh -D node     \u0026\u0026 apk add --no-cache         libstdc++     \u0026\u0026 apk add --no-cache --virtual .build-deps         curl     \u0026\u0026 ARCH= OPENSSL_ARCH='linux*' \u0026\u0026 alpineArch=\"$(apk --print-arch)\"       \u0026\u0026 case \"${alpineArch##*-}\" in         x86_64) ARCH='x64' CHECKSUM=\"5ebbebaf673652c1868a05b442e82ed5b3f536aa03231f285e739d35b912dc5d\" OPENSSL_ARCH=linux-x86_64;;         x86) OPENSSL_ARCH=linux-elf;;         aarch64) OPENSSL_ARCH=linux-aarch64;;         arm*) OPENSSL_ARCH=linux-armv4;;         ppc64le) OPENSSL_ARCH=linux-ppc64le;;         s390x) OPENSSL_ARCH=linux-s390x;;         *) ;;       esac   \u0026\u0026 if [ -n \"${CHECKSUM}\" ]; then     set -eu;     curl -fsSLO --compressed \"https://unofficial-builds.nodejs.org/download/release/v$NODE_VERSION/node-v$NODE_VERSION-linux-$ARCH-musl.tar.xz\";     echo \"$CHECKSUM  node-v$NODE_VERSION-linux-$ARCH-musl.tar.xz\" | sha256sum -c -       \u0026\u0026 tar -xJf \"node-v$NODE_VERSION-linux-$ARCH-musl.tar.xz\" -C /usr/local --strip-components=1 --no-same-owner       \u0026\u0026 ln -s /usr/local/bin/node /usr/local/bin/nodejs;   else     echo \"Building from source\"     \u0026\u0026 apk add --no-cache --virtual .build-deps-full         binutils-gold         g++         gcc         gnupg         libgcc         linux-headers         make         python3         py-setuptools     \u0026\u0026 export GNUPGHOME=\"$(mktemp -d)\"     \u0026\u0026 for key in       C0D6248439F1D5604AAFFB4021D900FFDB233756       DD792F5973C6DE52C432CBDAC77ABFA00DDBF2B7       CC68F5A3106FF448322E48ED27F5E38D5B0A215F       8FCCA13FEF1D0C2E91008E09770F7A9A5AE15600       890C08DB8579162FEE0DF9DB8BEAB4DFCF555EF4       C82FA3AE1CBEDC6BE46B9360C43CEC45C17AB93C       108F52B48DB57BB0CC439B2997B01419BD92F80A       A363A499291CBBC940DD62E41F10027AF002F8B0     ; do       gpg --batch --keyserver hkps://keys.openpgp.org --recv-keys \"$key\" ||       gpg --batch --keyserver keyserver.ubuntu.com --recv-keys \"$key\" ;     done     \u0026\u0026 curl -fsSLO --compressed \"https://nodejs.org/dist/v$NODE_VERSION/node-v$NODE_VERSION.tar.xz\"     \u0026\u0026 curl -fsSLO --compressed \"https://nodejs.org/dist/v$NODE_VERSION/SHASUMS256.txt.asc\"     \u0026\u0026 gpg --batch --decrypt --output SHASUMS256.txt SHASUMS256.txt.asc     \u0026\u0026 gpgconf --kill all     \u0026\u0026 rm -rf \"$GNUPGHOME\"     \u0026\u0026 grep \" node-v$NODE_VERSION.tar.xz\\$\" SHASUMS256.txt | sha256sum -c -     \u0026\u0026 tar -xf \"node-v$NODE_VERSION.tar.xz\"     \u0026\u0026 cd \"node-v$NODE_VERSION\"     \u0026\u0026 ./configure     \u0026\u0026 make -j$(getconf _NPROCESSORS_ONLN) V=     \u0026\u0026 make install     \u0026\u0026 apk del .build-deps-full     \u0026\u0026 cd ..     \u0026\u0026 rm -Rf \"node-v$NODE_VERSION\"     \u0026\u0026 rm \"node-v$NODE_VERSION.tar.xz\" SHASUMS256.txt.asc SHASUMS256.txt;   fi   \u0026\u0026 rm -f \"node-v$NODE_VERSION-linux-$ARCH-musl.tar.xz\"   \u0026\u0026 find /usr/local/include/node/openssl/archs -mindepth 1 -maxdepth 1 ! -name \"$OPENSSL_ARCH\" -exec rm -rf {} \\;   \u0026\u0026 apk del .build-deps   \u0026\u0026 node --version   \u0026\u0026 npm --version # buildkit",
             "inBaseImage": true
           }
         },
         {
           "name": "musl",
-          "version": "1.2.4_git20230717-r4",
-          "commit": "ca7f2ab5e88794e4e654b40776f8a92256f50639",
-          "ecosystem": "Alpine:v3.19",
+          "version": "1.2.5-r8",
+          "commit": "c1ab9dfcb36751c3e9097f0f67e01ad12b2e1f5f",
+          "ecosystem": "Alpine:v3.21",
           "compareAs": "Alpine",
           "imageOrigin": {
             "layerID": "\u003cAny value\u003e",
-            "originCommand": "/bin/sh -c #(nop) ADD file:37a76ec18f9887751cd8473744917d08b7431fc4085097bb6a09d81b41775473 in / ",
+            "originCommand": "ADD alpine-minirootfs-3.21.0-x86_64.tar.gz / # buildkit",
             "inBaseImage": true
           }
         },
         {
           "name": "musl-utils",
-          "version": "1.2.4_git20230717-r4",
-          "commit": "ca7f2ab5e88794e4e654b40776f8a92256f50639",
-          "ecosystem": "Alpine:v3.19",
+          "version": "1.2.5-r8",
+          "commit": "c1ab9dfcb36751c3e9097f0f67e01ad12b2e1f5f",
+          "ecosystem": "Alpine:v3.21",
           "compareAs": "Alpine",
           "imageOrigin": {
             "layerID": "\u003cAny value\u003e",
-            "originCommand": "/bin/sh -c #(nop) ADD file:37a76ec18f9887751cd8473744917d08b7431fc4085097bb6a09d81b41775473 in / ",
+            "originCommand": "ADD alpine-minirootfs-3.21.0-x86_64.tar.gz / # buildkit",
             "inBaseImage": true
           }
         },
         {
           "name": "scanelf",
-          "version": "1.3.7-r2",
-          "commit": "e65a4f2d0470e70d862ef2b5c412ecf2cb9ad0a6",
-          "ecosystem": "Alpine:v3.19",
+          "version": "1.3.8-r1",
+          "commit": "398a5aee3025ec8a4d0d761e448dc86ac777fa09",
+          "ecosystem": "Alpine:v3.21",
           "compareAs": "Alpine",
           "imageOrigin": {
             "layerID": "\u003cAny value\u003e",
-            "originCommand": "/bin/sh -c #(nop) ADD file:37a76ec18f9887751cd8473744917d08b7431fc4085097bb6a09d81b41775473 in / ",
+            "originCommand": "ADD alpine-minirootfs-3.21.0-x86_64.tar.gz / # buildkit",
             "inBaseImage": true
           }
         },
         {
           "name": "ssl_client",
-          "version": "1.36.1-r15",
-          "commit": "d1b6f274f29076967826e0ecf6ebcaa5d360272f",
-          "ecosystem": "Alpine:v3.19",
+          "version": "1.37.0-r8",
+          "commit": "79fddc2aa9c64c47fb3da6edeae9570b4e9caa7e",
+          "ecosystem": "Alpine:v3.21",
           "compareAs": "Alpine",
           "imageOrigin": {
             "layerID": "\u003cAny value\u003e",
-            "originCommand": "/bin/sh -c #(nop) ADD file:37a76ec18f9887751cd8473744917d08b7431fc4085097bb6a09d81b41775473 in / ",
+            "originCommand": "ADD alpine-minirootfs-3.21.0-x86_64.tar.gz / # buildkit",
             "inBaseImage": true
           }
         },
         {
           "name": "zlib",
-          "version": "1.3.1-r0",
-          "commit": "9406f6fc5fca057d990eb0d260d75839eeb34d83",
-          "ecosystem": "Alpine:v3.19",
+          "version": "1.3.1-r2",
+          "commit": "4c2722e7ecc1c5e3ba882429044a101497121223",
+          "ecosystem": "Alpine:v3.21",
           "compareAs": "Alpine",
           "imageOrigin": {
             "layerID": "\u003cAny value\u003e",
-            "originCommand": "/bin/sh -c #(nop) ADD file:37a76ec18f9887751cd8473744917d08b7431fc4085097bb6a09d81b41775473 in / ",
+            "originCommand": "ADD alpine-minirootfs-3.21.0-x86_64.tar.gz / # buildkit",
             "inBaseImage": true
           }
         }
