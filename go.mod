@@ -1,6 +1,8 @@
 module github.com/google/osv-scanner
 
-go 1.22.10
+go 1.23
+
+toolchain go1.23.4
 
 require (
 	deps.dev/api/v3 v3.0.0-20241010035105-b3ba03369df1
