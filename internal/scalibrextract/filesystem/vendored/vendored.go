@@ -63,7 +63,7 @@ func (e Extractor) Requirements() *plugin.Capabilities {
 	return &plugin.Capabilities{}
 }
 
-// FileRequired returns true for .package-lock.json files under node_modules
+// FileRequired returns true for likely directories to contain vendored c/c++ code
 func (e Extractor) FileRequired(fapi filesystem.FileAPI) bool {
 	// Check if parent directory is one of the vendoredLibName
 	// Clean first before Dir call to avoid trailing slashes causing problems
@@ -82,7 +82,8 @@ func (e Extractor) FileRequired(fapi filesystem.FileAPI) bool {
 	return stat.IsDir()
 }
 
-// Extract extracts packages from yarn.lock files passed through the scan input.
+// Extract determines the most likely package version from the directory and returns them as
+// commit hash inventory entries
 func (e Extractor) Extract(_ context.Context, input *filesystem.ScanInput) ([]*extractor.Inventory, error) {
 	var packages []*extractor.Inventory
 
@@ -112,7 +113,7 @@ func (e Extractor) ToPURL(_ *extractor.Inventory) *purl.PackageURL {
 	return nil
 }
 
-// Ecosystem returns the OSV ecosystem ('npm') of the software extracted by this extractor.
+// Ecosystem returns an empty string as all inventories are commit hashes
 func (e Extractor) Ecosystem(_ *extractor.Inventory) string {
 	return ""
 }
