@@ -1,5 +1,6 @@
 dario.cat/mergo v1.0.0 h1:AGCNq9Evsj31mOgNPcLyXc+4PNABt905YmuqPYYpBWk=
 dario.cat/mergo v1.0.0/go.mod h1:uNxQE+84aUszobStD9th8a29P2fMDhsBdgRYvZOxGmk=
+<<<<<<< HEAD
 deps.dev/api/v3 v3.0.0-20241114233204-66e2aed8456e h1:BMnLPyddIsU4t+dWdyCzuGLPyX2Z2NlZiPERck26504=
 deps.dev/api/v3 v3.0.0-20241114233204-66e2aed8456e/go.mod h1:DyBY3wNVqRCwvb4tLvz6LL/FupH3FMflEROyQAv2Vi0=
 deps.dev/util/maven v0.0.0-20241114233204-66e2aed8456e h1:reRzBTKgHdQX8nLxuJVB0OEiwrJMxuwJ7b9Ryeug7NQ=
@@ -8,6 +9,16 @@ deps.dev/util/resolve v0.0.0-20241114233204-66e2aed8456e h1:EuDbMM7J7T/8M+dlTZa4
 deps.dev/util/resolve v0.0.0-20241114233204-66e2aed8456e/go.mod h1:XXi6yRYqhtxw5DvGX/mbG6fHSLn8OgoPowNd8EAxDgk=
 deps.dev/util/semver v0.0.0-20241114233204-66e2aed8456e h1:aKkV/WSPvyJRwhVGv4kxaOZFUFdpDXvVse1ItUZyOjw=
 deps.dev/util/semver v0.0.0-20241114233204-66e2aed8456e/go.mod h1:jkcH+k02gWHBiZ7G4OnUOkSZ6WDq54Pt5DrOA8FN8Uo=
+=======
+deps.dev/api/v3 v3.0.0-20241010035105-b3ba03369df1 h1:qvrLinmQrkOLmguTE9FpRfC/e2iud/eVMWigXXTdrdA=
+deps.dev/api/v3 v3.0.0-20241010035105-b3ba03369df1/go.mod h1:DyBY3wNVqRCwvb4tLvz6LL/FupH3FMflEROyQAv2Vi0=
+deps.dev/util/maven v0.0.0-20241218001045-3890182485f3 h1:2Zjbnw7OgDGr3vM7Epwxgv2cMyeBps4X9AHF1SD82ao=
+deps.dev/util/maven v0.0.0-20241218001045-3890182485f3/go.mod h1:SBW3EribdkZYk6zxi5oVn/ZECvi4ixb7EGgEWfSimNk=
+deps.dev/util/resolve v0.0.0-20241218001045-3890182485f3 h1:9mtMNCV9XDN689ukjYBSKjqQXaqwC666BOP6fV2plBQ=
+deps.dev/util/resolve v0.0.0-20241218001045-3890182485f3/go.mod h1:XXi6yRYqhtxw5DvGX/mbG6fHSLn8OgoPowNd8EAxDgk=
+deps.dev/util/semver v0.0.0-20241010035105-b3ba03369df1 h1:t4P0dCCNIrV84B5d7kOIAzji+HrO303Nrw9BB4ktBy0=
+deps.dev/util/semver v0.0.0-20241010035105-b3ba03369df1/go.mod h1:jkcH+k02gWHBiZ7G4OnUOkSZ6WDq54Pt5DrOA8FN8Uo=
+>>>>>>> faad98e (feat(maven): only fetch snapshots and releases when enabled (#1436))
 github.com/BurntSushi/toml v1.4.0 h1:kuoIxZQy2WRRk1pttg9asf+WVv6tWQuBNVmK8+nqPr0=
 github.com/BurntSushi/toml v1.4.0/go.mod h1:ukJfTF/6rtPPRCnwkur4qwRxa8vTRFBF0uk2lLoLwho=
 github.com/CycloneDX/cyclonedx-go v0.9.1 h1:yffaWOZsv77oTJa/SdVZYdgAgFioCeycBUKkqS2qzQM=
