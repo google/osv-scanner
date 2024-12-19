@@ -6,6 +6,7 @@ import (
 
 	pb "deps.dev/api/v3"
 	"deps.dev/util/resolve"
+	"deps.dev/util/resolve/dep"
 	"github.com/google/osv-scanner/internal/depsdev"
 	"github.com/google/osv-scanner/pkg/models"
 	"github.com/google/osv-scanner/pkg/osv"
@@ -62,6 +63,10 @@ func PreFetch(ctx context.Context, c DependencyClient, requirements []resolve.Re
 
 	// Use the deps.dev client to fetch complete dependency graphs of our direct imports
 	for _, im := range requirements {
+		// There are potentially a huge number of management/import dependencies.
+		if im.Type.HasAttr(dep.MavenDependencyOrigin) {
+			continue
+		}
 		// Get the preferred version of the import requirement
 		vks, err := c.MatchingVersions(ctx, im.VersionKey)
 		if err != nil || len(vks) == 0 {
@@ -109,6 +114,5 @@ func PreFetch(ctx context.Context, c DependencyClient, requirements []resolve.Re
 			go c.Versions(ctx, vk.PackageKey) //nolint:errcheck
 		}
 	}
-
 	// don't bother waiting for goroutines to finish.
 }
