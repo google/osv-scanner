@@ -87,8 +87,8 @@ func MergeParents(ctx context.Context, mavenClient *datasource.MavenRegistryAPIC
 			if err := mavenClient.AddRegistry(datasource.MavenRegistry{
 				URL:              string(repo.URL),
 				ID:               string(repo.ID),
-				ReleasesEnabled:  repo.Releases.Enabled != "false",
-				SnapshotsEnabled: repo.Snapshots.Enabled != "false",
+				ReleasesEnabled:  repo.Releases.Enabled.Boolean(),
+				SnapshotsEnabled: repo.Snapshots.Enabled.Boolean(),
 			}); err != nil {
 				return fmt.Errorf("failed to add registry %s: %w", repo.URL, err)
 			}
