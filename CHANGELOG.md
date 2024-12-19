@@ -6,7 +6,7 @@
 - [Bug #1377](https://github.com/google/osv-scanner/pull/1377) Warn if a vulnerability is ignored multiple times in the same config.
 - [Bug #1394](https://github.com/google/osv-scanner/pull/1394) Guided remediation: handle extraneous/missing packages in package-lock.json more leniently.
 - [Bug #1443](https://github.com/google/osv-scanner/issues/1443) Go call analysis now works with Go version up to v1.23.4.
-- [Bug #1436](https://github.com/google/osv-scanner/pull/1436) Only fetch snapshots and releases when enabled.
+- [Bug #1436](https://github.com/google/osv-scanner/pull/1436) Only fetch Maven snapshots and releases when enabled.
 - [Bug #1456](https://github.com/google/osv-scanner/pull/1456) Remove redundant calls from PreFetch.
 
 # v1.9.1
