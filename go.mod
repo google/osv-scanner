@@ -1,13 +1,11 @@
 module github.com/google/osv-scanner
 
-go 1.23
-
-toolchain go1.23.4
+go 1.22.10
 
 require (
 	deps.dev/api/v3 v3.0.0-20241010035105-b3ba03369df1
-	deps.dev/util/maven v0.0.0-20241218032130-b9621a417c93
-	deps.dev/util/resolve v0.0.0-20241218032130-b9621a417c93
+	deps.dev/util/maven v0.0.0-20241218001045-3890182485f3
+	deps.dev/util/resolve v0.0.0-20241218001045-3890182485f3
 	deps.dev/util/semver v0.0.0-20241010035105-b3ba03369df1
 	github.com/BurntSushi/toml v1.4.0
 	github.com/CycloneDX/cyclonedx-go v0.9.1
