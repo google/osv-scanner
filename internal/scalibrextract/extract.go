@@ -138,6 +138,9 @@ func createScanInput(path string, root string, fileInfo fs.FileInfo) (*filesyste
 	return &si, nil
 }
 
+// getRootDir returns the root directory on each system.
+// On Unix systems, it'll be /
+// On Windows, it will most likely be the drive (e.g. C:\)
 func getRootDir(path string) string {
 	if runtime.GOOS == "windows" {
 		return filepath.VolumeName(path) + "\\"
