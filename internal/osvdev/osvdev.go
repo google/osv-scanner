@@ -21,7 +21,7 @@ const (
 	// GetEndpoint is the URL for getting vulnerabilities from OSV.
 	GetEndpoint = "/v1/vulns"
 	// DetermineVersionEndpoint is the URL for posting determineversion queries to OSV.
-	DetermineVersionEndpoint = "https://api.osv.dev/v1experimental/determineversion"
+	DetermineVersionEndpoint = "/v1experimental/determineversion"
 
 	// MaxQueriesPerQueryBatchRequest is a limit set in osv.dev's API, so is not configurable
 	MaxQueriesPerQueryBatchRequest = 1000
@@ -33,6 +33,7 @@ type OSVClient struct {
 	BaseHostURL string
 }
 
+// GetVulnsByID is an interface to this endpoint: https://google.github.io/osv.dev/get-v1-vulns/
 func (c *OSVClient) GetVulnsByID(ctx context.Context, id string) (*models.Vulnerability, error) {
 	resp, err := c.makeRetryRequest(func() (*http.Response, error) {
 		req, err := http.NewRequestWithContext(ctx, http.MethodGet, c.BaseHostURL+GetEndpoint+"/"+id, nil)
@@ -62,6 +63,7 @@ func (c *OSVClient) GetVulnsByID(ctx context.Context, id string) (*models.Vulner
 	return &vuln, nil
 }
 
+// QueryBatch is an interface to this endpoint: https://google.github.io/osv.dev/post-v1-querybatch/
 func (c *OSVClient) QueryBatch(ctx context.Context, queries []*Query) (*BatchedResponse, error) {
 	// API has a limit of how many queries are in one batch
 	queryChunks := chunkBy(queries, MaxQueriesPerQueryBatchRequest)
@@ -86,7 +88,7 @@ func (c *OSVClient) QueryBatch(ctx context.Context, queries []*Query) (*BatchedR
 				// Make sure request buffer is inside retry, if outside
 				// http request would finish the buffer, and retried requests would be empty
 				requestBuf := bytes.NewBuffer(requestBytes)
-				req, err := http.NewRequestWithContext(ctx, http.MethodPost, QueryBatchEndpoint, requestBuf)
+				req, err := http.NewRequestWithContext(ctx, http.MethodPost, c.BaseHostURL+QueryBatchEndpoint, requestBuf)
 				if err != nil {
 					return nil, err
 				}
@@ -130,14 +132,15 @@ func (c *OSVClient) QueryBatch(ctx context.Context, queries []*Query) (*BatchedR
 	return &totalOsvResp, nil
 }
 
-func (c *OSVClient) Query(ctx context.Context, query Query) (*Response, error) {
+// Query is an interface to this endpoint: https://google.github.io/osv.dev/post-v1-query/
+func (c *OSVClient) Query(ctx context.Context, query *Query) (*Response, error) {
 	requestBytes, err := json.Marshal(query)
 	if err != nil {
 		return nil, err
 	}
 
 	requestBuf := bytes.NewBuffer(requestBytes)
-	req, err := http.NewRequestWithContext(ctx, http.MethodPost, QueryBatchEndpoint, requestBuf)
+	req, err := http.NewRequestWithContext(ctx, http.MethodPost, c.BaseHostURL+QueryEndpoint, requestBuf)
 	if err != nil {
 		return nil, err
 	}
@@ -163,9 +166,42 @@ func (c *OSVClient) Query(ctx context.Context, query Query) (*Response, error) {
 	return &osvResp, nil
 }
 
-// func (c *OSVClient) ExperimentalDetermineVersion(ctx context.Context, query DetermineVersionsRequest) DetermineVersionResponse {
+// ExperimentalDetermineVersion
+func (c *OSVClient) ExperimentalDetermineVersion(ctx context.Context, query *DetermineVersionsRequest) (*DetermineVersionResponse, error) {
+	requestBytes, err := json.Marshal(query)
+	if err != nil {
+		return nil, err
+	}
 
-// }
+	resp, err := c.makeRetryRequest(func() (*http.Response, error) {
+		// Make sure request buffer is inside retry, if outside
+		// http request would finish the buffer, and retried requests would be empty
+		requestBuf := bytes.NewBuffer(requestBytes)
+		req, err := http.NewRequestWithContext(ctx, http.MethodPost, c.BaseHostURL+DetermineVersionEndpoint, requestBuf)
+		if err != nil {
+			return nil, err
+		}
+		req.Header.Set("Content-Type", "application/json")
+		if c.Config.UserAgent != "" {
+			req.Header.Set("User-Agent", c.Config.UserAgent)
+		}
+
+		return http.DefaultClient.Do(req)
+	})
+
+	if err != nil {
+		return nil, err
+	}
+	defer resp.Body.Close()
+
+	var result DetermineVersionResponse
+	decoder := json.NewDecoder(resp.Body)
+	if err := decoder.Decode(&result); err != nil {
+		return nil, err
+	}
+
+	return &result, nil
+}
 
 // makeRetryRequest will return an error on both network errors, and if the response is not 200
 func (c *OSVClient) makeRetryRequest(action func() (*http.Response, error)) (*http.Response, error) {
