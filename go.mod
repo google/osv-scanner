@@ -32,9 +32,9 @@ require (
 	github.com/urfave/cli/v2 v2.27.5
 	golang.org/x/exp v0.0.0-20241009180824-f66d83c29e7c
 	golang.org/x/mod v0.21.0
-	golang.org/x/net v0.30.0
-	golang.org/x/sync v0.8.0
-	golang.org/x/term v0.25.0
+	golang.org/x/net v0.33.0
+	golang.org/x/sync v0.10.0
+	golang.org/x/term v0.27.0
 	golang.org/x/vuln v1.0.4
 	google.golang.org/grpc v1.67.1
 	google.golang.org/protobuf v1.35.1
@@ -100,9 +100,9 @@ require (
 	github.com/xrash/smetrics v0.0.0-20240521201337-686a1a2994c1 // indirect
 	github.com/yuin/goldmark v1.7.4 // indirect
 	github.com/yuin/goldmark-emoji v1.0.3 // indirect
-	golang.org/x/crypto v0.28.0 // indirect
-	golang.org/x/sys v0.26.0 // indirect
-	golang.org/x/text v0.19.0 // indirect
+	golang.org/x/crypto v0.31.0 // indirect
+	golang.org/x/sys v0.28.0 // indirect
+	golang.org/x/text v0.21.0 // indirect
 	golang.org/x/tools v0.26.0 // indirect
 	golang.org/x/xerrors v0.0.0-20231012003039-104605ab7028 // indirect
 	google.golang.org/genproto/googleapis/api v0.0.0-20241007155032-5fefd90f89a9 // indirect
