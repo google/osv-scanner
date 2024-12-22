@@ -2,14 +2,11 @@ package datasource
 
 import (
 	"time"
-
-	"deps.dev/util/maven"
 )
 
 type mavenRegistryCache struct {
 	Timestamp *time.Time
-	Projects  map[string]maven.Project  // url -> project
-	Metadata  map[string]maven.Metadata // url -> metadata
+	Responses map[string]response // url -> response
 }
 
 func (m *MavenRegistryAPIClient) GobEncode() ([]byte, error) {
@@ -23,8 +20,7 @@ func (m *MavenRegistryAPIClient) GobEncode() ([]byte, error) {
 
 	cache := mavenRegistryCache{
 		Timestamp: m.cacheTimestamp,
-		Projects:  m.projects.GetMap(),
-		Metadata:  m.metadata.GetMap(),
+		Responses: m.responses.GetMap(),
 	}
 
 	return gobMarshal(&cache)
@@ -45,8 +41,7 @@ func (m *MavenRegistryAPIClient) GobDecode(b []byte) error {
 	defer m.mu.Unlock()
 
 	m.cacheTimestamp = cache.Timestamp
-	m.projects.SetMap(cache.Projects)
-	m.metadata.SetMap(cache.Metadata)
+	m.responses.SetMap(cache.Responses)
 
 	return nil
 }

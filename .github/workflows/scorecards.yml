@@ -12,7 +12,7 @@ on:
   schedule:
     - cron: "32 22 * * 6"
   push:
-    branches: ["main", "v2"]
+    branches: ["main"]
 
 # Restrict jobs in this workflow to have no permissions by default; permissions
 # should be granted per job as needed using a dedicated `permissions` block

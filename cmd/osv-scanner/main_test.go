@@ -7,6 +7,7 @@ import (
 	"os"
 	"path/filepath"
 	"reflect"
+	"runtime"
 	"strings"
 	"testing"
 
@@ -45,8 +46,20 @@ func normalizeRootDirectory(t *testing.T, str string) string {
 
 	// file uris with Windows end up with three slashes, so we normalize that too
 	str = strings.ReplaceAll(str, "file:///"+cwd, "file://<rootdir>")
+	str = strings.ReplaceAll(str, cwd, "<rootdir>")
 
-	return strings.ReplaceAll(str, cwd, "<rootdir>")
+	// Replace versions without the root as well
+	var root string
+	if runtime.GOOS == "windows" {
+		root = filepath.VolumeName(cwd) + "\\"
+	}
+
+	if strings.HasPrefix(cwd, "/") {
+		root = "/"
+	}
+	str = strings.ReplaceAll(str, cwd[len(root):], "<rootdir>")
+
+	return str
 }
 
 // normalizeUserCacheDirectory attempts to replace references to the current working
@@ -523,7 +536,12 @@ func TestRun_LockfileWithExplicitParseAs(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
 
-			testCli(t, tt)
+			stdout, stderr := runCli(t, tt)
+
+			testutility.NewSnapshot().MatchText(t, stdout)
+			testutility.NewSnapshot().WithWindowsReplacements(map[string]string{
+				"CreateFile": "stat",
+			}).MatchText(t, stderr)
 		})
 	}
 }
@@ -744,8 +762,57 @@ func TestRun_Licenses(t *testing.T) {
 	}
 }
 
+// TODO(v2): Image scanning is not temporarily disabled
+
+func TestRun_Docker(t *testing.T) {
+	t.Parallel()
+	t.Skip("Skipping until image scanning is reenabled")
+
+	testutility.SkipIfNotAcceptanceTesting(t, "Takes a long time to pull down images")
+
+	tests := []cliTestCase{
+		{
+			name: "Fake alpine image",
+			args: []string{"", "--docker", "alpine:non-existent-tag"},
+			exit: 127,
+		},
+		{
+			name: "Fake image entirely",
+			args: []string{"", "--docker", "this-image-definitely-does-not-exist-abcde"},
+			exit: 127,
+		},
+		// TODO: How to prevent these snapshots from changing constantly
+		{
+			name: "Real empty image",
+			args: []string{"", "--docker", "hello-world"},
+			exit: 128, // No packages found
+		},
+		{
+			name: "Real empty image with tag",
+			args: []string{"", "--docker", "hello-world:linux"},
+			exit: 128, // No package found
+		},
+		{
+			name: "Real Alpine image",
+			args: []string{"", "--docker", "alpine:3.18.9"},
+			exit: 0,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			t.Parallel()
+
+			// Only test on linux, and mac/windows CI/CD does not come with docker preinstalled
+			if runtime.GOOS == "linux" {
+				testCli(t, tt)
+			}
+		})
+	}
+}
+
 func TestRun_OCIImage(t *testing.T) {
 	t.Parallel()
+	t.Skip("Skipping until image scanning is reenabled")
 
 	testutility.SkipIfNotAcceptanceTesting(t, "Not consistent on MacOS/Windows")
 
@@ -939,7 +1006,7 @@ func TestRun_MavenTransitive(t *testing.T) {
 			exit: 1,
 		},
 		{
-			name: "resolve transitive dependencies with native datda source",
+			name: "resolve transitive dependencies with native data source",
 			args: []string{"", "--config=./fixtures/osv-scanner-empty-config.toml", "--experimental-resolution-data-source=native", "-L", "pom.xml:./fixtures/maven-transitive/registry.xml"},
 			exit: 1,
 		},

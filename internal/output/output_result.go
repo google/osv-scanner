@@ -5,8 +5,10 @@ import (
 	"encoding/json"
 	"io"
 	"slices"
+	"sort"
 	"strings"
 
+	"github.com/google/osv-scanner/internal/cachedregexp"
 	"github.com/google/osv-scanner/internal/identifiers"
 	"github.com/google/osv-scanner/internal/semantic"
 	"github.com/google/osv-scanner/internal/utility/severity"
@@ -19,8 +21,8 @@ type Result struct {
 	// Container scanning related
 	IsContainerScanning bool
 	AllLayers           []LayerInfo
-	VulnTypeCount       VulnTypeCount
-	PackageTypeCount    CallAnalysisCount
+	VulnTypeSummary     VulnTypeSummary
+	PackageTypeCount    AnalysisCount
 	VulnCount           VulnCount
 }
 
@@ -35,7 +37,7 @@ type EcosystemResult struct {
 type SourceResult struct {
 	Name             string
 	Ecosystem        string
-	PackageTypeCount CallAnalysisCount
+	PackageTypeCount AnalysisCount
 	Packages         []PackageResult
 	VulnCount        VulnCount
 }
@@ -45,21 +47,22 @@ type PackageResult struct {
 	Name             string
 	InstalledVersion string
 	FixedVersion     string
-	CalledVulns      []VulnResult
-	UncalledVulns    []VulnResult
+	RegularVulns     []VulnResult
+	HiddenVulns      []VulnResult
 	LayerDetail      PackageLayerDetail
 	VulnCount        VulnCount
 }
 
 // VulnResult represents a single vulnerability.
 type VulnResult struct {
-	ID             string
-	GroupIDs       []string
-	Aliases        []string
-	IsFixable      bool
-	FixedVersion   string
-	SeverityRating severity.Rating
-	SeverityScore  string
+	ID               string
+	GroupIDs         []string
+	Aliases          []string
+	IsFixable        bool
+	FixedVersion     string
+	VulnAnalysisType VulnAnalysisType
+	SeverityRating   severity.Rating
+	SeverityScore    string
 }
 
 // PackageLayerDetail represents detailed layer tracing information about a package.
@@ -77,14 +80,24 @@ type LayerInfo struct {
 	Count        VulnCount
 }
 
-// VulnCount represents the counts of vulnerabilities by severity and fixed/unfixed status
+// VulnSummary represents the count of each vulnerability type at the top level
+// of the scanning results.
+type VulnTypeSummary struct {
+	All     int
+	OS      int
+	Project int
+	Hidden  int
+}
+
+// VulnCount represents the counts of vulnerabilities by call analysis, severity and fixed/unfixed status
 type VulnCount struct {
-	CallAnalysisCount CallAnalysisCount
-	// Only called vulnerabilities are included in the severity and fixable counts.
+	AnalysisCount AnalysisCount
+	// Only regular vulnerabilities are included in the severity and fixable counts.
 	SeverityCount SeverityCount
 	FixableCount  FixableCount
 }
 
+// SeverityCount represents the counts of vulnerabilities by severity level.
 type SeverityCount struct {
 	Critical int
 	High     int
@@ -93,22 +106,25 @@ type SeverityCount struct {
 	Unknown  int
 }
 
-type VulnTypeCount struct {
-	All      int
-	OS       int
-	Project  int
-	Uncalled int
+// AnalysisCount represents the counts of vulnerabilities by analysis type (e.g. call analysis)
+type AnalysisCount struct {
+	Regular int
+	Hidden  int
 }
 
-type CallAnalysisCount struct {
-	Called   int
-	Uncalled int
-}
-
+// FixableCount represents the counts of vulnerabilities by fixable status.
 type FixableCount struct {
 	Fixed   int
 	UnFixed int
 }
+
+type VulnAnalysisType int
+
+const (
+	VulnTypeRegular     VulnAnalysisType = iota // 0
+	VulnTypeUncalled                            // 1
+	VulnTypeUnimportant                         // 2
+)
 
 const UnfixedDescription = "No fix available"
 const VersionUnsupported = "N/A"
@@ -190,12 +206,12 @@ func buildResult(ecosystemMap map[string][]SourceResult, resultCount VulnCount) 
 	if len(layers) > 0 {
 		isContainerScanning = true
 	}
-	vulnTypeCount := getVulnTypeCount(ecosystemResults)
+	vulnTypeSummary := getVulnTypeSummary(ecosystemResults)
 	packageTypeCount := getPackageTypeCount(ecosystemResults)
 
 	return Result{
 		Ecosystems:          ecosystemResults,
-		VulnTypeCount:       vulnTypeCount,
+		VulnTypeSummary:     vulnTypeSummary,
 		PackageTypeCount:    packageTypeCount,
 		VulnCount:           resultCount,
 		IsContainerScanning: isContainerScanning,
@@ -223,12 +239,12 @@ func processSource(packageSource models.PackageSource) SourceResult {
 		packageSet[key] = struct{}{}
 
 		sourceResult.VulnCount.Add(packageResult.VulnCount)
-		if len(packageResult.CalledVulns) != 0 {
-			sourceResult.PackageTypeCount.Called += 1
+		if len(packageResult.RegularVulns) != 0 {
+			sourceResult.PackageTypeCount.Regular += 1
 		}
-		// A package can be counted as both called and uncalled if it has both called and uncalled vulnerabilities.
-		if len(packageResult.UncalledVulns) != 0 {
-			sourceResult.PackageTypeCount.Uncalled += 1
+		// A package can be counted as both regular and hidden if it has both called and uncalled vulnerabilities.
+		if len(packageResult.HiddenVulns) != 0 {
+			sourceResult.PackageTypeCount.Hidden += 1
 		}
 	}
 	// Sort packageResults to ensure consistent output
@@ -251,23 +267,23 @@ func processSource(packageSource models.PackageSource) SourceResult {
 // and constructs the final output result for the package, including details about
 // called and uncalled vulnerabilities, fixable counts, and layer information (if available).
 func processPackage(vulnPkg models.PackageVulns) PackageResult {
-	calledVulnMap, uncalledVulnMap := processVulnGroups(vulnPkg)
-	updateVuln(calledVulnMap, vulnPkg)
-	updateVuln(uncalledVulnMap, vulnPkg)
+	regularVulnMap, hiddenVulnMap := processVulnGroups(vulnPkg)
+	updateVuln(regularVulnMap, vulnPkg)
+	updateVuln(hiddenVulnMap, vulnPkg)
 
-	calledVulnList := getVulnList(calledVulnMap)
-	uncalledVulnList := getVulnList(uncalledVulnMap)
+	regularVulnList := getVulnList(regularVulnMap)
+	hiddenVulnList := getVulnList(hiddenVulnMap)
 
-	count := calculateCount(calledVulnList, uncalledVulnList)
+	count := calculateCount(regularVulnList, hiddenVulnList)
 
-	packageFixedVersion := calculatePackageFixedVersion(vulnPkg.Package.Ecosystem, calledVulnList)
+	packageFixedVersion := calculatePackageFixedVersion(vulnPkg.Package.Ecosystem, regularVulnList)
 
 	packageResult := PackageResult{
 		Name:             vulnPkg.Package.Name,
 		InstalledVersion: vulnPkg.Package.Version,
 		FixedVersion:     packageFixedVersion,
-		CalledVulns:      calledVulnList,
-		UncalledVulns:    uncalledVulnList,
+		RegularVulns:     regularVulnList,
+		HiddenVulns:      hiddenVulnList,
 		VulnCount:        count,
 	}
 
@@ -287,11 +303,11 @@ func processPackage(vulnPkg models.PackageVulns) PackageResult {
 //
 // Returns:
 //
-//	calledVulnMap: A map of called vulnerabilities, keyed by their representative ID.
-//	uncalledVulnMap: A map of uncalled vulnerabilities, keyed by their representative ID.
+//	regularVulnMap: A map of regular vulnerabilities, keyed by their representative ID.
+//	hiddenVulnMap: A map of unimportant vulnerabilities, keyed by their representative ID.
 func processVulnGroups(vulnPkg models.PackageVulns) (map[string]VulnResult, map[string]VulnResult) {
-	calledVulnMap := make(map[string]VulnResult)
-	uncalledVulnMap := make(map[string]VulnResult)
+	regularVulnMap := make(map[string]VulnResult)
+	hiddenVulnMap := make(map[string]VulnResult)
 
 	for _, group := range vulnPkg.Groups {
 		slices.SortFunc(group.IDs, identifiers.IDSortFunc)
@@ -311,14 +327,19 @@ func processVulnGroups(vulnPkg models.PackageVulns) (map[string]VulnResult, map[
 			vuln.SeverityScore = "N/A"
 		}
 
-		if group.IsCalled() {
-			calledVulnMap[representID] = vuln
-		} else {
-			uncalledVulnMap[representID] = vuln
+		if group.IsCalled() && !group.IsGroupUnimportant() {
+			vuln.VulnAnalysisType = VulnTypeRegular
+			regularVulnMap[representID] = vuln
+		} else if group.IsGroupUnimportant() {
+			vuln.VulnAnalysisType = VulnTypeUnimportant
+			hiddenVulnMap[representID] = vuln
+		} else if !group.IsCalled() {
+			vuln.VulnAnalysisType = VulnTypeUncalled
+			hiddenVulnMap[representID] = vuln
 		}
 	}
 
-	return calledVulnMap, uncalledVulnMap
+	return regularVulnMap, hiddenVulnMap
 }
 
 // updateVuln updates each vulnerability info in vulnMap from the details of vulnPkg.Vulnerabilities.
@@ -419,7 +440,7 @@ func calculatePackageFixedVersion(ecosystem string, allVulns []VulnResult) strin
 // Add adds the counts from another VulnCount to the receiver.
 func (v *VulnCount) Add(other VulnCount) {
 	v.SeverityCount.Add(other.SeverityCount)
-	v.CallAnalysisCount.Add(other.CallAnalysisCount)
+	v.AnalysisCount.Add(other.AnalysisCount)
 	v.FixableCount.Add(other.FixableCount)
 }
 
@@ -433,15 +454,46 @@ func (c *SeverityCount) Add(other SeverityCount) {
 }
 
 // Add adds the counts from another CallAnalysisCount to the receiver.
-func (c *CallAnalysisCount) Add(other CallAnalysisCount) {
-	c.Called += other.Called
-	c.Uncalled += other.Uncalled
+func (c *AnalysisCount) Add(other AnalysisCount) {
+	c.Regular += other.Regular
+	c.Hidden += other.Hidden
 }
 
 // Add adds the counts from another FixableCount to the receiver.
 func (c *FixableCount) Add(other FixableCount) {
 	c.Fixed += other.Fixed
 	c.UnFixed += other.UnFixed
+}
+
+func (vt VulnAnalysisType) String() string {
+	switch vt {
+	case VulnTypeRegular:
+		return "Regular"
+	case VulnTypeUncalled:
+		return "Uncalled"
+	case VulnTypeUnimportant:
+		return "Unimportant"
+	default:
+		return "Unknown"
+	}
+}
+
+func getFilteredVulnReasons(vulns []VulnResult) string {
+	reasonMap := make(map[string]bool)
+	for _, vuln := range vulns {
+		if vuln.VulnAnalysisType != VulnTypeRegular {
+			reasonMap[vuln.VulnAnalysisType.String()] = true
+		}
+	}
+
+	reasons := make([]string, 0, len(reasonMap))
+	for reason := range reasonMap {
+		reasons = append(reasons, reason)
+	}
+
+	sort.Strings(reasons)
+
+	return strings.Join(reasons, ", ")
 }
 
 func increaseSeverityCount(severityCount SeverityCount, severityType severity.Rating) SeverityCount {
@@ -509,32 +561,32 @@ func getAllLayerInfo(result []EcosystemResult) []LayerInfo {
 	return layers
 }
 
-func getVulnTypeCount(result []EcosystemResult) VulnTypeCount {
-	var vulnCount VulnTypeCount
+func getVulnTypeSummary(result []EcosystemResult) VulnTypeSummary {
+	var vulnTypeSummary VulnTypeSummary
 
 	for _, ecosystem := range result {
 		for _, source := range ecosystem.Sources {
 			if ecosystem.IsOS {
-				vulnCount.OS += source.VulnCount.CallAnalysisCount.Called
+				vulnTypeSummary.OS += source.VulnCount.AnalysisCount.Regular
 			} else {
-				vulnCount.Project += source.VulnCount.CallAnalysisCount.Called
+				vulnTypeSummary.Project += source.VulnCount.AnalysisCount.Regular
 			}
-			vulnCount.Uncalled += source.VulnCount.CallAnalysisCount.Uncalled
+			vulnTypeSummary.Hidden += source.VulnCount.AnalysisCount.Hidden
 		}
 	}
 
-	vulnCount.All = vulnCount.OS + vulnCount.Project
+	vulnTypeSummary.All = vulnTypeSummary.OS + vulnTypeSummary.Project
 
-	return vulnCount
+	return vulnTypeSummary
 }
 
-func getPackageTypeCount(result []EcosystemResult) CallAnalysisCount {
-	var packageCount CallAnalysisCount
+func getPackageTypeCount(result []EcosystemResult) AnalysisCount {
+	var packageCount AnalysisCount
 
 	for _, ecosystem := range result {
 		for _, source := range ecosystem.Sources {
-			packageCount.Called += source.PackageTypeCount.Called
-			packageCount.Uncalled += source.PackageTypeCount.Uncalled
+			packageCount.Regular += source.PackageTypeCount.Regular
+			packageCount.Hidden += source.PackageTypeCount.Hidden
 		}
 	}
 
@@ -542,11 +594,11 @@ func getPackageTypeCount(result []EcosystemResult) CallAnalysisCount {
 }
 
 // calculateCount calculates the vulnerability counts based on the provided
-// lists of called and uncalled vulnerabilities.
-func calculateCount(calledVulnList, uncalledVulnList []VulnResult) VulnCount {
+// lists of regular and hidden vulnerabilities.
+func calculateCount(regularVulnList, hiddenVulnList []VulnResult) VulnCount {
 	var count VulnCount
 
-	for _, vuln := range calledVulnList {
+	for _, vuln := range regularVulnList {
 		if vuln.IsFixable {
 			count.FixableCount.Fixed += 1
 		} else {
@@ -555,8 +607,25 @@ func calculateCount(calledVulnList, uncalledVulnList []VulnResult) VulnCount {
 
 		count.SeverityCount = increaseSeverityCount(count.SeverityCount, vuln.SeverityRating)
 	}
-	count.CallAnalysisCount.Called = len(calledVulnList)
-	count.CallAnalysisCount.Uncalled = len(uncalledVulnList)
+	count.AnalysisCount.Regular = len(regularVulnList)
+	count.AnalysisCount.Hidden = len(hiddenVulnList)
 
 	return count
+}
+
+// formatLayerCommand formats the layer command output for better readability.
+// It replaces the unreadable file ID with "UNKNOWN" and extracting the ID separately.
+func formatLayerCommand(command string) (string, string) {
+	re := cachedregexp.MustCompile(`(dir|file):([a-f0-9]+)`)
+	match := re.FindStringSubmatch(command)
+
+	if len(match) > 2 {
+		prefix := match[1] // Capture "dir" or "file"
+		hash := match[2]   // Capture the hash ID
+		newCommand := re.ReplaceAllString(command, prefix+":UNKNOWN")
+
+		return newCommand, "File ID: " + hash
+	}
+
+	return command, ""
 }

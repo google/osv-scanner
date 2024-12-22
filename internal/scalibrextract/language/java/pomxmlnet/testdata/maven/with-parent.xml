@@ -1,0 +1,54 @@
+<project>
+  <groupId>com.mycompany.app</groupId>
+  <artifactId>my-app</artifactId>
+  <version>1.0</version>
+
+  <parent>
+    <groupId>org.local</groupId>
+    <artifactId>parent-pom</artifactId>
+    <version>1.0</version>
+    <relativePath>./parent/pom.xml</relativePath>
+  </parent>
+
+  <properties>
+    <bob.version>2.0.0</bob.version>
+  </properties>
+
+  <dependencies>
+    <dependency>
+      <groupId>org.alice</groupId>
+      <artifactId>alice</artifactId>
+      <version>1.0.0</version>
+    </dependency>
+    <dependency>
+      <groupId>org.bob</groupId>
+      <artifactId>bob</artifactId>
+      <version>${bob.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.chuck</groupId>
+      <artifactId>chuck</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.frank</groupId>
+      <artifactId>frank</artifactId>
+    </dependency>
+  </dependencies>
+
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>org.chuck</groupId>
+        <artifactId>chuck</artifactId>
+        <version>3.0.0</version>
+      </dependency>
+      <dependency>
+        <groupId>org.import</groupId>
+        <artifactId>import</artifactId>
+        <version>1.2.3</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+</project>
