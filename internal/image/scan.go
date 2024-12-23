@@ -1,14 +1,22 @@
 package image
 
 import (
+	"cmp"
 	"errors"
 	"fmt"
 	"io/fs"
 	"log"
+	"path"
+	"slices"
+	"strings"
 
+	"github.com/google/osv-scalibr/extractor"
+	"github.com/google/osv-scalibr/extractor/filesystem/os/dpkg"
+	"github.com/google/osv-scanner/internal/scalibrextract"
 	"github.com/google/osv-scanner/pkg/lockfile"
 	"github.com/google/osv-scanner/pkg/models"
 	"github.com/google/osv-scanner/pkg/reporter"
+	"golang.org/x/exp/maps"
 )
 
 // ScanImage scans an exported docker image .tar file
@@ -22,33 +30,120 @@ func ScanImage(r reporter.Reporter, imagePath string) (ScanResults, error) {
 
 	allFiles := img.LastLayer().AllFiles()
 
-	scannedLockfiles := ScanResults{
+	scanResults := ScanResults{
 		ImagePath: imagePath,
 	}
+
+	inventories := []*extractor.Inventory{}
+
 	for _, file := range allFiles {
 		if file.fileType != RegularFile {
 			continue
 		}
-		parsedLockfile, err := extractArtifactDeps(file.virtualPath, img.LastLayer())
+
+		// TODO: Currently osv-scalibr does not correctly annotate OS packages
+		// causing artifact extractors to double extract elements here.
+		// So let's skip all these directories for now.
+		// See (b/364536788)
+		//
+		// https://en.wikipedia.org/wiki/Filesystem_Hierarchy_Standard
+		// > Secondary hierarchy for read-only user data; contains the majority of (multi-)user utilities and applications.
+		// > Should be shareable and read-only.
+		//
+		if strings.HasPrefix(file.virtualPath, "/usr/") {
+			continue
+		}
+
+		extractedInventories, err := extractArtifactDeps(file.virtualPath, img.LastLayer())
 		if err != nil {
-			if !errors.Is(err, lockfile.ErrExtractorNotFound) {
+			if !errors.Is(err, scalibrextract.ErrExtractorNotFound) {
 				r.Errorf("Attempted to extract lockfile but failed: %s - %v\n", file.virtualPath, err)
 			}
 
 			continue
 		}
-
-		scannedLockfiles.Lockfiles = append(scannedLockfiles.Lockfiles, parsedLockfile)
+		inventories = append(inventories, extractedInventories...)
 	}
 
-	traceOrigin(img, &scannedLockfiles)
+	// TODO: Remove the lockfile.Lockfile conversion
+	// Temporarily convert back to lockfile.Lockfiles to minimize snapshot changes
+	// This is done to verify the scanning behavior have not changed with this refactor
+	// and to minimize changes in the initial PR.
+	lockfiles := map[string]lockfile.Lockfile{}
+	for _, i := range inventories {
+		if len(i.Annotations) > 1 {
+			log.Printf("%v", i.Annotations)
+		}
+		lf, exists := lockfiles[path.Join("/", i.Locations[0])]
+		if !exists {
+			lf = lockfile.Lockfile{
+				FilePath: path.Join("/", i.Locations[0]),
+				ParsedAs: i.Extractor.Name(),
+			}
+		}
+
+		name := i.Name
+		version := i.Version
+
+		// Debian packages may have a different source name than their package name.
+		// OSV.dev matches vulnerabilities by source name.
+		// Convert the given package information to its source information if it is specified.
+		if metadata, ok := i.Metadata.(*dpkg.Metadata); ok {
+			if metadata.SourceName != "" {
+				name = metadata.SourceName
+			}
+			if metadata.SourceVersion != "" {
+				version = metadata.SourceVersion
+			}
+		}
+
+		pkg := lockfile.PackageDetails{
+			Name:      name,
+			Version:   version,
+			Ecosystem: lockfile.Ecosystem(i.Ecosystem()),
+			CompareAs: lockfile.Ecosystem(strings.Split(i.Ecosystem(), ":")[0]),
+		}
+		if i.SourceCode != nil {
+			pkg.Commit = i.SourceCode.Commit
+		}
+
+		lf.Packages = append(lf.Packages, pkg)
+
+		lockfiles[path.Join("/", i.Locations[0])] = lf
+	}
+
+	for _, l := range lockfiles {
+		slices.SortFunc(l.Packages, func(a, b lockfile.PackageDetails) int {
+			return cmp.Or(
+				strings.Compare(a.Name, b.Name),
+				strings.Compare(a.Version, b.Version),
+			)
+		})
+	}
+
+	scanResults.Lockfiles = maps.Values(lockfiles)
+	slices.SortFunc(scanResults.Lockfiles, func(a, b lockfile.Lockfile) int {
+		return strings.Compare(a.FilePath, b.FilePath)
+	})
+
+	traceOrigin(img, &scanResults)
+
+	// TODO: Reenable this sort when removing lockfile.Lockfile
+	// Sort to have deterministic output, and to match behavior of lockfile.extractDeps
+	// slices.SortFunc(scanResults.Inventories, func(a, b *extractor.Inventory) int {
+	// 	// TODO: Should we consider errors here?
+	// 	aPURL, _ := a.Extractor.ToPURL(a)
+	// 	bPURL, _ := b.Extractor.ToPURL(b)
+
+	// 	return strings.Compare(aPURL.ToString(), bPURL.ToString())
+	// })
 
 	err = img.Cleanup()
 	if err != nil {
 		err = fmt.Errorf("failed to cleanup: %w", img.Cleanup())
 	}
 
-	return scannedLockfiles, err
+	return scanResults, err
 }
 
 // traceOrigin fills out the originLayerID for each package in ScanResults
@@ -60,15 +155,30 @@ func traceOrigin(img *Image, scannedLockfiles *ScanResults) {
 			Name      string
 			Version   string
 			Commit    string
-			Ecosystem lockfile.Ecosystem
+			Ecosystem string
 		}
 
+		// TODO: Remove this function after fully migrating to extractor.Inventory
 		makePDKey := func(pd lockfile.PackageDetails) PDKey {
 			return PDKey{
 				Name:      pd.Name,
 				Version:   pd.Version,
 				Commit:    pd.Commit,
-				Ecosystem: pd.Ecosystem,
+				Ecosystem: string(pd.Ecosystem),
+			}
+		}
+
+		makePDKey2 := func(pd *extractor.Inventory) PDKey {
+			var commit string
+			if pd.SourceCode != nil {
+				commit = pd.SourceCode.Commit
+			}
+
+			return PDKey{
+				Name:      pd.Name,
+				Version:   pd.Version,
+				Commit:    commit,
+				Ecosystem: pd.Ecosystem(),
 			}
 		}
 
@@ -120,12 +230,11 @@ func traceOrigin(img *Image, scannedLockfiles *ScanResults) {
 				// Failed to parse an older version of file in image
 				// Behave as if the file does not exist
 				break
-				// log.Panicf("unimplemented! failed to parse an older version of file in image: %s@%s: %v", file.FilePath, oldFileNode.originLayer.id, err)
 			}
 
 			// For each package in the old version, check if it existed in the newer layer, if so, the origin must be this layer or earlier.
-			for _, pkg := range oldDeps.Packages {
-				key := makePDKey(pkg)
+			for _, pkg := range oldDeps {
+				key := makePDKey2(pkg)
 				if val, ok := sourceLayerIdx[key]; ok && val == prevLayerIdx {
 					sourceLayerIdx[key] = layerIdx
 				}

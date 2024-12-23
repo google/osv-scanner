@@ -13,10 +13,10 @@ name: "CodeQL"
 
 on:
   push:
-    branches: [main, v2]
+    branches: [main, v1]
   pull_request:
     # The branches below must be a subset of the branches above
-    branches: [main, v2]
+    branches: [main, v1]
 
 # Restrict jobs in this workflow to have no permissions by default; permissions
 # should be granted per job as needed using a dedicated `permissions` block

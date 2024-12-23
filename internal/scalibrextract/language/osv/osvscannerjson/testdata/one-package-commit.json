@@ -1,0 +1,19 @@
+{
+  "results": [
+    {
+      "source": {
+        "path": "/path/to/Gemfile.lock",
+        "type": "lockfile"
+      },
+      "packages": [
+        {
+          "package": {
+            "commit": "9a6bd55c9d0722cb101fe85a3b22d89e4ff4fe52"
+          },
+          "vulnerabilities": [],
+          "groups": []
+        }
+      ]
+    }
+  ]
+}
