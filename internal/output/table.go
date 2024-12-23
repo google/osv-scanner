@@ -162,7 +162,7 @@ func printContainerScanningResult(result Result, outputWriter io.Writer, termina
 					outputRow := table.Row{}
 					totalCount := pkg.VulnCount.AnalysisCount.Hidden
 					filteredReasons := getFilteredVulnReasons(pkg.HiddenVulns)
-					outputRow = append(outputRow, pkg.Name, ecosystem.Name, pkg.InstalledVersion, totalCount, strings.Join(filteredReasons, ", "))
+					outputRow = append(outputRow, pkg.Name, ecosystem.Name, pkg.InstalledVersion, totalCount, filteredReasons)
 					outputTable.AppendRow(outputRow)
 				}
 			}
