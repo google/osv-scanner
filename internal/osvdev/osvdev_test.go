@@ -92,6 +92,25 @@ func TestOSVClient_QueryBatch(t *testing.T) {
 				{},
 			},
 		},
+		{
+			name: "multiple queries with invalid",
+			queries: []*osvdev.Query{
+				{
+					Package: osvdev.Package{
+						Name:      "faker",
+						Ecosystem: string(osvschema.EcosystemNPM),
+					},
+					Version: "6.6.6",
+				},
+				{
+					Package: osvdev.Package{
+						Name: "abcd-definitely-does-not-exist",
+					},
+				},
+			},
+			wantIDs:         [][]string{},
+			wantErrContains: `client error: status="400 Bad Request" body={"code":3,"message":"Invalid query."}`,
+		},
 	}
 
 	for _, tt := range tests {
@@ -204,5 +223,51 @@ func TestOSVClient_Query(t *testing.T) {
 }
 
 func TestOSVClient_ExperimentalDetermineVersion(t *testing.T) {
-	// TODO
+	t.Parallel()
+
+	tests := []struct {
+		name            string
+		query           osvdev.DetermineVersionsRequest
+		wantPkgs        []string
+		wantErrContains string
+	}{
+		{
+			name: "Simple non existent package query",
+			query: osvdev.DetermineVersionsRequest{
+				Name: "test file",
+				FileHashes: []osvdev.DetermineVersionHash{
+					{
+						Path: "test file/file",
+						Hash: []byte{},
+					},
+				},
+			},
+			wantPkgs: []string{},
+		},
+		// TODO: Add query for an actual package, this is not added at the moment as it requires too many hashes
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			t.Parallel()
+
+			c := osvdev.DefaultClient()
+			c.Config.UserAgent = "osv-scanner-api-test"
+			got, err := c.ExperimentalDetermineVersion(context.Background(), &tt.query)
+			if err != nil {
+				if tt.wantErrContains == "" || !strings.Contains(err.Error(), tt.wantErrContains) {
+					t.Errorf("OSVClient.GetVulnsByID() error = %v, wantErr %q", err, tt.wantErrContains)
+				}
+				return
+			}
+
+			gotPkgInfo := make([]string, 0, len(got.Matches))
+			for _, vuln := range got.Matches {
+				gotPkgInfo = append(gotPkgInfo, vuln.RepoInfo.Address+"@"+vuln.RepoInfo.Version)
+			}
+
+			if diff := cmp.Diff(tt.wantPkgs, gotPkgInfo); diff != "" {
+				t.Errorf("Unexpected vuln IDs (-want +got):\n%s", diff)
+			}
+		})
+	}
 }
