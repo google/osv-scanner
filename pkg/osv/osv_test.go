@@ -14,7 +14,7 @@ import (
 
 func TestMakeRetryRequest(t *testing.T) {
 	t.Parallel()
-	testutility.SkipIfNotAcceptanceTesting(t, "This test takes a long time")
+	testutility.Skip(t, "This test takes a long time (14+ seconds)")
 
 	tests := []struct {
 		name          string
