@@ -23,7 +23,8 @@ import (
 	"github.com/google/osv-scanner/internal/resolution/datasource"
 )
 
-// Extractor extracts osv packages from osv-scanner json output.
+// Extractor extracts Maven packages with transitive dependency resolution.
+// TODO: Use the virtual filesystem rather than the real filesystem.
 type Extractor struct {
 	client.DependencyClient
 	*datasource.MavenRegistryAPIClient
@@ -58,12 +59,17 @@ func (e Extractor) Extract(ctx context.Context, input *filesystem.ScanInput) ([]
 		return nil, fmt.Errorf("failed to merge profiles: %w", err)
 	}
 	for _, repo := range project.Repositories {
-		if err := e.MavenRegistryAPIClient.AddRegistry(string(repo.URL)); err != nil {
+		if err := e.MavenRegistryAPIClient.AddRegistry(datasource.MavenRegistry{
+			URL:              string(repo.URL),
+			ID:               string(repo.ID),
+			ReleasesEnabled:  repo.Releases.Enabled.Boolean(),
+			SnapshotsEnabled: repo.Snapshots.Enabled.Boolean(),
+		}); err != nil {
 			return nil, fmt.Errorf("failed to add registry %s: %w", repo.URL, err)
 		}
 	}
 	// Merging parents data by parsing local parent pom.xml or fetching from upstream.
-	if err := mavenutil.MergeParents(ctx, e.MavenRegistryAPIClient, &project, project.Parent, 1, input.Path, true); err != nil {
+	if err := mavenutil.MergeParents(ctx, e.MavenRegistryAPIClient, &project, project.Parent, 1, filepath.Join(input.Root, input.Path), true); err != nil {
 		return nil, fmt.Errorf("failed to merge parents: %w", err)
 	}
 	// Process the dependencies:
@@ -77,7 +83,7 @@ func (e Extractor) Extract(ctx context.Context, input *filesystem.ScanInput) ([]
 	if registries := e.MavenRegistryAPIClient.GetRegistries(); len(registries) > 0 {
 		clientRegs := make([]client.Registry, len(registries))
 		for i, reg := range registries {
-			clientRegs[i] = client.Registry{URL: reg}
+			clientRegs[i] = reg
 		}
 		if err := e.DependencyClient.AddRegistries(clientRegs); err != nil {
 			return nil, err
@@ -126,7 +132,7 @@ func (e Extractor) Extract(ctx context.Context, input *filesystem.ScanInput) ([]
 	}
 	overrideClient.AddVersion(root, reqs)
 
-	client.PreFetch(ctx, overrideClient, reqs, input.Path)
+	client.PreFetch(ctx, overrideClient, reqs, filepath.Join(input.Root, input.Path))
 	g, err := resolver.Resolve(ctx, root.VersionKey)
 	if err != nil {
 		return nil, fmt.Errorf("failed resolving %v: %w", root, err)

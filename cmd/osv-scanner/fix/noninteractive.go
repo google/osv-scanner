@@ -13,6 +13,7 @@ import (
 	"github.com/google/osv-scanner/internal/remediation"
 	"github.com/google/osv-scanner/internal/resolution"
 	"github.com/google/osv-scanner/internal/resolution/client"
+	"github.com/google/osv-scanner/internal/resolution/datasource"
 	lf "github.com/google/osv-scanner/internal/resolution/lockfile"
 	"github.com/google/osv-scanner/internal/resolution/manifest"
 	"github.com/google/osv-scanner/pkg/lockfile"
@@ -304,7 +305,12 @@ func autoOverride(ctx context.Context, r reporter.Reporter, opts osvFixOptions, 
 		if ok {
 			registries := make([]client.Registry, len(specific.Repositories))
 			for i, repo := range specific.Repositories {
-				registries[i] = client.Registry{URL: string(repo.URL)}
+				registries[i] = datasource.MavenRegistry{
+					URL:              string(repo.URL),
+					ID:               string(repo.ID),
+					ReleasesEnabled:  repo.Releases.Enabled.Boolean(),
+					SnapshotsEnabled: repo.Snapshots.Enabled.Boolean(),
+				}
 			}
 			if err := opts.Client.DependencyClient.AddRegistries(registries); err != nil {
 				return err

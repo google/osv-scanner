@@ -12,6 +12,8 @@ import (
 	"github.com/google/osv-scalibr/purl"
 )
 
+// Extractor extracts git repository hashes including submodule hashes.
+// This extractor will not return an error, and will just return no results if we fail to extract
 type Extractor struct{}
 
 var _ filesystem.Extractor = Extractor{}
@@ -65,7 +67,7 @@ func (e Extractor) Requirements() *plugin.Capabilities {
 	return &plugin.Capabilities{}
 }
 
-// FileRequired returns true for .package-lock.json files under node_modules
+// FileRequired returns true for git repositories .git dirs
 func (e Extractor) FileRequired(fapi filesystem.FileAPI) bool {
 	if filepath.Base(fapi.Path()) != ".git" {
 		return false
@@ -80,27 +82,32 @@ func (e Extractor) FileRequired(fapi filesystem.FileAPI) bool {
 	return stat.IsDir()
 }
 
-// Extract extracts packages from yarn.lock files passed through the scan input.
+// Extract extracts git commits from HEAD and from submodules
 func (e Extractor) Extract(_ context.Context, input *filesystem.ScanInput) ([]*extractor.Inventory, error) {
+	// The input path is the .git directory, but git.PlainOpen expects the actual directory containing the .git dir.
+	// So call filepath.Dir to get the parent path
 	// Assume this is fully on a real filesystem
 	// TODO: Make this support virtual filesystems
-	repo, err := git.PlainOpen(path.Join(input.Root, input.Path))
-	if err != nil {
-		return nil, err
-	}
-
-	commitSHA, err := getCommitSHA(repo)
+	repo, err := git.PlainOpen(path.Join(input.Root, filepath.Dir(input.Path)))
 	if err != nil {
 		return nil, err
 	}
 
 	//nolint:prealloc // Not sure how many there will be in advance.
 	var packages []*extractor.Inventory
-	packages = append(packages, createCommitQueryInventory(commitSHA, input.Path))
 
+	commitSHA, err := getCommitSHA(repo)
+
+	// If error is not nil, then ignore this and continue, as it is not fatal.
+	// The error could be because there are no commits in the repository
+	if err == nil {
+		packages = append(packages, createCommitQueryInventory(commitSHA, input.Path))
+	}
+
+	// If we can't get submodules, just return with what we have.
 	submodules, err := getSubmodules(repo)
 	if err != nil {
-		return nil, err
+		return packages, err
 	}
 
 	for _, s := range submodules {
@@ -116,7 +123,7 @@ func (e Extractor) ToPURL(_ *extractor.Inventory) *purl.PackageURL {
 	return nil
 }
 
-// Ecosystem returns the OSV ecosystem ('npm') of the software extracted by this extractor.
+// Ecosystem returns an empty string as all inventories are commit hashes
 func (e Extractor) Ecosystem(_ *extractor.Inventory) string {
 	return ""
 }
