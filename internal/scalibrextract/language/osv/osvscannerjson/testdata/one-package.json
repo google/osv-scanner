@@ -1,0 +1,21 @@
+{
+  "results": [
+    {
+      "source": {
+        "path": "/path/to/Gemfile.lock",
+        "type": "lockfile"
+      },
+      "packages": [
+        {
+          "package": {
+            "name": "activesupport",
+            "version": "7.0.7",
+            "ecosystem": "RubyGems"
+          },
+          "vulnerabilities": [],
+          "groups": []
+        }
+      ]
+    }
+  ]
+}

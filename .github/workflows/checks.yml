@@ -16,10 +16,10 @@ name: Checks
 
 on:
   push:
-    branches: [main, v2]
+    branches: [main, v1]
   pull_request:
     # The branches below must be a subset of the branches above
-    branches: [main, v2]
+    branches: [main, v1]
 
 concurrency:
   # Pushing new changes to a branch will cancel any in-progress CI runs

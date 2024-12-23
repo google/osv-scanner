@@ -10,7 +10,7 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/google/osv-scanner/pkg/lockfile"
+	"github.com/google/osv-scanner/internal/imodels"
 	"github.com/google/osv-scanner/pkg/models"
 
 	"golang.org/x/sync/errgroup"
@@ -27,9 +27,10 @@ const (
 	BaseVulnerabilityURL = "https://osv.dev/"
 	// maxQueriesPerRequest splits up querybatch into multiple requests if
 	// number of queries exceed this number
-	maxQueriesPerRequest  = 1000
-	maxConcurrentRequests = 1000
-	maxRetryAttempts      = 4
+	maxQueriesPerRequest       = 1000
+	maxConcurrentRequests      = 1000
+	maxConcurrentBatchRequests = 10
+	maxRetryAttempts           = 4
 	// jitterMultiplier is multiplied to the retry delay multiplied by rand(0, 1.0)
 	jitterMultiplier = 2
 )
@@ -122,26 +123,15 @@ func MakePURLRequest(purl string) *Query {
 	}
 }
 
-func MakePkgRequest(pkgDetails lockfile.PackageDetails) *Query {
-	// API has trouble parsing requests with both commit and Package details filled in
-	if pkgDetails.Ecosystem == "" && pkgDetails.Commit != "" {
-		return &Query{
-			Metadata: models.Metadata{
-				RepoURL:   pkgDetails.Name,
-				DepGroups: pkgDetails.DepGroups,
-			},
-			Commit: pkgDetails.Commit,
-		}
-	}
-
+func MakePkgRequest(pkgInfo imodels.PackageInfo) *Query {
 	return &Query{
-		Version: pkgDetails.Version,
+		Version: pkgInfo.Version,
 		Package: Package{
-			Name:      pkgDetails.Name,
-			Ecosystem: string(pkgDetails.Ecosystem),
+			Name:      pkgInfo.Name,
+			Ecosystem: pkgInfo.Ecosystem.String(),
 		},
 		Metadata: models.Metadata{
-			DepGroups: pkgDetails.DepGroups,
+			DepGroups: pkgInfo.DepGroups,
 		},
 	}
 }
@@ -181,42 +171,65 @@ func MakeRequest(request BatchedQuery) (*BatchedResponse, error) {
 func MakeRequestWithClient(request BatchedQuery, client *http.Client) (*BatchedResponse, error) {
 	// API has a limit of 1000 bulk query per request
 	queryChunks := chunkBy(request.Queries, maxQueriesPerRequest)
-	var totalOsvResp BatchedResponse
-	for _, queries := range queryChunks {
+	totalOsvRespResults := make([][]MinimalResponse, len(queryChunks))
+
+	g, ctx := errgroup.WithContext(context.TODO())
+	g.SetLimit(maxConcurrentBatchRequests)
+	for batchIndex, queries := range queryChunks {
 		requestBytes, err := json.Marshal(BatchedQuery{Queries: queries})
 		if err != nil {
 			return nil, err
 		}
 
-		resp, err := makeRetryRequest(func() (*http.Response, error) {
-			// Make sure request buffer is inside retry, if outside
-			// http request would finish the buffer, and retried requests would be empty
-			requestBuf := bytes.NewBuffer(requestBytes)
-			// We do not need a specific context
-			req, err := http.NewRequest(http.MethodPost, QueryEndpoint, requestBuf)
+		g.Go(func() error {
+			// exit early if another hydration request has already failed
+			// results are thrown away later, so avoid needless work
+			if ctx.Err() != nil {
+				return nil
+			}
+
+			resp, err := makeRetryRequest(func() (*http.Response, error) {
+				// Make sure request buffer is inside retry, if outside
+				// http request would finish the buffer, and retried requests would be empty
+				requestBuf := bytes.NewBuffer(requestBytes)
+				// We do not need a specific context
+				req, err := http.NewRequest(http.MethodPost, QueryEndpoint, requestBuf)
+				if err != nil {
+					return nil, err
+				}
+				req.Header.Set("Content-Type", "application/json")
+				if RequestUserAgent != "" {
+					req.Header.Set("User-Agent", RequestUserAgent)
+				}
+
+				return client.Do(req)
+			})
 			if err != nil {
-				return nil, err
+				return err
 			}
-			req.Header.Set("Content-Type", "application/json")
-			if RequestUserAgent != "" {
-				req.Header.Set("User-Agent", RequestUserAgent)
+			defer resp.Body.Close()
+
+			var osvResp BatchedResponse
+			decoder := json.NewDecoder(resp.Body)
+			err = decoder.Decode(&osvResp)
+			if err != nil {
+				return err
 			}
 
-			return client.Do(req)
+			// Store batch results in the corresponding index to maintain original query order.
+			totalOsvRespResults[batchIndex] = osvResp.Results
+
+			return nil
 		})
-		if err != nil {
-			return nil, err
-		}
-		defer resp.Body.Close()
+	}
 
-		var osvResp BatchedResponse
-		decoder := json.NewDecoder(resp.Body)
-		err = decoder.Decode(&osvResp)
-		if err != nil {
-			return nil, err
-		}
+	if err := g.Wait(); err != nil {
+		return nil, err
+	}
 
-		totalOsvResp.Results = append(totalOsvResp.Results, osvResp.Results...)
+	var totalOsvResp BatchedResponse
+	for _, results := range totalOsvRespResults {
+		totalOsvResp.Results = append(totalOsvResp.Results, results...)
 	}
 
 	return &totalOsvResp, nil
