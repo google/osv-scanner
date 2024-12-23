@@ -98,7 +98,6 @@ func (c *MavenRegistryClient) Requirements(ctx context.Context, vk resolve.Versi
 	if !found {
 		return nil, fmt.Errorf("invalid Maven package name %s", vk.Name)
 	}
-
 	proj, err := c.api.GetProject(ctx, g, a, vk.Version)
 	if err != nil {
 		return nil, err
