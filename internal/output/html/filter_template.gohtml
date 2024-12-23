@@ -1,0 +1,88 @@
+<div id="summary-section">
+  <div id="filter-section">
+    {{ if .IsContainerScanning }}
+    <div class="filter-container">
+      <span>Layer<br></span>
+      <div id="layer-filter" class="filter" onclick="toggleFilter('layer')">
+        <p id="layer-filter-selected" class="filter-selected"></p>
+        <div class="filter-icon">
+          <i class="material-icons">keyboard_arrow_down</i>
+        </div>
+      </div>
+      <div id="layer-filter-option-container" class="filter-option-container">
+        <div title="all" class="filter-option layer-filter-option" id="all-layer-checkbox"
+          data-layer-all-count="{{ .VulnCount.AnalysisCount.Regular }}">
+          <p>All layers ({{ .VulnCount.AnalysisCount.Regular }})</p>
+          {{ template "severity_summary_template.gohtml" .VulnCount.SeverityCount }}
+        </div>
+        {{ range .AllLayers }}
+        <div title="{{ .LayerID}}" class="filter-option layer-filter-option">
+          <p>{{ .Index }} {{ .LayerCommand }}</p>
+          {{ template "severity_summary_template.gohtml".Count.SeverityCount }}
+        </div>
+        {{ end }}
+      </div>
+    </div>
+    {{ end }}
+
+    <div class="filter-container">
+      <span>Filters<br></span>
+      <div id="type-filter" class="filter" onclick="toggleFilter('type')">
+        <p class="filter-selected">
+          <span id="type-filter-selected"></span>
+          <span>(<span id="selected-count"></span>/{{ add .VulnTypeSummary.All .VulnTypeSummary.Hidden }})</span>
+        </p>
+        <div class="filter-icon">
+          <i class="material-icons">keyboard_arrow_down</i>
+        </div>
+      </div>
+      <div id="type-filter-option-container" class="filter-option-container">
+        {{ if .IsContainerScanning }}
+        <div class="filter-option">
+          <input type="checkbox" checked id="all-type-checkbox" data-type-all-count="{{ .VulnTypeSummary.All }}">
+          <label for="all-type-checkbox">Default ({{ .VulnTypeSummary.All }})</label>
+        </div>
+        {{ end }}
+        <div class="filter-option">
+          <input type="checkbox" checked id="project-type-checkbox"
+            data-type-project-count="{{ .VulnTypeSummary.Project }}">
+          <label for="project-type-checkbox"> Project Vulnerabilities ({{ .VulnTypeSummary.Project }})</label>
+        </div>
+        {{ if .IsContainerScanning }}
+        <div class="filter-option">
+          <input type="checkbox" checked id="os-type-checkbox" data-type-os-count="{{ .VulnTypeSummary.OS }}">
+          <label for="os-type-checkbox"> Operating system vulnerabilities ({{ .VulnTypeSummary.OS }})</label>
+        </div>
+        {{ end }}
+        <div class="filter-option">
+          <input type="checkbox" id="uncalled-type-checkbox" data-type-uncalled-count="{{ .VulnTypeSummary.Hidden }}">
+          <label for="uncalled-type-checkbox">Uncalled/Unimportant ({{ .VulnTypeSummary.Hidden }})</label>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div id="severity-section">
+    <span>Overall Severity</span>
+    <div class="flex-box">
+      <div id="critical-long" class="severity-long">
+        <p class="critical">{{ .VulnCount.SeverityCount.Critical }} Critical</p>
+      </div>
+      <div id="high-long" class="severity-long">
+        <p class="high">{{ .VulnCount.SeverityCount.High }} High</p>
+      </div>
+      <div id="medium-long" class="severity-long">
+        <p class="medium">{{ .VulnCount.SeverityCount.Medium }} Medium</p>
+      </div>
+      <div id="low-long" class="severity-long">
+        <p class="low">{{ .VulnCount.SeverityCount.Low }} Low</p>
+      </div>
+      <div id="unknow-long" class="severity-long">
+        <p class="unknown">{{ .VulnCount.SeverityCount.Unknown }} Unknown</p>
+      </div>
+    </div>
+  </div>
+
+
+</div>

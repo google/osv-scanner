@@ -106,7 +106,7 @@ To lint your code, run
 
 ### Making commits
 
-Please follow the [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) specification for commit messages. This helps us to automate processes like changelog generation and ensures a clear and consistent commit history.
+Please follow the [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) specification when squashing commits during a merge. This is typically the commit merged into the main branch and is often based on the PR title. Doing so helps us to automate processes like changelog generation and ensures a clear and consistent commit history.
 
 Some types: `feat:`, `fix:`, `docs:`, `chore:`, `refactor:`, and others.
 

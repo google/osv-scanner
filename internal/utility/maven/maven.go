@@ -84,7 +84,12 @@ func MergeParents(ctx context.Context, mavenClient *datasource.MavenRegistryAPIC
 			return fmt.Errorf("failed to merge profiles: %w", err)
 		}
 		for _, repo := range proj.Repositories {
-			if err := mavenClient.AddRegistry(string(repo.URL)); err != nil {
+			if err := mavenClient.AddRegistry(datasource.MavenRegistry{
+				URL:              string(repo.URL),
+				ID:               string(repo.ID),
+				ReleasesEnabled:  repo.Releases.Enabled.Boolean(),
+				SnapshotsEnabled: repo.Snapshots.Enabled.Boolean(),
+			}); err != nil {
 				return fmt.Errorf("failed to add registry %s: %w", repo.URL, err)
 			}
 		}

@@ -5,9 +5,9 @@ import (
 	"crypto/x509"
 	"fmt"
 
-	"github.com/google/osv-scanner/pkg/lockfile"
 	"github.com/google/osv-scanner/pkg/models"
 	"github.com/google/osv-scanner/pkg/osv"
+	"github.com/ossf/osv-schema/bindings/go/osvschema"
 
 	depsdevpb "deps.dev/api/v3"
 	"golang.org/x/sync/errgroup"
@@ -22,13 +22,13 @@ import (
 const DepsdevAPI = "api.deps.dev:443"
 
 // System maps from a lockfile system to the depsdev API system.
-var System = map[lockfile.Ecosystem]depsdevpb.System{
-	lockfile.NpmEcosystem:   depsdevpb.System_NPM,
-	lockfile.NuGetEcosystem: depsdevpb.System_NUGET,
-	lockfile.CargoEcosystem: depsdevpb.System_CARGO,
-	lockfile.GoEcosystem:    depsdevpb.System_GO,
-	lockfile.MavenEcosystem: depsdevpb.System_MAVEN,
-	lockfile.PipEcosystem:   depsdevpb.System_PYPI,
+var System = map[osvschema.Ecosystem]depsdevpb.System{
+	osvschema.EcosystemNPM:      depsdevpb.System_NPM,
+	osvschema.EcosystemNuGet:    depsdevpb.System_NUGET,
+	osvschema.EcosystemCratesIO: depsdevpb.System_CARGO,
+	osvschema.EcosystemGo:       depsdevpb.System_GO,
+	osvschema.EcosystemMaven:    depsdevpb.System_MAVEN,
+	osvschema.EcosystemPyPI:     depsdevpb.System_PYPI,
 }
 
 // VersionQuery constructs a GetVersion request from the arguments.

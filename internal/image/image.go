@@ -11,9 +11,9 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/dghubble/trie"
 	v1 "github.com/google/go-containerregistry/pkg/v1"
 	"github.com/google/go-containerregistry/pkg/v1/tarball"
+	"github.com/google/osv-scanner/internal/image/pathtree"
 	"github.com/google/osv-scanner/pkg/lockfile"
 )
 
@@ -112,7 +112,7 @@ func LoadImage(imagePath string) (*Image, error) {
 		}
 
 		outputImage.layers[i] = Layer{
-			fileNodeTrie: trie.NewPathTrie(),
+			fileNodeTrie: pathtree.NewNode[FileNode](),
 			id:           hash.Hex,
 			rootImage:    &outputImage,
 		}
@@ -235,7 +235,7 @@ func LoadImage(imagePath string) (*Image, error) {
 					continue
 				}
 
-				currentMap.fileNodeTrie.Put(virtualPath, FileNode{
+				err := currentMap.fileNodeTrie.Insert(virtualPath, &FileNode{
 					rootImage: &outputImage,
 					// Select the original layer of the file
 					originLayer: &outputImage.layers[i],
@@ -244,6 +244,10 @@ func LoadImage(imagePath string) (*Image, error) {
 					isWhiteout:  tombstone,
 					permission:  fs.FileMode(header.Mode), //nolint:gosec
 				})
+
+				if err != nil {
+					return &outputImage, fmt.Errorf("image tar has repeated files: %w", err)
+				}
 			}
 		}
 
@@ -260,13 +264,12 @@ func inWhiteoutDir(fileMap Layer, filePath string) bool {
 		if filePath == "" {
 			break
 		}
-		dirname := filepath.Dir(filePath)
+		dirname := path.Dir(filePath)
 		if filePath == dirname {
 			break
 		}
-		val := fileMap.fileNodeTrie.Get(dirname)
-		item, ok := val.(FileNode)
-		if ok && item.isWhiteout {
+		node := fileMap.fileNodeTrie.Get(dirname)
+		if node != nil && node.isWhiteout {
 			return true
 		}
 		filePath = dirname

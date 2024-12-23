@@ -8,7 +8,9 @@ import (
 	"time"
 
 	"github.com/google/go-cmp/cmp"
-	"github.com/google/osv-scanner/pkg/models"
+	"github.com/google/osv-scanner/internal/imodels"
+	"github.com/google/osv-scanner/internal/imodels/ecosystem"
+	"github.com/google/osv-scanner/pkg/reporter"
 )
 
 // Attempts to normalize any file paths in the given `output` so that they can
@@ -172,7 +174,7 @@ func Test_tryLoadConfig(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
 
-			got, err := tryLoadConfig(tt.args.configPath)
+			got, err := tryLoadConfig(&reporter.VoidReporter{}, tt.args.configPath)
 			if (err != nil) != tt.wantErr {
 				t.Errorf("tryLoadConfig() error = %v, wantErr %v", err, tt.wantErr)
 				return
@@ -222,7 +224,7 @@ func TestTryLoadConfig_UnknownKeys(t *testing.T) {
 	}
 
 	for _, testData := range tests {
-		c, err := tryLoadConfig(testData.configPath)
+		c, err := tryLoadConfig(&reporter.VoidReporter{}, testData.configPath)
 
 		// we should always be returning an empty config on error
 		if diff := cmp.Diff(Config{}, c); diff != "" {
@@ -360,7 +362,7 @@ func TestConfig_ShouldIgnorePackage(t *testing.T) {
 	tests := []struct {
 		name      string
 		config    Config
-		args      models.PackageVulns
+		args      imodels.PackageInfo
 		wantOk    bool
 		wantEntry PackageOverrideEntry
 	}{
@@ -375,12 +377,10 @@ func TestConfig_ShouldIgnorePackage(t *testing.T) {
 					},
 				},
 			},
-			args: models.PackageVulns{
-				Package: models.PackageInfo{
-					Name:      "lib1",
-					Version:   "1.0.0",
-					Ecosystem: "Go",
-				},
+			args: imodels.PackageInfo{
+				Name:      "lib1",
+				Version:   "1.0.0",
+				Ecosystem: ecosystem.MustParse("Go"),
 				DepGroups: []string{"dev"},
 			},
 			wantOk: true,
@@ -403,12 +403,10 @@ func TestConfig_ShouldIgnorePackage(t *testing.T) {
 					},
 				},
 			},
-			args: models.PackageVulns{
-				Package: models.PackageInfo{
-					Name:      "lib1",
-					Version:   "1.0.0",
-					Ecosystem: "Go",
-				},
+			args: imodels.PackageInfo{
+				Name:      "lib1",
+				Version:   "1.0.0",
+				Ecosystem: ecosystem.MustParse("Go"),
 				DepGroups: []string{"dev"},
 			},
 			wantOk: true,
@@ -431,16 +429,85 @@ func TestConfig_ShouldIgnorePackage(t *testing.T) {
 					},
 				},
 			},
-			args: models.PackageVulns{
-				Package: models.PackageInfo{
-					Name:      "lib2",
-					Version:   "1.0.0",
-					Ecosystem: "npm",
-				},
+			args: imodels.PackageInfo{
+				Name:      "lib2",
+				Version:   "1.0.0",
+				Ecosystem: ecosystem.MustParse("npm"),
 				DepGroups: []string{"dev"},
 			},
 			wantOk:    false,
 			wantEntry: PackageOverrideEntry{},
+		},
+		// -------------------------------------------------------------------------
+		{
+			name: "Ecosystem-level entry with suffix exists and does match",
+			config: Config{
+				PackageOverrides: []PackageOverrideEntry{
+					{
+						Ecosystem:      "Alpine:3.20",
+						Ignore:         true,
+						EffectiveUntil: time.Time{},
+						Reason:         "abc",
+					},
+				},
+			},
+			args: imodels.PackageInfo{
+				Name:      "bin1",
+				Version:   "1.0.0",
+				Ecosystem: ecosystem.MustParse("Alpine:3.20"),
+			},
+			wantOk: true,
+			wantEntry: PackageOverrideEntry{
+				Ecosystem:      "Alpine:3.20",
+				Ignore:         true,
+				EffectiveUntil: time.Time{},
+				Reason:         "abc",
+			},
+		},
+		{
+			name: "Ecosystem-level entry with suffix exists and does not match",
+			config: Config{
+				PackageOverrides: []PackageOverrideEntry{
+					{
+						Ecosystem:      "Alpine:3.20",
+						Ignore:         true,
+						EffectiveUntil: time.Time{},
+						Reason:         "abc",
+					},
+				},
+			},
+			args: imodels.PackageInfo{
+				Name:      "bin2",
+				Version:   "1.0.0",
+				Ecosystem: ecosystem.MustParse("Alpine:3.19"),
+			},
+			wantOk:    false,
+			wantEntry: PackageOverrideEntry{},
+		},
+		{
+			name: "Ecosystem-level entry without suffix exists and does match",
+			config: Config{
+				PackageOverrides: []PackageOverrideEntry{
+					{
+						Ecosystem:      "Alpine",
+						Ignore:         true,
+						EffectiveUntil: time.Time{},
+						Reason:         "abc",
+					},
+				},
+			},
+			args: imodels.PackageInfo{
+				Name:      "bin1",
+				Version:   "1.0.0",
+				Ecosystem: ecosystem.MustParse("Alpine:3.20"),
+			},
+			wantOk: true,
+			wantEntry: PackageOverrideEntry{
+				Ecosystem:      "Alpine",
+				Ignore:         true,
+				EffectiveUntil: time.Time{},
+				Reason:         "abc",
+			},
 		},
 		// -------------------------------------------------------------------------
 		{
@@ -455,12 +522,10 @@ func TestConfig_ShouldIgnorePackage(t *testing.T) {
 					},
 				},
 			},
-			args: models.PackageVulns{
-				Package: models.PackageInfo{
-					Name:      "lib1",
-					Version:   "1.0.0",
-					Ecosystem: "Go",
-				},
+			args: imodels.PackageInfo{
+				Name:      "lib1",
+				Version:   "1.0.0",
+				Ecosystem: ecosystem.MustParse("Go"),
 				DepGroups: []string{"dev"},
 			},
 			wantOk: true,
@@ -483,12 +548,10 @@ func TestConfig_ShouldIgnorePackage(t *testing.T) {
 					},
 				},
 			},
-			args: models.PackageVulns{
-				Package: models.PackageInfo{
-					Name:      "lib2",
-					Version:   "1.0.0",
-					Ecosystem: "npm",
-				},
+			args: imodels.PackageInfo{
+				Name:      "lib2",
+				Version:   "1.0.0",
+				Ecosystem: ecosystem.MustParse("npm"),
 				DepGroups: []string{"optional"},
 			},
 			wantOk:    false,
@@ -506,12 +569,10 @@ func TestConfig_ShouldIgnorePackage(t *testing.T) {
 					},
 				},
 			},
-			args: models.PackageVulns{
-				Package: models.PackageInfo{
-					Name:      "lib2",
-					Version:   "1.0.0",
-					Ecosystem: "npm",
-				},
+			args: imodels.PackageInfo{
+				Name:      "lib2",
+				Version:   "1.0.0",
+				Ecosystem: ecosystem.MustParse("npm"),
 			},
 			wantOk:    false,
 			wantEntry: PackageOverrideEntry{},
@@ -529,12 +590,10 @@ func TestConfig_ShouldIgnorePackage(t *testing.T) {
 					},
 				},
 			},
-			args: models.PackageVulns{
-				Package: models.PackageInfo{
-					Name:      "lib1",
-					Version:   "1.0.0",
-					Ecosystem: "Go",
-				},
+			args: imodels.PackageInfo{
+				Name:      "lib1",
+				Version:   "1.0.0",
+				Ecosystem: ecosystem.MustParse("Go"),
 				DepGroups: []string{"dev"},
 			},
 			wantOk: true,
@@ -557,12 +616,10 @@ func TestConfig_ShouldIgnorePackage(t *testing.T) {
 					},
 				},
 			},
-			args: models.PackageVulns{
-				Package: models.PackageInfo{
-					Name:      "lib1",
-					Version:   "1.0.1",
-					Ecosystem: "Go",
-				},
+			args: imodels.PackageInfo{
+				Name:      "lib1",
+				Version:   "1.0.1",
+				Ecosystem: ecosystem.MustParse("Go"),
 				DepGroups: []string{"dev"},
 			},
 			wantOk:    false,
@@ -581,12 +638,10 @@ func TestConfig_ShouldIgnorePackage(t *testing.T) {
 					},
 				},
 			},
-			args: models.PackageVulns{
-				Package: models.PackageInfo{
-					Name:      "lib1",
-					Version:   "1.0.0",
-					Ecosystem: "Go",
-				},
+			args: imodels.PackageInfo{
+				Name:      "lib1",
+				Version:   "1.0.0",
+				Ecosystem: ecosystem.MustParse("Go"),
 				DepGroups: []string{"dev"},
 			},
 			wantOk: true,
@@ -609,12 +664,10 @@ func TestConfig_ShouldIgnorePackage(t *testing.T) {
 					},
 				},
 			},
-			args: models.PackageVulns{
-				Package: models.PackageInfo{
-					Name:      "lib2",
-					Version:   "1.0.0",
-					Ecosystem: "npm",
-				},
+			args: imodels.PackageInfo{
+				Name:      "lib2",
+				Version:   "1.0.0",
+				Ecosystem: ecosystem.MustParse("npm"),
 				DepGroups: []string{"dev"},
 			},
 			wantOk:    false,
@@ -635,12 +688,10 @@ func TestConfig_ShouldIgnorePackage(t *testing.T) {
 					},
 				},
 			},
-			args: models.PackageVulns{
-				Package: models.PackageInfo{
-					Name:      "lib1",
-					Version:   "1.0.0",
-					Ecosystem: "Go",
-				},
+			args: imodels.PackageInfo{
+				Name:      "lib1",
+				Version:   "1.0.0",
+				Ecosystem: ecosystem.MustParse("Go"),
 			},
 			wantOk: true,
 			wantEntry: PackageOverrideEntry{
@@ -665,12 +716,10 @@ func TestConfig_ShouldIgnorePackage(t *testing.T) {
 					},
 				},
 			},
-			args: models.PackageVulns{
-				Package: models.PackageInfo{
-					Name:      "lib1",
-					Version:   "1.0.0",
-					Ecosystem: "Go",
-				},
+			args: imodels.PackageInfo{
+				Name:      "lib1",
+				Version:   "1.0.0",
+				Ecosystem: ecosystem.MustParse("Go"),
 			},
 			wantOk: true,
 			wantEntry: PackageOverrideEntry{
@@ -695,12 +744,10 @@ func TestConfig_ShouldIgnorePackage(t *testing.T) {
 					},
 				},
 			},
-			args: models.PackageVulns{
-				Package: models.PackageInfo{
-					Name:      "lib1",
-					Version:   "1.0.0",
-					Ecosystem: "Go",
-				},
+			args: imodels.PackageInfo{
+				Name:      "lib1",
+				Version:   "1.0.0",
+				Ecosystem: ecosystem.MustParse("Go"),
 				DepGroups: []string{"dev"},
 			},
 			wantOk: true,
@@ -727,12 +774,10 @@ func TestConfig_ShouldIgnorePackage(t *testing.T) {
 					},
 				},
 			},
-			args: models.PackageVulns{
-				Package: models.PackageInfo{
-					Name:      "lib1",
-					Version:   "1.0.0",
-					Ecosystem: "Go",
-				},
+			args: imodels.PackageInfo{
+				Name:      "lib1",
+				Version:   "1.0.0",
+				Ecosystem: ecosystem.MustParse("Go"),
 				DepGroups: []string{"prod"},
 			},
 			wantOk:    false,
@@ -760,12 +805,10 @@ func TestConfig_ShouldIgnorePackage(t *testing.T) {
 					},
 				},
 			},
-			args: models.PackageVulns{
-				Package: models.PackageInfo{
-					Name:      "lib1",
-					Version:   "2.0.0",
-					Ecosystem: "Go",
-				},
+			args: imodels.PackageInfo{
+				Name:      "lib1",
+				Version:   "2.0.0",
+				Ecosystem: ecosystem.MustParse("Go"),
 			},
 			wantOk:    false,
 			wantEntry: PackageOverrideEntry{},
@@ -793,7 +836,7 @@ func TestConfig_ShouldIgnorePackageVulnerabilities(t *testing.T) {
 	tests := []struct {
 		name   string
 		config Config
-		args   models.PackageVulns
+		args   imodels.PackageInfo
 		wantOk bool
 	}{
 		{
@@ -811,12 +854,10 @@ func TestConfig_ShouldIgnorePackageVulnerabilities(t *testing.T) {
 					},
 				},
 			},
-			args: models.PackageVulns{
-				Package: models.PackageInfo{
-					Name:      "lib1",
-					Version:   "1.0.0",
-					Ecosystem: "Go",
-				},
+			args: imodels.PackageInfo{
+				Name:      "lib1",
+				Version:   "1.0.0",
+				Ecosystem: ecosystem.MustParse("Go"),
 			},
 			wantOk: true,
 		},
@@ -835,12 +876,10 @@ func TestConfig_ShouldIgnorePackageVulnerabilities(t *testing.T) {
 					},
 				},
 			},
-			args: models.PackageVulns{
-				Package: models.PackageInfo{
-					Name:      "lib1",
-					Version:   "1.0.1",
-					Ecosystem: "Go",
-				},
+			args: imodels.PackageInfo{
+				Name:      "lib1",
+				Version:   "1.0.1",
+				Ecosystem: ecosystem.MustParse("Go"),
 			},
 			wantOk: false,
 		},
@@ -858,12 +897,10 @@ func TestConfig_ShouldIgnorePackageVulnerabilities(t *testing.T) {
 					},
 				},
 			},
-			args: models.PackageVulns{
-				Package: models.PackageInfo{
-					Name:      "lib1",
-					Version:   "1.0.1",
-					Ecosystem: "Go",
-				},
+			args: imodels.PackageInfo{
+				Name:      "lib1",
+				Version:   "1.0.1",
+				Ecosystem: ecosystem.MustParse("Go"),
 			},
 			wantOk: true,
 		},
@@ -887,7 +924,7 @@ func TestConfig_ShouldOverridePackageLicense(t *testing.T) {
 	tests := []struct {
 		name      string
 		config    Config
-		args      models.PackageVulns
+		args      imodels.PackageInfo
 		wantOk    bool
 		wantEntry PackageOverrideEntry
 	}{
@@ -906,12 +943,10 @@ func TestConfig_ShouldOverridePackageLicense(t *testing.T) {
 					},
 				},
 			},
-			args: models.PackageVulns{
-				Package: models.PackageInfo{
-					Name:      "lib1",
-					Version:   "1.0.0",
-					Ecosystem: "Go",
-				},
+			args: imodels.PackageInfo{
+				Name:      "lib1",
+				Version:   "1.0.0",
+				Ecosystem: ecosystem.MustParse("Go"),
 			},
 			wantOk: true,
 			wantEntry: PackageOverrideEntry{
@@ -939,12 +974,10 @@ func TestConfig_ShouldOverridePackageLicense(t *testing.T) {
 					},
 				},
 			},
-			args: models.PackageVulns{
-				Package: models.PackageInfo{
-					Name:      "lib1",
-					Version:   "1.0.0",
-					Ecosystem: "Go",
-				},
+			args: imodels.PackageInfo{
+				Name:      "lib1",
+				Version:   "1.0.0",
+				Ecosystem: ecosystem.MustParse("Go"),
 			},
 			wantOk: true,
 			wantEntry: PackageOverrideEntry{
@@ -972,12 +1005,10 @@ func TestConfig_ShouldOverridePackageLicense(t *testing.T) {
 					},
 				},
 			},
-			args: models.PackageVulns{
-				Package: models.PackageInfo{
-					Name:      "lib1",
-					Version:   "1.0.1",
-					Ecosystem: "Go",
-				},
+			args: imodels.PackageInfo{
+				Name:      "lib1",
+				Version:   "1.0.1",
+				Ecosystem: ecosystem.MustParse("Go"),
 			},
 			wantOk:    false,
 			wantEntry: PackageOverrideEntry{},
@@ -997,12 +1028,10 @@ func TestConfig_ShouldOverridePackageLicense(t *testing.T) {
 					},
 				},
 			},
-			args: models.PackageVulns{
-				Package: models.PackageInfo{
-					Name:      "lib1",
-					Version:   "1.0.1",
-					Ecosystem: "Go",
-				},
+			args: imodels.PackageInfo{
+				Name:      "lib1",
+				Version:   "1.0.1",
+				Ecosystem: ecosystem.MustParse("Go"),
 			},
 			wantOk:    false,
 			wantEntry: PackageOverrideEntry{},
@@ -1021,12 +1050,10 @@ func TestConfig_ShouldOverridePackageLicense(t *testing.T) {
 					},
 				},
 			},
-			args: models.PackageVulns{
-				Package: models.PackageInfo{
-					Name:      "lib1",
-					Version:   "1.0.1",
-					Ecosystem: "Go",
-				},
+			args: imodels.PackageInfo{
+				Name:      "lib1",
+				Version:   "1.0.1",
+				Ecosystem: ecosystem.MustParse("Go"),
 			},
 			wantOk: true,
 			wantEntry: PackageOverrideEntry{
@@ -1052,12 +1079,10 @@ func TestConfig_ShouldOverridePackageLicense(t *testing.T) {
 					},
 				},
 			},
-			args: models.PackageVulns{
-				Package: models.PackageInfo{
-					Name:      "lib1",
-					Version:   "1.0.1",
-					Ecosystem: "Go",
-				},
+			args: imodels.PackageInfo{
+				Name:      "lib1",
+				Version:   "1.0.1",
+				Ecosystem: ecosystem.MustParse("Go"),
 			},
 			wantOk: true,
 			wantEntry: PackageOverrideEntry{
