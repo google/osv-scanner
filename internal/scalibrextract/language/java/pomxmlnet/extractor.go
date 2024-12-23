@@ -131,7 +131,7 @@ func (e Extractor) Extract(ctx context.Context, input *filesystem.ScanInput) ([]
 		}
 	}
 	overrideClient.AddVersion(root, reqs)
-  
+
 	// TODO: only run `PreFetch` for deps.dev client
 	// client.PreFetch(ctx, overrideClient, reqs, filepath.Join(input.Root, input.Path))
 	g, err := resolver.Resolve(ctx, root.VersionKey)
