@@ -332,7 +332,7 @@ func makeRetryRequest(action func() (*http.Response, error)) (*http.Response, er
 			continue
 		}
 
-		if resp.StatusCode == 429 {
+		if resp.StatusCode == http.StatusTooManyRequests {
 			lastErr = fmt.Errorf("attempt %d: too many requests: status=%d body=%s", i+1, resp.StatusCode, body)
 			continue
 		}

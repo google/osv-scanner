@@ -47,14 +47,13 @@ func TestMakeRetryRequest(t *testing.T) {
 	}
 
 	for _, tt := range tests {
-		tt := tt
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
 
 			attempts := 0
 			idx := 0
 
-			server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+			server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, _ *http.Request) {
 				attempts++
 				status := tt.statusCodes[idx]
 				if idx < len(tt.statusCodes)-1 {
@@ -63,13 +62,14 @@ func TestMakeRetryRequest(t *testing.T) {
 
 				w.WriteHeader(status)
 				message := fmt.Sprintf("response-%d", attempts)
-				w.Write([]byte(message))
+				_, _ = w.Write([]byte(message))
 			}))
 			defer server.Close()
 
 			client := &http.Client{Timeout: time.Second}
 
 			resp, err := makeRetryRequest(func() (*http.Response, error) {
+				//nolint:noctx
 				return client.Get(server.URL)
 			})
 
@@ -84,6 +84,7 @@ func TestMakeRetryRequest(t *testing.T) {
 				if !strings.Contains(err.Error(), tt.expectedError) {
 					t.Errorf("expected error containing %q, got %q", tt.expectedError, err)
 				}
+
 				return
 			}
 
