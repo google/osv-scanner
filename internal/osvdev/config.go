@@ -13,14 +13,14 @@ type ClientConfig struct {
 	UserAgent                  string
 }
 
-// Default make a default client config
+// DefaultConfig make a default client config
 func DefaultConfig() ClientConfig {
 	return ClientConfig{
 		MaxRetryAttempts:           4,
 		JitterMultiplier:           2,
 		BackoffDurationExponential: 2,
 		BackoffDurationMultiplier:  1,
-		UserAgent:                  "osv-scanner-v2-" + version.OSVVersion,
+		UserAgent:                  "osv-scanner/" + version.OSVVersion,
 		MaxConcurrentRequests:      1000,
 		MaxConcurrentBatchRequests: 10,
 	}
