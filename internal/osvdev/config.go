@@ -12,7 +12,7 @@ type ClientConfig struct {
 }
 
 // Default make a default client config
-func Default() ClientConfig {
+func DefaultConfig() ClientConfig {
 	return ClientConfig{
 		MaxRetryAttempts:           4,
 		JitterMultiplier:           2,

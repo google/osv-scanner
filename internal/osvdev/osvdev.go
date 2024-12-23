@@ -15,11 +15,10 @@ import (
 )
 
 const (
-	// QueryEndpoint is the URL for posting queries to OSV.
 	QueryBatchEndpoint = "/v1/querybatch"
 	QueryEndpoint      = "/v1/query"
-	// GetEndpoint is the URL for getting vulnerabilities from OSV.
-	GetEndpoint = "/v1/vulns"
+	GetEndpoint        = "/v1/vulns"
+
 	// DetermineVersionEndpoint is the URL for posting determineversion queries to OSV.
 	DetermineVersionEndpoint = "/v1experimental/determineversion"
 
@@ -31,6 +30,15 @@ type OSVClient struct {
 	HttpClient  http.Client
 	Config      ClientConfig
 	BaseHostURL string
+}
+
+// DefaultClient() creates a new OSVClient with default settings
+func DefaultClient() *OSVClient {
+	return &OSVClient{
+		HttpClient:  http.Client{},
+		Config:      DefaultConfig(),
+		BaseHostURL: "https://api.osv.dev",
+	}
 }
 
 // GetVulnsByID is an interface to this endpoint: https://google.github.io/osv.dev/get-v1-vulns/
@@ -139,18 +147,21 @@ func (c *OSVClient) Query(ctx context.Context, query *Query) (*Response, error) 
 		return nil, err
 	}
 
-	requestBuf := bytes.NewBuffer(requestBytes)
-	req, err := http.NewRequestWithContext(ctx, http.MethodPost, c.BaseHostURL+QueryEndpoint, requestBuf)
-	if err != nil {
-		return nil, err
-	}
+	resp, err := c.makeRetryRequest(func() (*http.Response, error) {
+		requestBuf := bytes.NewBuffer(requestBytes)
+		req, err := http.NewRequestWithContext(ctx, http.MethodPost, c.BaseHostURL+QueryEndpoint, requestBuf)
+		if err != nil {
+			return nil, err
+		}
 
-	req.Header.Set("Content-Type", "application/json")
-	if c.Config.UserAgent != "" {
-		req.Header.Set("User-Agent", c.Config.UserAgent)
-	}
+		req.Header.Set("Content-Type", "application/json")
+		if c.Config.UserAgent != "" {
+			req.Header.Set("User-Agent", c.Config.UserAgent)
+		}
 
-	resp, err := c.HttpClient.Do(req)
+		return c.HttpClient.Do(req)
+	})
+
 	if err != nil {
 		return nil, err
 	}
@@ -207,6 +218,7 @@ func (c *OSVClient) ExperimentalDetermineVersion(ctx context.Context, query *Det
 func (c *OSVClient) makeRetryRequest(action func() (*http.Response, error)) (*http.Response, error) {
 	var resp *http.Response
 	var err error
+	var lastErr error
 
 	for i := range c.Config.MaxRetryAttempts {
 		// rand is initialized with a random number (since go1.20), and is also safe to use concurrently
@@ -216,31 +228,42 @@ func (c *OSVClient) makeRetryRequest(action func() (*http.Response, error)) (*ht
 		time.Sleep(time.Duration(i*i)*time.Second + time.Duration(jitterAmount*1000)*time.Millisecond)
 
 		resp, err = action()
-		if err == nil {
-			// Check the response for HTTP errors
-			err = checkResponseError(resp)
-			if err == nil {
-				break
-			}
+
+		// The network request itself failed, did not even get a response
+		if err != nil {
+			lastErr = fmt.Errorf("attempt %d: request failed: %w", i+1, err)
+			continue
 		}
+
+		// Everything is fine
+		if resp.StatusCode >= 200 && resp.StatusCode < 300 {
+			return resp, nil
+		}
+
+		errBody, err := io.ReadAll(resp.Body)
+		resp.Body.Close()
+		if err != nil {
+			lastErr = fmt.Errorf("attempt %d: failed to read response: %w", i+1, err)
+			continue
+		}
+
+		// Special case for too many requests, it should try again after a delay.
+		if resp.StatusCode == http.StatusTooManyRequests {
+			lastErr = fmt.Errorf("attempt %d: too many requests: status=%q body=%s", i+1, resp.Status, errBody)
+			continue
+		}
+
+		// Otherwise any other 400 error should be fatal, as the request we are sending is incorrect
+		// Retrying won't make a difference
+		if resp.StatusCode >= 400 && resp.StatusCode < 500 {
+			return nil, fmt.Errorf("client error: status=%q body=%s", resp.Status, errBody)
+		}
+
+		// Most likely a 500 >= error
+		lastErr = fmt.Errorf("server error: status=%q body=%s", resp.Status, errBody)
 	}
 
-	return resp, err
-}
-
-// checkResponseError checks if the response has an error.
-func checkResponseError(resp *http.Response) error {
-	if resp.StatusCode == http.StatusOK {
-		return nil
-	}
-
-	respBuf, err := io.ReadAll(resp.Body)
-	if err != nil {
-		return fmt.Errorf("failed to read error response from server: %w", err)
-	}
-	defer resp.Body.Close()
-
-	return fmt.Errorf("server response error: %s", string(respBuf))
+	return nil, lastErr
 }
 
 // From: https://stackoverflow.com/a/72408490
