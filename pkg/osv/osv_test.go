@@ -8,10 +8,13 @@ import (
 	"strings"
 	"testing"
 	"time"
+
+	"github.com/google/osv-scanner/internal/testutility"
 )
 
 func TestMakeRetryRequest(t *testing.T) {
 	t.Parallel()
+	testutility.SkipIfNotAcceptanceTesting(t, "This test takes a long time")
 
 	tests := []struct {
 		name          string
