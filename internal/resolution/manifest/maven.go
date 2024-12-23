@@ -41,7 +41,7 @@ type MavenReadWriter struct {
 func (MavenReadWriter) System() resolve.System { return resolve.Maven }
 
 func NewMavenReadWriter(registry string) (MavenReadWriter, error) {
-	client, err := datasource.NewMavenRegistryAPIClient(registry)
+	client, err := datasource.NewMavenRegistryAPIClient(datasource.MavenRegistry{URL: registry, ReleasesEnabled: true})
 	if err != nil {
 		return MavenReadWriter{}, err
 	}
@@ -97,8 +97,15 @@ func (m MavenReadWriter) Read(df lockfile.DepFile) (Manifest, error) {
 	if err := project.MergeProfiles("", maven.ActivationOS{}); err != nil {
 		return Manifest{}, fmt.Errorf("failed to merge profiles: %w", err)
 	}
+
+	// TODO: there may be properties in repo.Releases.Enabled and repo.Snapshots.Enabled
 	for _, repo := range project.Repositories {
-		if err := m.MavenRegistryAPIClient.AddRegistry(string(repo.URL)); err != nil {
+		if err := m.MavenRegistryAPIClient.AddRegistry(datasource.MavenRegistry{
+			URL:              string(repo.URL),
+			ID:               string(repo.ID),
+			ReleasesEnabled:  repo.Releases.Enabled.Boolean(),
+			SnapshotsEnabled: repo.Snapshots.Enabled.Boolean(),
+		}); err != nil {
 			return Manifest{}, fmt.Errorf("failed to add registry %s: %w", repo.URL, err)
 		}
 	}

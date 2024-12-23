@@ -5,7 +5,6 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"io/fs"
 
 	"github.com/google/osv-scalibr/extractor"
 	"github.com/google/osv-scalibr/extractor/filesystem"
@@ -29,7 +28,7 @@ func (e Extractor) Requirements() *plugin.Capabilities {
 }
 
 // FileRequired never returns true, as this is for the osv-scanner json output.
-func (e Extractor) FileRequired(_ string, _ fs.FileInfo) bool {
+func (e Extractor) FileRequired(_ filesystem.FileAPI) bool {
 	return false
 }
 

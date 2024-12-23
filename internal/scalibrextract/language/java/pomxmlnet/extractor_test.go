@@ -8,6 +8,7 @@ import (
 	"github.com/google/go-cmp/cmp/cmpopts"
 	"github.com/google/osv-scalibr/extractor"
 	"github.com/google/osv-scalibr/extractor/filesystem/osv"
+	"github.com/google/osv-scalibr/extractor/filesystem/simplefileapi"
 	"github.com/google/osv-scalibr/testing/extracttest"
 	"github.com/google/osv-scanner/internal/resolution/clienttest"
 	"github.com/google/osv-scanner/internal/resolution/datasource"
@@ -51,7 +52,7 @@ func TestMavenResolverExtractor_FileRequired(t *testing.T) {
 		t.Run(tt.path, func(t *testing.T) {
 			t.Parallel()
 			e := pomxmlnet.Extractor{}
-			got := e.FileRequired(tt.path, nil)
+			got := e.FileRequired(simplefileapi.New(tt.path, nil))
 			if got != tt.want {
 				t.Errorf("Extract() got = %v, want %v", got, tt.want)
 			}
@@ -339,7 +340,7 @@ func TestExtractor_Extract_WithMockServer(t *testing.T) {
 	</project>
 	`))
 
-	apiClient, err := datasource.NewMavenRegistryAPIClient(srv.URL)
+	apiClient, err := datasource.NewMavenRegistryAPIClient(datasource.MavenRegistry{URL: srv.URL, ReleasesEnabled: true})
 	if err != nil {
 		t.Fatalf("%v", err)
 	}

@@ -12,6 +12,7 @@ import (
 	"github.com/google/osv-scalibr/extractor/filesystem/language/golang/gobinary"
 	"github.com/google/osv-scalibr/extractor/filesystem/os/apk"
 	"github.com/google/osv-scalibr/extractor/filesystem/os/dpkg"
+	"github.com/google/osv-scalibr/extractor/filesystem/simplefileapi"
 	"github.com/google/osv-scanner/internal/scalibrextract"
 	"github.com/google/osv-scanner/internal/scalibrextract/language/javascript/nodemodules"
 	"github.com/google/osv-scanner/pkg/lockfile"
@@ -35,7 +36,7 @@ func findArtifactExtractor(path string, fileInfo fs.FileInfo) []filesystem.Extra
 	// Use ShouldExtract to collect and return a slice of artifactExtractors
 	var extractors []filesystem.Extractor
 	for _, extractor := range artifactExtractors {
-		if extractor.FileRequired(path, fileInfo) {
+		if extractor.FileRequired(simplefileapi.New(path, fileInfo)) {
 			extractors = append(extractors, extractor)
 		}
 	}

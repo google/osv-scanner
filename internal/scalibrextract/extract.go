@@ -5,10 +5,14 @@ import (
 	"fmt"
 	"io/fs"
 	"os"
+	"path/filepath"
+	"runtime"
 	"slices"
+	"strings"
 
 	"github.com/google/osv-scalibr/extractor"
 	"github.com/google/osv-scalibr/extractor/filesystem"
+	"github.com/google/osv-scalibr/extractor/filesystem/simplefileapi"
 
 	scalibrfs "github.com/google/osv-scalibr/fs"
 )
@@ -59,7 +63,7 @@ func ExtractWithExtractors(ctx context.Context, localPath string, extractors []f
 	result := []*extractor.Inventory{}
 	extractorFound := false
 	for _, ext := range extractors {
-		if !ext.FileRequired(localPath, info) {
+		if !ext.FileRequired(simplefileapi.New(localPath, info)) {
 			continue
 		}
 		extractorFound = true
@@ -80,7 +84,10 @@ func ExtractWithExtractors(ctx context.Context, localPath string, extractors []f
 }
 
 func extractWithExtractor(ctx context.Context, localPath string, info fs.FileInfo, ext filesystem.Extractor) ([]*extractor.Inventory, error) {
-	si, err := createScanInput(localPath, info)
+	// Create a scan input centered at the system root directory,
+	// to give access to the full filesystem for each extractor.
+	rootDir := getRootDir(localPath)
+	si, err := createScanInput(localPath, rootDir, info)
 	if err != nil {
 		return nil, err
 	}
@@ -91,7 +98,13 @@ func extractWithExtractor(ctx context.Context, localPath string, info fs.FileInf
 	}
 
 	for i := range invs {
+		// Set parent extractor
 		invs[i].Extractor = ext
+
+		// Make Location relative to the scan root as we are performing local scanning
+		for i2 := range invs[i].Locations {
+			invs[i].Locations[i2] = filepath.Join(rootDir, invs[i].Locations[i2])
+		}
 	}
 
 	slices.SortFunc(invs, inventorySort)
@@ -102,19 +115,40 @@ func extractWithExtractor(ctx context.Context, localPath string, info fs.FileInf
 	return invsCompact, nil
 }
 
-func createScanInput(path string, fileInfo fs.FileInfo) (*filesystem.ScanInput, error) {
+func createScanInput(path string, root string, fileInfo fs.FileInfo) (*filesystem.ScanInput, error) {
 	reader, err := os.Open(path)
 	if err != nil {
 		return nil, err
 	}
 
+	// Rel will strip root from the input path.
+	path, err = filepath.Rel(root, path)
+	if err != nil {
+		return nil, err
+	}
+
 	si := filesystem.ScanInput{
-		FS:     os.DirFS("/").(scalibrfs.FS),
+		FS:     os.DirFS(root).(scalibrfs.FS),
 		Path:   path,
-		Root:   "/",
+		Root:   root,
 		Reader: reader,
 		Info:   fileInfo,
 	}
 
 	return &si, nil
+}
+
+// getRootDir returns the root directory on each system.
+// On Unix systems, it'll be /
+// On Windows, it will most likely be the drive (e.g. C:\)
+func getRootDir(path string) string {
+	if runtime.GOOS == "windows" {
+		return filepath.VolumeName(path) + "\\"
+	}
+
+	if strings.HasPrefix(path, "/") {
+		return "/"
+	}
+
+	return ""
 }
