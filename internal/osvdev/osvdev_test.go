@@ -2,10 +2,11 @@ package osvdev_test
 
 import (
 	"context"
-	"strings"
 	"testing"
 
 	"github.com/google/go-cmp/cmp"
+	"github.com/google/go-cmp/cmp/cmpopts"
+	"github.com/google/osv-scalibr/testing/extracttest"
 	"github.com/google/osv-scanner/internal/osvdev"
 	"github.com/ossf/osv-schema/bindings/go/osvschema"
 )
@@ -14,23 +15,27 @@ func TestOSVClient_GetVulnsByID(t *testing.T) {
 	t.Parallel()
 
 	tests := []struct {
-		name            string
-		id              string
-		wantErrContains string
+		name    string
+		id      string
+		wantErr error
 	}{
 		{
 			name: "Simple ID lookup",
 			id:   "GO-2024-3333",
 		},
 		{
-			name:            "Missing ID lookup",
-			id:              "GO-1000-1000",
-			wantErrContains: `client error: status="404 Not Found" body={"code":5,"message":"Bug not found."}`,
+			name: "Missing ID lookup",
+			id:   "GO-1000-1000",
+			wantErr: extracttest.ContainsErrStr{
+				Str: `client error: status="404 Not Found" body={"code":5,"message":"Bug not found."}`,
+			},
 		},
 		{
-			name:            "Invalid ID",
-			id:              "_--_--",
-			wantErrContains: `client error: status="404 Not Found" body={"code":5,"message":"Bug not found."}`,
+			name: "Invalid ID",
+			id:   "_--_--",
+			wantErr: extracttest.ContainsErrStr{
+				Str: `client error: status="404 Not Found" body={"code":5,"message":"Bug not found."}`,
+			},
 		},
 	}
 	for _, tt := range tests {
@@ -39,13 +44,17 @@ func TestOSVClient_GetVulnsByID(t *testing.T) {
 
 			c := osvdev.DefaultClient()
 			c.Config.UserAgent = "osv-scanner-api-test"
+
 			got, err := c.GetVulnsByID(context.Background(), tt.id)
+
+			if diff := cmp.Diff(tt.wantErr, err, cmpopts.EquateErrors()); diff != "" {
+				t.Fatalf("Unexpected error (-want +got):\n%s", diff)
+			}
+
 			if err != nil {
-				if tt.wantErrContains == "" || !strings.Contains(err.Error(), tt.wantErrContains) {
-					t.Errorf("OSVClient.GetVulnsByID() error = %v, wantErr %q", err, tt.wantErrContains)
-				}
 				return
 			}
+
 			if got.ID != tt.id {
 				t.Errorf("OSVClient.GetVulnsByID() = %v, want %v", got, tt.id)
 			}
@@ -54,11 +63,13 @@ func TestOSVClient_GetVulnsByID(t *testing.T) {
 }
 
 func TestOSVClient_QueryBatch(t *testing.T) {
+	t.Parallel()
+
 	tests := []struct {
-		name            string
-		queries         []*osvdev.Query
-		wantIDs         [][]string
-		wantErrContains string
+		name    string
+		queries []*osvdev.Query
+		wantIDs [][]string
+		wantErr error
 	}{
 		{
 			name: "multiple queries lookup",
@@ -108,8 +119,10 @@ func TestOSVClient_QueryBatch(t *testing.T) {
 					},
 				},
 			},
-			wantIDs:         [][]string{},
-			wantErrContains: `client error: status="400 Bad Request" body={"code":3,"message":"Invalid query."}`,
+			wantIDs: [][]string{},
+			wantErr: extracttest.ContainsErrStr{
+				Str: `client error: status="400 Bad Request" body={"code":3,"message":"Invalid query."}`,
+			},
 		},
 	}
 
@@ -119,11 +132,14 @@ func TestOSVClient_QueryBatch(t *testing.T) {
 
 			c := osvdev.DefaultClient()
 			c.Config.UserAgent = "osv-scanner-api-test"
+
 			got, err := c.QueryBatch(context.Background(), tt.queries)
+
+			if diff := cmp.Diff(tt.wantErr, err, cmpopts.EquateErrors()); diff != "" {
+				t.Fatalf("Unexpected error (-want +got):\n%s", diff)
+			}
+
 			if err != nil {
-				if tt.wantErrContains == "" || !strings.Contains(err.Error(), tt.wantErrContains) {
-					t.Errorf("OSVClient.GetVulnsByID() error = %v, wantErr %q", err, tt.wantErrContains)
-				}
 				return
 			}
 
@@ -147,10 +163,10 @@ func TestOSVClient_Query(t *testing.T) {
 	t.Parallel()
 
 	tests := []struct {
-		name            string
-		query           osvdev.Query
-		wantIDs         []string
-		wantErrContains string
+		name    string
+		query   osvdev.Query
+		wantIDs []string
+		wantErr error
 	}{
 		{
 			name: "npm Package lookup",
@@ -193,8 +209,9 @@ func TestOSVClient_Query(t *testing.T) {
 					Name: "abcd-definitely-does-not-exist",
 				},
 			},
-			wantErrContains: `client error: status="400 Bad Request" body={"code":3,"message":"Invalid query."}`,
-		},
+			wantErr: extracttest.ContainsErrStr{
+				Str: `client error: status="400 Bad Request" body={"code":3,"message":"Invalid query."}`,
+			}},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -202,11 +219,14 @@ func TestOSVClient_Query(t *testing.T) {
 
 			c := osvdev.DefaultClient()
 			c.Config.UserAgent = "osv-scanner-api-test"
+
 			got, err := c.Query(context.Background(), &tt.query)
+
+			if diff := cmp.Diff(tt.wantErr, err, cmpopts.EquateErrors()); diff != "" {
+				t.Fatalf("Unexpected error (-want +got):\n%s", diff)
+			}
+
 			if err != nil {
-				if tt.wantErrContains == "" || !strings.Contains(err.Error(), tt.wantErrContains) {
-					t.Errorf("OSVClient.GetVulnsByID() error = %v, wantErr %q", err, tt.wantErrContains)
-				}
 				return
 			}
 
@@ -226,10 +246,9 @@ func TestOSVClient_ExperimentalDetermineVersion(t *testing.T) {
 	t.Parallel()
 
 	tests := []struct {
-		name            string
-		query           osvdev.DetermineVersionsRequest
-		wantPkgs        []string
-		wantErrContains string
+		name     string
+		query    osvdev.DetermineVersionsRequest
+		wantPkgs []string
 	}{
 		{
 			name: "Simple non existent package query",
@@ -252,12 +271,10 @@ func TestOSVClient_ExperimentalDetermineVersion(t *testing.T) {
 
 			c := osvdev.DefaultClient()
 			c.Config.UserAgent = "osv-scanner-api-test"
+
 			got, err := c.ExperimentalDetermineVersion(context.Background(), &tt.query)
 			if err != nil {
-				if tt.wantErrContains == "" || !strings.Contains(err.Error(), tt.wantErrContains) {
-					t.Errorf("OSVClient.GetVulnsByID() error = %v, wantErr %q", err, tt.wantErrContains)
-				}
-				return
+				t.Fatalf("Unexpected error %v", err)
 			}
 
 			gotPkgInfo := make([]string, 0, len(got.Matches))

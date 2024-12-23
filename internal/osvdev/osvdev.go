@@ -6,6 +6,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
+	"math"
 	"math/rand/v2"
 	"net/http"
 	"time"
@@ -27,7 +28,7 @@ const (
 )
 
 type OSVClient struct {
-	HttpClient  http.Client
+	HTTPClient  *http.Client
 	Config      ClientConfig
 	BaseHostURL string
 }
@@ -35,7 +36,7 @@ type OSVClient struct {
 // DefaultClient() creates a new OSVClient with default settings
 func DefaultClient() *OSVClient {
 	return &OSVClient{
-		HttpClient:  http.Client{},
+		HTTPClient:  http.DefaultClient,
 		Config:      DefaultConfig(),
 		BaseHostURL: "https://api.osv.dev",
 	}
@@ -43,7 +44,7 @@ func DefaultClient() *OSVClient {
 
 // GetVulnsByID is an interface to this endpoint: https://google.github.io/osv.dev/get-v1-vulns/
 func (c *OSVClient) GetVulnsByID(ctx context.Context, id string) (*models.Vulnerability, error) {
-	resp, err := c.makeRetryRequest(func() (*http.Response, error) {
+	resp, err := c.makeRetryRequest(func(client *http.Client) (*http.Response, error) {
 		req, err := http.NewRequestWithContext(ctx, http.MethodGet, c.BaseHostURL+GetEndpoint+"/"+id, nil)
 		if err != nil {
 			return nil, err
@@ -52,7 +53,7 @@ func (c *OSVClient) GetVulnsByID(ctx context.Context, id string) (*models.Vulner
 			req.Header.Set("User-Agent", c.Config.UserAgent)
 		}
 
-		return c.HttpClient.Do(req)
+		return client.Do(req)
 	})
 
 	if err != nil {
@@ -92,7 +93,7 @@ func (c *OSVClient) QueryBatch(ctx context.Context, queries []*Query) (*BatchedR
 				return nil
 			}
 
-			resp, err := c.makeRetryRequest(func() (*http.Response, error) {
+			resp, err := c.makeRetryRequest(func(client *http.Client) (*http.Response, error) {
 				// Make sure request buffer is inside retry, if outside
 				// http request would finish the buffer, and retried requests would be empty
 				requestBuf := bytes.NewBuffer(requestBytes)
@@ -105,7 +106,7 @@ func (c *OSVClient) QueryBatch(ctx context.Context, queries []*Query) (*BatchedR
 					req.Header.Set("User-Agent", c.Config.UserAgent)
 				}
 
-				return c.HttpClient.Do(req)
+				return client.Do(req)
 			})
 			if err != nil {
 				return err
@@ -147,7 +148,7 @@ func (c *OSVClient) Query(ctx context.Context, query *Query) (*Response, error) 
 		return nil, err
 	}
 
-	resp, err := c.makeRetryRequest(func() (*http.Response, error) {
+	resp, err := c.makeRetryRequest(func(client *http.Client) (*http.Response, error) {
 		requestBuf := bytes.NewBuffer(requestBytes)
 		req, err := http.NewRequestWithContext(ctx, http.MethodPost, c.BaseHostURL+QueryEndpoint, requestBuf)
 		if err != nil {
@@ -159,7 +160,7 @@ func (c *OSVClient) Query(ctx context.Context, query *Query) (*Response, error) 
 			req.Header.Set("User-Agent", c.Config.UserAgent)
 		}
 
-		return c.HttpClient.Do(req)
+		return client.Do(req)
 	})
 
 	if err != nil {
@@ -184,7 +185,7 @@ func (c *OSVClient) ExperimentalDetermineVersion(ctx context.Context, query *Det
 		return nil, err
 	}
 
-	resp, err := c.makeRetryRequest(func() (*http.Response, error) {
+	resp, err := c.makeRetryRequest(func(client *http.Client) (*http.Response, error) {
 		// Make sure request buffer is inside retry, if outside
 		// http request would finish the buffer, and retried requests would be empty
 		requestBuf := bytes.NewBuffer(requestBytes)
@@ -197,7 +198,7 @@ func (c *OSVClient) ExperimentalDetermineVersion(ctx context.Context, query *Det
 			req.Header.Set("User-Agent", c.Config.UserAgent)
 		}
 
-		return http.DefaultClient.Do(req)
+		return client.Do(req)
 	})
 
 	if err != nil {
@@ -215,7 +216,7 @@ func (c *OSVClient) ExperimentalDetermineVersion(ctx context.Context, query *Det
 }
 
 // makeRetryRequest will return an error on both network errors, and if the response is not 200
-func (c *OSVClient) makeRetryRequest(action func() (*http.Response, error)) (*http.Response, error) {
+func (c *OSVClient) makeRetryRequest(action func(client *http.Client) (*http.Response, error)) (*http.Response, error) {
 	var resp *http.Response
 	var err error
 	var lastErr error
@@ -225,9 +226,11 @@ func (c *OSVClient) makeRetryRequest(action func() (*http.Response, error)) (*ht
 		// we do not need to use a cryptographically secure random jitter, this is just to spread out the retry requests
 		// #nosec G404
 		jitterAmount := (rand.Float64() * float64(c.Config.JitterMultiplier) * float64(i))
-		time.Sleep(time.Duration(i*i)*time.Second + time.Duration(jitterAmount*1000)*time.Millisecond)
+		time.Sleep(
+			time.Duration(math.Pow(float64(i), c.Config.BackoffDurationExponential)*c.Config.BackoffDurationMultiplier*1000)*time.Millisecond +
+				time.Duration(jitterAmount*1000)*time.Millisecond)
 
-		resp, err = action()
+		resp, err = action(c.HTTPClient)
 
 		// The network request itself failed, did not even get a response
 		if err != nil {
@@ -263,7 +266,7 @@ func (c *OSVClient) makeRetryRequest(action func() (*http.Response, error)) (*ht
 		lastErr = fmt.Errorf("server error: status=%q body=%s", resp.Status, errBody)
 	}
 
-	return nil, lastErr
+	return nil, fmt.Errorf("max retries exceeded: %w", lastErr)
 }
 
 // From: https://stackoverflow.com/a/72408490
