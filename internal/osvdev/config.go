@@ -9,6 +9,7 @@ type ClientConfig struct {
 	BackoffDurationExponential float64
 	BackoffDurationMultiplier  float64
 	UserAgent                  string
+	MaxPages                   int
 }
 
 // DefaultConfig make a default client config
@@ -20,5 +21,6 @@ func DefaultConfig() ClientConfig {
 		BackoffDurationMultiplier:  1,
 		UserAgent:                  "osv-scanner/" + version.OSVVersion,
 		MaxConcurrentBatchRequests: 10,
+		MaxPages:                   -1,
 	}
 }

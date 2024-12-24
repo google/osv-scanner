@@ -39,7 +39,7 @@ func (vf *VulnFinder) Match(ctx context.Context, pkgs []*extractor.Inventory) ([
 				if ctx.Err() != nil {
 					return nil //nolint:nilerr // this value doesn't matter to errgroup.Wait()
 				}
-				vuln, err := vf.Client.GetVulnsByID(ctx, vuln.ID)
+				vuln, err := vf.Client.GetVulnByID(ctx, vuln.ID)
 				if err != nil {
 					return err
 				}
