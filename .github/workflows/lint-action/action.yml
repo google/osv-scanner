@@ -23,4 +23,5 @@ runs:
       with:
         # Optional: version of golangci-lint to use in form of v1.2 or v1.2.3 or `latest` to use the latest version
         version: v1.62.2
-        timeout: 2m 
+        args: --timeout=3m
+
