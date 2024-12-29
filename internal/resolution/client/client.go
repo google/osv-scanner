@@ -6,6 +6,7 @@ import (
 
 	pb "deps.dev/api/v3"
 	"deps.dev/util/resolve"
+	"deps.dev/util/resolve/dep"
 	"github.com/google/osv-scanner/internal/depsdev"
 	"github.com/google/osv-scanner/pkg/models"
 	"github.com/google/osv-scanner/pkg/osv"
@@ -34,9 +35,7 @@ type DependencyClient interface {
 	AddRegistries(registries []Registry) error
 }
 
-type Registry struct {
-	URL string
-}
+type Registry interface{}
 
 // PreFetch loads cache, then makes and caches likely queries needed for resolving a package with a list of requirements
 func PreFetch(ctx context.Context, c DependencyClient, requirements []resolve.RequirementVersion, manifestPath string) {
@@ -62,6 +61,10 @@ func PreFetch(ctx context.Context, c DependencyClient, requirements []resolve.Re
 
 	// Use the deps.dev client to fetch complete dependency graphs of our direct imports
 	for _, im := range requirements {
+		// There are potentially a huge number of management/import dependencies.
+		if im.Type.HasAttr(dep.MavenDependencyOrigin) {
+			continue
+		}
 		// Get the preferred version of the import requirement
 		vks, err := c.MatchingVersions(ctx, im.VersionKey)
 		if err != nil || len(vks) == 0 {
@@ -108,21 +111,6 @@ func PreFetch(ctx context.Context, c DependencyClient, requirements []resolve.Re
 			go c.Version(ctx, vk)             //nolint:errcheck
 			go c.Versions(ctx, vk.PackageKey) //nolint:errcheck
 		}
-
-		for _, edge := range resp.GetEdges() {
-			req := edge.GetRequirement()
-			pbvk := nodes[edge.GetToNode()].GetVersionKey()
-			vk := resolve.VersionKey{
-				PackageKey: resolve.PackageKey{
-					System: resolve.System(pbvk.GetSystem()),
-					Name:   pbvk.GetName(),
-				},
-				Version:     req,
-				VersionType: resolve.Requirement,
-			}
-			go c.MatchingVersions(ctx, vk) //nolint:errcheck
-		}
 	}
-
 	// don't bother waiting for goroutines to finish.
 }

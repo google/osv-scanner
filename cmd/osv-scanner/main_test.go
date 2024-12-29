@@ -46,8 +46,20 @@ func normalizeRootDirectory(t *testing.T, str string) string {
 
 	// file uris with Windows end up with three slashes, so we normalize that too
 	str = strings.ReplaceAll(str, "file:///"+cwd, "file://<rootdir>")
+	str = strings.ReplaceAll(str, cwd, "<rootdir>")
 
-	return strings.ReplaceAll(str, cwd, "<rootdir>")
+	// Replace versions without the root as well
+	var root string
+	if runtime.GOOS == "windows" {
+		root = filepath.VolumeName(cwd) + "\\"
+	}
+
+	if strings.HasPrefix(cwd, "/") {
+		root = "/"
+	}
+	str = strings.ReplaceAll(str, cwd[len(root):], "<rootdir>")
+
+	return str
 }
 
 // normalizeUserCacheDirectory attempts to replace references to the current working
@@ -750,8 +762,11 @@ func TestRun_Licenses(t *testing.T) {
 	}
 }
 
+// TODO(v2): Image scanning is not temporarily disabled
+
 func TestRun_Docker(t *testing.T) {
 	t.Parallel()
+	t.Skip("Skipping until image scanning is reenabled")
 
 	testutility.SkipIfNotAcceptanceTesting(t, "Takes a long time to pull down images")
 
@@ -797,6 +812,7 @@ func TestRun_Docker(t *testing.T) {
 
 func TestRun_OCIImage(t *testing.T) {
 	t.Parallel()
+	t.Skip("Skipping until image scanning is reenabled")
 
 	testutility.SkipIfNotAcceptanceTesting(t, "Not consistent on MacOS/Windows")
 

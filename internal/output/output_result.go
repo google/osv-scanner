@@ -8,6 +8,7 @@ import (
 	"sort"
 	"strings"
 
+	"github.com/google/osv-scanner/internal/cachedregexp"
 	"github.com/google/osv-scanner/internal/identifiers"
 	"github.com/google/osv-scanner/internal/semantic"
 	"github.com/google/osv-scanner/internal/utility/severity"
@@ -477,7 +478,7 @@ func (vt VulnAnalysisType) String() string {
 	}
 }
 
-func getFilteredVulnReasons(vulns []VulnResult) []string {
+func getFilteredVulnReasons(vulns []VulnResult) string {
 	reasonMap := make(map[string]bool)
 	for _, vuln := range vulns {
 		if vuln.VulnAnalysisType != VulnTypeRegular {
@@ -492,7 +493,7 @@ func getFilteredVulnReasons(vulns []VulnResult) []string {
 
 	sort.Strings(reasons)
 
-	return reasons
+	return strings.Join(reasons, ", ")
 }
 
 func increaseSeverityCount(severityCount SeverityCount, severityType severity.Rating) SeverityCount {
@@ -610,4 +611,21 @@ func calculateCount(regularVulnList, hiddenVulnList []VulnResult) VulnCount {
 	count.AnalysisCount.Hidden = len(hiddenVulnList)
 
 	return count
+}
+
+// formatLayerCommand formats the layer command output for better readability.
+// It replaces the unreadable file ID with "UNKNOWN" and extracting the ID separately.
+func formatLayerCommand(command string) (string, string) {
+	re := cachedregexp.MustCompile(`(dir|file):([a-f0-9]+)`)
+	match := re.FindStringSubmatch(command)
+
+	if len(match) > 2 {
+		prefix := match[1] // Capture "dir" or "file"
+		hash := match[2]   // Capture the hash ID
+		newCommand := re.ReplaceAllString(command, prefix+":UNKNOWN")
+
+		return newCommand, "File ID: " + hash
+	}
+
+	return command, ""
 }

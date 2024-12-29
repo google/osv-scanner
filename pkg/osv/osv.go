@@ -10,7 +10,7 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/google/osv-scanner/pkg/lockfile"
+	"github.com/google/osv-scanner/internal/imodels"
 	"github.com/google/osv-scanner/pkg/models"
 
 	"golang.org/x/sync/errgroup"
@@ -123,26 +123,15 @@ func MakePURLRequest(purl string) *Query {
 	}
 }
 
-func MakePkgRequest(pkgDetails lockfile.PackageDetails) *Query {
-	// API has trouble parsing requests with both commit and Package details filled in
-	if pkgDetails.Ecosystem == "" && pkgDetails.Commit != "" {
-		return &Query{
-			Metadata: models.Metadata{
-				RepoURL:   pkgDetails.Name,
-				DepGroups: pkgDetails.DepGroups,
-			},
-			Commit: pkgDetails.Commit,
-		}
-	}
-
+func MakePkgRequest(pkgInfo imodels.PackageInfo) *Query {
 	return &Query{
-		Version: pkgDetails.Version,
+		Version: pkgInfo.Version,
 		Package: Package{
-			Name:      pkgDetails.Name,
-			Ecosystem: string(pkgDetails.Ecosystem),
+			Name:      pkgInfo.Name,
+			Ecosystem: pkgInfo.Ecosystem.String(),
 		},
 		Metadata: models.Metadata{
-			DepGroups: pkgDetails.DepGroups,
+			DepGroups: pkgInfo.DepGroups,
 		},
 	}
 }
@@ -155,21 +144,6 @@ func chunkBy[T any](items []T, chunkSize int) [][]T {
 	}
 
 	return append(chunks, items)
-}
-
-// checkResponseError checks if the response has an error.
-func checkResponseError(resp *http.Response) error {
-	if resp.StatusCode == http.StatusOK {
-		return nil
-	}
-
-	respBuf, err := io.ReadAll(resp.Body)
-	if err != nil {
-		return fmt.Errorf("failed to read error response from server: %w", err)
-	}
-	defer resp.Body.Close()
-
-	return fmt.Errorf("server response error: %s", string(respBuf))
 }
 
 // MakeRequest sends a batched query to osv.dev
@@ -330,10 +304,9 @@ func HydrateWithClient(resp *BatchedResponse, client *http.Client) (*HydratedBat
 	return &hydrated, nil
 }
 
-// makeRetryRequest will return an error on both network errors, and if the response is not 200
+// makeRetryRequest executes HTTP requests with exponential backoff retry logic
 func makeRetryRequest(action func() (*http.Response, error)) (*http.Response, error) {
-	var resp *http.Response
-	var err error
+	var lastErr error
 
 	for i := range maxRetryAttempts {
 		// rand is initialized with a random number (since go1.20), and is also safe to use concurrently
@@ -342,17 +315,36 @@ func makeRetryRequest(action func() (*http.Response, error)) (*http.Response, er
 		jitterAmount := (rand.Float64() * float64(jitterMultiplier) * float64(i))
 		time.Sleep(time.Duration(i*i)*time.Second + time.Duration(jitterAmount*1000)*time.Millisecond)
 
-		resp, err = action()
-		if err == nil {
-			// Check the response for HTTP errors
-			err = checkResponseError(resp)
-			if err == nil {
-				break
-			}
+		resp, err := action()
+		if err != nil {
+			lastErr = fmt.Errorf("attempt %d: request failed: %w", i+1, err)
+			continue
 		}
+
+		if resp.StatusCode >= 200 && resp.StatusCode < 300 {
+			return resp, nil
+		}
+
+		body, err := io.ReadAll(resp.Body)
+		resp.Body.Close()
+		if err != nil {
+			lastErr = fmt.Errorf("attempt %d: failed to read response: %w", i+1, err)
+			continue
+		}
+
+		if resp.StatusCode == http.StatusTooManyRequests {
+			lastErr = fmt.Errorf("attempt %d: too many requests: status=%d body=%s", i+1, resp.StatusCode, body)
+			continue
+		}
+
+		if resp.StatusCode >= 400 && resp.StatusCode < 500 {
+			return nil, fmt.Errorf("client error: status=%d body=%s", resp.StatusCode, body)
+		}
+
+		lastErr = fmt.Errorf("server error: status=%d body=%s", resp.StatusCode, body)
 	}
 
-	return resp, err
+	return nil, fmt.Errorf("max retries exceeded: %w", lastErr)
 }
 
 func MakeDetermineVersionRequest(name string, hashes []DetermineVersionHash) (*DetermineVersionResponse, error) {
