@@ -1,17 +1,20 @@
 package osvscanner
 
 import (
+	"context"
 	"errors"
 	"fmt"
+	"time"
 
+	"github.com/google/osv-scalibr/extractor"
+	"github.com/google/osv-scanner/internal/clients/clientimpl"
 	"github.com/google/osv-scanner/internal/config"
 	"github.com/google/osv-scanner/internal/depsdev"
 	"github.com/google/osv-scanner/internal/imodels"
 	"github.com/google/osv-scanner/internal/imodels/results"
-	"github.com/google/osv-scanner/internal/local"
+	"github.com/google/osv-scanner/internal/osvdev"
 	"github.com/google/osv-scanner/internal/output"
 	"github.com/google/osv-scanner/internal/semantic"
-	"github.com/google/osv-scanner/internal/version"
 	"github.com/google/osv-scanner/pkg/models"
 	"github.com/google/osv-scanner/pkg/osv"
 	"github.com/google/osv-scanner/pkg/reporter"
@@ -114,10 +117,11 @@ func DoScan(actions ScannerActions, r reporter.Reporter) (models.VulnerabilityRe
 
 	scanResult.PackageScanResults = packages
 
+	// ----- Filtering -----
 	filterUnscannablePackages(r, &scanResult)
-
 	filterIgnoredPackages(r, &scanResult)
 
+	// ----- Custom Overrides -----
 	overrideGoVersion(r, &scanResult)
 
 	err = makeRequest(r, scanResult.PackageScanResults, actions.CompareOffline, actions.DownloadDatabases, actions.LocalDBPath)
@@ -224,34 +228,40 @@ func makeRequest(
 			return fmt.Errorf("package %v does not have a commit, PURL or ecosystem/name/version identifier", p)
 		}
 	}
-	var err error
-	var hydratedResp *osv.HydratedBatchedResponse
 
 	if compareOffline {
-		// TODO(v2): Stop depending on lockfile.PackageDetails and use imodels.PackageInfo
-		// Downloading databases requires network access.
-		hydratedResp, err = local.MakeRequest(r, query, !downloadDBs, localDBPath)
-		if err != nil {
-			return fmt.Errorf("local comparison failed %w", err)
-		}
+		panic("unimplemented")
+		// // TODO(v2): Stop depending on lockfile.PackageDetails and use imodels.PackageInfo
+		// // Downloading databases requires network access.
+		// hydratedResp, err = local.MakeRequest(r, query, !downloadDBs, localDBPath)
+		// if err != nil {
+		// 	return fmt.Errorf("local comparison failed %w", err)
+		// }
 	} else {
-		if osv.RequestUserAgent == "" {
-			osv.RequestUserAgent = "osv-scanner-api/v" + version.OSVVersion
+
+		// --- Init Client ---
+		matcher := clientimpl.OSVMatcher{
+			Client:              *osvdev.DefaultClient(),
+			InitialQueryTimeout: 5 * time.Minute,
 		}
 
-		resp, err := osv.MakeRequest(query)
+		invs := make([]*extractor.Inventory, 0, len(packages))
+		for _, pkgs := range packages {
+			invs = append(invs, pkgs.PackageInfo.OriginalInventory)
+		}
+
+		res, err := matcher.Match(context.Background(), invs)
 		if err != nil {
-			return fmt.Errorf("%w: osv.dev query failed: %w", ErrAPIFailed, err)
+			// TODO: Handle error here
+			r.Errorf("error when retrieving vulns: %v", err)
+			if res == nil {
+				return err
+			}
 		}
 
-		hydratedResp, err = osv.Hydrate(resp)
-		if err != nil {
-			return fmt.Errorf("%w: failed to hydrate OSV response: %w", ErrAPIFailed, err)
+		for i, vulns := range res {
+			packages[i].Vulnerabilities = vulns
 		}
-	}
-
-	for i, result := range hydratedResp.Results {
-		packages[i].Vulnerabilities = result.Vulns
 	}
 
 	return nil
@@ -288,6 +298,8 @@ func overrideGoVersion(r reporter.Reporter, scanResults *results.ScanResults) {
 			configToUse := scanResults.ConfigManager.Get(r, pkg.Location)
 			if configToUse.GoVersionOverride != "" {
 				scanResults.PackageScanResults[i].PackageInfo.Version = configToUse.GoVersionOverride
+				// Also patch it in the inventory, as we have to use the original inventory to make requests
+				scanResults.PackageScanResults[i].PackageInfo.OriginalInventory.Version = configToUse.GoVersionOverride
 			}
 
 			continue

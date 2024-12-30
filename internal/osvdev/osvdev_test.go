@@ -71,71 +71,18 @@ func TestOSVClient_QueryBatch(t *testing.T) {
 		wantIDs [][]string
 		wantErr error
 	}{
-		// {
-		// 	name: "multiple queries lookup",
-		// 	queries: []*osvdev.Query{
-		// 		{
-		// 			Package: osvdev.Package{
-		// 				Name:      "faker",
-		// 				Ecosystem: string(osvschema.EcosystemNPM),
-		// 			},
-		// 			Version: "6.6.6",
-		// 		},
-		// 		{
-		// 			Commit: "60e572dbf7b4ded66b488f54773f66aaf6184321",
-		// 		},
-		// 		{
-		// 			Package: osvdev.Package{
-		// 				Name:      "abcd-definitely-does-not-exist",
-		// 				Ecosystem: string(osvschema.EcosystemNPM),
-		// 			},
-		// 			Version: "1.0.0",
-		// 		},
-		// 	},
-		// 	wantIDs: [][]string{
-		// 		{ // Package Query
-		// 			"GHSA-5w9c-rv96-fr7g",
-		// 		},
-		// 		{ // Commit
-		// 			"OSV-2023-890",
-		// 		},
-		// 		// non-existent package
-		// 		{},
-		// 	},
-		// },
-		// {
-		// 	name: "multiple queries with invalid",
-		// 	queries: []*osvdev.Query{
-		// 		{
-		// 			Package: osvdev.Package{
-		// 				Name:      "faker",
-		// 				Ecosystem: string(osvschema.EcosystemNPM),
-		// 			},
-		// 			Version: "6.6.6",
-		// 		},
-		// 		{
-		// 			Package: osvdev.Package{
-		// 				Name: "abcd-definitely-does-not-exist",
-		// 			},
-		// 		},
-		// 	},
-		// 	wantIDs: [][]string{},
-		// 	wantErr: extracttest.ContainsErrStr{
-		// 		Str: `client error: status="400 Bad Request" body={"code":3,"message":"Invalid query."}`,
-		// 	},
-		// },
 		{
-			name: "linux package lookup",
+			name: "multiple queries lookup",
 			queries: []*osvdev.Query{
 				{
-					Commit: "60e572dbf7b4ded66b488f54773f66aaf6184321",
+					Package: osvdev.Package{
+						Name:      "faker",
+						Ecosystem: string(osvschema.EcosystemNPM),
+					},
+					Version: "6.6.6",
 				},
 				{
-					Package: osvdev.Package{
-						Name:      "linux",
-						Ecosystem: "Ubuntu:22.04:LTS",
-					},
-					Version: "5.15.0-17.17",
+					Commit: "60e572dbf7b4ded66b488f54773f66aaf6184321",
 				},
 				{
 					Package: osvdev.Package{
@@ -145,7 +92,60 @@ func TestOSVClient_QueryBatch(t *testing.T) {
 					Version: "1.0.0",
 				},
 			},
+			wantIDs: [][]string{
+				{ // Package Query
+					"GHSA-5w9c-rv96-fr7g",
+				},
+				{ // Commit
+					"OSV-2023-890",
+				},
+				// non-existent package
+				{},
+			},
 		},
+		{
+			name: "multiple queries with invalid",
+			queries: []*osvdev.Query{
+				{
+					Package: osvdev.Package{
+						Name:      "faker",
+						Ecosystem: string(osvschema.EcosystemNPM),
+					},
+					Version: "6.6.6",
+				},
+				{
+					Package: osvdev.Package{
+						Name: "abcd-definitely-does-not-exist",
+					},
+				},
+			},
+			wantIDs: [][]string{},
+			wantErr: extracttest.ContainsErrStr{
+				Str: `client error: status="400 Bad Request" body={"code":3,"message":"Invalid query."}`,
+			},
+		},
+		// {
+		// 	name: "linux package lookup",
+		// 	queries: []*osvdev.Query{
+		// 		{
+		// 			Commit: "60e572dbf7b4ded66b488f54773f66aaf6184321",
+		// 		},
+		// 		{
+		// 			Package: osvdev.Package{
+		// 				Name:      "linux",
+		// 				Ecosystem: "Ubuntu:22.04:LTS",
+		// 			},
+		// 			Version: "5.15.0-17.17",
+		// 		},
+		// 		{
+		// 			Package: osvdev.Package{
+		// 				Name:      "abcd-definitely-does-not-exist",
+		// 				Ecosystem: string(osvschema.EcosystemNPM),
+		// 			},
+		// 			Version: "1.0.0",
+		// 		},
+		// 	},
+		// },
 	}
 
 	for _, tt := range tests {

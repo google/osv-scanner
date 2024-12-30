@@ -73,6 +73,10 @@ func (c *OSVClient) GetVulnByID(ctx context.Context, id string) (*models.Vulnera
 }
 
 // QueryBatch is an interface to this endpoint: https://google.github.io/osv.dev/post-v1-querybatch/
+// This function performs paging invisibly until the context expires, after which all pages that has already
+// been retrieved are returned.
+//
+// See if next_page_token field in the response is fully filled out to determine if there are extra pages remaining
 func (c *OSVClient) QueryBatch(ctx context.Context, queries []*Query) (*BatchedResponse, error) {
 	// API has a limit of how many queries are in one batch
 	queryChunks := chunkBy(queries, MaxQueriesPerQueryBatchRequest)
@@ -190,6 +194,10 @@ func (c *OSVClient) QueryBatch(ctx context.Context, queries []*Query) (*BatchedR
 }
 
 // Query is an interface to this endpoint: https://google.github.io/osv.dev/post-v1-query/
+// This function performs paging invisibly until the context expires, after which all pages that has already
+// been retrieved are returned.
+//
+// See if next_page_token field in the response is fully filled out to determine if there are extra pages remaining
 func (c *OSVClient) Query(ctx context.Context, query *Query) (*Response, error) {
 	requestBytes, err := json.Marshal(query)
 	if err != nil {

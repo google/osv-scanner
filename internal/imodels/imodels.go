@@ -53,6 +53,8 @@ type PackageInfo struct {
 	OSPackageName string
 
 	AdditionalLocations []string // Contains Inventory.Locations[1..]
+
+	OriginalInventory *extractor.Inventory
 }
 
 // FromInventory converts an extractor.Inventory into a PackageInfo.
@@ -65,6 +67,7 @@ func FromInventory(inventory *extractor.Inventory) PackageInfo {
 		Version:             inventory.Version,
 		Location:            inventory.Locations[0],
 		AdditionalLocations: inventory.Locations[1:],
+		OriginalInventory:   inventory,
 		// TODO: SourceType
 	}
 

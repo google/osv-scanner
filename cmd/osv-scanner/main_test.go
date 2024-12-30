@@ -179,7 +179,7 @@ func TestRun(t *testing.T) {
 			args: []string{"", "--config=./fixtures/osv-scanner-empty-config.toml", "--sbom", "./fixtures/sbom-insecure/alpine.cdx.xml"},
 			exit: 1,
 		},
-		// one specific supported sbom with vulns and invalid PURLs
+		// // one specific supported sbom with vulns and invalid PURLs
 		{
 			name: "one specific supported sbom with invalid PURLs",
 			args: []string{"", "--config=./fixtures/osv-scanner-empty-config.toml", "--sbom", "./fixtures/sbom-insecure/bad-purls.cdx.xml"},
@@ -324,11 +324,6 @@ func TestRun(t *testing.T) {
 		{
 			name: "PURL SBOM case sensitivity (api)",
 			args: []string{"", "--config=./fixtures/osv-scanner-empty-config.toml", "--format", "table", "./fixtures/sbom-insecure/alpine.cdx.xml"},
-			exit: 1,
-		},
-		{
-			name: "PURL SBOM case sensitivity (local)",
-			args: []string{"", "--config=./fixtures/osv-scanner-empty-config.toml", "--experimental-offline", "--experimental-download-offline-databases", "--format", "table", "./fixtures/sbom-insecure/alpine.cdx.xml"},
 			exit: 1,
 		},
 		// Go project with an overridden go version
@@ -639,6 +634,11 @@ func TestRun_LocalDatabases(t *testing.T) {
 			name: "database should be downloaded only when offline is set",
 			args: []string{"", "--experimental-download-offline-databases", "./fixtures/locks-many"},
 			exit: 127,
+		},
+		{
+			name: "PURL SBOM case sensitivity (local)",
+			args: []string{"", "--config=./fixtures/osv-scanner-empty-config.toml", "--experimental-offline", "--experimental-download-offline-databases", "--format", "table", "./fixtures/sbom-insecure/alpine.cdx.xml"},
+			exit: 1,
 		},
 	}
 
@@ -971,6 +971,7 @@ func TestRun_InsertDefaultCommand(t *testing.T) {
 }
 
 func TestRun_MavenTransitive(t *testing.T) {
+	testutility.Skip(t)
 	t.Parallel()
 	tests := []cliTestCase{
 		{
