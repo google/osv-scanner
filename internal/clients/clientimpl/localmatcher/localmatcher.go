@@ -21,24 +21,24 @@ const zippedDBRemoteHost = "https://osv-vulnerabilities.storage.googleapis.com"
 const envKeyLocalDBCacheDirectory = "OSV_SCANNER_LOCAL_DB_CACHE_DIRECTORY"
 
 type LocalMatcher struct {
-	dbBasePath  string
-	dbs         map[osvschema.Ecosystem]*ZipDB
-	offlineMode bool
+	dbBasePath string
+	dbs        map[osvschema.Ecosystem]*ZipDB
+	downloadDB bool
 	// TODO(v2 logging): Remove this reporter
 	r reporter.Reporter
 }
 
-func NewLocalMatcher(r reporter.Reporter, localDBPath string, offlineMode bool) (*LocalMatcher, error) {
+func NewLocalMatcher(r reporter.Reporter, localDBPath string, downloadDB bool) (*LocalMatcher, error) {
 	dbBasePath, err := setupLocalDBDirectory(localDBPath)
 	if err != nil {
 		return nil, fmt.Errorf("could not create %s: %w", dbBasePath, err)
 	}
 
 	return &LocalMatcher{
-		dbBasePath:  dbBasePath,
-		dbs:         make(map[osvschema.Ecosystem]*ZipDB),
-		offlineMode: offlineMode,
-		r:           r,
+		dbBasePath: dbBasePath,
+		dbs:        make(map[osvschema.Ecosystem]*ZipDB),
+		downloadDB: downloadDB,
+		r:          r,
 	}, nil
 }
 
@@ -99,7 +99,7 @@ func (matcher *LocalMatcher) loadDBFromCache(ecosystem ecosystem.Parsed) (*ZipDB
 		return db, nil
 	}
 
-	db, err := NewZippedDB(matcher.dbBasePath, string(ecosystem.Ecosystem), fmt.Sprintf("%s/%s/all.zip", zippedDBRemoteHost, ecosystem.Ecosystem), matcher.offlineMode)
+	db, err := NewZippedDB(matcher.dbBasePath, string(ecosystem.Ecosystem), fmt.Sprintf("%s/%s/all.zip", zippedDBRemoteHost, ecosystem.Ecosystem), !matcher.downloadDB)
 
 	if err != nil {
 		return nil, err

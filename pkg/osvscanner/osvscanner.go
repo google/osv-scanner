@@ -124,9 +124,26 @@ func DoScan(actions ScannerActions, r reporter.Reporter) (models.VulnerabilityRe
 	// ----- Custom Overrides -----
 	overrideGoVersion(r, &scanResult)
 
-	err = makeRequest(r, scanResult.PackageScanResults, actions.CompareOffline, actions.DownloadDatabases, actions.LocalDBPath)
-	if err != nil {
-		return models.VulnerabilityResults{}, err
+	// --- Make Vulnerability Requests ---
+	{
+		var matcher clientinterfaces.VulnerabilityMatcher
+		var err error
+		if actions.CompareOffline {
+			matcher, err = localmatcher.NewLocalMatcher(r, actions.LocalDBPath, actions.DownloadDatabases)
+			if err != nil {
+				return models.VulnerabilityResults{}, err
+			}
+		} else {
+			matcher = &osvmatcher.OSVMatcher{
+				Client:              *osvdev.DefaultClient(),
+				InitialQueryTimeout: 5 * time.Minute,
+			}
+		}
+
+		err = makeRequestWithMatcher(r, scanResult.PackageScanResults, matcher)
+		if err != nil {
+			return models.VulnerabilityResults{}, err
+		}
 	}
 
 	if len(actions.ScanLicensesAllowlist) > 0 || actions.ScanLicensesSummary {
@@ -180,28 +197,11 @@ func DoScan(actions ScannerActions, r reporter.Reporter) (models.VulnerabilityRe
 	return results, nil
 }
 
-// TODO(V2): This will be replaced by the new client interface
-func makeRequest(
+// TODO(V2): Add context
+func makeRequestWithMatcher(
 	r reporter.Reporter,
 	packages []imodels.PackageScanResult,
-	compareOffline bool,
-	downloadDBs bool,
-	localDBPath string) error {
-
-	var matcher clientinterfaces.VulnerabilityMatcher
-	var err error
-	if compareOffline {
-		matcher, err = localmatcher.NewLocalMatcher(r, localDBPath, !downloadDBs)
-	} else {
-		matcher = &osvmatcher.OSVMatcher{
-			Client:              *osvdev.DefaultClient(),
-			InitialQueryTimeout: 5 * time.Minute,
-		}
-	}
-
-	if err != nil {
-		return err
-	}
+	matcher clientinterfaces.VulnerabilityMatcher) error {
 
 	invs := make([]*extractor.Inventory, 0, len(packages))
 	for _, pkgs := range packages {
