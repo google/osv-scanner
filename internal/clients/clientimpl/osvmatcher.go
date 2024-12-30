@@ -2,13 +2,16 @@ package clientimpl
 
 import (
 	"context"
+	"fmt"
 	"time"
 
 	"github.com/google/osv-scalibr/extractor"
 	"github.com/google/osv-scalibr/log"
 	"github.com/google/osv-scanner/internal/imodels"
 	"github.com/google/osv-scanner/internal/osvdev"
+	"github.com/google/osv-scanner/internal/semantic"
 	"github.com/google/osv-scanner/pkg/models"
+	"github.com/ossf/osv-schema/bindings/go/osvschema"
 	"golang.org/x/sync/errgroup"
 )
 
@@ -113,8 +116,36 @@ func invsToQueries(invs []*extractor.Inventory) []*osvdev.Query {
 	queries := make([]*osvdev.Query, len(invs))
 
 	for i, inv := range invs {
-		queries[i] = pkgToQuery(imodels.FromInventory(inv))
+		pkg := imodels.FromInventory(inv)
+		pkg = patchPackageForRequest(pkg)
+		queries[i] = pkgToQuery(pkg)
 	}
 
 	return queries
+}
+
+// patchPackageForRequest modifies packages before they are sent to osv.dev to
+// account for edge cases.
+func patchPackageForRequest(pkg imodels.PackageInfo) imodels.PackageInfo {
+	// Assume Go stdlib patch version as the latest version
+	//
+	// This is done because go1.20 and earlier do not support patch
+	// version in go.mod file, and will fail to build.
+	//
+	// However, if we assume patch version as .0, this will cause a lot of
+	// false positives. This compromise still allows osv-scanner to pick up
+	// when the user is using a minor version that is out-of-support.
+	if pkg.Name == "stdlib" && pkg.Ecosystem.Ecosystem == osvschema.EcosystemGo {
+		v := semantic.ParseSemverLikeVersion(pkg.Version, 3)
+		if len(v.Components) == 2 {
+			pkg.Version = fmt.Sprintf(
+				"%d.%d.%d",
+				v.Components.Fetch(0),
+				v.Components.Fetch(1),
+				9999,
+			)
+		}
+	}
+
+	return pkg
 }
