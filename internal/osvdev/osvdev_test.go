@@ -190,65 +190,65 @@ func TestOSVClient_Query(t *testing.T) {
 		wantIDs []string
 		wantErr error
 	}{
-		// {
-		// 	name: "npm Package lookup",
-		// 	query: osvdev.Query{
-		// 		Package: osvdev.Package{
-		// 			// Use a deleted package as it is less likely new vulns will be published for it
-		// 			Name:      "faker",
-		// 			Ecosystem: string(osvschema.EcosystemNPM),
-		// 		},
-		// 		Version: "6.6.6",
-		// 	},
-		// 	wantIDs: []string{
-		// 		"GHSA-5w9c-rv96-fr7g",
-		// 	},
-		// },
-		// {
-		// 	name: "commit lookup",
-		// 	query: osvdev.Query{
-		// 		Commit: "60e572dbf7b4ded66b488f54773f66aaf6184321",
-		// 	},
-		// 	wantIDs: []string{
-		// 		"OSV-2023-890",
-		// 	},
-		// },
-		// {
-		// 	name: "unknown package lookup",
-		// 	query: osvdev.Query{
-		// 		Package: osvdev.Package{
-		// 			Name:      "abcd-definitely-does-not-exist",
-		// 			Ecosystem: string(osvschema.EcosystemNPM),
-		// 		},
-		// 		Version: "1.0.0",
-		// 	},
-		// 	wantIDs: []string{},
-		// },
-		// {
-		// 	name: "invalid query",
-		// 	query: osvdev.Query{
-		// 		Package: osvdev.Package{
-		// 			Name: "abcd-definitely-does-not-exist",
-		// 		},
-		// 	},
-		// 	wantErr: extracttest.ContainsErrStr{
-		// 		Str: `client error: status="400 Bad Request" body={"code":3,"message":"Invalid query."}`,
-		// 	},
-		// },
 		{
-			name: "linux Package lookup",
+			name: "npm Package lookup",
 			query: osvdev.Query{
 				Package: osvdev.Package{
 					// Use a deleted package as it is less likely new vulns will be published for it
-					Name:      "linux",
-					Ecosystem: "Ubuntu:22.04:LTS",
+					Name:      "faker",
+					Ecosystem: string(osvschema.EcosystemNPM),
 				},
-				Version: "5.15.0-17.17",
+				Version: "6.6.6",
 			},
 			wantIDs: []string{
 				"GHSA-5w9c-rv96-fr7g",
 			},
 		},
+		{
+			name: "commit lookup",
+			query: osvdev.Query{
+				Commit: "60e572dbf7b4ded66b488f54773f66aaf6184321",
+			},
+			wantIDs: []string{
+				"OSV-2023-890",
+			},
+		},
+		{
+			name: "unknown package lookup",
+			query: osvdev.Query{
+				Package: osvdev.Package{
+					Name:      "abcd-definitely-does-not-exist",
+					Ecosystem: string(osvschema.EcosystemNPM),
+				},
+				Version: "1.0.0",
+			},
+			wantIDs: []string{},
+		},
+		{
+			name: "invalid query",
+			query: osvdev.Query{
+				Package: osvdev.Package{
+					Name: "abcd-definitely-does-not-exist",
+				},
+			},
+			wantErr: extracttest.ContainsErrStr{
+				Str: `client error: status="400 Bad Request" body={"code":3,"message":"Invalid query."}`,
+			},
+		},
+		// {
+		// 	name: "linux Package lookup",
+		// 	query: osvdev.Query{
+		// 		Package: osvdev.Package{
+		// 			// Use a deleted package as it is less likely new vulns will be published for it
+		// 			Name:      "linux",
+		// 			Ecosystem: "Ubuntu:22.04:LTS",
+		// 		},
+		// 		Version: "5.15.0-17.17",
+		// 	},
+		// 	wantIDs: []string{
+		// 		"GHSA-5w9c-rv96-fr7g",
+		// 	},
+		// },
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {

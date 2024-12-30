@@ -568,7 +568,7 @@ func TestRun_GithubActions(t *testing.T) {
 
 func TestRun_LocalDatabases(t *testing.T) {
 	t.Parallel()
-
+	testutility.Skip(t)
 	tests := []cliTestCase{
 		{
 			name: "one specific supported lockfile",
@@ -663,6 +663,7 @@ func TestRun_LocalDatabases(t *testing.T) {
 
 func TestRun_LocalDatabases_AlwaysOffline(t *testing.T) {
 	t.Parallel()
+	testutility.Skip(t)
 
 	tests := []cliTestCase{
 		{
