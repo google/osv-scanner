@@ -1,4 +1,4 @@
-package local
+package clientimpl
 
 import (
 	"archive/zip"
@@ -16,6 +16,7 @@ import (
 	"path"
 	"strings"
 
+	"github.com/google/osv-scanner/internal/imodels"
 	"github.com/google/osv-scanner/internal/utility/vulns"
 	"github.com/google/osv-scanner/pkg/lockfile"
 	"github.com/google/osv-scanner/pkg/models"
@@ -232,20 +233,30 @@ func (db *ZipDB) Vulnerabilities(includeWithdrawn bool) []models.Vulnerability {
 	return vulnerabilities
 }
 
-func (db *ZipDB) VulnerabilitiesAffectingPackage(pkg lockfile.PackageDetails) models.Vulnerabilities {
-	var vulnerabilities models.Vulnerabilities
+func (db *ZipDB) VulnerabilitiesAffectingPackage(pkg imodels.PackageInfo) []*models.Vulnerability {
+	var vulnerabilities []*models.Vulnerability
+
+	// TODO (V2 Models): remove this once PackageDetails has been migrated
+	mappedPackageDetails := lockfile.PackageDetails{
+		Name:      pkg.Name,
+		Version:   pkg.Version,
+		Commit:    pkg.Commit,
+		Ecosystem: lockfile.Ecosystem(pkg.Ecosystem.String()),
+		CompareAs: lockfile.Ecosystem(pkg.Ecosystem.String()),
+		DepGroups: pkg.DepGroups,
+	}
 
 	for _, vulnerability := range db.Vulnerabilities(false) {
-		if vulns.IsAffected(vulnerability, pkg) && !vulns.Include(vulnerabilities, vulnerability) {
-			vulnerabilities = append(vulnerabilities, vulnerability)
+		if vulns.IsAffected(vulnerability, mappedPackageDetails) && !vulns.Include(vulnerabilities, vulnerability) {
+			vulnerabilities = append(vulnerabilities, &vulnerability)
 		}
 	}
 
 	return vulnerabilities
 }
 
-func (db *ZipDB) Check(pkgs []lockfile.PackageDetails) (models.Vulnerabilities, error) {
-	vulnerabilities := make(models.Vulnerabilities, 0, len(pkgs))
+func (db *ZipDB) Check(pkgs []imodels.PackageInfo) ([]*models.Vulnerability, error) {
+	vulnerabilities := make([]*models.Vulnerability, 0, len(pkgs))
 
 	for _, pkg := range pkgs {
 		vulnerabilities = append(vulnerabilities, db.VulnerabilitiesAffectingPackage(pkg)...)

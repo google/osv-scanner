@@ -8,6 +8,7 @@ import (
 
 	"github.com/google/osv-scalibr/extractor"
 	"github.com/google/osv-scanner/internal/clients/clientimpl"
+	"github.com/google/osv-scanner/internal/clients/clientinterfaces"
 	"github.com/google/osv-scanner/internal/config"
 	"github.com/google/osv-scanner/internal/depsdev"
 	"github.com/google/osv-scanner/internal/imodels"
@@ -15,7 +16,6 @@ import (
 	"github.com/google/osv-scanner/internal/osvdev"
 	"github.com/google/osv-scanner/internal/output"
 	"github.com/google/osv-scanner/pkg/models"
-	"github.com/google/osv-scanner/pkg/osv"
 	"github.com/google/osv-scanner/pkg/reporter"
 	"github.com/ossf/osv-schema/bindings/go/osvschema"
 
@@ -186,54 +186,38 @@ func makeRequest(
 	compareOffline bool,
 	downloadDBs bool,
 	localDBPath string) error {
-	// Make OSV queries from the packages.
-	var query osv.BatchedQuery
-	for _, psr := range packages {
-		p := psr.PackageInfo
-		switch {
-		// Prefer making package requests where possible.
-		case !p.Ecosystem.IsEmpty() && p.Name != "" && p.Version != "":
-			query.Queries = append(query.Queries, osv.MakePkgRequest(p))
-		case p.Commit != "":
-			query.Queries = append(query.Queries, osv.MakeCommitRequest(p.Commit))
-		default:
-			return fmt.Errorf("package %v does not have a commit, PURL or ecosystem/name/version identifier", p)
-		}
-	}
 
+	var matcher clientinterfaces.VulnerabilityMatcher
+	var err error
 	if compareOffline {
-		panic("unimplemented")
-		// // TODO(v2): Stop depending on lockfile.PackageDetails and use imodels.PackageInfo
-		// // Downloading databases requires network access.
-		// hydratedResp, err = local.MakeRequest(r, query, !downloadDBs, localDBPath)
-		// if err != nil {
-		// 	return fmt.Errorf("local comparison failed %w", err)
-		// }
+		matcher, err = clientimpl.NewOfflineMatcher(r, localDBPath, !downloadDBs)
 	} else {
-
-		// --- Init Client ---
-		matcher := clientimpl.OSVMatcher{
+		matcher = &clientimpl.OSVMatcher{
 			Client:              *osvdev.DefaultClient(),
 			InitialQueryTimeout: 5 * time.Minute,
 		}
+	}
 
-		invs := make([]*extractor.Inventory, 0, len(packages))
-		for _, pkgs := range packages {
-			invs = append(invs, pkgs.PackageInfo.OriginalInventory)
-		}
+	if err != nil {
+		return err
+	}
 
-		res, err := matcher.Match(context.Background(), invs)
-		if err != nil {
-			// TODO: Handle error here
-			r.Errorf("error when retrieving vulns: %v", err)
-			if res == nil {
-				return err
-			}
-		}
+	invs := make([]*extractor.Inventory, 0, len(packages))
+	for _, pkgs := range packages {
+		invs = append(invs, pkgs.PackageInfo.OriginalInventory)
+	}
 
-		for i, vulns := range res {
-			packages[i].Vulnerabilities = vulns
+	res, err := matcher.Match(context.Background(), invs)
+	if err != nil {
+		// TODO: Handle error here
+		r.Errorf("error when retrieving vulns: %v", err)
+		if res == nil {
+			return err
 		}
+	}
+
+	for i, vulns := range res {
+		packages[i].Vulnerabilities = vulns
 	}
 
 	return nil

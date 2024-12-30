@@ -15,14 +15,14 @@ func TestVulnerabilities_Includes(t *testing.T) {
 	}
 	tests := []struct {
 		name string
-		vs   models.Vulnerabilities
+		vs   []*models.Vulnerability
 		args args
 		want bool
 	}{
 		{
 			name: "",
-			vs: models.Vulnerabilities{
-				models.Vulnerability{
+			vs: []*models.Vulnerability{
+				{
 					ID:      "GHSA-1",
 					Aliases: []string{},
 				},
@@ -37,8 +37,8 @@ func TestVulnerabilities_Includes(t *testing.T) {
 		},
 		{
 			name: "",
-			vs: models.Vulnerabilities{
-				models.Vulnerability{
+			vs: []*models.Vulnerability{
+				{
 					ID:      "GHSA-1",
 					Aliases: []string{},
 				},
@@ -53,8 +53,8 @@ func TestVulnerabilities_Includes(t *testing.T) {
 		},
 		{
 			name: "",
-			vs: models.Vulnerabilities{
-				models.Vulnerability{
+			vs: []*models.Vulnerability{
+				&models.Vulnerability{
 					ID:      "GHSA-1",
 					Aliases: []string{"GHSA-2"},
 				},
@@ -69,8 +69,8 @@ func TestVulnerabilities_Includes(t *testing.T) {
 		},
 		{
 			name: "",
-			vs: models.Vulnerabilities{
-				models.Vulnerability{
+			vs: []*models.Vulnerability{
+				{
 					ID:      "GHSA-1",
 					Aliases: []string{},
 				},
@@ -85,8 +85,8 @@ func TestVulnerabilities_Includes(t *testing.T) {
 		},
 		{
 			name: "",
-			vs: models.Vulnerabilities{
-				models.Vulnerability{
+			vs: []*models.Vulnerability{
+				{
 					ID:      "GHSA-1",
 					Aliases: []string{"CVE-1"},
 				},
@@ -101,8 +101,8 @@ func TestVulnerabilities_Includes(t *testing.T) {
 		},
 		{
 			name: "",
-			vs: models.Vulnerabilities{
-				models.Vulnerability{
+			vs: []*models.Vulnerability{
+				{
 					ID:      "GHSA-1",
 					Aliases: []string{"CVE-2"},
 				},

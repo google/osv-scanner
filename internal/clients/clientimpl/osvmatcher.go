@@ -27,7 +27,7 @@ type OSVMatcher struct {
 	InitialQueryTimeout time.Duration
 }
 
-func (vf *OSVMatcher) Match(ctx context.Context, pkgs []*extractor.Inventory) ([][]models.Vulnerability, error) {
+func (vf *OSVMatcher) Match(ctx context.Context, pkgs []*extractor.Inventory) ([][]*models.Vulnerability, error) {
 	var batchResp *osvdev.BatchedResponse
 	deadlineExceeded := false
 
@@ -53,12 +53,12 @@ func (vf *OSVMatcher) Match(ctx context.Context, pkgs []*extractor.Inventory) ([
 		}
 	}
 
-	vulnerabilities := make([][]models.Vulnerability, len(batchResp.Results))
+	vulnerabilities := make([][]*models.Vulnerability, len(batchResp.Results))
 	g, ctx := errgroup.WithContext(ctx)
 	g.SetLimit(maxConcurrentRequests)
 
 	for batchIdx, resp := range batchResp.Results {
-		vulnerabilities[batchIdx] = make([]models.Vulnerability, len(resp.Vulns))
+		vulnerabilities[batchIdx] = make([]*models.Vulnerability, len(resp.Vulns))
 		for resultIdx, vuln := range resp.Vulns {
 			g.Go(func() error {
 				// exit early if another hydration request has already failed
@@ -70,7 +70,7 @@ func (vf *OSVMatcher) Match(ctx context.Context, pkgs []*extractor.Inventory) ([
 				if err != nil {
 					return err
 				}
-				vulnerabilities[batchIdx][resultIdx] = *vuln
+				vulnerabilities[batchIdx][resultIdx] = vuln
 
 				return nil
 			})

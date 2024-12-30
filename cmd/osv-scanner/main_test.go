@@ -326,6 +326,11 @@ func TestRun(t *testing.T) {
 			args: []string{"", "--config=./fixtures/osv-scanner-empty-config.toml", "--format", "table", "./fixtures/sbom-insecure/alpine.cdx.xml"},
 			exit: 1,
 		},
+		{
+			name: "PURL SBOM case sensitivity (local)",
+			args: []string{"", "--config=./fixtures/osv-scanner-empty-config.toml", "--experimental-offline", "--experimental-download-offline-databases", "--format", "table", "./fixtures/sbom-insecure/alpine.cdx.xml"},
+			exit: 1,
+		},
 		// Go project with an overridden go version
 		{
 			name: "Go project with an overridden go version",
@@ -568,7 +573,6 @@ func TestRun_GithubActions(t *testing.T) {
 
 func TestRun_LocalDatabases(t *testing.T) {
 	t.Parallel()
-	testutility.Skip(t)
 	tests := []cliTestCase{
 		{
 			name: "one specific supported lockfile",
@@ -635,11 +639,6 @@ func TestRun_LocalDatabases(t *testing.T) {
 			args: []string{"", "--experimental-download-offline-databases", "./fixtures/locks-many"},
 			exit: 127,
 		},
-		{
-			name: "PURL SBOM case sensitivity (local)",
-			args: []string{"", "--config=./fixtures/osv-scanner-empty-config.toml", "--experimental-offline", "--experimental-download-offline-databases", "--format", "table", "./fixtures/sbom-insecure/alpine.cdx.xml"},
-			exit: 1,
-		},
 	}
 
 	for _, tt := range tests {
@@ -663,7 +662,6 @@ func TestRun_LocalDatabases(t *testing.T) {
 
 func TestRun_LocalDatabases_AlwaysOffline(t *testing.T) {
 	t.Parallel()
-	testutility.Skip(t)
 
 	tests := []cliTestCase{
 		{

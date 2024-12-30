@@ -139,7 +139,7 @@ func FromInventory(inventory *extractor.Inventory) PackageInfo {
 type PackageScanResult struct {
 	PackageInfo PackageInfo
 	// TODO: Use osvschema.Vulnerability instead
-	Vulnerabilities    []models.Vulnerability
+	Vulnerabilities    []*models.Vulnerability
 	Licenses           []models.License
 	ImageOriginLayerID string
 
