@@ -7,7 +7,8 @@ import (
 	"time"
 
 	"github.com/google/osv-scalibr/extractor"
-	"github.com/google/osv-scanner/internal/clients/clientimpl"
+	"github.com/google/osv-scanner/internal/clients/clientimpl/localmatcher"
+	"github.com/google/osv-scanner/internal/clients/clientimpl/osvmatcher"
 	"github.com/google/osv-scanner/internal/clients/clientinterfaces"
 	"github.com/google/osv-scanner/internal/config"
 	"github.com/google/osv-scanner/internal/depsdev"
@@ -190,9 +191,9 @@ func makeRequest(
 	var matcher clientinterfaces.VulnerabilityMatcher
 	var err error
 	if compareOffline {
-		matcher, err = clientimpl.NewOfflineMatcher(r, localDBPath, !downloadDBs)
+		matcher, err = localmatcher.NewLocalMatcher(r, localDBPath, !downloadDBs)
 	} else {
-		matcher = &clientimpl.OSVMatcher{
+		matcher = &osvmatcher.OSVMatcher{
 			Client:              *osvdev.DefaultClient(),
 			InitialQueryTimeout: 5 * time.Minute,
 		}

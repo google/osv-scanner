@@ -1,4 +1,4 @@
-package clientimpl
+package localmatcher
 
 import (
 	"context"
@@ -20,7 +20,7 @@ import (
 const zippedDBRemoteHost = "https://osv-vulnerabilities.storage.googleapis.com"
 const envKeyLocalDBCacheDirectory = "OSV_SCANNER_LOCAL_DB_CACHE_DIRECTORY"
 
-type OfflineMatcher struct {
+type LocalMatcher struct {
 	dbBasePath  string
 	dbs         map[osvschema.Ecosystem]*ZipDB
 	offlineMode bool
@@ -28,13 +28,13 @@ type OfflineMatcher struct {
 	r reporter.Reporter
 }
 
-func NewOfflineMatcher(r reporter.Reporter, localDBPath string, offlineMode bool) (*OfflineMatcher, error) {
+func NewLocalMatcher(r reporter.Reporter, localDBPath string, offlineMode bool) (*LocalMatcher, error) {
 	dbBasePath, err := setupLocalDBDirectory(localDBPath)
 	if err != nil {
 		return nil, fmt.Errorf("could not create %s: %w", dbBasePath, err)
 	}
 
-	return &OfflineMatcher{
+	return &LocalMatcher{
 		dbBasePath:  dbBasePath,
 		dbs:         make(map[osvschema.Ecosystem]*ZipDB),
 		offlineMode: offlineMode,
@@ -42,7 +42,7 @@ func NewOfflineMatcher(r reporter.Reporter, localDBPath string, offlineMode bool
 	}, nil
 }
 
-func (matcher *OfflineMatcher) Match(ctx context.Context, invs []*extractor.Inventory) ([][]*models.Vulnerability, error) {
+func (matcher *LocalMatcher) Match(ctx context.Context, invs []*extractor.Inventory) ([][]*models.Vulnerability, error) {
 	results := make([][]*models.Vulnerability, 0, len(invs))
 
 	// slice to track ecosystems that did not have an offline database available
@@ -94,7 +94,7 @@ func (matcher *OfflineMatcher) Match(ctx context.Context, invs []*extractor.Inve
 	return results, nil
 }
 
-func (matcher *OfflineMatcher) loadDBFromCache(ecosystem ecosystem.Parsed) (*ZipDB, error) {
+func (matcher *LocalMatcher) loadDBFromCache(ecosystem ecosystem.Parsed) (*ZipDB, error) {
 	if db, ok := matcher.dbs[ecosystem.Ecosystem]; ok {
 		return db, nil
 	}

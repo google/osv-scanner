@@ -1,4 +1,4 @@
-package clientimpl
+package osvmatcher
 
 import (
 	"context"
