@@ -328,6 +328,11 @@ func (c *OSVClient) makeRetryRequest(action func(client *http.Client) (*http.Res
 
 		resp, err = action(c.HTTPClient)
 
+		// Don't retry, since deadline has already been exceeded
+		if errors.Is(err, context.DeadlineExceeded) {
+			return nil, err
+		}
+
 		// The network request itself failed, did not even get a response
 		if err != nil {
 			lastErr = fmt.Errorf("attempt %d: request failed: %w", i+1, err)
