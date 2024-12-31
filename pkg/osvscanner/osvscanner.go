@@ -202,7 +202,6 @@ func makeRequestWithMatcher(
 	r reporter.Reporter,
 	packages []imodels.PackageScanResult,
 	matcher clientinterfaces.VulnerabilityMatcher) error {
-
 	invs := make([]*extractor.Inventory, 0, len(packages))
 	for _, pkgs := range packages {
 		invs = append(invs, pkgs.PackageInfo.OriginalInventory)

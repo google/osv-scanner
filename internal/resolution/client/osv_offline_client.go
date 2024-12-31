@@ -39,7 +39,7 @@ func NewOSVOfflineClient(r reporter.Reporter, system resolve.System, downloadDBs
 	// 	return nil, errors.New("error creating osv offline client")
 	// }
 
-	return &OSVOfflineClient{localDBPath: localDBPath}, nil
+	// return &OSVOfflineClient{localDBPath: localDBPath}, nil
 }
 
 func (c *OSVOfflineClient) FindVulns(g *resolve.Graph) ([]models.Vulnerabilities, error) {

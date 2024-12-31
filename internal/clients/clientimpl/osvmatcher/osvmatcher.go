@@ -2,6 +2,7 @@ package osvmatcher
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"time"
 
@@ -45,7 +46,7 @@ func (vf *OSVMatcher) Match(ctx context.Context, pkgs []*extractor.Inventory) ([
 			batchResp, err = vf.Client.QueryBatch(ctx, queries)
 		}
 		if err != nil {
-			if err == context.DeadlineExceeded {
+			if errors.Is(err, context.DeadlineExceeded) {
 				deadlineExceeded = true
 			} else {
 				return nil, err
@@ -83,9 +84,9 @@ func (vf *OSVMatcher) Match(ctx context.Context, pkgs []*extractor.Inventory) ([
 
 	if deadlineExceeded {
 		return vulnerabilities, context.DeadlineExceeded
-	} else {
-		return vulnerabilities, nil
 	}
+
+	return vulnerabilities, nil
 }
 
 func pkgToQuery(pkg imodels.PackageInfo) *osvdev.Query {
@@ -107,6 +108,7 @@ func pkgToQuery(pkg imodels.PackageInfo) *osvdev.Query {
 
 	// This should have be filtered out before reaching this point
 	log.Errorf("invalid query element: %#v", pkg)
+
 	return nil
 }
 

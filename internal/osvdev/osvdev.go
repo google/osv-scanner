@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"context"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"io"
 	"math"
@@ -160,7 +161,7 @@ func (c *OSVClient) QueryBatch(ctx context.Context, queries []*Query) (*BatchedR
 	if len(nextPageQueries) > 0 {
 		// If context is cancelled or deadline exceeded, return now
 		if ctx.Err() != nil {
-			return &totalOsvResp, &ErrDuringPaging{
+			return &totalOsvResp, &DuringPagingError{
 				PageDepth: 1,
 				Inner:     ctx.Err(),
 			}
@@ -168,13 +169,15 @@ func (c *OSVClient) QueryBatch(ctx context.Context, queries []*Query) (*BatchedR
 
 		nextPageResp, err := c.QueryBatch(ctx, nextPageQueries)
 		if err != nil {
-			if edp, ok := err.(*ErrDuringPaging); ok {
-				edp.PageDepth += 1
-				errToReturn = edp
-			}
-			errToReturn = &ErrDuringPaging{
-				PageDepth: 1,
-				Inner:     err,
+			var dpr *DuringPagingError
+			if ok := errors.As(err, &dpr); ok {
+				dpr.PageDepth += 1
+				errToReturn = dpr
+			} else {
+				errToReturn = &DuringPagingError{
+					PageDepth: 1,
+					Inner:     err,
+				}
 			}
 		}
 
@@ -235,7 +238,7 @@ func (c *OSVClient) Query(ctx context.Context, query *Query) (*Response, error) 
 	var errToReturn error
 	if osvResp.NextPageToken != "" {
 		if ctx.Err() != nil {
-			return &osvResp, &ErrDuringPaging{
+			return &osvResp, &DuringPagingError{
 				PageDepth: 1,
 				Inner:     ctx.Err(),
 			}
@@ -246,11 +249,12 @@ func (c *OSVClient) Query(ctx context.Context, query *Query) (*Response, error) 
 		newQuery.PageToken = osvResp.NextPageToken
 		resp, err := c.Query(ctx, &newQuery)
 		if err != nil {
-			if edp, ok := err.(*ErrDuringPaging); ok {
-				edp.PageDepth += 1
-				errToReturn = edp
+			var dpr *DuringPagingError
+			if ok := errors.As(err, &dpr); ok {
+				dpr.PageDepth += 1
+				errToReturn = dpr
 			} else {
-				errToReturn = &ErrDuringPaging{
+				errToReturn = &DuringPagingError{
 					PageDepth: 1,
 					Inner:     err,
 				}

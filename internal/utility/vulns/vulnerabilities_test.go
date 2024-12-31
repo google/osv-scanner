@@ -54,7 +54,7 @@ func TestVulnerabilities_Includes(t *testing.T) {
 		{
 			name: "",
 			vs: []*models.Vulnerability{
-				&models.Vulnerability{
+				{
 					ID:      "GHSA-1",
 					Aliases: []string{"GHSA-2"},
 				},

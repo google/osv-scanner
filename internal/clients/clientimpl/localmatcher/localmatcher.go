@@ -49,6 +49,10 @@ func (matcher *LocalMatcher) Match(ctx context.Context, invs []*extractor.Invent
 	var missingDbs []string
 
 	for _, inv := range invs {
+		if ctx.Err() != nil {
+			return nil, ctx.Err()
+		}
+
 		pkg := imodels.FromInventory(inv)
 		if pkg.Ecosystem.IsEmpty() {
 			if pkg.Commit == "" {
@@ -64,7 +68,7 @@ func (matcher *LocalMatcher) Match(ctx context.Context, invs []*extractor.Invent
 			continue
 		}
 
-		db, err := matcher.loadDBFromCache(pkg.Ecosystem)
+		db, err := matcher.loadDBFromCache(ctx, pkg.Ecosystem)
 
 		if err != nil {
 			if errors.Is(err, ErrOfflineDatabaseNotFound) {
@@ -94,12 +98,12 @@ func (matcher *LocalMatcher) Match(ctx context.Context, invs []*extractor.Invent
 	return results, nil
 }
 
-func (matcher *LocalMatcher) loadDBFromCache(ecosystem ecosystem.Parsed) (*ZipDB, error) {
+func (matcher *LocalMatcher) loadDBFromCache(ctx context.Context, ecosystem ecosystem.Parsed) (*ZipDB, error) {
 	if db, ok := matcher.dbs[ecosystem.Ecosystem]; ok {
 		return db, nil
 	}
 
-	db, err := NewZippedDB(matcher.dbBasePath, string(ecosystem.Ecosystem), fmt.Sprintf("%s/%s/all.zip", zippedDBRemoteHost, ecosystem.Ecosystem), !matcher.downloadDB)
+	db, err := NewZippedDB(ctx, matcher.dbBasePath, string(ecosystem.Ecosystem), fmt.Sprintf("%s/%s/all.zip", zippedDBRemoteHost, ecosystem.Ecosystem), !matcher.downloadDB)
 
 	if err != nil {
 		return nil, err

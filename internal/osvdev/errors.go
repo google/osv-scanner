@@ -2,15 +2,15 @@ package osvdev
 
 import "fmt"
 
-type ErrDuringPaging struct {
+type DuringPagingError struct {
 	PageDepth int
 	Inner     error
 }
 
-func (e *ErrDuringPaging) Error() string {
+func (e *DuringPagingError) Error() string {
 	return fmt.Sprintf("error during paging at depths %d - %s", e.PageDepth, e.Inner)
 }
 
-func (e *ErrDuringPaging) Unwrap() error {
+func (e *DuringPagingError) Unwrap() error {
 	return e.Inner
 }
