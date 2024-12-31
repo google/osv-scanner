@@ -179,7 +179,7 @@ func TestRun(t *testing.T) {
 			args: []string{"", "--config=./fixtures/osv-scanner-empty-config.toml", "--sbom", "./fixtures/sbom-insecure/alpine.cdx.xml"},
 			exit: 1,
 		},
-		// // one specific supported sbom with vulns and invalid PURLs
+		// one specific supported sbom with vulns and invalid PURLs
 		{
 			name: "one specific supported sbom with invalid PURLs",
 			args: []string{"", "--config=./fixtures/osv-scanner-empty-config.toml", "--sbom", "./fixtures/sbom-insecure/bad-purls.cdx.xml"},
@@ -573,6 +573,7 @@ func TestRun_GithubActions(t *testing.T) {
 
 func TestRun_LocalDatabases(t *testing.T) {
 	t.Parallel()
+
 	tests := []cliTestCase{
 		{
 			name: "one specific supported lockfile",
@@ -970,7 +971,6 @@ func TestRun_InsertDefaultCommand(t *testing.T) {
 }
 
 func TestRun_MavenTransitive(t *testing.T) {
-	testutility.Skip(t)
 	t.Parallel()
 	tests := []cliTestCase{
 		{
