@@ -1,14 +1,21 @@
 package osvscanner
 
 import (
+	"context"
 	"errors"
 	"fmt"
 
+	"github.com/google/osv-scalibr/artifact/image/layerscanning/image"
+	"github.com/google/osv-scalibr/extractor/filesystem"
+	"github.com/google/osv-scalibr/extractor/filesystem/language/golang/gobinary"
+	"github.com/google/osv-scalibr/extractor/filesystem/os/apk"
+	"github.com/google/osv-scalibr/extractor/filesystem/os/dpkg"
 	"github.com/google/osv-scanner/internal/config"
 	"github.com/google/osv-scanner/internal/depsdev"
 	"github.com/google/osv-scanner/internal/imodels"
 	"github.com/google/osv-scanner/internal/imodels/results"
 	"github.com/google/osv-scanner/internal/local"
+	"github.com/google/osv-scanner/internal/lockfilescalibr/language/javascript/nodemodules"
 	"github.com/google/osv-scanner/internal/output"
 	"github.com/google/osv-scanner/internal/semantic"
 	"github.com/google/osv-scanner/internal/version"
@@ -16,6 +23,8 @@ import (
 	"github.com/google/osv-scanner/pkg/osv"
 	"github.com/google/osv-scanner/pkg/reporter"
 	"github.com/ossf/osv-schema/bindings/go/osvschema"
+
+	scalibr "github.com/google/osv-scalibr"
 
 	depsdevpb "deps.dev/api/v3"
 )
@@ -71,6 +80,104 @@ var OnlyUncalledVulnerabilitiesFoundErr = errors.New("only uncalled vulnerabilit
 
 // ErrAPIFailed describes errors related to querying API endpoints.
 var ErrAPIFailed = errors.New("API query failed")
+
+func DoContainerScan(actions ScannerActions, r reporter.Reporter) (models.VulnerabilityResults, error) {
+	if r == nil {
+		r = &reporter.VoidReporter{}
+	}
+
+	scanResult := results.ScanResults{
+		ConfigManager: config.Manager{
+			DefaultConfig: config.Config{},
+			ConfigMap:     make(map[string]config.Config),
+		},
+	}
+
+	scanner := scalibr.New()
+	image, err := image.FromRemoteName(actions.DockerImageName, image.DefaultConfig())
+	if err != nil {
+		r.Errorf("Failed to pull container image %q\n", actions.DockerImageName)
+		return models.VulnerabilityResults{}, err
+	}
+
+	defer image.CleanUp()
+
+	scalibrSR, err := scanner.ScanContainer(context.Background(), image, &scalibr.ScanConfig{
+		FilesystemExtractors: []filesystem.Extractor{
+			nodemodules.Extractor{},
+			apk.New(apk.DefaultConfig()),
+			gobinary.New(gobinary.DefaultConfig()),
+			// TODO: Add tests for debian containers
+			dpkg.New(dpkg.DefaultConfig()),
+		},
+	})
+
+	if err != nil {
+		return models.VulnerabilityResults{}, fmt.Errorf("failed to scan container image: %w", err)
+	}
+
+	scanResult.PackageScanResults = make([]imodels.PackageScanResult, len(scalibrSR.Inventories))
+	for i, inv := range scalibrSR.Inventories {
+		scanResult.PackageScanResults[i].PackageInfo = imodels.FromInventory(inv)
+	}
+
+	filterUnscannablePackages(r, &scanResult)
+
+	err = makeRequest(r, scanResult.PackageScanResults, actions.CompareOffline, actions.DownloadDatabases, actions.LocalDBPath)
+	if err != nil {
+		return models.VulnerabilityResults{}, err
+	}
+
+	if len(actions.ScanLicensesAllowlist) > 0 || actions.ScanLicensesSummary {
+		err = makeLicensesRequests(scanResult.PackageScanResults)
+		if err != nil {
+			return models.VulnerabilityResults{}, err
+		}
+	}
+
+	results := buildVulnerabilityResults(r, actions, &scanResult)
+
+	filtered := filterResults(r, &results, &scanResult.ConfigManager, actions.ShowAllPackages)
+	if filtered > 0 {
+		r.Infof(
+			"Filtered %d %s from output\n",
+			filtered,
+			output.Form(filtered, "vulnerability", "vulnerabilities"),
+		)
+	}
+
+	if len(results.Results) > 0 {
+		// Determine the correct error to return.
+
+		// TODO(v2): in the next breaking release of osv-scanner, consider
+		// returning a ScanError instead of an error.
+		var vuln bool
+		onlyUncalledVuln := true
+		var licenseViolation bool
+		for _, vf := range results.Flatten() {
+			if vf.Vulnerability.ID != "" {
+				vuln = true
+				if vf.GroupInfo.IsCalled() {
+					onlyUncalledVuln = false
+				}
+			}
+			if len(vf.LicenseViolations) > 0 {
+				licenseViolation = true
+			}
+		}
+		onlyUncalledVuln = onlyUncalledVuln && vuln
+		licenseViolation = licenseViolation && len(actions.ScanLicensesAllowlist) > 0
+
+		if (!vuln || onlyUncalledVuln) && !licenseViolation {
+			// There is no error.
+			return results, nil
+		}
+
+		return results, VulnerabilitiesFoundErr
+	}
+
+	return results, nil
+}
 
 // Perform osv scanner action, with optional reporter to output information
 func DoScan(actions ScannerActions, r reporter.Reporter) (models.VulnerabilityResults, error) {
