@@ -13,6 +13,7 @@ import (
 	"github.com/google/osv-scalibr/extractor/filesystem/language/golang/gobinary"
 	"github.com/google/osv-scalibr/extractor/filesystem/os/apk"
 	"github.com/google/osv-scalibr/extractor/filesystem/os/dpkg"
+	"github.com/google/osv-scalibr/extractor/filesystem/os/osrelease"
 	"github.com/google/osv-scanner/internal/config"
 	"github.com/google/osv-scanner/internal/depsdev"
 	"github.com/google/osv-scanner/internal/imodels"
@@ -139,6 +140,30 @@ func DoContainerScan(actions ScannerActions, r reporter.Reporter) (models.Vulner
 	for i, inv := range scalibrSR.Inventories {
 		scanResult.PackageScanResults[i].PackageInfo = imodels.FromInventory(inv)
 		scanResult.PackageScanResults[i].LayerDetails = inv.LayerDetails
+	}
+
+	// --- Fill Image Metadata ---
+	{
+		// Ignore error, as if this would error we would have failed the initial scan
+		chainLayers, _ := img.ChainLayers()
+		m, err := osrelease.GetOSRelease(chainLayers[len(chainLayers)-1].FS())
+		OS := "Unknown"
+		if err != nil {
+			OS = m["OSID"]
+		}
+
+		layerMetadata := []models.LayerMetadata{}
+		for _, cl := range chainLayers {
+			layerMetadata = append(layerMetadata, models.LayerMetadata{
+				DiffID:  cl.Layer().DiffID(),
+				Command: cl.Layer().Command(),
+				IsEmpty: cl.Layer().IsEmpty(),
+			})
+		}
+		scanResult.ImageMetadata = &models.ImageMetadata{
+			OS:            OS,
+			LayerMetadata: layerMetadata,
+		}
 	}
 
 	filterUnscannablePackages(r, &scanResult)

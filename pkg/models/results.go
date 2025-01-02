@@ -9,6 +9,7 @@ import (
 type VulnerabilityResults struct {
 	Results                    []PackageSource            `json:"results"`
 	ExperimentalAnalysisConfig ExperimentalAnalysisConfig `json:"experimental_config"`
+	ImageMetadata              *ImageMetadata             `json:"image_metadata,omitempty"`
 }
 
 // ExperimentalAnalysisConfig is an experimental type intended to contain the
@@ -193,4 +194,16 @@ type PackageInfo struct {
 	Ecosystem   string              `json:"ecosystem"`
 	Commit      string              `json:"commit,omitempty"`
 	ImageOrigin *ImageOriginDetails `json:"imageOrigin,omitempty"`
+}
+
+type ImageMetadata struct {
+	OS            string          `json:"os"`
+	BaseImages    []string        `json:"base_images"`
+	LayerMetadata []LayerMetadata `json:"layer_metadata"`
+}
+
+type LayerMetadata struct {
+	DiffID  string `json:"diff_id"`
+	Command string `json:"command"`
+	IsEmpty bool   `json:"is_empty"`
 }

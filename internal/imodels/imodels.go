@@ -138,20 +138,11 @@ type PackageScanResult struct {
 	// TODO: Use osvschema.Vulnerability instead
 	Vulnerabilities []models.Vulnerability
 	Licenses        []models.License
-	// TODO(V2 models, only save layer ID):
-	LayerDetails *extractor.LayerDetails
-	// ImageOriginLayerID string
+	LayerDetails    *extractor.LayerDetails
 
 	// TODO(v2):
 	// SourceAnalysis *SourceAnalysis
 	// Any additional scan enrichment steps
-}
-
-type ImageMetadata struct {
-	// TODO:
-	// OS
-	// BaseImage
-	// LayerMetadata []LayerMetadata
 }
 
 // SourceType categorizes packages based on the extractor that extracted
