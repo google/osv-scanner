@@ -315,7 +315,7 @@ func action(context *cli.Context, stdout, stderr io.Writer) (reporter.Reporter, 
 	}
 
 	var vulnResult models.VulnerabilityResults
-	if context.String("docker") != "" {
+	if context.String("docker") != "" || context.String("experimental-oci-image") != "" {
 		vulnResult, err = osvscanner.DoContainerScan(scannerAction, r)
 	} else {
 		vulnResult, err = osvscanner.DoScan(scannerAction, r)

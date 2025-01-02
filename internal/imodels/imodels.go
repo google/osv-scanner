@@ -136,9 +136,11 @@ func FromInventory(inventory *extractor.Inventory) PackageInfo {
 type PackageScanResult struct {
 	PackageInfo PackageInfo
 	// TODO: Use osvschema.Vulnerability instead
-	Vulnerabilities    []models.Vulnerability
-	Licenses           []models.License
-	ImageOriginLayerID string
+	Vulnerabilities []models.Vulnerability
+	Licenses        []models.License
+	// TODO(V2 models, only save layer ID):
+	LayerDetails *extractor.LayerDetails
+	// ImageOriginLayerID string
 
 	// TODO(v2):
 	// SourceAnalysis *SourceAnalysis

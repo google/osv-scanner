@@ -930,7 +930,7 @@ Pulling docker image ("alpine:non-existent-tag")...
 Docker command exited with code ("/usr/bin/docker pull -q alpine:non-existent-tag"): 1
 STDERR:
 > Error response from daemon: manifest for alpine:non-existent-tag not found: manifest unknown: manifest unknown
-failed to run docker command
+failed to pull container image: failed to run docker command
 
 ---
 
@@ -943,14 +943,14 @@ Pulling docker image ("this-image-definitely-does-not-exist-abcde")...
 Docker command exited with code ("/usr/bin/docker pull -q this-image-definitely-does-not-exist-abcde"): 1
 STDERR:
 > Error response from daemon: pull access denied for this-image-definitely-does-not-exist-abcde, repository does not exist or may require 'docker login': denied: requested access to the resource is denied
-failed to run docker command
+failed to pull container image: failed to run docker command
 
 ---
 
 [TestRun_Docker/Real_Alpine_image - 1]
 Pulling docker image ("alpine:3.18.9")...
 Saving docker image ("alpine:3.18.9") to temporary file...
-Scanning image...
+Scanning image "/tmp/docker-image-2671409146.tar"
 No issues found
 
 ---
@@ -962,7 +962,7 @@ No issues found
 [TestRun_Docker/Real_empty_image - 1]
 Pulling docker image ("hello-world")...
 Saving docker image ("hello-world") to temporary file...
-Scanning image...
+Scanning image "/tmp/docker-image-1910286536.tar"
 
 ---
 
@@ -974,7 +974,7 @@ No package sources found, --help for usage information.
 [TestRun_Docker/Real_empty_image_with_tag - 1]
 Pulling docker image ("hello-world:linux")...
 Saving docker image ("hello-world:linux") to temporary file...
-Scanning image...
+Scanning image "/tmp/docker-image-2242457421.tar"
 
 ---
 
@@ -2672,14 +2672,13 @@ Scanned <rootdir>/fixtures/maven-transitive/pom.xml file and found 3 packages
 ---
 
 [TestRun_OCIImage/Alpine_3.10_image_tar_with_3.18_version_file - 1]
-Scanning image ../../internal/image/fixtures/test-alpine.tar
+Scanning image "../../internal/image/fixtures/test-alpine.tar"
 Total 1 packages affected by 2 vulnerabilities (1 Critical, 1 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystems.
 2 vulnerabilities have fixes available.
 
 Alpine:v3.18
 +----------------------------------------------------------+
-| Source:docker:../../internal/image/fixtures/test-alpine. |
-| tar:/lib/apk/db/installed                                |
+| Source:os:lib/apk/db/installed                           |
 +---------+-------------------+---------------+------------+
 | PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT |
 +---------+-------------------+---------------+------------+
@@ -2696,24 +2695,23 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
 ---
 
 [TestRun_OCIImage/Invalid_path - 1]
-Scanning image ./fixtures/oci-image/no-file-here.tar
+Scanning image "./fixtures/oci-image/no-file-here.tar"
 
 ---
 
 [TestRun_OCIImage/Invalid_path - 2]
-failed to load image ./fixtures/oci-image/no-file-here.tar: open ./fixtures/oci-image/no-file-here.tar: no such file or directory
+failed to load image from tarball with path "./fixtures/oci-image/no-file-here.tar": open ./fixtures/oci-image/no-file-here.tar: no such file or directory
 
 ---
 
 [TestRun_OCIImage/scanning_node_modules_using_npm_with_no_packages - 1]
-Scanning image ../../internal/image/fixtures/test-node_modules-npm-empty.tar
+Scanning image "../../internal/image/fixtures/test-node_modules-npm-empty.tar"
 Total 1 packages affected by 4 vulnerabilities (0 Critical, 0 High, 4 Medium, 0 Low, 0 Unknown) from 1 ecosystems.
 4 vulnerabilities have fixes available.
 
 Alpine:v3.19
 +----------------------------------------------------------+
-| Source:docker:../../internal/image/fixtures/test-node_mo |
-| dules-npm-empty.tar:/lib/apk/db/installed                |
+| Source:os:lib/apk/db/installed                           |
 +---------+-------------------+---------------+------------+
 | PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT |
 +---------+-------------------+---------------+------------+
@@ -2730,14 +2728,13 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
 ---
 
 [TestRun_OCIImage/scanning_node_modules_using_npm_with_some_packages - 1]
-Scanning image ../../internal/image/fixtures/test-node_modules-npm-full.tar
+Scanning image "../../internal/image/fixtures/test-node_modules-npm-full.tar"
 Total 3 packages affected by 6 vulnerabilities (2 Critical, 0 High, 4 Medium, 0 Low, 0 Unknown) from 2 ecosystems.
 5 vulnerabilities have fixes available.
 
 npm
 +--------------------------------------------------------------+
-| Source:docker:../../internal/image/fixtures/test-node_module |
-| s-npm-full.tar:/prod/app/node_modules/.package-lock.json     |
+| Source:lockfile:prod/app/node_modules/.package-lock.json     |
 +----------+-------------------+------------------+------------+
 | PACKAGE  | INSTALLED VERSION | FIX AVAILABLE    | VULN COUNT |
 +----------+-------------------+------------------+------------+
@@ -2746,8 +2743,7 @@ npm
 +----------+-------------------+------------------+------------+
 Alpine:v3.19
 +----------------------------------------------------------+
-| Source:docker:../../internal/image/fixtures/test-node_mo |
-| dules-npm-full.tar:/lib/apk/db/installed                 |
+| Source:os:lib/apk/db/installed                           |
 +---------+-------------------+---------------+------------+
 | PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT |
 +---------+-------------------+---------------+------------+
@@ -2764,14 +2760,13 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
 ---
 
 [TestRun_OCIImage/scanning_node_modules_using_pnpm_with_no_packages - 1]
-Scanning image ../../internal/image/fixtures/test-node_modules-pnpm-empty.tar
+Scanning image "../../internal/image/fixtures/test-node_modules-pnpm-empty.tar"
 Total 1 packages affected by 4 vulnerabilities (0 Critical, 0 High, 4 Medium, 0 Low, 0 Unknown) from 1 ecosystems.
 4 vulnerabilities have fixes available.
 
 Alpine:v3.19
 +----------------------------------------------------------+
-| Source:docker:../../internal/image/fixtures/test-node_mo |
-| dules-pnpm-empty.tar:/lib/apk/db/installed               |
+| Source:os:lib/apk/db/installed                           |
 +---------+-------------------+---------------+------------+
 | PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT |
 +---------+-------------------+---------------+------------+
@@ -2788,14 +2783,13 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
 ---
 
 [TestRun_OCIImage/scanning_node_modules_using_pnpm_with_some_packages - 1]
-Scanning image ../../internal/image/fixtures/test-node_modules-pnpm-full.tar
+Scanning image "../../internal/image/fixtures/test-node_modules-pnpm-full.tar"
 Total 1 packages affected by 4 vulnerabilities (0 Critical, 0 High, 4 Medium, 0 Low, 0 Unknown) from 1 ecosystems.
 4 vulnerabilities have fixes available.
 
 Alpine:v3.19
 +----------------------------------------------------------+
-| Source:docker:../../internal/image/fixtures/test-node_mo |
-| dules-pnpm-full.tar:/lib/apk/db/installed                |
+| Source:os:lib/apk/db/installed                           |
 +---------+-------------------+---------------+------------+
 | PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT |
 +---------+-------------------+---------------+------------+
@@ -2812,14 +2806,13 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
 ---
 
 [TestRun_OCIImage/scanning_node_modules_using_yarn_with_no_packages - 1]
-Scanning image ../../internal/image/fixtures/test-node_modules-yarn-empty.tar
+Scanning image "../../internal/image/fixtures/test-node_modules-yarn-empty.tar"
 Total 1 packages affected by 4 vulnerabilities (0 Critical, 0 High, 4 Medium, 0 Low, 0 Unknown) from 1 ecosystems.
 4 vulnerabilities have fixes available.
 
 Alpine:v3.19
 +----------------------------------------------------------+
-| Source:docker:../../internal/image/fixtures/test-node_mo |
-| dules-yarn-empty.tar:/lib/apk/db/installed               |
+| Source:os:lib/apk/db/installed                           |
 +---------+-------------------+---------------+------------+
 | PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT |
 +---------+-------------------+---------------+------------+
@@ -2836,14 +2829,13 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
 ---
 
 [TestRun_OCIImage/scanning_node_modules_using_yarn_with_some_packages - 1]
-Scanning image ../../internal/image/fixtures/test-node_modules-yarn-full.tar
+Scanning image "../../internal/image/fixtures/test-node_modules-yarn-full.tar"
 Total 1 packages affected by 4 vulnerabilities (0 Critical, 0 High, 4 Medium, 0 Low, 0 Unknown) from 1 ecosystems.
 4 vulnerabilities have fixes available.
 
 Alpine:v3.19
 +----------------------------------------------------------+
-| Source:docker:../../internal/image/fixtures/test-node_mo |
-| dules-yarn-full.tar:/lib/apk/db/installed                |
+| Source:os:lib/apk/db/installed                           |
 +---------+-------------------+---------------+------------+
 | PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT |
 +---------+-------------------+---------------+------------+

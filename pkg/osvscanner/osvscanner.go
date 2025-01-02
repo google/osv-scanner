@@ -1,9 +1,12 @@
 package osvscanner
 
 import (
+	"bufio"
 	"context"
 	"errors"
 	"fmt"
+	"os"
+	"os/exec"
 
 	"github.com/google/osv-scalibr/artifact/image/layerscanning/image"
 	"github.com/google/osv-scalibr/extractor/filesystem"
@@ -15,8 +18,8 @@ import (
 	"github.com/google/osv-scanner/internal/imodels"
 	"github.com/google/osv-scanner/internal/imodels/results"
 	"github.com/google/osv-scanner/internal/local"
-	"github.com/google/osv-scanner/internal/lockfilescalibr/language/javascript/nodemodules"
 	"github.com/google/osv-scanner/internal/output"
+	"github.com/google/osv-scanner/internal/scalibrextract/language/javascript/nodemodules"
 	"github.com/google/osv-scanner/internal/semantic"
 	"github.com/google/osv-scanner/internal/version"
 	"github.com/google/osv-scanner/pkg/models"
@@ -94,15 +97,27 @@ func DoContainerScan(actions ScannerActions, r reporter.Reporter) (models.Vulner
 	}
 
 	scanner := scalibr.New()
-	image, err := image.FromRemoteName(actions.DockerImageName, image.DefaultConfig())
+
+	var img *image.Image
+	var err error
+	if actions.ScanOCIImage != "" {
+		img, err = image.FromTarball(actions.ScanOCIImage, image.DefaultConfig())
+		r.Infof("Scanning image %q\n", actions.ScanOCIImage)
+	} else if actions.DockerImageName != "" {
+		path, exportErr := exportDockerImage(r, actions.DockerImageName)
+		if exportErr != nil {
+			return models.VulnerabilityResults{}, exportErr
+		}
+		defer os.Remove(path)
+		img, err = image.FromTarball(path, image.DefaultConfig())
+		r.Infof("Scanning image %q\n", path)
+	}
 	if err != nil {
-		r.Errorf("Failed to pull container image %q\n", actions.DockerImageName)
 		return models.VulnerabilityResults{}, err
 	}
+	defer img.CleanUp()
 
-	defer image.CleanUp()
-
-	scalibrSR, err := scanner.ScanContainer(context.Background(), image, &scalibr.ScanConfig{
+	scalibrSR, err := scanner.ScanContainer(context.Background(), img, &scalibr.ScanConfig{
 		FilesystemExtractors: []filesystem.Extractor{
 			nodemodules.Extractor{},
 			apk.New(apk.DefaultConfig()),
@@ -116,9 +131,14 @@ func DoContainerScan(actions ScannerActions, r reporter.Reporter) (models.Vulner
 		return models.VulnerabilityResults{}, fmt.Errorf("failed to scan container image: %w", err)
 	}
 
+	if len(scalibrSR.Inventories) == 0 {
+		return models.VulnerabilityResults{}, NoPackagesFoundErr
+	}
+
 	scanResult.PackageScanResults = make([]imodels.PackageScanResult, len(scalibrSR.Inventories))
 	for i, inv := range scalibrSR.Inventories {
 		scanResult.PackageScanResults[i].PackageInfo = imodels.FromInventory(inv)
+		scanResult.PackageScanResults[i].LayerDetails = inv.LayerDetails
 	}
 
 	filterUnscannablePackages(r, &scanResult)
@@ -177,6 +197,68 @@ func DoContainerScan(actions ScannerActions, r reporter.Reporter) (models.Vulner
 	}
 
 	return results, nil
+}
+
+func exportDockerImage(r reporter.Reporter, dockerImageName string) (string, error) {
+	tempImageFile, err := os.CreateTemp("", "docker-image-*.tar")
+	if err != nil {
+		r.Errorf("Failed to create temporary file: %s\n", err)
+		return "", err
+	}
+
+	err = tempImageFile.Close()
+	if err != nil {
+		return "", err
+	}
+
+	r.Infof("Pulling docker image (%q)...\n", dockerImageName)
+	err = runCommandLogError(r, "docker", "pull", "-q", dockerImageName)
+	if err != nil {
+		return "", fmt.Errorf("failed to pull container image: %w", err)
+	}
+
+	r.Infof("Saving docker image (%q) to temporary file...\n", dockerImageName)
+	err = runCommandLogError(r, "docker", "save", "-o", tempImageFile.Name(), dockerImageName)
+	if err != nil {
+		return "", err
+	}
+
+	return tempImageFile.Name(), nil
+}
+
+func runCommandLogError(r reporter.Reporter, name string, args ...string) error {
+	cmd := exec.Command(name, args...)
+
+	// Get stderr for debugging when docker fails
+	stderr, err := cmd.StderrPipe()
+	if err != nil {
+		r.Errorf("Failed to get stderr: %s\n", err)
+		return err
+	}
+
+	err = cmd.Start()
+	if err != nil {
+		r.Errorf("Failed to run docker command (%q): %s\n", cmd.String(), err)
+		return err
+	}
+	// This has to be captured before cmd.Wait() is called, as cmd.Wait() closes the stderr pipe.
+	var stderrLines []string
+	scanner := bufio.NewScanner(stderr)
+	for scanner.Scan() {
+		stderrLines = append(stderrLines, scanner.Text())
+	}
+
+	err = cmd.Wait()
+	if err != nil {
+		r.Errorf("Docker command exited with code (%q): %d\nSTDERR:\n", cmd.String(), cmd.ProcessState.ExitCode())
+		for _, line := range stderrLines {
+			r.Errorf("> %s\n", line)
+		}
+
+		return errors.New("failed to run docker command")
+	}
+
+	return nil
 }
 
 // Perform osv scanner action, with optional reporter to output information
