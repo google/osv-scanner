@@ -1,4 +1,4 @@
-package local
+package localmatcher
 
 import (
 	"archive/zip"
@@ -16,6 +16,7 @@ import (
 	"path"
 	"strings"
 
+	"github.com/google/osv-scanner/internal/imodels"
 	"github.com/google/osv-scanner/internal/utility/vulns"
 	"github.com/google/osv-scanner/pkg/lockfile"
 	"github.com/google/osv-scanner/pkg/models"
@@ -37,8 +38,8 @@ type ZipDB struct {
 
 var ErrOfflineDatabaseNotFound = errors.New("no offline version of the OSV database is available")
 
-func fetchRemoteArchiveCRC32CHash(url string) (uint32, error) {
-	req, err := http.NewRequestWithContext(context.Background(), http.MethodHead, url, nil)
+func fetchRemoteArchiveCRC32CHash(ctx context.Context, url string) (uint32, error) {
+	req, err := http.NewRequestWithContext(ctx, http.MethodHead, url, nil)
 
 	if err != nil {
 		return 0, err
@@ -75,7 +76,7 @@ func fetchLocalArchiveCRC32CHash(data []byte) uint32 {
 	return crc32.Checksum(data, crc32.MakeTable(crc32.Castagnoli))
 }
 
-func (db *ZipDB) fetchZip() ([]byte, error) {
+func (db *ZipDB) fetchZip(ctx context.Context) ([]byte, error) {
 	cache, err := os.ReadFile(db.StoredAt)
 
 	if db.Offline {
@@ -87,7 +88,7 @@ func (db *ZipDB) fetchZip() ([]byte, error) {
 	}
 
 	if err == nil {
-		remoteHash, err := fetchRemoteArchiveCRC32CHash(db.ArchiveURL)
+		remoteHash, err := fetchRemoteArchiveCRC32CHash(ctx, db.ArchiveURL)
 
 		if err != nil {
 			return nil, err
@@ -98,7 +99,7 @@ func (db *ZipDB) fetchZip() ([]byte, error) {
 		}
 	}
 
-	req, err := http.NewRequestWithContext(context.Background(), http.MethodGet, db.ArchiveURL, nil)
+	req, err := http.NewRequestWithContext(ctx, http.MethodGet, db.ArchiveURL, nil)
 
 	if err != nil {
 		return nil, fmt.Errorf("could not retrieve OSV database archive: %w", err)
@@ -176,10 +177,10 @@ func (db *ZipDB) loadZipFile(zipFile *zip.File) {
 // Internally, the archive is cached along with the date that it was fetched
 // so that a new version of the archive is only downloaded if it has been
 // modified, per HTTP caching standards.
-func (db *ZipDB) load() error {
+func (db *ZipDB) load(ctx context.Context) error {
 	db.vulnerabilities = []models.Vulnerability{}
 
-	body, err := db.fetchZip()
+	body, err := db.fetchZip(ctx)
 
 	if err != nil {
 		return err
@@ -202,14 +203,14 @@ func (db *ZipDB) load() error {
 	return nil
 }
 
-func NewZippedDB(dbBasePath, name, url string, offline bool) (*ZipDB, error) {
+func NewZippedDB(ctx context.Context, dbBasePath, name, url string, offline bool) (*ZipDB, error) {
 	db := &ZipDB{
 		Name:       name,
 		ArchiveURL: url,
 		Offline:    offline,
 		StoredAt:   path.Join(dbBasePath, name, "all.zip"),
 	}
-	if err := db.load(); err != nil {
+	if err := db.load(ctx); err != nil {
 		return nil, fmt.Errorf("unable to fetch OSV database: %w", err)
 	}
 
@@ -232,20 +233,30 @@ func (db *ZipDB) Vulnerabilities(includeWithdrawn bool) []models.Vulnerability {
 	return vulnerabilities
 }
 
-func (db *ZipDB) VulnerabilitiesAffectingPackage(pkg lockfile.PackageDetails) models.Vulnerabilities {
-	var vulnerabilities models.Vulnerabilities
+func (db *ZipDB) VulnerabilitiesAffectingPackage(pkg imodels.PackageInfo) []*models.Vulnerability {
+	var vulnerabilities []*models.Vulnerability
+
+	// TODO (V2 Models): remove this once PackageDetails has been migrated
+	mappedPackageDetails := lockfile.PackageDetails{
+		Name:      pkg.Name,
+		Version:   pkg.Version,
+		Commit:    pkg.Commit,
+		Ecosystem: lockfile.Ecosystem(pkg.Ecosystem.String()),
+		CompareAs: lockfile.Ecosystem(pkg.Ecosystem.String()),
+		DepGroups: pkg.DepGroups,
+	}
 
 	for _, vulnerability := range db.Vulnerabilities(false) {
-		if vulns.IsAffected(vulnerability, pkg) && !vulns.Include(vulnerabilities, vulnerability) {
-			vulnerabilities = append(vulnerabilities, vulnerability)
+		if vulns.IsAffected(vulnerability, mappedPackageDetails) && !vulns.Include(vulnerabilities, vulnerability) {
+			vulnerabilities = append(vulnerabilities, &vulnerability)
 		}
 	}
 
 	return vulnerabilities
 }
 
-func (db *ZipDB) Check(pkgs []lockfile.PackageDetails) (models.Vulnerabilities, error) {
-	vulnerabilities := make(models.Vulnerabilities, 0, len(pkgs))
+func (db *ZipDB) Check(pkgs []imodels.PackageInfo) ([]*models.Vulnerability, error) {
+	vulnerabilities := make([]*models.Vulnerability, 0, len(pkgs))
 
 	for _, pkg := range pkgs {
 		vulnerabilities = append(vulnerabilities, db.VulnerabilitiesAffectingPackage(pkg)...)

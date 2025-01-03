@@ -3,9 +3,7 @@ package osvdev
 import "github.com/google/osv-scanner/internal/version"
 
 type ClientConfig struct {
-	MaxConcurrentRequests      int
 	MaxConcurrentBatchRequests int
-
 	MaxRetryAttempts           int
 	JitterMultiplier           float64
 	BackoffDurationExponential float64
@@ -21,7 +19,6 @@ func DefaultConfig() ClientConfig {
 		BackoffDurationExponential: 2,
 		BackoffDurationMultiplier:  1,
 		UserAgent:                  "osv-scanner/" + version.OSVVersion,
-		MaxConcurrentRequests:      1000,
 		MaxConcurrentBatchRequests: 10,
 	}
 }
