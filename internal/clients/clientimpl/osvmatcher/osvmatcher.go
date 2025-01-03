@@ -20,6 +20,8 @@ const (
 	maxConcurrentRequests = 1000
 )
 
+// OSVMatcher implements the VulnerabilityMatcher interface with a osv.dev client.
+// It sends out requests for every package version and does not perform caching.
 type OSVMatcher struct {
 	Client osvdev.OSVClient
 	// InitialQueryTimeout allows you to set a timeout specifically for the initial paging query
@@ -28,7 +30,7 @@ type OSVMatcher struct {
 	InitialQueryTimeout time.Duration
 }
 
-func (vf *OSVMatcher) Match(ctx context.Context, pkgs []*extractor.Inventory) ([][]*models.Vulnerability, error) {
+func (matcher *OSVMatcher) Match(ctx context.Context, pkgs []*extractor.Inventory) ([][]*models.Vulnerability, error) {
 	var batchResp *osvdev.BatchedResponse
 	deadlineExceeded := false
 
@@ -38,13 +40,14 @@ func (vf *OSVMatcher) Match(ctx context.Context, pkgs []*extractor.Inventory) ([
 		// convert Inventory to Query for each pkgs element
 		queries := invsToQueries(pkgs)
 		// If there is a timeout for the initial query, set an additional context deadline here.
-		if vf.InitialQueryTimeout > 0 {
-			batchQueryCtx, cancelFunc := context.WithDeadline(ctx, time.Now().Add(vf.InitialQueryTimeout))
-			batchResp, err = vf.Client.QueryBatch(batchQueryCtx, queries)
+		if matcher.InitialQueryTimeout > 0 {
+			batchQueryCtx, cancelFunc := context.WithDeadline(ctx, time.Now().Add(matcher.InitialQueryTimeout))
+			batchResp, err = queryForBatchWithPaging(batchQueryCtx, &matcher.Client, queries)
 			cancelFunc()
 		} else {
-			batchResp, err = vf.Client.QueryBatch(ctx, queries)
+			batchResp, err = queryForBatchWithPaging(ctx, &matcher.Client, queries)
 		}
+
 		if err != nil {
 			if errors.Is(err, context.DeadlineExceeded) {
 				deadlineExceeded = true
@@ -67,7 +70,7 @@ func (vf *OSVMatcher) Match(ctx context.Context, pkgs []*extractor.Inventory) ([
 				if ctx.Err() != nil {
 					return nil //nolint:nilerr // this value doesn't matter to errgroup.Wait()
 				}
-				vuln, err := vf.Client.GetVulnByID(ctx, vuln.ID)
+				vuln, err := matcher.Client.GetVulnByID(ctx, vuln.ID)
 				if err != nil {
 					return err
 				}
@@ -87,6 +90,65 @@ func (vf *OSVMatcher) Match(ctx context.Context, pkgs []*extractor.Inventory) ([
 	}
 
 	return vulnerabilities, nil
+}
+
+func queryForBatchWithPaging(ctx context.Context, c *osvdev.OSVClient, queries []*osvdev.Query) (*osvdev.BatchedResponse, error) {
+	batchResp, err := c.QueryBatch(ctx, queries)
+
+	if err != nil {
+		return nil, err
+	}
+	// --- Paging logic ---
+	var errToReturn error
+	nextPageQueries := []*osvdev.Query{}
+	nextPageIndexMap := []int{}
+	for i, res := range batchResp.Results {
+		if res.NextPageToken == "" {
+			continue
+		}
+
+		query := *queries[i]
+		query.PageToken = res.NextPageToken
+		nextPageQueries = append(nextPageQueries, &query)
+		nextPageIndexMap = append(nextPageIndexMap, i)
+	}
+
+	if len(nextPageQueries) > 0 {
+		// If context is cancelled or deadline exceeded, return now
+		if ctx.Err() != nil {
+			return batchResp, &DuringPagingError{
+				PageDepth: 1,
+				Inner:     ctx.Err(),
+			}
+		}
+
+		nextPageResp, err := c.QueryBatch(ctx, nextPageQueries)
+		if err != nil {
+			var dpr *DuringPagingError
+			if ok := errors.As(err, &dpr); ok {
+				dpr.PageDepth += 1
+				errToReturn = dpr
+			} else {
+				errToReturn = &DuringPagingError{
+					PageDepth: 1,
+					Inner:     err,
+				}
+			}
+		}
+
+		// Whether there is an error or not, if there is any data,
+		// we want to save and return what we got.
+		if nextPageResp != nil {
+			for i, res := range nextPageResp.Results {
+				batchResp.Results[nextPageIndexMap[i]].Vulns = append(batchResp.Results[nextPageIndexMap[i]].Vulns, res.Vulns...)
+				// Set next page token so caller knows whether this is all of the results
+				// even if it is being cancelled.
+				batchResp.Results[nextPageIndexMap[i]].NextPageToken = res.NextPageToken
+			}
+		}
+	}
+
+	return batchResp, errToReturn
 }
 
 func pkgToQuery(pkg imodels.PackageInfo) *osvdev.Query {

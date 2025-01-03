@@ -1,4 +1,4 @@
-package osvdev
+package osvmatcher
 
 import "fmt"
 

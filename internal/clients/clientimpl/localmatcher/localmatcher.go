@@ -20,6 +20,8 @@ import (
 const zippedDBRemoteHost = "https://osv-vulnerabilities.storage.googleapis.com"
 const envKeyLocalDBCacheDirectory = "OSV_SCANNER_LOCAL_DB_CACHE_DIRECTORY"
 
+// LocalMatcher implements the VulnerabilityMatcher interface by downloading the osv export zip files,
+// and performing the matching locally.
 type LocalMatcher struct {
 	dbBasePath string
 	dbs        map[osvschema.Ecosystem]*ZipDB

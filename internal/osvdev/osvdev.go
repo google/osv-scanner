@@ -143,57 +143,7 @@ func (c *OSVClient) QueryBatch(ctx context.Context, queries []*Query) (*BatchedR
 		totalOsvResp.Results = append(totalOsvResp.Results, results...)
 	}
 
-	// --- Paging logic ---
-	var errToReturn error
-	nextPageQueries := []*Query{}
-	nextPageIndexMap := []int{}
-	for i, res := range totalOsvResp.Results {
-		if res.NextPageToken == "" {
-			continue
-		}
-
-		query := *queries[i]
-		query.PageToken = res.NextPageToken
-		nextPageQueries = append(nextPageQueries, &query)
-		nextPageIndexMap = append(nextPageIndexMap, i)
-	}
-
-	if len(nextPageQueries) > 0 {
-		// If context is cancelled or deadline exceeded, return now
-		if ctx.Err() != nil {
-			return &totalOsvResp, &DuringPagingError{
-				PageDepth: 1,
-				Inner:     ctx.Err(),
-			}
-		}
-
-		nextPageResp, err := c.QueryBatch(ctx, nextPageQueries)
-		if err != nil {
-			var dpr *DuringPagingError
-			if ok := errors.As(err, &dpr); ok {
-				dpr.PageDepth += 1
-				errToReturn = dpr
-			} else {
-				errToReturn = &DuringPagingError{
-					PageDepth: 1,
-					Inner:     err,
-				}
-			}
-		}
-
-		// Whether there is an error or not, if there is any data,
-		// we want to save and return what we got.
-		if nextPageResp != nil {
-			for i, res := range nextPageResp.Results {
-				totalOsvResp.Results[nextPageIndexMap[i]].Vulns = append(totalOsvResp.Results[nextPageIndexMap[i]].Vulns, res.Vulns...)
-				// Set next page token so caller knows whether this is all of the results
-				// even if it is being cancelled.
-				totalOsvResp.Results[nextPageIndexMap[i]].NextPageToken = res.NextPageToken
-			}
-		}
-	}
-
-	return &totalOsvResp, errToReturn
+	return &totalOsvResp, nil
 }
 
 // Query is an interface to this endpoint: https://google.github.io/osv.dev/post-v1-query/
@@ -234,44 +184,7 @@ func (c *OSVClient) Query(ctx context.Context, query *Query) (*Response, error) 
 		return nil, err
 	}
 
-	// --- Paging logic ---
-	var errToReturn error
-	if osvResp.NextPageToken != "" {
-		if ctx.Err() != nil {
-			return &osvResp, &DuringPagingError{
-				PageDepth: 1,
-				Inner:     ctx.Err(),
-			}
-		}
-
-		// Copy query to avoid changing the input
-		newQuery := *query
-		newQuery.PageToken = osvResp.NextPageToken
-		resp, err := c.Query(ctx, &newQuery)
-		if err != nil {
-			var dpr *DuringPagingError
-			if ok := errors.As(err, &dpr); ok {
-				dpr.PageDepth += 1
-				errToReturn = dpr
-			} else {
-				errToReturn = &DuringPagingError{
-					PageDepth: 1,
-					Inner:     err,
-				}
-			}
-		}
-
-		// Whether there is an error or not, if there is any data,
-		// we want to save and return what we got.
-		if resp != nil {
-			osvResp.Vulns = append(osvResp.Vulns, resp.Vulns...)
-			// Set next page token so caller knows whether this is all of the results
-			// even if it is being cancelled.
-			osvResp.NextPageToken = resp.NextPageToken
-		}
-	}
-
-	return &osvResp, errToReturn
+	return &osvResp, nil
 }
 
 // ExperimentalDetermineVersion
