@@ -14,6 +14,7 @@ import (
 	"github.com/google/osv-scanner/internal/customgitignore"
 	"github.com/google/osv-scanner/internal/output"
 	"github.com/google/osv-scanner/internal/scalibrextract"
+	"github.com/google/osv-scanner/internal/scalibrextract/filesystem/vendored"
 	"github.com/google/osv-scanner/internal/scalibrextract/vcs/gitrepo"
 	"github.com/google/osv-scanner/pkg/reporter"
 )
@@ -45,6 +46,8 @@ func ScanDir(r reporter.Reporter, dir string, skipGit bool, recursive bool, useG
 	}
 	relevantExtractors = append(relevantExtractors, lockfileExtractors...)
 	relevantExtractors = append(relevantExtractors, SBOMExtractors...)
+	// Only scan git directories if we are skipping the git extractor
+	relevantExtractors = append(relevantExtractors, vendored.Extractor{ScanGitDir: skipGit})
 	if pomExtractor != nil {
 		relevantExtractors = append(relevantExtractors, pomExtractor)
 	} else {
@@ -107,17 +110,6 @@ func ScanDir(r reporter.Reporter, dir string, skipGit bool, recursive bool, useG
 			// Always skip git repository directories
 			return filepath.SkipDir
 		}
-
-		// TODO(V2): Reenable vendored libs scanning
-		// if info.IsDir() && !compareOffline {
-		// 	if _, ok := vendoredLibNames[strings.ToLower(filepath.Base(path))]; ok {
-		// 		pkgs, err := ScanDirWithVendoredLibs(r, path)
-		// 		if err != nil {
-		// 			r.Infof("scan failed for dir containing vendored libs %s: %v\n", path, err)
-		// 		}
-		// 		scannedPackages = append(scannedPackages, pkgs...)
-		// 	}
-		// }
 
 		if !root && !recursive && info.IsDir() {
 			return filepath.SkipDir
