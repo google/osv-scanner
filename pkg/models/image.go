@@ -1,7 +1,23 @@
 package models
 
 type ImageOriginDetails struct {
-	LayerID       string `json:"layerID"`
-	OriginCommand string `json:"originCommand"`
-	InBaseImage   bool   `json:"inBaseImage"`
+	DiffID string `json:"diff_id"`
+
+	// TODO: Deprecated, use ImageMetadata to retrieve this info
+	OriginCommand string `json:"origin_command"`
+	InBaseImage   bool   `json:"in_base_image"`
+}
+
+type ImageMetadata struct {
+	OS             string          `json:"os"`
+	LayerMetadata  []LayerMetadata `json:"layer_metadata"`
+	BaseImageIndex int             `json:"base_image_index"`
+}
+
+type LayerMetadata struct {
+	DiffID  string `json:"diff_id"`
+	Command string `json:"command"`
+	IsEmpty bool   `json:"is_empty"`
+	// TODO: Not yet filled in
+	BaseImages []string `json:"base_images"`
 }

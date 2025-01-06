@@ -289,7 +289,7 @@ func processPackage(vulnPkg models.PackageVulns) PackageResult {
 
 	if vulnPkg.Package.ImageOrigin != nil {
 		packageLayerDetail := PackageLayerDetail{
-			LayerID:     vulnPkg.Package.ImageOrigin.LayerID,
+			LayerID:     vulnPkg.Package.ImageOrigin.DiffID,
 			InBaseImage: vulnPkg.Package.ImageOrigin.InBaseImage,
 		}
 		packageLayerDetail.LayerCommand, packageLayerDetail.LayerCommandDetailed = formatLayerCommand(vulnPkg.Package.ImageOrigin.OriginCommand)

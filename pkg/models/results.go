@@ -196,14 +196,3 @@ type PackageInfo struct {
 	ImageOrigin *ImageOriginDetails `json:"imageOrigin,omitempty"`
 }
 
-type ImageMetadata struct {
-	OS            string          `json:"os"`
-	BaseImages    []string        `json:"base_images"`
-	LayerMetadata []LayerMetadata `json:"layer_metadata"`
-}
-
-type LayerMetadata struct {
-	DiffID  string `json:"diff_id"`
-	Command string `json:"command"`
-	IsEmpty bool   `json:"is_empty"`
-}

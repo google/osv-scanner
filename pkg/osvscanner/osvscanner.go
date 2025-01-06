@@ -161,8 +161,9 @@ func DoContainerScan(actions ScannerActions, r reporter.Reporter) (models.Vulner
 			})
 		}
 		scanResult.ImageMetadata = &models.ImageMetadata{
-			OS:            OS,
-			LayerMetadata: layerMetadata,
+			BaseImageIndex: img.BaseImageIndex,
+			OS:             OS,
+			LayerMetadata:  layerMetadata,
 		}
 	}
 
