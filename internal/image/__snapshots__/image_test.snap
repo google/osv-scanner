@@ -1,0 +1,1879 @@
+
+[TestScanImage/Alpine_3.10_image_tar_with_3.18_version_file - 1]
+{
+  "Lockfiles": [
+    {
+      "filePath": "/lib/apk/db/installed",
+      "parsedAs": "os/apk",
+      "packages": [
+        {
+          "name": "alpine-baselayout",
+          "version": "3.1.2-r0",
+          "commit": "770d8ce7c6c556d952884ad436dd82b17ceb1a9a",
+          "ecosystem": "Alpine:v3.18",
+          "compareAs": "Alpine",
+          "imageOrigin": {
+            "layerID": "\u003cAny value\u003e",
+            "originCommand": "/bin/sh -c #(nop) ADD file:c5377eaa926bf412dd8d4a08b0a1f2399cfd708743533b0aa03b53d14cb4bb4e in / ",
+            "inBaseImage": true
+          }
+        },
+        {
+          "name": "alpine-keys",
+          "version": "2.1-r2",
+          "commit": "bdc861e495d33e961b7b9884324bea64a16d2b91",
+          "ecosystem": "Alpine:v3.18",
+          "compareAs": "Alpine",
+          "imageOrigin": {
+            "layerID": "\u003cAny value\u003e",
+            "originCommand": "/bin/sh -c #(nop) ADD file:c5377eaa926bf412dd8d4a08b0a1f2399cfd708743533b0aa03b53d14cb4bb4e in / ",
+            "inBaseImage": true
+          }
+        },
+        {
+          "name": "apk-tools",
+          "version": "2.10.6-r0",
+          "commit": "ee458ccae264321745e9622c759baf110130eb2f",
+          "ecosystem": "Alpine:v3.18",
+          "compareAs": "Alpine",
+          "imageOrigin": {
+            "layerID": "\u003cAny value\u003e",
+            "originCommand": "/bin/sh -c #(nop) ADD file:c5377eaa926bf412dd8d4a08b0a1f2399cfd708743533b0aa03b53d14cb4bb4e in / ",
+            "inBaseImage": true
+          }
+        },
+        {
+          "name": "busybox",
+          "version": "1.30.1-r5",
+          "commit": "26527b0535f65a4ac0ae7f3c9afb2294885b21cc",
+          "ecosystem": "Alpine:v3.18",
+          "compareAs": "Alpine",
+          "imageOrigin": {
+            "layerID": "\u003cAny value\u003e",
+            "originCommand": "/bin/sh -c #(nop) ADD file:c5377eaa926bf412dd8d4a08b0a1f2399cfd708743533b0aa03b53d14cb4bb4e in / ",
+            "inBaseImage": true
+          }
+        },
+        {
+          "name": "ca-certificates-cacert",
+          "version": "20191127-r2",
+          "commit": "9677580919b73ca6eff94d3d31b9a846b4e40612",
+          "ecosystem": "Alpine:v3.18",
+          "compareAs": "Alpine",
+          "imageOrigin": {
+            "layerID": "\u003cAny value\u003e",
+            "originCommand": "/bin/sh -c #(nop) ADD file:c5377eaa926bf412dd8d4a08b0a1f2399cfd708743533b0aa03b53d14cb4bb4e in / ",
+            "inBaseImage": true
+          }
+        },
+        {
+          "name": "libc-utils",
+          "version": "0.7.1-r0",
+          "commit": "cdca45021830765ad71e58af7ed31f42d1d3d644",
+          "ecosystem": "Alpine:v3.18",
+          "compareAs": "Alpine",
+          "imageOrigin": {
+            "layerID": "\u003cAny value\u003e",
+            "originCommand": "/bin/sh -c #(nop) ADD file:c5377eaa926bf412dd8d4a08b0a1f2399cfd708743533b0aa03b53d14cb4bb4e in / ",
+            "inBaseImage": true
+          }
+        },
+        {
+          "name": "libcrypto1.1",
+          "version": "1.1.1k-r0",
+          "commit": "b5417b32170f2c945de1735ea728199291ff97b6",
+          "ecosystem": "Alpine:v3.18",
+          "compareAs": "Alpine",
+          "imageOrigin": {
+            "layerID": "\u003cAny value\u003e",
+            "originCommand": "/bin/sh -c #(nop) ADD file:c5377eaa926bf412dd8d4a08b0a1f2399cfd708743533b0aa03b53d14cb4bb4e in / ",
+            "inBaseImage": true
+          }
+        },
+        {
+          "name": "libssl1.1",
+          "version": "1.1.1k-r0",
+          "commit": "b5417b32170f2c945de1735ea728199291ff97b6",
+          "ecosystem": "Alpine:v3.18",
+          "compareAs": "Alpine",
+          "imageOrigin": {
+            "layerID": "\u003cAny value\u003e",
+            "originCommand": "/bin/sh -c #(nop) ADD file:c5377eaa926bf412dd8d4a08b0a1f2399cfd708743533b0aa03b53d14cb4bb4e in / ",
+            "inBaseImage": true
+          }
+        },
+        {
+          "name": "libtls-standalone",
+          "version": "2.9.1-r0",
+          "commit": "981bf8f8fb3cbbc210ee4f2a2fb5b55d0132e02a",
+          "ecosystem": "Alpine:v3.18",
+          "compareAs": "Alpine",
+          "imageOrigin": {
+            "layerID": "\u003cAny value\u003e",
+            "originCommand": "/bin/sh -c #(nop) ADD file:c5377eaa926bf412dd8d4a08b0a1f2399cfd708743533b0aa03b53d14cb4bb4e in / ",
+            "inBaseImage": true
+          }
+        },
+        {
+          "name": "musl",
+          "version": "1.1.22-r4",
+          "commit": "5c22bb085e8e49c9cb402315efad998f7f992dff",
+          "ecosystem": "Alpine:v3.18",
+          "compareAs": "Alpine",
+          "imageOrigin": {
+            "layerID": "\u003cAny value\u003e",
+            "originCommand": "/bin/sh -c #(nop) ADD file:c5377eaa926bf412dd8d4a08b0a1f2399cfd708743533b0aa03b53d14cb4bb4e in / ",
+            "inBaseImage": true
+          }
+        },
+        {
+          "name": "musl-utils",
+          "version": "1.1.22-r4",
+          "commit": "5c22bb085e8e49c9cb402315efad998f7f992dff",
+          "ecosystem": "Alpine:v3.18",
+          "compareAs": "Alpine",
+          "imageOrigin": {
+            "layerID": "\u003cAny value\u003e",
+            "originCommand": "/bin/sh -c #(nop) ADD file:c5377eaa926bf412dd8d4a08b0a1f2399cfd708743533b0aa03b53d14cb4bb4e in / ",
+            "inBaseImage": true
+          }
+        },
+        {
+          "name": "scanelf",
+          "version": "1.2.3-r0",
+          "commit": "7768569c07c52f01b11e62e523cd6ddcb4690889",
+          "ecosystem": "Alpine:v3.18",
+          "compareAs": "Alpine",
+          "imageOrigin": {
+            "layerID": "\u003cAny value\u003e",
+            "originCommand": "/bin/sh -c #(nop) ADD file:c5377eaa926bf412dd8d4a08b0a1f2399cfd708743533b0aa03b53d14cb4bb4e in / ",
+            "inBaseImage": true
+          }
+        },
+        {
+          "name": "ssl_client",
+          "version": "1.30.1-r5",
+          "commit": "26527b0535f65a4ac0ae7f3c9afb2294885b21cc",
+          "ecosystem": "Alpine:v3.18",
+          "compareAs": "Alpine",
+          "imageOrigin": {
+            "layerID": "\u003cAny value\u003e",
+            "originCommand": "/bin/sh -c #(nop) ADD file:c5377eaa926bf412dd8d4a08b0a1f2399cfd708743533b0aa03b53d14cb4bb4e in / ",
+            "inBaseImage": true
+          }
+        },
+        {
+          "name": "zlib",
+          "version": "1.2.11-r1",
+          "commit": "d2bfb22c8e8f67ad7d8d02704f35ec4d2a19f9b9",
+          "ecosystem": "Alpine:v3.18",
+          "compareAs": "Alpine",
+          "imageOrigin": {
+            "layerID": "\u003cAny value\u003e",
+            "originCommand": "/bin/sh -c #(nop) ADD file:c5377eaa926bf412dd8d4a08b0a1f2399cfd708743533b0aa03b53d14cb4bb4e in / ",
+            "inBaseImage": true
+          }
+        }
+      ]
+    }
+  ],
+  "ImagePath": "fixtures/test-alpine.tar"
+}
+---
+
+[TestScanImage/scanning_go_binaries_that's_been_overwritten_for_package_tracing - 1]
+{
+  "Lockfiles": [
+    {
+      "filePath": "/go/bin/more-vuln-overwrite-less-vuln",
+      "parsedAs": "go/binary",
+      "packages": [
+        {
+          "name": "github.com/BurntSushi/toml",
+          "version": "1.2.0",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "imageOrigin": {
+            "layerID": "\u003cAny value\u003e",
+            "originCommand": "RUN /bin/sh -c cp /go/bin/ptf-1.2.0 /go/bin/more-vuln-overwrite-less-vuln # buildkit",
+            "inBaseImage": false
+          }
+        },
+        {
+          "name": "stdlib",
+          "version": "1.22.4",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "imageOrigin": {
+            "layerID": "\u003cAny value\u003e",
+            "originCommand": "RUN /bin/sh -c cp /go/bin/ptf-1.4.0 /go/bin/more-vuln-overwrite-less-vuln # buildkit",
+            "inBaseImage": false
+          }
+        }
+      ]
+    },
+    {
+      "filePath": "/go/bin/ptf-1.2.0",
+      "parsedAs": "go/binary",
+      "packages": [
+        {
+          "name": "github.com/BurntSushi/toml",
+          "version": "1.2.0",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "imageOrigin": {
+            "layerID": "\u003cAny value\u003e",
+            "originCommand": "COPY /work/ptf-1.2.0 /work/ptf-1.3.0 /work/ptf-1.4.0 /go/bin/ # buildkit",
+            "inBaseImage": true
+          }
+        },
+        {
+          "name": "stdlib",
+          "version": "1.22.4",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "imageOrigin": {
+            "layerID": "\u003cAny value\u003e",
+            "originCommand": "COPY /work/ptf-1.2.0 /work/ptf-1.3.0 /work/ptf-1.4.0 /go/bin/ # buildkit",
+            "inBaseImage": true
+          }
+        }
+      ]
+    },
+    {
+      "filePath": "/go/bin/ptf-1.3.0",
+      "parsedAs": "go/binary",
+      "packages": [
+        {
+          "name": "github.com/BurntSushi/toml",
+          "version": "1.3.0",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "imageOrigin": {
+            "layerID": "\u003cAny value\u003e",
+            "originCommand": "RUN /bin/sh -c cp /go/bin/ptf-1.3.0-moved /go/bin/ptf-1.3.0 # buildkit",
+            "inBaseImage": false
+          }
+        },
+        {
+          "name": "stdlib",
+          "version": "1.22.4",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "imageOrigin": {
+            "layerID": "\u003cAny value\u003e",
+            "originCommand": "RUN /bin/sh -c cp /go/bin/ptf-1.3.0-moved /go/bin/ptf-1.3.0 # buildkit",
+            "inBaseImage": false
+          }
+        }
+      ]
+    },
+    {
+      "filePath": "/go/bin/ptf-1.3.0-moved",
+      "parsedAs": "go/binary",
+      "packages": [
+        {
+          "name": "github.com/BurntSushi/toml",
+          "version": "1.3.0",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "imageOrigin": {
+            "layerID": "\u003cAny value\u003e",
+            "originCommand": "RUN /bin/sh -c mv /go/bin/ptf-1.3.0 /go/bin/ptf-1.3.0-moved # buildkit",
+            "inBaseImage": false
+          }
+        },
+        {
+          "name": "stdlib",
+          "version": "1.22.4",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "imageOrigin": {
+            "layerID": "\u003cAny value\u003e",
+            "originCommand": "RUN /bin/sh -c mv /go/bin/ptf-1.3.0 /go/bin/ptf-1.3.0-moved # buildkit",
+            "inBaseImage": false
+          }
+        }
+      ]
+    },
+    {
+      "filePath": "/go/bin/ptf-1.4.0",
+      "parsedAs": "go/binary",
+      "packages": [
+        {
+          "name": "github.com/BurntSushi/toml",
+          "version": "1.4.0",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "imageOrigin": {
+            "layerID": "\u003cAny value\u003e",
+            "originCommand": "COPY /work/ptf-1.2.0 /work/ptf-1.3.0 /work/ptf-1.4.0 /go/bin/ # buildkit",
+            "inBaseImage": true
+          }
+        },
+        {
+          "name": "stdlib",
+          "version": "1.22.4",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "imageOrigin": {
+            "layerID": "\u003cAny value\u003e",
+            "originCommand": "COPY /work/ptf-1.2.0 /work/ptf-1.3.0 /work/ptf-1.4.0 /go/bin/ # buildkit",
+            "inBaseImage": true
+          }
+        }
+      ]
+    },
+    {
+      "filePath": "/go/bin/ptf-vulnerable",
+      "parsedAs": "go/binary",
+      "packages": [
+        {
+          "name": "github.com/BurntSushi/toml",
+          "version": "1.4.0",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "imageOrigin": {
+            "layerID": "\u003cAny value\u003e",
+            "originCommand": "RUN /bin/sh -c cp /go/bin/ptf-1.4.0 /go/bin/ptf-vulnerable # buildkit",
+            "inBaseImage": false
+          }
+        },
+        {
+          "name": "stdlib",
+          "version": "1.22.4",
+          "ecosystem": "Go",
+          "compareAs": "Go",
+          "imageOrigin": {
+            "layerID": "\u003cAny value\u003e",
+            "originCommand": "RUN /bin/sh -c cp /go/bin/ptf-1.3.0 /go/bin/ptf-vulnerable # buildkit",
+            "inBaseImage": false
+          }
+        }
+      ]
+    },
+    {
+      "filePath": "/lib/apk/db/installed",
+      "parsedAs": "os/apk",
+      "packages": [
+        {
+          "name": "alpine-baselayout",
+          "version": "3.6.5-r0",
+          "commit": "66187892e05b03a41d08e9acabd19b7576a1c875",
+          "ecosystem": "Alpine:v3.20",
+          "compareAs": "Alpine",
+          "imageOrigin": {
+            "layerID": "\u003cAny value\u003e",
+            "originCommand": "/bin/sh -c #(nop) ADD file:33ebe56b967747a97dcec01bc2559962bee8823686c9739d26be060381bbb3ca in / ",
+            "inBaseImage": true
+          }
+        },
+        {
+          "name": "alpine-baselayout-data",
+          "version": "3.6.5-r0",
+          "commit": "66187892e05b03a41d08e9acabd19b7576a1c875",
+          "ecosystem": "Alpine:v3.20",
+          "compareAs": "Alpine",
+          "imageOrigin": {
+            "layerID": "\u003cAny value\u003e",
+            "originCommand": "/bin/sh -c #(nop) ADD file:33ebe56b967747a97dcec01bc2559962bee8823686c9739d26be060381bbb3ca in / ",
+            "inBaseImage": true
+          }
+        },
+        {
+          "name": "alpine-keys",
+          "version": "2.4-r1",
+          "commit": "aab68f8c9ab434a46710de8e12fb3206e2930a59",
+          "ecosystem": "Alpine:v3.20",
+          "compareAs": "Alpine",
+          "imageOrigin": {
+            "layerID": "\u003cAny value\u003e",
+            "originCommand": "/bin/sh -c #(nop) ADD file:33ebe56b967747a97dcec01bc2559962bee8823686c9739d26be060381bbb3ca in / ",
+            "inBaseImage": true
+          }
+        },
+        {
+          "name": "apk-tools",
+          "version": "2.14.4-r0",
+          "commit": "d435c805af8af4171438da3ec3429c094aac4c6e",
+          "ecosystem": "Alpine:v3.20",
+          "compareAs": "Alpine",
+          "imageOrigin": {
+            "layerID": "\u003cAny value\u003e",
+            "originCommand": "/bin/sh -c #(nop) ADD file:33ebe56b967747a97dcec01bc2559962bee8823686c9739d26be060381bbb3ca in / ",
+            "inBaseImage": true
+          }
+        },
+        {
+          "name": "busybox",
+          "version": "1.36.1-r29",
+          "commit": "1747c01fb96905f101c25609011589d28e01cbb8",
+          "ecosystem": "Alpine:v3.20",
+          "compareAs": "Alpine",
+          "imageOrigin": {
+            "layerID": "\u003cAny value\u003e",
+            "originCommand": "/bin/sh -c #(nop) ADD file:33ebe56b967747a97dcec01bc2559962bee8823686c9739d26be060381bbb3ca in / ",
+            "inBaseImage": true
+          }
+        },
+        {
+          "name": "busybox-binsh",
+          "version": "1.36.1-r29",
+          "commit": "1747c01fb96905f101c25609011589d28e01cbb8",
+          "ecosystem": "Alpine:v3.20",
+          "compareAs": "Alpine",
+          "imageOrigin": {
+            "layerID": "\u003cAny value\u003e",
+            "originCommand": "/bin/sh -c #(nop) ADD file:33ebe56b967747a97dcec01bc2559962bee8823686c9739d26be060381bbb3ca in / ",
+            "inBaseImage": true
+          }
+        },
+        {
+          "name": "ca-certificates-bundle",
+          "version": "20240226-r0",
+          "commit": "56fb003da0adcea3b59373ef6a633d0c5bfef3ac",
+          "ecosystem": "Alpine:v3.20",
+          "compareAs": "Alpine",
+          "imageOrigin": {
+            "layerID": "\u003cAny value\u003e",
+            "originCommand": "/bin/sh -c #(nop) ADD file:33ebe56b967747a97dcec01bc2559962bee8823686c9739d26be060381bbb3ca in / ",
+            "inBaseImage": true
+          }
+        },
+        {
+          "name": "libcrypto3",
+          "version": "3.3.1-r0",
+          "commit": "15cc530882e1e6f3dc8a77200ee8bd01cb98f53c",
+          "ecosystem": "Alpine:v3.20",
+          "compareAs": "Alpine",
+          "imageOrigin": {
+            "layerID": "\u003cAny value\u003e",
+            "originCommand": "/bin/sh -c #(nop) ADD file:33ebe56b967747a97dcec01bc2559962bee8823686c9739d26be060381bbb3ca in / ",
+            "inBaseImage": true
+          }
+        },
+        {
+          "name": "libssl3",
+          "version": "3.3.1-r0",
+          "commit": "15cc530882e1e6f3dc8a77200ee8bd01cb98f53c",
+          "ecosystem": "Alpine:v3.20",
+          "compareAs": "Alpine",
+          "imageOrigin": {
+            "layerID": "\u003cAny value\u003e",
+            "originCommand": "/bin/sh -c #(nop) ADD file:33ebe56b967747a97dcec01bc2559962bee8823686c9739d26be060381bbb3ca in / ",
+            "inBaseImage": true
+          }
+        },
+        {
+          "name": "musl",
+          "version": "1.2.5-r0",
+          "commit": "4fe5bdbe47b100daa6380f81c4c8ea3f99b61362",
+          "ecosystem": "Alpine:v3.20",
+          "compareAs": "Alpine",
+          "imageOrigin": {
+            "layerID": "\u003cAny value\u003e",
+            "originCommand": "/bin/sh -c #(nop) ADD file:33ebe56b967747a97dcec01bc2559962bee8823686c9739d26be060381bbb3ca in / ",
+            "inBaseImage": true
+          }
+        },
+        {
+          "name": "musl-utils",
+          "version": "1.2.5-r0",
+          "commit": "4fe5bdbe47b100daa6380f81c4c8ea3f99b61362",
+          "ecosystem": "Alpine:v3.20",
+          "compareAs": "Alpine",
+          "imageOrigin": {
+            "layerID": "\u003cAny value\u003e",
+            "originCommand": "/bin/sh -c #(nop) ADD file:33ebe56b967747a97dcec01bc2559962bee8823686c9739d26be060381bbb3ca in / ",
+            "inBaseImage": true
+          }
+        },
+        {
+          "name": "scanelf",
+          "version": "1.3.7-r2",
+          "commit": "e65a4f2d0470e70d862ef2b5c412ecf2cb9ad0a6",
+          "ecosystem": "Alpine:v3.20",
+          "compareAs": "Alpine",
+          "imageOrigin": {
+            "layerID": "\u003cAny value\u003e",
+            "originCommand": "/bin/sh -c #(nop) ADD file:33ebe56b967747a97dcec01bc2559962bee8823686c9739d26be060381bbb3ca in / ",
+            "inBaseImage": true
+          }
+        },
+        {
+          "name": "ssl_client",
+          "version": "1.36.1-r29",
+          "commit": "1747c01fb96905f101c25609011589d28e01cbb8",
+          "ecosystem": "Alpine:v3.20",
+          "compareAs": "Alpine",
+          "imageOrigin": {
+            "layerID": "\u003cAny value\u003e",
+            "originCommand": "/bin/sh -c #(nop) ADD file:33ebe56b967747a97dcec01bc2559962bee8823686c9739d26be060381bbb3ca in / ",
+            "inBaseImage": true
+          }
+        },
+        {
+          "name": "zlib",
+          "version": "1.3.1-r1",
+          "commit": "fad2d175bd85eb4c5566765375392a7394dfbcf2",
+          "ecosystem": "Alpine:v3.20",
+          "compareAs": "Alpine",
+          "imageOrigin": {
+            "layerID": "\u003cAny value\u003e",
+            "originCommand": "/bin/sh -c #(nop) ADD file:33ebe56b967747a97dcec01bc2559962bee8823686c9739d26be060381bbb3ca in / ",
+            "inBaseImage": true
+          }
+        }
+      ]
+    }
+  ],
+  "ImagePath": "fixtures/test-package-tracing.tar"
+}
+---
+
+[TestScanImage/scanning_node_modules_using_npm_with_no_packages - 1]
+{
+  "Lockfiles": [
+    {
+      "filePath": "/lib/apk/db/installed",
+      "parsedAs": "os/apk",
+      "packages": [
+        {
+          "name": "alpine-baselayout",
+          "version": "3.4.3-r2",
+          "commit": "7749273fed55f6e1df7c9ee6a127f18099f98a94",
+          "ecosystem": "Alpine:v3.19",
+          "compareAs": "Alpine",
+          "imageOrigin": {
+            "layerID": "\u003cAny value\u003e",
+            "originCommand": "/bin/sh -c #(nop) ADD file:37a76ec18f9887751cd8473744917d08b7431fc4085097bb6a09d81b41775473 in / ",
+            "inBaseImage": true
+          }
+        },
+        {
+          "name": "alpine-baselayout-data",
+          "version": "3.4.3-r2",
+          "commit": "7749273fed55f6e1df7c9ee6a127f18099f98a94",
+          "ecosystem": "Alpine:v3.19",
+          "compareAs": "Alpine",
+          "imageOrigin": {
+            "layerID": "\u003cAny value\u003e",
+            "originCommand": "/bin/sh -c #(nop) ADD file:37a76ec18f9887751cd8473744917d08b7431fc4085097bb6a09d81b41775473 in / ",
+            "inBaseImage": true
+          }
+        },
+        {
+          "name": "alpine-keys",
+          "version": "2.4-r1",
+          "commit": "aab68f8c9ab434a46710de8e12fb3206e2930a59",
+          "ecosystem": "Alpine:v3.19",
+          "compareAs": "Alpine",
+          "imageOrigin": {
+            "layerID": "\u003cAny value\u003e",
+            "originCommand": "/bin/sh -c #(nop) ADD file:37a76ec18f9887751cd8473744917d08b7431fc4085097bb6a09d81b41775473 in / ",
+            "inBaseImage": true
+          }
+        },
+        {
+          "name": "apk-tools",
+          "version": "2.14.0-r5",
+          "commit": "33283848034c9885d984c8e8697c645c57324938",
+          "ecosystem": "Alpine:v3.19",
+          "compareAs": "Alpine",
+          "imageOrigin": {
+            "layerID": "\u003cAny value\u003e",
+            "originCommand": "/bin/sh -c #(nop) ADD file:37a76ec18f9887751cd8473744917d08b7431fc4085097bb6a09d81b41775473 in / ",
+            "inBaseImage": true
+          }
+        },
+        {
+          "name": "busybox",
+          "version": "1.36.1-r15",
+          "commit": "d1b6f274f29076967826e0ecf6ebcaa5d360272f",
+          "ecosystem": "Alpine:v3.19",
+          "compareAs": "Alpine",
+          "imageOrigin": {
+            "layerID": "\u003cAny value\u003e",
+            "originCommand": "/bin/sh -c #(nop) ADD file:37a76ec18f9887751cd8473744917d08b7431fc4085097bb6a09d81b41775473 in / ",
+            "inBaseImage": true
+          }
+        },
+        {
+          "name": "busybox-binsh",
+          "version": "1.36.1-r15",
+          "commit": "d1b6f274f29076967826e0ecf6ebcaa5d360272f",
+          "ecosystem": "Alpine:v3.19",
+          "compareAs": "Alpine",
+          "imageOrigin": {
+            "layerID": "\u003cAny value\u003e",
+            "originCommand": "/bin/sh -c #(nop) ADD file:37a76ec18f9887751cd8473744917d08b7431fc4085097bb6a09d81b41775473 in / ",
+            "inBaseImage": true
+          }
+        },
+        {
+          "name": "ca-certificates-bundle",
+          "version": "20230506-r0",
+          "commit": "59534a02716a92a10d177a118c34066162eff4a6",
+          "ecosystem": "Alpine:v3.19",
+          "compareAs": "Alpine",
+          "imageOrigin": {
+            "layerID": "\u003cAny value\u003e",
+            "originCommand": "/bin/sh -c #(nop) ADD file:37a76ec18f9887751cd8473744917d08b7431fc4085097bb6a09d81b41775473 in / ",
+            "inBaseImage": true
+          }
+        },
+        {
+          "name": "libc-utils",
+          "version": "0.7.2-r5",
+          "commit": "988f183cc9d6699930c3e18ccf4a9e36010afb56",
+          "ecosystem": "Alpine:v3.19",
+          "compareAs": "Alpine",
+          "imageOrigin": {
+            "layerID": "\u003cAny value\u003e",
+            "originCommand": "/bin/sh -c #(nop) ADD file:37a76ec18f9887751cd8473744917d08b7431fc4085097bb6a09d81b41775473 in / ",
+            "inBaseImage": true
+          }
+        },
+        {
+          "name": "libcrypto3",
+          "version": "3.1.4-r5",
+          "commit": "b784a22cad0c452586b438cb7a597d846fc09ff4",
+          "ecosystem": "Alpine:v3.19",
+          "compareAs": "Alpine",
+          "imageOrigin": {
+            "layerID": "\u003cAny value\u003e",
+            "originCommand": "/bin/sh -c #(nop) ADD file:37a76ec18f9887751cd8473744917d08b7431fc4085097bb6a09d81b41775473 in / ",
+            "inBaseImage": true
+          }
+        },
+        {
+          "name": "libgcc",
+          "version": "13.2.1_git20231014-r0",
+          "commit": "090e168783a86e5c2ba31fc65921b9715bac62ff",
+          "ecosystem": "Alpine:v3.19",
+          "compareAs": "Alpine",
+          "imageOrigin": {
+            "layerID": "\u003cAny value\u003e",
+            "originCommand": "/bin/sh -c addgroup -g 1000 node     \u0026\u0026 adduser -u 1000 -G node -s /bin/sh -D node     \u0026\u0026 apk add --no-cache         libstdc++     \u0026\u0026 apk add --no-cache --virtual .build-deps         curl     \u0026\u0026 ARCH= OPENSSL_ARCH='linux*' \u0026\u0026 alpineArch=\"$(apk --print-arch)\"       \u0026\u0026 case \"${alpineArch##*-}\" in         x86_64) ARCH='x64' CHECKSUM=\"5da733c21c3b51193a4fe9fc5be6cfa9a694d13b8d766eb02dbe4b8996547050\" OPENSSL_ARCH=linux-x86_64;;         x86) OPENSSL_ARCH=linux-elf;;         aarch64) OPENSSL_ARCH=linux-aarch64;;         arm*) OPENSSL_ARCH=linux-armv4;;         ppc64le) OPENSSL_ARCH=linux-ppc64le;;         s390x) OPENSSL_ARCH=linux-s390x;;         *) ;;       esac   \u0026\u0026 if [ -n \"${CHECKSUM}\" ]; then     set -eu;     curl -fsSLO --compressed \"https://unofficial-builds.nodejs.org/download/release/v$NODE_VERSION/node-v$NODE_VERSION-linux-$ARCH-musl.tar.xz\";     echo \"$CHECKSUM  node-v$NODE_VERSION-linux-$ARCH-musl.tar.xz\" | sha256sum -c -       \u0026\u0026 tar -xJf \"node-v$NODE_VERSION-linux-$ARCH-musl.tar.xz\" -C /usr/local --strip-components=1 --no-same-owner       \u0026\u0026 ln -s /usr/local/bin/node /usr/local/bin/nodejs;   else     echo \"Building from source\"     \u0026\u0026 apk add --no-cache --virtual .build-deps-full         binutils-gold         g++         gcc         gnupg         libgcc         linux-headers         make         python3     \u0026\u0026 export GNUPGHOME=\"$(mktemp -d)\"     \u0026\u0026 for key in       4ED778F539E3634C779C87C6D7062848A1AB005C       141F07595B7B3FFE74309A937405533BE57C7D57       74F12602B6F1C4E913FAA37AD3A89613643B6201       DD792F5973C6DE52C432CBDAC77ABFA00DDBF2B7       61FC681DFB92A079F1685E77973F295594EC4689       8FCCA13FEF1D0C2E91008E09770F7A9A5AE15600       C4F0DFFF4E8C1A8236409D08E73BC641CC11F4C8       890C08DB8579162FEE0DF9DB8BEAB4DFCF555EF4       C82FA3AE1CBEDC6BE46B9360C43CEC45C17AB93C       108F52B48DB57BB0CC439B2997B01419BD92F80A       A363A499291CBBC940DD62E41F10027AF002F8B0     ; do       gpg --batch --keyserver hkps://keys.openpgp.org --recv-keys \"$key\" ||       gpg --batch --keyserver keyserver.ubuntu.com --recv-keys \"$key\" ;     done     \u0026\u0026 curl -fsSLO --compressed \"https://nodejs.org/dist/v$NODE_VERSION/node-v$NODE_VERSION.tar.xz\"     \u0026\u0026 curl -fsSLO --compressed \"https://nodejs.org/dist/v$NODE_VERSION/SHASUMS256.txt.asc\"     \u0026\u0026 gpg --batch --decrypt --output SHASUMS256.txt SHASUMS256.txt.asc     \u0026\u0026 gpgconf --kill all     \u0026\u0026 rm -rf \"$GNUPGHOME\"     \u0026\u0026 grep \" node-v$NODE_VERSION.tar.xz\\$\" SHASUMS256.txt | sha256sum -c -     \u0026\u0026 tar -xf \"node-v$NODE_VERSION.tar.xz\"     \u0026\u0026 cd \"node-v$NODE_VERSION\"     \u0026\u0026 ./configure     \u0026\u0026 make -j$(getconf _NPROCESSORS_ONLN) V=     \u0026\u0026 make install     \u0026\u0026 apk del .build-deps-full     \u0026\u0026 cd ..     \u0026\u0026 rm -Rf \"node-v$NODE_VERSION\"     \u0026\u0026 rm \"node-v$NODE_VERSION.tar.xz\" SHASUMS256.txt.asc SHASUMS256.txt;   fi   \u0026\u0026 rm -f \"node-v$NODE_VERSION-linux-$ARCH-musl.tar.xz\"   \u0026\u0026 find /usr/local/include/node/openssl/archs -mindepth 1 -maxdepth 1 ! -name \"$OPENSSL_ARCH\" -exec rm -rf {} \\;   \u0026\u0026 apk del .build-deps   \u0026\u0026 node --version   \u0026\u0026 npm --version",
+            "inBaseImage": true
+          }
+        },
+        {
+          "name": "libssl3",
+          "version": "3.1.4-r5",
+          "commit": "b784a22cad0c452586b438cb7a597d846fc09ff4",
+          "ecosystem": "Alpine:v3.19",
+          "compareAs": "Alpine",
+          "imageOrigin": {
+            "layerID": "\u003cAny value\u003e",
+            "originCommand": "/bin/sh -c #(nop) ADD file:37a76ec18f9887751cd8473744917d08b7431fc4085097bb6a09d81b41775473 in / ",
+            "inBaseImage": true
+          }
+        },
+        {
+          "name": "libstdc++",
+          "version": "13.2.1_git20231014-r0",
+          "commit": "090e168783a86e5c2ba31fc65921b9715bac62ff",
+          "ecosystem": "Alpine:v3.19",
+          "compareAs": "Alpine",
+          "imageOrigin": {
+            "layerID": "\u003cAny value\u003e",
+            "originCommand": "/bin/sh -c addgroup -g 1000 node     \u0026\u0026 adduser -u 1000 -G node -s /bin/sh -D node     \u0026\u0026 apk add --no-cache         libstdc++     \u0026\u0026 apk add --no-cache --virtual .build-deps         curl     \u0026\u0026 ARCH= OPENSSL_ARCH='linux*' \u0026\u0026 alpineArch=\"$(apk --print-arch)\"       \u0026\u0026 case \"${alpineArch##*-}\" in         x86_64) ARCH='x64' CHECKSUM=\"5da733c21c3b51193a4fe9fc5be6cfa9a694d13b8d766eb02dbe4b8996547050\" OPENSSL_ARCH=linux-x86_64;;         x86) OPENSSL_ARCH=linux-elf;;         aarch64) OPENSSL_ARCH=linux-aarch64;;         arm*) OPENSSL_ARCH=linux-armv4;;         ppc64le) OPENSSL_ARCH=linux-ppc64le;;         s390x) OPENSSL_ARCH=linux-s390x;;         *) ;;       esac   \u0026\u0026 if [ -n \"${CHECKSUM}\" ]; then     set -eu;     curl -fsSLO --compressed \"https://unofficial-builds.nodejs.org/download/release/v$NODE_VERSION/node-v$NODE_VERSION-linux-$ARCH-musl.tar.xz\";     echo \"$CHECKSUM  node-v$NODE_VERSION-linux-$ARCH-musl.tar.xz\" | sha256sum -c -       \u0026\u0026 tar -xJf \"node-v$NODE_VERSION-linux-$ARCH-musl.tar.xz\" -C /usr/local --strip-components=1 --no-same-owner       \u0026\u0026 ln -s /usr/local/bin/node /usr/local/bin/nodejs;   else     echo \"Building from source\"     \u0026\u0026 apk add --no-cache --virtual .build-deps-full         binutils-gold         g++         gcc         gnupg         libgcc         linux-headers         make         python3     \u0026\u0026 export GNUPGHOME=\"$(mktemp -d)\"     \u0026\u0026 for key in       4ED778F539E3634C779C87C6D7062848A1AB005C       141F07595B7B3FFE74309A937405533BE57C7D57       74F12602B6F1C4E913FAA37AD3A89613643B6201       DD792F5973C6DE52C432CBDAC77ABFA00DDBF2B7       61FC681DFB92A079F1685E77973F295594EC4689       8FCCA13FEF1D0C2E91008E09770F7A9A5AE15600       C4F0DFFF4E8C1A8236409D08E73BC641CC11F4C8       890C08DB8579162FEE0DF9DB8BEAB4DFCF555EF4       C82FA3AE1CBEDC6BE46B9360C43CEC45C17AB93C       108F52B48DB57BB0CC439B2997B01419BD92F80A       A363A499291CBBC940DD62E41F10027AF002F8B0     ; do       gpg --batch --keyserver hkps://keys.openpgp.org --recv-keys \"$key\" ||       gpg --batch --keyserver keyserver.ubuntu.com --recv-keys \"$key\" ;     done     \u0026\u0026 curl -fsSLO --compressed \"https://nodejs.org/dist/v$NODE_VERSION/node-v$NODE_VERSION.tar.xz\"     \u0026\u0026 curl -fsSLO --compressed \"https://nodejs.org/dist/v$NODE_VERSION/SHASUMS256.txt.asc\"     \u0026\u0026 gpg --batch --decrypt --output SHASUMS256.txt SHASUMS256.txt.asc     \u0026\u0026 gpgconf --kill all     \u0026\u0026 rm -rf \"$GNUPGHOME\"     \u0026\u0026 grep \" node-v$NODE_VERSION.tar.xz\\$\" SHASUMS256.txt | sha256sum -c -     \u0026\u0026 tar -xf \"node-v$NODE_VERSION.tar.xz\"     \u0026\u0026 cd \"node-v$NODE_VERSION\"     \u0026\u0026 ./configure     \u0026\u0026 make -j$(getconf _NPROCESSORS_ONLN) V=     \u0026\u0026 make install     \u0026\u0026 apk del .build-deps-full     \u0026\u0026 cd ..     \u0026\u0026 rm -Rf \"node-v$NODE_VERSION\"     \u0026\u0026 rm \"node-v$NODE_VERSION.tar.xz\" SHASUMS256.txt.asc SHASUMS256.txt;   fi   \u0026\u0026 rm -f \"node-v$NODE_VERSION-linux-$ARCH-musl.tar.xz\"   \u0026\u0026 find /usr/local/include/node/openssl/archs -mindepth 1 -maxdepth 1 ! -name \"$OPENSSL_ARCH\" -exec rm -rf {} \\;   \u0026\u0026 apk del .build-deps   \u0026\u0026 node --version   \u0026\u0026 npm --version",
+            "inBaseImage": true
+          }
+        },
+        {
+          "name": "musl",
+          "version": "1.2.4_git20230717-r4",
+          "commit": "ca7f2ab5e88794e4e654b40776f8a92256f50639",
+          "ecosystem": "Alpine:v3.19",
+          "compareAs": "Alpine",
+          "imageOrigin": {
+            "layerID": "\u003cAny value\u003e",
+            "originCommand": "/bin/sh -c #(nop) ADD file:37a76ec18f9887751cd8473744917d08b7431fc4085097bb6a09d81b41775473 in / ",
+            "inBaseImage": true
+          }
+        },
+        {
+          "name": "musl-utils",
+          "version": "1.2.4_git20230717-r4",
+          "commit": "ca7f2ab5e88794e4e654b40776f8a92256f50639",
+          "ecosystem": "Alpine:v3.19",
+          "compareAs": "Alpine",
+          "imageOrigin": {
+            "layerID": "\u003cAny value\u003e",
+            "originCommand": "/bin/sh -c #(nop) ADD file:37a76ec18f9887751cd8473744917d08b7431fc4085097bb6a09d81b41775473 in / ",
+            "inBaseImage": true
+          }
+        },
+        {
+          "name": "scanelf",
+          "version": "1.3.7-r2",
+          "commit": "e65a4f2d0470e70d862ef2b5c412ecf2cb9ad0a6",
+          "ecosystem": "Alpine:v3.19",
+          "compareAs": "Alpine",
+          "imageOrigin": {
+            "layerID": "\u003cAny value\u003e",
+            "originCommand": "/bin/sh -c #(nop) ADD file:37a76ec18f9887751cd8473744917d08b7431fc4085097bb6a09d81b41775473 in / ",
+            "inBaseImage": true
+          }
+        },
+        {
+          "name": "ssl_client",
+          "version": "1.36.1-r15",
+          "commit": "d1b6f274f29076967826e0ecf6ebcaa5d360272f",
+          "ecosystem": "Alpine:v3.19",
+          "compareAs": "Alpine",
+          "imageOrigin": {
+            "layerID": "\u003cAny value\u003e",
+            "originCommand": "/bin/sh -c #(nop) ADD file:37a76ec18f9887751cd8473744917d08b7431fc4085097bb6a09d81b41775473 in / ",
+            "inBaseImage": true
+          }
+        },
+        {
+          "name": "zlib",
+          "version": "1.3.1-r0",
+          "commit": "9406f6fc5fca057d990eb0d260d75839eeb34d83",
+          "ecosystem": "Alpine:v3.19",
+          "compareAs": "Alpine",
+          "imageOrigin": {
+            "layerID": "\u003cAny value\u003e",
+            "originCommand": "/bin/sh -c #(nop) ADD file:37a76ec18f9887751cd8473744917d08b7431fc4085097bb6a09d81b41775473 in / ",
+            "inBaseImage": true
+          }
+        }
+      ]
+    }
+  ],
+  "ImagePath": "fixtures/test-node_modules-npm-empty.tar"
+}
+---
+
+[TestScanImage/scanning_node_modules_using_npm_with_some_packages - 1]
+{
+  "Lockfiles": [
+    {
+      "filePath": "/lib/apk/db/installed",
+      "parsedAs": "os/apk",
+      "packages": [
+        {
+          "name": "alpine-baselayout",
+          "version": "3.4.3-r2",
+          "commit": "7749273fed55f6e1df7c9ee6a127f18099f98a94",
+          "ecosystem": "Alpine:v3.19",
+          "compareAs": "Alpine",
+          "imageOrigin": {
+            "layerID": "\u003cAny value\u003e",
+            "originCommand": "/bin/sh -c #(nop) ADD file:37a76ec18f9887751cd8473744917d08b7431fc4085097bb6a09d81b41775473 in / ",
+            "inBaseImage": true
+          }
+        },
+        {
+          "name": "alpine-baselayout-data",
+          "version": "3.4.3-r2",
+          "commit": "7749273fed55f6e1df7c9ee6a127f18099f98a94",
+          "ecosystem": "Alpine:v3.19",
+          "compareAs": "Alpine",
+          "imageOrigin": {
+            "layerID": "\u003cAny value\u003e",
+            "originCommand": "/bin/sh -c #(nop) ADD file:37a76ec18f9887751cd8473744917d08b7431fc4085097bb6a09d81b41775473 in / ",
+            "inBaseImage": true
+          }
+        },
+        {
+          "name": "alpine-keys",
+          "version": "2.4-r1",
+          "commit": "aab68f8c9ab434a46710de8e12fb3206e2930a59",
+          "ecosystem": "Alpine:v3.19",
+          "compareAs": "Alpine",
+          "imageOrigin": {
+            "layerID": "\u003cAny value\u003e",
+            "originCommand": "/bin/sh -c #(nop) ADD file:37a76ec18f9887751cd8473744917d08b7431fc4085097bb6a09d81b41775473 in / ",
+            "inBaseImage": true
+          }
+        },
+        {
+          "name": "apk-tools",
+          "version": "2.14.0-r5",
+          "commit": "33283848034c9885d984c8e8697c645c57324938",
+          "ecosystem": "Alpine:v3.19",
+          "compareAs": "Alpine",
+          "imageOrigin": {
+            "layerID": "\u003cAny value\u003e",
+            "originCommand": "/bin/sh -c #(nop) ADD file:37a76ec18f9887751cd8473744917d08b7431fc4085097bb6a09d81b41775473 in / ",
+            "inBaseImage": true
+          }
+        },
+        {
+          "name": "busybox",
+          "version": "1.36.1-r15",
+          "commit": "d1b6f274f29076967826e0ecf6ebcaa5d360272f",
+          "ecosystem": "Alpine:v3.19",
+          "compareAs": "Alpine",
+          "imageOrigin": {
+            "layerID": "\u003cAny value\u003e",
+            "originCommand": "/bin/sh -c #(nop) ADD file:37a76ec18f9887751cd8473744917d08b7431fc4085097bb6a09d81b41775473 in / ",
+            "inBaseImage": true
+          }
+        },
+        {
+          "name": "busybox-binsh",
+          "version": "1.36.1-r15",
+          "commit": "d1b6f274f29076967826e0ecf6ebcaa5d360272f",
+          "ecosystem": "Alpine:v3.19",
+          "compareAs": "Alpine",
+          "imageOrigin": {
+            "layerID": "\u003cAny value\u003e",
+            "originCommand": "/bin/sh -c #(nop) ADD file:37a76ec18f9887751cd8473744917d08b7431fc4085097bb6a09d81b41775473 in / ",
+            "inBaseImage": true
+          }
+        },
+        {
+          "name": "ca-certificates-bundle",
+          "version": "20230506-r0",
+          "commit": "59534a02716a92a10d177a118c34066162eff4a6",
+          "ecosystem": "Alpine:v3.19",
+          "compareAs": "Alpine",
+          "imageOrigin": {
+            "layerID": "\u003cAny value\u003e",
+            "originCommand": "/bin/sh -c #(nop) ADD file:37a76ec18f9887751cd8473744917d08b7431fc4085097bb6a09d81b41775473 in / ",
+            "inBaseImage": true
+          }
+        },
+        {
+          "name": "libc-utils",
+          "version": "0.7.2-r5",
+          "commit": "988f183cc9d6699930c3e18ccf4a9e36010afb56",
+          "ecosystem": "Alpine:v3.19",
+          "compareAs": "Alpine",
+          "imageOrigin": {
+            "layerID": "\u003cAny value\u003e",
+            "originCommand": "/bin/sh -c #(nop) ADD file:37a76ec18f9887751cd8473744917d08b7431fc4085097bb6a09d81b41775473 in / ",
+            "inBaseImage": true
+          }
+        },
+        {
+          "name": "libcrypto3",
+          "version": "3.1.4-r5",
+          "commit": "b784a22cad0c452586b438cb7a597d846fc09ff4",
+          "ecosystem": "Alpine:v3.19",
+          "compareAs": "Alpine",
+          "imageOrigin": {
+            "layerID": "\u003cAny value\u003e",
+            "originCommand": "/bin/sh -c #(nop) ADD file:37a76ec18f9887751cd8473744917d08b7431fc4085097bb6a09d81b41775473 in / ",
+            "inBaseImage": true
+          }
+        },
+        {
+          "name": "libgcc",
+          "version": "13.2.1_git20231014-r0",
+          "commit": "090e168783a86e5c2ba31fc65921b9715bac62ff",
+          "ecosystem": "Alpine:v3.19",
+          "compareAs": "Alpine",
+          "imageOrigin": {
+            "layerID": "\u003cAny value\u003e",
+            "originCommand": "/bin/sh -c addgroup -g 1000 node     \u0026\u0026 adduser -u 1000 -G node -s /bin/sh -D node     \u0026\u0026 apk add --no-cache         libstdc++     \u0026\u0026 apk add --no-cache --virtual .build-deps         curl     \u0026\u0026 ARCH= OPENSSL_ARCH='linux*' \u0026\u0026 alpineArch=\"$(apk --print-arch)\"       \u0026\u0026 case \"${alpineArch##*-}\" in         x86_64) ARCH='x64' CHECKSUM=\"5da733c21c3b51193a4fe9fc5be6cfa9a694d13b8d766eb02dbe4b8996547050\" OPENSSL_ARCH=linux-x86_64;;         x86) OPENSSL_ARCH=linux-elf;;         aarch64) OPENSSL_ARCH=linux-aarch64;;         arm*) OPENSSL_ARCH=linux-armv4;;         ppc64le) OPENSSL_ARCH=linux-ppc64le;;         s390x) OPENSSL_ARCH=linux-s390x;;         *) ;;       esac   \u0026\u0026 if [ -n \"${CHECKSUM}\" ]; then     set -eu;     curl -fsSLO --compressed \"https://unofficial-builds.nodejs.org/download/release/v$NODE_VERSION/node-v$NODE_VERSION-linux-$ARCH-musl.tar.xz\";     echo \"$CHECKSUM  node-v$NODE_VERSION-linux-$ARCH-musl.tar.xz\" | sha256sum -c -       \u0026\u0026 tar -xJf \"node-v$NODE_VERSION-linux-$ARCH-musl.tar.xz\" -C /usr/local --strip-components=1 --no-same-owner       \u0026\u0026 ln -s /usr/local/bin/node /usr/local/bin/nodejs;   else     echo \"Building from source\"     \u0026\u0026 apk add --no-cache --virtual .build-deps-full         binutils-gold         g++         gcc         gnupg         libgcc         linux-headers         make         python3     \u0026\u0026 export GNUPGHOME=\"$(mktemp -d)\"     \u0026\u0026 for key in       4ED778F539E3634C779C87C6D7062848A1AB005C       141F07595B7B3FFE74309A937405533BE57C7D57       74F12602B6F1C4E913FAA37AD3A89613643B6201       DD792F5973C6DE52C432CBDAC77ABFA00DDBF2B7       61FC681DFB92A079F1685E77973F295594EC4689       8FCCA13FEF1D0C2E91008E09770F7A9A5AE15600       C4F0DFFF4E8C1A8236409D08E73BC641CC11F4C8       890C08DB8579162FEE0DF9DB8BEAB4DFCF555EF4       C82FA3AE1CBEDC6BE46B9360C43CEC45C17AB93C       108F52B48DB57BB0CC439B2997B01419BD92F80A       A363A499291CBBC940DD62E41F10027AF002F8B0     ; do       gpg --batch --keyserver hkps://keys.openpgp.org --recv-keys \"$key\" ||       gpg --batch --keyserver keyserver.ubuntu.com --recv-keys \"$key\" ;     done     \u0026\u0026 curl -fsSLO --compressed \"https://nodejs.org/dist/v$NODE_VERSION/node-v$NODE_VERSION.tar.xz\"     \u0026\u0026 curl -fsSLO --compressed \"https://nodejs.org/dist/v$NODE_VERSION/SHASUMS256.txt.asc\"     \u0026\u0026 gpg --batch --decrypt --output SHASUMS256.txt SHASUMS256.txt.asc     \u0026\u0026 gpgconf --kill all     \u0026\u0026 rm -rf \"$GNUPGHOME\"     \u0026\u0026 grep \" node-v$NODE_VERSION.tar.xz\\$\" SHASUMS256.txt | sha256sum -c -     \u0026\u0026 tar -xf \"node-v$NODE_VERSION.tar.xz\"     \u0026\u0026 cd \"node-v$NODE_VERSION\"     \u0026\u0026 ./configure     \u0026\u0026 make -j$(getconf _NPROCESSORS_ONLN) V=     \u0026\u0026 make install     \u0026\u0026 apk del .build-deps-full     \u0026\u0026 cd ..     \u0026\u0026 rm -Rf \"node-v$NODE_VERSION\"     \u0026\u0026 rm \"node-v$NODE_VERSION.tar.xz\" SHASUMS256.txt.asc SHASUMS256.txt;   fi   \u0026\u0026 rm -f \"node-v$NODE_VERSION-linux-$ARCH-musl.tar.xz\"   \u0026\u0026 find /usr/local/include/node/openssl/archs -mindepth 1 -maxdepth 1 ! -name \"$OPENSSL_ARCH\" -exec rm -rf {} \\;   \u0026\u0026 apk del .build-deps   \u0026\u0026 node --version   \u0026\u0026 npm --version",
+            "inBaseImage": true
+          }
+        },
+        {
+          "name": "libssl3",
+          "version": "3.1.4-r5",
+          "commit": "b784a22cad0c452586b438cb7a597d846fc09ff4",
+          "ecosystem": "Alpine:v3.19",
+          "compareAs": "Alpine",
+          "imageOrigin": {
+            "layerID": "\u003cAny value\u003e",
+            "originCommand": "/bin/sh -c #(nop) ADD file:37a76ec18f9887751cd8473744917d08b7431fc4085097bb6a09d81b41775473 in / ",
+            "inBaseImage": true
+          }
+        },
+        {
+          "name": "libstdc++",
+          "version": "13.2.1_git20231014-r0",
+          "commit": "090e168783a86e5c2ba31fc65921b9715bac62ff",
+          "ecosystem": "Alpine:v3.19",
+          "compareAs": "Alpine",
+          "imageOrigin": {
+            "layerID": "\u003cAny value\u003e",
+            "originCommand": "/bin/sh -c addgroup -g 1000 node     \u0026\u0026 adduser -u 1000 -G node -s /bin/sh -D node     \u0026\u0026 apk add --no-cache         libstdc++     \u0026\u0026 apk add --no-cache --virtual .build-deps         curl     \u0026\u0026 ARCH= OPENSSL_ARCH='linux*' \u0026\u0026 alpineArch=\"$(apk --print-arch)\"       \u0026\u0026 case \"${alpineArch##*-}\" in         x86_64) ARCH='x64' CHECKSUM=\"5da733c21c3b51193a4fe9fc5be6cfa9a694d13b8d766eb02dbe4b8996547050\" OPENSSL_ARCH=linux-x86_64;;         x86) OPENSSL_ARCH=linux-elf;;         aarch64) OPENSSL_ARCH=linux-aarch64;;         arm*) OPENSSL_ARCH=linux-armv4;;         ppc64le) OPENSSL_ARCH=linux-ppc64le;;         s390x) OPENSSL_ARCH=linux-s390x;;         *) ;;       esac   \u0026\u0026 if [ -n \"${CHECKSUM}\" ]; then     set -eu;     curl -fsSLO --compressed \"https://unofficial-builds.nodejs.org/download/release/v$NODE_VERSION/node-v$NODE_VERSION-linux-$ARCH-musl.tar.xz\";     echo \"$CHECKSUM  node-v$NODE_VERSION-linux-$ARCH-musl.tar.xz\" | sha256sum -c -       \u0026\u0026 tar -xJf \"node-v$NODE_VERSION-linux-$ARCH-musl.tar.xz\" -C /usr/local --strip-components=1 --no-same-owner       \u0026\u0026 ln -s /usr/local/bin/node /usr/local/bin/nodejs;   else     echo \"Building from source\"     \u0026\u0026 apk add --no-cache --virtual .build-deps-full         binutils-gold         g++         gcc         gnupg         libgcc         linux-headers         make         python3     \u0026\u0026 export GNUPGHOME=\"$(mktemp -d)\"     \u0026\u0026 for key in       4ED778F539E3634C779C87C6D7062848A1AB005C       141F07595B7B3FFE74309A937405533BE57C7D57       74F12602B6F1C4E913FAA37AD3A89613643B6201       DD792F5973C6DE52C432CBDAC77ABFA00DDBF2B7       61FC681DFB92A079F1685E77973F295594EC4689       8FCCA13FEF1D0C2E91008E09770F7A9A5AE15600       C4F0DFFF4E8C1A8236409D08E73BC641CC11F4C8       890C08DB8579162FEE0DF9DB8BEAB4DFCF555EF4       C82FA3AE1CBEDC6BE46B9360C43CEC45C17AB93C       108F52B48DB57BB0CC439B2997B01419BD92F80A       A363A499291CBBC940DD62E41F10027AF002F8B0     ; do       gpg --batch --keyserver hkps://keys.openpgp.org --recv-keys \"$key\" ||       gpg --batch --keyserver keyserver.ubuntu.com --recv-keys \"$key\" ;     done     \u0026\u0026 curl -fsSLO --compressed \"https://nodejs.org/dist/v$NODE_VERSION/node-v$NODE_VERSION.tar.xz\"     \u0026\u0026 curl -fsSLO --compressed \"https://nodejs.org/dist/v$NODE_VERSION/SHASUMS256.txt.asc\"     \u0026\u0026 gpg --batch --decrypt --output SHASUMS256.txt SHASUMS256.txt.asc     \u0026\u0026 gpgconf --kill all     \u0026\u0026 rm -rf \"$GNUPGHOME\"     \u0026\u0026 grep \" node-v$NODE_VERSION.tar.xz\\$\" SHASUMS256.txt | sha256sum -c -     \u0026\u0026 tar -xf \"node-v$NODE_VERSION.tar.xz\"     \u0026\u0026 cd \"node-v$NODE_VERSION\"     \u0026\u0026 ./configure     \u0026\u0026 make -j$(getconf _NPROCESSORS_ONLN) V=     \u0026\u0026 make install     \u0026\u0026 apk del .build-deps-full     \u0026\u0026 cd ..     \u0026\u0026 rm -Rf \"node-v$NODE_VERSION\"     \u0026\u0026 rm \"node-v$NODE_VERSION.tar.xz\" SHASUMS256.txt.asc SHASUMS256.txt;   fi   \u0026\u0026 rm -f \"node-v$NODE_VERSION-linux-$ARCH-musl.tar.xz\"   \u0026\u0026 find /usr/local/include/node/openssl/archs -mindepth 1 -maxdepth 1 ! -name \"$OPENSSL_ARCH\" -exec rm -rf {} \\;   \u0026\u0026 apk del .build-deps   \u0026\u0026 node --version   \u0026\u0026 npm --version",
+            "inBaseImage": true
+          }
+        },
+        {
+          "name": "musl",
+          "version": "1.2.4_git20230717-r4",
+          "commit": "ca7f2ab5e88794e4e654b40776f8a92256f50639",
+          "ecosystem": "Alpine:v3.19",
+          "compareAs": "Alpine",
+          "imageOrigin": {
+            "layerID": "\u003cAny value\u003e",
+            "originCommand": "/bin/sh -c #(nop) ADD file:37a76ec18f9887751cd8473744917d08b7431fc4085097bb6a09d81b41775473 in / ",
+            "inBaseImage": true
+          }
+        },
+        {
+          "name": "musl-utils",
+          "version": "1.2.4_git20230717-r4",
+          "commit": "ca7f2ab5e88794e4e654b40776f8a92256f50639",
+          "ecosystem": "Alpine:v3.19",
+          "compareAs": "Alpine",
+          "imageOrigin": {
+            "layerID": "\u003cAny value\u003e",
+            "originCommand": "/bin/sh -c #(nop) ADD file:37a76ec18f9887751cd8473744917d08b7431fc4085097bb6a09d81b41775473 in / ",
+            "inBaseImage": true
+          }
+        },
+        {
+          "name": "scanelf",
+          "version": "1.3.7-r2",
+          "commit": "e65a4f2d0470e70d862ef2b5c412ecf2cb9ad0a6",
+          "ecosystem": "Alpine:v3.19",
+          "compareAs": "Alpine",
+          "imageOrigin": {
+            "layerID": "\u003cAny value\u003e",
+            "originCommand": "/bin/sh -c #(nop) ADD file:37a76ec18f9887751cd8473744917d08b7431fc4085097bb6a09d81b41775473 in / ",
+            "inBaseImage": true
+          }
+        },
+        {
+          "name": "ssl_client",
+          "version": "1.36.1-r15",
+          "commit": "d1b6f274f29076967826e0ecf6ebcaa5d360272f",
+          "ecosystem": "Alpine:v3.19",
+          "compareAs": "Alpine",
+          "imageOrigin": {
+            "layerID": "\u003cAny value\u003e",
+            "originCommand": "/bin/sh -c #(nop) ADD file:37a76ec18f9887751cd8473744917d08b7431fc4085097bb6a09d81b41775473 in / ",
+            "inBaseImage": true
+          }
+        },
+        {
+          "name": "zlib",
+          "version": "1.3.1-r0",
+          "commit": "9406f6fc5fca057d990eb0d260d75839eeb34d83",
+          "ecosystem": "Alpine:v3.19",
+          "compareAs": "Alpine",
+          "imageOrigin": {
+            "layerID": "\u003cAny value\u003e",
+            "originCommand": "/bin/sh -c #(nop) ADD file:37a76ec18f9887751cd8473744917d08b7431fc4085097bb6a09d81b41775473 in / ",
+            "inBaseImage": true
+          }
+        }
+      ]
+    },
+    {
+      "filePath": "/prod/app/node_modules/.package-lock.json",
+      "parsedAs": "javascript/nodemodules",
+      "packages": [
+        {
+          "name": "cryo",
+          "version": "0.0.6",
+          "ecosystem": "npm",
+          "compareAs": "npm",
+          "imageOrigin": {
+            "layerID": "\u003cAny value\u003e",
+            "originCommand": "RUN /bin/sh -c npm i -d cryo@0.0.6 # buildkit",
+            "inBaseImage": false
+          }
+        },
+        {
+          "name": "minimist",
+          "version": "0.0.8",
+          "ecosystem": "npm",
+          "compareAs": "npm",
+          "imageOrigin": {
+            "layerID": "\u003cAny value\u003e",
+            "originCommand": "RUN /bin/sh -c npm i mkdirp@0.5.0 # buildkit",
+            "inBaseImage": false
+          }
+        },
+        {
+          "name": "mkdirp",
+          "version": "0.5.0",
+          "ecosystem": "npm",
+          "compareAs": "npm",
+          "imageOrigin": {
+            "layerID": "\u003cAny value\u003e",
+            "originCommand": "RUN /bin/sh -c npm i mkdirp@0.5.0 # buildkit",
+            "inBaseImage": false
+          }
+        }
+      ]
+    }
+  ],
+  "ImagePath": "fixtures/test-node_modules-npm-full.tar"
+}
+---
+
+[TestScanImage/scanning_node_modules_using_pnpm_with_no_packages - 1]
+{
+  "Lockfiles": [
+    {
+      "filePath": "/lib/apk/db/installed",
+      "parsedAs": "os/apk",
+      "packages": [
+        {
+          "name": "alpine-baselayout",
+          "version": "3.4.3-r2",
+          "commit": "7749273fed55f6e1df7c9ee6a127f18099f98a94",
+          "ecosystem": "Alpine:v3.19",
+          "compareAs": "Alpine",
+          "imageOrigin": {
+            "layerID": "\u003cAny value\u003e",
+            "originCommand": "/bin/sh -c #(nop) ADD file:37a76ec18f9887751cd8473744917d08b7431fc4085097bb6a09d81b41775473 in / ",
+            "inBaseImage": true
+          }
+        },
+        {
+          "name": "alpine-baselayout-data",
+          "version": "3.4.3-r2",
+          "commit": "7749273fed55f6e1df7c9ee6a127f18099f98a94",
+          "ecosystem": "Alpine:v3.19",
+          "compareAs": "Alpine",
+          "imageOrigin": {
+            "layerID": "\u003cAny value\u003e",
+            "originCommand": "/bin/sh -c #(nop) ADD file:37a76ec18f9887751cd8473744917d08b7431fc4085097bb6a09d81b41775473 in / ",
+            "inBaseImage": true
+          }
+        },
+        {
+          "name": "alpine-keys",
+          "version": "2.4-r1",
+          "commit": "aab68f8c9ab434a46710de8e12fb3206e2930a59",
+          "ecosystem": "Alpine:v3.19",
+          "compareAs": "Alpine",
+          "imageOrigin": {
+            "layerID": "\u003cAny value\u003e",
+            "originCommand": "/bin/sh -c #(nop) ADD file:37a76ec18f9887751cd8473744917d08b7431fc4085097bb6a09d81b41775473 in / ",
+            "inBaseImage": true
+          }
+        },
+        {
+          "name": "apk-tools",
+          "version": "2.14.0-r5",
+          "commit": "33283848034c9885d984c8e8697c645c57324938",
+          "ecosystem": "Alpine:v3.19",
+          "compareAs": "Alpine",
+          "imageOrigin": {
+            "layerID": "\u003cAny value\u003e",
+            "originCommand": "/bin/sh -c #(nop) ADD file:37a76ec18f9887751cd8473744917d08b7431fc4085097bb6a09d81b41775473 in / ",
+            "inBaseImage": true
+          }
+        },
+        {
+          "name": "busybox",
+          "version": "1.36.1-r15",
+          "commit": "d1b6f274f29076967826e0ecf6ebcaa5d360272f",
+          "ecosystem": "Alpine:v3.19",
+          "compareAs": "Alpine",
+          "imageOrigin": {
+            "layerID": "\u003cAny value\u003e",
+            "originCommand": "/bin/sh -c #(nop) ADD file:37a76ec18f9887751cd8473744917d08b7431fc4085097bb6a09d81b41775473 in / ",
+            "inBaseImage": true
+          }
+        },
+        {
+          "name": "busybox-binsh",
+          "version": "1.36.1-r15",
+          "commit": "d1b6f274f29076967826e0ecf6ebcaa5d360272f",
+          "ecosystem": "Alpine:v3.19",
+          "compareAs": "Alpine",
+          "imageOrigin": {
+            "layerID": "\u003cAny value\u003e",
+            "originCommand": "/bin/sh -c #(nop) ADD file:37a76ec18f9887751cd8473744917d08b7431fc4085097bb6a09d81b41775473 in / ",
+            "inBaseImage": true
+          }
+        },
+        {
+          "name": "ca-certificates-bundle",
+          "version": "20230506-r0",
+          "commit": "59534a02716a92a10d177a118c34066162eff4a6",
+          "ecosystem": "Alpine:v3.19",
+          "compareAs": "Alpine",
+          "imageOrigin": {
+            "layerID": "\u003cAny value\u003e",
+            "originCommand": "/bin/sh -c #(nop) ADD file:37a76ec18f9887751cd8473744917d08b7431fc4085097bb6a09d81b41775473 in / ",
+            "inBaseImage": true
+          }
+        },
+        {
+          "name": "libc-utils",
+          "version": "0.7.2-r5",
+          "commit": "988f183cc9d6699930c3e18ccf4a9e36010afb56",
+          "ecosystem": "Alpine:v3.19",
+          "compareAs": "Alpine",
+          "imageOrigin": {
+            "layerID": "\u003cAny value\u003e",
+            "originCommand": "/bin/sh -c #(nop) ADD file:37a76ec18f9887751cd8473744917d08b7431fc4085097bb6a09d81b41775473 in / ",
+            "inBaseImage": true
+          }
+        },
+        {
+          "name": "libcrypto3",
+          "version": "3.1.4-r5",
+          "commit": "b784a22cad0c452586b438cb7a597d846fc09ff4",
+          "ecosystem": "Alpine:v3.19",
+          "compareAs": "Alpine",
+          "imageOrigin": {
+            "layerID": "\u003cAny value\u003e",
+            "originCommand": "/bin/sh -c #(nop) ADD file:37a76ec18f9887751cd8473744917d08b7431fc4085097bb6a09d81b41775473 in / ",
+            "inBaseImage": true
+          }
+        },
+        {
+          "name": "libgcc",
+          "version": "13.2.1_git20231014-r0",
+          "commit": "090e168783a86e5c2ba31fc65921b9715bac62ff",
+          "ecosystem": "Alpine:v3.19",
+          "compareAs": "Alpine",
+          "imageOrigin": {
+            "layerID": "\u003cAny value\u003e",
+            "originCommand": "/bin/sh -c addgroup -g 1000 node     \u0026\u0026 adduser -u 1000 -G node -s /bin/sh -D node     \u0026\u0026 apk add --no-cache         libstdc++     \u0026\u0026 apk add --no-cache --virtual .build-deps         curl     \u0026\u0026 ARCH= OPENSSL_ARCH='linux*' \u0026\u0026 alpineArch=\"$(apk --print-arch)\"       \u0026\u0026 case \"${alpineArch##*-}\" in         x86_64) ARCH='x64' CHECKSUM=\"5da733c21c3b51193a4fe9fc5be6cfa9a694d13b8d766eb02dbe4b8996547050\" OPENSSL_ARCH=linux-x86_64;;         x86) OPENSSL_ARCH=linux-elf;;         aarch64) OPENSSL_ARCH=linux-aarch64;;         arm*) OPENSSL_ARCH=linux-armv4;;         ppc64le) OPENSSL_ARCH=linux-ppc64le;;         s390x) OPENSSL_ARCH=linux-s390x;;         *) ;;       esac   \u0026\u0026 if [ -n \"${CHECKSUM}\" ]; then     set -eu;     curl -fsSLO --compressed \"https://unofficial-builds.nodejs.org/download/release/v$NODE_VERSION/node-v$NODE_VERSION-linux-$ARCH-musl.tar.xz\";     echo \"$CHECKSUM  node-v$NODE_VERSION-linux-$ARCH-musl.tar.xz\" | sha256sum -c -       \u0026\u0026 tar -xJf \"node-v$NODE_VERSION-linux-$ARCH-musl.tar.xz\" -C /usr/local --strip-components=1 --no-same-owner       \u0026\u0026 ln -s /usr/local/bin/node /usr/local/bin/nodejs;   else     echo \"Building from source\"     \u0026\u0026 apk add --no-cache --virtual .build-deps-full         binutils-gold         g++         gcc         gnupg         libgcc         linux-headers         make         python3     \u0026\u0026 export GNUPGHOME=\"$(mktemp -d)\"     \u0026\u0026 for key in       4ED778F539E3634C779C87C6D7062848A1AB005C       141F07595B7B3FFE74309A937405533BE57C7D57       74F12602B6F1C4E913FAA37AD3A89613643B6201       DD792F5973C6DE52C432CBDAC77ABFA00DDBF2B7       61FC681DFB92A079F1685E77973F295594EC4689       8FCCA13FEF1D0C2E91008E09770F7A9A5AE15600       C4F0DFFF4E8C1A8236409D08E73BC641CC11F4C8       890C08DB8579162FEE0DF9DB8BEAB4DFCF555EF4       C82FA3AE1CBEDC6BE46B9360C43CEC45C17AB93C       108F52B48DB57BB0CC439B2997B01419BD92F80A       A363A499291CBBC940DD62E41F10027AF002F8B0     ; do       gpg --batch --keyserver hkps://keys.openpgp.org --recv-keys \"$key\" ||       gpg --batch --keyserver keyserver.ubuntu.com --recv-keys \"$key\" ;     done     \u0026\u0026 curl -fsSLO --compressed \"https://nodejs.org/dist/v$NODE_VERSION/node-v$NODE_VERSION.tar.xz\"     \u0026\u0026 curl -fsSLO --compressed \"https://nodejs.org/dist/v$NODE_VERSION/SHASUMS256.txt.asc\"     \u0026\u0026 gpg --batch --decrypt --output SHASUMS256.txt SHASUMS256.txt.asc     \u0026\u0026 gpgconf --kill all     \u0026\u0026 rm -rf \"$GNUPGHOME\"     \u0026\u0026 grep \" node-v$NODE_VERSION.tar.xz\\$\" SHASUMS256.txt | sha256sum -c -     \u0026\u0026 tar -xf \"node-v$NODE_VERSION.tar.xz\"     \u0026\u0026 cd \"node-v$NODE_VERSION\"     \u0026\u0026 ./configure     \u0026\u0026 make -j$(getconf _NPROCESSORS_ONLN) V=     \u0026\u0026 make install     \u0026\u0026 apk del .build-deps-full     \u0026\u0026 cd ..     \u0026\u0026 rm -Rf \"node-v$NODE_VERSION\"     \u0026\u0026 rm \"node-v$NODE_VERSION.tar.xz\" SHASUMS256.txt.asc SHASUMS256.txt;   fi   \u0026\u0026 rm -f \"node-v$NODE_VERSION-linux-$ARCH-musl.tar.xz\"   \u0026\u0026 find /usr/local/include/node/openssl/archs -mindepth 1 -maxdepth 1 ! -name \"$OPENSSL_ARCH\" -exec rm -rf {} \\;   \u0026\u0026 apk del .build-deps   \u0026\u0026 node --version   \u0026\u0026 npm --version",
+            "inBaseImage": true
+          }
+        },
+        {
+          "name": "libssl3",
+          "version": "3.1.4-r5",
+          "commit": "b784a22cad0c452586b438cb7a597d846fc09ff4",
+          "ecosystem": "Alpine:v3.19",
+          "compareAs": "Alpine",
+          "imageOrigin": {
+            "layerID": "\u003cAny value\u003e",
+            "originCommand": "/bin/sh -c #(nop) ADD file:37a76ec18f9887751cd8473744917d08b7431fc4085097bb6a09d81b41775473 in / ",
+            "inBaseImage": true
+          }
+        },
+        {
+          "name": "libstdc++",
+          "version": "13.2.1_git20231014-r0",
+          "commit": "090e168783a86e5c2ba31fc65921b9715bac62ff",
+          "ecosystem": "Alpine:v3.19",
+          "compareAs": "Alpine",
+          "imageOrigin": {
+            "layerID": "\u003cAny value\u003e",
+            "originCommand": "/bin/sh -c addgroup -g 1000 node     \u0026\u0026 adduser -u 1000 -G node -s /bin/sh -D node     \u0026\u0026 apk add --no-cache         libstdc++     \u0026\u0026 apk add --no-cache --virtual .build-deps         curl     \u0026\u0026 ARCH= OPENSSL_ARCH='linux*' \u0026\u0026 alpineArch=\"$(apk --print-arch)\"       \u0026\u0026 case \"${alpineArch##*-}\" in         x86_64) ARCH='x64' CHECKSUM=\"5da733c21c3b51193a4fe9fc5be6cfa9a694d13b8d766eb02dbe4b8996547050\" OPENSSL_ARCH=linux-x86_64;;         x86) OPENSSL_ARCH=linux-elf;;         aarch64) OPENSSL_ARCH=linux-aarch64;;         arm*) OPENSSL_ARCH=linux-armv4;;         ppc64le) OPENSSL_ARCH=linux-ppc64le;;         s390x) OPENSSL_ARCH=linux-s390x;;         *) ;;       esac   \u0026\u0026 if [ -n \"${CHECKSUM}\" ]; then     set -eu;     curl -fsSLO --compressed \"https://unofficial-builds.nodejs.org/download/release/v$NODE_VERSION/node-v$NODE_VERSION-linux-$ARCH-musl.tar.xz\";     echo \"$CHECKSUM  node-v$NODE_VERSION-linux-$ARCH-musl.tar.xz\" | sha256sum -c -       \u0026\u0026 tar -xJf \"node-v$NODE_VERSION-linux-$ARCH-musl.tar.xz\" -C /usr/local --strip-components=1 --no-same-owner       \u0026\u0026 ln -s /usr/local/bin/node /usr/local/bin/nodejs;   else     echo \"Building from source\"     \u0026\u0026 apk add --no-cache --virtual .build-deps-full         binutils-gold         g++         gcc         gnupg         libgcc         linux-headers         make         python3     \u0026\u0026 export GNUPGHOME=\"$(mktemp -d)\"     \u0026\u0026 for key in       4ED778F539E3634C779C87C6D7062848A1AB005C       141F07595B7B3FFE74309A937405533BE57C7D57       74F12602B6F1C4E913FAA37AD3A89613643B6201       DD792F5973C6DE52C432CBDAC77ABFA00DDBF2B7       61FC681DFB92A079F1685E77973F295594EC4689       8FCCA13FEF1D0C2E91008E09770F7A9A5AE15600       C4F0DFFF4E8C1A8236409D08E73BC641CC11F4C8       890C08DB8579162FEE0DF9DB8BEAB4DFCF555EF4       C82FA3AE1CBEDC6BE46B9360C43CEC45C17AB93C       108F52B48DB57BB0CC439B2997B01419BD92F80A       A363A499291CBBC940DD62E41F10027AF002F8B0     ; do       gpg --batch --keyserver hkps://keys.openpgp.org --recv-keys \"$key\" ||       gpg --batch --keyserver keyserver.ubuntu.com --recv-keys \"$key\" ;     done     \u0026\u0026 curl -fsSLO --compressed \"https://nodejs.org/dist/v$NODE_VERSION/node-v$NODE_VERSION.tar.xz\"     \u0026\u0026 curl -fsSLO --compressed \"https://nodejs.org/dist/v$NODE_VERSION/SHASUMS256.txt.asc\"     \u0026\u0026 gpg --batch --decrypt --output SHASUMS256.txt SHASUMS256.txt.asc     \u0026\u0026 gpgconf --kill all     \u0026\u0026 rm -rf \"$GNUPGHOME\"     \u0026\u0026 grep \" node-v$NODE_VERSION.tar.xz\\$\" SHASUMS256.txt | sha256sum -c -     \u0026\u0026 tar -xf \"node-v$NODE_VERSION.tar.xz\"     \u0026\u0026 cd \"node-v$NODE_VERSION\"     \u0026\u0026 ./configure     \u0026\u0026 make -j$(getconf _NPROCESSORS_ONLN) V=     \u0026\u0026 make install     \u0026\u0026 apk del .build-deps-full     \u0026\u0026 cd ..     \u0026\u0026 rm -Rf \"node-v$NODE_VERSION\"     \u0026\u0026 rm \"node-v$NODE_VERSION.tar.xz\" SHASUMS256.txt.asc SHASUMS256.txt;   fi   \u0026\u0026 rm -f \"node-v$NODE_VERSION-linux-$ARCH-musl.tar.xz\"   \u0026\u0026 find /usr/local/include/node/openssl/archs -mindepth 1 -maxdepth 1 ! -name \"$OPENSSL_ARCH\" -exec rm -rf {} \\;   \u0026\u0026 apk del .build-deps   \u0026\u0026 node --version   \u0026\u0026 npm --version",
+            "inBaseImage": true
+          }
+        },
+        {
+          "name": "musl",
+          "version": "1.2.4_git20230717-r4",
+          "commit": "ca7f2ab5e88794e4e654b40776f8a92256f50639",
+          "ecosystem": "Alpine:v3.19",
+          "compareAs": "Alpine",
+          "imageOrigin": {
+            "layerID": "\u003cAny value\u003e",
+            "originCommand": "/bin/sh -c #(nop) ADD file:37a76ec18f9887751cd8473744917d08b7431fc4085097bb6a09d81b41775473 in / ",
+            "inBaseImage": true
+          }
+        },
+        {
+          "name": "musl-utils",
+          "version": "1.2.4_git20230717-r4",
+          "commit": "ca7f2ab5e88794e4e654b40776f8a92256f50639",
+          "ecosystem": "Alpine:v3.19",
+          "compareAs": "Alpine",
+          "imageOrigin": {
+            "layerID": "\u003cAny value\u003e",
+            "originCommand": "/bin/sh -c #(nop) ADD file:37a76ec18f9887751cd8473744917d08b7431fc4085097bb6a09d81b41775473 in / ",
+            "inBaseImage": true
+          }
+        },
+        {
+          "name": "scanelf",
+          "version": "1.3.7-r2",
+          "commit": "e65a4f2d0470e70d862ef2b5c412ecf2cb9ad0a6",
+          "ecosystem": "Alpine:v3.19",
+          "compareAs": "Alpine",
+          "imageOrigin": {
+            "layerID": "\u003cAny value\u003e",
+            "originCommand": "/bin/sh -c #(nop) ADD file:37a76ec18f9887751cd8473744917d08b7431fc4085097bb6a09d81b41775473 in / ",
+            "inBaseImage": true
+          }
+        },
+        {
+          "name": "ssl_client",
+          "version": "1.36.1-r15",
+          "commit": "d1b6f274f29076967826e0ecf6ebcaa5d360272f",
+          "ecosystem": "Alpine:v3.19",
+          "compareAs": "Alpine",
+          "imageOrigin": {
+            "layerID": "\u003cAny value\u003e",
+            "originCommand": "/bin/sh -c #(nop) ADD file:37a76ec18f9887751cd8473744917d08b7431fc4085097bb6a09d81b41775473 in / ",
+            "inBaseImage": true
+          }
+        },
+        {
+          "name": "zlib",
+          "version": "1.3.1-r0",
+          "commit": "9406f6fc5fca057d990eb0d260d75839eeb34d83",
+          "ecosystem": "Alpine:v3.19",
+          "compareAs": "Alpine",
+          "imageOrigin": {
+            "layerID": "\u003cAny value\u003e",
+            "originCommand": "/bin/sh -c #(nop) ADD file:37a76ec18f9887751cd8473744917d08b7431fc4085097bb6a09d81b41775473 in / ",
+            "inBaseImage": true
+          }
+        }
+      ]
+    }
+  ],
+  "ImagePath": "fixtures/test-node_modules-pnpm-empty.tar"
+}
+---
+
+[TestScanImage/scanning_node_modules_using_pnpm_with_some_packages - 1]
+{
+  "Lockfiles": [
+    {
+      "filePath": "/lib/apk/db/installed",
+      "parsedAs": "os/apk",
+      "packages": [
+        {
+          "name": "alpine-baselayout",
+          "version": "3.4.3-r2",
+          "commit": "7749273fed55f6e1df7c9ee6a127f18099f98a94",
+          "ecosystem": "Alpine:v3.19",
+          "compareAs": "Alpine",
+          "imageOrigin": {
+            "layerID": "\u003cAny value\u003e",
+            "originCommand": "/bin/sh -c #(nop) ADD file:37a76ec18f9887751cd8473744917d08b7431fc4085097bb6a09d81b41775473 in / ",
+            "inBaseImage": true
+          }
+        },
+        {
+          "name": "alpine-baselayout-data",
+          "version": "3.4.3-r2",
+          "commit": "7749273fed55f6e1df7c9ee6a127f18099f98a94",
+          "ecosystem": "Alpine:v3.19",
+          "compareAs": "Alpine",
+          "imageOrigin": {
+            "layerID": "\u003cAny value\u003e",
+            "originCommand": "/bin/sh -c #(nop) ADD file:37a76ec18f9887751cd8473744917d08b7431fc4085097bb6a09d81b41775473 in / ",
+            "inBaseImage": true
+          }
+        },
+        {
+          "name": "alpine-keys",
+          "version": "2.4-r1",
+          "commit": "aab68f8c9ab434a46710de8e12fb3206e2930a59",
+          "ecosystem": "Alpine:v3.19",
+          "compareAs": "Alpine",
+          "imageOrigin": {
+            "layerID": "\u003cAny value\u003e",
+            "originCommand": "/bin/sh -c #(nop) ADD file:37a76ec18f9887751cd8473744917d08b7431fc4085097bb6a09d81b41775473 in / ",
+            "inBaseImage": true
+          }
+        },
+        {
+          "name": "apk-tools",
+          "version": "2.14.0-r5",
+          "commit": "33283848034c9885d984c8e8697c645c57324938",
+          "ecosystem": "Alpine:v3.19",
+          "compareAs": "Alpine",
+          "imageOrigin": {
+            "layerID": "\u003cAny value\u003e",
+            "originCommand": "/bin/sh -c #(nop) ADD file:37a76ec18f9887751cd8473744917d08b7431fc4085097bb6a09d81b41775473 in / ",
+            "inBaseImage": true
+          }
+        },
+        {
+          "name": "busybox",
+          "version": "1.36.1-r15",
+          "commit": "d1b6f274f29076967826e0ecf6ebcaa5d360272f",
+          "ecosystem": "Alpine:v3.19",
+          "compareAs": "Alpine",
+          "imageOrigin": {
+            "layerID": "\u003cAny value\u003e",
+            "originCommand": "/bin/sh -c #(nop) ADD file:37a76ec18f9887751cd8473744917d08b7431fc4085097bb6a09d81b41775473 in / ",
+            "inBaseImage": true
+          }
+        },
+        {
+          "name": "busybox-binsh",
+          "version": "1.36.1-r15",
+          "commit": "d1b6f274f29076967826e0ecf6ebcaa5d360272f",
+          "ecosystem": "Alpine:v3.19",
+          "compareAs": "Alpine",
+          "imageOrigin": {
+            "layerID": "\u003cAny value\u003e",
+            "originCommand": "/bin/sh -c #(nop) ADD file:37a76ec18f9887751cd8473744917d08b7431fc4085097bb6a09d81b41775473 in / ",
+            "inBaseImage": true
+          }
+        },
+        {
+          "name": "ca-certificates-bundle",
+          "version": "20230506-r0",
+          "commit": "59534a02716a92a10d177a118c34066162eff4a6",
+          "ecosystem": "Alpine:v3.19",
+          "compareAs": "Alpine",
+          "imageOrigin": {
+            "layerID": "\u003cAny value\u003e",
+            "originCommand": "/bin/sh -c #(nop) ADD file:37a76ec18f9887751cd8473744917d08b7431fc4085097bb6a09d81b41775473 in / ",
+            "inBaseImage": true
+          }
+        },
+        {
+          "name": "libc-utils",
+          "version": "0.7.2-r5",
+          "commit": "988f183cc9d6699930c3e18ccf4a9e36010afb56",
+          "ecosystem": "Alpine:v3.19",
+          "compareAs": "Alpine",
+          "imageOrigin": {
+            "layerID": "\u003cAny value\u003e",
+            "originCommand": "/bin/sh -c #(nop) ADD file:37a76ec18f9887751cd8473744917d08b7431fc4085097bb6a09d81b41775473 in / ",
+            "inBaseImage": true
+          }
+        },
+        {
+          "name": "libcrypto3",
+          "version": "3.1.4-r5",
+          "commit": "b784a22cad0c452586b438cb7a597d846fc09ff4",
+          "ecosystem": "Alpine:v3.19",
+          "compareAs": "Alpine",
+          "imageOrigin": {
+            "layerID": "\u003cAny value\u003e",
+            "originCommand": "/bin/sh -c #(nop) ADD file:37a76ec18f9887751cd8473744917d08b7431fc4085097bb6a09d81b41775473 in / ",
+            "inBaseImage": true
+          }
+        },
+        {
+          "name": "libgcc",
+          "version": "13.2.1_git20231014-r0",
+          "commit": "090e168783a86e5c2ba31fc65921b9715bac62ff",
+          "ecosystem": "Alpine:v3.19",
+          "compareAs": "Alpine",
+          "imageOrigin": {
+            "layerID": "\u003cAny value\u003e",
+            "originCommand": "/bin/sh -c addgroup -g 1000 node     \u0026\u0026 adduser -u 1000 -G node -s /bin/sh -D node     \u0026\u0026 apk add --no-cache         libstdc++     \u0026\u0026 apk add --no-cache --virtual .build-deps         curl     \u0026\u0026 ARCH= OPENSSL_ARCH='linux*' \u0026\u0026 alpineArch=\"$(apk --print-arch)\"       \u0026\u0026 case \"${alpineArch##*-}\" in         x86_64) ARCH='x64' CHECKSUM=\"5da733c21c3b51193a4fe9fc5be6cfa9a694d13b8d766eb02dbe4b8996547050\" OPENSSL_ARCH=linux-x86_64;;         x86) OPENSSL_ARCH=linux-elf;;         aarch64) OPENSSL_ARCH=linux-aarch64;;         arm*) OPENSSL_ARCH=linux-armv4;;         ppc64le) OPENSSL_ARCH=linux-ppc64le;;         s390x) OPENSSL_ARCH=linux-s390x;;         *) ;;       esac   \u0026\u0026 if [ -n \"${CHECKSUM}\" ]; then     set -eu;     curl -fsSLO --compressed \"https://unofficial-builds.nodejs.org/download/release/v$NODE_VERSION/node-v$NODE_VERSION-linux-$ARCH-musl.tar.xz\";     echo \"$CHECKSUM  node-v$NODE_VERSION-linux-$ARCH-musl.tar.xz\" | sha256sum -c -       \u0026\u0026 tar -xJf \"node-v$NODE_VERSION-linux-$ARCH-musl.tar.xz\" -C /usr/local --strip-components=1 --no-same-owner       \u0026\u0026 ln -s /usr/local/bin/node /usr/local/bin/nodejs;   else     echo \"Building from source\"     \u0026\u0026 apk add --no-cache --virtual .build-deps-full         binutils-gold         g++         gcc         gnupg         libgcc         linux-headers         make         python3     \u0026\u0026 export GNUPGHOME=\"$(mktemp -d)\"     \u0026\u0026 for key in       4ED778F539E3634C779C87C6D7062848A1AB005C       141F07595B7B3FFE74309A937405533BE57C7D57       74F12602B6F1C4E913FAA37AD3A89613643B6201       DD792F5973C6DE52C432CBDAC77ABFA00DDBF2B7       61FC681DFB92A079F1685E77973F295594EC4689       8FCCA13FEF1D0C2E91008E09770F7A9A5AE15600       C4F0DFFF4E8C1A8236409D08E73BC641CC11F4C8       890C08DB8579162FEE0DF9DB8BEAB4DFCF555EF4       C82FA3AE1CBEDC6BE46B9360C43CEC45C17AB93C       108F52B48DB57BB0CC439B2997B01419BD92F80A       A363A499291CBBC940DD62E41F10027AF002F8B0     ; do       gpg --batch --keyserver hkps://keys.openpgp.org --recv-keys \"$key\" ||       gpg --batch --keyserver keyserver.ubuntu.com --recv-keys \"$key\" ;     done     \u0026\u0026 curl -fsSLO --compressed \"https://nodejs.org/dist/v$NODE_VERSION/node-v$NODE_VERSION.tar.xz\"     \u0026\u0026 curl -fsSLO --compressed \"https://nodejs.org/dist/v$NODE_VERSION/SHASUMS256.txt.asc\"     \u0026\u0026 gpg --batch --decrypt --output SHASUMS256.txt SHASUMS256.txt.asc     \u0026\u0026 gpgconf --kill all     \u0026\u0026 rm -rf \"$GNUPGHOME\"     \u0026\u0026 grep \" node-v$NODE_VERSION.tar.xz\\$\" SHASUMS256.txt | sha256sum -c -     \u0026\u0026 tar -xf \"node-v$NODE_VERSION.tar.xz\"     \u0026\u0026 cd \"node-v$NODE_VERSION\"     \u0026\u0026 ./configure     \u0026\u0026 make -j$(getconf _NPROCESSORS_ONLN) V=     \u0026\u0026 make install     \u0026\u0026 apk del .build-deps-full     \u0026\u0026 cd ..     \u0026\u0026 rm -Rf \"node-v$NODE_VERSION\"     \u0026\u0026 rm \"node-v$NODE_VERSION.tar.xz\" SHASUMS256.txt.asc SHASUMS256.txt;   fi   \u0026\u0026 rm -f \"node-v$NODE_VERSION-linux-$ARCH-musl.tar.xz\"   \u0026\u0026 find /usr/local/include/node/openssl/archs -mindepth 1 -maxdepth 1 ! -name \"$OPENSSL_ARCH\" -exec rm -rf {} \\;   \u0026\u0026 apk del .build-deps   \u0026\u0026 node --version   \u0026\u0026 npm --version",
+            "inBaseImage": true
+          }
+        },
+        {
+          "name": "libssl3",
+          "version": "3.1.4-r5",
+          "commit": "b784a22cad0c452586b438cb7a597d846fc09ff4",
+          "ecosystem": "Alpine:v3.19",
+          "compareAs": "Alpine",
+          "imageOrigin": {
+            "layerID": "\u003cAny value\u003e",
+            "originCommand": "/bin/sh -c #(nop) ADD file:37a76ec18f9887751cd8473744917d08b7431fc4085097bb6a09d81b41775473 in / ",
+            "inBaseImage": true
+          }
+        },
+        {
+          "name": "libstdc++",
+          "version": "13.2.1_git20231014-r0",
+          "commit": "090e168783a86e5c2ba31fc65921b9715bac62ff",
+          "ecosystem": "Alpine:v3.19",
+          "compareAs": "Alpine",
+          "imageOrigin": {
+            "layerID": "\u003cAny value\u003e",
+            "originCommand": "/bin/sh -c addgroup -g 1000 node     \u0026\u0026 adduser -u 1000 -G node -s /bin/sh -D node     \u0026\u0026 apk add --no-cache         libstdc++     \u0026\u0026 apk add --no-cache --virtual .build-deps         curl     \u0026\u0026 ARCH= OPENSSL_ARCH='linux*' \u0026\u0026 alpineArch=\"$(apk --print-arch)\"       \u0026\u0026 case \"${alpineArch##*-}\" in         x86_64) ARCH='x64' CHECKSUM=\"5da733c21c3b51193a4fe9fc5be6cfa9a694d13b8d766eb02dbe4b8996547050\" OPENSSL_ARCH=linux-x86_64;;         x86) OPENSSL_ARCH=linux-elf;;         aarch64) OPENSSL_ARCH=linux-aarch64;;         arm*) OPENSSL_ARCH=linux-armv4;;         ppc64le) OPENSSL_ARCH=linux-ppc64le;;         s390x) OPENSSL_ARCH=linux-s390x;;         *) ;;       esac   \u0026\u0026 if [ -n \"${CHECKSUM}\" ]; then     set -eu;     curl -fsSLO --compressed \"https://unofficial-builds.nodejs.org/download/release/v$NODE_VERSION/node-v$NODE_VERSION-linux-$ARCH-musl.tar.xz\";     echo \"$CHECKSUM  node-v$NODE_VERSION-linux-$ARCH-musl.tar.xz\" | sha256sum -c -       \u0026\u0026 tar -xJf \"node-v$NODE_VERSION-linux-$ARCH-musl.tar.xz\" -C /usr/local --strip-components=1 --no-same-owner       \u0026\u0026 ln -s /usr/local/bin/node /usr/local/bin/nodejs;   else     echo \"Building from source\"     \u0026\u0026 apk add --no-cache --virtual .build-deps-full         binutils-gold         g++         gcc         gnupg         libgcc         linux-headers         make         python3     \u0026\u0026 export GNUPGHOME=\"$(mktemp -d)\"     \u0026\u0026 for key in       4ED778F539E3634C779C87C6D7062848A1AB005C       141F07595B7B3FFE74309A937405533BE57C7D57       74F12602B6F1C4E913FAA37AD3A89613643B6201       DD792F5973C6DE52C432CBDAC77ABFA00DDBF2B7       61FC681DFB92A079F1685E77973F295594EC4689       8FCCA13FEF1D0C2E91008E09770F7A9A5AE15600       C4F0DFFF4E8C1A8236409D08E73BC641CC11F4C8       890C08DB8579162FEE0DF9DB8BEAB4DFCF555EF4       C82FA3AE1CBEDC6BE46B9360C43CEC45C17AB93C       108F52B48DB57BB0CC439B2997B01419BD92F80A       A363A499291CBBC940DD62E41F10027AF002F8B0     ; do       gpg --batch --keyserver hkps://keys.openpgp.org --recv-keys \"$key\" ||       gpg --batch --keyserver keyserver.ubuntu.com --recv-keys \"$key\" ;     done     \u0026\u0026 curl -fsSLO --compressed \"https://nodejs.org/dist/v$NODE_VERSION/node-v$NODE_VERSION.tar.xz\"     \u0026\u0026 curl -fsSLO --compressed \"https://nodejs.org/dist/v$NODE_VERSION/SHASUMS256.txt.asc\"     \u0026\u0026 gpg --batch --decrypt --output SHASUMS256.txt SHASUMS256.txt.asc     \u0026\u0026 gpgconf --kill all     \u0026\u0026 rm -rf \"$GNUPGHOME\"     \u0026\u0026 grep \" node-v$NODE_VERSION.tar.xz\\$\" SHASUMS256.txt | sha256sum -c -     \u0026\u0026 tar -xf \"node-v$NODE_VERSION.tar.xz\"     \u0026\u0026 cd \"node-v$NODE_VERSION\"     \u0026\u0026 ./configure     \u0026\u0026 make -j$(getconf _NPROCESSORS_ONLN) V=     \u0026\u0026 make install     \u0026\u0026 apk del .build-deps-full     \u0026\u0026 cd ..     \u0026\u0026 rm -Rf \"node-v$NODE_VERSION\"     \u0026\u0026 rm \"node-v$NODE_VERSION.tar.xz\" SHASUMS256.txt.asc SHASUMS256.txt;   fi   \u0026\u0026 rm -f \"node-v$NODE_VERSION-linux-$ARCH-musl.tar.xz\"   \u0026\u0026 find /usr/local/include/node/openssl/archs -mindepth 1 -maxdepth 1 ! -name \"$OPENSSL_ARCH\" -exec rm -rf {} \\;   \u0026\u0026 apk del .build-deps   \u0026\u0026 node --version   \u0026\u0026 npm --version",
+            "inBaseImage": true
+          }
+        },
+        {
+          "name": "musl",
+          "version": "1.2.4_git20230717-r4",
+          "commit": "ca7f2ab5e88794e4e654b40776f8a92256f50639",
+          "ecosystem": "Alpine:v3.19",
+          "compareAs": "Alpine",
+          "imageOrigin": {
+            "layerID": "\u003cAny value\u003e",
+            "originCommand": "/bin/sh -c #(nop) ADD file:37a76ec18f9887751cd8473744917d08b7431fc4085097bb6a09d81b41775473 in / ",
+            "inBaseImage": true
+          }
+        },
+        {
+          "name": "musl-utils",
+          "version": "1.2.4_git20230717-r4",
+          "commit": "ca7f2ab5e88794e4e654b40776f8a92256f50639",
+          "ecosystem": "Alpine:v3.19",
+          "compareAs": "Alpine",
+          "imageOrigin": {
+            "layerID": "\u003cAny value\u003e",
+            "originCommand": "/bin/sh -c #(nop) ADD file:37a76ec18f9887751cd8473744917d08b7431fc4085097bb6a09d81b41775473 in / ",
+            "inBaseImage": true
+          }
+        },
+        {
+          "name": "scanelf",
+          "version": "1.3.7-r2",
+          "commit": "e65a4f2d0470e70d862ef2b5c412ecf2cb9ad0a6",
+          "ecosystem": "Alpine:v3.19",
+          "compareAs": "Alpine",
+          "imageOrigin": {
+            "layerID": "\u003cAny value\u003e",
+            "originCommand": "/bin/sh -c #(nop) ADD file:37a76ec18f9887751cd8473744917d08b7431fc4085097bb6a09d81b41775473 in / ",
+            "inBaseImage": true
+          }
+        },
+        {
+          "name": "ssl_client",
+          "version": "1.36.1-r15",
+          "commit": "d1b6f274f29076967826e0ecf6ebcaa5d360272f",
+          "ecosystem": "Alpine:v3.19",
+          "compareAs": "Alpine",
+          "imageOrigin": {
+            "layerID": "\u003cAny value\u003e",
+            "originCommand": "/bin/sh -c #(nop) ADD file:37a76ec18f9887751cd8473744917d08b7431fc4085097bb6a09d81b41775473 in / ",
+            "inBaseImage": true
+          }
+        },
+        {
+          "name": "zlib",
+          "version": "1.3.1-r0",
+          "commit": "9406f6fc5fca057d990eb0d260d75839eeb34d83",
+          "ecosystem": "Alpine:v3.19",
+          "compareAs": "Alpine",
+          "imageOrigin": {
+            "layerID": "\u003cAny value\u003e",
+            "originCommand": "/bin/sh -c #(nop) ADD file:37a76ec18f9887751cd8473744917d08b7431fc4085097bb6a09d81b41775473 in / ",
+            "inBaseImage": true
+          }
+        }
+      ]
+    }
+  ],
+  "ImagePath": "fixtures/test-node_modules-pnpm-full.tar"
+}
+---
+
+[TestScanImage/scanning_node_modules_using_yarn_with_no_packages - 1]
+{
+  "Lockfiles": [
+    {
+      "filePath": "/lib/apk/db/installed",
+      "parsedAs": "os/apk",
+      "packages": [
+        {
+          "name": "alpine-baselayout",
+          "version": "3.4.3-r2",
+          "commit": "7749273fed55f6e1df7c9ee6a127f18099f98a94",
+          "ecosystem": "Alpine:v3.19",
+          "compareAs": "Alpine",
+          "imageOrigin": {
+            "layerID": "\u003cAny value\u003e",
+            "originCommand": "/bin/sh -c #(nop) ADD file:37a76ec18f9887751cd8473744917d08b7431fc4085097bb6a09d81b41775473 in / ",
+            "inBaseImage": true
+          }
+        },
+        {
+          "name": "alpine-baselayout-data",
+          "version": "3.4.3-r2",
+          "commit": "7749273fed55f6e1df7c9ee6a127f18099f98a94",
+          "ecosystem": "Alpine:v3.19",
+          "compareAs": "Alpine",
+          "imageOrigin": {
+            "layerID": "\u003cAny value\u003e",
+            "originCommand": "/bin/sh -c #(nop) ADD file:37a76ec18f9887751cd8473744917d08b7431fc4085097bb6a09d81b41775473 in / ",
+            "inBaseImage": true
+          }
+        },
+        {
+          "name": "alpine-keys",
+          "version": "2.4-r1",
+          "commit": "aab68f8c9ab434a46710de8e12fb3206e2930a59",
+          "ecosystem": "Alpine:v3.19",
+          "compareAs": "Alpine",
+          "imageOrigin": {
+            "layerID": "\u003cAny value\u003e",
+            "originCommand": "/bin/sh -c #(nop) ADD file:37a76ec18f9887751cd8473744917d08b7431fc4085097bb6a09d81b41775473 in / ",
+            "inBaseImage": true
+          }
+        },
+        {
+          "name": "apk-tools",
+          "version": "2.14.0-r5",
+          "commit": "33283848034c9885d984c8e8697c645c57324938",
+          "ecosystem": "Alpine:v3.19",
+          "compareAs": "Alpine",
+          "imageOrigin": {
+            "layerID": "\u003cAny value\u003e",
+            "originCommand": "/bin/sh -c #(nop) ADD file:37a76ec18f9887751cd8473744917d08b7431fc4085097bb6a09d81b41775473 in / ",
+            "inBaseImage": true
+          }
+        },
+        {
+          "name": "busybox",
+          "version": "1.36.1-r15",
+          "commit": "d1b6f274f29076967826e0ecf6ebcaa5d360272f",
+          "ecosystem": "Alpine:v3.19",
+          "compareAs": "Alpine",
+          "imageOrigin": {
+            "layerID": "\u003cAny value\u003e",
+            "originCommand": "/bin/sh -c #(nop) ADD file:37a76ec18f9887751cd8473744917d08b7431fc4085097bb6a09d81b41775473 in / ",
+            "inBaseImage": true
+          }
+        },
+        {
+          "name": "busybox-binsh",
+          "version": "1.36.1-r15",
+          "commit": "d1b6f274f29076967826e0ecf6ebcaa5d360272f",
+          "ecosystem": "Alpine:v3.19",
+          "compareAs": "Alpine",
+          "imageOrigin": {
+            "layerID": "\u003cAny value\u003e",
+            "originCommand": "/bin/sh -c #(nop) ADD file:37a76ec18f9887751cd8473744917d08b7431fc4085097bb6a09d81b41775473 in / ",
+            "inBaseImage": true
+          }
+        },
+        {
+          "name": "ca-certificates-bundle",
+          "version": "20230506-r0",
+          "commit": "59534a02716a92a10d177a118c34066162eff4a6",
+          "ecosystem": "Alpine:v3.19",
+          "compareAs": "Alpine",
+          "imageOrigin": {
+            "layerID": "\u003cAny value\u003e",
+            "originCommand": "/bin/sh -c #(nop) ADD file:37a76ec18f9887751cd8473744917d08b7431fc4085097bb6a09d81b41775473 in / ",
+            "inBaseImage": true
+          }
+        },
+        {
+          "name": "libc-utils",
+          "version": "0.7.2-r5",
+          "commit": "988f183cc9d6699930c3e18ccf4a9e36010afb56",
+          "ecosystem": "Alpine:v3.19",
+          "compareAs": "Alpine",
+          "imageOrigin": {
+            "layerID": "\u003cAny value\u003e",
+            "originCommand": "/bin/sh -c #(nop) ADD file:37a76ec18f9887751cd8473744917d08b7431fc4085097bb6a09d81b41775473 in / ",
+            "inBaseImage": true
+          }
+        },
+        {
+          "name": "libcrypto3",
+          "version": "3.1.4-r5",
+          "commit": "b784a22cad0c452586b438cb7a597d846fc09ff4",
+          "ecosystem": "Alpine:v3.19",
+          "compareAs": "Alpine",
+          "imageOrigin": {
+            "layerID": "\u003cAny value\u003e",
+            "originCommand": "/bin/sh -c #(nop) ADD file:37a76ec18f9887751cd8473744917d08b7431fc4085097bb6a09d81b41775473 in / ",
+            "inBaseImage": true
+          }
+        },
+        {
+          "name": "libgcc",
+          "version": "13.2.1_git20231014-r0",
+          "commit": "090e168783a86e5c2ba31fc65921b9715bac62ff",
+          "ecosystem": "Alpine:v3.19",
+          "compareAs": "Alpine",
+          "imageOrigin": {
+            "layerID": "\u003cAny value\u003e",
+            "originCommand": "/bin/sh -c addgroup -g 1000 node     \u0026\u0026 adduser -u 1000 -G node -s /bin/sh -D node     \u0026\u0026 apk add --no-cache         libstdc++     \u0026\u0026 apk add --no-cache --virtual .build-deps         curl     \u0026\u0026 ARCH= OPENSSL_ARCH='linux*' \u0026\u0026 alpineArch=\"$(apk --print-arch)\"       \u0026\u0026 case \"${alpineArch##*-}\" in         x86_64) ARCH='x64' CHECKSUM=\"5da733c21c3b51193a4fe9fc5be6cfa9a694d13b8d766eb02dbe4b8996547050\" OPENSSL_ARCH=linux-x86_64;;         x86) OPENSSL_ARCH=linux-elf;;         aarch64) OPENSSL_ARCH=linux-aarch64;;         arm*) OPENSSL_ARCH=linux-armv4;;         ppc64le) OPENSSL_ARCH=linux-ppc64le;;         s390x) OPENSSL_ARCH=linux-s390x;;         *) ;;       esac   \u0026\u0026 if [ -n \"${CHECKSUM}\" ]; then     set -eu;     curl -fsSLO --compressed \"https://unofficial-builds.nodejs.org/download/release/v$NODE_VERSION/node-v$NODE_VERSION-linux-$ARCH-musl.tar.xz\";     echo \"$CHECKSUM  node-v$NODE_VERSION-linux-$ARCH-musl.tar.xz\" | sha256sum -c -       \u0026\u0026 tar -xJf \"node-v$NODE_VERSION-linux-$ARCH-musl.tar.xz\" -C /usr/local --strip-components=1 --no-same-owner       \u0026\u0026 ln -s /usr/local/bin/node /usr/local/bin/nodejs;   else     echo \"Building from source\"     \u0026\u0026 apk add --no-cache --virtual .build-deps-full         binutils-gold         g++         gcc         gnupg         libgcc         linux-headers         make         python3     \u0026\u0026 export GNUPGHOME=\"$(mktemp -d)\"     \u0026\u0026 for key in       4ED778F539E3634C779C87C6D7062848A1AB005C       141F07595B7B3FFE74309A937405533BE57C7D57       74F12602B6F1C4E913FAA37AD3A89613643B6201       DD792F5973C6DE52C432CBDAC77ABFA00DDBF2B7       61FC681DFB92A079F1685E77973F295594EC4689       8FCCA13FEF1D0C2E91008E09770F7A9A5AE15600       C4F0DFFF4E8C1A8236409D08E73BC641CC11F4C8       890C08DB8579162FEE0DF9DB8BEAB4DFCF555EF4       C82FA3AE1CBEDC6BE46B9360C43CEC45C17AB93C       108F52B48DB57BB0CC439B2997B01419BD92F80A       A363A499291CBBC940DD62E41F10027AF002F8B0     ; do       gpg --batch --keyserver hkps://keys.openpgp.org --recv-keys \"$key\" ||       gpg --batch --keyserver keyserver.ubuntu.com --recv-keys \"$key\" ;     done     \u0026\u0026 curl -fsSLO --compressed \"https://nodejs.org/dist/v$NODE_VERSION/node-v$NODE_VERSION.tar.xz\"     \u0026\u0026 curl -fsSLO --compressed \"https://nodejs.org/dist/v$NODE_VERSION/SHASUMS256.txt.asc\"     \u0026\u0026 gpg --batch --decrypt --output SHASUMS256.txt SHASUMS256.txt.asc     \u0026\u0026 gpgconf --kill all     \u0026\u0026 rm -rf \"$GNUPGHOME\"     \u0026\u0026 grep \" node-v$NODE_VERSION.tar.xz\\$\" SHASUMS256.txt | sha256sum -c -     \u0026\u0026 tar -xf \"node-v$NODE_VERSION.tar.xz\"     \u0026\u0026 cd \"node-v$NODE_VERSION\"     \u0026\u0026 ./configure     \u0026\u0026 make -j$(getconf _NPROCESSORS_ONLN) V=     \u0026\u0026 make install     \u0026\u0026 apk del .build-deps-full     \u0026\u0026 cd ..     \u0026\u0026 rm -Rf \"node-v$NODE_VERSION\"     \u0026\u0026 rm \"node-v$NODE_VERSION.tar.xz\" SHASUMS256.txt.asc SHASUMS256.txt;   fi   \u0026\u0026 rm -f \"node-v$NODE_VERSION-linux-$ARCH-musl.tar.xz\"   \u0026\u0026 find /usr/local/include/node/openssl/archs -mindepth 1 -maxdepth 1 ! -name \"$OPENSSL_ARCH\" -exec rm -rf {} \\;   \u0026\u0026 apk del .build-deps   \u0026\u0026 node --version   \u0026\u0026 npm --version",
+            "inBaseImage": true
+          }
+        },
+        {
+          "name": "libssl3",
+          "version": "3.1.4-r5",
+          "commit": "b784a22cad0c452586b438cb7a597d846fc09ff4",
+          "ecosystem": "Alpine:v3.19",
+          "compareAs": "Alpine",
+          "imageOrigin": {
+            "layerID": "\u003cAny value\u003e",
+            "originCommand": "/bin/sh -c #(nop) ADD file:37a76ec18f9887751cd8473744917d08b7431fc4085097bb6a09d81b41775473 in / ",
+            "inBaseImage": true
+          }
+        },
+        {
+          "name": "libstdc++",
+          "version": "13.2.1_git20231014-r0",
+          "commit": "090e168783a86e5c2ba31fc65921b9715bac62ff",
+          "ecosystem": "Alpine:v3.19",
+          "compareAs": "Alpine",
+          "imageOrigin": {
+            "layerID": "\u003cAny value\u003e",
+            "originCommand": "/bin/sh -c addgroup -g 1000 node     \u0026\u0026 adduser -u 1000 -G node -s /bin/sh -D node     \u0026\u0026 apk add --no-cache         libstdc++     \u0026\u0026 apk add --no-cache --virtual .build-deps         curl     \u0026\u0026 ARCH= OPENSSL_ARCH='linux*' \u0026\u0026 alpineArch=\"$(apk --print-arch)\"       \u0026\u0026 case \"${alpineArch##*-}\" in         x86_64) ARCH='x64' CHECKSUM=\"5da733c21c3b51193a4fe9fc5be6cfa9a694d13b8d766eb02dbe4b8996547050\" OPENSSL_ARCH=linux-x86_64;;         x86) OPENSSL_ARCH=linux-elf;;         aarch64) OPENSSL_ARCH=linux-aarch64;;         arm*) OPENSSL_ARCH=linux-armv4;;         ppc64le) OPENSSL_ARCH=linux-ppc64le;;         s390x) OPENSSL_ARCH=linux-s390x;;         *) ;;       esac   \u0026\u0026 if [ -n \"${CHECKSUM}\" ]; then     set -eu;     curl -fsSLO --compressed \"https://unofficial-builds.nodejs.org/download/release/v$NODE_VERSION/node-v$NODE_VERSION-linux-$ARCH-musl.tar.xz\";     echo \"$CHECKSUM  node-v$NODE_VERSION-linux-$ARCH-musl.tar.xz\" | sha256sum -c -       \u0026\u0026 tar -xJf \"node-v$NODE_VERSION-linux-$ARCH-musl.tar.xz\" -C /usr/local --strip-components=1 --no-same-owner       \u0026\u0026 ln -s /usr/local/bin/node /usr/local/bin/nodejs;   else     echo \"Building from source\"     \u0026\u0026 apk add --no-cache --virtual .build-deps-full         binutils-gold         g++         gcc         gnupg         libgcc         linux-headers         make         python3     \u0026\u0026 export GNUPGHOME=\"$(mktemp -d)\"     \u0026\u0026 for key in       4ED778F539E3634C779C87C6D7062848A1AB005C       141F07595B7B3FFE74309A937405533BE57C7D57       74F12602B6F1C4E913FAA37AD3A89613643B6201       DD792F5973C6DE52C432CBDAC77ABFA00DDBF2B7       61FC681DFB92A079F1685E77973F295594EC4689       8FCCA13FEF1D0C2E91008E09770F7A9A5AE15600       C4F0DFFF4E8C1A8236409D08E73BC641CC11F4C8       890C08DB8579162FEE0DF9DB8BEAB4DFCF555EF4       C82FA3AE1CBEDC6BE46B9360C43CEC45C17AB93C       108F52B48DB57BB0CC439B2997B01419BD92F80A       A363A499291CBBC940DD62E41F10027AF002F8B0     ; do       gpg --batch --keyserver hkps://keys.openpgp.org --recv-keys \"$key\" ||       gpg --batch --keyserver keyserver.ubuntu.com --recv-keys \"$key\" ;     done     \u0026\u0026 curl -fsSLO --compressed \"https://nodejs.org/dist/v$NODE_VERSION/node-v$NODE_VERSION.tar.xz\"     \u0026\u0026 curl -fsSLO --compressed \"https://nodejs.org/dist/v$NODE_VERSION/SHASUMS256.txt.asc\"     \u0026\u0026 gpg --batch --decrypt --output SHASUMS256.txt SHASUMS256.txt.asc     \u0026\u0026 gpgconf --kill all     \u0026\u0026 rm -rf \"$GNUPGHOME\"     \u0026\u0026 grep \" node-v$NODE_VERSION.tar.xz\\$\" SHASUMS256.txt | sha256sum -c -     \u0026\u0026 tar -xf \"node-v$NODE_VERSION.tar.xz\"     \u0026\u0026 cd \"node-v$NODE_VERSION\"     \u0026\u0026 ./configure     \u0026\u0026 make -j$(getconf _NPROCESSORS_ONLN) V=     \u0026\u0026 make install     \u0026\u0026 apk del .build-deps-full     \u0026\u0026 cd ..     \u0026\u0026 rm -Rf \"node-v$NODE_VERSION\"     \u0026\u0026 rm \"node-v$NODE_VERSION.tar.xz\" SHASUMS256.txt.asc SHASUMS256.txt;   fi   \u0026\u0026 rm -f \"node-v$NODE_VERSION-linux-$ARCH-musl.tar.xz\"   \u0026\u0026 find /usr/local/include/node/openssl/archs -mindepth 1 -maxdepth 1 ! -name \"$OPENSSL_ARCH\" -exec rm -rf {} \\;   \u0026\u0026 apk del .build-deps   \u0026\u0026 node --version   \u0026\u0026 npm --version",
+            "inBaseImage": true
+          }
+        },
+        {
+          "name": "musl",
+          "version": "1.2.4_git20230717-r4",
+          "commit": "ca7f2ab5e88794e4e654b40776f8a92256f50639",
+          "ecosystem": "Alpine:v3.19",
+          "compareAs": "Alpine",
+          "imageOrigin": {
+            "layerID": "\u003cAny value\u003e",
+            "originCommand": "/bin/sh -c #(nop) ADD file:37a76ec18f9887751cd8473744917d08b7431fc4085097bb6a09d81b41775473 in / ",
+            "inBaseImage": true
+          }
+        },
+        {
+          "name": "musl-utils",
+          "version": "1.2.4_git20230717-r4",
+          "commit": "ca7f2ab5e88794e4e654b40776f8a92256f50639",
+          "ecosystem": "Alpine:v3.19",
+          "compareAs": "Alpine",
+          "imageOrigin": {
+            "layerID": "\u003cAny value\u003e",
+            "originCommand": "/bin/sh -c #(nop) ADD file:37a76ec18f9887751cd8473744917d08b7431fc4085097bb6a09d81b41775473 in / ",
+            "inBaseImage": true
+          }
+        },
+        {
+          "name": "scanelf",
+          "version": "1.3.7-r2",
+          "commit": "e65a4f2d0470e70d862ef2b5c412ecf2cb9ad0a6",
+          "ecosystem": "Alpine:v3.19",
+          "compareAs": "Alpine",
+          "imageOrigin": {
+            "layerID": "\u003cAny value\u003e",
+            "originCommand": "/bin/sh -c #(nop) ADD file:37a76ec18f9887751cd8473744917d08b7431fc4085097bb6a09d81b41775473 in / ",
+            "inBaseImage": true
+          }
+        },
+        {
+          "name": "ssl_client",
+          "version": "1.36.1-r15",
+          "commit": "d1b6f274f29076967826e0ecf6ebcaa5d360272f",
+          "ecosystem": "Alpine:v3.19",
+          "compareAs": "Alpine",
+          "imageOrigin": {
+            "layerID": "\u003cAny value\u003e",
+            "originCommand": "/bin/sh -c #(nop) ADD file:37a76ec18f9887751cd8473744917d08b7431fc4085097bb6a09d81b41775473 in / ",
+            "inBaseImage": true
+          }
+        },
+        {
+          "name": "zlib",
+          "version": "1.3.1-r0",
+          "commit": "9406f6fc5fca057d990eb0d260d75839eeb34d83",
+          "ecosystem": "Alpine:v3.19",
+          "compareAs": "Alpine",
+          "imageOrigin": {
+            "layerID": "\u003cAny value\u003e",
+            "originCommand": "/bin/sh -c #(nop) ADD file:37a76ec18f9887751cd8473744917d08b7431fc4085097bb6a09d81b41775473 in / ",
+            "inBaseImage": true
+          }
+        }
+      ]
+    }
+  ],
+  "ImagePath": "fixtures/test-node_modules-yarn-empty.tar"
+}
+---
+
+[TestScanImage/scanning_node_modules_using_yarn_with_some_packages - 1]
+{
+  "Lockfiles": [
+    {
+      "filePath": "/lib/apk/db/installed",
+      "parsedAs": "os/apk",
+      "packages": [
+        {
+          "name": "alpine-baselayout",
+          "version": "3.4.3-r2",
+          "commit": "7749273fed55f6e1df7c9ee6a127f18099f98a94",
+          "ecosystem": "Alpine:v3.19",
+          "compareAs": "Alpine",
+          "imageOrigin": {
+            "layerID": "\u003cAny value\u003e",
+            "originCommand": "/bin/sh -c #(nop) ADD file:37a76ec18f9887751cd8473744917d08b7431fc4085097bb6a09d81b41775473 in / ",
+            "inBaseImage": true
+          }
+        },
+        {
+          "name": "alpine-baselayout-data",
+          "version": "3.4.3-r2",
+          "commit": "7749273fed55f6e1df7c9ee6a127f18099f98a94",
+          "ecosystem": "Alpine:v3.19",
+          "compareAs": "Alpine",
+          "imageOrigin": {
+            "layerID": "\u003cAny value\u003e",
+            "originCommand": "/bin/sh -c #(nop) ADD file:37a76ec18f9887751cd8473744917d08b7431fc4085097bb6a09d81b41775473 in / ",
+            "inBaseImage": true
+          }
+        },
+        {
+          "name": "alpine-keys",
+          "version": "2.4-r1",
+          "commit": "aab68f8c9ab434a46710de8e12fb3206e2930a59",
+          "ecosystem": "Alpine:v3.19",
+          "compareAs": "Alpine",
+          "imageOrigin": {
+            "layerID": "\u003cAny value\u003e",
+            "originCommand": "/bin/sh -c #(nop) ADD file:37a76ec18f9887751cd8473744917d08b7431fc4085097bb6a09d81b41775473 in / ",
+            "inBaseImage": true
+          }
+        },
+        {
+          "name": "apk-tools",
+          "version": "2.14.0-r5",
+          "commit": "33283848034c9885d984c8e8697c645c57324938",
+          "ecosystem": "Alpine:v3.19",
+          "compareAs": "Alpine",
+          "imageOrigin": {
+            "layerID": "\u003cAny value\u003e",
+            "originCommand": "/bin/sh -c #(nop) ADD file:37a76ec18f9887751cd8473744917d08b7431fc4085097bb6a09d81b41775473 in / ",
+            "inBaseImage": true
+          }
+        },
+        {
+          "name": "busybox",
+          "version": "1.36.1-r15",
+          "commit": "d1b6f274f29076967826e0ecf6ebcaa5d360272f",
+          "ecosystem": "Alpine:v3.19",
+          "compareAs": "Alpine",
+          "imageOrigin": {
+            "layerID": "\u003cAny value\u003e",
+            "originCommand": "/bin/sh -c #(nop) ADD file:37a76ec18f9887751cd8473744917d08b7431fc4085097bb6a09d81b41775473 in / ",
+            "inBaseImage": true
+          }
+        },
+        {
+          "name": "busybox-binsh",
+          "version": "1.36.1-r15",
+          "commit": "d1b6f274f29076967826e0ecf6ebcaa5d360272f",
+          "ecosystem": "Alpine:v3.19",
+          "compareAs": "Alpine",
+          "imageOrigin": {
+            "layerID": "\u003cAny value\u003e",
+            "originCommand": "/bin/sh -c #(nop) ADD file:37a76ec18f9887751cd8473744917d08b7431fc4085097bb6a09d81b41775473 in / ",
+            "inBaseImage": true
+          }
+        },
+        {
+          "name": "ca-certificates-bundle",
+          "version": "20230506-r0",
+          "commit": "59534a02716a92a10d177a118c34066162eff4a6",
+          "ecosystem": "Alpine:v3.19",
+          "compareAs": "Alpine",
+          "imageOrigin": {
+            "layerID": "\u003cAny value\u003e",
+            "originCommand": "/bin/sh -c #(nop) ADD file:37a76ec18f9887751cd8473744917d08b7431fc4085097bb6a09d81b41775473 in / ",
+            "inBaseImage": true
+          }
+        },
+        {
+          "name": "libc-utils",
+          "version": "0.7.2-r5",
+          "commit": "988f183cc9d6699930c3e18ccf4a9e36010afb56",
+          "ecosystem": "Alpine:v3.19",
+          "compareAs": "Alpine",
+          "imageOrigin": {
+            "layerID": "\u003cAny value\u003e",
+            "originCommand": "/bin/sh -c #(nop) ADD file:37a76ec18f9887751cd8473744917d08b7431fc4085097bb6a09d81b41775473 in / ",
+            "inBaseImage": true
+          }
+        },
+        {
+          "name": "libcrypto3",
+          "version": "3.1.4-r5",
+          "commit": "b784a22cad0c452586b438cb7a597d846fc09ff4",
+          "ecosystem": "Alpine:v3.19",
+          "compareAs": "Alpine",
+          "imageOrigin": {
+            "layerID": "\u003cAny value\u003e",
+            "originCommand": "/bin/sh -c #(nop) ADD file:37a76ec18f9887751cd8473744917d08b7431fc4085097bb6a09d81b41775473 in / ",
+            "inBaseImage": true
+          }
+        },
+        {
+          "name": "libgcc",
+          "version": "13.2.1_git20231014-r0",
+          "commit": "090e168783a86e5c2ba31fc65921b9715bac62ff",
+          "ecosystem": "Alpine:v3.19",
+          "compareAs": "Alpine",
+          "imageOrigin": {
+            "layerID": "\u003cAny value\u003e",
+            "originCommand": "/bin/sh -c addgroup -g 1000 node     \u0026\u0026 adduser -u 1000 -G node -s /bin/sh -D node     \u0026\u0026 apk add --no-cache         libstdc++     \u0026\u0026 apk add --no-cache --virtual .build-deps         curl     \u0026\u0026 ARCH= OPENSSL_ARCH='linux*' \u0026\u0026 alpineArch=\"$(apk --print-arch)\"       \u0026\u0026 case \"${alpineArch##*-}\" in         x86_64) ARCH='x64' CHECKSUM=\"5da733c21c3b51193a4fe9fc5be6cfa9a694d13b8d766eb02dbe4b8996547050\" OPENSSL_ARCH=linux-x86_64;;         x86) OPENSSL_ARCH=linux-elf;;         aarch64) OPENSSL_ARCH=linux-aarch64;;         arm*) OPENSSL_ARCH=linux-armv4;;         ppc64le) OPENSSL_ARCH=linux-ppc64le;;         s390x) OPENSSL_ARCH=linux-s390x;;         *) ;;       esac   \u0026\u0026 if [ -n \"${CHECKSUM}\" ]; then     set -eu;     curl -fsSLO --compressed \"https://unofficial-builds.nodejs.org/download/release/v$NODE_VERSION/node-v$NODE_VERSION-linux-$ARCH-musl.tar.xz\";     echo \"$CHECKSUM  node-v$NODE_VERSION-linux-$ARCH-musl.tar.xz\" | sha256sum -c -       \u0026\u0026 tar -xJf \"node-v$NODE_VERSION-linux-$ARCH-musl.tar.xz\" -C /usr/local --strip-components=1 --no-same-owner       \u0026\u0026 ln -s /usr/local/bin/node /usr/local/bin/nodejs;   else     echo \"Building from source\"     \u0026\u0026 apk add --no-cache --virtual .build-deps-full         binutils-gold         g++         gcc         gnupg         libgcc         linux-headers         make         python3     \u0026\u0026 export GNUPGHOME=\"$(mktemp -d)\"     \u0026\u0026 for key in       4ED778F539E3634C779C87C6D7062848A1AB005C       141F07595B7B3FFE74309A937405533BE57C7D57       74F12602B6F1C4E913FAA37AD3A89613643B6201       DD792F5973C6DE52C432CBDAC77ABFA00DDBF2B7       61FC681DFB92A079F1685E77973F295594EC4689       8FCCA13FEF1D0C2E91008E09770F7A9A5AE15600       C4F0DFFF4E8C1A8236409D08E73BC641CC11F4C8       890C08DB8579162FEE0DF9DB8BEAB4DFCF555EF4       C82FA3AE1CBEDC6BE46B9360C43CEC45C17AB93C       108F52B48DB57BB0CC439B2997B01419BD92F80A       A363A499291CBBC940DD62E41F10027AF002F8B0     ; do       gpg --batch --keyserver hkps://keys.openpgp.org --recv-keys \"$key\" ||       gpg --batch --keyserver keyserver.ubuntu.com --recv-keys \"$key\" ;     done     \u0026\u0026 curl -fsSLO --compressed \"https://nodejs.org/dist/v$NODE_VERSION/node-v$NODE_VERSION.tar.xz\"     \u0026\u0026 curl -fsSLO --compressed \"https://nodejs.org/dist/v$NODE_VERSION/SHASUMS256.txt.asc\"     \u0026\u0026 gpg --batch --decrypt --output SHASUMS256.txt SHASUMS256.txt.asc     \u0026\u0026 gpgconf --kill all     \u0026\u0026 rm -rf \"$GNUPGHOME\"     \u0026\u0026 grep \" node-v$NODE_VERSION.tar.xz\\$\" SHASUMS256.txt | sha256sum -c -     \u0026\u0026 tar -xf \"node-v$NODE_VERSION.tar.xz\"     \u0026\u0026 cd \"node-v$NODE_VERSION\"     \u0026\u0026 ./configure     \u0026\u0026 make -j$(getconf _NPROCESSORS_ONLN) V=     \u0026\u0026 make install     \u0026\u0026 apk del .build-deps-full     \u0026\u0026 cd ..     \u0026\u0026 rm -Rf \"node-v$NODE_VERSION\"     \u0026\u0026 rm \"node-v$NODE_VERSION.tar.xz\" SHASUMS256.txt.asc SHASUMS256.txt;   fi   \u0026\u0026 rm -f \"node-v$NODE_VERSION-linux-$ARCH-musl.tar.xz\"   \u0026\u0026 find /usr/local/include/node/openssl/archs -mindepth 1 -maxdepth 1 ! -name \"$OPENSSL_ARCH\" -exec rm -rf {} \\;   \u0026\u0026 apk del .build-deps   \u0026\u0026 node --version   \u0026\u0026 npm --version",
+            "inBaseImage": true
+          }
+        },
+        {
+          "name": "libssl3",
+          "version": "3.1.4-r5",
+          "commit": "b784a22cad0c452586b438cb7a597d846fc09ff4",
+          "ecosystem": "Alpine:v3.19",
+          "compareAs": "Alpine",
+          "imageOrigin": {
+            "layerID": "\u003cAny value\u003e",
+            "originCommand": "/bin/sh -c #(nop) ADD file:37a76ec18f9887751cd8473744917d08b7431fc4085097bb6a09d81b41775473 in / ",
+            "inBaseImage": true
+          }
+        },
+        {
+          "name": "libstdc++",
+          "version": "13.2.1_git20231014-r0",
+          "commit": "090e168783a86e5c2ba31fc65921b9715bac62ff",
+          "ecosystem": "Alpine:v3.19",
+          "compareAs": "Alpine",
+          "imageOrigin": {
+            "layerID": "\u003cAny value\u003e",
+            "originCommand": "/bin/sh -c addgroup -g 1000 node     \u0026\u0026 adduser -u 1000 -G node -s /bin/sh -D node     \u0026\u0026 apk add --no-cache         libstdc++     \u0026\u0026 apk add --no-cache --virtual .build-deps         curl     \u0026\u0026 ARCH= OPENSSL_ARCH='linux*' \u0026\u0026 alpineArch=\"$(apk --print-arch)\"       \u0026\u0026 case \"${alpineArch##*-}\" in         x86_64) ARCH='x64' CHECKSUM=\"5da733c21c3b51193a4fe9fc5be6cfa9a694d13b8d766eb02dbe4b8996547050\" OPENSSL_ARCH=linux-x86_64;;         x86) OPENSSL_ARCH=linux-elf;;         aarch64) OPENSSL_ARCH=linux-aarch64;;         arm*) OPENSSL_ARCH=linux-armv4;;         ppc64le) OPENSSL_ARCH=linux-ppc64le;;         s390x) OPENSSL_ARCH=linux-s390x;;         *) ;;       esac   \u0026\u0026 if [ -n \"${CHECKSUM}\" ]; then     set -eu;     curl -fsSLO --compressed \"https://unofficial-builds.nodejs.org/download/release/v$NODE_VERSION/node-v$NODE_VERSION-linux-$ARCH-musl.tar.xz\";     echo \"$CHECKSUM  node-v$NODE_VERSION-linux-$ARCH-musl.tar.xz\" | sha256sum -c -       \u0026\u0026 tar -xJf \"node-v$NODE_VERSION-linux-$ARCH-musl.tar.xz\" -C /usr/local --strip-components=1 --no-same-owner       \u0026\u0026 ln -s /usr/local/bin/node /usr/local/bin/nodejs;   else     echo \"Building from source\"     \u0026\u0026 apk add --no-cache --virtual .build-deps-full         binutils-gold         g++         gcc         gnupg         libgcc         linux-headers         make         python3     \u0026\u0026 export GNUPGHOME=\"$(mktemp -d)\"     \u0026\u0026 for key in       4ED778F539E3634C779C87C6D7062848A1AB005C       141F07595B7B3FFE74309A937405533BE57C7D57       74F12602B6F1C4E913FAA37AD3A89613643B6201       DD792F5973C6DE52C432CBDAC77ABFA00DDBF2B7       61FC681DFB92A079F1685E77973F295594EC4689       8FCCA13FEF1D0C2E91008E09770F7A9A5AE15600       C4F0DFFF4E8C1A8236409D08E73BC641CC11F4C8       890C08DB8579162FEE0DF9DB8BEAB4DFCF555EF4       C82FA3AE1CBEDC6BE46B9360C43CEC45C17AB93C       108F52B48DB57BB0CC439B2997B01419BD92F80A       A363A499291CBBC940DD62E41F10027AF002F8B0     ; do       gpg --batch --keyserver hkps://keys.openpgp.org --recv-keys \"$key\" ||       gpg --batch --keyserver keyserver.ubuntu.com --recv-keys \"$key\" ;     done     \u0026\u0026 curl -fsSLO --compressed \"https://nodejs.org/dist/v$NODE_VERSION/node-v$NODE_VERSION.tar.xz\"     \u0026\u0026 curl -fsSLO --compressed \"https://nodejs.org/dist/v$NODE_VERSION/SHASUMS256.txt.asc\"     \u0026\u0026 gpg --batch --decrypt --output SHASUMS256.txt SHASUMS256.txt.asc     \u0026\u0026 gpgconf --kill all     \u0026\u0026 rm -rf \"$GNUPGHOME\"     \u0026\u0026 grep \" node-v$NODE_VERSION.tar.xz\\$\" SHASUMS256.txt | sha256sum -c -     \u0026\u0026 tar -xf \"node-v$NODE_VERSION.tar.xz\"     \u0026\u0026 cd \"node-v$NODE_VERSION\"     \u0026\u0026 ./configure     \u0026\u0026 make -j$(getconf _NPROCESSORS_ONLN) V=     \u0026\u0026 make install     \u0026\u0026 apk del .build-deps-full     \u0026\u0026 cd ..     \u0026\u0026 rm -Rf \"node-v$NODE_VERSION\"     \u0026\u0026 rm \"node-v$NODE_VERSION.tar.xz\" SHASUMS256.txt.asc SHASUMS256.txt;   fi   \u0026\u0026 rm -f \"node-v$NODE_VERSION-linux-$ARCH-musl.tar.xz\"   \u0026\u0026 find /usr/local/include/node/openssl/archs -mindepth 1 -maxdepth 1 ! -name \"$OPENSSL_ARCH\" -exec rm -rf {} \\;   \u0026\u0026 apk del .build-deps   \u0026\u0026 node --version   \u0026\u0026 npm --version",
+            "inBaseImage": true
+          }
+        },
+        {
+          "name": "musl",
+          "version": "1.2.4_git20230717-r4",
+          "commit": "ca7f2ab5e88794e4e654b40776f8a92256f50639",
+          "ecosystem": "Alpine:v3.19",
+          "compareAs": "Alpine",
+          "imageOrigin": {
+            "layerID": "\u003cAny value\u003e",
+            "originCommand": "/bin/sh -c #(nop) ADD file:37a76ec18f9887751cd8473744917d08b7431fc4085097bb6a09d81b41775473 in / ",
+            "inBaseImage": true
+          }
+        },
+        {
+          "name": "musl-utils",
+          "version": "1.2.4_git20230717-r4",
+          "commit": "ca7f2ab5e88794e4e654b40776f8a92256f50639",
+          "ecosystem": "Alpine:v3.19",
+          "compareAs": "Alpine",
+          "imageOrigin": {
+            "layerID": "\u003cAny value\u003e",
+            "originCommand": "/bin/sh -c #(nop) ADD file:37a76ec18f9887751cd8473744917d08b7431fc4085097bb6a09d81b41775473 in / ",
+            "inBaseImage": true
+          }
+        },
+        {
+          "name": "scanelf",
+          "version": "1.3.7-r2",
+          "commit": "e65a4f2d0470e70d862ef2b5c412ecf2cb9ad0a6",
+          "ecosystem": "Alpine:v3.19",
+          "compareAs": "Alpine",
+          "imageOrigin": {
+            "layerID": "\u003cAny value\u003e",
+            "originCommand": "/bin/sh -c #(nop) ADD file:37a76ec18f9887751cd8473744917d08b7431fc4085097bb6a09d81b41775473 in / ",
+            "inBaseImage": true
+          }
+        },
+        {
+          "name": "ssl_client",
+          "version": "1.36.1-r15",
+          "commit": "d1b6f274f29076967826e0ecf6ebcaa5d360272f",
+          "ecosystem": "Alpine:v3.19",
+          "compareAs": "Alpine",
+          "imageOrigin": {
+            "layerID": "\u003cAny value\u003e",
+            "originCommand": "/bin/sh -c #(nop) ADD file:37a76ec18f9887751cd8473744917d08b7431fc4085097bb6a09d81b41775473 in / ",
+            "inBaseImage": true
+          }
+        },
+        {
+          "name": "zlib",
+          "version": "1.3.1-r0",
+          "commit": "9406f6fc5fca057d990eb0d260d75839eeb34d83",
+          "ecosystem": "Alpine:v3.19",
+          "compareAs": "Alpine",
+          "imageOrigin": {
+            "layerID": "\u003cAny value\u003e",
+            "originCommand": "/bin/sh -c #(nop) ADD file:37a76ec18f9887751cd8473744917d08b7431fc4085097bb6a09d81b41775473 in / ",
+            "inBaseImage": true
+          }
+        }
+      ]
+    }
+  ],
+  "ImagePath": "fixtures/test-node_modules-yarn-full.tar"
+}
+---
