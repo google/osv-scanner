@@ -1,3 +1,4 @@
+//nolint:unused,revive
 package client
 
 import (
