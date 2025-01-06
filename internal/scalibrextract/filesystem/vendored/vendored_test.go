@@ -3,6 +3,7 @@ package vendored_test
 import (
 	"context"
 	"io/fs"
+	"os"
 	"path/filepath"
 	"runtime"
 	"testing"
@@ -100,12 +101,17 @@ func TestExtractor_Extract(t *testing.T) {
 		// TODO: Reenable when #657 is resolved.
 		testutility.Skip(t, "Temporarily disabled until #657 is resolved")
 	}
+	cwd, err := os.Getwd()
+	if err != nil {
+		t.Fatal(err)
+	}
 
 	tests := []extracttest.TestTableEntry{
 		{
 			Name: "zlib test",
 			InputConfig: extracttest.ScanInputMockConfig{
-				Path: "testdata/thirdparty/zlib",
+				Path:         "testdata/thirdparty/zlib",
+				FakeScanRoot: cwd,
 			},
 			WantInventory: []*extractor.Inventory{
 				{
