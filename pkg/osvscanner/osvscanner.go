@@ -1,19 +1,22 @@
 package osvscanner
 
 import (
+	"context"
 	"errors"
 	"fmt"
+	"time"
 
+	"github.com/google/osv-scalibr/extractor"
+	"github.com/google/osv-scanner/internal/clients/clientimpl/localmatcher"
+	"github.com/google/osv-scanner/internal/clients/clientimpl/osvmatcher"
+	"github.com/google/osv-scanner/internal/clients/clientinterfaces"
 	"github.com/google/osv-scanner/internal/config"
 	"github.com/google/osv-scanner/internal/depsdev"
 	"github.com/google/osv-scanner/internal/imodels"
 	"github.com/google/osv-scanner/internal/imodels/results"
-	"github.com/google/osv-scanner/internal/local"
+	"github.com/google/osv-scanner/internal/osvdev"
 	"github.com/google/osv-scanner/internal/output"
-	"github.com/google/osv-scanner/internal/semantic"
-	"github.com/google/osv-scanner/internal/version"
 	"github.com/google/osv-scanner/pkg/models"
-	"github.com/google/osv-scanner/pkg/osv"
 	"github.com/google/osv-scanner/pkg/reporter"
 	"github.com/ossf/osv-schema/bindings/go/osvschema"
 
@@ -114,15 +117,33 @@ func DoScan(actions ScannerActions, r reporter.Reporter) (models.VulnerabilityRe
 
 	scanResult.PackageScanResults = packages
 
+	// ----- Filtering -----
 	filterUnscannablePackages(r, &scanResult)
-
 	filterIgnoredPackages(r, &scanResult)
 
+	// ----- Custom Overrides -----
 	overrideGoVersion(r, &scanResult)
 
-	err = makeRequest(r, scanResult.PackageScanResults, actions.CompareOffline, actions.DownloadDatabases, actions.LocalDBPath)
-	if err != nil {
-		return models.VulnerabilityResults{}, err
+	// --- Make Vulnerability Requests ---
+	{
+		var matcher clientinterfaces.VulnerabilityMatcher
+		var err error
+		if actions.CompareOffline {
+			matcher, err = localmatcher.NewLocalMatcher(r, actions.LocalDBPath, actions.DownloadDatabases)
+			if err != nil {
+				return models.VulnerabilityResults{}, err
+			}
+		} else {
+			matcher = &osvmatcher.OSVMatcher{
+				Client:              *osvdev.DefaultClient(),
+				InitialQueryTimeout: 5 * time.Minute,
+			}
+		}
+
+		err = makeRequestWithMatcher(r, scanResult.PackageScanResults, matcher)
+		if err != nil {
+			return models.VulnerabilityResults{}, err
+		}
 	}
 
 	if len(actions.ScanLicensesAllowlist) > 0 || actions.ScanLicensesSummary {
@@ -176,82 +197,27 @@ func DoScan(actions ScannerActions, r reporter.Reporter) (models.VulnerabilityRe
 	return results, nil
 }
 
-// patchPackageForRequest modifies packages before they are sent to osv.dev to
-// account for edge cases.
-func patchPackageForRequest(pkg imodels.PackageInfo) imodels.PackageInfo {
-	// Assume Go stdlib patch version as the latest version
-	//
-	// This is done because go1.20 and earlier do not support patch
-	// version in go.mod file, and will fail to build.
-	//
-	// However, if we assume patch version as .0, this will cause a lot of
-	// false positives. This compromise still allows osv-scanner to pick up
-	// when the user is using a minor version that is out-of-support.
-	if pkg.Name == "stdlib" && pkg.Ecosystem.Ecosystem == osvschema.EcosystemGo {
-		v := semantic.ParseSemverLikeVersion(pkg.Version, 3)
-		if len(v.Components) == 2 {
-			pkg.Version = fmt.Sprintf(
-				"%d.%d.%d",
-				v.Components.Fetch(0),
-				v.Components.Fetch(1),
-				9999,
-			)
-		}
-	}
-
-	return pkg
-}
-
-// TODO(V2): This will be replaced by the new client interface
-func makeRequest(
+// TODO(V2): Add context
+func makeRequestWithMatcher(
 	r reporter.Reporter,
 	packages []imodels.PackageScanResult,
-	compareOffline bool,
-	downloadDBs bool,
-	localDBPath string) error {
-	// Make OSV queries from the packages.
-	var query osv.BatchedQuery
-	for _, psr := range packages {
-		p := psr.PackageInfo
-		p = patchPackageForRequest(p)
-		switch {
-		// Prefer making package requests where possible.
-		case !p.Ecosystem.IsEmpty() && p.Name != "" && p.Version != "":
-			query.Queries = append(query.Queries, osv.MakePkgRequest(p))
-		case p.Commit != "":
-			query.Queries = append(query.Queries, osv.MakeCommitRequest(p.Commit))
-		default:
-			return fmt.Errorf("package %v does not have a commit, PURL or ecosystem/name/version identifier", p)
-		}
+	matcher clientinterfaces.VulnerabilityMatcher) error {
+	invs := make([]*extractor.Inventory, 0, len(packages))
+	for _, pkgs := range packages {
+		invs = append(invs, pkgs.PackageInfo.OriginalInventory)
 	}
-	var err error
-	var hydratedResp *osv.HydratedBatchedResponse
 
-	if compareOffline {
-		// TODO(v2): Stop depending on lockfile.PackageDetails and use imodels.PackageInfo
-		// Downloading databases requires network access.
-		hydratedResp, err = local.MakeRequest(r, query, !downloadDBs, localDBPath)
-		if err != nil {
-			return fmt.Errorf("local comparison failed %w", err)
-		}
-	} else {
-		if osv.RequestUserAgent == "" {
-			osv.RequestUserAgent = "osv-scanner-api/v" + version.OSVVersion
-		}
-
-		resp, err := osv.MakeRequest(query)
-		if err != nil {
-			return fmt.Errorf("%w: osv.dev query failed: %w", ErrAPIFailed, err)
-		}
-
-		hydratedResp, err = osv.Hydrate(resp)
-		if err != nil {
-			return fmt.Errorf("%w: failed to hydrate OSV response: %w", ErrAPIFailed, err)
+	res, err := matcher.Match(context.Background(), invs)
+	if err != nil {
+		// TODO: Handle error here
+		r.Errorf("error when retrieving vulns: %v", err)
+		if res == nil {
+			return err
 		}
 	}
 
-	for i, result := range hydratedResp.Results {
-		packages[i].Vulnerabilities = result.Vulns
+	for i, vulns := range res {
+		packages[i].Vulnerabilities = vulns
 	}
 
 	return nil
@@ -288,6 +254,8 @@ func overrideGoVersion(r reporter.Reporter, scanResults *results.ScanResults) {
 			configToUse := scanResults.ConfigManager.Get(r, pkg.Location)
 			if configToUse.GoVersionOverride != "" {
 				scanResults.PackageScanResults[i].PackageInfo.Version = configToUse.GoVersionOverride
+				// Also patch it in the inventory, as we have to use the original inventory to make requests
+				scanResults.PackageScanResults[i].PackageInfo.OriginalInventory.Version = configToUse.GoVersionOverride
 			}
 
 			continue
