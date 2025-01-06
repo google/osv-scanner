@@ -240,6 +240,29 @@ func (st *stateRelockResult) buildPatchInfoViews(m model) {
 	st.ResizeInfo(m.infoViewWidth, m.infoViewHeight)
 }
 
+func relockUnfixableVulns(diffs []resolution.Difference) []*resolution.Vulnerability {
+	if len(diffs) == 0 {
+		return nil
+	}
+	// find every vuln ID fixed in any patch
+	fixableVulnIDs := make(map[string]struct{})
+	for _, diff := range diffs {
+		for _, v := range diff.RemovedVulns {
+			fixableVulnIDs[v.OSV.ID] = struct{}{}
+		}
+	}
+
+	// select only vulns that aren't fixed in any patch
+	var unfixable []*resolution.Vulnerability
+	for i, v := range diffs[0].Original.Vulns {
+		if _, ok := fixableVulnIDs[v.OSV.ID]; !ok {
+			unfixable = append(unfixable, &diffs[0].Original.Vulns[i])
+		}
+	}
+
+	return unfixable
+}
+
 func (st *stateRelockResult) parseInput(m model) (tea.Model, tea.Cmd) {
 	var cmd tea.Cmd
 	switch st.getEffectiveCursor() {
