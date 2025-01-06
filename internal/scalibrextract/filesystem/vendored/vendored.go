@@ -1,7 +1,9 @@
 package vendored
 
 import (
+	"bytes"
 	"context"
+	"io"
 	"slices"
 
 	//nolint:gosec
@@ -10,7 +12,6 @@ import (
 	"errors"
 	"fmt"
 	"io/fs"
-	"os"
 	"path/filepath"
 	"strings"
 
@@ -154,11 +155,16 @@ func queryDetermineVersions(repoDir string, fsys scalibrfs.FS, scanGitDir bool) 
 			return nil
 		}
 
-		buf, err := os.ReadFile(p)
+		file, err := fsys.Open(p)
 		if err != nil {
 			return err
 		}
-		hash := md5.Sum(buf) //nolint:gosec
+		buf := bytes.NewBuffer(nil)
+		_, err = io.Copy(buf, file)
+		if err != nil {
+			return err
+		}
+		hash := md5.Sum(buf.Bytes()) //nolint:gosec
 		hashes = append(hashes, osv.DetermineVersionHash{
 			Path: strings.ReplaceAll(p, repoDir, ""),
 			Hash: hash[:],
