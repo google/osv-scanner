@@ -111,7 +111,7 @@ func DoContainerScan(actions ScannerActions, r reporter.Reporter) (models.Vulner
 		}
 		defer os.Remove(path)
 		img, err = image.FromTarball(path, image.DefaultConfig())
-		r.Infof("Scanning image %q\n", path)
+		r.Infof("Scanning image %q\n", actions.DockerImageName)
 	}
 	if err != nil {
 		return models.VulnerabilityResults{}, err

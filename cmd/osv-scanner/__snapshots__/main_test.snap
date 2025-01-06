@@ -950,7 +950,7 @@ failed to pull container image: failed to run docker command
 [TestRun_Docker/Real_Alpine_image - 1]
 Pulling docker image ("alpine:3.18.9")...
 Saving docker image ("alpine:3.18.9") to temporary file...
-Scanning image "/tmp/docker-image-2671409146.tar"
+Scanning image "alpine:3.18.9"
 No issues found
 
 ---
@@ -962,7 +962,7 @@ No issues found
 [TestRun_Docker/Real_empty_image - 1]
 Pulling docker image ("hello-world")...
 Saving docker image ("hello-world") to temporary file...
-Scanning image "/tmp/docker-image-1910286536.tar"
+Scanning image "hello-world"
 
 ---
 
@@ -974,7 +974,7 @@ No package sources found, --help for usage information.
 [TestRun_Docker/Real_empty_image_with_tag - 1]
 Pulling docker image ("hello-world:linux")...
 Saving docker image ("hello-world:linux") to temporary file...
-Scanning image "/tmp/docker-image-2242457421.tar"
+Scanning image "hello-world:linux"
 
 ---
 
