@@ -48,7 +48,7 @@ func (matcher *LocalMatcher) Match(ctx context.Context, invs []*extractor.Invent
 	results := make([][]*models.Vulnerability, 0, len(invs))
 
 	// slice to track ecosystems that did not have an offline database available
-	var missingDbs []string
+	var missingDBs []string
 
 	for _, inv := range invs {
 		if ctx.Err() != nil {
@@ -74,7 +74,7 @@ func (matcher *LocalMatcher) Match(ctx context.Context, invs []*extractor.Invent
 
 		if err != nil {
 			if errors.Is(err, ErrOfflineDatabaseNotFound) {
-				missingDbs = append(missingDbs, string(pkg.Ecosystem.Ecosystem))
+				missingDBs = append(missingDBs, string(pkg.Ecosystem.Ecosystem))
 			} else {
 				// TODO(V2 logging):
 				// the most likely error at this point is that the PURL could not be parsed
@@ -89,12 +89,12 @@ func (matcher *LocalMatcher) Match(ctx context.Context, invs []*extractor.Invent
 		results = append(results, db.VulnerabilitiesAffectingPackage(pkg))
 	}
 
-	if len(missingDbs) > 0 {
-		missingDbs = slices.Compact(missingDbs)
-		slices.Sort(missingDbs)
+	if len(missingDBs) > 0 {
+		missingDBs = slices.Compact(missingDBs)
+		slices.Sort(missingDBs)
 
 		// TODO(v2 logging):
-		matcher.r.Errorf("could not find local databases for ecosystems: %s\n", strings.Join(missingDbs, ", "))
+		matcher.r.Errorf("could not find local databases for ecosystems: %s\n", strings.Join(missingDBs, ", "))
 	}
 
 	return results, nil
