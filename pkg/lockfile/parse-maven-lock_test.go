@@ -1488,3 +1488,65 @@ func TestParseMavenLock_NoVersion(t *testing.T) {
 		},
 	})
 }
+
+func TestParseMavenLock_SpringRemote(t *testing.T) {
+	t.Parallel()
+	dir, err := os.Getwd()
+	require.NoError(t, err)
+
+	path := filepath.Join(dir, filepath.FromSlash("fixtures/maven/spring-remote.xml"))
+	packages, err := lockfile.ParseMavenLock(path)
+	require.NoError(t, err)
+
+	remotePom := "https://repo.maven.apache.org/maven2/org/springframework/boot/spring-boot-dependencies/3.4.0/spring-boot-dependencies-3.4.0.pom"
+
+	expectPackages(t, packages, []lockfile.PackageDetails{
+		{
+			Name:           "org.springframework.boot:spring-boot-starter-test",
+			Version:        "3.4.0",
+			PackageManager: models.Maven,
+			Ecosystem:      lockfile.MavenEcosystem,
+			CompareAs:      lockfile.MavenEcosystem,
+			BlockLocation: models.FilePosition{
+				Line:     models.Position{Start: 38, End: 42},
+				Column:   models.Position{Start: 3, End: 16},
+				Filename: path,
+			},
+			NameLocation: &models.FilePosition{
+				Line:     models.Position{Start: 40, End: 40},
+				Column:   models.Position{Start: 16, End: 40},
+				Filename: path,
+			},
+			VersionLocation: &models.FilePosition{
+				Line:     models.Position{Start: 1811, End: 1811},
+				Column:   models.Position{Start: 18, End: 23},
+				Filename: remotePom,
+			},
+			DepGroups: []string{"test"},
+			IsDirect:  true,
+		},
+		{
+			Name:           "org.springframework.boot:spring-boot-starter-web",
+			Version:        "3.4.0",
+			PackageManager: models.Maven,
+			Ecosystem:      lockfile.MavenEcosystem,
+			CompareAs:      lockfile.MavenEcosystem,
+			BlockLocation: models.FilePosition{
+				Line:     models.Position{Start: 33, End: 36},
+				Column:   models.Position{Start: 3, End: 16},
+				Filename: path,
+			},
+			NameLocation: &models.FilePosition{
+				Line:     models.Position{Start: 35, End: 35},
+				Column:   models.Position{Start: 16, End: 39},
+				Filename: path,
+			},
+			VersionLocation: &models.FilePosition{
+				Line:     models.Position{Start: 1836, End: 1836},
+				Column:   models.Position{Start: 18, End: 23},
+				Filename: remotePom,
+			},
+			IsDirect: true,
+		},
+	})
+}

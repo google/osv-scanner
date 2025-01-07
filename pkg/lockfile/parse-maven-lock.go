@@ -2,10 +2,13 @@ package lockfile
 
 import (
 	"bytes"
+	"context"
 	"encoding/xml"
 	"errors"
 	"fmt"
 	"io"
+	"net/http"
+	"net/url"
 	"os"
 	"path"
 	"path/filepath"
@@ -20,6 +23,57 @@ import (
 
 	"github.com/google/osv-scanner/internal/cachedregexp"
 )
+
+const MavenCentral = "https://repo.maven.apache.org/maven2"
+
+type MavenRegistryProject struct {
+	io.ReadCloser
+	path string
+}
+
+var errAPIFailed = errors.New("API query failed")
+
+func NewMavenRegistryAPIClient(url string) (DepFile, error) {
+	ctx := context.Background()
+	req, err := http.NewRequestWithContext(ctx, http.MethodGet, url, nil)
+	if err != nil {
+		return nil, fmt.Errorf("failed to make new request: %w", err)
+	}
+
+	resp, err := http.DefaultClient.Do(req)
+	if err != nil {
+		return nil, fmt.Errorf("%w: Maven registry query failed: %w", errAPIFailed, err)
+	}
+	defer resp.Body.Close()
+
+	if resp.StatusCode != http.StatusOK {
+		return nil, fmt.Errorf("%w: Maven registry query status: %s", errAPIFailed, resp.Status)
+	}
+
+	body, err := io.ReadAll(resp.Body)
+	if err != nil {
+		return nil, fmt.Errorf("%w: failed to read response body: %w", errAPIFailed, err)
+	}
+
+	if len(body) == 0 {
+		return nil, fmt.Errorf("%w: empty response body", errAPIFailed)
+	}
+
+	readCloser := io.NopCloser(bytes.NewReader(body))
+
+	return &MavenRegistryProject{
+		ReadCloser: readCloser,
+		path:       url,
+	}, nil
+}
+
+func (m *MavenRegistryProject) Open(path string) (NestedDepFile, error) {
+	panic("Should not be called")
+}
+
+func (m *MavenRegistryProject) Path() string {
+	return m.path
+}
 
 type MavenLockDependency struct {
 	XMLName    xml.Name `xml:"dependency"`
@@ -297,11 +351,11 @@ func (e MavenLockExtractor) mergeLockfiles(childLockfile *MavenLockFile, parentL
 	return parentLockfile
 }
 
-func (e MavenLockExtractor) enrichDependencies(f DepFile, dependencies []MavenLockDependency) MavenLockDependencyHolder {
+func (e MavenLockExtractor) enrichDependencies(path string, dependencies []MavenLockDependency) MavenLockDependencyHolder {
 	result := make([]MavenLockDependency, len(dependencies))
 	for index, dependency := range dependencies {
 		if len(dependency.SourceFile) == 0 {
-			dependency.SourceFile = f.Path()
+			dependency.SourceFile = path
 		}
 		result[index] = dependency
 	}
@@ -309,10 +363,10 @@ func (e MavenLockExtractor) enrichDependencies(f DepFile, dependencies []MavenLo
 	return MavenLockDependencyHolder{Dependencies: result}
 }
 
-func (e MavenLockExtractor) enrichProperties(f DepFile, properties map[string]MavenLockProperty) MavenLockProperties {
+func (e MavenLockExtractor) enrichProperties(path string, properties map[string]MavenLockProperty) MavenLockProperties {
 	for key, property := range properties {
 		if len(property.SourceFile) == 0 {
-			property.SourceFile = f.Path()
+			property.SourceFile = path
 		}
 		properties[key] = property
 	}
@@ -325,7 +379,32 @@ func (e MavenLockExtractor) resolveParentFilename(parent MavenLockParent, curren
 	// If the relativePath is not defined, default to ../pom.xml
 	parentRelativePath := parent.RelativePath
 	if len(parentRelativePath) == 0 {
+		// if the parent path exists, use that,
+		// else we return an empty string to signal that we should fetch a remote pom
 		parentRelativePath = "../pom.xml"
+
+		shouldComputeURL := strings.HasPrefix(currentPath, "https")
+		if !shouldComputeURL {
+			localPath := filepath.Join(filepath.Dir(currentPath), parentRelativePath)
+			_, err := os.Stat(localPath)
+			shouldComputeURL = errors.Is(err, os.ErrNotExist)
+		}
+
+		if shouldComputeURL {
+			u, err := url.JoinPath(
+				MavenCentral,
+				strings.ReplaceAll(parent.GroupID, ".", "/"),
+				parent.ArtifactID,
+				parent.Version,
+				fmt.Sprintf("%s-%s.pom", parent.ArtifactID, parent.Version),
+			)
+			if err != nil {
+				_, _ = fmt.Fprintf(os.Stderr, "Failed to construct remote path: %s\n", err)
+				return ""
+			}
+
+			return u
+		}
 	} else if !strings.HasSuffix(parentRelativePath, ".xml") {
 		// It means we only have a path, we should append the default pom.xml
 		parentRelativePath = path.Join(parentRelativePath, "pom.xml")
@@ -360,38 +439,64 @@ func (e MavenLockExtractor) decodeMavenFile(f DepFile, depth int, visitedPath ma
 	if parsedLockfile.Properties.m == nil {
 		parsedLockfile.Properties.m = map[string]MavenLockProperty{}
 	}
-	parsedLockfile.Properties = e.enrichProperties(f, parsedLockfile.Properties.m)
-	parsedLockfile.Dependencies = e.enrichDependencies(f, parsedLockfile.Dependencies.Dependencies)
-	parsedLockfile.ManagedDependencies = e.enrichDependencies(f, parsedLockfile.ManagedDependencies.Dependencies)
+	parsedLockfile.Properties = e.enrichProperties(f.Path(), parsedLockfile.Properties.m)
+	parsedLockfile.Dependencies = e.enrichDependencies(f.Path(), parsedLockfile.Dependencies.Dependencies)
+	parsedLockfile.ManagedDependencies = e.enrichDependencies(f.Path(), parsedLockfile.ManagedDependencies.Dependencies)
 	if parsedLockfile.Parent == (MavenLockParent{}) {
 		return parsedLockfile, nil
 	}
 
 	parentPath := e.resolveParentFilename(parsedLockfile.Parent, f.Path())
-	if _, err = os.Stat(parentPath); errors.Is(err, os.ErrNotExist) {
-		// If the parent pom does not exist, it still can be in an external repository, but it is unreachable from the parser
-		_, _ = fmt.Fprintf(os.Stderr, "Maven lockfile parser couldn't reach the parent because it is not locally defined: %s\n", parentPath)
-		return parsedLockfile, nil
-	}
 
-	if ok := visitedPath[parentPath]; ok {
-		// Parent has already been visited, lets stop there
+	if ok := visitedPath[parentPath]; ok || parentPath == "" {
+		// Parent has already been visited or is empty, lets stop there
 		fmt.Fprintf(os.Stdout, "Already visited parent path, stopping there to avoid a circular dependency %s\n", parentPath)
 		return parsedLockfile, nil
 	}
+
 	visitedPath[parentPath] = true
 
-	parentFile, err := OpenLocalDepFile(parentPath)
-	if err != nil {
-		return nil, err
+	var parentLockfile *MavenLockFile
+	var parentFilePath string
+	var parentErr error
+
+	// If the parent pom does not exist, it still can be in an external repository
+	if strings.HasPrefix(parentPath, "https") {
+		mavenRegistryClient, clientErr := NewMavenRegistryAPIClient(parentPath)
+		// If the remote pom does not exist, we can't do anything.
+		if clientErr != nil {
+			_, _ = fmt.Fprintf(os.Stderr, "Failed to fetch parent pom from remote repository: %s\n", parentPath)
+			//nolint:nilerr // we don't want to consider a network request failing for the parent as being unable to handle the lockfile
+			return parsedLockfile, nil
+		}
+
+		parentLockfile, err = e.decodeMavenFile(mavenRegistryClient, depth+1, visitedPath)
+		if err != nil {
+			return nil, err
+		}
+
+		parentFilePath = parentPath
+	} else if _, err = os.Stat(parentPath); errors.Is(err, os.ErrNotExist) {
+		// If the parent pom does not exist and is not a remote file, we can't do anything.
+		_, _ = fmt.Fprintf(os.Stderr, "Maven lockfile parser couldn't reach the parent because it is not locally defined: %s\n", parentPath)
+
+		return parsedLockfile, nil
+	} else {
+		parentFile, err := OpenLocalDepFile(parentPath)
+		if err != nil {
+			return nil, err
+		}
+		parentLockfile, parentErr = e.decodeMavenFile(parentFile, depth+1, visitedPath)
+		if parentErr != nil {
+			return nil, parentErr
+		}
+
+		parentFilePath = parentFile.Path()
 	}
-	parentLockfile, parentErr := e.decodeMavenFile(parentFile, depth+1, visitedPath)
-	if parentErr != nil {
-		return nil, parentErr
-	}
-	parentLockfile.Properties = e.enrichProperties(f, parentLockfile.Properties.m)
-	parentLockfile.Dependencies = e.enrichDependencies(parentFile, parentLockfile.Dependencies.Dependencies)
-	parentLockfile.ManagedDependencies = e.enrichDependencies(parentFile, parentLockfile.ManagedDependencies.Dependencies)
+
+	parentLockfile.Properties = e.enrichProperties(f.Path(), parentLockfile.Properties.m)
+	parentLockfile.Dependencies = e.enrichDependencies(parentFilePath, parentLockfile.Dependencies.Dependencies)
+	parentLockfile.ManagedDependencies = e.enrichDependencies(parentFilePath, parentLockfile.ManagedDependencies.Dependencies)
 
 	// Once everything is decoded and enriched, merge them together
 	return e.mergeLockfiles(parsedLockfile, parentLockfile), nil

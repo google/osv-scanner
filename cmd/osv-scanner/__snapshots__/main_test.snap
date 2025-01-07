@@ -2551,6 +2551,17 @@ No package sources found, --help for usage information.
   "version": 1,
   "components": [
     {
+      "bom-ref": "maven-spring/pom.xml",
+      "type": "file",
+      "name": "maven-spring/pom.xml",
+      "properties": [
+        {
+          "name": "osv-scanner:package",
+          "value": "pkg:maven/com.example/my-project@0.0.1-SNAPSHOT"
+        }
+      ]
+    },
+    {
       "bom-ref": "pkg:cargo/addr2line@0.15.2",
       "type": "library",
       "name": "addr2line",
@@ -6512,6 +6523,9 @@ No package sources found, --help for usage information.
         "occurrences": [
           {
             "location": "{/"block/":{/"file_name/":/"pom.xml/",/"line_start/":27,/"line_end/":31,/"column_start/":5,/"column_end/":18},/"name/":{/"file_name/":/"pom.xml/",/"line_start/":29,/"line_end/":29,/"column_start/":19,/"column_end/":25},/"version/":{/"file_name/":/"pom.xml/",/"line_start/":21,/"line_end/":21,/"column_start/":18,/"column_end/":23}}"
+          },
+          {
+            "location": "{/"block/":{/"file_name/":/"pom.xml/",/"line_start/":27,/"line_end/":31,/"column_start/":5,/"column_end/":18},/"name/":{/"file_name/":/"pom.xml/",/"line_start/":29,/"line_end/":29,/"column_start/":19,/"column_end/":25},/"version/":{/"file_name/":/"pom.xml/",/"line_start/":21,/"line_end/":21,/"column_start/":18,/"column_end/":23}}"
           }
         ]
       }
@@ -6597,6 +6611,56 @@ No package sources found, --help for usage information.
           "value": "Gradle"
         }
       ]
+    },
+    {
+      "bom-ref": "pkg:maven/org.springframework.boot/spring-boot-starter-test",
+      "type": "library",
+      "name": "org.springframework.boot:spring-boot-starter-test",
+      "purl": "pkg:maven/org.springframework.boot/spring-boot-starter-test",
+      "properties": [
+        {
+          "name": "osv-scanner:is-dev",
+          "value": "true"
+        },
+        {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
+        {
+          "name": "osv-scanner:package-manager",
+          "value": "Maven"
+        }
+      ],
+      "evidence": {
+        "occurrences": [
+          {
+            "location": "{/"block/":{/"file_name/":/"maven-spring/pom.xml/",/"line_start/":38,/"line_end/":42,/"column_start/":3,/"column_end/":16},/"name/":{/"file_name/":/"maven-spring/pom.xml/",/"line_start/":40,/"line_end/":40,/"column_start/":16,/"column_end/":40}}"
+          }
+        ]
+      }
+    },
+    {
+      "bom-ref": "pkg:maven/org.springframework.boot/spring-boot-starter-web",
+      "type": "library",
+      "name": "org.springframework.boot:spring-boot-starter-web",
+      "purl": "pkg:maven/org.springframework.boot/spring-boot-starter-web",
+      "properties": [
+        {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
+        {
+          "name": "osv-scanner:package-manager",
+          "value": "Maven"
+        }
+      ],
+      "evidence": {
+        "occurrences": [
+          {
+            "location": "{/"block/":{/"file_name/":/"maven-spring/pom.xml/",/"line_start/":33,/"line_end/":36,/"column_start/":3,/"column_end/":16},/"name/":{/"file_name/":/"maven-spring/pom.xml/",/"line_start/":35,/"line_end/":35,/"column_start/":16,/"column_end/":39}}"
+          }
+        ]
+      }
     },
     {
       "bom-ref": "pkg:maven/org.springframework.security/spring-security-crypto@5.7.2",
@@ -7143,6 +7207,14 @@ No package sources found, --help for usage information.
           "name": "osv-scanner:package",
           "value": "pkg:maven/test/foobar"
         }
+      ]
+    }
+  ],
+  "dependencies": [
+    {
+      "ref": "maven-spring/pom.xml",
+      "dependsOn": [
+        "pom.xml"
       ]
     }
   ]
@@ -7160,6 +7232,7 @@ Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-8/conan.lock file
 Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-8/go.mod file and found 4 packages
 Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-8/gradle-groovy/gradle.lockfile file and found 3 packages
 Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-8/gradle-kotlin/gradle.lockfile file and found 3 packages
+Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-8/maven-spring/pom.xml file and found 3 packages
 Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-8/mix.lock file and found 1 package
 Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-8/npm/package-lock.json file and found 2 packages
 Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-8/nuget/packages.lock.json file and found 3 packages
@@ -7173,7 +7246,7 @@ Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-8/renv.lock file 
 Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-8/requirements-test.txt file and found 4 packages
 Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-8/requirements.txt file and found 6 packages
 Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-8/yarn/yarn.lock file and found 1 package
-Filtered 1 local package/s from the scan.
+Filtered 3 local package/s from the scan.
 
 ---
 
@@ -7184,6 +7257,17 @@ Filtered 1 local package/s from the scan.
   "specVersion": "1.5",
   "version": 1,
   "components": [
+    {
+      "bom-ref": "maven-spring/pom.xml",
+      "type": "file",
+      "name": "maven-spring/pom.xml",
+      "properties": [
+        {
+          "name": "osv-scanner:package",
+          "value": "pkg:maven/com.example/my-project@0.0.1-SNAPSHOT"
+        }
+      ]
+    },
     {
       "bom-ref": "pkg:cargo/addr2line@0.15.2",
       "type": "library",
@@ -11099,6 +11183,9 @@ Filtered 1 local package/s from the scan.
         "occurrences": [
           {
             "location": "{/"block/":{/"file_name/":/"pom.xml/",/"line_start/":28,/"line_end/":31,/"column_start/":5,/"column_end/":18},/"name/":{/"file_name/":/"pom.xml/",/"line_start/":30,/"line_end/":30,/"column_start/":19,/"column_end/":25},/"version/":{/"file_name/":/"pom.xml/",/"line_start/":21,/"line_end/":21,/"column_start/":18,/"column_end/":23}}"
+          },
+          {
+            "location": "{/"block/":{/"file_name/":/"pom.xml/",/"line_start/":28,/"line_end/":31,/"column_start/":5,/"column_end/":18},/"name/":{/"file_name/":/"pom.xml/",/"line_start/":30,/"line_end/":30,/"column_start/":19,/"column_end/":25},/"version/":{/"file_name/":/"pom.xml/",/"line_start/":21,/"line_end/":21,/"column_start/":18,/"column_end/":23}}"
           }
         ]
       }
@@ -11184,6 +11271,56 @@ Filtered 1 local package/s from the scan.
           "value": "Gradle"
         }
       ]
+    },
+    {
+      "bom-ref": "pkg:maven/org.springframework.boot/spring-boot-starter-test",
+      "type": "library",
+      "name": "org.springframework.boot:spring-boot-starter-test",
+      "purl": "pkg:maven/org.springframework.boot/spring-boot-starter-test",
+      "properties": [
+        {
+          "name": "osv-scanner:is-dev",
+          "value": "true"
+        },
+        {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
+        {
+          "name": "osv-scanner:package-manager",
+          "value": "Maven"
+        }
+      ],
+      "evidence": {
+        "occurrences": [
+          {
+            "location": "{/"block/":{/"file_name/":/"maven-spring/pom.xml/",/"line_start/":38,/"line_end/":42,/"column_start/":3,/"column_end/":16},/"name/":{/"file_name/":/"maven-spring/pom.xml/",/"line_start/":40,/"line_end/":40,/"column_start/":16,/"column_end/":40}}"
+          }
+        ]
+      }
+    },
+    {
+      "bom-ref": "pkg:maven/org.springframework.boot/spring-boot-starter-web",
+      "type": "library",
+      "name": "org.springframework.boot:spring-boot-starter-web",
+      "purl": "pkg:maven/org.springframework.boot/spring-boot-starter-web",
+      "properties": [
+        {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
+        {
+          "name": "osv-scanner:package-manager",
+          "value": "Maven"
+        }
+      ],
+      "evidence": {
+        "occurrences": [
+          {
+            "location": "{/"block/":{/"file_name/":/"maven-spring/pom.xml/",/"line_start/":33,/"line_end/":36,/"column_start/":3,/"column_end/":16},/"name/":{/"file_name/":/"maven-spring/pom.xml/",/"line_start/":35,/"line_end/":35,/"column_start/":16,/"column_end/":39}}"
+          }
+        ]
+      }
     },
     {
       "bom-ref": "pkg:maven/org.springframework.security/spring-security-crypto@5.7.2",
@@ -11730,6 +11867,14 @@ Filtered 1 local package/s from the scan.
           "name": "osv-scanner:package",
           "value": "pkg:maven/test/foobar"
         }
+      ]
+    }
+  ],
+  "dependencies": [
+    {
+      "ref": "maven-spring/pom.xml",
+      "dependsOn": [
+        "pom.xml"
       ]
     }
   ]
@@ -11747,6 +11892,7 @@ Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/conan.lock fil
 Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/go.mod file and found 2 packages
 Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/gradle-groovy/gradle.lockfile file and found 3 packages
 Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/gradle-kotlin/gradle.lockfile file and found 3 packages
+Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/maven-spring/pom.xml file and found 3 packages
 Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/mix.lock file and found 1 package
 Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/npm/package-lock.json file and found 2 packages
 Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/nuget/packages.lock.json file and found 3 packages
@@ -11760,6 +11906,7 @@ Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/renv.lock file
 Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/requirements-test.txt file and found 4 packages
 Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/requirements.txt file and found 6 packages
 Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/yarn/yarn.lock file and found 1 package
+Filtered 2 local package/s from the scan.
 
 ---
 
@@ -11770,6 +11917,17 @@ Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/yarn/yarn.lock
   "specVersion": "1.5",
   "version": 1,
   "components": [
+    {
+      "bom-ref": "maven-spring/pom.xml",
+      "type": "file",
+      "name": "maven-spring/pom.xml",
+      "properties": [
+        {
+          "name": "osv-scanner:package",
+          "value": "pkg:maven/com.example/my-project@0.0.1-SNAPSHOT"
+        }
+      ]
+    },
     {
       "bom-ref": "pkg:cargo/addr2line@0.15.2",
       "type": "library",
@@ -15685,6 +15843,9 @@ Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/yarn/yarn.lock
         "occurrences": [
           {
             "location": "{/"block/":{/"file_name/":/"pom.xml/",/"line_start/":28,/"line_end/":31,/"column_start/":5,/"column_end/":18},/"name/":{/"file_name/":/"pom.xml/",/"line_start/":30,/"line_end/":30,/"column_start/":19,/"column_end/":25},/"version/":{/"file_name/":/"pom.xml/",/"line_start/":21,/"line_end/":21,/"column_start/":18,/"column_end/":23}}"
+          },
+          {
+            "location": "{/"block/":{/"file_name/":/"pom.xml/",/"line_start/":28,/"line_end/":31,/"column_start/":5,/"column_end/":18},/"name/":{/"file_name/":/"pom.xml/",/"line_start/":30,/"line_end/":30,/"column_start/":19,/"column_end/":25},/"version/":{/"file_name/":/"pom.xml/",/"line_start/":21,/"line_end/":21,/"column_start/":18,/"column_end/":23}}"
           }
         ]
       }
@@ -15770,6 +15931,56 @@ Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/yarn/yarn.lock
           "value": "Gradle"
         }
       ]
+    },
+    {
+      "bom-ref": "pkg:maven/org.springframework.boot/spring-boot-starter-test",
+      "type": "library",
+      "name": "org.springframework.boot:spring-boot-starter-test",
+      "purl": "pkg:maven/org.springframework.boot/spring-boot-starter-test",
+      "properties": [
+        {
+          "name": "osv-scanner:is-dev",
+          "value": "true"
+        },
+        {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
+        {
+          "name": "osv-scanner:package-manager",
+          "value": "Maven"
+        }
+      ],
+      "evidence": {
+        "occurrences": [
+          {
+            "location": "{/"block/":{/"file_name/":/"maven-spring/pom.xml/",/"line_start/":38,/"line_end/":42,/"column_start/":3,/"column_end/":16},/"name/":{/"file_name/":/"maven-spring/pom.xml/",/"line_start/":40,/"line_end/":40,/"column_start/":16,/"column_end/":40}}"
+          }
+        ]
+      }
+    },
+    {
+      "bom-ref": "pkg:maven/org.springframework.boot/spring-boot-starter-web",
+      "type": "library",
+      "name": "org.springframework.boot:spring-boot-starter-web",
+      "purl": "pkg:maven/org.springframework.boot/spring-boot-starter-web",
+      "properties": [
+        {
+          "name": "osv-scanner:is-direct",
+          "value": "true"
+        },
+        {
+          "name": "osv-scanner:package-manager",
+          "value": "Maven"
+        }
+      ],
+      "evidence": {
+        "occurrences": [
+          {
+            "location": "{/"block/":{/"file_name/":/"maven-spring/pom.xml/",/"line_start/":33,/"line_end/":36,/"column_start/":3,/"column_end/":16},/"name/":{/"file_name/":/"maven-spring/pom.xml/",/"line_start/":35,/"line_end/":35,/"column_start/":16,/"column_end/":39}}"
+          }
+        ]
+      }
     },
     {
       "bom-ref": "pkg:maven/org.springframework.security/spring-security-crypto@5.7.2",
@@ -16318,6 +16529,14 @@ Scanned <rootdir>/fixtures/encoding-integration-test-locks/UTF-16/yarn/yarn.lock
         }
       ]
     }
+  ],
+  "dependencies": [
+    {
+      "ref": "maven-spring/pom.xml",
+      "dependsOn": [
+        "pom.xml"
+      ]
+    }
   ]
 }
 
@@ -16333,6 +16552,7 @@ Scanned <rootdir>/fixtures/encoding-integration-test-locks/Windows-1252/conan.lo
 Scanned <rootdir>/fixtures/encoding-integration-test-locks/Windows-1252/go.mod file and found 2 packages
 Scanned <rootdir>/fixtures/encoding-integration-test-locks/Windows-1252/gradle-groovy/gradle.lockfile file and found 3 packages
 Scanned <rootdir>/fixtures/encoding-integration-test-locks/Windows-1252/gradle-kotlin/gradle.lockfile file and found 3 packages
+Scanned <rootdir>/fixtures/encoding-integration-test-locks/Windows-1252/maven-spring/pom.xml file and found 3 packages
 Scanned <rootdir>/fixtures/encoding-integration-test-locks/Windows-1252/mix.lock file and found 1 package
 Scanned <rootdir>/fixtures/encoding-integration-test-locks/Windows-1252/npm/package-lock.json file and found 2 packages
 Scanned <rootdir>/fixtures/encoding-integration-test-locks/Windows-1252/nuget/packages.lock.json file and found 3 packages
@@ -16346,6 +16566,7 @@ Scanned <rootdir>/fixtures/encoding-integration-test-locks/Windows-1252/renv.loc
 Scanned <rootdir>/fixtures/encoding-integration-test-locks/Windows-1252/requirements-test.txt file and found 4 packages
 Scanned <rootdir>/fixtures/encoding-integration-test-locks/Windows-1252/requirements.txt file and found 6 packages
 Scanned <rootdir>/fixtures/encoding-integration-test-locks/Windows-1252/yarn/yarn.lock file and found 1 package
+Filtered 2 local package/s from the scan.
 
 ---
 
