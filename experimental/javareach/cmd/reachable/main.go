@@ -15,18 +15,19 @@ import (
 //
 //	go run ./cmd/reachable -classpath=<classpath> path/to/root/class
 //
-// Note that <classpath> currently only supports a single directory path, unlike
-// classpaths supported by Java runtimes (which supports specifying multiple
-// directories and .jar files)
+// Note that <classpath> currently only supports a single directory path containing .class files.
+// This is unlike classpaths supported by Java runtimes (which supports
+// specifying multiple directories and .jar files)
 //
-// TODO: Support unpacking .jar files, and transitively resolving pom.xml files
+// TODO: Support unpacking .jar files (uber jars that contain all dependencies)
+// TODO: Support non-uber jars by transitively resolving pom.xml files
 // and automatically downloading building and downloading dependencies if the
-// pom.xml exists in the root .jar file.
+// pom.xml exists in the .jar (e.g. META-INF/maven/pom.xml)
 func main() {
-	classPath := flag.String("classpath", "", "(Required) A single root directory containing Java class files.")
+	classPath := flag.String("classpath", "", "(Required) A single directory containing Java class files with a directory structure that mirrors the package hierarchy.")
 
 	flag.Usage = func() {
-		fmt.Fprintf(flag.CommandLine.Output(), "Usage: %s <arguments> <root class name>\n", os.Args[0])
+		fmt.Fprintf(flag.CommandLine.Output(), "Usage: %s <arguments> <root class name> <root class name 2...>\n", os.Args[0])
 		flag.PrintDefaults()
 	}
 
@@ -48,7 +49,10 @@ func main() {
 }
 
 func findClass(classPath string, className string) (*javareach.ClassFile, error) {
-	classFilepath := filepath.Join(classPath, className) + ".class"
+	classFilepath := filepath.Join(classPath, className)
+	if !strings.HasSuffix(classFilepath, ".class") {
+		classFilepath += ".class"
+	}
 	classFile, err := os.Open(classFilepath)
 	if err != nil {
 		return nil, err
