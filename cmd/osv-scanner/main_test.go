@@ -855,7 +855,7 @@ func TestRun_OCIImage(t *testing.T) {
 		},
 		{
 			name: "scanning project packages using go binaries",
-			args: []string{"", "--experimental-all-packages", "--format=json", "--experimental-oci-image", "../../internal/image/fixtures/test-package-tracing.tar"},
+			args: []string{"", "--experimental-oci-image", "../../internal/image/fixtures/test-package-tracing.tar"},
 			exit: 1,
 		},
 	}

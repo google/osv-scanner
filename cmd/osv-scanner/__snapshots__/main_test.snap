@@ -2863,389 +2863,60 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
 ---
 
 [TestRun_OCIImage/scanning_project_packages_using_go_binaries - 1]
-{
-  "results": [
-    {
-      "source": {
-        "path": "go/bin/more-vuln-overwrite-less-vuln",
-        "type": "lockfile"
-      },
-      "packages": [
-        {
-          "package": {
-            "name": "github.com/BurntSushi/toml",
-            "version": "1.2.0",
-            "ecosystem": "Go",
-            "imageOrigin": {
-              "diff_id": "6cc8902daccff4aa4df2c8299135ab77a720a07085c14b5bf88479a9e8f4d4e3",
-              "origin_command": "RUN /bin/sh -c cp /go/bin/ptf-1.2.0 /go/bin/more-vuln-overwrite-less-vuln # buildkit",
-              "in_base_image": false
-            }
-          }
-        },
-        {
-          "package": {
-            "name": "go",
-            "version": "1.22.4",
-            "ecosystem": "Go",
-            "imageOrigin": {
-              "diff_id": "7ea1ef19e522424287f7047a77782b9c02aa47b9e66af3ad5221f9c1bbd6ea6c",
-              "origin_command": "RUN /bin/sh -c cp /go/bin/ptf-1.4.0 /go/bin/more-vuln-overwrite-less-vuln # buildkit",
-              "in_base_image": false
-            }
-          }
-        }
-      ]
-    },
-    {
-      "source": {
-        "path": "go/bin/ptf-1.2.0",
-        "type": "lockfile"
-      },
-      "packages": [
-        {
-          "package": {
-            "name": "github.com/BurntSushi/toml",
-            "version": "1.2.0",
-            "ecosystem": "Go",
-            "imageOrigin": {
-              "diff_id": "b36c3126f9d7222e6ea661df36c4b1826e361e9f56c728ed130fb7a6699527bf",
-              "origin_command": "COPY /work/ptf-1.2.0 /work/ptf-1.3.0 /work/ptf-1.4.0 /go/bin/ # buildkit",
-              "in_base_image": false
-            }
-          }
-        },
-        {
-          "package": {
-            "name": "go",
-            "version": "1.22.4",
-            "ecosystem": "Go",
-            "imageOrigin": {
-              "diff_id": "b36c3126f9d7222e6ea661df36c4b1826e361e9f56c728ed130fb7a6699527bf",
-              "origin_command": "COPY /work/ptf-1.2.0 /work/ptf-1.3.0 /work/ptf-1.4.0 /go/bin/ # buildkit",
-              "in_base_image": false
-            }
-          }
-        }
-      ]
-    },
-    {
-      "source": {
-        "path": "go/bin/ptf-1.3.0",
-        "type": "lockfile"
-      },
-      "packages": [
-        {
-          "package": {
-            "name": "github.com/BurntSushi/toml",
-            "version": "1.3.0",
-            "ecosystem": "Go",
-            "imageOrigin": {
-              "diff_id": "a2d02f92daabf8f33eb6254b0e20044351fc7b5ee812babdb86c133584db608f",
-              "origin_command": "RUN /bin/sh -c cp /go/bin/ptf-1.3.0-moved /go/bin/ptf-1.3.0 # buildkit",
-              "in_base_image": false
-            }
-          }
-        },
-        {
-          "package": {
-            "name": "go",
-            "version": "1.22.4",
-            "ecosystem": "Go",
-            "imageOrigin": {
-              "diff_id": "a2d02f92daabf8f33eb6254b0e20044351fc7b5ee812babdb86c133584db608f",
-              "origin_command": "RUN /bin/sh -c cp /go/bin/ptf-1.3.0-moved /go/bin/ptf-1.3.0 # buildkit",
-              "in_base_image": false
-            }
-          }
-        }
-      ]
-    },
-    {
-      "source": {
-        "path": "go/bin/ptf-1.3.0-moved",
-        "type": "lockfile"
-      },
-      "packages": [
-        {
-          "package": {
-            "name": "github.com/BurntSushi/toml",
-            "version": "1.3.0",
-            "ecosystem": "Go",
-            "imageOrigin": {
-              "diff_id": "28797ca2a20ce305c2b3323047bfe00ec13e4cf44f745cdb30b026a3348cfd62",
-              "origin_command": "RUN /bin/sh -c mv /go/bin/ptf-1.3.0 /go/bin/ptf-1.3.0-moved # buildkit",
-              "in_base_image": false
-            }
-          }
-        },
-        {
-          "package": {
-            "name": "go",
-            "version": "1.22.4",
-            "ecosystem": "Go",
-            "imageOrigin": {
-              "diff_id": "28797ca2a20ce305c2b3323047bfe00ec13e4cf44f745cdb30b026a3348cfd62",
-              "origin_command": "RUN /bin/sh -c mv /go/bin/ptf-1.3.0 /go/bin/ptf-1.3.0-moved # buildkit",
-              "in_base_image": false
-            }
-          }
-        }
-      ]
-    },
-    {
-      "source": {
-        "path": "go/bin/ptf-1.4.0",
-        "type": "lockfile"
-      },
-      "packages": [
-        {
-          "package": {
-            "name": "github.com/BurntSushi/toml",
-            "version": "1.4.0",
-            "ecosystem": "Go",
-            "imageOrigin": {
-              "diff_id": "b36c3126f9d7222e6ea661df36c4b1826e361e9f56c728ed130fb7a6699527bf",
-              "origin_command": "COPY /work/ptf-1.2.0 /work/ptf-1.3.0 /work/ptf-1.4.0 /go/bin/ # buildkit",
-              "in_base_image": false
-            }
-          }
-        },
-        {
-          "package": {
-            "name": "go",
-            "version": "1.22.4",
-            "ecosystem": "Go",
-            "imageOrigin": {
-              "diff_id": "b36c3126f9d7222e6ea661df36c4b1826e361e9f56c728ed130fb7a6699527bf",
-              "origin_command": "COPY /work/ptf-1.2.0 /work/ptf-1.3.0 /work/ptf-1.4.0 /go/bin/ # buildkit",
-              "in_base_image": false
-            }
-          }
-        }
-      ]
-    },
-    {
-      "source": {
-        "path": "go/bin/ptf-vulnerable",
-        "type": "lockfile"
-      },
-      "packages": [
-        {
-          "package": {
-            "name": "github.com/BurntSushi/toml",
-            "version": "1.4.0",
-            "ecosystem": "Go",
-            "imageOrigin": {
-              "diff_id": "392f16a6230e5b523709d4d6f572e6fd5a1c7ef4b0a0e6d26948807c1f43817b",
-              "origin_command": "RUN /bin/sh -c cp /go/bin/ptf-1.4.0 /go/bin/ptf-vulnerable # buildkit",
-              "in_base_image": false
-            }
-          }
-        },
-        {
-          "package": {
-            "name": "go",
-            "version": "1.22.4",
-            "ecosystem": "Go",
-            "imageOrigin": {
-              "diff_id": "6b295e7535ed4eefabe9f024e9e8c53c02705be23b27dcbc55857ea8dd087f9d",
-              "origin_command": "RUN /bin/sh -c cp /go/bin/ptf-1.3.0 /go/bin/ptf-vulnerable # buildkit",
-              "in_base_image": false
-            }
-          }
-        }
-      ]
-    },
-    {
-      "source": {
-        "path": "lib/apk/db/installed",
-        "type": "os"
-      },
-      "packages": [
-        {
-          "package": {
-            "name": "alpine-baselayout",
-            "version": "3.6.5-r0",
-            "ecosystem": "Alpine:v3.20",
-            "imageOrigin": {
-              "diff_id": "94e5f06ff8e3d4441dc3cd8b090ff38dc911bfa8ebdb0dc28395bc98f82f983f",
-              "origin_command": "/bin/sh -c #(nop) ADD file:33ebe56b967747a97dcec01bc2559962bee8823686c9739d26be060381bbb3ca in / ",
-              "in_base_image": false
-            }
-          }
-        },
-        {
-          "package": {
-            "name": "alpine-baselayout-data",
-            "version": "3.6.5-r0",
-            "ecosystem": "Alpine:v3.20",
-            "imageOrigin": {
-              "diff_id": "94e5f06ff8e3d4441dc3cd8b090ff38dc911bfa8ebdb0dc28395bc98f82f983f",
-              "origin_command": "/bin/sh -c #(nop) ADD file:33ebe56b967747a97dcec01bc2559962bee8823686c9739d26be060381bbb3ca in / ",
-              "in_base_image": false
-            }
-          }
-        },
-        {
-          "package": {
-            "name": "alpine-keys",
-            "version": "2.4-r1",
-            "ecosystem": "Alpine:v3.20",
-            "imageOrigin": {
-              "diff_id": "94e5f06ff8e3d4441dc3cd8b090ff38dc911bfa8ebdb0dc28395bc98f82f983f",
-              "origin_command": "/bin/sh -c #(nop) ADD file:33ebe56b967747a97dcec01bc2559962bee8823686c9739d26be060381bbb3ca in / ",
-              "in_base_image": false
-            }
-          }
-        },
-        {
-          "package": {
-            "name": "apk-tools",
-            "version": "2.14.4-r0",
-            "ecosystem": "Alpine:v3.20",
-            "imageOrigin": {
-              "diff_id": "94e5f06ff8e3d4441dc3cd8b090ff38dc911bfa8ebdb0dc28395bc98f82f983f",
-              "origin_command": "/bin/sh -c #(nop) ADD file:33ebe56b967747a97dcec01bc2559962bee8823686c9739d26be060381bbb3ca in / ",
-              "in_base_image": false
-            }
-          }
-        },
-        {
-          "package": {
-            "name": "busybox",
-            "version": "1.36.1-r29",
-            "ecosystem": "Alpine:v3.20",
-            "imageOrigin": {
-              "diff_id": "94e5f06ff8e3d4441dc3cd8b090ff38dc911bfa8ebdb0dc28395bc98f82f983f",
-              "origin_command": "/bin/sh -c #(nop) ADD file:33ebe56b967747a97dcec01bc2559962bee8823686c9739d26be060381bbb3ca in / ",
-              "in_base_image": false
-            }
-          }
-        },
-        {
-          "package": {
-            "name": "busybox-binsh",
-            "version": "1.36.1-r29",
-            "ecosystem": "Alpine:v3.20",
-            "imageOrigin": {
-              "diff_id": "94e5f06ff8e3d4441dc3cd8b090ff38dc911bfa8ebdb0dc28395bc98f82f983f",
-              "origin_command": "/bin/sh -c #(nop) ADD file:33ebe56b967747a97dcec01bc2559962bee8823686c9739d26be060381bbb3ca in / ",
-              "in_base_image": false
-            }
-          }
-        },
-        {
-          "package": {
-            "name": "ca-certificates-bundle",
-            "version": "20240226-r0",
-            "ecosystem": "Alpine:v3.20",
-            "imageOrigin": {
-              "diff_id": "94e5f06ff8e3d4441dc3cd8b090ff38dc911bfa8ebdb0dc28395bc98f82f983f",
-              "origin_command": "/bin/sh -c #(nop) ADD file:33ebe56b967747a97dcec01bc2559962bee8823686c9739d26be060381bbb3ca in / ",
-              "in_base_image": false
-            }
-          }
-        },
-        {
-          "package": {
-            "name": "libcrypto3",
-            "version": "3.3.1-r0",
-            "ecosystem": "Alpine:v3.20",
-            "imageOrigin": {
-              "diff_id": "94e5f06ff8e3d4441dc3cd8b090ff38dc911bfa8ebdb0dc28395bc98f82f983f",
-              "origin_command": "/bin/sh -c #(nop) ADD file:33ebe56b967747a97dcec01bc2559962bee8823686c9739d26be060381bbb3ca in / ",
-              "in_base_image": false
-            }
-          }
-        },
-        {
-          "package": {
-            "name": "libssl3",
-            "version": "3.3.1-r0",
-            "ecosystem": "Alpine:v3.20",
-            "imageOrigin": {
-              "diff_id": "94e5f06ff8e3d4441dc3cd8b090ff38dc911bfa8ebdb0dc28395bc98f82f983f",
-              "origin_command": "/bin/sh -c #(nop) ADD file:33ebe56b967747a97dcec01bc2559962bee8823686c9739d26be060381bbb3ca in / ",
-              "in_base_image": false
-            }
-          }
-        },
-        {
-          "package": {
-            "name": "musl",
-            "version": "1.2.5-r0",
-            "ecosystem": "Alpine:v3.20",
-            "imageOrigin": {
-              "diff_id": "94e5f06ff8e3d4441dc3cd8b090ff38dc911bfa8ebdb0dc28395bc98f82f983f",
-              "origin_command": "/bin/sh -c #(nop) ADD file:33ebe56b967747a97dcec01bc2559962bee8823686c9739d26be060381bbb3ca in / ",
-              "in_base_image": false
-            }
-          }
-        },
-        {
-          "package": {
-            "name": "musl-utils",
-            "version": "1.2.5-r0",
-            "ecosystem": "Alpine:v3.20",
-            "imageOrigin": {
-              "diff_id": "94e5f06ff8e3d4441dc3cd8b090ff38dc911bfa8ebdb0dc28395bc98f82f983f",
-              "origin_command": "/bin/sh -c #(nop) ADD file:33ebe56b967747a97dcec01bc2559962bee8823686c9739d26be060381bbb3ca in / ",
-              "in_base_image": false
-            }
-          }
-        },
-        {
-          "package": {
-            "name": "scanelf",
-            "version": "1.3.7-r2",
-            "ecosystem": "Alpine:v3.20",
-            "imageOrigin": {
-              "diff_id": "94e5f06ff8e3d4441dc3cd8b090ff38dc911bfa8ebdb0dc28395bc98f82f983f",
-              "origin_command": "/bin/sh -c #(nop) ADD file:33ebe56b967747a97dcec01bc2559962bee8823686c9739d26be060381bbb3ca in / ",
-              "in_base_image": false
-            }
-          }
-        },
-        {
-          "package": {
-            "name": "ssl_client",
-            "version": "1.36.1-r29",
-            "ecosystem": "Alpine:v3.20",
-            "imageOrigin": {
-              "diff_id": "94e5f06ff8e3d4441dc3cd8b090ff38dc911bfa8ebdb0dc28395bc98f82f983f",
-              "origin_command": "/bin/sh -c #(nop) ADD file:33ebe56b967747a97dcec01bc2559962bee8823686c9739d26be060381bbb3ca in / ",
-              "in_base_image": false
-            }
-          }
-        },
-        {
-          "package": {
-            "name": "zlib",
-            "version": "1.3.1-r1",
-            "ecosystem": "Alpine:v3.20",
-            "imageOrigin": {
-              "diff_id": "94e5f06ff8e3d4441dc3cd8b090ff38dc911bfa8ebdb0dc28395bc98f82f983f",
-              "origin_command": "/bin/sh -c #(nop) ADD file:33ebe56b967747a97dcec01bc2559962bee8823686c9739d26be060381bbb3ca in / ",
-              "in_base_image": false
-            }
-          }
-        }
-      ]
-    }
-  ],
-  "experimental_config": {
-    "licenses": {
-      "summary": false,
-      "allowlist": null
-    }
-  }
-}
+Scanning image "../../internal/image/fixtures/test-package-tracing.tar"
+Total 6 packages affected by 24 vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 24 Unknown) from 1 ecosystems.
+24 vulnerabilities have fixes available.
+
+Go
++----------------------------------------------------------+
+| Source:lockfile:go/bin/more-vuln-overwrite-less-vuln     |
++---------+-------------------+---------------+------------+
+| PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT |
++---------+-------------------+---------------+------------+
+| stdlib  | 1.22.4            | Fix Available |          4 |
++---------+-------------------+---------------+------------+
++----------------------------------------------------------+
+| Source:lockfile:go/bin/ptf-1.2.0                         |
++---------+-------------------+---------------+------------+
+| PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT |
++---------+-------------------+---------------+------------+
+| stdlib  | 1.22.4            | Fix Available |          4 |
++---------+-------------------+---------------+------------+
++----------------------------------------------------------+
+| Source:lockfile:go/bin/ptf-1.3.0                         |
++---------+-------------------+---------------+------------+
+| PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT |
++---------+-------------------+---------------+------------+
+| stdlib  | 1.22.4            | Fix Available |          4 |
++---------+-------------------+---------------+------------+
++----------------------------------------------------------+
+| Source:lockfile:go/bin/ptf-1.3.0-moved                   |
++---------+-------------------+---------------+------------+
+| PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT |
++---------+-------------------+---------------+------------+
+| stdlib  | 1.22.4            | Fix Available |          4 |
++---------+-------------------+---------------+------------+
++----------------------------------------------------------+
+| Source:lockfile:go/bin/ptf-1.4.0                         |
++---------+-------------------+---------------+------------+
+| PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT |
++---------+-------------------+---------------+------------+
+| stdlib  | 1.22.4            | Fix Available |          4 |
++---------+-------------------+---------------+------------+
++----------------------------------------------------------+
+| Source:lockfile:go/bin/ptf-vulnerable                    |
++---------+-------------------+---------------+------------+
+| PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT |
++---------+-------------------+---------------+------------+
+| stdlib  | 1.22.4            | Fix Available |          4 |
++---------+-------------------+---------------+------------+
+
+For the most comprehensive scan results, we recommend using the HTML output: `osv-scanner --format html --output results.html`.
+You can also view the full vulnerability list in your terminal with: `osv-scanner --format vertical`.
 
 ---
 
 [TestRun_OCIImage/scanning_project_packages_using_go_binaries - 2]
-Scanning image "../../internal/image/fixtures/test-package-tracing.tar"
 
 ---
 

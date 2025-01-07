@@ -12,6 +12,7 @@ import (
 	"github.com/google/osv-scanner/internal/imodels/ecosystem"
 	"github.com/google/osv-scanner/internal/scalibrextract/vcs/gitrepo"
 	"github.com/google/osv-scanner/pkg/models"
+	"github.com/ossf/osv-schema/bindings/go/osvschema"
 
 	scalibrosv "github.com/google/osv-scalibr/extractor/filesystem/osv"
 )
@@ -68,49 +69,35 @@ func FromInventory(inventory *extractor.Inventory) PackageInfo {
 		Location:            inventory.Locations[0],
 		AdditionalLocations: inventory.Locations[1:],
 		OriginalInventory:   inventory,
-		// TODO: SourceType
 	}
 
-	// Ignore this error for now as we can't do too much about an unknown ecosystem
+	// Set Ecosystem
 	eco, err := ecosystem.Parse(inventory.Ecosystem())
 	if err != nil {
+		// Ignore this error for now as we can't do too much about an unknown ecosystem
 		// TODO(v2): Replace with slog
 		log.Printf("Warning: %s\n", err.Error())
 	}
-
 	pkgInfo.Ecosystem = eco
 
+	// Set Commit and Repository
 	if inventory.SourceCode != nil {
 		pkgInfo.Commit = inventory.SourceCode.Commit
 		pkgInfo.Repository = inventory.SourceCode.Repo
 	}
 
+	// Set DepGroups
 	if dg, ok := inventory.Metadata.(scalibrosv.DepGroups); ok {
 		pkgInfo.DepGroups = dg.DepGroups()
 	}
+
+	// Set SourceType
 	if inventory.Extractor != nil {
 		extractorName := inventory.Extractor.Name()
 		if _, ok := osExtractors[extractorName]; ok {
 			pkgInfo.SourceType = SourceTypeOSPackage
 		} else if _, ok := sbomExtractors[extractorName]; ok {
 			pkgInfo.SourceType = SourceTypeSBOM
-
-			// TODO (V2): SBOMs have a special case where we manually convert the PURL here
-			// instead while PURL to ESI conversion is not complete
-			purl := inventory.Extractor.ToPURL(inventory)
-
-			if purl != nil {
-				// Error should never happen here since the PURL is from an already parsed purl
-				pi, _ := models.PURLToPackage(purl.String())
-				pkgInfo.Name = pi.Name
-				pkgInfo.Version = pi.Version
-				parsed, err := ecosystem.Parse(pi.Ecosystem)
-				if err != nil {
-					// TODO: Replace with slog
-					log.Printf("Warning, found unexpected ecosystem in purl %q, likely will not return any results for this package.\n", purl.String())
-				}
-				pkgInfo.Ecosystem = parsed
-			}
 		} else if _, ok := gitExtractors[extractorName]; ok {
 			pkgInfo.SourceType = SourceTypeGit
 		} else {
@@ -118,6 +105,36 @@ func FromInventory(inventory *extractor.Inventory) PackageInfo {
 		}
 	}
 
+	// --- General Patching ---
+
+	// Scalibr uses go to indicate go compiler version
+	// We specifically cares about the stdlib version inside the package
+	// so convert the package name from go to stdlib
+	if eco.Ecosystem == osvschema.EcosystemGo && inventory.Name == "go" {
+		pkgInfo.Name = "stdlib"
+	}
+
+	// TODO (V2): SBOMs have a special case where we manually convert the PURL here
+	// instead while PURL to ESI conversion is not complete
+	if pkgInfo.SourceType == SourceTypeSBOM {
+		purl := inventory.Extractor.ToPURL(inventory)
+		if purl != nil {
+			// Error should never happen here since the PURL is from an already parsed purl
+			pi, _ := models.PURLToPackage(purl.String())
+			pkgInfo.Name = pi.Name
+			pkgInfo.Version = pi.Version
+			parsed, err := ecosystem.Parse(pi.Ecosystem)
+			if err != nil {
+				// TODO: Replace with slog
+				log.Printf("Warning, found unexpected ecosystem in purl %q, likely will not return any results for this package.\n", purl.String())
+			}
+			pkgInfo.Ecosystem = parsed
+		}
+	}
+
+	// --- Metadata Patching ---
+
+	// Depending on the specific metadata types set fields in package info.
 	if metadata, ok := inventory.Metadata.(*apk.Metadata); ok {
 		pkgInfo.OSPackageName = metadata.PackageName
 	} else if metadata, ok := inventory.Metadata.(*dpkg.Metadata); ok {
