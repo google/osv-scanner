@@ -62,12 +62,7 @@ func findClass(classPath string, className string) (*javareach.ClassFile, error)
 	if err != nil {
 		return nil, err
 	}
-	cf, err := javareach.ParseClass(classFile)
-	if err != nil {
-		return nil, err
-	}
-
-	return cf, nil
+	return javareach.ParseClass(classFile)
 }
 
 // TODO:
