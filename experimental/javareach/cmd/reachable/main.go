@@ -54,6 +54,7 @@ func main() {
 }
 
 func findClass(classPath string, className string) (*javareach.ClassFile, error) {
+	// TODO: Handle directory traversal.
 	classFilepath := filepath.Join(classPath, className)
 	if !strings.HasSuffix(classFilepath, ".class") {
 		classFilepath += ".class"
