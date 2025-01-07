@@ -38,7 +38,7 @@ version = "33.3.0"
 description = "Faker is a Python package that generates fake data for you."
 optional = false
 python-versions = ">=3.8"
-groups = ["dev"]
+groups = ["dev", "test"]
 files = [
     {file = "Faker-33.3.0-py3-none-any.whl", hash = "sha256:ae074d9c7ef65817a93b448141a5531a16b2ea2e563dc5774578197c7c84060c"},
     {file = "faker-33.3.0.tar.gz", hash = "sha256:2abb551a05b75d268780b6095100a48afc43c53e97422002efbfc1272ebf5f26"},
@@ -93,7 +93,7 @@ version = "2.9.0.post0"
 description = "Extensions to the standard Python datetime module"
 optional = false
 python-versions = "!=3.0.*,!=3.1.*,!=3.2.*,>=2.7"
-groups = ["dev"]
+groups = ["dev", "test"]
 files = [
     {file = "python-dateutil-2.9.0.post0.tar.gz", hash = "sha256:37dd54208da7e1cd875388217d5e00ebd4179249f90fb72437e91a35459a0ad3"},
     {file = "python_dateutil-2.9.0.post0-py2.py3-none-any.whl", hash = "sha256:a8b2bc7bffae282281c8140a97d3aa9c14da0b136dfe83f850eea9a5f7470427"},
@@ -128,7 +128,7 @@ version = "1.17.0"
 description = "Python 2 and 3 compatibility utilities"
 optional = false
 python-versions = "!=3.0.*,!=3.1.*,!=3.2.*,>=2.7"
-groups = ["main", "dev"]
+groups = ["main", "dev", "test"]
 files = [
     {file = "six-1.17.0-py2.py3-none-any.whl", hash = "sha256:4721f391ed90541fddacab5acf947aa0d3dc7d27b2e1e8eda2be8970586c3274"},
     {file = "six-1.17.0.tar.gz", hash = "sha256:ff70335d468e7eb6ec65b95b99d3a2836546063f63acc5171de367e834932a81"},
@@ -140,7 +140,7 @@ version = "4.12.2"
 description = "Backported and Experimental Type Hints for Python 3.8+"
 optional = false
 python-versions = ">=3.8"
-groups = ["dev"]
+groups = ["dev", "test"]
 files = [
     {file = "typing_extensions-4.12.2-py3-none-any.whl", hash = "sha256:04e5ca0351e0f3f85c6853954072df659d0d13fac324d0072316b67d7794700d"},
     {file = "typing_extensions-4.12.2.tar.gz", hash = "sha256:1a7ead55c7e559dd4dee8856e3a88b41225abfe1ce8df57b7c13915fe121ffb8"},
@@ -170,4 +170,4 @@ caching = ["redis"]
 [metadata]
 lock-version = "2.1"
 python-versions = ">=3.9"
-content-hash = "c62dd3f7cbbc0c98b7419c34c16af501899b577d018f76f51a99783d28eb7703"
+content-hash = "b80bca1ee02b055316dd15ab627b201152c1e83c2f95652fe4932716d8e8c46b"
