@@ -250,6 +250,13 @@ func TestParsePoetryLock_v2_MultiplePackages(t *testing.T) {
 			DepGroups: []string{},
 		},
 		{
+			Name:      "proto-plus",
+			Version:   "1.23.0",
+			Ecosystem: lockfile.PoetryEcosystem,
+			CompareAs: lockfile.PoetryEcosystem,
+			DepGroups: []string{},
+		},
+		{
 			Name:      "protobuf",
 			Version:   "4.25.5",
 			Ecosystem: lockfile.PoetryEcosystem,

@@ -55,9 +55,29 @@ description = "Beautiful, Pythonic protocol buffers."
 optional = false
 python-versions = ">=3.6"
 groups = ["main"]
+markers = "python_version < \"3.10\""
 files = [
     {file = "proto-plus-1.22.0.tar.gz", hash = "sha256:c2e6693fdf68c405a6428226915a8625d21d0513793598ae3287a1210478d8ec"},
     {file = "proto_plus-1.22.0-py3-none-any.whl", hash = "sha256:a27192d8cdc54e044f137b4c9053c9108cf5c065b46d067f1bcd389a911faf5b"},
+]
+
+[package.dependencies]
+protobuf = ">=3.19.0,<5.0.0dev"
+
+[package.extras]
+testing = ["google-api-core[grpc] (>=1.31.5)"]
+
+[[package]]
+name = "proto-plus"
+version = "1.23.0"
+description = "Beautiful, Pythonic protocol buffers."
+optional = false
+python-versions = ">=3.6"
+groups = ["main"]
+markers = "python_version >= \"3.10\""
+files = [
+    {file = "proto-plus-1.23.0.tar.gz", hash = "sha256:89075171ef11988b3fa157f5dbd8b9cf09d65fffee97e29ce403cd8defba19d2"},
+    {file = "proto_plus-1.23.0-py3-none-any.whl", hash = "sha256:a829c79e619e1cf632de091013a4173deed13a55f326ef84f05af6f50ff4c82c"},
 ]
 
 [package.dependencies]
@@ -170,4 +190,4 @@ caching = ["redis"]
 [metadata]
 lock-version = "2.1"
 python-versions = ">=3.9"
-content-hash = "b80bca1ee02b055316dd15ab627b201152c1e83c2f95652fe4932716d8e8c46b"
+content-hash = "ab8a643d59b9404536d1a035b0f7324ca1e2b906b5a69cf6ae8321a65efc3870"
