@@ -16,6 +16,7 @@ type PoetryLockPackage struct {
 	Name     string                  `toml:"name"`
 	Version  string                  `toml:"version"`
 	Optional bool                    `toml:"optional"`
+	Groups   []string                `toml:"groups"`
 	Source   PoetryLockPackageSource `toml:"source"`
 }
 
@@ -48,6 +49,7 @@ func (e PoetryLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 			Name:      lockPackage.Name,
 			Version:   lockPackage.Version,
 			Commit:    lockPackage.Source.Commit,
+			DepGroups: lockPackage.Groups,
 			Ecosystem: PoetryEcosystem,
 			CompareAs: PoetryEcosystem,
 		}
