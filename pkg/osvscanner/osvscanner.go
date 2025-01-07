@@ -7,14 +7,15 @@ import (
 	"fmt"
 	"os"
 	"os/exec"
+	"time"
 
 	"github.com/google/osv-scalibr/artifact/image/layerscanning/image"
+	"github.com/google/osv-scalibr/extractor"
 	"github.com/google/osv-scalibr/extractor/filesystem"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/golang/gobinary"
 	"github.com/google/osv-scalibr/extractor/filesystem/os/apk"
 	"github.com/google/osv-scalibr/extractor/filesystem/os/dpkg"
 	"github.com/google/osv-scalibr/extractor/filesystem/os/osrelease"
-	"github.com/google/osv-scalibr/extractor"
 	"github.com/google/osv-scanner/internal/clients/clientimpl/localmatcher"
 	"github.com/google/osv-scanner/internal/clients/clientimpl/osvmatcher"
 	"github.com/google/osv-scanner/internal/clients/clientinterfaces"
@@ -24,8 +25,8 @@ import (
 	"github.com/google/osv-scanner/internal/imodels/results"
 	"github.com/google/osv-scanner/internal/osvdev"
 	"github.com/google/osv-scanner/internal/output"
+	"github.com/google/osv-scanner/internal/scalibrextract/language/javascript/nodemodules"
 	"github.com/google/osv-scanner/pkg/models"
-	"github.com/google/osv-scanner/pkg/osv"
 	"github.com/google/osv-scanner/pkg/reporter"
 	"github.com/ossf/osv-schema/bindings/go/osvschema"
 
@@ -168,11 +169,36 @@ func DoContainerScan(actions ScannerActions, r reporter.Reporter) (models.Vulner
 		}
 	}
 
+	// ----- Filtering -----
 	filterUnscannablePackages(r, &scanResult)
 
-	err = makeRequest(r, scanResult.PackageScanResults, actions.CompareOffline, actions.DownloadDatabases, actions.LocalDBPath)
-	if err != nil {
-		return models.VulnerabilityResults{}, err
+	// --- Make Vulnerability Requests ---
+	{
+		var matcher clientinterfaces.VulnerabilityMatcher
+		var err error
+		if actions.CompareOffline {
+			matcher, err = localmatcher.NewLocalMatcher(r, actions.LocalDBPath, actions.DownloadDatabases)
+			if err != nil {
+				return models.VulnerabilityResults{}, err
+			}
+		} else {
+			matcher = &osvmatcher.OSVMatcher{
+				Client:              *osvdev.DefaultClient(),
+				InitialQueryTimeout: 5 * time.Minute,
+			}
+		}
+
+		err = makeRequestWithMatcher(r, scanResult.PackageScanResults, matcher)
+		if err != nil {
+			return models.VulnerabilityResults{}, err
+		}
+	}
+
+	if len(actions.ScanLicensesAllowlist) > 0 || actions.ScanLicensesSummary {
+		err = makeLicensesRequests(scanResult.PackageScanResults)
+		if err != nil {
+			return models.VulnerabilityResults{}, err
+		}
 	}
 
 	if len(actions.ScanLicensesAllowlist) > 0 || actions.ScanLicensesSummary {
