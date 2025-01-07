@@ -179,10 +179,14 @@ func ParseClass(r io.Reader) (*ClassFile, error) {
 		switch kind {
 		case ConstantKindUtf8:
 			constant := &ConstantUtf8{}
-			// todo: limit len
 			err := binary.Read(r, binary.BigEndian, &constant.Length)
 			if err != nil {
 				return nil, err
+			}
+
+			const maxConstantLength = 32 * 1024
+			if constant.Length > maxConstantLength {
+				return nil, fmt.Errorf("constant size too large (%d)", constant.Length)
 			}
 
 			constant.Bytes = make([]byte, constant.Length)
@@ -332,7 +336,7 @@ func ParseClass(r io.Reader) (*ClassFile, error) {
 			}
 			cp = constant
 		default:
-			return nil, errors.New("invalid cp_info type")
+			return nil, fmt.Errorf("invalid cp_info type %d at index %d", kind, i+1)
 		}
 
 		cf.ConstantPool = append(cf.ConstantPool, cp)
@@ -340,6 +344,7 @@ func ParseClass(r io.Reader) (*ClassFile, error) {
 		if cp.Type() == ConstantKindDouble || cp.Type() == ConstantKindLong {
 			// 8-byte values take up 2 constant pool entries.
 			cf.ConstantPool = append(cf.ConstantPool, &ConstantPlaceholder{})
+			i += 1
 		}
 	}
 

@@ -23,7 +23,7 @@ import (
 // and automatically downloading building and downloading dependencies if the
 // pom.xml exists in the root .jar file.
 func main() {
-	classPath := flag.String("classpath", "", "(Required) A single directory containing class files to look for.")
+	classPath := flag.String("classpath", "", "(Required) A single root directory containing Java class files.")
 
 	flag.Usage = func() {
 		fmt.Fprintf(flag.CommandLine.Output(), "Usage: %s <arguments> <root class name>\n", os.Args[0])
@@ -40,7 +40,7 @@ func main() {
 	for _, className := range flag.Args() {
 		cf, err := findClass(*classPath, className)
 		if err != nil {
-			log.Fatalf("Failed to find class %s", className)
+			log.Fatalf("Failed to find class %s: %v", className, err)
 		}
 
 		EnumerateReachability(cf, *classPath)
@@ -79,7 +79,7 @@ func enumerateReachability(cf *javareach.ClassFile, classPath string, seen map[s
 	if _, ok := seen[thisClass]; ok {
 		return nil
 	}
-	fmt.Printf("this class: %s\n", thisClass)
+	fmt.Printf("analyzing class: %s\n", thisClass)
 	seen[thisClass] = struct{}{}
 
 	for i, cp := range cf.ConstantPool {
@@ -93,12 +93,12 @@ func enumerateReachability(cf *javareach.ClassFile, classPath string, seen map[s
 			if err != nil {
 				return err
 			}
-			fmt.Printf("class: %s\n", class)
 
 			if strings.HasPrefix(class, "java/") || strings.HasPrefix(class, "javax/") {
 				// Standard library
 				continue
 			}
+			fmt.Printf("class dependency: %s\n", class)
 
 			depcf, err := findClass(classPath, class)
 			if err != nil {
