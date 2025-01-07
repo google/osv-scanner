@@ -247,12 +247,14 @@ func TestParsePoetryLock_v2_MultiplePackages(t *testing.T) {
 			Version:   "1.22.0",
 			Ecosystem: lockfile.PoetryEcosystem,
 			CompareAs: lockfile.PoetryEcosystem,
+			DepGroups: []string{},
 		},
 		{
 			Name:      "protobuf",
 			Version:   "4.25.5",
 			Ecosystem: lockfile.PoetryEcosystem,
 			CompareAs: lockfile.PoetryEcosystem,
+			DepGroups: []string{},
 		},
 		{
 			Name:      "python-dateutil",
@@ -266,7 +268,7 @@ func TestParsePoetryLock_v2_MultiplePackages(t *testing.T) {
 			Version:   "1.17.0",
 			Ecosystem: lockfile.PoetryEcosystem,
 			CompareAs: lockfile.PoetryEcosystem,
-			DepGroups: []string{"dev", "test"},
+			DepGroups: []string{},
 		},
 		{
 			Name:      "typing-extensions",
