@@ -162,10 +162,12 @@ func DoContainerScan(actions ScannerActions, r reporter.Reporter) (models.Vulner
 				IsEmpty: cl.Layer().IsEmpty(),
 			})
 		}
+
 		scanResult.ImageMetadata = &models.ImageMetadata{
-			BaseImageIndex: img.BaseImageIndex,
-			OS:             OS,
-			LayerMetadata:  layerMetadata,
+			// TODO: Not yet filled in
+			BaseImages:    [][]models.BaseImageDetails{},
+			OS:            OS,
+			LayerMetadata: layerMetadata,
 		}
 	}
 

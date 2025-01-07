@@ -9,9 +9,16 @@ type ImageOriginDetails struct {
 }
 
 type ImageMetadata struct {
-	OS             string          `json:"os"`
-	LayerMetadata  []LayerMetadata `json:"layer_metadata"`
-	BaseImageIndex int             `json:"base_image_index"`
+	OS            string          `json:"os"`
+	LayerMetadata []LayerMetadata `json:"layer_metadata"`
+	// TODO: Not yet filled in
+	BaseImages [][]BaseImageDetails `json:"base_images"`
+}
+
+type BaseImageDetails struct {
+	Name string `json:"name"`
+	// TODO: Not yet filled in
+	Tags []string `json:"tags"`
 }
 
 type LayerMetadata struct {
@@ -19,5 +26,5 @@ type LayerMetadata struct {
 	Command string `json:"command"`
 	IsEmpty bool   `json:"is_empty"`
 	// TODO: Not yet filled in
-	BaseImages []string `json:"base_images"`
+	BaseImageIndex int `json:"base_image_index"`
 }
