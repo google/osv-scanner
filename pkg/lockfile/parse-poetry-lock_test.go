@@ -226,7 +226,7 @@ func TestParsePoetryLock_v2_MultiplePackages(t *testing.T) {
 			Version:   "5.0.1",
 			Ecosystem: lockfile.PoetryEcosystem,
 			CompareAs: lockfile.PoetryEcosystem,
-			DepGroups: []string{"main", "optional"},
+			DepGroups: []string{"optional"},
 		},
 		{
 			Name:      "factory-boy",
@@ -247,14 +247,14 @@ func TestParsePoetryLock_v2_MultiplePackages(t *testing.T) {
 			Version:   "1.22.0",
 			Ecosystem: lockfile.PoetryEcosystem,
 			CompareAs: lockfile.PoetryEcosystem,
-			DepGroups: []string{"main"},
+			DepGroups: []string{},
 		},
 		{
 			Name:      "protobuf",
 			Version:   "4.25.5",
 			Ecosystem: lockfile.PoetryEcosystem,
 			CompareAs: lockfile.PoetryEcosystem,
-			DepGroups: []string{"main"},
+			DepGroups: []string{},
 		},
 		{
 			Name:      "python-dateutil",
@@ -268,7 +268,7 @@ func TestParsePoetryLock_v2_MultiplePackages(t *testing.T) {
 			Version:   "1.17.0",
 			Ecosystem: lockfile.PoetryEcosystem,
 			CompareAs: lockfile.PoetryEcosystem,
-			DepGroups: []string{"main", "dev"},
+			DepGroups: []string{"dev"},
 		},
 		{
 			Name:      "typing-extensions",
@@ -289,7 +289,7 @@ func TestParsePoetryLock_v2_MultiplePackages(t *testing.T) {
 			Version:   "5.2.1",
 			Ecosystem: lockfile.PoetryEcosystem,
 			CompareAs: lockfile.PoetryEcosystem,
-			DepGroups: []string{"main", "optional"},
+			DepGroups: []string{"optional"},
 		},
 	})
 }
