@@ -5,7 +5,35 @@ import (
 	"errors"
 	"fmt"
 	"io"
+	"strings"
 	"unicode/utf8"
+)
+
+var (
+	// From https://docs.oracle.com/javase/specs/jvms/se7/html/jvms-4.html#jvms-4.3
+	BinaryBaseTypes = []string{
+		"B",
+		"C",
+		"D",
+		"F",
+		"I",
+		"J",
+		"L",
+		"S",
+		"Z",
+	}
+
+	StandardLibraryPrefixes = []string{
+		"com/",
+		"java/",
+		"javax/",
+		"jdk/",
+		"sun/",
+		"org/ietf/",
+		"org/omg/",
+		"org/w3c/",
+		"org/xml/",
+	}
 )
 
 // ClassFile struct represents the overall structure of a Java class file.
@@ -399,4 +427,14 @@ func (cf *ClassFile) ConstantPoolUtf8(idx int) (string, error) {
 		return "", errors.New("invalid utf8 bytes")
 	}
 	return string(data.Bytes), nil
+}
+
+func IsStdLib(class string) bool {
+	for _, prefix := range StandardLibraryPrefixes {
+		if strings.HasPrefix(class, prefix) {
+			return true
+		}
+	}
+
+	return false
 }
