@@ -134,6 +134,7 @@ func enumerateReachability(cf *javareach.ClassFile, classPath string, seen map[s
 			slog.Debug("found", "dependency", class)
 			depcf, err := findClass(classPath, class)
 			if err != nil {
+				// Dependencies can be optional, so this is not a fatal error.
 				slog.Error("failed to find class", "class", class, "from", thisClass, "cp idx", i, "error", err)
 				continue
 			}
