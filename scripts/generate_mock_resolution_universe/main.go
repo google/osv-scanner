@@ -22,7 +22,9 @@ import (
 	pb "deps.dev/api/v3"
 	"deps.dev/util/resolve"
 	"deps.dev/util/resolve/dep"
+	"github.com/google/osv-scanner/internal/clients/clientimpl/osvmatcher"
 	"github.com/google/osv-scanner/internal/depsdev"
+	"github.com/google/osv-scanner/internal/osvdev"
 	"github.com/google/osv-scanner/internal/remediation"
 	"github.com/google/osv-scanner/internal/remediation/upgrade"
 	"github.com/google/osv-scanner/internal/resolution"
@@ -51,8 +53,11 @@ var remediationOpts = remediation.Options{
 
 func doRelockRelax(ddCl *client.DepsDevClient, rw manifest.ReadWriter, filename string) error {
 	cl := client.ResolutionClient{
-		VulnerabilityClient: client.NewOSVClient(),
-		DependencyClient:    ddCl,
+		VulnerabilityMatcher: &osvmatcher.OSVMatcher{
+			Client:              *osvdev.DefaultClient(),
+			InitialQueryTimeout: 5 * time.Minute,
+		},
+		DependencyClient: ddCl,
 	}
 
 	f, err := lf.OpenLocalDepFile(filename)
@@ -78,8 +83,11 @@ func doRelockRelax(ddCl *client.DepsDevClient, rw manifest.ReadWriter, filename 
 
 func doOverride(ddCl *client.DepsDevClient, rw manifest.ReadWriter, filename string) error {
 	cl := client.ResolutionClient{
-		VulnerabilityClient: client.NewOSVClient(),
-		DependencyClient:    ddCl,
+		VulnerabilityMatcher: &osvmatcher.OSVMatcher{
+			Client:              *osvdev.DefaultClient(),
+			InitialQueryTimeout: 5 * time.Minute,
+		},
+		DependencyClient: ddCl,
 	}
 
 	f, err := lf.OpenLocalDepFile(filename)
@@ -105,8 +113,11 @@ func doOverride(ddCl *client.DepsDevClient, rw manifest.ReadWriter, filename str
 
 func doInPlace(ddCl *client.DepsDevClient, rw lockfile.ReadWriter, filename string) error {
 	cl := client.ResolutionClient{
-		VulnerabilityClient: client.NewOSVClient(),
-		DependencyClient:    ddCl,
+		VulnerabilityMatcher: &osvmatcher.OSVMatcher{
+			Client:              *osvdev.DefaultClient(),
+			InitialQueryTimeout: 5 * time.Minute,
+		},
+		DependencyClient: ddCl,
 	}
 
 	f, err := lf.OpenLocalDepFile(filename)
