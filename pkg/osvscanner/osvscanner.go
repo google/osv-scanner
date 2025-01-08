@@ -204,7 +204,7 @@ func makeRequestWithMatcher(
 	matcher clientinterfaces.VulnerabilityMatcher) error {
 	invs := make([]*extractor.Inventory, 0, len(packages))
 	for _, pkgs := range packages {
-		invs = append(invs, pkgs.PackageInfo.OriginalInventory)
+		invs = append(invs, pkgs.PackageInfo.Inventory)
 	}
 
 	res, err := matcher.MatchVulnerabilities(context.Background(), invs)
@@ -250,12 +250,10 @@ func makeLicensesRequests(packages []imodels.PackageScanResult) error {
 func overrideGoVersion(r reporter.Reporter, scanResults *results.ScanResults) {
 	for i, psr := range scanResults.PackageScanResults {
 		pkg := psr.PackageInfo
-		if pkg.Name == "stdlib" && pkg.Ecosystem.Ecosystem == osvschema.EcosystemGo {
-			configToUse := scanResults.ConfigManager.Get(r, pkg.Location)
+		if pkg.Name() == "stdlib" && pkg.Ecosystem().Ecosystem == osvschema.EcosystemGo {
+			configToUse := scanResults.ConfigManager.Get(r, pkg.Location())
 			if configToUse.GoVersionOverride != "" {
-				scanResults.PackageScanResults[i].PackageInfo.Version = configToUse.GoVersionOverride
-				// Also patch it in the inventory, as we have to use the original inventory to make requests
-				scanResults.PackageScanResults[i].PackageInfo.OriginalInventory.Version = configToUse.GoVersionOverride
+				scanResults.PackageScanResults[i].PackageInfo.Inventory.Version = configToUse.GoVersionOverride
 			}
 
 			continue

@@ -54,8 +54,8 @@ func (matcher *LocalMatcher) MatchVulnerabilities(ctx context.Context, invs []*e
 		}
 
 		pkg := imodels.FromInventory(inv)
-		if pkg.Ecosystem.IsEmpty() {
-			if pkg.Commit == "" {
+		if pkg.Ecosystem().IsEmpty() {
+			if pkg.Commit() == "" {
 				// This should never happen, as those results will be filtered out before matching
 				return nil, errors.New("ecosystem is empty and there is no commit hash")
 			}
@@ -68,7 +68,7 @@ func (matcher *LocalMatcher) MatchVulnerabilities(ctx context.Context, invs []*e
 			continue
 		}
 
-		db, err := matcher.loadDBFromCache(ctx, pkg.Ecosystem)
+		db, err := matcher.loadDBFromCache(ctx, pkg.Ecosystem())
 
 		if err != nil {
 			continue

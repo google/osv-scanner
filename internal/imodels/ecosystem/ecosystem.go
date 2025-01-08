@@ -39,7 +39,7 @@ type Parsed struct {
 	Suffix    string
 }
 
-func (p *Parsed) IsEmpty() bool {
+func (p Parsed) IsEmpty() bool {
 	return p.Ecosystem == ""
 }
 
@@ -70,8 +70,7 @@ func (p Parsed) MarshalJSON() ([]byte, error) {
 	return []byte(`"` + p.String() + `"`), nil
 }
 
-//goland:noinspection GoMixedReceiverTypes
-func (p *Parsed) String() string {
+func (p Parsed) String() string {
 	str := string(p.Ecosystem)
 
 	if p.Suffix != "" {

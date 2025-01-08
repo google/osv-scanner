@@ -54,19 +54,19 @@ type PackageOverrideEntry struct {
 }
 
 func (e PackageOverrideEntry) matches(pkg imodels.PackageInfo) bool {
-	if e.Name != "" && e.Name != pkg.Name {
+	if e.Name != "" && e.Name != pkg.Name() {
 		return false
 	}
-	if e.Version != "" && e.Version != pkg.Version {
+	if e.Version != "" && e.Version != pkg.Version() {
 		return false
 	}
 	// If there is an ecosystem filter, the filter must not match both the:
 	//  - Full ecosystem + suffix
 	//  - The base ecosystem
-	if e.Ecosystem != "" && (e.Ecosystem != pkg.Ecosystem.String() && e.Ecosystem != string(pkg.Ecosystem.Ecosystem)) {
+	if e.Ecosystem != "" && (e.Ecosystem != pkg.Ecosystem().String() && e.Ecosystem != string(pkg.Ecosystem().Ecosystem)) {
 		return false
 	}
-	if e.Group != "" && !slices.Contains(pkg.DepGroups, e.Group) {
+	if e.Group != "" && !slices.Contains(pkg.DepGroups(), e.Group) {
 		return false
 	}
 
