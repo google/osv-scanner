@@ -61,7 +61,7 @@ func scan(r reporter.Reporter, actions ScannerActions) ([]imodels.PackageScanRes
 	}
 
 	if len(scannedInventories) == 0 {
-		return nil, NoPackagesFoundErr
+		return nil, ErrNoPackagesFound
 	}
 
 	// Convert to imodels.PackageScanResult for use in the rest of osv-scanner
