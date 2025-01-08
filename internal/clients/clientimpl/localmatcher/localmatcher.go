@@ -41,6 +41,7 @@ func NewLocalMatcher(r reporter.Reporter, localDBPath string, downloadDB bool) (
 		dbs:        make(map[osvschema.Ecosystem]*ZipDB),
 		downloadDB: downloadDB,
 		r:          r,
+		failedDBs:  make(map[osvschema.Ecosystem]error),
 	}, nil
 }
 
