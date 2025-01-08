@@ -207,7 +207,7 @@ func makeRequestWithMatcher(
 		invs = append(invs, pkgs.PackageInfo.OriginalInventory)
 	}
 
-	res, err := matcher.Match(context.Background(), invs)
+	res, err := matcher.MatchVulnerabilities(context.Background(), invs)
 	if err != nil {
 		// TODO: Handle error here
 		r.Errorf("error when retrieving vulns: %v", err)

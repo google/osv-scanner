@@ -45,7 +45,7 @@ func NewLocalMatcher(r reporter.Reporter, localDBPath string, downloadDB bool) (
 	}, nil
 }
 
-func (matcher *LocalMatcher) Match(ctx context.Context, invs []*extractor.Inventory) ([][]*models.Vulnerability, error) {
+func (matcher *LocalMatcher) MatchVulnerabilities(ctx context.Context, invs []*extractor.Inventory) ([][]*models.Vulnerability, error) {
 	results := make([][]*models.Vulnerability, 0, len(invs))
 
 	for _, inv := range invs {
@@ -102,6 +102,7 @@ func (matcher *LocalMatcher) loadDBFromCache(ctx context.Context, ecosystem ecos
 	if err != nil {
 		matcher.failedDBs[ecosystem.Ecosystem] = err
 		matcher.r.Errorf("could not load db for %s ecosystem: %v\n", ecosystem.Ecosystem, err)
+
 		return nil, err
 	}
 

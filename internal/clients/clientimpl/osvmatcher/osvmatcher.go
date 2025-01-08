@@ -30,7 +30,7 @@ type OSVMatcher struct {
 	InitialQueryTimeout time.Duration
 }
 
-func (matcher *OSVMatcher) Match(ctx context.Context, pkgs []*extractor.Inventory) ([][]*models.Vulnerability, error) {
+func (matcher *OSVMatcher) MatchVulnerabilities(ctx context.Context, pkgs []*extractor.Inventory) ([][]*models.Vulnerability, error) {
 	var batchResp *osvdev.BatchedResponse
 	deadlineExceeded := false
 
