@@ -313,7 +313,7 @@ func action(context *cli.Context, stdout, stderr io.Writer) (reporter.Reporter, 
 		},
 	}, r)
 
-	if err != nil && !errors.Is(err, osvscanner.VulnerabilitiesFoundErr) {
+	if err != nil && !errors.Is(err, osvscanner.ErrVulnerabilitiesFound) {
 		return r, err
 	}
 

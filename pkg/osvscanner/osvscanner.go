@@ -3,6 +3,7 @@ package osvscanner
 import (
 	"context"
 	"errors"
+	"fmt"
 	"time"
 
 	"github.com/google/osv-scalibr/extractor"
@@ -56,24 +57,50 @@ type TransitiveScanningActions struct {
 	MavenRegistry    string
 }
 
-// NoPackagesFoundErr for when no packages are found during a scan.
-//
-//nolint:errname,stylecheck,revive // Would require version major bump to change
-var NoPackagesFoundErr = errors.New("no packages found in scan")
+type Matchers struct {
+	VulnMatcher    clientinterfaces.VulnerabilityMatcher
+	LicenseMatcher clientinterfaces.LicenseMatcher
+}
 
-// VulnerabilitiesFoundErr includes both vulnerabilities being found or license violations being found,
+// ErrNoPackagesFound for when no packages are found during a scan.
+var ErrNoPackagesFound = errors.New("no packages found in scan")
+
+// ErrVulnerabilitiesFound includes both vulnerabilities being found or license violations being found,
 // however, will not be raised if only uncalled vulnerabilities are found.
-//
-//nolint:errname,stylecheck,revive // Would require version major bump to change
-var VulnerabilitiesFoundErr = errors.New("vulnerabilities found")
-
-// Deprecated: This error is no longer returned, check the results to determine if this is the case
-//
-//nolint:errname,stylecheck,revive // Would require version bump to change
-var OnlyUncalledVulnerabilitiesFoundErr = errors.New("only uncalled vulnerabilities found")
+var ErrVulnerabilitiesFound = errors.New("vulnerabilities found")
 
 // ErrAPIFailed describes errors related to querying API endpoints.
 var ErrAPIFailed = errors.New("API query failed")
+
+func InitializeMatchers(r reporter.Reporter, actions ScannerActions) (Matchers, error) {
+	// Vulnerability Matcher
+	var vulnMatcher clientinterfaces.VulnerabilityMatcher
+	var err error
+	if actions.CompareOffline {
+		vulnMatcher, err = localmatcher.NewLocalMatcher(r, actions.LocalDBPath, actions.DownloadDatabases)
+		if err != nil {
+			return Matchers{}, err
+		}
+	} else {
+		vulnMatcher = &osvmatcher.OSVMatcher{
+			Client:              *osvdev.DefaultClient(),
+			InitialQueryTimeout: 5 * time.Minute,
+		}
+	}
+
+	// License Matcher
+	depsdevclient, err := datasource.NewDepsDevAPIClient(depsdev.DepsdevAPI, "osv-scanner_scan/"+version.OSVVersion)	if err != nil {
+		return Matchers{}, err
+	}
+	var licenseMatcher clientinterfaces.LicenseMatcher = &licensematcher.DepsDevLicenseMatcher{
+		Client: depsdevclient,
+	}
+
+	return Matchers{
+		VulnMatcher:    vulnMatcher,
+		LicenseMatcher: licenseMatcher,
+	}, nil
+}
 
 // Perform osv scanner action, with optional reporter to output information
 func DoScan(actions ScannerActions, r reporter.Reporter) (models.VulnerabilityResults, error) {
@@ -124,39 +151,22 @@ func DoScan(actions ScannerActions, r reporter.Reporter) (models.VulnerabilityRe
 	// ----- Custom Overrides -----
 	overrideGoVersion(r, &scanResult)
 
-	// --- Make Vulnerability Requests ---
-	{
-		var matcher clientinterfaces.VulnerabilityMatcher
-		var err error
-		if actions.CompareOffline {
-			matcher, err = localmatcher.NewLocalMatcher(r, actions.LocalDBPath, actions.DownloadDatabases)
-			if err != nil {
-				return models.VulnerabilityResults{}, err
-			}
-		} else {
-			matcher = &osvmatcher.OSVMatcher{
-				Client:              *osvdev.DefaultClient(),
-				InitialQueryTimeout: 5 * time.Minute,
-			}
-		}
+	matchers, err := InitializeMatchers(r, actions)
+	if err != nil {
+		return models.VulnerabilityResults{}, fmt.Errorf("failed to initialize matchers: %v", err)
+	}
 
-		err = makeRequestWithMatcher(r, scanResult.PackageScanResults, matcher)
+	// --- Make Vulnerability Requests ---
+	if matchers.VulnMatcher != nil {
+		err = makeVulnRequestWithMatcher(r, scanResult.PackageScanResults, matchers.VulnMatcher)
 		if err != nil {
 			return models.VulnerabilityResults{}, err
 		}
 	}
 
 	// --- Make License Requests ---
-	if len(actions.ScanLicensesAllowlist) > 0 || actions.ScanLicensesSummary {
-		depsdevclient, err := datasource.NewDepsDevAPIClient(depsdev.DepsdevAPI, "osv-scanner_scan/"+version.OSVVersion)
-		if err != nil {
-			return models.VulnerabilityResults{}, err
-		}
-		var licenseMatcher clientinterfaces.LicenseMatcher = &licensematcher.DepsDevLicenseMatcher{
-			Client: depsdevclient,
-		}
-
-		err = licenseMatcher.MatchLicenses(context.Background(), scanResult.PackageScanResults)
+	if matchers.LicenseMatcher != nil && len(actions.ScanLicensesAllowlist) > 0 || actions.ScanLicensesSummary {
+		err = matchers.LicenseMatcher.MatchLicenses(context.Background(), scanResult.PackageScanResults)
 		if err != nil {
 			return models.VulnerabilityResults{}, err
 		}
@@ -200,14 +210,14 @@ func DoScan(actions ScannerActions, r reporter.Reporter) (models.VulnerabilityRe
 			return results, nil
 		}
 
-		return results, VulnerabilitiesFoundErr
+		return results, ErrVulnerabilitiesFound
 	}
 
 	return results, nil
 }
 
 // TODO(V2): Add context
-func makeRequestWithMatcher(
+func makeVulnRequestWithMatcher(
 	r reporter.Reporter,
 	packages []imodels.PackageScanResult,
 	matcher clientinterfaces.VulnerabilityMatcher) error {
