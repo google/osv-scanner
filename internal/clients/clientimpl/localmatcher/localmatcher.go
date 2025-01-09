@@ -63,7 +63,7 @@ func (matcher *LocalMatcher) MatchVulnerabilities(ctx context.Context, invs []*e
 			// Is a commit based query, skip local scanning
 			results = append(results, []*models.Vulnerability{})
 			// TODO (V2 logging):
-			matcher.r.Infof("Skipping commit scanning for: %s\n", pkg.Commit)
+			matcher.r.Infof("Skipping commit scanning for: %s\n", pkg.Commit())
 
 			continue
 		}

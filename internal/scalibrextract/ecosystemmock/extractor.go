@@ -25,7 +25,7 @@ func (e Extractor) Requirements() *plugin.Capabilities {
 	return &plugin.Capabilities{}
 }
 
-func (e Extractor) FileRequired(fapi filesystem.FileAPI) bool {
+func (e Extractor) FileRequired(_ filesystem.FileAPI) bool {
 	return false
 }
 
