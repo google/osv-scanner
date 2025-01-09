@@ -9,6 +9,7 @@ import (
 	"github.com/google/osv-scanner/internal/resolution/datasource"
 	"github.com/google/osv-scanner/internal/scalibrextract/ecosystemmock"
 	"github.com/google/osv-scanner/internal/scalibrextract/language/java/pomxmlnet"
+	"github.com/google/osv-scanner/internal/version"
 	"github.com/google/osv-scanner/pkg/osvscanner/internal/scanners"
 	"github.com/google/osv-scanner/pkg/reporter"
 )
@@ -96,7 +97,7 @@ func createMavenExtractor(actions TransitiveScanningActions) (*pomxmlnet.Extract
 	if actions.NativeDataSource {
 		depClient, err = client.NewMavenRegistryClient(actions.MavenRegistry)
 	} else {
-		depClient, err = client.NewDepsDevClient(depsdev.DepsdevAPI)
+		depClient, err = client.NewDepsDevClient(depsdev.DepsdevAPI, "osv-scanner_scan/"+version.OSVVersion)
 	}
 	if err != nil {
 		return nil, err

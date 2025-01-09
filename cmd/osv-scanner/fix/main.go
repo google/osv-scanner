@@ -16,6 +16,7 @@ import (
 	"github.com/google/osv-scanner/internal/resolution/client"
 	"github.com/google/osv-scanner/internal/resolution/lockfile"
 	"github.com/google/osv-scanner/internal/resolution/manifest"
+	"github.com/google/osv-scanner/internal/version"
 	"github.com/google/osv-scanner/pkg/reporter"
 	"github.com/urfave/cli/v2"
 	"golang.org/x/term"
@@ -330,7 +331,7 @@ func action(ctx *cli.Context, stdout, stderr io.Writer) (reporter.Reporter, erro
 
 	switch ctx.String("data-source") {
 	case "deps.dev":
-		cl, err := client.NewDepsDevClient(depsdev.DepsdevAPI)
+		cl, err := client.NewDepsDevClient(depsdev.DepsdevAPI, "osv-scanner_fix/"+version.OSVVersion)
 		if err != nil {
 			return nil, err
 		}

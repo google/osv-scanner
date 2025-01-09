@@ -28,11 +28,11 @@ func (matcher *DepsDevLicenseMatcher) MatchLicenses(ctx context.Context, package
 
 	for i, psr := range packages {
 		pkg := psr.PackageInfo
-		system, ok := depsdev.System[psr.PackageInfo.Ecosystem.Ecosystem]
-		if !ok || pkg.Name == "" || pkg.Version == "" {
+		system, ok := depsdev.System[psr.PackageInfo.Ecosystem().Ecosystem]
+		if !ok || pkg.Name() == "" || pkg.Version() == "" {
 			continue
 		}
-		queries[i] = versionQuery(system, pkg.Name, pkg.Version)
+		queries[i] = versionQuery(system, pkg.Name(), pkg.Version())
 	}
 
 	licenses, err := matcher.makeVersionRequest(ctx, queries)

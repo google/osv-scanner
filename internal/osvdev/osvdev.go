@@ -26,6 +26,8 @@ const (
 
 	// MaxQueriesPerQueryBatchRequest is a limit set in osv.dev's API, so is not configurable
 	MaxQueriesPerQueryBatchRequest = 1000
+
+	DefaultBaseURL = "https://api.osv.dev"
 )
 
 type OSVClient struct {
@@ -39,7 +41,7 @@ func DefaultClient() *OSVClient {
 	return &OSVClient{
 		HTTPClient:  http.DefaultClient,
 		Config:      DefaultConfig(),
-		BaseHostURL: "https://api.osv.dev",
+		BaseHostURL: DefaultBaseURL,
 	}
 }
 
