@@ -90,15 +90,6 @@ func (pkg *PackageInfo) Version() string {
 	return pkg.Inventory.Version
 }
 
-func (pkg *PackageInfo) SetVersion() string {
-	// TODO(v2): SBOM special case, to be removed after PURL to ESI conversion within each extractor is complete
-	if pkg.purlCache != nil {
-		return pkg.purlCache.Version
-	}
-
-	return pkg.Inventory.Version
-}
-
 func (pkg *PackageInfo) Location() string {
 	if len(pkg.Inventory.Locations) > 0 {
 		return pkg.Inventory.Locations[0]
