@@ -77,7 +77,7 @@ func InitializeMatchers(r reporter.Reporter, actions ScannerActions) (Matchers, 
 	var vulnMatcher clientinterfaces.VulnerabilityMatcher
 	var err error
 	if actions.CompareOffline {
-		vulnMatcher, err = localmatcher.NewLocalMatcher(r, actions.LocalDBPath, actions.DownloadDatabases)
+		vulnMatcher, err = localmatcher.NewLocalMatcher(r, actions.LocalDBPath, "osv-scanner_scan/"+version.OSVVersion, actions.DownloadDatabases)
 		if err != nil {
 			return Matchers{}, err
 		}
@@ -89,7 +89,8 @@ func InitializeMatchers(r reporter.Reporter, actions ScannerActions) (Matchers, 
 	}
 
 	// License Matcher
-	depsdevclient, err := datasource.NewDepsDevAPIClient(depsdev.DepsdevAPI, "osv-scanner_scan/"+version.OSVVersion)	if err != nil {
+	depsdevclient, err := datasource.NewDepsDevAPIClient(depsdev.DepsdevAPI, "osv-scanner_scan/"+version.OSVVersion)
+	if err != nil {
 		return Matchers{}, err
 	}
 	var licenseMatcher clientinterfaces.LicenseMatcher = &licensematcher.DepsDevLicenseMatcher{

@@ -26,11 +26,13 @@ type LocalMatcher struct {
 	downloadDB bool
 	// failedDBs keeps track of the errors when getting databases for each ecosystem
 	failedDBs map[osvschema.Ecosystem]error
+	// userAgent sets the user agent requests for db zips are made with
+	userAgent string
 	// TODO(v2 logging): Remove this reporter
 	r reporter.Reporter
 }
 
-func NewLocalMatcher(r reporter.Reporter, localDBPath string, downloadDB bool) (*LocalMatcher, error) {
+func NewLocalMatcher(r reporter.Reporter, localDBPath string, userAgent string, downloadDB bool) (*LocalMatcher, error) {
 	dbBasePath, err := setupLocalDBDirectory(localDBPath)
 	if err != nil {
 		return nil, fmt.Errorf("could not create %s: %w", dbBasePath, err)
@@ -41,6 +43,7 @@ func NewLocalMatcher(r reporter.Reporter, localDBPath string, downloadDB bool) (
 		dbs:        make(map[osvschema.Ecosystem]*ZipDB),
 		downloadDB: downloadDB,
 		r:          r,
+		userAgent:  userAgent,
 		failedDBs:  make(map[osvschema.Ecosystem]error),
 	}, nil
 }
@@ -97,7 +100,7 @@ func (matcher *LocalMatcher) loadDBFromCache(ctx context.Context, ecosystem ecos
 		return nil, matcher.failedDBs[ecosystem.Ecosystem]
 	}
 
-	db, err := NewZippedDB(ctx, matcher.dbBasePath, string(ecosystem.Ecosystem), fmt.Sprintf("%s/%s/all.zip", zippedDBRemoteHost, ecosystem.Ecosystem), !matcher.downloadDB)
+	db, err := NewZippedDB(ctx, matcher.dbBasePath, string(ecosystem.Ecosystem), fmt.Sprintf("%s/%s/all.zip", zippedDBRemoteHost, ecosystem.Ecosystem), matcher.userAgent, !matcher.downloadDB)
 
 	if err != nil {
 		matcher.failedDBs[ecosystem.Ecosystem] = err
