@@ -129,7 +129,7 @@ func DoScan(actions ScannerActions, r reporter.Reporter) (models.VulnerabilityRe
 		var matcher clientinterfaces.VulnerabilityMatcher
 		var err error
 		if actions.CompareOffline {
-			matcher, err = localmatcher.NewLocalMatcher(r, actions.LocalDBPath, actions.DownloadDatabases)
+			matcher, err = localmatcher.NewLocalMatcher(r, actions.LocalDBPath, "osv-scanner_scan/"+version.OSVVersion, actions.DownloadDatabases)
 			if err != nil {
 				return models.VulnerabilityResults{}, err
 			}

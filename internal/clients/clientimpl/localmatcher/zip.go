@@ -20,7 +20,6 @@ import (
 	"github.com/google/osv-scanner/internal/utility/vulns"
 	"github.com/google/osv-scanner/pkg/lockfile"
 	"github.com/google/osv-scanner/pkg/models"
-	"github.com/google/osv-scanner/pkg/osv"
 )
 
 type ZipDB struct {
@@ -34,6 +33,8 @@ type ZipDB struct {
 	StoredAt string
 	// the vulnerabilities that are loaded into this database
 	vulnerabilities []models.Vulnerability
+	// User agent to query with
+	UserAgent string
 }
 
 var ErrOfflineDatabaseNotFound = errors.New("no offline version of the OSV database is available")
@@ -105,8 +106,8 @@ func (db *ZipDB) fetchZip(ctx context.Context) ([]byte, error) {
 		return nil, fmt.Errorf("could not retrieve OSV database archive: %w", err)
 	}
 
-	if osv.RequestUserAgent != "" {
-		req.Header.Set("User-Agent", osv.RequestUserAgent)
+	if db.UserAgent != "" {
+		req.Header.Set("User-Agent", db.UserAgent)
 	}
 
 	resp, err := http.DefaultClient.Do(req)
@@ -203,7 +204,7 @@ func (db *ZipDB) load(ctx context.Context) error {
 	return nil
 }
 
-func NewZippedDB(ctx context.Context, dbBasePath, name, url string, offline bool) (*ZipDB, error) {
+func NewZippedDB(ctx context.Context, dbBasePath, name, url, userAgent string, offline bool) (*ZipDB, error) {
 	db := &ZipDB{
 		Name:       name,
 		ArchiveURL: url,
