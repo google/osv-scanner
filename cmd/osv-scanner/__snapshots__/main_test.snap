@@ -2404,7 +2404,11 @@ Filtered 1 local/unscannable package/s from the scan.
 ---
 
 [TestRun_LocalDatabases_AlwaysOffline/a_bunch_of_different_lockfiles_and_ecosystem - 2]
-could not find local databases for ecosystems: Alpine, Packagist, PyPI, RubyGems, npm
+could not load db for PyPI ecosystem: unable to fetch OSV database: no offline version of the OSV database is available
+could not load db for RubyGems ecosystem: unable to fetch OSV database: no offline version of the OSV database is available
+could not load db for Alpine ecosystem: unable to fetch OSV database: no offline version of the OSV database is available
+could not load db for Packagist ecosystem: unable to fetch OSV database: no offline version of the OSV database is available
+could not load db for npm ecosystem: unable to fetch OSV database: no offline version of the OSV database is available
 
 ---
 
@@ -2426,7 +2430,11 @@ Filtered 1 local/unscannable package/s from the scan.
 ---
 
 [TestRun_LocalDatabases_AlwaysOffline/a_bunch_of_different_lockfiles_and_ecosystem - 4]
-could not find local databases for ecosystems: Alpine, Packagist, PyPI, RubyGems, npm
+could not load db for PyPI ecosystem: unable to fetch OSV database: no offline version of the OSV database is available
+could not load db for RubyGems ecosystem: unable to fetch OSV database: no offline version of the OSV database is available
+could not load db for Alpine ecosystem: unable to fetch OSV database: no offline version of the OSV database is available
+could not load db for Packagist ecosystem: unable to fetch OSV database: no offline version of the OSV database is available
+could not load db for npm ecosystem: unable to fetch OSV database: no offline version of the OSV database is available
 
 ---
 
