@@ -228,11 +228,11 @@ func makeLicensesRequests(packages []imodels.PackageScanResult) error {
 	queries := make([]*depsdevpb.GetVersionRequest, len(packages))
 	for i, psr := range packages {
 		pkg := psr.PackageInfo
-		system, ok := depsdev.System[psr.PackageInfo.Ecosystem.Ecosystem]
-		if !ok || pkg.Name == "" || pkg.Version == "" {
+		system, ok := depsdev.System[psr.PackageInfo.Ecosystem().Ecosystem]
+		if !ok || pkg.Name() == "" || pkg.Version() == "" {
 			continue
 		}
-		queries[i] = depsdev.VersionQuery(system, pkg.Name, pkg.Version)
+		queries[i] = depsdev.VersionQuery(system, pkg.Name(), pkg.Version())
 	}
 	licenses, err := depsdev.MakeVersionRequests(queries)
 	if err != nil {
