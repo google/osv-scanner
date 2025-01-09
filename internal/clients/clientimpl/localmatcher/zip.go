@@ -238,12 +238,12 @@ func (db *ZipDB) VulnerabilitiesAffectingPackage(pkg imodels.PackageInfo) []*mod
 
 	// TODO (V2 Models): remove this once PackageDetails has been migrated
 	mappedPackageDetails := lockfile.PackageDetails{
-		Name:      pkg.Name,
-		Version:   pkg.Version,
-		Commit:    pkg.Commit,
-		Ecosystem: lockfile.Ecosystem(pkg.Ecosystem.String()),
-		CompareAs: lockfile.Ecosystem(pkg.Ecosystem.String()),
-		DepGroups: pkg.DepGroups,
+		Name:      pkg.Name(),
+		Version:   pkg.Version(),
+		Commit:    pkg.Commit(),
+		Ecosystem: lockfile.Ecosystem(pkg.Ecosystem().String()),
+		CompareAs: lockfile.Ecosystem(pkg.Ecosystem().String()),
+		DepGroups: pkg.DepGroups(),
 	}
 
 	for _, vulnerability := range db.Vulnerabilities(false) {

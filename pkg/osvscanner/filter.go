@@ -19,8 +19,8 @@ func filterUnscannablePackages(r reporter.Reporter, scanResults *results.ScanRes
 
 		switch {
 		// If none of the cases match, skip this package since it's not scannable
-		case !p.Ecosystem.IsEmpty() && p.Name != "" && p.Version != "":
-		case p.Commit != "":
+		case !p.Ecosystem().IsEmpty() && p.Name() != "" && p.Version() != "":
+		case p.Commit() != "":
 		default:
 			continue
 		}
@@ -42,10 +42,10 @@ func filterIgnoredPackages(r reporter.Reporter, scanResults *results.ScanResults
 	out := make([]imodels.PackageScanResult, 0, len(scanResults.PackageScanResults))
 	for _, psr := range scanResults.PackageScanResults {
 		p := psr.PackageInfo
-		configToUse := configManager.Get(r, p.Location)
+		configToUse := configManager.Get(r, p.Location())
 
 		if ignore, ignoreLine := configToUse.ShouldIgnorePackage(p); ignore {
-			pkgString := fmt.Sprintf("%s/%s/%s", p.Ecosystem.String(), p.Name, p.Version)
+			pkgString := fmt.Sprintf("%s/%s/%s", p.Ecosystem().String(), p.Name(), p.Version())
 
 			reason := ignoreLine.Reason
 			if reason == "" {
