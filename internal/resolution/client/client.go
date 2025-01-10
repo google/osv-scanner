@@ -7,6 +7,7 @@ import (
 	pb "deps.dev/api/v3"
 	"deps.dev/util/resolve"
 	"deps.dev/util/resolve/dep"
+	"deps.dev/util/semver"
 	"github.com/google/osv-scanner/internal/depsdev"
 	"github.com/google/osv-scanner/pkg/models"
 	"github.com/google/osv-scanner/pkg/osv"
@@ -65,19 +66,33 @@ func PreFetch(ctx context.Context, c DependencyClient, requirements []resolve.Re
 		if im.Type.HasAttr(dep.MavenDependencyOrigin) {
 			continue
 		}
-		// Get the preferred version of the import requirement
-		vks, err := c.MatchingVersions(ctx, im.VersionKey)
-		if err != nil || len(vks) == 0 {
-			continue
+
+		var vk resolve.Version
+		var constraint *semver.Constraint
+		if im.System == resolve.Maven {
+			if constraint, err = semver.Maven.ParseConstraint(im.Version); err != nil {
+				continue
+			}
 		}
+		if constraint != nil && constraint.IsSimple() {
+			vk = resolve.Version{
+				VersionKey: im.VersionKey,
+			}
+		} else {
+			// Get the preferred version of the import requirement
+			vks, err := c.MatchingVersions(ctx, im.VersionKey)
+			if err != nil || len(vks) == 0 {
+				continue
+			}
 
-		vk := vks[len(vks)-1]
+			vk = vks[len(vks)-1]
 
-		// We prefer the exact version for soft requirements.
-		for _, v := range vks {
-			if im.Version == v.Version {
-				vk = v
-				break
+			// We prefer the exact version for soft requirements.
+			for _, v := range vks {
+				if im.Version == v.Version {
+					vk = v
+					break
+				}
 			}
 		}
 
@@ -107,9 +122,11 @@ func PreFetch(ctx context.Context, c DependencyClient, requirements []resolve.Re
 			}
 
 			// TODO: We might want to limit the number of goroutines this creates.
-			go c.Requirements(ctx, vk)        //nolint:errcheck
-			go c.Version(ctx, vk)             //nolint:errcheck
-			go c.Versions(ctx, vk.PackageKey) //nolint:errcheck
+			go c.Requirements(ctx, vk) //nolint:errcheck
+			go c.Version(ctx, vk)      //nolint:errcheck
+			if vk.System != resolve.Maven {
+				go c.Versions(ctx, vk.PackageKey) //nolint:errcheck
+			}
 		}
 	}
 	// don't bother waiting for goroutines to finish.
