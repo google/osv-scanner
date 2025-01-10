@@ -69,12 +69,16 @@ func PreFetch(ctx context.Context, c DependencyClient, requirements []resolve.Re
 
 		var vk resolve.Version
 		var constraint *semver.Constraint
+		// Maven native registry may be slow calling MatchingVersions which makes requests for `maven-metadata.xml`.
+		// We can avoid this by only calling MatchingVersions for non-soft requirements.
 		if im.System == resolve.Maven {
 			if constraint, err = semver.Maven.ParseConstraint(im.Version); err != nil {
 				continue
 			}
 		}
 		if constraint != nil && constraint.IsSimple() {
+			// If the requirement is a simple version, use it as the VersionKey,
+			// so we do not need to call MatchingVersions to get available versions.
 			vk = resolve.Version{
 				VersionKey: im.VersionKey,
 			}
