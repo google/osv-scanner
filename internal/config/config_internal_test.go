@@ -8,8 +8,11 @@ import (
 	"time"
 
 	"github.com/google/go-cmp/cmp"
+	"github.com/google/osv-scalibr/extractor"
+	"github.com/google/osv-scalibr/extractor/filesystem/osv"
+
 	"github.com/google/osv-scanner/internal/imodels"
-	"github.com/google/osv-scanner/internal/imodels/ecosystem"
+	"github.com/google/osv-scanner/internal/scalibrextract/ecosystemmock"
 	"github.com/google/osv-scanner/pkg/reporter"
 )
 
@@ -378,10 +381,16 @@ func TestConfig_ShouldIgnorePackage(t *testing.T) {
 				},
 			},
 			args: imodels.PackageInfo{
-				Name:      "lib1",
-				Version:   "1.0.0",
-				Ecosystem: ecosystem.MustParse("Go"),
-				DepGroups: []string{"dev"},
+				Inventory: &extractor.Inventory{
+					Name:    "lib1",
+					Version: "1.0.0",
+					Extractor: ecosystemmock.Extractor{
+						MockEcosystem: "Go",
+					},
+					Metadata: osv.DepGroupMetadata{
+						DepGroupVals: []string{"dev"},
+					},
+				},
 			},
 			wantOk: true,
 			wantEntry: PackageOverrideEntry{
@@ -404,10 +413,16 @@ func TestConfig_ShouldIgnorePackage(t *testing.T) {
 				},
 			},
 			args: imodels.PackageInfo{
-				Name:      "lib1",
-				Version:   "1.0.0",
-				Ecosystem: ecosystem.MustParse("Go"),
-				DepGroups: []string{"dev"},
+				Inventory: &extractor.Inventory{
+					Name:    "lib1",
+					Version: "1.0.0",
+					Extractor: ecosystemmock.Extractor{
+						MockEcosystem: "Go",
+					},
+					Metadata: osv.DepGroupMetadata{
+						DepGroupVals: []string{"dev"},
+					},
+				},
 			},
 			wantOk: true,
 			wantEntry: PackageOverrideEntry{
@@ -430,10 +445,16 @@ func TestConfig_ShouldIgnorePackage(t *testing.T) {
 				},
 			},
 			args: imodels.PackageInfo{
-				Name:      "lib2",
-				Version:   "1.0.0",
-				Ecosystem: ecosystem.MustParse("npm"),
-				DepGroups: []string{"dev"},
+				Inventory: &extractor.Inventory{
+					Name:    "lib2",
+					Version: "1.0.0",
+					Extractor: ecosystemmock.Extractor{
+						MockEcosystem: "npm",
+					},
+					Metadata: osv.DepGroupMetadata{
+						DepGroupVals: []string{"dev"},
+					},
+				},
 			},
 			wantOk:    false,
 			wantEntry: PackageOverrideEntry{},
@@ -452,9 +473,13 @@ func TestConfig_ShouldIgnorePackage(t *testing.T) {
 				},
 			},
 			args: imodels.PackageInfo{
-				Name:      "bin1",
-				Version:   "1.0.0",
-				Ecosystem: ecosystem.MustParse("Alpine:3.20"),
+				Inventory: &extractor.Inventory{
+					Name:    "bin1",
+					Version: "1.0.0",
+					Extractor: ecosystemmock.Extractor{
+						MockEcosystem: "Alpine:3.20",
+					},
+				},
 			},
 			wantOk: true,
 			wantEntry: PackageOverrideEntry{
@@ -477,9 +502,13 @@ func TestConfig_ShouldIgnorePackage(t *testing.T) {
 				},
 			},
 			args: imodels.PackageInfo{
-				Name:      "bin2",
-				Version:   "1.0.0",
-				Ecosystem: ecosystem.MustParse("Alpine:3.19"),
+				Inventory: &extractor.Inventory{
+					Name:    "bin2",
+					Version: "1.0.0",
+					Extractor: ecosystemmock.Extractor{
+						MockEcosystem: "Alpine:3.19",
+					},
+				},
 			},
 			wantOk:    false,
 			wantEntry: PackageOverrideEntry{},
@@ -497,9 +526,13 @@ func TestConfig_ShouldIgnorePackage(t *testing.T) {
 				},
 			},
 			args: imodels.PackageInfo{
-				Name:      "bin1",
-				Version:   "1.0.0",
-				Ecosystem: ecosystem.MustParse("Alpine:3.20"),
+				Inventory: &extractor.Inventory{
+					Name:    "bin1",
+					Version: "1.0.0",
+					Extractor: ecosystemmock.Extractor{
+						MockEcosystem: "Alpine:3.20",
+					},
+				},
 			},
 			wantOk: true,
 			wantEntry: PackageOverrideEntry{
@@ -523,10 +556,16 @@ func TestConfig_ShouldIgnorePackage(t *testing.T) {
 				},
 			},
 			args: imodels.PackageInfo{
-				Name:      "lib1",
-				Version:   "1.0.0",
-				Ecosystem: ecosystem.MustParse("Go"),
-				DepGroups: []string{"dev"},
+				Inventory: &extractor.Inventory{
+					Name:    "lib1",
+					Version: "1.0.0",
+					Extractor: ecosystemmock.Extractor{
+						MockEcosystem: "Go",
+					},
+					Metadata: osv.DepGroupMetadata{
+						DepGroupVals: []string{"dev"},
+					},
+				},
 			},
 			wantOk: true,
 			wantEntry: PackageOverrideEntry{
@@ -549,10 +588,16 @@ func TestConfig_ShouldIgnorePackage(t *testing.T) {
 				},
 			},
 			args: imodels.PackageInfo{
-				Name:      "lib2",
-				Version:   "1.0.0",
-				Ecosystem: ecosystem.MustParse("npm"),
-				DepGroups: []string{"optional"},
+				Inventory: &extractor.Inventory{
+					Name:    "lib2",
+					Version: "1.0.0",
+					Extractor: ecosystemmock.Extractor{
+						MockEcosystem: "npm",
+					},
+					Metadata: osv.DepGroupMetadata{
+						DepGroupVals: []string{"optional"},
+					},
+				},
 			},
 			wantOk:    false,
 			wantEntry: PackageOverrideEntry{},
@@ -570,9 +615,13 @@ func TestConfig_ShouldIgnorePackage(t *testing.T) {
 				},
 			},
 			args: imodels.PackageInfo{
-				Name:      "lib2",
-				Version:   "1.0.0",
-				Ecosystem: ecosystem.MustParse("npm"),
+				Inventory: &extractor.Inventory{
+					Name:    "lib2",
+					Version: "1.0.0",
+					Extractor: ecosystemmock.Extractor{
+						MockEcosystem: "npm",
+					},
+				},
 			},
 			wantOk:    false,
 			wantEntry: PackageOverrideEntry{},
@@ -591,10 +640,16 @@ func TestConfig_ShouldIgnorePackage(t *testing.T) {
 				},
 			},
 			args: imodels.PackageInfo{
-				Name:      "lib1",
-				Version:   "1.0.0",
-				Ecosystem: ecosystem.MustParse("Go"),
-				DepGroups: []string{"dev"},
+				Inventory: &extractor.Inventory{
+					Name:    "lib1",
+					Version: "1.0.0",
+					Extractor: ecosystemmock.Extractor{
+						MockEcosystem: "Go",
+					},
+					Metadata: osv.DepGroupMetadata{
+						DepGroupVals: []string{"dev"},
+					},
+				},
 			},
 			wantOk: true,
 			wantEntry: PackageOverrideEntry{
@@ -617,10 +672,16 @@ func TestConfig_ShouldIgnorePackage(t *testing.T) {
 				},
 			},
 			args: imodels.PackageInfo{
-				Name:      "lib1",
-				Version:   "1.0.1",
-				Ecosystem: ecosystem.MustParse("Go"),
-				DepGroups: []string{"dev"},
+				Inventory: &extractor.Inventory{
+					Name:    "lib1",
+					Version: "1.0.1",
+					Extractor: ecosystemmock.Extractor{
+						MockEcosystem: "Go",
+					},
+					Metadata: osv.DepGroupMetadata{
+						DepGroupVals: []string{"dev"},
+					},
+				},
 			},
 			wantOk:    false,
 			wantEntry: PackageOverrideEntry{},
@@ -639,10 +700,16 @@ func TestConfig_ShouldIgnorePackage(t *testing.T) {
 				},
 			},
 			args: imodels.PackageInfo{
-				Name:      "lib1",
-				Version:   "1.0.0",
-				Ecosystem: ecosystem.MustParse("Go"),
-				DepGroups: []string{"dev"},
+				Inventory: &extractor.Inventory{
+					Name:    "lib1",
+					Version: "1.0.0",
+					Extractor: ecosystemmock.Extractor{
+						MockEcosystem: "Go",
+					},
+					Metadata: osv.DepGroupMetadata{
+						DepGroupVals: []string{"dev"},
+					},
+				},
 			},
 			wantOk: true,
 			wantEntry: PackageOverrideEntry{
@@ -665,10 +732,16 @@ func TestConfig_ShouldIgnorePackage(t *testing.T) {
 				},
 			},
 			args: imodels.PackageInfo{
-				Name:      "lib2",
-				Version:   "1.0.0",
-				Ecosystem: ecosystem.MustParse("npm"),
-				DepGroups: []string{"dev"},
+				Inventory: &extractor.Inventory{
+					Name:    "lib2",
+					Version: "1.0.0",
+					Extractor: ecosystemmock.Extractor{
+						MockEcosystem: "npm",
+					},
+					Metadata: osv.DepGroupMetadata{
+						DepGroupVals: []string{"dev"},
+					},
+				},
 			},
 			wantOk:    false,
 			wantEntry: PackageOverrideEntry{},
@@ -689,9 +762,13 @@ func TestConfig_ShouldIgnorePackage(t *testing.T) {
 				},
 			},
 			args: imodels.PackageInfo{
-				Name:      "lib1",
-				Version:   "1.0.0",
-				Ecosystem: ecosystem.MustParse("Go"),
+				Inventory: &extractor.Inventory{
+					Name:    "lib1",
+					Version: "1.0.0",
+					Extractor: ecosystemmock.Extractor{
+						MockEcosystem: "Go",
+					},
+				},
 			},
 			wantOk: true,
 			wantEntry: PackageOverrideEntry{
@@ -717,9 +794,13 @@ func TestConfig_ShouldIgnorePackage(t *testing.T) {
 				},
 			},
 			args: imodels.PackageInfo{
-				Name:      "lib1",
-				Version:   "1.0.0",
-				Ecosystem: ecosystem.MustParse("Go"),
+				Inventory: &extractor.Inventory{
+					Name:    "lib1",
+					Version: "1.0.0",
+					Extractor: ecosystemmock.Extractor{
+						MockEcosystem: "Go",
+					},
+				},
 			},
 			wantOk: true,
 			wantEntry: PackageOverrideEntry{
@@ -745,10 +826,16 @@ func TestConfig_ShouldIgnorePackage(t *testing.T) {
 				},
 			},
 			args: imodels.PackageInfo{
-				Name:      "lib1",
-				Version:   "1.0.0",
-				Ecosystem: ecosystem.MustParse("Go"),
-				DepGroups: []string{"dev"},
+				Inventory: &extractor.Inventory{
+					Name:    "lib1",
+					Version: "1.0.0",
+					Extractor: ecosystemmock.Extractor{
+						MockEcosystem: "Go",
+					},
+					Metadata: osv.DepGroupMetadata{
+						DepGroupVals: []string{"dev"},
+					},
+				},
 			},
 			wantOk: true,
 			wantEntry: PackageOverrideEntry{
@@ -775,10 +862,16 @@ func TestConfig_ShouldIgnorePackage(t *testing.T) {
 				},
 			},
 			args: imodels.PackageInfo{
-				Name:      "lib1",
-				Version:   "1.0.0",
-				Ecosystem: ecosystem.MustParse("Go"),
-				DepGroups: []string{"prod"},
+				Inventory: &extractor.Inventory{
+					Name:    "lib1",
+					Version: "1.0.0",
+					Extractor: ecosystemmock.Extractor{
+						MockEcosystem: "Go",
+					},
+					Metadata: osv.DepGroupMetadata{
+						DepGroupVals: []string{"prod"},
+					},
+				},
 			},
 			wantOk:    false,
 			wantEntry: PackageOverrideEntry{},
@@ -806,9 +899,13 @@ func TestConfig_ShouldIgnorePackage(t *testing.T) {
 				},
 			},
 			args: imodels.PackageInfo{
-				Name:      "lib1",
-				Version:   "2.0.0",
-				Ecosystem: ecosystem.MustParse("Go"),
+				Inventory: &extractor.Inventory{
+					Name:    "lib1",
+					Version: "2.0.0",
+					Extractor: ecosystemmock.Extractor{
+						MockEcosystem: "Go",
+					},
+				},
 			},
 			wantOk:    false,
 			wantEntry: PackageOverrideEntry{},
@@ -855,9 +952,13 @@ func TestConfig_ShouldIgnorePackageVulnerabilities(t *testing.T) {
 				},
 			},
 			args: imodels.PackageInfo{
-				Name:      "lib1",
-				Version:   "1.0.0",
-				Ecosystem: ecosystem.MustParse("Go"),
+				Inventory: &extractor.Inventory{
+					Name:    "lib1",
+					Version: "1.0.0",
+					Extractor: ecosystemmock.Extractor{
+						MockEcosystem: "Go",
+					},
+				},
 			},
 			wantOk: true,
 		},
@@ -877,9 +978,13 @@ func TestConfig_ShouldIgnorePackageVulnerabilities(t *testing.T) {
 				},
 			},
 			args: imodels.PackageInfo{
-				Name:      "lib1",
-				Version:   "1.0.1",
-				Ecosystem: ecosystem.MustParse("Go"),
+				Inventory: &extractor.Inventory{
+					Name:    "lib1",
+					Version: "1.0.1",
+					Extractor: ecosystemmock.Extractor{
+						MockEcosystem: "Go",
+					},
+				},
 			},
 			wantOk: false,
 		},
@@ -898,9 +1003,13 @@ func TestConfig_ShouldIgnorePackageVulnerabilities(t *testing.T) {
 				},
 			},
 			args: imodels.PackageInfo{
-				Name:      "lib1",
-				Version:   "1.0.1",
-				Ecosystem: ecosystem.MustParse("Go"),
+				Inventory: &extractor.Inventory{
+					Name:    "lib1",
+					Version: "1.0.1",
+					Extractor: ecosystemmock.Extractor{
+						MockEcosystem: "Go",
+					},
+				},
 			},
 			wantOk: true,
 		},
@@ -944,9 +1053,13 @@ func TestConfig_ShouldOverridePackageLicense(t *testing.T) {
 				},
 			},
 			args: imodels.PackageInfo{
-				Name:      "lib1",
-				Version:   "1.0.0",
-				Ecosystem: ecosystem.MustParse("Go"),
+				Inventory: &extractor.Inventory{
+					Name:    "lib1",
+					Version: "1.0.0",
+					Extractor: ecosystemmock.Extractor{
+						MockEcosystem: "Go",
+					},
+				},
 			},
 			wantOk: true,
 			wantEntry: PackageOverrideEntry{
@@ -975,9 +1088,13 @@ func TestConfig_ShouldOverridePackageLicense(t *testing.T) {
 				},
 			},
 			args: imodels.PackageInfo{
-				Name:      "lib1",
-				Version:   "1.0.0",
-				Ecosystem: ecosystem.MustParse("Go"),
+				Inventory: &extractor.Inventory{
+					Name:    "lib1",
+					Version: "1.0.0",
+					Extractor: ecosystemmock.Extractor{
+						MockEcosystem: "Go",
+					},
+				},
 			},
 			wantOk: true,
 			wantEntry: PackageOverrideEntry{
@@ -1006,9 +1123,13 @@ func TestConfig_ShouldOverridePackageLicense(t *testing.T) {
 				},
 			},
 			args: imodels.PackageInfo{
-				Name:      "lib1",
-				Version:   "1.0.1",
-				Ecosystem: ecosystem.MustParse("Go"),
+				Inventory: &extractor.Inventory{
+					Name:    "lib1",
+					Version: "1.0.1",
+					Extractor: ecosystemmock.Extractor{
+						MockEcosystem: "Go",
+					},
+				},
 			},
 			wantOk:    false,
 			wantEntry: PackageOverrideEntry{},
@@ -1029,9 +1150,13 @@ func TestConfig_ShouldOverridePackageLicense(t *testing.T) {
 				},
 			},
 			args: imodels.PackageInfo{
-				Name:      "lib1",
-				Version:   "1.0.1",
-				Ecosystem: ecosystem.MustParse("Go"),
+				Inventory: &extractor.Inventory{
+					Name:    "lib1",
+					Version: "1.0.1",
+					Extractor: ecosystemmock.Extractor{
+						MockEcosystem: "Go",
+					},
+				},
 			},
 			wantOk:    false,
 			wantEntry: PackageOverrideEntry{},
@@ -1051,9 +1176,13 @@ func TestConfig_ShouldOverridePackageLicense(t *testing.T) {
 				},
 			},
 			args: imodels.PackageInfo{
-				Name:      "lib1",
-				Version:   "1.0.1",
-				Ecosystem: ecosystem.MustParse("Go"),
+				Inventory: &extractor.Inventory{
+					Name:    "lib1",
+					Version: "1.0.1",
+					Extractor: ecosystemmock.Extractor{
+						MockEcosystem: "Go",
+					},
+				},
 			},
 			wantOk: true,
 			wantEntry: PackageOverrideEntry{
@@ -1080,9 +1209,13 @@ func TestConfig_ShouldOverridePackageLicense(t *testing.T) {
 				},
 			},
 			args: imodels.PackageInfo{
-				Name:      "lib1",
-				Version:   "1.0.1",
-				Ecosystem: ecosystem.MustParse("Go"),
+				Inventory: &extractor.Inventory{
+					Name:    "lib1",
+					Version: "1.0.1",
+					Extractor: ecosystemmock.Extractor{
+						MockEcosystem: "Go",
+					},
+				},
 			},
 			wantOk: true,
 			wantEntry: PackageOverrideEntry{
