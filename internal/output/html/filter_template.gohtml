@@ -15,11 +15,14 @@
           <p>All layers ({{ .VulnCount.AnalysisCount.Regular }})</p>
           {{ template "severity_summary_template.gohtml" .VulnCount.SeverityCount }}
         </div>
-        {{ range .AllLayers }}
-        <div title="{{ .LayerID}}" class="filter-option layer-filter-option">
-          <p>{{ .Index }} {{ .LayerCommand }}</p>
+        {{ range .ImageInfo.AllLayers }}
+        {{ if gt .Count.AnalysisCount.Regular 0 }}
+        <div title="{{ .LayerDiffID}}" class="filter-option layer-filter-option">
+          <p>
+          {{ .Index }} {{ .LayerCommand }}</p>
           {{ template "severity_summary_template.gohtml".Count.SeverityCount }}
         </div>
+        {{ end }}
         {{ end }}
       </div>
     </div>

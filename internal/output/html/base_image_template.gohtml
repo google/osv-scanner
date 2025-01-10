@@ -1,0 +1,56 @@
+
+<div id="base-image-section">
+  <table id="base-image-table">
+    <tr>
+      <th></th>
+      <th class="base-image-title">OS version:</th>
+      <th>{{ .ImageInfo.OS }}</th>
+    </tr>
+    {{ $totalVuln := .VulnTypeSummary.All }}
+    {{ range .ImageInfo.AllBaseImages}}
+
+    <tr {{ if gt .Count.AnalysisCount.Regular 0}}
+      id="base-image-summary-{{ .Index }}"
+      class="base-image-summary"
+      onclick="showBaseImageLayer('{{ .Index }}')"
+      {{ end }}>
+      <td class="icon-td">
+      {{ if gt .Count.AnalysisCount.Regular 0}}
+        <div class="expand-icon">
+          <i class="material-icons">play_arrow</i>
+        </div>
+      {{ end }}
+      </td>
+      <td class="base-image-title">
+      {{ if eq .Index 0}}
+      Your image:
+      {{ else }}
+      Base image {{ .Index }}:
+      {{ end }}
+      </td>
+      <td>
+        {{ getBaseImageNames . }}<span class="base-image-title"> ({{ .Count.AnalysisCount.Regular }}/{{ $totalVuln }} vulnerabilities)</span>
+      </td>
+    </tr>
+
+    <tr>
+      <td></td>
+      <td colspan="100%">
+        <div id="base-image-details-{{ .Index }}" class="base-image-details">
+          {{ range .AllLayers }}
+          <div title="{{ .LayerDiffID}}" class="layer-entry" >
+            <p><span class="base-image-title">{{ .Index }}</span> {{ .LayerCommand }}</p>
+            {{ if gt .Count.AnalysisCount.Regular 0 }}
+            {{ template "severity_summary_template.gohtml".Count.SeverityCount }}
+            {{ end }}
+          </div>
+          {{ end }}
+        </div>
+      </td>
+    </tr>
+
+    {{ end }}
+
+  </table>
+
+</div>

@@ -21,7 +21,7 @@
   {{ range $rowIndex, $element := . }}
   {{ $index := uniqueID }}
   <tr class="table-tr package-tr {{if $element.LayerDetail }}has-layer-info"
-    data-layer="{{ $element.LayerDetail.LayerID }}{{ end }}" id="table-tr-{{ $index }}" onclick="showPackageDetails('{{ $index }}')">
+    data-layer="{{ $element.LayerDetail.LayerDiffID }}{{ end }}" id="table-tr-{{ $index }}" onclick="showPackageDetails('{{ $index }}')">
     <td class="icon-td">
       <div class="expand-icon">
         <i class="material-icons">play_arrow</i>
@@ -55,19 +55,19 @@
   <tr>
     <td colspan="100%">
       <div id="table-tr-{{ $index }}-details" class="package-details">
-        {{ if and $element.LayerDetail (not (eq $element.LayerDetail.LayerID "")) }}
+        {{ if and $element.LayerDetail (not (eq $element.LayerDetail.LayerDiffID "")) }}
         <div class="layer-command-container">
           <span class="package-detail-title">Layer introduced in:</span>
-          {{ if ne $element.LayerDetail.LayerCommandDetailed "" }}
-          <div class="tooltip">{{ $element.LayerDetail.LayerCommand }}
-            <span class="tooltiptext">{{ $element.LayerDetail.LayerCommandDetailed }}</span>
+          {{ if ne $element.LayerDetail.LayerInfo.LayerCommandDetailed "" }}
+          <div class="tooltip">{{ $element.LayerDetail.LayerInfo.LayerCommand }}
+            <span class="tooltiptext">{{ $element.LayerDetail.LayerInfo.LayerCommandDetailed }}</span>
           </div>
           {{ else }}
-          <div>{{ $element.LayerDetail.LayerCommand }}</div>
+          <div>{{ $element.LayerDetail.LayerInfo.LayerCommand }}</div>
           {{ end }}
         </div>
-        <p><span class="package-detail-title">Layer ID:</span> {{ $element.LayerDetail.LayerID }}</p>
-        <p><span class="package-detail-title">In base image:</span> {{ $element.LayerDetail.InBaseImage }}</p>
+        <p><span class="package-detail-title">Layer ID:</span> {{ $element.LayerDetail.LayerInfo.LayerDiffID }}</p>
+        <p><span class="package-detail-title">In base image:</span> {{ if eq $element.LayerDetail.LayerInfo.BaseImageIndex 0}} False {{ else }} True ({{ getBaseImageNames $element.LayerDetail.BaseImageInfo }}){{ end }}</p>
         {{ end }}
         {{ template "vuln_table_template.gohtml" $element }}
       </div>

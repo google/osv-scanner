@@ -20,7 +20,7 @@ type Result struct {
 	Ecosystems []EcosystemResult
 	// Container scanning related
 	IsContainerScanning bool
-	AllLayers           []LayerInfo
+	ImageInfo           ImageInfo
 	VulnTypeSummary     VulnTypeSummary
 	PackageTypeCount    AnalysisCount
 	VulnCount           VulnCount
@@ -49,7 +49,7 @@ type PackageResult struct {
 	FixedVersion     string
 	RegularVulns     []VulnResult
 	HiddenVulns      []VulnResult
-	LayerDetail      PackageLayerDetail
+	LayerDetail      PackageContainerInfo
 	VulnCount        VulnCount
 }
 
@@ -65,19 +65,38 @@ type VulnResult struct {
 	SeverityScore    string
 }
 
-// PackageLayerDetail represents detailed layer tracing information about a package.
-type PackageLayerDetail struct {
-	LayerCommand         string
-	LayerCommandDetailed string
-	LayerID              string
-	InBaseImage          bool
+type ImageInfo struct {
+	OS            string
+	AllLayers     []LayerInfo
+	AllBaseImages []BaseImageGroupInfo
+}
+
+// PackageContainerInfo represents detailed layer tracing information about a package.
+type PackageContainerInfo struct {
+	LayerDiffID   string
+	LayerInfo     LayerInfo
+	BaseImageInfo BaseImageGroupInfo
+}
+
+type BaseImageGroupInfo struct {
+	Index         int
+	BaseImageInfo []BaseImageInfo
+	AllLayers     []LayerInfo
+	Count         VulnCount
+}
+
+type BaseImageInfo struct {
+	Name string
+	Tags []string
 }
 
 type LayerInfo struct {
-	Index        int
-	LayerCommand string
-	LayerID      string
-	Count        VulnCount
+	Index                int
+	LayerDiffID          string
+	LayerCommand         string
+	LayerCommandDetailed string
+	BaseImageIndex       int
+	Count                VulnCount
 }
 
 // VulnSummary represents the count of each vulnerability type at the top level
@@ -150,13 +169,14 @@ func PrintResults(vulnResult *models.VulnerabilityResults, outputWriter io.Write
 func BuildResults(vulnResult *models.VulnerabilityResults) Result {
 	var ecosystemMap = make(map[string][]SourceResult)
 	var resultCount VulnCount
+	outputResult := Result{}
 
 	for _, packageSource := range vulnResult.Results {
 		// Temporary workaround: it is a heuristic to ignore installed packages
 		// which are already covered by OS-specific vulnerabilities.
 		// This filtering should be handled by the container scanning process.
 		// TODO(gongh@): Revisit this once container scanning can distinguish these cases.
-		if strings.Contains(packageSource.Source.String(), "/usr/lib/") {
+		if strings.HasPrefix(packageSource.Source.Path, "usr/lib/") {
 			continue
 		}
 
@@ -166,14 +186,68 @@ func BuildResults(vulnResult *models.VulnerabilityResults) Result {
 		resultCount.Add(sourceResult.VulnCount)
 	}
 
-	// Build the final result
-	return buildResult(ecosystemMap, resultCount)
+	addEcosystemResult(&outputResult, ecosystemMap, resultCount, vulnResult.ImageMetadata)
+	return outputResult
 }
 
-// buildResult builds the final Result object from the ecosystem map and total vulnerability count.
-func buildResult(ecosystemMap map[string][]SourceResult, resultCount VulnCount) Result {
+func buildLayerBaseImageMap(imageMetadata models.ImageMetadata) (map[string]*PackageContainerInfo, []LayerInfo, []BaseImageGroupInfo) {
+	layerMap := make(map[string]*PackageContainerInfo)
+	allLayers := getAllLayers(imageMetadata.LayerMetadata)
+	allBaseImages := getAllBaseImages(imageMetadata.BaseImages)
+
+	for i := range allLayers {
+		layerMap[allLayers[i].LayerDiffID] = &PackageContainerInfo{
+			LayerDiffID:   allLayers[i].LayerDiffID,
+			LayerInfo:     allLayers[i],
+			BaseImageInfo: allBaseImages[allLayers[i].BaseImageIndex],
+		}
+	}
+
+	return layerMap, allLayers, allBaseImages
+}
+
+func getAllBaseImages(baseImages [][]models.BaseImageDetails) []BaseImageGroupInfo {
+	var allBaseImages []BaseImageGroupInfo
+	for i, baseImage := range baseImages {
+		var baseImageRepos []BaseImageInfo
+		for _, baseImageRepo := range baseImage {
+			baseImage := BaseImageInfo{
+				Name: baseImageRepo.Name,
+				Tags: baseImageRepo.Tags,
+			}
+
+			baseImageRepos = append(baseImageRepos, baseImage)
+		}
+
+		baseImageInfo := BaseImageGroupInfo{
+			Index:         i,
+			BaseImageInfo: baseImageRepos,
+		}
+		allBaseImages = append(allBaseImages, baseImageInfo)
+	}
+
+	return allBaseImages
+}
+
+func getAllLayers(layerMetadata []models.LayerMetadata) []LayerInfo {
+	var allLayers []LayerInfo
+	for i, layer := range layerMetadata {
+		layerInfo := LayerInfo{
+			Index:          i,
+			LayerDiffID:    layer.DiffID,
+			BaseImageIndex: layer.BaseImageIndex,
+		}
+		layerInfo.LayerCommand, layerInfo.LayerCommandDetailed = formatLayerCommand(layer.Command)
+		allLayers = append(allLayers, layerInfo)
+	}
+	return allLayers
+}
+
+// addEcosystemResult builds the final Result object from the ecosystem map and total vulnerability count.
+func addEcosystemResult(result *Result, ecosystemMap map[string][]SourceResult, resultCount VulnCount, imageMetadata *models.ImageMetadata) {
 	var ecosystemResults []EcosystemResult
 	var osResults []EcosystemResult
+
 	for ecosystem, sources := range ecosystemMap {
 		ecosystemResult := EcosystemResult{
 			Name:    ecosystem,
@@ -201,21 +275,99 @@ func buildResult(ecosystemMap map[string][]SourceResult, resultCount VulnCount) 
 	// Add project results before OS results
 	ecosystemResults = append(ecosystemResults, osResults...)
 
-	isContainerScanning := false
-	layers := getAllLayerInfo(ecosystemResults)
-	if len(layers) > 0 {
-		isContainerScanning = true
-	}
 	vulnTypeSummary := getVulnTypeSummary(ecosystemResults)
 	packageTypeCount := getPackageTypeCount(ecosystemResults)
 
-	return Result{
-		Ecosystems:          ecosystemResults,
-		VulnTypeSummary:     vulnTypeSummary,
-		PackageTypeCount:    packageTypeCount,
-		VulnCount:           resultCount,
-		IsContainerScanning: isContainerScanning,
-		AllLayers:           layers,
+	result.Ecosystems = ecosystemResults
+	result.VulnTypeSummary = vulnTypeSummary
+	result.PackageTypeCount = packageTypeCount
+	result.VulnCount = resultCount
+
+	updateLayerCount(result, *imageMetadata)
+}
+
+func updateLayerCount(result *Result, imageMetadata models.ImageMetadata) { // Takes a pointer to Result
+
+	layerMap, allLayers, allBaseImages := buildLayerBaseImageMap(imageMetadata)
+
+	layerCount := make(map[string]VulnCount)
+	baseImageCount := make(map[int]VulnCount)
+
+	for i := range allLayers {
+		layerCount[allLayers[i].LayerDiffID] = VulnCount{}
+	}
+
+	for i := range allBaseImages {
+		baseImageCount[i] = VulnCount{}
+	}
+
+	// Calculate total vulns for each layer and base image.
+	for _, ecosystem := range result.Ecosystems {
+		for _, source := range ecosystem.Sources {
+			for _, pkg := range source.Packages {
+				layerDiffID := pkg.LayerDetail.LayerDiffID
+				resultCount := layerCount[layerDiffID]
+				resultCount.Add(pkg.VulnCount)
+				layerCount[layerDiffID] = resultCount
+
+				baseImageIndex := pkg.LayerDetail.LayerInfo.BaseImageIndex
+				imageResultCount := baseImageCount[baseImageIndex]
+				imageResultCount.Add(pkg.VulnCount)
+				baseImageCount[baseImageIndex] = imageResultCount
+			}
+		}
+	}
+
+	baseImageMap := make(map[int][]LayerInfo)
+
+	// Update LayerMap
+	for layerDiffID := range layerMap {
+		containerInfo := layerMap[layerDiffID]
+		containerInfo.LayerInfo.Count = layerCount[layerDiffID]
+
+		baseImageIndex := layerMap[layerDiffID].LayerInfo.BaseImageIndex
+		layerMap[layerDiffID].BaseImageInfo.Count = baseImageCount[baseImageIndex]
+
+		baseImageMap[baseImageIndex] = append(baseImageMap[baseImageIndex], containerInfo.LayerInfo)
+	}
+
+	// Add ImageInfo
+	for i := range allLayers {
+		allLayers[i].Count = layerMap[allLayers[i].LayerDiffID].LayerInfo.Count
+	}
+
+	for i := range allBaseImages {
+		allBaseImages[i].Count = baseImageCount[i]
+		slices.SortFunc(baseImageMap[i], func(a, b LayerInfo) int {
+			return cmp.Compare(a.Index, b.Index)
+		})
+		allBaseImages[i].AllLayers = baseImageMap[i]
+	}
+
+	slices.SortFunc(allBaseImages, func(a, b BaseImageGroupInfo) int {
+		return cmp.Compare(b.Index, a.Index)
+	})
+
+	result.ImageInfo = ImageInfo{
+		OS:            imageMetadata.OS,
+		AllLayers:     allLayers,
+		AllBaseImages: allBaseImages,
+	}
+
+	if len(allLayers) != 0 {
+		result.IsContainerScanning = true
+	}
+
+	// Fill up Layer info for each package
+	for i := range result.Ecosystems {
+		for j := range result.Ecosystems[i].Sources {
+			for k := range result.Ecosystems[i].Sources[j].Packages {
+				// Pointer to packageInfo to modify directly.
+				packageInfo := &result.Ecosystems[i].Sources[j].Packages[k]
+				layerDiffID := packageInfo.LayerDetail.LayerDiffID
+				packageInfo.LayerDetail = *layerMap[layerDiffID]
+			}
+		}
 	}
 }
 
@@ -235,6 +387,11 @@ func processSource(packageSource models.PackageSource) SourceResult {
 			continue
 		}
 		packageResult := processPackage(vulnPkg)
+		if vulnPkg.Package.ImageOrigin != nil {
+			packageResult.LayerDetail = PackageContainerInfo{
+				LayerDiffID: vulnPkg.Package.ImageOrigin.DiffID,
+			}
+		}
 		packages = append(packages, packageResult)
 		packageSet[key] = struct{}{}
 
@@ -285,15 +442,6 @@ func processPackage(vulnPkg models.PackageVulns) PackageResult {
 		RegularVulns:     regularVulnList,
 		HiddenVulns:      hiddenVulnList,
 		VulnCount:        count,
-	}
-
-	if vulnPkg.Package.ImageOrigin != nil {
-		packageLayerDetail := PackageLayerDetail{
-			LayerID:     vulnPkg.Package.ImageOrigin.LayerID,
-			InBaseImage: vulnPkg.Package.ImageOrigin.InBaseImage,
-		}
-		packageLayerDetail.LayerCommand, packageLayerDetail.LayerCommandDetailed = formatLayerCommand(vulnPkg.Package.ImageOrigin.OriginCommand)
-		packageResult.LayerDetail = packageLayerDetail
 	}
 
 	return packageResult
@@ -496,6 +644,14 @@ func getFilteredVulnReasons(vulns []VulnResult) string {
 	return strings.Join(reasons, ", ")
 }
 
+func getBaseImageNames(baseImageInfo BaseImageGroupInfo) string {
+	var names []string
+	for _, baseImageInfo := range baseImageInfo.BaseImageInfo {
+		names = append(names, baseImageInfo.Name)
+	}
+	return strings.Join(names, ", ")
+}
+
 func increaseSeverityCount(severityCount SeverityCount, severityType severity.Rating) SeverityCount {
 	switch severityType {
 	case severity.CriticalRating:
@@ -521,44 +677,6 @@ func isOSEcosystem(ecosystem string) bool {
 	}
 
 	return false
-}
-
-func getAllLayerInfo(result []EcosystemResult) []LayerInfo {
-	layerMap := make(map[string]string)
-	layerCount := make(map[string]VulnCount)
-
-	for _, ecosystem := range result {
-		for _, source := range ecosystem.Sources {
-			for _, packageInfo := range source.Packages {
-				layerID := packageInfo.LayerDetail.LayerID
-				layerCommand := packageInfo.LayerDetail.LayerCommand
-
-				resultCount := layerCount[layerID] // Access the count, returns empty VulnCount if not found
-				resultCount.Add(packageInfo.VulnCount)
-				layerCount[layerID] = resultCount
-				layerMap[layerID] = layerCommand // Store the layer ID and command
-			}
-		}
-	}
-
-	// Convert the map to a slice of LayerInfo
-	layers := make([]LayerInfo, 0, len(layerMap))
-	i := 0
-	for layerID, layerCommand := range layerMap {
-		if layerCommand == "" {
-			continue
-		}
-		layers = append(layers, LayerInfo{
-			// TODO(gongh@): replace with the actual layer index
-			Index:        i,
-			LayerCommand: layerCommand,
-			LayerID:      layerID,
-			Count:        layerCount[layerID],
-		})
-		i++
-	}
-
-	return layers
 }
 
 func getVulnTypeSummary(result []EcosystemResult) VulnTypeSummary {

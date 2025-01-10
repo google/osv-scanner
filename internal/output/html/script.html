@@ -1,4 +1,22 @@
 <script>
+  function showBaseImageLayer(imageID) {
+    var detailElementID = "base-image-details-" + imageID
+    var detailsElement = document.getElementById(detailElementID);
+
+    const icon = document.querySelector(
+      `#base-image-summary-${imageID} .material-icons`
+    ); // Select the icon within the row
+    if (detailsElement.style.display !== "block") {
+      detailsElement.style.display = "block";
+      icon.style.transform = "rotate(90deg)"; // Rotate 90 degrees
+      icon.style.transition = "transform 0.2s ease"; // Add smooth transition
+    } else {
+      detailsElement.style.display = "none";
+      icon.style.transform = "rotate(0deg)"; // Rotate back to 0 degrees
+      icon.style.transition = "transform 0.2s ease"; // Add smooth transition
+    }
+  }
+
   function showPackageDetails(detailsId) {
     var detailsElement = document.getElementById(
       "table-tr-" + detailsId + "-details"
