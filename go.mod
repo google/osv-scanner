@@ -151,4 +151,4 @@ require (
 	www.velocidex.com/golang/regparser v0.0.0-20240404115756-2169ac0e3c09 // indirect
 )
 
-replace github.com/google/osv-scalibr => github.com/another-rex/osv-scalibr v0.0.0-20250107005511-4051898dffce
+replace github.com/google/osv-scalibr => github.com/another-rex/osv-scalibr v0.0.0-20250113043556-cd04d9064a2d
