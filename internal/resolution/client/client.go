@@ -88,16 +88,7 @@ func PreFetch(ctx context.Context, c DependencyClient, requirements []resolve.Re
 			if err != nil || len(vks) == 0 {
 				continue
 			}
-
 			vk = vks[len(vks)-1]
-
-			// We prefer the exact version for soft requirements.
-			for _, v := range vks {
-				if im.Version == v.Version {
-					vk = v
-					break
-				}
-			}
 		}
 
 		// Make a request for the precomputed dependency tree
