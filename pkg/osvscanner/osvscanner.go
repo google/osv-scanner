@@ -7,6 +7,7 @@ import (
 	"fmt"
 	"os"
 	"os/exec"
+	"strings"
 	"time"
 
 	"github.com/google/osv-scalibr/artifact/image/layerscanning/image"
@@ -255,6 +256,13 @@ func DoContainerScan(actions ScannerActions, r reporter.Reporter) (models.Vulner
 }
 
 func exportDockerImage(r reporter.Reporter, dockerImageName string) (string, error) {
+	// Skip saving if the file is already a tar archive.
+	if strings.Contains(dockerImageName, ".tar") {
+		if _, err := os.Stat(dockerImageName); err == nil {
+			return dockerImageName, nil
+		}
+	}
+
 	tempImageFile, err := os.CreateTemp("", "docker-image-*.tar")
 	if err != nil {
 		r.Errorf("Failed to create temporary file: %s\n", err)
@@ -266,10 +274,15 @@ func exportDockerImage(r reporter.Reporter, dockerImageName string) (string, err
 		return "", err
 	}
 
-	r.Infof("Pulling docker image (%q)...\n", dockerImageName)
-	err = runCommandLogError(r, "docker", "pull", "-q", dockerImageName)
-	if err != nil {
-		return "", fmt.Errorf("failed to pull container image: %w", err)
+	// Check if image exists locally, if not, pull from the cloud.
+	cmd := exec.Command("docker", "images", "-q", dockerImageName)
+	output, err := cmd.Output()
+	if err != nil || string(output) == "" {
+		r.Infof("Pulling docker image (%q)...\n", dockerImageName)
+		err = runCommandLogError(r, "docker", "pull", "-q", dockerImageName)
+		if err != nil {
+			return "", fmt.Errorf("failed to pull container image: %w", err)
+		}
 	}
 
 	r.Infof("Saving docker image (%q) to temporary file...\n", dockerImageName)
