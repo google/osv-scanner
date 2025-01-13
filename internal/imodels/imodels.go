@@ -164,20 +164,13 @@ func FromInventory(inventory *extractor.Inventory) PackageInfo {
 type PackageScanResult struct {
 	PackageInfo PackageInfo
 	// TODO: Use osvschema.Vulnerability instead
-	Vulnerabilities    []*models.Vulnerability
-	Licenses           []models.License
-	ImageOriginLayerID string
+	Vulnerabilities []*models.Vulnerability
+	Licenses        []models.License
+	LayerDetails    *extractor.LayerDetails
 
 	// TODO(v2):
 	// SourceAnalysis *SourceAnalysis
 	// Any additional scan enrichment steps
-}
-
-type ImageMetadata struct {
-	// TODO:
-	// OS
-	// BaseImage
-	// LayerMetadata []LayerMetadata
 }
 
 // SourceType categorizes packages based on the extractor that extracted
