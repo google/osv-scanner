@@ -1,0 +1,11 @@
+{
+    "name": "module_1_foo",
+    "description": "",
+    "version": "0.1.0",
+    "dependencies": {
+        "lodash": "<4.17.21"
+    },
+    "devDependencies": {
+        "debug": "<4.3.7"
+    }
+  }

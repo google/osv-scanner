@@ -27,25 +27,18 @@ type PackageDetailsParser = func(pathToLockfile string) ([]PackageDetails, error
 
 // IsDevGroup returns if any string in groups indicates the development dependency group for the specified ecosystem.
 func (sys Ecosystem) IsDevGroup(groups []string) bool {
-	dev := ""
 	switch sys {
-	case ComposerEcosystem, NpmEcosystem, PipEcosystem, PubEcosystem:
+	case NpmEcosystem:
+		return sys.isNpmDevGroup(groups)
+	case ComposerEcosystem, PipEcosystem, PubEcosystem:
 		// Also PnpmEcosystem(=NpmEcosystem) and PipenvEcosystem(=PipEcosystem,=PoetryEcosystem).
-		dev = "dev"
+		return sys.isDevGroup(groups, "dev")
 	case ConanEcosystem:
-		dev = "build-requires"
+		return sys.isDevGroup(groups, "build-requires")
 	case MavenEcosystem:
 		return sys.isMavenDevGroup(groups)
-	case AlpineEcosystem, BundlerEcosystem, CargoEcosystem, CRANEcosystem,
-		DebianEcosystem, GoEcosystem, MixEcosystem, NuGetEcosystem:
-		// We are not able to report development dependencies for these ecosystems.
+	case AlpineEcosystem, DebianEcosystem, CargoEcosystem, BundlerEcosystem, GoEcosystem, MixEcosystem, NuGetEcosystem, CRANEcosystem:
 		return false
-	}
-
-	for _, g := range groups {
-		if g == dev {
-			return true
-		}
 	}
 
 	return false
@@ -59,6 +52,37 @@ func (sys Ecosystem) isMavenDevGroup(groups []string) bool {
 
 	for _, g := range groups {
 		if !strings.HasPrefix(g, "test") {
+			return false
+		}
+	}
+
+	return true
+}
+
+func (sys Ecosystem) isNpmDevGroup(groups []string) bool {
+	containsDev := false
+
+	if len(groups) == 0 {
+		return false
+	}
+	for _, g := range groups {
+		if g != "dev" && g != "optional" {
+			return false
+		} else if g == "dev" {
+			containsDev = true
+		}
+	}
+
+	return containsDev
+}
+
+func (sys Ecosystem) isDevGroup(groups []string, devGroupName string) bool {
+	if len(groups) == 0 {
+		return false
+	}
+
+	for _, g := range groups {
+		if g != devGroupName {
 			return false
 		}
 	}

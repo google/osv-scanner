@@ -233,6 +233,7 @@ func TestParsePnpmLock_OnePackageDev(t *testing.T) {
 			Ecosystem:      lockfile.PnpmEcosystem,
 			CompareAs:      lockfile.PnpmEcosystem,
 			IsDirect:       true,
+			DepGroups:      []string{"dev"},
 		},
 	})
 }

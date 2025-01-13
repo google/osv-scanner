@@ -1,0 +1,12 @@
+{
+    "name": "main_module",
+    "description": "",
+    "version": "0.1.0",
+    "private": true,
+    "dependencies": {
+
+    },
+    "devDependencies": {
+        "debug": "2.6.9"
+    }
+  }
