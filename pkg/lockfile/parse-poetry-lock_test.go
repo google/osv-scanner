@@ -210,3 +210,93 @@ func TestParsePoetryLock_OptionalPackage(t *testing.T) {
 		},
 	})
 }
+
+func TestParsePoetryLock_v2_MultiplePackages(t *testing.T) {
+	t.Parallel()
+
+	packages, err := lockfile.ParsePoetryLock("fixtures/poetry/multiple-packages.v2.lock")
+
+	if err != nil {
+		t.Errorf("Got unexpected error: %v", err)
+	}
+
+	expectPackages(t, packages, []lockfile.PackageDetails{
+		{
+			Name:      "async-timeout",
+			Version:   "5.0.1",
+			Ecosystem: lockfile.PoetryEcosystem,
+			CompareAs: lockfile.PoetryEcosystem,
+			DepGroups: []string{"optional"},
+		},
+		{
+			Name:      "factory-boy",
+			Version:   "3.3.1",
+			Ecosystem: lockfile.PoetryEcosystem,
+			CompareAs: lockfile.PoetryEcosystem,
+			DepGroups: []string{"dev"},
+		},
+		{
+			Name:      "faker",
+			Version:   "33.3.0",
+			Ecosystem: lockfile.PoetryEcosystem,
+			CompareAs: lockfile.PoetryEcosystem,
+			DepGroups: []string{"dev", "test"},
+		},
+		{
+			Name:      "proto-plus",
+			Version:   "1.22.0",
+			Ecosystem: lockfile.PoetryEcosystem,
+			CompareAs: lockfile.PoetryEcosystem,
+			DepGroups: []string{},
+		},
+		{
+			Name:      "proto-plus",
+			Version:   "1.23.0",
+			Ecosystem: lockfile.PoetryEcosystem,
+			CompareAs: lockfile.PoetryEcosystem,
+			DepGroups: []string{},
+		},
+		{
+			Name:      "protobuf",
+			Version:   "4.25.5",
+			Ecosystem: lockfile.PoetryEcosystem,
+			CompareAs: lockfile.PoetryEcosystem,
+			DepGroups: []string{},
+		},
+		{
+			Name:      "python-dateutil",
+			Version:   "2.9.0.post0",
+			Ecosystem: lockfile.PoetryEcosystem,
+			CompareAs: lockfile.PoetryEcosystem,
+			DepGroups: []string{"dev", "test"},
+		},
+		{
+			Name:      "six",
+			Version:   "1.17.0",
+			Ecosystem: lockfile.PoetryEcosystem,
+			CompareAs: lockfile.PoetryEcosystem,
+			DepGroups: []string{},
+		},
+		{
+			Name:      "typing-extensions",
+			Version:   "4.12.2",
+			Ecosystem: lockfile.PoetryEcosystem,
+			CompareAs: lockfile.PoetryEcosystem,
+			DepGroups: []string{"dev", "test"},
+		},
+		{
+			Name:      "urllib3",
+			Version:   "2.3.0",
+			Ecosystem: lockfile.PoetryEcosystem,
+			CompareAs: lockfile.PoetryEcosystem,
+			DepGroups: []string{"dev"},
+		},
+		{
+			Name:      "redis",
+			Version:   "5.2.1",
+			Ecosystem: lockfile.PoetryEcosystem,
+			CompareAs: lockfile.PoetryEcosystem,
+			DepGroups: []string{"optional"},
+		},
+	})
+}
