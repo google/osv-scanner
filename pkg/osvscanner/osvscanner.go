@@ -3,10 +3,13 @@ package osvscanner
 import (
 	"bufio"
 	"context"
+	"encoding/json"
 	"errors"
 	"fmt"
+	"net/http"
 	"os"
 	"os/exec"
+	"slices"
 	"time"
 
 	"github.com/google/osv-scalibr/artifact/image/layerscanning/image"
@@ -16,6 +19,7 @@ import (
 	"github.com/google/osv-scalibr/extractor/filesystem/os/apk"
 	"github.com/google/osv-scalibr/extractor/filesystem/os/dpkg"
 	"github.com/google/osv-scalibr/extractor/filesystem/os/osrelease"
+	"github.com/google/osv-scalibr/log"
 	"github.com/google/osv-scanner/internal/clients/clientimpl/localmatcher"
 	"github.com/google/osv-scanner/internal/clients/clientimpl/osvmatcher"
 	"github.com/google/osv-scanner/internal/clients/clientinterfaces"
@@ -28,6 +32,7 @@ import (
 	"github.com/google/osv-scanner/internal/scalibrextract/language/javascript/nodemodules"
 	"github.com/google/osv-scanner/pkg/models"
 	"github.com/google/osv-scanner/pkg/reporter"
+	"github.com/opencontainers/go-digest"
 	"github.com/ossf/osv-schema/bindings/go/osvschema"
 
 	scalibr "github.com/google/osv-scalibr"
@@ -146,6 +151,12 @@ func DoContainerScan(actions ScannerActions, r reporter.Reporter) (models.Vulner
 
 	// --- Fill Image Metadata ---
 	{
+		// depsdevClient, err := datasource.NewDepsDevAlphaAPIClient(depsdev.DepsdevAPI)
+		if err != nil {
+			return models.VulnerabilityResults{}, err
+
+		}
+
 		// Ignore error, as if this would error we would have failed the initial scan
 		chainLayers, _ := img.ChainLayers()
 		m, err := osrelease.GetOSRelease(chainLayers[len(chainLayers)-1].FS())
@@ -161,13 +172,95 @@ func DoContainerScan(actions ScannerActions, r reporter.Reporter) (models.Vulner
 				Command: cl.Layer().Command(),
 				IsEmpty: cl.Layer().IsEmpty(),
 			})
+
 		}
 
 		scanResult.ImageMetadata = &models.ImageMetadata{
 			// TODO: Not yet filled in
-			BaseImages:    [][]models.BaseImageDetails{},
+			BaseImages: [][]models.BaseImageDetails{
+				// The base image at index 0 is a placeholder representing your image, so always empty
+				// This is the case even if your image is a base image, in that case no layers point to index 0
+				{},
+			},
 			OS:            OS,
 			LayerMetadata: layerMetadata,
+		}
+
+		var runningDigest digest.Digest
+		chainIDs := []digest.Digest{}
+
+		for i, cl := range chainLayers {
+			var diffDigest digest.Digest
+			if cl.Layer().DiffID() == "" {
+				chainIDs = append(chainIDs, "")
+				continue
+			}
+
+			diffDigest = digest.NewDigestFromEncoded(digest.SHA256, cl.Layer().DiffID())
+
+			if i == 0 {
+				runningDigest = diffDigest
+			} else {
+				runningDigest = digest.FromBytes([]byte(runningDigest + " " + diffDigest))
+			}
+
+			chainIDs = append(chainIDs, runningDigest)
+		}
+
+		currentBaseImageIndex := 0
+		client := http.DefaultClient
+		for i, cid := range slices.Backward(chainIDs) {
+			if cid == "" {
+				scanResult.ImageMetadata.LayerMetadata[i].BaseImageIndex = currentBaseImageIndex
+				continue
+			}
+
+			resp, err := client.Get("https://api.deps.dev/v3alpha/querycontainerimages/" + cid.String())
+			if err != nil {
+				log.Errorf("API DEPS DEV ERROR: %s", err)
+				continue
+			}
+
+			if resp.StatusCode == http.StatusNotFound {
+				scanResult.ImageMetadata.LayerMetadata[i].BaseImageIndex = currentBaseImageIndex
+				continue
+			}
+
+			if resp.StatusCode != http.StatusOK {
+				log.Errorf("API DEPS DEV ERROR: %s", resp.Status)
+				continue
+			}
+
+			d := json.NewDecoder(resp.Body)
+
+			type baseImageEntry struct {
+				Repository string `json:"repository"`
+			}
+			type baseImageResults struct {
+				Results []baseImageEntry `json:"results"`
+			}
+
+			var results baseImageResults
+			err = d.Decode(&results)
+			if err != nil {
+				log.Errorf("API DEPS DEV ERROR: %s", err)
+				continue
+			}
+
+			baseImagePossibilities := []models.BaseImageDetails{}
+			for _, r := range results.Results {
+				baseImagePossibilities = append(baseImagePossibilities, models.BaseImageDetails{
+					Name: r.Repository,
+				})
+			}
+
+			slices.SortFunc(baseImagePossibilities, func(a, b models.BaseImageDetails) int {
+				return len(a.Name) - len(b.Name)
+			})
+
+			scanResult.ImageMetadata.BaseImages = append(scanResult.ImageMetadata.BaseImages, baseImagePossibilities)
+			currentBaseImageIndex += 1
+			scanResult.ImageMetadata.LayerMetadata[i].BaseImageIndex = currentBaseImageIndex
 		}
 	}
 
