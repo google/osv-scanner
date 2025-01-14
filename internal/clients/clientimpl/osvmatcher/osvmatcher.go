@@ -9,6 +9,7 @@ import (
 	"github.com/google/osv-scalibr/extractor"
 	"github.com/google/osv-scalibr/log"
 	"github.com/google/osv-scanner/internal/imodels"
+	"github.com/google/osv-scanner/internal/imodels/ecosystem"
 	"github.com/google/osv-scanner/internal/osvdev"
 	"github.com/google/osv-scanner/internal/semantic"
 	"github.com/google/osv-scanner/pkg/models"
@@ -30,7 +31,7 @@ type OSVMatcher struct {
 	InitialQueryTimeout time.Duration
 }
 
-func (matcher *OSVMatcher) Match(ctx context.Context, pkgs []*extractor.Inventory) ([][]*models.Vulnerability, error) {
+func (matcher *OSVMatcher) MatchVulnerabilities(ctx context.Context, pkgs []*extractor.Inventory) ([][]*models.Vulnerability, error) {
 	var batchResp *osvdev.BatchedResponse
 	deadlineExceeded := false
 
@@ -155,19 +156,19 @@ func queryForBatchWithPaging(ctx context.Context, c *osvdev.OSVClient, queries [
 }
 
 func pkgToQuery(pkg imodels.PackageInfo) *osvdev.Query {
-	if pkg.Name != "" && !pkg.Ecosystem.IsEmpty() && pkg.Version != "" {
+	if pkg.Name() != "" && !pkg.Ecosystem().IsEmpty() && pkg.Version() != "" {
 		return &osvdev.Query{
 			Package: osvdev.Package{
-				Name:      pkg.Name,
-				Ecosystem: pkg.Ecosystem.String(),
+				Name:      pkg.Name(),
+				Ecosystem: pkg.Ecosystem().String(),
 			},
-			Version: pkg.Version,
+			Version: pkg.Version(),
 		}
 	}
 
-	if pkg.Commit != "" {
+	if pkg.Commit() != "" {
 		return &osvdev.Query{
-			Commit: pkg.Commit,
+			Commit: pkg.Commit(),
 		}
 	}
 
@@ -184,16 +185,16 @@ func invsToQueries(invs []*extractor.Inventory) []*osvdev.Query {
 
 	for i, inv := range invs {
 		pkg := imodels.FromInventory(inv)
-		pkg = patchPackageForRequest(pkg)
 		queries[i] = pkgToQuery(pkg)
+		patchQueryForRequest(queries[i])
 	}
 
 	return queries
 }
 
-// patchPackageForRequest modifies packages before they are sent to osv.dev to
+// patchQueryForRequest modifies packages before they are sent to osv.dev to
 // account for edge cases.
-func patchPackageForRequest(pkg imodels.PackageInfo) imodels.PackageInfo {
+func patchQueryForRequest(queryToPatch *osvdev.Query) {
 	// Assume Go stdlib patch version as the latest version
 	//
 	// This is done because go1.20 and earlier do not support patch
@@ -202,10 +203,12 @@ func patchPackageForRequest(pkg imodels.PackageInfo) imodels.PackageInfo {
 	// However, if we assume patch version as .0, this will cause a lot of
 	// false positives. This compromise still allows osv-scanner to pick up
 	// when the user is using a minor version that is out-of-support.
-	if pkg.Name == "stdlib" && pkg.Ecosystem.Ecosystem == osvschema.EcosystemGo {
-		v := semantic.ParseSemverLikeVersion(pkg.Version, 3)
+	//
+	// MustParse works here because this query is converted from a valid ecosystem in the first place
+	if queryToPatch.Package.Name == "stdlib" && ecosystem.MustParse(queryToPatch.Package.Ecosystem).Ecosystem == osvschema.EcosystemGo {
+		v := semantic.ParseSemverLikeVersion(queryToPatch.Version, 3)
 		if len(v.Components) == 2 {
-			pkg.Version = fmt.Sprintf(
+			queryToPatch.Version = fmt.Sprintf(
 				"%d.%d.%d",
 				v.Components.Fetch(0),
 				v.Components.Fetch(1),
@@ -213,6 +216,4 @@ func patchPackageForRequest(pkg imodels.PackageInfo) imodels.PackageInfo {
 			)
 		}
 	}
-
-	return pkg
 }

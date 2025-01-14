@@ -6,8 +6,6 @@ import (
 	"fmt"
 	"os"
 	"path"
-	"slices"
-	"strings"
 
 	"github.com/google/osv-scalibr/extractor"
 	"github.com/google/osv-scanner/internal/imodels"
@@ -26,6 +24,8 @@ type LocalMatcher struct {
 	dbBasePath string
 	dbs        map[osvschema.Ecosystem]*ZipDB
 	downloadDB bool
+	// failedDBs keeps track of the errors when getting databases for each ecosystem
+	failedDBs map[osvschema.Ecosystem]error
 	// TODO(v2 logging): Remove this reporter
 	r reporter.Reporter
 }
@@ -41,14 +41,12 @@ func NewLocalMatcher(r reporter.Reporter, localDBPath string, downloadDB bool) (
 		dbs:        make(map[osvschema.Ecosystem]*ZipDB),
 		downloadDB: downloadDB,
 		r:          r,
+		failedDBs:  make(map[osvschema.Ecosystem]error),
 	}, nil
 }
 
-func (matcher *LocalMatcher) Match(ctx context.Context, invs []*extractor.Inventory) ([][]*models.Vulnerability, error) {
+func (matcher *LocalMatcher) MatchVulnerabilities(ctx context.Context, invs []*extractor.Inventory) ([][]*models.Vulnerability, error) {
 	results := make([][]*models.Vulnerability, 0, len(invs))
-
-	// slice to track ecosystems that did not have an offline database available
-	var missingDBs []string
 
 	for _, inv := range invs {
 		if ctx.Err() != nil {
@@ -56,8 +54,8 @@ func (matcher *LocalMatcher) Match(ctx context.Context, invs []*extractor.Invent
 		}
 
 		pkg := imodels.FromInventory(inv)
-		if pkg.Ecosystem.IsEmpty() {
-			if pkg.Commit == "" {
+		if pkg.Ecosystem().IsEmpty() {
+			if pkg.Commit() == "" {
 				// This should never happen, as those results will be filtered out before matching
 				return nil, errors.New("ecosystem is empty and there is no commit hash")
 			}
@@ -65,39 +63,29 @@ func (matcher *LocalMatcher) Match(ctx context.Context, invs []*extractor.Invent
 			// Is a commit based query, skip local scanning
 			results = append(results, []*models.Vulnerability{})
 			// TODO (V2 logging):
-			matcher.r.Infof("Skipping commit scanning for: %s\n", pkg.Commit)
+			matcher.r.Infof("Skipping commit scanning for: %s\n", pkg.Commit())
 
 			continue
 		}
 
-		db, err := matcher.loadDBFromCache(ctx, pkg.Ecosystem)
+		db, err := matcher.loadDBFromCache(ctx, pkg.Ecosystem())
 
 		if err != nil {
-			if errors.Is(err, ErrOfflineDatabaseNotFound) {
-				missingDBs = append(missingDBs, string(pkg.Ecosystem.Ecosystem))
-			} else {
-				// TODO(V2 logging):
-				// the most likely error at this point is that the PURL could not be parsed
-				matcher.r.Errorf("could not load db for %s ecosystem: %v\n", pkg.Ecosystem, err)
-			}
-
-			results = append(results, []*models.Vulnerability{})
-
 			continue
 		}
 
 		results = append(results, db.VulnerabilitiesAffectingPackage(pkg))
 	}
 
-	if len(missingDBs) > 0 {
-		missingDBs = slices.Compact(missingDBs)
-		slices.Sort(missingDBs)
-
-		// TODO(v2 logging):
-		matcher.r.Errorf("could not find local databases for ecosystems: %s\n", strings.Join(missingDBs, ", "))
-	}
-
 	return results, nil
+}
+
+// LoadEcosystem tries to preload the ecosystem into the cache, and returns an error if the ecosystem
+// cannot be loaded.
+func (matcher *LocalMatcher) LoadEcosystem(ctx context.Context, ecosystem ecosystem.Parsed) error {
+	_, err := matcher.loadDBFromCache(ctx, ecosystem)
+
+	return err
 }
 
 func (matcher *LocalMatcher) loadDBFromCache(ctx context.Context, ecosystem ecosystem.Parsed) (*ZipDB, error) {
@@ -105,9 +93,16 @@ func (matcher *LocalMatcher) loadDBFromCache(ctx context.Context, ecosystem ecos
 		return db, nil
 	}
 
+	if matcher.failedDBs[ecosystem.Ecosystem] != nil {
+		return nil, matcher.failedDBs[ecosystem.Ecosystem]
+	}
+
 	db, err := NewZippedDB(ctx, matcher.dbBasePath, string(ecosystem.Ecosystem), fmt.Sprintf("%s/%s/all.zip", zippedDBRemoteHost, ecosystem.Ecosystem), !matcher.downloadDB)
 
 	if err != nil {
+		matcher.failedDBs[ecosystem.Ecosystem] = err
+		matcher.r.Errorf("could not load db for %s ecosystem: %v\n", ecosystem.Ecosystem, err)
+
 		return nil, err
 	}
 

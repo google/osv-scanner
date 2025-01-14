@@ -7,6 +7,7 @@ import (
 	"github.com/google/osv-scanner/internal/imodels"
 	"github.com/google/osv-scanner/internal/resolution/client"
 	"github.com/google/osv-scanner/internal/resolution/datasource"
+	"github.com/google/osv-scanner/internal/scalibrextract/ecosystemmock"
 	"github.com/google/osv-scanner/internal/scalibrextract/language/java/pomxmlnet"
 	"github.com/google/osv-scanner/pkg/osvscanner/internal/scanners"
 	"github.com/google/osv-scanner/pkg/reporter"
@@ -75,7 +76,10 @@ func scan(r reporter.Reporter, actions ScannerActions) ([]imodels.PackageScanRes
 	// Add on additional direct dependencies passed straight from ScannerActions:
 	for _, commit := range actions.GitCommits {
 		pi := imodels.PackageInfo{
-			Commit: commit,
+			Inventory: &extractor.Inventory{
+				SourceCode: &extractor.SourceCodeIdentifier{Commit: commit},
+				Extractor:  ecosystemmock.Extractor{}, // Empty ecosystem
+			},
 		}
 
 		packages = append(packages, imodels.PackageScanResult{

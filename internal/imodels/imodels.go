@@ -12,6 +12,7 @@ import (
 	"github.com/google/osv-scanner/internal/imodels/ecosystem"
 	"github.com/google/osv-scanner/internal/scalibrextract/vcs/gitrepo"
 	"github.com/google/osv-scanner/pkg/models"
+	"github.com/ossf/osv-schema/bindings/go/osvschema"
 
 	scalibrosv "github.com/google/osv-scalibr/extractor/filesystem/osv"
 )
@@ -31,107 +32,131 @@ var osExtractors = map[string]struct{}{
 	rpm.Extractor{}.Name():  {},
 }
 
-// PackageInfo represents a package found during a scan. This is generally
-// converted directly from the extractor.Inventory type, with some restructuring
-// for easier use within osv-scanner itself.
+// PackageInfo provides getter functions for commonly used fields of inventory
+// and applies transformations when required for use in osv-scanner
 type PackageInfo struct {
-	Name      string // Name will be SourceName matching the osv-schema
-	Version   string
-	Ecosystem ecosystem.Parsed
-
-	Location   string // Contains Inventory.Locations[0]
-	SourceType SourceType
-
-	Commit     string
-	Repository string
-
-	// For package sources
-	DepGroups []string
-
-	// For OS packages
-	// This is usually the BinaryName, while Name is the SourceName
-	OSPackageName string
-
-	AdditionalLocations []string // Contains Inventory.Locations[1..]
-
-	OriginalInventory *extractor.Inventory
+	// purlCache is used to cache the special case for SBOMs where we convert Name, Version, and Ecosystem from purls
+	// extracted from the SBOM
+	purlCache *models.PackageInfo
+	*extractor.Inventory
 }
 
-// FromInventory converts an extractor.Inventory into a PackageInfo.
-//
-// For ease of use, this function does not return an error, but will log
-// warnings when encountering unexpected inventory entries
-func FromInventory(inventory *extractor.Inventory) PackageInfo {
-	pkgInfo := PackageInfo{
-		Name:                inventory.Name,
-		Version:             inventory.Version,
-		Location:            inventory.Locations[0],
-		AdditionalLocations: inventory.Locations[1:],
-		OriginalInventory:   inventory,
-		// TODO: SourceType
+func (pkg *PackageInfo) Name() string {
+	// TODO(v2): SBOM special case, to be removed after PURL to ESI conversion within each extractor is complete
+	if pkg.purlCache != nil {
+		return pkg.purlCache.Name
 	}
 
-	// Ignore this error for now as we can't do too much about an unknown ecosystem
-	eco, err := ecosystem.Parse(inventory.Ecosystem())
+	if pkg.Ecosystem().Ecosystem == osvschema.EcosystemGo && pkg.Inventory.Name == "go" {
+		return "stdlib"
+	}
+
+	if metadata, ok := pkg.Inventory.Metadata.(*dpkg.Metadata); ok {
+		// Debian uses source name on osv.dev
+		// (fallback to using the normal name if source name is empty)
+		if metadata.SourceName != "" {
+			return metadata.SourceName
+		}
+	}
+
+	return pkg.Inventory.Name
+}
+
+func (pkg *PackageInfo) Ecosystem() ecosystem.Parsed {
+	ecosystemStr := pkg.Inventory.Ecosystem()
+
+	// TODO(v2): SBOM special case, to be removed after PURL to ESI conversion within each extractor is complete
+	if pkg.purlCache != nil {
+		ecosystemStr = pkg.purlCache.Ecosystem
+	}
+
+	// TODO: Maybe cache this parse result
+	eco, err := ecosystem.Parse(ecosystemStr)
 	if err != nil {
+		// Ignore this error for now as we can't do too much about an unknown ecosystem
 		// TODO(v2): Replace with slog
 		log.Printf("Warning: %s\n", err.Error())
 	}
 
-	pkgInfo.Ecosystem = eco
+	return eco
+}
 
-	if inventory.SourceCode != nil {
-		pkgInfo.Commit = inventory.SourceCode.Commit
-		pkgInfo.Repository = inventory.SourceCode.Repo
+func (pkg *PackageInfo) Version() string {
+	// TODO(v2): SBOM special case, to be removed after PURL to ESI conversion within each extractor is complete
+	if pkg.purlCache != nil {
+		return pkg.purlCache.Version
 	}
 
-	if dg, ok := inventory.Metadata.(scalibrosv.DepGroups); ok {
-		pkgInfo.DepGroups = dg.DepGroups()
+	return pkg.Inventory.Version
+}
+
+func (pkg *PackageInfo) Location() string {
+	if len(pkg.Inventory.Locations) > 0 {
+		return pkg.Inventory.Locations[0]
 	}
-	if inventory.Extractor != nil {
-		extractorName := inventory.Extractor.Name()
-		if _, ok := osExtractors[extractorName]; ok {
-			pkgInfo.SourceType = SourceTypeOSPackage
-		} else if _, ok := sbomExtractors[extractorName]; ok {
-			pkgInfo.SourceType = SourceTypeSBOM
 
-			// TODO (V2): SBOMs have a special case where we manually convert the PURL here
-			// instead while PURL to ESI conversion is not complete
-			purl := inventory.Extractor.ToPURL(inventory)
+	return ""
+}
 
-			if purl != nil {
-				// Error should never happen here since the PURL is from an already parsed purl
-				pi, _ := models.PURLToPackage(purl.String())
-				pkgInfo.Name = pi.Name
-				pkgInfo.Version = pi.Version
-				parsed, err := ecosystem.Parse(pi.Ecosystem)
-				if err != nil {
-					// TODO: Replace with slog
-					log.Printf("Warning, found unexpected ecosystem in purl %q, likely will not return any results for this package.\n", purl.String())
-				}
-				pkgInfo.Ecosystem = parsed
-			}
-		} else if _, ok := gitExtractors[extractorName]; ok {
-			pkgInfo.SourceType = SourceTypeGit
-		} else {
-			pkgInfo.SourceType = SourceTypeProjectPackage
+func (pkg *PackageInfo) Commit() string {
+	if pkg.Inventory.SourceCode != nil {
+		return pkg.Inventory.SourceCode.Commit
+	}
+
+	return ""
+}
+
+func (pkg *PackageInfo) SourceType() SourceType {
+	if pkg.Inventory.Extractor == nil {
+		return SourceTypeUnknown
+	}
+
+	extractorName := pkg.Inventory.Extractor.Name()
+	if _, ok := osExtractors[extractorName]; ok {
+		return SourceTypeOSPackage
+	} else if _, ok := sbomExtractors[extractorName]; ok {
+		return SourceTypeSBOM
+	} else if _, ok := gitExtractors[extractorName]; ok {
+		return SourceTypeGit
+	}
+
+	return SourceTypeProjectPackage
+}
+
+func (pkg *PackageInfo) DepGroups() []string {
+	if dg, ok := pkg.Inventory.Metadata.(scalibrosv.DepGroups); ok {
+		return dg.DepGroups()
+	}
+
+	return []string{}
+}
+
+func (pkg *PackageInfo) OSPackageName() string {
+	if metadata, ok := pkg.Inventory.Metadata.(*apk.Metadata); ok {
+		return metadata.PackageName
+	}
+	if metadata, ok := pkg.Inventory.Metadata.(*dpkg.Metadata); ok {
+		return metadata.PackageName
+	}
+	if metadata, ok := pkg.Inventory.Metadata.(*rpm.Metadata); ok {
+		return metadata.PackageName
+	}
+
+	return ""
+}
+
+// FromInventory converts an extractor.Inventory into a PackageInfo.
+func FromInventory(inventory *extractor.Inventory) PackageInfo {
+	pi := PackageInfo{Inventory: inventory}
+	if pi.SourceType() == SourceTypeSBOM {
+		purl := pi.Inventory.Extractor.ToPURL(pi.Inventory)
+		if purl != nil {
+			purlCache, _ := models.PURLToPackage(purl.String())
+			pi.purlCache = &purlCache
 		}
 	}
 
-	if metadata, ok := inventory.Metadata.(*apk.Metadata); ok {
-		pkgInfo.OSPackageName = metadata.PackageName
-	} else if metadata, ok := inventory.Metadata.(*dpkg.Metadata); ok {
-		pkgInfo.OSPackageName = metadata.PackageName
-		// Debian uses source name on osv.dev
-		// (fallback to using the normal name if source name is empty)
-		if metadata.SourceName != "" {
-			pkgInfo.Name = metadata.SourceName
-		}
-	} else if metadata, ok := inventory.Metadata.(*rpm.Metadata); ok {
-		pkgInfo.OSPackageName = metadata.PackageName
-	}
-
-	return pkgInfo
+	return pi
 }
 
 // PackageScanResult represents a package and its associated vulnerabilities and licenses.
