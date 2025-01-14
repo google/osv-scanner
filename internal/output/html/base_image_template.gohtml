@@ -39,9 +39,9 @@
         <div id="base-image-details-{{ .Index }}" class="base-image-details">
           {{ range .AllLayers }}
           <div title="{{ .LayerDiffID}}" class="layer-entry" >
-            <div {{ if gt (len .LayerCommand) 1300 }} class="tooltip" {{ end }}>
+            <div {{ if gt (len .LayerCommand) 100 }} class="tooltip" {{ end }}>
               <p class="layer-command"><span class="base-image-title">{{ .Index }}</span> {{ .LayerCommand }}</p>
-                {{ if gt (len .LayerCommand) 1300 }}
+                {{ if gt (len .LayerCommand) 100 }}
                 <span class="tooltiptext layer-tooltiptext">{{ .LayerCommand }}</span>
                 {{ end }}
             </div>

@@ -310,7 +310,7 @@ func updateLayerCount(result *Result, imageMetadata models.ImageMetadata) { // T
 				resultCount.Add(pkg.VulnCount)
 				layerCount[layerIndex] = resultCount
 
-				baseImageIndex := pkg.LayerDetail.LayerInfo.BaseImageIndex
+				baseImageIndex := layerMap[layerIndex].BaseImageInfo.Index
 				imageResultCount := baseImageCount[baseImageIndex]
 				imageResultCount.Add(pkg.VulnCount)
 				baseImageCount[baseImageIndex] = imageResultCount

@@ -18,9 +18,9 @@
         {{ range .ImageInfo.AllLayers }}
         {{ if gt .Count.AnalysisCount.Regular 0 }}
         <div title="{{ .LayerDiffID}}" class="filter-option layer-filter-option">
-          <div {{ if gt (len .LayerCommand) 1300 }} class="tooltip" {{ end }}>
+          <div {{ if gt (len .LayerCommand) 100 }} class="tooltip" {{ end }}>
             <p class="layer-command">{{ .Index }} {{ .LayerCommand }}</p>
-            {{ if gt (len .LayerCommand) 1300 }}
+            {{ if gt (len .LayerCommand) 100 }}
             <span class="tooltiptext layer-tooltiptext">{{ .LayerCommand }}</span>
             {{ end }}
             </div>
