@@ -209,7 +209,7 @@ func (r NpmRegistryConfig) MakeRequest(ctx context.Context, httpClient *http.Cli
 		return nil, err
 	}
 
-	return r.Auths.GetAuth(reqURL).GetRequest(ctx, httpClient, reqURL)
+	return r.Auths.GetAuth(reqURL).Get(ctx, httpClient, reqURL)
 }
 
 var npmSupportedAuths = []AuthenticationMethod{AuthBearer, AuthBasic}

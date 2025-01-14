@@ -9,8 +9,8 @@
     "AlwaysAuth": false,
     "Username": "global-user",
     "Password": "global-pass",
-    "BearerToken": "",
-    "BasicAuth": ""
+    "BasicAuth": "",
+    "BearerToken": ""
   },
   "overwrite1": {
     "SupportedMethods": [
@@ -20,8 +20,8 @@
     "AlwaysAuth": false,
     "Username": "new-user",
     "Password": "new-pass",
-    "BearerToken": "",
-    "BasicAuth": ""
+    "BasicAuth": "",
+    "BearerToken": ""
   },
   "overwrite2": {
     "SupportedMethods": [
@@ -31,8 +31,8 @@
     "AlwaysAuth": false,
     "Username": "",
     "Password": "lone-password",
-    "BearerToken": "",
-    "BasicAuth": ""
+    "BasicAuth": "",
+    "BearerToken": ""
   },
   "user": {
     "SupportedMethods": [
@@ -42,8 +42,8 @@
     "AlwaysAuth": false,
     "Username": "user",
     "Password": "pass",
-    "BearerToken": "",
-    "BasicAuth": ""
+    "BasicAuth": "",
+    "BearerToken": ""
   }
 }
 ---

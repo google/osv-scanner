@@ -212,7 +212,7 @@ func (m *MavenRegistryAPIClient) getArtifactMetadata(ctx context.Context, regist
 
 func (m *MavenRegistryAPIClient) get(ctx context.Context, auth *AuthenticationInfo, url string, dst interface{}) error {
 	resp, err := m.responses.Get(url, func() (response, error) {
-		resp, err := auth.GetRequest(ctx, http.DefaultClient, url)
+		resp, err := auth.Get(ctx, http.DefaultClient, url)
 		if err != nil {
 			return response{}, fmt.Errorf("%w: Maven registry query failed: %w", errAPIFailed, err)
 		}

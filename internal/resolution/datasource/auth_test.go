@@ -289,7 +289,7 @@ func TestAuthenticationInfo(t *testing.T) {
 			}
 			httpClient := &http.Client{Transport: mt}
 			for _, want := range tt.expectedResponseCodes {
-				resp, err := tt.authInfo.GetRequest(context.Background(), httpClient, tt.requestURL)
+				resp, err := tt.authInfo.Get(context.Background(), httpClient, tt.requestURL)
 				if err != nil {
 					t.Fatalf("error making request: %v", err)
 				}

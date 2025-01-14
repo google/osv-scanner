@@ -22,6 +22,9 @@ const (
 	AuthDigest
 )
 
+// AuthenticationInfo holds the information needed for general HTTP Authentication support.
+// Requests made through this will automatically populate the relevant info in the Authorization headers.
+// This is a general implementation and should be suitable for use with any ecosystem.
 type AuthenticationInfo struct {
 	SupportedMethods []AuthenticationMethod // In order of preference, only one method will be attempted.
 
@@ -30,16 +33,22 @@ type AuthenticationInfo struct {
 	// Must be set to false to use Digest authentication.
 	AlwaysAuth bool
 
-	Username    string // Basic & Digest, plain text.
-	Password    string // Basic & Digest, plain text.
+	// Shared
+	Username string // Basic & Digest, plain text.
+	Password string // Basic & Digest, plain text.
+	// Basic
+	BasicAuth string // Base64-encoded username:password. Overrides Username & Password fields if set.
+	// Bearer
 	BearerToken string
-	BasicAuth   string        // Base64-encoded username:password. Overrides Username & Password fields for Basic.
-	CnonceFunc  func() string `json:"-"` // Function used to generate cnonce string for Digest. OK to leave unassigned - mostly for use in tests.
+	// Digest
+	CnonceFunc func() string `json:"-"` // Function used to generate cnonce string for Digest. OK to leave unassigned. Mostly for use in tests.
 
 	lastUsed atomic.Value // The last-used authentication method - used when AlwaysAuth is false to automatically send Basic auth.
 }
 
-func (auth *AuthenticationInfo) GetRequest(ctx context.Context, httpClient *http.Client, url string) (*http.Response, error) {
+// Get makes an http GET request with the given http.Client.
+// The Authorization Header will automatically be populated according from the fields in the AuthenticationInfo.
+func (auth *AuthenticationInfo) Get(ctx context.Context, httpClient *http.Client, url string) (*http.Response, error) {
 	req, err := http.NewRequestWithContext(ctx, http.MethodGet, url, nil)
 	if err != nil {
 		return nil, err

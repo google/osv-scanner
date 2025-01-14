@@ -295,7 +295,7 @@ func TestNpmRegistryAuths(t *testing.T) {
 			// Send off requests to mockTransport to see the auth headers being added.
 			mt := &mockTransport{}
 			httpClient := &http.Client{Transport: mt}
-			resp, err := config.Auths.GetAuth(tt.requestURL).GetRequest(context.Background(), httpClient, tt.requestURL)
+			resp, err := config.Auths.GetAuth(tt.requestURL).Get(context.Background(), httpClient, tt.requestURL)
 			if err != nil {
 				t.Fatalf("error making request: %v", err)
 			}
