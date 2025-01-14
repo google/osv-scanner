@@ -10,6 +10,7 @@ import (
 	"os"
 	"os/exec"
 	"slices"
+	"strings"
 	"time"
 
 	"github.com/google/osv-scalibr/artifact/image/layerscanning/image"
@@ -151,12 +152,6 @@ func DoContainerScan(actions ScannerActions, r reporter.Reporter) (models.Vulner
 
 	// --- Fill Image Metadata ---
 	{
-		// depsdevClient, err := datasource.NewDepsDevAlphaAPIClient(depsdev.DepsdevAPI)
-		if err != nil {
-			return models.VulnerabilityResults{}, err
-
-		}
-
 		// Ignore error, as if this would error we would have failed the initial scan
 		chainLayers, _ := img.ChainLayers()
 		m, err := osrelease.GetOSRelease(chainLayers[len(chainLayers)-1].FS())
@@ -176,7 +171,6 @@ func DoContainerScan(actions ScannerActions, r reporter.Reporter) (models.Vulner
 		}
 
 		scanResult.ImageMetadata = &models.ImageMetadata{
-			// TODO: Not yet filled in
 			BaseImages: [][]models.BaseImageDetails{
 				// The base image at index 0 is a placeholder representing your image, so always empty
 				// This is the case even if your image is a base image, in that case no layers point to index 0
@@ -247,6 +241,7 @@ func DoContainerScan(actions ScannerActions, r reporter.Reporter) (models.Vulner
 				continue
 			}
 
+			// Found some base images!
 			baseImagePossibilities := []models.BaseImageDetails{}
 			for _, r := range results.Results {
 				baseImagePossibilities = append(baseImagePossibilities, models.BaseImageDetails{
@@ -260,7 +255,30 @@ func DoContainerScan(actions ScannerActions, r reporter.Reporter) (models.Vulner
 
 			scanResult.ImageMetadata.BaseImages = append(scanResult.ImageMetadata.BaseImages, baseImagePossibilities)
 			currentBaseImageIndex += 1
-			scanResult.ImageMetadata.LayerMetadata[i].BaseImageIndex = currentBaseImageIndex
+			// scanResult.ImageMetadata.LayerMetadata[i].BaseImageIndex = currentBaseImageIndex
+
+			// Backfill with heuristic
+
+			possibleFinalBaseImageCommands := []string{
+				"/bin/sh -c #(nop)  CMD",
+				"CMD",
+				"/bin/sh -c #(nop)  ENTRYPOINT",
+				"ENTRYPOINT",
+			}
+		BackfillLoop:
+			for i2 := i; i2 < len(scanResult.ImageMetadata.LayerMetadata); i2++ {
+				if !scanResult.ImageMetadata.LayerMetadata[i2].IsEmpty {
+					break
+				}
+				buildCommand := scanResult.ImageMetadata.LayerMetadata[i2].Command
+				scanResult.ImageMetadata.LayerMetadata[i2].BaseImageIndex = currentBaseImageIndex
+				for _, prefix := range possibleFinalBaseImageCommands {
+					if strings.HasPrefix(buildCommand, prefix) {
+						break BackfillLoop
+					}
+				}
+			}
+
 		}
 	}
 
