@@ -36,8 +36,8 @@ github.com/anchore/go-struct-converter v0.0.0-20230627203149-c72ef8859ca9 h1:6CO
 github.com/anchore/go-struct-converter v0.0.0-20230627203149-c72ef8859ca9/go.mod h1:rYqSE9HbjzpHTI74vwPvae4ZVYZd1lue2ta6xHPdblA=
 github.com/anmitsu/go-shlex v0.0.0-20200514113438-38f4b401e2be h1:9AeTilPcZAjCFIImctFaOjnTIavg87rW78vTPkQqLI8=
 github.com/anmitsu/go-shlex v0.0.0-20200514113438-38f4b401e2be/go.mod h1:ySMOLuWl6zY27l47sB3qLNK6tF2fkHG55UZxx8oIVo4=
-github.com/another-rex/osv-scalibr v0.0.0-20250113043556-cd04d9064a2d h1:6Wr5mKNnMJoSYDt0KxNVfiiv3SW5XgV2nii3KtT2Yhc=
-github.com/another-rex/osv-scalibr v0.0.0-20250113043556-cd04d9064a2d/go.mod h1:S8mrRjoWESAOOTq25lJqzxiKR6tbWSFYG8SVb5EFLHk=
+github.com/another-rex/osv-scalibr v0.0.0-20250113235228-f11c4402ba7a h1:hqA5nPtTLkQJJ9laZIbFak5EJhYg0qKnT3w6Wjxt8o4=
+github.com/another-rex/osv-scalibr v0.0.0-20250113235228-f11c4402ba7a/go.mod h1:S8mrRjoWESAOOTq25lJqzxiKR6tbWSFYG8SVb5EFLHk=
 github.com/apparentlymart/go-textseg/v13 v13.0.0/go.mod h1:ZK2fH7c4NqDTLtiYLvIkEghdlcqw7yxLeM89kiTRPUo=
 github.com/armon/go-socks5 v0.0.0-20160902184237-e75332964ef5 h1:0CwZNZbxp69SHPdPJAN/hZIm0C4OItdklCFmMRWYpio=
 github.com/armon/go-socks5 v0.0.0-20160902184237-e75332964ef5/go.mod h1:wHh0iHkYZB8zMSxRWpUBQtwG5a7fFgvEO+odwuTv2gs=

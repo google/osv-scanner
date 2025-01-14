@@ -21,6 +21,7 @@ require (
 	github.com/ianlancetaylor/demangle v0.0.0-20240912202439-0a2b6291aafd
 	github.com/jedib0t/go-pretty/v6 v6.6.5
 	github.com/muesli/reflow v0.3.0
+	github.com/opencontainers/go-digest v1.0.0
 	github.com/ossf/osv-schema/bindings/go v0.0.0-20241210213101-57fd3ddb15aa
 	github.com/owenrumney/go-sarif/v2 v2.3.3
 	github.com/package-url/packageurl-go v0.1.3
@@ -110,7 +111,6 @@ require (
 	github.com/muesli/ansi v0.0.0-20230316100256-276c6243b2f6 // indirect
 	github.com/muesli/cancelreader v0.2.2 // indirect
 	github.com/muesli/termenv v0.15.3-0.20240618155329-98d742f6907a // indirect
-	github.com/opencontainers/go-digest v1.0.0 // indirect
 	github.com/opencontainers/image-spec v1.1.0 // indirect
 	github.com/opencontainers/runtime-spec v1.1.0 // indirect
 	github.com/opencontainers/selinux v1.11.0 // indirect
@@ -151,4 +151,4 @@ require (
 	www.velocidex.com/golang/regparser v0.0.0-20240404115756-2169ac0e3c09 // indirect
 )
 
-replace github.com/google/osv-scalibr => github.com/another-rex/osv-scalibr v0.0.0-20250113043556-cd04d9064a2d
+replace github.com/google/osv-scalibr => github.com/another-rex/osv-scalibr v0.0.0-20250113235228-f11c4402ba7a
