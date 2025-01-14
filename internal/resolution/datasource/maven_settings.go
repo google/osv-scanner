@@ -5,6 +5,9 @@ import (
 	"os"
 	"os/exec"
 	"path/filepath"
+	"runtime"
+	"strings"
+	"unicode"
 
 	"github.com/google/osv-scanner/internal/cachedregexp"
 )
@@ -37,6 +40,13 @@ func ParseMavenSettings(path string) MavenSettingsXML {
 	replFn := func(match string) string {
 		// grab just the environment variable string
 		env := match[len("${env.") : len(match)-1]
+
+		// Environment variables on Windows are case-insensitive,
+		// but Maven will only replace them if they are in all-caps.
+		if runtime.GOOS == "windows" && strings.ContainsFunc(env, unicode.IsLower) {
+			return match // No replacement.
+		}
+
 		if val, ok := os.LookupEnv(env); ok {
 			return val
 		}
