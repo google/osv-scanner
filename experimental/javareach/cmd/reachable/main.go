@@ -144,8 +144,11 @@ func EnumerateReachabilityFromClass(mainClass string, classPath string) ([]strin
 }
 
 func findClass(classPath string, className string) (*javareach.ClassFile, error) {
-	// TODO: Handle directory traversal.
 	classFilepath := filepath.Join(classPath, className)
+	if !strings.HasPrefix(classFilepath, filepath.Clean(classPath)+string(os.PathSeparator)) {
+		return nil, fmt.Errorf("directory traversal: %s", classFilepath)
+	}
+
 	if !strings.HasSuffix(classFilepath, ".class") {
 		classFilepath += ".class"
 	}
@@ -245,8 +248,11 @@ func unzipJar(jarPath string, tmpDir string) error {
 	}
 
 	for _, file := range r.File {
-		// TODO: check for directory traversal
 		path := filepath.Join(tmpDir, file.Name)
+		if !strings.HasPrefix(path, filepath.Clean(tmpDir)+string(os.PathSeparator)) {
+			return fmt.Errorf("directory traversal: %s", path)
+		}
+
 		if file.FileInfo().IsDir() {
 			if err := os.MkdirAll(path, 0755); err != nil {
 				return err
