@@ -39,7 +39,12 @@
         <div id="base-image-details-{{ .Index }}" class="base-image-details">
           {{ range .AllLayers }}
           <div title="{{ .LayerDiffID}}" class="layer-entry" >
-            <p><span class="base-image-title">{{ .Index }}</span> {{ .LayerCommand }}</p>
+            <div {{ if gt (len .LayerCommand) 1300 }} class="tooltip" {{ end }}>
+              <p class="layer-command"><span class="base-image-title">{{ .Index }}</span> {{ .LayerCommand }}</p>
+                {{ if gt (len .LayerCommand) 1300 }}
+                <span class="tooltiptext layer-tooltiptext">{{ .LayerCommand }}</span>
+                {{ end }}
+            </div>
             {{ if gt .Count.AnalysisCount.Regular 0 }}
             {{ template "severity_summary_template.gohtml".Count.SeverityCount }}
             {{ end }}

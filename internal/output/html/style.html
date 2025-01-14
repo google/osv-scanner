@@ -288,7 +288,6 @@
   .filter-option-container {
     border: 1px solid #ddd;
     border-radius: 8px;
-    overflow: hidden;
     position: absolute;
     background-color: #292929;
     min-width: 200px;
@@ -317,11 +316,10 @@
   .layer-filter-option {
     display: flex;
     justify-content: space-between;
-    overflow: hidden;
   }
 
   .filter-option:hover {
-    background-color: black;
+    background-color: rgba(255, 255, 255, 0.04);
   }
 
   .filter-icon i {
@@ -482,13 +480,21 @@
     white-space: nowrap;
     width: fit-content;
     text-align: left;
-
     /* Position the tooltip */
     position: absolute;
     z-index: 999;
     top: 100%;
-    left: 50%;
-    margin-left: -60px;
+    {{/* left: 50%;
+    margin-left: -60px; */}}
+  }
+
+  .layer-tooltiptext {
+    white-space: normal !important;
+    margin-left: 0 !important;
+    width: 1000px !important;
+    max-height: 200px;
+    overflow-x: hidden;
+    overflow-y: scroll;
   }
 
   .tooltip:hover .tooltiptext {
@@ -556,11 +562,19 @@
 
   .base-image-details {
     display: none;
+    margin-bottom: 20px;
   }
 
   .base-image-title {
     width: 150px;
     color: #9aa0a6;
     height: 20px;
+  }
+
+  .layer-command {
+    max-width: 1000px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 </style>

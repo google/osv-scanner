@@ -57,13 +57,18 @@
       <div id="table-tr-{{ $index }}-details" class="package-details">
         {{ if and $element.LayerDetail (not (eq $element.LayerDetail.LayerInfo.LayerDiffID "")) }}
         <div class="layer-command-container">
-          <span class="package-detail-title">Layer introduced in:</span>
-          {{ if ne $element.LayerDetail.LayerInfo.LayerCommandDetailed "" }}
-          <div class="tooltip">{{ $element.LayerDetail.LayerInfo.LayerCommand }}
+          {{ if gt (len $element.LayerDetail.LayerInfo.LayerCommand) 1300 }}
+          <div class="tooltip">
+            <p class="layer-command"><span class="package-detail-title">Layer introduced in:</span> {{ $element.LayerDetail.LayerInfo.Index }} {{ $element.LayerDetail.LayerInfo.LayerCommand }}</p>
+            <span class="tooltiptext layer-tooltiptext">{{ $element.LayerDetail.LayerInfo.LayerCommand }}</span>
+          </div>
+          {{ else if ne $element.LayerDetail.LayerInfo.LayerCommandDetailed "" }}
+          <div class="tooltip">
+            <span class="layer-command"><span class="package-detail-title">Layer introduced in:</span> {{ $element.LayerDetail.LayerInfo.Index }} {{ $element.LayerDetail.LayerInfo.LayerCommand }}</span>
             <span class="tooltiptext">{{ $element.LayerDetail.LayerInfo.LayerCommandDetailed }}</span>
           </div>
           {{ else }}
-          <div>{{ $element.LayerDetail.LayerInfo.LayerCommand }}</div>
+          <div class="layer-command"><span class="package-detail-title">Layer introduced in:</span> {{ $element.LayerDetail.LayerInfo.Index }} {{ $element.LayerDetail.LayerInfo.LayerCommand }}</div>
           {{ end }}
         </div>
         <p><span class="package-detail-title">Layer ID:</span> {{ $element.LayerDetail.LayerInfo.LayerDiffID }}</p>
