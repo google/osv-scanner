@@ -5,7 +5,6 @@ import (
 	"context"
 	"encoding/base64"
 	"errors"
-	"fmt"
 	"net/http"
 	"net/url"
 	"os"
@@ -17,11 +16,9 @@ import (
 	"gopkg.in/ini.v1"
 )
 
-type npmrcConfig struct {
-	*ini.Section
-}
+type NpmrcConfig map[string]string
 
-func loadNpmrc(workdir string) (npmrcConfig, error) {
+func loadNpmrc(workdir string) (NpmrcConfig, error) {
 	// Find & parse the 4 npmrc files (builtin, global, user, project) + values set in environment variables
 	// https://docs.npmjs.com/cli/v10/configuring-npm/npmrc
 	// https://docs.npmjs.com/cli/v10/using-npm/config
@@ -39,7 +36,7 @@ func loadNpmrc(workdir string) (npmrcConfig, error) {
 	// Make use of data overwriting to load the correct values
 	fullNpmrc, err := ini.LoadSources(opts, builtinFile, projectFile, envVarOpts)
 	if err != nil {
-		return npmrcConfig{}, err
+		return nil, err
 	}
 
 	// user npmrc is either set as userconfig, or ${HOME}/.npmrc
@@ -60,7 +57,7 @@ func loadNpmrc(workdir string) (npmrcConfig, error) {
 	// reload the npmrc files with the user file included
 	fullNpmrc, err = ini.LoadSources(opts, builtinFile, userFile, projectFile, envVarOpts)
 	if err != nil {
-		return npmrcConfig{}, err
+		return nil, err
 	}
 
 	var globalFile string
@@ -82,10 +79,10 @@ func loadNpmrc(workdir string) (npmrcConfig, error) {
 	// return final joined config, with correct overriding order
 	fullNpmrc, err = ini.LoadSources(opts, builtinFile, globalFile, userFile, projectFile, envVarOpts)
 	if err != nil {
-		return npmrcConfig{}, err
+		return nil, err
 	}
 
-	return npmrcConfig{fullNpmrc.Section("")}, nil
+	return fullNpmrc.Section("").KeysHash(), nil
 }
 
 func envVarNpmrc() ([]byte, error) {
@@ -131,68 +128,25 @@ func builtinNpmrc() string {
 	return npmrc
 }
 
-type NpmRegistryAuthInfo struct {
-	authToken string
-	auth      string
-	username  string
-	password  string
-	// TODO: certfile, keyfile
-}
-
-func (authInfo NpmRegistryAuthInfo) AddToHeader(header http.Header) {
-	switch {
-	case authInfo.authToken != "":
-		header.Set("Authorization", "Bearer "+authInfo.authToken)
-	case authInfo.auth != "":
-		header.Set("Authorization", "Basic "+authInfo.auth)
-	case authInfo.username != "" && authInfo.password != "":
-		// auth is base64-encoded "username:password"
-		// password is stored already base64-encoded
-		authBytes := []byte(authInfo.username + ":")
-		b, err := base64.StdEncoding.DecodeString(authInfo.password)
-		if err != nil {
-			// TODO: mimic the behaviour of node's Buffer.from(s, 'base64').toString()
-			// e.g. ignore invalid characters, stop parsing after first '=', just never throw an error
-			panic(fmt.Sprintf("Unable to decode registry password: %v", err))
-		}
-		authBytes = append(authBytes, b...)
-		auth := base64.StdEncoding.EncodeToString(authBytes)
-		header.Set("Authorization", "Basic "+auth)
-	}
-}
-
 // Implementation of npm registry auth matching, adapted from npm-registry-fetch
 // https://github.com/npm/npm-registry-fetch/blob/237d33b45396caa00add61e0549cf09fbf9deb4f/lib/auth.js
-type NpmRegistryAuthOpts map[string]string
+type NpmRegistryAuths map[string]*AuthenticationInfo
 
-var npmAuthFields = [...]string{":_authToken", ":_auth", ":username", ":_password"} // reference of the relevant config key suffixes
-
-func (opts NpmRegistryAuthOpts) getRegAuth(regKey string) (NpmRegistryAuthInfo, bool) {
-	if token, ok := opts[regKey+":_authToken"]; ok {
-		return NpmRegistryAuthInfo{authToken: token}, true
-	}
-	if auth, ok := opts[regKey+":_auth"]; ok {
-		return NpmRegistryAuthInfo{auth: auth}, true
-	}
-	if user, ok := opts[regKey+":username"]; ok {
-		if pass, ok := opts[regKey+":_password"]; ok {
-			return NpmRegistryAuthInfo{username: user, password: pass}, true
-		}
-	}
-	// TODO: certfile / keyfile
-
-	return NpmRegistryAuthInfo{}, false
-}
-
-func (opts NpmRegistryAuthOpts) GetAuth(uri string) NpmRegistryAuthInfo {
+func (auths NpmRegistryAuths) GetAuth(uri string) *AuthenticationInfo {
 	parsed, err := url.Parse(uri)
 	if err != nil {
-		return NpmRegistryAuthInfo{}
+		return nil
 	}
 	regKey := "//" + parsed.Host + parsed.EscapedPath()
 	for regKey != "//" {
-		if authInfo, ok := opts.getRegAuth(regKey); ok {
-			return authInfo
+		if authInfo, ok := auths[regKey]; ok {
+			// Make sure this authInfo actually has the necessary fields to construct an auth.
+			// i.e. it's not valid if only Username or only Password is set
+			if authInfo.BearerToken != "" ||
+				authInfo.BasicAuth != "" ||
+				(authInfo.Username != "" && authInfo.Password != "") {
+				return authInfo
+			}
 		}
 
 		// can be either //host/some/path/:_auth or //host/some/path:_auth
@@ -203,7 +157,7 @@ func (opts NpmRegistryAuthOpts) GetAuth(uri string) NpmRegistryAuthInfo {
 		}
 	}
 
-	return NpmRegistryAuthInfo{}
+	return nil
 }
 
 // urlPathEscapeLower is url.PathEscape but with lowercase letters in hex codes (matching npm's behaviour)
@@ -216,8 +170,8 @@ func urlPathEscapeLower(s string) string {
 }
 
 type NpmRegistryConfig struct {
-	ScopeURLs map[string]string   // map of @scope to registry URL
-	RegOpts   NpmRegistryAuthOpts // the full key-value pairs of relevant npmrc config options.
+	ScopeURLs map[string]string // map of @scope to registry URL
+	Auths     NpmRegistryAuths  // auth info per npm registry URI
 }
 
 func LoadNpmRegistryConfig(workdir string) (NpmRegistryConfig, error) {
@@ -226,12 +180,12 @@ func LoadNpmRegistryConfig(workdir string) (NpmRegistryConfig, error) {
 		return NpmRegistryConfig{}, err
 	}
 
-	return parseNpmRegistryInfo(npmrc), nil
+	return ParseNpmRegistryInfo(npmrc), nil
 }
 
-// BuildRequest creates the http request to the corresponding npm registry api
+// MakeRequest makes the http request to the corresponding npm registry api (with auth).
 // urlComponents should be (package) or (package, version)
-func (r NpmRegistryConfig) BuildRequest(ctx context.Context, urlComponents ...string) (*http.Request, error) {
+func (r NpmRegistryConfig) MakeRequest(ctx context.Context, httpClient *http.Client, urlComponents ...string) (*http.Response, error) {
 	if len(urlComponents) == 0 {
 		return nil, errors.New("no package specified in npm request")
 	}
@@ -255,40 +209,57 @@ func (r NpmRegistryConfig) BuildRequest(ctx context.Context, urlComponents ...st
 		return nil, err
 	}
 
-	req, err := http.NewRequestWithContext(ctx, http.MethodGet, reqURL, nil)
-	if err != nil {
-		return nil, err
-	}
-
-	r.RegOpts.GetAuth(reqURL).AddToHeader(req.Header)
-
-	return req, nil
+	return r.Auths.GetAuth(reqURL).GetRequest(ctx, httpClient, reqURL)
 }
 
-func parseNpmRegistryInfo(npmrc npmrcConfig) NpmRegistryConfig {
+var npmSupportedAuths = []AuthenticationMethod{AuthBearer, AuthBasic}
+
+func ParseNpmRegistryInfo(npmrc NpmrcConfig) NpmRegistryConfig {
 	config := NpmRegistryConfig{
 		ScopeURLs: map[string]string{"": "https://registry.npmjs.org/"}, // set the default registry
-		RegOpts:   make(NpmRegistryAuthOpts),
+		Auths:     make(map[string]*AuthenticationInfo),
 	}
 
-	for _, k := range npmrc.Keys() {
-		name := k.Name()
-		value := os.ExpandEnv(k.String())
+	getOrInitAuth := func(key string) *AuthenticationInfo {
+		if auth, ok := config.Auths[key]; ok {
+			return auth
+		}
+		auth := &AuthenticationInfo{
+			SupportedMethods: npmSupportedAuths,
+			AlwaysAuth:       true,
+		}
+		config.Auths[key] = auth
+		return auth
+	}
+
+	for name, value := range npmrc {
+		var part1, part2 string
+		// must split on the last ':' in case e.g. '//localhost:8080/:_auth=xyz'
+		if idx := strings.LastIndex(name, ":"); idx >= 0 {
+			part1, part2 = name[:idx], name[idx+1:]
+		}
+		value := os.ExpandEnv(value)
 		// TODO: npm config replaces only ${VAR}, not $VAR
 		// and if VAR is unset, it will leave the string as "${VAR}"
-
-		if name == "registry" {
+		switch {
+		case name == "registry": // registry=...
 			config.ScopeURLs[""] = value
-			continue
-		}
-		if scope, ok := strings.CutSuffix(name, ":registry"); ok {
-			config.ScopeURLs[scope] = value
-			continue
-		}
-		for _, f := range npmAuthFields {
-			if strings.HasSuffix(name, f) {
-				config.RegOpts[name] = value
+		case part2 == "registry": // @scope:registry=...
+			config.ScopeURLs[part1] = value
+		case part2 == "_authToken": // //uri:_authToken=...
+			getOrInitAuth(part1).BearerToken = value
+		case part2 == "_auth": // //uri:_auth=...
+			getOrInitAuth(part1).BasicAuth = value
+		case part2 == "username": // //uri:username=...
+			getOrInitAuth(part1).Username = value
+		case part2 == "_password": // //uri:_password=<base64>
+			password, err := base64.StdEncoding.DecodeString(value)
+			if err != nil {
+				// TODO: mimic the behaviour of node's Buffer.from(s, 'base64').toString()
+				// e.g. ignore invalid characters, stop parsing after first '=', just never throw an error
+				break
 			}
+			getOrInitAuth(part1).Password = string(password)
 		}
 	}
 

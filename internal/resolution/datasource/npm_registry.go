@@ -87,12 +87,7 @@ func (c *NpmRegistryAPIClient) FullJSON(ctx context.Context, pkg, version string
 }
 
 func (c *NpmRegistryAPIClient) get(ctx context.Context, urlComponents ...string) (gjson.Result, error) {
-	req, err := c.registries.BuildRequest(ctx, urlComponents...)
-	if err != nil {
-		return gjson.Result{}, err
-	}
-
-	resp, err := http.DefaultClient.Do(req)
+	resp, err := c.registries.MakeRequest(ctx, http.DefaultClient, urlComponents...)
 	if err != nil {
 		return gjson.Result{}, err
 	}

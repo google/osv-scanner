@@ -24,8 +24,9 @@ const MavenCentral = "https://repo.maven.apache.org/maven2"
 var errAPIFailed = errors.New("API query failed")
 
 type MavenRegistryAPIClient struct {
-	defaultRegistry MavenRegistry   // The default registry that we are making requests
-	registries      []MavenRegistry // Additional registries specified to fetch projects
+	defaultRegistry MavenRegistry                  // The default registry that we are making requests
+	registries      []MavenRegistry                // Additional registries specified to fetch projects
+	registryAuths   map[string]*AuthenticationInfo // Authentication for the registries, from settings.xml
 
 	// Cache fields
 	mu             *sync.Mutex
@@ -59,11 +60,16 @@ func NewMavenRegistryAPIClient(registry MavenRegistry) (*MavenRegistryAPIClient,
 	}
 	registry.Parsed = u
 
+	// TODO: allow for manual specification of settings files
+	globalSettings := ParseMavenSettings(globalMavenSettingsFile())
+	userSettings := ParseMavenSettings(userMavenSettingsFile())
+
 	return &MavenRegistryAPIClient{
 		// We assume only downloading releases is allowed on the default registry.
 		defaultRegistry: registry,
 		mu:              &sync.Mutex{},
 		responses:       NewRequestCache[string, response](),
+		registryAuths:   MakeMavenAuth(globalSettings, userSettings),
 	}, nil
 }
 
@@ -111,7 +117,7 @@ func (m *MavenRegistryAPIClient) GetProject(ctx context.Context, groupID, artifa
 			if !registry.ReleasesEnabled {
 				continue
 			}
-			project, err := m.getProject(ctx, registry.Parsed, groupID, artifactID, version, "")
+			project, err := m.getProject(ctx, registry, groupID, artifactID, version, "")
 			if err == nil {
 				return project, nil
 			}
@@ -125,7 +131,7 @@ func (m *MavenRegistryAPIClient) GetProject(ctx context.Context, groupID, artifa
 		if !registry.SnapshotsEnabled {
 			continue
 		}
-		metadata, err := m.getVersionMetadata(ctx, registry.Parsed, groupID, artifactID, version)
+		metadata, err := m.getVersionMetadata(ctx, registry, groupID, artifactID, version)
 		if err != nil {
 			continue
 		}
@@ -139,7 +145,7 @@ func (m *MavenRegistryAPIClient) GetProject(ctx context.Context, groupID, artifa
 			}
 		}
 
-		project, err := m.getProject(ctx, registry.Parsed, groupID, artifactID, version, snapshot)
+		project, err := m.getProject(ctx, registry, groupID, artifactID, version, snapshot)
 		if err == nil {
 			return project, nil
 		}
@@ -153,7 +159,7 @@ func (m *MavenRegistryAPIClient) GetProject(ctx context.Context, groupID, artifa
 func (m *MavenRegistryAPIClient) GetVersions(ctx context.Context, groupID, artifactID string) ([]maven.String, error) {
 	var versions []maven.String
 	for _, registry := range append(m.registries, m.defaultRegistry) {
-		metadata, err := m.getArtifactMetadata(ctx, registry.Parsed, groupID, artifactID)
+		metadata, err := m.getArtifactMetadata(ctx, registry, groupID, artifactID)
 		if err != nil {
 			continue
 		}
@@ -166,14 +172,14 @@ func (m *MavenRegistryAPIClient) GetVersions(ctx context.Context, groupID, artif
 
 // getProject fetches a pom.xml specified by groupID, artifactID and version and parses it to maven.Project.
 // For snapshot versions, the exact version value is specified by snapshot.
-func (m *MavenRegistryAPIClient) getProject(ctx context.Context, registry *url.URL, groupID, artifactID, version, snapshot string) (maven.Project, error) {
+func (m *MavenRegistryAPIClient) getProject(ctx context.Context, registry MavenRegistry, groupID, artifactID, version, snapshot string) (maven.Project, error) {
 	if snapshot == "" {
 		snapshot = version
 	}
-	u := registry.JoinPath(strings.ReplaceAll(groupID, ".", "/"), artifactID, version, fmt.Sprintf("%s-%s.pom", artifactID, snapshot)).String()
+	u := registry.Parsed.JoinPath(strings.ReplaceAll(groupID, ".", "/"), artifactID, version, fmt.Sprintf("%s-%s.pom", artifactID, snapshot)).String()
 
 	var project maven.Project
-	if err := m.get(ctx, u, &project); err != nil {
+	if err := m.get(ctx, m.registryAuths[registry.ID], u, &project); err != nil {
 		return maven.Project{}, err
 	}
 
@@ -181,11 +187,11 @@ func (m *MavenRegistryAPIClient) getProject(ctx context.Context, registry *url.U
 }
 
 // getVersionMetadata fetches a version level maven-metadata.xml and parses it to maven.Metadata.
-func (m *MavenRegistryAPIClient) getVersionMetadata(ctx context.Context, registry *url.URL, groupID, artifactID, version string) (maven.Metadata, error) {
-	u := registry.JoinPath(strings.ReplaceAll(groupID, ".", "/"), artifactID, version, "maven-metadata.xml").String()
+func (m *MavenRegistryAPIClient) getVersionMetadata(ctx context.Context, registry MavenRegistry, groupID, artifactID, version string) (maven.Metadata, error) {
+	u := registry.Parsed.JoinPath(strings.ReplaceAll(groupID, ".", "/"), artifactID, version, "maven-metadata.xml").String()
 
 	var metadata maven.Metadata
-	if err := m.get(ctx, u, &metadata); err != nil {
+	if err := m.get(ctx, m.registryAuths[registry.ID], u, &metadata); err != nil {
 		return maven.Metadata{}, err
 	}
 
@@ -193,32 +199,27 @@ func (m *MavenRegistryAPIClient) getVersionMetadata(ctx context.Context, registr
 }
 
 // GetArtifactMetadata fetches an artifact level maven-metadata.xml and parses it to maven.Metadata.
-func (m *MavenRegistryAPIClient) getArtifactMetadata(ctx context.Context, registry *url.URL, groupID, artifactID string) (maven.Metadata, error) {
-	u := registry.JoinPath(strings.ReplaceAll(groupID, ".", "/"), artifactID, "maven-metadata.xml").String()
+func (m *MavenRegistryAPIClient) getArtifactMetadata(ctx context.Context, registry MavenRegistry, groupID, artifactID string) (maven.Metadata, error) {
+	u := registry.Parsed.JoinPath(strings.ReplaceAll(groupID, ".", "/"), artifactID, "maven-metadata.xml").String()
 
 	var metadata maven.Metadata
-	if err := m.get(ctx, u, &metadata); err != nil {
+	if err := m.get(ctx, m.registryAuths[registry.ID], u, &metadata); err != nil {
 		return maven.Metadata{}, err
 	}
 
 	return metadata, nil
 }
 
-func (m *MavenRegistryAPIClient) get(ctx context.Context, url string, dst interface{}) error {
+func (m *MavenRegistryAPIClient) get(ctx context.Context, auth *AuthenticationInfo, url string, dst interface{}) error {
 	resp, err := m.responses.Get(url, func() (response, error) {
-		req, err := http.NewRequestWithContext(ctx, http.MethodGet, url, nil)
-		if err != nil {
-			return response{}, fmt.Errorf("failed to make new request: %w", err)
-		}
-
-		resp, err := http.DefaultClient.Do(req)
+		resp, err := auth.GetRequest(ctx, http.DefaultClient, url)
 		if err != nil {
 			return response{}, fmt.Errorf("%w: Maven registry query failed: %w", errAPIFailed, err)
 		}
 		defer resp.Body.Close()
 
-		if resp.StatusCode != http.StatusOK && resp.StatusCode != http.StatusNotFound {
-			// Only cache responses with Status OK or NotFound
+		if !slices.Contains([]int{http.StatusOK, http.StatusNotFound, http.StatusUnauthorized}, resp.StatusCode) {
+			// Only cache responses with Status OK, NotFound, or Unauthorized
 			return response{}, fmt.Errorf("%w: Maven registry query status: %d", errAPIFailed, resp.StatusCode)
 		}
 
