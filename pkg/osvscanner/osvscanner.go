@@ -275,10 +275,11 @@ func exportDockerImage(r reporter.Reporter, dockerImageName string) (string, err
 	}
 
 	// Check if image exists locally, if not, pull from the cloud.
+	r.Infof("Checking if docker image (%q) exists locally...\n", dockerImageName)
 	cmd := exec.Command("docker", "images", "-q", dockerImageName)
 	output, err := cmd.Output()
 	if err != nil || string(output) == "" {
-		r.Infof("Pulling docker image (%q)...\n", dockerImageName)
+		r.Infof("Image not found locally, pulling docker image (%q)...\n", dockerImageName)
 		err = runCommandLogError(r, "docker", "pull", "-q", dockerImageName)
 		if err != nil {
 			return "", fmt.Errorf("failed to pull container image: %w", err)
