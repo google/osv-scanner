@@ -183,7 +183,7 @@ func DoContainerScan(actions ScannerActions, r reporter.Reporter) (models.Vulner
 		var runningDigest digest.Digest
 		chainIDs := []digest.Digest{}
 
-		for i, cl := range chainLayers {
+		for _, cl := range chainLayers {
 			var diffDigest digest.Digest
 			if cl.Layer().DiffID() == "" {
 				chainIDs = append(chainIDs, "")
@@ -192,7 +192,7 @@ func DoContainerScan(actions ScannerActions, r reporter.Reporter) (models.Vulner
 
 			diffDigest = digest.NewDigestFromEncoded(digest.SHA256, cl.Layer().DiffID())
 
-			if i == 0 {
+			if runningDigest == "" {
 				runningDigest = diffDigest
 			} else {
 				runningDigest = digest.FromBytes([]byte(runningDigest + " " + diffDigest))
