@@ -73,7 +73,7 @@ type ImageInfo struct {
 
 // PackageContainerInfo represents detailed layer tracing information about a package.
 type PackageContainerInfo struct {
-	LayerDiffID   string
+	LayerIndex    int
 	LayerInfo     LayerInfo
 	BaseImageInfo BaseImageGroupInfo
 }
@@ -190,14 +190,14 @@ func BuildResults(vulnResult *models.VulnerabilityResults) Result {
 	return outputResult
 }
 
-func buildLayerBaseImageMap(imageMetadata models.ImageMetadata) (map[string]*PackageContainerInfo, []LayerInfo, []BaseImageGroupInfo) {
-	layerMap := make(map[string]*PackageContainerInfo)
+func buildLayerBaseImageMap(imageMetadata models.ImageMetadata) (map[int]*PackageContainerInfo, []LayerInfo, []BaseImageGroupInfo) {
+	layerMap := make(map[int]*PackageContainerInfo) // change to slice
 	allLayers := getAllLayers(imageMetadata.LayerMetadata)
 	allBaseImages := getAllBaseImages(imageMetadata.BaseImages)
 
 	for i := range allLayers {
-		layerMap[allLayers[i].LayerDiffID] = &PackageContainerInfo{
-			LayerDiffID:   allLayers[i].LayerDiffID,
+		layerMap[allLayers[i].Index] = &PackageContainerInfo{
+			LayerIndex:    allLayers[i].Index,
 			LayerInfo:     allLayers[i],
 			BaseImageInfo: allBaseImages[allLayers[i].BaseImageIndex],
 		}
@@ -290,11 +290,11 @@ func updateLayerCount(result *Result, imageMetadata models.ImageMetadata) { // T
 
 	layerMap, allLayers, allBaseImages := buildLayerBaseImageMap(imageMetadata)
 
-	layerCount := make(map[string]VulnCount)
+	layerCount := make(map[int]VulnCount)
 	baseImageCount := make(map[int]VulnCount)
 
 	for i := range allLayers {
-		layerCount[allLayers[i].LayerDiffID] = VulnCount{}
+		layerCount[allLayers[i].Index] = VulnCount{}
 	}
 
 	for i := range allBaseImages {
@@ -305,10 +305,10 @@ func updateLayerCount(result *Result, imageMetadata models.ImageMetadata) { // T
 	for _, ecosystem := range result.Ecosystems {
 		for _, source := range ecosystem.Sources {
 			for _, pkg := range source.Packages {
-				layerDiffID := pkg.LayerDetail.LayerDiffID
-				resultCount := layerCount[layerDiffID]
+				layerIndex := pkg.LayerDetail.LayerIndex
+				resultCount := layerCount[layerIndex]
 				resultCount.Add(pkg.VulnCount)
-				layerCount[layerDiffID] = resultCount
+				layerCount[layerIndex] = resultCount
 
 				baseImageIndex := pkg.LayerDetail.LayerInfo.BaseImageIndex
 				imageResultCount := baseImageCount[baseImageIndex]
@@ -333,7 +333,7 @@ func updateLayerCount(result *Result, imageMetadata models.ImageMetadata) { // T
 
 	// Add ImageInfo
 	for i := range allLayers {
-		allLayers[i].Count = layerMap[allLayers[i].LayerDiffID].LayerInfo.Count
+		allLayers[i].Count = layerMap[allLayers[i].Index].LayerInfo.Count
 	}
 
 	for i := range allBaseImages {
@@ -364,7 +364,7 @@ func updateLayerCount(result *Result, imageMetadata models.ImageMetadata) { // T
 			for k := range result.Ecosystems[i].Sources[j].Packages {
 				// Pointer to packageInfo to modify directly.
 				packageInfo := &result.Ecosystems[i].Sources[j].Packages[k]
-				layerDiffID := packageInfo.LayerDetail.LayerDiffID
+				layerDiffID := packageInfo.LayerDetail.LayerIndex
 				packageInfo.LayerDetail = *layerMap[layerDiffID]
 			}
 		}
@@ -389,7 +389,7 @@ func processSource(packageSource models.PackageSource) SourceResult {
 		packageResult := processPackage(vulnPkg)
 		if vulnPkg.Package.ImageOrigin != nil {
 			packageResult.LayerDetail = PackageContainerInfo{
-				LayerDiffID: vulnPkg.Package.ImageOrigin.DiffID,
+				LayerIndex: vulnPkg.Package.ImageOrigin.Index,
 			}
 		}
 		packages = append(packages, packageResult)

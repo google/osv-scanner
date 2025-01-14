@@ -195,4 +195,3 @@ type PackageInfo struct {
 	Commit      string              `json:"commit,omitempty"`
 	ImageOrigin *ImageOriginDetails `json:"imageOrigin,omitempty"`
 }
-

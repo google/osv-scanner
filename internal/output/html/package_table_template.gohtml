@@ -21,7 +21,7 @@
   {{ range $rowIndex, $element := . }}
   {{ $index := uniqueID }}
   <tr class="table-tr package-tr {{if $element.LayerDetail }}has-layer-info"
-    data-layer="{{ $element.LayerDetail.LayerDiffID }}{{ end }}" id="table-tr-{{ $index }}" onclick="showPackageDetails('{{ $index }}')">
+    data-layer="{{ $element.LayerDetail.LayerInfo.LayerDiffID }}{{ end }}" id="table-tr-{{ $index }}" onclick="showPackageDetails('{{ $index }}')">
     <td class="icon-td">
       <div class="expand-icon">
         <i class="material-icons">play_arrow</i>
@@ -55,7 +55,7 @@
   <tr>
     <td colspan="100%">
       <div id="table-tr-{{ $index }}-details" class="package-details">
-        {{ if and $element.LayerDetail (not (eq $element.LayerDetail.LayerDiffID "")) }}
+        {{ if and $element.LayerDetail (not (eq $element.LayerDetail.LayerInfo.LayerDiffID "")) }}
         <div class="layer-command-container">
           <span class="package-detail-title">Layer introduced in:</span>
           {{ if ne $element.LayerDetail.LayerInfo.LayerCommandDetailed "" }}

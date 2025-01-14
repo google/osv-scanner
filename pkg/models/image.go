@@ -1,6 +1,7 @@
 package models
 
 type ImageOriginDetails struct {
+	Index  int    `json:"index"`
 	DiffID string `json:"diff_id"`
 
 	// TODO: Deprecated, use ImageMetadata to retrieve this info
