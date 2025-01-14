@@ -45,6 +45,7 @@ func PrintHTMLResults(vulnResult *models.VulnerabilityResults, outputWriter io.W
 			return a + b
 		},
 		"getFilteredVulnReasons": getFilteredVulnReasons,
+		"getBaseImageNames":      getBaseImageNames,
 	}
 
 	tmpl := template.Must(template.New("").Funcs(funcMap).ParseFS(templates, TemplateDir))
