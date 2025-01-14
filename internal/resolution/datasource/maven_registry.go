@@ -26,7 +26,7 @@ var errAPIFailed = errors.New("API query failed")
 type MavenRegistryAPIClient struct {
 	defaultRegistry MavenRegistry                  // The default registry that we are making requests
 	registries      []MavenRegistry                // Additional registries specified to fetch projects
-	registryAuths   map[string]*AuthenticationInfo // Authentication for the registries, from settings.xml
+	registryAuths   map[string]*AuthenticationInfo // Authentication for the registries keyed by registry ID. From settings.xml
 
 	// Cache fields
 	mu             *sync.Mutex

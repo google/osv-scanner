@@ -12,6 +12,9 @@ import (
 	"github.com/google/osv-scanner/internal/cachedregexp"
 )
 
+// Maven settings.xml file parsing for registry authentication.
+// https://maven.apache.org/settings.html
+
 type MavenSettingsXML struct {
 	Servers []MavenSettingsXMLServer `xml:"servers>server"`
 }
