@@ -229,6 +229,7 @@ func ParseNpmRegistryInfo(npmrc NpmrcConfig) NpmRegistryConfig {
 			AlwaysAuth:       true,
 		}
 		config.Auths[key] = auth
+
 		return auth
 	}
 

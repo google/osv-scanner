@@ -3,7 +3,7 @@ package datasource
 import (
 	"bytes"
 	"context"
-	"crypto/md5"
+	"crypto/md5" //nolint:gosec // used in Digest access authentication algorithm
 	"crypto/rand"
 	"encoding/base64"
 	"encoding/hex"
@@ -59,6 +59,7 @@ func (auth *AuthenticationInfo) GetRequest(ctx context.Context, httpClient *http
 				ok = auth.addBasic(req)
 			case AuthBearer:
 				ok = auth.addBearer(req)
+			case AuthDigest:
 			}
 			if ok {
 				break
@@ -75,6 +76,7 @@ func (auth *AuthenticationInfo) GetRequest(ctx context.Context, httpClient *http
 			auth.addBasic(req)
 		case AuthBearer:
 			auth.addBearer(req)
+		case AuthDigest:
 		}
 	}
 
@@ -136,12 +138,14 @@ func (auth *AuthenticationInfo) authIndex(wwwAuth []string, authScheme string) i
 func (auth *AuthenticationInfo) addBasic(req *http.Request) bool {
 	if auth.BasicAuth != "" {
 		req.Header.Set("Authorization", "Basic "+auth.BasicAuth)
+
 		return true
 	}
 
 	if auth.Username != "" && auth.Password != "" {
 		authStr := base64.StdEncoding.EncodeToString([]byte(auth.Username + ":" + auth.Password))
 		req.Header.Set("Authorization", "Basic "+authStr)
+
 		return true
 	}
 
@@ -151,6 +155,7 @@ func (auth *AuthenticationInfo) addBasic(req *http.Request) bool {
 func (auth *AuthenticationInfo) addBearer(req *http.Request) bool {
 	if auth.BearerToken != "" {
 		req.Header.Set("Authorization", "Bearer "+auth.BearerToken)
+
 		return true
 	}
 
@@ -175,7 +180,7 @@ func (auth *AuthenticationInfo) addDigest(req *http.Request, challenge string) b
 	}
 	var cnonce string
 
-	ha1 := md5.Sum([]byte(auth.Username + ":" + realm + ":" + auth.Password))
+	ha1 := md5.Sum([]byte(auth.Username + ":" + realm + ":" + auth.Password)) //nolint:gosec
 	switch params["algorithm"] {
 	case "MD5-sess":
 		cnonce = auth.cnonce()
@@ -184,11 +189,9 @@ func (auth *AuthenticationInfo) addDigest(req *http.Request, challenge string) b
 		}
 		var b bytes.Buffer
 		fmt.Fprintf(&b, "%x:%s:%s", ha1, nonce, cnonce)
-		ha1 = md5.Sum(b.Bytes())
+		ha1 = md5.Sum(b.Bytes()) //nolint:gosec
 	case "MD5":
-		break
 	case "":
-		break
 	default:
 		return false
 	}
@@ -200,7 +203,7 @@ func (auth *AuthenticationInfo) addDigest(req *http.Request, challenge string) b
 
 	uri := req.URL.Path // is this sufficient?
 
-	ha2 := md5.Sum([]byte(req.Method + ":" + uri))
+	ha2 := md5.Sum([]byte(req.Method + ":" + uri)) //nolint:gosec
 
 	// hard-coding nonceCount to 1 since we don't make a request more than once
 	nonceCount := "00000001"
@@ -217,7 +220,7 @@ func (auth *AuthenticationInfo) addDigest(req *http.Request, challenge string) b
 	} else {
 		fmt.Fprintf(&b, "%x:%s:%x", ha1, nonce, ha2)
 	}
-	response := md5.Sum(b.Bytes())
+	response := md5.Sum(b.Bytes()) //nolint:gosec
 
 	var sb strings.Builder
 	fmt.Fprintf(&sb, "Digest username=\"%s\", realm=\"%s\", nonce=\"%s\", uri=\"%s\"",
@@ -252,6 +255,7 @@ func (auth *AuthenticationInfo) parseChallenge(challenge string) map[string]stri
 		if strings.Count(parts[i], "\"")%2 == 1 && len(parts) > i+1 {
 			parts[i] = parts[i] + "," + parts[i+1]
 			parts = append(parts[:i+1], parts[i+2:]...)
+
 			continue
 		}
 		i++

@@ -65,10 +65,11 @@ func checkNpmRegistryRequest(t *testing.T, config datasource.NpmRegistryConfig, 
 	t.Helper()
 	mt := &mockTransport{}
 	httpClient := &http.Client{Transport: mt}
-	_, err := config.MakeRequest(context.Background(), httpClient, urlComponents...)
+	resp, err := config.MakeRequest(context.Background(), httpClient, urlComponents...)
 	if err != nil {
 		t.Fatalf("error making request: %v", err)
 	}
+	defer resp.Body.Close()
 	if len(mt.Requests) != 1 {
 		t.Fatalf("unexpected number of requests made: %v", len(mt.Requests))
 	}
@@ -294,10 +295,11 @@ func TestNpmRegistryAuths(t *testing.T) {
 			// Send off requests to mockTransport to see the auth headers being added.
 			mt := &mockTransport{}
 			httpClient := &http.Client{Transport: mt}
-			_, err := config.Auths.GetAuth(tt.requestURL).GetRequest(context.Background(), httpClient, tt.requestURL)
+			resp, err := config.Auths.GetAuth(tt.requestURL).GetRequest(context.Background(), httpClient, tt.requestURL)
 			if err != nil {
 				t.Fatalf("error making request: %v", err)
 			}
+			defer resp.Body.Close()
 			if len(mt.Requests) != 1 {
 				t.Fatalf("unexpected number of requests made: %v", len(mt.Requests))
 			}

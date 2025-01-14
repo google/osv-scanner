@@ -9,10 +9,6 @@ import (
 	"github.com/google/osv-scanner/internal/cachedregexp"
 )
 
-func LoadMavenSettings() (any, error) {
-	return nil, nil
-}
-
 type MavenSettingsXML struct {
 	Servers []MavenSettingsXMLServer `xml:"servers>server"`
 }

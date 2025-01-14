@@ -293,6 +293,7 @@ func TestAuthenticationInfo(t *testing.T) {
 				if err != nil {
 					t.Fatalf("error making request: %v", err)
 				}
+				defer resp.Body.Close()
 				if resp.StatusCode != want {
 					t.Errorf("authorization response status code got = %d, want %d", resp.StatusCode, want)
 				}
