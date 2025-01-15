@@ -5,7 +5,6 @@ import (
 	"github.com/google/osv-scalibr/extractor"
 	"github.com/google/osv-scalibr/plugin"
 	"github.com/google/osv-scalibr/purl"
-	"github.com/ossf/osv-schema/bindings/go/osvschema"
 )
 
 // GraphAsInventory is a helper function to convert a Graph into an Inventory for use with VulnerabilityMatcher.
@@ -16,33 +15,32 @@ func GraphAsInventory(g *resolve.Graph) []*extractor.Inventory {
 		inv[i] = &extractor.Inventory{
 			Name:      n.Version.Name,
 			Version:   n.Version.Version,
-			Metadata:  n,
-			Extractor: graphExtractor{},
-			Locations: []string{g.Nodes[0].Version.Name},
+			Extractor: mockExtractor{n.Version.System},
 		}
 	}
+
 	return inv
 }
 
-// graphExtractor is for GraphAsInventory to get the ecosystem.
-type graphExtractor struct{}
+// mockExtractor is for GraphAsInventory to get the ecosystem.
+type mockExtractor struct {
+	ecosystem resolve.System
+}
 
-func (e graphExtractor) Ecosystem(i *extractor.Inventory) string {
-	n, ok := i.Metadata.(resolve.Node)
-	if !ok {
-		return ""
-	}
-	switch n.Version.System {
+func (e mockExtractor) Ecosystem(*extractor.Inventory) string {
+	switch e.ecosystem {
 	case resolve.NPM:
-		return string(osvschema.EcosystemNPM)
+		return "npm"
 	case resolve.Maven:
-		return string(osvschema.EcosystemMaven)
+		return "Maven"
+	case resolve.UnknownSystem:
+		return ""
 	default:
 		return ""
 	}
 }
 
-func (e graphExtractor) Name() string                                   { return "" }
-func (e graphExtractor) Requirements() *plugin.Capabilities             { return nil }
-func (e graphExtractor) ToPURL(_ *extractor.Inventory) *purl.PackageURL { return nil }
-func (e graphExtractor) Version() int                                   { return 0 }
+func (e mockExtractor) Name() string                                 { return "" }
+func (e mockExtractor) Requirements() *plugin.Capabilities           { return nil }
+func (e mockExtractor) ToPURL(*extractor.Inventory) *purl.PackageURL { return nil }
+func (e mockExtractor) Version() int                                 { return 0 }

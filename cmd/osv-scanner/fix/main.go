@@ -13,6 +13,7 @@ import (
 	"github.com/google/osv-scanner/internal/clients/clientimpl/localmatcher"
 	"github.com/google/osv-scanner/internal/clients/clientimpl/osvmatcher"
 	"github.com/google/osv-scanner/internal/depsdev"
+	"github.com/google/osv-scanner/internal/imodels/ecosystem"
 	"github.com/google/osv-scanner/internal/osvdev"
 	"github.com/google/osv-scanner/internal/remediation"
 	"github.com/google/osv-scanner/internal/remediation/upgrade"
@@ -20,8 +21,10 @@ import (
 	"github.com/google/osv-scanner/internal/resolution/client"
 	"github.com/google/osv-scanner/internal/resolution/lockfile"
 	"github.com/google/osv-scanner/internal/resolution/manifest"
+	"github.com/google/osv-scanner/internal/resolution/util"
 	"github.com/google/osv-scanner/internal/version"
 	"github.com/google/osv-scanner/pkg/reporter"
+	"github.com/ossf/osv-schema/bindings/go/osvschema"
 	"github.com/urfave/cli/v2"
 	"golang.org/x/term"
 )
@@ -379,10 +382,14 @@ func action(ctx *cli.Context, stdout, stderr io.Writer) (reporter.Reporter, erro
 			return nil, err
 		}
 
-		// TODO: check system is downloaded
-		// if err := matcher.LoadEcosystem(ctx.Context, system?); err != nil {
-		// 	return nil, err
-		// }
+		eco, ok := util.OSVEcosystem[system]
+		if !ok {
+			// Something's very wrong if we hit this
+			panic("unhandled resolve.Ecosystem: " + system.String())
+		}
+		if err := matcher.LoadEcosystem(ctx.Context, ecosystem.Parsed{Ecosystem: osvschema.Ecosystem(eco)}); err != nil {
+			return nil, err
+		}
 
 		opts.Client.VulnerabilityMatcher = matcher
 	} else {
