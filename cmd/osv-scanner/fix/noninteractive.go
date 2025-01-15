@@ -156,6 +156,10 @@ func autoRelax(ctx context.Context, r *outputReporter, opts osvFixOptions, maxUp
 		return err
 	}
 
+	if opts.NoIntroduce {
+		allPatches = removeVulnIntroducingPatches(allPatches)
+	}
+
 	populateResultVulns(&outputResult, res, allPatches)
 
 	if err := opts.Client.WriteCache(manif.FilePath); err != nil {
@@ -308,6 +312,10 @@ func autoOverride(ctx context.Context, r *outputReporter, opts osvFixOptions, ma
 	allPatches, err := remediation.ComputeOverridePatches(ctx, opts.Client, res, opts.Options)
 	if err != nil {
 		return err
+	}
+
+	if opts.NoIntroduce {
+		allPatches = removeVulnIntroducingPatches(allPatches)
 	}
 
 	populateResultVulns(&outputResult, res, allPatches)
@@ -466,4 +474,8 @@ func populateResultVulns(outputResult *fixOutput, res *resolution.Result, allPat
 
 	outputResult.Vulnerabilities = maps.Values(vulns)
 	sortVulns(outputResult.Vulnerabilities)
+}
+
+func removeVulnIntroducingPatches(patches []resolution.Difference) []resolution.Difference {
+	return slices.DeleteFunc(patches, func(diff resolution.Difference) bool { return len(diff.AddedVulns) > 0 })
 }
