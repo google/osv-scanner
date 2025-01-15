@@ -130,6 +130,14 @@ func DoContainerScan(actions ScannerActions, r reporter.Reporter) (models.Vulner
 	}
 	defer img.CleanUp()
 
+	// Ignore error, as if this would error we would have failed the initial scan
+	chainLayers, _ := img.ChainLayers()
+	m, err := osrelease.GetOSRelease(chainLayers[len(chainLayers)-1].FS())
+	OS := "Unknown"
+	if err == nil {
+		OS = m["OSID"]
+	}
+
 	scalibrSR, err := scanner.ScanContainer(context.Background(), img, &scalibr.ScanConfig{
 		FilesystemExtractors: []filesystem.Extractor{
 			nodemodules.Extractor{},
@@ -156,17 +164,11 @@ func DoContainerScan(actions ScannerActions, r reporter.Reporter) (models.Vulner
 
 	// --- Fill Image Metadata ---
 	{
-		// Ignore error, as if this would error we would have failed the initial scan
-		chainLayers, _ := img.ChainLayers()
-		m, err := osrelease.GetOSRelease(chainLayers[len(chainLayers)-1].FS())
-		OS := "Unknown"
-		if err != nil {
-			OS = m["OSID"]
-		}
 
 		layerMetadata := []models.LayerMetadata{}
-		for _, cl := range chainLayers {
+		for i, cl := range chainLayers {
 			layerMetadata = append(layerMetadata, models.LayerMetadata{
+				Index:   i,
 				DiffID:  cl.Layer().DiffID(),
 				Command: cl.Layer().Command(),
 				IsEmpty: cl.Layer().IsEmpty(),
