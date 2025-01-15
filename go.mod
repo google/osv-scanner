@@ -3,26 +3,26 @@ module github.com/google/osv-scanner
 go 1.23.4
 
 require (
-	deps.dev/api/v3 v3.0.0-20241223232618-f8b47b9fbbab
-	deps.dev/util/maven v0.0.0-20241223234259-3e2fcc756990
-	deps.dev/util/resolve v0.0.0-20241223234119-d36e05e6460f
-	deps.dev/util/semver v0.0.0-20241223233905-018358ffdd50
+	deps.dev/api/v3 v3.0.0-20250114022823-c1ebdca3d00a
+	deps.dev/util/maven c1ebdca3d00a
+	deps.dev/util/resolve c1ebdca3d00a
+	deps.dev/util/semver c1ebdca3d00a
 	github.com/BurntSushi/toml v1.4.0
 	github.com/CycloneDX/cyclonedx-go v0.9.2
 	github.com/charmbracelet/bubbles v0.20.0
 	github.com/charmbracelet/bubbletea v1.2.4
 	github.com/charmbracelet/glamour v0.8.0
 	github.com/charmbracelet/lipgloss v1.0.0
-	github.com/gkampitakis/go-snaps v0.5.7
-	github.com/go-git/go-billy/v5 v5.6.0
-	github.com/go-git/go-git/v5 v5.13.0
+	github.com/gkampitakis/go-snaps v0.5.8
+	github.com/go-git/go-billy/v5 v5.6.2
+	github.com/go-git/go-git/v5 v5.13.1
 	github.com/google/go-cmp v0.6.0
 	github.com/google/go-containerregistry v0.20.2
-	github.com/google/osv-scalibr v0.1.6-0.20250105222824-56e5c3bfb149
+	github.com/google/osv-scalibr b98597c41f41
 	github.com/ianlancetaylor/demangle v0.0.0-20240912202439-0a2b6291aafd
 	github.com/jedib0t/go-pretty/v6 v6.6.5
 	github.com/muesli/reflow v0.3.0
-	github.com/ossf/osv-schema/bindings/go v0.0.0-20241210213101-57fd3ddb15aa
+	github.com/ossf/osv-schema/bindings/go 20832394b94f
 	github.com/owenrumney/go-sarif/v2 v2.3.3
 	github.com/package-url/packageurl-go v0.1.3
 	github.com/pandatix/go-cvss v0.6.2
@@ -30,14 +30,14 @@ require (
 	github.com/tidwall/pretty v1.2.1
 	github.com/tidwall/sjson v1.2.5
 	github.com/urfave/cli/v2 v2.27.5
-	golang.org/x/exp v0.0.0-20241217172543-b2144cdd0a67
+	golang.org/x/exp 7588d65b2ba8
 	golang.org/x/mod v0.22.0
-	golang.org/x/net v0.33.0
+	golang.org/x/net v0.34.0
 	golang.org/x/sync v0.10.0
-	golang.org/x/term v0.27.0
+	golang.org/x/term v0.28.0
 	golang.org/x/vuln v1.0.4
-	google.golang.org/grpc v1.69.2
-	google.golang.org/protobuf v1.36.1
+	google.golang.org/grpc v1.69.4
+	google.golang.org/protobuf v1.36.2
 	gopkg.in/ini.v1 v1.67.0
 	gopkg.in/yaml.v3 v3.0.1
 )
