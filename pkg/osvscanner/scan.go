@@ -3,8 +3,6 @@ package osvscanner
 import (
 	"github.com/google/osv-scalibr/extractor"
 	"github.com/google/osv-scanner/internal/imodels"
-	"github.com/google/osv-scanner/internal/resolution/client"
-	"github.com/google/osv-scanner/internal/datasource"
 	"github.com/google/osv-scanner/internal/scalibrextract/ecosystemmock"
 	"github.com/google/osv-scanner/pkg/osvscanner/internal/scanners"
 	"github.com/google/osv-scanner/pkg/reporter"

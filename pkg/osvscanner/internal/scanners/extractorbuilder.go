@@ -28,7 +28,7 @@ import (
 	"github.com/google/osv-scalibr/extractor/filesystem/sbom/spdx"
 	"github.com/google/osv-scanner/internal/osvdev"
 	"github.com/google/osv-scanner/internal/resolution/client"
-	"github.com/google/osv-scanner/internal/resolution/datasource"
+	"github.com/google/osv-scanner/internal/datasource"
 	"github.com/google/osv-scanner/internal/scalibrextract/filesystem/vendored"
 	"github.com/google/osv-scanner/internal/scalibrextract/language/java/pomxmlnet"
 	"github.com/google/osv-scanner/internal/scalibrextract/language/javascript/nodemodules"
