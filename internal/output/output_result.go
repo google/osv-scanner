@@ -45,6 +45,7 @@ type SourceResult struct {
 // PackageResult represents the vulnerability scanning results for a package.
 type PackageResult struct {
 	Name             string
+	BinaryNames      []string
 	InstalledVersion string
 	FixedVersion     string
 	RegularVulns     []VulnResult
@@ -176,7 +177,7 @@ func BuildResults(vulnResult *models.VulnerabilityResults) Result {
 		// which are already covered by OS-specific vulnerabilities.
 		// This filtering should be handled by the container scanning process.
 		// TODO(gongh@): Revisit this once container scanning can distinguish these cases.
-		if strings.HasPrefix(packageSource.Source.Path, "usr/lib/") {
+		if strings.HasPrefix(packageSource.Source.Path, "usr/") {
 			continue
 		}
 
@@ -374,26 +375,26 @@ func updateLayerCount(result *Result, imageMetadata models.ImageMetadata) { // T
 // processSource processes a single source (lockfile or artifact) and returns an SourceResult.
 func processSource(packageSource models.PackageSource) SourceResult {
 	var sourceResult SourceResult
-	packages := make([]PackageResult, 0)
-	packageSet := make(map[string]struct{})
+	packageMap := make(map[string]PackageResult)
 
 	for _, vulnPkg := range packageSource.Packages {
 		sourceResult.Ecosystem = vulnPkg.Package.Ecosystem
 		key := vulnPkg.Package.Name + ":" + vulnPkg.Package.Version
-		if _, exist := packageSet[key]; exist {
-			// In container scanning, the same package (same name and version) might be found multiple times
-			// within a single source. This happens because we use the upstream source name instead of
-			// the Linux distribution package name.
-			continue
+		if _, exist := packageMap[key]; exist {
+			pkgTemp := packageMap[key]
+			pkgTemp.BinaryNames = append(pkgTemp.BinaryNames, vulnPkg.Package.BinaryName)
+			packageMap[key] = pkgTemp
+
+			continue // Skip processing this vulnPkg as it was already added
 		}
+
 		packageResult := processPackage(vulnPkg)
 		if vulnPkg.Package.ImageOrigin != nil {
 			packageResult.LayerDetail = PackageContainerInfo{
 				LayerIndex: vulnPkg.Package.ImageOrigin.Index,
 			}
 		}
-		packages = append(packages, packageResult)
-		packageSet[key] = struct{}{}
+		packageMap[key] = packageResult
 
 		sourceResult.VulnCount.Add(packageResult.VulnCount)
 		if len(packageResult.RegularVulns) != 0 {
@@ -404,6 +405,12 @@ func processSource(packageSource models.PackageSource) SourceResult {
 			sourceResult.PackageTypeCount.Hidden += 1
 		}
 	}
+
+	packages := make([]PackageResult, len(packageMap))
+	for _, pkg := range packageMap {
+		packages = append(packages, pkg)
+	}
+
 	// Sort packageResults to ensure consistent output
 	slices.SortFunc(packages, func(a, b PackageResult) int {
 		return cmp.Or(
@@ -435,8 +442,11 @@ func processPackage(vulnPkg models.PackageVulns) PackageResult {
 
 	packageFixedVersion := calculatePackageFixedVersion(vulnPkg.Package.Ecosystem, regularVulnList)
 
+	binaryNames := []string{vulnPkg.Package.BinaryName}
+
 	packageResult := PackageResult{
 		Name:             vulnPkg.Package.Name,
+		BinaryNames:      binaryNames,
 		InstalledVersion: vulnPkg.Package.Version,
 		FixedVersion:     packageFixedVersion,
 		RegularVulns:     regularVulnList,
@@ -645,11 +655,11 @@ func getFilteredVulnReasons(vulns []VulnResult) string {
 }
 
 func getBaseImageNames(baseImageInfo BaseImageGroupInfo) string {
-	var names []string
-	for _, baseImageInfo := range baseImageInfo.BaseImageInfo {
-		names = append(names, baseImageInfo.Name)
+	if len(baseImageInfo.BaseImageInfo) > 0 {
+		return baseImageInfo.BaseImageInfo[0].Name
 	}
-	return strings.Join(names, ", ")
+
+	return ""
 }
 
 func increaseSeverityCount(severityCount SeverityCount, severityType severity.Rating) SeverityCount {

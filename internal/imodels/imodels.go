@@ -68,6 +68,10 @@ func (pkg *PackageInfo) Name() string {
 	return pkg.Inventory.Name
 }
 
+func (pkg *PackageInfo) BinaryName() string {
+	return pkg.Inventory.Name
+}
+
 func (pkg *PackageInfo) Ecosystem() ecosystem.Parsed {
 	ecosystemStr := pkg.Inventory.Ecosystem()
 

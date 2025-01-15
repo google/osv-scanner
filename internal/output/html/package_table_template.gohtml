@@ -56,10 +56,12 @@
     <td colspan="100%">
       <div id="table-tr-{{ $index }}-details" class="package-details">
         {{ if and $element.LayerDetail (not (eq $element.LayerDetail.LayerInfo.LayerDiffID "")) }}
+        <p><span class="package-detail-title">Installed binaries:</span> {{ formatSlice $element.BinaryNames }}</p>
         <div class="layer-command-container">
           {{ if gt (len $element.LayerDetail.LayerInfo.LayerCommand) 100 }}
+          <p class="package-detail-title">Layer introduced in:&nbsp;</p>
           <div class="tooltip">
-            <p class="layer-command"><span class="package-detail-title">Layer introduced in:</span> {{ $element.LayerDetail.LayerInfo.Index }} {{ $element.LayerDetail.LayerInfo.LayerCommand }}</p>
+            <p class="layer-command">{{ $element.LayerDetail.LayerInfo.Index }} {{ $element.LayerDetail.LayerInfo.LayerCommand }}</p>
             <span class="tooltiptext layer-tooltiptext">{{ $element.LayerDetail.LayerInfo.LayerCommand }}</span>
           </div>
           {{ else if ne $element.LayerDetail.LayerInfo.LayerCommandDetailed "" }}

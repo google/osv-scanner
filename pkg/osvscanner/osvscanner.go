@@ -117,7 +117,11 @@ func DoContainerScan(actions ScannerActions, r reporter.Reporter) (models.Vulner
 		if exportErr != nil {
 			return models.VulnerabilityResults{}, exportErr
 		}
-		defer os.Remove(path)
+
+		// Only remove the tar file we created for users.
+		if path != actions.DockerImageName {
+			defer os.Remove(path)
+		}
 		img, err = image.FromTarball(path, image.DefaultConfig())
 		r.Infof("Scanning image %q\n", actions.DockerImageName)
 	}

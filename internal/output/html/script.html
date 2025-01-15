@@ -1,4 +1,11 @@
 <script>
+
+  function quickFilterByLayer(DiffID) {
+    showAllVulns();
+    applyLayerFilter(DiffID);
+    showAndHideParentSections();
+  }
+
   function showBaseImageLayer(imageID) {
     var detailElementID = "base-image-details-" + imageID
     var detailsElement = document.getElementById(detailElementID);

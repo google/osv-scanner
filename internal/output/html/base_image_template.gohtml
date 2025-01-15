@@ -38,7 +38,7 @@
       <td colspan="100%">
         <div id="base-image-details-{{ .Index }}" class="base-image-details">
           {{ range .AllLayers }}
-          <div title="{{ .LayerDiffID}}" class="layer-entry" >
+          <div title="{{ .LayerDiffID }}" class="layer-entry {{ if gt .Count.AnalysisCount.Regular 0 }}clickable{{ end }}" {{ if gt .Count.AnalysisCount.Regular 0 }}onclick="quickFilterByLayer('{{ .LayerDiffID }}')"{{ end }}>
             <div {{ if gt (len .LayerCommand) 100 }} class="tooltip" {{ end }}>
               <p class="layer-command"><span class="base-image-title">{{ .Index }}</span> {{ .LayerCommand }}</p>
                 {{ if gt (len .LayerCommand) 100 }}
