@@ -10,13 +10,9 @@ import (
 	"github.com/go-git/go-git/v5/plumbing/format/gitignore"
 	"github.com/google/osv-scalibr/extractor"
 	"github.com/google/osv-scalibr/extractor/filesystem"
-	"github.com/google/osv-scalibr/extractor/filesystem/language/java/pomxml"
 	"github.com/google/osv-scanner/internal/customgitignore"
-	"github.com/google/osv-scanner/internal/osvdev"
 	"github.com/google/osv-scanner/internal/output"
 	"github.com/google/osv-scanner/internal/scalibrextract"
-	"github.com/google/osv-scanner/internal/scalibrextract/filesystem/vendored"
-	"github.com/google/osv-scanner/internal/scalibrextract/vcs/gitrepo"
 	"github.com/google/osv-scanner/pkg/reporter"
 )
 
@@ -27,7 +23,7 @@ import (
 //   - Any git repositories with scanGit
 //
 // TODO(V2 Models): pomExtractor is temporary until V2 Models
-func ScanDir(r reporter.Reporter, dir string, skipGit bool, recursive bool, useGitIgnore bool, pomExtractor filesystem.Extractor) ([]*extractor.Inventory, error) {
+func ScanDir(r reporter.Reporter, dir string, recursive bool, useGitIgnore bool, extractorsToUse []filesystem.Extractor) ([]*extractor.Inventory, error) {
 	var ignoreMatcher *gitIgnoreMatcher
 	if useGitIgnore {
 		var err error
@@ -39,26 +35,6 @@ func ScanDir(r reporter.Reporter, dir string, skipGit bool, recursive bool, useG
 	}
 
 	root := true
-
-	// Setup scan config
-	relevantExtractors := []filesystem.Extractor{}
-	if !skipGit {
-		relevantExtractors = append(relevantExtractors, gitrepo.Extractor{})
-	}
-	relevantExtractors = append(relevantExtractors, lockfileExtractors...)
-	relevantExtractors = append(relevantExtractors, SBOMExtractors...)
-	// Only scan git directories if we are skipping the git extractor
-	// TODO: If in offline mode, don't create a vendoredExtractor
-	relevantExtractors = append(relevantExtractors, vendored.Extractor{
-		ScanGitDir: skipGit,
-		OSVClient:  osvdev.DefaultClient(),
-	})
-	if pomExtractor != nil {
-		relevantExtractors = append(relevantExtractors, pomExtractor)
-	} else {
-		// Use the offline pomxml extractor if networking is unavailable
-		relevantExtractors = append(relevantExtractors, pomxml.Extractor{})
-	}
 
 	var scannedInventories []*extractor.Inventory
 
@@ -92,7 +68,7 @@ func ScanDir(r reporter.Reporter, dir string, skipGit bool, recursive bool, useG
 		}
 
 		// -------- Perform scanning --------
-		inventories, err := scalibrextract.ExtractWithExtractors(context.Background(), path, relevantExtractors)
+		inventories, err := scalibrextract.ExtractWithExtractors(context.Background(), path, extractorsToUse)
 		if err != nil && !errors.Is(err, scalibrextract.ErrExtractorNotFound) {
 			r.Errorf("Error during extraction: %s\n", err)
 		}
