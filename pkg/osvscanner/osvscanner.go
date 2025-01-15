@@ -255,37 +255,7 @@ func DoScan(actions ScannerActions, r reporter.Reporter) (models.VulnerabilityRe
 		)
 	}
 
-	if len(results.Results) > 0 {
-		// Determine the correct error to return.
-
-		// TODO(v2): in the next breaking release of osv-scanner, consider
-		// returning a ScanError instead of an error.
-		var vuln bool
-		onlyUncalledVuln := true
-		var licenseViolation bool
-		for _, vf := range results.Flatten() {
-			if vf.Vulnerability.ID != "" {
-				vuln = true
-				if vf.GroupInfo.IsCalled() {
-					onlyUncalledVuln = false
-				}
-			}
-			if len(vf.LicenseViolations) > 0 {
-				licenseViolation = true
-			}
-		}
-		onlyUncalledVuln = onlyUncalledVuln && vuln
-		licenseViolation = licenseViolation && len(actions.ScanLicensesAllowlist) > 0
-
-		if (!vuln || onlyUncalledVuln) && !licenseViolation {
-			// There is no error.
-			return results, nil
-		}
-
-		return results, ErrVulnerabilitiesFound
-	}
-
-	return results, nil
+	return results, determineReturnErr(results)
 }
 
 func DoContainerScan(actions ScannerActions, r reporter.Reporter) (models.VulnerabilityResults, error) {
@@ -513,37 +483,7 @@ func DoContainerScan(actions ScannerActions, r reporter.Reporter) (models.Vulner
 		)
 	}
 
-	if len(results.Results) > 0 {
-		// Determine the correct error to return.
-
-		// TODO(v2): in the next breaking release of osv-scanner, consider
-		// returning a ScanError instead of an error.
-		var vuln bool
-		onlyUncalledVuln := true
-		var licenseViolation bool
-		for _, vf := range results.Flatten() {
-			if vf.Vulnerability.ID != "" {
-				vuln = true
-				if vf.GroupInfo.IsCalled() {
-					onlyUncalledVuln = false
-				}
-			}
-			if len(vf.LicenseViolations) > 0 {
-				licenseViolation = true
-			}
-		}
-		onlyUncalledVuln = onlyUncalledVuln && vuln
-		licenseViolation = licenseViolation && len(actions.ScanLicensesAllowlist) > 0
-
-		if (!vuln || onlyUncalledVuln) && !licenseViolation {
-			// There is no error.
-			return results, nil
-		}
-
-		return results, ErrVulnerabilitiesFound
-	}
-
-	return results, nil
+	return results, determineReturnErr(results)
 }
 
 func exportDockerImage(r reporter.Reporter, dockerImageName string) (string, error) {
@@ -616,6 +556,39 @@ func runCommandLogError(r reporter.Reporter, name string, args ...string) error 
 		}
 
 		return errors.New("failed to run docker command")
+	}
+
+	return nil
+}
+
+func determineReturnErr(results models.VulnerabilityResults) error {
+	if len(results.Results) > 0 {
+		// Determine the correct error to return.
+
+		// TODO(v2): in the next breaking release of osv-scanner, consider
+		// returning a ScanError instead of an error.
+		var vuln bool
+		onlyUncalledVuln := true
+		var licenseViolation bool
+		for _, vf := range results.Flatten() {
+			if vf.Vulnerability.ID != "" {
+				vuln = true
+				if vf.GroupInfo.IsCalled() {
+					onlyUncalledVuln = false
+				}
+			}
+			if len(vf.LicenseViolations) > 0 {
+				licenseViolation = true
+			}
+		}
+		onlyUncalledVuln = onlyUncalledVuln && vuln
+
+		if (!vuln || onlyUncalledVuln) && !licenseViolation {
+			// There is no error.
+			return nil
+		}
+
+		return ErrVulnerabilitiesFound
 	}
 
 	return nil
