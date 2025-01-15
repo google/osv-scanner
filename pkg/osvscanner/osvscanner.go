@@ -59,11 +59,19 @@ type TransitiveScanningActions struct {
 }
 
 type ExternalAccessors struct {
-	VulnMatcher            clientinterfaces.VulnerabilityMatcher
-	LicenseMatcher         clientinterfaces.LicenseMatcher
+	// Matchers
+	VulnMatcher    clientinterfaces.VulnerabilityMatcher
+	LicenseMatcher clientinterfaces.LicenseMatcher
+
+	// Required for pomxmlnet Extractor
 	MavenRegistryAPIClient *datasource.MavenRegistryAPIClient
-	OSVDevClient           *osvdev.OSVClient
-	DependencyClients      map[osvschema.Ecosystem]client.DependencyClient
+	// Required for vendored Extractor
+	OSVDevClient *osvdev.OSVClient
+
+	// DependencyClients is a map of implementations of DependencyClient
+	// for each ecosystem, the following is currently implemented:
+	// - [osvschema.EcosystemMaven] required for pomxmlnet Extractor
+	DependencyClients map[osvschema.Ecosystem]client.DependencyClient
 }
 
 // ErrNoPackagesFound for when no packages are found during a scan.
