@@ -63,9 +63,9 @@ func run(args []string, stdout, stderr io.Writer) int {
 			r = reporter.NewTableReporter(stdout, stderr, reporter.InfoLevel, false, 0)
 		}
 		switch {
-		case errors.Is(err, osvscanner.VulnerabilitiesFoundErr):
+		case errors.Is(err, osvscanner.ErrVulnerabilitiesFound):
 			return 1
-		case errors.Is(err, osvscanner.NoPackagesFoundErr):
+		case errors.Is(err, osvscanner.ErrNoPackagesFound):
 			r.Errorf("No package sources found, --help for usage information.\n")
 			return 128
 		case errors.Is(err, osvscanner.ErrAPIFailed):
