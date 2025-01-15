@@ -1,0 +1,39 @@
+{
+  "name": "fake-package",
+  "version": "2.2.2",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "a": "^3.0.1",
+    "b": "^2.0.1",
+    "e": "^0.2.33",
+    "f": "npm:g@^2.0.1"
+  },
+  "devDependencies": {
+    "c": "^1.1.1",
+    "d": "^1.0.2"
+  },
+  "optionalDependencies": {
+    "e": "^0.2.33",
+    "f": "npm:g@^2.0.1"
+  },
+  "peerDependencies": {
+    "h": "^1.0.0"
+  },
+  "bundleDependencies": [
+    "a"
+  ],
+  "_id": "fake-package@2.2.2",
+  "_nodeVersion": "20.9.0",
+  "_npmVersion": "10.1.0",
+  "dist": {
+    "integrity": "sha512-NWvNE9fxykrzSQVr1CSKchzkQr5qwplvgn3O/0JL46qM6BhoGlKRjLiaZYdo1byXJWLGthghOgGpUZiEL04HQQ==",
+    "shasum": "8dc47515da4e67bb794a4c9c7f4750bb4d67c7fc",
+    "tarball": "http://localhost:4873/fake-package/-/fake-package-2.2.2.tgz"
+  },
+  "contributors": []
+}

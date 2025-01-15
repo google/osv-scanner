@@ -1,0 +1,208 @@
+
+[TestNpmrcNoRegistries - 1]
+https://registry.npmjs.org/@test%2fpackage/1.2.3
+---
+
+[TestNpmrcNoRegistries - 2]
+null
+---
+
+[TestNpmrcRegistryAuth - 1]
+https://registry1.test.com/foo
+---
+
+[TestNpmrcRegistryAuth - 2]
+[
+  "Basic bXVjaDphdXRoCg=="
+]
+---
+
+[TestNpmrcRegistryAuth - 3]
+https://registry1.test.com/@test0%2fbar
+---
+
+[TestNpmrcRegistryAuth - 4]
+[
+  "Basic bXVjaDphdXRoCg=="
+]
+---
+
+[TestNpmrcRegistryAuth - 5]
+https://registry2.test.com/@test1%2fbaz
+---
+
+[TestNpmrcRegistryAuth - 6]
+[
+  "Bearer c3VjaCB0b2tlbgo="
+]
+---
+
+[TestNpmrcRegistryAuth - 7]
+https://sub.registry2.test.com/@test2%2ftest
+---
+
+[TestNpmrcRegistryAuth - 8]
+[
+  "Basic dXNlcjp3b3cK"
+]
+---
+
+[TestNpmrcRegistryOverriding - 1]
+https://global.registry.com/pkg
+---
+
+[TestNpmrcRegistryOverriding - 2]
+null
+---
+
+[TestNpmrcRegistryOverriding - 3]
+https://general.global.registry.com/@general%2fpkg
+---
+
+[TestNpmrcRegistryOverriding - 4]
+null
+---
+
+[TestNpmrcRegistryOverriding - 5]
+https://global.registry.com/@global%2fpkg
+---
+
+[TestNpmrcRegistryOverriding - 6]
+null
+---
+
+[TestNpmrcRegistryOverriding - 7]
+https://user.registry.com/@user%2fpkg
+---
+
+[TestNpmrcRegistryOverriding - 8]
+null
+---
+
+[TestNpmrcRegistryOverriding - 9]
+https://project.registry.com/@project%2fpkg
+---
+
+[TestNpmrcRegistryOverriding - 10]
+null
+---
+
+[TestNpmrcRegistryOverriding - 11]
+https://user.registry.com/pkg
+---
+
+[TestNpmrcRegistryOverriding - 12]
+null
+---
+
+[TestNpmrcRegistryOverriding - 13]
+https://general.user.registry.com/@general%2fpkg
+---
+
+[TestNpmrcRegistryOverriding - 14]
+null
+---
+
+[TestNpmrcRegistryOverriding - 15]
+https://global.registry.com/@global%2fpkg
+---
+
+[TestNpmrcRegistryOverriding - 16]
+null
+---
+
+[TestNpmrcRegistryOverriding - 17]
+https://user.registry.com/@user%2fpkg
+---
+
+[TestNpmrcRegistryOverriding - 18]
+null
+---
+
+[TestNpmrcRegistryOverriding - 19]
+https://project.registry.com/@project%2fpkg
+---
+
+[TestNpmrcRegistryOverriding - 20]
+null
+---
+
+[TestNpmrcRegistryOverriding - 21]
+https://project.registry.com/pkg
+---
+
+[TestNpmrcRegistryOverriding - 22]
+null
+---
+
+[TestNpmrcRegistryOverriding - 23]
+https://general.project.registry.com/@general%2fpkg
+---
+
+[TestNpmrcRegistryOverriding - 24]
+null
+---
+
+[TestNpmrcRegistryOverriding - 25]
+https://global.registry.com/@global%2fpkg
+---
+
+[TestNpmrcRegistryOverriding - 26]
+null
+---
+
+[TestNpmrcRegistryOverriding - 27]
+https://user.registry.com/@user%2fpkg
+---
+
+[TestNpmrcRegistryOverriding - 28]
+null
+---
+
+[TestNpmrcRegistryOverriding - 29]
+https://project.registry.com/@project%2fpkg
+---
+
+[TestNpmrcRegistryOverriding - 30]
+null
+---
+
+[TestNpmrcRegistryOverriding - 31]
+https://environ.registry.com/pkg
+---
+
+[TestNpmrcRegistryOverriding - 32]
+null
+---
+
+[TestNpmrcRegistryOverriding - 33]
+https://general.project.registry.com/@general%2fpkg
+---
+
+[TestNpmrcRegistryOverriding - 34]
+null
+---
+
+[TestNpmrcRegistryOverriding - 35]
+https://global.registry.com/@global%2fpkg
+---
+
+[TestNpmrcRegistryOverriding - 36]
+null
+---
+
+[TestNpmrcRegistryOverriding - 37]
+https://user.registry.com/@user%2fpkg
+---
+
+[TestNpmrcRegistryOverriding - 38]
+null
+---
+
+[TestNpmrcRegistryOverriding - 39]
+https://project.registry.com/@project%2fpkg
+---
+
+[TestNpmrcRegistryOverriding - 40]
+null
+---

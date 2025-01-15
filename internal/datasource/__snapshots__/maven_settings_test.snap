@@ -1,0 +1,71 @@
+
+[TestMakeMavenAuth - 1]
+{
+  "global": {
+    "SupportedMethods": [
+      2,
+      0
+    ],
+    "AlwaysAuth": false,
+    "Username": "global-user",
+    "Password": "global-pass",
+    "BasicAuth": "",
+    "BearerToken": ""
+  },
+  "overwrite1": {
+    "SupportedMethods": [
+      2,
+      0
+    ],
+    "AlwaysAuth": false,
+    "Username": "new-user",
+    "Password": "new-pass",
+    "BasicAuth": "",
+    "BearerToken": ""
+  },
+  "overwrite2": {
+    "SupportedMethods": [
+      2,
+      0
+    ],
+    "AlwaysAuth": false,
+    "Username": "",
+    "Password": "lone-password",
+    "BasicAuth": "",
+    "BearerToken": ""
+  },
+  "user": {
+    "SupportedMethods": [
+      2,
+      0
+    ],
+    "AlwaysAuth": false,
+    "Username": "user",
+    "Password": "pass",
+    "BasicAuth": "",
+    "BearerToken": ""
+  }
+}
+---
+
+[TestParseMavenSettings - 1]
+{
+  "Servers": [
+    {
+      "ID": "server1",
+      "Username": "user",
+      "Password": "pass"
+    },
+    {
+      "ID": "server2",
+      "Username": "UsErNaMe",
+      "Password": "~~P455W0RD~~"
+    },
+    {
+      "ID": "my-cool-server",
+      "Username": "${env.maven_settings_test_usr}-",
+      "Password": "${env.MAVEN_SETTINGS_TEST_BAD}"
+    }
+  ]
+}
+---
