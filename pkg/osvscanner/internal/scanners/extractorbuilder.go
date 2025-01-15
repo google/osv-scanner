@@ -62,9 +62,6 @@ var lockfileExtractors = []filesystem.Extractor{
 	cargolock.Extractor{},
 }
 
-type ExtractorArgs struct {
-}
-
 // BuildLockfileExtractors returns all relevant extractors for lockfile scanning given the required clients
 // All clients can be nil, and if nil the extractors requiring those clients will not be returned.
 func BuildLockfileExtractors(dependencyClients map[osvschema.Ecosystem]client.DependencyClient, mavenAPIClient *datasource.MavenRegistryAPIClient) []filesystem.Extractor {
@@ -94,7 +91,6 @@ func BuildWalkerExtractors(
 	osvdevClient *osvdev.OSVClient,
 	dependencyClients map[osvschema.Ecosystem]client.DependencyClient,
 	mavenAPIClient *datasource.MavenRegistryAPIClient) []filesystem.Extractor {
-
 	relevantExtractors := []filesystem.Extractor{}
 
 	if !skipGit {

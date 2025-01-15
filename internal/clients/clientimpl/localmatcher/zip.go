@@ -210,6 +210,7 @@ func NewZippedDB(ctx context.Context, dbBasePath, name, url, userAgent string, o
 		ArchiveURL: url,
 		Offline:    offline,
 		StoredAt:   path.Join(dbBasePath, name, "all.zip"),
+		UserAgent:  userAgent,
 	}
 	if err := db.load(ctx); err != nil {
 		return nil, fmt.Errorf("unable to fetch OSV database: %w", err)
