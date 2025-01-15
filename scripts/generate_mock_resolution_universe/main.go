@@ -31,6 +31,7 @@ import (
 	"github.com/google/osv-scanner/internal/resolution/lockfile"
 	"github.com/google/osv-scanner/internal/resolution/manifest"
 	"github.com/google/osv-scanner/internal/resolution/util"
+	"github.com/google/osv-scanner/internal/version"
 	lf "github.com/google/osv-scanner/pkg/lockfile"
 	"github.com/google/osv-scanner/pkg/models"
 	"github.com/google/osv-scanner/pkg/osv"
@@ -282,7 +283,7 @@ func typeString(t dep.Type) string {
 }
 
 func main() {
-	cl, err := client.NewDepsDevClient(depsdev.DepsdevAPI)
+	cl, err := client.NewDepsDevClient(depsdev.DepsdevAPI, "osv-scanner_generate_mock/"+version.OSVVersion)
 	if err != nil {
 		fmt.Fprintln(os.Stderr, err)
 		os.Exit(1)

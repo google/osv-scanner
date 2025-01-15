@@ -8,7 +8,6 @@ import (
 	"time"
 
 	pb "deps.dev/api/v3"
-	"github.com/google/osv-scanner/pkg/osv"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials"
 )
@@ -52,7 +51,7 @@ func makeVersionKey(k *pb.VersionKey) versionKey {
 	}
 }
 
-func NewDepsDevAPIClient(addr string) (*DepsDevAPIClient, error) {
+func NewDepsDevAPIClient(addr string, userAgent string) (*DepsDevAPIClient, error) {
 	certPool, err := x509.SystemCertPool()
 	if err != nil {
 		return nil, fmt.Errorf("getting system cert pool: %w", err)
@@ -60,8 +59,8 @@ func NewDepsDevAPIClient(addr string) (*DepsDevAPIClient, error) {
 	creds := credentials.NewClientTLSFromCert(certPool, "")
 	dialOpts := []grpc.DialOption{grpc.WithTransportCredentials(creds)}
 
-	if osv.RequestUserAgent != "" {
-		dialOpts = append(dialOpts, grpc.WithUserAgent(osv.RequestUserAgent))
+	if userAgent != "" {
+		dialOpts = append(dialOpts, grpc.WithUserAgent(userAgent))
 	}
 
 	conn, err := grpc.NewClient(addr, dialOpts...)

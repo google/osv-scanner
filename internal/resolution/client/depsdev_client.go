@@ -16,8 +16,8 @@ type DepsDevClient struct {
 	c *datasource.DepsDevAPIClient
 }
 
-func NewDepsDevClient(addr string) (*DepsDevClient, error) {
-	c, err := datasource.NewDepsDevAPIClient(addr)
+func NewDepsDevClient(addr string, userAgent string) (*DepsDevClient, error) {
+	c, err := datasource.NewDepsDevAPIClient(addr, userAgent)
 	if err != nil {
 		return nil, err
 	}

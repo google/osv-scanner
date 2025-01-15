@@ -21,6 +21,7 @@ import (
 	"github.com/google/osv-scalibr/extractor/filesystem/os/dpkg"
 	"github.com/google/osv-scalibr/extractor/filesystem/os/osrelease"
 	"github.com/google/osv-scalibr/log"
+	"github.com/google/osv-scanner/internal/clients/clientimpl/licensematcher"
 	"github.com/google/osv-scanner/internal/clients/clientimpl/localmatcher"
 	"github.com/google/osv-scanner/internal/clients/clientimpl/osvmatcher"
 	"github.com/google/osv-scanner/internal/clients/clientinterfaces"
@@ -30,15 +31,16 @@ import (
 	"github.com/google/osv-scanner/internal/imodels/results"
 	"github.com/google/osv-scanner/internal/osvdev"
 	"github.com/google/osv-scanner/internal/output"
+	"github.com/google/osv-scanner/internal/resolution/client"
+	"github.com/google/osv-scanner/internal/resolution/datasource"
 	"github.com/google/osv-scanner/internal/scalibrextract/language/javascript/nodemodules"
+	"github.com/google/osv-scanner/internal/version"
 	"github.com/google/osv-scanner/pkg/models"
 	"github.com/google/osv-scanner/pkg/reporter"
 	"github.com/opencontainers/go-digest"
 	"github.com/ossf/osv-schema/bindings/go/osvschema"
 
 	scalibr "github.com/google/osv-scalibr"
-
-	depsdevpb "deps.dev/api/v3"
 )
 
 type ScannerActions struct {
@@ -74,24 +76,83 @@ type TransitiveScanningActions struct {
 	MavenRegistry    string
 }
 
-// NoPackagesFoundErr for when no packages are found during a scan.
-//
-//nolint:errname,stylecheck,revive // Would require version major bump to change
-var NoPackagesFoundErr = errors.New("no packages found in scan")
+type ExternalAccessors struct {
+	VulnMatcher            clientinterfaces.VulnerabilityMatcher
+	LicenseMatcher         clientinterfaces.LicenseMatcher
+	MavenRegistryAPIClient *datasource.MavenRegistryAPIClient
+	OSVDevClient           *osvdev.OSVClient
+	DependencyClients      map[osvschema.Ecosystem]client.DependencyClient
+}
 
-// VulnerabilitiesFoundErr includes both vulnerabilities being found or license violations being found,
+// ErrNoPackagesFound for when no packages are found during a scan.
+var ErrNoPackagesFound = errors.New("no packages found in scan")
+
+// ErrVulnerabilitiesFound includes both vulnerabilities being found or license violations being found,
 // however, will not be raised if only uncalled vulnerabilities are found.
-//
-//nolint:errname,stylecheck,revive // Would require version major bump to change
-var VulnerabilitiesFoundErr = errors.New("vulnerabilities found")
-
-// Deprecated: This error is no longer returned, check the results to determine if this is the case
-//
-//nolint:errname,stylecheck,revive // Would require version bump to change
-var OnlyUncalledVulnerabilitiesFoundErr = errors.New("only uncalled vulnerabilities found")
+var ErrVulnerabilitiesFound = errors.New("vulnerabilities found")
 
 // ErrAPIFailed describes errors related to querying API endpoints.
 var ErrAPIFailed = errors.New("API query failed")
+
+func InitializeExternalAccessors(r reporter.Reporter, actions ScannerActions) (ExternalAccessors, error) {
+	externalAccessors := ExternalAccessors{
+		DependencyClients: map[osvschema.Ecosystem]client.DependencyClient{},
+	}
+
+	// --- Vulnerability Matcher ---
+	var err error
+	if actions.CompareOffline {
+		externalAccessors.VulnMatcher, err = localmatcher.NewLocalMatcher(r, actions.LocalDBPath, "osv-scanner_scan/"+version.OSVVersion, actions.DownloadDatabases)
+		if err != nil {
+			return ExternalAccessors{}, err
+		}
+
+		return externalAccessors, nil
+	}
+
+	// Not offline, so create accessors that require network access
+	externalAccessors.VulnMatcher = &osvmatcher.OSVMatcher{
+		Client:              *osvdev.DefaultClient(),
+		InitialQueryTimeout: 5 * time.Minute,
+	}
+
+	// --- License Matcher ---
+	depsdevapiclient, err := datasource.NewDepsDevAPIClient(depsdev.DepsdevAPI, "osv-scanner_scan/"+version.OSVVersion)
+	if err != nil {
+		return ExternalAccessors{}, err
+	}
+
+	externalAccessors.LicenseMatcher = &licensematcher.DepsDevLicenseMatcher{
+		Client: depsdevapiclient,
+	}
+
+	if actions.TransitiveScanningActions.Disabled {
+		return externalAccessors, nil
+	}
+
+	externalAccessors.MavenRegistryAPIClient, err = datasource.NewMavenRegistryAPIClient(datasource.MavenRegistry{
+		URL:             actions.TransitiveScanningActions.MavenRegistry,
+		ReleasesEnabled: true,
+	})
+
+	if err != nil {
+		return ExternalAccessors{}, err
+	}
+
+	if !actions.TransitiveScanningActions.NativeDataSource {
+		depsDevAPIClient, _ := client.NewDepsDevClient(depsdev.DepsdevAPI, "osv-scanner_scan/"+version.OSVVersion)
+		externalAccessors.DependencyClients[osvschema.EcosystemMaven] = depsDevAPIClient
+	} else {
+		externalAccessors.DependencyClients[osvschema.EcosystemMaven], err = client.NewMavenRegistryClient(actions.TransitiveScanningActions.MavenRegistry)
+		if err != nil {
+			return ExternalAccessors{}, err
+		}
+	}
+
+	externalAccessors.OSVDevClient = osvdev.DefaultClient()
+
+	return externalAccessors, nil
+}
 
 func DoContainerScan(actions ScannerActions, r reporter.Reporter) (models.VulnerabilityResults, error) {
 	if r == nil {
@@ -448,7 +509,8 @@ func DoScan(actions ScannerActions, r reporter.Reporter) (models.VulnerabilityRe
 		r = &reporter.VoidReporter{}
 	}
 
-	// TODO(v2): Move the logic of the offline flag moving other flags into here.
+	// --- Sanity check flags ----
+	// TODO(v2): Move the logic of the offline flag changing other flags into here from the main.go/scan.go
 	if actions.CompareOffline {
 		actions.SkipGit = true
 
@@ -468,6 +530,7 @@ func DoScan(actions ScannerActions, r reporter.Reporter) (models.VulnerabilityRe
 		},
 	}
 
+	// --- Setup Config ---
 	if actions.ConfigOverridePath != "" {
 		err := scanResult.ConfigManager.UseOverride(r, actions.ConfigOverridePath)
 		if err != nil {
@@ -476,8 +539,14 @@ func DoScan(actions ScannerActions, r reporter.Reporter) (models.VulnerabilityRe
 		}
 	}
 
+	// --- Setup Accessors/Clients ---
+	accessors, err := InitializeExternalAccessors(r, actions)
+	if err != nil {
+		return models.VulnerabilityResults{}, fmt.Errorf("failed to initialize accessors: %v", err)
+	}
+
 	// ----- Perform Scanning -----
-	packages, err := scan(r, actions)
+	packages, err := scan(r, accessors, actions)
 	if err != nil {
 		return models.VulnerabilityResults{}, err
 	}
@@ -492,29 +561,16 @@ func DoScan(actions ScannerActions, r reporter.Reporter) (models.VulnerabilityRe
 	overrideGoVersion(r, &scanResult)
 
 	// --- Make Vulnerability Requests ---
-	{
-		var matcher clientinterfaces.VulnerabilityMatcher
-		var err error
-		if actions.CompareOffline {
-			matcher, err = localmatcher.NewLocalMatcher(r, actions.LocalDBPath, actions.DownloadDatabases)
-			if err != nil {
-				return models.VulnerabilityResults{}, err
-			}
-		} else {
-			matcher = &osvmatcher.OSVMatcher{
-				Client:              *osvdev.DefaultClient(),
-				InitialQueryTimeout: 5 * time.Minute,
-			}
-		}
-
-		err = makeRequestWithMatcher(r, scanResult.PackageScanResults, matcher)
+	if accessors.VulnMatcher != nil {
+		err = makeVulnRequestWithMatcher(r, scanResult.PackageScanResults, accessors.VulnMatcher)
 		if err != nil {
 			return models.VulnerabilityResults{}, err
 		}
 	}
 
-	if len(actions.ScanLicensesAllowlist) > 0 || actions.ScanLicensesSummary {
-		err = makeLicensesRequests(scanResult.PackageScanResults)
+	// --- Make License Requests ---
+	if accessors.LicenseMatcher != nil && len(actions.ScanLicensesAllowlist) > 0 || actions.ScanLicensesSummary {
+		err = accessors.LicenseMatcher.MatchLicenses(context.Background(), scanResult.PackageScanResults)
 		if err != nil {
 			return models.VulnerabilityResults{}, err
 		}
@@ -558,14 +614,14 @@ func DoScan(actions ScannerActions, r reporter.Reporter) (models.VulnerabilityRe
 			return results, nil
 		}
 
-		return results, VulnerabilitiesFoundErr
+		return results, ErrVulnerabilitiesFound
 	}
 
 	return results, nil
 }
 
 // TODO(V2): Add context
-func makeRequestWithMatcher(
+func makeVulnRequestWithMatcher(
 	r reporter.Reporter,
 	packages []imodels.PackageScanResult,
 	matcher clientinterfaces.VulnerabilityMatcher) error {
@@ -576,7 +632,6 @@ func makeRequestWithMatcher(
 
 	res, err := matcher.MatchVulnerabilities(context.Background(), invs)
 	if err != nil {
-		// TODO: Handle error here
 		r.Errorf("error when retrieving vulns: %v", err)
 		if res == nil {
 			return err
@@ -585,29 +640,6 @@ func makeRequestWithMatcher(
 
 	for i, vulns := range res {
 		packages[i].Vulnerabilities = vulns
-	}
-
-	return nil
-}
-
-// TODO(V2): Replace with client
-func makeLicensesRequests(packages []imodels.PackageScanResult) error {
-	queries := make([]*depsdevpb.GetVersionRequest, len(packages))
-	for i, psr := range packages {
-		pkg := psr.PackageInfo
-		system, ok := depsdev.System[psr.PackageInfo.Ecosystem().Ecosystem]
-		if !ok || pkg.Name() == "" || pkg.Version() == "" {
-			continue
-		}
-		queries[i] = depsdev.VersionQuery(system, pkg.Name(), pkg.Version())
-	}
-	licenses, err := depsdev.MakeVersionRequests(queries)
-	if err != nil {
-		return fmt.Errorf("%w: deps.dev query failed: %w", ErrAPIFailed, err)
-	}
-
-	for i, license := range licenses {
-		packages[i].Licenses = license
 	}
 
 	return nil

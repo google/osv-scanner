@@ -321,7 +321,7 @@ func action(context *cli.Context, stdout, stderr io.Writer) (reporter.Reporter, 
 		vulnResult, err = osvscanner.DoScan(scannerAction, r)
 	}
 
-	if err != nil && !errors.Is(err, osvscanner.VulnerabilitiesFoundErr) {
+	if err != nil && !errors.Is(err, osvscanner.ErrVulnerabilitiesFound) {
 		return r, err
 	}
 
