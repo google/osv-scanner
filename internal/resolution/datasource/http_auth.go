@@ -14,19 +14,19 @@ import (
 	"sync/atomic"
 )
 
-type AuthenticationMethod int
+type HTTPAuthMethod int
 
 const (
-	AuthBasic AuthenticationMethod = iota
+	AuthBasic HTTPAuthMethod = iota
 	AuthBearer
 	AuthDigest
 )
 
-// AuthenticationInfo holds the information needed for general HTTP Authentication support.
+// HTTPAuthentication holds the information needed for general HTTP Authentication support.
 // Requests made through this will automatically populate the relevant info in the Authorization headers.
 // This is a general implementation and should be suitable for use with any ecosystem.
-type AuthenticationInfo struct {
-	SupportedMethods []AuthenticationMethod // In order of preference, only one method will be attempted.
+type HTTPAuthentication struct {
+	SupportedMethods []HTTPAuthMethod // In order of preference, only one method will be attempted.
 
 	// AlwaysAuth determines whether to always send auth headers.
 	// If false, the server must respond with a WWW-Authenticate header which will be checked for supported methods.
@@ -47,14 +47,14 @@ type AuthenticationInfo struct {
 }
 
 // Get makes an http GET request with the given http.Client.
-// The Authorization Header will automatically be populated according from the fields in the AuthenticationInfo.
-func (auth *AuthenticationInfo) Get(ctx context.Context, httpClient *http.Client, url string) (*http.Response, error) {
+// The Authorization Header will automatically be populated according from the fields in the HTTPAuthentication.
+func (auth *HTTPAuthentication) Get(ctx context.Context, httpClient *http.Client, url string) (*http.Response, error) {
 	req, err := http.NewRequestWithContext(ctx, http.MethodGet, url, nil)
 	if err != nil {
 		return nil, err
 	}
 
-	// For convenience, have the nil AuthenticationInfo just make an unauthenticated request.
+	// For convenience, have the nil HTTPAuthentication just make an unauthenticated request.
 	if auth == nil {
 		return httpClient.Do(req)
 	}
@@ -63,12 +63,12 @@ func (auth *AuthenticationInfo) Get(ctx context.Context, httpClient *http.Client
 		for _, method := range auth.SupportedMethods {
 			ok := false
 			switch method {
-			// authDigest needs a challenge from WWW-Authenticate, so we cannot always add the auth.
 			case AuthBasic:
 				ok = auth.addBasic(req)
 			case AuthBearer:
 				ok = auth.addBearer(req)
 			case AuthDigest:
+				// AuthDigest needs a challenge from WWW-Authenticate, so we cannot always add the auth.
 			}
 			if ok {
 				break
@@ -79,13 +79,14 @@ func (auth *AuthenticationInfo) Get(ctx context.Context, httpClient *http.Client
 	}
 
 	// If the last request we made to this server used Basic or Bearer auth, send the header with this request
-	if lastUsed, ok := auth.lastUsed.Load().(AuthenticationMethod); ok {
+	if lastUsed, ok := auth.lastUsed.Load().(HTTPAuthMethod); ok {
 		switch lastUsed {
 		case AuthBasic:
 			auth.addBasic(req)
 		case AuthBearer:
 			auth.addBearer(req)
 		case AuthDigest:
+			// Cannot add AuthDigest without the challenge from the initial request.
 		}
 	}
 
@@ -100,7 +101,7 @@ func (auth *AuthenticationInfo) Get(ctx context.Context, httpClient *http.Client
 	wwwAuth := resp.Header.Values("WWW-Authenticate")
 
 	ok := false
-	var usedMethod AuthenticationMethod
+	var usedMethod HTTPAuthMethod
 	req, err = http.NewRequestWithContext(ctx, http.MethodGet, url, nil)
 	if err != nil {
 		return nil, err
@@ -137,14 +138,14 @@ func (auth *AuthenticationInfo) Get(ctx context.Context, httpClient *http.Client
 	return resp, err
 }
 
-func (auth *AuthenticationInfo) authIndex(wwwAuth []string, authScheme string) int {
+func (auth *HTTPAuthentication) authIndex(wwwAuth []string, authScheme string) int {
 	return slices.IndexFunc(wwwAuth, func(s string) bool {
 		scheme, _, _ := strings.Cut(s, " ")
 		return scheme == authScheme
 	})
 }
 
-func (auth *AuthenticationInfo) addBasic(req *http.Request) bool {
+func (auth *HTTPAuthentication) addBasic(req *http.Request) bool {
 	if auth.BasicAuth != "" {
 		req.Header.Set("Authorization", "Basic "+auth.BasicAuth)
 
@@ -161,7 +162,7 @@ func (auth *AuthenticationInfo) addBasic(req *http.Request) bool {
 	return false
 }
 
-func (auth *AuthenticationInfo) addBearer(req *http.Request) bool {
+func (auth *HTTPAuthentication) addBearer(req *http.Request) bool {
 	if auth.BearerToken != "" {
 		req.Header.Set("Authorization", "Bearer "+auth.BearerToken)
 
@@ -171,7 +172,7 @@ func (auth *AuthenticationInfo) addBearer(req *http.Request) bool {
 	return false
 }
 
-func (auth *AuthenticationInfo) addDigest(req *http.Request, challenge string) bool {
+func (auth *HTTPAuthentication) addDigest(req *http.Request, challenge string) bool {
 	// Mostly following the algorithm as outlined in https://en.wikipedia.org/wiki/Digest_access_authentication
 	// And also https://datatracker.ietf.org/doc/html/rfc2617
 	if auth.Username == "" || auth.Password == "" {
@@ -247,7 +248,7 @@ func (auth *AuthenticationInfo) addDigest(req *http.Request, challenge string) b
 	return true
 }
 
-func (auth *AuthenticationInfo) parseChallenge(challenge string) map[string]string {
+func (auth *HTTPAuthentication) parseChallenge(challenge string) map[string]string {
 	// Parse the params out of the auth challenge header.
 	// e.g. Digest realm="testrealm@host.com", qop="auth,auth-int" ->
 	// {"realm": "testrealm@host.com", "qop", "auth,auth-int"}
@@ -283,7 +284,7 @@ func (auth *AuthenticationInfo) parseChallenge(challenge string) map[string]stri
 	return m
 }
 
-func (auth *AuthenticationInfo) cnonce() string {
+func (auth *HTTPAuthentication) cnonce() string {
 	if auth.CnonceFunc != nil {
 		return auth.CnonceFunc()
 	}

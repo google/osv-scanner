@@ -130,22 +130,22 @@ func builtinNpmrc() string {
 
 // Implementation of npm registry auth matching, adapted from npm-registry-fetch
 // https://github.com/npm/npm-registry-fetch/blob/237d33b45396caa00add61e0549cf09fbf9deb4f/lib/auth.js
-type NpmRegistryAuths map[string]*AuthenticationInfo
+type NpmRegistryAuths map[string]*HTTPAuthentication
 
-func (auths NpmRegistryAuths) GetAuth(uri string) *AuthenticationInfo {
+func (auths NpmRegistryAuths) GetAuth(uri string) *HTTPAuthentication {
 	parsed, err := url.Parse(uri)
 	if err != nil {
 		return nil
 	}
 	regKey := "//" + parsed.Host + parsed.EscapedPath()
 	for regKey != "//" {
-		if authInfo, ok := auths[regKey]; ok {
-			// Make sure this authInfo actually has the necessary fields to construct an auth.
+		if httpAuth, ok := auths[regKey]; ok {
+			// Make sure this httpAuth actually has the necessary fields to construct an auth.
 			// i.e. it's not valid if only Username or only Password is set
-			if authInfo.BearerToken != "" ||
-				authInfo.BasicAuth != "" ||
-				(authInfo.Username != "" && authInfo.Password != "") {
-				return authInfo
+			if httpAuth.BearerToken != "" ||
+				httpAuth.BasicAuth != "" ||
+				(httpAuth.Username != "" && httpAuth.Password != "") {
+				return httpAuth
 			}
 		}
 
@@ -212,19 +212,19 @@ func (r NpmRegistryConfig) MakeRequest(ctx context.Context, httpClient *http.Cli
 	return r.Auths.GetAuth(reqURL).Get(ctx, httpClient, reqURL)
 }
 
-var npmSupportedAuths = []AuthenticationMethod{AuthBearer, AuthBasic}
+var npmSupportedAuths = []HTTPAuthMethod{AuthBearer, AuthBasic}
 
 func ParseNpmRegistryInfo(npmrc NpmrcConfig) NpmRegistryConfig {
 	config := NpmRegistryConfig{
 		ScopeURLs: map[string]string{"": "https://registry.npmjs.org/"}, // set the default registry
-		Auths:     make(map[string]*AuthenticationInfo),
+		Auths:     make(map[string]*HTTPAuthentication),
 	}
 
-	getOrInitAuth := func(key string) *AuthenticationInfo {
+	getOrInitAuth := func(key string) *HTTPAuthentication {
 		if auth, ok := config.Auths[key]; ok {
 			return auth
 		}
-		auth := &AuthenticationInfo{
+		auth := &HTTPAuthentication{
 			SupportedMethods: npmSupportedAuths,
 			AlwaysAuth:       true,
 		}

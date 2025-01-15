@@ -8,7 +8,7 @@ import (
 	"github.com/google/osv-scanner/internal/resolution/datasource"
 )
 
-// mockTransport is used to inspect the requests being made by AuthenticationInfos
+// mockTransport is used to inspect the requests being made by HTTPAuthentications
 type mockTransport struct {
 	Requests         []*http.Request // All requests made to this transport
 	UnauthedResponse *http.Response  // Response sent when request does not have an 'Authorization' header.
@@ -30,11 +30,11 @@ func (mt *mockTransport) RoundTrip(req *http.Request) (*http.Response, error) {
 	return resp, nil
 }
 
-func TestAuthenticationInfo(t *testing.T) {
+func TestHTTPAuthentication(t *testing.T) {
 	t.Parallel()
 	tests := []struct {
 		name                  string
-		authInfo              *datasource.AuthenticationInfo
+		httpAuth              *datasource.HTTPAuthentication
 		requestURL            string
 		wwwAuth               []string
 		expectedAuths         []string // expected Authentication headers received.
@@ -42,7 +42,7 @@ func TestAuthenticationInfo(t *testing.T) {
 	}{
 		{
 			name:                  "nil auth",
-			authInfo:              nil,
+			httpAuth:              nil,
 			requestURL:            "http://127.0.0.1/",
 			wwwAuth:               []string{"Basic"},
 			expectedAuths:         []string{""},
@@ -50,7 +50,7 @@ func TestAuthenticationInfo(t *testing.T) {
 		},
 		{
 			name:                  "default auth",
-			authInfo:              &datasource.AuthenticationInfo{},
+			httpAuth:              &datasource.HTTPAuthentication{},
 			requestURL:            "http://127.0.0.1/",
 			wwwAuth:               []string{"Basic"},
 			expectedAuths:         []string{""},
@@ -58,8 +58,8 @@ func TestAuthenticationInfo(t *testing.T) {
 		},
 		{
 			name: "basic auth",
-			authInfo: &datasource.AuthenticationInfo{
-				SupportedMethods: []datasource.AuthenticationMethod{datasource.AuthBasic},
+			httpAuth: &datasource.HTTPAuthentication{
+				SupportedMethods: []datasource.HTTPAuthMethod{datasource.AuthBasic},
 				AlwaysAuth:       true,
 				Username:         "Aladdin",
 				Password:         "open sesame",
@@ -70,8 +70,8 @@ func TestAuthenticationInfo(t *testing.T) {
 		},
 		{
 			name: "basic auth from token",
-			authInfo: &datasource.AuthenticationInfo{
-				SupportedMethods: []datasource.AuthenticationMethod{datasource.AuthBasic},
+			httpAuth: &datasource.HTTPAuthentication{
+				SupportedMethods: []datasource.HTTPAuthMethod{datasource.AuthBasic},
 				AlwaysAuth:       true,
 				Username:         "ignored",
 				Password:         "ignored",
@@ -83,8 +83,8 @@ func TestAuthenticationInfo(t *testing.T) {
 		},
 		{
 			name: "basic auth missing username",
-			authInfo: &datasource.AuthenticationInfo{
-				SupportedMethods: []datasource.AuthenticationMethod{datasource.AuthBasic},
+			httpAuth: &datasource.HTTPAuthentication{
+				SupportedMethods: []datasource.HTTPAuthMethod{datasource.AuthBasic},
 				AlwaysAuth:       true,
 				Username:         "",
 				Password:         "ignored",
@@ -95,8 +95,8 @@ func TestAuthenticationInfo(t *testing.T) {
 		},
 		{
 			name: "basic auth missing password",
-			authInfo: &datasource.AuthenticationInfo{
-				SupportedMethods: []datasource.AuthenticationMethod{datasource.AuthBasic},
+			httpAuth: &datasource.HTTPAuthentication{
+				SupportedMethods: []datasource.HTTPAuthMethod{datasource.AuthBasic},
 				AlwaysAuth:       true,
 				Username:         "ignored",
 				Password:         "",
@@ -107,8 +107,8 @@ func TestAuthenticationInfo(t *testing.T) {
 		},
 		{
 			name: "basic auth not always",
-			authInfo: &datasource.AuthenticationInfo{
-				SupportedMethods: []datasource.AuthenticationMethod{datasource.AuthBasic},
+			httpAuth: &datasource.HTTPAuthentication{
+				SupportedMethods: []datasource.HTTPAuthMethod{datasource.AuthBasic},
 				AlwaysAuth:       false,
 				BasicAuth:        "YTph",
 			},
@@ -119,8 +119,8 @@ func TestAuthenticationInfo(t *testing.T) {
 		},
 		{
 			name: "bearer auth",
-			authInfo: &datasource.AuthenticationInfo{
-				SupportedMethods: []datasource.AuthenticationMethod{datasource.AuthBearer},
+			httpAuth: &datasource.HTTPAuthentication{
+				SupportedMethods: []datasource.HTTPAuthMethod{datasource.AuthBearer},
 				AlwaysAuth:       true,
 				BearerToken:      "abcdefgh",
 			},
@@ -130,8 +130,8 @@ func TestAuthenticationInfo(t *testing.T) {
 		},
 		{
 			name: "bearer auth not always",
-			authInfo: &datasource.AuthenticationInfo{
-				SupportedMethods: []datasource.AuthenticationMethod{datasource.AuthBearer},
+			httpAuth: &datasource.HTTPAuthentication{
+				SupportedMethods: []datasource.HTTPAuthMethod{datasource.AuthBearer},
 				AlwaysAuth:       false,
 				BearerToken:      "abcdefgh",
 			},
@@ -142,8 +142,8 @@ func TestAuthenticationInfo(t *testing.T) {
 		},
 		{
 			name: "always auth priority",
-			authInfo: &datasource.AuthenticationInfo{
-				SupportedMethods: []datasource.AuthenticationMethod{datasource.AuthBasic, datasource.AuthBearer},
+			httpAuth: &datasource.HTTPAuthentication{
+				SupportedMethods: []datasource.HTTPAuthMethod{datasource.AuthBasic, datasource.AuthBearer},
 				AlwaysAuth:       true,
 				BasicAuth:        "UseThisOne",
 				BearerToken:      "NotThisOne",
@@ -154,8 +154,8 @@ func TestAuthenticationInfo(t *testing.T) {
 		},
 		{
 			name: "not always auth priority",
-			authInfo: &datasource.AuthenticationInfo{
-				SupportedMethods: []datasource.AuthenticationMethod{datasource.AuthBearer, datasource.AuthDigest, datasource.AuthBasic},
+			httpAuth: &datasource.HTTPAuthentication{
+				SupportedMethods: []datasource.HTTPAuthMethod{datasource.AuthBearer, datasource.AuthDigest, datasource.AuthBasic},
 				AlwaysAuth:       false,
 				Username:         "DoNotUse",
 				Password:         "ThisField",
@@ -169,8 +169,8 @@ func TestAuthenticationInfo(t *testing.T) {
 		{
 			name: "digest auth",
 			// Example from https://en.wikipedia.org/wiki/Digest_access_authentication#Example_with_explanation
-			authInfo: &datasource.AuthenticationInfo{
-				SupportedMethods: []datasource.AuthenticationMethod{datasource.AuthDigest},
+			httpAuth: &datasource.HTTPAuthentication{
+				SupportedMethods: []datasource.HTTPAuthMethod{datasource.AuthDigest},
 				AlwaysAuth:       false,
 				Username:         "Mufasa",
 				Password:         "Circle Of Life",
@@ -200,8 +200,8 @@ func TestAuthenticationInfo(t *testing.T) {
 		},
 		{
 			name: "digest auth rfc2069", // old spec, without qop header
-			authInfo: &datasource.AuthenticationInfo{
-				SupportedMethods: []datasource.AuthenticationMethod{datasource.AuthDigest},
+			httpAuth: &datasource.HTTPAuthentication{
+				SupportedMethods: []datasource.HTTPAuthMethod{datasource.AuthDigest},
 				AlwaysAuth:       false,
 				Username:         "Mufasa",
 				Password:         "Circle Of Life",
@@ -227,8 +227,8 @@ func TestAuthenticationInfo(t *testing.T) {
 		{
 			name: "digest auth mvn",
 			// From what mvn sends.
-			authInfo: &datasource.AuthenticationInfo{
-				SupportedMethods: []datasource.AuthenticationMethod{datasource.AuthDigest},
+			httpAuth: &datasource.HTTPAuthentication{
+				SupportedMethods: []datasource.HTTPAuthMethod{datasource.AuthDigest},
 				AlwaysAuth:       false,
 				Username:         "my-username",
 				Password:         "cool-password",
@@ -261,8 +261,8 @@ func TestAuthenticationInfo(t *testing.T) {
 		},
 		{
 			name: "basic auth reuse on subsequent",
-			authInfo: &datasource.AuthenticationInfo{
-				SupportedMethods: []datasource.AuthenticationMethod{datasource.AuthDigest, datasource.AuthBasic},
+			httpAuth: &datasource.HTTPAuthentication{
+				SupportedMethods: []datasource.HTTPAuthMethod{datasource.AuthDigest, datasource.AuthBasic},
 				AlwaysAuth:       false,
 				Username:         "user",
 				Password:         "pass",
@@ -289,7 +289,7 @@ func TestAuthenticationInfo(t *testing.T) {
 			}
 			httpClient := &http.Client{Transport: mt}
 			for _, want := range tt.expectedResponseCodes {
-				resp, err := tt.authInfo.Get(context.Background(), httpClient, tt.requestURL)
+				resp, err := tt.httpAuth.Get(context.Background(), httpClient, tt.requestURL)
 				if err != nil {
 					t.Fatalf("error making request: %v", err)
 				}

@@ -98,12 +98,12 @@ func userMavenSettingsFile() string {
 	return filepath.Join(home, ".m2", "settings.xml")
 }
 
-var mavenSupportedAuths = []AuthenticationMethod{AuthDigest, AuthBasic}
+var mavenSupportedAuths = []HTTPAuthMethod{AuthDigest, AuthBasic}
 
-func MakeMavenAuth(globalSettings, userSettings MavenSettingsXML) map[string]*AuthenticationInfo {
-	auth := make(map[string]*AuthenticationInfo)
+func MakeMavenAuth(globalSettings, userSettings MavenSettingsXML) map[string]*HTTPAuthentication {
+	auth := make(map[string]*HTTPAuthentication)
 	for _, s := range globalSettings.Servers {
-		auth[s.ID] = &AuthenticationInfo{
+		auth[s.ID] = &HTTPAuthentication{
 			SupportedMethods: mavenSupportedAuths,
 			AlwaysAuth:       false,
 			Username:         s.Username,
@@ -112,7 +112,7 @@ func MakeMavenAuth(globalSettings, userSettings MavenSettingsXML) map[string]*Au
 	}
 
 	for _, s := range userSettings.Servers {
-		auth[s.ID] = &AuthenticationInfo{
+		auth[s.ID] = &HTTPAuthentication{
 			SupportedMethods: mavenSupportedAuths,
 			AlwaysAuth:       false,
 			Username:         s.Username,

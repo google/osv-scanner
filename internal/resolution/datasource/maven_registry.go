@@ -26,7 +26,7 @@ var errAPIFailed = errors.New("API query failed")
 type MavenRegistryAPIClient struct {
 	defaultRegistry MavenRegistry                  // The default registry that we are making requests
 	registries      []MavenRegistry                // Additional registries specified to fetch projects
-	registryAuths   map[string]*AuthenticationInfo // Authentication for the registries keyed by registry ID. From settings.xml
+	registryAuths   map[string]*HTTPAuthentication // Authentication for the registries keyed by registry ID. From settings.xml
 
 	// Cache fields
 	mu             *sync.Mutex
@@ -210,7 +210,7 @@ func (m *MavenRegistryAPIClient) getArtifactMetadata(ctx context.Context, regist
 	return metadata, nil
 }
 
-func (m *MavenRegistryAPIClient) get(ctx context.Context, auth *AuthenticationInfo, url string, dst interface{}) error {
+func (m *MavenRegistryAPIClient) get(ctx context.Context, auth *HTTPAuthentication, url string, dst interface{}) error {
 	resp, err := m.responses.Get(url, func() (response, error) {
 		resp, err := auth.Get(ctx, http.DefaultClient, url)
 		if err != nil {
