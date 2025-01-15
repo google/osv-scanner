@@ -119,7 +119,7 @@ func TestGetArtifactMetadata(t *testing.T) {
 		t.Fatalf("failed to get parse URL %s: %v", srv.URL, err)
 	}
 
-	got, err := client.getArtifactMetadata(context.Background(), u, "org.example", "x.y.z")
+	got, err := client.getArtifactMetadata(context.Background(), MavenRegistry{Parsed: u}, "org.example", "x.y.z")
 	if err != nil {
 		t.Fatalf("failed to get artifact metadata for %s:%s: %v", "org.example", "x.y.z", err)
 	}
@@ -177,7 +177,7 @@ func TestGetVersionMetadata(t *testing.T) {
 		t.Fatalf("failed to get parse URL %s: %v", srv.URL, err)
 	}
 
-	got, err := client.getVersionMetadata(context.Background(), u, "org.example", "x.y.z", "3.3.1-SNAPSHOT")
+	got, err := client.getVersionMetadata(context.Background(), MavenRegistry{Parsed: u}, "org.example", "x.y.z", "3.3.1-SNAPSHOT")
 	if err != nil {
 		t.Fatalf("failed to get metadata for %s:%s verion %s: %v", "org.example", "x.y.z", "3.3.1-SNAPSHOT", err)
 	}
