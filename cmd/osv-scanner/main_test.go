@@ -783,6 +783,37 @@ func TestRun_YarnPackageOnly(t *testing.T) {
 	}
 }
 
+func TestRun_NpmPackageOnly(t *testing.T) {
+	t.Parallel()
+	testCases := []string{
+		"v6.14.18",
+		"v7.24.2",
+		"v8.19.4",
+		"v9.9.4",
+		"v10.9.0",
+	}
+
+	for _, testCase := range testCases {
+		tt := testCase
+		t.Run(tt, func(t *testing.T) {
+			t.Parallel()
+			args := []string{
+				"",
+				"-r",
+				"--experimental-only-packages",
+				"--format=cyclonedx-1-5",
+				"--consider-scan-path-as-root",
+				"./fixtures/integration-npm/" + tt,
+			}
+			testCli(t, cliTestCase{
+				name: "Npm package only " + tt,
+				args: args,
+				exit: 0,
+			})
+		})
+	}
+}
+
 func TestRun_WithEncodedLockfile(t *testing.T) {
 	t.Parallel()
 	testCases := []encodingTestCase{

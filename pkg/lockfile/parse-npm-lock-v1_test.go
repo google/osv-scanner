@@ -60,7 +60,7 @@ func TestParseNpmLock_v1_OnePackage(t *testing.T) {
 			PackageManager: models.NPM,
 			Ecosystem:      lockfile.NpmEcosystem,
 			CompareAs:      lockfile.NpmEcosystem,
-			IsDirect:       true,
+			DepGroups:      []string{"prod"},
 		},
 	})
 }
@@ -86,7 +86,6 @@ func TestParseNpmLock_v1_OnePackageDev(t *testing.T) {
 			Ecosystem:      lockfile.NpmEcosystem,
 			CompareAs:      lockfile.NpmEcosystem,
 			DepGroups:      []string{"dev"},
-			IsDirect:       true,
 		},
 	})
 }
@@ -111,7 +110,7 @@ func TestParseNpmLock_v1_TwoPackages(t *testing.T) {
 			PackageManager: models.NPM,
 			Ecosystem:      lockfile.NpmEcosystem,
 			CompareAs:      lockfile.NpmEcosystem,
-			IsDirect:       true,
+			DepGroups:      []string{"prod"},
 		},
 		{
 			Name:           "supports-color",
@@ -119,7 +118,7 @@ func TestParseNpmLock_v1_TwoPackages(t *testing.T) {
 			PackageManager: models.NPM,
 			Ecosystem:      lockfile.NpmEcosystem,
 			CompareAs:      lockfile.NpmEcosystem,
-			IsDirect:       true,
+			DepGroups:      []string{"prod"},
 		},
 	})
 }
@@ -144,7 +143,7 @@ func TestParseNpmLock_v1_ScopedPackages(t *testing.T) {
 			PackageManager: models.NPM,
 			Ecosystem:      lockfile.NpmEcosystem,
 			CompareAs:      lockfile.NpmEcosystem,
-			IsDirect:       true,
+			DepGroups:      []string{"prod"},
 		},
 		{
 			Name:           "@babel/code-frame",
@@ -152,7 +151,7 @@ func TestParseNpmLock_v1_ScopedPackages(t *testing.T) {
 			PackageManager: models.NPM,
 			Ecosystem:      lockfile.NpmEcosystem,
 			CompareAs:      lockfile.NpmEcosystem,
-			IsDirect:       true,
+			DepGroups:      []string{"prod"},
 		},
 	})
 }
@@ -177,7 +176,7 @@ func TestParseNpmLock_v1_NestedDependencies(t *testing.T) {
 			PackageManager: models.NPM,
 			Ecosystem:      lockfile.NpmEcosystem,
 			CompareAs:      lockfile.NpmEcosystem,
-			IsDirect:       true,
+			DepGroups:      []string{"prod"},
 		},
 		{
 			Name:           "postcss",
@@ -185,7 +184,7 @@ func TestParseNpmLock_v1_NestedDependencies(t *testing.T) {
 			PackageManager: models.NPM,
 			Ecosystem:      lockfile.NpmEcosystem,
 			CompareAs:      lockfile.NpmEcosystem,
-			IsDirect:       true,
+			DepGroups:      []string{"prod"},
 		},
 		{
 			Name:           "postcss-calc",
@@ -193,7 +192,7 @@ func TestParseNpmLock_v1_NestedDependencies(t *testing.T) {
 			PackageManager: models.NPM,
 			Ecosystem:      lockfile.NpmEcosystem,
 			CompareAs:      lockfile.NpmEcosystem,
-			IsDirect:       true,
+			DepGroups:      []string{"prod"},
 		},
 		{
 			Name:           "supports-color",
@@ -201,7 +200,7 @@ func TestParseNpmLock_v1_NestedDependencies(t *testing.T) {
 			PackageManager: models.NPM,
 			Ecosystem:      lockfile.NpmEcosystem,
 			CompareAs:      lockfile.NpmEcosystem,
-			IsDirect:       true,
+			DepGroups:      []string{"prod"},
 		},
 		{
 			Name:           "supports-color",
@@ -209,7 +208,7 @@ func TestParseNpmLock_v1_NestedDependencies(t *testing.T) {
 			PackageManager: models.NPM,
 			Ecosystem:      lockfile.NpmEcosystem,
 			CompareAs:      lockfile.NpmEcosystem,
-			IsDirect:       true,
+			DepGroups:      []string{"prod"},
 		},
 	})
 }
@@ -238,7 +237,7 @@ func TestParseNpmLock_v1_NestedDependenciesDup(t *testing.T) {
 		PackageManager: models.NPM,
 		Ecosystem:      lockfile.NpmEcosystem,
 		CompareAs:      lockfile.NpmEcosystem,
-		IsDirect:       true,
+		DepGroups:      []string{"prod"},
 	})
 
 	expectPackage(t, packages, lockfile.PackageDetails{
@@ -247,7 +246,7 @@ func TestParseNpmLock_v1_NestedDependenciesDup(t *testing.T) {
 		PackageManager: models.NPM,
 		Ecosystem:      lockfile.NpmEcosystem,
 		CompareAs:      lockfile.NpmEcosystem,
-		IsDirect:       true,
+		DepGroups:      []string{"prod"},
 	})
 
 	expectPackage(t, packages, lockfile.PackageDetails{
@@ -256,7 +255,7 @@ func TestParseNpmLock_v1_NestedDependenciesDup(t *testing.T) {
 		PackageManager: models.NPM,
 		Ecosystem:      lockfile.NpmEcosystem,
 		CompareAs:      lockfile.NpmEcosystem,
-		IsDirect:       true,
+		DepGroups:      []string{"prod"},
 	})
 }
 
@@ -281,7 +280,7 @@ func TestParseNpmLock_v1_Commits(t *testing.T) {
 			Ecosystem:      lockfile.NpmEcosystem,
 			CompareAs:      lockfile.NpmEcosystem,
 			Commit:         "3b1bb80b302c2e552685dc8a029797ec832ea7c9",
-			IsDirect:       true,
+			DepGroups:      []string{"prod"},
 		},
 		{
 			Name:           "ansi-styles",
@@ -290,7 +289,7 @@ func TestParseNpmLock_v1_Commits(t *testing.T) {
 			Ecosystem:      lockfile.NpmEcosystem,
 			CompareAs:      lockfile.NpmEcosystem,
 			Commit:         "",
-			IsDirect:       true,
+			DepGroups:      []string{"prod"},
 		},
 		{
 			Name:           "babel-preset-php",
@@ -299,7 +298,7 @@ func TestParseNpmLock_v1_Commits(t *testing.T) {
 			Ecosystem:      lockfile.NpmEcosystem,
 			CompareAs:      lockfile.NpmEcosystem,
 			Commit:         "c5a7ba5e0ad98b8db1cb8ce105403dd4b768cced",
-			IsDirect:       true,
+			DepGroups:      []string{"prod"},
 		},
 		{
 			Name:           "is-number-1",
@@ -309,7 +308,6 @@ func TestParseNpmLock_v1_Commits(t *testing.T) {
 			CompareAs:      lockfile.NpmEcosystem,
 			Commit:         "af885e2e890b9ef0875edd2b117305119ee5bdc5",
 			DepGroups:      []string{"dev"},
-			IsDirect:       true,
 		},
 		{
 			Name:           "is-number-1",
@@ -319,7 +317,6 @@ func TestParseNpmLock_v1_Commits(t *testing.T) {
 			CompareAs:      lockfile.NpmEcosystem,
 			Commit:         "be5935f8d2595bcd97b05718ef1eeae08d812e10",
 			DepGroups:      []string{"dev"},
-			IsDirect:       true,
 		},
 		{
 			Name:           "is-number-2",
@@ -328,7 +325,7 @@ func TestParseNpmLock_v1_Commits(t *testing.T) {
 			Ecosystem:      lockfile.NpmEcosystem,
 			CompareAs:      lockfile.NpmEcosystem,
 			Commit:         "d5ac0584ee9ae7bd9288220a39780f155b9ad4c8",
-			IsDirect:       true,
+			DepGroups:      []string{"prod"},
 		},
 		{
 			Name:           "is-number-2",
@@ -337,7 +334,7 @@ func TestParseNpmLock_v1_Commits(t *testing.T) {
 			Ecosystem:      lockfile.NpmEcosystem,
 			CompareAs:      lockfile.NpmEcosystem,
 			Commit:         "82dcc8e914dabd9305ab9ae580709a7825e824f5",
-			IsDirect:       true,
+			DepGroups:      []string{"prod"},
 		},
 		{
 			Name:           "is-number-3",
@@ -347,7 +344,6 @@ func TestParseNpmLock_v1_Commits(t *testing.T) {
 			CompareAs:      lockfile.NpmEcosystem,
 			Commit:         "d5ac0584ee9ae7bd9288220a39780f155b9ad4c8",
 			DepGroups:      []string{"dev"},
-			IsDirect:       true,
 		},
 		{
 			Name:           "is-number-3",
@@ -357,7 +353,6 @@ func TestParseNpmLock_v1_Commits(t *testing.T) {
 			CompareAs:      lockfile.NpmEcosystem,
 			Commit:         "82ae8802978da40d7f1be5ad5943c9e550ab2c89",
 			DepGroups:      []string{"dev"},
-			IsDirect:       true,
 		},
 		{
 			Name:           "is-number-4",
@@ -367,7 +362,6 @@ func TestParseNpmLock_v1_Commits(t *testing.T) {
 			CompareAs:      lockfile.NpmEcosystem,
 			Commit:         "af885e2e890b9ef0875edd2b117305119ee5bdc5",
 			DepGroups:      []string{"dev"},
-			IsDirect:       true,
 		},
 		{
 			Name:           "is-number-5",
@@ -377,7 +371,6 @@ func TestParseNpmLock_v1_Commits(t *testing.T) {
 			CompareAs:      lockfile.NpmEcosystem,
 			Commit:         "af885e2e890b9ef0875edd2b117305119ee5bdc5",
 			DepGroups:      []string{"dev"},
-			IsDirect:       true,
 		},
 		{
 			Name:           "is-number-6",
@@ -387,7 +380,6 @@ func TestParseNpmLock_v1_Commits(t *testing.T) {
 			CompareAs:      lockfile.NpmEcosystem,
 			Commit:         "af885e2e890b9ef0875edd2b117305119ee5bdc5",
 			DepGroups:      []string{"dev"},
-			IsDirect:       true,
 		},
 		{
 			Name:           "postcss-calc",
@@ -396,7 +388,7 @@ func TestParseNpmLock_v1_Commits(t *testing.T) {
 			Ecosystem:      lockfile.NpmEcosystem,
 			CompareAs:      lockfile.NpmEcosystem,
 			Commit:         "",
-			IsDirect:       true,
+			DepGroups:      []string{"prod"},
 		},
 		{
 			Name:           "raven-js",
@@ -405,7 +397,7 @@ func TestParseNpmLock_v1_Commits(t *testing.T) {
 			Ecosystem:      lockfile.NpmEcosystem,
 			CompareAs:      lockfile.NpmEcosystem,
 			Commit:         "c2b377e7a254264fd4a1fe328e4e3cfc9e245570",
-			IsDirect:       true,
+			DepGroups:      []string{"prod"},
 		},
 		{
 			Name:           "slick-carousel",
@@ -415,7 +407,6 @@ func TestParseNpmLock_v1_Commits(t *testing.T) {
 			CompareAs:      lockfile.NpmEcosystem,
 			Commit:         "280b560161b751ba226d50c7db1e0a14a78c2de0",
 			DepGroups:      []string{"dev"},
-			IsDirect:       true,
 		},
 	})
 }
@@ -441,7 +432,7 @@ func TestParseNpmLock_v1_Files(t *testing.T) {
 			Ecosystem:      lockfile.NpmEcosystem,
 			CompareAs:      lockfile.NpmEcosystem,
 			Commit:         "",
-			IsDirect:       true,
+			DepGroups:      []string{"prod"},
 		},
 		{
 			Name:           "other_package",
@@ -450,7 +441,7 @@ func TestParseNpmLock_v1_Files(t *testing.T) {
 			Ecosystem:      lockfile.NpmEcosystem,
 			CompareAs:      lockfile.NpmEcosystem,
 			Commit:         "",
-			IsDirect:       true,
+			DepGroups:      []string{"prod"},
 		},
 	})
 }
@@ -475,7 +466,7 @@ func TestParseNpmLock_v1_Alias(t *testing.T) {
 			PackageManager: models.NPM,
 			Ecosystem:      lockfile.NpmEcosystem,
 			CompareAs:      lockfile.NpmEcosystem,
-			IsDirect:       true,
+			DepGroups:      []string{"prod"},
 		},
 		{
 			Name:           "string-width",
@@ -483,7 +474,7 @@ func TestParseNpmLock_v1_Alias(t *testing.T) {
 			PackageManager: models.NPM,
 			Ecosystem:      lockfile.NpmEcosystem,
 			CompareAs:      lockfile.NpmEcosystem,
-			IsDirect:       true,
+			DepGroups:      []string{"prod"},
 		},
 		{
 			Name:           "string-width",
@@ -491,7 +482,7 @@ func TestParseNpmLock_v1_Alias(t *testing.T) {
 			PackageManager: models.NPM,
 			Ecosystem:      lockfile.NpmEcosystem,
 			CompareAs:      lockfile.NpmEcosystem,
-			IsDirect:       true,
+			DepGroups:      []string{"prod"},
 		},
 	})
 }
@@ -516,8 +507,7 @@ func TestParseNpmLock_v1_OptionalPackage(t *testing.T) {
 			PackageManager: models.NPM,
 			Ecosystem:      lockfile.NpmEcosystem,
 			CompareAs:      lockfile.NpmEcosystem,
-			DepGroups:      []string{"dev", "optional"},
-			IsDirect:       true,
+			DepGroups:      []string{"optional", "dev"},
 		},
 		{
 			Name:           "supports-color",
@@ -525,8 +515,7 @@ func TestParseNpmLock_v1_OptionalPackage(t *testing.T) {
 			PackageManager: models.NPM,
 			Ecosystem:      lockfile.NpmEcosystem,
 			CompareAs:      lockfile.NpmEcosystem,
-			DepGroups:      []string{"optional"},
-			IsDirect:       true,
+			DepGroups:      []string{"optional", "prod"},
 		},
 	})
 }
@@ -547,7 +536,6 @@ func TestParseNpmLock_v1_SamePackageDifferentGroups(t *testing.T) {
 			Ecosystem:      lockfile.NpmEcosystem,
 			CompareAs:      lockfile.NpmEcosystem,
 			DepGroups:      []string{"dev"},
-			IsDirect:       true,
 		},
 		{
 			Name:           "table",
@@ -555,7 +543,7 @@ func TestParseNpmLock_v1_SamePackageDifferentGroups(t *testing.T) {
 			PackageManager: models.NPM,
 			Ecosystem:      lockfile.NpmEcosystem,
 			CompareAs:      lockfile.NpmEcosystem,
-			IsDirect:       true,
+			DepGroups:      []string{"prod"},
 		},
 		{
 			Name:           "ajv",
@@ -563,7 +551,7 @@ func TestParseNpmLock_v1_SamePackageDifferentGroups(t *testing.T) {
 			PackageManager: models.NPM,
 			Ecosystem:      lockfile.NpmEcosystem,
 			CompareAs:      lockfile.NpmEcosystem,
-			IsDirect:       true,
+			DepGroups:      []string{"dev", "optional", "prod"},
 		},
 	})
 }

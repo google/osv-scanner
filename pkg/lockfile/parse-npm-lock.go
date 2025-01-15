@@ -105,17 +105,17 @@ func (pdm npmPackageDetailsMap) add(key string, details PackageDetails) {
 }
 
 func (dep *NpmLockDependency) depGroups() []string {
-	if dep.Dev && dep.Optional {
-		return []string{"dev", "optional"}
+	groups := make([]string, 0)
+	if dep.Optional {
+		groups = append(groups, "optional")
 	}
 	if dep.Dev {
-		return []string{"dev"}
-	}
-	if dep.Optional {
-		return []string{"optional"}
+		groups = append(groups, "dev")
+	} else {
+		groups = append(groups, "prod")
 	}
 
-	return nil
+	return groups
 }
 
 func parseNpmLockDependencies(dependencies map[string]*NpmLockDependency) map[string]PackageDetails {
@@ -171,7 +171,6 @@ func parseNpmLockDependencies(dependencies map[string]*NpmLockDependency) map[st
 			CompareAs:      NpmEcosystem,
 			Commit:         commit,
 			DepGroups:      detail.depGroups(),
-			IsDirect:       true,
 		})
 	}
 
@@ -195,17 +194,21 @@ func extractRootKeyPackageName(name string) string {
 }
 
 func (pkg NpmLockPackage) depGroups() []string {
+	groups := make([]string, 0)
 	if pkg.Dev {
-		return []string{"dev"}
+		groups = append(groups, "dev")
 	}
 	if pkg.Optional {
-		return []string{"optional"}
+		groups = append(groups, "optional")
 	}
 	if pkg.DevOptional {
-		return []string{"dev", "optional"}
+		groups = append(groups, "dev", "optional")
+	}
+	if !pkg.Dev && !pkg.DevOptional {
+		groups = append(groups, "prod")
 	}
 
-	return nil
+	return groups
 }
 
 func parseNpmLockPackages(packages map[string]*NpmLockPackage) map[string]PackageDetails {
@@ -247,14 +250,11 @@ func parseNpmLockPackages(packages map[string]*NpmLockPackage) map[string]Packag
 		// the dependencies with the version written as it appears in the package.json
 		var targetVersions []string
 		var targetVersion string
-		var isDirect bool
 		rootKey := extractRootKeyPackageName(namePath)
 		if p, ok := packages[""]; ok {
 			if dep, ok := p.Dependencies[rootKey]; ok {
 				targetVersion = dep
-				isDirect = true
 			} else if devDep, ok := p.DevDependencies[rootKey]; ok {
-				isDirect = true
 				targetVersion = devDep
 			}
 		}
@@ -287,7 +287,6 @@ func parseNpmLockPackages(packages map[string]*NpmLockPackage) map[string]Packag
 				CompareAs:      NpmEcosystem,
 				Commit:         commit,
 				DepGroups:      detail.depGroups(),
-				IsDirect:       isDirect,
 			})
 		}
 	}
