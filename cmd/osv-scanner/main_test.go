@@ -669,7 +669,6 @@ func TestRun_WithoutHostPathInformation(t *testing.T) {
 			args:         []string{"", "--experimental-only-packages", "--format=cyclonedx-1-5", "--paths-relative-to-scan-dir", "./fixtures/locks-many"},
 			wantExitCode: 0,
 			wantFilePaths: []string{
-				"package-lock.json", // TODO: remove when NPM is using the JSON matcher
 				"package.json",
 			},
 		},
@@ -753,6 +752,35 @@ func TestRun_WithExplicitParsers(t *testing.T) {
 		args: args,
 		exit: 0,
 	})
+}
+
+func TestRun_YarnPackageOnly(t *testing.T) {
+	t.Parallel()
+	testCases := []string{
+		"v1.22.0",
+		"v3.8.7",
+		"v4.6.0",
+	}
+
+	for _, testCase := range testCases {
+		tt := testCase
+		t.Run(tt, func(t *testing.T) {
+			t.Parallel()
+			args := []string{
+				"",
+				"-r",
+				"--experimental-only-packages",
+				"--format=cyclonedx-1-5",
+				"--consider-scan-path-as-root",
+				"./fixtures/integration-yarn/" + tt,
+			}
+			testCli(t, cliTestCase{
+				name: "YarnPackageOnly " + tt,
+				args: args,
+				exit: 0,
+			})
+		})
+	}
 }
 
 func TestRun_WithEncodedLockfile(t *testing.T) {

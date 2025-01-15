@@ -49,7 +49,7 @@ func copyFile(t *testing.T, from, to string) string {
 	return to
 }
 
-func testParsingNodeModules(t *testing.T, fixture string) ([]lockfile.PackageDetails, string, error) {
+func testParsingNodeModules(t *testing.T, fixture string) ([]lockfile.PackageDetails, error) {
 	t.Helper()
 
 	testDir, cleanupTestDir := createTestDirWithNodeModulesDir(t)
@@ -68,7 +68,7 @@ func testParsingNodeModules(t *testing.T, fixture string) ([]lockfile.PackageDet
 
 	packages, err := lockfile.NodeModulesExtractor{}.Extract(f)
 
-	return packages, filePath, err
+	return packages, err
 }
 
 func TestNodeModulesExtractor_ShouldExtract(t *testing.T) {

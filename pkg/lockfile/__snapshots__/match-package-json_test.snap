@@ -144,36 +144,14 @@
     ],
     "blockLocation": {
       "line": {
-        "start": 4,
-        "end": 4
+        "start": 0,
+        "end": 0
       },
       "column": {
-        "start": 5,
-        "end": 41
+        "start": 0,
+        "end": 0
       },
-      "file_name": "<rootdir>/fixtures/package-json/resolutions/package.json"
-    },
-    "versionLocation": {
-      "line": {
-        "start": 4,
-        "end": 4
-      },
-      "column": {
-        "start": 35,
-        "end": 40
-      },
-      "file_name": "<rootdir>/fixtures/package-json/resolutions/package.json"
-    },
-    "nameLocation": {
-      "line": {
-        "start": 4,
-        "end": 4
-      },
-      "column": {
-        "start": 6,
-        "end": 31
-      },
-      "file_name": "<rootdir>/fixtures/package-json/resolutions/package.json"
+      "file_name": ""
     },
     "packageManager": "NPM",
     "isDirect": true
@@ -903,36 +881,14 @@
     ],
     "blockLocation": {
       "line": {
-        "start": 18,
-        "end": 18
+        "start": 0,
+        "end": 0
       },
       "column": {
-        "start": 5,
-        "end": 36
+        "start": 0,
+        "end": 0
       },
-      "file_name": "<rootdir>/fixtures/package-json/multiple-versions/package.json"
-    },
-    "versionLocation": {
-      "line": {
-        "start": 18,
-        "end": 18
-      },
-      "column": {
-        "start": 12,
-        "end": 35
-      },
-      "file_name": "<rootdir>/fixtures/package-json/multiple-versions/package.json"
-    },
-    "nameLocation": {
-      "line": {
-        "start": 18,
-        "end": 18
-      },
-      "column": {
-        "start": 6,
-        "end": 8
-      },
-      "file_name": "<rootdir>/fixtures/package-json/multiple-versions/package.json"
+      "file_name": ""
     },
     "packageManager": "NPM",
     "isDirect": true

@@ -19,20 +19,27 @@ type PackageDetails struct {
 	NameLocation    *models.FilePosition  `json:"nameLocation,omitempty"`
 	PackageManager  models.PackageManager `json:"packageManager,omitempty"`
 	IsDirect        bool                  `json:"isDirect,omitempty"`
+	Dependencies    []*PackageDetails     `json:"dependencies,omitempty"`
 }
 
 type Ecosystem string
 
 type PackageDetailsParser = func(pathToLockfile string) ([]PackageDetails, error)
 
+const (
+	devDependencyGroup      = "dev"
+	optionalDependencyGroup = "optional"
+)
+
 // IsDevGroup returns if any string in groups indicates the development dependency group for the specified ecosystem.
 func (sys Ecosystem) IsDevGroup(groups []string) bool {
 	switch sys {
 	case NpmEcosystem:
+		// Also PnpmEcosystem(=NpmEcosystem) and YarnEcosystem(=NpmEcosystem)
 		return sys.isNpmDevGroup(groups)
 	case ComposerEcosystem, PipEcosystem, PubEcosystem:
-		// Also PnpmEcosystem(=NpmEcosystem) and PipenvEcosystem(=PipEcosystem,=PoetryEcosystem).
-		return sys.isDevGroup(groups, "dev")
+		// Also PipenvEcosystem(=PipEcosystem,=PoetryEcosystem).
+		return sys.isDevGroup(groups, devDependencyGroup)
 	case ConanEcosystem:
 		return sys.isDevGroup(groups, "build-requires")
 	case MavenEcosystem:
@@ -66,9 +73,9 @@ func (sys Ecosystem) isNpmDevGroup(groups []string) bool {
 		return false
 	}
 	for _, g := range groups {
-		if g != "dev" && g != "optional" {
+		if g != devDependencyGroup && g != optionalDependencyGroup {
 			return false
-		} else if g == "dev" {
+		} else if g == devDependencyGroup {
 			containsDev = true
 		}
 	}

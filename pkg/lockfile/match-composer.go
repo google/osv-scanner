@@ -4,10 +4,8 @@ import (
 	"encoding/json"
 	"io"
 	"path/filepath"
-	"strings"
 
-	"github.com/google/osv-scanner/internal/cachedregexp"
-	"github.com/google/osv-scanner/pkg/models"
+	jsonUtils "github.com/google/osv-scanner/internal/json"
 )
 
 const composerFilename = "composer.json"
@@ -19,33 +17,34 @@ const (
 	typeRequireDev
 )
 
-type dependencyMap struct {
-	rootType   int
-	filePath   string
-	lineOffset int
-	packages   []*PackageDetails
+/*
+ComposerMatcherDependencyMap is here to have access to all MatcherDependencyMap methods and at the same time having
+a different type to have a clear UnmarshallJSON method for the json decoder and avoid overlaps with other matchers.
+*/
+type ComposerMatcherDependencyMap struct {
+	MatcherDependencyMap
 }
 
 type composerFile struct {
-	Require    dependencyMap `json:"require"`
-	RequireDev dependencyMap `json:"require-dev"`
+	Require    ComposerMatcherDependencyMap `json:"require"`
+	RequireDev ComposerMatcherDependencyMap `json:"require-dev"`
 }
 
-func (depMap *dependencyMap) UnmarshalJSON(bytes []byte) error {
+func (depMap *ComposerMatcherDependencyMap) UnmarshalJSON(bytes []byte) error {
 	content := string(bytes)
 
-	for _, pkg := range depMap.packages {
-		if depMap.rootType == typeRequireDev && pkg.BlockLocation.Line.Start != 0 {
+	for _, pkg := range depMap.Packages {
+		if depMap.RootType == typeRequireDev && pkg.BlockLocation.Line.Start != 0 {
 			// If it is dev dependency definition and we already found a package location,
 			// we skip it to prioritize non-dev dependencies
 			continue
 		}
-		pkgIndexes := depMap.extractPackageIndexes(pkg.Name, content)
+		pkgIndexes := jsonUtils.ExtractPackageIndexes(pkg.Name, "", content)
 		if len(pkgIndexes) == 0 {
 			// The matcher haven't found package information, lets skip the package
 			continue
 		}
-		depMap.updatePackageDetails(pkg, content, pkgIndexes)
+		depMap.UpdatePackageDetails(pkg, content, pkgIndexes, "")
 	}
 
 	return nil
@@ -59,107 +58,50 @@ func (matcher ComposerMatcher) GetSourceFile(lockfile DepFile) (DepFile, error) 
 	return file, err
 }
 
+/*
+Match works by leveraging the json decoder to only parse json sections of interest (e.g dependencies)
+Whenever the json decoder try to deserialize a file, it will look at json sections it needs to deserialize
+and then call the proper UnmarshallJSON method of the type. As the JSON decoder expect us to only deserialize it,
+not trying to find the exact location in the file of the content, it does not provide us buffer information (offset, file path, etc...)
+
+To work around this limitation, we are pre-filling the structure with all the field we will need during the deserialization :
+  - The root type to know which json section we are deserializing
+  - The file path to be able to fill properly location fields of PackageDetails
+  - The line offset to be able to compute the line of any found dependencies in the file
+  - And a list of pointer to the original PackageDetails extracted by the parser to be able to modify them with the json section content
+*/
 func (matcher ComposerMatcher) Match(sourceFile DepFile, packages []PackageDetails) error {
 	content, err := io.ReadAll(sourceFile)
 	if err != nil {
 		return err
 	}
 	contentStr := string(content)
-	requireIndex := cachedregexp.MustCompile("\"require\"\\s*:\\s*{").FindStringIndex(contentStr)
-	requireDevIndex := cachedregexp.MustCompile("\"require-dev\"\\s*:\\s*{").FindStringIndex(contentStr)
-	requireLineOffset, requireDevLineOffset := 0, 0
-
-	if len(requireIndex) > 1 {
-		requireLineOffset = strings.Count(contentStr[:requireIndex[1]], "\n")
-	}
-	if len(requireDevIndex) > 1 {
-		requireDevLineOffset = strings.Count(contentStr[:requireDevIndex[1]], "\n")
-	}
+	requireLineOffset := jsonUtils.GetSectionOffset("require", contentStr)
+	requireDevLineOffset := jsonUtils.GetSectionOffset("require-dev", contentStr)
 
 	jsonFile := composerFile{
-		Require: dependencyMap{
-			rootType:   typeRequire,
-			filePath:   sourceFile.Path(),
-			lineOffset: requireLineOffset,
-			packages:   make([]*PackageDetails, len(packages)),
+		Require: ComposerMatcherDependencyMap{
+			MatcherDependencyMap: MatcherDependencyMap{
+				RootType:   typeRequire,
+				FilePath:   sourceFile.Path(),
+				LineOffset: requireLineOffset,
+				Packages:   make([]*PackageDetails, len(packages)),
+			},
 		},
-		RequireDev: dependencyMap{
-			rootType:   typeRequireDev,
-			filePath:   sourceFile.Path(),
-			lineOffset: requireDevLineOffset,
-			packages:   make([]*PackageDetails, len(packages)),
+		RequireDev: ComposerMatcherDependencyMap{
+			MatcherDependencyMap: MatcherDependencyMap{
+				RootType:   typeRequireDev,
+				FilePath:   sourceFile.Path(),
+				LineOffset: requireDevLineOffset,
+				Packages:   make([]*PackageDetails, len(packages)),
+			},
 		},
 	}
 
 	for index := range packages {
-		jsonFile.Require.packages[index] = &packages[index]
-		jsonFile.RequireDev.packages[index] = &packages[index]
+		jsonFile.Require.Packages[index] = &packages[index]
+		jsonFile.RequireDev.Packages[index] = &packages[index]
 	}
 
 	return json.Unmarshal(content, &jsonFile)
-}
-
-/*
-This method find where a package is defined in the composer.json file. It returns the block indexes along with
-name and version. Composer does not accept a package being declared twice in the same block, so this method will always return zero or one row
-
-The expected result is a [6]int, with the following structure :
-- index 0/1 represents block start/end
-- index 2/3 represents name start/end
-- index 4/5 represents version start/end
-*/
-func (depMap *dependencyMap) extractPackageIndexes(pkgName string, content string) []int {
-	pkgMatcher := cachedregexp.MustCompile(".*\"(?P<pkgName>" + pkgName + ")\"\\s*:\\s*\"(?P<version>.*)\"")
-	result := pkgMatcher.FindAllStringSubmatchIndex(content, -1)
-
-	if len(result) == 0 || len(result[0]) < 6 {
-		return []int{}
-	}
-
-	return result[0]
-}
-
-func (depMap *dependencyMap) updatePackageDetails(pkg *PackageDetails, content string, indexes []int) {
-	lineStart := depMap.lineOffset + strings.Count(content[:indexes[0]], "\n")
-	lineStartIndex := strings.LastIndex(content[:indexes[0]], "\n")
-	lineEnd := depMap.lineOffset + strings.Count(content[:indexes[1]], "\n")
-	lineEndIndex := strings.LastIndex(content[:indexes[1]], "\n")
-
-	pkg.IsDirect = true
-
-	pkg.BlockLocation = models.FilePosition{
-		Filename: depMap.filePath,
-		Line: models.Position{
-			Start: lineStart + 1,
-			End:   lineEnd + 1,
-		},
-		Column: models.Position{
-			Start: indexes[0] - lineStartIndex,
-			End:   indexes[1] - lineEndIndex,
-		},
-	}
-
-	pkg.NameLocation = &models.FilePosition{
-		Filename: depMap.filePath,
-		Line: models.Position{
-			Start: lineStart + 1,
-			End:   lineStart + 1,
-		},
-		Column: models.Position{
-			Start: indexes[2] - lineStartIndex,
-			End:   indexes[3] - lineStartIndex,
-		},
-	}
-
-	pkg.VersionLocation = &models.FilePosition{
-		Filename: depMap.filePath,
-		Line: models.Position{
-			Start: lineEnd + 1,
-			End:   lineEnd + 1,
-		},
-		Column: models.Position{
-			Start: indexes[4] - lineEndIndex,
-			End:   indexes[5] - lineEndIndex,
-		},
-	}
 }

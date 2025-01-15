@@ -57,6 +57,7 @@ func TestParseYarnLock_v2_OnePackage(t *testing.T) {
 			TargetVersions: []string{"^1.0.0"},
 			Ecosystem:      lockfile.YarnEcosystem,
 			CompareAs:      lockfile.YarnEcosystem,
+			Dependencies:   make([]*lockfile.PackageDetails, 0),
 		},
 	})
 }
@@ -104,6 +105,7 @@ func TestParseYarnLock_v2_OnePackage_MatcherFailed(t *testing.T) {
 			TargetVersions: []string{"^1.0.0"},
 			Ecosystem:      lockfile.YarnEcosystem,
 			CompareAs:      lockfile.YarnEcosystem,
+			Dependencies:   make([]*lockfile.PackageDetails, 0),
 		},
 	})
 
@@ -132,6 +134,7 @@ func TestParseYarnLock_v2_TwoPackages(t *testing.T) {
 			TargetVersions: []string{"^2.0.0"},
 			Ecosystem:      lockfile.YarnEcosystem,
 			CompareAs:      lockfile.YarnEcosystem,
+			Dependencies:   make([]*lockfile.PackageDetails, 0),
 		},
 		{
 			Name:           "concat-map",
@@ -140,6 +143,7 @@ func TestParseYarnLock_v2_TwoPackages(t *testing.T) {
 			TargetVersions: []string{"0.0.1"},
 			Ecosystem:      lockfile.YarnEcosystem,
 			CompareAs:      lockfile.YarnEcosystem,
+			Dependencies:   make([]*lockfile.PackageDetails, 0),
 		},
 	})
 }
@@ -165,6 +169,7 @@ func TestParseYarnLock_v2_WithQuotes(t *testing.T) {
 			TargetVersions: []string{"^2.0.0"},
 			Ecosystem:      lockfile.YarnEcosystem,
 			CompareAs:      lockfile.YarnEcosystem,
+			Dependencies:   make([]*lockfile.PackageDetails, 0),
 		},
 		{
 			Name:           "concat-map",
@@ -173,6 +178,7 @@ func TestParseYarnLock_v2_WithQuotes(t *testing.T) {
 			TargetVersions: []string{"0.0.1"},
 			Ecosystem:      lockfile.YarnEcosystem,
 			CompareAs:      lockfile.YarnEcosystem,
+			Dependencies:   make([]*lockfile.PackageDetails, 0),
 		},
 	})
 }
@@ -198,6 +204,7 @@ func TestParseYarnLock_v2_MultipleVersions(t *testing.T) {
 			TargetVersions: []string{"4", "^4.0.0", "^4.1.0", "^4.1.1", "^4.3.1", "^4.3.2", "^4.3.3"},
 			Ecosystem:      lockfile.YarnEcosystem,
 			CompareAs:      lockfile.YarnEcosystem,
+			Dependencies:   make([]*lockfile.PackageDetails, 0),
 		},
 		{
 			Name:           "debug",
@@ -206,6 +213,7 @@ func TestParseYarnLock_v2_MultipleVersions(t *testing.T) {
 			TargetVersions: []string{"^2.6.9"},
 			Ecosystem:      lockfile.YarnEcosystem,
 			CompareAs:      lockfile.YarnEcosystem,
+			Dependencies:   make([]*lockfile.PackageDetails, 0),
 		},
 		{
 			Name:           "debug",
@@ -214,6 +222,7 @@ func TestParseYarnLock_v2_MultipleVersions(t *testing.T) {
 			TargetVersions: []string{"^3.2.7"},
 			Ecosystem:      lockfile.YarnEcosystem,
 			CompareAs:      lockfile.YarnEcosystem,
+			Dependencies:   make([]*lockfile.PackageDetails, 0),
 		},
 	})
 }
@@ -239,6 +248,7 @@ func TestParseYarnLock_v2_ScopedPackages(t *testing.T) {
 			TargetVersions: []string{"^7.4.4"},
 			Ecosystem:      lockfile.YarnEcosystem,
 			CompareAs:      lockfile.YarnEcosystem,
+			Dependencies:   make([]*lockfile.PackageDetails, 0),
 		},
 		{
 			Name:           "@babel/code-frame",
@@ -247,6 +257,7 @@ func TestParseYarnLock_v2_ScopedPackages(t *testing.T) {
 			TargetVersions: []string{"^7.0.0", "^7.12.13", "^7.16.7"},
 			Ecosystem:      lockfile.YarnEcosystem,
 			CompareAs:      lockfile.YarnEcosystem,
+			Dependencies:   make([]*lockfile.PackageDetails, 0),
 		},
 		{
 			Name:           "@babel/compat-data",
@@ -255,6 +266,7 @@ func TestParseYarnLock_v2_ScopedPackages(t *testing.T) {
 			TargetVersions: []string{"^7.13.11", "^7.16.4", "^7.16.8"},
 			Ecosystem:      lockfile.YarnEcosystem,
 			CompareAs:      lockfile.YarnEcosystem,
+			Dependencies:   make([]*lockfile.PackageDetails, 0),
 		},
 	})
 }
@@ -280,6 +292,7 @@ func TestParseYarnLock_v2_WithPrerelease(t *testing.T) {
 			TargetVersions: []string{"2.1.8-no-fsevents.3"},
 			Ecosystem:      lockfile.YarnEcosystem,
 			CompareAs:      lockfile.YarnEcosystem,
+			Dependencies:   make([]*lockfile.PackageDetails, 0),
 		},
 		{
 			Name:           "gensync",
@@ -288,6 +301,7 @@ func TestParseYarnLock_v2_WithPrerelease(t *testing.T) {
 			TargetVersions: []string{"^1.0.0-beta.2"},
 			Ecosystem:      lockfile.YarnEcosystem,
 			CompareAs:      lockfile.YarnEcosystem,
+			Dependencies:   make([]*lockfile.PackageDetails, 0),
 		},
 		{
 			Name:           "eslint-plugin-jest",
@@ -296,6 +310,7 @@ func TestParseYarnLock_v2_WithPrerelease(t *testing.T) {
 			TargetVersions: []string{"workspace:."},
 			Ecosystem:      lockfile.YarnEcosystem,
 			CompareAs:      lockfile.YarnEcosystem,
+			Dependencies:   make([]*lockfile.PackageDetails, 0),
 		},
 	})
 }
@@ -313,7 +328,7 @@ func TestParseYarnLock_v2_WithBuildString(t *testing.T) {
 		t.Errorf("Got unexpected error: %v", err)
 	}
 
-	expectPackagesWithoutLocations(t, packages, []lockfile.PackageDetails{
+	expected := []lockfile.PackageDetails{
 		{
 			Name:           "domino",
 			Version:        "2.1.6+git",
@@ -322,6 +337,7 @@ func TestParseYarnLock_v2_WithBuildString(t *testing.T) {
 			TargetVersions: []string{"https://github.com/angular/domino.git#f2435fe1f9f7c91ade0bd472c4723e5eacd7d19a"},
 			Ecosystem:      lockfile.YarnEcosystem,
 			CompareAs:      lockfile.YarnEcosystem,
+			Dependencies:   make([]*lockfile.PackageDetails, 0),
 		},
 		{
 			Name:           "tslib",
@@ -330,6 +346,7 @@ func TestParseYarnLock_v2_WithBuildString(t *testing.T) {
 			TargetVersions: []string{"^2.3.0"},
 			Ecosystem:      lockfile.YarnEcosystem,
 			CompareAs:      lockfile.YarnEcosystem,
+			Dependencies:   make([]*lockfile.PackageDetails, 0),
 		},
 		{
 			Name:           "zone.js",
@@ -338,8 +355,12 @@ func TestParseYarnLock_v2_WithBuildString(t *testing.T) {
 			TargetVersions: []string{"workspace:."},
 			Ecosystem:      lockfile.YarnEcosystem,
 			CompareAs:      lockfile.YarnEcosystem,
+			Dependencies:   make([]*lockfile.PackageDetails, 0),
 		},
-	})
+	}
+	expected[2].Dependencies = append(expected[2].Dependencies, &expected[0], &expected[1])
+
+	expectPackagesWithoutLocations(t, packages, expected)
 }
 
 func TestParseYarnLock_v2_Commits(t *testing.T) {
@@ -364,6 +385,7 @@ func TestParseYarnLock_v2_Commits(t *testing.T) {
 			Ecosystem:      lockfile.YarnEcosystem,
 			CompareAs:      lockfile.YarnEcosystem,
 			Commit:         "0b824c650d3a03444dbcf2b27a5f3566f6e41358",
+			Dependencies:   make([]*lockfile.PackageDetails, 0),
 		},
 		{
 			Name:           "my-second-package",
@@ -373,6 +395,7 @@ func TestParseYarnLock_v2_Commits(t *testing.T) {
 			Ecosystem:      lockfile.YarnEcosystem,
 			CompareAs:      lockfile.YarnEcosystem,
 			Commit:         "59e2127b9f9d4fda5f928c4204213b3502cd5bb0",
+			Dependencies:   make([]*lockfile.PackageDetails, 0),
 		},
 		{
 			Name:           "@typegoose/typegoose",
@@ -382,6 +405,7 @@ func TestParseYarnLock_v2_Commits(t *testing.T) {
 			Ecosystem:      lockfile.YarnEcosystem,
 			CompareAs:      lockfile.YarnEcosystem,
 			Commit:         "3ed06e5097ab929f69755676fee419318aaec73a",
+			Dependencies:   make([]*lockfile.PackageDetails, 0),
 		},
 		{
 			Name:           "vuejs",
@@ -391,6 +415,7 @@ func TestParseYarnLock_v2_Commits(t *testing.T) {
 			Ecosystem:      lockfile.YarnEcosystem,
 			CompareAs:      lockfile.YarnEcosystem,
 			Commit:         "0948d999f2fddf9f90991956493f976273c5da1f",
+			Dependencies:   make([]*lockfile.PackageDetails, 0),
 		},
 		{
 			Name:           "my-third-package",
@@ -400,6 +425,7 @@ func TestParseYarnLock_v2_Commits(t *testing.T) {
 			Ecosystem:      lockfile.YarnEcosystem,
 			CompareAs:      lockfile.YarnEcosystem,
 			Commit:         "5675a0aed98e067ff6ecccc5ac674fe8995960e0",
+			Dependencies:   make([]*lockfile.PackageDetails, 0),
 		},
 		{
 			Name:           "my-node-sdk",
@@ -409,6 +435,7 @@ func TestParseYarnLock_v2_Commits(t *testing.T) {
 			Ecosystem:      lockfile.YarnEcosystem,
 			CompareAs:      lockfile.YarnEcosystem,
 			Commit:         "053dea9e0b8af442d8f867c8e690d2fb0ceb1bf5",
+			Dependencies:   make([]*lockfile.PackageDetails, 0),
 		},
 		{
 			Name:           "is-really-great",
@@ -418,6 +445,7 @@ func TestParseYarnLock_v2_Commits(t *testing.T) {
 			Ecosystem:      lockfile.YarnEcosystem,
 			CompareAs:      lockfile.YarnEcosystem,
 			Commit:         "191eeef50c584714e1fb8927d17ee72b3b8c97c4",
+			Dependencies:   make([]*lockfile.PackageDetails, 0),
 		},
 	})
 }
@@ -444,6 +472,7 @@ func TestParseYarnLock_v2_Files(t *testing.T) {
 			Ecosystem:      lockfile.YarnEcosystem,
 			CompareAs:      lockfile.YarnEcosystem,
 			Commit:         "",
+			Dependencies:   make([]*lockfile.PackageDetails, 0),
 		},
 	})
 }
@@ -461,7 +490,7 @@ func TestParseYarnLock_v2_WithAliases(t *testing.T) {
 		t.Errorf("Got unexpected error: %v", err)
 	}
 
-	expectPackagesWithoutLocations(t, packages, []lockfile.PackageDetails{
+	expected := []lockfile.PackageDetails{
 		{
 			Name:           "@babel/helper-validator-identifier",
 			Version:        "7.22.20",
@@ -469,6 +498,7 @@ func TestParseYarnLock_v2_WithAliases(t *testing.T) {
 			TargetVersions: []string{"^7.0.0"},
 			Ecosystem:      lockfile.YarnEcosystem,
 			CompareAs:      lockfile.YarnEcosystem,
+			Dependencies:   make([]*lockfile.PackageDetails, 0),
 		},
 		{
 			Name:           "ansi-regex",
@@ -477,6 +507,7 @@ func TestParseYarnLock_v2_WithAliases(t *testing.T) {
 			TargetVersions: []string{"^6.0.0"},
 			Ecosystem:      lockfile.YarnEcosystem,
 			CompareAs:      lockfile.YarnEcosystem,
+			Dependencies:   make([]*lockfile.PackageDetails, 0),
 		},
 		{
 			Name:           "ansi-regex",
@@ -485,6 +516,7 @@ func TestParseYarnLock_v2_WithAliases(t *testing.T) {
 			TargetVersions: []string{"^5.0.0"},
 			Ecosystem:      lockfile.YarnEcosystem,
 			CompareAs:      lockfile.YarnEcosystem,
+			Dependencies:   make([]*lockfile.PackageDetails, 0),
 		},
 		{
 			Name:           "mine",
@@ -493,6 +525,59 @@ func TestParseYarnLock_v2_WithAliases(t *testing.T) {
 			TargetVersions: []string{"workspace:."},
 			Ecosystem:      lockfile.YarnEcosystem,
 			CompareAs:      lockfile.YarnEcosystem,
+			Dependencies:   make([]*lockfile.PackageDetails, 0),
 		},
-	})
+	}
+	expected[3].Dependencies = append(expected[3].Dependencies, &expected[1])
+
+	expectPackagesWithoutLocations(t, packages, expected)
+}
+
+func TestParseYarnLock_v2_WithDependencies(t *testing.T) {
+	t.Parallel()
+	dir, err := os.Getwd()
+	if err != nil {
+		t.Errorf("Got unexpected error: %v", err)
+	}
+
+	path := filepath.FromSlash(filepath.Join(dir, "fixtures/yarn/with-dependencies-v2.lock"))
+	packages, err := lockfile.ParseYarnLock(path)
+	if err != nil {
+		t.Errorf("Got unexpected error: %v", err)
+	}
+
+	expected := []lockfile.PackageDetails{
+		{
+			Name:           "domino",
+			Version:        "2.1.6+git",
+			Commit:         "f2435fe1f9f7c91ade0bd472c4723e5eacd7d19a",
+			TargetVersions: []string{"https://github.com/angular/domino.git#f2435fe1f9f7c91ade0bd472c4723e5eacd7d19a"},
+			Ecosystem:      lockfile.YarnEcosystem,
+			CompareAs:      lockfile.YarnEcosystem,
+			PackageManager: models.Yarn,
+			Dependencies:   make([]*lockfile.PackageDetails, 0),
+		},
+		{
+			Name:           "tslib",
+			Version:        "2.6.2",
+			TargetVersions: []string{"^2.3.0"},
+			Ecosystem:      lockfile.YarnEcosystem,
+			CompareAs:      lockfile.YarnEcosystem,
+			PackageManager: models.Yarn,
+			Dependencies:   make([]*lockfile.PackageDetails, 0),
+		},
+		{
+			Name:           "zone.js",
+			Version:        "0.0.0-use.local",
+			TargetVersions: []string{"workspace:."},
+			Ecosystem:      lockfile.YarnEcosystem,
+			CompareAs:      lockfile.YarnEcosystem,
+			PackageManager: models.Yarn,
+			Dependencies:   make([]*lockfile.PackageDetails, 0),
+		},
+	}
+	expected[0].Dependencies = append(expected[0].Dependencies, &expected[1])
+	expected[2].Dependencies = append(expected[2].Dependencies, &expected[0], &expected[1])
+
+	expectPackagesWithoutLocations(t, packages, expected)
 }

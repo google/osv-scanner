@@ -1,0 +1,14 @@
+{
+    "name": "suiftly.io",
+    "version": "0.1.0",
+    "description": "Suiftly CDN Services",
+    "license": "Apache License 2.0",
+    "type": "module",
+    "dependencies": {
+        "@typescript-eslint/eslint-plugin": "^5.12.0"
+    },
+    "devDependencies": {
+        "debug": "4.4.0"
+    },
+    "packageManager": "yarn@1.22.0"
+}

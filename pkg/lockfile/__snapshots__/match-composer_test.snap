@@ -10,7 +10,7 @@
         "end": 19
       },
       "column": {
-        "start": 1,
+        "start": 5,
         "end": 35
       },
       "file_name": "<rootdir>/fixtures/composer/one-package/composer.json"

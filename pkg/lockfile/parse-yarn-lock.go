@@ -15,11 +15,18 @@ import (
 
 const YarnEcosystem = NpmEcosystem
 
+type YarnDependency struct {
+	Name     string
+	Version  string
+	Registry string
+}
+
 type YarnPackage struct {
 	Name           string
 	Version        string
 	TargetVersions []string
 	Resolution     string
+	Dependencies   []YarnDependency
 }
 
 func shouldSkipYarnLine(line string) bool {
@@ -28,11 +35,13 @@ func shouldSkipYarnLine(line string) bool {
 
 func parseYarnPackageGroup(group []string) YarnPackage {
 	name, targetVersions := extractYarnPackageNameAndTargetVersions(group[0])
+
 	return YarnPackage{
 		Name:           name,
 		Version:        determineYarnPackageVersion(group),
 		TargetVersions: targetVersions,
 		Resolution:     determineYarnPackageResolution(group),
+		Dependencies:   determineYarnPackageDependencies(group),
 	}
 }
 
@@ -137,6 +146,49 @@ func determineYarnPackageVersion(group []string) string {
 	return ""
 }
 
+/*
+You can find the line parsing regex in action here: https://regex101.com/r/QoJ3b7/3
+All expected formats are defined in the regex documentation
+*/
+func determineYarnPackageDependencies(group []string) []YarnDependency {
+	indentCount := -1
+	results := make([]YarnDependency, 0)
+	lineParsing := cachedregexp.MustCompile(`^"?(?P<package_name>[^\s":]+)"?\s*:?\s*"?(?P<targeted_version>[^"\n]+)"?$`)
+
+	for _, line := range group {
+		trimmed := strings.TrimSpace(line)
+		if strings.HasPrefix(trimmed, "dependencies") {
+			// start of the dependencies section
+			indentCount = len(line) - len(trimmed)
+		} else if indentCount != -1 && len(line)-len(trimmed) == indentCount {
+			// end of the dependencies section, we can stop there
+			break
+		} else if indentCount != -1 {
+			// A line inside the dependencies section, lets parse it
+			match := lineParsing.FindStringSubmatch(trimmed)
+			if len(match) < 3 {
+				// The line have an invalid format, lets skip it
+				continue
+			}
+			name := match[1]
+			registry, version, found := strings.Cut(match[2], ":")
+
+			if !found {
+				registry = "npm"
+				version = match[2]
+			}
+
+			results = append(results, YarnDependency{
+				Name:     name,
+				Version:  version,
+				Registry: registry,
+			})
+		}
+	}
+
+	return results
+}
+
 func determineYarnPackageResolution(group []string) string {
 	re := cachedregexp.MustCompile(`^ {2}"?(?:resolution:|resolved)"? "([^ '"]+)"$`)
 
@@ -208,6 +260,46 @@ func tryExtractCommit(resolution string) string {
 	return ""
 }
 
+/*
+buildDependencyTree leverage yarn lockfile format to build the subtree of a package
+
+`rootPkgName` is the name of the package which needs its dependency tree to be built
+`rootPkgTargetVersion` is the constraint of the package we search (for example ^1.0.0)
+`rootPkgRegistry` is the registry used to download this dependency (defaults to npm)
+`dependencies` is the representation of the yarn lockfile, where the key is either package name, registry and target version
+or package name and target version and the value is the package definition in Yarn format
+`packagesIndex` is an index of all package in osv-scanner format where the key is the package name and the package version
+
+This methods build the dependency tree by looking at the yarn dependencies definition and matching every transitive dependency
+with the index to get a pointer to the osv-scanner formatted child package
+*/
+func buildDependencyTree(rootPkgName, rootPkgTargetVersion, rootPkgRegistry string, dependencies map[string]YarnPackage, packagesIndex map[string]*PackageDetails) []*PackageDetails {
+	results := make([]*PackageDetails, 0)
+	pkg, ok := dependencies[rootPkgName+"@"+rootPkgTargetVersion]
+	if !ok {
+		pkg, ok = dependencies[rootPkgName+"@"+rootPkgRegistry+":"+rootPkgTargetVersion]
+		if !ok {
+			return []*PackageDetails{}
+		}
+	}
+
+	for _, dependency := range pkg.Dependencies {
+		dependentPackage, ok := dependencies[dependency.Name+"@"+dependency.Version]
+		if !ok {
+			dependentPackage, ok = dependencies[dependency.Name+"@"+dependency.Registry+":"+dependency.Version]
+			if !ok {
+				continue
+			}
+		}
+		dep, exists := packagesIndex[dependentPackage.Name+"@"+dependentPackage.Version]
+		if exists {
+			results = append(results, dep)
+		}
+	}
+
+	return results
+}
+
 func parseYarnPackage(dependency YarnPackage) PackageDetails {
 	if dependency.Version == "" {
 		_, _ = fmt.Fprintf(
@@ -228,6 +320,27 @@ func parseYarnPackage(dependency YarnPackage) PackageDetails {
 	}
 }
 
+func indexByTargetVersion(packages []YarnPackage) map[string]YarnPackage {
+	index := make(map[string]YarnPackage)
+
+	for _, pkg := range packages {
+		for _, targetVersion := range pkg.TargetVersions {
+			index[pkg.Name+"@"+targetVersion] = pkg
+		}
+	}
+
+	return index
+}
+
+func indexByNameAndVersions(packages []PackageDetails) map[string]*PackageDetails {
+	result := make(map[string]*PackageDetails)
+	for index, pkg := range packages {
+		result[pkg.Name+"@"+pkg.Version] = &packages[index]
+	}
+
+	return result
+}
+
 type YarnLockExtractor struct {
 	WithMatcher
 }
@@ -240,6 +353,10 @@ func (e YarnLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 	scanner := bufio.NewScanner(f)
 
 	yarnPackages := groupYarnPackageLines(scanner)
+	yarnPackageIndex := indexByTargetVersion(yarnPackages)
+
+	// Use this index to build all subtrees (trees from each package)
+	// Then use all this in the matcher to know is-dev / is-direct and propagate it everywhere
 
 	if err := scanner.Err(); err != nil {
 		return []PackageDetails{}, fmt.Errorf("error while scanning %s: %w", f.Path(), err)
@@ -253,6 +370,10 @@ func (e YarnLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 		}
 
 		packages = append(packages, parseYarnPackage(yarnPackage))
+	}
+	pkgIndex := indexByNameAndVersions(packages)
+	for index, pkg := range packages {
+		packages[index].Dependencies = buildDependencyTree(pkg.Name, pkg.TargetVersions[0], "npm", yarnPackageIndex, pkgIndex)
 	}
 
 	return packages, nil
