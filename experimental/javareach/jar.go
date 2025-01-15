@@ -138,13 +138,16 @@ func (f *DefaultPackageFinder) Find(classPath string) ([]string, error) {
 	return nil, ErrClassNotFound
 }
 
-// GetMainClass extracts the main class name from the META-INF file in a .jar.
+// GetMainClass extracts the main class name from the MANIFEST.MF file in a .jar.
 func GetMainClass(manifest io.Reader) (string, error) {
+	// Extract the Main-Class specified in MANIFEST.MF:
+	// https://docs.oracle.com/javase/tutorial/deployment/jar/appman.html
+	const mainClass = "Main-Class:"
 	scanner := bufio.NewScanner(manifest)
 	for scanner.Scan() {
 		line := strings.TrimSpace(scanner.Text())
-		if strings.HasPrefix(line, "Main-Class:") {
-			mainClass := strings.TrimSpace(strings.TrimPrefix(line, "Main-Class:"))
+		if strings.HasPrefix(line, mainClass) {
+			mainClass := strings.TrimSpace(strings.TrimPrefix(line, mainClass))
 			return strings.ReplaceAll(mainClass, ".", "/"), nil
 		}
 	}
