@@ -23,7 +23,7 @@ import (
 //   - Any git repositories with scanGit
 //
 // TODO(V2 Models): pomExtractor is temporary until V2 Models
-func ScanDir(r reporter.Reporter, dir string, skipGit bool, recursive bool, useGitIgnore bool, extractorsToUse []filesystem.Extractor) ([]*extractor.Inventory, error) {
+func ScanDir(r reporter.Reporter, dir string, recursive bool, useGitIgnore bool, extractorsToUse []filesystem.Extractor) ([]*extractor.Inventory, error) {
 	var ignoreMatcher *gitIgnoreMatcher
 	if useGitIgnore {
 		var err error

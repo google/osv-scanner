@@ -76,14 +76,16 @@ var ErrVulnerabilitiesFound = errors.New("vulnerabilities found")
 // ErrAPIFailed describes errors related to querying API endpoints.
 var ErrAPIFailed = errors.New("API query failed")
 
-func InitializeExternalAccessors(r reporter.Reporter, actions ScannerActions) (ExternalAccessors, error) {
+func initializeExternalAccessors(r reporter.Reporter, actions ScannerActions) (ExternalAccessors, error) {
 	externalAccessors := ExternalAccessors{
 		DependencyClients: map[osvschema.Ecosystem]client.DependencyClient{},
 	}
-
-	// --- Vulnerability Matcher ---
 	var err error
+
+	// Offline Mode
+	// ------------
 	if actions.CompareOffline {
+		// --- Vulnerability Matcher ---
 		externalAccessors.VulnMatcher, err = localmatcher.NewLocalMatcher(r, actions.LocalDBPath, "osv-scanner_scan/"+version.OSVVersion, actions.DownloadDatabases)
 		if err != nil {
 			return ExternalAccessors{}, err
@@ -92,28 +94,36 @@ func InitializeExternalAccessors(r reporter.Reporter, actions ScannerActions) (E
 		return externalAccessors, nil
 	}
 
-	// Not offline, so create accessors that require network access
+	// Online Mode
+	// -----------
+	// --- Vulnerability Matcher ---
 	externalAccessors.VulnMatcher = &osvmatcher.OSVMatcher{
 		Client:              *osvdev.DefaultClient(),
 		InitialQueryTimeout: 5 * time.Minute,
 	}
 
 	// --- License Matcher ---
-	depsdevapiclient, err := datasource.NewDepsDevAPIClient(depsdev.DepsdevAPI, "osv-scanner_scan/"+version.OSVVersion)
-	if err != nil {
-		return ExternalAccessors{}, err
-	}
-
 	if len(actions.ScanLicensesAllowlist) > 0 || actions.ScanLicensesSummary {
+		depsDevAPIClient, err := datasource.NewDepsDevAPIClient(depsdev.DepsdevAPI, "osv-scanner_scan/"+version.OSVVersion)
+		if err != nil {
+			return ExternalAccessors{}, err
+		}
+
 		externalAccessors.LicenseMatcher = &licensematcher.DepsDevLicenseMatcher{
-			Client: depsdevapiclient,
+			Client: depsDevAPIClient,
 		}
 	}
 
+	// --- OSV.dev Client ---
+	// We create a separate client from VulnMatcher to keep things clean.
+	externalAccessors.OSVDevClient = osvdev.DefaultClient()
+
+	// --- No Transitive Scanning ---
 	if actions.TransitiveScanningActions.Disabled {
 		return externalAccessors, nil
 	}
 
+	// --- Transitive Scanning Clients ---
 	externalAccessors.MavenRegistryAPIClient, err = datasource.NewMavenRegistryAPIClient(datasource.MavenRegistry{
 		URL:             actions.TransitiveScanningActions.MavenRegistry,
 		ReleasesEnabled: true,
@@ -124,16 +134,14 @@ func InitializeExternalAccessors(r reporter.Reporter, actions ScannerActions) (E
 	}
 
 	if !actions.TransitiveScanningActions.NativeDataSource {
-		depsDevAPIClient, _ := client.NewDepsDevClient(depsdev.DepsdevAPI, "osv-scanner_scan/"+version.OSVVersion)
-		externalAccessors.DependencyClients[osvschema.EcosystemMaven] = depsDevAPIClient
+		externalAccessors.DependencyClients[osvschema.EcosystemMaven], err = client.NewDepsDevClient(depsdev.DepsdevAPI, "osv-scanner_scan/"+version.OSVVersion)
 	} else {
 		externalAccessors.DependencyClients[osvschema.EcosystemMaven], err = client.NewMavenRegistryClient(actions.TransitiveScanningActions.MavenRegistry)
-		if err != nil {
-			return ExternalAccessors{}, err
-		}
 	}
 
-	externalAccessors.OSVDevClient = osvdev.DefaultClient()
+	if err != nil {
+		return ExternalAccessors{}, err
+	}
 
 	return externalAccessors, nil
 }
@@ -175,9 +183,9 @@ func DoScan(actions ScannerActions, r reporter.Reporter) (models.VulnerabilityRe
 	}
 
 	// --- Setup Accessors/Clients ---
-	accessors, err := InitializeExternalAccessors(r, actions)
+	accessors, err := initializeExternalAccessors(r, actions)
 	if err != nil {
-		return models.VulnerabilityResults{}, fmt.Errorf("failed to initialize accessors: %v", err)
+		return models.VulnerabilityResults{}, fmt.Errorf("failed to initialize accessors: %w", err)
 	}
 
 	// ----- Perform Scanning -----

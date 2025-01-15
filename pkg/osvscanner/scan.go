@@ -10,6 +10,7 @@ import (
 
 // scan essentially converts ScannerActions into PackageScanResult by performing the extractions
 func scan(r reporter.Reporter, accessors ExternalAccessors, actions ScannerActions) ([]imodels.PackageScanResult, error) {
+	//nolint:prealloc // We don't know how many inventories we will retrieve
 	var scannedInventories []*extractor.Inventory
 
 	// --- Lockfiles ---
@@ -43,7 +44,7 @@ func scan(r reporter.Reporter, accessors ExternalAccessors, actions ScannerActio
 	)
 	for _, dir := range actions.DirectoryPaths {
 		r.Infof("Scanning dir %s\n", dir)
-		pkgs, err := scanners.ScanDir(r, dir, actions.SkipGit, actions.Recursive, !actions.NoIgnore, dirExtractors)
+		pkgs, err := scanners.ScanDir(r, dir, actions.Recursive, !actions.NoIgnore, dirExtractors)
 		if err != nil {
 			return nil, err
 		}
