@@ -324,6 +324,7 @@ The following flags may be used when running in non-interactive mode only:
 
   For example, `--apply-top=1` will only apply one patch, and `--apply-top=2` would apply the two best compatible patches. This flag is particularly useful when scripting to test the outcome of specific patches. Setting `--apply-top=-1` will apply every possible patch (default behavior).
 
+- `--no-introduce`: Set to exclude patches that would introduce new vulnerabilities if applied.
 - `--format=` `text` OR `json`. The [output format](#output-formats) to use for results.
 
 ### Vulnerability selection
