@@ -122,8 +122,10 @@ func InitializeExternalAccessors(r reporter.Reporter, actions ScannerActions) (E
 		return ExternalAccessors{}, err
 	}
 
-	externalAccessors.LicenseMatcher = &licensematcher.DepsDevLicenseMatcher{
-		Client: depsdevapiclient,
+	if len(actions.ScanLicensesAllowlist) > 0 || actions.ScanLicensesSummary {
+		externalAccessors.LicenseMatcher = &licensematcher.DepsDevLicenseMatcher{
+			Client: depsdevapiclient,
+		}
 	}
 
 	if actions.TransitiveScanningActions.Disabled {
@@ -166,10 +168,15 @@ func DoContainerScan(actions ScannerActions, r reporter.Reporter) (models.Vulner
 		},
 	}
 
+	// --- Setup Accessors/Clients ---
+	accessors, err := InitializeExternalAccessors(r, actions)
+	if err != nil {
+		return models.VulnerabilityResults{}, fmt.Errorf("failed to initialize accessors: %v", err)
+	}
+
 	scanner := scalibr.New()
 
 	var img *image.Image
-	var err error
 	if actions.ScanOCIImage != "" {
 		img, err = image.FromTarball(actions.ScanOCIImage, image.DefaultConfig())
 		r.Infof("Scanning image %q\n", actions.ScanOCIImage)
@@ -210,7 +217,7 @@ func DoContainerScan(actions ScannerActions, r reporter.Reporter) (models.Vulner
 	}
 
 	if len(scalibrSR.Inventories) == 0 {
-		return models.VulnerabilityResults{}, NoPackagesFoundErr
+		return models.VulnerabilityResults{}, ErrNoPackagesFound
 	}
 
 	scanResult.PackageScanResults = make([]imodels.PackageScanResult, len(scalibrSR.Inventories))
@@ -349,36 +356,16 @@ func DoContainerScan(actions ScannerActions, r reporter.Reporter) (models.Vulner
 	filterUnscannablePackages(r, &scanResult)
 
 	// --- Make Vulnerability Requests ---
-	{
-		var matcher clientinterfaces.VulnerabilityMatcher
-		var err error
-		if actions.CompareOffline {
-			matcher, err = localmatcher.NewLocalMatcher(r, actions.LocalDBPath, actions.DownloadDatabases)
-			if err != nil {
-				return models.VulnerabilityResults{}, err
-			}
-		} else {
-			matcher = &osvmatcher.OSVMatcher{
-				Client:              *osvdev.DefaultClient(),
-				InitialQueryTimeout: 5 * time.Minute,
-			}
-		}
-
-		err = makeRequestWithMatcher(r, scanResult.PackageScanResults, matcher)
+	if accessors.VulnMatcher != nil {
+		err = makeVulnRequestWithMatcher(r, scanResult.PackageScanResults, accessors.VulnMatcher)
 		if err != nil {
 			return models.VulnerabilityResults{}, err
 		}
 	}
 
-	if len(actions.ScanLicensesAllowlist) > 0 || actions.ScanLicensesSummary {
-		err = makeLicensesRequests(scanResult.PackageScanResults)
-		if err != nil {
-			return models.VulnerabilityResults{}, err
-		}
-	}
-
-	if len(actions.ScanLicensesAllowlist) > 0 || actions.ScanLicensesSummary {
-		err = makeLicensesRequests(scanResult.PackageScanResults)
+	// --- Make License Requests ---
+	if accessors.LicenseMatcher != nil {
+		err = accessors.LicenseMatcher.MatchLicenses(context.Background(), scanResult.PackageScanResults)
 		if err != nil {
 			return models.VulnerabilityResults{}, err
 		}
@@ -422,7 +409,7 @@ func DoContainerScan(actions ScannerActions, r reporter.Reporter) (models.Vulner
 			return results, nil
 		}
 
-		return results, VulnerabilitiesFoundErr
+		return results, ErrVulnerabilitiesFound
 	}
 
 	return results, nil
@@ -569,7 +556,7 @@ func DoScan(actions ScannerActions, r reporter.Reporter) (models.VulnerabilityRe
 	}
 
 	// --- Make License Requests ---
-	if accessors.LicenseMatcher != nil && len(actions.ScanLicensesAllowlist) > 0 || actions.ScanLicensesSummary {
+	if accessors.LicenseMatcher != nil {
 		err = accessors.LicenseMatcher.MatchLicenses(context.Background(), scanResult.PackageScanResults)
 		if err != nil {
 			return models.VulnerabilityResults{}, err
