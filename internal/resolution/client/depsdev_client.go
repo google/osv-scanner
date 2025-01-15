@@ -5,7 +5,7 @@ import (
 	"os"
 
 	"deps.dev/util/resolve"
-	"github.com/google/osv-scanner/internal/resolution/datasource"
+	"github.com/google/osv-scanner/internal/datasource"
 )
 
 const depsDevCacheExt = ".resolve.deps"
@@ -13,7 +13,7 @@ const depsDevCacheExt = ".resolve.deps"
 // DepsDevClient is a ResolutionClient wrapping the official resolve.APIClient
 type DepsDevClient struct {
 	resolve.APIClient
-	c *datasource.DepsDevAPIClient
+	c *datasource.CachedInsightsClient
 }
 
 func NewDepsDevClient(addr string, userAgent string) (*DepsDevClient, error) {

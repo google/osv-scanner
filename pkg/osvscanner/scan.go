@@ -6,7 +6,7 @@ import (
 	"github.com/google/osv-scanner/internal/depsdev"
 	"github.com/google/osv-scanner/internal/imodels"
 	"github.com/google/osv-scanner/internal/resolution/client"
-	"github.com/google/osv-scanner/internal/resolution/datasource"
+	"github.com/google/osv-scanner/internal/datasource"
 	"github.com/google/osv-scanner/internal/scalibrextract/ecosystemmock"
 	"github.com/google/osv-scanner/internal/scalibrextract/language/java/pomxmlnet"
 	"github.com/google/osv-scanner/internal/version"
