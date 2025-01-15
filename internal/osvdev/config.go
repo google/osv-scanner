@@ -18,7 +18,7 @@ func DefaultConfig() ClientConfig {
 		JitterMultiplier:           2,
 		BackoffDurationExponential: 2,
 		BackoffDurationMultiplier:  1,
-		UserAgent:                  "osv-scanner/" + version.OSVVersion,
+		UserAgent:                  "osv-scanner_scan/" + version.OSVVersion,
 		MaxConcurrentBatchRequests: 10,
 	}
 }

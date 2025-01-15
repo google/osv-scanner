@@ -3,10 +3,10 @@ package osvscanner
 import (
 	"context"
 	"errors"
-	"fmt"
 	"time"
 
 	"github.com/google/osv-scalibr/extractor"
+	"github.com/google/osv-scanner/internal/clients/clientimpl/licensematcher"
 	"github.com/google/osv-scanner/internal/clients/clientimpl/localmatcher"
 	"github.com/google/osv-scanner/internal/clients/clientimpl/osvmatcher"
 	"github.com/google/osv-scanner/internal/clients/clientinterfaces"
@@ -16,11 +16,11 @@ import (
 	"github.com/google/osv-scanner/internal/imodels/results"
 	"github.com/google/osv-scanner/internal/osvdev"
 	"github.com/google/osv-scanner/internal/output"
+	"github.com/google/osv-scanner/internal/resolution/datasource"
+	"github.com/google/osv-scanner/internal/version"
 	"github.com/google/osv-scanner/pkg/models"
 	"github.com/google/osv-scanner/pkg/reporter"
 	"github.com/ossf/osv-schema/bindings/go/osvschema"
-
-	depsdevpb "deps.dev/api/v3"
 )
 
 type ScannerActions struct {
@@ -146,8 +146,17 @@ func DoScan(actions ScannerActions, r reporter.Reporter) (models.VulnerabilityRe
 		}
 	}
 
+	// --- Make License Requests ---
 	if len(actions.ScanLicensesAllowlist) > 0 || actions.ScanLicensesSummary {
-		err = makeLicensesRequests(scanResult.PackageScanResults)
+		depsdevclient, err := datasource.NewDepsDevAPIClient(depsdev.DepsdevAPI, "osv-scanner_scan/"+version.OSVVersion)
+		if err != nil {
+			return models.VulnerabilityResults{}, err
+		}
+		var licenseMatcher clientinterfaces.LicenseMatcher = &licensematcher.DepsDevLicenseMatcher{
+			Client: depsdevclient,
+		}
+
+		err = licenseMatcher.MatchLicenses(context.Background(), scanResult.PackageScanResults)
 		if err != nil {
 			return models.VulnerabilityResults{}, err
 		}
@@ -209,7 +218,6 @@ func makeRequestWithMatcher(
 
 	res, err := matcher.MatchVulnerabilities(context.Background(), invs)
 	if err != nil {
-		// TODO: Handle error here
 		r.Errorf("error when retrieving vulns: %v", err)
 		if res == nil {
 			return err
@@ -218,29 +226,6 @@ func makeRequestWithMatcher(
 
 	for i, vulns := range res {
 		packages[i].Vulnerabilities = vulns
-	}
-
-	return nil
-}
-
-// TODO(V2): Replace with client
-func makeLicensesRequests(packages []imodels.PackageScanResult) error {
-	queries := make([]*depsdevpb.GetVersionRequest, len(packages))
-	for i, psr := range packages {
-		pkg := psr.PackageInfo
-		system, ok := depsdev.System[psr.PackageInfo.Ecosystem().Ecosystem]
-		if !ok || pkg.Name() == "" || pkg.Version() == "" {
-			continue
-		}
-		queries[i] = depsdev.VersionQuery(system, pkg.Name(), pkg.Version())
-	}
-	licenses, err := depsdev.MakeVersionRequests(queries)
-	if err != nil {
-		return fmt.Errorf("%w: deps.dev query failed: %w", ErrAPIFailed, err)
-	}
-
-	for i, license := range licenses {
-		packages[i].Licenses = license
 	}
 
 	return nil
