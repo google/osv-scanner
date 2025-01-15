@@ -46,7 +46,7 @@ func TestParseNuGetLock_v1_NoPackages(t *testing.T) {
 func TestParseNuGetLock_v1_OneFramework_OnePackage(t *testing.T) {
 	t.Parallel()
 
-	packages, err := lockfile.ParseNuGetLock("fixtures/nuget/one-framework-one-package.v1.json")
+	packages, err := lockfile.ParseNuGetLock("fixtures/nuget/one-framework-one-package/packages.lock.json")
 	if err != nil {
 		t.Errorf("Got unexpected error: %v", err)
 	}
@@ -66,7 +66,7 @@ func TestParseNuGetLock_v1_OneFramework_OnePackage(t *testing.T) {
 func TestParseNuGetLock_v1_OneFramework_TwoPackages(t *testing.T) {
 	t.Parallel()
 
-	packages, err := lockfile.ParseNuGetLock("fixtures/nuget/one-framework-two-packages.v1.json")
+	packages, err := lockfile.ParseNuGetLock("fixtures/nuget/one-framework-two-packages/packages.lock.json")
 	if err != nil {
 		t.Errorf("Got unexpected error: %v", err)
 	}
@@ -94,7 +94,7 @@ func TestParseNuGetLock_v1_OneFramework_TwoPackages(t *testing.T) {
 func TestParseNuGetLock_v1_TwoFrameworks_MixedPackages(t *testing.T) {
 	t.Parallel()
 
-	packages, err := lockfile.ParseNuGetLock("fixtures/nuget/two-frameworks-mixed-packages.v1.json")
+	packages, err := lockfile.ParseNuGetLock("fixtures/nuget/two-frameworks-mixed-packages/packages.lock.json")
 	if err != nil {
 		t.Errorf("Got unexpected error: %v", err)
 	}
@@ -130,7 +130,7 @@ func TestParseNuGetLock_v1_TwoFrameworks_MixedPackages(t *testing.T) {
 func TestParseNuGetLock_v1_TwoFrameworks_DifferentPackages(t *testing.T) {
 	t.Parallel()
 
-	packages, err := lockfile.ParseNuGetLock("fixtures/nuget/two-frameworks-different-packages.v1.json")
+	packages, err := lockfile.ParseNuGetLock("fixtures/nuget/two-frameworks-different-packages/packages.lock.json")
 	if err != nil {
 		t.Errorf("Got unexpected error: %v", err)
 	}
@@ -158,7 +158,7 @@ func TestParseNuGetLock_v1_TwoFrameworks_DifferentPackages(t *testing.T) {
 func TestParseNuGetLock_v1_TwoFrameworks_DuplicatePackages(t *testing.T) {
 	t.Parallel()
 
-	packages, err := lockfile.ParseNuGetLock("fixtures/nuget/two-frameworks-duplicate-packages.v1.json")
+	packages, err := lockfile.ParseNuGetLock("fixtures/nuget/two-frameworks-duplicate-packages/packages.lock.json")
 	if err != nil {
 		t.Errorf("Got unexpected error: %v", err)
 	}
@@ -189,7 +189,7 @@ func TestParseNuGetLock_v1_OneFramework_OnePackage_MatchedFailed(t *testing.T) {
 	matcherError := errors.New("NugetCsprojMatcher failed")
 	lockfile.NuGetExtractor.Matcher = FailingMatcher{Error: matcherError}
 
-	packages, err := lockfile.ParseNuGetLock("fixtures/nuget/one-framework-one-package.v1.json")
+	packages, err := lockfile.ParseNuGetLock("fixtures/nuget/one-framework-one-package/packages.lock.json")
 	if err != nil {
 		t.Errorf("Got unexpected error: %v", err)
 	}
@@ -215,7 +215,4 @@ func TestParseNuGetLock_v1_OneFramework_OnePackage_MatchedFailed(t *testing.T) {
 			IsDirect:       true,
 		},
 	})
-
-	// Reset NugetCsprojMatcher mock
-	MockAllMatchers()
 }
