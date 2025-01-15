@@ -14,6 +14,7 @@ import (
 	"github.com/google/osv-scalibr/extractor/filesystem/simplefileapi"
 	"github.com/google/osv-scalibr/testing/extracttest"
 	"github.com/google/osv-scalibr/testing/fakefs"
+	"github.com/google/osv-scanner/internal/osvdev"
 	"github.com/google/osv-scanner/internal/scalibrextract/filesystem/vendored"
 	"github.com/google/osv-scanner/internal/testutility"
 )
@@ -127,7 +128,9 @@ func TestExtractor_Extract(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.Name, func(t *testing.T) {
 			t.Parallel()
-			extr := vendored.Extractor{}
+			extr := vendored.Extractor{
+				OSVClient: osvdev.DefaultClient(),
+			}
 
 			scanInput := extracttest.GenerateScanInputMock(t, tt.InputConfig)
 			defer extracttest.CloseTestScanInput(t, scanInput)

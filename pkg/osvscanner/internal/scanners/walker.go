@@ -12,6 +12,7 @@ import (
 	"github.com/google/osv-scalibr/extractor/filesystem"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/java/pomxml"
 	"github.com/google/osv-scanner/internal/customgitignore"
+	"github.com/google/osv-scanner/internal/osvdev"
 	"github.com/google/osv-scanner/internal/output"
 	"github.com/google/osv-scanner/internal/scalibrextract"
 	"github.com/google/osv-scanner/internal/scalibrextract/filesystem/vendored"
@@ -47,7 +48,11 @@ func ScanDir(r reporter.Reporter, dir string, skipGit bool, recursive bool, useG
 	relevantExtractors = append(relevantExtractors, lockfileExtractors...)
 	relevantExtractors = append(relevantExtractors, SBOMExtractors...)
 	// Only scan git directories if we are skipping the git extractor
-	relevantExtractors = append(relevantExtractors, vendored.Extractor{ScanGitDir: skipGit})
+	// TODO: If in offline mode, don't create a vendoredExtractor
+	relevantExtractors = append(relevantExtractors, vendored.Extractor{
+		ScanGitDir: skipGit,
+		OSVClient:  osvdev.DefaultClient(),
+	})
 	if pomExtractor != nil {
 		relevantExtractors = append(relevantExtractors, pomExtractor)
 	} else {
