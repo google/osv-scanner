@@ -6,6 +6,7 @@ import (
 	"github.com/google/osv-scalibr/extractor/filesystem/language/dart/pubspec"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/dotnet/packageslockjson"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/erlang/mixlock"
+	"github.com/google/osv-scalibr/extractor/filesystem/language/golang/gobinary"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/golang/gomod"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/java/gradlelockfile"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/java/gradleverificationmetadataxml"
@@ -21,6 +22,8 @@ import (
 	"github.com/google/osv-scalibr/extractor/filesystem/language/r/renvlock"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/ruby/gemfilelock"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/rust/cargolock"
+	"github.com/google/osv-scalibr/extractor/filesystem/os/apk"
+	"github.com/google/osv-scalibr/extractor/filesystem/os/dpkg"
 	"github.com/google/osv-scalibr/extractor/filesystem/sbom/cdx"
 	"github.com/google/osv-scalibr/extractor/filesystem/sbom/spdx"
 	"github.com/google/osv-scanner/internal/osvdev"
@@ -28,6 +31,7 @@ import (
 	"github.com/google/osv-scanner/internal/resolution/datasource"
 	"github.com/google/osv-scanner/internal/scalibrextract/filesystem/vendored"
 	"github.com/google/osv-scanner/internal/scalibrextract/language/java/pomxmlnet"
+	"github.com/google/osv-scanner/internal/scalibrextract/language/javascript/nodemodules"
 	"github.com/google/osv-scanner/internal/scalibrextract/vcs/gitrepo"
 	"github.com/ossf/osv-schema/bindings/go/osvschema"
 )
@@ -121,7 +125,13 @@ func BuildWalkerExtractors(
 // BuildArtifactExtractors returns all relevant extractors for artifact scanning given the required clients
 // All clients can be nil, and if nil the extractors requiring those clients will not be returned.
 func BuildArtifactExtractors() []filesystem.Extractor {
-	extractorsToUse := lockfileExtractors
-	
+	extractorsToUse := []filesystem.Extractor{
+		nodemodules.Extractor{},
+		apk.New(apk.DefaultConfig()),
+		gobinary.New(gobinary.DefaultConfig()),
+		// TODO: Add tests for debian containers
+		dpkg.New(dpkg.DefaultConfig()),
+	}
+
 	return extractorsToUse
 }
