@@ -104,8 +104,10 @@ func InitializeExternalAccessors(r reporter.Reporter, actions ScannerActions) (E
 		return ExternalAccessors{}, err
 	}
 
-	externalAccessors.LicenseMatcher = &licensematcher.DepsDevLicenseMatcher{
-		Client: depsdevapiclient,
+	if len(actions.ScanLicensesAllowlist) > 0 || actions.ScanLicensesSummary {
+		externalAccessors.LicenseMatcher = &licensematcher.DepsDevLicenseMatcher{
+			Client: depsdevapiclient,
+		}
 	}
 
 	if actions.TransitiveScanningActions.Disabled {
@@ -202,7 +204,7 @@ func DoScan(actions ScannerActions, r reporter.Reporter) (models.VulnerabilityRe
 	}
 
 	// --- Make License Requests ---
-	if accessors.LicenseMatcher != nil && len(actions.ScanLicensesAllowlist) > 0 || actions.ScanLicensesSummary {
+	if accessors.LicenseMatcher != nil {
 		err = accessors.LicenseMatcher.MatchLicenses(context.Background(), scanResult.PackageScanResults)
 		if err != nil {
 			return models.VulnerabilityResults{}, err
