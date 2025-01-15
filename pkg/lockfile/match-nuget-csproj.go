@@ -28,11 +28,13 @@ type ItemGroup struct {
 }
 
 type PackageReference struct {
-	XMLName     xml.Name `xml:"PackageReference"`
-	IncludeAttr *string  `xml:"Include,attr"`
-	Include     *string  `xml:"Include"`
-	VersionAttr *string  `xml:"Version,attr"`
-	Version     *string  `xml:"Version"`
+	XMLName           xml.Name `xml:"PackageReference"`
+	IncludeAttr       *string  `xml:"Include,attr"`
+	Include           *string  `xml:"Include"`
+	VersionAttr       *string  `xml:"Version,attr"`
+	Version           *string  `xml:"Version"`
+	PrivateAssetsAttr *string  `xml:"PrivateAssets,attr"`
+	PrivateAssets     *string  `xml:"PrivateAssets"`
 	models.FilePosition
 }
 
@@ -44,6 +46,7 @@ DecodingLoop:
 		if err != nil {
 			return err
 		}
+
 		switch elem := token.(type) {
 		case xml.StartElement:
 			if elem.Name.Local != "PackageReference" {
@@ -53,14 +56,17 @@ DecodingLoop:
 			packageReference := PackageReference{}
 			packageReference.SetLineStart(lineStart)
 			packageReference.SetColumnStart(columnStart)
+
 			err := decoder.DecodeElement(&packageReference, &elem)
 			if err != nil {
 				return err
 			}
+
 			lineEnd, columnEnd := decoder.InputPos()
 			packageReference.SetLineEnd(lineEnd)
 			packageReference.SetColumnEnd(columnEnd)
 			itemGroup.PackageReferences = append(itemGroup.PackageReferences, packageReference)
+
 		case xml.EndElement:
 			if elem.Name == start.Name {
 				break DecodingLoop
@@ -126,6 +132,13 @@ func (m NugetCsprojMatcher) Match(sourcefile DepFile, packages []PackageDetails)
 		packageReference, ok := packageReferenceByInclude[pkg.Name]
 		if !ok {
 			continue
+		}
+
+		if (packageReference.PrivateAssetsAttr != nil && strings.Contains(*packageReference.PrivateAssetsAttr, "all")) ||
+			(packageReference.PrivateAssets != nil && strings.Contains(*packageReference.PrivateAssets, "all")) {
+			packages[key].DepGroups = []string{string(DepGroup_Dev)}
+		} else {
+			packages[key].DepGroups = []string{string(DepGroup_Prod)}
 		}
 
 		block := lines[packageReference.Line.Start-1 : packageReference.Line.End]

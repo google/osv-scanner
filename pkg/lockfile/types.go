@@ -23,6 +23,13 @@ type PackageDetails struct {
 
 type Ecosystem string
 
+type DepGroup string
+
+const (
+	DepGroup_Prod DepGroup = "prod"
+	DepGroup_Dev  DepGroup = "dev"
+)
+
 type PackageDetailsParser = func(pathToLockfile string) ([]PackageDetails, error)
 
 // IsDevGroup returns if any string in groups indicates the development dependency group for the specified ecosystem.
@@ -30,14 +37,14 @@ func (sys Ecosystem) IsDevGroup(groups []string) bool {
 	switch sys {
 	case NpmEcosystem:
 		return sys.isNpmDevGroup(groups)
-	case ComposerEcosystem, PipEcosystem, PubEcosystem:
+	case ComposerEcosystem, PipEcosystem, PubEcosystem, NuGetEcosystem:
 		// Also PnpmEcosystem(=NpmEcosystem) and PipenvEcosystem(=PipEcosystem,=PoetryEcosystem).
-		return sys.isDevGroup(groups, "dev")
+		return sys.isDevGroup(groups, string(DepGroup_Dev))
 	case ConanEcosystem:
 		return sys.isDevGroup(groups, "build-requires")
 	case MavenEcosystem:
 		return sys.isMavenDevGroup(groups)
-	case AlpineEcosystem, DebianEcosystem, CargoEcosystem, BundlerEcosystem, GoEcosystem, MixEcosystem, NuGetEcosystem, CRANEcosystem:
+	case AlpineEcosystem, DebianEcosystem, CargoEcosystem, BundlerEcosystem, GoEcosystem, MixEcosystem, CRANEcosystem:
 		return false
 	}
 
