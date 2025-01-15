@@ -21,7 +21,7 @@
   {{ range $rowIndex, $element := . }}
   {{ $index := uniqueID }}
   <tr class="table-tr package-tr {{if $element.LayerDetail }}has-layer-info"
-    data-layer="{{ $element.LayerDetail.LayerInfo.LayerDiffID }}{{ end }}" id="table-tr-{{ $index }}" onclick="showPackageDetails('{{ $index }}')">
+    data-layer="{{ $element.LayerDetail.LayerInfo.LayerMetadata.DiffID }}{{ end }}" id="table-tr-{{ $index }}" onclick="showPackageDetails('{{ $index }}')">
     <td class="icon-td">
       <div class="expand-icon">
         <i class="material-icons">play_arrow</i>
@@ -55,26 +55,37 @@
   <tr>
     <td colspan="100%">
       <div id="table-tr-{{ $index }}-details" class="package-details">
-        {{ if and $element.LayerDetail (not (eq $element.LayerDetail.LayerInfo.LayerDiffID "")) }}
+        {{ if $element.LayerDetail }}
+        {{ $index := $element.LayerDetail.LayerIndex }}
+        {{ $diffID := $element.LayerDetail.LayerInfo.LayerMetadata.DiffID }}
+        {{ $baseImageIndex := $element.LayerDetail.LayerInfo.LayerMetadata.BaseImageIndex }}
+        {{ $originalCommand := $element.LayerDetail.LayerInfo.LayerMetadata.Command }}
+        {{ $commandSet := formatLayerCommand $originalCommand }}
+        {{ $command := index $commandSet 0 }}
+        {{ $commandDetail := index $commandSet 1 }}
+        {{ $longCommand := false }}
+        {{ if gt (len $command) 100 }}
+          {{ $longCommand = true }}
+        {{ end }}
         <p><span class="package-detail-title">Installed binaries:</span> {{ formatSlice $element.BinaryNames }}</p>
         <div class="layer-command-container">
-          {{ if gt (len $element.LayerDetail.LayerInfo.LayerCommand) 100 }}
+          {{ if $longCommand }}
           <p class="package-detail-title">Layer introduced in:&nbsp;</p>
           <div class="tooltip">
-            <p class="layer-command">{{ $element.LayerDetail.LayerInfo.Index }} {{ $element.LayerDetail.LayerInfo.LayerCommand }}</p>
-            <span class="tooltiptext layer-tooltiptext">{{ $element.LayerDetail.LayerInfo.LayerCommand }}</span>
+            <p class="layer-command">{{ $index }} {{ $command }}</p>
+            <span class="tooltiptext layer-tooltiptext">{{ $originalCommand }}</span>
           </div>
-          {{ else if ne $element.LayerDetail.LayerInfo.LayerCommandDetailed "" }}
+          {{ else if ne $commandDetail "" }}
           <div class="tooltip">
-            <span class="layer-command"><span class="package-detail-title">Layer introduced in:</span> {{ $element.LayerDetail.LayerInfo.Index }} {{ $element.LayerDetail.LayerInfo.LayerCommand }}</span>
-            <span class="tooltiptext">{{ $element.LayerDetail.LayerInfo.LayerCommandDetailed }}</span>
+            <span class="layer-command"><span class="package-detail-title">Layer introduced in:</span> {{ $index }} {{ $command }}</span>
+            <span class="tooltiptext">{{ $commandDetail }}</span>
           </div>
           {{ else }}
-          <div class="layer-command"><span class="package-detail-title">Layer introduced in:</span> {{ $element.LayerDetail.LayerInfo.Index }} {{ $element.LayerDetail.LayerInfo.LayerCommand }}</div>
+          <div class="layer-command"><span class="package-detail-title">Layer introduced in:</span> {{ $index }} {{ $command }}</div>
           {{ end }}
         </div>
-        <p><span class="package-detail-title">Layer ID:</span> {{ $element.LayerDetail.LayerInfo.LayerDiffID }}</p>
-        <p><span class="package-detail-title">In base image:</span> {{ if eq $element.LayerDetail.LayerInfo.BaseImageIndex 0}} False {{ else }} True ({{ getBaseImageNames $element.LayerDetail.BaseImageInfo }}){{ end }}</p>
+        <p><span class="package-detail-title">Layer ID:</span> {{ $diffID }}</p>
+        <p><span class="package-detail-title">In base image:</span> {{ if eq $baseImageIndex 0}} False {{ else }} True ({{ getBaseImageNames $element.LayerDetail.BaseImageInfo }}){{ end }}</p>
         {{ end }}
         {{ template "vuln_table_template.gohtml" $element }}
       </div>

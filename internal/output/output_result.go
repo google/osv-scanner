@@ -81,23 +81,15 @@ type PackageContainerInfo struct {
 
 type BaseImageGroupInfo struct {
 	Index         int
-	BaseImageInfo []BaseImageInfo
+	BaseImageInfo []models.BaseImageDetails
 	AllLayers     []LayerInfo
 	Count         VulnCount
 }
 
-type BaseImageInfo struct {
-	Name string
-	Tags []string
-}
-
 type LayerInfo struct {
-	Index                int
-	LayerDiffID          string
-	LayerCommand         string
-	LayerCommandDetailed string
-	BaseImageIndex       int
-	Count                VulnCount
+	Index         int
+	LayerMetadata models.LayerMetadata
+	Count         VulnCount
 }
 
 // VulnSummary represents the count of each vulnerability type at the top level
@@ -170,7 +162,6 @@ func PrintResults(vulnResult *models.VulnerabilityResults, outputWriter io.Write
 func BuildResults(vulnResult *models.VulnerabilityResults) Result {
 	var ecosystemMap = make(map[string][]SourceResult)
 	var resultCount VulnCount
-	outputResult := Result{}
 
 	for _, packageSource := range vulnResult.Results {
 		// Temporary workaround: it is a heuristic to ignore installed packages
@@ -187,65 +178,35 @@ func BuildResults(vulnResult *models.VulnerabilityResults) Result {
 		resultCount.Add(sourceResult.VulnCount)
 	}
 
-	addEcosystemResult(&outputResult, ecosystemMap, resultCount, vulnResult.ImageMetadata)
+	outputResult := populateResult(ecosystemMap, resultCount, vulnResult.ImageMetadata)
 	return outputResult
 }
 
-func buildLayerBaseImageMap(imageMetadata models.ImageMetadata) (map[int]*PackageContainerInfo, []LayerInfo, []BaseImageGroupInfo) {
-	layerMap := make(map[int]*PackageContainerInfo) // change to slice
-	allLayers := getAllLayers(imageMetadata.LayerMetadata)
-	allBaseImages := getAllBaseImages(imageMetadata.BaseImages)
-
-	for i := range allLayers {
-		layerMap[allLayers[i].Index] = &PackageContainerInfo{
-			LayerIndex:    allLayers[i].Index,
-			LayerInfo:     allLayers[i],
-			BaseImageInfo: allBaseImages[allLayers[i].BaseImageIndex],
-		}
-	}
-
-	return layerMap, allLayers, allBaseImages
-}
-
 func getAllBaseImages(baseImages [][]models.BaseImageDetails) []BaseImageGroupInfo {
-	var allBaseImages []BaseImageGroupInfo
+	allBaseImages := make([]BaseImageGroupInfo, len(baseImages))
 	for i, baseImage := range baseImages {
-		var baseImageRepos []BaseImageInfo
-		for _, baseImageRepo := range baseImage {
-			baseImage := BaseImageInfo{
-				Name: baseImageRepo.Name,
-				Tags: baseImageRepo.Tags,
-			}
-
-			baseImageRepos = append(baseImageRepos, baseImage)
-		}
-
-		baseImageInfo := BaseImageGroupInfo{
+		allBaseImages[i] = BaseImageGroupInfo{
 			Index:         i,
-			BaseImageInfo: baseImageRepos,
+			BaseImageInfo: baseImage,
 		}
-		allBaseImages = append(allBaseImages, baseImageInfo)
 	}
-
 	return allBaseImages
 }
 
 func getAllLayers(layerMetadata []models.LayerMetadata) []LayerInfo {
-	var allLayers []LayerInfo
+	allLayers := make([]LayerInfo, len(layerMetadata))
 	for i, layer := range layerMetadata {
-		layerInfo := LayerInfo{
-			Index:          i,
-			LayerDiffID:    layer.DiffID,
-			BaseImageIndex: layer.BaseImageIndex,
+		allLayers[i] = LayerInfo{
+			Index:         i,
+			LayerMetadata: layer,
 		}
-		layerInfo.LayerCommand, layerInfo.LayerCommandDetailed = formatLayerCommand(layer.Command)
-		allLayers = append(allLayers, layerInfo)
 	}
 	return allLayers
 }
 
-// addEcosystemResult builds the final Result object from the ecosystem map and total vulnerability count.
-func addEcosystemResult(result *Result, ecosystemMap map[string][]SourceResult, resultCount VulnCount, imageMetadata *models.ImageMetadata) {
+// populateResult builds the final Result object from the ecosystem map and total vulnerability count.
+func populateResult(ecosystemMap map[string][]SourceResult, resultCount VulnCount, imageMetadata *models.ImageMetadata) Result {
+	result := Result{}
 	var ecosystemResults []EcosystemResult
 	var osResults []EcosystemResult
 
@@ -284,18 +245,24 @@ func addEcosystemResult(result *Result, ecosystemMap map[string][]SourceResult, 
 	result.PackageTypeCount = packageTypeCount
 	result.VulnCount = resultCount
 
-	updateLayerCount(result, *imageMetadata)
+	if imageMetadata != nil {
+		populateImageMetadata(&result, *imageMetadata)
+	}
+
+	return result
 }
 
-func updateLayerCount(result *Result, imageMetadata models.ImageMetadata) { // Takes a pointer to Result
-
-	layerMap, allLayers, allBaseImages := buildLayerBaseImageMap(imageMetadata)
+// populateImageMetadata modifies the result by adding image metadata to it.
+// It uses a pointer receiver (*Result) to modify the original result in place.
+func populateImageMetadata(result *Result, imageMetadata models.ImageMetadata) {
+	allLayers := getAllLayers(imageMetadata.LayerMetadata)
+	allBaseImages := getAllBaseImages(imageMetadata.BaseImages)
 
 	layerCount := make(map[int]VulnCount)
 	baseImageCount := make(map[int]VulnCount)
 
 	for i := range allLayers {
-		layerCount[allLayers[i].Index] = VulnCount{}
+		layerCount[i] = VulnCount{}
 	}
 
 	for i := range allBaseImages {
@@ -311,7 +278,7 @@ func updateLayerCount(result *Result, imageMetadata models.ImageMetadata) { // T
 				resultCount.Add(pkg.VulnCount)
 				layerCount[layerIndex] = resultCount
 
-				baseImageIndex := layerMap[layerIndex].BaseImageInfo.Index
+				baseImageIndex := allLayers[layerIndex].LayerMetadata.BaseImageIndex
 				imageResultCount := baseImageCount[baseImageIndex]
 				imageResultCount.Add(pkg.VulnCount)
 				baseImageCount[baseImageIndex] = imageResultCount
@@ -321,20 +288,11 @@ func updateLayerCount(result *Result, imageMetadata models.ImageMetadata) { // T
 
 	baseImageMap := make(map[int][]LayerInfo)
 
-	// Update LayerMap
-	for layerDiffID := range layerMap {
-		containerInfo := layerMap[layerDiffID]
-		containerInfo.LayerInfo.Count = layerCount[layerDiffID]
-
-		baseImageIndex := layerMap[layerDiffID].LayerInfo.BaseImageIndex
-		layerMap[layerDiffID].BaseImageInfo.Count = baseImageCount[baseImageIndex]
-
-		baseImageMap[baseImageIndex] = append(baseImageMap[baseImageIndex], containerInfo.LayerInfo)
-	}
-
-	// Add ImageInfo
+	// Update vuln count for layers and base images
 	for i := range allLayers {
-		allLayers[i].Count = layerMap[allLayers[i].Index].LayerInfo.Count
+		allLayers[i].Count = layerCount[i]
+		baseImageIndex := allLayers[i].LayerMetadata.BaseImageIndex
+		baseImageMap[baseImageIndex] = append(baseImageMap[baseImageIndex], allLayers[i])
 	}
 
 	for i := range allBaseImages {
@@ -345,6 +303,7 @@ func updateLayerCount(result *Result, imageMetadata models.ImageMetadata) { // T
 		allBaseImages[i].AllLayers = baseImageMap[i]
 	}
 
+	// Display base images in a reverse order
 	slices.SortFunc(allBaseImages, func(a, b BaseImageGroupInfo) int {
 		return cmp.Compare(b.Index, a.Index)
 	})
@@ -365,8 +324,12 @@ func updateLayerCount(result *Result, imageMetadata models.ImageMetadata) { // T
 			for k := range result.Ecosystems[i].Sources[j].Packages {
 				// Pointer to packageInfo to modify directly.
 				packageInfo := &result.Ecosystems[i].Sources[j].Packages[k]
-				layerDiffID := packageInfo.LayerDetail.LayerIndex
-				packageInfo.LayerDetail = *layerMap[layerDiffID]
+
+				layerIndex := packageInfo.LayerDetail.LayerIndex
+				packageInfo.LayerDetail.LayerInfo = allLayers[layerIndex]
+
+				baseImageIndex := allLayers[layerIndex].LayerMetadata.BaseImageIndex
+				packageInfo.LayerDetail.BaseImageInfo = allBaseImages[baseImageIndex]
 			}
 		}
 	}
@@ -406,7 +369,7 @@ func processSource(packageSource models.PackageSource) SourceResult {
 		}
 	}
 
-	packages := make([]PackageResult, len(packageMap))
+	packages := make([]PackageResult, 0)
 	for _, pkg := range packageMap {
 		packages = append(packages, pkg)
 	}
@@ -743,7 +706,7 @@ func calculateCount(regularVulnList, hiddenVulnList []VulnResult) VulnCount {
 
 // formatLayerCommand formats the layer command output for better readability.
 // It replaces the unreadable file ID with "UNKNOWN" and extracting the ID separately.
-func formatLayerCommand(command string) (string, string) {
+func formatLayerCommand(command string) []string {
 	re := cachedregexp.MustCompile(`(dir|file):([a-f0-9]+)`)
 	match := re.FindStringSubmatch(command)
 
@@ -752,8 +715,8 @@ func formatLayerCommand(command string) (string, string) {
 		hash := match[2]   // Capture the hash ID
 		newCommand := re.ReplaceAllString(command, prefix+":UNKNOWN")
 
-		return newCommand, "File ID: " + hash
+		return []string{newCommand, "File ID: " + hash}
 	}
 
-	return command, ""
+	return []string{command, ""}
 }

@@ -38,14 +38,28 @@
       <td colspan="100%">
         <div id="base-image-details-{{ .Index }}" class="base-image-details">
           {{ range .AllLayers }}
-          <div title="{{ .LayerDiffID }}" class="layer-entry {{ if gt .Count.AnalysisCount.Regular 0 }}clickable{{ end }}" {{ if gt .Count.AnalysisCount.Regular 0 }}onclick="quickFilterByLayer('{{ .LayerDiffID }}', {{ .LayerCommand }})"{{ end }}>
-            <div {{ if gt (len .LayerCommand) 100 }} class="tooltip" {{ end }}>
-              <p class="layer-command"><span class="base-image-title">{{ .Index }}</span> {{ .LayerCommand }}</p>
-                {{ if gt (len .LayerCommand) 100 }}
-                <span class="tooltiptext layer-tooltiptext">{{ .LayerCommand }}</span>
+          {{ $index := .Index }}
+          {{ $originalCommand := .LayerMetadata.Command }}
+          {{ $commandSet := formatLayerCommand $originalCommand }}
+          {{ $command := index $commandSet 0 }}
+          {{ $commandDetail := index $commandSet 1 }}
+          {{ $diffID := .LayerMetadata.DiffID }}
+          {{ $longCommand := false }}
+          {{ if gt (len $command) 100 }}
+            {{ $longCommand = true }}
+          {{ end }}
+          {{ $hasVuln := false }}
+          {{ if gt .Count.AnalysisCount.Regular 0 }}
+          {{ $hasVuln = true }}
+          {{ end }}
+          <div title="{{ $diffID }}" class="layer-entry {{ if $hasVuln }}clickable{{ end }}" {{ if $hasVuln }}onclick="quickFilterByLayer('{{ $diffID }}', {{ $command }})"{{ end }}>
+            <div {{ if $longCommand }} class="tooltip" {{ end }}>
+              <p class="layer-command"><span class="base-image-title">{{ .Index }}</span> {{ $command }}</p>
+                {{ if $longCommand }}
+                <span class="tooltiptext layer-tooltiptext">{{ $originalCommand }}</span>
                 {{ end }}
             </div>
-            {{ if gt .Count.AnalysisCount.Regular 0 }}
+            {{ if $hasVuln }}
             {{ template "severity_summary_template.gohtml".Count.SeverityCount }}
             {{ end }}
           </div>

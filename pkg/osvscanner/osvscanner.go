@@ -166,9 +166,8 @@ func DoContainerScan(actions ScannerActions, r reporter.Reporter) (models.Vulner
 	{
 
 		layerMetadata := []models.LayerMetadata{}
-		for i, cl := range chainLayers {
+		for _, cl := range chainLayers {
 			layerMetadata = append(layerMetadata, models.LayerMetadata{
-				Index:   i,
 				DiffID:  cl.Layer().DiffID(),
 				Command: cl.Layer().Command(),
 				IsEmpty: cl.Layer().IsEmpty(),
