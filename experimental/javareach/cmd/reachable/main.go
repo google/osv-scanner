@@ -121,7 +121,7 @@ func enumerateReachabilityForJar(jarPath string) error {
 		}
 	}
 
-	for dep, _ := range reachableDeps {
+	for dep := range reachableDeps {
 		slog.Info("Reachable", "dep", dep)
 	}
 

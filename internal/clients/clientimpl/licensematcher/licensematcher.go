@@ -4,9 +4,9 @@ import (
 	"context"
 
 	depsdevpb "deps.dev/api/v3"
+	"github.com/google/osv-scanner/internal/datasource"
 	"github.com/google/osv-scanner/internal/depsdev"
 	"github.com/google/osv-scanner/internal/imodels"
-	"github.com/google/osv-scanner/internal/datasource"
 	"github.com/google/osv-scanner/pkg/models"
 	"golang.org/x/sync/errgroup"
 	"google.golang.org/grpc/codes"
