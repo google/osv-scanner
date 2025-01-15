@@ -3,7 +3,7 @@ package datasource_test
 import (
 	"testing"
 
-	"github.com/google/osv-scanner/internal/resolution/datasource"
+	"github.com/google/osv-scanner/internal/datasource"
 	"github.com/google/osv-scanner/internal/testutility"
 )
 

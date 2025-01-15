@@ -8,7 +8,7 @@ import (
 	"path/filepath"
 
 	"deps.dev/util/maven"
-	"github.com/google/osv-scanner/internal/resolution/datasource"
+	"github.com/google/osv-scanner/internal/datasource"
 )
 
 const (
