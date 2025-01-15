@@ -17,7 +17,7 @@ type DepsDevClient struct {
 }
 
 func NewDepsDevClient(addr string, userAgent string) (*DepsDevClient, error) {
-	c, err := datasource.NewDepsDevAPIClient(addr, userAgent)
+	c, err := datasource.NewCachedInsightsClient(addr, userAgent)
 	if err != nil {
 		return nil, err
 	}

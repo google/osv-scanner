@@ -148,7 +148,7 @@ func DoScan(actions ScannerActions, r reporter.Reporter) (models.VulnerabilityRe
 
 	// --- Make License Requests ---
 	if len(actions.ScanLicensesAllowlist) > 0 || actions.ScanLicensesSummary {
-		depsdevclient, err := datasource.NewDepsDevAPIClient(depsdev.DepsdevAPI, "osv-scanner_scan/"+version.OSVVersion)
+		depsdevclient, err := datasource.NewCachedInsightsClient(depsdev.DepsdevAPI, "osv-scanner_scan/"+version.OSVVersion)
 		if err != nil {
 			return models.VulnerabilityResults{}, err
 		}
