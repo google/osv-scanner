@@ -1,9 +1,14 @@
 <script>
 
-  function quickFilterByLayer(DiffID) {
-    showAllVulns();
-    applyLayerFilter(DiffID);
-    showAndHideParentSections();
+  let selectedTypeFilterValue = new Set();
+  selectedTypeFilterValue.add("all");
+  let selectedLayer = "all";
+
+  function quickFilterByLayer(DiffID, layerCommand) {
+    resetFilterText();
+    applyFilters(selectedTypeFilterValue, DiffID)
+    selectedDisplay = document.getElementById("layer-filter-selected");
+    selectedDisplay.textContent = layerCommand;
   }
 
   function showBaseImageLayer(imageID) {
@@ -343,6 +348,10 @@
       selectedCount += parseInt(uncalledTypeVulnCount, 10);
     }
 
+    if (allTypeCheckbox && allTypeCheckbox.checked && (uncalledTypeCheckbox && !uncalledTypeCheckbox.checked)) {
+      selectedText = "Default"
+    }
+
     typeSelected.textContent = selectedText;
     selectedVulnCount.textContent = selectedCount;
   }
@@ -414,9 +423,7 @@
   document.addEventListener("DOMContentLoaded", function () {
     resetFilterText();
     showAndHideParentSections();
-    let selectedTypeFilterValue = new Set();
-    selectedTypeFilterValue.add("all");
-    let selectedLayer = "all";
+
 
     // Implement filter for vulnerability types
     const typeFilterOptions = document.getElementById(
