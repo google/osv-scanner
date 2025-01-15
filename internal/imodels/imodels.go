@@ -59,6 +59,16 @@ func (pkg *PackageInfo) Name() string {
 		}
 	}
 
+	if metadata, ok := pkg.Inventory.Metadata.(*apk.Metadata); ok {
+		if metadata.OriginName != "" {
+			return metadata.OriginName
+		}
+	}
+
+	return pkg.Inventory.Name
+}
+
+func (pkg *PackageInfo) BinaryName() string {
 	return pkg.Inventory.Name
 }
 

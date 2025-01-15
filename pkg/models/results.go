@@ -190,6 +190,7 @@ type AnalysisInfo struct {
 // Specific package information
 type PackageInfo struct {
 	Name        string              `json:"name"`
+	BinaryName  string              `json:"binary_name,omitempty"`
 	Version     string              `json:"version"`
 	Ecosystem   string              `json:"ecosystem"`
 	Commit      string              `json:"commit,omitempty"`
