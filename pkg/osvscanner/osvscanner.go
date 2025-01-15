@@ -360,7 +360,6 @@ func DoContainerScan(actions ScannerActions, r reporter.Reporter) (models.Vulner
 
 	// --- Fill Image Metadata ---
 	{
-
 		layerMetadata := []models.LayerMetadata{}
 		for i, cl := range chainLayers {
 			layerMetadata = append(layerMetadata, models.LayerMetadata{
@@ -457,7 +456,7 @@ func DoContainerScan(actions ScannerActions, r reporter.Reporter) (models.Vulner
 
 			scanResult.ImageMetadata.BaseImages = append(scanResult.ImageMetadata.BaseImages, baseImagePossibilities)
 			currentBaseImageIndex += 1
-			// scanResult.ImageMetadata.LayerMetadata[i].BaseImageIndex = currentBaseImageIndex
+			scanResult.ImageMetadata.LayerMetadata[i].BaseImageIndex = currentBaseImageIndex
 
 			// Backfill with heuristic
 
