@@ -1,14 +1,12 @@
 package osvscanner
 
 import (
-	"bufio"
 	"context"
 	"encoding/json"
 	"errors"
 	"fmt"
 	"net/http"
 	"os"
-	"os/exec"
 	"slices"
 	"strings"
 	"time"
@@ -16,10 +14,6 @@ import (
 	scalibr "github.com/google/osv-scalibr"
 	"github.com/google/osv-scalibr/artifact/image/layerscanning/image"
 	"github.com/google/osv-scalibr/extractor"
-	"github.com/google/osv-scalibr/extractor/filesystem"
-	"github.com/google/osv-scalibr/extractor/filesystem/language/golang/gobinary"
-	"github.com/google/osv-scalibr/extractor/filesystem/os/apk"
-	"github.com/google/osv-scalibr/extractor/filesystem/os/dpkg"
 	"github.com/google/osv-scalibr/extractor/filesystem/os/osrelease"
 	"github.com/google/osv-scalibr/log"
 	"github.com/google/osv-scanner/internal/clients/clientimpl/licensematcher"
@@ -34,9 +28,10 @@ import (
 	"github.com/google/osv-scanner/internal/output"
 	"github.com/google/osv-scanner/internal/resolution/client"
 	"github.com/google/osv-scanner/internal/resolution/datasource"
-	"github.com/google/osv-scanner/internal/scalibrextract/language/javascript/nodemodules"
 	"github.com/google/osv-scanner/internal/version"
 	"github.com/google/osv-scanner/pkg/models"
+	"github.com/google/osv-scanner/pkg/osvscanner/internal/imagehelpers"
+	"github.com/google/osv-scanner/pkg/osvscanner/internal/scanners"
 	"github.com/google/osv-scanner/pkg/reporter"
 	"github.com/opencontainers/go-digest"
 	"github.com/ossf/osv-schema/bindings/go/osvschema"
@@ -276,14 +271,13 @@ func DoContainerScan(actions ScannerActions, r reporter.Reporter) (models.Vulner
 		return models.VulnerabilityResults{}, fmt.Errorf("failed to initialize accessors: %v", err)
 	}
 
-	scanner := scalibr.New()
-
+	// --- Initialize Image To Scan ---
 	var img *image.Image
 	if actions.ScanOCIImage != "" {
 		img, err = image.FromTarball(actions.ScanOCIImage, image.DefaultConfig())
 		r.Infof("Scanning image %q\n", actions.ScanOCIImage)
 	} else if actions.DockerImageName != "" {
-		path, exportErr := exportDockerImage(r, actions.DockerImageName)
+		path, exportErr := imagehelpers.ExportDockerImage(r, actions.DockerImageName)
 		if exportErr != nil {
 			return models.VulnerabilityResults{}, exportErr
 		}
@@ -296,22 +290,9 @@ func DoContainerScan(actions ScannerActions, r reporter.Reporter) (models.Vulner
 	}
 	defer img.CleanUp()
 
-	// Ignore error, as if this would error we would have failed the initial scan
-	chainLayers, _ := img.ChainLayers()
-	m, err := osrelease.GetOSRelease(chainLayers[len(chainLayers)-1].FS())
-	OS := "Unknown"
-	if err == nil {
-		OS = m["OSID"]
-	}
-
+	scanner := scalibr.New()
 	scalibrSR, err := scanner.ScanContainer(context.Background(), img, &scalibr.ScanConfig{
-		FilesystemExtractors: []filesystem.Extractor{
-			nodemodules.Extractor{},
-			apk.New(apk.DefaultConfig()),
-			gobinary.New(gobinary.DefaultConfig()),
-			// TODO: Add tests for debian containers
-			dpkg.New(dpkg.DefaultConfig()),
-		},
+		FilesystemExtractors: scanners.BuildArtifactExtractors(),
 	})
 
 	if err != nil {
@@ -322,14 +303,25 @@ func DoContainerScan(actions ScannerActions, r reporter.Reporter) (models.Vulner
 		return models.VulnerabilityResults{}, ErrNoPackagesFound
 	}
 
-	scanResult.PackageScanResults = make([]imodels.PackageScanResult, len(scalibrSR.Inventories))
-	for i, inv := range scalibrSR.Inventories {
-		scanResult.PackageScanResults[i].PackageInfo = imodels.FromInventory(inv)
-		scanResult.PackageScanResults[i].LayerDetails = inv.LayerDetails
-	}
-
 	// --- Fill Image Metadata ---
 	{
+		chainLayers, err := img.ChainLayers()
+		if err != nil {
+			// This is very unlikely, as if this would error we would have failed the initial scan
+			return models.VulnerabilityResults{}, err
+		}
+		m, err := osrelease.GetOSRelease(chainLayers[len(chainLayers)-1].FS())
+		OS := "Unknown"
+		if err == nil {
+			OS = m["OSID"]
+		}
+
+		scanResult.PackageScanResults = make([]imodels.PackageScanResult, len(scalibrSR.Inventories))
+		for i, inv := range scalibrSR.Inventories {
+			scanResult.PackageScanResults[i].PackageInfo = imodels.FromInventory(inv)
+			scanResult.PackageScanResults[i].LayerDetails = inv.LayerDetails
+		}
+
 		layerMetadata := []models.LayerMetadata{}
 		for i, cl := range chainLayers {
 			layerMetadata = append(layerMetadata, models.LayerMetadata{
@@ -338,7 +330,6 @@ func DoContainerScan(actions ScannerActions, r reporter.Reporter) (models.Vulner
 				Command: cl.Layer().Command(),
 				IsEmpty: cl.Layer().IsEmpty(),
 			})
-
 		}
 
 		scanResult.ImageMetadata = &models.ImageMetadata{
@@ -361,7 +352,7 @@ func DoContainerScan(actions ScannerActions, r reporter.Reporter) (models.Vulner
 				continue
 			}
 
-			diffDigest = digest.NewDigestFromEncoded(digest.SHA256, cl.Layer().DiffID())
+			diffDigest = cl.Layer().DiffID()
 
 			if runningDigest == "" {
 				runningDigest = diffDigest
@@ -486,87 +477,10 @@ func DoContainerScan(actions ScannerActions, r reporter.Reporter) (models.Vulner
 	return results, determineReturnErr(results)
 }
 
-func exportDockerImage(r reporter.Reporter, dockerImageName string) (string, error) {
-	// Skip saving if the file is already a tar archive.
-	if strings.Contains(dockerImageName, ".tar") {
-		if _, err := os.Stat(dockerImageName); err == nil {
-			return dockerImageName, nil
-		}
-	}
-
-	tempImageFile, err := os.CreateTemp("", "docker-image-*.tar")
-	if err != nil {
-		r.Errorf("Failed to create temporary file: %s\n", err)
-		return "", err
-	}
-
-	err = tempImageFile.Close()
-	if err != nil {
-		return "", err
-	}
-
-	// Check if image exists locally, if not, pull from the cloud.
-	r.Infof("Checking if docker image (%q) exists locally...\n", dockerImageName)
-	cmd := exec.Command("docker", "images", "-q", dockerImageName)
-	output, err := cmd.Output()
-	if err != nil || string(output) == "" {
-		r.Infof("Image not found locally, pulling docker image (%q)...\n", dockerImageName)
-		err = runCommandLogError(r, "docker", "pull", "-q", dockerImageName)
-		if err != nil {
-			return "", fmt.Errorf("failed to pull container image: %w", err)
-		}
-	}
-
-	r.Infof("Saving docker image (%q) to temporary file...\n", dockerImageName)
-	err = runCommandLogError(r, "docker", "save", "-o", tempImageFile.Name(), dockerImageName)
-	if err != nil {
-		return "", err
-	}
-
-	return tempImageFile.Name(), nil
-}
-
-func runCommandLogError(r reporter.Reporter, name string, args ...string) error {
-	cmd := exec.Command(name, args...)
-
-	// Get stderr for debugging when docker fails
-	stderr, err := cmd.StderrPipe()
-	if err != nil {
-		r.Errorf("Failed to get stderr: %s\n", err)
-		return err
-	}
-
-	err = cmd.Start()
-	if err != nil {
-		r.Errorf("Failed to run docker command (%q): %s\n", cmd.String(), err)
-		return err
-	}
-	// This has to be captured before cmd.Wait() is called, as cmd.Wait() closes the stderr pipe.
-	var stderrLines []string
-	scanner := bufio.NewScanner(stderr)
-	for scanner.Scan() {
-		stderrLines = append(stderrLines, scanner.Text())
-	}
-
-	err = cmd.Wait()
-	if err != nil {
-		r.Errorf("Docker command exited with code (%q): %d\nSTDERR:\n", cmd.String(), cmd.ProcessState.ExitCode())
-		for _, line := range stderrLines {
-			r.Errorf("> %s\n", line)
-		}
-
-		return errors.New("failed to run docker command")
-	}
-
-	return nil
-}
-
+// determineReturnErr determines whether we found a "vulnerability" or not,
+// and therefore whether we should return a ErrVulnerabilityFound error.
 func determineReturnErr(results models.VulnerabilityResults) error {
 	if len(results.Results) > 0 {
-		// Determine the correct error to return.
-
-		// TODO(v2): in the next breaking release of osv-scanner, consider
-		// returning a ScanError instead of an error.
 		var vuln bool
 		onlyUncalledVuln := true
 		var licenseViolation bool

@@ -1,5 +1,7 @@
 package models
 
+import "github.com/opencontainers/go-digest"
+
 type ImageOriginDetails struct {
 	Index int
 }
@@ -17,9 +19,9 @@ type BaseImageDetails struct {
 }
 
 type LayerMetadata struct {
-	Index          int    `json:"index"`
-	DiffID         string `json:"diff_id"`
-	Command        string `json:"command"`
-	IsEmpty        bool   `json:"is_empty"`
-	BaseImageIndex int    `json:"base_image_index"`
+	Index          int           `json:"index"`
+	DiffID         digest.Digest `json:"diff_id"`
+	Command        string        `json:"command"`
+	IsEmpty        bool          `json:"is_empty"`
+	BaseImageIndex int           `json:"base_image_index"`
 }
