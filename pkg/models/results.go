@@ -193,6 +193,5 @@ type PackageInfo struct {
 	Version     string              `json:"version"`
 	Ecosystem   string              `json:"ecosystem"`
 	Commit      string              `json:"commit,omitempty"`
-	ImageOrigin *ImageOriginDetails `json:"imageOrigin,omitempty"`
+	ImageOrigin *ImageOriginDetails `json:"image_origin_details"`
 }
-
