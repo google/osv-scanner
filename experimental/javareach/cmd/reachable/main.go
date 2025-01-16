@@ -255,7 +255,7 @@ func enumerateReachability(cf *javareach.ClassFile, classPath string, seen map[s
 		}
 
 		if isDynamicCodeLoading(method, descriptor) {
-			slog.Info("found dynamic class loading", "thisClass", thisClass, "method", method, "descriptor", descriptor)
+			slog.Debug("found dynamic class loading", "thisClass", thisClass, "method", method, "descriptor", descriptor)
 			codeLoading[thisClass] = struct{}{}
 		}
 	}
