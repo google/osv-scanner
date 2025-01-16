@@ -7,8 +7,8 @@ import (
 	"github.com/google/osv-scalibr/purl"
 )
 
-// GraphAsInventory is a helper function to convert a Graph into an Inventory for use with VulnerabilityMatcher.
-func GraphAsInventory(g *resolve.Graph) []*extractor.Inventory {
+// GraphToInventory is a helper function to convert a Graph into an Inventory for use with VulnerabilityMatcher.
+func GraphToInventory(g *resolve.Graph) []*extractor.Inventory {
 	// g.Nodes[0] is the root node of the graph that should be excluded.
 	inv := make([]*extractor.Inventory, len(g.Nodes)-1)
 	for i, n := range g.Nodes[1:] {
@@ -22,7 +22,7 @@ func GraphAsInventory(g *resolve.Graph) []*extractor.Inventory {
 	return inv
 }
 
-// mockExtractor is for GraphAsInventory to get the ecosystem.
+// mockExtractor is for GraphToInventory to get the ecosystem.
 type mockExtractor struct {
 	ecosystem resolve.System
 }

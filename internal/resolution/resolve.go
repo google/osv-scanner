@@ -204,7 +204,7 @@ func resolvePostProcess(ctx context.Context, cl client.ResolutionClient, m manif
 
 // computeVulns scans for vulnerabilities in a resolved graph and populates res.Vulns
 func (res *Result) computeVulns(ctx context.Context, cl client.ResolutionClient) error {
-	nodeVulns, err := cl.MatchVulnerabilities(ctx, client.GraphAsInventory(res.Graph))
+	nodeVulns, err := cl.MatchVulnerabilities(ctx, client.GraphToInventory(res.Graph))
 	if err != nil {
 		return err
 	}

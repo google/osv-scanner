@@ -237,7 +237,7 @@ type inPlaceVulnsNodesResult struct {
 }
 
 func inPlaceVulnsNodes(ctx context.Context, m clientinterfaces.VulnerabilityMatcher, graph *resolve.Graph) (inPlaceVulnsNodesResult, error) {
-	nodeVulns, err := m.MatchVulnerabilities(ctx, client.GraphAsInventory(graph))
+	nodeVulns, err := m.MatchVulnerabilities(ctx, client.GraphToInventory(graph))
 	if err != nil {
 		return inPlaceVulnsNodesResult{}, err
 	}
