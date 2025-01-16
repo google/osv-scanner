@@ -45,14 +45,14 @@
           {{ $commandDetail := index $commandSet 1 }}
           {{ $diffID := .LayerMetadata.DiffID }}
           {{ $longCommand := false }}
-          {{ if gt (len $command) 100 }}
+          {{ if gt (len $command) 109 }}
             {{ $longCommand = true }}
           {{ end }}
           {{ $hasVuln := false }}
           {{ if gt .Count.AnalysisCount.Regular 0 }}
           {{ $hasVuln = true }}
           {{ end }}
-          <div title="{{ $diffID }}" class="layer-entry {{ if $hasVuln }}clickable{{ end }}" {{ if $hasVuln }}onclick="quickFilterByLayer('{{ $diffID }}', {{ $command }})"{{ end }}>
+          <div title="{{ $diffID }}" class="layer-entry {{ if $hasVuln }}clickable clickable-layer{{ end }}" {{ if $hasVuln }}onclick="quickFilterByLayer('{{ $diffID }}', {{ $command }})"{{ end }}>
             <div {{ if $longCommand }} class="tooltip" {{ end }}>
               <p class="layer-command"><span class="base-image-title">{{ .Index }}</span> {{ $command }}</p>
                 {{ if $longCommand }}

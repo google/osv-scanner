@@ -64,28 +64,39 @@
         {{ $command := index $commandSet 0 }}
         {{ $commandDetail := index $commandSet 1 }}
         {{ $longCommand := false }}
-        {{ if gt (len $command) 100 }}
-          {{ $longCommand = true }}
+        {{ if gt (len $command) 109 }}
+        {{ $longCommand = true }}
         {{ end }}
-        <p><span class="package-detail-title">Installed binaries:</span> {{ formatSlice $element.OSPackageNames }}</p>
+        {{ $binaries := formatSlice $element.OSPackageNames }}
+        {{ if not (eq $binaries "") }}
+        <p><span class="package-detail-title">Installed binaries:</span> {{ $binaries }}</p>
+        {{ end }}
+        <div class="layer-command-container">
+          <p><span class="package-detail-title">Layer introduced in:&nbsp;</span></p>
+          <div class="tooltip">
+            <p># {{ $index }} layer</p>
+            <span class="tooltiptext">Diff ID: {{ $diffID }}</span>
+          </div>
+        </div>
         <div class="layer-command-container">
           {{ if $longCommand }}
-          <p class="package-detail-title">Layer introduced in:&nbsp;</p>
+          <p class="package-detail-title">Layer command:&nbsp;</p>
           <div class="tooltip">
-            <p class="layer-command">{{ $index }} {{ $command }}</p>
+            <p class="layer-command">{{ $command }}</p>
             <span class="tooltiptext layer-tooltiptext">{{ $originalCommand }}</span>
           </div>
           {{ else if ne $commandDetail "" }}
+          <p class="package-detail-title">Layer command:&nbsp;</p>
           <div class="tooltip">
-            <span class="layer-command"><span class="package-detail-title">Layer introduced in:</span> {{ $index }} {{ $command }}</span>
+            <p class="layer-command">{{ $command }}</p>
             <span class="tooltiptext">{{ $commandDetail }}</span>
           </div>
           {{ else }}
-          <div class="layer-command"><span class="package-detail-title">Layer introduced in:</span> {{ $index }} {{ $command }}</div>
+          <p class="package-detail-title">Layer command:&nbsp;</p>
+          <p class="layer-command">{{ $command }}</p>
           {{ end }}
         </div>
-        <p><span class="package-detail-title">Layer ID:</span> {{ $diffID }}</p>
-        <p><span class="package-detail-title">In base image:</span> {{ if eq $baseImageIndex 0}} False {{ else }} True ({{ getBaseImageNames $element.LayerDetail.BaseImageInfo }}){{ end }}</p>
+        <p><span class="package-detail-title">In base image:</span> {{ if eq $baseImageIndex 0 }} False {{ else }} True: {{ getBaseImageNames $element.LayerDetail.BaseImageInfo }}{{ end }}</p>
         {{ end }}
         {{ template "vuln_table_template.gohtml" $element }}
       </div>

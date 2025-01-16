@@ -317,7 +317,7 @@ func DoContainerScan(actions ScannerActions, r reporter.Reporter) (models.Vulner
 		m, err := osrelease.GetOSRelease(chainLayers[len(chainLayers)-1].FS())
 		OS := "Unknown"
 		if err == nil {
-			OS = m["OSID"]
+			OS = m["PRETTY_NAME"]
 		}
 
 		scanResult.PackageScanResults = make([]imodels.PackageScanResult, len(scalibrSR.Inventories))

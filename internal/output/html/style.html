@@ -115,6 +115,11 @@
     overflow: auto;
   }
 
+  .package-details p {
+    margin-bottom: 10px;
+    margin-top: 10px;
+  }
+
   .table-tr:hover .open-in-tab-tag {
     display: inline;
   }
@@ -408,7 +413,7 @@
     width: 100%;
     border: 1px solid #fff;
     background-color: transparent;
-    border-radius: 4px;
+    border-radius: 8px;
     margin-top: 30px;
   }
 
@@ -493,7 +498,7 @@
     width: 1000px !important;
     max-height: 200px;
     overflow-x: hidden;
-    overflow-y: scroll;
+    overflow-y: auto;
   }
 
   .tooltip:hover .tooltiptext {
@@ -551,7 +556,7 @@
   .layer-entry {
     display: flex;
     justify-content: space-between;
-    margin: 0 10px;
+    padding: 0 10px;
     border-bottom: 1px dotted #666666;
   }
 
@@ -580,4 +585,9 @@
   .clickable {
     cursor: pointer;
   }
+
+  .clickable-layer:hover {
+    background-color: rgba(255, 255, 255, 0.04);
+  }
+
 </style>

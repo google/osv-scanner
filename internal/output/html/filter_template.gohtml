@@ -23,7 +23,7 @@
         {{ $commandDetail := index $commandSet 1 }}
         {{ $diffID := .LayerMetadata.DiffID }}
         {{ $longCommand := false }}
-        {{ if gt (len $command) 100 }}
+        {{ if gt (len $command) 109 }}
           {{ $longCommand = true }}
         {{ end }}
 

@@ -281,21 +281,6 @@ func populateImageMetadata(result *Result, imageMetadata models.ImageMetadata) {
 		allBaseImages[i].AllLayers = baseImageMap[i]
 	}
 
-	// Display base images in a reverse order
-	slices.SortFunc(allBaseImages, func(a, b BaseImageGroupInfo) int {
-		return cmp.Compare(b.Index, a.Index)
-	})
-
-	result.ImageInfo = ImageInfo{
-		OS:            imageMetadata.OS,
-		AllLayers:     allLayers,
-		AllBaseImages: allBaseImages,
-	}
-
-	if len(allLayers) != 0 {
-		result.IsContainerScanning = true
-	}
-
 	// Fill up Layer info for each package
 	for i := range result.Ecosystems {
 		for j := range result.Ecosystems[i].Sources {
@@ -311,6 +296,22 @@ func populateImageMetadata(result *Result, imageMetadata models.ImageMetadata) {
 			}
 		}
 	}
+
+	// Display base images in a reverse order
+	slices.SortFunc(allBaseImages, func(a, b BaseImageGroupInfo) int {
+		return cmp.Compare(b.Index, a.Index)
+	})
+
+	result.ImageInfo = ImageInfo{
+		OS:            imageMetadata.OS,
+		AllLayers:     allLayers,
+		AllBaseImages: allBaseImages,
+	}
+
+	if len(allLayers) != 0 {
+		result.IsContainerScanning = true
+	}
+
 }
 
 func getAllBaseImages(baseImages [][]models.BaseImageDetails) []BaseImageGroupInfo {
