@@ -55,7 +55,7 @@
   <tr>
     <td colspan="100%">
       <div id="table-tr-{{ $index }}-details" class="package-details">
-        {{ if $element.LayerDetail }}
+        {{ if and $element.LayerDetail.LayerInfo.LayerMetadata (not (eq $element.LayerDetail.LayerInfo.LayerMetadata.Command "")) }}
         {{ $index := $element.LayerDetail.LayerIndex }}
         {{ $diffID := $element.LayerDetail.LayerInfo.LayerMetadata.DiffID }}
         {{ $baseImageIndex := $element.LayerDetail.LayerInfo.LayerMetadata.BaseImageIndex }}

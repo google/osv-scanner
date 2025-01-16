@@ -182,28 +182,6 @@ func BuildResults(vulnResult *models.VulnerabilityResults) Result {
 	return outputResult
 }
 
-func getAllBaseImages(baseImages [][]models.BaseImageDetails) []BaseImageGroupInfo {
-	allBaseImages := make([]BaseImageGroupInfo, len(baseImages))
-	for i, baseImage := range baseImages {
-		allBaseImages[i] = BaseImageGroupInfo{
-			Index:         i,
-			BaseImageInfo: baseImage,
-		}
-	}
-	return allBaseImages
-}
-
-func getAllLayers(layerMetadata []models.LayerMetadata) []LayerInfo {
-	allLayers := make([]LayerInfo, len(layerMetadata))
-	for i, layer := range layerMetadata {
-		allLayers[i] = LayerInfo{
-			Index:         i,
-			LayerMetadata: layer,
-		}
-	}
-	return allLayers
-}
-
 // populateResult builds the final Result object from the ecosystem map and total vulnerability count.
 func populateResult(ecosystemMap map[string][]SourceResult, resultCount VulnCount, imageMetadata *models.ImageMetadata) Result {
 	result := Result{}
@@ -333,6 +311,28 @@ func populateImageMetadata(result *Result, imageMetadata models.ImageMetadata) {
 			}
 		}
 	}
+}
+
+func getAllBaseImages(baseImages [][]models.BaseImageDetails) []BaseImageGroupInfo {
+	allBaseImages := make([]BaseImageGroupInfo, len(baseImages))
+	for i, baseImage := range baseImages {
+		allBaseImages[i] = BaseImageGroupInfo{
+			Index:         i,
+			BaseImageInfo: baseImage,
+		}
+	}
+	return allBaseImages
+}
+
+func getAllLayers(layerMetadata []models.LayerMetadata) []LayerInfo {
+	allLayers := make([]LayerInfo, len(layerMetadata))
+	for i, layer := range layerMetadata {
+		allLayers[i] = LayerInfo{
+			Index:         i,
+			LayerMetadata: layer,
+		}
+	}
+	return allLayers
 }
 
 // processSource processes a single source (lockfile or artifact) and returns an SourceResult.
