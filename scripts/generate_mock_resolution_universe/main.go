@@ -53,7 +53,7 @@ var remediationOpts = remediation.Options{
 
 func doRelockRelax(ddCl *client.DepsDevClient, rw manifest.ReadWriter, filename string) error {
 	cl := client.ResolutionClient{
-		VulnerabilityMatcher: &osvmatcher.OSVMatcher{
+		VulnerabilityMatcher: &osvmatcher.CachedOSVMatcher{
 			Client:              *osvdev.DefaultClient(),
 			InitialQueryTimeout: 5 * time.Minute,
 		},
@@ -83,7 +83,7 @@ func doRelockRelax(ddCl *client.DepsDevClient, rw manifest.ReadWriter, filename 
 
 func doOverride(ddCl *client.DepsDevClient, rw manifest.ReadWriter, filename string) error {
 	cl := client.ResolutionClient{
-		VulnerabilityMatcher: &osvmatcher.OSVMatcher{
+		VulnerabilityMatcher: &osvmatcher.CachedOSVMatcher{
 			Client:              *osvdev.DefaultClient(),
 			InitialQueryTimeout: 5 * time.Minute,
 		},
@@ -113,7 +113,7 @@ func doOverride(ddCl *client.DepsDevClient, rw manifest.ReadWriter, filename str
 
 func doInPlace(ddCl *client.DepsDevClient, rw lockfile.ReadWriter, filename string) error {
 	cl := client.ResolutionClient{
-		VulnerabilityMatcher: &osvmatcher.OSVMatcher{
+		VulnerabilityMatcher: &osvmatcher.CachedOSVMatcher{
 			Client:              *osvdev.DefaultClient(),
 			InitialQueryTimeout: 5 * time.Minute,
 		},

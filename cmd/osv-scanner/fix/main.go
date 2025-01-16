@@ -4,6 +4,7 @@ import (
 	"errors"
 	"fmt"
 	"io"
+	"net/http"
 	"os"
 	"path/filepath"
 	"strings"
@@ -371,11 +372,12 @@ func action(ctx *cli.Context, stdout, stderr io.Writer) (reporter.Reporter, erro
 		}
 	}
 
+	userAgent := "osv-scanner_fix/" + version.OSVVersion
 	if ctx.Bool("experimental-offline-vulnerabilities") {
 		matcher, err := localmatcher.NewLocalMatcher(
 			r,
 			ctx.String("experimental-local-db-path"),
-			"osv-scanner_fix/"+version.OSVVersion,
+			userAgent,
 			ctx.Bool("experimental-download-offline-databases"),
 		)
 		if err != nil {
@@ -393,9 +395,14 @@ func action(ctx *cli.Context, stdout, stderr io.Writer) (reporter.Reporter, erro
 
 		opts.Client.VulnerabilityMatcher = matcher
 	} else {
-		// TODO: replace with cached client
-		opts.Client.VulnerabilityMatcher = &osvmatcher.OSVMatcher{
-			Client:              *osvdev.DefaultClient(), // TODO: UserAgent
+		config := osvdev.DefaultConfig()
+		config.UserAgent = userAgent
+		opts.Client.VulnerabilityMatcher = &osvmatcher.CachedOSVMatcher{
+			Client: osvdev.OSVClient{
+				HTTPClient:  http.DefaultClient,
+				Config:      config,
+				BaseHostURL: osvdev.DefaultBaseURL,
+			},
 			InitialQueryTimeout: 5 * time.Minute,
 		}
 	}
