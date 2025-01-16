@@ -10,7 +10,6 @@ import (
 	"github.com/google/osv-scanner/cmd/osv-scanner/scan"
 	"github.com/google/osv-scanner/cmd/osv-scanner/update"
 	"github.com/google/osv-scanner/internal/version"
-	"github.com/google/osv-scanner/pkg/osv"
 	"github.com/google/osv-scanner/pkg/osvscanner"
 	"github.com/google/osv-scanner/pkg/reporter"
 
@@ -29,8 +28,6 @@ func run(args []string, stdout, stderr io.Writer) int {
 		r = reporter.NewTableReporter(ctx.App.Writer, ctx.App.ErrWriter, reporter.InfoLevel, false, 0)
 		r.Infof("osv-scanner version: %s\ncommit: %s\nbuilt at: %s\n", ctx.App.Version, commit, date)
 	}
-
-	osv.RequestUserAgent = "osv-scanner/" + version.OSVVersion
 
 	app := &cli.App{
 		Name:           "osv-scanner",
@@ -66,9 +63,9 @@ func run(args []string, stdout, stderr io.Writer) int {
 			r = reporter.NewTableReporter(stdout, stderr, reporter.InfoLevel, false, 0)
 		}
 		switch {
-		case errors.Is(err, osvscanner.VulnerabilitiesFoundErr):
+		case errors.Is(err, osvscanner.ErrVulnerabilitiesFound):
 			return 1
-		case errors.Is(err, osvscanner.NoPackagesFoundErr):
+		case errors.Is(err, osvscanner.ErrNoPackagesFound):
 			r.Errorf("No package sources found, --help for usage information.\n")
 			return 128
 		case errors.Is(err, osvscanner.ErrAPIFailed):

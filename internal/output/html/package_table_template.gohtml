@@ -67,7 +67,7 @@
         {{ if gt (len $command) 100 }}
           {{ $longCommand = true }}
         {{ end }}
-        <p><span class="package-detail-title">Installed binaries:</span> {{ formatSlice $element.BinaryNames }}</p>
+        <p><span class="package-detail-title">Installed binaries:</span> {{ formatSlice $element.OSPackageNames }}</p>
         <div class="layer-command-container">
           {{ if $longCommand }}
           <p class="package-detail-title">Layer introduced in:&nbsp;</p>

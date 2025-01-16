@@ -286,7 +286,7 @@ func action(context *cli.Context, stdout, stderr io.Writer) (reporter.Reporter, 
 	scannerAction := osvscanner.ScannerActions{
 		LockfilePaths:      context.StringSlice("lockfile"),
 		SBOMPaths:          context.StringSlice("sbom"),
-		DockerImageName:    context.String("docker"),
+		Image:              context.String("docker"),
 		Recursive:          context.Bool("recursive"),
 		SkipGit:            context.Bool("skip-git"),
 		NoIgnore:           context.Bool("no-ignore"),
@@ -321,7 +321,7 @@ func action(context *cli.Context, stdout, stderr io.Writer) (reporter.Reporter, 
 		vulnResult, err = osvscanner.DoScan(scannerAction, r)
 	}
 
-	if err != nil && !errors.Is(err, osvscanner.VulnerabilitiesFoundErr) {
+	if err != nil && !errors.Is(err, osvscanner.ErrVulnerabilitiesFound) {
 		return r, err
 	}
 

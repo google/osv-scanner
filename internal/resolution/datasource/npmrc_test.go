@@ -63,11 +63,17 @@ func makeBlankNpmrcFiles(t *testing.T) testNpmrcFiles {
 
 func checkNpmRegistryRequest(t *testing.T, config datasource.NpmRegistryConfig, urlComponents ...string) {
 	t.Helper()
-	req, err := config.BuildRequest(context.Background(), urlComponents...)
+	mt := &mockTransport{}
+	httpClient := &http.Client{Transport: mt}
+	resp, err := config.MakeRequest(context.Background(), httpClient, urlComponents...)
 	if err != nil {
-		t.Fatalf("error building request: %v", err)
+		t.Fatalf("error making request: %v", err)
 	}
-
+	defer resp.Body.Close()
+	if len(mt.Requests) != 1 {
+		t.Fatalf("unexpected number of requests made: %v", len(mt.Requests))
+	}
+	req := mt.Requests[0]
 	snapshot := testutility.NewSnapshot()
 	snapshot.MatchText(t, req.URL.String())
 	snapshot.MatchJSON(t, req.Header["Authorization"])
@@ -157,7 +163,7 @@ func TestNpmrcRegistryOverriding(t *testing.T) {
 	check(t, npmrcFiles)
 }
 
-func TestNpmRegistryAuthOpts(t *testing.T) {
+func TestNpmRegistryAuths(t *testing.T) {
 	t.Parallel()
 	b64enc := func(s string) string {
 		t.Helper()
@@ -165,7 +171,7 @@ func TestNpmRegistryAuthOpts(t *testing.T) {
 	}
 	tests := []struct {
 		name       string
-		opts       datasource.NpmRegistryAuthOpts
+		config     datasource.NpmrcConfig
 		requestURL string
 		wantAuth   string
 	}{
@@ -173,7 +179,7 @@ func TestNpmRegistryAuthOpts(t *testing.T) {
 		// https://github.com/npm/npm-registry-fetch/blob/237d33b45396caa00add61e0549cf09fbf9deb4f/test/auth.js
 		{
 			name: "basic auth",
-			opts: datasource.NpmRegistryAuthOpts{
+			config: datasource.NpmrcConfig{
 				"//my.custom.registry/here/:username":  "user",
 				"//my.custom.registry/here/:_password": b64enc("pass"),
 			},
@@ -182,7 +188,7 @@ func TestNpmRegistryAuthOpts(t *testing.T) {
 		},
 		{
 			name: "token auth",
-			opts: datasource.NpmRegistryAuthOpts{
+			config: datasource.NpmrcConfig{
 				"//my.custom.registry/here/:_authToken": "c0ffee",
 				"//my.custom.registry/here/:token":      "nope",
 				"//my.custom.registry/:_authToken":      "7ea",
@@ -193,7 +199,7 @@ func TestNpmRegistryAuthOpts(t *testing.T) {
 		},
 		{
 			name: "_auth auth",
-			opts: datasource.NpmRegistryAuthOpts{
+			config: datasource.NpmrcConfig{
 				"//my.custom.registry/:_auth":      "decafbad",
 				"//my.custom.registry/here/:_auth": "c0ffee",
 			},
@@ -202,7 +208,7 @@ func TestNpmRegistryAuthOpts(t *testing.T) {
 		},
 		{
 			name: "_auth username:pass auth",
-			opts: datasource.NpmRegistryAuthOpts{
+			config: datasource.NpmrcConfig{
 				"//my.custom.registry/here/:_auth": b64enc("foo:bar"),
 			},
 			requestURL: "https://my.custom.registry/here/",
@@ -210,7 +216,7 @@ func TestNpmRegistryAuthOpts(t *testing.T) {
 		},
 		{
 			name: "ignore user/pass when _auth is set",
-			opts: datasource.NpmRegistryAuthOpts{
+			config: datasource.NpmrcConfig{
 				"//registry/:_auth":     b64enc("not:foobar"),
 				"//registry/:username":  "foo",
 				"//registry/:_password": b64enc("bar"),
@@ -220,7 +226,7 @@ func TestNpmRegistryAuthOpts(t *testing.T) {
 		},
 		{
 			name: "different hosts for uri vs registry",
-			opts: datasource.NpmRegistryAuthOpts{
+			config: datasource.NpmrcConfig{
 				"//my.custom.registry/here/:_authToken": "c0ffee",
 				"//my.custom.registry/here/:token":      "nope",
 			},
@@ -229,7 +235,7 @@ func TestNpmRegistryAuthOpts(t *testing.T) {
 		},
 		{
 			name: "do not be thrown by other weird configs",
-			opts: datasource.NpmRegistryAuthOpts{
+			config: datasource.NpmrcConfig{
 				"@asdf:_authToken":                 "does this work?",
 				"//registry.npmjs.org:_authToken":  "do not share this",
 				"_authToken":                       "definitely do not share this, either",
@@ -245,7 +251,7 @@ func TestNpmRegistryAuthOpts(t *testing.T) {
 		// Some extra tests, based on experimentation with npm config
 		{
 			name: "exact package path uri",
-			opts: datasource.NpmRegistryAuthOpts{
+			config: datasource.NpmrcConfig{
 				"//custom.registry/:_authToken":         "less specific match",
 				"//custom.registry/package:_authToken":  "exact match",
 				"//custom.registry/package/:_authToken": "no match trailing slash",
@@ -255,7 +261,7 @@ func TestNpmRegistryAuthOpts(t *testing.T) {
 		},
 		{
 			name: "percent-encoding case-sensitivity",
-			opts: datasource.NpmRegistryAuthOpts{
+			config: datasource.NpmrcConfig{
 				"//custom.registry/:_authToken":                 "expected",
 				"//custom.registry/@scope%2Fpackage:_authToken": "bad config",
 			},
@@ -264,7 +270,7 @@ func TestNpmRegistryAuthOpts(t *testing.T) {
 		},
 		{
 			name: "require both user and pass",
-			opts: datasource.NpmRegistryAuthOpts{
+			config: datasource.NpmrcConfig{
 				"//custom.registry/:_authToken":  "fallback",
 				"//custom.registry/foo:username": "user",
 			},
@@ -273,7 +279,7 @@ func TestNpmRegistryAuthOpts(t *testing.T) {
 		},
 		{
 			name: "don't inherit username",
-			opts: datasource.NpmRegistryAuthOpts{
+			config: datasource.NpmrcConfig{
 				"//custom.registry/:_authToken":       "fallback",
 				"//custom.registry/foo:username":      "user",
 				"//custom.registry/foo/bar:_password": b64enc("pass"),
@@ -285,8 +291,19 @@ func TestNpmRegistryAuthOpts(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
-			header := make(http.Header)
-			tt.opts.GetAuth(tt.requestURL).AddToHeader(header)
+			config := datasource.ParseNpmRegistryInfo(tt.config)
+			// Send off requests to mockTransport to see the auth headers being added.
+			mt := &mockTransport{}
+			httpClient := &http.Client{Transport: mt}
+			resp, err := config.Auths.GetAuth(tt.requestURL).Get(context.Background(), httpClient, tt.requestURL)
+			if err != nil {
+				t.Fatalf("error making request: %v", err)
+			}
+			defer resp.Body.Close()
+			if len(mt.Requests) != 1 {
+				t.Fatalf("unexpected number of requests made: %v", len(mt.Requests))
+			}
+			header := mt.Requests[0].Header
 			if got := header.Get("Authorization"); got != tt.wantAuth {
 				t.Errorf("authorization header got = \"%s\", want \"%s\"", got, tt.wantAuth)
 			}

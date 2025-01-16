@@ -45,7 +45,7 @@ type SourceResult struct {
 // PackageResult represents the vulnerability scanning results for a package.
 type PackageResult struct {
 	Name             string
-	BinaryNames      []string
+	OSPackageNames   []string
 	InstalledVersion string
 	FixedVersion     string
 	RegularVulns     []VulnResult
@@ -345,7 +345,7 @@ func processSource(packageSource models.PackageSource) SourceResult {
 		key := vulnPkg.Package.Name + ":" + vulnPkg.Package.Version
 		if _, exist := packageMap[key]; exist {
 			pkgTemp := packageMap[key]
-			pkgTemp.BinaryNames = append(pkgTemp.BinaryNames, vulnPkg.Package.BinaryName)
+			pkgTemp.OSPackageNames = append(pkgTemp.OSPackageNames, vulnPkg.Package.OSPackageName)
 			packageMap[key] = pkgTemp
 
 			continue // Skip processing this vulnPkg as it was already added
@@ -405,11 +405,11 @@ func processPackage(vulnPkg models.PackageVulns) PackageResult {
 
 	packageFixedVersion := calculatePackageFixedVersion(vulnPkg.Package.Ecosystem, regularVulnList)
 
-	binaryNames := []string{vulnPkg.Package.BinaryName}
+	binaryNames := []string{vulnPkg.Package.OSPackageName}
 
 	packageResult := PackageResult{
 		Name:             vulnPkg.Package.Name,
-		BinaryNames:      binaryNames,
+		OSPackageNames:   binaryNames,
 		InstalledVersion: vulnPkg.Package.Version,
 		FixedVersion:     packageFixedVersion,
 		RegularVulns:     regularVulnList,
