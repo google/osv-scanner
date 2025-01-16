@@ -16,6 +16,7 @@ import (
 	lf "github.com/google/osv-scanner/internal/resolution/lockfile"
 	"github.com/google/osv-scanner/internal/resolution/util"
 	"github.com/google/osv-scanner/internal/utility/vulns"
+	"github.com/google/osv-scanner/pkg/models"
 	"golang.org/x/exp/maps"
 )
 
@@ -242,6 +243,10 @@ func inPlaceVulnsNodes(ctx context.Context, m clientinterfaces.VulnerabilityMatc
 		return inPlaceVulnsNodesResult{}, err
 	}
 
+	// GraphToInventory/MatchVulnerabilities excludes the root node of the graph.
+	// Prepend an element to nodeVulns so that the indices line up with graph.Nodes[i] <=> nodeVulns[i]
+	nodeVulns = append([][]*models.Vulnerability{nil}, nodeVulns...)
+
 	result := inPlaceVulnsNodesResult{
 		nodeDependencies: make(map[resolve.NodeID][]resolve.VersionKey),
 		vkVulns:          make(map[resolve.VersionKey][]resolution.Vulnerability),
@@ -250,10 +255,7 @@ func inPlaceVulnsNodes(ctx context.Context, m clientinterfaces.VulnerabilityMatc
 
 	// Find all direct dependencies of vulnerable nodes.
 	for _, e := range graph.Edges {
-		if e.From == 0 {
-			continue
-		}
-		if len(nodeVulns[e.From-1]) > 0 {
+		if len(nodeVulns[e.From]) > 0 {
 			result.nodeDependencies[e.From] = append(result.nodeDependencies[e.From], graph.Nodes[e.To].Version)
 		}
 	}
@@ -263,7 +265,7 @@ func inPlaceVulnsNodes(ctx context.Context, m clientinterfaces.VulnerabilityMatc
 	var nodeIDs []resolve.NodeID
 	for nID, vulns := range nodeVulns {
 		if len(vulns) > 0 {
-			nodeIDs = append(nodeIDs, resolve.NodeID(nID+1))
+			nodeIDs = append(nodeIDs, resolve.NodeID(nID))
 		}
 	}
 	nodeChains := resolution.ComputeChains(graph, nodeIDs)
@@ -274,7 +276,7 @@ func inPlaceVulnsNodes(ctx context.Context, m clientinterfaces.VulnerabilityMatc
 		chains := nodeChains[i]
 		vk := graph.Nodes[nID].Version
 		result.vkNodes[vk] = append(result.vkNodes[vk], nID)
-		for _, vuln := range nodeVulns[nID-1] {
+		for _, vuln := range nodeVulns[nID] {
 			resVuln := resolution.Vulnerability{
 				OSV:           *vuln,
 				ProblemChains: slices.Clone(chains),

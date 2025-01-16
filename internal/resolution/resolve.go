@@ -208,12 +208,17 @@ func (res *Result) computeVulns(ctx context.Context, cl client.ResolutionClient)
 	if err != nil {
 		return err
 	}
+
+	// GraphToInventory/MatchVulnerabilities excludes the root node of the graph.
+	// Prepend an element to nodeVulns so that the indices line up with graph.Nodes[i] <=> nodeVulns[i]
+	nodeVulns = append([][]*models.Vulnerability{nil}, nodeVulns...)
+
 	// Find all dependency paths to the vulnerable dependencies
 	var vulnerableNodes []resolve.NodeID
 	vulnInfo := make(map[string]models.Vulnerability)
 	for i, vulns := range nodeVulns {
 		if len(vulns) > 0 {
-			vulnerableNodes = append(vulnerableNodes, resolve.NodeID(i+1))
+			vulnerableNodes = append(vulnerableNodes, resolve.NodeID(i))
 		}
 		for _, vuln := range vulns {
 			vulnInfo[vuln.ID] = *vuln
@@ -223,7 +228,7 @@ func (res *Result) computeVulns(ctx context.Context, cl client.ResolutionClient)
 	nodeChains := ComputeChains(res.Graph, vulnerableNodes)
 	vulnChains := make(map[string][]DependencyChain)
 	for i, nID := range vulnerableNodes {
-		for _, vuln := range nodeVulns[nID-1] {
+		for _, vuln := range nodeVulns[nID] {
 			vulnChains[vuln.ID] = append(vulnChains[vuln.ID], nodeChains[i]...)
 		}
 	}
