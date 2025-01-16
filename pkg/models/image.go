@@ -19,7 +19,6 @@ type BaseImageDetails struct {
 }
 
 type LayerMetadata struct {
-	Index          int           `json:"index"`
 	DiffID         digest.Digest `json:"diff_id"`
 	Command        string        `json:"command"`
 	IsEmpty        bool          `json:"is_empty"`

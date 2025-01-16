@@ -45,7 +45,7 @@ type ScannerActions struct {
 	Recursive          bool
 	SkipGit            bool
 	NoIgnore           bool
-	DockerImageName    string
+	Image              string
 	ConfigOverridePath string
 	CallAnalysisStates map[string]bool
 
@@ -276,14 +276,18 @@ func DoContainerScan(actions ScannerActions, r reporter.Reporter) (models.Vulner
 	if actions.ScanOCIImage != "" {
 		img, err = image.FromTarball(actions.ScanOCIImage, image.DefaultConfig())
 		r.Infof("Scanning image %q\n", actions.ScanOCIImage)
-	} else if actions.DockerImageName != "" {
-		path, exportErr := imagehelpers.ExportDockerImage(r, actions.DockerImageName)
+	} else if actions.Image != "" {
+		path, exportErr := imagehelpers.ExportDockerImage(r, actions.Image)
 		if exportErr != nil {
 			return models.VulnerabilityResults{}, exportErr
 		}
-		defer os.Remove(path)
+
+		// If Image is a local tar file, then path == Image, and we shouldn't remove it
+		if path != actions.Image {
+			defer os.Remove(path)
+		}
 		img, err = image.FromTarball(path, image.DefaultConfig())
-		r.Infof("Scanning image %q\n", actions.DockerImageName)
+		r.Infof("Scanning image %q\n", actions.Image)
 	}
 	if err != nil {
 		return models.VulnerabilityResults{}, err
@@ -323,9 +327,8 @@ func DoContainerScan(actions ScannerActions, r reporter.Reporter) (models.Vulner
 		}
 
 		layerMetadata := []models.LayerMetadata{}
-		for i, cl := range chainLayers {
+		for _, cl := range chainLayers {
 			layerMetadata = append(layerMetadata, models.LayerMetadata{
-				Index:   i,
 				DiffID:  cl.Layer().DiffID(),
 				Command: cl.Layer().Command(),
 				IsEmpty: cl.Layer().IsEmpty(),
