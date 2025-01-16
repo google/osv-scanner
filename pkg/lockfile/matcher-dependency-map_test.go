@@ -9,6 +9,26 @@ import (
 
 func TestMatcherDependencyMap_UpdatePackageDetails(t *testing.T) {
 	t.Parallel()
+
+	circularDep := PackageDetails{
+		Name:    "circular-dep",
+		Version: "1.0.0",
+	}
+	dependency := PackageDetails{
+		Name:    "Foobar",
+		Version: "1.2.3",
+		Dependencies: []*PackageDetails{
+			{
+				Name:    "Bar",
+				Version: "2.1.3",
+				Dependencies: []*PackageDetails{
+					&circularDep,
+				},
+			},
+		},
+	}
+	circularDep.Dependencies = []*PackageDetails{&dependency}
+
 	type fields struct {
 		LineOffset int
 	}
@@ -20,10 +40,11 @@ func TestMatcherDependencyMap_UpdatePackageDetails(t *testing.T) {
 	}
 
 	tests := []struct {
-		name     string
-		fields   fields
-		args     args
-		expected *PackageDetails
+		name       string
+		isCircular bool
+		fields     fields
+		args       args
+		expected   *PackageDetails
 	}{
 		{
 			name: "Updating position with line offset to 0",
@@ -241,6 +262,47 @@ func TestMatcherDependencyMap_UpdatePackageDetails(t *testing.T) {
 				},
 			},
 		},
+		{
+			name:       "depgroup should stop propagating circular dependencies",
+			isCircular: true,
+			fields: fields{
+				LineOffset: 1,
+			},
+			args: args{
+				pkg:      &dependency,
+				content:  "",
+				indexes:  []int{},
+				depGroup: "prod",
+			},
+			expected: &PackageDetails{
+				Name:      "Foobar",
+				Version:   "1.2.3",
+				IsDirect:  true,
+				DepGroups: []string{"prod"},
+				Dependencies: []*PackageDetails{
+					{
+						Name:      "Bar",
+						Version:   "2.1.3",
+						DepGroups: []string{"prod"},
+						Dependencies: []*PackageDetails{
+							{
+								Name:      "circular-dep",
+								Version:   "1.0.0",
+								DepGroups: []string{"prod"},
+								Dependencies: []*PackageDetails{
+									{
+										Name:      "Foobar",
+										Version:   "1.2.3",
+										DepGroups: []string{"prod"},
+										IsDirect:  true,
+									},
+								},
+							},
+						},
+					},
+				},
+			},
+		},
 	}
 	for _, testCase := range tests {
 		tt := testCase
@@ -262,7 +324,14 @@ func TestMatcherDependencyMap_UpdatePackageDetails(t *testing.T) {
 			}
 			depMap.UpdatePackageDetails(tt.args.pkg, tt.args.content, tt.args.indexes, tt.args.depGroup)
 
-			if tt.expected != nil {
+			if tt.isCircular {
+				dependencies := depMap.Packages[0].Dependencies
+				expectedDependencies := tt.expected.Dependencies
+				depMap.Packages[0].Dependencies = nil
+				tt.expected.Dependencies = nil
+				assert.EqualExportedValues(t, *tt.expected, *depMap.Packages[0])
+				assert.EqualExportedValues(t, expectedDependencies[0], dependencies[0])
+			} else if tt.expected != nil {
 				assert.EqualExportedValues(t, *tt.expected, *depMap.Packages[0])
 			} else {
 				assert.EqualExportedValues(t, PackageDetails{

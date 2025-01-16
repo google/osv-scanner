@@ -51,7 +51,7 @@ func (depMap *MatcherDependencyMap) UpdatePackageDetails(pkg *PackageDetails, co
 	}
 	if len(depGroup) > 0 {
 		pkg.DepGroups = append(pkg.DepGroups, depGroup)
-		propagateDepGroups(pkg)
+		propagateDepGroups(pkg, make(map[*PackageDetails]struct{}))
 	}
 }
 
@@ -102,7 +102,11 @@ func (depMap *MatcherDependencyMap) updatePackageDetailLocation(pkg *PackageDeta
 propagateDepGroups traverse the tree of dependency from the top level parent
 and to merge child dependency group with its parent to have a complete array of all dependency groups found.
 */
-func propagateDepGroups(root *PackageDetails) {
+func propagateDepGroups(root *PackageDetails, visitedMap map[*PackageDetails]struct{}) {
+	if _, visited := visitedMap[root]; visited {
+		return
+	}
+	visitedMap[root] = struct{}{}
 	newDepGroups := make(map[string]bool)
 	for _, group := range root.DepGroups {
 		newDepGroups[group] = true
@@ -113,6 +117,6 @@ func propagateDepGroups(root *PackageDetails) {
 			newDepGroups[group] = true
 		}
 		deps.DepGroups = maps.Keys(newDepGroups)
-		propagateDepGroups(deps)
+		propagateDepGroups(deps, visitedMap)
 	}
 }
