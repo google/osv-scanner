@@ -5,7 +5,7 @@ import (
 	"net/http"
 	"testing"
 
-	"github.com/google/osv-scanner/internal/resolution/datasource"
+	"github.com/google/osv-scanner/internal/datasource"
 )
 
 // mockTransport is used to inspect the requests being made by HTTPAuthentications

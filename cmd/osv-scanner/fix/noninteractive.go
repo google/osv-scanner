@@ -9,10 +9,10 @@ import (
 
 	"deps.dev/util/resolve"
 	"deps.dev/util/resolve/dep"
+	"github.com/google/osv-scanner/internal/datasource"
 	"github.com/google/osv-scanner/internal/remediation"
 	"github.com/google/osv-scanner/internal/resolution"
 	"github.com/google/osv-scanner/internal/resolution/client"
-	"github.com/google/osv-scanner/internal/resolution/datasource"
 	lf "github.com/google/osv-scanner/internal/resolution/lockfile"
 	"github.com/google/osv-scanner/internal/resolution/manifest"
 	"github.com/google/osv-scanner/internal/resolution/util"

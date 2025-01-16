@@ -14,7 +14,7 @@ import (
 	"deps.dev/util/maven"
 	"deps.dev/util/resolve"
 	"deps.dev/util/resolve/dep"
-	"github.com/google/osv-scanner/internal/resolution/datasource"
+	"github.com/google/osv-scanner/internal/datasource"
 	internalxml "github.com/google/osv-scanner/internal/thirdparty/xml"
 	mavenutil "github.com/google/osv-scanner/internal/utility/maven"
 	"github.com/google/osv-scanner/pkg/lockfile"
