@@ -221,10 +221,12 @@ func EnumerateReachability(roots []*javareach.ClassFile, classPath string) (*Rea
 }
 
 func isDynamicCodeLoading(method string, descriptor string) bool {
+	// https://docs.oracle.com/en/java/javase/23/docs/api/java.base/java/lang/ClassLoader.html#loadClass(java.lang.String)
 	if strings.Contains(method, "loadClass") && strings.HasSuffix(descriptor, "Ljava/lang/Class;") {
 		return true
 	}
 
+	// https://docs.oracle.com/en/java/javase/23/docs/api/java.base/java/lang/Class.html#forName(java.lang.String)
 	if strings.Contains(method, "forName") && strings.HasSuffix(descriptor, "Ljava/lang/Class;") {
 		return true
 	}
