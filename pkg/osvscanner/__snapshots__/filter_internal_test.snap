@@ -23,7 +23,6 @@
         {
           "package": {
             "name": "remove_dir_all",
-            "OSPackageName": "",
             "version": "0.5.3",
             "ecosystem": "crates.io"
           },
@@ -175,7 +174,6 @@
         {
           "package": {
             "name": "time",
-            "OSPackageName": "",
             "version": "0.1.45",
             "ecosystem": "crates.io"
           },
@@ -433,7 +431,6 @@
         {
           "package": {
             "name": "golang.org/x/net",
-            "OSPackageName": "",
             "version": "0.1.0",
             "ecosystem": "Go"
           },
@@ -930,7 +927,6 @@
         {
           "package": {
             "name": "ascii",
-            "OSPackageName": "",
             "version": "0.8.7",
             "ecosystem": "crates.io"
           },
@@ -1077,7 +1073,6 @@
         {
           "package": {
             "name": "remove_dir_all",
-            "OSPackageName": "",
             "version": "0.5.3",
             "ecosystem": "crates.io"
           },
@@ -1229,7 +1224,6 @@
         {
           "package": {
             "name": "time",
-            "OSPackageName": "",
             "version": "0.1.45",
             "ecosystem": "crates.io"
           },
@@ -1500,7 +1494,6 @@
         {
           "package": {
             "name": "unixodbc",
-            "OSPackageName": "",
             "version": "2.3.11-2",
             "ecosystem": "Debian:10"
           },
@@ -1560,7 +1553,6 @@
         {
           "package": {
             "name": "chromium",
-            "OSPackageName": "",
             "version": "73.0.3683.75-1",
             "ecosystem": "Debian:10"
           },
@@ -1667,7 +1659,6 @@
         {
           "package": {
             "name": "golang.org/x/net",
-            "OSPackageName": "",
             "version": "0.1.0",
             "ecosystem": "Go"
           },
@@ -1885,7 +1876,6 @@
         {
           "package": {
             "name": "ascii",
-            "OSPackageName": "",
             "version": "0.8.7",
             "ecosystem": "crates.io"
           },
@@ -1964,7 +1954,6 @@
         {
           "package": {
             "name": "time",
-            "OSPackageName": "",
             "version": "0.1.45",
             "ecosystem": "crates.io"
           },

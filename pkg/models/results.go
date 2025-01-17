@@ -111,7 +111,7 @@ type GroupInfo struct {
 	// Aliases include all aliases and IDs
 	Aliases []string `json:"aliases"`
 	// Map of Vulnerability IDs to AnalysisInfo
-	ExperimentalAnalysis map[string]AnalysisInfo `json:"experimentalAnalysis,omitempty"`
+	ExperimentalAnalysis map[string]AnalysisInfo `json:"experimental_analysis,omitempty"`
 	MaxSeverity          string                  `json:"max_severity"`
 }
 

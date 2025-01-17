@@ -792,7 +792,7 @@ func TestRun_Docker(t *testing.T) {
 		{
 			name: "Real Alpine image",
 			args: []string{"", "--docker", "alpine:3.18.9"},
-			exit: 0,
+			exit: 1,
 		},
 	}
 	for _, tt := range tests {

@@ -11,7 +11,6 @@
         {
           "package": {
             "name": "mine1",
-            "OSPackageName": "",
             "version": "1.2.3",
             "ecosystem": "npm"
           },
@@ -30,7 +29,6 @@
         {
           "package": {
             "name": "mine2",
-            "OSPackageName": "",
             "version": "3.2.5",
             "ecosystem": "npm"
           },
@@ -41,7 +39,6 @@
         {
           "package": {
             "name": "mine3",
-            "OSPackageName": "",
             "version": "0.4.1",
             "ecosystem": "npm"
           },
@@ -60,7 +57,6 @@
         {
           "package": {
             "name": "mine1",
-            "OSPackageName": "",
             "version": "1.3.5",
             "ecosystem": "npm"
           },
@@ -71,7 +67,6 @@
         {
           "package": {
             "name": "mine1",
-            "OSPackageName": "",
             "version": "1.2.3",
             "ecosystem": "npm"
           },
@@ -106,7 +101,6 @@
         {
           "package": {
             "name": "mine1",
-            "OSPackageName": "",
             "version": "1.2.3",
             "ecosystem": "npm"
           },
@@ -128,7 +122,6 @@
         {
           "package": {
             "name": "mine2",
-            "OSPackageName": "",
             "version": "3.2.5",
             "ecosystem": "npm"
           },
@@ -142,7 +135,6 @@
         {
           "package": {
             "name": "mine3",
-            "OSPackageName": "",
             "version": "0.4.1",
             "ecosystem": "npm"
           },
@@ -161,7 +153,6 @@
         {
           "package": {
             "name": "mine1",
-            "OSPackageName": "",
             "version": "1.3.5",
             "ecosystem": "npm"
           },
@@ -172,7 +163,6 @@
         {
           "package": {
             "name": "mine1",
-            "OSPackageName": "",
             "version": "1.2.3",
             "ecosystem": "npm"
           },
@@ -210,7 +200,6 @@
         {
           "package": {
             "name": "mine1",
-            "OSPackageName": "",
             "version": "1.2.3",
             "ecosystem": "npm"
           },
@@ -233,7 +222,6 @@
         {
           "package": {
             "name": "mine2",
-            "OSPackageName": "",
             "version": "3.2.5",
             "ecosystem": "npm"
           },
@@ -247,7 +235,6 @@
         {
           "package": {
             "name": "mine3",
-            "OSPackageName": "",
             "version": "0.4.1",
             "ecosystem": "npm"
           },
@@ -266,7 +253,6 @@
         {
           "package": {
             "name": "mine1",
-            "OSPackageName": "",
             "version": "1.3.5",
             "ecosystem": "npm"
           },
@@ -277,7 +263,6 @@
         {
           "package": {
             "name": "mine1",
-            "OSPackageName": "",
             "version": "1.2.3",
             "ecosystem": "npm"
           },
@@ -313,7 +298,6 @@
         {
           "package": {
             "name": "author1/mine1",
-            "OSPackageName": "",
             "version": "1.2.3",
             "ecosystem": "Packagist"
           },
@@ -335,7 +319,6 @@
         {
           "package": {
             "name": "mine2",
-            "OSPackageName": "",
             "version": "3.2.5",
             "ecosystem": "npm"
           },
@@ -349,7 +332,6 @@
         {
           "package": {
             "name": "mine3",
-            "OSPackageName": "",
             "version": "0.4.1",
             "ecosystem": "npm"
           },
@@ -368,7 +350,6 @@
         {
           "package": {
             "name": "mine1",
-            "OSPackageName": "",
             "version": "1.3.5",
             "ecosystem": "NuGet"
           },
@@ -379,7 +360,6 @@
         {
           "package": {
             "name": "author1/mine1",
-            "OSPackageName": "",
             "version": "1.2.3",
             "ecosystem": "Packagist"
           },
@@ -420,7 +400,6 @@
         {
           "package": {
             "name": "mine1",
-            "OSPackageName": "",
             "version": "1.2.3",
             "ecosystem": "npm"
           },
@@ -446,7 +425,6 @@
         {
           "package": {
             "name": "mine2",
-            "OSPackageName": "",
             "version": "3.2.5",
             "ecosystem": "npm"
           },
@@ -464,7 +442,6 @@
         {
           "package": {
             "name": "mine3",
-            "OSPackageName": "",
             "version": "0.4.1",
             "ecosystem": "npm"
           },
@@ -483,7 +460,6 @@
         {
           "package": {
             "name": "mine1",
-            "OSPackageName": "",
             "version": "1.3.5",
             "ecosystem": "npm"
           },
@@ -494,7 +470,6 @@
         {
           "package": {
             "name": "mine1",
-            "OSPackageName": "",
             "version": "1.2.3",
             "ecosystem": "npm"
           },
@@ -610,7 +585,6 @@
         {
           "package": {
             "name": "mine1",
-            "OSPackageName": "",
             "version": "1.2.3",
             "ecosystem": "npm"
           },
@@ -645,7 +619,6 @@
         {
           "package": {
             "name": "mine1",
-            "OSPackageName": "",
             "version": "1.2.3",
             "ecosystem": "npm"
           }
@@ -677,7 +650,6 @@
         {
           "package": {
             "name": "mine1",
-            "OSPackageName": "",
             "version": "1.2.3",
             "ecosystem": "npm"
           },
@@ -712,7 +684,6 @@
         {
           "package": {
             "name": "mine1",
-            "OSPackageName": "",
             "version": "1.2.3",
             "ecosystem": "npm"
           },
@@ -752,7 +723,6 @@
         {
           "package": {
             "name": "mine1",
-            "OSPackageName": "",
             "version": "1.2.3",
             "ecosystem": "npm"
           },
@@ -790,7 +760,6 @@
         {
           "package": {
             "name": "mine1",
-            "OSPackageName": "",
             "version": "1.2.3",
             "ecosystem": "npm"
           },
@@ -831,7 +800,6 @@
         {
           "package": {
             "name": "mine1",
-            "OSPackageName": "",
             "version": "1.2.3",
             "ecosystem": "npm"
           },
@@ -853,7 +821,6 @@
         {
           "package": {
             "name": "mine2",
-            "OSPackageName": "",
             "version": "5.9.0",
             "ecosystem": "npm"
           },
@@ -888,7 +855,6 @@
         {
           "package": {
             "name": "mine1",
-            "OSPackageName": "",
             "version": "1.2.3",
             "ecosystem": "npm"
           },
@@ -911,7 +877,7 @@
                 "OSV-1"
               ],
               "aliases": null,
-              "experimentalAnalysis": {
+              "experimental_analysis": {
                 "OSV-1": {
                   "called": false,
                   "unimportant": false
@@ -938,7 +904,6 @@
         {
           "package": {
             "name": "mine2",
-            "OSPackageName": "",
             "version": "3.2.5",
             "ecosystem": "npm"
           },
@@ -961,7 +926,7 @@
                 "OSV-2"
               ],
               "aliases": null,
-              "experimentalAnalysis": {
+              "experimental_analysis": {
                 "OSV-2": {
                   "called": true,
                   "unimportant": false
@@ -977,7 +942,6 @@
         {
           "package": {
             "name": "mine3",
-            "OSPackageName": "",
             "version": "0.4.1",
             "ecosystem": "npm"
           },
@@ -996,7 +960,6 @@
         {
           "package": {
             "name": "mine1",
-            "OSPackageName": "",
             "version": "1.3.5",
             "ecosystem": "npm"
           },
@@ -1010,7 +973,6 @@
         {
           "package": {
             "name": "mine1",
-            "OSPackageName": "",
             "version": "1.2.3",
             "ecosystem": "npm"
           },
@@ -1033,7 +995,7 @@
                 "OSV-1"
               ],
               "aliases": null,
-              "experimentalAnalysis": {
+              "experimental_analysis": {
                 "OSV-1": {
                   "called": false,
                   "unimportant": false
@@ -1076,7 +1038,6 @@
         {
           "package": {
             "name": "mine1",
-            "OSPackageName": "",
             "version": "1.2.3",
             "ecosystem": "npm"
           },
@@ -1120,7 +1081,6 @@
         {
           "package": {
             "name": "mine2",
-            "OSPackageName": "",
             "version": "3.2.5",
             "ecosystem": "npm"
           },
@@ -1153,7 +1113,6 @@
         {
           "package": {
             "name": "mine3",
-            "OSPackageName": "",
             "version": "0.4.1",
             "ecosystem": "npm"
           },
@@ -1172,7 +1131,6 @@
         {
           "package": {
             "name": "mine1",
-            "OSPackageName": "",
             "version": "1.3.5",
             "ecosystem": "npm"
           },
@@ -1186,7 +1144,6 @@
         {
           "package": {
             "name": "mine1",
-            "OSPackageName": "",
             "version": "1.2.3",
             "ecosystem": "npm"
           },
@@ -1246,7 +1203,6 @@
         {
           "package": {
             "name": "mine1",
-            "OSPackageName": "",
             "version": "1.2.3",
             "ecosystem": "npm"
           },
@@ -1269,7 +1225,7 @@
                 "OSV-1"
               ],
               "aliases": null,
-              "experimentalAnalysis": {
+              "experimental_analysis": {
                 "OSV-1": {
                   "called": true,
                   "unimportant": false
@@ -1312,7 +1268,6 @@
         {
           "package": {
             "name": "mine1",
-            "OSPackageName": "",
             "version": "1.2.3",
             "ecosystem": "npm"
           },
@@ -1335,7 +1290,7 @@
                 "OSV-1"
               ],
               "aliases": null,
-              "experimentalAnalysis": {
+              "experimental_analysis": {
                 "OSV-1": {
                   "called": false,
                   "unimportant": false
@@ -1378,7 +1333,6 @@
         {
           "package": {
             "name": "mine1",
-            "OSPackageName": "",
             "version": "1.2.3",
             "ecosystem": "npm"
           },
@@ -1438,7 +1392,6 @@
         {
           "package": {
             "name": "mine1",
-            "OSPackageName": "",
             "version": "1.2.3",
             "ecosystem": "npm"
           },
@@ -1479,7 +1432,6 @@
         {
           "package": {
             "name": "mine2",
-            "OSPackageName": "",
             "version": "5.9.0",
             "ecosystem": "npm"
           },
@@ -1517,7 +1469,6 @@
         {
           "package": {
             "name": "mine1",
-            "OSPackageName": "",
             "version": "1.2.3",
             "ecosystem": "npm"
           },
@@ -1569,7 +1520,6 @@
         {
           "package": {
             "name": "mine1",
-            "OSPackageName": "",
             "version": "1.2.2",
             "ecosystem": "npm"
           },
@@ -1607,7 +1557,6 @@
         {
           "package": {
             "name": "mine2",
-            "OSPackageName": "",
             "version": "3.2.5",
             "ecosystem": "npm"
           },
@@ -1640,7 +1589,6 @@
         {
           "package": {
             "name": "mine3",
-            "OSPackageName": "",
             "version": "0.4.1",
             "ecosystem": "npm"
           },
@@ -1713,7 +1661,6 @@
         {
           "package": {
             "name": "mine1",
-            "OSPackageName": "",
             "version": "1.2.3",
             "ecosystem": "npm"
           },
@@ -1761,7 +1708,6 @@
         {
           "package": {
             "name": "mine1",
-            "OSPackageName": "",
             "version": "1.2.2",
             "ecosystem": "npm"
           },
@@ -1799,7 +1745,6 @@
         {
           "package": {
             "name": "mine2",
-            "OSPackageName": "",
             "version": "3.2.5",
             "ecosystem": "npm"
           },
@@ -1829,7 +1774,6 @@
         {
           "package": {
             "name": "mine3",
-            "OSPackageName": "",
             "version": "0.4.1",
             "ecosystem": "npm"
           },
@@ -1899,7 +1843,6 @@
         {
           "package": {
             "name": "mine1",
-            "OSPackageName": "",
             "version": "1.2.3",
             "ecosystem": "npm"
           }
@@ -1915,7 +1858,6 @@
         {
           "package": {
             "name": "mine2",
-            "OSPackageName": "",
             "version": "3.2.5",
             "ecosystem": "npm"
           }
@@ -1923,7 +1865,6 @@
         {
           "package": {
             "name": "mine3",
-            "OSPackageName": "",
             "version": "0.4.1",
             "ecosystem": "npm"
           }
@@ -1939,7 +1880,6 @@
         {
           "package": {
             "name": "mine1",
-            "OSPackageName": "",
             "version": "1.3.5",
             "ecosystem": "npm"
           }
@@ -1947,7 +1887,6 @@
         {
           "package": {
             "name": "mine1",
-            "OSPackageName": "",
             "version": "1.2.3",
             "ecosystem": "npm"
           }
@@ -1977,7 +1916,6 @@
         {
           "package": {
             "name": "mine1",
-            "OSPackageName": "",
             "version": "1.2.3",
             "ecosystem": "npm"
           },
@@ -2015,7 +1953,6 @@
         {
           "package": {
             "name": "mine2",
-            "OSPackageName": "",
             "version": "3.2.5",
             "ecosystem": "npm"
           },
@@ -2045,7 +1982,6 @@
         {
           "package": {
             "name": "mine3",
-            "OSPackageName": "",
             "version": "0.4.1",
             "ecosystem": "npm"
           }
@@ -2061,7 +1997,6 @@
         {
           "package": {
             "name": "mine1",
-            "OSPackageName": "",
             "version": "1.3.5",
             "ecosystem": "npm"
           }
@@ -2069,7 +2004,6 @@
         {
           "package": {
             "name": "mine1",
-            "OSPackageName": "",
             "version": "1.2.3",
             "ecosystem": "npm"
           },
@@ -2121,7 +2055,6 @@
         {
           "package": {
             "name": "author1/mine1",
-            "OSPackageName": "",
             "version": "1.2.3",
             "ecosystem": "Packagist"
           },
@@ -2169,7 +2102,6 @@
         {
           "package": {
             "name": "mine1",
-            "OSPackageName": "",
             "version": "1.2.2",
             "ecosystem": "npm"
           },
@@ -2207,7 +2139,6 @@
         {
           "package": {
             "name": "mine2",
-            "OSPackageName": "",
             "version": "3.2.5",
             "ecosystem": "NuGet"
           },
@@ -2240,7 +2171,6 @@
         {
           "package": {
             "name": "author3/mine3",
-            "OSPackageName": "",
             "version": "0.4.1",
             "ecosystem": "Packagist"
           },
@@ -2313,7 +2243,6 @@
         {
           "package": {
             "name": "author1/mine1",
-            "OSPackageName": "",
             "version": "1.2.3",
             "ecosystem": "Packagist"
           },
@@ -2347,7 +2276,7 @@
                 "OSV-1"
               ],
               "aliases": null,
-              "experimentalAnalysis": {
+              "experimental_analysis": {
                 "OSV-1": {
                   "called": false,
                   "unimportant": false
@@ -2360,7 +2289,7 @@
                 "OSV-5"
               ],
               "aliases": null,
-              "experimentalAnalysis": {
+              "experimental_analysis": {
                 "OSV-5": {
                   "called": true,
                   "unimportant": false
@@ -2373,7 +2302,6 @@
         {
           "package": {
             "name": "mine1",
-            "OSPackageName": "",
             "version": "1.2.2",
             "ecosystem": "npm"
           },
@@ -2411,7 +2339,6 @@
         {
           "package": {
             "name": "mine2",
-            "OSPackageName": "",
             "version": "3.2.5",
             "ecosystem": "NuGet"
           },
@@ -2444,7 +2371,6 @@
         {
           "package": {
             "name": "author3/mine3",
-            "OSPackageName": "",
             "version": "0.4.1",
             "ecosystem": "Packagist"
           },
@@ -2481,7 +2407,7 @@
                 "OSV-3"
               ],
               "aliases": null,
-              "experimentalAnalysis": {
+              "experimental_analysis": {
                 "OSV-3": {
                   "called": true,
                   "unimportant": false
@@ -2592,7 +2518,6 @@
         {
           "package": {
             "name": "mine1",
-            "OSPackageName": "",
             "version": "1.2.3",
             "ecosystem": "npm"
           }
@@ -2622,7 +2547,6 @@
         {
           "package": {
             "name": "mine1",
-            "OSPackageName": "",
             "version": "1.2.3",
             "ecosystem": "npm"
           },
@@ -2656,7 +2580,7 @@
                 "OSV-1"
               ],
               "aliases": null,
-              "experimentalAnalysis": {
+              "experimental_analysis": {
                 "OSV-1": {
                   "called": true,
                   "unimportant": false
@@ -2669,7 +2593,7 @@
                 "GHSA-123"
               ],
               "aliases": null,
-              "experimentalAnalysis": {
+              "experimental_analysis": {
                 "GHSA-123": {
                   "called": false,
                   "unimportant": false
@@ -2704,7 +2628,6 @@
         {
           "package": {
             "name": "mine1",
-            "OSPackageName": "",
             "version": "1.2.3",
             "ecosystem": "npm"
           },
@@ -2727,7 +2650,7 @@
                 "OSV-1"
               ],
               "aliases": null,
-              "experimentalAnalysis": {
+              "experimental_analysis": {
                 "OSV-1": {
                   "called": true,
                   "unimportant": false
@@ -2762,7 +2685,6 @@
         {
           "package": {
             "name": "mine1",
-            "OSPackageName": "",
             "version": "1.2.3",
             "ecosystem": "npm"
           },
@@ -2785,7 +2707,7 @@
                 "OSV-1"
               ],
               "aliases": null,
-              "experimentalAnalysis": {
+              "experimental_analysis": {
                 "OSV-1": {
                   "called": false,
                   "unimportant": false
@@ -2820,7 +2742,6 @@
         {
           "package": {
             "name": "mine1",
-            "OSPackageName": "",
             "version": "1.2.3",
             "ecosystem": "npm"
           },
@@ -2872,7 +2793,6 @@
         {
           "package": {
             "name": "mine1",
-            "OSPackageName": "",
             "version": "1.2.3",
             "ecosystem": "npm"
           },
@@ -2927,7 +2847,6 @@
         {
           "package": {
             "name": "mine1",
-            "OSPackageName": "",
             "version": "1.2.3",
             "ecosystem": "npm"
           },
@@ -2968,7 +2887,7 @@
                 "OSV-1",
                 "GHSA-123"
               ],
-              "experimentalAnalysis": {
+              "experimental_analysis": {
                 "OSV-1": {
                   "called": false,
                   "unimportant": false
@@ -3003,7 +2922,6 @@
         {
           "package": {
             "name": "mine1",
-            "OSPackageName": "",
             "version": "1.2.3",
             "ecosystem": "npm"
           },
@@ -3073,7 +2991,6 @@
         {
           "package": {
             "name": "mine1",
-            "OSPackageName": "",
             "version": "1.2.3",
             "ecosystem": "npm"
           },
@@ -3097,7 +3014,6 @@
         {
           "package": {
             "name": "mine3",
-            "OSPackageName": "",
             "version": "0.10.2-rc",
             "ecosystem": "npm"
           },
@@ -3142,7 +3058,6 @@
         {
           "package": {
             "name": "mine1",
-            "OSPackageName": "",
             "version": "1.2.3",
             "ecosystem": "npm"
           },
@@ -3180,7 +3095,6 @@
         {
           "package": {
             "name": "mine2",
-            "OSPackageName": "",
             "version": "5.9.0",
             "ecosystem": "npm"
           }
@@ -3210,7 +3124,6 @@
         {
           "package": {
             "name": "mine1",
-            "OSPackageName": "",
             "version": "1.2.3",
             "ecosystem": "npm"
           },
@@ -3248,7 +3161,6 @@
         {
           "package": {
             "name": "mine1",
-            "OSPackageName": "",
             "version": "1.2.3",
             "ecosystem": "npm"
           },
