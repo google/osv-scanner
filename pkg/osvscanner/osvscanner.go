@@ -2,20 +2,16 @@ package osvscanner
 
 import (
 	"context"
-	"encoding/json"
 	"errors"
 	"fmt"
 	"net/http"
 	"os"
-	"slices"
-	"strings"
 	"time"
 
 	scalibr "github.com/google/osv-scalibr"
 	"github.com/google/osv-scalibr/artifact/image/layerscanning/image"
 	"github.com/google/osv-scalibr/extractor"
-	"github.com/google/osv-scalibr/extractor/filesystem/os/osrelease"
-	"github.com/google/osv-scalibr/log"
+	"github.com/google/osv-scanner/internal/clients/clientimpl/baseimagematcher"
 	"github.com/google/osv-scanner/internal/clients/clientimpl/licensematcher"
 	"github.com/google/osv-scanner/internal/clients/clientimpl/localmatcher"
 	"github.com/google/osv-scanner/internal/clients/clientimpl/osvmatcher"
@@ -33,7 +29,6 @@ import (
 	"github.com/google/osv-scanner/pkg/osvscanner/internal/imagehelpers"
 	"github.com/google/osv-scanner/pkg/osvscanner/internal/scanners"
 	"github.com/google/osv-scanner/pkg/reporter"
-	"github.com/opencontainers/go-digest"
 	"github.com/ossf/osv-schema/bindings/go/osvschema"
 )
 
@@ -72,8 +67,9 @@ type TransitiveScanningActions struct {
 
 type ExternalAccessors struct {
 	// Matchers
-	VulnMatcher    clientinterfaces.VulnerabilityMatcher
-	LicenseMatcher clientinterfaces.LicenseMatcher
+	VulnMatcher      clientinterfaces.VulnerabilityMatcher
+	LicenseMatcher   clientinterfaces.LicenseMatcher
+	BaseImageMatcher clientinterfaces.BaseImageMatcher
 
 	// Required for pomxmlnet Extractor
 	MavenRegistryAPIClient *datasource.MavenRegistryAPIClient
@@ -94,6 +90,7 @@ var ErrNoPackagesFound = errors.New("no packages found in scan")
 var ErrVulnerabilitiesFound = errors.New("vulnerabilities found")
 
 // ErrAPIFailed describes errors related to querying API endpoints.
+// TODO(v2): Actually use this error
 var ErrAPIFailed = errors.New("API query failed")
 
 func initializeExternalAccessors(r reporter.Reporter, actions ScannerActions) (ExternalAccessors, error) {
@@ -131,6 +128,14 @@ func initializeExternalAccessors(r reporter.Reporter, actions ScannerActions) (E
 
 		externalAccessors.LicenseMatcher = &licensematcher.DepsDevLicenseMatcher{
 			Client: depsDevAPIClient,
+		}
+	}
+
+	// --- Base Image Matcher ---
+	if actions.Image != "" || actions.ScanOCIImage != "" {
+		externalAccessors.BaseImageMatcher = &baseimagematcher.DepsDevBaseImageMatcher{
+			Client:   *http.DefaultClient,
+			Reporter: r,
 		}
 	}
 
@@ -268,7 +273,7 @@ func DoContainerScan(actions ScannerActions, r reporter.Reporter) (models.Vulner
 	// --- Setup Accessors/Clients ---
 	accessors, err := initializeExternalAccessors(r, actions)
 	if err != nil {
-		return models.VulnerabilityResults{}, fmt.Errorf("failed to initialize accessors: %v", err)
+		return models.VulnerabilityResults{}, fmt.Errorf("failed to initialize accessors: %w", err)
 	}
 
 	// --- Initialize Image To Scan ---
@@ -292,13 +297,18 @@ func DoContainerScan(actions ScannerActions, r reporter.Reporter) (models.Vulner
 	if err != nil {
 		return models.VulnerabilityResults{}, err
 	}
-	defer img.CleanUp()
+	defer func() {
+		err := img.CleanUp()
+		if err != nil {
+			r.Errorf("Failed to clean up image: %s\n", err)
+		}
+	}()
 
+	// --- Do Scalibr Scan ---
 	scanner := scalibr.New()
 	scalibrSR, err := scanner.ScanContainer(context.Background(), img, &scalibr.ScanConfig{
 		FilesystemExtractors: scanners.BuildArtifactExtractors(),
 	})
-
 	if err != nil {
 		return models.VulnerabilityResults{}, fmt.Errorf("failed to scan container image: %w", err)
 	}
@@ -307,144 +317,17 @@ func DoContainerScan(actions ScannerActions, r reporter.Reporter) (models.Vulner
 		return models.VulnerabilityResults{}, ErrNoPackagesFound
 	}
 
+	// --- Save Scalibr Scan Results ---
+	scanResult.PackageScanResults = make([]imodels.PackageScanResult, len(scalibrSR.Inventories))
+	for i, inv := range scalibrSR.Inventories {
+		scanResult.PackageScanResults[i].PackageInfo = imodels.FromInventory(inv)
+		scanResult.PackageScanResults[i].LayerDetails = inv.LayerDetails
+	}
+
 	// --- Fill Image Metadata ---
-	{
-		chainLayers, err := img.ChainLayers()
-		if err != nil {
-			// This is very unlikely, as if this would error we would have failed the initial scan
-			return models.VulnerabilityResults{}, err
-		}
-		m, err := osrelease.GetOSRelease(chainLayers[len(chainLayers)-1].FS())
-		OS := "Unknown"
-		if err == nil {
-			OS = m["PRETTY_NAME"]
-		}
-
-		scanResult.PackageScanResults = make([]imodels.PackageScanResult, len(scalibrSR.Inventories))
-		for i, inv := range scalibrSR.Inventories {
-			scanResult.PackageScanResults[i].PackageInfo = imodels.FromInventory(inv)
-			scanResult.PackageScanResults[i].LayerDetails = inv.LayerDetails
-		}
-
-		layerMetadata := []models.LayerMetadata{}
-		for _, cl := range chainLayers {
-			layerMetadata = append(layerMetadata, models.LayerMetadata{
-				DiffID:  cl.Layer().DiffID(),
-				Command: cl.Layer().Command(),
-				IsEmpty: cl.Layer().IsEmpty(),
-			})
-		}
-
-		scanResult.ImageMetadata = &models.ImageMetadata{
-			BaseImages: [][]models.BaseImageDetails{
-				// The base image at index 0 is a placeholder representing your image, so always empty
-				// This is the case even if your image is a base image, in that case no layers point to index 0
-				{},
-			},
-			OS:            OS,
-			LayerMetadata: layerMetadata,
-		}
-
-		var runningDigest digest.Digest
-		chainIDs := []digest.Digest{}
-
-		for _, cl := range chainLayers {
-			var diffDigest digest.Digest
-			if cl.Layer().DiffID() == "" {
-				chainIDs = append(chainIDs, "")
-				continue
-			}
-
-			diffDigest = cl.Layer().DiffID()
-
-			if runningDigest == "" {
-				runningDigest = diffDigest
-			} else {
-				runningDigest = digest.FromBytes([]byte(runningDigest + " " + diffDigest))
-			}
-
-			chainIDs = append(chainIDs, runningDigest)
-		}
-
-		currentBaseImageIndex := 0
-		client := http.DefaultClient
-		for i, cid := range slices.Backward(chainIDs) {
-			if cid == "" {
-				scanResult.ImageMetadata.LayerMetadata[i].BaseImageIndex = currentBaseImageIndex
-				continue
-			}
-
-			resp, err := client.Get("https://api.deps.dev/v3alpha/querycontainerimages/" + cid.String())
-			if err != nil {
-				log.Errorf("API DEPS DEV ERROR: %s", err)
-				continue
-			}
-
-			if resp.StatusCode == http.StatusNotFound {
-				scanResult.ImageMetadata.LayerMetadata[i].BaseImageIndex = currentBaseImageIndex
-				continue
-			}
-
-			if resp.StatusCode != http.StatusOK {
-				log.Errorf("API DEPS DEV ERROR: %s", resp.Status)
-				continue
-			}
-
-			d := json.NewDecoder(resp.Body)
-
-			type baseImageEntry struct {
-				Repository string `json:"repository"`
-			}
-			type baseImageResults struct {
-				Results []baseImageEntry `json:"results"`
-			}
-
-			var results baseImageResults
-			err = d.Decode(&results)
-			if err != nil {
-				log.Errorf("API DEPS DEV ERROR: %s", err)
-				continue
-			}
-
-			// Found some base images!
-			baseImagePossibilities := []models.BaseImageDetails{}
-			for _, r := range results.Results {
-				baseImagePossibilities = append(baseImagePossibilities, models.BaseImageDetails{
-					Name: r.Repository,
-				})
-			}
-
-			slices.SortFunc(baseImagePossibilities, func(a, b models.BaseImageDetails) int {
-				return len(a.Name) - len(b.Name)
-			})
-
-			scanResult.ImageMetadata.BaseImages = append(scanResult.ImageMetadata.BaseImages, baseImagePossibilities)
-			currentBaseImageIndex += 1
-			scanResult.ImageMetadata.LayerMetadata[i].BaseImageIndex = currentBaseImageIndex
-
-			// Backfill with heuristic
-
-			possibleFinalBaseImageCommands := []string{
-				"/bin/sh -c #(nop)  CMD",
-				"CMD",
-				"/bin/sh -c #(nop)  ENTRYPOINT",
-				"ENTRYPOINT",
-			}
-		BackfillLoop:
-			for i2 := i; i2 < len(scanResult.ImageMetadata.LayerMetadata); i2++ {
-				if !scanResult.ImageMetadata.LayerMetadata[i2].IsEmpty {
-					break
-				}
-				buildCommand := scanResult.ImageMetadata.LayerMetadata[i2].Command
-				scanResult.ImageMetadata.LayerMetadata[i2].BaseImageIndex = currentBaseImageIndex
-				for _, prefix := range possibleFinalBaseImageCommands {
-					if strings.HasPrefix(buildCommand, prefix) {
-						break BackfillLoop
-					}
-				}
-			}
-
-		}
+	scanResult.ImageMetadata, err = imagehelpers.BuildImageMetadata(img, accessors.BaseImageMatcher)
+	if err != nil { // Not getting image metadata is not fatal
+		r.Errorf("Failed to fully get image metadata: %v", err)
 	}
 
 	// ----- Filtering -----

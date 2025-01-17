@@ -3,7 +3,7 @@ package models
 import "github.com/opencontainers/go-digest"
 
 type ImageOriginDetails struct {
-	Index int
+	Index int `json:"index"`
 }
 
 type ImageMetadata struct {
