@@ -402,6 +402,41 @@ func (cf *ClassFile) checkIndex(idx int) error {
 	return nil
 }
 
+func (cf *ClassFile) ConstantPoolMethodref(idx int) (class string, method string, descriptor string, err error) {
+	err = cf.checkIndex(idx)
+	if err != nil {
+		return
+	}
+
+	if cf.ConstantPool[idx].Type() != ConstantKindMethodref {
+		err = errors.New("constant pool idx does not point to a method ref")
+		return
+	}
+
+	methodRef := cf.ConstantPool[idx].(*ConstantMethodref)
+	class, err = cf.ConstantPoolClass(int(methodRef.ClassIndex))
+	if err != nil {
+		return
+	}
+
+	err = cf.checkIndex(int(methodRef.NameAndTypeIndex))
+	if err != nil {
+		return
+	}
+
+	nameAndType, ok := cf.ConstantPool[methodRef.NameAndTypeIndex].(*ConstantNameAndType)
+	if !ok {
+		err = errors.New("invalid constant name and type")
+		return
+	}
+	method, err = cf.ConstantPoolUtf8(int(nameAndType.NameIndex))
+	if err != nil {
+		return
+	}
+	descriptor, err = cf.ConstantPoolUtf8(int(nameAndType.DescriptorIndex))
+	return
+}
+
 func (cf *ClassFile) ConstantPoolClass(idx int) (string, error) {
 	if err := cf.checkIndex(idx); err != nil {
 		return "", err
